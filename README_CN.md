@@ -259,8 +259,8 @@ sdtm-pedia/
 
 1. **克隆仓库**
    ```bash
-   git clone https://github.com/hakupao/stdm-pedia.git
-   cd stdm-pedia
+   git clone https://github.com/hakupao/sdtm-pedia.git
+   cd sdtm-pedia
    ```
 
 2. **创建 Claude Project** — 打开 [claude.ai](https://claude.ai) → Projects → Create project
@@ -330,10 +330,10 @@ sdtm-pedia/
 
 <div align="center">
 
-[![Star History Chart](https://api.star-history.com/svg?repos=hakupao/stdm-pedia&type=Date)](https://star-history.com/#hakupao/stdm-pedia)
+[![Star History Chart](https://api.star-history.com/svg?repos=hakupao/sdtm-pedia&type=Date)](https://star-history.com/#hakupao/sdtm-pedia)
 
-<a href="https://github.com/hakupao/stdm-pedia/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=hakupao/stdm-pedia" />
+<a href="https://github.com/hakupao/sdtm-pedia/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=hakupao/sdtm-pedia" />
 </a>
 
 <br/>
