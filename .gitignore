@@ -1,0 +1,15 @@
+# macOS
+.DS_Store
+
+# CDISC source files (copyrighted, not for redistribution)
+source/
+
+# Legacy output (superseded by knowledge_base/)
+project_knowledge_base/
+markdown/
+reports/
+
+# Claude Code / tool state
+.claude/
+.omc/
+.omx/

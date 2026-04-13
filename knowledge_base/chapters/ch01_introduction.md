@@ -1,0 +1,94 @@
+# SDTMIG v3.4 — Chapter 1: Introduction
+
+Source: SDTMIG v3.4, Section 1 (Pages 7-12)
+
+## 1.1 Purpose
+
+The Study Data Tabulation Model Implementation Guide for Human Clinical Trials (SDTMIG) Version 3.4 has been prepared by the Submissions Data Standards (SDS) team of the Clinical Data Interchange Standards Consortium (CDISC). Like its predecessors, v3.4 is intended to guide the organization, structure, and format of standard clinical trial tabulation datasets submitted to a regulatory authority. Version 3.4 supersedes all prior versions of the SDTMIG.
+
+The SDTMIG should be used in close concert with Version 2.0 of the CDISC Study Data Tabulation Model (SDTM), which describes the general conceptual model for representing clinical study data that is submitted to regulatory authorities and should be read prior to reading the SDTMIG. SDTMIG Version 3.4 provides specific domain models, assumptions, business rules, and examples for preparing standard tabulation datasets that are based on the SDTM.
+
+This document is intended for companies and individuals involved in the collection, preparation, and analysis of clinical data that will be submitted to regulatory authorities.
+
+## 1.2 Organization of this Document
+
+| Section | Title | Description |
+|---------|-------|-------------|
+| 1 | Introduction | Overall introduction to v3.4 models; changes from prior versions |
+| 2 | Fundamentals of the SDTM | Basic concepts of the SDTM; how to use SDTMIG with SDTM |
+| 3 | Submitting Data in Standard Format | How to describe metadata for regulatory submissions; conformance assessment |
+| 4 | Assumptions for Domain Models | Basic concepts, business rules, and assumptions before applying domain models |
+| 5 | Models for Special-purpose Domains | Special-purpose domains: Demographics, Comments, Subject Visits, Subject Elements |
+| 6 | Domain Models Based on the General Observation Classes | Specific metadata models based on the 3 GOC, with assumptions and examples |
+| 7 | Trial Design Model Datasets | Domains for trial-level data, with assumptions and examples |
+| 8 | Representing Relationships and Data | How to represent relationships between domains, datasets, and records |
+| 9 | Study References | Structures for study-specific terminology used in subject data |
+| 10 | Appendices | Additional background material and supplemental material |
+
+## 1.3 Relationship to Prior CDISC Documents
+
+This document, together with the SDTM, represents the most recent version of the CDISC submission data domain models. All updates are intended to be backward-compatible. The most significant changes since SDTMIG v3.3 include:
+
+- Expanded the scope of the DA domain to include study products in addition to study drugs
+- Grouped specimen-based lab domains (e.g., CP, GF, LB) in Sections 6.3.5.1-6.3.5.9 and added a generic specification
+- Expanded the scope of the IS domain for assessments of antigen-induced humoral or cell-mediated immune response; added 3 new variables
+- Updated the LB domain specification to include 10 new variables (Test Condition, Binding Agent, Test Operational Objective, Result Scale, Result Type, Collected Summary Result Type, Lower Limit of Detection, Method Sensitivity, Point in Time Flag, and Planned Duration)
+- Decommissioned the Morphology (MO) domain
+- Added Cell Phenotyping Findings (CP) and Genomics Findings (GF) domains
+- Copied in Biospecimen Events (BE), Biospecimen Findings (BS), and Related Specimens (RELSPEC) from the provisional SDTMIG-PGx v1.0
+- Updated QRS specifications and assumptions; introduced subsections for RS Disease Response and RS Clinical Classifications use cases
+- Updated Tumor/Lesion (TU and TR) domain assumptions to describe use of indicator questions, disease recurrence conventions, and modeling of location of interest
+- Expanded the scope of the SC domain to support collection over time
+- Updated guidance and examples for the FA domain
+- Corrected Core values for: DSDY, DSSTDY, LBSTREFC, MILOBXFL, and MIBLFL
+- Updated Controlled Terminology for applicable variables across all domains
+- Removed Appendix C1, Trial Summary Codes
+
+### Related Implementation Guides
+
+| Guide | Scope |
+|-------|-------|
+| SDTMIG-AP | Associated Persons — data about persons who are not study subjects |
+| SDTMIG-MD | Medical Devices — data about devices |
+| SDTMIG-PGx | Pharmacogenomics/Genetics — largely incorporated into/superseded by SDTMIG v3.4 |
+
+## 1.4 How to Read this Implementation Guide
+
+Recommended reading order:
+
+1. Read the SDTM to gain a general understanding of SDTM concepts
+2. Read Sections 1-3 for key concepts about preparing domains and submitting data
+3. Read Section 4, Assumptions for Domain Models
+4. Review Section 5 (Special-purpose Domains) and Section 6 (Domain Models Based on GOC), referring back to Section 4 as directed
+5. Read Section 7, Trial Design Model Datasets
+6. Review Section 8, Representing Relationships and Data
+7. Review Section 9, Study References
+8. Review the appendices as appropriate (especially Appendix C for Controlled Terminology)
+
+### 1.4.1 How to Read a Domain Specification
+
+A domain specification table includes rows for all required and expected variables and for a set of permissible variables. The columns of the table are:
+
+| Column | Description |
+|--------|-------------|
+| **Variable Name** | Standard name; variables without domain prefix are taken from SDTM directly; `--` is replaced by 2-character domain code |
+| **Variable Label** | Longer name; may be same as SDTM label or customized for the domain |
+| **Type** | SAS datatypes: "Num" or "Char" |
+| **Controlled Terms, Codelist, or Format** | Controlled terminology references; asterisk (*) indicates variable may be subject to CT; codelist hyperlinks indicate CDISC CT; "ISO 8601 datetime or interval" or "ISO 8601 duration" for date/time fields |
+| **Role** | From the SDTM; SDTM includes the qualified variable for Variable/Synonym Qualifiers, but SDTMIG does not |
+| **CDISC Notes** | Variable description, relationship to other variables, population rules, and example values |
+| **Core** | "Req" (Required), "Exp" (Expected), or "Perm" (Permissible) |
+
+## 1.5 Known Issues
+
+### Derived Records and the use of --DRVFL
+
+Although it is implicit in the general concept of a derived record that there is no collected result (--ORRES should be null), this is not an explicit requirement currently stated in published CDISC material. This is being evaluated for clarification in a future release.
+
+### Use of --LNKID and --LNKGRP
+
+The definition of --LNKID says it is "used to identify a record," and --LNKGRP says it is "used to identify a group of records." This implies:
+- RELTYPE = ONE → IDVAR of --LNKID (not --LNKGRP)
+- RELTYPE = MANY → IDVAR of --LNKID (not --LNKGRP)
+
+The examples in SDTMIG v3.4 have not been systematically reviewed to implement this distinction. This will be clarified in a future release.
