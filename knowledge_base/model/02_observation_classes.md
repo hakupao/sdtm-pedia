@@ -135,7 +135,7 @@ The Events Observation Class represents planned protocol milestones such as rand
 
 The Findings Observation Class represents observations resulting from planned evaluations to address specific tests or questions such as laboratory tests, ECG testing, and questions listed on questionnaires. The Findings class also includes a subtype, Findings About, which is used to record findings related to observations in the Interventions or Events classes.
 
-### Topic and Qualifier Variables (100+ variables)
+### Topic and Qualifier Variables (100 variables)
 
 The Findings class has the largest number of variables due to the wide range of measurement types it supports. Key variable groups include:
 
@@ -179,97 +179,120 @@ The Findings class has the largest number of variables due to the wide range of 
 
 ### Findings About (Subtype)
 
-The Findings About observation class is a subtype of Findings used to record findings about events or interventions. Key additional variables:
+The Findings About observation class is a subtype of Findings used to record findings about events or interventions. It utilizes the Findings general observation class variables with the addition of the --OBJ variable. The order of the --OBJ variable among Findings qualifiers is immediately after the --TEST variable.
 
-| Variable | Label | Notes |
-|----------|-------|-------|
-| --OBJ | Object of the Observation | Identifies the event or intervention being assessed |
-| FAOBJ | Object of the Finding About Observation | FA domain-specific |
+| Variable | Label | Type | Role | Notes |
+|----------|-------|------|------|-------|
+| --OBJ | Object of the Observation | Char | Record Qualifier | Used in domains modeled as Findings About Events or Findings About Interventions. Describes the event or intervention whose property is being measured in --TESTCD/--TEST. |
 
 ## 3.1.4 Identifiers for All Classes
 
-Variables shared across all 3 general observation classes:
+STUDYID, DOMAIN, and --SEQ are required in all domains based on one of the 3 general observation classes. Each general class domain must also include at least 1 of the following subject identifiers: USUBJID, SPDEVID, or POOLID.
+
+All identifier variables are allowed for any domain based on one of the 3 general observation classes, unless otherwise noted in the Usage Restrictions.
 
 | # | Variable | Label | Type | Role | Notes |
 |---|----------|-------|------|------|-------|
-| 1 | STUDYID | Study Identifier | Char | Identifier | Unique identifier for a study |
+| 1 | STUDYID | Study Identifier | Char | Identifier | |
 | 2 | DOMAIN | Domain Abbreviation | Char | Identifier | Two-character abbreviation for the domain |
 | 3 | USUBJID | Unique Subject Identifier | Char | Identifier | Unique identifier for a subject across all studies for the submission |
-| 4 | --SEQ | Sequence Number | Num | Identifier | Unique within STUDYID, USUBJID, and DOMAIN |
-| 5 | --GRPID | Group ID | Char | Identifier | Used to tie together a block of related records |
-| 6 | --REFID | Reference ID | Char | Identifier | Internal or external identifier (e.g., specimen ID, ECG ID) |
-| 7 | --SPID | Sponsor-Defined Identifier | Char | Identifier | Sponsor-defined reference number |
-| 8 | --LNKID | Link ID | Char | Identifier | Used with RELREC dataset-to-dataset linking |
-| 9 | --LNKGRP | Link Group ID | Char | Identifier | Used with RELREC to link groups of records |
-| 10 | POOLID | Pool Identifier | Char | Identifier | Identifier used for pooling subjects in nonclinical studies |
-| 11 | SPDEVID | Sponsor Device Identifier | Char | Identifier | AE domain only |
-| 12 | FOCID | Focus of Study-Specific Interest | Char | Identifier | Focus identifier for study-specific interest |
-| 13 | --BEATNO | ECG Beat Number | Num | Identifier | Beat number for ECG observations |
-| 14 | --RUNID | Run or Replicate ID | Char | Identifier | Lab run/replicate identifier |
-| 15 | --REFID (duplicate role as Reference ID and External File Name) | | | | |
-| 16 | --RDEVID | Related Device Identifier | Char | Identifier | AP domains only |
+| 4 | POOLID | Pool Identifier | Char | Identifier | Used for results that are not assignable to a specific subject |
+| 5 | SPDEVID | Sponsor Device Identifier | Char | Identifier | |
+| 6 | NHOID | Non-Host Organism Identifier | Char | Identifier | Sponsor-defined identifier for a non-host organism |
+| 7 | FETUSID | Fetus Identifier | Char | Identifier | Not in human clinical trials |
+| 8 | FOCID | Focus of Study-Specific Interest | Char | Identifier | Identification of a focus of study-specific interest |
+| 9 | --SEQ | Sequence Number | Num | Identifier | Unique within STUDYID, USUBJID, and DOMAIN |
+| 10 | --GRPID | Group ID | Char | Identifier | Used to tie together a block of related records |
+| 11 | --REFID | Reference ID | Char | Identifier | Internal or external identifier (e.g., specimen ID, ECG ID) |
+| 12 | --RECID | Invariant Record Identifier | Char | Identifier | Identifier for a record that is unique within a domain for a study and remains invariant through subsequent versions |
+| 13 | --SPID | Sponsor-Defined Identifier | Char | Identifier | Sponsor-defined reference number |
+| 14 | --LNKID | Link ID | Char | Identifier | Used with RELREC dataset-to-dataset linking |
+| 15 | --LNKGRP | Link Group ID | Char | Identifier | Used with RELREC to link groups of records |
+| 16 | --BEATNO | ECG Beat Number | Num | Identifier | EG Domain only |
 
 ## 3.1.5 Timing Variables for All Classes
 
-Variables for representing time in all general observation class domains (48 variables):
+The following timing variables are available for use in any domain based on one of the 3 general observation classes, except where restricted in the assumptions for the standard domain models in the implementation guides (48 variables):
+
+### Visit and Epoch Variables
+
+| # | Variable | Label | Type | Notes |
+|---|----------|-------|------|-------|
+| 1 | VISITNUM | Visit Number | Num | Numeric version of VISIT for sorting |
+| 2 | VISIT | Visit Name | Char | Protocol-defined visit name |
+| 3 | VISITDY | Planned Study Day of Visit | Num | Protocol-defined study day |
+| 4 | TAETORD | Planned Order of Element Within Arm | Num | Value for the element within the subject's assigned arm |
+| 5 | EPOCH | Epoch | Char | Time period defined in the protocol with a study-specific purpose |
+| 6 | RPHASE | Repro Phase | Char | Not in human clinical trials |
+| 7 | RPPLDY | Planned Repro Phase Day of Observation | Num | Not in human clinical trials |
+| 8 | RPPLSTDY | Planned Repro Phase Day of Obs Start | Num | Not in human clinical trials |
+| 9 | RPPLENDY | Planned Repro Phase Day of Obs End | Num | Not in human clinical trials |
 
 ### Date/Time Variables
 
-| Variable | Label | Format | Notes |
-|----------|-------|--------|-------|
-| --DTC | Date/Time of Collection | ISO 8601 datetime or interval | Primary date/time for the observation |
-| --STDTC | Start Date/Time of Observation | ISO 8601 datetime or interval | |
-| --ENDTC | End Date/Time of Observation | ISO 8601 datetime or interval | |
-| --DY | Study Day of Visit/Collection/Exam | Num | Derived from --DTC and RFSTDTC |
-| --STDY | Study Day of Start of Observation | Num | |
-| --ENDY | Study Day of End of Observation | Num | |
-| --DUR | Duration | ISO 8601 duration | |
+| # | Variable | Label | Type | Format | Notes |
+|---|----------|-------|------|--------|-------|
+| 10 | --DTC | Date/Time of Collection | Char | ISO 8601 | Primary date/time for the observation |
+| 11 | --STDTC | Start Date/Time of Observation | Char | ISO 8601 | Not in Findings class domains |
+| 12 | --ENDTC | End Date/Time of Observation | Char | ISO 8601 | |
 
-### Visit Variables
+### Study Day Variables
 
-| Variable | Label | Notes |
-|----------|-------|-------|
-| VISITNUM | Visit Number | Numeric version of VISIT for sorting |
-| VISIT | Visit Name | Protocol-defined visit name |
-| VISITDY | Planned Study Day of Visit | Protocol-defined study day |
+| # | Variable | Label | Type | Notes |
+|---|----------|-------|------|-------|
+| 13 | --DY | Study Day of Visit/Collection/Exam | Num | Derived from --DTC and RFSTDTC |
+| 14 | --STDY | Study Day of Start of Observation | Num | Not in Findings class domains |
+| 15 | --ENDY | Study Day of End of Observation | Num | |
+| 16 | --NOMDY | Nominal Study Day for Tabulations | Num | Not in human clinical trials |
+| 17 | --NOMLBL | Label for Nominal Study Day | Char | Not in human clinical trials |
+| 18 | --RPDY | Actual Repro Phase Day of Observation | Num | Not in human clinical trials |
+| 19 | --RPSTDY | Actual Repro Phase Day of Obs Start | Num | Not in human clinical trials |
+| 20 | --RPENDY | Actual Repro Phase Day of Obs End | Num | Not in human clinical trials |
+| 21 | --XDY | Day of Obs Relative to Exposure | Num | Derived relative to RFXSTDTC |
+| 22 | --XSTDY | Start Day of Obs Relative to Exposure | Num | Not in Findings class domains |
+| 23 | --XENDY | End Day of Obs Relative to Exposure | Num | |
+| 24 | --CHDY | Day of Obs Rel to Challenge Agent | Num | Derived relative to RFCSTDTC |
+| 25 | --CHSTDY | Start Day of Obs Rel to Challenge Agent | Num | Not in Findings class domains |
+| 26 | --CHENDY | End Day of Obs Rel to Challenge Agent | Num | |
+| 27 | --DUR | Collected Duration | Char | ISO 8601 duration |
 
 ### Time Point Variables
 
-| Variable | Label | Notes |
-|----------|-------|-------|
-| --TPT | Planned Time Point Name | Protocol-defined time point description |
-| --TPTNUM | Planned Time Point Number | Numeric version for sorting |
-| --ELTM | Planned Elapsed Time from Time Point Ref | ISO 8601 duration |
-| --TPTREF | Time Point Reference | Description of the reference point |
-| --RFTDTC | Date/Time of Reference Time Point | ISO 8601 |
+| # | Variable | Label | Type | Notes |
+|---|----------|-------|------|-------|
+| 28 | --TPT | Planned Time Point Name | Char | Protocol-defined time point description |
+| 29 | --TPTNUM | Planned Time Point Number | Num | Numeric version for sorting |
+| 30 | --ELTM | Planned Elapsed Time from Time Point Ref | Char | ISO 8601 duration |
+| 31 | --TPTREF | Time Point Reference | Char | Description of the reference point |
+| 32 | --RFTDTC | Date/Time of Reference Time Point | Char | ISO 8601 |
 
 ### Relative Timing Variables
 
-| Variable | Label | Notes |
-|----------|-------|-------|
-| --STRF | Start Relative to Reference Period | BEFORE, DURING, DURING/AFTER, AFTER, UNKNOWN |
-| --ENRF | End Relative to Reference Period | Same values as --STRF |
-| --STTPT | Start Reference Time Point | Text description of start anchor |
-| --STRTPT | Start Relative to Reference Time Point | BEFORE, COINCIDENT, AFTER, UNKNOWN |
-| --ENTPT | End Reference Time Point | Text description of end anchor |
-| --ENRTPT | End Relative to Reference Time Point | BEFORE, COINCIDENT, AFTER, ONGOING, UNKNOWN |
+| # | Variable | Label | Type | Notes |
+|---|----------|-------|------|-------|
+| 33 | --STRF | Start Relative to Reference Period | Char | BEFORE, DURING, DURING/AFTER, AFTER, UNKNOWN |
+| 34 | --ENRF | End Relative to Reference Period | Char | Same values as --STRF |
+| 35 | --EVLINT | Evaluation Interval | Char | ISO 8601 duration or interval |
+| 36 | --EVINTX | Evaluation Interval Text | Char | Text description when interval cannot be represented in ISO 8601 |
+| 37 | --STRTPT | Start Relative to Reference Time Point | Char | BEFORE, COINCIDENT, AFTER, UNKNOWN |
+| 38 | --STTPT | Start Reference Time Point | Char | Text description of start anchor |
+| 39 | --ENRTPT | End Relative to Reference Time Point | Char | BEFORE, COINCIDENT, AFTER, ONGOING, UNKNOWN |
+| 40 | --ENTPT | End Reference Time Point | Char | Text description of end anchor |
 
 ### Disease Milestone Variables
 
-| Variable | Label | Notes |
-|----------|-------|-------|
-| MIDS | Disease Milestone Instance Name | Unique name of a disease milestone instance |
-| RELMIDS | Relationship to Disease Milestone Instance | How observation relates to MIDS |
-| MIDSDTC | Disease Milestone Instance Date | Date/time of the disease milestone |
+| # | Variable | Label | Type | Notes |
+|---|----------|-------|------|-------|
+| 41 | MIDS | Disease Milestone Instance Name | Char | Unique name of a disease milestone instance |
+| 42 | RELMIDS | Temporal Relation to Milestone Instance | Char | How observation relates to MIDS |
+| 43 | MIDSDTC | Disease Milestone Instance Date/Time | Char | Date/time of the disease milestone |
 
-### Additional Timing Variables
+### Assessment Interval and Other Timing Variables
 
-| Variable | Label | Notes |
-|----------|-------|-------|
-| --STINT | Planned Start of Assessment Interval | ISO 8601 duration |
-| --ENINT | Planned End of Assessment Interval | ISO 8601 duration |
-| --DETECT | Detection Day of Onset | Num |
-| --PTFL | Point in Time Flag | "Y" for point-in-time observations |
-| --PDUR | Planned Duration of Observation | ISO 8601 duration |
-| --XSTDY | Study Day of Start of Crossover Study Day | Num |
-| --CHSTDY | Change of Study Day | Num |
+| # | Variable | Label | Type | Notes |
+|---|----------|-------|------|-------|
+| 44 | --STINT | Planned Start of Assessment Interval | Char | ISO 8601 duration |
+| 45 | --ENINT | Planned End of Assessment Interval | Char | ISO 8601 duration |
+| 46 | --DETECT | Time in Days to Detection | Num | Not in human clinical trials |
+| 47 | --PTFL | Point in Time Flag | Char | Only in Findings class specimen-based domains |
+| 48 | --PDUR | Planned Duration of Observation | Char | Only in Findings class specimen-based domains |

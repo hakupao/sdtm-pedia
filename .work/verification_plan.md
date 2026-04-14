@@ -1,7 +1,7 @@
 # Knowledge Base 内容验证计划
 
 > 创建日期: 2026-04-14
-> 状态: 进行中（Step 0-2, 2-final 已完成，Step 3 / 4 待执行）
+> 状态: 进行中（Step 0-2, 2-final, 3-1, 3-2 已完成，Step 3-3 ~ 3-5 / 4 待执行）
 
 ---
 
@@ -23,7 +23,8 @@ knowledge_base/ 中的 293 个文件，其中：
 | 1 | 验证 assumptions.md (61 域) | **已完成** (2026-04-14) | 16 问题已修复 → [详细结果](verification/step1_results.md) |
 | 2 | 验证 examples.md (63 域, 21 组) | **已完成** (2026-04-14) | 33 PASS / 30 修复后 PASS → [总表](verification/step2_summary.md) · [详细结果](verification/step2_results.md) |
 | 2-final | 补全 13 幅图表 (Mermaid) | **已完成** (2026-04-14) | 13/13 图表全部完成 |
-| 3 | 验证 model/ + chapters/ (12 文件) | **待开始** | 见下方计划 |
+| 3 | 验证 model/ + chapters/ (12 文件) | **进行中** | 3-1, 3-2 已完成；3-3 ~ 3-5 待执行 |
+| 3.5 | 编写溯源矩阵 (TRACEABILITY.md) | **待开始** | 证明产出完整性，记录排除理由 |
 | 4 | 汇总报告 | **待开始** | 见下方计划 |
 
 ---
@@ -60,6 +61,70 @@ model/ (6 文件) 对应 SDTM v2.0 PDF (74 页)
 chapters/ (6 文件) 对应 SDTMIG v3.4 PDF 的通用章节
 
 验证方法同 Step 1/2，对照 PDF 检查完整性和准确性。
+
+### Step 3 子步骤拆解
+
+| 子步骤 | 内容 | 工作量 | 状态 |
+|--------|------|--------|------|
+| 3-1 | 建立 model/ 页码映射 + 验证小文件 (01, 04) | 轻 (118 行) | **已完成** (2026-04-14) |
+| 3-2 | 验证 model/ 剩余 4 文件 (02, 03, 05, 06) | 中 (850 行) | **已完成** (2026-04-15) |
+| 3-3 | 验证 chapters/ 小文件 (ch01, ch02, ch03) | 中 (307 行, 15 页 PDF) | **待开始** |
+| 3-4 | 验证 ch04_general_assumptions | 重 (331 行, 38 页 PDF) | **待开始** |
+| 3-5 | 验证 ch08 + ch10 | 中 (457 行, 32 页 PDF) | **待开始** |
+
+### 文件详情
+
+**model/** (SDTM_v2.0.pdf):
+
+| 文件 | 行数 | PDF 页码 | 验证结果 |
+|------|------|----------|----------|
+| 01_concepts_and_terms.md | 80→89 | 8-10 | FAIL→修复后 PASS (6处遗漏已补) |
+| 02_observation_classes.md | 275→292 | 11-39 | FAIL→修复后 PASS (10处: 5错误+2遗漏+2幽灵+1不精确) |
+| 03_special_purpose_domains.md | 187→203 | 40-49 | FAIL→修复后 PASS (16处: 11错误+4遗漏+1幽灵域) |
+| 04_associated_persons.md | 38→39 | 50 | FAIL→修复后 PASS (2错误+3遗漏已修) |
+| 05_study_level_data.md | 224→230 | 51-63 | FAIL→修复后 PASS (19处: 13错误+4遗漏+3幽灵) |
+| 06_relationship_datasets.md | 164→155 | 64-69 | FAIL→修复后 PASS (27处: 16错误+6遗漏+6幽灵) |
+
+**chapters/** (SDTMIG v3.4 PDF):
+
+| 文件 | 行数 | PDF 页码 | 验证结果 |
+|------|------|----------|----------|
+| ch01_introduction.md | 94 | 7-10 | — |
+| ch02_fundamentals.md | 150 | 11-16 | — |
+| ch03_submitting_data.md | 63 | 17-21 | — |
+| ch04_general_assumptions.md | 331 | 22-59 | — |
+| ch08_relationships.md | 253 | 427-440 | — |
+| ch10_appendices.md | 204 | 444-461 | — |
+
+---
+
+## Step 3.5: 编写溯源矩阵（Traceability Matrix）
+
+**目的**: 证明项目产出的完整性和合理性——每一页源 PDF 都被处理过，未收录的内容有明确的排除理由，而非遗漏。
+
+**产出文件**: 项目根目录 `TRACEABILITY.md`（与 README 同级，属于项目交付物）
+
+**内容结构**: 对每份源 PDF 逐章建立映射表：
+
+| 列 | 说明 |
+|----|------|
+| 章节编号 + 标题 | PDF 原始章节 |
+| 页码范围 | PDF 页码 |
+| 知识库文件路径 | 对应的产出文件（如有） |
+| 处理决策 | `收录` 或 `故意排除` |
+| 排除理由 | 仅对排除项填写，说明不收录的原因 |
+
+**覆盖范围**（3 份源 PDF × 全部章节）:
+
+1. **SDTM v2.0 PDF** (74 页, 9 章) → `model/` (6 文件)
+   - 收录: Chapter 2–6（模型定义的全部实质性技术内容）
+   - 排除: Chapter 1 (Introduction), 7 (Changelog), 8 (Future Changes), 9 (Appendices)
+2. **SDTMIG v3.4 PDF** (461 页) → `chapters/` (6 文件) + `domains/` (63 域 × 3 文件)
+   - 通用章节: ch01–ch04, ch08, ch10
+   - 63 域的 spec/assumptions/examples
+3. **SDTM Terminology xlsx** → `terminology/` (91 文件, 脚本生成已校验)
+
+**状态**: 待开始
 
 ---
 
