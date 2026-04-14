@@ -110,6 +110,44 @@ This example shows multiple race categories and subcategories. Only a subset of 
 
 **Demographics Sample aCRF for Race with Additional Granularity**
 
+> Variable annotation: CDASHIG variables (RACE01–RACE07, CRACE01–CRACE21) in grey; SDTMIG target variable (RACE) in red.
+
+```mermaid
+graph TD
+    Q["Race Question<br/>(More than one choice is acceptable)<br/>RACE01–RACE07 → RACE"]
+    R1["☐ AMERICAN INDIAN OR ALASKA NATIVE"]
+    R2["☐ ASIAN"]
+    R3["☐ BLACK OR AFRICAN AMERICAN"]
+    R4["☐ NATIVE HAWAIIAN OR<br/>OTHER PACIFIC ISLANDER"]
+    R5["☐ WHITE"]
+    R6["☐ NOT REPORTED"]
+    R7["☐ UNKNOWN"]
+
+    Q --> R1
+    Q --> R2
+    Q --> R3
+    Q --> R4
+    Q --> R5
+    Q --> R6
+    Q --> R7
+
+    SC1["Subcategories CRACE01-04 → SUPPDM.QVAL<br/>☐ ALASKA NATIVE<br/>☐ AMERICAN INDIAN<br/>☐ CARIBBEAN INDIAN<br/>☐ CENTRAL AMERICAN INDIAN"]
+    SC2["Subcategories CRACE05-10 → SUPPDM.QVAL<br/>☐ ASIAN AMERICAN  ☐ ASIAN INDIAN<br/>☐ BANGLADESHI  ☐ CHINESE<br/>☐ JAPANESE  ☐ KOREAN"]
+    SC3["Subcategories CRACE11-17 → SUPPDM.QVAL<br/>☐ AFRICAN  ☐ AFRICAN AMERICAN<br/>☐ AFRICAN CARIBBEAN  ☐ BAHAMIAN<br/>☐ BARBADIAN  ☐ BLACK<br/>☐ BLACK CENTRAL AMERICAN"]
+    SC4["Subcategories CRACE18-21 → SUPPDM.QVAL<br/>☐ ARAB  ☐ EUROPEAN<br/>☐ MIDDLE EASTERN  ☐ RUSSIAN"]
+
+    R1 -.->|"If selected"| SC1
+    R2 -.->|"If selected"| SC2
+    R3 -.->|"If selected"| SC3
+    R5 -.->|"If selected"| SC4
+
+    style Q fill:#f5f5f5,stroke:#333,stroke-width:2px
+    style SC1 fill:#eef5ff,stroke:#4a86c8
+    style SC2 fill:#eef5ff,stroke:#4a86c8
+    style SC3 fill:#eef5ff,stroke:#4a86c8
+    style SC4 fill:#eef5ff,stroke:#4a86c8
+```
+
 The CRF presents 7 race questions (RACE01-RACE07) with checkbox options:
 - RACE01: AMERICAN INDIAN OR ALASKA NATIVE
 - RACE02: ASIAN
@@ -129,19 +167,19 @@ If the study participant answered WHITE, subcategories (CRACE18-CRACE21) are pre
 
 **CRF Metadata**
 
-| CDASH Variable | Order | Question Text | Prompt | CRF Completion Instructions | Type | SDTMIG Target Variable | SDTM Target Mapping | Controlled Terminology Code List Name | Permissible Values | List Style |
-|---|---|---|---|---|---|---|---|---|---|---|
-| RACE01 | 1 | Which of the following racial designations best describes you? (More than one choice is acceptable.) | Race | Study participants should self-report race, with race being asked about after ethnicity. | Text | RACE | | (RACE) | AMERICAN INDIAN OR ALASKA NATIVE | checkbox |
-| RACE02 | 2 | (same) | Race | (same) | Text | RACE | | (RACE) | ASIAN | checkbox |
-| RACE03 | 3 | (same) | Race | (same) | Text | RACE | | (RACE) | BLACK OR AFRICAN AMERICAN | checkbox |
-| RACE04 | 4 | (same) | Race | (same) | Text | RACE | | (RACE) | NATIVE HAWAIIAN OR OTHER PACIFIC ISLANDER | checkbox |
-| RACE05 | 5 | (same) | Race | (same) | Text | RACE | | (RACE) | WHITE | checkbox |
-| RACE06 | 6 | (same) | Race | (same) | Text | RACE | | (RACE) | NOT REPORTED | checkbox |
-| RACE07 | 7 | (same) | Race | (same) | Text | RACE | | (RACE) | UNKNOWN | checkbox |
-| CRACE01-CRACE04 | 10 | (same) | Race | Select each value that applies if the subject answered "AMERICAN INDIAN OR ALASKA NATIVE". Check all that apply. | Text | SUPPDM.QVAL | For each value that applies, SUPPDM.QVAL where SUPPDM.QNAM ="CRACEn" and SUPPDM.QLABEL = "Collected Race n" where n is the choice value. | (RACEC) | ALASKA NATIVE; AMERICAN INDIAN; CARIBBEAN INDIAN; CENTRAL AMERICAN INDIAN | checkbox |
-| CRACE05-CRACE10 | 11 | (same) | Race | Select each value that applies if the subject answered "ASIAN". Check all that apply. | Text | SUPPDM.QVAL | (same mapping pattern) | (RACEC) | ASIAN AMERICAN; ASIAN INDIAN; BANGLADESHI; CHINESE; JAPANESE; KOREAN | checkbox |
-| CRACE11-CRACE17 | 12 | (same) | Race | Select each value that applies if the subject answered "BLACK OR AFRICAN AMERICAN". Check all that apply. | Text | SUPPDM.QVAL | (same mapping pattern) | (RACEC) | AFRICAN; AFRICAN AMERICAN; AFRICAN CARIBBEAN; BAHAMIAN; BARBADIAN; BLACK; BLACK CENTRAL AMERICAN | checkbox |
-| CRACE18-CRACE21 | 13 | (same) | Race | Select each value that applies if the subject answered "WHITE". Check all that apply. | Text | SUPPDM.QVAL | (same mapping pattern) | (RACEC) | ARAB; EUROPEAN; MIDDLE EASTERN; RUSSIAN | checkbox |
+| CDASH Variable | Order | Question Text | Prompt | CRF Completion Instructions | Type | SDTMIG Target Variable | SDTM Target Mapping | Controlled Terminology Code List Name | Permissible Values | Pre-specified Value | Query Display | List Style | Hidden |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| RACE01 | 1 | Which of the following racial designations best describes you? (More than one choice is acceptable.) | Race | Study participants should self-report race, with race being asked about after ethnicity. | Text | RACE | | (RACE) | AMERICAN INDIAN OR ALASKA NATIVE | | | checkbox | |
+| RACE02 | 2 | (same) | Race | (same) | Text | RACE | | (RACE) | ASIAN | | | checkbox | |
+| RACE03 | 3 | (same) | Race | (same) | Text | RACE | | (RACE) | BLACK OR AFRICAN AMERICAN | | | checkbox | |
+| RACE04 | 4 | (same) | Race | (same) | Text | RACE | | (RACE) | NATIVE HAWAIIAN OR OTHER PACIFIC ISLANDER | | | checkbox | |
+| RACE05 | 5 | (same) | Race | (same) | Text | RACE | | (RACE) | WHITE | | | checkbox | |
+| RACE06 | 6 | (same) | Race | (same) | Text | RACE | | (RACE) | NOT REPORTED | | | checkbox | |
+| RACE07 | 7 | (same) | Race | (same) | Text | RACE | | (RACE) | UNKNOWN | | | checkbox | |
+| CRACE01-CRACE04 | 10 | (same) | Race | Select each value that applies if the subject answered "AMERICAN INDIAN OR ALASKA NATIVE". Check all that apply. | Text | SUPPDM.QVAL | For each value that applies, SUPPDM.QVAL where SUPPDM.QNAM ="CRACEn" and SUPPDM.QLABEL = "Collected Race n" where n is the choice value. | (RACEC) | ALASKA NATIVE; AMERICAN INDIAN; CARIBBEAN INDIAN; CENTRAL AMERICAN INDIAN | | | checkbox | |
+| CRACE05-CRACE10 | 11 | (same) | Race | Select each value that applies if the subject answered "ASIAN". Check all that apply. | Text | SUPPDM.QVAL | For each value that applies, SUPPDM.QVAL where SUPPDM.QNAM ="CRACEn" and SUPPDM.QLABEL = "Collected Race n" where n is the choice value. | (RACEC) | ASIAN AMERICAN; ASIAN INDIAN; BANGLADESHI; CHINESE; JAPANESE; KOREAN | | | checkbox | CRACE05-CRACE10 |
+| CRACE11-CRACE17 | 12 | (same) | Race | Select each value that applies if the subject answered "BLACK OR AFRICAN AMERICAN". Check all that apply. | Text | SUPPDM.QVAL | For each value that applies, SUPPDM.QVAL where SUPPDM.QNAM ="CRACEn" and SUPPDM.QLABEL = "Collected Race n" where n is the choice value. | (RACEC) | AFRICAN; AFRICAN AMERICAN; AFRICAN CARIBBEAN; BAHAMIAN; BARBADIAN; BLACK; BLACK CENTRAL AMERICAN | | | checkbox | |
+| CRACE18-CRACE21 | 13 | (same) | Race | Select each value that applies if the subject answered "WHITE". Check all that apply. | Text | SUPPDM.QVAL | For each value that applies, SUPPDM.QVAL where SUPPDM.QNAM ="CRACEn" and SUPPDM.QLABEL = "Collected Race n" where n is the choice value. | (RACEC) | ARAB; EUROPEAN; MIDDLE EASTERN; RUSSIAN | | | checkbox | |
 
 The value of RACE is used to represent the high-level racial designation as a single collected value per CDISC Controlled Terminology in dm.xpt. When more than 1 choice is selected, the value is represented with "MULTIPLE" as shown in this example. **Note:** Only those variables relevant to this example are shown.
 
@@ -181,6 +219,23 @@ This example shows different Chinese regional ethnicity subcategorizations (majo
 
 **CRF Mock Example**
 
+```mermaid
+graph TD
+    Q["Do you consider yourself<br/>Hispanic/Latino or not Hispanic/Latino?<br/>(More than one choice is acceptable)<br/>ETHNIC"]
+    H["○ Hispanic or Latino"]
+    NH["○ Not Hispanic or Latino"]
+
+    Q --> H
+    Q --> NH
+
+    SC["Chinese Regional Ethnicity Subcategories<br/>CETHNICT → SUPPDM.QVAL (QNAM = ETHNICn)<br/>☐ HAN CHINESE<br/>☐ MANCHU<br/>☐ MIAO<br/>☐ UYGHUR<br/>☐ ZHUANG"]
+
+    NH -.->|"Subcategories"| SC
+
+    style Q fill:#f5f5f5,stroke:#333,stroke-width:2px
+    style SC fill:#eef5ff,stroke:#4a86c8
+```
+
 The CRF collects ETHNIC (Hispanic or Latino / Not Hispanic or Latino) with subcategories for Chinese regional ethnicity: HAN CHINESE, MANCHU, MIAO, UYGHUR, ZHUANG.
 
 In this CRF example, subcategorizations of ethnicity are made available.
@@ -216,14 +271,53 @@ This example shows race categories and subcategories. Only a subset of options a
 
 **Demographics Sample aCRF for Race with Additional Granularity**
 
+> Variable annotation: CDASHIG variables (RACE01–RACE07, CRACE05–CRACE17) in grey; SDTMIG target variable (RACE) in red.
+
+```mermaid
+graph TD
+    Q["Race Question<br/>(More than one choice is acceptable)<br/>RACE01–RACE07 → RACE"]
+    R1["☐ AMERICAN INDIAN OR ALASKA NATIVE"]
+    R2["☐ ASIAN"]
+    R3["☐ BLACK OR AFRICAN AMERICAN"]
+    R4["☐ NATIVE HAWAIIAN OR<br/>OTHER PACIFIC ISLANDER"]
+    R5["☐ WHITE"]
+    R6["☐ NOT REPORTED"]
+    R7["☐ UNKNOWN"]
+
+    Q --> R1
+    Q --> R2
+    Q --> R3
+    Q --> R4
+    Q --> R5
+    Q --> R6
+    Q --> R7
+
+    SC1["Subcategories CRACE05-10 → SUPPDM.QVAL<br/>☐ ASIAN AMERICAN  ☐ ASIAN INDIAN<br/>☐ BANGLADESHI  ☐ CHINESE<br/>☐ JAPANESE  ☐ KOREAN"]
+    SC2["Subcategories CRACE11-17 → SUPPDM.QVAL<br/>☐ AFRICAN  ☐ AFRICAN AMERICAN<br/>☐ AFRICAN CARIBBEAN  ☐ BAHAMIAN<br/>☐ BARBADIAN  ☐ BLACK<br/>☐ BLACK CENTRAL AMERICAN"]
+
+    R2 -.->|"If selected"| SC1
+    R3 -.->|"If selected"| SC2
+
+    style Q fill:#f5f5f5,stroke:#333,stroke-width:2px
+    style SC1 fill:#eef5ff,stroke:#4a86c8
+    style SC2 fill:#eef5ff,stroke:#4a86c8
+```
+
 The CRF presents 7 race questions (RACE01-RACE07) with the same structure as Example 4, plus subcategory questions for ASIAN (CRACE05-CRACE10), BLACK OR AFRICAN AMERICAN (CRACE11-CRACE17), and other categories.
 
 **CRF Metadata**
 
-Same structure as Example 4 CRF Metadata, with the following key mappings:
-- RACE01-RACE07 → RACE (using RACE codelist)
-- CRACE05-CRACE10 (ASIAN subcategories) → SUPPDM.QVAL (using RACEC codelist): ASIAN AMERICAN, ASIAN INDIAN, BANGLADESHI, CHINESE, JAPANESE, KOREAN
-- CRACE11-CRACE17 (BLACK OR AFRICAN AMERICAN subcategories) → SUPPDM.QVAL (using RACEC codelist): AFRICAN, AFRICAN AMERICAN, AFRICAN CARIBBEAN, BAHAMIAN, BARBADIAN, BLACK, BLACK CENTRAL AMERICAN
+| CDASH Variable | Order | Question Text | Prompt | CRF Completion Instructions | Type | SDTMIG Target Variable | SDTM Target Mapping | Controlled Terminology Code List Name | Permissible Values | Pre-specified Value | Query Display | List Style | Hidden |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| RACE01 | 3 | Which of the following racial designations best describes you? (More than one choice is acceptable.) | Race | Study participants should self-report race, with race being asked about after ethnicity. | Text | RACE | | (RACE) | AMERICAN INDIAN OR ALASKA NATIVE | | | checkbox | |
+| RACE02 | 4 | (same) | Race | (same) | Text | RACE | | (RACE) | ASIAN | | | checkbox | |
+| RACE03 | 5 | (same) | Race | (same) | Text | RACE | | (RACE) | BLACK OR AFRICAN AMERICAN | | | checkbox | |
+| RACE04 | 6 | (same) | Race | (same) | Text | RACE | | (RACE) | NATIVE HAWAIIAN OR OTHER PACIFIC ISLANDER | | | checkbox | |
+| RACE05 | 7 | (same) | Race | (same) | Text | RACE | | (RACE) | WHITE | | | checkbox | |
+| RACE06 | 8 | (same) | Race | (same) | Text | RACE | | (RACE) | NOT REPORTED | | | checkbox | |
+| RACE07 | 9 | (same) | Race | (same) | Text | RACE | | (RACE) | UNKNOWN | | | checkbox | |
+| CRACE05-CRACE10 | 11 | (same) | Race | Select each value that applies if the subject answered "ASIAN". Check all that apply. | Text | SUPPDM.QVAL | For each value that applies, SUPPDM.QVAL where SUPPDM.QNAM ="CRACEn" and SUPPDM.QLABEL = "Collected Race n" where n is the choice value. | (RACEC) | ASIAN AMERICAN; ASIAN INDIAN; BANGLADESHI; CHINESE; JAPANESE; KOREAN | | | checkbox | |
+| CRACE11-CRACE17 | 12 | (same) | Race | Select each value that applies if the subject answered "BLACK OR AFRICAN AMERICAN". Check all that apply. | Text | SUPPDM.QVAL | For each value that applies, SUPPDM.QVAL where SUPPDM.QNAM ="CRACEn" and SUPPDM.QLABEL = "Collected Race n" where n is the choice value. | (RACEC) | AFRICAN; AFRICAN AMERICAN; AFRICAN CARIBBEAN; BAHAMIAN; BARBADIAN; BLACK; BLACK CENTRAL AMERICAN | | | checkbox | |
 
 The value of RACE is used to represent the high-level racial designation as a single collected value per CDISC Controlled Terminology in dm.xpt. In this example, subjects chose to select 1 high-level racial designation.
 
@@ -262,6 +356,36 @@ Collected race, which is the specific race subcategory for each subject, is repr
 ## Example 7
 
 **CRF Mock Example**
+
+```mermaid
+graph TD
+    Q["Which of the following five racial designations<br/>best describes you?<br/>(More than one choice is acceptable)<br/>RACE"]
+    R1["☐ American Indian or Alaska Native"]
+    R2["☐ Asian"]
+    R3["☐ Black or African American"]
+    R4["☐ Native Hawaiian or Other Pacific Islander"]
+    R5["☐ White"]
+    R6["☐ Unknown"]
+    R7["☐ Other"]
+
+    Q --> R1
+    Q --> R2
+    Q --> R3
+    Q --> R4
+    Q --> R5
+    Q --> R6
+    Q --> R7
+
+    OTH["What was the other race?<br/>RACEOTH → SUPPDM.QVAL<br/>(QNAM = RACEOTH)"]
+    UNK["If Unknown, please specify:<br/>RACEREAS → SUPPDM.QVAL<br/>(QNAM = RACEREAS)"]
+
+    R7 -.->|"If selected"| OTH
+    R6 -.->|"If selected"| UNK
+
+    style Q fill:#f5f5f5,stroke:#333,stroke-width:2px
+    style OTH fill:#eef5ff,stroke:#4a86c8
+    style UNK fill:#eef5ff,stroke:#4a86c8
+```
 
 The CRF presents 5 racial designations plus "Unknown" and "Other" options:
 - American Indian or Alaska Native

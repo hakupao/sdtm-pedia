@@ -262,7 +262,7 @@
 - **产出文件**: 12 个 .md 文件（6 model + 6 chapters）
 - **下一步**: 执行 Phase 5 — 全量验证 + INDEX.md
 
-### 当前总结
+### 生成阶段总结
 
 - **Phase 1**: 已完成 — 63 spec.md + 91 terminology 文件
 - **Phase 2**: 已完成 — page_index.json
@@ -270,36 +270,85 @@
 - **Phase 4**: 已完成 — 6 model/ + 6 chapters/ 文件
 - **Phase 5**: 已完成 — 全量验证通过 + INDEX.md 生成
 - **已产出文件总计**: 293 个（63 spec + 63 assumptions + 63 examples + 91 terminology + 6 model + 6 chapters + 1 INDEX.md）
-- **剩余文件估计**: 0 个
-- **项目状态**: **全部完成** ✓
 
-### 2026-04-13 Phase 3 验证器降噪 + Phase 4/5 复核
+---
+
+## 内容验证阶段
+
+> 验证计划: `.work/verification_plan.md`
+> 目标: 对 AI 提取的 138 个文件（assumptions + examples + model + chapters）逐一对照 PDF 原文，确认无遗漏、无错误
+
+### 2026-04-14 Step 0: 修正 page_index.json
 
 - **状态**: 已完成
 - **处理内容**:
-  - 新增/完善验证脚本：
-    - `.codex/scripts/audit_phase3_inventory.py`
-    - `.codex/scripts/audit_assumptions_pdf_vs_md.py`
-    - `.codex/scripts/audit_examples_pdf_vs_md.py`
-    - `.codex/scripts/validate_phase4_outputs.py`
-  - 扩展测试：
-    - `.codex/tests/test_validation_scripts.py`
-  - 针对 Phase 3 剩余 flagged domains 做 PDF vs Markdown 人工复核，结论记录到 `.work/findings.md`
-  - 修正 `.work/page_index.json` 中 SDTM v2.0 model 章节页码范围，使其与实际 PDF 物理页对齐：
-    - concepts_and_terms: 8-10
-    - observation_classes: 11-39
-    - special_purpose_domains: 40-49
-    - associated_persons: 50
-    - study_level_data: 51-63
-    - relationship_datasets: 64-69
-  - 刷新验证报告：
-    - `.codex/reports/phase2-page-index-validation.md`
-    - `.codex/reports/phase3-*.md`
-    - `.codex/reports/phase4-validation.md`
-    - `.codex/reports/phase5-final-validation.md`
-    - `.codex/reports/latest-validation-summary.md`
-- **结论**:
-  - Phase 3 无确认内容缺失或数据错误
-  - Phase 4 model/chapter 12/12 文件存在且 source-anchor spotcheck 通过
-  - Phase 5 inventory/index 对账通过（knowledge_base 不含 INDEX 共 292 个 markdown 文件）
-  - 项目当前处于“已完成且已验证”的基线状态
+  - page_index.json 是后续验证的基础，原有 55 个 domain 的页码为 TOC + 模式推测，错误率高
+  - 逐 domain 实际翻阅 PDF 确认 assumptions/examples 的起止页码（禁止推测）
+  - 按 SDTMIG 章节顺序分 12 个批次修正，全部 63 域页码确认为 verified=true
+- **产出**: 更新 `.work/page_index.json`，63 域全部 verified
+
+### 2026-04-14 Step 1: 验证 assumptions.md (61 域)
+
+- **状态**: 已完成
+- **验证方法**: 对每个 domain，根据 page_index.json 读取 PDF 对应页面，逐条对照 assumptions.md：
+  - 顶层 assumption 编号完整性（无跳号）
+  - 子条款完整性（a, b, c, i, ii, iii... 无缺失）
+  - 核心语义与原文一致性（关键规则、变量名、表格不能丢失）
+- **验证范围**: P1 (8域) → P2 (9域) → P3 (44域)，含 RELREC/SUPPQUAL 等无 assumptions 的域
+- **发现与修复**: 共 16 个问题（2 严重 / 2 中等 / 12 轻微），全部已修复
+  - 内容缺失/截断 (4): AE 7a 截断、MH 缺表格、SS 缺 3 条假设、RS 假设 1-2 被 AI 改写
+  - 变量名/拼写错误 (9): --STRNC→--STNRC (5处)、--STRNLO→--STNRLO、codeable→codetable、缺 --LOBXFL、缺 --SDISAB
+  - 格式瑕疵 (2): EX 残留 image 伪影、CP 多余 "List" 字
+  - PDF 原文笔误 (1): MH 6b MHENDTYP 应为 MHEVDTYP（保留原文，加 note）
+- **详细结果**: `.work/verification/step1_results.md`
+
+### 2026-04-14 Step 2: 验证 examples.md (63 域, 21 组)
+
+- **状态**: 已完成
+- **验证方法**: Sonnet 并行对比 + Opus 修复
+  - 阶段 1: 每组 3 个 Sonnet subagent 并行读 PDF + MD，输出差异报告
+  - 阶段 2: Opus 汇总差异，无问题记 PASS，有问题进入修复
+  - 阶段 3: Opus 读 PDF 二次确认后修复 examples.md
+  - 阶段 4: 记录验证结果
+- **检查项**: Example 编号完整、描述文字无截断、表格列名/行数/数值正确、换行层级一致、图片位置记录
+- **共享区段处理**: EX/EC、MB/MS、TU/TR、PC/PP 四对共享 examples，先到域做完整验证，后到域确认一致性
+- **验证结果**: 63 域全部 PASS
+  - 33 域直接 PASS
+  - 30 域修复后 PASS，典型问题包括：
+    - 缺失表格/数据行: DS Example 10 缺 4 张表、IS Example 11 缺 is.xpt+suppis.xpt、PC 缺主表 32 行+共享数据集 24 行+Methods A-D relrec
+    - 列名错误: LB ISSPEC→LBSPEC、CV 多余 NCVALTYP 列、TR 列名重复 TRSTRESU
+    - 数据值错误: MH MHDTC `2019-011-02`→`2019-11-02`、HO HOENDTC 日期错误、SM CESEQ 1→2
+    - AI 幻觉: SS 含 AI 生成虚假说明文字（PDF 该域无 examples）、UR Example 1 表格被虚假文字注释替代+Example 2 完全缺失
+    - 内容截断/占位符: GF Example 3 用占位符替代 16 行表格、MK Example 2 缺 Row 7-16（10 行）、SR Example 2 relrec 18 行被文字替代
+- **遗留图片清单**: 13 幅图片未收录（DM 4、TA 7、TV 1、RELSPEC 1），已记录待补全
+- **详细结果**: `.work/verification/step2_results.md`
+- **汇总总表**: `.work/verification/step2_summary.md`
+
+### 2026-04-14 Step 2-final: 补全 13 幅图表（Mermaid 复刻）
+
+- **状态**: 已完成
+- **背景**: Step 2 验证发现 PDF 中 13 幅流程图/示意图未收录到 examples.md
+- **方法**: 读取 PDF 对应页面（多模态读图）→ 理解结构/节点/箭头/标签 → 翻译为 Mermaid 语法 → 嵌入 examples.md
+- **执行顺序**: DM (4幅) → TA (7幅) → TV (1幅) → RELSPEC (1幅)
+- **完成清单**:
+  - DM Example 4: aCRF for Race（RACE01-07 + 4 子类别分支 CRACE01-21）
+  - DM Example 5: CRF Mock（中国民族子分类 ETHNIC → HAN CHINESE/MANCHU/MIAO/UYGHUR/ZHUANG）
+  - DM Example 6: aCRF for Race（RACE01-07 + 2 子类别分支 ASIAN/BLACK）
+  - DM Example 7: CRF Mock（5 种族+Unknown+Other；RACEOTH/RACEREAS → SUPPDM）
+  - TA Example 1: 并行设计 4 视图（Study Schema / Prospective / Retrospective / Blinded）
+  - TA Example 2: 交叉试验 4 视图（Study Schema / Prospective / Retrospective / Blinded）
+  - TA Example 3: 多分支 4 视图（Study Schema / Prospective / Retrospective / Blinded）
+  - TA Example 4: 周期化疗 5 视图（Study Schema / Prospective / Retrospective / Explicit Repeats / Blinded）
+  - TA Example 5: 不同化疗时长 2 视图（Study Schema / Retrospective）
+  - TA Example 6: 不同周期时长 2 视图（Study Schema / Retrospective）
+  - TA Example 7: RTOG 93-09 3 视图（Study Schema 2-arm / Prospective / Retrospective）
+  - TV Example 1: 并行设计访视时间轴图
+  - RELSPEC Example 1: 标本层次结构图（ASCII → Mermaid）
+- **涉及文件**: DM/examples.md, TA/examples.md, TV/examples.md, RELSPEC/examples.md
+- **结果**: 13/13 图表全部完成
+
+### 当前总结
+
+- **生成阶段**: 全部完成（5 Phase，293 个文件）
+- **验证阶段**: Step 0-2 + 2-final 已完成，Step 3（model/ + chapters/ 共 12 文件）和 Step 4（汇总报告）待开始
+- **下一步**: 执行 Step 3 — 验证 model/ (6 文件) + chapters/ (6 文件)

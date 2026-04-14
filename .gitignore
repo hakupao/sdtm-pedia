@@ -9,6 +9,9 @@ project_knowledge_base/
 markdown/
 reports/
 
+# Temporary files
+tmp/
+
 # Claude Code / tool state
 .claude/
 .omc/

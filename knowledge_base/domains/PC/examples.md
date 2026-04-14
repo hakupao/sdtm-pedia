@@ -20,7 +20,40 @@ PCTPTREF is a text value of the description of a "zero" time (e.g., time of dosi
 
 **pc.xpt**
 
-*Note: The PC Example 1 table contains 32 rows and over 25 columns including STUDYID, DOMAIN, USUBJID, PCSEQ, PCGRPID, PCREFID, PCTESTCD, PCTEST, PCCAT, PCORRES, PCORRESU, PCSTRESC, PCSTRESN, PCSTRESU, PCSPEC, PCBLFL, PCLLOQ, PCSTAT, PCDTC, PCENDTC, PCDY, PCTPT, PCTPTNUM, PCTPTREF, PCRFDTC, PCELTM, PCEVLINT. Representative data includes Drug X and Drug A Metabolite concentrations in PLASMA and URINE at multiple time points (pre-dose, 5 min, 25 min, 75 min, 100 min, 2h, 4h, 6h, 8h, 10h, 12h, 15h, 20h, 24h) across Day 1 Dose and Day 11 Dose, plus VOLUME and PH specimen properties for urine samples.*
+| Row | STUDYID | DOMAIN | USUBJID | PCSEQ | PCGRPID | PCREFID | PCTESTCD | PCTEST | PCCAT | PCORRES | PCORRESU | PCSTRESC | PCSTRESN | PCSTRESU | PCSPEC | PCBLFL | PCLLOQ | PCSTAT | PCDTC | PCENDTC | PCDY | PCTPT | PCTPTNUM | PCTPTREF | PCRFDTC | PCELTM | PCEVLINT |
+|-----|---------|--------|---------|-------|---------|---------|----------|--------|-------|---------|----------|----------|----------|----------|--------|--------|--------|--------|-------|---------|------|-------|----------|----------|---------|--------|---------|
+| 1 | ABC-123 | PC | 1235154 | 1 | DRUGA_DAY1 | 625154 | DRUGX | Drug A | ANALYTE | 0.10 | ng/mL | 0.10 | 0.10 | ng/mL | PLASMA | Y | 0.10 | | 2001-02-25 | | 1 | Pre-dose | -1 | Day 1 Dose | 2001-02-25T08:00 | PT0M | |
+| 2 | ABC-123 | PC | 1235154 | 2 | DRUGA_DAY1 | 625154 | DRUGXM | Drug A Metabolite | ANALYTE | BLQ | ng/mL | BLQ | | ng/mL | PLASMA | Y | 0.10 | | 2001-02-25 | | 1 | Pre-dose | -1 | Day 1 Dose | 2001-02-25T08:00 | PT0M | |
+| 3 | ABC-123 | PC | 1235154 | 3 | DRUGA_DAY1 | 625154 | DRUGX | Drug A | ANALYTE | 0.10 | ng/mL | 0.10 | 0.10 | ng/mL | URINE | Y | 0.10 | | 2001-02-25 | 2001-02-25 | 1 | Pre-dose | -1 | Day 1 Dose | 2001-02-25T08:00 | PT0M | |
+| 4 | ABC-123 | PC | 1235154 | 4 | DRUGA_DAY1 | 625154 | DRUGXM | Drug A Metabolite | ANALYTE | BLQ | ng/mL | BLQ | | ng/mL | URINE | Y | 0.10 | | 2001-02-25 | 2001-02-25 | 1 | Pre-dose | -1 | Day 1 Dose | 2001-02-25T08:00 | PT0M | |
+| 5 | ABC-123 | PC | 1235154 | 5 | DRUGA_DAY1 | 625154 | VOLUME | Volume | SPECIMEN PROPERTY | 363 | mL | 363 | 363 | mL | URINE | | | | 2001-02-25 | 2001-02-25 | 1 | Pre-dose | -1 | Day 1 Dose | 2001-02-25T08:00 | PT0M | |
+| 6 | ABC-123 | PC | 1235154 | 6 | DRUGA_DAY1 | 625154 | PH | PH | SPECIMEN PROPERTY | | | | | | URINE | | | | 2001-02-25 | 2001-02-25 | 1 | Pre-dose | -1 | Day 1 Dose | 2001-02-25T08:00 | PT0M | |
+| 7 | ABC-123 | PC | 1235154 | 7 | DRUGA_DAY1 | 625154 | DRUGX | Drug A | ANALYTE | 0.74 | ng/mL | 0.74 | 0.74 | ng/mL | PLASMA | | 0.10 | | 2001-02-25 | | 1 | 5 min post | 0.083 | Day 1 Dose | 2001-02-25T08:00 | PT5M | |
+| 8 | ABC-123 | PC | 1235154 | 8 | DRUGA_DAY1 | 625154 | DRUGXM | Drug A Metabolite | ANALYTE | BLQ | ng/mL | BLQ | | ng/mL | PLASMA | | 0.10 | | 2001-02-25 | | 1 | 5 min post | 0.083 | Day 1 Dose | 2001-02-25T08:00 | PT5M | |
+| 9 | ABC-123 | PC | 1235154 | 9 | DRUGA_DAY1 | 625154 | DRUGX | Drug A | ANALYTE | 6.92 | ng/mL | 6.92 | 6.92 | ng/mL | PLASMA | | 0.10 | | 2001-02-25 | | 1 | 25 min post | 0.417 | Day 1 Dose | 2001-02-25T08:00 | PT25M | |
+| 10 | ABC-123 | PC | 1235154 | 10 | DRUGA_DAY1 | 625154 | DRUGXM | Drug A Metabolite | ANALYTE | 1.86 | ng/mL | 1.86 | 1.86 | ng/mL | PLASMA | | 0.10 | | 2001-02-25 | | 1 | 25 min post | 0.417 | Day 1 Dose | 2001-02-25T08:00 | PT25M | |
+| 11 | ABC-123 | PC | 1235154 | 11 | DRUGA_DAY1 | 625154 | DRUGX | Drug A | ANALYTE | 5.19 | ng/mL | 5.19 | 5.19 | ng/mL | PLASMA | | 0.10 | | 2001-02-25 | | 1 | 75 min post | 1.25 | Day 1 Dose | 2001-02-25T08:00 | PT75M | |
+| 12 | ABC-123 | PC | 1235154 | 12 | DRUGA_DAY1 | 625154 | DRUGXM | Drug A Metabolite | ANALYTE | 6.10 | ng/mL | 6.10 | 6.10 | ng/mL | PLASMA | | 0.10 | | 2001-02-25 | | 1 | 75 min post | 1.25 | Day 1 Dose | 2001-02-25T08:00 | PT75M | |
+| 13 | ABC-123 | PC | 1235154 | 13 | DRUGA_DAY11 | 625154 | DRUGX | Drug A | ANALYTE | 1.75 | ng/mL | 1.75 | 1.75 | ng/mL | PLASMA | | 0.10 | | 2001-03-07 | | 11 | 100 min post | 1.667 | Day 11 Dose | 2001-03-07T08:00 | PT100M | |
+| 14 | ABC-123 | PC | 1235154 | 14 | DRUGA_DAY11 | 625154 | DRUGXM | Drug A Metabolite | ANALYTE | 1.18 | ng/mL | 1.18 | 1.18 | ng/mL | PLASMA | | 0.10 | | 2001-03-07 | | 11 | 100 min post | 1.667 | Day 11 Dose | 2001-03-07T08:00 | PT100M | |
+| 15 | ABC-123 | PC | 1235154 | 15 | DRUGA_DAY11 | 625154 | DRUGX | Drug A | ANALYTE | 265 | ng/mL | 265 | 265 | ng/mL | PLASMA | | 0.10 | | 2001-03-07 | | 11 | 2h post | 2 | Day 11 Dose | 2001-03-07T08:00 | PT2H | |
+| 16 | ABC-123 | PC | 1235154 | 16 | DRUGA_DAY11 | 625154 | DRUGXM | Drug A Metabolite | ANALYTE | 7.1 | ng/mL | 7.1 | 7.1 | ng/mL | PLASMA | | 0.10 | | 2001-03-07 | | 11 | 2h post | 2 | Day 11 Dose | 2001-03-07T08:00 | PT2H | |
+| 17 | ABC-123 | PC | 1235154 | 17 | DRUGA_DAY11 | 625154 | DRUGX | Drug A | ANALYTE | 380 | ng/mL | 380 | 380 | ng/mL | URINE | | 0.10 | | 2001-03-07 | 2001-03-07 | 11 | 12h post | 12 | Day 11 Dose | 2001-03-07T08:00 | PT12H | -PT12H |
+| 18 | ABC-123 | PC | 1235154 | 18 | DRUGA_DAY11 | 625154 | DRUGXM | Drug A Metabolite | ANALYTE | 380 | ng/mL | 380 | 380 | ng/mL | URINE | | 0.10 | | 2001-03-07 | 2001-03-07 | 11 | 12h post | 12 | Day 11 Dose | 2001-03-07T08:00 | PT12H | -PT12H |
+| 19 | ABC-123 | PC | 1235154 | 19 | DRUGA_DAY11 | 625154 | VOLUME | Volume | SPECIMEN PROPERTY | 606 | mL | 606 | 606 | mL | URINE | | | | 2001-03-07 | 2001-03-07 | 11 | 12h post | 12 | Day 11 Dose | 2001-03-07T08:00 | PT12H | -PT12H |
+| 20 | ABC-123 | PC | 1235154 | 20 | DRUGA_DAY11 | 625154 | PH | PH | SPECIMEN PROPERTY | 6.1 | | 6.1 | 6.1 | | URINE | | | | 2001-03-07 | 2001-03-07 | 11 | 12h post | 12 | Day 11 Dose | 2001-03-07T08:00 | PT12H | -PT12H |
+| 21 | ABC-123 | PC | 1235154 | 21 | DRUGA_DAY11 | 625154 | DRUGX | Drug A | ANALYTE | 2.4 | ng/mL | 2.4 | 2.4 | ng/mL | URINE | | 0.10 | | 2001-03-07 | 2001-03-18 | 11 | 24h post | 24 | Day 11 Dose | 2001-03-07T08:00 | PT24H | -PT12H |
+| 22 | ABC-123 | PC | 1235154 | 22 | DRUGA_DAY11 | 625154 | DRUGXM | Drug A Metabolite | ANALYTE | 2.4 | ng/mL | 2.4 | 2.4 | ng/mL | URINE | | 0.10 | | 2001-03-07 | 2001-03-18 | 11 | 24h post | 24 | Day 11 Dose | 2001-03-07T08:00 | PT24H | -PT12H |
+| 23 | ABC-123 | PC | 1235154 | 23 | DRUGA_DAY11 | 625154 | VOLUME | Volume | SPECIMEN PROPERTY | 406 | mL | 406 | 406 | mL | URINE | | | | 2001-03-07 | 2001-03-18 | 11 | 24h post | 24 | Day 11 Dose | 2001-03-07T08:00 | PT24H | -PT12H |
+| 24 | ABC-123 | PC | 1235154 | 24 | DRUGA_DAY11 | 625154 | PH | PH | SPECIMEN PROPERTY | | | | | | URINE | | | | 2001-03-07 | 2001-03-18 | 11 | 24h post | 24 | Day 11 Dose | 2001-03-07T08:00 | PT24H | -PT12H |
+| 25 | ABC-123 | PC | 1235154 | 25 | DRUGA_DAY11 | 625154 | DRUGX | Drug A | ANALYTE | 0.73 | ng/mL | 0.73 | 0.73 | ng/mL | PLASMA | | 0.10 | | 2001-03-17 | | 11 | 24h post | 24 | Day 11 Dose | 2001-03-07T08:00 | PT24H | |
+| 26 | ABC-123 | PC | 1235154 | 26 | DRUGA_DAY11 | 625154 | DRUGXM | Drug A Metabolite | ANALYTE | 0.80 | ng/mL | 0.80 | 0.80 | ng/mL | PLASMA | | 0.10 | | 2001-03-17 | | 11 | 24h post | 24 | Day 11 Dose | 2001-03-07T08:00 | PT24H | |
+| 27 | ABC-123 | PC | 1235154 | 27 | DRUGA_DAY11 | 625154 | DRUGX | Drug A | ANALYTE | | ng/mL | | | ng/mL | PLASMA | | 0.10 | NOT DONE | 2001-03-18 | | 11 | 36h post | 36 | Day 11 Dose | 2001-03-07T08:00 | PT36H | |
+| 28 | ABC-123 | PC | 1235154 | 28 | DRUGA_DAY11 | 625154 | DRUGXM | Drug A Metabolite | ANALYTE | | ng/mL | | | ng/mL | PLASMA | | 0.10 | NOT DONE | 2001-03-18 | | 11 | 36h post | 36 | Day 11 Dose | 2001-03-07T08:00 | PT36H | |
+| 29 | ABC-123 | PC | 1235154 | 29 | DRUGA_DAY11 | 625154 | DRUGX | Drug A | ANALYTE | 5.1 | | | | | PLASMA | | | | 2001-03-07 | | 11 | Pre-dose | -1 | Day 11 Dose | 2001-03-07T08:00 | PT0M | |
+| 30 | ABC-123 | PC | 1235154 | 30 | DRUGA_DAY11 | 625154 | DRUGXM | Drug A Metabolite | ANALYTE | | | | | | PLASMA | | | | 2001-03-07 | | 11 | Pre-dose | -1 | Day 11 Dose | 2001-03-07T08:00 | PT0M | |
+| 31 | ABC-123 | PC | 1235154 | 31 | DRUGA_DAY11 | 625154 | DRUGX | Drug A | ANALYTE | 6.28 | ng/mL | 6.28 | 6.28 | ng/mL | PLASMA | | 0.10 | | 2001-03-07 | | 11 | 5 min post | 0.083 | Day 11 Dose | 2001-03-07T08:00 | PT5M | |
+| 32 | ABC-123 | PC | 1235154 | 32 | DRUGA_DAY11 | 625154 | DRUGXM | Drug A Metabolite | ANALYTE | 0.81 | ng/mL | 0.81 | 0.81 | ng/mL | PLASMA | | 0.10 | | 2001-03-07 | | 11 | 5 min post | 0.083 | Day 11 Dose | 2001-03-07T08:00 | PT5M | |
 
 ## Relating PC and PP — Overview
 
@@ -55,19 +88,164 @@ Note that a submission dataset would contain only 1 --GRPID column with a set of
 
 ### Shared PC Dataset for All Examples
 
-The shared PC dataset contains 24 rows of Drug X concentration data (STUDYDRUG analyte) at various time points across Day 1 Dose and Day 8 Dose, with 4 PCGRPID columns showing the grouping values for Examples 1-4.
+**pc.xpt**
+
+| Row | STUDYID | DOMAIN | USUBJID | PCSEQ | PCGRPID (Example 1) | PCGRPID (Example 2) | PCGRPID (Example 3) | PCGRPID (Example 4) | PCTESTCD | PCTEST | PCCAT | PCORRES | PCORRESU | PCSTRESC | PCSTRESN | PCSTRESU | PCSPEC | PCBLFL | PCLLOQ | PCSTAT | VISITNUM | VISIT | VISITDY | PCDTC | PCENDTC | PCDY | PCTPT | PCTPTNUM | PCTPTREF | PCRFDTC | PCELTM | PCEVLINT |
+|-----|---------|--------|---------|-------|---------------------|---------------------|---------------------|---------------------|----------|--------|-------|---------|----------|----------|----------|----------|--------|--------|--------|--------|----------|-------|---------|-------|---------|------|-------|----------|----------|---------|--------|---------|
+| 1 | ABC-123 | PC | ABC-123-0001 | 1 | DY1_DRGX | DY1_DRGX | DY1_DRGX_A | DY1DRGX_A | STUDYDRUG | STUDYDRUG | ANALYTE | q | | | | | PLASMA | | 0.10 | | 1 | Day 1 | 1 | 2001-02-01 | | 1 | Pre-dose | -1 | Day 1 Dose | 2001-02-01T08:35 | PT0M | |
+| 2 | ABC-123 | PC | ABC-123-0001 | 2 | DY1_DRGX | DY1_DRGX | DY1_DRGX_A | DY1DRGX_A | STUDYDRUG | STUDYDRUG | ANALYTE | 5 | ng/mL | 5 | 5 | ng/mL | PLASMA | | 0.10 | | 1 | Day 1 | 1 | 2001-02-01 | | 1 | 5 min post | 0.083 | Day 1 Dose | 2001-02-01T08:35 | PT5M | |
+| 3 | ABC-123 | PC | ABC-123-0001 | 3 | DY1_DRGX | DY1_DRGX | DY1_DRGX_A | DY1DRGX_A | STUDYDRUG | STUDYDRUG | ANALYTE | 38 | ng/mL | 38 | 38 | ng/mL | PLASMA | | 0.10 | | 1 | Day 1 | 1 | 2001-02-01 | | 1 | 30 min post | 0.5 | Day 1 Dose | 2001-02-01T08:35 | PT30M | |
+| 4 | ABC-123 | PC | ABC-123-0001 | 4 | DY1_DRGX | DY1_DRGX | DY1_DRGX_A | DY1DRGX_A | STUDYDRUG | STUDYDRUG | ANALYTE | 38 | ng/mL | 38 | 38 | ng/mL | PLASMA | | 0.10 | | 1 | Day 1 | 1 | 2001-02-01 | | 1 | 1h post | 1 | Day 1 Dose | 2001-02-01T08:35 | PT1H | |
+| 5 | ABC-123 | PC | ABC-123-0001 | 5 | DY1_DRGX | DY1_DRGX | DY1_DRGX_A | DY1DRGX_C | STUDYDRUG | STUDYDRUG | ANALYTE | 30 | ng/mL | 30 | 30 | ng/mL | PLASMA | | 0.10 | | 1 | Day 1 | 1 | 2001-02-01 | | 1 | 2h post | 2 | Day 1 Dose | 2001-02-01T08:35 | PT2H | |
+| 6 | ABC-123 | PC | ABC-123-0001 | 6 | DY1_DRGX | DY1_DRGX | DY1_DRGX_A | DY1DRGX_B | STUDYDRUG | STUDYDRUG | ANALYTE | 22 | ng/mL | 22 | 22 | ng/mL | PLASMA | | 0.10 | | 1 | Day 1 | 1 | 2001-02-01 | | 1 | 3h post | 3 | Day 1 Dose | 2001-02-01T08:35 | PT3H | |
+| 7 | ABC-123 | PC | ABC-123-0001 | 7 | DY1_DRGX | DY1_DRGX | DY1_DRGX_A | DY1DRGX_A | STUDYDRUG | STUDYDRUG | ANALYTE | 16 | ng/mL | 16 | 16 | ng/mL | PLASMA | | 0.10 | | 1 | Day 1 | 1 | 2001-02-01 | | 1 | 4h post | 4 | Day 1 Dose | 2001-02-01T08:35 | PT4H | |
+| 8 | ABC-123 | PC | ABC-123-0001 | 8 | DY1_DRGX | EXCLUDE | DY1_DRGX_B | DY1DRGX_A | STUDYDRUG | STUDYDRUG | ANALYTE | 12 | ng/mL | 12 | 12 | ng/mL | PLASMA | | 0.10 | | 1 | Day 1 | 1 | 2001-02-01 | | 1 | 6h post | 6 | Day 1 Dose | 2001-02-01T08:35 | PT6H | |
+| 9 | ABC-123 | PC | ABC-123-0001 | 9 | DY1_DRGX | EXCLUDE | DY1_DRGX_B | DY1DRGX_A | STUDYDRUG | STUDYDRUG | ANALYTE | 9 | ng/mL | 9 | 9 | ng/mL | PLASMA | | 0.10 | | 1 | Day 1 | 1 | 2001-02-01 | | 1 | 8h post | 8 | Day 1 Dose | 2001-02-01T08:35 | PT8H | |
+| 10 | ABC-123 | PC | ABC-123-0001 | 10 | DY1_DRGX | DY1_DRGX | DY1_DRGX_A | DY1DRGX_A | STUDYDRUG | STUDYDRUG | ANALYTE | 6 | ng/mL | 6 | 6 | ng/mL | PLASMA | | 0.10 | | 1 | Day 1 | 1 | 2001-02-01 | | 1 | 10h post | 10 | Day 1 Dose | 2001-02-01T08:35 | PT10H | |
+| 11 | ABC-123 | PC | ABC-123-0001 | 11 | DY1_DRGX | DY1_DRGX | DY1_DRGX_A | DY1DRGX_A | STUDYDRUG | STUDYDRUG | ANALYTE | 4 | ng/mL | 4 | 4 | ng/mL | PLASMA | | 0.10 | | 1 | Day 1 | 1 | 2001-02-01 | | 1 | 12h post | 12 | Day 1 Dose | 2001-02-01T08:35 | PT12H | |
+| 12 | ABC-123 | PC | ABC-123-0001 | 12 | DY1_DRGX | DY1_DRGX | DY1_DRGX_A | DY1DRGX_D | STUDYDRUG | STUDYDRUG | ANALYTE | 3 | ng/mL | 3 | 3 | ng/mL | PLASMA | | 0.10 | | 1 | Day 1 | 1 | 2001-02-01 | | 1 | 15h post | 15 | Day 1 Dose | 2001-02-01T08:35 | PT15H | |
+| 13 | ABC-123 | PC | ABC-123-0001 | 13 | DY8_DRGX | DY8_DRGX | DY8_DRGX | DY8DRGX | STUDYDRUG | STUDYDRUG | ANALYTE | q | | | | | PLASMA | | 0.10 | | 8 | Day 8 | 8 | 2001-02-08 | | 8 | Pre-dose | -1 | Day 8 Dose | 2001-02-08T08:35 | PT0M | |
+| 14 | ABC-123 | PC | ABC-123-0001 | 14 | DY8_DRGX | DY8_DRGX | DY8_DRGX | DY8DRGX | STUDYDRUG | STUDYDRUG | ANALYTE | 6 | ng/mL | 6 | 6 | ng/mL | PLASMA | | 0.10 | | 8 | Day 8 | 8 | 2001-02-08 | | 8 | 5 min post | 0.083 | Day 8 Dose | 2001-02-08T08:35 | PT5M | |
+| 15 | ABC-123 | PC | ABC-123-0001 | 15 | DY8_DRGX | DY8_DRGX | DY8_DRGX | DY8DRGX | STUDYDRUG | STUDYDRUG | ANALYTE | 40 | ng/mL | 40 | 40 | ng/mL | PLASMA | | 0.10 | | 8 | Day 8 | 8 | 2001-02-08 | | 8 | 30 min post | 0.5 | Day 8 Dose | 2001-02-08T08:35 | PT30M | |
+| 16 | ABC-123 | PC | ABC-123-0001 | 16 | DY8_DRGX | DY8_DRGX | DY8_DRGX | DY8DRGX | STUDYDRUG | STUDYDRUG | ANALYTE | 40 | ng/mL | 40 | 40 | ng/mL | PLASMA | | 0.10 | | 8 | Day 8 | 8 | 2001-02-08 | | 8 | 1h post | 1 | Day 8 Dose | 2001-02-08T08:35 | PT1H | |
+| 17 | ABC-123 | PC | ABC-123-0001 | 17 | DY8_DRGX | DY8_DRGX | DY8_DRGX | DY8DRGX | STUDYDRUG | STUDYDRUG | ANALYTE | 32 | ng/mL | 32 | 32 | ng/mL | PLASMA | | 0.10 | | 8 | Day 8 | 8 | 2001-02-08 | | 8 | 2h post | 2 | Day 8 Dose | 2001-02-08T08:35 | PT2H | |
+| 18 | ABC-123 | PC | ABC-123-0001 | 18 | DY8_DRGX | DY8_DRGX | DY8_DRGX | DY8DRGX | STUDYDRUG | STUDYDRUG | ANALYTE | 22 | ng/mL | 22 | 22 | ng/mL | PLASMA | | 0.10 | | 8 | Day 8 | 8 | 2001-02-08 | | 8 | 3h post | 3 | Day 8 Dose | 2001-02-08T08:35 | PT3H | |
+| 19 | ABC-123 | PC | ABC-123-0001 | 19 | DY8_DRGX | DY8_DRGX | DY8_DRGX | DY8DRGX | STUDYDRUG | STUDYDRUG | ANALYTE | 16 | ng/mL | 16 | 16 | ng/mL | PLASMA | | 0.10 | | 8 | Day 8 | 8 | 2001-02-08 | | 8 | 4h post | 4 | Day 8 Dose | 2001-02-08T08:35 | PT4H | |
+| 20 | ABC-123 | PC | ABC-123-0001 | 20 | DY8_DRGX | DY8_DRGX | DY8_DRGX | DY8DRGX | STUDYDRUG | STUDYDRUG | ANALYTE | 12 | ng/mL | 12 | 12 | ng/mL | PLASMA | | 0.10 | | 8 | Day 8 | 8 | 2001-02-08 | | 8 | 6h post | 6 | Day 8 Dose | 2001-02-08T08:35 | PT6H | |
+| 21 | ABC-123 | PC | ABC-123-0001 | 21 | DY8_DRGX | DY8_DRGX | DY8_DRGX | DY8DRGX | STUDYDRUG | STUDYDRUG | ANALYTE | 9 | ng/mL | 9 | 9 | ng/mL | PLASMA | | 0.10 | | 8 | Day 8 | 8 | 2001-02-08 | | 8 | 8h post | 8 | Day 8 Dose | 2001-02-08T08:35 | PT8H | |
+| 22 | ABC-123 | PC | ABC-123-0001 | 22 | DY8_DRGX | DY8_DRGX | DY8_DRGX | DY8DRGX | STUDYDRUG | STUDYDRUG | ANALYTE | 6 | ng/mL | 6 | 6 | ng/mL | PLASMA | | 0.10 | | 8 | Day 8 | 8 | 2001-02-08 | | 8 | 10h post | 10 | Day 8 Dose | 2001-02-08T08:35 | PT10H | |
+| 23 | ABC-123 | PC | ABC-123-0001 | 23 | DY8_DRGX | DY8_DRGX | DY8_DRGX | DY8DRGX | STUDYDRUG | STUDYDRUG | ANALYTE | 4 | ng/mL | 4 | 4 | ng/mL | PLASMA | | 0.10 | | 8 | Day 8 | 8 | 2001-02-08 | | 8 | 12h post | 12 | Day 8 Dose | 2001-02-08T08:35 | PT12H | |
+| 24 | ABC-123 | PC | ABC-123-0001 | 24 | DY8_DRGX | DY8_DRGX | DY8_DRGX | DY8DRGX | STUDYDRUG | STUDYDRUG | ANALYTE | 3 | ng/mL | 3 | 3 | ng/mL | PLASMA | | 0.10 | | 8 | Day 8 | 8 | 2001-02-08 | | 8 | 15h post | 15 | Day 8 Dose | 2001-02-08T08:35 | PT15H | |
 
 ### Example 1 (All PC records used)
 
-All PC records used to calculate all pharmacokinetic parameters. This example uses --GRPID values in the PCGRPID (Example 1) and PPGRPID (Example 1) columns.
+All PC records used to calculate all pharmacokinetic parameters.
 
-**Method A (Many to Many, Using PCGRPID and PPGRPID):** The relationship with RELID "1" includes all PC records with PCGRPID = "DY1_DRGX" and all PP records with PPGRPID = "DY1DRGX". The relationship with RELID "2" includes all PC records with GRPID = "DY8_DRGX" and all PP records with GRPID = "DY8DRGX".
+This example uses --GRPID values in the PCGRPID (Example 1) and PPGRPID (Example 1) columns.
 
-**Method B (One to Many, Using PCSEQ and PPGRPID):** The relationship with RELID "1" includes the individual PC records with PCSEQ values "1" to "12" and all PP records with PPGRPID = "DY1DRGX". The relationship with RELID "2" includes the individual PC records with PCSEQ values "13" to "24" and all PP records with PPGRPID = "DY8DRGX".
+**Method A (Many to Many, Using PCGRPID and PPGRPID)**
 
-**Method C (Many to One, Using PCGRPID and PPSEQ):** The relationship with RELID "1" includes all PC records with a PCGRPID = "DY1_DRGX" and PP records with PPSEQ values "1" through "7". The relationship with RELID "2" includes all PC records with a PCGRPID = "DY8_DRGX" and PP records with PPSEQ values "8" through "14".
+**Rows 1-2:** The relationship with RELID "1" includes all PC records with PCGRPID = "DY1_DRGX" and all PP records with PPGRPID = "DY1DRGX".
+**Rows 3-4:** The relationship with RELID "2" includes all PC records with GRPID = "DY8_DRGX" and all PP records with GRPID = "DY8DRGX".
 
-**Method D (One to One, Using PCSEQ and PPSEQ):** The relationship with RELID "1" includes individual PC records with PCSEQ values "1" through "12" and PP records with PPSEQ = "1". The relationship with RELID "2" includes individual PC records with PCSEQ values "13" through "24" and PP records with PPSEQ values "8" through "14".
+**relrec.xpt**
+
+| Row | STUDYID | RDOMAIN | USUBJID | IDVAR | IDVARVAL | RELTYPE | RELID |
+|-----|---------|---------|---------|-------|----------|---------|-------|
+| 1 | ABC-123 | PC | ABC-123-0001 | PCGRPID | DY1_DRGX | | 1 |
+| 2 | ABC-123 | PP | ABC-123-0001 | PPGRPID | DY1DRGX | | 1 |
+| 3 | ABC-123 | PC | ABC-123-0001 | PPGRPID | DY8_DRGX | | 2 |
+| 4 | ABC-123 | PP | ABC-123-0001 | PPGRPID | DY8DRGX | | 2 |
+
+**Method B (One to Many, Using PCSEQ and PPGRPID)**
+
+**Rows 1-13:** The relationship with RELID "1" includes the individual PC records with PCSEQ values "1" to "12" and all PP records with PPGRPID = "DY1DRGX".
+**Rows 14-26:** The relationship with RELID "2" includes the individual PC records with PCSEQ values "13" to "24" and all PP records with PPGRPID = "DY8DRGX".
+
+**relrec.xpt**
+
+| Row | STUDYID | RDOMAIN | USUBJID | IDVAR | IDVARVAL | RELTYPE | RELID |
+|-----|---------|---------|---------|-------|----------|---------|-------|
+| 1 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 1 | | 1 |
+| 2 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 2 | | 1 |
+| 3 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 3 | | 1 |
+| 4 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 4 | | 1 |
+| 5 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 5 | | 1 |
+| 6 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 6 | | 1 |
+| 7 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 7 | | 1 |
+| 8 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 8 | | 1 |
+| 9 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 9 | | 1 |
+| 10 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 10 | | 1 |
+| 11 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 11 | | 1 |
+| 12 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 12 | | 1 |
+| 13 | ABC-123 | PP | ABC-123-0001 | PPGRPID | DY1DRGX | | 1 |
+| 14 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 13 | | 2 |
+| 15 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 14 | | 2 |
+| 16 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 15 | | 2 |
+| 17 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 16 | | 2 |
+| 18 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 17 | | 2 |
+| 19 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 18 | | 2 |
+| 20 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 19 | | 2 |
+| 21 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 20 | | 2 |
+| 22 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 21 | | 2 |
+| 23 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 22 | | 2 |
+| 24 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 23 | | 2 |
+| 25 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 24 | | 2 |
+| 26 | ABC-123 | PP | ABC-123-0001 | PPGRPID | DY8DRGX | | 2 |
+
+**Method C (Many to One, Using PCGRPID and PPSEQ)**
+
+**Rows 1-8:** The relationship with RELID "1" includes all PC records with a PCGRPID = "DY1_DRGX" and PP records with PPSEQ values "1" through "7".
+**Rows 9-16:** The relationship with RELID "2" includes all PC records with a PCGRPID = "DY8_DRGX" and PP records with PPSEQ values "8" through "14".
+
+**relrec.xpt**
+
+| Row | STUDYID | RDOMAIN | USUBJID | IDVAR | IDVARVAL | RELTYPE | RELID |
+|-----|---------|---------|---------|-------|----------|---------|-------|
+| 1 | ABC-123 | PC | ABC-123-0001 | PCGRPID | DY1_DRGX | | 1 |
+| 2 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 1 | | 1 |
+| 3 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 2 | | 1 |
+| 4 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 3 | | 1 |
+| 5 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 4 | | 1 |
+| 6 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 5 | | 1 |
+| 7 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 6 | | 1 |
+| 8 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 7 | | 1 |
+| 9 | ABC-123 | PC | ABC-123-0001 | PCGRPID | DY8_DRGX | | 2 |
+| 10 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 8 | | 2 |
+| 11 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 9 | | 2 |
+| 12 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 10 | | 2 |
+| 13 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 11 | | 2 |
+| 14 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 12 | | 2 |
+| 15 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 13 | | 2 |
+| 16 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 14 | | 2 |
+
+**Method D (One to One, Using PCSEQ and PPSEQ)**
+
+**Rows 1-19:** The relationship with RELID "1" includes individual PC records with PCSEQ values "1" through "12" and PP records with PPSEQ values "1" through "7".
+**Rows 20-38:** The relationship with RELID "2" includes individual PC records with PCSEQ values "13" through "24" and PP records with PPSEQ values "8" through "14".
+
+**relrec.xpt**
+
+| Row | STUDYID | RDOMAIN | USUBJID | IDVAR | IDVARVAL | RELTYPE | RELID |
+|-----|---------|---------|---------|-------|----------|---------|-------|
+| 1 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 1 | | 1 |
+| 2 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 2 | | 1 |
+| 3 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 3 | | 1 |
+| 4 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 4 | | 1 |
+| 5 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 5 | | 1 |
+| 6 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 6 | | 1 |
+| 7 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 7 | | 1 |
+| 8 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 8 | | 1 |
+| 9 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 9 | | 1 |
+| 10 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 10 | | 1 |
+| 11 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 11 | | 1 |
+| 12 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 12 | | 1 |
+| 13 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 1 | | 1 |
+| 14 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 2 | | 1 |
+| 15 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 3 | | 1 |
+| 16 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 4 | | 1 |
+| 17 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 5 | | 1 |
+| 18 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 6 | | 1 |
+| 19 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 7 | | 1 |
+| 20 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 13 | | 2 |
+| 21 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 14 | | 2 |
+| 22 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 15 | | 2 |
+| 23 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 16 | | 2 |
+| 24 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 17 | | 2 |
+| 25 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 18 | | 2 |
+| 26 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 19 | | 2 |
+| 27 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 20 | | 2 |
+| 28 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 21 | | 2 |
+| 29 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 22 | | 2 |
+| 30 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 23 | | 2 |
+| 31 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 24 | | 2 |
+| 32 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 8 | | 2 |
+| 33 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 9 | | 2 |
+| 34 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 10 | | 2 |
+| 35 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 11 | | 2 |
+| 36 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 12 | | 2 |
+| 37 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 13 | | 2 |
+| 38 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 14 | | 2 |
 
 ### Example 2 (Some PC records excluded)
 
@@ -77,7 +255,79 @@ This example uses --GRPID values in the PCGRPID (Example 2) and PPGRPID (Example
 
 All pharmacokinetic concentrations for day 8 were used to calculate all pharmacokinetic parameters. Because day 8 relationships are the same as in Example 1, they are not included here.
 
-Methods A, B, C, and D RELREC tables follow the same pattern as Example 1, but with the excluded records omitted from the relationships.
+**Method A (Many to Many, Using PCGRPID and PPGRPID)**
+
+The relationship with RELID "1" includes PC records with PCGRPID = "DY1_DRGX" and all PP records with PPGRPID = "DY1DRGX". PC records with PCGRPID = "EXCLUDE" are not included in this relationship.
+
+**relrec.xpt**
+
+| Row | STUDYID | RDOMAIN | USUBJID | IDVAR | IDVARVAL | RELTYPE | RELID |
+|-----|---------|---------|---------|-------|----------|---------|-------|
+| 1 | ABC-123 | PC | ABC-123-0001 | PCGRPID | DY1_DRGX | | 1 |
+| 2 | ABC-123 | PP | ABC-123-0001 | PPGRPID | DY1DRGX | | 1 |
+
+**Method B (One to Many, Using PCSEQ and PPGRPID)**
+
+The relationship with RELID "1" includes individual PC records with PCSEQ values "1" through "7" and "10" through "12", and all the PP records with PPGRPID = "DY1DRGX".
+
+**relrec.xpt**
+
+| Row | STUDYID | RDOMAIN | USUBJID | IDVAR | IDVARVAL | RELTYPE | RELID |
+|-----|---------|---------|---------|-------|----------|---------|-------|
+| 1 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 1 | | 1 |
+| 2 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 2 | | 1 |
+| 3 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 3 | | 1 |
+| 4 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 4 | | 1 |
+| 5 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 5 | | 1 |
+| 6 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 6 | | 1 |
+| 7 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 7 | | 1 |
+| 8 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 10 | | 1 |
+| 9 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 12 | | 1 |
+| 10 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 12 | | 1 |
+| 11 | ABC-123 | PP | ABC-123-0001 | PPGRPID | DY1DRGX | | 1 |
+
+**Method C (Many to One, Using PCGRPID and PPSEQ)**
+
+The relationship with RELID "1" includes all PC records with PCGRPID = "DY1_DRGX" and individual PP records with PPSEQ values "1" through "7".
+
+**relrec.xpt**
+
+| Row | STUDYID | RDOMAIN | USUBJID | IDVAR | IDVARVAL | RELTYPE | RELID |
+|-----|---------|---------|---------|-------|----------|---------|-------|
+| 1 | ABC-123 | PC | ABC-123-0001 | PCGRPID | DY1_DRGX | | 1 |
+| 2 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 1 | | 1 |
+| 3 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 2 | | 1 |
+| 4 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 3 | | 1 |
+| 5 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 4 | | 1 |
+| 6 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 5 | | 1 |
+| 7 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 6 | | 1 |
+| 8 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 7 | | 1 |
+
+**Method D (One to One, Using PCSEQ and PPSEQ)**
+
+The relationship with RELID "1" includes individual PC records with PCSEQ values "1" through "7" and "10" through "12" and individual PP records with PPSEQ values "1" through "7".
+
+**relrec.xpt**
+
+| Row | STUDYID | RDOMAIN | USUBJID | IDVAR | IDVARVAL | RELTYPE | RELID |
+|-----|---------|---------|---------|-------|----------|---------|-------|
+| 1 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 1 | | 1 |
+| 2 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 2 | | 1 |
+| 3 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 3 | | 1 |
+| 4 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 4 | | 1 |
+| 5 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 5 | | 1 |
+| 6 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 6 | | 1 |
+| 7 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 7 | | 1 |
+| 8 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 10 | | 1 |
+| 9 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 11 | | 1 |
+| 10 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 12 | | 1 |
+| 11 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 1 | | 1 |
+| 12 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 2 | | 1 |
+| 13 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 3 | | 1 |
+| 14 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 4 | | 1 |
+| 15 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 5 | | 1 |
+| 16 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 6 | | 1 |
+| 17 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 7 | | 1 |
 
 ### Example 3 (Inconsistent PC usage across parameters)
 
@@ -85,7 +335,115 @@ Only some records in PC were used to calculate some parameters; time points 8 an
 
 This example uses --GRPID values in the PCGRPID (Example 3) and PPGRPID (Example 3) columns. Note that the 2 excluded PC records have PCGRPID = "DY1_DRGX_B"; the other PC records have PCGRPID = "DY1_DRGX_A". Note also that the PP records for half-life calculations have PPGRPID = "DY1DRGX_HALF", whereas the other PP records have PPGRPID = "DY1DRGX_A".
 
-Methods A, B, C, and D RELREC tables show the split between the two groups of PC records and their corresponding PP records.
+All pharmacokinetic concentrations for day 8 were used to calculate all pharmacokinetic parameters. Because day 8 relationships are the same as in Example 1, they are not included here.
+
+**Method A (Many to Many, Using PCGRPID and PPGRPID)**
+
+**Rows 1-3:** The relationship with RELID "1" includes all PC records with PCGRPID = "DY1_DRGX_A", all PC records with PCGRPID = "DY1_DRGX_B" (which in this case is all the PP records for Day 1) and all PP records with PPGRPID = "DY1DRGX_A".
+**Rows 4-6:** The relationship with RELID "2" includes only PC records with PCGRPID = "DY1_DRGX_A" and all PP records with PPGRPID = "DY1DRGX_HALF".
+
+**relrec.xpt**
+
+| Row | STUDYID | RDOMAIN | USUBJID | IDVAR | IDVARVAL | RELTYPE | RELID |
+|-----|---------|---------|---------|-------|----------|---------|-------|
+| 1 | ABC-123 | PC | ABC-123-0001 | PCGRPID | DY1_DRGX_A | | 1 |
+| 2 | ABC-123 | PC | ABC-123-0001 | PCGRPID | DY1_DRGX_B | | 1 |
+| 3 | ABC-123 | PP | ABC-123-0001 | PPGRPID | DY1DRGX_A | | 1 |
+| 4 | ABC-123 | PC | ABC-123-0001 | PCGRPID | DY1_DRGX_A | | 2 |
+| 5 | ABC-123 | PP | ABC-123-0001 | PPGRPID | DY1DRGX_HALF | | 2 |
+
+**Method B (One to Many, Using PCSEQ and PPGRPID)**
+
+**Rows 1-13:** The relationship with RELID "1" includes PP records with PCSEQ values "1" through "12" and PP records with PPGRPID = "DY1DRGX_A".
+**Rows 14-24:** The relationship with RELID "2" includes PC records with PCSEQ values "1" through "7" and "10" through "12" and PP records with PPGRPID = "DY1DRGX_HALF".
+
+**relrec.xpt**
+
+| Row | STUDYID | RDOMAIN | USUBJID | IDVAR | IDVARVAL | RELTYPE | RELID |
+|-----|---------|---------|---------|-------|----------|---------|-------|
+| 1 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 1 | | 1 |
+| 2 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 2 | | 1 |
+| 3 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 3 | | 1 |
+| 4 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 4 | | 1 |
+| 5 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 5 | | 1 |
+| 6 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 6 | | 1 |
+| 7 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 7 | | 1 |
+| 8 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 8 | | 1 |
+| 9 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 9 | | 1 |
+| 10 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 10 | | 1 |
+| 11 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 11 | | 1 |
+| 12 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 12 | | 1 |
+| 13 | ABC-123 | PP | ABC-123-0001 | PPGRPID | DY1DRGX_A | | 1 |
+| 14 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 1 | | 2 |
+| 15 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 2 | | 2 |
+| 16 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 3 | | 2 |
+| 17 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 4 | | 2 |
+| 18 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 5 | | 2 |
+| 19 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 6 | | 2 |
+| 20 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 7 | | 2 |
+| 21 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 10 | | 2 |
+| 22 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 11 | | 2 |
+| 23 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 12 | | 2 |
+| 24 | ABC-123 | PP | ABC-123-0001 | PPGRPID | DY1DRGX_HALF | | 2 |
+
+**Method C (Many to One, Using PCGRPID and PPSEQ)**
+
+**Rows 1-7:** The relationship with RELID "1" includes all PP records with PPGRPID values "DY1_DRGX_A" and "DY1_DRGX_B" and PP records with PPSEQ values "1" through "3", "6" and "7".
+**Rows 8-10:** The relationship with RELID "2" includes all PP records with PPGRPID value "DY1_DRGX_A" and PP records with PPSEQ values "4" and "5".
+
+**relrec.xpt**
+
+| Row | STUDYID | RDOMAIN | USUBJID | IDVAR | IDVARVAL | RELTYPE | RELID |
+|-----|---------|---------|---------|-------|----------|---------|-------|
+| 1 | ABC-123 | PC | ABC-123-0001 | PCGRPID | DY1_DRGX_A | | 1 |
+| 2 | ABC-123 | PC | ABC-123-0001 | PCGRPID | DY1_DRGX_B | | 1 |
+| 3 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 1 | | 1 |
+| 4 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 2 | | 1 |
+| 5 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 3 | | 1 |
+| 6 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 6 | | 1 |
+| 7 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 7 | | 1 |
+| 8 | ABC-123 | PC | ABC-123-0001 | PCGRPID | DY1_DRGX_A | | 2 |
+| 9 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 4 | | 2 |
+| 10 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 5 | | 2 |
+
+**Method D (One to One, Using PCSEQ and PPSEQ)**
+
+**Rows 1-17:** The relationship with RELID "1" includes PC records with PCSEQ values of "1" through "12" and PP records with PPSEQ values "1" through "3", "6" and "7".
+**Rows 18-29:** The relationship with RELID "2" includes PC records with PCSEQ values of "1" through "7" and "10" through "12" and PP records with PPSEQ values "4" and "5".
+
+**relrec.xpt**
+
+| Row | STUDYID | RDOMAIN | USUBJID | IDVAR | IDVARVAL | RELTYPE | RELID |
+|-----|---------|---------|---------|-------|----------|---------|-------|
+| 1 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 1 | | 1 |
+| 2 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 2 | | 1 |
+| 3 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 3 | | 1 |
+| 4 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 4 | | 1 |
+| 5 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 5 | | 1 |
+| 6 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 6 | | 1 |
+| 7 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 7 | | 1 |
+| 8 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 8 | | 1 |
+| 9 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 9 | | 1 |
+| 10 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 10 | | 1 |
+| 11 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 11 | | 1 |
+| 12 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 12 | | 1 |
+| 13 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 1 | | 1 |
+| 14 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 2 | | 1 |
+| 15 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 3 | | 1 |
+| 16 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 6 | | 1 |
+| 17 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 7 | | 1 |
+| 18 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 1 | | 2 |
+| 19 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 2 | | 2 |
+| 20 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 3 | | 2 |
+| 21 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 4 | | 2 |
+| 22 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 5 | | 2 |
+| 23 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 6 | | 2 |
+| 24 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 7 | | 2 |
+| 25 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 10 | | 2 |
+| 26 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 11 | | 2 |
+| 27 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 12 | | 2 |
+| 28 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 4 | | 2 |
+| 29 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 5 | | 2 |
 
 ### Example 4 (Complex exclusions)
 
@@ -95,11 +453,105 @@ This example uses --GRPID values in the PCGRPID (Example 4) and PPGRPID (Example
 
 Because of the complexity of this example, only methods A and D are illustrated.
 
-**Method A (Many to Many, Using PCGRPID and PPGRPID):**
-- **Rows 1-4:** The relationship with RELID "1" includes all PC records with PCGRPID values "DY1DRGX_A", "DY1DRGX_C", and "DY1DRGX_D" and the one PP record with PPGRPID = "TMAX".
-- **Rows 5-8:** The relationship with RELID "2" includes PC records with PCGRPID values "DY1DRGX_A", "DY1DRGX_B", and "DY1DRGX_D" and the one PP record with PPGRPID = "CMAX".
-- **Rows 9-12:** The relationship with RELID "3" includes PC records with PCGRPID values "DY1DRGX_A", "DY1DRGX_B", and "DY1DRGX_C" and the one PP record with PPGRPID = "AUC".
-- **Rows 13-17:** The relationship with RELID "4" includes all PC records with PCGRPID values "DY1DRGX_A", "DY1DRGX_B", "DY1DRGX_C", and "DY1DRGX_D" (in this case, all PC records) and all PP records with PPGRPID = "OTHER".
+**Method A (Many to Many, Using PCGRPID and PPGRPID)**
+
+**Rows 1-4:** The relationship with RELID "1" includes PC records with PCGRPID values "DY1DRGX_A", "DY1DRGX_C", and "DY1DRGX_D" and the one PP record with PPGRPID = "TMAX".
+**Rows 5-8:** The relationship with RELID "2" includes PC records with PCGRPID values "DY1DRGX_A", "DY1DRGX_B", and "DY1DRGX_D" and the one PP record with PPGRPID = "CMAX".
+**Rows 9-12:** The relationship with RELID "3" includes PC records with PCGRPID values "DY1DRGX_A", "DY1DRGX_B", and "DY1DRGX_C" and the one PP record with PPGRPID = "AUC".
+**Rows 13-17:** The relationship with RELID "4" includes all PC records with PCGRPID values "DY1DRGX_A", "DY1DRGX_B", "DY1DRGX_C", and "DY1DRGX_D" (in this case, all PC records) and all PP records with PPGRPID = "OTHER".
+
+**relrec.xpt**
+
+| Row | STUDYID | RDOMAIN | USUBJID | IDVAR | IDVARVAL | RELTYPE | RELID |
+|-----|---------|---------|---------|-------|----------|---------|-------|
+| 1 | ABC-123 | PP | ABC-123-0001 | PPGRPID | TMAX | | 1 |
+| 2 | ABC-123 | PC | ABC-123-0001 | PCGRPID | DY1DRGX_A | | 1 |
+| 3 | ABC-123 | PC | ABC-123-0001 | PCGRPID | DY1DRGX_C | | 1 |
+| 4 | ABC-123 | PC | ABC-123-0001 | PCGRPID | DY1DRGX_D | | 1 |
+| 5 | ABC-123 | PP | ABC-123-0001 | PPGRPID | CMAX | | 2 |
+| 6 | ABC-123 | PC | ABC-123-0001 | PCGRPID | DY1DRGX_A | | 2 |
+| 7 | ABC-123 | PC | ABC-123-0001 | PCGRPID | DY1DRGX_B | | 2 |
+| 8 | ABC-123 | PC | ABC-123-0001 | PCGRPID | DY1DRGX_D | | 2 |
+| 9 | ABC-123 | PP | ABC-123-0001 | PPGRPID | AUC | | 3 |
+| 10 | ABC-123 | PC | ABC-123-0001 | PCGRPID | DY1DRGX_A | | 3 |
+| 11 | ABC-123 | PC | ABC-123-0001 | PCGRPID | DY1DRGX_B | | 3 |
+| 12 | ABC-123 | PC | ABC-123-0001 | PCGRPID | DY1DRGX_C | | 3 |
+| 13 | ABC-123 | PP | ABC-123-0001 | PPGRPID | OTHER | | 4 |
+| 14 | ABC-123 | PC | ABC-123-0001 | PCGRPID | DY1DRGX_A | | 4 |
+| 15 | ABC-123 | PC | ABC-123-0001 | PCGRPID | DY1DRGX_B | | 4 |
+| 16 | ABC-123 | PC | ABC-123-0001 | PCGRPID | DY1DRGX_C | | 4 |
+| 17 | ABC-123 | PC | ABC-123-0001 | PCGRPID | DY1DRGX_D | | 4 |
+
+Note that in the RELREC table for method A, the single records in rows 1, 5, 7, and 9, represented by their PPGRPID values, could have been referenced by their PPSEQ values; both identify the records sufficiently.
+
+At least 2 other hybrid approaches would also be acceptable:
+- Using PPSEQ values; use PCGRPID values wherever possible
+- Using PPGRPID values wherever possible; use PCSEQ values
+
+Method D uses only PCSEQ and PPSEQ values.
+
+**Method D (One to One, Using PCSEQ and PPSEQ)**
+
+**Rows 1-12:** The relationship with RELID "1" includes PC records with PCSEQ values "1" through "4" and "6" through "12" and PP records with PPSEQ = "1".
+**Rows 13-24:** The relationship with RELID "2" includes PC records with PCSEQ values "1" through "5" and "7" through "12" and PP records with PPSEQ = "2".
+**Rows 24-35:** The relationship with RELID "3" includes PC records with PCSEQ values "1" through "10" and PP records with PPSEQ = "3".
+**Rows 36-51:** The relationship with RELID "4" includes PC records with PCSEQ values "1" through "12" and PP records with PPSEQ values "4" through "7".
+
+**relrec.xpt**
+
+| Row | STUDYID | RDOMAIN | USUBJID | IDVAR | IDVARVAL | RELTYPE | RELID |
+|-----|---------|---------|---------|-------|----------|---------|-------|
+| 1 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 1 | | 1 |
+| 2 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 2 | | 1 |
+| 3 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 3 | | 1 |
+| 4 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 4 | | 1 |
+| 5 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 6 | | 1 |
+| 6 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 7 | | 1 |
+| 7 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 8 | | 1 |
+| 8 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 9 | | 1 |
+| 9 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 10 | | 1 |
+| 10 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 11 | | 1 |
+| 11 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 12 | | 1 |
+| 12 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 1 | | 1 |
+| 13 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 1 | | 2 |
+| 14 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 2 | | 2 |
+| 15 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 3 | | 2 |
+| 16 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 4 | | 2 |
+| 17 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 5 | | 2 |
+| 18 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 7 | | 2 |
+| 19 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 8 | | 2 |
+| 20 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 9 | | 2 |
+| 21 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 10 | | 2 |
+| 22 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 11 | | 2 |
+| 23 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 12 | | 2 |
+| 24 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 2 | | 2 |
+| 25 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 1 | | 3 |
+| 26 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 2 | | 3 |
+| 27 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 3 | | 3 |
+| 28 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 4 | | 3 |
+| 29 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 5 | | 3 |
+| 30 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 6 | | 3 |
+| 31 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 7 | | 3 |
+| 32 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 8 | | 3 |
+| 33 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 9 | | 3 |
+| 34 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 10 | | 3 |
+| 35 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 3 | | 3 |
+| 36 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 1 | | 4 |
+| 37 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 2 | | 4 |
+| 38 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 3 | | 4 |
+| 39 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 4 | | 4 |
+| 40 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 5 | | 4 |
+| 41 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 6 | | 4 |
+| 42 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 7 | | 4 |
+| 43 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 8 | | 4 |
+| 44 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 9 | | 4 |
+| 45 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 10 | | 4 |
+| 46 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 11 | | 4 |
+| 47 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 12 | | 4 |
+| 48 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 4 | | 4 |
+| 49 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 5 | | 4 |
+| 50 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 6 | | 4 |
+| 51 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 7 | | 4 |
 
 ## PC-PP Conclusions
 

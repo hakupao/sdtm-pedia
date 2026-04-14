@@ -6,17 +6,31 @@ This example uses the sample specimen lineage illustrated below.
 
 **Specimen Relationship Diagram:**
 
-```
-Originally Collected Specimen (Level 1):
-  SPC-001 (Tissue)          SPC-003 (Brain)
+```mermaid
+graph TD
+    subgraph L1["Level 1 — Originally Collected Specimen"]
+        SPC001["SPC-001<br/>(Tissue)"]
+        SPC003["SPC-003<br/>(Brain)"]
+    end
+    subgraph L2["Level 2 — Child Specimen"]
+        SPC001A["SPC-001-A<br/>(Tissue)"]
+        SPC001B["SPC-001-B<br/>(Tissue)"]
+        SPC003A["SPC-003-A<br/>(RNA)"]
+    end
+    subgraph L3["Level 3 — Child Specimen"]
+        SPC001B1["SPC-001-B-1<br/>(DNA)"]
+    end
+    SPC001 --> SPC001A
+    SPC001 --> SPC001B
+    SPC001B --> SPC001B1
+    SPC003 --> SPC003A
 
-Child Specimen (Level 2):
-  SPC-001-A (Tissue)   SPC-001-B (Tissue)   SPC-003-A (RNA)
-  [parent: SPC-001]    [parent: SPC-001]     [parent: SPC-003]
-
-Child Specimen (Level 3):
-  SPC-001-B-1 (DNA)
-  [parent: SPC-001-B]
+    style SPC001 fill:#b3d4fc,stroke:#333
+    style SPC003 fill:#b3d4fc,stroke:#333
+    style SPC001A fill:#b3d4fc,stroke:#333
+    style SPC001B fill:#b3d4fc,stroke:#333
+    style SPC003A fill:#b3d4fc,stroke:#333
+    style SPC001B1 fill:#b3d4fc,stroke:#333
 ```
 
 A specimen with a LEVEL value of "1" and a blank value for PARENT indicates a collected sample. All other values represent a derived sample. SPEC reflects the specimen type for the sample regardless of whether it is collected or derived.

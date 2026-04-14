@@ -3,7 +3,7 @@
 1. EGREFID is intended to store an identifier (e.g., UUID) for the associated ECG tracing. EGXFN is intended to store the name of and path to the electrocardiogram (ECG) waveform file when it is submitted.
 
 2. There are separate codelists for tests and results based on regular 10-second ECGs and for tests and results based on Holter monitoring.
-   a. Associations between some ECG abnormality tests and response codelists are described in the ECG codeable (available at https://www.cdisc.org/standards/terminology/controlled-terminology).
+   a. Associations between some ECG abnormality tests and response codelists are described in the ECG codetable (available at https://www.cdisc.org/standards/terminology/controlled-terminology).
 
 3. For non-individual ECG beat data and for aggregate ECG parameter results (e.g., "QT interval", "RR", "PR", "QRS"), EGREFID is populated for all unique ECGs, so that submitted SDTM data can be matched to the actual ECGs stored in the ECG warehouse. Therefore, this variable is expected for these types of records.
 

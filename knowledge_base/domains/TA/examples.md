@@ -19,6 +19,82 @@ Example 1 should be reviewed before reading other examples, as it explains the c
 
 A simple parallel trial with 3 arms (Placebo, Drug A, Drug B), 3 epochs (Screening, Run-In, Treatment). Each study cell contains exactly 1 element. Randomization occurs at the end of the Run-In element.
 
+**Study Schema**
+
+```mermaid
+graph LR
+    S[Screen] --> RI[Run-In]
+    RI -->|"Randomized to Placebo"| P[Placebo]
+    RI -->|"Randomized to Drug A"| A[Drug A]
+    RI -->|"Randomized to Drug B"| B[Drug B]
+    style S fill:#fef3cd,stroke:#333
+    style RI fill:#d4edda,stroke:#333
+    style P fill:#cce5ff,stroke:#333
+    style A fill:#cce5ff,stroke:#333
+    style B fill:#f8d7da,stroke:#333
+```
+
+**Prospective View**
+
+```mermaid
+graph LR
+    subgraph SE["Screening Epoch"]
+        S[Screen]
+    end
+    subgraph RE["Run-In Epoch"]
+        RI[Run-In]
+    end
+    subgraph TE["Treatment Epoch"]
+        P[Placebo]
+        A[Drug A]
+        B[Drug B]
+    end
+    S --> RI
+    RI --> P
+    RI --> A
+    RI --> B
+```
+
+**Retrospective View**
+
+```mermaid
+graph LR
+    subgraph SE["Screening Epoch"]
+        SP[Screen]
+        SA[Screen]
+        SB[Screen]
+    end
+    subgraph RE["Run-In Epoch"]
+        RIP[Run-In]
+        RIA[Run-In]
+        RIB[Run-In]
+    end
+    subgraph TE["Treatment Epoch"]
+        P[Placebo]
+        A[Drug A]
+        B[Drug B]
+    end
+    SP --> RIP --> P
+    SA --> RIA --> A
+    SB --> RIB --> B
+```
+
+**Blinded View**
+
+```mermaid
+graph LR
+    subgraph SE["Screening Epoch"]
+        S[Screen]
+    end
+    subgraph RE["Run-In Epoch"]
+        RI[Run-In]
+    end
+    subgraph TE["Treatment Epoch"]
+        SD[Study Drug]
+    end
+    S --> RI --> SD
+```
+
 **Trial Design Matrix**
 
 |  | Screen | Run-in | Treatment |
@@ -44,6 +120,93 @@ A simple parallel trial with 3 arms (Placebo, Drug A, Drug B), 3 epochs (Screeni
 ## Example 2
 
 A crossover trial comparing 3 treatments (Placebo, 5 mg, 10 mg) with 7 epochs: Screening, 3 Treatment Epochs with 3 Rest (washout) Epochs between them, and a Follow-up Epoch. Each arm represents a different order of treatments.
+
+**Study Schema**
+
+```mermaid
+graph LR
+    S[Screen]
+    S -->|"P-5-10"| a1[Placebo] --> a2[Rest] --> a3[5 mg] --> a4[Rest] --> a5[10 mg] --> a6[Follow]
+    S -->|"5-P-10"| b1[5 mg] --> b2[Rest] --> b3[Placebo] --> b4[Rest] --> b5[10 mg] --> b6[Follow]
+    S -->|"5-10-P"| c1[5 mg] --> c2[Rest] --> c3[10 mg] --> c4[Rest] --> c5[Placebo] --> c6[Follow]
+    style S fill:#fef3cd,stroke:#333
+```
+
+**Prospective View**
+
+```mermaid
+graph LR
+    subgraph SE["Screening"]
+        s1[Screen]
+        s2[Screen]
+        s3[Screen]
+    end
+    subgraph T1["1st Treatment"]
+        t1a[Placebo]
+        t1b[5 mg]
+        t1c[5 mg]
+    end
+    subgraph W1["1st Washout"]
+        w1a[Rest]
+        w1b[Rest]
+        w1c[Rest]
+    end
+    subgraph T2["2nd Treatment"]
+        t2a[5 mg]
+        t2b[Placebo]
+        t2c[10 mg]
+    end
+    subgraph W2["2nd Washout"]
+        w2a[Rest]
+        w2b[Rest]
+        w2c[Rest]
+    end
+    subgraph T3["3rd Treatment"]
+        t3a[10 mg]
+        t3b[10 mg]
+        t3c[Placebo]
+    end
+    subgraph FU["Follow-up"]
+        f1[Follow]
+        f2[Follow]
+        f3[Follow]
+    end
+    s1 --> t1a --> w1a --> t2a --> w2a --> t3a --> f1
+    s2 --> t1b --> w1b --> t2b --> w2b --> t3b --> f2
+    s3 --> t1c --> w1c --> t2c --> w2c --> t3c --> f3
+```
+
+**Retrospective View**
+
+Same structure as the Prospective View (one-to-one relationship between epochs and elements in each arm for this crossover design). Arm labels: P-L-H, L-P-H, L-H-P.
+
+**Blinded View**
+
+```mermaid
+graph LR
+    subgraph SE["Screening"]
+        S[Screen]
+    end
+    subgraph T1["1st Treatment"]
+        D1[Drug]
+    end
+    subgraph W1["1st Rest"]
+        R1[Rest]
+    end
+    subgraph T2["2nd Treatment"]
+        D2[Drug]
+    end
+    subgraph W2["2nd Rest"]
+        R2[Rest]
+    end
+    subgraph T3["3rd Treatment"]
+        D3[Drug]
+    end
+    subgraph FU["Follow-up"]
+        F[Follow]
+    end
+    S --> D1 --> R1 --> D2 --> R2 --> D3 --> F
+```
 
 **Trial Design Matrix**
 
@@ -83,6 +246,75 @@ A crossover trial comparing 3 treatments (Placebo, 5 mg, 10 mg) with 7 epochs: S
 
 A trial with multiple branches: randomization at screening plus response evaluation after blinded treatment. This results in 4 arms (A-Open A, A-Rescue, B-Open A, B-Rescue). TABRANCH is populated for 2 records in each arm reflecting the 2 branch points.
 
+**Study Schema**
+
+```mermaid
+graph LR
+    S[Screen]
+    S -->|"Randomized to A"| DA[Drug A]
+    S -->|"Randomized to B"| DB[Drug B]
+    DA -->|"Response: Open A"| OA1[Open A]
+    DA -->|"Response: Rescue"| R1[Rescue]
+    DB -->|"Response: Open A"| OA2[Open A]
+    DB -->|"Response: Rescue"| R2[Rescue]
+    style S fill:#fef3cd,stroke:#333
+    style DA fill:#cce5ff,stroke:#333
+    style DB fill:#d4edda,stroke:#333
+    style R1 fill:#f8d7da,stroke:#333
+    style R2 fill:#f8d7da,stroke:#333
+```
+
+**Prospective View**
+
+```mermaid
+graph LR
+    subgraph SE["Screening Epoch"]
+        s1[Screen]
+        s2[Screen]
+        s3[Screen]
+        s4[Screen]
+    end
+    subgraph DB["Double Blind Treatment Epoch"]
+        da1[Drug A]
+        da2[Drug A]
+        db1[Drug B]
+        db2[Drug B]
+    end
+    subgraph OL["Open Treatment Epoch"]
+        oa1[Open A]
+        r1[Rescue]
+        oa2[Open A]
+        r2[Rescue]
+    end
+    s1 --> da1 --> oa1
+    s2 --> da2 --> r1
+    s3 --> db1 --> oa2
+    s4 --> db2 --> r2
+```
+
+**Retrospective View**
+
+Same epoch structure as Prospective View. 4 arms: A-Open (Screen→Drug A→Open A), A-Rescue (Screen→Drug A→Rescue), B-Open (Screen→Drug B→Open A), B-Rescue (Screen→Drug B→Rescue).
+
+**Blinded View**
+
+```mermaid
+graph LR
+    subgraph SE["Screening Epoch"]
+        S[Screen]
+    end
+    subgraph DB["Double Blind Treatment Epoch"]
+        D[Drug]
+    end
+    subgraph OL["Open Treatment Epoch"]
+        OA[Open A]
+        R[Rescue]
+    end
+    S --> D
+    D --> OA
+    D --> R
+```
+
 **Trial Design Matrix**
 
 |  | Screen | Double Blind | Open Label |
@@ -114,6 +346,90 @@ A trial with multiple branches: randomization at screening plus response evaluat
 A cyclical chemotherapy oncology trial with repeating treatment/rest elements until disease progression. 2 arms (Drug A, Drug B), 3 epochs (Screening, Treatment, Follow-Up). The TATRANS variable represents the "repeat until disease progression" skip-forward rule.
 
 Maximum of 4 cycles assumed in this example.
+
+**Study Schema**
+
+```mermaid
+graph LR
+    S[Screen]
+    S -->|"Randomized to A"| DA[Drug A] --> RA[Rest] --> FA[Follow]
+    S -->|"Randomized to B"| DB[Drug B] --> RB[Rest] --> FB[Follow]
+    RA -.->|"Repeat until<br/>disease progression"| DA
+    RB -.->|"Repeat until<br/>disease progression"| DB
+    style S fill:#fef3cd,stroke:#333
+```
+
+**Prospective View**
+
+```mermaid
+graph LR
+    subgraph SE["Screening Epoch"]
+        s1[Screen]
+        s2[Screen]
+    end
+    subgraph TE["Treatment Epoch"]
+        da["Drug A | Rest<br/>Repeat until disease progression"]
+        db["Drug B | Rest<br/>Repeat until disease progression"]
+    end
+    subgraph FU["Follow-up Epoch"]
+        f1[Follow]
+        f2[Follow]
+    end
+    s1 --> da --> f1
+    s2 --> db --> f2
+```
+
+**Retrospective View**
+
+Same epoch structure as the Prospective View: 2 arms (Drug A, Drug B), each cycling through Treatment Epoch until disease progression, then entering Follow-up.
+
+**Retrospective View with Explicit Repeats**
+
+```mermaid
+graph LR
+    subgraph SE["Screening Epoch"]
+        s1[Screen]
+        s2[Screen]
+    end
+    subgraph TE["Treatment Epoch"]
+        a1[A] --> r1[Rest] --> a2[A] --> r2[Rest] --> a3[A] --> r3[Rest] --> a4[A] --> r4[Rest]
+        b1[B] --> r5[Rest] --> b2[B] --> r6[Rest] --> b3[B] --> r7[Rest] --> b4[B] --> r8[Rest]
+    end
+    subgraph FU["Follow-up Epoch"]
+        f1[Follow]
+        f2[Follow]
+    end
+    s1 --> a1
+    r4 --> f1
+    s2 --> b1
+    r8 --> f2
+    r1 -.->|"If disease progression"| f1
+    r2 -.->|"If disease progression"| f1
+    r3 -.->|"If disease progression"| f1
+    r5 -.->|"If disease progression"| f2
+    r6 -.->|"If disease progression"| f2
+    r7 -.->|"If disease progression"| f2
+```
+
+**Blinded View**
+
+```mermaid
+graph LR
+    subgraph SE["Screening Epoch"]
+        S[Screen]
+    end
+    subgraph TE["Treatment Epoch"]
+        rx1[Rx] --> re1[Rest] --> rx2[Rx] --> re2[Rest] --> rx3[Rx] --> re3[Rest] --> rx4[Rx] --> re4[Rest]
+    end
+    subgraph FU["Follow-up Epoch"]
+        F[Follow]
+    end
+    S --> rx1
+    re4 --> F
+    re1 -.->|"If disease progression"| F
+    re2 -.->|"If disease progression"| F
+    re3 -.->|"If disease progression"| F
+```
 
 **Trial Design Matrix**
 
@@ -151,6 +467,42 @@ Maximum of 4 cycles assumed in this example.
 
 Similar to Example 4, but treatment A has longer duration than treatment B, so the trial cannot be blinded. Maximum of 3 cycles assumed. Different rest elements (RESTA, RESTB) are used for the 2 arms since cycle lengths differ.
 
+**Study Schema**
+
+```mermaid
+graph LR
+    S[Screen]
+    S -->|"Randomized to A"| DA[Drug A] --> RA[Rest] --> FA[Follow]
+    S -->|"Randomized to B"| DB[B] --> RB[Rest] --> FB[Follow]
+    RA -.->|"Repeat until<br/>disease progression"| DA
+    RB -.->|"Repeat until<br/>disease progression"| DB
+    note1["Total length Drug A cycle: 3 weeks"]
+    note2["Total length Drug B cycle: 3 weeks"]
+    style S fill:#fef3cd,stroke:#333
+    style note1 fill:#fff,stroke:#999,stroke-dasharray:5 5
+    style note2 fill:#fff,stroke:#999,stroke-dasharray:5 5
+```
+
+**Retrospective View**
+
+```mermaid
+graph LR
+    subgraph SE["Screening Epoch"]
+        s1[Screen]
+        s2[Screen]
+    end
+    subgraph TE["Treatment Epoch"]
+        da["Drug A | Rest A<br/>Repeat until disease progression"]
+        db["B | Rest B<br/>Repeat until disease progression"]
+    end
+    subgraph FU["Follow-up Epoch"]
+        f1[Follow]
+        f2[Follow]
+    end
+    s1 --> da --> f1
+    s2 --> db --> f2
+```
+
 **Trial Design Matrix**
 
 |  | Screen | Treatment | | | | | | Follow-up |
@@ -184,6 +536,42 @@ Similar to Example 4, but treatment A has longer duration than treatment B, so t
 An oncology trial with cycles of different lengths: Drug A in 3-week cycles (longer treatment, short rest), Drug B in 4-week cycles (short treatment, long rest). Maximum 4 cycles of Drug A, 3 cycles of Drug B.
 
 Because the treatment epoch for arm A has more elements than arm B, TAETORD is 10 for the follow-up element in arm A, but 8 for follow-up in arm B. Gaps in TAETORD values are acceptable.
+
+**Study Schema**
+
+```mermaid
+graph LR
+    S[Screen]
+    S -->|"Randomized to A"| DA[Drug A] --> RA[Rest] --> FA[Follow]
+    S -->|"Randomized to B"| DB[B] --> RB[Rest] --> FB[Follow]
+    RA -.->|"Repeat until<br/>disease progression"| DA
+    RB -.->|"Repeat until<br/>disease progression"| DB
+    note1["Total length Drug A cycle: 3 weeks"]
+    note2["Total length Drug B cycle: 4 weeks"]
+    style S fill:#fef3cd,stroke:#333
+    style note1 fill:#fff,stroke:#999,stroke-dasharray:5 5
+    style note2 fill:#fff,stroke:#999,stroke-dasharray:5 5
+```
+
+**Retrospective View**
+
+```mermaid
+graph LR
+    subgraph SE["Screening Epoch"]
+        s1[Screen]
+        s2[Screen]
+    end
+    subgraph TE["Treatment Epoch"]
+        da["Drug A | Rest A<br/>Repeat until disease progression<br/>(3-week cycles)"]
+        db["B | Rest B<br/>Repeat until disease progression<br/>(4-week cycles)"]
+    end
+    subgraph FU["Follow-up Epoch"]
+        f1[Follow]
+        f2[Follow]
+    end
+    s1 --> da --> f1
+    s2 --> db --> f2
+```
 
 **Trial Design Matrix**
 
@@ -220,6 +608,61 @@ Because the treatment epoch for arm A has more elements than arm B, TAETORD is 1
 Example Trial 7, RTOG 93-09, involves treatment of lung cancer with chemotherapy and radiotherapy, with or without surgery. This is a complex 2-arm trial (CR = Chemotherapy and Radiation; CRS = Chemotherapy, Radiation, and Surgery) with 4 epochs (Screening, Induction Treatment, Continuation Treatment, Follow-up) and major "skip forward" arrows for disease progression.
 
 Both the induction and additional chemotherapy are given in 2 cycles. The second induction cycle is different for the 2 arms, since radiation therapy for those assigned to the non-surgery arm includes a "boost" which those assigned to the surgery arm do not receive.
+
+**Study Schema (2-arm model)**
+
+```mermaid
+graph LR
+    S[Screen]
+    S -->|"Randomized to CR"| ICR1["Initial<br/>Chemo+RT"] --> CRNS["Chemo+RT<br/>(non-Surgery)"]
+    CRNS --> C1[Chemo] --> C2[Chemo] --> FU1[Follow-up]
+    CRNS -.->|"If progression"| FU1
+
+    S -->|"Randomized to CRS"| ICR2["Initial<br/>Chemo+RT"] --> CRS["Chemo+RT<br/>(Surgery)"]
+    CRS --> R3["3-5w Rest"] --> SURG[Surgery] --> R4["4-6w Rest"] --> C3[Chemo] --> C4[Chemo] --> FU2[Follow-up]
+    CRS -.->|"If progression"| FU2
+    CRS -.->|"Not eligible<br/>for surgery"| C3
+
+    style S fill:#fef3cd,stroke:#333
+    style SURG fill:#f8d7da,stroke:#333
+```
+
+**Prospective View**
+
+```mermaid
+graph LR
+    subgraph SE["Screen Epoch"]
+        s1[Screen]
+        s2[Screen]
+    end
+    subgraph IE["Induction Treatment Epoch"]
+        cr1["Chemo+Rad"] --> cr2["Chemo+Rad*"]
+        cs1["Chemo+Rad"] --> cs2["Chemo+Rad**"]
+    end
+    subgraph CE["Continuation Treatment Epoch"]
+        cb["Chemo+Boost"] --> cc1[Chemo]
+        r3["3-5w Rest"] --> sg[Surgery] --> r4["4-6w Rest"] --> cc3[Chemo] --> cc4[Chemo]
+    end
+    subgraph FE["Follow-up Epoch"]
+        f1[FU]
+        f2[FU]
+    end
+    s1 --> cr1
+    cr2 --> cb
+    cc1 --> f1
+    s2 --> cs1
+    cs2 --> r3
+    cc4 --> f2
+    cr2 -.->|"If progression"| f1
+    cs2 -.->|"If progression"| f2
+    cs2 -.->|"Not eligible for surgery"| cc3
+```
+
+> *Disease evaluation earlier, **Disease evaluation later
+
+**Retrospective View**
+
+Same epoch structure as the Prospective View. The elements in the Continuation Treatment Epoch for the CR arm do not fill the space compared to the CRS arm, reflecting different treatment durations between the 2 arms.
 
 **Trial Design Matrix**
 

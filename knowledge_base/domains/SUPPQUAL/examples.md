@@ -4,13 +4,13 @@ These examples illustrate how a set of SUPP-- datasets could be used to relate n
 
 ## Example 1
 
-The 2 rows of suppae.xpt add qualifying information to adverse event data (RDOMAIN = "AE"). IDVAR defines the key variable used to link this information to the AE data (AESEQ). IDVARVAL specifies the value of the key variable within the parent AE record to which the SUPPAE record applies. The remaining columns specify the supplemental variables' names (AEOSP and AETRTEMA), labels, values, origin, and who made the evaluation.
+The 2 rows of suppae.xpt add qualifying information to adverse event data (RDOMAIN = "AE"). IDVAR defines the key variable used to link this information to the AE data (AESEQ). IDVARVAL specifies the value of the key variable within the parent AE record to which the SUPPAE record applies. The remaining columns specify the supplemental variables' names (AEOSP and AETRTEM), labels, values, origin, and who made the evaluation.
 
 **suppae.xpt**
 
 | Row | STUDYID | RDOMAIN | USUBJID | IDVAR | IDVARVAL | QNAM | QLABEL | QVAL | QORIG | QEVAL |
 |-----|---------|---------|---------|-------|----------|------|--------|------|-------|-------|
-| 1 | 1996001 | AE | 99-401 | AESEQ | 1 | AEOSP | Other Medically Important SAE | Spontaneous Abortion | CRF | |
+| 1 | 1996001 | AE | 99-401 | AESEQ | 1 | AEOSP | Clinically Medically Important SAE | Spontaneous Abortion | CRF | |
 | 2 | 1996001 | AE | 99-401 | AESEQ | 1 | AETRTEMA | Treatment Emergent Flag | N | Derived | SPONSOR |
 
 ## Example 2

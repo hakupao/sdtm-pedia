@@ -6,6 +6,35 @@ The following diagram represents visits as numbered "flags" with visit numbers. 
 
 This example is based on TA Example Trial 1, a Parallel Design with 3 arms (Placebo, Drug A, Drug B).
 
+**Parallel Design Planned Visits**
+
+```mermaid
+graph TD
+    subgraph Epochs
+        direction LR
+        SE["Screening<br/>Epoch"] --- RE["Run-In<br/>Epoch"] --- TE["Treatment<br/>Epoch"]
+    end
+
+    V1(("V1")) -.->|"Start of<br/>Screen Epoch"| SE
+    V2(("V2")) -.->|"Spans Screen<br/>→ Run-In"| SE
+    V2 -.-> RE
+    V3(("V3")) -.->|"Spans Run-In<br/>→ Treatment"| RE
+    V3 -.-> TE
+    V4(("V4")) -.->|"1 wk after<br/>Treatment start"| TE
+    V5(("V5")) -.->|"2 wk after<br/>Treatment start"| TE
+
+    style V1 fill:#fff,stroke:#333
+    style V2 fill:#fff,stroke:#333
+    style V3 fill:#fff,stroke:#333
+    style V4 fill:#fff,stroke:#333
+    style V5 fill:#fff,stroke:#333
+    style SE fill:#fef3cd,stroke:#333
+    style RE fill:#d4edda,stroke:#333
+    style TE fill:#cce5ff,stroke:#333
+```
+
+> Visit 2 spans the Screen → Run-In epoch transition (confirmation of eligibility). Visit 3 spans the Run-In → Treatment epoch transition (first dose of study drug). Below the timeline, 3 arms (Placebo, Drug A, Drug B) share the same visit schedule.
+
 Two TV datasets are shown for this trial. The first shows a somewhat idealized situation, where the protocol has provided specific timings for the visits. The second shows a more common situation, where the timings have been described only loosely.
 
 **tv.xpt (specific timings)**

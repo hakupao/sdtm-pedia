@@ -9,12 +9,12 @@
 
 | File | Source | Description |
 |------|--------|-------------|
-| [concepts_and_terms.md](model/concepts_and_terms.md) | SDTM v2.0 Ch2 | Variable roles, qualifier subclasses, table structure |
-| [observation_classes.md](model/observation_classes.md) | SDTM v2.0 Ch3.1 | Interventions (43 vars), Events (56 vars), Findings (100+ vars), Identifiers (16 vars), Timing (48 vars) |
-| [special_purpose_domains.md](model/special_purpose_domains.md) | SDTM v2.0 Ch3.2 | DM (38 vars), CO (15 vars), SE (13 vars), SJ (10 vars), SV (16 vars), SM (10 vars) |
-| [associated_persons.md](model/associated_persons.md) | SDTM v2.0 Ch4 | AP domain rules, APID/RSUBJID/RDEVID/SREL |
-| [study_level_data.md](model/study_level_data.md) | SDTM v2.0 Ch5 | Trial Design (TE/TA/TX/TT/TP/TV/TD/TM/TI/TS/AC) + Study References (DI/OI) |
-| [relationship_datasets.md](model/relationship_datasets.md) | SDTM v2.0 Ch6 | RELREC, SUPP--, POOLDEF, RELSUB, DR, APRELSUB, RELSPEC |
+| [concepts_and_terms.md](model/01_concepts_and_terms.md) | SDTM v2.0 Ch2 | Variable roles, qualifier subclasses, table structure |
+| [observation_classes.md](model/02_observation_classes.md) | SDTM v2.0 Ch3.1 | Interventions (43 vars), Events (56 vars), Findings (100+ vars), Identifiers (16 vars), Timing (48 vars) |
+| [special_purpose_domains.md](model/03_special_purpose_domains.md) | SDTM v2.0 Ch3.2 | DM (38 vars), CO (15 vars), SE (13 vars), SJ (10 vars), SV (16 vars), SM (10 vars) |
+| [associated_persons.md](model/04_associated_persons.md) | SDTM v2.0 Ch4 | AP domain rules, APID/RSUBJID/RDEVID/SREL |
+| [study_level_data.md](model/05_study_level_data.md) | SDTM v2.0 Ch5 | Trial Design (TE/TA/TX/TT/TP/TV/TD/TM/TI/TS/AC) + Study References (DI/OI) |
+| [relationship_datasets.md](model/06_relationship_datasets.md) | SDTM v2.0 Ch6 | RELREC, SUPP--, POOLDEF, RELSUB, DR, APRELSUB, RELSPEC |
 
 ## Chapters (SDTMIG v3.4 Implementation Guide)
 

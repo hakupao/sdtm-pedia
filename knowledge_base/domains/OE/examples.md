@@ -118,8 +118,8 @@ The many-to-one relationship between records in the PR and OE domains is describ
 
 **relrec.xpt**
 
-| Row | STUDYID | RDOMAIN | USUBJID | IDVAR | IDVARAL | RELTYPE | RELID |
-|-----|---------|---------|---------|-------|---------|---------|-------|
+| Row | STUDYID | RDOMAIN | USUBJID | IDVAR | IDVARVAL | RELTYPE | RELID |
+|-----|---------|---------|---------|-------|----------|---------|-------|
 | 1 | XYZ | PR | | PRLNKID | | ONE | 13 |
 | 2 | XYZ | OE | | OELNKID | | MANY | 13 |
 
@@ -143,3 +143,11 @@ This example shows:
 | 2 | XYZ | OE | XYZ-100-0001 | OD | 2 | EYDCOMGR | Eye Drop Comfort Grade | OCULAR COMFORT | 10 | 10 | 10 | EYE | RIGHT | VISUAL ANALOG SCALE | STUDY SUBJECT | 1 | VISIT 1 | 2011-02-11T09:01 | 1 MINUTE POST-INSTILLATION | 2 |
 | 3 | XYZ | OE | XYZ-100-0001 | OS | 1 | EYDCOMGR | Eye Drop Comfort Grade | OCULAR COMFORT | 1 | 1 | 1 | EYE | LEFT | VISUAL ANALOG SCALE | STUDY SUBJECT | 1 | VISIT 1 | 2011-05-01T09:00 | UPON INSTILLATION | 1 |
 | 4 | XYZ | OE | XYZ-100-0001 | OS | 2 | EYDCOMGR | Eye Drop Comfort Grade | OCULAR COMFORT | 10 | 10 | 10 | EYE | LEFT | VISUAL ANALOG SCALE | STUDY SUBJECT | 1 | VISIT 1 | 2011-05-01T09:01 | 1 MINUTE POST-INSTILLATION | 2 |
+
+The suppoe.xpt dataset represents the scale used for the ocular comfort rating.
+
+**suppoe.xpt**
+
+| Row | STUDYID | RDOMAIN | USUBJID | IDVAR | IDVARVAL | QNAM | QLABEL | QVAL |
+|-----|---------|---------|---------|-------|----------|------|--------|------|
+| 1 | XYZ | OE | XYZ-100-0001 | OECAT | OCULAR COMFORT | OERESCRT | Rating Scale | 10-point VAS (1=Best, 10=Worst) |

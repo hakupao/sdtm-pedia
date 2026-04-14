@@ -46,9 +46,41 @@ In this example, the study product dose, Dog Epi IgG, was administered at increa
 | 11 | CC-001 | SR | CC-001-101 | 11 | 11 | FLRMDIAM | Flare Mean Diameter | Dog Epi 1.5 mg | 1 | mm | 1 | 1 | mm | FOREARM | 1 | WEEK 1 |
 | 12 | CC-001 | SR | CC-001-101 | 12 | 12 | FLRMDIAM | Flare Mean Diameter | Dog Epi 2 mg | 8 | mm | 8 | 8 | mm | FOREARM | 1 | WEEK 1 |
 
+**ex.xpt**
+
+| Row | STUDYID | DOMAIN | USUBJID | EXSPID | EXTRT | EXDOSE | EXDOSEU | EXROUTE | EXLOC |
+|-----|---------|--------|---------|--------|-------|--------|---------|---------|-------|
+| 1 | CC-001 | EX | 101 | 1 | Dog Epi IgG | 0 | mg | CUTANEOUS | FOREARM |
+| 2 | CC-001 | EX | 101 | 2 | Dog Epi IgG | 0.1 | mg | CUTANEOUS | FOREARM |
+| 3 | CC-001 | EX | 101 | 3 | Dog Epi IgG | 0.5 | mg | CUTANEOUS | FOREARM |
+| 4 | CC-001 | EX | 101 | 4 | Dog Epi IgG | 1 | mg | CUTANEOUS | FOREARM |
+| 5 | CC-001 | EX | 101 | 5 | Dog Epi IgG | 1.5 | mg | CUTANEOUS | FOREARM |
+| 6 | CC-001 | EX | 101 | 6 | Dog Epi IgG | 2 | mg | CUTANEOUS | FOREARM |
+
 The relationships between SR and EX records are represented at the record level in RELREC.
 
-**relrec.xpt** (18 rows linking SRSPID values 1-6 to EXSPID values 1-6 via RELID R1-R6, and SRSPID values 7-12 to EXSPID values 1-6 via the same RELID R1-R6)
+**relrec.xpt**
+
+| Row | STUDYID | RDOMAIN | USUBJID | IDVAR | IDVARVAL | RELTYPE | RELID |
+|-----|---------|---------|---------|-------|----------|---------|-------|
+| 1 | CC-001 | SR | CC-001-101 | SRSPID | 1 | | R1 |
+| 2 | CC-001 | EX | CC-001-101 | EXSPID | 1 | | R1 |
+| 3 | CC-001 | SR | CC-001-101 | SRSPID | 7 | | R1 |
+| 4 | CC-001 | SR | CC-001-101 | SRSPID | 2 | | R2 |
+| 5 | CC-001 | EX | CC-001-101 | EXSPID | 2 | | R2 |
+| 6 | CC-001 | SR | CC-001-101 | SRSPID | 8 | | R2 |
+| 7 | CC-001 | SR | CC-001-101 | SRSPID | 3 | | R3 |
+| 8 | CC-001 | EX | CC-001-101 | EXSPID | 3 | | R3 |
+| 9 | CC-001 | SR | CC-001-101 | SRSPID | 9 | | R3 |
+| 10 | CC-001 | SR | CC-001-101 | SRSPID | 4 | | R4 |
+| 11 | CC-001 | SR | CC-001-101 | SRSPID | 10 | | R4 |
+| 12 | CC-001 | EX | CC-001-101 | EXSPID | 4 | | R4 |
+| 13 | CC-001 | SR | CC-001-101 | SRSPID | 5 | | R5 |
+| 14 | CC-001 | SR | CC-001-101 | SRSPID | 11 | | R5 |
+| 15 | CC-001 | EX | CC-001-101 | EXSPID | 5 | | R5 |
+| 16 | CC-001 | SR | CC-001-101 | SRSPID | 6 | | R6 |
+| 17 | CC-001 | SR | CC-001-101 | SRSPID | 12 | | R6 |
+| 18 | CC-001 | EX | CC-001-101 | EXSPID | 6 | | R6 |
 
 ## Example 3
 
