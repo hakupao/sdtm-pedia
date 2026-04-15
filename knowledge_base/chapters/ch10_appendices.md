@@ -14,25 +14,21 @@ The Submissions Data Standards (SDS) Team is responsible for the development of 
 
 | Abbreviation | Full Term |
 |-------------|-----------|
-| ADaM | Analysis Data Model |
+| ADaM | CDISC Analysis Dataset Model |
 | AE | Adverse Event |
 | CDISC | Clinical Data Interchange Standards Consortium |
 | CDASH | Clinical Data Acquisition Standards Harmonization |
 | CRF | Case Report Form |
-| CT | Controlled Terminology |
-| DM | Demographics |
-| FDA | Food and Drug Administration |
-| GOC | General Observation Class |
-| ICH | International Conference on Harmonisation |
-| ISO | International Organization for Standardization |
+| CDASH | Clinical Data Acquisition Standards Harmonization |
+| FDA | (US) Food and Drug Administration |
+| ICH | International Conference on Harmonisation of Technical Requirements for Registration of Pharmaceuticals for Human Use |
+| ISO 3166 | ISO codelist for representing countries; the Alpha-3 codelist uses 3-character codes |
+| ISO 8601 | ISO character representation of dates, date/times, intervals, and durations of time. The SDTM uses the extended format |
 | MedDRA | Medical Dictionary for Regulatory Activities |
-| NCI-EVS | National Cancer Institute Enterprise Vocabulary Services |
-| QRS | Questionnaires, Ratings, and Scales |
-| SAS | Statistical Analysis System |
-| SDD | Study Data Descriptions |
-| SDS | Submissions Data Standards |
+| NCI | National Cancer Institute (NIH) |
+| SDS | Submission Data Standards. Also the name of the team that created the SDTM and SDTMIG |
 | SDTM | Study Data Tabulation Model |
-| SDTMIG | Study Data Tabulation Model Implementation Guide |
+| SDTMIG | Study Data Tabulation Model Implementation Guide: Human Clinical Trials |
 | SDTMIG-AP | SDTM Implementation Guide for Associated Persons |
 | SDTMIG-MD | SDTM Implementation Guide for Medical Devices |
 | SDTMIG-PGx | SDTM Implementation Guide: Pharmacogenomics/Genetics |
@@ -124,9 +120,11 @@ The CDISC SDS group has defined a standard list of fragments to use as a guide w
 | FREQUENCY | FRQ | | STANDARD | ST, STD |
 | GRADE | GR | | START | ST |
 | GROUP | GRP | | STATUS | STAT |
-| HOSPITALIZATION | HOSP | | SUBCATEGORY | SCAT |
+| HOSPITALIZATION | HOSP | | NORMAL RANGE | NR |
 | IDENTIFIER | ID | | SUBJECT | SUBJ |
-| INDICATION | INDC | | SUPPLEMENTAL | SUPP |
+| INDICATION | INDC | | SUBCATEGORY | SCAT |
+| MEDICALLY-IMPORTANT EVENT | MIE | | SUPPLEMENTAL | SUPP |
+| NON-STUDY THERAPY | NST | | |
 | | | | SYSTEM | SYS |
 | | | | TEXT | TXT |
 | | | | TIME | TM |
@@ -160,6 +158,16 @@ This appendix provides an overview of revisions since the last production versio
 - Supplemental qualifier variable names updated to include 2-character domain abbreviations
 - Assumptions providing domain definitions removed (now in Description/Overview)
 - Numbered lists in CDISC Notes converted to text for consistency
+
+### New Domains for SDTMIG v3.4
+
+| Domain | Description |
+|--------|-------------|
+| BE | Biospecimen Events |
+| BS | Biospecimen Findings |
+| CP | Cell Phenotyping Findings |
+| GF | Genomics Findings |
+| RELSPEC | Related Specimens |
 
 ### Decommissioning of MO (Morphology)
 

@@ -33,9 +33,9 @@ RELREC is used to describe relationships between records in different domains (p
 | STUDYID | Study Identifier | Char | Req | |
 | RDOMAIN | Related Domain Abbreviation | Char | Req | |
 | USUBJID | Unique Subject Identifier | Char | Exp | Null for dataset-level relationships |
-| IDVAR | Identifying Variable | Char | Req | e.g., --GRPID, --SEQ, --LNKID |
-| IDVARVAL | Identifying Variable Value | Char | Req | |
-| RELTYPE | Relationship Type | Char | Exp | "ONE" or "MANY" |
+| IDVAR | Identifying Variable | Char | Req | e.g., --SEQ, --GRPID |
+| IDVARVAL | Identifying Variable Value | Char | Exp | |
+| RELTYPE | Relationship Type | Char | Exp | "ONE" or "MANY"; used only for dataset-level relationships (Section 8.3) |
 | RELID | Relationship Identifier | Char | Req | Groups paired RELREC records |
 
 ### Relationship Type Combinations
@@ -49,16 +49,18 @@ RELREC is used to describe relationships between records in different domains (p
 
 ### Examples
 
-**Example 1:** Linking an AE record to a CM record (concomitant medication taken for the AE)
+**Example 1:** Linking an AE record to CM records (concomitant medications taken for the AE)
 ```
-RELREC Row 1: RDOMAIN=AE, IDVAR=AESEQ, IDVARVAL=3, RELTYPE=ONE, RELID=1
-RELREC Row 2: RDOMAIN=CM, IDVAR=CMSEQ, IDVARVAL=7, RELTYPE=ONE, RELID=1
+RELREC Row 1: RDOMAIN=AE, IDVAR=AESEQ, IDVARVAL=5, RELID=1
+RELREC Row 2: RDOMAIN=CM, IDVAR=CMSEQ, IDVARVAL=11, RELID=1
+RELREC Row 3: RDOMAIN=CM, IDVAR=CMSEQ, IDVARVAL=12, RELID=1
 ```
 
-**Example 2:** Linking a group of AE records to a single DS record
+**Example 2:** Linking records across AE, CM, and LB domains (5 records sharing RELID=1)
 ```
-RELREC Row 1: RDOMAIN=AE, IDVAR=AEGRPID, IDVARVAL=GRP01, RELTYPE=MANY, RELID=2
-RELREC Row 2: RDOMAIN=DS, IDVAR=DSSEQ, IDVARVAL=1, RELTYPE=ONE, RELID=2
+RELREC Row 1: RDOMAIN=AE, IDVAR=AESEQ, IDVARVAL=3, RELID=1
+RELREC Row 2: RDOMAIN=CM, IDVAR=CMGRPID, IDVARVAL=COMBO1, RELID=1
+... (additional rows linking LB records)
 ```
 
 ---
@@ -69,8 +71,8 @@ For dataset-level relationships, USUBJID is null and IDVAR/IDVARVAL identify the
 
 **Example:** Linking TU and TR datasets (tumor identification and tumor results)
 ```
-RELREC Row 1: RDOMAIN=TU, USUBJID=(null), IDVAR=TULNKID, RELTYPE=ONE, RELID=DS1
-RELREC Row 2: RDOMAIN=TR, USUBJID=(null), IDVAR=TRLNKID, RELTYPE=MANY, RELID=DS1
+RELREC Row 1: RDOMAIN=TU, USUBJID=(null), IDVAR=TULNKID, IDVARVAL=(null), RELTYPE=ONE, RELID=1
+RELREC Row 2: RDOMAIN=TR, USUBJID=(null), IDVAR=TRLNKID, IDVARVAL=(null), RELTYPE=MANY, RELID=1
 ```
 
 ---
@@ -85,13 +87,13 @@ RELREC Row 2: RDOMAIN=TR, USUBJID=(null), IDVAR=TRLNKID, RELTYPE=MANY, RELID=DS1
 | RDOMAIN | Related Domain Abbreviation | Char | Req |
 | USUBJID | Unique Subject Identifier | Char | Req |
 | POOLID | Pool Identifier | Char | Perm |
-| IDVAR | Identifying Variable | Char | Req |
-| IDVARVAL | Identifying Variable Value | Char | Req |
+| IDVAR | Identifying Variable | Char | Exp |
+| IDVARVAL | Identifying Variable Value | Char | Exp |
 | QNAM | Qualifier Variable Name | Char | Req |
 | QLABEL | Qualifier Variable Label | Char | Req |
 | QVAL | Data Value | Char | Req |
 | QORIG | Origin | Char | Req |
-| QEVAL | Evaluator | Char | Perm |
+| QEVAL | Evaluator | Char | Exp |
 
 ### Key Rules
 
@@ -150,17 +152,18 @@ When existing domains do not fit, follow the procedure in Section 2.6 (Creating 
 
 ### 8.6.3 Guidelines for Differentiating Between Interventions, Events, Findings, and Findings About
 
-A decision table to help determine the appropriate observation class:
+A decision table with questions to help determine the appropriate observation class:
 
-| Data Characteristic | Interventions | Events | Findings | Findings About |
-|--------------------|---------------|--------|----------|----------------|
-| Treatment/medication data | Yes | | | |
-| Adverse event / medical history | | Yes | | |
-| Lab test / measurement | | | Yes | |
-| Assessment of an AE (e.g., severity) | | | | Yes |
-| Symptom occurrence checklist | | Prespecified Events | | |
-| Symptom severity rating | | | | Yes |
-| Data about symptoms collected as QS items | | | QS | Or FA |
+| Question | Interpretation |
+|----------|---------------|
+| Is this a measurement with units? | → Findings |
+| Are the data collected in a CRF for each visit or an overall CRF log form? | Visit-based → Findings; Log form → Events or Interventions |
+| What date/times are collected? | Single date → Findings; Start/End dates → Events or Interventions |
+| Is verbatim text collected and then coded? | → Events (--TERM/--DECOD) or Interventions (--TRT/--DECOD) |
+| If this is data about an event, does it apply to the event as a whole? | Yes → Event qualifier; No → Findings About (FA) |
+| Does this data meet the criteria for representation in a QRS domain? | Yes → QS or FA domain |
+
+**Note:** The FA domain was originally created for findings about events but may also be used for findings about interventions. If data does not fit the standard qualifiers of an Events GOC domain, first consider whether the data represents a Finding about the event itself.
 
 ---
 
@@ -171,41 +174,43 @@ A decision table to help determine the appropriate observation class:
 | Variable | Label | Type | Core |
 |----------|-------|------|------|
 | STUDYID | Study Identifier | Char | Req |
-| USUBJID | Unique Subject Identifier | Char | Req |
+| USUBJID | Unique Subject Identifier | Char | Exp |
+| POOLID | Pool Identifier | Char | Perm |
 | RSUBJID | Related Subject or Pool Identifier | Char | Req |
 | SREL | Subject Relationship to Related Subject/Pool | Char | Req |
 
 ### Assumptions
 
 1. Each record in RELSUB describes 1 directional relationship from USUBJID to RSUBJID
-2. SREL describes the relationship from the perspective of RSUBJID relative to USUBJID (e.g., SREL = "MOTHER" means RSUBJID is the mother of USUBJID)
+2. SREL describes the relationship from the perspective of RSUBJID relative to USUBJID (e.g., SREL = "MOTHER, BIOLOGICAL" means RSUBJID is the biological mother of USUBJID)
 3. Reciprocal relationships require 2 records
 4. RSUBJID can reference subjects within or outside the current study
 5. If RSUBJID references a subject in another study, a compound-level subject identifier should be used
-6. Relationships to pools use POOLID in RSUBJID
-7. Family relationships (genetic studies) are a primary use case
-8. RELSUB can also be used to represent caregiver-patient relationships
+6. Values of SREL should be taken from the CDISC Controlled Terminology codelist RELSUB wherever possible
+7. Relationships to pools use POOLID in RSUBJID
+8. Family relationships (genetic studies) are a primary use case
+9. RELSUB can also be used to represent caregiver-patient relationships
 
 ### Example
 
-Hemophilia study with family relationships:
+Hemophilia study (HEM021) with family relationships:
 
 **dm.xpt** (3 subjects):
-| USUBJID | SEX | AGE |
-|---------|-----|-----|
-| HEM-001 | M | 8 |
-| HEM-002 | F | 35 |
-| HEM-003 | M | 37 |
+| STUDYID | USUBJID | SEX | AGE |
+|---------|---------|-----|-----|
+| HEM021 | HEM021-001 | F | 60 |
+| HEM021 | HEM021-002 | M | 35 |
+| HEM021 | HEM021-003 | M | 35 |
 
-**relsub.xpt** (6 relationship records):
-| USUBJID | RSUBJID | SREL |
-|---------|---------|------|
-| HEM-001 | HEM-002 | MOTHER |
-| HEM-001 | HEM-003 | FATHER |
-| HEM-002 | HEM-001 | SON |
-| HEM-002 | HEM-003 | HUSBAND |
-| HEM-003 | HEM-001 | SON |
-| HEM-003 | HEM-002 | WIFE |
+**relsub.xpt** (relationship records):
+| STUDYID | USUBJID | RSUBJID | SREL |
+|---------|---------|---------|------|
+| HEM021 | HEM021-002 | HEM021-001 | MOTHER, BIOLOGICAL |
+| HEM021 | HEM021-003 | HEM021-001 | MOTHER, BIOLOGICAL |
+| HEM021 | HEM021-001 | HEM021-002 | CHILD, BIOLOGICAL |
+| HEM021 | HEM021-001 | HEM021-003 | CHILD, BIOLOGICAL |
+| HEM021 | HEM021-002 | HEM021-003 | TWIN, DIZYGOTIC |
+| HEM021 | HEM021-003 | HEM021-002 | TWIN, DIZYGOTIC |
 
 ---
 
@@ -216,11 +221,11 @@ Hemophilia study with family relationships:
 | Variable | Label | Type | Core |
 |----------|-------|------|------|
 | STUDYID | Study Identifier | Char | Req |
-| DOMAIN | Domain Abbreviation | Char | Req |
 | USUBJID | Unique Subject Identifier | Char | Req |
 | REFID | Specimen Identifier | Char | Req |
-| SPEC | Specimen Material Type | Char | Exp |
-| PARENT | Parent Specimen Identifier | Char | Exp |
+| SPEC | Specimen Material Type | Char | Perm |
+| PARENT | Specimen Parent | Char | Exp |
+| LEVEL | Specimen Level | Char | Req |
 
 ### Assumptions
 
@@ -232,22 +237,22 @@ Hemophilia study with family relationships:
 ### Example
 
 Specimen lineage diagram:
-```
-BLOOD (root specimen S001)
-├── SERUM (derived specimen S002, PARENT=S001)
-│   └── SERUM ALIQUOT (S004, PARENT=S002)
-└── PLASMA (derived specimen S003, PARENT=S001)
-    ├── PLASMA ALIQUOT (S005, PARENT=S003)
-    └── PLASMA ALIQUOT (S006, PARENT=S003)
+
+```mermaid
+graph TD
+    SPC001["SPC-001\n(Tissue)"] --> SPC001A["SPC-001-A\n(Tissue)"]
+    SPC001 --> SPC001B["SPC-001-B\n(Tissue)"]
+    SPC001B --> SPC001B1["SPC-001-B-1\n(DNA)"]
+    SPC003["SPC-003\n(Brain)"] --> SPC003A["SPC-003-A\n(RNA)"]
 ```
 
 **relspec.xpt:**
 
-| REFID | SPEC | PARENT |
-|-------|------|--------|
-| S001 | BLOOD | |
-| S002 | SERUM | S001 |
-| S003 | PLASMA | S001 |
-| S004 | SERUM | S002 |
-| S005 | PLASMA | S003 |
-| S006 | PLASMA | S003 |
+| STUDYID | USUBJID | REFID | SPEC | PARENT | LEVEL |
+|---------|---------|-------|------|--------|-------|
+| STUDY1 | SUBJ-001 | SPC-001 | TISSUE | | 1 |
+| STUDY1 | SUBJ-001 | SPC-001-A | TISSUE | SPC-001 | 2 |
+| STUDY1 | SUBJ-001 | SPC-001-B | TISSUE | SPC-001 | 2 |
+| STUDY1 | SUBJ-001 | SPC-001-B-1 | DNA | SPC-001-B | 3 |
+| STUDY1 | SUBJ-001 | SPC-003 | BRAIN | | 1 |
+| STUDY1 | SUBJ-001 | SPC-003-A | RNA | SPC-003 | 2 |

@@ -1,7 +1,7 @@
 # Knowledge Base 内容验证计划
 
 > 创建日期: 2026-04-14
-> 状态: 进行中（Step 0-2, 2-final, 3-1, 3-2 已完成，Step 3-3 ~ 3-5 / 4 待执行）
+> 状态: 进行中（Step 0-2, 2-final, 3-1 ~ 3-5, 3.5 已完成，Step 3.6 / 4 待执行）
 
 ---
 
@@ -23,8 +23,9 @@ knowledge_base/ 中的 293 个文件，其中：
 | 1 | 验证 assumptions.md (61 域) | **已完成** (2026-04-14) | 16 问题已修复 → [详细结果](verification/step1_results.md) |
 | 2 | 验证 examples.md (63 域, 21 组) | **已完成** (2026-04-14) | 33 PASS / 30 修复后 PASS → [总表](verification/step2_summary.md) · [详细结果](verification/step2_results.md) |
 | 2-final | 补全 13 幅图表 (Mermaid) | **已完成** (2026-04-14) | 13/13 图表全部完成 |
-| 3 | 验证 model/ + chapters/ (12 文件) | **进行中** | 3-1, 3-2 已完成；3-3 ~ 3-5 待执行 |
-| 3.5 | 编写溯源矩阵 (TRACEABILITY.md) | **待开始** | 证明产出完整性，记录排除理由 |
+| 3 | 验证 model/ + chapters/ (12 文件) | **已完成** (2026-04-15) | 3-1~3-5 全部完成 → [3-3](verification/step3_3_results.md) · [3-4](verification/step3_4_results.md) · [3-5](verification/step3_5_results.md) |
+| 3.5 | 编写溯源矩阵 (TRACEABILITY.md) | **已完成** (2026-04-15) | 4 份源文件全覆盖，63 域页码映射 → [TRACEABILITY.md](../../TRACEABILITY.md) |
+| 3.6 | 图像内容溯源 | **待开始** | 扫描两份 PDF 全部图像 → 清单 → 判定转化/排除 → 写入 TRACEABILITY.md |
 | 4 | 汇总报告 | **待开始** | 见下方计划 |
 
 ---
@@ -68,9 +69,9 @@ chapters/ (6 文件) 对应 SDTMIG v3.4 PDF 的通用章节
 |--------|------|--------|------|
 | 3-1 | 建立 model/ 页码映射 + 验证小文件 (01, 04) | 轻 (118 行) | **已完成** (2026-04-14) |
 | 3-2 | 验证 model/ 剩余 4 文件 (02, 03, 05, 06) | 中 (850 行) | **已完成** (2026-04-15) |
-| 3-3 | 验证 chapters/ 小文件 (ch01, ch02, ch03) | 中 (307 行, 15 页 PDF) | **待开始** |
-| 3-4 | 验证 ch04_general_assumptions | 重 (331 行, 38 页 PDF) | **待开始** |
-| 3-5 | 验证 ch08 + ch10 | 中 (457 行, 32 页 PDF) | **待开始** |
+| 3-3 | 验证 chapters/ 小文件 (ch01, ch02, ch03) | 中 (307 行, 15 页 PDF) | **已完成** (2026-04-15) |
+| 3-4 | 验证 ch04_general_assumptions | 重 (331 行, 38 页 PDF) | **已完成** (2026-04-15) |
+| 3-5 | 验证 ch08 + ch10 | 中 (457 行, 32 页 PDF) | **已完成** (2026-04-15) |
 
 ### 文件详情
 
@@ -89,40 +90,131 @@ chapters/ (6 文件) 对应 SDTMIG v3.4 PDF 的通用章节
 
 | 文件 | 行数 | PDF 页码 | 验证结果 |
 |------|------|----------|----------|
-| ch01_introduction.md | 94 | 7-10 | — |
-| ch02_fundamentals.md | 150 | 11-16 | — |
-| ch03_submitting_data.md | 63 | 17-21 | — |
-| ch04_general_assumptions.md | 331 | 22-59 | — |
-| ch08_relationships.md | 253 | 427-440 | — |
-| ch10_appendices.md | 204 | 444-461 | — |
+| ch01_introduction.md | 94→100 | 7-12 | FAIL→修复后 PASS (26处: 3高已修) |
+| ch02_fundamentals.md | 150→155 | 13-20 | FAIL→修复后 PASS (28处: 5高已修) |
+| ch03_submitting_data.md | 63→78 | 17-22 | FAIL→修复后 PASS (18处: 4高已修, 1幽灵已删, 补Conformance节) |
+| ch04_general_assumptions.md | 331→340 | 22-59 | FAIL→重构后 PASS (95处: 系统性节号错位, 完整重构) |
+| ch08_relationships.md | 253→265 | 427-446 | FAIL→修复后 PASS (43处: 6 Core值错+3变量缺失/幽灵+示例修正) |
+| ch10_appendices.md | 204→215 | 444-461 | FAIL→修复后 PASS (43处: 词汇表修正+片段补全+新域表补全) |
 
 ---
 
-## Step 3.5: 编写溯源矩阵（Traceability Matrix）
+## Step 3-final: 补全 chapters/ 图表（Mermaid 复刻）
+
+验证阶段发现 6 幅 PDF 流程图/示意图未收录到 chapters/ 文件中。
+
+**方法**: Read PDF 页面（Claude 多模态读图）→ 理解结构/节点/箭头/标签 → 翻译为 Mermaid 语法 → 嵌入对应位置
+
+| # | 文件 | PDF 页码 | 图片描述 | 状态 |
+|---|------|---------|---------|------|
+| 1 | ch02 | ~p.16 | Creating a New Domain 流程图 | ✅ 已完成 |
+| 2 | ch04 | ~p.35 | Decision Tree for Populating --OBJ | ✅ 已完成 |
+| 3 | ch04 | ~p.47 | --ENRTPT and --ENTPT for Medical History 时间轴 | ✅ 已完成 |
+| 4 | ch04 | ~p.50 | Representing Time Points 关系图 | ✅ 已完成 |
+| 5 | ch04 | ~p.52 | Original to Standardized Results 转换图 | ✅ 已完成 |
+| 6 | ch08 | ~p.443 | Sample Specimen Relationship 层次图 | ✅ 已完成 |
+
+---
+
+## Step 3.5: 编写溯源矩阵（Traceability Matrix）— 已完成
 
 **目的**: 证明项目产出的完整性和合理性——每一页源 PDF 都被处理过，未收录的内容有明确的排除理由，而非遗漏。
 
-**产出文件**: 项目根目录 `TRACEABILITY.md`（与 README 同级，属于项目交付物）
+**产出文件**: [`TRACEABILITY.md`](../../TRACEABILITY.md)（项目根目录）
 
-**内容结构**: 对每份源 PDF 逐章建立映射表：
+**完成日期**: 2026-04-15
 
-| 列 | 说明 |
-|----|------|
-| 章节编号 + 标题 | PDF 原始章节 |
-| 页码范围 | PDF 页码 |
-| 知识库文件路径 | 对应的产出文件（如有） |
-| 处理决策 | `收录` 或 `故意排除` |
-| 排除理由 | 仅对排除项填写，说明不收录的原因 |
+**覆盖范围**: 4 份源文件 × 全部章节，含 63 域完整页码映射表、排除内容分类汇总。
 
-**覆盖范围**（3 份源 PDF × 全部章节）:
+---
 
-1. **SDTM v2.0 PDF** (74 页, 9 章) → `model/` (6 文件)
-   - 收录: Chapter 2–6（模型定义的全部实质性技术内容）
-   - 排除: Chapter 1 (Introduction), 7 (Changelog), 8 (Future Changes), 9 (Appendices)
-2. **SDTMIG v3.4 PDF** (461 页) → `chapters/` (6 文件) + `domains/` (63 域 × 3 文件)
-   - 通用章节: ch01–ch04, ch08, ch10
-   - 63 域的 spec/assumptions/examples
-3. **SDTM Terminology xlsx** → `terminology/` (91 文件, 脚本生成已校验)
+## Step 3.6: 图像内容溯源（Image Traceability）
+
+**目的**: 补全溯源矩阵中对图像内容的追踪——确保两份 PDF 中的每一幅图像都有明确去向（已转化 / 故意排除），而非遗漏。
+
+**背景**: Step 3.5 的溯源矩阵按页码追踪了文本内容，但图像是一类独立的内容形态（流程图、CRF 模拟图、关系图等），需要特殊处理（图像 → Mermaid / ASCII art），应单独建立清单。Step 2-final 和 Step 3-final 已处理 19 幅图像，但这 19 幅是验证过程中发现的，不保证是全集。
+
+### 图像定义
+
+**纳入**: PDF 中所有非文字、非表格的视觉内容，包括：
+- 流程图 (Flowchart)
+- 决策树 (Decision Tree)
+- CRF 模拟图 (CRF Mockup)
+- 关系/层次图 (Relationship / Hierarchy Diagram)
+- 时间轴 (Timeline)
+- Schema / 架构图
+- 任何其他图形化内容
+
+**排除**: 纯文本、标准数据表格（已作为 markdown table 收录）
+
+### 每幅图像记录的字段
+
+| 字段 | 说明 |
+|------|------|
+| 序号 | 全局编号 |
+| 源 PDF | SDTM v2.0 / SDTMIG v3.4 |
+| 页码 | PDF 页码 |
+| 所属章节/域 | 如 Ch4 §4.4.10 或 DM Example 4 |
+| 图像类型 | 流程图 / CRF 模拟 / 关系图 / 时间轴 / Schema / Logo / 装饰 等 |
+| 简要描述 | 一句话说明图像内容 |
+| 转化格式 | Mermaid / ASCII art / 文字描述 / — |
+| 目标文件 | 知识库文件路径（如有） |
+| 处理批次 | Step 2-final / Step 3-final / Step 3.6 / — |
+| 状态 | 已转化 / 故意排除 |
+| 排除理由 | 仅对排除项填写（如 "Logo 装饰性图片" "纯重复性图表边框"） |
+
+### 执行步骤
+
+| 子步骤 | 内容 | 说明 |
+|--------|------|------|
+| 3.6-1 | 扫描 SDTM v2.0 PDF (74 页) | 1 个 agent, 4 次读取 |
+| 3.6-2 | 扫描 SDTMIG v3.4 PDF (461 页) | 5 个 agent 并行, 共 24 次读取 |
+| 3.6-3 | 交叉比对 | 与 Step 2-final (13幅) 和 Step 3-final (6幅) 已处理清单核对 |
+| 3.6-4 | 编制完整清单 | 汇总所有图像，标注状态（已转化 / 故意排除 / 待转化） |
+| 3.6-5 | 用户验收 | 用户审阅清单，确认排除决策，指定待转化项 |
+| 3.6-6 | 执行转化 | 对用户确认的待转化项进行 Mermaid/ASCII 转化 |
+| 3.6-7 | 写入 TRACEABILITY.md | 将完整图像清单作为新章节写入溯源矩阵 |
+
+### 3.6-1 / 3.6-2 扫描批次明细
+
+**模型选择**: Sonnet（多模态视觉识别足够，速度快）扫描 → Opus（主线程）汇总判定
+
+**并发方案**: 6 个 Sonnet agent 全部并行发出，每个 agent 在内部串行读取 PDF（每次 20 页）
+
+| Agent | 源 PDF | 页码范围 | 读取次数 | 输出文件 |
+|-------|--------|----------|----------|----------|
+| Agent 1 | SDTM v2.0 | p.1-74 | 4 次 (1-20, 21-40, 41-60, 61-74) | `step3_6_scan_v20.md` |
+| Agent 2 | SDTMIG v3.4 | p.1-59 | 3 次 (1-20, 21-40, 41-59) | `step3_6_scan_ig_ch.md` |
+| Agent 3 | SDTMIG v3.4 | p.60-159 | 5 次 (60-79, 80-99, 100-119, 120-139, 140-159) | `step3_6_scan_ig_d1.md` |
+| Agent 4 | SDTMIG v3.4 | p.160-259 | 5 次 (160-179, 180-199, 200-219, 220-239, 240-259) | `step3_6_scan_ig_d2.md` |
+| Agent 5 | SDTMIG v3.4 | p.260-359 | 5 次 (260-279, 280-299, 300-319, 320-339, 340-359) | `step3_6_scan_ig_d3.md` |
+| Agent 6 | SDTMIG v3.4 | p.360-461 | 6 次 (360-379, 380-399, 400-419, 420-439, 440-459, 460-461) | `step3_6_scan_ig_d4.md` |
+
+**总计**: 6 个 agent × 3~6 次读取 = 28 次 PDF 读取，覆盖全部 535 页
+
+**每个 agent 的输出格式**: markdown 表格，每行一幅图像，字段见上方「每幅图像记录的字段」
+
+### 工作流
+
+```
+第一阶段：并行扫描 (3.6-1 + 3.6-2)
+  ├─ 6 个 Sonnet agent 同时启动
+  ├─ 各自串行读取 PDF → 识别图像 → 记录元数据
+  └─ 输出到 .work/verification/step3_6_scan_*.md
+
+第二阶段：汇总与比对 (3.6-3 + 3.6-4)
+  ├─ Opus 主线程合并 6 份扫描结果
+  ├─ 与已知 19 幅图像 (Step 2-final: 13 + Step 3-final: 6) 交叉比对
+  ├─ 标注状态（已转化 / 待判定 / 故意排除）
+  └─ 生成完整清单
+
+第三阶段：用户验收 (3.6-5)
+  └─ 用户审阅清单 → 确认排除决策 → 指定待转化项
+
+第四阶段：执行 + 写入 (3.6-6 + 3.6-7)
+  ├─ 对待转化项执行 Mermaid/ASCII 转化
+  └─ 将完整图像清单写入 TRACEABILITY.md
+```
 
 **状态**: 待开始
 

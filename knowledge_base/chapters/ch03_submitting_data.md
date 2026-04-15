@@ -20,6 +20,8 @@ Dataset definition metadata should include:
 
 ### 3.2.1 Dataset-level Metadata
 
+**Note:** The key variables shown in this table are examples only. A sponsor's actual key structure may be different. The order of classes and datasets in this table is not intended as a normative order of datasets in a submission.
+
 The Dataset-level Metadata table provides examples of dataset structures:
 
 | Dataset | Description | Class | Structure | Purpose | Keys | Location |
@@ -33,18 +35,6 @@ The Dataset-level Metadata table provides examples of dataset structures:
 | CM | Concomitant/Prior Medications | Interventions | One record per recorded intervention occurrence or constant-dosing interval per subject | Tabulation | STUDYID, USUBJID, CMTRT, CMSTDTC | cm.xpt |
 | EX | Exposure | Interventions | One record per protocol-specified study treatment, constant-dosing interval, per subject | Tabulation | STUDYID, USUBJID, EXTRT, EXSTDTC | ex.xpt |
 | ... | (and 50+ more domains) | | | | | |
-
-### Key Dataset Classes and Their Domains
-
-| Class | Domains |
-|-------|---------|
-| **Special Purpose** | CO, DM, SE, SM, SV |
-| **Interventions** | AG, CM, EC, EX, ML, PR, SU |
-| **Events** | AE, BE, CE, DS, DV, HO, MH |
-| **Findings** | BS, CP, CV, DA, DD, EG, FA, FT, GF, IE, IS, LB, MB, MI, MK, MS, NV, OE, PC, PE, PP, QS, RE, RP, RS, SC, SR, SS, TR, TU, UR, VS |
-| **Trial Design** | TA, TD, TE, TI, TM, TS, TV |
-| **Relationship** | RELREC, RELSPEC, RELSUB, SUPP-- |
-| **Study Reference** | OI |
 
 ### 3.2.1.1 Primary Keys
 
@@ -60,4 +50,21 @@ Findings data models are closely related to normalized, relational data models i
 
 **Example:** The Vital Signs (VS) domain could contain subject records related to diastolic and systolic blood pressure, height, weight, and body mass index (BMI). These data are all submitted in the normalized SDTM structure. VSTESTCD provides the key differentiator.
 
-Value-level metadata should be provided in the Define-XML document to describe expected properties that differentiate these data types (e.g., data type, standard units, other attributes).
+Value-level metadata should be provided as a separate section of the Define-XML document to describe expected properties that differentiate these data types (e.g., data type, standard units, other attributes).
+
+---
+
+## 3.2.2 Conformance
+
+Conformance with the SDTMIG domain models is minimally indicated by:
+
+1. Following the complete metadata structure for data domains
+2. Following SDTMIG domain models wherever applicable
+3. Using SDTM-specified standard domain names and prefixes where applicable
+4. Using SDTM-specified standard variable names
+5. Using SDTM-specified data types for all variables
+6. Following SDTM-specified controlled terminology and format guidelines for variables, when provided
+7. Including all collected and relevant derived data in one of the standard domains, special-purpose datasets, or general observation class structures
+8. Including all Required and Expected variables as columns in standard domains, and ensuring that all Required variables are populated
+9. Ensuring that each record in a dataset includes the appropriate Identifier and Timing variables, as well as a Topic variable
+10. Conforming to all business rules described in the CDISC Notes column and general and domain-specific assumptions
