@@ -292,7 +292,7 @@
 
 ### GFSEQID
 - **Order:** 33
-- **Label:** Sequence Identifier \n
+- **Label:** Sequence Identifier 
 - **Type:** Char
 - **Controlled Terms:** 
 - **Role:** Variable Qualifier

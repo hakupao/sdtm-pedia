@@ -1,7 +1,7 @@
 # 用户操作指南
 
-> 最后更新: 2026-04-13
-> 项目状态：**已全部完成 ✓**
+> 最后更新: 2026-04-15
+> 项目状态：知识库构建已完成，验证 Step 0-3.6 完成，Step 4 (汇总报告) 待执行
 
 ---
 
@@ -30,11 +30,11 @@
 如需进一步验证内容精度，建议：
 - 抽查 2-3 个 `assumptions.md`，与 PDF 对应页码逐条对照
 - 抽查 2-3 个 `examples.md`，重点检查数据表格完整性
-- 页码映射参见 `.work/page_index.json`
+- 页码映射参见 `.work/02_indexing/page_index.json`
 
 ### 搭建 Claude Project
 
-参见 `SDTM_Project_Setup_Guide.md` 和 `SDTM_Project_Instructions.md`。
+参见 `docs/claude_project_setup.md` 和 `docs/claude_project_instructions.md`。
 > 注意：这两个文件引用的是旧版 `project_knowledge_base/` 结构，如需使用新版 `knowledge_base/` 结构上传到 Claude Project，需要更新文件引用。
 
 ---
@@ -43,9 +43,9 @@
 
 | 文件 | 内容 |
 |------|------|
-| `PROGRESS.md` | 总体进度看板 |
+| `docs/PROGRESS.md` | 总体进度看板 |
 | `.work/progress.json` | 程序化进度追踪 |
-| `.work/worklog.md` | 完整工作日志 |
-| `.work/analysis/02_restructure_plan.md` | 完整方案文档 |
-| `.work/findings.md` | 质量问题记录（0 个问题） |
-| `.work/mapping.md` | 源文件→输出文件映射 |
+| `.work/meta/worklog.md` | 完整工作日志 |
+| `.work/00_planning/restructure_plan.md` | 完整方案文档 |
+| `.work/meta/findings.md` | 质量问题记录（0 个问题） |
+| `.work/meta/mapping.md` | 源文件→输出文件映射 |

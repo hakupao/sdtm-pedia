@@ -216,7 +216,7 @@
 - **Controlled Terms:** 
 - **Role:** Record Qualifier
 - **Core:** Exp
-- **CDISC Notes:** ARMCD is limited to 20 characters. It is not subject to the character restrictions that apply to TESTCD. The maximum length of ARMCD is longer than for other "short" variables to accommodate the kind of values that are likely to be needed for crossover trials. For example, if ARMCD values for a 7-period crossover were constructed using 2-character abbreviations for each treatment and separating hyphens, the length of ARMCD values would be 20. If the subject was not assigned to a trial arm, ARMCD is null and ARMNRS is populated. \n With the exception of studies which use multistage arm assignments, must be a value of ARMCD in the Trial Arms dataset.
+- **CDISC Notes:** ARMCD is limited to 20 characters. It is not subject to the character restrictions that apply to TESTCD. The maximum length of ARMCD is longer than for other "short" variables to accommodate the kind of values that are likely to be needed for crossover trials. For example, if ARMCD values for a 7-period crossover were constructed using 2-character abbreviations for each treatment and separating hyphens, the length of ARMCD values would be 20. If the subject was not assigned to a trial arm, ARMCD is null and ARMNRS is populated.  With the exception of studies which use multistage arm assignments, must be a value of ARMCD in the Trial Arms dataset.
 
 ### ARM
 - **Order:** 25
@@ -225,7 +225,7 @@
 - **Controlled Terms:** 
 - **Role:** Synonym Qualifier
 - **Core:** Exp
-- **CDISC Notes:** Name of the arm to which the subject was assigned. If the subject was not assigned to an arm, ARM is null and ARMNRS is populated. \n With the exception of studies which use multistage arm assignments, must be a value of ARM in the Trial Arms dataset.
+- **CDISC Notes:** Name of the arm to which the subject was assigned. If the subject was not assigned to an arm, ARM is null and ARMNRS is populated.  With the exception of studies which use multistage arm assignments, must be a value of ARM in the Trial Arms dataset.
 
 ### ACTARMCD
 - **Order:** 26
@@ -234,7 +234,7 @@
 - **Controlled Terms:** 
 - **Role:** Record Qualifier
 - **Core:** Exp
-- **CDISC Notes:** Code of actual arm. ACTARMCD is limited to 20 characters. It is not subject to the character restrictions that apply to TESTCD. The maximum length of ACTARMCD is longer than for other short variables to accommodate the kind of values that are likely to be needed for crossover trials. \n With the exception of studies which use multistage arm assignments, must be a value of ARMCD in the Trial Arms dataset. \n If the subject was not assigned to an arm or followed a course not described by any planned arm, ACTARMCD is null and ARMNRS is populated.
+- **CDISC Notes:** Code of actual arm. ACTARMCD is limited to 20 characters. It is not subject to the character restrictions that apply to TESTCD. The maximum length of ACTARMCD is longer than for other short variables to accommodate the kind of values that are likely to be needed for crossover trials.  With the exception of studies which use multistage arm assignments, must be a value of ARMCD in the Trial Arms dataset.  If the subject was not assigned to an arm or followed a course not described by any planned arm, ACTARMCD is null and ARMNRS is populated.
 
 ### ACTARM
 - **Order:** 27
@@ -243,7 +243,7 @@
 - **Controlled Terms:** 
 - **Role:** Synonym Qualifier
 - **Core:** Exp
-- **CDISC Notes:** Description of actual arm. \n With the exception of studies which use multistage arm assignments, must be a value of ARM in the Trial Arms dataset. \n If the subject was not assigned to an arm or followed a course not described by any planned arm, ACTARM is null and ARMNRS is populated.
+- **CDISC Notes:** Description of actual arm.  With the exception of studies which use multistage arm assignments, must be a value of ARM in the Trial Arms dataset.  If the subject was not assigned to an arm or followed a course not described by any planned arm, ACTARM is null and ARMNRS is populated.
 
 ### ARMNRS
 - **Order:** 28
@@ -270,7 +270,7 @@
 - **Controlled Terms:** 
 - **Role:** Record Qualifier
 - **Core:** Req
-- **CDISC Notes:** Country of the investigational site in which the subject participated in the trial. \n \n Generally represented using ISO 3166-1 Alpha-3. Note that regulatory agency specific requirements (e.g., US FDA) may require other terminologies; in such cases, follow regulatory requirements.
+- **CDISC Notes:** Country of the investigational site in which the subject participated in the trial.   Generally represented using ISO 3166-1 Alpha-3. Note that regulatory agency specific requirements (e.g., US FDA) may require other terminologies; in such cases, follow regulatory requirements.
 
 ### DMDTC
 - **Order:** 31

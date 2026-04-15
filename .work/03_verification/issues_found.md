@@ -1,11 +1,13 @@
 # 验证过程中发现的问题
 
 > 创建日期: 2026-04-15
-> 状态: 待处理
+> 状态: Issue 1 已解决 (2026-04-15), Issue 2 待处理 (ch04 内容补全)
 
 ---
 
-## Issue 1: 图像扫描页码不可靠
+## Issue 1: 图像扫描页码不可靠 → page_index.json 权威索引偏差
+
+**状态**: **已解决** (2026-04-15) — 详见 [issue1_investigation.md](issue1_investigation.md)
 
 **发现方式**: 用户审阅 Step 3.6 图像清单时发现 TD Example 页码偏移
 

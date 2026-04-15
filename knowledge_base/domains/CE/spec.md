@@ -243,7 +243,7 @@
 - **Controlled Terms:** C66728
 - **Role:** Timing
 - **Core:** Perm
-- **CDISC Notes:** Describes the start of the clinical event relative to the sponsor-defined reference period. The sponsor-defined reference period is a continuous period of time defined by a discrete starting point and a discrete ending point (represented by RFSTDTC and RFENDTC in Demographics). \n Not all values of the codelist are allowable for this variable. See Section 4.4.7, Use of Relative Timing Variables.
+- **CDISC Notes:** Describes the start of the clinical event relative to the sponsor-defined reference period. The sponsor-defined reference period is a continuous period of time defined by a discrete starting point and a discrete ending point (represented by RFSTDTC and RFENDTC in Demographics).  Not all values of the codelist are allowable for this variable. See Section 4.4.7, Use of Relative Timing Variables.
 
 ### CEENRF
 - **Order:** 28
@@ -252,7 +252,7 @@
 - **Controlled Terms:** C66728
 - **Role:** Timing
 - **Core:** Perm
-- **CDISC Notes:** Describes the end of the event relative to the sponsor-defined reference period. The sponsor-defined reference period is a continuous period of time defined by a discrete starting point and a discrete ending point (represented by RFSTDTC and RFENDTC in Demographics). \n Not all values of the codelist are allowable for this variable. See Section 4.4.7, Use of Relative Timing Variables.
+- **CDISC Notes:** Describes the end of the event relative to the sponsor-defined reference period. The sponsor-defined reference period is a continuous period of time defined by a discrete starting point and a discrete ending point (represented by RFSTDTC and RFENDTC in Demographics).  Not all values of the codelist are allowable for this variable. See Section 4.4.7, Use of Relative Timing Variables.
 
 ### CESTRTPT
 - **Order:** 29
@@ -261,7 +261,7 @@
 - **Controlled Terms:** C66728
 - **Role:** Timing
 - **Core:** Perm
-- **CDISC Notes:** Identifies the start of the observation as being before or after the reference time point defined by variable CESTTPT. \n Not all values of the codelist are allowable for this variable. See Section 4.4.7, Use of Relative Timing Variables.
+- **CDISC Notes:** Identifies the start of the observation as being before or after the reference time point defined by variable CESTTPT.  Not all values of the codelist are allowable for this variable. See Section 4.4.7, Use of Relative Timing Variables.
 
 ### CESTTPT
 - **Order:** 30
@@ -279,7 +279,7 @@
 - **Controlled Terms:** C66728
 - **Role:** Timing
 - **Core:** Perm
-- **CDISC Notes:** Identifies the end of the observation as being before or after the sponsor-defined reference time point defined by variable CEENTPT. \n Not all values of the codelist are allowable for this variable. See Section 4.4.7, Use of Relative Timing Variables.
+- **CDISC Notes:** Identifies the end of the observation as being before or after the sponsor-defined reference time point defined by variable CEENTPT.  Not all values of the codelist are allowable for this variable. See Section 4.4.7, Use of Relative Timing Variables.
 
 ### CEENTPT
 - **Order:** 32

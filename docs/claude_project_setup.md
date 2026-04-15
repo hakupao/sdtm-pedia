@@ -1,7 +1,7 @@
 # SDTM Mapping Expert — 搭建指南
 
 > 本文档指导如何使用 `knowledge_base/` 目录中的文件搭建 Claude Project。
-> 最后更新：2026-04-13
+> 最后更新：2026-04-15
 
 ---
 
@@ -31,7 +31,7 @@
 ### Step 2：设置 Instructions
 
 1. 进入 Project 后，点击右上角 **设置图标** 或 Project 页面的 **Set custom instructions**
-2. 将 `SDTM_Project_Instructions.md` 文件中代码块里的内容 **完整复制粘贴** 到 Instructions 输入框
+2. 将 `docs/claude_project_instructions.md` 文件中代码块里的内容 **完整复制粘贴** 到 Instructions 输入框
 3. 保存
 
 ### Step 3：上传 Knowledge Base 文件

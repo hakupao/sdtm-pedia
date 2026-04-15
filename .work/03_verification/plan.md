@@ -1,7 +1,16 @@
+<!-- chain: A (验证进度链)
+  修改本文件后，必须检查:
+  → 03_verification/issues_found.md  (问题汇总)
+  → meta/findings.md                 (全局质量记录)
+  → meta/worklog.md                  (工作日志)
+  → progress.json                    (程序化进度)
+  → ../docs/PROGRESS.md                   (进度看板)
+-->
+
 # Knowledge Base 内容验证计划
 
 > 创建日期: 2026-04-14
-> 状态: 进行中（Step 0-2, 2-final, 3-1 ~ 3-5, 3.5, 3.6 已完成，Step 4 待执行）
+> 状态: Step 0 ~ 3.6 **全部完成**，仅 Step 4 (汇总报告) 待执行
 
 ---
 
@@ -20,12 +29,12 @@ knowledge_base/ 中的 293 个文件，其中：
 | Step | 任务 | 状态 | 详情 |
 |------|------|------|------|
 | 0 | 修正 page_index.json | **已完成** (2026-04-14) | 63 域页码全部实际翻 PDF 确认 |
-| 1 | 验证 assumptions.md (61 域) | **已完成** (2026-04-14) | 16 问题已修复 → [详细结果](verification/step1_results.md) |
-| 2 | 验证 examples.md (63 域, 21 组) | **已完成** (2026-04-14) | 33 PASS / 30 修复后 PASS → [总表](verification/step2_summary.md) · [详细结果](verification/step2_results.md) |
+| 1 | 验证 assumptions.md (61 域) | **已完成** (2026-04-14) | 16 问题已修复 → [详细结果](results/step1_assumptions.md) |
+| 2 | 验证 examples.md (63 域, 21 组) | **已完成** (2026-04-14) | 33 PASS / 30 修复后 PASS → [总表](results/step2_examples_summary.md) · [详细结果](results/step2_examples_detail.md) |
 | 2-final | 补全 13 幅图表 (Mermaid) | **已完成** (2026-04-14) | 13/13 图表全部完成 |
-| 3 | 验证 model/ + chapters/ (12 文件) | **已完成** (2026-04-15) | 3-1~3-5 全部完成 → [3-3](verification/step3_3_results.md) · [3-4](verification/step3_4_results.md) · [3-5](verification/step3_5_results.md) |
-| 3.5 | 编写溯源矩阵 (TRACEABILITY.md) | **已完成** (2026-04-15) | 4 份源文件全覆盖，63 域页码映射 → [TRACEABILITY.md](../../TRACEABILITY.md) |
-| 3.6 | 图像内容溯源 | **已完成** (2026-04-15) | 60 幅图像全覆盖：37 已转化(前期) + 21 新转化(Step 3.6) + 2 排除(Logo) → [清单](verification/step3_6_image_inventory.md) · [TRACEABILITY.md §6](../../TRACEABILITY.md) |
+| 3 | 验证 model/ + chapters/ (12 文件) | **已完成** (2026-04-15) | 3-1~3-5 全部完成 → [3-3](results/step3_3_chapters_small.md) · [3-4](results/step3_4_ch04.md) · [3-5](results/step3_5_ch08_ch10.md) |
+| 3.5 | 编写溯源矩阵 (TRACEABILITY.md) | **已完成** (2026-04-15) | 4 份源文件全覆盖，63 域页码映射 → [TRACEABILITY.md](../../docs/TRACEABILITY.md) |
+| 3.6 | 图像内容溯源 | **已完成** (2026-04-15) | 60 幅图像全覆盖：37 已转化(前期) + 21 新转化(Step 3.6) + 2 排除(Logo) → [清单](scans/image_inventory.md) · [TRACEABILITY.md §6](../../docs/TRACEABILITY.md) |
 | 4 | 汇总报告 | **待开始** | 见下方计划 |
 
 ---
@@ -120,7 +129,7 @@ chapters/ (6 文件) 对应 SDTMIG v3.4 PDF 的通用章节
 
 **目的**: 证明项目产出的完整性和合理性——每一页源 PDF 都被处理过，未收录的内容有明确的排除理由，而非遗漏。
 
-**产出文件**: [`TRACEABILITY.md`](../../TRACEABILITY.md)（项目根目录）
+**产出文件**: [`TRACEABILITY.md`](../../docs/TRACEABILITY.md)（项目根目录）
 
 **完成日期**: 2026-04-15
 
@@ -200,7 +209,7 @@ chapters/ (6 文件) 对应 SDTMIG v3.4 PDF 的通用章节
 第一阶段：并行扫描 (3.6-1 + 3.6-2)
   ├─ 6 个 Sonnet agent 同时启动
   ├─ 各自串行读取 PDF → 识别图像 → 记录元数据
-  └─ 输出到 .work/verification/step3_6_scan_*.md
+  └─ 输出到 .work/03_verification/scans/
 
 第二阶段：汇总与比对 (3.6-3 + 3.6-4)
   ├─ Opus 主线程合并 6 份扫描结果

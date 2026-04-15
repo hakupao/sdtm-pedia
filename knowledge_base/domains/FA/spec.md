@@ -216,7 +216,7 @@
 - **Controlled Terms:** 
 - **Role:** Timing
 - **Core:** Exp
-- **CDISC Notes:** 1. Clinical encounter number. \n 2. Numeric version of VISIT, used for sorting.
+- **CDISC Notes:** 1. Clinical encounter number.  2. Numeric version of VISIT, used for sorting.
 
 ### VISIT
 - **Order:** 25
@@ -225,7 +225,7 @@
 - **Controlled Terms:** 
 - **Role:** Timing
 - **Core:** Perm
-- **CDISC Notes:** 1. Protocol-defined description of clinical encounter. \n 2. May be used in addition to VISITNUM and/or VISITDY.
+- **CDISC Notes:** 1. Protocol-defined description of clinical encounter.  2. May be used in addition to VISITNUM and/or VISITDY.
 
 ### VISITDY
 - **Order:** 26
@@ -270,4 +270,4 @@
 - **Controlled Terms:** 
 - **Role:** Timing
 - **Core:** Perm
-- **CDISC Notes:** 1. Study day of collection, measured as integer days. \n 2. Algorithm for calculations must be relative to the sponsor-defined RFSTDTC variable in Demographics. This formula should be consistent across the submission.
+- **CDISC Notes:** 1. Study day of collection, measured as integer days.  2. Algorithm for calculations must be relative to the sponsor-defined RFSTDTC variable in Demographics. This formula should be consistent across the submission.

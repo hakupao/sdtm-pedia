@@ -72,7 +72,7 @@
 - **Controlled Terms:** 
 - **Role:** Topic
 - **Core:** Req
-- **CDISC Notes:** Short character value for FTTEST, which can be used as a column name when converting a dataset from a vertical format to a horizontal format. The value cannot be longer than 8 characters, nor can it start with a number (e.g., "1TEST" is not valid). FTTESTCD cannot contain characters other than letters, numbers, or underscores. \n Controlled terminology for FTTESTCD is published in separate codelists for each instrument. See https://www.cdisc.org/standards/terminology/controlled-terminology for values for FTTESTCD. Examples: "W250101", "W25F0102".
+- **CDISC Notes:** Short character value for FTTEST, which can be used as a column name when converting a dataset from a vertical format to a horizontal format. The value cannot be longer than 8 characters, nor can it start with a number (e.g., "1TEST" is not valid). FTTESTCD cannot contain characters other than letters, numbers, or underscores.  Controlled terminology for FTTESTCD is published in separate codelists for each instrument. See https://www.cdisc.org/standards/terminology/controlled-terminology for values for FTTESTCD. Examples: "W250101", "W25F0102".
 
 ### FTTEST
 - **Order:** 9
@@ -81,7 +81,7 @@
 - **Controlled Terms:** 
 - **Role:** Synonym Qualifier
 - **Core:** Req
-- **CDISC Notes:** Verbatim name of the question used to obtain the finding. The value in FTTEST cannot be longer than 40 characters. \n Controlled terminology for FTTEST is published in separate codelists for each instrument. See https://www.cdisc.org/standards/terminology/controlled-terminology for values for FTTEST. Examples: "W2501-25 Foot Walk Time", "W25F-More Than Two Attempts".
+- **CDISC Notes:** Verbatim name of the question used to obtain the finding. The value in FTTEST cannot be longer than 40 characters.  Controlled terminology for FTTEST is published in separate codelists for each instrument. See https://www.cdisc.org/standards/terminology/controlled-terminology for values for FTTEST. Examples: "W2501-25 Foot Walk Time", "W25F-More Than Two Attempts".
 
 ### FTCAT
 - **Order:** 10

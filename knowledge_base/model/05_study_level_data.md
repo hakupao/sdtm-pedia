@@ -239,15 +239,15 @@ Used to identify the devices used in a study. The parameters used for identifica
 graph TD
     Study["Study"]
     Device["Device"]
-    IC["Identifying\nCharacteristic"]
-    ID["identifier\n(SPDEVID)"]
-    PARAM["parameter\n(DIPARM, DIPARMCD)"]
-    VAL["value\n(DIVAL)"]
+    IC["IdentifyingCharacteristic"]
+    ID["identifier(SPDEVID)"]
+    PARAM["parameter(DIPARM, DIPARMCD)"]
+    VAL["value(DIVAL)"]
 
     Study -->|involves| Device
-    Device -->|"has one\nor more"| IC
+    Device -->|"has oneor more"| IC
     Device -->|has| ID
-    IC -->|"is\nrepresented\nusing"| PARAM
+    IC -->|"isrepresentedusing"| PARAM
     PARAM -->|has| VAL
 ```
 
@@ -272,16 +272,16 @@ Used to represent taxonomic information for non-host organisms such as bacteria 
 ```mermaid
 graph TD
     Study["Study"]
-    NHO["Non-Host\nOrganism"]
+    NHO["Non-HostOrganism"]
     Taxon["Taxon"]
-    ID["identifier\n(NHOID)"]
-    PARAM["parameter\n(OIPARM, OIPARMCD)"]
-    VAL["value\n(OIVAL)"]
+    ID["identifier(NHOID)"]
+    PARAM["parameter(OIPARM, OIPARMCD)"]
+    VAL["value(OIVAL)"]
 
     Study -->|involves| NHO
-    NHO -->|"has one\nor more"| Taxon
+    NHO -->|"has oneor more"| Taxon
     NHO -->|has| ID
-    Taxon -->|"is\nrepresented\nusing"| PARAM
+    Taxon -->|"isrepresentedusing"| PARAM
     PARAM -->|has| VAL
 ```
 

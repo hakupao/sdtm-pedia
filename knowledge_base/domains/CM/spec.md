@@ -324,7 +324,7 @@
 - **Controlled Terms:** C66728
 - **Role:** Timing
 - **Core:** Perm
-- **CDISC Notes:** Describes the start of the medication relative to sponsor-defined reference period. The sponsor-defined reference period is a continuous period of time defined by a discrete starting point and a discrete ending point (represented by RFSTDTC and RFENDTC in Demographics). If information such as "PRIOR" was collected, this information may be translated into CMSTRF. \n Not all values of the codelist are allowable for this variable. See Section 4.4.7, Use of Relative Timing Variables.
+- **CDISC Notes:** Describes the start of the medication relative to sponsor-defined reference period. The sponsor-defined reference period is a continuous period of time defined by a discrete starting point and a discrete ending point (represented by RFSTDTC and RFENDTC in Demographics). If information such as "PRIOR" was collected, this information may be translated into CMSTRF.  Not all values of the codelist are allowable for this variable. See Section 4.4.7, Use of Relative Timing Variables.
 
 ### CMENRF
 - **Order:** 37
@@ -333,7 +333,7 @@
 - **Controlled Terms:** C66728
 - **Role:** Timing
 - **Core:** Perm
-- **CDISC Notes:** Describes the end of the medication relative to the sponsor-defined reference period. The sponsor-defined reference period is a continuous period of time defined by a discrete starting point and a discrete ending point (represented by RFSTDTC and RFENDTC in Demographics). If information such as "PRIOR", "ONGOING, or "CONTINUING" was collected, this information may be translated into CMENRF. \n Not all values of the codelist are allowable for this variable. See Section 4.4.7, Use of Relative Timing Variables.
+- **CDISC Notes:** Describes the end of the medication relative to the sponsor-defined reference period. The sponsor-defined reference period is a continuous period of time defined by a discrete starting point and a discrete ending point (represented by RFSTDTC and RFENDTC in Demographics). If information such as "PRIOR", "ONGOING, or "CONTINUING" was collected, this information may be translated into CMENRF.  Not all values of the codelist are allowable for this variable. See Section 4.4.7, Use of Relative Timing Variables.
 
 ### CMSTRTPT
 - **Order:** 38
@@ -342,7 +342,7 @@
 - **Controlled Terms:** C66728
 - **Role:** Timing
 - **Core:** Perm
-- **CDISC Notes:** Identifies the start of the medication as being before or after the sponsor-defined reference time point defined by variable CMSTTPT. \n Not all values of the codelist are allowable for this variable. See Section 4.4.7, Use of Relative Timing Variables.
+- **CDISC Notes:** Identifies the start of the medication as being before or after the sponsor-defined reference time point defined by variable CMSTTPT.  Not all values of the codelist are allowable for this variable. See Section 4.4.7, Use of Relative Timing Variables.
 
 ### CMSTTPT
 - **Order:** 39
@@ -360,7 +360,7 @@
 - **Controlled Terms:** C66728
 - **Role:** Timing
 - **Core:** Perm
-- **CDISC Notes:** Identifies the end of the medication as being before or after the sponsor-defined reference time point defined by variable CMENTPT. \n Not all values of the codelist are allowable for this variable. See Section 4.4.7, Use of Relative Timing Variables.
+- **CDISC Notes:** Identifies the end of the medication as being before or after the sponsor-defined reference time point defined by variable CMENTPT.  Not all values of the codelist are allowable for this variable. See Section 4.4.7, Use of Relative Timing Variables.
 
 ### CMENTPT
 - **Order:** 41

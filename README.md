@@ -127,15 +127,19 @@ sdtm-pedia/
 │   └── SDTM Terminology.xlsx
 │
 ├── .work/                       # Build workspace
-│   ├── analysis/                # Design documents
-│   ├── scripts/                 # Python generation & validation scripts
-│   ├── todo.md                  # Roadmap
-│   ├── page_index.json          # PDF page index for extraction
-│   └── worklog.md               # Build log
+│   ├── 00_planning/             # Design documents
+│   ├── 01_generation/scripts/   # Python generation & validation scripts
+│   ├── 02_indexing/             # PDF page index for extraction
+│   ├── 03_verification/         # Verification results & reports
+│   ├── 04_optimization/         # Roadmap for retrieval optimization
+│   ├── meta/                    # Work log, mappings, findings
+│   └── MANIFEST.md              # File index & change chains
 │
-├── SDTM_Project_Instructions.md # Claude Project instruction template
-├── SDTM_Project_Setup_Guide.md  # Step-by-step setup guide
-└── PROGRESS.md                  # Build progress dashboard
+├── docs/                        # Project documentation
+│   ├── PROGRESS.md              # Build progress dashboard
+│   ├── TRACEABILITY.md          # Source-to-output traceability matrix
+│   ├── claude_project_instructions.md  # Claude Project instruction template
+│   └── claude_project_setup.md  # Step-by-step setup guide
 ```
 
 ## Domain Coverage
@@ -265,9 +269,9 @@ The fastest way to use SDTM Pedia is as a Claude Project knowledge base.
 
 2. **Create a Claude Project** at [claude.ai](https://claude.ai) → Projects → Create project
 
-3. **Set Instructions** — Copy the contents of `SDTM_Project_Instructions.md` into the project instructions
+3. **Set Instructions** — Copy the contents of `docs/claude_project_instructions.md` into the project instructions
 
-4. **Upload files** from `knowledge_base/` — See `SDTM_Project_Setup_Guide.md` for the recommended upload priority
+4. **Upload files** from `knowledge_base/` — See `docs/claude_project_setup.md` for the recommended upload priority
 
 5. **Start querying**
    ```
@@ -276,7 +280,7 @@ The fastest way to use SDTM Pedia is as a Claude Project knowledge base.
    What are the allowed values for SEX codelist?
    ```
 
-> For detailed setup instructions, see [SDTM_Project_Setup_Guide.md](SDTM_Project_Setup_Guide.md)
+> For detailed setup instructions, see [docs/claude_project_setup.md](docs/claude_project_setup.md)
 
 ### Use with Claude Code
 

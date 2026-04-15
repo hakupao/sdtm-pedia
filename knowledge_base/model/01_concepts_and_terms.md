@@ -16,24 +16,24 @@ graph TD
     %% Plain rounded box = Group of individually specified datasets
     %% Filled box (:::extensible) = Extensible set of domains based on a common model
 
-    SDTM["Study Data Tabulation\nModel"]
+    SDTM["Study Data TabulationModel"]
 
-    SDTM -->|includes| SD["Domains for\nSubject Data"]
-    SDTM -->|includes| AP["Domains for\nAssociated\nPersons Data"]
-    SDTM -->|includes| SL["Domains for\nStudy-Level Data"]
-    SDTM -->|includes| RD["Relationship\nDatasets"]:::extensible
+    SDTM -->|includes| SD["Domains forSubject Data"]
+    SDTM -->|includes| AP["Domains forAssociatedPersons Data"]
+    SDTM -->|includes| SL["Domains forStudy-Level Data"]
+    SDTM -->|includes| RD["RelationshipDatasets"]:::extensible
 
-    SD -->|include| GOC["General\nObservation Class\nDomains"]:::extensible
-    SD -->|include| SPD["Special\nPurpose\nDomains"]:::extensible
+    SD -->|include| GOC["GeneralObservation ClassDomains"]:::extensible
+    SD -->|include| SPD["SpecialPurposeDomains"]:::extensible
 
-    GOC -->|include| EV["Events\nDomains"]:::extensible
-    GOC -->|include| IV["Interventions\nDomains"]:::extensible
-    GOC -->|include| FI["Findings\nDomains"]:::extensible
+    GOC -->|include| EV["EventsDomains"]:::extensible
+    GOC -->|include| IV["InterventionsDomains"]:::extensible
+    GOC -->|include| FI["FindingsDomains"]:::extensible
 
-    FI -->|subtype of| FA["Findings About\nDomains"]:::extensible
+    FI -->|subtype of| FA["Findings AboutDomains"]:::extensible
 
-    SL -->|include| TDM["Trial Design\nModel"]:::extensible
-    SL -->|include| SRS["Study Reference\nDatasets"]
+    SL -->|include| TDM["Trial DesignModel"]:::extensible
+    SL -->|include| SRS["Study ReferenceDatasets"]
 
     classDef extensible fill:#c8e6c9,stroke:#388e3c,color:#1b5e20
 ```

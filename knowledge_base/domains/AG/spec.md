@@ -234,7 +234,7 @@
 - **Controlled Terms:** 
 - **Role:** Timing
 - **Core:** Exp
-- **CDISC Notes:** 1. Clinical encounter number. \n 2. Numeric version of VISIT, used for sorting.
+- **CDISC Notes:** 1. Clinical encounter number.  2. Numeric version of VISIT, used for sorting.
 
 ### VISIT
 - **Order:** 27
@@ -243,7 +243,7 @@
 - **Controlled Terms:** 
 - **Role:** Timing
 - **Core:** Perm
-- **CDISC Notes:** 1. Protocol-defined description of clinical encounter. \n 2. May be used in addition to VISITNUM and/or VISITDY.
+- **CDISC Notes:** 1. Protocol-defined description of clinical encounter.  2. May be used in addition to VISITNUM and/or VISITDY.
 
 ### VISITDY
 - **Order:** 28
@@ -324,7 +324,7 @@
 - **Controlled Terms:** C66728
 - **Role:** Timing
 - **Core:** Perm
-- **CDISC Notes:** Describes the start of the agent relative to sponsor-defined reference period. The sponsor-defined reference period is a continuous period of time defined by a discrete starting point and a discrete ending point (represented by RFSTDTC and RFENDTC in Demographics). If information such as "PRIOR", "ONGOING", or "CONTINUING" was collected, this information may be translated into AGSTRF. \n Not all values of the codelist are allowable for this variable. See Section 4.4.7, Use of Relative Timing Variables.
+- **CDISC Notes:** Describes the start of the agent relative to sponsor-defined reference period. The sponsor-defined reference period is a continuous period of time defined by a discrete starting point and a discrete ending point (represented by RFSTDTC and RFENDTC in Demographics). If information such as "PRIOR", "ONGOING", or "CONTINUING" was collected, this information may be translated into AGSTRF.  Not all values of the codelist are allowable for this variable. See Section 4.4.7, Use of Relative Timing Variables.
 
 ### AGENRF
 - **Order:** 37
@@ -333,7 +333,7 @@
 - **Controlled Terms:** C66728
 - **Role:** Timing
 - **Core:** Perm
-- **CDISC Notes:** Describes the end of the agent relative to the sponsor-defined reference period. The sponsor-defined reference period is a continuous period of time defined by a discrete starting point and a discrete ending point (represented by RFSTDTC and RFENDTC in Demographics). If information such as "PRIOR", "ONGOING", or "CONTINUING" was collected, this information may be translated into AGENRF. \n Not all values of the codelist are allowable for this variable. See Section 4.4.7, Use of Relative Timing Variables.
+- **CDISC Notes:** Describes the end of the agent relative to the sponsor-defined reference period. The sponsor-defined reference period is a continuous period of time defined by a discrete starting point and a discrete ending point (represented by RFSTDTC and RFENDTC in Demographics). If information such as "PRIOR", "ONGOING", or "CONTINUING" was collected, this information may be translated into AGENRF.  Not all values of the codelist are allowable for this variable. See Section 4.4.7, Use of Relative Timing Variables.
 
 ### AGSTRTPT
 - **Order:** 38
@@ -342,7 +342,7 @@
 - **Controlled Terms:** C66728
 - **Role:** Timing
 - **Core:** Perm
-- **CDISC Notes:** Identifies the start of the agent as being before or after the sponsor-defined reference time point defined by variable AGSTTPT. \n Not all values of the codelist are allowable for this variable. See Section 4.4.7, Use of Relative Timing Variables.
+- **CDISC Notes:** Identifies the start of the agent as being before or after the sponsor-defined reference time point defined by variable AGSTTPT.  Not all values of the codelist are allowable for this variable. See Section 4.4.7, Use of Relative Timing Variables.
 
 ### AGSTTPT
 - **Order:** 39
@@ -360,7 +360,7 @@
 - **Controlled Terms:** C66728
 - **Role:** Timing
 - **Core:** Perm
-- **CDISC Notes:** Identifies the end of the agent as being before or after the reference time point defined by variable AGENTPT. Identifies the end of the agent as being before or after the sponsor-defined reference time point defined by variable AGENTPT. \n Not all values of the codelist are allowable for this variable. See Section 4.4.7, Use of Relative Timing Variables.
+- **CDISC Notes:** Identifies the end of the agent as being before or after the reference time point defined by variable AGENTPT. Identifies the end of the agent as being before or after the sponsor-defined reference time point defined by variable AGENTPT.  Not all values of the codelist are allowable for this variable. See Section 4.4.7, Use of Relative Timing Variables.
 
 ### AGENTPT
 - **Order:** 41

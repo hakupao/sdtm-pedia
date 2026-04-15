@@ -27,7 +27,7 @@
 - **Controlled Terms:** 
 - **Role:** Identifier
 - **Core:** Req
-- **CDISC Notes:** Identifier used to uniquely identify a subject across all studies for all applications or submissions involving the product. \n
+- **CDISC Notes:** Identifier used to uniquely identify a subject across all studies for all applications or submissions involving the product. 
 
 ### PPSEQ
 - **Order:** 4
@@ -162,7 +162,7 @@
 - **Controlled Terms:** C172330
 - **Role:** Record Qualifier
 - **Core:** Perm
-- **CDISC Notes:** Analysis method applied to obtain a summarized result. Analysis method describes the method of secondary processing applied to a complex observation result. Example: A named formula used to calculate AUC, such as "LIN-LOG TRAPEZOIDAL METHOD". \n Sponsor-defined formulas can also be represented by this variable. Example: Calculating ratio AUCs where the PPANMETH may be "DRUG METABOLITE 1 TO DRUG PARENT" or "DRUG METABOLITE 2 TO METABOLITE 1".
+- **CDISC Notes:** Analysis method applied to obtain a summarized result. Analysis method describes the method of secondary processing applied to a complex observation result. Example: A named formula used to calculate AUC, such as "LIN-LOG TRAPEZOIDAL METHOD".  Sponsor-defined formulas can also be represented by this variable. Example: Calculating ratio AUCs where the PPANMETH may be "DRUG METABOLITE 1 TO DRUG PARENT" or "DRUG METABOLITE 2 TO METABOLITE 1".
 
 ### TAETORD
 - **Order:** 19

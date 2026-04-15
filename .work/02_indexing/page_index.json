@@ -1,0 +1,1337 @@
+{
+  "_meta": {
+    "source": "SDTMIG v3.4 (no header footer).pdf",
+    "total_pages": 461,
+    "created": "2026-04-13",
+    "notes": [
+      "Pages are PDF page numbers (matching footer 'Page N')",
+      "spec pages included for reference but spec.md already generated from xlsx",
+      "Verified (V) = confirmed by reading PDF; Estimated (E) = derived from TOC + pattern",
+      "Some domains share examples sections (EX/EC, MB/MS, TU/TR, PC/PP)"
+    ]
+  },
+  "chapters": {
+    "ch01_introduction": {
+      "pages": [
+        7,
+        10
+      ]
+    },
+    "ch02_fundamentals": {
+      "pages": [
+        11,
+        16
+      ]
+    },
+    "ch03_submitting_data": {
+      "pages": [
+        17,
+        21
+      ]
+    },
+    "ch04_general_assumptions": {
+      "pages": [
+        22,
+        59
+      ]
+    },
+    "ch08_relationships": {
+      "pages": [
+        427,
+        440
+      ]
+    },
+    "ch09_study_references": {
+      "pages": [
+        441,
+        443
+      ]
+    },
+    "ch10_appendices": {
+      "pages": [
+        444,
+        461
+      ]
+    }
+  },
+  "shared_specs": {
+    "generic_specimen_lab": {
+      "pages": [
+        194,
+        196
+      ],
+      "note": "Shared spec template for BS/CP/GF/IS/LB/MB/MS/MI/PC/PP"
+    },
+    "generic_morphology_physiology": {
+      "pages": [
+        285,
+        286
+      ],
+      "note": "Shared spec template for CV/MK/NV/OE/RP/RE/UR"
+    }
+  },
+  "domains": {
+    "CO": {
+      "section": [
+        60,
+        62
+      ],
+      "spec": [
+        60,
+        60
+      ],
+      "assumptions": [
+        61,
+        61
+      ],
+      "examples": [
+        61,
+        62
+      ],
+      "verified": true
+    },
+    "DM": {
+      "section": [
+        62,
+        78
+      ],
+      "spec": [
+        62,
+        64
+      ],
+      "assumptions": [
+        65,
+        67
+      ],
+      "examples": [
+        68,
+        78
+      ],
+      "verified": true,
+      "note": "DM has 7 examples including CRF examples for Race/Ethnicity"
+    },
+    "SE": {
+      "section": [
+        79,
+        83
+      ],
+      "spec": [
+        79,
+        80
+      ],
+      "assumptions": [
+        80,
+        81
+      ],
+      "examples": [
+        81,
+        83
+      ],
+      "verified": true
+    },
+    "SM": {
+      "section": [
+        84,
+        86
+      ],
+      "spec": [
+        84,
+        84
+      ],
+      "assumptions": [
+        84,
+        85
+      ],
+      "examples": [
+        85,
+        86
+      ],
+      "verified": true
+    },
+    "SV": {
+      "section": [
+        86,
+        91
+      ],
+      "spec": [
+        86,
+        87
+      ],
+      "assumptions": [
+        87,
+        88
+      ],
+      "examples": [
+        89,
+        91
+      ],
+      "verified": true
+    },
+    "AG": {
+      "section": [
+        92,
+        97
+      ],
+      "spec": [
+        92,
+        94
+      ],
+      "assumptions": [
+        94,
+        95
+      ],
+      "examples": [
+        95,
+        97
+      ],
+      "verified": true
+    },
+    "CM": {
+      "section": [
+        98,
+        103
+      ],
+      "spec": [
+        98,
+        100
+      ],
+      "assumptions": [
+        100,
+        101
+      ],
+      "examples": [
+        101,
+        103
+      ],
+      "verified": true
+    },
+    "EX": {
+      "section": [
+        104,
+        107
+      ],
+      "spec": [
+        104,
+        105
+      ],
+      "assumptions": [
+        105,
+        107
+      ],
+      "examples": [
+        111,
+        120
+      ],
+      "verified": true,
+      "note": "EX and EC share examples at 6.1.3.3 (p111-120)"
+    },
+    "EC": {
+      "section": [
+        107,
+        110
+      ],
+      "spec": [
+        107,
+        109
+      ],
+      "assumptions": [
+        109,
+        110
+      ],
+      "examples": [
+        111,
+        120
+      ],
+      "verified": true,
+      "note": "EX and EC share examples at 6.1.3.3 (p111-120)"
+    },
+    "ML": {
+      "section": [
+        121,
+        124
+      ],
+      "spec": [
+        121,
+        122
+      ],
+      "assumptions": [
+        122,
+        122
+      ],
+      "examples": [
+        123,
+        124
+      ],
+      "verified": true
+    },
+    "PR": {
+      "section": [
+        125,
+        128
+      ],
+      "spec": [
+        125,
+        126
+      ],
+      "assumptions": [
+        127,
+        127
+      ],
+      "examples": [
+        127,
+        128
+      ],
+      "verified": true
+    },
+    "SU": {
+      "section": [
+        129,
+        132
+      ],
+      "spec": [
+        129,
+        131
+      ],
+      "assumptions": [
+        131,
+        132
+      ],
+      "examples": [
+        132,
+        132
+      ],
+      "verified": true
+    },
+    "AE": {
+      "section": [
+        133,
+        142
+      ],
+      "spec": [
+        134,
+        137
+      ],
+      "assumptions": [
+        137,
+        140
+      ],
+      "examples": [
+        140,
+        142
+      ],
+      "verified": true
+    },
+    "BE": {
+      "section": [
+        143,
+        148
+      ],
+      "spec": [
+        143,
+        144
+      ],
+      "assumptions": [
+        144,
+        145
+      ],
+      "examples": [
+        145,
+        148
+      ],
+      "verified": true
+    },
+    "CE": {
+      "section": [
+        148,
+        155
+      ],
+      "spec": [
+        148,
+        150
+      ],
+      "assumptions": [
+        150,
+        151
+      ],
+      "examples": [
+        151,
+        155
+      ],
+      "verified": true
+    },
+    "DS": {
+      "section": [
+        155,
+        167
+      ],
+      "spec": [
+        155,
+        156
+      ],
+      "assumptions": [
+        156,
+        158
+      ],
+      "examples": [
+        158,
+        167
+      ],
+      "verified": true
+    },
+    "HO": {
+      "section": [
+        167,
+        171
+      ],
+      "spec": [
+        167,
+        169
+      ],
+      "assumptions": [
+        169,
+        169
+      ],
+      "examples": [
+        169,
+        171
+      ],
+      "verified": true
+    },
+    "MH": {
+      "section": [
+        171,
+        178
+      ],
+      "spec": [
+        171,
+        172
+      ],
+      "assumptions": [
+        172,
+        174
+      ],
+      "examples": [
+        175,
+        178
+      ],
+      "verified": true
+    },
+    "DV": {
+      "section": [
+        178,
+        179
+      ],
+      "spec": [
+        178,
+        179
+      ],
+      "assumptions": [
+        179,
+        179
+      ],
+      "examples": [
+        179,
+        179
+      ],
+      "verified": true
+    },
+    "DA": {
+      "section": [
+        180,
+        182
+      ],
+      "spec": [
+        180,
+        181
+      ],
+      "assumptions": [
+        181,
+        181
+      ],
+      "examples": [
+        182,
+        182
+      ],
+      "verified": true
+    },
+    "DD": {
+      "section": [
+        183,
+        185
+      ],
+      "spec": [
+        183,
+        183
+      ],
+      "assumptions": [
+        184,
+        184
+      ],
+      "examples": [
+        184,
+        185
+      ],
+      "verified": true
+    },
+    "EG": {
+      "section": [
+        185,
+        192
+      ],
+      "spec": [
+        185,
+        188
+      ],
+      "assumptions": [
+        188,
+        189
+      ],
+      "examples": [
+        189,
+        192
+      ],
+      "verified": true
+    },
+    "IE": {
+      "section": [
+        193,
+        194
+      ],
+      "spec": [
+        193,
+        193
+      ],
+      "assumptions": [
+        194,
+        194
+      ],
+      "examples": [
+        194,
+        194
+      ],
+      "verified": true
+    },
+    "BS": {
+      "section": [
+        196,
+        199
+      ],
+      "spec": [
+        196,
+        198
+      ],
+      "assumptions": [
+        198,
+        198
+      ],
+      "examples": [
+        198,
+        199
+      ],
+      "verified": true,
+      "note": "Under 6.3.5 Specimen-based Findings"
+    },
+    "CP": {
+      "section": [
+        199,
+        220
+      ],
+      "spec": [
+        200,
+        204
+      ],
+      "assumptions": [
+        205,
+        208
+      ],
+      "examples": [
+        208,
+        220
+      ],
+      "verified": true
+    },
+    "GF": {
+      "section": [
+        220,
+        228
+      ],
+      "spec": [
+        221,
+        223
+      ],
+      "assumptions": [
+        223,
+        224
+      ],
+      "examples": [
+        224,
+        228
+      ],
+      "verified": true
+    },
+    "IS": {
+      "section": [
+        228,
+        241
+      ],
+      "spec": [
+        229,
+        231
+      ],
+      "assumptions": [
+        231,
+        232
+      ],
+      "examples": [
+        233,
+        241
+      ],
+      "verified": true
+    },
+    "LB": {
+      "section": [
+        241,
+        248
+      ],
+      "spec": [
+        242,
+        245
+      ],
+      "assumptions": [
+        245,
+        246
+      ],
+      "examples": [
+        246,
+        248
+      ],
+      "verified": true
+    },
+    "MB": {
+      "section": [
+        248,
+        252
+      ],
+      "spec": [
+        249,
+        251
+      ],
+      "assumptions": [
+        251,
+        252
+      ],
+      "examples": [
+        256,
+        262
+      ],
+      "verified": true,
+      "note": "MB and MS share examples section (6.3.5.7.3) at p256-262"
+    },
+    "MS": {
+      "section": [
+        252,
+        256
+      ],
+      "spec": [
+        252,
+        255
+      ],
+      "assumptions": [
+        255,
+        256
+      ],
+      "examples": [
+        256,
+        262
+      ],
+      "verified": true,
+      "note": "MB and MS share examples section (6.3.5.7.3) at p256-262"
+    },
+    "MI": {
+      "section": [
+        263,
+        267
+      ],
+      "spec": [
+        264,
+        265
+      ],
+      "assumptions": [
+        265,
+        265
+      ],
+      "examples": [
+        266,
+        267
+      ],
+      "verified": true
+    },
+    "PC": {
+      "section": [
+        267,
+        283
+      ],
+      "spec": [
+        267,
+        269
+      ],
+      "assumptions": [
+        269,
+        269
+      ],
+      "examples": [
+        269,
+        283
+      ],
+      "verified": true,
+      "note": "PC and PP share examples; very long example section with relrec methods (p.275-283)"
+    },
+    "PP": {
+      "section": [
+        271,
+        283
+      ],
+      "spec": [
+        271,
+        272
+      ],
+      "assumptions": [
+        272,
+        273
+      ],
+      "examples": [
+        273,
+        283
+      ],
+      "verified": "partial",
+      "note": "PP is part of PK section (6.3.5.9); shares examples with PC (relating records section p.275-283)"
+    },
+    "CV": {
+      "section": [
+        286,
+        289
+      ],
+      "spec": [
+        286,
+        288
+      ],
+      "assumptions": [
+        288,
+        288
+      ],
+      "examples": [
+        289,
+        289
+      ],
+      "verified": true
+    },
+    "MK": {
+      "section": [
+        290,
+        294
+      ],
+      "spec": [
+        290,
+        291
+      ],
+      "assumptions": [
+        292,
+        292
+      ],
+      "examples": [
+        292,
+        294
+      ],
+      "verified": true
+    },
+    "NV": {
+      "section": [
+        294,
+        298
+      ],
+      "spec": [
+        294,
+        296
+      ],
+      "assumptions": [
+        296,
+        296
+      ],
+      "examples": [
+        296,
+        298
+      ],
+      "verified": true
+    },
+    "OE": {
+      "section": [
+        298,
+        305
+      ],
+      "spec": [
+        299,
+        301
+      ],
+      "assumptions": [
+        301,
+        301
+      ],
+      "examples": [
+        301,
+        305
+      ],
+      "verified": true
+    },
+    "RP": {
+      "section": [
+        305,
+        307
+      ],
+      "spec": [
+        305,
+        306
+      ],
+      "assumptions": [
+        306,
+        307
+      ],
+      "examples": [
+        307,
+        307
+      ],
+      "verified": true
+    },
+    "RE": {
+      "section": [
+        308,
+        312
+      ],
+      "spec": [
+        308,
+        310
+      ],
+      "assumptions": [
+        310,
+        310
+      ],
+      "examples": [
+        310,
+        312
+      ],
+      "verified": true
+    },
+    "UR": {
+      "section": [
+        312,
+        315
+      ],
+      "spec": [
+        312,
+        314
+      ],
+      "assumptions": [
+        314,
+        314
+      ],
+      "examples": [
+        314,
+        315
+      ],
+      "verified": true
+    },
+    "PE": {
+      "section": [
+        315,
+        318
+      ],
+      "spec": [
+        316,
+        317
+      ],
+      "assumptions": [
+        317,
+        317
+      ],
+      "examples": [
+        318,
+        318
+      ],
+      "verified": true
+    },
+    "FT": {
+      "section": [
+        319,
+        324
+      ],
+      "spec": [
+        319,
+        320
+      ],
+      "assumptions": [
+        321,
+        323
+      ],
+      "examples": [
+        323,
+        324
+      ],
+      "verified": true
+    },
+    "QS": {
+      "section": [
+        324,
+        329
+      ],
+      "spec": [
+        324,
+        326
+      ],
+      "assumptions": [
+        326,
+        328
+      ],
+      "examples": [
+        328,
+        329
+      ],
+      "verified": true
+    },
+    "RS": {
+      "section": [
+        329,
+        339
+      ],
+      "spec": [
+        329,
+        332
+      ],
+      "assumptions": [
+        332,
+        339
+      ],
+      "examples": [
+        334,
+        339
+      ],
+      "verified": true,
+      "note": "RS has two use cases: Disease Response (assumptions p332-334, examples p334-336) and Clinical Classifications (assumptions p336-339, examples p339)"
+    },
+    "SC": {
+      "section": [
+        339,
+        342
+      ],
+      "spec": [
+        340,
+        341
+      ],
+      "assumptions": [
+        341,
+        341
+      ],
+      "examples": [
+        341,
+        342
+      ],
+      "verified": true
+    },
+    "SS": {
+      "section": [
+        342,
+        343
+      ],
+      "spec": [
+        342,
+        343
+      ],
+      "assumptions": [
+        343,
+        343
+      ],
+      "examples": [
+        343,
+        343
+      ],
+      "verified": true
+    },
+    "TU": {
+      "section": [
+        344,
+        349
+      ],
+      "spec": [
+        345,
+        346
+      ],
+      "assumptions": [
+        346,
+        349
+      ],
+      "examples": [
+        353,
+        358
+      ],
+      "verified": true,
+      "note": "TU and TR share examples at 6.3.12.3 (p353-358)"
+    },
+    "TR": {
+      "section": [
+        350,
+        353
+      ],
+      "spec": [
+        350,
+        352
+      ],
+      "assumptions": [
+        352,
+        353
+      ],
+      "examples": [
+        353,
+        358
+      ],
+      "verified": true,
+      "note": "TU and TR share examples at 6.3.12.3 (p353-358)"
+    },
+    "VS": {
+      "section": [
+        358,
+        361
+      ],
+      "spec": [
+        358,
+        360
+      ],
+      "assumptions": [
+        360,
+        360
+      ],
+      "examples": [
+        360,
+        361
+      ],
+      "verified": true
+    },
+    "FA": {
+      "section": [
+        364,
+        375
+      ],
+      "spec": [
+        365,
+        366
+      ],
+      "assumptions": [
+        366,
+        366
+      ],
+      "examples": [
+        367,
+        375
+      ],
+      "verified": true,
+      "note": "Under 6.4 Findings About; section intro at p361-364"
+    },
+    "SR": {
+      "section": [
+        375,
+        381
+      ],
+      "spec": [
+        376,
+        377
+      ],
+      "assumptions": [
+        377,
+        377
+      ],
+      "examples": [
+        378,
+        381
+      ],
+      "verified": true
+    },
+    "TA": {
+      "section": [
+        385,
+        404
+      ],
+      "spec": [
+        385,
+        386
+      ],
+      "assumptions": [
+        386,
+        387
+      ],
+      "examples": [
+        387,
+        404
+      ],
+      "verified": true,
+      "note": "Trial Design chapter; 7 example trials (p.388-404); 7.2.1.1 Issues at p.404"
+    },
+    "TE": {
+      "section": [
+        404,
+        409
+      ],
+      "spec": [
+        405,
+        405
+      ],
+      "assumptions": [
+        405,
+        406
+      ],
+      "examples": [
+        407,
+        407
+      ],
+      "verified": true,
+      "note": "7.2.2.1 Trial Elements Issues at p.408-409"
+    },
+    "TV": {
+      "section": [
+        409,
+        412
+      ],
+      "spec": [
+        409,
+        410
+      ],
+      "assumptions": [
+        410,
+        410
+      ],
+      "examples": [
+        411,
+        411
+      ],
+      "verified": true,
+      "note": "7.3.1.1 Trial Visits Issues at p.411-412"
+    },
+    "TD": {
+      "section": [
+        412,
+        416
+      ],
+      "spec": [
+        412,
+        413
+      ],
+      "assumptions": [
+        413,
+        413
+      ],
+      "examples": [
+        414,
+        416
+      ],
+      "verified": true
+    },
+    "TM": {
+      "section": [
+        417,
+        417
+      ],
+      "spec": [
+        417,
+        417
+      ],
+      "assumptions": [
+        417,
+        417
+      ],
+      "examples": [
+        417,
+        417
+      ],
+      "verified": true,
+      "note": "All content (Overview, Spec, 2 Assumptions, 1 Example) on single page p.417"
+    },
+    "TI": {
+      "section": [
+        418,
+        419
+      ],
+      "spec": [
+        418,
+        418
+      ],
+      "assumptions": [
+        418,
+        418
+      ],
+      "examples": [
+        419,
+        419
+      ],
+      "verified": true
+    },
+    "TS": {
+      "section": [
+        419,
+        425
+      ],
+      "spec": [
+        419,
+        420
+      ],
+      "assumptions": [
+        420,
+        421
+      ],
+      "examples": [
+        422,
+        423
+      ],
+      "verified": true,
+      "note": "7.4.2.1 Use of Null Flavor at p.424-425"
+    },
+    "RELREC": {
+      "section": [
+        428,
+        430
+      ],
+      "spec": [
+        428,
+        428
+      ],
+      "assumptions": null,
+      "examples": [
+        429,
+        430
+      ],
+      "verified": true,
+      "note": "In Chapter 8; no separate assumptions section; 8.2.2 record-level examples (p.429) and 8.3.1 dataset-level example (p.430)"
+    },
+    "SUPPQUAL": {
+      "section": [
+        430,
+        432
+      ],
+      "spec": [
+        431,
+        431
+      ],
+      "assumptions": null,
+      "examples": [
+        432,
+        432
+      ],
+      "verified": true,
+      "note": "In Chapter 8; no separate assumptions section; guidance in 8.4.2 and 8.4.4 on p.432 serves as assumptions"
+    },
+    "RELSUB": {
+      "section": [
+        437,
+        438
+      ],
+      "spec": [
+        437,
+        437
+      ],
+      "assumptions": [
+        437,
+        437
+      ],
+      "examples": [
+        438,
+        438
+      ],
+      "verified": true,
+      "note": "In Chapter 8; 8.7 Related Subjects"
+    },
+    "RELSPEC": {
+      "section": [
+        438,
+        440
+      ],
+      "spec": [
+        438,
+        438
+      ],
+      "assumptions": [
+        439,
+        439
+      ],
+      "examples": [
+        439,
+        440
+      ],
+      "verified": true,
+      "note": "In Chapter 8; 8.8 Related Specimens"
+    },
+    "OI": {
+      "section": [
+        441,
+        443
+      ],
+      "spec": [
+        441,
+        441
+      ],
+      "assumptions": [
+        442,
+        442
+      ],
+      "examples": [
+        442,
+        443
+      ],
+      "verified": true,
+      "note": "In Chapter 9 Study References; 9.2 Non-host Organism Identifiers"
+    }
+  },
+  "model": {
+    "source": "SDTM_v2.0.pdf",
+    "total_pages": 74,
+    "files": {
+      "concepts_and_terms": {
+        "pages": [
+          8,
+          10
+        ],
+        "note": "Chapter 2"
+      },
+      "observation_classes": {
+        "pages": [
+          11,
+          39
+        ],
+        "note": "Chapter 3.1"
+      },
+      "special_purpose_domains": {
+        "pages": [
+          40,
+          49
+        ],
+        "note": "Chapter 3.2"
+      },
+      "associated_persons": {
+        "pages": [
+          50,
+          50
+        ],
+        "note": "Chapter 4"
+      },
+      "study_level_data": {
+        "pages": [
+          51,
+          63
+        ],
+        "note": "Chapter 5"
+      },
+      "relationship_datasets": {
+        "pages": [
+          64,
+          69
+        ],
+        "note": "Chapter 6"
+      }
+    },
+    "note": "All page ranges verified against SDTM_v2.0.pdf on 2026-04-14"
+  }
+}

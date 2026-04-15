@@ -22,7 +22,7 @@
 | `assumptions.md` | SDTMIG v3.4 PDF | 业务规则与假设 |
 | `examples.md` | SDTMIG v3.4 PDF | 示例数据表与说明 |
 
-**验证状态**: 全部 138 个 PDF 提取文件已通过逐页对照 PDF 原文验证（Step 0–3），详见 `.work/verification_plan.md`。
+**验证状态**: 全部 138 个 PDF 提取文件已通过逐页对照 PDF 原文验证（Step 0–3），详见 `.work/03_verification/plan.md`。
 
 ---
 

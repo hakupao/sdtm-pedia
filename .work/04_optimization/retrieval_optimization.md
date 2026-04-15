@@ -1,3 +1,10 @@
+<!-- chain: C (新阶段启动链)
+  开始执行本文件中的任务时，必须检查:
+  → meta/worklog.md                  (记录启动)
+  → ../docs/PROGRESS.md                   (更新看板)
+  → MANIFEST.md                      (注册新文件)
+-->
+
 # Knowledge Base 检索精度优化 — TODO
 
 > 目标：提升 SDTM knowledge_base 的 AI 检索精度，减少幻觉

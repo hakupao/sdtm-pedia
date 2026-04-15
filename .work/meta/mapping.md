@@ -1,3 +1,9 @@
+<!-- chain: D (溯源链)
+  修改本文件后，必须检查:
+  → ../docs/TRACEABILITY.md               (溯源矩阵)
+  → meta/worklog.md                  (工作日志)
+-->
+
 # 源文件 → 输出文件映射
 
 > 记录每个输出文件的数据来源，用于追溯和验证
@@ -27,7 +33,7 @@
 
 ## 详细页码映射
 
-> 由 `.work/page_index.json` 提供每个 domain 的精确页码（Phase 2 已完成）
+> 由 `.work/02_indexing/page_index.json` 提供每个 domain 的精确页码（Phase 2 已完成）
 >
 > 格式：`{"AE": {"section": [134,142], "spec": [134,137], "assumptions": [137,140], "examples": [140,142]}, ...}`
 >

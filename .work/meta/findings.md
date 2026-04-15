@@ -1,3 +1,10 @@
+<!-- chain: A (验证进度链)
+  修改本文件后，必须检查:
+  → 03_verification/plan.md          (验证计划状态)
+  → meta/worklog.md                  (工作日志)
+  → ../docs/PROGRESS.md                   (进度看板)
+-->
+
 # 质量问题记录
 
 > 提取和验证过程中发现的所有问题与人工复核结论。

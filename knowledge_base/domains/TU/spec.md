@@ -135,7 +135,7 @@
 - **Controlled Terms:** C74456
 - **Role:** Record Qualifier
 - **Core:** Exp
-- **CDISC Notes:** Used to specify the anatomical location of the identified tumor/lesion (e.g., "LIVER"). \n Note: When anatomical location is broken down and collected as distinct pieces of data that when combined provide the overall location information (e.g., laterality/directionality/distribution), then additional anatomical location qualifiers should be used. See assumption 3.
+- **CDISC Notes:** Used to specify the anatomical location of the identified tumor/lesion (e.g., "LIVER").  Note: When anatomical location is broken down and collected as distinct pieces of data that when combined provide the overall location information (e.g., laterality/directionality/distribution), then additional anatomical location qualifiers should be used. See assumption 3.
 
 ### TULAT
 - **Order:** 16
@@ -198,7 +198,7 @@
 - **Controlled Terms:** C78735
 - **Role:** Record Qualifier
 - **Core:** Exp
-- **CDISC Notes:** Role of the person who provided the evaluation. Examples: "ADJUDICATION COMMITTEE", "INDEPENDENT ASSESSOR". \n This column can be left null when the investigator provides the complete set of data in the domain. However, the column should contain no null values when data from 1 or more independent assessors is included. For example, the rows attributed to the investigator should contain a value of "INVESTIGATOR".
+- **CDISC Notes:** Role of the person who provided the evaluation. Examples: "ADJUDICATION COMMITTEE", "INDEPENDENT ASSESSOR".  This column can be left null when the investigator provides the complete set of data in the domain. However, the column should contain no null values when data from 1 or more independent assessors is included. For example, the rows attributed to the investigator should contain a value of "INVESTIGATOR".
 
 ### TUEVALID
 - **Order:** 23

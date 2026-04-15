@@ -6,7 +6,7 @@
 
 ```mermaid
 graph LR
-    ANCH1DT(["ANCH1DT\n(anchor)"])
+    ANCH1DT(["ANCH1DT(anchor)"])
 
     subgraph S1["Schedule 1 — every 8 weeks (weeks 8–48)"]
         W8[/"▲ Wk 8"/]
@@ -27,7 +27,7 @@ graph LR
     subgraph S3["Schedule 3 — every 24 weeks (week 120 onward)"]
         W120[/"▲ Wk 120"/]
         W144[/"▲ Wk 144"/]
-        ETC(["... et cetera, until\ndisease progression or death"])
+        ETC(["... et cetera, untildisease progression or death"])
     end
 
     ANCH1DT --> W8 --> W16 --> W24 --> W32 --> W40 --> W48
@@ -58,7 +58,7 @@ This example shows a study where the disease assessment schedule changes over th
 ```mermaid
 graph LR
     subgraph P1["Period 1"]
-        ANCH1DT(["ANCH1DT\n(anchor)"])
+        ANCH1DT(["ANCH1DT(anchor)"])
         subgraph S1["Schedule 1 — every 8 weeks"]
             A8[/"▲ Wk 8"/]
             A16[/"▲ Wk 16"/]
@@ -67,19 +67,19 @@ graph LR
             A40[/"▲ Wk 40"/]
             A48[/"▲ Wk 48"/]
             A56[/"▲ Wk 56"/]
-            ETC1(["... et cetera, until\ndisease progression or death"])
+            ETC1(["... et cetera, untildisease progression or death"])
         end
         ANCH1DT --> A8 --> A16 --> A24 --> A32 --> A40 --> A48 --> A56 --> ETC1
     end
 
     subgraph P2["Period 2"]
-        ANCH2DT(["ANCH2DT\n(anchor)"])
+        ANCH2DT(["ANCH2DT(anchor)"])
         subgraph S2["Schedule 2 — every 8 weeks"]
             B8[/"▲ +8 wks"/]
             B16[/"▲ +16 wks"/]
             B24[/"▲ +24 wks"/]
             B32[/"▲ +32 wks"/]
-            ETC2(["... et cetera, until\ndisease progression or death"])
+            ETC2(["... et cetera, untildisease progression or death"])
         end
         ANCH2DT --> B8 --> B16 --> B24 --> B32 --> ETC2
     end
@@ -107,7 +107,7 @@ This example shows a crossover study, where subjects are given the period 1 trea
 ```mermaid
 graph LR
     subgraph DBT["Double Blind Treatment (Standard vs. Experimental Treatment)"]
-        ANCH1DT(["ANCH1DT\n(anchor)"])
+        ANCH1DT(["ANCH1DT(anchor)"])
         subgraph S1["Schedule 1 — every 8 weeks (weeks 8–48)"]
             C8[/"▲ Wk 8"/]
             C16[/"▲ Wk 16"/]
@@ -125,20 +125,20 @@ graph LR
             C120[/"▲ Wk 120"/]
             C132[/"▲ Wk 132"/]
             C144[/"▲ Wk 144"/]
-            ETC1(["... et cetera, until\ndisease progression or death"])
+            ETC1(["... et cetera, untildisease progression or death"])
         end
         ANCH1DT --> C8 --> C16 --> C24 --> C32 --> C40 --> C48
         C48 --> C60 --> C72 --> C84 --> C96 --> C108 --> C120 --> C132 --> C144 --> ETC1
     end
 
     subgraph EXT["Extension Treatment"]
-        ANCH2DT(["ANCH2DT\n(anchor)"])
+        ANCH2DT(["ANCH2DT(anchor)"])
         subgraph S3["Schedule 3 — every 12 weeks"]
             D12[/"▲ +12 wks"/]
             D24[/"▲ +24 wks"/]
             D36[/"▲ +36 wks"/]
             D48[/"▲ +48 wks"/]
-            ETC2(["... et cetera, until\ndisease progression or death"])
+            ETC2(["... et cetera, untildisease progression or death"])
         end
         ANCH2DT --> D12 --> D24 --> D36 --> D48 --> ETC2
     end

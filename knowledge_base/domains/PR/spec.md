@@ -378,7 +378,7 @@
 - **Controlled Terms:** C66728
 - **Role:** Timing
 - **Core:** Perm
-- **CDISC Notes:** Identifies the start of the observation as being before or after the sponsor-defined reference time point defined by variable PRSTTPT. \n Not all values of the codelist are allowable for this variable. See Section 4.4.7, Use of Relative Timing Variables.
+- **CDISC Notes:** Identifies the start of the observation as being before or after the sponsor-defined reference time point defined by variable PRSTTPT.  Not all values of the codelist are allowable for this variable. See Section 4.4.7, Use of Relative Timing Variables.
 
 ### PRSTTPT
 - **Order:** 43
@@ -396,7 +396,7 @@
 - **Controlled Terms:** C66728
 - **Role:** Timing
 - **Core:** Perm
-- **CDISC Notes:** Identifies the end of the observation as being before or after the sponsor-defined reference time point defined by variable PRENTPT. \n Not all values of the codelist are allowable for this variable. See Section 4.4.7, Use of Relative Timing Variables.
+- **CDISC Notes:** Identifies the end of the observation as being before or after the sponsor-defined reference time point defined by variable PRENTPT.  Not all values of the codelist are allowable for this variable. See Section 4.4.7, Use of Relative Timing Variables.
 
 ### PRENTPT
 - **Order:** 45

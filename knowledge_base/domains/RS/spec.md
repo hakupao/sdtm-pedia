@@ -90,7 +90,7 @@
 - **Controlled Terms:** C96782
 - **Role:** Topic
 - **Core:** Req
-- **CDISC Notes:** Short name of the TEST in RSTEST. The value in RSTESTCD cannot be longer than 8 characters, nor can it start with a number (e.g., "1TEST" is not valid). RSTESTCD cannot contain characters other than letters, numbers, or underscores. Examples: "TRGRESP", "NTRGRESP", "OVRLRESP", "SYMPTDTR", "CPS0102". \n There are separate codelists used for RSTESTCD where the choice depends on the value of RSCAT. Codelist "ONCRTSCD" is used for oncology response criteria (when RSCAT is a term in codelist "ONCRSCAT"). Examples: TRGRESP, "NTRGRESP, "OVRLRESP". For Clinical Classifications (when RSCAT is a term in codelist "CCCAT"), QRS Naming Rules apply. These instruments have individual dedicated terminology codelists.
+- **CDISC Notes:** Short name of the TEST in RSTEST. The value in RSTESTCD cannot be longer than 8 characters, nor can it start with a number (e.g., "1TEST" is not valid). RSTESTCD cannot contain characters other than letters, numbers, or underscores. Examples: "TRGRESP", "NTRGRESP", "OVRLRESP", "SYMPTDTR", "CPS0102".  There are separate codelists used for RSTESTCD where the choice depends on the value of RSCAT. Codelist "ONCRTSCD" is used for oncology response criteria (when RSCAT is a term in codelist "ONCRSCAT"). Examples: TRGRESP, "NTRGRESP, "OVRLRESP". For Clinical Classifications (when RSCAT is a term in codelist "CCCAT"), QRS Naming Rules apply. These instruments have individual dedicated terminology codelists.
 
 ### RSTEST
 - **Order:** 11
@@ -99,7 +99,7 @@
 - **Controlled Terms:** C96781
 - **Role:** Synonym Qualifier
 - **Core:** Req
-- **CDISC Notes:** Verbatim name of the response assessment. The value in RSTEST cannot be longer than 40 characters. \n There are separate codelists used for RSTEST where the choice depends on the value of RSCAT. Codelist "ONCRTS" is used for oncology response criteria (when RSCAT is a term in codelist "ONCRSCAT"). Examples: "Target Response", "Non-target Response", "Overall Response", "Symptomatic Deterioration". For Clinical Classifications (when RSCAT is a term in codelist "CCCAT"), QRS Naming Rules apply. These instruments have individual dedicated terminology codelists.
+- **CDISC Notes:** Verbatim name of the response assessment. The value in RSTEST cannot be longer than 40 characters.  There are separate codelists used for RSTEST where the choice depends on the value of RSCAT. Codelist "ONCRTS" is used for oncology response criteria (when RSCAT is a term in codelist "ONCRSCAT"). Examples: "Target Response", "Non-target Response", "Overall Response", "Symptomatic Deterioration". For Clinical Classifications (when RSCAT is a term in codelist "CCCAT"), QRS Naming Rules apply. These instruments have individual dedicated terminology codelists.
 
 ### RSCAT
 - **Order:** 12
@@ -108,7 +108,7 @@
 - **Controlled Terms:** C124298; C118971
 - **Role:** Grouping Qualifier
 - **Core:** Exp
-- **CDISC Notes:** Used to define a category of related records across subjects. Examples: "RECIST 1.1", "CHILD-PUGH CLASSIFICATION". There are separate codelists used for RSCAT where the choice depends on whether the related records are about an oncology response criterion or another clinical classification. \n RSCAT is required for clinical classifications other than oncology response criteria.
+- **CDISC Notes:** Used to define a category of related records across subjects. Examples: "RECIST 1.1", "CHILD-PUGH CLASSIFICATION". There are separate codelists used for RSCAT where the choice depends on whether the related records are about an oncology response criterion or another clinical classification.  RSCAT is required for clinical classifications other than oncology response criteria.
 
 ### RSSCAT
 - **Order:** 13
@@ -144,7 +144,7 @@
 - **Controlled Terms:** C96785
 - **Role:** Result Qualifier
 - **Core:** Exp
-- **CDISC Notes:** Contains the result value for the response assessment, copied, or derived from RSORRES in a standard format or standard units. RSSTRESC should store all results or findings in character format. \n For Clinical Classifications, this may be a score.
+- **CDISC Notes:** Contains the result value for the response assessment, copied, or derived from RSORRES in a standard format or standard units. RSSTRESC should store all results or findings in character format.  For Clinical Classifications, this may be a score.
 
 ### RSSTRESN
 - **Order:** 17
@@ -207,7 +207,7 @@
 - **Controlled Terms:** C66742
 - **Role:** Record Qualifier
 - **Core:** Perm
-- **CDISC Notes:** Operationally derived indicator used to identify the last non-missing value prior to RFXSTDTC. The value should be "Y" or null. \n When a clinical classification is assessed at multiple times, including baseline, RSLOBXFL should be included in the dataset.
+- **CDISC Notes:** Operationally derived indicator used to identify the last non-missing value prior to RFXSTDTC. The value should be "Y" or null.  When a clinical classification is assessed at multiple times, including baseline, RSLOBXFL should be included in the dataset.
 
 ### RSBLFL
 - **Order:** 24
@@ -234,7 +234,7 @@
 - **Controlled Terms:** C78735
 - **Role:** Record Qualifier
 - **Core:** Perm
-- **CDISC Notes:** Role of the person who provided the evaluation. Used only for results that are subjective (e.g., assigned by a person or a group). Examples: "ADJUDICATION COMMITTEE", "INDEPENDENT ASSESSOR", "RADIOLOGIST". \n RSEVAL is expected for oncology response criteria. It can be left null when the investigator provides the complete set of data in the domain. However, the column should contain no null values when data from one or more independent assessors is included, meaning that the rows attributed to the investigator should contain a value of "INVESTIGATOR".
+- **CDISC Notes:** Role of the person who provided the evaluation. Used only for results that are subjective (e.g., assigned by a person or a group). Examples: "ADJUDICATION COMMITTEE", "INDEPENDENT ASSESSOR", "RADIOLOGIST".  RSEVAL is expected for oncology response criteria. It can be left null when the investigator provides the complete set of data in the domain. However, the column should contain no null values when data from one or more independent assessors is included, meaning that the rows attributed to the investigator should contain a value of "INVESTIGATOR".
 
 ### RSEVALID
 - **Order:** 27
@@ -387,7 +387,7 @@
 - **Controlled Terms:** C66728
 - **Role:** Timing
 - **Core:** Perm
-- **CDISC Notes:** Identifies the start of the observation as being before or after the sponsor-defined reference time point defined by variable RSSTTPT. \n Not all values of the codelist are allowable for this variable. See Section 4.4.7, Use of Relative Timing Variables.
+- **CDISC Notes:** Identifies the start of the observation as being before or after the sponsor-defined reference time point defined by variable RSSTTPT.  Not all values of the codelist are allowable for this variable. See Section 4.4.7, Use of Relative Timing Variables.
 
 ### RSSTTPT
 - **Order:** 44
@@ -405,7 +405,7 @@
 - **Controlled Terms:** C66728
 - **Role:** Timing
 - **Core:** Perm
-- **CDISC Notes:** Identifies the end of the observation as being before or after the sponsor-defined reference time point defined by variable RSENTPT. \n Not all values of the codelist are allowable for this variable. See Section 4.4.7, Use of Relative Timing Variables.
+- **CDISC Notes:** Identifies the end of the observation as being before or after the sponsor-defined reference time point defined by variable RSENTPT.  Not all values of the codelist are allowable for this variable. See Section 4.4.7, Use of Relative Timing Variables.
 
 ### RSENTPT
 - **Order:** 46

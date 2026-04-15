@@ -288,7 +288,7 @@
 - **Controlled Terms:** C66728
 - **Role:** Timing
 - **Core:** Perm
-- **CDISC Notes:** Describes the start of the substance use relative to the sponsor-defined reference period. The sponsor-defined reference period is a continuous period of time defined by a discrete starting point and a discrete ending point (represented by RFSTDTC and RFENDTC in Demographics). If information such as "PRIOR" was collected, this information may be translated into SUSTRF. \n Not all values of the codelist are allowable for this variable. See Section 4.4.7, Use of Relative Timing Variables.
+- **CDISC Notes:** Describes the start of the substance use relative to the sponsor-defined reference period. The sponsor-defined reference period is a continuous period of time defined by a discrete starting point and a discrete ending point (represented by RFSTDTC and RFENDTC in Demographics). If information such as "PRIOR" was collected, this information may be translated into SUSTRF.  Not all values of the codelist are allowable for this variable. See Section 4.4.7, Use of Relative Timing Variables.
 
 ### SUENRF
 - **Order:** 33
@@ -297,7 +297,7 @@
 - **Controlled Terms:** C66728
 - **Role:** Timing
 - **Core:** Perm
-- **CDISC Notes:** Describes the end of the substance use with relative to the sponsor-defined reference period. The sponsor-defined reference period is a continuous period of time defined by a discrete starting point and a discrete ending point (represented by RFSTDTC and RFENDTC in Demographics). If information such as "PRIOR", "ONGOING", or "CONTINUING" was collected, this information may be translated into SUENRF. \n Not all values of the codelist are allowable for this variable. See Section 4.4.7, Use of Relative Timing Variables.
+- **CDISC Notes:** Describes the end of the substance use with relative to the sponsor-defined reference period. The sponsor-defined reference period is a continuous period of time defined by a discrete starting point and a discrete ending point (represented by RFSTDTC and RFENDTC in Demographics). If information such as "PRIOR", "ONGOING", or "CONTINUING" was collected, this information may be translated into SUENRF.  Not all values of the codelist are allowable for this variable. See Section 4.4.7, Use of Relative Timing Variables.
 
 ### SUSTRTPT
 - **Order:** 34
@@ -306,7 +306,7 @@
 - **Controlled Terms:** C66728
 - **Role:** Timing
 - **Core:** Perm
-- **CDISC Notes:** Identifies the start of the substance as being before or after the reference time point defined by variable SUSTTPT. \n Not all values of the codelist are allowable for this variable. See Section 4.4.7 , Use of Relative Timing Variables.
+- **CDISC Notes:** Identifies the start of the substance as being before or after the reference time point defined by variable SUSTTPT.  Not all values of the codelist are allowable for this variable. See Section 4.4.7 , Use of Relative Timing Variables.
 
 ### SUSTTPT
 - **Order:** 35
@@ -324,7 +324,7 @@
 - **Controlled Terms:** C66728
 - **Role:** Timing
 - **Core:** Perm
-- **CDISC Notes:** Identifies the end of the substance as being before or after the reference time point defined by variable SUENTPT. \n Not all values of the codelist are allowable for this variable. See Section 4.4.7 , Use of Relative Timing Variables.
+- **CDISC Notes:** Identifies the end of the substance as being before or after the reference time point defined by variable SUENTPT.  Not all values of the codelist are allowable for this variable. See Section 4.4.7 , Use of Relative Timing Variables.
 
 ### SUENTPT
 - **Order:** 37

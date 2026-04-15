@@ -1,3 +1,9 @@
+<!-- chain: B (工作日志链)
+  修改本文件后，必须检查:
+  → progress.json                    (程序化进度)
+  → ../docs/PROGRESS.md                   (进度看板)
+-->
+
 # 工作日志 (Work Log)
 
 > 用于中断恢复。新对话中读取此文件即可继续工作。
@@ -6,10 +12,11 @@
 
 读到此文件时，请按以下步骤恢复：
 
-1. 读取 `.work/progress.json` 了解程序化进度（已完成/进行中的文件）
-2. 读取 `.work/analysis/02_restructure_plan.md` 了解完整方案
-3. 读取 `.work/page_index.json`（如已生成）了解 PDF 页码映射
-4. 跳过所有已完成的文件，从断点继续
+1. 读取 `.work/MANIFEST.md` 了解文件布局与变更链
+2. 读取 `.work/progress.json` 了解程序化进度（已完成/进行中的文件）
+3. 读取 `.work/00_planning/restructure_plan.md` 了解完整方案
+4. 读取 `.work/02_indexing/page_index.json`（如已生成）了解 PDF 页码映射
+5. 跳过所有已完成的文件，从断点继续
 
 ## 项目参数
 
@@ -17,8 +24,9 @@
 - **PDF 文件**: `source/SDTMIG v3.4 (no header footer).pdf`（461 页）、`source/SDTM_v2.0.pdf`（74 页）
 - **xlsx 文件**: `source/SDTMIG_v3.4.xlsx`、`source/SDTM Terminology.xlsx`
 - **输出目录**: `knowledge_base/`
-- **方案文档**: `.work/analysis/02_restructure_plan.md`
+- **方案文档**: `.work/00_planning/restructure_plan.md`
 - **进度追踪**: `.work/progress.json`
+- **文件清单**: `.work/MANIFEST.md`
 
 ## 执行阶段
 
@@ -42,8 +50,8 @@
   - 技术实现方案（5 个 Phase，按 class 分 11 批次）
   - 执行策略确认（页码索引、token 效率、断点恢复、单 agent 串行）
 - **产出文件**:
-  - `.work/analysis/01_source_relationship.md`
-  - `.work/analysis/02_restructure_plan.md`（核心方案文档，共 10 节）
+  - `.work/00_planning/source_relationship.md`
+  - `.work/00_planning/restructure_plan.md`（核心方案文档，共 10 节）
 - **下一步**: 执行 Phase 1 — Python 脚本生成 spec.md 和 terminology/
 
 ### 2026-04-13 Phase 1 执行
@@ -58,9 +66,9 @@
   - Step 3: 自动校验 spec.md — 63 domain / 1917 变量 / 13419 字段全部 PASS
 - **产出文件**: 154 个 .md 文件（63 spec + 91 terminology）
 - **脚本**:
-  - `.work/scripts/generate_spec.py`
-  - `.work/scripts/generate_terminology.py`
-  - `.work/scripts/validate_spec.py`
+  - `.work/01_generation/scripts/generate_spec.py`
+  - `.work/01_generation/scripts/generate_terminology.py`
+  - `.work/01_generation/scripts/validate_spec.py`
 - **已知限制**: 9 个文件超 100KB（单 codelist 含数百/千 terms，无法在 codelist 级别再拆分）
 - **下一步**: 执行 Phase 2 — 建立 PDF 页码索引 page_index.json
 
@@ -73,7 +81,7 @@
   - 模式确认：每个 domain 内部顺序为 Description/Overview → Specification → Assumptions → Examples
   - 特殊结构记录：EX/EC 共享 examples (p111-120)、MB/MS 共享 examples (p256-262)、TU/TR 共享 examples (p353-357)、PC/PP 组合 section (p267-284)
   - Generic shared specs: Specimen-based Lab (p194-196), Morphology/Physiology (p285-286)
-- **产出文件**: `.work/page_index.json`
+- **产出文件**: `.work/02_indexing/page_index.json`
   - 63 个 domain 全部覆盖
   - 7 个 verified、3 个 partial、53 个 estimated（在 Phase 3 执行时逐个校正）
   - 含 chapters 页码范围和 model (SDTM v2.0) 页码估算
@@ -275,7 +283,7 @@
 
 ## 内容验证阶段
 
-> 验证计划: `.work/verification_plan.md`
+> 验证计划: `.work/03_verification/plan.md`
 > 目标: 对 AI 提取的 138 个文件（assumptions + examples + model + chapters）逐一对照 PDF 原文，确认无遗漏、无错误
 
 ### 2026-04-14 Step 0: 修正 page_index.json
@@ -285,7 +293,7 @@
   - page_index.json 是后续验证的基础，原有 55 个 domain 的页码为 TOC + 模式推测，错误率高
   - 逐 domain 实际翻阅 PDF 确认 assumptions/examples 的起止页码（禁止推测）
   - 按 SDTMIG 章节顺序分 12 个批次修正，全部 63 域页码确认为 verified=true
-- **产出**: 更新 `.work/page_index.json`，63 域全部 verified
+- **产出**: 更新 `.work/02_indexing/page_index.json`，63 域全部 verified
 
 ### 2026-04-14 Step 1: 验证 assumptions.md (61 域)
 
@@ -300,7 +308,7 @@
   - 变量名/拼写错误 (9): --STRNC→--STNRC (5处)、--STRNLO→--STNRLO、codeable→codetable、缺 --LOBXFL、缺 --SDISAB
   - 格式瑕疵 (2): EX 残留 image 伪影、CP 多余 "List" 字
   - PDF 原文笔误 (1): MH 6b MHENDTYP 应为 MHEVDTYP（保留原文，加 note）
-- **详细结果**: `.work/verification/step1_results.md`
+- **详细结果**: `.work/03_verification/results/step1_assumptions.md`
 
 ### 2026-04-14 Step 2: 验证 examples.md (63 域, 21 组)
 
@@ -321,8 +329,8 @@
     - AI 幻觉: SS 含 AI 生成虚假说明文字（PDF 该域无 examples）、UR Example 1 表格被虚假文字注释替代+Example 2 完全缺失
     - 内容截断/占位符: GF Example 3 用占位符替代 16 行表格、MK Example 2 缺 Row 7-16（10 行）、SR Example 2 relrec 18 行被文字替代
 - **遗留图片清单**: 13 幅图片未收录（DM 4、TA 7、TV 1、RELSPEC 1），已记录待补全
-- **详细结果**: `.work/verification/step2_results.md`
-- **汇总总表**: `.work/verification/step2_summary.md`
+- **详细结果**: `.work/03_verification/results/step2_examples_detail.md`
+- **汇总总表**: `.work/03_verification/results/step2_examples_summary.md`
 
 ### 2026-04-14 Step 2-final: 补全 13 幅图表（Mermaid 复刻）
 

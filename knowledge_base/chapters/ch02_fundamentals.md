@@ -91,11 +91,11 @@ A sponsor should only submit domain datasets that were actually collected (or di
 
 ```mermaid
 graph TD
-    A["Identifier\nVariables"] -- AND --> D["New\nDomain"]
-    B["Timing\nVariables"] -- AND --> D
-    C["Topic and\nQualifier\nVariables"] --> E["Interventions-\nSpecific\nVariables"]
-    C --> F["Events-\nSpecific\nVariables"]
-    C --> G["Findings-\nSpecific\nVariables"]
+    A["Identifier Variables"] -- AND --> D["New Domain"]
+    B["Timing Variables"] -- AND --> D
+    C["Topic and Qualifier Variables"] --> E["Interventions- Specific Variables"]
+    C --> F["Events- Specific Variables"]
+    C --> G["Findings- Specific Variables"]
     E -- OR --> D
     F -- OR --> D
     G -- OR --> D

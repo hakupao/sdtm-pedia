@@ -54,7 +54,7 @@
 - **Controlled Terms:** 
 - **Role:** Record Qualifier
 - **Core:** Exp
-- **CDISC Notes:** 1. ARMCD is limited to 20 characters and does not have special character restrictions. The maximum length of ARMCD is longer than for other "short" variables to accommodate the kind of values that are likely to be needed for crossover trials. For example, if ARMCD values for a 7-period crossover were constructed using 2-character abbreviations for each treatment and separating hyphens, the length of ARMCD values would be 20. \n 2. If the timing of visits for a trial does not depend on which arm a subject is in, then ARMCD should be null.
+- **CDISC Notes:** 1. ARMCD is limited to 20 characters and does not have special character restrictions. The maximum length of ARMCD is longer than for other "short" variables to accommodate the kind of values that are likely to be needed for crossover trials. For example, if ARMCD values for a 7-period crossover were constructed using 2-character abbreviations for each treatment and separating hyphens, the length of ARMCD values would be 20.  2. If the timing of visits for a trial does not depend on which arm a subject is in, then ARMCD should be null.
 
 ### ARM
 - **Order:** 7
@@ -63,7 +63,7 @@
 - **Controlled Terms:** 
 - **Role:** Synonym Qualifier
 - **Core:** Perm
-- **CDISC Notes:** 1. Name given to an arm or treatment group. \n 2. If the timing of visits for a trial does not depend on which arm a subject is in, then Arm should be left blank.
+- **CDISC Notes:** 1. Name given to an arm or treatment group.  2. If the timing of visits for a trial does not depend on which arm a subject is in, then Arm should be left blank.
 
 ### TVSTRL
 - **Order:** 8

@@ -4,18 +4,18 @@
 
 ## 总体状态
 
-**Phase 5 验证进行中 — Step 3.5 (溯源矩阵) 已完成，Step 4 待执行**
+**Phase 5 验证 — Step 0 ~ 3.6 全部完成，仅 Step 4 (汇总报告) 待执行**
 
 ## 阶段进度
 
 | # | 阶段 | 产出 | 状态 |
 |---|------|------|------|
-| 0 | 分析与方案设计 | `.work/analysis/` | **已完成** |
+| 0 | 分析与方案设计 | `.work/00_planning/` | **已完成** |
 | 1 | xlsx 自动生成 | `domains/*/spec.md` + `terminology/` | **已完成** |
-| 2 | PDF 页码索引 | `.work/page_index.json` | **已完成** |
+| 2 | PDF 页码索引 | `.work/02_indexing/page_index.json` | **已完成** |
 | 3 | PDF 逐批提取 | `domains/*/assumptions.md` + `examples.md` | **已完成** (全部11批次) |
 | 4 | 补充内容 | `model/` + `chapters/` | **已完成** |
-| 5 | 验证与收尾 | 验证报告 + 溯源矩阵 | **进行中** |
+| 5 | 验证与收尾 | 验证报告 + 溯源矩阵 | **接近完成** (仅 Step 4 待执行) |
 
 ## Phase 5: 验证明细
 

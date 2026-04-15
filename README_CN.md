@@ -127,15 +127,19 @@ sdtm-pedia/
 │   └── SDTM Terminology.xlsx
 │
 ├── .work/                       # 构建工作区
-│   ├── analysis/                # 方案设计文档
-│   ├── scripts/                 # Python 生成与校验脚本
-│   ├── todo.md                  # 路线图
-│   ├── page_index.json          # PDF 页码索引
-│   └── worklog.md               # 构建日志
+│   ├── 00_planning/             # 方案设计文档
+│   ├── 01_generation/scripts/   # Python 生成与校验脚本
+│   ├── 02_indexing/             # PDF 页码索引
+│   ├── 03_verification/         # 验证结果与报告
+│   ├── 04_optimization/         # 检索优化路线图
+│   ├── meta/                    # 工作日志、映射、质量记录
+│   └── MANIFEST.md              # 文件清单与变更链
 │
-├── SDTM_Project_Instructions.md # Claude Project 指令模板
-├── SDTM_Project_Setup_Guide.md  # 搭建步骤指南
-└── PROGRESS.md                  # 构建进度看板
+├── docs/                        # 项目文档
+│   ├── PROGRESS.md              # 构建进度看板
+│   ├── TRACEABILITY.md          # 溯源矩阵
+│   ├── claude_project_instructions.md  # Claude Project 指令模板
+│   └── claude_project_setup.md  # 搭建步骤指南
 ```
 
 ## Domain 覆盖范围
@@ -265,9 +269,9 @@ sdtm-pedia/
 
 2. **创建 Claude Project** — 打开 [claude.ai](https://claude.ai) → Projects → Create project
 
-3. **设置 Instructions** — 将 `SDTM_Project_Instructions.md` 中的内容复制到 Project 指令框
+3. **设置 Instructions** — 将 `docs/claude_project_instructions.md` 中的内容复制到 Project 指令框
 
-4. **上传知识库文件** — 将 `knowledge_base/` 中的文件上传到 Project Knowledge，详见 `SDTM_Project_Setup_Guide.md` 中的优先级建议
+4. **上传知识库文件** — 将 `knowledge_base/` 中的文件上传到 Project Knowledge，详见 `docs/claude_project_setup.md` 中的优先级建议
 
 5. **开始查询**
    ```
@@ -276,7 +280,7 @@ sdtm-pedia/
    SEX codelist 有哪些可选值？
    ```
 
-> 详细搭建步骤请参考 [SDTM_Project_Setup_Guide.md](SDTM_Project_Setup_Guide.md)
+> 详细搭建步骤请参考 [docs/claude_project_setup.md](docs/claude_project_setup.md)
 
 ### 搭配 Claude Code 使用
 

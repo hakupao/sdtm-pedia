@@ -240,10 +240,10 @@ Specimen lineage diagram:
 
 ```mermaid
 graph TD
-    SPC001["SPC-001\n(Tissue)"] --> SPC001A["SPC-001-A\n(Tissue)"]
-    SPC001 --> SPC001B["SPC-001-B\n(Tissue)"]
-    SPC001B --> SPC001B1["SPC-001-B-1\n(DNA)"]
-    SPC003["SPC-003\n(Brain)"] --> SPC003A["SPC-003-A\n(RNA)"]
+    SPC001["SPC-001 (Tissue)"] --> SPC001A["SPC-001-A (Tissue)"]
+    SPC001 --> SPC001B["SPC-001-B (Tissue)"]
+    SPC001B --> SPC001B1["SPC-001-B-1 (DNA)"]
+    SPC003["SPC-003 (Brain)"] --> SPC003A["SPC-003-A (RNA)"]
 ```
 
 **relspec.xpt:**

@@ -327,9 +327,9 @@ When start date/time and duration are known but end date/time is not (or vice ve
 
 ```mermaid
 graph LR
-    REF["Reference Time Point\n2006-11-02"]
-    YEAR["2002\n(MHSTDTC)"]
-    CTP["MHDTC = 2006-11-02\nMHSTDTC = 2002\nMHENRTPT = ONGOING\nMHENTPT = 2006-11-02"]
+    REF["Reference Time Point 2006-11-02"]
+    YEAR["2002 (MHSTDTC)"]
+    CTP["MHDTC = 2006-11-02 MHSTDTC = 2002 MHENRTPT = ONGOING MHENTPT = 2006-11-02"]
 
     YEAR -->|"Medical event began"| REF
     REF -.->|"ONGOING beyond reference point"| AFTER(["▶"])
@@ -366,9 +366,9 @@ Time points are protocol-defined measurement times within a visit:
 
 ```mermaid
 graph LR
-    REF["Reference Time Point\n(Usually a Dose)\n--TPTREF (Description)\n--RFTDTC (Date/Time)"]
-    CTP["Collection Time Point\n--TPT (Description)\n--TPTNUM (Number)\n--DTC (Date/Time)"]
-    REF -->|"Planned Elapsed Time\n--ELTM (ISO 8601)"| CTP
+    REF["Reference Time Point (Usually a Dose) --TPTREF (Description) --RFTDTC (Date/Time)"]
+    CTP["Collection Time Point --TPT (Description) --TPTNUM (Number) --DTC (Date/Time)"]
+    REF -->|"Planned Elapsed Time --ELTM (ISO 8601)"| CTP
 ```
 
 For crossover trials, 2 options are available:
@@ -401,8 +401,8 @@ The SDTM provides a 3-level result framework for Findings:
 
 ```mermaid
 graph LR
-    ORRES["--ORRES\n(All original values)"] -->|"convert units or copy"| STRESC["--STRESC\n(Derive or copy all results)"]
-    STRESC -->|"if numeric"| STRESN["--STRESN\n(Numeric results only)"]
+    ORRES["--ORRES (All original values)"] -->|"convert units or copy"| STRESC["--STRESC (Derive or copy all results)"]
+    STRESC -->|"if numeric"| STRESN["--STRESN (Numeric results only)"]
     ORRESU["--ORRESU"] -->|"convert or copy"| STRESU["--STRESU"]
 ```
 
