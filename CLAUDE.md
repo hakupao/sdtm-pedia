@@ -12,6 +12,7 @@ Every new session, **before doing any work**, read these files in order:
 1. `.work/MANIFEST.md` — file layout, change chains, quick reference table
 2. `.work/meta/worklog.md` — work log with recovery guide
 3. `.work/03_verification/issues_found.md` — open issues
+4. `.work/meta/retrospective.md` § 4 — four prevention rules (must follow when doing any AI-assisted content work)
 
 Then summarize to the user: current status, open issues, and suggested next step.
 
@@ -31,6 +32,8 @@ Full chain definitions are in `.work/MANIFEST.md`.
 | Project docs | `docs/` |
 | Page index (authoritative) | `.work/02_indexing/page_index.json` |
 | Verification plan | `.work/03_verification/plan.md` |
+| Retrospective & rules | `.work/meta/retrospective.md` |
+| Follow-up risk plan | `.work/03_verification/followup_plan.md` |
 | TODO (Phase 6) | `.work/04_optimization/retrieval_optimization.md` |
 
 ## Conventions

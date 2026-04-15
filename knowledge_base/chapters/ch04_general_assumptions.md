@@ -12,25 +12,23 @@ This section describes basic concepts, business rules, and assumptions that shou
 
 ### 4.1.1 Review Study Data Tabulation Model and Implementation Guide
 
-<!-- [验证注记] PDF 4.1.1: 建议先阅读 SDTM v2.0 再阅读 SDTMIG；了解 GOC 概念、特殊用途域、试验设计模型等。此节待补全。 -->
-
-Sponsors should first read the SDTM to gain a general understanding of SDTM concepts before reading the SDTMIG. The SDTM describes the general conceptual framework, including the general observation classes (Interventions, Events, Findings), special-purpose domains, trial design model datasets, relationship datasets, and study references.
+Review the SDTM as well as this complete implementation guide before attempting to use any of the individual domain models. The SDTM describes the general conceptual framework, including the general observation classes (Interventions, Events, Findings), special-purpose domains, trial design model datasets, relationship datasets, and study references.
 
 ### 4.1.2 Relationship to Analysis Datasets
 
-<!-- [验证注记] PDF 4.1.2: SDTM 与 ADaM 的关系。此节待补全。 -->
-
-Data submitted in SDTM datasets should be traceable from analysis datasets (ADaM) back to SDTM datasets and from SDTM datasets back to source data. SDTM datasets are tabulation datasets; analysis-derived variables belong in ADaM datasets, not in SDTM.
+Specific guidance on preparing analysis datasets can be found in the CDISC Analysis Data Model (ADaM) Implementation Guide and other ADaM documents, available at https://www.cdisc.org/standards/foundational/adam.
 
 ### 4.1.3 Additional Timing Variables
 
-<!-- [验证注记] PDF 4.1.3 含 4.1.3.1 EPOCH Variable Guidance。此节待补全。 -->
-
-In addition to the core timing variables, SDTM provides additional timing variables (TAETORD, EPOCH) for representing study design elements. EPOCH is used to identify the portion of the trial in which an observation took place.
+Additional Timing variables can be added as needed to a standard domain model based on the 3 general observation classes, except for the cases specified in Assumption 4.4.8, Date and Time Reported in a Domain Based on Findings. Timing variables can be added to special-purpose domains only where specified in the SDTMIG domain model assumptions. Timing variables cannot be added to SUPPQUAL datasets or to RELREC (described in Section 8, Representing Relationships and Data).
 
 #### 4.1.3.1 EPOCH Variable Guidance
 
-EPOCH identifies the period of the study (e.g., "SCREENING", "TREATMENT", "FOLLOW-UP"). EPOCH is a permissible timing variable in all general observation class domains.
+When EPOCH is included in a Findings class domain, it should be based on the --DTC variable, since this is the date/time of the test or, for tests performed on specimens, the date/time of specimen collection. For observations in Interventions or Events class domains, EPOCH should be based on the --STDTC variable, since this is the start of the intervention or event. A possible, though unlikely, exception would be a finding based on an interval specimen collection that started in one epoch but ended in another. --ENDTC might be a more appropriate basis for EPOCH in such a case.
+
+Sponsors should not impute EPOCH values, but should, where possible, assign EPOCH values on the basis of CRF instructions and structure, even if EPOCH was not directly collected and date/time data was not collected with sufficient precision to permit assignment of an observation to an EPOCH on the basis of date/time data alone. If it is not possible to determine the epoch of an observation, then EPOCH should be null. Methods for assigning EPOCH values can be described in the Define-XML document.
+
+Because EPOCH is a study-design construct, it is not applicable to interventions or events that started before the subject's participation in a study, nor to findings performed before participation in a study. For such records, EPOCH should be null. Note that a subject's participation in a study includes screening, which generally occurs before the reference start date (RFSTDTC) in the Demographics (DM) domain.
 
 ### 4.1.4 Order of the Variables
 
@@ -46,9 +44,9 @@ Standard datasets should follow the SDTM data structures. Variable order should 
 
 ### 4.1.6 Additional Guidance on Dataset Naming
 
-<!-- [验证注记] PDF 4.1.6: 自定义域名规则（X、Y、Z 字母保留），RELREC/SUPP-- 命名例外等。此节待补全。 -->
+SDTM datasets are normally named to be consistent with the domain code; for example, the Demographics dataset (DM) is named dm.xpt. (See the SDTM Domain Abbreviation codelist, C66734, in CDISC Controlled Terminology at https://www.cancer.gov/research/resources/terminology/cdisc for standard domain codes.) Exceptions to this rule are described in Section 4.1.7, Splitting Domains, for general observation class datasets and in Section 8, Representing Relationships and Data, for RELREC and SUPP-- datasets.
 
-Sponsor-selected 2-character domain codes should be used consistently throughout the submission. Reserved codes (AD, AX, AP, SQ, SA) may not be used as custom domain codes.
+In some cases, sponsors may need to define new custom domains and may be concerned that CDISC domain codes defined in the future will conflict with those they choose to use. To eliminate any risk of a sponsor using a name that CDISC later determines to have a different meaning, domain codes beginning with the letters X, Y, and Z have been reserved for the creation of custom domains. Any letter or number may be used in the second position. Note the use of codes beginning with X, Y, or Z is optional, and not required for custom domains.
 
 ### 4.1.7 Splitting Domains
 
@@ -107,9 +105,18 @@ Sponsors should assign natural keys that define uniqueness for records. Natural 
 
 ### 4.2.2 Two-character Domain Identifier
 
-<!-- [验证注记] PDF 4.2.2: 2字符域标识符规则。此节待补全。 -->
+In order to minimize the risk of difficulty when merging/joining domains for reporting purposes, the 2-character domain identifier is used as a prefix in most variable names.
 
-The 2-character domain identifier: first character A-Z, second character A-Z or 0-9. Variables that do not carry the domain prefix include: Required Identifiers (STUDYID, DOMAIN, USUBJID), VISIT/VISITNUM/VISITDY, all DM domain variables (except DMDTC/DMDY), and RELREC/SUPPQUAL variables.
+Variables in domain specification tables (see Section 5, Models for Special-purpose Domains; Section 6, Domain Models Based on the General Observation Classes; Section 7, Trial Design Model Datasets; Section 8, Representing Relationships and Data; and Section 9, Study References) already specify the complete variable names. When adding variables from the SDTM to standard domains or creating custom domains based on the general observation classes, sponsors must replace the "--" prefix in the SDTM tables of General Observation Class, Timing, and Identifier variables with the 2-character domain identifier (DOMAIN) value for that domain/dataset. The 2-character domain code is limited to A-Z for the first character, and A-Z, 0-9 for the second character. No other characters are allowed. This is for compatibility with SAS v5 transport files and with file naming requirements as part of the Electronic Common Technical Document (eCTD).
+
+The following variables are exceptions to the philosophy that all variable names are prefixed with the domain identifier:
+
+- Required Identifiers (STUDYID, DOMAIN, USUBJID)
+- Commonly used grouping and merge keys (e.g., VISIT, VISITNUM, VISITDY)
+- All Demographics (DM) domain variables other than DMDTC and DMDY
+- All variables in RELREC and SUPPQUAL, and some variables in the Comments and Trial Design datasets
+
+Required identifiers are not prefixed because they are usually used as keys when merging/joining observations. The --SEQ and the optional Identifiers --GRPID and --REFID are prefixed because they may be used as keys when relating observations across domains.
 
 ### 4.2.3 Use of "Subject" and USUBJID
 
@@ -120,9 +127,7 @@ The 2-character domain identifier: first character A-Z, second character A-Z or 
 
 ### 4.2.4 Text Case in Submitted Data
 
-<!-- [验证注记] PDF 4.2.4: 文本数据大小写规则。此节待补全。 -->
-
-Text data should generally be uppercase (e.g., "NEGATIVE" not "Negative"). Exceptions: long text fields (comments), --TEST values (title case), values from external dictionaries (MedDRA, SNOMED, QRS). Case must match the controlled terminology declared in Define-XML.
+It is recommended that text data be submitted in text that is all upper case (e.g., NEGATIVE). Exceptions may include long text data (e.g., comment text) and values of --TEST in Findings datasets (which may be more readable in title case if used as labels in transposed views). Values from CDISC Controlled Terminology or external code systems (e.g., MedDRA, SNOMED) or response values for QRS instruments specified by the instrument documentation should be in the case specified by those sources, which may be mixed case. The case used in the text data must match the case used in the controlled terminology provided in the Define-XML document.
 
 ### 4.2.5 Convention for Missing Values
 
@@ -142,13 +147,18 @@ Missing values are represented as null. When a test is not performed, use --STAT
 
 ### 4.2.7 Submitting Free Text from the CRF
 
-<!-- [验证注记] PDF 4.2.7 含 4.2.7.1-4.2.7.4 四个子节。此处仅部分覆盖。 -->
+Sponsors often collect free-text data on a CRF to supplement a standard field. This often occurs as part of a list of choices accompanied by "Other, specify." The manner in which these data are submitted will vary based on their role.
 
-#### 4.2.7.1 "Specify" Values for Non-Result Qualifiers
+#### 4.2.7.1 "Specify" Values for Non-Result Qualifier Variables
 
-When a CRF includes an "Other, Specify" response, the specified text should populate the appropriate variable.
+When free-text information is collected to supplement a standard non-result qualifier field, the free-text value should be placed in the SUPP-- dataset described in Section 8.4, Relating Non-standard Variable Values to a Parent Domain. When applicable, controlled terminology should be used for SUPP-- field names (QNAM) and their associated labels (QLABEL; see Section 8.4 and Appendix C1, Supplemental Qualifiers Name Codes).
 
-**CRF Example: Reason for Dose Adjustment (EXADJ) with free-text description**
+For example, when a description of "Other Medically Important Serious Adverse Event" category is collected on a CRF, the free-text description should be stored in the SUPPAE dataset.
+
+- AESMIE = "Y"
+- SUPPAE QNAM = "AESOSP", QLABEL = "Other Medically Important SAE", QVAL = "HIGH RISK FOR ADDITIONAL THROMBOSIS"
+
+Another example is a CRF that collects reason for dose adjustment with additional free-text description:
 
 | Reason for Dose Adjustment (EXADJ) | Describe |
 |------------------------------------|----------|
@@ -156,7 +166,16 @@ When a CRF includes an "Other, Specify" response, the specified text should popu
 | [ ] Insufficient Response          |          |
 | [ ] Non-medical Reason             |          |
 
-**CRF Example: Indication for analgesic concomitant medication (CMINDC) with "Other, specify"**
+The free-text description should be stored in the SUPPEX dataset.
+
+- EXADJ = "NONMEDICAL REASON"
+- SUPPEX QNAM = "EXADJDSC", QLABEL = "Reason For Dose Adjustment Description", QVAL = "PATIENT MISUNDERSTOOD INSTRUCTIONS"
+
+> **Note:** QNAM references the "parent" variable name with the addition of "DSC". Likewise, the label is a modification of the parent variable label.
+
+When the CRF includes a list of values for a qualifier field that includes "Other" and the "Other" is supplemented with a "Specify" free-text field, then the manner in which the free-text "Specify" value is submitted will vary based on the sponsor's coding practice and analysis requirements.
+
+For example, consider a CRF that collects the indication for an analgesic concomitant medication (CMINDC) using a list of prespecified values and an "Other, specify" field:
 
 | Indication for analgesic | Options                        |
 |--------------------------|--------------------------------|
@@ -167,11 +186,29 @@ When a CRF includes an "Other, Specify" response, the specified text should popu
 |                          | [ ] Toothache                  |
 |                          | [ ] Other, specify: _________  |
 
-#### 4.2.7.2 "Specify" Values for Result Qualifiers
+An investigator has selected "OTHER" and specified "Broken arm". Several options are available for submission of this data:
 
-When a Findings result is a "Specify" value, the actual specified text should be placed in --ORRES.
+1. If the sponsor wishes to maintain controlled terminology for the CMINDC field and limit the terminology to the 5 prespecified choices, then the free text is placed in SUPPCM.
 
-**CRF Example: Eye Color with "Other, specify"**
+   - CMINDC = "OTHER"
+   - SUPPCM QNAM = "CMINDOTH", QLABEL = "Other Indication", QVAL = "BROKEN ARM"
+
+2. If the sponsor wishes to maintain controlled terminology for CMINDC but will expand the terminology based on values seen in the "Other, specify" field, then the value of CMINDC will reflect the sponsor's coding decision and SUPPCM could be used to store the verbatim text.
+
+   - CMINDC = "FRACTURE"
+   - SUPPCM QNAM = "CMINDOTH", QLABEL = "Other Indication", QVAL = "BROKEN ARM"
+
+   Note that the sponsor might choose a different value for CMINDC (e.g., "BONE FRACTURE") depending on the sponsor's coding practice and analysis requirements.
+
+3. If the sponsor does not require that controlled terminology be maintained and wishes for all responses to be stored in a single variable, then CMINDC will be used and SUPPCM is not required.
+
+   - CMINDC = "BROKEN ARM"
+
+#### 4.2.7.2 "Specify" Values for Result Qualifier Variables
+
+When the CRF includes a list of values for a result field that includes "Other" and the "Other" is supplemented with a "Specify" free-text field, then the manner in which the free-text "Specify" value is submitted will vary based on the sponsor's coding practice and analysis requirements.
+
+For example, consider a CRF where the sponsor requests the subject's eye color:
 
 | Eye Color | Options                       |
 |-----------|-------------------------------|
@@ -181,11 +218,31 @@ When a Findings result is a "Specify" value, the actual specified text should be
 |           | [ ] Green                     |
 |           | [ ] Other, specify: _________ |
 
+An investigator has selected "OTHER" and specified "BLUEISH GRAY". As in the preceding discussion for non-result qualifier values, the sponsor has several options for submission:
+
+1. If the sponsor wishes to maintain controlled terminology in the standard result field and limit the terminology to the 5 prespecified choices, then the free text is placed in --ORRES and the controlled terminology in --STRESC.
+
+   | SCTEST    | SCORRES     | SCSTRESC |
+   |-----------|-------------|----------|
+   | Eye Color | BLUEISH GRAY | OTHER    |
+
+2. If the sponsor wishes to maintain controlled terminology in the standard result field, but will expand the terminology based on values seen in the "Other, specify" field, then the free text is placed in --ORRES and the value of --STRESC will reflect the sponsor's coding decision.
+
+   | SCTEST    | SCORRES     | SCSTRESC |
+   |-----------|-------------|----------|
+   | Eye Color | BLUEISH GRAY | GRAY     |
+
+3. If the sponsor does not require that controlled terminology be maintained, the verbatim value will be copied to --STRESC.
+
+   | SCTEST    | SCORRES     | SCSTRESC     |
+   |-----------|-------------|--------------|
+   | Eye Color | BLUEISH GRAY | BLUEISH GRAY |
+
 #### 4.2.7.3 "Specify" Values for Topic Variables
 
---TERM should be populated with the description of the event found in the specified text, and --PRESP could be used to distinguish between prespecified and free-text responses.
+**Interventions**
 
-**CRF Example: Indicate which concomitant medications were used (Interventions topic variable --TRT)**
+If a list of specific treatments is provided along with "Other, Specify", --TRT should be populated with the name of the treatment found in the specified text. If the sponsor wishes to distinguish between the prespecified list of treatments and those recorded in "Other, Specify," the --PRESP variable could be used. For example:
 
 | Indicate which of the following concomitant medications was used to treat the subject's headaches: | Options                       |
 |----------------------------------------------------------------------------------------------------|-------------------------------|
@@ -195,9 +252,26 @@ When a Findings result is a "Specify" value, the actual specified text should be
 |                                                                                                    | [ ] Naproxen                  |
 |                                                                                                    | [ ] Other, specify: _________ |
 
+If ibuprofen and diclofenac were reported, the CM dataset would include the following:
+
+| CMTRT       | CMPRESP |
+|-------------|---------|
+| IBUPROFEN   | Y       |
+| DICLOFENAC  |         |
+
+**Events**
+
+"Other, Specify" for events may be handled similarly to Interventions. --TERM should be populated with the description of the event found in the specified text and --PRESP could be used to distinguish between prespecified and free-text responses.
+
+**Findings**
+
+"Other, Specify" for tests may be handled similarly to Interventions. --TESTCD and --TEST should be populated with the code and description of the test found in the specified text. If specific tests are not listed on the CRF and the investigator has the option of writing in tests, then the name of the test would have to be coded to ensure that all --TESTCD and --TEST values are consistent with the test controlled terminology. For example, a lab CRF collected values for hemoglobin, hematocrit, and "Other, specify". The value the investigator wrote for "Other, specify" was "Prothrombin time" with an associated result and units. The sponsor would submit the controlled terminology for this test: LBTESTCD would be "PT" and LBTEST would be "Prothrombin Time", rather than the verbatim term, "Prothrombin time" supplied by the investigator.
+
 #### 4.2.7.4 "Specify" Values for --OBJ
 
-When FAOBJ represents a "Specify" value, the actual specified text should be used.
+As illustrated in the following figure, when findings are collected about an event or intervention, and the name of the event or intervention is collected in an "Other, specify" CRF field, the value in --OBJ variable depends on whether the Findings record has a parent record and whether the "Other, specify" value was coded. See also Section 6.4.3, Variables Unique to Findings About.
+
+**Figure. Decision Tree for Populating --OBJ**
 
 ```mermaid
 graph TD
@@ -213,9 +287,91 @@ graph TD
 
 ### 4.2.8 Multiple Values for a Variable
 
-<!-- [验证注记] PDF 4.2.8 含 4.2.8.1-4.2.8.4 四个子节。此节待补全。 -->
+#### 4.2.8.1 Multiple Values for an Intervention or Event Topic Variable
 
-When multiple values exist for a single variable, guidance is provided for handling: topic variables in Interventions/Events (4.2.8.1), result variables in Findings (4.2.8.2), non-result qualifier variables (4.2.8.3), and parameters with multiple values (4.2.8.4).
+If multiple values are reported for an intervention or event topic variable (e.g., --TRT in an Interventions general observation-class dataset or --TERM in an Events general observation-class dataset), it is expected that the sponsor will split the values into multiple records or otherwise resolve the multiplicity per the sponsor's data management standard operating procedures. For example, if an adverse event term of "Headache and nausea" or a concomitant medication of "Tylenol and Benadryl" is reported, sponsors will often split the original report into separate records and/or query the site for clarification. By the time of submission, datasets should be in conformance with the record structures described in the SDTMIG.
+
+**Note:** The Disposition (DS) dataset is an exception to the general rule of splitting multiple topic values into separate records. For DS, 1 record for each disposition or protocol milestone is permitted according to the domain structure. For cases of multiple reasons for discontinuation see Section 6.2.4, Disposition, assumption 5 for additional information.
+
+#### 4.2.8.2 Multiple Values for a Findings Result Variable
+
+If multiple result values (--ORRES) are reported for a test in a Findings class dataset, multiple records should be submitted for that --TESTCD.
+
+For example:
+- EGTESTCD = "SPRTARRY", EGTEST = "Supraventricular Tachyarrhythmias", EGORRES = "ATRIAL FIBRILLATION"
+- EGTESTCD = "SPRTARRY", EGTEST = "Supraventricular Tachyarrhythmias", EGORRES = "ATRIAL FLUTTER"
+
+When a finding can have multiple results, the key structure for the findings dataset must be adequate to distinguish between the multiple results. See Section 4.1.9, Assigning Natural Keys in the Metadata.
+
+#### 4.2.8.3 Multiple Values for a Non-result Qualifier Variable
+
+The SDTM permits 1 value for each qualifier variable per record. If multiple values exist (e.g., due to a "Check all that apply" instruction on a CRF), then the value for the qualifier variable should be "MULTIPLE" and SUPP-- should be used to store the individual responses. It is recommended that the SUPP-- QNAM value reference the corresponding standard domain variable with an appended number or letter. In some cases, the standard variable name will be shortened to meet the 8-character variable name requirement, or it may be clearer to append a meaningful character string as shown in the second Adverse Events (AE) example below, where the first 3 characters of the drug name are appended. Likewise, the QLABEL value should be similar to the standard label. The values stored in QVAL should be consistent with the controlled terminology associated with the standard variable. See Section 8.4, Relating Non-standard Variable Values to a Parent Domain, for additional guidance on maintaining appropriately unique QNAM values.
+
+**Example 1:** A rash with locations on the face, neck, and chest:
+
+ae.xpt:
+
+| AETERM | AELOC |
+|--------|-------|
+| RASH | MULTIPLE |
+
+suppae.xpt:
+
+| QNAM | QLABEL | QVAL |
+|------|--------|------|
+| AELOC1 | Location of the Reaction 1 | FACE |
+| AELOC2 | Location of the Reaction 2 | NECK |
+| AELOC3 | Location of the Reaction 3 | CHEST |
+
+In some cases, values for QNAM and QLABEL more specific than these may be needed.
+
+**Example 2:** A study with 2 study drugs (Abcicin + Xyzamin), requiring causality and action for each drug:
+
+ae.xpt:
+
+| AETERM | AEREL | AEACN |
+|--------|-------|-------|
+| RASH | MULTIPLE | MULTIPLE |
+
+suppae.xpt:
+
+| QNAM | QLABEL | QVAL |
+|------|--------|------|
+| AERELABC | Causality of Abcicin | POSSIBLY RELATED |
+| AERELXYZ | Causality of Xyzamin | UNLIKELY RELATED |
+| AEACNABC | Action Taken with Abcicin | DOSE REDUCED |
+| AEACNXYZ | Action Taken with Xyzamin | DOSE NOT CHANGED |
+
+In each of these examples, the use of SUPPAE should be documented in the Define-XML document and the annotated CRF. The controlled terminology used should be documented as part of value-level metadata.
+
+If the sponsor has clearly documented that one response is of primary interest (e.g., in the CRF, protocol, or analysis plan), the standard domain variable may be populated with the primary response and SUPP-- may be used to store the secondary response(s).
+
+**Example 3:** If Abcicin is designated as the primary study drug in the example above:
+
+ae.xpt:
+
+| AETERM | AEREL | AEACN |
+|--------|-------|-------|
+| RASH | POSSIBLY RELATED | DOSE REDUCED |
+
+suppae.xpt:
+
+| QNAM | QLABEL | QVAL |
+|------|--------|------|
+| AERELX | Causality of Xyzamin | UNLIKELY RELATED |
+| AEACNX | Action Taken with Xyzamin | DOSE NOT CHANGED |
+
+Note that in the latter case, the label for standard variables AEREL and AEACN will have no indication that they pertain to Abcicin. This association must be clearly documented in the metadata and annotated CRF.
+
+#### 4.2.8.4 Multiple Values for a Parameter
+
+If multiple values (--VAL) are reported for a parameter in a Trial Design or Study Reference dataset (e.g., TS, OI), multiple records should be submitted for that --PARMCD.
+
+For example:
+- TSPARMCD = "TTYPE", TSPARM = "Trial Type", TSVAL = "EFFICACY"
+- TSPARMCD = "TTYPE", TSPARM = "Trial Type", TSVAL = "SAFETY"
+
+When a parameter can have multiple values, the key structure for the dataset must be adequate to distinguish between the multiple records. See Section 4.1.9, Assigning Natural Keys in the Metadata.
 
 ### 4.2.9 Variable Lengths
 

@@ -96,6 +96,37 @@ meta/worklog.md                      ← 记录决策变更
 
 ---
 
+## 计划导航 (Plan Map)
+
+所有计划/TODO 文件的从属关系、状态和执行顺序。新 session 开始时先看这里，决定该做什么。
+
+```
+03_verification/plan.md ──── Phase 5 验证主计划 ──── [几乎完成]
+│
+├─→ Step 0~3.6 ······························ [已完成]
+│
+├─→ repair_plan.md ── Issue 2 修复 ·········· [已完成/归档]
+│   │  派生原因: Step 3-4/3-5 执行中发现内容空洞
+│   │
+│   └─→ followup_plan.md ── 残余风险排查 ··· [待执行]
+│        派生原因: 修复完成后反思，发现中风险区域+盲区
+│        内容: M1~M5 五项抽查任务
+│
+└─→ Step 4 汇总报告 ························ [待执行]
+     内容: 全量验证的最终报告
+
+04_optimization/retrieval_optimization.md ── Phase 6 检索优化 ── [待执行/独立]
+     内容: P0~P3 四项优化任务（ROUTING.md、反向索引等）
+     前置: Phase 5 完成后再开始
+```
+
+**下一步执行顺序建议**:
+1. `followup_plan.md` M1~M5 抽查（验证收尾）
+2. `plan.md` Step 4 汇总报告（验证关门）
+3. `retrieval_optimization.md` P0~P3（进入新阶段）
+
+---
+
 ## 目录结构
 
 ```
@@ -120,6 +151,8 @@ meta/worklog.md                      ← 记录决策变更
 ├── 03_verification/         ← Phase 5: 全量验证
 │   ├── plan.md                   验证计划与进度总表
 │   ├── issues_found.md           问题汇总
+│   ├── followup_plan.md          后续排查计划（残余风险与盲区）
+│   ├── repair_plan.md            Issue 2 修复计划（写/审分离流程）
 │   ├── results/                  验证结果（按步骤编号）
 │   │   ├── step1_assumptions.md
 │   │   ├── step2_examples_summary.md
@@ -144,6 +177,7 @@ meta/worklog.md                      ← 记录决策变更
 │
 └── meta/                    ← 贯穿全程的元信息
     ├── worklog.md                 工作日志（中断恢复入口）
+    ├── retrospective.md           阶段性反思（Issue 根因 + 四条预防规则）⚑ 必读
     ├── mapping.md                 源文件→产出文件映射
     ├── findings.md                质量问题全局记录
     └── user_actions.md            用户操作指南
@@ -171,3 +205,5 @@ meta/worklog.md                      ← 记录决策变更
 | 查源文件→产出映射 | `meta/mapping.md` |
 | 查质量问题 | `meta/findings.md` |
 | 查后续 TODO | `04_optimization/retrieval_optimization.md` |
+| **AI 工作质量规则** | **`meta/retrospective.md`** ⚑ 四条预防规则必须遵守 |
+| 查残余风险排查计划 | `03_verification/followup_plan.md` |

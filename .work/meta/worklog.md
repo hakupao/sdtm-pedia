@@ -358,5 +358,55 @@
 ### 当前总结
 
 - **生成阶段**: 全部完成（5 Phase，293 个文件）
-- **验证阶段**: Step 0-2 + 2-final 已完成，Step 3（model/ + chapters/ 共 12 文件）和 Step 4（汇总报告）待开始
-- **下一步**: 执行 Step 3 — 验证 model/ (6 文件) + chapters/ (6 文件)
+- **验证阶段**: Step 0-3.6 已完成，Step 4（汇总报告）待开始
+- **Issue 2 修复**: 全部已完成 (2026-04-15) — ch04 + ch08 + ch10
+
+### 2026-04-15 Issue 2 根因分析与修复计划
+
+- **状态**: 计划已完成，修复待执行
+- **问题**: 验证 PASS 标准存在漏洞——"标记缺失"被等同于"内容完整"
+  - ch04: 7 处 `<!-- 此节待补全 -->` 但判 PASS，行数仅 +9（38 页 PDF）
+  - ch08: 5+ 项高严重性标注"内容补充待后续"但判 PASS
+  - ch10: 词汇表约 17 条缺失标注"部分待后续补充"但判 PASS
+- **根因**: 修复和验证在同一上下文完成（自写自判），PASS 标准过松
+- **修复方案**: 写/审分离 + 逐节锁定 + 独立 subagent 复核 + evidence 全记录
+- **修复计划文档**: `.work/03_verification/repair_plan.md`
+- **优先级**: P0 ch04 → P1 ch08 → P2 ch10 → 抽查 ch01/02/03
+- **下一步**: 新 session 执行 ch04 修复
+
+### 2026-04-15 Issue 2 修复执行：ch04_general_assumptions.md
+
+- **状态**: 已完成
+- **方法**: 写/审分离 + 逐节锁定 (严格按 repair_plan.md 执行)
+- **处理内容**: 7 个待补全节逐一对照 PDF p.22-36 补写内容
+  - 4.1.1 Review SDTM and IG — 删除标记，内容已覆盖 PDF (PASS)
+  - 4.1.2 Relationship to Analysis Datasets — 纠正错误内容，替换为 PDF 原文含 URL (PASS, 2 轮)
+  - 4.1.3 + 4.1.3.1 Additional Timing / EPOCH — 从 2 句扩展为 4 段完整内容 (PASS)
+  - 4.1.6 Dataset Naming — 纠正错误保留代码(AD/AX→X/Y/Z)，替换为 2 段 (PASS)
+  - 4.2.2 Two-character Domain Identifier — 从 2 句扩展为 3 段 + 例外清单 (PASS)
+  - 4.2.4 Text Case — 替换为 PDF 原文完整段落 (PASS)
+  - 4.2.8 Multiple Values — 从 2 句概述新增 4 个完整子节含 3 组数据表 (PASS)
+- **复核方式**: 每节由独立 Sonnet subagent 对照 PDF 复核，共 8 次复核 (含 1 次 FAIL 修复)
+- **结果**: 7/7 节 PASS，总覆盖率 75/75 = 100%
+- **文件变化**: 行数 499 → 585 (+86)，零"待补全"标记残留
+- **Evidence**: `.work/03_verification/results/repair_evidence.md`
+- **下一步**: 新 session 处理 P1 ch08_relationships.md
+
+### 2026-04-15 Issue 2 修复执行：ch08 + ch10
+
+- **状态**: 已完成
+- **方法**: 写/审分离 + 独立 Sonnet subagent 复核
+- **ch08_relationships.md 处理内容** (5 高严重性缺口):
+  - Overview: 新增完整引言段 + 8 节概览列表 + IDVAR 变量说明 (PASS ~95%)
+  - 8.1: 扩展 --GRPID 说明 + 完整 12 行 CM 示例表 (PASS ~98%)
+  - 8.2.2: 新增 3 个完整 RELREC 示例含正确表格 (PASS ~98%)
+  - 8.3: 新增数据集关系说明 + RELTYPE 组合 + --LNKID 段 (PASS, 2 轮)
+  - 8.4: 扩展 SUPP-- 核心规则 + 8.4.2 分离提交 + 详细 When NOT
+  - 8.5: 扩展 CO 域详细关联规则 (PASS ~97%)
+  - 行数: 258 → 360 (+102)
+- **ch10_appendices.md 处理内容** (Appendix B 词汇表):
+  - 新增 18 个缺失条目，删除 1 个幽灵条目(AE)，修复 1 个重复(CDASH)
+  - 40/40 PDF 条目全部覆盖 (PASS 100%)
+  - 行数: 212 → 230 (+18)
+- **Evidence**: `.work/03_verification/results/repair_evidence.md`
+- **Issue 2 最终状态**: 全部 3 个文件修复完成 (ch04 + ch08 + ch10)

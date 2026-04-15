@@ -12,29 +12,47 @@ The Submissions Data Standards (SDS) Team is responsible for the development of 
 
 ## Appendix B: Glossary and Abbreviations
 
+The following table lists some of the abbreviations and terms are used in this document. Additional definitions can be found in the individual sections of this document (see esp. Section 7.1.2, Definitions of Trial Design Concepts) and in the CDISC Glossary (available at https://www.cdisc.org/standards/glossary).
+
 | Abbreviation | Full Term |
 |-------------|-----------|
 | ADaM | CDISC Analysis Dataset Model |
-| AE | Adverse Event |
+| ADSL | (ADaM) Subject-level Analysis Dataset |
+| ATC | Anatomic Therapeutic Chemical (code; WHO) |
+| CDASH | Clinical Data Acquisition Standards Harmonization |
 | CDISC | Clinical Data Interchange Standards Consortium |
-| CDASH | Clinical Data Acquisition Standards Harmonization |
-| CRF | Case Report Form |
-| CDASH | Clinical Data Acquisition Standards Harmonization |
+| CRF | Case report form (sometimes case record form) |
+| CRO | Contract research organization |
+| CTCAE | Common Terminology Criteria for Adverse Events |
+| Dataset | A collection of structured data in a single file |
+| Define-XML | CDISC standard for transmitting metadata that describes any tabular dataset structure |
+| Domain | A collection of observations with a topic-specific commonality |
+| eDT | Electronic data transfer |
 | FDA | (US) Food and Drug Administration |
+| HL7 | Health Level 7 |
 | ICH | International Conference on Harmonisation of Technical Requirements for Registration of Pharmaceuticals for Human Use |
-| ISO 3166 | ISO codelist for representing countries; the Alpha-3 codelist uses 3-character codes |
+| ICH E2A | ICH guidelines on Clinical Safety Data Management: Definitions and Standards for Expedited Reporting |
+| ICH E2B | ICH guidelines on Clinical Safety Data Management: Data Elements for Transmission of Individual Cases Safety Reports |
+| ICH E3 | ICH guidelines on Structure and Content of Clinical Study Reports |
+| ICH E9 | ICH guidelines on Statistical Principles for Clinical Trials |
+| ISO | International Organization for Standardization |
 | ISO 8601 | ISO character representation of dates, date/times, intervals, and durations of time. The SDTM uses the extended format |
+| ISO 3166 | ISO codelist for representing countries; the Alpha-3 codelist uses 3-character codes |
+| LOINC | Logical Observation, Identifiers, Names, and Codes |
 | MedDRA | Medical Dictionary for Regulatory Activities |
 | NCI | National Cancer Institute (NIH) |
+| NSV | Non-standard variable |
+| PRO | Patient-reported outcome |
+| SAP | Statistical analysis plan |
 | SDS | Submission Data Standards. Also the name of the team that created the SDTM and SDTMIG |
 | SDTM | Study Data Tabulation Model |
 | SDTMIG | Study Data Tabulation Model Implementation Guide: Human Clinical Trials |
-| SDTMIG-AP | SDTM Implementation Guide for Associated Persons |
-| SDTMIG-MD | SDTM Implementation Guide for Medical Devices |
-| SDTMIG-PGx | SDTM Implementation Guide: Pharmacogenomics/Genetics |
+| SDTMIG-AP | Study Data Tabulation Model Implementation Guide: Associated Persons |
+| SDTMIG-MD | Study Data Tabulation Model Implementation Guide for Medical Devices |
+| SDTMIG-PGx | Study Data Tabulation Model Implementation Guide: Pharmacogenomics/Genetics |
 | SEND | Standard for Exchange of Non-Clinical Data |
-| SNOMED | Systematized Nomenclature of Medicine |
-| SOC | System Organ Class |
+| SNOMED | Systematized Nomenclature of Medicine (a dictionary) |
+| SOC | System organ class |
 | TDM | Trial Design Model |
 | WHODRUG | World Health Organization Drug Dictionary |
 | XML | eXtensible Markup Language |
