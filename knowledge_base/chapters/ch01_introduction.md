@@ -27,7 +27,9 @@ This document is intended for companies and individuals involved in the collecti
 
 ## 1.3 Relationship to Prior CDISC Documents
 
-This document, together with the SDTM, represents the most recent version of the CDISC submission data domain models. All updates are intended to be backward-compatible. Version 3.1 was the first version directly referenced by the US FDA in regulatory guidance. A detailed list of changes between versions is provided in Appendix E, Revision History.
+This document, together with the SDTM, represents the most recent version of the CDISC submission data domain models. All updates are intended to be backward-compatible. A detailed list of changes between versions is provided in Appendix E, Revision History.
+
+Version 3.1 was the first fully implementation-ready version of the CDISC submission data standards that was directly referenced by the US FDA for use in human clinical studies involving drug products. However, future improvements and enhancements will continue to be made as sponsors gain more experience submitting data in this format. Therefore, CDISC will be preparing regular updates to the implementation guide to provide corrections, clarifications, additional domain models, examples, business rules, and conventions for using the standard domain models. Because CDISC will produce further documentation for Controlled Terminology as separate publications, sponsors are encouraged to check the CDISC website (https://www.cdisc.org/standards/terminology/controlled-terminology) frequently for additional information. See Section 4.3, Coding and Controlled Terminology Assumptions, for the most up-to-date information on applying Controlled Terminology.
 
 The most significant changes since SDTMIG v3.3 include:
 
@@ -56,6 +58,8 @@ The most significant changes since SDTMIG v3.3 include:
 
 ## 1.4 How to Read this Implementation Guide
 
+The SDTMIG is best read online, so the reader can benefit from the many hyperlinks to internal and external references.
+
 Recommended reading order:
 
 1. Read the SDTM to gain a general understanding of SDTM concepts
@@ -67,20 +71,20 @@ Recommended reading order:
 7. Review Section 9, Study References
 8. Review the appendices as appropriate (especially Appendix C for Controlled Terminology)
 
-This implementation guide covers most data collected in human clinical trials, but separate implementation guides provide information about certain data. See the SDTMIG for Associated Persons (SDTMIG-AP) and the SDTMIG for Medical Devices (SDTMIG-MD).
+This implementation guide covers most data collected in human clinical trials, but separate implementation guides provide information about certain data. See the SDTMIG for Associated Persons (SDTMIG-AP) and the SDTMIG for Medical Devices (SDTMIG-MD). Historically, the SDTM Implementation Guide for Pharmacogenomics/Genetics (SDTMIG-PGx) has provided structures for pharmacogenetic/genomic data and for data about biospecimens. Much of the content of the SDTMIG-PGx has been incorporated into and/or superseded by the SDTMIG v3.4.
 
 ### 1.4.1 How to Read a Domain Specification
 
-A domain specification table includes rows for all required and expected variables and for a set of permissible variables. The columns of the table are:
+A domain specification table includes rows for all required and expected variables and for a set of permissible variables. The permissible variables do not include all the variables that are allowed for the domain; they are a set of variables that the SDS Team considered likely to be included. The columns of the table are:
 
 | Column | Description |
 |--------|-------------|
 | **Variable Name** | Standard name; variables without domain prefix are taken from SDTM directly; `--` is replaced by 2-character domain code |
-| **Variable Label** | Longer name; may be same as SDTM label or customized for the domain |
+| **Variable Label** | Longer name; may be same as SDTM label or customized for the domain. Sponsors should create an appropriate label if they include in a dataset an allowable variable not in the domain specification. |
 | **Type** | SAS datatypes: "Num" or "Char" |
-| **Controlled Terms, Codelist, or Format** | Controlled terminology references: an asterisk (*) indicates the variable may be subject to CT but also accepts sponsor-defined values; codelist names hyperlinked to CDISC CT; external code systems listed as plain text; "ISO 8601 datetime or interval" or "ISO 8601 duration" for date/time fields. When multiple codelists apply, they are listed separated by a semicolon. |
+| **Controlled Terms, Codelist, or Format** | Controlled terminology references: an asterisk (*) indicates the variable may be subject to controlled terminology. Specifically, the asterisk means one of the following: (1) the controlled terminology might be of a type that would inherently be sponsor-defined; (2) the controlled terminology might be of a type that could be standardized, but for which a codelist has not yet been developed; or (3) the controlled terminology might be terminology specified in value-level metadata. Codelist names are hyperlinked to CDISC CT; external code systems (e.g., MedDRA) are listed as plain text; "ISO 8601 datetime or interval" or "ISO 8601 duration" for date/time fields. When multiple codelists apply, they are listed separated by a semicolon. |
 | **Role** | From the SDTM; SDTM includes the qualified variable for Variable/Synonym Qualifiers, but SDTMIG does not |
-| **CDISC Notes** | Variable description, relationship to other variables, population rules, and example values |
+| **CDISC Notes** | Variable description, relationship to other variables, population rules, and example values. Such examples are only examples, and although they may be CDISC Controlled Terminology values, their presence in a CDISC Note should not be construed as definitive. For authoritative information on CDISC Controlled Terminology, consult the NCI website (https://www.cancer.gov/research/resources/terminology/cdisc). |
 | **Core** | "Req" (Required), "Exp" (Expected), or "Perm" (Permissible) |
 
 ## 1.5 Known Issues

@@ -358,8 +358,25 @@
 ### 当前总结
 
 - **生成阶段**: 全部完成（5 Phase，293 个文件）
-- **验证阶段**: Step 0-3.6 已完成，Step 4（汇总报告）待开始
+- **验证阶段**: Step 0-3.6 已完成，Followup M1-M5 已完成，Step 4（汇总报告）待开始
 - **Issue 2 修复**: 全部已完成 (2026-04-15) — ch04 + ch08 + ch10
+- **Followup 验证**: 全部已完成 (2026-04-16) — M1-M5 全部 PASS，ch01/ch02/ch03 补全
+
+### 2026-04-16 Followup Plan 执行（M1-M5 中等风险项抽样验证）
+
+- **状态**: 已完成
+- **计划文档**: `.work/03_verification/followup_execution_plan.md`
+- **方法**: 5 个 subagent 并行执行 M1-M5，修复后独立 subagent 复核（写审分离）
+- **执行结果**:
+  - **M4 (page_index.json)**: PASS — 10 条抽样中 9/10 准确，TA 偏移 +1
+  - **M1 (ch01_introduction.md)**: 初次 84.1% FAIL → 补写 7 个缺失要点 → 复核 PASS (100%)，行数 99→103
+  - **M2 (ch02_fundamentals.md)**: 初次 80.6% FAIL → 第一轮补写 9 要点 → 复核 94.1% FAIL → 第二轮补写 2 要点 → 最终 ~96% PASS，行数 162→175+
+  - **M3 (ch03_submitting_data.md)**: 初次 52.1% FAIL → 补全 Dataset 表格(8→63域) + 6 段落 → 复核 PASS (100%)，行数 71→130
+  - **M5 (examples.md 5域抽样)**: CM/CE/RS/NV/TD 全部 5/5 PASS (100%)
+- **结构性盲区确认**: ch01/ch02/ch03 存在系统性简化（PDF 段落被压缩或省略），已全部补全
+- **占位标记最终扫描**: knowledge_base/ 全目录 0 matches
+- **新增 Issue**: 无
+- **Evidence**: `.work/03_verification/results/followup_evidence.md`
 
 ### 2026-04-15 Issue 2 根因分析与修复计划
 
