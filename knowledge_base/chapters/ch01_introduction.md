@@ -27,7 +27,9 @@ This document is intended for companies and individuals involved in the collecti
 
 ## 1.3 Relationship to Prior CDISC Documents
 
-This document, together with the SDTM, represents the most recent version of the CDISC submission data domain models. All updates are intended to be backward-compatible. The most significant changes since SDTMIG v3.3 include:
+This document, together with the SDTM, represents the most recent version of the CDISC submission data domain models. All updates are intended to be backward-compatible. Version 3.1 was the first version directly referenced by the US FDA in regulatory guidance. A detailed list of changes between versions is provided in Appendix E, Revision History.
+
+The most significant changes since SDTMIG v3.3 include:
 
 - Expanded the scope of the DA domain to include study products in addition to study drugs
 - Grouped specimen-based lab domains (e.g., CP, GF, LB) in Sections 6.3.5.1-6.3.5.9 and added a generic specification
@@ -65,6 +67,8 @@ Recommended reading order:
 7. Review Section 9, Study References
 8. Review the appendices as appropriate (especially Appendix C for Controlled Terminology)
 
+This implementation guide covers most data collected in human clinical trials, but separate implementation guides provide information about certain data. See the SDTMIG for Associated Persons (SDTMIG-AP) and the SDTMIG for Medical Devices (SDTMIG-MD).
+
 ### 1.4.1 How to Read a Domain Specification
 
 A domain specification table includes rows for all required and expected variables and for a set of permissible variables. The columns of the table are:
@@ -74,7 +78,7 @@ A domain specification table includes rows for all required and expected variabl
 | **Variable Name** | Standard name; variables without domain prefix are taken from SDTM directly; `--` is replaced by 2-character domain code |
 | **Variable Label** | Longer name; may be same as SDTM label or customized for the domain |
 | **Type** | SAS datatypes: "Num" or "Char" |
-| **Controlled Terms, Codelist, or Format** | Controlled terminology references; asterisk (*) indicates variable may be subject to CT; codelist hyperlinks indicate CDISC CT; "ISO 8601 datetime or interval" or "ISO 8601 duration" for date/time fields |
+| **Controlled Terms, Codelist, or Format** | Controlled terminology references: an asterisk (*) indicates the variable may be subject to CT but also accepts sponsor-defined values; codelist names hyperlinked to CDISC CT; external code systems listed as plain text; "ISO 8601 datetime or interval" or "ISO 8601 duration" for date/time fields. When multiple codelists apply, they are listed separated by a semicolon. |
 | **Role** | From the SDTM; SDTM includes the qualified variable for Variable/Synonym Qualifiers, but SDTMIG does not |
 | **CDISC Notes** | Variable description, relationship to other variables, population rules, and example values |
 | **Core** | "Req" (Required), "Exp" (Expected), or "Perm" (Permissible) |

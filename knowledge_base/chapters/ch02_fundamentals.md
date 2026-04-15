@@ -18,11 +18,11 @@ The SDTMIG for Human Clinical Trials is based on the SDTM's general framework fo
 
 | Subclass | Purpose | Examples |
 |----------|---------|----------|
-| **Grouping Qualifiers** | Group together a collection of observations | --CAT, --SCAT |
+| **Grouping Qualifiers** | Group together a collection of observations within the same domain | --CAT, --SCAT |
 | **Result Qualifiers** | Describe the specific results associated with the topic variable (Findings only) | --ORRES, --STRESC, --STRESN |
 | **Synonym Qualifiers** | Specify an alternative name for a particular variable | --MODIFY, --DECOD (for --TRT/--TERM); --TEST, --LOINC (for --TESTCD) |
-| **Record Qualifiers** | Define additional attributes of the observation record as a whole | --REASND, AESLIFE, --BLFL, --POS, --LOC, --SPEC, --NAM |
-| **Variable Qualifiers** | Modify or describe a specific variable within an observation | --ORRESU, --ORNRHI, --DOSU (Variable Qualifier of --DOSE) |
+| **Record Qualifiers** | Define additional attributes of the observation record as a whole (rather than describing a particular variable within a record) | --REASND, AESLIFE and other SAE flags (AE domain); AGE, SEX, RACE (DM domain); --BLFL, --POS, --LOC, --SPEC, --NAM (Findings) |
+| **Variable Qualifiers** | Modify or describe a specific variable within an observation | --ORRESU, --ORNRHI, --ORNRLO (Variable Qualifiers of --ORRES); --DOSU (Variable Qualifier of --DOSE) |
 
 **Example:** In the observation "Subject 101 had mild nausea starting on study day 6":
 - Topic variable value = "NAUSEA"
@@ -54,7 +54,7 @@ Most subject-level observations should be represented according to 1 of the 3 SD
 
 | Class | What it captures | Examples |
 |-------|-----------------|----------|
-| **Interventions** | Investigational, therapeutic, and other treatments administered to or used by a subject | Exposure (EX), Concomitant Medications (CM), Procedures (PR) |
+| **Interventions** | Investigational, therapeutic, and other treatments administered to or used by a subject (with some actual or expected physiological effect) | Exposure (EX), Concomitant Medications (CM), Procedures (PR) |
 | **Events** | Planned protocol milestones and occurrences, conditions, or incidents independent of planned evaluations | Adverse Events (AE), Disposition (DS), Medical History (MH) |
 | **Findings** | Observations from planned evaluations to address specific tests or questions | Laboratory Tests (LB), Vital Signs (VS), ECG (EG) |
 
@@ -84,10 +84,22 @@ A sponsor should only submit domain datasets that were actually collected (or di
 3. Any additional Qualifier variables from the same GOC may be added to a domain model except where restricted
 4. Sponsors may not add any variables other than those described above — use Supplemental Qualifiers (SUPP--) for non-standard variables
 5. Standard variables must not be renamed or modified for novel usage
-6. A Permissible variable should be used in an SDTM dataset wherever appropriate
-7. If a study did not collect data for a Permissible variable, it should not be included
+6. A Permissible variable should be used in an SDTM dataset wherever appropriate. If a study includes a data item that would be represented in a Permissible variable, then that variable must be included in the SDTM dataset, even if null
+7. If a study did not include a data item that would be represented in a Permissible variable, then that variable should not be included in the SDTM dataset and should not be declared in the Define-XML document
 
 ## 2.6 Creating a New Domain
+
+```mermaid
+graph TD
+    A["Identifier\nVariables"] -- AND --> D["New\nDomain"]
+    B["Timing\nVariables"] -- AND --> D
+    C["Topic and\nQualifier\nVariables"] --> E["Interventions-\nSpecific\nVariables"]
+    C --> F["Events-\nSpecific\nVariables"]
+    C --> G["Findings-\nSpecific\nVariables"]
+    E -- OR --> D
+    F -- OR --> D
+    G -- OR --> D
+```
 
 Process for creating a custom domain (must be based on 1 of the 3 GOC):
 
