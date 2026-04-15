@@ -368,3 +368,157 @@ SDTMIG 的 Chapter 5–7 中，部分"节引言"和"共享规范模板"不属于
 | 61 | RELSUB | Ch8 | Relationship | 437–439 | |
 | 62 | RELSPEC | Ch8 | Relationship | 439–440 | |
 | 63 | OI | Ch9 | Study Reference | 441–443 | |
+
+---
+
+## 6. 图像内容溯源 (Image Traceability)
+
+> 完成日期: 2026-04-15 (Step 3.6)
+> 扫描范围: SDTM v2.0 (74页) + SDTMIG v3.4 (461页) = 535页
+> 方法: 6 个 agent 并行扫描全部 PDF 页面，识别所有非文字、非表格的视觉内容
+
+### 方法说明
+
+**扫描**: 将 535 页 PDF 分为 6 个批次，由 6 个 agent 并行逐页视觉扫描，记录所有图形化内容（流程图、决策树、CRF 模拟图、关系图、时间轴、Schema 图等）。
+
+**转化格式**:
+- 流程图 / 决策树 / 关系图 / 时间轴 / Schema → **Mermaid** 代码块
+- CRF 模拟图 / CRF Mockup → **Markdown 表格**（CRF 表单的结构更接近表格）
+
+**页码说明**: 下表页码为 agent 视觉扫描估算值，可能存在 ±2 页偏移，仅作为定位参考。精确溯源应以所属章节/域+图像描述为准。
+
+### 统计
+
+| 状态 | 数量 | 说明 |
+|------|------|------|
+| 已转化 (Mermaid) | 24 | Step 2-final (13组) + Step 3-final (6幅) + Step 3.6 (6幅 Mermaid) |
+| 已转化 (表格) | 15 | Step 3.6 CRF → Markdown table |
+| 已转化 (Mermaid, TA 子视图) | 19 | TA Examples 1-7 的多视图（含在 Step 2-final 13 组中） |
+| 故意排除 | 2 | 两份 PDF 封面 CDISC Logo |
+| **合计** | **60** | |
+
+### 完整图像清单
+
+#### A. SDTM v2.0 (4 幅)
+
+| # | ~页码 | 所属章节 | 图像类型 | 简要描述 | 转化格式 | 目标文件 | 处理批次 | 状态 |
+|---|-------|----------|----------|----------|----------|----------|----------|------|
+| 1 | 1 | 封面 | Logo | CDISC 彩色圆点 Logo | — | — | — | 故意排除 |
+| 2 | 8 | §2 Concepts and Terms | 关系/层次图 | Concept Map: SDTM Domains 全局关系树状图 | Mermaid | model/01_concepts_and_terms.md | Step 3.6 | 已转化 |
+| 3 | 62 | §5.2.1 Device Identifiers | 关系图 | Concept Map: Device Identifier Variables | Mermaid | model/05_study_level_data.md | Step 3.6 | 已转化 |
+| 4 | 63 | §5.2.2 Non-host Organism IDs | 关系图 | Concept Map: Non-host Organism Identifier Variables | Mermaid | model/05_study_level_data.md | Step 3.6 | 已转化 |
+
+#### B. SDTMIG v3.4 — 通用章节 (9 幅)
+
+| # | ~页码 | 所属章节 | 图像类型 | 简要描述 | 转化格式 | 目标文件 | 处理批次 | 状态 |
+|---|-------|----------|----------|----------|----------|----------|----------|------|
+| 5 | 1 | 封面 | Logo | CDISC 彩色圆点 Logo | — | — | — | 故意排除 |
+| 6 | 15 | §2.6 Creating a New Domain | 关系/层次图 | Creating a New Domain 组合构成图 | Mermaid | chapters/ch02_fundamentals.md | Step 3-final | 已转化 |
+| 7 | 31 | §4.2.7.1 Specify Non-result | CRF 模拟图 | EXADJ 复选框 + 镇痛药适应证 CRF | 表格 | chapters/ch04_general_assumptions.md | Step 3.6 | 已转化 |
+| 8 | 32 | §4.2.7.2 Specify Result | CRF 模拟图 | Eye Color CRF (Other specify) | 表格 | chapters/ch04_general_assumptions.md | Step 3.6 | 已转化 |
+| 9 | 33 | §4.2.7.3 Specify Topic | CRF 模拟图 | Concomitant Medications CRF | 表格 | chapters/ch04_general_assumptions.md | Step 3.6 | 已转化 |
+| 10 | 34 | §4.2.7.4 Specify --OBJ | 决策树 | Decision Tree for Populating --OBJ | Mermaid | chapters/ch04_general_assumptions.md | Step 3-final | 已转化 |
+| 11 | 44 | §4.4.7 Relative Timing | 时间轴 | --ENRTPT/--ENTPT for Medical History | Mermaid | chapters/ch04_general_assumptions.md | Step 3-final | 已转化 |
+| 12 | 46 | §4.4.10 Representing Time Points | 时间轴/架构图 | Reference/Elapsed/Collection 时间点关系 | Mermaid | chapters/ch04_general_assumptions.md | Step 3-final | 已转化 |
+| 13 | 51 | §4.5.1.1 Original & Standardized | 流程图 | --ORRES→--STRESC→--STRESN 转换 | Mermaid | chapters/ch04_general_assumptions.md | Step 3-final | 已转化 |
+
+#### C. SDTMIG v3.4 — DM 域 CRF (6 幅)
+
+| # | ~页码 | 所属域/Example | 图像类型 | 简要描述 | 转化格式 | 目标文件 | 处理批次 | 状态 |
+|---|-------|---------------|----------|----------|----------|----------|----------|------|
+| 14 | 71 | DM Example 4 | CRF Mockup | aCRF for Race — RACE01-07 主表 | Mermaid | domains/DM/examples.md | Step 2-final | 已转化 |
+| 15 | 71 | DM Example 4 | CRF Mockup | AMERICAN INDIAN 子分类 (CRACE01-04) | Mermaid | domains/DM/examples.md | Step 2-final | 已转化 |
+| 16 | 72 | DM Example 4 | CRF Mockup | ASIAN/BLACK/WHITE 子分类 (CRACE05-21) | Mermaid | domains/DM/examples.md | Step 2-final | 已转化 |
+| 17 | 74 | DM Example 5 | CRF Mockup | 中国民族子分类 HAN/MANCHU/MIAO/UYGHUR/ZHUANG | Mermaid | domains/DM/examples.md | Step 2-final | 已转化 |
+| 18 | 75 | DM Example 6 | CRF Mockup | aCRF for Race（第二版）+ 子分类 | Mermaid | domains/DM/examples.md | Step 2-final | 已转化 |
+| 19 | 78 | DM Example 7 | CRF Mockup | 5 种族 + Unknown + Other + RACEOTH | Mermaid | domains/DM/examples.md | Step 2-final | 已转化 |
+
+#### D. SDTMIG v3.4 — EX/EC 域 CRF (6 幅)
+
+| # | ~页码 | 所属域/Example | 图像类型 | 简要描述 | 转化格式 | 目标文件 | 处理批次 | 状态 |
+|---|-------|---------------|----------|----------|----------|----------|----------|------|
+| 20 | 111 | EX Example 1 | CRF Mockup | 口服给药 CRF — Bottle/Tablets/Variation/Dates | 表格 | domains/EX/examples.md | Step 3.6 | 已转化 |
+| 21 | 112 | EX Example 2 | CRF Mockup | 注射给药 CRF — Injection 1-3 Volume/Location/Side | 表格 | domains/EX/examples.md | Step 3.6 | 已转化 |
+| 22 | 114 | EX Example 5 | CRF Mockup | 双盲交叉 CRF — 3 subjects | 表格 | domains/EX/examples.md | Step 3.6 | 已转化 |
+| 23 | 115 | EX Example 6 | CRF Mockup | 单次给药交叉 CRF — Period 1/2 | 表格 | domains/EX/examples.md | Step 3.6 | 已转化 |
+| 24 | 118 | EX Example 7 | CRF Mockup | 输液给药 CRF — Dose/Adjustment/Amount | 表格 | domains/EX/examples.md | Step 3.6 | 已转化 |
+| 25 | 119 | EX Example 8 | CRF Mockup | 简化给药日志 CRF — First/Last Dose + Deviation | 表格 | domains/EX/examples.md | Step 3.6 | 已转化 |
+
+#### E. SDTMIG v3.4 — ML/AE/CE 域 CRF (6 幅)
+
+| # | ~页码 | 所属域/Example | 图像类型 | 简要描述 | 转化格式 | 目标文件 | 处理批次 | 状态 |
+|---|-------|---------------|----------|----------|----------|----------|----------|------|
+| 26 | 123 | ML Example 1 | CRF Mockup | Meal Log CRF — Type/Volume/Date/Time | 表格 | domains/ML/examples.md | Step 3.6 | 已转化 |
+| 27 | 123 | ML Example 1 | CRF Mockup | DILI Meal CRF — Mushrooms/Ackee/Cycad | 表格 | domains/ML/examples.md | Step 3.6 | 已转化 |
+| 28 | 139 | AE Assumptions | CRF 片段 | AE 严重性分类 — Serious?/Fatal/Life-threatening | 表格 | domains/AE/assumptions.md | Step 3.6 | 已转化 |
+| 29 | 151 | CE Example 1 | CRF Mockup | 预设临床事件 — Rash/Wheezing/Edema Yes/No | 表格 | domains/CE/examples.md | Step 3.6 | 已转化 |
+| 30 | 152 | CE Example 2 | CRF Mockup | 含严重程度 — Nausea/Vomit + Severity | 表格 | domains/CE/examples.md | Step 3.6 | 已转化 |
+| 31 | 153 | CE Example 3 | CRF Mockup | Bone Fracture Assessment 详细评估表 | 表格 | domains/CE/examples.md | Step 3.6 | 已转化 |
+
+#### F. SDTMIG v3.4 — p.160-359 (0 幅)
+
+> p.160-359 (200页) 全部为纯文字和标准数据表格，无图形化内容。
+> 涵盖 32 个域：DS, HO, MH, DV, DA, DD, EG, IE, BS, CP, GF, IS, LB, MB, MS, MI, PC, PP, MO, CV, MK, NV, OE, RP, RE, UR, PE, FT, QS, RS, SC, SS
+
+#### G. SDTMIG v3.4 — TA/TV/TD/RELSPEC 域 (29 幅)
+
+| # | ~页码 | 所属域/Example | 图像类型 | 简要描述 | 转化格式 | 目标文件 | 处理批次 | 状态 |
+|---|-------|---------------|----------|----------|----------|----------|----------|------|
+| 32 | 386 | TA Example 1 | Study Schema | Parallel Design Study Schema | Mermaid | domains/TA/examples.md | Step 2-final | 已转化 |
+| 33 | 387 | TA Example 1 | Schema (前瞻) | Parallel Design Prospective View | Mermaid | domains/TA/examples.md | Step 2-final | 已转化 |
+| 34 | 387 | TA Example 1 | Schema (回顾) | Parallel Design Retrospective View | Mermaid | domains/TA/examples.md | Step 2-final | 已转化 |
+| 35 | 387 | TA Example 1 | Schema (盲态) | Parallel Design Blinded View | Mermaid | domains/TA/examples.md | Step 2-final | 已转化 |
+| 36 | 389 | TA Example 2 | Study Schema | Crossover Trial Study Schema | Mermaid | domains/TA/examples.md | Step 2-final | 已转化 |
+| 37 | 390 | TA Example 2 | Schema (前瞻) | Crossover Trial Prospective View | Mermaid | domains/TA/examples.md | Step 2-final | 已转化 |
+| 38 | 390 | TA Example 2 | Schema (回顾) | Crossover Trial Retrospective View | Mermaid | domains/TA/examples.md | Step 2-final | 已转化 |
+| 39 | 391 | TA Example 2 | Schema (盲态) | Crossover Trial Blinded View | Mermaid | domains/TA/examples.md | Step 2-final | 已转化 |
+| 40 | 393 | TA Example 3 | Study Schema | Multiple Branches Study Schema | Mermaid | domains/TA/examples.md | Step 2-final | 已转化 |
+| 41 | 393 | TA Example 3 | Schema (前瞻) | Multiple Branches Prospective View | Mermaid | domains/TA/examples.md | Step 2-final | 已转化 |
+| 42 | 394 | TA Example 3 | Schema (回顾) | Multiple Branches Retrospective View | Mermaid | domains/TA/examples.md | Step 2-final | 已转化 |
+| 43 | 394 | TA Example 3 | Schema (盲态) | Multiple Branches Blinded View | Mermaid | domains/TA/examples.md | Step 2-final | 已转化 |
+| 44 | 396 | TA Example 4 | Study Schema | Cyclical Chemotherapy Study Schema | Mermaid | domains/TA/examples.md | Step 2-final | 已转化 |
+| 45 | 397 | TA Example 4 | Schema (前瞻) | Cyclical Chemo Prospective View | Mermaid | domains/TA/examples.md | Step 2-final | 已转化 |
+| 46 | 397 | TA Example 4 | Schema (回顾) | Cyclical Chemo Retrospective View | Mermaid | domains/TA/examples.md | Step 2-final | 已转化 |
+| 47 | 397 | TA Example 4 | Schema (回顾+显式) | Cyclical Chemo with Explicit Repeats | Mermaid | domains/TA/examples.md | Step 2-final | 已转化 |
+| 48 | 398 | TA Example 4 | Schema (盲态) | Cyclical Chemo Blinded View | Mermaid | domains/TA/examples.md | Step 2-final | 已转化 |
+| 49 | 399 | TA Example 5 | Study Schema | Different Chemo Durations Study Schema | Mermaid | domains/TA/examples.md | Step 2-final | 已转化 |
+| 50 | 399 | TA Example 5 | Schema (回顾) | Different Chemo Durations Retrospective | Mermaid | domains/TA/examples.md | Step 2-final | 已转化 |
+| 51 | 400 | TA Example 6 | Study Schema | Different Cycle Durations Study Schema | Mermaid | domains/TA/examples.md | Step 2-final | 已转化 |
+| 52 | 400 | TA Example 6 | Schema (回顾) | Different Cycle Durations Retrospective | Mermaid | domains/TA/examples.md | Step 2-final | 已转化 |
+| 53 | 401 | TA Example 7 | Study Schema | RTOG 93-09 Study Schema with 5 Options | Mermaid | domains/TA/examples.md | Step 2-final | 已转化 |
+| 54 | 402 | TA Example 7 | Schema (前瞻) | RTOG 93-09 Prospective View | Mermaid | domains/TA/examples.md | Step 2-final | 已转化 |
+| 55 | 403 | TA Example 7 | Schema (回顾) | RTOG 93-09 Retrospective View | Mermaid | domains/TA/examples.md | Step 2-final | 已转化 |
+| 56 | 412 | TV Example 1 | 时间轴 | Parallel Design Planned Visits | Mermaid | domains/TV/examples.md | Step 2-final | 已转化 |
+| 57 | ~413 | TD Example 1 | 时间轴 | Disease Assessment 3 Schedules (8w/12w/24w) | Mermaid | domains/TD/examples.md | Step 3.6 | 已转化 |
+| 58 | ~414 | TD Example 2 | 时间轴 | Disease Assessment 2 Periods (ANCH1DT/ANCH2DT) | Mermaid | domains/TD/examples.md | Step 3.6 | 已转化 |
+| 59 | ~415 | TD Example 3 | 时间轴 | Disease Assessment Double Blind + Extension | Mermaid | domains/TD/examples.md | Step 3.6 | 已转化 |
+| 60 | 440 | RELSPEC Example 1 | 层次/关系图 | Sample Specimen Relationship 层次衍生 | Mermaid | domains/RELSPEC/examples.md + chapters/ch08_relationships.md | Step 2-final + Step 3-final | 已转化 |
+
+### 排除内容
+
+| # | ~页码 | 源 PDF | 图像类型 | 描述 | 排除理由 |
+|---|-------|--------|----------|------|----------|
+| 1 | 1 | SDTM v2.0 | Logo | CDISC 彩色圆点 Logo | 装饰性图片，无知识内容 |
+| 5 | 1 | SDTMIG v3.4 | Logo | CDISC 彩色圆点 Logo | 装饰性图片，无知识内容 |
+
+### 图像类型分布
+
+| 图像类型 | 数量 | 转化格式 |
+|----------|------|----------|
+| Study Schema / 架构图 | 24 | Mermaid |
+| CRF Mockup / CRF 模拟图 | 21 | Mermaid (DM 6幅) / 表格 (其余 15幅) |
+| 时间轴 (Timeline) | 7 | Mermaid |
+| 关系/层次图 (Concept Map) | 5 | Mermaid |
+| 决策树 (Decision Tree) | 1 | Mermaid |
+| Logo / 装饰 | 2 | — (排除) |
+| **合计** | **60** | |
+
+### 处理批次分布
+
+| 处理批次 | 图像数 | 说明 |
+|----------|--------|------|
+| Step 2-final | 32 | 13 组域图像（含 TA 24 个子视图） |
+| Step 3-final | 6 | chapters/ 章节图像（含 1 幅与 Step 2-final 重叠） |
+| Step 3.6 | 21 | 本次补全（3 Concept Map + 3 TD 时间轴 + 15 CRF 表格） |
+| 故意排除 | 2 | CDISC Logo |
+| **合计** | **60** | 扣除 1 幅重叠 = 59 独立图像 + 1 幅双处引用 |

@@ -6,6 +6,22 @@ Note: Examples for EX and EC are shared in Section 6.1.3.3 of the SDTMIG. See al
 
 This is an example of a double-blind study comparing drug X extended release (ER; 2 500-mg tablets once daily) vs. drug Z (2 250-mg tablets once daily). Per example CRFs, subject ABC1001 took 2 tablets from 2011-01-14 to 2011-01-28 and subject ABC2001 took 2 tablets within the same timeframe but missed dosing on 2011-01-24.
 
+**CRF:**
+
+**Subject: ABC1001**
+
+| Bottle | Number of Tablets Taken Daily | Reason for Variation | Start Date | End Date |
+|--------|-------------------------------|----------------------|------------|----------|
+| A | 2 | | 2011-01-14 | 2011-01-28 |
+
+**Subject: ABC2001**
+
+| Bottle | Number of Tablets Taken Daily | Reason for Variation | Start Date | End Date |
+|--------|-------------------------------|----------------------|------------|----------|
+| A | 2 | | 2011-01-14 | 2011-01-23 |
+| A | 0 | Patient mistake | 2011-01-24 | 2011-01-24 |
+| A | 2 | | 2011-01-25 | 2011-01-28 |
+
 Upon unmasking, it became known that subject ABC1001 received drug X and Subject ABC2001 received drug Z. The EC dataset shows the administrations of study treatment as collected.
 
 **Rows 1-2, 4:** Show treatments administered.
@@ -43,6 +59,25 @@ The relrec.xpt example reflects a one-to-one dataset-level relationship between 
 ## Example 2
 
 This example shows data from an open-label study. A subject received drug X as a 20 mg/mL solution administered across 3 injection sites to deliver a total dose of 3 mg/kg. The subject's weight was 100 kg.
+
+**CRF:**
+
+| | |
+|---|---|
+| Visit | 3 |
+| Date | 2009-05-10 |
+| **Injection 1** | |
+| Volume Given (mL) | 5 |
+| Location | ABDOMEN |
+| Side | LEFT |
+| **Injection 2** | |
+| Volume Given (mL) | 5 |
+| Location | ABDOMEN |
+| Side | CENTER |
+| **Injection 3** | |
+| Volume Given (mL) | 5 |
+| Location | ABDOMEN |
+| Side | RIGHT |
 
 The collected administration amounts, in mL, and their locations are represented in the EC dataset.
 
@@ -131,6 +166,29 @@ The EX dataset shows administrations collected in the protocol-specified unit, m
 
 This is an example of a double-blind study design comparing 10 and 20 mg of drug X vs. placebo taken daily, morning and evening, for a week.
 
+**CRF:**
+
+**Subject ABC5001**
+
+| Bottle | Time Point | Number of Tablets Taken | Start Date | End Date |
+|--------|------------|-------------------------|------------|----------|
+| A | AM | 1 | 2012-01-01 | 2012-01-08 |
+| B | PM | 1 | 2012-01-01 | 2012-01-08 |
+
+**Subject ABC5002**
+
+| Bottle | Time Point | Number of Tablets Taken | Start Date | End Date |
+|--------|------------|-------------------------|------------|----------|
+| A | AM | 1 | 2012-02-01 | 2012-02-08 |
+| B | PM | 1 | 2012-02-01 | 2012-02-08 |
+
+**Subject ABC5003**
+
+| Bottle | Time Point | Number of Tablets Taken | Start Date | End Date |
+|--------|------------|-------------------------|------------|----------|
+| A | AM | 1 | 2012-03-01 | 2012-03-08 |
+| B | PM | 1 | 2012-03-01 | 2012-03-08 |
+
 The EC dataset shows the administrations as collected. The time-point variables ECTPT and ECTPTNUM were used to describe the time of day of administration. This use of time-point variables is novel, representing data about multiple time points, 1 on each day of administration, rather than data for a single time point.
 
 **ec.xpt**
@@ -175,6 +233,26 @@ The relrec.xpt example reflects a one-to-one dataset-level relationship between 
 ## Example 6
 
 The study in this example was a single-crossover study comparing once-daily oral administration of drug A 20 mg capsules with drug B 30 mg coated tablets. The study drug was taken for 3 consecutive mornings, 30 minutes prior to a standardized breakfast. There was a 6-day washout period between treatments.
+
+**CRF:**
+
+**Subject 56789001**
+
+| | Period 1 | | | | | Period 2 | | | | |
+|---|---|---|---|---|---|---|---|---|---|---|
+| Day | Bottle 1 # of capsules | Bottle 2 # of tablets | Start Date/Time | End Date/Time | Day | Bottle 1 # of capsules | Bottle 2 # of tablets | Start Date/Time | End Date/Time |
+| 1 | 1 | 1 | 2002-07-01T07:30 | 2002-07-01T07:30 | 1 | 1 | 1 | 2002-07-09T07:30 | 2002-07-09T07:30 |
+| 2 | 1 | 1 | 2002-07-02T07:30 | 2002-07-02T07:30 | 2 | 1 | 1 | 2002-07-10T07:30 | 2002-07-10T07:30 |
+| 3 | 1 | 1 | 2002-07-03T07:32 | 2002-07-03T07:32 | 3 | 1 | 1 | 2002-07-11T07:34 | 2002-07-11T07:34 |
+
+**Subject 56789003**
+
+| | Period 1 | | | | | Period 2 | | | | |
+|---|---|---|---|---|---|---|---|---|---|---|
+| Day | Bottle 1 # of capsules | Bottle 2 # of tablets | Start Date/Time | End Date/Time | Day | Bottle 1 # of capsules | Bottle 2 # of tablets | Start Date/Time | End Date/Time |
+| 1 | 1 | 1 | 2002-07-03T07:30 | 2002-07-03T07:30 | 1 | 1 | 1 | 2002-07-11T07:30 | 2002-07-11T07:30 |
+| 2 | 1 | 1 | 2002-07-04T07:24 | 2002-07-04T07:24 | 2 | 1 | 1 | 2002-07-12T07:43 | 2002-07-12T07:43 |
+| 3 | 1 | 1 | 2002-07-05T07:24 | 2002-07-05T07:24 | 3 | 1 | 1 | 2002-07-13T07:38 | 2002-07-13T07:38 |
 
 The EC dataset shows administrations as collected.
 
@@ -233,6 +311,22 @@ The study in this example involved weekly infusions of drug Z 10 mg/kg. If a sub
 - The subject's first administration of drug Z was on 2009-02-13; the intended dose was 10 mg/kg, but the actual amount given was 99 mL at 5.5 mg/mL, so the actual dose was 9.9 mg/kg.
 - The subject's second administration of drug Z occurred on 2009-02-20; the intended dose was reduced to 7.5 mg/kg due to dose-limiting toxicity, and the infusion was stopped early due to an injection site reaction. However, the actual amount given was 35 mL at a concentration of 4.12 mg/mL, so the calculated actual dose was 2.6 mg/kg.
 - The subject's third administration was intended to occur on 2009-02-27; the intended dose was 7.5 mg/kg but, due to a personal reason, the administration did not occur.
+
+**CRF:**
+
+**Subject ABC123-0201**
+
+| | Visit 1 | Visit 2 | Visit 3 |
+|---|---|---|---|
+| Intended Dose | 10 mg/kg | 10 mg/kg / 7.5 mg/kg | 10 mg/kg / 7.5 mg/kg |
+| Reason for Dose Adjustment | | Dose-limiting toxicity | Dose-limiting toxicity |
+| Dose Administered | Yes | Yes | Yes |
+| Date | 13-FEB-2009 | 20-FEB-2009 | 27-FEB-2009 |
+| Start Time (24 hour clock) | 10:00 | 11:00 | |
+| End Time (24 hour clock) | 10:45 | 11:20 | |
+| Amount (mL) | 99 mL | 35 mL | 0 mL |
+| Concentration | 5.5 mg/mL | 4.12 mg/mL | 4.12 mg/mL |
+| If dose was adjusted, what was the reason | | Injection site reaction | Injection site reaction / Personal reason |
 
 The EC dataset shows both intended and actual doses of Drug Z, as collected.
 
@@ -295,6 +389,17 @@ The RELREC dataset represents relationships between EC, EX, and VS.
 ## Example 8
 
 In this example, a 100 mg tablet is scheduled to be taken daily. Start and end of dosing were collected, along with deviations from the planned daily dosing. Note: This method of data collection design is not consistent with current CDASH standards.
+
+**CRF:**
+
+| First Dose Date | Last Dose Date |
+|-----------------|----------------|
+| 2012-01-13 | 2012-01-20 |
+
+| Date | Number of Doses Daily If/When Deviated from Plan |
+|------|--------------------------------------------------|
+| 2012-01-15 | 0 |
+| 2012-01-16 | 2 |
 
 The EC dataset shows administrations as collected.
 

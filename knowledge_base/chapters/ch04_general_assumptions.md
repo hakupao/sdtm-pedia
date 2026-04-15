@@ -148,13 +148,52 @@ Missing values are represented as null. When a test is not performed, use --STAT
 
 When a CRF includes an "Other, Specify" response, the specified text should populate the appropriate variable.
 
+**CRF Example: Reason for Dose Adjustment (EXADJ) with free-text description**
+
+| Reason for Dose Adjustment (EXADJ) | Describe |
+|------------------------------------|----------|
+| [ ] Adverse Event                  |          |
+| [ ] Insufficient Response          |          |
+| [ ] Non-medical Reason             |          |
+
+**CRF Example: Indication for analgesic concomitant medication (CMINDC) with "Other, specify"**
+
+| Indication for analgesic | Options                        |
+|--------------------------|--------------------------------|
+|                          | [ ] Post-operative pain        |
+|                          | [ ] Headache                   |
+|                          | [ ] Menstrual pain             |
+|                          | [ ] Myalgia                    |
+|                          | [ ] Toothache                  |
+|                          | [ ] Other, specify: _________  |
+
 #### 4.2.7.2 "Specify" Values for Result Qualifiers
 
 When a Findings result is a "Specify" value, the actual specified text should be placed in --ORRES.
 
+**CRF Example: Eye Color with "Other, specify"**
+
+| Eye Color | Options                       |
+|-----------|-------------------------------|
+|           | [ ] Brown                     |
+|           | [ ] Black                     |
+|           | [ ] Blue                      |
+|           | [ ] Green                     |
+|           | [ ] Other, specify: _________ |
+
 #### 4.2.7.3 "Specify" Values for Topic Variables
 
 --TERM should be populated with the description of the event found in the specified text, and --PRESP could be used to distinguish between prespecified and free-text responses.
+
+**CRF Example: Indicate which concomitant medications were used (Interventions topic variable --TRT)**
+
+| Indicate which of the following concomitant medications was used to treat the subject's headaches: | Options                       |
+|----------------------------------------------------------------------------------------------------|-------------------------------|
+|                                                                                                    | [ ] Acetaminophen             |
+|                                                                                                    | [ ] Aspirin                   |
+|                                                                                                    | [ ] Ibuprofen                 |
+|                                                                                                    | [ ] Naproxen                  |
+|                                                                                                    | [ ] Other, specify: _________ |
 
 #### 4.2.7.4 "Specify" Values for --OBJ
 

@@ -233,6 +233,24 @@ Study Reference datasets provide structures for representing study-specific iden
 
 Used to identify the devices used in a study. The parameters used for identification of a device depend on the kind of device and the need of the study to distinguish among devices.
 
+**Concept Map: Relationships Between Device Identifier Variables**
+
+```mermaid
+graph TD
+    Study["Study"]
+    Device["Device"]
+    IC["Identifying\nCharacteristic"]
+    ID["identifier\n(SPDEVID)"]
+    PARAM["parameter\n(DIPARM, DIPARMCD)"]
+    VAL["value\n(DIVAL)"]
+
+    Study -->|involves| Device
+    Device -->|"has one\nor more"| IC
+    Device -->|has| ID
+    IC -->|"is\nrepresented\nusing"| PARAM
+    PARAM -->|has| VAL
+```
+
 | # | Variable | Label | Type | Role |
 |---|----------|-------|------|------|
 | 1 | STUDYID | Study Identifier | Char | Identifier |
@@ -248,6 +266,24 @@ Used to identify the devices used in a study. The parameters used for identifica
 **Structure:** One record per taxon per non-host organism
 
 Used to represent taxonomic information for non-host organisms such as bacteria and viruses. The taxa used for identification depend on the kind of organism and the needs of the study.
+
+**Concept Map: Relationships Between Non-host Organism Identifier Variables**
+
+```mermaid
+graph TD
+    Study["Study"]
+    NHO["Non-Host\nOrganism"]
+    Taxon["Taxon"]
+    ID["identifier\n(NHOID)"]
+    PARAM["parameter\n(OIPARM, OIPARMCD)"]
+    VAL["value\n(OIVAL)"]
+
+    Study -->|involves| NHO
+    NHO -->|"has one\nor more"| Taxon
+    NHO -->|has| ID
+    Taxon -->|"is\nrepresented\nusing"| PARAM
+    PARAM -->|has| VAL
+```
 
 | # | Variable | Label | Type | Role |
 |---|----------|-------|------|------|

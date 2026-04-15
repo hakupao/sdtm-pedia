@@ -10,21 +10,35 @@ The primary purpose of the SDTM is to represent data about study subjects — wh
 
 ### Concept Map: Relationships Between SDTM Domains
 
+```mermaid
+graph TD
+    %% Key:
+    %% Plain rounded box = Group of individually specified datasets
+    %% Filled box (:::extensible) = Extensible set of domains based on a common model
+
+    SDTM["Study Data Tabulation\nModel"]
+
+    SDTM -->|includes| SD["Domains for\nSubject Data"]
+    SDTM -->|includes| AP["Domains for\nAssociated\nPersons Data"]
+    SDTM -->|includes| SL["Domains for\nStudy-Level Data"]
+    SDTM -->|includes| RD["Relationship\nDatasets"]:::extensible
+
+    SD -->|include| GOC["General\nObservation Class\nDomains"]:::extensible
+    SD -->|include| SPD["Special\nPurpose\nDomains"]:::extensible
+
+    GOC -->|include| EV["Events\nDomains"]:::extensible
+    GOC -->|include| IV["Interventions\nDomains"]:::extensible
+    GOC -->|include| FI["Findings\nDomains"]:::extensible
+
+    FI -->|subtype of| FA["Findings About\nDomains"]:::extensible
+
+    SL -->|include| TDM["Trial Design\nModel"]:::extensible
+    SL -->|include| SRS["Study Reference\nDatasets"]
+
+    classDef extensible fill:#c8e6c9,stroke:#388e3c,color:#1b5e20
 ```
-Study Data Tabulation Model
-├── Domains for Subject Data
-│   ├── General Observation Class Domains
-│   │   ├── Interventions Domains
-│   │   ├── Events Domains
-│   │   └── Findings Domains
-│   │       └── Findings About Domains (subtype)
-│   └── Special Purpose Domains
-├── Domains for Associated Persons Data
-├── Domains for Study-Level Data
-│   ├── Trial Design Model
-│   └── Study Reference Datasets
-└── Relationship Datasets
-```
+
+> **Key:** Plain box = Group of individually specified datasets. Green filled box = Extensible set of domains based on a common model.
 
 ### Variable Roles
 

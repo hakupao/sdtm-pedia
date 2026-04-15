@@ -4,16 +4,16 @@
 
 In this example, data were collected about prespecified events that, in the context of this study, were not reportable as AEs. The data were collected in a log independent of visits, rather than in visit-based CRF modules, so visit and date of collection (CEDTC) data were not collected.
 
-**CRF**
+**CRF: CE Example 1 — Prespecified Clinical Events**
 
 Record start dates of any of the following signs that occurred during the study.
 
 | Clinical Sign | Did it occur? | Start Date of First Episode |
 |---------------|--------------|---------------------------|
-| Rash | No / Yes | |
-| Wheezing | No / Yes | |
-| Edema | No / Yes | |
-| Conjunctivitis | No / Yes | |
+| Rash | ( ) No  ( ) Yes | ___ / ___ / ___ |
+| Wheezing | ( ) No  ( ) Yes | ___ / ___ / ___ |
+| Edema | ( ) No  ( ) Yes | ___ / ___ / ___ |
+| Conjunctivitis | ( ) No  ( ) Yes | ___ / ___ / ___ |
 
 **Rows 1-3:** Show 3 symptoms which occurred and their start dates.
 
@@ -36,14 +36,14 @@ These data are about the event as a whole, so they are represented in the CE dom
 
 In this example, the use of "Other, Specify" for clinical events is likely to require manual review of the data, to be sure that none of the write-in terms should have been reported as adverse events based on the sponsor's criteria for this study.
 
-**CRF**
+**CRF: CE Example 2 — Clinical Events with Severity**
 
-| Event | Date Started | Date Ended | Severity |
-|-------|-------------|-----------|----------|
-| Nausea | Yes / No | (dd/mmm/yyyy) | Mild / Moderate / Severe |
-| Vomit | Yes / No | (dd/mmm/yyyy) | Mild / Moderate / Severe |
-| Diarrhea | Yes / No | (dd/mmm/yyyy) | Mild / Moderate / Severe |
-| Other, Specify: | (dd/mmm/yyyy) | (dd/mmm/yyyy) | Mild / Moderate / Severe |
+| Event | | Date Started | Date Ended | Severity |
+|-------|---|-------------|-----------|----------|
+| Nausea | ( ) Yes  ( ) No | ___ / ___ / ___ (dd/mmm/yyyy) | ___ / ___ / ___ (dd/mmm/yyyy) | ( ) Mild  ( ) Moderate  ( ) Severe |
+| Vomit | ( ) Yes  ( ) No | ___ / ___ / ___ (dd/mmm/yyyy) | ___ / ___ / ___ (dd/mmm/yyyy) | ( ) Mild  ( ) Moderate  ( ) Severe |
+| Diarrhea | ( ) Yes  ( ) No | ___ / ___ / ___ (dd/mmm/yyyy) | ___ / ___ / ___ (dd/mmm/yyyy) | ( ) Mild  ( ) Moderate  ( ) Severe |
+| Other, Specify: ___ | | ___ / ___ / ___ (dd/mmm/yyyy) | ___ / ___ / ___ (dd/mmm/yyyy) | ( ) Mild  ( ) Moderate  ( ) Severe |
 
 **Rows 1-2:** Show records for 2 instances of the prespecified clinical event, nausea. The CEPRESP value of "Y" indicates that there was a probing question; the response to the probe (CEOCCUR) was "Yes". CEPRESP and CEOCCUR are included in both records for "Nausea". The record includes additional data about the event.
 
@@ -67,20 +67,20 @@ In this example, the use of "Other, Specify" for clinical events is likely to re
 
 In this study, a prior fracture in the previous 5 years was a requirement for study entry. Details about bone-fracture events were collected about pre-study fractures in the previous 5 years, and about any fracture events that occurred during the study.
 
-**CRF — Bone Fracture Assessment**
+**CRF: CE Example 3 — Bone Fracture Assessment**
 
 | Question | Response Options |
 |----------|-----------------|
-| Which fracture? | Pre-study fracture, reference number___ / On-study fracture, reference number___ |
-| Date of collection | --/---/-- |
-| Date of fracture | --/---/-- |
-| How did fracture occur? | Pathologic / Fall / Other trauma / Unknown |
+| Which fracture? | ( ) Pre-study fracture, reference number ___  ( ) On-study fracture, reference number ___ |
+| Date of collection | -- / --- / -- |
+| Date of fracture | -- / --- / -- |
+| How did fracture occur? | ( ) Pathologic  ( ) Fall  ( ) Other trauma  ( ) Unknown |
 | What was the location of the fracture? | ___ |
-| What was the laterality? | Left / Right / Not applicable |
-| Were therapeutic measures required? | Yes / No / Unknown |
-| If therapeutic measures were required, select all that apply. | Casting/immobilization / Traction / Surgery |
-| Were there any complications of the fracture? | Yes / No / Unknown |
-| If there were complications, select all that apply. | Infection of fracture site / Improper healing requiring bone reset / Soft tissue damage, specify location___ |
+| What was the laterality? | ( ) Left  ( ) Right  ( ) Not applicable |
+| Were therapeutic measures required? | ( ) Yes  ( ) No  ( ) Unknown |
+| If therapeutic measures were required, select all that apply. | [ ] Casting/immobilization  [ ] Traction  [ ] Surgery |
+| Were there any complications of the fracture? | ( ) Yes  ( ) No  ( ) Unknown |
+| If there were complications, select all that apply. | [ ] Infection of fracture site  [ ] Improper healing requiring bone reset  [ ] Soft tissue damage, specify location ___ |
 
 The collected data do not meet criteria for representation in FA. Data about the most recent pre-study fracture were represented in the Medical History (MH) domain, and data about fractures during the study were represented in the CE domain.
 

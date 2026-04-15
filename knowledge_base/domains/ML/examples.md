@@ -7,25 +7,26 @@ This example shows meal data collected in an effort to understand the causes of 
 - Data was collected about the last meal before each hypoglycemic event
 - Data was collected about the occurrence of prespecified foods prior to a suspected event of drug-induced liver injury (DILI).
 
-**Meal Log CRF**
+**CRF: Meal Log CRF**
 
 Record the last type of meal/food consumption prior to the hypoglycemic event:
 
 | Type | | | If Nutritional Drink, Volume (ounces) | Start Date | Start Time | Event ID |
 |------|---|---|---------------------------------------|------------|------------|----------|
-| **X** Snack | Nutritional drink | Meal | | 2015 Jun 03 | 14:15 | CE001 |
-| Snack | **X** Nutritional drink | Meal | 8 oz | 2015 Sep 03 | 8:30 | CE002 |
-| Snack | Nutritional drink | **X** Meal | | 2015 Dec 31 | 19:00 | CE003 |
+| [X] Snack | [ ] Nutritional drink | [ ] Meal | | 2015 Jun 03 | 14:15 | CE001 |
+| [ ] Snack | [X] Nutritional drink | [ ] Meal | 8 oz | 2015 Sep 03 | 8:30 | CE002 |
+| [ ] Snack | [ ] Nutritional drink | [X] Meal | | 2015 Dec 31 | 19:00 | CE003 |
+| Click here to add a row: **ADD ROW** | | | | | | |
 
-**DILI Meal CRF**
+**CRF: DILI Meal CRF**
 
 If suspected DILI, did you consume any of the following in the past week?
 
 | Type | Occurrence | | If yes, Date |
 |------|------------|---|-------------|
-| Wild mushrooms | **X** Yes | No | 2015 DEC 24 |
-| Ackee fruit | Yes | **X** No | |
-| Cycad seeds | Yes | **X** No | |
+| Wild mushrooms | [X] Yes | [ ] No | 2015 DEC 24 |
+| Ackee fruit | [ ] Yes | [X] No | |
+| Cycad seeds | [ ] Yes | [X] No | |
 
 Note that in this example MLENDTC is null. Because no end date was collected, the meal was represented as a point-in-time event, as described in Assumption 2b.
 

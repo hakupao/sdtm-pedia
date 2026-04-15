@@ -1,7 +1,7 @@
 # Knowledge Base 内容验证计划
 
 > 创建日期: 2026-04-14
-> 状态: 进行中（Step 0-2, 2-final, 3-1 ~ 3-5, 3.5 已完成，Step 3.6 / 4 待执行）
+> 状态: 进行中（Step 0-2, 2-final, 3-1 ~ 3-5, 3.5, 3.6 已完成，Step 4 待执行）
 
 ---
 
@@ -25,7 +25,7 @@ knowledge_base/ 中的 293 个文件，其中：
 | 2-final | 补全 13 幅图表 (Mermaid) | **已完成** (2026-04-14) | 13/13 图表全部完成 |
 | 3 | 验证 model/ + chapters/ (12 文件) | **已完成** (2026-04-15) | 3-1~3-5 全部完成 → [3-3](verification/step3_3_results.md) · [3-4](verification/step3_4_results.md) · [3-5](verification/step3_5_results.md) |
 | 3.5 | 编写溯源矩阵 (TRACEABILITY.md) | **已完成** (2026-04-15) | 4 份源文件全覆盖，63 域页码映射 → [TRACEABILITY.md](../../TRACEABILITY.md) |
-| 3.6 | 图像内容溯源 | **待开始** | 扫描两份 PDF 全部图像 → 清单 → 判定转化/排除 → 写入 TRACEABILITY.md |
+| 3.6 | 图像内容溯源 | **已完成** (2026-04-15) | 60 幅图像全覆盖：37 已转化(前期) + 21 新转化(Step 3.6) + 2 排除(Logo) → [清单](verification/step3_6_image_inventory.md) · [TRACEABILITY.md §6](../../TRACEABILITY.md) |
 | 4 | 汇总报告 | **待开始** | 见下方计划 |
 
 ---
@@ -216,7 +216,19 @@ chapters/ (6 文件) 对应 SDTMIG v3.4 PDF 的通用章节
   └─ 将完整图像清单写入 TRACEABILITY.md
 ```
 
-**状态**: 待开始
+**状态**: 已完成 (2026-04-15)
+
+### 执行结果
+
+| 子步骤 | 状态 | 结果 |
+|--------|------|------|
+| 3.6-1 | 已完成 | SDTM v2.0: 4 幅图像 |
+| 3.6-2 | 已完成 | SDTMIG v3.4: 56 幅图像 (ch: 9, d1: 18, d2: 0, d3: 0, d4: 29) |
+| 3.6-3 | 已完成 | 与 Step 2-final (13组/32幅) + Step 3-final (6幅) 交叉比对完成 |
+| 3.6-4 | 已完成 | 完整清单 60 幅: 37 已转化 + 21 待判定 + 2 排除 |
+| 3.6-5 | 已完成 | 用户决定: CRF→表格, 其余→Mermaid, 无排除 |
+| 3.6-6 | 已完成 | 21 幅全部转化: 6 Mermaid + 15 表格 |
+| 3.6-7 | 已完成 | TRACEABILITY.md §6 图像内容溯源章节已写入 |
 
 ---
 
