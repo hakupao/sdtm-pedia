@@ -39,6 +39,22 @@ Full chain definitions are in `.work/MANIFEST.md`.
 | Phase 7 session 记录 | `.work/05_rag_kg/session_2026-04-16_design.md` |
 | Phase 6.5 AI 平台部署 | `ai_platforms/` (总览 + 三平台子目录) |
 
+## Session Wrap-up (收尾)
+
+When the user says **"收尾"**, **"wrap up"**, or **"提交收尾"**, execute the following checklist automatically:
+
+1. **Review** what was done this session (read git diff + new files)
+2. **Update index files** — always update these 3 (+ CLAUDE.md if new key paths):
+   - `.work/MANIFEST.md` — plan map, directory structure, phase mapping, quick reference
+   - `.work/meta/worklog.md` — execution phase table + append work record entry
+   - `docs/PROGRESS.md` — progress board status
+   - `CLAUDE.md` Key Paths table (only if new key paths were created)
+3. **Check Change Chains** — if knowledge_base/ changed → Chain D; if plans changed → Chain E
+4. **Commit + push** — single commit with descriptive message, push to main
+5. **Report** — one-line summary of what was committed
+
+Do NOT ask for confirmation on each step — just execute the full checklist and report at the end.
+
 ## Conventions
 
 - Knowledge base content is in English (extracted from English PDF sources)
