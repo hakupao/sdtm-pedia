@@ -217,3 +217,23 @@
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Study day of collection, measured as integer days. Algorithm for calculations must be relative to the sponsor-defined RFSTDTC variable in Demographics.
+---
+
+## Cross References
+
+### Controlled Terminology
+- [Subject Characteristic Test Name (C103330)](../../terminology/core/other_part5.md) — SCTEST
+- [Not Done (C66789)](../../terminology/core/general_part4.md) — SCSTAT
+- [Unit (C71620)](../../terminology/core/general_part5.md) — SCORRESU, SCSTRESU
+- [Subject Characteristic Test Code (C74559)](../../terminology/core/other_part5.md) — SCTESTCD
+- [Epoch (C99079)](../../terminology/core/general_part2.md) — EPOCH
+
+### Related Domains
+- **Same class (Findings):** BS, CP, CV, DA, DD, EG, FT, GF, IE, IS, LB, MB, MI, MK, MS, NV, OE, PC, PE, PP, QS, RE, RP, RS, SS, TR, TU, UR, VS
+
+### General References
+- [General Assumptions (Ch4)](../../chapters/ch04_general_assumptions.md) — variable naming, coding, timing rules
+- [Variable Index](../../VARIABLE_INDEX.md) — reverse lookup by variable name
+
+### Model Definition
+- [Findings class definition](../../model/02_observation_classes.md)

@@ -289,3 +289,25 @@
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Study day of collection measured as integer days.
+---
+
+## Cross References
+
+### Controlled Terminology
+- [Arm Null Reason (C142179)](../../terminology/core/dm.md) — ARMNRS
+- [Sex (C66731)](../../terminology/core/dm.md) — SEX
+- [No Yes Response (C66742)](../../terminology/core/general_part4.md) — DTHFL
+- [Age Unit (C66781)](../../terminology/core/dm.md) — AGEU
+- [Ethnic Group (C66790)](../../terminology/core/dm.md) — ETHNIC
+- [Race (C74457)](../../terminology/core/dm.md) — RACE
+
+### Related Domains
+- **Same class (Special-Purpose):** CO, SE, SM, SV
+
+### General References
+- [General Assumptions (Ch4)](../../chapters/ch04_general_assumptions.md) — variable naming, coding, timing rules
+- [Relationships (Ch8)](../../chapters/ch08_relationships.md) — RELREC, SUPPQUAL usage
+- [Variable Index](../../VARIABLE_INDEX.md) — reverse lookup by variable name
+
+### Model Definition
+- [Special-Purpose class definition](../../model/03_special_purpose_domains.md)

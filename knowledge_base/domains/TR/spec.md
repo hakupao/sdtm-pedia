@@ -289,3 +289,31 @@
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Study day of the scan/image/physical exam, measured as integer days. Algorithm for calculations must be relative to the sponsor-defined RFSTDTC variable in Demographics.
+---
+
+## Cross References
+
+### Controlled Terminology
+- [Tumor or Lesion Properties Test Result (C124309)](../../terminology/core/oncology_part2.md) — TRSTRESC
+- [No Yes Response (C66742)](../../terminology/core/general_part4.md) — TRLOBXFL, TRBLFL, TRACPTFL
+- [Not Done (C66789)](../../terminology/core/general_part4.md) — TRSTAT
+- [Unit (C71620)](../../terminology/core/general_part5.md) — TRORRESU, TRSTRESU
+- [Evaluator (C78735)](../../terminology/core/general_part2.md) — TREVAL
+- [Method (C85492)](../../terminology/core/general_part3.md) — TRMETHOD
+- [Medical Evaluator Identifier (C96777)](../../terminology/core/general_part2.md) — TREVALID
+- [Tumor or Lesion Properties Test Name (C96778)](../../terminology/core/oncology_part2.md) — TRTEST
+- [Tumor or Lesion Properties Test Code (C96779)](../../terminology/core/oncology_part2.md) — TRTESTCD
+- [Epoch (C99079)](../../terminology/core/general_part2.md) — EPOCH
+
+### Related Domains
+- **Same class (Findings):** BS, CP, CV, DA, DD, EG, FT, GF, IE, IS, LB, MB, MI, MK, MS, NV, OE, PC, PE, PP, QS, RE, RP, RS, SC, SS, TU, UR, VS
+- **Shared Dataset:** [TU](../TU/) — tumor results ← tumor identification
+- **Related Findings:** [RS](../RS/) — tumor results → disease response
+
+### General References
+- [General Assumptions (Ch4)](../../chapters/ch04_general_assumptions.md) — variable naming, coding, timing rules
+- [Relationships (Ch8)](../../chapters/ch08_relationships.md) — RELREC, SUPPQUAL usage
+- [Variable Index](../../VARIABLE_INDEX.md) — reverse lookup by variable name
+
+### Model Definition
+- [Findings class definition](../../model/02_observation_classes.md)

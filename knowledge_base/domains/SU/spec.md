@@ -334,3 +334,26 @@
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Description or date/time in ISO 8601 character format of the reference point referred to by SUENRTPT. Examples: "2003-12-25", "VISIT 2".
+---
+
+## Cross References
+
+### Controlled Terminology
+- [Pharmaceutical Dosage Form (C66726)](../../terminology/core/interventions.md) — SUDOSFRM
+- [Relation to Reference Period (C66728)](../../terminology/core/general_part4.md) — SUSTRF, SUENRF, SUSTRTPT, SUENRTPT
+- [Route of Administration Response (C66729)](../../terminology/core/interventions.md) — SUROUTE
+- [No Yes Response (C66742)](../../terminology/core/general_part4.md) — SUPRESP, SUOCCUR
+- [Not Done (C66789)](../../terminology/core/general_part4.md) — SUSTAT
+- [Frequency (C71113)](../../terminology/core/interventions.md) — SUDOSFRQ
+- [Unit (C71620)](../../terminology/core/general_part5.md) — SUDOSU
+- [Epoch (C99079)](../../terminology/core/general_part2.md) — EPOCH
+
+### Related Domains
+- **Same class (Interventions):** AG, CM, EC, EX, ML, PR
+
+### General References
+- [General Assumptions (Ch4)](../../chapters/ch04_general_assumptions.md) — variable naming, coding, timing rules
+- [Variable Index](../../VARIABLE_INDEX.md) — reverse lookup by variable name
+
+### Model Definition
+- [Interventions class definition](../../model/02_observation_classes.md)

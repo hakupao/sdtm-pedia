@@ -370,3 +370,26 @@
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Evaluation Interval associated with a PCTEST record represented in ISO 8601 character format. Example: "-PT2H" to represent an evaluation interval of 2 hours prior to a PCTPT.
+---
+
+## Cross References
+
+### Controlled Terminology
+- [No Yes Response (C66742)](../../terminology/core/general_part4.md) — PCFAST, PCDRVFL
+- [Not Done (C66789)](../../terminology/core/general_part4.md) — PCSTAT
+- [Specimen Condition (C78733)](../../terminology/core/general_part4.md) — PCSPCCND
+- [Specimen Type (C78734)](../../terminology/core/general_part4.md) — PCSPEC
+- [Method (C85492)](../../terminology/core/general_part3.md) — PCMETHOD
+- [PK Units of Measure (C85494)](../../terminology/core/other_part3.md) — PCORRESU, PCSTRESU
+- [Epoch (C99079)](../../terminology/core/general_part2.md) — EPOCH
+
+### Related Domains
+- **Same class (Findings):** BS, CP, CV, DA, DD, EG, FT, GF, IE, IS, LB, MB, MI, MK, MS, NV, OE, PE, PP, QS, RE, RP, RS, SC, SS, TR, TU, UR, VS
+- **Shared Dataset:** [PP](../PP/) — pharmacokinetic concentrations → parameters
+
+### General References
+- [General Assumptions (Ch4)](../../chapters/ch04_general_assumptions.md) — variable naming, coding, timing rules
+- [Variable Index](../../VARIABLE_INDEX.md) — reverse lookup by variable name
+
+### Model Definition
+- [Findings class definition](../../model/02_observation_classes.md)

@@ -406,3 +406,31 @@
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Description or date/time in ISO 8601 character format of the sponsor-defined reference point referred to by PRENRTPT. Examples: "2003-12-25", "VISIT 2".
+---
+
+## Cross References
+
+### Controlled Terminology
+- [Procedure (C101858)](../../terminology/core/interventions.md) — PRDECOD
+- [Pharmaceutical Dosage Form (C66726)](../../terminology/core/interventions.md) — PRDOSFRM
+- [Relation to Reference Period (C66728)](../../terminology/core/general_part4.md) — PRSTRTPT, PRENRTPT
+- [Route of Administration Response (C66729)](../../terminology/core/interventions.md) — PRROUTE
+- [No Yes Response (C66742)](../../terminology/core/general_part4.md) — PRPRESP, PROCCUR
+- [Frequency (C71113)](../../terminology/core/interventions.md) — PRDOSFRQ
+- [Unit (C71620)](../../terminology/core/general_part5.md) — PRDOSU
+- [Anatomical Location (C74456)](../../terminology/core/general_part1.md) — PRLOC
+- [Laterality (C99073)](../../terminology/core/general_part2.md) — PRLAT
+- [Directionality (C99074)](../../terminology/core/general_part2.md) — PRDIR
+- [Portion/Totality (C99075)](../../terminology/core/general_part4.md) — PRPORTOT
+- [Epoch (C99079)](../../terminology/core/general_part2.md) — EPOCH
+
+### Related Domains
+- **Same class (Interventions):** AG, CM, EC, EX, ML, SU
+
+### General References
+- [General Assumptions (Ch4)](../../chapters/ch04_general_assumptions.md) — variable naming, coding, timing rules
+- [Relationships (Ch8)](../../chapters/ch08_relationships.md) — RELREC, SUPPQUAL usage
+- [Variable Index](../../VARIABLE_INDEX.md) — reverse lookup by variable name
+
+### Model Definition
+- [Interventions class definition](../../model/02_observation_classes.md)

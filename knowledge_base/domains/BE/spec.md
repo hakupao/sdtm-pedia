@@ -226,3 +226,21 @@
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Collected duration and unit of a biospecimen event. Used only if collected on the CRF and not derived from start and end date/times. Example: P1DT2H (for 1 day, 2 hours).
+---
+
+## Cross References
+
+### Controlled Terminology
+- [Biospecimen Events Dictionary Derived Term (C124297)](../../terminology/core/other_part1.md) — BEDECOD
+- [Anatomical Location (C74456)](../../terminology/core/general_part1.md) — BELOC
+
+### Related Domains
+- **Same class (Events):** AE, CE, DS, DV, HO, MH
+- **Specimen:** [BS](../BS/) — biospecimen data for the event
+
+### General References
+- [General Assumptions (Ch4)](../../chapters/ch04_general_assumptions.md) — variable naming, coding, timing rules
+- [Variable Index](../../VARIABLE_INDEX.md) — reverse lookup by variable name
+
+### Model Definition
+- [Events class definition](../../model/02_observation_classes.md)

@@ -514,3 +514,30 @@
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Date/time for a fixed reference time point defined by GFTPTREF.
+---
+
+## Cross References
+
+### Controlled Terminology
+- [Genetic Sample Type (C111114)](../../terminology/core/general_part2.md) — GFSPEC
+- [Genomic Symbol Type Response (C181176)](../../terminology/core/gf.md) — GFSYMTYP
+- [Genomic Inheritability Type Response (C181177)](../../terminology/core/gf.md) — GFINHERT
+- [Genomic Findings Test Code (C181178)](../../terminology/core/gf.md) — GFTESTCD
+- [Genomic Findings Test Name (C181179)](../../terminology/core/gf.md) — GFTEST
+- [Genomic Findings Test Detail (C181180)](../../terminology/core/gf.md) — GFTSTDTL
+- [Genomic Findings Analytical Method Calculation Formula (C181181)](../../terminology/core/gf.md) — GFANMETH
+- [No Yes Response (C66742)](../../terminology/core/general_part4.md) — GFBLFL, GFDRVFL
+- [Not Done (C66789)](../../terminology/core/general_part4.md) — GFSTAT
+- [Unit (C71620)](../../terminology/core/general_part5.md) — GFORRESU, GFSTRESU
+- [Method (C85492)](../../terminology/core/general_part3.md) — GFMETHOD
+
+### Related Domains
+- **Same class (Findings):** BS, CP, CV, DA, DD, EG, FT, IE, IS, LB, MB, MI, MK, MS, NV, OE, PC, PE, PP, QS, RE, RP, RS, SC, SS, TR, TU, UR, VS
+- **Related Findings:** [IS](../IS/) — genomics/genetics vs immunogenicity
+
+### General References
+- [General Assumptions (Ch4)](../../chapters/ch04_general_assumptions.md) — variable naming, coding, timing rules
+- [Variable Index](../../VARIABLE_INDEX.md) — reverse lookup by variable name
+
+### Model Definition
+- [Findings class definition](../../model/02_observation_classes.md)

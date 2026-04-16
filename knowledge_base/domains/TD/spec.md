@@ -82,3 +82,16 @@
 - **Role:** Record Qualifier
 - **Core:** Req
 - **CDISC Notes:** This variable must represent the maximum number of actual assessments for the analysis that this disease assessment schedule describes. In a trial where the maximum number of assessments is not defined explicitly in the protocol (e.g., assessments occur until death), TDNUMRPT should represent the maximum number of disease assessments that support the efficacy analysis encountered by any subject across the trial at that point in time.
+---
+
+## Cross References
+
+### Related Domains
+- **Same class (Trial Design):** TA, TE, TI, TM, TS, TV
+
+### General References
+- [General Assumptions (Ch4)](../../chapters/ch04_general_assumptions.md) — variable naming, coding, timing rules
+- [Variable Index](../../VARIABLE_INDEX.md) — reverse lookup by variable name
+
+### Model Definition
+- [Trial Design class definition](../../model/05_study_level_data.md)

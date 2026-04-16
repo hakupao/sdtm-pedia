@@ -424,3 +424,35 @@
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Date/time for a fixed reference time point, MBTPTREF.
+---
+
+## Cross References
+
+### Controlled Terminology
+- [Microbiology Test Code (C120527)](../../terminology/core/microbiology_part2.md) — MBTESTCD
+- [Microbiology Test Name (C120528)](../../terminology/core/microbiology_part3.md) — MBTEST
+- [Microbiology Findings Test Details (C174225)](../../terminology/core/microbiology_part1.md) — MBTSTDTL
+- [No Yes Response (C66742)](../../terminology/core/general_part4.md) — MBLOBXFL, MBBLFL, MBFAST, MBDRVFL
+- [Not Done (C66789)](../../terminology/core/general_part4.md) — MBSTAT
+- [Unit (C71620)](../../terminology/core/general_part5.md) — MBORRESU, MBSTRESU
+- [Anatomical Location (C74456)](../../terminology/core/general_part1.md) — MBLOC
+- [Specimen Condition (C78733)](../../terminology/core/general_part4.md) — MBSPCCND
+- [Specimen Type (C78734)](../../terminology/core/general_part4.md) — MBSPEC
+- [Method (C85492)](../../terminology/core/general_part3.md) — MBMETHOD
+- [Laterality (C99073)](../../terminology/core/general_part2.md) — MBLAT
+- [Directionality (C99074)](../../terminology/core/general_part2.md) — MBDIR
+- [Epoch (C99079)](../../terminology/core/general_part2.md) — EPOCH
+
+### Related Domains
+- **Same class (Findings):** BS, CP, CV, DA, DD, EG, FT, GF, IE, IS, LB, MI, MK, MS, NV, OE, PC, PE, PP, QS, RE, RP, RS, SC, SS, TR, TU, UR, VS
+- **Shared Dataset:** [MS](../MS/) — microbiology susceptibility results
+- **Related Findings:** [MI](../MI/) — microbiology microscopic findings
+- **Specimen:** [BS](../BS/) — microbiology specimen data
+- **Specimen Relationship:** [RELSPEC](../RELSPEC/) — specimen hierarchy
+
+### General References
+- [General Assumptions (Ch4)](../../chapters/ch04_general_assumptions.md) — variable naming, coding, timing rules
+- [Variable Index](../../VARIABLE_INDEX.md) — reverse lookup by variable name
+
+### Model Definition
+- [Findings class definition](../../model/02_observation_classes.md)

@@ -343,3 +343,27 @@
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Date/time of the reference time point, VSTPTREF.
+---
+
+## Cross References
+
+### Controlled Terminology
+- [Vital Signs Test Code (C66741)](../../terminology/core/vs.md) — VSTESTCD
+- [No Yes Response (C66742)](../../terminology/core/general_part4.md) — VSLOBXFL, VSBLFL, VSDRVFL, VSCLSIG
+- [Units for Vital Signs Results (C66770)](../../terminology/core/vs.md) — VSORRESU, VSSTRESU
+- [Not Done (C66789)](../../terminology/core/general_part4.md) — VSSTAT
+- [Vital Signs Test Name (C67153)](../../terminology/core/vs.md) — VSTEST
+- [Position (C71148)](../../terminology/core/interventions.md) — VSPOS
+- [Anatomical Location (C74456)](../../terminology/core/general_part1.md) — VSLOC
+- [Laterality (C99073)](../../terminology/core/general_part2.md) — VSLAT
+- [Epoch (C99079)](../../terminology/core/general_part2.md) — EPOCH
+
+### Related Domains
+- **Same class (Findings):** BS, CP, CV, DA, DD, EG, FT, GF, IE, IS, LB, MB, MI, MK, MS, NV, OE, PC, PE, PP, QS, RE, RP, RS, SC, SS, TR, TU, UR
+
+### General References
+- [General Assumptions (Ch4)](../../chapters/ch04_general_assumptions.md) — variable naming, coding, timing rules
+- [Variable Index](../../VARIABLE_INDEX.md) — reverse lookup by variable name
+
+### Model Definition
+- [Findings class definition](../../model/02_observation_classes.md)

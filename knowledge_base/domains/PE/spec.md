@@ -271,3 +271,26 @@
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Study day of physical exam, measured as integer days. Algorithm for calculations must be relative to the sponsor-defined RFSTDTC variable in Demographics.
+---
+
+## Cross References
+
+### Controlled Terminology
+- [No Yes Response (C66742)](../../terminology/core/general_part4.md) — PELOBXFL, PEBLFL
+- [Not Done (C66789)](../../terminology/core/general_part4.md) — PESTAT
+- [Unit (C71620)](../../terminology/core/general_part5.md) — PEORRESU
+- [Anatomical Location (C74456)](../../terminology/core/general_part1.md) — PELOC
+- [Evaluator (C78735)](../../terminology/core/general_part2.md) — PEEVAL
+- [Method (C85492)](../../terminology/core/general_part3.md) — PEMETHOD
+- [Laterality (C99073)](../../terminology/core/general_part2.md) — PELAT
+- [Epoch (C99079)](../../terminology/core/general_part2.md) — EPOCH
+
+### Related Domains
+- **Same class (Findings):** BS, CP, CV, DA, DD, EG, FT, GF, IE, IS, LB, MB, MI, MK, MS, NV, OE, PC, PP, QS, RE, RP, RS, SC, SS, TR, TU, UR, VS
+
+### General References
+- [General Assumptions (Ch4)](../../chapters/ch04_general_assumptions.md) — variable naming, coding, timing rules
+- [Variable Index](../../VARIABLE_INDEX.md) — reverse lookup by variable name
+
+### Model Definition
+- [Findings class definition](../../model/02_observation_classes.md)

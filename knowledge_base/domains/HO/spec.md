@@ -253,3 +253,25 @@
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Description or date/time in ISO 8601 character format of the reference point referred to by HOENRTPT. Examples: "2003-12-25", "VISIT 2".
+---
+
+## Cross References
+
+### Controlled Terminology
+- [Health Care Encounters Dictionary Derived Term (C171444)](../../terminology/core/other_part1.md) — HODECOD
+- [Relation to Reference Period (C66728)](../../terminology/core/general_part4.md) — HOSTRTPT, HOENRTPT
+- [No Yes Response (C66742)](../../terminology/core/general_part4.md) — HOPRESP, HOOCCUR
+- [Not Done (C66789)](../../terminology/core/general_part4.md) — HOSTAT
+- [Epoch (C99079)](../../terminology/core/general_part2.md) — EPOCH
+
+### Related Domains
+- **Same class (Events):** AE, BE, CE, DS, DV, MH
+- **Event:** [DS](../DS/) — healthcare encounters relate to disposition
+
+### General References
+- [General Assumptions (Ch4)](../../chapters/ch04_general_assumptions.md) — variable naming, coding, timing rules
+- [Relationships (Ch8)](../../chapters/ch08_relationships.md) — RELREC, SUPPQUAL usage
+- [Variable Index](../../VARIABLE_INDEX.md) — reverse lookup by variable name
+
+### Model Definition
+- [Events class definition](../../model/02_observation_classes.md)

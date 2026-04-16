@@ -91,3 +91,16 @@
 - **Role:** Timing
 - **Core:** Exp
 - **CDISC Notes:** Study day of end of disease milestone instance, relative to the sponsor-defined RFSTDTC.
+---
+
+## Cross References
+
+### Related Domains
+- **Same class (Special-Purpose):** CO, DM, SE, SV
+
+### General References
+- [General Assumptions (Ch4)](../../chapters/ch04_general_assumptions.md) — variable naming, coding, timing rules
+- [Variable Index](../../VARIABLE_INDEX.md) — reverse lookup by variable name
+
+### Model Definition
+- [Special-Purpose class definition](../../model/03_special_purpose_domains.md)

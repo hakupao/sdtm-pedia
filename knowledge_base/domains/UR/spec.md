@@ -388,3 +388,30 @@
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Date/time for a fixed reference time point defined by URTPTREF.
+---
+
+## Cross References
+
+### Controlled Terminology
+- [Urinary System Test Name (C129941)](../../terminology/core/other_part5.md) — URTEST
+- [Urinary System Test Code (C129942)](../../terminology/core/other_part5.md) — URTESTCD
+- [No Yes Response (C66742)](../../terminology/core/general_part4.md) — URLOBXFL, URBLFL, URDRVFL
+- [Not Done (C66789)](../../terminology/core/general_part4.md) — URSTAT
+- [Unit (C71620)](../../terminology/core/general_part5.md) — URORRESU, URSTRESU
+- [Anatomical Location (C74456)](../../terminology/core/general_part1.md) — URLOC
+- [Evaluator (C78735)](../../terminology/core/general_part2.md) — UREVAL
+- [Method (C85492)](../../terminology/core/general_part3.md) — URMETHOD
+- [Medical Evaluator Identifier (C96777)](../../terminology/core/general_part2.md) — UREVALID
+- [Laterality (C99073)](../../terminology/core/general_part2.md) — URLAT
+- [Directionality (C99074)](../../terminology/core/general_part2.md) — URDIR
+- [Epoch (C99079)](../../terminology/core/general_part2.md) — EPOCH
+
+### Related Domains
+- **Same class (Findings):** BS, CP, CV, DA, DD, EG, FT, GF, IE, IS, LB, MB, MI, MK, MS, NV, OE, PC, PE, PP, QS, RE, RP, RS, SC, SS, TR, TU, VS
+
+### General References
+- [General Assumptions (Ch4)](../../chapters/ch04_general_assumptions.md) — variable naming, coding, timing rules
+- [Variable Index](../../VARIABLE_INDEX.md) — reverse lookup by variable name
+
+### Model Definition
+- [Findings class definition](../../model/02_observation_classes.md)

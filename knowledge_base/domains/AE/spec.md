@@ -541,3 +541,30 @@
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Description of date/time in ISO 8601 character format of the reference point referred to by AEENRTPT. Examples: "2003-12-25", "VISIT 2".
+---
+
+## Cross References
+
+### Controlled Terminology
+- [Device Events Action Taken with Device (C111110)](../../terminology/core/ae.md) — AEACNDEV
+- [Relation to Reference Period (C66728)](../../terminology/core/general_part4.md) — AEENRF, AEENRTPT
+- [No Yes Response (C66742)](../../terminology/core/general_part4.md) — AEPRESP, AESER, AESCAN, AESCONG, AESDISAB ... (13 total)
+- [Action Taken with Study Treatment (C66767)](../../terminology/core/ae.md) — AEACN
+- [Outcome of Event (C66768)](../../terminology/core/ae.md) — AEOUT
+- [Severity/Intensity Scale for Adverse Events (C66769)](../../terminology/core/ae.md) — AESEV
+- [Anatomical Location (C74456)](../../terminology/core/general_part1.md) — AELOC
+- [Epoch (C99079)](../../terminology/core/general_part2.md) — EPOCH
+
+### Related Domains
+- **Same class (Events):** BE, CE, DS, DV, HO, MH
+- **Findings About:** [FA](../FA/) — prespecified AE findings (AEPRESP)
+- **Treatment:** [CM](../CM/) — concomitant medications linked via RELREC
+- **Treatment:** [PR](../PR/) — procedures linked via RELREC
+
+### General References
+- [General Assumptions (Ch4)](../../chapters/ch04_general_assumptions.md) — variable naming, coding, timing rules
+- [Relationships (Ch8)](../../chapters/ch08_relationships.md) — RELREC, SUPPQUAL usage
+- [Variable Index](../../VARIABLE_INDEX.md) — reverse lookup by variable name
+
+### Model Definition
+- [Events class definition](../../model/02_observation_classes.md)

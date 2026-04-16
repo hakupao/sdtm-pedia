@@ -145,3 +145,20 @@
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Description of what happened to the subject during an unplanned visit. Only populated for unplanned visits.
+---
+
+## Cross References
+
+### Controlled Terminology
+- [Mode of Subject Contact (C171445)](../../terminology/core/special_purpose.md) — SVCNTMOD
+- [No Yes Response (C66742)](../../terminology/core/general_part4.md) — SVPRESP, SVOCCUR, SVEPCHGI
+
+### Related Domains
+- **Same class (Special-Purpose):** CO, DM, SE, SM
+
+### General References
+- [General Assumptions (Ch4)](../../chapters/ch04_general_assumptions.md) — variable naming, coding, timing rules
+- [Variable Index](../../VARIABLE_INDEX.md) — reverse lookup by variable name
+
+### Model Definition
+- [Special-Purpose class definition](../../model/03_special_purpose_domains.md)

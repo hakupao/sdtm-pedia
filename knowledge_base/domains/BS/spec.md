@@ -316,3 +316,30 @@
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Date/time for a fixed reference time point defined by BSTPTREF.
+---
+
+## Cross References
+
+### Controlled Terminology
+- [Genetic Sample Type (C111114)](../../terminology/core/general_part2.md) — BSSPEC
+- [Biospecimen Characteristics Test Name (C124299)](../../terminology/core/other_part1.md) — BSTEST
+- [Biospecimen Characteristics Test Code (C124300)](../../terminology/core/other_part1.md) — BSTESTCD
+- [No Yes Response (C66742)](../../terminology/core/general_part4.md) — BSBLFL
+- [Not Done (C66789)](../../terminology/core/general_part4.md) — BSSTAT
+- [Unit (C71620)](../../terminology/core/general_part5.md) — BSORRESU, BSSTRESU
+- [Specimen Condition (C78733)](../../terminology/core/general_part4.md) — BSSPCCND
+- [Specimen Type (C78734)](../../terminology/core/general_part4.md) — BSSPEC
+- [Method (C85492)](../../terminology/core/general_part3.md) — BSMETHOD
+
+### Related Domains
+- **Same class (Findings):** CP, CV, DA, DD, EG, FT, GF, IE, IS, LB, MB, MI, MK, MS, NV, OE, PC, PE, PP, QS, RE, RP, RS, SC, SS, TR, TU, UR, VS
+- **Event:** [BE](../BE/) — biospecimen events
+- **Specimen Relationship:** [RELSPEC](../RELSPEC/) — specimen hierarchy
+
+### General References
+- [General Assumptions (Ch4)](../../chapters/ch04_general_assumptions.md) — variable naming, coding, timing rules
+- [Relationships (Ch8)](../../chapters/ch08_relationships.md) — RELREC, SUPPQUAL usage
+- [Variable Index](../../VARIABLE_INDEX.md) — reverse lookup by variable name
+
+### Model Definition
+- [Findings class definition](../../model/02_observation_classes.md)

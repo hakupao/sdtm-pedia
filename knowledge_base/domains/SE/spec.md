@@ -118,3 +118,19 @@
 - **Role:** Synonym Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Description of what happened to the subject during an unplanned element. Used only if ETCD has the value of "UNPLAN".
+---
+
+## Cross References
+
+### Controlled Terminology
+- [Epoch (C99079)](../../terminology/core/general_part2.md) — EPOCH
+
+### Related Domains
+- **Same class (Special-Purpose):** CO, DM, SM, SV
+
+### General References
+- [General Assumptions (Ch4)](../../chapters/ch04_general_assumptions.md) — variable naming, coding, timing rules
+- [Variable Index](../../VARIABLE_INDEX.md) — reverse lookup by variable name
+
+### Model Definition
+- [Special-Purpose class definition](../../model/03_special_purpose_domains.md)

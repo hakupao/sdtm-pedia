@@ -370,3 +370,26 @@
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Description or date/time in ISO 8601 character format of the reference point referred to by AGENRTPT. Examples: "2003-12-25", "VISIT 2".
+---
+
+## Cross References
+
+### Controlled Terminology
+- [Pharmaceutical Dosage Form (C66726)](../../terminology/core/interventions.md) — AGDOSFRM
+- [Relation to Reference Period (C66728)](../../terminology/core/general_part4.md) — AGSTRF, AGENRF, AGSTRTPT, AGENRTPT
+- [Route of Administration Response (C66729)](../../terminology/core/interventions.md) — AGROUTE
+- [No Yes Response (C66742)](../../terminology/core/general_part4.md) — AGPRESP, AGOCCUR
+- [Not Done (C66789)](../../terminology/core/general_part4.md) — AGSTAT
+- [Frequency (C71113)](../../terminology/core/interventions.md) — AGDOSFRQ
+- [Unit (C71620)](../../terminology/core/general_part5.md) — AGDOSU
+- [Epoch (C99079)](../../terminology/core/general_part2.md) — EPOCH
+
+### Related Domains
+- **Same class (Interventions):** CM, EC, EX, ML, PR, SU
+
+### General References
+- [General Assumptions (Ch4)](../../chapters/ch04_general_assumptions.md) — variable naming, coding, timing rules
+- [Variable Index](../../VARIABLE_INDEX.md) — reverse lookup by variable name
+
+### Model Definition
+- [Interventions class definition](../../model/02_observation_classes.md)

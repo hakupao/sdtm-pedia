@@ -64,3 +64,21 @@
 - **Role:** Record Qualifier
 - **Core:** Req
 - **CDISC Notes:** Unique value within USUBJID that identifies the relationship. All records for the same USUBJID that have the same RELID are considered related/associated. RELID can be any value the sponsor chooses, and is only meaningful within the RELREC dataset to identify the related/associated domain records.
+---
+
+## Cross References
+
+### Controlled Terminology
+- [SDTM Domain Abbreviation (C66734)](../../terminology/core/general_part4.md) — RDOMAIN
+- [Relationship Type (C78737)](../../terminology/core/other_part4.md) — RELTYPE
+
+### Related Domains
+- **Same class (Relationship):** RELSPEC, RELSUB, SUPPQUAL
+
+### General References
+- [General Assumptions (Ch4)](../../chapters/ch04_general_assumptions.md) — variable naming, coding, timing rules
+- [Relationships (Ch8)](../../chapters/ch08_relationships.md) — RELREC, SUPPQUAL usage
+- [Variable Index](../../VARIABLE_INDEX.md) — reverse lookup by variable name
+
+### Model Definition
+- [Relationship class definition](../../model/06_relationship_datasets.md)

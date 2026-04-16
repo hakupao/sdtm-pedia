@@ -397,3 +397,35 @@
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Date/time for a fixed reference time point defined by EGTPTREF.
+---
+
+## Cross References
+
+### Controlled Terminology
+- [Normal Abnormal Response (C101834)](../../terminology/core/eg_part3.md) — EGSTRESC
+- [Holter ECG Results (C120522)](../../terminology/core/eg_part3.md) — EGSTRESC
+- [Holter ECG Test Code (C120523)](../../terminology/core/eg_part3.md) — EGTESTCD
+- [Holter ECG Test Name (C120524)](../../terminology/core/eg_part3.md) — EGTEST
+- [No Yes Response (C66742)](../../terminology/core/general_part4.md) — EGLOBXFL, EGBLFL, EGDRVFL, EGCLSIG
+- [Not Done (C66789)](../../terminology/core/general_part4.md) — EGSTAT
+- [Position (C71148)](../../terminology/core/interventions.md) — EGPOS
+- [ECG Result (C71150)](../../terminology/core/eg_part1.md) — EGSTRESC
+- [ECG Test Method (C71151)](../../terminology/core/eg_part2.md) — EGMETHOD
+- [ECG Test Name (C71152)](../../terminology/core/eg_part2.md) — EGTEST
+- [ECG Test Code (C71153)](../../terminology/core/eg_part2.md) — EGTESTCD
+- [Unit (C71620)](../../terminology/core/general_part5.md) — EGORRESU, EGSTRESU
+- [Evaluator (C78735)](../../terminology/core/general_part2.md) — EGEVAL
+- [ECG Lead (C90013)](../../terminology/core/eg_part1.md) — EGLEAD
+- [Medical Evaluator Identifier (C96777)](../../terminology/core/general_part2.md) — EGEVALID
+- [Epoch (C99079)](../../terminology/core/general_part2.md) — EPOCH
+
+### Related Domains
+- **Same class (Findings):** BS, CP, CV, DA, DD, FT, GF, IE, IS, LB, MB, MI, MK, MS, NV, OE, PC, PE, PP, QS, RE, RP, RS, SC, SS, TR, TU, UR, VS
+- **Related Findings:** [CP](../CP/) — ECG vs cardiac electrophysiology
+
+### General References
+- [General Assumptions (Ch4)](../../chapters/ch04_general_assumptions.md) — variable naming, coding, timing rules
+- [Variable Index](../../VARIABLE_INDEX.md) — reverse lookup by variable name
+
+### Model Definition
+- [Findings class definition](../../model/02_observation_classes.md)

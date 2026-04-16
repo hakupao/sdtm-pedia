@@ -64,3 +64,17 @@
 - **Role:** Result Qualifier
 - **Core:** Req
 - **CDISC Notes:** Value for the taxon in OIPARMCD/OIPARM for the organism identified by NHOID.
+---
+
+## Cross References
+
+### Controlled Terminology
+- [Non-host Organism Identifier Parameters (C179590)](../../terminology/core/oi.md) — OIPARM
+- [Non-host Organism Identifier Parameters Code (C179591)](../../terminology/core/oi.md) — OIPARMCD
+
+### General References
+- [General Assumptions (Ch4)](../../chapters/ch04_general_assumptions.md) — variable naming, coding, timing rules
+- [Variable Index](../../VARIABLE_INDEX.md) — reverse lookup by variable name
+
+### Model Definition
+- [Study Reference class definition](../../model/05_study_level_data.md)

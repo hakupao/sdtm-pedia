@@ -55,3 +55,21 @@
 - **Role:** Variable Qualifier
 - **Core:** Req
 - **CDISC Notes:** Identifies the generation number of the sample where the collected sample is considered the first generation.
+---
+
+## Cross References
+
+### Controlled Terminology
+- [Genetic Sample Type (C111114)](../../terminology/core/general_part2.md) — SPEC
+- [Specimen Type (C78734)](../../terminology/core/general_part4.md) — SPEC
+
+### Related Domains
+- **Same class (Relationship):** RELREC, RELSUB, SUPPQUAL
+
+### General References
+- [General Assumptions (Ch4)](../../chapters/ch04_general_assumptions.md) — variable naming, coding, timing rules
+- [Relationships (Ch8)](../../chapters/ch08_relationships.md) — RELREC, SUPPQUAL usage
+- [Variable Index](../../VARIABLE_INDEX.md) — reverse lookup by variable name
+
+### Model Definition
+- [Relationship class definition](../../model/06_relationship_datasets.md)

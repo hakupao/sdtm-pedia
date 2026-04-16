@@ -559,3 +559,35 @@
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Date/time for a fixed reference time point defined by CPTPTREF.
+---
+
+## Cross References
+
+### Controlled Terminology
+- [Collected Summarized Value Type Response (C177908)](../../terminology/core/general_part2.md) — CPCOLSRT
+- [Result Scale Response (C177910)](../../terminology/core/general_part4.md) — CPRESSCL
+- [Result Type Response (C179588)](../../terminology/core/general_part4.md) — CPRESTYP
+- [Category for Cell Phenotyping (C181171)](../../terminology/core/cp_part1.md) — CPCAT
+- [Cell State Response (C181172)](../../terminology/core/cp_part2.md) — CPCELSTA
+- [Cell Phenotyping Test Code (C181173)](../../terminology/core/cp_part1.md) — CPTESTCD
+- [Cell Phenotyping Test Name (C181174)](../../terminology/core/cp_part2.md) — CPTEST
+- [Test Condition Response (C181175)](../../terminology/core/general_part4.md) — CPTSTCND
+- [No Yes Response (C66742)](../../terminology/core/general_part4.md) — CPLOBXFL, CPBLFL, CPDRVFL, CPCLSIG
+- [Not Done (C66789)](../../terminology/core/general_part4.md) — CPSTAT
+- [Unit (C71620)](../../terminology/core/general_part5.md) — CPORRESU, CPSTRESU
+- [Specimen Condition (C78733)](../../terminology/core/general_part4.md) — CPSPCCND
+- [Specimen Type (C78734)](../../terminology/core/general_part4.md) — CPSPEC
+- [Reference Range Indicator (C78736)](../../terminology/core/general_part4.md) — CPNRIND
+- [Method (C85492)](../../terminology/core/general_part3.md) — CPMETHOD
+- [Epoch (C99079)](../../terminology/core/general_part2.md) — EPOCH
+
+### Related Domains
+- **Same class (Findings):** BS, CV, DA, DD, EG, FT, GF, IE, IS, LB, MB, MI, MK, MS, NV, OE, PC, PE, PP, QS, RE, RP, RS, SC, SS, TR, TU, UR, VS
+- **Related Findings:** [LB](../LB/) — cardiac electrophysiology vs lab tests
+
+### General References
+- [General Assumptions (Ch4)](../../chapters/ch04_general_assumptions.md) — variable naming, coding, timing rules
+- [Variable Index](../../VARIABLE_INDEX.md) — reverse lookup by variable name
+
+### Model Definition
+- [Findings class definition](../../model/02_observation_classes.md)

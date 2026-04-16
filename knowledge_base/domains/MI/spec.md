@@ -334,3 +334,33 @@
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Study day of specimen collection, in integer days. The algorithm for calculations must be relative to the sponsor-defined RFSTDTC variable in the Demographics (DM) domain.
+---
+
+## Cross References
+
+### Controlled Terminology
+- [Microscopic Findings Test Details (C125922)](../../terminology/core/mi.md) — MITSTDTL
+- [SDTM Microscopic Findings Test Name (C132262)](../../terminology/core/mi.md) — MITEST
+- [SDTM Microscopic Findings Test Code (C132263)](../../terminology/core/mi.md) — MITESTCD
+- [No Yes Response (C66742)](../../terminology/core/general_part4.md) — MILOBXFL, MIBLFL
+- [Not Done (C66789)](../../terminology/core/general_part4.md) — MISTAT
+- [Unit (C71620)](../../terminology/core/general_part5.md) — MIORRESU, MISTRESU
+- [Anatomical Location (C74456)](../../terminology/core/general_part1.md) — MILOC
+- [Specimen Condition (C78733)](../../terminology/core/general_part4.md) — MISPCCND
+- [Specimen Type (C78734)](../../terminology/core/general_part4.md) — MISPEC
+- [Evaluator (C78735)](../../terminology/core/general_part2.md) — MIEVAL
+- [Method (C85492)](../../terminology/core/general_part3.md) — MIMETHOD
+- [Laterality (C99073)](../../terminology/core/general_part2.md) — MILAT
+- [Directionality (C99074)](../../terminology/core/general_part2.md) — MIDIR
+- [Epoch (C99079)](../../terminology/core/general_part2.md) — EPOCH
+
+### Related Domains
+- **Same class (Findings):** BS, CP, CV, DA, DD, EG, FT, GF, IE, IS, LB, MB, MK, MS, NV, OE, PC, PE, PP, QS, RE, RP, RS, SC, SS, TR, TU, UR, VS
+- **Related Findings:** [MB](../MB/) — microbiology organism identification
+
+### General References
+- [General Assumptions (Ch4)](../../chapters/ch04_general_assumptions.md) — variable naming, coding, timing rules
+- [Variable Index](../../VARIABLE_INDEX.md) — reverse lookup by variable name
+
+### Model Definition
+- [Findings class definition](../../model/02_observation_classes.md)

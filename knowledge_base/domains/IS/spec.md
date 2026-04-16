@@ -487,3 +487,35 @@
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Date/time of the reference time point, ISTPTREF.
+---
+
+## Cross References
+
+### Controlled Terminology
+- [Immunogenicity Specimen Assessments Test Code (C120525)](../../terminology/core/is_domain_part1.md) — ISTESTCD
+- [Immunogenicity Specimen Assessments Test Name (C120526)](../../terminology/core/is_domain_part1.md) — ISTEST
+- [Binding Agent for Immunogenicity Tests (C181169)](../../terminology/core/is_domain_part1.md) — ISBDAGNT
+- [Test Operational Objective (C181170)](../../terminology/core/general_part4.md) — ISTSTOPO
+- [Test Condition Response (C181175)](../../terminology/core/general_part4.md) — ISTSTCND
+- [No Yes Response (C66742)](../../terminology/core/general_part4.md) — ISSPCUFL, ISLOBXFL, ISBLFL, ISDRVFL
+- [Not Done (C66789)](../../terminology/core/general_part4.md) — ISSTAT
+- [Unit (C71620)](../../terminology/core/general_part5.md) — ISORRESU, ISSTRESU
+- [Specimen Condition (C78733)](../../terminology/core/general_part4.md) — ISSPCCND
+- [Specimen Type (C78734)](../../terminology/core/general_part4.md) — ISSPEC
+- [Reference Range Indicator (C78736)](../../terminology/core/general_part4.md) — ISNRIND
+- [Microorganism (C85491)](../../terminology/core/is_domain_part2.md) — ISBDAGNT
+- [Method (C85492)](../../terminology/core/general_part3.md) — ISMETHOD
+- [Epoch (C99079)](../../terminology/core/general_part2.md) — EPOCH
+
+### Related Domains
+- **Same class (Findings):** BS, CP, CV, DA, DD, EG, FT, GF, IE, LB, MB, MI, MK, MS, NV, OE, PC, PE, PP, QS, RE, RP, RS, SC, SS, TR, TU, UR, VS
+- **Specimen:** [BS](../BS/) — immunogenicity specimen data
+- **Specimen Relationship:** [RELSPEC](../RELSPEC/) — specimen hierarchy
+
+### General References
+- [General Assumptions (Ch4)](../../chapters/ch04_general_assumptions.md) — variable naming, coding, timing rules
+- [Relationships (Ch8)](../../chapters/ch08_relationships.md) — RELREC, SUPPQUAL usage
+- [Variable Index](../../VARIABLE_INDEX.md) — reverse lookup by variable name
+
+### Model Definition
+- [Findings class definition](../../model/02_observation_classes.md)

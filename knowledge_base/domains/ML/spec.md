@@ -334,3 +334,23 @@
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** The start date/time of the disease milestone instance name in MIDS, in ISO 8601 format.
+---
+
+## Cross References
+
+### Controlled Terminology
+- [Pharmaceutical Dosage Form (C66726)](../../terminology/core/interventions.md) — MLDOSFRM
+- [No Yes Response (C66742)](../../terminology/core/general_part4.md) — MLPRESP, MLOCCUR
+- [Not Done (C66789)](../../terminology/core/general_part4.md) — MLSTAT
+- [Unit (C71620)](../../terminology/core/general_part5.md) — MLDOSU
+- [Epoch (C99079)](../../terminology/core/general_part2.md) — EPOCH
+
+### Related Domains
+- **Same class (Interventions):** AG, CM, EC, EX, PR, SU
+
+### General References
+- [General Assumptions (Ch4)](../../chapters/ch04_general_assumptions.md) — variable naming, coding, timing rules
+- [Variable Index](../../VARIABLE_INDEX.md) — reverse lookup by variable name
+
+### Model Definition
+- [Interventions class definition](../../model/02_observation_classes.md)

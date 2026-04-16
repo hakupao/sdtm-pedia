@@ -118,3 +118,22 @@
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Study day of the comment, in integer days. The algorithm for calculations must be relative to the sponsor-defined RFSTDTC variable in the Demographics (DM) domain.
+---
+
+## Cross References
+
+### Controlled Terminology
+- [SDTM Domain Abbreviation (C66734)](../../terminology/core/general_part4.md) — RDOMAIN
+- [Evaluator (C78735)](../../terminology/core/general_part2.md) — COEVAL
+- [Medical Evaluator Identifier (C96777)](../../terminology/core/general_part2.md) — COEVALID
+
+### Related Domains
+- **Same class (Special-Purpose):** DM, SE, SM, SV
+
+### General References
+- [General Assumptions (Ch4)](../../chapters/ch04_general_assumptions.md) — variable naming, coding, timing rules
+- [Relationships (Ch8)](../../chapters/ch08_relationships.md) — RELREC, SUPPQUAL usage
+- [Variable Index](../../VARIABLE_INDEX.md) — reverse lookup by variable name
+
+### Model Definition
+- [Special-Purpose class definition](../../model/03_special_purpose_domains.md)

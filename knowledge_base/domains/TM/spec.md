@@ -46,3 +46,19 @@
 - **Role:** Record Qualifier
 - **Core:** Req
 - **CDISC Notes:** Indicates whether this is a disease milestone that can occur only once ("N") or a type of disease milestone that can occur multiple times ("Y").
+---
+
+## Cross References
+
+### Controlled Terminology
+- [No Yes Response (C66742)](../../terminology/core/general_part4.md) — TMRPT
+
+### Related Domains
+- **Same class (Trial Design):** TA, TD, TE, TI, TS, TV
+
+### General References
+- [General Assumptions (Ch4)](../../chapters/ch04_general_assumptions.md) — variable naming, coding, timing rules
+- [Variable Index](../../VARIABLE_INDEX.md) — reverse lookup by variable name
+
+### Model Definition
+- [Trial Design class definition](../../model/05_study_level_data.md)

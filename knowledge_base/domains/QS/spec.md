@@ -316,3 +316,26 @@
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Evaluation interval associated with an observation, where the interval is not able to be represented in ISO 8601 format. Examples: "LIFETIME", "LAST NIGHT", "RECENTLY", "OVER THE LAST FEW WEEKS".
+---
+
+## Cross References
+
+### Controlled Terminology
+- [Category of Questionnaire (C100129)](../../terminology/core/qs_part1.md) — QSCAT
+- [QRS Method (C158113)](../../terminology/core/general_part4.md) — QSMETHOD
+- [No Yes Response (C66742)](../../terminology/core/general_part4.md) — QSLOBXFL, QSBLFL, QSDRVFL
+- [Not Done (C66789)](../../terminology/core/general_part4.md) — QSSTAT
+- [Unit (C71620)](../../terminology/core/general_part5.md) — QSORRESU, QSSTRESU
+- [Epoch (C99079)](../../terminology/core/general_part2.md) — EPOCH
+
+### Related Domains
+- **Same class (Findings):** BS, CP, CV, DA, DD, EG, FT, GF, IE, IS, LB, MB, MI, MK, MS, NV, OE, PC, PE, PP, RE, RP, RS, SC, SS, TR, TU, UR, VS
+- **Findings About:** [FA](../FA/) — findings about questionnaire responses
+
+### General References
+- [General Assumptions (Ch4)](../../chapters/ch04_general_assumptions.md) — variable naming, coding, timing rules
+- [Relationships (Ch8)](../../chapters/ch08_relationships.md) — RELREC, SUPPQUAL usage
+- [Variable Index](../../VARIABLE_INDEX.md) — reverse lookup by variable name
+
+### Model Definition
+- [Findings class definition](../../model/02_observation_classes.md)

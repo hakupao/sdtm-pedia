@@ -271,3 +271,35 @@
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** 1. Study day of collection, measured as integer days.  2. Algorithm for calculations must be relative to the sponsor-defined RFSTDTC variable in Demographics. This formula should be consistent across the submission.
+---
+
+## Cross References
+
+### Controlled Terminology
+- [Findings About Test Code (C101832)](../../terminology/core/findings_about.md) — FATESTCD
+- [Findings About Test Name (C101833)](../../terminology/core/findings_about.md) — FATEST
+- [No Yes Response (C66742)](../../terminology/core/general_part4.md) — FALOBXFL, FABLFL
+- [Not Done (C66789)](../../terminology/core/general_part4.md) — FASTAT
+- [Unit (C71620)](../../terminology/core/general_part5.md) — FAORRESU, FASTRESU
+- [Anatomical Location (C74456)](../../terminology/core/general_part1.md) — FALOC
+- [Evaluator (C78735)](../../terminology/core/general_part2.md) — FAEVAL
+- [Laterality (C99073)](../../terminology/core/general_part2.md) — FALAT
+- [Epoch (C99079)](../../terminology/core/general_part2.md) — EPOCH
+
+### Related Domains
+- **Same class (Findings About):** SR
+- **Source Domain:** [AE](../AE/) — findings about adverse events
+- **Source Domain:** [CM](../CM/) — findings about concomitant medications
+- **Source Domain:** [PR](../PR/) — findings about procedures
+- **Source Domain:** [EX](../EX/) — findings about exposure
+- **Source Domain:** [EC](../EC/) — findings about exposure as collected
+- **Source Domain:** [ML](../ML/) — findings about meals
+- **Source Domain:** [SU](../SU/) — findings about substance use
+
+### General References
+- [General Assumptions (Ch4)](../../chapters/ch04_general_assumptions.md) — variable naming, coding, timing rules
+- [Relationships (Ch8)](../../chapters/ch08_relationships.md) — RELREC, SUPPQUAL usage
+- [Variable Index](../../VARIABLE_INDEX.md) — reverse lookup by variable name
+
+### Model Definition
+- [Findings About class definition](../../model/02_observation_classes.md)

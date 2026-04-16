@@ -424,3 +424,31 @@
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Date/time for a fixed reference time point defined by RETPTREF.
+---
+
+## Cross References
+
+### Controlled Terminology
+- [Respiratory Test Code (C111106)](../../terminology/core/other_part4.md) — RETESTCD
+- [Respiratory Test Name (C111107)](../../terminology/core/other_part4.md) — RETEST
+- [No Yes Response (C66742)](../../terminology/core/general_part4.md) — RELOBXFL, REBLFL, REDRVFL
+- [Not Done (C66789)](../../terminology/core/general_part4.md) — RESTAT
+- [Position (C71148)](../../terminology/core/interventions.md) — REPOS
+- [Unit (C71620)](../../terminology/core/general_part5.md) — REORRESU, RESTRESU
+- [Anatomical Location (C74456)](../../terminology/core/general_part1.md) — RELOC
+- [Evaluator (C78735)](../../terminology/core/general_part2.md) — REEVAL
+- [Method (C85492)](../../terminology/core/general_part3.md) — REMETHOD
+- [Medical Evaluator Identifier (C96777)](../../terminology/core/general_part2.md) — REEVALID
+- [Laterality (C99073)](../../terminology/core/general_part2.md) — RELAT
+- [Directionality (C99074)](../../terminology/core/general_part2.md) — REDIR
+- [Epoch (C99079)](../../terminology/core/general_part2.md) — EPOCH
+
+### Related Domains
+- **Same class (Findings):** BS, CP, CV, DA, DD, EG, FT, GF, IE, IS, LB, MB, MI, MK, MS, NV, OE, PC, PE, PP, QS, RP, RS, SC, SS, TR, TU, UR, VS
+
+### General References
+- [General Assumptions (Ch4)](../../chapters/ch04_general_assumptions.md) — variable naming, coding, timing rules
+- [Variable Index](../../VARIABLE_INDEX.md) — reverse lookup by variable name
+
+### Model Definition
+- [Findings class definition](../../model/02_observation_classes.md)

@@ -244,3 +244,23 @@
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Study day of product accountability assessment, measured in integer days. Algorithm for calculations must be relative to the sponsor-defined RFSTDTC in Demographics.
+---
+
+## Cross References
+
+### Controlled Terminology
+- [Not Done (C66789)](../../terminology/core/general_part4.md) — DASTAT
+- [Unit (C71620)](../../terminology/core/general_part5.md) — DAORRESU, DASTRESU
+- [Drug Accountability Test Name (C78731)](../../terminology/core/other_part1.md) — DATEST
+- [Drug Accountability Test Code (C78732)](../../terminology/core/other_part1.md) — DATESTCD
+- [Epoch (C99079)](../../terminology/core/general_part2.md) — EPOCH
+
+### Related Domains
+- **Same class (Findings):** BS, CP, CV, DD, EG, FT, GF, IE, IS, LB, MB, MI, MK, MS, NV, OE, PC, PE, PP, QS, RE, RP, RS, SC, SS, TR, TU, UR, VS
+
+### General References
+- [General Assumptions (Ch4)](../../chapters/ch04_general_assumptions.md) — variable naming, coding, timing rules
+- [Variable Index](../../VARIABLE_INDEX.md) — reverse lookup by variable name
+
+### Model Definition
+- [Findings class definition](../../model/02_observation_classes.md)

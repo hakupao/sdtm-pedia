@@ -91,3 +91,21 @@
 - **Role:** Record Qualifier
 - **Core:** Exp
 - **CDISC Notes:** Used only for results that are subjective (e.g., assigned by a person or a group). Should be null for records that contain objectively collected or derived data. Examples: "ADJUDICATION COMMITTEE", "STATISTICIAN", "DATABASE ADMINISTRATOR", "CLINICAL COORDINATOR".
+---
+
+## Cross References
+
+### Controlled Terminology
+- [SDTM Domain Abbreviation (C66734)](../../terminology/core/general_part4.md) — RDOMAIN
+- [Evaluator (C78735)](../../terminology/core/general_part2.md) — QEVAL
+
+### Related Domains
+- **Same class (Relationship):** RELREC, RELSPEC, RELSUB
+
+### General References
+- [General Assumptions (Ch4)](../../chapters/ch04_general_assumptions.md) — variable naming, coding, timing rules
+- [Relationships (Ch8)](../../chapters/ch08_relationships.md) — RELREC, SUPPQUAL usage
+- [Variable Index](../../VARIABLE_INDEX.md) — reverse lookup by variable name
+
+### Model Definition
+- [Relationship class definition](../../model/06_relationship_datasets.md)

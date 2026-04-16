@@ -145,3 +145,26 @@
 - **Role:** Timing
 - **Core:** Exp
 - **CDISC Notes:** Study day of start of event relative to the sponsor-defined RFSTDTC.
+---
+
+## Cross References
+
+### Controlled Terminology
+- [Protocol Milestone (C114118)](../../terminology/core/disposition.md) — DSDECOD
+- [Other Disposition Event Response (C150811)](../../terminology/core/disposition.md) — DSDECOD
+- [Subcategory for Disposition Event (C170443)](../../terminology/core/disposition.md) — DSSCAT
+- [Completion/Reason for Non-Completion (C66727)](../../terminology/core/disposition.md) — DSDECOD
+- [Category of Disposition Event (C74558)](../../terminology/core/disposition.md) — DSCAT
+- [Epoch (C99079)](../../terminology/core/general_part2.md) — EPOCH
+
+### Related Domains
+- **Same class (Events):** AE, BE, CE, DV, HO, MH
+- **Demographics:** [DM](../DM/) — disposition dates relate to DM reference dates
+
+### General References
+- [General Assumptions (Ch4)](../../chapters/ch04_general_assumptions.md) — variable naming, coding, timing rules
+- [Relationships (Ch8)](../../chapters/ch08_relationships.md) — RELREC, SUPPQUAL usage
+- [Variable Index](../../VARIABLE_INDEX.md) — reverse lookup by variable name
+
+### Model Definition
+- [Events class definition](../../model/02_observation_classes.md)

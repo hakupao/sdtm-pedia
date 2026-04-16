@@ -280,3 +280,33 @@
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Study day of the scan/image/physical exam, measured as integer days. Algorithm for calculations must be relative to the sponsor-defined RFSTDTC variable in Demographics.
+---
+
+## Cross References
+
+### Controlled Terminology
+- [Tumor or Lesion Identification Test Results (C123650)](../../terminology/core/oncology_part2.md) — TUSTRESC
+- [No Yes Response (C66742)](../../terminology/core/general_part4.md) — TULOBXFL, TUBLFL, TUACPTFL
+- [Anatomical Location (C74456)](../../terminology/core/general_part1.md) — TULOC
+- [Evaluator (C78735)](../../terminology/core/general_part2.md) — TUEVAL
+- [Method (C85492)](../../terminology/core/general_part3.md) — TUMETHOD
+- [Medical Evaluator Identifier (C96777)](../../terminology/core/general_part2.md) — TUEVALID
+- [Tumor or Lesion Identification Test Name (C96783)](../../terminology/core/oncology_part2.md) — TUTEST
+- [Tumor or Lesion Identification Test Code (C96784)](../../terminology/core/oncology_part2.md) — TUTESTCD
+- [Laterality (C99073)](../../terminology/core/general_part2.md) — TULAT
+- [Directionality (C99074)](../../terminology/core/general_part2.md) — TUDIR
+- [Portion/Totality (C99075)](../../terminology/core/general_part4.md) — TUPORTOT
+- [Epoch (C99079)](../../terminology/core/general_part2.md) — EPOCH
+
+### Related Domains
+- **Same class (Findings):** BS, CP, CV, DA, DD, EG, FT, GF, IE, IS, LB, MB, MI, MK, MS, NV, OE, PC, PE, PP, QS, RE, RP, RS, SC, SS, TR, UR, VS
+- **Shared Dataset:** [TR](../TR/) — tumor identification → tumor results
+- **Related Findings:** [RS](../RS/) — tumor identification → disease response
+
+### General References
+- [General Assumptions (Ch4)](../../chapters/ch04_general_assumptions.md) — variable naming, coding, timing rules
+- [Relationships (Ch8)](../../chapters/ch08_relationships.md) — RELREC, SUPPQUAL usage
+- [Variable Index](../../VARIABLE_INDEX.md) — reverse lookup by variable name
+
+### Model Definition
+- [Findings class definition](../../model/02_observation_classes.md)

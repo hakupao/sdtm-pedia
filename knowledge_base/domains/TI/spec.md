@@ -73,3 +73,19 @@
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** The number of this version of the Inclusion/Exclusion criteria. May be omitted if there is only 1 version.
+---
+
+## Cross References
+
+### Controlled Terminology
+- [Category of Inclusion/Exclusion (C66797)](../../terminology/core/general_part2.md) — IECAT
+
+### Related Domains
+- **Same class (Trial Design):** TA, TD, TE, TM, TS, TV
+
+### General References
+- [General Assumptions (Ch4)](../../chapters/ch04_general_assumptions.md) — variable naming, coding, timing rules
+- [Variable Index](../../VARIABLE_INDEX.md) — reverse lookup by variable name
+
+### Model Definition
+- [Trial Design class definition](../../model/05_study_level_data.md)

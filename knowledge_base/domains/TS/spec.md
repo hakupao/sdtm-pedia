@@ -100,3 +100,22 @@
 - **Role:** Result Qualifier
 - **Core:** Exp
 - **CDISC Notes:** The version number of the reference terminology, if applicable.
+---
+
+## Cross References
+
+### Controlled Terminology
+- [Trial Summary Parameter Test Code (C66738)](../../terminology/core/trial_design.md) — TSPARMCD
+- [Dictionary Name (C66788)](../../terminology/core/trial_design.md) — TSVCDREF
+- [Trial Summary Parameter Test Name (C67152)](../../terminology/core/trial_design.md) — TSPARM
+
+### Related Domains
+- **Same class (Trial Design):** TA, TD, TE, TI, TM, TV
+
+### General References
+- [General Assumptions (Ch4)](../../chapters/ch04_general_assumptions.md) — variable naming, coding, timing rules
+- [Relationships (Ch8)](../../chapters/ch08_relationships.md) — RELREC, SUPPQUAL usage
+- [Variable Index](../../VARIABLE_INDEX.md) — reverse lookup by variable name
+
+### Model Definition
+- [Trial Design class definition](../../model/05_study_level_data.md)

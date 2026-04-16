@@ -550,3 +550,38 @@
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Evaluation interval associated with an observation, where the interval is not able to be represented in ISO 8601 format. Examples: "LIFETIME", "LAST NIGHT", "RECENTLY", "OVER THE LAST FEW WEEKS".
+---
+
+## Cross References
+
+### Controlled Terminology
+- [Microbiology Susceptibility Test Name (C128687)](../../terminology/core/microbiology_part1.md) — MSTEST
+- [Microbiology Susceptibility Test Code (C128688)](../../terminology/core/microbiology_part1.md) — MSTESTCD
+- [No Yes Response (C66742)](../../terminology/core/general_part4.md) — MSLOBXFL, MSBLFL, MSFAST, MSDRVFL, MSACPTFL
+- [Not Done (C66789)](../../terminology/core/general_part4.md) — MSSTAT
+- [Unit (C71620)](../../terminology/core/general_part5.md) — MSCONCU, MSORRESU, MSSTRESU
+- [Anatomical Location (C74456)](../../terminology/core/general_part1.md) — MSLOC
+- [Specimen Condition (C78733)](../../terminology/core/general_part4.md) — MSSPCCND
+- [Specimen Type (C78734)](../../terminology/core/general_part4.md) — MSSPEC
+- [Evaluator (C78735)](../../terminology/core/general_part2.md) — MSEVAL
+- [Reference Range Indicator (C78736)](../../terminology/core/general_part4.md) — MSNRIND
+- [Method (C85492)](../../terminology/core/general_part3.md) — MSMETHOD
+- [Microbiology Susceptibility Testing Result Category (C85495)](../../terminology/core/microbiology_part1.md) — MSRESCAT
+- [Medical Evaluator Identifier (C96777)](../../terminology/core/general_part2.md) — MSEVALID
+- [Laterality (C99073)](../../terminology/core/general_part2.md) — MSLAT
+- [Directionality (C99074)](../../terminology/core/general_part2.md) — MSDIR
+- [Epoch (C99079)](../../terminology/core/general_part2.md) — EPOCH
+
+### Related Domains
+- **Same class (Findings):** BS, CP, CV, DA, DD, EG, FT, GF, IE, IS, LB, MB, MI, MK, NV, OE, PC, PE, PP, QS, RE, RP, RS, SC, SS, TR, TU, UR, VS
+- **Shared Dataset:** [MB](../MB/) — microbiology organism identification
+- **Specimen:** [BS](../BS/) — susceptibility specimen data
+- **Specimen Relationship:** [RELSPEC](../RELSPEC/) — specimen hierarchy
+
+### General References
+- [General Assumptions (Ch4)](../../chapters/ch04_general_assumptions.md) — variable naming, coding, timing rules
+- [Relationships (Ch8)](../../chapters/ch08_relationships.md) — RELREC, SUPPQUAL usage
+- [Variable Index](../../VARIABLE_INDEX.md) — reverse lookup by variable name
+
+### Model Definition
+- [Findings class definition](../../model/02_observation_classes.md)

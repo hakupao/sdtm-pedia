@@ -352,3 +352,32 @@
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Date/time of the reference time point, SRTPTREF.
+---
+
+## Cross References
+
+### Controlled Terminology
+- [Skin Response Test Name (C112023)](../../terminology/core/findings_about.md) — SRTEST
+- [Skin Response Test Code (C112024)](../../terminology/core/findings_about.md) — SRTESTCD
+- [No Yes Response (C66742)](../../terminology/core/general_part4.md) — SRLOBXFL, SRBLFL
+- [Not Done (C66789)](../../terminology/core/general_part4.md) — SRSTAT
+- [Unit (C71620)](../../terminology/core/general_part5.md) — SRORRESU, SRSTRESU
+- [Anatomical Location (C74456)](../../terminology/core/general_part1.md) — SRLOC
+- [Specimen Type (C78734)](../../terminology/core/general_part4.md) — SRSPEC
+- [Evaluator (C78735)](../../terminology/core/general_part2.md) — SREVAL
+- [Method (C85492)](../../terminology/core/general_part3.md) — SRMETHOD
+- [Laterality (C99073)](../../terminology/core/general_part2.md) — SRLAT
+- [Epoch (C99079)](../../terminology/core/general_part2.md) — EPOCH
+
+### Related Domains
+- **Same class (Findings About):** FA
+- **Source Domain:** [AE](../AE/) — device-related findings about AEs
+- **Source Domain:** [CM](../CM/) — device-related findings about treatments
+- **Source Domain:** [PR](../PR/) — device-related findings about procedures
+
+### General References
+- [General Assumptions (Ch4)](../../chapters/ch04_general_assumptions.md) — variable naming, coding, timing rules
+- [Variable Index](../../VARIABLE_INDEX.md) — reverse lookup by variable name
+
+### Model Definition
+- [Findings About class definition](../../model/02_observation_classes.md)

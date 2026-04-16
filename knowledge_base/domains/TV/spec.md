@@ -82,3 +82,18 @@
 - **Role:** Rule
 - **Core:** Perm
 - **CDISC Notes:** Rule describing when the visit ends, in relation to the sequence of elements.
+---
+
+## Cross References
+
+### Related Domains
+- **Same class (Trial Design):** TA, TD, TE, TI, TM, TS
+- **Trial Design:** [TA](../TA/) — visits reference arms
+- **Trial Design:** [SE](../SE/) — planned visits vs actual subject elements
+
+### General References
+- [General Assumptions (Ch4)](../../chapters/ch04_general_assumptions.md) — variable naming, coding, timing rules
+- [Variable Index](../../VARIABLE_INDEX.md) — reverse lookup by variable name
+
+### Model Definition
+- [Trial Design class definition](../../model/05_study_level_data.md)

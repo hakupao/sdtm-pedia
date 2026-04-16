@@ -325,3 +325,24 @@
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Date/time for a fixed reference time point defined by RPTPTREF in ISO 8601 character format.
+---
+
+## Cross References
+
+### Controlled Terminology
+- [Reproductive System Findings Test Name (C106478)](../../terminology/core/other_part4.md) — RPTEST
+- [Reproductive System Findings Test Code (C106479)](../../terminology/core/other_part4.md) — RPTESTCD
+- [No Yes Response (C66742)](../../terminology/core/general_part4.md) — RPLOBXFL, RPBLFL, RPDRVFL
+- [Not Done (C66789)](../../terminology/core/general_part4.md) — RPSTAT
+- [Unit (C71620)](../../terminology/core/general_part5.md) — RPORRESU, RPSTRESU
+- [Epoch (C99079)](../../terminology/core/general_part2.md) — EPOCH
+
+### Related Domains
+- **Same class (Findings):** BS, CP, CV, DA, DD, EG, FT, GF, IE, IS, LB, MB, MI, MK, MS, NV, OE, PC, PE, PP, QS, RE, RS, SC, SS, TR, TU, UR, VS
+
+### General References
+- [General Assumptions (Ch4)](../../chapters/ch04_general_assumptions.md) — variable naming, coding, timing rules
+- [Variable Index](../../VARIABLE_INDEX.md) — reverse lookup by variable name
+
+### Model Definition
+- [Findings class definition](../../model/02_observation_classes.md)

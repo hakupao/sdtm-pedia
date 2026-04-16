@@ -64,3 +64,17 @@
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Planned duration of element in ISO 8601 format. Used when the rule for ending the element is applied after a fixed duration.
+---
+
+## Cross References
+
+### Related Domains
+- **Same class (Trial Design):** TA, TD, TI, TM, TS, TV
+- **Trial Design:** [TA](../TA/) — elements compose arms
+
+### General References
+- [General Assumptions (Ch4)](../../chapters/ch04_general_assumptions.md) — variable naming, coding, timing rules
+- [Variable Index](../../VARIABLE_INDEX.md) — reverse lookup by variable name
+
+### Model Definition
+- [Trial Design class definition](../../model/05_study_level_data.md)

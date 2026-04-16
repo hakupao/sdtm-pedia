@@ -379,3 +379,30 @@
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Date/time for a fixed reference time point defined by --TPTREF in ISO 8601 character format.
+---
+
+## Cross References
+
+### Controlled Terminology
+- [Nervous System Findings Test Name (C116103)](../../terminology/core/other_part2.md) — NVTEST
+- [Nervous System Findings Test Code (C116104)](../../terminology/core/other_part2.md) — NVTESTCD
+- [No Yes Response (C66742)](../../terminology/core/general_part4.md) — NVLOBXFL, NVBLFL, NVDRVFL
+- [Not Done (C66789)](../../terminology/core/general_part4.md) — NVSTAT
+- [Unit (C71620)](../../terminology/core/general_part5.md) — NVORRESU, NVSTRESU
+- [Anatomical Location (C74456)](../../terminology/core/general_part1.md) — NVLOC
+- [Evaluator (C78735)](../../terminology/core/general_part2.md) — NVEVAL
+- [Method (C85492)](../../terminology/core/general_part3.md) — NVMETHOD
+- [Medical Evaluator Identifier (C96777)](../../terminology/core/general_part2.md) — NVEVALID
+- [Laterality (C99073)](../../terminology/core/general_part2.md) — NVLAT
+- [Directionality (C99074)](../../terminology/core/general_part2.md) — NVDIR
+- [Epoch (C99079)](../../terminology/core/general_part2.md) — EPOCH
+
+### Related Domains
+- **Same class (Findings):** BS, CP, CV, DA, DD, EG, FT, GF, IE, IS, LB, MB, MI, MK, MS, OE, PC, PE, PP, QS, RE, RP, RS, SC, SS, TR, TU, UR, VS
+
+### General References
+- [General Assumptions (Ch4)](../../chapters/ch04_general_assumptions.md) — variable naming, coding, timing rules
+- [Variable Index](../../VARIABLE_INDEX.md) — reverse lookup by variable name
+
+### Model Definition
+- [Findings class definition](../../model/02_observation_classes.md)

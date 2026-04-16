@@ -334,3 +334,29 @@
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Date/time for a fixed reference time point defined by EXTPTREF.
+---
+
+## Cross References
+
+### Controlled Terminology
+- [Pharmaceutical Dosage Form (C66726)](../../terminology/core/interventions.md) — EXDOSFRM
+- [Route of Administration Response (C66729)](../../terminology/core/interventions.md) — EXROUTE
+- [No Yes Response (C66742)](../../terminology/core/general_part4.md) — EXFAST
+- [Frequency (C71113)](../../terminology/core/interventions.md) — EXDOSFRQ
+- [Unit (C71620)](../../terminology/core/general_part5.md) — EXDOSU
+- [Anatomical Location (C74456)](../../terminology/core/general_part1.md) — EXLOC
+- [Laterality (C99073)](../../terminology/core/general_part2.md) — EXLAT
+- [Directionality (C99074)](../../terminology/core/general_part2.md) — EXDIR
+- [Epoch (C99079)](../../terminology/core/general_part2.md) — EPOCH
+
+### Related Domains
+- **Same class (Interventions):** AG, CM, EC, ML, PR, SU
+- **Shared Dataset:** [EC](../EC/) — exposure vs exposure as collected
+
+### General References
+- [General Assumptions (Ch4)](../../chapters/ch04_general_assumptions.md) — variable naming, coding, timing rules
+- [Relationships (Ch8)](../../chapters/ch08_relationships.md) — RELREC, SUPPQUAL usage
+- [Variable Index](../../VARIABLE_INDEX.md) — reverse lookup by variable name
+
+### Model Definition
+- [Interventions class definition](../../model/02_observation_classes.md)

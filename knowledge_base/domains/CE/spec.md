@@ -289,3 +289,23 @@
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Description or date/time in ISO 8601 character format of the reference point referred to by CEENRTPT. Examples: "2003-12-25", "VISIT 2".
+---
+
+## Cross References
+
+### Controlled Terminology
+- [Severity Response (C165643)](../../terminology/core/other_part4.md) — CESEV
+- [Relation to Reference Period (C66728)](../../terminology/core/general_part4.md) — CESTRF, CEENRF, CESTRTPT, CEENRTPT
+- [No Yes Response (C66742)](../../terminology/core/general_part4.md) — CEPRESP, CEOCCUR
+- [Not Done (C66789)](../../terminology/core/general_part4.md) — CESTAT
+- [Epoch (C99079)](../../terminology/core/general_part2.md) — EPOCH
+
+### Related Domains
+- **Same class (Events):** AE, BE, DS, DV, HO, MH
+
+### General References
+- [General Assumptions (Ch4)](../../chapters/ch04_general_assumptions.md) — variable naming, coding, timing rules
+- [Variable Index](../../VARIABLE_INDEX.md) — reverse lookup by variable name
+
+### Model Definition
+- [Events class definition](../../model/02_observation_classes.md)

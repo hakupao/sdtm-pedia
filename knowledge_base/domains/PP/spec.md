@@ -235,3 +235,30 @@
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** The end of a planned evaluation or assessment interval relative to the time point reference.
+---
+
+## Cross References
+
+### Controlled Terminology
+- [PK Units of Measure - Weight kg (C128683)](../../terminology/core/pk_part4.md) — PPORRESU, PPSTRESU
+- [PK Units of Measure - Weight g (C128684)](../../terminology/core/pk_part3.md) — PPORRESU, PPSTRESU
+- [PK Units of Measure - Dose mg (C128685)](../../terminology/core/pk_part3.md) — PPORRESU, PPSTRESU
+- [PK Units of Measure - Dose ug (C128686)](../../terminology/core/pk_part3.md) — PPORRESU, PPSTRESU
+- [PK Analytical Method (C172330)](../../terminology/core/pk_part1.md) — PPANMETH
+- [Not Done (C66789)](../../terminology/core/general_part4.md) — PPSTAT
+- [Specimen Type (C78734)](../../terminology/core/general_part4.md) — PPSPEC
+- [PK Parameters (C85493)](../../terminology/core/pk_part1.md) — PPTEST
+- [PK Units of Measure (C85494)](../../terminology/core/other_part3.md) — PPORRESU, PPSTRESU
+- [PK Parameters Code (C85839)](../../terminology/core/pk_part2.md) — PPTESTCD
+- [Epoch (C99079)](../../terminology/core/general_part2.md) — EPOCH
+
+### Related Domains
+- **Same class (Findings):** BS, CP, CV, DA, DD, EG, FT, GF, IE, IS, LB, MB, MI, MK, MS, NV, OE, PC, PE, QS, RE, RP, RS, SC, SS, TR, TU, UR, VS
+- **Shared Dataset:** [PC](../PC/) — pharmacokinetic parameters ← concentrations
+
+### General References
+- [General Assumptions (Ch4)](../../chapters/ch04_general_assumptions.md) — variable naming, coding, timing rules
+- [Variable Index](../../VARIABLE_INDEX.md) — reverse lookup by variable name
+
+### Model Definition
+- [Findings class definition](../../model/02_observation_classes.md)

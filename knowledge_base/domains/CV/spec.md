@@ -379,3 +379,31 @@
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Date/time for a fixed reference time point defined by CVTPTREF.
+---
+
+## Cross References
+
+### Controlled Terminology
+- [Cardiovascular Test Name (C101846)](../../terminology/core/other_part1.md) — CVTEST
+- [Cardiovascular Test Code (C101847)](../../terminology/core/other_part1.md) — CVTESTCD
+- [No Yes Response (C66742)](../../terminology/core/general_part4.md) — CVLOBXFL, CVBLFL, CVDRVFL
+- [Not Done (C66789)](../../terminology/core/general_part4.md) — CVSTAT
+- [Position (C71148)](../../terminology/core/interventions.md) — CVPOS
+- [Unit (C71620)](../../terminology/core/general_part5.md) — CVORRESU, CVSTRESU
+- [Anatomical Location (C74456)](../../terminology/core/general_part1.md) — CVLOC
+- [Evaluator (C78735)](../../terminology/core/general_part2.md) — CVEVAL
+- [Method (C85492)](../../terminology/core/general_part3.md) — CVMETHOD
+- [Medical Evaluator Identifier (C96777)](../../terminology/core/general_part2.md) — CVEVALID
+- [Laterality (C99073)](../../terminology/core/general_part2.md) — CVLAT
+- [Directionality (C99074)](../../terminology/core/general_part2.md) — CVDIR
+- [Epoch (C99079)](../../terminology/core/general_part2.md) — EPOCH
+
+### Related Domains
+- **Same class (Findings):** BS, CP, DA, DD, EG, FT, GF, IE, IS, LB, MB, MI, MK, MS, NV, OE, PC, PE, PP, QS, RE, RP, RS, SC, SS, TR, TU, UR, VS
+
+### General References
+- [General Assumptions (Ch4)](../../chapters/ch04_general_assumptions.md) — variable naming, coding, timing rules
+- [Variable Index](../../VARIABLE_INDEX.md) — reverse lookup by variable name
+
+### Model Definition
+- [Findings class definition](../../model/02_observation_classes.md)

@@ -109,3 +109,22 @@
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Study day of the collection, in integer days. The algorithm for calculations must be relative to the sponsor-defined RFSTDTC variable in the Demographics (DM) domain.
+---
+
+## Cross References
+
+### Controlled Terminology
+- [SDTM Death Diagnosis and Details Test Name (C116107)](../../terminology/core/other_part4.md) — DDTEST
+- [SDTM Death Diagnosis and Details Test Code (C116108)](../../terminology/core/other_part4.md) — DDTESTCD
+- [Evaluator (C78735)](../../terminology/core/general_part2.md) — DDEVAL
+
+### Related Domains
+- **Same class (Findings):** BS, CP, CV, DA, EG, FT, GF, IE, IS, LB, MB, MI, MK, MS, NV, OE, PC, PE, PP, QS, RE, RP, RS, SC, SS, TR, TU, UR, VS
+
+### General References
+- [General Assumptions (Ch4)](../../chapters/ch04_general_assumptions.md) — variable naming, coding, timing rules
+- [Relationships (Ch8)](../../chapters/ch08_relationships.md) — RELREC, SUPPQUAL usage
+- [Variable Index](../../VARIABLE_INDEX.md) — reverse lookup by variable name
+
+### Model Definition
+- [Findings class definition](../../model/02_observation_classes.md)

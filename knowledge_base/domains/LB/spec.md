@@ -559,3 +559,38 @@
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Planned duration of specimen collection. If LBPTFL is "Y" then LBPDUR is null.
+---
+
+## Cross References
+
+### Controlled Terminology
+- [Laboratory Test Standard Character Result (C102580)](../../terminology/core/lb_part4.md) — LBSTRESC
+- [Laboratory Analytical Method Calculation Formula (C160922)](../../terminology/core/lb_part1.md) — LBANMETH
+- [Collected Summarized Value Type Response (C177908)](../../terminology/core/general_part2.md) — LBCOLSRT
+- [Result Scale Response (C177910)](../../terminology/core/general_part4.md) — LBRESSCL
+- [Result Type Response (C179588)](../../terminology/core/general_part4.md) — LBRESTYP
+- [Test Method Sensitivity (C179589)](../../terminology/core/lb_part4.md) — LBTMTHSN
+- [Test Operational Objective (C181170)](../../terminology/core/general_part4.md) — LBTSTOPO
+- [Test Condition Response (C181175)](../../terminology/core/general_part4.md) — LBTSTCND
+- [Laboratory Test Code (C65047)](../../terminology/core/lb_part2.md) — LBTESTCD
+- [No Yes Response (C66742)](../../terminology/core/general_part4.md) — LBSPCUFL, LBLOBXFL, LBBLFL, LBFAST, LBDRVFL ... (7 total)
+- [Not Done (C66789)](../../terminology/core/general_part4.md) — LBSTAT
+- [Laboratory Test Name (C67154)](../../terminology/core/lb_part3.md) — LBTEST
+- [Unit (C71620)](../../terminology/core/general_part5.md) — LBORRESU, LBSTRESU
+- [Specimen Condition (C78733)](../../terminology/core/general_part4.md) — LBSPCCND
+- [Specimen Type (C78734)](../../terminology/core/general_part4.md) — LBSPEC
+- [Reference Range Indicator (C78736)](../../terminology/core/general_part4.md) — LBNRIND
+- [Method (C85492)](../../terminology/core/general_part3.md) — LBMETHOD
+- [Epoch (C99079)](../../terminology/core/general_part2.md) — EPOCH
+
+### Related Domains
+- **Same class (Findings):** BS, CP, CV, DA, DD, EG, FT, GF, IE, IS, MB, MI, MK, MS, NV, OE, PC, PE, PP, QS, RE, RP, RS, SC, SS, TR, TU, UR, VS
+- **Specimen:** [BS](../BS/) — laboratory specimen data
+- **Specimen Relationship:** [RELSPEC](../RELSPEC/) — specimen hierarchy
+
+### General References
+- [General Assumptions (Ch4)](../../chapters/ch04_general_assumptions.md) — variable naming, coding, timing rules
+- [Variable Index](../../VARIABLE_INDEX.md) — reverse lookup by variable name
+
+### Model Definition
+- [Findings class definition](../../model/02_observation_classes.md)

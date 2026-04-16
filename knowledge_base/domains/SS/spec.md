@@ -199,3 +199,26 @@
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Study day of the subject status assessment, measured as integer days. Algorithm for calculations must be relative to the sponsor-defined RFSTDTC variable in Demographics.
+---
+
+## Cross References
+
+### Controlled Terminology
+- [Subject Status Response (C124304)](../../terminology/core/other_part5.md) — SSSTRESC
+- [Subject Status Test Code (C124305)](../../terminology/core/other_part5.md) — SSTESTCD
+- [Subject Status Test Name (C124306)](../../terminology/core/other_part5.md) — SSTEST
+- [Not Done (C66789)](../../terminology/core/general_part4.md) — SSSTAT
+- [Evaluator (C78735)](../../terminology/core/general_part2.md) — SSEVAL
+- [Epoch (C99079)](../../terminology/core/general_part2.md) — EPOCH
+
+### Related Domains
+- **Same class (Findings):** BS, CP, CV, DA, DD, EG, FT, GF, IE, IS, LB, MB, MI, MK, MS, NV, OE, PC, PE, PP, QS, RE, RP, RS, SC, TR, TU, UR, VS
+- **Related Domain:** [DS](../DS/) — subject status vs disposition
+
+### General References
+- [General Assumptions (Ch4)](../../chapters/ch04_general_assumptions.md) — variable naming, coding, timing rules
+- [Relationships (Ch8)](../../chapters/ch08_relationships.md) — RELREC, SUPPQUAL usage
+- [Variable Index](../../VARIABLE_INDEX.md) — reverse lookup by variable name
+
+### Model Definition
+- [Findings class definition](../../model/02_observation_classes.md)

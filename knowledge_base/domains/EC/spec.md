@@ -406,3 +406,31 @@
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Date/time for a fixed reference time point defined by ECTPTREF.
+---
+
+## Cross References
+
+### Controlled Terminology
+- [BRIDG Activity Mood (C125923)](../../terminology/core/interventions.md) — ECMOOD
+- [Pharmaceutical Dosage Form (C66726)](../../terminology/core/interventions.md) — ECDOSFRM
+- [Route of Administration Response (C66729)](../../terminology/core/interventions.md) — ECROUTE
+- [No Yes Response (C66742)](../../terminology/core/general_part4.md) — ECPRESP, ECOCCUR, ECFAST
+- [Frequency (C71113)](../../terminology/core/interventions.md) — ECDOSFRQ
+- [Unit (C71620)](../../terminology/core/general_part5.md) — ECDOSU, ECPSTRGU
+- [Anatomical Location (C74456)](../../terminology/core/general_part1.md) — ECLOC
+- [Laterality (C99073)](../../terminology/core/general_part2.md) — ECLAT
+- [Directionality (C99074)](../../terminology/core/general_part2.md) — ECDIR
+- [Portion/Totality (C99075)](../../terminology/core/general_part4.md) — ECPORTOT
+- [Epoch (C99079)](../../terminology/core/general_part2.md) — EPOCH
+
+### Related Domains
+- **Same class (Interventions):** AG, CM, EX, ML, PR, SU
+- **Shared Dataset:** [EX](../EX/) — exposure as collected vs exposure
+
+### General References
+- [General Assumptions (Ch4)](../../chapters/ch04_general_assumptions.md) — variable naming, coding, timing rules
+- [Relationships (Ch8)](../../chapters/ch08_relationships.md) — RELREC, SUPPQUAL usage
+- [Variable Index](../../VARIABLE_INDEX.md) — reverse lookup by variable name
+
+### Model Definition
+- [Interventions class definition](../../model/02_observation_classes.md)

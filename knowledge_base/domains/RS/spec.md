@@ -415,3 +415,34 @@
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Description or date/time in ISO 8601 character format of the sponsor-defined reference point referred to by RSENRTPT. Examples: "2003-12-25", "VISIT 2".
+---
+
+## Cross References
+
+### Controlled Terminology
+- [Category of Clinical Classification (C118971)](../../terminology/core/oncology_part1.md) — RSCAT
+- [Category of Oncology Response Assessment (C124298)](../../terminology/core/oncology_part1.md) — RSCAT
+- [QRS Method (C158113)](../../terminology/core/general_part4.md) — RSMETHOD
+- [Relation to Reference Period (C66728)](../../terminology/core/general_part4.md) — RSSTRTPT, RSENRTPT
+- [No Yes Response (C66742)](../../terminology/core/general_part4.md) — RSLOBXFL, RSBLFL, RSDRVFL, RSACPTFL
+- [Not Done (C66789)](../../terminology/core/general_part4.md) — RSSTAT
+- [Unit (C71620)](../../terminology/core/general_part5.md) — RSORRESU, RSSTRESU
+- [Evaluator (C78735)](../../terminology/core/general_part2.md) — RSEVAL
+- [Medical Evaluator Identifier (C96777)](../../terminology/core/general_part2.md) — RSEVALID
+- [Oncology Response Assessment Test Name (C96781)](../../terminology/core/oncology_part2.md) — RSTEST
+- [Oncology Response Assessment Test Code (C96782)](../../terminology/core/oncology_part1.md) — RSTESTCD
+- [Oncology Response Assessment Result (C96785)](../../terminology/core/oncology_part1.md) — RSSTRESC
+- [Epoch (C99079)](../../terminology/core/general_part2.md) — EPOCH
+
+### Related Domains
+- **Same class (Findings):** BS, CP, CV, DA, DD, EG, FT, GF, IE, IS, LB, MB, MI, MK, MS, NV, OE, PC, PE, PP, QS, RE, RP, SC, SS, TR, TU, UR, VS
+- **Related Findings:** [TR](../TR/) — disease response ← tumor results
+- **Related Findings:** [TU](../TU/) — disease response ← tumor identification
+
+### General References
+- [General Assumptions (Ch4)](../../chapters/ch04_general_assumptions.md) — variable naming, coding, timing rules
+- [Relationships (Ch8)](../../chapters/ch08_relationships.md) — RELREC, SUPPQUAL usage
+- [Variable Index](../../VARIABLE_INDEX.md) — reverse lookup by variable name
+
+### Model Definition
+- [Findings class definition](../../model/02_observation_classes.md)

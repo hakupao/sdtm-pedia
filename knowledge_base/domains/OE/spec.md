@@ -469,3 +469,33 @@
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Date/time of the reference time point, OETPTREF.
+---
+
+## Cross References
+
+### Controlled Terminology
+- [Ophthalmic Exam Test Name (C117742)](../../terminology/core/other_part2.md) — OETEST
+- [Ophthalmic Exam Test Code (C117743)](../../terminology/core/other_part2.md) — OETESTCD
+- [Ophthalmic Focus of Study Specific Interest (C119013)](../../terminology/core/other_part2.md) — FOCID
+- [No Yes Response (C66742)](../../terminology/core/general_part4.md) — OELOBXFL, OEBLFL, OEDRVFL, OEACPTFL
+- [Not Done (C66789)](../../terminology/core/general_part4.md) — OESTAT
+- [Unit (C71620)](../../terminology/core/general_part5.md) — OEORRESU, OESTRESU
+- [Anatomical Location (C74456)](../../terminology/core/general_part1.md) — OELOC
+- [Evaluator (C78735)](../../terminology/core/general_part2.md) — OEEVAL
+- [Reference Range Indicator (C78736)](../../terminology/core/general_part4.md) — OENRIND
+- [Method (C85492)](../../terminology/core/general_part3.md) — OEMETHOD
+- [Medical Evaluator Identifier (C96777)](../../terminology/core/general_part2.md) — OEEVALID
+- [Laterality (C99073)](../../terminology/core/general_part2.md) — OELAT
+- [Directionality (C99074)](../../terminology/core/general_part2.md) — OEDIR
+- [Portion/Totality (C99075)](../../terminology/core/general_part4.md) — OEPORTOT
+- [Epoch (C99079)](../../terminology/core/general_part2.md) — EPOCH
+
+### Related Domains
+- **Same class (Findings):** BS, CP, CV, DA, DD, EG, FT, GF, IE, IS, LB, MB, MI, MK, MS, NV, PC, PE, PP, QS, RE, RP, RS, SC, SS, TR, TU, UR, VS
+
+### General References
+- [General Assumptions (Ch4)](../../chapters/ch04_general_assumptions.md) — variable naming, coding, timing rules
+- [Variable Index](../../VARIABLE_INDEX.md) — reverse lookup by variable name
+
+### Model Definition
+- [Findings class definition](../../model/02_observation_classes.md)

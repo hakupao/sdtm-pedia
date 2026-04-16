@@ -343,3 +343,26 @@
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Date/time for a fixed reference time point defined by FTTPTREF.
+---
+
+## Cross References
+
+### Controlled Terminology
+- [Category of Functional Test (C115304)](../../terminology/core/other_part1.md) — FTCAT
+- [QRS Method (C158113)](../../terminology/core/general_part4.md) — FTMETHOD
+- [No Yes Response (C66742)](../../terminology/core/general_part4.md) — FTLOBXFL, FTBLFL, FTDRVFL
+- [Not Done (C66789)](../../terminology/core/general_part4.md) — FTSTAT
+- [Position (C71148)](../../terminology/core/interventions.md) — FTPOS
+- [Unit (C71620)](../../terminology/core/general_part5.md) — FTORRESU, FTSTRESU
+- [Epoch (C99079)](../../terminology/core/general_part2.md) — EPOCH
+
+### Related Domains
+- **Same class (Findings):** BS, CP, CV, DA, DD, EG, GF, IE, IS, LB, MB, MI, MK, MS, NV, OE, PC, PE, PP, QS, RE, RP, RS, SC, SS, TR, TU, UR, VS
+
+### General References
+- [General Assumptions (Ch4)](../../chapters/ch04_general_assumptions.md) — variable naming, coding, timing rules
+- [Relationships (Ch8)](../../chapters/ch08_relationships.md) — RELREC, SUPPQUAL usage
+- [Variable Index](../../VARIABLE_INDEX.md) — reverse lookup by variable name
+
+### Model Definition
+- [Findings class definition](../../model/02_observation_classes.md)

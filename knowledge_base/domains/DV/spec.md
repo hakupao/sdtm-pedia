@@ -145,3 +145,19 @@
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Study day of end of event relative to the sponsor-defined RFSTDTC.
+---
+
+## Cross References
+
+### Controlled Terminology
+- [Epoch (C99079)](../../terminology/core/general_part2.md) — EPOCH
+
+### Related Domains
+- **Same class (Events):** AE, BE, CE, DS, HO, MH
+
+### General References
+- [General Assumptions (Ch4)](../../chapters/ch04_general_assumptions.md) — variable naming, coding, timing rules
+- [Variable Index](../../VARIABLE_INDEX.md) — reverse lookup by variable name
+
+### Model Definition
+- [Events class definition](../../model/02_observation_classes.md)

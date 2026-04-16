@@ -91,3 +91,21 @@
 - **Role:** Timing
 - **Core:** Req
 - **CDISC Notes:** Name of the trial epoch with which this element of the arm is associated.
+---
+
+## Cross References
+
+### Controlled Terminology
+- [Epoch (C99079)](../../terminology/core/general_part2.md) — EPOCH
+
+### Related Domains
+- **Same class (Trial Design):** TD, TE, TI, TM, TS, TV
+- **Trial Design:** [TE](../TE/) — arms use elements
+- **Trial Design:** [TV](../TV/) — arms define visit schedules
+
+### General References
+- [General Assumptions (Ch4)](../../chapters/ch04_general_assumptions.md) — variable naming, coding, timing rules
+- [Variable Index](../../VARIABLE_INDEX.md) — reverse lookup by variable name
+
+### Model Definition
+- [Trial Design class definition](../../model/05_study_level_data.md)
