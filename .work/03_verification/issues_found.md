@@ -1,7 +1,7 @@
 # 验证过程中发现的问题
 
 > 创建日期: 2026-04-15
-> 状态: Issue 1 已解决 (2026-04-15), Issue 2 全部已修复 (2026-04-15), Followup M1-M5 已完成 (2026-04-16), **Issue 3 已修复 (2026-04-16)** — ch04 全文重审，1116→1395 行
+> 状态: Issue 1 已解决 (2026-04-15), Issue 2 全部已修复 (2026-04-15), Followup M1-M5 已完成 (2026-04-16), Issue 3 已修复 (2026-04-16), **Issue 4 已修复 (2026-04-16)** — ch08 §8.2.1/§8.4.1/§8.4.4 补全+重排，421→439 行
 
 ---
 
@@ -116,3 +116,26 @@ Step 4 终验（5 个独立 agent）+ 修复（5 个 repair agent）+ 复核（3
 **详细分析**: [issue3_analysis.md](issue3_analysis.md)
 
 **优先级**: 严重 — ch04 是全项目最大最复杂章节（38 页 PDF），系统性缺失意味着 General Assumptions 这一核心章节的知识库不可靠
+
+---
+
+## Issue 4: ch08_relationships.md 章节缺失（§8.2.1, §8.4.1, §8.4.4）
+
+**状态**: **已修复** (2026-04-16) — §8.2.1 RELREC 完整 spec 补全 + §8.4 重构为完整 §8.4.1 spec + §8.4.4 位置修正，421→439 行
+
+**发现方式**: Issue 3 修复完成后，用户回到 Step 4-3 人工检查，对照 PDF p.427-446 阅读 ch08
+
+**问题描述**:
+ch08_relationships.md 缺失 3 个子节：
+
+| 节号 | 问题 | 修复内容 |
+|------|------|---------|
+| §8.2.1 | 完整节缺失 | 新增 RELREC Description/Overview + 完整 7 变量 Specification 表（含 Role + CDISC Notes）；扩展 §8.2 intro（RELID 约定、keying 机制、--GRPID 效率、使用范围） |
+| §8.4.1 | 标题缺失 + spec 不完整 | 新增 §8.4.1 标题 + 完整 11 变量 Specification 表（含 Role + CDISC Notes）；重写 §8.4 intro 为完整描述（NSV 模型、attributions、唯一性约束、--GRPID 分组） |
+| §8.4.4 | 位置错误（在 §8.4.2 之前） | 移动到 §8.4.3 之后，添加正确的 §8.4.4 编号和标题 |
+
+**根因**: 原始 Phase 4 提取时结构简化 — Specification 表降级（丢失 Role/CDISC Notes 列），子节编号被合并到父节中，章节顺序未按 PDF 原文排列
+
+**详细分析**: [issue4_analysis.md](issue4_analysis.md)
+
+**优先级**: 高 — RELREC 和 SUPP-- 是 SDTM 关系表达的两大核心机制，Specification 表的完整性直接影响知识库的参考价值

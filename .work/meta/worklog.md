@@ -427,3 +427,31 @@
   - 行数: 212 → 230 (+18)
 - **Evidence**: `.work/03_verification/results/repair_evidence.md`
 - **Issue 2 最终状态**: 全部 3 个文件修复完成 (ch04 + ch08 + ch10)
+
+### 2026-04-16 Issue 3 修复：ch04 全文重审
+
+- **状态**: 已完成
+- **详细分析**: `.work/03_verification/issue3_analysis.md`
+- **方法**: 5 个并行 extract agent 按章节边界拆分（§4.1/§4.2/§4.3/§4.4/§4.5），全文逐节比对 PDF p.22-59
+- **结果**: 16 个 Edit 修复，ch04 行数 1116→1395（+279 行）
+- **新增预防规则**: 规则 5（按章节边界拆分）、规则 6（prompt 列完整子节清单）、规则 7（任务目标为"确保完整覆盖"）
+
+### 2026-04-16 Issue 4 修复：ch08 章节缺失（§8.2.1, §8.4.1, §8.4.4）
+
+- **状态**: 已完成
+- **发现方式**: Issue 3 修复后，用户回到 Step 4-3 人工检查，对照 PDF p.427-446 阅读 ch08
+- **详细分析**: `.work/03_verification/issue4_analysis.md`
+- **问题**: 3 个子节缺失/不完整
+  - §8.2.1 Related Records (RELREC): 完整节缺失 — 缺 Description/Overview + 完整 Specification 表
+  - §8.4.1 Supplemental Qualifiers (SUPP--): 标题缺失 + spec 表仅 4 列（缺 Role + CDISC Notes）
+  - §8.4.4 When Not to Use: 位置错误（放在 §8.4.2 之前而非 §8.4.3 之后）
+- **修复内容**:
+  - 扩展 §8.2 intro（RELID 约定、keying 机制、--GRPID 效率、使用范围 2 bullet）
+  - 新增 §8.2.1 RELREC Description/Overview + 完整 7 变量 Specification 表（含 Role + CDISC Notes）
+  - 重写 §8.4 intro 为完整描述（NSV 模型、attributions、唯一性约束、--GRPID 分组）
+  - 新增 §8.4.1 标题 + 完整 11 变量 Specification 表（含 Role + CDISC Notes）
+  - 精简 Key Rules（移除与新 §8.4 intro 重复内容，保留 DM 例外、QVAL 要求、text length、Appendix C1）
+  - 移动 §8.4.4 到 §8.4.3 之后，添加正确编号和标题
+- **独立审核**: Sonnet reviewer agent 逐节验证，全部 §8.1-§8.8 PASS
+- **行数变化**: 421→439（+18 行）
+- **根因**: 原始 Phase 4 提取结构简化（spec 表降级、子节合并、顺序错误）
