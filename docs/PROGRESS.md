@@ -75,7 +75,7 @@
 | 11 | Relationships + Study Ref | 5 (RELREC, RELSPEC, RELSUB, OI, SUPPQUAL) | **已完成** |
 | — | TU/TR 补漏 | 2 (TU, TR) | **已完成** |
 
-## Phase 6: 检索精度优化（TODO）
+## Phase 6: 检索精度优化
 
 > 目标：提升 knowledge_base 的 AI 检索精度，减少幻觉
 
@@ -85,7 +85,35 @@
 | 6.2 | 交叉引用 | 63 spec.md 末尾追加 Cross References (CT 映射 + 域间关联 + 通用引用) | 3-4 小时 | **已验证** |
 | 6.3 | 变量级反向索引 | VARIABLE_INDEX.md (1523 变量, 131KB) — 脚本自动生成+校验通过 | 半天 | **已验证** |
 | 6.V | **P0/P1/P2 独立验证** | V1-V5 程序化 + V6-V8 功能性，8 项全 PASS，1 问题已修复 | — | **已完成** |
-| 6.4 | 结构化元数据 | 将 spec.md 转为 YAML/JSON 元数据，支持程序化查询，为未来扩展打基础 | 数天 | 待开始 |
+| 6.4 | 结构化元数据 | 将 spec.md 转为 YAML/JSON 元数据 — 已合并为 Phase 7 二期 Step 7 | 数天 | → Phase 7 |
+
+## Phase 7: RAG + 知识图谱 + 数据集校验（设计完成）
+
+> 目标：语义检索 + 关系查询 + SDTM 数据集自动校验
+> 设计文档：[docs/DESIGN_RAG_KG.md](DESIGN_RAG_KG.md)
+> Session 记录：[.work/05_rag_kg/session_2026-04-16_design.md](../.work/05_rag_kg/session_2026-04-16_design.md)
+
+**一期：RAG + 数据集校验（本地）**
+
+| Step | 任务 | 说明 | 状态 |
+|------|------|------|------|
+| 1 | 项目初始化 | sdtm-rag/ 目录 + pyproject.toml + Docker Compose | 待开始 |
+| 2 | 数据入库 | Markdown → 分片 → Embedding → Chroma | 待开始 |
+| 3 | 问答服务 | FastAPI + ROUTING.md 注入 + LiteLLM | 待开始 |
+| 4 | 数据集校验 | 规则型校验 + RAG 语义评审 + 报告生成 | 待开始 |
+| 5 | 前端 | Streamlit 对话 + 校验上传 | 待开始 |
+| 6 | 评测 | 50 题评测集 + baseline | 待开始 |
+
+**二期：知识图谱 + 混合路由**
+
+| Step | 任务 | 说明 | 状态 |
+|------|------|------|------|
+| 7 | P3 结构化元数据 | spec.md + Cross References → meta.yaml (63域) | 待开始 |
+| 8 | 图数据库 | Neo4j 导入节点+关系 | 待开始 |
+| 9 | 图查询服务 | LLM → Cypher → Neo4j | 待开始 |
+| 10 | 混合路由 | 意图分类 → RAG/Graph/Hybrid 三路 | 待开始 |
+| 11 | 图增强校验 | 跨域依赖 + CT 级联 + 影响分析 | 待开始 |
+| 12 | 二期评测 | 扩充评测集 + 对比一期 baseline | 待开始 |
 
 ---
 

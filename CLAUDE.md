@@ -35,6 +35,8 @@ Full chain definitions are in `.work/MANIFEST.md`.
 | Retrospective & rules | `.work/meta/retrospective.md` |
 | Follow-up risk plan | `.work/03_verification/followup_plan.md` |
 | TODO (Phase 6) | `.work/04_optimization/retrieval_optimization.md` |
+| Phase 7 设计文档 | `docs/DESIGN_RAG_KG.md` |
+| Phase 7 session 记录 | `.work/05_rag_kg/session_2026-04-16_design.md` |
 
 ## Conventions
 
