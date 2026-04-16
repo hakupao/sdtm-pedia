@@ -1,7 +1,12 @@
 # SDTM Knowledge Base — Index
 
 > Generated from SDTM v2.0 and SDTMIG v3.4 source documents.
-> Total: **292 files** (63 domains × 3 files + 91 terminology + 6 model + 6 chapters)
+> Total: **293 files** (63 domains × 3 files + 91 terminology + 6 model + 6 chapters + 1 index)
+
+## Quick Lookup
+
+- **问题路由** → [ROUTING.md](ROUTING.md) — 按问题类型查找应读哪些文件（AI 首选入口）
+- **按变量名查询** → [VARIABLE_INDEX.md](VARIABLE_INDEX.md) — 1523 个变量的反向索引（变量→域→定义位置 + CT 交叉引用）
 
 ---
 
