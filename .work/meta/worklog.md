@@ -358,7 +358,7 @@
 ### 当前总结
 
 - **生成阶段**: 全部完成（5 Phase，293 个文件）
-- **验证阶段**: Step 0-3.6 已完成，Followup M1-M5 已完成，Step 4（汇总报告）待开始
+- **验证阶段**: 全部完成 — Step 0-4 + Followup M1-M5 + Issue 1-4 修复
 - **Issue 2 修复**: 全部已完成 (2026-04-15) — ch04 + ch08 + ch10
 - **Followup 验证**: 全部已完成 (2026-04-16) — M1-M5 全部 PASS，ch01/ch02/ch03 补全
 
@@ -367,6 +367,88 @@
 - **状态**: 已完成
 - **计划文档**: `.work/03_verification/followup_execution_plan.md`
 - **方法**: 5 个 subagent 并行执行 M1-M5，修复后独立 subagent 复核（写审分离）
+
+### 2026-04-16 Step 4: 汇总报告
+
+- **状态**: 已完成
+- **处理内容**:
+  - 汇总 Phase 5 全部验证结果，编写最终报告
+  - 统计: 293/293 文件 100% 通过验证，397 处问题全部修复，4 个 Issue 全部解决
+  - 内容修复量化: ch04 增长 321% (331→1395 行)，40 幅图表补全
+  - 溯源完整性: 535 页 PDF 97.9% 覆盖，60 幅图像全部溯源
+  - 质量保障: 5 层验证机制 + 7 条预防规则归档
+  - 更新 Chain A 关联文件 (plan.md, PROGRESS.md, worklog.md)
+- **产出文件**: `.work/03_verification/results/step4_summary_report.md`
+- **标志**: **Phase 5 验证正式关闭**，下一步进入 Phase 6 检索优化
+
+### 2026-04-16 Phase 6 启动：P2 变量级反向索引
+
+- **状态**: 已完成
+- **计划文档**: `.work/04_optimization/p2_variable_index_plan.md`
+- **处理内容**:
+  - 数据摸底: 63 个 spec.md 格式统一（Phase 1 脚本生成），1917 条变量条目，1523 唯一变量名
+  - 编写 Python 脚本 `.work/04_optimization/scripts/generate_variable_index.py`
+  - 脚本解析全部 63 个 spec.md，生成三段式反向索引
+  - 内置 5 项自动断言 (C1-C5) 全部 PASS
+  - 人工抽样验证 (A1-A3) 全部 PASS
+- **产出文件**:
+  - `knowledge_base/VARIABLE_INDEX.md` (131.4 KB)
+    - 一、通用变量 (24 个，出现在 2+ 域)
+    - 二、领域专属变量 (1499 个，按 63 域分组)
+    - 三、CT 交叉引用 (570 个变量引用 CDISC CT Code)
+  - `knowledge_base/INDEX.md` 已更新 — 添加 Quick Lookup 入口
+- **验收结果**:
+  - C1: 条目总数 == 1917 ✓
+  - C2: 唯一变量数 == 1523 ✓
+  - C3: 覆盖域数 == 63 ✓
+  - C4: 逐域变量数与 spec.md `###` 行数匹配 (63/63) ✓
+  - C5: 逐域求和 == 1917 ✓
+  - A1: STUDYID(63)/USUBJID(55)/EPOCH(44) 域分布正确 ✓
+  - A2: DM 专属变量 27 个与 spec.md 一致 ✓
+  - A3: C66742 索引 123 引用与 grep 全量统计一致 ✓
+  - U2: 131.4 KB < 200KB 限制 ✓
+
+### 2026-04-16 Phase 6: P1 交叉引用
+
+- **状态**: 已完成
+- **计划文档**: `.work/04_optimization/p1_cross_reference_plan.md`
+- **处理内容**:
+  - 数据摸底: 137 个 CT Code 可映射到 terminology 文件 (实际 1005 个 CT Code 在 terminology 中)，8 个 class 分组，28 域有领域关联
+  - 编写 Python 脚本 `.work/04_optimization/scripts/generate_cross_references.py`
+  - 两阶段合并执行:
+    - Layer 1: CT Code→terminology 映射 (588 引用, 零未映射) + 同 class 域列表 + ch04/ch08/VARIABLE_INDEX 通用引用 + model/ 映射
+    - Layer 2: 28 域的领域业务关联 (AE↔FA/CM/PR, PC↔PP, FA↔7 Source Domains 等)
+  - 幂等设计: 先删除已有 Cross References 段再追加，可安全重复运行
+- **产出**: 63 个 `domains/*/spec.md` 末尾追加 `## Cross References` 段落，含 4 小节
+- **验收结果**:
+  - C1: 63/63 spec.md 有 Cross References ✓
+  - C2: CT Code 零未映射 ✓
+  - C3: 63/63 有 General References ✓
+  - C4: 8 class 分组正确 ✓
+  - A1: AE 的 8 个 CT Code 映射正确 ✓
+  - A2: PC↔PP, FA↔7 Source Domains 关联正确 ✓
+  - A3: 零悬空链接 ✓
+  - U1: Markdown 格式正确 ✓
+  - U2: 幂等性验证通过 ✓
+
+### 2026-04-16 Phase 6: P0 问题路由索引
+
+- **状态**: 已完成
+- **处理内容**:
+  - 分析原计划 6 条路由规则，重新设计为 7 类完整路由体系
+  - 手工编写 `knowledge_base/ROUTING.md`，含:
+    1. 变量定义类 (定义/属性/跨域分布)
+    2. 编码/术语类 (CT Code/允许值/问卷编码)
+    3. 业务规则/假设类 (域规则/通用规则/时间变量)
+    4. 域间关系类 (RELREC/SUPPQUAL/RELSPEC/RELSUB)
+    5. 实现示例类 (数据表/试验设计/药代)
+    6. 概念/模型类 (观察类/新域创建/特殊域)
+    7. 跨域/全局查询类 (变量分布/class/版本变更)
+  - 多文件查询策略: 先定位→再读主文件→按需补充→通用规则兜底
+  - 文件类型速查表: 8 种文件类型的路径模式、内容、使用时机
+  - 与 P1/P2 联动: 路由规则引用 VARIABLE_INDEX.md 和 Cross References 段
+  - INDEX.md 已更新: 添加 ROUTING.md 为 AI 首选入口
+- **产出文件**: `knowledge_base/ROUTING.md`
 - **执行结果**:
   - **M4 (page_index.json)**: PASS — 10 条抽样中 9/10 准确，TA 偏移 +1
   - **M1 (ch01_introduction.md)**: 初次 84.1% FAIL → 补写 7 个缺失要点 → 复核 PASS (100%)，行数 99→103

@@ -101,19 +101,18 @@ meta/worklog.md                      ← 记录决策变更
 所有计划/TODO 文件的从属关系、状态和执行顺序。新 session 开始时先看这里，决定该做什么。
 
 ```
-03_verification/plan.md ──── Phase 5 验证主计划 ──── [几乎完成]
+03_verification/plan.md ──── Phase 5 验证主计划 ──── [已完成]
 │
 ├─→ Step 0~3.6 ······························ [已完成]
 │
 ├─→ repair_plan.md ── Issue 2 修复 ·········· [已完成/归档]
 │   │  派生原因: Step 3-4/3-5 执行中发现内容空洞
 │   │
-│   └─→ followup_plan.md ── 残余风险排查 ··· [待执行]
-│        派生原因: 修复完成后反思，发现中风险区域+盲区
+│   └─→ followup_plan.md ── 残余风险排查 ··· [已完成]
 │        内容: M1~M5 五项抽查任务
 │
-└─→ Step 4 汇总报告 ························ [待执行]
-     内容: 全量验证的最终报告
+└─→ Step 4 汇总报告 ························ [已完成]
+     产出: results/step4_summary_report.md
 
 04_optimization/retrieval_optimization.md ── Phase 6 检索优化 ── [待执行/独立]
      内容: P0~P3 四项优化任务（ROUTING.md、反向索引等）
@@ -121,9 +120,9 @@ meta/worklog.md                      ← 记录决策变更
 ```
 
 **下一步执行顺序建议**:
-1. `followup_plan.md` M1~M5 抽查（验证收尾）
-2. `plan.md` Step 4 汇总报告（验证关门）
-3. `retrieval_optimization.md` P0~P3（进入新阶段）
+1. ~~`followup_plan.md` M1~M5 抽查（验证收尾）~~ ✅ 已完成
+2. ~~`plan.md` Step 4 汇总报告（验证关门）~~ ✅ 已完成
+3. `retrieval_optimization.md` P0~P3（进入新阶段）← **当前位置**
 
 ---
 
@@ -161,7 +160,8 @@ meta/worklog.md                      ← 记录决策变更
 │   │   ├── step3_2_model_rest.md
 │   │   ├── step3_3_chapters_small.md
 │   │   ├── step3_4_ch04.md
-│   │   └── step3_5_ch08_ch10.md
+│   │   ├── step3_5_ch08_ch10.md
+│   │   └── step4_summary_report.md
 │   ├── scans/                    图像溯源扫描
 │   │   ├── ig_chapters.md
 │   │   ├── ig_domains_d1~d4.md
@@ -172,8 +172,13 @@ meta/worklog.md                      ← 记录决策变更
 │       ├── diff.md
 │       └── issue1_investigation.md
 │
-├── 04_optimization/         ← Phase 6: 检索精度优化（待执行）
-│   └── retrieval_optimization.md  P0~P3 优化任务清单
+├── 04_optimization/         ← Phase 6: 检索精度优化（P0-P2 已完成）
+│   ├── retrieval_optimization.md  P0~P3 优化任务清单与执行结果
+│   ├── p1_cross_reference_plan.md P1 交叉引用执行计划
+│   ├── p2_variable_index_plan.md  P2 变量反向索引执行计划
+│   └── scripts/
+│       ├── generate_variable_index.py   P2 脚本（生成 VARIABLE_INDEX.md）
+│       └── generate_cross_references.py P1 脚本（生成 Cross References 段）
 │
 └── meta/                    ← 贯穿全程的元信息
     ├── worklog.md                 工作日志（中断恢复入口）

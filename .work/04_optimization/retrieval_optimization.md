@@ -29,34 +29,25 @@
 - **优先级**: 最高，先做
 - **工作量**: 1-2 小时
 - **精度提升**: 高
-- **状态**: [ ] 待开始
+- **状态**: [x] **已完成** (2026-04-16)
 
 ### 目标
 
 在 `knowledge_base/` 下创建 `ROUTING.md`，定义问题类型到文件路径的路由规则，让 AI 按规则查找而非靠猜。
 
-### 路由规则设计
+### 执行结果 (2026-04-16)
 
-```
-问某个 domain 的变量定义
-→ 读 domains/{DOMAIN}/spec.md
-
-问某个 domain 的业务规则/假设
-→ 读 domains/{DOMAIN}/assumptions.md + chapters/ch04_general_assumptions.md
-
-问某个变量应该填什么值
-→ 先读 domains/{DOMAIN}/spec.md 找到 Controlled Terms 字段
-→ 再读对应的 terminology/core/{xxx}.md
-
-问两个 domain 之间的关系
-→ 读 chapters/ch08_relationships.md + domains/RELREC/
-
-问如何创建新的自定义 domain
-→ 读 chapters/ch02_fundamentals.md + model/observation_classes.md
-
-问 Supplemental Qualifier
-→ 读 domains/SUPPQUAL/ + chapters/ch08_relationships.md
-```
+- **产出**: `knowledge_base/ROUTING.md`
+- **内容**: 7 类问题路由规则 + 多文件查询策略 + 文件类型速查表
+  1. 变量定义类 (定义/属性/跨域分布)
+  2. 编码/术语类 (CT Code/允许值/问卷编码)
+  3. 业务规则/假设类 (域规则/通用规则/时间变量)
+  4. 域间关系类 (RELREC/SUPPQUAL/RELSPEC/RELSUB)
+  5. 实现示例类 (数据表/试验设计/药代)
+  6. 概念/模型类 (观察类/新域创建/特殊域)
+  7. 跨域/全局查询类 (变量分布/class/版本变更)
+- **与 P1/P2 的联动**: 路由规则中引用 VARIABLE_INDEX.md 和 Cross References 段作为定位工具
+- **INDEX.md 已更新**: 添加 ROUTING.md 入口（AI 首选入口）
 
 ---
 
@@ -65,7 +56,7 @@
 - **优先级**: 高，P0 完成后接着做
 - **工作量**: 3-4 小时
 - **精度提升**: 高
-- **状态**: [ ] 待开始
+- **状态**: [x] **已完成** (2026-04-16)
 
 ### 目标
 
@@ -86,6 +77,18 @@
 
 全部 63 个 domain 的 spec.md 都需要添加。可用脚本批量生成基础模板，再人工补充特定关联。
 
+### 执行结果 (2026-04-16)
+
+- **脚本**: `.work/04_optimization/scripts/generate_cross_references.py`
+- **两阶段合并执行**: Layer 1 (程序化: CT 映射 + class 关联 + 通用引用) + Layer 2 (领域知识: 28 域的域间业务关联)
+- **产出**: 63 个 spec.md 末尾追加 `## Cross References` 段落，含 4 小节:
+  - Controlled Terminology (CT Code → terminology 文件链接，588 个引用，零未映射)
+  - Related Domains (同 class 域 + 28 域的领域关联)
+  - General References (ch04 + ch08 + VARIABLE_INDEX)
+  - Model Definition (class → model/ 文件)
+- **校验**: C1-C4 全 PASS, A3 零悬空链接, U2 幂等性验证通过
+- **详细计划**: `.work/04_optimization/p1_cross_reference_plan.md`
+
 ---
 
 ## P2：变量级反向索引
@@ -93,7 +96,7 @@
 - **优先级**: 中，有空做
 - **工作量**: 半天
 - **精度提升**: 中
-- **状态**: [ ] 待开始
+- **状态**: [x] **已完成** (2026-04-16)
 
 ### 目标
 
@@ -115,7 +118,16 @@
 
 ### 实施方案
 
-可编写 Python 脚本从 63 个 spec.md 中自动提取所有变量名、类型、角色，生成完整索引表。
+Python 脚本从 63 个 spec.md 自动提取。
+
+### 执行结果 (2026-04-16)
+
+- **脚本**: `.work/04_optimization/scripts/generate_variable_index.py`
+- **产出**: `knowledge_base/VARIABLE_INDEX.md` (131.4 KB)
+- **三段结构**: 通用变量 (24 个) + 专属变量 (1499 个，按域分组) + CT 交叉引用 (独立 CT Code)
+- **校验**: C1-C5 全部 PASS (1917 条目 / 1523 唯一变量 / 63 域 / 逐域匹配)
+- **抽样验证**: A1-A3 PASS (STUDYID/USUBJID/EPOCH 分布正确，DM 专属变量 27 个匹配，C66742 共 123 引用一致)
+- **详细计划**: `.work/04_optimization/p2_variable_index_plan.md`
 
 ---
 

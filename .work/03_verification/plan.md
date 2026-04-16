@@ -10,8 +10,8 @@
 # Knowledge Base 内容验证计划
 
 > 创建日期: 2026-04-14
-> 状态: Step 0 ~ 3.6 **全部完成**，仅 Step 4 (汇总报告) 待执行
-> 子计划: → repair_plan.md (Issue 2 修复，已完成) → followup_plan.md (残余风险排查，待执行)
+> 状态: **全部完成** — Step 0 ~ 4 + Followup M1-M5 + Issue 1-4 修复
+> 子计划: → repair_plan.md (Issue 2 修复，已完成) → followup_plan.md (残余风险排查，已完成)
 
 ---
 
@@ -36,7 +36,7 @@ knowledge_base/ 中的 293 个文件，其中：
 | 3 | 验证 model/ + chapters/ (12 文件) | **已完成** (2026-04-15) | 3-1~3-5 全部完成 → [3-3](results/step3_3_chapters_small.md) · [3-4](results/step3_4_ch04.md) · [3-5](results/step3_5_ch08_ch10.md) |
 | 3.5 | 编写溯源矩阵 (TRACEABILITY.md) | **已完成** (2026-04-15) | 4 份源文件全覆盖，63 域页码映射 → [TRACEABILITY.md](../../docs/TRACEABILITY.md) |
 | 3.6 | 图像内容溯源 | **已完成** (2026-04-15) | 60 幅图像全覆盖：37 已转化(前期) + 21 新转化(Step 3.6) + 2 排除(Logo) → [清单](scans/image_inventory.md) · [TRACEABILITY.md §6](../../docs/TRACEABILITY.md) |
-| 4 | 汇总报告 | **待开始** | 见下方计划 |
+| 4 | 汇总报告 | **已完成** (2026-04-16) | → [汇总报告](results/step4_summary_report.md) |
 
 ---
 
@@ -242,9 +242,15 @@ chapters/ (6 文件) 对应 SDTMIG v3.4 PDF 的通用章节
 
 ---
 
-## Step 4: 汇总与修复
+## Step 4: 汇总报告 — 已完成 (2026-04-16)
 
-1. 汇总全部验证结果，统计 PASS/FAIL 率
-2. 对 FAIL 的文件逐个修复
-3. 修复后重新验证
-4. 更新项目质量状态
+**产出文件**: [`results/step4_summary_report.md`](results/step4_summary_report.md)
+
+**内容**:
+1. 知识库规模与文件分类统计
+2. 验证执行总表 (293/293 文件 100% 通过)
+3. 发现问题统计 (397 处问题 + 4 个 Issue)
+4. 内容修复量化 (行数变化 + 40 幅图表补全)
+5. 溯源完整性 (535 页 PDF 97.9% 覆盖 + 60 幅图像)
+6. 质量保障机制 (5 层验证 + 7 条预防规则)
+7. 已知限制与结论
