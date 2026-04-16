@@ -114,15 +114,21 @@ meta/worklog.md                      ← 记录决策变更
 └─→ Step 4 汇总报告 ························ [已完成]
      产出: results/step4_summary_report.md
 
-04_optimization/retrieval_optimization.md ── Phase 6 检索优化 ── [待执行/独立]
+04_optimization/retrieval_optimization.md ── Phase 6 检索优化 ── [P0-P2 已完成, P3→Phase 7]
      内容: P0~P3 四项优化任务（ROUTING.md、反向索引等）
      前置: Phase 5 完成后再开始
+
+05_rag_kg/ ── Phase 7 RAG + 知识图谱 + 数据集校验 ── [设计完成/待实施]
+     设计文档: docs/DESIGN_RAG_KG.md
+     session 记录: 05_rag_kg/session_2026-04-16_design.md
+     前置: Phase 6 P0-P2 完成（已满足）
 ```
 
 **下一步执行顺序建议**:
 1. ~~`followup_plan.md` M1~M5 抽查（验证收尾）~~ ✅ 已完成
 2. ~~`plan.md` Step 4 汇总报告（验证关门）~~ ✅ 已完成
-3. `retrieval_optimization.md` P0~P3（进入新阶段）← **当前位置**
+3. ~~`retrieval_optimization.md` P0~P2（检索优化）~~ ✅ 已完成
+4. `docs/DESIGN_RAG_KG.md` Phase 7 实施 ← **当前位置**
 
 ---
 
@@ -180,6 +186,9 @@ meta/worklog.md                      ← 记录决策变更
 │       ├── generate_variable_index.py   P2 脚本（生成 VARIABLE_INDEX.md）
 │       └── generate_cross_references.py P1 脚本（生成 Cross References 段）
 │
+├── 05_rag_kg/               ← Phase 7: RAG + 知识图谱 + 数据集校验
+│   └── session_2026-04-16_design.md  设计讨论 session 记录（需求/方案/场景模拟/决策）
+│
 └── meta/                    ← 贯穿全程的元信息
     ├── worklog.md                 工作日志（中断恢复入口）
     ├── retrospective.md           阶段性反思（Issue 根因 + 四条预防规则）⚑ 必读
@@ -197,7 +206,8 @@ meta/worklog.md                      ← 记录决策变更
 | `02_indexing/` | Phase 2 | PDF 页码索引 |
 | *(无 .work/ 目录)* | Phase 3-4 | PDF 提取，产出直接写入 knowledge_base/ |
 | `03_verification/` | Phase 5 | 全量验证 |
-| `04_optimization/` | Phase 6 | 检索精度优化 (TODO) |
+| `04_optimization/` | Phase 6 | 检索精度优化 (P0-P2 已完成) |
+| `05_rag_kg/` | Phase 7 | RAG + 知识图谱 + 数据集校验 (设计完成) |
 
 ## 快速参考
 
@@ -210,5 +220,7 @@ meta/worklog.md                      ← 记录决策变更
 | 查源文件→产出映射 | `meta/mapping.md` |
 | 查质量问题 | `meta/findings.md` |
 | 查后续 TODO | `04_optimization/retrieval_optimization.md` |
+| **Phase 7 设计文档** | **`../docs/DESIGN_RAG_KG.md`** — RAG + 知识图谱 + 数据集校验 |
+| Phase 7 session 记录 | `05_rag_kg/session_2026-04-16_design.md` |
 | **AI 工作质量规则** | **`meta/retrospective.md`** ⚑ 四条预防规则必须遵守 |
 | 查残余风险排查计划 | `03_verification/followup_plan.md` |
