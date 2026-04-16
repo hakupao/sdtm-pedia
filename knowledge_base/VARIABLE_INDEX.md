@@ -22,25 +22,25 @@
 | USUBJID | 55 | 除 OI, TA, TD, TE, TI, TM, TS, TV 外所有域 | Unique Subject Identifier | Char | Identifier | Req* |
 | EPOCH | 44 | AE, AG, CE, CM, CP, CV, DA, DS, DV, EC, EG, EX, FA, FT, HO, IE, IS, LB, MB, MH, MI, MK, ML, MS, NV, OE, PC, PE, PP, PR, QS, RE, RP, RS, SC, SE, SR, SS, SU, TA, TR, TU, UR, VS | Epoch | Char | Timing | Perm* |
 | TAETORD | 43 | AE, AG, CE, CM, CP, CV, DA, DV, EC, EG, EX, FA, FT, HO, IE, IS, LB, MB, MH, MI, MK, ML, MS, NV, OE, PC, PE, PP, PR, QS, RE, RP, RS, SC, SE, SR, SS, SU, TA, TR, TU, UR, VS | Planned Order of Element within Arm | Num | Timing | Perm* |
-| VISIT | 36 | AG, BE, BS, CP, CV, DA, EG, FA, FT, GF, IE, IS, LB, MB, MI, MK, ML, MS, NV, OE, PC, PE, PR, QS, RE, RP, RS, SC, SR, SS, SV, TR, TU, TV, UR, VS | Visit Name | Char | Timing | Perm* |
+| VISIT | 36 | AG, BE, BS, CP, CV, DA, EG, FA, FT, GF, IE, IS, LB, MB, MI, MK, ML, MS, NV, OE, PC, PE, PR, QS, RE, RP, RS, SC, SR, SS, SV, TR, TU, TV, UR, VS | Visit Name | Char | Timing* | Perm* |
 | VISITDY | 36 | AG, BE, BS, CP, CV, DA, EG, FA, FT, GF, IE, IS, LB, MB, MI, MK, ML, MS, NV, OE, PC, PE, PR, QS, RE, RP, RS, SC, SR, SS, SV, TR, TU, TV, UR, VS | Planned Study Day of Visit | Num | Timing | Perm |
-| VISITNUM | 36 | AG, BE, BS, CP, CV, DA, EG, FA, FT, GF, IE, IS, LB, MB, MI, MK, ML, MS, NV, OE, PC, PE, PR, QS, RE, RP, RS, SC, SR, SS, SV, TR, TU, TV, UR, VS | Visit Number | Num | Timing | Exp* |
+| VISITNUM | 36 | AG, BE, BS, CP, CV, DA, EG, FA, FT, GF, IE, IS, LB, MB, MI, MK, ML, MS, NV, OE, PC, PE, PR, QS, RE, RP, RS, SC, SR, SS, SV, TR, TU, TV, UR, VS | Visit Number | Num | Timing* | Exp* |
 | SPDEVID | 6 | AE, BE, BS, EG, GF, RE | Sponsor Device Identifier | Char | Identifier | Perm |
 | NHOID | 4 | GF, IS, MS, OI | Non-Host Organism Identifier | Char | Identifier | Perm* |
 | ARM | 3 | DM, TA, TV | Description of Planned Arm | Char | Synonym Qualifier | Exp* |
-| ARMCD | 3 | DM, TA, TV | Planned Arm Code | Char | Record Qualifier | Exp* |
+| ARMCD | 3 | DM, TA, TV | Planned Arm Code | Char | Record Qualifier* | Exp* |
 | ELEMENT | 3 | SE, TA, TE | Description of Element | Char | Synonym Qualifier | Perm* |
-| ETCD | 3 | SE, TA, TE | Element Code | Char | Topic | Req |
+| ETCD | 3 | SE, TA, TE | Element Code | Char | Topic* | Req |
 | FOCID | 3 | MB, NV, OE | Focus of Study-Specific Interest | Char | Identifier | Perm |
-| IDVAR | 3 | CO, RELREC, SUPPQUAL | Identifying Variable | Char | Record Qualifier | Perm* |
-| IDVARVAL | 3 | CO, RELREC, SUPPQUAL | Identifying Variable Value | Char | Record Qualifier | Exp* |
-| RDOMAIN | 3 | CO, RELREC, SUPPQUAL | Related Domain Abbreviation | Char | Record Qualifier | Req* |
+| IDVAR | 3 | CO, RELREC, SUPPQUAL | Identifying Variable | Char | Record Qualifier* | Perm* |
+| IDVARVAL | 3 | CO, RELREC, SUPPQUAL | Identifying Variable Value | Char | Record Qualifier* | Exp* |
+| RDOMAIN | 3 | CO, RELREC, SUPPQUAL | Related Domain Abbreviation | Char | Record Qualifier* | Req* |
 | IECAT | 2 | IE, TI | Inclusion/Exclusion Category | Char | Grouping Qualifier | Req |
 | IESCAT | 2 | IE, TI | Inclusion/Exclusion Subcategory | Char | Grouping Qualifier | Perm |
 | IETEST | 2 | IE, TI | Inclusion/Exclusion Criterion | Char | Synonym Qualifier | Req |
 | IETESTCD | 2 | IE, TI | Inclusion/Exclusion Criterion Short Name | Char | Topic | Req |
-| MIDS | 2 | ML, SM | Disease Milestone Instance Name | Char | Timing | Perm* |
-| MIDSTYPE | 2 | SM, TM | Disease Milestone Type | Char | Record Qualifier | Req |
+| MIDS | 2 | ML, SM | Disease Milestone Instance Name | Char | Timing* | Perm* |
+| MIDSTYPE | 2 | SM, TM | Disease Milestone Type | Char | Record Qualifier* | Req |
 
 > \* Core 值后带星号表示该变量在不同域中 Core 不完全一致，以最常见值显示。
 

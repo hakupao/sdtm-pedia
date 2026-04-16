@@ -537,3 +537,37 @@
 - **独立审核**: Sonnet reviewer agent 逐节验证，全部 §8.1-§8.8 PASS
 - **行数变化**: 421→439（+18 行）
 - **根因**: 原始 Phase 4 提取结构简化（spec 表降级、子节合并、顺序错误）
+
+### 2026-04-16 Phase 6: P0/P1/P2 独立验证
+
+- **状态**: 已完成
+- **验证计划**: `.work/04_optimization/p0p1p2_verification_plan.md`
+- **验证脚本**: `.work/04_optimization/scripts/verify_p0p1p2.py`
+- **验证报告**: `.work/04_optimization/p0p1p2_verification_report.md`
+- **流程**: 需求 → 方案 → 实现 → 汇报 → 修复 → 复核 → 收尾 → 完结
+- **Layer 1 程序化验证** (Python 脚本，100% 覆盖):
+  - V1 链接完整性: 724 链接全部有效 — **PASS**
+  - V2 CT 双向一致性: 63 域，0 漏引 / 0 多引 — **PASS**
+  - V3 变量计数一致性: 63 域 / 1917 变量完全匹配 — **PASS**
+  - V4 域归类正确性: 8 class 全部正确 — **PASS**
+  - V5 回归检查: 63 文件原有内容无变化 — **PASS**
+- **Layer 2 功能性验证** (3 个并行 agent):
+  - V6 路由准确性: 15/15 PASS（7 类路由规则全覆盖）
+  - V7 交叉引用完备性: 6/6 PASS（跨域追踪全部到达必要文件）
+  - V8 反向索引精度: 9/10 PASS（MIDSTYPE Role 缺星号 → 已修复）
+- **发现问题**: 1 个非阻断性 (MIDSTYPE Role 跨域差异未标星号) → 已修复并重验 PASS
+- **脚本 bug**: 3 个验证脚本自身的解析 bug，均已修复（不影响数据）
+- **结论**: Phase 6 P0/P1/P2 数据正确性和检索精度均已验证通过
+
+### 2026-04-16 V8 升级为全量变量验证
+
+- **状态**: 已完成
+- **背景**: 用户要求 V8 从抽样 10 变量升级为全量 1523 变量自动化验证
+- **计划文档**: `.work/04_optimization/v8_full_verification_plan.md`
+- **验证脚本**: `.work/04_optimization/scripts/verify_v8_full.py`
+- **验证内容**:
+  - 24 个通用变量: 域列表集合匹配 + Label/Type 匹配 + Role/Core 星号一致性
+  - 1499 个专属变量: Label/Type/Role/Core/CT 逐字段精确匹配
+- **结果**: 1523 变量 / 1917 条目 → 修复后 0 错误
+- **发现问题**: 9 个通用变量 Role 跨域差异缺星号 (MIDSTYPE, VISIT, VISITNUM, ARMCD, ETCD, IDVAR, IDVARVAL, RDOMAIN, MIDS) → 全部已修复
+- **脚本 bug**: 1 个 (`\s*` 匹配换行导致 CT 字段误取下一行) → 已修复为 `[ \t]*`
