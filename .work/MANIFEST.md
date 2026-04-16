@@ -118,6 +118,12 @@ meta/worklog.md                      ← 记录决策变更
      内容: P0~P3 四项优化任务（ROUTING.md、反向索引等）
      前置: Phase 5 完成后再开始
 
+ai_platforms/ ── Phase 6.5 AI 平台部署 ── [进行中]
+     总览: ai_platforms/README.md
+     三平台路线: chatgpt_gpt/ROADMAP.md, claude_projects/ROADMAP.md, gemini_gems/ROADMAP.md
+     产出目录: */output/
+     前置: Phase 6 P0-P2 完成（已满足）
+
 05_rag_kg/ ── Phase 7 RAG + 知识图谱 + 数据集校验 ── [设计完成/待实施]
      设计文档: docs/DESIGN_RAG_KG.md
      session 记录: 05_rag_kg/session_2026-04-16_design.md
@@ -128,7 +134,8 @@ meta/worklog.md                      ← 记录决策变更
 1. ~~`followup_plan.md` M1~M5 抽查（验证收尾）~~ ✅ 已完成
 2. ~~`plan.md` Step 4 汇总报告（验证关门）~~ ✅ 已完成
 3. ~~`retrieval_optimization.md` P0~P2（检索优化）~~ ✅ 已完成
-4. `docs/DESIGN_RAG_KG.md` Phase 7 实施 ← **当前位置**
+4. `ai_platforms/` Phase 6.5 三平台部署 ← **当前位置**
+5. `docs/DESIGN_RAG_KG.md` Phase 7 实施
 
 ---
 
@@ -207,6 +214,7 @@ meta/worklog.md                      ← 记录决策变更
 | *(无 .work/ 目录)* | Phase 3-4 | PDF 提取，产出直接写入 knowledge_base/ |
 | `03_verification/` | Phase 5 | 全量验证 |
 | `04_optimization/` | Phase 6 | 检索精度优化 (P0-P2 已完成) |
+| *(根目录 `ai_platforms/`)* | Phase 6.5 | AI 平台部署 (进行中) |
 | `05_rag_kg/` | Phase 7 | RAG + 知识图谱 + 数据集校验 (设计完成) |
 
 ## 快速参考
@@ -220,6 +228,7 @@ meta/worklog.md                      ← 记录决策变更
 | 查源文件→产出映射 | `meta/mapping.md` |
 | 查质量问题 | `meta/findings.md` |
 | 查后续 TODO | `04_optimization/retrieval_optimization.md` |
+| **Phase 6.5 AI 平台部署** | **`../ai_platforms/README.md`** — 三平台部署总览与路线图 |
 | **Phase 7 设计文档** | **`../docs/DESIGN_RAG_KG.md`** — RAG + 知识图谱 + 数据集校验 |
 | Phase 7 session 记录 | `05_rag_kg/session_2026-04-16_design.md` |
 | **AI 工作质量规则** | **`meta/retrospective.md`** ⚑ 四条预防规则必须遵守 |

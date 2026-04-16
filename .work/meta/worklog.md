@@ -38,6 +38,7 @@
 | 4 | PDF → model/ (6) + chapters/ (6) | **已完成** |
 | 5 | 全量验证 + INDEX.md | **已完成** |
 | 6 | 检索精度优化 (P0-P2) | **已完成** (P3 待开始，已纳入 Phase 7 二期) |
+| 6.5 | AI 平台部署 (ChatGPT/Claude/Gemini) | **进行中** |
 | 7 | RAG + 知识图谱 + 数据集校验 | **设计完成，待实施** |
 
 ## 工作记录
@@ -591,3 +592,23 @@
 - **结果**: 1523 变量 / 1917 条目 → 修复后 0 错误
 - **发现问题**: 9 个通用变量 Role 跨域差异缺星号 (MIDSTYPE, VISIT, VISITNUM, ARMCD, ETCD, IDVAR, IDVARVAL, RDOMAIN, MIDS) → 全部已修复
 - **脚本 bug**: 1 个 (`\s*` 匹配换行导致 CT 字段误取下一行) → 已修复为 `[ \t]*`
+
+### 2026-04-16 Phase 6.5 启动：AI 平台部署
+
+- **状态**: 进行中
+- **背景**: Phase 7 自建 RAG 实施前，先利用现有 AI 平台让知识库立即可用
+- **体量摸底**:
+  - 总量: 295 文件 / 9.6 MB / ~2,400K tokens
+  - terminology 占 79% (7.6 MB / ~1,892K tokens)
+  - 核心知识 (去掉 terminology): 204 文件 / 2.0 MB / ~512K tokens
+- **三平台分工**:
+  - Claude Projects: 精确查询 + 规则推理（精选核心 ~200K tokens，全量上下文）
+  - ChatGPT GPTs: 全量覆盖 + 团队分享（合并为 8-10 文件全量上传，内置 RAG）
+  - Gemini Gems: 大范围探索 + 全域对比（核心全量 ~512K tokens，1M 窗口）
+- **产出文件**:
+  - `ai_platforms/README.md` — 总览（策略 + 体量 + 目录结构）
+  - `ai_platforms/chatgpt_gpt/ROADMAP.md` — ChatGPT GPT 路线（合并脚本 → Instructions → 上传 → 测试）
+  - `ai_platforms/claude_projects/ROADMAP.md` — Claude Projects 路线（System Prompt → 精选上传 → 测试）
+  - `ai_platforms/gemini_gems/ROADMAP.md` — Gemini Gems 路线（合并文件 → Instructions → 测试）
+- **项目索引更新**: CLAUDE.md, MANIFEST.md, PROGRESS.md, worklog.md 全部已更新
+- **下一步**: 按平台优先级执行 — Claude Projects → ChatGPT GPT → Gemini Gems
