@@ -87,6 +87,17 @@
 | 6.V | **P0/P1/P2 独立验证** | V1-V5 程序化 + V6-V8 功能性，8 项全 PASS，1 问题已修复 | — | **已完成** |
 | 6.4 | 结构化元数据 | 将 spec.md 转为 YAML/JSON 元数据 — 已合并为 Phase 7 二期 Step 7 | 数天 | → Phase 7 |
 
+## Phase 6.5: AI 平台部署（进行中）
+
+> 目标：将知识库部署到三大 AI 平台，Phase 7 自建 RAG 之前先让知识库可用
+> 总览文档：[ai_platforms/README.md](../ai_platforms/README.md)
+
+| 平台 | 着重方向 | 内容策略 | 路线文档 | 状态 |
+|------|---------|---------|---------|------|
+| Claude Projects | 精确查询 + 规则推理 | 精选核心 ~200K tokens | [ROADMAP.md](../ai_platforms/claude_projects/ROADMAP.md) | 待开始 |
+| ChatGPT GPTs | 全量覆盖 + 团队分享 | 合并文件 ~9.6MB 全量 | [ROADMAP.md](../ai_platforms/chatgpt_gpt/ROADMAP.md) | 待开始 |
+| Gemini Gems | 大范围探索 + 全域对比 | 核心全量 ~512K tokens | [ROADMAP.md](../ai_platforms/gemini_gems/ROADMAP.md) | 待开始 |
+
 ## Phase 7: RAG + 知识图谱 + 数据集校验（设计完成）
 
 > 目标：语义检索 + 关系查询 + SDTM 数据集自动校验

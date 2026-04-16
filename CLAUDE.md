@@ -37,6 +37,7 @@ Full chain definitions are in `.work/MANIFEST.md`.
 | TODO (Phase 6) | `.work/04_optimization/retrieval_optimization.md` |
 | Phase 7 设计文档 | `docs/DESIGN_RAG_KG.md` |
 | Phase 7 session 记录 | `.work/05_rag_kg/session_2026-04-16_design.md` |
+| Phase 6.5 AI 平台部署 | `ai_platforms/` (总览 + 三平台子目录) |
 
 ## Conventions
 
