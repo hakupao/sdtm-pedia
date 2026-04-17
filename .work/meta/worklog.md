@@ -672,3 +672,38 @@
 - **产出文件**:
   - `ai_platforms/claude_projects/PLAN.md` (326 行, 16.8 KB) — 完整落地计划含 6 章（需求/方案/决策/实施/检查/收尾）
 - **下一步**: 按 PLAN Step 1-14 实施 — 先写 `count_tokens.py` 工具 → 逐个压缩脚本 → `build_all.py` 总量验证 → 上传 Claude Project → 测试矩阵
+
+### 2026-04-17 Phase 6.5 Claude Projects: Step 1-12 全部执行完成
+
+- **状态**: 自动化阶段全部完成, 等待用户执行 Step 13 上传 + Step 14 测试
+- **方法**: 严格按 PLAN.md §7 执行手册 (P1-P7 七条原则 + 三层 evidence 记录)
+- **执行统计**:
+  - Subagents 调用: 19 (executor 11 + reviewer 6 + verifier 1 + patcher 1)
+  - 重试: 2 (Step 6 Mega Spec Level 4 → hybrid Notes; Step 8 examples 内容贫乏修复)
+  - Checkpoints ack: 4 (step3 ch04 / step5 var_index / step6 Mega Spec / step12 READY_FOR_UPLOAD)
+  - P5 源文件污染: 0 (git status knowledge_base/ 全程 clean)
+  - Evidence 归档: 12 份 step_NN_*.md + 2 份 checkpoints + 1 份 failures attempt_1
+- **11 个产出文件 + 最终 Token 预算**:
+  - 00_routing.md 2,657 (md5 与源一致, C7 PASS)
+  - 01_index.md 1,562 (压缩率 69%)
+  - 02_chapters.md 44,874 (ch04 保留 99.93%)
+  - 03_model.md 17,689 (原样合并)
+  - 04_variable_index.md 14,938 (63/63 域 1917 变量行内紧凑, 独立抽样 BS/EG/PC/QS/SE 零丢失)
+  - 05_mega_spec.md 65,993 (63 域合并, 7 列表, 智能 Notes 保留: See§/derived/ISO/Examples/Valid 等)
+  - 06_assumptions.md 17,509 (条目化压缩)
+  - 07_examples_catalog.md 4,295 (降级为目录, 0 content-free bullets, 4 共享对标注)
+  - 08_terminology_map.md 20,536 (1005 codelist 映射, floor-constrained)
+  - system_prompt.md 1,983 (7 sections, 粘贴到 Claude Project Instructions)
+  - **合计 192,036 tokens** / 195K 上限 / buffer 2,964 (1.52%)
+  - 源 2,527,153 tokens → 压缩 **92.5%**
+- **Layer 1 检查 (§5.1 C1-C10) 独立 verifier 复核**: **10/10 + 2 bonus PASS**
+  - C1 总 tokens / C2-C5 四重 63 域覆盖 / C6 ch04 99.97% / C7 ROUTING md5 / C8 源路径注解 / C9 1005 codelist / C10 11 .md / B1 P5 / B2 manifest
+- **关键决策**:
+  - Step 6 Mega Spec 两次尝试: attempt 1 Level 4 (Notes 整删, reviewer 独立穷举确认 floor 16.3K) → 用户要求重试 → attempt 2 混合方案 (Notes 智能信号保留, 29.4% 非空) + 小 patch (ISO regex 扩展 8601/3166/4217/639 救回 COUNTRY)
+  - Step 9 Terminology 超 15K 目标 37% (20.5K): reviewer 5 种优化方案实测全部反向或代价过高 (纯 Name floor 13.5K, 1005 NCI 官方名不可缩写) → ACCEPT
+- **产出文件**:
+  - `ai_platforms/claude_projects/scripts/` (11 个 Python 脚本)
+  - `ai_platforms/claude_projects/output/` (11 个 .md + upload_manifest.md)
+  - `ai_platforms/claude_projects/output/evidence/` (三层记录体系完整)
+  - `ai_platforms/claude_projects/UPLOAD_TUTORIAL.md` (Step 13-14 手工操作手册, 含 T1-T8 测试矩阵)
+- **下一步**: 用户按 `UPLOAD_TUTORIAL.md` 手工执行 Step 13 上传 + Step 14 跑 T1-T8, 全 PASS 后主控走 PLAN §7.9 完结归档进入 ChatGPT GPT 路线

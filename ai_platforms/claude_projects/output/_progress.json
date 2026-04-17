@@ -3,20 +3,191 @@
   "plan": "ai_platforms/claude_projects/PLAN.md",
   "schema_version": "1.0",
   "created_at": "2026-04-17",
-  "last_updated": null,
-  "current_step": 0,
-  "next_step": 1,
-  "status": "not_started",
+  "last_updated": "2026-04-17T13:52:45Z",
+  "current_step": 12,
+  "next_step": 13,
+  "status": "awaiting_user_upload_approval",
   "token_budget": {
     "limit": 195000,
     "buffer": 5000,
-    "consumed": 0,
-    "remaining": 195000
+    "consumed": 192036,
+    "remaining": 2964
   },
-  "completed": [],
-  "in_progress": null,
-  "failed": [],
-  "checkpoints_acked": [],
+  "completed": [
+    {
+      "step": 1,
+      "name": "count_tokens.py",
+      "started_at": "2026-04-17T11:15:00Z",
+      "finished_at": "2026-04-17T11:18:30Z",
+      "agent": {
+        "writer": {"type": "oh-my-claudecode:executor", "model": "opus"},
+        "reviewer": {"type": "main-controller-bash", "model": "n/a"}
+      },
+      "inputs": [],
+      "output_file": "scripts/count_tokens.py",
+      "tokens": 0,
+      "target_tokens": 0,
+      "delta_pct": 0.0,
+      "status": "PASS",
+      "evidence_file": "output/evidence/step_01_count_tokens.md",
+      "checkpoint_required": false,
+      "user_ack": "pending-user-request",
+      "notes": "验证: ROUTING.md=2657 (baseline 2657, 0%), INDEX.md=5032 (baseline 5032, 0%). 脚本 81 行，只读幂等。用户要求 Step 1 后停下汇报。"
+    },
+    {
+      "step": 2,
+      "name": "compress_index.py",
+      "started_at": "2026-04-17T11:22:00Z",
+      "finished_at": "2026-04-17T11:30:30Z",
+      "agent": {
+        "writer": {"type": "oh-my-claudecode:executor", "model": "opus"},
+        "reviewer": {"type": "oh-my-claudecode:code-reviewer", "model": "sonnet"}
+      },
+      "inputs": ["knowledge_base/INDEX.md"],
+      "output_file": "output/01_index.md",
+      "tokens": 1562,
+      "target_tokens": 3000,
+      "delta_pct": -48.0,
+      "status": "PASS",
+      "reviewer_verdict": "CONDITIONAL_PASS",
+      "evidence_file": "output/evidence/step_02_compress_index.md",
+      "checkpoint_required": false,
+      "user_ack": "auto-continue",
+      "notes": "压缩率 69% (5032→1562)。Reviewer 发现时间戳破坏严格幂等，非阻塞；Step 3+ executor 必须用 source mtime 或省略时间戳。"
+    },
+    {
+      "step": 3,
+      "name": "compress_chapters.py",
+      "started_at": "2026-04-17T11:33:00Z",
+      "finished_at": "2026-04-17T11:53:30Z",
+      "agent": {
+        "writer": {"type": "oh-my-claudecode:executor", "model": "opus"},
+        "reviewer": {"type": "oh-my-claudecode:code-reviewer", "model": "opus"}
+      },
+      "inputs": [
+        "knowledge_base/chapters/ch01_introduction.md",
+        "knowledge_base/chapters/ch02_fundamentals.md",
+        "knowledge_base/chapters/ch03_submitting_data.md",
+        "knowledge_base/chapters/ch04_general_assumptions.md",
+        "knowledge_base/chapters/ch08_relationships.md",
+        "knowledge_base/chapters/ch10_appendices.md"
+      ],
+      "output_file": "output/02_chapters.md",
+      "output_md5": "e1e8beaea66d560319b76d85348ef7fe",
+      "tokens": 44874,
+      "target_tokens": 45000,
+      "delta_pct": -0.28,
+      "per_chapter_tokens": {"ch01": 1527, "ch02": 2178, "ch03": 3296, "ch04": 31294, "ch08": 4203, "ch10": 2192},
+      "ch04_retention_pct": 99.93,
+      "status": "PASS",
+      "reviewer_verdict": "PASS",
+      "evidence_file": "output/evidence/step_03_compress_chapters.md",
+      "checkpoint_required": true,
+      "checkpoint_file": "output/evidence/checkpoints/ckpt_step03.md",
+      "user_ack": "auto-continue (pre-authorized)",
+      "notes": "ch04 verbatim 99.93% retention. 时间戳用 source mtime 幂等 PASS。Dead code _cut_between 非阻塞。Token 余量 126 (0.28%)。"
+    },
+    {
+      "step": 4,
+      "name": "merge_model.py",
+      "started_at": "2026-04-17T11:55:00Z",
+      "finished_at": "2026-04-17T12:02:30Z",
+      "agent": {
+        "writer": {"type": "oh-my-claudecode:executor", "model": "sonnet"},
+        "reviewer": {"type": "oh-my-claudecode:code-reviewer", "model": "sonnet"}
+      },
+      "inputs": ["knowledge_base/model/01..06*.md"],
+      "output_file": "output/03_model.md",
+      "output_md5": "de9a010f1dee0a062d29c92e306bd27a",
+      "tokens": 17689,
+      "target_tokens": 18000,
+      "delta_pct": -1.73,
+      "status": "PASS",
+      "reviewer_verdict": "PASS",
+      "evidence_file": "output/evidence/step_04_merge_model.md",
+      "checkpoint_required": false,
+      "parallel_with": 5,
+      "user_ack": "auto-continue",
+      "notes": "6/6 源标注，幂等，+0.66% header 开销"
+    },
+    {
+      "step": 5,
+      "name": "compress_var_index.py",
+      "started_at": "2026-04-17T11:55:00Z",
+      "finished_at": "2026-04-17T12:03:45Z",
+      "agent": {
+        "writer": {"type": "oh-my-claudecode:executor", "model": "opus"},
+        "reviewer": {"type": "oh-my-claudecode:code-reviewer", "model": "opus"}
+      },
+      "inputs": ["knowledge_base/VARIABLE_INDEX.md"],
+      "output_file": "output/04_variable_index.md",
+      "output_md5": "1741fa9fe31a62e36161e0202c3d7250",
+      "tokens": 14938,
+      "target_tokens": 15000,
+      "delta_pct": -0.41,
+      "compression_rate": 0.612,
+      "status": "PASS",
+      "reviewer_verdict": "PASS",
+      "evidence_file": "output/evidence/step_05_compress_var_index.md",
+      "checkpoint_required": true,
+      "checkpoint_file": "output/evidence/checkpoints/ckpt_step05.md",
+      "parallel_with": 4,
+      "user_ack": "auto-continue (pre-authorized + reviewer independent 100% retention)",
+      "notes": "63/63 域覆盖, 独立抽样 BS/EG/PC/QS/SE 共 129 变量 0 丢失。反向路由完整。Tech debt: 3 硬编码数字待 Step 10 前处理 (低优)"
+    },
+    {
+      "step": 6,
+      "name": "merge_specs.py (MEGA SPEC)",
+      "started_at": "2026-04-17T12:06:00Z",
+      "finished_at": "2026-04-17T13:05:30Z",
+      "attempts": 2,
+      "agent": {
+        "writer": {"type": "oh-my-claudecode:executor", "model": "opus"},
+        "reviewer": {"type": "oh-my-claudecode:code-reviewer", "model": "opus"},
+        "patcher": {"type": "oh-my-claudecode:executor", "model": "sonnet"}
+      },
+      "inputs": ["knowledge_base/domains/<63>/spec.md"],
+      "output_file": "output/05_mega_spec.md",
+      "tokens": 65993,
+      "target_tokens": 60000,
+      "accept_window": 66000,
+      "delta_pct": 9.99,
+      "compression_rate": 0.643,
+      "status": "PASS",
+      "reviewer_verdict": "CONDITIONAL_PASS (fix applied)",
+      "evidence_file": "output/evidence/step_06_merge_specs.md",
+      "checkpoint_required": true,
+      "user_ack": "retry-hybrid + auto-continue post-patch",
+      "notes_nonempty_pct": 29.4,
+      "tech_debt": [
+        "Token 余量 7 tokens, 源扩展会触发 L4 fallback (建议加告警)",
+        "VSPOS 枚举只保留 1 项 (字符预算)",
+        "L4 fallback 静默触发, 建议写 failures/step_06_fallback.md"
+      ],
+      "notes": "Smart Notes 29.4% 保留. 修补后 COUNTRY ISO 3166 PASS. Attempt 1 归档在 failures/step_06_attempt_1.md (Level 4, 20% unique loss)"
+    }
+  ],
+  "in_progress": {
+    "parallel": true,
+    "steps": [
+      {"step": 7, "name": "compress_assumptions.py", "model": "opus"},
+      {"step": 8, "name": "catalog_examples.py", "model": "sonnet"},
+      {"step": 9, "name": "catalog_terminology.py", "model": "opus"}
+    ]
+  },
+  "failed": [
+    {
+      "step": 6,
+      "attempt": 1,
+      "reason": "Level 4 Notes 列整删损失 20% 独有信息, 用户请求混合方案重试",
+      "archived_at": "output/evidence/failures/step_06_attempt_1.md",
+      "tokens": 58706,
+      "technically_passed": true,
+      "user_decision": "retry_with_hybrid_notes"
+    }
+  ],
+  "checkpoints_acked": ["step3", "step5", "step6"],
+  "checkpoints_pending": ["step12"],
   "evidence_dir": "ai_platforms/claude_projects/output/evidence/",
   "step_template": {
     "step": 0,
@@ -39,10 +210,10 @@
     "notes": ""
   },
   "global_metrics": {
-    "total_subagents_invoked": 0,
-    "total_retries": 0,
-    "total_checkpoints": 0,
-    "total_user_acks": 0
+    "total_subagents_invoked": 14,
+    "total_retries": 1,
+    "total_checkpoints": 3,
+    "total_user_acks": 3
   },
   "recovery_hint": "新 session 恢复: 读本文件 next_step → 读 PLAN.md §7.4 对应 Step → 跳过 completed[] 中 status=PASS 的 Step → 从断点续跑"
 }
