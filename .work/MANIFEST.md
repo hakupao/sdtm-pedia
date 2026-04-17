@@ -121,6 +121,8 @@ meta/worklog.md                      ← 记录决策变更
 ai_platforms/ ── Phase 6.5 AI 平台部署 ── [进行中]
      总览: ai_platforms/README.md
      三平台路线: chatgpt_gpt/ROADMAP.md, claude_projects/ROADMAP.md, gemini_gems/ROADMAP.md
+     Claude 详细计划: claude_projects/PLAN.md (方案 B 压缩部署，目标 ≤195K tokens)
+     Claude 搭建指南: claude_projects/claude_project_setup.md + claude_project_instructions.md
      产出目录: */output/
      前置: Phase 6 P0-P2 完成（已满足）
 
@@ -229,6 +231,7 @@ ai_platforms/ ── Phase 6.5 AI 平台部署 ── [进行中]
 | 查质量问题 | `meta/findings.md` |
 | 查后续 TODO | `04_optimization/retrieval_optimization.md` |
 | **Phase 6.5 AI 平台部署** | **`../ai_platforms/README.md`** — 三平台部署总览与路线图 |
+| **Phase 6.5 Claude 压缩计划** | **`../ai_platforms/claude_projects/PLAN.md`** — 方案 B 详细落地计划 (2026-04-17) |
 | **Phase 7 设计文档** | **`../docs/DESIGN_RAG_KG.md`** — RAG + 知识图谱 + 数据集校验 |
 | Phase 7 session 记录 | `05_rag_kg/session_2026-04-16_design.md` |
 | **AI 工作质量规则** | **`meta/retrospective.md`** ⚑ 四条预防规则必须遵守 |
