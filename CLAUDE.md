@@ -38,9 +38,12 @@ Full chain definitions are in `.work/MANIFEST.md`.
 | Phase 7 设计文档 | `docs/DESIGN_RAG_KG.md` |
 | Phase 7 session 记录 | `.work/05_rag_kg/session_2026-04-16_design.md` |
 | Phase 6.5 AI 平台部署 | `ai_platforms/` (总览 + 三平台子目录) |
-| Phase 6.5 Claude 压缩计划 | `ai_platforms/claude_projects/PLAN.md` (方案 B, 目标 ≤195K tokens, 含 §7 Claude Code 执行手册) |
-| Phase 6.5 Claude 执行进度 | `ai_platforms/claude_projects/output/_progress.json` (Step 状态 + token 预算) |
-| Phase 6.5 Claude Evidence | `ai_platforms/claude_projects/output/evidence/` (trace.jsonl + step_NN_*.md + checkpoints/ + subagent_prompts/ + failures/) |
+| Phase 6.5 Claude 压缩计划 | `ai_platforms/claude_projects/PLAN.md` (方案 B, 实测 192,036 tokens, 含 §7 Claude Code 执行手册) |
+| Phase 6.5 Claude 上传教程 | `ai_platforms/claude_projects/UPLOAD_TUTORIAL.md` (Step 13-14 手工操作手册 + T1-T8 测试矩阵) |
+| Phase 6.5 Claude 压缩脚本 | `ai_platforms/claude_projects/scripts/` (11 个 Python 脚本, build_all.py 一键重建) |
+| Phase 6.5 Claude 压缩产物 | `ai_platforms/claude_projects/output/` (11 个 .md 上传文件 + upload_manifest.md) |
+| Phase 6.5 Claude 执行进度 | `ai_platforms/claude_projects/output/_progress.json` (Step 1-12 completed, 等 step13 用户上传) |
+| Phase 6.5 Claude Evidence | `ai_platforms/claude_projects/output/evidence/` (trace.jsonl + 12 份 step_NN_*.md + checkpoints/ + subagent_prompts/ + failures/) |
 
 ## Session Wrap-up (收尾)
 
