@@ -612,3 +612,30 @@
   - `ai_platforms/gemini_gems/ROADMAP.md` — Gemini Gems 路线（合并文件 → Instructions → 测试）
 - **项目索引更新**: CLAUDE.md, MANIFEST.md, PROGRESS.md, worklog.md 全部已更新
 - **下一步**: 按平台优先级执行 — Claude Projects → ChatGPT GPT → Gemini Gems
+
+### 2026-04-17 Phase 6.5 Claude Projects：压缩方案 B 计划拟定
+
+- **状态**: 计划已完成，待执行
+- **处理内容**:
+  - **真实 token 测算**: 使用 tiktoken (cl100k_base) 精确测量 `knowledge_base/` 体量
+    - 总 295 文件 / 2,527,153 tokens (超 Claude Project 200K 上限 12.6 倍)
+    - terminology 占 77% (1,944K tokens) — 最大压缩对象
+    - 同时测量 `project_knowledge_base/` (旧版) = 99 文件 / 1,312,562 tokens，作为参考
+  - **机制澄清**: 确认 Claude Projects 是"全量注入上下文"模式，不做按问题检索；若要按需加载需换 Skill/MCP/RAG 方案
+  - **方案讨论**:
+    - 路径对比: 无损压缩 (-40% 极限) / 多 Project 分片 (失推理) / 外置 terminology (破入口) / 二次创作 (-92% 可达)
+    - 三套二次创作方案: A 激进裁剪 / B 全覆盖重写 / C 极限重组
+    - **决定采用方案 B**: 覆盖完整性和工作量平衡最优
+  - **关键决策** (D1-D10):
+    - 63 spec.md → 合并为 1 份 Mega Spec (压缩 68%)
+    - 63 assumptions.md → 条目化重写 (压缩 63%)
+    - 63 examples.md → 降级为目录 (压缩 95%)
+    - terminology/ → 降级为 CT Code 映射表 (压缩 99%)
+    - ch04 完整保留 (推理基础)
+    - ROUTING/model 原样保留
+    - System Prompt 明确边界 (数据/term 值不在上下文)
+  - **Token 预算**: 目标 193,230 tokens (压缩率 92.4%)，200K buffer = 6,770 tokens
+  - **文件整理**: `docs/claude_project_setup.md` + `docs/claude_project_instructions.md` 迁移至 `ai_platforms/claude_projects/`
+- **产出文件**:
+  - `ai_platforms/claude_projects/PLAN.md` (326 行, 16.8 KB) — 完整落地计划含 6 章（需求/方案/决策/实施/检查/收尾）
+- **下一步**: 按 PLAN Step 1-14 实施 — 先写 `count_tokens.py` 工具 → 逐个压缩脚本 → `build_all.py` 总量验证 → 上传 Claude Project → 测试矩阵

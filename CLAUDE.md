@@ -38,6 +38,7 @@ Full chain definitions are in `.work/MANIFEST.md`.
 | Phase 7 设计文档 | `docs/DESIGN_RAG_KG.md` |
 | Phase 7 session 记录 | `.work/05_rag_kg/session_2026-04-16_design.md` |
 | Phase 6.5 AI 平台部署 | `ai_platforms/` (总览 + 三平台子目录) |
+| Phase 6.5 Claude 压缩计划 | `ai_platforms/claude_projects/PLAN.md` (方案 B, 目标 ≤195K tokens) |
 
 ## Session Wrap-up (收尾)
 
