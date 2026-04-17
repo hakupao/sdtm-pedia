@@ -1,6 +1,6 @@
 # 进度看板
 
-> 最后更新: 2026-04-17
+> 最后更新: 2026-04-17 (Phase 6.5 Claude §7 执行手册 + evidence 基础设施)
 
 ## 总体状态
 
@@ -94,7 +94,7 @@
 
 | 平台 | 着重方向 | 内容策略 | 路线文档 | 状态 |
 |------|---------|---------|---------|------|
-| Claude Projects | 精确查询 + 规则推理 | 方案 B 二次创作压缩 → ~193K tokens | [ROADMAP.md](../ai_platforms/claude_projects/ROADMAP.md) / [PLAN.md](../ai_platforms/claude_projects/PLAN.md) | **计划已拟定** (2026-04-17) |
+| Claude Projects | 精确查询 + 规则推理 | 方案 B 二次创作压缩 → ~193K tokens | [ROADMAP.md](../ai_platforms/claude_projects/ROADMAP.md) / [PLAN.md](../ai_platforms/claude_projects/PLAN.md) | **计划+执行手册+evidence 基础设施已就绪** (2026-04-17) |
 | ChatGPT GPTs | 全量覆盖 + 团队分享 | 合并文件 ~9.6MB 全量 | [ROADMAP.md](../ai_platforms/chatgpt_gpt/ROADMAP.md) | 待开始 |
 | Gemini Gems | 大范围探索 + 全域对比 | 核心全量 ~512K tokens | [ROADMAP.md](../ai_platforms/gemini_gems/ROADMAP.md) | 待开始 |
 
