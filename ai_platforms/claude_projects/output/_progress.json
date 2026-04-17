@@ -1,0 +1,48 @@
+{
+  "phase": "6.5-claude",
+  "plan": "ai_platforms/claude_projects/PLAN.md",
+  "schema_version": "1.0",
+  "created_at": "2026-04-17",
+  "last_updated": null,
+  "current_step": 0,
+  "next_step": 1,
+  "status": "not_started",
+  "token_budget": {
+    "limit": 195000,
+    "buffer": 5000,
+    "consumed": 0,
+    "remaining": 195000
+  },
+  "completed": [],
+  "in_progress": null,
+  "failed": [],
+  "checkpoints_acked": [],
+  "evidence_dir": "ai_platforms/claude_projects/output/evidence/",
+  "step_template": {
+    "step": 0,
+    "name": "",
+    "started_at": "",
+    "finished_at": "",
+    "agent": {
+      "writer": {"type": "", "model": ""},
+      "reviewer": {"type": "", "model": ""}
+    },
+    "inputs": [],
+    "output_file": "",
+    "tokens": 0,
+    "target_tokens": 0,
+    "delta_pct": 0.0,
+    "status": "PASS|FAIL|RETRY",
+    "evidence_file": "",
+    "checkpoint_required": false,
+    "user_ack": null,
+    "notes": ""
+  },
+  "global_metrics": {
+    "total_subagents_invoked": 0,
+    "total_retries": 0,
+    "total_checkpoints": 0,
+    "total_user_acks": 0
+  },
+  "recovery_hint": "新 session 恢复: 读本文件 next_step → 读 PLAN.md §7.4 对应 Step → 跳过 completed[] 中 status=PASS 的 Step → 从断点续跑"
+}

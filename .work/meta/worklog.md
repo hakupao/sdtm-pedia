@@ -613,6 +613,39 @@
 - **项目索引更新**: CLAUDE.md, MANIFEST.md, PROGRESS.md, worklog.md 全部已更新
 - **下一步**: 按平台优先级执行 — Claude Projects → ChatGPT GPT → Gemini Gems
 
+### 2026-04-17 Phase 6.5 Claude Projects：执行手册 + Evidence 基础设施
+
+- **状态**: 已完成
+- **处理内容**:
+  - PLAN.md 新增 §7 「Claude Code 执行手册（Agent 调度与任务分配）」共 10 个子节
+    - 7.1 七条强制原则 (P1-P7) — 写审分离、源文件只读、subagent 上下文隔离、可中断恢复
+    - 7.2 Agent 角色分配表 — 6 类角色（主控/作者/复核/验证/起草/测试）
+    - 7.3 上下文管理策略 + subagent 调用模板
+    - 7.4 Step 1-14 逐步剧本（含 ⚠️ 高风险点 Step 6/9 标记）
+    - 7.5 并行/串行调度规则
+    - 7.6 失败处理优先级
+    - 7.7 七个强制 checkpoint + 汇报模板
+    - 7.8 进度持久化 schema
+    - 7.9 完结确认协议
+  - PLAN.md 新增 §7.10 「运行轨迹与 Evidence 记录」
+    - 三层记录体系 (L1 状态/L2 轨迹/L3 证据)
+    - trace.jsonl 8 种 event 类型规范
+    - Evidence 不可变原则 + 失败 attempt 必须保留
+    - Subagent prompt 调用前必须先落盘
+    - 5 阶段 (A-E) 阶段汇报机制
+    - 断点恢复 6 步 SOP
+  - 创建 evidence 基础设施:
+    - `output/_progress.json` — L1 状态层 (含 token_budget / step_template / global_metrics)
+    - `output/evidence/README.md` — evidence 规范与目录结构
+    - `output/evidence/_step_template.md` — 8 节 evidence 模板
+    - `output/evidence/trace.jsonl` — L2 时序轨迹 (已写入 phase_init)
+- **产出文件**:
+  - `ai_platforms/claude_projects/PLAN.md` (327→876 行, +549 行)
+  - `ai_platforms/claude_projects/output/_progress.json`
+  - `ai_platforms/claude_projects/output/evidence/{README.md, _step_template.md, trace.jsonl}`
+- **设计先例**: `.work/03_verification/results/repair_evidence.md` (Issue 2 写审分离已验证有效)
+- **下一步**: 新 session 按 PLAN §7.4 Step 1 启动执行 (count_tokens.py)
+
 ### 2026-04-17 Phase 6.5 Claude Projects：压缩方案 B 计划拟定
 
 - **状态**: 计划已完成，待执行

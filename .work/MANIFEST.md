@@ -121,9 +121,9 @@ meta/worklog.md                      ← 记录决策变更
 ai_platforms/ ── Phase 6.5 AI 平台部署 ── [进行中]
      总览: ai_platforms/README.md
      三平台路线: chatgpt_gpt/ROADMAP.md, claude_projects/ROADMAP.md, gemini_gems/ROADMAP.md
-     Claude 详细计划: claude_projects/PLAN.md (方案 B 压缩部署，目标 ≤195K tokens)
+     Claude 详细计划: claude_projects/PLAN.md (方案 B 压缩部署，目标 ≤195K tokens, 含 §7 执行手册)
      Claude 搭建指南: claude_projects/claude_project_setup.md + claude_project_instructions.md
-     产出目录: */output/
+     产出目录: */output/ (含 _progress.json + evidence/ 三层记录体系)
      前置: Phase 6 P0-P2 完成（已满足）
 
 05_rag_kg/ ── Phase 7 RAG + 知识图谱 + 数据集校验 ── [设计完成/待实施]
@@ -231,7 +231,9 @@ ai_platforms/ ── Phase 6.5 AI 平台部署 ── [进行中]
 | 查质量问题 | `meta/findings.md` |
 | 查后续 TODO | `04_optimization/retrieval_optimization.md` |
 | **Phase 6.5 AI 平台部署** | **`../ai_platforms/README.md`** — 三平台部署总览与路线图 |
-| **Phase 6.5 Claude 压缩计划** | **`../ai_platforms/claude_projects/PLAN.md`** — 方案 B 详细落地计划 (2026-04-17) |
+| **Phase 6.5 Claude 压缩计划** | **`../ai_platforms/claude_projects/PLAN.md`** — 方案 B 详细落地计划 + §7 Claude Code 执行手册 (2026-04-17) |
+| **Phase 6.5 Claude 执行进度** | **`../ai_platforms/claude_projects/output/_progress.json`** — Step 进度状态 (L1) |
+| **Phase 6.5 Claude Evidence** | **`../ai_platforms/claude_projects/output/evidence/`** — 运行轨迹 (trace.jsonl) + Step 证据 (L2/L3) |
 | **Phase 7 设计文档** | **`../docs/DESIGN_RAG_KG.md`** — RAG + 知识图谱 + 数据集校验 |
 | Phase 7 session 记录 | `05_rag_kg/session_2026-04-16_design.md` |
 | **AI 工作质量规则** | **`meta/retrospective.md`** ⚑ 四条预防规则必须遵守 |
