@@ -2,7 +2,7 @@
   "phase": "6.5-claude-v2",
   "plan": "ai_platforms/claude_projects/PLAN_V2.md",
   "design": "docs/superpowers/specs/2026-04-18-phase6.5-claude-v2-expansion-design.md",
-  "current_stage": "v2.0-setup-done",
+  "current_stage": "v2.0-tooling",
   "current_batch": null,
   "completed_stages": [
     "v2.0-setup"
@@ -11,5 +11,27 @@
   "checkpoints_acked": [],
   "v1_baseline": "ai_platforms/claude_projects/output_v1_baseline/",
   "started_at": "2026-04-18T00:00:00Z",
-  "last_updated": "2026-04-18T09:29:14.729280Z"
+  "last_updated": "2026-04-18T11:17:12.345817Z",
+  "completed_tasks": [
+    "A1",
+    "A2",
+    "A3",
+    "B1",
+    "B2",
+    "B3",
+    "B4-executor"
+  ],
+  "pending_tasks": [
+    "B4-reviewer",
+    "B5",
+    "C1",
+    "C2",
+    "C3"
+  ],
+  "session_handoff": {
+    "handoff_at": "2026-04-18T11:17:12.345700Z",
+    "last_commit": "c7d4286",
+    "resume_from": "B4 reviewer \u6216\u8df3\u8fc7 B5 \u76f4\u63a5\u8fdb C1",
+    "notes": "B1-B3 \u5b8c\u6574. B4 executor PASS reviewer \u5f85\u8dd1. B5 \u672a\u5199. C1 \u662f\u4e0b\u4e2a hard \u5de5\u4f5c."
+  }
 }
