@@ -5,3 +5,5 @@
 {"ts":"2026-04-18T09:36:20Z","event":"step_done","task":"B2","output":"scripts_v2/score_domains.py","status":"PASS","reviewer":"PASS","merge_size":28}
 {"ts":"2026-04-18T09:37:14Z","event":"step_start","task":"B3","agent":"executor","model":"opus"}
 {"ts":"2026-04-18T10:39:48Z","event":"step_done","task":"B3","output":"scripts_v2/score_codelists.py","status":"PASS","reviewer":"PASS","total":1005,"top200_tokens":201660,"rank201_500_tokens":338070,"note":"AERELN/PROBLEM_TYPE not in KB, T18/T20 题目待复核"}
+{"ts":"2026-04-18T10:40:39Z","event":"step_start","task":"B4","agent":"executor","model":"opus"}
+{"ts":"2026-04-18T11:16:24Z","event":"step_done","task":"B4","output":"scripts_v2/build_v2_stage.py","status":"EXECUTOR_PASS","reviewer":"PENDING","note":"dry-run 8 steps OK, session handoff"}

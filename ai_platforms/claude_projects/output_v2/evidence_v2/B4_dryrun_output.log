@@ -1,0 +1,9 @@
+[DRY] Step 1: parse --stage v2.1 → batch 1 (chapters 全展开)
+[DRY] Step 2: run batch script `rebuild_chapters_full.py ` → expect `02_chapters.md`
+[DRY] Step 3: tally tokens over ai_platforms/claude_projects/output_v2/*.md via tiktoken
+[DRY] Step 4: patch ai_platforms/claude_projects/output_v2/system_prompt_v2.md with <!-- stage v2.1 begin/end --> block
+[DRY] Step 5: append 阶段历史 row for v2.1 to ai_platforms/claude_projects/output_v2/upload_manifest_v2.md (idempotent)
+[DRY] Step 6: write evidence `stage_v2.1_chapters.md` under ai_platforms/claude_projects/output_v2/evidence_v2
+[DRY] Step 7: update ai_platforms/claude_projects/output_v2/evidence_v2/_progress.json (current_stage=v2.1, completed_stages += v2.1)
+[DRY] Step 8: append stage_done trace to ai_platforms/claude_projects/output_v2/evidence_v2/trace.jsonl
+[Stage v2.1] dry-run complete, no files modified.
