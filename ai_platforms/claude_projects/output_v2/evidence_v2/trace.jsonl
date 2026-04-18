@@ -3,3 +3,5 @@
 {"ts":"2026-04-18T09:30:00Z","event":"step_done","task":"B1","status":"PASS","note":"count_tokens.py reused, 00_routing=2657 matches v1 manifest, output_v2/*.md total=148707 tokens (excl 02_chapters pending batch 1)"}
 {"ts":"2026-04-18T09:30:58Z","event":"step_start","task":"B2","agent":"executor","model":"opus"}
 {"ts":"2026-04-18T09:36:20Z","event":"step_done","task":"B2","output":"scripts_v2/score_domains.py","status":"PASS","reviewer":"PASS","merge_size":28}
+{"ts":"2026-04-18T09:37:14Z","event":"step_start","task":"B3","agent":"executor","model":"opus"}
+{"ts":"2026-04-18T10:39:48Z","event":"step_done","task":"B3","output":"scripts_v2/score_codelists.py","status":"PASS","reviewer":"PASS","total":1005,"top200_tokens":201660,"rank201_500_tokens":338070,"note":"AERELN/PROBLEM_TYPE not in KB, T18/T20 题目待复核"}
