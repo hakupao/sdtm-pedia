@@ -7,3 +7,5 @@
 {"ts":"2026-04-18T10:39:48Z","event":"step_done","task":"B3","output":"scripts_v2/score_codelists.py","status":"PASS","reviewer":"PASS","total":1005,"top200_tokens":201660,"rank201_500_tokens":338070,"note":"AERELN/PROBLEM_TYPE not in KB, T18/T20 题目待复核"}
 {"ts":"2026-04-18T10:40:39Z","event":"step_start","task":"B4","agent":"executor","model":"opus"}
 {"ts":"2026-04-18T11:16:24Z","event":"step_done","task":"B4","output":"scripts_v2/build_v2_stage.py","status":"EXECUTOR_PASS","reviewer":"PENDING","note":"dry-run 8 steps OK, session handoff"}
+{"ts":"2026-04-18T13:03:01Z","event":"step_start","task":"B4-reviewer","agent":"code-reviewer","model":"opus"}
+{"ts":"2026-04-18T13:04:41Z","event":"step_done","task":"B4-reviewer","status":"PASS","note":"dry-run 8 steps verified, STAGE_MAP 5 keys consistent, 幂等 + 只读 + dry-run gate all PASS, 3 LOW findings non-blocking"}
