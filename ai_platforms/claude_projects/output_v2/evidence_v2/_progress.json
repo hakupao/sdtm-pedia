@@ -2,12 +2,14 @@
   "phase": "6.5-claude-v2",
   "plan": "ai_platforms/claude_projects/PLAN_V2.md",
   "design": "docs/superpowers/specs/2026-04-18-phase6.5-claude-v2-expansion-design.md",
-  "current_stage": "v2.0-setup",
+  "current_stage": "v2.0-setup-done",
   "current_batch": null,
-  "completed_stages": [],
+  "completed_stages": [
+    "v2.0-setup"
+  ],
   "completed_batches": [],
   "checkpoints_acked": [],
   "v1_baseline": "ai_platforms/claude_projects/output_v1_baseline/",
   "started_at": "2026-04-18T00:00:00Z",
-  "last_updated": "2026-04-18T00:00:00Z"
+  "last_updated": "2026-04-18T09:29:14.729280Z"
 }
