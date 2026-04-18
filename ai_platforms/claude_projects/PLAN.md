@@ -849,6 +849,56 @@ Evidence 全部归档于: output/evidence/step_<NN>_*.md
 
 ---
 
+## 8. Postscript — 容量假设修订 (2026-04-18)
+
+> Step 14 实测后发现本 PLAN 的核心假设之一 ("Claude Project 容量上限 ~200K tokens") 站不住。
+> 详细调研见 [`capacity_research.md`](capacity_research.md)。
+> 本节作为 postscript 不重写历史决策, 仅记录新认识与对 Phase 7 的影响。
+
+### 8.1 实测偏差
+
+- 上传 9 文件 / 192,036 tokens (本地 tiktoken)
+- UI 显示 **"12% of project capacity used"**, 而非预期 95-98%
+- 偏差 8 倍
+
+### 8.2 根本原因 (基于 capacity_research.md)
+
+1. **Pro/Max 套餐 RAG 自动扩容到 10x** (官方明文)
+2. **GitHub Issue #25759 实测推算**: capacity 分母约 3-4M tokens
+3. **我们已经触发 RAG 模式** ("Indexing" 标签 + 12% 实测都是信号), 但工作正常 (T1-T8 全 PASS)
+
+### 8.3 哪些前提需要标注 "已修订"
+
+| 位置 | 旧表述 | 新认识 |
+|------|-------|-------|
+| §1.2 表 | "Claude Project 容量上限 ~200K tokens (硬约束)" | 200K 是 context window 限制; paid 套餐 RAG 自动扩 10x; 实际 RAG 索引容量 ~3-4M |
+| §3.3 表头 | "硬约束 ≤195K" | 实际 ≤195K 是 "保证不触发 RAG" 的软约束, 而非硬约束 |
+| §3.2 D3/D4 动机 | "因 200K 装不下, 降级 examples/terminology" | 动机修订为 "降低价值密度低的内容占比", 不是容量被迫 |
+| 附录 A | "Claude Project 容量: ~200K tokens" | Project context window 200K; RAG 模式索引容量 ~3-4M |
+
+### 8.4 历史决策不撤销
+
+虽然前提变了, **方案 B 压缩工作仍然成功** (Smoke + T1-T8 全 PASS, 边界模板生效)。代价是过度压缩, examples 数据表 / terminology Term 值原文被剔除, T3/T6/T7 出现间接重建场景。
+
+### 8.5 对 Phase 7 的指引
+
+由于实际剩余 ~88% 容量, Phase 7 可分批扩回:
+1. ch06 完整 + ch08 §8.3 完整 (+30-50K) — 解决 T3 间接重建
+2. examples 高频域数据表 (+50-100K) — 解决 T6
+3. terminology 高频 codelist Term 值 (+200-500K) — 解决 T7/T8
+4. ch01/02/03/08/10 撤销精简 (+30-50K)
+
+总扩 ~300-700K, 远低于 RAG 上限。**RAG 检索质量随集合增大可能下降**, 扩容前需建 baseline (当前 T1-T8 PASS), 扩容后回归测试。
+
+### 8.6 必须保留的设计
+
+无论是否扩容:
+- System Prompt 边界处理模板 (兜底)
+- 源路径标注 `<!-- source: ... -->` (跨文件追溯)
+- System Prompt 路由规则 (RAG 基础上提升精确度)
+
+---
+
 ## 附录 A：关键数据参考
 
 **源知识库体量** (tiktoken cl100k_base 实测, 2026-04-17):

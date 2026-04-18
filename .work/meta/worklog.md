@@ -708,6 +708,35 @@
   - `ai_platforms/claude_projects/UPLOAD_TUTORIAL.md` (Step 13-14 手工操作手册, 含 T1-T8 测试矩阵)
 - **下一步**: 用户按 `UPLOAD_TUTORIAL.md` 手工执行 Step 13 上传 + Step 14 跑 T1-T8, 全 PASS 后主控走 PLAN §7.9 完结归档进入 ChatGPT GPT 路线
 
+### 2026-04-18 Phase 6.5 Claude Projects: Step 13-14 完成 + 容量假设修订
+
+- **状态**: 已完成 (Layer 2 9/9 PASS, Phase 6.5 Claude 路线收尾)
+- **处理内容**:
+  - **Step 13 上传**: 9 个文件 + system_prompt 已粘贴到 Claude Project "SDTM Expert v3.4" (URL: claude.ai/project/019d9e05-9286-77fc-a621-675ce52d30ec)
+  - **Step 14 Layer 2 测试**: Smoke + T1-T8 共 **9/9 PASS** (test_results.md 详记每题判定 + 亮点)
+    - T6/T7/T8 边界模板标杆触发 (拒绝编造 / calibrated inference / 质疑前提 + CT Code→源文件映射表)
+    - T5/T8 主动质疑用户提问前提 (符合用户偏好)
+    - 平均回答质量超出 Tutorial 期望基线
+  - **容量异常发现**: UI 显示 12% (PLAN 预期 95-98%, 差 8 倍) → 触发独立调研
+  - **容量调研** (document-specialist subagent): 8 问 8 答含官方/社区来源链接
+    - **核心发现**: PLAN.md "200K 硬约束" 假设错。Pro/Max 套餐 RAG 自动扩 10x, 实际容量 ~3-4M tokens (GitHub Issue #25759 实测推算 + 我们 12% 实测吻合)
+    - "Indexing" UI 标签长时间不消失是前端 stale state, 后端检索已可用 (Smoke Test 证实)
+    - Files API ≠ Project Knowledge (明确区分)
+  - **PLAN.md 修订**: 新增 §8 Postscript (6 小节: 实测偏差/根本原因/前提修订表/历史决策不撤销/Phase 7 指引/必须保留的设计) — 不重写历史决策, 只标注"已修订"
+  - **CLAUDE.md / MANIFEST.md / PROGRESS.md** 更新 Key Paths 加入 capacity_research.md + test_results.md
+- **产出文件**:
+  - `ai_platforms/claude_projects/output/capacity_check.md` (Step 13 + 14.1 报告 + 容量偏差分析)
+  - `ai_platforms/claude_projects/output/test_results.md` (Smoke + T1-T8 完整记录, 9/9 PASS)
+  - `ai_platforms/claude_projects/capacity_research.md` (8 问 8 答 + 7 条官方源 + 2 条社区源)
+  - `ai_platforms/claude_projects/PLAN.md` §8 Postscript (852-895 行)
+  - `CLAUDE.md` / `.work/MANIFEST.md` / `docs/PROGRESS.md` 索引更新
+- **关键教训** (已抽象):
+  - **官方文档前提必须实测验证** — "200K = 100%" 在 paid 套餐 RAG 模式下根本不成立, 凭文档/直觉做容量规划会过度压缩
+  - **过度压缩有代价** — examples 数据表 / terminology Term 值原文被剔除, T3/T6/T7 出现间接重建场景, 损失原文级精确度
+  - **历史决策不撤销, 用 postscript 标注** — 方案 B 工作仍然成功, 撤销决策 = 否定执行成果, postscript 是更合适的记录形式
+- **对 Phase 7 的影响**: 实际剩余 ~88% 容量, 可分批扩回 ch06 全文 / examples 数据 / terminology Term 值 / chapters 撤销精简 (capacity_research.md §6 给出优先级 + 预算)
+- **下一步**: Phase 6.5 ChatGPT GPT 路线启动 (沿用 RETROSPECTIVE 四条规则 A/B/C/D + capacity_research §6 决策框架)
+
 ### 2026-04-18 Phase 6.5 Claude Projects: 补 Retrospective
 
 - **状态**: 已完成
