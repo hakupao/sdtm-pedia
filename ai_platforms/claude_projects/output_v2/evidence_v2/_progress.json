@@ -2,16 +2,17 @@
   "phase": "6.5-claude-v2",
   "plan": "ai_platforms/claude_projects/PLAN_V2.md",
   "design": "docs/superpowers/specs/2026-04-18-phase6.5-claude-v2-expansion-design.md",
-  "current_stage": "v2.1-chapters",
+  "current_stage": "v2.1",
   "current_batch": 1,
   "completed_stages": [
-    "v2.0-setup"
+    "v2.0-setup",
+    "v2.1"
   ],
   "completed_batches": [],
   "checkpoints_acked": [],
   "v1_baseline": "ai_platforms/claude_projects/output_v1_baseline/",
   "started_at": "2026-04-18T00:00:00Z",
-  "last_updated": "2026-04-18T13:18:00Z",
+  "last_updated": "2026-04-18T13:32:01Z",
   "completed_tasks": [
     "A1",
     "A2",
@@ -34,6 +35,6 @@
     "handoff_at": "2026-04-18T13:18:00Z",
     "last_commit": "TBD-after-commit",
     "resume_from": "C2 build_v2_stage.py --stage v2.1",
-    "notes": "C1 PASS: 02_chapters.md 60716 tokens (target \u226490K, hard 110K), 6 sources, 10/10 byte-exact \u62bd\u6837 (reviewer 5 + \u4e3b\u63a7 5 non-overlapping). \u4e0b\u4e00\u6b65 C2 \u8dd1 build_v2_stage.py --stage v2.1 \u805a\u5408 stage evidence + system_prompt \u66f4\u65b0."
+    "notes": "C1 PASS: 02_chapters.md 60716 tokens (target ≤90K, hard 110K), 6 sources, 10/10 byte-exact 抽样 (reviewer 5 + 主控 5 non-overlapping). 下一步 C2 跑 build_v2_stage.py --stage v2.1 聚合 stage evidence + system_prompt 更新."
   }
 }
