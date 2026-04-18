@@ -189,7 +189,14 @@
   "checkpoints_acked": ["step3", "step5", "step6"],
   "checkpoints_pending": ["step12"],
   "evidence_dir": "ai_platforms/claude_projects/output/evidence/",
-  "step_template": {
+  "retrospective": {
+    "file": "ai_platforms/claude_projects/RETROSPECTIVE.md",
+    "written_at": "2026-04-18",
+    "sections": ["保留做法 R1-R5", "必须补上 G1-G4", "关键决策复盘 (Step 6 / 预授权 / 并行化)", "四条可迁移规则 A/B/C/D"],
+    "rules_hoisted_to_global": "~/.claude/CLAUDE.md <personal_operating_principles>",
+    "trigger": "user feedback: Step 12 完成后缺 retro, failures/ 教训未抽象成规则"
+  },
+  "_step_template_internal": {
     "step": 0,
     "name": "",
     "started_at": "",
