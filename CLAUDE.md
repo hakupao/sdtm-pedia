@@ -45,6 +45,7 @@ Full chain definitions are in `.work/MANIFEST.md`.
 | Phase 6.5 Claude 执行进度 | `ai_platforms/claude_projects/output/_progress.json` (Step 1-12 completed, 等 step13 用户上传) |
 | Phase 6.5 Claude Evidence | `ai_platforms/claude_projects/output/evidence/` (trace.jsonl + 12 份 step_NN_*.md + checkpoints/ + subagent_prompts/ + failures/) |
 | Phase 6.5 Claude Retrospective | `ai_platforms/claude_projects/RETROSPECTIVE.md` (Step 1-12 复盘: R1-R5 保留 / G1-G4 缺口 / 四条规则 A/B/C/D 已固化到全局 CLAUDE.md) |
+| Phase 6.5 Claude 容量调研 | `ai_platforms/claude_projects/capacity_research.md` (Step 14 后修订: 200K 假设错, RAG 自动扩 10x, 实际容量 ~3-4M, 详见 PLAN §8 postscript) |
 
 ## Session Wrap-up (收尾)
 

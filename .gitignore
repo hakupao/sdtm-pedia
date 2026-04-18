@@ -16,3 +16,6 @@ tmp/
 .claude/
 .omc/
 .omx/
+
+# Personal notes (private reflections, not for repo)
+notes/
