@@ -46,6 +46,10 @@ Full chain definitions are in `.work/MANIFEST.md`.
 | Phase 6.5 Claude Evidence | `ai_platforms/claude_projects/output/evidence/` (trace.jsonl + 12 份 step_NN_*.md + checkpoints/ + subagent_prompts/ + failures/) |
 | Phase 6.5 Claude Retrospective | `ai_platforms/claude_projects/RETROSPECTIVE.md` (Step 1-12 复盘: R1-R5 保留 / G1-G4 缺口 / 四条规则 A/B/C/D 已固化到全局 CLAUDE.md) |
 | Phase 6.5 Claude 容量调研 | `ai_platforms/claude_projects/capacity_research.md` (Step 14 后修订: 200K 假设错, RAG 自动扩 10x, 实际容量 ~3-4M, 详见 PLAN §8 postscript) |
+| Phase 6.5 Claude v2 设计 | `docs/superpowers/specs/2026-04-18-phase6.5-claude-v2-expansion-design.md` (中庸 5 批 / ~50% 容量 / 16-18 文件 / RAG 衰减曲线) |
+| Phase 6.5 Claude v2 计划 | `ai_platforms/claude_projects/PLAN_V2.md` (1852 行, 8 阶段 ~30 Tasks, subagent-driven, 5 hard checkpoints) |
+| Phase 6.5 Claude v2 plan pointer | `docs/superpowers/plans/2026-04-18-phase6.5-claude-v2-expansion.md` (superpowers skill 约定, 指向 PLAN_V2.md) |
+| Phase 6.5 Claude v2 启动提示词 | `ai_platforms/claude_projects/V2_SESSION_STARTER.md` (新 session 复制粘贴用, 含预授权 + 约束) |
 
 ## Session Wrap-up (收尾)
 
