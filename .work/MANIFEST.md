@@ -1,7 +1,7 @@
 # .work/ MANIFEST — 文件清单与变更链
 
 > **AI 工作入口文件** — 每次新 session 开始时先读此文件，了解文件布局和更新规则。
-> 最后更新: 2026-04-17 (Phase 6.5 Claude Step 1-12 自动化完成, 注册 scripts/ + output/ + UPLOAD_TUTORIAL.md)
+> 最后更新: 2026-04-18 (Phase 6.5 Claude 补 RETROSPECTIVE.md, 四条规则 A/B/C/D 固化到全局 CLAUDE.md)
 
 ---
 
@@ -239,6 +239,7 @@ ai_platforms/ ── Phase 6.5 AI 平台部署 ── [Claude Step 1-12 完成, 
 | **Phase 6.5 Claude 执行进度** | **`../ai_platforms/claude_projects/output/_progress.json`** — Step 进度状态 (L1, Step 1-12 completed) |
 | **Phase 6.5 Claude 上传清单** | **`../ai_platforms/claude_projects/output/upload_manifest.md`** — 11 文件 + 192K tokens + Layer 1 10/10 PASS (2026-04-17) |
 | **Phase 6.5 Claude Evidence** | **`../ai_platforms/claude_projects/output/evidence/`** — 运行轨迹 (trace.jsonl) + 12 份 step_NN evidence (L2/L3) + checkpoints/failures/subagent_prompts |
+| **Phase 6.5 Claude Retrospective** | **`../ai_platforms/claude_projects/RETROSPECTIVE.md`** — Step 1-12 复盘 (三段式 + 四条可迁移规则已固化至全局 CLAUDE.md) (2026-04-18) |
 | **Phase 7 设计文档** | **`../docs/DESIGN_RAG_KG.md`** — RAG + 知识图谱 + 数据集校验 |
 | Phase 7 session 记录 | `05_rag_kg/session_2026-04-16_design.md` |
 | **AI 工作质量规则** | **`meta/retrospective.md`** ⚑ 四条预防规则必须遵守 |

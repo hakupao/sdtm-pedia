@@ -707,3 +707,23 @@
   - `ai_platforms/claude_projects/output/evidence/` (三层记录体系完整)
   - `ai_platforms/claude_projects/UPLOAD_TUTORIAL.md` (Step 13-14 手工操作手册, 含 T1-T8 测试矩阵)
 - **下一步**: 用户按 `UPLOAD_TUTORIAL.md` 手工执行 Step 13 上传 + Step 14 跑 T1-T8, 全 PASS 后主控走 PLAN §7.9 完结归档进入 ChatGPT GPT 路线
+
+### 2026-04-18 Phase 6.5 Claude Projects: 补 Retrospective
+
+- **状态**: 已完成
+- **触发**: 用户指出 Step 12 完成后直接等上传缺 retrospective——failures/ 不升级成可执行规则, 下次项目还会在 Step 6 犯同样错
+- **处理内容**:
+  - 写 `ai_platforms/claude_projects/RETROSPECTIVE.md` (三段式: R1-R5 保留做法 / G1-G4 必须补上 / 关键决策复盘)
+  - 四条可迁移规则 A/B/C/D (语义抽检 / 失败归档 / Retro 强制 / 审阅隔离) 已固化到全局 `~/.claude/CLAUDE.md <personal_operating_principles>`
+  - `_progress.json` 新增 `retrospective` 段, 记录 file/written_at/sections/trigger
+  - CLAUDE.md Key Paths 新增 "Phase 6.5 Claude Retrospective" 行
+  - `.work/MANIFEST.md` 快速参考表注册 RETROSPECTIVE.md + 更新"最后更新"时间戳
+- **核心教训** (已抽象成规则):
+  - **技术 PASS ≠ 业务 PASS** (Step 6 reviewer 给 PASS 但 20% unique 信息丢了, 主控独立抽样才兜住) → 规则 A
+  - **结构检查 ≠ 语义检查** (Step 8 attempt 1 55/188 无意义 bullet 结构 PASS 通过) → 规则 A
+  - **预算要 floor-first** (Step 9 15K 目标低于 floor 16.3K, 不可达) → 新教训
+  - **同 agent 自审 = 无审** (Step 2/6/8 的问题都是独立 reviewer 发现) → 规则 D
+- **产出文件**:
+  - `ai_platforms/claude_projects/RETROSPECTIVE.md` (新增)
+  - `~/.claude/CLAUDE.md` PERSONAL 段 (全局, 跨项目)
+- **下一步**: 不影响 Step 13 上传流程; Phase 6.5 ChatGPT / Gemini 路线开工时继承这四条规则 + 补齐本次缺失的 Step 7/8/9/11/12 subagent prompt 归档
