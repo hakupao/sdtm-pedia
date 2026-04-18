@@ -737,6 +737,49 @@
 - **对 Phase 7 的影响**: 实际剩余 ~88% 容量, 可分批扩回 ch06 全文 / examples 数据 / terminology Term 值 / chapters 撤销精简 (capacity_research.md §6 给出优先级 + 预算)
 - **下一步**: Phase 6.5 ChatGPT GPT 路线启动 (沿用 RETROSPECTIVE 四条规则 A/B/C/D + capacity_research §6 决策框架)
 
+### 2026-04-18 Phase 6.5 Claude v2 扩容: brainstorm + design + PLAN_V2.md 完成 (待新 session 执行)
+
+- **状态**: 计划完成, 待新 session subagent-driven 执行
+- **触发**: 用户发现 v1 上传后 capacity 仅 12% (vs PLAN 预期 95-98%, 8 倍偏差), capacity_research §6 已识别可扩 ~88%
+- **brainstorm 5 题决策** (Q1-Q5):
+  - Q1 目标: B 战略型 → 后改 C 中庸 (响应用户挑战 "为何不 90%")
+  - Q2 baseline: B 双 Project 并行, v1 永久保留
+  - Q3 examples 圈定: 用户 20 高频域 + B 方案打分 (top 5-8 补充)
+  - Q4 测试节奏: B 渐进 (每批一测), 5 hard checkpoints
+  - Q5 文件结构: B 增量+替换 (批 1 替换 02, 后续追加 09-12)
+- **design doc** 三轮迭代:
+  - v1 (上午): 战略型 3 批 / 13 文件 / ~15% 容量
+  - v2 (下午): 中庸 6 批 / 17 文件 / ~50% 容量, 加 RAG 衰减曲线一等产物
+  - v3 (晚, 事实修正): chapters/ 实际无 ch06, 旧批 1+2 合并为"chapters 全展开", 总批数 6 → 5, 文件数 17 → 16-18
+- **PLAN_V2.md 落盘** (1852 行, 16 节):
+  - §0-1 修订记录 + 强制规则 P1-P10 (含规则 A/B/C/D)
+  - §2 文件结构 map
+  - §3-10 Phase A-H 共 ~30 Tasks (Setup / Tooling / Batch 1-5 / Wrap-up)
+  - §11-13 并行调度 / 失败处理 / Checkpoint 协议
+  - §14-16 Self-Review / 执行交接 / 完结信号
+  - 每 Task 含: subagent prompt 模板 + bash 验证 + commit 消息
+- **核心策略转变** (响应用户挑战):
+  - 原计划 ~15% 容量保守, 改为 ~50% 中庸 (留 buffer 给对话/Phase 7/标准更新)
+  - RAG 衰减曲线作为 Phase 7 一等输入 (而非"够用"目标)
+  - 5 批渐进每批 hard checkpoint, 衰减 ≥2 题立即停 + 视当前为 v2 终态
+- **用户高频域清单** (PLAN_V2 §6 D1):
+  - DM, SE, DS, BS, BE, MI, GF, PR, CM, EX, TU, TR, RS, SS, DD, LB, FA, CE, MH, SU (20 域)
+  - + B 方案打分补充 AE/PC/PP/VS/EG/IE/QS 等 5-8 域
+- **预授权设定** (用户全部授权):
+  - Phase A + B 连续推进 (Setup + Tooling)
+  - 全 PASS 0 衰减自动进下批
+  - ≥1 衰减必停下问用户
+- **产出文件**:
+  - `docs/superpowers/specs/2026-04-18-phase6.5-claude-v2-expansion-design.md` (design v3, 中庸-事实修正版)
+  - `ai_platforms/claude_projects/PLAN_V2.md` (1852 行 step-by-step)
+  - `docs/superpowers/plans/2026-04-18-phase6.5-claude-v2-expansion.md` (skill 约定 pointer)
+- **下一步**: 用户开新 session, 用本 session 末尾提供的"启动提示词"调主控 → 主控用 superpowers:subagent-driven-development skill 从 Task A1 开始执行
+- **Commits**:
+  - `b99c05d` design v1
+  - `59eac99` design v2 (中庸)
+  - `c64167e` design v3 (5 批事实修正)
+  - `09bb37c` PLAN_V2.md (1852 行)
+
 ### 2026-04-18 Phase 6.5 Claude Projects: 补 Retrospective
 
 - **状态**: 已完成

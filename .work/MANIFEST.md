@@ -1,7 +1,7 @@
 # .work/ MANIFEST — 文件清单与变更链
 
 > **AI 工作入口文件** — 每次新 session 开始时先读此文件，了解文件布局和更新规则。
-> 最后更新: 2026-04-18 (Phase 6.5 Claude Step 13-14 完成 9/9 PASS + 容量调研发现 200K 假设错, RAG 自动扩 10x)
+> 最后更新: 2026-04-18 (Phase 6.5 Claude v2 扩容计划完成: design + PLAN_V2.md 1852 行, 5 批 / ~50% 容量, 待新 session 执行)
 
 ---
 
@@ -128,6 +128,9 @@ ai_platforms/ ── Phase 6.5 AI 平台部署 ── [Claude Step 1-14 完成 9
      Claude 压缩产物: claude_projects/output/ (11 个 .md + upload_manifest.md + capacity_check.md + test_results.md, Layer 1 10/10 + Layer 2 9/9 PASS)
      Claude Evidence: claude_projects/output/evidence/ (trace.jsonl + 12 份 step_NN + checkpoints/ + failures/ + subagent_prompts/)
      Claude 容量调研: claude_projects/capacity_research.md (200K 硬约束错, paid 套餐 RAG 自动扩 10x, 实际 ~3-4M)
+     Claude v2 设计: docs/superpowers/specs/2026-04-18-phase6.5-claude-v2-expansion-design.md (中庸 5 批 / ~50% 容量 / 16-18 文件)
+     Claude v2 计划: claude_projects/PLAN_V2.md (1852 行, 8 阶段 ~30 任务, subagent-driven 执行, 5 hard checkpoints)
+     Claude v2 plan pointer: docs/superpowers/plans/2026-04-18-phase6.5-claude-v2-expansion.md (skill 约定)
      前置: Phase 6 P0-P2 完成（已满足）
 
 05_rag_kg/ ── Phase 7 RAG + 知识图谱 + 数据集校验 ── [设计完成/待实施]
@@ -243,6 +246,8 @@ ai_platforms/ ── Phase 6.5 AI 平台部署 ── [Claude Step 1-14 完成 9
 | **Phase 6.5 Claude Retrospective** | **`../ai_platforms/claude_projects/RETROSPECTIVE.md`** — Step 1-12 复盘 (三段式 + 四条可迁移规则已固化至全局 CLAUDE.md) (2026-04-18) |
 | **Phase 6.5 Claude 容量调研** | **`../ai_platforms/claude_projects/capacity_research.md`** — Step 14 后修订: 200K 假设错, paid 套餐 RAG 自动扩 10x, 实际容量 ~3-4M (2026-04-18) |
 | **Phase 6.5 Claude 测试结果** | **`../ai_platforms/claude_projects/output/test_results.md`** — Layer 2 Smoke + T1-T8 共 9/9 PASS, 边界模板全触发 (2026-04-18) |
+| **Phase 6.5 Claude v2 设计** | **`../docs/superpowers/specs/2026-04-18-phase6.5-claude-v2-expansion-design.md`** — 中庸 5 批 / ~50% 容量 / 16-18 文件 / RAG 衰减曲线 (2026-04-18) |
+| **Phase 6.5 Claude v2 计划** | **`../ai_platforms/claude_projects/PLAN_V2.md`** — 1852 行 / 8 阶段 / ~30 Tasks / subagent-driven, 5 hard checkpoints (2026-04-18) |
 | **Phase 7 设计文档** | **`../docs/DESIGN_RAG_KG.md`** — RAG + 知识图谱 + 数据集校验 |
 | Phase 7 session 记录 | `05_rag_kg/session_2026-04-16_design.md` |
 | **AI 工作质量规则** | **`meta/retrospective.md`** ⚑ 四条预防规则必须遵守 |
