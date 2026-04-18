@@ -58,7 +58,7 @@ STAGE_MAP = {
         "description": "chapters 全展开",
         "slug": "chapters",
         "prompt_block": (
-            "- 02_chapters.md 已升级为**完整版** (ch04/ch08 全文 + ch06/ch07 补齐)。\n"
+            "- 02_chapters.md 已升级为**完整版**: ch01/ch02/ch03/ch08/ch10 撤销 v1 精简, ch04 保持全文 (6 章节 byte-exact 源)。\n"
             "- ch08 §8.3 / §8.4 含 RELREC + SUPP-- 完整规则, 跨域关联问题优先读 ch08 全文而非精简段。\n"
             "- 原 v1 \"ch01/02/03/08/10 精简\" 兜底句作废, 不再适用。"
         ),

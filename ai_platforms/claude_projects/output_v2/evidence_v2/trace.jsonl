@@ -12,3 +12,5 @@
 {"ts":"2026-04-18T13:06:06Z","event":"step_start","task":"C1","batch":1,"stage":"v2.1","agent":"executor","model":"opus"}
 {"ts":"2026-04-18T13:13:19Z","event":"layer1_pass","task":"C1","tokens":60716,"sources":6,"ch04_ratio":"100.11%","ch08_83":1,"ch08_84":1,"non_ch04_ratios":"all≥100%","checks":"C3+C4+C5+C11+5ratios"}
 {"ts":"2026-04-18T13:17:34Z","event":"step_done","task":"C1","output":"output_v2/02_chapters.md","tokens":60716,"target_soft":90000,"target_hard":110000,"sources":6,"status":"PASS","reviewer":"PASS","audit":"PASS","note":"10/10 samples byte-exact (reviewer 5 + 主控 5 non-overlapping)"}
+{"ts": "2026-04-18T13:18:10Z", "event": "stage_done", "stage": "v2.1", "total_tokens": 209423, "files": 13, "status": "PASS"}
+{"ts": "2026-04-18T13:32:01Z", "event": "stage_done", "stage": "v2.1", "total_tokens": 209620, "files": 13, "status": "PASS"}
