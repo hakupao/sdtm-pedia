@@ -1,1 +1,2 @@
 {"ts":"2026-04-18T09:28:10Z","event":"phase_init","phase":"6.5-claude-v2","plan":"PLAN_V2.md"}
+{"ts":"2026-04-18T09:29:14Z","event":"stage_done","stage":"v2.0-setup","status":"PASS"}
