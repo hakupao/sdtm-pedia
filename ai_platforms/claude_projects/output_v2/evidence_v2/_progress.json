@@ -2,8 +2,8 @@
   "phase": "6.5-claude-v2",
   "plan": "ai_platforms/claude_projects/PLAN_V2.md",
   "design": "docs/superpowers/specs/2026-04-18-phase6.5-claude-v2-expansion-design.md",
-  "current_stage": "v2.0-tooling",
-  "current_batch": null,
+  "current_stage": "v2.1-chapters",
+  "current_batch": 1,
   "completed_stages": [
     "v2.0-setup"
   ],
@@ -11,7 +11,7 @@
   "checkpoints_acked": [],
   "v1_baseline": "ai_platforms/claude_projects/output_v1_baseline/",
   "started_at": "2026-04-18T00:00:00Z",
-  "last_updated": "2026-04-18T13:04:41Z",
+  "last_updated": "2026-04-18T13:18:00Z",
   "completed_tasks": [
     "A1",
     "A2",
@@ -20,20 +20,20 @@
     "B2",
     "B3",
     "B4-executor",
-    "B4-reviewer"
+    "B4-reviewer",
+    "C1"
   ],
   "skipped_tasks": [
     "B5"
   ],
   "pending_tasks": [
-    "C1",
     "C2",
     "C3"
   ],
   "session_handoff": {
-    "handoff_at": "2026-04-18T13:04:41Z",
+    "handoff_at": "2026-04-18T13:18:00Z",
     "last_commit": "TBD-after-commit",
-    "resume_from": "C1 rebuild_chapters_full.py",
-    "notes": "B4 reviewer PASS (3 LOW findings non-blocking). B5 \u8ddf\u8fc7\u8defA\u8df3\u8fc7 (compare_versions.py \u8f85\u52a9\u5de5\u5177\uff0cPLAN \u660e\u793a\u53ef\u9009\u3002\u9700\u8981\u65f6\u53ef\u56de\u8865). \u4e0b\u4e00\u6b65 C1 \u5199 rebuild_chapters_full.py, 6 chapters \u5168\u5c55\u5f00, \u8f6f\u76ee\u6807 \u226490K token, \u786c\u4e0a\u9650 110K."
+    "resume_from": "C2 build_v2_stage.py --stage v2.1",
+    "notes": "C1 PASS: 02_chapters.md 60716 tokens (target \u226490K, hard 110K), 6 sources, 10/10 byte-exact \u62bd\u6837 (reviewer 5 + \u4e3b\u63a7 5 non-overlapping). \u4e0b\u4e00\u6b65 C2 \u8dd1 build_v2_stage.py --stage v2.1 \u805a\u5408 stage evidence + system_prompt \u66f4\u65b0."
   }
 }
