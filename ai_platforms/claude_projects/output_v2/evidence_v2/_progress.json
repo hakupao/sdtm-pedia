@@ -14,7 +14,8 @@
   "completed_batches": [
     1,
     2,
-    3
+    3,
+    4
   ],
   "checkpoints_acked": [
     {
@@ -103,11 +104,78 @@
       "indexing_note": "indicator 仍显示 'Indexing' 但不 gating, 4 题全部命中正常, 沿用 v2.2 结论",
       "rag_decay_observation": "T3 跨批累积正向激活: 批 2 09 PC 数据 + 批 3 10 + Instructions 升级 → 从硬拒答跳到从数据推导 4 粒度. 记入 rag_decay_curve.md v2.2→v2.3 观察段作正向二阶效应数据点.",
       "decision_branch": "T11 无 ↓ + T15+T16 2/2 PASS + T3 反向 ↑ → 自动继续 Task F1"
+    },
+    {
+      "stage": "v2.4",
+      "ts": "2026-04-19T23:05:00Z",
+      "user_response": "continue (G1)",
+      "ab_report": "output_v2/STAGE_V2.4_AB_REPORT.md",
+      "regression_count": 0,
+      "new_pass": 2,
+      "new_fail": 0,
+      "questions": {
+        "T17": {
+          "type": "new batch4",
+          "precision_vs_v23": "up (质变)",
+          "pass": true,
+          "note": "C66742 在 11a rank 1 原文命中: 4 Term (C49487 N / C48660 NA / C17998 U / C49488 Y) + Extensible No + 41 Related Domains + §4.3.7 使用规则; Source 三层 (11a + general_part4.md + 02_chapters §4.3.7). v1/v2.1-v2.3 三连推测 → 原文命中, PLAN §F4 核心修复期望完美达成"
+        },
+        "T18": {
+          "type": "new batch4 boundary",
+          "precision_vs_v23": "n/a",
+          "pass": true,
+          "note": "坦诚声明 AERELN 不是 SDTMIG v3.4 标准变量/codelist (f1_output audit 已确认); 列相邻 AE Relationship 系列 (AEREL/AERLDEV/AERELNST/AERLPRT/AERLPRC 全无 CDISC CT) + 已发布 AE codelist (C66767/C111110/C66768/C66769) + SUPPAE QNAM 可能性 + ch04 §4.2.8.3 交叉引用; 零臆造 Synonyms"
+        },
+        "T7": {
+          "type": "regression (批 4 关键修复期望)",
+          "precision_vs_v23": "up (质变)",
+          "note": "从 v2.3 高信心推测 Y/N/U/NA 升级为 11a 原文命中完整 4 Term 表 + 41 Related Domains. C66742 在 11a rank 1, RAG 召回精准直达"
+        },
+        "T15": {
+          "type": "regression",
+          "precision_vs_v23": "持平",
+          "note": "完整 21×18 rp.xpt 双场景 (P0001 childbearing + P0002 post-menopausal) + BCMETHOD 携带 RPDUR P3Y + RP Assumptions 4 条配套; 10_examples_data_others.md 未被 11b 256K 挤出, 数值零衰减"
+        },
+        "T1": {
+          "type": "regression (deep, PLAN §F4 额外, 敏感度最高)",
+          "precision_vs_v23": "持平 (略 up)",
+          "note": "Core=Req 稳定, v2.4 同时引 §4.3.5 (Synonym Qualifier for MedDRA/WHODrug) + §4.3.4 + §4.3.6 + §4.2.8.1 + AE Assumption #12 + 完整 MedDRA 层级树, 比 v2.3 仅 §4.3.6 更全; 05_mega_spec + 06_assumptions + 02_chapters 召回零衰减"
+        },
+        "T3": {
+          "type": "regression (deep, v2.3 ↑ 点)",
+          "precision_vs_v23": "up (继续)",
+          "note": "v2.4 显式 Method A/B/C/D 独立段 + 每方法完整 relrec.xpt 数据表 + A-D 汇总矩阵 + 粒度选择建议 (D>C>B>A); 3 次独立子查询精准命中 09, 11b 256K 未挤出; 坦诚声明 §6.3.5.9.3 prose 未抽入 Project (技术债信号转接 G1/H1). 跨批累积三阶正向激活: 硬拒答 → 数据推导 → 显式 Method"
+        }
+      },
+      "capacity_pct": 43,
+      "capacity_delta_vs_v23": 20,
+      "capacity_projection_match": "91% (投影 +22pp vs 实测 +20pp)",
+      "indexing_note": "indicator 持续显示 'Indexing' 但 6/6 题立即命中, 沿用 v2.2/v2.3 结论; 11b 256K tokens 是当前 v2 单文件最大记录, 未触发 PLAN §Step 4 预警",
+      "rag_decay_observation": "11b 256K 单文件挤出风险假设被反驳: T1/T15/T3 零衰减, T3 继续 ↑, 11b 作为 v2 最大单文件 (vs v2.3 最大 112.7K 09) 未造成 05/02/09 老文件召回稀释. CT Code 查询优先级 11*>08 新 Instructions 段被 Claude 正确解读. 记入 rag_decay_curve.md v2.3→v2.4 观察段作最大 token 跃升下零 RAG 拐点数据点.",
+      "independent_review_rule_d": {
+        "reviewer": "code-reviewer subagent (separate from Cowork writer + 主控 writer = 第三 lane)",
+        "verdict": "PASS",
+        "dimensions_checked": [
+          "Q1 Coverage: 6 题完整覆盖 PLAN §F4 测试矩阵",
+          "Q2 T17 证据: 41 Related Domains + 4 Term 在 11a 源文件独立核验一致",
+          "Q3 T18 边界: 与 f1_output.t_codelist_hits_audit AERELN 判定一致, 零臆造",
+          "Q4 Capacity 数学: 43% 在投影 44-46% tolerance 内, 差值 2pp 已自陈",
+          "Q5 决策矩阵: 匹配 handoff 决策矩阵 T1/T15/T3 无 ↓ + T17+T18 ≥1 PASS 行",
+          "Q6 Rule D 合规: 三 lane 隔离 (主控 writer / Cowork writer / reviewer) 无自审",
+          "Q7 无幻觉: 全部引用文件存在于 f3_output.real_upload_files_list; T3 §6.3.5.9.3 缺失是 Cowork 自陈而非臆造"
+        ],
+        "minor_caveats": [
+          "LOW: 报告头部 '执行日期: 2026-04-19' 缺 HH:MM (cosmetic)",
+          "LOW: capacity 2pp 低于投影中位数, 已自陈",
+          "INFO: T3 §6.3.5.9.3 prose 缺失是有用的技术债信号, 建议 G1/H1 规划考虑"
+        ]
+      },
+      "decision_branch": "T1/T15/T3 零衰减 + T7 ↑ 质变 + T17+T18 2/2 PASS + T3 继续 ↑ → 自动继续 Task G1 (批 5 terminology mid)"
     }
   ],
   "v1_baseline": "ai_platforms/claude_projects/output_v1_baseline/",
   "started_at": "2026-04-18T00:00:00Z",
-  "last_updated": "2026-04-19T13:06:52Z",
+  "last_updated": "2026-04-19T23:05:00Z",
   "completed_tasks": [
     "A1",
     "A2",
@@ -132,13 +200,14 @@
     "F2-executor",
     "F2-reviewer",
     "F2",
-    "F3"
+    "F3",
+    "F4"
   ],
   "skipped_tasks": [
     "B5"
   ],
   "pending_tasks": [
-    "F4"
+    "G1"
   ],
   "e1_output": {
     "script_reused": "scripts_v2/extract_examples_data.py (+ 2 轮 bug fix: tier=others output 09→10, H1 tier-aware)",
@@ -396,9 +465,9 @@
     ]
   },
   "session_handoff": {
-    "handoff_at": "2026-04-19T22:30:00Z",
-    "last_commit": "TBD-after-f3-commit",
-    "resume_from": "F4 (HARD CHECKPOINT — 写 CHECKPOINT_V2.4_HANDOFF.md + 等 Cowork 上传 11a/b/c 3 文件 + 跑 4 题 A/B 回归)",
-    "notes": "F3 done. build_v2_stage.py --stage v2.4 跑通, 24 文件 / 751,422 tokens (89.5% of 840K target, 余量). system_prompt_v2 v2.4 增量段 appended, manifest v2.4 行 appended. 下一步 F4 硬 checkpoint: 主控写 CHECKPOINT_V2.4_HANDOFF.md 给 Cowork, Cowork 上传 11a_core + 11b_questionnaires + 11c_supp 3 文件到现有 SDTM-Knowledge-v2 Project + 覆盖 Instructions + 跑 4 题 (T17/T18 新 + T7/T15 回归, 且 PLAN §F4 建议 T1/T3/T6/T8 中抽 2-4 题 deeper 回归). 预期 capacity ~44-45%, 本批是 token 跃升最大的阶段 (+351.7K), RAG 衰减风险最高, 若 ≥1 衰减主控立即调 reviewer 归因."
+    "handoff_at": "2026-04-19T23:05:00Z",
+    "last_commit": "TBD-after-f4-commit",
+    "resume_from": "G1 (跑 score_codelists.py 取 rank 201-500 → 批 5 terminology mid 清单; 沿用 F1 模板, 落盘 evidence_v2/G1_codelist_mid.md + G1_codelist_score.log)",
+    "notes": "F4 done. Cowork 上传 11a/b/c 3 文件 + 覆盖 Instructions + 跑 6 题 A/B (T17+T18 新 + T7/T15 回归 + T1/T3 深度回归). 结果: capacity 43% (+20pp vs 预期 +22pp, 91% 匹配), 0 衰减, T7/T17/T3 三题 ↑, T15/T1 持平, T17+T18 2/2 PASS. 独立复核 (code-reviewer, 第三 lane, Rule D) 7 维度全 PASS. STAGE_V2.4_AB_REPORT.md 落盘, rag_decay_curve.md v2.3→v2.4 观察段已追加, test_results_v2.md v2.4 stage 段已追加. 下一步 G1: 批 5 terminology mid (rank 201-500 ~300 codelist, mid tier 算法: 截断 Definition ≤100 字符, 无 Synonyms, 无 NCI Description, 必拆 12a_core + 12b_questionnaires). PLAN §G 9 任务循环 F1-F4 模式. C12 硬约束: 累计 token ≤ 1.5M (v2.4 719K, G2 预计 +400-500K → v2.5 ~1.1-1.2M 应在预算内)."
   }
 }

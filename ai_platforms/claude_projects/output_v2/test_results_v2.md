@@ -27,8 +27,8 @@
 | T14 | 2 | EX 剂量调整 Example 数据怎么写? | 表格 | (兜底, 回落源路径) | (v2.1 09 未在, 同 v1) | **PASS v2.2**: Ex4 完整 6×14 ex.xpt 表 (EXADJ "Reduced due to toxicity" / "Increased due to suboptimal efficacy") + 3 建模要点 + EC/EX Ex7 延伸, Source 标 09 | ↑ | **PASS** ✅ |
 | T15 | 3 | RP 域 Example 数据? | 表格 | (兜底) | **PASS v2.3**: 完整 21×18 rp.xpt (2 受试者 × 3 访视, Pre-Menopause CHILDPOT/PREGST + MENOPAUSE 场景, RPDUR ISO 8601 期间 P3Y), Source 标 10 | ↑ | **PASS** ✅ |
 | T16 | 3 | FT 域 Example 数据? | 表格 | (兜底) | **PASS v2.3**: 完整 6×16 ft.xpt (6MWT SIXMW101-106 分钟级 TESTCD) + suppft.xpt 1×10 (FTASSTDV=CANE 辅助设备), Source 标 10; 附 QRS Naming Rules 引自 06 | ↑ | **PASS** ✅ |
-| T17 | 4 | C66742 codelist 所有 Term 值 + Definition? | 完整 Term 表 | (兜底) | TBD (Stage v2.4) | TBD | TBD |
-| T18 | 4 | AERELN codelist 全部 Synonyms? | Synonyms 字段 | TBD | TBD (Stage v2.4) | TBD | TBD |
+| T17 | 4 | C66742 codelist 所有 Term 值 + Definition? | 完整 Term 表 | (兜底) | **PASS v2.4 ↑**: 完整 4 Term 表 (C49487 N / C48660 NA / C17998 U / C49488 Y) + Extensible No + 41 Related Domains (AE/AG/BS/CE/CM/CP/CV/DM/EC/EG/EX/FA/FT/GF/HO/IE/IS/LB/MB/MH/MI/MK/ML/MS/NV/OE/PC/PE/PR/QS/RE/RP/RS/SR/SU/SV/TM/TR/TU/UR/VS) + §4.3.7 Y/N/U/NA 使用规则; Source 标 `11a_terminology_high_core.md → ## No Yes Response (C66742)` + 源 `knowledge_base/terminology/core/general_part4.md` + `02_chapters.md §4.3.7` | ↑ (从"推测"→"11a 原文命中") | **PASS** ✅ |
+| T18 | 4 | AERELN codelist 全部 Synonyms? (边界) | "不在源"声明 + 替代 | TBD | **PASS v2.4**: 明确声明 "AERELN 不是 SDTMIG v3.4 标准变量/codelist", 08_terminology_map.md 也无对应项; 列 AE Relationship 系列变量 (AEREL/AERLDEV/AERELNST/AERLPRT/AERLPRC 全部"无 CDISC CT") + 已发布 AE 相关 codelist (C66767 Action Taken / C111110 Device Events / C66768 Outcome / C66769 Severity) + ch04 §4.2.8.3 AERELNS1 SUPPAE QNAM 说明 + 请澄清段落; 零臆造 Synonyms | — | **PASS** ✅ |
 | T19 | 5 | FREQ codelist (中频) 全部 Term + Code? | 表格 | TBD | TBD (Stage v2.5) | TBD | TBD |
 | T20 | 5 | PROBLEM_TYPE codelist (中频) 全部值? | 表格 | TBD | TBD (Stage v2.5) | TBD | TBD |
 
@@ -78,3 +78,24 @@
   - 48.9K 新文件对 02/05/06 老文件无挤出, 所有 Source 溯源仍准确
 - **异常**: Indexing indicator 继续显示但不 gating 提问, 沿用 v2.2 结论; 本批用户本地上传, 无 Chrome MCP file_upload 受限触发
 - **决议**: T11 无 ↓ + T15+T16 = 2/2 PASS + T3 反向 ↑ → **继续 Task F1 批 4 (terminology 高频)**
+
+### v2.4 (2026-04-19, terminology 高频 top 200 codelist 完整 Term batch)
+
+- **Capacity 实测**: **43%** (v2.3 = 23%, +20pp, 本批是 v2 token 跃升最大阶段; 投影 +22pp, 实测 +20pp, 匹配度 ~91%)
+- **上传文件**: 11 v2.3 不变 + 3 新 (`11a_terminology_high_core.md` 68,559 tokens / 29 codelist + `11b_terminology_high_questionnaires.md` 256,336 tokens / 152 QRS codelist + `11c_terminology_high_supp.md` 26,857 tokens / 19 Device/FT/Discharge codelist), 总 14 实体文件 / **719,241 tokens** (+351,752 增量)
+- **T17 C66742 Term 表 (新, 批 4 核心修复)**: **PASS ↑ (质变)** — v2.1/v2.2/v2.3 三连高信心推测 Y/N/U/NA (08 只映射), v2.4 在 11a rank 1 直接命中完整 4 Term 表 (C49487 N / C48660 NA / C17998 U / C49488 Y) + Extensible No + 41 Related Domains 行 + §4.3.7 使用规则; Source 三层溯源 (`11a` + `general_part4.md` + `02_chapters §4.3.7`). 从"推测"跃升为"原文命中", PLAN §F4 修复期望完美达成
+- **T18 AERELN 边界 (新, 批 4 边界测试)**: **PASS** — 坦诚 "AERELN 不是 SDTMIG v3.4 标准变量/codelist" + 列相邻 AE Relationship 系列 (AEREL/AERLDEV/AERELNST/AERLPRT/AERLPRC 全"无 CDISC CT") + 已发布 AE codelist (C66767 Action Taken / C111110 Device Events / C66768 Outcome / C66769 Severity) + SUPPAE QNAM 可能性 + ch04 §4.2.8.3 交叉引用; 零臆造 Synonyms; 边界感知远超 PLAN 最低要求
+- **T7 CT Code C66742 (回归, 批 4 关键修复期望)**: **↑ 质变** — v2.3 高信心推测, v2.4 从 11a 原文 4 Term 表直接命中 + 41 Related Domains + 源文件 `general_part4.md`. 这是 v2.4 对 v2.3 修复期望的完美达成
+- **T15 RP Example (回归)**: **持平** — 完整 21×18 rp.xpt 双场景 (P0001 childbearing potential + P0002 post-menopausal) + BCMETHOD 携带 RPDUR P3Y + 数值无衰减 + RP Assumptions 4 条配套, 10_examples_data_others.md 未被 11b 256K 挤出
+- **T1 AEDECOD Core (深度回归, 敏感度最高)**: **持平或略 ↑** — Core=Req 稳定, v2.4 同时引 §4.3.5 (Synonym Qualifier for MedDRA/WHODrug) + §4.3.4 + §4.3.6 + §4.2.8.1 + AE Assumption #12 + 完整 MedDRA 层级树, 比 v2.3 仅 §4.3.6 更全; 05_mega_spec + 06_assumptions + 02_chapters 召回零衰减
+- **T3 PC↔PP RELREC (深度回归, v2.3 ↑ 点)**: **继续 ↑** — v2.4 显式 Method A/B/C/D 独立段 + 每方法完整 relrec.xpt 数据表 + A-D 汇总矩阵 (IDVAR/RELID 数/relrec 行数/粒度/溯源能力) + 粒度选择建议 (D>C>B>A); 3 次独立子查询 ("RELREC four approaches"/"PCGRPID PPGRPID"/"Method A B C D dataset level") 精准命中 09, 11b 256K 未挤出; 坦诚声明 §6.3.5.9.3 prose 未抽入 Project (技术债信号转接 G1/H1)
+- **回归衰减 ↓**: **0 / 4** (T7 从推测→命中算 ↑; T15/T1/T3 零衰减, T3 继续 ↑; 门槛 ≥1 衰减停, 本批零衰减)
+- **新增 PASS**: **2 / 2** (T17/T18)
+- **关键观察**:
+  - **11b 256K 单文件挤出风险假设反驳**: 11b 是当前 v2 单文件 token 最大记录 (vs v2.3 最大 112.7K 09), 未造成 05/02/09 老文件召回稀释; PLAN §F4 最敏感的 T1/T15/T3 三题零衰减 + T3 继续 ↑
+  - **CT Code 查询优先级 `11*>08` (v2.4 新 Instructions 段) 被 Claude 正确解读**, T17/T7 Source 均直达 11a rank 1
+  - **T3 跨批累积三阶正向激活**: v2.2 硬拒答 → v2.3 从数据推导 → v2.4 显式 Method 独立段, 是 v2 最显著的 RAG 正向二阶效应
+  - **Capacity 爬升曲线匹配**: v2.3 23% + 351.8K / 16K-per-pp ≈ +22pp 投影, 实测 +20pp (43%), 91% 匹配度
+- **异常/警告**: 无 RAG 衰减拐点; **T3 SDTMIG §6.3.5.9.3 "Method A/B/C/D" prose 未抽入 Project** (Claude 主动声明, 优先级中等, 建议 G1/H1 考虑是否在 02_chapters 或 06_assumptions 补段); Indexing indicator 仍不可靠, 沿用前两批结论
+- **独立复核 (Rule D)**: `code-reviewer` subagent (与 Cowork writer + 主控 writer 独立的第三条 lane) 对 STAGE_V2.4_AB_REPORT.md 7 维度审计全 PASS — 覆盖/T17 证据/T18 边界/Capacity 数学/决策矩阵/Rule D/无幻觉引用
+- **决议**: T1/T15/T3 零衰减 + T7 ↑ 质变 + T17+T18 = 2/2 PASS + T3 继续 ↑ → **继续 Task G1 批 5 (terminology mid 频 codelist, rank 201-500)**
