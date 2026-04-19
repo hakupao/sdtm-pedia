@@ -6,10 +6,12 @@
   "current_batch": 2,
   "completed_stages": [
     "v2.0-setup",
-    "v2.1"
+    "v2.1",
+    "v2.2"
   ],
   "completed_batches": [
-    1
+    1,
+    2
   ],
   "checkpoints_acked": [
     {
@@ -17,7 +19,9 @@
       "ts": "2026-04-19T00:13:00Z",
       "user_response": "pending",
       "regression_count": 1,
-      "regression_ids": ["T3"],
+      "regression_ids": [
+        "T3"
+      ],
       "reviewer_verdict": "design-intent (rule A 副作用)",
       "recommend_continue_d1": "yes",
       "decision_branch": "1 衰减 → 询问用户是否进 D1"
@@ -25,7 +29,7 @@
   ],
   "v1_baseline": "ai_platforms/claude_projects/output_v1_baseline/",
   "started_at": "2026-04-18T00:00:00Z",
-  "last_updated": "2026-04-19T06:48:00Z",
+  "last_updated": "2026-04-19T07:07:08Z",
   "completed_tasks": [
     "A1",
     "A2",
@@ -38,17 +42,47 @@
     "C1",
     "C2",
     "C3",
-    "D1"
+    "D1",
+    "D2",
+    "D3"
   ],
   "skipped_tasks": [
     "B5"
   ],
   "pending_tasks": [
-    "D2",
-    "D3",
     "D4"
   ],
   "blocked_on_user": null,
+  "d2_output": {
+    "script": "scripts_v2/extract_examples_data.py",
+    "product": "output_v2/09_examples_data_high.md",
+    "tokens": 112697,
+    "md5": "4cf1c1c6ab167cc31a47cdda891ec50e",
+    "domains": 28,
+    "spec_deviation": {
+      "cap_hard": 50000,
+      "actual": 112697,
+      "ratio": 2.25,
+      "user_decision": "A-accept",
+      "rationale": "与 v2.1 先例一致, 总 RAG 容量 ~3-4M, 112K = 3.2%"
+    },
+    "executor_id": "aaeb38e3115269993",
+    "reviewer_id": "a8e30db898b29a64c",
+    "reviewer_verdict": "PASS",
+    "reviewer_sampled": ["DM", "DS", "EX", "PC", "IS"],
+    "main_audit_sampled": ["AE", "PP", "MB", "GF", "CP"],
+    "main_audit_result": "5/5 PASS, 0 表格丢失, 0 Example 丢失",
+    "tech_debt": ["E1: 考虑 PC/PP dedicated extractor 以保留 Method 分层 traceability"]
+  },
+  "d3_output": {
+    "stage_tokens_total": 333719,
+    "stage_target_tokens": 360000,
+    "file_count": 16,
+    "system_prompt_patched": true,
+    "manifest_row_appended": true,
+    "evidence_file": "output_v2/evidence_v2/stage_v2.2_examples_high.md",
+    "build_script_patched": "scripts_v2/build_v2_stage.py (stub 收窄 v2.4/v2.5, v2.2 --domain-list 注入, 接受 rc=1 cap-warning)"
+  },
   "d1_output": {
     "domain_list_file": "output_v2/evidence_v2/D1_domain_list.md",
     "score_log": "output_v2/evidence_v2/D1_domain_score.log",
@@ -58,7 +92,36 @@
     "scored_added": 5,
     "idempotent_vs_b2": true,
     "pc_pp_pinned": true,
-    "merge_set": ["AE","BE","BS","CE","CM","CP","DD","DM","DS","EG","EX","FA","GF","IS","LB","MB","MH","MI","MS","PC","PP","PR","RS","SE","SS","SU","TR","TU"]
+    "merge_set": [
+      "AE",
+      "BE",
+      "BS",
+      "CE",
+      "CM",
+      "CP",
+      "DD",
+      "DM",
+      "DS",
+      "EG",
+      "EX",
+      "FA",
+      "GF",
+      "IS",
+      "LB",
+      "MB",
+      "MH",
+      "MI",
+      "MS",
+      "PC",
+      "PP",
+      "PR",
+      "RS",
+      "SE",
+      "SS",
+      "SU",
+      "TR",
+      "TU"
+    ]
   },
   "session_handoff": {
     "handoff_at": "2026-04-19T00:13:30Z",
