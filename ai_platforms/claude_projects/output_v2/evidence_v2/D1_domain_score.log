@@ -1,0 +1,49 @@
+# 必选域 (用户清单 + T_test_hits, 去重)
+BE: must (user)
+BS: must (user)
+CE: must (user)
+CM: must (user)
+DD: must (user)
+DM: must (user)
+DS: must (user)
+EX: must (user)
+FA: must (user)
+GF: must (user)
+LB: must (user)
+MH: must (user)
+MI: must (user)
+PR: must (user)
+RS: must (user)
+SE: must (user)
+SS: must (user)
+SU: must (user)
+TR: must (user)
+TU: must (user)
+AE: must (T_test_hits)
+PC: must (T_test_hits)
+PP: must (T_test_hits)
+
+# 打分排序 (除必选外, top 20)
+IS: 0.53
+CP: 0.48
+EG: 0.39
+MB: 0.38
+MS: 0.35
+OE: 0.35
+AG: 0.33
+CV: 0.30
+TA: 0.30
+MK: 0.28
+EC: 0.28
+NV: 0.28
+RE: 0.26
+SR: 0.22
+DA: 0.19
+VS: 0.17
+FT: 0.16
+ML: 0.16
+IE: 0.15
+UR: 0.15
+
+# 推荐合并清单 (必选 + top N 直至总数 25-28):
+[AE, BE, BS, CE, CM, CP, DD, DM, DS, EG, EX, FA, GF, IS, LB, MB, MH, MI, MS, PC, PP, PR, RS, SE, SS, SU, TR, TU]  # 共 28 域

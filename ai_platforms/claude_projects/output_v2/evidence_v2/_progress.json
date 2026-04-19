@@ -2,8 +2,8 @@
   "phase": "6.5-claude-v2",
   "plan": "ai_platforms/claude_projects/PLAN_V2.md",
   "design": "docs/superpowers/specs/2026-04-18-phase6.5-claude-v2-expansion-design.md",
-  "current_stage": "v2.1",
-  "current_batch": 1,
+  "current_stage": "v2.2",
+  "current_batch": 2,
   "completed_stages": [
     "v2.0-setup",
     "v2.1"
@@ -25,7 +25,7 @@
   ],
   "v1_baseline": "ai_platforms/claude_projects/output_v1_baseline/",
   "started_at": "2026-04-18T00:00:00Z",
-  "last_updated": "2026-04-19T00:13:30Z",
+  "last_updated": "2026-04-19T06:48:00Z",
   "completed_tasks": [
     "A1",
     "A2",
@@ -37,21 +37,28 @@
     "B4-reviewer",
     "C1",
     "C2",
-    "C3"
+    "C3",
+    "D1"
   ],
   "skipped_tasks": [
     "B5"
   ],
   "pending_tasks": [
-    "D1",
     "D2",
     "D3",
     "D4"
   ],
-  "blocked_on_user": {
-    "blocker": "D1 continue/adjust/pause decision",
-    "context": "T1-T8 出现 1 题 ↓ (T3), PLAN §5 C3 Step 6 分支要求用户拍板; 主控 + reviewer 均建议 continue",
-    "since": "2026-04-19T00:13:30Z"
+  "blocked_on_user": null,
+  "d1_output": {
+    "domain_list_file": "output_v2/evidence_v2/D1_domain_list.md",
+    "score_log": "output_v2/evidence_v2/D1_domain_score.log",
+    "total_domains": 28,
+    "must_user": 20,
+    "must_t_test_hits_new": 3,
+    "scored_added": 5,
+    "idempotent_vs_b2": true,
+    "pc_pp_pinned": true,
+    "merge_set": ["AE","BE","BS","CE","CM","CP","DD","DM","DS","EG","EX","FA","GF","IS","LB","MB","MH","MI","MS","PC","PP","PR","RS","SE","SS","SU","TR","TU"]
   },
   "session_handoff": {
     "handoff_at": "2026-04-19T00:13:30Z",
