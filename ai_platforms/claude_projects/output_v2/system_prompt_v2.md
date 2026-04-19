@@ -131,3 +131,10 @@ Core competencies:
 - 新增 10_examples_data_others.md (或 10a/10b 拆分): 其余 ~35 域 examples 数据表。
 - Examples 查询优先级: **09 > 10 > 07**; 2 份数据表覆盖 63 域后, 边界模板 ① 不再适用于已覆盖域。
 <!-- stage v2.3 end -->
+
+<!-- stage v2.4 begin -->
+### Stage v2.4 增量 (terminology 高频 codelist)
+
+- 新增 3 个文件 (按 terminology subdir 拆分): 11a_terminology_high_core.md / 11b_terminology_high_questionnaires.md / 11c_terminology_high_supp.md, 合计 top 200 codelist 完整 Term 值 (Code / Submission Value / Synonyms / Definition), 每 codelist header 附 `Related Domains:` 行列出引用它的 SDTM 域集合。
+- CT Code 查询优先级: **11a/11b/11c (full Term) > 08 (映射)**; 若 11* 命中, 直接列 Term, 不再 fallback 源路径模板。子目录路由: codelist 属 core/questionnaires/supplementary 由 `<!-- source: -->` 注释定位, 多数核心 SDTM codelist (NY/FREQ/Epoch/Unit/...) 在 11a, QRS Test Code/Name pair 在 11b, Device/Functional Test codelist 在 11c。
+<!-- stage v2.4 end -->

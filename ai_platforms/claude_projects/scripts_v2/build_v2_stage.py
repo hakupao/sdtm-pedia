@@ -93,13 +93,13 @@ STAGE_MAP = {
         "batch": 4,
         "script": "extract_terminology_terms.py",
         "script_args": ["--tier", "high"],
-        "output": "11_terminology_high.md",
+        "output": "11a_terminology_high_core.md",
         "target_tokens_total": 840000,
         "description": "terminology 高频 codelist",
         "slug": "terminology_high",
         "prompt_block": (
-            "- 新增 11_terminology_high.md: top 200 codelist 完整 Term 值 (Code / Submission Value / Decoded / Synonyms)。\n"
-            "- CT Code 查询优先级: **11 > 08 (映射)**; 若 11 命中, 直接列 Term, 不再 fallback 源路径模板。"
+            "- 新增 3 个文件 (按 terminology subdir 拆分): 11a_terminology_high_core.md / 11b_terminology_high_questionnaires.md / 11c_terminology_high_supp.md, 合计 top 200 codelist 完整 Term 值 (Code / Submission Value / Synonyms / Definition), 每 codelist header 附 `Related Domains:` 行列出引用它的 SDTM 域集合。\n"
+            "- CT Code 查询优先级: **11a/11b/11c (full Term) > 08 (映射)**; 若 11* 命中, 直接列 Term, 不再 fallback 源路径模板。子目录路由: codelist 属 core/questionnaires/supplementary 由 `<!-- source: -->` 注释定位, 多数核心 SDTM codelist (NY/FREQ/Epoch/Unit/...) 在 11a, QRS Test Code/Name pair 在 11b, Device/Functional Test codelist 在 11c。"
         ),
     },
     "v2.5": {
