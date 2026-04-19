@@ -8,7 +8,7 @@
 |---|-----|------|--------|----------|----------|-----------|-------------|------|
 | T1 | AE.AEDECOD 的 Core 属性是什么? | Req (mega_spec + variable_index) | Core=Req, 引 05 mega_spec §AE + 04 variable_index(Sy/R) + 02 §4.3.6 | 同 v1, 来源等同 | Core=Req + §4.3.6 三元 (AETERM/AEMODIFY/AEDECOD) + AEDECOD 在其他 Events 域为 Perm 对比 + AEPTCD 配套 | 持平 | 持平 (略 ↑) | v2.2 |
 | T2 | AE 严重程度变化如何记录? | AEGRPID 方案 | 3 方案 A/B/C + E2B/CTCAE 延伸 | 同 3 方案 + 5 处章节锚点 (§4.2.1/§4.3.6/§8.6.3/assum7e/AE3b) | ↑ | v2.1 |
-| T3 | PC↔PP 通过 RELREC 关联的 4 种方法? | Method A-D | 声明 §6.3.5.9.3 不在 Project, 基于通用规则重建 3+1 方法 (含推测标注) | **严格拒答完整 4 种**; 仅引 §8.3 MANY/MANY 一句; 边界模板触发 | **↓** | v2.1 |
+| T3 | PC↔PP 通过 RELREC 关联的 4 种方法? | Method A-D | 声明 §6.3.5.9.3 不在 Project, 基于通用规则重建 3+1 方法 (含推测标注) | **严格拒答完整 4 种**; 仅引 §8.3 MANY/MANY 一句; 边界模板触发 | v2.3 **↑ 显著**: 保边界诚实 (明标 §6.3.5.9.3 narrative 不在) + 从 09 PC relrec 数据推导 4 粒度 (Group↔Group / Seq→Group / Group→Seq / Seq↔Seq) + dataset-level 附录 + 推断 Method A/B/C/D 映射; 共 5 张完整 relrec.xpt | 跨批累积激活 | v2.3 |
 | T4 | 哪些域有 EPOCH 变量? | 44 个域 | 44 域按 class 分组 + CT C99079(44) + 19 不含域 | 同 44 域分组, 增 §4.1.3.1 EPOCH-Capable Domains 原文锚点 | ↑ | v2.1 |
 | T5 | 如何判断变量是否需要提交到 SUPP--? | ch08 §8.4 规则 | 7 级优先级决策树 + §8.4.4 4 条禁令 | 5 步决策树 (合并 step 6/7) + §8.4.4 + SUPP-- spec 表格 | 持平 | v2.1 |
 | T6 | AE Example 2 的具体数据是什么? | 数据表 | 严格拒答 (07 是目录), 给标签+演示意图 | 同严格拒答, 额外给 6 个 AE Examples catalog 表 | ↑ | v2.1 |
@@ -25,8 +25,8 @@
 | T12 | 1 | (变体 — v1: ch10 附录 entity; v2: ch04 §4.4 Timing 变量) | 完整清单 / 完整 §4.4 | PASS, Appendix A-E 完整 + C1 v3.4 已 removed TS 标记 + 9 行边界表 | **PASS**, §4.4.1-§4.4.10 全覆盖 + **§4.4.8 "--STDTC 禁用于 Findings" v3.4 新增** + v3.4 变更对照表 | N/A (变体) | **PASS** ✅ (各自) |
 | T13 | 2 | DM 的 Example 1 完整数据表? | 表格 | (兜底模板, 回落到源路径) | (v2.1 09 未在, 同 v1) | **PASS v2.2**: 6×25 dm.xpt 完整表 + Row 4 SCREEN FAILURE ARMNRS 用法 + RACE 6 CT 值覆盖, Source 标 09 | ↑ | **PASS** ✅ |
 | T14 | 2 | EX 剂量调整 Example 数据怎么写? | 表格 | (兜底, 回落源路径) | (v2.1 09 未在, 同 v1) | **PASS v2.2**: Ex4 完整 6×14 ex.xpt 表 (EXADJ "Reduced due to toxicity" / "Increased due to suboptimal efficacy") + 3 建模要点 + EC/EX Ex7 延伸, Source 标 09 | ↑ | **PASS** ✅ |
-| T15 | 3 | RP 域 Example 数据? | 表格 | (兜底) | TBD (Stage v2.3) | TBD | TBD |
-| T16 | 3 | FT 域 Example 数据? | 表格 | (兜底) | TBD (Stage v2.3) | TBD | TBD |
+| T15 | 3 | RP 域 Example 数据? | 表格 | (兜底) | **PASS v2.3**: 完整 21×18 rp.xpt (2 受试者 × 3 访视, Pre-Menopause CHILDPOT/PREGST + MENOPAUSE 场景, RPDUR ISO 8601 期间 P3Y), Source 标 10 | ↑ | **PASS** ✅ |
+| T16 | 3 | FT 域 Example 数据? | 表格 | (兜底) | **PASS v2.3**: 完整 6×16 ft.xpt (6MWT SIXMW101-106 分钟级 TESTCD) + suppft.xpt 1×10 (FTASSTDV=CANE 辅助设备), Source 标 10; 附 QRS Naming Rules 引自 06 | ↑ | **PASS** ✅ |
 | T17 | 4 | C66742 codelist 所有 Term 值 + Definition? | 完整 Term 表 | (兜底) | TBD (Stage v2.4) | TBD | TBD |
 | T18 | 4 | AERELN codelist 全部 Synonyms? | Synonyms 字段 | TBD | TBD (Stage v2.4) | TBD | TBD |
 | T19 | 5 | FREQ codelist (中频) 全部 Term + Code? | 表格 | TBD | TBD (Stage v2.5) | TBD | TBD |
@@ -61,3 +61,20 @@
   - +7pp capacity 精确匹配 (13%→20%), 验证 Option A 容量预算
 - **异常**: Chrome MCP file_upload 对 sandbox/绝对路径均 `Not allowed`, 本次用户手工拖拽完成; indexing indicator 不可靠, 上传后立即提问即可命中
 - **决议**: T1/T11 无 ↓ + T13+T14 = 2/2 PASS → **继续 Task E1 批 3 (examples 剩余域)**
+
+### v2.3 (2026-04-19, examples 剩余 35 域 batch)
+
+- **Capacity 实测**: **23%** (v2.2 = 20%, +3pp, 比 v2.1→v2.2 的 +7pp 小; 比例匹配新增 48.9K / v2.2 的 112K)
+- **上传文件**: 10 v2.2 不变 + 1 新 (10_examples_data_others.md, 48,897 tokens, 35 域 examples 全覆盖), 总 11 文件 / 367,489 tokens
+- **T15 RP Example**: **PASS ↑** — 命中 10, 完整 21×18 rp.xpt, 覆盖 Pre-Menopause CHILDPOT/PREGST/育龄期前期/已绝经双场景 + RPDUR P3Y ISO 8601 期间
+- **T16 FT Example**: **PASS ↑** — 命中 10, 完整 6×16 ft.xpt (SIXMW 6-Minute Walk Test) + suppft.xpt 配套 (FTASSTDV=CANE); 引 06 QRS Naming Rules 佐证, 多文件协同
+- **T3 PC↔PP RELREC 4 方法 (v2.1/v2.2 硬拒答历史)**: **↑ 显著** — v2.3 不再硬拒答, 从 09 的 PC relrec 数据推导出 4 种粒度模式 (Group↔Group / Seq→Group / Group→Seq / Seq↔Seq) + dataset-level 附录, 共 5 张完整 relrec.xpt, 并推断 Method A/B/C/D 映射 (标明需原文校验). 保边界诚实前提下突破
+- **T11 ch08 §8.3 RELREC (回归)**: 持平略 ↑ — ch08 在 02_chapters.md 未变, v2.3 多了 --SEQ 禁用原文直引 + TR Example 2 实测数据 (USUBJID=44444, TULNKID=T01) 来自 09 作交叉佐证. 多文件协同 (02+09+06+03) 正常
+- **回归衰减 ↓**: **0 / 2** (门槛 ≥2 停, ≥1 询问; 本批零衰减且 T3 反向 ↑)
+- **新增 PASS**: **2 / 2**
+- **关键观察**:
+  - "09 > 10 > 07" Instructions 优先级被正确解读, RP/FT 不在 09 时自动回落 10, 无一 fallback 到 v1 源路径模板
+  - **T3 跨批累积正向激活**: v2 累积视角下 "拒答 → 从数据推导" 的跳变是 **RAG decay curve 二阶正向效应** (批 2 09 数据 + 批 3 10 + Instructions 升级触发). 详见 `rag_decay_curve.md` v2.2→v2.3 观察段
+  - 48.9K 新文件对 02/05/06 老文件无挤出, 所有 Source 溯源仍准确
+- **异常**: Indexing indicator 继续显示但不 gating 提问, 沿用 v2.2 结论; 本批用户本地上传, 无 Chrome MCP file_upload 受限触发
+- **决议**: T11 无 ↓ + T15+T16 = 2/2 PASS + T3 反向 ↑ → **继续 Task F1 批 4 (terminology 高频)**

@@ -3,7 +3,7 @@
   "plan": "ai_platforms/claude_projects/PLAN_V2.md",
   "design": "docs/superpowers/specs/2026-04-18-phase6.5-claude-v2-expansion-design.md",
   "current_stage": "v2.3",
-  "current_batch": 3,
+  "current_batch": 4,
   "completed_stages": [
     "v2.0-setup",
     "v2.1",
@@ -62,11 +62,51 @@
       "capacity_pct": 20,
       "capacity_delta_vs_v21": 7,
       "decision_branch": "T1/T11 无 ↓ + T13+T14 2/2 PASS → 自动继续 Task E1"
+    },
+    {
+      "stage": "v2.3",
+      "ts": "2026-04-19T21:22:00Z",
+      "user_response": "continue (F1)",
+      "ab_report": "output_v2/STAGE_V2.3_AB_REPORT.md",
+      "cowork_dialog_url": "https://claude.ai/chat/f03eedc9-3ea9-4e9f-8495-f3a71149fecf",
+      "regression_count": 0,
+      "new_pass": 2,
+      "new_fail": 0,
+      "questions": {
+        "T15": {
+          "type": "new batch3",
+          "precision_vs_v22": "up",
+          "pass": true,
+          "note": "21x18 rp.xpt, CHILDPOT/PREGST/MENOPAUSE 双场景 + RPDUR P3Y"
+        },
+        "T16": {
+          "type": "new batch3",
+          "precision_vs_v22": "up",
+          "pass": true,
+          "note": "6x16 ft.xpt (6MWT SIXMW101-106) + suppft.xpt FTASSTDV=CANE; 引 06 QRS Naming Rules"
+        },
+        "T3": {
+          "type": "regression (v2.1/v2.2 历史 ↓)",
+          "precision_vs_v22": "up (显著)",
+          "pass_relaxed_v2_cumulative": true,
+          "note": "突破 v2.1/v2.2 硬拒答, 从 09 PC relrec 推导 4 粒度 (Group↔Group/Seq→Group/Group→Seq/Seq↔Seq) + dataset-level 附录; 推断 Method A/B/C/D 映射 (标明需原文校验); 共 5 张完整 relrec.xpt. 保边界诚实前提下 RAG 跨批累积正向激活."
+        },
+        "T11": {
+          "type": "regression",
+          "precision_vs_v22": "持平 (slight up)",
+          "note": "ch08 在 02_chapters.md 未变; 新增 --SEQ 禁用原文直引 + TR Ex2 (USUBJID=44444) 来自 09 作交叉佐证. 多文件协同 02+09+06+03 正常"
+        }
+      },
+      "capacity_pct": 23,
+      "capacity_delta_vs_v22": 3,
+      "indexing_note": "indicator 仍显示 'Indexing' 但不 gating, 4 题全部命中正常, 沿用 v2.2 结论",
+      "rag_decay_observation": "T3 跨批累积正向激活: 批 2 09 PC 数据 + 批 3 10 + Instructions 升级 → 从硬拒答跳到从数据推导 4 粒度. 记入 rag_decay_curve.md v2.2→v2.3 观察段作正向二阶效应数据点.",
+      "decision_branch": "T11 无 ↓ + T15+T16 2/2 PASS + T3 反向 ↑ → 自动继续 Task F1"
     }
   ],
   "v1_baseline": "ai_platforms/claude_projects/output_v1_baseline/",
   "started_at": "2026-04-18T00:00:00Z",
-  "last_updated": "2026-04-19T11:06:26Z",
+  "last_updated": "2026-04-19T21:45:00Z",
   "completed_tasks": [
     "A1",
     "A2",
@@ -85,13 +125,15 @@
     "D4",
     "E1",
     "E2",
-    "E3"
+    "E3",
+    "E4",
+    "F1"
   ],
   "skipped_tasks": [
     "B5"
   ],
   "pending_tasks": [
-    "E4"
+    "F2"
   ],
   "e1_output": {
     "script_reused": "scripts_v2/extract_examples_data.py (+ 2 轮 bug fix: tier=others output 09→10, H1 tier-aware)",
@@ -115,6 +157,33 @@
     "real_upload_tokens": 367489,
     "real_upload_files": 11,
     "incremental_vs_v22": 48897
+  },
+  "e4_output": {
+    "ab_report": "output_v2/STAGE_V2.3_AB_REPORT.md",
+    "rag_decay_curve_appended": true,
+    "test_results_appended": true,
+    "questions_tested": ["T15", "T16", "T3", "T11"],
+    "regression_count": 0,
+    "new_pass": 2,
+    "t3_rag_positive_datapoint": true,
+    "decision": "F1 自动继续"
+  },
+  "f1_output": {
+    "script": "scripts_v2/score_codelists.py",
+    "score_log": "output_v2/evidence_v2/F1_codelist_score.log",
+    "product": "output_v2/evidence_v2/F1_codelist_high.md",
+    "total_codelists": 1005,
+    "top_200_estimated_tokens": 201660,
+    "rank_201_500_estimated_tokens": 338070,
+    "t_codelist_hits_audit": {
+      "NY_C66742": "rank 1, score 10.669 ✓",
+      "FREQ_C71113": "rank 2, score 10.232 ✓",
+      "AERELN": "not in knowledge_base (spec 兼容)",
+      "PROBLEM_TYPE": "not in knowledge_base (spec 兼容)"
+    },
+    "plan_f1_gate_passed": true,
+    "budget_note": "201K 估算 ≈ 软目标 200K, 贴近但未超; 硬上限 250K. 实际 tokens 可能小于估算 (spec tokens_per_term=30 是偏上限). F2 按 top 200 全量抽取, 落盘后再决定是否拆 11a/b/c",
+    "distribution_observation": "rank 1-2 T_hit + rank 3-11 核心 SDTM codelist (Epoch/Unit/Not Done/Evaluator/Directionality/...) + rank 12-36 Findings 辅助 + QRS 首批 + rank 37-200 以 QS/FT/CV/CL Test Name/Code pair 主体 (CDISC CT 对称冗余客观结构)"
   },
   "blocked_on_user": null,
   "d2_output": {
@@ -202,9 +271,9 @@
     ]
   },
   "session_handoff": {
-    "handoff_at": "2026-04-19T00:13:30Z",
+    "handoff_at": "2026-04-19T21:45:00Z",
     "last_commit": "TBD-after-commit",
-    "resume_from": "D1 (score_domains.py 跑打分 + 主控 review 域清单, 必须 pin PC+PP)",
-    "notes": "C3 PASS: AB 报告已到 (capacity 13%, T1-T8 5↑/2 持平/1↓, T9-T12 4/4 PASS). T3 ↓ 由 code-reviewer 独立归因 = 设计意图 (v1/v2 02_chapters 都无 §6.3.5.9.3 原文, v1 答案是模型幻觉重建, v2 拒答是规则 A 正确执行). 源实际在 domains/PP+PC/examples.md, 非 ch06 (ch06 不存在). D1 需等用户 ack 后启动, 启动时 extract_examples_data.py 高频域清单必须硬性含 PC+PP."
+    "resume_from": "F2 (写 scripts_v2/extract_terminology_terms.py --tier high, 输入 F1_codelist_high.md top 200, 输出 output_v2/11_terminology_high.md)",
+    "notes": "Stage v2.3 checkpoint acked: T15+T16 2/2 PASS, T3 从 v2.1/v2.2 硬拒答转为 v2.3 从 09 PC relrec 数据推导 4 粒度 + 推断 Method A/B/C/D (RAG 跨批累积正向激活, 记入 rag_decay_curve 二阶正向数据点), T11 持平略 ↑. Capacity 23% (+3pp vs v2.2). F1 已跑: 1005 codelist 排序, top 200 估 201K tokens (贴软目标 200K), NY(rank 1)+FREQ(rank 2) 双 T_hit 入 top, PLAN §F1 门通过. F2 需 executor subagent 按 PLAN_V2 §F2 prompt 写 extract_terminology_terms.py, 规则 A 强制 reviewer 抽样 N=10, 主控独立抽样 N=10 不重叠."
   }
 }
