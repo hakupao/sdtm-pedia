@@ -201,13 +201,14 @@
     "F2-reviewer",
     "F2",
     "F3",
-    "F4"
+    "F4",
+    "G1"
   ],
   "skipped_tasks": [
     "B5"
   ],
   "pending_tasks": [
-    "G1"
+    "G2"
   ],
   "e1_output": {
     "script_reused": "scripts_v2/extract_examples_data.py (+ 2 轮 bug fix: tier=others output 09→10, H1 tier-aware)",
@@ -355,6 +356,36 @@
     "capacity_projection": "v2.3 23% + (351.7K / 16K-per-pp) ≈ +22pp → v2.4 ~45% (留 ~5pp 给 batch 5 mid tier)",
     "next": "F3: build_v2_stage.py --stage v2.4 (system_prompt_v2 增 stage v2.4 段 + upload_manifest_v2 追加 v2.4 行)"
   },
+  "g1_output": {
+    "script": "scripts_v2/score_codelists.py (与 F1 同一脚本, 无修改, 纯读取)",
+    "score_log": "output_v2/evidence_v2/G1_codelist_score.log",
+    "score_log_idempotent_vs_f1": true,
+    "codelist_txt": "output_v2/evidence_v2/G1_codelist_mid.txt",
+    "codelist_md": "output_v2/evidence_v2/G1_codelist_mid.md",
+    "rank_range": "201-500",
+    "total_codelists_in_batch": 300,
+    "rank_201_top_score": 0.261,
+    "rank_500_tail_score": 0.209,
+    "score_cliff": "无 cliff, 从 0.261 到 0.209 平滑衰减 ~20%, rank 500 是 PLAN 规定 hard cap",
+    "t_codelist_hits_audit_g1": {
+      "NY_C66742": "rank 1 (批 4 已命中, T17/T7 PASS)",
+      "FREQ_C71113": "rank 2 (批 4 已命中; T19 原定批 5 测试点需回归验证或改配)",
+      "AERELN": "not in knowledge_base (T18 边界 PASS)",
+      "PROBLEM_TYPE": "not in knowledge_base (T20 原定批 5 需改配为边界声明测试或替换真实 codelist)"
+    },
+    "plan_g1_gate_passed": true,
+    "budget_note": "估算 rank 201-500 × 30 tokens/term = 338,070 tokens (spec 简化); mid tier 去 Synonyms + 去 NCI + Definition ≤100 字符, 实际 tokens 预计 ~190-240K (调整系数 0.55-0.70); v2.5 终态预计累计 ~910-960K, 远低于 PLAN §G3 C12 1.5M 硬约束",
+    "content_observation": "批 5 ≈ 纯 questionnaire tier (~90% QRS/PRO Test Name + Test Code pair, 对称冗余), 批 4 已收录的核心 SDTM codelist 不重复; PLAN §G2 12a core + 12b questionnaires 拆分可能需调整为 12a Findings/Events/Interventions + 12b QRS/Questionnaires (因 12a core 将很小)",
+    "coverage_after_batch5": "500/1005 = 49.8% 中庸 50% 覆盖目标达成; 未收录的 505 个低优先级 long tail 留给 Phase 7 RAG",
+    "g2_handoff_notes": [
+      "scripts_v2/extract_terminology_terms.py --tier mid 当前是 stub (返回 rc=2 NOT_IMPLEMENTED), G2 需实现",
+      "复用 parse_codelists / build_codelist_index / build_domain_index (tier-agnostic)",
+      "新增 _truncate_definition_mid (100 字符) 或在 _truncate_definition 传 tier 参数",
+      "render_codelist 按 tier 分支跳过 Synonyms 列 / NCI Description 链接",
+      "build_subdir_documents 对 mid tier 产出 12a_terminology_mid_*.md / 12b 路径 (而非 11 系)",
+      "reviewer 抽样 N=10 (规则 A 强制, mid tier 压缩率更高); 验证 Term 表无丢失 + Definition 截断在边界 + idempotency"
+    ]
+  },
   "f3_output": {
     "build_script": "scripts_v2/build_v2_stage.py --stage v2.4",
     "stage_tokens_total": 751422,
@@ -465,9 +496,9 @@
     ]
   },
   "session_handoff": {
-    "handoff_at": "2026-04-19T23:05:00Z",
-    "last_commit": "TBD-after-f4-commit",
-    "resume_from": "G1 (跑 score_codelists.py 取 rank 201-500 → 批 5 terminology mid 清单; 沿用 F1 模板, 落盘 evidence_v2/G1_codelist_mid.md + G1_codelist_score.log)",
-    "notes": "F4 done. Cowork 上传 11a/b/c 3 文件 + 覆盖 Instructions + 跑 6 题 A/B (T17+T18 新 + T7/T15 回归 + T1/T3 深度回归). 结果: capacity 43% (+20pp vs 预期 +22pp, 91% 匹配), 0 衰减, T7/T17/T3 三题 ↑, T15/T1 持平, T17+T18 2/2 PASS. 独立复核 (code-reviewer, 第三 lane, Rule D) 7 维度全 PASS. STAGE_V2.4_AB_REPORT.md 落盘, rag_decay_curve.md v2.3→v2.4 观察段已追加, test_results_v2.md v2.4 stage 段已追加. 下一步 G1: 批 5 terminology mid (rank 201-500 ~300 codelist, mid tier 算法: 截断 Definition ≤100 字符, 无 Synonyms, 无 NCI Description, 必拆 12a_core + 12b_questionnaires). PLAN §G 9 任务循环 F1-F4 模式. C12 硬约束: 累计 token ≤ 1.5M (v2.4 719K, G2 预计 +400-500K → v2.5 ~1.1-1.2M 应在预算内)."
+    "handoff_at": "2026-04-19T23:45:00Z",
+    "last_commit": "TBD-after-g1-commit",
+    "resume_from": "G2 (写 extract_terminology_terms.py --tier mid 实现: 当前是 stub 返回 rc=2 NOT_IMPLEMENTED; 输入 evidence_v2/G1_codelist_mid.txt 300 C-code; 输出 12a_terminology_mid_*.md + 12b)",
+    "notes": "F4 done + G1 done. F4 checkpoint v2.4 已 ack (Cowork 6 题 A/B + 独立 code-reviewer 第三 lane Rule D 全 PASS + rag_decay/test_results 两份文档已追加 + _progress.json checkpoints_acked v2.4 对象已入). G1 done: 复用 score_codelists.py 跑 rank 201-500, 幂等性验证 (F1_log == G1_log byte-identical), 300 C-code 落盘 G1_codelist_mid.txt, 审计报告 G1_codelist_mid.md 落盘 (含 PLAN §G2 拆分建议: 批 5 ≈ 纯 questionnaire tier, 建议 12a core → 12a Findings/Events/Interventions + 12b QRS/Questionnaires). 下一步 G2: 子代理实现 mid tier 分支 (_truncate_definition_mid 100 字符 + render_codelist 跳过 Synonyms 列 + build_subdir_documents 产出 12 系路径). Reviewer 抽样 N=10 规则 A 强制. G2 预计 token 产出 190-240K (vs spec 简化 338K, 因 mid tier 去 Synonyms + 去 NCI + Def ≤100 字符), v2.5 终态预计累计 ~910-960K 远低 C12 1.5M 硬约束."
   }
 }
