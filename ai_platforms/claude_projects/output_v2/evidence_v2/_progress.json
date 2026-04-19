@@ -8,11 +8,24 @@
     "v2.0-setup",
     "v2.1"
   ],
-  "completed_batches": [],
-  "checkpoints_acked": [],
+  "completed_batches": [
+    1
+  ],
+  "checkpoints_acked": [
+    {
+      "stage": "v2.1",
+      "ts": "2026-04-19T00:13:00Z",
+      "user_response": "pending",
+      "regression_count": 1,
+      "regression_ids": ["T3"],
+      "reviewer_verdict": "design-intent (rule A 副作用)",
+      "recommend_continue_d1": "yes",
+      "decision_branch": "1 衰减 → 询问用户是否进 D1"
+    }
+  ],
   "v1_baseline": "ai_platforms/claude_projects/output_v1_baseline/",
   "started_at": "2026-04-18T00:00:00Z",
-  "last_updated": "2026-04-18T13:32:01Z",
+  "last_updated": "2026-04-19T00:13:30Z",
   "completed_tasks": [
     "A1",
     "A2",
@@ -22,19 +35,28 @@
     "B3",
     "B4-executor",
     "B4-reviewer",
-    "C1"
+    "C1",
+    "C2",
+    "C3"
   ],
   "skipped_tasks": [
     "B5"
   ],
   "pending_tasks": [
-    "C2",
-    "C3"
+    "D1",
+    "D2",
+    "D3",
+    "D4"
   ],
+  "blocked_on_user": {
+    "blocker": "D1 continue/adjust/pause decision",
+    "context": "T1-T8 出现 1 题 ↓ (T3), PLAN §5 C3 Step 6 分支要求用户拍板; 主控 + reviewer 均建议 continue",
+    "since": "2026-04-19T00:13:30Z"
+  },
   "session_handoff": {
-    "handoff_at": "2026-04-18T13:18:00Z",
+    "handoff_at": "2026-04-19T00:13:30Z",
     "last_commit": "TBD-after-commit",
-    "resume_from": "C2 build_v2_stage.py --stage v2.1",
-    "notes": "C1 PASS: 02_chapters.md 60716 tokens (target ≤90K, hard 110K), 6 sources, 10/10 byte-exact 抽样 (reviewer 5 + 主控 5 non-overlapping). 下一步 C2 跑 build_v2_stage.py --stage v2.1 聚合 stage evidence + system_prompt 更新."
+    "resume_from": "D1 (score_domains.py 跑打分 + 主控 review 域清单, 必须 pin PC+PP)",
+    "notes": "C3 PASS: AB 报告已到 (capacity 13%, T1-T8 5↑/2 持平/1↓, T9-T12 4/4 PASS). T3 ↓ 由 code-reviewer 独立归因 = 设计意图 (v1/v2 02_chapters 都无 §6.3.5.9.3 原文, v1 答案是模型幻觉重建, v2 拒答是规则 A 正确执行). 源实际在 domains/PP+PC/examples.md, 非 ch06 (ch06 不存在). D1 需等用户 ack 后启动, 启动时 extract_examples_data.py 高频域清单必须硬性含 PC+PP."
   }
 }
