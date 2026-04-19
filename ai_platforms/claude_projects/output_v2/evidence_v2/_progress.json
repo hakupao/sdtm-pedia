@@ -2,13 +2,14 @@
   "phase": "6.5-claude-v2",
   "plan": "ai_platforms/claude_projects/PLAN_V2.md",
   "design": "docs/superpowers/specs/2026-04-18-phase6.5-claude-v2-expansion-design.md",
-  "current_stage": "v2.3",
+  "current_stage": "v2.4",
   "current_batch": 4,
   "completed_stages": [
     "v2.0-setup",
     "v2.1",
     "v2.2",
-    "v2.3"
+    "v2.3",
+    "v2.4"
   ],
   "completed_batches": [
     1,
@@ -106,7 +107,7 @@
   ],
   "v1_baseline": "ai_platforms/claude_projects/output_v1_baseline/",
   "started_at": "2026-04-18T00:00:00Z",
-  "last_updated": "2026-04-19T21:45:00Z",
+  "last_updated": "2026-04-19T13:06:52Z",
   "completed_tasks": [
     "A1",
     "A2",
@@ -130,13 +131,14 @@
     "F1",
     "F2-executor",
     "F2-reviewer",
-    "F2"
+    "F2",
+    "F3"
   ],
   "skipped_tasks": [
     "B5"
   ],
   "pending_tasks": [
-    "F3"
+    "F4"
   ],
   "e1_output": {
     "script_reused": "scripts_v2/extract_examples_data.py (+ 2 轮 bug fix: tier=others output 09→10, H1 tier-aware)",
@@ -149,8 +151,20 @@
     "hard_cap_ok": true,
     "reviewer_id": "a91ed21f74242d2ed",
     "reviewer_verdict": "CONDITIONAL_PASS (H1 bug, 已修)",
-    "reviewer_sampled": ["TA", "OE", "SR", "FT", "QS"],
-    "main_audit_sampled": ["TS", "SV", "EC", "RP", "HO"],
+    "reviewer_sampled": [
+      "TA",
+      "OE",
+      "SR",
+      "FT",
+      "QS"
+    ],
+    "main_audit_sampled": [
+      "TS",
+      "SV",
+      "EC",
+      "RP",
+      "HO"
+    ],
     "main_audit_result": "5/5 PASS, 0 loss"
   },
   "e3_output": {
@@ -165,7 +179,12 @@
     "ab_report": "output_v2/STAGE_V2.3_AB_REPORT.md",
     "rag_decay_curve_appended": true,
     "test_results_appended": true,
-    "questions_tested": ["T15", "T16", "T3", "T11"],
+    "questions_tested": [
+      "T15",
+      "T16",
+      "T3",
+      "T11"
+    ],
     "regression_count": 0,
     "new_pass": 2,
     "t3_rag_positive_datapoint": true,
@@ -200,9 +219,21 @@
     ],
     "legacy_deleted": "output_v2/11_terminology_high.md",
     "per_file_breakdown": {
-      "11a_core": {"codelists": 29, "tokens": 68559, "status": "under soft 200K"},
-      "11b_questionnaires": {"codelists": 152, "tokens": 256336, "status": "WARN band 200-350K"},
-      "11c_supp": {"codelists": 19, "tokens": 26857, "status": "under soft 200K"}
+      "11a_core": {
+        "codelists": 29,
+        "tokens": 68559,
+        "status": "under soft 200K"
+      },
+      "11b_questionnaires": {
+        "codelists": 152,
+        "tokens": 256336,
+        "status": "WARN band 200-350K"
+      },
+      "11c_supp": {
+        "codelists": 19,
+        "tokens": 26857,
+        "status": "under soft 200K"
+      }
     },
     "total_tokens": 351752,
     "total_codelists": 200,
@@ -215,8 +246,30 @@
       "D": "F1 ranking 顺序在每个 subdir 内部保留, 未做 cumulative cap 截断"
     },
     "reviewer_verdict": "PASS (no blocking issues)",
-    "reviewer_sampled": ["C66789", "C78735", "C66727", "C135678", "C124685", "C106662", "C117986", "C66739", "C174223", "C138216"],
-    "main_audit_sampled": ["C66742", "C71620", "C99079", "C71148", "C135677", "C147541", "C130272", "C166184", "C111111", "C150770"],
+    "reviewer_sampled": [
+      "C66789",
+      "C78735",
+      "C66727",
+      "C135678",
+      "C124685",
+      "C106662",
+      "C117986",
+      "C66739",
+      "C174223",
+      "C138216"
+    ],
+    "main_audit_sampled": [
+      "C66742",
+      "C71620",
+      "C99079",
+      "C71148",
+      "C135677",
+      "C147541",
+      "C130272",
+      "C166184",
+      "C111111",
+      "C150770"
+    ],
     "main_audit_result": "10/10 PASS (heading + term_count + extensible + row_order + related_domains 全维度)",
     "cross_audit_coverage": "20 codelists (main 10 + reviewer 10 disjoint)",
     "reviewer_low_findings": [
@@ -232,6 +285,30 @@
     ],
     "capacity_projection": "v2.3 23% + (351.7K / 16K-per-pp) ≈ +22pp → v2.4 ~45% (留 ~5pp 给 batch 5 mid tier)",
     "next": "F3: build_v2_stage.py --stage v2.4 (system_prompt_v2 增 stage v2.4 段 + upload_manifest_v2 追加 v2.4 行)"
+  },
+  "f3_output": {
+    "build_script": "scripts_v2/build_v2_stage.py --stage v2.4",
+    "stage_tokens_total": 751422,
+    "stage_target_tokens": 840000,
+    "pct_of_target": 89.5,
+    "file_count_including_meta": 24,
+    "real_upload_files": 14,
+    "real_upload_tokens": 719241,
+    "real_upload_files_list": [
+      "00_routing.md", "01_index.md", "02_chapters.md", "03_model.md",
+      "04_variable_index.md", "05_mega_spec.md", "06_assumptions.md",
+      "07_examples_catalog.md", "08_terminology_map.md",
+      "09_examples_data_high.md", "10_examples_data_others.md",
+      "11a_terminology_high_core.md",
+      "11b_terminology_high_questionnaires.md",
+      "11c_terminology_high_supp.md"
+    ],
+    "incremental_vs_v23": 351752,
+    "system_prompt_patched": "appended <!-- stage v2.4 begin --> ... end -->",
+    "manifest_row_appended": "v2.4 | 2026-04-19 | 24 | 751,422 | 89.5% of 840K target | terminology 高频 codelist",
+    "evidence_file": "output_v2/evidence_v2/stage_v2.4_terminology_high.md",
+    "build_script_patched": "scripts_v2/build_v2_stage.py v2.4 config updated (output=11a..., prompt_block=A+B+D 3-file split + CT 查询优先级 11*>08)",
+    "capacity_projection_vs_v23": "23% + 351.7K/16K-per-pp ≈ +22pp → v2.4 ~44-45%"
   },
   "blocked_on_user": null,
   "d2_output": {
@@ -319,9 +396,9 @@
     ]
   },
   "session_handoff": {
-    "handoff_at": "2026-04-19T22:15:00Z",
-    "last_commit": "TBD-after-f2-commit",
-    "resume_from": "F3 (build_v2_stage.py --stage v2.4, 追加 system_prompt_v2 stage v2.4 段 + upload_manifest_v2 累计行)",
-    "notes": "F2 PASS: executor + reviewer + main-audit 三层通过. Script extract_terminology_terms.py 386 LOC, 产 3 文件 (11a_core 68.6K/29 codelist, 11b_questionnaires 256.3K/152 codelist, 11c_supp 26.9K/19 codelist) 合 351.7K tokens / 200 codelist 无缺失. User 接受 A+B+D spec 修订 (token 多一点没关系). Reviewer LOW-2 cosmetic only, main-audit 10/10 PASS 全 5 维度 (heading + term_count + extensible + row_order + related_domains). 20 codelist 交叉审计覆盖. F3 纯 meta 操作: 写 system_prompt_v2 stage v2.4 增量段 (CT Term 查询优先 11a/b/c, fall back 08) + upload_manifest_v2 追加 v2.4 行. 然后 F4 硬 checkpoint → Cowork 上传 3 文件 + 4 题 A/B 测."
+    "handoff_at": "2026-04-19T22:30:00Z",
+    "last_commit": "TBD-after-f3-commit",
+    "resume_from": "F4 (HARD CHECKPOINT — 写 CHECKPOINT_V2.4_HANDOFF.md + 等 Cowork 上传 11a/b/c 3 文件 + 跑 4 题 A/B 回归)",
+    "notes": "F3 done. build_v2_stage.py --stage v2.4 跑通, 24 文件 / 751,422 tokens (89.5% of 840K target, 余量). system_prompt_v2 v2.4 增量段 appended, manifest v2.4 行 appended. 下一步 F4 硬 checkpoint: 主控写 CHECKPOINT_V2.4_HANDOFF.md 给 Cowork, Cowork 上传 11a_core + 11b_questionnaires + 11c_supp 3 文件到现有 SDTM-Knowledge-v2 Project + 覆盖 Instructions + 跑 4 题 (T17/T18 新 + T7/T15 回归, 且 PLAN §F4 建议 T1/T3/T6/T8 中抽 2-4 题 deeper 回归). 预期 capacity ~44-45%, 本批是 token 跃升最大的阶段 (+351.7K), RAG 衰减风险最高, 若 ≥1 衰减主控立即调 reviewer 归因."
   }
 }
