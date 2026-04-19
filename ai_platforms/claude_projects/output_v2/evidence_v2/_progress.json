@@ -127,13 +127,16 @@
     "E2",
     "E3",
     "E4",
-    "F1"
+    "F1",
+    "F2-executor",
+    "F2-reviewer",
+    "F2"
   ],
   "skipped_tasks": [
     "B5"
   ],
   "pending_tasks": [
-    "F2"
+    "F3"
   ],
   "e1_output": {
     "script_reused": "scripts_v2/extract_examples_data.py (+ 2 轮 bug fix: tier=others output 09→10, H1 tier-aware)",
@@ -184,6 +187,51 @@
     "plan_f1_gate_passed": true,
     "budget_note": "201K 估算 ≈ 软目标 200K, 贴近但未超; 硬上限 250K. 实际 tokens 可能小于估算 (spec tokens_per_term=30 是偏上限). F2 按 top 200 全量抽取, 落盘后再决定是否拆 11a/b/c",
     "distribution_observation": "rank 1-2 T_hit + rank 3-11 核心 SDTM codelist (Epoch/Unit/Not Done/Evaluator/Directionality/...) + rank 12-36 Findings 辅助 + QRS 首批 + rank 37-200 以 QS/FT/CV/CL Test Name/Code pair 主体 (CDISC CT 对称冗余客观结构)"
+  },
+  "f2_output": {
+    "script": "scripts_v2/extract_terminology_terms.py",
+    "script_loc": 386,
+    "executor_id": "a568f7189f0cc3711",
+    "reviewer_id": "abbd925b66528d695",
+    "products": [
+      "output_v2/11a_terminology_high_core.md",
+      "output_v2/11b_terminology_high_questionnaires.md",
+      "output_v2/11c_terminology_high_supp.md"
+    ],
+    "legacy_deleted": "output_v2/11_terminology_high.md",
+    "per_file_breakdown": {
+      "11a_core": {"codelists": 29, "tokens": 68559, "status": "under soft 200K"},
+      "11b_questionnaires": {"codelists": 152, "tokens": 256336, "status": "WARN band 200-350K"},
+      "11c_supp": {"codelists": 19, "tokens": 26857, "status": "under soft 200K"}
+    },
+    "total_tokens": 351752,
+    "total_codelists": 200,
+    "missing_c_codes": 0,
+    "exit_code": 0,
+    "user_spec_refinement": "A+B+D accepted (user 2026-04-19 ack 'token多一点没关系')",
+    "abd_details": {
+      "B": "Related Domain 从 per-term 列移至 codelist-header (节省 ~72K tokens vs 初始 423K)",
+      "A": "按 terminology subdir 拆 11a(core)/11b(questionnaires)/11c(supp)",
+      "D": "F1 ranking 顺序在每个 subdir 内部保留, 未做 cumulative cap 截断"
+    },
+    "reviewer_verdict": "PASS (no blocking issues)",
+    "reviewer_sampled": ["C66789", "C78735", "C66727", "C135678", "C124685", "C106662", "C117986", "C66739", "C174223", "C138216"],
+    "main_audit_sampled": ["C66742", "C71620", "C99079", "C71148", "C135677", "C147541", "C130272", "C166184", "C111111", "C150770"],
+    "main_audit_result": "10/10 PASS (heading + term_count + extensible + row_order + related_domains 全维度)",
+    "cross_audit_coverage": "20 codelists (main 10 + reviewer 10 disjoint)",
+    "reviewer_low_findings": [
+      "LOW-1: verbose tuple type hint on build_subdir_documents — cosmetic",
+      "LOW-2: minor file_num name shadowing — cosmetic"
+    ],
+    "reviewer_extra_checks": [
+      "idempotency: byte-identical MD5 on re-run rc=0 ✓",
+      "definition truncation: max cell=200, 0 violations across 200 codelists ✓",
+      "subdir alignment: 0 mis-filed markers ✓",
+      "--tier mid stub returns rc=2 as spec'd ✓",
+      "ast.parse clean ✓"
+    ],
+    "capacity_projection": "v2.3 23% + (351.7K / 16K-per-pp) ≈ +22pp → v2.4 ~45% (留 ~5pp 给 batch 5 mid tier)",
+    "next": "F3: build_v2_stage.py --stage v2.4 (system_prompt_v2 增 stage v2.4 段 + upload_manifest_v2 追加 v2.4 行)"
   },
   "blocked_on_user": null,
   "d2_output": {
@@ -271,9 +319,9 @@
     ]
   },
   "session_handoff": {
-    "handoff_at": "2026-04-19T21:45:00Z",
-    "last_commit": "TBD-after-commit",
-    "resume_from": "F2 (写 scripts_v2/extract_terminology_terms.py --tier high, 输入 F1_codelist_high.md top 200, 输出 output_v2/11_terminology_high.md)",
-    "notes": "Stage v2.3 checkpoint acked: T15+T16 2/2 PASS, T3 从 v2.1/v2.2 硬拒答转为 v2.3 从 09 PC relrec 数据推导 4 粒度 + 推断 Method A/B/C/D (RAG 跨批累积正向激活, 记入 rag_decay_curve 二阶正向数据点), T11 持平略 ↑. Capacity 23% (+3pp vs v2.2). F1 已跑: 1005 codelist 排序, top 200 估 201K tokens (贴软目标 200K), NY(rank 1)+FREQ(rank 2) 双 T_hit 入 top, PLAN §F1 门通过. F2 需 executor subagent 按 PLAN_V2 §F2 prompt 写 extract_terminology_terms.py, 规则 A 强制 reviewer 抽样 N=10, 主控独立抽样 N=10 不重叠."
+    "handoff_at": "2026-04-19T22:15:00Z",
+    "last_commit": "TBD-after-f2-commit",
+    "resume_from": "F3 (build_v2_stage.py --stage v2.4, 追加 system_prompt_v2 stage v2.4 段 + upload_manifest_v2 累计行)",
+    "notes": "F2 PASS: executor + reviewer + main-audit 三层通过. Script extract_terminology_terms.py 386 LOC, 产 3 文件 (11a_core 68.6K/29 codelist, 11b_questionnaires 256.3K/152 codelist, 11c_supp 26.9K/19 codelist) 合 351.7K tokens / 200 codelist 无缺失. User 接受 A+B+D spec 修订 (token 多一点没关系). Reviewer LOW-2 cosmetic only, main-audit 10/10 PASS 全 5 维度 (heading + term_count + extensible + row_order + related_domains). 20 codelist 交叉审计覆盖. F3 纯 meta 操作: 写 system_prompt_v2 stage v2.4 增量段 (CT Term 查询优先 11a/b/c, fall back 08) + upload_manifest_v2 追加 v2.4 行. 然后 F4 硬 checkpoint → Cowork 上传 3 文件 + 4 题 A/B 测."
   }
 }
