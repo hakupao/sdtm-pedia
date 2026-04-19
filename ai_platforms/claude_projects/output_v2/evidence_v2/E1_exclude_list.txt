@@ -1,0 +1,31 @@
+# Exclude list for extract_examples_data.py --tier others
+# Source: D1_domain_list.md (28 高频域, 已在批 2 09 覆盖)
+# Generated: 2026-04-19 (E1 Step 1)
+AE
+BE
+BS
+CE
+CM
+CP
+DD
+DM
+DS
+EG
+EX
+FA
+GF
+IS
+LB
+MB
+MH
+MI
+MS
+PC
+PP
+PR
+RS
+SE
+SS
+SU
+TR
+TU

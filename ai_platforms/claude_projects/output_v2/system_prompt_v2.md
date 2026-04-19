@@ -124,3 +124,10 @@ Core competencies:
 - 新增 09_examples_data_high.md: 25-28 个高频域 examples 数据表全量。
 - Examples 查询优先级: **09 (高频) > 07 (目录)**; 若 09 命中, 直接引用表格, 不再 fallback 源路径模板。
 <!-- stage v2.2 end -->
+
+<!-- stage v2.3 begin -->
+### Stage v2.3 增量 (examples 剩余域)
+
+- 新增 10_examples_data_others.md (或 10a/10b 拆分): 其余 ~35 域 examples 数据表。
+- Examples 查询优先级: **09 > 10 > 07**; 2 份数据表覆盖 63 域后, 边界模板 ① 不再适用于已覆盖域。
+<!-- stage v2.3 end -->

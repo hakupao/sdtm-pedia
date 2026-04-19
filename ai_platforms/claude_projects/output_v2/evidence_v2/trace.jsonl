@@ -28,3 +28,10 @@
 {"ts":"2026-04-19T07:07:08Z","event":"build_script_patched","task":"D3-prep","file":"scripts_v2/build_v2_stage.py","change":"stub 收窄 v2.4/v2.5 only, v2.2 带 --domain-list, 接受 rc=1 cap-warning","dry_run_pass":true}
 {"ts": "2026-04-19T07:07:08Z", "event": "stage_done", "stage": "v2.2", "total_tokens": 333719, "files": 16, "status": "PASS"}
 {"ts":"2026-04-19T07:09:38Z","event":"task_start","stage":"v2.2","task":"D4","subtask":"checkpoint_handoff_written","file":"output_v2/CHECKPOINT_V2.2_HANDOFF.md"}
+{"ts":"2026-04-19T11:00:12Z","event":"checkpoint_ack","stage":"v2.2","user_response":"continue (E1)","regression":0,"new_pass":2,"capacity_pct":20,"ab_report":"output_v2/STAGE_V2.2_AB_REPORT.md"}
+{"ts":"2026-04-19T11:00:12Z","event":"task_start","stage":"v2.3","task":"E1","subtask":"exclude_list_prepared","file":"evidence_v2/E1_exclude_list.txt","domains":28}
+{"ts":"2026-04-19T11:03:41Z","event":"script_bug_fixed","task":"E1","file":"scripts_v2/extract_examples_data.py","change":"tier=others output path 09_examples_data_others.md → 10_examples_data_others.md (2 处: docstring + _output_path)","reason":"PLAN_V2 §2.2 规定 10_ 为 others 编号, executor 写反"}
+{"ts":"2026-04-19T11:03:41Z","event":"step_done","task":"E1","subtask":"extract_tier_others","status":"PASS","tokens":48897,"hard_cap":50000,"soft_target":30000,"domains":35,"md5":"4c971b29aec26cf7b62bc2201b82f08c","coverage":"09+10=63 域, overlap 0"}
+{"ts":"2026-04-19T11:03:41Z","event":"main_audit_done","task":"E1","sampled":["TS","SV","EC","RP","HO"],"result":"5/5 PASS, 0 loss","reviewer_dispatched":"a91ed21f74242d2ed"}
+{"ts":"2026-04-19T11:06:26Z","event":"reviewer_done","task":"E1","agent":"oh-my-claudecode:code-reviewer","model":"opus","agent_id":"a91ed21f74242d2ed","verdict":"CONDITIONAL_PASS","sampled":["TA","OE","SR","FT","QS"],"note":"LOW-severity H1 硬编码 bug: tier=others 仍写 # 09 Examples Data, 已修 line 428-440 tier-aware + re-run, 10 md5 更新 6c8b9a85cf6c74ed517e8d5af6eb370d"}
+{"ts": "2026-04-19T11:06:26Z", "event": "stage_done", "stage": "v2.3", "total_tokens": 389739, "files": 19, "status": "PASS"}
