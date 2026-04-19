@@ -1,0 +1,4 @@
+[Tier others] WARN: 48897 tokens above soft target 30000 (continuing; hand-off to main controller for review)
+[Tier others] 10_examples_data_others.md: 48897 tokens (target <=30K, hard <=50K)
+[Tier others] domains included: 35
+[Tier others] domains missing examples.md: none

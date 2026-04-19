@@ -2,34 +2,71 @@
   "phase": "6.5-claude-v2",
   "plan": "ai_platforms/claude_projects/PLAN_V2.md",
   "design": "docs/superpowers/specs/2026-04-18-phase6.5-claude-v2-expansion-design.md",
-  "current_stage": "v2.2",
-  "current_batch": 2,
+  "current_stage": "v2.3",
+  "current_batch": 3,
   "completed_stages": [
     "v2.0-setup",
     "v2.1",
-    "v2.2"
+    "v2.2",
+    "v2.3"
   ],
   "completed_batches": [
     1,
-    2
+    2,
+    3
   ],
   "checkpoints_acked": [
     {
       "stage": "v2.1",
       "ts": "2026-04-19T00:13:00Z",
-      "user_response": "pending",
+      "user_response": "continue (D1)",
       "regression_count": 1,
       "regression_ids": [
         "T3"
       ],
       "reviewer_verdict": "design-intent (rule A 副作用)",
-      "recommend_continue_d1": "yes",
-      "decision_branch": "1 衰减 → 询问用户是否进 D1"
+      "decision_branch": "1 衰减 → 询问用户是否进 D1 → 用户 ack continue"
+    },
+    {
+      "stage": "v2.2",
+      "ts": "2026-04-19T16:42:00Z",
+      "user_response": "continue (E1)",
+      "ab_report": "output_v2/STAGE_V2.2_AB_REPORT.md",
+      "regression_count": 0,
+      "new_pass": 2,
+      "new_fail": 0,
+      "questions": {
+        "T13": {
+          "type": "new batch2",
+          "precision_vs_v21": "up",
+          "pass": true,
+          "note": "6x25 dm.xpt + ARMNRS SCREEN FAILURE"
+        },
+        "T14": {
+          "type": "new batch2",
+          "precision_vs_v21": "up",
+          "pass": true,
+          "note": "Ex4 6x14 ex.xpt + EXADJ free-text"
+        },
+        "T1": {
+          "type": "regression",
+          "precision_vs_v21": "持平 (slight up)",
+          "note": "§4.3.6 三元 + AEPTCD 扩展"
+        },
+        "T11": {
+          "type": "regression",
+          "precision_vs_v21": "持平 (slight up)",
+          "note": "§8.2 vs §8.3 对照 example"
+        }
+      },
+      "capacity_pct": 20,
+      "capacity_delta_vs_v21": 7,
+      "decision_branch": "T1/T11 无 ↓ + T13+T14 2/2 PASS → 自动继续 Task E1"
     }
   ],
   "v1_baseline": "ai_platforms/claude_projects/output_v1_baseline/",
   "started_at": "2026-04-18T00:00:00Z",
-  "last_updated": "2026-04-19T07:07:08Z",
+  "last_updated": "2026-04-19T11:06:26Z",
   "completed_tasks": [
     "A1",
     "A2",
@@ -44,14 +81,41 @@
     "C3",
     "D1",
     "D2",
-    "D3"
+    "D3",
+    "D4",
+    "E1",
+    "E2",
+    "E3"
   ],
   "skipped_tasks": [
     "B5"
   ],
   "pending_tasks": [
-    "D4"
+    "E4"
   ],
+  "e1_output": {
+    "script_reused": "scripts_v2/extract_examples_data.py (+ 2 轮 bug fix: tier=others output 09→10, H1 tier-aware)",
+    "product": "output_v2/10_examples_data_others.md",
+    "tokens": 48897,
+    "md5": "6c8b9a85cf6c74ed517e8d5af6eb370d",
+    "domains": 35,
+    "coverage_63_domains": "09 (28) + 10 (35) = 63, overlap 0",
+    "soft_target_hit": true,
+    "hard_cap_ok": true,
+    "reviewer_id": "a91ed21f74242d2ed",
+    "reviewer_verdict": "CONDITIONAL_PASS (H1 bug, 已修)",
+    "reviewer_sampled": ["TA", "OE", "SR", "FT", "QS"],
+    "main_audit_sampled": ["TS", "SV", "EC", "RP", "HO"],
+    "main_audit_result": "5/5 PASS, 0 loss"
+  },
+  "e3_output": {
+    "stage_tokens_total": 389739,
+    "stage_target_tokens": 490000,
+    "file_count": 19,
+    "real_upload_tokens": 367489,
+    "real_upload_files": 11,
+    "incremental_vs_v22": 48897
+  },
   "blocked_on_user": null,
   "d2_output": {
     "script": "scripts_v2/extract_examples_data.py",
@@ -69,10 +133,24 @@
     "executor_id": "aaeb38e3115269993",
     "reviewer_id": "a8e30db898b29a64c",
     "reviewer_verdict": "PASS",
-    "reviewer_sampled": ["DM", "DS", "EX", "PC", "IS"],
-    "main_audit_sampled": ["AE", "PP", "MB", "GF", "CP"],
+    "reviewer_sampled": [
+      "DM",
+      "DS",
+      "EX",
+      "PC",
+      "IS"
+    ],
+    "main_audit_sampled": [
+      "AE",
+      "PP",
+      "MB",
+      "GF",
+      "CP"
+    ],
     "main_audit_result": "5/5 PASS, 0 表格丢失, 0 Example 丢失",
-    "tech_debt": ["E1: 考虑 PC/PP dedicated extractor 以保留 Method 分层 traceability"]
+    "tech_debt": [
+      "E1: 考虑 PC/PP dedicated extractor 以保留 Method 分层 traceability"
+    ]
   },
   "d3_output": {
     "stage_tokens_total": 333719,
