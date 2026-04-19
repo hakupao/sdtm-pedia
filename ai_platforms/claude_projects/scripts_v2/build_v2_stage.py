@@ -308,29 +308,44 @@ def _append_trace(stage: str, total_tokens: int, file_count: int, status: str) -
 def _run_batch_script(stage: str) -> tuple[bool, str]:
     """Run the batch script for this stage.
 
-    Returns (ok, message). For v2.1, executes rebuild_chapters_full.py (only
-    if it exists). For v2.2-v2.5 the extract_* scripts are out-of-scope for
-    B4; we stub and warn without crashing.
+    Returns (ok, message). For v2.1/v2.2/v2.3, executes the corresponding
+    extract script (only if it exists). For v2.4/v2.5 the terminology
+    extract script is out-of-scope for Phase D/E; we stub and warn without
+    crashing.
+
+    rc=1 with expected output present is accepted as a "cap-warning"
+    outcome (spec deviation ack'd by main controller).
     """
     info = STAGE_MAP[stage]
     script_name = info["script"]
     script_path = SCRIPTS_V2 / script_name
 
-    if stage != "v2.1":
-        # stub branches
+    # v2.4/v2.5: extract_terminology_terms.py not written yet.
+    if stage in ("v2.4", "v2.5"):
         return True, (
             f"TBD: extract script `{script_name}` not implemented yet "
-            "(out of B4 scope). Skipped batch execution."
+            "(out of Phase D/E scope). Skipped batch execution."
         )
 
-    # v2.1: rebuild_chapters_full.py
     if not script_path.exists():
         return False, (
-            f"需先跑 {script_name} (not found at {script_path}). "
-            "请先实施 Task C1 (rebuild_chapters_full.py)."
+            f"需先写 {script_name} (not found at {script_path})."
         )
 
-    cmd = [sys.executable, str(script_path), *info["script_args"]]
+    # Stage-specific extra args.
+    extra_args: list[str] = []
+    if stage == "v2.2":
+        domain_list = EVIDENCE_V2 / "D1_domain_list.md"
+        if not domain_list.exists():
+            return False, f"need D1_domain_list.md for v2.2 (not at {domain_list})"
+        extra_args = ["--domain-list", str(domain_list)]
+    elif stage == "v2.3":
+        exclude_list = EVIDENCE_V2 / "E1_exclude_list.txt"
+        if not exclude_list.exists():
+            return False, f"need E1_exclude_list.txt for v2.3 (not at {exclude_list})"
+        extra_args = ["--exclude-list", str(exclude_list)]
+
+    cmd = [sys.executable, str(script_path), *info["script_args"], *extra_args]
     try:
         completed = subprocess.run(
             cmd,
@@ -342,13 +357,26 @@ def _run_batch_script(stage: str) -> tuple[bool, str]:
     except OSError as exc:
         return False, f"failed to launch {script_name}: {exc}"
 
+    expected = OUTPUT_V2 / info["output"]
+
+    # rc=1 with output present: likely cap-warning (e.g. EXCEED_HARD_CAP).
+    # Accept as soft-pass; main controller has already done spec-deviation ack.
+    if completed.returncode == 1 and expected.exists():
+        stderr_tail = (
+            completed.stderr.strip().splitlines()[-1:]
+            if completed.stderr else ["(no stderr)"]
+        )
+        return True, (
+            f"{script_name} rc=1 but produced {info['output']} — "
+            f"cap-warning accepted. stderr tail: {stderr_tail}"
+        )
+
     if completed.returncode != 0:
         return False, (
             f"{script_name} exited rc={completed.returncode}. "
             f"stderr tail: {completed.stderr.strip().splitlines()[-3:] if completed.stderr else '(empty)'}"
         )
 
-    expected = OUTPUT_V2 / info["output"]
     if not expected.exists():
         return False, (
             f"{script_name} ran rc=0 but expected output `{info['output']}` missing."

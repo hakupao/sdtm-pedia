@@ -117,3 +117,10 @@ Core competencies:
 - ch08 §8.3 / §8.4 含 RELREC + SUPP-- 完整规则, 跨域关联问题优先读 ch08 全文而非精简段。
 - 原 v1 "ch01/02/03/08/10 精简" 兜底句作废, 不再适用。
 <!-- stage v2.1 end -->
+
+<!-- stage v2.2 begin -->
+### Stage v2.2 增量 (examples 高频域)
+
+- 新增 09_examples_data_high.md: 25-28 个高频域 examples 数据表全量。
+- Examples 查询优先级: **09 (高频) > 07 (目录)**; 若 09 命中, 直接引用表格, 不再 fallback 源路径模板。
+<!-- stage v2.2 end -->
