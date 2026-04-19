@@ -1,0 +1,514 @@
+# 批 4 top 200 (按 score 降序)
+C66742 / No Yes Response: 10.669
+C71113 / Frequency: 10.232
+C99079 / Epoch: 0.488
+C71620 / Unit: 0.397
+C66789 / Not Done: 0.357
+C78735 / Evaluator: 0.356
+C99074 / Directionality: 0.318
+C78733 / Specimen Condition: 0.318
+C96777 / Medical Evaluator Identifier: 0.308
+C111114 / Genetic Sample Type: 0.306
+C66728 / Relation to Reference Period: 0.304
+C111111 / Device Properties Test Code: 0.300
+C111112 / Device Properties Test Name: 0.300
+C135677 / Psoriasis Area and Severity Index Clinical Classification Test Name: 0.300
+C135678 / Psoriasis Area and Severity Index Clinical Classification Test Code: 0.300
+C179935 / Psoriasis Area and Severity Index Version 2 Clinical Classification Test Name: 0.300
+C179936 / Psoriasis Area and Severity Index Version 2 Clinical Classification Test Code: 0.300
+C124685 / Positive and Negative Syndrome Scale Clinical Classification Test Name: 0.296
+C124686 / Positive and Negative Syndrome Scale Clinical Classification Test Code: 0.296
+C125744 / Expanded Disability Rating Scale - Postacute Interview Caregiver Version Questionnaire Test Name: 0.296
+C125745 / Expanded Disability Rating Scale - Postacute Interview Caregiver Version Questionnaire Test Code: 0.296
+C147541 / Functional Assessment of Chronic Illness Therapy-Dyspnea 10 Item Short Form Questionnaire Test Name: 0.296
+C147542 / Functional Assessment of Chronic Illness Therapy-Dyspnea 10 Item Short Form Questionnaire Test Code: 0.296
+C66739 / Trial Type Response: 0.296
+C117986 / Craig Handicap Assessment and Reporting Technique - Short Form Interview Version Questionnaire Test Name: 0.296
+C117987 / Craig Handicap Assessment and Reporting Technique - Short Form Interview Version Questionnaire Test Code: 0.296
+C117990 / Extrapyramidal Symptom Rating Scale-Abbreviated Clinical Classification Test Name: 0.296
+C117991 / Extrapyramidal Symptom Rating Scale-Abbreviated Clinical Classification Test Code: 0.296
+C119067 / Craig Handicap Assessment and Reporting Technique - Short Form Paper Version Questionnaire Test Name: 0.296
+C119068 / Craig Handicap Assessment and Reporting Technique - Short Form Paper Version Questionnaire Test Code: 0.296
+C174223 / Crohn's Disease Findings About Test Code: 0.296
+C174224 / Crohn's Disease Findings About Test Name: 0.296
+C99073 / Laterality: 0.294
+C115304 / Category of Functional Test: 0.293
+C123650 / Tumor or Lesion Identification Test Results: 0.293
+C90013 / ECG Lead: 0.293
+C106662 / Geriatric Depression Scale Questionnaire Test Name: 0.292
+C106663 / Geriatric Depression Scale Questionnaire Test Code: 0.292
+C176050 / Simple Endoscopic Score for Crohn's Disease Version 1 Clinical Classification Test Name: 0.292
+C176051 / Simple Endoscopic Score for Crohn's Disease Version 1 Clinical Classification Test Code: 0.292
+C177717 / Short Form 12 Health Survey Acute, US Version 2.0 Questionnaire Test Name: 0.292
+C177718 / Short Form 12 Health Survey Acute, US Version 2.0 Questionnaire Test Code: 0.292
+C177719 / Short Form 12 Health Survey Standard, US Version 2.0 Questionnaire Test Name: 0.292
+C177720 / Short Form 12 Health Survey Standard, US Version 2.0 Questionnaire Test Code: 0.292
+C141666 / International Physical Activity Questionnaire (October 2002) Long Last 7 Days Self-Administered Format Questionnaire Test Name: 0.291
+C141667 / International Physical Activity Questionnaire (October 2002) Long Last 7 Days Self-Administered Format Questionnaire Test Code: 0.291
+C181180 / Genomic Findings Test Detail: 0.291
+C111339 / Columbia-Suicide Severity Rating Scale Children's Since Last Visit Questionnaire Test Name: 0.288
+C111340 / Columbia-Suicide Severity Rating Scale Children's Since Last Visit Questionnaire Test Code: 0.288
+C127353 / The Functional Assessment of Cancer Therapy-General Version 4 Questionnaire Test Name: 0.288
+C127354 / The Functional Assessment of Cancer Therapy-General Version 4 Questionnaire Test Code: 0.288
+C138216 / Performance of the Upper Limb Module for DMD Version 1.2 Functional Test Test Name: 0.288
+C138217 / Performance of the Upper Limb Module for DMD Version 1.2 Functional Test Test Code: 0.288
+C138218 / Performance of the Upper Limb Module for DMD Version 2.0 Functional Test Test Name: 0.288
+C138219 / Performance of the Upper Limb Module for DMD Version 2.0 Functional Test Test Code: 0.288
+C170526 / Short Physical Performance Battery Version 1.2 Functional Test Test Name: 0.288
+C170527 / Short Physical Performance Battery Version 1.2 Functional Test Test Code: 0.288
+C174051 / Quality of Life in Inflammatory Bowel Disease Questionnaire Test Name: 0.288
+C174052 / Quality of Life in Inflammatory Bowel Disease Questionnaire Test Code: 0.288
+C71151 / ECG Test Method: 0.287
+C100159 / Screener and Opioid Assessment for Patients with Pain - Revised Questionnaire Test Name: 0.287
+C100160 / Screener and Opioid Assessment for Patients with Pain - Revised Questionnaire Test Code: 0.287
+C125746 / Expanded Disability Rating Scale - Postacute Interview Survivor Version Questionnaire Test Name: 0.287
+C125747 / Expanded Disability Rating Scale - Postacute Interview Survivor Version Questionnaire Test Code: 0.287
+C127349 / The Expanded Prostate Cancer Index Composite Short Form Questionnaire Test Name: 0.287
+C127350 / The Expanded Prostate Cancer Index Composite Short Form Questionnaire Test Code: 0.287
+C150791 / Suicidal Ideation Questionnaire-JR Questionnaire Test Name: 0.287
+C150792 / Suicidal Ideation Questionnaire-JR Questionnaire Test Code: 0.287
+C154456 / Symptoms of Major Depressive Disorder Scale v1.0 Questionnaire Test Name: 0.287
+C154457 / Symptoms of Major Depressive Disorder Scale v1.0 Questionnaire Test Code: 0.287
+C101859 / Cardiac Procedure Indication: 0.285
+C103474 / The Overactive Bladder Questionnaire Questionnaire Test Name: 0.285
+C103475 / The Overactive Bladder Questionnaire Questionnaire Test Code: 0.285
+C130246 / Inventory of Depressive Symptomatology Clinician-Rated Version Clinical Classification Test Name: 0.285
+C130247 / Inventory of Depressive Symptomatology Clinician-Rated Version Clinical Classification Test Code: 0.285
+C130260 / Inventory of Depressive Symptomatology Self-Report Version Questionnaire Test Name: 0.285
+C130261 / Inventory of Depressive Symptomatology Self-Report Version Questionnaire Test Code: 0.285
+C150769 / Mini-Mental State Examination 2 Standard Version Functional Test Test Name: 0.285
+C150770 / Mini-Mental State Examination 2 Standard Version Functional Test Test Code: 0.285
+C124297 / Biospecimen Events Dictionary Derived Term: 0.284
+C96781 / Oncology Response Assessment Test Name: 0.284
+C96782 / Oncology Response Assessment Test Code: 0.284
+C66770 / Units for Vital Signs Results: 0.283
+C100165 / Roland Morris Disability Questionnaire Questionnaire Test Name: 0.282
+C100166 / Roland Morris Disability Questionnaire Questionnaire Test Code: 0.282
+C103464 / Revised Fibromyalgia Impact Questionnaire Questionnaire Test Name: 0.282
+C103465 / Revised Fibromyalgia Impact Questionnaire Questionnaire Test Code: 0.282
+C130244 / Hamilton Depression Rating Scale - 24 Item Clinical Classification Test Name: 0.282
+C130245 / Hamilton Depression Rating Scale - 24 Item Clinical Classification Test Code: 0.282
+C138226 / Pediatric Quality of Life Neuromuscular Module Acute Version 3 Child Questionnaire Test Name: 0.282
+C138227 / Pediatric Quality of Life Neuromuscular Module Acute Version 3 Child Questionnaire Test Code: 0.282
+C138228 / Pediatric Quality of Life Neuromuscular Module Acute Version 3 Toddler Parent Report Questionnaire Test Name: 0.282
+C138229 / Pediatric Quality of Life Neuromuscular Module Acute Version 3 Toddler Parent Report Questionnaire Test Code: 0.282
+C138230 / Pediatric Quality of Life Neuromuscular Module Acute Version 3 Child Parent Report Questionnaire Test Name: 0.282
+C138231 / Pediatric Quality of Life Neuromuscular Module Acute Version 3 Child Parent Report Questionnaire Test Code: 0.282
+C138232 / Pediatric Quality of Life Neuromuscular Module Acute Version 3 Teen Parent Report Questionnaire Test Name: 0.282
+C138233 / Pediatric Quality of Life Neuromuscular Module Acute Version 3 Teen Parent Report Questionnaire Test Code: 0.282
+C138234 / Pediatric Quality of Life Neuromuscular Module Acute Version 3 Young Adult Parent Report Questionnaire Test Name: 0.282
+C138235 / Pediatric Quality of Life Neuromuscular Module Acute Version 3 Young Adult Parent Report Questionnaire Test Code: 0.282
+C138236 / Pediatric Quality of Life Neuromuscular Module Acute Version 3 Young Child Parent Report Questionnaire Test Name: 0.282
+C138237 / Pediatric Quality of Life Neuromuscular Module Acute Version 3 Young Child Parent Report Questionnaire Test Code: 0.282
+C138238 / Pediatric Quality of Life Neuromuscular Module Acute Version 3 Teen Questionnaire Test Name: 0.282
+C138239 / Pediatric Quality of Life Neuromuscular Module Acute Version 3 Teen Questionnaire Test Code: 0.282
+C138240 / Pediatric Quality of Life Neuromuscular Module Acute Version 3 Young Adult Questionnaire Test Name: 0.282
+C138241 / Pediatric Quality of Life Neuromuscular Module Acute Version 3 Young Adult Questionnaire Test Code: 0.282
+C138244 / Pediatric Quality of Life Neuromuscular Module Version 3 Child Questionnaire Test Name: 0.282
+C138245 / Pediatric Quality of Life Neuromuscular Module Version 3 Child Questionnaire Test Code: 0.282
+C138246 / Pediatric Quality of Life Neuromuscular Module Version 3 Toddler Parent Report Questionnaire Test Name: 0.282
+C138247 / Pediatric Quality of Life Neuromuscular Module Version 3 Toddler Parent Report Questionnaire Test Code: 0.282
+C138248 / Pediatric Quality of Life Neuromuscular Module Version 3 Child Parent Report Questionnaire Test Name: 0.282
+C138249 / Pediatric Quality of Life Neuromuscular Module Version 3 Child Parent Report Questionnaire Test Code: 0.282
+C138250 / Pediatric Quality of Life Neuromuscular Module Version 3 Teen Parent Report Questionnaire Test Name: 0.282
+C138251 / Pediatric Quality of Life Neuromuscular Module Version 3 Teen Parent Report Questionnaire Test Code: 0.282
+C138252 / Pediatric Quality of Life Neuromuscular Module Version 3 Young Adult Parent Report Questionnaire Test Name: 0.282
+C138253 / Pediatric Quality of Life Neuromuscular Module Version 3 Young Adult Parent Report Questionnaire Test Code: 0.282
+C138254 / Pediatric Quality of Life Neuromuscular Module Version 3 Young Child Parent Report Questionnaire Test Name: 0.282
+C138255 / Pediatric Quality of Life Neuromuscular Module Version 3 Young Child Parent Report Questionnaire Test Code: 0.282
+C138256 / Pediatric Quality of Life Neuromuscular Module Version 3 Teen Questionnaire Test Name: 0.282
+C138257 / Pediatric Quality of Life Neuromuscular Module Version 3 Teen Questionnaire Test Code: 0.282
+C138258 / Pediatric Quality of Life Neuromuscular Module Version 3 Young Adult Questionnaire Test Name: 0.282
+C138259 / Pediatric Quality of Life Neuromuscular Module Version 3 Young Adult Questionnaire Test Code: 0.282
+C71148 / Position: 0.282
+C103460 / Columbia-Suicide Severity Rating Scale Since Last Visit Questionnaire Test Name: 0.281
+C103461 / Columbia-Suicide Severity Rating Scale Since Last Visit Questionnaire Test Code: 0.281
+C124299 / Biospecimen Characteristics Test Name: 0.280
+C124300 / Biospecimen Characteristics Test Code: 0.280
+C181176 / Genomic Symbol Type Response: 0.280
+C66727 / Completion/Reason for Non-Completion: 0.278
+C101821 / Hamilton Depression Rating Scale 21-Item Clinical Classification Test Code: 0.278
+C101822 / Hamilton Depression Rating Scale 21-Item Clinical Classification Test Name: 0.278
+C150785 / National Comprehensive Cancer Network/Functional Assessment of Cancer Therapy-Brain Symptom Index-24 Version 2 Questionnaire Test Name: 0.278
+C150786 / National Comprehensive Cancer Network/Functional Assessment of Cancer Therapy-Brain Symptom Index-24 Version 2 Questionnaire Test Code: 0.278
+C163394 / Diabetes Distress Scale for Parents of Teens with Type 1 Diabetes Questionnaire Test Name: 0.278
+C163395 / Diabetes Distress Scale for Parents of Teens with Type 1 Diabetes Questionnaire Test Code: 0.278
+C170524 / European Organisation for the Research and Treatment of Cancer Quality of Life Questionnaire - Colorectal Version 2.1 Questionnaire Test Name: 0.278
+C170525 / European Organisation for the Research and Treatment of Cancer Quality of Life Questionnaire - Colorectal Version 2.1 Questionnaire Test Code: 0.278
+C113861 / RAND 36-Item Health Survey 1.0 Questionnaire Test Name: 0.275
+C113862 / RAND 36-Item Health Survey 1.0 Questionnaire Test Code: 0.275
+C123654 / Rey Auditory Verbal Learning Test Functional Test Test Name: 0.275
+C123655 / Rey Auditory Verbal Learning Test Functional Test Test Code: 0.275
+C161620 / Diabetes Distress Scale for Adults with Type 1 Diabetes Questionnaire Test Name: 0.275
+C161621 / Diabetes Distress Scale for Adults with Type 1 Diabetes Questionnaire Test Code: 0.275
+C163396 / Diabetes Distress Scale for Partners of Adults with Type 1 Diabetes Questionnaire Test Name: 0.275
+C163397 / Diabetes Distress Scale for Partners of Adults with Type 1 Diabetes Questionnaire Test Code: 0.275
+C115403 / Extended Glasgow Outcome Scale Questionnaire Test Name: 0.273
+C115404 / Extended Glasgow Outcome Scale Questionnaire Test Code: 0.273
+C176048 / Crohn's Disease Activity Index Version 1 Clinical Classification Test Name: 0.273
+C176049 / Crohn's Disease Activity Index Version 1 Clinical Classification Test Code: 0.273
+C100151 / Michigan Neuropathy Screening Instrument Questionnaire Test Name: 0.272
+C100152 / Michigan Neuropathy Screening Instrument Questionnaire Test Code: 0.272
+C111335 / Columbia-Suicide Severity Rating Scale Children's Baseline Questionnaire Test Name: 0.272
+C111336 / Columbia-Suicide Severity Rating Scale Children's Baseline Questionnaire Test Code: 0.272
+C150781 / Functional Assessment of Cancer Therapy-Lung Version 4 Questionnaire Test Name: 0.272
+C150782 / Functional Assessment of Cancer Therapy-Lung Version 4 Questionnaire Test Code: 0.272
+C160922 / Laboratory Analytical Method Calculation Formula: 0.270
+C100141 / Mini-Mental State Examination Functional Test Test Name: 0.269
+C100142 / Mini-Mental State Examination Functional Test Test Code: 0.269
+C106652 / Alzheimer's Disease Cooperative Study-Activities of Daily Living Inventory Severe Dementia Version Questionnaire Test Name: 0.269
+C106653 / Alzheimer's Disease Cooperative Study-Activities of Daily Living Inventory Severe Dementia Version Questionnaire Test Code: 0.269
+C150779 / Functional Assessment of Cancer Therapy/Gynecologic Oncology Group-Neurotoxicity Version 4 Questionnaire Test Name: 0.269
+C150780 / Functional Assessment of Cancer Therapy/Gynecologic Oncology Group-Neurotoxicity Version 4 Questionnaire Test Code: 0.269
+C100155 / Short-Form McGill Pain Questionnaire-2 Questionnaire Test Name: 0.269
+C100156 / Short-Form McGill Pain Questionnaire-2 Questionnaire Test Code: 0.269
+C123652 / Exacerbations of Chronic Pulmonary Disease Tool Patient-Reported Outcome Questionnaire Test Name: 0.269
+C123653 / Exacerbations of Chronic Pulmonary Disease Tool Patient-Reported Outcome Questionnaire Test Code: 0.269
+C127351 / The Expanded Prostate Cancer Index Composite for Clinical Practice Questionnaire Test Name: 0.269
+C127352 / The Expanded Prostate Cancer Index Composite for Clinical Practice Questionnaire Test Code: 0.269
+C150787 / National Comprehensive Cancer Network/Functional Assessment of Cancer Therapy-Head & Neck Symptom Index-22 Version 2 Questionnaire Test Name: 0.269
+C150788 / National Comprehensive Cancer Network/Functional Assessment of Cancer Therapy-Head & Neck Symptom Index-22 Version 2 Questionnaire Test Code: 0.269
+C158113 / QRS Method: 0.269
+C100167 / Columbia-Suicide Severity Rating Scale Baseline Questionnaire Test Name: 0.267
+C100168 / Columbia-Suicide Severity Rating Scale Baseline Questionnaire Test Code: 0.267
+C111341 / Columbia-Suicide Severity Rating Scale Screening Questionnaire Test Name: 0.267
+C111342 / Columbia-Suicide Severity Rating Scale Screening Questionnaire Test Code: 0.267
+C127357 / The Functional Assessment of Cancer Therapy-Prostate Version 4 Questionnaire Test Name: 0.267
+C127358 / The Functional Assessment of Cancer Therapy-Prostate Version 4 Questionnaire Test Code: 0.267
+C130272 / World Health Organization Disability Assessment Schedule 2.0 - 36-Item Self Questionnaire Test Name: 0.267
+C130273 / World Health Organization Disability Assessment Schedule 2.0 - 36-Item Self Questionnaire Test Code: 0.267
+C171444 / Health Care Encounters Dictionary Derived Term: 0.266
+C101863 / Discharge Disposition: 0.264
+C103484 / Symptom Impact Questionnaire Questionnaire Test Name: 0.264
+C103485 / Symptom Impact Questionnaire Questionnaire Test Code: 0.264
+C113857 / Modified Fatigue Impact Scale Questionnaire Test Name: 0.264
+C113858 / Modified Fatigue Impact Scale Questionnaire Test Code: 0.264
+C130274 / World Health Organization Disability Assessment Schedule 2.0 - 12-Item Interviewer Questionnaire Test Name: 0.264
+C130275 / World Health Organization Disability Assessment Schedule 2.0 - 12-Item Interviewer Questionnaire Test Code: 0.264
+C179939 / Functional Assessment of Cancer Therapy-Bone Pain Version 4 Questionnaire Test Name: 0.264
+C179940 / Functional Assessment of Cancer Therapy-Bone Pain Version 4 Questionnaire Test Code: 0.264
+C130270 / World Health Organization Disability Assessment Schedule 2.0 - 36-Item Proxy Questionnaire Test Name: 0.264
+C130271 / World Health Organization Disability Assessment Schedule 2.0 - 36-Item Proxy Questionnaire Test Code: 0.264
+C150777 / Functional Assessment of Cancer Therapy-Biologic Response Modifiers Version 4 Questionnaire Test Name: 0.264
+C150778 / Functional Assessment of Cancer Therapy-Biologic Response Modifiers Version 4 Questionnaire Test Code: 0.264
+C106670 / St. George's Respiratory Questionnaire for COPD Patients Questionnaire Test Name: 0.262
+C106671 / St. George's Respiratory Questionnaire for COPD Patients Questionnaire Test Code: 0.262
+C141668 / International Physical Activity Questionnaire (November 2002) Long Last 7 Days Telephone Format Questionnaire Test Name: 0.262
+C141669 / International Physical Activity Questionnaire (November 2002) Long Last 7 Days Telephone Format Questionnaire Test Code: 0.262
+C154446 / Children's Depression Rating Scale, Revised Clinical Classification Test Name: 0.262
+C154447 / Children's Depression Rating Scale, Revised Clinical Classification Test Code: 0.262
+C166183 / Functional Assessment of Cancer Therapy-Cognitive Function Version 3 Questionnaire Test Name: 0.262
+C166184 / Functional Assessment of Cancer Therapy-Cognitive Function Version 3 Questionnaire Test Code: 0.262
+
+# 批 5 rank 201-500 (按 score 降序)
+C124309 / Tumor or Lesion Properties Test Result: 0.261
+C112434 / Airway Questionnaire 20 Questionnaire Test Name: 0.260
+C112435 / Airway Questionnaire 20 Questionnaire Test Code: 0.260
+C119014 / Cardiovascular Findings About Test Name: 0.260
+C119015 / Cardiovascular Findings About Test Code: 0.260
+C119071 / Rivermead Post Concussion Symptoms Questionnaire Questionnaire Test Name: 0.260
+C119072 / Rivermead Post Concussion Symptoms Questionnaire Questionnaire Test Code: 0.260
+C120978 / Chronic Respiratory Questionnaire Self-Administered Standardized Format First Administration Version Questionnaire Test Name: 0.260
+C120979 / Chronic Respiratory Questionnaire Self-Administered Standardized Format First Administration Version Questionnaire Test Code: 0.260
+C120980 / Chronic Respiratory Questionnaire Self-Administered Standardized Format Follow-Up Administration Version Questionnaire Test Name: 0.260
+C120981 / Chronic Respiratory Questionnaire Self-Administered Standardized Format Follow-Up Administration Version Questionnaire Test Code: 0.260
+C130248 / Quick Inventory of Depressive Symptomatology Clinician-Rated Version Clinical Classification Test Name: 0.260
+C130249 / Quick Inventory of Depressive Symptomatology Clinician-Rated Version Clinical Classification Test Code: 0.260
+C130262 / Quick Inventory of Depressive Symptomatology Self-Report Version Questionnaire Test Name: 0.260
+C130263 / Quick Inventory of Depressive Symptomatology Self-Report Version Questionnaire Test Code: 0.260
+C132516 / North Star Ambulatory Assessment Clinical Classification Test Name: 0.260
+C132517 / North Star Ambulatory Assessment Clinical Classification Test Code: 0.260
+C135691 / The PTSD Checklist for DSM-5 Questionnaire Test Name: 0.260
+C135692 / The PTSD Checklist for DSM-5 Questionnaire Test Code: 0.260
+C163390 / The Glucose Monitoring System Satisfaction Survey Version: Type 1 Diabetes Questionnaire Test Name: 0.260
+C163391 / The Glucose Monitoring System Satisfaction Survey Version: Type 1 Diabetes Questionnaire Test Code: 0.260
+C112452 / National Eye Institute Visual Functioning Questionnaire - 25 Version 2000 Interviewer-Administered Format Questionnaire Test Name: 0.259
+C112453 / National Eye Institute Visual Functioning Questionnaire - 25 Version 2000 Interviewer-Administered Format Questionnaire Test Code: 0.259
+C112454 / National Eye Institute Visual Functioning Questionnaire - 25 Version 2000 Self-Administered Format Questionnaire Test Name: 0.259
+C112455 / National Eye Institute Visual Functioning Questionnaire - 25 Version 2000 Self-Administered Format Questionnaire Test Code: 0.259
+C130256 / Functional Assessment of Cancer Therapy-Lymphoma Version 4 Questionnaire Test Name: 0.259
+C130257 / Functional Assessment of Cancer Therapy-Lymphoma Version 4 Questionnaire Test Code: 0.259
+C111337 / Columbia-Suicide Severity Rating Scale Children's Baseline/Screening Questionnaire Test Name: 0.257
+C111338 / Columbia-Suicide Severity Rating Scale Children's Baseline/Screening Questionnaire Test Code: 0.257
+C150775 / Functional Assessment of Cancer Therapy-Taxane Version 4 Questionnaire Test Name: 0.257
+C150776 / Functional Assessment of Cancer Therapy-Taxane Version 4 Questionnaire Test Code: 0.257
+C150789 / Suicidal Ideation Questionnaire Test Name: 0.257
+C150790 / Suicidal Ideation Questionnaire Test Code: 0.257
+C128687 / Microbiology Susceptibility Test Name: 0.256
+C128688 / Microbiology Susceptibility Test Code: 0.256
+C103330 / Subject Characteristic Test Name: 0.255
+C127269 / Musculoskeletal System Finding Test Code: 0.255
+C127270 / Musculoskeletal System Finding Test Name: 0.255
+C74559 / Subject Characteristic Test Code: 0.255
+C100137 / Hamilton Depression Rating Scale - 17 Item Clinical Classification Test Name: 0.255
+C100138 / Hamilton Depression Rating Scale - 17 Item Clinical Classification Test Code: 0.255
+C103476 / The Overactive Bladder Questionnaire Short Form Questionnaire Test Name: 0.255
+C103477 / The Overactive Bladder Questionnaire Short Form Questionnaire Test Code: 0.255
+C120992 / Negative Symptom Assessment-16 Clinical Classification Test Name: 0.255
+C120993 / Negative Symptom Assessment-16 Clinical Classification Test Code: 0.255
+C129089 / National Comprehensive Cancer Network/Functional Assessment of Cancer Therapy-Kidney Symptom Index-19 Version 2 Questionnaire Test Name: 0.255
+C129090 / National Comprehensive Cancer Network/Functional Assessment of Cancer Therapy-Kidney Symptom Index-19 Version 2 Questionnaire Test Code: 0.255
+C135699 / RAND Social Support Survey Instrument Questionnaire Test Name: 0.255
+C135700 / RAND Social Support Survey Instrument Questionnaire Test Code: 0.255
+C161624 / Brief Psychiatric Rating Scale 1988 Version Clinical Classification Test Name: 0.255
+C161625 / Brief Psychiatric Rating Scale 1988 Version Clinical Classification Test Code: 0.255
+C115405 / Mayo-Portland Adaptability Inventory-4 Questionnaire Test Name: 0.255
+C115406 / Mayo-Portland Adaptability Inventory-4 Questionnaire Test Code: 0.255
+C130252 / Functional Assessment of Cancer Therapy-Leukemia Version 4 Questionnaire Test Name: 0.255
+C130253 / Functional Assessment of Cancer Therapy-Leukemia Version 4 Questionnaire Test Code: 0.255
+C78734 / Specimen Type: 0.253
+C116103 / Nervous System Findings Test Name: 0.253
+C116104 / Nervous System Findings Test Code: 0.253
+C119016 / Cardiovascular Findings About Results: 0.253
+C129093 / Functional Assessment of Cancer Therapy-Breast Version 4 Questionnaire Test Name: 0.253
+C129094 / Functional Assessment of Cancer Therapy-Breast Version 4 Questionnaire Test Code: 0.253
+C132522 / Health Assessment Questionnaire Disability Index Without Pain Visual Analog Scale Questionnaire Test Name: 0.253
+C132523 / Health Assessment Questionnaire Disability Index Without Pain Visual Analog Scale Questionnaire Test Code: 0.253
+C150773 / Functional Assessment of Cancer Therapy-Colorectal Version 4 Questionnaire Test Name: 0.253
+C150774 / Functional Assessment of Cancer Therapy-Colorectal Version 4 Questionnaire Test Code: 0.253
+C161618 / European Organisation for the Research and Treatment of Cancer Quality of Life Questionnaire - Core 30 Version 3.0 Questionnaire Test Name: 0.253
+C161619 / European Organisation for the Research and Treatment of Cancer Quality of Life Questionnaire - Core 30 Version 3.0 Questionnaire Test Code: 0.253
+C85492 / Method: 0.253
+C179588 / Result Type Response: 0.253
+C96783 / Tumor or Lesion Identification Test Name: 0.252
+C96784 / Tumor or Lesion Identification Test Code: 0.252
+C106666 / Health Assessment Questionnaire Disability Index With Pain Visual Analog Scale Questionnaire Test Name: 0.251
+C106667 / Health Assessment Questionnaire Disability Index With Pain Visual Analog Scale Questionnaire Test Code: 0.251
+C150771 / Paced Tapping Functional Test Test Name: 0.251
+C150772 / Paced Tapping Functional Test Test Code: 0.251
+C160925 / CDISC Therapeutic Area User Guide Response: 0.251
+C100133 / Brief Psychiatric Rating Scale-Anchored Clinical Classification Test Name: 0.250
+C100134 / Brief Psychiatric Rating Scale-Anchored Clinical Classification Test Code: 0.250
+C100157 / Current Opioid Misuse Measure Questionnaire Test Name: 0.250
+C100158 / Current Opioid Misuse Measure Questionnaire Test Code: 0.250
+C119069 / Dermatology Life Quality Index Questionnaire Test Name: 0.250
+C119070 / Dermatology Life Quality Index Questionnaire Test Code: 0.250
+C120984 / Acute Physiology and Chronic Health Evaluation II Clinical Classification Test Name: 0.250
+C120985 / Acute Physiology and Chronic Health Evaluation II Clinical Classification Test Code: 0.250
+C127262 / Environmental Setting: 0.250
+C129091 / National Comprehensive Cancer Network/Functional Assessment of Cancer Therapy-Bladder Symptom Index-18 Version 2 Questionnaire Test Name: 0.250
+C129092 / National Comprehensive Cancer Network/Functional Assessment of Cancer Therapy-Bladder Symptom Index-18 Version 2 Questionnaire Test Code: 0.250
+C129097 / National Comprehensive Cancer Network/Functional Assessment of Cancer Therapy-Ovarian Symptom Index-18 Version 2 Questionnaire Test Name: 0.250
+C129098 / National Comprehensive Cancer Network/Functional Assessment of Cancer Therapy-Ovarian Symptom Index-18 Version 2 Questionnaire Test Code: 0.250
+C135679 / Baby Eating Behaviour Questionnaire Concurrent Version Questionnaire Test Name: 0.250
+C135680 / Baby Eating Behaviour Questionnaire Concurrent Version Questionnaire Test Code: 0.250
+C135681 / Baby Eating Behaviour Questionnaire Retrospective Version Questionnaire Test Name: 0.250
+C135682 / Baby Eating Behaviour Questionnaire Retrospective Version Questionnaire Test Code: 0.250
+C177705 / Short Form 8 Health Survey Acute, US Version 1.0 Questionnaire Test Name: 0.250
+C177706 / Short Form 8 Health Survey Acute, US Version 1.0 Questionnaire Test Code: 0.250
+C177707 / Short Form 8 Health Survey Standard, US Version 1.0 Questionnaire Test Name: 0.250
+C177708 / Short Form 8 Health Survey Standard, US Version 1.0 Questionnaire Test Code: 0.250
+C125922 / Microscopic Findings Test Details: 0.250
+C179937 / Functional Assessment of Anorexia/Cachexia Treatment Version 4 Questionnaire Test Name: 0.249
+C179938 / Functional Assessment of Anorexia/Cachexia Treatment Version 4 Questionnaire Test Code: 0.249
+C129087 / Functional Assessment of Chronic Illness Therapy-Fatigue Version 4 Questionnaire Test Name: 0.247
+C129088 / Functional Assessment of Chronic Illness Therapy-Fatigue Version 4 Questionnaire Test Code: 0.247
+C154452 / Functional Assessment of Cancer Therapy-Bladder Version 4 Questionnaire Test Name: 0.247
+C154453 / Functional Assessment of Cancer Therapy-Bladder Version 4 Questionnaire Test Code: 0.247
+C120523 / Holter ECG Test Code: 0.247
+C120524 / Holter ECG Test Name: 0.247
+C179590 / Non-host Organism Identifier Parameters: 0.247
+C179591 / Non-host Organism Identifier Parameters Code: 0.247
+C117742 / Ophthalmic Exam Test Name: 0.247
+C117743 / Ophthalmic Exam Test Code: 0.247
+C128683 / PK Units of Measure - Weight kg: 0.247
+C105129 / Disability Assessment for Dementia Questionnaire Test Name: 0.246
+C105130 / Disability Assessment for Dementia Questionnaire Test Code: 0.246
+C127257 / Contact Role for Clinical Study: 0.246
+C127355 / The National Comprehensive Cancer Network/Functional Assessment of Cancer Therapy-Prostate Symptom Index 17 Version 2 Questionnaire Test Name: 0.246
+C127356 / The National Comprehensive Cancer Network/Functional Assessment of Cancer Therapy-Prostate Symptom Index 17 Version 2 Questionnaire Test Code: 0.246
+C130268 / World Health Organization Disability Assessment Schedule 2.0 - 36-Item Interviewer Questionnaire Test Name: 0.246
+C130269 / World Health Organization Disability Assessment Schedule 2.0 - 36-Item Interviewer Questionnaire Test Code: 0.246
+C130280 / World Health Organization Disability Assessment Schedule 2.0 - 12 + 24-Item Interviewer Questionnaire Test Name: 0.246
+C130281 / World Health Organization Disability Assessment Schedule 2.0 - 12 + 24-Item Interviewer Questionnaire Test Code: 0.246
+C138242 / Pediatric Quality of Life Neuromuscular Module Acute Version 3 Young Child Questionnaire Test Name: 0.246
+C138243 / Pediatric Quality of Life Neuromuscular Module Acute Version 3 Young Child Questionnaire Test Code: 0.246
+C138260 / Pediatric Quality of Life Neuromuscular Module Version 3 Young Child Questionnaire Test Name: 0.246
+C138261 / Pediatric Quality of Life Neuromuscular Module Version 3 Young Child Questionnaire Test Code: 0.246
+C147539 / Functional Assessment of Cancer Therapy-Bone Marrow Transplant Version 4 Questionnaire Test Name: 0.244
+C147540 / Functional Assessment of Cancer Therapy-Bone Marrow Transplant Version 4 Questionnaire Test Code: 0.244
+C128684 / PK Units of Measure - Weight g: 0.242
+C105131 / Columbia-Suicide Severity Rating Scale Baseline/Screening Version Phase 1 Study Questionnaire Test Name: 0.242
+C105132 / Columbia-Suicide Severity Rating Scale Baseline/Screening Version Phase 1 Study Questionnaire Test Code: 0.242
+C112448 / St. George's Respiratory Questionnaire Past 3 Months Version Questionnaire Test Name: 0.242
+C112449 / St. George's Respiratory Questionnaire Past 3 Months Version Questionnaire Test Code: 0.242
+C112450 / St. George's Respiratory Questionnaire Past 4 Weeks Version Questionnaire Test Name: 0.242
+C112451 / St. George's Respiratory Questionnaire Past 4 Weeks Version Questionnaire Test Code: 0.242
+C100163 / Brief Pain Inventory Short Form Questionnaire Test Name: 0.241
+C100164 / Brief Pain Inventory Short Form Questionnaire Test Code: 0.241
+C101828 / Subjective Opiate Withdrawal Scale Questionnaire Test Code: 0.241
+C101829 / Subjective Opiate Withdrawal Scale Questionnaire Test Name: 0.241
+C103468 / Hospital Anxiety and Depression Scale Questionnaire Test Name: 0.241
+C103469 / Hospital Anxiety and Depression Scale Questionnaire Test Code: 0.241
+C103482 / Patient Health Questionnaire - 15 Item Questionnaire Test Name: 0.241
+C103483 / Patient Health Questionnaire - 15 Item Questionnaire Test Code: 0.241
+C106664 / Geriatric Depression Scale Short Form Questionnaire Test Name: 0.241
+C106665 / Geriatric Depression Scale Short Form Questionnaire Test Code: 0.241
+C130266 / Quality Of Life Enjoyment And Satisfaction Questionnaire - Short Form Test Name: 0.241
+C130267 / Quality Of Life Enjoyment And Satisfaction Questionnaire - Short Form Test Code: 0.241
+C130276 / World Health Organization Disability Assessment Schedule 2.0 - 12-Item Proxy Questionnaire Test Name: 0.241
+C130277 / World Health Organization Disability Assessment Schedule 2.0 - 12-Item Proxy Questionnaire Test Code: 0.241
+C106482 / Device-In-Use Test Name: 0.239
+C106483 / Device-In-Use Test Code: 0.239
+C130254 / Functional Assessment of Cancer Therapy-Hepatobiliary Version 4 Questionnaire Test Name: 0.239
+C130255 / Functional Assessment of Cancer Therapy-Hepatobiliary Version 4 Questionnaire Test Code: 0.239
+C147547 / Trauma Symptom Checklist for Children Questionnaire Test Name: 0.237
+C147548 / Trauma Symptom Checklist for Children Questionnaire Test Code: 0.237
+C66788 / Dictionary Name: 0.237
+C113847 / Columbia-Suicide Severity Rating Scale Pediatric/Cognitively Impaired Lifetime/Recent Questionnaire Test Name: 0.236
+C113848 / Columbia-Suicide Severity Rating Scale Pediatric/Cognitively Impaired Lifetime/Recent Questionnaire Test Code: 0.236
+C113859 / Multiple Sclerosis Quality of Life-54 Instrument Questionnaire Test Name: 0.236
+C113860 / Multiple Sclerosis Quality of Life-54 Instrument Questionnaire Test Code: 0.236
+C101819 / Hamilton Anxiety Rating Scale Clinical Classification Test Code: 0.236
+C101820 / Hamilton Anxiety Rating Scale Clinical Classification Test Name: 0.236
+C103470 / International Index of Erectile Function Questionnaire Test Name: 0.236
+C103471 / International Index of Erectile Function Questionnaire Test Code: 0.236
+C103472 / Neuropathic Pain Scale Questionnaire Test Name: 0.236
+C103473 / Neuropathic Pain Scale Questionnaire Test Code: 0.236
+C130278 / World Health Organization Disability Assessment Schedule 2.0 - 12-Item Self Questionnaire Test Name: 0.236
+C130279 / World Health Organization Disability Assessment Schedule 2.0 - 12-Item Self Questionnaire Test Code: 0.236
+C138220 / Functional Assessment of Cancer Therapy-Brain Symptom Index Questionnaire Test Name: 0.236
+C138221 / Functional Assessment of Cancer Therapy-Brain Symptom Index Questionnaire Test Code: 0.236
+C138222 / Functional Assessment of Cancer Therapy-Kidney Symptom Index-15 Questionnaire Test Name: 0.236
+C138223 / Functional Assessment of Cancer Therapy-Kidney Symptom Index-15 Questionnaire Test Code: 0.236
+C161616 / European Organisation for the Research and Treatment of Cancer Quality of Life Questionnaire - Palliative Care Version 1.0 Questionnaire Test Name: 0.236
+C161617 / European Organisation for the Research and Treatment of Cancer Quality of Life Questionnaire - Palliative Care Version 1.0 Questionnaire Test Code: 0.236
+C172399 / European Organisation for the Research and Treatment of Cancer Quality of Life Questionnaire - Lung Cancer Module Questionnaire Test Name: 0.236
+C172400 / European Organisation for the Research and Treatment of Cancer Quality of Life Questionnaire - Lung Cancer Module Questionnaire Test Code: 0.236
+C177713 / Short Form 12 Health Survey Acute, US Version 1.0 Questionnaire Test Name: 0.236
+C177714 / Short Form 12 Health Survey Acute, US Version 1.0 Questionnaire Test Code: 0.236
+C177715 / Short Form 12 Health Survey Standard, US Version 1.0 Questionnaire Test Name: 0.236
+C177716 / Short Form 12 Health Survey Standard, US Version 1.0 Questionnaire Test Code: 0.236
+C100173 / The Short Form 36 Health Survey Standard, US Version 1.0 Questionnaire Test Name: 0.233
+C100174 / The Short Form 36 Health Survey Standard, US Version 1.0 Questionnaire Test Code: 0.233
+C101823 / The Short Form 36 Health Survey Acute, US Version 1.0 Questionnaire Test Code: 0.233
+C101824 / The Short Form 36 Health Survey Acute, US Version 1.0 Questionnaire Test Name: 0.233
+C66734 / SDTM Domain Abbreviation: 0.232
+C112440 / Functional Assessment of Multiple Sclerosis Version 4 Questionnaire Test Name: 0.232
+C112441 / Functional Assessment of Multiple Sclerosis Version 4 Questionnaire Test Code: 0.232
+C112023 / Skin Response Test Name: 0.231
+C112024 / Skin Response Test Code: 0.231
+C66741 / Vital Signs Test Code: 0.231
+C67153 / Vital Signs Test Name: 0.231
+C132314 / Specimen Collection Method: 0.231
+C132524 / Treatment Satisfaction Questionnaire for Medication Version 1.4 Questionnaire Test Name: 0.231
+C132525 / Treatment Satisfaction Questionnaire for Medication Version 1.4 Questionnaire Test Code: 0.231
+C147543 / Functional Assessment of Chronic Illness Therapy-Fatigue 13-Item Scale Version 4 Questionnaire Test Name: 0.231
+C147544 / Functional Assessment of Chronic Illness Therapy-Fatigue 13-Item Scale Version 4 Questionnaire Test Code: 0.231
+C125748 / Patient Health Questionnaire Screener Version Questionnaire Test Name: 0.231
+C125749 / Patient Health Questionnaire Screener Version Questionnaire Test Code: 0.231
+C106660 / Columbia-Suicide Severity Rating Scale Baseline/Screening Version Questionnaire Test Name: 0.229
+C106661 / Columbia-Suicide Severity Rating Scale Baseline/Screening Version Questionnaire Test Code: 0.229
+C117988 / Columbia-Suicide Severity Rating Scale Lifetime/Recent Version Questionnaire Test Name: 0.229
+C117989 / Columbia-Suicide Severity Rating Scale Lifetime/Recent Version Questionnaire Test Code: 0.229
+C74456 / Anatomical Location: 0.229
+C101825 / The Short Form 36 Health Survey Acute, US Version 2.0 Questionnaire Test Name: 0.227
+C101826 / The Short Form 36 Health Survey Standard, US Version 2.0 Questionnaire Test Code: 0.227
+C101827 / The Short Form 36 Health Survey Standard, US Version 2.0 Questionnaire Test Name: 0.227
+C101884 / The Short Form 36 Health Survey Acute, US Version 2.0 Questionnaire Test Code: 0.227
+C106658 / Columbia-Suicide Severity Rating Scale Already Enrolled Subjects Questionnaire Test Name: 0.227
+C106659 / Columbia-Suicide Severity Rating Scale Already Enrolled Subjects Questionnaire Test Code: 0.227
+C124301 / Medical History Event Date Type: 0.226
+C120525 / Immunogenicity Specimen Assessments Test Code: 0.225
+C120526 / Immunogenicity Specimen Assessments Test Name: 0.225
+C101813 / Clinical Opiate Withdrawal Scale Questionnaire Test Code: 0.225
+C101814 / Clinical Opiate Withdrawal Scale Questionnaire Test Name: 0.225
+C101862 / Lead Abnormality: 0.225
+C102587 / Social Risk Factor: 0.225
+C120982 / Brief Assessment of Cognition in Schizophrenia Functional Test Test Name: 0.225
+C120983 / Brief Assessment of Cognition in Schizophrenia Functional Test Test Code: 0.225
+C127265 / Mode of Disease Transmission: 0.225
+C147545 / Pediatric Functional Assessment of Chronic Illness Therapy-Fatigue Questionnaire Test Name: 0.225
+C147546 / Pediatric Functional Assessment of Chronic Illness Therapy-Fatigue Questionnaire Test Code: 0.225
+C154454 / Non-Small Cell Lung Cancer Symptom Assessment Questionnaire v1.0 Questionnaire Test Name: 0.225
+C154455 / Non-Small Cell Lung Cancer Symptom Assessment Questionnaire v1.0 Questionnaire Test Code: 0.225
+C66737 / Trial Phase Response: 0.225
+C96778 / Tumor or Lesion Properties Test Name: 0.223
+C96779 / Tumor or Lesion Properties Test Code: 0.223
+C118971 / Category of Clinical Classification: 0.222
+C116107 / SDTM Death Diagnosis and Details Test Name: 0.221
+C116108 / SDTM Death Diagnosis and Details Test Code: 0.221
+C100147 / Unified Parkinson's Disease Rating Scale Clinical Classification Test Name: 0.220
+C100148 / Unified Parkinson's Disease Rating Scale Clinical Classification Test Code: 0.220
+C150767 / Emotion Recognition Functional Test Test Name: 0.220
+C150768 / Emotion Recognition Functional Test Test Code: 0.220
+C101805 / Abnormal Involuntary Movement Scale Clinical Classification Test Code: 0.220
+C101806 / Abnormal Involuntary Movement Scale Clinical Classification Test Name: 0.220
+C106480 / Device Identifier Long Name: 0.220
+C106481 / Device Identifier Short Name: 0.220
+C124308 / Treatment Setting: 0.220
+C124681 / Glasgow Coma Scale NINDS Version Clinical Classification Test Name: 0.220
+C124682 / Glasgow Coma Scale NINDS Version Clinical Classification Test Code: 0.220
+C127264 / Culture Medium Type: 0.220
+C171354 / National Early Warning Score 2 Clinical Classification Test Name: 0.220
+C171355 / National Early Warning Score 2 Clinical Classification Test Code: 0.220
+C100161 / Brief Pain Inventory Questionnaire Test Name: 0.219
+C100162 / Brief Pain Inventory Questionnaire Test Code: 0.219
+C181169 / Binding Agent for Immunogenicity Tests: 0.218
+C66729 / Route of Administration Response: 0.218
+C128690 / Ethnicity As Collected: 0.217
+C100139 / Movement Disorder Society Unified Parkinson's Disease Rating Scale Questionnaire Test Name: 0.216
+C100140 / Movement Disorder Society Unified Parkinson's Disease Rating Scale Questionnaire Test Code: 0.216
+C181178 / Genomic Findings Test Code: 0.215
+C181179 / Genomic Findings Test Name: 0.215
+C99075 / Portion/Totality: 0.215
+C103478 / The Oswestry Disability Index Version 2.1a Questionnaire Test Name: 0.215
+C103479 / The Oswestry Disability Index Version 2.1a Questionnaire Test Code: 0.215
+C103480 / Patient Health Questionnaire - 9 Item Questionnaire Test Name: 0.215
+C103481 / Patient Health Questionnaire - 9 Item Questionnaire Test Code: 0.215
+C105135 / Pain Relief Questionnaire Test Name: 0.215
+C105136 / Pain Relief Questionnaire Test Code: 0.215
+C111343 / Functional Activities Questionnaire Clinical Classification Test Name: 0.215
+C111344 / Functional Activities Questionnaire Clinical Classification Test Code: 0.215
+C112442 / Kurtzke Functional Systems Scores Clinical Classification Test Name: 0.215
+C112443 / Kurtzke Functional Systems Scores Clinical Classification Test Code: 0.215
+C119059 / Alcohol Use Disorder Identification Test: Self-Report Version Questionnaire Test Name: 0.215
+C119060 / Alcohol Use Disorder Identification Test: Self-Report Version Questionnaire Test Code: 0.215
+C124302 / Schizophrenia Findings About Test Code: 0.215
+C124303 / Schizophrenia Findings About Test Name: 0.215
+C124683 / JFK Coma Recovery Scale-Revised Clinical Classification Test Name: 0.215
+C124684 / JFK Coma Recovery Scale-Revised Clinical Classification Test Code: 0.215
+C141670 / International Physical Activity Questionnaire (August 2002) Short Last 7 Days Telephone Format Questionnaire Test Name: 0.215
+C141671 / International Physical Activity Questionnaire (August 2002) Short Last 7 Days Telephone Format Questionnaire Test Code: 0.215
+C160926 / FDA Technical Specification Response: 0.215
+C182469 / Karnofsky Performance Status Scale Clinical Classification ORRES for KPSS0101 TN/TC: 0.215
+C182507 / Karnofsky Performance Status Scale Clinical Classification STRESC for KPSS0101 TN/TC: 0.215
+C66736 / Trial Intent Type Response: 0.215
+C100130 / Relationship to Subject: 0.214
+C96785 / Oncology Response Assessment Result: 0.213
+C106478 / Reproductive System Findings Test Name: 0.212
+C106479 / Reproductive System Findings Test Code: 0.212
+C124298 / Category of Oncology Response Assessment: 0.212
+C105139 / Alzheimer's Disease Cooperative Study-Activities of Daily Living Inventory Questionnaire Test Name: 0.210
+C105140 / Alzheimer's Disease Cooperative Study-Activities of Daily Living Inventory Questionnaire Test Code: 0.210
+C66726 / Pharmaceutical Dosage Form: 0.210
+C85495 / Microbiology Susceptibility Testing Result Category: 0.209
+C100175 / Work Productivity and Activity Impairment Questionnaire - Specific Health Problem V2.0 Questionnaire Test Name: 0.209
+C100176 / Work Productivity and Activity Impairment Questionnaire - Specific Health Problem V2.0 Questionnaire Test Code: 0.209
+C111345 / Functional Assessment Questionnaire-NACC UDS V2.0 Clinical Classification Test Name: 0.209
+C111346 / Functional Assessment Questionnaire-NACC UDS V2.0 Clinical Classification Test Code: 0.209
+C119063 / Clinical COPD Questionnaire 24 Hour Version Questionnaire Test Name: 0.209
+C119064 / Clinical COPD Questionnaire 24 Hour Version Questionnaire Test Code: 0.209
+C119065 / Clinical COPD Questionnaire 1 Week Version Questionnaire Test Name: 0.209
+C119066 / Clinical COPD Questionnaire 1 Week Version Questionnaire Test Code: 0.209
+C127359 / The Prostate Cancer Specific Quality of Life Instrument Questionnaire Test Name: 0.209
+C127360 / The Prostate Cancer Specific Quality of Life Instrument Questionnaire Test Code: 0.209
+C128681 / Gastrointestinal Test Name: 0.209
+C128682 / Gastrointestinal Test Code: 0.209
+C132520 / Edinburgh Postnatal Depression Scale Questionnaire Test Name: 0.209
+C132521 / Edinburgh Postnatal Depression Scale Questionnaire Test Code: 0.209
+C163392 / Hypoglycemic Confidence Scale Questionnaire Test Name: 0.209
+C163393 / Hypoglycemic Confidence Scale Questionnaire Test Code: 0.209
+C166185 / The Work Productivity and Activity Impairment - General Health Version 2.0 Questionnaire Test Name: 0.209
+C166186 / The Work Productivity and Activity Impairment - General Health Version 2.0 Questionnaire Test Code: 0.209
+
+# 统计
+Total codelists: 1005
+Top 200 coverage: 200 codelists, 估 201,660 tokens (term_count * 30)
+Rank 201-500 coverage: 300 codelists, 估 338,070 tokens
+
+# T_codelist_hits 审计
+NY (C66742): rank 1, score 10.669
+AERELN: (not mapped / not in knowledge_base)
+FREQ (C71113): rank 2, score 10.232
+PROBLEM_TYPE: (not mapped / not in knowledge_base)
