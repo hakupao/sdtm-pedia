@@ -1,6 +1,6 @@
 # 进度看板
 
-> 最后更新: 2026-04-20 (Phase 6.5 Claude v2 **终态 v2.6 完成**: 6 批 + 1 重平衡批, capacity 12%→77%, 24/24 A/B PASS, 0 衰减全程; 302 codelist 归 Phase 7)
+> 最后更新: 2026-04-20 晚 (Phase 6.5 Claude v2 终态完成 + reorg: claude_projects/ 重组为 current/docs/dev/archive 四层)
 
 ## 总体状态
 
@@ -95,7 +95,7 @@
 | 平台 | 着重方向 | 内容策略 | 路线文档 | 状态 |
 |------|---------|---------|---------|------|
 | Claude Projects | 精确查询 + 规则推理 | 方案 B 二次创作压缩 → 实测 192,036 tokens (12% capacity, RAG 自动接管) | [ROADMAP.md](../ai_platforms/claude_projects/ROADMAP.md) / [PLAN.md](../ai_platforms/claude_projects/PLAN.md) / [UPLOAD_TUTORIAL.md](../ai_platforms/claude_projects/UPLOAD_TUTORIAL.md) / [capacity_research.md](../ai_platforms/claude_projects/capacity_research.md) | **v1 完成 (Step 1-14, 9/9 PASS)** (2026-04-18) |
-| Claude Projects v2 扩容 | 中庸策略推到 ~50% 容量, 实际 v2.6 终态 77% (用户优先级重平衡后) | 6 批渐进 + 1 tail 重平衡 (chapters 全展开 → examples 高频 → examples 全 → terminology 高 → terminology mid → terminology tail core+supp) | [v2 design](superpowers/specs/2026-04-18-phase6.5-claude-v2-expansion-design.md) / [PLAN_V2.md](../ai_platforms/claude_projects/PLAN_V2.md) / [RETROSPECTIVE_V2.md](../ai_platforms/claude_projects/RETROSPECTIVE_V2.md) / [rag_decay_curve](../ai_platforms/claude_projects/output_v2/rag_decay_curve.md) / [phase7_handoff](../ai_platforms/claude_projects/output_v2/phase7_handoff.md) / [test_results_v2](../ai_platforms/claude_projects/output_v2/test_results_v2.md) | **终态 v2.6 完成 (19 文件 / 1,286,161 tokens / capacity 77% / 24/24 A/B PASS / 0 衰减)** (2026-04-20) |
+| Claude Projects v2 扩容 | 中庸策略推到 ~50% 容量, 实际 v2.6 终态 77% (用户优先级重平衡后) | 6 批渐进 + 1 tail 重平衡 (chapters 全展开 → examples 高频 → examples 全 → terminology 高 → terminology mid → terminology tail core+supp) | [v2 design](superpowers/specs/2026-04-18-phase6.5-claude-v2-expansion-design.md) / [PLAN_V2.md](../ai_platforms/claude_projects/PLAN_V2.md) / [RETROSPECTIVE_V2.md](../ai_platforms/claude_projects/RETROSPECTIVE_V2.md) / [rag_decay_curve](../ai_platforms/claude_projects/docs/rag_decay_curve.md) / [phase7_handoff](../ai_platforms/claude_projects/docs/phase7_handoff.md) / [test_results_v2](../ai_platforms/claude_projects/docs/test_results_v2.md) | **终态 v2.6 完成 (19 文件 / 1,286,161 tokens / capacity 77% / 24/24 A/B PASS / 0 衰减)** (2026-04-20) |
 | ChatGPT GPTs | 全量覆盖 + 团队分享 | 合并文件 ~9.6MB 全量 | [ROADMAP.md](../ai_platforms/chatgpt_gpt/ROADMAP.md) | 待开始 |
 | Gemini Gems | 大范围探索 + 全域对比 | 核心全量 ~512K tokens | [ROADMAP.md](../ai_platforms/gemini_gems/ROADMAP.md) | 待开始 |
 

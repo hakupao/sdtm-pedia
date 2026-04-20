@@ -133,14 +133,18 @@ v2.6 在 77% capacity / 1.29M tokens / 19 文件 / 24/24 PASS 零衰减终态, *
 
 主控已 commit + push 以下产物, Phase 7 启动时全部可读:
 
-- `ai_platforms/claude_projects/output_v2/` (19 上传文件 + meta)
-- `ai_platforms/claude_projects/output_v2/evidence_v2/` (trace.jsonl + _progress.json + subagent_prompts/ + failures/ + checkpoints/)
-- `ai_platforms/claude_projects/output_v2/STAGE_V2.{1..6}_AB_REPORT.md` (6 批 A/B 报告, v2.5 标 skipped)
-- `ai_platforms/claude_projects/output_v2/rag_decay_curve.md` (7 数据点 + 结论)
-- `ai_platforms/claude_projects/output_v2/test_results_v2.md` (T1-T22 完整矩阵)
-- `ai_platforms/claude_projects/output_v2/phase7_handoff.md` (本文件)
-- `ai_platforms/claude_projects/RETROSPECTIVE_V2.md` (复盘, 含 G1-G5 缺口)
-- `ai_platforms/claude_projects/scripts_v2/` (6 个 Python 脚本)
+(reorg 后路径, 2026-04-20 晚)
+
+- `ai_platforms/claude_projects/current/` (19 上传文件 + system_prompt + upload_manifest, v2.6 终态可部署)
+- `ai_platforms/claude_projects/dev/evidence/` (trace.jsonl + _progress.json + _phase_summary + H1_reviewer + subagent_prompts/ + failures/ + checkpoints/)
+- `ai_platforms/claude_projects/dev/ab_reports/STAGE_V2.{1,2,3,4,6}_AB_REPORT.md` (5 批 A/B 报告, v2.5 被 v2.6 合并 skipped)
+- `ai_platforms/claude_projects/dev/checkpoints/CHECKPOINT_V2.{1..6}_HANDOFF.md` (Cowork 自动执行手册)
+- `ai_platforms/claude_projects/docs/rag_decay_curve.md` (7 数据点 + 结论)
+- `ai_platforms/claude_projects/dev/test_results.md` (T1-T22 完整矩阵)
+- `ai_platforms/claude_projects/docs/phase7_handoff.md` (本文件)
+- `ai_platforms/claude_projects/docs/RETROSPECTIVE_V2.md` (复盘, 含 G1-G5 缺口)
+- `ai_platforms/claude_projects/dev/scripts/` (6 个 Python 脚本)
+- `ai_platforms/claude_projects/README.md` (reorg 后新入口)
 
 ---
 

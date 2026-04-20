@@ -1,5 +1,7 @@
 # Phase 6.5 Claude Projects v2 — 复盘 (RETROSPECTIVE_V2)
 
+> ⚠️ **Post-reorg note (2026-04-20 晚)**: 本复盘内文部分路径引用 (例如 `output_v2/*`, `evidence_v2/*`, `scripts_v2/*`) 为 reorg 前的历史执行语境, 保留以维持复盘的事实准确性. 当前实际路径映射见 [README.md](../README.md) 和 [dev/README.md](../dev/README.md).
+
 > 范围: Stage v2.0 setup → v2.6 terminal (2026-04-18 → 2026-04-20, commits `c7e558c` → `V6.4-done`)
 > 产出: 19 个真实上传文件 (1,286,161 tokens, 32 实体含 meta / 1,336,360 tokens), 6 批 A/B 回归, 24/24 PASS
 > 状态: v2.6 终态 PASS, 已进入 Phase H 收尾 (取代原计划 v2.5 终态, 因 2026-04-20 用户优先级重平衡触发 v2.6 追加批)

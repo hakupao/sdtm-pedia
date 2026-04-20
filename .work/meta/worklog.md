@@ -854,3 +854,31 @@
   - `ai_platforms/claude_projects/output_v2/rag_decay_curve.md` 更新 (H2, 加 v2.5/v2.6 数据点 + 合并观察段 + 结论段)
   - `ai_platforms/claude_projects/output_v2/evidence_v2/H1_reviewer.md` (H1 独立复核 evidence)
 - **下一步**: H4 写 _phase_summary.md + 标 _progress.json status=completed + trace.jsonl append phase_done; H5 最终 commit + push
+
+### 2026-04-20 晚 Phase 6.5 v2 目录 Reorg (方案 A)
+
+- **状态**: 已完成
+- **触发**: 用户 2026-04-20 晚观察到 claude_projects/ 文件结构混乱 (v1/v2 平铺, output/output_v1_baseline/output_v2/ 三份重复, PLAN/RETROSPECTIVE/scripts/配套文档散落), 要求以"阶段结束视角"重组
+- **方案**: A (按生命周期分 4 层: current / docs / dev / archive)
+- **执行**:
+  - **Reorg-A (physical mv)**: git mv ~80 文件重定位, 182 files changed in single commit
+    - `current/uploads/` 接 output_v2 19 个上传文件
+    - `current/system_prompt.md` 和 `current/upload_manifest.md` (去 _v2 后缀, 因目录已表示版本)
+    - `docs/` 接 PLAN_V2 + RETROSPECTIVE_V2 + capacity_research + rag_decay_curve + phase7_handoff
+    - `dev/scripts/` 接 scripts_v2, `dev/evidence/` 接 evidence_v2, `dev/ab_reports/` 接 STAGE_V2.*_AB_REPORT, `dev/checkpoints/` 接 CHECKPOINT_V2.*_HANDOFF, `dev/test_results.md` 接 test_results_v2.md
+    - `archive/RETROSPECTIVE.md` 顶层 (v1 复盘, 四条规则已固化全局)
+    - `archive/v1/{docs,scripts,uploads}` 接所有 v1 产物, output/ 和 output_v1_baseline/ 合并 (保 baseline README 为 BASELINE_README.md, 删 11 个 dup)
+  - **Reorg-B (path references + READMEs)**:
+    - 5 新 README (`claude_projects/README.md` 入口 + `current/README.md` 部署指南 + `docs/README.md` 文档索引 + `dev/README.md` 含 reorg 前→后路径映射表 + `archive/README.md` 归档说明)
+    - 更新 live nav 文件: CLAUDE.md Key Paths / MANIFEST.md 导航段 + 快速参考表 / docs/PROGRESS.md / ai_platforms/README.md / ai_platforms/claude_projects/ROADMAP.md
+    - 更新 forward-facing 文档路径: docs/phase7_handoff.md §6 交接清单
+    - PLAN_V2 + RETROSPECTIVE_V2 加 post-reorg note 头部 (保留历史语境 + 映射表指向)
+    - **不改**: dev/scripts/ 硬编码路径 / dev/evidence/ 内部引用 / worklog + MANIFEST + PLAN_V2 + RETROSPECTIVE_V2 的历史 path refs (policy: 历史层保语境准确, 导航层保路径当前)
+- **关键产出**:
+  - 5 份新 README 让 claude_projects/ 有了清晰入口
+  - 路径引用分两类处理: live nav 改路径 / 历史层保语境 + 加 post-reorg note + 映射表
+  - 无需重跑脚本; v2.6 终态后也无此需求
+- **影响面**:
+  - ai_platforms/claude_projects/ 从 ~5 层混乱平铺 → 4 层 (current/docs/dev/archive) 清晰
+  - 新 session 读入口只需读 `claude_projects/README.md` 即可定位, 不必扫 15 个根目录文件
+- **下一步**: Reorg-C commit + push

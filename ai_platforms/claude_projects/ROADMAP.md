@@ -4,7 +4,10 @@
 > 着重方向: 精确查询 + 规则推理
 > 平台: Claude Pro — Projects
 > **实际产出**: v1 192K tokens (9/9 PASS) → v2.6 1,286,161 tokens / 19 文件 / capacity 77% / 24/24 A/B PASS / 0 衰减全程
-> **终态文档**: [PLAN.md (v1)](PLAN.md) / [PLAN_V2.md](PLAN_V2.md) / [RETROSPECTIVE.md (v1)](RETROSPECTIVE.md) / [RETROSPECTIVE_V2.md](RETROSPECTIVE_V2.md) / [output_v2/rag_decay_curve.md](output_v2/rag_decay_curve.md) / [output_v2/phase7_handoff.md](output_v2/phase7_handoff.md)
+> **目录 reorg (2026-04-20)**: 重组为 current/docs/dev/archive 四层, 见 [README.md](README.md)
+> **终态文档** (reorg 后路径):
+> - [docs/PLAN_V2.md](docs/PLAN_V2.md) / [docs/RETROSPECTIVE_V2.md](docs/RETROSPECTIVE_V2.md) / [docs/rag_decay_curve.md](docs/rag_decay_curve.md) / [docs/phase7_handoff.md](docs/phase7_handoff.md)
+> - [archive/RETROSPECTIVE.md](archive/RETROSPECTIVE.md) (v1 复盘) / [archive/v1/docs/PLAN.md](archive/v1/docs/PLAN.md) (v1 计划)
 
 ## 平台特性
 
