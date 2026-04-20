@@ -38,7 +38,7 @@
 | 4 | PDF → model/ (6) + chapters/ (6) | **已完成** |
 | 5 | 全量验证 + INDEX.md | **已完成** |
 | 6 | 检索精度优化 (P0-P2) | **已完成** (P3 待开始，已纳入 Phase 7 二期) |
-| 6.5 | AI 平台部署 (ChatGPT/Claude/Gemini) | **进行中** |
+| 6.5 | AI 平台部署 (Claude v1+v2 终态完成, ChatGPT/Gemini 待开始) | **Claude 完成 / 其他进行中** |
 | 7 | RAG + 知识图谱 + 数据集校验 | **设计完成，待实施** |
 
 ## 工作记录
@@ -826,3 +826,31 @@
 - **capacity 曲线**: v1 12% → v2.1 13% → v2.2 20% → v2.3 23% → v2.4 43% (5 数据点, 子线性 → 大跃升, +20pp vs +22pp 投影 = 91% 吻合)
 - **覆盖度**: v2.4 后 CDISC CT 200/1005 = 19.9%, 批 5 追加 300 → v2.5 终态 500/1005 = 49.8% (中庸 50% 目标达成)
 - **下一步** (2026-04-20 起): G2 子代理实现 extract_terminology_terms.py --tier mid (prompt 已落盘); 然后 G3 build v2.5 → G4 终 hard checkpoint (T19/T20 + 全量 T1-T20 回归) → H1-H5 Phase 6.5 v2 收尾 (RETROSPECTIVE_V2 + rag_decay_curve 终态 + Phase 7 handoff + Chain B/C/E 索引链)
+
+### 2026-04-20 Phase 6.5 Claude v2 终态 v2.6 完成 + Phase H 收尾
+
+- **状态**: 已完成 (v2 扩容全部 landing)
+- **路径调整**: 原计划 v2.5 为终态, 2026-04-20 用户提出子目录优先级重平衡 (core > supp > quest 是工作语境, 非 SDTM 标准), 触发追加 v2.6 tail 批取代 v2.5 终态
+- **执行流程 (本日)**:
+  - **V6.1 tail list 生成**: 主控 import score_codelists.py 全量打分 → tail = (knowledge_base core+supp) - (F1+G1 rank 1-500 covered) = 209 codelist (68 core + 141 supp, f1 rank 513..1005)
+  - **V6.2 tail extractor**: 主控 writer 扩展 extract_terminology_terms.py 加 tier=tail (SUBDIR_META_BY_TIER['tail'] + TAIL_GIANT_TERM_THRESHOLD=500 + giants 走 "Deferred to Phase 7 RAG" stub 逻辑), 产出 13a_terminology_tail_core.md (145,787 tokens / 68 codelist 含 6 Deferred stubs) + 13c_terminology_tail_supp.md (43,194 tokens / 141 codelist); 13b by design 不存在 (quest 不重平衡); code-reviewer subagent Rule D fresh lane 7/7 checks PASS, 0 BLOCKING/HIGH/MEDIUM, 1 LOW (brief 对 C85491 估值 cosmetic)
+  - **V6.3 v2.6 stage build**: build_v2_stage.py --stage v2.6 rc=0, 19 真实上传文件 / 1,286,161 tokens (+188,981 vs v2.5); C12 PASS (real_upload 85.7%, headroom 14.3%; incl_meta 89.1%, headroom 10.9%); 13a/13c 幂等 (MD5 byte-identical pre/post); system_prompt_v2.md stage v2.6 块 appended (CT 查询优先级升级 11*>12*>13*>08)
+  - **V6.4 终态 hard checkpoint**: 用户上传 13a + 13c 到 Claude Project v2 (Cowork 自动化) → Chrome MCP 全 24 题 A/B 测试 (T1-T20 + T21/T22 tail core+supp + T-core-reb/T-supp-reb 优先级验证) → STAGE_V2.6_AB_REPORT.md landed: **24/24 PASS, T1-T20 零衰减 16/16 ↓0, T21/T22 PASS, 2 优先级验证 PASS, capacity 77% (超预测 9-14pp)**
+- **Phase H 收尾 (本日完成)**:
+  - **H1 RETROSPECTIVE_V2.md**: 7 章 (R1-R8 保留 + G1-G5 缺口 + 5 关键决策复盘 + Rule E 候选 + 工作量 + trace 事件分布实测口径), code-reviewer Rule D fresh lane 独立复核 CONDITIONAL_PASS (2 MEDIUM + 3 LOW 数据偏离) → 主控修正后 PASS; evidence 归档到 `evidence_v2/H1_reviewer.md`
+  - **H2 RAG 衰减曲线 + Phase 7 交接**: `rag_decay_curve.md` 7 数据点 (v1→v2.6, v2.5 被 v2.6 合并) + v2.4→v2.6 合并观察段 + 终态结论 (6 关键发现, 拐点 ≥77% 未触) + 6 Phase 7 actionable; 新建 `phase7_handoff.md` (0 TL;DR + 7 数据点简版 + 6 关键发现 + 6 Phase 7 actionable + 5 问题 Q1-Q5 + 5 步实施前待办 + 交接清单)
+  - **H3 Chain B/C/E 索引链**: MANIFEST.md / worklog.md (本条) / PROGRESS.md / CLAUDE.md Key Paths 4 文件更新
+  - **H4 _phase_summary + _progress.json 终态**: (下一步)
+  - **H5 最终 commit + push + 汇报**: (下一步)
+- **终态覆盖率** (用户优先级): core 99.3% (146/147) / supp 100% (188/188) / quest 55.8% (374/670, 保持); long tail 302 codelist (296 quest + 6 tail giants) 明确归 Phase 7 RAG 自建索引
+- **终态 capacity**: 77% (v1 12% → v2.6 77%, 6 批 + 1 重平衡批零衰减)
+- **Subagent 调用累计**: 14 次 (executor 7 + reviewer 7); subagent_prompts/ 14 份全留
+- **关键产出本日新增**:
+  - `ai_platforms/claude_projects/output_v2/13a_terminology_tail_core.md` (V6.2)
+  - `ai_platforms/claude_projects/output_v2/13c_terminology_tail_supp.md` (V6.2)
+  - `ai_platforms/claude_projects/output_v2/STAGE_V2.6_AB_REPORT.md` (Cowork V6.4)
+  - `ai_platforms/claude_projects/RETROSPECTIVE_V2.md` (H1)
+  - `ai_platforms/claude_projects/output_v2/phase7_handoff.md` (H2)
+  - `ai_platforms/claude_projects/output_v2/rag_decay_curve.md` 更新 (H2, 加 v2.5/v2.6 数据点 + 合并观察段 + 结论段)
+  - `ai_platforms/claude_projects/output_v2/evidence_v2/H1_reviewer.md` (H1 独立复核 evidence)
+- **下一步**: H4 写 _phase_summary.md + 标 _progress.json status=completed + trace.jsonl append phase_done; H5 最终 commit + push

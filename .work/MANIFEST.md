@@ -1,7 +1,7 @@
 # .work/ MANIFEST — 文件清单与变更链
 
 > **AI 工作入口文件** — 每次新 session 开始时先读此文件，了解文件布局和更新规则。
-> 最后更新: 2026-04-19 (Phase 6.5 Claude v2 批 1-4 执行完成 + G1 批 5 准备完成; capacity 13%→20%→23%→43% 五批渐进, 0 衰减, T17/T18 PASS, 待 G2 mid tier 实现)
+> 最后更新: 2026-04-20 (Phase 6.5 Claude v2 **终态 v2.6 完成**: 6 批渐进 + 1 重平衡批, capacity 12%→77%, 24/24 A/B PASS, 0 衰减全程; RETROSPECTIVE_V2.md + rag_decay_curve.md 7 数据点 + phase7_handoff.md 已交付; long tail 302 codelist 归 Phase 7)
 
 ---
 
@@ -118,7 +118,7 @@ meta/worklog.md                      ← 记录决策变更
      内容: P0~P3 四项优化任务（ROUTING.md、反向索引等）
      前置: Phase 5 完成后再开始
 
-ai_platforms/ ── Phase 6.5 AI 平台部署 ── [Claude v1 完成 (9/9 PASS); Claude v2 批 1-4 完成 + G1 done, 待 G2]
+ai_platforms/ ── Phase 6.5 AI 平台部署 ── [Claude v1 完成 (9/9 PASS); Claude v2 终态 v2.6 完成 (24/24 A/B PASS, 0 衰减, capacity 77%)]
      总览: ai_platforms/README.md
      三平台路线: chatgpt_gpt/ROADMAP.md, claude_projects/ROADMAP.md, gemini_gems/ROADMAP.md
      Claude v1 详细计划: claude_projects/PLAN.md (方案 B 压缩部署, 目标 ≤195K, 实测 192,036 tokens, §8 postscript 修订容量假设)
@@ -132,11 +132,16 @@ ai_platforms/ ── Phase 6.5 AI 平台部署 ── [Claude v1 完成 (9/9 PAS
      Claude v2 设计: docs/superpowers/specs/2026-04-18-phase6.5-claude-v2-expansion-design.md (中庸 5 批 / ~50% 容量 / 16-18 文件)
      Claude v2 计划: claude_projects/PLAN_V2.md (1852 行, 8 阶段 ~30 任务, subagent-driven 执行, 5 hard checkpoints)
      Claude v2 脚本: claude_projects/scripts_v2/ (6 个 Python 脚本: rebuild_chapters/extract_examples_data/extract_terminology_terms/score_domains/score_codelists/build_v2_stage)
-     Claude v2 产物 (批 1-4 完成): claude_projects/output_v2/ (14 实体 + meta, 共 719,241 tokens, v2.4 capacity 43%)
-       - 00-08: v1 重建章节 (chapters 全展开 v2.1)
+     Claude v2 产物 (v2.6 终态, 19 真实上传文件 + meta, 1,286,161 tokens, capacity 77%):
+       - 00-08: v1 重建章节 (v2.1 chapters byte-exact expand)
        - 09: examples 高频 28 域 (v2.2, 112,697 tokens)
        - 10: examples 其余 35 域 (v2.3, 48,897 tokens) — 63 域 examples 全覆盖
        - 11a/11b/11c: terminology top 200 codelist 按 subdir 拆 (v2.4, 351,752 tokens; 29/152/19 codelist)
+       - 12a/12b/12c: terminology mid rank 201-500 按 subdir 拆 (v2.5, 377,939 tokens; 50/222/28 codelist)
+       - 13a/13c: terminology tail 用户优先级重平衡 (v2.6, 188,981 tokens; 68 core + 141 supp, 6 giants Deferred stub, 13b by design 不存在)
+     Claude v2 复盘: claude_projects/RETROSPECTIVE_V2.md (7 章复盘, R1-R8 保留 + G1-G5 缺口 + 5 关键决策 + Rule E 候选 + 工作量 + trace 事件分布实测口径, 已过 Rule D code-reviewer 独立复核 CONDITIONAL_PASS → PASS)
+     Claude v2 RAG 衰减曲线: claude_projects/output_v2/rag_decay_curve.md (7 数据点 v1→v2.6 + 4 段跨批观察 + 终态结论 + 6 条关键发现 + Phase 7 actionable)
+     Claude v2 Phase 7 交接: claude_projects/output_v2/phase7_handoff.md (6 条 actionable insight + 待解问题 Q1-Q5 + Phase 7 实施前 5 步待办)
      Claude v2 Evidence: claude_projects/output_v2/evidence_v2/ (trace.jsonl + _progress.json 4 checkpoints_acked + subagent_prompts/ + failures/ + checkpoints/)
      Claude v2 A/B 报告: claude_projects/output_v2/STAGE_V2.{1,2,3,4}_AB_REPORT.md (4 批 A/B 测试报告, Cowork 填)
      Claude v2 Cowork handoff: claude_projects/output_v2/CHECKPOINT_V2.{1,2,3,4}_HANDOFF.md (4 批 Cowork 自动执行手册)
@@ -261,12 +266,14 @@ ai_platforms/ ── Phase 6.5 AI 平台部署 ── [Claude v1 完成 (9/9 PAS
 | **Phase 6.5 Claude 测试结果** | **`../ai_platforms/claude_projects/output/test_results.md`** — Layer 2 Smoke + T1-T8 共 9/9 PASS, 边界模板全触发 (2026-04-18) |
 | **Phase 6.5 Claude v2 设计** | **`../docs/superpowers/specs/2026-04-18-phase6.5-claude-v2-expansion-design.md`** — 中庸 5 批 / ~50% 容量 / 16-18 文件 / RAG 衰减曲线 (2026-04-18) |
 | **Phase 6.5 Claude v2 计划** | **`../ai_platforms/claude_projects/PLAN_V2.md`** — 1852 行 / 8 阶段 / ~30 Tasks / subagent-driven, 5 hard checkpoints (2026-04-18) |
-| **Phase 6.5 Claude v2 执行进度** | **`../ai_platforms/claude_projects/output_v2/evidence_v2/_progress.json`** — 4 checkpoints_acked (v2.1-v2.4) + g1_output + session_handoff (hot path, 2026-04-19) |
-| **Phase 6.5 Claude v2 产物** | **`../ai_platforms/claude_projects/output_v2/`** — 14 实体 / 719,241 tokens / capacity 43% (批 1-4, 2026-04-19) |
-| **Phase 6.5 Claude v2 RAG 衰减曲线** | **`../ai_platforms/claude_projects/output_v2/rag_decay_curve.md`** — 5 数据点 + 3 段跨批观察 (v1→v2.4), Phase 7 核心输入 (2026-04-19) |
-| **Phase 6.5 Claude v2 A/B 报告** | **`../ai_platforms/claude_projects/output_v2/STAGE_V2.{1,2,3,4}_AB_REPORT.md`** — 4 批 A/B 测试报告 (Cowork 填, Rule D 独立复核过) |
-| **Phase 6.5 Claude v2 测试矩阵** | **`../ai_platforms/claude_projects/output_v2/test_results_v2.md`** — T1-T18 完整矩阵 + v2.1-v2.4 四段 stage 汇总 |
-| **Phase 6.5 Claude v2 G2 启动 prompt** | **`../ai_platforms/claude_projects/output_v2/evidence_v2/subagent_prompts/G2_executor.md`** — 次日批 5 实现子代理 prompt |
+| **Phase 6.5 Claude v2 执行进度** | **`../ai_platforms/claude_projects/output_v2/evidence_v2/_progress.json`** — v2.6 终态, 4 checkpoints_acked (v2.1-v2.4) + v2.6 phase_done, status=completed (2026-04-20) |
+| **Phase 6.5 Claude v2 产物** | **`../ai_platforms/claude_projects/output_v2/`** — 19 真实上传 / 32 含 meta / 1,286,161 tokens / capacity 77% (v2.6 终态, 2026-04-20) |
+| **Phase 6.5 Claude v2 RAG 衰减曲线** | **`../ai_platforms/claude_projects/output_v2/rag_decay_curve.md`** — 7 数据点 + 4 段跨批观察 (v1→v2.6) + 终态结论 + 6 条 Phase 7 actionable (2026-04-20) |
+| **Phase 6.5 Claude v2 Phase 7 交接** | **`../ai_platforms/claude_projects/output_v2/phase7_handoff.md`** — 6 条 actionable + 5 问题 Q1-Q5 + 实施前 5 步待办 (2026-04-20) |
+| **Phase 6.5 Claude v2 复盘** | **`../ai_platforms/claude_projects/RETROSPECTIVE_V2.md`** — Rule C 强制产物, 7 章 (R1-R8 保留 + G1-G5 缺口 + 5 决策 + Rule E 候选 + 工作量), 过 Rule D 独立复核 (2026-04-20) |
+| **Phase 6.5 Claude v2 A/B 报告** | **`../ai_platforms/claude_projects/output_v2/STAGE_V2.{1,2,3,4,6}_AB_REPORT.md`** — 5 批 A/B 报告 (v2.5 被 v2.6 合并 skipped); v2.6 终态 24/24 PASS |
+| **Phase 6.5 Claude v2 测试矩阵** | **`../ai_platforms/claude_projects/output_v2/test_results_v2.md`** — T1-T22 + T-core-reb/T-supp-reb 完整矩阵 + v2.1-v2.6 stage 汇总 |
+| **Phase 6.5 Claude v2 H1 独立复核** | **`../ai_platforms/claude_projects/output_v2/evidence_v2/H1_reviewer.md`** — RETROSPECTIVE_V2 过 code-reviewer CONDITIONAL_PASS → PASS evidence (2026-04-20) |
 | **Phase 7 设计文档** | **`../docs/DESIGN_RAG_KG.md`** — RAG + 知识图谱 + 数据集校验 |
 | Phase 7 session 记录 | `05_rag_kg/session_2026-04-16_design.md` |
 | **AI 工作质量规则** | **`meta/retrospective.md`** ⚑ 四条预防规则必须遵守 |
