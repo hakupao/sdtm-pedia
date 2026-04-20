@@ -3,7 +3,7 @@
 > **目的**: ChatGPT GPTs + Gemini Gems 在 Phase 0-5 上严格锁步, 不靠人脑记, 由主 session 机械 gate.
 > **覆盖平台**: `ai_platforms/chatgpt_gpt/` + `ai_platforms/gemini_gems/` (Claude Projects 已完成, 不参与本看板)
 > **建立日期**: 2026-04-20
-> **最后更新**: 2026-04-20 (Phase 1 双边 CONDITIONAL_PASS; Gemini profile C1 已修复; 等用户 ack 进 Phase 2)
+> **最后更新**: 2026-04-20 (Phase 3 Node 1 双边 PASS — 严格模式 C+Q 完成: ChatGPT 经 round_1 code-reviewer + round_2 debugger delta review + 主 session v1.2 V7 收窄, 1 HIGH + 4 MEDIUM + PLAN 文字全 fix; Gemini N1 脚本 PASS, HIGH 是 Node 2 runtime gate 非 N1 block; C1 bundled commit 准备)
 
 ---
 
@@ -22,10 +22,10 @@
 
 ## 当前状态 (每步更新)
 
-- **当前锁步 Phase**: Phase 2 完成 (双边 CONDITIONAL_PASS), Phase 3 待用户 ack 解锁
-- **允许的下一动作**: 等用户 ack 后, 主 session 派发 Phase 3 落地 subagent (合并脚本 + 批次执行 + A/B)
+- **当前锁步 Phase**: Phase 3 Node 1 PASS bundled (严格 C+Q 全完成), 等 commit C1
+- **允许的下一动作**: commit C1 bundled (PLAN v1.2 / 双平台 scripts / 双边 reviewer evidence / ChatGPT delta reviewer evidence / manifest_segments.json skeleton git add); commit 后用户可切 session → 下 session 开 Node 2 跑脚本 + A/B
 - **偏离告警**: 无
-- **上一次状态更新**: 2026-04-20 (PLAN writer 双边成功 ChatGPT 660 行/Gemini 578 行; verifier 双边 CONDITIONAL_PASS; ChatGPT 1 MEDIUM + 2 LOW / Gemini 2 LOW 全部 carry-over 到 Phase 3)
+- **上一次状态更新**: 2026-04-20 (Node 1 严格 C+Q 完成: ChatGPT 4 script 通过 2 轮 reviewer — round_1 code-reviewer CONDITIONAL_PASS 列 1H+4M, round_2 debugger FAIL_REWORK 只 V7 ii FP; 主 session fix executor 跨文件修 4 bug 后, v1.2 再删 V7 ii 消 77 FP, 全通过; Gemini 3 script 初审 CONDITIONAL_PASS 无改; 双边 _progress.json fix final; 下一步 commit C1)
 
 ---
 
@@ -36,7 +36,7 @@
 | **0 启动** | `docs/platform_profile.md` 填完 + 用户优先级 ack (规则 E) | ✅ PASS | ✅ PASS | — (起点) |
 | **1 调研** | 八问八答 → `docs/research.md` (Gemini 简化 3 问) | ✅ PASS (CGT C1→Phase2) | ✅ PASS (C1 修复 / C2→Phase2) | 两平台 Phase 0 = PASS ✅ |
 | **2 策略+PLAN** | `docs/PLAN.md` 含 P1-P13 规则 + 批次设计 | ✅ PASS (1 MED + 2 LOW→P3) | ✅ PASS (2 LOW→P3) | 两平台 Phase 1 = PASS ✅ |
-| **3 落地** | 批次执行 + evidence L1/L2 + 每批 A/B | ⏳ 待 ack | ⏳ 待 ack | 两平台 Phase 2 = PASS ✅ (等用户 ack) |
+| **3 落地** | 批次执行 + evidence L1/L2 + 每批 A/B | 🟢 N1 PASS | 🟢 N1 PASS | 两平台 Phase 2 = PASS ✅ (用户已 ack 2026-04-20); Phase 3 Node 1 双边 bundled PASS 2026-04-20 |
 | **4 审查** | 三 lane 回归 + A/B 矩阵 (CGT 10-15 题 / GEM 10 题) | 🔒 locked | 🔒 locked | 两平台 Phase 3 终批 PASS |
 | **5 收束** | RETROSPECTIVE + UPLOAD_TUTORIAL + ROADMAP 更新 | 🔒 locked | 🔒 locked | 两平台 Phase 4 = PASS |
 
@@ -185,6 +185,9 @@ Phase 3 分 6 个 session node, 每 node 结束即 commit + 可切换 session re
 | 2026-04-20 | 用户 ack 进 Phase 2 + 关键澄清: Gemini "公开" = 分享链接给同事 (定向/内部传播), ChatGPT Q1=C "公开" = GPT Store 全网广播; 两份 progress.json 记录语义澄清 (publish_scope_semantics_clarification_2026-04-20 字段); 2 个 executor (model=opus) 并行派发写 PLAN.md |
 | 2026-04-20 | Phase 2 PLAN writer 双边成功: ChatGPT 660 行/13 规则/33 Task/8 hard cp, Gemini 578 行/12 规则/18 Task/12 hard cp; verifier 双边 CONDITIONAL_PASS; ChatGPT 1 MEDIUM (§3.2 score 公式不一致 Task B1 前修) + 2 LOW (路径/标题); Gemini 2 LOW (B2/B3 口头澄清 + §7 10 题组成); Phase 2 → PASS, Phase 3 待用户 ack |
 | 2026-04-20 | 用户 ack Phase 3 混合锁步方案 + 6-node 分块规划 (每 node 独立 commit + session 可切换); ChatGPT 2 LOW 主 session 修复 (PLAN §4 标题 A-H→A-G + Task D3 路径 stage_D→stage_4); 准备 C0 打包 commit (Phase 0-2 全部产出) 结束当前 session, 下 session 开 N1 脚本 |
+| 2026-04-20 | **Phase 3 Node 1 启动**: (1) ChatGPT §3.2 MEDIUM carry-over 主 session 修复, PLAN v1.1 加法公式 `score = priority×coverage + audience_bonus + novelty_bonus`, §3.2 重算 (01/02=3.4, 03/04=3.2, 05=1.5, 06=1.9, 07-09=1.2), 排序语义保留; (2) 双平台 dev/scripts/ + ab_reports/ 目录建好; (3) 2 executor opus 后台并行派发 — ChatGPT 4 脚本 (count_tokens + score + merge + validate), Gemini 3 脚本 (count_tokens + merge + validate), 不互读, 只写不跑; 下一步等两 agent 完成后主 session cross-review + 派 2 code-reviewer + 用户看脚本 hard checkpoint |
+| 2026-04-20 | **Phase 3 Node 1 reviewer 回齐 CONDITIONAL_PASS**: (1) ChatGPT executor 交付 4 脚本 1210 行 py_compile PASS; Gemini executor 交付 3 脚本 953 行 py_compile PASS; (2) ChatGPT code-reviewer (opus) Verdict CONDITIONAL_PASS — 1 HIGH (V3 P12 覆盖率过宽) + 4 MEDIUM (V4 单表跨 heading / 动态段数无独立真源 / WARN→FAIL / phase3 vs phase2 文字) 全属脚本 bug 需 Node 2 前修; Gemini verifier (opus) Verdict CONDITIONAL_PASS — HIGH-1 是 Node 2 runtime gate (core 3.4MB 必进 reverse 分支, 04 末 30% 可能 <3 段 source → V6 FAIL, Node 2 B6 后三选项 A/B/C 决策), 脚本 py_compile 纯净; (3) ChatGPT reviewer 产物主 session 代写 260 行 phase3_node1_reviewer.md; Gemini reviewer 自写 286 行; (4) 规则 D 严格: ChatGPT code-reviewer ≠ Gemini verifier ≠ executor, 三边 subagent_type 独立; (5) 双边 _progress.json 写回 CONDITIONAL_PASS + carry-over 结构化; 下一步等用户 hard checkpoint ack (看脚本 + 决策修 ChatGPT bug 走 executor 还是主 session / 是否 pre-commit C1) |
+| 2026-04-20 | **Phase 3 Node 1 严格模式 C+Q 执行**: 用户选决策 2=C (HIGH 走 executor+reviewer, MEDIUM+PLAN 主 session 直修) + 决策 3=Q (修完再 commit). (1) 主 session 修 PLAN v1.2: §2.4 VAR_INDEX→VARIABLE_INDEX, §2.5 YAML→Python dataclass, §4 Task B1 phase2→phase3, §0 v1.2 修订记录追加; (2) 派 chatgpt_fix_exec (executor opus) 修 4 bug: HIGH-1 V3 三锚点重写 (~100 行) / MEDIUM-1 新增 V7 88 行 / MEDIUM-2 新建 manifest_segments.json 真源跨 3 文件 / MEDIUM-3 WARN→FAIL rc=2 写模式不落盘; py_compile PASS; (3) 派 chatgpt_fix_delta_review (debugger opus, 规则 D 与前三 subagent_type 均不同) 产 374 行 phase3_node1_delta_reviewer.md; Verdict FAIL_REWORK — 只 V7 (ii) 在 VARIABLE_INDEX.md 62 次 + INDEX 7 + model 3 合计 77 次合法多表分节场景稳定 FP (每次 merge 产物必 FAIL); V3/V7(i)/manifest/fail-fast 全 PASS; (4) 主 session v1.2 收窄 — 删 V7 (ii) 代码段 35 行 + docstring 同步 v1.2 原因 + 链接 delta reviewer; py_compile PASS; grep 0 残留; (5) ChatGPT N1 final_status = PASS bundled; Gemini N1 无改动; 双边 _progress.json fix final; **下一步**: commit C1 bundled (PLAN v1.2 + 双平台 scripts + 3 reviewer evidence + manifest_segments.json skeleton + _progress + SYNC_BOARD) |
 
 ---
 

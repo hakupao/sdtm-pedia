@@ -5,8 +5,8 @@
   "tier": "1-2",
   "created_at": "2026-04-20",
   "last_updated": "2026-04-20",
-  "current_phase": 2,
-  "overall_status": "phase_2_pass_awaiting_user_ack_for_phase_3",
+  "current_phase": 3,
+  "overall_status": "phase_3_node_1_doing_scripts_dev",
   "sync_locked_with": "chatgpt_gpt",
   "sync_board_path": "ai_platforms/SYNC_BOARD.md",
   "notes": "Phase 定义对齐 ROADMAP.md 六段制. Phase 2 双边 CONDITIONAL_PASS, 等用户 ack 进 Phase 3. Gemini Tier 1-2 最轻量平台.",
@@ -81,7 +81,8 @@
       "completed_at": "2026-04-20"
     },
     "3_execute": {
-      "status": "todo",
+      "status": "doing",
+      "node_plan_aligned_with_sync_board": "SYNC_BOARD 尾段 6-node; Gemini 锁步 ChatGPT, Node 1 脚本开发 (current)",
       "gate_criteria": [
         "合并脚本产出 3-5 主题文件 (~713K tokens)",
         "单批 Gem 上传完成",
@@ -93,16 +94,55 @@
       "evidence_paths": [],
       "reviewer_lane_pass": false,
       "user_ack": false,
-      "started_at": null,
+      "started_at": "2026-04-20",
       "completed_at": null,
       "batches": [],
       "carry_over_from_phase1": [
-        "F-1 末尾召回实测 (carry hard checkpoint D2)"
+        "F-1 末尾召回实测 (carry hard checkpoint D2, Node 5)"
       ],
       "carry_over_from_phase2": [
-        "LOW: B2/B3 hard checkpoint 触发条件口头澄清",
-        "LOW: §7 10 题组成关系口头澄清 (T1-T4+T5-T8+T-tail-1/2+T9 必答, T10 可选)"
-      ]
+        "LOW: B2/B3 hard checkpoint 触发条件口头澄清 (Node 2 跑脚本时主 session 对执行者澄清)",
+        "LOW: §7 10 题组成关系口头澄清 (Node 5 A/B 跑题前澄清)"
+      ],
+      "nodes": {
+        "N1_scripts_dev": {
+          "status": "PASS_bundled_ready_for_commit_C1",
+          "final_status_note": "Gemini 侧 Node 1 经 verifier Rule D 审 CONDITIONAL_PASS, 脚本 py_compile 纯净, 无 rework. HIGH-1 是 Node 2 B6 runtime gate (04 尾部 V6 段数), 非 Node 1 脚本 bug. 与 ChatGPT 侧 C+Q 流程锁步同步完成, 等 C1 bundled commit.",
+          "started_at": "2026-04-20",
+          "completed_at": "2026-04-20",
+          "dispatched_subagents": [
+            "gemini_scripts_exec (executor opus) — 3 脚本: count_tokens 86 行 / merge_for_gemini 493 行 / validate_gemini 374 行, py_compile PASS, 总 953 行",
+            "gemini_scripts_review (verifier opus, Rule D 独立, 与 ChatGPT code-reviewer 不同 subagent_type) — Verdict CONDITIONAL_PASS"
+          ],
+          "reviewer_verdict": "CONDITIONAL_PASS",
+          "reviewer_evidence": "ai_platforms/gemini_gems/dev/evidence/phase3_node1_reviewer.md (286 行, verifier subagent 自写)",
+          "reviewer_pass_summary": [
+            "M1 PLAN 合规: 4 合并文件 / CLI 6 stages / V1-V6 / P1 量化 / Rule E Q3/Q4/Q5 乘入全 PASS",
+            "M3 规则合规: P5 严格 (只 read_text/rglob/iterdir); P6 脚本自足; 规则 A 04 高频筛选已 docstring 注释 (Node 2 必 N=5 抽检); 规则 D 独立复核",
+            "M4 mental trace 大部分 PASS (rc 正确传播 / manifest idempotent / V3 rc 三档合 PLAN §8 R2 / V6 character offset 锚点合理)"
+          ],
+          "reviewer_must_fix_before_node2_or_gate_at_node2": [
+            "HIGH-1 (Node 2 gate, 不 Node 1 block): 实测 terminology/core 3.4MB ≫ 200K target → _collect_terminology_sources 必进 core>target 分支, 可能仅 selected 2-3 个 source (lb_part3 417KB + lb_part2 377KB), 04 末 30% 字符区间 <3 个 terminology source marker → V6 FAIL 风险. Node 2 B6 跑 validate 后若 FAIL, 三选项: (A) 降 V6 min 到 1 放松 (削弱 P12 hard checkpoint, 需用户 ack) / (B) 允许 ≤220K 引入更多小文件 / (C) 推荐: 混合 core 大文件 + 高频小文件. 必须 Node 2 实测后决定, 非 Node 1 语法错."
+          ],
+          "reviewer_medium_suggested": [
+            "MEDIUM-1: _file_header() 行 293 含 Generated timestamp → 同输入跨时间跑 md5 不同, V5 md5 稳定承诺弱. 业务 V5 只 record 不判 FAIL, 非阻塞, 可选修 (timestamp 移到 manifest header)"
+          ],
+          "reviewer_low_carry_over": [
+            "LOW-1: _collect_terminology_sources core<=target 分支尾部策略 bug (本场景不触)",
+            "LOW-2: _collect_knowledge_sources / _collect_spec_sources 静默跳过缺失域 — 建议 _log(skip missing)",
+            "LOW-3: validate rc!=0 时终端不提示归档路径 (Rule B UX)",
+            "LOW-4: manifest 多块时 (分步跑) 手册化 '只认最新块'",
+            "LOW-5: 04 产物建议加 'terminology selection summary' 1 行便于 Rule A N=5 抽检"
+          ],
+          "reviewer_deviations_accepted": [
+            "#1 manifest 一次性追加 (executor 单次 main 累积 entries + 时间戳 header 块): 幂等性 + 避半成品污染",
+            "#2 04 reverse size-proxy (core>target 分支 size-desc + reverse → 最大高频代理落尾) 合 Q4=A + P12",
+            "#3 V2 terminology 不判 FAIL: 完全合 PLAN 'Node 2 校准'",
+            "#4 不执行: Node 1 硬约束",
+            "#5 (新增): header 时间戳 → md5 不稳定 — 业务 V5 不判 FAIL, LOW"
+          ]
+        }
+      }
     },
     "4_review": {
       "status": "locked",

@@ -16,6 +16,8 @@
 | 版本 | 日期 | 修改人 | 变更 | 触发 |
 |------|------|-------|------|------|
 | v1 | 2026-04-20 | executor (opus) | 初版 (基于 Phase 1 research + Rule E ack + Phase 1 MEDIUM carry-over) | Phase 2 doing, 用户 ack 已到位 |
+| v1.1 | 2026-04-20 | 主 session (修 Phase 2 reviewer MEDIUM) | §3.1 公式从"四因子乘法"改为"核心(priority×coverage)+audience_bonus+novelty_bonus"加法结构; §3.2 表格重算; floor 规则保留但语义聚焦 coverage 降级兜底 | Phase 3 Node 1 启动前, 修 reviewer 指出的数学不一致 (原 2.4 vs 乘法 0.12, 差 20x) |
+| v1.2 | 2026-04-20 | 主 session (修 Phase 3 Node 1 reviewer 文档同步 carry-over) | §2.4 行 1 `VAR_INDEX.md` → `VARIABLE_INDEX.md` (对齐 knowledge_base/ 实名); §2.5 "合并配置 YAML" → "Python dataclass 硬编码" (对齐脚本实现, Rule A 直白可审); §4 Task B1 产物 `score_phase2.md` → `score_phase3.md` (对齐脚本实现, Phase 3 Node 1 产物本应 phase3 语义) | Phase 3 Node 1 reviewer CONDITIONAL_PASS 的 PLAN 文档同步 carry-over (非脚本 bug, 仅文字) |
 
 ---
 
@@ -141,7 +143,7 @@ ai_platforms/gemini_gems/**                                (本 PLAN 不侵入)
 
 | # | 目标文件 | 合并源 | 估算大小 | 优先级 | 批次 | P12 溯源范围 |
 |---|---------|-------|---------:|:-----:|:----:|-------------|
-| 01 | `01_navigation.md` | ROUTING.md + INDEX.md + VAR_INDEX.md | ~159 KB | P0 | 1 | 3 段源注释 |
+| 01 | `01_navigation.md` | ROUTING.md + INDEX.md + VARIABLE_INDEX.md | ~159 KB | P0 | 1 | 3 段源注释 |
 | 02 | `02_chapters_all.md` | chapters/ 6 文件 | ~246 KB | P0 | 1 | 6 段源注释 |
 | 03 | `03_model_all.md` | model/ 6 文件 | ~70 KB | P0 | 1 | 6 段源注释 |
 | 04 | `04_domain_specs_all.md` | 63 domains/*/spec.md | ~672 KB | P0 | 1 | 63 段源注释 |
@@ -163,19 +165,20 @@ ai_platforms/gemini_gems/**                                (本 PLAN 不侵入)
 |------|---------|------|------|
 | `count_tokens.py` | 测 token (复用 claude_projects v1) | .md 文件/目录 | stdout: `<file>: <N> tokens` |
 | `score_chatgpt_priority.py` | Rule E 打分公式 (见 §3) | 源文件列表 + Rule E 参数 | stdout: ranked list with score |
-| `merge_for_chatgpt.py` | 合并源 → 产物 (P12 + P13) | 源 + 合并配置 YAML | `current/uploads/*.md` + manifest fragment |
+| `merge_for_chatgpt.py` | 合并源 → 产物 (P12 + P13) | 源 + **Python dataclass 硬编码合并配置** (v1.2 对齐脚本实现; 原拟 YAML, 改 dataclass 直白可审 + 减 PyYAML 依赖, 见 §0 v1.2) | `current/uploads/*.md` + manifest fragment |
 | `validate_chatgpt_stage.py` | 产物校验 (md5 / 段数 / P12 溯源覆盖率 / P13 表格完整) | `current/uploads/*.md` | rc=0 + 校验报告 |
 
 ---
 
 ## §3 Rule E 打分公式 (强制, 在 §2.4 优先级表与 §5 批次设计前乘入)
 
-### 3.1 公式
+### 3.1 公式 (v1.1 加法结构)
 
 ```
-score(file) = coverage_weight × priority_weight × audience_fit × novelty_bonus
+score(file) = (priority_weight × coverage_weight) + audience_bonus + novelty_bonus
 
 其中:
+- priority_weight × coverage_weight = 核心覆盖分 (主项, 体现 P0/P1/P2 骨架 + Q5=A 全量约束)
 - coverage_weight: 域覆盖完整度 (Rule E Q5=A 约束)
     - 63 域全量 = 1.0
     - 缺 1-2 域 (如合并失败) = 0.7 (减分)
@@ -184,27 +187,31 @@ score(file) = coverage_weight × priority_weight × audience_fit × novelty_bonu
     - P0 = 核心 spec 结构 (navigation + chapters + model + domain_specs)
     - P1 = 辅助推理 (assumptions + examples)
     - P2 = 高频查表 (terminology)
-- audience_fit: Rule E Q2=C 混合受众加成
+- audience_bonus: Rule E Q2=C 混合受众加成 (加法, 非乘数)
     - 新手友好 (含基础导航/定义/示例) +0.2
     - 仅专家级 (深层 assumptions) +0.0
-- novelty_bonus: Rule E Q1=C 公开广播加成
+- novelty_bonus: Rule E Q1=C 公开广播加成 (加法, 非乘数)
     - 陌生公开受众命中题相关条目 +0.2 (见 §7 公开受众语气题)
     - 仅内部术语查询 +0.0
 ```
 
-### 3.2 打分结果 (Phase 2 预估, Phase 3 实测复核)
+**为什么是加法 (不是乘法)**: audience/novelty `+0.2` 是 "小幅加成" 语义; 若当乘数 × 0.2 会把主项近乎清零, × 1.2 又算不出 v1 表格里的 2.4. v1 表格数字 (2.4 / 1.2 / 1.8 ...) 本就非乘法产物, 存在数学不一致 (Phase 2 reviewer MEDIUM). v1.1 显式声明加法, 公式与数字对齐, score 脚本可以机械实现.
 
-| # | 文件 | coverage | priority | audience | novelty | score |
-|---|------|:-------:|:-------:|:-------:|:-------:|:-----:|
-| 01 | navigation.md | 1.0 | 3.0 | 0.2 | 0.2 | **2.4** |
-| 02 | chapters_all.md | 1.0 | 3.0 | 0.2 | 0.2 | 2.4 |
-| 03 | model_all.md | 1.0 | 3.0 | 0.2 | 0.0 | 1.2 |
-| 04 | domain_specs_all.md | 1.0 | 3.0 | 0.0 | 0.2 | 1.8 |
-| 05 | assumptions_all.md | 1.0 | 1.5 | 0.0 | 0.0 | 0.0 (触发 +0.1 floor → 0.15) |
-| 06 | examples_all.md | 1.0 | 1.5 | 0.2 | 0.2 | 0.6 |
-| 07-09 | terminology/* | 1.0 | 1.0 | 0.2 | 0.0 | 0.2 |
+### 3.2 打分结果 (v1.1 重算, Phase 2 预估, Phase 3 实测复核)
 
-**floor 规则**: 任何 coverage=1.0 的文件 score 不低于 0.15 (Rule E Q5=A 保证全量平权下限).
+| # | 文件 | coverage | priority | 核心 (pri×cov) | audience | novelty | **score** | 批次 |
+|---|------|:-------:|:-------:|:-------:|:-------:|:-------:|:-----:|:----:|
+| 01 | navigation.md | 1.0 | 3.0 | 3.0 | +0.2 | +0.2 | **3.4** | 1 |
+| 02 | chapters_all.md | 1.0 | 3.0 | 3.0 | +0.2 | +0.2 | **3.4** | 1 |
+| 03 | model_all.md | 1.0 | 3.0 | 3.0 | +0.2 | +0.0 | **3.2** | 1 |
+| 04 | domain_specs_all.md | 1.0 | 3.0 | 3.0 | +0.0 | +0.2 | **3.2** | 1 |
+| 05 | assumptions_all.md | 1.0 | 1.5 | 1.5 | +0.0 | +0.0 | **1.5** | 2 |
+| 06 | examples_all.md | 1.0 | 1.5 | 1.5 | +0.2 | +0.2 | **1.9** | 2 |
+| 07-09 | terminology/* | 1.0 | 1.0 | 1.0 | +0.2 | +0.0 | **1.2** | 2 |
+
+**排序语义** (v1.1): `P0 核心 (01/02=3.4 > 03=04=3.2) > P1 辅助 (06=1.9 > 05=1.5) > P2 查表 (07-09=1.2)`. 符合"批 1 优先 P0 结构层 / 批 2 补 P1-P2 推理+查表"设计 (§5). P1 的 06 examples 高于 P2 terminology, 自然表达 "混合受众下 examples 比裸 codelist 更有新手价值".
+
+**floor 规则 (v1.1 简化)**: coverage_weight 从 1.0 降到 0.3 时, 核心覆盖分即为 0.3 × priority (最低 0.3). 任何文件 score 不低于 **0.15** (Rule E Q5=A 全量平权下限; 即便极端 coverage + 零 bonus 也保留最小存在感). v1.1 下 audience/novelty 是加法, 不再出现 "乘到 0" 的病理场景, floor 主要兜底 coverage 严重降级.
 
 ### 3.3 Phase 1 carry-over (Instructions 8K 字符) 对打分的影响
 
@@ -251,10 +258,10 @@ score(file) = coverage_weight × priority_weight × audience_fit × novelty_bonu
 
 #### Task B1: executor 写 `score_chatgpt_priority.py`
 
-- 内容: 按 §3 公式打分, 输出 ranked list 到 stdout + `dev/evidence/score_phase2.md`
+- 内容: 按 §3 公式打分, 输出 ranked list 到 stdout + `dev/evidence/score_phase3.md` (v1.2 对齐脚本实现; Phase 3 Node 1 产物本应 phase3 语义, 见 §0 v1.2)
 - checkpoint: **soft** (主控 + verifier 复审打分公式对齐 Rule E)
 - 依赖: A2
-- 产物: `dev/scripts/score_chatgpt_priority.py`, `dev/evidence/score_phase2.md`
+- 产物: `dev/scripts/score_chatgpt_priority.py`, `dev/evidence/score_phase3.md`
 - 估计: 30 分钟
 
 #### Task B2: executor 写 `merge_for_chatgpt.py` (含 P12 + P13)
