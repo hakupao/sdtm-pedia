@@ -1,7 +1,7 @@
 # .work/ MANIFEST — 文件清单与变更链
 
 > **AI 工作入口文件** — 每次新 session 开始时先读此文件，了解文件布局和更新规则。
-> 最后更新: 2026-04-18 (Phase 6.5 Claude v2 扩容计划完成: design + PLAN_V2.md 1852 行, 5 批 / ~50% 容量, 待新 session 执行)
+> 最后更新: 2026-04-19 (Phase 6.5 Claude v2 批 1-4 执行完成 + G1 批 5 准备完成; capacity 13%→20%→23%→43% 五批渐进, 0 衰减, T17/T18 PASS, 待 G2 mid tier 实现)
 
 ---
 
@@ -118,19 +118,32 @@ meta/worklog.md                      ← 记录决策变更
      内容: P0~P3 四项优化任务（ROUTING.md、反向索引等）
      前置: Phase 5 完成后再开始
 
-ai_platforms/ ── Phase 6.5 AI 平台部署 ── [Claude Step 1-14 完成 9/9 PASS, 待启动 ChatGPT 路线]
+ai_platforms/ ── Phase 6.5 AI 平台部署 ── [Claude v1 完成 (9/9 PASS); Claude v2 批 1-4 完成 + G1 done, 待 G2]
      总览: ai_platforms/README.md
      三平台路线: chatgpt_gpt/ROADMAP.md, claude_projects/ROADMAP.md, gemini_gems/ROADMAP.md
-     Claude 详细计划: claude_projects/PLAN.md (方案 B 压缩部署, 目标 ≤195K, 实测 192,036 tokens, §8 postscript 修订容量假设)
-     Claude 上传教程: claude_projects/UPLOAD_TUTORIAL.md (Step 13-14 手工操作手册 + T1-T8 测试矩阵)
-     Claude 搭建指南: claude_projects/claude_project_setup.md + claude_project_instructions.md
-     Claude 压缩脚本: claude_projects/scripts/ (11 个 Python 脚本, 可一键 build_all.py 重建)
-     Claude 压缩产物: claude_projects/output/ (11 个 .md + upload_manifest.md + capacity_check.md + test_results.md, Layer 1 10/10 + Layer 2 9/9 PASS)
-     Claude Evidence: claude_projects/output/evidence/ (trace.jsonl + 12 份 step_NN + checkpoints/ + failures/ + subagent_prompts/)
+     Claude v1 详细计划: claude_projects/PLAN.md (方案 B 压缩部署, 目标 ≤195K, 实测 192,036 tokens, §8 postscript 修订容量假设)
+     Claude v1 上传教程: claude_projects/UPLOAD_TUTORIAL.md (Step 13-14 手工操作手册 + T1-T8 测试矩阵)
+     Claude v1 搭建指南: claude_projects/claude_project_setup.md + claude_project_instructions.md
+     Claude v1 压缩脚本: claude_projects/scripts/ (11 个 Python 脚本, 可一键 build_all.py 重建)
+     Claude v1 压缩产物: claude_projects/output/ (11 个 .md + upload_manifest.md + capacity_check.md + test_results.md, Layer 1 10/10 + Layer 2 9/9 PASS)
+     Claude v1 Evidence: claude_projects/output/evidence/ (trace.jsonl + 12 份 step_NN + checkpoints/ + failures/ + subagent_prompts/)
+     Claude v1 Retrospective: claude_projects/RETROSPECTIVE.md (三段式 + 四条可迁移规则 A/B/C/D 固化到全局 CLAUDE.md)
      Claude 容量调研: claude_projects/capacity_research.md (200K 硬约束错, paid 套餐 RAG 自动扩 10x, 实际 ~3-4M)
      Claude v2 设计: docs/superpowers/specs/2026-04-18-phase6.5-claude-v2-expansion-design.md (中庸 5 批 / ~50% 容量 / 16-18 文件)
      Claude v2 计划: claude_projects/PLAN_V2.md (1852 行, 8 阶段 ~30 任务, subagent-driven 执行, 5 hard checkpoints)
+     Claude v2 脚本: claude_projects/scripts_v2/ (6 个 Python 脚本: rebuild_chapters/extract_examples_data/extract_terminology_terms/score_domains/score_codelists/build_v2_stage)
+     Claude v2 产物 (批 1-4 完成): claude_projects/output_v2/ (14 实体 + meta, 共 719,241 tokens, v2.4 capacity 43%)
+       - 00-08: v1 重建章节 (chapters 全展开 v2.1)
+       - 09: examples 高频 28 域 (v2.2, 112,697 tokens)
+       - 10: examples 其余 35 域 (v2.3, 48,897 tokens) — 63 域 examples 全覆盖
+       - 11a/11b/11c: terminology top 200 codelist 按 subdir 拆 (v2.4, 351,752 tokens; 29/152/19 codelist)
+     Claude v2 Evidence: claude_projects/output_v2/evidence_v2/ (trace.jsonl + _progress.json 4 checkpoints_acked + subagent_prompts/ + failures/ + checkpoints/)
+     Claude v2 A/B 报告: claude_projects/output_v2/STAGE_V2.{1,2,3,4}_AB_REPORT.md (4 批 A/B 测试报告, Cowork 填)
+     Claude v2 Cowork handoff: claude_projects/output_v2/CHECKPOINT_V2.{1,2,3,4}_HANDOFF.md (4 批 Cowork 自动执行手册)
+     Claude v2 RAG 衰减曲线: claude_projects/output_v2/rag_decay_curve.md (5 数据点 v1→v2.4, 3 段跨批观察 含 T3 二阶正向激活; Phase 7 核心输入)
+     Claude v2 测试矩阵: claude_projects/output_v2/test_results_v2.md (T1-T18 完整矩阵 + v2.1-v2.4 四段 stage 汇总)
      Claude v2 plan pointer: docs/superpowers/plans/2026-04-18-phase6.5-claude-v2-expansion.md (skill 约定)
+     Claude v2 G2 次日启动 prompt: claude_projects/output_v2/evidence_v2/subagent_prompts/G2_executor.md (extract_terminology_terms.py --tier mid 实现)
      前置: Phase 6 P0-P2 完成（已满足）
 
 05_rag_kg/ ── Phase 7 RAG + 知识图谱 + 数据集校验 ── [设计完成/待实施]
@@ -248,6 +261,12 @@ ai_platforms/ ── Phase 6.5 AI 平台部署 ── [Claude Step 1-14 完成 9
 | **Phase 6.5 Claude 测试结果** | **`../ai_platforms/claude_projects/output/test_results.md`** — Layer 2 Smoke + T1-T8 共 9/9 PASS, 边界模板全触发 (2026-04-18) |
 | **Phase 6.5 Claude v2 设计** | **`../docs/superpowers/specs/2026-04-18-phase6.5-claude-v2-expansion-design.md`** — 中庸 5 批 / ~50% 容量 / 16-18 文件 / RAG 衰减曲线 (2026-04-18) |
 | **Phase 6.5 Claude v2 计划** | **`../ai_platforms/claude_projects/PLAN_V2.md`** — 1852 行 / 8 阶段 / ~30 Tasks / subagent-driven, 5 hard checkpoints (2026-04-18) |
+| **Phase 6.5 Claude v2 执行进度** | **`../ai_platforms/claude_projects/output_v2/evidence_v2/_progress.json`** — 4 checkpoints_acked (v2.1-v2.4) + g1_output + session_handoff (hot path, 2026-04-19) |
+| **Phase 6.5 Claude v2 产物** | **`../ai_platforms/claude_projects/output_v2/`** — 14 实体 / 719,241 tokens / capacity 43% (批 1-4, 2026-04-19) |
+| **Phase 6.5 Claude v2 RAG 衰减曲线** | **`../ai_platforms/claude_projects/output_v2/rag_decay_curve.md`** — 5 数据点 + 3 段跨批观察 (v1→v2.4), Phase 7 核心输入 (2026-04-19) |
+| **Phase 6.5 Claude v2 A/B 报告** | **`../ai_platforms/claude_projects/output_v2/STAGE_V2.{1,2,3,4}_AB_REPORT.md`** — 4 批 A/B 测试报告 (Cowork 填, Rule D 独立复核过) |
+| **Phase 6.5 Claude v2 测试矩阵** | **`../ai_platforms/claude_projects/output_v2/test_results_v2.md`** — T1-T18 完整矩阵 + v2.1-v2.4 四段 stage 汇总 |
+| **Phase 6.5 Claude v2 G2 启动 prompt** | **`../ai_platforms/claude_projects/output_v2/evidence_v2/subagent_prompts/G2_executor.md`** — 次日批 5 实现子代理 prompt |
 | **Phase 7 设计文档** | **`../docs/DESIGN_RAG_KG.md`** — RAG + 知识图谱 + 数据集校验 |
 | Phase 7 session 记录 | `05_rag_kg/session_2026-04-16_design.md` |
 | **AI 工作质量规则** | **`meta/retrospective.md`** ⚑ 四条预防规则必须遵守 |

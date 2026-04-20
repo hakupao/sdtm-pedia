@@ -799,3 +799,30 @@
   - `ai_platforms/claude_projects/RETROSPECTIVE.md` (新增)
   - `~/.claude/CLAUDE.md` PERSONAL 段 (全局, 跨项目)
 - **下一步**: 不影响 Step 13 上传流程; Phase 6.5 ChatGPT / Gemini 路线开工时继承这四条规则 + 补齐本次缺失的 Step 7/8/9/11/12 subagent prompt 归档
+
+### 2026-04-18 → 2026-04-19 Phase 6.5 Claude v2: 批 1-4 执行完成 + G1 批 5 准备
+
+- **状态**: 批 1/2/3/4 共 4 个 hard checkpoint 全 ack, 批 5 准备完成 (G1 done), 待 G2 mid tier 实现
+- **累计 commits** (4 批 + G1 共 9 个 commit): fb33763 D2+D3 stage v2.2 → 6984a14 D4+E1+E2+E3 stage v2.3 → dd25e6a E4+F1 stage v2.3 ack + 批 4 打分 → c4646b0 F2 → 462e66c F3 → 57a0ab2 F4 stage v2.4 ack → 3a16d98 G1
+- **处理内容 (逐批)**:
+  - **v2.1 (批 1 chapters 全展开)**: chapters 二次创作压缩 → byte-exact 全展开; capacity 13% (+1pp vs v1); T9-T12 4/4 PASS; T3 单点衰减 (§6.3.5.9.3 未收录, 非 RAG 拐点, 是覆盖缺口)
+  - **v2.2 (批 2 examples 高频 28 域)**: 09_examples_data_high.md 112,697 tokens; capacity 20% (+7pp); T13/T14 2/2 PASS ↑; T1/T11 回归零衰减
+  - **v2.3 (批 3 examples 其余 35 域)**: 10_examples_data_others.md 48,897 tokens; capacity 23% (+3pp); 63 SDTM 域 examples 侧覆盖率 0→100%; T15/T16 PASS ↑; **T3 跨批累积正向激活** (v2.1/v2.2 硬拒答 → v2.3 从 09 数据推导 4 粒度 + 推断 Method A/B/C/D)
+  - **v2.4 (批 4 terminology 高频 top 200 codelist)**: 11a/11b/11c 三文件 351,752 tokens (按 terminology subdir 拆); capacity 43% (+20pp, 本批 token 跃升最大); T17/T18 新 2/2 PASS; T7 从 3 连推测 → 11a 原文命中 ↑ 质变; T3 继续 ↑ (显式 Method A-D 独立段 + relrec.xpt 数据表); 0 衰减; **11b 256K 单文件挤出风险假设反驳**
+  - **G1 (批 5 准备)**: score_codelists.py 跑 rank 201-500 (幂等验证 F1_log == G1_log byte-identical); 300 C-code 落盘 G1_codelist_mid.txt; 审计报告 G1_codelist_mid.md 显示批 5 ≈ 纯 questionnaire tier (~90% QRS/PRO pair); PLAN §G2 拆分建议修正 (12a core → 12a Findings/Events/Interventions + 12b QRS/Questionnaires)
+- **关键产出**:
+  - `ai_platforms/claude_projects/output_v2/02_chapters.md` 重建 (v2.1)
+  - `ai_platforms/claude_projects/output_v2/09_examples_data_high.md` (v2.2)
+  - `ai_platforms/claude_projects/output_v2/10_examples_data_others.md` (v2.3)
+  - `ai_platforms/claude_projects/output_v2/11a/11b/11c_terminology_high_*.md` (v2.4)
+  - `ai_platforms/claude_projects/output_v2/STAGE_V2.{1,2,3,4}_AB_REPORT.md` 4 份 A/B 测试报告
+  - `ai_platforms/claude_projects/output_v2/CHECKPOINT_V2.{1,2,3,4}_HANDOFF.md` 4 份 Cowork handoff
+  - `ai_platforms/claude_projects/output_v2/rag_decay_curve.md` 4 数据点 + 3 段跨批观察 (含 T3 二阶正向激活)
+  - `ai_platforms/claude_projects/output_v2/test_results_v2.md` T1-T18 矩阵 + v2.1-v2.4 四段 stage 汇总
+  - `ai_platforms/claude_projects/output_v2/evidence_v2/_progress.json` 4 checkpoints_acked + g1_output + session_handoff 资料
+  - `ai_platforms/claude_projects/scripts_v2/` 6 个脚本 (rebuild_chapters + extract_examples + extract_terminology_terms + score_domains + score_codelists + build_v2_stage)
+  - `ai_platforms/claude_projects/output_v2/evidence_v2/subagent_prompts/G2_executor.md` 次日 G2 启动 prompt
+- **Rule D 三 lane 独立复核 (本日新增)**: F4 stage v2.4 checkpoint 调 code-reviewer subagent 独立审 STAGE_V2.4_AB_REPORT.md, 7 维度 (覆盖/T17 证据/T18 边界/capacity 数学/决策矩阵/Rule D 合规/无幻觉) 全 PASS, 证实 Cowork writer + 主控 writer + 独立 reviewer 三 lane 隔离到位
+- **capacity 曲线**: v1 12% → v2.1 13% → v2.2 20% → v2.3 23% → v2.4 43% (5 数据点, 子线性 → 大跃升, +20pp vs +22pp 投影 = 91% 吻合)
+- **覆盖度**: v2.4 后 CDISC CT 200/1005 = 19.9%, 批 5 追加 300 → v2.5 终态 500/1005 = 49.8% (中庸 50% 目标达成)
+- **下一步** (2026-04-20 起): G2 子代理实现 extract_terminology_terms.py --tier mid (prompt 已落盘); 然后 G3 build v2.5 → G4 终 hard checkpoint (T19/T20 + 全量 T1-T20 回归) → H1-H5 Phase 6.5 v2 收尾 (RETROSPECTIVE_V2 + rag_decay_curve 终态 + Phase 7 handoff + Chain B/C/E 索引链)
