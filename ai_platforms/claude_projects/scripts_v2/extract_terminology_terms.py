@@ -103,6 +103,17 @@ SUBDIR_META_BY_TIER: dict[str, dict[str, tuple[str, str, str]]] = {
                            "12c",
                            "Mid-Frequency Codelists \u2014 supplementary subdir (Stage v2.5)"),
     },
+    "tail": {
+        "core":           ("13a_terminology_tail_core.md",
+                           "13a",
+                           "Long-Tail Codelists \u2014 core subdir (Stage v2.6 rebalance)"),
+        "questionnaires": ("13b_terminology_tail_questionnaires.md",
+                           "13b",
+                           "Long-Tail Codelists \u2014 questionnaires subdir (Stage v2.6 rebalance)"),
+        "supplementary":  ("13c_terminology_tail_supp.md",
+                           "13c",
+                           "Long-Tail Codelists \u2014 supplementary subdir (Stage v2.6 rebalance)"),
+    },
 }
 
 # Backward-compatible alias (high-tier map); preserved for any external readers.
@@ -119,6 +130,15 @@ DEFINITION_CHAR_LIMIT_MID = 100
 # Back-compat alias; high tier default.
 DEFINITION_CHAR_LIMIT = DEFINITION_CHAR_LIMIT_HIGH
 TRUNCATE_MARKER = "..."
+
+# tier=tail giant-codelist guardrail.
+# Codelists at or above this term count are NOT inlined under tier=tail;
+# they get a metadata stub pointing at the source file. Motivation: six
+# MedDRA-style giants (e.g. C65047/C67154 with 2,536 terms each) alone
+# would occupy ~200K tokens in 13a_core, exceeding the per-file HARD_CAP
+# and blowing through the v2.6 C12 budget. Such reference vocabularies
+# are a Phase 7 RAG indexer concern, not a static-Project-Knowledge one.
+TAIL_GIANT_TERM_THRESHOLD = 500
 
 # Regex: codelist heading ``## <Name> (<C-code>)``.
 CODELIST_HDR_RE = re.compile(r"^##\s+(.*?)\s+\((C\d+)\)\s*$")
@@ -291,11 +311,13 @@ def _truncate_definition(text: str, tier: str = "high") -> str:
 
     - ``tier="high"``: hard cap at 200 chars, simple suffix trim. Keeps all
       provenance tags (e.g. ``(NCI)``) inside the budget.
-    - ``tier="mid"``: cap at 100 chars with word-boundary truncation. If the
-      budgeted slice cuts a word, we back off to the nearest preceding space so
-      the displayed prefix never ends mid-word.
+    - ``tier="mid"`` / ``tier="tail"``: cap at 100 chars with word-boundary
+      truncation. If the budgeted slice cuts a word, back off to the nearest
+      preceding space so the displayed prefix never ends mid-word. ``tail``
+      reuses the same compression rule because the long-tail content budget
+      is tighter than mid's.
     """
-    if tier == "mid":
+    if tier in ("mid", "tail"):
         limit = DEFINITION_CHAR_LIMIT_MID
     else:
         limit = DEFINITION_CHAR_LIMIT_HIGH
@@ -310,7 +332,7 @@ def _truncate_definition(text: str, tier: str = "high") -> str:
     # Default character-slice budget.
     prefix = text[:keep]
 
-    if tier == "mid":
+    if tier in ("mid", "tail"):
         # Back off to the last whitespace so the last word is not cut mid-token.
         space_idx = prefix.rfind(" ")
         # Only back off if we found a space AND it leaves a non-trivial prefix.
@@ -410,7 +432,20 @@ def render_codelist(
     out.append(f"Related Domains: {related_str}")
     out.append("")
 
-    if tier == "mid":
+    # tier=tail: giant codelists (>= TAIL_GIANT_TERM_THRESHOLD) get a stub
+    # pointing at the source; we skip the term table to stay inside the
+    # per-file HARD_CAP and the v2.6 C12 budget. Terms are still discoverable
+    # via the source path and via Phase 7 RAG.
+    if tier == "tail" and len(rows) >= TAIL_GIANT_TERM_THRESHOLD:
+        out.append(
+            f"> **Deferred to Phase 7 RAG**: {len(rows):,} terms; too large to "
+            f"inline at tier=tail (threshold {TAIL_GIANT_TERM_THRESHOLD}). "
+            f"Full Term table in source `{source_rel}`."
+        )
+        out.append("")
+        return "\n".join(out), 0
+
+    if tier in ("mid", "tail"):
         out.append("| Code | CDISC Submission Value | CDISC Definition |")
         out.append("|------|----------------------|------------------|")
     else:
@@ -427,7 +462,7 @@ def render_codelist(
         new_defn = _truncate_definition(defn, tier=tier)
         if new_defn != defn:
             truncated += 1
-        if tier == "mid":
+        if tier in ("mid", "tail"):
             cells = [
                 _escape_cell(code),
                 _escape_cell(sub),
@@ -558,6 +593,18 @@ def build_subdir_documents(
                 "is a codelist-level metadata line listing SDTM domains whose spec.md "
                 "references the codelist C-code."
             )
+        elif tier == "tail":
+            out.append(
+                f"Long-tail CDISC controlled terminology codelists sourced from "
+                f"``knowledge_base/terminology/{sub}/`` (Stage v2.6 rebalance batch). "
+                "Selected for user-priority coverage of core and supplementary subdirs "
+                "beyond the rank-500 cutoff; questionnaires subdir is intentionally "
+                "excluded here. Compact 3-column Term table (Code / Submission Value / "
+                "Definition) with Definitions truncated to 100 characters at word "
+                "boundaries, matching the mid-tier compression rule. Synonyms and NCI "
+                "Concept Description links are omitted. \"Related Domains\" is a "
+                "codelist-level metadata line."
+            )
         else:
             out.append(
                 f"High-frequency CDISC controlled terminology codelists sourced from "
@@ -614,12 +661,20 @@ def write_failure_file(
     not overwrite each other.
     """
     FAILURES_DIR.mkdir(parents=True, exist_ok=True)
-    stage_label = "v2.4" if tier == "high" else "v2.5_g2"
+    stage_label = {
+        "high": "v2.4",
+        "mid":  "v2.5_g2",
+        "tail": "v2.6_v6.2",
+    }.get(tier, tier)
     failure_path = FAILURES_DIR / f"stage_{stage_label}_attempt_1.md"
     md5 = hashlib.md5(
         list_path.read_bytes() if list_path.is_file() else b""
     ).hexdigest()
-    header = "F2 executor" if tier == "high" else "G2 executor"
+    header = {
+        "high": "F2 executor",
+        "mid":  "G2 executor",
+        "tail": "V6.2 executor",
+    }.get(tier, "executor")
     content = [
         f"# Stage {stage_label} {header} failure report (attempt 1)",
         "",
@@ -661,7 +716,7 @@ def write_failure_file(
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__, add_help=True)
-    parser.add_argument("--tier", choices=("high", "mid"), required=True)
+    parser.add_argument("--tier", choices=("high", "mid", "tail"), required=True)
     parser.add_argument("--list", dest="list_path")
     args = parser.parse_args(argv)
 
@@ -706,10 +761,27 @@ def main(argv: list[str] | None = None) -> int:
         full_text, summary, truncations = subdir_docs[sub]
         file_suffix, _file_num, _label = tier_meta[sub]
         out_path = OUTPUT_DIR / file_suffix
+        cl_count = len(summary)
+
+        # For tail tier, skip writing subdir files with zero codelists (V6.1
+        # by design excludes questionnaires, so 13b would otherwise be an empty
+        # stub). High/mid always write all 3 files for stable idempotent output.
+        if args.tier == "tail" and cl_count == 0:
+            if out_path.exists():
+                out_path.unlink()
+                print(
+                    f"{tag} {out_path.name}: 0 codelists for tier=tail, removed "
+                    "any prior empty file.",
+                )
+            else:
+                print(
+                    f"{tag} {out_path.name}: skipped (tier=tail, 0 codelists in {sub})",
+                )
+            continue
+
         out_path.write_text(full_text, encoding="utf-8")
 
         token_count = len(encoder.encode(full_text))
-        cl_count = len(summary)
         print(
             f"{tag} {out_path.name}: {cl_count} codelists, {token_count} tokens "
             f"(soft <={SOFT_TARGET // 1000}K, hard <={HARD_CAP // 1000}K)"
