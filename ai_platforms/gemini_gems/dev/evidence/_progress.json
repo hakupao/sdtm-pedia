@@ -1,0 +1,146 @@
+{
+  "schema_version": "1.0",
+  "platform": "gemini_gems",
+  "display_name": "Gemini Gems",
+  "tier": "1-2",
+  "created_at": "2026-04-20",
+  "last_updated": "2026-04-20",
+  "current_phase": 2,
+  "overall_status": "phase_2_pass_awaiting_user_ack_for_phase_3",
+  "sync_locked_with": "chatgpt_gpt",
+  "sync_board_path": "ai_platforms/SYNC_BOARD.md",
+  "notes": "Phase 定义对齐 ROADMAP.md 六段制. Phase 2 双边 CONDITIONAL_PASS, 等用户 ack 进 Phase 3. Gemini Tier 1-2 最轻量平台.",
+  "rule_e_user_priorities_ack": {
+    "ack_date": "2026-04-20",
+    "ack_method": "session_inline_Q1-Q5",
+    "Q3_use_case": "C_both_precise_query_and_cross_domain_comparison",
+    "Q4_terminology_inline": "A_high_frequency_injected",
+    "Q5_domain_coverage": "A_full_equal_weight",
+    "implications_for_plan": [
+      "内容策略: core 513K + terminology 高频 ~200K → ~713K tokens, 1M 窗口 100% recall 至 530K / >99.7% at 1M",
+      "A/B 兼顾精确查询 + 全域对比/跨域模式识别",
+      "末尾召回 Phase 3 hard checkpoint: 2 道末尾 codelist 精确 term (Rule E Q4=A 兑现)",
+      "63 域全量覆盖, 不减配低频",
+      "位置策略: 导航头部, terminology 尾部 (recency bias 有利)",
+      "Phase 5 保守默认私有; 可扩展到'分享链接给同事'(定向, 非广播)"
+    ]
+  },
+  "phases": {
+    "0_startup": {
+      "status": "PASS",
+      "evidence_paths": [
+        "ai_platforms/gemini_gems/docs/platform_profile.md",
+        "ai_platforms/gemini_gems/dev/evidence/phase0_reviewer.md"
+      ],
+      "reviewer_lane_pass": true,
+      "reviewer_verdict": "CONDITIONAL_PASS",
+      "user_ack": true,
+      "user_ack_date": "2026-04-20",
+      "completed_at": "2026-04-20"
+    },
+    "1_research": {
+      "status": "PASS",
+      "evidence_paths": [
+        "ai_platforms/gemini_gems/docs/research.md",
+        "ai_platforms/gemini_gems/dev/evidence/phase1_reviewer.md"
+      ],
+      "reviewer_lane_pass": true,
+      "reviewer_verdict": "CONDITIONAL_PASS",
+      "writer_attempts": 2,
+      "writer_attempt_1_archived": "ai_platforms/gemini_gems/dev/evidence/failures/stage_phase1_attempt_1.md",
+      "user_ack": true,
+      "user_ack_date": "2026-04-20",
+      "completed_at": "2026-04-20"
+    },
+    "2_plan": {
+      "status": "PASS",
+      "gate_criteria": [
+        "docs/PLAN.md 含 P1-P12 规则",
+        "Rule E Q3/Q4/Q5 乘入打分公式",
+        "每 Task 明示 checkpoint 级别",
+        "1 批上传计划 + A/B 10 题矩阵",
+        "Phase 1 LOW carry-over (F-1 末尾召回) 标注 Phase 3 hard checkpoint",
+        "公开语义正确 (Gemini=链接分享, 非 Store 广播)"
+      ],
+      "evidence_paths": [
+        "ai_platforms/gemini_gems/docs/PLAN.md",
+        "ai_platforms/gemini_gems/dev/evidence/phase2_reviewer.md"
+      ],
+      "writer_subagent": "oh-my-claudecode:executor (opus)",
+      "writer_summary": "578 行, P1-P12 完整, 18 Task (A=3/B=6/C=3/D=3/F=2/G=5, E merged to D), 12 hard checkpoints, Rule E Q3/Q4/Q5 乘入, F-1 三处一致 (§1.3 P12 + §4 D2 T-tail-1/2 + §8 R1)",
+      "reviewer_lane_pass": true,
+      "reviewer_subagent": "oh-my-claudecode:verifier",
+      "reviewer_verdict": "CONDITIONAL_PASS",
+      "reviewer_carry_over_to_phase3": [
+        "LOW: B2/B3 hard checkpoint 定义与执行预期轻微歧义 (Tier 1-2 该级别条件触发可软) — Phase 3 启动前主 session 口头澄清 'token 偏差 >15% → trace + reviewer + 主控 ack', 无需改 PLAN",
+        "LOW: §7 '10 题' 计数与矩阵 12 条目组成关系未内嵌说明 — Phase 3 前确认执行者理解 T1-T4 + T5-T8 + T-tail-1/2 + T9 = 10 必答, T10 可选"
+      ],
+      "user_ack": false,
+      "user_ack_date": null,
+      "started_at": "2026-04-20",
+      "completed_at": "2026-04-20"
+    },
+    "3_execute": {
+      "status": "todo",
+      "gate_criteria": [
+        "合并脚本产出 3-5 主题文件 (~713K tokens)",
+        "单批 Gem 上传完成",
+        "1 份终态 A/B 报告",
+        "失败归档规则 B 执行",
+        "末尾召回 T-tail-1/T-tail-2 2 题 PASS (Phase 2 hard checkpoint D2)",
+        "Phase 2 LOW carry-over 启动前口头澄清 2 条"
+      ],
+      "evidence_paths": [],
+      "reviewer_lane_pass": false,
+      "user_ack": false,
+      "started_at": null,
+      "completed_at": null,
+      "batches": [],
+      "carry_over_from_phase1": [
+        "F-1 末尾召回实测 (carry hard checkpoint D2)"
+      ],
+      "carry_over_from_phase2": [
+        "LOW: B2/B3 hard checkpoint 触发条件口头澄清",
+        "LOW: §7 10 题组成关系口头澄清 (T1-T4+T5-T8+T-tail-1/2+T9 必答, T10 可选)"
+      ]
+    },
+    "4_review": {
+      "status": "locked",
+      "evidence_paths": [],
+      "reviewer_lane_pass": false,
+      "user_ack": false,
+      "started_at": null,
+      "completed_at": null
+    },
+    "5_closure": {
+      "status": "locked",
+      "evidence_paths": [],
+      "reviewer_lane_pass": false,
+      "user_ack": false,
+      "started_at": null,
+      "completed_at": null
+    }
+  },
+  "platform_specific_constraints": {
+    "P11_single_batch_upload": true,
+    "P12_tail_recall_validation_required": true,
+    "expected_batches": 1,
+    "context_window_tokens": 1000000,
+    "expected_core_tokens": "~513K",
+    "expected_core_plus_terminology_tokens": "~713K",
+    "share_model_phase1_discovered": "private/link/public/workspace (2025-09 onwards)",
+    "publish_decision_default": "personal_use_or_link_share_with_colleagues",
+    "publish_decision_can_expand_to": "link share with colleagues (定向/内部传播), 或 Workspace 组织内",
+    "publish_scope_semantics_clarification_2026-04-20": "用户澄清: Gemini 的'公开' ≠ Store 全网广播, 而是'分享链接给同事'. A/B 不含陌生公开受众语气题, 仅同事/内部用户.",
+    "use_case_strategy": "both_precise_query_and_cross_domain_comparison",
+    "terminology_inline_strategy": "high_frequency_injected_tail_position",
+    "domain_coverage_strategy": "full_equal_weight",
+    "rag_benchmarks_discovered_phase1": {
+      "recall_at_530k_tokens": "100%",
+      "recall_at_1m_tokens": ">99.7%",
+      "recall_benchmark_source": "Gemini 1.5 Technical Report arxiv 2403.05530",
+      "files_per_gem": 10,
+      "mb_per_file": 100
+    }
+  }
+}

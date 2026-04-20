@@ -39,8 +39,9 @@ Full chain definitions are in `.work/MANIFEST.md`.
 | Phase 7 session 记录 | `.work/05_rag_kg/session_2026-04-16_design.md` |
 | Phase 6.5 AI 平台部署 | `ai_platforms/` (总览 + 三平台子目录) |
 | **Phase 6.5 通用部署范本** | **`ai_platforms/_template/README.md`** — 10 维度规范 (README + APPLY_CHECKLIST + 00 platform_profile + 01 directory_structure + 02 workflow + 03 research + 04 plan + 05 solution + 06 review + 07 agent_dispatch + 08 evidence + 09 closure), 抽象自 Claude v2 方法论, ChatGPT/Gemini 及未来平台的 upstream spec |
-| **Phase 6.5 ChatGPT GPTs 入口** | **`ai_platforms/chatgpt_gpt/README.md`** — 待开始 (范本就绪 2026-04-20), Tier 2 / 2 批到位 / 20 文件硬限 / 可 GPT Store 发布; Phase 0 初稿见 `chatgpt_gpt/docs/platform_profile.md` |
-| **Phase 6.5 Gemini Gems 入口** | **`ai_platforms/gemini_gems/README.md`** — 待开始 (范本就绪 2026-04-20), Tier 1-2 / 1 批全上 / 1M 窗口 / 仅个人; Phase 0 初稿见 `gemini_gems/docs/platform_profile.md` |
+| **Phase 6.5 双平台锁步看板 (强制读)** | **`ai_platforms/SYNC_BOARD.md`** — ChatGPT GPTs + Gemini Gems 并行部署 Phase 0-5 锁步 gate; session 启动若涉及两平台任一方, 第一件事读本文件定位当前 Phase |
+| **Phase 6.5 ChatGPT GPTs 入口** | **`ai_platforms/chatgpt_gpt/README.md`** — 待开始 (范本就绪 2026-04-20), Tier 2 / 2 批到位 / 20 文件硬限 / 可 GPT Store 发布; Phase 0 初稿见 `chatgpt_gpt/docs/platform_profile.md`; 进度见 `chatgpt_gpt/dev/evidence/_progress.json` |
+| **Phase 6.5 Gemini Gems 入口** | **`ai_platforms/gemini_gems/README.md`** — 待开始 (范本就绪 2026-04-20), Tier 1-2 / 1 批全上 / 1M 窗口 / 仅个人; Phase 0 初稿见 `gemini_gems/docs/platform_profile.md`; 进度见 `gemini_gems/dev/evidence/_progress.json` |
 | **Phase 6.5 Claude 入口 (reorg 后)** | **`ai_platforms/claude_projects/README.md`** — 新结构导航入口, 指向 current/docs/dev/archive 四层 |
 | **Phase 6.5 Claude 部署教程 (用户视角)** | **`ai_platforms/claude_projects/current/UPLOAD_TUTORIAL.md`** — 10 章节完整制作教程 (前置 / 建 Project / System Prompt / 上传 / Smoke Test / 回归 / 排错 / 升降级 / 团队 / 后续), 已去版本化 |
 | Phase 6.5 Claude 当前可部署 (发布版) | `ai_platforms/claude_projects/current/` (uploads/ 19 文件 + system_prompt.md + upload_manifest.md + UPLOAD_TUTORIAL.md + README.md, 1.29M tokens, capacity 77%) |
@@ -58,6 +59,19 @@ Full chain definitions are in `.work/MANIFEST.md`.
 | Phase 6.5 Claude v1 复盘 | `ai_platforms/claude_projects/archive/RETROSPECTIVE.md` (v1 Step 1-12 复盘: R1-R5 保留 / G1-G4 缺口 / 四条规则 A/B/C/D 已固化到全局 CLAUDE.md) |
 | Phase 6.5 Claude v2 设计 | `docs/superpowers/specs/2026-04-18-phase6.5-claude-v2-expansion-design.md` (中庸 5 批 / ~50% 容量 / 16-18 文件 / RAG 衰减曲线) |
 | Phase 6.5 Claude v2 plan pointer | `docs/superpowers/plans/2026-04-18-phase6.5-claude-v2-expansion.md` (superpowers skill 约定, 指向 docs/PLAN_V2.md) |
+
+## AI 平台双平台并行部署 (锁步规则)
+
+涉及 **ChatGPT GPTs** (`ai_platforms/chatgpt_gpt/`) 或 **Gemini Gems** (`ai_platforms/gemini_gems/`) 任一方时, 遵守锁步规则:
+
+1. **Session 启动自动动作**: 若用户首次提到两平台任一方, 主 session 必须先读 `ai_platforms/SYNC_BOARD.md` + 两份 `dev/evidence/_progress.json`, 报告当前锁步 Phase + 允许的下一动作, **再开工**.
+2. **Gate 机制**: Phase 0-5 (启动/调研/PLAN/落地/审查/收束), 任一 Phase N 两边未都 PASS, **两边都不能进 Phase N+1**. 主 session 派发 Phase N+1 subagent 前强制校验.
+3. **PASS 四条** (规则 D 强制): evidence 存在 / writer 产物合规 / 独立 reviewer subagent PASS (不同 subagent_type) / 用户口头 ack.
+4. **偏离处理**: 若两平台 Phase 偏离 >1 格, 先同步慢的那边, 再推快的. **严禁跑通一边再补另一边** (会丢失 cross-pollination).
+5. **并行派发模式**: 每 Phase 内用 2 个 subagent 并行 (各平台一个), 主 session 做 cross-review + 更新 `_template/` 缺陷.
+6. **状态写回**: 每步操作完, 双写更新两处: 对应平台 `_progress.json` + `SYNC_BOARD.md` Phase 矩阵格.
+
+Claude Projects 已完成, **不**参与本锁步 — 仅作为方法论参考 (`ai_platforms/claude_projects/docs/RETROSPECTIVE_V2.md`).
 
 ## Session Wrap-up (收尾)
 
