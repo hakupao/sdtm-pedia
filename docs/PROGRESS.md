@@ -1,6 +1,6 @@
 # 进度看板
 
-> 最后更新: 2026-04-18 (Phase 6.5 Claude v2 扩容计划完成: design + PLAN_V2.md 1852 行, 5 批 / ~50% 容量, 待新 session 执行)
+> 最后更新: 2026-04-19 (Phase 6.5 Claude v2 批 1-4 执行完成 + G1 批 5 准备完成; capacity 13%→20%→23%→43% 渐进, 0 衰减; 待 G2 mid tier 实现)
 
 ## 总体状态
 
@@ -95,9 +95,21 @@
 | 平台 | 着重方向 | 内容策略 | 路线文档 | 状态 |
 |------|---------|---------|---------|------|
 | Claude Projects | 精确查询 + 规则推理 | 方案 B 二次创作压缩 → 实测 192,036 tokens (12% capacity, RAG 自动接管) | [ROADMAP.md](../ai_platforms/claude_projects/ROADMAP.md) / [PLAN.md](../ai_platforms/claude_projects/PLAN.md) / [UPLOAD_TUTORIAL.md](../ai_platforms/claude_projects/UPLOAD_TUTORIAL.md) / [capacity_research.md](../ai_platforms/claude_projects/capacity_research.md) | **v1 完成 (Step 1-14, 9/9 PASS)** (2026-04-18) |
-| Claude Projects v2 扩容 | 中庸策略, 推到 ~50% 容量 (~1.3-1.5M) | 5 批渐进 (chapters 全展开 → examples 高频 → examples 全 → terminology 高 → terminology mid) | [v2 design](superpowers/specs/2026-04-18-phase6.5-claude-v2-expansion-design.md) / [PLAN_V2.md](../ai_platforms/claude_projects/PLAN_V2.md) | **计划完成, 待新 session 执行** (2026-04-18) |
+| Claude Projects v2 扩容 | 中庸策略, 推到 ~50% 容量 (~1.3-1.5M) | 5 批渐进 (chapters 全展开 → examples 高频 → examples 全 → terminology 高 → terminology mid) | [v2 design](superpowers/specs/2026-04-18-phase6.5-claude-v2-expansion-design.md) / [PLAN_V2.md](../ai_platforms/claude_projects/PLAN_V2.md) / [rag_decay_curve](../ai_platforms/claude_projects/output_v2/rag_decay_curve.md) / [test_results_v2](../ai_platforms/claude_projects/output_v2/test_results_v2.md) | **批 1-4 完成 (14 文件 / 719K tokens / capacity 43% / 0 衰减) + G1 批 5 准备完成, 待 G2 mid tier 实现** (2026-04-19) |
 | ChatGPT GPTs | 全量覆盖 + 团队分享 | 合并文件 ~9.6MB 全量 | [ROADMAP.md](../ai_platforms/chatgpt_gpt/ROADMAP.md) | 待开始 |
 | Gemini Gems | 大范围探索 + 全域对比 | 核心全量 ~512K tokens | [ROADMAP.md](../ai_platforms/gemini_gems/ROADMAP.md) | 待开始 |
+
+### Phase 6.5 Claude v2 批次进度 (渐进式 RAG 扩容)
+
+| 批次 | 阶段 | 内容 | 文件增量 | 累计 tokens | Capacity | 回归衰减 | 新 PASS | 决议 |
+|------|------|------|----------|-------------|----------|----------|---------|------|
+| 1 | v2.1 | chapters 全展开 | +0 (02_chapters 替换) | 205,895 | 13% | 1/8 (T3) | T9-T12 4/4 | continue |
+| 2 | v2.2 | examples 高频 28 域 | +1 (09) | 318,592 | 20% | 0/2 | T13-T14 2/2 | continue |
+| 3 | v2.3 | examples 其余 35 域 | +1 (10) | 367,489 | 23% | 0/2 (T3 反向 ↑) | T15-T16 2/2 | continue |
+| 4 | v2.4 | terminology 高频 top 200 codelist | +3 (11a/b/c) | 719,241 | 43% | 0/4 (T7 ↑ 质变) | T17-T18 2/2 | continue |
+| 5 | v2.5 | terminology 中频 rank 201-500 | +2-3 (12a/b/c?) | TBD (~910-960K 预计) | TBD | TBD | T19-T20 | G1 done, 待 G2 |
+
+**Rule D 三 lane 独立复核**: v2.4 F4 checkpoint 新增 — Cowork writer (A/B 测试) + 主控 writer (脚本/产物) + 独立 reviewer subagent (code-reviewer 7 维度审 A/B 报告) 三 lane 隔离到位, 规则 D 固化
 
 ## Phase 7: RAG + 知识图谱 + 数据集校验（设计完成）
 

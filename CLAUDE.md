@@ -50,6 +50,14 @@ Full chain definitions are in `.work/MANIFEST.md`.
 | Phase 6.5 Claude v2 计划 | `ai_platforms/claude_projects/PLAN_V2.md` (1852 行, 8 阶段 ~30 Tasks, subagent-driven, 5 hard checkpoints) |
 | Phase 6.5 Claude v2 plan pointer | `docs/superpowers/plans/2026-04-18-phase6.5-claude-v2-expansion.md` (superpowers skill 约定, 指向 PLAN_V2.md) |
 | Phase 6.5 Claude v2 启动提示词 | `ai_platforms/claude_projects/V2_SESSION_STARTER.md` (新 session 复制粘贴用, 含预授权 + 约束) |
+| Phase 6.5 Claude v2 执行进度 | `ai_platforms/claude_projects/output_v2/evidence_v2/_progress.json` (hot path: 4 checkpoints_acked v2.1-v2.4 + g1_output + session_handoff, pending=G2) |
+| Phase 6.5 Claude v2 产物 | `ai_platforms/claude_projects/output_v2/` (批 1-4 完成: 14 实体 / 719,241 tokens / capacity 43% / 0 衰减; v2.5 待 G2) |
+| Phase 6.5 Claude v2 脚本 | `ai_platforms/claude_projects/scripts_v2/` (6 个: rebuild_chapters/extract_examples_data/extract_terminology_terms/score_domains/score_codelists/build_v2_stage) |
+| Phase 6.5 Claude v2 Evidence | `ai_platforms/claude_projects/output_v2/evidence_v2/` (trace.jsonl + _progress.json + subagent_prompts/ 含 G2_executor.md + checkpoints/ + failures/) |
+| Phase 6.5 Claude v2 A/B 报告 | `ai_platforms/claude_projects/output_v2/STAGE_V2.{1,2,3,4}_AB_REPORT.md` (4 批 A/B 测试报告, Cowork 填, v2.4 经 Rule D 独立 reviewer 复核) |
+| Phase 6.5 Claude v2 Cowork handoff | `ai_platforms/claude_projects/output_v2/CHECKPOINT_V2.{1,2,3,4}_HANDOFF.md` (4 批 Cowork 自动执行手册) |
+| Phase 6.5 Claude v2 RAG 衰减曲线 | `ai_platforms/claude_projects/output_v2/rag_decay_curve.md` (5 数据点 v1→v2.4 + 3 段跨批观察 含 T3 二阶正向激活, Phase 7 核心输入) |
+| Phase 6.5 Claude v2 测试矩阵 | `ai_platforms/claude_projects/output_v2/test_results_v2.md` (T1-T18 完整矩阵 + v2.1-v2.4 四段 stage 汇总) |
 
 ## Session Wrap-up (收尾)
 
