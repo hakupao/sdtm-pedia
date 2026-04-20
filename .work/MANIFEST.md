@@ -122,7 +122,7 @@ ai_platforms/ ── Phase 6.5 AI 平台部署 ── [Claude v1 完成 (9/9 PAS
      总览: ai_platforms/README.md
      三平台路线: chatgpt_gpt/ROADMAP.md, claude_projects/ROADMAP.md, gemini_gems/ROADMAP.md
      **Claude 新结构入口**: claude_projects/README.md (指向 current/docs/dev/archive 四层)
-     Claude 当前可部署 (v2.6): claude_projects/current/ (uploads/ 19 文件 + system_prompt.md + upload_manifest.md)
+     Claude 当前可部署 (发布版): claude_projects/current/ (uploads/ 19 文件 + system_prompt.md + upload_manifest.md + UPLOAD_TUTORIAL.md 用户部署教程 + README.md 发布版总览)
      Claude 方法论文档: claude_projects/docs/ (PLAN_V2 + RETROSPECTIVE_V2 + rag_decay_curve + phase7_handoff + capacity_research)
        - PLAN_V2.md (1852 行, 8 阶段 ~30 任务, 内部路径引用为 reorg 前语境, 见文件头 post-reorg note)
        - RETROSPECTIVE_V2.md (7 章复盘, 过 Rule D 独立复核 CONDITIONAL_PASS→PASS)
@@ -257,7 +257,8 @@ ai_platforms/ ── Phase 6.5 AI 平台部署 ── [Claude v1 完成 (9/9 PAS
 | 查后续 TODO | `04_optimization/retrieval_optimization.md` |
 | **Phase 6.5 AI 平台部署** | **`../ai_platforms/README.md`** — 三平台部署总览与路线图 |
 | **Phase 6.5 Claude 入口 (reorg 后)** | **`../ai_platforms/claude_projects/README.md`** — 新结构 current/docs/dev/archive 导航 (2026-04-20) |
-| **Phase 6.5 Claude 当前可部署** | **`../ai_platforms/claude_projects/current/`** — v2.6 终态, 19 文件 + system_prompt + upload_manifest |
+| **Phase 6.5 Claude 部署教程** | **`../ai_platforms/claude_projects/current/UPLOAD_TUTORIAL.md`** — 发布版完整制作教程 (10 章节, 去版本化, 用户视角) |
+| **Phase 6.5 Claude 当前可部署 (发布版)** | **`../ai_platforms/claude_projects/current/`** — 19 上传 + system_prompt + upload_manifest + UPLOAD_TUTORIAL + README |
 | **Phase 6.5 Claude v1 复盘** | **`../ai_platforms/claude_projects/archive/RETROSPECTIVE.md`** — v1 Step 1-12 三段式 + 四条规则 A/B/C/D 固化 (2026-04-18) |
 | **Phase 6.5 Claude v1 压缩计划** (archive) | **`../ai_platforms/claude_projects/archive/v1/docs/PLAN.md`** — v1 方案 B 详细落地计划 + §7 执行手册 |
 | **Phase 6.5 Claude v1 上传教程** (archive) | **`../ai_platforms/claude_projects/archive/v1/docs/UPLOAD_TUTORIAL.md`** — v1 Step 13-14 手动操作 + T1-T8 测试 |
