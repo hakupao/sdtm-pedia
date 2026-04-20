@@ -13,7 +13,8 @@
 | v2.2 | **318,592** (+112.7K 09) | **10 实体** (12 含 meta) | **20%** | **7/8** (T1 持平, T3 ↓ 未修, 余同 v2.1) | **T13-T14: 2/2 PASS ↑** | **T13/T14 ↑, T1/T11 持平, 0 衰减** |
 | v2.3 | **367,489** (+48.9K 10) | **11 实体** (13 含 meta) | **23%** | **7/8** (T3 ↓→改善: v2 累积视角 **转 PASS**) | **T15-T16: 2/2 PASS ↑** | **T15/T16 ↑, T3 ↑ 显著, T11 持平略 ↑, 0 衰减** |
 | v2.4 | **719,241** (+351.8K 11a/b/c) | **14 实体** (16 含 meta) | **43%** | **8/8** (T1/T3/T15 零衰减, T7 从推测→11a 原文命中 ↑) | **T17-T18: 2/2 PASS ↑** | **T17/T7/T3 ↑, T15/T1 持平, 0 衰减** |
-| v2.5 | TBD (+12) | 16-19 | TBD | TBD | T19-T20 TBD | TBD |
+| v2.5 | **1,097,180** (+377.9K 12a/b/c) | **17 实体** (29 含 meta) | (未独立测, v2.6 接续) | (未独立测) | (未独立测 T19/T20) | 未做 A/B, 被 v2.6 合并 |
+| v2.6 | **1,286,161** (+188.9K 13a/13c) | **19 实体** (32 含 meta) | **77%** | **8/8** 零衰减 | **T1-T20 持平 16/16 ↓0**, T21/T22 tail core+supp 2/2 PASS, T-core-reb/T-supp-reb 优先级 2/2 PASS | **24/24 PASS, 0 衰减** (v2 最终态) |
 
 ## 观察
 
@@ -45,8 +46,37 @@
 - Source 溯源一致性保持: 每题 "Project 文件 + knowledge_base 源文件 + SDTMIG 章节" 三层引用, CT Code 查询优先级规则 `11*>08` (v2.4 新 Instructions 段) 被 Claude 正确解读.
 - Indexing indicator 在 v2.4 仍不可靠 (指示器持续显示 "Indexing" 但 6/6 题立即命中), 沿用 v2.2/v2.3 结论. PLAN §Step 4 对 "11b 256K tokens, indexing 可能 >30 分钟" 的风险预警未触发.
 
-## 结论 (终态后填)
+**v2.4→v2.6 (terminology mid 12a/b/c + tail 13a/13c 合并段, v2.5 未独立 A/B, 被 v2.6 追加批合并成终态)**:
+- v2.5 build done (1.14M tokens) 后用户 2026-04-20 提出子目录优先级重平衡 (core>supp>quest 是工作语境而非 SDTM 标准). 打分阶段按域引用次数排名导致 quest 覆盖 55.8% > core 53.7% > supp 25.0%, 与用户期望反向. 决策: 不回滚 v2.5, 追加 v2.6 tail batch (V6.1 打分 + V6.2 产物 + V6.3 build), 对 core/supp 未覆盖的 209 个 codelist 做 tail-tier 压缩 (3 列表格, giants ≥500 terms 走 Deferred stub).
+- Token 增量 v2.4→v2.6 +78.8% (719K → 1,286K), capacity +34pp (43% → 77%). 比值 1,286/719 ≈ 1.79x vs 77/43 ≈ 1.79x, **本段是 v2 全程唯一一次 token 增长与 capacity 增长完美线性** — 可能因 terminology mid/tail 文件结构化均匀 (codelist 表格), RAG 分块开销摊薄.
+- **Capacity 预测偏差 (G2 缺口)**: v2.6 预测 63-68% (线性外推 v2.4 的 43% + 观察到的 subsublinear 趋势), 实测 77% (+9-14pp 超预期). 原因推测是 Claude Projects UI 的 token 统计含 UI 元数据/内部索引开销, 与本地 tiktoken 不一致. 对 Phase 7 的 actionable: 不要用 local-tiktoken 公式外推 Claude Projects capacity, 需 calibration 实验.
+- **T22 C65047 giant stub 精准识别**: Claude 正确声明 "超大规模 (2,536 terms), Project 内未完整列出所有 Term 值", 引用 stub 源文件 `13a_terminology_tail_core.md` + 原始 `knowledge_base/terminology/core/lb_part*.md` + NCI EVS Browser 入口, **零臆造 term**. 证明 Deferred stub 是 RAG 扩展的合法产物, Phase 7 可直接沿用.
+- **T-core-reb / T-supp-reb 优先级验证 PASS**: 模型正确理解 "core 99.3% inline 只剩 6 giant stub"/"supp 188/188 100% inline 无 Deferred", 证明 v2.6 rebalance 设计目标达成.
+- **13a 145.8K + 13c 43.2K 未挤出 11a/12a 召回**: T1/T2/T7/T17 (11a 高频命中) 与 v2.5 同质, T20 (C128685 12b mid) 与 v2.5 一致, 说明 tail tier 加入未引起任何跨 tier 召回衰减.
+- **三批累计零衰减 (v2.3→v2.4→v2.5→v2.6)**: 367K → 719K → 1.14M → 1.29M tokens, 每一步都有新文件 +老文件零挤出, 这是 v2 最硬的反衰减证据.
 
-- v2 终态推到 X% 的 RAG 质量是否仍 PASS?
-- 衰减拐点 (如有) 在 ~Y% capacity?
-- 对 Phase 7 的 actionable insight?
+## 结论 (v2 终态, 2026-04-20)
+
+### 数据点汇总
+7 数据点 (v1 baseline + v2.0 setup + v2.1-v2.4 + v2.6; v2.5 被 v2.6 合并未独立测):
+- v1: 12% capacity / 8/8 T1-T8 PASS (baseline)
+- v2.1: 13% / 7/8 (T3 ↓ 边界严谨副作用)
+- v2.2: 20% / 7/8 (T3 持续 ↓, T13/T14 新增 PASS)
+- v2.3: 23% / 7/8 (T3 跨批正向激活 → v2 累积视角 PASS, T15/T16 新增 PASS)
+- v2.4: 43% / 8/8 (T7 ↑ 质变, T17/T18 新增 PASS)
+- v2.6: **77% / 24/24 PASS** (v2 最终态, 0 衰减, T21/T22 tail + 2 优先级验证全 PASS)
+
+### 关键发现
+1. **RAG 在 12% → 77% capacity 区间无衰减拐点**: 本次 6 批渐进扩容未观察到容量引起的质量衰减. 77% 是本次触到的实测最高点, 拐点 ≥77% 且未触. Phase 7 可以大胆推高, 不必把 "50% 中庸" 当硬上限.
+2. **Token 增长 vs Capacity 增长基本线性 (v2.4→v2.6 段 1.79x : 1.79x)**: 之前观察到的 subsublinear (v2.0→v2.1 +7.2% token / +1pp capacity = 超线性 token 吸收) 可能是 chapters 类型特有 — terminology 类型分块均匀后反而线性. 对 Phase 7 建议: 不同内容类型 (chapters / examples / terminology) 的 RAG 分块系数不同, 需分类建模.
+3. **文件数 11 → 19 不影响召回**: T1/T2/T7/T15/T17/T20 等跨批回归题在 v2.6 召回速度主观感受与 v2.1 相当, 无"文件多到让召回变慢"的观察. 对 Phase 7: 文件数可以再增 (到 ~30-40), 不必过早合并.
+4. **跨批累积正向激活确认 (T3 三阶)**: v2.2 硬拒答 → v2.3 从数据推导 → v2.4 显式 Method A/B/C/D, 证明 RAG 不是被动查文件, 而是多批铺完后模型会**跨文件重建缺失 narrative**. Phase 7 建议: 不必追求单文件完备, 可用多文件间接完备 (且每批验证一次).
+5. **Deferred stub 合法性验证 (T22 PASS)**: giants ≥500 terms 走 stub + 源路径 + "去源查" 三要素, 模型能识别并正确使用, 零臆造. Phase 7 对 MedDRA/WHODrug/LOINC 等超大表可直接用此模式.
+6. **UI Indexing indicator 不可信 (G3 缺口)**: 6 批全程 indicator 显示 "Indexing" 但提问立即命中. Phase 7 handoff 提醒: "不要等 indicator, 直接试问".
+
+### 对 Phase 7 的 actionable insight (详细版见 `phase7_handoff.md`)
+1. **索引粒度**: 按文件 (Claude Projects 原生) vs 按 chunk (自建 RAG). 本次证明文件粒度 + 内部表格结构化即可, 不必 pre-chunk.
+2. **推高到 ~90% capacity 是否值得做**: 本次 77% 零衰减, 拐点未触, 值得做一批实验 (追加 mid-frequency 或 tail quest 覆盖到 ~80-90%), 但投入产出比需评估 (用户覆盖需求已 core 99.3% / supp 100% 达成, 再推只为 quest).
+3. **terminology 自建索引而非 Project**: 对于剩余 302 codelist (296 quest + 6 giants) 走 Phase 7 RAG 自建索引, 而非继续塞 Project. giants 必须自建 (本次已 stub). quest 296 条是否塞 Project 还是自建, 取决于 Phase 7 用户场景优先级 (本次用户声明 quest 最低, 可全部下沉 RAG).
+4. **Capacity 预测 calibration**: Phase 7 首次上传前做一次 "known-N-tokens 空 Project 测 Δcapacity", 反推放大系数, 避免本次 G2 超预期 14pp 的偏差.
+5. **用户业务优先级必须在设计阶段即确认** (G1 教训, 规则 E 候选): 否则 Phase 7 可能重蹈 v2.5→v2.6 的重算路径.
