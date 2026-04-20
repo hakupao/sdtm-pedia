@@ -5,8 +5,8 @@
   "tier": 2,
   "created_at": "2026-04-20",
   "last_updated": "2026-04-20",
-  "current_phase": 2,
-  "overall_status": "phase_2_pass_awaiting_user_ack_for_phase_3",
+  "current_phase": 3,
+  "overall_status": "phase_3_node_1_doing_scripts_dev",
   "sync_locked_with": "gemini_gems",
   "sync_board_path": "ai_platforms/SYNC_BOARD.md",
   "notes": "Phase 定义对齐 ROADMAP.md 六段制. Phase 2 双边 CONDITIONAL_PASS, 等用户 ack 进 Phase 3.",
@@ -72,6 +72,7 @@
       "reviewer_carry_over_to_phase3": [
         "MEDIUM: §3.2 score 列数字 (e.g. 2.4) 与 §3.1 四因子乘法公式 (0.12) 数学不一致, 差 20x. Phase 3 Node 1 Task B1 (score 脚本编写) 前必修: 或统一乘法, 或显式说明 additive 段; 否则脚本 vs PLAN 意图分歧. 唯一剩 carry-over (2 LOW 已主 session 修复)"
       ],
+      "reviewer_medium_resolved_main_session_2026-04-20_node1": "v1.1 PLAN §3.1 公式改为加法 (核心 priority×coverage + audience_bonus + novelty_bonus); §3.2 重算数字对齐 (01/02=3.4 / 03/04=3.2 / 05=1.5 / 06=1.9 / 07-09=1.2); §0 v1.1 修订记录登记; floor 规则简化为 coverage 降级兜底. PLAN.md L174-213 对应段. 排序语义保留 P0>P1>P2.",
       "reviewer_low_gaps_resolved_main_session_2026-04-20": [
         "LOW: Task D3 路径 'stage_D_attempt_*.md' → 'stage_4_attempt_<M>.md' ✅ 已修 (PLAN.md L399)",
         "LOW: §4 标题 'Phase A-H' → 'Phase A-G' ✅ 已修 (PLAN.md L218)"
@@ -82,28 +83,84 @@
       "completed_at": "2026-04-20"
     },
     "3_execute": {
-      "status": "todo",
+      "status": "doing",
+      "node_plan_6_nodes": "SYNC_BOARD 尾段; Node 1 脚本开发 (current) → Node 2 跑脚本 → Node 3 上传 + smoke → Node 4 batch 2 → Node 5 完整 A/B → Node 6 reviewer + 进 Phase 4",
       "gate_criteria": [
         "所有批次 evidence 入 L1 _progress.json (batch_*)",
         "每批一份 dev/ab_reports/STAGE_<N>_AB_REPORT.md",
         "失败归档规则 B 执行 (若有失败)",
         "Hard checkpoint 用户均已 ack",
         "Phase 1 carry-over Q8 Indexing indicator 实测",
-        "Phase 2 MEDIUM carry-over §3.2 score 公式修正 (Task B1 前)",
-        "Phase 2 LOW carry-over Task D3 路径命名 + §4 标题"
+        "Phase 2 MEDIUM carry-over §3.2 score 公式修正 (Task B1 前) — ✅ Node 1 开跑前主 session 修复",
+        "Phase 2 LOW carry-over Task D3 路径命名 + §4 标题 — ✅ Phase 2 收束时修复"
       ],
       "evidence_paths": [],
       "reviewer_lane_pass": false,
       "user_ack": false,
-      "started_at": null,
+      "started_at": "2026-04-20",
       "completed_at": null,
       "batches": [],
       "carry_over_from_phase1": [
-        "Q8 Indexing indicator 实测"
+        "Q8 Indexing indicator 实测 (carry to Node 3 批 2 上传后)"
       ],
       "carry_over_from_phase2": [
-        "MEDIUM: §3.2 score 表格数字与 §3.1 乘法公式数学不一致 — Node 1 Task B1 前必修 (唯一剩 carry-over, 2 LOW 已主 session 修复)"
-      ]
+        "MEDIUM: §3.2 score 表格数字与 §3.1 乘法公式数学不一致 — ✅ Node 1 开跑前主 session 修复 (PLAN v1.1, §3.1 加法公式 + §3.2 重算)"
+      ],
+      "nodes": {
+        "N1_scripts_dev": {
+          "status": "PASS_bundled_fix_done_ready_for_commit_C1",
+          "started_at": "2026-04-20",
+          "completed_at": "2026-04-20",
+          "dispatched_subagents": [
+            "chatgpt_scripts_exec (executor opus) — 4 脚本: count_tokens 89 行 / score_chatgpt_priority 268 行 / merge_for_chatgpt 479 行 / validate_chatgpt_stage 374 行, py_compile PASS, 总 1210 行 (v1.0)",
+            "chatgpt_scripts_review (code-reviewer opus, Rule D 独立 round 1) — Verdict CONDITIONAL_PASS, 列 1 HIGH + 4 MEDIUM",
+            "chatgpt_fix_exec (executor opus, Rule D 不同 session context fix writer) — 跨 3 文件修 4 脚本 bug + 新建 manifest_segments.json skeleton, py_compile PASS (v1.1)",
+            "chatgpt_fix_delta_review (debugger opus, Rule D 与前三 subagent_type 全不同) — Verdict FAIL_REWORK: V7 (ii) 过度泛化 77 FP 稳定误杀; V3/V7(i)/manifest/fail-fast 全 PASS",
+            "主 session v1.2 收窄 — 删 V7 (ii) 代码段 (L408-435 约 35 行) + docstring 同步 v1.2 原因; py_compile PASS; grep 0 残留 ('sandwiched'/'nearest_non_empty')"
+          ],
+          "carry_over_pre_dispatch_resolved": [
+            "Phase 2 MEDIUM §3.2 score 公式 → v1.1 加法重算 (2026-04-20 主 session)"
+          ],
+          "reviewer_rounds": {
+            "round_1_code_reviewer": {
+              "verdict": "CONDITIONAL_PASS",
+              "evidence": "ai_platforms/chatgpt_gpt/dev/evidence/phase3_node1_reviewer.md (260 行, 主 session 代写 — code-reviewer read-only 无 Write 权)",
+              "findings": "1 HIGH (V3 过宽) + 4 MEDIUM (V4 未检单表跨 heading / 动态段数无独立真源 / WARN→FAIL / phase3 vs phase2 文字) + LOW × 7"
+            },
+            "round_2_delta_debugger": {
+              "verdict": "FAIL_REWORK",
+              "evidence": "ai_platforms/chatgpt_gpt/dev/evidence/phase3_node1_delta_reviewer.md (374 行, debugger 自写)",
+              "findings": "D1 V3 重写 PASS (6 场景 mental trace 过), D2 V7 FAIL_REWORK (只 V7 ii FP 77 次, V7 i PASS), D3 manifest 独立真源 PASS (4 路径 + Bug A/B 捕获 + JSON idempotent), D4 fail-fast PASS (rc=2 先于 write + 多 entry 聚合传播)",
+              "main_session_response": "主 session v1.2 收窄, 删 V7 (ii), 保留 V7 (i), 不引入新代码; docstring 标注 v1.2 原因 + 链接 delta reviewer 产物"
+            }
+          },
+          "final_status": "PASS — 1 HIGH + 3 MEDIUM (1/2/3) 跨 round_1→round_2 全 root-cause fix; MEDIUM-4 (PLAN 文字) 主 session v1.2 同步 PLAN §2.4/§2.5/§4 Task B1; V7 (ii) 过度泛化 v1.2 删除; 剩余 LOW carry-over 不阻塞 Node 2",
+          "final_scripts_stats": {
+            "count_tokens_py": "89 行 unchanged",
+            "score_chatgpt_priority_py": "268 行 unchanged",
+            "merge_for_chatgpt_py": "original 479 行 → v1.1 扩约 550 行 (manifest truth source + fail-fast)",
+            "validate_chatgpt_stage_py": "original 374 行 → v1.1 扩到约 635 行 (V3 重写 + V7 新增 + manifest 读) → v1.2 收窄到 600 行 (删 V7 ii)"
+          },
+          "plan_doc_sync_done_v1_2": [
+            "§2.4 行 1 VAR_INDEX.md → VARIABLE_INDEX.md ✅",
+            "§2.5 '合并配置 YAML' → 'Python dataclass 硬编码' ✅",
+            "§4 Task B1 score_phase2.md → score_phase3.md ✅",
+            "§0 v1.2 修订记录追加 ✅"
+          ],
+          "low_carry_over_to_node2_non_blocking": [
+            "delta reviewer LOW: manifest_segments.json skeleton C1 commit 时 git add (否则 clean clone 场景 validate 会 FAIL 'no manifest truth source')",
+            "delta reviewer LOW: V3d 子条件 (source 路径集合校验) Node 2/3 前增补 (目前 V3 只验 count + 首行锚点 + heading 前存在 source, 未验 source 路径集合 = expected 目录集合)",
+            "round_1 LOW-1..7: 注释 / docstring / count_tokens 前缀 — 可累积 Node 2-3 收束时整修"
+          ],
+          "reviewer_deviations_accepted": [
+            "#1 VARIABLE_INDEX.md fallback ✅ v1.2 PLAN 同步",
+            "#2 07/08/09 动态段数 ✅ + MEDIUM-2 独立真源补强 (manifest_segments.json)",
+            "#3 YAML → Python dataclass ✅ v1.2 PLAN 同步",
+            "#4 未执行脚本 (Node 1 禁运行硬约束)",
+            "v1.1 新增 #5: header 时间戳 md5 不稳定 — Gemini 侧发现, ChatGPT 不涉 (ChatGPT merge 无 header 时间戳)"
+          ]
+        }
+      }
     },
     "4_review": {
       "status": "locked",
