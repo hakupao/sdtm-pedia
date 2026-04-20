@@ -1,0 +1,7 @@
+[FAIL] 01_navigation.md V1=PASS V2=PASS V3=PASS V4=PASS V5=FAIL V7=PASS | md5=555d17e5ee0ae2d357b8ee2a3ba94d20
+[PASS] 02_chapters_all.md V1=PASS V2=PASS V3=PASS V4=PASS V5=PASS V7=PASS | md5=07a2edaf55abab8e9d08a790e6db5a8b
+[PASS] 03_model_all.md V1=PASS V2=PASS V3=PASS V4=PASS V5=PASS V7=PASS | md5=7fcf70b5c1035a4372013c7c238ff59c
+[PASS] 04_domain_specs_all.md V1=PASS V2=PASS V3=PASS V4=PASS V5=PASS V7=PASS | md5=7904673feeef463333a56ec8d3625af0
+
+[evidence] wrote ai_platforms/chatgpt_gpt/dev/evidence/validate_batch1.md
+rc=1

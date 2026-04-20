@@ -1,0 +1,6 @@
+[Stage gemini-single-batch] 01_core_reference.md: 124512 tokens (target ≤120K)
+[Stage gemini-single-batch] 02_domain_specs.md: 185785 tokens (target ≤168K)
+[Stage gemini-single-batch] 03_domain_knowledge.md: 275318 tokens (target ≤225K)
+[Stage gemini-single-batch] 04_terminology_core.md: 299303 tokens (target ≤200K)
+[Stage gemini-single-batch] cumulative tokens for stages ['core', 'spec', 'knowledge', 'terminology']: 884,918 (budget ≤800,000 for full single batch)
+[Stage gemini-single-batch] NOTE: cumulative 884,918 > 800,000 target but < 900K hard warn threshold.

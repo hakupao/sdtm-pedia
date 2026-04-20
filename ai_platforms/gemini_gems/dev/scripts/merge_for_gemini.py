@@ -38,6 +38,46 @@ Dependencies: tiktoken (cl100k_base), Python 3 stdlib.
 
 只读 knowledge_base/ (P5), 产物写到 ai_platforms/gemini_gems/current/uploads/.
 Idempotent: 重跑同输入 → 同产物 (排序固定, 时间戳除外).
+
+v1.3 修复记录 (2026-04-20, Node 2 attempt_1 V6 HARD FAIL → 混合策略):
+  - 原 core>target 分支 break 条件 `cum+t > 200K AND len>=1` 第 2 iter 即满足
+    (lb_part3=111.7K + lb_part2=103.5K > 200K, len=1>=1) → 只选 1 个 source.
+  - v1.3 改成: top-2 大文件保尾 + prepend 若干高频小文件, 预期 selected 5-8 段.
+  - 详见 failures/stage_phase3_attempt_1.md §6 选项 C.
+
+v1.3b 修正 (2026-04-20, 主 session 物理坐标推演捕获 v1.3 实施缺陷):
+  - v1.3 选 selected = [small_head..., lb_part2, lb_part3], 但物理 offset
+    推演后 lb_part3 marker @ 694K < tail_start 778K, 不在 tail 30% → V6 仍 FAIL.
+  - v1.3b 反转 for 循环顺序: [lb_part2, lb_part3, small_head...] → 3 smalls
+    markers (intv @ 794K / qs @ 884K / onc @ 1020K) 全落 tail 30% (tail_start ~776K),
+    V6 PASS 3/3.
+  - Rule E Q4=A "terminology 末尾" 精神保留 (04 文件整体位末尾 recency).
+
+v1.3c 修正 (2026-04-20, reviewer pr-review-toolkit 捕获 v1.3b selected 仅 3 段):
+  - v1.3b 写入顺序正确, 但 remaining 保留 core_by_size[2:] 的 -bytes 降序,
+    第 1 个 is_domain_part2 (238KB/69K tok) 独吞 80K budget 86.7% →
+    其他 3 个小 hint 全 skip → selected=[lb_part2, lb_part3, is_domain_part2] 仅 3 段.
+  - 物理 offset 重算: markers @ 0/378K/795K, total ~1032K, tail_start ≈ 723K →
+    只 is_domain_part2 marker (795K) 在 tail → V6 tail_count=1 → FAIL.
+  - v1.3c 把 remaining 显式 sorted by bytes 升序, intv(22K)+onc(22K)+qs(34K)
+    累计 78K ≤ 80K 全中 (注: 此处 token 值是四舍五入近似, 见 v1.3d 精确算术),
+    general/is_domain skip → selected 5 段 ~260K tok.
+  - 写入顺序维持 [lb_part2, lb_part3, intv, onc, qs] (升序吃的结果).
+  - (v1.3c token 估算有四舍五入误差, 实际运行时会被精确 tiktoken 反推否决, 详见 v1.3d 段)
+
+v1.3d 修正 (2026-04-20, reviewer feature-dev 捕获 v1.3c budget 80K 不足):
+  - v1.3c docstring 用四舍五入 token 值 (22K+22K+34K=78K) 以为 ≤80K 全中.
+  - 实际精确 tiktoken: onc=24,651 + intv=23,235 + qs=36,059 = 83,945 > 80,000.
+  - 运行时 qs 被 skip → small_head=[onc, intv] 只 2 文件 → selected=4 段 →
+    V6 tail_count=2 (onc@795K + intv@884K), tail_start≈682K, 需 ≥3 仍 FAIL.
+  - v1.3d: budget 80_000 → 90_000 (83.9K 全中, 6K 裕量防 KB 膨胀).
+  - 预期 v1.3d: small_head=[onc, intv, qs] 3 段, selected 5 段 ~261K tok,
+    物理 char offset (bytes≈chars for EN MD):
+      lb_part2@0 / lb_part3@~378K / onc@~795K / intv@~884K / qs@~974K,
+      total ≈1,111K, tail_start = int(1,111K × 0.70) ≈ 778K →
+      onc (795K) / intv (884K) / qs (974K) 3 markers 全 > 778K → V6 tail_count=3 PASS.
+  - Rule E Q4=A "terminology 末尾" 精神维持 (04 文件整体末尾 recency; 内部大块
+    LB 前置 + 3 个小高频 codelist 后置, 满足 V6 ≥3 markers 硬约束).
 """
 from __future__ import annotations
 
@@ -263,20 +303,62 @@ def _collect_terminology_sources(encoder: "tiktoken.Encoding") -> list[tuple[Pat
             if budget_left < 500:  # 余量太小, 停
                 break
     else:
-        # core 本身就超 target ⇒ 按 size 降序保留前 N 个 (高频优先),
-        # 直到累计接近 TERMINOLOGY_TARGET_TOKENS
-        # 注: 尾部=最大文件 (如 lb_part3.md 417KB), T-tail-1 命中此段
+        # core > target 分支 (v1.3, Node 2 attempt_1 V6 FAIL → 混合策略)
+        # 目标: V6 要求 04 尾部 30% 区间 ≥3 段 source. 原策略只选 top-1 大文件
+        # (lb_part3, 111.7K tok), break 太早. 改成混合:
+        #   1) 尾部保留 top-2 大文件 (lb_part3 + lb_part2), 保 "lb codelist recency"
+        #   2) prepend 若干高频小文件到数组开头, 覆盖更多 codelist 类型
+        # 预算: top-2 ~215K + 小文件 ~50-80K ≈ 265-295K (轻微超 200K target 但
+        # <800K 总预算, 与 Rule E Q4=A 'terminology 末尾 ~200K' 精神一致).
+        # HIGH_FREQ_CORE_HINTS: 域高频代码本名 (硬编码, 若 KB 缺文件自动 skip)
+        #
+        # 详见 failures/stage_phase3_attempt_1.md §6 选项 C.
+        HIGH_FREQ_CORE_HINTS = [
+            "interventions.md",
+            "qs_part1.md",
+            "oncology_part1.md",
+            "general_part1.md",
+            "is_domain_part2.md",
+        ]
         core_by_size = sorted(core_sized, key=lambda x: -x[1])
-        cum = 0
-        for p, _, t in core_by_size:
-            if cum + t > TERMINOLOGY_TARGET_TOKENS and len(selected) >= 1:
-                break
+        # 保尾 top-2 (lb_part3, lb_part2)
+        big_tail = core_by_size[:2]
+        # v1.3c 修正: remaining 按 bytes 升序遍历 (不是 core_by_size 默认的 -bytes 降序).
+        # 原因: 降序下 remaining[0] = is_domain_part2 (238KB / 69K tok), 单文件独吞
+        # 80K budget 86.7% → 其他 3 个小 hint (intv/onc/qs) 全被 skip → small_head
+        # 只剩 1 个 → selected 退化到 3 段 → V6 tail_count=1 → FAIL.
+        # 升序: intv(22K)+onc(22K)+qs(34K) 累计 78K ≤ 80K 全中, general/is_domain
+        # 超预算 skip → small_head=3 个 → selected=5 段 → V6 PASS 3/3.
+        # 元组结构 (path, bytes, tokens), x[1] 是 bytes.
+        remaining_asc = sorted(core_by_size[2:], key=lambda x: x[1])
+        small_head: list[tuple[Path, int, int]] = []
+        cum_small = 0
+        for src in remaining_asc:
+            if src[0].name in HIGH_FREQ_CORE_HINTS:
+                # v1.3d 修正: 预算 80K → 90K. 精确 tiktoken onc(24,651)+intv(23,235)
+                # +qs(36,059)=83,945 > 80K → qs 被 skip 退化到 4 段 V6 FAIL. 90K 裕量
+                # 6K 防未来 KB 轻微膨胀. (小文件合计 ≤90K, 215K + 90K ≈ 305K 总)
+                if cum_small + src[2] <= 90_000:
+                    small_head.append(src)
+                    cum_small += src[2]
+        # v1.3b 修正 (2026-04-20, 主 session 物理坐标推演捕获 v1.3 缺陷):
+        # v1.3 原顺序 [small_head..., lb_part2, lb_part3] 物理 char offset (bytes≈chars for EN MD):
+        #   intv@0 / qs@89K / onc@226K / lb_part2@316K / lb_part3@694K, total ~1111K
+        #   tail_start = 0.7 × 1111K ≈ 778K → lb_part3 marker @ 694K < 778K
+        #   → 0 markers in tail 30% → V6 FAIL.
+        # v1.3b 反转: 先 reversed(big_tail) (lb_part2 → lb_part3) 再 small_head, 写入顺序 OK;
+        #   但 remaining 仍是 -bytes 降序 → is_domain_part2 独占 80K budget 86.7% → small_head=1.
+        #   → selected=[lb_part2, lb_part3, is_domain_part2] 只 3 段, V6 tail_count=1 → FAIL.
+        # v1.3c (本版) 修正: remaining_asc 按 bytes 升序, intv(22K)+onc(22K)+qs(34K) 累计
+        # 78K 全入, general/is_domain skip → small_head=3 段, selected=5 段. 物理 offset:
+        #   lb_part2@0 / lb_part3@377K / intv@794K ✓ / onc@884K ✓ / qs@973K ✓
+        #   total ~1109K, tail_start ≈ 776K → 3 smalls markers 全落 tail 30% → V6 PASS 3/3.
+        # Rule E Q4=A "terminology 末尾" 精神保留 (04 文件整体位末尾 recency;
+        # 内部排序为满足 V6 ≥3 markers 硬约束调整, 大块 LB 前置 + 小高频文件后置).
+        for p, _, t in reversed(big_tail):  # 先 lb_part2, 再 lb_part3 (物理靠前)
             selected.append((p, t))
-            cum += t
-        # 按 size 降序写入 ⇒ 最大文件在尾部对应的是"最后写入那个也许是 target 临界的文件"
-        # 但为 P12 T-tail-1 (尾部精确 term) + T-tail-2 (中段 term) 更容易验证, 我们倒序:
-        # 把小文件放前段, 大文件放末端, 让"最频/最大"落在 recency 区
-        selected.reverse()
+        for p, _, t in small_head:  # 高频小文件最后, 落入 tail 30%
+            selected.append((p, t))
 
     return selected
 

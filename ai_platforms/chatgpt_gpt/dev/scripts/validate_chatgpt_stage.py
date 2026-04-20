@@ -67,6 +67,9 @@ v1.1 修复记录 (2026-04-20, reviewer CONDITIONAL_PASS → bug fix pass):
     的 self-consistent 机制移除 (KB 计数仅作 dev fallback 不作 PASS 真源).
   - Row 字段从 6 项扩到 7 项 (新增 v7); 报告矩阵列与细节段同步.
   - Node 2 起本版生效 (Node 1 禁运行, Node 2 跑 --stage batch1 触发校验).
+
+v1.3 sync 记录 (2026-04-20, Node 2 attempt_1 V5 FAIL cap 微调同步):
+  - EXPECTS[0] token_cap 46_000 → 47_000, 与 merge.py v1.3 保持一致.
 """
 from __future__ import annotations
 
@@ -111,7 +114,7 @@ class ExpectSpec:
 
 
 EXPECTS: list[ExpectSpec] = [
-    ExpectSpec("01_navigation.md", "batch1", 3, "", 46_000),
+    ExpectSpec("01_navigation.md", "batch1", 3, "", 47_000),
     ExpectSpec("02_chapters_all.md", "batch1", 6, "", 72_000),
     ExpectSpec("03_model_all.md", "batch1", 6, "", 21_000),
     ExpectSpec("04_domain_specs_all.md", "batch1", 63, "", 193_000),

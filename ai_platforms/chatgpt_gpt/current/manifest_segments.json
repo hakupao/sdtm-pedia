@@ -1,3 +1,28 @@
 {
-  "entries": {}
+  "entries": {
+    "01_navigation.md": {
+      "actual": 3,
+      "dynamic": false,
+      "expected": 3,
+      "stage": "batch1"
+    },
+    "02_chapters_all.md": {
+      "actual": 6,
+      "dynamic": false,
+      "expected": 6,
+      "stage": "batch1"
+    },
+    "03_model_all.md": {
+      "actual": 6,
+      "dynamic": false,
+      "expected": 6,
+      "stage": "batch1"
+    },
+    "04_domain_specs_all.md": {
+      "actual": 63,
+      "dynamic": false,
+      "expected": 63,
+      "stage": "batch1"
+    }
+  }
 }

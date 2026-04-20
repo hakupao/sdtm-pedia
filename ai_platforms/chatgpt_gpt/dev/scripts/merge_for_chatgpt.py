@@ -59,6 +59,12 @@ v1.1 修复记录 (2026-04-20, Node 1 reviewer CONDITIONAL_PASS → bug fix pass
     validate 侧读 manifest expected 作主真源 (MEDIUM-2).
   - Node 2 起本版生效 (Node 1 禁运行, Node 2 跑 --stage batch1 触发首次
     JSON 生成).
+
+v1.3 修复记录 (2026-04-20, Node 2 attempt_1 V5 FAIL → cap 微调):
+  - 01_navigation.md V5 FAIL 0.37% (46,170 > 46,000) → token_cap 46_000 → 47_000
+    (+2.17% buffer). 实测 VARIABLE_INDEX.md 密度略 >4 chars/token 导致
+    +15% 粗估 buffer 不足. 不违 P5 (不动 KB), 不违 P11 (文件数不变).
+  - 详见 failures/stage_1_attempt_1.md §6 方案 A.
 """
 from __future__ import annotations
 
@@ -196,6 +202,7 @@ def _collect_terminology_supplementary() -> list[Path]:
 
 
 # token_cap: PLAN §2.4 估算大小 → token 粗估 (1 token ≈ 4 chars) + 15% buffer.
+# 01: v1.3 微调 46_000 → 47_000 (实测 VARIABLE_INDEX 密度偏高).
 # 01 159 KB → ~40K tokens → cap 46K
 # 02 246 KB → ~62K tokens → cap 72K
 # 03  70 KB → ~18K tokens → cap 21K
@@ -214,7 +221,7 @@ MERGE_CONFIGS: list[MergeEntry] = [
         description="ROUTING + INDEX + VAR_INDEX (导航层)",
         source_collector=_collect_navigation,
         expected_segments=3,
-        token_cap=46_000,
+        token_cap=47_000,
     ),
     MergeEntry(
         target="02_chapters_all.md",

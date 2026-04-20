@@ -1,0 +1,12 @@
+merge_for_chatgpt.py --stage batch1 (4 产物, dry_run=False)
+repo_root: /Users/bojiangzhang/MyProject/SDTM-compare
+uploads:   ai_platforms/chatgpt_gpt/current/uploads
+
+[Stage chatgpt-batch1] 01_navigation.md: 46,170 tokens (3 sources, target ≤46K)
+  wrote ai_platforms/chatgpt_gpt/current/uploads/01_navigation.md | manifest: appended | segments.json: expected=3 actual=3 dynamic=False
+[Stage chatgpt-batch1] 02_chapters_all.md: 60,607 tokens (6 sources, target ≤72K)
+  wrote ai_platforms/chatgpt_gpt/current/uploads/02_chapters_all.md | manifest: appended | segments.json: expected=6 actual=6 dynamic=False
+[Stage chatgpt-batch1] 03_model_all.md: 17,653 tokens (6 sources, target ≤21K)
+  wrote ai_platforms/chatgpt_gpt/current/uploads/03_model_all.md | manifest: appended | segments.json: expected=6 actual=6 dynamic=False
+[Stage chatgpt-batch1] 04_domain_specs_all.md: 185,704 tokens (63 sources, target ≤193K)
+  wrote ai_platforms/chatgpt_gpt/current/uploads/04_domain_specs_all.md | manifest: appended | segments.json: expected=63 actual=63 dynamic=False

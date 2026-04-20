@@ -159,6 +159,51 @@
             "#4 未执行脚本 (Node 1 禁运行硬约束)",
             "v1.1 新增 #5: header 时间戳 md5 不稳定 — Gemini 侧发现, ChatGPT 不涉 (ChatGPT merge 无 header 时间戳)"
           ]
+        },
+        "N2_scripts_run": {
+          "status": "PASS",
+          "started_at": "2026-04-20",
+          "completed_at": "2026-04-20",
+          "user_ack": true,
+          "user_ack_date": "2026-04-20",
+          "attempts": [
+            "attempt_1 FAIL: 01_navigation.md V5 46,170 > cap 46,000 (超 0.37% 边缘), 27/28 其他 check PASS. failure 归档 dev/evidence/failures/stage_1_attempt_1.md",
+            "attempt_2 PASS: v1.3 cap 46K→47K fix 后, 28/28 全 PASS, buffer 1.77% (830 tok); merge md5 vs attempt 1 identical (merge 确定性)"
+          ],
+          "fix_lane_v1_3": {
+            "decision": "Q1=A (cap 47K), 用户 ack 2026-04-20",
+            "executor": "chatgpt_fix_exec (executor opus) — cap 46_000→47_000 × 2 (merge+validate), docstring v1.3 + sync v1.3",
+            "reviewer": "pr-review-toolkit:code-reviewer → CONDITIONAL_PASS, cap 1.77% buffer 建议 Node 3 升 48-50K",
+            "attempt_2_ab_reviewer": "pr-review-toolkit:code-reviewer → PASS (无 HIGH, 2 LOW F.1/F.2 非阻塞)"
+          },
+          "evidence_paths": [
+            "ai_platforms/chatgpt_gpt/dev/evidence/phase3_score.md",
+            "ai_platforms/chatgpt_gpt/dev/evidence/score_phase3.md",
+            "ai_platforms/chatgpt_gpt/dev/evidence/merge_batch1.log",
+            "ai_platforms/chatgpt_gpt/dev/evidence/validate_batch1.log",
+            "ai_platforms/chatgpt_gpt/dev/evidence/validate_batch1.md",
+            "ai_platforms/chatgpt_gpt/dev/evidence/merge_batch1_attempt2.log",
+            "ai_platforms/chatgpt_gpt/dev/evidence/validate_batch1_attempt2.log",
+            "ai_platforms/chatgpt_gpt/dev/evidence/failures/stage_1_attempt_1.md",
+            "ai_platforms/chatgpt_gpt/dev/evidence/phase3_node2_fix_reviewer.md",
+            "ai_platforms/chatgpt_gpt/dev/evidence/phase3_node2_attempt2_ab_reviewer.md",
+            "ai_platforms/chatgpt_gpt/dev/ab_reports/STAGE_1_AB_REPORT.md",
+            "ai_platforms/chatgpt_gpt/current/uploads/01_navigation.md",
+            "ai_platforms/chatgpt_gpt/current/uploads/02_chapters_all.md",
+            "ai_platforms/chatgpt_gpt/current/uploads/03_model_all.md",
+            "ai_platforms/chatgpt_gpt/current/uploads/04_domain_specs_all.md",
+            "ai_platforms/chatgpt_gpt/current/manifest_segments.json"
+          ],
+          "product_stats": {
+            "01_navigation.md": {"tokens": 46170, "cap": 47000, "buffer_pct": 1.77, "sources": 3},
+            "02_chapters_all.md": {"tokens": 60607, "cap": 72000, "sources": 6},
+            "03_model_all.md": {"tokens": 17653, "cap": 21000, "sources": 6},
+            "04_domain_specs_all.md": {"tokens": 185704, "cap": 193000, "sources": 63}
+          },
+          "low_carry_over_to_node3": [
+            "LOW-F1 (AB reviewer): ChatGPT 01 cap 47K buffer 仅 1.77%, 建议 Node 3 升到 48-50K 防未来 KB 膨胀",
+            "LOW-F2 (AB reviewer): PLAN §2.4 Step 6 prompt '~15K/30K/30K/150K' 估算与脚本 cap 口径不一致, Node 3 统一回写 upload_manifest.md 去 '~' 实测"
+          ]
         }
       }
     },

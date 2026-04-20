@@ -141,6 +141,81 @@
             "#4 不执行: Node 1 硬约束",
             "#5 (新增): header 时间戳 → md5 不稳定 — 业务 V5 不判 FAIL, LOW"
           ]
+        },
+        "N2_scripts_run": {
+          "status": "PASS",
+          "started_at": "2026-04-20",
+          "completed_at": "2026-04-20",
+          "user_ack": true,
+          "user_ack_date": "2026-04-20",
+          "attempts": [
+            "attempt_1 HARD FAIL: V6 tail 30% 内 0 段 terminology source (需 ≥3), 04 只 1 段 (lb_part3 独占). failure 归档 dev/evidence/failures/stage_phase3_attempt_1.md",
+            "attempt_2 PASS: v1.3d 混合策略 fix 后, V6 PASS 3/3 (onc@795K + intv@884K + qs@974K 全 ≥ tail_start 777,919), 总 tokens 884,918 < 900K WARN 阈, 15K 余量"
+          ],
+          "fix_lane_v1_3_to_v1_3d_4rounds": {
+            "decision": "Q2=C (混合策略 top-2 大文件保尾 + prepend 高频小文件), 用户 ack 2026-04-20; Q3=接受 03 +22.36% WARN",
+            "round_1_v1_3": "executor opus 加 HIGH_FREQ_CORE_HINTS + big_tail + small_head, 写入顺序 [small_head, reversed(big_tail)] (缺陷: lb_part3 marker 694K 仍 < tail_start 778K)",
+            "round_2_v1_3b": "主 session 物理坐标推演捕获 → 反转循环 [reversed(big_tail), small_head] (缺陷: remaining 按 -bytes 降序, is_domain_part2 独吞 80K budget)",
+            "round_3_v1_3c_pr_review": "pr-review-toolkit:code-reviewer 精确模拟捕获 → remaining 改 bytes 升序 sorted (缺陷: 80K budget 对精确 tiktoken 83,945 不足, qs 仍 skip)",
+            "round_4_v1_3d_feature_dev": "feature-dev:code-reviewer 精确 tiktoken 捕获 → budget 80K→90K (PASS: onc+intv+qs=83,945 ≤ 90K 全中, selected 5 段)",
+            "final_critic_v1_3d": "oh-my-claudecode:critic (第 7 视角) PASS 95/100, 独立物理 offset 模拟 V6 tail_count=3/3 收敛; MEDIUM-1 建议 Node 3 budget 90K→100K (headroom 6.73%→16.06%)"
+          },
+          "reviewer_subagents_rule_d_independent_7_types": [
+            "oh-my-claudecode:executor (writer × 6 轮: N1 original + N1 fix + N2 attempt 1 + v1.3 fix + v1.3b fix + v1.3c fix + v1.3d fix + N2 attempt 2)",
+            "oh-my-claudecode:code-reviewer (Node 1 round 1 ChatGPT)",
+            "oh-my-claudecode:verifier (Node 1 round 1 Gemini + Node 2 AB Gemini round 2)",
+            "oh-my-claudecode:debugger (Node 1 delta ChatGPT)",
+            "pr-review-toolkit:code-reviewer (Node 2 fix v1.3b review + Node 2 AB ChatGPT round 2)",
+            "feature-dev:code-reviewer (Node 2 fix v1.3c delta review)",
+            "oh-my-claudecode:critic (Node 2 fix v1.3d final critic)"
+          ],
+          "ab_reviewer_attempt_2": "oh-my-claudecode:verifier → PASS 17/17 acceptance criteria VERIFIED, 0 blockers, 1 LOW-1 描述笔误非阻塞",
+          "rule_a_n5_audit": {
+            "trigger": "04 压缩率 ~65% (按 tokens) / ~88% (按文件数), 均 >50% 强制",
+            "samples": "5/5 PASS (lb_part2 + lb_part3 + oncology_part1 + interventions + qs_part1 起止对齐 KB 源 100%)",
+            "evidence": "ai_platforms/gemini_gems/dev/evidence/step_node2_audit.md",
+            "performed_by": "main session (非 subagent, 独立抽检)"
+          },
+          "evidence_paths": [
+            "ai_platforms/gemini_gems/dev/evidence/merge_all.log",
+            "ai_platforms/gemini_gems/dev/evidence/validate_all.log",
+            "ai_platforms/gemini_gems/dev/evidence/validate_single_batch.md",
+            "ai_platforms/gemini_gems/dev/evidence/merge_all_attempt2.log",
+            "ai_platforms/gemini_gems/dev/evidence/validate_all_attempt2.log",
+            "ai_platforms/gemini_gems/dev/evidence/failures/stage_phase3_attempt_1.md",
+            "ai_platforms/gemini_gems/dev/evidence/phase3_node2_fix_reviewer.md",
+            "ai_platforms/gemini_gems/dev/evidence/phase3_node2_fix_delta_reviewer.md",
+            "ai_platforms/gemini_gems/dev/evidence/phase3_node2_fix_final_critic.md",
+            "ai_platforms/gemini_gems/dev/evidence/phase3_node2_attempt2_ab_reviewer.md",
+            "ai_platforms/gemini_gems/dev/evidence/step_node2_audit.md",
+            "ai_platforms/gemini_gems/dev/ab_reports/STAGE_PHASE3_AB_REPORT.md",
+            "ai_platforms/gemini_gems/current/uploads/01_core_reference.md",
+            "ai_platforms/gemini_gems/current/uploads/02_domain_specs.md",
+            "ai_platforms/gemini_gems/current/uploads/03_domain_knowledge.md",
+            "ai_platforms/gemini_gems/current/uploads/04_terminology_core.md",
+            "ai_platforms/gemini_gems/current/upload_manifest.md"
+          ],
+          "product_stats": {
+            "01_core_reference.md": {"tokens": 124512, "target": 120000, "deviation_pct": 3.76, "sources": 15},
+            "02_domain_specs.md": {"tokens": 185785, "target": 168000, "deviation_pct": 10.59, "sources": 63},
+            "03_domain_knowledge.md": {"tokens": 275318, "target": 225000, "deviation_pct": 22.36, "sources": 126, "warn": "Node 3 转办, 用户 Q3=接受"},
+            "04_terminology_core.md": {"tokens": 299303, "target": 200000, "deviation_pct": 49.65, "sources": 5, "warn": "Node 3 转办 (新)", "v6_tail_markers": 3, "tail_start": 777919}
+          },
+          "total_tokens_v3_margin": {
+            "total": 884918,
+            "warn_threshold": 900000,
+            "hard_fail_threshold": 1000000,
+            "margin_to_warn": 15082,
+            "status": "PASS (< WARN 阈)"
+          },
+          "low_carry_over_to_node3": [
+            "MEDIUM-M1 (critic): budget 90K→100K (headroom 6.73%→16.06%, 不改变 selected 集合)",
+            "LOW-L1 (critic): v1.3c inline 注释 L352-355 marker 顺序 stale (intv/onc → 实际 onc/intv), 非功能错",
+            "LOW-L2 (critic): Rule A N=5 ChatGPT 侧未做 — ChatGPT 压缩率 <50% 非强制; Gemini 已完成 (见 step_node2_audit.md)",
+            "LOW-WARN (AB): 03 +22.36% carry-over (用户 Q3=接受), 04 +49.65% 新 WARN (3 选项: 接受/裁/拆)",
+            "LOW-AUDIT-A1 (audit): general_part1 / is_domain_part2 未入 selected, 泛域召回风险, Node 3 A/B 后决策是否扩 budget 到 160K",
+            "LOW-1 (AB reviewer): validate_single_batch.md V3 判定行 '884,918 ≤ target' 描述笔误 (884K > 800K target, PASS 因 < 900K WARN 阈, rc=0 正确)"
+          ]
         }
       }
     },
