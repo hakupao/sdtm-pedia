@@ -1,7 +1,7 @@
 # .work/ MANIFEST — 文件清单与变更链
 
 > **AI 工作入口文件** — 每次新 session 开始时先读此文件，了解文件布局和更新规则。
-> 最后更新: 2026-04-20 晚 (Phase 6.5 Claude v2 终态完成 + reorg: claude_projects/ 重组为 current/docs/dev/archive 四层, 消除 output_v2/output_v1_baseline/output/ 混乱; 脚本与过程产物路径引用保留 reorg 前语境, 见各目录 README)
+> 最后更新: 2026-04-20 晚 (Phase 6.5 Claude 终态 + reorg + **ai_platforms/_template/ 范本抽象 + ChatGPT/Gemini 骨架升级**: 从 claude_projects v2 全套产物抽象 10 维度通用范本, 两平台按范本重建四层目录 current/docs/dev/archive, 填好 Phase 0 platform_profile 初稿, 状态 "待开始 (范本就绪)")
 
 ---
 
@@ -118,9 +118,10 @@ meta/worklog.md                      ← 记录决策变更
      内容: P0~P3 四项优化任务（ROUTING.md、反向索引等）
      前置: Phase 5 完成后再开始
 
-ai_platforms/ ── Phase 6.5 AI 平台部署 ── [Claude v1 完成 (9/9 PASS); Claude v2 终态 v2.6 完成 (24/24 A/B PASS, 0 衰减, capacity 77%); 2026-04-20 Reorg 重组到 current/docs/dev/archive]
+ai_platforms/ ── Phase 6.5 AI 平台部署 ── [Claude v1 完成 (9/9 PASS); Claude v2 终态 v2.6 完成 (24/24 A/B PASS, 0 衰减, capacity 77%); 2026-04-20 Reorg 重组到 current/docs/dev/archive; 2026-04-20 晚 ai_platforms/_template/ 范本抽象 + ChatGPT/Gemini 骨架升级]
      总览: ai_platforms/README.md
      三平台路线: chatgpt_gpt/ROADMAP.md, claude_projects/ROADMAP.md, gemini_gems/ROADMAP.md
+     **通用部署范本**: ai_platforms/_template/ — 10 维度规范 (README + APPLY_CHECKLIST + 00-09) 抽象自 claude v2 方法论, ChatGPT/Gemini 及未来新平台的 upstream spec
      **Claude 新结构入口**: claude_projects/README.md (指向 current/docs/dev/archive 四层)
      Claude 当前可部署 (发布版): claude_projects/current/ (uploads/ 19 文件 + system_prompt.md + upload_manifest.md + UPLOAD_TUTORIAL.md 用户部署教程 + README.md 发布版总览)
      Claude 方法论文档: claude_projects/docs/ (PLAN_V2 + RETROSPECTIVE_V2 + rag_decay_curve + phase7_handoff + capacity_research)
@@ -140,6 +141,14 @@ ai_platforms/ ── Phase 6.5 AI 平台部署 ── [Claude v1 完成 (9/9 PAS
        - v1/docs/ (PLAN.md + UPLOAD_TUTORIAL.md + claude_project_instructions.md + claude_project_setup.md + V2_SESSION_STARTER.md 过渡产物)
        - v1/scripts/ (11 Python 脚本, build_all.py 一键重建)
        - v1/uploads/ (11 上传文件 + evidence/ + _progress.json + capacity_check.md + test_results.md + BASELINE_README.md)
+     ChatGPT GPTs: chatgpt_gpt/ ── [待开始 (范本就绪 2026-04-20), Tier 2, 预计 2 批到位]
+       - 入口: README.md + ROADMAP.md (按范本升级, P11-P13 含 20 文件硬限 + TableAware 分段约束)
+       - Phase 0 填空: docs/platform_profile.md (A-K 10 组字段, Phase 1 调研待补)
+       - 四层占位: current/ + dev/ + archive/ (启动后填)
+     Gemini Gems: gemini_gems/ ── [待开始 (范本就绪 2026-04-20), Tier 1-2, 预计 1 批全上]
+       - 入口: README.md + ROADMAP.md (按范本升级, P11-P12 单批到位 + 末尾召回验证)
+       - Phase 0 填空: docs/platform_profile.md (A-K 10 组字段, 3 问简化调研预告)
+       - 四层占位: current/ + dev/ + archive/ (启动后填)
      Claude 实际产出构成 (v2.6 终态 19 文件):
        - 00-08: v2.1 chapters byte-exact expand (重建 v1 结构)
        - 09: examples 高频 28 域 (v2.2, 112,697 tokens)
@@ -256,6 +265,9 @@ ai_platforms/ ── Phase 6.5 AI 平台部署 ── [Claude v1 完成 (9/9 PAS
 | 查质量问题 | `meta/findings.md` |
 | 查后续 TODO | `04_optimization/retrieval_optimization.md` |
 | **Phase 6.5 AI 平台部署** | **`../ai_platforms/README.md`** — 三平台部署总览与路线图 |
+| **Phase 6.5 通用部署范本** | **`../ai_platforms/_template/README.md`** — 10 维度规范 (README + APPLY_CHECKLIST + 00-09) 抽象自 Claude v2 方法论 (2026-04-20) |
+| **Phase 6.5 ChatGPT GPTs 入口** | **`../ai_platforms/chatgpt_gpt/README.md`** — 待开始 (范本就绪), Tier 2 / 2 批到位 / 20 文件硬限 / 可 GPT Store 发布 |
+| **Phase 6.5 Gemini Gems 入口** | **`../ai_platforms/gemini_gems/README.md`** — 待开始 (范本就绪), Tier 1-2 / 1 批全上 / 1M 窗口 / 仅个人 |
 | **Phase 6.5 Claude 入口 (reorg 后)** | **`../ai_platforms/claude_projects/README.md`** — 新结构 current/docs/dev/archive 导航 (2026-04-20) |
 | **Phase 6.5 Claude 部署教程** | **`../ai_platforms/claude_projects/current/UPLOAD_TUTORIAL.md`** — 发布版完整制作教程 (10 章节, 去版本化, 用户视角) |
 | **Phase 6.5 Claude 当前可部署 (发布版)** | **`../ai_platforms/claude_projects/current/`** — 19 上传 + system_prompt + upload_manifest + UPLOAD_TUTORIAL + README |

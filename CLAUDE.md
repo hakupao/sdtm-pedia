@@ -38,6 +38,9 @@ Full chain definitions are in `.work/MANIFEST.md`.
 | Phase 7 设计文档 | `docs/DESIGN_RAG_KG.md` |
 | Phase 7 session 记录 | `.work/05_rag_kg/session_2026-04-16_design.md` |
 | Phase 6.5 AI 平台部署 | `ai_platforms/` (总览 + 三平台子目录) |
+| **Phase 6.5 通用部署范本** | **`ai_platforms/_template/README.md`** — 10 维度规范 (README + APPLY_CHECKLIST + 00 platform_profile + 01 directory_structure + 02 workflow + 03 research + 04 plan + 05 solution + 06 review + 07 agent_dispatch + 08 evidence + 09 closure), 抽象自 Claude v2 方法论, ChatGPT/Gemini 及未来平台的 upstream spec |
+| **Phase 6.5 ChatGPT GPTs 入口** | **`ai_platforms/chatgpt_gpt/README.md`** — 待开始 (范本就绪 2026-04-20), Tier 2 / 2 批到位 / 20 文件硬限 / 可 GPT Store 发布; Phase 0 初稿见 `chatgpt_gpt/docs/platform_profile.md` |
+| **Phase 6.5 Gemini Gems 入口** | **`ai_platforms/gemini_gems/README.md`** — 待开始 (范本就绪 2026-04-20), Tier 1-2 / 1 批全上 / 1M 窗口 / 仅个人; Phase 0 初稿见 `gemini_gems/docs/platform_profile.md` |
 | **Phase 6.5 Claude 入口 (reorg 后)** | **`ai_platforms/claude_projects/README.md`** — 新结构导航入口, 指向 current/docs/dev/archive 四层 |
 | **Phase 6.5 Claude 部署教程 (用户视角)** | **`ai_platforms/claude_projects/current/UPLOAD_TUTORIAL.md`** — 10 章节完整制作教程 (前置 / 建 Project / System Prompt / 上传 / Smoke Test / 回归 / 排错 / 升降级 / 团队 / 后续), 已去版本化 |
 | Phase 6.5 Claude 当前可部署 (发布版) | `ai_platforms/claude_projects/current/` (uploads/ 19 文件 + system_prompt.md + upload_manifest.md + UPLOAD_TUTORIAL.md + README.md, 1.29M tokens, capacity 77%) |
