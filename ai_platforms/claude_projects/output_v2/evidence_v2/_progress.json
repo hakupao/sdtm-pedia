@@ -2,14 +2,15 @@
   "phase": "6.5-claude-v2",
   "plan": "ai_platforms/claude_projects/PLAN_V2.md",
   "design": "docs/superpowers/specs/2026-04-18-phase6.5-claude-v2-expansion-design.md",
-  "current_stage": "v2.4",
-  "current_batch": 4,
+  "current_stage": "v2.5",
+  "current_batch": 5,
   "completed_stages": [
     "v2.0-setup",
     "v2.1",
     "v2.2",
     "v2.3",
-    "v2.4"
+    "v2.4",
+    "v2.5"
   ],
   "completed_batches": [
     1,
@@ -175,7 +176,7 @@
   ],
   "v1_baseline": "ai_platforms/claude_projects/output_v1_baseline/",
   "started_at": "2026-04-18T00:00:00Z",
-  "last_updated": "2026-04-19T23:05:00Z",
+  "last_updated": "2026-04-20T00:55:19Z",
   "completed_tasks": [
     "A1",
     "A2",
@@ -202,13 +203,17 @@
     "F2",
     "F3",
     "F4",
-    "G1"
+    "G1",
+    "G2-executor",
+    "G2-reviewer",
+    "G2",
+    "G3"
   ],
   "skipped_tasks": [
     "B5"
   ],
   "pending_tasks": [
-    "G2"
+    "G4"
   ],
   "e1_output": {
     "script_reused": "scripts_v2/extract_examples_data.py (+ 2 轮 bug fix: tier=others output 09→10, H1 tier-aware)",
@@ -386,6 +391,99 @@
       "reviewer 抽样 N=10 (规则 A 强制, mid tier 压缩率更高); 验证 Term 表无丢失 + Definition 截断在边界 + idempotency"
     ]
   },
+  "g2_output": {
+    "script_modified": "scripts_v2/extract_terminology_terms.py",
+    "executor_id": "af58b323ca4a4176a",
+    "executor_model": "opus",
+    "reviewer_id": "a9fd086527aaecbce",
+    "reviewer_model": "opus",
+    "reviewer_subagent_type": "code-reviewer (Rule D third lane)",
+    "run_log": "output_v2/evidence_v2/G2_executor_run.log",
+    "reviewer_report": "output_v2/evidence_v2/G2_reviewer.md",
+    "products": [
+      "output_v2/12a_terminology_mid_core.md",
+      "output_v2/12b_terminology_mid_questionnaires.md",
+      "output_v2/12c_terminology_mid_supp.md"
+    ],
+    "per_file_breakdown": {
+      "12a_core": {
+        "codelists": 50,
+        "tokens": 129963,
+        "md5": "e34fdd9bc2feca100779e865045e4a78",
+        "status": "under soft 200K"
+      },
+      "12b_questionnaires": {
+        "codelists": 222,
+        "tokens": 224659,
+        "md5": "95e5c276969643d029ef2fa2feb1c51b",
+        "status": "WARN 超 200K soft target (+12.3%) 但 < PLAN §G2 250K/file soft + < 350K hard cap"
+      },
+      "12c_supp": {
+        "codelists": 28,
+        "tokens": 23317,
+        "md5": "3a28ec7a55b5237b5a8b77c0272dd496",
+        "status": "under soft 200K"
+      }
+    },
+    "total_tokens": 377939,
+    "total_codelists": 300,
+    "missing_c_codes": 0,
+    "exit_code": 0,
+    "script_changes_summary": {
+      "added": [
+        "SUBDIR_META_BY_TIER['high'|'mid']: mid maps to 12a/12b/12c_terminology_mid_{core,questionnaires,supp}.md",
+        "_truncate_definition(text, tier): word-boundary back-off for mid (100 chars), high unchanged (200 chars simple slice)",
+        "render_codelist(..., tier): mid branch 3-col (Code/Submission Value/Definition); high unchanged 4-col",
+        "build_subdir_documents(tier, ...): tier-keyed SUBDIR_META + tier-specific intro paragraph",
+        "write_failure_file(..., tier): stage_v2.4_ for high, stage_v2.5_g2_ for mid (rule B)"
+      ],
+      "removed": [
+        "main() stub NOT_IMPLEMENTED rc=2 for --tier mid"
+      ]
+    },
+    "reviewer_verdict": "PASS",
+    "reviewer_sampled": [
+      "C135682",
+      "C119065",
+      "C147545",
+      "C130269",
+      "C105140",
+      "C112443",
+      "C101820",
+      "C130252",
+      "C130256",
+      "C100134"
+    ],
+    "reviewer_additional_samples": [
+      "C179590",
+      "C99075",
+      "C128683",
+      "C106665",
+      "C177714",
+      "C129098",
+      "C120993"
+    ],
+    "main_audit_not_repeated": "executor self-report 7,090/11,569 truncation rows 0 mid-word 已被 reviewer N=10 disjoint 独立重算 PASS, 主控不重复",
+    "reviewer_7_checks": {
+      "Q1_output_integrity": "PASS (3/3 MD5 match, 300 total, tokens independently tokenized)",
+      "Q2_truncation_correctness": "PASS (10 samples, 7/7 truncated end in ..., 7/7 next-char in source = space)",
+      "Q3_column_structure": "PASS (6 samples + full-file scan: 12a 4148/4148 3-col, 12b 6372/6372, 12c 749/749; 0 NCI links)",
+      "Q4_zero_regression_high": "PASS (11a/11b/11c re-run MD5 byte-identical; tier='mid' branch 严格隔离)",
+      "Q5_subdir_routing": "PASS (5 samples 精准归属 core/questionnaires/supp)",
+      "Q6_rule_d_compliance": "PASS (fresh session, 样本 disjoint from executor self-report)",
+      "Q7_budget_v2.5_projection": "PASS with INFO (12b +12.3% vs soft target acceptable; v2.5 累计 1,097,180 / 1.5M = 73.1%, 26.9% headroom)"
+    },
+    "idempotency_verified": true,
+    "zero_regression_high_tier": true,
+    "capacity_projection_v2.5": "v2.4 719,241 + mid 377,939 = 1,097,180 tokens (~73% of 1.5M C12 hard cap), 402,820 headroom",
+    "plan_g2_gate_passed": true,
+    "info_findings_non_blocking": [
+      "INFO-1: 12b 224,659 > 200K soft target (+12.3%); expected given 222 questionnaire codelists, in-spec per PLAN §G2",
+      "INFO-2: SUBDIR_META 旧别名 line 109 unused 但无害 (defer refactor)",
+      "INFO-3: render_codelist row[2] syn 在 tier=mid 分支中未用, 由 _extract_codelist_section 填充到 4 列保底 (cosmetic)"
+    ],
+    "next": "G3: build_v2_stage.py --stage v2.5 config 段 (copy v2.4 config + 追加 12a/12b/12c_terminology_mid) + system_prompt_v2 stage v2.5 段 + upload_manifest_v2 v2.5 行 + evidence_v2/stage_v2.5_terminology_mid.md"
+  },
   "f3_output": {
     "build_script": "scripts_v2/build_v2_stage.py --stage v2.4",
     "stage_tokens_total": 751422,
@@ -395,10 +493,17 @@
     "real_upload_files": 14,
     "real_upload_tokens": 719241,
     "real_upload_files_list": [
-      "00_routing.md", "01_index.md", "02_chapters.md", "03_model.md",
-      "04_variable_index.md", "05_mega_spec.md", "06_assumptions.md",
-      "07_examples_catalog.md", "08_terminology_map.md",
-      "09_examples_data_high.md", "10_examples_data_others.md",
+      "00_routing.md",
+      "01_index.md",
+      "02_chapters.md",
+      "03_model.md",
+      "04_variable_index.md",
+      "05_mega_spec.md",
+      "06_assumptions.md",
+      "07_examples_catalog.md",
+      "08_terminology_map.md",
+      "09_examples_data_high.md",
+      "10_examples_data_others.md",
       "11a_terminology_high_core.md",
       "11b_terminology_high_questionnaires.md",
       "11c_terminology_high_supp.md"
@@ -495,10 +600,72 @@
       "TU"
     ]
   },
+  "g3_output": {
+    "build_script": "scripts_v2/build_v2_stage.py --stage v2.5",
+    "build_script_patched": "STAGE_MAP[v2.5]: output 12_terminology_mid.md → 12a_terminology_mid_core.md + prompt_block 重写 (3-file split + CT 查询优先级 11*>12*>08 + Synonyms 不在 mid 需指向源). _run_batch_script: 删除 v2.5 TBD stub (保留 v2.4 stub 防覆盖 11 系) + 新增 extra_args for v2.5 (--list G1_codelist_mid.txt).",
+    "batch_script_invoked": "extract_terminology_terms.py --tier mid --list output_v2/evidence_v2/G1_codelist_mid.txt",
+    "batch_script_result": "OK, rc=0, produced 12a/12b/12c_terminology_mid_*.md",
+    "idempotency_verified": true,
+    "md5_pre_run": {
+      "12a_terminology_mid_core.md": "e34fdd9bc2feca100779e865045e4a78",
+      "12b_terminology_mid_questionnaires.md": "95e5c276969643d029ef2fa2feb1c51b",
+      "12c_terminology_mid_supp.md": "3a28ec7a55b5237b5a8b77c0272dd496"
+    },
+    "md5_post_run": {
+      "12a_terminology_mid_core.md": "e34fdd9bc2feca100779e865045e4a78",
+      "12b_terminology_mid_questionnaires.md": "95e5c276969643d029ef2fa2feb1c51b",
+      "12c_terminology_mid_supp.md": "3a28ec7a55b5237b5a8b77c0272dd496"
+    },
+    "md5_byte_identical": true,
+    "stage_tokens_total": 1141725,
+    "stage_target_tokens": 1400000,
+    "pct_of_target": 81.6,
+    "file_count_including_meta": 29,
+    "real_upload_files": 17,
+    "real_upload_tokens": 1097180,
+    "real_upload_tokens_match_g2_projection": true,
+    "real_upload_files_list": [
+      "00_routing.md", "01_index.md", "02_chapters.md", "03_model.md",
+      "04_variable_index.md", "05_mega_spec.md", "06_assumptions.md",
+      "07_examples_catalog.md", "08_terminology_map.md",
+      "09_examples_data_high.md", "10_examples_data_others.md",
+      "11a_terminology_high_core.md",
+      "11b_terminology_high_questionnaires.md",
+      "11c_terminology_high_supp.md",
+      "12a_terminology_mid_core.md",
+      "12b_terminology_mid_questionnaires.md",
+      "12c_terminology_mid_supp.md"
+    ],
+    "incremental_vs_v24": 377939,
+    "system_prompt_patched": "appended <!-- stage v2.5 begin --> ... end --> block (3-file split + CT 查询优先级 11*>12*>08 + 'Synonyms 不在 mid tier 需指向源' 边界提示)",
+    "manifest_row_appended": "v2.5 | 2026-04-20 | 29 | 1,141,725 | 81.6% of 1,400,000 target | terminology mid codelist",
+    "evidence_file": "output_v2/evidence_v2/stage_v2.5_terminology_mid.md",
+    "trace_jsonl_appended": "{\"event\":\"stage_done\",\"stage\":\"v2.5\",\"total_tokens\":1141725,\"files\":29,\"status\":\"PASS\"}",
+    "c12_hard_cap_check": {
+      "constraint": 1500000,
+      "actual_real_upload": 1097180,
+      "actual_incl_meta": 1141725,
+      "headroom_real_upload": 402820,
+      "headroom_real_upload_pct": 26.9,
+      "headroom_incl_meta": 358275,
+      "headroom_incl_meta_pct": 23.9,
+      "passed": true,
+      "decision": "C12 gate PASS by both measures; G4 终态 hard checkpoint 可进"
+    },
+    "coverage_after_v2.5": {
+      "codelists_covered": 500,
+      "codelists_total": 1005,
+      "coverage_pct": 49.8,
+      "long_tail_deferred": 505,
+      "deferred_note": "rank 501-1005 长尾留给 Phase 7 RAG 自建索引"
+    },
+    "plan_g3_gate_passed": true,
+    "next": "G4: ⚠️ HARD CHECKPOINT v2.5 终态 - 用户需在 Claude Project v2 侧上传 3 新文件 (12a/12b/12c), 等 indexing (预计 >40 分钟因 RAG 容量大), 跑 T1-T20 全 20 题并粘贴答案回报; 主控汇总写 stage_v2.5_terminal.md 终态 evidence + rag_decay_curve.md v2.4→v2.5 段 + 进入 Phase H 收尾."
+  },
   "session_handoff": {
-    "handoff_at": "2026-04-19T23:45:00Z",
-    "last_commit": "TBD-after-g1-commit",
-    "resume_from": "G2 (写 extract_terminology_terms.py --tier mid 实现: 当前是 stub 返回 rc=2 NOT_IMPLEMENTED; 输入 evidence_v2/G1_codelist_mid.txt 300 C-code; 输出 12a_terminology_mid_*.md + 12b)",
-    "notes": "F4 done + G1 done. F4 checkpoint v2.4 已 ack (Cowork 6 题 A/B + 独立 code-reviewer 第三 lane Rule D 全 PASS + rag_decay/test_results 两份文档已追加 + _progress.json checkpoints_acked v2.4 对象已入). G1 done: 复用 score_codelists.py 跑 rank 201-500, 幂等性验证 (F1_log == G1_log byte-identical), 300 C-code 落盘 G1_codelist_mid.txt, 审计报告 G1_codelist_mid.md 落盘 (含 PLAN §G2 拆分建议: 批 5 ≈ 纯 questionnaire tier, 建议 12a core → 12a Findings/Events/Interventions + 12b QRS/Questionnaires). 下一步 G2: 子代理实现 mid tier 分支 (_truncate_definition_mid 100 字符 + render_codelist 跳过 Synonyms 列 + build_subdir_documents 产出 12 系路径). Reviewer 抽样 N=10 规则 A 强制. G2 预计 token 产出 190-240K (vs spec 简化 338K, 因 mid tier 去 Synonyms + 去 NCI + Def ≤100 字符), v2.5 终态预计累计 ~910-960K 远低 C12 1.5M 硬约束."
+    "handoff_at": "2026-04-20T01:00:00Z",
+    "last_commit": "TBD-after-g3-commit",
+    "resume_from": "G4 (HARD CHECKPOINT v2.5 终态): 用户上传 12a/12b/12c_terminology_mid_*.md 到 Claude Project v2 → 等 indexing → 跑 T1-T20 全 20 题 → 答案回报 → 主控写 stage_v2.5_terminal.md + rag_decay_curve.md v2.4→v2.5 段 + Phase H 收尾.",
+    "notes": "G3 done (主控 opus). build_v2_stage.py --stage v2.5 run rc=0 产出 17 上传文件 / 1,097,180 真实上传 tokens (含 meta 1,141,725 / 29 文件). G2 projection (1,097,180) 精准命中 (Δ=0). C12 1.5M hard cap 双测 PASS: real_upload 73.1% (headroom 402,820 / 26.9%), incl_meta 76.1% (headroom 358,275 / 23.9%). 12a/12b/12c MD5 byte-identical pre/post (script 幂等性验证). system_prompt_v2.md stage v2.5 块 appended (3-file split + 11*>12*>08 优先级 + Synonyms 不在 mid 边界指示). upload_manifest_v2.md 阶段历史第 5 行追加 (v2.5 | 2026-04-20 | 29 | 1,141,725 | 81.6% of 1,400,000 target). evidence_v2/stage_v2.5_terminology_mid.md 写入. trace.jsonl stage_done 追加. 累计覆盖: 500/1005 codelist = 49.8% (中庸 50% 覆盖目标达成), 长尾 505 留 Phase 7. 下一步 G4 terminal checkpoint: 用户手工上传 + T1-T20 回归测 + 主控写终态 evidence, 然后 Phase H (H1 RETROSPECTIVE_V2.md / H2 RAG 衰减曲线收尾 + phase7_handoff.md / H3 Chain B/C/E 索引更新 / H4 _phase_summary.md / H5 最终 commit)."
   }
 }

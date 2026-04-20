@@ -138,3 +138,10 @@ Core competencies:
 - 新增 3 个文件 (按 terminology subdir 拆分): 11a_terminology_high_core.md / 11b_terminology_high_questionnaires.md / 11c_terminology_high_supp.md, 合计 top 200 codelist 完整 Term 值 (Code / Submission Value / Synonyms / Definition), 每 codelist header 附 `Related Domains:` 行列出引用它的 SDTM 域集合。
 - CT Code 查询优先级: **11a/11b/11c (full Term) > 08 (映射)**; 若 11* 命中, 直接列 Term, 不再 fallback 源路径模板。子目录路由: codelist 属 core/questionnaires/supplementary 由 `<!-- source: -->` 注释定位, 多数核心 SDTM codelist (NY/FREQ/Epoch/Unit/...) 在 11a, QRS Test Code/Name pair 在 11b, Device/Functional Test codelist 在 11c。
 <!-- stage v2.4 end -->
+
+<!-- stage v2.5 begin -->
+### Stage v2.5 增量 (terminology mid codelist)
+
+- 新增 3 个文件 (按 terminology subdir 拆分, mid tier, rank 201-500, 300 codelist): 12a_terminology_mid_core.md / 12b_terminology_mid_questionnaires.md / 12c_terminology_mid_supp.md, 每 codelist 使用 3 列 Term 表 (Code / Submission Value / Definition ≤100 字符, 词边界截断), 不含 Synonyms / NCI Concept Description 链接, 每 codelist header 附 `Related Domains:` 行。
+- CT Code 查询优先级: **11a/11b/11c (high full Term 4 列) > 12a/12b/12c (mid 压缩 Term 3 列) > 08 (codelist 名称映射)**; 若 11* 命中优先引完整 Term; 若仅 12* 命中, 引 Term 并注明 Definition 为 100 字符压缩版 + Synonyms 不在本 tier (如需 Synonyms 必须指向源 `knowledge_base/terminology/**/*.md`); 08 仅作 fallback 名称查询。子目录路由沿用 11 系: core → a / questionnaires → b / supplementary → c。
+<!-- stage v2.5 end -->
