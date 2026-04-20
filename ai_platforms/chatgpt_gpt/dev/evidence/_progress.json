@@ -6,7 +6,7 @@
   "created_at": "2026-04-20",
   "last_updated": "2026-04-20",
   "current_phase": 3,
-  "overall_status": "phase_3_node_1_doing_scripts_dev",
+  "overall_status": "phase_3_node_3a_docs_pass_ready_for_commit_c3a",
   "sync_locked_with": "gemini_gems",
   "sync_board_path": "ai_platforms/SYNC_BOARD.md",
   "notes": "Phase 定义对齐 ROADMAP.md 六段制. Phase 2 双边 CONDITIONAL_PASS, 等用户 ack 进 Phase 3.",
@@ -203,6 +203,43 @@
           "low_carry_over_to_node3": [
             "LOW-F1 (AB reviewer): ChatGPT 01 cap 47K buffer 仅 1.77%, 建议 Node 3 升到 48-50K 防未来 KB 膨胀",
             "LOW-F2 (AB reviewer): PLAN §2.4 Step 6 prompt '~15K/30K/30K/150K' 估算与脚本 cap 口径不一致, Node 3 统一回写 upload_manifest.md 去 '~' 实测"
+          ]
+        },
+        "N3a_docs": {
+          "status": "PASS",
+          "started_at": "2026-04-20",
+          "completed_at": "2026-04-20",
+          "user_ack_mode": "ack_deferred_to_node_3b_smoke_checkpoint",
+          "dispatched_subagents": [
+            "chatgpt_node3_writer (executor opus) — 3 产物: system_prompt.md 107 行 4782 chars (budget 7500, buffer 36.2%) / upload_manifest.md 73 行 / smoke_questions_draft.md 99 行",
+            "chatgpt_node3_reviewer (oh-my-claudecode:analyst opus, 规则 D 独立, 第 8 种 subagent_type) — Verdict PASS (Confidence 88%), 0 HIGH + 0 MEDIUM + 3 LOW carry-over"
+          ],
+          "writer_products": [
+            "ai_platforms/chatgpt_gpt/current/system_prompt.md (GPT Builder Instructions, ≤7500 chars budget, 4782 实测, 4 Conversation Starters 对齐 PLAN §4 Task C2)",
+            "ai_platforms/chatgpt_gpt/current/upload_manifest.md (4 文件实测数字, P3 去 ~, carry-over 登记)",
+            "ai_platforms/chatgpt_gpt/dev/evidence/smoke_questions_draft.md (5 题 S1-S5 映射 PLAN §7.3 T01/T02/T03 + T13 + T-Q8)"
+          ],
+          "reviewer_verdict": "PASS",
+          "reviewer_confidence": 88,
+          "reviewer_evidence": "ai_platforms/chatgpt_gpt/dev/evidence/phase3_node3_reviewer.md (主 session 代写, 因 analyst read-only)",
+          "reviewer_lane_pass": true,
+          "rule_e_verified": {
+            "Q1_C_public_audience": "PASS (system_prompt L14/L59/L96 陌生公开受众友好段 + 4 Starter 混合受众合格)",
+            "Q2_C_mixed_audience": "PASS (L14 Mirror user level + L89 工作流 Step 1 判受众 + L58 术语一句话解释)",
+            "Q5_A_equal_domain_weight": "PASS (L45 显式不偏倚 AE/LB/DM)"
+          },
+          "parity_audit_done": "ai_platforms/chatgpt_gpt/dev/evidence/step_node2_audit.md (Rule A N=5 PASS 5/5, 对称 Gemini LOW-L2)",
+          "carry_over_pre_dispatch_resolved": {
+            "LOW-F2_plan_s2_4_step_6_tilde": "Writer 已在 manifest 落实测数字去 ~ 兑现语义; grep PLAN.md ~15K 0 匹配, 无需改 PLAN 文字",
+            "LOW-L2_chatgpt_rule_a_n5_symmetry": "主 session 完成 step_node2_audit.md (5/5 PASS)"
+          },
+          "carry_over_node3a_resolved_in_session": [
+            "L1 (reviewer): PLAN §7.3 smoke 子集 T13 从 '可选' 升 '必测' + 新增 T-Q8 — 主 session commit C3a 附带修 (PLAN v1.3 修订段)"
+          ],
+          "low_carry_over_to_node3b_or_later": [
+            "L2: Node 3b 落档时 smoke_batch1_results.md (raw) → phase3_q8_indexing_reality.md (Q8 归因) 链路明示",
+            "L3: manifest 同分 01/02=3.4 + 03/04=3.2 tie-break 规则 (推荐 ID 字典序升序), Node 3b 上传后 manifest v2 加或 Node 5 回头",
+            "LOW-F1 cap 47K buffer 1.77%: Node 3b smoke S1 路由命中率作前哨, <80% 优先升 cap + 重合并 (Node 4); 100% 可延迟"
           ]
         }
       }

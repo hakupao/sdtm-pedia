@@ -20,7 +20,7 @@
 - Warn threshold (§8 R2): >900,000
 - Hard threshold (1M 窗口): >1,000,000
 
-- **V3 PASS**: total 884,918 ≤ target.
+- **V3 PASS**: total 884,918 **exceeds** target 800,000 (+10.6%) but remains below WARN threshold 900,000 (余 15,082) and 1M hard threshold; rc=0 correct per V3 3-tier band logic (PASS / WARN >900K / FAIL >1M). 描述笔误修正于 2026-04-20 Node 3 (Gemini LOW-1 AB reviewer carry-over).
 
 ## 备注 (逐文件)
 

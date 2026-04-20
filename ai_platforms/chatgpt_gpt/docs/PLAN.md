@@ -626,7 +626,10 @@ score(file) = (priority_weight × coverage_weight) + audience_bonus + novelty_bo
 - T01 (路由)
 - T02 (定义)
 - T03 (边界诚实, 关键 — 验证没 terminology 时不会臆造)
-- T13 (Q1=C 公开语气, 可选加到 smoke 提前试错)
+- T13 (Q1=C 公开语气, **必测** — Rule E Q1=C 公开受众预检, smoke 提前暴露语气偏差, Phase 3 Node 3a reviewer LOW-L1 升级 2026-04-20)
+- **T-Q8** (Indexing indicator 实测, Phase 1 PARTIAL carry-over 兑现, smoke_questions_draft.md S5)
+
+**v1.3 修订** (2026-04-20, Phase 3 Node 3a reviewer carry-over L1): T13 从"可选"升"必测", 同时明示 Q8 indexing 实测题纳入 smoke 5 题. 对应 `dev/evidence/smoke_questions_draft.md` S1-S5 映射为 T01/T02/T03/T13/T-Q8.
 
 ### 7.4 衰减阈值 (P10)
 
