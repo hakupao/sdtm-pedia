@@ -1,8 +1,8 @@
 # Gemini Gems — 平台适配层 (Platform Profile)
 
 > 范本: [`../../_template/00_platform_profile.md`](../../_template/00_platform_profile.md)
-> 状态: **Phase 0 初稿** (部分字段待 Phase 1 调研确认)
-> 最后更新: 2026-04-20
+> 状态: **Phase 1 关闭** (Q1-Q4 已答, E section 已根据 Q3 调研更新)
+> 最后更新: 2026-04-20 (Phase 1 post-update: 分享机制从"仅个人"→支持链接/公开/Workspace, 2025-09-18 Gems Sharing 发布)
 
 ---
 
@@ -64,13 +64,15 @@
 
 | 字段 | 值 |
 |------|---|
-| 支持个人私有 | Yes |
-| 支持团队共享 | **否** (当前 Gems 仅个人) |
-| 支持公开发布 | **否** |
-| 链接可否生成 | **否** |
-| 权限粒度 | owner only |
+| 支持个人私有 | Yes (默认) |
+| 支持团队共享 | **Yes** (2025-09 起, Workspace 场景, 管理员可启用/限制) |
+| 支持公开发布 | **Yes** (2025-09 起, 链接公开, 无需登录可使用) |
+| 链接可否生成 | **Yes** (2025-09 起, 要求 device 或 Google Drive 上传的知识文件) |
+| 权限粒度 | Viewer (可用 Gem) / Editor (可改 Instructions + 再分享) |
 
-**对 PLAN 的影响**: 本平台**不服务团队 / 公开分享场景**, Phase 0 优先级讨论重点在"个人深度使用".
+**对 PLAN 的影响**: 分享能力已可用 (Phase 1 Q3 调研确认, Google 2025-09-18 官方发布 [Sharing Gems](https://blog.google/products-and-platforms/products/gemini/sharing-gems/)), 但本次发布 **Phase 5 默认保持私有** (Rule E Q3=C/Q4=A 决策时假设个人深度使用). 若用户后续想分享, Phase 5 一键开关即可, 不影响 Phase 2-4 PLAN 主线. 本项目用 device 上传 .md 文件 → 满足分享条件; 若切换到 Google Drive 路径也 OK.
+
+> **更新记录**: 2026-04-20 Phase 1 Q3 调研关闭本 section carry-over. 原 Phase 0 记录 "仅个人 / 链接 No / 公开 No" 在 2025-09 Gemini 分享功能发布后已过时.
 
 ---
 
@@ -82,7 +84,7 @@
 | 2 | 上下文稀释: 太多无关内容在窗口内, 具体问题命中率下降 | Instructions 强调"精确匹配源文件, 不做全扫" |
 | 3 | Gemini hallucinate 倾向 (相对 Claude) | A/B 必含零臆造测试题, 边界题至少 2 道 |
 | 4 | 1M 窗口接近上限响应变慢 / truncate | Phase 3 上传后测极长查询响应时间 |
-| 5 | Gems 分享限制导致团队场景不可用 | Phase 0 就要明确"本平台不服务团队", 不硬推 |
+| 5 | 分享时受文件类型约束: 非 device/Drive 上传的知识会使分享按钮置灰 | 用 device 上传 .md 文件 (本项目默认) 即满足条件; 若未来需切换路径, 保持上传源一致 |
 
 ---
 
@@ -118,8 +120,8 @@
 | RAG | 自动分片 | 内置 File Search | **无, 全量注入** |
 | 容量 | ~3-4M 等值 | 20 文件/512MB | **1M tokens 窗口** |
 | 分批数 | 5+1 | 2 | **1** |
-| 分享 | 私有/团队 | 私有/团队/**公开 (Store)** | **仅个人** |
-| 链接生成 | No | Yes | **No** |
+| 分享 | 私有/团队 | 私有/团队/**公开 (Store)** | **私有/链接/公开/Workspace** (2025-09 起) |
+| 链接生成 | No | Yes | **Yes** (2025-09 起, device/Drive 文件) |
 | A/B 侧重 | RAG 衰减 | chunk 检索 | **全域对比 + 末尾召回** |
 | Tier | 3 | 2 | **1-2** (本系列最轻) |
 
@@ -129,12 +131,12 @@
 
 本平台 Tier 轻, 调研可压缩为 3 问 (相对范本八问八答):
 
-- [ ] **Q1**: 1M 窗口是否真的全量可用? 有无隐藏 chunk 退化? 末尾召回实测衰减程度?
-- [ ] **Q2**: 单文件/总文件数的精确硬限? 套餐间差异?
-- [ ] **Q3**: Gems 分享机制官方态度? 未来会开放团队/公开吗? (决定本次是否预留 share 逻辑)
+- [x] **Q1**: 1M 窗口是否真的全量可用? 有无隐藏 chunk 退化? 末尾召回实测衰减程度? — **已答** (`docs/research.md §Q1`). F-1 数字 partial_close → Phase 3 实测校准 (末尾 codelist 精确 term 2 道).
+- [x] **Q2**: 单文件/总文件数的精确硬限? 套餐间差异? — **已答** (`§Q2`). Google AI Pro: 10 files / 100MB each; Workspace 更高限额.
+- [x] **Q3**: Gems 分享机制官方态度? 未来会开放团队/公开吗? — **已答** (`§Q3`). **2025-09-18 起已支持链接/公开/Workspace 分享**, E section 已同步更新.
 
 可选补问 (Tier 2 拔高):
-- [ ] Q4: Gemini API (非 Gems) 能否复用本 Gem 的 Knowledge? (为下游 Phase 7 留接口)
+- [x] Q4: Gemini API (非 Gems) 能否复用本 Gem 的 Knowledge? — **已答** (`§Q4`). 无法直接复用 (Gems 知识存储与 API Files 分离), 但架构可迁移.
 
 ---
 

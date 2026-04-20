@@ -1,0 +1,144 @@
+{
+  "schema_version": "1.0",
+  "platform": "chatgpt_gpt",
+  "display_name": "ChatGPT GPTs",
+  "tier": 2,
+  "created_at": "2026-04-20",
+  "last_updated": "2026-04-20",
+  "current_phase": 2,
+  "overall_status": "phase_2_pass_awaiting_user_ack_for_phase_3",
+  "sync_locked_with": "gemini_gems",
+  "sync_board_path": "ai_platforms/SYNC_BOARD.md",
+  "notes": "Phase 定义对齐 ROADMAP.md 六段制. Phase 2 双边 CONDITIONAL_PASS, 等用户 ack 进 Phase 3.",
+  "rule_e_user_priorities_ack": {
+    "ack_date": "2026-04-20",
+    "ack_method": "session_inline_Q1-Q5",
+    "Q1_publish_scope": "C_gpt_store_public",
+    "Q1_publish_scope_semantics_clarification_2026-04-20": "全网公开 (GPT Store 广播式, 任何人可搜索/使用); 区分于 Gemini 的'链接分享给同事'(定向/内部传播). 本平台 A/B 矩阵必含陌生公开受众语气题.",
+    "Q2_audience": "C_mixed_novice_expert",
+    "Q5_domain_coverage": "A_full_equal_weight",
+    "implications_for_plan": [
+      "发布决策预设: Phase 5 Private→GPT Store 公开发布流程 (Phase 1 Q6 典型 2-5 工作日 + Builder Profile + Privacy Policy)",
+      "A/B 矩阵: 4 Conversation Starter + 2-3 陌生公开受众语气题 + 边界诚实",
+      "零臆造门槛严 (公开场景被搜索暴露风险)",
+      "63 域均衡覆盖, 不得高频域独占 chunk",
+      "路由高频提权 + 源数据平权 (Q5=A)"
+    ]
+  },
+  "phases": {
+    "0_startup": {
+      "status": "PASS",
+      "evidence_paths": [
+        "ai_platforms/chatgpt_gpt/docs/platform_profile.md",
+        "ai_platforms/chatgpt_gpt/dev/evidence/phase0_reviewer.md"
+      ],
+      "reviewer_lane_pass": true,
+      "reviewer_verdict": "CONDITIONAL_PASS",
+      "user_ack": true,
+      "user_ack_date": "2026-04-20",
+      "completed_at": "2026-04-20"
+    },
+    "1_research": {
+      "status": "PASS",
+      "evidence_paths": [
+        "ai_platforms/chatgpt_gpt/docs/research.md",
+        "ai_platforms/chatgpt_gpt/dev/evidence/phase1_reviewer.md"
+      ],
+      "reviewer_lane_pass": true,
+      "reviewer_verdict": "CONDITIONAL_PASS",
+      "user_ack": true,
+      "user_ack_date": "2026-04-20",
+      "completed_at": "2026-04-20"
+    },
+    "2_plan": {
+      "status": "PASS",
+      "gate_criteria": [
+        "docs/PLAN.md 含 P1-P13 规则",
+        "Rule E 用户业务优先级已乘入打分公式",
+        "每 Task 明示 checkpoint 级别 (hard/soft/none)",
+        "批次粒度 + A/B 矩阵大小确定",
+        "Phase 1 MEDIUM carry-over (Instructions 8K) 处置",
+        "Reviewer lane PASS"
+      ],
+      "evidence_paths": [
+        "ai_platforms/chatgpt_gpt/docs/PLAN.md",
+        "ai_platforms/chatgpt_gpt/dev/evidence/phase2_reviewer.md"
+      ],
+      "writer_subagent": "oh-my-claudecode:executor (opus)",
+      "writer_summary": "660 行, P1-P13 全覆盖, 33 Task (A=3/B=7/C=7/D=3/E=2/F=5/G=6), 8 hard checkpoints, Rule E 四因子公式, Instructions 8K 保守 7500 chars 预算 + 来源待补 + Phase 3 Task E2 实测",
+      "reviewer_lane_pass": true,
+      "reviewer_subagent": "oh-my-claudecode:verifier",
+      "reviewer_verdict": "CONDITIONAL_PASS",
+      "reviewer_carry_over_to_phase3": [
+        "MEDIUM: §3.2 score 列数字 (e.g. 2.4) 与 §3.1 四因子乘法公式 (0.12) 数学不一致, 差 20x. Phase 3 Node 1 Task B1 (score 脚本编写) 前必修: 或统一乘法, 或显式说明 additive 段; 否则脚本 vs PLAN 意图分歧. 唯一剩 carry-over (2 LOW 已主 session 修复)"
+      ],
+      "reviewer_low_gaps_resolved_main_session_2026-04-20": [
+        "LOW: Task D3 路径 'stage_D_attempt_*.md' → 'stage_4_attempt_<M>.md' ✅ 已修 (PLAN.md L399)",
+        "LOW: §4 标题 'Phase A-H' → 'Phase A-G' ✅ 已修 (PLAN.md L218)"
+      ],
+      "user_ack": false,
+      "user_ack_date": null,
+      "started_at": "2026-04-20",
+      "completed_at": "2026-04-20"
+    },
+    "3_execute": {
+      "status": "todo",
+      "gate_criteria": [
+        "所有批次 evidence 入 L1 _progress.json (batch_*)",
+        "每批一份 dev/ab_reports/STAGE_<N>_AB_REPORT.md",
+        "失败归档规则 B 执行 (若有失败)",
+        "Hard checkpoint 用户均已 ack",
+        "Phase 1 carry-over Q8 Indexing indicator 实测",
+        "Phase 2 MEDIUM carry-over §3.2 score 公式修正 (Task B1 前)",
+        "Phase 2 LOW carry-over Task D3 路径命名 + §4 标题"
+      ],
+      "evidence_paths": [],
+      "reviewer_lane_pass": false,
+      "user_ack": false,
+      "started_at": null,
+      "completed_at": null,
+      "batches": [],
+      "carry_over_from_phase1": [
+        "Q8 Indexing indicator 实测"
+      ],
+      "carry_over_from_phase2": [
+        "MEDIUM: §3.2 score 表格数字与 §3.1 乘法公式数学不一致 — Node 1 Task B1 前必修 (唯一剩 carry-over, 2 LOW 已主 session 修复)"
+      ]
+    },
+    "4_review": {
+      "status": "locked",
+      "evidence_paths": [],
+      "reviewer_lane_pass": false,
+      "user_ack": false,
+      "started_at": null,
+      "completed_at": null
+    },
+    "5_closure": {
+      "status": "locked",
+      "evidence_paths": [],
+      "reviewer_lane_pass": false,
+      "user_ack": false,
+      "started_at": null,
+      "completed_at": null
+    }
+  },
+  "platform_specific_constraints": {
+    "P11_file_count_hard_limit": 20,
+    "P12_source_attribution_required": true,
+    "P13_table_aware_chunking": true,
+    "expected_batches": "1-2",
+    "max_single_file_mb": 512,
+    "publish_decision": "gpt_store_public",
+    "audience_scope": "mixed_novice_expert",
+    "domain_coverage_strategy": "full_equal_weight",
+    "rag_config_discovered_phase1": {
+      "chunk_size_tokens": 800,
+      "chunk_overlap_tokens": 400,
+      "embedding_model": "text-embedding-3-large (256d) + small mix",
+      "retrieval_top_k": 20,
+      "storage_limit_per_user_gb": 10,
+      "storage_limit_per_org_gb": 100,
+      "conversation_starters_max": 4
+    }
+  }
+}
