@@ -1,0 +1,4 @@
+[validate] report: /Users/bojiangzhang/MyProject/SDTM-compare/ai_platforms/gemini_gems/dev/evidence/validate_single_batch.md
+[validate] stages: ['core', 'spec', 'knowledge', 'terminology']
+[validate] total tokens: 697,386 (target ≤800,000)
+[validate] rc=1 HARD FAIL
