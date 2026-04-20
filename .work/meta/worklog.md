@@ -908,3 +908,31 @@
   - `bf8fcf0` reorg-B-fix: 补修 PROGRESS + superpowers docs 路径
   - `5280c56` 去版本化 + UPLOAD_TUTORIAL 新写
 - **最终状态**: claude_projects/ 目录对外只暴露"发布版" (current/), 对内保留完整开发版本化叙事 (docs/dev/archive), UPLOAD_TUTORIAL 让用户 30-90 分钟可独立搭建 Claude Project
+
+### 2026-04-20 晚 Phase 6.5 范本抽象 + ChatGPT/Gemini 骨架升级
+
+- **状态**: 已完成
+- **触发**: 用户要求把"已经相对成熟的 claude_projects/"总结成规范, 作为剩下两个平台 (ChatGPT/Gemini) 的范本
+- **维度对齐**: 用户列 9 维度 (文件结构/工作流/记录调研/计划/解决方案/落地方案/审查结果/agent调度/收束), 经对齐增减为 10 维度 (合并"解决方案+落地方案"为 1 份, 新增"平台适配层"+"Evidence 分层"+"规则 E 用户优先级早问")
+- **执行流程 (本次)**:
+  - **范本 `_template/` 新建 (12 文件)**: README (入口 + 10 维度总览 + Tier 伸缩) + APPLY_CHECKLIST (新平台启动清单 + 填空点位 + 规则 A-E 速查) + 00 platform_profile (A-H 8 组字段 + 内容策略决策推导 + Claude 示例) + 01 directory_structure (current/docs/dev/archive 四层骨架 + reorg 时机 + README 必答三问) + 02 workflow (6 阶段 + Tier 伸缩 + 卡点处理) + 03 research (八问八答 + calibration 实验 + 对 PLAN 修订段) + 04 plan (§0-§8 骨架 + P1-P10 规则 + 规则 E) + 05 solution (4 种切分策略 + Deferred stub + System Prompt 累积段) + 06 review (三 lane 模型 + A/B 矩阵规格 + 衰减响应 + RETROSPECTIVE 独立审阅) + 07 agent_dispatch (Writer/Reviewer/Researcher prompt 模板 + checkpoint 分层 + 预授权 + trace.jsonl 事件) + 08 evidence (L1 _progress.json + L2 trace.jsonl + L3 分散证据, 单一 source of truth 优先级) + 09 closure (RETROSPECTIVE 三段式 + handoff + UPLOAD_TUTORIAL 10 章节 + reorg 步骤 + 终态 checklist), 共 2476 行
+  - **ChatGPT GPTs 骨架升级 (7 文件)**: README.md (四层导航 + 范本引用 + Phase 5 待回填关键事实) + ROADMAP.md 重写 (范本头部格式 + Tier 2 + 保留原策略表作为 Phase 2 初稿 + 新增 P11-P13 合并约束 + 按 Phase 0-5 执行步骤 + A/B 侧重跨 chunk 检索 + Conversation Starter + 公开分享语气) + docs/README.md (目录索引) + docs/platform_profile.md (A-K 10 组 Phase 0 初稿, B 检索机制 / E 分享 / G A/B 矩阵 / H 决策推导齐备, J 标注 8 项 Phase 1 必补) + current/README.md + dev/README.md + archive/README.md (三份占位, 状态"待 Phase N 执行")
+  - **Gemini Gems 骨架升级 (7 文件)**: README.md (同构) + ROADMAP.md 重写 (Tier 1-2 + 1 批全上 + 核心 513K tokens 表 + 本平台独有 A/B 侧重: 全域对比 / 跨域模式识别 / 长上下文末尾召回 + P11-P12 单批+末尾召回约束 + 10 题矩阵初稿) + docs/README.md + docs/platform_profile.md (A-K 填空, F 失败模式含末尾召回 + H 决策全是"否" (不分批/无 stub/无 calibration) + J 3 问简化调研 + K 工作量对比表相对其他平台最轻) + current/README.md + dev/README.md + archive/README.md (占位)
+  - **清理**: rmdir 两平台空的 `output/` legacy 目录 (消除新老结构歧义, git 不跟踪空目录无 commit 影响)
+  - **上游索引 `ai_platforms/README.md`**: 三平台总览表新增 Tier 列, 目录结构图重写加入 `_template/` + 两平台四层骨架, 平台入口段改为 "Claude 发布版 / ChatGPT 入口 / Gemini 入口 / 通用范本" 4 项
+- **关键决策**:
+  - 9 维度 → 10 维度 (合并解决方案+落地方案, 新增平台适配 + Evidence 分层 + 规则 E)
+  - 范本放 `_template/` 而非 `spec/` (明示"非具体平台产物, 是上游规范")
+  - 范本**不**在各平台重复 cp (避免未来同步维护负担), 平台只存自己的填空文件, docs/README 指向 _template/ 作方法论
+  - 规则 E (用户业务优先级 PLAN §打分阶段即确认) 作为本范本新增规则, **不**立即提全局 CLAUDE.md, 等累积至少 2 个项目证据再考虑
+  - 按 Tier 伸缩: ChatGPT Tier 2 (10-15 题 A/B, 2 批) / Gemini Tier 1-2 (10 题 A/B, 1 批), 相比 Claude Tier 3 (24 题, 5+1 批) 显著轻量
+- **新产物路径**:
+  - `ai_platforms/_template/` 12 文件范本
+  - `ai_platforms/chatgpt_gpt/{README,ROADMAP}.md` 重写 + `docs/{README,platform_profile}.md` 新建 + `{current,dev,archive}/README.md` 占位
+  - `ai_platforms/gemini_gems/{README,ROADMAP}.md` 重写 + `docs/{README,platform_profile}.md` 新建 + `{current,dev,archive}/README.md` 占位
+  - 本次 session 共 26 个新增文件 + `ai_platforms/README.md` 修订
+- **影响面**:
+  - ai_platforms/ 三平台叙事从 "Claude 跑完 / 两平台只有 skeleton ROADMAP" → "Claude 发布版完成 / _template 范本 / ChatGPT/Gemini 骨架就绪待 Phase 0 启动"
+  - 未来新平台接入: cp-free (directly reference `_template/`), Phase 0-5 六阶段有清晰模板可填
+  - Claude v2 留下的 4 条全局规则 (A/B/C/D) + 1 条候选规则 (E) 通过范本结构化传递, 不再靠每个项目复盘独立重新发现
+- **下一步**: H5 commit + push + session wrap-up (本条); 实际 Phase 0 启动由用户触发, 本次不执行

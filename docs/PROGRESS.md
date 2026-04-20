@@ -1,6 +1,6 @@
 # 进度看板
 
-> 最后更新: 2026-04-20 晚 (Phase 6.5 Claude v2 终态完成 + reorg: claude_projects/ 重组为 current/docs/dev/archive 四层)
+> 最后更新: 2026-04-20 晚 (Phase 6.5 Claude 终态 + reorg + **ai_platforms/_template/ 范本 + ChatGPT/Gemini 骨架升级**: 抽象 10 维度通用范本, 两平台按范本重建四层目录, 填好 Phase 0 platform_profile 初稿)
 
 ## 总体状态
 
@@ -96,8 +96,9 @@
 |------|---------|---------|---------|------|
 | Claude Projects | 精确查询 + 规则推理 | 方案 B 二次创作压缩 → 实测 192,036 tokens (12% capacity, RAG 自动接管) | [ROADMAP.md](../ai_platforms/claude_projects/ROADMAP.md) / [README.md](../ai_platforms/claude_projects/README.md) (reorg 后入口) / [archive PLAN.md](../ai_platforms/claude_projects/archive/v1/docs/PLAN.md) / [archive UPLOAD_TUTORIAL.md](../ai_platforms/claude_projects/archive/v1/docs/UPLOAD_TUTORIAL.md) / [docs/capacity_research.md](../ai_platforms/claude_projects/docs/capacity_research.md) | **v1 完成 (Step 1-14, 9/9 PASS)** (2026-04-18) |
 | Claude Projects v2 扩容 | 中庸策略推到 ~50% 容量, 实际 v2.6 终态 77% (用户优先级重平衡后) | 6 批渐进 + 1 tail 重平衡 (chapters 全展开 → examples 高频 → examples 全 → terminology 高 → terminology mid → terminology tail core+supp) | [v2 design](superpowers/specs/2026-04-18-phase6.5-claude-v2-expansion-design.md) / [docs/PLAN_V2.md](../ai_platforms/claude_projects/docs/PLAN_V2.md) / [docs/RETROSPECTIVE_V2.md](../ai_platforms/claude_projects/docs/RETROSPECTIVE_V2.md) / [docs/rag_decay_curve.md](../ai_platforms/claude_projects/docs/rag_decay_curve.md) / [docs/phase7_handoff.md](../ai_platforms/claude_projects/docs/phase7_handoff.md) / [dev/test_results.md](../ai_platforms/claude_projects/dev/test_results.md) | **终态 v2.6 完成 (19 文件 / 1,286,161 tokens / capacity 77% / 24/24 A/B PASS / 0 衰减)** (2026-04-20, reorg 完成) |
-| ChatGPT GPTs | 全量覆盖 + 团队分享 | 合并文件 ~9.6MB 全量 | [ROADMAP.md](../ai_platforms/chatgpt_gpt/ROADMAP.md) | 待开始 |
-| Gemini Gems | 大范围探索 + 全域对比 | 核心全量 ~512K tokens | [ROADMAP.md](../ai_platforms/gemini_gems/ROADMAP.md) | 待开始 |
+| ChatGPT GPTs | 全量覆盖 + 团队分享 + GPT Store 发布 | 8-10 合并文件 (~9.6MB), 2 批到位, Tier 2 | [README.md](../ai_platforms/chatgpt_gpt/README.md) / [ROADMAP.md](../ai_platforms/chatgpt_gpt/ROADMAP.md) / [docs/platform_profile.md](../ai_platforms/chatgpt_gpt/docs/platform_profile.md) | **待开始 (范本就绪 2026-04-20)** |
+| Gemini Gems | 大范围探索 + 全域对比 | 3-5 合并文件 (~513K tokens), 1 批全上, Tier 1-2 | [README.md](../ai_platforms/gemini_gems/README.md) / [ROADMAP.md](../ai_platforms/gemini_gems/ROADMAP.md) / [docs/platform_profile.md](../ai_platforms/gemini_gems/docs/platform_profile.md) | **待开始 (范本就绪 2026-04-20)** |
+| **通用部署范本** | 10 维度规范 (抽象自 Claude v2) | `_template/` 12 文件 (README + APPLY_CHECKLIST + 00-09) | [_template/README.md](../ai_platforms/_template/README.md) | **就绪 (2026-04-20)** |
 
 ### Phase 6.5 Claude v2 批次进度 (渐进式 RAG 扩容, 终态)
 
