@@ -1,5 +1,20 @@
 # Phase 6.5 Claude Project — v2 扩容实施计划 (PLAN_V2)
 
+> ⚠️ **Post-reorg note (2026-04-20 晚)**: 本计划在 reorg 前写就, 内部所有 `output_v2/...`, `scripts_v2/...`, `evidence_v2/...`, `RETROSPECTIVE_V2.md`, `capacity_research.md` 等路径引用为**历史执行语境**, 未随 reorg 更新. 当前实际路径映射:
+>   - `output_v2/*.md` (上传文件) → `current/uploads/*.md`
+>   - `output_v2/system_prompt_v2.md` → `current/system_prompt.md`
+>   - `output_v2/upload_manifest_v2.md` → `current/upload_manifest.md`
+>   - `output_v2/evidence_v2/*` → `dev/evidence/*`
+>   - `output_v2/STAGE_V2.*_AB_REPORT.md` → `dev/ab_reports/`
+>   - `output_v2/CHECKPOINT_V2.*_HANDOFF.md` → `dev/checkpoints/`
+>   - `output_v2/rag_decay_curve.md` → `docs/rag_decay_curve.md`
+>   - `output_v2/phase7_handoff.md` → `docs/phase7_handoff.md`
+>   - `output_v2/test_results_v2.md` → `dev/test_results.md`
+>   - `scripts_v2/*.py` → `dev/scripts/*.py`
+>   - `RETROSPECTIVE_V2.md` → `docs/RETROSPECTIVE_V2.md`
+>   - `capacity_research.md` → `docs/capacity_research.md`
+> 详见 [README.md](../README.md) 和 [dev/README.md](../dev/README.md).
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** 把 Claude Project 从 v1 (192K, 12% capacity) 扩容到 v2.5 (~1.3-1.5M, ~50% capacity), 通过 5 批渐进 + A/B 测试建立 RAG 质量 vs 规模曲线, 不衰减 v1 已 PASS 的 T1-T8。
