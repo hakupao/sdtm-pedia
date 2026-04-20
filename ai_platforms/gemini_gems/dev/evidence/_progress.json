@@ -6,7 +6,7 @@
   "created_at": "2026-04-20",
   "last_updated": "2026-04-20",
   "current_phase": 3,
-  "overall_status": "phase_3_node_1_doing_scripts_dev",
+  "overall_status": "phase_3_node_3a_docs_conditional_pass_ready_for_commit_c3a",
   "sync_locked_with": "chatgpt_gpt",
   "sync_board_path": "ai_platforms/SYNC_BOARD.md",
   "notes": "Phase 定义对齐 ROADMAP.md 六段制. Phase 2 双边 CONDITIONAL_PASS, 等用户 ack 进 Phase 3. Gemini Tier 1-2 最轻量平台.",
@@ -215,6 +215,48 @@
             "LOW-WARN (AB): 03 +22.36% carry-over (用户 Q3=接受), 04 +49.65% 新 WARN (3 选项: 接受/裁/拆)",
             "LOW-AUDIT-A1 (audit): general_part1 / is_domain_part2 未入 selected, 泛域召回风险, Node 3 A/B 后决策是否扩 budget 到 160K",
             "LOW-1 (AB reviewer): validate_single_batch.md V3 判定行 '884,918 ≤ target' 描述笔误 (884K > 800K target, PASS 因 < 900K WARN 阈, rc=0 正确)"
+          ]
+        },
+        "N3a_docs": {
+          "status": "CONDITIONAL_PASS",
+          "started_at": "2026-04-20",
+          "completed_at": "2026-04-20",
+          "user_ack_mode": "ack_deferred_to_node_3b_smoke_checkpoint",
+          "dispatched_subagents": [
+            "gemini_node3_writer (executor opus) — 3 产物: system_prompt.md 130 行 5884 chars (budget 8000, 73.55% 占用) / upload_manifest.md 98 行 / smoke_questions_draft.md 160 行",
+            "gemini_node3_reviewer (pr-review-toolkit:comment-analyzer opus, 规则 D 独立, 第 9 种 subagent_type) — Verdict CONDITIONAL_PASS (Confidence 92%), 0 HIGH + 2 MEDIUM + 5 LOW"
+          ],
+          "writer_products": [
+            "ai_platforms/gemini_gems/current/system_prompt.md (Gem Instructions, ≤8000 chars budget, 5884 实测, Rule E Q3/Q4/Q5 乘入, 分享语义严守不含 Store 广播)",
+            "ai_platforms/gemini_gems/current/upload_manifest.md (4 文件实测 + WARN 03/04 + V6 tail markers 独立段 M2 R2 已修)",
+            "ai_platforms/gemini_gems/dev/evidence/smoke_questions_draft.md (5 题 S1-S5 映射 PLAN §7 T1/T2 改编/T-tail-1/T-tail-2/T9 + 坐标系口径说明 M1 R1 已修)"
+          ],
+          "reviewer_verdict": "CONDITIONAL_PASS",
+          "reviewer_confidence": 92,
+          "reviewer_evidence": "ai_platforms/gemini_gems/dev/evidence/phase3_node3_reviewer.md (comment-analyzer 自写 266 行)",
+          "reviewer_lane_pass": true,
+          "rule_e_verified": {
+            "Q3_C_precision_and_cross_domain": "PASS (Instructions §路由规则 §1 精确 + §2 全域对比同等篇幅; smoke S1 + 留 T5-T8 到 Node 5)",
+            "Q4_A_terminology_tail_injected": "PASS (§知识库组成 04 66-100% + position_fit 0.9 recency; §边界处理三档)",
+            "Q5_A_equal_domain_weight": "PASS (manifest sources=63/126 全量无减配; §2 全域对比 4 小段不偏倚)"
+          },
+          "share_semantics_strict": "PASS (Grep 0 匹配 任何人/病人/广播/Store; manifest 发布决策引用 publish_scope_semantics_clarification_2026-04-20)",
+          "p12_tail_recall_gate_design": "PASS (S3 line 6050 / offset 95.4% line-based / 87.7% char-based ≥ tail_start 70%; S4 line 2564 / 40.4% line-based / 34.0% char-based 落 40-60% middle 区; gate 独立性 smoke draft L134 明示)",
+          "carry_over_main_session_resolved_in_session": [
+            "LOW-1 笔误修 (validate_single_batch.md V3 PASS 行 884,918 exceeds target but below WARN 900K 3-tier band 逻辑)",
+            "LOW-L2 (ChatGPT 侧对称 N=5 audit) — 主 session 写 chatgpt_gpt/dev/evidence/step_node2_audit.md (5/5 PASS)",
+            "MEDIUM-M2 R2 (manifest V6 tail_start 独立段落声明)",
+            "MEDIUM-M1 R1 (smoke draft offset 坐标系 line vs char vs token 三口径换算说明)"
+          ],
+          "low_carry_over_to_node3b_or_later": [
+            "L1 (comment-analyzer): Instructions §知识库组成用 token-pct, 第 3 种坐标系, Node 5 A/B 前统一换算说明",
+            "L2 (comment-analyzer): smoke S3 line 区间 6050-6068 vs 6056-6060 overlap 不明确",
+            "L3 (comment-analyzer): Instructions 边界模板用 C66742, smoke S5 用 AERELN, 样例不一, Node 5 A/B 统一",
+            "L4 (comment-analyzer): manifest 上传步骤 5 加 Gemini UI HTML 注释处理提示 (char_count marker 是 HTML 注释可能被剥离)",
+            "L5 (comment-analyzer): Node 3b PASS 回报模板明示 smoke 5 ≠ PLAN §7 10, T5-T8 多针留 Node 5",
+            "MEDIUM-M1 critic: merge_for_gemini.py budget 90K→100K (Node 4 前, 脚本改 + 重跑 validate)",
+            "LOW-L1 critic: merge_for_gemini.py L352-355 注释 marker 顺序 stale (Node 4 前)",
+            "LOW-WARN 03/04 偏离 + LOW-AUDIT-A1 泛域召回: Node 5 A/B 监测"
           ]
         }
       }
