@@ -36,10 +36,14 @@ CLI
 ---
 
 ``--tier high --list <path-to-F1_codelist_high.txt>``
-    Read the C-code list, produce all 3 subdir split files.
+    Read the C-code list, produce ``11a/11b/11c_terminology_high_*.md``.
+    Definition cells capped at 200 chars; 4-column table with Synonyms.
 
-``--tier mid --list <path>``
-    Stub. Prints ``NOT_IMPLEMENTED`` and exits 2; G-phase work is deferred.
+``--tier mid --list <path-to-G1_codelist_mid.txt>``
+    Read the C-code list, produce ``12a/12b/12c_terminology_mid_*.md``.
+    Definition cells capped at 100 chars with word-boundary truncation;
+    3-column table (Code / Submission Value / Definition). Synonyms and
+    NCI Concept Description links are dropped to fit capacity budget.
 
 Token guard rails (cl100k_base via tiktoken), applied per-file:
 
@@ -75,18 +79,34 @@ FAILURES_DIR = EVIDENCE_DIR / "failures"
 
 TERM_SUBDIRS = ("core", "questionnaires", "supplementary")
 
-# Map subdir name -> (file_suffix, title_label)
-SUBDIR_META: dict[str, tuple[str, str, str]] = {
-    "core":           ("11a_terminology_high_core.md",
-                       "11a",
-                       "High-Frequency Codelists \u2014 core subdir (Stage v2.4)"),
-    "questionnaires": ("11b_terminology_high_questionnaires.md",
-                       "11b",
-                       "High-Frequency Codelists \u2014 questionnaires subdir (Stage v2.4)"),
-    "supplementary":  ("11c_terminology_high_supp.md",
-                       "11c",
-                       "High-Frequency Codelists \u2014 supplementary subdir (Stage v2.4)"),
+# Map (tier, subdir) -> (file_suffix, file_num, title_label)
+SUBDIR_META_BY_TIER: dict[str, dict[str, tuple[str, str, str]]] = {
+    "high": {
+        "core":           ("11a_terminology_high_core.md",
+                           "11a",
+                           "High-Frequency Codelists \u2014 core subdir (Stage v2.4)"),
+        "questionnaires": ("11b_terminology_high_questionnaires.md",
+                           "11b",
+                           "High-Frequency Codelists \u2014 questionnaires subdir (Stage v2.4)"),
+        "supplementary":  ("11c_terminology_high_supp.md",
+                           "11c",
+                           "High-Frequency Codelists \u2014 supplementary subdir (Stage v2.4)"),
+    },
+    "mid": {
+        "core":           ("12a_terminology_mid_core.md",
+                           "12a",
+                           "Mid-Frequency Codelists \u2014 core subdir (Stage v2.5)"),
+        "questionnaires": ("12b_terminology_mid_questionnaires.md",
+                           "12b",
+                           "Mid-Frequency Codelists \u2014 questionnaires subdir (Stage v2.5)"),
+        "supplementary":  ("12c_terminology_mid_supp.md",
+                           "12c",
+                           "Mid-Frequency Codelists \u2014 supplementary subdir (Stage v2.5)"),
+    },
 }
+
+# Backward-compatible alias (high-tier map); preserved for any external readers.
+SUBDIR_META: dict[str, tuple[str, str, str]] = SUBDIR_META_BY_TIER["high"]
 
 ENCODING_NAME = "cl100k_base"
 
@@ -94,7 +114,10 @@ ENCODING_NAME = "cl100k_base"
 SOFT_TARGET = 200_000
 HARD_CAP = 350_000
 
-DEFINITION_CHAR_LIMIT = 200
+DEFINITION_CHAR_LIMIT_HIGH = 200
+DEFINITION_CHAR_LIMIT_MID = 100
+# Back-compat alias; high tier default.
+DEFINITION_CHAR_LIMIT = DEFINITION_CHAR_LIMIT_HIGH
 TRUNCATE_MARKER = "..."
 
 # Regex: codelist heading ``## <Name> (<C-code>)``.
@@ -263,17 +286,40 @@ def build_domain_index() -> dict[str, list[str]]:
 # --- Codelist aggregation + rendering --------------------------------------
 
 
-def _truncate_definition(text: str) -> str:
-    """Truncate a definition cell to DEFINITION_CHAR_LIMIT chars with ``...``.
+def _truncate_definition(text: str, tier: str = "high") -> str:
+    """Truncate a definition cell with ``...`` based on tier budget.
 
-    Keeps all provenance tags (e.g. ``(NCI)``) inside the budget.
+    - ``tier="high"``: hard cap at 200 chars, simple suffix trim. Keeps all
+      provenance tags (e.g. ``(NCI)``) inside the budget.
+    - ``tier="mid"``: cap at 100 chars with word-boundary truncation. If the
+      budgeted slice cuts a word, we back off to the nearest preceding space so
+      the displayed prefix never ends mid-word.
     """
-    if len(text) <= DEFINITION_CHAR_LIMIT:
+    if tier == "mid":
+        limit = DEFINITION_CHAR_LIMIT_MID
+    else:
+        limit = DEFINITION_CHAR_LIMIT_HIGH
+
+    if len(text) <= limit:
         return text
-    keep = DEFINITION_CHAR_LIMIT - len(TRUNCATE_MARKER)
+
+    keep = limit - len(TRUNCATE_MARKER)
     if keep <= 0:
         return TRUNCATE_MARKER
-    return text[:keep].rstrip() + TRUNCATE_MARKER
+
+    # Default character-slice budget.
+    prefix = text[:keep]
+
+    if tier == "mid":
+        # Back off to the last whitespace so the last word is not cut mid-token.
+        space_idx = prefix.rfind(" ")
+        # Only back off if we found a space AND it leaves a non-trivial prefix.
+        # Guard: if the first `keep` chars contain no space at all, we fall
+        # back to the raw slice rather than emptying the cell.
+        if space_idx > 0:
+            prefix = prefix[:space_idx]
+
+    return prefix.rstrip() + TRUNCATE_MARKER
 
 
 def _escape_cell(text: str) -> str:
@@ -327,10 +373,11 @@ def render_codelist(
     rows: list[list[str]],
     source_rel: str,
     related_domains: list[str],
+    tier: str = "high",
 ) -> tuple[str, int]:
     """Render one codelist to markdown. Return (text, truncation_count).
 
-    Format (refinement B):
+    Format (refinement B, tier=high — 4 columns):
       <!-- source: ... -->
       ## Name (Cxxxxx)
 
@@ -341,8 +388,15 @@ def render_codelist(
       |------|----------------------|-------------------|------------------|
       | ... |
 
+    Format (tier=mid — 3 columns, Synonyms dropped, Definition ≤ 100 chars,
+    word-boundary truncation):
+
+      | Code | CDISC Submission Value | CDISC Definition |
+      |------|----------------------|------------------|
+      | ... |
+
     ``truncation_count`` is the number of term rows whose Definition cell was
-    truncated at the 200-char boundary; used for the completion report.
+    truncated; used for the completion report.
     """
     out: list[str] = []
     out.append(f"<!-- source: {source_rel} -->")
@@ -356,29 +410,37 @@ def render_codelist(
     out.append(f"Related Domains: {related_str}")
     out.append("")
 
-    out.append(
-        "| Code | CDISC Submission Value | CDISC Synonym(s) | CDISC Definition |"
-    )
-    out.append("|------|----------------------|-------------------|------------------|")
+    if tier == "mid":
+        out.append("| Code | CDISC Submission Value | CDISC Definition |")
+        out.append("|------|----------------------|------------------|")
+    else:
+        out.append(
+            "| Code | CDISC Submission Value | CDISC Synonym(s) | CDISC Definition |"
+        )
+        out.append(
+            "|------|----------------------|-------------------|------------------|"
+        )
 
     truncated = 0
     for row in rows:
         code, sub, syn, defn = row[0], row[1], row[2], row[3]
-        new_defn = _truncate_definition(defn)
+        new_defn = _truncate_definition(defn, tier=tier)
         if new_defn != defn:
             truncated += 1
-        out.append(
-            "| "
-            + " | ".join(
-                [
-                    _escape_cell(code),
-                    _escape_cell(sub),
-                    _escape_cell(syn),
-                    _escape_cell(new_defn),
-                ]
-            )
-            + " |"
-        )
+        if tier == "mid":
+            cells = [
+                _escape_cell(code),
+                _escape_cell(sub),
+                _escape_cell(new_defn),
+            ]
+        else:
+            cells = [
+                _escape_cell(code),
+                _escape_cell(sub),
+                _escape_cell(syn),
+                _escape_cell(new_defn),
+            ]
+        out.append("| " + " | ".join(cells) + " |")
     out.append("")
     return "\n".join(out), truncated
 
@@ -471,9 +533,11 @@ def build_subdir_documents(
 
     result: dict[str, tuple[str, list[tuple[str, int, int, int]], list[tuple[str, int]]]] = {}
 
+    tier_meta = SUBDIR_META_BY_TIER.get(tier, SUBDIR_META_BY_TIER["high"])
+
     for sub in TERM_SUBDIRS:
         recs = subdir_records[sub]
-        file_suffix, file_num, title_label = SUBDIR_META[sub]
+        file_suffix, file_num, title_label = tier_meta[sub]
 
         out: list[str] = []
         out.append(
@@ -483,14 +547,26 @@ def build_subdir_documents(
         out.append("")
         out.append(f"# {file_num} Terminology \u2014 {title_label}")
         out.append("")
-        out.append(
-            f"High-frequency CDISC controlled terminology codelists sourced from "
-            f"``knowledge_base/terminology/{sub}/``. "
-            "Each codelist preserves its 4-column Term table (Code / Submission Value / "
-            "Synonyms / Definition) with Definitions truncated to 200 characters. "
-            "\"Related Domains\" is a codelist-level metadata line listing SDTM domains "
-            "whose spec.md references the codelist C-code."
-        )
+        if tier == "mid":
+            out.append(
+                f"Mid-frequency CDISC controlled terminology codelists sourced from "
+                f"``knowledge_base/terminology/{sub}/``. "
+                "Each codelist keeps a compact 3-column Term table (Code / Submission "
+                "Value / Definition) with Definitions truncated to 100 characters at "
+                "word boundaries. Synonyms and NCI Concept Description links are "
+                "omitted at this tier to fit the capacity budget. \"Related Domains\" "
+                "is a codelist-level metadata line listing SDTM domains whose spec.md "
+                "references the codelist C-code."
+            )
+        else:
+            out.append(
+                f"High-frequency CDISC controlled terminology codelists sourced from "
+                f"``knowledge_base/terminology/{sub}/``. "
+                "Each codelist preserves its 4-column Term table (Code / Submission Value / "
+                "Synonyms / Definition) with Definitions truncated to 200 characters. "
+                "\"Related Domains\" is a codelist-level metadata line listing SDTM domains "
+                "whose spec.md references the codelist C-code."
+            )
         out.append("")
 
         summary: list[tuple[str, int, int, int]] = []
@@ -504,7 +580,7 @@ def build_subdir_documents(
                 out.append("")
             first = False
             rendered, truncated = render_codelist(
-                name, cc, extensible, rows, rel_src, related_domains
+                name, cc, extensible, rows, rel_src, related_domains, tier=tier
             )
             out.append(rendered)
             tokens = len(encoder.encode(rendered))
@@ -530,15 +606,22 @@ def write_failure_file(
     missing: list[str],
     exit_code: int,
     stderr_tail: str,
+    tier: str = "high",
 ) -> Path:
-    """Write a 规则-B failure file for missing C-codes. Always safe to call."""
+    """Write a 规则-B failure file for missing C-codes. Always safe to call.
+
+    Failure filename includes the tier so high (F2) and mid (G2) attempts do
+    not overwrite each other.
+    """
     FAILURES_DIR.mkdir(parents=True, exist_ok=True)
-    failure_path = FAILURES_DIR / "stage_v2.4_attempt_1.md"
+    stage_label = "v2.4" if tier == "high" else "v2.5_g2"
+    failure_path = FAILURES_DIR / f"stage_{stage_label}_attempt_1.md"
     md5 = hashlib.md5(
         list_path.read_bytes() if list_path.is_file() else b""
     ).hexdigest()
+    header = "F2 executor" if tier == "high" else "G2 executor"
     content = [
-        "# Stage v2.4 F2 executor failure report (attempt 1)",
+        f"# Stage {stage_label} {header} failure report (attempt 1)",
         "",
         "## Input",
         f"- path: `{list_path}`",
@@ -582,12 +665,8 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--list", dest="list_path")
     args = parser.parse_args(argv)
 
-    if args.tier == "mid":
-        print("NOT_IMPLEMENTED: --tier mid is deferred to v2.5", file=sys.stderr)
-        return 2
-
     if not args.list_path:
-        print("--tier high requires --list <path>", file=sys.stderr)
+        print(f"--tier {args.tier} requires --list <path>", file=sys.stderr)
         return 2
     list_path = Path(args.list_path).expanduser().resolve()
     if not list_path.is_file():
@@ -616,6 +695,7 @@ def main(argv: list[str] | None = None) -> int:
 
     encoder = tiktoken.get_encoding(ENCODING_NAME)
     tag = f"[Tier {args.tier}]"
+    tier_meta = SUBDIR_META_BY_TIER[args.tier]
 
     # Write all 3 output files.
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
@@ -624,7 +704,7 @@ def main(argv: list[str] | None = None) -> int:
 
     for sub in TERM_SUBDIRS:
         full_text, summary, truncations = subdir_docs[sub]
-        file_suffix, _file_num, _label = SUBDIR_META[sub]
+        file_suffix, _file_num, _label = tier_meta[sub]
         out_path = OUTPUT_DIR / file_suffix
         out_path.write_text(full_text, encoding="utf-8")
 
@@ -670,14 +750,16 @@ def main(argv: list[str] | None = None) -> int:
         print(f"{tag} top3 truncation impact: {trunc_desc}")
 
     # Delete the old single-file output if it still exists (cleanup from v1 run).
-    old_file = OUTPUT_DIR / "11_terminology_high.md"
-    if old_file.exists():
-        old_file.unlink()
-        print(f"{tag} deleted legacy file: {old_file.name}")
+    # Only relevant for tier=high (legacy v1 file had no mid equivalent).
+    if args.tier == "high":
+        old_file = OUTPUT_DIR / "11_terminology_high.md"
+        if old_file.exists():
+            old_file.unlink()
+            print(f"{tag} deleted legacy file: {old_file.name}")
 
     # Missing C-codes are reported but not a hard failure.
     if missing:
-        write_failure_file(list_path, missing, overall_exit, "")
+        write_failure_file(list_path, missing, overall_exit, "", tier=args.tier)
 
     return overall_exit
 
