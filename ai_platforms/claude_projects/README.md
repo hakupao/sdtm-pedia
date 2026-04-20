@@ -67,6 +67,32 @@ claude_projects/
 
 ---
 
+## 订阅套餐与 Project 分享能力 (重要)
+
+**本仓库提供的是"自建 Project 的素材包 + 教程", 不是一个可以被直接分享使用的 Claude Project 链接.** 原因来自 Anthropic 的套餐限制:
+
+| 套餐 | 能创建 Project | 能**分享** Project 给他人 | 本仓库的使用方式 |
+|------|---------------|-------------------------|-----------------|
+| Free | ✅ (2026-02 起开放) | ❌ | 跟着 [UPLOAD_TUTORIAL.md](current/UPLOAD_TUTORIAL.md) 自建 (容量/上下文会受限) |
+| Pro | ✅ | ❌ | 跟着教程自建, 推荐路径 |
+| Max (5x / 20x) | ✅ | ❌ | 跟着教程自建, 和 Pro 一样, Max 只给更多配额不给分享功能 |
+| Team | ✅ | ✅ (可设为组织内公开或邀请制) | 一位成员按教程建好后, 可直接 Share 给同团队其他成员 |
+| Enterprise | ✅ | ✅ (同 Team, 加 SSO / 角色权限等) | 同 Team |
+
+**关键结论**:
+1. Free / Pro / Max 用户**无法把自己建好的 Project 分享给别人使用**. 每位用户都必须按照 `current/UPLOAD_TUTORIAL.md` 的步骤, 在自己账号里各自新建一次 Project (上传同一份 `uploads/` + 同一份 `system_prompt.md`).
+2. Team / Enterprise 用户可以由一人建好后, 在组织内共享 (公开 / 邀请制), 其他成员无需重复上传.
+3. 所以本仓库对 **Free/Pro/Max 用户而言是"配方"**, 对 **Team/Enterprise 用户而言是"一次构建, 全组织复用"的源材料**.
+
+配方 vs 成品的区别, 直接决定了你把这个仓库交给别人时该说什么 — 交给个人订阅用户时, 要明确告诉他"需要你自己账号里跟着教程建一次", 不要误以为能收到一个现成链接.
+
+权威来源:
+- [Manage project visibility and sharing — Claude Help Center](https://support.claude.com/en/articles/9519189-manage-project-visibility-and-sharing)
+- [Collaborate with Claude on Projects — Anthropic](https://www.anthropic.com/news/projects)
+- [Team plan — Claude](https://claude.com/pricing/team)
+
+---
+
 ## 后续
 
 - 本发布版是完整终态, 短期内无重大升级计划
