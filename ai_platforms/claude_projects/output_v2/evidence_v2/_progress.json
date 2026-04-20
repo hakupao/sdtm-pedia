@@ -175,11 +175,58 @@
         ]
       },
       "decision_branch": "T1/T15/T3 零衰减 + T7 ↑ 质变 + T17+T18 2/2 PASS + T3 继续 ↑ → 自动继续 Task G1 (批 5 terminology mid)"
+    },
+    {
+      "stage": "v2.6",
+      "ts": "2026-04-20T02:29:06Z",
+      "user_response": "ab_pass_24_of_24",
+      "ab_report": "output_v2/STAGE_V2.6_AB_REPORT.md",
+      "regression_count": 0,
+      "new_pass": 4,
+      "new_fail": 0,
+      "questions": {
+        "T1_to_T20": {
+          "type": "regression",
+          "precision_vs_v24": "持平 16/16 ↓0",
+          "pass": true,
+          "note": "零衰减 6 批 + 1 重平衡批全程"
+        },
+        "T21": {
+          "type": "new batch tail core",
+          "pass": true,
+          "note": "C166184 FACT-Cog v3 / FAC075, 41 terms, Extensible No, 配对 C166183; FAC07501-07541 完整 41 项命中 13a stub-free 区"
+        },
+        "T22": {
+          "type": "new batch tail giant",
+          "pass": true,
+          "note": "C65047 2,536 terms; 精准识别 stub + 5 同类 Deferred (C67154/C120527/C120528/C85491) + NCI EVS Browser 入口; 零臆造"
+        },
+        "T_core_reb": {
+          "type": "priority rebalance verification",
+          "pass": true,
+          "note": "核心 6 stub 清单 (C65047/C67154/C85491/C85494/C120527/C120528) 精准识别, 99.3% inline 陈述正确"
+        },
+        "T_supp_reb": {
+          "type": "priority rebalance verification",
+          "pass": true,
+          "note": "supp 100% inline 无 Deferred stub 陈述正确"
+        }
+      },
+      "capacity_pct": 77,
+      "capacity_delta_vs_v25": "N/A (v2.5 合并到 v2.6 未独立测)",
+      "capacity_prediction_vs_actual": "预测 63-68% 实测 77% (+9-14pp 超预期, UI 元数据开销)",
+      "indexing_note": "indicator 持续显示 Indexing 但 24 题全命中, 沿用 v2.2-v2.5 策略 (不 gating)",
+      "independent_review_rule_d": {
+        "reviewer": "code-reviewer subagent (fresh lane, V6.2 阶段; H1 RETROSPECTIVE_V2 另有第二次 Rule D 独立复核)",
+        "v6_2_verdict": "PASS (7/7 checks, 10 disjoint samples, 0 BLOCKING/HIGH/MEDIUM, 1 LOW cosmetic)",
+        "h1_verdict": "CONDITIONAL_PASS (2 MEDIUM + 3 LOW 数据偏离) → 主控修正后 PASS"
+      },
+      "decision_branch": "T1-T20 零衰减 + T21/T22 2/2 PASS + T-core-reb/T-supp-reb 优先级 2/2 PASS → Phase H 收尾 (H1-H5 完成)"
     }
   ],
   "v1_baseline": "ai_platforms/claude_projects/output_v1_baseline/",
   "started_at": "2026-04-18T00:00:00Z",
-  "last_updated": "2026-04-20T01:30:55Z",
+  "last_updated": "2026-04-20T02:29:06Z",
   "completed_tasks": [
     "A1",
     "A2",
@@ -215,15 +262,18 @@
     "V6.2-writer",
     "V6.2-reviewer",
     "V6.2",
-    "V6.3"
+    "V6.3",
+    "V6.4",
+    "H1",
+    "H2",
+    "H3",
+    "H4"
   ],
   "skipped_tasks": [
     "B5",
     "G4"
   ],
-  "pending_tasks": [
-    "V6.4"
-  ],
+  "pending_tasks": [],
   "e1_output": {
     "script_reused": "scripts_v2/extract_examples_data.py (+ 2 轮 bug fix: tier=others output 09→10, H1 tier-aware)",
     "product": "output_v2/10_examples_data_others.md",
@@ -792,10 +842,17 @@
     "real_upload_files": 19,
     "real_upload_tokens": 1286161,
     "real_upload_files_list": [
-      "00_routing.md", "01_index.md", "02_chapters.md", "03_model.md",
-      "04_variable_index.md", "05_mega_spec.md", "06_assumptions.md",
-      "07_examples_catalog.md", "08_terminology_map.md",
-      "09_examples_data_high.md", "10_examples_data_others.md",
+      "00_routing.md",
+      "01_index.md",
+      "02_chapters.md",
+      "03_model.md",
+      "04_variable_index.md",
+      "05_mega_spec.md",
+      "06_assumptions.md",
+      "07_examples_catalog.md",
+      "08_terminology_map.md",
+      "09_examples_data_high.md",
+      "10_examples_data_others.md",
       "11a_terminology_high_core.md",
       "11b_terminology_high_questionnaires.md",
       "11c_terminology_high_supp.md",
@@ -839,5 +896,30 @@
     "last_commit": "TBD-after-v6.3-commits",
     "resume_from": "V6.4 (HARD CHECKPOINT v2.6 终态, 取代原 G4): 用户上传 13a + 13c 到 Claude Project v2 → 等 indexing → 跑 T1-T22 全回归 + T-core-reb/T-supp-reb 优先级验证题 → 答案回报 → 主控写 stage_v2.6_terminal.md + rag_decay_curve.md v2.5→v2.6 段 + Phase H 收尾.",
     "notes": "v2.6 重平衡批完成 (V6.1-V6.3 全 PASS). 触发: 用户 2026-04-20 优先级修订 core > supp > quest. V6.1: 主控 import score_codelists.py 全量打分 → tail 209 codelist (68 core + 141 supp, f1 rank 513..1005). V6.2: 主控 writer + code-reviewer (aa22f7474227b1ce0) Rule D fresh lane, 7/7 checks PASS, 10 disjoint samples, 0 blocking/HIGH/MEDIUM, 1 LOW (brief 对 C85491 估值 cosmetic). 新增 tier=tail (13a/13c) + TAIL_GIANT_TERM_THRESHOLD=500 (6 MedDRA-level codelist 走 Deferred stub 而非 inline). V6.3: build_v2_stage.py --stage v2.6 rc=0, 产出 19 真实上传文件 / 1,286,161 tokens (+188,981 vs v2.5). C12 PASS: real_upload 85.7% (headroom 213,839 / 14.3%), incl_meta 89.1% (headroom 163,640 / 10.9%). 13a/13c 幂等 (MD5 byte-identical pre/post). system_prompt_v2.md stage v2.6 块 appended (CT 优先级升级 11*>12*>13*>08). 用户优先级覆盖: core 53.7%→99.3%, supp 25.0%→100%, quest 保持 55.8%. 长尾 302 codelist (296 quest + 6 tail giants) 明确归 Phase 7 RAG. 下一步 V6.4 terminal checkpoint, 然后 Phase H (H1 RETROSPECTIVE_V2 / H2 RAG 曲线 + phase7_handoff / H3 Chain B/C/E / H4 _phase_summary / H5 最终 commit). G4 标 skipped (v2.5 不再是终态, 被 v2.6 取代)."
+  },
+  "status": "completed",
+  "phase_done_at": "2026-04-20T02:29:06Z",
+  "ready_for_next_phase": "phase-7-rag-kg",
+  "phase_final_metrics": {
+    "real_upload_tokens": 1286161,
+    "real_upload_files": 19,
+    "incl_meta_tokens": 1336360,
+    "incl_meta_files": 32,
+    "capacity_pct_final": 77,
+    "coverage_pct": {
+      "core": 99.3,
+      "supp": 100.0,
+      "quest": 55.8
+    },
+    "long_tail_to_phase7": 302,
+    "ab_tests_total": 24,
+    "ab_tests_passed": 24,
+    "regressions": 0,
+    "subagent_calls": 14,
+    "failures_archived": 1,
+    "stages_completed": 7,
+    "hard_checkpoints_acked": 5,
+    "cross_batch_positive_activations": 1,
+    "knowledge_base_contamination": 0
   }
 }
