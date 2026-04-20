@@ -1,58 +1,97 @@
-# current/ — v2.6 终态可部署产物
+# current/ — SDTM 知识库 Claude Project 发布版
 
-> 这是当前的"可用版", 里面的 19 个文件是 Claude Project 应上传的最终内容.
-> 上游设计与历史见 [../docs/](../docs/), 开发过程见 [../dev/](../dev/).
+> 这是当前发布版. 你要部署或使用的就是这里.
 
-## 部署步骤
+## 快速开始
 
-1. **创建 Claude Project** (或打开已有 v2 Project)
-2. **粘贴 System Prompt**: 把 [system_prompt.md](system_prompt.md) 的完整内容粘到 Project 的 "Custom instructions" 框
-3. **上传 Knowledge**: 把 [uploads/](uploads/) 下全部 19 个 `.md` 文件**全选** → 拖到 Project Knowledge 面板
-4. **等 Indexing**: UI indicator 可能持续显示 "Indexing" 超过 30-60 分钟, **但不必等** — 直接试问即可命中 (见历史经验 [../docs/rag_decay_curve.md](../docs/rag_decay_curve.md) §2.5 观察)
-5. **验证** (可选 smoke test): 跑 [../dev/test_results.md](../dev/test_results.md) 里的 T1/T17/T22 三题, 确认 answer 与矩阵记录一致
+**第一次部署 Claude Project?** → 读 [UPLOAD_TUTORIAL.md](UPLOAD_TUTORIAL.md), 跟着 10 章节走一遍 (30-90 分钟).
 
-## 上传清单 (19 文件, 1,286,161 tokens, capacity 77%)
+**已经部署过, 只想更新?** → 下一节《更新部署》.
 
-| # | 文件 | Tokens | Tier | 批次 | 源 |
-|---|------|-------:|------|------|---|
-| 00 | routing.md | — | 导航 | v2.1 | v2.1 重建 |
-| 01 | index.md | — | 导航 | v2.1 | v2.1 重建 |
-| 02 | chapters.md | — | 规则推理 | v2.1 | byte-exact expand from `knowledge_base/chapters/` |
-| 03 | model.md | — | 规则推理 | v2.1 | v2.1 重建 |
-| 04 | variable_index.md | — | 变量反向索引 | v2.1 | v2.1 重建 |
-| 05 | mega_spec.md | — | spec 表 | v2.1 | v2.1 重建 |
-| 06 | assumptions.md | — | 业务规则 | v2.1 | v2.1 重建 |
-| 07 | examples_catalog.md | — | examples 目录 | v2.1 | v2.1 重建 |
-| 08 | terminology_map.md | — | CT 映射 | v2.1 | v2.1 重建 |
-| 09 | examples_data_high.md | 112,697 | examples 数据 | v2.2 | 高频 28 域 |
-| 10 | examples_data_others.md | 48,897 | examples 数据 | v2.3 | 其余 35 域 (63 域 100% 覆盖) |
-| 11a | terminology_high_core.md | 68,559 | CT 完整 Term | v2.4 | top 200 core |
-| 11b | terminology_high_questionnaires.md | 256,336 | CT 完整 Term | v2.4 | top 200 QRS |
-| 11c | terminology_high_supp.md | 26,857 | CT 完整 Term | v2.4 | top 200 supp |
-| 12a | terminology_mid_core.md | 129,963 | CT 中频 | v2.5 | rank 201-500 core |
-| 12b | terminology_mid_questionnaires.md | 224,659 | CT 中频 | v2.5 | rank 201-500 QRS |
-| 12c | terminology_mid_supp.md | 23,317 | CT 中频 | v2.5 | rank 201-500 supp |
-| 13a | terminology_tail_core.md | 145,787 | tail (含 6 giants stub) | v2.6 | rank 501+ core 全量 |
-| 13c | terminology_tail_supp.md | 43,194 | tail | v2.6 | rank 501+ supp 全量 |
-
-**注**: 13b (terminology tail questionnaires) **by design 不存在** — quest 是用户最低优先级, tail 批未扩容, 保持 v2.5 的 55.8% 覆盖, 长尾 296 条归 Phase 7 RAG.
-
-## 元信息
-
-- [system_prompt.md](system_prompt.md) — Project Instructions, 含 stage v2.1-v2.6 累积 prompt 段 + CT 查询优先级 `11*>12*>13*>08`
-- [upload_manifest.md](upload_manifest.md) — 各 stage token 统计 + C12 hard cap 实测
-
-## 常见问题
-
-**Q: 如果 Claude Project capacity 提示超限怎么办?**
-A: UI 显示 77% 是正常; paid 套餐 RAG 会自动分片. 如果真超, 优先移除 11b (256K, 最大单文件) 试试, 其次 12b (224K). 见 [../docs/capacity_research.md](../docs/capacity_research.md).
-
-**Q: 能不能只上传部分?**
-A: 不建议. T1-T22 + 2 优先级验证的 24/24 PASS 是 19 文件全上的基线. 少文件会恢复到 v2.1/v2.4 中间状态 (仍能用, 但功能退化).
-
-**Q: v2.6 之后还会扩容吗?**
-A: 默认不. 见 [../ROADMAP.md](../ROADMAP.md) 后续可选扩展段. 想推高到 85-90% capacity 或补 quest 覆盖到 80% 需新开批次.
+**想在命令行或 API 里用?** → Claude Projects 不支持 API 访问 (只能在 Web UI), 如果要 API 可部署的版本请看 `../../DESIGN_RAG_KG.md` 的 Phase 7 计划.
 
 ---
 
-*更新: 2026-04-20 晚 reorg.*
+## 发布版构成
+
+- **19 个知识库文件** ([uploads/](uploads/)): 覆盖 CDISC SDTM v3.4 的 63 域 + terminology codelist + chapters 全展开
+- **1 份 System Prompt** ([system_prompt.md](system_prompt.md)): Claude Project 的 Custom Instructions, 定义查询路由和边界处理
+- **1 份上传清单** ([upload_manifest.md](upload_manifest.md)): 每个文件的 token 数、内容概要、源文件路径
+
+**总量**: ~1,286,161 tokens (约 1.29M), 19 个 `.md` 文件.
+
+---
+
+## 更新部署
+
+如果本目录的内容有更新 (上游知识库重 build 后的新发布):
+
+1. 打开已有 Claude Project → **Edit**
+2. 删除 Project Knowledge 里所有旧文件
+3. 上传 [uploads/](uploads/) 下全部 19 个新文件
+4. 如果 [system_prompt.md](system_prompt.md) 也有更新, 同步替换 Custom Instructions
+5. 等 Indexing (后台, 不必真等) → 跑 [UPLOAD_TUTORIAL.md](UPLOAD_TUTORIAL.md) §5 的 Smoke Test 3 题确认
+
+---
+
+## 能力范围
+
+能准确回答:
+- SDTM 变量定义 (Core / Role / Type / CT)
+- Codelist 完整 Term 表 (高频 + 中频 codelist 全 inline)
+- Example 数据表 (63 域 100% 覆盖)
+- 章节引用 (§4.3.6 AE / §8.3 RELREC / §4.4 Timing 等精确章节号)
+- 跨域关联 (PC↔PP RELREC / EPOCH 哪些域用等)
+- 边界识别 (不在源的变量会坦诚声明, 不臆造)
+
+不直接给出, 但会指引源文件 + NCI EVS Browser:
+- **6 个 giant codelist 的完整 term 表**: C65047 Lab Test Code (2,536 terms), C67154 Micro Test Name (2,536 terms), C85491 Unit (1,639 terms), C85494 (592), C120527/C120528 (558 each). 这些体量超过 500 terms, 走 Deferred stub 模式, 模型会声明"未 inline", 并指引到源文件和 NCI EVS Browser.
+
+覆盖不完整 (约 44%):
+- **questionnaires codelist 长尾 296 条**: 业务上优先级最低, 未 inline. 如果问及, 模型会声明"Project 未覆盖"并建议去 NCI EVS 查.
+
+---
+
+## 覆盖率数据
+
+| 类别 | 覆盖率 | 说明 |
+|------|-------:|------|
+| Core codelist | 99.3% (146/147) | 仅剩 1 个 MedDRA 级 giant 走 Deferred stub |
+| Supplementary codelist | **100%** (188/188) | 全部 inline |
+| Questionnaires codelist | 55.8% (374/670) | 业务最低优先级, 长尾归 Phase 7 |
+| 63 SDTM 域 examples | **100%** | 全部数据表 inline |
+| 6 章 chapters (ch01-ch10) | **100%** | byte-exact 展开 |
+| Deferred stub (giant codelist) | 6 个 | C65047/C67154/C85491/C85494/C120527/C120528 |
+
+---
+
+## 测试基线
+
+本发布版部署后应通过的回归测试矩阵: [../dev/test_results.md](../dev/test_results.md) (T1-T22 + T-core-reb + T-supp-reb, 共 24 题, 部署正确后应 24/24 PASS).
+
+---
+
+## 相关文档 (可选阅读)
+
+**用户向**:
+- [UPLOAD_TUTORIAL.md](UPLOAD_TUTORIAL.md) — 完整部署教程
+- [../README.md](../README.md) — Claude Project 目录结构总览
+
+**开发者向** (方法论, 不影响使用):
+- [../docs/](../docs/) — 方法论文档 (开发计划/复盘/RAG 衰减曲线/Phase 7 交接/容量调研)
+- [../dev/](../dev/) — 开发过程产物 (脚本/evidence/A/B 报告 等)
+- [../archive/](../archive/) — 早期迭代归档
+
+---
+
+## 限制与注意
+
+- **不支持公开分享**: Claude Projects 目前不能生成公开链接, 只能 Team/Enterprise 套餐内部共享
+- **不支持 API 访问**: 发布版只能在 Claude Web UI 使用, 不能 programmatic query
+- **需要 Claude Pro 及以上**: 免费套餐 capacity 不够容纳本发布版
+- **知识库边界**: SDTM v3.4 标准, 不覆盖其他 CDISC 标准 (ADaM/CDASH/SEND) 也不覆盖药品临床数据本身
+- **可能需要重部署**: 如果 Anthropic 调整 Claude Projects 的容量或 RAG 机制, 本发布版部署效果可能变化
+
+---
+
+*如果部署有问题, 参考 [UPLOAD_TUTORIAL.md](UPLOAD_TUTORIAL.md) §7 排错手册.*
