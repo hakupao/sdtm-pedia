@@ -57,7 +57,12 @@ Full chain definitions are in `.work/MANIFEST.md`.
 | Phase 6.5 Claude v2 A/B 报告 | `ai_platforms/claude_projects/output_v2/STAGE_V2.{1,2,3,4}_AB_REPORT.md` (4 批 A/B 测试报告, Cowork 填, v2.4 经 Rule D 独立 reviewer 复核) |
 | Phase 6.5 Claude v2 Cowork handoff | `ai_platforms/claude_projects/output_v2/CHECKPOINT_V2.{1,2,3,4}_HANDOFF.md` (4 批 Cowork 自动执行手册) |
 | Phase 6.5 Claude v2 RAG 衰减曲线 | `ai_platforms/claude_projects/output_v2/rag_decay_curve.md` (5 数据点 v1→v2.4 + 3 段跨批观察 含 T3 二阶正向激活, Phase 7 核心输入) |
-| Phase 6.5 Claude v2 测试矩阵 | `ai_platforms/claude_projects/output_v2/test_results_v2.md` (T1-T18 完整矩阵 + v2.1-v2.4 四段 stage 汇总) |
+| Phase 6.5 Claude v2 测试矩阵 | `ai_platforms/claude_projects/output_v2/test_results_v2.md` (T1-T22 + T-core-reb/T-supp-reb 完整矩阵 + v2.1-v2.6 stage 汇总) |
+| Phase 6.5 Claude v2 终态复盘 | `ai_platforms/claude_projects/RETROSPECTIVE_V2.md` (Rule C 产物, 7 章 R1-R8 保留 + G1-G5 缺口 + 5 决策 + Rule E 候选, 过 Rule D 独立复核 PASS, 2026-04-20) |
+| Phase 6.5 Claude v2 Phase 7 交接 | `ai_platforms/claude_projects/output_v2/phase7_handoff.md` (6 actionable insight + 5 Q 未解 + 5 步待办, Phase 7 启动前必读, 2026-04-20) |
+| Phase 6.5 Claude v2 RAG 曲线终态 | `ai_platforms/claude_projects/output_v2/rag_decay_curve.md` (7 数据点 v1→v2.6 + 4 段跨批观察 + 结论 + 6 Phase 7 actionable, 拐点 ≥77% 未触) |
+| Phase 6.5 Claude v2 v2.6 A/B 报告 | `ai_platforms/claude_projects/output_v2/STAGE_V2.6_AB_REPORT.md` (终态 24/24 PASS, T1-T20 持平 + T21/T22 tail + 2 优先级验证全通过, capacity 77%) |
+| Phase 6.5 Claude v2 H1 独立复核 | `ai_platforms/claude_projects/output_v2/evidence_v2/H1_reviewer.md` (code-reviewer subagent CONDITIONAL_PASS→PASS, 2 MEDIUM + 3 LOW 数据偏离已修正) |
 
 ## Session Wrap-up (收尾)
 
