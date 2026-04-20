@@ -2,21 +2,24 @@
   "phase": "6.5-claude-v2",
   "plan": "ai_platforms/claude_projects/PLAN_V2.md",
   "design": "docs/superpowers/specs/2026-04-18-phase6.5-claude-v2-expansion-design.md",
-  "current_stage": "v2.5",
-  "current_batch": 5,
+  "current_stage": "v2.6",
+  "current_batch": 6,
   "completed_stages": [
     "v2.0-setup",
     "v2.1",
     "v2.2",
     "v2.3",
     "v2.4",
-    "v2.5"
+    "v2.5",
+    "v2.6"
   ],
   "completed_batches": [
     1,
     2,
     3,
-    4
+    4,
+    5,
+    6
   ],
   "checkpoints_acked": [
     {
@@ -176,7 +179,7 @@
   ],
   "v1_baseline": "ai_platforms/claude_projects/output_v1_baseline/",
   "started_at": "2026-04-18T00:00:00Z",
-  "last_updated": "2026-04-20T00:55:19Z",
+  "last_updated": "2026-04-20T01:30:55Z",
   "completed_tasks": [
     "A1",
     "A2",
@@ -207,13 +210,19 @@
     "G2-executor",
     "G2-reviewer",
     "G2",
-    "G3"
+    "G3",
+    "V6.1",
+    "V6.2-writer",
+    "V6.2-reviewer",
+    "V6.2",
+    "V6.3"
   ],
   "skipped_tasks": [
-    "B5"
+    "B5",
+    "G4"
   ],
   "pending_tasks": [
-    "G4"
+    "V6.4"
   ],
   "e1_output": {
     "script_reused": "scripts_v2/extract_examples_data.py (+ 2 轮 bug fix: tier=others output 09→10, H1 tier-aware)",
@@ -625,10 +634,17 @@
     "real_upload_tokens": 1097180,
     "real_upload_tokens_match_g2_projection": true,
     "real_upload_files_list": [
-      "00_routing.md", "01_index.md", "02_chapters.md", "03_model.md",
-      "04_variable_index.md", "05_mega_spec.md", "06_assumptions.md",
-      "07_examples_catalog.md", "08_terminology_map.md",
-      "09_examples_data_high.md", "10_examples_data_others.md",
+      "00_routing.md",
+      "01_index.md",
+      "02_chapters.md",
+      "03_model.md",
+      "04_variable_index.md",
+      "05_mega_spec.md",
+      "06_assumptions.md",
+      "07_examples_catalog.md",
+      "08_terminology_map.md",
+      "09_examples_data_high.md",
+      "10_examples_data_others.md",
       "11a_terminology_high_core.md",
       "11b_terminology_high_questionnaires.md",
       "11c_terminology_high_supp.md",
@@ -662,10 +678,166 @@
     "plan_g3_gate_passed": true,
     "next": "G4: ⚠️ HARD CHECKPOINT v2.5 终态 - 用户需在 Claude Project v2 侧上传 3 新文件 (12a/12b/12c), 等 indexing (预计 >40 分钟因 RAG 容量大), 跑 T1-T20 全 20 题并粘贴答案回报; 主控汇总写 stage_v2.5_terminal.md 终态 evidence + rag_decay_curve.md v2.4→v2.5 段 + 进入 Phase H 收尾."
   },
+  "v6_1_output": {
+    "trigger": "用户 2026-04-20 ack 子目录优先级修订: core > supplementary > questionnaires (工作语境, 非 SDTM 标准)",
+    "user_priority_inversion_finding": {
+      "core_coverage_v2.5": "53.7% (79/147)",
+      "supp_coverage_v2.5": "25.0% (47/188)",
+      "quest_coverage_v2.5": "55.8% (374/670)",
+      "note": "v2.5 按域引用次数排名导致优先级反转: quest (用户最不重要) 覆盖最高, supp (用户第二重要) 覆盖最低"
+    },
+    "tail_list_generation": {
+      "method": "score_codelists.py 导入 parse_codelists/count_domain_refs/compute_scores, 对 1005 codelist 全量打分 → rank, tail = (knowledge_base core+supp) - (F1+G1 rank 1-500 covered)",
+      "codelist_txt": "output_v2/evidence_v2/V6.1_codelist_tail.txt",
+      "codelist_md": "output_v2/evidence_v2/V6.1_codelist_tail.md",
+      "total_tail": 209,
+      "tail_core": 68,
+      "tail_supp": 141,
+      "f1_rank_range": "513..1005",
+      "f1_score_range": "0.209..0.006"
+    },
+    "plan_v6.1_gate_passed": true,
+    "next": "V6.2: extend extract_terminology_terms.py with tier=tail + 13a/13c products"
+  },
+  "v6_2_output": {
+    "writer": "main-control opus (不同 lane vs G2 executor; executor_id=main / subagent_type=null)",
+    "reviewer_id": "aa22f7474227b1ce0",
+    "reviewer_model": "opus",
+    "reviewer_subagent_type": "oh-my-claudecode:code-reviewer (Rule D fresh lane)",
+    "reviewer_report": "output_v2/evidence_v2/V6.2_reviewer.md",
+    "script_modified": "scripts_v2/extract_terminology_terms.py",
+    "script_changes_summary": {
+      "added": [
+        "SUBDIR_META_BY_TIER['tail']: 13a_terminology_tail_core.md / 13b_terminology_tail_questionnaires.md / 13c_terminology_tail_supp.md",
+        "TAIL_GIANT_TERM_THRESHOLD = 500 常量 + 'Deferred to Phase 7 RAG' stub 逻辑 for codelists ≥ threshold",
+        "_truncate_definition tier='tail' 复用 mid 100-char 词边界规则",
+        "render_codelist tier='tail' 3-col (非 giant) / 1-行 stub (giant)",
+        "build_subdir_documents tier='tail' 专属 intro 文案 (长尾重平衡语境)",
+        "write_failure_file tier='tail' stage_label=v2.6_v6.2 header=V6.2 executor",
+        "argparse choices 加 'tail'",
+        "main loop: tier='tail' 对 cl_count=0 subdir 跳过写文件 + 删除已存在的空 stub (处理 13b 空文件场景)"
+      ]
+    },
+    "products": [
+      "output_v2/13a_terminology_tail_core.md (68 codelist / 145,787 tokens, 含 6 Deferred stubs)",
+      "output_v2/13c_terminology_tail_supp.md (141 codelist / 43,194 tokens)"
+    ],
+    "13b_absent_by_design": true,
+    "13a_tokens": 145787,
+    "13c_tokens": 43194,
+    "tail_total_tokens": 188981,
+    "tail_codelists_included": 209,
+    "tail_codelists_missing": 0,
+    "giants_deferred": [
+      "C67154 (2,536 terms, other_part4.md)",
+      "C65047 (2,536 terms, other_part4.md)",
+      "C85491 (1,639 terms, is_domain_part2.md)",
+      "C85494 (592 terms, other_part3.md)",
+      "C120528 (558 terms, microbiology_part3.md)",
+      "C120527 (558 terms, microbiology_part2.md)"
+    ],
+    "md5": {
+      "13a": "d6dd427e9050f5fb09664671d0c545a6",
+      "13c": "d83c6cc49a0d791673b3b9684b685ac6"
+    },
+    "idempotency_verified": true,
+    "zero_regression_high_mid_tiers": true,
+    "zero_regression_md5_check": {
+      "11a_before_after": "af59e38b58bf3926f7d6b69bef08c78e (unchanged)",
+      "11b_before_after": "7a94fa36debb18110124fb66d7573a3a (unchanged)",
+      "11c_before_after": "d28622aa98a5f1ed3cb1bd2fb3e0bdf7 (unchanged)",
+      "12a_before_after": "e34fdd9bc2feca100779e865045e4a78 (unchanged)",
+      "12b_before_after": "95e5c276969643d029ef2fa2feb1c51b (unchanged)",
+      "12c_before_after": "3a28ec7a55b5237b5a8b77c0272dd496 (unchanged)"
+    },
+    "reviewer_verdict": "PASS",
+    "reviewer_7_checks": {
+      "Q1_output_integrity": "PASS (68+141=209 matches V6.1)",
+      "Q2_giant_threshold_correctness": "PASS (6 stubs verified against source term counts 592/558/558/1639/2536/2536)",
+      "Q3_compression_correctness": "PASS (10 disjoint samples, tail=mid 3-col + word-boundary truncation)",
+      "Q4_zero_regression_high_mid": "PASS (6 MD5 byte-identical after re-running tier=high + tier=mid)",
+      "Q5_subdir_routing": "PASS (13a core-only / 13c supp-only, source paths verified)",
+      "Q6_tail_list_correctness": "PASS (independent cross-check vs V6.1 209 codelists)",
+      "Q7_rule_d_hallucination_check": "PASS (fresh lane, 10 disjoint samples, zero fabricated Term values)"
+    },
+    "reviewer_findings": {
+      "BLOCKING": 0,
+      "HIGH": 0,
+      "MEDIUM": 0,
+      "LOW": 1,
+      "INFO": 0
+    },
+    "reviewer_low_findings": [
+      "LOW-1: task brief 估计 C85491 ~2,536 terms 与实际源 1,639 不符 — stub 内容输出真实 1,639 (脚本无 bug, 仅 brief 审计表建议刷新)"
+    ],
+    "plan_v6.2_gate_passed": true,
+    "next": "V6.3: build_v2_stage.py --stage v2.6 + upload_manifest + system_prompt + evidence"
+  },
+  "v6_3_output": {
+    "build_script": "scripts_v2/build_v2_stage.py --stage v2.6",
+    "build_script_patched": "新增 STAGE_MAP[v2.6]: output=13a_terminology_tail_core.md / target_tokens_total=1,500,000 / description='terminology tail rebalance (core+supp uncovered)' / slug=terminology_tail / prompt_block (tail tier 重平衡 + 6 giants Deferred + CT 查询优先级 11*>12*>13*>08). _run_batch_script 新增 v2.6 extra_args (--list V6.1_codelist_tail.txt).",
+    "batch_script_invoked": "extract_terminology_terms.py --tier tail --list output_v2/evidence_v2/V6.1_codelist_tail.txt",
+    "batch_script_result": "OK, rc=0, produced 13a + 13c (13b skipped by design)",
+    "idempotency_verified": true,
+    "md5_pre_post_identical": {
+      "13a_pre": "d6dd427e9050f5fb09664671d0c545a6",
+      "13a_post": "d6dd427e9050f5fb09664671d0c545a6",
+      "13c_pre": "d83c6cc49a0d791673b3b9684b685ac6",
+      "13c_post": "d83c6cc49a0d791673b3b9684b685ac6"
+    },
+    "stage_tokens_total": 1336360,
+    "stage_target_tokens": 1500000,
+    "pct_of_target": 89.1,
+    "file_count_including_meta": 32,
+    "real_upload_files": 19,
+    "real_upload_tokens": 1286161,
+    "real_upload_files_list": [
+      "00_routing.md", "01_index.md", "02_chapters.md", "03_model.md",
+      "04_variable_index.md", "05_mega_spec.md", "06_assumptions.md",
+      "07_examples_catalog.md", "08_terminology_map.md",
+      "09_examples_data_high.md", "10_examples_data_others.md",
+      "11a_terminology_high_core.md",
+      "11b_terminology_high_questionnaires.md",
+      "11c_terminology_high_supp.md",
+      "12a_terminology_mid_core.md",
+      "12b_terminology_mid_questionnaires.md",
+      "12c_terminology_mid_supp.md",
+      "13a_terminology_tail_core.md",
+      "13c_terminology_tail_supp.md"
+    ],
+    "incremental_vs_v25": 188981,
+    "system_prompt_patched": "appended <!-- stage v2.6 begin --> ... end --> block (2-file tail + Deferred giants + CT 优先级升级为 11*>12*>13*>08)",
+    "manifest_row_appended": "v2.6 | 2026-04-20 | 32 | 1,336,360 | 89.1% of 1,500,000 target | terminology tail rebalance (core+supp uncovered)",
+    "evidence_file": "output_v2/evidence_v2/stage_v2.6_terminology_tail.md",
+    "trace_jsonl_appended": "{\"event\":\"stage_done\",\"stage\":\"v2.6\",\"total_tokens\":1336360,\"files\":32,\"status\":\"PASS\"}",
+    "c12_hard_cap_check": {
+      "constraint": 1500000,
+      "actual_real_upload": 1286161,
+      "actual_incl_meta": 1336360,
+      "headroom_real_upload": 213839,
+      "headroom_real_upload_pct": 14.3,
+      "headroom_incl_meta": 163640,
+      "headroom_incl_meta_pct": 10.9,
+      "passed": true,
+      "decision": "C12 gate PASS by both measures; v2.6 终态 hard checkpoint 可进"
+    },
+    "coverage_after_v2.6": {
+      "user_priority_core_coverage": "99.3% (146/147; 1 unmatched = giant C85491 has inline stub ≠ term table but is 'coverage as metadata')",
+      "user_priority_supp_coverage": "100.0% (188/188)",
+      "user_priority_quest_coverage": "55.8% (374/670, 未变 — 用户优先级最低, 不重平衡)",
+      "codelists_covered_by_some_form": "500 (rank 1-500) + 209 (tail) = 709 / 1005 = 70.5%",
+      "codelists_full_term_table_inlined": "500 (high+mid) + 203 (tail non-giant) = 703 / 1005 = 69.9%",
+      "codelists_stubbed_defer_rag": "6 (tail giants, C65047/C67154/C85491/C85494/C120527/C120528)",
+      "long_tail_remaining": "296 (所有未入 Project 的 codelist, 全部 questionnaires 子目录)",
+      "phase7_rag_scope": "296 quest + 6 tail giants = 302 codelist 走 RAG 自建索引"
+    },
+    "plan_v6.3_gate_passed": true,
+    "next": "V6.4: ⚠️ HARD CHECKPOINT v2.6 终态 (取代 G4) - 用户需在 Claude Project v2 侧上传 2 新文件 (13a + 13c; 不上传 13b 因不存在), 等 indexing (预计 ~60 分钟因 RAG 容量 1.3M), 跑 T1-T20 全 20 题 + 新增 T21/T22 (tail core + tail supp) + T-core-reb/T-supp-reb (优先级重平衡验证题) 并粘贴答案; 主控汇总写 stage_v2.6_terminal.md 终态 evidence + rag_decay_curve.md v2.5→v2.6 段 + 进入 Phase H 收尾."
+  },
   "session_handoff": {
-    "handoff_at": "2026-04-20T01:00:00Z",
-    "last_commit": "TBD-after-g3-commit",
-    "resume_from": "G4 (HARD CHECKPOINT v2.5 终态): 用户上传 12a/12b/12c_terminology_mid_*.md 到 Claude Project v2 → 等 indexing → 跑 T1-T20 全 20 题 → 答案回报 → 主控写 stage_v2.5_terminal.md + rag_decay_curve.md v2.4→v2.5 段 + Phase H 收尾.",
-    "notes": "G3 done (主控 opus). build_v2_stage.py --stage v2.5 run rc=0 产出 17 上传文件 / 1,097,180 真实上传 tokens (含 meta 1,141,725 / 29 文件). G2 projection (1,097,180) 精准命中 (Δ=0). C12 1.5M hard cap 双测 PASS: real_upload 73.1% (headroom 402,820 / 26.9%), incl_meta 76.1% (headroom 358,275 / 23.9%). 12a/12b/12c MD5 byte-identical pre/post (script 幂等性验证). system_prompt_v2.md stage v2.5 块 appended (3-file split + 11*>12*>08 优先级 + Synonyms 不在 mid 边界指示). upload_manifest_v2.md 阶段历史第 5 行追加 (v2.5 | 2026-04-20 | 29 | 1,141,725 | 81.6% of 1,400,000 target). evidence_v2/stage_v2.5_terminology_mid.md 写入. trace.jsonl stage_done 追加. 累计覆盖: 500/1005 codelist = 49.8% (中庸 50% 覆盖目标达成), 长尾 505 留 Phase 7. 下一步 G4 terminal checkpoint: 用户手工上传 + T1-T20 回归测 + 主控写终态 evidence, 然后 Phase H (H1 RETROSPECTIVE_V2.md / H2 RAG 衰减曲线收尾 + phase7_handoff.md / H3 Chain B/C/E 索引更新 / H4 _phase_summary.md / H5 最终 commit)."
+    "handoff_at": "2026-04-20T02:30:00Z",
+    "last_commit": "TBD-after-v6.3-commits",
+    "resume_from": "V6.4 (HARD CHECKPOINT v2.6 终态, 取代原 G4): 用户上传 13a + 13c 到 Claude Project v2 → 等 indexing → 跑 T1-T22 全回归 + T-core-reb/T-supp-reb 优先级验证题 → 答案回报 → 主控写 stage_v2.6_terminal.md + rag_decay_curve.md v2.5→v2.6 段 + Phase H 收尾.",
+    "notes": "v2.6 重平衡批完成 (V6.1-V6.3 全 PASS). 触发: 用户 2026-04-20 优先级修订 core > supp > quest. V6.1: 主控 import score_codelists.py 全量打分 → tail 209 codelist (68 core + 141 supp, f1 rank 513..1005). V6.2: 主控 writer + code-reviewer (aa22f7474227b1ce0) Rule D fresh lane, 7/7 checks PASS, 10 disjoint samples, 0 blocking/HIGH/MEDIUM, 1 LOW (brief 对 C85491 估值 cosmetic). 新增 tier=tail (13a/13c) + TAIL_GIANT_TERM_THRESHOLD=500 (6 MedDRA-level codelist 走 Deferred stub 而非 inline). V6.3: build_v2_stage.py --stage v2.6 rc=0, 产出 19 真实上传文件 / 1,286,161 tokens (+188,981 vs v2.5). C12 PASS: real_upload 85.7% (headroom 213,839 / 14.3%), incl_meta 89.1% (headroom 163,640 / 10.9%). 13a/13c 幂等 (MD5 byte-identical pre/post). system_prompt_v2.md stage v2.6 块 appended (CT 优先级升级 11*>12*>13*>08). 用户优先级覆盖: core 53.7%→99.3%, supp 25.0%→100%, quest 保持 55.8%. 长尾 302 codelist (296 quest + 6 tail giants) 明确归 Phase 7 RAG. 下一步 V6.4 terminal checkpoint, 然后 Phase H (H1 RETROSPECTIVE_V2 / H2 RAG 曲线 + phase7_handoff / H3 Chain B/C/E / H4 _phase_summary / H5 最终 commit). G4 标 skipped (v2.5 不再是终态, 被 v2.6 取代)."
   }
 }

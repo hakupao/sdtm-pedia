@@ -145,3 +145,11 @@ Core competencies:
 - 新增 3 个文件 (按 terminology subdir 拆分, mid tier, rank 201-500, 300 codelist): 12a_terminology_mid_core.md / 12b_terminology_mid_questionnaires.md / 12c_terminology_mid_supp.md, 每 codelist 使用 3 列 Term 表 (Code / Submission Value / Definition ≤100 字符, 词边界截断), 不含 Synonyms / NCI Concept Description 链接, 每 codelist header 附 `Related Domains:` 行。
 - CT Code 查询优先级: **11a/11b/11c (high full Term 4 列) > 12a/12b/12c (mid 压缩 Term 3 列) > 08 (codelist 名称映射)**; 若 11* 命中优先引完整 Term; 若仅 12* 命中, 引 Term 并注明 Definition 为 100 字符压缩版 + Synonyms 不在本 tier (如需 Synonyms 必须指向源 `knowledge_base/terminology/**/*.md`); 08 仅作 fallback 名称查询。子目录路由沿用 11 系: core → a / questionnaires → b / supplementary → c。
 <!-- stage v2.5 end -->
+
+<!-- stage v2.6 begin -->
+### Stage v2.6 增量 (terminology tail rebalance (core+supp uncovered))
+
+- 新增 2 个文件 (tail tier, 用户优先级重平衡批: core > supplementary > questionnaires): 13a_terminology_tail_core.md (rank >500 core 尾部, 68 codelist) + 13c_terminology_tail_supp.md (rank >500 supp 尾部, 141 codelist). 压缩规则同 mid: 3 列 Term 表 + Definition ≤100 字符词边界截断, 不含 Synonyms/NCI. 注: 13b 不存在 (questionnaires 按用户优先级明示排除于本批).
+- 本批 6 个 MedDRA 级巨型 codelist (≥500 terms, 如 C65047/C67154 各 2,536 terms) 在 13a 以 **Deferred to Phase 7 RAG** stub 出现 (仅含 Extensible / Related Domains / 源路径 + 条款数), **Term 表不 inline**, 查询 Term 值必须 fallback 源路径 `knowledge_base/terminology/core/**.md` 或 Phase 7 RAG.
+- CT Code 查询优先级升级为: **11a/11b/11c (high full 4 列) > 12a/12b/12c (mid 3 列) > 13a/13c (tail 3 列 + 6 giants stub) > 08 (名称映射)**. 若 13* 命中且是 Deferred stub, 坦诚声明并给源路径. 本批意义: core 覆盖从 53.7% 升到 **~100%** (除 6 giants defer), supp 覆盖从 25.0% 升到 **~100%**, 匹配用户 2026-04-20 ack 的 core>supp>quest 优先级修订.
+<!-- stage v2.6 end -->
