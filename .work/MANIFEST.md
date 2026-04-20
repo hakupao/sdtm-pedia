@@ -1,7 +1,7 @@
 # .work/ MANIFEST — 文件清单与变更链
 
 > **AI 工作入口文件** — 每次新 session 开始时先读此文件，了解文件布局和更新规则。
-> 最后更新: 2026-04-20 晚 (Phase 6.5 Claude 终态 + reorg + **ai_platforms/_template/ 范本抽象 + ChatGPT/Gemini 骨架升级**: 从 claude_projects v2 全套产物抽象 10 维度通用范本, 两平台按范本重建四层目录 current/docs/dev/archive, 填好 Phase 0 platform_profile 初稿, 状态 "待开始 (范本就绪)")
+> 最后更新: 2026-04-20 晚 (Phase 6.5 Claude 终态 + reorg + **ai_platforms/_template/ 范本抽象 + ChatGPT/Gemini 骨架升级** + **claude_projects/README 补充订阅套餐分享限制**: Free/Pro/Max 不能分享 Project, 仅 Team/Enterprise 可 share, 权威来源来自 Anthropic Help Center)
 
 ---
 

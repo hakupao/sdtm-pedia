@@ -936,3 +936,16 @@
   - 未来新平台接入: cp-free (directly reference `_template/`), Phase 0-5 六阶段有清晰模板可填
   - Claude v2 留下的 4 条全局规则 (A/B/C/D) + 1 条候选规则 (E) 通过范本结构化传递, 不再靠每个项目复盘独立重新发现
 - **下一步**: H5 commit + push + session wrap-up (本条); 实际 Phase 0 启动由用户触发, 本次不执行
+
+### 2026-04-20 晚 Phase 6.5 Claude README 补充订阅套餐分享限制
+
+- **状态**: 已完成
+- **触发**: 用户发现 Free/Pro/Max 订阅无法分享自己的 Project, 只有 Team/Enterprise 可以 share, 要求把这个事实补进 `ai_platforms/claude_projects/README.md`
+- **调研**: WebSearch + WebFetch 拉取 Anthropic 官方 Help Center [Manage project visibility and sharing](https://support.claude.com/en/articles/9519189-manage-project-visibility-and-sharing), 确认**项目可见性和分享功能仅对 Team 和 Enterprise 用户开放**, Free/Pro/Max 均无分享能力 (2026-02 起三者都能创建 Project, 但不能分享)
+- **改动**: `ai_platforms/claude_projects/README.md` 新增章节 "订阅套餐与 Project 分享能力 (重要)", 含 5 套餐对照表 + 3 条关键结论 + "配方 vs 成品" 的使用建议 + 3 条权威来源链接
+- **关键产出**:
+  - 澄清本仓库是"自建素材包 + 教程", 不是可分享的现成 Project 链接
+  - 对 Free/Pro/Max 用户 = 配方 (每人必须自建), 对 Team/Enterprise 用户 = 一次构建全组织复用的源材料
+  - 用户交接此仓库给他人时有明确的话术依据 (不再误以为能给链接)
+- **影响面**: README 增 26 行, 无新 key paths, 无 knowledge_base 变动, 无 plans 变动 (Chain D/E 不触发); 仅 Chain B (worklog → PROGRESS.md "最后更新") + MANIFEST.md "最后更新"
+- **下一步**: commit + push

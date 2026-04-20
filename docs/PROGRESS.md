@@ -1,6 +1,6 @@
 # 进度看板
 
-> 最后更新: 2026-04-20 晚 (Phase 6.5 Claude 终态 + reorg + **ai_platforms/_template/ 范本 + ChatGPT/Gemini 骨架升级**: 抽象 10 维度通用范本, 两平台按范本重建四层目录, 填好 Phase 0 platform_profile 初稿)
+> 最后更新: 2026-04-20 晚 (Phase 6.5 Claude 终态 + reorg + **ai_platforms/_template/ 范本 + ChatGPT/Gemini 骨架升级** + **claude_projects/README 补充订阅套餐分享限制**: Free/Pro/Max 无 share 能力, 仅 Team/Enterprise 可共享 Project)
 
 ## 总体状态
 
