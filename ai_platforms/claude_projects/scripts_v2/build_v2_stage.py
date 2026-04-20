@@ -106,13 +106,13 @@ STAGE_MAP = {
         "batch": 5,
         "script": "extract_terminology_terms.py",
         "script_args": ["--tier", "mid"],
-        "output": "12_terminology_mid.md",
+        "output": "12a_terminology_mid_core.md",
         "target_tokens_total": 1400000,
         "description": "terminology mid codelist",
         "slug": "terminology_mid",
         "prompt_block": (
-            "- 新增 12_terminology_mid.md (或 12a/12b): rank 201-500 mid 频 codelist 完整 Term 值。\n"
-            "- CT Code 查询优先级: **11 > 12 > 08**; 两批覆盖后, 边界模板 ② 仅对 rank >500 长尾 codelist 生效。"
+            "- 新增 3 个文件 (按 terminology subdir 拆分, mid tier, rank 201-500, 300 codelist): 12a_terminology_mid_core.md / 12b_terminology_mid_questionnaires.md / 12c_terminology_mid_supp.md, 每 codelist 使用 3 列 Term 表 (Code / Submission Value / Definition ≤100 字符, 词边界截断), 不含 Synonyms / NCI Concept Description 链接, 每 codelist header 附 `Related Domains:` 行。\n"
+            "- CT Code 查询优先级: **11a/11b/11c (high full Term 4 列) > 12a/12b/12c (mid 压缩 Term 3 列) > 08 (codelist 名称映射)**; 若 11* 命中优先引完整 Term; 若仅 12* 命中, 引 Term 并注明 Definition 为 100 字符压缩版 + Synonyms 不在本 tier (如需 Synonyms 必须指向源 `knowledge_base/terminology/**/*.md`); 08 仅作 fallback 名称查询。子目录路由沿用 11 系: core → a / questionnaires → b / supplementary → c。"
         ),
     },
 }
@@ -320,11 +320,14 @@ def _run_batch_script(stage: str) -> tuple[bool, str]:
     script_name = info["script"]
     script_path = SCRIPTS_V2 / script_name
 
-    # v2.4/v2.5: extract_terminology_terms.py not written yet.
-    if stage in ("v2.4", "v2.5"):
+    # v2.4: extract_terminology_terms.py was implemented in Phase F (tier=high)
+    # but v2.4 was already materialized via manual orchestration; we keep the
+    # stub to avoid re-writing the 11a/11b/11c files on downstream reruns.
+    if stage == "v2.4":
         return True, (
-            f"TBD: extract script `{script_name}` not implemented yet "
-            "(out of Phase D/E scope). Skipped batch execution."
+            f"stage v2.4 materialized manually in Phase F "
+            f"(11a/11b/11c already on disk). Skipped batch execution to "
+            "preserve byte-identical outputs."
         )
 
     if not script_path.exists():
@@ -344,6 +347,11 @@ def _run_batch_script(stage: str) -> tuple[bool, str]:
         if not exclude_list.exists():
             return False, f"need E1_exclude_list.txt for v2.3 (not at {exclude_list})"
         extra_args = ["--exclude-list", str(exclude_list)]
+    elif stage == "v2.5":
+        codelist_list = EVIDENCE_V2 / "G1_codelist_mid.txt"
+        if not codelist_list.exists():
+            return False, f"need G1_codelist_mid.txt for v2.5 (not at {codelist_list})"
+        extra_args = ["--list", str(codelist_list)]
 
     cmd = [sys.executable, str(script_path), *info["script_args"], *extra_args]
     try:

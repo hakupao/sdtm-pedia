@@ -16,6 +16,7 @@
 | v2.2 | 2026-04-19 | 16 | 333,719 | 92.7% of 360,000 target | examples 高频域 |
 | v2.3 | 2026-04-19 | 19 | 389,739 | 79.5% of 490,000 target | examples 剩余域 |
 | v2.4 | 2026-04-19 | 24 | 751,422 | 89.5% of 840,000 target | terminology 高频 codelist |
+| v2.5 | 2026-04-20 | 29 | 1,141,725 | 81.6% of 1,400,000 target | terminology mid codelist |
 
 ## 当前 v2 文件清单 (随阶段更新)
 
