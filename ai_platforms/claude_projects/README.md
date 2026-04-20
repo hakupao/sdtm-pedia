@@ -1,82 +1,85 @@
-# Claude Projects — SDTM 知识库部署 (入口)
+# Claude Projects — SDTM 知识库
 
-> 状态: **v1 + v2 终态完成** (2026-04-20 reorg 完成)
-> 当前 = v2.6 (19 上传文件 / 1,286,161 tokens / capacity 77% / 24/24 A/B PASS / 0 衰减全程)
+## 我想做什么?
 
-## 四层结构
+### 部署一个可用的 SDTM Claude Project
+→ 直接去 [**current/**](current/), 读 [UPLOAD_TUTORIAL.md](current/UPLOAD_TUTORIAL.md).
 
-```
-claude_projects/
-├── README.md        ← 本文件 (入口)
-├── ROADMAP.md        原始路线 (已完成, 加执行回顾)
-│
-├── current/          🟢 当前可部署产物 (v2.6 终态)
-│   ├── uploads/      19 个 .md 文件 (00-13c)
-│   ├── system_prompt.md
-│   ├── upload_manifest.md
-│   └── README.md     (部署指南)
-│
-├── docs/             🟡 方法论 & 一等参考 (暖区, 看就行)
-│   ├── PLAN_V2.md
-│   ├── RETROSPECTIVE_V2.md
-│   ├── rag_decay_curve.md
-│   ├── phase7_handoff.md       ← Phase 7 启动必读
-│   ├── capacity_research.md
-│   └── README.md
-│
-├── dev/              🔵 开发/过程产物 (冷区, 复盘或考古才进)
-│   ├── scripts/      6 个构建脚本 (hardcoded 路径是 reorg 前语境, 见 dev/README.md)
-│   ├── evidence/     trace.jsonl + _progress.json + subagent_prompts/ 等 49 份
-│   ├── ab_reports/   5 批 A/B 测试报告
-│   ├── checkpoints/  Cowork 自动执行 handoff
-│   ├── test_results.md
-│   └── README.md     (含 reorg 前→后路径映射表)
-│
-└── archive/          ⚫ 历史归档 (冻结, 只读)
-    ├── RETROSPECTIVE.md  v1 复盘 (四条规则已固化全局 CLAUDE.md)
-    └── v1/
-        ├── docs/     PLAN.md + UPLOAD_TUTORIAL.md + 配套文档
-        ├── scripts/  11 个 v1 脚本
-        ├── uploads/  v1 的 11 上传文件 + evidence/
-        └── README.md
-```
+### 理解这套知识库怎么做出来的 (方法论参考)
+→ 去 [**docs/**](docs/) 看开发计划、复盘、RAG 衰减数据.
 
-## 按角色快速入口
-
-**部署用户** (想把知识库上 Claude Project):
-→ 读 [current/README.md](current/README.md), 把 `current/uploads/` 的 19 个文件全部上传, 贴 `current/system_prompt.md`.
-
-**Phase 7 设计者** (接续做自建 RAG):
-→ 必读顺序:
-1. [docs/phase7_handoff.md](docs/phase7_handoff.md) (6 条 actionable + 5 未解问题 + 5 步待办)
-2. [docs/rag_decay_curve.md](docs/rag_decay_curve.md) (7 数据点 + 结论 + 6 关键发现)
-3. [docs/RETROSPECTIVE_V2.md](docs/RETROSPECTIVE_V2.md) §3 关键决策复盘
-
-**复盘/考古** (想知道怎么跑到这里):
-→ [docs/PLAN_V2.md](docs/PLAN_V2.md) + [docs/RETROSPECTIVE_V2.md](docs/RETROSPECTIVE_V2.md) + [dev/evidence/_phase_summary.md](dev/evidence/_phase_summary.md)
-
-**重跑脚本** (非标准场景, 路径需手动 remap):
-→ [dev/README.md](dev/README.md) (含 reorg 前→后路径映射表)
-
-## 关键事实
-
-| 指标 | v1 | v2.6 (当前) |
-|------|-----|-------------|
-| 上传文件数 | 9 | 19 |
-| Tokens | 192,036 | 1,286,161 (+571%) |
-| Capacity (UI 实测) | 12% | **77%** |
-| A/B PASS | 8/8 | **24/24** |
-| 回归衰减 | N/A | **0** (6 批 + 1 重平衡批全程) |
-| 覆盖率 (用户优先级) | — | core 99.3% / supp 100% / quest 55.8% |
-
-## Reorg 说明
-
-本目录 2026-04-20 晚由原混乱平铺结构 (output_v2/ + output_v1_baseline/ + output/ + scripts/ + scripts_v2/ 平铺 + 大量根目录文档) 重组为当前 current/docs/dev/archive 四层.
-
-**对历史文档的处理**: `docs/PLAN_V2.md` 和 `docs/RETROSPECTIVE_V2.md` 内部路径引用保留 reorg 前语境 (例如 "output_v2/xxx.md"), 以维持历史执行记录的准确性, 每份文件头部加 post-reorg note. 完整路径映射见 [dev/README.md](dev/README.md).
-
-**对脚本的处理**: `dev/scripts/*.py` 中硬编码路径 (`output_v2`/`evidence_v2`/`scripts_v2`) 保持 reorg 前状态. 重跑脚本须手动 remap 路径 — 实际上 v2.6 终态后无重跑需求.
+### 考古 / 复盘 / 贡献改进
+→ 去 [**dev/**](dev/) (过程产物) 或 [**archive/**](archive/) (早期迭代归档).
 
 ---
 
-*Reorg 执行: 主控 Claude Opus 4.7 (1M context), 2026-04-20 晚. 详见 git commit `Phase 6.5 v2 reorg-A/B`.*
+## 目录结构 (面向用户 vs 面向开发者)
+
+```
+claude_projects/
+├── README.md                         ← 本文件
+├── ROADMAP.md                        项目路线历程
+│
+├── 🟢 current/                       发布版 (用户视角, 无版本号)
+│   ├── UPLOAD_TUTORIAL.md            ★ 完整部署教程
+│   ├── README.md                     发布版总览 + 能力范围
+│   ├── uploads/                      19 个知识库文件 (1.29M tokens)
+│   ├── system_prompt.md              Custom Instructions
+│   └── upload_manifest.md            清单 + token 统计
+│
+├── 🟡 docs/                          方法论文档 (开发者视角)
+│   ├── PLAN_V2.md                    开发计划
+│   ├── RETROSPECTIVE_V2.md           复盘
+│   ├── rag_decay_curve.md            RAG 质量 vs 规模曲线 (7 数据点)
+│   ├── phase7_handoff.md             交接给 Phase 7 自建 RAG
+│   └── capacity_research.md          容量调研
+│
+├── 🔵 dev/                           开发过程产物 (复盘/考古)
+│   ├── scripts/                      构建脚本
+│   ├── evidence/                     trace + progress + subagent prompts
+│   ├── ab_reports/                   A/B 测试报告
+│   ├── checkpoints/                  自动执行 handoff
+│   └── test_results.md               完整回归矩阵 (部署后自查用)
+│
+└── ⚫ archive/                       早期迭代归档 (只读)
+    ├── RETROSPECTIVE.md              早期迭代复盘 (规则 A/B/C/D 源头)
+    └── v1/                           第一版全部产物 (冻结)
+```
+
+---
+
+## 对外 vs 对内的两种视角
+
+这个目录服务两类人:
+
+**面向用户/部署者**: 只需要看 [current/](current/). 发布版是**无版本概念的单一产物**, 跟着 UPLOAD_TUTORIAL 走即可. 不需要知道 v1/v2 是什么.
+
+**面向开发者/复盘者**: [docs/](docs/) + [dev/](dev/) + [archive/](archive/) 是开发过程的完整记录, 保留版本号 (v1/v2) 是为了复盘时能区分不同开发迭代. 这些文件对用户部署没有影响.
+
+---
+
+## 关键事实 (发布版)
+
+- 知识库覆盖: CDISC SDTM v3.4 — 63 域 spec + assumptions + examples (100%) + 6 章 chapters + 885 个 inline codelist (占 1005 总数的 88%, 剩余 12% 为 MedDRA 级 giants 和 questionnaires 长尾, 走 Deferred stub 或 Phase 7)
+- 总量: ~1,286,161 tokens / 19 个 `.md` 文件
+- Claude Project capacity 实测: **77%** (需要 Pro 及以上套餐)
+- 部署后测试基线: 24 题回归矩阵 24/24 PASS (详见 [dev/test_results.md](dev/test_results.md))
+
+---
+
+## 后续
+
+- 本发布版是完整终态, 短期内无重大升级计划
+- 长尾 302 个 codelist (296 questionnaires + 6 giants) 归属项目的 Phase 7 自建 RAG (设计见本项目 `docs/DESIGN_RAG_KG.md`)
+- 如需 API 可调用版本、团队分享、或推高 capacity 覆盖率, 参考 [docs/phase7_handoff.md](docs/phase7_handoff.md) 的后续建议
+
+---
+
+## 目录演进说明 (2026-04-20)
+
+本目录在 2026-04-20 从混乱平铺结构重组为当前四层 (current/docs/dev/archive), 主要目的:
+1. 给用户/部署者一个无歧义的入口 (`current/`)
+2. 剥离内部开发视角的版本号叙事到 `docs/` `dev/` `archive/`
+3. 保证对外只暴露"发布版"概念
+
+开发者如果要看原始平铺结构, 参考 git log `Phase 6.5 v2 reorg-A` commit (`87573bd`) 的 rename 记录, 或读 [dev/README.md](dev/README.md) 的路径映射表.
