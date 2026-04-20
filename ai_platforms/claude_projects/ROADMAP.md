@@ -1,20 +1,23 @@
 # Claude Projects — 行进路线
 
-> 状态: **待开始**
+> 状态: **已完成** (v1 2026-04-18 / v2 终态 v2.6 2026-04-20)
 > 着重方向: 精确查询 + 规则推理
 > 平台: Claude Pro — Projects
+> **实际产出**: v1 192K tokens (9/9 PASS) → v2.6 1,286,161 tokens / 19 文件 / capacity 77% / 24/24 A/B PASS / 0 衰减全程
+> **终态文档**: [PLAN.md (v1)](PLAN.md) / [PLAN_V2.md](PLAN_V2.md) / [RETROSPECTIVE.md (v1)](RETROSPECTIVE.md) / [RETROSPECTIVE_V2.md](RETROSPECTIVE_V2.md) / [output_v2/rag_decay_curve.md](output_v2/rag_decay_curve.md) / [output_v2/phase7_handoff.md](output_v2/phase7_handoff.md)
 
 ## 平台特性
 
-- **检索方式**: 全量加载到上下文（不做 RAG 分片）
-- **容量限制**: Project Knowledge 约 200K tokens (~50 万英文字符)
-- **上下文**: 全量可见，精确度最高
+- **检索方式**: 全量加载到上下文 — 修正: Claude Projects **paid 套餐会自动开 RAG 分片** (详见 `capacity_research.md`), 不是纯全量注入
+- **容量限制**: UI 显示 Project Knowledge ~200K tokens, 但实测 paid 套餐支持 ~1.5M tokens (本次 v2.6 push 到 77% = 1.29M 仍零衰减)
+- **上下文**: 全量可见, 精确度最高
 - **分享**: 仅个人/组织内使用
 - **适合**: 精确引用、规则推导、跨域关联分析、数据集校验讨论
+- **已知不可靠项**: UI "Indexing" indicator 全程 gating 不准, 以"直接试问命中"判可用
 
-## 内容策略
+## 内容策略 (v2.6 终态实际采用)
 
-Project Knowledge 约 200K tokens，需要精选内容。
+本节保留初版 "策略 A/B" 仅供参考. **实际实施从 200K → 1.29M tokens 演进**, 见 PLAN_V2.md + RETROSPECTIVE_V2.md.
 
 ### 策略 A: 最大化覆盖 (~288K tokens，需实测是否超限)
 
@@ -44,7 +47,12 @@ Project Knowledge 约 200K tokens，需要精选内容。
 
 ### 推荐: 先试策略 A，超限则降级
 
-## 执行步骤
+> **执行后实际情况** (2026-04-17 → 2026-04-20):
+> - v1 实际走"方案 B 二次创作压缩"压到 192K (12% capacity), 9 文件, 8/8 PASS, 不是原规划的策略 A
+> - v2 扩容后推到 1.29M tokens (77% capacity), 19 文件, 24/24 PASS, 已远超原策略 A/B 规划
+> - 结论: 原策略 A/B 是 200K 硬约束假设下的设计, 实测 RAG 自动分片后容量 ~10x, 策略完全改写
+
+## 执行步骤 (原规划, 实际已完成)
 
 ### Step 1: 编写 Project Instructions (System Prompt)
 
@@ -84,9 +92,19 @@ Project Knowledge 约 200K tokens，需要精选内容。
 3. **Cross References 链式追踪** — spec.md 末尾的交叉引用可以直接跳转
 4. **VARIABLE_INDEX 反向查询** — "哪些域有 EPOCH 变量？" 直接查表
 
-## 验收标准
+## 验收标准 (v2.6 终态全部满足 ✓)
 
-- [ ] 变量定义查询 100% 准确（上下文中有 spec.md）
-- [ ] 规则推导引用正确的 ch04 章节号
-- [ ] 跨域查询能追踪 Cross References 到相关域
-- [ ] 不在上下文中的内容(terminology/examples)不编造，而是提示用户
+- [x] 变量定义查询 100% 准确 (T1 AEDECOD Core, T4 EPOCH 44 域, T12 §4.4 Timing 等)
+- [x] 规则推导引用正确的 ch04 章节号 (T11 §8.3 RELREC, T12 §4.4.8 等)
+- [x] 跨域查询能追踪 Cross References 到相关域 (T3 PC↔PP RELREC 4 方法 v2.4 显式 Method A-D)
+- [x] 不在上下文中的内容不编造, 正确提示用户 (T18 AERELN 边界 / T22 C65047 giant stub / T6 AE Ex2 数据)
+- [x] 新增 v2 目标: 63 域 examples 全覆盖 + top 200 + mid 300 + core/supp tail 全 inline
+- [x] 新增 v2 目标: RAG 衰减曲线量化 (7 数据点, 拐点 ≥77% 未触)
+- [x] 新增 v2 目标: Phase 7 handoff 可执行 (6 actionable + 5 问题 + 5 步待办)
+
+## 后续可选扩展 (当前未排期)
+
+- v2.7+: quest 覆盖从 55.8% 推到 ~80% (quest 是用户最低优先级, ROI 低, 默认不做)
+- v2.8+: 推到 85-90% capacity 做 RAG 衰减拐点实验
+- Claude × Phase 7 RAG 混合: Phase 7 自建 RAG 跑通后再评估
+- 团队分享: Claude Projects share 链接需手动生成 (平台不支持自动化)
