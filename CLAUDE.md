@@ -39,7 +39,8 @@ Full chain definitions are in `.work/MANIFEST.md`.
 | Phase 7 session 记录 | `.work/05_rag_kg/session_2026-04-16_design.md` |
 | Phase 6.5 AI 平台部署 | `ai_platforms/` (总览 + 三平台子目录) |
 | **Phase 6.5 Claude 入口 (reorg 后)** | **`ai_platforms/claude_projects/README.md`** — 新结构导航入口, 指向 current/docs/dev/archive 四层 |
-| Phase 6.5 Claude 当前可部署 (v2.6) | `ai_platforms/claude_projects/current/` (uploads/ 19 文件 + system_prompt.md + upload_manifest.md, 1.29M tokens, capacity 77%) |
+| **Phase 6.5 Claude 部署教程 (用户视角)** | **`ai_platforms/claude_projects/current/UPLOAD_TUTORIAL.md`** — 10 章节完整制作教程 (前置 / 建 Project / System Prompt / 上传 / Smoke Test / 回归 / 排错 / 升降级 / 团队 / 后续), 已去版本化 |
+| Phase 6.5 Claude 当前可部署 (发布版) | `ai_platforms/claude_projects/current/` (uploads/ 19 文件 + system_prompt.md + upload_manifest.md + UPLOAD_TUTORIAL.md + README.md, 1.29M tokens, capacity 77%) |
 | Phase 6.5 Claude 方法论文档 | `ai_platforms/claude_projects/docs/` (PLAN_V2.md + RETROSPECTIVE_V2.md + rag_decay_curve.md + phase7_handoff.md + capacity_research.md) |
 | Phase 6.5 Claude v2 RAG 衰减曲线 | `ai_platforms/claude_projects/docs/rag_decay_curve.md` (7 数据点 v1→v2.6 + 4 段跨批观察 + 结论 + 6 Phase 7 actionable, 拐点 ≥77% 未触) |
 | Phase 6.5 Claude v2 Phase 7 交接 | `ai_platforms/claude_projects/docs/phase7_handoff.md` (6 actionable insight + 5 Q 未解 + 5 步待办, Phase 7 启动前必读) |

@@ -882,3 +882,29 @@
   - ai_platforms/claude_projects/ 从 ~5 层混乱平铺 → 4 层 (current/docs/dev/archive) 清晰
   - 新 session 读入口只需读 `claude_projects/README.md` 即可定位, 不必扫 15 个根目录文件
 - **下一步**: Reorg-C commit + push
+
+### 2026-04-20 晚 Phase 6.5 v2 去版本化 + UPLOAD_TUTORIAL 补写
+
+- **状态**: 已完成
+- **触发**: 用户反馈 "v1/v2 是内部开发叫法, 对外应只有'发布版'概念, current/ 和 claude_projects/README 还在泄漏 v2.6 字眼, 外界看不懂"
+- **策略**: 把 surface 分成两类, 用户视角去版本化, 开发视角保留版本号
+  - **用户视角** (去版本化): current/UPLOAD_TUTORIAL.md (新写) + current/README.md (重写) + claude_projects/README.md (重写) + ai_platforms/README.md Claude 行 (改)
+  - **开发视角** (保留版本号): docs/PLAN_V2.md / docs/RETROSPECTIVE_V2.md / dev/** / archive/v1/** / ROADMAP.md / worklog.md (不动)
+- **新产物**:
+  - `current/UPLOAD_TUTORIAL.md` — 10 章节完整部署教程 (前置 / 建 Project / 贴 System Prompt / 上传 19 文件 / 等 Indexing 说明 / Smoke Test T1/T17/T22 / 完整回归 24 题 / 排错 7 条 / 升降级路径 / 团队协作 + 附验证清单)
+- **改写**:
+  - `current/README.md` 改为"发布版总览", 覆盖率 + 限制 + 相关文档 + 能力范围, 不再突出 v2.6 字眼
+  - `claude_projects/README.md` 改为"我想做什么" 3-path 导向 + 🟢🟡🔵⚫ 分层 + 对外 vs 对内两种视角说明
+  - `ai_platforms/README.md` Claude 行: "v1 精选 → v2 扩容" → "发布版 1.29M tokens"; 链接段改用用户视角分层
+- **commits** (本 session 发布版收尾全部):
+  - `3400276` V6.4 A/B 24/24 PASS
+  - `1def706` H1 RETROSPECTIVE_V2 + Rule D 独立复核
+  - `092b06e` H2 rag_decay_curve 终态 + phase7_handoff
+  - `c1e9e04` H3 Chain B/C/E 索引
+  - `c6f3360` H4 _phase_summary + _progress.json status=completed + trace phase_done
+  - `e8915f8` H5-followup: ROADMAP + ai_platforms/README 状态对齐
+  - `87573bd` reorg-A: 182 文件物理 mv (current/docs/dev/archive)
+  - `80332e8` reorg-B: 5 新 READMEs + 路径引用更新
+  - `bf8fcf0` reorg-B-fix: 补修 PROGRESS + superpowers docs 路径
+  - `5280c56` 去版本化 + UPLOAD_TUTORIAL 新写
+- **最终状态**: claude_projects/ 目录对外只暴露"发布版" (current/), 对内保留完整开发版本化叙事 (docs/dev/archive), UPLOAD_TUTORIAL 让用户 30-90 分钟可独立搭建 Claude Project
