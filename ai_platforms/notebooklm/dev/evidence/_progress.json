@@ -4,9 +4,9 @@
   "mode": "async",
   "sync_board_participation": false,
   "start_date": "2026-04-21",
-  "last_update": "2026-04-21_architecture_pivot_v1_3notebook_archived_v2_1notebook_starting",
+  "last_update": "2026-04-21_phase2_v2_PASS_post_architect_review_ready_for_phase3",
   "status": "in_progress",
-  "current_phase": "2_plan_v2_writing",
+  "current_phase": "3_execute_phase_A_gated_on_user_ack",
   "architecture_version": "v2_single_notebook_2026-04-21",
   "phase_states": {
     "0_bootstrap": {
@@ -29,16 +29,18 @@
         "capacity_confirmation": "done_writer1+writer2",
         "indexing_indicator_test": "deferred_phase3",
         "single_notebook_architecture_confirmation": "done_2026-04-21_three_webfetch_post_pivot",
-        "writer1_research_md": "done (general-purpose, 392 lines)",
+        "writer1_research_md": "done (general-purpose, 392 lines) — archived",
         "reviewer1_audit": "done (verifier, CONDITIONAL_PASS 78%) — archived",
-        "writer2_corrections": "done (executor, 4 corrections, 469 lines)",
+        "writer2_corrections": "done (executor, 4 corrections, 469 lines) — archived",
         "reviewer2_final": "done (critic, CONDITIONAL_PASS 85% + 2 trivial blockers) — archived",
         "main_session_trivial_fixes": "done 2026-04-21 (Free->Standard 3 places)",
-        "q7_and_paragraph_11_v2_rewrite": "done 2026-04-21 (post-pivot, 3 webfetch evidence)"
+        "q7_and_paragraph_11_v2_rewrite": "done 2026-04-21 (post-pivot, 3 webfetch evidence)",
+        "q7_duplicate_source_section_cleanup": "done 2026-04-21 (L4 fix)",
+        "writer2_log_mode_ab_deprecation_notice": "done 2026-04-21 (L5 fix)"
       },
       "rule_d_chain_subagent_types": ["general-purpose", "oh-my-claudecode:verifier", "oh-my-claudecode:executor", "oh-my-claudecode:critic"],
       "evidence_paths": ["docs/research.md", "archive/v1_3notebook_SUPERSEDED_2026-04-21/dev/evidence/phase1_reviewer.md", "archive/v1_3notebook_SUPERSEDED_2026-04-21/dev/evidence/phase1_reviewer2.md"],
-      "final_verdict": "PASS (post trivial fixes + post-pivot Q7/§11 v2 rewrite)",
+      "final_verdict": "PASS (post trivial fixes + post-pivot Q7/§11 v2 rewrite + L4/L5 cleanup)",
       "carry_over_to_phase2_v2": [
         "Inherit R1: SDTM pre-upload audit (wc -w top 5) / Chat mode Custom selector / personal Gmail + share-level toggle strategy (3 档 UI)",
         "Q1 red line: 0 Req variable loss (user ack 2026-04-21)",
@@ -50,7 +52,7 @@
       ]
     },
     "2_plan": {
-      "status": "in_progress",
+      "status": "done",
       "v1_status": "SUPERSEDED_archived_2026-04-21",
       "v1_archive_path": "archive/v1_3notebook_SUPERSEDED_2026-04-21/",
       "v1_rule_d_chain_subagent_types": ["oh-my-claudecode:planner", "oh-my-claudecode:analyst", "feature-dev:code-architect", "pr-review-toolkit:code-reviewer"],
@@ -60,7 +62,7 @@
       "v2_evidence_chain": [
         "webfetch support.google.com/notebooklm/answer/16206563: 50-cap only applies to Restricted invite",
         "webfetch support.google.com/notebooklm/answer/16322204: toggle levels on same notebook, anyone with link needs Google account (not anonymous)",
-        "webfetch support.google.com/notebooklm/answer/16213268: sharing does not change viewer's own tier source cap"
+        "webfetch support.google.com/notebooklm/answer/16213268: sharing does not change viewer's own tier source cap (interpretation A, confidence MEDIUM, Phase 3 P3.9 step f closure planned)"
       ],
       "v2_substeps": {
         "pivot_record_written": "done 2026-04-21 (archive/v1_.../ARCHITECTURE_PIVOT_RECORD.md)",
@@ -69,15 +71,70 @@
         "platform_profile_v2_rewrite": "done 2026-04-21",
         "roadmap_v2_rewrite": "done 2026-04-21",
         "readme_phase_table_update": "done 2026-04-21",
-        "progress_json_reset": "done 2026-04-21 (this write)",
-        "plan_v2_writing": "pending",
-        "plan_v2_reviewer_9th_subagent_type": "pending"
+        "progress_json_reset": "done 2026-04-21",
+        "plan_v2_writing": "done 2026-04-21 (548 lines initial, extended post-review)",
+        "plan_v2_reviewer_9th_subagent_type": "done 2026-04-21 (oh-my-claudecode:architect, CONDITIONAL_PASS 84%)",
+        "plan_v2_reviewer_findings_applied": "done 2026-04-21 (3 HIGH + 5 MEDIUM + 5 LOW all closed, 5 SUGGESTION integrated, 3 Q-REV auto-acked by main session default)"
       },
-      "v2_planned_rule_d_chain_subagent_types_extension": ["<to-be-selected-from-available>"]
+      "v2_rule_d_chain_subagent_types_extension": ["oh-my-claudecode:architect"],
+      "cumulative_rule_d_chain_subagent_types_phase_0_to_2": [
+        "general-purpose",
+        "oh-my-claudecode:verifier",
+        "oh-my-claudecode:executor",
+        "oh-my-claudecode:critic",
+        "oh-my-claudecode:planner",
+        "oh-my-claudecode:analyst",
+        "feature-dev:code-architect",
+        "pr-review-toolkit:code-reviewer",
+        "oh-my-claudecode:architect"
+      ],
+      "cumulative_rule_d_chain_count": 9,
+      "v2_reviewer_evidence_path": "dev/evidence/phase2_v2_reviewer.md",
+      "v2_reviewer_verdict": "CONDITIONAL_PASS 84% → PASS after main session applied all HIGH/MEDIUM/LOW fixes",
+      "v2_findings_closure": {
+        "HIGH_H1_bucket_source_of_truth_contract": "closed (PLAN §3.2 added contract clause)",
+        "HIGH_H2_coverage_set_equation_math": "closed (PLAN §3.2 changed to implication form)",
+        "HIGH_H3_chat_mode_single_constraint_unverified": "closed (PLAN §3.4 + §6 P3.3 b/c added verification, constraint loosened to 'default Custom, session toggle Phase 3 verifies')",
+        "MEDIUM_M1_rule_a_structure_vs_semantic": "closed (PLAN §6 P3.4.5 added Req semantic audit N=10, A4 kept for structure)",
+        "MEDIUM_M2_webui_batch_50_unverified": "closed (PLAN §2.5 added A5' 5-source small sample real test)",
+        "MEDIUM_M3_smoke_sampling_rate_6pct": "closed (PLAN §6 P3.4 smoke N=3→10)",
+        "MEDIUM_M4_pivot_attribution_depth": "closed (PLAN §11 deepened to 3 layers + template patch 10a/10b)",
+        "MEDIUM_M5_evidence3_interpretation_A": "closed (PLAN engrained fact #6 + Executive Summary downgraded 'Free tier compat' attribution; P3.9 step f plans closure)",
+        "LOW_L1_restricted_split_readability": "closed (PLAN §3.3 merged)",
+        "LOW_L2_only_via_share_level_over_assert": "closed (PLAN Exec Summary + §3.3 added 'under current Rule E ack')",
+        "LOW_L3_toggle_drill_rapid_switch_missing": "closed (PLAN P3.9 added step e)",
+        "LOW_L4_research_source_duplicate_paragraph": "closed (research.md §11 dup deleted)",
+        "LOW_L5_writer2_log_mode_ab_inline_notice": "closed (research.md L472 prefix added)",
+        "SUGGESTION_S1_free_tier_viewer_sample": "integrated as P3.9 step f",
+        "SUGGESTION_S2_non_core_domain_smoke_question": "integrated as P3.4 b guidance",
+        "SUGGESTION_S3_narrative_pseudo_constraint_self_audit": "integrated as PLAN §11 self-check (implicit in M4 closure)",
+        "SUGGESTION_S4_cluster_algorithm_slot_utilization": "integrated as §3.2 contract implication (A3 runtime check)",
+        "SUGGESTION_S5_citation_precision_cross_platform": "deferred to Phase 5 cross_platform_compare.md"
+      },
+      "q_rev_user_ack_defaults": {
+        "Q_REV_1_chat_mode_assumption": "auto-acked: accept assumption pending P3.3 UI test",
+        "Q_REV_2_webui_small_sample": "auto-acked: accept A5' parallel with A1",
+        "Q_REV_3_q1_dual_anchor": "auto-acked: accept structure A4 + semantic P3.4.5 dual anchor"
+      },
+      "final_verdict": "PASS (2026-04-21, post 9th subagent_type architect review + all findings applied); user may override Q-REV auto-acks before Phase 3",
+      "carry_over_to_phase3": [
+        "Phase 3 P3.3 子步骤 b/c: 验证 Chat mode 单 session 可否切换三档 (H3 验证)",
+        "Phase 3 P3.4 M3 fix: smoke 题 N=10 + 至少 1 题 non-core domain",
+        "Phase 3 P3.4.5 M1 fix: Req 变量业务问答 N=10 Q1 语义自证",
+        "Phase 3 P3.9 L3 + S1 fix: 3 档切换演练加子步骤 e (快速多次切换) + f (Free tier 小号实测)",
+        "Phase A A5' (M2 fix): Web UI 5-source 小样上传实测"
+      ]
     },
     "3_execute": {
-      "status": "locked",
-      "blocked_by": "phase_2_plan_v2"
+      "status": "locked_until_user_ack_phase2_v2_final",
+      "blocked_by": "user_ack_for_q_rev_auto_defaults_and_commit_c5_2",
+      "entry_gate_5_conditions": [
+        "H1/H2/H3 all closed in PLAN.md v2",
+        "M1/M2 closed (P3.4.5 + A5' added to plan)",
+        "9th subagent_type reviewer evidence at dev/evidence/phase2_v2_reviewer.md",
+        "Main session Q-REV auto-ack accepted (or user override)",
+        "User ack to commit C5.2 and enter Phase A"
+      ]
     },
     "4_review": {
       "status": "locked"
@@ -91,20 +148,22 @@
     "readme": "README.md",
     "roadmap": "ROADMAP.md",
     "research": "docs/research.md",
-    "plan_current_v2": "docs/PLAN.md (to be written)",
+    "plan_current_v2": "docs/PLAN.md",
     "plan_v1_archived": "archive/v1_3notebook_SUPERSEDED_2026-04-21/docs/PLAN_v1_3notebook.md",
     "pivot_record": "archive/v1_3notebook_SUPERSEDED_2026-04-21/ARCHITECTURE_PIVOT_RECORD.md",
+    "phase_2_v2_reviewer": "dev/evidence/phase2_v2_reviewer.md",
     "progress_this_file": "dev/evidence/_progress.json",
     "template_spec_copy": "_spec/"
   },
   "notes": [
     "异步模式: 不参与 SYNC_BOARD.md 的 ChatGPT<->Gemini 2-way 锁步",
     "Rule E ack 2026-04-21: ABC 全向 + Pro tier (via Google AI Pro) + Web UI only + personal Gmail 账号",
-    "v2 架构 (2026-04-21 pivot 后): 单 notebook × ≤50 sources, ABC 三场景同 notebook 分享档位切换",
+    "v2 架构 (2026-04-21 pivot 后): 单 notebook × ≤50 sources, ABC 三场景同 notebook 分享档位切换 (本次 Rule E ack 下)",
     "分享档位三档 (Restricted / Anyone with link / Public) 可随时切, 50-cap 仅套 Restricted invite 档",
-    "≤50 sources 理由 6 条 (Free tier viewer 兼容 / indexing silent fail 风险 / citation 信噪比 / Mind Map 可读 / upload effort / workflow replication)",
-    "Q1 红线 (0 Req variable loss) 在 ≤50 下比原 v1 的 ≤30 更易守 (slot 更宽松)",
-    "本平台对 _template/ 的 10 条缺陷补丁候选 (原 7 + pivot 新增 3: multi-notebook 决策树 / per-day rate limit / Writer 叙事合成伪约束范例) 收束时合并"
+    "≤50 sources 主归因 (证据 HIGH): indexing silent fail 风险线性降低 + citation 信噪比提升; 次归因 (证据 MEDIUM, 待 P3.9 f 闭合): Free tier viewer 兼容",
+    "Q1 红线双锚: A4 结构级自证 (Phase A) + P3.4.5 语义级自证 (Phase 3, 规则 A 正本 N=10)",
+    "本平台对 _template/ 的 11 条补丁候选 (原 7 + pivot 新增 3: multi-notebook 决策树 / per-day rate limit / Writer 叙事合成 (拆 10a+10b))",
+    "第 9 种 subagent_type (architect) Phase 2 v2 审 CONDITIONAL_PASS 84% → 全 findings 闭合后 PASS"
   ],
   "known_differences_from_template": [
     {
@@ -150,10 +209,25 @@
       "action": "_template 03_research.md Q2 加 '重命名漂移警示' 条"
     },
     {
-      "dim": "writer_narrative_synthesis_pseudo_constraint",
+      "dim": "writer_narrative_synthesis_pseudo_constraint_layer_1",
+      "patch_id": "10a",
       "template_assumption": "writer 叙述可直接作 planner 输入",
-      "notebooklm_reality": "Phase 1 v1 Q7 '两模式可叠加' 叙事被合成成 'Scope B 本质两选一' 伪约束, 引伸出 3 notebook 架构被 Phase 2 PLAN 吃掉; 后 Phase 2 v1 PASS 91% 仍未捕获, 用户 review 时由反问推翻",
-      "action": "_template 03_research.md 末尾加 'Writer 立场警示' — 陈述事实 (XYZ 可叠加/可并行) 到结论 (XYZ 必须分独立) 跳跃一步必须质询; _template 04_plan.md planner 接 research 时加 '伪约束自检' 段"
+      "notebooklm_reality": "Phase 1 v1 Q7 '两模式可叠加' 叙事被合成成 'Scope B 本质两选一' 伪约束",
+      "action": "_template 03_research.md 末尾加 'Writer 立场警示' — 陈述事实 (XYZ 可叠加/可并行) 到结论 (XYZ 必须分独立) 跳跃一步必须质询; Writer self-report 段加'伪约束自查'小节"
+    },
+    {
+      "dim": "cross_phase_retrospection_blind_spot_layer_2",
+      "patch_id": "10b.1",
+      "template_assumption": "Phase N Reviewer 审查焦点由前 Phase 提供 spec 决定",
+      "notebooklm_reality": "v1 Phase 2 reviewer 只审 planner 推论, 不回溯质疑 research 源头叙事; 8 种 subagent_type 都没 catch 住 3 notebook 伪约束",
+      "action": "_template 04_plan.md planner 接 research 时新增 '**核心约束原文回溯**' 段, 强制回 Phase 1 A 级 URL 原文对照. Reviewer 审 PLAN 时必须检查 '本 PLAN 每个硬约束是否可回溯到 Phase 1 A 级原文'"
+    },
+    {
+      "dim": "user_counter_question_as_last_defense_layer_3",
+      "patch_id": "10b.2",
+      "template_assumption": "Rule D 严格 + 证据驱动 足够防架构级盲区",
+      "notebooklm_reality": "v2 pivot 不是 Rule D 链胜利, 是用户 review 绕过 Rule D 直接质疑原始 research 的胜利",
+      "action": "_template 04_plan.md + 06_review.md 加 'Phase 2 PASS 前用户反问 gate' — Phase 2 PASS 前主 session 必主动向用户提一次开放式反问 '本 PLAN 有没有看起来过重/过复杂/违反直觉的地方?', 作架构级盲区防线"
     }
   ],
   "ab_matrix_plan_v2": {
@@ -167,7 +241,10 @@
     },
     "pass_threshold": "13/15 (~87%) business_correct AND each unique generative product >=1 precise hit",
     "total_ab_runs": "15 题次 (1 notebook × 15)",
-    "req_zero_loss_audit": "extract_req_vars.py full set + coverage audit against ≤50 sources bucket, target ∅ gap",
+    "req_zero_loss_audit": {
+      "structure_level_a4": "extract_req_vars.py full set + coverage audit against ≤50 sources bucket, target ∅ gap",
+      "semantic_level_p3_4_5": "N=10 Req variable business Q&A test against Chat mode, 10/10 hit required (Rule A 正本)"
+    },
     "audio_rate_limit_note": "Pro tier 20 audio/day, cross-day acceptable if retry needed"
   },
   "rule_E_user_priority": {
@@ -181,7 +258,7 @@
     "account_type": "personal_gmail",
     "account_ack_date": "2026-04-21",
     "scope_B_fallback": "workflow_replication (via current/UPLOAD_TUTORIAL.md + uploads/ 打包让接收者自建复刻)",
-    "strategy_implication_v2": "三场景 ABC 在同一 notebook 内按分享档位切换实现 (默认 Restricted, 按需切 Anyone with link / Public), 总 1 notebook (不占多 slot)"
+    "strategy_implication_v2": "三场景 ABC 在同一 notebook 内按分享档位切换实现 (默认 Restricted, 按需切 Anyone with link / Public), 总 1 notebook (不占多 slot). 未来若 collaborator 圈需职责隔离再评估升级多 notebook"
   },
   "architecture_pivot_log_v1_to_v2": {
     "pivot_date": "2026-04-21",
@@ -198,19 +275,20 @@
       "353 uploads (worst case)",
       "45 A/B test runs (3 notebooks × 15)",
       "uploads_main + uploads_invite + uploads_public directory split",
-      "Phase A A5 'webui batch upload capability' hard checkpoint (not needed at ≤50 scale)",
+      "Phase A A5 'webui batch upload capability' hard checkpoint (replaced by v2 A5' small sample test)",
       "P12 source isolation as hard rule (downgraded to informational)",
       "I8 + C2.9 Phase 3 carry-over (closed)",
       "cluster_req_variables.py target ≤30 (changed to ≤50, more headroom)",
-      "Chat mode three-notebook decision (single notebook = single Custom mode)"
+      "Chat mode three-notebook decision (v2 single notebook, H3 assumption pending P3.3 verify)"
     ],
     "v2_assets_preserved": [
       "research.md Q1-Q6/Q8-Q10 facts (verified, unchanged)",
-      "Rule D 8-subagent-type chain (extended, not reset)",
+      "Rule D 9-subagent-type chain (extended with architect, not reset)",
       "User Q1 zero-loss + Q2 quality-first acks",
       "Rule E ack (ABC + Pro + Web UI + personal Gmail)",
-      "_template patch candidates (7 retained + 3 refined/new)",
-      "extract_req_vars.py + cluster_req_variables.py design intent (target slot adjusted)"
-    ]
+      "_template patch candidates (7 retained + 4 refined/new: 5-rewrite + 10a/10b.1/10b.2 = 11 total)",
+      "extract_req_vars.py + cluster_req_variables.py design intent (target slot adjusted to ≤50)"
+    ],
+    "v2_architectural_findings_closed_by_9th_reviewer": "see phase_states.2_plan.v2_findings_closure (HIGH×3 + MEDIUM×5 + LOW×5 + SUGGESTION×5 + Q-REV×3)"
   }
 }

@@ -364,12 +364,6 @@ v1 原打算利用 Pro 500 notebooks 额度开 3 个 notebook (ABC 三 scope 各
 - C: [Medium — NotebookLM Isolated Notebooks: Two Ways to Finally Connect](https://medium.com/@kombib/notebooklm-isolated-notebooks-two-ways-to-finally-connect-them-12485a79ac47) (隔离 + Gemini 侧方案详解)
 - C: [AndroidPolice — NotebookLM with Gemini unlocks](https://www.androidpolice.com/i-paired-notebooklm-with-gemini-solved-biggest-limitation/)
 
-**来源**:
-- A: [NotebookLM Help — Upgrade](https://support.google.com/notebooklm/answer/16213268?hl=en) (notebooks/user 四档数字)
-- A: [Workspace Updates 2026-01 — NotebookLM as Gemini source](https://workspaceupdates.googleblog.com/2026/01/take-notebooks-further-notebooklm-gemini.html)
-- C: [Medium — NotebookLM Isolated Notebooks: Two Ways to Finally Connect](https://medium.com/@kombib/notebooklm-isolated-notebooks-two-ways-to-finally-connect-them-12485a79ac47) (隔离 + Gemini 侧方案详解)
-- C: [AndroidPolice — NotebookLM with Gemini unlocks](https://www.androidpolice.com/i-paired-notebooklm-with-gemini-solved-biggest-limitation/)
-
 ---
 
 ## §12 2026-04 API 状态
@@ -471,7 +465,7 @@ v1 原打算利用 Pro 500 notebooks 额度开 3 个 notebook (ABC 三 scope 各
 
 ### Writer #2 修正日志 (2026-04-21, subagent_type=oh-my-claudecode:executor) — **pre-pivot 历史记录**
 
-> **v2 注**: 本日志记录 Phase 1 Writer 阶段的修正动作, 反映当时的 Mode A/B 叙事理解. Phase 2 架构 pivot (2026-04-21) 后 Q7 已整体重写, Mode A/B 框架作废. 本日志**作审计轨迹保留不删**, 但**不作为 Phase 2 v2 的架构依据**, 以 Q7 v2 + §11 v2 结论为准.
+> **v2 注**: 本日志记录 Phase 1 Writer 阶段的修正动作, 反映当时的 Mode A/B 叙事理解. Phase 2 架构 pivot (2026-04-21) 后 Q7 已整体重写, Mode A/B 框架作废. 本日志**作审计轨迹保留不删**, 但**不作为 Phase 2 v2 的架构依据**, 以 Q7 v2 + §11 v2 结论为准. **特别注**: **下表第 3b 行 "Mode A/B 分享模式拆分" 所述的两独立模式框架已在 Q7 v2 废止**, 实际是同一 notebook 的 3 档 Access Level 可切换, 详见 Q7 v2 + 三 WebFetch 证据链.
 
 **背景**: Writer #1 (`general-purpose`) 完成 research.md 初版后, Reviewer #1 (`oh-my-claudecode:verifier`) 判定 CONDITIONAL_PASS (78% 置信), 指出 3 大事实错误 + 1 全文口径错误. 本日志由 Writer #2 (`oh-my-claudecode:executor`, 第 3 种不同 subagent_type, Rule D 合规) 据 Reviewer #1 反馈修正, 等后续 Reviewer #2 (`oh-my-claudecode:critic`) 独立复核.
 
