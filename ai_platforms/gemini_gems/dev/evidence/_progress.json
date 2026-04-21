@@ -6,7 +6,7 @@
   "created_at": "2026-04-20",
   "last_updated": "2026-04-21",
   "current_phase": 4,
-  "overall_status": "phase_4_n5_2_PASS_smoke_v2_1_9_of_10_strict_plus_v5_system_prompt_AND_04_knowledge_file_cross_file_pollution_both_fixed_validate_rc0_637648_tokens_ready_for_commit_c5_2b_then_user_webui_reupload_04_plus_update_v5_plus_q3_retest",
+  "overall_status": "phase_4_n5_2_FULL_PASS_q3_retest_closed_v5_plus_v5b_landed_gemini_equivalent_10_of_10_chatgpt_10_of_10_phase4_gate_CONFIRM_ready_for_n5_3_full_ab_matrix_with_generalization_probe_design",
   "sync_locked_with": "chatgpt_gpt",
   "sync_board_path": "ai_platforms/SYNC_BOARD.md",
   "notes": "Phase 定义对齐 ROADMAP.md 六段制. Phase 2 双边 CONDITIONAL_PASS, 等用户 ack 进 Phase 3. Gemini Tier 1-2 最轻量平台.",
@@ -628,11 +628,24 @@
             "SUGG: writer 自检 N=7→N=10 负例, N5.3 跨平台 10 题核心子集 1:1 对照"
           ],
           "user_action_awaiting": [
-            "Step 1: 更新 Gemini Custom Instructions v5 (7925 chars, 粘贴 ai_platforms/gemini_gems/current/system_prompt.md)",
-            "Step 2: 删 Gemini 老 04 knowledge file + 重传新 04 (v5b, 637,648 tokens 含 6 处 LBNRIND 污染修)",
-            "Step 3: 单题补测 Q3 (HbA1c LBNRIND 判据) — 期望答 HIGH/LOW/NORMAL 全写 (对比 v2.1 smoke Q3 答 H/N/L)",
-            "Step 4: 若 Q3 补测 PASS → 用户 ack → N5.3 Full A/B 矩阵 (ChatGPT 13-15 题 + Gemini 10 题)"
-          ]
+            "Step 1: 更新 Gemini Custom Instructions v5 (7925 chars, 粘贴 ai_platforms/gemini_gems/current/system_prompt.md) — DONE 2026-04-21",
+            "Step 2: 删 Gemini 老 04 knowledge file + 重传新 04 (v5b, 637,648 tokens 含 6 处 LBNRIND 污染修) — DONE 2026-04-21",
+            "Step 3: 单题补测 Q3 (HbA1c LBNRIND 判据) — DONE 2026-04-21 **PASS**: Gemini 答 LBNRIND=HIGH + 三档全写 LOW/NORMAL/HIGH + '严禁使用单字符 H' + 主动引 CO-2 硬约束 + 主动引 04 §3.1 + NCI EVS 外链加分",
+            "Step 4: 用户 ack 进 N5.3 Full A/B — PENDING (主 session 等用户决定 N5.3 题库设计: 是否含 generalization probe 防 04 scenarios 作弊嫌疑)"
+          ],
+          "q3_retest_closure": {
+            "date": "2026-04-21",
+            "verdict": "PASS",
+            "evidence": "ai_platforms/gemini_gems/dev/evidence/smoke_v2_1_q3_retest.md",
+            "fix_effectiveness_confirmation": "v5 system_prompt CO-2 LBNRIND 硬锚 + v5b 04 六处翻转双保险生效; Gemini 答案主动引用两者, 并加 'L/N/H 旧版可能见过但规范数据必须全写' 超预期解释",
+            "gemini_equivalent_score_under_v5_v5b": "10/10 (Q3 补测闭合, 其他 9 题不变)",
+            "dual_platform_equivalence": "双平台 Q3 同款 PASS, v5+v5b fix 完全闭合 N5.2 carry-over"
+          },
+          "n5_3_design_open_question_raised_by_user_2026_04_21": {
+            "user_observation": "04_business_scenarios_and_cross_domain.md 预设了很多场景 (§1.1-§1.x 26 scenarios + §9 FAQ); 若 smoke 题直接问这些场景, 是不是作弊?",
+            "honest_answer": "部分作弊成分 (scenario overlap high), 但这是 Gemini 无 RAG + 1M window 约束下的 tradeoff (必须 pre-compress 才能全覆盖). ChatGPT 有 RAG + 2.5M tokens terminology, 所以不需要 scenario preset.",
+            "n5_3_implication": "N5.3 Full A/B 必须引入 **generalization probe** — 至少 30-40% 题目设计成 04 scenarios 之外的新业务问题, 测 Gemini 对 01/02/03 的原生 knowledge 利用能力 (不单纯背 04 答案)"
+          }
         }
       }
     },
