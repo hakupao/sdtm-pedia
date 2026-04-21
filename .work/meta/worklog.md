@@ -980,6 +980,40 @@
   - 全局 "Rule D 8 lane 都过不等于架构没问题" 教训落成 _template 补丁 + PLAN §11 RETROSPECTIVE 预写段 (架构级盲区必须靠用户反问 gate 作最后防线)
 - **下一步**: Phase 3 启动 (P3.1 前置 polish 2 个 auto-generated bucket + merge_sources.py + P3.2 上传 + P3.3 Custom mode + H3 切换验证 + P3.4/4.5 双 smoke + Audio/Mind Map/Study Guide + 15 题 A/B + P3.9 3 档切换演练)
 
+### 2026-04-21 晚 Phase 6.5 NotebookLM Phase 3 P3.1 完成 (42 uploads + Custom mode instructions)
+
+- **状态**: 已完成
+- **触发**: Phase A Setup 全 PASS, Phase 3 entry gate OPEN 后启动 P3.1 前置 polish
+- **工作内容**:
+  - `bucket_config.json` 扩展: bucket 02 (9 通用 Req + 24 跨域变量详) 加 `_auto_source=variable_index_common`; bucket 42 (Req 覆盖审计元 source) 改 `_auto_source=req_coverage_audit` (替原 `_auto_generated=true` 布尔), 统一由 merge_sources.py 特殊 handler 派发
+  - `dev/scripts/merge_sources.py` 新脚本: 读 bucket_config.json + knowledge_base/, 按 files[] 合成 42 个 md 源到 `current/uploads/`; 每个文件加 NotebookLM source metadata header (bucket ID / concept / words / chars / 合并源文件清单); 2 个 `_auto_source` bucket 分别走 `variable_index_common` (抽 VARIABLE_INDEX.md §一 + 附 9 Req 速查前言) 和 `req_coverage_audit` (合并 coverage_audit.md + full_set.md); 脚本末附 MANIFEST.md 自动重生
+  - `current/uploads/*.md` × 42: 总 **1,582,085 words**, 最大 bucket `38_ct_questionnaires_part1_22.md` 302K words = 60% of 500K/source cap, 0 over-cap, 0 missing
+  - `current/uploads/MANIFEST.md` 重生: 字数改真实值 (bucket 02: 1,080 / bucket 42: 4,833, 原 0), 加 "后续 P3.2-P3.4.5 引导段"
+  - `current/instructions.md` 新建 Chat Custom mode 文本: **9,011 chars = 90% of 10K cap (11% headroom)**, 13 behavior rules + SDTM 锚点 (AESER=Exp 非 Req / LBNRIND 全写 HIGH/LOW/NORMAL 非短码 / NY C66742 codelist / ISO 8601 格式 / C-code 字面 / Day 1 无 Day 0 / RELREC+RELSPEC+RELSUB 三件套 / SUPPQUAL QNAM-QLABEL-QVAL-QORIG 结构); 明确 authoritative layer 优先级 (spec > ch04 > CT > assumptions > examples); 强制 inline citation + 未收录坦诚
+  - `dev/evidence/_progress.json` 更新: `phase_a_placeholders_to_resolve_in_phase3` 两条 CLOSED, 新增 `p3_1_completion` 段 (5 sub_actions + 5 artifacts_shipped + `ready_for_p3_2: true`)
+- **关键决策**:
+  - 不手写 bucket 02 内容, 改走 merge_sources.py `_auto_source=variable_index_common` 机械抽取, 保证 VARIABLE_INDEX 变更时可重生
+  - bucket 42 由 `coverage_audit.md + full_set.md` 双份合并, 给 NotebookLM RAG "176 Req 全名单 + ∅ gap 自证" 两个召回锚
+  - instructions.md 不采用模糊 "SDTM 专家" 描述, 改列 13 条可审 behavior rules + 全部 codelist canonical 值 (HIGH/LOW/NORMAL 等), 减少 Custom mode 漂移
+  - 9,011 / 10,000 chars 留 11% headroom, 便于 P3.3 H3 验证后按需微调
+- **Phase 3 P3.1 核心指标**:
+  - 42 / 42 bucket 合成成功, 0 missing file, 0 over-cap
+  - 最大 bucket 302K < 500K/source cap (余 40%)
+  - instructions.md 9,011 chars < 10K cap (余 11%)
+  - 176/176 Req 结构级覆盖保持 ∅ gap (未变动 bucket_config files[])
+- **新产物路径** (本次 session):
+  - `ai_platforms/notebooklm/dev/scripts/merge_sources.py` (new)
+  - `ai_platforms/notebooklm/dev/scripts/bucket_config.json` (modified: `_auto_source` 字段)
+  - `ai_platforms/notebooklm/current/uploads/*.md` × 42 (generated/regenerated)
+  - `ai_platforms/notebooklm/current/uploads/MANIFEST.md` (regenerated)
+  - `ai_platforms/notebooklm/current/instructions.md` (new)
+  - 本次 session 共 1 commit (`5776640`) / 47 file changes / +82,105 insertions / -58 deletions
+- **影响面**:
+  - Phase 3 P3.1 "前置 polish" 完成, 用户可进 P3.2 Web UI 上传无需额外准备
+  - 两个 `_auto_generated` placeholder 彻底闭合
+  - Custom mode instructions 成为本平台专属 system prompt (范本无此维度, 可作 `_template/` 未来补丁候选)
+- **下一步**: 用户 P3.2 Web UI 操作 (登 notebooklm.google.com → 新建 SDTM Knowledge Base notebook → 拖 current/uploads/*.md × 42 全选 → 等 indexing) → P3.3 Chat Custom mode 激活 + H3 三档切换实测 → P3.4 indexing smoke N=10 → P3.4.5 Req 语义抽检 N=10
+
 ### 2026-04-20 晚 Phase 6.5 Claude README 补充订阅套餐分享限制
 
 - **状态**: 已完成
