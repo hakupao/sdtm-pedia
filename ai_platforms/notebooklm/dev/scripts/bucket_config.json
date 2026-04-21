@@ -17,7 +17,9 @@
       "id": "02",
       "name": "02_common_identifiers_and_timing.md",
       "description": "9 通用 Req + 24 跨域变量详 (来自 VARIABLE_INDEX.md Section 一)",
-      "files": []
+      "files": [],
+      "_auto_source": "variable_index_common",
+      "_generator_note": "merge_sources.py 从 knowledge_base/VARIABLE_INDEX.md §一 抽取 24 跨域通用变量详表 (含 9 个 Core=Req), 无需从 knowledge_base 合并独立文件."
     },
     {
       "id": "03",
@@ -460,10 +462,10 @@
     {
       "id": "42",
       "name": "42_req_variable_coverage_audit.md",
-      "description": "元 source: Req 变量全覆盖审计元信息 (A4 产物写入)",
+      "description": "元 source: Req 变量全覆盖审计 (A4 产物 + 176 Req 变量全名单)",
       "files": [],
-      "_auto_generated": true,
-      "_generator_note": "本 bucket 由 A4 产物填充 — Req 变量零漏集自证 + Q1 红线自证. 不从 knowledge_base 合并文件."
+      "_auto_source": "req_coverage_audit",
+      "_generator_note": "merge_sources.py 合并 dev/evidence/req_vars_coverage_audit.md + dev/evidence/req_vars_full_set.md (前者给结构自证, 后者给完整 Req 名单作 NotebookLM RAG 召回锚). 不从 knowledge_base 合并."
     }
   ]
 }
