@@ -40,6 +40,9 @@ Full chain definitions are in `.work/MANIFEST.md`.
 | Phase 6.5 AI 平台部署 | `ai_platforms/` (总览 + 三平台子目录) |
 | **Phase 6.5 通用部署范本** | **`ai_platforms/_template/README.md`** — 10 维度规范 (README + APPLY_CHECKLIST + 00 platform_profile + 01 directory_structure + 02 workflow + 03 research + 04 plan + 05 solution + 06 review + 07 agent_dispatch + 08 evidence + 09 closure), 抽象自 Claude v2 方法论, ChatGPT/Gemini 及未来平台的 upstream spec |
 | **Phase 6.5 双平台锁步看板 (强制读)** | **`ai_platforms/SYNC_BOARD.md`** — ChatGPT GPTs + Gemini Gems 并行部署 Phase 0-5 锁步 gate; session 启动若涉及两平台任一方, 第一件事读本文件定位当前 Phase |
+| **Phase 6.5 双平台 smoke v2 10 题 (Node 4 共享)** | **`ai_platforms/SMOKE_QUESTIONS_V2.md`** — 4 业务维度 10 题 (场景 3 + 规则 3 + 映射 2 + 鉴别 2), 禁 filename / 禁位置 / 禁字典查, 双平台完全一致以便对比 |
+| Phase 6.5 Gemini C 方案 (Node 4 架构) | `ai_platforms/gemini_gems/docs/PLAN_V2_C.md` — 舍弃 terminology 重整 4 文件为业务问答优化 (01 导航 + 02 spec+assumptions + 03 examples + 04 业务弹药包) |
+| Phase 6.5 ChatGPT batch 2 规划 | `ai_platforms/chatgpt_gpt/docs/PLAN_BATCH2.md` — 维持原策略保留 terminology, 新增 5 文件 (05 assumptions + 06 examples + 07/08/09 terminology 高频/问卷补充/低频 3 档) |
 | **Phase 6.5 ChatGPT GPTs 入口** | **`ai_platforms/chatgpt_gpt/README.md`** — 待开始 (范本就绪 2026-04-20), Tier 2 / 2 批到位 / 20 文件硬限 / 可 GPT Store 发布; Phase 0 初稿见 `chatgpt_gpt/docs/platform_profile.md`; 进度见 `chatgpt_gpt/dev/evidence/_progress.json` |
 | **Phase 6.5 Gemini Gems 入口** | **`ai_platforms/gemini_gems/README.md`** — 待开始 (范本就绪 2026-04-20), Tier 1-2 / 1 批全上 / 1M 窗口 / 仅个人; Phase 0 初稿见 `gemini_gems/docs/platform_profile.md`; 进度见 `gemini_gems/dev/evidence/_progress.json` |
 | **Phase 6.5 Claude 入口 (reorg 后)** | **`ai_platforms/claude_projects/README.md`** — 新结构导航入口, 指向 current/docs/dev/archive 四层 |
