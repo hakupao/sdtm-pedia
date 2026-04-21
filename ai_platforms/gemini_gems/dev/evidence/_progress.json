@@ -5,8 +5,8 @@
   "tier": "1-2",
   "created_at": "2026-04-20",
   "last_updated": "2026-04-21",
-  "current_phase": 3,
-  "overall_status": "phase_3_node_4_smoke_v2_pass_8_of_10_strict_ready_for_commit_c4b_then_phase_4",
+  "current_phase": 4,
+  "overall_status": "phase_4_started_n5_0_plan_doc_produced_ready_for_commit_c5_0_then_n5_1_precondition_fixes",
   "sync_locked_with": "chatgpt_gpt",
   "sync_board_path": "ai_platforms/SYNC_BOARD.md",
   "notes": "Phase 定义对齐 ROADMAP.md 六段制. Phase 2 双边 CONDITIONAL_PASS, 等用户 ack 进 Phase 3. Gemini Tier 1-2 最轻量平台.",
@@ -81,8 +81,12 @@
       "completed_at": "2026-04-20"
     },
     "3_execute": {
-      "status": "doing",
-      "node_plan_aligned_with_sync_board": "SYNC_BOARD 尾段 6-node; Gemini 锁步 ChatGPT, Node 1 脚本开发 (current)",
+      "status": "PASS",
+      "phase_3_closure_commit": "de97845",
+      "phase_3_closure_date": "2026-04-21",
+      "phase_3_final_smoke_v2_score": "8/10 strict (N4_smoke_v2, 宽 8.5/10)",
+      "phase_3_reviewer_confirm": "oh-my-claudecode:test-engineer 第 15 种 subagent_type ADJUST 82% + Phase 4 gate CONFIRM",
+      "node_plan_aligned_with_sync_board": "SYNC_BOARD 尾段; 实际执行 N1 脚本 → N2 跑脚本 → N3a docs → N3b smoke → N4 C refactor writer+reviewer → N4 smoke v2 (原 N5/N6 合 smoke v2 收束, Phase 4 重跑 full A/B)",
       "gate_criteria": [
         "合并脚本产出 3-5 主题文件 (~713K tokens)",
         "单批 Gem 上传完成",
@@ -92,10 +96,11 @@
         "Phase 2 LOW carry-over 启动前口头澄清 2 条"
       ],
       "evidence_paths": [],
-      "reviewer_lane_pass": false,
-      "user_ack": false,
+      "reviewer_lane_pass": true,
+      "user_ack": true,
+      "user_ack_date": "2026-04-21",
       "started_at": "2026-04-20",
-      "completed_at": null,
+      "completed_at": "2026-04-21",
       "batches": [],
       "carry_over_from_phase1": [
         "F-1 末尾召回实测 (carry hard checkpoint D2, Node 5)"
@@ -474,12 +479,67 @@
       }
     },
     "4_review": {
-      "status": "locked",
+      "status": "doing",
+      "plan_doc": "ai_platforms/PHASE4_PLAN.md",
+      "node_plan_5_nodes": "N5.1 前置修复 (P1-P6 carry-over 消化) → N5.2 smoke v2.1 回归 → N5.3 Full A/B 矩阵 Gemini 10 题沿用 SMOKE_V2.1 → N5.4 Rule A 独立抽样 N=5 → N5.5 Phase 4 reviewer gate decision",
+      "gate_criteria_phase_4_to_5": [
+        "双平台 N5.3 AB_REPORT PASS 比 ≥ 90% (Gemini 10 题)",
+        "双平台 Rule A 抽样一致性 ≥ 8/10",
+        "N5.5 双 reviewer PASS/CONFIRM",
+        "Rule D Phase 4 新增 subagent_type ≥ 4 种且独立",
+        "用户 ack 进 Phase 5"
+      ],
+      "carry_over_from_phase_3_n4": {
+        "P1_smoke_v2_1_q3_judgment_fix": "已修 in de97845 (SMOKE_QUESTIONS_V2.md v2.1), N5.2 回归按 v2.1 评分; Gemini Q3 CO-2 拒答设计仍 FAIL 可接受 (8→9/10 目标)",
+        "P2_gemini_04_expand": "N5.1 executor 做: 04 从 30,488 tokens 扩 50-60K, 新增 RECIST/影像/Oncology/TrialDesign (TS/TI/TM)/IE/AG/PR 子域",
+        "P3_gemini_04_dm_actarm": "N5.1 executor 做: 04 §DM 补 ACTARM/ACTARMCD Permissible 条目 + pitfall 'DM 域 Perm 非 ADaM'",
+        "P4_gemini_sysprompt_co2_boundary": "N5.1 executor 做: system_prompt §CO-2 加子条款 'KB CDISC Notes Examples 里 term 可 inline; 无原文必外导 NCI EVS evsexplore URL'",
+        "P5_chatgpt_low_cleanup": "N5.1 执行 (ChatGPT 侧, 本 _progress.json 不处理)",
+        "P6_chatgpt_stage_2_ab_report": "N5.1 执行 (ChatGPT 侧)"
+      },
+      "rule_d_subagent_type_planning": {
+        "n5_1_reviewer": "oh-my-claudecode:planner (第 17 种, 待启)",
+        "n5_5_reviewer_gemini": "pr-review-toolkit:silent-failure-hunter (第 18 或 19 种, 待启)",
+        "cumulative_independent_types": 15
+      },
       "evidence_paths": [],
       "reviewer_lane_pass": false,
       "user_ack": false,
-      "started_at": null,
-      "completed_at": null
+      "started_at": "2026-04-21",
+      "completed_at": null,
+      "nodes": {
+        "N5_0_plan_doc": {
+          "status": "PASS",
+          "artifact": "ai_platforms/PHASE4_PLAN.md",
+          "completed_at": "2026-04-21",
+          "user_ack": true,
+          "user_ack_date": "2026-04-21",
+          "user_ack_decisions": {
+            "D1_5_node_plan_approved": true,
+            "D2_multi_subagent_parallel_ok": true,
+            "D3_chatgpt_extra_3_5_questions_main_session_drafts_user_reviews": true,
+            "D4_commit_first_then_start_n5_1": true
+          }
+        },
+        "N5_1_precondition_fixes": {
+          "status": "ready_to_dispatch",
+          "planned_subagents": [
+            "gemini_n5_1_writer (oh-my-claudecode:executor opus) — P2+P3+P4 (04 扩容 + DM ACTARM 补 + system_prompt CO-2 边界)",
+            "chatgpt_n5_1_writer (oh-my-claudecode:executor opus) — P5 LOW cleanup (ChatGPT 侧)",
+            "main_session — P6 ChatGPT STAGE_2_AB_REPORT.md",
+            "n5_1_reviewer (oh-my-claudecode:planner 第 17 种) — Gemini 侧审"
+          ],
+          "started_at": null,
+          "completed_at": null,
+          "expected_artifacts": [
+            "ai_platforms/gemini_gems/current/uploads/04_business_scenarios_and_cross_domain.md (50-60K tokens, +DM ACTARM + +RECIST/影像/Oncology/TrialDesign/IE/AG/PR)",
+            "ai_platforms/gemini_gems/current/system_prompt.md (v3→v4, CO-2 边界显式化)",
+            "ai_platforms/gemini_gems/dev/evidence/validate_single_batch.md (rerun, V8 v2.1 pattern 收紧)",
+            "ai_platforms/gemini_gems/dev/evidence/node5_1_writer_summary.md",
+            "ai_platforms/gemini_gems/dev/evidence/phase4_n5_1_reviewer.md"
+          ]
+        }
+      }
     },
     "5_closure": {
       "status": "locked",

@@ -5,8 +5,8 @@
   "tier": 2,
   "created_at": "2026-04-20",
   "last_updated": "2026-04-21",
-  "current_phase": 3,
-  "overall_status": "phase_3_node_4_smoke_v2_pass_9_of_10_ready_for_commit_c4b_then_phase_4",
+  "current_phase": 4,
+  "overall_status": "phase_4_started_n5_0_plan_doc_produced_ready_for_commit_c5_0_then_n5_1_precondition_fixes",
   "sync_locked_with": "gemini_gems",
   "sync_board_path": "ai_platforms/SYNC_BOARD.md",
   "notes": "Phase 定义对齐 ROADMAP.md 六段制. Phase 2 双边 CONDITIONAL_PASS, 等用户 ack 进 Phase 3.",
@@ -83,8 +83,12 @@
       "completed_at": "2026-04-20"
     },
     "3_execute": {
-      "status": "doing",
-      "node_plan_6_nodes": "SYNC_BOARD 尾段; Node 1 脚本开发 (current) → Node 2 跑脚本 → Node 3 上传 + smoke → Node 4 batch 2 → Node 5 完整 A/B → Node 6 reviewer + 进 Phase 4",
+      "status": "PASS",
+      "phase_3_closure_commit": "de97845",
+      "phase_3_closure_date": "2026-04-21",
+      "phase_3_final_smoke_v2_score": "9/10 strict (N4_smoke_v2)",
+      "phase_3_reviewer_confirm": "oh-my-claudecode:tracer 第 14 种 subagent_type ADJUST 82% + Phase 4 gate CONFIRM",
+      "node_plan_6_nodes_actual_5_nodes_smoke_v2_replaced_n5_n6": "N1 脚本开发 → N2 跑脚本 → N3a docs → N3b smoke → N4 batch 2 writer+reviewer → N4 smoke v2 (替代原 N5 full A/B + N6 reviewer; Phase 4 重跑 full A/B)",
       "gate_criteria": [
         "所有批次 evidence 入 L1 _progress.json (batch_*)",
         "每批一份 dev/ab_reports/STAGE_<N>_AB_REPORT.md",
@@ -95,10 +99,11 @@
         "Phase 2 LOW carry-over Task D3 路径命名 + §4 标题 — ✅ Phase 2 收束时修复"
       ],
       "evidence_paths": [],
-      "reviewer_lane_pass": false,
-      "user_ack": false,
+      "reviewer_lane_pass": true,
+      "user_ack": true,
+      "user_ack_date": "2026-04-21",
       "started_at": "2026-04-20",
-      "completed_at": null,
+      "completed_at": "2026-04-21",
       "batches": [],
       "carry_over_from_phase1": [
         "Q8 Indexing indicator 实测 (carry to Node 3 批 2 上传后)"
@@ -414,12 +419,60 @@
       }
     },
     "4_review": {
-      "status": "locked",
+      "status": "doing",
+      "plan_doc": "ai_platforms/PHASE4_PLAN.md",
+      "node_plan_5_nodes": "N5.1 前置修复 (P1-P6 carry-over 消化) → N5.2 smoke v2.1 回归 → N5.3 Full A/B 矩阵 ChatGPT 13-15 题 → N5.4 Rule A 独立抽样 N=5 → N5.5 Phase 4 reviewer gate decision",
+      "gate_criteria_phase_4_to_5": [
+        "双平台 N5.3 AB_REPORT PASS 比 ≥ 90%",
+        "双平台 Rule A 抽样一致性 ≥ 8/10",
+        "N5.5 双 reviewer PASS/CONFIRM",
+        "Rule D Phase 4 新增 subagent_type ≥ 4 种且独立",
+        "用户 ack 进 Phase 5"
+      ],
+      "carry_over_from_phase_3_n4": {
+        "P1_smoke_v2_1_q3_judgment_fix": "已修 in de97845 (SMOKE_QUESTIONS_V2.md v2.1), N5.2 回归按 v2.1 评分",
+        "P2_gemini_04_expand": "N5.1 执行 (Gemini 侧, 主 session 本 phase 不处理)",
+        "P3_gemini_04_dm_actarm": "N5.1 执行 (Gemini 侧)",
+        "P4_gemini_sysprompt_co2_boundary": "N5.1 执行 (Gemini 侧)",
+        "P5_chatgpt_low_cleanup": "N5.1 executor 做 4 项: validate v1.5 header + legacy helper DEPRECATED + upload_manifest 语义段 + system_prompt Q7 CMINDC 必显式",
+        "P6_chatgpt_stage_2_ab_report": "N5.1 主 session 直写 dev/ab_reports/STAGE_2_AB_REPORT.md"
+      },
+      "rule_d_subagent_type_planning": {
+        "n5_1_reviewer": "oh-my-claudecode:code-simplifier (第 16 种, 待启)",
+        "n5_5_reviewer_chatgpt": "oh-my-claudecode:verifier (已在 Gemini N1/N2 用, 跨平台 ChatGPT 侧首次, 合 Rule D 独立判断精神)",
+        "cumulative_independent_types": 15
+      },
       "evidence_paths": [],
       "reviewer_lane_pass": false,
       "user_ack": false,
-      "started_at": null,
-      "completed_at": null
+      "started_at": "2026-04-21",
+      "completed_at": null,
+      "nodes": {
+        "N5_0_plan_doc": {
+          "status": "PASS",
+          "artifact": "ai_platforms/PHASE4_PLAN.md",
+          "completed_at": "2026-04-21",
+          "user_ack": true,
+          "user_ack_date": "2026-04-21",
+          "user_ack_decisions": {
+            "D1_5_node_plan_approved": true,
+            "D2_multi_subagent_parallel_ok": true,
+            "D3_chatgpt_extra_3_5_questions_main_session_drafts_user_reviews": true,
+            "D4_commit_first_then_start_n5_1": true
+          }
+        },
+        "N5_1_precondition_fixes": {
+          "status": "ready_to_dispatch",
+          "planned_subagents": [
+            "chatgpt_n5_1_writer (oh-my-claudecode:executor opus) — P5 LOW cleanup 4 项 + system_prompt Q7 CMINDC",
+            "gemini_n5_1_writer (oh-my-claudecode:executor opus) — P2+P3+P4 Gemini 侧 (Gemini _progress.json 记录)",
+            "main_session — P6 补 STAGE_2_AB_REPORT.md",
+            "n5_1_reviewer (oh-my-claudecode:code-simplifier 第 16 种) — 双平台交叉审"
+          ],
+          "started_at": null,
+          "completed_at": null
+        }
+      }
     },
     "5_closure": {
       "status": "locked",
