@@ -1,0 +1,469 @@
+{
+  "_description": "NotebookLM v2 架构 — 295 md → ≤50 bucket concept cluster mapping. 每 bucket 列 merge 进来的 md 文件 (相对 knowledge_base/ 或 repo root 的路径). 主 session 手工设计, cluster_req_variables.py 按本 config 机械合并 + 覆盖审计.",
+  "_version": "v1_initial_2026-04-21",
+  "_target_bucket_count": 50,
+  "_actual_bucket_count": 42,
+  "_headroom_slots": 8,
+  "_knowledge_base_root": "knowledge_base",
+
+  "buckets": [
+    {
+      "id": "01",
+      "name": "01_navigation_and_routing.md",
+      "description": "导航 + 路由提示 + Req 变量速查入口",
+      "files": ["INDEX.md", "ROUTING.md"]
+    },
+    {
+      "id": "02",
+      "name": "02_common_identifiers_and_timing.md",
+      "description": "9 通用 Req + 24 跨域变量详 (来自 VARIABLE_INDEX.md Section 一)",
+      "files": []
+    },
+    {
+      "id": "03",
+      "name": "03_sp_demographics_subject.md",
+      "description": "DM (Special-Purpose) + SC (Findings, subject characteristics 归并)",
+      "files": [
+        "domains/DM/spec.md", "domains/DM/assumptions.md", "domains/DM/examples.md",
+        "domains/SC/spec.md", "domains/SC/assumptions.md", "domains/SC/examples.md"
+      ]
+    },
+    {
+      "id": "04",
+      "name": "04_sp_se_sm_sv_co.md",
+      "description": "SE + SM + SV + CO (Special-Purpose 剩余 4)",
+      "files": [
+        "domains/SE/spec.md", "domains/SE/assumptions.md", "domains/SE/examples.md",
+        "domains/SM/spec.md", "domains/SM/assumptions.md", "domains/SM/examples.md",
+        "domains/SV/spec.md", "domains/SV/assumptions.md", "domains/SV/examples.md",
+        "domains/CO/spec.md", "domains/CO/assumptions.md", "domains/CO/examples.md"
+      ]
+    },
+    {
+      "id": "05",
+      "name": "05_int_exposure_ex_ec.md",
+      "description": "Interventions: EX + EC (核心 exposure)",
+      "files": [
+        "domains/EX/spec.md", "domains/EX/assumptions.md", "domains/EX/examples.md",
+        "domains/EC/spec.md", "domains/EC/assumptions.md", "domains/EC/examples.md"
+      ]
+    },
+    {
+      "id": "06",
+      "name": "06_int_concomitant_cm_ag_ml.md",
+      "description": "Interventions: CM + AG + ML",
+      "files": [
+        "domains/CM/spec.md", "domains/CM/assumptions.md", "domains/CM/examples.md",
+        "domains/AG/spec.md", "domains/AG/assumptions.md", "domains/AG/examples.md",
+        "domains/ML/spec.md", "domains/ML/assumptions.md", "domains/ML/examples.md"
+      ]
+    },
+    {
+      "id": "07",
+      "name": "07_int_procedures_pr_su.md",
+      "description": "Interventions: PR + SU",
+      "files": [
+        "domains/PR/spec.md", "domains/PR/assumptions.md", "domains/PR/examples.md",
+        "domains/SU/spec.md", "domains/SU/assumptions.md", "domains/SU/examples.md"
+      ]
+    },
+    {
+      "id": "08",
+      "name": "08_ev_adverse_ae.md",
+      "description": "Events: AE (单独 — 重要域, 单独 slot 提高精度)",
+      "files": [
+        "domains/AE/spec.md", "domains/AE/assumptions.md", "domains/AE/examples.md"
+      ]
+    },
+    {
+      "id": "09",
+      "name": "09_ev_disposition_ds_dv_ce.md",
+      "description": "Events: DS + DV + CE",
+      "files": [
+        "domains/DS/spec.md", "domains/DS/assumptions.md", "domains/DS/examples.md",
+        "domains/DV/spec.md", "domains/DV/assumptions.md", "domains/DV/examples.md",
+        "domains/CE/spec.md", "domains/CE/assumptions.md", "domains/CE/examples.md"
+      ]
+    },
+    {
+      "id": "10",
+      "name": "10_ev_history_mh_ho_be.md",
+      "description": "Events: MH + HO + BE",
+      "files": [
+        "domains/MH/spec.md", "domains/MH/assumptions.md", "domains/MH/examples.md",
+        "domains/HO/spec.md", "domains/HO/assumptions.md", "domains/HO/examples.md",
+        "domains/BE/spec.md", "domains/BE/assumptions.md", "domains/BE/examples.md"
+      ]
+    },
+    {
+      "id": "11",
+      "name": "11_fnd_lab_lb.md",
+      "description": "Findings: LB (lab, 单独 slot)",
+      "files": [
+        "domains/LB/spec.md", "domains/LB/assumptions.md", "domains/LB/examples.md"
+      ]
+    },
+    {
+      "id": "12",
+      "name": "12_fnd_vitals_vs_eg.md",
+      "description": "Findings: VS + EG (生命体征 + ECG)",
+      "files": [
+        "domains/VS/spec.md", "domains/VS/assumptions.md", "domains/VS/examples.md",
+        "domains/EG/spec.md", "domains/EG/assumptions.md", "domains/EG/examples.md"
+      ]
+    },
+    {
+      "id": "13",
+      "name": "13_fnd_physical_exam_pe.md",
+      "description": "Findings: PE (physical exam)",
+      "files": [
+        "domains/PE/spec.md", "domains/PE/assumptions.md", "domains/PE/examples.md"
+      ]
+    },
+    {
+      "id": "14",
+      "name": "14_fnd_questionnaire_qs_ie.md",
+      "description": "Findings: QS + IE (questionnaires + inclusion/exclusion)",
+      "files": [
+        "domains/QS/spec.md", "domains/QS/assumptions.md", "domains/QS/examples.md",
+        "domains/IE/spec.md", "domains/IE/assumptions.md", "domains/IE/examples.md"
+      ]
+    },
+    {
+      "id": "15",
+      "name": "15_fnd_biomarkers_mb_mi_ms_mk.md",
+      "description": "Findings specialized: MB (microbiology) + MI (microscopic imaging) + MS (mass spec) + MK (biomarker)",
+      "files": [
+        "domains/MB/spec.md", "domains/MB/assumptions.md", "domains/MB/examples.md",
+        "domains/MI/spec.md", "domains/MI/assumptions.md", "domains/MI/examples.md",
+        "domains/MS/spec.md", "domains/MS/assumptions.md", "domains/MS/examples.md",
+        "domains/MK/spec.md", "domains/MK/assumptions.md", "domains/MK/examples.md"
+      ]
+    },
+    {
+      "id": "16",
+      "name": "16_fnd_pharma_pc_pp.md",
+      "description": "Findings: PC + PP (PK concentrations + parameters)",
+      "files": [
+        "domains/PC/spec.md", "domains/PC/assumptions.md", "domains/PC/examples.md",
+        "domains/PP/spec.md", "domains/PP/assumptions.md", "domains/PP/examples.md"
+      ]
+    },
+    {
+      "id": "17",
+      "name": "17_fnd_oncology_tr_tu_rs_oe.md",
+      "description": "Findings: TR (tumor response) + TU (tumor ID) + RS (response) + OE (ophtalm exam)",
+      "files": [
+        "domains/TR/spec.md", "domains/TR/assumptions.md", "domains/TR/examples.md",
+        "domains/TU/spec.md", "domains/TU/assumptions.md", "domains/TU/examples.md",
+        "domains/RS/spec.md", "domains/RS/assumptions.md", "domains/RS/examples.md",
+        "domains/OE/spec.md", "domains/OE/assumptions.md", "domains/OE/examples.md"
+      ]
+    },
+    {
+      "id": "18",
+      "name": "18_fnd_device_da_dd_gf_is.md",
+      "description": "Findings: DA (drug accountability) + DD (death details) + GF (genomic findings) + IS (immunogen)",
+      "files": [
+        "domains/DA/spec.md", "domains/DA/assumptions.md", "domains/DA/examples.md",
+        "domains/DD/spec.md", "domains/DD/assumptions.md", "domains/DD/examples.md",
+        "domains/GF/spec.md", "domains/GF/assumptions.md", "domains/GF/examples.md",
+        "domains/IS/spec.md", "domains/IS/assumptions.md", "domains/IS/examples.md"
+      ]
+    },
+    {
+      "id": "19",
+      "name": "19_fnd_morphology_bs_cp_cv.md",
+      "description": "Findings: BS (biospecimens) + CP (clinical endpoint) + CV (cardiovascular)",
+      "files": [
+        "domains/BS/spec.md", "domains/BS/assumptions.md", "domains/BS/examples.md",
+        "domains/CP/spec.md", "domains/CP/assumptions.md", "domains/CP/examples.md",
+        "domains/CV/spec.md", "domains/CV/assumptions.md", "domains/CV/examples.md"
+      ]
+    },
+    {
+      "id": "20",
+      "name": "20_fnd_about_fa_sr.md",
+      "description": "Findings About: FA + SR (2 domains)",
+      "files": [
+        "domains/FA/spec.md", "domains/FA/assumptions.md", "domains/FA/examples.md",
+        "domains/SR/spec.md", "domains/SR/assumptions.md", "domains/SR/examples.md"
+      ]
+    },
+    {
+      "id": "21",
+      "name": "21_fnd_other_nv_re_rp.md",
+      "description": "Findings 其他: NV + RE + RP",
+      "files": [
+        "domains/NV/spec.md", "domains/NV/assumptions.md", "domains/NV/examples.md",
+        "domains/RE/spec.md", "domains/RE/assumptions.md", "domains/RE/examples.md",
+        "domains/RP/spec.md", "domains/RP/assumptions.md", "domains/RP/examples.md"
+      ]
+    },
+    {
+      "id": "22",
+      "name": "22_fnd_other_ss_ur_ft.md",
+      "description": "Findings 其他: SS + UR + FT",
+      "files": [
+        "domains/SS/spec.md", "domains/SS/assumptions.md", "domains/SS/examples.md",
+        "domains/UR/spec.md", "domains/UR/assumptions.md", "domains/UR/examples.md",
+        "domains/FT/spec.md", "domains/FT/assumptions.md", "domains/FT/examples.md"
+      ]
+    },
+    {
+      "id": "23",
+      "name": "23_td_arms_ta_tv.md",
+      "description": "Trial Design: TA + TV (arms + visits)",
+      "files": [
+        "domains/TA/spec.md", "domains/TA/assumptions.md", "domains/TA/examples.md",
+        "domains/TV/spec.md", "domains/TV/assumptions.md", "domains/TV/examples.md"
+      ]
+    },
+    {
+      "id": "24",
+      "name": "24_td_elements_te_tm_td.md",
+      "description": "Trial Design: TE + TM + TD (elements + milestones + durations)",
+      "files": [
+        "domains/TE/spec.md", "domains/TE/assumptions.md", "domains/TE/examples.md",
+        "domains/TM/spec.md", "domains/TM/assumptions.md", "domains/TM/examples.md",
+        "domains/TD/spec.md", "domains/TD/assumptions.md", "domains/TD/examples.md"
+      ]
+    },
+    {
+      "id": "25",
+      "name": "25_td_meta_ti_ts_oi.md",
+      "description": "Trial Design: TI + TS + OI (inclusion + summary + organism)",
+      "files": [
+        "domains/TI/spec.md", "domains/TI/assumptions.md", "domains/TI/examples.md",
+        "domains/TS/spec.md", "domains/TS/assumptions.md", "domains/TS/examples.md",
+        "domains/OI/spec.md", "domains/OI/assumptions.md", "domains/OI/examples.md"
+      ]
+    },
+    {
+      "id": "26",
+      "name": "26_rel_relrec_relspec_relsub.md",
+      "description": "Relationships: RELREC + RELSPEC + RELSUB",
+      "files": [
+        "domains/RELREC/spec.md", "domains/RELREC/assumptions.md", "domains/RELREC/examples.md",
+        "domains/RELSPEC/spec.md", "domains/RELSPEC/assumptions.md", "domains/RELSPEC/examples.md",
+        "domains/RELSUB/spec.md", "domains/RELSUB/assumptions.md", "domains/RELSUB/examples.md"
+      ]
+    },
+    {
+      "id": "27",
+      "name": "27_rel_suppqual.md",
+      "description": "Supplemental: SUPPQUAL",
+      "files": [
+        "domains/SUPPQUAL/spec.md", "domains/SUPPQUAL/assumptions.md", "domains/SUPPQUAL/examples.md"
+      ]
+    },
+    {
+      "id": "28",
+      "name": "28_ig_ch01_ch02_ch03.md",
+      "description": "IG: ch01 intro + ch02 fundamentals + ch03 submitting data",
+      "files": [
+        "chapters/ch01_introduction.md",
+        "chapters/ch02_fundamentals.md",
+        "chapters/ch03_submitting_data.md"
+      ]
+    },
+    {
+      "id": "29",
+      "name": "29_ig_ch04_general_assumptions.md",
+      "description": "IG: ch04 general assumptions (20K words 单独 slot, 关键规则源)",
+      "files": [
+        "chapters/ch04_general_assumptions.md"
+      ]
+    },
+    {
+      "id": "30",
+      "name": "30_ig_ch08_ch10.md",
+      "description": "IG: ch08 relationships + ch10 appendices",
+      "files": [
+        "chapters/ch08_relationships.md",
+        "chapters/ch10_appendices.md"
+      ]
+    },
+    {
+      "id": "31",
+      "name": "31_model_obs_classes.md",
+      "description": "Model: observation classes + special purpose domains",
+      "files": [
+        "model/02_observation_classes.md",
+        "model/03_special_purpose_domains.md"
+      ]
+    },
+    {
+      "id": "32",
+      "name": "32_model_concepts_study_rel.md",
+      "description": "Model: concepts + associated persons + study-level + relationship datasets",
+      "files": [
+        "model/01_concepts_and_terms.md",
+        "model/04_associated_persons.md",
+        "model/05_study_level_data.md",
+        "model/06_relationship_datasets.md"
+      ]
+    },
+    {
+      "id": "33",
+      "name": "33_ct_general.md",
+      "description": "CT core: general codelists (~130K words)",
+      "files": [
+        "terminology/core/general_part1.md",
+        "terminology/core/general_part2.md",
+        "terminology/core/general_part3.md",
+        "terminology/core/general_part4.md",
+        "terminology/core/general_part5.md"
+      ]
+    },
+    {
+      "id": "34",
+      "name": "34_ct_lb.md",
+      "description": "CT core: lab codelists (~180K words, 单 slot 内)",
+      "files": [
+        "terminology/core/lb_part1.md",
+        "terminology/core/lb_part2.md",
+        "terminology/core/lb_part3.md",
+        "terminology/core/lb_part4.md"
+      ]
+    },
+    {
+      "id": "35",
+      "name": "35_ct_findings_eg_qs_vs_mi_ae_dispo.md",
+      "description": "CT core: ECG + QS + VS + MI + AE + disposition + findings_about",
+      "files": [
+        "terminology/core/eg_part1.md",
+        "terminology/core/eg_part2.md",
+        "terminology/core/eg_part3.md",
+        "terminology/core/qs_part1.md",
+        "terminology/core/vs.md",
+        "terminology/core/mi.md",
+        "terminology/core/ae.md",
+        "terminology/core/disposition.md",
+        "terminology/core/findings_about.md"
+      ]
+    },
+    {
+      "id": "36",
+      "name": "36_ct_specialized_micro_oncology_pk_is_cp.md",
+      "description": "CT core: microbiology + oncology + PK + is_domain + cp",
+      "files": [
+        "terminology/core/microbiology_part1.md",
+        "terminology/core/microbiology_part2.md",
+        "terminology/core/microbiology_part3.md",
+        "terminology/core/oncology_part1.md",
+        "terminology/core/oncology_part2.md",
+        "terminology/core/pk_part1.md",
+        "terminology/core/pk_part2.md",
+        "terminology/core/pk_part3.md",
+        "terminology/core/pk_part4.md",
+        "terminology/core/is_domain_part1.md",
+        "terminology/core/is_domain_part2.md",
+        "terminology/core/cp_part1.md",
+        "terminology/core/cp_part2.md"
+      ]
+    },
+    {
+      "id": "37",
+      "name": "37_ct_misc_int_dm_sp_td_gf_oi_other.md",
+      "description": "CT core: interventions + dm + special_purpose + trial_design + gf + oi + other_part1-5",
+      "files": [
+        "terminology/core/interventions.md",
+        "terminology/core/dm.md",
+        "terminology/core/special_purpose.md",
+        "terminology/core/trial_design.md",
+        "terminology/core/gf.md",
+        "terminology/core/oi.md",
+        "terminology/core/other_part1.md",
+        "terminology/core/other_part2.md",
+        "terminology/core/other_part3.md",
+        "terminology/core/other_part4.md",
+        "terminology/core/other_part5.md"
+      ]
+    },
+    {
+      "id": "38",
+      "name": "38_ct_questionnaires_part1_22.md",
+      "description": "CT questionnaires part 1-22 (22 files)",
+      "files": [
+        "terminology/questionnaires/questionnaires_part1.md",
+        "terminology/questionnaires/questionnaires_part2.md",
+        "terminology/questionnaires/questionnaires_part3.md",
+        "terminology/questionnaires/questionnaires_part4.md",
+        "terminology/questionnaires/questionnaires_part5.md",
+        "terminology/questionnaires/questionnaires_part6.md",
+        "terminology/questionnaires/questionnaires_part7.md",
+        "terminology/questionnaires/questionnaires_part8.md",
+        "terminology/questionnaires/questionnaires_part9.md",
+        "terminology/questionnaires/questionnaires_part10.md",
+        "terminology/questionnaires/questionnaires_part11.md",
+        "terminology/questionnaires/questionnaires_part12.md",
+        "terminology/questionnaires/questionnaires_part13.md",
+        "terminology/questionnaires/questionnaires_part14.md",
+        "terminology/questionnaires/questionnaires_part15.md",
+        "terminology/questionnaires/questionnaires_part16.md",
+        "terminology/questionnaires/questionnaires_part17.md",
+        "terminology/questionnaires/questionnaires_part18.md",
+        "terminology/questionnaires/questionnaires_part19.md",
+        "terminology/questionnaires/questionnaires_part20.md",
+        "terminology/questionnaires/questionnaires_part21.md",
+        "terminology/questionnaires/questionnaires_part22.md"
+      ]
+    },
+    {
+      "id": "39",
+      "name": "39_ct_questionnaires_part23_43.md",
+      "description": "CT questionnaires part 23-43 (21 files)",
+      "files": [
+        "terminology/questionnaires/questionnaires_part23.md",
+        "terminology/questionnaires/questionnaires_part24.md",
+        "terminology/questionnaires/questionnaires_part25.md",
+        "terminology/questionnaires/questionnaires_part26.md",
+        "terminology/questionnaires/questionnaires_part27.md",
+        "terminology/questionnaires/questionnaires_part28.md",
+        "terminology/questionnaires/questionnaires_part29.md",
+        "terminology/questionnaires/questionnaires_part30.md",
+        "terminology/questionnaires/questionnaires_part31.md",
+        "terminology/questionnaires/questionnaires_part32.md",
+        "terminology/questionnaires/questionnaires_part33.md",
+        "terminology/questionnaires/questionnaires_part34.md",
+        "terminology/questionnaires/questionnaires_part35.md",
+        "terminology/questionnaires/questionnaires_part36.md",
+        "terminology/questionnaires/questionnaires_part37.md",
+        "terminology/questionnaires/questionnaires_part38.md",
+        "terminology/questionnaires/questionnaires_part39.md",
+        "terminology/questionnaires/questionnaires_part40.md",
+        "terminology/questionnaires/questionnaires_part41.md",
+        "terminology/questionnaires/questionnaires_part42.md",
+        "terminology/questionnaires/questionnaires_part43.md"
+      ]
+    },
+    {
+      "id": "40",
+      "name": "40_ct_supplementary.md",
+      "description": "CT supplementary (6 files)",
+      "files": [
+        "terminology/supplementary/supplementary_part1.md",
+        "terminology/supplementary/supplementary_part2.md",
+        "terminology/supplementary/supplementary_part3.md",
+        "terminology/supplementary/supplementary_part4.md",
+        "terminology/supplementary/supplementary_part5.md",
+        "terminology/supplementary/supplementary_part6.md"
+      ]
+    },
+    {
+      "id": "41",
+      "name": "41_variable_index.md",
+      "description": "VARIABLE_INDEX.md 全集 (27K words)",
+      "files": ["VARIABLE_INDEX.md"]
+    },
+    {
+      "id": "42",
+      "name": "42_req_variable_coverage_audit.md",
+      "description": "元 source: Req 变量全覆盖审计元信息 (A4 产物写入)",
+      "files": [],
+      "_auto_generated": true,
+      "_generator_note": "本 bucket 由 A4 产物填充 — Req 变量零漏集自证 + Q1 红线自证. 不从 knowledge_base 合并文件."
+    }
+  ]
+}

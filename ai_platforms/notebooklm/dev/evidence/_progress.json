@@ -128,16 +128,45 @@
       ]
     },
     "3_execute": {
-      "status": "phase_a_gate_OPEN",
-      "gate_open_date": "2026-04-21",
-      "entry_gate_5_conditions_status": {
-        "H1_H2_H3_closed_in_plan_v2": "PASS",
-        "M1_M2_closed_p3_4_5_a5_prime": "PASS",
-        "9th_subagent_type_reviewer_evidence": "PASS (dev/evidence/phase2_v2_reviewer.md)",
-        "main_session_q_rev_defaults": "PASS (all 3 defaults chosen)",
-        "user_ack_q_rev_final": "PASS (2026-04-21 '全接受')"
+      "status": "phase_a_done_ready_for_phase3",
+      "phase_a_completion_date": "2026-04-21",
+      "phase_a_results": {
+        "a1_pre_upload_audit": {
+          "status": "PASS",
+          "evidence": "dev/evidence/pre_upload_audit.md",
+          "findings": "295 md (PLAN 估 293, +2 minor); total 1.58M words; max single 65K words = 13% of 500K cap; 0 outlier"
+        },
+        "a2_extract_req_vars": {
+          "status": "PASS",
+          "script": "dev/scripts/extract_req_vars.py",
+          "evidence": "dev/evidence/req_vars_full_set.md (694 lines)",
+          "findings": "176 独立 Req 变量 (9 通用 + 167 领域专属); PLAN 原估 100-120 偏低, 实际 176, 更全"
+        },
+        "a3_cluster_bucket": {
+          "status": "PASS",
+          "script": "dev/scripts/cluster_req_variables.py + bucket_config.json",
+          "evidence_mapping": "dev/evidence/source_mapping.md",
+          "evidence_manifest": "current/uploads/MANIFEST.md",
+          "findings": "42 bucket (≤50 target, 8 slot headroom); 295/295 files covered; 63/63 domains; max bucket 302K words < 500K cap"
+        },
+        "a4_coverage_audit": {
+          "status": "PASS (结构级 ∅ gap)",
+          "evidence": "dev/evidence/req_vars_coverage_audit.md",
+          "findings": "176/176 Req 变量结构级覆盖 (PASS condition ∀ req ∈ full_set, ∃ bucket ∈ uploads 成立)",
+          "semantic_level_audit": "deferred to Phase 3 P3.4.5 (M1 fix, N=10 业务问答抽检)"
+        },
+        "a5_prime_webui_small_sample": {
+          "status": "PASS (user tested 2026-04-21)",
+          "evidence": "dev/evidence/phase_a_webui_small_sample.md",
+          "findings": "用户实测 43 文件单批拖拽 OK + indexing 快 + 零失败 → P3.2 策略锁定单批"
+        }
       },
-      "next_action": "Phase A Setup execution — 5 子动作 (A1 + A2 + A3 + A4 + A5'), 推荐调度 Day 1 并行 A1/A2/A5' → Day 1-2 串行 A3 → A4"
+      "phase_a_placeholders_to_resolve_in_phase3": [
+        "bucket 02 (02_common_identifiers_and_timing.md): 目前 files=0, 内容需 P3.1 前从 VARIABLE_INDEX.md Section 一 手工抽 (24 跨域变量详表) 或 merge_sources.py 生成",
+        "bucket 42 (42_req_variable_coverage_audit.md): auto-generated, P3.1 前复制 req_vars_coverage_audit.md 到 current/uploads/42_*.md"
+      ],
+      "phase_3_entry_gate_status": "OPEN — Phase A 核心 hard checkpoint 全 PASS (A1/A2/A3/A4/A5'), 等用户 ack 启动 Phase 3 P3.0/P3.1",
+      "next_action": "用户 ack 启动 Phase 3 → P3.0 pre-flight → P3.1 (可选 merge_sources + resolve 2 placeholder buckets) → P3.2 单批上传"
     },
     "4_review": {
       "status": "locked"

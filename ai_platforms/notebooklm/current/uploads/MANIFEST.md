@@ -1,0 +1,61 @@
+# SDTM Knowledge Base — NotebookLM 上传 MANIFEST (v2 草)
+
+> **产出日期**: 2026-04-21
+> **执行脚本**: `dev/scripts/cluster_req_variables.py`
+> **上传文件数**: **42** (Pro 300 cap 的 14.0%)
+> **总 words**: 1,575,287
+> **Notebook**: `SDTM Knowledge Base` (单 notebook, ABC 三场景分享档位切换)
+> **Chat mode**: Custom (instructions.md, ≤10K char)
+
+## 上传清单
+
+| # | Source name | Files merged | Words | Concept |
+|---|------------|--------------|-------|---------|
+| 01 | `01_navigation_and_routing.md` | 2 | 2,139 | 导航 + 路由提示 + Req 变量速查入口 |
+| 02 | `02_common_identifiers_and_timing.md` | 0 | 0 | 9 通用 Req + 24 跨域变量详 (来自 VARIABLE_INDEX.md Section 一) |
+| 03 | `03_sp_demographics_subject.md` | 6 | 10,601 | DM (Special-Purpose) + SC (Findings, subject characteristics 归并) |
+| 04 | `04_sp_se_sm_sv_co.md` | 12 | 9,381 | SE + SM + SV + CO (Special-Purpose 剩余 4) |
+| 05 | `05_int_exposure_ex_ec.md` | 6 | 14,408 | Interventions: EX + EC (核心 exposure) |
+| 06 | `06_int_concomitant_cm_ag_ml.md` | 9 | 11,043 | Interventions: CM + AG + ML |
+| 07 | `07_int_procedures_pr_su.md` | 6 | 6,150 | Interventions: PR + SU |
+| 08 | `08_ev_adverse_ae.md` | 3 | 7,345 | Events: AE (单独 — 重要域, 单独 slot 提高精度) |
+| 09 | `09_ev_disposition_ds_dv_ce.md` | 9 | 13,705 | Events: DS + DV + CE |
+| 10 | `10_ev_history_mh_ho_be.md` | 9 | 11,114 | Events: MH + HO + BE |
+| 11 | `11_fnd_lab_lb.md` | 3 | 5,854 | Findings: LB (lab, 单独 slot) |
+| 12 | `12_fnd_vitals_vs_eg.md` | 6 | 9,220 | Findings: VS + EG (生命体征 + ECG) |
+| 13 | `13_fnd_physical_exam_pe.md` | 3 | 2,138 | Findings: PE (physical exam) |
+| 14 | `14_fnd_questionnaire_qs_ie.md` | 6 | 5,015 | Findings: QS + IE (questionnaires + inclusion/exclusion) |
+| 15 | `15_fnd_biomarkers_mb_mi_ms_mk.md` | 12 | 19,549 | Findings specialized: MB (microbiology) + MI (microscopic imaging) + MS (mass spec) + MK (biomarker) |
+| 16 | `16_fnd_pharma_pc_pp.md` | 6 | 18,021 | Findings: PC + PP (PK concentrations + parameters) |
+| 17 | `17_fnd_oncology_tr_tu_rs_oe.md` | 12 | 22,733 | Findings: TR (tumor response) + TU (tumor ID) + RS (response) + OE (ophtalm exam) |
+| 18 | `18_fnd_device_da_dd_gf_is.md` | 12 | 22,586 | Findings: DA (drug accountability) + DD (death details) + GF (genomic findings) + IS (immunogen) |
+| 19 | `19_fnd_morphology_bs_cp_cv.md` | 9 | 15,980 | Findings: BS (biospecimens) + CP (clinical endpoint) + CV (cardiovascular) |
+| 20 | `20_fnd_about_fa_sr.md` | 6 | 10,721 | Findings About: FA + SR (2 domains) |
+| 21 | `21_fnd_other_nv_re_rp.md` | 9 | 10,790 | Findings 其他: NV + RE + RP |
+| 22 | `22_fnd_other_ss_ur_ft.md` | 9 | 7,622 | Findings 其他: SS + UR + FT |
+| 23 | `23_td_arms_ta_tv.md` | 6 | 9,060 | Trial Design: TA + TV (arms + visits) |
+| 24 | `24_td_elements_te_tm_td.md` | 9 | 5,629 | Trial Design: TE + TM + TD (elements + milestones + durations) |
+| 25 | `25_td_meta_ti_ts_oi.md` | 9 | 7,471 | Trial Design: TI + TS + OI (inclusion + summary + organism) |
+| 26 | `26_rel_relrec_relspec_relsub.md` | 9 | 3,600 | Relationships: RELREC + RELSPEC + RELSUB |
+| 27 | `27_rel_suppqual.md` | 3 | 1,826 | Supplemental: SUPPQUAL |
+| 28 | `28_ig_ch01_ch02_ch03.md` | 3 | 6,742 | IG: ch01 intro + ch02 fundamentals + ch03 submitting data |
+| 29 | `29_ig_ch04_general_assumptions.md` | 1 | 20,312 | IG: ch04 general assumptions (20K words 单独 slot, 关键规则源) |
+| 30 | `30_ig_ch08_ch10.md` | 2 | 12,927 | IG: ch08 relationships + ch10 appendices |
+| 31 | `31_model_obs_classes.md` | 2 | 6,590 | Model: observation classes + special purpose domains |
+| 32 | `32_model_concepts_study_rel.md` | 4 | 5,789 | Model: concepts + associated persons + study-level + relationship datasets |
+| 33 | `33_ct_general.md` | 5 | 98,036 | CT core: general codelists (~130K words) |
+| 34 | `34_ct_lb.md` | 4 | 129,594 | CT core: lab codelists (~180K words, 单 slot 内) |
+| 35 | `35_ct_findings_eg_qs_vs_mi_ae_dispo.md` | 9 | 83,880 | CT core: ECG + QS + VS + MI + AE + disposition + findings_about |
+| 36 | `36_ct_specialized_micro_oncology_pk_is_cp.md` | 13 | 162,034 | CT core: microbiology + oncology + PK + is_domain + cp |
+| 37 | `37_ct_misc_int_dm_sp_td_gf_oi_other.md` | 11 | 88,199 | CT core: interventions + dm + special_purpose + trial_design + gf + oi + other_part1-5 |
+| 38 | `38_ct_questionnaires_part1_22.md` | 22 | 301,961 | CT questionnaires part 1-22 (22 files) |
+| 39 | `39_ct_questionnaires_part23_43.md` | 21 | 291,878 | CT questionnaires part 23-43 (21 files) |
+| 40 | `40_ct_supplementary.md` | 6 | 75,889 | CT supplementary (6 files) |
+| 41 | `41_variable_index.md` | 1 | 27,755 | VARIABLE_INDEX.md 全集 (27K words) |
+| 42 | `42_req_variable_coverage_audit.md` | 0 | 0 | 元 source: Req 变量全覆盖审计元信息 (A4 产物写入) |
+
+## Req 变量覆盖声明 (Q1 红线 结构级自证)
+
+✅ **∀ req ∈ req_vars_full_set (176), ∃ bucket ∈ uploads, 使 req ∈ bucket.covered_req_set**
+
+**Q1 红线自证: 零漏集 (∅ gap)**. 63 domains 全覆盖, 176 独立 Req 变量全覆盖.
