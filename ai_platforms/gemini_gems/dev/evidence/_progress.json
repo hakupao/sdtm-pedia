@@ -6,7 +6,7 @@
   "created_at": "2026-04-20",
   "last_updated": "2026-04-21",
   "current_phase": 4,
-  "overall_status": "phase_4_n5_2_PASS_smoke_v2_1_9_of_10_strict_plus_system_prompt_v4_to_v5_fix_applied_3_fixes_CO1b_CO2_LBNRIND_CO2c_ARM_ready_for_commit_c5_2_then_user_webui_update_v5_plus_gemini_q3_retest",
+  "overall_status": "phase_4_n5_2_PASS_smoke_v2_1_9_of_10_strict_plus_v5_system_prompt_AND_04_knowledge_file_cross_file_pollution_both_fixed_validate_rc0_637648_tokens_ready_for_commit_c5_2b_then_user_webui_reupload_04_plus_update_v5_plus_q3_retest",
   "sync_locked_with": "chatgpt_gpt",
   "sync_board_path": "ai_platforms/SYNC_BOARD.md",
   "notes": "Phase 定义对齐 ROADMAP.md 六段制. Phase 2 双边 CONDITIONAL_PASS, 等用户 ack 进 Phase 3. Gemini Tier 1-2 最轻量平台.",
@@ -584,6 +584,22 @@
             "char_count_final": "7925 / 8000 budget / 0.94% buffer",
             "version_header": "v4 → v5"
           },
+          "cross_file_pollution_fix_04_knowledge_v5b": {
+            "discovery_date": "2026-04-21",
+            "discovery_trigger": "user 反问 '只需要改 Instructions, 文件不需要改动吗' → 主 session grep 04 发现 6 处同源污染",
+            "root_cause_expanded": "N5.1 Gemini writer 不仅在 system_prompt v4 L65 虚构 LBNRIND L/N/H 示例, 还**同步写入** 04_business_scenarios_and_cross_domain.md 6 处 (最致命 L156 反向 pitfall 明文教 'HIGH/LOW 写错, L/N/H 才对'; L153/L1422 Q3 答案预埋 H; L145 表格值; L147-151 三档锚点段; L1189 CT index; L1669 FAQ); 如不修 04 仅修 system_prompt, Gemini 在 1M context 里会同时看到 v5 system_prompt 全写 vs 04 L156 pitfall 反向教错, domain knowledge 框架更强大概率跟 04 走",
+            "fixes_applied_04": {
+              "L145_variable_table_value": "'\"H\"' → '\"HIGH\"', 三档描述 'L/N/H 或空' → '四档全写 ABNORMAL/HIGH/LOW/NORMAL'",
+              "L147_to_L153_anchor_block": "三档 L/N/H 说明 → 四档全写 + '必须全写, 禁短码' 说明段 + 本场景 H → HIGH",
+              "L156_reverse_pitfall_flipped": "'LBNRIND 写 HIGH/LOW — 错. 三字母档 H/L/N' → '写 H/L/N 单字符 — 错. 官方全写 HIGH/LOW/NORMAL/ABNORMAL, 单字符短码非 CDISC 官方, 提交被 reject'",
+              "L1189_CT_index": "'(三档)' → '(官方四档全写 HIGH/LOW/NORMAL/ABNORMAL, 禁 H/L/N 单字符)'",
+              "L1422_Q3_smoke_mapping": "'LBNRIND=\"H\" (L/N/H 三档)' → 'LBNRIND=\"HIGH\" (C78736 四档全写 HIGH/LOW/NORMAL/ABNORMAL, 禁 H/L/N 单字符)'",
+              "L1669_FAQ": "'三档 L/N/H 或 ABNORMAL. 不填 HIGH/LOW' → '官方 submission values 全写: HIGH/LOW/NORMAL/ABNORMAL, 禁 H/L/N 单字符'"
+            },
+            "post_fix_validate": "rc=0 PASS, total 637,648 tokens (+340 vs pre-fix 637,308), 4 stages 全绿",
+            "residual_h_l_n_references_in_04": "5 处, 全部在正向 pitfall/negative context ('禁 H/L/N 单字符' / '错. 官方全写'), 无反向教错",
+            "lesson_cross_file_systemic_pollution": "N5.1 writer 把虚构术语**同步写入** system_prompt + 04, 修一个不够 — 必须全文扫描跨文件同源引用. 教训纳入 Rule E/reviewer checklist: writer 产物审查必须 grep 跨文件关键字一致性."
+          },
           "phase4_gate": "CONFIRM (双审独立 gate CONFIRM + v5 fix 已落, 用户 Web UI 更新 v5 + Q3 单题补测后 → N5.3 Full A/B)",
           "evidence_paths": [
             "ai_platforms/gemini_gems/dev/evidence/smoke_v2_1_results.md",
@@ -613,8 +629,9 @@
           ],
           "user_action_awaiting": [
             "Step 1: 更新 Gemini Custom Instructions v5 (7925 chars, 粘贴 ai_platforms/gemini_gems/current/system_prompt.md)",
-            "Step 2: 单题补测 Q3 (HbA1c LBNRIND 判据) — 期望答 HIGH/LOW/NORMAL 全写 (对比 v2.1 smoke Q3 答 H/N/L)",
-            "Step 3: 若 Q3 补测 PASS → 用户 ack → N5.3 Full A/B 矩阵 (ChatGPT 13-15 题 + Gemini 10 题)"
+            "Step 2: 删 Gemini 老 04 knowledge file + 重传新 04 (v5b, 637,648 tokens 含 6 处 LBNRIND 污染修)",
+            "Step 3: 单题补测 Q3 (HbA1c LBNRIND 判据) — 期望答 HIGH/LOW/NORMAL 全写 (对比 v2.1 smoke Q3 答 H/N/L)",
+            "Step 4: 若 Q3 补测 PASS → 用户 ack → N5.3 Full A/B 矩阵 (ChatGPT 13-15 题 + Gemini 10 题)"
           ]
         }
       }
