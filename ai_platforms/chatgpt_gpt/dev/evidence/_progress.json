@@ -6,7 +6,7 @@
   "created_at": "2026-04-20",
   "last_updated": "2026-04-21",
   "current_phase": 4,
-  "overall_status": "phase_4_started_n5_0_plan_doc_produced_ready_for_commit_c5_0_then_n5_1_precondition_fixes",
+  "overall_status": "phase_4_n5_1_PASS_writer_and_reviewer_closed_2_med_in_session_ready_for_commit_c5_1_then_n5_2_smoke_v2_1_rerun",
   "sync_locked_with": "gemini_gems",
   "sync_board_path": "ai_platforms/SYNC_BOARD.md",
   "notes": "Phase 定义对齐 ROADMAP.md 六段制. Phase 2 双边 CONDITIONAL_PASS, 等用户 ack 进 Phase 3.",
@@ -462,15 +462,34 @@
           }
         },
         "N5_1_precondition_fixes": {
-          "status": "ready_to_dispatch",
-          "planned_subagents": [
-            "chatgpt_n5_1_writer (oh-my-claudecode:executor opus) — P5 LOW cleanup 4 项 + system_prompt Q7 CMINDC",
-            "gemini_n5_1_writer (oh-my-claudecode:executor opus) — P2+P3+P4 Gemini 侧 (Gemini _progress.json 记录)",
-            "main_session — P6 补 STAGE_2_AB_REPORT.md",
-            "n5_1_reviewer (oh-my-claudecode:code-simplifier 第 16 种) — 双平台交叉审"
+          "status": "PASS",
+          "started_at": "2026-04-21",
+          "completed_at": "2026-04-21",
+          "dispatched_subagents": [
+            "chatgpt_n5_1_writer (oh-my-claudecode:executor opus) — P5 LOW cleanup 4 项完成 (validate v1.5 SCRIPT_VERSION 常量 + legacy helper DEPRECATED + upload_manifest 5 段文字同步 batch 2 + system_prompt CMINDC bullet); py_compile PASS; system_prompt 7568 bytes / 8000 budget / 5.40% buffer",
+            "main_session — P6 补 STAGE_2_AB_REPORT.md (汇总 writer_summary + validate_batch2 + failures + manifest + smoke v2 反向回填, ~260 行)",
+            "gemini_n5_1_writer (oh-my-claudecode:executor opus) — P2+P3+P4 完成 (04 扩 30,488→51,358 tokens +68.5%; §1.6 DM ACTARM 硬锚点 + §1.26 Quick Reference 重写; system_prompt v3→v4 6720→7093 chars CO-2 边界子条款); validate rc=0 V8b 0 命中; Gemini _progress.json 记录",
+            "chatgpt_n5_1_reviewer (pr-review-toolkit:silent-failure-hunter 第 16 种 subagent_type, Rule D) — Verdict CONDITIONAL_PASS 92%, 0 HIGH + 2 MED + 3 LOW + 2 SUGG; 2 MED (F1 validate_batch2 stale v1.1 header + F2 AB_REPORT 数字漂移) 主 session 同 session 内闭合",
+            "gemini_n5_1_reviewer (oh-my-claudecode:security-reviewer 第 17 种 subagent_type, Rule D, read-only) — Verdict CONDITIONAL_PASS 86%, 0 HIGH + 2 MED + 3 LOW + 2 SUGG; 独立 N=15 抽样 13/15 PASS (CT code 7/7 + 源路径 3/5 + 业务 2/3); 2 MED (UR Label 窄化 + MIDS/SM + §4.4.10 章节号错引 2 处) 主 session 同 session 内闭合"
           ],
-          "started_at": null,
-          "completed_at": null
+          "subitems_completed": {
+            "P5_chatgpt_low_cleanup": "4/4 done (LOW L1 SCRIPT_VERSION 常量 + SUGG S2 legacy helper DEPRECATED + LOW L2 upload_manifest 5 段 + MED CO-2 CMINDC bullet)",
+            "P6_chatgpt_stage_2_ab_report": "done (主 session 直写 + F2 fix 同 session 内闭合)"
+          },
+          "rule_d_cumulative_subagent_types": 17,
+          "rule_a_gemini_independent_n_15": "13/15 PASS (87%), 超 Rule A 阈 80%",
+          "med_resolved_in_session": {
+            "chatgpt_F1_validate_batch2_v1_1_header": "已修: 重跑 validate 刷新 header v1.5, md5 unchanged",
+            "chatgpt_F2_ab_report_prompt_marker_drift": "已修: Edit L155 段 '7220/7500/3.73% → 7568 bytes/8000/5.40%', 引 L114 marker",
+            "gemini_MED1_ur_label_narrowing": "已修: §22.7 'UR (Urinalysis) 尿检' → 'UR (Urinary System Findings) 尿系统发现域', 加 URTESTCD C129942 绑定",
+            "gemini_MED2_mids_sm_and_ch04_section": "已修: §12.4 MIDS 三角关系加 SM 域描述 + 章节号 §4.4.10→§4.4.11 (2 处 §12.4+§24.3) + 源路径加 SM/spec.md"
+          },
+          "carry_over_low_non_blocking_to_n5_2_or_n5_5": [
+            "LOW (ChatGPT reviewer): 3 LOW 非阻塞",
+            "LOW (Gemini reviewer): writer char count 自述 7087 vs 实测 7093 差 6 (统计口径); TI 核心变量口径 (writer 6 subset OK); CP Label 精确性未核 (文件存在)",
+            "SUGG (Gemini reviewer): writer 下次 N=10 自检 + §1.26 Quick Reference 扩 specialty 域 (Node 5.5 清理)"
+          ],
+          "final_validate_rerun_after_med_fix": "total 637,308 tokens / rc=0 PASS / 4 文件矩阵全绿"
         }
       }
     },
