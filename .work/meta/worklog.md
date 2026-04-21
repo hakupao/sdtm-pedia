@@ -1026,3 +1026,49 @@
   - 用户交接此仓库给他人时有明确的话术依据 (不再误以为能给链接)
 - **影响面**: README 增 26 行, 无新 key paths, 无 knowledge_base 变动, 无 plans 变动 (Chain D/E 不触发); 仅 Chain B (worklog → PROGRESS.md "最后更新") + MANIFEST.md "最后更新"
 - **下一步**: commit + push
+
+### 2026-04-21 夜 Phase 6.5 NotebookLM Phase 3 P3.2 完成 (用户 Web UI 上传 42 / 42 + 主 session Chrome MCP 复核 PASS)
+
+- **状态**: 已完成
+- **触发**: P3.1 完成后 Phase 3 P3.2 gate OPEN, 用户执行 Web UI 上传并请主 session 生成手顺 + 复核
+- **前置产出**:
+  - 主 session 新建 `ai_platforms/notebooklm/dev/checkpoints/CHECKPOINT_P3.2_HANDOFF.md` (250 行手顺, 融合 PLAN §6 P3.2 + A5' 小样结论 + MANIFEST 42 文件清单 + Rule B 回退路径 + 明示不做 scope 清单)
+  - 用户照手顺登 notebooklm.google.com @ bojiang.zhang.0904 personal Gmail Pro tier → 建 notebook `SDTM Knowledge Base` → Finder 全选 42 md (排除 MANIFEST.md) 单批拖入
+- **执行结果** (evidence: `ai_platforms/notebooklm/dev/evidence/p3_2_upload_log.md`):
+  - 42 / 42 source 全 indexed, **0 silent fail, 0 retry**
+  - Source count 三处交叉锁 42: My notebooks 卡片 `42 sources` + Chat 底部 `42 sources` + Studio `based on 42 sources`
+  - Sources panel 滚动清点 01→42 逐条勾选, 无 unchecked / greyed-out / duplicate / missing
+- **主 session Chrome MCP 复核** (用户初次 Step 3.1 只 "随便看", 主 session 补做 5 tile 速览 silent-fail 二道防线):
+  - `01_navigation_and_routing.md` (2,145 w): metadata header + 正文可读 PASS
+  - `29_ig_ch04_general_assumptions.md` (20,315 w, 关键规则源): Section 4 Pages 22-59 可读 PASS
+  - `38_ct_questionnaires_part1_22.md` (**302,027 w, 最大 bucket 边界测试**): NotebookLM 自动生成中文摘要 (AJCC / 心血管风险评分 / AUDIT / Alzheimer 等) 证明 60% of 500K/source cap 无截断 PASS
+  - `42_req_variable_coverage_audit.md` (4,833 w, 元审计): Part A ∅ gap 自证可读 PASS
+  - `17_fnd_oncology_tr_tu_rs_oe.md` (22,769 w, 中段任选): TR / TU / RS / OE 源列表完整可见 PASS
+- **Chat 一题 sanity**:
+  - Q: "STUDYID 变量的 Core 属性是什么?"
+  - A: "STUDYID 变量的 Core 属性是 **Req**（Required，即必填）[1][2]。作为一个通用标识符变量, 它出现在所有的域（Domain）中..."
+  - 判据 5 项全 PASS (含 Req 字样 + inline citation + 非未收录 + 非 Exp/Perm 污染 + 额外追问引导)
+  - **意外收获**: 此题同时构成 P3.4.5 N=10 Q1 语义级自证的**pre-sample signal** (Core=Req + citation + 正确语义), 提高 P3.4.5 先验信心
+- **规则合规**:
+  - **Rule B**: `dev/evidence/failures/` 目录保持空, 零归档需求 (零 silent fail 前提下)
+  - **Rule D**: 本 P3.2 属**用户 UI 工具级动作**, 主 session Chrome MCP 复核也走 UI 层, 不派 subagent, cumulative Rule D 链仍为 9 种 (general-purpose / verifier / executor / critic / planner / analyst / code-architect / code-reviewer / architect), 第 10 种 subagent_type slot 留 P3.4 smoke / Phase 4 跨平台审
+  - **Rule E**: personal Gmail + Pro tier + Web UI only, 三项 ack 全合规
+  - **Q1 红线**: 本步 42 source 全 indexed 是 Q1 **语义级**验证的结构前提, 已达成; **语义层审计 P3.4.5 N=10 仍是硬强制**, 本次意外的 STUDYID pre-sample 不替代正式 N=10
+- **关键决策**:
+  - 用户 Step 3.1 偏离透明记录 (执行 log 异常记录段 + Step 3.1 详表明写 "主 session 补做"), 符合 Rule B 精神: 不藏偏离, 用证据补防线
+  - 单批拖入策略验证成功 (A5' 小样 43 文件外推到实战 42 全 indexed), 未触发分批 fallback; 未来规模 >50 时需重新评估
+  - p3_2_upload_log.md 不作为 Writer 级产物计入 Rule D 链, 避免占用稀缺 subagent_type slot (留给 P3.4 / Phase 4 深度审)
+- **新产物路径** (本次 session):
+  - `ai_platforms/notebooklm/dev/checkpoints/CHECKPOINT_P3.2_HANDOFF.md` (new, 主 session 起草手顺)
+  - `ai_platforms/notebooklm/dev/evidence/p3_2_upload_log.md` (new, Claude Cowork / 主 session 记录)
+  - `ai_platforms/notebooklm/dev/evidence/_progress.json` (updated: last_update / current_phase / 3_execute.status / phase_3_entry_gate_status / p3_2_completion 新增 + next_action 指向 P3.3)
+- **影响面**:
+  - Phase 3 P3.2 hard checkpoint CLOSED, P3.3 Chat Custom mode + H3 切换验证 gate OPEN
+  - Phase 6.5 NotebookLM 异步 lane 推进一格 (P3.1 → P3.2), 不影响 ChatGPT / Gemini 锁步
+  - 意外引入 P3.4.5 语义 pre-sample signal 作为 P3.4.5 先验, 但 N=10 正式 audit 仍强制不替代
+  - 无 knowledge_base/ 变动, 无 plans 变动, Chain D / E 不触发; 仅 Chain B (worklog → PROGRESS.md) + MANIFEST.md + CLAUDE.md Key Paths 更新
+- **下一步**:
+  - P3.3: 用户在同一 notebook Chat → Configure → Custom mode → 贴 `current/instructions.md` 全文 (9,011 chars) → Save
+  - P3.3 子步骤 (b) H3 验证: 开一次 chat 尝试切换三档 (Default / Learning Guide / Custom), 观察 UI 是否允许 per-session 切换或 notebook 级锁定, evidence → `dev/evidence/chat_mode_toggle_test.md`
+  - P3.3 子步骤 (c) 事实回写: 验证结果回写 `docs/research.md` Q6 + `docs/platform_profile.md` §D + `docs/PLAN.md` §3.4
+  - P3.4 indexing smoke N=10 (全 tile 预览 + 10 题 citation 精确回指) → P3.4.5 Req 语义抽检 N=10 (Q1 红线语义级自证, 规则 A 正本)

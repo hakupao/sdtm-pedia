@@ -4,9 +4,9 @@
   "mode": "async",
   "sync_board_participation": false,
   "start_date": "2026-04-21",
-  "last_update": "2026-04-21_phase3_p3.1_merge_sources_and_instructions_done_ready_for_p3.2_webui_upload",
+  "last_update": "2026-04-21_phase3_p3.2_user_webui_upload_42of42_PASS_ready_for_p3.3",
   "status": "in_progress",
-  "current_phase": "3_execute_p3.1_done_ready_for_p3.2_user_webui",
+  "current_phase": "3_execute_p3.2_done_ready_for_p3.3",
   "architecture_version": "v2_single_notebook_2026-04-21",
   "phase_states": {
     "0_bootstrap": {
@@ -128,7 +128,7 @@
       ]
     },
     "3_execute": {
-      "status": "phase_a_done_ready_for_phase3",
+      "status": "p3_2_done_ready_for_p3_3",
       "phase_a_completion_date": "2026-04-21",
       "phase_a_results": {
         "a1_pre_upload_audit": {
@@ -165,7 +165,7 @@
         "bucket 02 (02_common_identifiers_and_timing.md): CLOSED 2026-04-21 P3.1 (merge_sources.py _auto_source=variable_index_common, 1,080 words 写入)",
         "bucket 42 (42_req_variable_coverage_audit.md): CLOSED 2026-04-21 P3.1 (merge_sources.py _auto_source=req_coverage_audit, 4,833 words = coverage_audit.md + full_set.md 双份)"
       ],
-      "phase_3_entry_gate_status": "OPEN — 已进 Phase 3, P3.1 done, 等用户 P3.2 Web UI 上传",
+      "phase_3_entry_gate_status": "P3.2 done (42/42 indexed, 0 silent fail); P3.3 gate OPEN (Chat Custom mode paste + H3 toggle test pending)",
       "p3_1_completion": {
         "date": "2026-04-21",
         "sub_actions": {
@@ -184,7 +184,45 @@
         ],
         "ready_for_p3_2": true
       },
-      "next_action": "用户操作 P3.2: 登 notebooklm.google.com → 新建 'SDTM Knowledge Base' notebook → 拖 current/uploads/*.md × 42 全选上传 → 等 indexing 完成; P3.3 贴 current/instructions.md 全文到 Chat Custom mode + 验证三档切换 (H3)"
+      "p3_2_completion": {
+        "date": "2026-04-21",
+        "executor": "user (personal Gmail bojiang.zhang.0904@gmail.com, Rule E ack) + main session Chrome MCP re-verification",
+        "handoff_doc": "dev/checkpoints/CHECKPOINT_P3.2_HANDOFF.md",
+        "evidence": "dev/evidence/p3_2_upload_log.md",
+        "notebook_url": "https://notebooklm.google.com/notebook/3f87a93e-9a65-407e-8292-c28706fc6287",
+        "notebook_name": "SDTM Knowledge Base",
+        "tier": "Pro (Google AI Pro)",
+        "results": {
+          "upload_batch_count": 1,
+          "uploaded_files": "42 / 42",
+          "indexed_success": "42 / 42",
+          "silent_fail_count": 0,
+          "retry_count": 0,
+          "source_count_cross_check": "42 locked across 3 UI surfaces (My notebooks card / Chat footer / Studio generator)",
+          "tile_preview_sanity": "5 / 5 PASS (01 navigation / 29 IG ch04 / 38 CT questionnaires part1-22 302K / 42 req coverage audit / 17 fnd oncology)",
+          "largest_bucket_38_boundary_test": "PASS (302K words < 500K/source cap, 60% of cap, no truncation, NotebookLM auto-generated Chinese summary confirms full indexing)",
+          "chat_sanity_studyid_core": "PASS (answer contains 'Req' + inline citation [1][2]; RAG activity + Req semantic correct + citation display all PASS)"
+        },
+        "deviations": [
+          "user initial Step 3.1 was partial / not strict per handoff; main session via Chrome MCP re-verified 5 designated tiles (incl largest bucket 38), all PASS, deviation logged transparently in evidence Step 3.1 table + 异常记录 section; does not constitute checkpoint FAIL"
+        ],
+        "hard_checkpoint_items_status": {
+          "step_1_notebook_created": "PASS",
+          "step_2_42_sources_indexed": "PASS",
+          "step_3_1_tile_preview_5of5": "PASS (main session补做)",
+          "step_3_2_chat_sanity_studyid": "PASS",
+          "step_3_3_source_count_locked_42": "PASS"
+        },
+        "rule_compliance": {
+          "rule_B_failures_dir_empty": true,
+          "rule_D_chain_unchanged_9": "Phase 3 P3.2 is UI tool-level action, does not occupy subagent_type slot; next slot (10th) reserved for P3.4 indexing smoke deep review / Phase 4 cross-platform compare",
+          "rule_E_personal_gmail_pro_webui": "PASS",
+          "q1_red_line_structural_precondition_met": "42 sources all indexed — structural prerequisite for Q1 semantic validation; P3.4.5 N=10 semantic audit still pending"
+        },
+        "bonus_signal_for_p3_4_5": "Chat sanity question (STUDYID Core) inadvertently passed a Q1 semantic pre-sample (Core=Req + inline citation + correct semantic), increasing prior confidence for P3.4.5 N=10 audit; P3.4.5 still runs as formal anchor",
+        "ready_for_p3_3": true
+      },
+      "next_action": "用户操作 P3.3: Chat → Configure → Custom mode → 贴 current/instructions.md 全文 (9,011 chars, ≤10K cap) → Save; 随后验证 H3 三档 (Default / Learning Guide / Custom) 切换能力 (每 chat session 可切 or notebook 级锁定); 事实回写到 docs/research.md Q6 + docs/platform_profile.md §D + docs/PLAN.md §3.4 + dev/evidence/chat_mode_toggle_test.md; 完成后进 P3.4 indexing smoke N=10 + P3.4.5 Req 语义抽检 N=10 (Q1 红线语义级自证)"
     },
     "4_review": {
       "status": "locked"
