@@ -168,6 +168,14 @@ Words → tokens 近似换算: 官方未给比例, 社区常用 `100 tokens ≈ 
 - C: [xda — Audio Overview custom length](https://www.xda-developers.com/notebooklm-audio-overview-custom-length/) (length 选项验证)
 - C: [Shareuhack — NotebookLM Advanced Guide 2026: Custom Instructions](https://www.shareuhack.com/en/posts/notebooklm-advanced-guide-2026)
 
+**Phase 3 P3.3 UI 实测 (2026-04-21, evidence: `dev/evidence/chat_mode_toggle_test.md`)**:
+
+- ✅ **同 chat session 可动态切换三档** (Default / Learning Guide / Custom), 无需 new chat; XDA 报道的 "Configure Chat" 入口行为 A 级核实 — Q-REV-1 CLOSED
+- ✅ 切换后 source set 不变 (同 notebook 同 42 bucket RAG), 仅 response 风格 / 是否应用 Custom instructions 变化
+- ✅ Custom mode 下 `current/instructions.md` (9,011 chars / 90% of 10K cap) 规则 4 (Variable table) / 5 (Core 红线 AESER=Exp) / 6 (CT 全写 + C-code 字面 C66742) / 12 (诚实 follow-up 引导) 全部命中
+- ⚠️ **F-1 附带发现**: NotebookLM Chat UI 层**原生支持** markdown 表格 — A 级证据 [NotebookLM Help — Use chat in NotebookLM](https://support.google.com/notebooklm/answer/16179559?hl=en) 明文 "When you save a response as a note, **the original format—including tables and clickable inline citations—gets saved**". 用户观察到的 pipe-table 平铺成一行是**模型输出层** single-line malformed (row 间缺换行, GFM renderer 不识别), 非 UI bug. P3.4 前跑 minimal table test 定锤, 按需微调 `instructions.md` Response template 强调 "each row on its own line"
+- ⚠️ **F-2 附带发现**: Custom mode 同题 × 2 次答案语义等价但细节漂移 (valid values 完整度 / 输出语言), 属 RAG chunk 召回顺序 + LLM 采样随机性, 非 bug; 挪 P3.8 A/B 评分规则补一条 "同题 retry 幂等性不强制, 按语义 PASS"
+
 ---
 
 ## Q7: 分享机制 — 个人 / 协作者 / 公开 (v2, 2026-04-21 架构 pivot 后重写)

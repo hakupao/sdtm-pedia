@@ -4,9 +4,9 @@
   "mode": "async",
   "sync_board_participation": false,
   "start_date": "2026-04-21",
-  "last_update": "2026-04-21_phase3_p3.2_user_webui_upload_42of42_PASS_ready_for_p3.3",
+  "last_update": "2026-04-21_phase3_p3.3_done_f1_closed_ready_for_p3.4",
   "status": "in_progress",
-  "current_phase": "3_execute_p3.2_done_ready_for_p3.3",
+  "current_phase": "3_execute_p3.3_done_ready_for_p3.4",
   "architecture_version": "v2_single_notebook_2026-04-21",
   "phase_states": {
     "0_bootstrap": {
@@ -128,7 +128,7 @@
       ]
     },
     "3_execute": {
-      "status": "p3_2_done_ready_for_p3_3",
+      "status": "p3_3_done_ready_for_p3_4",
       "phase_a_completion_date": "2026-04-21",
       "phase_a_results": {
         "a1_pre_upload_audit": {
@@ -165,7 +165,7 @@
         "bucket 02 (02_common_identifiers_and_timing.md): CLOSED 2026-04-21 P3.1 (merge_sources.py _auto_source=variable_index_common, 1,080 words 写入)",
         "bucket 42 (42_req_variable_coverage_audit.md): CLOSED 2026-04-21 P3.1 (merge_sources.py _auto_source=req_coverage_audit, 4,833 words = coverage_audit.md + full_set.md 双份)"
       ],
-      "phase_3_entry_gate_status": "P3.2 done (42/42 indexed, 0 silent fail); P3.3 gate OPEN (Chat Custom mode paste + H3 toggle test pending)",
+      "phase_3_entry_gate_status": "P3.2 done (42/42 indexed, 0 silent fail); P3.3 done (Custom mode active + H3 三档切换 VERIFIED PASS + Q-REV-1 CLOSED); F-1 CLOSED 2026-04-21 (minimal table test 分支 a 命中, UI 真表格渲染, 前 3 题 single-line 归因模型偶发漂移, 不改 instructions.md); P3.4 gate OPEN 无前置条件",
       "p3_1_completion": {
         "date": "2026-04-21",
         "sub_actions": {
@@ -222,7 +222,50 @@
         "bonus_signal_for_p3_4_5": "Chat sanity question (STUDYID Core) inadvertently passed a Q1 semantic pre-sample (Core=Req + inline citation + correct semantic), increasing prior confidence for P3.4.5 N=10 audit; P3.4.5 still runs as formal anchor",
         "ready_for_p3_3": true
       },
-      "next_action": "用户操作 P3.3: Chat → Configure → Custom mode → 贴 current/instructions.md 全文 (9,011 chars, ≤10K cap) → Save; 随后验证 H3 三档 (Default / Learning Guide / Custom) 切换能力 (每 chat session 可切 or notebook 级锁定); 事实回写到 docs/research.md Q6 + docs/platform_profile.md §D + docs/PLAN.md §3.4 + dev/evidence/chat_mode_toggle_test.md; 完成后进 P3.4 indexing smoke N=10 + P3.4.5 Req 语义抽检 N=10 (Q1 红线语义级自证)"
+      "p3_3_completion": {
+        "date": "2026-04-21",
+        "executor": "user (personal Gmail, Web UI Custom mode paste + Save + 三档切换手动实测) + main session (evidence 格式化 + WebFetch F-1 triangulation + 4 处事实回写)",
+        "evidence": "dev/evidence/chat_mode_toggle_test.md",
+        "test_design_deviation": "用户用同一题 (AESER Core) 跑三档作 controlled comparison (PLAN 建议 3.3 用 LBNRIND 但同题对比更纯净隔离 mode 变量, 不构成 FAIL)",
+        "sub_steps": {
+          "a_custom_mode_activated": "PASS (instructions.md 9,011 chars 贴入 + Save, UI 显示 Custom mode active)",
+          "b_h3_toggle_verified": "PASS (UI 允许 per-chat-session 动态切 Default/LearningGuide/Custom; source set invariant 保持同 42 bucket; Custom mode 回切后 instructions.md 规则 4/5/6/12 仍生效)",
+          "c_fact_writeback": "done — docs/research.md Q6 + docs/platform_profile.md §D (退化机制行 + P3.3 实测补充段) + docs/PLAN.md §3.4 表 '单 chat session 切换能力' 行 + 本 _progress.json"
+        },
+        "h3_assumption_verdict": "VERIFIED_PASS",
+        "q_rev_1_chat_mode_closure": "CLOSED 2026-04-21 (UI 每 chat session 可动态切三档, 非 notebook 锁定)",
+        "findings": {
+          "F-1_ui_table_rendering": {
+            "user_observation": "NotebookLM Chat UI 显示 markdown pipe-table 为一行平铺的 | 字符串, 未渲染表格",
+            "webfetch_evidence": "A 级: support.google.com/notebooklm/answer/16179559 明文 'When you save a response as a note, the original format—including tables and clickable inline citations—gets saved' → UI 层原生支持表格",
+            "root_cause_diagnosis": "非 UI bug, 是模型输出层 single-line malformed pipe-table (row 间缺换行), GFM renderer 不识别",
+            "minimal_table_test_prompt": "列出 AE 域中 Core 属性为 Req 的 6 个变量, 每个一行, markdown 表格格式。",
+            "minimal_table_test_result": "BRANCH_A_UI_RENDERS_REAL_TABLE — 用户实测 UI 真表格渲染 (列头 + 每 row 独行 + STUDYID/DOMAIN/USUBJID/AESEQ/AETERM/AEDECOD 全对 + AEDECOD CT=MedDRA + 6/6 citation [08_ev_adverse_ae.md])",
+            "closure_decision": "接受偶发漂移; 不改 instructions.md (规则 4/10 本身正确, 当前 9,011/10,000 chars 已紧); P3.8 A/B 评分规则预留 F-2 '同题 retry 幂等性不强制' 条吸收 F-1 漂移",
+            "status": "CLOSED 2026-04-21 (branch a 命中, P3.4 gate OPEN 无前置)"
+          },
+          "F-2_non_idempotent_custom_answer": {
+            "observation": "Custom mode 同题 (AESER Core) × 2 次答案语义等价但细节漂移 (valid values 完整度: 4 值全 vs 仅 Y/N / 输出语言: 全英 vs 中英混)",
+            "root_cause": "RAG chunk 召回顺序 + LLM 采样随机性, 非 bug",
+            "mitigation": "挪 P3.8 A/B 评分规则补 '同题 retry 幂等性不强制, 按语义 PASS'",
+            "status": "待 P3.8 时处理"
+          }
+        },
+        "rule_compliance": {
+          "rule_A_semantic_audit": "N/A (本步 N=3 仅 H3 证据采集, Rule A 正本在 P3.4.5 N=10 Req 业务问答)",
+          "rule_B_failures_dir_empty": true,
+          "rule_D_chain_unchanged_9": "Phase 3 P3.3 UI 工具级 + 主 session 事实回写, 不占 Rule D subagent_type slot; cumulative 链保持 9; next slot (10th) 仍留 P3.4 indexing smoke 深度审 / Phase 4 跨平台对比",
+          "rule_E_personal_gmail_pro_webui": "PASS"
+        },
+        "carry_over_to_p3_4": [
+          "F-1 minimal table test 用户跑 1 题后定锤, 按需微调 instructions.md Response template '每行独占一行'",
+          "F-2 挪 P3.8 A/B 评分规则补 '同题 retry 幂等性不强制, 按语义 PASS'",
+          "P3.4 M3 fix: indexing smoke N=10 + 至少 1 题 non-core domain; 但 F-1 未闭合前不宜启动 (citation 精度判据会被格式噪声污染)"
+        ],
+        "ready_for_p3_4": true,
+        "f_1_closure_date": "2026-04-21"
+      },
+      "next_action": "F-1 闭合 → 用户在 notebook Custom mode 跑 1 题 minimal table test (prompt: '列出 AE 域的 6 个 Req 变量, 每个一行, markdown 表格格式'); 三种结果分支: (a) UI 显示真表格 → F-1 闭合, 原因归因为前 3 题模型偶发 single-line 输出, P3.4 照跑 (retry 策略接受偶发漂移) / (b) 仍显示一行 pipe 串 → 主 session 微调 instructions.md Response template 强调 '每行独占一行' 后重 Save Custom mode 再测 / (c) 模型避开表格改给 bullet list → 主 session 加强规则 4 '必须用 markdown table' 强制语. F-1 闭合后进 P3.4 indexing smoke N=10 + P3.4.5 Req 语义抽检 N=10 (Q1 红线语义级自证)"
     },
     "4_review": {
       "status": "locked"
