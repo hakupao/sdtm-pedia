@@ -111,12 +111,14 @@
         "SUGGESTION_S4_cluster_algorithm_slot_utilization": "integrated as §3.2 contract implication (A3 runtime check)",
         "SUGGESTION_S5_citation_precision_cross_platform": "deferred to Phase 5 cross_platform_compare.md"
       },
-      "q_rev_user_ack_defaults": {
-        "Q_REV_1_chat_mode_assumption": "auto-acked: accept assumption pending P3.3 UI test",
-        "Q_REV_2_webui_small_sample": "auto-acked: accept A5' parallel with A1",
-        "Q_REV_3_q1_dual_anchor": "auto-acked: accept structure A4 + semantic P3.4.5 dual anchor"
+      "q_rev_user_ack_final": {
+        "user_ack_date": "2026-04-21",
+        "user_statement": "全接受",
+        "Q_REV_1_chat_mode_assumption": "user-acked: Chat mode single-mode assumption pending P3.3 UI verification",
+        "Q_REV_2_webui_small_sample": "user-acked: A5' 5-source sample upload test parallel with A1",
+        "Q_REV_3_q1_dual_anchor": "user-acked: structure A4 + semantic P3.4.5 dual anchor for Q1 red line"
       },
-      "final_verdict": "PASS (2026-04-21, post 9th subagent_type architect review + all findings applied); user may override Q-REV auto-acks before Phase 3",
+      "final_verdict": "PASS (2026-04-21, post 9th subagent_type architect review + all findings applied + user Q-REV全接受 ack)",
       "carry_over_to_phase3": [
         "Phase 3 P3.3 子步骤 b/c: 验证 Chat mode 单 session 可否切换三档 (H3 验证)",
         "Phase 3 P3.4 M3 fix: smoke 题 N=10 + 至少 1 题 non-core domain",
@@ -126,15 +128,16 @@
       ]
     },
     "3_execute": {
-      "status": "locked_until_user_ack_phase2_v2_final",
-      "blocked_by": "user_ack_for_q_rev_auto_defaults_and_commit_c5_2",
-      "entry_gate_5_conditions": [
-        "H1/H2/H3 all closed in PLAN.md v2",
-        "M1/M2 closed (P3.4.5 + A5' added to plan)",
-        "9th subagent_type reviewer evidence at dev/evidence/phase2_v2_reviewer.md",
-        "Main session Q-REV auto-ack accepted (or user override)",
-        "User ack to commit C5.2 and enter Phase A"
-      ]
+      "status": "phase_a_gate_OPEN",
+      "gate_open_date": "2026-04-21",
+      "entry_gate_5_conditions_status": {
+        "H1_H2_H3_closed_in_plan_v2": "PASS",
+        "M1_M2_closed_p3_4_5_a5_prime": "PASS",
+        "9th_subagent_type_reviewer_evidence": "PASS (dev/evidence/phase2_v2_reviewer.md)",
+        "main_session_q_rev_defaults": "PASS (all 3 defaults chosen)",
+        "user_ack_q_rev_final": "PASS (2026-04-21 '全接受')"
+      },
+      "next_action": "Phase A Setup execution — 5 子动作 (A1 + A2 + A3 + A4 + A5'), 推荐调度 Day 1 并行 A1/A2/A5' → Day 1-2 串行 A3 → A4"
     },
     "4_review": {
       "status": "locked"
