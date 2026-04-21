@@ -63,17 +63,17 @@
 
 > **题**: 受试者空腹 HbA1c 检验结果为 6.8%, 参考范围 4.0-6.0%, 实验室标注为"高". 请说明 SDTM LB 域中, 这次检验应该如何填写以下变量: `LBTEST` (检验名) / `LBTESTCD` (检验代码) / `LBORRES` (原始结果) / `LBORRESU` (原始单位) / `LBSTRESC` (标准化字符结果) / `LBSTRESN` (标准化数值) / `LBSTRESU` (标准化单位) / `LBNRIND` (参考范围指示)? 指出 `LBNRIND` 的三挡分类 (低 / 正常 / 高) 用什么代号.
 
-**PASS 判据**:
+**PASS 判据** (v2.1 2026-04-21 修订, 见文末变更记录):
 - LBTEST = "Hemoglobin A1C" (或接近, 字符串 label)
 - LBTESTCD = "HBA1C"
 - LBORRES = "6.8" (字符)
 - LBORRESU = "%"
 - LBSTRESC = "6.8" / LBSTRESN = 6.8 (数值)
 - LBSTRESU = "%" (或单位换算后的标准化单位)
-- LBNRIND = "H" (High; 三档 L / N / H)
+- LBNRIND = **"HIGH"** (对齐 CDISC CT C78736 官方 submission value; 三档 **HIGH / LOW / NORMAL** 全写, 另有 ABNORMAL)
 
 **FAIL 判据**:
-- LBNRIND 三档说错 (比如写"HIGH"/"LOW"而非"H"/"L")
+- LBNRIND 答错值 (比如"H"/"L"/"N" 单字符非 CDISC CT C78736 官方 submission value; 或"高/低/正常"中文)
 - LBORRES 和 LBSTRESN 类型弄混 (LBORRES 是字符, LBSTRESN 必须数值)
 - 忘记 LBSTRESC vs LBSTRESN 区分
 
@@ -231,6 +231,7 @@
 | 日期 | 变更 | 原因 |
 |-----|------|------|
 | 2026-04-21 | v2 draft 建立, 10 题全业务维度 | Node 3b v1 smoke 被用户纠正: 字典查/位置描述/文件名引用 3 错. Gemini 舍弃 terminology 后, 只能跑不依赖 codelist inline 的业务题 |
+| 2026-04-21 | **v2.1 修订 Q3 LBNRIND 判据** | Node 4 smoke 后双 reviewer 独立交叉发现 (tracer 第 14 种 + test-engineer 第 15 种 subagent_type): 原 Q3 PASS 判据 "LBNRIND = H" 与 FAIL 判据 "写 HIGH/LOW 而非 H/L" 与 KB 源四处 (`LB/spec.md` L264 + `model/02_observation_classes.md` L168 + `LB/assumptions.md` L7 + `terminology/core/general_part4.md` L63-72 C78736) 冲突. CDISC CT C78736 官方 submission values = **ABNORMAL/HIGH/LOW/NORMAL 全写**, 无 "H/N/L" 短码. 原 Node 4 smoke 按 v2.0 (错判据) 评分, 双平台 Q3 FAIL 保留不追溯; v2.1 起 Phase 4 回归 A/B 按新判据. ChatGPT 答 "HIGH/LOW/NORMAL" 在新判据下 PASS, Gemini CO-2 拒答在新判据下仍 FAIL (拒答设计本身). |
 
 ---
 

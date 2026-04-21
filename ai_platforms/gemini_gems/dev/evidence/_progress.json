@@ -6,7 +6,7 @@
   "created_at": "2026-04-20",
   "last_updated": "2026-04-21",
   "current_phase": 3,
-  "overall_status": "phase_3_node_4_c_refactor_writer_reviewer_conditional_pass_ready_for_commit_c4_then_user_delete_old_upload_new_and_smoke_v2",
+  "overall_status": "phase_3_node_4_smoke_v2_pass_8_of_10_strict_ready_for_commit_c4b_then_phase_4",
   "sync_locked_with": "chatgpt_gpt",
   "sync_board_path": "ai_platforms/SYNC_BOARD.md",
   "notes": "Phase 定义对齐 ROADMAP.md 六段制. Phase 2 双边 CONDITIONAL_PASS, 等用户 ack 进 Phase 3. Gemini Tier 1-2 最轻量平台.",
@@ -411,6 +411,65 @@
             "Step 2 跑 ai_platforms/SMOKE_QUESTIONS_V2.md 10 题 rerun",
             "Step 3 落档 dev/evidence/smoke_v2_results.md 并回报 X/10 PASS + CO-1/2/3 验证情况"
           ]
+        },
+        "N4_smoke_v2": {
+          "status": "PASS_strict_8_of_10_ready_for_commit_c4b",
+          "started_at": "2026-04-21",
+          "completed_at": "2026-04-21",
+          "executed_by": "user + claude cowork MCP agent (Chrome JS paste + Quill ngModel)",
+          "gem_url": "https://gemini.google.com/u/1/gem/3b572e310813",
+          "submission_method": "execCommand insertText + InputEvent dispatch + wait 2s + UI click (绕 Quill ngModel race)",
+          "issues_encountered": "Q3/Q6 各踩 Quill ngModel race 一次, wait 2s 后 retry 成功; Pro mode 每次 navigate 需手动重选",
+          "smoke_score_strict": "8/10 PASS",
+          "smoke_score_partial": "8.5/10 (Q6 PARTIAL=0.5)",
+          "recommended_scoring": "strict 8/10 (与 ChatGPT 口径一致 + Phase 4 gate 机械判)",
+          "smoke_pass_fail_detail": {
+            "Q1_CM_merge_2records": "PASS (2 条 + 5 Req + CMSEQ/CMSTDTC/CMINDC 全齐)",
+            "Q2_AE_SAE_7_subvars": "PASS (AESER=Y + 6 子 Y/N + Core 属性对齐 KB)",
+            "Q3_LB_HbA1c_NRIND": "FAIL (CO-2 拒答 H/N/L; 按 v2.1 修订判据拒答仍 FAIL, 但 v2.0 判据 H/N/L 本身与 KB 冲突 — 真实问题是 SMOKE 判据 bug, v2.1 已修)",
+            "Q4_AESEV_CTCAE_Grade5": "PASS (三档对 + Grade 5 连锁; 建议'不映射, AESEV 留空, Grade 填 AETOXGR' 学术严格派)",
+            "Q5_PC_LLOQ": "PASS (PCORRES=<0.1/BQL + PCSTRESN=Null + 3 点解释)",
+            "Q6_ARMCD_ARM_switch": "PARTIAL (漏 ACTARM/ACTARMCD, 错层到 ADaM TRTP/TRTA 或 EX 域; 严判应 FAIL 因 ACTARM 是 SDTM DM 域 Permissible 变量非 ADaM)",
+            "Q7_MH_CM_ongoing": "PASS (用 MHENRTPT 非 MHENRF, KB assumption §34a 偏好 MHENRF for RFSTDTC; 弱判 PASS, 严判 borderline)",
+            "Q8_ISO8601_AESTDY": "PASS (ISO 8601 + 无 Day 0 + 部分精度 + 规则公式对齐 ch04 §4.4.4)",
+            "Q9_SUPPAE_QNAM": "PASS (ISREAC 6 字符合规 + 非标 Qualifier 本质 + 完整结构字段)",
+            "Q10_RELREC_vs_SUPP": "PASS (选 RELREC + 跨记录 vs 单记录 + 结构字段全对)"
+          },
+          "reviewer_subagent": "oh-my-claudecode:test-engineer (第 15 种独立 subagent_type, 规则 D)",
+          "reviewer_verdict": "ADJUST (82% confidence)",
+          "reviewer_phase4_gate_decision": "CONFIRM (过 ≥8/10 严格阈值)",
+          "reviewer_evidence": "ai_platforms/gemini_gems/dev/evidence/smoke_v2_reviewer.md (主 session 代写, test-engineer 只读)",
+          "reviewer_lane_pass": true,
+          "reviewer_h1_finding": "SMOKE_QUESTIONS_V2.md Q3 FAIL 判据与 KB 四源冲突 (LB/spec.md L264 + model/02_observation_classes.md L168 + LB/assumptions.md L7 + terminology/core/general_part4.md L63-72 C78736 一致给 HIGH/LOW/NORMAL 全写). 与 ChatGPT tracer (第 14 种 subagent_type) 独立同款发现, 交叉验证强. SMOKE_QUESTIONS_V2.md v2.1 已修 Q3 判据.",
+          "co_1_2_3_validation_from_smoke": {
+            "CO-1_aeser_anchor": "严守 PASS (Q2 显式 AESER=Exp + 6 子=Perm; Q4 AESEV=Perm + AETOXGR=Perm; KB 全核对一致)",
+            "CO-2_nci_guard": "灰度但实际合规 — Q3 拒答 H/N/L (KB 无原文), Q4 inline MILD/MODERATE/SEVERE (KB CDISC Notes Examples 原文有). system_prompt 应把隐规则显式化: 'KB Examples 里有的可 inline; 无原文必外导 NCI EVS'",
+            "CO-3_citation": "严守 PASS (10 题全有源路径; Q6/Q8 带 §号, 格式粒度微不一 Phase 4 可规范)"
+          },
+          "evidence_paths": [
+            "ai_platforms/gemini_gems/dev/evidence/smoke_v2_results.md",
+            "ai_platforms/gemini_gems/dev/evidence/smoke_v2_answers/Q1_answer.md",
+            "ai_platforms/gemini_gems/dev/evidence/smoke_v2_answers/Q2_answer.md",
+            "ai_platforms/gemini_gems/dev/evidence/smoke_v2_answers/Q3_answer.md",
+            "ai_platforms/gemini_gems/dev/evidence/smoke_v2_answers/Q4_answer.md",
+            "ai_platforms/gemini_gems/dev/evidence/smoke_v2_answers/Q5_answer.md",
+            "ai_platforms/gemini_gems/dev/evidence/smoke_v2_answers/Q6_answer.md",
+            "ai_platforms/gemini_gems/dev/evidence/smoke_v2_answers/Q7_answer.md",
+            "ai_platforms/gemini_gems/dev/evidence/smoke_v2_answers/Q8_answer.md",
+            "ai_platforms/gemini_gems/dev/evidence/smoke_v2_answers/Q9_answer.md",
+            "ai_platforms/gemini_gems/dev/evidence/smoke_v2_answers/Q10_answer.md",
+            "ai_platforms/gemini_gems/dev/evidence/smoke_v2_reviewer.md"
+          ],
+          "carry_over_to_phase_4": [
+            "HIGH CO-1 (from reviewer H1): SMOKE_QUESTIONS_V2.md v2.1 已修 Q3 判据 (本 session commit C4b 内), Phase 4 回归按 v2.1 判据",
+            "HIGH CO-2 (from reviewer MED-1): Q6 ACTARM 错层是硬 SDTM 知识错, 04 业务弹药包必加 DM ACTARM/ACTARMCD 条目 + pitfall '不要说它们在 ADaM'",
+            "MEDIUM CO-3 (from reviewer MED-2): CO-2 边界语义化 — system_prompt CO-2 段加子条款 'KB CDISC Notes Examples 里 term 可 inline; 无原文必外导 NCI EVS'",
+            "MEDIUM CO-4 (from reviewer MED-3): 04 弹药包扩 15-25K 到 50-60K (Node 4 reviewer MED-1 + 本次 smoke 共同指向); 命中率 40% 偏低",
+            "LOW CO-5: Q7 MHENRF 偏好补丁 — 04 加 'ongoing-with-RFSTDTC 走 --ENRF' 规则",
+            "LOW CO-6: CO-3 源路径格式粒度统一 (§变量 vs §号)",
+            "LOW CO-7: 封装 gemini_submit_stable.js helper (Phase 4 回归 20+ 题批量跑避免 Quill race)"
+          ],
+          "phase4_gate": "OPEN (≥8/10 严格过阈, Phase 4 可启; CO-1/CO-2 必须 Phase 4 前修)"
         }
       }
     },

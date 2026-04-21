@@ -6,7 +6,7 @@
   "created_at": "2026-04-20",
   "last_updated": "2026-04-21",
   "current_phase": 3,
-  "overall_status": "phase_3_node_4_batch2_writer_reviewer_pass_ready_for_commit_c4_then_user_upload_and_smoke_v2",
+  "overall_status": "phase_3_node_4_smoke_v2_pass_9_of_10_ready_for_commit_c4b_then_phase_4",
   "sync_locked_with": "gemini_gems",
   "sync_board_path": "ai_platforms/SYNC_BOARD.md",
   "notes": "Phase 定义对齐 ROADMAP.md 六段制. Phase 2 双边 CONDITIONAL_PASS, 等用户 ack 进 Phase 3.",
@@ -358,6 +358,58 @@
             "落档 dev/evidence/smoke_v2_results.md",
             "回报 X/10 PASS + 每题 verdict"
           ]
+        },
+        "N4_smoke_v2": {
+          "status": "PASS_strict_9_of_10_ready_for_commit_c4b",
+          "started_at": "2026-04-21",
+          "completed_at": "2026-04-21",
+          "executed_by": "user + claude cowork MCP agent (Chrome JS paste)",
+          "gpt_url": "https://chatgpt.com/g/g-69e635b99e848191a2818cd8e8e7e9cc-sdtm-expert",
+          "submission_method": "Chrome MCP javascript_tool + ClipboardEvent paste (绕 type 丢字)",
+          "first_attempt_failure_archived": "smoke_v2_results.md L13-34 (type 丢字 + 4 题揉同 tab, 用户主动纠正)",
+          "second_attempt_success": "10/10 DOM 回读逐字对 + 10 conversation URL 记录",
+          "smoke_score": "9/10 PASS (strict) — Q3 FAIL",
+          "smoke_pass_fail_detail": {
+            "Q1_CM_merge_2records": "PASS (2 条拆分 + 5 Req 全齐)",
+            "Q2_AE_SAE_7_subvars": "PASS (AESER=Y/AESHOSP=Y + 其 5 个 N + seriousness vs severity)",
+            "Q3_LB_HbA1c_NRIND": "FAIL (按 v2.0 判据 HIGH/LOW/NORMAL 算错; v2.1 修订后此答实际为 PASS, 但 Node 4 评分按 v2.0 保留 FAIL 维评分刚性)",
+            "Q4_AESEV_CTCAE_Grade5": "PASS (MILD/MODERATE/SEVERE + Grade 5→FATAL)",
+            "Q5_PC_LLOQ": "PASS (PCORRES=<LLOQ + PCSTRESN=Null + 3 点解释)",
+            "Q6_ARMCD_ARM_switch": "PASS (含 ACTARMCD/ACTARM 跨平台优势点)",
+            "Q7_MH_CM_ongoing": "PASS (borderline, CMINDC 未显式命名)",
+            "Q8_ISO8601_AESTDY": "PASS (无 Day 0 + 部分精度)",
+            "Q9_SUPPAE_QNAM": "PASS (AESOSP 6 字符 + 4 场景)",
+            "Q10_RELREC_vs_SUPP": "PASS (选 RELREC + 7 字段结构)"
+          },
+          "reviewer_subagent": "oh-my-claudecode:tracer (第 14 种独立 subagent_type, 规则 D)",
+          "reviewer_verdict": "ADJUST (82% confidence)",
+          "reviewer_phase4_gate_decision": "CONFIRM (过 ≥8/10 阈值)",
+          "reviewer_evidence": "ai_platforms/chatgpt_gpt/dev/evidence/smoke_v2_reviewer.md (主 session 代写)",
+          "reviewer_lane_pass": true,
+          "reviewer_h1_finding": "Scorer L89 断言 'C78736 是 H/N/L 单字符' 与 KB 源冲突; KB 四源 (general_part4.md L63-72 + LB/spec.md L264 + model/02_observation_classes.md L168 + LB/assumptions.md L7) 一致给 HIGH/LOW/NORMAL 全写. ChatGPT Q3 答 HIGH/LOW/NORMAL 按 KB 源正确, 按 v2.0 判据 FAIL 是题目 bug. SMOKE_QUESTIONS_V2.md v2.1 已修正判据. Phase 4 remediation 方向翻转: 不补 H/N/L 硬规则.",
+          "evidence_paths": [
+            "ai_platforms/chatgpt_gpt/dev/evidence/smoke_v2_results.md",
+            "ai_platforms/chatgpt_gpt/dev/evidence/smoke_v2_answers/Q1_answer.md",
+            "ai_platforms/chatgpt_gpt/dev/evidence/smoke_v2_answers/Q2_answer.md",
+            "ai_platforms/chatgpt_gpt/dev/evidence/smoke_v2_answers/Q3_answer.md",
+            "ai_platforms/chatgpt_gpt/dev/evidence/smoke_v2_answers/Q4_answer.md",
+            "ai_platforms/chatgpt_gpt/dev/evidence/smoke_v2_answers/Q5_answer.md",
+            "ai_platforms/chatgpt_gpt/dev/evidence/smoke_v2_answers/Q6_answer.md",
+            "ai_platforms/chatgpt_gpt/dev/evidence/smoke_v2_answers/Q7_answer.md",
+            "ai_platforms/chatgpt_gpt/dev/evidence/smoke_v2_answers/Q8_answer.md",
+            "ai_platforms/chatgpt_gpt/dev/evidence/smoke_v2_answers/Q9_answer.md",
+            "ai_platforms/chatgpt_gpt/dev/evidence/smoke_v2_answers/Q10_answer.md",
+            "ai_platforms/chatgpt_gpt/dev/evidence/smoke_v2_reviewer.md"
+          ],
+          "carry_over_to_phase_4": [
+            "HIGH CO-1 (from reviewer H1): SMOKE_QUESTIONS_V2.md v2.1 已修 Q3 判据 (本 session commit C4b 内), Phase 4 回归按 v2.1 判据",
+            "MEDIUM CO-2: Q7 CMINDC 严苛化 — Phase 4 regression 标准加 '必显式命名 PASS 判据要求的变量名'",
+            "MEDIUM CO-3: 跨平台 Q6 ACTARM 差异归档 SYNC_BOARD, ChatGPT batch 2 terminology 覆盖优于 Gemini C refactor 证据",
+            "LOW CO-4 (inherited): validate_chatgpt_stage.py render_report 行 519 (v1.1) → (v1.5) header",
+            "LOW CO-5 (inherited): legacy helper _collect_terminology(subdir) 标 DEPRECATED 或删",
+            "LOW CO-6 (inherited): upload_manifest.md README/order 语义段手工更新"
+          ],
+          "phase4_gate": "OPEN (≥8/10 过阈, Phase 4 可启)"
         }
       }
     },
