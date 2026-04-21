@@ -11,7 +11,7 @@
 
 ## 执行摘要 (Executive Summary)
 
-把 SDTM 293 md 知识库部署到 **NotebookLM Pro tier 单 notebook**, 采用 **concept cluster 合并到 ≤50 sources** 策略 (Pro 300 slot 的 16.7%, 主动压缩到 Free tier viewer 兼容水位). Scope ABC 三场景 (个人学习 / 小圈分享 / 公开分享) 通过**同一 notebook 的 3 档 Access Level 切换** (Restricted / Anyone with link / Public) 实现, 不使用多 notebook.
+把 SDTM 293 md 知识库部署到 **NotebookLM Pro tier 单 notebook**, 采用 **concept cluster 合并到 ≤50 sources** 策略 (Pro 300 slot 的 16.7%). ≤50 的**主归因**是 "**indexing silent fail 风险降低 + citation 信噪比提升**" (证据 HIGH), 次归因 "Free tier viewer 兼容水位" (证据 MEDIUM, 待 Phase 3 P3.9 子步骤 (f) 闭合). 在**本次 Rule E ack 场景下** (personal Gmail + ABC + 无 collaborator 圈职责隔离需求), Scope ABC 三场景 (个人学习 / 小圈分享 / 公开分享) 通过**同一 notebook 的 3 档 Access Level 切换** (Restricted / Anyone with link / Public) 实现, 不使用多 notebook. 未来若 collaborator 圈需要完全职责隔离 (同 org 内不同 team), 再评估升级多 notebook.
 
 关键风险已降低: 最坏上传 ~50 次 (v1 最坏 353 次的 14%), A/B 题次 15 (v1 的 33%), indexing silent fail 风险面降低 ~85%, Req 零丢失在 50 slot 下比 v1 的 30 slot 更易守.
 
@@ -66,7 +66,7 @@ SDTM 1 notebook 部署的**业务成功定义**. 用户 2026-04-21 ack:
 | 3 | Chat custom goals 三档 (Default / Learning Guide / **Custom**), 全档开放, Custom 10K char | research.md Q6 |
 | 4 | **同一 notebook 3 档 Access Level 切换** (Restricted / Anyone with link / Public), **非两独立模式**, 档位可随时切 | **research.md Q7 v2** + 2026-04-21 三 WebFetch |
 | 5 | **50-cap 仅套 Restricted invite 档**, 不覆盖 Anyone with link / Public | research.md Q7 v2 |
-| 6 | **分享不改 viewer 自己 tier source cap** — Free viewer 看共享 notebook 最多看 50 sources, 决定本次上限 | research.md Q7 v2 + Q8 |
+| 6 | **分享不改 viewer 自己 tier source cap** — 官方原文 "Sharing a notebook does not change the source limit for any collaborator"; WebFetch AI summary 解读 A (Free viewer 最多看 50 sources) **证据强度 MEDIUM** (M5 fix: 非 A 级官方原文, 是二次解读). ≤50 结论保留, 但 "Free tier viewer 兼容" 作 ≤50 首要归因降级为次要; 主 drive 改 "**indexing silent fail 风险随 source 数线性降 + citation 信噪比提升**" (Q5 + 社区观察, 证据 HIGH). P3.9 子步骤 (f) Phase 3 顺手用 Free tier 小号闭合实测 | research.md Q7 v2 + Q8 |
 | 7 | Indexing silent fail 官方承认, 预览 + smoke 问答是验证手段 | research.md Q5 |
 | 8 | Audio Overview 4 format (Deep Dive / Brief / Critique / Debate), 20/day Pro | research.md §9 |
 | 9 | Source 严格隔离 (事实仍成立, 但单 notebook 无跨 notebook 引用需求, 降级为信息约束) | research.md §11 v2 |
@@ -184,30 +184,33 @@ ai_platforms/claude_projects/**                                       (参照只
 
 ## §2.5 Phase A Setup (简化 v2)
 
-v1 Phase A 6 子动作 + A5 "webui batch upload 能力调研" (hard checkpoint) 在 v2 下降级: 单 notebook × ≤50 次上传, Web UI 手工拖拽即可, 不强制 Playwright 前置. Phase A 简化为 **4 子动作**:
+v1 Phase A 6 子动作 + A5 "webui batch upload 能力调研" (hard checkpoint) 在 v2 下降级: 单 notebook × ≤50 次上传 Web UI 手工拖拽, 不强制 Playwright 前置. **但 Web UI 单批拖拽 ≤50 的可行性未做 Phase 1 实测 (M2 fix), 加 A5' 小样闭合**. Phase A 共 **5 子动作**:
 
 | Task | 子动作 | 输入 | 输出 | Checkpoint | 估算工时 |
 |------|-------|------|------|-----------|---------|
 | **A1** Pre-upload audit | `wc -w` 293 md + Top 5 outlier 排序 + 500K cap 校验 | `knowledge_base/**/*.md` | `dev/evidence/pre_upload_audit.md` | **hard** | 15 分钟 |
 | **A2** SDTM Req 变量 extraction | 跑 `extract_req_vars.py`, 从 `VARIABLE_INDEX.md` + `domains/*/spec.md` 抽 `Core=Req` 全集 | `knowledge_base/**` | `dev/evidence/req_vars_full_set.md` (~366 记录; 去重 ~100-120 独立) | **hard** (Q1=0 红线前置) | 1-2 小时 |
 | **A3** Source bucket 设计 | 跑 `cluster_req_variables.py`, 按 concept cluster 重分到 ≤50 bucket | A2 产物 + 293 md | `dev/evidence/source_mapping.md` + `current/uploads/MANIFEST.md` (草) | **hard** | 2-3 小时 |
-| **A4** Req 变量全覆盖审计 | 对照 A2 全集 vs A3 bucket 断言 ∅ gap | A2 + A3 产物 | `dev/evidence/req_vars_coverage_audit.md` ("Req 变量零缺集" 断言 + diff 表) | **hard** (Q1=0 自证) | 1-2 小时 |
+| **A4** Req 变量全覆盖审计 (**结构级**, 见 §3.2 step 3-6) | 对照 A2 全集 vs A3 bucket 蕴含式断言 | A2 + A3 产物 | `dev/evidence/req_vars_coverage_audit.md` ("Req 变量零漏集" 结构级断言 + diff 表) | **hard** (Q1=0 结构自证) | 1-2 小时 |
+| **A5' (M2 fix) Web UI 上传能力小样实测** | 主 session (或用户) 登 notebooklm.google.com 建废弃 notebook, 拖 5 个 knowledge_base/ 任选 md 实测 (单批拖入 / indexing 时间 / silent fail 计数 / 预览正确性) | Web UI + 5 md 小样 | `dev/evidence/phase_a_webui_small_sample.md` (5 条记录 + PASS/FAIL + P3.2 策略决策: 单批 50 vs 分批 N×批) | **hard** (决定 P3.2 是否分批) | 30 分钟 |
 
-**Phase A 总工时**: **4-7 小时** (Q2 保险 2x = 8-14 小时, 1 天内可收完). v1 Phase A 9-16h 估算被 Phase A 简化削 ~60%.
+**Phase A 总工时**: **4.5-7.5 小时** (Q2 保险 2x = 9-15 小时, 1 天内可收完). A5' 小样实测仅 30 分钟, 不影响总工时大头.
 
 **Phase A 依赖图**:
 - A1 独立
 - A2 独立 (可与 A1 并行)
 - A3 依赖 A2
 - A4 依赖 A2 + A3
+- **A5' 独立** (可与 A1/A2 并行, 不依赖其他产物)
 
-**推荐调度**: Day 1 并行 A1 + A2; Day 1-2 串行 A3 → A4.
+**推荐调度**: Day 1 并行 A1 + A2 + A5'; Day 1-2 串行 A3 → A4.
 
 **Phase A 完成判据** (进 §6 Phase 3 的 gate):
-- 4 子动作 evidence 全部落盘
-- A1/A2/A3/A4 全 hard checkpoint 用户 ack
-- `req_vars_coverage_audit.md` 显式声明 "Req 变量零缺集" (∅ gap)
+- 5 子动作 evidence 全部落盘
+- A1/A2/A3/A4/A5' 全 hard checkpoint 用户 ack
+- `req_vars_coverage_audit.md` 显式声明 "Req 变量零漏集" (结构级 ∅ gap)
 - ≤50 bucket 清单可用于 Web UI 上传
+- **A5' 小样实测 PASS**, P3.2 策略 (单批 / 分批) 明确落盘; 若小样 FAIL 必立即调整 §6 P3.2 设计
 
 ---
 
@@ -245,7 +248,9 @@ v1 Phase A 6 子动作 + A5 "webui batch upload 能力调研" (hard checkpoint) 
 | 9 core domain spec + IG 7 章 + 4 examples ≈ 20 source (v1 ≤30 slot 紧) | 按 concept cluster 重分, 每 source 跨 domain 含相关 Req; ≤50 slot 给 outlier 容错余地 |
 | 非 core domain (DD/HO/ML 等) Req 可能全丢 | 所有 ~366 Req 至少出现在 1 source, 后台脚本自动 audit |
 
-**≤50 source 建议 bucket 方案** (Phase A A3 产出 concrete 清单, 以下为示意; 最终 slot 分配由 cluster_req_variables.py 决定):
+**≤50 source 建议 bucket 方案** (Phase A A3 产出 concrete 清单, 以下为示意):
+
+> **Source of truth 契约 (H1 fix)**: **本表仅示意**, Phase A3 `cluster_req_variables.py` 脚本产物 (`dev/evidence/source_mapping.md` + `current/uploads/MANIFEST.md`) **为准**. 若脚本产物与本示意 slot 分配差异 >20% (slot 数 / domain 聚类粒度), **触发本 PLAN §3.2 同步刷新**, 避免 PLAN 自身过时. 示意仅用于评估策略可行性与审查, 不作为上传清单 source.
 
 | # | Source 名 (示意) | 内含 domain Req 变量范围 | 预计 words |
 |---|-----------------|------------------------|-----------|
@@ -272,21 +277,23 @@ v1 Phase A 6 子动作 + A5 "webui batch upload 能力调研" (hard checkpoint) 
 
 **总字数估**: ~720K words, 远低于 Pro tier 50 × 500K = 25M cap (占 cap ~2.9%).
 
-**Req 变量全覆盖审计** (Phase A A4):
+**Req 变量全覆盖审计** (Phase A A4, **结构级** Q1 红线自证):
 1. `extract_req_vars.py` 产 `req_vars_full_set.md` (~366 记录去重 ~100-120)
-2. `cluster_req_variables.py` 产 `source_mapping.md` 每 slot 含 Req 变量子集
-3. 主 session 跑 diff: 全集 ∪ {slot Req} 必 = 全集 ∩ {slot Req} = 全集 (即 ∅ gap)
-4. 断言写进 `req_vars_coverage_audit.md` 结尾段 "Q1=0 红线自证: 零漏集"
-5. 触发规则 A (压缩 >50% 必 N=10 抽检) — 主 session 独立抽样 10 个 Req 变量 (优先选 non-core domain 的), 按名查 bucket, 必 100% 命中
+2. `cluster_req_variables.py` 产 `source_mapping.md`, 每 slot 附 `covered_req_set` 子集
+3. **覆盖断言** (H2 fix — 蕴含式, 非集合等式):
+   - **PASS 条件**: `∀ req ∈ req_vars_full_set, ∃ source ∈ uploads, 使 req.variable ∈ source.covered_req_set`
+   - **FAIL 条件**: `∃ req ∈ full_set, ∀ source, req.variable ∉ source.covered_req_set` (即漏集)
+4. 断言写进 `req_vars_coverage_audit.md` 结尾段 "Q1=0 红线**结构级**自证: 零漏集"
+5. **注意**: 本 A4 是**结构级**审计 (变量名 ∈ source 文本), **不是语义级**验证 (NotebookLM RAG 能否召回). 语义级 Q1 红线自证在 Phase 3 P3.4.5 "Req 变量业务问答抽检 N=10" 完成 (M1 fix, 见 §6), 双锚闭合.
+6. 规则 A 触发说明: 压缩 >50% 强制 N=10 独立抽检, 本平台 293→50 (压缩率 ~83%) 触发. N=10 抽检的**语义验证**挪到 P3.4.5 (见 §6), 本步仅作结构抽样 ≤5 (快速自检, 非 Rule A 正本)
 
 ### 3.3 分享档位策略 (3 档按需切换)
 
-Scope ABC 三场景在**同一 notebook 分享档位切换**, 不多 notebook:
+在**本次 Rule E ack 场景下** (ABC 三 scope + personal Gmail + 无 collaborator 圈职责隔离), Scope ABC 通过**同一 notebook 分享档位切换**实现 (L2 fix: 未来若 collaborator 圈需职责隔离, 再评估升级多 notebook):
 
 | 日常态 / 场景 | Access Level | 允许访客 | 使用方式 |
 |-------------|------|---------|---------|
-| **默认态 (Scope A 个人学习)** | **Restricted** (私有) | 仅 owner | 用户本人使用, 无分享泄漏风险 |
-| Scope B 小圈分享 | **Restricted + invite** | ≤50 specific emails (personal Gmail 50-cap) | 按需邀请 SDTM 小组同事, 默认 Viewer, 极少数 Editor |
+| **Scope A / B 小圈组合 (默认)** | **Restricted** (L1 fix: 无邀请 = Scope A 私有; + invite 邀请 SDTM 小组 = Scope B 小圈, ≤50 specific emails personal Gmail 50-cap) | 仅 owner (Scope A 态) / ≤50 specific emails (Scope B 态) | 默认态 Scope A 私有, 按需邀请 ≤50 同事切 Scope B, 默认 Viewer, 极少数 Editor |
 | Scope B/C 广覆盖分享 | **Anyone with link** | 任何 Google 账号拿到链接 | 发社区群 / 培训帖 / 会议群共享, 无 users 上限 |
 | Scope C 公开发现 | **Public** | 任何 Google 账号, 可从 NotebookLM 画廊发现 | 极少用, 作 SDTM 社区示范 |
 
@@ -302,18 +309,21 @@ Scope ABC 三场景在**同一 notebook 分享档位切换**, 不多 notebook:
 - Workspace Enterprise/EDU: 禁 Anyone with link / Public (Restricted 档则无 50-cap, 可邀请 Groups)
 - 退化 fallback: workflow_replication (打包 uploads/ + UPLOAD_TUTORIAL 让接收者自建复刻)
 
-### 3.4 Chat mode: Custom + SDTM 专家 prompt
+### 3.4 Chat mode: Custom 默认 + 单 session 切换假设 (H3 fix: 待 Phase 3 P3.3 验证)
 
 | 字段 | 值 |
 |------|----|
-| Chat custom goals 模式 | **Custom** (非 Default / Learning Guide) |
+| **notebook 级默认 mode** | **Custom** (Chat custom goals, ≤10,000 char) |
+| **单 chat session 切换能力** | ⏸️ **假设待验证 (UI 实测 Phase 3 P3.3)** — XDA 报道称 UI 是 "Configure Chat" 每次 chat 可切换三档 (Default / Learning Guide / Custom), 但 research.md Q6 未做 A 级官方原文确认. 本 PLAN 不锁死 "只能一个 Chat mode" 结论, 以 P3.3 实测为准 |
 | 文本文件 | `current/instructions.md` (≤10,000 char) |
 | 角色定位 | "你是 SDTM 数据标准专家, 熟悉 CDISC SDTMIG 3.4, 精通 63 域 + terminology + IG 章节" |
 | 行为约束 | "回答时必 inline citation 源 md, 不在知识库外编造, 遇边界问题坦诚 '未收录', 优先引权威 IG + domain spec, 术语以 terminology/core 为准" |
 | 回答规范 | "高频 Q 给精确变量 + Core (Req/Exp/Perm) + codelist ID (C-code), 边界 Q 给 assumptions + IG 章节引, 混淆 Q 显式对比" |
 | SDTM-specific 锚点 | STUDYID 7 字段 / AESER Core=Exp (区别 AE Req) / LBNRIND HIGH/LOW/NORMAL 全写非短码 / --ACN vs --ACT / NCI EVS 引用时字面 URL |
 
-**替代的范本组件**: v1/v2 `05_solution.md` 的 "System Prompt 累积段设计" **不适用**, 用本段 instructions.md 单一文本替代 + 精选 source `00_navigation.md` 作首源导航 (双入口: Chat custom mode + notebook 首源).
+**替代的范本组件**: 范本 `05_solution.md` 的 "System Prompt 累积段设计" **不适用**, 用本段 instructions.md 单一文本替代 + 精选 source `00_navigation.md` 作首源导航 (双入口: Chat custom mode + notebook 首源).
+
+**P3.3 验证产物** (事实回写): Phase 3 实测后, 将 "是否每 chat session 可切换三档" 的结论回写到 `platform_profile §D` + `research.md Q6` + 本 §3.4 "单 chat session 切换能力" 行.
 
 ### 3.5 Audio / Mind Map / Study Guide 侧重
 
@@ -329,12 +339,13 @@ Scope ABC 三场景在**同一 notebook 分享档位切换**, 不多 notebook:
 | Phase | 主要 Task | 产出 | 估算工时 | Checkpoint |
 |-------|----------|-----|---------|-----------|
 | **Phase 2 v2 审** | 第 9 种 subagent_type 独立审本 PLAN | `dev/evidence/phase2_v2_reviewer.md` | 1-2 小时 | hard (主 session 接过再进 Phase 3) |
-| **Phase A Setup** | A1 audit + A2 Req extract + A3 bucket + A4 coverage audit | 4 份 evidence + `uploads/MANIFEST.md` 草 | 4-7 小时 (Q2 保险 8-14) | 全 hard |
+| **Phase A Setup** | A1 audit + A2 Req extract + A3 bucket + A4 coverage audit (结构级) + **A5' Web UI 小样实测 (M2 fix)** | 5 份 evidence + `uploads/MANIFEST.md` 草 + 小样实测 | 4.5-7.5 小时 (Q2 保险 9-15) | 全 hard |
 | **Phase 3 P3.0** | Pre-flight check (re-run A1/A4 确保最新) | audit log | 0.5 小时 | soft |
 | **Phase 3 P3.1** | (可选) 跑 `merge_sources.py` 合成 ≤50 个 source 文件 | `current/uploads/<source_N>.md` × ≤50 | 1-2 小时 | soft |
-| **Phase 3 P3.2** | Web UI 建 notebook + 单批上传 ≤50 source | notebook 创建 + sources 上传完 | 1-2 小时 (拖拽 + indexing) | hard (indexing smoke 前置) |
-| **Phase 3 P3.3** | 贴 `instructions.md` 到 Chat custom goals Custom mode | Custom mode 激活 | 10 分钟 | soft |
-| **Phase 3 P3.4** | Indexing smoke test (每 source tile 点开预览 + 3 题快速问答) | `dev/evidence/indexing_smoke.md` | 1 小时 | hard (silent fail 防线) |
+| **Phase 3 P3.2** | Web UI 建 notebook + 上传 ≤50 source (策略按 A5' 小样结果: 单批 or 分批) | notebook 创建 + sources 上传完 | 1-2 小时 (拖拽 + indexing) | hard (indexing smoke 前置) |
+| **Phase 3 P3.3** | 贴 `instructions.md` 到 Chat custom goals Custom mode + **H3 切换能力验证 (新增子步骤 b/c)** | Custom mode 激活 + `chat_mode_toggle_test.md` | 30 分钟 | soft |
+| **Phase 3 P3.4** | Indexing smoke test (每 source tile 点开预览 + **10 题分布式问答, M3 fix**) | `dev/evidence/indexing_smoke.md` | 1.5 小时 | hard (silent fail 防线 + RAG 检索双验证) |
+| **Phase 3 P3.4.5** (M1 fix) | **Req 变量业务问答抽检 N=10** (Q1 红线语义级自证, 规则 A 正本) | `dev/evidence/phase3_task_P3.4.5_req_semantic_audit.md` | 2 小时 | **hard** (Q1 红线 10/10 必过) |
 | **Phase 3 P3.5** | Audio Overview × 3 长 Deep Dive 生成 (SAFETY / EFFICACY / PK) | 3 个 audio + 说明文本 | 30 分钟 (生成) + 1-2 天 (听完确认) | soft (per-day 20 rate 内) |
 | **Phase 3 P3.6** | Mind Map 生成 + 跨域关系验证 | Mind Map 导出 PNG + 人工 checklist | 30 分钟 | soft |
 | **Phase 3 P3.7** | Study Guide × 3 生成 + 人工读 | 3 份 Study Guide | 1 小时 | soft |
@@ -343,7 +354,7 @@ Scope ABC 三场景在**同一 notebook 分享档位切换**, 不多 notebook:
 | **Phase 4** | 跨 4 平台对比 + 回归 + 规则 A N=10 独立抽检 + 第 10 种 subagent_type 审 | `cross_platform_compare.md` + `phase4_reviewer.md` | 2-3 小时 | hard |
 | **Phase 5** | RETROSPECTIVE (含 pivot 复盘) + UPLOAD_TUTORIAL + CLAUDE.md / MANIFEST / worklog / PROGRESS 更新 + `_template/` 10 补丁 PR + commit + push | 3 份终 doc + 多点更新 | 3-5 小时 | hard (规则 D 独立审) |
 
-**Phase 3 总估工时**: ~8-12 小时 (Q2 保险 2x = 16-24 小时, 跨 1-2 天)
+**Phase 3 总估工时**: ~10-14 小时 (Q2 保险 2x = 20-28 小时, 跨 1-3 天; P3.3 H3 验证 +30min + P3.4 M3 smoke 扩 +30min + P3.4.5 M1 语义自证 +2h + P3.9 L3/S1 子步骤 +10min, 合计 +3h)
 
 ---
 
@@ -381,16 +392,43 @@ Scope ABC 三场景在**同一 notebook 分享档位切换**, 不多 notebook:
 - Checkpoint: **hard** (上传完成 + indexing smoke 跟)
 - 失败处理: 单文件 retry (NotebookLM 官方承认 silent fail); 规则 B 归档 failure record
 
-### P3.3 Custom mode 激活 (10 分钟)
+### P3.3 Custom mode 激活 + 切换能力验证 (H3 fix, 30 分钟)
 
-- 子步骤: Chat → Configure → Custom mode → 贴 `instructions.md` 全文 (≤10K char) → Save
-- Checkpoint: soft (P3.4 smoke 会间接验证)
+- 子步骤 (a): Chat → Configure → Custom mode → 贴 `instructions.md` 全文 (≤10K char) → Save
+- 子步骤 (b) **H3 验证 (新增)**: 开一次 chat, 尝试切换三档 (Default → Learning Guide → Custom), 观察:
+  - UI 是否允许每 chat session 切换 (PASS = Yes / FAIL = notebook 级锁定单一)
+  - 切换 Learning Guide 后是否仍引用同一 source set (PASS = 是) 但 response 风格改变 (PASS = 是)
+  - 切回 Custom 是否 instructions.md 仍生效 (PASS = 是)
+- 子步骤 (c) **事实回写** (基于 b 结果): 把 "单 chat session 切换能力" 结论回写到 `docs/research.md` Q6 + `docs/platform_profile.md` §D + `docs/PLAN.md` §3.4 对应行 + `dev/evidence/chat_mode_toggle_test.md` (本次验证 evidence 留档)
+- Checkpoint: **soft** (验证是增值信息, 不阻塞 P3.4 smoke)
 
-### P3.4 Indexing smoke test (1 小时)
+### P3.4 Indexing smoke test (M3 fix: 题数 3 → 10, 1.5 小时)
 
-- 子步骤: (a) 点每 source tile 预览确认内容存在且格式未乱 (b) 问 3 个分布式 smoke 题 (首/中/尾各一, 分别引 source_01 / source_25 / source_50) 看 citation 是否精确回指
-- Checkpoint: **hard** (silent fail 防线, 不过 gate 不进 Audio/Mind Map)
-- 失败处理: 删重上传对应 source + 规则 B 归档
+- 子步骤 (a): 点**每** source tile 预览确认内容存在且格式未乱 (≤50 source 全扫)
+- 子步骤 (b) **smoke 题扩 N=10** (M3 + S2 fix): 选 10 个 source (首 source_01 + 末 source_50 + 中间 8 个随机), 每题:
+  - 题本身针对该 source 独有内容 (建议至少 1 题选 **non-core domain** 如 DD/HO/ML 的独有 Req 变量, 测 "findings_other" bucket 18-22 的 RAG 信号强度, S2 fix)
+  - 看 citation 是否**精确回指**该 source (主 session 对照 `source_mapping.md` 确认)
+  - 记录 PASS/FAIL 比例
+- PASS 阈值: 10/10 citation 精确回指 (≥9/10 可接受, 但 10/10 是目标)
+- Checkpoint: **hard** (silent fail 防线 + RAG 检索验证双防, 不过 gate 不进 Audio/Mind Map)
+- 失败处理: 删重上传对应 source + 规则 B 归档; 若 <8/10 PASS 触发 cluster bucket 重分 (Phase A A3 回炉)
+
+### P3.4.5 Req 变量业务问答抽检 N=10 (M1 fix, 2 小时, Q1 红线**语义级**自证)
+
+**规则 A 正本** (用户规则 A: "压缩 >50% 必 N 样本独立抽检", 本平台 293→50 压缩率 83% 触发):
+
+- 子步骤 (a): 主 session 从 `req_vars_full_set.md` 独立随机抽 10 个 Req 变量 (优先选 non-core domain 的, 覆盖 "findings_other" bucket 信号弱区)
+- 子步骤 (b): 每个变量构造**业务问答题** (不是字典式变量名查询), 例如:
+  - "某 SDTM 域记录 X 事件, 按 SDTMIG 要求哪些变量必填?" (测 Req 变量召回 + Core 属性)
+  - "Y 变量的 controlled terminology 是哪个 codelist? C-code?" (测跨 source 召回)
+  - "Z 变量在哪些 domain 出现? 语义一致吗?" (测跨 domain 召回)
+- 子步骤 (c): Chat 中问每题, 看 NotebookLM:
+  - 是否命中正确 Req 变量 (10/10 必 PASS, Q1 红线)
+  - citation 是否精确回指 ≥1 个预期 source (9/10 PASS 接受)
+- PASS 阈值: **10/10 Req 变量业务问答命中** (结构级 A4 + 语义级本步 P3.4.5 双锚闭合 Q1 红线)
+- 产物: `dev/evidence/phase3_task_P3.4.5_req_semantic_audit.md` (10 题 + 答案摘录 + citation 精度 + PASS/FAIL 表)
+- Checkpoint: **hard** (Q1 红线语义级自证必过, 不过 gate 不进 P3.5/3.6/3.7 独有产出)
+- 失败处理: (a) 漏变量 → cluster bucket 回炉 (Phase A A3) (b) citation 不精确 → instructions.md 加强 citation 约束 (c) RAG 召回跨 source 噪声 → source 合并粒度调整
 
 ### P3.5 Audio Overview × 3 (生成 30 分钟 + 听 1-2 天)
 
@@ -409,10 +447,15 @@ Scope ABC 三场景在**同一 notebook 分享档位切换**, 不多 notebook:
 - 产 `dev/ab_reports/notebook_ab.md`
 - Checkpoint: **hard** (≥13/15 PASS, <13 走 P10 归因重构)
 
-### P3.9 3 档切换演练 (30 分钟)
+### P3.9 3 档切换演练 (L3 fix + S1 SUGGESTION, 40 分钟)
 
-- 子步骤: (a) Restricted (默认) → 截屏 share panel (b) 切 Anyone with link → 生成链接, 匿名窗口 (非 Google 账号) 试打开 (应被要求登录) → 换另一 Google 账号打开 (应能看到 notebook) (c) 切 Public → 在 NotebookLM 公开画廊搜 (d) 回切 Restricted → 测旧链接是否失效
-- 产出: `dev/evidence/share_level_toggle_drill.md` (4 态截屏 + PASS/FAIL 表)
+- 子步骤 (a): Restricted (默认) → 截屏 share panel
+- 子步骤 (b): 切 Anyone with link → 生成链接, 匿名窗口 (非 Google 账号) 试打开 (应被要求登录) → 换另一 Google 账号打开 (应能看到 notebook)
+- 子步骤 (c): 切 Public → 在 NotebookLM 公开画廊搜
+- 子步骤 (d): 回切 Restricted → 测旧链接是否失效
+- 子步骤 (e) **L3 fix 快速多次切换**: 连续 Restricted ↔ Public 2 次, 第二次 Public 再生成链接, 用原第一次 Public 链接测是否仍可访问 (预期 revoke). 验证档位切换无 caching 残留
+- 子步骤 (f) **S1 SUGGESTION**: 若有 Free tier Gmail 小号, 切 Restricted + invite 档邀请小号, 小号登录查看 notebook 能看到多少 source (≤50 都能看 = 证据 3 解读 A + B 都 OK / 仅能看前 50 sources = 解读 A 成立 / 其他情况 → evidence 3 需深查)
+- 产出: `dev/evidence/share_level_toggle_drill.md` (4+ 态截屏 + PASS/FAIL 表 + 证据 3 解读闭合结论)
 - Checkpoint: **hard**
 
 ---
@@ -513,24 +556,43 @@ Scope ABC 三场景在**同一 notebook 分享档位切换**, 不多 notebook:
 ### 本 PLAN 诞生流程与 Rule D 合规
 
 1. **Writer** = 主 session (pivot 后重写) — **非 subagent**, 作为过渡产物
-2. **Reviewer** = 第 9 种 subagent_type (前 8 种外) 独立审 — 尚未派发, 本 PLAN 写完即派
+2. **Reviewer** = 第 9 种 subagent_type (oh-my-claudecode:architect, 前 8 种外) 独立审 — 已于 2026-04-21 PM 完成, 产 `dev/evidence/phase2_v2_reviewer.md` Verdict CONDITIONAL_PASS 84% (3 HIGH 全修 + 5 MEDIUM 全修 + 5 LOW 全修)
 3. **Rule D 合规性分析**: 主 session 写作 + 独立 subagent 审核, 两 lane 不同 context, 不同 subagent_type — **合规**
-4. **本次 pivot 流程自检** (规则 C 预写):
-   - 保留下来: Rule D 严格 + 证据驱动 + 用户 Q1/Q2 ack 不松
-   - 必须补上: Writer 叙事 → planner 结论的"伪约束检测"未在 v1 审查链中触发, 任何 reviewer 都没有 question "是否一定两独立 notebook" — 这是审查盲区, 需 _template 补丁 #10
-   - 关键决策: 用户 review 质疑 是 pivot 救援 (本次教训: Rule D 8 lane 都过不等于架构没问题)
+4. **本次 pivot 流程自检** (M4 fix — 归因深化 3 层, 规则 C 预写):
+   - **保留下来**: Rule D 严格 + 证据驱动 + 用户 Q1/Q2 ack 不松 + 第 9 种 subagent_type 架构级独立审 catch 住多条 v2 自身的伪约束 (H3 Chat mode / M5 证据 3 归因 / L2 "只能"口径)
+   - **必须补上 (3 层审查盲区, M4 深化)**:
+     - **层 1 (Writer 叙事范式)**: v1 Q7 "Mode A/B 两独立" 被 8 种 subagent_type **全部继承**, 无回 WebFetch 原文核对. **范式锁定**问题, 与 subagent_type 多样性无关. 补丁 **#10a** (`_template/03_research.md` Writer 立场警示).
+     - **层 2 (跨 Phase 回溯盲)**: Reviewer 审查焦点由前 Phase 提供 spec 决定, **不会倒回去质疑 research**. v1 Phase 2 reviewer 只审 planner 推论, 不质疑 research 源头叙事. 补丁 **#10b.1** (`_template/04_plan.md` planner 接 research 时加 "**核心约束原文回溯**" 段, 强制回 Phase 1 A 级 URL 原文).
+     - **层 3 (用户反问作最后防线)**: 用户 review 是**外部触发**, 不是 Rule D 链的胜利. Rule D 在架构级盲区上不足, 需要 Rule E (用户优先级) 的反向审查机制作补. 补丁 **#10b.2** (`_template/04_plan.md` + `_template/06_review.md` 加 "**Phase 2 PASS 前用户反问 gate**" — Phase 2 PASS 前主 session 必主动**向用户提一次开放式反问** "本 PLAN 有没有看起来过重 / 过复杂 / 违反直觉的地方?", 作架构级盲区防线).
+   - **关键决策**: 用户 review 质疑是 pivot 救援; 第 9 种 subagent_type (architect) 再 catch H3/M5/L2; 教训: Rule D 8 lane 都过不等于架构没问题, 必须有架构级 reviewer + 用户反问 gate 双锚.
 
-### 候选第 9 种 subagent_type (Phase 2 v2 审)
+### 第 9 种 subagent_type 选择 (已完成)
 
-前 8 种已用: general-purpose / verifier / executor / critic / planner / analyst / code-architect / pr-review-toolkit:code-reviewer
+**已派**: `oh-my-claudecode:architect` (Phase 2 v2 Reviewer, 2026-04-21 PM 完成)
 
-候选 (架构级审):
-- **`oh-my-claudecode:architect`** (read-only, 架构策略 + 调试思维, opus) — **推荐, 与本 PLAN 的架构级修订最契合**
-- `pr-review-toolkit:type-design-analyzer` — 偏类型设计, 本次无强类型系统, 次选
-- `superpowers:code-reviewer` — 偏代码, 本次 PLAN 偏架构文档
-- `feature-dev:code-reviewer` — 通用 PR 审, 可考虑
+- Verdict: **CONDITIONAL_PASS 84%** (3 HIGH + 5 MEDIUM + 5 LOW + 3 Q-REV 全 ack + 5 SUGGESTION)
+- 产物: `dev/evidence/phase2_v2_reviewer.md` (主 session 代写落盘, reviewer read-only)
+- HIGH 级 findings 全部已在本 PLAN v2 此轮修订中闭合 (H1 §3.2 契约 / H2 §3.2 蕴含式断言 / H3 §3.4 + §6 P3.3 验证子步骤)
+- MEDIUM 级全部闭合 (M1 P3.4.5 / M2 A5' / M3 P3.4 smoke 扩 / M4 §11 归因 3 层深化 + 补丁 #10a/10b / M5 engrained #6 归因降级)
+- LOW 级全部闭合 (L1 §3.3 合并 / L2 Executive Summary + §3 前缀 / L3 P3.9 子步骤 e / L4 research.md 重复段删 / L5 Writer #2 日志废止提醒)
+- Q-REV 主 session auto mode 默认 ack: Q-REV-1 接受假设待验证 / Q-REV-2 接受 A5' / Q-REV-3 接受双锚 (已在本 PLAN 修订中落实)
 
-**主 session 选择**: `oh-my-claudecode:architect` 做第 9 种独立审 (read-only → 主 session 代写 evidence 落盘)
+### Rule D 链 9-lane 完整性
+
+| # | Subagent type | Phase | 产物 |
+|---|--------------|-------|------|
+| 1 | general-purpose | P1 Writer #1 | research.md 初版 |
+| 2 | oh-my-claudecode:verifier | P1 Reviewer #1 | phase1_reviewer.md (已归档) |
+| 3 | oh-my-claudecode:executor | P1 Writer #2 | research.md 修正版 |
+| 4 | oh-my-claudecode:critic | P1 Reviewer #2 | phase1_reviewer2.md (已归档) |
+| 5 | oh-my-claudecode:planner | P2v1 Writer #3 | PLAN_v1 (归档) |
+| 6 | oh-my-claudecode:analyst | P2v1 Reviewer #3 | phase2_reviewer.md (归档) |
+| 7 | feature-dev:code-architect | P2v1 Writer #4 | PLAN v1.1 (归档) |
+| 8 | pr-review-toolkit:code-reviewer | P2v1 Reviewer #4 | phase2_reviewer2.md (归档) |
+| — | 主 session (非 subagent) | **P2v2 Writer (pivot)** | PLAN.md v2 |
+| **9** | **oh-my-claudecode:architect** | **P2v2 Reviewer (第 9 种)** | **phase2_v2_reviewer.md (本次)** |
+
+Phase 3/4/5 继续延伸 Rule D 链 (目标第 10-13 种 subagent_type), 每阶段至少 1 种新类型.
 
 ### 审查焦点 (给第 9 种 subagent_type)
 
