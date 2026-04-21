@@ -6,7 +6,7 @@
   "created_at": "2026-04-20",
   "last_updated": "2026-04-21",
   "current_phase": 4,
-  "overall_status": "phase_4_n5_1_PASS_writer_and_reviewer_closed_2_med_in_session_ready_for_commit_c5_1_then_n5_2_smoke_v2_1_rerun",
+  "overall_status": "phase_4_n5_2_PASS_smoke_v2_1_10_of_10_strict_both_q3_and_q7_regression_hits_no_system_prompt_change_needed_ready_for_commit_c5_2_then_n5_3_full_ab",
   "sync_locked_with": "gemini_gems",
   "sync_board_path": "ai_platforms/SYNC_BOARD.md",
   "notes": "Phase 定义对齐 ROADMAP.md 六段制. Phase 2 双边 CONDITIONAL_PASS, 等用户 ack 进 Phase 3.",
@@ -490,6 +490,48 @@
             "SUGG (Gemini reviewer): writer 下次 N=10 自检 + §1.26 Quick Reference 扩 specialty 域 (Node 5.5 清理)"
           ],
           "final_validate_rerun_after_med_fix": "total 637,308 tokens / rc=0 PASS / 4 文件矩阵全绿"
+        },
+        "N5_2_smoke_v2_1_regression": {
+          "status": "PASS_10_of_10_strict_no_system_prompt_change_needed",
+          "started_at": "2026-04-21",
+          "completed_at": "2026-04-21",
+          "executed_by": "user + claude-in-chrome MCP (each question independent new conversation)",
+          "gpt_url": "https://chatgpt.com/g/g-69e635b99e848191a2818cd8e8e7e9cc-sdtm-expert",
+          "smoke_score": "10/10 strict PASS",
+          "v2_1_criteria_regression_hits": {
+            "Q3_LBNRIND_HIGH_regression": "PASS — LBNRIND=HIGH + 三档 LOW/NORMAL/HIGH 全写 + NCI code C78800/C78801/C78727 + ABNORMAL 额外补; 对比 Node 4 v2.0 被误判 FAIL, v2.1 判据下干净 PASS",
+            "Q7_CMINDC_explicit_named_regression": "PASS — CMINDC=高血压 显式 2 次命名, 双因归因 KB 05/06 主导 60% + v2.1 system_prompt L62 '变量必显式命名' bullet 补强 40%"
+          },
+          "delta_vs_node4_smoke_v2_0": "+1 (9→10), Q3 judgment bug fix in SMOKE v2.1 + Q7 v2.1 bullet 补强",
+          "dispatched_subagents": [
+            "chatgpt_n5_2_reviewer (oh-my-claudecode:planner 第 19 种 subagent_type, Rule D, Write) — Verdict CONDITIONAL_PASS 88% Gate CONFIRM with 1 ADJUST, 413 行 90 citations, Rule A N=5 (Q3+Q7+Q5+Q8+Q10) 5/5 判据命中 + 跨平台 Q3 对照 B 主因 70%+A 次因 30% + 独立 Grep `LBNRIND` 在 ChatGPT system_prompt 0 匹配确认无 Gemini v4 L65 等价自污染风险 + Q7 CMINDC 双因归因 + N5.1 P5 4 项 (validate SCRIPT_VERSION v1.5 常量 + merge legacy DEPRECATED + upload_manifest 5 段同步 + system_prompt CMINDC bullet) 全真合规独立 Grep 验证",
+            "gemini_n5_2_reviewer (oh-my-claudecode:verifier 第 18 种 subagent_type, Rule D, Write) — 独立核 Gemini 侧 + 自污染假设 SUPPORTED (详见 Gemini _progress.json)"
+          ],
+          "rule_d_cumulative_subagent_types": 19,
+          "v2_1_system_prompt_unchanged": "ChatGPT system_prompt.md v2.1 10/10 PASS 无需任何修改 (独立 Grep `LBNRIND` 0 匹配确认无 Gemini v4 L65 等价自污染; Gemini v4→v5 fix 不需镜像)",
+          "phase4_gate": "CONFIRM (10/10 strict 过阈 + 跨平台 reviewer 独立确认无自污染风险 → N5.3 Full A/B ChatGPT 13-15 题可直接开跑)",
+          "evidence_paths": [
+            "ai_platforms/chatgpt_gpt/dev/evidence/smoke_v2_1_results.md",
+            "ai_platforms/chatgpt_gpt/dev/evidence/smoke_v2_1_answers/Q1_answer.md",
+            "ai_platforms/chatgpt_gpt/dev/evidence/smoke_v2_1_answers/Q2_answer.md",
+            "ai_platforms/chatgpt_gpt/dev/evidence/smoke_v2_1_answers/Q3_answer.md",
+            "ai_platforms/chatgpt_gpt/dev/evidence/smoke_v2_1_answers/Q4_answer.md",
+            "ai_platforms/chatgpt_gpt/dev/evidence/smoke_v2_1_answers/Q5_answer.md",
+            "ai_platforms/chatgpt_gpt/dev/evidence/smoke_v2_1_answers/Q6_answer.md",
+            "ai_platforms/chatgpt_gpt/dev/evidence/smoke_v2_1_answers/Q7_answer.md",
+            "ai_platforms/chatgpt_gpt/dev/evidence/smoke_v2_1_answers/Q8_answer.md",
+            "ai_platforms/chatgpt_gpt/dev/evidence/smoke_v2_1_answers/Q9_answer.md",
+            "ai_platforms/chatgpt_gpt/dev/evidence/smoke_v2_1_answers/Q10_answer.md",
+            "ai_platforms/chatgpt_gpt/dev/evidence/phase4_n5_2_smoke_reviewer.md"
+          ],
+          "carry_over_to_n5_3": [
+            "LOW (from reviewer ADJUST): SMOKE_QUESTIONS_V2 v2.2 可选修订 — Q4 判据 C66769 官方无 Grade 4 AESEV 专属档, ChatGPT 答 '不映射, Grade 填 AETOXGR' 更严谨, 不扣 PASS 但登记 v2.2 潜在修订",
+            "LOW: Q7 MHENRF 偏好补丁 (KB assumption §34a 偏好 MHENRF for RFSTDTC, 当前 Q7 答 MHENRTPT 亦 PASS 但可优化)",
+            "LOW: Rule D 第 20 种 subagent_type 链注 (N5.3/N5.5 继续)",
+            "SUGG: writer 自检 N=7→N=10 + 负例引入",
+            "SUGG: N5.3 跨平台 10 题核心子集 1:1 对照 (ChatGPT 13-15 题中取 10 题与 Gemini 10 题对齐)"
+          ],
+          "user_action_awaiting": "无需 ChatGPT 侧 Web UI 变更; 等 Gemini v5 Q3 补测 PASS 后进 N5.3 Full A/B 矩阵"
         }
       }
     },
