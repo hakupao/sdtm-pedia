@@ -1,0 +1,169 @@
+{
+  "platform": "notebooklm",
+  "tier": 2,
+  "mode": "async",
+  "sync_board_participation": false,
+  "start_date": "2026-04-21",
+  "last_update": "2026-04-21_phase2_PASS_ready_for_phase3_phase_A",
+  "status": "in_progress",
+  "current_phase": "3_execute_phase_A_setup_ready",
+  "phase_states": {
+    "0_bootstrap": {
+      "status": "done",
+      "sub_steps": {
+        "scaffolding": "done",
+        "template_copy_to_spec": "done",
+        "readme_draft": "done",
+        "roadmap_draft": "done",
+        "platform_profile_draft": "done",
+        "rule_E_user_priority_ack": "done_2026-04-21_ABC+Plus+noAPI"
+      },
+      "gate_to_next": null
+    },
+    "1_research": {
+      "status": "done",
+      "completed_date": "2026-04-21",
+      "sub_steps": {
+        "eight_questions": "done_writer1",
+        "capacity_confirmation": "done_writer1+writer2",
+        "indexing_indicator_test": "deferred_phase3",
+        "multi_notebook_investigation": "done_writer1+writer2",
+        "writer1_research_md": "done (general-purpose, 392 lines)",
+        "reviewer1_audit": "done (verifier, CONDITIONAL_PASS 78%)",
+        "writer2_corrections": "done (executor, 4 corrections, 469 lines)",
+        "reviewer2_final": "done (critic, CONDITIONAL_PASS 85% + 2 trivial blockers)",
+        "main_session_trivial_fixes": "done 2026-04-21 (Free->Standard 3 places + Mode B UNVERIFIED soften)"
+      },
+      "rule_d_chain_subagent_types": ["general-purpose", "oh-my-claudecode:verifier", "oh-my-claudecode:executor", "oh-my-claudecode:critic"],
+      "evidence_paths": ["docs/research.md", "dev/evidence/phase1_reviewer.md", "dev/evidence/phase1_reviewer2.md"],
+      "final_verdict": "PASS (post trivial fixes) — 4-lane Rule D chain + main session executed Reviewer #2 deterministic carry-over",
+      "carry_over_to_phase2": [
+        "C2.9: Q7 Mode B cap UNVERIFIED - PLAN Scope B design must flag and link to Phase 3 I8",
+        "C2.10: Chat mode rollout dual events (Learning Guide 2025-09-23 XDA vs Chat custom goals 2025-10-29 blog.google) - PLAN 04 note it",
+        "Inherit R1: SDTM pre-upload audit (wc -w top 5) / Chat mode 3-selector default Custom / Scope B personal Gmail + Mode A + Mode B two notebooks / 50 users cap invite-only"
+      ],
+      "carry_over_to_phase3": [
+        "I8: Mode B owner whether Mode A 50-cap applies actual test (CRITICAL - determines Scope B public sharing ceiling)",
+        "I9: Chat mode UI screenshot fixing current names (Default / Learning Guide / Custom)",
+        "I1-I7 (inherit R1): embedding model / chunk size / Audio hallucination / Mind Map long source decay / public link visitor writeback / words-tokens ratio / indexing timing"
+      ]
+    },
+    "2_plan": {
+      "status": "done",
+      "completed_date": "2026-04-21",
+      "sub_steps": {
+        "writer3_plan_v1": "done (oh-my-claudecode:planner, 657 lines)",
+        "reviewer3_audit": "done (oh-my-claudecode:analyst, CONDITIONAL_PASS 82%, 6 Top + 1 connect)",
+        "writer4_blueprint": "done (feature-dev:code-architect design-only, main session applied 14 edits to 951 lines)",
+        "reviewer4_final": "done (pr-review-toolkit:code-reviewer, PASS 91%, Rule D 8-type complete)"
+      },
+      "rule_d_chain_subagent_types": ["oh-my-claudecode:planner", "oh-my-claudecode:analyst", "feature-dev:code-architect", "pr-review-toolkit:code-reviewer"],
+      "evidence_paths": ["docs/PLAN.md", "dev/evidence/phase2_reviewer.md", "dev/evidence/phase2_reviewer2.md"],
+      "final_verdict": "PASS 91% (R4 code-reviewer) — 8-lane Rule D chain complete, 2 phases total 8 subagent types exhausted user-authorized strict mode",
+      "user_Q1_Q2_ack": {
+        "Q1_req_variable_redline": "0 (zero tolerance, user 2026-04-21)",
+        "Q2_time_pace": "quality first, no rush, multi-day OK",
+        "chosen_plan": "Y (strict W4+R4 round, not CONDITIONAL acceptance)"
+      },
+      "carry_over_to_phase3": [
+        "I11: Chat mode UI 截屏 evidence 文件名 (R4 建议命名统一, e.g. chat_mode_ui_notebook_<N>.png)",
+        "I12: Phase 3 Day 1 tier re-check (R4 建议 P3.0 末尾做一次 tier 核实, 防 SKU 漂移影响执行)",
+        "I13: §5 动作 4 vs §2.5 A4 双源关系执行时 ack (R4 标 LOW, Phase 3 实际走哪段)",
+        "I14: P3.9 vs P3.8 编号倒置 (R4 标 COSMETIC, Phase 5 reorg 时 rename)"
+      ]
+    },
+    "3_execute": {
+      "status": "locked"
+    },
+    "4_review": {
+      "status": "locked"
+    },
+    "5_closure": {
+      "status": "locked"
+    }
+  },
+  "evidence_paths": {
+    "platform_profile": "docs/platform_profile.md",
+    "readme": "README.md",
+    "roadmap": "ROADMAP.md",
+    "progress_this_file": "dev/evidence/_progress.json",
+    "template_spec_copy": "_spec/"
+  },
+  "notes": [
+    "异步模式: 不参与 SYNC_BOARD.md 的 ChatGPT<->Gemini 2-way 锁步, 本平台独立推进",
+    "Rule E ack 2026-04-21: ABC 全向 + Pro tier (via Google AI Pro) + Web UI only + personal Gmail 账号",
+    "Phase 1 Writer (general-purpose + opus, 2026-04-21 产出 docs/research.md 392 行) 发现 3 重磅校正: ①原 'Plus' 2025 H2 改名 'Pro' (SDTM 用户走 Pro tier) ②Audio 额度 per-day 而非 per-month, Pro=20/day ③公开链接仅 personal Gmail, Workspace Enterprise/EDU 禁用",
+    "Scope B fallback (用户 2026-04-21): 若某 notebook 分享受限, 通过 current/UPLOAD_TUTORIAL.md + 打包 uploads/ 让他人自建复刻, 已登记为第 6 条 _template 补丁候选",
+    "A/B 矩阵: 15 题/notebook (10 标准 + 5 独有: Audio / Mind Map / Study Guide), 3 notebook 独立 PASS = 45 题次",
+    "本平台对 _template/ 的 7 条缺陷补丁候选已记入 docs/platform_profile.md 末段, 收束时合并"
+  ],
+  "known_differences_from_template": [
+    {
+      "dim": "D_system_prompt",
+      "template_assumption": "每平台有 Custom Instructions",
+      "notebooklm_reality": "无, 退化为 Audio Overview instructions + per-chat prompt engineering",
+      "action": "Phase 2 PLAN 跳过 system_prompt.md 累积设计, 改为 notebook 首源 + audio instructions 模板"
+    },
+    {
+      "dim": "G_ab_matrix",
+      "template_assumption": "A/B 侧重 chat-first 召回",
+      "notebooklm_reality": "另有 Audio / Mind Map / Study Guide / Briefing 独有生成物",
+      "action": "Phase 4 A/B 矩阵 +5 题独有产出质量题"
+    },
+    {
+      "dim": "H_capacity_calibration",
+      "template_assumption": "容量可能不透明, 需 calibration",
+      "notebooklm_reality": "官方明示 sources + words 硬指标, 透明",
+      "action": "Phase 1 Q8 calibration 跳过, 只做存在性验证"
+    },
+    {
+      "dim": "batch_design",
+      "template_assumption": "渐进多批上传摸 RAG 衰减",
+      "notebooklm_reality": "Free 50 sources 单批即够, 无 RAG 衰减曲线必要",
+      "action": "Phase 3 单批上传, 无 RAG 衰减实验"
+    },
+    {
+      "dim": "multi_notebook_strategy",
+      "template_assumption": "一个平台 = 一套知识库 (Claude/ChatGPT/Gemini 模型)",
+      "notebooklm_reality": "Pro tier 500 notebooks/user cap (Phase 1 查证), source 严格隔离, 可开主训练/对外分享/音频专用三套并行, 本次用 3 占 0.6%",
+      "action": "Phase 2 PLAN 新增 multi-notebook 架构段; _template 收束时加 '多实例平台' 子节到 01_directory + 05_solution"
+    },
+    {
+      "dim": "workflow_replication_sharing",
+      "template_assumption": "分享 = 链接分享 (00_platform_profile §E 只建模 direct link)",
+      "notebooklm_reality": "公开链接仅 personal Gmail 可开 (Workspace Enterprise/EDU 禁用); 当链接受限时可退化到 'workflow_replication' — 打包 current/uploads + UPLOAD_TUTORIAL 让接收者自建",
+      "action": "Phase 2 PLAN Scope B 分享加 fallback 段; _template 00_platform_profile §E 加 share_mode 子段 (direct_link / workflow_replication 两档)"
+    },
+    {
+      "dim": "tier_naming_drift",
+      "template_assumption": "SKU 命名在单次部署窗口内稳定",
+      "notebooklm_reality": "NotebookLM 原 'Plus' 2025 H2 改名 'Pro', 现 Plus 另指 Google AI Plus 订阅的中档. 同一 SKU 词语义在 12 月内翻转, 训练数据易误导",
+      "action": "_template 03_research.md Q2 加 '重命名漂移警示' 条, Phase 1 调研强制列时间线; 本平台 Q3 已做 8 行时间表作范例"
+    }
+  ],
+  "ab_matrix_plan": {
+    "per_notebook_size": 15,
+    "standard_questions_from_smoke_v2": 10,
+    "platform_unique_questions": {
+      "audio_overview_fidelity": 2,
+      "mind_map_coverage": 2,
+      "study_guide_layering": 1
+    },
+    "pass_threshold_per_notebook": "13/15 (~87%) business_correct AND each unique generative product has >=1 precise hit",
+    "total_ab_runs": "3 notebooks × 15 题 = 45 题次; 每 notebook 独立 PASS 判定",
+    "audio_rate_limit_note": "Pro tier 20 audio/day 限制批次密度, 跨天执行"
+  },
+  "rule_E_user_priority": {
+    "status": "acked",
+    "ack_date": "2026-04-21",
+    "selected_modes": ["A_personal_learning", "B_external_sharing", "C_audio_complement"],
+    "scope": "ABC 三向全覆盖",
+    "plan_tier": "Pro (via Google AI Pro 订阅; 原 'Plus' 2025 H2 重命名为 'Pro', 500 notebooks / 300 sources / 500 chat / 20 audio per day)",
+    "api_usage": false,
+    "interface": "Web UI only",
+    "account_type": "personal_gmail",
+    "account_ack_date": "2026-04-21",
+    "scope_B_fallback": "workflow_replication (via current/UPLOAD_TUTORIAL.md + uploads/ 打包让接收者自建复刻)",
+    "strategy_implication": "三场景 ABC 全覆盖 + Pro 权益 + personal Gmail → multi-notebook 策略 (3 notebooks: 主训练 + 对外分享 + 音频专用), 占 500-notebooks cap 的 0.6%"
+  }
+}
