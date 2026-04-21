@@ -19,17 +19,19 @@
 
 ---
 
-## 当前进度
+## 当前进度 (v2 架构: 1 notebook × ≤50 sources, 2026-04-21 pivot 后)
 
 | Phase | 状态 | 产物 |
 |-------|------|------|
-| 0 启动 | 🟡 **doing** | `docs/platform_profile.md` 初稿 + `dev/evidence/_progress.json` + 本 README + `ROADMAP.md` |
-| 0 Gate | ⏳ 等用户 ack | **规则 E 业务优先级问询** (个人学习 vs 对外分享 vs 音频补充) |
-| 1 调研 | 🔒 locked | `docs/research.md` 八问八答 (附官方文档链接) |
-| 2 PLAN | 🔒 locked | `docs/PLAN.md` (P1-P10 + 规则 E) |
-| 3 落地 | 🔒 locked | 上传 + A/B + evidence L1/L2 |
-| 4 审查 | 🔒 locked | 三 lane 审查 + A/B 矩阵 (Audio Overview + Mind Map 维度补充) |
-| 5 收束 | 🔒 locked | RETROSPECTIVE + UPLOAD_TUTORIAL + `_template/` 缺陷补丁 |
+| 0 启动 | ✅ **PASS** | `docs/platform_profile.md` (v2) + `ROADMAP.md` (v2) + `_progress.json` + 本 README; Rule E ack (ABC + Pro + Web UI + personal Gmail) |
+| 1 调研 | ✅ **PASS** | `docs/research.md` (Q7/§11 已 v2 重写, Q1-Q6/Q8-Q10 facts 保留) + Rule D 4-lane 审 |
+| 2 PLAN v1 (3 notebook) | 🗄️ **归档** | v1 已 freeze 至 `archive/v1_3notebook_SUPERSEDED_2026-04-21/`, 背景见 `ARCHITECTURE_PIVOT_RECORD.md` |
+| 2 PLAN v2 (1 notebook) | 🟡 **doing** | `docs/PLAN.md` v2 重写中 (1 notebook × ≤50 sources + 分享档位切换 + Req 零丢失红线) |
+| 3 落地 | 🔒 locked | 上传 ≤50 + A/B 15 题 + evidence |
+| 4 审查 | 🔒 locked | 回归 + 跨 4 平台同题对比 |
+| 5 收束 | 🔒 locked | RETROSPECTIVE (含 pivot 复盘) + UPLOAD_TUTORIAL + `_template/` 补丁 (10 候选) |
+
+**pivot 背景**: 2026-04-21 用户 review Phase 2 v1 时质疑 3 notebook 架构过重, 三 WebFetch 核实官方文档后确认 "UI 3 档可切" + "50-cap 仅 Restricted" + "viewer 自己 tier cap", 推翻 v1 三假设. 详见 [`archive/v1_3notebook_SUPERSEDED_2026-04-21/ARCHITECTURE_PIVOT_RECORD.md`](archive/v1_3notebook_SUPERSEDED_2026-04-21/ARCHITECTURE_PIVOT_RECORD.md).
 
 ---
 

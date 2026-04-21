@@ -170,51 +170,81 @@ Words → tokens 近似换算: 官方未给比例, 社区常用 `100 tokens ≈ 
 
 ---
 
-## Q7: 分享机制 — 个人 / 协作者 / 公开
+## Q7: 分享机制 — 个人 / 协作者 / 公开 (v2, 2026-04-21 架构 pivot 后重写)
 
-**答**: 实际是**两种分享 "模式"** (invite_direct + public_link) 叠加权限层模型, Writer #1 初稿把它们合并描述, 本轮拆开.
+> **v2 更新说明**: v1 Q7 (archive/v1_3notebook_SUPERSEDED_2026-04-21/) 把分享拆成 "Mode A invite / Mode B public link" 两独立模式, 从而 planner 引伸出 "Scope B 本质两选一 → 两独立 notebook" 伪约束. 用户 2026-04-21 实测 UI 发现分享档是同一 notebook 的 3 档开关, 三 WebFetch 核实后重写本节. 详见 `archive/v1_.../ARCHITECTURE_PIVOT_RECORD.md`.
 
-### 分享模式 A — Direct invite (按 email 邀请具体 user)
+**答**: NotebookLM 分享是**同一 notebook 上的 3 档 Access Level 开关**, 档位可随时切换, **不是**建立多个 notebook. 权限粒度 (Viewer / Editor) 和 Access Level 正交.
 
-| 字段 | 值 |
-|------|----|
-| 入口 | Share 按钮 → 输入逗号分隔 email 列表 → "Notify people" checkbox 可选 |
-| 权限粒度 | **Viewer** (只读 + 问答 + 看 owner 生成物) / **Editor** (增删改 source + 问答 + 生成) |
-| **Personal Gmail users 上限** | **50 users 硬上限** (官方 Help `answer/16206563` 明示 "Personal Gmail accounts can share a notebook with up to 50 users but can't share with Google Groups") |
-| Workspace Enterprise/EDU users 上限 | **无** ("unlimited number of individual users and Google Groups within the same organization") |
-| Google Groups 分享 | **仅 Workspace Enterprise/EDU 可用**, personal Gmail 禁用 |
+### 三档 Access Level (同一 notebook 可切换)
 
-### 分享模式 B — Public link ("Anyone with a link")
+| 档位 | 范围 | 访客前置条件 | Users 上限 (personal Gmail) | 官方原文出处 |
+|------|------|-------------|---------------------------|-------------|
+| **Restricted** (default) | 仅被邀请的具体 email | Google 账号 + 被邀请 | **50 users 硬上限** (官方明示) | `answer/16206563` |
+| **Anyone with a link** | 任何拿到链接的人 | Google 账号 (非匿名) | **无 users 上限** (官方文档无 cap 条款) | `answer/16322204` |
+| **Public** | 可在 NotebookLM 公开画廊被发现 | Google 账号 | **无 users 上限** (同上) | `answer/16322204` |
 
-| 字段 | 值 |
-|------|----|
-| 支持账号 | **仅 consumer/personal Gmail** — Workspace Enterprise/EDU **禁用** (官方原文 "Public sharing is only enabled for consumer accounts. It's currently disabled for Workspace Enterprise or Education accounts.") |
-| 权限粒度 | Viewer (view + 问答, 不能改 source) |
-| 访问条件 | **需要 Google 账号登录** (官方原文 "share the link to anyone with a Google account to have them view your notebook"), **不支持匿名** |
-| **users 数量上限** | **推断无上限** (UNVERIFIED A 级) — 官方 Help 16322204 未明示 users cap, 也未明文排除 Mode A 50-cap 是否套用到 owner 端; 只要有链接 + Google 账号即可访问. 待 Phase 3 I8 实测 |
-| 变体: Chat View 链接 | hide 左侧 source 列表, 强调问答体验, 底层 source 访问仍通过问答返回 |
-| Marketplace / Featured | Google 精选, 非用户自助发布 |
-| 公开链接撤销 | Owner 关公开或删 notebook, 旧链接立即失效 |
+### 关键事实 (三 WebFetch 2026-04-21 核实)
 
-### 两模式混用判断
+1. **50-cap 仅套 Restricted invite**, 不覆盖 "Anyone with link" / "Public"
+   - 官方原文 (`answer/16206563`): "Personal Gmail accounts can share a notebook with up to 50 users **but can't share with Google Groups**"
+   - WebFetch 明确: "This refers to the **invite-based method** (adding email addresses), not 'Anyone with the link' or public sharing"
 
-- Mode A 和 Mode B **可叠加**: 同一 notebook 既开公开链接又按 email 邀请特定 Editor 修改 source 的场景支持
-- 但 Scope B (对外分享) 本质上是两选一决策: **小圈精准分享 → Mode A (≤50 人)**, **公开广泛分享 → Mode B (无上限但必须是 consumer 账号)**
-- **本项目**: 用户已 ack personal Gmail, 两模式均可; Phase 2 PLAN 需分别在 Scope B 的 notebook 2 上设计 invite-mode 架构 (若只给 SDTM 小组, 留 50 slot 够用) 和 public-link-mode 架构 (若向 SDTM 社区公开, 走公开链接)
+2. **档位可在同一 notebook 内切换** (不是独立 notebook 类型)
+   - 官方原文 (`answer/16322204`): "turn off public sharing by revoking public access in the sharing panel" + "Set Notebook Access back to **Restricted**"
+   - 含义: owner 可在同一 notebook 上 Restricted → Anyone with link → Public 三档间随意切, 随时回切, 不需新建 notebook
 
-### 未确认 (Phase 3 实测)
+3. **"Anyone with link" 和 "Public" 需要 Google 账号** (非匿名)
+   - 官方原文 (`answer/16322204`): "Copy and share the link to **anyone with a Google account** to have them view your notebook"
 
-- 公开链接访问者**问答会不会落到 owner 的 chat history?** 官方文档未明示, 社区观察**不会写回** (Phase 3 实测)
-- Public link 访客使用 owner 的 chat-quota 还是自己独立 quota? (Phase 3 实测, 影响 Pro tier 500 chat/day 是否被他人消耗)
+4. **Workspace Enterprise/EDU 账号禁公开档**
+   - 官方原文: "Public sharing is only enabled for consumer accounts. It's currently disabled for Workspace Enterprise or Education accounts."
+   - 同时 Enterprise/EDU 的 Restricted 档无 50-cap ("unlimited number of individual users and Google Groups within the same organization")
 
-**来源**:
-- A: [NotebookLM Help — Public notebooks and featured notebooks](https://support.google.com/notebooklm/answer/16322204?hl=en) (Mode B 完整规则: consumer only / 需 Google 账号 / 撤销行为)
-- **A: [NotebookLM Help — Create a notebook](https://support.google.com/notebooklm/answer/16206563?hl=en) (Mode A **50 users cap** 官方原文出处; **WebFetch 核实** "Personal Gmail accounts can share a notebook with up to 50 users but can't share with Google Groups" / "Enterprise and Education accounts ... can share a notebook with an unlimited number of individual users and Google Groups")**
-- A: [blog.google — NotebookLM public sharing 2025-06](https://blog.google/innovation-and-ai/models-and-research/google-labs/notebooklm-public-notebooks/) (Mode B 发布通告)
-- **C: [Android Authority 2025-06-03 — NotebookLM public sharing](https://www.androidauthority.com/notebooklm-public-sharing-3563789/) (Mode A 50 cap 第二独立源, **WebFetch 核实** "users with personal Gmail accounts could only share their notebooks with up to 50 other users")**
-- C: [9to5Google 2025-06-03 — NotebookLM public links](https://9to5google.com/2025/06/03/notebooklm-public-links/) (**订正归因**: 本文发 Mode B 2025-06 功能, 但**未**明示 50 数字; Writer #1 将 50 cap 归因此文有误, 数字实际来自官方 Help + Android Authority)
-- C: [Supademo — NotebookLM collaboration guide](https://supademo.com/blog/how-to-collaborate-with-others-in-notebooklm)
-- `UNVERIFIED — Phase 3 实测`: Mode B 访客问答是否写回 owner chat history; Mode B 访客 chat quota 归属; **Mode B owner 是否套用 Mode A 50-cap** (Phase 3 I8 实测 — 关键, 决定 Scope B 广泛分享上限)
+5. **分享不改 viewer 自己 tier 的 source cap** (**Free tier 兼容性约束**, 决定本项目 source 数上限)
+   - 官方原文 (`answer/16213268`): "Sharing a notebook does not change the source limit for any collaborator"
+   - WebFetch AI summary 解读: "the restriction follows the user, not the notebook"
+   - 对本项目含义: 若 owner 上传 300 sources 分享给 Free tier (50 cap) 同事, Free tier viewer 可能**只能看到前 50 sources** — 为兼容性上限, 本项目上传 **≤50 sources**
+
+### 权限粒度 (正交于 Access Level)
+
+- **Viewer**: 只读 + 问答 + 看 owner 生成物 (Audio Overview / Mind Map / Study Guide)
+- **Editor**: Viewer 能力 + 增删改 source + 生成新 Audio / Mind Map
+
+Restricted 档下, owner 按 email 邀请时可选 Viewer / Editor. Anyone with link / Public 档下, 访客默认 Viewer (无 Editor).
+
+### 变体与撤销
+
+- **Chat View 链接**: hide 左侧 source 列表, 强调问答体验 (同 Access Level 下的 UI 变体)
+- **Marketplace / Featured notebooks**: Google 精选 (非用户自助发布)
+- **撤销**: Owner 关档 (切回 Restricted) 或删 notebook, 所有外部链接立即失效
+
+### 本项目含义 (v2 架构约束)
+
+- **单一 notebook**: Scope ABC 三场景 (个人学习 / 小圈分享 / 公开分享) 在**同一 notebook 内按档位切换**实现, 不再拆三个 notebook
+- **默认 Restricted**: 日常使用/个人学习态处于 Restricted 档, 不泄漏
+- **按需开 Anyone with link**: 需要给 SDTM 同事分享时临时切到此档 (50-cap 不适用, 想共享给多少人都行)
+- **按需开 Public**: 仅当用户想在 NotebookLM 公开画廊被发现才切到此档
+- **Source 数上限 ≤50**: 为 Free tier viewer 兼容性 + 其他 5 条独立理由 (indexing 风险 / citation 信噪比 / Mind Map 可读性 / upload effort / workflow replication)
+
+### 仍需 Phase 3 实测 (可后置, 不阻塞 Phase 2 PLAN)
+
+- 公开档访客问答**是否回写 owner chat history?** 官方文档未明示, 社区观察**不会写回**
+- 公开档访客 chat quota 归属 (Pro tier 500 chat/day 会不会被他人消耗)
+
+### v1 I8 / C2.9 carry-over close
+
+| v1 carry-over | 原问题 | v2 处置 |
+|--------------|--------|---------|
+| **I8** | Mode B owner 是否套用 Mode A 50-cap | **CLOSED** — 50-cap 仅套 Restricted invite (`answer/16206563` WebFetch 核实), 不套其他档 |
+| **C2.9** | Mode B cap 归属 UNVERIFIED 决定 Scope B 广泛分享天花板 | **CLOSED** — Anyone with link / Public 档无 users 上限, Scope B 广泛分享无阻塞 |
+
+**来源** (全部 2026-04-21 WebFetch 核实):
+- **A**: [NotebookLM Help — Create a notebook](https://support.google.com/notebooklm/answer/16206563?hl=en) — 50-cap 原文, 明确仅适用 invite
+- **A**: [NotebookLM Help — Public notebooks and featured notebooks](https://support.google.com/notebooklm/answer/16322204?hl=en) — 三档切换描述, Anyone with link 需 Google 账号, Enterprise/EDU 禁公开
+- **A**: [NotebookLM Help — Upgrade / Plans](https://support.google.com/notebooklm/answer/16213268?hl=en) — 分享不改 viewer 自己 tier source cap
+- A: [blog.google — NotebookLM public sharing 2025-06](https://blog.google/innovation-and-ai/models-and-research/google-labs/notebooklm-public-notebooks/) — 公开档发布通告
+- C: [Android Authority 2025-06-03](https://www.androidauthority.com/notebooklm-public-sharing-3563789/) — 50-cap 第二独立源 ("users with personal Gmail accounts could only share their notebooks with up to 50 other users")
 
 ---
 
@@ -300,9 +330,9 @@ Words → tokens 近似换算: 官方未给比例, 社区常用 `100 tokens ≈ 
 
 ---
 
-## §11 Multi-notebook 上限 & 隔离
+## §11 Notebook 数量 & Source 隔离 (事实保留, 结论 v2 重写)
 
-**Plus/Pro/Ultra notebook 数量上限** (重要, Phase 0 初稿未定数):
+**Plus/Pro/Ultra notebook 数量上限** (官方矩阵):
 
 | Tier | Notebooks/user |
 |------|---------------|
@@ -313,12 +343,26 @@ Words → tokens 近似换算: 官方未给比例, 社区常用 `100 tokens ≈ 
 
 **Source 隔离性**: 强隔离. **"Each notebook is independent, and NotebookLM can't access information across multiple notebooks at the same time."** 官方设计 philosophy.
 
-**跨 notebook 引用机制** (两条):
+**跨 notebook 引用机制** (两条, 若选多 notebook 时):
 
-1. **Gemini app 侧挂载**: 2026-01 起, Gemini 可把 N 个 notebook 同时挂为 source, Gemini 层面做跨 notebook 问答. 但这是 **Gemini 的事, 不是 NotebookLM 原生** — 用户问的是 Gemini, 不是 notebook. 也可挂在 Gemini Gem 里做"跨 notebook 持久 agent".
+1. **Gemini app 侧挂载**: 2026-01 起, Gemini 可把 N 个 notebook 同时挂为 source, Gemini 层面做跨 notebook 问答. 但这是 **Gemini 的事, 不是 NotebookLM 原生** — 用户问的是 Gemini, 不是 notebook.
 2. **手动复制 source**: 把同一 md 上传到多个 notebook (计算多个 source slot). 规模大时成本高.
 
-**对 SDTM 项目含义**: Pro tier 500 notebook 上限 → multi-notebook 策略三 notebook (ABC 全覆盖) 完全够用, 占 0.6%. 但 source 隔离意味着 "三 notebook 必须各自独立规划 source 列表", 不能指望"notebook 2 能引用 notebook 1 的 source". 这是 Phase 2 PLAN 必须明示的约束.
+**对 SDTM 项目含义** (v2 重写):
+
+v1 原打算利用 Pro 500 notebooks 额度开 3 个 notebook (ABC 三 scope 各一), 已于 2026-04-21 pivot 废止. **v2 采用单 notebook 架构**, 理由:
+
+1. Scope ABC 的职责分离**不必通过多 notebook 实现** — 同一 notebook 按分享档位切换即可 (见 Q7)
+2. Source 隔离虽是事实, 但单 notebook 场景下**无跨 notebook 引用需求**, 降级为信息约束 (非 hard rule)
+3. 多 notebook 会带来 ×3 倍上传成本 (最坏 353 次) 且无收益
+
+**保留情境** (若未来扩展): 仅当 ABC 场景需要职责完全分离到不同 collaborator 圈 (如同一 org 内 A/B/C team 互不可见对方的 source), 才升级多 notebook. 本次用户 Rule E 场景 (个人 SDTM 学习 + 小圈分享 + 公开分享) 不触发此需求.
+
+**来源**:
+- A: [NotebookLM Help — Upgrade](https://support.google.com/notebooklm/answer/16213268?hl=en) (notebooks/user 四档数字)
+- A: [Workspace Updates 2026-01 — NotebookLM as Gemini source](https://workspaceupdates.googleblog.com/2026/01/take-notebooks-further-notebooklm-gemini.html)
+- C: [Medium — NotebookLM Isolated Notebooks: Two Ways to Finally Connect](https://medium.com/@kombib/notebooklm-isolated-notebooks-two-ways-to-finally-connect-them-12485a79ac47) (隔离 + Gemini 侧方案详解)
+- C: [AndroidPolice — NotebookLM with Gemini unlocks](https://www.androidpolice.com/i-paired-notebooklm-with-gemini-solved-biggest-limitation/)
 
 **来源**:
 - A: [NotebookLM Help — Upgrade](https://support.google.com/notebooklm/answer/16213268?hl=en) (notebooks/user 四档数字)
@@ -358,14 +402,14 @@ Words → tokens 近似换算: 官方未给比例, 社区常用 `100 tokens ≈ 
 | # | 原假设 (Phase 0 初稿) | 调研后事实 | 修订动作 (Phase 2 PLAN) |
 |---|---------------------|-----------|---------------------|
 | **1** | "套餐 Plus (via Google AI Pro)" 对应 **300 sources/notebook** | 属于 **SKU 语义漂移** (非简单改名): I/O 2025 后 Google One AI Premium → Google AI Pro 品牌重构, 旧单档 "NotebookLM Plus" 规格上移为 "NotebookLM Pro", "Plus" SKU 词重新分配给新中档. Google AI Pro 订阅现 unlock 的是 **NotebookLM Pro tier** (500 notebooks / **300 sources** / 500 chat / 20 audio). 新 "Plus" 另指 Google AI Plus 订阅对应的中档 (**100 sources**). 训练数据 (截至 2026-01) 前的 "Plus=300" 对应**旧 Plus**, 现已是 Pro. | PLAN §0 更新措辞 "NotebookLM Pro tier (via Google AI Pro 订阅)"; SKU 漂移警示列为必写注脚; 引用第三方文章前必先判断其 "Plus" 指代时点. |
-| **2** | "Free: 50 sources × 500K words / Plus: 300 sources × 500K words" | 官方最低档 SKU 名是 **Standard** (非 Free), 50/500K 数字正确; "300 sources" 现属 **Pro tier**; 新增 Plus tier (100) 和 Ultra tier (600) | PLAN §1 容量表必列四档, 明示本次走 Pro 行; tier 名用 Standard / Plus / Pro / Ultra; SDTM 293 md × Pro 300 sources 上限 → 若一对一, **需要合并到 ≤300 或拆 multi-notebook** |
-| **3** | "Multi-notebook: Plus 权益下开 3 个 notebook" | Pro tier notebooks/user = **500** → 3 个完全够用, 但必须认清 source 隔离 (每 notebook 独立 source 预算) | PLAN 新增 "source 隔离约束段": notebook 2/3 不能引用 notebook 1 source, 必须分别上传 |
+| **2** | "Free: 50 sources × 500K words / Plus: 300 sources × 500K words" | 官方最低档 SKU 名是 **Standard** (非 Free), 50/500K 数字正确; "300 sources" 现属 **Pro tier**; 新增 Plus tier (100) 和 Ultra tier (600) | PLAN §1 容量表必列四档, 明示本次走 Pro 行; **v2 策略**: 即使 Pro 300 cap 很松, 主动压缩到 **≤50** (Free tier viewer 兼容 + 5 条独立理由), 293 md 通过 concept cluster 合并到 ≤50 |
+| **3** | "Multi-notebook: Plus 权益下开 3 个 notebook" | Pro tier notebooks/user = 500 够用, 但 v2 架构 pivot 后采用**单 notebook** (见 Q7 + §11 结论) | PLAN v2 §3 单 notebook 策略 (ABC 三场景同 notebook 分享档位切换), 删除 multi-notebook 架构段; source 隔离降级为信息约束. v1 ×3 notebook 架构归档 |
 | **4** | "Audio Overview 每月额度 (Plus 5x)" | 官方口径是 **per-day 而非 per-month**, Pro = 20/day (Standard 6.67x) | PLAN Audio 批次规划按 **daily** 节奏, 不按 monthly 估算 |
 | **5** | "Custom Instructions: NotebookLM 无 system prompt, 退化 3 条" | 退化 3 条方向对, 但需补**最新 Chat custom goals** (三档 **Default / Learning Guide / Custom**, 2025-10-29 blog.google 发布, **全档开放非 Plus+ 独享**; Custom 模式最多 10,000 字符可自定角色/目标/口吻); 这是目前最接近 "notebook 级 system prompt" 的本平台机制 | PLAN 05_solution 新增 "Chat mode 三选" 决策格: 默认 **Custom** + SDTM 专家 system prompt 文本模板 (10,000 char 内); 备选 **Learning Guide** 用于 Scope A 个人学习场景 (自动 Socratic 教学) |
 | **6** | "Indexing indicator 训练知识印象相对可靠" | 官方承认 upload 可能 silent fail, **Phase 3 必实测** 单 md/单 PDF/批量三场景 | PLAN Phase 3 必须加 "indexing smoke test" 动作节点, pass 前不进全量上传 |
 | **7** | 未提 **source 级单文件字数核对** | Pro 300 sources cap + SDTM 293 md 一对一余 7 slot, 紧. 需先 wc 过滤一下有没有>500K words 的 "outlier" md (估极低概率, 但要查) | PLAN Phase 2 新增 "pre-upload audit" 动作: `find knowledge_base -name '*.md' -exec wc -w {} \;` 排序 Top 5, 确认无超 500K words |
 | **8** | 未明示 API 状态 | Consumer 无 GA API; Enterprise v1alpha. 本次 Web UI only → 不影响. | PLAN 末尾加"未来扩展 hooks"段, 标 "若后续 Enterprise API GA 可迁移 programmatic" |
-| **9** | 公开分享 "具体权限模型待确认" | 实际是**两种独立模式**: **Mode A (invite_direct)**: personal Gmail **50 users cap**, Workspace Enterprise/EDU 无上限, 但 Workspace 不开 Mode B; **Mode B (public link)**: 仅 consumer/personal Gmail 开, 需访客持 Google 账号 (无匿名), **无 users 数上限**. 50-cap 归因订正: 来自**官方 Help `answer/16206563`** + **Android Authority 2025-06-03**, 不是 9to5google 2025-06-03. | PLAN Scope B 必须**分别设计**两种子模式的 notebook 架构: (a) invite-mode notebook 用于 SDTM 小组内部精准分享 (≤50 slot); (b) public-link-mode notebook 用于对外广泛分享 (无 users 上限但需 Google 账号). 两种混用可能造成管理混乱, PLAN 需明示哪个 Scope B notebook 走哪种模式. 两模式共同前提: personal Gmail 账号 (已 ack). |
+| **9** | 公开分享 "具体权限模型待确认" | **v2 订正** (2026-04-21 三 WebFetch 核实): 不是两独立模式, 而是**同一 notebook 3 档 Access Level** (Restricted / Anyone with link / Public) 可随时切换. **50-cap 仅套 Restricted invite 档**, "Anyone with link" / "Public" 档无 users 上限 (均需 Google 账号, 非匿名). Workspace Enterprise/EDU 禁公开档 (Restricted 档则无 50-cap 且可加 Groups). 归因: 官方 `answer/16206563` (50-cap 原文) + `answer/16322204` (三档切换描述) + `answer/16213268` (viewer 自己 tier cap 不变). | PLAN v2 Scope B 通过**同一 notebook 分享档位按需切换**实现: 默认 Restricted 私有, 需小圈分享切 Anyone with link, 需画廊发现切 Public. 不再拆两独立 notebook. v1 I8 / C2.9 carry-over 直接 close. |
 | **10** | "Mind Map 对长 source 可能遗漏" | 社区观察有此现象, 官方未承认. 导出**只 PNG**, 第三方工具可导其他格式. | PLAN A/B 矩阵 Mind Map 题设计: 用跨 domain 概念题 (如 RELREC 网), 测是否遗漏关键域 |
 
 ---
@@ -382,7 +426,7 @@ Words → tokens 近似换算: 官方未给比例, 社区常用 `100 tokens ≈ 
 | Audio Overview 额度单位 | "每月 Plus 5x" (暗示月额) | **per-day**, Standard 3/Plus 6/Pro 20/Ultra 200 | 同上 |
 | Custom Instructions 最新一条 | 仅 Audio Overview instructions + per-chat prompt + suggested question | + **Chat custom goals** (三档 Default / Learning Guide / Custom, 全档开放) 2025-10-29 由 blog.google 发布 (非 2025-03 Workspace Updates; Writer #1 原归因有误) | https://blog.google/innovation-and-ai/models-and-research/google-labs/notebooklm-custom-personas-engine-upgrade/ |
 | 公开链接账号限制 | "具体权限模型待 Phase 1 确认" | **仅 consumer/personal Gmail** 能开; Workspace Enterprise/EDU 禁用 | https://support.google.com/notebooklm/answer/16322204?hl=en |
-| 个人 Gmail 邀请 user 上限 | 未写 | **Mode A (invite_direct): 50 users** (personal Gmail), Enterprise/EDU 无上限; **Mode B (public link): 无 users 上限**, 仅需访客持 Google 账号. Mode A 和 Mode B 是两种独立模式, 不可合并表述 | https://support.google.com/notebooklm/answer/16206563?hl=en (50 cap 官方一手) + https://www.androidauthority.com/notebooklm-public-sharing-3563789/ (第二独立源) |
+| 个人 Gmail 邀请 user 上限 | 未写 | **同一 notebook 3 档 Access Level** (v2 修正, 2026-04-21 三 WebFetch 核实): Restricted 档 personal Gmail = 50-cap / Enterprise/EDU = 无 cap + Groups; Anyone with link 档 = 无 users 上限, 需 Google 账号; Public 档 = 无 users 上限 (画廊可发现). 档位可随时切. **v1 Q7 把三档叙述成 "两独立 Mode A/B" 是合成错误, 导致 planner 引伸 "Scope B 两选一 → 3 notebook" 伪约束** (见 `archive/v1_.../ARCHITECTURE_PIVOT_RECORD.md`). | https://support.google.com/notebooklm/answer/16206563 (50-cap 原文) + /answer/16322204 (三档切换) + /answer/16213268 (viewer tier cap) |
 
 ### Unverified items (找不到权威 A 级, 仅 C 或 community)
 
@@ -425,7 +469,9 @@ Words → tokens 近似换算: 官方未给比例, 社区常用 `100 tokens ≈ 
 
 ---
 
-### Writer #2 修正日志 (2026-04-21, subagent_type=oh-my-claudecode:executor)
+### Writer #2 修正日志 (2026-04-21, subagent_type=oh-my-claudecode:executor) — **pre-pivot 历史记录**
+
+> **v2 注**: 本日志记录 Phase 1 Writer 阶段的修正动作, 反映当时的 Mode A/B 叙事理解. Phase 2 架构 pivot (2026-04-21) 后 Q7 已整体重写, Mode A/B 框架作废. 本日志**作审计轨迹保留不删**, 但**不作为 Phase 2 v2 的架构依据**, 以 Q7 v2 + §11 v2 结论为准.
 
 **背景**: Writer #1 (`general-purpose`) 完成 research.md 初版后, Reviewer #1 (`oh-my-claudecode:verifier`) 判定 CONDITIONAL_PASS (78% 置信), 指出 3 大事实错误 + 1 全文口径错误. 本日志由 Writer #2 (`oh-my-claudecode:executor`, 第 3 种不同 subagent_type, Rule D 合规) 据 Reviewer #1 反馈修正, 等后续 Reviewer #2 (`oh-my-claudecode:critic`) 独立复核.
 

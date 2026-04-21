@@ -4,9 +4,10 @@
   "mode": "async",
   "sync_board_participation": false,
   "start_date": "2026-04-21",
-  "last_update": "2026-04-21_phase2_PASS_ready_for_phase3_phase_A",
+  "last_update": "2026-04-21_architecture_pivot_v1_3notebook_archived_v2_1notebook_starting",
   "status": "in_progress",
-  "current_phase": "3_execute_phase_A_setup_ready",
+  "current_phase": "2_plan_v2_writing",
+  "architecture_version": "v2_single_notebook_2026-04-21",
   "phase_states": {
     "0_bootstrap": {
       "status": "done",
@@ -27,53 +28,56 @@
         "eight_questions": "done_writer1",
         "capacity_confirmation": "done_writer1+writer2",
         "indexing_indicator_test": "deferred_phase3",
-        "multi_notebook_investigation": "done_writer1+writer2",
+        "single_notebook_architecture_confirmation": "done_2026-04-21_three_webfetch_post_pivot",
         "writer1_research_md": "done (general-purpose, 392 lines)",
-        "reviewer1_audit": "done (verifier, CONDITIONAL_PASS 78%)",
+        "reviewer1_audit": "done (verifier, CONDITIONAL_PASS 78%) — archived",
         "writer2_corrections": "done (executor, 4 corrections, 469 lines)",
-        "reviewer2_final": "done (critic, CONDITIONAL_PASS 85% + 2 trivial blockers)",
-        "main_session_trivial_fixes": "done 2026-04-21 (Free->Standard 3 places + Mode B UNVERIFIED soften)"
+        "reviewer2_final": "done (critic, CONDITIONAL_PASS 85% + 2 trivial blockers) — archived",
+        "main_session_trivial_fixes": "done 2026-04-21 (Free->Standard 3 places)",
+        "q7_and_paragraph_11_v2_rewrite": "done 2026-04-21 (post-pivot, 3 webfetch evidence)"
       },
       "rule_d_chain_subagent_types": ["general-purpose", "oh-my-claudecode:verifier", "oh-my-claudecode:executor", "oh-my-claudecode:critic"],
-      "evidence_paths": ["docs/research.md", "dev/evidence/phase1_reviewer.md", "dev/evidence/phase1_reviewer2.md"],
-      "final_verdict": "PASS (post trivial fixes) — 4-lane Rule D chain + main session executed Reviewer #2 deterministic carry-over",
-      "carry_over_to_phase2": [
-        "C2.9: Q7 Mode B cap UNVERIFIED - PLAN Scope B design must flag and link to Phase 3 I8",
-        "C2.10: Chat mode rollout dual events (Learning Guide 2025-09-23 XDA vs Chat custom goals 2025-10-29 blog.google) - PLAN 04 note it",
-        "Inherit R1: SDTM pre-upload audit (wc -w top 5) / Chat mode 3-selector default Custom / Scope B personal Gmail + Mode A + Mode B two notebooks / 50 users cap invite-only"
+      "evidence_paths": ["docs/research.md", "archive/v1_3notebook_SUPERSEDED_2026-04-21/dev/evidence/phase1_reviewer.md", "archive/v1_3notebook_SUPERSEDED_2026-04-21/dev/evidence/phase1_reviewer2.md"],
+      "final_verdict": "PASS (post trivial fixes + post-pivot Q7/§11 v2 rewrite)",
+      "carry_over_to_phase2_v2": [
+        "Inherit R1: SDTM pre-upload audit (wc -w top 5) / Chat mode Custom selector / personal Gmail + share-level toggle strategy (3 档 UI)",
+        "Q1 red line: 0 Req variable loss (user ack 2026-04-21)",
+        "Q2: quality first, no rush, multi-day OK"
       ],
-      "carry_over_to_phase3": [
-        "I8: Mode B owner whether Mode A 50-cap applies actual test (CRITICAL - determines Scope B public sharing ceiling)",
-        "I9: Chat mode UI screenshot fixing current names (Default / Learning Guide / Custom)",
-        "I1-I7 (inherit R1): embedding model / chunk size / Audio hallucination / Mind Map long source decay / public link visitor writeback / words-tokens ratio / indexing timing"
+      "closed_carry_over_from_v1": [
+        "C2.9: Q7 Mode B cap UNVERIFIED — CLOSED 2026-04-21 (webfetch: 50-cap only applies to Restricted invite, not Anyone with link/Public)",
+        "I8: Mode B owner whether Mode A 50-cap applies — CLOSED 2026-04-21 (same as C2.9, no Phase 3 test needed)"
       ]
     },
     "2_plan": {
-      "status": "done",
-      "completed_date": "2026-04-21",
-      "sub_steps": {
-        "writer3_plan_v1": "done (oh-my-claudecode:planner, 657 lines)",
-        "reviewer3_audit": "done (oh-my-claudecode:analyst, CONDITIONAL_PASS 82%, 6 Top + 1 connect)",
-        "writer4_blueprint": "done (feature-dev:code-architect design-only, main session applied 14 edits to 951 lines)",
-        "reviewer4_final": "done (pr-review-toolkit:code-reviewer, PASS 91%, Rule D 8-type complete)"
+      "status": "in_progress",
+      "v1_status": "SUPERSEDED_archived_2026-04-21",
+      "v1_archive_path": "archive/v1_3notebook_SUPERSEDED_2026-04-21/",
+      "v1_rule_d_chain_subagent_types": ["oh-my-claudecode:planner", "oh-my-claudecode:analyst", "feature-dev:code-architect", "pr-review-toolkit:code-reviewer"],
+      "v1_final_verdict_before_archive": "PASS 91% — but architecture deemed over-engineered post user review",
+      "v2_trigger_date": "2026-04-21",
+      "v2_trigger_reason": "user review identified that (a) NotebookLM sharing is 3-level toggle on same notebook, not 2 independent models requiring 2 notebooks; (b) 293 source upload is excessive vs ≤50 with multiple independent justifications; (c) Phase 3 not started, sunk cost = 1 day writing only, within reversible window",
+      "v2_evidence_chain": [
+        "webfetch support.google.com/notebooklm/answer/16206563: 50-cap only applies to Restricted invite",
+        "webfetch support.google.com/notebooklm/answer/16322204: toggle levels on same notebook, anyone with link needs Google account (not anonymous)",
+        "webfetch support.google.com/notebooklm/answer/16213268: sharing does not change viewer's own tier source cap"
+      ],
+      "v2_substeps": {
+        "pivot_record_written": "done 2026-04-21 (archive/v1_.../ARCHITECTURE_PIVOT_RECORD.md)",
+        "old_artifacts_archived": "done 2026-04-21 (PLAN_v1_3notebook.md + phase1_reviewer*.md + phase2_reviewer*.md moved to archive/)",
+        "research_md_q7_paragraph11_rewrite": "done 2026-04-21",
+        "platform_profile_v2_rewrite": "done 2026-04-21",
+        "roadmap_v2_rewrite": "done 2026-04-21",
+        "readme_phase_table_update": "done 2026-04-21",
+        "progress_json_reset": "done 2026-04-21 (this write)",
+        "plan_v2_writing": "pending",
+        "plan_v2_reviewer_9th_subagent_type": "pending"
       },
-      "rule_d_chain_subagent_types": ["oh-my-claudecode:planner", "oh-my-claudecode:analyst", "feature-dev:code-architect", "pr-review-toolkit:code-reviewer"],
-      "evidence_paths": ["docs/PLAN.md", "dev/evidence/phase2_reviewer.md", "dev/evidence/phase2_reviewer2.md"],
-      "final_verdict": "PASS 91% (R4 code-reviewer) — 8-lane Rule D chain complete, 2 phases total 8 subagent types exhausted user-authorized strict mode",
-      "user_Q1_Q2_ack": {
-        "Q1_req_variable_redline": "0 (zero tolerance, user 2026-04-21)",
-        "Q2_time_pace": "quality first, no rush, multi-day OK",
-        "chosen_plan": "Y (strict W4+R4 round, not CONDITIONAL acceptance)"
-      },
-      "carry_over_to_phase3": [
-        "I11: Chat mode UI 截屏 evidence 文件名 (R4 建议命名统一, e.g. chat_mode_ui_notebook_<N>.png)",
-        "I12: Phase 3 Day 1 tier re-check (R4 建议 P3.0 末尾做一次 tier 核实, 防 SKU 漂移影响执行)",
-        "I13: §5 动作 4 vs §2.5 A4 双源关系执行时 ack (R4 标 LOW, Phase 3 实际走哪段)",
-        "I14: P3.9 vs P3.8 编号倒置 (R4 标 COSMETIC, Phase 5 reorg 时 rename)"
-      ]
+      "v2_planned_rule_d_chain_subagent_types_extension": ["<to-be-selected-from-available>"]
     },
     "3_execute": {
-      "status": "locked"
+      "status": "locked",
+      "blocked_by": "phase_2_plan_v2"
     },
     "4_review": {
       "status": "locked"
@@ -86,29 +90,34 @@
     "platform_profile": "docs/platform_profile.md",
     "readme": "README.md",
     "roadmap": "ROADMAP.md",
+    "research": "docs/research.md",
+    "plan_current_v2": "docs/PLAN.md (to be written)",
+    "plan_v1_archived": "archive/v1_3notebook_SUPERSEDED_2026-04-21/docs/PLAN_v1_3notebook.md",
+    "pivot_record": "archive/v1_3notebook_SUPERSEDED_2026-04-21/ARCHITECTURE_PIVOT_RECORD.md",
     "progress_this_file": "dev/evidence/_progress.json",
     "template_spec_copy": "_spec/"
   },
   "notes": [
-    "异步模式: 不参与 SYNC_BOARD.md 的 ChatGPT<->Gemini 2-way 锁步, 本平台独立推进",
+    "异步模式: 不参与 SYNC_BOARD.md 的 ChatGPT<->Gemini 2-way 锁步",
     "Rule E ack 2026-04-21: ABC 全向 + Pro tier (via Google AI Pro) + Web UI only + personal Gmail 账号",
-    "Phase 1 Writer (general-purpose + opus, 2026-04-21 产出 docs/research.md 392 行) 发现 3 重磅校正: ①原 'Plus' 2025 H2 改名 'Pro' (SDTM 用户走 Pro tier) ②Audio 额度 per-day 而非 per-month, Pro=20/day ③公开链接仅 personal Gmail, Workspace Enterprise/EDU 禁用",
-    "Scope B fallback (用户 2026-04-21): 若某 notebook 分享受限, 通过 current/UPLOAD_TUTORIAL.md + 打包 uploads/ 让他人自建复刻, 已登记为第 6 条 _template 补丁候选",
-    "A/B 矩阵: 15 题/notebook (10 标准 + 5 独有: Audio / Mind Map / Study Guide), 3 notebook 独立 PASS = 45 题次",
-    "本平台对 _template/ 的 7 条缺陷补丁候选已记入 docs/platform_profile.md 末段, 收束时合并"
+    "v2 架构 (2026-04-21 pivot 后): 单 notebook × ≤50 sources, ABC 三场景同 notebook 分享档位切换",
+    "分享档位三档 (Restricted / Anyone with link / Public) 可随时切, 50-cap 仅套 Restricted invite 档",
+    "≤50 sources 理由 6 条 (Free tier viewer 兼容 / indexing silent fail 风险 / citation 信噪比 / Mind Map 可读 / upload effort / workflow replication)",
+    "Q1 红线 (0 Req variable loss) 在 ≤50 下比原 v1 的 ≤30 更易守 (slot 更宽松)",
+    "本平台对 _template/ 的 10 条缺陷补丁候选 (原 7 + pivot 新增 3: multi-notebook 决策树 / per-day rate limit / Writer 叙事合成伪约束范例) 收束时合并"
   ],
   "known_differences_from_template": [
     {
       "dim": "D_system_prompt",
       "template_assumption": "每平台有 Custom Instructions",
-      "notebooklm_reality": "无, 退化为 Audio Overview instructions + per-chat prompt engineering",
-      "action": "Phase 2 PLAN 跳过 system_prompt.md 累积设计, 改为 notebook 首源 + audio instructions 模板"
+      "notebooklm_reality": "无传统 system prompt, 最接近等价物是 Chat custom goals Custom mode (10K char)",
+      "action": "Phase 2 v2 PLAN 用 Chat custom goals Custom 替代 system_prompt.md 累积设计 + 精选 source 的首源导航"
     },
     {
       "dim": "G_ab_matrix",
       "template_assumption": "A/B 侧重 chat-first 召回",
       "notebooklm_reality": "另有 Audio / Mind Map / Study Guide / Briefing 独有生成物",
-      "action": "Phase 4 A/B 矩阵 +5 题独有产出质量题"
+      "action": "Phase 4 A/B 矩阵 15 题 (10 SMOKE v2 + 5 独有产出)"
     },
     {
       "dim": "H_capacity_calibration",
@@ -119,29 +128,36 @@
     {
       "dim": "batch_design",
       "template_assumption": "渐进多批上传摸 RAG 衰减",
-      "notebooklm_reality": "Free 50 sources 单批即够, 无 RAG 衰减曲线必要",
-      "action": "Phase 3 单批上传, 无 RAG 衰减实验"
+      "notebooklm_reality": "单 notebook × ≤50 sources 单批即够, 无 RAG 衰减曲线必要",
+      "action": "Phase 3 单批上传"
     },
     {
-      "dim": "multi_notebook_strategy",
-      "template_assumption": "一个平台 = 一套知识库 (Claude/ChatGPT/Gemini 模型)",
-      "notebooklm_reality": "Pro tier 500 notebooks/user cap (Phase 1 查证), source 严格隔离, 可开主训练/对外分享/音频专用三套并行, 本次用 3 占 0.6%",
-      "action": "Phase 2 PLAN 新增 multi-notebook 架构段; _template 收束时加 '多实例平台' 子节到 01_directory + 05_solution"
+      "dim": "multi_notebook_strategy_decision_tree",
+      "template_assumption": "默认单平台单知识库",
+      "notebooklm_reality": "Pro tier 500 notebooks/user, 理论上可多 notebook, 但典型场景 (ABC 三 scope 无 collaborator 互隔离需求) 1 个足够; 分享档位切换替代多 notebook",
+      "action": "_template/ 新增 multi-notebook 决策树: 仅当 ABC collaborator 圈需完全隔离才升级多 notebook. 默认单 notebook"
     },
     {
       "dim": "workflow_replication_sharing",
-      "template_assumption": "分享 = 链接分享 (00_platform_profile §E 只建模 direct link)",
-      "notebooklm_reality": "公开链接仅 personal Gmail 可开 (Workspace Enterprise/EDU 禁用); 当链接受限时可退化到 'workflow_replication' — 打包 current/uploads + UPLOAD_TUTORIAL 让接收者自建",
-      "action": "Phase 2 PLAN Scope B 分享加 fallback 段; _template 00_platform_profile §E 加 share_mode 子段 (direct_link / workflow_replication 两档)"
+      "template_assumption": "分享 = 链接分享",
+      "notebooklm_reality": "分享可走 direct_link (同 notebook 3 档切换) 或 workflow_replication (打包 UPLOAD_TUTORIAL + uploads/ 让接收者自建复刻)",
+      "action": "_template 00_platform_profile §E 加 share_mode 子段 (direct_link / workflow_replication)"
     },
     {
       "dim": "tier_naming_drift",
       "template_assumption": "SKU 命名在单次部署窗口内稳定",
-      "notebooklm_reality": "NotebookLM 原 'Plus' 2025 H2 改名 'Pro', 现 Plus 另指 Google AI Plus 订阅的中档. 同一 SKU 词语义在 12 月内翻转, 训练数据易误导",
-      "action": "_template 03_research.md Q2 加 '重命名漂移警示' 条, Phase 1 调研强制列时间线; 本平台 Q3 已做 8 行时间表作范例"
+      "notebooklm_reality": "NotebookLM 原 'Plus' 2025 H2 改名 'Pro', 现 Plus 另指 Google AI Plus 订阅的中档",
+      "action": "_template 03_research.md Q2 加 '重命名漂移警示' 条"
+    },
+    {
+      "dim": "writer_narrative_synthesis_pseudo_constraint",
+      "template_assumption": "writer 叙述可直接作 planner 输入",
+      "notebooklm_reality": "Phase 1 v1 Q7 '两模式可叠加' 叙事被合成成 'Scope B 本质两选一' 伪约束, 引伸出 3 notebook 架构被 Phase 2 PLAN 吃掉; 后 Phase 2 v1 PASS 91% 仍未捕获, 用户 review 时由反问推翻",
+      "action": "_template 03_research.md 末尾加 'Writer 立场警示' — 陈述事实 (XYZ 可叠加/可并行) 到结论 (XYZ 必须分独立) 跳跃一步必须质询; _template 04_plan.md planner 接 research 时加 '伪约束自检' 段"
     }
   ],
-  "ab_matrix_plan": {
+  "ab_matrix_plan_v2": {
+    "notebooks": 1,
     "per_notebook_size": 15,
     "standard_questions_from_smoke_v2": 10,
     "platform_unique_questions": {
@@ -149,21 +165,52 @@
       "mind_map_coverage": 2,
       "study_guide_layering": 1
     },
-    "pass_threshold_per_notebook": "13/15 (~87%) business_correct AND each unique generative product has >=1 precise hit",
-    "total_ab_runs": "3 notebooks × 15 题 = 45 题次; 每 notebook 独立 PASS 判定",
-    "audio_rate_limit_note": "Pro tier 20 audio/day 限制批次密度, 跨天执行"
+    "pass_threshold": "13/15 (~87%) business_correct AND each unique generative product >=1 precise hit",
+    "total_ab_runs": "15 题次 (1 notebook × 15)",
+    "req_zero_loss_audit": "extract_req_vars.py full set + coverage audit against ≤50 sources bucket, target ∅ gap",
+    "audio_rate_limit_note": "Pro tier 20 audio/day, cross-day acceptable if retry needed"
   },
   "rule_E_user_priority": {
     "status": "acked",
     "ack_date": "2026-04-21",
     "selected_modes": ["A_personal_learning", "B_external_sharing", "C_audio_complement"],
     "scope": "ABC 三向全覆盖",
-    "plan_tier": "Pro (via Google AI Pro 订阅; 原 'Plus' 2025 H2 重命名为 'Pro', 500 notebooks / 300 sources / 500 chat / 20 audio per day)",
+    "plan_tier": "Pro (via Google AI Pro 订阅; 500 notebooks / 300 sources / 500 chat / 20 audio per day)",
     "api_usage": false,
     "interface": "Web UI only",
     "account_type": "personal_gmail",
     "account_ack_date": "2026-04-21",
     "scope_B_fallback": "workflow_replication (via current/UPLOAD_TUTORIAL.md + uploads/ 打包让接收者自建复刻)",
-    "strategy_implication": "三场景 ABC 全覆盖 + Pro 权益 + personal Gmail → multi-notebook 策略 (3 notebooks: 主训练 + 对外分享 + 音频专用), 占 500-notebooks cap 的 0.6%"
+    "strategy_implication_v2": "三场景 ABC 在同一 notebook 内按分享档位切换实现 (默认 Restricted, 按需切 Anyone with link / Public), 总 1 notebook (不占多 slot)"
+  },
+  "architecture_pivot_log_v1_to_v2": {
+    "pivot_date": "2026-04-21",
+    "pivot_trigger": "user review after v1 Phase 2 PASS",
+    "pivot_record_doc": "archive/v1_3notebook_SUPERSEDED_2026-04-21/ARCHITECTURE_PIVOT_RECORD.md",
+    "v1_assumptions_overturned": [
+      "Scope B is two-selection (Mode A invite / Mode B public link need 2 separate notebooks)",
+      "Mode A 50-cap might cover Mode B (needs Phase 3 I8 test)",
+      "293 sources 1:1 upload to main notebook is optimal use of Pro 300 slot"
+    ],
+    "v1_decisions_dropped": [
+      "3 notebook architecture (main / invite / public)",
+      "Notebook 1 = 293 1:1 upload",
+      "353 uploads (worst case)",
+      "45 A/B test runs (3 notebooks × 15)",
+      "uploads_main + uploads_invite + uploads_public directory split",
+      "Phase A A5 'webui batch upload capability' hard checkpoint (not needed at ≤50 scale)",
+      "P12 source isolation as hard rule (downgraded to informational)",
+      "I8 + C2.9 Phase 3 carry-over (closed)",
+      "cluster_req_variables.py target ≤30 (changed to ≤50, more headroom)",
+      "Chat mode three-notebook decision (single notebook = single Custom mode)"
+    ],
+    "v2_assets_preserved": [
+      "research.md Q1-Q6/Q8-Q10 facts (verified, unchanged)",
+      "Rule D 8-subagent-type chain (extended, not reset)",
+      "User Q1 zero-loss + Q2 quality-first acks",
+      "Rule E ack (ABC + Pro + Web UI + personal Gmail)",
+      "_template patch candidates (7 retained + 3 refined/new)",
+      "extract_req_vars.py + cluster_req_variables.py design intent (target slot adjusted)"
+    ]
   }
 }
