@@ -70,6 +70,26 @@ v1.1 修复记录 (2026-04-20, reviewer CONDITIONAL_PASS → bug fix pass):
 
 v1.3 sync 记录 (2026-04-20, Node 2 attempt_1 V5 FAIL cap 微调同步):
   - EXPECTS[0] token_cap 46_000 → 47_000, 与 merge.py v1.3 保持一致.
+
+v1.5 sync 记录 (2026-04-21, Node 4 batch 2 attempt_1 06 cap 微调同步):
+  - EXPECTS[5] 06_domain_examples_all.md token_cap 190_000 → 254_000,
+    与 merge.py v1.5 保持一致. 依据 `failures/stage_batch2_attempt_1.md`.
+
+v1.4 sync 记录 (2026-04-21, Node 4 batch 2 重排 + merge.py v1.4 同步):
+  依据: PLAN_BATCH2.md + Node 3b carry-over CO-2.
+  - EXPECTS[6-8] 三 entry 重定义:
+      * 07_terminology_core.md            → 07_terminology_core_high_freq.md
+        (expected 0→15 硬编码, dynamic_source_dir "terminology/core"→"", cap
+        920_000→260_000)
+      * 08_terminology_questionnaires.md  → 08_terminology_quest_and_supp.md
+        (expected 0→49 硬编码, dynamic_source_dir "terminology/questionnaires"
+        →"", cap 1_095_000→1_250_000)
+      * 09_terminology_supplementary.md   → 09_terminology_core_mid_tail.md
+        (expected 0→27 硬编码, dynamic_source_dir "terminology/supplementary"
+        →"", cap 173_000→820_000)
+  - 全 batch 2 entry expected 硬编码 (无动态), 与 merge v1.4 一致, manifest
+    entry 的 dynamic 字段均应为 False.
+  - 01-06 entry 不变.
 """
 from __future__ import annotations
 
@@ -119,12 +139,10 @@ EXPECTS: list[ExpectSpec] = [
     ExpectSpec("03_model_all.md", "batch1", 6, "", 21_000),
     ExpectSpec("04_domain_specs_all.md", "batch1", 63, "", 193_000),
     ExpectSpec("05_domain_assumptions_all.md", "batch2", 63, "", 69_000),
-    ExpectSpec("06_domain_examples_all.md", "batch2", 63, "", 190_000),
-    ExpectSpec("07_terminology_core.md", "batch2", 0, "terminology/core", 920_000),
-    ExpectSpec("08_terminology_questionnaires.md", "batch2", 0,
-               "terminology/questionnaires", 1_095_000),
-    ExpectSpec("09_terminology_supplementary.md", "batch2", 0,
-               "terminology/supplementary", 173_000),
+    ExpectSpec("06_domain_examples_all.md", "batch2", 63, "", 254_000),
+    ExpectSpec("07_terminology_core_high_freq.md", "batch2", 15, "", 260_000),
+    ExpectSpec("08_terminology_quest_and_supp.md", "batch2", 49, "", 1_250_000),
+    ExpectSpec("09_terminology_core_mid_tail.md", "batch2", 27, "", 820_000),
 ]
 
 

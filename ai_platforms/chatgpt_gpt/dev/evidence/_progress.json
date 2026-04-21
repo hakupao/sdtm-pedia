@@ -6,7 +6,7 @@
   "created_at": "2026-04-20",
   "last_updated": "2026-04-21",
   "current_phase": 3,
-  "overall_status": "phase_3_node_3b_smoke_pass_ready_for_commit_c3b",
+  "overall_status": "phase_3_node_4_batch2_writer_reviewer_pass_ready_for_commit_c4_then_user_upload_and_smoke_v2",
   "sync_locked_with": "gemini_gems",
   "sync_board_path": "ai_platforms/SYNC_BOARD.md",
   "notes": "Phase 定义对齐 ROADMAP.md 六段制. Phase 2 双边 CONDITIONAL_PASS, 等用户 ack 进 Phase 3.",
@@ -294,6 +294,70 @@
             "strategic_direction": "ChatGPT 维持原 batch 2 策略 (保留 terminology 分档), 见 chatgpt_gpt/docs/PLAN_BATCH2.md; smoke v2 在 batch 2 上传完成后跑",
             "trust_level_downgrade": "Node 3b PASS 降级为'判据 PASS 但用户视角不认账', 真正的 PASS 等 Node 4 smoke v2 10 题业务维度实测"
           }
+        },
+        "N4_batch2": {
+          "status": "writer_reviewer_PASS_ready_for_commit_c4_then_user_upload_and_smoke_v2",
+          "started_at": "2026-04-21",
+          "completed_at": "2026-04-21 (writer + reviewer; 用户上传 + smoke v2 待做)",
+          "dispatched_subagents": [
+            "chatgpt_node4_writer (oh-my-claudecode:executor opus) — 3 交付: merge_for_chatgpt.py v1.3→v1.5 (HIGH_FREQ_CORE_HINTS 15 + 3 collectors + MERGE_CONFIGS 07/08/09 硬编码 expected 15/49/27 + token_cap 260K/1250K/820K) / validate_chatgpt_stage.py v1.5 sync (EXPECTS 9 entry) / system_prompt v2 (4782→7220 chars, +05-09 路由 + CO-1 STUDYID + CO-2 EVS URL guard) / attempt_1 FAIL (06 cap 190K→254K fix) + attempt_2 PASS rc=0 merge+validate / 5 batch 2 uploads (05=54K + 06=220K + 07=200K + 08=1047K + 09=698K) / manifest_segments.json 9 entries dynamic=false / Rule B 归档 failures/stage_batch2_attempt_1.md 5 段齐全",
+            "chatgpt_node4_reviewer (superpowers:code-reviewer opus, 规则 D 独立, 第 12 种 subagent_type) — Verdict PASS 92%, 0 HIGH + 0 MEDIUM + 2 LOW (L1 validate report version header + L2 upload_manifest 语义段手工) + 2 SUGGESTION"
+          ],
+          "writer_products": [
+            "ai_platforms/chatgpt_gpt/dev/scripts/merge_for_chatgpt.py (v1.5, +130/-24 行)",
+            "ai_platforms/chatgpt_gpt/dev/scripts/validate_chatgpt_stage.py (v1.5 sync)",
+            "ai_platforms/chatgpt_gpt/current/system_prompt.md (v2, 7220 chars / 7500 budget)",
+            "ai_platforms/chatgpt_gpt/current/uploads/05_domain_assumptions_all.md (54,658 tokens / 63 sources)",
+            "ai_platforms/chatgpt_gpt/current/uploads/06_domain_examples_all.md (220,575 tokens / 63 sources)",
+            "ai_platforms/chatgpt_gpt/current/uploads/07_terminology_core_high_freq.md (200,746 tokens / 15 sources)",
+            "ai_platforms/chatgpt_gpt/current/uploads/08_terminology_quest_and_supp.md (1,047,119 tokens / 49 sources)",
+            "ai_platforms/chatgpt_gpt/current/uploads/09_terminology_core_mid_tail.md (698,081 tokens / 27 sources)",
+            "ai_platforms/chatgpt_gpt/current/manifest_segments.json (9 entries)",
+            "ai_platforms/chatgpt_gpt/dev/evidence/node4_writer_summary.md",
+            "ai_platforms/chatgpt_gpt/dev/evidence/failures/stage_batch2_attempt_1.md",
+            "ai_platforms/chatgpt_gpt/dev/evidence/validate_batch2.md (rc=0 5/5 PASS)",
+            "ai_platforms/chatgpt_gpt/dev/checkpoints/CHECKPOINT_N4_HANDOFF.md"
+          ],
+          "reviewer_verdict": "PASS",
+          "reviewer_confidence": 92,
+          "reviewer_evidence": "ai_platforms/chatgpt_gpt/dev/evidence/phase3_node4_reviewer.md (主 session 代写, superpowers:code-reviewer read-only)",
+          "reviewer_lane_pass": true,
+          "product_stats_batch2": {
+            "05_domain_assumptions_all.md": {"tokens": 54658, "cap": 69000, "sources": 63, "utilization_pct": 79.2},
+            "06_domain_examples_all.md": {"tokens": 220575, "cap": 254000, "sources": 63, "utilization_pct": 86.8, "cap_bump_attempt_1": "190K→254K"},
+            "07_terminology_core_high_freq.md": {"tokens": 200746, "cap": 260000, "sources": 15, "utilization_pct": 77.2, "selection": "HIGH_FREQ_CORE_HINTS 15 (ae/dm/disposition/eg_part1/findings_about/general_part3/general_part4/interventions/lb_part1/oncology_part1/pk_part1/qs_part1/special_purpose/trial_design/vs)"},
+            "08_terminology_quest_and_supp.md": {"tokens": 1047119, "cap": 1250000, "sources": 49, "utilization_pct": 83.8, "composition": "sorted(questionnaires 43) + sorted(supplementary 6)"},
+            "09_terminology_core_mid_tail.md": {"tokens": 698081, "cap": 820000, "sources": 27, "utilization_pct": 85.1, "selection": "sorted(core/*.md) 减 HIGH_FREQ_CORE_HINTS, 27 文件"}
+          },
+          "batch_2_total_tokens": 2221179,
+          "batch_1_plus_2_total_tokens": 2531313,
+          "gpt_file_count_9_of_20_limit": 9,
+          "attempts": [
+            "attempt_1 FAIL: 06_domain_examples_all.md V5 cap 190K FAIL (实测 220,575, 超 16.09%). Rule B 归档. Fix: cap 190K→254K (+33.7%)",
+            "attempt_2 PASS: rc=0 merge + rc=0 validate 5/5 PASS V1-V7 全绿 + md5 快照 5 条齐全"
+          ],
+          "rule_e_verified": {
+            "Q1_C_public_audience": "PASS (system_prompt L14/L64-65/L96 陌生公开受众友好段 + 类比示例 + 4 Conversation Starters)",
+            "Q2_C_mixed_audience": "PASS (L14 Mirror user level + L98 工作流 step 1 判受众 + 术语一句话解释)",
+            "Q5_A_equal_domain_weight": "PASS (L50 显式不偏倚 AE/LB/DM)"
+          },
+          "carry_over_pre_dispatch_resolved": {
+            "CO-1_low_N3b_s2_studyid_7_field": "system_prompt L61 新增 '跨域关联: 走 RELREC 时强引 7 字段 STUDYID/USUBJID/RDOMAIN/IDVAR/IDVARVAL/RELTYPE/RELID, STUDYID 是 key'",
+            "CO-2_high_N3b_s3_nci_evs_guard": "system_prompt §边界处理模板 ③ L81-84 新增 'https://evsexplore.semantics.cancer.gov/evsexplore/' URL 字面值 + 零臆造 CT 值约束"
+          },
+          "carry_over_node4_to_node5_or_later": [
+            "LOW L1 (reviewer): validate_chatgpt_stage.py render_report 行 519 硬编码 '(v1.1)' → 改 '(v1.5)' 或读模块级常量",
+            "LOW L2 (reviewer): upload_manifest.md README/order 语义段手工更新 (merge 只 append 表格行)",
+            "SUGGESTION S1 (reviewer): HIGH_FREQ_CORE_HINTS 15 项业务合理性由 Node 5 smoke v2 rerun 命中率数据回证, 可选 evidence/step_node4_audit.md 追 HIGH_FREQ 选择依据",
+            "SUGGESTION S2 (reviewer): _collect_terminology(subdir) legacy helper 标 DEPRECATED 或删",
+            "LOW-F1 (N2 继承): 01 cap 47K buffer 1.77%, 本 Node 4 不涉 01; smoke 若 01 路由题命中率 <80% 升 cap 重合并"
+          ],
+          "user_action_awaiting": [
+            "按 dev/checkpoints/CHECKPOINT_N4_HANDOFF.md Step 1 上传 5 batch 2 文件到 ChatGPT GPT",
+            "按 Step 2 跑 ai_platforms/SMOKE_QUESTIONS_V2.md 10 题 rerun",
+            "落档 dev/evidence/smoke_v2_results.md",
+            "回报 X/10 PASS + 每题 verdict"
+          ]
         }
       }
     },

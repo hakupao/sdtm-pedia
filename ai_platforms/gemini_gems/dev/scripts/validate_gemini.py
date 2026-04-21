@@ -1,37 +1,46 @@
 #!/usr/bin/env python3
-"""SDTM Phase 6.5 Gemini Gems 产物校验脚本.
+"""SDTM Phase 6.5 Gemini Gems 产物校验脚本 (v2.0 C 方案).
 
 依据文档:
+- PLAN_V2_C.md (2026-04-21) Node 4 C 方案: 舍弃 terminology, 04 业务弹药包
 - PLAN.md §4 Phase B6 (validate_gemini.py 产物完整性校验)
-- PLAN.md §1.3 P11 (总 ≤800K, 硬警 >900K)
-- PLAN.md §1.3 P12 (末尾召回 hard checkpoint 准备: 04 尾部 30% 内 ≥3 codelist 段)
-- PLAN.md §2.1 (4 合并文件 + 预期源段数)
-- PLAN.md §8 R2 (超限降级)
+- PLAN.md §1.3 P11 (总 ≤900K WARN, 1M 窗口硬上限)
+- SMOKE_QUESTIONS_V2.md (Node 4 10 题业务视角)
 
 依据 Phase 1 research:
 - Q2: 10 文件硬限 / 100 MB per file (本校验 <5MB 远低于硬限, 防御性)
-- Q1: 1M 窗口 + 多针降级 ⇒ total ≤800K 留响应余量
+- Q1: 1M 窗口 + 多针降级 ⇒ total ≤900K 留响应余量
 
 Usage:
-    python3 validate_gemini.py [--stage {core|spec|knowledge|terminology|all}] [--uploads DIR]
+    python3 validate_gemini.py [--stage {navigation|spec_plus_assumptions|examples_only|business_scenarios|all}] [--uploads DIR]
 
 校验项:
 - V1 非空: 每文件 size > 0
-- V2 段数对齐: `<!-- source: ... -->` 段数 ≥ PLAN §2.1 预期 (01≥15, 02≥63, 03≥126, 04 记录不判 FAIL)
-- V3 token 上限: 单文件 + 累计 ≤800K; >900K 触 §8 R2 警告 (rc=2); >1000K FAIL
-- V4 单文件 <5MB: 字节大小 (Gemini 100MB 上限远高, 本项防御)
-- V5 md5 稳定: 输出 md5 供 Node 2 对比 (纯记录, 不判 FAIL)
-- V6 位置策略合规: 04 产物末尾 30% 内 ≥3 个 `<!-- source: terminology ... -->` (P12 准备)
+- V2 段数对齐: `<!-- source: ... -->` 段数 ≥ PLAN §2.1 预期 (business_scenarios 无 KB 源不判)
+- V3 token 上限: 单文件 + 累计 ≤820K target; >900K WARN (rc=2); >1000K FAIL
+- V4 单文件 <5MB: 字节大小防御 (Gemini 100MB 上限远高)
+- V5 md5 稳定: 输出 md5 供对比
+- V8 新增 (04 弹药包合规):
+    - V8a: 04 字节 > 10000 (非 stub, 保 ~50KB 业务内容)
+    - V8b: 04 不含 codelist 字面值表 (防意外 inline terminology)
+      扫行 pattern `r"^\s*\|\s*C\d{5,7}\s*\|\s*\w+"` 若命中 ≥5 行触 FAIL
+- V6 废除 (v2.0, 无 terminology 尾部 gate): 删 _v6_tail_terminology + V6_* 常量
 
 Return codes:
 - rc=0: 全 PASS
-- rc=1: V1/V4/V5/V6 任一 FAIL (硬失败)
-- rc=2: V3 警告 (>900K 未超 1M, 但 P11 破线)
+- rc=1: V1/V4/V5/V8 任一 FAIL 或 V3 硬超
+- rc=2: V3 WARN (>900K 未超 1M) 或 V2 WARN
 
 产出: dev/evidence/validate_single_batch.md (md 表格).
 
 Dependencies: tiktoken (cl100k_base), Python 3 stdlib.
 Read-only over uploads/ + 源 (P5).
+
+v2.0 迁移说明:
+  - 旧 STAGE_FILES core/spec/knowledge/terminology 整体废除 (v1.x 在 git 历史)
+  - 新 STAGE_FILES: navigation / spec_plus_assumptions / examples_only / business_scenarios
+  - V6 terminology 尾部 gate 删除 (C 方案无 terminology)
+  - V8 新增 (04 业务弹药包合规): 非 stub + 无 inline codelist
 """
 from __future__ import annotations
 
@@ -54,40 +63,44 @@ REPORT_PATH = EVIDENCE_DIR / "validate_single_batch.md"
 
 ENCODING_NAME = "cl100k_base"
 
-# PLAN §2.1 合并文件映射 + 预期源段数
+# v2.0 C 方案 4 文件
 STAGE_FILES = {
-    "core": {
-        "name": "01_core_reference.md",
+    "navigation": {
+        "name": "01_navigation_and_quick_reference.md",
         "expected_sources_min": 15,        # 6 chapters + 6 model + 3 nav ≈ 15
-        "target_tokens": 120_000,
+        "target_tokens": 150_000,
     },
-    "spec": {
-        "name": "02_domain_specs.md",
-        "expected_sources_min": 63,        # 63 domains
-        "target_tokens": 168_000,
+    "spec_plus_assumptions": {
+        "name": "02_domains_spec_and_assumptions.md",
+        "expected_sources_min": 120,       # 63 spec + ≤63 assumptions (可能有缺)
+        "target_tokens": 400_000,
     },
-    "knowledge": {
-        "name": "03_domain_knowledge.md",
-        "expected_sources_min": 126,       # 63 × 2 (assumptions + examples)
-        "target_tokens": 225_000,
+    "examples_only": {
+        "name": "03_domains_examples.md",
+        "expected_sources_min": 60,        # 63 examples 有几个可能缺
+        "target_tokens": 280_000,
     },
-    "terminology": {
-        "name": "04_terminology_core.md",
-        "expected_sources_min": 0,          # P12 Node 2 校准, 先记录不判 FAIL
-        "target_tokens": 200_000,
+    "business_scenarios": {
+        "name": "04_business_scenarios_and_cross_domain.md",
+        "expected_sources_min": 0,         # 自编无 KB 源
+        "target_tokens": 60_000,
     },
 }
-STAGE_ORDER = ["core", "spec", "knowledge", "terminology"]
+STAGE_ORDER = ["navigation", "spec_plus_assumptions", "examples_only", "business_scenarios"]
 
 # 阈值
 SINGLE_FILE_BYTE_HARD = 5 * 1024 * 1024    # 5MB 防御上限
-TOTAL_TOKEN_TARGET = 800_000               # P11 target
-TOTAL_TOKEN_WARN = 900_000                 # §8 R2 warn
-TOTAL_TOKEN_HARD = 1_000_000               # 1M 窗口硬上限
+TOTAL_TOKEN_TARGET = 820_000               # C 方案 ~820K target
+TOTAL_TOKEN_WARN = 900_000                 # WARN 阈
+TOTAL_TOKEN_HARD = 1_000_000               # 1M 硬上限
 
-# V6 P12 末尾 30% 内至少几段 terminology
-V6_TAIL_FRACTION = 0.30
-V6_TAIL_MIN_TERM_SEGMENTS = 3
+# V8 常量 (04 弹药包合规)
+V8_MIN_BYTES = 10_000                          # 04 字节下限, 防 stub
+V8_CODELIST_LINE_RE = re.compile(
+    r"^\s*\|\s*C\d{5,7}\s*\|\s*\w+",
+    re.MULTILINE,
+)
+V8_CODELIST_LINE_HARD_MAX = 5                  # ≥5 命中 FAIL
 
 SOURCE_MARK_RE = re.compile(r"^<!--\s*source:\s*([^\s]+)\s*-->", re.MULTILINE)
 
@@ -131,19 +144,39 @@ def _count_source_marks(text: str) -> tuple[int, list[tuple[int, str]]]:
     return len(positions), positions
 
 
-def _v6_tail_terminology(text: str, positions: list[tuple[int, str]]) -> tuple[bool, int]:
-    """V6: 04 产物尾部 30% 内 ≥3 个 `terminology/...` 源段.
+def _v8_business_scenarios(path: Path, text: str) -> tuple[bool, list[str]]:
+    """V8: 04 弹药包合规.
 
-    text: 完整文件内容; positions: [(offset, rel_path), ...]
-    返回 (pass?, 尾部段数).
+    V8a: size > V8_MIN_BYTES (非 stub)
+    V8b: 不含 codelist 字面值表 (pattern: `| Cxxxxx | word`) ≥5 行 FAIL
+
+    返回 (pass, [notes]).
     """
-    total_len = len(text)
-    tail_start = int(total_len * (1.0 - V6_TAIL_FRACTION))
-    tail_term_segments = [
-        rel for offset, rel in positions
-        if offset >= tail_start and "terminology" in rel
-    ]
-    return (len(tail_term_segments) >= V6_TAIL_MIN_TERM_SEGMENTS, len(tail_term_segments))
+    notes: list[str] = []
+    ok = True
+
+    size = path.stat().st_size
+    if size <= V8_MIN_BYTES:
+        ok = False
+        notes.append(f"V8a FAIL: size {size} ≤ {V8_MIN_BYTES} (stub or too thin)")
+    else:
+        notes.append(f"V8a PASS: size {size:,} > {V8_MIN_BYTES:,}")
+
+    codelist_hits = V8_CODELIST_LINE_RE.findall(text)
+    hit_count = len(codelist_hits)
+    if hit_count >= V8_CODELIST_LINE_HARD_MAX:
+        ok = False
+        notes.append(
+            f"V8b FAIL: inline codelist lines matched {hit_count} "
+            f"(≥{V8_CODELIST_LINE_HARD_MAX}); 04 应仅列 CT Code + 英文名, 不给 Term 值"
+        )
+    else:
+        notes.append(
+            f"V8b PASS: inline codelist lines matched {hit_count} "
+            f"(<{V8_CODELIST_LINE_HARD_MAX})"
+        )
+
+    return ok, notes
 
 
 # ---------------------------------------------------------------------------
@@ -170,8 +203,7 @@ def validate_file(
         "v1_nonempty": False,
         "v2_segments_ok": False,
         "v4_under_5mb": False,
-        "v6_tail_ok": None,        # None=仅 terminology 判定
-        "v6_tail_count": None,
+        "v8_ok": None,            # 仅 business_scenarios 判定
         "notes": [],
     }
 
@@ -204,7 +236,7 @@ def validate_file(
     result.total_tokens += row["tokens"]
 
     # V2 段数
-    seg_count, positions = _count_source_marks(text)
+    seg_count, _positions = _count_source_marks(text)
     row["source_segments"] = seg_count
     min_expected = spec["expected_sources_min"]
     if min_expected > 0:
@@ -213,28 +245,21 @@ def validate_file(
             row["notes"].append(
                 f"V2 WARN: segments {seg_count} < expected {min_expected}"
             )
-            # V2 偏离记录为 WARN (不触 hard fail, Node 2 A/B 校准)
             result.warn = True
     else:
-        # terminology: 记录不判
+        # business_scenarios: 记录不判 (自编无 KB 源)
         row["v2_segments_ok"] = True
-        row["notes"].append(f"V2 INFO: {seg_count} segments recorded (no min cap)")
+        row["notes"].append(
+            f"V2 INFO: {seg_count} segments (writer-authored, no KB source required)"
+        )
 
-    # V6 仅对 terminology 判 (尾部 recency + P12 hard checkpoint 准备)
-    if stage_key == "terminology":
-        ok, n_tail = _v6_tail_terminology(text, positions)
-        row["v6_tail_ok"] = ok
-        row["v6_tail_count"] = n_tail
+    # V8 仅对 business_scenarios 判 (04 弹药包合规)
+    if stage_key == "business_scenarios":
+        ok, v8_notes = _v8_business_scenarios(path, text)
+        row["v8_ok"] = ok
+        row["notes"].extend(v8_notes)
         if not ok:
-            row["notes"].append(
-                f"V6 FAIL: tail 30% has {n_tail} terminology source segments "
-                f"(need ≥{V6_TAIL_MIN_TERM_SEGMENTS}); P12 tail-recall prep broken"
-            )
             result.hard_fail = True
-        else:
-            row["notes"].append(
-                f"V6 PASS: tail 30% has {n_tail} terminology segments (≥{V6_TAIL_MIN_TERM_SEGMENTS})"
-            )
 
     result.add(row)
 
@@ -243,20 +268,20 @@ def write_report(result: Result, stages: list[str], warn_v3: bool, hard_v3: bool
     EVIDENCE_DIR.mkdir(parents=True, exist_ok=True)
 
     lines = [
-        "# Gemini Gems 单批校验报告",
+        "# Gemini Gems v2.0 C 方案校验报告",
         "",
         f"> Generated: {_now_iso()}",
         f"> Stages validated: {', '.join(stages)}",
-        f"> Total tokens: {result.total_tokens:,} (target ≤{TOTAL_TOKEN_TARGET:,})",
+        f"> Total tokens: {result.total_tokens:,} (target ~{TOTAL_TOKEN_TARGET:,})",
         "",
         "## 校验矩阵",
         "",
-        "| file | exists | bytes | tokens | target | segments | V1 | V2 | V4 | V6 | md5 (head12) |",
+        "| file | exists | bytes | tokens | target | segments | V1 | V2 | V4 | V8 | md5 (head12) |",
         "|------|:------:|------:|-------:|-------:|---------:|:--:|:--:|:--:|:--:|--------------|",
     ]
 
     for row in result.rows:
-        v6 = "-" if row["v6_tail_ok"] is None else ("PASS" if row["v6_tail_ok"] else "FAIL")
+        v8 = "-" if row["v8_ok"] is None else ("PASS" if row["v8_ok"] else "FAIL")
         lines.append(
             f"| {row['file']} "
             f"| {'Y' if row['exists'] else 'N'} "
@@ -267,7 +292,7 @@ def write_report(result: Result, stages: list[str], warn_v3: bool, hard_v3: bool
             f"| {'PASS' if row['v1_nonempty'] else 'FAIL'} "
             f"| {'PASS' if row['v2_segments_ok'] else 'WARN'} "
             f"| {'PASS' if row['v4_under_5mb'] else 'FAIL'} "
-            f"| {v6} "
+            f"| {v8} "
             f"| {row['md5'][:12] if row['md5'] else '-'} |"
         )
 
@@ -276,17 +301,17 @@ def write_report(result: Result, stages: list[str], warn_v3: bool, hard_v3: bool
         "## V3 累计 token 判定",
         "",
         f"- Total: **{result.total_tokens:,}** tokens",
-        f"- Target (P11): ≤{TOTAL_TOKEN_TARGET:,}",
-        f"- Warn threshold (§8 R2): >{TOTAL_TOKEN_WARN:,}",
+        f"- Target (C 方案): ~{TOTAL_TOKEN_TARGET:,}",
+        f"- Warn threshold: >{TOTAL_TOKEN_WARN:,}",
         f"- Hard threshold (1M 窗口): >{TOTAL_TOKEN_HARD:,}",
         "",
     ]
     if hard_v3:
         lines.append(f"- **V3 FAIL**: total {result.total_tokens:,} > {TOTAL_TOKEN_HARD:,} 硬上限.")
     elif warn_v3:
-        lines.append(f"- **V3 WARN (rc=2)**: total {result.total_tokens:,} > {TOTAL_TOKEN_WARN:,} 警告阈值, 触 §8 R2.")
+        lines.append(f"- **V3 WARN (rc=2)**: total {result.total_tokens:,} > {TOTAL_TOKEN_WARN:,} 警告阈.")
     else:
-        lines.append(f"- **V3 PASS**: total {result.total_tokens:,} ≤ target.")
+        lines.append(f"- **V3 PASS**: total {result.total_tokens:,} ≤ warn 阈.")
 
     lines += [
         "",
@@ -324,11 +349,11 @@ def write_report(result: Result, stages: list[str], warn_v3: bool, hard_v3: bool
 
 def main(argv: list[str]) -> int:
     parser = argparse.ArgumentParser(
-        description="Validate Gemini Gems single-batch merge artifacts.",
+        description="Validate Gemini Gems v2.0 C refactor artifacts.",
     )
     parser.add_argument(
         "--stage",
-        choices=["core", "spec", "knowledge", "terminology", "all"],
+        choices=["navigation", "spec_plus_assumptions", "examples_only", "business_scenarios", "all"],
         default="all",
         help="which stage(s) to validate",
     )
@@ -358,13 +383,16 @@ def main(argv: list[str]) -> int:
     # 终端摘要
     print(f"[validate] report: {report_path}")
     print(f"[validate] stages: {stages}")
-    print(f"[validate] total tokens: {result.total_tokens:,} (target ≤{TOTAL_TOKEN_TARGET:,})")
+    print(f"[validate] total tokens: {result.total_tokens:,} (target ~{TOTAL_TOKEN_TARGET:,})")
 
     if result.hard_fail or hard_v3:
         print("[validate] rc=1 HARD FAIL")
         return 1
     if warn_v3:
-        print("[validate] rc=2 WARN (V3 > 900K, §8 R2 trigger)")
+        print("[validate] rc=2 WARN (V3 > 900K)")
+        return 2
+    if result.warn:
+        print("[validate] rc=2 WARN (V2 segments below expected)")
         return 2
     print("[validate] rc=0 PASS")
     return 0

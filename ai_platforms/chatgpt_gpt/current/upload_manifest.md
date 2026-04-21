@@ -71,3 +71,8 @@
 ---
 
 *来源: PLAN v1.2 §2.4 + §3.2 + §5.1 + `_progress.json` N2_scripts_run.product_stats + phase3_node2_attempt2_ab_reviewer.md*
+| 05 | 05_domain_assumptions_all.md | 54,658 tokens | 63 sources | batch2 |
+| 06 | 06_domain_examples_all.md | 220,575 tokens | 63 sources | batch2 |
+| 07 | 07_terminology_core_high_freq.md | 200,746 tokens | 15 sources | batch2 |
+| 08 | 08_terminology_quest_and_supp.md | 1,047,119 tokens | 49 sources | batch2 |
+| 09 | 09_terminology_core_mid_tail.md | 698,081 tokens | 27 sources | batch2 |
