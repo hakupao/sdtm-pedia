@@ -6,7 +6,7 @@
   "created_at": "2026-04-20",
   "last_updated": "2026-04-21",
   "current_phase": 4,
-  "overall_status": "phase_4_started_n5_0_plan_doc_produced_ready_for_commit_c5_0_then_n5_1_precondition_fixes",
+  "overall_status": "phase_4_n5_1_PASS_writer_and_reviewer_closed_2_med_in_session_ready_for_commit_c5_1_then_n5_2_smoke_v2_1_rerun",
   "sync_locked_with": "chatgpt_gpt",
   "sync_board_path": "ai_platforms/SYNC_BOARD.md",
   "notes": "Phase 定义对齐 ROADMAP.md 六段制. Phase 2 双边 CONDITIONAL_PASS, 等用户 ack 进 Phase 3. Gemini Tier 1-2 最轻量平台.",
@@ -522,21 +522,43 @@
           }
         },
         "N5_1_precondition_fixes": {
-          "status": "ready_to_dispatch",
-          "planned_subagents": [
-            "gemini_n5_1_writer (oh-my-claudecode:executor opus) — P2+P3+P4 (04 扩容 + DM ACTARM 补 + system_prompt CO-2 边界)",
-            "chatgpt_n5_1_writer (oh-my-claudecode:executor opus) — P5 LOW cleanup (ChatGPT 侧)",
-            "main_session — P6 ChatGPT STAGE_2_AB_REPORT.md",
-            "n5_1_reviewer (oh-my-claudecode:planner 第 17 种) — Gemini 侧审"
+          "status": "PASS",
+          "started_at": "2026-04-21",
+          "completed_at": "2026-04-21",
+          "dispatched_subagents": [
+            "gemini_n5_1_writer (oh-my-claudecode:executor opus) — P2+P3+P4 完成: 04 扩 30,488→51,358 tokens (+68.5%, 命中 50-60K 目标); §1.6 DM ACTARM 硬锚点段 + §1.26 Quick Reference 重写 + §12-§24 新增 13 段 (Trial Design / IE / RECIST Oncology / AG / PR / 影像 / Events class / SUPPQUAL / 命名 checklist / EDC 补丁 / Specialty / Q&A / 反向索引); system_prompt v3→v4 6720→7093 chars CO-2 边界子条款; validate rc=0 V8b 0 命中; SDTM 事实自检 7/7 PASS",
+            "chatgpt_n5_1_writer (oh-my-claudecode:executor opus) — P5 4 项 (ChatGPT 侧独立完成, 详见 ChatGPT _progress.json)",
+            "main_session — P6 ChatGPT STAGE_2_AB_REPORT.md (不涉本平台)",
+            "gemini_n5_1_reviewer (oh-my-claudecode:security-reviewer 第 17 种 subagent_type, Rule D, read-only) — Verdict CONDITIONAL_PASS 86%, 0 HIGH + 2 MED + 3 LOW + 2 SUGG; **独立 N=15 抽样** (CT code×7 + 源路径×5 + 业务断言×3) **不复用 writer 7**, 13/15 PASS (87% 超 Rule A 阈 80%); 2 MED (UR Label 窄化 + MIDS/SM 缺失 + §4.4.10→§4.4.11 章节号错引 2 处) 主 session 同 session 内闭合",
+            "chatgpt_n5_1_reviewer (pr-review-toolkit:silent-failure-hunter 第 16 种 subagent_type, Rule D) — 独立审 ChatGPT 侧 (详见 ChatGPT _progress.json)"
           ],
-          "started_at": null,
-          "completed_at": null,
-          "expected_artifacts": [
-            "ai_platforms/gemini_gems/current/uploads/04_business_scenarios_and_cross_domain.md (50-60K tokens, +DM ACTARM + +RECIST/影像/Oncology/TrialDesign/IE/AG/PR)",
-            "ai_platforms/gemini_gems/current/system_prompt.md (v3→v4, CO-2 边界显式化)",
-            "ai_platforms/gemini_gems/dev/evidence/validate_single_batch.md (rerun, V8 v2.1 pattern 收紧)",
-            "ai_platforms/gemini_gems/dev/evidence/node5_1_writer_summary.md",
+          "subitems_completed": {
+            "P2_04_expand_to_50_60k": "51,358 tokens PASS (目标区间 50-60K)",
+            "P3_04_dm_actarm_hard_anchor": "§1.6 新增 80 行 DM ACTARM/ACTARMCD Permissible 硬锚点 + pitfall 显式 smoke Q6 错位反例 + §1.26 Quick Reference 重写",
+            "P4_sysprompt_co2_boundary": "system_prompt v3→v4 CO-2 L53-56 新子条款 (KB Examples 有 inline / 无原文外导 NCI EVS)"
+          },
+          "rule_d_cumulative_subagent_types": 17,
+          "rule_a_independent_n_15": "13/15 PASS (87%), 超 Rule A 阈 80%; CT code 7/7 + 源路径 3/5 + 业务 2/3",
+          "med_resolved_in_session": {
+            "MED1_ur_label_narrowing": "§22.7 'UR (Urinalysis) 尿检' → 'UR (Urinary System Findings) 尿系统发现域', 加 URTESTCD C129942 绑定 + 业务边界说明",
+            "MED2a_mids_sm_triangle_relationship": "§12.4 MIDS 跨域耦合段重写为 MIDS 三角关系: TM 定义 + SM 记录实例 + general observation domain 通过 --MIDS 引用; 加 pitfall '只有 TM 没 SM = 找不到 milestone target'; 源路径加 knowledge_base/domains/SM/spec.md",
+            "MED2b_ch04_section_number": "§12.4 + §24.3 源路径 '§4.4.10 (MIDS vs RELREC)' → '§4.4.11 Disease Milestones and Disease Milestone Timing Variables' (2 处全修)"
+          },
+          "post_fix_validate_rerun": "total 637,308 tokens (+325 vs pre-fix 636,983) / rc=0 PASS / 4 文件矩阵全绿 / V8b 0 命中 / buffer to 900K WARN 262,692",
+          "evidence_paths": [
+            "ai_platforms/gemini_gems/current/uploads/04_business_scenarios_and_cross_domain.md",
+            "ai_platforms/gemini_gems/current/system_prompt.md",
+            "ai_platforms/gemini_gems/dev/evidence/validate_single_batch.md",
+            "ai_platforms/gemini_gems/dev/evidence/node5_1_gemini_writer_summary.md",
             "ai_platforms/gemini_gems/dev/evidence/phase4_n5_1_reviewer.md"
+          ],
+          "carry_over_low_non_blocking_to_n5_2_or_n5_5": [
+            "LOW: writer summary char count 自述 7087 vs 实测 7093 差 6 (统计口径 bug, 非事实错)",
+            "LOW: TI 核心变量口径 writer 6 subset 合理 (KB 8 变量, writer 表列 6 业务 + STUDYID/DOMAIN 合规)",
+            "LOW: §22.3 CP 'Cell Phenotype Findings' Label 未独立核 (CP 域文件存在 ✅ 但 Label 精确性 reviewer 未反查)",
+            "SUGG (reviewer): writer 下次增 N=10 随机 KB 反查自检, 降低 self-confirming bias",
+            "SUGG (reviewer): Rule E Q5 平权角度 §1.26 Quick Reference 未纳入 specialty 域, Node 5.5 清理可扩",
+            "CARRY-N5-2 (from N4 reviewer, 技术债延续): V8 pattern v2.1 收紧 (只 FAIL 真 Term Submission Value)"
           ]
         }
       }

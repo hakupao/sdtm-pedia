@@ -236,6 +236,9 @@ def _collect_domain_examples() -> list[Path]:
     return _collect_domain("examples")
 
 
+# DEPRECATED (Phase 4 N5.1): 此 helper 由 merge_for_chatgpt.py v1.5 的硬编码 MERGE_CONFIGS
+# (07/08/09 expected sources 固定 15/49/27) 取代, 未来新批次引入新术语子库时再评估复用.
+# 保留函数签名防 import 断裂, 但新代码不得调用.
 def _collect_terminology(subdir: str) -> list[Path]:
     """legacy helper (v1.3 及以前): terminology/<subdir>/*.md, sorted.
 

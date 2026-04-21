@@ -104,6 +104,10 @@ from pathlib import Path
 
 import tiktoken
 
+# 模块级版本常量 (Phase 4 N5.1 LOW L1 fix, reviewer phase3_node4_reviewer.md):
+# 避免 render_report 硬编码 "(v1.1)" 与 docstring v1.5 不一致. 升版时改此处.
+SCRIPT_VERSION = "v1.5"
+
 ENCODING_NAME = "cl100k_base"
 
 # ---------------------------------------------------------------------------
@@ -516,7 +520,7 @@ def render_report(rows: list[Row], stage: str) -> str:
         f"# ChatGPT GPTs 产物校验 — stage {stage}",
         "",
         f"> Generated: {ts}",
-        "> Script: `dev/scripts/validate_chatgpt_stage.py` (v1.1)",
+        f"> Script: `dev/scripts/validate_chatgpt_stage.py` ({SCRIPT_VERSION})",
         "> Scope: V1 非空 / V2 段数 (manifest truth) / V3 P12 覆盖 (逐段) / "
         "V4 P13 注释位置 / V5 token 上限 / V6 md5 / V7 单表跨 heading",
         "",

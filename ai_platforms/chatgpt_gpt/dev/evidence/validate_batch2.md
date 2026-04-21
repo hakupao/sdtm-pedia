@@ -1,7 +1,7 @@
 # ChatGPT GPTs 产物校验 — stage batch2
 
-> Generated: 2026-04-21T02:09:43Z
-> Script: `dev/scripts/validate_chatgpt_stage.py` (v1.1)
+> Generated: 2026-04-21T05:53:47Z
+> Script: `dev/scripts/validate_chatgpt_stage.py` (v1.5)
 > Scope: V1 非空 / V2 段数 (manifest truth) / V3 P12 覆盖 (逐段) / V4 P13 注释位置 / V5 token 上限 / V6 md5 / V7 单表跨 heading
 
 ## 结果矩阵
