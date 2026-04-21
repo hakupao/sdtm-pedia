@@ -4,9 +4,9 @@
   "mode": "async",
   "sync_board_participation": false,
   "start_date": "2026-04-21",
-  "last_update": "2026-04-21_phase2_v2_PASS_post_architect_review_ready_for_phase3",
+  "last_update": "2026-04-21_phase3_p3.1_merge_sources_and_instructions_done_ready_for_p3.2_webui_upload",
   "status": "in_progress",
-  "current_phase": "3_execute_phase_A_gated_on_user_ack",
+  "current_phase": "3_execute_p3.1_done_ready_for_p3.2_user_webui",
   "architecture_version": "v2_single_notebook_2026-04-21",
   "phase_states": {
     "0_bootstrap": {
@@ -162,11 +162,29 @@
         }
       },
       "phase_a_placeholders_to_resolve_in_phase3": [
-        "bucket 02 (02_common_identifiers_and_timing.md): 目前 files=0, 内容需 P3.1 前从 VARIABLE_INDEX.md Section 一 手工抽 (24 跨域变量详表) 或 merge_sources.py 生成",
-        "bucket 42 (42_req_variable_coverage_audit.md): auto-generated, P3.1 前复制 req_vars_coverage_audit.md 到 current/uploads/42_*.md"
+        "bucket 02 (02_common_identifiers_and_timing.md): CLOSED 2026-04-21 P3.1 (merge_sources.py _auto_source=variable_index_common, 1,080 words 写入)",
+        "bucket 42 (42_req_variable_coverage_audit.md): CLOSED 2026-04-21 P3.1 (merge_sources.py _auto_source=req_coverage_audit, 4,833 words = coverage_audit.md + full_set.md 双份)"
       ],
-      "phase_3_entry_gate_status": "OPEN — Phase A 核心 hard checkpoint 全 PASS (A1/A2/A3/A4/A5'), 等用户 ack 启动 Phase 3 P3.0/P3.1",
-      "next_action": "用户 ack 启动 Phase 3 → P3.0 pre-flight → P3.1 (可选 merge_sources + resolve 2 placeholder buckets) → P3.2 单批上传"
+      "phase_3_entry_gate_status": "OPEN — 已进 Phase 3, P3.1 done, 等用户 P3.2 Web UI 上传",
+      "p3_1_completion": {
+        "date": "2026-04-21",
+        "sub_actions": {
+          "bucket_config_extension": "done — bucket 02 加 _auto_source=variable_index_common; bucket 42 加 _auto_source=req_coverage_audit (替 _auto_generated=true)",
+          "merge_sources_script": "done — dev/scripts/merge_sources.py (新脚本, 读 bucket_config.json 按 files[] 合成 42 个 md 源, 处理 2 个 _auto_source 特殊分支, 自动写 MANIFEST.md)",
+          "uploads_generated": "done — current/uploads/*.md × 42 (1,582,085 total words, 最大 38_ct_questionnaires_part1_22.md 302K words = 60% of 500K cap)",
+          "manifest_regenerated": "done — current/uploads/MANIFEST.md 真实字数 (bucket 02: 1,080 / bucket 42: 4,833, 非 0)",
+          "instructions_md": "done — current/instructions.md (Chat Custom mode, 9,011 chars = 90% of 10K cap, 11% headroom; 13 behavior rules + SDTM-specific anchors: AESER=Exp / LBNRIND 全写 / NY codelist / ISO 8601 / C-code 字面 / Day 1 无 Day 0)"
+        },
+        "artifacts_shipped": [
+          "ai_platforms/notebooklm/dev/scripts/merge_sources.py (new)",
+          "ai_platforms/notebooklm/dev/scripts/bucket_config.json (modified: _auto_source fields)",
+          "ai_platforms/notebooklm/current/uploads/*.md × 42 (generated/regenerated)",
+          "ai_platforms/notebooklm/current/uploads/MANIFEST.md (regenerated with real words)",
+          "ai_platforms/notebooklm/current/instructions.md (new, Chat Custom mode)"
+        ],
+        "ready_for_p3_2": true
+      },
+      "next_action": "用户操作 P3.2: 登 notebooklm.google.com → 新建 'SDTM Knowledge Base' notebook → 拖 current/uploads/*.md × 42 全选上传 → 等 indexing 完成; P3.3 贴 current/instructions.md 全文到 Chat Custom mode + 验证三档切换 (H3)"
     },
     "4_review": {
       "status": "locked"
