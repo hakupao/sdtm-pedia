@@ -6,7 +6,7 @@
   "created_at": "2026-04-20",
   "last_updated": "2026-04-21",
   "current_phase": 4,
-  "overall_status": "phase_4_n5_1_PASS_writer_and_reviewer_closed_2_med_in_session_ready_for_commit_c5_1_then_n5_2_smoke_v2_1_rerun",
+  "overall_status": "phase_4_n5_2_PASS_smoke_v2_1_9_of_10_strict_plus_system_prompt_v4_to_v5_fix_applied_3_fixes_CO1b_CO2_LBNRIND_CO2c_ARM_ready_for_commit_c5_2_then_user_webui_update_v5_plus_gemini_q3_retest",
   "sync_locked_with": "chatgpt_gpt",
   "sync_board_path": "ai_platforms/SYNC_BOARD.md",
   "notes": "Phase 定义对齐 ROADMAP.md 六段制. Phase 2 双边 CONDITIONAL_PASS, 等用户 ack 进 Phase 3. Gemini Tier 1-2 最轻量平台.",
@@ -559,6 +559,62 @@
             "SUGG (reviewer): writer 下次增 N=10 随机 KB 反查自检, 降低 self-confirming bias",
             "SUGG (reviewer): Rule E Q5 平权角度 §1.26 Quick Reference 未纳入 specialty 域, Node 5.5 清理可扩",
             "CARRY-N5-2 (from N4 reviewer, 技术债延续): V8 pattern v2.1 收紧 (只 FAIL 真 Term Submission Value)"
+          ]
+        },
+        "N5_2_smoke_v2_1_regression": {
+          "status": "PASS_9_of_10_strict_with_N5_1_self_pollution_root_cause_revealed_and_v5_fix_applied",
+          "started_at": "2026-04-21",
+          "completed_at": "2026-04-21",
+          "executed_by": "user + claude-in-chrome MCP (Chrome JS Quill helper)",
+          "gem_url": "https://gemini.google.com/u/1/gem/3b572e310813",
+          "step3_verify_gate": "PASS 4/4 — §1.6 DM ACTARM / §12.4 MIDS-SM / §22.7 UR Label / CO-1 AESER 边界 all landed, independent verification",
+          "step4_smoke_v2_1": "PASS 9/10 strict — Q1/Q2/Q4/Q5/Q6/Q7/Q8/Q9/Q10 PASS, Q3 FAIL (root cause N5.1 self-pollution, not Gemini reasoning)",
+          "delta_vs_node4_smoke_v2_0": "+1 (8→9), Q6 FAIL→PASS due to N5.1 §1.6 DM ACTARM hard anchor landing",
+          "q3_fail_root_cause": "N5.1 Gemini writer 在 system_prompt v4 L65 CO-2 子条款原创虚构 'LBNRIND 的 L/N/H' 示例; KB LB/spec.md L264 + LB/assumptions.md L7 + terminology/core/general_part4.md L63-72 C78736 实际全部为 HIGH/LOW/NORMAL 全写; Gemini 忠实执行 v4 L65 虚构指令 inline H/N/L 直接触 SMOKE v2.1 FAIL 判据",
+          "q3_fail_is_instruction_level_contradiction_not_gemini_reasoning_error": true,
+          "dispatched_subagents": [
+            "gemini_n5_2_reviewer (oh-my-claudecode:verifier 第 18 种 subagent_type, Rule D, Write) — Verdict CONDITIONAL_PASS 88% Gate CONFIRM, 430 行 64 citations, 独立验证 N5.1 自污染假设 SUPPORTED + Rule A N=3 (Q1/Q6/Q9) 3/3 无翻转 + 独立核实三硬锚点生效 + 发现 HIGH-1 + MED-1 + MED-2 + LOW-1/2",
+            "chatgpt_n5_2_reviewer (oh-my-claudecode:planner 第 19 种 subagent_type, Rule D, Write) — Verdict CONDITIONAL_PASS 88% Gate CONFIRM with 1 ADJUST, 413 行 90 citations, 独立抽样 Rule A N=5 (Q3+Q7+Q5+Q8+Q10) 5/5 判据命中 + 跨平台 Q3 对照 B 主因 70%+A 次因 30% + 独立 Grep `LBNRIND` ChatGPT system_prompt 0 匹配确认无等价自污染 + Q7 CMINDC 双因归因 KB 60%+v2.1 bullet 40% + N5.1 P5 4 项全真合规"
+          ],
+          "rule_d_cumulative_subagent_types": 19,
+          "v5_fix_applied_main_session": {
+            "fix_1_HIGH_1_LBNRIND_CT_anchor": "system_prompt.md CO-2 subclause 重写 AESEV(C66769)/AESER(C66742)/LBNRIND(C78736) 三条以 CDISC CT 官方为准 + LBNRIND 禁 H/L/N 单字符硬锚",
+            "fix_2_MED_1_ACTARMCD_ACTARM_Core_Exp_anchor": "system_prompt.md CO-1b 新段 DM 域 ACTARMCD/ACTARM Core=Exp 硬锚 (区别 ARMCD/ARM Core=Req)",
+            "fix_3_MED_2_ARM_no_CT_NCI_guard": "system_prompt.md CO-2c 新段 ARM/ACTARM protocol-specific 自由文本无 CT codelist 约束, 禁 NCI code 误引 (如 C66735 Route of Admin)",
+            "char_count_final": "7925 / 8000 budget / 0.94% buffer",
+            "version_header": "v4 → v5"
+          },
+          "phase4_gate": "CONFIRM (双审独立 gate CONFIRM + v5 fix 已落, 用户 Web UI 更新 v5 + Q3 单题补测后 → N5.3 Full A/B)",
+          "evidence_paths": [
+            "ai_platforms/gemini_gems/dev/evidence/smoke_v2_1_results.md",
+            "ai_platforms/gemini_gems/dev/evidence/smoke_v2_1_verify_results.md",
+            "ai_platforms/gemini_gems/dev/evidence/smoke_v2_1_answers/Q1_answer.md",
+            "ai_platforms/gemini_gems/dev/evidence/smoke_v2_1_answers/Q2_answer.md",
+            "ai_platforms/gemini_gems/dev/evidence/smoke_v2_1_answers/Q3_answer.md",
+            "ai_platforms/gemini_gems/dev/evidence/smoke_v2_1_answers/Q4_answer.md",
+            "ai_platforms/gemini_gems/dev/evidence/smoke_v2_1_answers/Q5_answer.md",
+            "ai_platforms/gemini_gems/dev/evidence/smoke_v2_1_answers/Q6_answer.md",
+            "ai_platforms/gemini_gems/dev/evidence/smoke_v2_1_answers/Q7_answer.md",
+            "ai_platforms/gemini_gems/dev/evidence/smoke_v2_1_answers/Q8_answer.md",
+            "ai_platforms/gemini_gems/dev/evidence/smoke_v2_1_answers/Q9_answer.md",
+            "ai_platforms/gemini_gems/dev/evidence/smoke_v2_1_answers/Q10_answer.md",
+            "ai_platforms/gemini_gems/dev/evidence/phase4_n5_2_smoke_reviewer.md",
+            "ai_platforms/gemini_gems/current/system_prompt.md (v5)"
+          ],
+          "carry_over_to_n5_3": [
+            "HIGH-1 (已 v5 修, 待补测验): Gemini Q3 LBNRIND 回归补测 — 用户 Web UI 更新 v5 后单题问 HbA1c 判据验 HIGH/LOW/NORMAL 全写 FAIL→PASS",
+            "MED-1 (已 v5 修, 待 N5.3 验): ACTARMCD/ACTARM Core=Exp 硬锚 — N5.3 Q6 回归可验",
+            "MED-2 (已 v5 修, 待 N5.3 验): ARM/ACTARM 无 CT 禁 NCI code 误引",
+            "LOW: Q7 MHENRF 偏好补丁 (04 加 'ongoing-with-RFSTDTC 走 --ENRF' 规则)",
+            "LOW: CO-3 源路径格式粒度统一 (§变量 vs §号)",
+            "LOW (from ChatGPT reviewer ADJUST): SMOKE v2.2 Q4 判据偏离 C66769 可选修订 (ChatGPT 答案已正确更严谨, 不扣 PASS)",
+            "LOW (from Gemini reviewer): Q6 ACTARMCD/ACTARM Core=Req 小错 (现已 v5 硬锚修)",
+            "SUGG: writer 自检 N=7→N=10 负例, N5.3 跨平台 10 题核心子集 1:1 对照"
+          ],
+          "user_action_awaiting": [
+            "Step 1: 更新 Gemini Custom Instructions v5 (7925 chars, 粘贴 ai_platforms/gemini_gems/current/system_prompt.md)",
+            "Step 2: 单题补测 Q3 (HbA1c LBNRIND 判据) — 期望答 HIGH/LOW/NORMAL 全写 (对比 v2.1 smoke Q3 答 H/N/L)",
+            "Step 3: 若 Q3 补测 PASS → 用户 ack → N5.3 Full A/B 矩阵 (ChatGPT 13-15 题 + Gemini 10 题)"
           ]
         }
       }
