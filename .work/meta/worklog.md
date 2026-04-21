@@ -937,6 +937,49 @@
   - Claude v2 留下的 4 条全局规则 (A/B/C/D) + 1 条候选规则 (E) 通过范本结构化传递, 不再靠每个项目复盘独立重新发现
 - **下一步**: H5 commit + push + session wrap-up (本条); 实际 Phase 0 启动由用户触发, 本次不执行
 
+### 2026-04-21 Phase 6.5 NotebookLM 架构 pivot v1→v2 + Phase A Setup 完成
+
+- **状态**: 已完成 (Phase 3 entry gate OPEN)
+- **触发**: 用户 Phase 2 v1 (3 notebook 架构) PASS 91% 后 review 时质疑 "3 notebook 是否过重 + 293 一对一是否过多", 三 WebFetch 核实官方文档推翻 v1 三假设
+- **Pivot 三证据** (2026-04-21 并行 WebFetch):
+  - `answer/16206563`: 50-cap **仅适用 Restricted invite 档**, 不覆盖 Anyone with link / Public
+  - `answer/16322204`: "Set Notebook Access back to Restricted" 证明三档 (Restricted / Anyone with link / Public) 是**同一 notebook 的 toggle**, 不是独立 notebook 类型
+  - `answer/16213268`: "Sharing a notebook does not change the source limit for any collaborator" 暗示 viewer 受自己 tier cap 限 (Free 50 sources), 导向 ≤50 保守上限
+- **v1 被舍弃决策 D1-D10** (archive/v1_3notebook_SUPERSEDED_2026-04-21/): 3 notebook / 293 一对一 / 353 上传 / 45 题 A/B / uploads_main/invite/public 目录拆分 / Phase A A5 hard gate / P12 hard rule / I8+C2.9 carry-over / cluster ≤30 target / Chat mode 三 notebook 决策
+- **v1 保留资产 A-F**: research.md Q1-Q6/Q8-Q10 事实 / 8 种 subagent_type Rule D 链延长而非复位 / 用户 Q1+Q2 ack / Rule E ack / _template 补丁候选 (7→11) / 脚本设计意图
+- **v2 核心架构**: **1 notebook × ≤50 sources + ABC 场景分享档位切换** (Scope A = Restricted 默认态 / Scope B = Restricted+invite ≤50 OR Anyone with link / Scope C = Public)
+- **执行流程**:
+  - **C5.1 pivot bundled** (`d51cbdc`, 12 files): v1 产物归档 (PLAN_v1_3notebook.md 951 行 + phase1/2_reviewer×2) → archive/v1_3notebook_SUPERSEDED_2026-04-21/ 并产 ARCHITECTURE_PIVOT_RECORD.md; v2 产物新建 (PLAN 548 行 + research Q7+§11 v2 + platform_profile v2 + ROADMAP v2 + README v2 + _progress.json reset)
+  - **C5.2 reviewer + findings** (`f436bea`, 4 files): 第 9 种 subagent_type `oh-my-claudecode:architect` 架构级独立审 Verdict CONDITIONAL_PASS 84% → PASS, 3 HIGH (H1 bucket 契约 / H2 蕴含式断言 / H3 Chat mode 假设) + 5 MEDIUM (M1 语义审/M2 A5'小样/M3 smoke 3→10/M4 pivot 归因 3 层/M5 ≤50 归因降级) + 5 LOW + 5 SUGGESTION 全闭合, PLAN 扩到 610 行
+  - **C5.3 Q-REV ack** (`faa936d`, 1 file): 用户 "全接受" 3 Q-REV auto defaults (H3 假设待 P3.3 验证 / M2 A5' 接受 / M1 Q1 双锚接受), Phase 3 entry gate 5/5 OPEN
+  - **C6 Phase A 全 PASS** (`9fb35bd`, 10 files): A1 pre-upload audit (295 md, 1.58M words, max 65K words 13% cap, 0 outlier) + A2 extract_req_vars.py (**176 独立 Req 变量** = 9 通用 + 167 领域专属; PLAN 原估 100-120 偏低) + A3 cluster_req_variables.py + bucket_config.json (**42 bucket**, 8 slot headroom, 295/295 files + 63/63 domains 全覆盖) + A4 ∅ gap 结构级自证 (**176/176 Req 变量 PASS**, 蕴含式 H2 fix 落实) + A5' 用户实测 (43 单批 OK, P3.2 单批锁定)
+- **关键决策**:
+  - 重做干净不混用 (archive v1 + 新 v2 不耦合), 用户"推倒重来 cost 接受"
+  - Rule D 第 9 种 subagent_type `architect` 架构级审 (前 8 种 general-purpose / verifier / executor / critic / planner / analyst / code-architect / pr-review-toolkit:code-reviewer)
+  - _template 补丁从 7 → 11 条 (新增 10a/10b.1/10b.2 覆盖 Writer 叙事合成伪约束 / 跨 Phase 回溯盲 / 用户反问作最后防线)
+  - Q1 零丢失红线从 v1 单锚 (A4 结构) 升 v2 双锚 (A4 结构 + P3.4.5 语义, M1 fix)
+  - 42 bucket + 8 slot headroom (远低于 50 target, 为 Phase 3 P3.1 合并阶段预留弹性)
+- **Phase A 核心指标**:
+  - 295 md 全部 <500K words/source cap (max lb_part3 65K, 13% cap)
+  - 176 独立 Req 变量被 42 bucket ∅ gap 覆盖 (结构级 PASS)
+  - max bucket 302K words < 500K cap (有余量)
+  - 42 bucket 占 Pro 300 cap 的 14%, 远低于压力水位
+- **新产物路径** (本次 session):
+  - `ai_platforms/notebooklm/docs/PLAN.md` v2 (610 行)
+  - `ai_platforms/notebooklm/docs/research.md` Q7+§11 v2 (原位重写)
+  - `ai_platforms/notebooklm/docs/platform_profile.md` v2 (全文重写)
+  - `ai_platforms/notebooklm/ROADMAP.md` v2 + `README.md` Phase 表更新
+  - `ai_platforms/notebooklm/archive/v1_3notebook_SUPERSEDED_2026-04-21/` (1 record + 1 v1 PLAN + 4 v1 reviewer)
+  - `ai_platforms/notebooklm/dev/evidence/` 6 新 (phase2_v2_reviewer / pre_upload_audit / req_vars_full_set / source_mapping / req_vars_coverage_audit / phase_a_webui_small_sample)
+  - `ai_platforms/notebooklm/dev/scripts/` 3 新 (extract_req_vars.py + cluster_req_variables.py + bucket_config.json)
+  - `ai_platforms/notebooklm/current/uploads/MANIFEST.md` (42 bucket 清单)
+  - 本次 session 共 4 commits / ~26 files / ~+5400 insertions
+- **影响面**:
+  - NotebookLM 从 Phase 2 v1 PASS 91% (3 notebook 架构) pivot 到 v2 Phase A 完成 (1 notebook × 42 bucket ≤50, Q1 双锚 + Rule D 9 链)
+  - _template 补丁候选 7 → 11 条 (新增 3 条专治架构级审查盲区 + 1 条 rewrite 多 notebook 决策树)
+  - 全局 "Rule D 8 lane 都过不等于架构没问题" 教训落成 _template 补丁 + PLAN §11 RETROSPECTIVE 预写段 (架构级盲区必须靠用户反问 gate 作最后防线)
+- **下一步**: Phase 3 启动 (P3.1 前置 polish 2 个 auto-generated bucket + merge_sources.py + P3.2 上传 + P3.3 Custom mode + H3 切换验证 + P3.4/4.5 双 smoke + Audio/Mind Map/Study Guide + 15 题 A/B + P3.9 3 档切换演练)
+
 ### 2026-04-20 晚 Phase 6.5 Claude README 补充订阅套餐分享限制
 
 - **状态**: 已完成
