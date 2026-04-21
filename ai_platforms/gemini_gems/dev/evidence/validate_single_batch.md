@@ -1,32 +1,33 @@
-# Gemini Gems 单批校验报告
+# Gemini Gems v2.0 C 方案校验报告
 
-> Generated: 2026-04-20T09:39:00Z
-> Stages validated: core, spec, knowledge, terminology
-> Total tokens: 884,918 (target ≤800,000)
+> Generated: 2026-04-21T02:32:47Z
+> Stages validated: navigation, spec_plus_assumptions, examples_only, business_scenarios
+> Total tokens: 616,113 (target ~820,000)
 
 ## 校验矩阵
 
-| file | exists | bytes | tokens | target | segments | V1 | V2 | V4 | V6 | md5 (head12) |
+| file | exists | bytes | tokens | target | segments | V1 | V2 | V4 | V8 | md5 (head12) |
 |------|:------:|------:|-------:|-------:|---------:|:--:|:--:|:--:|:--:|--------------|
-| 01_core_reference.md | Y | 476,866 | 124,512 | 120,000 | 15 | PASS | PASS | PASS | - | 7e212bf21277 |
-| 02_domain_specs.md | Y | 675,446 | 185,785 | 168,000 | 63 | PASS | PASS | PASS | - | ee15430f82d8 |
-| 03_domain_knowledge.md | Y | 909,002 | 275,318 | 225,000 | 126 | PASS | PASS | PASS | - | 6301b6e053ff |
-| 04_terminology_core.md | Y | 1,111,314 | 299,303 | 200,000 | 5 | PASS | PASS | PASS | PASS | 68b904528240 |
+| 01_navigation_and_quick_reference.md | Y | 476,877 | 124,515 | 150,000 | 15 | PASS | PASS | PASS | - | ee199795281d |
+| 02_domains_spec_and_assumptions.md | Y | 919,567 | 240,453 | 400,000 | 126 | PASS | PASS | PASS | - | 57a00f3bc239 |
+| 03_domains_examples.md | Y | 664,912 | 220,657 | 280,000 | 63 | PASS | PASS | PASS | - | 8c8ae684b7d4 |
+| 04_business_scenarios_and_cross_domain.md | Y | 79,249 | 30,488 | 60,000 | 1 | PASS | PASS | PASS | PASS | 77849fe557f0 |
 
 ## V3 累计 token 判定
 
-- Total: **884,918** tokens
-- Target (P11): ≤800,000
-- Warn threshold (§8 R2): >900,000
+- Total: **616,113** tokens
+- Target (C 方案): ~820,000
+- Warn threshold: >900,000
 - Hard threshold (1M 窗口): >1,000,000
 
-- **V3 PASS**: total 884,918 **exceeds** target 800,000 (+10.6%) but remains below WARN threshold 900,000 (余 15,082) and 1M hard threshold; rc=0 correct per V3 3-tier band logic (PASS / WARN >900K / FAIL >1M). 描述笔误修正于 2026-04-20 Node 3 (Gemini LOW-1 AB reviewer carry-over).
+- **V3 PASS**: total 616,113 ≤ warn 阈.
 
 ## 备注 (逐文件)
 
-### 04_terminology_core.md
-- V2 INFO: 5 segments recorded (no min cap)
-- V6 PASS: tail 30% has 3 terminology segments (≥3)
+### 04_business_scenarios_and_cross_domain.md
+- V2 INFO: 1 segments (writer-authored, no KB source required)
+- V8a PASS: size 79,249 > 10,000
+- V8b PASS: inline codelist lines matched 0 (<5)
 
 ## 判定
 

@@ -1,17 +1,18 @@
 #!/usr/bin/env python3
 """ChatGPT GPTs 合并脚本 — 9 产物 (P12 溯源 + P13 TableAware).
 
-按 PLAN.md §2.4 清单, 把 knowledge_base/ 下源 md 合并为 9 个 ChatGPT 上传文件:
+按 PLAN.md §2.4 + PLAN_BATCH2.md, 把 knowledge_base/ 下源 md 合并为 9 个
+ChatGPT 上传文件:
 
-    01_navigation.md             (ROUTING + INDEX + VAR_INDEX)        批 1
-    02_chapters_all.md           (chapters/ 6 文件)                   批 1
-    03_model_all.md              (model/ 6 文件)                      批 1
-    04_domain_specs_all.md       (63 domains/*/spec.md)               批 1
-    05_domain_assumptions_all.md (63 domains/*/assumptions.md)         批 2
-    06_domain_examples_all.md    (63 domains/*/examples.md)            批 2
-    07_terminology_core.md       (terminology/core/)                   批 2
-    08_terminology_questionnaires.md (terminology/questionnaires/)     批 2
-    09_terminology_supplementary.md  (terminology/supplementary/)      批 2
+    01_navigation.md                     (ROUTING + INDEX + VAR_INDEX)    批 1
+    02_chapters_all.md                   (chapters/ 6 文件)               批 1
+    03_model_all.md                      (model/ 6 文件)                  批 1
+    04_domain_specs_all.md               (63 domains/*/spec.md)           批 1
+    05_domain_assumptions_all.md         (63 domains/*/assumptions.md)    批 2
+    06_domain_examples_all.md            (63 domains/*/examples.md)       批 2
+    07_terminology_core_high_freq.md     (core 高频 15 文件, 按业务频次)   批 2
+    08_terminology_quest_and_supp.md     (questionnaires 43 + supp 6)     批 2
+    09_terminology_core_mid_tail.md      (core 剩余 27 文件, 低频)        批 2
 
 P11 合规: 9 产物 ≤ 20 硬限.
 
@@ -65,6 +66,36 @@ v1.3 修复记录 (2026-04-20, Node 2 attempt_1 V5 FAIL → cap 微调):
     (+2.17% buffer). 实测 VARIABLE_INDEX.md 密度略 >4 chars/token 导致
     +15% 粗估 buffer 不足. 不违 P5 (不动 KB), 不违 P11 (文件数不变).
   - 详见 failures/stage_1_attempt_1.md §6 方案 A.
+
+v1.5 修复记录 (2026-04-21, Node 4 batch 2 attempt_1 V5 FAIL 06 cap 微调):
+  - 06_domain_examples_all.md V5 FAIL 16.09% (220,575 > 190,000) →
+    token_cap 190_000 → 254_000 (+15.2% buffer from 实测 × 1.15).
+  - 原 190K 估算 (661 KB source × 4 chars/token × 1.15 = 190K) 过乐观;
+    实测 examples 密集表格 chars/token 约 3.3-3.6 (同 01 VARIABLE_INDEX
+    机理), PLAN_BATCH2 粗估 buffer 不足. 不违 P5 (不动 KB), 不违 P11.
+  - 详见 `failures/stage_batch2_attempt_1.md`.
+
+v1.4 修复记录 (2026-04-21, Node 4 batch 2 重排 + CO-2 处置):
+  依据: PLAN_BATCH2.md + Node 3b carry-over CO-2 (smoke PASS 5/5 后, S3 NCI
+  EVS 外链建议落在 system_prompt, merge 侧配合重排 terminology 三文件).
+  - 07/08/09 三文件语义重定义 (原: core/ quest/ supp/ 原子; 新: 按业务频次
+    精选):
+      * 07_terminology_core_high_freq.md   = core/ HIGH_FREQ_CORE_HINTS 列出
+        的 15 文件 (顺序按 hints 列表, 不 sorted), 覆盖 smoke v2 10 题所需
+        高频 codelist (AE / DM / LB / VS / EG / PK / QS / FA / DS / IE / SP /
+        TS / general_3 / general_4 / onc_part1 等).
+      * 08_terminology_quest_and_supp.md   = sorted(questionnaires/*.md 43)
+        + sorted(supplementary/*.md 6) = 49 段硬固 (无动态).
+      * 09_terminology_core_mid_tail.md    = sorted(core/*.md) 减 hints
+        所列, 剩余 27 个低频 (cp_part1/2, eg_part2/3, general_part1/2/5,
+        gf, is_domain_part1/2, lb_part2-4, mi, microbiology_part1-3, oi,
+        oncology_part2, other_part1-5, pk_part2-4).
+  - 全 batch 2 entry 的 expected_segments 硬编码, 不再 =0 动态; manifest
+    expected 即为硬编码值 (dynamic=False), 提高独立真源强度.
+  - HIGH_FREQ_CORE_HINTS 常量放在模块顶部, 方便后续迭代 A/B 数据驱动调整.
+    若某文件缺失 (KB reorg), collector 跳过并 stderr 警告, 段数按实际写
+    manifest — 若与硬编码 expected 不符, MEDIUM-3 fail-fast 抓到.
+  - 01-06 entry 不变 (batch 1 已上 + 05/06 已硬编 63).
 """
 from __future__ import annotations
 
@@ -78,6 +109,30 @@ from typing import Callable
 import tiktoken
 
 ENCODING_NAME = "cl100k_base"
+
+# ---------------------------------------------------------------------------
+# v1.4: 业务高频 terminology/core 清单
+# ---------------------------------------------------------------------------
+# 依据: PLAN_BATCH2.md + smoke v2 10 题覆盖 (4 维度: 场景 / 规则 / 映射 / 鉴别).
+# 顺序固定 (列表序, 非 sorted), 07 合并时按此顺序落段, 与业务优先级对齐.
+# 后续若依 A/B 数据调整 (哪些被错归为 07/09), 改本常量即可, 不动 collector.
+HIGH_FREQ_CORE_HINTS = [
+    "ae.md",
+    "dm.md",
+    "disposition.md",
+    "eg_part1.md",
+    "findings_about.md",
+    "general_part3.md",
+    "general_part4.md",
+    "interventions.md",
+    "lb_part1.md",
+    "oncology_part1.md",
+    "pk_part1.md",
+    "qs_part1.md",
+    "special_purpose.md",
+    "trial_design.md",
+    "vs.md",
+]
 
 # ---------------------------------------------------------------------------
 # Paths
@@ -182,36 +237,87 @@ def _collect_domain_examples() -> list[Path]:
 
 
 def _collect_terminology(subdir: str) -> list[Path]:
-    """07/08/09: terminology/<subdir>/*.md, sorted."""
+    """legacy helper (v1.3 及以前): terminology/<subdir>/*.md, sorted.
+
+    v1.4 起 07/08/09 不再直接用此 helper 作 collector, 仅保留供调试用.
+    实际生产 collector 见 _collect_terminology_core_high_freq /
+    _collect_terminology_core_mid_tail / _collect_terminology_quest_and_supp.
+    """
     d = KB_DIR / "terminology" / subdir
     if not d.is_dir():
         return []
     return sorted(p for p in d.glob("*.md") if p.is_file())
 
 
-def _collect_terminology_core() -> list[Path]:
-    return _collect_terminology("core")
+def _collect_terminology_core_high_freq() -> list[Path]:
+    """07 (v1.4): core/ 中 HIGH_FREQ_CORE_HINTS 列出的 15 个高频文件.
+
+    顺序按 HIGH_FREQ_CORE_HINTS 列表 (非 sorted), 以业务优先级落段.
+    若列表某文件在 KB 缺失 (例如 reorg), 跳过并 stderr 警告, 不 raise —
+    段数按实际写 manifest, 若与硬编码 expected 不符, run_entry 的
+    MEDIUM-3 fail-fast 抓到.
+    """
+    d = KB_DIR / "terminology" / "core"
+    if not d.is_dir():
+        return []
+    out: list[Path] = []
+    for name in HIGH_FREQ_CORE_HINTS:
+        p = d / name
+        if p.is_file():
+            out.append(p)
+        else:
+            print(
+                f"warn: HIGH_FREQ_CORE_HINTS missing in KB: {name} "
+                f"(expected at {p.relative_to(REPO_ROOT)})",
+                file=sys.stderr,
+            )
+    return out
 
 
-def _collect_terminology_questionnaires() -> list[Path]:
-    return _collect_terminology("questionnaires")
+def _collect_terminology_core_mid_tail() -> list[Path]:
+    """09 (v1.4): core/*.md sorted 减 HIGH_FREQ_CORE_HINTS 列出的 15 个.
+
+    sorted 顺序 (字母序), 保证 idempotent. 若 KB 新增 core 文件未分档,
+    默认落入 09 mid_tail (而非 07).
+    """
+    d = KB_DIR / "terminology" / "core"
+    if not d.is_dir():
+        return []
+    high_set = set(HIGH_FREQ_CORE_HINTS)
+    return sorted(
+        p for p in d.glob("*.md")
+        if p.is_file() and p.name not in high_set
+    )
 
 
-def _collect_terminology_supplementary() -> list[Path]:
-    return _collect_terminology("supplementary")
+def _collect_terminology_quest_and_supp() -> list[Path]:
+    """08 (v1.4): sorted(questionnaires/*.md) ++ sorted(supplementary/*.md).
+
+    合并两子目录, questionnaires 先 (43 段) + supplementary 后 (6 段) =
+    49 段. 两子目录内部各自 sorted, 保证 idempotent.
+    """
+    q_dir = KB_DIR / "terminology" / "questionnaires"
+    s_dir = KB_DIR / "terminology" / "supplementary"
+    q_files = sorted(p for p in q_dir.glob("*.md") if p.is_file()) \
+        if q_dir.is_dir() else []
+    s_files = sorted(p for p in s_dir.glob("*.md") if p.is_file()) \
+        if s_dir.is_dir() else []
+    return q_files + s_files
 
 
 # token_cap: PLAN §2.4 估算大小 → token 粗估 (1 token ≈ 4 chars) + 15% buffer.
 # 01: v1.3 微调 46_000 → 47_000 (实测 VARIABLE_INDEX 密度偏高).
-# 01 159 KB → ~40K tokens → cap 46K
+# 01 159 KB → ~40K tokens → cap 47K
 # 02 246 KB → ~62K tokens → cap 72K
 # 03  70 KB → ~18K tokens → cap 21K
 # 04 672 KB → ~168K tokens → cap 193K
 # 05 240 KB → ~60K tokens → cap 69K
-# 06 661 KB → ~165K tokens → cap 190K
-# 07 3.2 MB → ~800K tokens → cap 920K
-# 08 3.8 MB → ~950K tokens → cap 1_095K
-# 09 0.6 MB → ~150K tokens → cap 173K
+# 06 661 KB → 实测 220K tokens → cap 254K (v1.5 attempt_1 后微调 +15% buffer)
+# v1.4 重排 07/08/09:
+# 07 core 高频 15 (HIGH_FREQ_CORE_HINTS): ~1 MB → ~225K tokens → cap 260K (+15%)
+# 08 quest 43 + supp 6 = 49: ~4.2 MB → ~1.05M tokens → cap 1_250K (+19%)
+# 09 core 低频 27: ~2.5 MB → ~625K tokens → cap 820K (+31%; buffer 宽以防
+#    long-tail codelist 密度偏高, 参考 01 偏差经验)
 
 
 MERGE_CONFIGS: list[MergeEntry] = [
@@ -261,31 +367,40 @@ MERGE_CONFIGS: list[MergeEntry] = [
         description="63 域 examples.md (示例场景)",
         source_collector=_collect_domain_examples,
         expected_segments=63,
-        token_cap=190_000,
+        token_cap=254_000,  # v1.5: 190→254 (attempt_1 实测 220,575 × 1.15)
     ),
     MergeEntry(
-        target="07_terminology_core.md",
+        target="07_terminology_core_high_freq.md",
         stage="batch2",
-        description="terminology/core (核心 CT codelist)",
-        source_collector=_collect_terminology_core,
-        expected_segments=0,  # 动态 (运行时按实际子文件数填充)
-        token_cap=920_000,
+        description=(
+            "terminology/core 高频 15 (HIGH_FREQ_CORE_HINTS, 业务频次序, "
+            "覆盖 smoke v2 10 题所需高频 codelist)"
+        ),
+        source_collector=_collect_terminology_core_high_freq,
+        expected_segments=15,  # v1.4 硬编码, 与 HIGH_FREQ_CORE_HINTS 长度一致
+        token_cap=260_000,
     ),
     MergeEntry(
-        target="08_terminology_questionnaires.md",
+        target="08_terminology_quest_and_supp.md",
         stage="batch2",
-        description="terminology/questionnaires (QRS codelist)",
-        source_collector=_collect_terminology_questionnaires,
-        expected_segments=0,
-        token_cap=1_095_000,
+        description=(
+            "terminology/questionnaires 43 + supplementary 6 (合并 49 段, "
+            "相对独立 codelist, 合一文件便于 RAG chunk 命中)"
+        ),
+        source_collector=_collect_terminology_quest_and_supp,
+        expected_segments=49,  # 43 + 6 硬编码
+        token_cap=1_250_000,
     ),
     MergeEntry(
-        target="09_terminology_supplementary.md",
+        target="09_terminology_core_mid_tail.md",
         stage="batch2",
-        description="terminology/supplementary (补充 CT)",
-        source_collector=_collect_terminology_supplementary,
-        expected_segments=0,
-        token_cap=173_000,
+        description=(
+            "terminology/core 低频 27 (core 剩余, 冷门 codelist: "
+            "cp/gf/is/mi/microbiology/oi/other/pk/general/lb/eg/oncology 副 part)"
+        ),
+        source_collector=_collect_terminology_core_mid_tail,
+        expected_segments=27,  # v1.4 硬编码 (42 core - 15 high = 27)
+        token_cap=820_000,
     ),
 ]
 

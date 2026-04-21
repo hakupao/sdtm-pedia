@@ -1,6 +1,6 @@
-# 01 Core Reference (Chapters + Model + Navigation)
+# 01 Navigation & Quick Reference (Chapters + Model + Indexes)
 
-> Generated: 2026-04-20T09:38:53Z
+> Generated: 2026-04-21T02:11:47Z
 > Source files: 15
 > Total tokens (cl100k_base): 124,430
 

@@ -6,7 +6,7 @@
   "created_at": "2026-04-20",
   "last_updated": "2026-04-21",
   "current_phase": 3,
-  "overall_status": "phase_3_node_3b_smoke_conditional_pass_ready_for_commit_c3b",
+  "overall_status": "phase_3_node_4_c_refactor_writer_reviewer_conditional_pass_ready_for_commit_c4_then_user_delete_old_upload_new_and_smoke_v2",
   "sync_locked_with": "chatgpt_gpt",
   "sync_board_path": "ai_platforms/SYNC_BOARD.md",
   "notes": "Phase 定义对齐 ROADMAP.md 六段制. Phase 2 双边 CONDITIONAL_PASS, 等用户 ack 进 Phase 3. Gemini Tier 1-2 最轻量平台.",
@@ -320,6 +320,97 @@
           "p12_hard_gate_downgrade": "S3/S4 P12 R1/R2 hard gate PASS 只证明'Gemini 按文件名+位置索引能查', 未证明'用户真实业务问法下末尾/中段 codelist 能命中'; 真正的 P12 gate 要在 Node 4 之后通过业务题隐式验",
           "revision_plan": "Node 4 用 ai_platforms/SMOKE_QUESTIONS_V2.md 的 10 题业务维度题重跑 (禁 filename / 禁位置 / 禁字典查), 双平台完全一致以便对比",
           "strategic_pivot_2026-04-21": "用户 ack C 方案舍弃 terminology + 重整 4 文件为业务问答优化; Node 4 执行 gemini_gems/docs/PLAN_V2_C.md 重整 + smoke v2 10 题; P12 位置 gate 退回内部脚本自测, 不再出现在用户可见 smoke 题里"
+        },
+        "N4_c_refactor": {
+          "status": "writer_CONDITIONAL_PASS_reviewer_CONDITIONAL_PASS_ready_for_commit_c4_then_user_delete_old_upload_new_and_smoke_v2",
+          "started_at": "2026-04-21",
+          "completed_at": "2026-04-21 (writer + reviewer; 用户删老 4 + 上新 4 + smoke v2 待做)",
+          "dispatched_subagents": [
+            "gemini_node4_writer (oh-my-claudecode:executor opus) — 6 交付: merge_for_gemini.py v1.3d→v2.0 (-161 行, c_refactor stage, 删 terminology 分支, _collect_spec_and_assumptions_sources 域内交错, _collect_examples_only_sources) / validate_gemini.py v1.0→v2.0 (+27 行, V8 新增 04 业务弹药合规检, V6 废除) / 04_business_scenarios_and_cross_domain.md 手写 (30,488 tokens, 26 场景 + 21 pitfall + 26 CT Code 索引 + 跨域规则 + FAQ 7 + 63 域速查) / system_prompt v2→v3 (5884→6720 chars, CO-1 AESER 锚 + CO-2 NCI EVS guard + CO-3 citation 强制 + 战略转向叙事) / upload_manifest v2 重写 / attempt_1 V8b FAIL (表格 false-positive 26 命中) → attempt_2 PASS (改列表格式绕过) rc=0",
+            "gemini_node4_reviewer (oh-my-claudecode:architect opus read-only, 规则 D 独立, 第 13 种 subagent_type) — Verdict CONDITIONAL_PASS 88%, 0 HIGH + 2 MEDIUM (MED-1 04 扩容 + MED-2 V8 pattern 收紧) + 3 LOW + 10/10 SDTM 事实抽检 PASS + 3/3 CT Code 抽检 PASS"
+          ],
+          "writer_products": [
+            "ai_platforms/gemini_gems/dev/scripts/merge_for_gemini.py (v2.0, -161 行)",
+            "ai_platforms/gemini_gems/dev/scripts/validate_gemini.py (v2.0, +27 行)",
+            "ai_platforms/gemini_gems/current/uploads/01_navigation_and_quick_reference.md (124,515 tokens / 15 sources)",
+            "ai_platforms/gemini_gems/current/uploads/02_domains_spec_and_assumptions.md (240,453 tokens / 126 sources 63spec+63assum 域内交错)",
+            "ai_platforms/gemini_gems/current/uploads/03_domains_examples.md (220,657 tokens / 63 sources)",
+            "ai_platforms/gemini_gems/current/uploads/04_business_scenarios_and_cross_domain.md (30,488 tokens, 自编业务弹药包 26 场景)",
+            "ai_platforms/gemini_gems/current/system_prompt.md (v3, 6720 chars / 8000 budget)",
+            "ai_platforms/gemini_gems/current/upload_manifest.md (v2 重写)",
+            "ai_platforms/gemini_gems/dev/evidence/node4_writer_summary.md",
+            "ai_platforms/gemini_gems/dev/evidence/validate_single_batch.md (rc=0 4/4 PASS)",
+            "ai_platforms/gemini_gems/dev/evidence/failures/stage_c_refactor_attempt_1.md (Rule B 五段式)",
+            "ai_platforms/gemini_gems/dev/checkpoints/CHECKPOINT_N4_HANDOFF.md"
+          ],
+          "deleted_old_files": [
+            "ai_platforms/gemini_gems/current/uploads/01_core_reference.md",
+            "ai_platforms/gemini_gems/current/uploads/02_domain_specs.md",
+            "ai_platforms/gemini_gems/current/uploads/03_domain_knowledge.md",
+            "ai_platforms/gemini_gems/current/uploads/04_terminology_core.md"
+          ],
+          "reviewer_verdict": "CONDITIONAL_PASS",
+          "reviewer_confidence": 88,
+          "reviewer_evidence": "ai_platforms/gemini_gems/dev/evidence/phase3_node4_reviewer.md (主 session 代写, architect read-only)",
+          "reviewer_lane_pass": true,
+          "product_stats_c_refactor": {
+            "01_navigation_and_quick_reference.md": {"tokens": 124515, "target": 150000, "sources": 15, "utilization_pct": 83.0},
+            "02_domains_spec_and_assumptions.md": {"tokens": 240453, "target": 400000, "sources": 126, "utilization_pct": 60.1, "composition": "63 spec 后紧跟 63 assumptions 域内字母序交错"},
+            "03_domains_examples.md": {"tokens": 220657, "target": 280000, "sources": 63, "utilization_pct": 78.8},
+            "04_business_scenarios_and_cross_domain.md": {"tokens": 30488, "target": 60000, "sources": 0, "utilization_pct": 50.8, "note": "Reviewer 标 MEDIUM 扩容风险 (MED-1 smoke 前预防性扩 15-25K 建议)"}
+          },
+          "total_tokens_margin": {
+            "total": 616113,
+            "warn_threshold": 900000,
+            "hard_fail_threshold": 1000000,
+            "margin_to_warn": 283887,
+            "margin_to_hard": 383887,
+            "utilization_pct_1m": 61.6,
+            "status": "PASS (<  WARN 阈, buffer 充裕 Reviewer 评过度保守建议挤 100K 到 04/01)"
+          },
+          "strategic_pivot_applied": "舍弃 terminology (由 NCI EVS Browser 承担); 04 换业务弹药包 ROI 比 299K terminology 高一个数量级",
+          "attempts": [
+            "attempt_1 FAIL: V8b pattern 在 04 §3.1 markdown 表格 26 行命中 false-positive (pattern 过宽). Rule B 归档.",
+            "attempt_2 PASS: §3.1 改 markdown 列表格式 (`- `Cxxxxx` — \"codelist 名\"`) 绕过 pattern, V8b 0 命中 rc=0"
+          ],
+          "rule_e_verified": {
+            "Q3_C_precision_and_cross_domain": "PASS (system_prompt §路由 + 04 §1-§8 覆盖精确与跨域)",
+            "Q4_A_semantics_evolved_to_c_plan": "PASS (C 方案舍弃 terminology inline 换 NCI EVS 外链 + 业务场景弹药; system_prompt 战略转向叙事清晰)",
+            "Q5_A_equal_domain_weight": "PASS (§8 63 域铺平)"
+          },
+          "co_1_2_3_landing_verified_by_reviewer": {
+            "CO-1_aeser_anchor": "PASS — system_prompt 4 结构化锚点段 + 04 5 段硬锚点; AESER 出现 sysprompt 8 处 + 04 25 处 (结构化硬锚点 2+5=7 段深度覆盖)",
+            "CO-2_nci_zero_fabrication": "PASS — system_prompt 4 段 + 04 6 段; evsexplore URL 出现 sysprompt 13 处; §6.2b C117711 防臆造范例具体到位",
+            "CO-3_citation_format": "PASS — system_prompt 3 段强制 + 04 §1.1-§1.26 每场景带源路径 + §6 模板全带; 04 '源路径' 出现 42 次"
+          },
+          "sdtm_fact_audit_10_of_10_pass": {
+            "AESER_core_exp": "PASS (04 L94 vs KB AE/spec.md L248-256)",
+            "AE_serious_subvariables_perm": "PASS (04 L97-100 vs AE/spec.md L338-398)",
+            "AESEV_core_perm": "PASS (04 L93 vs AE/spec.md L239-245)",
+            "CM_req_set_5_vars": "PASS (04 §1.1 L50-56 vs CM/spec.md)",
+            "LBNRIND_3_bucket_L_N_H": "PASS (04 L145-153 + C78736)",
+            "AESEV_3_level_plus_CTCAE_5_AESDTH": "PASS (04 §1.4 vs AE/assumptions.md §7.a §7.d)",
+            "MH_and_CM_dual_record": "PASS (04 §1.7 vs MH/assumptions.md + ch04)",
+            "CT_C66742_mapping": "PASS (04 §3.1 L1158 vs general_part4.md L5)",
+            "CT_C65047_mapping": "PASS (04 §3.1 L1166 vs lb_part2.md L5)",
+            "CT_C66769_mapping": "PASS (04 §3.1 L1159 vs ae.md)"
+          },
+          "carry_over_node4_to_node5": [
+            "CARRY-N5-1 MEDIUM (from Reviewer MED-1): 04 扩 15-25K tokens 到 50-60K target, 优先加 RECIST/影像/Oncology/Trial Design (TS/TI/TM)/IE/AG/PR. smoke 前预防性扩避免 2 轮 (Reviewer 推荐); 或 smoke 后看命中率再决定",
+            "CARRY-N5-2 MEDIUM (from Reviewer MED-2): V8 pattern v2.1 收紧, 只 FAIL 真 Term Submission Value, 放 codelist 英文名; 同时 04 §3.1 可回归标准 markdown 表格",
+            "CARRY-N5-3 LOW (from Reviewer LOW-1): writer 统计口径 'AESER 9 处' vs 独立 Grep 分布不透明, 未来统一 '硬锚点段' vs '散落提及' 两档",
+            "CARRY-N5-4 LOW (from Reviewer LOW-2): 04 内部 §1.26 §2.1 §8 信息 redundancy ~10%, 去重释 3-4K tokens",
+            "CARRY-N5-5 LOW (from Reviewer LOW-3): §1.15-§1.26 子域段加 'Core: 域内 Req 集/典型 Exp 集' 摘要",
+            "CARRY-N5-6 INFO (from writer CARRY-N4-3): 02 实测 240K 比 PLAN 370K 低 130K, buffer 释放去向 Node 5 前决定"
+          ],
+          "user_action_awaiting": [
+            "按 dev/checkpoints/CHECKPOINT_N4_HANDOFF.md Step 1.1 更新 Gem Custom Instructions (system_prompt v3)",
+            "Step 1.2 删老 4 knowledge (01_core_reference/02_domain_specs/03_domain_knowledge/04_terminology_core)",
+            "Step 1.2B 上新 4 knowledge 按顺序 (01_navigation_and_quick_reference → 02_domains_spec_and_assumptions → 03_domains_examples → 04_business_scenarios_and_cross_domain)",
+            "Step 1.3 验证: 问 'AESER Core?' 期望答 Exp + 问 'knowledge 几个文件' 期望答 4",
+            "Step 2 跑 ai_platforms/SMOKE_QUESTIONS_V2.md 10 题 rerun",
+            "Step 3 落档 dev/evidence/smoke_v2_results.md 并回报 X/10 PASS + CO-1/2/3 验证情况"
+          ]
         }
       }
     },

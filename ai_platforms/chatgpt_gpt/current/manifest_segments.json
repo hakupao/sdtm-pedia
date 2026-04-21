@@ -23,6 +23,36 @@
       "dynamic": false,
       "expected": 63,
       "stage": "batch1"
+    },
+    "05_domain_assumptions_all.md": {
+      "actual": 63,
+      "dynamic": false,
+      "expected": 63,
+      "stage": "batch2"
+    },
+    "06_domain_examples_all.md": {
+      "actual": 63,
+      "dynamic": false,
+      "expected": 63,
+      "stage": "batch2"
+    },
+    "07_terminology_core_high_freq.md": {
+      "actual": 15,
+      "dynamic": false,
+      "expected": 15,
+      "stage": "batch2"
+    },
+    "08_terminology_quest_and_supp.md": {
+      "actual": 49,
+      "dynamic": false,
+      "expected": 49,
+      "stage": "batch2"
+    },
+    "09_terminology_core_mid_tail.md": {
+      "actual": 27,
+      "dynamic": false,
+      "expected": 27,
+      "stage": "batch2"
     }
   }
 }
