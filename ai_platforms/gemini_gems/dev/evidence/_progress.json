@@ -4,9 +4,9 @@
   "display_name": "Gemini Gems",
   "tier": "1-2",
   "created_at": "2026-04-20",
-  "last_updated": "2026-04-20",
+  "last_updated": "2026-04-21",
   "current_phase": 3,
-  "overall_status": "phase_3_node_3a_docs_conditional_pass_ready_for_commit_c3a",
+  "overall_status": "phase_3_node_3b_smoke_conditional_pass_ready_for_commit_c3b",
   "sync_locked_with": "chatgpt_gpt",
   "sync_board_path": "ai_platforms/SYNC_BOARD.md",
   "notes": "Phase 定义对齐 ROADMAP.md 六段制. Phase 2 双边 CONDITIONAL_PASS, 等用户 ack 进 Phase 3. Gemini Tier 1-2 最轻量平台.",
@@ -258,6 +258,68 @@
             "LOW-L1 critic: merge_for_gemini.py L352-355 注释 marker 顺序 stale (Node 4 前)",
             "LOW-WARN 03/04 偏离 + LOW-AUDIT-A1 泛域召回: Node 5 A/B 监测"
           ]
+        },
+        "N3b_smoke": {
+          "status": "CONDITIONAL_PASS",
+          "started_at": "2026-04-21",
+          "completed_at": "2026-04-21",
+          "user_ack_mode": "smoke_results_delivered_via_session",
+          "executed_by": "chrome MCP DOM-based agent",
+          "gem_url": "https://gemini.google.com/u/1/gem/3b572e310813/d053fd5f9418b93c",
+          "gem_name": "SDTM Expert (Custom Gem)",
+          "account": "bojiang.zhang.0904@gmail.com (Google AI Pro)",
+          "smoke_score": "4/5 PASS (80%)",
+          "smoke_exit_criteria": "≥ 4/5 PASS PASSED + S3 PASS + S4 PASS + S5 PASS → Node 4 解锁",
+          "smoke_pass_fail_detail": {
+            "S1_AESER_CT": "PASS (主判据 Y/N + C66742 + EVS link 齐, Core=Req 事实错但不降级整题)",
+            "S2_C65047_row5": "FAIL (4/5 命中, row 5 SV = A1MICG 应为 A1MCREAT, Gemini 近邻 SV 混淆 L25/L26 邻行)",
+            "S3_C100129_tail_P12_R1": "PASS 5/5 精确 (P12 R1 hard gate 绿, 尾部 87.7% char offset 100% recall)",
+            "S4_C67154_middle_P12_R2": "PASS 3/3 精确 (P12 R2 hard gate 绿, 中段 34-40% char offset Lost-in-Middle 未发生)",
+            "S5_AERELN_synonyms_zero_fab": "PASS (零 Synonym 编造; NCI code C117711 本地不可验疑幻觉, 但不破零编造硬门槛)"
+          },
+          "p12_tail_recall_carry_over_closed": "Phase 1 F-1 末尾召回 transfer_to_phase3 正向闭合: S3 尾部 + S4 中段 双 hard gate 全绿, 单批 884,918 tokens @ 88.49% 窗口占用 recency bias 未失效",
+          "reviewer_subagent": "oh-my-claudecode:scientist (第 11 种独立 subagent_type, 规则 D)",
+          "reviewer_verdict": "CONDITIONAL_PASS",
+          "reviewer_confidence": 82,
+          "reviewer_evidence": "ai_platforms/gemini_gems/dev/evidence/phase3_node3b_smoke_reviewer.md (主 session 代写, 因 scientist 无 Write 权)",
+          "reviewer_lane_pass": true,
+          "cross_platform_core_conflict_ruling_applied_here": {
+            "variable": "AE.AESER",
+            "gemini_answer": "Req (Required)",
+            "chatgpt_answer": "Exp (Expected)",
+            "authoritative_source_line": "knowledge_base/domains/AE/spec.md L254 → Core: Exp",
+            "upload_02_domain_specs_line": "02_domain_specs.md L264 → Core: Exp (merge 无 bug)",
+            "ruling": "Gemini LLM 邻变量污染幻觉. AESER 周围 6 变量 (STUDYID/DOMAIN/USUBJID/AESEQ/AETERM/AEDECOD) Core=Req 主导模式被 Gemini 错误泛化.",
+            "node4_fix": "system_prompt.md 加 AESER 边界锚点示例 (不改 merge 脚本)"
+          },
+          "evidence_paths": [
+            "ai_platforms/gemini_gems/dev/evidence/smoke_results.md",
+            "ai_platforms/gemini_gems/dev/evidence/phase3_node3b_smoke_reviewer.md",
+            "ai_platforms/gemini_gems/dev/checkpoints/CHECKPOINT_N3B_HANDOFF.md"
+          ],
+          "carry_over_to_node4_HIGH": [
+            "CO-1 HIGH (reviewer): S1 AESER Core=Req 归因确定 = LLM 邻变量污染幻觉 (merge 无 bug, upload L264=Exp). Node 4 B1 system_prompt 加精准锚点: 'AE 域多数 Core=Req, 但 AESER (Serious Event) Core=Exp, 查询 Core 字段时必须逐变量精确引用, 不得由邻变量模式推断.' 重 smoke S1 验修正.",
+            "CO-2 HIGH (reviewer): S5 NCI code C117711 本地 KB 不可溯源, 疑 LLM 幻觉. Node 4 B1 人工 NCI EVS 查 (https://evsexplore.semantics.cancer.gov/evsexplore/). 若无 → system_prompt guard: 'NCI Code 仅当 04_terminology_core.md 有记录时引用, 否则只给 EVS 搜索链接, 不自行生成代码.'"
+          ],
+          "carry_over_to_node4_MEDIUM": [
+            "CO-3 MEDIUM (reviewer): 源路径 5 题全空反引号 `` 系统性缺陷. 根因 (a) Gemini 平台无 RAG 自动 citation + (b) system_prompt 无强制 citation 格式指令. Node 4 修 system_prompt 加 '源路径: <filename.md>, 段落: <section title>' 强制段 + 靶向 1 题重测验 citation 出.",
+            "CO-4 MEDIUM (reviewer): S2 近邻 SV 交换 (L25 C100462/A1MCREAT vs L26 C100461/A1MICG). LLM 稠密表格精度内禀限制. Node 5 full A/B 加 10-row exact recall 测 C65047 量化近邻混淆率."
+          ],
+          "carry_over_to_node5": [
+            "Node 5 多域 Core label spot-check 5+ 变量 × 3+ 域 评估 Req/Exp 混淆模式范围",
+            "Node 5 A/B 10 题含末尾 T-tail-1/T-tail-2 + 中段验证, 延续 P12 hard gate 策略"
+          ],
+          "skip_node_4_option_rejected": "smoke_results.md L267 建议单批架构可跳 Node 4 直进 Node 5. Reviewer 不推荐此捷径 — 两项 HIGH CO-1+CO-2 阻, Node 4 system_prompt 改是对的路径."
+        },
+        "N3b_v1_smoke_question_design_flaw_caveat_2026-04-21": {
+          "discovered_at": "2026-04-21 session 末用户纠正",
+          "flaw_type": "位置探针 (最前面/中段/末尾) + 文件名引用 (04_terminology_core.md) + 字典式查询 (codelist 头 5 条) 3 错叠加",
+          "affected_questions": "v1 5 题 3 错全触: S1 字典查 + S2/S3/S4 位置探针 + S5 零臆造 (唯一保留价值)",
+          "user_correction": "真实 SDTM 用户问医疗业务问题, 不扣文件字眼也不当字典查; 专家用领域语言转述, codelist 是答案支撑不是问题本身",
+          "objective_pass_status_unchanged": "v1 smoke 客观答题质量对判据 CONDITIONAL_PASS 82% 确实成立; 但用户视角下题目设计不合理, P12 hard gate 的'绿'可信度降级",
+          "p12_hard_gate_downgrade": "S3/S4 P12 R1/R2 hard gate PASS 只证明'Gemini 按文件名+位置索引能查', 未证明'用户真实业务问法下末尾/中段 codelist 能命中'; 真正的 P12 gate 要在 Node 4 之后通过业务题隐式验",
+          "revision_plan": "Node 4 用 ai_platforms/SMOKE_QUESTIONS_V2.md 的 10 题业务维度题重跑 (禁 filename / 禁位置 / 禁字典查), 双平台完全一致以便对比",
+          "strategic_pivot_2026-04-21": "用户 ack C 方案舍弃 terminology + 重整 4 文件为业务问答优化; Node 4 执行 gemini_gems/docs/PLAN_V2_C.md 重整 + smoke v2 10 题; P12 位置 gate 退回内部脚本自测, 不再出现在用户可见 smoke 题里"
         }
       }
     },

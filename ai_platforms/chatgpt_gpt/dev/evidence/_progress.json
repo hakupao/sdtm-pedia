@@ -4,9 +4,9 @@
   "display_name": "ChatGPT GPTs",
   "tier": 2,
   "created_at": "2026-04-20",
-  "last_updated": "2026-04-20",
+  "last_updated": "2026-04-21",
   "current_phase": 3,
-  "overall_status": "phase_3_node_3a_docs_pass_ready_for_commit_c3a",
+  "overall_status": "phase_3_node_3b_smoke_pass_ready_for_commit_c3b",
   "sync_locked_with": "gemini_gems",
   "sync_board_path": "ai_platforms/SYNC_BOARD.md",
   "notes": "Phase 定义对齐 ROADMAP.md 六段制. Phase 2 双边 CONDITIONAL_PASS, 等用户 ack 进 Phase 3.",
@@ -241,6 +241,59 @@
             "L3: manifest 同分 01/02=3.4 + 03/04=3.2 tie-break 规则 (推荐 ID 字典序升序), Node 3b 上传后 manifest v2 加或 Node 5 回头",
             "LOW-F1 cap 47K buffer 1.77%: Node 3b smoke S1 路由命中率作前哨, <80% 优先升 cap + 重合并 (Node 4); 100% 可延迟"
           ]
+        },
+        "N3b_smoke": {
+          "status": "PASS",
+          "started_at": "2026-04-21",
+          "completed_at": "2026-04-21",
+          "user_ack_mode": "smoke_results_delivered_via_session",
+          "executed_by": "user + claude-in-chrome MCP agent",
+          "gpt_url": "https://chatgpt.com/g/g-69e635b99e848191a2818cd8e8e7e9cc-sdtm-expert",
+          "gpt_name": "SDTM Expert",
+          "account": "Bojiang Zhang (Plus)",
+          "smoke_score": "5/5 PASS (100%)",
+          "smoke_exit_criteria": "≥ 4/5 PASS PASSED (5/5)",
+          "smoke_pass_fail_detail": {
+            "S1_AESER_def": "PASS (7/7 字段 — Core=Exp 权威值)",
+            "S2_RELREC": "PASS + LOW carry-over (6 字段 RDOMAIN/USUBJID/IDVAR/IDVARVAL/RELID/RELTYPE + Section 8.2.1; reviewer 建议补 STUDYID 第 7 字段)",
+            "S3_AERELN_synonyms_zero_fab": "PASS (零 Synonym 编造 + 超预期识别 AEREL/AERELNST/AERELNS1 三候选 + SUPPAE 8-char 截断规则)",
+            "S4_家属解释_Q1C_public": "PASS (首段通俗类比 + 第一段零术语 + 术语立即解释 + 无行业背景假设)",
+            "S5_AE_Core_Req_Q8_indexing": "PASS (6 变量 STUDYID/DOMAIN/USUBJID/AESEQ/AETERM/AEDECOD 精确 + Q8 Indexing indicator 可靠性闭合)"
+          },
+          "q8_indexing_carry_over_closed": "Phase 1 PARTIAL Q8 transfer 正向闭合: S1 + S5 双 Ready 状态命中验证, 无 '无法访问 knowledge' 假阴性",
+          "reviewer_subagent": "pr-review-toolkit:pr-test-analyzer (第 10 种独立 subagent_type, 规则 D)",
+          "reviewer_verdict": "PASS",
+          "reviewer_confidence": 88,
+          "reviewer_evidence": "ai_platforms/chatgpt_gpt/dev/evidence/phase3_node3b_smoke_reviewer.md (310 行 自写)",
+          "reviewer_lane_pass": true,
+          "cross_platform_core_conflict_ruling": {
+            "variable": "AE.AESER",
+            "chatgpt_answer": "Exp (Expected)",
+            "gemini_answer": "Req (Required)",
+            "authoritative_source": "knowledge_base/domains/AE/spec.md L254 → Core: Exp",
+            "upload_check_02_domain_specs": "Line 264 Core: Exp (merge 无 bug)",
+            "ruling": "ChatGPT 对, Gemini 错. Gemini 是 LLM 邻变量污染幻觉 (周围 6 Core=Req 变量的主导模式泛化)"
+          },
+          "evidence_paths": [
+            "ai_platforms/chatgpt_gpt/dev/evidence/smoke_batch1_results.md",
+            "ai_platforms/chatgpt_gpt/dev/evidence/phase3_node3b_smoke_reviewer.md"
+          ],
+          "low_carry_over_to_node4": [
+            "CO-1 (reviewer): S2 RELREC 7 字段补全 (补 STUDYID 第 7 字段, 与 model/06_relationship_datasets.md 对齐)",
+            "CO-2 (reviewer): S3 增补 NCI EVS Browser 外链 (system_prompt §边界 加 'https://evsexplore.semantics.cancer.gov/evsexplore/ 搜索 <code>' 模板)",
+            "CO-3 (reviewer): S4 末尾延伸邀请加专家路径双轨 (同时给 '继续通俗讲' + '切专家口径')",
+            "CO-4 (reviewer): smoke_questions_draft.md S1 判据 'Perm 或等价' 改为 'Exp (源一致)'",
+            "CO-5 (reviewer): AESER Core 冲突反馈 Gemini 侧 — Gemini _progress.json 已记录"
+          ],
+          "N3b_v1_smoke_question_design_flaw_caveat_2026-04-21": {
+            "discovered_at": "2026-04-21 session 末用户纠正",
+            "flaw_type": "字典式查询 (S1/S2/S3/S5) + 抽象比喻 (S4) 非真实业务问法; 虽未触 Gemini 侧位置探针错, 但 5 题全偏字典查",
+            "user_correction": "真实 SDTM 用户是 CDM/统计程师/医学监查员/编程师, 问医疗业务问题, 不把文件当字典; 专家用领域语言转述, codelist 是答案支撑不是问题本身",
+            "objective_pass_status_unchanged": "v1 smoke 客观答题质量对判据 PASS 88% 确实成立 (Reviewer 已 independently 验); 但用户视角下题目本身设计不合理",
+            "revision_plan": "Node 4 用 ai_platforms/SMOKE_QUESTIONS_V2.md 的 10 题业务维度题 (场景 3 + 规则 3 + 映射 2 + 鉴别 2) 重跑, 双平台完全一致以便对比",
+            "strategic_direction": "ChatGPT 维持原 batch 2 策略 (保留 terminology 分档), 见 chatgpt_gpt/docs/PLAN_BATCH2.md; smoke v2 在 batch 2 上传完成后跑",
+            "trust_level_downgrade": "Node 3b PASS 降级为'判据 PASS 但用户视角不认账', 真正的 PASS 等 Node 4 smoke v2 10 题业务维度实测"
+          }
         }
       }
     },
