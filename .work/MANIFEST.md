@@ -1,7 +1,7 @@
 # .work/ MANIFEST — 文件清单与变更链
 
 > **AI 工作入口文件** — 每次新 session 开始时先读此文件，了解文件布局和更新规则。
-> 最后更新: 2026-04-21 晚 (Phase 6.5 **NotebookLM Phase 3 P3.1 完成**: 42 uploads md 合成 (1,582,085 words, max bucket 302K < 500K cap, 0 over-cap, 0 missing) + Chat Custom mode instructions.md (9,011 chars < 10K cap, 11% headroom) + merge_sources.py 新脚本 + MANIFEST 真实字数重生; 两个 auto-generated placeholder bucket (02/42) CLOSED; P3.2 用户 Web UI 上传阶段 gate OPEN; 前日 Phase A Setup 全 PASS + Phase 2 v2 PASS + Rule D 9-chain 背景不变)
+> 最后更新: 2026-04-21 夜 (Phase 6.5 **NotebookLM Phase 3 P3.2 完成**: 用户 Web UI 单批拖入 42 / 42 source 全 indexed, 0 silent fail, 0 retry; 主 session Chrome MCP 复核 5-tile 速览 PASS + Chat STUDYID Core=Req + citation [1][2] PASS + 三处 UI 面板 source count 交叉锁 42; notebook `SDTM Knowledge Base` @ bojiang.zhang.0904 personal Gmail Pro tier; 新增 dev/checkpoints/CHECKPOINT_P3.2_HANDOFF.md 手顺 + dev/evidence/p3_2_upload_log.md; P3.3 Custom mode 激活 + H3 切换验证 gate OPEN; 前日 P3.1 + Phase A + Phase 2 v2 + Rule D 9-chain 背景不变)
 
 ---
 
@@ -287,7 +287,8 @@ ai_platforms/ ── Phase 6.5 AI 平台部署 ── [Claude v1 完成 (9/9 PAS
 | **Phase 6.5 Claude v2 开发过程 (冷区)** | **`../ai_platforms/claude_projects/dev/`** — scripts/ + evidence/ + ab_reports/ + checkpoints/ + test_results.md (reorg 前路径映射见 dev/README.md) |
 | **Phase 7 设计文档** | **`../docs/DESIGN_RAG_KG.md`** — RAG + 知识图谱 + 数据集校验 |
 | Phase 7 session 记录 | `05_rag_kg/session_2026-04-16_design.md` |
-| **Phase 6.5 NotebookLM 入口** | **`../ai_platforms/notebooklm/README.md`** — Phase A 完成 (2026-04-21), 异步 lane 不参与 SYNC_BOARD; v2 **1 notebook × ≤50 sources + 3 档分享切换**; Phase 3 gate OPEN |
+| **Phase 6.5 NotebookLM 入口** | **`../ai_platforms/notebooklm/README.md`** — Phase 3 P3.2 完成 (2026-04-21 夜, 42 / 42 indexed 0 fail), 异步 lane 不参与 SYNC_BOARD; v2 **1 notebook × ≤50 sources + 3 档分享切换**; P3.3 Custom mode + H3 切换验证 gate OPEN |
+| **Phase 6.5 NotebookLM P3.2 手顺 + 执行 log** | **`../ai_platforms/notebooklm/dev/checkpoints/CHECKPOINT_P3.2_HANDOFF.md`** (手顺) + **`../ai_platforms/notebooklm/dev/evidence/p3_2_upload_log.md`** (执行 log, 5-tile 速览 + Chat STUDYID sanity + source count 三处交叉锁 42 全 PASS, 主 session Chrome MCP 复核) |
 | **Phase 6.5 NotebookLM v2 PLAN** | **`../ai_platforms/notebooklm/docs/PLAN.md`** — 610 行 v2 (Q1 双锚 A4 结构+P3.4.5 语义); 第 9 种 subagent_type architect PASS 后全 findings 闭合 |
 | **Phase 6.5 NotebookLM 架构 pivot 记录** | **`../ai_platforms/notebooklm/archive/v1_3notebook_SUPERSEDED_2026-04-21/ARCHITECTURE_PIVOT_RECORD.md`** — v1→v2 pivot 证据链 + 被舍弃决策 D1-D10 + 保留资产 A-F + _template 补丁 #10a/10b.1/10b.2 |
 | **Phase 6.5 NotebookLM Phase A evidence** | **`../ai_platforms/notebooklm/dev/evidence/`** — pre_upload_audit + req_vars_full_set (176 独立 Req) + source_mapping + req_vars_coverage_audit (∅ gap PASS) + phase_a_webui_small_sample + phase2_v2_reviewer |
