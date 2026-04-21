@@ -1072,3 +1072,43 @@
   - P3.3 子步骤 (b) H3 验证: 开一次 chat 尝试切换三档 (Default / Learning Guide / Custom), 观察 UI 是否允许 per-session 切换或 notebook 级锁定, evidence → `dev/evidence/chat_mode_toggle_test.md`
   - P3.3 子步骤 (c) 事实回写: 验证结果回写 `docs/research.md` Q6 + `docs/platform_profile.md` §D + `docs/PLAN.md` §3.4
   - P3.4 indexing smoke N=10 (全 tile 预览 + 10 题 citation 精确回指) → P3.4.5 Req 语义抽检 N=10 (Q1 红线语义级自证, 规则 A 正本)
+
+### 2026-04-21 深夜 Phase 6.5 NotebookLM Phase 3 P3.3 完成 (H3 VERIFIED + F-1 CLOSED)
+
+- **状态**: 已完成
+- **触发**: P3.2 完成后 P3.3 gate OPEN, 用户 Chat Custom mode 激活 + H3 三档切换验证
+- **执行**:
+  - 主 session 指导用户: Chat → Customize → Custom mode → 贴 `current/instructions.md` (9,011 chars / 90% of 10K cap) → Save
+  - 用户实测三档 (Default → Learning Guide → Custom), 用同一题 (AESER Core) 作 controlled comparison (对比 PLAN §6 P3.3 (c) 建议 LBNRIND, 用户选择同题更纯净地隔离 mode 变量, 不构成 FAIL)
+  - 用户手写 evidence 草稿 → 主 session 格式化为 `dev/evidence/chat_mode_toggle_test.md` (210 行)
+- **H3 假设结论**: ✅ **VERIFIED PASS** (Q-REV-1 CLOSED)
+  - UI 允许同 chat session 动态切换三档, 无需 new chat
+  - 切换后 source set 不变 (同 42 bucket RAG), response 风格与是否应用 Custom instructions 变化
+  - Custom mode 下 instructions.md 规则 4 (Variable table) / 5 (Core 红线 AESER=Exp, 非 Req) / 6 (CT 全写 + C-code 字面 C66742) / 12 (诚实 follow-up) 全部命中
+- **附带发现 + 处置**:
+  - **F-1 UI 表格渲染**: 用户观察到 Custom mode 答案 markdown pipe-table 显示为一行平铺 `|` 串. 主 session WebFetch 官方 help answer/16179559 证实 UI 原生支持表格 ("When you save a response as a note, the original format—including tables and clickable inline citations—gets saved"), 诊断从 "UI 不支持" **翻转**为 **模型输出层偶发 single-line malformed**. 用户跑 minimal table test (prompt: "列出 AE 域中 Core 属性为 Req 的 6 个变量, 每个一行, markdown 表格格式"), 分支 (a) 命中 — UI 真表格渲染 (STUDYID/DOMAIN/USUBJID/AESEQ/AETERM/AEDECOD 全对 + AEDECOD CT=MedDRA + 6/6 citation [08_ev_adverse_ae.md]). **F-1 CLOSED**, 不改 instructions.md (规则 4/10 本身正确, 90% cap 已紧)
+  - **F-2 同题非幂等**: Custom mode 同题 × 2 次答案语义等价但细节漂移 (valid values 完整度 / 输出语言), 属 RAG 召回顺序 + LLM 采样随机性, 非 bug. 挪 P3.8 A/B 评分规则补 "同题 retry 幂等性不强制, 按语义 PASS"
+- **事实回写 4 处**:
+  - `docs/research.md` Q6 尾部 (line 171 追加): P3.3 实测段 + H3 VERIFIED + F-1 WebFetch 证据 + F-2 漂移观察
+  - `docs/platform_profile.md` §D: 退化机制行标注 P3.3 verified + 结尾 (line 70) 新增 "P3.3 实测补充" 4 bullet 段
+  - `docs/PLAN.md` §3.4 表 "单 chat session 切换能力" 行: ⏸️ 假设 → ✅ VERIFIED PASS, Q-REV-1 CLOSED
+  - `dev/evidence/_progress.json`: last_update / current_phase / phase_states.3_execute.status / phase_3_entry_gate_status / 新增 `p3_3_completion` 节点 (含 findings F-1/F-2 / rule_compliance / carry_over) / next_action 指向 P3.4
+- **规则合规**:
+  - **Rule A**: 本步 N=3 仅 H3 证据采集, Rule A 正本 N=10 Req 业务问答挪 P3.4.5 (Q1 红线语义级自证)
+  - **Rule B**: `failures/` 目录保持空, 零 attempt FAIL
+  - **Rule D**: P3.3 UI 工具级 + 主 session 事实回写 + WebFetch, 不占 Rule D subagent_type slot, cumulative 链保持 9; next slot (10th) 仍留 P3.4 indexing smoke 深度审 / Phase 4 跨平台对比
+  - **Rule E**: personal Gmail + Pro + Web UI only 全合规
+- **WebFetch 产出** (F-1 诊断翻转关键):
+  - Google 官方 help [answer/16179559](https://support.google.com/notebooklm/answer/16179559) 明文 "original format—including tables and clickable inline citations" → UI 层原生支持表格, 问题诊断翻转
+- **新产物路径** (本次 session):
+  - `ai_platforms/notebooklm/dev/evidence/chat_mode_toggle_test.md` (new, 210 行)
+  - `ai_platforms/notebooklm/dev/evidence/_progress.json` (updated: 5 edit — last_update / current_phase / status / phase_3_entry_gate_status / 新增 p3_3_completion + F-1 closure)
+  - `ai_platforms/notebooklm/docs/research.md` (Q6 尾部 追加 P3.3 实测段)
+  - `ai_platforms/notebooklm/docs/platform_profile.md` (§D 退化机制行 + 末尾 P3.3 实测补充段)
+  - `ai_platforms/notebooklm/docs/PLAN.md` (§3.4 表行 VERIFIED PASS)
+- **影响面**:
+  - Phase 3 P3.3 soft checkpoint CLOSED, F-1 CLOSED, **P3.4 gate OPEN 无前置条件**
+  - instructions.md 不动 (接受偶发漂移; P3.8 A/B 评分规则预留吸收条)
+  - Q-REV-1 闭合, Phase 2 Plan Reviewer 3 Q-REV 全 closed (Q-REV-2 A5' / Q-REV-3 双锚前日已闭)
+  - 无 knowledge_base/ 变动, 无 plans 变动, Chain D/E 不触发; Chain B (worklog → PROGRESS) + MANIFEST.md + CLAUDE.md Key Paths 更新
+- **下一步**: P3.4 indexing smoke (42 tile 全扫预览 ~15 min + 10 题 smoke Q citation 精度验证 ~30-45 min), hard checkpoint 目标 10/10 精确回指 (≥9/10 可接受). 主 session 下一 session 准备 P3.4 handoff 文档 + 10 题 smoke Q 列表 (从 MANIFEST.md 42 bucket + source_mapping 设计, ≥1 题 non-core domain DD/HO/ML 覆盖 findings_other bucket 18-22 RAG 弱信号区)

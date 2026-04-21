@@ -56,7 +56,7 @@
 | 是否单独计量? | N/A |
 | 是否可包含路由规则? | **No** (不能在 notebook 层面配"文件 N 优先于 M") |
 | 修改后是否立即生效? | N/A |
-| **退化机制 (最接近的)** | **Chat custom goals** 三档 (Default / Learning Guide / **Custom**), Custom 10,000 char 可定 SDTM 专家角色/目标/口吻 — 2025-10-29 blog.google 发布, 全档开放 |
+| **退化机制 (最接近的)** | **Chat custom goals** 三档 (Default / Learning Guide / **Custom**), Custom 10,000 char 可定 SDTM 专家角色/目标/口吻 — 2025-10-29 blog.google 发布, 全档开放; **P3.3 实测 2026-04-21 确认 per-chat-session 可动态切换三档, 非 notebook 锁定** (evidence: `dev/evidence/chat_mode_toggle_test.md`) |
 
 **退化映射**: NotebookLM 的 "notebook 级 system prompt 等价物":
 
@@ -66,6 +66,13 @@
 4. **Per-chat prompt engineering**: 每次 chat 里写, 每 session 重来
 
 **对 PLAN 的含义**: 范本 `05_solution.md` 的 "System Prompt 累积段" 在本平台**基本作废**, 改为 "**Chat custom goals Custom 模式文本** (≤10K char) + 精选 source 的首源导航设计". 这是 `_template/` **补丁候选 #1** 和 **#3**.
+
+**Phase 3 P3.3 实测补充 (2026-04-21, evidence `dev/evidence/chat_mode_toggle_test.md`)**:
+
+- ✅ Custom mode 每 chat session **可动态切换** Default / Learning Guide / Custom, **非 notebook 锁定** — 切换后 source set 不变, 仅 response 风格与是否应用 `instructions.md` 改变 (H3 假设 VERIFIED PASS, Q-REV-1 CLOSED)
+- ✅ Custom mode 下 `current/instructions.md` (9,011 chars / 90% of 10K cap) 规则 4 / 5 / 6 / 12 全部命中 (AESER=Exp + Variable table + C66742 字面值 + NY codelist 全写 + follow-up 诚实)
+- ⚠️ **F-1 附带发现**: UI 层原生支持 markdown 表格 (Google 官方 help answer/16179559 明文 "original format—including tables"), 但模型偶发输出 single-line malformed pipe-table, 问题在**模型输出稳定性**不在 UI 层; P3.4 前 minimal table test 定锤 + 按需微调 `instructions.md` Response template "每行独占一行" 约束
+- ⚠️ **F-2 附带发现**: Custom mode 同题 retry 答案语义等价但细节漂移 (RAG + LLM 随机性), 挪 P3.8 A/B 评分规则补
 
 ---
 

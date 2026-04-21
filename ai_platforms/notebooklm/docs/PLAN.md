@@ -314,7 +314,7 @@ v1 Phase A 6 子动作 + A5 "webui batch upload 能力调研" (hard checkpoint) 
 | 字段 | 值 |
 |------|----|
 | **notebook 级默认 mode** | **Custom** (Chat custom goals, ≤10,000 char) |
-| **单 chat session 切换能力** | ⏸️ **假设待验证 (UI 实测 Phase 3 P3.3)** — XDA 报道称 UI 是 "Configure Chat" 每次 chat 可切换三档 (Default / Learning Guide / Custom), 但 research.md Q6 未做 A 级官方原文确认. 本 PLAN 不锁死 "只能一个 Chat mode" 结论, 以 P3.3 实测为准 |
+| **单 chat session 切换能力** | ✅ **VERIFIED PASS (2026-04-21 UI 实测, evidence `dev/evidence/chat_mode_toggle_test.md`)** — 同 chat session 可动态切换三档 (Default / Learning Guide / Custom), 无需 new chat; 切换后 source set 不变 (同 42 bucket RAG), response 风格与是否应用 Custom instructions 变化. Q-REV-1 CLOSED. 附带发现 F-1 (UI 支持表格但模型偶发 single-line malformed 输出, P3.4 前定锤) + F-2 (同题 retry 幂等性不强制, P3.8 评分规则补) |
 | 文本文件 | `current/instructions.md` (≤10,000 char) |
 | 角色定位 | "你是 SDTM 数据标准专家, 熟悉 CDISC SDTMIG 3.4, 精通 63 域 + terminology + IG 章节" |
 | 行为约束 | "回答时必 inline citation 源 md, 不在知识库外编造, 遇边界问题坦诚 '未收录', 优先引权威 IG + domain spec, 术语以 terminology/core 为准" |
