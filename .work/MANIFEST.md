@@ -1,7 +1,7 @@
 # .work/ MANIFEST — 文件清单与变更链
 
 > **AI 工作入口文件** — 每次新 session 开始时先读此文件，了解文件布局和更新规则。
-> 最后更新: 2026-04-21 (Phase 6.5 **NotebookLM v2 架构 pivot + Phase A Setup 全 PASS**: v1 3 notebook × 293 → v2 1 notebook × 42 bucket ≤50 sources; 176 独立 Req 变量 ∅ gap 结构级 PASS; Rule D 9-subagent_type 链 (第 9 种 architect CONDITIONAL_PASS 84% → PASS 后全 findings 闭合); Phase 3 entry gate OPEN; 用户 Q-REV 全接受)
+> 最后更新: 2026-04-21 晚 (Phase 6.5 **NotebookLM Phase 3 P3.1 完成**: 42 uploads md 合成 (1,582,085 words, max bucket 302K < 500K cap, 0 over-cap, 0 missing) + Chat Custom mode instructions.md (9,011 chars < 10K cap, 11% headroom) + merge_sources.py 新脚本 + MANIFEST 真实字数重生; 两个 auto-generated placeholder bucket (02/42) CLOSED; P3.2 用户 Web UI 上传阶段 gate OPEN; 前日 Phase A Setup 全 PASS + Phase 2 v2 PASS + Rule D 9-chain 背景不变)
 
 ---
 
