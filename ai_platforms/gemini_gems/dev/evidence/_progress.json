@@ -4,9 +4,9 @@
   "display_name": "Gemini Gems",
   "tier": "1-2",
   "created_at": "2026-04-20",
-  "last_updated": "2026-04-21",
+  "last_updated": "2026-04-22",
   "current_phase": 4,
-  "overall_status": "phase_4_n5_2_FULL_PASS_q3_retest_closed_v5_plus_v5b_landed_gemini_equivalent_10_of_10_chatgpt_10_of_10_phase4_gate_CONFIRM_ready_for_n5_3_full_ab_matrix_with_generalization_probe_design",
+  "overall_status": "phase_4_n5_3_COMPLETE_rule_d_subagent_23_code_architect_BORDERLINE_PASS_CONFIRMED_88_percent_gate_OPEN_7_of_10_strict_at_threshold_confirmed_no_rescoring_3_FAIL_pattern_B_primary_plus_A_secondary_C_ruled_out_v5c_co4_new_domain_anchor_draft_parallel_recommendation_before_phase5_apply_user_ack_D1_option_A_bank_v3_2_D2_v5c_parallel_D3_phase4_gate_OPEN_c5_3b_commit_ready",
   "sync_locked_with": "chatgpt_gpt",
   "sync_board_path": "ai_platforms/SYNC_BOARD.md",
   "notes": "Phase 定义对齐 ROADMAP.md 六段制. Phase 2 双边 CONDITIONAL_PASS, 等用户 ack 进 Phase 3. Gemini Tier 1-2 最轻量平台.",
@@ -656,6 +656,75 @@
       "user_ack": false,
       "started_at": null,
       "completed_at": null
+    },
+    "4_n5_3_step3_smoke_v3_execution": {
+      "status": "DONE",
+      "completed_at": "2026-04-22",
+      "executor": "主 session Chrome MCP 全自动驱动 Pro mode",
+      "evidence_paths": [
+        "ai_platforms/gemini_gems/dev/evidence/smoke_v3_answers/Q_sanity_1_answer.md",
+        "ai_platforms/gemini_gems/dev/evidence/smoke_v3_answers/Q_sanity_2_answer.md",
+        "ai_platforms/gemini_gems/dev/evidence/smoke_v3_answers/Q_sanity_3_answer.md",
+        "ai_platforms/gemini_gems/dev/evidence/smoke_v3_answers/Q_sanity_4_answer.md",
+        "ai_platforms/gemini_gems/dev/evidence/smoke_v3_answers/Q1_answer.md",
+        "ai_platforms/gemini_gems/dev/evidence/smoke_v3_answers/Q2_answer.md",
+        "ai_platforms/gemini_gems/dev/evidence/smoke_v3_answers/Q3_answer.md",
+        "ai_platforms/gemini_gems/dev/evidence/smoke_v3_answers/Q4_answer.md",
+        "ai_platforms/gemini_gems/dev/evidence/smoke_v3_answers/Q5_answer.md",
+        "ai_platforms/gemini_gems/dev/evidence/smoke_v3_answers/Q6_answer.md",
+        "ai_platforms/gemini_gems/dev/evidence/smoke_v3_answers/Q7_answer.md",
+        "ai_platforms/gemini_gems/dev/evidence/smoke_v3_answers/Q8_answer.md",
+        "ai_platforms/gemini_gems/dev/evidence/smoke_v3_answers/Q9_answer.md",
+        "ai_platforms/gemini_gems/dev/evidence/smoke_v3_answers/Q10_answer.md",
+        "ai_platforms/gemini_gems/dev/evidence/smoke_v3_results.md"
+      ],
+      "sanity_result": "4/4 PASS (底座 v5+v5b 仍 lock)",
+      "smoke_v3_score": "7/10 strict PASS = 70% borderline-at-threshold",
+      "gate_decision": "PASS at threshold (可进 Phase 4 Node 5.4 跨平台对比)",
+      "pass_breakdown": {
+        "PASS": ["Q4 IS/MB", "Q5 FA/QS/CE (FA→MH)", "Q6 PK Timing PT4H", "Q7 partial date ISO 8601 + SDTM/ADaM", "Q8 CT Ext/NonExt", "Q9 Pinnacle 21", "Q10 SUPP-- 家族"],
+        "FAIL": ["Q1 GF (GFGENSR/GFPVRID/GFGENREF/GFINHERT 全臆造为 GFLOC/GFREFID/GFREFVER/GFSTYPE)", "Q2 CP (CPSBMRKS/CPCELSTA/CPCSMRKS 3 v3.4 新变量漏, 说'没有独立 --MARKER/--SUBSET')", "Q3 BE/BS 命名倒置 (BS 当 Events, 臆造 BM 当 Findings)"]
+      },
+      "fail_pattern_analysis": {
+        "root_cause": "v3.4 新域 (GF/CP/BE/BS) 变量层 generalization 失败. pre-train 语料的 '--XX 通用模式' (--LOC/--REFID/--REFVER/--STYPE) 压过 v3.4 KB 实际 spec.md. 架构级 domain/variable 都是 v3.4 后引入, Gemini 1M 窗口 + semantic retrieve 深度不足以 pull up 专属 spec 片段.",
+        "surface_symptom": "识域正确 + Core Req 列齐 + 源路径引用对 — 但专属变量名全换成 pre-train 惯用命名",
+        "successful_mode": "业务边界 (IS/MB/FA/QS/CE/LB) + Timing/CT/SUPP/Pinnacle21 (工程层) + 部分日期 SDTM/ADaM 分工 — 7/7 PASS"
+      },
+      "04_citation_rate": "6/10 smoke questions (60%); 3 直接命中业务弹药包 (Q3 §10 + Q4 §1.3 + Q10 §4)",
+      "co2_trigger_count": "3 (Q2 EVS C85492 + Q8 EVS + Q9 LBNRIND C78736), 均合理",
+      "gate_criteria_assessment": "threshold ≥7/10 met exactly (borderline-pass). 3 FAIL 呈现统一 v3.4 新域 generalization pattern — 建议 N5.4 跨平台时重点对比 ChatGPT GPTs 在 Q1/Q2/Q3 相同 3 题是否同模式失败: 若 ChatGPT 也 3 连 FAIL → 双平台共性缺陷 (v5 system_prompt 未锚 v3.4 新域 + 04 §10 未接入变量层 spec) 需 v5c 补锚; 若 ChatGPT 3 连 PASS → Gemini 单平台 retrieve 策略缺陷需 Gemini-specific 优化.",
+      "carry_over_to_n5_4": [
+        "HIGH: v3.4 新域变量 generalization 3 连 FAIL (Q1/Q2/Q3) — 跨平台对比必须覆盖同 3 题",
+        "OBSERVATION: 04 引用率 60% 合理; 非 04 题 (Q1 Q7 Q8 Q9) 也能 3/4 PASS, 证明非 04 专属模式稳固",
+        "OBSERVATION: sanity 4/4 + smoke 7/10 双档验证, Phase 3 KB 上传与 v5/v5b system_prompt 双保险仍 lock"
+      ]
+    },
+    "4_n5_3_step5_reviewer_23_code_architect": {
+      "status": "PASS",
+      "completed_at": "2026-04-22",
+      "subagent_type": "feature-dev:code-architect",
+      "rule_d_slot": 23,
+      "verdict": "BORDERLINE PASS CONFIRMED 88%",
+      "gate_decision": "OPEN for Phase 4→5",
+      "final_score": "7/10 confirmed, no rescoring",
+      "report_path": "ai_platforms/gemini_gems/dev/evidence/phase4_n5_3_smoke_reviewer.md",
+      "rule_a_sample_size": "N=7 (Q1 GF KB grep / Q2 CP KB grep / Q3 BE/BS/BM KB grep / Q4 IS scope / Q7 partial date / Q10 QVAL attribution / Q4 scope reasoning depth)",
+      "findings_high": 0,
+      "findings_medium": 2,
+      "findings_low": 2,
+      "root_cause_attribution": {
+        "primary_B_system_prompt_anchor_gap": "CONFIRMED — v5+v5b 7925 chars 无 GF/CP/BE/BS 变量锚; CO-1 AE + CO-1b DM + CO-2 LBNRIND + CO-2c ARM 均不覆盖 v3.4 新域",
+        "secondary_A_attention_competition": "CONFIRMED — 616K tokens full-context 下低频变量名 (GFGENSR Order 32 单次) 抵不过 pre-train --XX 通用命名",
+        "C_KB_coverage_ruled_out": "EXCLUDED — 独立 KB grep GFGENSR/GFPVRID/GFGENREF/GFINHERT + CPSBMRKS/CPCELSTA/CPCSMRKS + BE Events/BS Findings 全存在"
+      },
+      "MED_1_v5c_anchor_injection": "CO-4 v3.4 新域变量硬锚 (GF/CP/BE/BS) 建议注入 system_prompt v5c, draft 已产 ai_platforms/gemini_gems/current/system_prompt_v5c_draft.md (估 9,525/10,000 chars, 4.75% buffer), 未应用至 Gem UI, 用户 D2 决定 N5.4 前/并行, 推荐 N5.4 完成后应用",
+      "MED_2_Q10_QVAL_split_mechanism": "Gemini 答 QVAL 200 char 归因 SAS XPT V5 (match v3.1 PASS criterion), 但未区分 'QVAL 物理约束' vs '父域 GOC 变量拆分触发 ch04 §4.5.3.2', 挪 Phase 5 retrospective 为题目设计改进",
+      "LOW_1_Q4_IS_scope_risk_did_not_materialize": "21 种 reviewer HIGH-2 预警 Q4 IS scope v3.3→v3.4 记忆干扰未触发, KB IS assumptions 1-3 (02 file) 充分引导正确 v3.4 答案, 正向 finding 记 retrospective",
+      "LOW_2_Q3_04_citation_didnt_save_variable_layer": "Q3 04 §10 Biospecimen cross-domain 引用指导 RELSPEC (Gemini 答对) 但未救 BE/BS 变量名倒置, 证业务层 guidance 无法替代 system_prompt 变量层锚",
+      "cross_platform_asymmetry_phase5_implication": "ChatGPT 10/10 vs Gemini 7/10 on same Q1-Q10 + Q1/Q2/Q3 3 连 FAIL 集中在 v3.4 新域变量层. 架构差 RAG 选择检索 vs Full-context 注意力竞争, 非题目缺陷. Phase 5 retrospective 必记: 按题型分段评估 (新域命名 ChatGPT 强 / 跨域 Gemini 相当 / 业务边界持平)",
+      "phase4_gate_decision": "OPEN (用户 ack 2026-04-22 D3)",
+      "D1_bank_v3_2_applied": "smoke_v3_questions_draft.md v3.1 → v3.2 (F-R1 substitution for ChatGPT Q8/Q9 官方记录 + C66727 label fix)",
+      "D2_v5c_draft_parallel": "system_prompt_v5c_draft.md produced, ready for post-N5.4 application decision"
     }
   },
   "platform_specific_constraints": {
