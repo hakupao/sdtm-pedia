@@ -17,7 +17,7 @@
 
 Q1 红线 (0 Req 变量丢失, 用户 2026-04-21 ack) 在 v2 下**向内收紧**: 50 slot 给 concept cluster 留更多 outlier 容错余地, 实现路径 `extract_req_vars.py` → 全集清单 → `cluster_req_variables.py` → ≤50 bucket → `req_vars_coverage_audit.md` ∅ gap 断言.
 
-A/B 矩阵 15 题 (10 SMOKE v2 + 5 独有生成物评估), PASS 阈值 ≥13/15 (~87%). 分享档位在 Phase 3 末做一次 3 档切换演练 (不需要多 notebook 测试).
+A/B 矩阵 10 题 SMOKE v2 (跨 4 平台对比基线), PASS 阈值 ≥9/10 (~90%). **原 5 独有生成物评估 (Audio/Mind Map/Study Guide) 与 P3.5/P3.6/P3.7 一起挪 ICEBOX post-project optional** (2026-04-22 用户决策 A+保留: Studio 独有产出无跨 4 平台对比价值, 问答才是核心; 全项目收束后小概率回头精雕, 原任务定义 §6 / §7 保留). 分享档位在 Phase 3 末做一次 3 档切换演练 (不需要多 notebook 测试).
 
 ---
 
@@ -25,7 +25,7 @@ A/B 矩阵 15 题 (10 SMOKE v2 + 5 独有生成物评估), PASS 阈值 ≥13/15 
 
 SDTM 1 notebook 部署的**业务成功定义**. 用户 2026-04-21 ack:
 
-1. **Quality**: 单 notebook A/B ≥13/15 (~87%) AND **Req 变量零丢失** (Q1 红线) + 独有 5 题 ≥4/5 精确命中
+1. **Quality**: 单 notebook 10 SMOKE v2 A/B ≥9/10 (~90%) AND **Req 变量零丢失** (Q1 红线) [v2.1 2026-04-22: 原 "+ 独有 5 题 ≥4/5 精确命中" 挪 ICEBOX post-project optional, 不计入本次 Quality gate]
 2. **Completeness**: notebook + `instructions.md` + `UPLOAD_TUTORIAL` 10 章节 + `uploads/MANIFEST.md` + `cross_platform_compare.md` 全落盘
 3. **Sharing**: 3 档切换演练 (Restricted → Anyone with link → Public → 回 Restricted) 四态全流畅, UI 状态符合预期
 4. **Template contribution**: `_template/` 补丁候选 ≥10 条 (原 7 + pivot 后新增 3) 收束合并
@@ -47,6 +47,7 @@ SDTM 1 notebook 部署的**业务成功定义**. 用户 2026-04-21 ack:
 | v1.1 | 2026-04-21 AM | feature-dev:code-architect (W#4) | R3 analyst 6 必改 + Project Success Criteria + Phase A §2.5 + Q1=0 红线 + extract_req_vars.py 新脚本 | R3 审核 + 用户 Q1/Q2 ack |
 | **v1.x SUPERSEDED** | 2026-04-21 PM | — | **整个 v1 架构归档** (`archive/v1_3notebook_SUPERSEDED_2026-04-21/PLAN_v1_3notebook.md`), 触发: 用户 review 质疑 3 notebook 架构 + 三 WebFetch 核实推翻 v1 三假设 | 用户 2026-04-21 PM 决策 |
 | **v2** | 2026-04-21 PM | 主 session (pivot 后重写) | 架构改 **1 notebook × ≤50 sources + 分享档位 3 档切换**; 删除 §3 multi-notebook 段 / uploads_main/invite/public 三目录 / 45 题次 A/B / 353 次上传; Req 零丢失红线 slot 从 30 → ≤50 宽松化; Phase A A5 (webui batch capability) 降级为 soft; P12 降级为信息段; I8/C2.9 close; 继承资产 A-F (详 pivot record) | 用户 ack pivot + 三 WebFetch 证据闭合 |
+| **v2.1** | 2026-04-22 PM | 主 session (用户决策执行) | **P3.5/P3.6/P3.7 (Audio / Mind Map / Study Guide) 挪 ICEBOX** (post-project optional, non-gating); P3.8 A/B 15→10 题 (仅 10 SMOKE v2 跨平台对比基线), 阈值 ≥13/15 → ≥9/10 (~90%); 5 独有生成物评估 (U1-U5) 同步 ICEBOX; 原任务定义全保留于 §6 / §7 供全项目收束后用户选择性精雕; Phase 3 总工时下调 ~3h; Phase 3 收束 gate 不再依赖 Studio 三件套 | 用户 2026-04-22 PM ack 方案 A+保留: Studio 独有产出无跨 4 平台对比价值 (Claude/ChatGPT/Gemini 均无等价功能); 问答才是跨平台核心比较维度; 全项目收束后小概率回头精雕 |
 
 ### 用户 ack 关键决策 (沿袭 v1, v2 不变)
 
@@ -229,8 +230,8 @@ v1 Phase A 6 子动作 + A5 "webui batch upload 能力调研" (hard checkpoint) 
 | Mind Map 侧重 | 63 domain 跨域关系图 (RELREC / --STAT / SUPP) |
 | Study Guide 侧重 | IG ch04/08/10 关键规则 |
 | 分享模式 | **3 档按需切** (见 §3.3) |
-| A/B 矩阵 | 15 题: 10 SMOKE v2 + 5 独有 (Audio 2 + Mind Map 2 + Study Guide 1) |
-| PASS 阈值 | ≥13/15 (~87%) AND 每个独有产出 ≥1 精确命中 AND **Req 变量零丢失** |
+| A/B 矩阵 | **v2.1 2026-04-22**: 10 题 SMOKE v2 (跨 4 平台对比基线); 原 "5 独有 (Audio 2 + Mind Map 2 + Study Guide 1)" 挪 ICEBOX post-project optional |
+| PASS 阈值 | **v2.1 2026-04-22**: ≥9/10 (~90%) AND **Req 变量零丢失** (原 "每个独有产出 ≥1 精确命中" 随 ICEBOX 删除) |
 
 ### 3.2 Source 组成策略 — Req 变量全覆盖 (Q1=0 强制)
 
@@ -327,6 +328,8 @@ v1 Phase A 6 子动作 + A5 "webui batch upload 能力调研" (hard checkpoint) 
 
 ### 3.5 Audio / Mind Map / Study Guide 侧重
 
+> **[ICEBOX v2.1 2026-04-22 用户决策 A+保留]**: 本节定义的 Studio 三件套 (Audio Overview / Mind Map / Study Guide / Briefing Doc) 与 §6 P3.5/P3.6/P3.7 任务一起挪 post-project optional, **不计入 Phase 3 收束 gate, 不计入 Phase 4 跨平台对比**. 归因: Claude/ChatGPT/Gemini 均无等价独有产出, 无跨平台对比价值; 问答维度 (P3.4 / P3.4.5 / P3.8) 才是核心比较基线. 原设计保留供全项目 (Phase 5) 收束后用户选择性精雕, 触发条件 §10 "Post-project ICEBOX" 小节.
+
 - **Audio Overview**: Deep Dive 长 podcast 3 期 (SAFETY group / EFFICACY group / PK group), 每期 30-45 min, 复用 source `02-03` / `11-14` / `14-17`
 - **Mind Map**: 63 domain 跨域关系全景图, 优先回答 "X domain 依赖哪些? Y domain 被哪些引用?"
 - **Study Guide**: IG 关键规则章节 (CM 拆分 / AE 升 SAE / QS-C 关联) 作 Socratic 引导
@@ -346,15 +349,15 @@ v1 Phase A 6 子动作 + A5 "webui batch upload 能力调研" (hard checkpoint) 
 | **Phase 3 P3.3** | 贴 `instructions.md` 到 Chat custom goals Custom mode + **H3 切换能力验证 (新增子步骤 b/c)** | Custom mode 激活 + `chat_mode_toggle_test.md` | 30 分钟 | soft |
 | **Phase 3 P3.4** | Indexing smoke test (每 source tile 点开预览 + **10 题分布式问答, M3 fix**) | `dev/evidence/indexing_smoke.md` | 1.5 小时 | hard (silent fail 防线 + RAG 检索双验证) |
 | **Phase 3 P3.4.5** (M1 fix) | **Req 变量业务问答抽检 N=10** (Q1 红线语义级自证, 规则 A 正本) | `dev/evidence/phase3_task_P3.4.5_req_semantic_audit.md` | 2 小时 | **hard** (Q1 红线 10/10 必过) |
-| **Phase 3 P3.5** | Audio Overview × 3 长 Deep Dive 生成 (SAFETY / EFFICACY / PK) | 3 个 audio + 说明文本 | 30 分钟 (生成) + 1-2 天 (听完确认) | soft (per-day 20 rate 内) |
-| **Phase 3 P3.6** | Mind Map 生成 + 跨域关系验证 | Mind Map 导出 PNG + 人工 checklist | 30 分钟 | soft |
-| **Phase 3 P3.7** | Study Guide × 3 生成 + 人工读 | 3 份 Study Guide | 1 小时 | soft |
-| **Phase 3 P3.8** | 15 题 A/B (10 SMOKE v2 + 5 独有) | `dev/ab_reports/notebook_ab.md` | 2-3 小时 | hard (≥13/15 PASS) |
+| ~~Phase 3 P3.5~~ **[ICEBOX]** | Audio Overview × 3 (SAFETY/EFFICACY/PK) — **挪 post-project optional (v2.1 2026-04-22)**, 原任务定义保留 §6 P3.5 | — | — | **ICEBOX** (non-gating) |
+| ~~Phase 3 P3.6~~ **[ICEBOX]** | Mind Map + 跨域关系验证 — **挪 post-project optional (v2.1)**, 原任务定义保留 §6 P3.6 | — | — | **ICEBOX** (non-gating) |
+| ~~Phase 3 P3.7~~ **[ICEBOX]** | Study Guide × 3 + 人工读 — **挪 post-project optional (v2.1)**, 原任务定义保留 §6 P3.7 | — | — | **ICEBOX** (non-gating) |
+| **Phase 3 P3.8** | **10 SMOKE v2 A/B** (跨 4 平台对比基线; 原 5 独有题随 P3.5-3.7 一起 ICEBOX) | `dev/ab_reports/notebook_ab.md` | 1.5-2 小时 | hard (**≥9/10 PASS**) |
 | **Phase 3 P3.9** | 3 档切换演练 (Restricted → Anyone with link → Public → 回 Restricted) | `dev/evidence/share_level_toggle_drill.md` | 30 分钟 | hard |
 | **Phase 4** | 跨 4 平台对比 + 回归 + 规则 A N=10 独立抽检 + 第 10 种 subagent_type 审 | `cross_platform_compare.md` + `phase4_reviewer.md` | 2-3 小时 | hard |
 | **Phase 5** | RETROSPECTIVE (含 pivot 复盘) + UPLOAD_TUTORIAL + CLAUDE.md / MANIFEST / worklog / PROGRESS 更新 + `_template/` 10 补丁 PR + commit + push | 3 份终 doc + 多点更新 | 3-5 小时 | hard (规则 D 独立审) |
 
-**Phase 3 总估工时**: ~10-14 小时 (Q2 保险 2x = 20-28 小时, 跨 1-3 天; P3.3 H3 验证 +30min + P3.4 M3 smoke 扩 +30min + P3.4.5 M1 语义自证 +2h + P3.9 L3/S1 子步骤 +10min, 合计 +3h)
+**Phase 3 总估工时** (v2.1 2026-04-22 ICEBOX 决策后): ~**7-10 小时** (Q2 保险 2x = 14-20 小时, 跨 1-2 天) — 含 P3.0 + P3.1 + P3.2 + P3.3 + P3.4 + P3.4.5 + P3.8 (10 SMOKE) + P3.9; **P3.5/P3.6/P3.7 ICEBOX 节省 ~2.5h + P3.8 缩 5 独有节省 ~1h** = 合计 -3.5h. (原 v2 估值 10-14h / 保险 20-28h 保留作 post-project 精雕参考.)
 
 ---
 
@@ -366,7 +369,7 @@ v1 Phase A 6 子动作 + A5 "webui batch upload 能力调研" (hard checkpoint) 
 4. **Phase A3 bucket**: 跑 `cluster_req_variables.py` → `source_mapping.md` + `uploads/MANIFEST.md`
 5. **Phase A4 audit**: diff 全集 vs bucket, 断言 ∅ gap, 规则 A N=10 抽检
 6. **Phase A 完收 commit + 用户 hard checkpoint ack**
-7. **Phase 3 上传 + indexing smoke + Custom mode + 独有产出生成 + 15 题 A/B + 3 档切换演练**
+7. **Phase 3 上传 + indexing smoke + Custom mode + ~~独有产出生成~~ (ICEBOX v2.1 2026-04-22) + 10 SMOKE v2 A/B + 3 档切换演练** (Studio 三件套 P3.5/P3.6/P3.7 挪 post-project optional, 本次 Phase 3 直接从 P3.4.5 跳到 P3.8)
 8. **Phase 4 跨平台对比 + 规则 A + 第 10 种 subagent_type 审**
 9. **Phase 5 RETROSPECTIVE (含 pivot 复盘作关键案例) + UPLOAD_TUTORIAL + 收束 commit + push**
 
@@ -427,25 +430,35 @@ v1 Phase A 6 子动作 + A5 "webui batch upload 能力调研" (hard checkpoint) 
   - citation 是否精确回指 ≥1 个预期 source (9/10 PASS 接受)
 - PASS 阈值: **10/10 Req 变量业务问答命中** (结构级 A4 + 语义级本步 P3.4.5 双锚闭合 Q1 红线)
 - 产物: `dev/evidence/phase3_task_P3.4.5_req_semantic_audit.md` (10 题 + 答案摘录 + citation 精度 + PASS/FAIL 表)
-- Checkpoint: **hard** (Q1 红线语义级自证必过, 不过 gate 不进 P3.5/3.6/3.7 独有产出)
+- Checkpoint: **hard** (Q1 红线语义级自证必过, 不过 gate 不进 P3.8) [v2.1 2026-04-22: 原 "不进 P3.5/3.6/3.7 独有产出" 因 Studio 三件套 ICEBOX 改指 P3.8]
 - 失败处理: (a) 漏变量 → cluster bucket 回炉 (Phase A A3) (b) citation 不精确 → instructions.md 加强 citation 约束 (c) RAG 召回跨 source 噪声 → source 合并粒度调整
 
-### P3.5 Audio Overview × 3 (生成 30 分钟 + 听 1-2 天)
+### P3.5 Audio Overview × 3 (生成 30 分钟 + 听 1-2 天) — **[ICEBOX v2.1 2026-04-22]**
+
+> **ICEBOX 决策 (2026-04-22 用户方案 A+保留)**: 本任务挪 post-project optional, **不计入 Phase 3 收束 gate, 不计入 Phase 4 跨平台对比**. 归因: Audio Overview 为 NotebookLM 独有, Claude/ChatGPT/Gemini 均无等价功能, 无跨平台对比价值. 原任务定义保留如下供全项目 (Phase 5) 收束后用户选择性精雕 (触发条件 §10 "Post-project ICEBOX" 小节):
 
 - 子步骤: (a) Audio Overview → Deep Dive × 3 (SAFETY / EFFICACY / PK 主题各 prompt) (b) 每期 30-45 分钟, 用户抽听 (c) 录事实错误数 + 对照 source 核
-- Checkpoint: soft (∃ <10% hallucination 算 PASS)
+- Checkpoint: ~~soft (∃ <10% hallucination 算 PASS)~~ → **ICEBOX (non-gating)**
 - 失败处理: instructions.md 微调 (加 "基于 source 绝不脑补") 再跑 1 期; per-day 20 cap 内可 retry
 
-### P3.6 Mind Map + 3.7 Study Guide (各 30-60 分钟)
+### P3.6 Mind Map + 3.7 Study Guide (各 30-60 分钟) — **[ICEBOX v2.1 2026-04-22]**
+
+> **ICEBOX 决策 (2026-04-22 用户方案 A+保留)**: P3.6/P3.7 同 P3.5 一起挪 post-project optional. 归因同上 (独有无跨平台对比价值). 原任务定义保留如下:
 
 - Mind Map: 生成 → 导出 PNG → 对照 63 domain 清单 checklist
 - Study Guide: 3 个 domain (AE / LB / CM) 各生成一份, 人工读
 
-### P3.8 15 题 A/B (2-3 小时)
+### P3.8 10 SMOKE v2 A/B (1.5-2 小时) — v2.1 简化
 
-- 10 SMOKE v2 (共享 ChatGPT/Gemini) + 5 独有 (Audio 2 + Mind Map 2 + Study Guide 1)
+- **10 SMOKE v2** (共享 ChatGPT / Gemini / Claude 跨 4 平台对比基线, 见 `ai_platforms/SMOKE_QUESTIONS_V2.md` v2.1)
+- ~~5 独有 (Audio 2 + Mind Map 2 + Study Guide 1)~~ **ICEBOX v2.1 2026-04-22** (随 P3.5/P3.6/P3.7 一起挪 post-project optional)
 - 产 `dev/ab_reports/notebook_ab.md`
-- Checkpoint: **hard** (≥13/15 PASS, <13 走 P10 归因重构)
+- Checkpoint: **hard** (**≥9/10 PASS** ~90%, <9 走 P10 归因重构)
+- **吸收 Phase 3 carry-over** (P3.4.5 转过来的):
+  - F-1-recurring 持续跟踪 (小表渲染漂移, 小表单行漂移不扣语义分; 原放 P3.5/3.6/3.7 监测, ICEBOX 后挪 P3.8)
+  - F-2 同题 retry 幂等性不强制 (语义等价即 PASS)
+  - F-3 citation dropout T2 题型偏向 (业务场景/举例类 T2 题易丢 inline cite, 记为系统性弱点, 不扣 A/B 题分但 Retro 关键教训)
+  - HC-3 bucket 38 尾段补题 (候选 PHQ-9/PDQ-39/PGI, 避 FT 域归属题, 单独计作 1 题, 若 PASS 记入 ≥9/10 分母)
 
 ### P3.9 3 档切换演练 (L3 fix + S1 SUGGESTION, 40 分钟)
 
@@ -460,15 +473,17 @@ v1 Phase A 6 子动作 + A5 "webui batch upload 能力调研" (hard checkpoint) 
 
 ---
 
-## §7 A/B 矩阵 (15 题, v2 单 notebook)
+## §7 A/B 矩阵 (v2.1 2026-04-22 后: 10 题 SMOKE v2; 5 独有 ICEBOX)
 
-### 10 SMOKE v2 (从 `ai_platforms/SMOKE_QUESTIONS_V2.md` 继承, 对齐 ChatGPT/Gemini)
+### 10 SMOKE v2 (从 `ai_platforms/SMOKE_QUESTIONS_V2.md` 继承, 对齐 ChatGPT/Gemini/Claude 跨 4 平台对比基线)
 
 维度分布: 场景 3 + 规则 3 + 映射 2 + 鉴别 2 (与 ChatGPT/Gemini 双平台一致以便对比)
 
 判据参考 SMOKE v2.1 最新版 (Q3 LBNRIND PASS = HIGH/LOW/NORMAL, FAIL = H/L/N 短码).
 
-### 5 独有生成物评估
+### ~~5 独有生成物评估~~ — **[ICEBOX v2.1 2026-04-22]**
+
+> **ICEBOX 决策 (2026-04-22 用户方案 A+保留)**: U1-U5 随 §6 P3.5/P3.6/P3.7 一起挪 post-project optional, **不计入 Phase 3 ≥9/10 PASS 阈值分母**. 归因: Audio/Mind Map/Study Guide 独有产出无跨 4 平台对比价值 (其他 3 平台均无等价功能). 原评估定义保留如下供全项目收束后精雕:
 
 | # | 类型 | 题 | 评估方式 |
 |---|------|---|---------|
@@ -478,11 +493,12 @@ v1 Phase A 6 子动作 + A5 "webui batch upload 能力调研" (hard checkpoint) 
 | U4 | Mind Map coverage (SUPP--) | 查 "SUPPQUAL 扩展" 是否覆盖所有 63 domain 的 SUPP-- pattern | ≥80% 有 SUPP 例的 domain 有标注 PASS |
 | U5 | Study Guide 分层 | 生成 "AE 域 Socratic" Study Guide, 检查覆盖 Standard → IG → Examples 三层 | 三层齐全 PASS |
 
-### PASS 阈值
+### PASS 阈值 (v2.1 更新)
 
-- 总分 ≥13/15 (~87%) AND 每个独有产出至少 1 题 PASS (U1-U2 Audio ≥1 PASS / U3-U4 Mind Map ≥1 PASS / U5 Study Guide PASS)
-- **Req 变量零丢失** 独立自证 (A4 产物, 非 A/B 题里)
-- <13 触发 P10 归因: (a) source 缺失重 bucket / (b) instructions.md 微调 / (c) Chat mode 切回 Learning Guide 再测
+- **总分 ≥9/10 (~90%)** (原 ≥13/15 的 ~87% 收紧到 ~90%, 因分母缩小但难度基线不变, 留 1 题容错)
+- ~~AND 每个独有产出至少 1 题 PASS~~ (ICEBOX 后此子条删除)
+- **Req 变量零丢失** 独立自证 (A4 结构级 + P3.4.5 语义级双锚, 非 A/B 题里; 已于 2026-04-22 P3.4.5 CONDITIONAL_PASS 闭合)
+- <9 触发 P10 归因: (a) source 缺失重 bucket / (b) instructions.md 微调 / (c) Chat mode 切回 Learning Guide 再测
 
 ---
 
@@ -548,6 +564,17 @@ v1 Phase A 6 子动作 + A5 "webui batch upload 能力调研" (hard checkpoint) 
 
 - RETROSPECTIVE 过规则 D 独立审 (第 11-13 种 subagent_type)
 - `_template/` 10 补丁 PR (ai_platforms/_template/ 只在 Phase 5 写入)
+
+### Post-project ICEBOX (v2.1 2026-04-22 用户决策 A+保留)
+
+> 全项目 (Phase 5 收束 + commit/push + CLAUDE.md Key Paths / MANIFEST / worklog / PROGRESS 全刷新) 完成后, 若用户有精力 + 无新优先级, 可选回头做. **触发条件**: 用户主动提出 "回头精雕 NotebookLM Studio 三件套" 或 "把 P3.5/P3.6/P3.7 补做". **不触发时永久 ICEBOX, 不影响本次 Phase 5 收束完整性**.
+
+- **P3.5 Audio Overview × 3** (SAFETY / EFFICACY / PK Deep Dive, 每期 30-45 min) — 原定义 §6 P3.5 保留
+- **P3.6 Mind Map + 跨域关系验证** (63 domain 全景 + RELREC/SUPPQUAL 覆盖 checklist) — 原定义 §6 P3.6 保留
+- **P3.7 Study Guide × 3** (AE / LB / CM 各一份, Socratic 引导) — 原定义 §6 P3.7 保留
+- **A/B 5 独有题 U1-U5** (Audio fidelity ×2 + Mind Map coverage ×2 + Study Guide layering ×1) — 原定义 §7 保留, 随 Studio 三件套一起恢复时一并评估
+
+**重开流程**: 用户 ack → 读本节 + §6 / §7 原任务定义 → 开新分支 (不污染主 retrospective) → 生成产物 + 评估 → 补 RETROSPECTIVE Appendix + _template/ 新补丁候选 (若有).
 
 ---
 
