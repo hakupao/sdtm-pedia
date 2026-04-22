@@ -627,6 +627,23 @@
       "completed_at": null
     }
   },
+  "4_n5_4_cross_platform_ab_with_v5c_delta": {
+    "status": "DONE",
+    "completed_at": "2026-04-22",
+    "report_paths": [
+      "ai_platforms/chatgpt_gpt/dev/ab_reports/STAGE_PHASE4_AB_REPORT.md",
+      "ai_platforms/gemini_gems/dev/ab_reports/STAGE_PHASE4_AB_REPORT.md",
+      "ai_platforms/gemini_gems/dev/evidence/smoke_v3_v5c_delta.md"
+    ],
+    "v5c_sync_at_current": "ai_platforms/gemini_gems/current/system_prompt.md (v5 → v5c, CO-4 GF/CP/BE/BS 变量硬锚 merged from draft; draft file deleted)",
+    "v5c_delta_score": "3/3 PASS (Q1/Q2/Q3) = CO-4 完全生效",
+    "chatgpt_side_no_change": "ChatGPT 侧 baseline 14/14 封顶, system_prompt 无 v5c 等价 fix 需求 (reviewer 19 planner 独立 Grep LBNRIND 在 ChatGPT system_prompt 0 匹配确认无自污染)",
+    "gemini_equivalent_smoke_v3_score": "7/10 baseline → 10/10 post-v5c (等价 PASS, Q4-Q10 未重跑, 等价假设见 smoke_v3_v5c_delta.md §2: v5c 只加 CO-4 不动其他 CO 段 + KB uploads 不变)",
+    "cross_platform_closure": "Q1-Q10 shared: Gemini 10/10 (v5c) vs ChatGPT 10/10 = gap 30pp → 0pp",
+    "phase5_retro_seed": "system_prompt 锚注入 CO-4 pattern 对 full-context 架构新域变量命名层有效, 应纳入 _template/ 给未来新域扩展套用. 证 attention 竞争本质是 prime 位置问题非容量问题 (头部锚 ~3K chars 权重 >> 616K 尾部 rare-token 权重).",
+    "rule_d_carry_to_n5_5": "双 AB_REPORT + v5c_delta 待 Rule D 第 24/25 种 subagent_type 独立审 (建议候选: superpowers:requesting-code-review / oh-my-claudecode:critic, 前 23 种未用; 第 24/25 下次 session 派发)",
+    "next_action": "commit C5.4 bundled (本 session) → 下次 session: Rule D 24/25 审双 AB → Phase 5 RETROSPECTIVE 启动"
+  },
   "platform_specific_constraints": {
     "P11_file_count_hard_limit": 20,
     "P12_source_attribution_required": true,
