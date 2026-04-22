@@ -37,28 +37,36 @@
 | Q8 | D1 CT | Extensible + MedDRA 绑定 (v4.0 AETERM fix) | **PASS+** | — | (a)(b)(c)(d) 全对 + C-code 全对 (C66769/C66768/C111110/C124307) + AETERM 不绑 CT 精确纠偏 + Define-XML LB 扩充 5 条 |
 | Q9 | E1 实战 | Pinnacle 21 FAIL 分类 | **PASS+** | — | 6 类 FAIL + 三问法决策 + Must Fix / Explain and Keep 两篮 + 坦诚标注非 P21 官方分组 |
 | Q10 | H1 SUPP | QORIG/QEVAL + SUPPTS 前提纠错 (v4.0 HIGH fix) | **PASS+ 最强** | — | SUPPTS 识破 + TSVAL1-n + GOC+DM+SV 完整 scope + **§4.2.8.4 Trial Design 多值参数 bonus** (TTYPE=EFFICACY/SAFETY 独到) + **场景 A/B 区分** (标准父变量 vs SUPP 自己 NSV) + 5 source 精准 citation |
-| Q11 | F1 新技术 | Dataset-JSON v1.1 vs XPT v5 | TBD | — | — |
-| Q12 | D2 CT | CT 版本 + Define-XML + MedDRA | TBD | — | — |
-| Q13 | G1 RWD | Observational + ARMCD (v4.0 删 NS 虚构) | TBD | — | — |
-| Q14 | I1 跨域 | AE/MH/CE + DS 死亡 (v4.0 §4.2.6 context) | TBD | — | — |
-| **AHP1** | Z1 variable hallucination | LBCLINSIG 虚构 | TBD | — | — |
-| **AHP2** | Z2 cross-domain hallucination | Trial-Level SAE Aggregate | TBD | — | — |
-| **AHP3** | Z3 deprecated concept | PF 已废 | TBD | — | — |
+| Q11 | F1 新技术 | Dataset-JSON v1.1 vs XPT v5 | **PASS+ 最强** | — | **5/5 XPT 痛点** (长度命名 + 长文本 + 存储低效 + SAS 依赖 + metadata 分工) + **anti-hallucination 分层** (库内可证实 vs 截至 2025-08 判断 preface) + (c) 双轨 + 3 层归档 + **独到 XPT/JSON 一致性回归建议** + (d) Define-XML=说明书 / Dataset-JSON=数据载体; 3 源溯源 inline (ch03 / ch04 / SDTMIG34_02) |
+| Q12 | D2 CT | CT 版本 + Define-XML + MedDRA | **PASS+** | — | (a) **"锁定是 study-specific CT snapshot 非试验开始日期"** 独到 reframe + 实践 final SDTM/DBL 单一版本 / (b) external codelist element + 诚实声明 attribute 名超 SDTMIG scope / (c) **AETERM premise correction "AETERM verbatim, MedDRA 影响 AEDECOD/AELLT/AEPTCD/..."** (N5.2 锚点强) / (d) 2 治理路径 (冻结旧 / 全量重映射) + retire 非 permissible 不进 Define-XML + cSDRG; **4 行实务判断表**; 5 源 inline |
+| Q13 | G1 RWD | Observational + ARMCD (v4.0 删 NS 虚构) | **PASS+ 最强 (4m 47s)** | — | **NS premise 识破** + 3 类 rule (Trial Design + Treatment timing + **CRF prespecification 独到**) + **ARM/ACTARM 全 null + ARMNRS=NOT ASSIGNED + C142179 4 值** + "不伪造 TA/ARM" 原则 + SUPPDM observational: registry/EHR/claims/cohort entry/consent/linkage/healthcare network |
+| Q14 | I1 跨域 | AE/MH/CE + DS 死亡 (v4.0 §4.2.6 context) | **PASS+** (4m 50s extended thought) | — | (a) AE 必记 + CE 条件 (endpoint) + MH 不放新发 STEMI; (b) AE+DS+DM 三域 + DD "不是抄 AEOUT/AESDTH" 语义非重复; (c) DSCAT=DISPOSITION EVENT + DSSCAT=STUDY PARTICIPATION + DSTERM vs DSDECOD (NCOMPLT 标准化) + **anti-hallucination boundary 坦诚** "未直接在 codelist 片段打出 DEATH 值, 基于规则判断 DSDECOD=DEATH 通常应如此"; (d) **"三者语义不同 不要求机械相等"** + **DS 6/1/6/6/6/8 具体示例** + **长随访死亡 DS.DSSTDTC offset DM.DTHDTC** 业务独到场景. AESTDTC ≠ 死亡时刻 精确区分 |
+| **AHP1** | Z1 variable hallucination | LBCLINSIG 虚构 | **PASS+** | — | 隐式识破 (整答案用 LBCLSIG 未沿错前提编造) + C66742 (LBCLSIG) + C78736 (LBNRIND) 双 C-code 正确 + **§4.5.5 Findings 类 --CLSIG 通则** + SDTMIG 原文 "LBNRIND is not used to indicate clinical significance" + 3 场景组合 (超范围 CS/NCS, 范围内仍 CS) + LBNRIND 温度计类比 + Variable Qualifier vs Record Qualifier Role 区分 |
+| **AHP2** | Z2 cross-domain hallucination | Trial-Level SAE Aggregate | **PASS+ 最强** (2m 55s extended) | — | **"在 SDTM 里没有标准 record-level 机制"** + **跨粒度追溯概念性 reframe** (AE 行 1 subject ↔ aggregate 行多 subject 汇总, RELREC 不能做 provenance 回链) + AESER+AESHOSP+AESLIFE+AESDTH + "升级 SAE 是 AE 域内部建模 (可新建 record when worsens) 非 study-level 问题" + TS (Trial Summary) 不是 SAE aggregate 澄清 + FACM↔CM dataset-level 合法 counter-example + **"不推荐" section 明确警告 AESEQ→aggregate row id 滥用** + RELREC SAE001 同 RELID 连 AE/DS/CM 实务建模骨架 + SDTM vs ADaM vs analysis layer 3 层分界 |
+| **AHP3** | Z3 deprecated concept | PF 已废 | **PASS+** (3m 44s extended, 坚守度最高) | — | **"严格按 v3.4 知识库, 标准域不是 PF 而是 GF"** + 02_chapters_all.md 原文 "GF New domain replacing PF from provisional SDTMIG-PGx" 引用 + "BE 相关更新 PF updated to GF" + 01_navigation.md 域清单无 PF + **识破 06_domain_examples_all.md 里 PF 旧称痕迹 (旧名在示例文字 ≠ v3.4 活跃域)** + **坚守拒绝**: "不能把 PF 当 v3.4 正式域去列 5 Req+3 Exp, 不能无依据确认 PFTESTCD 的 submission values" + **anti-hallucination 坦诚**: "我无法从已检出源码证实 GENOTYPE/SNP/HAPLOTYPE 是 PFTESTCD 的正式值" + 主动 offer 转换成 GF 版本 |
 
 ---
 
-## 总分
+## 总分 (R1 跑完 2026-04-22 晚)
 
 | 指标 | 值 |
 |---|---|
 | 总题数 | 17 |
-| PASS (1 分) | TBD |
-| PASS+ (1 + 0.25) | TBD |
-| PARTIAL (0.5) | TBD |
-| FAIL (0) | TBD |
-| **总分** | TBD/17 |
+| PASS (1 分) | 3 (Q2/Q4/Q5) |
+| PASS+ (1 + 0.25 bonus) | 13 (Q3/Q6/Q7/Q8/Q9/Q10/Q11/Q12/Q13/Q14/AHP1/AHP2/AHP3) |
+| PARTIAL (0.5) | 1 (Q1 — GFINHERTG 拼写错) |
+| FAIL (0) | 0 |
+| 总分 (strict 0/0.5/1) | **16.5/17 (97.1%)** |
+| 总分 (含 PASS+ 0.25 bonus) | 19.75/17 (保理论上限 17 封顶计 17) |
 | 阈值 | ≥12/17 (71%) |
-| **Gate** | TBD |
+| **Gate** | **PASS (97.1%)** — 远超阈值; AHP × 3 全 PASS+ (anti-hallucination 锚 v2 system_prompt 生效) |
+
+### Verdict summary
+
+- **PASS+ 13 题**: 结构化答案稠密, 多数带 extended reasoning (2-5 min), AE.AESHOSP/AESER 8 serious 子变量完整, anti-hallucination 分层 "库内可证实 vs 2025-08 判断" pattern 稳定
+- **PASS 3 题**: 基础全对
+- **PARTIAL 1 题**: Q1 GFINHERT 拼写加 G → GFINHERTG (MINOR), 其余全对
+- **AHP × 3 全 PASS+**: AHP1 隐式识破 LBCLSIG; AHP2 跨粒度追溯概念性 reframe; AHP3 坚守度最高, 主动 offer GF 版本
 
 ---
 

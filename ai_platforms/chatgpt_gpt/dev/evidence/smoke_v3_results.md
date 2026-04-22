@@ -1,5 +1,20 @@
 # ChatGPT GPTs — smoke v3 (N5.3 Full A/B + Generalization Probe) 14 题结果
 
+> **⚠️ SUPERSEDED 2026-04-22 by smoke v4.0** — 本文件记录 smoke v3.1/v3.2 结果, 已于 2026-04-22 PM 因 `ai_platforms/smoke_v3_audit_notes.md` 第 11 种 subagent_type (document-specialist) audit 发现题目前提错作整块 **SUPERSEDED**.
+>
+> **核心 audit findings**:
+> - Q10 (b) SUPPTS 题干 + 判据基于错前提 (SUPPTS 不是 SDTMIG v3.4 定义的 dataset; TS 属 Trial Design, 长 TSVAL 用 TSVAL1-n 内部派生)
+> - Q13 (c) "NS (Non-Standard Domain)" 是虚构概念 (WebFetch CDISC Observational RWD v1.0 PDF 2024-02 确认无此概念, 只有既有 NSV variable-level)
+> - Q8 LBNRIND 被错列 Non-Ext (实际 C78736 Extensible=Yes); AETERM 被写"用 MedDRA" 错位 (MedDRA 绑 AEDECOD/AELLT/AEHLT 等 --DECOD 变量, AETERM 是 verbatim free text)
+> - Q4 FAIL 场景 A PARTIAL 规则过宽 (IS/assumptions.md 2 是 v3.4 显文, 非"版本迁移无显文")
+> - Q14 "三域互斥"过强 + 死亡日期"严格相等"过严 (应日级对齐, time offset 需 Reviewers Guide)
+>
+> **不回溯重评分**: 本文件实际 14/14 或 12/14+2subst 结果 frozen 作历史 trace; Phase 4 跨平台对比 baseline 用 **smoke v4.0** (在 `ai_platforms/smoke_v3_questions_draft.md` 内已 bundled patch + 新增 AHP × 3). 4 平台 (Claude/ChatGPT/Gemini/NotebookLM) smoke v4 R1 重跑.
+>
+> **本文件作 historical reference only**.
+
+---
+
 > Date: 2026-04-22
 > 题库: `ai_platforms/smoke_v3_questions_draft.md` v3.1 (14 题, Q1-Q10 双平台共用 + Q11-Q14 ChatGPT 专属)
 > 前置 commit: `7edcb1c` (Phase 4 N5.3 C5.3a 题库设计 + 双 reviewer 审 + v3.1 修)

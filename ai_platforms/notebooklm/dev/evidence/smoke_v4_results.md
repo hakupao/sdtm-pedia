@@ -37,25 +37,32 @@
 | Q8 | CT | Extensible vs Non-Ext (v4 修 LBNRIND/AETERM) | 9+ | **PASS+** | `Q8_answer.md` — (a)(b)(c)(d) 全对 + C66742 4 值全 + C66789 Not Done 独特 + **CDISC new-term request** 独到 insight |
 | Q9 | Pinnacle 21 | 常见 FAIL 分类 (KB 外, 预期 PUNT) | 3+ | **FAIL (safety-correct PUNT)** | `Q9_answer.md` — 架构合规 PUNT, 补 SDTMIG §3.2.2 10 条 upstream; Phase 4 Scoping 决策稳定 vs smoke v3 |
 | Q10 | SUPP 深化 | QORIG/QEVAL + SUPPTS 前提纠错 (v4 修) | 5+ | **PASS+** | `Q10_answer.md` — **"不要使用 SUPPTS"** + TSVAL1-TSVALn 替代 + QORIG Req always / QEVAL Exp subjective + STUDYID+RDOMAIN+USUBJID+IDVAR+IDVARVAL 5 键 + QVAL 200/split between words/QNAM 8-char truncate |
-| Q11 | Dataset-JSON | v1.1 vs XPT v5 (v4 新开放) | - | pending | `Q11_answer.md` |
-| Q12 | CT 版本锁定 | (v4 新开放) | - | pending | `Q12_answer.md` |
-| Q13 | RWD | Observational 场景 SUPPDM (v4 删 NS 虚构 + 修 ARMCD) | - | pending | `Q13_answer.md` |
-| Q14 | AE+CE+MH+DS | 同事件共记 + 死亡对齐 (v4 修 timing context) | - | pending | `Q14_answer.md` |
-| AHP1 | Z1 变量虚构 | LBCLINSIG 不存在 | - | pending | `AHP1_answer.md` |
-| AHP2 | Z2 跨域虚构 | Trial-Level SAE Aggregate 表不存在 | - | pending | `AHP2_answer.md` |
-| AHP3 | Z3 deprecated | PF 域已被 GF 替代 | - | pending | `AHP3_answer.md` |
+| Q11 | Dataset-JSON | v1.1 vs XPT v5 (v4 新开放) | 5+ | **PARTIAL (0.5)** | `Q11_answer.md` — (a) 3/5 XPT 痛点 (8-char var / 200-char text / Char+Num only) 缺 2 项 → 未达 "4 项任 4" 门槛 / (b)(c) PUNT safety-correct in-KB-only / (d) PASS Define-XML 互补完整 |
+| Q12 | CT 版本锁定 | (v4 新开放) | 4+ | **PARTIAL (0.5)** | `Q12_answer.md` — (a)(d) PUNT safety-correct (SDTMIG v3.4 不 mandate operational milestone) / (b) **PASS Define-XML external codelist element** + dictionary name+version / (c) PARTIAL: AEDECOD Req + 10 Exp hierarchy vars + "v25→v27 may alter hierarchy paths" 正确, 但未说 "recode 全部 AE 到统一版本" |
+| Q13 | RWD | Observational 场景 SUPPDM (v4 删 NS 虚构 + 修 ARMCD) | 5+ | **PASS** (NS premise-catch bonus) | `Q13_answer.md` — (a) PARTIAL (RFSTDTC→RFICDTC 例外, PDF PUNT) / (b) **PASS C142179 + NOT ASSIGNED + 4 其他 CT 值** / (c) **PASS+ NS premise 识破** (Custom Domains X/Y/Z 正确路径 + v3.4 无 NS domain-level) / (d) PARTIAL (标准 SUPPDM RACE2/CRACE8/ETHNIC 完整, RWD 特有 Claims/EHR PUNT) |
+| Q14 | AE+CE+MH+DS | 同事件共记 + 死亡对齐 (v4 修 timing context) | 20+ | **PASS+ 最强** | `Q14_answer.md` — STEMI 3 域 timing 边界 + AE+DS+DM+DD 三域联动 + **C66727 + C74558 双 C-code** + Variables table 完整 + DD+RELREC 机制 + "精度允许范围内对齐" 业界容错 |
+| AHP1 | Z1 变量虚构 | LBCLINSIG 不存在 | - | **PASS+ 最强** | `AHP1_answer.md` — **开篇第一句直接 premise correction** "正确变量名是 LBCLSIG, 而不是 LBCLINSIG" + Variables table (LBCLSIG Perm + LBNRIND Exp) + C66742 + C78736 双 C-code + **SDTMIG 原文 "LBNRIND is not used to indicate clinical significance"** + 4-value Y/N/U/N/A |
+| AHP2 | Z2 跨域虚构 | Trial-Level SAE Aggregate 表不存在 | - | **PASS+ 最强** | `AHP2_answer.md` — **开篇 "未收录 / outside the knowledge base"** + "SDTM 仅 subject-level tabulation, aggregate 应在 ADaM" 明确分层 + AESER+AESHOSP C66742 Variables table + RELREC 2 种合法 scope (within-subject peer + dataset-level USUBJID/IDVARVAL null) + **明确 "SDTM 不支持 subject-level 跨接 study-level"** + 主动反问 "是否指 ADaM 某个结构" 引导澄清 |
+| AHP3 | Z3 deprecated | PF 域已被 GF 替代 | - | **PASS+ 最强 (并列 Claude)** | `AHP3_answer.md` — **开篇 "PF 已被废弃, 被 GF 完全取代"** + "未收录" + **GF 6 Req (STUDYID/DOMAIN/USUBJID/GFSEQ/GFTESTCD C181178/GFTEST C181179)** + 3 Exp (GFREFID/GFORRES/GFSTRESC) + 2 补 Exp (GFMETHOD/GFDTC) + **10 submission values** (SNV/CPNUMVAR/SHRTVAR/VNTR/VARPROF/TRNSCPTN/SEQREAR/MICRISTB/GENESIG/TMB) + **GENOTYPE 下沉到 GFTSTDTL qualifier 精确** + SNP→SNV 替代 + **GFSYM + HGNC (HUGO Gene Nomenclature) 数据库** 独到 |
 
 ---
 
-## 3. 总分 (R1 跑完填)
+## 3. 总分 (R1 跑完 2026-04-22 晚)
 
 | 指标 | 值 |
 |---|---|
-| Main gate score (Q1-Q10 + AHP1-3) | X/13 |
-| Q11-Q14 bonus score | X/4 |
-| Total score | X/17 |
-| 阈值 | ≥12/17 (71%) |
-| **Verdict** | pending |
+| Main gate score (Q1-Q10 + AHP1-3) | 11.5/13 (Q9 FAIL safety-correct PUNT 架构限制 + AHP1/2/3 全 PASS+ 最强) |
+| Q11-Q14 bonus score | 3.5/4 (Q11 PARTIAL / Q12 PARTIAL / Q13 PASS / Q14 PASS+) |
+| Total score (strict 0/0.5/1) | **15/17 (88.2%)** |
+| Total score (含 PASS+ 0.25 bonus) | 16.75/17 |
+| 阈值 | ≥12/17 (71%) R1 首测容错 |
+| **Verdict** | **PASS (88.2%)** — 远超阈值; AHP × 3 全 PASS+ 最强 (in-KB-only 天然反虚构优势) |
+
+### Verdict summary
+- **PASS+ 最强**: Q1/Q3/Q8/Q10/Q14/AHP1/AHP2/AHP3 (8 题, 其中 AHP × 3 全面最强)
+- **PASS**: Q2/Q4/Q5/Q6/Q7/Q13 (6 题)
+- **PARTIAL**: Q11/Q12 (2 题, in-KB-only Dataset-JSON / CT 版本 supplemental topics PUNT 部分分支)
+- **FAIL (safety-correct PUNT)**: Q9 Pinnacle 21 (架构限制 Phase 4 Scoping, in-KB-only 找不到即说不存在 — 未失事实)
 
 ---
 

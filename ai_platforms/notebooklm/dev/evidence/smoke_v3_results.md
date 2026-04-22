@@ -1,5 +1,19 @@
 # NotebookLM — smoke v3 Q1-Q10 (P3.8 A/B) 结果
 
+> **⚠️ SUPERSEDED 2026-04-22 by smoke v4.0** — 本文件记录 smoke v3 Q1-Q10 P3.8 执行结果 (9/10 strict PASS), 已于 2026-04-22 PM 因 `ai_platforms/smoke_v3_audit_notes.md` 第 11 种 subagent_type (document-specialist) audit 发现题目前提错作整块 **SUPERSEDED**.
+>
+> **核心 audit findings** (影响 NotebookLM 侧评分维度):
+> - **Q10 (b) SUPPTS 题干 + 判据基于错前提** (SUPPTS 不是 SDTMIG v3.4 定义的 dataset; TS 属 Trial Design, 长 TSVAL 用 TSVAL1-n 内部派生). 注: **NotebookLM P3.8 Q10 答案 (PASS+) 本就正确纠错了这个前提** — 反衬判据 bug. smoke v4.0 新题已显式要求识别 SUPPTS 不存在作 PASS 必含条件.
+> - Q8 LBNRIND 被错列 Non-Ext (实际 C78736 Extensible=Yes)
+> - Q4 FAIL 场景 A PARTIAL 规则过宽
+> - Q14 未跑 (ChatGPT 专属), 但 smoke v4.0 加 AHP × 3 后 NotebookLM 题数 10 → 13
+>
+> **不回溯重评分**: 本文件实际 9/10 结果 frozen 作历史 trace + carry-over 观察; Phase 4 跨平台对比 baseline 用 **smoke v4.0** (Q1-Q10 + AHP1-3 = 13 题, NotebookLM in-KB-only 对 AHP 天然 PASS). 4 平台 (Claude/ChatGPT/Gemini/NotebookLM) smoke v4 R1 重跑.
+>
+> **本文件作 historical reference only** (P3.8 writer evidence 保留完整, 包括 Q10 主动纠错 SUPPTS 的 meta-finding 作 v4.0 设计 driving force).
+
+---
+
 > **Date**: 2026-04-22
 > **题库**: `ai_platforms/smoke_v3_questions_draft.md` v3.1 Q1-Q10 (generalization probe, 对齐 ChatGPT+Gemini N5.3)
 > **PLAN 版本**: v2.2 (2026-04-22 升级 v2.1→v3 Q1-Q10)
