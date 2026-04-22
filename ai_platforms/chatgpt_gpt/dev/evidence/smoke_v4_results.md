@@ -36,7 +36,7 @@
 | Q7 | C2 Timing | Partial date SDTM/ADaM | **PASS+** | — | 3 场景全对 + §4.4.2 锚点 + 相对 timing 完整清单 (STRTPT/STTPT/ENRTPT/ENTPT) + SDTM/ADaM 边界清晰 |
 | Q8 | D1 CT | Extensible + MedDRA 绑定 (v4.0 AETERM fix) | **PASS+** | — | (a)(b)(c)(d) 全对 + C-code 全对 (C66769/C66768/C111110/C124307) + AETERM 不绑 CT 精确纠偏 + Define-XML LB 扩充 5 条 |
 | Q9 | E1 实战 | Pinnacle 21 FAIL 分类 | **PASS+** | — | 6 类 FAIL + 三问法决策 + Must Fix / Explain and Keep 两篮 + 坦诚标注非 P21 官方分组 |
-| Q10 | H1 SUPP | QORIG/QEVAL + SUPPTS 前提纠错 (v4.0 HIGH fix) | TBD | — | — |
+| Q10 | H1 SUPP | QORIG/QEVAL + SUPPTS 前提纠错 (v4.0 HIGH fix) | **PASS+ 最强** | — | SUPPTS 识破 + TSVAL1-n + GOC+DM+SV 完整 scope + **§4.2.8.4 Trial Design 多值参数 bonus** (TTYPE=EFFICACY/SAFETY 独到) + **场景 A/B 区分** (标准父变量 vs SUPP 自己 NSV) + 5 source 精准 citation |
 | Q11 | F1 新技术 | Dataset-JSON v1.1 vs XPT v5 | TBD | — | — |
 | Q12 | D2 CT | CT 版本 + Define-XML + MedDRA | TBD | — | — |
 | Q13 | G1 RWD | Observational + ARMCD (v4.0 删 NS 虚构) | TBD | — | — |

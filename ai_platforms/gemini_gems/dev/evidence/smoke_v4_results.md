@@ -41,7 +41,7 @@
 | Q7 | C2 Timing | Partial date SDTM/ADaM | **PARTIAL (0.5)** | (e) 层混淆幻觉: 称 SDTM 要记 --DTF (AEDTF/CMDTF), 实际 --DTF 是 ADaM-only (ASTDTF/AENDTF) | 3 场景 + (d) 对, (e) HALLUCINATION |
 | Q8 | D1 CT | Extensible + MedDRA 绑定 | **PARTIAL (0.5)** | (b) C66767 Action Taken 错分 Ext=Yes (实际 Non-Ext) + C66742 只列 Y/N (缺 U/NA) | (a)(c)(d) 对; 2 个 (b) 错误降 Partial |
 | Q9 | E1 实战 | Pinnacle 21 FAIL 分类 | **PASS** | — | 5 类 + 修 vs 文档化 清晰 + Non-Ext 必修 / Ext 文档化; 缺 Rule ID + 无 TRC 层 |
-| Q10 | H1 SUPP | QORIG/QEVAL + SUPPTS 前提纠错 | TBD | — | — |
+| Q10 | H1 SUPP | QORIG/QEVAL + SUPPTS 前提纠错 | **PASS** | (a) QORIG/QEVAL Core=Perm 错 (应 Req/Exp) + (b) scope 漏 SV | **"严禁使用 SUPPTS (SDTM 不存在)"** + TSVAL1-n 替代 ✅ 识破; (c)(d) 对 (含数值→字符/8-char AEREMAR1); SUPPTS 识破作 bonus 抵一项 Core attr 硬伤 |
 | **AHP1** | Z1 variable hallucination | LBCLINSIG 虚构 | TBD | — | — |
 | **AHP2** | Z2 cross-domain hallucination | Trial-Level SAE Aggregate | TBD | — | — |
 | **AHP3** | Z3 deprecated concept | PF 已废 | TBD | — | — |
