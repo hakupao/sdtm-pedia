@@ -298,7 +298,12 @@
           "Q05 DD + Q06 SS non-core bucket 均 PASS → 为 P3.4.5 Req 语义抽检提供先验信心 (findings_other / findings_device 合并 bucket 的 RAG 召回能过关; 可安全取 DDTESTCD / SSTESTCD 入抽检池)",
           "Q08 大 bucket 38 PASS → 证明 302K bucket indexing 未截断, P3.4.5 可选取 questionnaires 类 (QS/FA 域) Req 变量入抽检池",
           "Q02 AE 6 Req 全集命中 → 可选更深的 AE Core 边界变量 (AESTDTC / AEENDTC) 入抽检池, 作 instructions.md 规则 5 AESER=Exp 边界的深度验证",
-          "Q10 bucket 42 ∅ gap 原文命中 → 若 P3.4.5 某题失败, 可用 bucket 42 作兜底反查确认该 Req 是否真漏"
+          "Q10 bucket 42 ∅ gap 原文命中 → 若 P3.4.5 某题失败, 可用 bucket 42 作兜底反查确认该 Req 是否真漏",
+          "P3.4 post-review addendum HC-1: P3.4.5 必须派第 10 种 subagent_type 做独立 reviewer (cumulative Rule D 链扩展到 10), 补 P3.4 cowork 自评自跑的松 precedent; 推荐 oh-my-claudecode:scientist",
+          "P3.4 post-review addendum HC-2: citation 判据回到 inline text 肉眼核验, 不接受 DOM panel 代替; 必须真实统计 F-1 漂移率 (P3.4 的 0/10 是 DOM 读取低估)",
+          "P3.4 post-review addendum HC-3: 若抽到 QS/FA 类且预期 bucket 38/39, 必须额外打 2 个补题 (part1 头段 + 尾段 codelist), 不单题外推 302K 全 bucket 未截断",
+          "P3.4 post-review addendum HC-4: cowork Chrome MCP 代跑每题原始 prompt + 原始 answer 必须全文 dump 到 p3_4_5_prompt_log.md, reviewer 审 log 不审 evidence 摘录",
+          "P3.4 post-review addendum HC-5: Writer (cowork 提交 prompt + 初判) 和 Reviewer (第 10 subagent_type 终审) 分离; cowork 不锁定最终 verdict"
         ],
         "p3_4_5_entry_prerequisites_met": {
           "p3_4_sub_a_pass": true,
@@ -307,6 +312,20 @@
           "f_1_closed": true,
           "f_2_deferred_to_p3_8": true,
           "all_gates_open": true
+        },
+        "p3_4_post_review_addendums": {
+          "review_date": "2026-04-22",
+          "reviewed_by": "main session (独立核验 cowork 产出)",
+          "verdict": "P3.4 事实层 10/10 全真核验通过, 方法论层识别 5 条疏漏 → 全部硬约束化为 HC-1..HC-5 写入 P3.4.5 手顺",
+          "addendums": {
+            "HC_1_writer_reviewer_isolation": "cowork 同时代跑 Chrome MCP 和自评, Rule D 隔离松; P3.4.5 强制第 10 subagent_type reviewer",
+            "HC_2_citation_inline_regression": "P3.4 citation 判据从 inline text 降级到 DOM panel Bucket ID, F-1 漂移 0/10 是低估; P3.4.5 强制 inline text 判据, 真实统计漂移率",
+            "HC_3_large_bucket_multi_region": "P3.4 Q08 单题推广 '302K bucket 未截断', 断言偏强; P3.4.5 若抽到 bucket 38/39 变量, 强制多区域补题",
+            "HC_4_prompt_log_required": "P3.4 '题目原文未改字' 缺原始 prompt 回显 log; P3.4.5 强制 dump 原始 prompt + 原始 answer 全文",
+            "HC_5_writer_scorer_separation": "P3.4 cowork 同时做 Writer 和评分; P3.4.5 明确 cowork 只做 Writer + 初判, 终审走第 10 subagent_type"
+          },
+          "impact_on_rule_d_chain": "P3.4.5 起强制扩展链到 10 种, 每个 hard checkpoint 都必须有独立 reviewer, 不再允许 UI 工具级借口跳过",
+          "handoff_doc_for_p3_4_5": "dev/checkpoints/CHECKPOINT_P3.4.5_HANDOFF.md (本 review 产物)"
         },
         "ready_for_p3_4_5": true
       },
