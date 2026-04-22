@@ -1112,3 +1112,49 @@
   - Q-REV-1 闭合, Phase 2 Plan Reviewer 3 Q-REV 全 closed (Q-REV-2 A5' / Q-REV-3 双锚前日已闭)
   - 无 knowledge_base/ 变动, 无 plans 变动, Chain D/E 不触发; Chain B (worklog → PROGRESS) + MANIFEST.md + CLAUDE.md Key Paths 更新
 - **下一步**: P3.4 indexing smoke (42 tile 全扫预览 ~15 min + 10 题 smoke Q citation 精度验证 ~30-45 min), hard checkpoint 目标 10/10 精确回指 (≥9/10 可接受). 主 session 下一 session 准备 P3.4 handoff 文档 + 10 题 smoke Q 列表 (从 MANIFEST.md 42 bucket + source_mapping 设计, ≥1 题 non-core domain DD/HO/ML 覆盖 findings_other bucket 18-22 RAG 弱信号区)
+
+### 2026-04-22 Phase 6.5 NotebookLM Phase 3 P3.4.5 完成 (Q1 红线语义级自证 Rule A 正本 CONDITIONAL_PASS 8.5/10)
+
+- **状态**: 已完成
+- **触发**: P3.4 完成后 (cowork Chrome MCP 跑 10/10 顶阈值 2026-04-21 commit 9dce0b0, P3.4 事后 review 识别 5 条方法论疏漏 → HC-1..HC-5 硬约束化 commit 132e0af), P3.4.5 gate OPEN 进入 Rule A 正本执行
+- **执行** (handoff §3.1 选项 A 用户亲自粘贴):
+  - **Step 1 抽样**: 主 session Python 分层抽样 (base seed 20260422 + 8 层递), 10 Req 变量锁定 (BSSEQ/SRTESTCD/CPTEST/QSTEST/FATESTCD/SESTDTC/SEX/REFID/TSPARM/BETERM), 约束 5 项全达成 (non-core 5/≥3, QS/FA 2/≥2, IG ch04 2/≥1, SP 2/≥1, 无 P3.4 重复), 产 `dev/evidence/p3_4_5_sampling_log.md` (86 行)
+  - **Step 2 设题**: T1×2 (Q1 BSSEQ / Q8 REFID) + T2×6 (Q2 SRTESTCD / Q4 QSTEST / Q5 FATESTCD / Q6 SESTDTC / Q7 SEX / Q9 TSPARM) + T3×2 (Q3 CPTEST / Q10 BETERM) 均衡; 非字典查询, 业务场景驱动
+  - **Step 3 用户 Chat Q&A**: 用户在 NotebookLM Web UI Chat Custom mode 逐题原文粘贴 10 题 + 2 HC-3 补题 (CDR 头段 / MMSE 尾段), 回帖答案 (初次 Q4/Q5 Q9/Q10 slot 错位已自修); raw prompt + raw answer 全文 dump 到 `dev/evidence/p3_4_5_prompt_log.md` (566 行, HC-4)
+  - **Step 4 主 session 初判**: 8.75/10 CONDITIONAL_PASS (Q4=0.75 非标准分, 其余全 1.0 或 0.5), 产 `dev/evidence/phase3_task_P3.4.5_req_semantic_audit.md` (306 行)
+  - **Step 5 第 10 种 subagent_type 独立复核** (HC-1): 派 `oh-my-claudecode:scientist` 独立审 prompt_log 原答案; Verdict CONDITIONAL_PASS 8.5/10; Q4 主判 0.75 → Reviewer 按 handoff §2.2 规则 (仅允 {1.0/0.5/0.0}) 改 0.5; 方向一致不改 verdict; Reviewer 新发现 **F-3 citation dropout T2 题型偏向** (场景驱动 Q2/Q5 100% dropout vs 结构查询 Q6/Q7/Q9 0% dropout) 系统性弱点
+  - **Step 5.5 用户仲裁**: 决策 A 采纳 Reviewer 8.5 + 进 P3.5; Q4 分歧 "不改 verdict" 接受
+  - **Step 6 progress + commit**: _progress.json 加 `p3_4_5_completion` 完整节点 (sub_steps / rule_d_chain_extension / q1_red_line_closure / findings / carry_over_to_p3_5_plus), 扩 Rule D 链 9 → 10; commit `34179dc`
+- **关键数据**:
+  - **Q1 红线语义级**: 10/10 顶阈值 PASS, 176 Req 结构 A4 (Phase A ∅ gap) + 语义 P3.4.5 双锚闭合
+  - **Citation 精度**: 7/10 未达 ≥9/10 硬阈值, 归因 instructions.md 规则 2 执行度漂移 (非 RAG 召回失败; HC-3 A 证实 bucket 38 indexing 稳健)
+  - **F-1 真实漂移率**: 8/10 (Reviewer confirmed), 打脸 P3.3 minimal test 分支 a CLOSED 判断 → **重开 F-1-recurring**
+  - **HC-3 bucket 38**: 头段 PASS (CDR citation [38_ct_questionnaires_part1_22.md]×3) / 尾段 INCONCLUSIVE (MMSE 在 FT 非 QS, 模型正确拒绝用户前提, domain 归属事件非 indexing 问题) → 单区域 PASS 不外推全 bucket (handoff §3.4)
+  - **Rule D 链扩展**: 9 → 10 种 (新增 `oh-my-claudecode:scientist`), 补 P3.4 松口子; Writer/Reviewer/用户仲裁三锚闭合
+- **附带发现**:
+  - **Prompt 前提纠错能力强** (3 处): Q3 (CP=Cell Phenotype 非 Clinical Endpoint), Q8 (RDOMAIN/RSUBJID 不在 RELSPEC 在 RELREC/RELSUB), HC-3 B (MMSE 在 FT 非 QS) — 证 RAG+Custom mode 防幻觉强, 非 yes-man
+  - **F-3 citation dropout 题型偏向 (Reviewer 新发现)**: T2 场景驱动题 dropout 100% vs T2 结构查询题 dropout 0%, 非随机漂移是系统性弱点
+  - **大 bucket 38 头段 indexing 未截断**: CDR citation 落 [38_ct_questionnaires_part1_22.md] 证实 302K bucket 60% of 500K cap 完整可召回
+- **规则合规**:
+  - **Rule A (正本)**: ✅ 10 Req × 业务问答 × 独立 reviewer, 三重闭合, 语义命中 10/10; citation 7/10 属 last-mile 漂移非召回失败
+  - **Rule B**: ✅ 无 FAIL 题, `dev/failures/` 未生成 attempt_<X>.md
+  - **Rule D**: ✅ 第 10 种 scientist 补 P3.4 松口子; Writer (主 session 初判) + Reviewer (scientist 终审) + 用户仲裁 Q4 分歧 三锚闭合
+  - **Rule E**: ✅ personal Gmail + Pro + Web UI + 用户亲自粘贴模式
+- **新产物路径** (本次 session):
+  - `ai_platforms/notebooklm/dev/evidence/p3_4_5_sampling_log.md` (new, 86 行)
+  - `ai_platforms/notebooklm/dev/evidence/p3_4_5_prompt_log.md` (new, 566 行)
+  - `ai_platforms/notebooklm/dev/evidence/phase3_task_P3.4.5_req_semantic_audit.md` (new, 306 行 evidence + Step 5 scientist reviewer 完整)
+  - `ai_platforms/notebooklm/dev/evidence/_progress.json` (updated +103 行: last_update / current_phase / 3_execute.status / p3_4_5_completion 完整节点 / notes 3 条 / Rule D 链 9→10)
+- **影响面**:
+  - Phase 3 P3.4.5 hard checkpoint CONDITIONAL_PASS, **P3.5 gate OPEN 无前置**
+  - Q1 红线**双锚闭合** (结构 A4 Phase A ∅ gap + 语义 P3.4.5 10/10 顶阈值)
+  - F-1 状态修正: P3.3 CLOSED 误判 → 重开 F-1-recurring (Phase 5 Retro 关键教训: "minimal test case 极端化样本不能外推")
+  - Rule D 链扩展至 10 种 (新 slot oh-my-claudecode:scientist 补 P3.4 松口子), 11th slot 留 Phase 4 跨平台 / Phase 5 Retro
+  - 无 knowledge_base/ 变动, 无 plans 变动, Chain D / E 不触发; 仅 Chain B (worklog → PROGRESS.md) + MANIFEST.md + CLAUDE.md Key Paths 更新
+- **Carry-over 至 P3.5+ (已入 _progress.json)**:
+  - F-1-recurring 持续跟踪 (P3.5/3.6/3.7 监测小表渲染)
+  - P3.8 A/B 评分规则补 "同题 retry 幂等不强制 + 小表单行漂移不扣语义分"
+  - P3.8 补 1 题 bucket 38 尾段闭合 HC-3 (候选 PHQ-9/PDQ-39/PGI, 避 FT 归属题)
+  - P3.8 记录 F-3 citation dropout T2 题型偏向 作系统性弱点 (Reviewer 新发现)
+  - `docs/research.md` 附录: MMSE FT 归属事件作 domain knowledge cache
+- **下一步** (新 session): **P3.5 Audio Overview × 3** (SAFETY / EFFICACY / PK), per-day 20 audio cap 内足 3 期, 生成 30 min + 用户抽听 1-2 天确认, soft checkpoint (<10% hallucination PASS)
