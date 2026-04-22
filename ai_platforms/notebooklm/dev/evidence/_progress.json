@@ -4,9 +4,9 @@
   "mode": "async",
   "sync_board_participation": false,
   "start_date": "2026-04-21",
-  "last_update": "2026-04-21_phase3_p3.4_done_ready_for_p3.4.5",
+  "last_update": "2026-04-22_phase3_p3.4.5_done_ready_for_p3.5",
   "status": "in_progress",
-  "current_phase": "3_execute_p3.4_done_ready_for_p3.4.5",
+  "current_phase": "3_execute_p3.4.5_done_ready_for_p3.5",
   "architecture_version": "v2_single_notebook_2026-04-21",
   "phase_states": {
     "0_bootstrap": {
@@ -128,7 +128,7 @@
       ]
     },
     "3_execute": {
-      "status": "p3_4_done_ready_for_p3_4_5",
+      "status": "p3_4_5_done_ready_for_p3_5",
       "phase_a_completion_date": "2026-04-21",
       "phase_a_results": {
         "a1_pre_upload_audit": {
@@ -329,7 +329,96 @@
         },
         "ready_for_p3_4_5": true
       },
-      "next_action": "P3.4 PASS → 进 P3.4.5 (Q1 红线语义级自证, Rule A 正本 N=10 Req 业务问答). P3.4.5 抽检池候选 (基于本 P3.4 先验): AE 边界 (AESTDTC/AEENDTC) + non-core (DDTESTCD/SSTESTCD) + 大 bucket 38 关联 (QS/FA 类 Req) + bucket 42 原文兜底. Chat mode 保持 Custom; 题目设计仍须按 M1 fix 规格: 语义级非填空, 不给 bucket 暗示, 测 Req 变量的业务含义/约束/CT 绑定"
+      "p3_4_5_completion": {
+        "date": "2026-04-22",
+        "executor": "主 session (Step 1 抽题 + Step 2 设题 + Step 4 初判 + HC-3 补题设计) + 用户 (Step 3 Web UI Chat 原文问答 + 复制答案, handoff §3.1 选项 A) + oh-my-claudecode:scientist (第 10 种 subagent_type, Step 5 独立复核终审)",
+        "evidence": "dev/evidence/phase3_task_P3.4.5_req_semantic_audit.md",
+        "prompt_log": "dev/evidence/p3_4_5_prompt_log.md",
+        "sampling_log": "dev/evidence/p3_4_5_sampling_log.md",
+        "handoff_doc": "dev/checkpoints/CHECKPOINT_P3.4.5_HANDOFF.md",
+        "sampled_variables": ["BSSEQ", "SRTESTCD", "CPTEST", "QSTEST", "FATESTCD", "SESTDTC", "SEX", "REFID", "TSPARM", "BETERM"],
+        "sampling_seed_base": 20260422,
+        "sub_steps": {
+          "step_1_sampling": "PASS — 分层 seed, 5 约束全达成 (non-core 5/≥3, QS/FA 2/≥2, IG ch04 2/≥1, SP 2/≥1, 无 P3.4 重复)",
+          "step_2_question_design": "PASS — T1×2 + T2×6 + T3×2 均衡, 非字典查询, 业务场景驱动",
+          "step_3_user_chat_qa": "PASS — 10 题 + 2 HC-3 补题全跑; 用户亲自粘贴模式; HC-4 raw prompt + raw answer 全文 dump 566 行",
+          "step_4_main_session_initial_score": "8.75/10 (CONDITIONAL_PASS 初判, Q4=0.75 非标准分)",
+          "step_5_scientist_reviewer": "PASS (独立复核完成, Verdict CONDITIONAL_PASS 8.5/10, 1 题分歧 Q4 主判 0.75 → Reviewer 按 handoff {1.0/0.5/0.0} 规则改 0.5, 方向一致不改 verdict)",
+          "step_5_5_user_arbitration": "PASS — 用户 2026-04-22 仲裁决策 A, 采纳 Reviewer 0.5 Q4 判 + ack 进 P3.5",
+          "step_6_progress_commit": "正在执行"
+        },
+        "final_score_after_user_arbitration": "8.5 / 10",
+        "final_verdict": "CONDITIONAL_PASS",
+        "semantic_hit_rate": "10 / 10 (Q1 红线语义顶阈值 PASS)",
+        "citation_precision": "7 / 10 (未达 ≥9/10 硬阈值; 归因 instructions.md 规则 2 执行度漂移, 非 RAG 召回问题)",
+        "f_1_real_drift_count_hc2_true_count": "8 / 10 (修正 P3.4 DOM 0/10 低估 + P3.3 F-1 CLOSED 误判; 重开 F-1-recurring)",
+        "hc_3_bucket_38_multi_region": {
+          "head_cdr": "PASS (bucket 38 part1_22 头段 indexing 实证, citation [38_ct_questionnaires_part1_22.md]×3)",
+          "tail_mmse": "INCONCLUSIVE (MMSE 实际在 FT 域非 QS; domain 归属事件非 indexing 问题; 模型正确拒绝用户错误前提)",
+          "verdict": "单区域 PASS, 不外推全 bucket (handoff §3.4 规则)"
+        },
+        "rule_d_chain_extension": {
+          "new_subagent_type_added": "oh-my-claudecode:scientist",
+          "reason_chosen": "数据/证据/统计/分布核查思维匹配 citation 精度 + 语义命中率双定量判据",
+          "cumulative_chain_count": 10,
+          "cumulative_chain_list": [
+            "general-purpose",
+            "oh-my-claudecode:verifier",
+            "oh-my-claudecode:executor",
+            "oh-my-claudecode:critic",
+            "oh-my-claudecode:planner",
+            "oh-my-claudecode:analyst",
+            "feature-dev:code-architect",
+            "pr-review-toolkit:code-reviewer",
+            "oh-my-claudecode:architect",
+            "oh-my-claudecode:scientist"
+          ],
+          "补_p3_4_松口子_ack": true
+        },
+        "q1_red_line_closure": {
+          "structure_level_a4": "PASS (Phase A, 176/176 ∅ gap)",
+          "semantic_level_p3_4_5": "PASS (10/10 语义命中顶阈值, citation 漂移作 carry-over)",
+          "dual_anchor_closed": true,
+          "caveat": "Citation 精度 7/10 未达 ≥9/10 硬阈值, 但语义层面已证 RAG 全触达 176 Req; 作 CONDITIONAL_PASS 而非 PASS"
+        },
+        "findings": {
+          "F-1-recurring": {
+            "status": "REOPENED from P3.3 CLOSED",
+            "reason": "P3.3 minimal test 分支 a 是特例 (列密+全填), 不能外推全 table; 本批真实漂移 8/10",
+            "mitigation": "接受模型偶发漂移, 不改 instructions.md (已 9011/10000 chars 紧); 挪 P3.8 评分规则补'同题 retry 幂等不强制 + 小表单行漂移不扣语义分'; Phase 5 Retro 关键教训"
+          },
+          "F-3_citation_dropout_question_type_bias_reviewer_new_finding": {
+            "discovery": "oh-my-claudecode:scientist reviewer 独立发现",
+            "pattern": "T2 场景驱动题 (Q2 SRTESTCD举例/Q5 FATESTCD业务场景) inline citation dropout 100%; T2 结构查询题 (Q6 SESTDTC/Q7 SEX/Q9 TSPARM) citation 完整",
+            "root_cause_hypothesis": "instructions.md 规则 2 在'举例/场景'上下文被 LLM 视为次要; 非随机漂移是系统性弱点",
+            "action": "挪 P3.8 记录为系统性弱点; Phase 5 Retro 关键教训; 未来 Custom mode 调优可针对性加'业务例后强制 cite source'"
+          },
+          "prompt_premise_correction_capability": {
+            "observations": [
+              "Q3: 模型修正 CP=Cell Phenotype Findings 而非 Clinical Endpoint",
+              "Q8: 模型修正 RDOMAIN/RSUBJID 不在 RELSPEC (在 RELREC/RELSUB)",
+              "HC-3 B: 模型修正 MMSE 在 FT 不在 QS"
+            ],
+            "significance": "3 处正确拒绝用户错误前提, 证明 RAG+Custom mode 防幻觉能力高; 非 yes-man"
+          },
+          "bucket_38_indexing_robust": "CDR citation 命中 [38_ct_questionnaires_part1_22.md], 302K 大 bucket (60% of 500K cap) indexing 未截断"
+        },
+        "rule_compliance": {
+          "rule_A_semantic_audit": "PASS — 本步是 Rule A 正本, 10 Req × 业务问答 × 独立 reviewer, 三重闭合架构, 语义命中 10/10; citation 7/10 属 last-mile 漂移非召回失败",
+          "rule_B_failures_dir_empty": true,
+          "rule_D_chain_extension_to_10": "PASS — 第 10 种 scientist 补 P3.4 松口子, Writer/Reviewer/仲裁 三锚闭合",
+          "rule_E_personal_gmail_pro_webui": "PASS — 用户亲自粘贴模式 (handoff §3.1 选项 A)"
+        },
+        "carry_over_to_p3_5_plus": [
+          "F-1-recurring 持续跟踪 (P3.5/3.6/3.7 监测小表渲染)",
+          "P3.8 A/B 评分规则补 '同题 retry 幂等不强制 + 小表单行漂移不扣语义分'",
+          "P3.8 补 1 题 bucket 38 尾段闭合 HC-3 (候选 PHQ-9/PDQ-39/PGI, 避 FT 域归属题)",
+          "P3.8 记录 citation dropout T2 题型偏向 作系统性弱点 (Reviewer 新发现)",
+          "docs/research.md 附录: MMSE FT 归属事件作 domain knowledge cache"
+        ],
+        "ready_for_p3_5": true
+      },
+      "next_action": "P3.4.5 CONDITIONAL_PASS (Q1 红线双锚闭合) → 进 P3.5 (Audio Overview × 3: SAFETY / EFFICACY / PK). 前置: notebook + Chat Custom mode 保持激活; per-day 20 audio cap 内足 3 期; 生成 30 min + 用户抽听 1-2 天确认. Soft checkpoint (∃ <10% hallucination 算 PASS)"
     },
     "4_review": {
       "status": "locked"
@@ -356,9 +445,11 @@
     "v2 架构 (2026-04-21 pivot 后): 单 notebook × ≤50 sources, ABC 三场景同 notebook 分享档位切换 (本次 Rule E ack 下)",
     "分享档位三档 (Restricted / Anyone with link / Public) 可随时切, 50-cap 仅套 Restricted invite 档",
     "≤50 sources 主归因 (证据 HIGH): indexing silent fail 风险线性降低 + citation 信噪比提升; 次归因 (证据 MEDIUM, 待 P3.9 f 闭合): Free tier viewer 兼容",
-    "Q1 红线双锚: A4 结构级自证 (Phase A) + P3.4.5 语义级自证 (Phase 3, 规则 A 正本 N=10)",
+    "Q1 红线双锚: A4 结构级自证 (Phase A ∅ gap 2026-04-21) + P3.4.5 语义级自证 (Phase 3, Rule A 正本 N=10, 2026-04-22 CONDITIONAL_PASS 8.5/10, 语义 10/10 + citation 7/10)",
     "本平台对 _template/ 的 11 条补丁候选 (原 7 + pivot 新增 3: multi-notebook 决策树 / per-day rate limit / Writer 叙事合成 (拆 10a+10b))",
-    "第 9 种 subagent_type (architect) Phase 2 v2 审 CONDITIONAL_PASS 84% → 全 findings 闭合后 PASS"
+    "第 9 种 subagent_type (architect) Phase 2 v2 审 CONDITIONAL_PASS 84% → 全 findings 闭合后 PASS",
+    "第 10 种 subagent_type (scientist) P3.4.5 审 CONDITIONAL_PASS 8.5/10 (2026-04-22, HC-1 硬约束执行, 补 P3.4 松口子, Writer/Reviewer/仲裁 三锚闭合); 新发现 F-3 citation dropout T2 题型偏向作系统性弱点",
+    "F-1 状态修正 2026-04-22: P3.3 CLOSED 判断误推 minimal test 极端 case, P3.4.5 真实漂移 8/10 打脸 → 重开 F-1-recurring, Phase 5 Retro 关键教训"
   ],
   "known_differences_from_template": [
     {
