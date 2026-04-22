@@ -17,7 +17,7 @@
 
 Q1 红线 (0 Req 变量丢失, 用户 2026-04-21 ack) 在 v2 下**向内收紧**: 50 slot 给 concept cluster 留更多 outlier 容错余地, 实现路径 `extract_req_vars.py` → 全集清单 → `cluster_req_variables.py` → ≤50 bucket → `req_vars_coverage_audit.md` ∅ gap 断言.
 
-A/B 矩阵 10 题 SMOKE v2 (跨 4 平台对比基线), PASS 阈值 ≥9/10 (~90%). **原 5 独有生成物评估 (Audio/Mind Map/Study Guide) 与 P3.5/P3.6/P3.7 一起挪 ICEBOX post-project optional** (2026-04-22 用户决策 A+保留: Studio 独有产出无跨 4 平台对比价值, 问答才是核心; 全项目收束后小概率回头精雕, 原任务定义 §6 / §7 保留). 分享档位在 Phase 3 末做一次 3 档切换演练 (不需要多 notebook 测试).
+A/B 矩阵 10 题 SMOKE **v3 Q1-Q10** (跨 4 平台对比基线, v2.2 2026-04-22 升级对齐 ChatGPT+Gemini N5.3 Full A/B Generalization Probe; 题源 `ai_platforms/smoke_v3_questions_draft.md` v3.1), PASS 阈值 ≥9/10 (~90%). **原 5 独有生成物评估 (Audio/Mind Map/Study Guide) 与 P3.5/P3.6/P3.7 一起挪 ICEBOX post-project optional** (2026-04-22 用户决策 A+保留: Studio 独有产出无跨 4 平台对比价值, 问答才是核心; 全项目收束后小概率回头精雕, 原任务定义 §6 / §7 保留). 分享档位在 Phase 3 末做一次 3 档切换演练 (不需要多 notebook 测试).
 
 ---
 
@@ -25,17 +25,17 @@ A/B 矩阵 10 题 SMOKE v2 (跨 4 平台对比基线), PASS 阈值 ≥9/10 (~90%
 
 SDTM 1 notebook 部署的**业务成功定义**. 用户 2026-04-21 ack:
 
-1. **Quality**: 单 notebook 10 SMOKE v2 A/B ≥9/10 (~90%) AND **Req 变量零丢失** (Q1 红线) [v2.1 2026-04-22: 原 "+ 独有 5 题 ≥4/5 精确命中" 挪 ICEBOX post-project optional, 不计入本次 Quality gate]
+1. **Quality**: 单 notebook 10 SMOKE **v3 Q1-Q10** A/B ≥9/10 (~90%) AND **Req 变量零丢失** (Q1 红线) [v2.1 2026-04-22: 原 "+ 独有 5 题 ≥4/5 精确命中" 挪 ICEBOX post-project optional, 不计入本次 Quality gate] [v2.2 2026-04-22: 题库 v2.1 → v3 Q1-Q10 升级, 阈值 ≥9/10 保不变]
 2. **Completeness**: notebook + `instructions.md` + `UPLOAD_TUTORIAL` 10 章节 + `uploads/MANIFEST.md` + `cross_platform_compare.md` 全落盘
 3. **Sharing**: 3 档切换演练 (Restricted → Anyone with link → Public → 回 Restricted) 四态全流畅, UI 状态符合预期
 4. **Template contribution**: `_template/` 补丁候选 ≥10 条 (原 7 + pivot 后新增 3) 收束合并
-5. **Cross-platform data**: 10 SMOKE v2 vs Claude v2.6 / ChatGPT GPTs / Gemini Gems 四平台对比
+5. **Cross-platform data**: 10 SMOKE **v3 Q1-Q10** vs Claude v2.6 / ChatGPT GPTs / Gemini Gems 四平台对比 (Claude v2.6 原测 v2.1, Phase 4 需补 v3 Q1-Q10 回归或接受 Claude 侧 v2 基线异步; 优先确保 ChatGPT/Gemini/NotebookLM 三者 v3 同期可比)
 6. **Workflow replication**: 任何 SDTM 工作者凭 `current/uploads/` + `UPLOAD_TUTORIAL.md` 能 ≤1 天在自己账号上 (Pro / Free 皆可, ≤50 source 兼容) 独立重建等效 notebook
 
 **分用户群 use-case success**:
-- **Success A (Scope A, 用户本人)**: 30 秒内回答 SMOKE v2 Q1-Q3, citation 精确到 md 段
+- **Success A (Scope A, 用户本人)**: 30 秒内回答 SMOKE **v3 Q1-Q3** (GF / CP / BE+BS+RELSPEC v3.4 新域场景), citation 精确到 md 段
 - **Success B (Scope B, ≤50 同事 Restricted 邀请)**: 5 位同事 onboard ≤10 分钟独立查 core domain spec
-- **Success C (Scope B/C, Anyone with link 公开档)**: 陌生访客打开 notebook 能读懂 SMOKE v2 Q1-Q3, 不臆造
+- **Success C (Scope B/C, Anyone with link 公开档)**: 陌生访客打开 notebook 能读懂 SMOKE **v3 Q1-Q3**, 不臆造
 
 ---
 
@@ -48,6 +48,7 @@ SDTM 1 notebook 部署的**业务成功定义**. 用户 2026-04-21 ack:
 | **v1.x SUPERSEDED** | 2026-04-21 PM | — | **整个 v1 架构归档** (`archive/v1_3notebook_SUPERSEDED_2026-04-21/PLAN_v1_3notebook.md`), 触发: 用户 review 质疑 3 notebook 架构 + 三 WebFetch 核实推翻 v1 三假设 | 用户 2026-04-21 PM 决策 |
 | **v2** | 2026-04-21 PM | 主 session (pivot 后重写) | 架构改 **1 notebook × ≤50 sources + 分享档位 3 档切换**; 删除 §3 multi-notebook 段 / uploads_main/invite/public 三目录 / 45 题次 A/B / 353 次上传; Req 零丢失红线 slot 从 30 → ≤50 宽松化; Phase A A5 (webui batch capability) 降级为 soft; P12 降级为信息段; I8/C2.9 close; 继承资产 A-F (详 pivot record) | 用户 ack pivot + 三 WebFetch 证据闭合 |
 | **v2.1** | 2026-04-22 PM | 主 session (用户决策执行) | **P3.5/P3.6/P3.7 (Audio / Mind Map / Study Guide) 挪 ICEBOX** (post-project optional, non-gating); P3.8 A/B 15→10 题 (仅 10 SMOKE v2 跨平台对比基线), 阈值 ≥13/15 → ≥9/10 (~90%); 5 独有生成物评估 (U1-U5) 同步 ICEBOX; 原任务定义全保留于 §6 / §7 供全项目收束后用户选择性精雕; Phase 3 总工时下调 ~3h; Phase 3 收束 gate 不再依赖 Studio 三件套 | 用户 2026-04-22 PM ack 方案 A+保留: Studio 独有产出无跨 4 平台对比价值 (Claude/ChatGPT/Gemini 均无等价功能); 问答才是跨平台核心比较维度; 全项目收束后小概率回头精雕 |
+| **v2.2** | 2026-04-22 PM | 主 session (用户决策执行) | **P3.8 题库升级 smoke v2.1 → smoke v3 Q1-Q10** (跨平台对比基线同步到 ChatGPT+Gemini 当前 N5.3 Full A/B 版本); 题源 `ai_platforms/SMOKE_QUESTIONS_V2.md` → `ai_platforms/smoke_v3_questions_draft.md` v3.1 Q1-Q10 (双平台共用 10 题, Q11-Q14 ChatGPT 专属不适用 NotebookLM); **PASS 阈值保 ≥9/10 (~90%)** 不降 (ChatGPT/Gemini 合格阈 71%/70% 是因为 ChatGPT 多 4 题专属难度; NotebookLM 分母仍 10, 阈值不动); 维度不同: v2 = 04 预设场景 baseline, v3 = generalization probe (v3.4 新域 GF/CP/BE+BS + 域边界 LB/MB/IS + Timing 深化 + Extensible CT + Pinnacle 21 + SUPP 深化) | 用户 2026-04-22 ack 选项 A: NotebookLM 对齐 ChatGPT+Gemini 当前 N5.3 smoke v3 以便 Phase 4 跨平台 A/B 矩阵同批次对比; v2.1 已被证明 04 open-book 偏简单, v3 才是真实 SDTM 泛化能力测试; 阈值保 ≥9/10 按用户决策 |
 
 ### 用户 ack 关键决策 (沿袭 v1, v2 不变)
 
@@ -112,7 +113,7 @@ ai_platforms/notebooklm/
 │   ├── PLAN.md                                  ← 本文件 (v2)
 │   ├── RETROSPECTIVE.md                         ← Phase 5 (规则 C, 含 pivot 复盘)
 │   ├── handoff.md                               ← Phase 5 (可选, 若 Phase 7 启动)
-│   └── cross_platform_compare.md                ← Phase 4 (4 平台 10 SMOKE v2 对比)
+│   └── cross_platform_compare.md                ← Phase 4 (4 平台 10 SMOKE v3 Q1-Q10 对比, v2.2 2026-04-22 升级)
 ├── current/
 │   ├── README.md                                ← Phase 5 发布版总览
 │   ├── UPLOAD_TUTORIAL.md                       ← Phase 5 10 章节 (v2: 单 notebook 路径)
@@ -230,7 +231,7 @@ v1 Phase A 6 子动作 + A5 "webui batch upload 能力调研" (hard checkpoint) 
 | Mind Map 侧重 | 63 domain 跨域关系图 (RELREC / --STAT / SUPP) |
 | Study Guide 侧重 | IG ch04/08/10 关键规则 |
 | 分享模式 | **3 档按需切** (见 §3.3) |
-| A/B 矩阵 | **v2.1 2026-04-22**: 10 题 SMOKE v2 (跨 4 平台对比基线); 原 "5 独有 (Audio 2 + Mind Map 2 + Study Guide 1)" 挪 ICEBOX post-project optional |
+| A/B 矩阵 | **v2.2 2026-04-22**: 10 题 SMOKE **v3 Q1-Q10** (跨 4 平台对比基线, 升级对齐 ChatGPT+Gemini N5.3 Full A/B Generalization Probe); v2.1 10 题 SMOKE v2.1 作基线已 SUPERSEDED; 原 "5 独有 (Audio 2 + Mind Map 2 + Study Guide 1)" 挪 ICEBOX post-project optional |
 | PASS 阈值 | **v2.1 2026-04-22**: ≥9/10 (~90%) AND **Req 变量零丢失** (原 "每个独有产出 ≥1 精确命中" 随 ICEBOX 删除) |
 
 ### 3.2 Source 组成策略 — Req 变量全覆盖 (Q1=0 强制)
@@ -352,7 +353,7 @@ v1 Phase A 6 子动作 + A5 "webui batch upload 能力调研" (hard checkpoint) 
 | ~~Phase 3 P3.5~~ **[ICEBOX]** | Audio Overview × 3 (SAFETY/EFFICACY/PK) — **挪 post-project optional (v2.1 2026-04-22)**, 原任务定义保留 §6 P3.5 | — | — | **ICEBOX** (non-gating) |
 | ~~Phase 3 P3.6~~ **[ICEBOX]** | Mind Map + 跨域关系验证 — **挪 post-project optional (v2.1)**, 原任务定义保留 §6 P3.6 | — | — | **ICEBOX** (non-gating) |
 | ~~Phase 3 P3.7~~ **[ICEBOX]** | Study Guide × 3 + 人工读 — **挪 post-project optional (v2.1)**, 原任务定义保留 §6 P3.7 | — | — | **ICEBOX** (non-gating) |
-| **Phase 3 P3.8** | **10 SMOKE v2 A/B** (跨 4 平台对比基线; 原 5 独有题随 P3.5-3.7 一起 ICEBOX) | `dev/ab_reports/notebook_ab.md` | 1.5-2 小时 | hard (**≥9/10 PASS**) |
+| **Phase 3 P3.8** | **10 SMOKE v3 Q1-Q10 A/B** (跨 4 平台对比基线, v2.2 2026-04-22 升级对齐 ChatGPT+Gemini N5.3; 原 5 独有题随 P3.5-3.7 一起 ICEBOX) | `dev/ab_reports/notebook_ab.md` | 1.5-2 小时 | hard (**≥9/10 PASS**) |
 | **Phase 3 P3.9** | 3 档切换演练 (Restricted → Anyone with link → Public → 回 Restricted) | `dev/evidence/share_level_toggle_drill.md` | 30 分钟 | hard |
 | **Phase 4** | 跨 4 平台对比 + 回归 + 规则 A N=10 独立抽检 + 第 10 种 subagent_type 审 | `cross_platform_compare.md` + `phase4_reviewer.md` | 2-3 小时 | hard |
 | **Phase 5** | RETROSPECTIVE (含 pivot 复盘) + UPLOAD_TUTORIAL + CLAUDE.md / MANIFEST / worklog / PROGRESS 更新 + `_template/` 10 补丁 PR + commit + push | 3 份终 doc + 多点更新 | 3-5 小时 | hard (规则 D 独立审) |
@@ -369,7 +370,7 @@ v1 Phase A 6 子动作 + A5 "webui batch upload 能力调研" (hard checkpoint) 
 4. **Phase A3 bucket**: 跑 `cluster_req_variables.py` → `source_mapping.md` + `uploads/MANIFEST.md`
 5. **Phase A4 audit**: diff 全集 vs bucket, 断言 ∅ gap, 规则 A N=10 抽检
 6. **Phase A 完收 commit + 用户 hard checkpoint ack**
-7. **Phase 3 上传 + indexing smoke + Custom mode + ~~独有产出生成~~ (ICEBOX v2.1 2026-04-22) + 10 SMOKE v2 A/B + 3 档切换演练** (Studio 三件套 P3.5/P3.6/P3.7 挪 post-project optional, 本次 Phase 3 直接从 P3.4.5 跳到 P3.8)
+7. **Phase 3 上传 + indexing smoke + Custom mode + ~~独有产出生成~~ (ICEBOX v2.1 2026-04-22) + 10 SMOKE v3 Q1-Q10 A/B (v2.2 2026-04-22 升级) + 3 档切换演练** (Studio 三件套 P3.5/P3.6/P3.7 挪 post-project optional, 本次 Phase 3 直接从 P3.4.5 跳到 P3.8)
 8. **Phase 4 跨平台对比 + 规则 A + 第 10 种 subagent_type 审**
 9. **Phase 5 RETROSPECTIVE (含 pivot 复盘作关键案例) + UPLOAD_TUTORIAL + 收束 commit + push**
 
@@ -448,17 +449,32 @@ v1 Phase A 6 子动作 + A5 "webui batch upload 能力调研" (hard checkpoint) 
 - Mind Map: 生成 → 导出 PNG → 对照 63 domain 清单 checklist
 - Study Guide: 3 个 domain (AE / LB / CM) 各生成一份, 人工读
 
-### P3.8 10 SMOKE v2 A/B (1.5-2 小时) — v2.1 简化
+### P3.8 10 SMOKE v3 Q1-Q10 A/B (1.5-2 小时) — v2.2 升级
 
-- **10 SMOKE v2** (共享 ChatGPT / Gemini / Claude 跨 4 平台对比基线, 见 `ai_platforms/SMOKE_QUESTIONS_V2.md` v2.1)
+- **10 SMOKE v3 Q1-Q10** (共享 ChatGPT / Gemini 跨平台对比基线, 见 `ai_platforms/smoke_v3_questions_draft.md` v3.1; Q11-Q14 ChatGPT 专属不适用 NotebookLM)
+- **v2.2 升级背景** (2026-04-22): ChatGPT+Gemini 已在 Phase 4 N5.3 跑 smoke v3 Full A/B Generalization Probe; smoke v2.1 10 题全落入 ChatGPT 04 业务弹药 §1.1-§1.10 预设 scenario = open-book 考试, 对 NotebookLM 42 bucket 全域 RAG 也没鉴别力; v3 故意避开 04 预设, 测真 SDTM 泛化能力 (v3.4 新域 GF/CP/BE+BS / 域边界 LB-MB-IS / FA-QS-CE / Timing 四件套 / Partial date / Extensible CT / Pinnacle 21 FAIL 分类 / SUPP 深化)
+- **题型分布 (Q1-Q10)**:
+  - Q1 A1 v3.4 新域 GF (Genomics Findings) 基因变异场景
+  - Q2 A2 v3.4 新域 CP (Cell Phenotype) 流式细胞场景
+  - Q3 A3 v3.4 新域 BE + BS + RELSPEC 生物样本全流程
+  - Q4 B1 域边界 LB vs MB vs IS 三场景归属
+  - Q5 B2 域边界 FA vs QS vs CE 三场景归属
+  - Q6 C1 Timing 深化 `--TPTREF/--TPT/--STTPT/--ENTPT/--DUR` 组合
+  - Q7 C2 Timing 深化 Partial date 精度 + imputation 规则
+  - Q8 D1 CT 深化 Extensible vs Non-Extensible codelist
+  - Q9 E1 实战验证 Pinnacle 21 常见 FAIL 分类
+  - Q10 H1 SUPP 深化 QORIG/QEVAL/QLABEL + SUPPTS vs SUPP--
 - ~~5 独有 (Audio 2 + Mind Map 2 + Study Guide 1)~~ **ICEBOX v2.1 2026-04-22** (随 P3.5/P3.6/P3.7 一起挪 post-project optional)
 - 产 `dev/ab_reports/notebook_ab.md`
 - Checkpoint: **hard** (**≥9/10 PASS** ~90%, <9 走 P10 归因重构)
+- **阈值说明**: ChatGPT smoke v3 合格阈 ≥10/14 (71%) 因 4 题专属; Gemini ≥7/10 (70%); NotebookLM 保 **≥9/10 (90%)** 按用户决策不降 — Gemini 70% 是首次跑生疏平台预留 buffer, NotebookLM 此前 P3.4.5 已 CONDITIONAL_PASS 8.5/10, 有底座, 不给额外 buffer
+- **题源单点变更**: 执行时从 `ai_platforms/smoke_v3_questions_draft.md` 取 Q1-Q10 题干 (遇 v3.1→v3.x 继续修订以最新为准); 判据按该文件每题 PASS/FAIL + PARTIAL 规则
+- **Sanity 前置** (对齐 ChatGPT N5.3 Step 2, 避免底座问题吃成业务 FAIL): 3 题 sanity (AESER Core / LBNRIND 全写 / CMINDC 场景), 全 PASS 才进 Q1-Q10
 - **吸收 Phase 3 carry-over** (P3.4.5 转过来的):
   - F-1-recurring 持续跟踪 (小表渲染漂移, 小表单行漂移不扣语义分; 原放 P3.5/3.6/3.7 监测, ICEBOX 后挪 P3.8)
   - F-2 同题 retry 幂等性不强制 (语义等价即 PASS)
   - F-3 citation dropout T2 题型偏向 (业务场景/举例类 T2 题易丢 inline cite, 记为系统性弱点, 不扣 A/B 题分但 Retro 关键教训)
-  - HC-3 bucket 38 尾段补题 (候选 PHQ-9/PDQ-39/PGI, 避 FT 域归属题, 单独计作 1 题, 若 PASS 记入 ≥9/10 分母)
+  - HC-3 bucket 38 尾段补题 (候选 PHQ-9/PDQ-39/PGI, 避 FT 域归属题) — **v2.2 note**: v3 Q1-Q10 无 bucket 38 专属题, HC-3 补题若要跑需作第 11 题单独计, 不混入 ≥9/10 分母 (分母固定 10)
 
 ### P3.9 3 档切换演练 (L3 fix + S1 SUGGESTION, 40 分钟)
 
@@ -473,13 +489,21 @@ v1 Phase A 6 子动作 + A5 "webui batch upload 能力调研" (hard checkpoint) 
 
 ---
 
-## §7 A/B 矩阵 (v2.1 2026-04-22 后: 10 题 SMOKE v2; 5 独有 ICEBOX)
+## §7 A/B 矩阵 (v2.2 2026-04-22 后: 10 题 SMOKE v3 Q1-Q10; 5 独有 ICEBOX)
 
-### 10 SMOKE v2 (从 `ai_platforms/SMOKE_QUESTIONS_V2.md` 继承, 对齐 ChatGPT/Gemini/Claude 跨 4 平台对比基线)
+### 10 SMOKE v3 Q1-Q10 (从 `ai_platforms/smoke_v3_questions_draft.md` v3.1 继承, 对齐 ChatGPT+Gemini N5.3 Full A/B Generalization Probe)
 
-维度分布: 场景 3 + 规则 3 + 映射 2 + 鉴别 2 (与 ChatGPT/Gemini 双平台一致以便对比)
+题型分布 (v3 generalization 取向):
+- A1/A2/A3 v3.4 新域 (GF / CP / BE+BS+RELSPEC) × 3
+- B1/B2 域边界 (LB-MB-IS / FA-QS-CE) × 2
+- C1/C2 Timing 深化 (--TPTREF 组合 / Partial date imputation) × 2
+- D1 CT 深化 (Extensible vs Non-Extensible) × 1
+- E1 实战验证 (Pinnacle 21 FAIL 分类) × 1
+- H1 SUPP 深化 (QORIG/QEVAL + SUPPTS vs SUPP--) × 1
 
-判据参考 SMOKE v2.1 最新版 (Q3 LBNRIND PASS = HIGH/LOW/NORMAL, FAIL = H/L/N 短码).
+判据按 `smoke_v3_questions_draft.md` v3.1 每题末尾 PASS/FAIL + PARTIAL (含 v3.0→v3.1 双 reviewer 修复: Q3 采血 BE+BS 并存 / Q4 MB 免疫应答 PARTIAL / Q5 FA→MH + CE 边界 / Q10 QVAL 归因 ch04 §4.5.3.2 / Q14 DSDECOD C66727 — Q14 ChatGPT 专属对 NotebookLM 不适用).
+
+**v2.1 SMOKE v2 基线废弃备注**: `ai_platforms/SMOKE_QUESTIONS_V2.md` v2.1 10 题 2026-04-22 决策废弃作 P3.8 基线 (见 §0 v2.2 修订记录); v2 题本身不错, 只是 ChatGPT+Gemini 已在 N5.3 切 v3, NotebookLM 若跑 v2 对比基线是两平台 N5.2 阶段历史快照 (ChatGPT 10/10 strict / Gemini 9/10 strict), 不是 N5.3 当前阶段, 无跨平台同期可比性.
 
 ### ~~5 独有生成物评估~~ — **[ICEBOX v2.1 2026-04-22]**
 
@@ -493,12 +517,13 @@ v1 Phase A 6 子动作 + A5 "webui batch upload 能力调研" (hard checkpoint) 
 | U4 | Mind Map coverage (SUPP--) | 查 "SUPPQUAL 扩展" 是否覆盖所有 63 domain 的 SUPP-- pattern | ≥80% 有 SUPP 例的 domain 有标注 PASS |
 | U5 | Study Guide 分层 | 生成 "AE 域 Socratic" Study Guide, 检查覆盖 Standard → IG → Examples 三层 | 三层齐全 PASS |
 
-### PASS 阈值 (v2.1 更新)
+### PASS 阈值 (v2.2 更新)
 
-- **总分 ≥9/10 (~90%)** (原 ≥13/15 的 ~87% 收紧到 ~90%, 因分母缩小但难度基线不变, 留 1 题容错)
+- **总分 ≥9/10 (~90%)** (v2.1 ≥9/10 保留, v2.2 题库换 v3 Q1-Q10 但难度升 baseline → generalization probe, 阈值**不降**按用户 2026-04-22 决策)
+- **阈值不对齐 ChatGPT/Gemini 的解释**: ChatGPT ≥10/14 (71%) 含 4 题专属且 generalization 难; Gemini ≥7/10 (70%) 因 Gemini 本轮首过 v3 预留 buffer; NotebookLM 保 ≥9/10 (90%) 因 P3.4.5 已 CONDITIONAL_PASS 8.5/10 验底座稳, 不给额外 buffer
 - ~~AND 每个独有产出至少 1 题 PASS~~ (ICEBOX 后此子条删除)
 - **Req 变量零丢失** 独立自证 (A4 结构级 + P3.4.5 语义级双锚, 非 A/B 题里; 已于 2026-04-22 P3.4.5 CONDITIONAL_PASS 闭合)
-- <9 触发 P10 归因: (a) source 缺失重 bucket / (b) instructions.md 微调 / (c) Chat mode 切回 Learning Guide 再测
+- <9 触发 P10 归因: (a) source 缺失重 bucket / (b) instructions.md 微调 / (c) Chat mode 切回 Learning Guide 再测 / (d) **v3 新增**: 若 FAIL 集中在 v3.4 新域 (Q1-Q3 GF/CP/BE+BS), 触发 knowledge_base/ v3.4 新域覆盖审 (部分 v3.4 新域 KB 本身可能不全)
 
 ---
 
@@ -558,7 +583,7 @@ v1 Phase A 6 子动作 + A5 "webui batch upload 能力调研" (hard checkpoint) 
 ### Phase 4 预留
 
 - Rule A 独立抽样 N=10 (规则 A, 压缩 >50% 必 N)
-- 跨 4 平台 10 SMOKE v2 对比 (Claude / ChatGPT / Gemini / NotebookLM)
+- 跨 4 平台 10 SMOKE **v3 Q1-Q10** 对比 (Claude / ChatGPT / Gemini / NotebookLM) — v2.2 2026-04-22 升级; Claude v2.6 原测 v2.1 需补 v3 回归或接受 Claude 异步基线 (Phase 4 决策点)
 
 ### Phase 5 预留
 

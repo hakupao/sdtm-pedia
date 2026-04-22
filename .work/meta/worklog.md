@@ -1197,3 +1197,69 @@
   - F-3 citation dropout T2 题型偏向 (场景驱动类 T2 易丢 inline cite, 系统性弱点, 不扣 A/B 分但 Retro 关键教训)
   - HC-3 bucket 38 尾段补题 (候选 PHQ-9 / PDQ-39 / PGI, 避 FT 域归属题, 单独计作 1 题)
 - **下一步** (新 session): 准备 **P3.8 10 SMOKE v2 A/B handoff 文档** (P3.8 内部设计: 10 题 prompt 原文 + 逐题判据 + F-2 幂等条 + F-3 citation T2 偏向记录条 + HC-3 尾段补题方式) → 执行 P3.8 (估时 1.5-2h, hard gate ≥9/10 PASS) → P3.9 3 档切换演练 → Phase 4 跨 4 平台对比 + Rule A N=10 独立抽检 + 第 11 种 subagent_type 审 → Phase 5 收束 (RETROSPECTIVE 含 v2→v2.1 路径修正案例 + UPLOAD_TUTORIAL + _template/ 10 补丁 PR + commit + push)
+
+### 2026-04-22 PM Phase 6.5 NotebookLM P3.8 执行 9/10 PASS + smoke v3 → v4 升级路径决策
+
+- **状态**: 本 session 部分完成 (P3.8 执行 + 主 session 独立复判 + PLAN v2.1 → v2.2 + handoff 文档); smoke v4 审计/patch/加 AHP/4 平台 R1 挂新 session
+- **触发**: 上一 session 完 P3.4.5 + v2.1 PLAN 修订, 本 session 接 P3.8; 启动时发现一个题库版本分歧 — NotebookLM PLAN 写跑 smoke v2.1, 但 ChatGPT/Gemini 已推进到 smoke v3 Full A/B Generalization Probe (N5.3 Step 4 进行中); 若 NotebookLM 跑 v2 对比到两平台 N5.2 历史快照无跨平台同期可比性; 用户选项 A 跟进 v3 Q1-Q10, 阈值保 ≥9/10
+- **动作 1 (PLAN 升级 v2.1 → v2.2)**:
+  - `ai_platforms/notebooklm/docs/PLAN.md` 9 处更新 (§0 修订记录加 v2.2 行 / Executive summary / Project Success Criteria §1/§5/Success A/C / §2 目录树 cross_platform_compare 描述 / §3.1 表格 A/B 矩阵行 / §4 Phase 3 table P3.8 + §5 动作清单 #7 + §6 P3.8 Task 完整重写含题型分布/阈值说明/题源单点/Sanity 前置/carry-over 兼容性 / §7 A/B 矩阵完整重写 + PASS 阈值 v2.2 + v3.4 新域 P10 路径 (d) / §10 Phase 4 预留基线 → v3 Q1-Q10)
+  - `ai_platforms/notebooklm/dev/evidence/_progress.json` `ab_matrix_plan_v2` 块重写 (加 v2_2_revision_date/reason, standard_questions_source / _superseded, question_type_distribution_v3 六维度, pass_threshold_unchanged_from_v2_1, pass_threshold_rationale_v2_2, sanity_preflight_3q 3 题, p3_8_carry_over_absorbed 加 v3.4 新域路径 (d) note, JSON PASS)
+- **动作 2 (P3.8 执行 + 用户亲自操作 via cowork)**:
+  - 主 session 写 `ai_platforms/notebooklm/dev/checkpoints/CHECKPOINT_P3.8_HANDOFF.md` (213 行, 11.2K, 6 Steps: 题库 + 阈值 / notebook 状态不动 / sanity 3 题 / Q1-Q10 逐题 / 落档 smoke_v3_results.md / 回报; 含 NotebookLM citation inline marker `[1][2]` 特有注意事项 + F-1/F-2/F-3 carry-over 处理 + Rule B 失败归档路径)
+  - 用户通过 claude cowork MCP Chrome 代跑 13 题 (sanity 3 + Q1-Q10), Google account bojiang.zhang.0904; fresh chat per question; DOM 回读
+  - 产 `dev/evidence/smoke_v3_answers/Q1..Q10_answer.md` (10 份) + `sanity_questions.md` + `dev/evidence/smoke_v3_results.md` (cowork 自评分 + 逐题 verdict table)
+- **动作 3 (主 session 独立复判 — Rule D 第一轮, 不替代 11th subagent_type)**:
+  - 读 results.md + sanity + Q1/Q3/Q9/Q10 answer 原文 + smoke_v3_questions_draft.md v3.1 PASS/FAIL 判据
+  - **Finding 1 MINOR**: results.md L21 Q1 Exp 变量清单 bookkeeping 错 — 写 GFGENSR/GFPVRID/GFGENREF 作 Exp, 但 Q1_answer.md 明标 Core=Perm; 实际 Exp 是 GFORRES/GFSTRESC/GFREFID/GFMETHOD (4 个); Q1 PASS 仍成立
+  - **Finding 2 MEDIUM**: Q3 BETERM vs BECAT 判据过窄 — v3.1 要求 BECAT, 答 BETERM; KB 实 BETERM 是 BE Req Topic (BECAT 是 Perm Category), 用 BETERM 更 canonical; 判据应扩 "BECAT 或 BETERM"
+  - **Finding 3 HIGH 必修**: **Q10 (b) 题干 + PASS 判据基于错前提** — SUPPTS 在 SDTMIG v3.4 不存在 (TS 属 Trial Design 不用 SUPPQUAL, 长 TSVAL 内部派生 TSVAL1-n); NotebookLM 正确答 "SUPPTS 不存在 + TSVAL1-n 替代" PASS+, 但讽刺: 若按判据字面沿错前提答反被奖励, 阻塞 Phase 4 跨平台对比一致性
+  - **Finding 4 PHASE_4_SCOPING**: Q9 Pinnacle 21 FAIL 是架构限制非能力 FAIL — NotebookLM in-KB-only 对 Pinnacle 21 无 web fallback 做 safety-correct punt; Phase 4 建议 Q9 重分类 "platform N/A", NotebookLM 评分 9/9; safety 反向是 NotebookLM 优势项
+  - **Finding 5 RULE_D_GAP**: main session 独立复判**不替代** Rule D 11th subagent_type 独立 reviewer; 未派, 挂新 session 并入 smoke v4 审计
+- **动作 4 (用户 meta insight 触发 smoke v3 → v4 升级决策)**:
+  - 用户指出: Q10 暴露 smoke v3 当前盲区 — 只测"给正确前提答对"不测"给错前提能否纠错"; 用户作为非专家常问错前提希望模型纠错而非幻觉
+  - 主 session 提方案: smoke v3 → v4 新增 3 类 AHP (Anti-Hallucination Probe) — variable trap (LBCLINSIG 不存在) / cross-domain trap (Trial-Level SAE Aggregate 表不存在) / deprecated-version trap (PF 已被 GF 替代)
+  - 用户 ack 7 步执行计划: (1) 审计 v3.1 Q1-Q14 前提真实性 (2) 修 Q10 (b) 强制 (3) 修审计发现其他问题强制 (4) 加 AHP × 3 → v4.0 (5) v3 历史标 SUPERSEDED 不回溯 (6) 4 平台 smoke v4 R1 baseline (7) system prompt 迭代 R2
+- **动作 5 (新 session handoff 文档)**:
+  - 新建 `ai_platforms/SMOKE_V4_DESIGN_HANDOFF.md` (9 段, 自足可独立启动): 触发 + 当前状态 + Q10 (b) 关键 finding 修订方向 + Step 1 审计 agent 派发 (第 11 种 subagent_type 建议 oh-my-claudecode:document-specialist, read-only + WebFetch, 产 smoke_v3_audit_notes.md) + Step 2-4 Patch Plan 含 Q10 (b) new 题干/判据 + 3 条 AHP 完整 draft + Step 5 v3 SUPERSEDED 策略 + Step 6 4 平台 R1 顺序+阈值+评分矩阵 + Step 7 R2 改 prompt 典型 pattern + Rule D chain 状态 10 种已烧 + 11th slot 候选 + 相关路径速查 + 执行前 checklist
+- **关键数据**:
+  - **P3.8 score**: sanity 3/3 + Q1-Q10 9/10 strict PASS = 达 ≥9/10 阈值
+  - **FAIL 分布**: 0 题 v3.4 新域 FAIL (Q1-Q3 全 PASS) + 0 题域边界 FAIL (Q4-Q5 全 PASS) + 0 题 Timing/CT/SUPP FAIL; 唯一 FAIL Q9 归架构限制
+  - **Citation 平均**: ~7 per question (Q9 punt=0 除外)
+  - **Rule D 链扩展**: 10 → **未** 扩 (P3.8 reviewer 未派; 新 session 派 11th subagent_type 既审 P3.8 又审 smoke v4 设计, 合并派)
+  - **PLAN 版本跳**: v2.1 → v2.2 (题库版本变化, 但阈值/结构保持)
+  - **题库版本轨迹**: smoke v3.1 (2026-04-22 reviewer fix post Step 3, ChatGPT/Gemini 当前 baseline) → v4.0 (新 session fix Q10 + 加 AHP × 3)
+- **附带发现**:
+  - NotebookLM Q9 PUNT 是 safety-correct 非 hallucination FAIL, 对 FDA submission 场景是优势, 写入 Phase 5 RETROSPECTIVE
+  - Q10 FINDING 3 是"题目通过结构级/设计级审但没过语义级审"的范例 — 规则 A "N 样本独立抽检" 扩张适用域从"产物" 到 "题库本身"
+  - v3.1 Step 3 双 reviewer (ChatGPT + Gemini) 双审未抓 SUPPTS 前提错, 讽刺到 P3.8 答题阶段被 NotebookLM 严格 in-KB 行为反向暴露
+- **规则合规**:
+  - **Rule A (正本扩张)**: P3.8 writer (cowork) + main session 独立复判 (3 题深入 Q1/Q3/Q10 + Q9 policy 分析) 双锚; Rule A 扩张到题库设计作用, 本 session 发起 smoke_v3_audit_notes.md 审计入 Rule A 再扩张
+  - **Rule B**: `dev/failures/` 保持空, P3.8 无 attempt FAIL, Q9 punt 不算 retry
+  - **Rule C**: Phase 5 Retro 必记: (i) smoke v3 设计级盲区 SUPPTS (ii) NotebookLM in-KB 架构 safety 优势 (iii) 用户 meta insight 引出 AHP 新维度, 作方法论演进 key case
+  - **Rule D**: cowork writer + main session independent reviewer (first pass); 11th subagent_type reviewer 未派挂新 session
+  - **Rule E**: personal Gmail + Pro + Web UI + 用户亲自粘贴 (cowork 辅助) PASS
+- **新产物路径** (本次 session):
+  - `ai_platforms/notebooklm/dev/checkpoints/CHECKPOINT_P3.8_HANDOFF.md` (new, 213 行)
+  - `ai_platforms/notebooklm/dev/evidence/smoke_v3_results.md` (new)
+  - `ai_platforms/notebooklm/dev/evidence/smoke_v3_answers/Q1..Q10_answer.md` (10 new)
+  - `ai_platforms/notebooklm/dev/evidence/smoke_v3_answers/sanity_questions.md` (new)
+  - `ai_platforms/notebooklm/docs/PLAN.md` (updated: v2.1 → v2.2, 9 处)
+  - `ai_platforms/notebooklm/dev/evidence/_progress.json` (updated: ab_matrix_plan_v2 v2.2 rewrite + p3_8_completion 全新块 + next_action 重定向 smoke v4)
+  - `ai_platforms/SMOKE_V4_DESIGN_HANDOFF.md` (new, 新 session 入口)
+- **影响面**:
+  - Phase 3 P3.8 hard checkpoint PASS 候开 Phase 3 gate; 但 Rule D 11th reviewer 未派, **未正式 close** Phase 3 (reviewer pass 后才 close)
+  - smoke v3 题库**部分作废** — Q10 (b) 判据有 bug, Phase 4 跨平台对比必须先升 v4
+  - ChatGPT/Gemini 两平台 N5.3 smoke v3 已跑结果**将标 SUPERSEDED** (新 session 做), v4 时 4 平台齐跑新基线
+  - Rule A 扩张到题库设计级 — 新方法论补丁候选给 _template/
+  - 无 knowledge_base/ 变动 → Chain D 不触发; 有 plans 变动 → Chain E 触发 (PLAN.md → _progress.json → MANIFEST + PROGRESS + CLAUDE.md Key Paths)
+- **Carry-over 至新 session**:
+  - Step 1 审计 `smoke_v3_questions_draft.md` v3.1 Q1-Q14 (派第 11 种 subagent_type document-specialist, background, opus, read-only + WebFetch)
+  - Step 2 Q10 (b) 必修 (handoff 已给 new 题干/判据 draft)
+  - Step 3 审计发现其他前提错必修
+  - Step 4 加 AHP1/2/3 → smoke v4.0 (handoff 已给完整 draft)
+  - Step 5 v3 历史结果标 SUPERSEDED
+  - Step 6 4 平台 R1 baseline (NotebookLM → Gemini → ChatGPT → Claude 顺序)
+  - Step 7 R1 FAIL 改 system prompt → R2
+  - 并行: P3.8 reviewer (11th subagent_type 合并派或单独派)
+- **下一步** (新 session): 读 `ai_platforms/SMOKE_V4_DESIGN_HANDOFF.md` 唯一入口 + Step 1 审计起 → 按 7 步序列推进

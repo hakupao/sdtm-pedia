@@ -4,9 +4,9 @@
   "mode": "async",
   "sync_board_participation": false,
   "start_date": "2026-04-21",
-  "last_update": "2026-04-22_p3.5.6.7_iceboxed_ready_for_p3.8",
+  "last_update": "2026-04-22_p3.8_executed_9_10_pass_main_session_review_surfaced_q10_judge_bug_ready_for_smoke_v4_audit_session",
   "status": "in_progress",
-  "current_phase": "3_execute_p3.4.5_done_p3.5.6.7_iceboxed_ready_for_p3.8",
+  "current_phase": "3_execute_p3.8_done_pending_independent_reviewer_and_smoke_v3_1_audit_for_v4",
   "architecture_version": "v2_single_notebook_2026-04-21",
   "phase_states": {
     "0_bootstrap": {
@@ -436,7 +436,66 @@
         "rule_d_chain_impact": "no subagent_type slot consumed (decision only, no artifact generation)",
         "plan_revision": "v2 → v2.1 (§0 修订记录 row added)"
       },
-      "next_action": "P3.4.5 CONDITIONAL_PASS (Q1 红线双锚闭合) + P3.5/P3.6/P3.7 ICEBOX (2026-04-22 v2.1 用户决策 A+保留, post-project optional) → **跳过 Studio 三件套直接进 P3.8** (10 SMOKE v2 A/B, 跨 4 平台对比基线, 阈值 ≥9/10). 前置: notebook + Chat Custom mode 保持激活; P3.8 hard gate; 吸收 carry-over (F-1-recurring 小表渲染监测 / F-2 同题 retry 幂等不强制 / F-3 citation dropout T2 题型偏向 / HC-3 bucket 38 尾段补题 候选 PHQ-9/PDQ-39/PGI 避 FT 域). 估时 1.5-2 小时."
+      "p3_8_completion": {
+        "completion_date": "2026-04-22",
+        "plan_revision": "v2.1 → v2.2 (P3.8 题库 smoke v2.1 → smoke v3 Q1-Q10, 对齐 ChatGPT+Gemini N5.3 Full A/B Generalization Probe)",
+        "executor": "claude cowork MCP Chrome (Web UI 自动化, 用户 Google account bojiang.zhang.0904@gmail.com)",
+        "execution_mode": "fresh chat per question, DOM readback, ClipboardEvent paste",
+        "sanity_preflight_3q": "3/3 PASS (AESER=Exp / LBNRIND 4 全写 C78736 / CMINDC concomitant medication indication + SUPPCM)",
+        "smoke_v3_executed_questions": "Q1-Q10 (双平台共用; Q11-Q14 ChatGPT 专属不适用 NotebookLM)",
+        "cowork_self_score_strict": "9/10 (90%) PASS",
+        "pass_threshold": "9/10 (~90%) — 达阈",
+        "per_question_verdicts_cowork": {
+          "Q1_A1_GF_EGFR": "PASS",
+          "Q2_A2_CP_flow": "PASS",
+          "Q3_A3_BE_BS_RELSPEC": "PASS (writer 判 PARTIAL on BETERM vs BECAT; main session independent review deems full PASS — KB supports BETERM as Req Topic, BECAT over-specific)",
+          "Q4_B1_LB_MB_IS_boundary": "PASS (IS v3.4 scope update handled)",
+          "Q5_B2_FA_QS_CE_boundary": "PASS",
+          "Q6_C1_Timing_PK_TPT_quartet": "PASS (PT4H ISO 8601 duration 对)",
+          "Q7_C2_Partial_date": "PASS (no imputation at SDTM, ADaM responsibility)",
+          "Q8_D1_CT_extensible": "PASS",
+          "Q9_E1_Pinnacle_21": "FAIL (PUNT — NotebookLM in-KB-only policy, no web search; safety-correct but generalization capability short; Phase 4 cross-platform 建议分类 'platform N/A' 计 9/9)",
+          "Q10_H1_SUPP_depth_SUPPTS": "PASS+ (超 PASS 草稿标准: NotebookLM 正确指出 SUPPTS 在 SDTMIG v3.4 不存在 + TSVAL1...TSVALn 替代; PASS 判据本身有误 — SUPPTS 不是 real dataset)"
+        },
+        "citation_avg": "~7 per question (except Q9 PUNT=0)",
+        "main_session_independent_review_findings": [
+          "[FINDING 1 MINOR]: smoke_v3_results.md L21 Q1 Exp 变量清单 bookkeeping 错 — 写 GFGENSR/GFPVRID/GFGENREF 作 Exp, 但 Q1_answer.md 明标这 4 个为 Core=Perm; 实际 Exp 是 GFORRES/GFSTRESC/GFREFID/GFMETHOD (4 个), Q1 PASS 仍成立; results.md 需 cosmetic fix",
+          "[FINDING 2 MEDIUM]: Q3 BETERM vs BECAT — v3.1 PASS 判据要求 BECAT, 答 BETERM; 按 SDTMIG v3.4 KB, BETERM 是 BE 域 Req Topic 变量 (vs BECAT Perm), 用 BETERM 更 canonical; 判据 over-specific; P3.8 score 不改, smoke v3.1 Q3 判据建议扩为 'BECAT 或 BETERM'",
+          "[FINDING 3 HIGH 必修]: Q10 (b) 题干 + PASS 判据基于错前提 — SUPPTS 在 SDTMIG v3.4 不存在 (TS 属 Trial Design, 不用 SUPPQUAL 机制, 长 TSVAL 内部派生 TSVAL1...TSVALn); NotebookLM 答案纠错前提是 PASS+, 但若按判据字面走沿错前提会被误判 PASS; 阻塞 Phase 4 跨平台对比一致性; 必改 smoke_v3_questions_draft.md",
+          "[FINDING 4 PHASE_4_SCOPING]: Q9 FAIL 是架构限制而非能力 FAIL — NotebookLM in-KB-only 对 Pinnacle 21 (无 web search fallback) 做 safety-correct punt; Phase 4 跨平台建议 Q9 重分类 'platform N/A', NotebookLM 评分 9/9; safety 维度反向是 NotebookLM 优势项, 写入 Phase 5 RETROSPECTIVE",
+          "[FINDING 5 RULE_D_GAP]: main session 独立复判**不替代** Rule D 强制的 11th subagent_type 独立 reviewer; 未派, 挂至新 session (smoke v4 路线并入)"
+        ],
+        "user_meta_insight_2026_04_22_pm": "用户提出: Q10 暴露 smoke v3 当前盲区 — 只测'给正确前提答对', 未测'给错前提能否纠错'; 用户作为非专家常问错前提 (如把 SUPPTS 当 real dataset), 希望模型纠错而不是沿错前提幻觉; 决定 smoke v3 → v4 升级, 加 3 题 AHP (Anti-Hallucination Probe)",
+        "decision_smoke_v4_design_plan": {
+          "step_1_audit": "审计 smoke_v3_questions_draft.md v3.1 Q1-Q14 前提真实性 (Rule A 扩张到题库设计级, N=14)",
+          "step_2_patch_q10": "强制修 Q10 (b) 题干 + 判据 (SUPPTS 不存在), smoke v3.1 → v3.2",
+          "step_3_patch_audit_findings": "强制修审计发现的所有问题 (类 Q10 前提错), smoke v3.2 → v3.3",
+          "step_4_add_ahp_x3": "新增 AHP1 (variable trap) + AHP2 (cross-domain trap) + AHP3 (version trap), smoke v3.3 → v4.0",
+          "step_5_deprecate_v3": "ChatGPT/Gemini 已跑 smoke v3.1 结果整块标 SUPERSEDED by v4, 不回溯重评分",
+          "step_6_run_v4_round_1": "4 平台 (Claude / ChatGPT / Gemini / NotebookLM) 跑 smoke v4 Round 1 baseline",
+          "step_7_iterate_system_prompts": "基于 R1 FAIL 针对性改 system prompts (尤其 ChatGPT/Gemini 的 anti-hallucination 锚点) → Round 2 retest",
+          "ahp_pass_philosophy": "首轮 (R1) baseline, R2 可干预 (ChatGPT/Gemini 加 anti-hallucination 锚, NotebookLM 天然 PASS); AHP FAIL 不 gate 但作 Phase 5 RETROSPECTIVE 关键维度"
+        },
+        "handoff_docs_new_session": [
+          "ai_platforms/notebooklm/dev/checkpoints/CHECKPOINT_P3.8_HANDOFF.md (P3.8 执行手顺已完成, 留档)",
+          "ai_platforms/notebooklm/dev/evidence/smoke_v3_results.md (writer self-score 9/10)",
+          "ai_platforms/notebooklm/dev/evidence/smoke_v3_answers/Q1..Q10_answer.md + sanity_questions.md (答案原文)",
+          "ai_platforms/SMOKE_V4_DESIGN_HANDOFF.md (新建, smoke v4 设计任务 handoff 给新 session)"
+        ],
+        "rule_d_chain_extension": {
+          "current_cumulative_subagent_types_count": 10,
+          "11th_slot_planned_use": "smoke v4 audit agent (候选 scientist 第 10 种延伸 或 feature-dev:code-reviewer 新加入), 新 session 起",
+          "p3_8_reviewer_status": "未派 (Rule D gap, 新 session 处理; 建议 oh-my-claudecode:critic 第 11 种作 P3.8 答题独立审, 或并入 smoke v4 audit agent 一起派)"
+        },
+        "rule_a_rule_b_rule_c_rule_e_compliance": {
+          "rule_a_semantic_spot_check": "PASS (cowork 10 题执行 + main session 独立复判 cross-check 3 题深入, 发现 findings 1-5)",
+          "rule_b_failure_archive": "空 (P3.8 无重跑, cowork 首答即记; Q9 punt 不算 attempt retry)",
+          "rule_c_retrospective_note": "Phase 5 收束必记: (i) smoke v3 设计级盲区 (SUPPTS 错前提未被双 reviewer 抓) (ii) NotebookLM in-KB-only safety 优势项 (iii) user meta insight 引出 AHP 新维度, 作方法论演进关键 case",
+          "rule_d_writer_reviewer_separation": "cowork (writer) + main session (independent reviewer, first pass); 11th subagent_type reviewer 未派 (挂新 session)",
+          "rule_e_user_priority": "PASS (personal Gmail + Pro + Web UI + 用户亲自粘贴 via cowork)"
+        }
+      },
+      "next_action": "smoke_v4_design_session (新 session): (1) background agent 审计 smoke_v3_questions_draft.md v3.1 Q1-Q14 前提真实性 → 产 smoke_v3_audit_notes.md; (2) 基于审计 patch Q10 (b) + 其他发现 → v3.x bump; (3) 新增 AHP1/2/3 → v4.0; (4) 4 平台 smoke v4 R1 baseline; (5) system prompt 迭代 → R2; 并行派 P3.8 reviewer (第 11 种 subagent_type, 建议 oh-my-claudecode:critic) 独立审 P3.8 答题 + findings 1-5 复核. 详见 ai_platforms/SMOKE_V4_DESIGN_HANDOFF.md."
     },
     "4_review": {
       "status": "locked"
@@ -541,7 +600,19 @@
     "per_notebook_size_v2_original": 15,
     "v2_1_revision_date": "2026-04-22",
     "v2_1_revision_reason": "P3.5/P3.6/P3.7 iceboxed post-project optional (user decision A+保留); 5 independent questions U1-U5 iceboxed along with them",
-    "standard_questions_from_smoke_v2": 10,
+    "v2_2_revision_date": "2026-04-22",
+    "v2_2_revision_reason": "P3.8 题库升级 smoke v2.1 → smoke v3 Q1-Q10 对齐 ChatGPT+Gemini 当前 N5.3 Full A/B Generalization Probe 以便 Phase 4 跨平台同期可比; v2.1 10 题全押 ChatGPT 04 业务弹药 §1.1-§1.10 预设 scenario (open-book), v3 故意避 04 测真 generalization 能力; 用户 2026-04-22 ack 选 A",
+    "standard_questions_source": "ai_platforms/smoke_v3_questions_draft.md v3.1 Q1-Q10 (双平台共用; Q11-Q14 ChatGPT 专属不适用)",
+    "standard_questions_source_superseded": "ai_platforms/SMOKE_QUESTIONS_V2.md v2.1 10 题 (v2.1 基线 SUPERSEDED 2026-04-22 v2.2, 见 plan §0 v2.2 修订记录)",
+    "standard_questions_count": 10,
+    "question_type_distribution_v3": {
+      "A1_A2_A3_v3_4_new_domains": "Q1 GF + Q2 CP + Q3 BE+BS+RELSPEC",
+      "B1_B2_domain_boundary": "Q4 LB/MB/IS + Q5 FA/QS/CE",
+      "C1_C2_timing_depth": "Q6 --TPTREF combo + Q7 partial date imputation",
+      "D1_CT_depth": "Q8 extensible vs non-extensible",
+      "E1_field_validation": "Q9 Pinnacle 21 FAIL taxonomy",
+      "H1_SUPP_depth": "Q10 QORIG/QEVAL + SUPPTS vs SUPP--"
+    },
     "platform_unique_questions": {
       "status": "ICEBOX_post_project_optional_2026-04-22",
       "original_design_preserved_at_plan_section_7": true,
@@ -550,8 +621,15 @@
       "study_guide_layering": 1
     },
     "pass_threshold": "9/10 (~90%) business_correct",
+    "pass_threshold_unchanged_from_v2_1": true,
+    "pass_threshold_rationale_v2_2": "ChatGPT ≥10/14 (71%) 含 4 题专属且 generalization 难; Gemini ≥7/10 (70%) 因首过 v3 预留 buffer; NotebookLM 保 ≥9/10 (90%) 因 P3.4.5 已 CONDITIONAL_PASS 8.5/10 验底座稳, 不给额外 buffer (用户 2026-04-22 ack 不降)",
     "pass_threshold_v2_original": "13/15 (~87%) AND each unique generative product >=1 precise hit (SUPERSEDED 2026-04-22 v2.1)",
-    "total_ab_runs": "10 题次 (1 notebook × 10 SMOKE v2; Studio 独有 U1-U5 ICEBOX non-counted)",
+    "total_ab_runs": "10 题次 (1 notebook × 10 SMOKE v3 Q1-Q10; Studio 独有 U1-U5 ICEBOX non-counted; HC-3 补题若跑为第 11 题单独计不入分母)",
+    "sanity_preflight_3q": [
+      "AESER Core 属性 (Exp 期望; 回 Req 则底座失效停 smoke)",
+      "LBNRIND submission values (HIGH/LOW/NORMAL/ABNORMAL C78736; 回 H/L/N 单字符则停 smoke)",
+      "CMINDC 场景显式命名 (concomitant medication indication; 对应 N5.1 bullet)"
+    ],
     "req_zero_loss_audit": {
       "structure_level_a4": "extract_req_vars.py full set + coverage audit against ≤50 sources bucket, target ∅ gap (PASS 2026-04-21)",
       "semantic_level_p3_4_5": "N=10 Req variable business Q&A test against Chat mode, 10/10 hit required (Rule A 正本, CONDITIONAL_PASS 2026-04-22 8.5/10, 语义 10/10 + citation 7/10)"
@@ -561,7 +639,8 @@
       "F-1-recurring 小表渲染监测",
       "F-2 同题 retry 幂等不强制",
       "F-3 citation dropout T2 题型偏向",
-      "HC-3 bucket 38 尾段补题 (候选 PHQ-9/PDQ-39/PGI 避 FT 域)"
+      "HC-3 bucket 38 尾段补题 (候选 PHQ-9/PDQ-39/PGI 避 FT 域) — v2.2 note: v3 Q1-Q10 无 bucket 38 专属题, HC-3 若跑作第 11 题单独计不入 ≥9/10 分母",
+      "v2.2 新增: 若 FAIL 集中 Q1-Q3 v3.4 新域 (GF/CP/BE+BS), 触发 knowledge_base v3.4 新域覆盖审作 P10 归因路径 (d)"
     ]
   },
   "rule_E_user_priority": {
