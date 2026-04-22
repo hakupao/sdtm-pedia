@@ -641,8 +641,42 @@
     "gemini_equivalent_smoke_v3_score": "7/10 baseline → 10/10 post-v5c (等价 PASS, Q4-Q10 未重跑, 等价假设见 smoke_v3_v5c_delta.md §2: v5c 只加 CO-4 不动其他 CO 段 + KB uploads 不变)",
     "cross_platform_closure": "Q1-Q10 shared: Gemini 10/10 (v5c) vs ChatGPT 10/10 = gap 30pp → 0pp",
     "phase5_retro_seed": "system_prompt 锚注入 CO-4 pattern 对 full-context 架构新域变量命名层有效, 应纳入 _template/ 给未来新域扩展套用. 证 attention 竞争本质是 prime 位置问题非容量问题 (头部锚 ~3K chars 权重 >> 616K 尾部 rare-token 权重).",
-    "rule_d_carry_to_n5_5": "双 AB_REPORT + v5c_delta 待 Rule D 第 24/25 种 subagent_type 独立审 (建议候选: superpowers:requesting-code-review / oh-my-claudecode:critic, 前 23 种未用; 第 24/25 下次 session 派发)",
-    "next_action": "commit C5.4 bundled (本 session) → 下次 session: Rule D 24/25 审双 AB → Phase 5 RETROSPECTIVE 启动"
+    "rule_d_carry_to_n5_5": "双 AB_REPORT + v5c_delta Rule D 第 24/25 种 subagent_type 独立审 COMPLETE 2026-04-22 PM (见 rule_d_24_25_reviewers_completed 块)",
+    "rule_d_24_25_reviewers_completed": {
+      "date": "2026-04-22",
+      "slot_24_chatgpt_side": {
+        "subagent_type": "oh-my-claudecode:code-reviewer",
+        "reviewer_evidence_path": "ai_platforms/chatgpt_gpt/dev/evidence/phase4_n5_4_reviewer.md",
+        "verdict": "CONDITIONAL_PASS ~82%",
+        "findings_count": "0 HIGH / 3 MEDIUM / 4 LOW / 3 SUGGESTION",
+        "medium_summary": [
+          "M-1: Rule D reviewer-slot counting ambiguity (§2 AB 说 23 累计, 需澄清 slot 24/25 的起点)",
+          "M-2: Q4-Q10 equivalence PASS 是推论未实测, §5.2 未引 diff hash/line-range 作 provenance",
+          "M-3: §6.2 GAP 未显式 restate SYNC_BOARD 3 必记项 (a)(b)(c), 仅 G-1 approximate 覆盖 (c)"
+        ],
+        "gate_recommendation": "OPEN (MEDIUM 是 documentation hygiene, 非科学瑕疵)"
+      },
+      "slot_25_gemini_side": {
+        "subagent_type": "feature-dev:code-explorer",
+        "reviewer_evidence_path": "ai_platforms/gemini_gems/dev/evidence/phase4_n5_4_reviewer.md",
+        "verdict": "PASS ~91%",
+        "findings_count": "0 HIGH / 1 MEDIUM / 2 LOW",
+        "medium_summary": [
+          "MED-1: Q4-Q10 equivalence claim 需 Phase 5 正式注册 'optional v5c 全量 10 题回归' 作 verification task (与 slot 24 M-2 交叉独立 flag, 说明是真实弱点)"
+        ],
+        "independent_kb_grep_confirmed": "7 变量 GFGENSR/GFPVRID/GFGENREF/GFINHERT + CPSBMRKS/CPCELSTA/CPCSMRKS + BE Class=Events + BS Class=Findings + CT codes C181177/C181172/C124300 全独立 grep 真",
+        "gate_recommendation": "OPEN"
+      },
+      "cross_reviewer_converged_finding": "Q4-Q10 等价 10/10 是假设未实测 — 双 reviewer 独立 flag (#24 M-2 + #25 MED-1) 确证为真实弱点, Phase 5 必须正式注册 'optional v5c 全量回归' 补证任务",
+      "phase5_retro_input_quality_assessment": {
+        "F1_co4_effective_full_context": "STRONG empirical; #25 note: N=3 单 session, multi-run 稳定性未测",
+        "F2_prime_position_over_capacity": "PLAUSIBLE 但 THEORETICAL; #25 建议措辞 '证' → 'suggests' (观察 CO-4 worked 是 empirical, '因 prime 位置' 是机制推论, 应区分)",
+        "F3_writer_checklist_gap_template_pattern": "STRONG for checklist gap; template 具体内容待 Phase 5 fleshed out"
+      },
+      "rule_d_cumulative_chain_count_synced_side": 25,
+      "rule_d_24_25_new_subagent_types_added": ["oh-my-claudecode:code-reviewer", "feature-dev:code-explorer"]
+    },
+    "next_action": "Phase 4 N5.4 + Rule D 24/25 COMPLETE; ChatGPT+Gemini 冻结进 'Phase 5 pending' 状态 (等 NotebookLM 拉齐 P3.8 reviewer + P3.9 + Phase 4 跨 4 平台) → 跨 4 平台统一启 Phase 5 RETROSPECTIVE + _template/ 补丁合并 + cross-pollination 不分拆"
   },
   "platform_specific_constraints": {
     "P11_file_count_hard_limit": 20,
