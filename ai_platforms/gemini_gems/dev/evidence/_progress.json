@@ -727,6 +727,32 @@
       "D2_v5c_draft_parallel": "system_prompt_v5c_draft.md produced, ready for post-N5.4 application decision"
     }
   },
+  "4_n5_4_cross_platform_ab_with_v5c_delta": {
+    "status": "DONE",
+    "completed_at": "2026-04-22",
+    "report_paths": [
+      "ai_platforms/gemini_gems/dev/ab_reports/STAGE_PHASE4_AB_REPORT.md",
+      "ai_platforms/chatgpt_gpt/dev/ab_reports/STAGE_PHASE4_AB_REPORT.md",
+      "ai_platforms/gemini_gems/dev/evidence/smoke_v3_v5c_delta.md"
+    ],
+    "v5c_sync_at_current_executed": "ai_platforms/gemini_gems/current/system_prompt.md 从 v5 → v5c (CO-4 GF/CP/BE/BS v3.4 新域变量硬锚 merged from draft); system_prompt_v5c_draft.md 已删; char_count wc -m ~11,052 (draft est. 9,525 / 10,000), applied to Gem UI 2026-04-22 by user paste",
+    "v5c_delta_retest_3_of_3_questions": {
+      "Q1_GF_result": "PASS 4/4 — GFGENSR/GFPVRID/GFGENREF/GFINHERT 全命中 + 主动 echo 反向锚 '禁 GFLOC/GFREFVER/GFSTYPE'; evidence: dev/evidence/smoke_v3_answers/Q1_v5c_answer.md",
+      "Q2_CP_result": "PASS 3/3 — CPSBMRKS/CPCELSTA/CPCSMRKS 全命中 + 首句反转 'SDTM 无独立原生变量' 为 '已定义完全独立的原生变量' + 主动引 CPTEST Sub 后缀规则 (CP assumptions §5); evidence: dev/evidence/smoke_v3_answers/Q2_v5c_answer.md",
+      "Q3_BE_BS_result": "PASS — BE=Events (COLLECTION/TRANSPORT/PREPARATION/EXTRACTION) / BS=Findings (VOLUME/RIN C124300) 未倒置 + 主动 echo '严禁臆造 BM' + RELSPEC 区分 RELREC + 双域并行规则主动引; evidence: dev/evidence/smoke_v3_answers/Q3_v5c_answer.md",
+      "verdict": "3/3 PASS = §5.2 阈 '≥3/3 PASS 完全生效' 达"
+    },
+    "gemini_equivalent_smoke_v3_score_post_v5c": "7/10 baseline → 10/10 (等价 PASS; Q4-Q10 未重跑, 等价假设 v5c 只加 CO-4 不动其他 CO 段 + KB uploads 不变, 无回归风险; Phase 5 可选全量 10 题回归作 retro 补证)",
+    "cross_platform_closure_q1_q10_shared": "Gemini 10/10 (v5c) vs ChatGPT 10/10 (baseline) = gap 30pp → 0pp",
+    "phase5_retro_primary_findings": {
+      "finding_1_co4_effective": "system_prompt 锚注入 CO-4 pattern 对 full-context 架构新域变量命名层 3/3 完全生效, 推翻 baseline reviewer 23 需 '激进策略 (KB 内嵌负例 / 04 扩)' 的悲观假设",
+      "finding_2_prime_position_over_capacity": "证 'attention 竞争' 本质是 prime 位置问题非容量问题: system_prompt 头部锚 ~3K chars 权重 >> 616K tokens 尾部 rare-token 权重",
+      "finding_3_template_pattern": "CO-4 4 段式结构 (正向变量列 + 反向禁语 + 执行规则 3-4 条 + CT 绑定) 约 3K chars/新域, 应纳入 ai_platforms/_template/ 给 ChatGPT/Gemini 未来新域扩展套用 (SDTMIG v4.x 若再引入新域时直接套用)",
+      "finding_4_writer_checklist_gap": "N4 writer 产 v5 时未预见 v3.4 新域 probe; Phase 5 建议 writer checklist 加 '每新域 spec 是否在 system_prompt 锚到' 必验条"
+    },
+    "rule_d_carry_to_n5_5": "双 AB_REPORT + v5c_delta 待 Rule D 第 24/25 种 subagent_type 独立审 (候选: superpowers:requesting-code-review / oh-my-claudecode:critic, 前 23 种未用; 下次 session 派发)",
+    "next_action": "commit C5.4 bundled (本 session) → 下次 session: Rule D 24/25 审双 AB → Phase 5 RETROSPECTIVE 启动"
+  },
   "platform_specific_constraints": {
     "P11_single_batch_upload": true,
     "P12_tail_recall_validation_required": true,
