@@ -1158,3 +1158,42 @@
   - P3.8 记录 F-3 citation dropout T2 题型偏向 作系统性弱点 (Reviewer 新发现)
   - `docs/research.md` 附录: MMSE FT 归属事件作 domain knowledge cache
 - **下一步** (新 session): **P3.5 Audio Overview × 3** (SAFETY / EFFICACY / PK), per-day 20 audio cap 内足 3 期, 生成 30 min + 用户抽听 1-2 天确认, soft checkpoint (<10% hallucination PASS)
+
+### 2026-04-22 Phase 6.5 NotebookLM PLAN v2 → v2.1 修订 (Studio 三件套 挪 ICEBOX, 直接进 P3.8)
+
+- **状态**: 已完成
+- **触发**: P3.4.5 CONDITIONAL_PASS 8.5/10 commit 34179dc 后, 主 session 向用户简报 "下一步 P3.5 Audio Overview × 3" 的工作内容; 用户反思 "Audio Overview 其实不是重要的, 可能是当初计划规划方向有误, Studio 锦上添花, 重点还是问答比较好" → 要求评估问答维度是否基本完成
+- **主 session 现状扫描**: P3.4 indexing smoke 10/10 + P3.4.5 Req 语义 10/10 + citation 7/10 闭合 Q1 红线双锚; **但 P3.8 10 SMOKE v2 (跨 4 平台对比基线 hard gate ≥13/15) 未跑**, 不是 "问答基本完成". 给出方案 A (完全放弃 Studio) vs 方案 B (暂搁置) 两路径
+- **用户决策**: **方案 A + 保留入口** (小概率全项目完成后回头精雕)
+- **决策内容** (v2 → v2.1):
+  - P3.5 Audio Overview × 3 → **ICEBOX** (non-gating, post-project optional)
+  - P3.6 Mind Map + 跨域关系验证 → **ICEBOX**
+  - P3.7 Study Guide × 3 → **ICEBOX**
+  - P3.8 A/B 15 题 → **10 题** (仅 10 SMOKE v2 跨 4 平台对比基线); 原 5 独有 U1-U5 (Audio 2 + Mind Map 2 + Study Guide 1) 随 Studio 三件套一起 ICEBOX
+  - PASS 阈值 **≥13/15 (~87%) → ≥9/10 (~90%)** (分母缩但留 1 题容错)
+  - Phase 3 总工时 **-3.5h** (Studio 原估 -2.5h + A/B 5 独有 -1h)
+- **归因**: Studio 独有产出 (Audio/Mind Map/Study Guide) 无跨 4 平台对比价值 — Claude/ChatGPT/Gemini 均无等价功能. 问答维度 (P3.4 indexing smoke + P3.4.5 Req 语义 + P3.8 10 SMOKE) 才是跨平台核心比较基线. 全项目 (Phase 5) 收束后若用户有精力 + 无新优先级可选回头, 不触发则永久 ICEBOX 不影响 Phase 5 收束完整性.
+- **保留完整性** (方案 A 的 "+保留" 部分):
+  - 原 P3.5/P3.6/P3.7 任务定义 + U1-U5 评估设计 **全文保留**于 PLAN §3.5 / §6 / §7, 加 ICEBOX header 标记**不删一字**
+  - 新增 **§10 "Post-project ICEBOX" 小节** (触发条件 + 重开流程 "新分支不污染主 retrospective, 生成+评估后补 RETROSPECTIVE Appendix + _template/ 新补丁候选")
+  - _progress.json 新增 `p3_5_6_7_icebox_decision` 12 字段块 (status / non_gating / scope / rationale / reopen_trigger / reopen_flow / original_definitions_preserved_at 等), 决策可追溯
+- **改动清单**:
+  - `ai_platforms/notebooklm/docs/PLAN.md` — 11 处 (§0 修订记录 v2.1 行 / 执行摘要 / Success Criteria #1 / §3.1 表格 / §3.5 header / §4 overview 表 + Phase 3 总工时 / §5 动作清单 item 7 / §6 P3.4.5 checkpoint 指向 + P3.5/P3.6/P3.7 header + P3.8 重写吸收 4 条 carry-over / §7 heading + 5 独有 header + PASS 阈值 / §10 Post-project ICEBOX 小节)
+  - `ai_platforms/notebooklm/dev/evidence/_progress.json` — 5 块 (last_update + current_phase / carry_over_to_p3_5_plus 重定向头 + ready_for_p3_5 → SUPERSEDED + ready_for_p3_8 新 flag / p3_5_6_7_icebox_decision 12 字段块 / next_action 指 P3.8 / ab_matrix_plan_v2 15→10 + 阈值 9/10 + p3_8_carry_over_absorbed 4 条 / notes +1 条)
+- **规则合规**:
+  - **Rule A**: 本步纯 PLAN 修订无抽检; 引用 P3.4.5 的 Rule A 正本 10/10 作 Q1 红线语义级自证基线不变
+  - **Rule B**: `dev/failures/` 保持空, 零 attempt FAIL
+  - **Rule C**: Phase 5 Retrospective 时吸收本次 v2→v2.1 ICEBOX 决策作 "路径修正小姐妹" 案例 (v1→v2 pivot 的小版本, 验证 "审慎砍冗 + 保留入口" 是 retrospective 关键做法之一)
+  - **Rule D**: PLAN 修订属文本型决策不占 subagent_type slot; cumulative 链保持 10 种 (scientist 为最新); 11th slot 留 Phase 4 跨平台 / Phase 5 Retro
+  - **Rule E**: personal Gmail + Pro + Web UI only 全合规
+- **影响面**:
+  - **无** knowledge_base/ 变动 → Chain D 不触发
+  - **有** plans 变动 → Chain E 触发 (PLAN.md → _progress.json → PROGRESS.md 头 + MANIFEST.md 头 + CLAUDE.md Key Paths 3 行 NotebookLM entries)
+  - **无** 新 key path 创建 (CLAUDE.md 仅更新现有行描述, 不加新行)
+  - Phase 3 gate 精简: P3.4.5 → **P3.8** (跳过 P3.5/3.6/3.7 Studio 三件套) → P3.9 → Phase 4
+- **Carry-over 至 P3.8** (从 P3.4.5 过来并吸收 Studio ICEBOX 释放):
+  - F-1-recurring 持续跟踪 (挪 P3.8 小表单行漂移监测, 原 P3.5/3.6/3.7 监测冻结)
+  - F-2 同题 retry 幂等性不强制 (语义等价即 PASS)
+  - F-3 citation dropout T2 题型偏向 (场景驱动类 T2 易丢 inline cite, 系统性弱点, 不扣 A/B 分但 Retro 关键教训)
+  - HC-3 bucket 38 尾段补题 (候选 PHQ-9 / PDQ-39 / PGI, 避 FT 域归属题, 单独计作 1 题)
+- **下一步** (新 session): 准备 **P3.8 10 SMOKE v2 A/B handoff 文档** (P3.8 内部设计: 10 题 prompt 原文 + 逐题判据 + F-2 幂等条 + F-3 citation T2 偏向记录条 + HC-3 尾段补题方式) → 执行 P3.8 (估时 1.5-2h, hard gate ≥9/10 PASS) → P3.9 3 档切换演练 → Phase 4 跨 4 平台对比 + Rule A N=10 独立抽检 + 第 11 种 subagent_type 审 → Phase 5 收束 (RETROSPECTIVE 含 v2→v2.1 路径修正案例 + UPLOAD_TUTORIAL + _template/ 10 补丁 PR + commit + push)

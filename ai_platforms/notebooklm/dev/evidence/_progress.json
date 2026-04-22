@@ -4,9 +4,9 @@
   "mode": "async",
   "sync_board_participation": false,
   "start_date": "2026-04-21",
-  "last_update": "2026-04-22_phase3_p3.4.5_done_ready_for_p3.5",
+  "last_update": "2026-04-22_p3.5.6.7_iceboxed_ready_for_p3.8",
   "status": "in_progress",
-  "current_phase": "3_execute_p3.4.5_done_ready_for_p3.5",
+  "current_phase": "3_execute_p3.4.5_done_p3.5.6.7_iceboxed_ready_for_p3.8",
   "architecture_version": "v2_single_notebook_2026-04-21",
   "phase_states": {
     "0_bootstrap": {
@@ -410,15 +410,33 @@
           "rule_E_personal_gmail_pro_webui": "PASS — 用户亲自粘贴模式 (handoff §3.1 选项 A)"
         },
         "carry_over_to_p3_5_plus": [
-          "F-1-recurring 持续跟踪 (P3.5/3.6/3.7 监测小表渲染)",
+          "[2026-04-22 v2.1 user decision]: P3.5/P3.6/P3.7 iceboxed post-project optional; below items redirected to P3.8 吸收",
+          "F-1-recurring 持续跟踪 (挪 P3.8 监测小表单行漂移, 原 P3.5/3.6/3.7 监测 ICEBOX 一起冻结)",
           "P3.8 A/B 评分规则补 '同题 retry 幂等不强制 + 小表单行漂移不扣语义分'",
           "P3.8 补 1 题 bucket 38 尾段闭合 HC-3 (候选 PHQ-9/PDQ-39/PGI, 避 FT 域归属题)",
           "P3.8 记录 citation dropout T2 题型偏向 作系统性弱点 (Reviewer 新发现)",
           "docs/research.md 附录: MMSE FT 归属事件作 domain knowledge cache"
         ],
-        "ready_for_p3_5": true
+        "ready_for_p3_5": "SUPERSEDED_2026-04-22",
+        "ready_for_p3_8": true
       },
-      "next_action": "P3.4.5 CONDITIONAL_PASS (Q1 红线双锚闭合) → 进 P3.5 (Audio Overview × 3: SAFETY / EFFICACY / PK). 前置: notebook + Chat Custom mode 保持激活; per-day 20 audio cap 内足 3 期; 生成 30 min + 用户抽听 1-2 天确认. Soft checkpoint (∃ <10% hallucination 算 PASS)"
+      "p3_5_6_7_icebox_decision": {
+        "decision_date": "2026-04-22",
+        "decided_by": "user (方案 A+保留)",
+        "scope": ["P3.5_Audio_Overview_x3", "P3.6_Mind_Map", "P3.7_Study_Guide_x3", "A/B_5_independent_questions_U1_to_U5"],
+        "status": "ICEBOX_post_project_optional",
+        "non_gating": true,
+        "not_counted_in_phase_3_closure": true,
+        "not_counted_in_phase_4_cross_platform": true,
+        "original_definitions_preserved_at": ["docs/PLAN.md §3.5", "docs/PLAN.md §4 table (ICEBOX marked)", "docs/PLAN.md §6 P3.5/P3.6/P3.7", "docs/PLAN.md §7 5 独有 (ICEBOX marked)", "docs/PLAN.md §10 Post-project ICEBOX subsection (trigger + reopen flow)"],
+        "rationale": "Studio 独有产出 (Audio/Mind Map/Study Guide) 无跨 4 平台对比价值 (Claude/ChatGPT/Gemini 均无等价功能). 问答维度 (P3.4 indexing smoke + P3.4.5 Req 语义 + P3.8 10 SMOKE v2) 才是跨平台核心比较基线. 用户全项目完成后小概率回头精雕.",
+        "phase_3_time_savings": "~2.5h (P3.5/6/7 原估) + ~1h (A/B 5 独有) = ~3.5h",
+        "reopen_trigger": "user proactively proposes 'return to Studio 三件套' or 'do P3.5/P3.6/P3.7 now' post Phase 5 closure",
+        "reopen_flow": "read PLAN §10 Post-project ICEBOX subsection + §6 / §7 原任务定义 → new branch (不污染主 retrospective) → 生成 + 评估 → 补 RETROSPECTIVE Appendix + _template/ 新补丁候选 (若有)",
+        "rule_d_chain_impact": "no subagent_type slot consumed (decision only, no artifact generation)",
+        "plan_revision": "v2 → v2.1 (§0 修订记录 row added)"
+      },
+      "next_action": "P3.4.5 CONDITIONAL_PASS (Q1 红线双锚闭合) + P3.5/P3.6/P3.7 ICEBOX (2026-04-22 v2.1 用户决策 A+保留, post-project optional) → **跳过 Studio 三件套直接进 P3.8** (10 SMOKE v2 A/B, 跨 4 平台对比基线, 阈值 ≥9/10). 前置: notebook + Chat Custom mode 保持激活; P3.8 hard gate; 吸收 carry-over (F-1-recurring 小表渲染监测 / F-2 同题 retry 幂等不强制 / F-3 citation dropout T2 题型偏向 / HC-3 bucket 38 尾段补题 候选 PHQ-9/PDQ-39/PGI 避 FT 域). 估时 1.5-2 小时."
     },
     "4_review": {
       "status": "locked"
@@ -449,7 +467,8 @@
     "本平台对 _template/ 的 11 条补丁候选 (原 7 + pivot 新增 3: multi-notebook 决策树 / per-day rate limit / Writer 叙事合成 (拆 10a+10b))",
     "第 9 种 subagent_type (architect) Phase 2 v2 审 CONDITIONAL_PASS 84% → 全 findings 闭合后 PASS",
     "第 10 种 subagent_type (scientist) P3.4.5 审 CONDITIONAL_PASS 8.5/10 (2026-04-22, HC-1 硬约束执行, 补 P3.4 松口子, Writer/Reviewer/仲裁 三锚闭合); 新发现 F-3 citation dropout T2 题型偏向作系统性弱点",
-    "F-1 状态修正 2026-04-22: P3.3 CLOSED 判断误推 minimal test 极端 case, P3.4.5 真实漂移 8/10 打脸 → 重开 F-1-recurring, Phase 5 Retro 关键教训"
+    "F-1 状态修正 2026-04-22: P3.3 CLOSED 判断误推 minimal test 极端 case, P3.4.5 真实漂移 8/10 打脸 → 重开 F-1-recurring, Phase 5 Retro 关键教训",
+    "v2.1 PLAN 修订 2026-04-22: P3.5/P3.6/P3.7 (Audio/Mind Map/Study Guide) 挪 ICEBOX post-project optional; P3.8 A/B 15→10 (仅 10 SMOKE v2), 阈值 ≥13/15 → ≥9/10 (~90%); 独有 U1-U5 随 Studio 三件套一起 ICEBOX; 归因: 独有产出无跨 4 平台对比价值, 问答才是核心; 全项目收束后小概率精雕 (见 phase_states.3_execute.p3_5_6_7_icebox_decision + PLAN §10 Post-project ICEBOX). Phase 3 总工时 -3.5h. 用户决策 A+保留."
   ],
   "known_differences_from_template": [
     {
@@ -518,20 +537,32 @@
   ],
   "ab_matrix_plan_v2": {
     "notebooks": 1,
-    "per_notebook_size": 15,
+    "per_notebook_size": 10,
+    "per_notebook_size_v2_original": 15,
+    "v2_1_revision_date": "2026-04-22",
+    "v2_1_revision_reason": "P3.5/P3.6/P3.7 iceboxed post-project optional (user decision A+保留); 5 independent questions U1-U5 iceboxed along with them",
     "standard_questions_from_smoke_v2": 10,
     "platform_unique_questions": {
+      "status": "ICEBOX_post_project_optional_2026-04-22",
+      "original_design_preserved_at_plan_section_7": true,
       "audio_overview_fidelity": 2,
       "mind_map_coverage": 2,
       "study_guide_layering": 1
     },
-    "pass_threshold": "13/15 (~87%) business_correct AND each unique generative product >=1 precise hit",
-    "total_ab_runs": "15 题次 (1 notebook × 15)",
+    "pass_threshold": "9/10 (~90%) business_correct",
+    "pass_threshold_v2_original": "13/15 (~87%) AND each unique generative product >=1 precise hit (SUPERSEDED 2026-04-22 v2.1)",
+    "total_ab_runs": "10 题次 (1 notebook × 10 SMOKE v2; Studio 独有 U1-U5 ICEBOX non-counted)",
     "req_zero_loss_audit": {
-      "structure_level_a4": "extract_req_vars.py full set + coverage audit against ≤50 sources bucket, target ∅ gap",
-      "semantic_level_p3_4_5": "N=10 Req variable business Q&A test against Chat mode, 10/10 hit required (Rule A 正本)"
+      "structure_level_a4": "extract_req_vars.py full set + coverage audit against ≤50 sources bucket, target ∅ gap (PASS 2026-04-21)",
+      "semantic_level_p3_4_5": "N=10 Req variable business Q&A test against Chat mode, 10/10 hit required (Rule A 正本, CONDITIONAL_PASS 2026-04-22 8.5/10, 语义 10/10 + citation 7/10)"
     },
-    "audio_rate_limit_note": "Pro tier 20 audio/day, cross-day acceptable if retry needed"
+    "audio_rate_limit_note": "Pro tier 20 audio/day, cross-day acceptable if retry needed (moot under v2.1 ICEBOX; kept for post-project reopen reference)",
+    "p3_8_carry_over_absorbed": [
+      "F-1-recurring 小表渲染监测",
+      "F-2 同题 retry 幂等不强制",
+      "F-3 citation dropout T2 题型偏向",
+      "HC-3 bucket 38 尾段补题 (候选 PHQ-9/PDQ-39/PGI 避 FT 域)"
+    ]
   },
   "rule_E_user_priority": {
     "status": "acked",
