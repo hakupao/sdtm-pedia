@@ -1,13 +1,22 @@
 # Smoke v3 题库 draft — N5.3 Full A/B Generalization Probe
 
-> **版本**: v3.1 (2026-04-22, reviewer fix post Step 3)
-> **v3.0 → v3.1 修改** (双 reviewer 独立审后主 session 修):
+> **版本**: v3.2 (2026-04-22 PM, 第 22+23 种 subagent_type reviewer post-smoke fix; F-R1 substitution + C66727 label fix)
+> **v3.1 → v3.2 修改** (第 22 种 subagent_type `pr-review-toolkit:type-design-analyzer` HIGH+MED findings 主 session 修):
+> - **F-R1 (HIGH) 官方记录**: Phase 4 N5.3 Step 4 Chrome MCP 执行时, **ChatGPT 端 Q8/Q9 被 executor 替换为备选题** (Gemini 端按原 v3.1 Q8 (D1) + Q9 (E1)):
+>     - **ChatGPT 实际 Q8** (替换为 B5 — EPOCH Trial Design 与 Subject-level 关系): 独立对 EPOCH/TA/TE/SE 考, 与 bank 原 Q8 (D1 CT Extensible) 正交且互补
+>     - **ChatGPT 实际 Q9** (替换为 B6 — AESEV vs AETOXGR vs AESER CTCAE): 考 AE 三维严重度 + CTCAE Grade 5→AESER, 与 bank 原 Q9 (E1 Pinnacle 21) 正交
+>     - **替换作许可正式记录**, ChatGPT 实际 14 题对已答题全 PASS; bank 原 D1/E1 挪 N5.4 跨平台 cross-platform re-test 可选 (见附录 C)
+>     - Gemini 端未受影响, Q8/Q9 按 bank v3.1 原题跑, 7/10 结果不变
+> - **Q14 PASS (c) C66727 codelist 名称修**: v3.1 写 "C66727 Disposition From Study codelist" 实为错归 — KB `knowledge_base/terminology/core/disposition.md` L15 + `domains/DS/spec.md` L81+L156 明证 **C66727 = "Completion/Reason for Non-Completion"**, 非 "Disposition From Study". DSDECOD 绑 3 codelist: **C66727 (Completion/Reason for Non-Completion)** + **C114118 (Protocol Milestone)** + **C150811 (Other Disposition Event Response)**. "DEATH" 属 C66727, 不需改 DSDECOD="DEATH" 的答案, 只修 codelist 标签 (ChatGPT reviewer 22 MED)
+> - **ChatGPT 真实 score against bank v3.1**: 12/14 verified + 2/14 substituted (均 PASS 但对不同题, 非 14/14 against v3.1). 仍远超 ≥10/14 (71%) 阈, Gate 照开
+>
+> **v3.0 → v3.1 修改** (双 reviewer 独立审后主 session 修, 备档保留):
 > - Q3 PASS (a): "采血=BS 不是 BE" → "采血行为=BE BECAT=COLLECTION + 采血测量=BS 并存" (ChatGPT reviewer HIGH, KB BE/spec.md BECAT "Example: COLLECTION" 明文支持)
 > - Q3 FAIL: 删除 "采血记在 BE (错)" → 改为 "采血测量值记在 BE (错, Findings vs Events)"
 > - Q4 FAIL (场景 A): 添加 PARTIAL 保护 "答 MB 但理由含免疫应答 → PARTIAL 非 FAIL" (Gemini reviewer HIGH, 跨版本记忆风险缓冲)
 > - Q5 题目 + PASS + FAIL: 场景 A 从 "FA 指向 AE 头痛" reframe 为 "FA 指向 MH DAS28 评分" (04 §1.19 主覆盖 FA→AE, 非 FA→MH); 场景 C 从 "疲劳 unscheduled visit" reframe 为 "轻微头晕 30 秒自愈" (CE 边界更清晰, 降 04 重叠 35-40% → 目标 <25%)
 > - Q10 PASS (d) + FAIL: "QVAL 200 字符上限 §8.4" 归因改为 "ch04 §4.5.3.2 父域 GOC 变量拆分机制; QVAL 自身无 SDTMIG 显式业务长度" (两 reviewer 交叉共识 HIGH)
-> - Q14 PASS (c): DSDECOD CT code C66728 → **C66727** (C66728 是 Relation to Reference Period, 错归; C66727 是 Disposition From Study); DSCAT 从 "CT 强制" → "sponsor 约定非 CT 强制" (ChatGPT reviewer MED)
+> - Q14 PASS (c) v3.1 过程修: DSDECOD CT code C66728 → C66727 (方向对; 但 v3.1 仍错把 C66727 标为 "Disposition From Study", v3.2 再修正名称)
 >
 > **v3.0 原版**: 2026-04-21
 > **基础**: N5_3_QUESTIONS_DESIGN.md + 联网 WebSearch × 6 + WebFetch × 4 (IS scope 精华) + 本地 KB GF/CP/BE/BS/IS/SV spec × 6
@@ -409,7 +418,7 @@
 **PASS 判据**:
 - (a) **AE**: 如果心梗是**研究期间发生的新事件且研究药物治疗期**, 必记 AE (AETERM="Myocardial Infarction", AESER=Y 因 SAE 住院, AESHOSP=Y). **CE**: 不用 (CE 是未达 AE 阈值的事件, SAE 住院必走 AE). **MH**: 不用 (MH 是**既往**病史, 非研究期间新发). 所以**心梗只在 AE**, 业务边界: AE=研究中新 TEAE + MH=既往 + CE=研究中但未达 AE 阈值 (如轻微主诉).
 - (b) 死亡: **必记 DS** (DSDECOD 有专门 DEATH) **且 AE.AESDTH=Y** (如果死亡归因于某 AE). 两个是**不同视角**: AE 层记"哪个 AE 导致死亡", DS 层记"受试者 status = 死亡". 两者都要, 非互斥.
-- (c) DS 死亡场景: **DSDECOD** = "DEATH" (CDISC CT **C66727** Disposition From Study codelist, 含 "DEATH" / "COMPLETED" / "WITHDRAWAL BY SUBJECT" 等值). **DSCAT** = sponsor 约定分类 (常见值 "DISPOSITION EVENT", 区别 "PROTOCOL MILESTONE" / "OTHER EVENT"; 非 CT 强制值, 接受 sponsor 合理变体). **DSTERM** = sponsor 描述 (e.g., "Subject died due to heart failure").
+- (c) DS 死亡场景: **DSDECOD** = "DEATH" (CDISC CT **C66727 Completion/Reason for Non-Completion** codelist, 含 "DEATH" / "COMPLETED" / "WITHDRAWAL BY SUBJECT / SPONSOR / INVESTIGATOR / PHYSICIAN" 等值; 注: DSDECOD 绑定 3 个 codelist — C66727 Completion/Reason for Non-Completion + C114118 Protocol Milestone + C150811 Other Disposition Event Response). **DSCAT** = sponsor 约定分类 (常见值 "DISPOSITION EVENT", 区别 "PROTOCOL MILESTONE" / "OTHER EVENT"; 非 CT 强制值, 接受 sponsor 合理变体). **DSTERM** = sponsor 描述 (e.g., "Subject died due to heart failure").
 - (d) 三域对齐: **DM.DTHDTC** = 死亡日期 ISO 8601 (DM 级, 每 subject 唯一); **DS.DSSTDTC** = disposition event 开始 datetime (= 死亡日期 for DEATH row); **AE.AEENDTC** = 导致死亡的 AE 结束 datetime (通常 = DTHDTC). 三者**应一致**, 否则 Pinnacle 21 FAIL.
 
 **FAIL 判据**:
