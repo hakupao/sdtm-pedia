@@ -1,5 +1,18 @@
 # Gemini Gems SDTM Expert — Smoke v3 Results (10 题双平台共用)
 
+> **⚠️ SUPERSEDED 2026-04-22 by smoke v4.0** — 本文件记录 smoke v3.1/v3.2 结果 (10 题 Q1-Q10), 已于 2026-04-22 PM 因 `ai_platforms/smoke_v3_audit_notes.md` 第 11 种 subagent_type (document-specialist) audit 发现题目前提错作整块 **SUPERSEDED**.
+>
+> **核心 audit findings** (影响 Gemini 侧评分维度):
+> - Q10 (b) SUPPTS 题干 + 判据基于错前提 (SUPPTS 不是 SDTMIG v3.4 定义的 dataset; TS 属 Trial Design, 长 TSVAL 用 TSVAL1-n 内部派生)
+> - Q8 LBNRIND 被错列 Non-Ext (实际 C78736 Extensible=Yes); AETERM 被写"用 MedDRA" 错位 (MedDRA 绑 AEDECOD/AELLT/AEHLT 等 --DECOD 变量)
+> - Q4 FAIL 场景 A PARTIAL 规则过宽 (IS/assumptions.md 2 是 v3.4 显文)
+>
+> **不回溯重评分**: 本文件实际 7/10 结果 frozen 作历史 trace; Phase 4 跨平台对比 baseline 用 **smoke v4.0** (在 `ai_platforms/smoke_v3_questions_draft.md` 内已 bundled patch + 新增 AHP × 3 = 13 题). 4 平台 (Claude/ChatGPT/Gemini/NotebookLM) smoke v4 R1 重跑.
+>
+> **本文件作 historical reference only**.
+
+---
+
 > 执行时间: 2026-04-22
 > 账号: bojiang.zhang.0904@gmail.com (Gemini Pro)
 > 平台: Gemini Gems Web UI (gemini.google.com/gem/3b572e310813)

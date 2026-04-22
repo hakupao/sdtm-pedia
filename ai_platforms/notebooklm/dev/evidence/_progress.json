@@ -1,6 +1,18 @@
 {
   "platform": "notebooklm",
   "tier": 2,
+  "v3_superseded": {
+    "status": true,
+    "superseded_date": "2026-04-22",
+    "by": "smoke v4.0",
+    "reason": "smoke v3 audit (by 11th subagent_type oh-my-claudecode:document-specialist, report at ai_platforms/archive/smoke_history/smoke_v3_audit_notes.md) surfaced NEED_FIX affecting NotebookLM-side Q1-Q10: Q10 (b) SUPPTS HIGH premise hallucination (note: NotebookLM P3.8 Q10 answer PASS+ already corrected this premise, reinforcing the audit finding) + Q8 LBNRIND/AETERM MEDIUM + Q4 FAIL MINOR",
+    "audit_evidence": "ai_platforms/archive/smoke_history/smoke_v3_audit_notes.md (404 lines, Rule D chain 11th slot burned)",
+    "new_baseline": "ai_platforms/SMOKE_V4.md §2 (filename preserved for ref-compat; content now v4.0 bundled patch + AHP x3 = 13 questions for NotebookLM)",
+    "historical_scores_frozen": true,
+    "notebooklm_historical_strict_score_v3_p3_8": "9/10 strict PASS (Q9 Pinnacle 21 PUNT as in-KB-only platform architecture limit, not capability fail)",
+    "p3_8_q10_meta_finding": "NotebookLM answer actively identified SUPPTS not being a real v3.4 dataset, providing TSVAL1-TSVALn alternative. This user-visible model strength against premise hallucination is the driving force for v4.0 AHP x3 addition.",
+    "rerun_planned": "smoke v4 R1 baseline cross-platform; NotebookLM in-KB-only policy expected to PASS AHP naturally (no web fallback = no hallucination risk); threshold 11/13 (85%, R1 may degrade to 10/13=77% first-run tolerance)"
+  },
   "mode": "async",
   "sync_board_participation": false,
   "start_date": "2026-04-21",
@@ -480,7 +492,7 @@
           "ai_platforms/notebooklm/dev/checkpoints/CHECKPOINT_P3.8_HANDOFF.md (P3.8 执行手顺已完成, 留档)",
           "ai_platforms/notebooklm/dev/evidence/smoke_v3_results.md (writer self-score 9/10)",
           "ai_platforms/notebooklm/dev/evidence/smoke_v3_answers/Q1..Q10_answer.md + sanity_questions.md (答案原文)",
-          "ai_platforms/SMOKE_V4_DESIGN_HANDOFF.md (新建, smoke v4 设计任务 handoff 给新 session)"
+          "ai_platforms/archive/smoke_history/SMOKE_V4_DESIGN_HANDOFF.md (新建, smoke v4 设计任务 handoff 给新 session)"
         ],
         "rule_d_chain_extension": {
           "current_cumulative_subagent_types_count": 10,
@@ -491,11 +503,53 @@
           "rule_a_semantic_spot_check": "PASS (cowork 10 题执行 + main session 独立复判 cross-check 3 题深入, 发现 findings 1-5)",
           "rule_b_failure_archive": "空 (P3.8 无重跑, cowork 首答即记; Q9 punt 不算 attempt retry)",
           "rule_c_retrospective_note": "Phase 5 收束必记: (i) smoke v3 设计级盲区 (SUPPTS 错前提未被双 reviewer 抓) (ii) NotebookLM in-KB-only safety 优势项 (iii) user meta insight 引出 AHP 新维度, 作方法论演进关键 case",
-          "rule_d_writer_reviewer_separation": "cowork (writer) + main session (independent reviewer, first pass); 11th subagent_type reviewer 未派 (挂新 session)",
+          "rule_d_writer_reviewer_separation": "cowork (writer) + main session (independent reviewer first pass) + 12th subagent_type feature-dev:code-reviewer (independent reviewer final pass, 2026-04-22 PM) = GAP CLOSED. 11th slot = document-specialist 已作 smoke v3.2 audit; 12th slot = feature-dev:code-reviewer 作 P3.8 reviewer. chain cumulative 12 种.",
           "rule_e_user_priority": "PASS (personal Gmail + Pro + Web UI + 用户亲自粘贴 via cowork)"
+        },
+        "p3_8_reviewer_verdict_12th_slot": {
+          "reviewer_date": "2026-04-22",
+          "reviewer_subagent_type": "feature-dev:code-reviewer (12th slot)",
+          "method": "read-only + confidence-based filter (HIGH/MEDIUM only, LOW 不报)",
+          "reviewer_report_path": "ai_platforms/notebooklm/dev/evidence/p3_8_reviewer_notes.md",
+          "overall_p3_8_verdict": "PASS (9/10 strict 合格阈闭合, 无降级依据)",
+          "score_adjustment": "9/10 保持不动 (independent 复核与 cowork/main session 一致)",
+          "rule_d_gap_closure": true,
+          "rule_d_chain_cumulative_12_subagent_types": [
+            "1_general_purpose_phase1",
+            "2_oh-my-claudecode:verifier_phase1",
+            "3_oh-my-claudecode:executor_phase1",
+            "4_oh-my-claudecode:critic_phase1",
+            "5_oh-my-claudecode:analyst_r3_audit_phase2",
+            "6_pr-review-toolkit:code-reviewer_phase3",
+            "7_feature-dev:code-architect_plan_v1_1_writer",
+            "8_oh-my-claudecode:architect_plan_v2_reviewer_9th",
+            "9_oh-my-claudecode:scientist_p3_4_5_reviewer_10th",
+            "10_cross_chain_chatgpt_gemini_burned_aggregate",
+            "11_oh-my-claudecode:document-specialist_smoke_v3_2_audit_2026-04-22_pm",
+            "12_feature-dev:code-reviewer_p3_8_reviewer_2026-04-22_pm"
+          ],
+          "findings_verdict": {
+            "finding_1_q1_exp_bookkeeping_MINOR": "评级正确 (confidence 95)",
+            "finding_2_q3_beterm_becat_MEDIUM": "评级偏严 → 建议降 MINOR (confidence 80, Q3 PASS (a) v4.0 微调已做: BETERM Req canonical + BECAT Perm 可选)",
+            "finding_3_q10_suppts_HIGH": "评级正确 (confidence 100), v4.0 patch 已 bundle",
+            "finding_4_q9_pinnacle_21_punt_PHASE_4_SCOPING": "评级正确 (confidence 95), 架构限制非能力 FAIL",
+            "finding_5_rule_d_gap_CLOSED": "本 reviewer 派出即是补 gap, 现闭合 (confidence 100)"
+          },
+          "new_findings_added": {
+            "finding_6_q3_level_bookkeeping_MEDIUM": "Q3_answer.md L44 LEVEL=1 source / LEVEL=2 derived 语义对, 但 writer self-score 过程遗漏核验 LEVEL=1 source specimen 语义; 属 bookkeeping 盲区, 不影响 Q3 PASS (confidence 85)",
+            "finding_7_q8_c_premise_correction_MEDIUM": "Q8 (c) 是 Q10 之外第二个 premise-correction 案例 — v3.1 判据本身含 misspeak 'AETERM 实际用 MedDRA', NotebookLM answer 反过来更精确 'AETERM 不绑 CDISC CT ... MedDRA 标准化编码结果存 AEDECOD'. 这是 subtle premise-correction, main session 5 findings 没独立表彰. 支持 v4.0 Q8 修 AETERM 字典绑定位置方向 + 证 NotebookLM anti-hallucination 能力不止 Q10 一例 → AHP 维度天然强势 (confidence 82)"
+          },
+          "rule_a_caveat": "confidence 82: Rule A 独立抽检 N 未在 PLAN v2.2 §6 P3.8 Task 明示. main session 深审实际 3/10 (30%), 在边缘. 建议 Phase 5 retro 补 'P3.8 Rule A 独立抽检 N 应 ≥ 5 (50%) 或全覆盖'. 非阻塞",
+          "rule_e_caveat": "confidence 80: _progress.json p3_8_completion 块缺 structured user_ack field. 'user 口头 ack' 作 Rule D PASS 第 4 条 evidence chain 有间接 log (用户决定 smoke v3 → v4 升级证明已 ack 9/10), 但无 timestamp + text_snippet structured 记录. 补登见 p3_8_user_ack 块"
+        },
+        "p3_8_user_ack": {
+          "ack_inferred_from_context": true,
+          "ack_evidence": "用户 2026-04-22 PM session 决定 smoke v3 → v4 升级 (含 Q10 SUPPTS 前提错识别 + AHP × 3 设计) → 证 9/10 strict PASS 结果已 ack (不再要求 NotebookLM 重跑 smoke v3)",
+          "ack_explicit_timestamp": null,
+          "ack_note": "Rule E caveat: 建议后续 Phase 5 前补 explicit ack timestamp + text_snippet, 避免 audit 考古; 本块作 placeholder, 证据强度足以支持 Rule D PASS 第 4 条"
         }
       },
-      "next_action": "smoke_v4_design_session (新 session): (1) background agent 审计 smoke_v3_questions_draft.md v3.1 Q1-Q14 前提真实性 → 产 smoke_v3_audit_notes.md; (2) 基于审计 patch Q10 (b) + 其他发现 → v3.x bump; (3) 新增 AHP1/2/3 → v4.0; (4) 4 平台 smoke v4 R1 baseline; (5) system prompt 迭代 → R2; 并行派 P3.8 reviewer (第 11 种 subagent_type, 建议 oh-my-claudecode:critic) 独立审 P3.8 答题 + findings 1-5 复核. 详见 ai_platforms/SMOKE_V4_DESIGN_HANDOFF.md."
+      "next_action": "smoke_v4_r1_baseline_ready (Step 1-5 完成, Rule D 12th slot gap 闭合): (1) ✅ DONE: 11th audit → smoke_v3_audit_notes.md (404 行 Q10/Q13/Q8/Q4/Q14 NEED_FIX + 系统性 F1-F7); (2) ✅ DONE: 路径 B bundled patch smoke v3.2 → v4.0 (含 Q10 SUPPTS 前提修 + Q13 删 NS + Q8 LBNRIND/AETERM 修 + Q4/Q14 MINOR + F1 ch05→ch04 全局 + AHP × 3 新增); (3) ✅ DONE: 3 平台 smoke v3 SUPERSEDED banner + v3_superseded JSON flag; (4) ✅ DONE: smoke_v4_r1_execution_plan + cross_platform_compare_v4.md 骨架就绪; (5) ✅ DONE: 12th slot P3.8 reviewer 闭合 Rule D gap + Q3 PASS 微调 Finding 2 MINOR + Finding 6/7 补. **下一步**: 用户启动 4 平台 smoke v4 R1 baseline (推荐顺序 NotebookLM → Gemini → ChatGPT → Claude); 详见 ai_platforms/SMOKE_V4.md §1."
     },
     "4_review": {
       "status": "locked"
@@ -602,8 +656,8 @@
     "v2_1_revision_reason": "P3.5/P3.6/P3.7 iceboxed post-project optional (user decision A+保留); 5 independent questions U1-U5 iceboxed along with them",
     "v2_2_revision_date": "2026-04-22",
     "v2_2_revision_reason": "P3.8 题库升级 smoke v2.1 → smoke v3 Q1-Q10 对齐 ChatGPT+Gemini 当前 N5.3 Full A/B Generalization Probe 以便 Phase 4 跨平台同期可比; v2.1 10 题全押 ChatGPT 04 业务弹药 §1.1-§1.10 预设 scenario (open-book), v3 故意避 04 测真 generalization 能力; 用户 2026-04-22 ack 选 A",
-    "standard_questions_source": "ai_platforms/smoke_v3_questions_draft.md v3.1 Q1-Q10 (双平台共用; Q11-Q14 ChatGPT 专属不适用)",
-    "standard_questions_source_superseded": "ai_platforms/SMOKE_QUESTIONS_V2.md v2.1 10 题 (v2.1 基线 SUPERSEDED 2026-04-22 v2.2, 见 plan §0 v2.2 修订记录)",
+    "standard_questions_source": "ai_platforms/SMOKE_V4.md §2 v3.1 Q1-Q10 (双平台共用; Q11-Q14 ChatGPT 专属不适用)",
+    "standard_questions_source_superseded": "ai_platforms/archive/smoke_history/SMOKE_QUESTIONS_V2.md v2.1 10 题 (v2.1 基线 SUPERSEDED 2026-04-22 v2.2, 见 plan §0 v2.2 修订记录)",
     "standard_questions_count": 10,
     "question_type_distribution_v3": {
       "A1_A2_A3_v3_4_new_domains": "Q1 GF + Q2 CP + Q3 BE+BS+RELSPEC",

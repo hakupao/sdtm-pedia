@@ -3,6 +3,17 @@
   "platform": "gemini_gems",
   "display_name": "Gemini Gems",
   "tier": "1-2",
+  "v3_superseded": {
+    "status": true,
+    "superseded_date": "2026-04-22",
+    "by": "smoke v4.0",
+    "reason": "smoke v3 audit (by 11th subagent_type oh-my-claudecode:document-specialist, report at ai_platforms/archive/smoke_history/smoke_v3_audit_notes.md) surfaced NEED_FIX affecting Gemini-side Q1-Q10: Q10 (b) SUPPTS HIGH premise hallucination + Q8 LBNRIND/AETERM MEDIUM + Q4 FAIL MINOR PARTIAL rule too wide",
+    "audit_evidence": "ai_platforms/archive/smoke_history/smoke_v3_audit_notes.md (404 lines, Rule D chain 11th slot burned)",
+    "new_baseline": "ai_platforms/SMOKE_V4.md §2 (filename preserved for ref-compat; content now v4.0 bundled patch + AHP x3 = 13 questions for Gemini)",
+    "historical_scores_frozen": true,
+    "gemini_historical_strict_score_v3_1": "7/10 (70%, at threshold)",
+    "rerun_planned": "smoke v4 R1 baseline cross-platform (Claude/ChatGPT/Gemini/NotebookLM), threshold 9/13 (70%)"
+  },
   "created_at": "2026-04-20",
   "last_updated": "2026-04-22",
   "current_phase": 4,
@@ -323,7 +334,7 @@
           "user_correction": "真实 SDTM 用户问医疗业务问题, 不扣文件字眼也不当字典查; 专家用领域语言转述, codelist 是答案支撑不是问题本身",
           "objective_pass_status_unchanged": "v1 smoke 客观答题质量对判据 CONDITIONAL_PASS 82% 确实成立; 但用户视角下题目设计不合理, P12 hard gate 的'绿'可信度降级",
           "p12_hard_gate_downgrade": "S3/S4 P12 R1/R2 hard gate PASS 只证明'Gemini 按文件名+位置索引能查', 未证明'用户真实业务问法下末尾/中段 codelist 能命中'; 真正的 P12 gate 要在 Node 4 之后通过业务题隐式验",
-          "revision_plan": "Node 4 用 ai_platforms/SMOKE_QUESTIONS_V2.md 的 10 题业务维度题重跑 (禁 filename / 禁位置 / 禁字典查), 双平台完全一致以便对比",
+          "revision_plan": "Node 4 用 ai_platforms/archive/smoke_history/SMOKE_QUESTIONS_V2.md 的 10 题业务维度题重跑 (禁 filename / 禁位置 / 禁字典查), 双平台完全一致以便对比",
           "strategic_pivot_2026-04-21": "用户 ack C 方案舍弃 terminology + 重整 4 文件为业务问答优化; Node 4 执行 gemini_gems/docs/PLAN_V2_C.md 重整 + smoke v2 10 题; P12 位置 gate 退回内部脚本自测, 不再出现在用户可见 smoke 题里"
         },
         "N4_c_refactor": {
@@ -413,7 +424,7 @@
             "Step 1.2 删老 4 knowledge (01_core_reference/02_domain_specs/03_domain_knowledge/04_terminology_core)",
             "Step 1.2B 上新 4 knowledge 按顺序 (01_navigation_and_quick_reference → 02_domains_spec_and_assumptions → 03_domains_examples → 04_business_scenarios_and_cross_domain)",
             "Step 1.3 验证: 问 'AESER Core?' 期望答 Exp + 问 'knowledge 几个文件' 期望答 4",
-            "Step 2 跑 ai_platforms/SMOKE_QUESTIONS_V2.md 10 题 rerun",
+            "Step 2 跑 ai_platforms/archive/smoke_history/SMOKE_QUESTIONS_V2.md 10 题 rerun",
             "Step 3 落档 dev/evidence/smoke_v2_results.md 并回报 X/10 PASS + CO-1/2/3 验证情况"
           ]
         },
@@ -480,7 +491,7 @@
     },
     "4_review": {
       "status": "doing",
-      "plan_doc": "ai_platforms/PHASE4_PLAN.md",
+      "plan_doc": "ai_platforms/archive/smoke_history/PHASE4_PLAN.md",
       "node_plan_5_nodes": "N5.1 前置修复 (P1-P6 carry-over 消化) → N5.2 smoke v2.1 回归 → N5.3 Full A/B 矩阵 Gemini 10 题沿用 SMOKE_V2.1 → N5.4 Rule A 独立抽样 N=5 → N5.5 Phase 4 reviewer gate decision",
       "gate_criteria_phase_4_to_5": [
         "双平台 N5.3 AB_REPORT PASS 比 ≥ 90% (Gemini 10 题)",
@@ -510,7 +521,7 @@
       "nodes": {
         "N5_0_plan_doc": {
           "status": "PASS",
-          "artifact": "ai_platforms/PHASE4_PLAN.md",
+          "artifact": "ai_platforms/archive/smoke_history/PHASE4_PLAN.md",
           "completed_at": "2026-04-21",
           "user_ack": true,
           "user_ack_date": "2026-04-21",

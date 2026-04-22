@@ -42,9 +42,9 @@
 | Q8 | D1 CT | Extensible + MedDRA 绑定 | **PARTIAL (0.5)** | (b) C66767 Action Taken 错分 Ext=Yes (实际 Non-Ext) + C66742 只列 Y/N (缺 U/NA) | (a)(c)(d) 对; 2 个 (b) 错误降 Partial |
 | Q9 | E1 实战 | Pinnacle 21 FAIL 分类 | **PASS** | — | 5 类 + 修 vs 文档化 清晰 + Non-Ext 必修 / Ext 文档化; 缺 Rule ID + 无 TRC 层 |
 | Q10 | H1 SUPP | QORIG/QEVAL + SUPPTS 前提纠错 | **PASS** | (a) QORIG/QEVAL Core=Perm 错 (应 Req/Exp) + (b) scope 漏 SV | **"严禁使用 SUPPTS (SDTM 不存在)"** + TSVAL1-n 替代 ✅ 识破; (c)(d) 对 (含数值→字符/8-char AEREMAR1); SUPPTS 识破作 bonus 抵一项 Core attr 硬伤 |
-| **AHP1** | Z1 variable hallucination | LBCLINSIG 虚构 | TBD | — | — |
-| **AHP2** | Z2 cross-domain hallucination | Trial-Level SAE Aggregate | TBD | — | — |
-| **AHP3** | Z3 deprecated concept | PF 已废 | TBD | — | — |
+| **AHP1** | Z1 variable hallucination | LBCLINSIG 虚构 | **FAIL** | 沿错前提编 downstream + 未识破 typo | 典型 variable hallucination: 编 LBCLINSIG Core=Permissible + 编 C-code C66742 + 编业务 workflow (CS/NCS → Y/N) + 编对比表 + 末尾反问 "LBCLINSIG 与 SUPPLB 交互" (暗示 LBCLINSIG 存在). 连 LBNRIND 的 C-code 都答错 (C78419 而非 C78736). **R2 建议**: system_prompt 加"未在 KB 变量表出现则必须识破 + 提示 SUPP-- 路径" |
+| **AHP2** | Z2 cross-domain hallucination | Trial-Level SAE Aggregate | **FAIL** | 沿错前提 + 编完整跨域机制 | 严重 cross-domain hallucination: 接受 "Trial-Level SAE Aggregate 表" 前提, 编 RELREC 连 subject AE ↔ 虚构 study-level 表, 编 IDVAR=TSPARMCD 跨层 (TSPARMCD 实际是 TS 域主键与 AE/SAE 无关), 编 USUBJID=NULL 表达 study-level (违背 RELREC 设计), 编 RELID="SAE01" 例子. **R2 建议**: system_prompt 加 "SDTM tabulation 永远 subject-level, study-level SAE 汇总属 ADaM ADAE / CSR 非 SDTM" 分层锚点 |
+| **AHP3** | Z3 deprecated concept | PF 已废 | **FAIL (最深)** | 沿 PF 前提 + 完整 downstream 编造 + 变量名错配 | 最严重 deprecated concept hallucination: 编 6 Req (STUDYID/DOMAIN/USUBJID/PFSEQ/PFTESTCD/PFTEST) + 4 Exp (PFREFID/PFORRES/PFSTRESC/PFDTC) + 编 C114119 codelist (真实 C181178) + 编 5 submission values (GENOTYPE/SNP/HAPLOTYP/ALLELE/PHNOTYPE) + **把真实 GF 变量 (GFGENSR/GFPVRID) 改名加 PF 前缀** → 误导 user + 末尾 "禁止臆造" irony (自己全篇在臆造). **R2 建议**: anti-hallucination 锚加 "PF 已 deprecated, v3.4 用 GF + BE + BS + RELSPEC" 显式列表 |
 
 **主 gate 小计**: TBD/13 (阈值 ≥9/13, 70%)
 
@@ -52,25 +52,47 @@
 
 | # | Type | 主题 | Verdict | 备注 |
 |:---:|---|---|:---:|---|
-| Q11 | F1 新技术 | Dataset-JSON v1.1 vs XPT v5 | TBD | 4-file KB 不含, FAIL 容错 |
-| Q12 | D2 CT | CT 版本 + Define-XML + MedDRA | TBD | 4-file KB 不含, FAIL 容错 |
-| Q13 | G1 RWD | Observational + ARMCD | TBD | 4-file KB 不含, FAIL 容错 |
-| Q14 | I1 跨域 | AE/MH/CE + DS 死亡 | TBD | 4-file KB 不含, FAIL 容错 |
+| Q11 | F1 新技术 | Dataset-JSON v1.1 vs XPT v5 | **PASS** (bonus, 意外) | 4/5 XPT 痛点 (8-char / 200-char / 数据类型 / 存储低效) + (b) 双轨 + Data Standards Catalog + (c) JSON dev / XPT 提交 / Pinnacle 21 + (d) Define-XML=metadata / Dataset-JSON=data content / v1.1 解耦; 干净无 extended reasoning 暴露; 未编造; 缺 Unicode + metadata 扩展 2 项次要判据 |
+| Q12 | D2 CT | CT 版本 + Define-XML + MedDRA | **PASS** (bonus, 意外 2/2) | 4 分支全中: (a) Start/Ongoing/DBL + Data Standards Catalog / (b) CodeList+**ExternalCodeList Dictionary+Version** / (c) --DECOD 重编码 + 监管要求同一版本 / (d) remap 新版本 + nSDRG 沿用旧版说明 + Pinnacle 21 校验; 4 source paths |
+| Q13 | G1 RWD | Observational + ARMCD | **PASS** (NS catch bonus, ARMCD 偏离) | 3 PASS + 1 PARTIAL: (a) TA/TV + Epoch + EX 3 类 / (b) **ARMCD 填 NOT ASSIGNED 非 null** 偏离判据 + ARMNRS C142179 对 / (c) **NS premise 识破** + Custom Domain X/Y/Z 正确纠偏 / (d) 4 SUPPDM 特有: 社会经济 + 地缘 + 多重种族 + **EMR/Registry ID 匹配 judgement Claims/EHR** |
+| Q14 | I1 跨域 | AE/MH/CE + DS 死亡 | **PASS+** (bonus, 意外) | 4 部分全中: (a) 3 域 + timing 边界 (ICD 前=MH / study=AE / CE=MACE 终点) + "入组前心梗史记 MH" 例外; (b) DS+AE+DM 三域 + AESDTH=Y + AEOUT=FATAL + DM.DTHFL/DTHDTC; (c) DSDECOD=DEATH + DSCAT=DISPOSITION EVENT + DSSCAT=STUDY PARTICIPATION + DSTERM "Heart Failure" verbatim; (d) DS.DSSTDTC=DM.DTHDTC=AE.AEENDTC 对齐公式精确. 缺: C66727 C-code; time-level offset 容错弱 (用"必须等于") |
 
 **Bonus 小计**: TBD/4
 
 ---
 
-## 总分
+## 总分 (R1 跑完 2026-04-22 晚)
 
 | 指标 | 值 |
 |---|---|
 | 总题数 | 17 (13 主 + 4 bonus) |
-| 主 gate 分 | TBD/13 |
-| Bonus 分 | TBD/4 |
-| **全量分** | TBD/17 |
+| 主 gate 分 (Q1-Q10 + AHP1-3) | **8.5/13 (65.4%)** |
+| Bonus 分 (Q11-Q14) | 4.25/4 (Q11 PASS / Q12 PASS / Q13 PASS ARMCD 偏离 / Q14 PASS+) |
+| 全量分 (strict) | 12.5/17 (73.5%) |
+| 全量分 (含 PASS+ bonus) | 12.75/17 |
 | 主 gate 阈值 | ≥9/13 (70%) |
-| **Gate** | TBD |
+| **Gate** | **FAIL 主 gate** (8.5/13 = 65.4% < 70% 阈) |
+
+### Verdict summary
+
+**FAIL 主 gate**: 核心 AHP × 3 全 FAIL 拖分
+- **Q1-Q10 主表现**: 7 PASS + 3 PARTIAL (Q4/Q7/Q8) = 8.5/10 还过得去
+- **AHP × 3 全 FAIL**: 0/3 — 严重 premise hallucination pattern (variable/cross-domain/deprecated 3 类均沿错前提编造 downstream)
+  - AHP1: 编 LBCLINSIG C66742 + Core=Permissible (C78419 C-code 基础都错)
+  - AHP2: 编 Trial-Level SAE Aggregate 表 + RELREC 跨层机制 + IDVAR=TSPARMCD + USUBJID=NULL + RELID="SAE01"
+  - AHP3: 编 PF 6 Req + 4 Exp + C114119 codelist + 真实 GF 变量 (GFGENSR/GFPVRID) 改名加 PF 前缀 → 误导
+- **Q11-Q14 Bonus (4-file KB 不含 supplemental 意外强)**: Q11 PASS / Q12 PASS / Q13 PASS (ARMCD 偏离) / Q14 PASS+ — 训练数据补齐 KB 缺
+
+### R2 改进方向
+
+1. **system_prompt v5 → v6 加 anti-hallucination 锚点 section (核心)**:
+   - "未在 KB 变量表中出现的变量, 必须识破 + 提示 SUPP-- NSV 路径"
+   - "SDTM tabulation 永远 subject-level; study-level SAE/AE 汇总属 ADaM ADAE / CSR 非 SDTM"
+   - "PF 已 deprecated, v3.4 用 GF + BE + BS + RELSPEC"
+2. **4-file KB 加 Anti-Hallucination guardrail 节** (嵌入 03_spec+assumptions 首段)
+3. **Q4 (LB vs MB vs IS) 场景题**: prompt 加 "多场景题逐个显式答", v6 prompt layer fix
+4. **Q7 (Partial date)**: 加 "--DTF 是 ADaM-only 不是 SDTM" 锚
+5. **Q8 (CT)**: 加 "C66767 Action Taken Ext=No" + "C66742 Y/N/U/NA 4 值" 锚
 
 ---
 

@@ -3,6 +3,17 @@
   "platform": "chatgpt_gpt",
   "display_name": "ChatGPT GPTs",
   "tier": 2,
+  "v3_superseded": {
+    "status": true,
+    "superseded_date": "2026-04-22",
+    "by": "smoke v4.0",
+    "reason": "smoke v3 audit (by 11th subagent_type oh-my-claudecode:document-specialist, report at ai_platforms/archive/smoke_history/smoke_v3_audit_notes.md) surfaced 5 NEED_FIX: Q10 (b) SUPPTS HIGH premise hallucination + Q13 (c) NS domain HIGH virtual concept + Q8 LBNRIND/AETERM MEDIUM + Q4/Q14 MINOR",
+    "audit_evidence": "ai_platforms/archive/smoke_history/smoke_v3_audit_notes.md (404 lines, Rule D chain 11th slot burned)",
+    "new_baseline": "ai_platforms/SMOKE_V4.md §2 (filename preserved for ref-compat; content now v4.0 bundled patch + AHP x3 = 17 questions for ChatGPT)",
+    "historical_scores_frozen": true,
+    "chatgpt_historical_strict_score_v3_1": "12/14 verified against bank + 2/14 substituted (B5 EPOCH + B6 AE三维严重度), all PASS",
+    "rerun_planned": "smoke v4 R1 baseline cross-platform (Claude/ChatGPT/Gemini/NotebookLM), threshold 12/17 (71%)"
+  },
   "created_at": "2026-04-20",
   "last_updated": "2026-04-22",
   "current_phase": 4,
@@ -295,7 +306,7 @@
             "flaw_type": "字典式查询 (S1/S2/S3/S5) + 抽象比喻 (S4) 非真实业务问法; 虽未触 Gemini 侧位置探针错, 但 5 题全偏字典查",
             "user_correction": "真实 SDTM 用户是 CDM/统计程师/医学监查员/编程师, 问医疗业务问题, 不把文件当字典; 专家用领域语言转述, codelist 是答案支撑不是问题本身",
             "objective_pass_status_unchanged": "v1 smoke 客观答题质量对判据 PASS 88% 确实成立 (Reviewer 已 independently 验); 但用户视角下题目本身设计不合理",
-            "revision_plan": "Node 4 用 ai_platforms/SMOKE_QUESTIONS_V2.md 的 10 题业务维度题 (场景 3 + 规则 3 + 映射 2 + 鉴别 2) 重跑, 双平台完全一致以便对比",
+            "revision_plan": "Node 4 用 ai_platforms/archive/smoke_history/SMOKE_QUESTIONS_V2.md 的 10 题业务维度题 (场景 3 + 规则 3 + 映射 2 + 鉴别 2) 重跑, 双平台完全一致以便对比",
             "strategic_direction": "ChatGPT 维持原 batch 2 策略 (保留 terminology 分档), 见 chatgpt_gpt/docs/PLAN_BATCH2.md; smoke v2 在 batch 2 上传完成后跑",
             "trust_level_downgrade": "Node 3b PASS 降级为'判据 PASS 但用户视角不认账', 真正的 PASS 等 Node 4 smoke v2 10 题业务维度实测"
           }
@@ -359,7 +370,7 @@
           ],
           "user_action_awaiting": [
             "按 dev/checkpoints/CHECKPOINT_N4_HANDOFF.md Step 1 上传 5 batch 2 文件到 ChatGPT GPT",
-            "按 Step 2 跑 ai_platforms/SMOKE_QUESTIONS_V2.md 10 题 rerun",
+            "按 Step 2 跑 ai_platforms/archive/smoke_history/SMOKE_QUESTIONS_V2.md 10 题 rerun",
             "落档 dev/evidence/smoke_v2_results.md",
             "回报 X/10 PASS + 每题 verdict"
           ]
@@ -420,7 +431,7 @@
     },
     "4_review": {
       "status": "doing",
-      "plan_doc": "ai_platforms/PHASE4_PLAN.md",
+      "plan_doc": "ai_platforms/archive/smoke_history/PHASE4_PLAN.md",
       "node_plan_5_nodes": "N5.1 前置修复 (P1-P6 carry-over 消化) → N5.2 smoke v2.1 回归 → N5.3 Full A/B 矩阵 ChatGPT 13-15 题 → N5.4 Rule A 独立抽样 N=5 → N5.5 Phase 4 reviewer gate decision",
       "gate_criteria_phase_4_to_5": [
         "双平台 N5.3 AB_REPORT PASS 比 ≥ 90%",
@@ -450,7 +461,7 @@
       "nodes": {
         "N5_0_plan_doc": {
           "status": "PASS",
-          "artifact": "ai_platforms/PHASE4_PLAN.md",
+          "artifact": "ai_platforms/archive/smoke_history/PHASE4_PLAN.md",
           "completed_at": "2026-04-21",
           "user_ack": true,
           "user_ack_date": "2026-04-21",
@@ -539,7 +550,7 @@
           "completed_at": "2026-04-22",
           "executor": "user + claude cowork MCP Chrome JS ClipboardEvent paste (each question independent new conversation)",
           "gpt_url": "https://chatgpt.com/g/g-69e635b99e848191a2818cd8e8e7e9cc-sdtm-expert",
-          "question_bank": "ai_platforms/smoke_v3_questions_draft.md v3.1 (14 题, Q1-Q10 双平台共用 + Q11-Q14 ChatGPT 专属)",
+          "question_bank": "ai_platforms/SMOKE_V4.md §2 v3.1 (14 题, Q1-Q10 双平台共用 + Q11-Q14 ChatGPT 专属)",
           "precondition_commit": "7edcb1c (Phase 4 N5.3 C5.3a 题库设计 + 双 reviewer 审 + v3.1 修 ADJUST-THEN-GO)",
           "sanity_result": "3/3 PASS (AESER=Exp + LBNRIND HIGH/LOW/NORMAL/ABNORMAL 全写 + CMINDC 显式命名, 底座 system_prompt v2 + 9 uploads 未回归)",
           "smoke_v3_score": "14/14 strict PASS (100%), 远超合格阈 ≥10/14 (71%)",
