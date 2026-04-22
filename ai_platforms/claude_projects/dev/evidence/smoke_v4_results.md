@@ -36,7 +36,7 @@
 | Q7 | C2 Timing | Partial date SDTM/ADaM | **PASS+** | — | 3 场景 + §4.4.2 truncation 表 + Solidus 区间 + §4.4.7 Ex3 AE Unknown + ADaM ASTDTF 机制超范围标注 |
 | Q8 | D1 CT | Extensible + MedDRA 绑定 | **PASS+** | — | 4+4 例子 + 4 层 CT 绑定总表 + Define-XML 2.1 具体机制 (nci:ExtCodeID/def:IsNonStandard) + AETOXGR 替代 + C65047 Deferred 坦诚 |
 | Q9 | E1 实战 | Pinnacle 21 FAIL 分类 | **PASS+** | — | 6 类 + Rule ID 示意 + **TRC 自动拒收层** + cSDRG 5 字段 + MedDRA 版本 mismatch 例 + 边界声明坦诚 |
-| Q10 | H1 SUPP | QORIG/QEVAL + SUPPTS 前提纠错 | TBD | — | — |
+| Q10 | H1 SUPP | QORIG/QEVAL + SUPPTS 前提纠错 | **PASS+ 最强** | — | SUPPTS 识破 + TSVAL1-n + **QORIG Core=Req 明确 + QEVAL C78735 CT code 唯一给出** + **CO.COVAL+IE/TI 40-char+DM IDVAR null+--GRPID 多父记录 5 项独到** + MHTERM 520 字符 3-row complete example + §4.2.8.3 多值 vs 长文本区分 |
 | Q11 | F1 新技术 | Dataset-JSON v1.1 vs XPT v5 | TBD | — | — |
 | Q12 | D2 CT | CT 版本 + Define-XML + MedDRA | TBD | — | — |
 | Q13 | G1 RWD | Observational + ARMCD | TBD | — | — |

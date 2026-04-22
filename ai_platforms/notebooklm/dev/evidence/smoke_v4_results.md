@@ -36,7 +36,7 @@
 | Q7 | Partial date | EDC 只给部分日期 | 7+ | **PASS** | `Q7_answer.md` — 3 场景 + (d)(e) 正确 + **避开 --DTF 幻觉陷阱** + partial 不推 Study Day |
 | Q8 | CT | Extensible vs Non-Ext (v4 修 LBNRIND/AETERM) | 9+ | **PASS+** | `Q8_answer.md` — (a)(b)(c)(d) 全对 + C66742 4 值全 + C66789 Not Done 独特 + **CDISC new-term request** 独到 insight |
 | Q9 | Pinnacle 21 | 常见 FAIL 分类 (KB 外, 预期 PUNT) | 3+ | **FAIL (safety-correct PUNT)** | `Q9_answer.md` — 架构合规 PUNT, 补 SDTMIG §3.2.2 10 条 upstream; Phase 4 Scoping 决策稳定 vs smoke v3 |
-| Q10 | SUPP 深化 | QORIG/QEVAL + SUPPTS 前提纠错 (v4 修) | - | pending | `Q10_answer.md` |
+| Q10 | SUPP 深化 | QORIG/QEVAL + SUPPTS 前提纠错 (v4 修) | 5+ | **PASS+** | `Q10_answer.md` — **"不要使用 SUPPTS"** + TSVAL1-TSVALn 替代 + QORIG Req always / QEVAL Exp subjective + STUDYID+RDOMAIN+USUBJID+IDVAR+IDVARVAL 5 键 + QVAL 200/split between words/QNAM 8-char truncate |
 | Q11 | Dataset-JSON | v1.1 vs XPT v5 (v4 新开放) | - | pending | `Q11_answer.md` |
 | Q12 | CT 版本锁定 | (v4 新开放) | - | pending | `Q12_answer.md` |
 | Q13 | RWD | Observational 场景 SUPPDM (v4 删 NS 虚构 + 修 ARMCD) | - | pending | `Q13_answer.md` |
