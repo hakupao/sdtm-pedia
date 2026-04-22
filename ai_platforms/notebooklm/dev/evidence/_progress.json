@@ -4,9 +4,9 @@
   "mode": "async",
   "sync_board_participation": false,
   "start_date": "2026-04-21",
-  "last_update": "2026-04-21_phase3_p3.3_done_f1_closed_ready_for_p3.4",
+  "last_update": "2026-04-21_phase3_p3.4_done_ready_for_p3.4.5",
   "status": "in_progress",
-  "current_phase": "3_execute_p3.3_done_ready_for_p3.4",
+  "current_phase": "3_execute_p3.4_done_ready_for_p3.4.5",
   "architecture_version": "v2_single_notebook_2026-04-21",
   "phase_states": {
     "0_bootstrap": {
@@ -128,7 +128,7 @@
       ]
     },
     "3_execute": {
-      "status": "p3_3_done_ready_for_p3_4",
+      "status": "p3_4_done_ready_for_p3_4_5",
       "phase_a_completion_date": "2026-04-21",
       "phase_a_results": {
         "a1_pre_upload_audit": {
@@ -165,7 +165,7 @@
         "bucket 02 (02_common_identifiers_and_timing.md): CLOSED 2026-04-21 P3.1 (merge_sources.py _auto_source=variable_index_common, 1,080 words 写入)",
         "bucket 42 (42_req_variable_coverage_audit.md): CLOSED 2026-04-21 P3.1 (merge_sources.py _auto_source=req_coverage_audit, 4,833 words = coverage_audit.md + full_set.md 双份)"
       ],
-      "phase_3_entry_gate_status": "P3.2 done (42/42 indexed, 0 silent fail); P3.3 done (Custom mode active + H3 三档切换 VERIFIED PASS + Q-REV-1 CLOSED); F-1 CLOSED 2026-04-21 (minimal table test 分支 a 命中, UI 真表格渲染, 前 3 题 single-line 归因模型偶发漂移, 不改 instructions.md); P3.4 gate OPEN 无前置条件",
+      "phase_3_entry_gate_status": "P3.2 done (42/42 indexed, 0 silent fail); P3.3 done (Custom mode active + H3 三档切换 VERIFIED PASS + Q-REV-1 CLOSED); F-1 CLOSED 2026-04-21; P3.4 done 2026-04-21 (42-tile 全扫 42/42 无异常 + 10 题 indexing smoke 10/10 PASS 顶阈值 + 2 non-core bucket PASS + 大 bucket 38 边界 PASS); P3.4.5 gate OPEN 无前置条件",
       "p3_1_completion": {
         "date": "2026-04-21",
         "sub_actions": {
@@ -265,7 +265,52 @@
         "ready_for_p3_4": true,
         "f_1_closure_date": "2026-04-21"
       },
-      "next_action": "F-1 闭合 → 用户在 notebook Custom mode 跑 1 题 minimal table test (prompt: '列出 AE 域的 6 个 Req 变量, 每个一行, markdown 表格格式'); 三种结果分支: (a) UI 显示真表格 → F-1 闭合, 原因归因为前 3 题模型偶发 single-line 输出, P3.4 照跑 (retry 策略接受偶发漂移) / (b) 仍显示一行 pipe 串 → 主 session 微调 instructions.md Response template 强调 '每行独占一行' 后重 Save Custom mode 再测 / (c) 模型避开表格改给 bullet list → 主 session 加强规则 4 '必须用 markdown table' 强制语. F-1 闭合后进 P3.4 indexing smoke N=10 + P3.4.5 Req 语义抽检 N=10 (Q1 红线语义级自证)"
+      "p3_4_completion": {
+        "date": "2026-04-21",
+        "executor": "cowork Claude (Chrome MCP 驱动 Web UI 全流程: 42-tile 扫描 + 10 Q&A 提交/轮询 + citation DOM 核验 `Bucket ID: N` + 评分 + evidence 落盘)",
+        "evidence": "dev/evidence/indexing_smoke.md",
+        "handoff_doc": "dev/checkpoints/CHECKPOINT_P3.4_HANDOFF.md",
+        "prefix_commit": "2607c51",
+        "execution_deviation": "原手顺假设用户在 Web UI 手动问答 + cowork 旁观评分; 本次用户明示 '这个用户做的任务也请你操作我的电脑做', cowork 直接 Chrome MCP 代跑, 题目原文未改字, citation 通过 source panel DOM (`Bucket ID: N`) 抓取非肉眼判断, 判据依据手顺 §2.2 预设; 不构成 FAIL",
+        "sub_steps": {
+          "a_42_tile_preview": "PASS (42/42, 0 anomaly; sg_len 274-453 全正常; 大 bucket 33/34/35/36/38/39 全无 truncation; bucket 38 = 302K words = 60% of 500K cap 绿灯)",
+          "b_10_question_smoke": {
+            "total_score": "10/10",
+            "non_core_bucket_hits": "Q05 DD PASS (bucket 18) + Q06 SS PASS (bucket 22) — 2/2 PASS, findings_other / findings_device 合并 bucket 的 RAG 召回未被主 bucket 抢 chunk",
+            "large_bucket_38_hit": "Q08 PASS (AJCC=CT questionnaires → bucket 38), 302K bucket indexing 边界绿灯, 未触 LLM context 超限, 未触 500K cap",
+            "f_1_malformed_drift_count": "0/10 (本次执行全程格式整洁, minimal table test 分支 a 正常渲染状态延续)",
+            "exit_verdict": "PASS (10/10, 顶阈值)"
+          },
+          "instructions_md_rules_incidentally_verified": [
+            "规则 2 (citation 必含 bucket 源): 10/10 满足",
+            "规则 5 (AESER=Exp 非 Req): Q02 明确列出边界, 不误列",
+            "规则 6 (LBNRIND 全写 HIGH/LOW/NORMAL/ABNORMAL + C78736): Q03 满足",
+            "规则 9 (Day 1 无 Day 0): Q04 明确否认 Day 0"
+          ]
+        },
+        "rule_compliance": {
+          "rule_A_note": "Rule A 正本在 P3.4.5 N=10 Req 业务问答 (语义级抽检); P3.4 sub (b) N=10 是 indexing smoke (RAG 精度 + citation 精度), 非 Rule A 的 '压缩/改写/语义浓度' 抽检",
+          "rule_B_failures_dir_empty": true,
+          "rule_D_chain_unchanged_9": "P3.4 是 UI 工具级 (Chrome MCP) + cowork 评分级动作, 不占 subagent_type slot; cumulative 链保持 9 种; 第 10 种 subagent_type slot 仍留 P3.4.5 Req 语义抽检独立 reviewer 或 Phase 4 跨平台对比",
+          "rule_E_personal_gmail_pro_webui": "PASS"
+        },
+        "carry_over_to_p3_4_5": [
+          "Q05 DD + Q06 SS non-core bucket 均 PASS → 为 P3.4.5 Req 语义抽检提供先验信心 (findings_other / findings_device 合并 bucket 的 RAG 召回能过关; 可安全取 DDTESTCD / SSTESTCD 入抽检池)",
+          "Q08 大 bucket 38 PASS → 证明 302K bucket indexing 未截断, P3.4.5 可选取 questionnaires 类 (QS/FA 域) Req 变量入抽检池",
+          "Q02 AE 6 Req 全集命中 → 可选更深的 AE Core 边界变量 (AESTDTC / AEENDTC) 入抽检池, 作 instructions.md 规则 5 AESER=Exp 边界的深度验证",
+          "Q10 bucket 42 ∅ gap 原文命中 → 若 P3.4.5 某题失败, 可用 bucket 42 作兜底反查确认该 Req 是否真漏"
+        ],
+        "p3_4_5_entry_prerequisites_met": {
+          "p3_4_sub_a_pass": true,
+          "p3_4_sub_b_pass": true,
+          "instructions_md_locked_post_p3_3": true,
+          "f_1_closed": true,
+          "f_2_deferred_to_p3_8": true,
+          "all_gates_open": true
+        },
+        "ready_for_p3_4_5": true
+      },
+      "next_action": "P3.4 PASS → 进 P3.4.5 (Q1 红线语义级自证, Rule A 正本 N=10 Req 业务问答). P3.4.5 抽检池候选 (基于本 P3.4 先验): AE 边界 (AESTDTC/AEENDTC) + non-core (DDTESTCD/SSTESTCD) + 大 bucket 38 关联 (QS/FA 类 Req) + bucket 42 原文兜底. Chat mode 保持 Custom; 题目设计仍须按 M1 fix 规格: 语义级非填空, 不给 bucket 暗示, 测 Req 变量的业务含义/约束/CT 绑定"
     },
     "4_review": {
       "status": "locked"
