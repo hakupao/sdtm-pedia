@@ -554,7 +554,7 @@
         "notebooklm_score": "15/17 (88.2%) = 6 PASS + 8 PASS+ + 2 PARTIAL (Q11/Q12 supplemental PUNT) + 1 PUNT (Q9 Pinnacle 21 architecture limit)",
         "notebooklm_ahp_x3_all_pass_plus_strongest_4_platforms": "AHP1/AHP2/AHP3 全 PASS+ 最强 (in-KB-only architecture natural anti-hallucination; 4 平台 ground truth 角色)",
         "phase_4_cross_platform_matrix_done_via_r1": "SMOKE_V4.md §3 17×4 verdict matrix 全填; NotebookLM Phase 4 item #3 此项消掉 via R1",
-        "remaining_notebooklm_phase_4_work": "P3.9 三档分享切换演练 (Chrome MCP 或引用 P3.3 chat_mode_toggle_test.md evidence)",
+        "remaining_notebooklm_phase_4_work": "COMPLETED 2026-04-23 — P3.9 三档分享切换演练 evidence dropped at dev/evidence/share_level_toggle_drill.md v1.0 FINAL (5 PASS + 1 PARTIAL + 1 SKIP, 总 PASS)",
         "evidence_paths_added": [
           "dev/evidence/smoke_v4_results.md",
           "dev/evidence/smoke_v4_answers/Q1..Q14_answer.md + AHP1..AHP3_answer.md + sanity_*.md"
@@ -562,13 +562,42 @@
         "r1_retrospective_path": "ai_platforms/R1_RETROSPECTIVE.md (Rule C 产物, 2026-04-22 晚 11:55 PM)",
         "gemini_r2_v6_impact_on_notebooklm": "无直接影响 (NotebookLM 独立 lane, Gemini v6 改 Gemini system_prompt 不动 NotebookLM 42 sources/instructions.md); 但 R2 若 Gemini PASS, 跨 4 平台 Phase 5 RETROSPECTIVE 合流质量更强"
       },
-      "next_action": "smoke_v4_r1_absorbed_phase_4_item_3_closed; NotebookLM Phase 4 剩余 = P3.9 三档分享切换演练 (仅 1 item). **下一步**: (A) 用户启动 P3.9 Chrome MCP 演练 (~30-90 min, PLAN v2.2 §P3.9 步骤 a-f, 注 step e rapid switching + step f Free tier 小号实测) **或** 接受 P3.3 chat_mode_toggle_test.md (210 行 H3 VERIFIED) 作 P3.9 替代 evidence; (B) 并行 Gemini R2 推进 (gemini_gems/_progress.json 已记, 不阻塞 NotebookLM); (C) P3.9 完成 → 跨 4 平台 Phase 5 RETROSPECTIVE 合流. 详见 ai_platforms/SMOKE_V4.md §3 matrix + R1_RETROSPECTIVE.md + NEXT_STEPS.md v1.1 2026-04-23."
+      "p3_9_completion_2026_04_23": {
+        "executor": "Daisy cowork (2026-04-23)",
+        "evidence_path": "dev/evidence/share_level_toggle_drill.md (v1.0 FINAL, 主 session 根据 Daisy 6 verdicts 写)",
+        "overall_verdict": "PASS (5 PASS + 1 PARTIAL + 1 SKIP, 无 FAIL)",
+        "sub_step_verdicts": {
+          "a_restricted_screenshot": "PASS",
+          "b_anyone_with_link_b1_generate": "PASS",
+          "b_anyone_with_link_b2_anonymous": "PASS (预期被要求登录)",
+          "b_anyone_with_link_b3_another_google_account": "PASS (能看到 notebook)",
+          "c_public_gallery_search": "PARTIAL (搜不到, 画廊只显示官方精选 Featured curated list)",
+          "d_revert_restricted_old_link_revoked": "PASS (revoke 生效)",
+          "e_rapid_multi_toggle_L3_fix": "PASS (无 caching 残留)",
+          "f_free_tier_50_cap_S1_suggestion": "SKIP (42 sources ≤50 未触发 cap, 客观无法测, 接受残余风险)"
+        },
+        "meta_insight_new_finding_from_c": "Public 档 ≠ auto-list 到 public gallery. 画廊是 curated Featured list, 非 auto-listed. 实质语义: Public = 允许任何持链接者无需登录访问, 但非广播. 比 v1 3-notebook 架构时期假设的 'Public=广播' 更保守/隐私友好, 印证 D5-6 v1→v2 pivot 决策正确.",
+        "H3_hypothesis_status": "VERIFIED + deepened (P3.3 初步 VERIFIED + P3.9 正式归档 + Public 语义深化 new insight)",
+        "f_skip_residual_risk_acceptance": {
+          "decided_by": "Daisy 2026-04-23",
+          "rationale": "≤50 策略主归因 HIGH 级证据 (indexing silent fail + citation 信噪比) 独立于 Free tier cap, 不受 f SKIP 影响. 次要归因 (Free tier viewer 兼容) 维持 MEDIUM 悬置, 非 Phase 5 阻塞. 若未来 ≥51 sources 时补测.",
+          "g5_5_closure_status_in_phase_5_retro": "SKIP + accepted_residual_risk (不升 A, 不证伪, 悬置)"
+        },
+        "phase_4_all_items_closed": true,
+        "notebooklm_phase_4_sign_off_ready": true,
+        "phase_5_cross_4_platform_retrospective_unblocked": "YES — NotebookLM P3.9 完成是 Phase 5 合流最后阻塞项, 现解锁"
+      },
+      "next_action": "P3.9 DONE 2026-04-23. **NotebookLM Phase 4 完全闭合** (3/3 items: #1 P3.8 reviewer 12th slot DONE + #2 P3.9 DONE + #3 跨 4 平台矩阵 via R1 DONE). **下一步 跨 4 平台 Phase 5 RETROSPECTIVE 合流**: (A) 主 session 灌 PHASE5_RETROSPECTIVE.md 4 处 [TBD post-P3.9] marker → 升 v0.1 DRAFT → v1.0 FINAL candidate; (B) 派 28th Rule D slot reviewer (候选 superpowers:code-reviewer 或 oh-my-claudecode:critic) 独审 FINAL retro; (C) reviewer APPROVE + Daisy ack → Phase 6.5 全 lifecycle sign-off 🎉."
     },
     "4_review": {
-      "status": "locked"
+      "status": "READY_FOR_PHASE_5_CROSS_PLATFORM_RETROSPECTIVE_MERGE",
+      "unlock_trigger": "P3.9 DONE 2026-04-23 (share_level_toggle_drill.md PASS), 跨 4 平台 retrospective 合流启动",
+      "note": "NotebookLM 独立 async lane Phase 4 全链完成. Phase 5 retro 是跨 4 平台合流, 不走单平台 Phase 5, 合流入口 ai_platforms/PHASE5_RETROSPECTIVE.md"
     },
     "5_closure": {
-      "status": "locked"
+      "status": "PENDING_PHASE_5_FINAL_AND_CROSS_PLATFORM_SIGN_OFF",
+      "gate_criteria": ["PHASE5_RETROSPECTIVE.md v1.0 FINAL", "28th Rule D slot reviewer APPROVE", "Daisy ack", "ROADMAP 4 platforms 状态更新 已完成"],
+      "unlock_trigger_target": "cross_4_platform_phase_5_retro_finalization"
     }
   },
   "evidence_paths": {

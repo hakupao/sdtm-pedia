@@ -1,9 +1,9 @@
 # Phase 6.5 跨 4 平台 Phase 5 RETROSPECTIVE (骨架 DRAFT)
 
-> **Status**: 🟡 **DRAFT 骨架** (2026-04-23 AM 起稿) — 待 NotebookLM P3.9 三档分享切换演练完成 + share_level_toggle_drill.md 回灌 → 升 FINAL
+> **Status**: 🟢 **v1.0 FINAL candidate** (2026-04-23 PM, P3.9 回灌完成) — 等 28th Rule D slot reviewer 独立复核 + Daisy ack 后正式升 FINAL
 > **Scope**: Phase 6.5 AI 平台部署全周期 (2026-04-18 Claude v1 起跑 → TBD sign-off), 4 平台: Claude Projects / ChatGPT GPTs / Gemini Gems / NotebookLM
 > **Rule C 强制**: 收尾必写 RETROSPECTIVE, 三段式 (保留 / 缺口 / 决策) + cross-platform cross-pollination + `_template/` 补丁合并
-> **Pending fill** (post-P3.9): §0.2 NotebookLM Phase 4 最终 state / §1.6 三档切换做法 / §2.5 P3.9 若 FAIL 的回退 / §3.7 P3.9 决策复盘 / §4 第 11-15 号 `_template/` 补丁候选 Free tier 50-cap 实测结论
+> **P3.9 回灌完成 2026-04-23 PM**: §1.6 (R5-6) + §2.5 (G5-5 SKIP 接受残余风险) + §3.7 (D5-7 含 Public≠gallery meta-insight) + §4.15 (补丁 15 更新) 全填; §0.2 NotebookLM Phase 4 更新 COMPLETE; share_level_toggle_drill.md v1.0 FINAL.
 > **前置产物** (本 retro 的 evidence base):
 > - `ai_platforms/R1_RETROSPECTIVE.md` (smoke v4 R1 baseline 4 平台 lifecycle)
 > - `ai_platforms/R2_RETROSPECTIVE.md` (Gemini v6-post-A1 R2 单平台闭合)
@@ -32,9 +32,9 @@
 - Claude: 完全收束 (不参与 SYNC_BOARD)
 - ChatGPT: Phase 4 COMPLETE (N5.4 + Rule D #24) + **Phase 5 pending 冻结**
 - Gemini: Phase 4 COMPLETE (N5.4 + Rule D #25) + **R2 闭合 (14th reviewer APPROVE)** + **Phase 5 pending 冻结**
-- NotebookLM: Phase 4 部分完成 (#1 P3.8 reviewer 12th slot DONE + #3 跨 4 平台矩阵 R1 消掉) + **#2 P3.9 🟡 待演练**
+- NotebookLM: Phase 4 **COMPLETE** (3/3 items: #1 P3.8 reviewer 12th slot DONE + #2 **P3.9 DONE 2026-04-23** drill PASS + #3 跨 4 平台矩阵 R1 消掉) + **Phase 5 cross-platform 合流 unblocked**
 
-**合流 gate**: NotebookLM P3.9 完成后 → 4 平台齐 → 本 retro 升 FINAL + sign-off.
+**合流 gate**: NotebookLM P3.9 完成 (2026-04-23) → 4 平台齐 → 本 retro v1.0 FINAL candidate, 待 28th Rule D slot reviewer + Daisy ack → sign-off.
 
 ### 0.3 Rule D chain 累计 subagent_type (27 种)
 
@@ -87,11 +87,17 @@
 
 **为什么保留**: Claude v2 先行 case 证明 Rule D 拦截了 G1-G5 5 类缺陷. R1/R2 继续有效: 13th reviewer A3 Q13 re-score (ARMCD=NOTASSGN + OBSERVATIONAL GROUP 虚构 双 defect) 主 session 自己没抓, 独立 reviewer 抓到.
 
-### R5-6. [TBD post-P3.9] 三档分享切换 UI 级 VERIFIED 做法
+### R5-6. 三档分享切换 UI 级 VERIFIED 做法 (P3.9 drill 2026-04-23 实测)
 
-**做法**: [填 P3.9 drill 结果: Restricted → Anyone with link → Public → 回 Restricted 4 状态 + 2 独立 Google 账号实测 + Free tier 小号 50-cap 实测]
+**做法**: 三档切换演练 6 子步骤 (a-f) + 证据文件 `notebooklm/dev/evidence/share_level_toggle_drill.md` v1.0 FINAL:
+- (a) Restricted 默认态 + 截屏 ✅ PASS
+- (b) Anyone with link: 生成链接 + 匿名窗口 (预期登录拦截) + 另 Google 账号访问 ✅ 3/3 PASS
+- (c) Public + 公开画廊搜 🟡 **PARTIAL + 新发现**: 画廊只显示官方精选 (Featured curated), Public 档 **≠ auto-list 广播**
+- (d) 回切 Restricted 旧链接失效 ✅ PASS (revoke 生效)
+- (e) 快速多次 Restricted↔Public 切换 + 旧链 revoke ✅ PASS (无 caching 残留)
+- (f) Free tier 50-cap 实测 ⚪ SKIP (42 sources ≤50 未触发 cap, 客观无法测, 接受残余风险)
 
-**为什么保留**: [填 P3.9 是否解了 NotebookLM L3 fix + S1 SUGGESTION 两项]
+**为什么保留**: (1) L3 fix ((e) 快速多切) + (d) 回切 revoke = 档位切换状态管理合规, 无幽灵链接; (2) (c) 的新发现修正 v1 时期"Public=广播"假设, 印证 v2 1-notebook + 3 档分享架构的隐私友好性; (3) S1 SUGGESTION ((f)) 接受残余风险不闭合但主归因 (indexing silent fail + citation 信噪比) HIGH 级证据不受影响.
 
 ---
 
@@ -132,13 +138,15 @@
 
 **如何补**: Phase 5 注册 "optional v5c 全量 10 题回归" (ChatGPT 10 题 + Gemini 10 题), P3.9 后作选做 verification task. 若 skip, 在 retro 明示"假设未实测" + 接受残余风险. **已起草执行 plan**: `ai_platforms/V5C_REGRESSION_PLAN.md` v0.1 (2026-04-23, 172 行, Q4-Q10 × 2 平台 = 14 题回归手顺 + 阈值 + Rule D 15th R2-line slot + 推荐 combined regression with v7/v2.2 apply after).
 
-### G5-5. [TBD post-P3.9] Free tier 50-cap 证据 3 解读 A/B/C
+### G5-5. Free tier 50-cap 证据 3 解读 — SKIP + 接受残余风险 (P3.9 (f) 2026-04-23)
 
 **问题**: NotebookLM PLAN v2.2 L70 "分享不改 viewer 自己 tier source cap" 证据 MEDIUM (非 A 级官方原文). P3.9 子步骤 (f) 计划用 Free tier 小号实测闭合.
 
 **影响**: ≤50 source 策略的 **次要归因** (Free tier 兼容) 悬置. 主要归因 (indexing silent fail + citation 信噪比) 不受影响, 结论不变.
 
-**如何补**: [填 P3.9 sub-step (f) 结果 — A (仅能看前 50) / B (全能看) / C (其他) — 闭合证据链]
+**P3.9 (f) 实际结果**: ⚪ **SKIP** (客观无法测) — 本 notebook 只上传 42 sources (≤50), **未触发 Free tier 50-cap**, 无法创造 A/B/C 三路径的测试条件. Daisy 2026-04-23 接受**残余风险**: 主归因 HIGH 证据独立稳固, 次要归因悬置不阻塞 Phase 5 sign-off. 补做路径 (post-Phase-5 optional): 制造 >50 source 测试集 + Free tier 小号 invite 查看 + A/B/C 判定.
+
+**G5-5 闭合状态**: 🟡 **SKIP + accepted_residual_risk** (不升 A, 不证伪, 证据 3 悬置).
 
 ---
 
@@ -186,11 +194,15 @@
 
 **教训**: Writer 叙事合成伪约束是 Rule D 未能拦截的失败模式 (Writer/Reviewer 基于同 factual base, 反问来自"user 视角 outside 的常识"). `_template/` 10a/10b.1/10b.2 补丁化 (见 §4).
 
-### D5-7. [TBD post-P3.9] 三档分享实测决策 — [填]
+### D5-7. 三档分享实测决策 (P3.9 drill 2026-04-23) — **正确 + 深化**
 
-**决策**: [填 P3.9 drill 实测三档切换效果 + Free tier 50-cap 闭合 + 产物 share_level_toggle_drill.md]
+**决策**: Daisy 2026-04-23 执行 P3.9 三档切换演练 6 子步 (a-f); 主 session 根据口述 verdicts 写完整 evidence `share_level_toggle_drill.md` v1.0 FINAL; 5 PASS + 1 PARTIAL (c) + 1 SKIP (f), 总体 PASS.
 
-**回头看**: [填 P3.9 是否按 PLAN v2.2 §P3.9 a-f 6 子步骤全跑, 或哪些子步骤降级]
+**回头看**: **正确且深化原判断**.
+- (a)(b)(d)(e) 4 子全 PASS — 核心三档 UI toggle + revoke 机制 VERIFIED, 印证 v2 1-notebook + 3 档分享架构可用性
+- (c) PARTIAL 带出**新发现 meta-insight**: "Public" 档语义 **≠ auto-list 到 public gallery**, 画廊是 curated Featured list. 这修正了 v1 3-notebook 时期"Public=广播"假设 (ARCHITECTURE_PIVOT_RECORD D3 被 P3.9 实测印证). Public 档实际 reach < 用户预期, 但**反而降低**隐私风险 — 更友好.
+- (f) SKIP 是 **客观限制** (42 sources ≤50 未触发 cap), 非执行疏忽; Daisy 接受残余风险.
+- H3 hypothesis 归档状态: **VERIFIED + 深化** (P3.3 初步 VERIFIED + P3.9 正式归档 + Public 语义深化 new insight).
 
 ---
 
@@ -210,7 +222,7 @@
 - **12 (MEDIUM)**: Rule D chain 数字 > 12 种的 saturation 信号观察 — 何时可停换新 subagent_type? 本 lifecycle 27 种未饱和; 建议在 `_template/` README 加"saturation metric: 连续 2 个 slot 0 HIGH/MEDIUM finding 时可宣告饱和". 源本 retro §1.2 + Rule D 27-chain 观察.
 - **13 (MEDIUM)**: Bonus 题 vs main gate 解耦模板 — Q1-Q10 主 gate + Q11-Q14 bonus + AHP hard gate. 源 R1/R2 阈值设计.
 - **14 (MEDIUM)**: 4 平台 cross-check ground truth 机制文档化 — in-KB-only 作 truth / web-search 作 coverage / 训练数据作 depth / prompt 锚控作受控对照. 源 R5-1 Rule E 候选.
-- **15 (LOW)**: [TBD post-P3.9] 分享档位切换作 single-notebook 多 scope 的新范式 — 相比多 notebook 职责隔离, 性价比更优. 源 NotebookLM v2 架构.
+- **15 (LOW, P3.9 实测印证 2026-04-23)**: 分享档位切换作 single-notebook 多 scope 的新范式 — 相比多 notebook 职责隔离, 性价比更优. 源 NotebookLM v2 架构. **P3.9 (c) 实测新增**: 补丁文案应**明示** "Public 档位 ≠ 广播到公开画廊 — NotebookLM 公开画廊是 curated Featured list, 非 auto-listed; Public 档实质语义 = '允许任何持链接者无需登录访问' 而非 '被动曝光给搜索的人'. 此语义比 ChatGPT GPT Store 'Public=全网广播' **保守**, 隐私友好性更高, 适合小圈内部分享 + 定向外发场景". 这是 single-notebook 多 scope 架构的**实用优势**.
 
 ---
 
@@ -260,9 +272,9 @@
 
 ## §7 Rule A/B/C/D/E 合规自查
 
-- **Rule A (语义抽检)**: 本 retro 抽检源 = R1/R2/NotebookLM/Claude 4 lifecycle 独立 retro + SYNC_BOARD 变更日志. 独立样本 4 源 ≥ N=5 门槛. [⚠️ NotebookLM P3.8 N ≥ 5 caveat 见 G5-3 #4, post-P3.9 补]
+- **Rule A (语义抽检)**: 本 retro 抽检源 = R1/R2/NotebookLM/Claude 4 lifecycle 独立 retro + SYNC_BOARD 变更日志 + P3.9 drill evidence (share_level_toggle_drill.md). 独立样本 5 源 ≥ N=5 门槛 ✓. G5-3 #4 NotebookLM P3.8 N ≥ 5 caveat 维持 MEDIUM 挪 post-project optional.
 - **Rule B (失败归档)**: R1 Gemini AHP FAIL / R2 Q1 GFGENE regression / v1 3-notebook 伪约束 pivot / Phase 3 Node 2 attempt_1 双边 FAIL — 全归档. ✓
-- **Rule C (Retro 强制)**: 本文即 Phase 5 跨 4 平台 retro, 三段 (§1 保留 R5-1-6 / §2 缺口 G5-1-5 / §3 决策 D5-1-7). ✓ [骨架 DRAFT, 待 P3.9 回灌升 FINAL]
+- **Rule C (Retro 强制)**: 本文即 Phase 5 跨 4 平台 retro, 三段 (§1 保留 R5-1-6 / §2 缺口 G5-1-5 / §3 决策 D5-1-7). ✓ [v1.0 FINAL candidate 2026-04-23 PM, P3.9 回灌完成, 等 28th reviewer + ack 升 FINAL]
 - **Rule D (审阅隔离)**: 本 retro 起草由主 session 独立于 R1/R2 retro + Claude retro (前各 retro 不是本 retro 的 reviewer). 本 retro sign-off 前待派 28th slot 独立 reviewer (候选见 6.1).
 - **Rule E (跨平台 cross-check)**: 本 retro 核心产物是 Rule E 候选的提炼 (§5). 4 平台 ground truth 对比作本 retro 最强论据.
 
@@ -273,7 +285,8 @@
 | 版本 | 日期 | 状态 | 触发 |
 |---|---|---|---|
 | v0.1 | 2026-04-23 AM | DRAFT 骨架 | R2 Gemini 闭合 commit `680d99b` 之后 |
-| v1.0 | [TBD] | FINAL | NotebookLM P3.9 drill 回灌 + 28th reviewer APPROVE + 用户 ack |
+| **v1.0 candidate** | **2026-04-23 PM** | 🟢 **FINAL candidate** (P3.9 回灌完成) | P3.9 drill PASS + evidence `share_level_toggle_drill.md` v1.0 + 4 TBD marker 全灌 |
+| v1.0 FINAL | [TBD, 短线内] | ✅ FINAL | 28th Rule D slot reviewer APPROVE + Daisy ack 进 sign-off |
 
 ---
 
