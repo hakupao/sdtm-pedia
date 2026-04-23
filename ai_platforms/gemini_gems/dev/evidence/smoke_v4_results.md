@@ -54,24 +54,24 @@
 |:---:|---|---|:---:|---|
 | Q11 | F1 新技术 | Dataset-JSON v1.1 vs XPT v5 | **PASS** (bonus, 意外) | 4/5 XPT 痛点 (8-char / 200-char / 数据类型 / 存储低效) + (b) 双轨 + Data Standards Catalog + (c) JSON dev / XPT 提交 / Pinnacle 21 + (d) Define-XML=metadata / Dataset-JSON=data content / v1.1 解耦; 干净无 extended reasoning 暴露; 未编造; 缺 Unicode + metadata 扩展 2 项次要判据 |
 | Q12 | D2 CT | CT 版本 + Define-XML + MedDRA | **PASS** (bonus, 意外 2/2) | 4 分支全中: (a) Start/Ongoing/DBL + Data Standards Catalog / (b) CodeList+**ExternalCodeList Dictionary+Version** / (c) --DECOD 重编码 + 监管要求同一版本 / (d) remap 新版本 + nSDRG 沿用旧版说明 + Pinnacle 21 校验; 4 source paths |
-| Q13 | G1 RWD | Observational + ARMCD | **PASS** (NS catch bonus, ARMCD 偏离) | 3 PASS + 1 PARTIAL: (a) TA/TV + Epoch + EX 3 类 / (b) **ARMCD 填 NOT ASSIGNED 非 null** 偏离判据 + ARMNRS C142179 对 / (c) **NS premise 识破** + Custom Domain X/Y/Z 正确纠偏 / (d) 4 SUPPDM 特有: 社会经济 + 地缘 + 多重种族 + **EMR/Registry ID 匹配 judgement Claims/EHR** |
+| Q13 | G1 RWD | Observational + ARMCD | **PARTIAL (0.5)** (13th reviewer A3 re-score 2026-04-23, 原 PASS) | 3 PASS + 1 PARTIAL: (a) TA/TV + Epoch + EX 3 类 / (b) **ARMCD 填 NOT ASSIGNED 非 null** 判据违规 + **"OBSERVATIONAL GROUP" 作 ARMCD 备选值虚构** (C142179 无此值) + ARMNRS C142179 对 / (c) **NS premise 识破** + Custom Domain X/Y/Z 正确纠偏 / (d) 4 SUPPDM 特有: 社会经济 + 地缘 + 多重种族 + **EMR/Registry ID 匹配 judgement Claims/EHR** — 原 PASS 评分偏宽, Gemini 自己标 (b) PARTIAL 0.5, 按 3 PASS + 1 PARTIAL 复合应 PARTIAL 不 PASS. 13th reviewer (`pr-review-toolkit:code-reviewer`) confidence 82 down-score |
 | Q14 | I1 跨域 | AE/MH/CE + DS 死亡 | **PASS+** (bonus, 意外) | 4 部分全中: (a) 3 域 + timing 边界 (ICD 前=MH / study=AE / CE=MACE 终点) + "入组前心梗史记 MH" 例外; (b) DS+AE+DM 三域 + AESDTH=Y + AEOUT=FATAL + DM.DTHFL/DTHDTC; (c) DSDECOD=DEATH + DSCAT=DISPOSITION EVENT + DSSCAT=STUDY PARTICIPATION + DSTERM "Heart Failure" verbatim; (d) DS.DSSTDTC=DM.DTHDTC=AE.AEENDTC 对齐公式精确. 缺: C66727 C-code; time-level offset 容错弱 (用"必须等于") |
 
-**Bonus 小计**: TBD/4
+**Bonus 小计** (post 13th reviewer A3): **3.5/4 strict** (Q11 PASS 1 + Q12 PASS 1 + Q13 PARTIAL 0.5 + Q14 PASS 1; 原 self-score 4.0; 含 Q14 PASS+ 宽判 3.75/4). 原 R1 cowork 填 4.25/4 (Q14 PASS+ 加 0.25), post A3 re-score 3.75/4 宽 / 3.5/4 strict.
 
 ---
 
-## 总分 (R1 跑完 2026-04-22 晚)
+## 总分 (R1 跑完 2026-04-22 晚, 2026-04-23 13th reviewer A3 Q13 re-score 更新)
 
-| 指标 | 值 |
-|---|---|
-| 总题数 | 17 (13 主 + 4 bonus) |
-| 主 gate 分 (Q1-Q10 + AHP1-3) | **8.5/13 (65.4%)** |
-| Bonus 分 (Q11-Q14) | 4.25/4 (Q11 PASS / Q12 PASS / Q13 PASS ARMCD 偏离 / Q14 PASS+) |
-| 全量分 (strict) | 12.5/17 (73.5%) |
-| 全量分 (含 PASS+ bonus) | 12.75/17 |
-| 主 gate 阈值 | ≥9/13 (70%) |
-| **Gate** | **FAIL 主 gate** (8.5/13 = 65.4% < 70% 阈) |
+| 指标 | 值 (原 R1) | 值 (post 13th reviewer A3 re-score) |
+|---|---|---|
+| 总题数 | 17 (13 主 + 4 bonus) | 17 (不变) |
+| 主 gate 分 (Q1-Q10 + AHP1-3) | **8.5/13 (65.4%)** | **8.5/13 (65.4%)** (不变, A3 仅影响 Q13 bonus) |
+| Bonus 分 (Q11-Q14) | 4.25/4 (Q11 PASS / Q12 PASS / Q13 PASS ARMCD 偏离 / Q14 PASS+) | **3.5/4 strict** (Q13 PASS→PARTIAL); 3.75/4 含 Q14 PASS+ |
+| 全量分 (strict) | 12.5/17 (73.5%) | **12.0/17 (70.6%)** |
+| 全量分 (含 PASS+ bonus) | 12.75/17 | **12.25/17** |
+| 主 gate 阈值 | ≥9/13 (70%) | ≥9/13 (70%) (不变) |
+| **Gate** | **FAIL 主 gate** (8.5/13 = 65.4% < 70% 阈) | **FAIL 主 gate** (同, 不变, A3 仅调 Q13 bonus 评级) |
 
 ### Verdict summary
 

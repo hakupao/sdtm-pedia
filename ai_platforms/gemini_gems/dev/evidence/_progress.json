@@ -797,7 +797,91 @@
       "rule_d_cumulative_chain_count_synced_side": 25,
       "rule_d_24_25_new_subagent_types_added": ["oh-my-claudecode:code-reviewer", "feature-dev:code-explorer"]
     },
-    "next_action": "Phase 4 N5.4 + Rule D 24/25 COMPLETE; ChatGPT+Gemini 冻结进 'Phase 5 pending' 状态 (等 NotebookLM 拉齐 P3.8 reviewer + P3.9 + Phase 4 跨 4 平台) → 跨 4 平台统一启 Phase 5 RETROSPECTIVE + _template/ 补丁合并 + cross-pollination 不分拆"
+    "smoke_v4_r1_and_r2_v6_draft_2026_04_22_to_23": {
+      "r1_baseline_executed": "2026-04-22 evening cowork via Chrome MCP, 17 questions (Q1-Q14 + AHP1-3), results at dev/evidence/smoke_v4_results.md",
+      "r1_gemini_score": "12.0/17 strict (70.6%) post 13th reviewer A3 Q13 re-score PASS→PARTIAL; 原 R1 填 12.5/17 (73.5%); 主 gate 8.5/13 = 65.4% FAIL (AHP × 3 全 FAIL 拖分)",
+      "r1_failure_pattern": "3 AHP fabrication 模式: AHP1 LBCLINSIG 编 C66742 + Core=Perm + 编 LBNRIND C78419 错; AHP2 编完整 RELREC 跨层 IDVAR=TSPARMCD + USUBJID=NULL; AHP3 编 PF 6 Req + 4 Exp + C114119 + 把 GF 变量改名加 PF 前缀",
+      "r2_v6_draft_produced": "dev/v6_draft/system_prompt_v6.md 2026-04-23 AM (349 行 / 18,716 chars post 13th reviewer A1 dual-grep 插入; 原 draft 17,883 chars)",
+      "r2_v6_main_additions": ["CO-5 ANTI-HALLUCINATION GUARDRAIL (AHP-V1 变量级 + AHP-V2 跨域层级 + AHP-V3 Deprecated concept + 6 共同执行规则)", "CO-2e 子条款 (C66742 NY 4值 Y/N/U/NA + C66767 Non-Ext, Q8 R1 修)", "回答规范 多场景题逐场景显式答 (Q4 R1 修)", "回答规范 SDTM vs ADaM 边界 --DTF ADaM-only (Q7 R1 修)", "路由规则 1/3/4/7 插 CO-5 check hook + 新增 Route 7 Deprecated", "边界处理模板 ⑥⑦⑧ 对应 AHP-V1/V2/V3", "工作流程 Step 0 前提核 + Step 9 多场景 + Step 10 sanity 自检"],
+      "rule_d_26_13th_slot_reviewer_completed": {
+        "subagent_type": "pr-review-toolkit:code-reviewer",
+        "slot_numbering": "26th cumulative (ChatGPT+Gemini+NotebookLM combined lane, 25+1) = '13th slot' NEXT_STEPS shorthand (R2 line 1-based count from NotebookLM chain side)",
+        "date": "2026-04-23",
+        "verdict_overall": "CONDITIONAL_PASS",
+        "conditional_on": ["A1 HIGH: insert dual-grep-confirmation clause in CO-5 AHP-V1 (applied 2026-04-23)", "A2 HIGH: verify v6 char count against Gemini Gems UI actual limit before R2 paste (pending cowork step)", "A3 MEDIUM: re-score Gemini Q13 PASS → PARTIAL (applied 2026-04-23 across smoke_v4_results.md + SMOKE_V4.md §3 + R1_RETROSPECTIVE.md)"],
+        "task_1a_scoring": {
+          "arithmetic_verified": "main gate 8.5/13 = 65.4% arithmetic correct",
+          "ahp_x3_fail_defensible": "confidence 95 — no disagreement, FAIL verdicts correct",
+          "q13_disagreement": "confidence 82 — PASS should be PARTIAL (ARMCD NOT ASSIGNED + OBSERVATIONAL GROUP 虚构 双defect)",
+          "other_platforms": "confidence 85 — Claude 17/17, ChatGPT 16.5/17, NotebookLM 15/17 all defensible"
+        },
+        "task_1b_v6_adequacy": {
+          "ahp_v1_fix": "confidence 90 YES — targeted KB check + SUPP-- NSV path template",
+          "ahp_v2_fix": "confidence 88 YES — subject-level invariant + ADaM/CSR quarantine explicit",
+          "ahp_v3_fix": "confidence 92 YES — deprecated concept table + irony 自检 rule",
+          "micro_fixes_q4_q7_q8": "confidence 85 each — targeted and likely effective",
+          "risk_a_false_positive_nsv": "confidence 85 — Gemini long-context recall ~60% risks flagging real variables as NSV; A1 dual-grep rule mitigates",
+          "risk_b_char_budget": "confidence 82 — v6 17.9K vs v5c 11.1K; UI limit >11K unknown; A2 pre-paste verify required",
+          "risk_c_routing_gap": "confidence 78 LOW — Routes 2-5 missing CO-5 hooks; mitigated by Workflow Step 0"
+        },
+        "reviewer_report_path": "dev/evidence/r2_13th_reviewer.md (persisted by main session 2026-04-23)",
+        "action_items_status_2026_04_23": {
+          "A1_HIGH_dual_grep_applied": true,
+          "A2_HIGH_char_count_preverify_pending_cowork": true,
+          "A3_MEDIUM_q13_rescored_applied": true,
+          "A4_LOW_co2e_compression_deferred": "optional, deferred to post-R2 or v7",
+          "A5_LOW_phase5_carryover_logged": "logged in next_action below"
+        }
+      },
+      "r2_rerun_status": "COMPLETE (2026-04-23 PM, cowork Chrome MCP 单 session 连续 17 题; v6-post-A1 18,716 chars 已 pre-apply to Gem UI, Save disabled 验证 saved state)",
+      "r2_threshold_design": "AHP × 3 hard gate (≥2/3) + Q1-Q10 ≥7/10 + bonus Q11-Q14 容错 (严于原 R1 ≥9/13 summing)",
+      "r2_main_session_score": {
+        "q1_to_q10_main": "9.5/10 (95%) — Q1 PARTIAL(0.5, GFGENE regression) + Q2-Q10 全 PASS/PASS+",
+        "ahp_x3_hard_gate": "3/3 (100%) — AHP1/AHP2/AHP3 全 PASS+ (R1 0/3 FAIL 全线修复)",
+        "main_gate_combined": "12.5/13 = 96.2% (R1 8.5/13 = 65.4%, +4.0 pts, +30.8%)",
+        "bonus_q11_to_q14": "3.5/4 strict — Q11/Q12/Q14 PASS/PASS+ + Q13 PARTIAL(0.5, ARMCD 同 R1 regression)",
+        "strict_total": "16.0/17 = 94.1% (R1 12.0/17 = 70.6%, +4.0 pts, +23.5%)",
+        "double_gate_decision": "PASS ✓✓ — Q1-Q10 9.5 ≥ 7 ✓ + AHP 3 ≥ 2 ✓"
+      },
+      "r2_v6_effectiveness": {
+        "ahp_v1_lbclinsig": "PASS+ — 双核 grep 显性激活 (v6 A1 post-13th-reviewer fix) + LBCLSIG typo 识破 + 无编 C-code",
+        "ahp_v2_trial_level_sae": "PASS+ — 显式 bu-she aggregate table + AESER/AESHOSP/AESLIFE/AESDTH/AESDISAB/AESCONG/AESMIE 6 子 + ADaM/CSR/RG 三层 + USUBJID=NULL 否认",
+        "ahp_v3_pf_deprecated": "PASS+ — 首句 PF yi deprecated + PF to GF+BE+BS+RELSPEC 迁移 + 无 PF 前缀臆造 + 无末尾 irony",
+        "q4_multiscenario_fix": "EFFECTIVE R1 PARTIAL to R2 PASS+",
+        "q7_dtf_adam_only_fix": "EFFECTIVE R1 PARTIAL to R2 PASS",
+        "q8_co2e_fix": "EFFECTIVE R1 PARTIAL to R2 PASS+ (C66742 4 值 + C66767 Non-Ext + AETERM MedDRA via AEDECOD 分层 全修)"
+      },
+      "r2_new_findings_for_v7_carry_over": {
+        "q1_gfgene_regression_HIGH": "Exp 列用 GFGENE (CO-4 L102 禁止臆造清单第 4 项), 末尾警告 GFLOC/GFVARIANT 却未提 GFGENE = self-contradiction. v7: 强化 GF Exp 清单 hard anchor",
+        "q13_armcd_rule_regression_HIGH": "(b) ARMCD=NOTASSGN + ARMNRS C66770 (应 C142179) 同 R1 defect. v6 CO-4 未覆盖 ARMCD-null 规则. v7: 补 ARMCD 必 null 时 ARMNRS 全称 + CT C142179 锚"
+      },
+      "r2_answer_files_location": "dev/evidence/smoke_v4_r2_answers/ (17 files)",
+      "r2_results_summary_file": "dev/evidence/smoke_v4_r2_results.md",
+      "rule_d_14th_slot_reviewer_status": "COMPLETE 2026-04-23 PM (oh-my-claudecode:verifier, 独审 R2 scoring + v6 effectiveness + v7 carry-over)",
+      "rule_d_14th_reviewer_verdict": {
+        "overall": "APPROVE",
+        "confidence": "high",
+        "blockers": 0,
+        "q1_verdict_agreement": "PARTIAL 0.5 confirm (confidence 88) — GFGENE FAIL 判据命中但无绝对阻断, 四子问+域+Req 全对 → PARTIAL",
+        "q13_verdict_agreement": "PARTIAL 0.5 confirm (confidence 92) — SMOKE_V4 L818 明文 ARMCD NOTASSGN = FAIL + ARMNRS C66770 错 codelist (应 C142179)",
+        "ahp_verdict_agreement": "全 PASS+ confirm — AHP1 (93) / AHP2 (91) / AHP3 (94), R1 FAIL pattern 全消除, mechanism-level 修复",
+        "gate_arithmetic_verified": "Q1-Q10 9.5/10 ≥ 7 ✓ + AHP 3/3 ≥ 2 ✓ + strict 16.0/17 = 94.1% 独立核算与主 session 完全一致",
+        "v6_true_fix_vs_surface": "AHP-V2/V3 真修 (structural invariant); AHP-V1 近真修 (置信 78, 有假阴性边界风险)",
+        "disagreement_with_13th_reviewer": "AHP-V1 置信 78 (14th) vs 90 (13th). 14th 对 attention gap false-negative 风险判断更保守",
+        "gap_risks": [
+          "Q1 regression not blocked by v6 CO-4 (medium risk, non-blocking)",
+          "Q13 ARMCD-null gap v6 未覆盖 (medium risk, v7 必补)",
+          "AHP-V1 false-negative 边界 (low risk, R2 未触发)"
+        ],
+        "v7_priority_items": {
+          "HIGH_x_2": ["Q1 GF Exp 正向清单 (正向比负向更有效)", "Q13 ARMCD-null + ARMNRS 全称 + C142179 锚"],
+          "MEDIUM_x_2": ["未具体列 — 见 r2_14th_reviewer.md"],
+          "LOW_x_1": ["AHP-V1 文案精化降低假阴性风险"]
+        },
+        "report_path": "dev/evidence/r2_14th_reviewer.md"
+      }
+    },
+    "next_action": "R2 COMPLETE 2026-04-23 PM: Gemini 双硬 gate 全过 (Q1-Q10 9.5/10 + AHP 3/3), strict 16.0/17 (94.1%), main gate 12.5/13 (96.2%). **Gemini Phase 4 Gate 完全闭合 + Phase 5 ready**. AHP × 3 从 R1 0/3 FAIL to R2 3/3 PASS+ 全线修复 = v6 CO-5 最大成就. 已派 14th slot reviewer (oh-my-claudecode:verifier) 独审. 回收后决策 (a) v7 iteration schedule (Q1 GFGENE + Q13 ARMCD-null 两 HIGH regression), (b) Phase 5 RETROSPECTIVE 合流 timing. 仍等 NotebookLM P3.9 拉齐后跨 4 平台启 Phase 5 合流."
   },
   "platform_specific_constraints": {
     "P11_single_batch_upload": true,

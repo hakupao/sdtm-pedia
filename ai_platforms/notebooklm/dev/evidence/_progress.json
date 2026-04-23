@@ -549,7 +549,20 @@
           "ack_note": "Rule E caveat: 建议后续 Phase 5 前补 explicit ack timestamp + text_snippet, 避免 audit 考古; 本块作 placeholder, 证据强度足以支持 Rule D PASS 第 4 条"
         }
       },
-      "next_action": "smoke_v4_r1_baseline_ready (Step 1-5 完成, Rule D 12th slot gap 闭合): (1) ✅ DONE: 11th audit → smoke_v3_audit_notes.md (404 行 Q10/Q13/Q8/Q4/Q14 NEED_FIX + 系统性 F1-F7); (2) ✅ DONE: 路径 B bundled patch smoke v3.2 → v4.0 (含 Q10 SUPPTS 前提修 + Q13 删 NS + Q8 LBNRIND/AETERM 修 + Q4/Q14 MINOR + F1 ch05→ch04 全局 + AHP × 3 新增); (3) ✅ DONE: 3 平台 smoke v3 SUPERSEDED banner + v3_superseded JSON flag; (4) ✅ DONE: smoke_v4_r1_execution_plan + cross_platform_compare_v4.md 骨架就绪; (5) ✅ DONE: 12th slot P3.8 reviewer 闭合 Rule D gap + Q3 PASS 微调 Finding 2 MINOR + Finding 6/7 补. **下一步**: 用户启动 4 平台 smoke v4 R1 baseline (推荐顺序 NotebookLM → Gemini → ChatGPT → Claude); 详见 ai_platforms/SMOKE_V4.md §1."
+      "smoke_v4_r1_baseline_absorbed_2026_04_22_to_23": {
+        "r1_executed": "2026-04-22 evening cowork, 17 questions × 4 platforms = 68 answers, results at SMOKE_V4.md §3 cross-platform matrix filled",
+        "notebooklm_score": "15/17 (88.2%) = 6 PASS + 8 PASS+ + 2 PARTIAL (Q11/Q12 supplemental PUNT) + 1 PUNT (Q9 Pinnacle 21 architecture limit)",
+        "notebooklm_ahp_x3_all_pass_plus_strongest_4_platforms": "AHP1/AHP2/AHP3 全 PASS+ 最强 (in-KB-only architecture natural anti-hallucination; 4 平台 ground truth 角色)",
+        "phase_4_cross_platform_matrix_done_via_r1": "SMOKE_V4.md §3 17×4 verdict matrix 全填; NotebookLM Phase 4 item #3 此项消掉 via R1",
+        "remaining_notebooklm_phase_4_work": "P3.9 三档分享切换演练 (Chrome MCP 或引用 P3.3 chat_mode_toggle_test.md evidence)",
+        "evidence_paths_added": [
+          "dev/evidence/smoke_v4_results.md",
+          "dev/evidence/smoke_v4_answers/Q1..Q14_answer.md + AHP1..AHP3_answer.md + sanity_*.md"
+        ],
+        "r1_retrospective_path": "ai_platforms/R1_RETROSPECTIVE.md (Rule C 产物, 2026-04-22 晚 11:55 PM)",
+        "gemini_r2_v6_impact_on_notebooklm": "无直接影响 (NotebookLM 独立 lane, Gemini v6 改 Gemini system_prompt 不动 NotebookLM 42 sources/instructions.md); 但 R2 若 Gemini PASS, 跨 4 平台 Phase 5 RETROSPECTIVE 合流质量更强"
+      },
+      "next_action": "smoke_v4_r1_absorbed_phase_4_item_3_closed; NotebookLM Phase 4 剩余 = P3.9 三档分享切换演练 (仅 1 item). **下一步**: (A) 用户启动 P3.9 Chrome MCP 演练 (~30-90 min, PLAN v2.2 §P3.9 步骤 a-f, 注 step e rapid switching + step f Free tier 小号实测) **或** 接受 P3.3 chat_mode_toggle_test.md (210 行 H3 VERIFIED) 作 P3.9 替代 evidence; (B) 并行 Gemini R2 推进 (gemini_gems/_progress.json 已记, 不阻塞 NotebookLM); (C) P3.9 完成 → 跨 4 平台 Phase 5 RETROSPECTIVE 合流. 详见 ai_platforms/SMOKE_V4.md §3 matrix + R1_RETROSPECTIVE.md + NEXT_STEPS.md v1.1 2026-04-23."
     },
     "4_review": {
       "status": "locked"
