@@ -18,7 +18,7 @@
 | 1 | **Claude Projects** | **17/17 (100%)** | PASS ✅ | 全 17 题 PASS+; 7 题"4 平台中最强" (Q11-Q14 + AHP × 3) |
 | 2 | **ChatGPT** | **16.5/17 (97.1%)** | PASS ✅ | 13 PASS+ / 3 PASS / 1 PARTIAL (Q1 GFINHERT 拼写); AHP × 3 全 PASS+ |
 | 3 | **NotebookLM** | **15/17 (88.2%)** | PASS ✅ | 8 PASS+ / 6 PASS / 2 PARTIAL (Q11/Q12 supplemental PUNT) / 1 PUNT (Q9 架构限制); AHP × 3 全 PASS+ 最强 |
-| 4 | **Gemini** | **12.5/17 (73.5%), 主 gate 8.5/13 = 65.4%** | **FAIL 主 gate** ❌ | 8.5/10 Q1-Q10 + 0/3 AHP + 3.75/4 bonus Q11-Q14 |
+| 4 | **Gemini** | **12.0/17 (70.6%) post 13th reviewer A3 re-score (原 12.5/17); 主 gate 8.5/13 = 65.4%** | **FAIL 主 gate** ❌ | 8.5/10 Q1-Q10 + 0/3 AHP + **3.5/4 bonus strict** (Q13 PASS→PARTIAL post 13th reviewer 2026-04-23 A3); 13th reviewer confidence 82 on Q13 down-score, 不改主 gate FAIL verdict |
 
 ---
 
@@ -50,7 +50,7 @@
 
 **做法**: Gemini 4-file KB 不含 supplemental (Dataset-JSON / CT 版本 / RWD / 死亡跨域), 设主 gate Q1-Q10+AHP ≥9/13 + bonus Q11-Q14 容错 FAIL.
 
-**为什么保留**: 实际结果 Gemini bonus track 4/4 意外强 (训练数据 + web search 补齐 KB gap), 证明 bonus 设计合理 — 不把 KB 覆盖缺陷误判为能力 FAIL.
+**为什么保留**: 实际结果 Gemini bonus track **3.5/4 strict** (post 13th reviewer A3 re-score 2026-04-23; 原 cowork 填 4.25/4, Q13 ARMCD + OBSERVATIONAL GROUP 虚构 PASS→PARTIAL) 仍意外强 (训练数据 + web search 补齐 KB gap), 证明 bonus 设计合理 — 不把 KB 覆盖缺陷误判为能力 FAIL.
 
 ### R1-5. 4 平台 cross-check 作独立 reviewer chain (Rule D 变体)
 
@@ -116,7 +116,7 @@
 
 **决策**: 为 Gemini 设主 gate (Q1-Q10+AHP ≥9/13) + bonus (Q11-Q14 容错).
 
-**回头看**: **正确**. Bonus Q11-Q14 4/4 PASS 避免 KB 覆盖 bias 拖低总分. 但应**更严**: AHP × 3 全 FAIL 时, 即使 Q1-Q10 全 PASS 也应该是 FAIL (核心能力缺失).
+**回头看**: **正确**. Bonus Q11-Q14 **3.5/4 strict PASS** (post 13th reviewer A3 re-score; 原 4/4 含 Q13 被 down-score) 避免 KB 覆盖 bias 拖低总分. 但应**更严**: AHP × 3 全 FAIL 时, 即使 Q1-Q10 全 PASS 也应该是 FAIL (核心能力缺失).
 
 **R2 调整**: 考虑把 AHP × 3 设 **hard gate** — 主 gate 阈值改为 "Q1-Q10 ≥7/10 + AHP ≥2/3", 而非单一 ≥9/13 summing pass.
 

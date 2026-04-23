@@ -1,8 +1,9 @@
-# 下一步计划 (2026-04-22 晚收尾 → 下次 session)
+# 下一步计划 (2026-04-22 晚 → 2026-04-23 session 更新)
 
 > **Purpose**: 本 session 跑完 smoke v4 R1 baseline 4 平台 (17 × 4 = 68 answers) + 写 R1 retrospective. 新 session 来时先读本文 + `R1_RETROSPECTIVE.md` 即可恢复上下文.
-> **当前日期**: 2026-04-22 晚 11:55 PM
-> **上一次产物**: `git log -1` → 本次 commit (smoke v4 R1 闭合 + retro)
+> **当前日期**: 2026-04-23 (last revised AM)
+> **上一次产物**: `git log -1` → 0bc4b1e (smoke v4 R1 闭合 + retro); 2026-04-23 新 session 启动后 (a) 澄清 P3.8 reviewer 早已完成 (12th slot), (b) 起草 Gemini v6 anti-hallucination guardrail 草案 (`gemini_gems/dev/v6_draft/system_prompt_v6.md`, 17.9K chars), (c) 派 Rule D 13th slot reviewer (`pr-review-toolkit:code-reviewer`) background 独立复判 R1 评分 + v6 adequacy
+> **v1.1 修订记 (2026-04-23)**: §1 NotebookLM row + §2.1 P3.8 reviewer 项 校对为 DONE 状态 (上版 2026-04-22 晚 11:55 写时 cross-check `_progress.json` 权威源漏, 误以为未派); §2.3-2.5 Gemini R2 v6 已起草 + 13th reviewer 派出, 待 reviewer 产物回交后决策 R2 重跑.
 
 ---
 
@@ -12,38 +13,35 @@
 |---|---|---|---|
 | **Claude Projects** | ✅ 完全结束 (不参与 SYNC_BOARD) | 17/17 (100%) | — (R2 可选, 不必要) |
 | **ChatGPT GPTs** | ✅ Phase 4 COMPLETE (N5.4 + Rule D #24) | 16.5/17 (97.1%) | 🔒 Phase 5 pending, 冻结等 NotebookLM |
-| **Gemini Gems** | ✅ Phase 4 COMPLETE (N5.4 + Rule D #25) | 12.5/17, 主 gate 65.4% **FAIL** | 🔥 **R2 必须**: v5→v6 加 anti-hallucination 锚点 |
-| **NotebookLM** | 🔄 Phase 4 部分完成 | 15/17 (88.2%) | P3.8 reviewer + P3.9 未做 |
+| **Gemini Gems** | ✅ Phase 4 闭合 + **R2 PASS ✓✓ (2026-04-23 PM)** | R1 12.0/17 → **R2 16.0/17 (94.1%)**, 主 gate **12.5/13 (96.2%)**, AHP 0/3 → **3/3 PASS+** | ✅ Phase 5 ready (14th reviewer APPROVE, 0 blockers) |
+| **NotebookLM** | 🔄 Phase 4 部分完成 | 15/17 (88.2%) | P3.9 三档分享切换未做 (P3.8 reviewer ✅ 已完成 12th slot, 见下方修正) |
 
-**SYNC_BOARD 锁步状态**: ChatGPT + Gemini 已 Phase 5 pending 冻结, 等 NotebookLM 拉齐 Phase 4 (P3.8 reviewer + P3.9) 才合流统一启 Phase 5 RETROSPECTIVE.
+**SYNC_BOARD 锁步状态**: ChatGPT + Gemini 已 Phase 5 pending 冻结, 等 NotebookLM P3.9 拉齐后跨 4 平台合流启 Phase 5 RETROSPECTIVE (P3.8 reviewer 已闭合, 不再是阻塞项).
 
-**smoke v4 R1 对 NotebookLM Phase 4 的影响**: 消掉了 "Phase 4 #3 跨 4 平台对比矩阵" 子项 (✅ SMOKE_V4.md §3 矩阵 17 × 4 已全填). NotebookLM Phase 4 仍欠 #1 (P3.8 reviewer) + #2 (P3.9 三档分享切换).
+**smoke v4 R1 对 NotebookLM Phase 4 的影响**: 消掉了 "Phase 4 #3 跨 4 平台对比矩阵" 子项 (✅ SMOKE_V4.md §3 矩阵 17 × 4 已全填). NotebookLM Phase 4 仍欠 #2 (P3.9 三档分享切换演练), #1 P3.8 reviewer 实际早已于 2026-04-22 PM 完成 (12th slot `feature-dev:code-reviewer`, evidence `ai_platforms/notebooklm/dev/evidence/p3_8_reviewer_notes.md`, `_progress.json` L509-547 `p3_8_reviewer_verdict_12th_slot` 块记录 PASS 9/10 + 5 action items).
 
 ---
 
 ## 2. 下一步推荐优先级
 
-### 🔥 最高优先 (阻塞项): NotebookLM P3.8 reviewer + P3.9
+### 🔥 最高优先 (阻塞项): NotebookLM P3.9 + Gemini R2 v6 reviewer 回收
 
-**为什么最高**: ChatGPT + Gemini 已冻结 Phase 5 pending, 卡在等 NotebookLM 拉齐. NotebookLM Phase 4 完成后 → 跨 4 平台统一启 Phase 5 (享受 cross-pollination + `_template/` 补丁合并红利).
+**为什么最高**: ChatGPT + Gemini 已冻结 Phase 5 pending, 卡在等 NotebookLM P3.9 拉齐. NotebookLM Phase 4 完成后 → 跨 4 平台统一启 Phase 5 (享受 cross-pollination + `_template/` 补丁合并红利). Gemini R2 平行推进, 不阻塞 NotebookLM.
 
-#### 2.1 NotebookLM P3.8 reviewer (第 11 种 NotebookLM chain subagent_type 未派)
+#### ~~2.1 NotebookLM P3.8 reviewer~~ ✅ DONE (2026-04-22 PM, 2026-04-23 session 澄清)
 
-**任务**: 派独立 reviewer subagent 审 P3.8 执行产物 (smoke v3 Q1-Q10 9/10 strict PASS + 主 session 独立复判 5 findings 含 Q10 (b) 前提错).
+**实际状态 (校对权威源后)**:
+- Evidence: `ai_platforms/notebooklm/dev/evidence/p3_8_reviewer_notes.md` (119 行)
+- 12th slot Rule D subagent_type: `feature-dev:code-reviewer` (非 11th — 11th 是 `oh-my-claudecode:document-specialist` 做 smoke v3→v4 audit)
+- Verdict: **PASS** (9/10 strict 维持, 无降级依据)
+- 5 action items: #1 HIGH (Q10 SUPPTS) 已 bundled 进 v4.0; #2 MEDIUM (Q3 BETERM 降 MINOR); #3 MEDIUM (Finding 6/7 登记); #4 MEDIUM (Rule A caveat: N ≥ 5 抽检补 Phase 5 retro); #5 MEDIUM (Rule E caveat: `p3_8_user_ack` structured field 补登)
+- `_progress.json` L509-547 `p3_8_reviewer_verdict_12th_slot` 块完整记录
 
-**候选 subagent**:
-- `oh-my-claudecode:document-specialist` (11th slot 候选, 已在 SMOKE_V4_DESIGN_HANDOFF.md §7 登记)
-- `pr-review-toolkit:code-reviewer`
-- `oh-my-claudecode:verifier`
+**上版 NEXT_STEPS v1.0 (2026-04-22 晚 11:55) 误判为未派的原因**: 写作时未 cross-check `_progress.json` authoritative source, 凭 R1 lifecycle "Rule D chain 第 13 种未派" 句子反推, 但那句指的是"下一 slot 13th"而非"P3.8 reviewer 未派". 澄清归档.
 
-**执行 prompt pointer**:
-- 读 `ai_platforms/notebooklm/dev/evidence/phase3_task_P3.8_xxx.md` + `smoke_v3_results.md`
-- 独立判 P3.8 执行是否 strict PASS, 主 session 5 findings 是否合理, Q10 前提错修订方向是否正确
-- 产物 `ai_platforms/notebooklm/dev/evidence/p3_8_reviewer.md`
+**5 action items 剩余**: #3/#4/#5 挪 Phase 5 RETROSPECTIVE 合流处理 (非阻塞). #1/#2 已 bundled.
 
-**预估时间**: 30-60 分钟 (subagent 运行时间)
-
-#### 2.2 NotebookLM P3.9 (3 档分享切换演练)
+#### 2.2 NotebookLM P3.9 (3 档分享切换演练) ← 当前 NotebookLM 唯一阻塞项
 
 **任务**: 演练 Custom Mode / Learning Guide / Custom 回切 3 档分享模式切换, 验证 H3 hypothesis VERIFIED PASS (已在 P3.3 做初步验证, P3.9 正式归档).
 
@@ -51,38 +49,50 @@
 
 **预估时间**: 30-90 分钟 (若单独跑 Chrome MCP 演练)
 
-### 🔶 次优先 (能力提升): Gemini R2 v5 → v6
+### 🔶 次优先 (能力提升, 并行推进): Gemini R2 v5c → v6
 
-**为什么次优先**: Gemini Phase 4 已 PASS, R1 FAIL 的是 smoke v4 新 AHP 维度. 不阻塞 SYNC_BOARD 合流, 但影响跨平台最终产物质量.
+**为什么次优先**: Gemini Phase 4 已 PASS (N5.4 Rule D #25), R1 FAIL 的是 smoke v4 新 AHP 维度. 不阻塞 SYNC_BOARD 合流, 但影响跨平台最终产物质量.
 
-#### 2.3 Gemini system_prompt v6 draft
+#### 2.3 Gemini system_prompt v6 draft ✅ DONE (2026-04-23)
 
-**必改点** (来自 R1_RETROSPECTIVE.md §5):
-```
-### ANTI-HALLUCINATION GUARDRAIL (v6 新增, ~500 chars)
-规则 1 变量识别: 任何用户提到的变量, 必须先在 04_business_scenarios.md 变量索引确认;
-  未找到则主动识破 + 提示 SUPP-- NSV 路径 (ch08 §8.4). 严禁编 Core/C-code/Role.
-规则 2 跨域关系: SDTM tabulation 永远是 subject-level record. 若问 'study-level aggregation',
-  必须识破 → ADaM ADAE 或 CSR 职责, 不在 SDTM.
-规则 3 Deprecated concept: PF (Pharmacogenomics Findings) 已 deprecated; v3.4 用 GF + BE + BS + RELSPEC.
-  严禁编 PF 变量.
-```
+**产物**: `ai_platforms/gemini_gems/dev/v6_draft/system_prompt_v6.md` (338 行 / **17,883 chars**; v5c 11,132 → v6 17,883, +6,751 chars, +60%)
 
-**字符预算**: 现 v5 = 7925/8000. 加 500 超限, 需先压缩 v5 既有 CO-4 部分. 或考虑加第 5 个 KB file `05_anti_hallucination_anchors.md`.
+**v6 新增内容**:
+- **CO-5 ANTI-HALLUCINATION GUARDRAIL** 整节 (新): AHP-V1 变量级幻觉 + AHP-V2 跨域层级幻觉 + AHP-V3 Deprecated concept 幻觉 + 6 条 CO-5 共同执行规则
+- **CO-2e** 子条款: C66742 NY codelist 4 值 (Y/N/U/NA) + C66767 Non-Ext (Q8 R1 PARTIAL 修)
+- **回答规范** 补 "多场景题逐场景显式答" (Q4 R1 修) + "SDTM vs ADaM 边界 --DTF ADaM-only" (Q7 R1 修)
+- **路由规则** 1/3/4/7 插 CO-5 check hook, 新增 Route 7 Deprecated
+- **边界处理模板** ⑥⑦⑧ 对应 AHP-V1/V2/V3 标准话术
+- **工作流程** Step 0 前提核 + Step 9 多场景显式 + Step 10 sanity 自检
 
-**预估时间**: 1-2 小时 (draft + 字符预算优化 + 独立 reviewer 复判)
+**字符预算澄清**: v5c header 标 "8K/10K cap" 是旧草约束, Gem UI 实际接受 v5c 11,132 chars 不拒. v6 17,883 chars 若 UI 拒再压缩, 作 Rule D 13th reviewer 审时的边界问题.
 
-#### 2.4 派 Rule D 13th slot: pr-review-toolkit:code-reviewer
+#### 2.4 Rule D 13th slot reviewer (`pr-review-toolkit:code-reviewer`) 🔄 RUNNING (2026-04-23)
 
-**任务**: 独立复判 (1) R1 主 session 判分准确性 (2) Gemini v6 prompt draft 合理性.
+**已派出 (background)**: `pr-review-toolkit:code-reviewer` 独立复判 (1) R1 主 session 判分准确性 (包括 Gemini 8.5/13 FAIL gate + AHP × 3 FAIL + 4 平台跨平台矩阵), (2) Gemini v6 prompt draft 修 AHP × 3 FAIL 的能力.
 
-**预估时间**: 30-45 分钟 subagent 运行
+**Reviewer 输出回交**: 主 session 落档 `ai_platforms/gemini_gems/dev/evidence/r2_13th_reviewer.md` + 回交决策 (v6 draft 是否需修正后才跑 R2 / 字符预算是否减).
 
-#### 2.5 跑 Gemini v6 × 17 题, 对比 R1 baseline
+#### 2.5 跑 Gemini v6 × 17 题 ✅ COMPLETE (2026-04-23 PM)
 
-**阈值建议 (R2 调整)**: AHP × 3 设 **hard gate** (必 ≥ 2/3), 而非仅主 gate summing ≥ 9/13. 若 Gemini v6 AHP ≥ 2/3 → Phase 4 gate 开闸.
+**执行**: 主 session 经 Chrome MCP cowork 单 session 连续跑 17 题, v6-post-A1 (18,716 chars) 已 pre-apply to Gem UI.
 
-**预估时间**: 1-1.5 小时 (17 题 × ~4 min)
+**结果** (主 session self-score + 14th reviewer 独审 APPROVE):
+- Q1-Q10 主 gate: **9.5/10 (95%)** — Q1 PARTIAL (GFGENE regression) + Q2-Q10 全 PASS/PASS+
+- AHP × 3 hard gate: **3/3 PASS+ (100%)** — R1 0/3 FAIL → R2 3/3 PASS+ 完全修复
+- 主 gate 合计: **12.5/13 (96.2%)** (R1 8.5/13 = 65.4%, +30.8%)
+- Bonus Q11-Q14: 3.5/4 strict (Q13 PARTIAL 同 R1 ARMCD 规则 gap)
+- **Strict 总分: 16.0/17 (94.1%)** (R1 12.0/17 = 70.6%, +23.5%)
+- **双硬 gate: PASS ✓✓** — Q1-Q10 9.5 ≥ 7 + AHP 3 ≥ 2
+
+**关键发现 (v6 effectiveness)**:
+- ✅ CO-5 AHP-V1/V2/V3 章 + A1 dual-grep 对 AHP × 3 完全生效 (14th reviewer 判 AHP-V2/V3 "真修 structural invariant", AHP-V1 "近真修" 置信 78)
+- ✅ Q4/Q7/Q8 micro-fix (多场景 / --DTF ADaM-only / C66742 4 值 + C66767 Non-Ext) 全线修复 R1 PARTIAL
+- ⚠️ **v7 carry-over HIGH × 2**: Q1 GF Exp 正向清单 (GFGENE 违反 CO-4 negative list) + Q13 ARMCD-null + ARMNRS 全称 + C142179 锚 (v6 未覆盖)
+
+**独立复核**: 14th slot Rule D reviewer (`oh-my-claudecode:verifier`) APPROVE / high confidence / 0 blockers. 所有 5 key verdict 与主 session 一致. 报告 `ai_platforms/gemini_gems/dev/evidence/r2_14th_reviewer.md`.
+
+**Gate 判定**: **Gemini Phase 4 完全闭合 + Phase 5 ready**. SYNC_BOARD Gemini row 可转 Phase 5 ready (carry-over Q1/Q13 v7 迭代 non-blocking).
 
 ### 🔹 低优先 (可延后)
 
@@ -94,31 +104,36 @@
 
 ---
 
-## 3. 推荐执行顺序 (建议新 session 按此顺序)
+## 3. 推荐执行顺序 (v1.1 2026-04-23 修订)
 
 ```
-新 session 启动
+2026-04-23 session 已完成
+  ├─ 澄清 P3.8 reviewer = DONE (12th slot, 见 2.1)
+  ├─ 2.3 Gemini v6 draft 写就
+  └─ 2.4 派 pr-review-toolkit:code-reviewer (13th slot, background)
+
+下一 session 启动
   ↓
-读 NEXT_STEPS.md (本文) + R1_RETROSPECTIVE.md
+读 NEXT_STEPS.md v1.1 (本文) + R1_RETROSPECTIVE.md + r2_13th_reviewer.md (reviewer 产物)
   ↓
-[分支 A: 优先解 SYNC_BOARD 阻塞]
-  ├─ 2.1 派 NotebookLM P3.8 reviewer subagent (#11 NBL chain slot)
-  ├─ 2.2 P3.9 演练 (若需要, 否则引用 P3.3)
-  └─ 更新 SYNC_BOARD + _progress.json
+[分支 A: NotebookLM P3.9 (SYNC_BOARD 唯一剩余阻塞)]
+  ├─ 2.2 P3.9 三档切换演练 (引用 P3.3 evidence 或 Chrome MCP 再跑)
+  └─ 更新 SYNC_BOARD + NotebookLM _progress.json P3.9 完成字段
   ↓
-[分支 B: Gemini R2 能力修复, 可并行或顺序]
-  ├─ 2.3 Gemini v6 prompt draft
-  ├─ 2.4 派 pr-review-toolkit:code-reviewer (Rule D 13th)
-  └─ 2.5 Gemini v6 × 17 题重跑, 对比 R1 baseline
+[分支 B: Gemini R2 v6 → Re-run (可与 A 并行)]
+  ├─ 读 r2_13th_reviewer.md (13th slot verdict)
+  ├─ 若 reviewer 有修订建议: apply 修订 → v6.1 draft
+  ├─ 2.5 Gemini v6(.1) × 17 题重跑 (Chrome MCP), 对比 R1 baseline
+  ├─ 新阈值: AHP × 3 hard gate (≥2/3) + Q1-Q10 ≥7/10
+  └─ 若 PASS → apply v6 to Gem UI; 若 FAIL → v7 迭代
   ↓
 [汇合: Phase 5 统一 RETROSPECTIVE]
-  跨 4 平台合流 (3 lane SYNC_BOARD finding + NotebookLM 独立 lane 教训)
+  4 平台全齐后跨 lane 合流 (ChatGPT/Gemini SYNC_BOARD 3 finding + NotebookLM 独立 lane 教训 + 5 action items 消化 + Rule A/E caveat retro 补)
 ```
 
-**推荐走法**:
-- 下一个 session: **先跑 2.1 + 2.2** (新 subagent 动作快, 30-90 分钟), 解 SYNC_BOARD 阻塞
-- 第三 session: **跑 2.3-2.5** (Gemini R2), 3-4 小时投入
-- 第四 session: Phase 5 统一 RETROSPECTIVE
+**推荐走法 (v1.1)**:
+- 下一个 session (第三 session): **跑 2.2 (30-90 min) + 2.5 (1-2 h)**, A 分支 + B 分支可并行, 共计 2-3 小时
+- 第四 session: Phase 5 统一 RETROSPECTIVE (4 平台全齐后)
 
 ---
 
@@ -170,6 +185,9 @@ ai_platforms/{notebooklm,gemini_gems,chatgpt_gpt,claude_projects}/dev/evidence/
 # R2 起点候选
 ai_platforms/gemini_gems/docs/PLAN_V2_C.md        # Gemini C 方案 Node 4 架构
 ai_platforms/gemini_gems/dev/evidence/smoke_v4_answers/AHP{1,2,3}_answer.md  # 含 "R2 建议"
+ai_platforms/gemini_gems/dev/v6_draft/system_prompt_v6.md  # **v6 draft 2026-04-23**, 17.9K chars, 待 13th reviewer 审
+ai_platforms/gemini_gems/dev/evidence/r2_13th_reviewer.md  # **待主 session 落档**, 13th slot pr-review-toolkit:code-reviewer 产物
+ai_platforms/notebooklm/dev/evidence/p3_8_reviewer_notes.md  # **已完成 2026-04-22 PM**, 12th slot feature-dev:code-reviewer 独立审 P3.8 9/10 PASS 维持
 ```
 
 ---

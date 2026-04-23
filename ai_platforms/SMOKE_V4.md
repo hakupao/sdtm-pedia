@@ -1066,7 +1066,7 @@ R2 跑完后 Phase 4 总审建议用 `pr-review-toolkit:type-design-analyzer` (h
 | Q10 | H1 SUPP | QORIG/QEVAL + SUPPTS 前提纠错 (v4.0 HIGH fix) | 4 平台 | PASS+ | PASS+ 最强 | PASS (Core 错) | PASS+ 最强 | 4/4 SUPPTS 识破 ✓ | v4.0 patch 成功; 全 4 平台识破 SUPPTS 不存在 |
 | Q11 | F1 新技术 | Dataset-JSON v1.1 vs XPT v5 | 4 平台 | PARTIAL (0.5) | PASS+ 最强 | PASS (bonus) | PASS+ 最强 (4 平台中最强) | 3/4 PASS | NotebookLM 3/5 痛点 in-KB-only limit; Claude IBM 浮点 vs IEEE 754 |
 | Q12 | D2 CT | CT 版本锁定 + Define-XML + MedDRA | 4 平台 | PARTIAL (0.5) | PASS+ | PASS (bonus) | PASS+ 最强 (4 平台中最强) | 3/4 PASS | NotebookLM (a)(d) PUNT; Claude Define-XML 2.0/2.1 namespace prefix def: 最精确 |
-| Q13 | G1 RWD | Observational/RWD + ARMCD (v4.0 删 NS 虚构) | 4 平台 | PASS (NS catch bonus) | PASS+ 最强 | PASS (NS catch, ARMCD 偏离) | PASS+ 最强 (4 平台中最强) | 4/4 NS 识破 ✓ | v4.0 patch 成功; Claude Web fetch CDISC Observational v1.0 PDF |
+| Q13 | G1 RWD | Observational/RWD + ARMCD (v4.0 删 NS 虚构) | 4 平台 | PASS (NS catch bonus) | PASS+ 最强 | **PARTIAL (NS catch, ARMCD NOT ASSIGNED + OBSERVATIONAL GROUP 虚构)** [13th reviewer A3 re-score 2026-04-23 PASS→PARTIAL conf 82] | PASS+ 最强 (4 平台中最强) | 4/4 NS 识破 ✓ | v4.0 patch 成功; Claude Web fetch CDISC Observational v1.0 PDF; Gemini (b) ARMCD 非 null + OBSERVATIONAL GROUP 非 C142179 codelist 值 |
 | Q14 | I1 跨域 | AE/MH/CE timing + DS 日级对齐 | 4 平台 | PASS+ 最强 | PASS+ | PASS+ (bonus) | PASS+ 最强 (4 平台中最强) | 4/4 ✓ | v4.0 patch 成功 §4.2.6 timing context; 全 4 平台 4 部分全中 |
 | **AHP1** | Z1 variable hallucination | LBCLINSIG 虚构 | 4 平台 | **PASS+ 最强** | **PASS+** | **FAIL** | **PASS+ 最强** | 3/4 PASS | Gemini 编 LBCLINSIG C66742+Core=Perm + 编 LBNRIND C78419 错; 其他 3 平台全识破 LBCLSIG 真变量名 |
 | **AHP2** | Z2 cross-domain hallucination | Trial-Level SAE Aggregate 表虚构 | 4 平台 | **PASS+ 最强** | **PASS+ 最强** | **FAIL** | **PASS+ 最强** | 3/4 PASS | Gemini 编完整 RELREC 跨层机制 + IDVAR=TSPARMCD; 其他 3 平台全识破 SDTMIG 无此表 |
@@ -1086,7 +1086,7 @@ R2 跑完后 Phase 4 总审建议用 `pr-review-toolkit:type-design-analyzer` (h
 |---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 | NotebookLM | 17 | 6 | 8 | 2 | 0 | 1 (Q9 safety-correct) | **15/17 (88.2%)** | 16.75/17 | ≥12/17 (71%, R1 容错) | **PASS** ✅ |
 | ChatGPT | 17 | 3 | 13 | 1 | 0 | 0 | **16.5/17 (97.1%)** | 19.75/17 | ≥12/17 (71%) | **PASS** ✅ |
-| Gemini | 17 | 7 | 1 (Q14) | 3 | 3 (AHP×3) | 0 | **12.5/17 (73.5%)** [主 gate 8.5/13 + bonus 4/4] | 12.75/17 | 主 gate ≥9/13 (70%) | **FAIL 主 gate** ❌ (8.5/13 = 65.4%) |
+| Gemini | 17 | 7 | 1 (Q14) | **4** (post A3 +Q13) | 3 (AHP×3) | 0 | **12.0/17 (70.6%)** [主 gate 8.5/13 + bonus 3.5/4] post 13th reviewer A3 Q13 PASS→PARTIAL 2026-04-23 (原 12.5/17) | 12.25/17 | 主 gate ≥9/13 (70%) | **FAIL 主 gate** ❌ (8.5/13 = 65.4%, A3 不改 gate, 仅调 Q13 bonus 评级) |
 | Claude Projects | 17 | 0 | **17 (全 PASS+)** | 0 | 0 | 0 | **17/17 (100%)** | 21.25/17 | ≥13/17 (77%) | **PASS** ✅ |
 
 ---
@@ -1190,7 +1190,7 @@ Q9 Pinnacle 21 是外部工具信息, **不在 KB 的 SDTMIG v3.4 范围内**. N
 | 1 | **Claude Projects** | **17/17 (100%)** | PASS ✅ | v2.6 已达极限, R2 可选 (调优为主) |
 | 2 | **ChatGPT** | **16.5/17 (97.1%)** | PASS ✅ | v2 system_prompt 已稳, R2 可选 (Q1 拼写 MINOR fix) |
 | 3 | **NotebookLM** | **15/17 (88.2%)** | PASS ✅ | Q9 架构限制 PUNT 是 by design, R2 不改. Q11/Q12 PARTIAL = in-KB-only 硬限制, R2 不改 prompt (改 KB 才能提) |
-| 4 | **Gemini** | **12.5/17 (73.5%) / 主 gate 8.5/13 = 65.4%** | **FAIL 主 gate** ❌ | **R2 必改 system_prompt v5 → v6**: 加 anti-hallucination 锚点 section; **KB 补 ch08 SUPP scope + PF→GF 变更 + LB 标准变量清单** |
+| 4 | **Gemini** | **12.0/17 (70.6%) / 主 gate 8.5/13 = 65.4%** [post 13th reviewer A3 Q13 PASS→PARTIAL 2026-04-23; 原 12.5/17] | **FAIL 主 gate** ❌ | **R2 必改 system_prompt v5 → v6**: 加 anti-hallucination 锚点 section; **KB 补 ch08 SUPP scope + PF→GF 变更 + LB 标准变量清单** |
 
 ---
 
