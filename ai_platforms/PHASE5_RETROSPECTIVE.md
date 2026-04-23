@@ -103,7 +103,7 @@
 
 **影响**: R1 Q1 PASS → R2 Q1 PARTIAL (唯一 regression 题). v7 HIGH × 1 未修.
 
-**如何补**: `_template/` 10c patch (见 §4), 以及 Gemini v7 system_prompt CO-4 §GF / §CP / §BE / §BS 补正向变量完整清单. 规则: "正向清单 + 负向清单 双锚" 作新域扩展 default template.
+**如何补**: `_template/` 10c patch (见 §4), 以及 Gemini v7 system_prompt CO-4 §GF / §CP / §BE / §BS 补正向变量完整清单. 规则: "正向清单 + 负向清单 双锚" 作新域扩展 default template. **已起草**: `ai_platforms/gemini_gems/dev/v7_draft/system_prompt_v7.md` (2026-04-23, CO-4 §GF 正向清单双锚 + 执行规则 3 条 + sanity 自检, 待 Rule D reviewer 审后 apply).
 
 ### G5-2. Gemini v6 ARMCD-null 规则未进 (Q13 R1→R2 无变化)
 
@@ -111,7 +111,7 @@
 
 **影响**: bonus 题 PARTIAL 不影响主 gate; 但证明 "Gemini 对 SDTMIG v3.4 ARMCD 规则是系统性 prompt gap". v7 HIGH × 2 未修.
 
-**如何补**: Gemini v7 CO-1b 或 CO-2c 加 5 行 (见 R2_RETROSPECTIVE §3 G-R2-2). 及 `_template/` 11a patch: "Routing 规则扩 — RWD/observational 业务场景必 check ARMCD-null rule".
+**如何补**: Gemini v7 CO-1b 或 CO-2c 加 5 行 (见 R2_RETROSPECTIVE §3 G-R2-2). 及 `_template/` 11a patch: "Routing 规则扩 — RWD/observational 业务场景必 check ARMCD-null rule". **已起草**: `ai_platforms/gemini_gems/dev/v7_draft/system_prompt_v7.md` (2026-04-23, 新增 CO-1c ARMCD null assignment rule, ARMCD/ARM null + ARMNRS C142179 Extensible 填全称 + 禁 NOTASSGN / C66770 / 虚构 OBSERVATIONAL GROUP, 待 reviewer 审后 apply).
 
 ### G5-3. NotebookLM P3.8 reviewer 5 action items 的 #3/#4/#5 (MEDIUM)
 
@@ -130,7 +130,7 @@
 
 **影响**: v5c 实测仅 Q1/Q2/Q3 3 题重跑 PASS, Q4-Q10 没 apples-to-apples 实测.
 
-**如何补**: Phase 5 注册 "optional v5c 全量 10 题回归" (ChatGPT 10 题 + Gemini 10 题), P3.9 后作选做 verification task. 若 skip, 在 retro 明示"假设未实测" + 接受残余风险.
+**如何补**: Phase 5 注册 "optional v5c 全量 10 题回归" (ChatGPT 10 题 + Gemini 10 题), P3.9 后作选做 verification task. 若 skip, 在 retro 明示"假设未实测" + 接受残余风险. **已起草执行 plan**: `ai_platforms/V5C_REGRESSION_PLAN.md` v0.1 (2026-04-23, 172 行, Q4-Q10 × 2 平台 = 14 题回归手顺 + 阈值 + Rule D 15th R2-line slot + 推荐 combined regression with v7/v2.2 apply after).
 
 ### G5-5. [TBD post-P3.9] Free tier 50-cap 证据 3 解读 A/B/C
 
@@ -251,9 +251,9 @@
 
 ### 6.3 可延后 (optional / nice-to-have)
 
-9. Gemini v7 迭代 (Q1 GFGENE + Q13 ARMCD-null 双 HIGH carry-over)
-10. ChatGPT v2 → v2.1 Q1 拼写 MINOR fix (GFINHERT 写全)
-11. Q4-Q10 v5c 全量回归 (G5-4 假设未实测 verification task)
+9. Gemini v7 迭代 (Q1 GFGENE + Q13 ARMCD-null 双 HIGH carry-over) — **draft ready**: `gemini_gems/dev/v7_draft/system_prompt_v7.md` 21,071 chars, 待 reviewer + apply
+10. ChatGPT v2.1 → v2.2 Q1 拼写 MINOR fix (GFINHERT 写全禁 GFINHERTG) — **draft ready**: `chatgpt_gpt/dev/v2.2_draft/system_prompt_v2.2.md` 6,654 chars, 待 reviewer + apply
+11. Q4-Q10 v5c 全量回归 (G5-4 假设未实测 verification task) — **plan ready**: `V5C_REGRESSION_PLAN.md` v0.1, 推荐 combined with #9+#10 apply 后跑
 12. NotebookLM P3.5/P3.6/P3.7 Studio 三件套 post-project 精雕 (v2.1 ICEBOX)
 
 ---
