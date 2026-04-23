@@ -25,7 +25,7 @@
 | **Claude Projects** | v2.6 | **17/17 (100%)** | PASS ✅ | 2026-04-18 → 2026-04-21 (先行 single-platform) |
 | **ChatGPT GPTs** | N5.3 v3.2 bank + N5.4 | **16.5/17 (97.1%) R1** | PASS ✅ | 2026-04-20 → 2026-04-23 (锁步 Gemini) |
 | **Gemini Gems** | v6-post-A1 (R2 产物) | R1 12.0/17 (FAIL 主 gate) → **R2 16.0/17 (94.1%)** | **PASS ✓✓** | 2026-04-20 → 2026-04-23 (锁步 ChatGPT + R2 单平台迭代) |
-| **NotebookLM** | v2 (1 notebook × 42 sources) | **15/17 (88.2%) R1** (主 gate 10/13 = 77%) | PASS ✅ | 2026-04-21 → TBD (async lane, 剩 P3.9) |
+| **NotebookLM** | v2 (1 notebook × 42 sources) | **15/17 (88.2%) R1** (6 PASS + 8 PASS+ + 2 PARTIAL Q11/Q12 supplemental PUNT + 1 PUNT Q9 架构限制) | PASS ✅ | 2026-04-21 → 2026-04-23 (async lane, Phase 4 COMPLETE 含 P3.9 drill PASS) |
 
 ### 0.2 4 平台 Phase 4 gate 状态 (本 retro 起草时)
 
@@ -263,8 +263,8 @@
 
 ### 6.3 可延后 (optional / nice-to-have)
 
-9. Gemini v7 迭代 (Q1 GFGENE + Q13 ARMCD-null 双 HIGH carry-over) — **draft ready**: `gemini_gems/dev/v7_draft/system_prompt_v7.md` 21,071 chars, 待 reviewer + apply
-10. ChatGPT v2.1 → v2.2 Q1 拼写 MINOR fix (GFINHERT 写全禁 GFINHERTG) — **draft ready**: `chatgpt_gpt/dev/v2.2_draft/system_prompt_v2.2.md` 6,654 chars, 待 reviewer + apply
+9. Gemini v7 迭代 (Q1 GFGENE + Q13 ARMCD-null 双 HIGH carry-over) — **draft ready**: `gemini_gems/dev/v7_draft/system_prompt_v7.md` 21,071 chars (wc -m, UTF-8 chars) / 28,107 bytes (wc -c), 待 reviewer + apply
+10. ChatGPT v2.1 → v2.2 Q1 拼写 MINOR fix (GFINHERT 写全禁 GFINHERTG) — **draft ready**: `chatgpt_gpt/dev/v2.2_draft/system_prompt_v2.2.md` 6,654 chars (wc -m, UTF-8 chars) / 8,777 bytes (wc -c), 待 reviewer + apply
 11. Q4-Q10 v5c 全量回归 (G5-4 假设未实测 verification task) — **plan ready**: `V5C_REGRESSION_PLAN.md` v0.1, 推荐 combined with #9+#10 apply 后跑
 12. NotebookLM P3.5/P3.6/P3.7 Studio 三件套 post-project 精雕 (v2.1 ICEBOX)
 
@@ -272,11 +272,58 @@
 
 ## §7 Rule A/B/C/D/E 合规自查
 
-- **Rule A (语义抽检)**: 本 retro 抽检源 = R1/R2/NotebookLM/Claude 4 lifecycle 独立 retro + SYNC_BOARD 变更日志 + P3.9 drill evidence (share_level_toggle_drill.md). 独立样本 5 源 ≥ N=5 门槛 ✓. G5-3 #4 NotebookLM P3.8 N ≥ 5 caveat 维持 MEDIUM 挪 post-project optional.
+- **Rule A (语义抽检)**: **部分满足** — 本 retro trace 了 5 上游产物作为 evidence base (R1/R2/NotebookLM/Claude 独立 retro + SYNC_BOARD 变更日志 + P3.9 drill evidence), 这是 **meta-evidence trace**, 非 Rule A 严格意义的"N 独立样本抽检". 严格 Rule A N≥5 独立样本审挪 G5-3 #4 post-project optional (28th reviewer F3 finding, 撤回原"✓"自证, 承认 category error).
 - **Rule B (失败归档)**: R1 Gemini AHP FAIL / R2 Q1 GFGENE regression / v1 3-notebook 伪约束 pivot / Phase 3 Node 2 attempt_1 双边 FAIL — 全归档. ✓
-- **Rule C (Retro 强制)**: 本文即 Phase 5 跨 4 平台 retro, 三段 (§1 保留 R5-1-6 / §2 缺口 G5-1-5 / §3 决策 D5-1-7). ✓ [v1.0 FINAL candidate 2026-04-23 PM, P3.9 回灌完成, 等 28th reviewer + ack 升 FINAL]
-- **Rule D (审阅隔离)**: 本 retro 起草由主 session 独立于 R1/R2 retro + Claude retro (前各 retro 不是本 retro 的 reviewer). 本 retro sign-off 前待派 28th slot 独立 reviewer (候选见 6.1).
-- **Rule E (跨平台 cross-check)**: 本 retro 核心产物是 Rule E 候选的提炼 (§5). 4 平台 ground truth 对比作本 retro 最强论据.
+- **Rule C (Retro 强制)**: 本文即 Phase 5 跨 4 平台 retro, 三段 (§1 保留 R5-1-6 / §2 缺口 G5-1-5 / §3 决策 D5-1-7). ✓ [v1.0 FINAL candidate 2026-04-23 PM, P3.9 回灌完成 + 28th reviewer 5 condition 修完, 等 Daisy ack 升 FINAL]
+- **Rule D (审阅隔离)**: 本 retro 起草由主 session 独立于 R1/R2 retro + Claude retro. 28th slot 独立 reviewer `oh-my-claudecode:critic` 已完成独审 (CONDITIONAL_PASS 82, 5 fix conditions applied), evidence `ai_platforms/phase5_28th_reviewer.md`. 详见 Appendix A Rule D chain roster.
+- **Rule E (跨平台 cross-check)**: 本 retro 核心**证据**是 4 平台 R1 ground truth 矩阵 (`SMOKE_V4.md §3` 17×4 verdict 矩阵); Rule E 候选 (§5) 是该证据的**规则化产物**, 待 Daisy ack 升 `~/.claude/CLAUDE.md`. **不是**说 Rule E 本身 = 证据 (避免 F9 循环论证).
+
+---
+
+## Appendix A — Rule D Chain Roster (28-slot post-hoc reconstruction, F2 fix)
+
+**来源**: 本花名册是 post-hoc 从 3 平台 `_progress.json` (`rule_d_chain_subagent_types` / `cumulative_*` 字段) + `SYNC_BOARD.md` 变更日志 (2026-04-20 → 2026-04-23) + R1/R2 retros 中 reviewer 段 **重构**. 原始权威记录在各 `_progress.json` + SYNC_BOARD trace, 非本 retro 独创.
+
+**Convention**: 一 slot = 一次独立 reviewer 评审 instance (不是 unique subagent_type 数). 部分 subagent_type 在不同 phase/lane 被重用作独立 reviewer (每次是新 context, 不违 Rule D "同一 context 自审 = 无审" 原则).
+
+**Phase 0-2 (NotebookLM 独立 lane + ChatGPT+Gemini 锁步 lane 混算, 9 slots)**:
+- #1 `general-purpose` (NotebookLM Phase 1 writer1 lane)
+- #2 `oh-my-claudecode:verifier` (NotebookLM Phase 1 reviewer1)
+- #3 `oh-my-claudecode:executor` (NotebookLM Phase 1 writer2)
+- #4 `oh-my-claudecode:critic` (NotebookLM Phase 1 reviewer2; 本 Phase 5 28th slot 同 type 不同 instance)
+- #5 `oh-my-claudecode:planner` (NotebookLM Phase 2 v1)
+- #6 `oh-my-claudecode:analyst` (NotebookLM Phase 2 v1)
+- #7 `feature-dev:code-architect` (NotebookLM Phase 2 v1)
+- #8 `pr-review-toolkit:code-reviewer` (NotebookLM Phase 2 v1; 后续 Phase 4 N5.2 Gemini lane 重用)
+- #9 `oh-my-claudecode:architect` (NotebookLM Phase 2 v2 审)
+
+**Phase 3 (ChatGPT+Gemini 锁步 lane, 7 new slots + reuse, SYNC_BOARD L189-200)**:
+- #10 `oh-my-claudecode:debugger` (Phase 3 N1 v1.2 delta)
+- #11 `feature-dev:code-reviewer` (Phase 3 N2 v1.3c audit)
+- #12 `pr-review-toolkit:comment-analyzer` (Phase 3 N3a Gemini)
+- #13 `pr-review-toolkit:pr-test-analyzer` (Phase 3 N3b ChatGPT)
+- #14 `oh-my-claudecode:scientist` (Phase 3 N3b Gemini; 后续 NotebookLM P3.4.5 + N5.3 reuse)
+- #15 `superpowers:code-reviewer` (Phase 3 N4 writer review)
+- #16 `oh-my-claudecode:tracer` (Phase 3 N4 smoke v2 ChatGPT)
+- #17 `oh-my-claudecode:test-engineer` (Phase 3 N4 smoke v2 Gemini)
+
+**Phase 4 (ChatGPT+Gemini 锁步 + NotebookLM async, 6 new slots + reuse)**:
+- #18 `pr-review-toolkit:silent-failure-hunter` (Phase 4 N5.1 ChatGPT)
+- #19 `oh-my-claudecode:security-reviewer` (Phase 4 N5.1 Gemini)
+- #20 `pr-review-toolkit:type-design-analyzer` (Phase 4 N5.3 ChatGPT)
+- #21 `feature-dev:code-architect` reuse (Phase 4 N5.3 Gemini, same type as #7 different evidence)
+- #22 `oh-my-claudecode:code-reviewer` (Phase 4 N5.4 ChatGPT AB #24 reviewer)
+- #23 `feature-dev:code-explorer` (Phase 4 N5.4 Gemini AB #25 reviewer)
+- (NotebookLM async lane:) #24 `oh-my-claudecode:document-specialist` (smoke v3→v4 audit 11th slot) + #25 `feature-dev:code-reviewer` reuse (P3.8 reviewer 12th slot, same type as #11 different evidence)
+
+**Phase 5 / R2-line (Gemini 单平台 iteration + Phase 5 retro, 3 slots)**:
+- #26 `pr-review-toolkit:code-reviewer` reuse (R2 13th R2-line slot for v6 adequacy, same type as #8)
+- #27 `oh-my-claudecode:verifier` reuse (R2 14th R2-line slot for R2 scoring, same type as #2)
+- #28 `oh-my-claudecode:critic` reuse (**本 retro 28th slot**, same type as #4 — 不同 context/evidence, CONDITIONAL_PASS 82, 5 fix conditions applied 2026-04-23 PM)
+
+**Unique subagent_type count**: ~21 distinct types across 28 slots (部分类型被重用作不同 evidence 的独立 reviewer).
+
+**Caveat**: 本 roster 是 post-hoc reconstruction, 若与 SYNC_BOARD 变更日志 / `_progress.json` cumulative 字段有 off-by-1 偏差, 以 trace 源为准. 此 appendix 是 reviewer F2 "27-chain unfalsifiable talisman" finding 的修复 — 把"27 种"从口头数字升级为可核对花名册.
 
 ---
 
@@ -285,8 +332,9 @@
 | 版本 | 日期 | 状态 | 触发 |
 |---|---|---|---|
 | v0.1 | 2026-04-23 AM | DRAFT 骨架 | R2 Gemini 闭合 commit `680d99b` 之后 |
-| **v1.0 candidate** | **2026-04-23 PM** | 🟢 **FINAL candidate** (P3.9 回灌完成) | P3.9 drill PASS + evidence `share_level_toggle_drill.md` v1.0 + 4 TBD marker 全灌 |
-| v1.0 FINAL | [TBD, 短线内] | ✅ FINAL | 28th Rule D slot reviewer APPROVE + Daisy ack 进 sign-off |
+| v1.0 candidate | 2026-04-23 PM | 🟢 FINAL candidate (P3.9 回灌完成) | P3.9 drill PASS + evidence `share_level_toggle_drill.md` v1.0 + 4 TBD marker 全灌 |
+| **v1.0 post-28th-reviewer** | **2026-04-23 PM** | 🟢 **post-fix, ack-ready** | 28th slot `oh-my-claudecode:critic` CONDITIONAL_PASS 82 + 5 blocking fix applied (F1 NotebookLM 详细 / F2 Appendix A roster / F3 Rule A 部分满足 / F6+F7 char 双单位 / F9 Rule E 循环论证修) + F4/F5/F8 deferred non-blocking. Evidence `ai_platforms/phase5_28th_reviewer.md` |
+| v1.0 FINAL | [TBD, Daisy ack 时] | ✅ FINAL | Daisy ack → Phase 6.5 全 lifecycle sign-off 🎉 |
 
 ---
 
