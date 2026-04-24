@@ -27,6 +27,8 @@
 | Batch | Page range | Writer type | Reviewer type (Rule A 抽检) | Atoms | Failures | Status | Notes |
 |---|---|---|---|---|---|---|---|
 | 01 | ig34 p.1-10 | oh-my-claudecode:executor | pending (30-page milestone) | **326** | 0 | ✅ done 2026-04-24 | TOC heavy (p.2-5 = 210 CROSS_REF, 65%), p.6 稀疏 2 atom, 正文 p.7-10 合理; atom_id 3→4 digit autofix 全 326; atom_type dist CROSS_REF 212 / LIST_ITEM 62 / SENTENCE 30 / HEADING 13 / TABLE_ROW 8 / TABLE_HEADER 1; 0 schema error post-fix |
+| 02 | ig34 p.11-20 | oh-my-claudecode:writer (model=sonnet override) | pending (30-page milestone) | **323** | 0 | ✅ done 2026-04-24 | Batch 02 clean run: 0 schema errors (inline 4-digit fix for O-P1-03 worked, autofix 0), **9/9 atom_type 单批覆盖** (P1 首次, FIGURE=1 p.14), **CODE_LITERAL 63/323 (19.5%)** 首批出现证明 Option A spec 表原子化产出开始; atom_type dist SENTENCE 89 / LIST_ITEM 76 / TABLE_ROW 63 / CODE_LITERAL 63 / HEADING 16 / CROSS_REF 7 / NOTE 4 / TABLE_HEADER 4 / FIGURE 1; density 15-53 atoms/页; 0 collision with root. |
+| 03 | ig34 p.21-30 | oh-my-claudecode:executor (model=sonnet) | 🔄 dispatching slot #12 superpowers:code-reviewer | **269** | 0 | ✅ done 2026-04-24 | Batch 03 clean: 0 schema errors, SENTENCE 115/269 (42.8%) Ch.3 narrative-heavy, 0 CROSS_REF/0 FIGURE (TOC 已结束), 7/9 atom_type per-batch (cumulative 9/9), HEADING 34 多 subsection; density 16-40 atoms/页; 0 collision. 触发 30-page milestone: drift calibration (2-type) + Rule A 30 atom 独审 dispatched. |
 
 ### P1 Drift 校准 (每 300 atom = 每 3 batch)
 
