@@ -108,10 +108,10 @@
 | 13 | MEDIUM | Bonus vs main gate 解耦 | APPLIED |
 | 14 | MEDIUM | 4 平台 cross-check ground truth 机制 | APPLIED |
 | 15 | LOW | 分享档位 multi-scope + Public ≠ gallery 澄清 | APPLIED |
-| **16** | MEDIUM | Concept cluster 排布原则 (concept 优先 domain/字母) | 🟡 NEW |
-| **17** | MEDIUM | Rule A N 阈值矩阵 + category error 警示 | 🟡 NEW |
-| **18** | LOW | in-KB-only 架构优势 vs prompt-level anchor | 🟡 NEW |
-| **19** | LOW | Citation dropout T2 题型偏向豁免 | 🟡 NEW |
+| **16** | MEDIUM | Concept cluster 排布原则 (concept 优先 domain/字母) | ✅ APPLIED (05_solution.md +26 行) |
+| **17** | MEDIUM | Rule A N 阈值矩阵 + category error 警示 | ✅ APPLIED (02_workflow +10 / 06_review +2 子节) |
+| **18** | LOW | in-KB-only 架构优势 vs prompt-level anchor | ✅ APPLIED (00_platform §G.1 +16 / 06_review A/B 维度) |
+| **19** | LOW | Citation dropout T2 题型偏向豁免 | ✅ APPLIED (06_review T2 豁免子节) |
 
 详述见 [`PATCHES.md`](PATCHES.md).
 

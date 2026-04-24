@@ -90,6 +90,22 @@
 | Claude Projects | RAG 衰减 / 边界诚实 / 跨文件 narrative 重建 / Deferred stub 识别 |
 | ChatGPT GPTs | 跨 chunk 检索准确度 / 公开分享语气 / Conversation Starter 命中率 |
 | Gemini Gems | 全域对比 / 跨域模式识别 / 长上下文末尾召回 / 大规模比较 |
+| NotebookLM | in-KB-only 架构 anti-hallucination / 三档分享切换 / grounded citation |
+
+### G.1 Anti-hallucination 机制分类 (补丁 18, 2026-04-24 via NotebookLM async lane)
+
+选本平台 anti-hallucination 路径 (影响 A/B 矩阵设计 + AHP 阈值判定):
+
+- [ ] **架构级 in-KB-only** (NotebookLM 型): 模型被强约束只能从 sources 答, 训练数据 + web 无访问. AHP × 3 天然 PASS+ 最强.
+- [ ] **Prompt 级 anchor** (ChatGPT/Gemini 型): System prompt 写 "遇虚构前提先纠错" 类锚点. 需 prompt 工程, 锚缺就 FAIL (Gemini R1 AHP 0/3 → R2 CO-5 单点修 → 3/3).
+- [ ] **混合 (训练 + anchor)** (Claude 型): 训练数据深度 + prompt 锚补. 中间偏上 (17/17 但部分题靠 web 补, 不纯架构).
+
+**A/B 矩阵影响**:
+- **若选 Prompt 级**: A/B 矩阵必含 AHP × 3 (变量虚构 / 跨域虚构 / deprecated 虚构), 阈值 ≥ 67% (2/3) 硬 gate.
+- **若选架构级**: AHP × 3 仍测, 但预期 PASS+ 最强, 同时记录 "supplemental topics PUNT" 架构限制 (如 NotebookLM Q9 Pinnacle 21).
+- **若选混合**: 两者兼测, 留意 AHP PASS 是否来自 web/训练 vs prompt 锚.
+
+**架构优势 ≠ prompt 优势, 互补非替代** — 源 NotebookLM R-NBL-6 AHP × 3 全 PASS+ 最强 + cross-4 平台 AHP 矩阵 (Claude 3/3 混合 / ChatGPT PARTIAL prompt / Gemini R1 0/3 → R2 3/3 prompt / NotebookLM 3/3 架构).
 
 ---
 

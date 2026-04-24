@@ -77,6 +77,32 @@
 
 ---
 
+## 切分粒度原则: Concept cluster 优先 (补丁 16, 2026-04-24 via NotebookLM async lane)
+
+**问题**: 当平台有 source 数硬限 (NotebookLM 300 / ChatGPT 20 / Gemini 10) 需要把多源 (如 SDTM 295 md) 聚合合并为 ≤N source 时, 按什么粒度合?
+
+**历史做法误区** (跨 3 平台观察到):
+- 按 **domain 字母**切 (AB_*/CD_*/EF_*...): 信息碎片化, RAG 跨 source 查询成本高
+- 按 **文件类型**切 (all_specs.md + all_terms.md + all_examples.md): 语义跨度过大, 单 source 内异质信息混淆 citation
+- 按 **页码/size** 均分: 更糟糕 — 跨 domain 边界随机切断
+
+**正确做法** (NotebookLM v2 实测 PASS, 42 bucket × 63 domain × 176 Req ∅ gap):
+> **按 concept 聚合** — "events_ae" + "findings_lb_quantitative" + "trial_design_ta_te_tv" 这类 concept-level bucket. 每 bucket 内部 domain/spec/assumptions/examples/terminology **同 concept 合并**, bucket 间 concept **正交**.
+
+### 通用规则
+
+1. 先按用户**问答场景**而非物理文件分类, 列 concept 清单 (events / findings / timing / CT / relationships / trial design ...)
+2. 每 concept 一个 bucket, 跨 domain 聚合所有相关源文件
+3. bucket 边界原则: **正交** (一个源文件属且仅属一个 concept bucket, 无重复无遗漏)
+4. 每 bucket 顶部加 "source metadata header" (domain list / key topics) 便于 citation 反查
+5. **对比不采用 concept cluster 的情况**: 源数 ≤ 20 且 无跨 domain 聚合需求 (如 ChatGPT 20 硬限), 可按 batch 1 (spec+CT) + batch 2 (chapters+examples) 两轴分
+
+**验收**: Q1 红线 (Req 变量 ∅ gap) 结构级 + 语义级双锚.
+
+**源**: NotebookLM `docs/RETROSPECTIVE.md` R-NBL-2; 详见 `ai_platforms/_template/PATCHES.md §补丁 16`.
+
+---
+
 ## 每批内容分配 (规则 E 乘入)
 
 ### 规则 E 的算法

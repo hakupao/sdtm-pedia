@@ -103,6 +103,31 @@ executor            code-reviewer              独立抽样
 
 "disjoint" = reviewer 选的样本和主控选的样本**不重叠**, 保证覆盖面.
 
+### 规则 A 压缩率 × N 阈值矩阵 (补丁 17, 2026-04-24 via NotebookLM async lane)
+
+上表按批规模定 N, 对于**压缩率触发** Rule A 的情况 (源 → 产物 压缩率 >50%) 另有 N 阈值矩阵:
+
+| 压缩率 | N 建议 | 理由 |
+|--------|--------|------|
+| 50-70% | N ≥ 3 | 结构级 ∅ gap + 3 样本独立抽检足够 catch 粗粒度错 |
+| 70-85% | N ≥ 5 (50%) | 压缩越高 risk 越大, 5 样本覆盖关键维度 |
+| ≥ 85% | N ≥ 7 或全覆盖 | NotebookLM 86% 压缩实际只抽 3/10 (30%) 在边缘被 reviewer flag |
+
+**N 必须写进 PLAN §Task** (非事后补登, `ai_platforms/_template/04_plan.md` §Task 定义时 explicit 列).
+
+### Rule A 合规 vs meta-evidence trace 的 category 差异 (补丁 17, 重要警示)
+
+多 retro 实践中出现 "meta-evidence trace 当 Rule A" 的类别错误 — retro trace 前序产物 (如 ∅ gap audit / 语义级审) 作 evidence base, 这是**合规** evidence 引用, **但不等于** Rule A 严格意义的 "N 独立样本抽检 (N 写进 PLAN, 独立抽**新**样本审)".
+
+**两者 category 差异**:
+- **trace 前序产物**: 证明 "已有 evidence 闭合"
+- **N 独立抽检**: 证明 "新样本再打一次也稳"
+
+**正交互补, 不能互替**. Retro 若仅列 trace 不说 "N 独立抽检未做", 容易在 reviewer category error 上被抓 (跨 4 retro 28th reviewer F3 + NotebookLM 独立 reviewer 重抓).
+
+**写进 retro §Rule A 章节模板**:
+> "本 retro 的 Rule A trace 是 **meta-evidence trace** (trace 前序产物作 evidence base), 非 Rule A 原文严格意义 "N 独立样本抽检". 严格 N≥X 独立抽检 [已做 / 挪 post-project optional]."
+
 ---
 
 ## A/B 回归矩阵
@@ -132,6 +157,40 @@ executor            code-reviewer              独立抽样
 **错误**: 只跑本批新增题 (会漏掉跨批 regression).
 
 **正确**: 每批跑**完整矩阵** (基线 + 历史新增 + 本批新增).
+
+### T2 题型 citation dropout 豁免 (补丁 19, 2026-04-24 via NotebookLM async lane)
+
+**现象**: source-grounded 架构平台 (NotebookLM 典型) 在 **T2 题型** (业务场景 / 举例类 / "某药物场景下 X 变量怎么填") 上 citation 数明显低于 **T1 题型** (事实查询类 / "X 变量的 Core 属性是什么").
+
+**数据** (NotebookLM 实测):
+- P3.4.5 语义级 N=10: 语义 10/10 顶阈值 + citation 7/10 (偏低)
+- P3.8 smoke v3 Q1-Q10: T1 题 citation 均 ≥ 10 / T2 题 citation 3-5
+
+**根因**: 业务场景 T2 题的 "source 支撑" 是 **spread across multiple bucket** 的 inference, 不是单一引文可覆盖; 模型倾向"答语义正确但省 inline cite".
+
+**评分规则** (本范本采用): 业务场景/举例类 T2 题若答**语义正确**但 citation 数 **< T1 题均值**, **不扣分** (系统性现象非单题失误). 在 retro §缺口 登记作平台系统性弱点 (如 NotebookLM G-NBL-5 / F-3).
+
+**非** 修复路径 (作 ICEBOX 备用):
+- 调 System Prompt / Custom mode 加"业务例后强制 cite source"规则 (未实测效果)
+- 报告给平台提 feature request (超项目 scope)
+
+### A/B 维度按 anti-hallucination 机制分类 (补丁 18, 2026-04-24 via NotebookLM async lane)
+
+设计 A/B 矩阵时, **按 platform_profile §G.1 选择的 anti-hallucination 机制** (架构级 / Prompt 级 / 混合) 分类, 不同机制的 AHP 阈值与归因不同:
+
+| 机制 | AHP × 3 预期 | 阈值 | 失败归因 |
+|------|-------------|------|----------|
+| 架构级 in-KB-only | 3/3 PASS+ 最强 | ≥ 67% (2/3) 硬 gate | 如 FAIL 归因 "架构 bypass" (极罕见) |
+| Prompt 级 anchor | 依赖锚设计 | ≥ 67% (2/3) 硬 gate | FAIL 归因 "锚缺 / 锚模糊" (如 Gemini R1 → R2 CO-5 修复) |
+| 混合 | 预期 PASS 偏高 | ≥ 67% (2/3) 硬 gate | FAIL 时区分 "web 没补上 vs 锚失效" |
+
+**重要**: AHP PASS **不等于** anti-hallucination 能力强, 需归因区分:
+- NotebookLM 3/3 PASS+ 最强 = 架构优势 (天然)
+- Claude 3/3 PASS+ = 训练深度 + 锚 (混合, 部分题靠 web)
+- ChatGPT PARTIAL = 锚执行不严
+- Gemini R2 3/3 = 锚精修后 (R1 0/3 → R2 3/3 因果闭环)
+
+跨平台对比 AHP 结果时不要混为一谈 (源 NotebookLM R-NBL-6 + cross-4 platform AHP 矩阵).
 
 ### 跨批正向 / 负向激活观察
 

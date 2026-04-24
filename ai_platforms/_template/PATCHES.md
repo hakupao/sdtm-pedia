@@ -20,10 +20,10 @@
 | **13** | MEDIUM | R1/R2 阈值设计 | `06_review.md` A/B 评分规则 | ✅ **APPLIED** via PHASE5_RETROSPECTIVE §4 | Bonus 题 vs main gate 解耦模板 — Q1-Q10 主 gate + Q11-Q14 bonus + AHP hard gate |
 | **14** | MEDIUM | R5-1 Rule E 候选 (4 平台 cross-check ground truth) | `02_workflow.md` + `06_review.md` | ✅ **APPLIED** via PHASE5_RETROSPECTIVE §4 | 4 平台 cross-check ground truth 机制文档化 — in-KB-only 作 truth / web-search 作 coverage / 训练数据作 depth / prompt 锚控作受控对照 |
 | **15** | LOW | NotebookLM P3.9 三档切换实测 (2026-04-23) | `00_platform_profile.md` §D 分享档位 | ✅ **APPLIED** via PHASE5_RETROSPECTIVE §4 + P3.9 drill 新发现扩展 | 分享档位切换作 single-notebook 多 scope 新范式; **Public ≠ auto gallery 广播** (比 GPT Store "全网广播" 保守, 隐私友好性更高, 适合小圈+定向外发) |
-| **16** | MEDIUM | NotebookLM R-NBL-2 (42 bucket concept cluster) | `05_solution.md` 内容策略 | 🟡 **NEW candidate 2026-04-24** | Concept cluster 优先于 domain/字母切 — 跨平台通用排布原则 |
-| **17** | MEDIUM | NotebookLM G-NBL-2 (P3.8 Rule A N 未明示) + reviewer category error | `02_workflow.md` + `06_review.md` | 🟡 **NEW candidate 2026-04-24** | Rule A N 阈值建议矩阵 + meta-evidence trace ≠ N 独立抽检 category error 警示 |
-| **18** | LOW | NotebookLM R-NBL-6 (AHP × 3 全 PASS+ 最强) | `00_platform_profile.md` §G 边界行为 + `06_review.md` | 🟡 **NEW candidate 2026-04-24** | in-KB-only 架构天然 anti-hallucination 优势 vs prompt-level anchor — 架构优势非 prompt 优势, 互补非替代 |
-| **19** | LOW | NotebookLM G-NBL-5 (F-3 citation dropout T2 偏向) | `06_review.md` A/B 评分规则 + 系统性弱点记录 | 🟡 **NEW candidate 2026-04-24** | Citation dropout T2 题型偏向观察 — 业务场景/举例类 T2 题易丢 inline cite, 平台侧限制非 prompt 修复 |
+| **16** | MEDIUM | NotebookLM R-NBL-2 (42 bucket concept cluster) | `05_solution.md` 内容策略 | ✅ **APPLIED 2026-04-24 晚** (inline 合入 05_solution.md +26 行) | Concept cluster 优先于 domain/字母切 — 跨平台通用排布原则 |
+| **17** | MEDIUM | NotebookLM G-NBL-2 (P3.8 Rule A N 未明示) + reviewer category error | `02_workflow.md` + `06_review.md` | ✅ **APPLIED 2026-04-24 晚** (02_workflow +10 行 / 06_review Rule A 章节扩) | Rule A N 阈值建议矩阵 + meta-evidence trace ≠ N 独立抽检 category error 警示 |
+| **18** | LOW | NotebookLM R-NBL-6 (AHP × 3 全 PASS+ 最强) | `00_platform_profile.md` §G 边界行为 + `06_review.md` | ✅ **APPLIED 2026-04-24 晚** (00_platform §G.1 新节 +16 行 / 06_review A/B 维度扩) | in-KB-only 架构天然 anti-hallucination 优势 vs prompt-level anchor — 架构优势非 prompt 优势, 互补非替代 |
+| **19** | LOW | NotebookLM G-NBL-5 (F-3 citation dropout T2 偏向) | `06_review.md` A/B 评分规则 + 系统性弱点记录 | ✅ **APPLIED 2026-04-24 晚** (06_review T2 豁免子节) | Citation dropout T2 题型偏向观察 — 业务场景/举例类 T2 题易丢 inline cite, 平台侧限制非 prompt 修复 |
 
 ---
 
@@ -187,12 +187,22 @@
 
 用户 ack 本 PATCHES.md 后, 按此清单把 16-19 内容合入对应 `0N_*.md` 原文件:
 
-- [ ] 补丁 16 (concept cluster): `05_solution.md` 内容策略章节加 "concept cluster 排布原则" 小节 + 示例
-- [ ] 补丁 17 (Rule A N 阈值 + category error): `02_workflow.md` Rule A 执行段加 "N 阈值建议矩阵" + `06_review.md` Rule A 章节加 "category error 警示"
-- [ ] 补丁 18 (in-KB-only vs prompt anchor): `00_platform_profile.md` §G 新增字段 + `06_review.md` A/B 维度说明
-- [ ] 补丁 19 (T2 citation 豁免): `06_review.md` A/B 评分章节新增 "T2 citation dropout 豁免" 段
+- [x] **补丁 16 (concept cluster)**: `05_solution.md` 内容策略章节加 "concept cluster 排布原则" 小节 + 示例 — **DONE 2026-04-24 晚** (+26 行 "## 切分粒度原则: Concept cluster 优先")
+- [x] **补丁 17 (Rule A N 阈值 + category error)**: `02_workflow.md` Rule A 执行段加 "N 阈值建议矩阵" + `06_review.md` Rule A 章节加 "category error 警示" — **DONE 2026-04-24 晚** (02_workflow +10 行 / 06_review §规则 A 新 2 子节)
+- [x] **补丁 18 (in-KB-only vs prompt anchor)**: `00_platform_profile.md` §G 新增字段 + `06_review.md` A/B 维度说明 — **DONE 2026-04-24 晚** (00_platform §G.1 新节 +16 行 / 06_review "A/B 维度按 anti-hallucination 机制分类" 子节)
+- [x] **补丁 19 (T2 citation 豁免)**: `06_review.md` A/B 评分章节新增 "T2 citation dropout 豁免" 段 — **DONE 2026-04-24 晚** (06_review "T2 题型 citation dropout 豁免" 子节)
 
-**合入原则**: 不大改已有文件结构, 以"新增小节"形式追加, 保持范本向后兼容.
+**合入原则**: 不大改已有文件结构, 以"新增小节"形式追加, 保持范本向后兼容. ✅ 全部满足 (4 个原文件共 +110 行).
+
+### 合入 evidence
+
+| 文件 | 新增行数 | 新增章节 |
+|------|---------|---------|
+| `00_platform_profile.md` | +16 | §G.1 Anti-hallucination 机制分类 (3 选 1 + A/B 矩阵影响) |
+| `02_workflow.md` | +10 | Phase 3 关键动作规则 A 扩 "N 阈值建议矩阵" (50-70%/70-85%/≥85% 三档) |
+| `05_solution.md` | +26 | "## 切分粒度原则: Concept cluster 优先" (误区 × 3 + 通用规则 × 5 + 验收 Q1 ∅ gap) |
+| `06_review.md` | +59 | 3 新子节 — "规则 A 压缩率 × N 阈值矩阵" / "Rule A 合规 vs meta-evidence trace 的 category 差异" / "T2 题型 citation dropout 豁免" / "A/B 维度按 anti-hallucination 机制分类" |
+| **合计** | **+110 行** | 4 个补丁 + 7 处 inline |
 
 ---
 

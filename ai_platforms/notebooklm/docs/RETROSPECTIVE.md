@@ -458,6 +458,17 @@ Plus 本平台 Phase 2-3 内独立:
 - **触发条件**: 用户主动提出 "回头精雕 NotebookLM Studio 三件套"
 - **不触发时永久 ICEBOX, 不影响本次 Phase 5 收束完整性**
 
+**🟢 TRIGGERED 状态 (2026-04-24 晚, D-NBL-2 负外部性担忧证伪)**:
+
+Daisy 在 Phase 5 SIGN-OFF 同晚主动触发 Studio 三件套 ICEBOX lane — **证伪 D-NBL-2 "ICEBOX 触发条件 weak → 实际可能永不做" 的负外部性担忧** (实际路径: Phase 5 sign-off → 同晚触发, 无拖延).
+
+- **Lane 位置**: `post_project_icebox/STUDIO_TRIO_HANDOFF.md` (258 行自足 handoff, 不污染本主 retro)
+- **Writer**: Daisy 在**其他终端** NotebookLM Web UI 实操生成产物 (Audio × 3 / Mind Map / Study Guide × 3)
+- **Reviewer 候选**: `oh-my-claudecode:designer` (全新 subagent_type, Rule D 合规) 或 `pr-review-toolkit:comment-analyzer` reuse #12 不同 evidence
+- **回灌路径**: Daisy 完成 + reviewer APPROVE 后, 主 session 追加 **Appendix C** 到本 retro 末尾 (不改正文, 不改 §1/§2/§3 三段), 版本升 v1.1-appendix
+- **评估**: U1 Audio-1 SAFETY 抽听 ≤3 错 / U2 Audio-3 PK 抽听 ≤2 错 / U3 Mind Map RELREC 命中 ≥9/10 / U4 Mind Map SUPPQUAL ≥80% / U5 Study Guide AE 分层齐全 (Standard+IG+Examples)
+- **本 retro v1.0 FINAL 正文不依赖本 lane 结果** — Studio 独有无跨 4 平台对比价值, 评估成功作 bonus evidence 非 gate
+
 ---
 
 ## §8 版本管理
@@ -467,6 +478,7 @@ Plus 本平台 Phase 2-3 内独立:
 | **v0.1** | **2026-04-24 (上午)** | 🟡 **DRAFT** (pending reviewer + Daisy ack) | 主 session writer lane 完成; async lane 独立 retro; Phase 5 闭合路径 Step 1 |
 | **v0.2 post-reviewer-fix** | **2026-04-24 (下午)** | 🟡 **post-fix, ack-ready** | 独立 reviewer `oh-my-claudecode:critic` CONDITIONAL_PASS 8.0/10 + 1 HIGH + 4 MEDIUM + 3 遗漏 + 2 Open Q 全修; evidence `dev/evidence/phase5_retrospective_reviewer.md` (reviewer #2 Open Q2 fix: 中间态 audit trail) |
 | **v1.0 FINAL** | **2026-04-24 (晚, Daisy 认可)** | ✅ **FINAL** | Daisy 读完 v0.2 post-reviewer-fix + reviewer 报告 → ack → NotebookLM async lane Phase 5 retro sign-off → UPLOAD_TUTORIAL.md v1.0 同批产出 → 父目录索引同步 → commit 闭环 |
+| v1.1-appendix (reserved) | [TBD post-ICEBOX completion] | 🟡 reserved | Studio 三件套 ICEBOX lane 产物 (Audio × 3 / Mind Map / Study Guide × 3) + §5 reviewer APPROVE 后, 主 session 追加 Appendix C 到本 retro 末尾; 三段 (R-NBL / G-NBL / D-NBL) 正文不改, 仅 Appendix 追加. 当前 `post_project_icebox/STUDIO_TRIO_HANDOFF.md` 2026-04-24 晚 TRIGGERED |
 
 ---
 
