@@ -1,0 +1,153 @@
+{
+  "project": "06_deep_verification",
+  "tier": 3,
+  "status": "P1_batch_01_done_batch_02_ready",
+  "current_phase": "P1_batch_02_next (writer=oh-my-claudecode:writer, pages=11-20)",
+  "plan_version": "v0.5-DRAFT (post P0 Pilot + T2b FIGURE 补测)",
+  "recovery_hint": "【P0 Pilot ✅ PASS (full) 2026-04-24 PM, 9/9 atom + v1.2 6/6 fix 实战 PASS】下一 session 起步: (1) 读 evidence/checkpoints/p0_to_p1_handoff.md — 全 P0 收官 + 交接; (2) 读 PLAN.md v0.5 changelog + plans/P1_pdf_atomization.md v0.1 DRAFT; (3) 用户决策 3 事: (a) PLAN v0.5 ack (b) plans/P1_pdf_atomization.md ack (c) spec 表策略 Option A/B/C (默认 A: PDF spec 表全量原子化, 与 xlsx 脚本产物 diff 验证); (4) ack 后 P1 batch 1 kickoff: 派 oh-my-claudecode:executor × SDTMIG v3.4 p.1-10, 每页 1 call, Write tool 直写 pdf_atoms.jsonl, 目标 ~100 原子; (5) 3 batch 累 300 原子 → drift 校准 1 次; 30 页 → Rule A 30 原子独审 (派 slot #12 reviewer, 候选 superpowers:code-reviewer); (6) P0 artifacts 全在 evidence/checkpoints/ (21 文件) + schema/ (2 frozen JSON) + subagent_prompts/ (v1+v1.2 + archive); (7) Rule D roster 11/16 烧 (executor/writer/explore家族全烧), 余 5 superpowers:code-reviewer/scientist/tracer/architect/ai-slop-cleaner 给 P1 reviewer slot 用; (8) 运维硬规则: P1 writer/matcher 全用 executor/writer 家族 + Write tool 直写, 禁 Explore 家族.",
+  "created": "2026-04-24",
+  "v1.2_upgrade_completed": "2026-04-24",
+  "charter_gates": {
+    "pdf_atom_coverage_pct": null,
+    "user_sample_error_rate": null,
+    "rule_d_reviewer_pass": true,
+    "rule_d_reviewer_pass_evidence": "T1 v1.1 85% (slot #10 pr-review-toolkit) + T2/T3 81.25% (slot #11 feature-dev:code-reviewer)"
+  },
+  "phases": {
+    "P0_pilot": {
+      "status": "CONDITIONAL_PASS",
+      "completed": "2026-04-24",
+      "target_files": [
+        "knowledge_base/model/04_associated_persons.md (T1)",
+        "knowledge_base/chapters/ch08_relationships.md (T2, 前 50 行)",
+        "knowledge_base/domains/AE/assumptions.md (T3, 前 30 行)"
+      ],
+      "target_pdf_pages": [
+        "SDTM_v2.0.pdf p.50 (T1)",
+        "SDTMIG v3.4 (no header footer).pdf p.428 (T2)",
+        "SDTMIG v3.4 (no header footer).pdf p.137 (T3)"
+      ],
+      "atoms_produced": {"pdf": 83, "md": 143, "total": 226},
+      "ledger_entries": 198,
+      "findings_count": 12,
+      "rule_d_reviewers": [
+        {"slot": 7, "type": "oh-my-claudecode:code-reviewer", "target": "T1 v1", "accuracy": 0.70, "verdict": "FAIL_upgrade_v1.1"},
+        {"slot": 10, "type": "pr-review-toolkit:code-reviewer", "target": "T1 v1.1", "accuracy": 0.85, "verdict": "PASS"},
+        {"slot": 11, "type": "feature-dev:code-reviewer", "target": "T2+T3", "accuracy": 0.8125, "verdict": "PASS"}
+      ],
+      "atom_type_coverage": "8/9 (FIGURE 延后 T2b 补测)",
+      "schema_status": "frozen v1.2 post-upgrade",
+      "v1.2_upgrade": {
+        "status": "completed",
+        "ts": "2026-04-24",
+        "artifacts": [
+          "subagent_prompts/P0_writer_pdf_v1.2.md",
+          "subagent_prompts/P0_writer_md_v1.2.md",
+          "subagent_prompts/P0_matcher_v1.2.md",
+          "subagent_prompts/P0_reviewer_v1.2.md",
+          "schema/atom_schema.json (JSON Schema 2020-12)",
+          "schema/ledger_schema.json (JSON Schema 2020-12)",
+          "subagent_prompts/archive/v1_final_2026-04-24/ (v1 snapshot)"
+        ],
+        "hard_gates_addressed": ["H1' dataset CODE_LITERAL", "H2' reverse forward-aware", "N1 9-enum hard gate"],
+        "new_verdicts_added": ["EDITORIAL_CORRECTION (forward)", "TABLE_SIMPLIFIED formalized", "EDITORIAL_ADDITION formalized"],
+        "ops_insight_locked_in": "executor/writer family hard requirement; Explore family banned for writer/matcher (>20% natural-language drift); reviewer may use markdown-return agents"
+      },
+      "figure_supplemental_T2b": {
+        "status": "completed",
+        "completed": "2026-04-24",
+        "target_pdf": "source/SDTMIG v3.4 (no header footer).pdf p.440 §8.8 RELSPEC Examples figure region",
+        "target_md": "knowledge_base/chapters/ch08_relationships.md L414-439 §8.8 RELSPEC Example",
+        "atoms_produced": {"pdf": 16, "md": 15, "total": 31},
+        "ledger_entries": {"forward": 16, "reverse": 15, "total": 31},
+        "forward_verdict_distribution": {"EXACT": 12, "EQUIVALENT": 2, "PARTIAL": 2},
+        "reverse_verdict_distribution": {"SOURCED": 15, "UNSOURCED": 0, "HALLUCINATED": 0},
+        "reverse_forward_aware_pct": "15/15 (100%)",
+        "v1_2_fix_validation": {"H1_dataset_CODE_LITERAL": "PASS", "H2_reverse_forward_aware": "PASS", "N1_9enum": "PASS", "N2_reverse_threshold": "PASS", "N3_heading_jaccard": "PASS", "FIGURE_schema": "PASS"},
+        "atom_type_coverage_post_T2b": "9/9",
+        "new_findings": ["F-T2b-1 LOW MD caption bold not heading drift", "F-T2b-2 INFO MD merges 'Example N' into colon-joined sentence"],
+        "execution_mode": "main-session-sanity-check (not Rule D writer/matcher role; optional post-hoc slot #12 review if升级 formal)",
+        "artifacts": [
+          "evidence/checkpoints/p0_T2b_pdf_atoms.jsonl",
+          "evidence/checkpoints/p0_T2b_md_atoms.jsonl",
+          "evidence/checkpoints/p0_T2b_ledger_forward.jsonl",
+          "evidence/checkpoints/p0_T2b_ledger_reverse.jsonl",
+          "evidence/checkpoints/p0_T2b_figure_supplemental.md"
+        ]
+      },
+      "final_gate_verdict": "PASS (upgraded from CONDITIONAL_PASS post T2b + v1.2 实战)"
+    },
+    "P1_pdf_atomization": {
+      "status": "in_progress",
+      "sub_plan": "plans/P1_pdf_atomization.md v0.1-DRAFT (user ack'd 2026-04-24)",
+      "pages_total": 535,
+      "pages_done": 10,
+      "atoms_done": 326,
+      "failures_done": 0,
+      "batches_done": 1,
+      "spec_table_strategy": "Option A (PDF spec 表全量原子化 + 与 xlsx 脚本 diff)",
+      "batch_granularity": "100 atoms = ~10-12 pages",
+      "estimated_batches": "~55",
+      "estimated_sessions": "3-5",
+      "estimated_atoms": "4300-6400",
+      "writer_pool_hard": ["oh-my-claudecode:executor", "oh-my-claudecode:writer", "feature-dev:code-explorer"],
+      "writer_banned": ["Explore", "oh-my-claudecode:explore"],
+      "drift_calibration_cadence": "every 3 batches (~300 atoms)",
+      "rule_a_sampling_cadence": "every 30 pages (~3 batches), 30 atoms stratified, ≥90% threshold",
+      "batches_log": [
+        {"batch_id":"P1_batch_01","pages":"1-10","writer":"oh-my-claudecode:executor","atoms":326,"failures":0,"status":"done","report":"evidence/checkpoints/P1_batch_01_report.md","notes":"TOC heavy 65% CROSS_REF; atom_id 3→4 digit autofix; prompt v1.2 doc contradiction logged O-P1-03"}
+      ],
+      "findings": [
+        {"id":"O-P1-01","severity":"INFO","desc":"TOC 208 CROSS_REF p.2-5; P4a EDITORIAL_META 白名单批处理"},
+        {"id":"O-P1-02","severity":"INFO","desc":"p.6 仅 2 atoms 稀疏页; 人工核实 defer"},
+        {"id":"O-P1-03","severity":"MEDIUM","desc":"writer_pdf v1.2 prompt atom_id 位数例与 schema 冲突 (3 位 vs 4 位), v1.3 修"},
+        {"id":"O-P1-04","severity":"LOW","desc":"0 CODE_LITERAL/NOTE/FIGURE in p.1-10, 符合预期"}
+      ]
+    },
+    "P2_md_atomization": { "status": "pending", "files_total": 141, "files_done": 0 },
+    "P3_indexing": { "status": "pending" },
+    "P4a_forward_matching": { "status": "pending", "atoms_total": null, "atoms_done": 0 },
+    "P4b_section_aggregation": { "status": "pending" },
+    "P5_reverse_matching": { "status": "pending", "atoms_total": null, "atoms_done": 0 },
+    "P6_triage_repair": { "status": "pending", "issues_opened": 0, "issues_closed": 0 },
+    "P7_sampling_retro": { "status": "pending" }
+  },
+  "open_items": [
+    { "id": "O1", "desc": "PLAN v0.1 过 Rule D 独立 reviewer", "status": "completed_via_v0.2_v0.3_critic_verifier" },
+    { "id": "O2", "desc": "用户 review PLAN v0.1", "status": "implicit_ack_by_pilot_run" },
+    { "id": "O3", "desc": "P0 Pilot kickoff", "status": "completed" },
+    { "id": "O4", "desc": "schema/atom_schema.json 最终版", "status": "frozen_v1.2_2026-04-24" },
+    { "id": "O5", "desc": "subagent_prompts/P0_writer_v1.md", "status": "v1 + v1.2 both shipped" },
+    { "id": "O6", "desc": "FIGURE 补测 T2b (p.440)", "status": "completed_2026-04-24" },
+    { "id": "O7", "desc": "PLAN v0.5 写 (吸收 P0 实战 + FIGURE)", "status": "completed_2026-04-24" },
+    { "id": "O8", "desc": "plans/P1_pdf_atomization.md sub-plan", "status": "completed_v0.1_DRAFT_2026-04-24" },
+    { "id": "O9", "desc": "evidence/checkpoints/p0_to_p1_handoff.md", "status": "completed_2026-04-24" },
+    { "id": "O10", "desc": "PLAN v0.5 user ack", "status": "pending_user_decision" },
+    { "id": "O11", "desc": "plans/P1_pdf_atomization.md v1.0 user ack", "status": "pending_user_decision" },
+    { "id": "O12", "desc": "spec 表策略 (A/B/C) 用户决定", "status": "pending_user_decision" }
+  ],
+  "rule_d_slot_roster_used": [
+    "oh-my-claudecode:critic",
+    "oh-my-claudecode:verifier",
+    "Explore",
+    "oh-my-claudecode:explore",
+    "feature-dev:code-explorer",
+    "oh-my-claudecode:document-specialist",
+    "oh-my-claudecode:code-reviewer",
+    "oh-my-claudecode:executor",
+    "oh-my-claudecode:writer",
+    "pr-review-toolkit:code-reviewer",
+    "feature-dev:code-reviewer"
+  ],
+  "rule_d_slot_roster_available": [
+    "superpowers:code-reviewer",
+    "oh-my-claudecode:scientist",
+    "oh-my-claudecode:tracer",
+    "oh-my-claudecode:architect",
+    "oh-my-claudecode:ai-slop-cleaner",
+    "oh-my-claudecode:planner",
+    "Plan"
+  ],
+  "trace_entries": 0,
+  "last_updated": "2026-04-24"
+}

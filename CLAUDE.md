@@ -37,6 +37,9 @@ Full chain definitions are in `.work/MANIFEST.md`.
 | TODO (Phase 6) | `.work/04_optimization/retrieval_optimization.md` |
 | Phase 7 设计文档 | `docs/DESIGN_RAG_KG.md` |
 | Phase 7 session 记录 | `.work/05_rag_kg/session_2026-04-16_design.md` |
+| **06 Deep Verification 旁枝入口** | **`.work/06_deep_verification/PLAN.md`** v0.5 — 字面级 PDF→KB 深审; P0 Pilot PASS (9/9 atom_type / Rule D 11 slot / 2 reviewer 85%+81.25%) + v1.2 schema frozen + P1 batch 1 done (326 atoms/10 页, 外推 535 页 ≈17K+ atoms); `_progress.json` 含 recovery_hint, `evidence/checkpoints/p0_to_p1_handoff.md` 21 artifact 清单; sub-plan `plans/P1_pdf_atomization.md` v0.1 DRAFT |
+| 06 Deep Verification v1.2 prompts | `.work/06_deep_verification/subagent_prompts/P0_writer_pdf_v1.2.md` + `P0_writer_md_v1.2.md` + `P0_matcher_v1.2.md` (最大升级, H2' reverse forward-aware 硬 gate + EDITORIAL_CORRECTION 新 verdict) + `P0_reviewer_v1.2.md`; v1 原稿归档 `archive/v1_final_2026-04-24/` |
+| 06 Deep Verification schema frozen | `.work/06_deep_verification/schema/atom_schema.json` + `ledger_schema.json` — JSON Schema 2020-12, 9-enum atom_type + forward 9 verdict + reverse 5 verdict |
 | Phase 6.5 AI 平台部署 | `ai_platforms/` (总览 + 三平台子目录) |
 | **Phase 6.5 通用部署范本** | **`ai_platforms/_template/README.md`** — 10 维度规范 (README + APPLY_CHECKLIST + 00 platform_profile + 01 directory_structure + 02 workflow + 03 research + 04 plan + 05 solution + 06 review + 07 agent_dispatch + 08 evidence + 09 closure), 抽象自 Claude v2 方法论, ChatGPT/Gemini 及未来平台的 upstream spec |
 | **Phase 6.5 双平台锁步看板 (强制读)** | **`ai_platforms/SYNC_BOARD.md`** — ChatGPT GPTs + Gemini Gems 并行部署 Phase 0-5 锁步 gate; session 启动若涉及两平台任一方, 第一件事读本文件定位当前 Phase |
