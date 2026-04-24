@@ -2,11 +2,13 @@
 
 ## 状态 (首屏)
 
-- **当前状态**: Phase 2 v2 准备中 (2026-04-21 架构 pivot, v1 冻结于 archive/)
-- **目标 Tier**: **Tier 2** (5-15 步, 半天-1 天)
+- **当前状态**: ✅ **Phase 5 SIGN-OFF 闭环 (2026-04-24 Daisy 认可)** — retro v1.0 FINAL + UPLOAD_TUTORIAL v1.0 同批交付 (async lane NotebookLM 全 lifecycle 完成)
+- **smoke v4 R1**: **15/17 (88.2%) strict PASS** — AHP × 3 全 PASS+ 最强 (in-KB-only 天然反虚构优势)
+- **跨 4 平台合流**: `ai_platforms/retrospectives/PHASE5_RETROSPECTIVE.md` 已 **v1.0 FINAL 2026-04-24 Daisy 认可** (4 平台 sign-off 闭环 ✅)
+- **目标 Tier**: **Tier 2** (5-15 步, 半天-1 天) — 实际 lifecycle 3 天 (2026-04-21 起跑 pivot → 2026-04-23 Phase 4 闭合)
 - **模式**: 异步 (不参与 `SYNC_BOARD.md` 2-way 锁步)
 - **参考基线**: Claude v2.6 方法论 + ChatGPT/Gemini 范本补丁
-- **架构**: **1 notebook × ≤50 sources** (v1 3 notebook × 各 30-293 源已归档)
+- **架构**: **1 notebook × 42 sources** (v1 3 notebook × 各 30-293 源已归档)
 
 ## v2 架构 (首屏)
 
@@ -54,14 +56,17 @@
 - PASS 阈值: **≥13/15 (~87%) 业务正确 + 每个独有产出至少 1 题精确命中**
 - **Req 变量零丢失** (用户 Q1 红线, 基于 `extract_req_vars.py` 产出对照审计)
 
-## 实际产出 (收束时填)
+## 实际产出 (Phase 4 闭合 2026-04-23 填)
 
-- 文件数: _pending_ (目标 ≤50)
-- 总 words: _pending_ (目标 <15M words, 远低 Pro cap)
-- Source 占用: _pending_ / 300 Pro slot (预计 ~15%)
-- A/B PASS: _pending_
-- 跨平台对比: _pending_
-- `_template/` 补丁: _pending_ (10 候选)
+- 文件数: **42 sources** (目标 ≤50, 8 slot headroom)
+- 总 words: **1,582,085** (最大 bucket 302K < 500K/source cap, 0 over-cap / 0 missing)
+- Source 占用: **42/300** Pro slot (14%, 远低 Pro cap)
+- Req 变量覆盖: **176/176 独立 Req ∅ gap** (A4 结构级 + P3.4.5 语义级双锚)
+- Domain 覆盖: **63/63** 全覆盖
+- A/B PASS: **smoke v4 R1 15/17 (88.2%) strict PASS** (6 PASS + 8 PASS+ + 2 PARTIAL + 1 safety-correct PUNT); AHP × 3 全 PASS+ 最强
+- P3.9 三档切换演练: **PASS** (5 PASS + 1 PARTIAL Public≠gallery 新发现 + 1 SKIP Free-tier cap 接受残余风险)
+- 跨平台对比: 4 平台矩阵 `ai_platforms/SMOKE_V4.md §3` 17×4 filled; NotebookLM 15/17 vs Claude 17/17 / ChatGPT 16.5/17 / Gemini R2 16/17
+- `_template/` 补丁: **10a/10b.1/10b.2/15** 已吸收到跨 4 retro §4; **16-19** 候选登记本 retro §4 待 Daisy ack
 
 ---
 
@@ -71,6 +76,11 @@
 |------|------|------|
 | 2026-04-21 (am) | v1 draft | 初版, Phase 0 脚手架, 3 notebook × 30-293 源假设 |
 | 2026-04-21 (pm) | **v2** | **架构 pivot** (3 notebook → 1 × ≤50) — 用户 UI 实测 + 三 WebFetch 核实, 见 `archive/v1_.../ARCHITECTURE_PIVOT_RECORD.md` |
+| 2026-04-22 | v2.1 / v2.2 | PLAN v2.1 ICEBOX Studio 三件套 (P3.5/P3.6/P3.7 post-project optional) + v2.2 P3.8 题库 smoke v2.1 → v3 Q1-Q10 升级对齐 ChatGPT+Gemini N5.3; P3.8 9/10 strict PASS; smoke v3→v4 升级决策 (加 AHP × 3) |
+| 2026-04-23 | **Phase 4 COMPLETE** | smoke v4 R1 15/17 (88.2%) + AHP × 3 全 PASS+ 最强; P3.8 reviewer 12th slot (feature-dev:code-reviewer) PASS; P3.9 三档切换演练 PASS (5 PASS + 1 PARTIAL + 1 SKIP) |
+| 2026-04-24 (上午) | Phase 5 DRAFT v0.1 | 跨 4 平台 `PHASE5_RETROSPECTIVE.md` v1.0 FINAL Daisy 认可; NotebookLM 平台独立 `docs/RETROSPECTIVE.md` v0.1 DRAFT (主 session writer lane) |
+| 2026-04-24 (下午) | Phase 5 v0.2 post-reviewer-fix | 独立 reviewer `oh-my-claudecode:critic` CONDITIONAL_PASS 8.0/10 → 1 HIGH + 4 MEDIUM + 3 遗漏 + 2 Open Q 全修 → v0.2 ack-ready; `dev/evidence/phase5_retrospective_reviewer.md` 落档 |
+| 2026-04-24 (晚) | ✅ **Phase 5 SIGN-OFF** | retro **v1.0 FINAL** Daisy 认可 + `current/UPLOAD_TUTORIAL.md` **v1.0** 同批产出 (10 章节 276 行) + 4 索引文件同步 (CLAUDE.md + MANIFEST + PROGRESS + ROADMAP) — NotebookLM async lane 全 lifecycle 完成 ✅ |
 
 ---
 
