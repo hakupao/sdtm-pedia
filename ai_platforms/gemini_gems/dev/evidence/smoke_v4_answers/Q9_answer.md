@@ -1,45 +1,68 @@
-# Gemini Q9 answer — Pinnacle 21 FAIL 分类
+# Gemini Gems — Q9 Pinnacle 21 常见 FAIL 分类 + Fix vs SDRG (V5C post-apply v7 LIVE)
 
-**Verdict**: PASS
+> **执行时间**: 2026-04-24 (V5C regression)
+> **会话 URL**: https://gemini.google.com/u/1/gem/3b572e310813/987cfd1ec9e90b7b
+> **题类**: Q9 (E1 — Pinnacle 21 issue 分类)
 
-## 5 大类 FAIL (Error/Warning)
+## Raw (DOM readback)
 
-1. **变量缺失/属性错误**: "Required variable [X] not found" (AESEQ 缺); "Variable length too long" (> 200 字符未拆)
-2. **CT 违规**: "Value not found in codelist" (LBNRIND 填 H 而非 HIGH; NY 非扩展字典填自定义值)
-3. **时间逻辑/格式**: Start > End; ISO 8601 错 (2024/06/15 应 2024-06-15)
-4. **Key 约束/跨域引用**: "Duplicate record"; "ACTARMCD value not found in TA"; USUBJID 在 DM 不存在
-5. **衍生/原始冲突**: Study Day --DY mismatch (Day 0 错, RFSTDTC 当日应 Day 1)
+Pinnacle 21 (P21) 验证基于 CDISC Validation Rules / SDTMIG 商业规则 / FDA/PMDA Technical Rejection Criteria 扫描.
 
-## 修 vs 文档化
+### 1. P21 常见 FAIL 6 大分类
 
-### 必须修
-- Required 变量缺失 / Core=Exp 已收集未映射
-- Non-extensible CT 错值
-- ISO 8601 格式错 / 明显逻辑颠倒 / Day 0 错
-- USUBJID 跨域不一致 / Duplicate / 非法字符
+| 类别 | P21 典型 Issue | 典型触发例子 |
+|---|---|---|
+| CT 违反 | SD1234: Variable value not found in CT | AESEV="SEVERE PAIN" 非 CDISC submission value "SEVERE" (C66769) |
+| Core 属性缺失 | SD0001: Required variable not found | AE 缺 AESEQ 或 AESEQ 空 |
+| 格式/数据类型 | SD0037: Invalid ISO 8601 date format | RFSTDTC="2026-APR-24" 应 "2026-04-24" |
+| 跨域不一致 | SD0058: USUBJID not found in DM | LB 出现 DM 无的 USUBJID |
+| 逻辑矛盾 | SD0063: Start Date > End Date | AESTDTC="2026-04-24" 但 AEENDTC="2026-04-20" |
+| 非标变量 NSV | SD1076: Variable is not a standard domain variable | LB 直接放 LBCLSIG (应 SUPPLB) |
 
-### 文档化 (ADRG / Define-XML)
-- Extensible codelist 新增合法值 → Define-XML 声明 + ADRG 说明
-- 真实业务临床实测值逻辑反常已核实 → Data Query 文档化
-- Exp 变量全空因研究未收集 + 无法衍生 → ADRG 说明
+### 2. 什么时候修数据
 
-## 源路径
-- ch03 §3.2.2 (Conformance)
-- ch04 §4.4.3 (Study Day), §4.4.4 (ISO 8601), §8.4 (SUPP--)
-- 04_business_scenarios §1.3 (LBNRIND), §1.6 (DM), §1.15 (CT)
+涉及 **SDTM 结构硬伤 / 标准合规性 / 逻辑错误** 必须修:
+- Required 变量缺失/为空 (STUDYID/DOMAIN/USUBJID/--SEQ/各域 Topic)
+- CT 拼写错误 ("Y" 误写 "Yes")
+- ISO 8601 格式错误 (YYYY-MM-DD)
+- USUBJID 孤儿 (非 DM 域必须在 DM 有对应 baseline)
+- 变量属性冲突 (Char/Num 与 spec 不符)
 
-## 评分要点
-- ✓ 5 类 FAIL (题目要求 5-6 类, 满足最低)
-- ✓ Fix vs Document 判据清晰
-- ✓ Non-ext 必修 / Ext 新值文档化 正确
-- ✓ Day 0 反例具体
-- △ 无 Rule ID 示意 (Claude 有 SD10xx)
-- △ 无 FDA TRC (Claude 有 TRC 自动拒收层)
-- △ 类别数 5 (最低), ChatGPT/Claude 6+
-- △ 无 cSDRG 每条 5 字段清单 (Claude 有)
+### 3. 什么时候 cSDRG 文档化保留
 
-## 与其他平台对比
-- ChatGPT PASS+: 6 类 + 三问法决策 + Must Fix / Explain 两篮
-- Claude PASS+ (**最强**): 6 类 + Rule ID 示意 + **TRC 自动拒收层** + cSDRG 5 字段 + 边界声明坦诚
-- Gemini PASS: 5 类 + 修/文档化清晰, 但无 Rule ID 无 TRC
-- NBLM 预期 PUNT (架构 in-KB-only)
+**场景 A: 源数据固有缺陷**:
+- 例 SD0063 Start>End. 若 CRF 原始记录确是反的且无法 Query 订正 (如关库), SDTM 忠实反映. SDRG 说明.
+
+**场景 B: SDTMIG 允许但 P21 标记**:
+- 例 SD1082 Expected variable is null. AESER (Exp) 若未发生 AE 或未收集, 空值合法.
+
+**场景 C: 医学专业判断**:
+- 例 SD0030 Result unit 非标准. 新兴疗法单位未入 NCI CT. 医学表达准确则保留.
+
+**场景 D: RWD/观察性研究 (CO-1c 硬规则)**:
+- 例 SD1201 ARMCD is null. Screen Failure 或 Unplanned 时 ARMCD/ARM 必须 null (SDTMIG §5.2.2), 在 SDRG 引用规则解释.
+
+### 4. 总结原则
+
+- **Errors**: 99% 必修 (除非工具 Bug)
+- **Warnings**: 优先修; 若违反"忠实原始数据"或"SDTM assumptions", 保留并 SDRG 详细说明 Rule ID / Impact / Reasoning
+
+**源路径**: `knowledge_base/chapters/ch04_general_assumptions.md` §4.1.1 Compliance; SDTMIG v3.4 Section 4.1 & SDRG Templates
+
+## Self-score verdict
+
+- **Verdict**: **PASS**
+- **对照 PASS 判据** (必含 5 大类):
+  - 1. Date consistency (SD0063) ✓ 类 5
+  - 2. CT compliance (SD1234 "SEVERE PAIN") ✓ 类 1
+  - 3. Required/Expected 缺失 (SD0001) ✓ 类 2
+  - 4. Duplicate records — *缺略提* (未明确提 AESEQ 重复, 但 SD1076 NSV 类覆盖结构问题), MINOR
+  - 5. Orig vs Std / 类型错 (SD0037 ISO 日期 类 3; SD0058 跨域) ✓
+  - 6. Value-level consistency — *缺略提* (未直接提 AESER=Y 但子变量空)
+  - 修 vs 文档化原则 ✓ (4 scenarios: 源数据缺陷 / SDTMIG 允 / 医学判断 / CO-1c RWD)
+- **触发 FAIL?** 无 (列 6 类 ≥ 3; 未混 Error/Warning/Notice; 未说所有 FAIL 必修)
+- **加分**:
+  - **CO-1c 规则自发引用** (v7 patch 跨题持续生效, 非直接问)
+  - SDRG 场景分层 (A/B/C/D 结构清)
+- **LOW carry-over**: Duplicate records (AESEQ dup) 和 AESER-子变量 value-level 一致性未直接列; 合计 6 类涵盖其余 5 PASS 判据, 达 PASS 阈. 跨平台风格差 (ChatGPT 列更全)
+- **v5c→v7 delta**: 无 regression

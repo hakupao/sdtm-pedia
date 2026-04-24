@@ -1,48 +1,50 @@
-# Gemini Q6 answer — PK --TPT 四件套
+# Gemini Gems — Q6 PC PK Timing 4-件套 (V5C post-apply v7 LIVE)
 
-**Verdict**: PASS
+> **执行时间**: 2026-04-24 (V5C regression)
+> **会话 URL**: https://gemini.google.com/u/1/gem/3b572e310813/2b8dec9cedef5226
+> **题类**: Q6 (C1 — Timing 深化)
 
-## 1. 变量填写建议 (服药 2026-04-20 08:00)
+## Raw (DOM readback)
 
-| 变量 | 值 |
-|---|---|
-| PCTPT | 4h post (或 4 HR POST-DOSE) |
-| PCTPTNUM | 4 |
-| PCTPTREF | Day 1 Dose (或 A-001 ADMINISTRATION) |
-| PCELTM | PT4H (ISO 8601 duration) |
-| PCRFTDTC | 2026-04-20T08:00 |
+PC (Pharmacokinetics Findings) 域 "服药后 4 小时采血" 记录的 Timing 变量:
 
-## (a) PCTPT vs PCTPTNUM
-- PCTPT = Planned Time Point Name (文本描述, 直观展示)
-- PCTPTNUM = Planned Time Point Number (数值, 排序)
-- **一一对应**: PCTPTNUM 确保 PCTPT 按时间轴正确排序 (避免 "10h post" 排到 "2h post" 前)
+### 1. 变量填充示例
 
-## (b) PCTPTREF
-- Time Point Reference = 计算 PCTPT/PCTPTNUM/PCELTM 的"零点"
-- PK 通常指某次给药 (PREVIOUS DOSE 或具体 Day 11 Dose)
-- 多周期必须能区分以保证唯一性
+| 变量 | 填充值 | 说明 |
+|---|---|---|
+| PCTPT | **4 h POST-DOSE** | 计划时间点名称 |
+| PCTPTNUM | **4** | 排序数值 |
+| PCTPTREF | **A-001 DOSE** | 参考点名称 |
+| PCELTM | **PT4H** | ISO 8601 duration |
+| PCRFTDTC | **2026-04-24T08:00** | 参考点实际 datetime |
 
-## (c) PCELTM 格式
-**ISO 8601 duration**:
-- PT4H = 4 小时后; PT15M = 15 min 后
-- 是时间间隔, 非时钟时间
-- 从 PCTPTREF 到计划观察点的计划偏移
+### 2. 规则解释
 
-## (d) 两周期区分
-1. **VISIT / VISITNUM** (最核心): Day 1 vs Day 8
-2. **PCTPTREF / PCRFTDTC**: Day 1 Dose vs Day 8 Dose + 日期相隔一周
-3. **EPOCH**: 若方案定义不同 Element/Epoch (PERIOD 1, PERIOD 2) 可辅助
+- **(a) PCTPT vs PCTPTNUM**: PCTPT 文字描述 (PRE-DOSE / 4 h POST-DOSE); PCTPTNUM 数值排序. 一对一关系. (依据: 02_spec PC §)
+- **(b) PCTPTREF**: 计划时间点所相对的固定参照物/事件的名称. PK 里通常 "PREVIOUS DOSE" 或 "A-001 DOSE".
+- **(c) PCELTM 格式**: ISO 8601 **duration**. P (Period) 开头 + T 时间部分. 15 min=PT15M / 4 h=**PT4H** / 1 h 30 min=PT1H30M. 记录计划偏离时间 (非实际).
+- **(d) 两周期区分**:
+  - VISIT / VISITNUM (e.g., "Period 1" / "Period 2")
+  - EPOCH (e.g., "PERIOD 1" / "PERIOD 2")
+  - PCRFTDTC: 两周期参考服药时间不同, 最直接的时序区分
 
-## 评分要点
-- ✓ 5 变量全填对
-- ✓ (a) TPT/TPTNUM 一一对应 + 排序用途
-- ✓ (b) PCTPTREF 零点 + 多周期唯一性
-- ✓ (c) PT4H ISO 8601 duration + 时间间隔而非时钟时间
-- ✓ (d) 3 种区分手段 (VISIT + TPTREF/RFTDTC + EPOCH)
-- △ 未显式提 §4.4.10 章节锚点; 深度一般
-- ✓ 无 extended reasoning 暴露 (干净答复)
+### 源路径
 
-## 与 ChatGPT/Claude 对比
-- 结构对, 覆盖全面 (5 vars + abcd + 3 种区分手段)
-- 无 Claude 级完整 8 行示意表, 无 ch04 §ref 精确锚点
-- 但比 Q4 PARTIAL 时已显式分 (a)(b)(c)(d) 答 — R2 prompt 改点在 Gemini 已生效
+- `knowledge_base/domains/PC/spec.md` §PCTPT / §PCTPTNUM / §PCTPTREF / §PCELTM / §PCRFTDTC
+- `knowledge_base/chapters/ch04_general_assumptions.md` §4.4.10 Planned Elapsed Time + §4.1.4.10 EPOCH
+
+## Self-score verdict
+
+- **Verdict**: **PASS**
+- **对照 PASS 判据**:
+  - PCTPT "4 h POST-DOSE" ✓
+  - PCTPTNUM 4 ✓
+  - PCTPTREF "A-001 DOSE" ✓ (name, not datetime)
+  - PCELTM "PT4H" ISO duration ✓
+  - PCRFTDTC ISO datetime ✓
+  - (a)(b)(c)(d) 全解释 ✓
+- **触发 FAIL?** 无
+- **加分**:
+  - EPOCH (C99079) 区分治疗阶段 (PASS 判据列出)
+  - PCRFTDTC 作周期时序区分最直接 (bonus observation)
+- **v5c→v7 delta**: 无 regression, 深度持平 N5.2 baseline

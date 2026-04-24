@@ -1,47 +1,48 @@
-# ChatGPT Q6 answer — PK --TPT 四件套
+# ChatGPT GPTs — Q6 PC PK Timing 4-件套 (V5C post-apply v2.2 LIVE)
 
-**Verdict**: PASS+
+> **执行时间**: 2026-04-24 (V5C regression)
+> **会话 URL**: https://chatgpt.com/g/g-69e635b99e848191a2818cd8e8e7e9cc-sdtm-expert/c/69ead5fa-2840-83a2-88d5-c4f0911fa6eb
+> **题类**: Q6 (C1 — Timing 深化 PCTPT/PCTPTNUM/PCTPTREF/PCELTM/PCRFTDTC)
 
-## 核心表
+## Raw (DOM readback, trimmed)
 
-| 场景 | PCTPT | PCTPTNUM | PCTPTREF | PCELTM | PCRFTDTC |
-|---|---|---|---|---|---|
-| 周期 1 4h | 4 H POST-DOSE | 4 | PERIOD 1 DOSE A-001 | PT4H | 2026-05-01T08:00 |
-| 周期 2 4h | 4 H POST-DOSE | 4 | PERIOD 2 DOSE A-001 | PT4H | 2026-05-08T08:00 |
+**结论**: PC (Pharmacokinetics Concentrations) 记录的 Timing 变量 (假设研究只有 post-dose 4 个计划采血点):
 
-## (a) PCTPT vs PCTPTNUM
-- PCTPT = 文字版 (4 H POST-DOSE); PCTPTNUM = 数值排序号 (4)
-- Time point 时必须同时用 --TPT 和 --TPTNUM, 唯一性上下文一一对应
-- PCTPTNUM 可按小时数 (4) 或顺序号 (1/2/3/4/5), 全研究必须一致
+| Timing 变量 | 建议取值 | 说明 |
+|---|---|---|
+| PCTPT | **4H** 或 "4 h post-dose" | 计划时间点文字名称 |
+| PCTPTNUM | **3** | 排序: 15 min=1 / 1 h=2 / 4 h=3 / 8 h=4 |
+| PCTPTREF | **PERIOD 1 DOSE / PERIOD 2 DOSE** 或 A-001 DOSE 加周期 | zero time 描述; 多 PK profile 必须能区分 |
+| PCELTM | **PT4H** | ISO 8601 duration/period 格式 |
+| PCRFTDTC | `<Period N dosing date>T08:00` | 参考点实际 ISO 8601 datetime |
 
-## (b) PCTPTREF
-- Reference time point 的文字描述 = 这组 PK 采样的"零点"
-- 不建议泛写 DOSE, 推荐 `PERIOD 1 DOSE A-001` / `PERIOD 2 DOSE A-001` 区分 profile
-- PC examples 明确: 多 profile 时 PCTPTREF 必须不同
+### 解释
 
-## (c) PCELTM 格式
-**ISO 8601 duration** (非日期时间):
-- P=period, T=time part, 4H=4 hours → `PT4H`
-- 其他: PT15M / PT1H / PT8H
-- 是 planned elapsed time, 非 actual 时差
+- **(a) PCTPT vs PCTPTNUM**: PCTPT 文字描述; PCTPTNUM 数值排序. 一对一关系, 同编号不能有不同文字. SDTMIG §4.4.10 强调 --TPT 和 --TPTNUM 必须配对用.
+- **(b) PCTPTREF**: time point 的参考点文字描述 (zero time). 服药事件 A-001 DOSE. 多周期时需区分 PERIOD 1 DOSE / PERIOD 2 DOSE.
+- **(c) PCELTM 格式**: ISO 8601 **duration/period**, 不是 clock time. 4 小时 = **PT4H**. §4.4.10 明 --ELTM 是 planned elapsed time; 实际可由 PCDTC - PCRFTDTC 派生.
+- **(d) 两周期区分**:
 
-## (d) 两周期区分
-三层组合:
-1. **VISIT / VISITNUM**: PERIOD 1 PK (1) vs PERIOD 2 PK (2)
-2. **PCTPTREF**: PERIOD 1 DOSE A-001 vs PERIOD 2 DOSE A-001
-3. **PCRFTDTC**: 2026-05-01T08:00 vs 2026-05-08T08:00
+| 周期 | VISITNUM | VISIT | PCTPT | PCTPTNUM | PCTPTREF | PCRFTDTC |
+|---|---|---|---|---|---|---|
+| Period 1 | 1 | PERIOD 1 | 4H | 3 | PERIOD 1 DOSE | `<P1 date>T08:00` |
+| Period 2 | 2 | PERIOD 2 | 4H | 3 | PERIOD 2 DOSE | `<P2 date>T08:00` |
 
-PC 自然键: VISITNUM + PCTPTREF + PCTPTNUM + PCTESTCD 组合
+用 VISITNUM/VISIT 区分周期 + --TPTREF 区分 day/dose + --TPTNUM 相对参考点时间. SDTMIG §4.4.10 crossover/multiple-period 例子.
 
-## 源溯源
-- ch04_general_assumptions.md (通用 time point 规则)
-- PC/spec.md (PC 域变量定义)
-- PC/examples.md (PCTPTREF 零点描述 + 多 profile 规则)
+## Self-score verdict
 
-## 评分要点
-- ✓ 5 变量全填对 (4H/4/PERIOD-DOSE/PT4H/ISO datetime)
-- ✓ (a) TPT 文本/TPTNUM 数值 关系 + 一致性 note
-- ✓ (b) PCTPTREF 零点描述 + 多 profile 必须不同
-- ✓ (c) PT4H ISO 8601 duration + planned vs actual 区分
-- ✓ (d) VISIT+TPTREF+RFTDTC 三层 + 自然键说明
-- ✓ 源路径标注
+- **Verdict**: **PASS**
+- **对照 PASS 判据**:
+  - PCTPT "4H" / "4 h post-dose" ✓
+  - PCTPTNUM (数字排序) ✓
+  - PCTPTREF (name, 给药参考点) ✓
+  - PCELTM ISO duration "PT4H" ✓ (未写成 "4 hours" 或 "04:00:00")
+  - PCRFTDTC ISO datetime ✓
+  - (a)(b)(c)(d) 全解释 ✓
+- **触发 FAIL?** 无 (未写 "4 hours" / 未写 datetime 作 PCTPTREF / 未混 Planned vs Actual / 未用 VISITDY 错误区分)
+- **加分**:
+  - 多 PK profile 时 PCTPTREF 必须不同 (深入)
+  - 两周期完整示例表 (crossover 场景)
+  - SDTMIG §4.4.10 明确引用
+- **v5c→v2.2 delta**: 无 regression, 完整 4-件套 + 两周期表深度超 N5.2 baseline

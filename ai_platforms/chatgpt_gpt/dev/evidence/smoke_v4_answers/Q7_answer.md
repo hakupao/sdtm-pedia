@@ -1,59 +1,49 @@
-# ChatGPT Q7 answer — Partial date SDTM/ADaM
+# ChatGPT GPTs — Q7 Partial Date + SDTM vs ADaM imputation (V5C post-apply v2.2 LIVE)
 
-**Verdict**: PASS+
+> **执行时间**: 2026-04-24 (V5C regression)
+> **会话 URL**: https://chatgpt.com/g/g-69e635b99e848191a2818cd8e8e7e9cc-sdtm-expert/c/69ead688-1818-83a2-aab3-0d53d799d0cb
+> **题类**: Q7 (C2 — Partial date + ADaM imputation 边界)
 
-## 核心结论
-SDTMIG v3.4 允许 --DTC/--STDTC 保留 partial date precision; 不要为了"补全"而把未知日/月强行填成 01. SDTM 层**没有通用 partial date imputation 规则** (SDTMIG §4.4.2); imputation 走 ADaM.
+## Raw (DOM readback, trimmed)
 
-## 场景填法
+**结论**: SDTM 的 --STDTC 记录 "已知/收集到的精度", 不做日期填补; imputation 通常是 ADaM 分析层规则.
 
-| 场景 | 推荐 SDTM 填法 | 不要这样做 |
+| 场景 | SDTM 填法 | 不应填成 |
 |---|---|---|
-| A: AE 2024-06 (无日) | `AESTDTC="2024-06"`, AESTDY=null | 2024-06-01 |
-| B: CM 2024 (无月日) | `CMSTDTC="2024"`, CMSTDY=null | 2024-01-01 |
-| C: 完全 Unknown | `AESTDTC=null`, 若有相对时序用 AESTRF/AESTRTPT | 造估算日期 |
+| A. AE 开始于 2024 年 6 月 | **AESTDTC="2024-06"**; AESTDY 留空 | 不填 2024-06-01 或 2024-06-30 |
+| B. 服药开始于 2024 年 | **CMSTDTC="2024"**; CMSTDY 留空 | 不填 2024-01-01 或 2024-12-31 |
+| C. AE 开始日完全未知 | **AESTDTC=null**; AESTDY=null | 不填 UNK / UNKNOWN / 0000-00-00 / 2024--- |
 
-## 依据
-- **SDTMIG §4.4.2** 举例: "December, 2003" → 2003-12 ; "2003" → 2003
-- **相对 timing 变量** (ch04):
-  - 相对 study reference period: --STRF / --ENRF
-  - 相对 reference time point: --STRTPT / --STTPT, --ENRTPT / --ENTPT
-- **CM 例子**: CMSTDTC=null + CMSTRTPT="BEFORE" + CMSTTPT=<screening> + CMENRTPT="ONGOING" + CMENTPT=<final visit>
-- **AE 例子**: AEENDTC=null + AEENRTPT="UNKNOWN" + AEENTPT=<final contact>
+**依据**: SDTMIG §4.4.1 ISO 8601 extended format; §4.4.2 partial precision (December 2003 → 2003-12; 2003 → 2003); 完全缺失 = null.
 
-## (d) SDTM --STDTC 是否需要 imputation
-**一般不需要也不应做**:
-- 保留收集精度, partial 按 partial
-- 完全没收集留空
-- "prior/ongoing/before/unknown" 优先用相对 timing 变量, 不造日期
-- AESTDTC=2024-06 ✓; AESTDTC=2024-06-01 的 SDTM 内补全不应做
+### (d) SDTM 的 --STDTC 需要做 imputation 吗?
 
-Core 提醒:
-- AE.AESTDTC = Expected (列必存在, 个记录可空)
-- CM.CMSTDTC = Permissible
+**不需要, 也不应把 imputed date 放回 --STDTC**. AESTDTC/CMSTDTC 忠实表示收集精度: 年月填 YYYY-MM, 年填 YYYY, 完全不知 null. 同理 --STDY / --DY 只有完整日期时才算 (§4.4.4).
 
-## (e) ADaM 需要 imputation 时 SDTM 记什么
+### (e) 如果 ADaM 需要 imputation, SDTM 还需要额外记什么吗?
 
-通常做法:
-1. **SDTM 保留原始精度**: AESTDTC="2024-06" / CMSTDTC="2024" / null
-2. **SDTM 保留收集到的相对 timing**: CMSTRF, CMSTRTPT, CMSTTPT, AEENRTPT, AEENTPT
-3. **ADaM 派生 imputed analysis date/datetime**, 算法在 define/SAP 说明
+**SDTM 本身不新增 imputed date 变量**. 推荐做法:
+1. SDTM 保留原始 partial date (AESTDTC="2024-06")
+2. ADaM 派生分析日期 (ASTDT / TRTSDT 等), 用 ADaM 变量或 metadata 说明 imputation 规则
+3. 若 CRF 额外收集相对时间信息, SDTM 按收集内容保存相对 timing (不用于补日期):
+   - **CMSTRF**: 开始相对于 study reference period (BEFORE 等)
+   - **CMSTRTPT / CMSTTPT**: 开始相对某参考时间点
+   - **AEENRTPT / AEENTPT**: AE 结束相对某参考时间点 (end unknown/ongoing)
 
-边界清晰: 分析 guidance 在 ADaM; imputed date 不回写 SDTM. 不把 disease milestone 参考日期当 imputation 填入实际日期.
+**源路径**: `<!-- source: knowledge_base/chapters/ch04_general_assumptions.md -->` §4.4.1/§4.4.2/§4.4.4; `<!-- source: knowledge_base/domains/CM/spec.md -->`
 
-## 实务细节
-- **--STDY/--ENDY**: 需足够完整的实际日期才可靠; partial date 一般不填
-- **EPOCH**: 不应 impute; 可依 CRF 结构/访视设计 assign; 无法确定则置空
+## Self-score verdict
 
-## 源溯源
-- ch04_general_assumptions.md (§4.4.2 partial date rule + relative timing)
-- AE/spec.md (AESTDTC Core=Exp)
-- CM/spec.md (CMSTDTC Core=Perm)
-
-## 评分要点
-- ✓ 3 场景全对 (2024-06 / 2024 / null)
-- ✓ SDTMIG §4.4.2 锚点 + 具体例子 (2003-12 / 2003)
-- ✓ SDTM 无通用 imputation 规则 + ADaM 边界
-- ✓ (d) 不 imputation + 相对 timing 变量替代 (STRTPT/STTPT/ENRTPT/ENTPT)
-- ✓ (e) SDTM 保留原始 + 相对 timing + ADaM 派生
-- ✓ 补 Core=Exp vs Perm 差异 + STDY/EPOCH 实务点
+- **Verdict**: **PASS**
+- **对照 PASS 判据**:
+  - A: "2024-06" ✓ (未填 2024-06-01 / 2024-06-15)
+  - B: "2024" ✓
+  - C: null ✓ (未填 "UNKNOWN" / "1900-01-01")
+  - (d) SDTM 不做 imputation ✓
+  - (e) ADaM 职责; SDTM 保真 + 相对 timing 变量 ✓
+- **触发 FAIL?** 无
+- **加分**:
+  - 明确列出 anti-pattern (不应填成) — 超 PASS 要求
+  - 提 CMSTRF / CMSTRTPT / CMSTTPT / AEENRTPT / AEENTPT 相对 timing 变量作为替代 (非 SUPP)
+  - 注意 --DY 只在完整日期时算 (正确避开 imputed date 污染 DY)
+- **v5c→v2.2 delta**: 无 regression; 相对 timing 变量清单比 N5.2 baseline 更厚

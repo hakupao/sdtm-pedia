@@ -1,47 +1,43 @@
-# Gemini Q7 answer — Partial date SDTM/ADaM
+# Gemini Gems — Q7 Partial Date + SDTM vs ADaM imputation (V5C post-apply v7 LIVE)
 
-**Verdict**: **PARTIAL (0.5)** — 3 场景+(d) 对, 但 (e) 有**关键 layer 混淆幻觉** (称 SDTM 要记 --DTF, 实际 --DTF 是 ADaM-only)
+> **执行时间**: 2026-04-24 (V5C regression)
+> **会话 URL**: https://gemini.google.com/u/1/gem/3b572e310813/61dd423872acb8bc
+> **题类**: Q7 (C2 — Partial date 精度)
 
-## 3 场景填写 ✓
+## Raw (DOM readback)
 
-| 场景 | 填值 | 原则 |
-|---|---|---|
-| A: AE 2024-06 无日 | `"2024-06"` | 保留已知精度, 省略日 |
-| B: CM 2024 无月日 | `"2024"` | 仅保留年 |
-| C: 完全 Unknown | NULL (空值) | 可用 --STRF / --STRTPT 描述时序 (如 "BEFORE") |
+根据 SDTMIG v3.4 ISO 8601 规范及 Chapter 4 通用假设:
 
-## (d) SDTM --STDTC imputation? ✓
-**不需要**. 原则: 如实反映原始收集数据 (Data as originally collected). SDTMIG 明确不应在 SDTM 变量中进行日期补录. Epoch 可依 CRF 结构 assign, 不通过补日期实现.
+### 1. 场景填充
 
-## (e) ADaM imputation 时 SDTM 额外记什么? ✗ **HALLUCINATION**
+SDTM 日期变量 (--DTC) 保持收集到的原始精度, 不臆造.
 
-Gemini 答: "需要记录 --DTF (Date/Time Imputation Flag), 如 AEDTF 或 CMDTF".
+| 场景 | 归域 | 变量填充 | 处理逻辑 |
+|---|---|---|---|
+| A. AE 开始于 2024 年 6 月 | AE | **AESTDTC="2024-06"** | 只保"年-月"精度 |
+| B. 服药 2024 年 | CM | **CMSTDTC="2024"** | 只保"年"精度 |
+| C. AE 开始日完全未知 | AE | **AESTDTC=null** | 日期完全缺失设 null |
 
-**❌ 错误**:
-1. **--DTF 不是 SDTM 变量** — 是 ADaM 级 (ASTDTF / AENDTF 等 ADaM IG v1.3 §3.1.4 定义)
-2. **AEDTF / CMDTF 不存在于 SDTMIG v3.4 任何域 spec**
-3. 正确做法 (Claude/ChatGPT 答): SDTM **保持 partial date 忠实如实**, 不加 imputation flag 列; ADaM 在自己的 ASTDTF 做派生 + 记 Y/M/D imputation flag
+### 2. 规则解析
 
-Gemini 把 ADaM *DTF 机制误植入 SDTM 层, 违反 SDTMIG §4.4.2 "SDTM 不做 imputation" 的边界原则.
+- **(d) SDTM --STDTC 需要 imputation?** **不需要**. SDTM 是 Tabulation 层, 职责是忠实反映采集原始数据. SDTM 变量**严禁** imputation. 任何补齐必须在 ADaM 完成.
+- **(e) ADaM imputation 时 SDTM 要记什么?** **不需要**. **--DTF** (如 AEDTF / CMDTF) 不是 SDTM standard variable. ADaM 创建对应 ASTDTF/AENDTF 标记补齐精度. SDTM 边界: 不记补齐标记, 也不提供 Imputation Flag 标准位置. 若 sponsor 认为非标 metadata 必须提交, 走 SUPP-- 路径 (但标准实践应留 ADaM 处理).
 
-## 源路径 (Gemini 给出)
-- ch04_general_assumptions.md §4.4.1 (ISO 8601)
-- ch04 §4.4.2 (Date/Time Precision)
-- ch04 §4.1.3.1 (EPOCH & Imputation Guidance)
-- VARIABLE_INDEX.md §Timing Variables (--DTF role) ← **此条为虚构 path reference**
+**源路径**: `knowledge_base/chapters/ch04_general_assumptions.md` §4.1.4.1 (Date/Time Formats); `AE/spec.md` §AESTDTC; `CM/spec.md` §CMSTDTC
 
-## 评分要点
-- ✓ 3 场景全对 (2024-06/2024/null)
-- ✓ (d) SDTM 不 imputation + 原则正确
-- ✗ **(e) 层混淆幻觉** — 误称 SDTM 有 --DTF 变量
-- △ 未提相对 timing 变量完整清单 (--STRTPT/--STTPT/--ENRTPT/--ENTPT)
-- △ 未提 solidus 区间表达
-- △ 未显式 §4.4.7 Example 3 范本
+**依据**: ISO 8601 精度 (YYYY / YYYY-MM / YYYY-MM-DD); SDTM vs ADaM 边界 (Imputation 是 ADaM 核心任务, SDTM 只展示原始 tabulation)
 
-## R2 改 prompt 建议
-system prompt 加锚点: "SDTM does NOT have --DTF variable; --DTF is ADaM-only. SDTM preserves partial date as-is; imputation flag belongs in ADaM ASTDTF/AENDTF."
+## Self-score verdict
 
-## 与其他平台对比
-- ChatGPT: PASS+ (3 场景 + §4.4.2 锚点 + 相对 timing 清单 + SDTM/ADaM 边界清晰)
-- Claude: PASS+ (3 场景 + §4.4.2 truncation 表 + Solidus 区间 + §4.4.7 Ex3 AE Unknown 范本 + ADaM ASTDTF 机制正确引为"超 Project 范围")
-- Gemini: PARTIAL (3 场景对, (e) 把 ADaM *DTF 误植入 SDTM)
+- **Verdict**: **PASS**
+- **对照 PASS 判据**:
+  - A "2024-06" ✓
+  - B "2024" ✓
+  - C null ✓
+  - (d) SDTM 不做 imputation ✓
+  - (e) --DTF 不是 SDTM standard; ADaM 创 ASTDTF; SUPP-- 可选 ✓
+- **触发 FAIL?** 无
+- **加分**:
+  - 明确说 --DTF 不是 SDTM standard (精确 anti-hallucination)
+  - SDTM vs ADaM 边界明确
+- **v5c→v7 delta**: 无 regression. Gemini 比 ChatGPT 简洁但精度同等.
