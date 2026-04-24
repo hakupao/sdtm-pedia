@@ -1,70 +1,64 @@
-# ChatGPT Q8 answer — CT Extensible + MedDRA binding
+# ChatGPT GPTs — Q8 CT Extensible vs Non-Extensible (V5C post-apply v2.2 LIVE)
 
-**Verdict**: PASS+
+> **执行时间**: 2026-04-24 (V5C regression)
+> **会话 URL**: https://chatgpt.com/g/g-69e635b99e848191a2818cd8e8e7e9cc-sdtm-expert/c/69ead717-1634-83a8-99a6-ec44df9aad9d
+> **题类**: Q8 (D1 — CT Extensible + MedDRA 绑定 + Define-XML)
 
-## (a) Extensible=Yes vs No
-- **Ext=No**: submission values 封闭, sponsor 不能加新值, 完全按 CDISC/NCI 发布值集用
-- **Ext=Yes**: 优先 CDISC 标准值, 不够时 sponsor 可扩, study-specific permissible set 在 Define-XML 说明
+## Raw (DOM readback)
 
-## (b) 例子
-**Non-Extensible** (必按 CDISC 用):
-- AE.AESEV → **C66769** Severity/Intensity (MILD/MODERATE/SEVERE)
-- AE.AEOUT → **C66768** Outcome of Event (RECOVERED/RESOLVED, FATAL, UNKNOWN...)
-- 可补 AE.AEACN → C66767
+**结论**: Extensible=Yes 不是"随便填"; 表示 codelist 不是封闭全集, sponsor 可在必要时加非 CDISC 标准值. Extensible=No 封闭, 提交值必须完全按 CDISC CT 规定, 不能自扩.
 
-**Extensible** (允许扩):
-- AE.AEACNDEV → **C111110** Device Events Action Taken
-- Treatment Intent → **C124307**
-- 补: Marital Status Response → C76348
+### (a) Extensible=Yes vs No
 
-## (c) AETERM vs AESEV — 不是同类 CT 值
+| 属性 | 语义 | Sponsor 能否加 |
+|---|---|---|
+| No | 封闭, 预期完整值集 | **不能加**. 必须用 CDISC Submission Value (AESEV 只 MILD/MODERATE/SEVERE) |
+| Yes | 开放, CDISC 不穷尽 | **可以加**, 但前提: CDISC 已有概念必须用 CDISC 标准值; 只有 CDISC 没合适时才 sponsor-defined, Define-XML 声明 |
 
-| 变量 | Role | Core | Controlled Terms | 来源 |
-|---|---|---|---|---|
-| AE.AETERM | Topic | Req | **空白** | verbatim, 研究者/站点原话 |
-| AE.AEDECOD | Synonym Qualifier | — | **MedDRA** | 字典派生 preferred term |
-| AE.AELLT/AEPTCD | — | — | MedDRA | 字典 hierarchy |
-| AE.AESEV | Record Qualifier | Perm | **C66769** | CDISC CT coded |
+Define-XML 要求: study permissible value set 所有值都列, 即使数据未出现; 大小写按 source codelist 一致.
 
-**关键**: AETERM 不绑任何 CT, MedDRA 绑的是 AEDECOD/AELLT/AEPTCD 等字典派生变量.
+### (b) 例子
 
-### General Assumption 结构支持
-- Events: topic = --TERM (verbatim)
-- Findings: topic = --TESTCD (用 CT)
-- Interventions/Events verbatim 若编码修改 → --MODIFY
-- 字典编码结果 → --DECOD
+| Ext | CT Code | 变量 | 典型值 |
+|---|---|---|---|
+| No | C66769 | AESEV | MILD, MODERATE, SEVERE |
+| No | C66768 | AEOUT | FATAL, NOT RECOVERED/NOT RESOLVED, RECOVERED/RESOLVED, ...  |
+| No | C66742 | NY | N, NA, U, Y |
+| Yes | C65047 | LBTESTCD | CDISC CT 不可能穷尽 |
+| Yes | C71620 | --ORRESU/--STRESU | 单位列表不断扩展 |
 
-**用户 prompt 里"AETERM 实际用 MedDRA"更精确应是**: "AE 是用 MedDRA 编码, 但 verbatim 在 AETERM, MedDRA 派生值在 AEDECOD/AELLT/AEPTCD" — ChatGPT 正确纠偏.
+### (c) AETERM 语义 vs AESEV
 
-## (d) Sponsor 扩 LBTESTCD 时 Define-XML 要做什么
+| 变量 | 角色 | CDISC CT 枚举? | 实际规则 |
+|---|---|---|---|
+| AETERM | Topic; 报告原始 AE verbatim term | **不是** CDISC CT | 来自 CRF/报告, 自由文本或预设 AE term |
+| AEDECOD | Synonym Qualifier; 字典派生 | **不是** CDISC CT | 来自 **MedDRA Preferred Term**; Define-XML 说明外部字典名称+版本 |
+| AESEV | Qualifier; 严重程度 | **是** CDISC CT C66769 Non-Ext | 只能 MILD / MODERATE / SEVERE |
 
-### 背景
-- LB.LBTESTCD (Topic, Req) 绑 **C65047**, ≤8 字符
-- LB.LBTEST (Synonym Qualifier, Req) 绑 **C67154**, ≤40 字符
+关键: AETERM = 收集医学事件文本, 非 CDISC CT 闭合; AESEV = CDISC CT 约束 + Non-Ext. Investigator 写 "very bad headache" 可进 AETERM; 但 AESEV 不能 "VERY BAD", 必须 MILD/MODERATE/SEVERE.
 
-### Define-XML 要求
-1. 为 LBTESTCD 定义 study-specific codelist (含标准 CDISC + sponsor 新增)
-2. 每个 sponsor-added LBTESTCD 给对应 LBTEST (成对一致)
-3. 只列 study 计划允许的值 (不塞整个 codelist)
-4. metadata 说明 origin / 定义
-5. 若同一变量 collected + derived 混用 → value-level metadata 区分
+### (d) Sponsor 扩 LBTESTCD 时 Define-XML 要做
 
-### 建模提醒
-- **"Other, specify" 不能直接把 verbatim 丢进 LBTESTCD**: 要先编码 (e.g. verbatim "Prothrombin time" → LBTESTCD="PT", LBTEST="Prothrombin Time")
-- **不要把过多属性塞 LBTESTCD**: 不推荐 location/method/laterality/machine 揉进 code, 用 generic test code + qualifier variables 表达
+LBTESTCD = C65047 Ext=Yes:
+1. Define-XML 为 LBTESTCD 提供 codelist / permissible value set, 列本研究允许值 (即使数据未出现)
+2. CDISC 已存 test code 必须用 CDISC Submission Value + NCI/CDISC CT 信息 (不改拼写/大小写/含义)
+3. Sponsor 新增 LBTESTCD 作 sponsor-defined codelist item 声明; **不要伪造 NCI C-code**
+4. 给 LBTESTCD (8 char) 与 LBTEST (40 char max) 一一对应
+5. 有外部字典 (如 LOINC) 用 LBLOINC 或 Define-XML external codelist attributes 描述 dictionary name/version
 
-## 源溯源
-- ch04_general_assumptions.md (Controlled terminology / Define-XML 通则)
-- AE/spec.md (AE 变量定义)
-- AE/assumptions.md (AE 业务规则)
-- terminology/core/ae.md (AE codelists)
-- LB/spec.md (LB 变量定义)
-- terminology/questionnaires/questionnaires_part1.md (Ext 例子)
+**源路径**: `<!-- ch04_general_assumptions.md -->`; `<!-- terminology/core/ae.md -->` (C66769/C66768); `<!-- terminology/core/general_part4.md -->` (C66742); `<!-- terminology/core/lb_part2.md -->` (C65047); `<!-- terminology/core/general_part5.md -->` (C71620); `<!-- AE/spec.md + assumptions.md -->`
 
-## 评分要点
-- ✓ (a) Ext=No / Yes 语义完整 + Define-XML 机制
-- ✓ (b) 2+2 例子 C-code 全对 (C66769/C66768, C111110/C124307)
-- ✓ (c) **AETERM 不绑任何 CT** 关键判断正确 + 精确纠用户 prompt "AETERM 用 MedDRA" 错误描述
-- ✓ (c) MedDRA 绑 AEDECOD/AELLT/AEPTCD 明确
-- ✓ (d) Define-XML 5 条 + 2 条建模提醒 (Other specify 必编码, 不塞属性)
-- ✓ C65047 + C67154 + 长度限制
+## Self-score verdict
+
+- **Verdict**: **PASS** (PASS+ equivalent on AETERM/AEDECOD MedDRA 绑定精度)
+- **对照 PASS 判据**:
+  - (a) Ext Yes/No 语义 ✓
+  - (b) Non-Ext 3 例 (AESEV/AEOUT/NY) 超 2 要求 ✓; Ext 2 例 (LBTESTCD/Unit) ✓ (v4.0 判据列 LBNRIND Ext=Yes 作可选, 本答未提但 LBTESTCD 达标)
+  - (c) **AETERM verbatim 非 CT + AEDECOD 绑 MedDRA** 明确分离 ✓ (**PASS+ bonus**: 精确识别 "AETERM 不绑 MedDRA, MedDRA 绑 AEDECOD")
+  - (d) Define-XML 所有 5 点 (values 列, sponsor-defined, 不伪造 NCI, LBTEST 40-char, LOINC) ✓
+- **触发 FAIL?** 无 (未反 Extensible 语义, AESEV 未说 Extensible, AETERM 未说绑 CDISC CT)
+- **加分**:
+  - MedDRA 绑 AEDECOD 非 AETERM (PASS+ bonus 判据命中)
+  - "very bad headache" 具体业务示例
+  - LOINC 绑 LBLOINC external codelist attributes
+- **v5c→v2.2 delta**: 无 regression; 深度超 N5.2 baseline, 特别是 AETERM/AEDECOD 字典绑定位置

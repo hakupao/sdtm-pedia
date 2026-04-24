@@ -1,24 +1,33 @@
-# Q5 — FA vs QS vs CE 三场景 (ChatGPT)
+# ChatGPT GPTs — Q5 FA vs QS vs CE 边界 (V5C post-apply v2.2 LIVE)
 
-> **Chat**: fresh (`/c/69e8adbf-4cc4-83a4-8fe6-8c6a62874b39`)
-> **采集时间**: 2026-04-22 晚
-> **Verdict**: **PASS** (A=FA, B=QS, C=CE + 结论表 + 源溯源 + SDTMIG §8.6.3 精确引用)
+> **执行时间**: 2026-04-24 (V5C regression)
+> **会话 URL**: https://chatgpt.com/g/g-69e635b99e848191a2818cd8e8e7e9cc-sdtm-expert/c/69ead46d-6800-83a8-b309-6b67ba120c40
+> **题类**: Q5 (B2 — FA/QS/CE 三场景选域)
 
-## 结论表
-| 场景 | 域 | 理由精要 | Topic 变量示例 |
+## Raw (DOM readback)
+
+**结论: A → FA; B → QS; C → CE.**
+
+| 场景 | 域 | 理由 | Topic 变量值示例 |
 |---|---|---|---|
-| A | **FA** | 事件的测量/评估 → FA (事件本身放 MH/CE/AE). FA 与父记录只靠 FAOBJ 不够, 需 RELREC | FATESTCD="DAS28", FATEST="Disease Activity Score 28", FAOBJ="Rheumatoid Arthritis", FAORRES=4.2 |
-| B | **QS** | SF-36 是命名问卷; QRS 共享假设: 量表名放 QSCAT, 题目放 QSTEST/QSTESTCD | QSTEST="Physical Functioning", QSCAT="SF-36", QSORRES 原始 / QSSTRESC/QSSTRESN 标准分 |
-| C | **CE** | 协议定义为临床感兴趣但不作 AE 的事件; 可包括 disease-related signs/symptoms. 前提: 协议要求收集 | CETERM="DIZZINESS"; 自发报告时 CEPRESP/CEOCCUR 通常不填 |
+| A (DAS28 对 MH) | **FA** | 对一条既往 MH 事件的量化 finding, 不是新 AE, 不是问卷. FA 存"关于某事件/干预的 findings", 若 FA 与 MH 关系已收集, 应通过 **RELREC** 关联, 不只靠 FAOBJ | FATESTCD=DAS28; FATEST="DAS28 Score"; FAOBJ="RHEUMATOID ARTHRITIS"; FAORRES=4.2 |
+| B (SF-36) | **QS** | SF-36 是 QRS instrument. QS 结构: "受试者 × 访视 × 问卷 × 题目/评分" 一条记录. instrument 名放 --CAT, 题目/评分放 --TESTCD/--TEST | QSCAT="SF36 V2.0 STANDARD"; 8 维度 QSTESTCD=SF36312 Physical Functioning / SF36313 Role Physical / SF36314 Bodily Pain / SF36315 General Health / SF36316 Vitality / SF36317 Social Functioning / SF36318 Role Emotional / SF36319 Mental Health |
+| C (轻微头晕 sub-AE) | **CE** | 方案/EDC 明确不作为 AE, 但仍收 clinical event of interest. CE 用于 protocol-defined, not considered AE. CE assumption 提醒 write-in CE 谨慎, 确保真 AE 进 AE | CETERM=DIZZINESS; CEDECOD=Dizziness; CEDUR=PT30S (ISO duration, 30 秒) |
 
-## 补判断
-- **A 为什么不是 CE?** 不是描述 RA 本身新发生, 而是对既往 MH 做 Visit 4 量化评估 → SDTMIG §8.6.3: 事件本身→Events, 事件测量→FA
-- **C 为什么不是 AE?** 题目给前提 "未达 AE 报告阈值"; 若协议要求收集 → CE
+**关键判定**: A = "关于既有事件的 finding" → FA; B = "问卷工具" → QS; C = "非 AE 的临床事件本身" → CE
 
-## 源溯源 (ChatGPT 自列)
-- A: FA/assumptions.md + AE/examples.md + ch08_relationships.md
-- B: QS/assumptions.md + ch04_general_assumptions.md
-- C: CE/assumptions.md + CE/spec.md + terminology/core/general_*.md
+**源路径**: FA/spec.md + assumptions.md; QS/spec.md + assumptions.md; terminology/questionnaires/questionnaires_part39.md (SF-36 v2.0 STANDARD QSTESTCD); CE/spec.md + assumptions.md
 
-## Verdict
-**PASS** — 3/3 场景对 + 结论表 + 源溯源 + 补判断 (A not CE / C not AE) + §8.6.3 精确锚点.
+## Self-score verdict
+
+- **Verdict**: **PASS**
+- **对照 PASS 判据**:
+  - A=FA ✓ (未答 QS / SUPPMH)
+  - B=QS ✓
+  - C=CE ✓ (未答 AE / DV)
+- **触发 FAIL?** 无
+- **加分**:
+  - A 提 RELREC 作 FA-MH 关系更精确连接 (超 PASS 要求)
+  - B 提供精确 SF36312-319 8 维度 QSTESTCD (N5.2 baseline 持平或更厚)
+  - C 提 CEDUR=PT30S ISO duration 精确 timing (超要求)
+- **v5c→v2.2 delta**: 无 regression, 深度保持或略强于 N5.2 baseline
