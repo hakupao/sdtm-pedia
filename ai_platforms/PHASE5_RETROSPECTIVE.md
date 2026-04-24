@@ -138,6 +138,14 @@
 
 **如何补**: Phase 5 注册 "optional v5c 全量 10 题回归" (ChatGPT 10 题 + Gemini 10 题), P3.9 后作选做 verification task. 若 skip, 在 retro 明示"假设未实测" + 接受残余风险. **已起草执行 plan**: `ai_platforms/V5C_REGRESSION_PLAN.md` v0.1 (2026-04-23, 172 行, Q4-Q10 × 2 平台 = 14 题回归手顺 + 阈值 + Rule D 15th R2-line slot + 推荐 combined regression with v7/v2.2 apply after).
 
+**G5-4 闭合状态 (2026-04-24 post-apply V5C regression 执行完毕)**: ✅ **CLOSED** (假设成立, 非破).
+- V5C regression Q4-Q10 × 2 平台 Chrome MCP 全自动 2026-04-24 执行, 双平台各 7/7 strict PASS = **14/14 PASS 主 gate 通过** (严阈值 §3.1).
+- 15th R2-line Rule D reviewer (`superpowers:code-reviewer` background) 独立复核 **APPROVE**: 14/14 verdict-level AGREE, 0 blocking, G5-4 CLOSED. Reviewer 产物 `ai_platforms/v5c_regression_reviewer.md` (233 行).
+- **N5.4 推论成立**: "v5c/v7 prompt CO-4/CO-1c 改动不污染 Q4-Q10 baseline" 实测验证. 双 Phase 4 reviewer MED flag (#24 M-2 + #25 MED-1) 消化完毕.
+- **v7 patch 正外部性** (额外 finding): CO-5 AHP + CO-1c ARMCD null 规则在 Q8/Q9 无关题自发援引, 跨题 reinforcement 稳定.
+- **v7.1 optional patch 候选** (non-blocking, reviewer 独立验证为真): (i) SUPP-- Core 锚点 QORIG Req / QEVAL Exp (Gemini Q10 MINOR); (ii) SUPP-- scope 补 SV 漏; (iii) ARMNRS canonical 4 值 (Q13 post-apply carry, out-of-V5C-scope 但同期补).
+- 产物索引: `chatgpt_gpt/dev/evidence/smoke_v4_v2_2_regression_results.md` + `gemini_gems/dev/evidence/smoke_v4_v7_regression_results.md` + 14 answer 文件 `smoke_v4_answers/Q{4-10}_answer.md` + R1 原档 `_r1_pre_v{2.2|7}.md` (Rule B).
+
 ### G5-5. Free tier 50-cap 证据 3 解读 — SKIP + 接受残余风险 (P3.9 (f) 2026-04-23)
 
 **问题**: NotebookLM PLAN v2.2 L70 "分享不改 viewer 自己 tier source cap" 证据 MEDIUM (非 A 级官方原文). P3.9 子步骤 (f) 计划用 Free tier 小号实测闭合.
@@ -265,7 +273,7 @@
 
 9. Gemini v7 迭代 (Q1 GFGENE + Q13 ARMCD-null 双 HIGH carry-over) — **draft ready**: `gemini_gems/dev/v7_draft/system_prompt_v7.md` 21,071 chars (wc -m, UTF-8 chars) / 28,107 bytes (wc -c), 待 reviewer + apply
 10. ChatGPT v2.1 → v2.2 Q1 拼写 MINOR fix (GFINHERT 写全禁 GFINHERTG) — **draft ready**: `chatgpt_gpt/dev/v2.2_draft/system_prompt_v2.2.md` 6,654 chars (wc -m, UTF-8 chars) / 8,777 bytes (wc -c), 待 reviewer + apply
-11. Q4-Q10 v5c 全量回归 (G5-4 假设未实测 verification task) — **plan ready**: `V5C_REGRESSION_PLAN.md` v0.1, 推荐 combined with #9+#10 apply 后跑
+11. ~~Q4-Q10 v5c 全量回归 (G5-4 假设未实测 verification task)~~ — ✅ **DONE 2026-04-24**: combined with v7/v2.2 apply 后跑, 双平台 14/14 strict PASS, 15th Rule D reviewer APPROVE, G5-4 CLOSED. 详 §2 G5-4 闭合 note + `ai_platforms/v5c_regression_reviewer.md`.
 12. NotebookLM P3.5/P3.6/P3.7 Studio 三件套 post-project 精雕 (v2.1 ICEBOX)
 
 ---
