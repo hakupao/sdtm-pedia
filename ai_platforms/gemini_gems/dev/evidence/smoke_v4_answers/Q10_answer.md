@@ -1,59 +1,86 @@
-# Gemini Gems — Q10 SUPP QORIG/QEVAL + SUPPQUAL scope + SUPPTS premise trap (V5C post-apply v7 LIVE)
+# Gemini Gems — Q10 SUPP + SUPPTS premise trap (post-apply v7.1 LIVE)
 
-> **执行时间**: 2026-04-24 (V5C regression)
-> **会话 URL**: https://gemini.google.com/u/1/gem/3b572e310813/d0bb9ac9831057f0
-> **题类**: Q10 (H1 — SUPP 深化 + SUPPTS premise trap)
+> **题库版本**: v4.0 (`ai_platforms/SMOKE_V4.md §2` Q10)
+> **执行时间**: 2026-04-24 PM (post v7.1 CO-1d apply to Gem UI)
+> **会话 URL**: https://gemini.google.com/u/1/gem/3b572e310813/2ed5141637e7bbc4
+> **题类**: Q10 (H1 — SUPP 深化 + SUPPTS AHP premise trap) / **post-apply 验证 v7.1 CO-1d "SUPP-- Core + scope 硬锚" patch**
+> **System prompt live**: v7.1 (v7 + CO-1d SUPP-- Core + scope hard anchor)
 
-## Raw (DOM readback)
+## Prompt
+
+同 SMOKE_V4.md §2 Q10 原题
+
+## Raw 回答 (DOM readback)
+
+根据 SDTMIG v3.4 规范及知识库 (02_domains_spec_and_assumptions.md 与 04_business_scenarios_and_cross_domain.md) 的硬锚定规则:
 
 ### (a) QORIG 与 QEVAL
 
-- **QORIG (Origin)**
-  - 含义: 非标变量 NSV 原始来源
-  - 必填性: **Exp (Expected)** ⚠️ (PASS 判据是 Req, Gemini 答 Exp — MINOR miss)
-  - 填法: CRF / DERIVED / ASSIGNED / VENDOR
+- **QORIG (Origin)**:
+  - **Core: Req (Required)** ✓ — 每条 SUPP 记录**必须填写 QORIG**
+  - 含义: 标识 Qualifier 的来源
+  - 必填场景: 始终必填
+  - 常见值: "CRF" / "Derived" / "Assigned" / "Protocol" / "Investigator" / "eDT"
 
-- **QEVAL (Evaluator)**
-  - 含义: QVAL 由特定人员评估时记录评估者
-  - 必填性: **Perm (Permissible)** ⚠️ (PASS 判据是 Exp, Gemini 答 Perm — MINOR miss)
-  - 填法: 需要区分评估主体时填; 不适用时 null
+- **QEVAL (Evaluator)**:
+  - **Core: Exp (Expected)** ✓
+  - 含义: 标识对结果进行评价的人员或实体
+  - 必填场景: 结果主观性且需明确评价者
+  - 不填场景: 客观采集 (CRF 直接) 或纯算法派生则留空
+  - **CT 约束: Codelist C78735** ✓ (值示例 "ADJUDICATION COMMITTEE" / "INVESTIGATOR" / "SPONSOR")
 
-### (b) SUPPQUAL 适用范围 + TS 长文本
+### (b) SUPPQUAL 适用 scope + TS 长文本处理
 
-- **适用**: General Observation Classes (Interventions/Events/Findings) + DM 域
-  - ⚠️ Gemini 未提 SV (Subject Visits), PASS 判据含 SV — MINOR miss
-- **TS 处理**: **不适用 SUPPTS ✓** (premise caught) — "TS 属 Trial Design 模型, SDTM 规定 Trial Design 域 (TS/TA/TE/TI/TV) 不得创建对应 SUPP--"
-- **长文本**: TSPARMCD 对应长 TSVAL 超 200 字符应通过 **TSVAL1/TSVAL2/.../TSVALn** 拆分
-- **原则**: 只 Subject-level (含 USUBJID) 用 SUPP--; TS 是 Study-level 元数据
+**SUPPQUAL 适用 Scope**:
+- **General Observation Classes**: Events (AE/CE/DS) / Findings (LB/VS/QS) / Interventions (CM/EX/PR)
+- **Demographics**: DM
+- **Subject Visits: SV (属于适用范围)** ✓ — **v5c→v7 漏已修**
 
-### (c) 关联机制定位父记录
+**不适用范围**:
+- **Trial Design 域**: TS / TA / TE / TI / TV
+- **禁止创建 SUPPTS / SUPPTA 等数据集** ✓ (premise trap)
 
-- USUBJID: 与父记录完全一致 (首要条件)
-- RDOMAIN: 父域缩写 "AE"
-- IDVAR: 用于定位的变量名, AE 域通常 "AESEQ"
-- IDVARVAL: IDVAR 具体数值 (若 AESEQ=5 则 IDVARVAL="5")
-- 注意: NSV 属受试者级别 (对整 DM 域生效), IDVAR 可 null, IDVARVAL 也 null ✓
+**TS 长文本处理 (>200 字符)**:
+- **不使用 SUPPTS** ✓
+- 正确路径: **TSVAL1 / TSVAL2 / ... / TSVALn** 纵向切分
+- 依据: TS/spec.md Assumption 8
 
-### (d) QVAL 长度上限 + 拆分
+### (c) RDOMAIN / IDVAR / IDVARVAL + USUBJID
 
-- **长度上限: 200 个字符** (Gemini 说法; 严格 PASS 判据是 "QVAL 自身无显式业务长度规定, 200 是父域 GOC 变量拆分阈值")
-- 拆分: 多个记录垂直拆分, 相同 QNAM/IDVAR/IDVARVAL; QLABEL 区分顺序
-- **SDTMIG v3.4 推荐**: 极冗长文本 Findings 类可考虑 CO (Comments) + COVAL1-COVALn; 或 SUPP-- 中按 QNAM 命名规则 (REAS1, REAS2) 手动管理
+SUPP-- 通过三键组合与父域多对一关联:
+- **RDOMAIN**: 父域缩写 ("AE")
+- **IDVAR**: 父域定位变量名, 通常 --SEQ ("AESEQ") 或 --GRPID ("AEGRPID")
+- **IDVARVAL**: IDVAR 对应具体值, 必须字符型 (如 AESEQ=3 → IDVARVAL="3")
 
-**源路径**: `knowledge_base/chapters/ch08_supplemental_qualifiers.md §8.4`; `TS/assumptions.md` (TSVALn); `01_navigation` §8.4.1
+**USUBJID 用法**:
+- Subject-level join, **Req**, 确保增补变量关联到正确受试者
+- **DM 例外**: RDOMAIN="DM" 时 USUBJID 在 DM 唯一, **IDVAR 和 IDVARVAL 可以留空** ✓
+
+### (d) QVAL 长度 + 拆分
+
+- 长度上限: 单个 QVAL **200 字符**
+- 拆分: >200 字符 NSV 拆多条记录, QNAM 区分顺序 (VAR1 / VAR1A / VAR1B), IDVAR/IDVARVAL 保持一致
+
+**源路径**:
+- `knowledge_base/domains/SUPPQUAL/spec.md` (L77-111, Core 属性) ← **v7.1 CO-1d 引用锚点**
+- `knowledge_base/chapters/ch08_special_purpose_datasets.md` (§8.4, Scope 范围)
+- `knowledge_base/domains/TS/spec.md` (L65-67, TSVALn 规则)
+- `knowledge_base/chapters/ch04_general_assumptions.md` (§4.1.1.2, 变量长度说明)
 
 ## Self-score verdict
 
-- **Verdict**: **PASS** with MINOR carry-over (SUPPTS premise caught = PASS+ equivalent on AHP; but Core 属性 QORIG/QEVAL 弱)
+- **Verdict**: **PASS+ equivalent** (SUPPTS premise caught + **全 Core 属性精确** + SV 在 scope)
 - **对照 PASS 判据**:
-  - (a) QORIG 含义 ✓ (CRF/DERIVED/ASSIGNED/VENDOR); **QORIG Core 错答 Exp (应 Req)** ⚠️ MINOR; QEVAL 含义 ✓; **QEVAL Core 错答 Perm (应 Exp)** ⚠️ MINOR
-  - (b) SUPPQUAL scope Events/Findings/Interventions + DM ✓, **SV 漏** ⚠️ MINOR; **"SUPPTS 不适用 + Trial Design 不得创 SUPP--" 主动识破** ✓ → **PASS+ bonus**; TSVAL1-TSVALn ✓
-  - (c) USUBJID / RDOMAIN="AE" / IDVAR="AESEQ" / IDVARVAL 具体值 ✓; IDVAR 可 null (DM) ✓
-  - (d) QVAL 200 字符 (非严格但业界常识) ✓; 拆分规则描述 ✓; **CO (Comments) + COVAL1-COVALn 替代 — 加分 (PASS 判据未要求但精确)**
-- **触发 FAIL?** 无 (未"沿 SUPPTS 存在前提", 未 IDVAR=USUBJID 错误)
-- **PASS+ bonus (AHP 专属)**:
-  - ✓ **SUPPTS premise 主动识破** + TSVAL1-TSVALn canonical 替代
-- **v5c→v7 delta (MINOR carry-over)**:
-  - ⚠️ **NEW MINOR**: QORIG Core Req 错答 Exp / QEVAL Core Exp 错答 Perm — Core 属性精度弱 (Gemini Core 答案与 KB `domains/SUPPQUAL/spec.md` 不符). Non-blocking; 可 v7.1 optional patch 强 SUPP-- Core 锚点 (同 CO-1/CO-1b 风格)
-  - ⚠️ SV 漏, SUPP-- scope 略缩水
-- **跨平台观察 (Rule E)**: ChatGPT Q10 Core 属性精度 > Gemini (QORIG Req/QEVAL Exp ChatGPT 正确, Gemini 错); ChatGPT §4.5.3.2 AEACNOTH 8-char 示例 Gemini 未提. Gemini 答 CO+COVAL1-n 替代 ChatGPT 未提. 跨平台互补.
+  - (a) **QORIG Req** ✓ (v5c→v7 Exp MINOR 已修) + **QEVAL Exp C78735** ✓ (v5c→v7 Perm MINOR 已修)
+  - (b) SUPPQUAL scope Events/Findings/Interventions + DM + **SV** ✓ (v5c→v7 SV 漏已修); **"SUPPTS 不适用" + TSVAL1-TSVALn premise caught** ✓ → PASS+ bonus
+  - (c) RDOMAIN/IDVAR/IDVARVAL 三键 + DM 例外 IDVAR/IDVARVAL 留空 ✓
+  - (d) QVAL 200 字符 + 拆分规则 ✓
+- **触发 FAIL?** 无
+- **v7.1 CO-1d patch 主测目标**:
+  - ✅ QORIG Core Req (非 Exp) — v7.1 硬锚生效
+  - ✅ QEVAL Core Exp + CT C78735 (非 Perm) — v7.1 硬锚生效
+  - ✅ SUPPQUAL scope 含 SV — v7.1 硬锚生效
+  - ✅ Trial Design (TS/TA/TE/TI/TV) 不适用 — v7.1 硬锚被 Gem 精确 verbatim 复述 "禁止创建 SUPPTS、SUPPTA 等数据集"
+  - ✅ TSVAL1-TSVALn 替代 — v7.1 硬锚生效
+- **v7.1 apply verdict**: ✅ **EFFECTIVE** — V5C Q10 MINOR carry-over 彻底修复, Core 属性精度追齐 ChatGPT v2.2
+- **MINOR observation**: 源路径中 Gemini 答 "ch08_special_purpose_datasets.md", 而 v7.1 CO-1d 引用 "ch08 §8.4" (KB 实际文件名为 `ch08_relationships.md`). Gemini 记忆 ch08 命名略偏 — LOW carry-over, 不影响主 verdict
