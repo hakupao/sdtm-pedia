@@ -2,7 +2,7 @@
 
 > **Purpose**: 消化 Phase 5 retrospective §2 G5-4 "Q4-Q10 v5c 等价 10/10 假设未实测" 缺口. 双 Phase 4 reviewer #24 M-2 + #25 MED-1 独立交叉 flag 要求的 verification task.
 > **Scope**: ChatGPT GPTs + Gemini Gems 两平台, smoke v4 Q4-Q10 共 7 题 × 2 平台 = 14 answer.md 新增
-> **Status**: 📋 **PLAN only** (2026-04-23 起草), 执行需 Chrome MCP cowork
+> **Status**: 📋 **PLAN ready to run** (2026-04-24 unblocked — v7/v2.2 已 apply 到 UI + post-apply Q1+Q13 smoke 3/3 PASS 2026-04-24, v5c→v7/v2.2 prompt base 稳定, Q4-Q10 等价假设实测环境已就绪); 执行需 Chrome MCP cowork
 > **前置**: `ai_platforms/PHASE5_RETROSPECTIVE.md §2 G5-4` / `SMOKE_V4.md §2 Q4-Q10` / `SMOKE_V4.md §3 跨平台矩阵` / `gemini_gems/dev/ab_reports/STAGE_N5.4_AB_REPORT.md` / `chatgpt_gpt/dev/ab_reports/STAGE_N5.4_AB_REPORT.md`
 > **优先级**: Phase 5 post-sign-off optional, 不阻塞 Phase 5 FINAL
 

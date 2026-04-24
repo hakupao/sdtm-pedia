@@ -77,3 +77,32 @@
 - Q11-Q14 9-file KB (batch 2) 覆盖充分性: TBD
 - Q10 SUPPTS 前提纠错能力 (v4.0 patch): TBD
 - F-1/F-3 carry-over: TBD
+
+---
+
+## Post-apply (v2.2 LIVE) 验证 2026-04-24
+
+> **背景**: v2.1 R1 Q1 写 GFINHERTG (extra G) PARTIAL MINOR carry-over → v2.2 draft 加 "v3.4 新域变量名精确校验" bullet → 2026-04-24 applied to GPT Builder UI → post-apply smoke Q1 re-run 验证 patch 是否生效.
+> **Scope**: Q1 only (primary v2.2 patch target). Q2-Q14 + AHP1-3 R1 baseline 保留, 非回归窗口.
+> **Prior Q1 answer preserved**: `smoke_v4_answers/Q1_answer_r1_pre_v2.2.md` (R1 2026-04-22 PM 内容)
+> **Mode**: Chrome MCP 全自动 (fill + press Enter + DOM readback, 无人工粘贴)
+
+| Q | Verdict | 理由 (对照 R1) |
+|---|---|---|
+| Q1 | **PASS** (v2.2 patch 核心目标命中) | GFINHERT 7 字母精确; 5 Core Req + 5 Core Exp 全列; GFGENSR/GFPVRID/GFGENREF/GFINHERT + CT C181177 全正确. **v2.2 patch 生效**: R1 GFINHERTG 拼写错未复发. 额外 anti-hallucination catch: 主动识别 "L858R+Exon 19" 科学不一致 (L858R 实为 Exon 21), 超题目要求. MINOR observation: 答中 GFGENLOC 非 v7 CO-4 禁用但需 KB 核定 |
+
+### Post-apply 主结论
+
+1. ✅ **v2.2 patch 主目标 GFINHERT 精确命名生效** — R1 拼写错 MINOR 修完
+2. ✅ Extended thinking planning (Thought for 1m 1s) 触发 "先核对变量表" 行为, 有助 Topic 变量精确性
+3. ✅ 额外 anti-hallucination sanity catch (L858R/Exon 19) — v2.2 enabled reasoning 余热
+4. ⚠️ LOW carry-over: GFGENLOC 变量需 KB spec 核定 (未 FAIL, 未列 GFGENE 等 forbidden 变量)
+5. ✅ 答案档 `smoke_v4_answers/Q1_answer.md` = v2.2 post-apply 答; `Q1_answer_r1_pre_v2.2.md` = R1 原档 (Rule B 保留)
+
+### v2.2 LIVE 应用 checkpoint
+
+- [x] Draft → UI apply (2026-04-24)
+- [x] Draft → `current/system_prompt.md` 替换 (repo sync step 1)
+- [x] Post-apply smoke Q1 PASS
+- [x] `CLAUDE.md` Key Paths 更新 (v2.2 LIVE row)
+- [ ] Q2-Q14 + AHP1-3 full regression (optional, deferred; Q1 primary target 已闭合)

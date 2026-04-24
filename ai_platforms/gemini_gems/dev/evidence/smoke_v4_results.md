@@ -102,3 +102,36 @@
 - CO-4 4-file KB vs supplemental topics gap (Q11-Q14): TBD
 - Q10 SUPPTS 前提纠错能力 (v4.0 patch): TBD
 - F-1/F-3 carry-over: TBD
+
+---
+
+## Post-apply (v7 LIVE) 验证 2026-04-24
+
+> **背景**: R2 Gemini v6-post-A1 Q1 GFGENE regression HIGH + R1+R2 Q13 (b) ARMCD/NOTASSGN 系统性 gap → v7 draft 加 CO-4 §GF 正向清单双锚 + CO-1c ARMCD null 规则 → 2026-04-24 applied to Gem UI → post-apply smoke Q1 + Q13 re-run 验证双 patch 是否生效.
+> **Scope**: Q1 + Q13 (v7 primary patch targets). Q2-Q12 + Q14 + AHP1-3 R1+R2 baseline 保留.
+> **Prior Q1/Q13 preserved**: `smoke_v4_answers/Q1_answer_r1_pre_v7.md` + `Q13_answer_r1_r2_pre_v7.md` (Rule B)
+> **Mode**: Chrome MCP 全自动 (fill + click Send + wait_for + DOM readback)
+
+| Q | Verdict | 理由 (对照 R1 + R2) |
+|---|---|---|
+| Q1 | **PASS** (v7 CO-4 patch 核心目标命中) | GF 域 ✓; 6 Core Req + 3 Core Exp; GFGENSR/GFPVRID/GFGENREF/GFINHERT + CT C181177 全正确. **v7 CO-4 §GF 正向清单双锚生效**: 答中显式 "不存在 GFGENE/GFLOC/GFVARIANT" 作 CO-4/CO-5 警告, **R2 GFGENE regression HIGH 彻底修复**. 3 源路径 citation, CO-3 生效. LOW carry-over: Core Exp 只列 3 个未含 GFMETHOD/GFREFID (达标, 不如 ChatGPT v2.2 厚度) |
+| Q13 | **PASS** (v7 CO-1c patch 核心目标命中, 1 MINOR carry-over) | (a) 3 类 rule 失效 ✓; (b) **ARMCD/ARM null + 禁忌 NOTASSGN + ARMNRS Required + C142179** — **v7 CO-1c 规则生效, R1+R2 Q13 (b) ARMCD/NOTASSGN 系统性 gap 修完**; (c) NS premise **主动识破** (CO-5 AHP-V1/V3 引用) = PASS+ equivalent; (d) SUPPDM 5 场景 ✓. **MINOR carry-over (NEW)**: 推荐 ARMNRS 值 "NOT APPLICABLE" 不在 C142179 canonical submission value 集 (应 "NOT ASSIGNED" / "SCREEN FAILURE" / "ASSIGNED, NOT TREATED" / "UNPLANNED TREATMENT"), non-blocking; 可 v7.1 optional patch 补 canonical 全称清单 |
+
+### Post-apply 主结论
+
+1. ✅ **v7 双 patch 主目标全生效**:
+   - CO-4 §GF 正向清单双锚 → R2 Q1 GFGENE HIGH regression 彻底关闭
+   - CO-1c ARMCD null 规则 → R1+R2 Q13 (b) 系统性 gap 关闭, 禁忌 NOTASSGN 明确
+2. ✅ **CO-5 AHP premise trap 保持**: Q13 (c) NS 域幻觉 主动识破 (引 CO-5 AHP-V1/V3 硬规则)
+3. ✅ Gem UI 接受 v7 ~28K bytes (v6-post-A1 18.7K → v7 28.1K, +50% 仍在接受窗口)
+4. ⚠️ **NEW MINOR (non-blocking)**: Q13 ARMNRS 推荐值 "NOT APPLICABLE" 非 canonical, v7.1 optional patch 候选
+5. ✅ 答案档: `smoke_v4_answers/Q1_answer.md` + `Q13_answer.md` = v7 post-apply; `Q1_answer_r1_pre_v7.md` + `Q13_answer_r1_r2_pre_v7.md` = R1+R2 原档保留
+
+### v7 LIVE 应用 checkpoint
+
+- [x] Draft → UI apply (2026-04-24)
+- [x] Draft → `current/system_prompt.md` 替换 (repo sync step 1)
+- [x] Post-apply smoke Q1 PASS + Q13 PASS (2/2)
+- [x] `CLAUDE.md` Key Paths 更新 (v7 LIVE row)
+- [ ] Q4-Q10 full regression via V5C_REGRESSION_PLAN (planned, unblocked)
+- [ ] v7.1 optional patch: ARMNRS C142179 canonical 全称清单 (non-blocking)
