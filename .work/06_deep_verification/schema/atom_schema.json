@@ -1,0 +1,186 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sdtm-compare.local/schema/atom_schema.v1.2.json",
+  "title": "SDTM Deep Verification Atom Schema",
+  "description": "PDF / MD 原子统一 schema, P0 Pilot 收官冻结 v1.2 (2026-04-24). 支持 PDF 原子 (pdf_atoms.jsonl) 与 MD 原子 (md_atoms.jsonl), 通过 atom_id 前缀 + 字段差异区分.",
+  "version": "1.2",
+  "frozen_at": "2026-04-24",
+  "frozen_evidence": [
+    "evidence/checkpoints/p0_pilot_FINAL_report.md",
+    "evidence/checkpoints/p0_T1_v1.1_reviewer_report.md Rule D 85%",
+    "evidence/checkpoints/p0_T2_T3_reviewer_report.md Rule D 81.25%"
+  ],
+  "type": "object",
+  "oneOf": [
+    { "$ref": "#/$defs/pdf_atom" },
+    { "$ref": "#/$defs/md_atom" }
+  ],
+  "$defs": {
+    "atom_type_enum": {
+      "description": "9-value hard enum. 写入前 self-validate, 禁造词 (如 PARAGRAPH 在 v1.1 实测 N1 被拦).",
+      "type": "string",
+      "enum": [
+        "HEADING",
+        "SENTENCE",
+        "LIST_ITEM",
+        "TABLE_HEADER",
+        "TABLE_ROW",
+        "CODE_LITERAL",
+        "CROSS_REF",
+        "FIGURE",
+        "NOTE"
+      ]
+    },
+    "extracted_by": {
+      "type": "object",
+      "required": ["subagent_type", "prompt_version", "ts"],
+      "properties": {
+        "subagent_type": {
+          "type": "string",
+          "description": "执行该 writer 的 subagent_type (如 oh-my-claudecode:executor). v1.2 硬约束 executor/writer 家族, 禁 Explore 家族."
+        },
+        "prompt_version": {
+          "type": "string",
+          "pattern": "^P0_writer_(pdf|md)_v\\d+(\\.\\d+)?$"
+        },
+        "ts": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "pdf_atom": {
+      "type": "object",
+      "required": [
+        "atom_id",
+        "source",
+        "page",
+        "page_region",
+        "parent_section",
+        "atom_type",
+        "verbatim",
+        "extracted_by"
+      ],
+      "properties": {
+        "atom_id": {
+          "type": "string",
+          "pattern": "^(ig34|sv20)_p\\d{4}_a\\d{3}$",
+          "description": "格式: <source_short>_p<NNN>_a<NNN>, 例 ig34_p0425_a012, sv20_p0050_a003"
+        },
+        "source": {
+          "type": "string",
+          "enum": ["SDTMIG_v3.4", "SDTM_v2.0"]
+        },
+        "page": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "page_region": {
+          "type": "string",
+          "enum": ["top", "middle", "bottom", "full"]
+        },
+        "parent_section": {
+          "type": "string",
+          "description": "就近 HEADING 节号 + 标题, 如 '§8.2.1 RELREC'"
+        },
+        "atom_type": { "$ref": "#/$defs/atom_type_enum" },
+        "verbatim": {
+          "type": "string",
+          "minLength": 1,
+          "description": "PDF 原文字面 (禁 OCR 纠正 / 省略 / 改写). FIGURE 原子用 Mermaid 源码或 '[FIGURE: ...]' 描述, 永不填 OCR 结果."
+        },
+        "normalized": { "type": ["string", "null"] },
+        "heading_level": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 6,
+          "description": "HEADING 原子必填 (P4b tree build 输入)"
+        },
+        "sibling_index": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "HEADING 原子必填 (同父节点内第几个兄弟)"
+        },
+        "figure_ref": {
+          "type": ["string", "null"],
+          "description": "FIGURE 原子必填 'pdf_p<NNN>+<region>'; 其他原子 null"
+        },
+        "cross_refs": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "该原子 verbatim 中引用的 §X.Y 列表, 供 P3 索引"
+        },
+        "extracted_by": { "$ref": "#/$defs/extracted_by" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "atom_type": { "const": "HEADING" } } },
+          "then": { "required": ["heading_level", "sibling_index"] }
+        },
+        {
+          "if": { "properties": { "atom_type": { "const": "FIGURE" } } },
+          "then": { "required": ["figure_ref"] }
+        }
+      ]
+    },
+    "md_atom": {
+      "type": "object",
+      "required": [
+        "atom_id",
+        "file",
+        "line_start",
+        "line_end",
+        "parent_section",
+        "atom_type",
+        "verbatim",
+        "extracted_by"
+      ],
+      "properties": {
+        "atom_id": {
+          "type": "string",
+          "pattern": "^md_[A-Za-z0-9_]+_a\\d{3}$",
+          "description": "格式: md_<file_stem>_a<NNN>, 例 md_ch08_a042, md_model_04_a005, md_AE_assumptions_a012"
+        },
+        "file": {
+          "type": "string",
+          "description": "相对路径 from knowledge_base/, 如 'chapters/ch08_relationships.md'"
+        },
+        "line_start": { "type": "integer", "minimum": 1 },
+        "line_end": { "type": "integer", "minimum": 1 },
+        "parent_section": { "type": "string" },
+        "atom_type": { "$ref": "#/$defs/atom_type_enum" },
+        "verbatim": {
+          "type": "string",
+          "minLength": 1,
+          "description": "md 原文保留 markdown 语法 (**bold**, *italic*, `code`, [link](url), 表 pipe 等)"
+        },
+        "heading_level": { "type": "integer", "minimum": 1, "maximum": 6 },
+        "sibling_index": { "type": "integer", "minimum": 1 },
+        "figure_ref": { "type": ["string", "null"] },
+        "cross_refs": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "extracted_by": { "$ref": "#/$defs/extracted_by" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "atom_type": { "const": "HEADING" } } },
+          "then": { "required": ["heading_level", "sibling_index"] }
+        },
+        {
+          "if": { "properties": { "line_end": { "type": "integer" } } },
+          "then": { "properties": { "line_end": { "minimum": 1 } } }
+        }
+      ]
+    }
+  },
+  "notes": {
+    "code_literal_hard_rule": "Dataset 文件名 *.xpt / *.sas7bdat / *.csv (如 cm.xpt, ae.sas7bdat) 必 CODE_LITERAL 无论语法上下文 (v1.2 H1' fix, T2 ch08 cm.xpt 实测教训). Codelist 字面值 ('NOT APPLICABLE', 'Y', 'N') 亦 CODE_LITERAL. 与外层 SENTENCE 并存.",
+    "sentence_not_paragraph": "md 一段含 N 句 → 必拆 N 个 SENTENCE 原子, 禁用 PARAGRAPH 类假 atom_type (v1.1 N1 教训).",
+    "figure_verbatim_convention": "已 Mermaid 化 → 填 Mermaid 源码; 未转化 → '[FIGURE: 简述节点+边+标签]'; 装饰图 → '[DECORATIVE: skipped]'; 永不填 OCR 结果.",
+    "heading_caption_rule": "PDF 表前 1 行短标题 (如 'Associated Persons—Additional Identifier Variables') 必独立 HEADING 原子, 不并入 TABLE_HEADER (v1.1 M1 教训).",
+    "failure_entry": "无法完成的原子用 { atom_id: 'FAILURE_...', status: 'failed', failure_reason: '...', attempted_by: {...} } 同文件归档, 不混入正常原子.",
+    "intentional_exclude_whitelist": "INTENTIONAL_EXCLUDE 不在 atom 层表达, 在 ledger.verdict + intentional_exclude_whitelist.md 登记 (见 PLAN Appendix D)."
+  }
+}

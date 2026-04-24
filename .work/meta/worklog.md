@@ -1308,3 +1308,56 @@
   - P3.5/P3.6/P3.7 Studio 三件套 post-project ICEBOX (触发条件 "用户主动提出回头精雕", 不触发不影响 sign-off 完整性)
   - Free tier 50-cap 证据 3 解读悬置 + 接受残余风险 (G-NBL-6 / G5-5, 主归因 HIGH 独立不受影响, 次归因 MEDIUM 悬置, 未来 ≥51 source 扩容时补测)
 - **下一步** (本 session 继续): 起草 `ai_platforms/_template/` 补丁 16-19 → 第二 commit 一起打包 → 用户决定是否 push
+
+### 2026-04-24 晚 **06 Deep Verification P0 收官 + v1.2 升级 + FIGURE 补测 + P1 kickoff batch 1 (326 atoms)**
+
+- **状态**: 进行中 (P1 batch 2+ 待下 session 继续)
+- **工程**: `.work/06_deep_verification/` (字面级 PDF→KB 深审旁枝, 与 03_verification/ Step 0-4 PASS 隔离)
+- **本 session 产出** (按顺序 A → B → C → D → P1 batch 1):
+  - **A. P0 Pilot ack**: FINAL_report CONDITIONAL_PASS → 用户接受
+  - **B. v1.2 prompt + schema 升级** (收 P0 12 findings + 3 轮 reviewer 经验):
+    - 4 prompts v1.2: `subagent_prompts/P0_writer_pdf_v1.2.md` / `P0_writer_md_v1.2.md` / `P0_matcher_v1.2.md` (最大升级) / `P0_reviewer_v1.2.md`
+    - 2 schemas frozen: `schema/atom_schema.json` + `schema/ledger_schema.json` (JSON Schema 2020-12)
+    - 硬 gate: H1' dataset 文件名→CODE_LITERAL / H2' reverse forward-aware / N1 9-enum / N2 reverse ≥0.50 / N3 heading Jaccard ≥0.85
+    - 新 verdict 入 enum: EDITORIAL_CORRECTION (forward PDF typo 场景) / TABLE_SIMPLIFIED / EDITORIAL_ADDITION
+    - v1 快照: `subagent_prompts/archive/v1_final_2026-04-24/`
+  - **C. FIGURE T2b 补测** (SDTMIG v3.4 p.440 §8.8 RELSPEC Examples × ch08 L414-439):
+    - 16 PDF + 15 MD atoms + 31 ledger entries, 4 JSONL + 1 report
+    - **9/9 atom_type 全覆盖** (FIGURE 首测 PASS)
+    - **v1.2 6/6 fix 实战 PASS**: H1' `relspec.xpt` 双向 CODE_LITERAL / H2' 15/15 forward-aware / heading Jaccard 降 PARTIAL / FIGURE schema 容纳
+    - 新 finding F-T2b-1 LOW (MD bold 不用 heading 表 caption), F-T2b-2 INFO (MD 合并 Example)
+    - **P0 Gate 升级 CONDITIONAL_PASS → full PASS**
+  - **D. P1 启动准备**:
+    - `PLAN.md` v0.4 → v0.5 (Changelog 加 8 项 P0 收官吸收)
+    - `plans/P1_pdf_atomization.md` v0.1 DRAFT (535 页 / ~55 batch / executor 家族硬约束 / drift 每 300 / Rule A 每 30 页 ≥90%)
+    - `evidence/checkpoints/p0_to_p1_handoff.md` (21 artifact 清单 + 下 session 10-step kickoff)
+    - `_progress.json` → P1_ready → P1_running
+  - **P1 batch 1 kickoff** (用户 ack PLAN v0.5 + P1 sub-plan + spec 表 Option A):
+    - 派 `oh-my-claudecode:executor` × SDTMIG v3.4 p.1-10, prompt=P0_writer_pdf_v1.2
+    - 产 `evidence/checkpoints/pdf_atoms_batch_01.jsonl` **326 atoms / 0 failures / 13 min 7 sec / 117K tokens**
+    - 合并到 root `pdf_atoms.jsonl` (第一条 P1 产物)
+    - `trace.jsonl` + `audit_matrix.md` 启用 + 11 条 entry (10 页 + 1 batch_report)
+    - 短报告 `evidence/checkpoints/P1_batch_01_report.md`
+    - 4 new findings: O-P1-01 TOC 208 CROSS_REF (p.2-5 目录) / O-P1-02 p.6 稀疏 2 atoms / **O-P1-03 MEDIUM writer v1.2 prompt atom_id 位数例与 schema 冲突** (3 位 vs 4 位, autofix 兜底 326 原子, v1.3 待修) / O-P1-04 0 CODE_LITERAL 符合 intro 预期
+  - **Rule D roster 累计 11 slot 烧** (余 5 + 2 候选, P1 continues 可用)
+- **关键 insight**:
+  1. 原子级字面审 works (F-T1-5 AP 表 12→5 列 + M2' CM examples CMDOSE 19→100 两个 Step 0-4 Phase 没发现的真 KB 缺陷)
+  2. 运维第一课: Explore 家族不守 "纯 JSONL 无自然语言" 指令, 20%+ 丢数据. P1 全用 executor/writer 家族 + Write tool 直写
+  3. H2' reverse forward-aware 硬 gate 是 P1 规模化 safety net, 若不修 5000+ 原子 reverse 数据会系统性失真
+  4. 326 atoms / 10 页 = 32.6 atoms/页, 比估计 8-12/页高 3x (TOC 密集 + executor 粒度细), 535 页外推 ≈ **17,000+ atoms** (原估 4300-6400). 已接受 "不计成本".
+- **新产物路径** (本次 session):
+  - `.work/06_deep_verification/` 整个目录新增 (P0 + P1 batch 1 全产物, 21 checkpoints + 2 schemas + 8 prompts + 1 sub-plan + 1 trace + 1 audit)
+  - `PLAN.md` v0.4 → v0.5 (内嵌 update)
+  - `_progress.json` 状态流转 P0_completed → P0_v1.2_upgrade_done → P0_PASS_P1_ready → P1_batch_01_done_batch_02_ready
+- **影响面**:
+  - 独立旁枝, 不动 `.work/03_verification/` 及 knowledge_base/
+  - Chain F (06_deep_verification 旁枝, PLAN 自定义) 触发: evidence/checkpoints/ + trace.jsonl + audit_matrix.md + _progress.json + PLAN 全同步更新
+  - Chain B (worklog → progress.json → PROGRESS.md → CLAUDE.md Key Paths) 触发本 commit 收尾
+  - 无 knowledge_base/ 变动 → Chain D 不触发
+- **Carry-over 给下 session**:
+  - 用户指示: 新开 session 再决定 P1 下一步 (修 v1.3 prompt vs 直接 batch 2 vs 审视 batch 1 atoms 后决策)
+  - recovery hint 在 `_progress.json` `recovery_hint` 字段 + `evidence/checkpoints/P1_batch_01_report.md` §下一步
+  - P1 batch 2 预计 writer=`oh-my-claudecode:writer` (轮换), 跑 p.11-20
+  - Batch 3 末触发 drift 校准; 30 页末触发 Rule A 抽检 (候选 slot #12 `superpowers:code-reviewer`)
+  - v1.3 prompt 最小 patch: atom_id 位数统一 4 位 (prompt §atom_id 命名规范段)
+- **下一步** (本 session 最后一步, 即将执行): 4 index 文件更新 (本 worklog + PROGRESS + MANIFEST + CLAUDE.md Key Paths) → commit + push main → 用户新 session 从 _progress.json recovery_hint 或 handoff §5 开跑
