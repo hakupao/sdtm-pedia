@@ -2,7 +2,7 @@
 
 > **Purpose**: 消化 Phase 5 retrospective §2 G5-4 "Q4-Q10 v5c 等价 10/10 假设未实测" 缺口. 双 Phase 4 reviewer #24 M-2 + #25 MED-1 独立交叉 flag 要求的 verification task.
 > **Scope**: ChatGPT GPTs + Gemini Gems 两平台, smoke v4 Q4-Q10 共 7 题 × 2 平台 = 14 answer.md 新增
-> **Status**: 🟡 **V5C 自评完成 pending Rule D reviewer** (2026-04-24 执行完毕 — ChatGPT v2.2 + Gemini v7 两平台各 Q4-Q10 = 14 答 strict **14/14 PASS** 主 gate 通过; self-score 详 `chatgpt_gpt/dev/evidence/smoke_v4_v2_2_regression_results.md` + `gemini_gems/dev/evidence/smoke_v4_v7_regression_results.md`); 待 15th R2-line reviewer 独立复核
+> **Status**: ✅ **DONE** (2026-04-24 全流程闭环 — ChatGPT v2.2 + Gemini v7 两平台各 Q4-Q10 = 14 答 strict **14/14 PASS** + 15th Rule D reviewer (`superpowers:code-reviewer` background) APPROVE 14/14 verdict-level AGREE + 0 blocking + **G5-4 CLOSED**. 详 `ai_platforms/v5c_regression_reviewer.md` + `chatgpt_gpt/dev/evidence/smoke_v4_v2_2_regression_results.md` + `gemini_gems/dev/evidence/smoke_v4_v7_regression_results.md` + `PHASE5_RETROSPECTIVE.md §2 G5-4 闭合 note`)
 > **前置**: `ai_platforms/PHASE5_RETROSPECTIVE.md §2 G5-4` / `SMOKE_V4.md §2 Q4-Q10` / `SMOKE_V4.md §3 跨平台矩阵` / `gemini_gems/dev/ab_reports/STAGE_N5.4_AB_REPORT.md` / `chatgpt_gpt/dev/ab_reports/STAGE_N5.4_AB_REPORT.md`
 > **优先级**: Phase 5 post-sign-off optional, 不阻塞 Phase 5 FINAL
 
@@ -164,9 +164,9 @@ post-R2 R2-line 已用 13th (`pr-review-toolkit:code-reviewer`) + 14th (`oh-my-c
 | 版本 | 日期 | 状态 | 触发 |
 |---|---|---|---|
 | v0.1 | 2026-04-23 | 📋 DRAFT plan only | Phase 5 RETROSPECTIVE 骨架后起草, G5-4 登记 |
-| v1.0 | 2026-04-24 | 🟡 **自评完成** | Chrome MCP cowork 全自动 14 题串行, ChatGPT 7/7 + Gemini 7/7 strict PASS; **G5-4 等价假设成立** |
-| v2.0 | [TBD] | ⏳ pending reviewer | 15th R2-line reviewer (背景派 `superpowers:code-reviewer`) 独立复核 pending |
-| v3.0 | [TBD] | ✅ DONE | reviewer APPROVE + 回灌 PHASE5_RETROSPECTIVE §2 G5-4 closure note |
+| v1.0 | 2026-04-24 AM | 🟡 自评完成 | Chrome MCP cowork 全自动 14 题串行, ChatGPT 7/7 + Gemini 7/7 strict PASS; G5-4 等价假设成立 |
+| v2.0 | 2026-04-24 PM | 🟢 reviewer APPROVE | 15th R2-line reviewer `superpowers:code-reviewer` 独立复核 **APPROVE**: 14/14 verdict-level AGREE, 0 blocking, G5-4 CLOSED; v7.1 patch 2/3 候选 validated (SUPP-- Core + SV scope) |
+| v3.0 | 2026-04-24 PM | ✅ **DONE** | PHASE5_RETROSPECTIVE §2 G5-4 闭合 note 回灌 + §6.3 可延后 #11 标 DONE + 本 plan Status 升 DONE |
 
 ---
 
