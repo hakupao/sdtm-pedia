@@ -96,5 +96,23 @@
 
 - 未来每完成一个新平台部署, 把该平台独有的经验/缺口补充进本范本 (PR 到 `_template/` 目录)
 - 候选规则 E 在累积到至少 2 个项目的独立证据后, 再考虑提到全局 `~/.claude/CLAUDE.md`
+- 补丁 (新平台 retro §4 产出的范本修订候选) 统一登在 [`PATCHES.md`](PATCHES.md) — **14 条全清单** (10a/10b.1/10b.2/11a/11b/11c/12/13/14/15 已 APPLIED + **16/17/18/19 🟡 NEW candidate 2026-04-24** 待第 2 平台印证升 stable)
 
-*建立日期: 2026-04-20 (来源: claude_projects/ v2.6 reorg 后抽象)*
+## 补丁索引速查
+
+| ID | Severity | 核心 | 状态 |
+|----|----------|------|------|
+| 10a/b.1/b.2 | HIGH | Writer 叙事合成伪约束防护 × 3 | APPLIED |
+| 11a/b/c | HIGH/HIGH/MEDIUM | Anti-hallucination guardrail / 正负向双锚 / 双硬 gate | APPLIED |
+| 12 | MEDIUM | Rule D chain saturation 信号 | APPLIED |
+| 13 | MEDIUM | Bonus vs main gate 解耦 | APPLIED |
+| 14 | MEDIUM | 4 平台 cross-check ground truth 机制 | APPLIED |
+| 15 | LOW | 分享档位 multi-scope + Public ≠ gallery 澄清 | APPLIED |
+| **16** | MEDIUM | Concept cluster 排布原则 (concept 优先 domain/字母) | 🟡 NEW |
+| **17** | MEDIUM | Rule A N 阈值矩阵 + category error 警示 | 🟡 NEW |
+| **18** | LOW | in-KB-only 架构优势 vs prompt-level anchor | 🟡 NEW |
+| **19** | LOW | Citation dropout T2 题型偏向豁免 | 🟡 NEW |
+
+详述见 [`PATCHES.md`](PATCHES.md).
+
+*建立日期: 2026-04-20 (来源: claude_projects/ v2.6 reorg 后抽象). 最后更新: 2026-04-24 晚 (补丁 16-19 via NotebookLM async lane Phase 5 SIGN-OFF).*
