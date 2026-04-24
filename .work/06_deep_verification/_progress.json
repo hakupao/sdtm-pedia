@@ -1,10 +1,10 @@
 {
   "project": "06_deep_verification",
   "tier": 3,
-  "status": "P1_batch_01_done_batch_02_ready",
-  "current_phase": "P1_batch_02_next (writer=oh-my-claudecode:writer, pages=11-20)",
-  "plan_version": "v0.5-DRAFT (post P0 Pilot + T2b FIGURE 补测)",
-  "recovery_hint": "【P0 Pilot ✅ PASS (full) 2026-04-24 PM, 9/9 atom + v1.2 6/6 fix 实战 PASS】下一 session 起步: (1) 读 evidence/checkpoints/p0_to_p1_handoff.md — 全 P0 收官 + 交接; (2) 读 PLAN.md v0.5 changelog + plans/P1_pdf_atomization.md v0.1 DRAFT; (3) 用户决策 3 事: (a) PLAN v0.5 ack (b) plans/P1_pdf_atomization.md ack (c) spec 表策略 Option A/B/C (默认 A: PDF spec 表全量原子化, 与 xlsx 脚本产物 diff 验证); (4) ack 后 P1 batch 1 kickoff: 派 oh-my-claudecode:executor × SDTMIG v3.4 p.1-10, 每页 1 call, Write tool 直写 pdf_atoms.jsonl, 目标 ~100 原子; (5) 3 batch 累 300 原子 → drift 校准 1 次; 30 页 → Rule A 30 原子独审 (派 slot #12 reviewer, 候选 superpowers:code-reviewer); (6) P0 artifacts 全在 evidence/checkpoints/ (21 文件) + schema/ (2 frozen JSON) + subagent_prompts/ (v1+v1.2 + archive); (7) Rule D roster 11/16 烧 (executor/writer/explore家族全烧), 余 5 superpowers:code-reviewer/scientist/tracer/architect/ai-slop-cleaner 给 P1 reviewer slot 用; (8) 运维硬规则: P1 writer/matcher 全用 executor/writer 家族 + Write tool 直写, 禁 Explore 家族.",
+  "status": "P1_30page_milestone_gate_PASS_via_Option_2prime_ready_batch_04",
+  "current_phase": "P1_batch_04_next (writer=oh-my-claudecode:writer per 2-type alternation, pages=31-40, Rule A 加密 per-batch 生效)",
+  "plan_version": "v0.5 (user ack'd 2026-04-24)",
+  "recovery_hint": "【P0 ✅ + P1 batch 01-03 ✅ + 30-page milestone gate PASS via Option 2' 2026-04-24】下一 session 起步: (1) 读本 _progress.json + P1_batch_03_report.md + drift_cal_p25_3way_report.md + rule_a_30page_summary.md; (2) 当前累 30 页 / 918 atoms / 3 batches done; (3) Gate 状态: Rule A 广度 PASS 100% (30/30), Drift 深度 3-way FAIL (best 67.5% 限 QS sparse-cell TABLE_ROW verbatim reproducibility) — user 选 Option 2' continue; (4) **下一步 batch 04**: writer=oh-my-claudecode:writer (2-type alternation, batch 03=executor → batch 04=writer) × SDTMIG v3.4 p.31-40, output evidence/checkpoints/pdf_atoms_batch_04.jsonl, prompt=P0_writer_pdf_v1.2+batch04_4digit_fix (inline 4-digit atom_id fix 继续); (5) **Rule A 加密 per-batch 10-atom** (v1.1 sub-plan §E.2): batch 04 写完后立即派 reviewer (候选未烧池 oh-my-claudecode:scientist/tracer/architect/ai-slop-cleaner 轮换), 10 atom 分层 ≥90%; (6) **Drift calibration** 按原 cadence 每 3 batch (下次 batch 06 触发); (7) session budget 预估: batch 04 ~12min + Rule A ~10min + paperwork ~5min = ~30min per batch+review cycle; (8) **v1.3 prompt TABLE_ROW normalization** deferred 到 P1 末 集中修 (O-P1-09 MEDIUM 挂单); (9) findings 累 9: O-P1-01..04 基础 / O-P1-05 9/9 首达 / O-P1-06 CODE_LITERAL 首批 / O-P1-07 resolved X' 2-type / O-P1-08 PLAN slot #6 role / O-P1-09 drift sparse-cell TABLE_ROW; (10) Rule D roster 烧 12/16 (新增 superpowers:code-reviewer slot #12), 余 scientist/tracer/architect/ai-slop-cleaner/planner/Plan = 6 候选; (11) writer_pool_hard = 2-type only (executor+writer), writer_banned = 7 type (Explore 家族 + feature-dev:code-explorer + no-Write-tool 家族), tiebreaker=general-purpose if drift <80%.",
   "created": "2026-04-24",
   "v1.2_upgrade_completed": "2026-04-24",
   "charter_gates": {
@@ -79,29 +79,44 @@
     },
     "P1_pdf_atomization": {
       "status": "in_progress",
-      "sub_plan": "plans/P1_pdf_atomization.md v0.1-DRAFT (user ack'd 2026-04-24)",
+      "sub_plan": "plans/P1_pdf_atomization.md v1.0 (user ack'd 2026-04-24)",
       "pages_total": 535,
-      "pages_done": 10,
-      "atoms_done": 326,
+      "pages_done": 30,
+      "atoms_done": 918,
       "failures_done": 0,
-      "batches_done": 1,
+      "batches_done": 3,
       "spec_table_strategy": "Option A (PDF spec 表全量原子化 + 与 xlsx 脚本 diff)",
       "batch_granularity": "100 atoms = ~10-12 pages",
       "estimated_batches": "~55",
       "estimated_sessions": "3-5",
       "estimated_atoms": "4300-6400",
-      "writer_pool_hard": ["oh-my-claudecode:executor", "oh-my-claudecode:writer", "feature-dev:code-explorer"],
-      "writer_banned": ["Explore", "oh-my-claudecode:explore"],
+      "writer_pool_hard": ["oh-my-claudecode:executor", "oh-my-claudecode:writer"],
+      "writer_banned": ["Explore", "oh-my-claudecode:explore", "feature-dev:code-explorer", "oh-my-claudecode:document-specialist (no Write tool)", "oh-my-claudecode:architect (no Write tool)", "oh-my-claudecode:code-reviewer (no Write tool)", "oh-my-claudecode:scientist (no Write tool)"],
+      "writer_pool_resolution": "O-P1-07 resolved X' 2-type alternation 2026-04-24 (document-specialist 缺 Write tool, pivot from X to X'); drift calibration tiebreaker candidate = general-purpose (has Write tool) if 2-type cross-check < 80%",
       "drift_calibration_cadence": "every 3 batches (~300 atoms)",
       "rule_a_sampling_cadence": "every 30 pages (~3 batches), 30 atoms stratified, ≥90% threshold",
       "batches_log": [
-        {"batch_id":"P1_batch_01","pages":"1-10","writer":"oh-my-claudecode:executor","atoms":326,"failures":0,"status":"done","report":"evidence/checkpoints/P1_batch_01_report.md","notes":"TOC heavy 65% CROSS_REF; atom_id 3→4 digit autofix; prompt v1.2 doc contradiction logged O-P1-03"}
+        {"batch_id":"P1_batch_01","pages":"1-10","writer":"oh-my-claudecode:executor","model":"sonnet","atoms":326,"failures":0,"status":"done","report":"evidence/checkpoints/P1_batch_01_report.md","notes":"TOC heavy 65% CROSS_REF; atom_id 3→4 digit autofix; prompt v1.2 doc contradiction logged O-P1-03"},
+        {"batch_id":"P1_batch_02","pages":"11-20","writer":"oh-my-claudecode:writer","model":"sonnet","atoms":323,"failures":0,"status":"done","report":"evidence/checkpoints/P1_batch_02_report.md","notes":"Clean: 0 schema errors (inline 4-digit fix validated), 9/9 atom_type 单批覆盖首次 (FIGURE=1 p.14), CODE_LITERAL 63/323 (19.5%) Option A 产出首批浮现, Ch.2 正文 profile 完全不同于 batch 01 TOC-heavy"},
+        {"batch_id":"P1_batch_03","pages":"21-30","writer":"oh-my-claudecode:executor","model":"sonnet","atoms":269,"failures":0,"status":"done","report":"evidence/checkpoints/P1_batch_03_report.md","notes":"Clean: 0 schema errors, SENTENCE 115/269 (42.8%) Ch.3 narrative-heavy, 0 CROSS_REF/0 FIGURE per-batch, 7/9 atom_type per-batch (cumulative 9/9), HEADING 34 高 indicates 多 subsection; duration 10min 32s; triggers 30-page milestone drift + Rule A dispatch"}
       ],
+      "milestone_30_page": {
+        "status": "in_progress",
+        "triggered": "2026-04-24",
+        "drift_calibration": {"status":"FAIL_3way_analyzed","pair":"batch_03_p.25_3way_executor_writer_general_purpose","threshold":0.80,"strict_agreement_executor_vs_writer":0.675,"strict_agreement_executor_vs_gp":0.375,"strict_agreement_writer_vs_gp":0.375,"3way_unanimous_rate":0.192,"2of3_majority_rate":0.346,"atom_type_dist_identical_across_3":true,"atom_count_identical_across_3":40,"root_cause_confirmed":"QS example table (CDISC QS domain demo) sparse-cell pipe-delimited verbatim parsing ambiguity; 3 independent writers produce 3 structurally-valid but literally-different transcriptions for same TABLE_ROW atoms","scope":"TABLE_ROW on sparse-cell PDF tables only; SENTENCE/LIST_ITEM/HEADING/CODE_LITERAL not affected","reports":["evidence/checkpoints/drift_cal_p25_report.md","evidence/checkpoints/drift_cal_p25_3way_report.md"],"cross_reference_to_rule_a":"Rule A independently PASS 100% (30/30) on broad sample — suggests individual atoms valid (any writer's output passes atom-level PDF字面审), drift is reproducibility issue not correctness issue"},
+        "rule_a_30_atom_review": {"status":"PASS","reviewer_slot":12,"reviewer_type":"superpowers:code-reviewer","sample_file":"evidence/checkpoints/rule_a_30page_sample.jsonl","sample_count":30,"threshold":0.90,"pass":30,"fail":0,"partial":0,"pass_rate":1.00,"verdict":"PASS","reports":["evidence/checkpoints/rule_a_30page_verdicts.jsonl","evidence/checkpoints/rule_a_30page_summary.md"]},
+        "combined_gate": {"status":"PASS_Option_2prime_user_decided_2026-04-24","rule_a_breadth":"PASS 100% (30/30 individual atoms)","drift_depth":"FAIL_known_limitation_Tracked_as_O-P1-09 (3-writer reproducibility on sparse-cell TABLE_ROW)","decision":"Option 2' continue batch 04 with v1.2 + upgrade Rule A cadence 30-page → per-batch 10-atom (≥90% threshold each batch) as reproducibility safety net; v1.3 prompt TABLE_ROW normalization rule DEFERRED to P1 末集中修 (避免 mid-phase prompt churn)","user_ack":"2026-04-24"}
+      },
       "findings": [
         {"id":"O-P1-01","severity":"INFO","desc":"TOC 208 CROSS_REF p.2-5; P4a EDITORIAL_META 白名单批处理"},
         {"id":"O-P1-02","severity":"INFO","desc":"p.6 仅 2 atoms 稀疏页; 人工核实 defer"},
-        {"id":"O-P1-03","severity":"MEDIUM","desc":"writer_pdf v1.2 prompt atom_id 位数例与 schema 冲突 (3 位 vs 4 位), v1.3 修"},
-        {"id":"O-P1-04","severity":"LOW","desc":"0 CODE_LITERAL/NOTE/FIGURE in p.1-10, 符合预期"}
+        {"id":"O-P1-03","severity":"MEDIUM","desc":"writer_pdf v1.2 prompt atom_id 位数例与 schema 冲突 (3 位 vs 4 位), batch 02 inline fix 已验证, v1.3 需正式 update prompt"},
+        {"id":"O-P1-04","severity":"LOW","desc":"0 CODE_LITERAL/NOTE/FIGURE in p.1-10, 符合预期"},
+        {"id":"O-P1-05","severity":"INFO","desc":"batch 02 单批首次命中 9/9 atom_type (FIGURE=1 p.14), 验证 schema v1.2 容纳力"},
+        {"id":"O-P1-06","severity":"INFO","desc":"batch 02 CODE_LITERAL 63/323 (19.5%) 首批浮现, Option A spec 表原子化策略开始产出实质数据 (Ch.2 intro)"},
+        {"id":"O-P1-07","severity":"MEDIUM","status":"resolved_X_prime_2026-04-24","desc":"v1.2 writer prompt banlist 禁 feature-dev:code-explorer vs P1 sub-plan §0/§B.2 允许之, 文档矛盾. 用户选 X (document-specialist) 但发现 document-specialist Tools='All tools except Write, Edit' 物理无法 Write → pivot X' = 2-type alternation only (executor ↔ writer). Sub-plan §0/§B.2 已修 2026-04-24, writer_pool_hard 从 3 type 降 2 type, writer_banned 扩充含 document-specialist + architect + code-reviewer 等 no-Write-tool 类型. Drift calibration tiebreaker 候选 general-purpose (有 Write tool)."},
+        {"id":"O-P1-08","severity":"LOW","desc":"P0 PLAN §8 slot #6 把 document-specialist 列为 'Writer (多模态 PDF 读)' 是作者写作时未核对 Tools 契约的 bug (document-specialist 无 Write tool). PLAN v0.6 需正式改 roster 表 slot #6 role 从 Writer 降为 Reader-only (作 reviewer 抽检 OK, 不作 writer 用). 本 P1 已 inline 修 via sub-plan v1.0 patch."},
+        {"id":"O-P1-09","severity":"MEDIUM","desc":"Drift calibration p.25 2-type 67.5% < 80% threshold FAIL. 关键观察: atom_type distribution 100% identical (两 writer 在'该抽什么'完全一致), drift 集中在 13/26 TABLE_ROW 的 verbatim 字面 — 具体是 CDISC QS 示例表 (sparse empty 列) 的 pipe-分隔 cell 解析歧义. 这不是 prompt 语义 drift, 是 PDF table OCR parsing 层固有噪声. 需: (a) 派 general-purpose tiebreaker 确认 (dispatched); (b) 评估是否升 v1.3 prompt 加 TABLE_ROW sparse-cell 归一化规则; (c) 考虑 drift 阈值分层 (atom_identification ≥95% + verbatim ≥ 80% 分别打分, 而非合并一单值)"}
       ]
     },
     "P2_md_atomization": { "status": "pending", "files_total": 141, "files_done": 0 },
@@ -122,9 +137,9 @@
     { "id": "O7", "desc": "PLAN v0.5 写 (吸收 P0 实战 + FIGURE)", "status": "completed_2026-04-24" },
     { "id": "O8", "desc": "plans/P1_pdf_atomization.md sub-plan", "status": "completed_v0.1_DRAFT_2026-04-24" },
     { "id": "O9", "desc": "evidence/checkpoints/p0_to_p1_handoff.md", "status": "completed_2026-04-24" },
-    { "id": "O10", "desc": "PLAN v0.5 user ack", "status": "pending_user_decision" },
-    { "id": "O11", "desc": "plans/P1_pdf_atomization.md v1.0 user ack", "status": "pending_user_decision" },
-    { "id": "O12", "desc": "spec 表策略 (A/B/C) 用户决定", "status": "pending_user_decision" }
+    { "id": "O10", "desc": "PLAN v0.5 user ack", "status": "acked_2026-04-24" },
+    { "id": "O11", "desc": "plans/P1_pdf_atomization.md v1.0 user ack", "status": "acked_2026-04-24_as_v1.0" },
+    { "id": "O12", "desc": "spec 表策略 (A/B/C) 用户决定", "status": "decided_2026-04-24_Option_A" }
   ],
   "rule_d_slot_roster_used": [
     "oh-my-claudecode:critic",

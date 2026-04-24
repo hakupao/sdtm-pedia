@@ -1361,3 +1361,53 @@
   - Batch 3 末触发 drift 校准; 30 页末触发 Rule A 抽检 (候选 slot #12 `superpowers:code-reviewer`)
   - v1.3 prompt 最小 patch: atom_id 位数统一 4 位 (prompt §atom_id 命名规范段)
 - **下一步** (本 session 最后一步, 即将执行): 4 index 文件更新 (本 worklog + PROGRESS + MANIFEST + CLAUDE.md Key Paths) → commit + push main → 用户新 session 从 _progress.json recovery_hint 或 handoff §5 开跑
+
+### 2026-04-25 凌晨 **06 Deep Verification P1 batch 02-03 + 30-page milestone gate PASS via Option 2'**
+
+- **状态**: 进行中 (P1 batch 04+ 待下 session 继续)
+- **工程**: `.work/06_deep_verification/` P1 phase ramping (字面级 PDF→KB 深审旁枝, 独立于 03_verification/)
+- **本 session 产出** (按决策时序):
+  - **三 ack 决策落档**: PLAN v0.5 ack / P1 sub-plan v0.1→v1.0 ack / spec 表 Option A ack (三捆绑, `_progress.json` open_items O10/O11/O12 status 全 pending → acked/decided_2026-04-24)
+  - **P1 batch 02** (oh-my-claudecode:writer model=sonnet, alternation 轮换): SDTMIG v3.4 p.11-20 (Ch.2 正文)
+    - 323 atoms / 0 failures / 0 schema errors (**inline 4-digit atom_id fix 首发, 验证 O-P1-03 修复**)
+    - **9/9 atom_type 单批覆盖首次** (FIGURE=1 p.14); **CODE_LITERAL 63/323 (19.5%)** 首批浮现 (Option A 产出)
+    - Report: `evidence/checkpoints/P1_batch_02_report.md`
+  - **O-P1-07 resolved X'**: 发现 document-specialist `Tools=All tools except Write,Edit` 物理无 Write → pivot 到 **2-type alternation only** (executor ↔ writer)
+    - sub-plan §0 writer 池 3-type → 2-type; §B.2 mod-5 表 → 2-cycle alternation
+    - `_progress.json` writer_pool_hard 降 2-type, writer_banned 扩 7 项 (含 no-Write-tool 家族 + feature-dev:code-explorer)
+    - 新 finding O-P1-08 LOW (P0 PLAN §8 slot #6 role Writer 需降 Reader-only, PLAN v0.6 正式修)
+  - **P1 batch 03** (oh-my-claudecode:executor model=sonnet): SDTMIG v3.4 p.21-30 (Ch.2→Ch.3)
+    - 269 atoms / 0 failures / 0 schema errors
+    - SENTENCE 42.8% 主导 (Ch.3 narrative-heavy), HEADING 12.6% 多 subsection
+    - Report: `evidence/checkpoints/P1_batch_03_report.md`
+  - **30-page milestone Gate** (cumulative 918 atoms / 30 页 / 3 batches, 并行派 2 gate):
+    - **Rule A 30-atom 独审** (slot #12 `superpowers:code-reviewer` 首烧): 30 分层样本 × 30 pages, **100% PASS (30/30)**, > threshold=0.90. Reports: `rule_a_30page_verdicts.jsonl` + `rule_a_30page_summary.md`
+    - **Drift calibration p.25** (2-type executor↔writer → tiebreaker general-purpose): 40/40 atoms × 3 writer, atom_type 分布 100% 一致; strict agreement exec↔writer 67.5% / exec↔gp 37.5% / writer↔gp 37.5% / 3-way unanimous 19.2% / ≥2/3 majority 34.6%. **Verdict=FAIL strict** (< 80%), 但分歧 100% 集中 QS 示例表 TABLE_ROW sparse-cell verbatim, atom identification 无差
+    - 新 finding O-P1-09 MEDIUM (drift PDF table OCR sparse-cell 固有 lossy parse, 非 prompt 语义 drift)
+  - **MIXED gate 决策 Option 2'** (user acked 2026-04-25): 不 halt, 改加密 Rule A cadence 30-page → **per-batch 10-atom** (≥90% each batch) 作 reproducibility safety net; v1.3 prompt TABLE_ROW normalization **defer 到 P1 末集中修**
+    - sub-plan §E.2 升级 v1.1 (per-batch Rule A cadence)
+    - `_progress.json` combined_gate=PASS_Option_2prime_user_decided_2026-04-24
+- **累计数字**: pdf_atoms.jsonl **918 atoms** / trace.jsonl **44 entries** / Rule D roster **12/16 烧** (新 slot #12 superpowers:code-reviewer); findings 累 **9 项** O-P1-01..09
+- **关键 insight**:
+  1. Rule A 广度验证与 drift 深度验证正交: 前者保 individual atom 字面正确性 (100% PASS), 后者保 reproducibility (sparse-cell 表 FAIL); 两者在同页上 decouple 暴露 PDF→text 层固有 lossy parse
+  2. 2-type writer pool 是 v1.2 prompt 强 banlist 的自然结果: document-specialist/architect/code-reviewer 等 reference 家族都缺 Write tool 物理不能 Write JSONL; 这个发现 override 了 sub-plan 作者乐观列的 3+ type 池
+  3. Option 2' 折中: Rule A 加密 (成本 +30%/batch) 换 reproducibility 风险的独立 safety net, 避免 mid-phase prompt v1.3 匆忙修入新 bug
+- **新产物路径** (本次 session 10 新文件 + 5 modified):
+  - `.work/06_deep_verification/evidence/checkpoints/` × 10 新: P1_batch_02_report.md + P1_batch_03_report.md + pdf_atoms_batch_02.jsonl + pdf_atoms_batch_03.jsonl + drift_cal_p25_writer_rerun.jsonl + drift_cal_p25_general_purpose_rerun.jsonl + drift_cal_p25_report.md + drift_cal_p25_3way_report.md + rule_a_30page_sample.jsonl + rule_a_30page_verdicts.jsonl + rule_a_30page_summary.md
+  - `.work/06_deep_verification/pdf_atoms.jsonl` 918 atoms (root, batch 01-03 合并)
+  - `.work/06_deep_verification/trace.jsonl` 44 entries (batch 02/03 per-page + batch_report + drift 2-way/3-way 分析 + Rule A + user_decision × 2)
+  - `.work/06_deep_verification/plans/P1_pdf_atomization.md` v0.1 → v1.0 ack'd (§0 writer 池 2-type + §A.3 Option A + §B.2 alternation table 重写 + §E.2 per-batch v1.1)
+  - `.work/06_deep_verification/_progress.json` P1_batch_01_done → P1_30page_milestone_gate_PASS_via_Option_2prime_ready_batch_04
+  - `.work/06_deep_verification/audit_matrix.md` P1 batch 02/03 行 + Rule D slot #12 登记
+- **影响面**:
+  - 独立旁枝, 不动 `03_verification/` 及 `knowledge_base/`
+  - Chain F (06_deep_verification 旁枝) 触发: evidence/checkpoints/ + trace.jsonl + audit_matrix.md + _progress.json + plans/ 全同步更新 ✓
+  - Chain B (worklog → progress.json → PROGRESS.md → MANIFEST.md → CLAUDE.md Key Paths) 触发本 commit 收尾 ✓
+  - 无 knowledge_base/ 变动 → Chain D 不触发
+- **Carry-over 给下 session**:
+  - Recovery hint 在 `_progress.json.recovery_hint` 字段 (重写 for Option 2' 完整状态 + batch 04 kickoff 参数)
+  - 下一步 batch 04: writer=`oh-my-claudecode:writer` × SDTMIG v3.4 p.31-40, 立即跟 per-batch Rule A 10-atom 独审
+  - Rule A reviewer 未烧候选: `scientist` / `tracer` / `architect` / `ai-slop-cleaner` (轮换 4 slot, 不够时 superpowers:code-reviewer 非连续复用)
+  - Drift cal 下次 trigger = batch 06 末 (原 cadence 每 3 batch 保)
+  - v1.3 prompt TABLE_ROW normalization (O-P1-09) + PLAN v0.6 slot #6 role (O-P1-08) 均 defer P1 末
+- **下一步**: commit + push → 用户新 session 从 `_progress.json` recovery_hint 开跑
