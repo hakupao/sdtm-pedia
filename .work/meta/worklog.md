@@ -1263,3 +1263,48 @@
   - Step 7 R1 FAIL 改 system prompt → R2
   - 并行: P3.8 reviewer (11th subagent_type 合并派或单独派)
 - **下一步** (新 session): 读 `ai_platforms/SMOKE_V4_DESIGN_HANDOFF.md` 唯一入口 + Step 1 审计起 → 按 7 步序列推进
+
+---
+
+### 2026-04-24 Phase 6.5 NotebookLM async lane Phase 5 SIGN-OFF (retro v1.0 FINAL + UPLOAD_TUTORIAL v1.0 + 4 索引同步)
+
+- **目标**: 基于 Phase 4 已闭合 (2026-04-23 P3.9 + P3.8 reviewer + smoke v4 R1 15/17) 的状态, 产 NotebookLM 平台独立 Phase 5 retro (Rule C 强制) + UPLOAD_TUTORIAL + 父级索引同步 → async lane 全 lifecycle sign-off
+- **方法**:
+  - 主 session writer lane: 起草 `docs/RETROSPECTIVE.md` v0.1 DRAFT 485 行 (§0 snapshot / §1 保留 R-NBL-1-8 / §2 缺口 G-NBL-1-6 / §3 决策 D-NBL-1-6 含 v1→v2 pivot 作关键案例 / §4 _template 补丁 (4 吸收+4 候选) / §5 跨 4 retro 呼应 / §6 Rule A/B/C/D/E 合规 / §7 下一步 / §8 版本 / Appendix A evidence 速查 / Appendix B 元反思)
+  - Rule D 独立 reviewer lane: 派 `oh-my-claudecode:critic` 作新 context/evidence (Rule D slot 不同于跨 4 retro 同 subagent_type 前两次 #4/#28 实例) 独审 → CONDITIONAL_PASS 8.0/10, 1 HIGH blocking + 4 MEDIUM + 3 遗漏 + 2 Open Q
+  - Writer 按 10 行动项全修: HIGH #1 instructions.md char 数单位错 (9,011 utf-8 bytes 误作 Unicode chars) 实测 `len(str) = 8,925` 修全网 (retro 4 处 + CLAUDE.md L71); MEDIUM #2 §5 flat anchor; MEDIUM #3 §6 Rule A category error 承认; MEDIUM #4 D-NBL-2 PARTIAL 负外部性; MEDIUM #5 Appendix B self-catch; MEDIUM 85 #6 G-NBL-6 主次归因分层; MEDIUM 82 #7 §6 Rule D slot 编号 caveat; MEDIUM 80 #8 §7 UPLOAD_TUTORIAL 选项 A/B 澄清; Open Q1 §5 补 G5-4 跳过说明; Open Q2 §8 加 v0.2 post-reviewer-fix 中间态 audit trail
+  - v0.1 → v0.2 post-reviewer-fix ack-ready (2026-04-24 PM) → Daisy 读完 ack → **升 v1.0 FINAL** 2026-04-24 晚
+  - 同批产出 `current/UPLOAD_TUTORIAL.md` v1.0 (276 行, 10 章节 + 附录自查清单)
+  - 父级索引同步: CLAUDE.md Key Paths (入口 + 3 新条目 + L71 char 数修正) + `.work/MANIFEST.md` (入口 + 4 新条目) + `docs/PROGRESS.md` (NotebookLM 行) + `notebooklm/ROADMAP.md` (首屏 + 实际产出 + CHANGELOG 3 行 → Phase 5 SIGN-OFF)
+- **结果**:
+  - NotebookLM async lane Phase 5 sign-off **闭环 ✅**
+  - `docs/RETROSPECTIVE.md` v1.0 FINAL 508 行 (v0.1 485 → v0.2 +23 行 post-reviewer-fix)
+  - `current/UPLOAD_TUTORIAL.md` v1.0 276 行 (Phase 5 整体 sign-off 子 gate 产物)
+  - `dev/evidence/phase5_retrospective_reviewer.md` reviewer 报告落档 (10 findings + verdict 表 + 遗漏/Open Q)
+  - 4 父级索引文件反映真实状态, 非 stale
+- **规则合规 (Tier 2 async lane, 独立 retro)**:
+  - **Rule A 部分满足 + category error 承认** (同跨 4 retro 28th reviewer F3): Phase A A4 结构级 + P3.4.5 语义级双锚 PASS, P3.8 独立复判 3/10 在边缘, 严格 N≥5 独立样本抽检挪 post-project optional
+  - **Rule B**: `failures/` dir 空 (0 retry), v1→v2 pivot 归档 `archive/v1_3notebook_SUPERSEDED_2026-04-21/ARCHITECTURE_PIVOT_RECORD.md` 完整保留 sunk cost 1 天 PLAN
+  - **Rule C**: 本 retro 即产物, 三段 (R-NBL-1-8 + G-NBL-1-6 + D-NBL-1-6) 全到位, Appendix B 元反思含 Self-catch 实证 (9,011 chars 错的 G-NBL-1 当场复现)
+  - **Rule D**: Writer (主 session) + Reviewer (`oh-my-claudecode:critic` 新 context) 分离; Rule D chain async lane 贡献 #24 document-specialist + #25 code-reviewer reuse 到跨 4 retro 28-slot roster; 本平台内 10-slot 独立编号加 caveat "跨 4 全局为准不一一对应"
+  - **Rule E**: NotebookLM smoke v4 R1 15/17 的校验是 4 平台 cross-check 矩阵 (SMOKE_V4.md §3 17×4), AHP × 3 PASS+ 最强仅在 4 平台对比下才有意义; Rule E 候选已在跨 4 retro §5 登待升 `~/.claude/CLAUDE.md` personal_operating_principles
+- **新产物路径** (本次 session):
+  - `ai_platforms/notebooklm/docs/RETROSPECTIVE.md` (new, v1.0 FINAL, 508 行)
+  - `ai_platforms/notebooklm/dev/evidence/phase5_retrospective_reviewer.md` (new, reviewer 报告)
+  - `ai_platforms/notebooklm/current/UPLOAD_TUTORIAL.md` (new, v1.0 FINAL, 276 行)
+  - `ai_platforms/notebooklm/ROADMAP.md` (updated: 首屏 + 实际产出 + CHANGELOG 3 行)
+  - `.work/MANIFEST.md` (updated: NotebookLM 入口 + 4 新条目 retro/tutorial/smoke_v4_results/P3.9/P3.8_reviewer)
+  - `docs/PROGRESS.md` (updated: NotebookLM 行 + Phase 5 sign-off 闭环)
+  - `CLAUDE.md` (updated: NotebookLM 入口 + 3 新条目 + L71 instructions.md char 数 8,925 Unicode chars 修正)
+- **影响面**:
+  - Phase 6.5 NotebookLM async lane 全 lifecycle (2026-04-21 pivot → 2026-04-24 sign-off, 4 天) 完成
+  - 跨 4 平台 `retrospectives/PHASE5_RETROSPECTIVE.md` v1.0 FINAL 2026-04-24 AM Daisy 认可 (4 平台 sign-off 闭环) — NotebookLM 平台独立 retro 是其 evidence base 之一, 两者无冲突无重复
+  - Writer 叙事合成伪约束 (9,011 chars 继承错) 在本 retro 当场复现被 reviewer 抓出, 作 G-NBL-1 实证写入 Appendix B Self-catch — 证明外部 Reviewer lane 不可或缺 (单此一 finding ROI 值回全套 Rule D 独立审)
+  - `_template/` 新候选补丁 16-19 登记 RETROSPECTIVE §4, 待用户 ack 合入 (next session)
+  - 有 plans 变动 (RETROSPECTIVE new + ROADMAP update + PLAN §9 未改) → Chain E 触发 (ROADMAP → MANIFEST + PROGRESS + CLAUDE.md Key Paths) 全部同步完
+  - 无 knowledge_base/ 变动 → Chain D 不触发
+- **Carry-over**:
+  - `_template/` 补丁 16-19 (MEDIUM 16 concept cluster 策略 / MEDIUM 17 Rule A N 阈值矩阵 / LOW 18 in-KB-only 架构优势 vs prompt anchor / LOW 19 citation dropout T2 偏向) 合入 ai_platforms/_template/ 待下一 commit
+  - P3.5/P3.6/P3.7 Studio 三件套 post-project ICEBOX (触发条件 "用户主动提出回头精雕", 不触发不影响 sign-off 完整性)
+  - Free tier 50-cap 证据 3 解读悬置 + 接受残余风险 (G-NBL-6 / G5-5, 主归因 HIGH 独立不受影响, 次归因 MEDIUM 悬置, 未来 ≥51 source 扩容时补测)
+- **下一步** (本 session 继续): 起草 `ai_platforms/_template/` 补丁 16-19 → 第二 commit 一起打包 → 用户决定是否 push
