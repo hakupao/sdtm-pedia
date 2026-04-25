@@ -1,12 +1,13 @@
-# Batch 18 Kickoff (Multi-Session Parallel — Session D, Round 2)
+# Batch 18 Kickoff (Multi-Session Parallel — Session C, Round 2 batches 17/18/19)
 
-> 你是 multi-session parallel 实验 round 2 的 **session D (batch 18)**.
-> 同时还有 session B (batch 16) + session C (batch 17) 在其他终端跑.
+> 你是 multi-session parallel 实验 round 2 的 **session C (batch 18)**.
+> 同时还有 session B (batch 17) + session D (batch 19) 在其他终端跑.
 > 你只负责 p.171-180, 不动 root 文件 / audit_matrix / _progress.json.
 >
-> ⚠️ **batch 18 包含 mandatory drift cal** (per cadence "every 3 batches" since p.147 batch 15 + cumulative ≥300 双触发).
+> ⚠️ **batch 18 包含 mandatory drift cal** (per cadence "every 3 batches" since p.147 batch 15 + cumulative atoms post-p.147 ≥300 双触发, **batch 18 仍是 round 2 mandatory drift cal target** because batch 16 single-session=298 atoms + batch 17 ~250-300 atoms = cumulative ~550-600 ≥300, batch 18 every-3-batches 自 batch 15).
 > ⚠️ **batch 18 是 P1 至今 transition 最密的 batch** — p.171 (HO→MH) + p.178 (MH→DV) + 可能 p.180 (DV→DA, 同时可能为 §6.2→§6.3 chapter-level boundary). R12 transition discipline 极高压.
 > Round 2 实验 — 吸收 round 1 (batches 13-15) MULTI_SESSION_RETRO.md G-MS-4 + G-MS-7 两条缺口修.
+> **注**: batch 16 已由 single-session resume 完成 (commit `7447ec0` 2026-04-25, 298 atoms / Rule A 100% effective post Option H × 2 / 2 findings O-P1-40 LOW + O-P1-41 MEDIUM). Round 2 重定义为 batches 17/18/19 (而非 round 1 prep 时计划的 16/17/18).
 
 ═══════════════════════════════════════════════════════════════════
 ## STEP 0 — 必读 (并行 6 文件)
@@ -20,7 +21,7 @@
 5. `.work/06_deep_verification/evidence/checkpoints/drift_cal_batch_15_p147_report.md` (drift cal precedent — 你将做类似分析 + 应用 NEW1 dual-threshold)
 6. `.work/06_deep_verification/subagent_prompts/v1.3_patch_candidates.md` (cumulative R-rules + NEW1-NEW5 — NEW1 dual-threshold 必须应用)
 
-读完报告: 当前 pages_done=150 / atoms_done=3877 / batches_done=15 / findings=39 / Rule D=24. 你将贡献 batch 18 + drift cal.
+读完报告: 当前 pages_done=160 / atoms_done=4175 / batches_done=16 / findings=41 / Rule D=25 (post batch 16 single-session resume). 你将贡献 batch 18 + drift cal.
 
 ═══════════════════════════════════════════════════════════════════
 ## STEP 1 — TOC Ground Truth (PDF p.4 + page_index.json verified, 直接用)
@@ -61,15 +62,17 @@
 - §6.2.7 sub: L4 sib=1/2/3/4 (DV – Description/Overview / Specification / Assumptions / Examples 若有)
 - §6.2.8 OR §6.3.1 sub: L4 sib=1/2/3/4 (DA – Description/Overview / Specification / Assumptions / Examples 若有)
 
-### Cross-Batch Sibling Continuity Pre-Context (R15 NEW)
+### Cross-Batch Sibling Continuity Pre-Context (R15)
 
-⚠️ Prepend 到两个 writer prompt: "Prior batches HEADING continuity (post round-1 reconciler merge + batch 16/17 round 2):
+⚠️ Prepend 到两个 writer prompt: "Prior batches HEADING continuity (post batch 16 single-session resume CONFIRMED + Option H × 2 + sister batch 17 in concurrent run):
 - §6.2 [MODELS FOR EVENTS DOMAINS] = L2 sib=2 under §6 (set in batch 14)
-- §6.2.1 [AE] L3 sib=1 / §6.2.2 [BE] L3 sib=2 / §6.2.3 [CE] L3 sib=3 / §6.2.4 [DS] L3 sib=4 / §6.2.5 [HO] L3 sib=5 (batch 17 setting sib=5, your batch 18 处理 HO tail content not heading)
+- §6.2.1 [AE] L3 sib=1 / §6.2.2 [BE] L3 sib=2 / §6.2.3 [CE] L3 sib=3 / §6.2.4 [DS] L3 sib=4 ✅ (batch 16 confirmed) / §6.2.5 [HO] L3 sib=5 (batch 17 setting sib=5 in concurrent session, your batch 18 处理 HO tail content not heading — **若 sister batch 17 not yet committed**, accept sib=5 as expected per R15 protocol; reconciler 串行 merge will resolve)
 - §6.2.6 [MH] = L3 sib=6 under §6.2 (NEW in batch 18)
 - §6.2.7 [DV] = L3 sib=7 under §6.2 (NEW in batch 18)
 - §6.2.8 OR §6.3.1 [DA] = TBD by PDF cross-check on p.180 (chapter-internal sib=8 OR chapter-level §6.3 NEW L2 sib=3 + §6.3.1 sib=1) (NEW in batch 18)
-- MH/DV/DA Examples N sibling sequences (if any) RESTART per domain — Examples in MH/DV/DA are unrelated to HO Examples sequence."
+- L4 sub-section chain per NEW7 v1.3 candidate (PINNED post batch 16 O-P1-41 lesson): each domain Description=1 / Specification=2 / Assumptions=3 / Examples=4 deterministic — DO NOT mid-page-emergence sib assignment (collision risk).
+- MH/DV/DA Examples N sibling sequences (level-5 if any) RESTART per domain — Examples in MH/DV/DA are unrelated to HO Examples sequence.
+- parent_section canonical format pin (per NEW6 from batch 16 O-P1-40 lesson): use `§N.N.N Title (CODE)` form, e.g. `§6.2.6 Medical History (MH)` and `§6.2.7 Protocol Deviations (DV)` — DO NOT use `[Title]` short-bracket form."
 
 ═══════════════════════════════════════════════════════════════════
 ## STEP 2 — Dispatch Strategy (Option C parallel, alternation)
@@ -150,12 +153,12 @@ verbatim = verbatim_overlap >= 0.80
 含 strict + verbatim 双 threshold 数值 + 根因 + action + 4-dim verdict.
 
 ═══════════════════════════════════════════════════════════════════
-## STEP 5 — Rule A Audit (slot #27 = vercel:ai-architect AUDIT-mode)
+## STEP 5 — Rule A Audit (slot #27 = plugin-dev:agent-creator AUDIT-mode)
 ═══════════════════════════════════════════════════════════════════
 
-预分配 reviewer (Rule D unique, **HARDCODED 不可改, round 2 partition**): `vercel:ai-architect`
+预分配 reviewer (Rule D unique, **HARDCODED 不可改, round 2 partition**, **post batch-16 slot rebalance — vercel:ai-architect 已分给 batch 17 #26**): `plugin-dev:agent-creator`
 
-派发 prompt 显式 "Mode: AUDIT for SDTMIG v3.4 PDF atomization quality, NOT AI architecture or AI SDK design. You are an INDEPENDENT REVIEWER for PDF atomization quality. Do NOT propose AI architecture, do NOT touch AI SDK code, do NOT design agents. Output verdicts JSONL + summary md to designated paths." (类 prior AUDIT pivot pattern; **8th AUDIT-mode pivot, vercel-family 3rd burn post slot #22 + slot #24, ai-architect new 子 type**).
+派发 prompt 显式 "Mode: AUDIT for SDTMIG v3.4 PDF atomization quality, NOT agent creation. You are an INDEPENDENT REVIEWER for PDF atomization quality. Do NOT generate agent configurations, do NOT touch plugin agent files, do NOT scaffold new agents. The 'agents' you review are JSONL atom records — verify each atom's atom_type / verbatim / parent_section / heading_level+sibling_index against the PDF ground truth + 17 cumulative R-rules + 7 v1.3 NEW candidates (NEW1-NEW7). Output verdicts JSONL + summary md to designated paths." (类 prior AUDIT pivot pattern; **8th AUDIT-mode pivot, plugin-dev family 2nd burn post slot #25 plugin-validator**, agent-creator new 子 type extending plugin-dev pool, **has Write tool natively** so no Bash heredoc adaptation needed).
 
 ### Sample build:
 - Seed = 20260495
@@ -177,7 +180,7 @@ verbatim = verbatim_overlap >= 0.80
 ## STEP 7 — Sub-progress + Batch Report
 ═══════════════════════════════════════════════════════════════════
 
-写 `_progress_batch_18.json` (schema 同 batch 16/17, batch_id=18, session_id="D", round=2, reviewer_slot=27, reviewer_type="vercel:ai-architect", reviewer_audit_pivot_index=8, reviewer_family_first_burn=false, reviewer_family_name="vercel" (3rd burn), drift_cal_triggered=true, drift_cal_page=<XXX>, drift_cal_strict_match=<float>, drift_cal_verbatim_overlap=<float>, drift_cal_dual_threshold_verdict="PASS|FAIL", drift_cal_root_cause="<text>", drift_cal_action="Option H/E/tiebreaker/INFO defer", finding_id_range_allocated="O-P1-48..51", chapter_transition_p180="chapter-internal §6.2.8|chapter-level §6.3 NEW").
+写 `_progress_batch_18.json` (schema 同 batch 17/19, batch_id=18, session_id="C", round=2, reviewer_slot=27, reviewer_type="plugin-dev:agent-creator", reviewer_audit_pivot_index=8, reviewer_family_first_burn=false, reviewer_family_name="plugin-dev" (2nd burn post #25), drift_cal_triggered=true, drift_cal_page=<XXX>, drift_cal_strict_match=<float>, drift_cal_verbatim_overlap=<float>, drift_cal_dual_threshold_verdict="PASS|FAIL", drift_cal_root_cause="<text>", drift_cal_action="Option H/E/tiebreaker/INFO defer", finding_id_range_allocated="O-P1-46..49", chapter_transition_p180="chapter-internal §6.2.8|chapter-level §6.3 NEW").
 
 写 `P1_batch_18_report.md` (含 drift cal 段落 + NEW1 dual-threshold 数值 + 3 transition pages PDF cross-check 段, 类 batch 15 报告结构).
 
@@ -195,10 +198,11 @@ PARALLEL_SESSION_18_DONE atoms=<N> failures=<F> repair_cycles=<C> rule_a=<weight
 
 Round 1 缺口 G-MS-7: 各 session 用相同 O-P1-NN 累加 ID 易冲突. Round 2 修:
 
-- Batch 16 (sister): 预留 IDs O-P1-40..43.
-- Batch 17 (sister): 预留 IDs O-P1-44..47.
-- **Batch 18 (你)**: 预留 IDs **O-P1-48..51** (4 IDs reserved). 若你新 finding > 4, 用 IDs O-P1-48a/48b/48c suffix 子序列.
-- Reconciler: 预留 IDs O-P1-52+ for cross-batch / cross-session findings (e.g. R15 sibling continuity sweep / chapter-level §6.3 boundary 决议).
+- Batch 16 (DONE single-session, used IDs O-P1-40 LOW + O-P1-41 MEDIUM, 2 of 4 reserved actually used; 42/43 freed for compression).
+- Batch 17 (sister): 预留 IDs O-P1-42..45.
+- **Batch 18 (你)**: 预留 IDs **O-P1-46..49** (4 IDs reserved, compressed forward post batch 16 actual usage). 若你新 finding > 4, 用 IDs O-P1-46a/46b/46c suffix 子序列.
+- Batch 19 (sister): 预留 IDs O-P1-50..53.
+- Reconciler: 预留 IDs O-P1-54+ for cross-batch / cross-session findings (e.g. R15 sibling continuity sweep / chapter-level §6.3 boundary 决议 / cross-session reviewer slot uniqueness audit).
 
 按预分配 ID 写 `findings_added` 数组 + batch report. **不要** 用 round 1 sister-collision ID 模式 (O-P1-36..39 通用).
 
@@ -230,7 +234,7 @@ Round 1 缺口 G-MS-4: sub-session halt 时 reconciler 决策树未 spec. Round 
 - writer failure rate >15% in batch
 - Rule A raw <70%
 - ctx 用量 >80% (batch 18 是 P1 至今最复杂 batch — 3 transitions + drift cal mandatory + 可能 chapter-level §6.3 boundary, 估计 ctx 用量较 batch 15 65min/heaviest precedent 更高)
-- 预分配 reviewer `vercel:ai-architect` 不可派发 — Round 2: **不要** fallback 自选
+- 预分配 reviewer `plugin-dev:agent-creator` 不可派发 — Round 2: **不要** fallback 自选
 - drift cal dual-threshold 双 FAIL 且 root cause 不可定位 (e.g. tiebreaker 与 baseline + rerun 都不一致 — 三方分歧) — halt + 报告 user
 - 任何尝试触动 root pdf_atoms.jsonl / audit_matrix.md / _progress.json 的 code path → halt 立即
 
@@ -239,11 +243,11 @@ Round 1 缺口 G-MS-4: sub-session halt 时 reconciler 决策树未 spec. Round 
 ═══════════════════════════════════════════════════════════════════
 
 - 写 root pdf_atoms.jsonl / audit_matrix.md / _progress.json
-- Self-pick reviewer slot (用 #27 vercel:ai-architect hardcoded)
-- Touch sister batch (16/17) files
+- Self-pick reviewer slot (用 #27 plugin-dev:agent-creator hardcoded)
+- Touch sister batch (17/19) files
 - Skip TOC anchor / R-rules / R14 / R12 transition (3 pages!) / drift cal mandatory + NEW1 dual-threshold / NEW2 char-level self-validation / NEW3 outer-pipe rerun
 - 私自决定 p.180 chapter-level vs chapter-internal — **必须** PDF cross-check + 记 finding (O-P1-48..51 范围)
-- Use round 1 ID reuse pattern — **必须** 用 round 2 G-MS-7 O-P1-48..51
+- Use round 1 ID reuse pattern — **必须** 用 round 2 G-MS-7 O-P1-46..49
 - Run git commit / push
 
 开干. 第一步 STEP 0 并行 6-file Read.
