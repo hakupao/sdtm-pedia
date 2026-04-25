@@ -1411,3 +1411,74 @@
   - Drift cal 下次 trigger = batch 06 末 (原 cadence 每 3 batch 保)
   - v1.3 prompt TABLE_ROW normalization (O-P1-09) + PLAN v0.6 slot #6 role (O-P1-08) 均 defer P1 末
 - **下一步**: commit + push → 用户新 session 从 `_progress.json` recovery_hint 开跑
+
+### 2026-04-25 **06 Deep Verification P1 batch 04-15 backfill (3 commits) + multi-session parallel + reconciler merge**
+
+> 工程: `.work/06_deep_verification/` P1 phase 持续 (字面级 PDF→KB 深审旁枝, 独立于 `03_verification/`)
+> 本条目 backfill **3 个 commit 的执行历史** (worklog 在 batch 02-03 之后 lag 至今, 一次性补齐): commit `abfe3a3` (batch 04-08) + commit `8b47a9e` (batch 09-12 + multi-session prep) + commit `4d6165a` (multi-session 13-15 reconciler merge).
+
+#### Phase A: batch 04-08 (commit `abfe3a3`)
+
+- 5 batches / +1192 atoms (cumulative 918 → 2066)
+- batch 04 (`oh-my-claudecode:writer` × p.31-40): 330 atoms / Rule A v1.1 首跑 90% PASS slot #13 `oh-my-claudecode:tracer`; F-B04-RA-1 → O-P1-10 LOW
+- batch 05 (`oh-my-claudecode:executor` × p.41-50): 327 atoms / 9/9 atom_type / Rule A 100% PASS slot #14 `oh-my-claudecode:planner`
+- batch 06 (Option C parallel + Option E inline repair): attempt 1 single-writer dropout 27 atoms (Rule B archived); attempt 2 split 06a executor + 06b writer = 263 atoms; Rule A 90% PASS slot #15 `oh-my-claudecode:code-simplifier`; **Option C parallel default 决策 (per O-P1-13)** + 12 atoms p.60→p.59 relocate + 22 atoms p.60 CO spec table executor rerun replace writer under-extraction. **O-P1-11/12/13/14**
+- batch 07 (Option C + Option H 8 atoms lettered list dedup): 228 atoms / Rule A raw 70% FAIL → effective 100% post-repair slot #16 `pr-review-toolkit:silent-failure-hunter`; reviewer false positive 揭. **O-P1-15/16/17**
+- batch 08 (Option C + 主 Option H bulk repair MAJOR systemic §5.x parent_section error): 220 atoms / Rule A raw 40% FAIL bulk-repaired slot #17 `pr-review-toolkit:comment-analyzer`; **182/220 atoms (83%) systemic §5.1/§5.2 numbering reverse** + reviewer 自己 INVERTED. **O-P1-18/19/20** drove TOC anchor methodology innovation 在 batch 09
+- 累计 Rule D 烧 17/扩 / failures_done 1 (batch 06 attempt 1 archived)
+
+#### Phase B: batch 09-12 (commit `8b47a9e`)
+
+- 4 batches / +934 atoms (cumulative 2066 → 3200) / **TOC anchor methodology innovation 首发 + 4 consecutive batches 0 FP / 0 inversion firmly locked**
+- batch 09 (Option C + **TOC anchor prepend 首发**): 227 atoms / Rule A 90% pooled boundary PASS slot #18 `pr-review-toolkit:pr-test-analyzer`; methodology validated; drift cal p.89 揭 **3 atoms baseline 09b DSDTC year hallucination** (O-P1-23 HIGH bulk Option H). **O-P1-21/22/23/24**
+- batch 10 (Option C + TOC anchor 2nd run): 177 atoms / Rule A 95% PASS slot #19 `pr-review-toolkit:type-design-analyzer`; n=20 cumulative anchored audit 0 FP / 0 inversion. **O-P1-25 + O-P1-26 outer-pipe convention drift INFO defer v1.3**
+- batch 11 (Option C + TOC anchor 3rd + Option E p.103 rerun + 4 repair cycles): 239 atoms / Rule A 95% PASS slot #20 `pr-review-toolkit:code-simplifier` **AUDIT-mode pivot 1st (pr-family)**; **R10/R11/R12/R13/R14 5 NEW R-rules** surfaced. **O-P1-27/28/29/30/31 + R10 NEW (whitespace ban) + R11 (TABLE_ROW trailing empty cell) + R12 (transition page full-content) + R13 (numbered list discipline) + R14 (writer DONE atoms=N strict match)**
+- batch 12 (Option C + TOC anchor 4th + Option E p.119 full-page rerun + Option H 4-atom drift cal + 3-atom sibling + 5 repair cycles new max): 271 atoms / Rule A raw 85% CONDITIONAL_PASS → effective 95% slot #21 `oh-my-claudecode:debugger` **AUDIT-mode pivot 2nd (omc-family)**; **R14 BREAKTHROUGH writer family** (12b first-time DONE 127 = file 127 strict match); drift cal p.118 揭 **4 atoms HIGH ec.xpt data corruption** + Option E p.119 rerun replaced 37 buggy atoms wholesale. **O-P1-32/33/34/35 + R15 NEW (cross-batch sibling continuity)**
+- 累计 Rule D 烧 21/扩 / TOC anchor n=40 cumulative anchored audit 0 FP / 0 inversion firmly locked
+- **本期 multi-session prep**: 写 `multi_session/MULTI_SESSION_PROTOCOL.md` 主协议 + 4 self-contained kickoff (batch_13/14/15 + reconciler) + CLAUDE.md routing rule (4 触发模式) + Rule D pool partition 预分配 (#22 vercel:performance-optimizer / #23 oh-my-claudecode:designer / #24 vercel:deployment-expert)
+
+#### Phase C: multi-session 13-15 + reconciler merge (commit `4d6165a`, **本 session**)
+
+- **执行模式**: **3 终端物理并行 (sessions B/C/D 各跑 1 batch) + 1 reconciler session E 串行收尾** — 方案 B 物理并行实验 (CLAUDE.md routing rule 临时启用)
+- 3 batches / +677 atoms via reconciler merge (cumulative 3200 → **3877**)
+- batch 13 (session B, 终端 1, writer 13a × p.121-125 + executor 13b × p.126-130): **253 atoms / Rule A raw 75% FAIL → effective 95% PASS post-repair** slot #22 `vercel:performance-optimizer` **AUDIT-mode pivot 3rd (vercel-family first burn)**; 5 repair cycles ties batch 12 max. **O-P1-36 INFO + O-P1-37 HIGH (writer 13a multi-page systemic corruption JPTW/HYPOG/HYPOT/prespefified) + O-P1-38 MEDIUM (M2 paragraph collapse) + O-P1-39 LOW (outer-pipe convention drift)**
+- batch 14 (session C, 终端 2, executor 14a × p.131-135 + writer 14b × p.136-140 → Option E full-batch rerun executor + Option H bulk 91 atoms = 24 pipe-wrap + 67 null-key): **174 atoms / Rule A 95% PASS** slot #23 `oh-my-claudecode:designer` **AUDIT-mode pivot 4th (omc-family extension)**; 2 repair cycles. **O-P1-36 HIGH (writer 14b R10 verbatim FAIL across 5 pages, distinct failure mode from R7 over-claim) + O-P1-37 MEDIUM (Option E rerun convention drift)**
+- batch 15 (session D, 终端 3, executor 15a × p.141-145 + writer 15b × p.146-150): **250 atoms / Rule A raw 95% PASS → effective ≥95% post Option H** slot #24 `vercel:deployment-expert` **AUDIT-mode pivot 5th (vercel-family 2nd burn)**; **6 repair cycles NEW P1 SINGLE-BATCH MAX (vs batch 12 prior 5)** (Option E p.146/p.147/p.148 wholesale × 3 + 1 manual TABLE_HEADER + Option H Example 1+2 sib + Option H References sib + outer-pipe normalization); **drift cal MANDATORY p.147**: strict 97.4% PASS / verbatim 41% LOW → root caused **writer 15b multi-page systemic corruption STUDIID×8 + supple→suppbe + bs.xpt swap + relspec REFID + relrec corruption + p.146 18-atom under-extraction**. **NEW lesson**: drift cal dual-threshold (strict ≥80% AND verbatim ≥80%) recommended v1.3 (NEW1). **O-P1-36/37/38 HIGH × 3 + O-P1-39 LOW**
+- **reconciler (session E, 终端 4 收尾)** executes 8 STEPs per `reconciler_kickoff.md`:
+  - STEP 0 pre-flight 6-file parallel read + 5 pre-flight 验 PASS
+  - STEP 1 cross-batch sibling continuity sweep — 程序化 dump 全 45 HEADING atoms × 6 batch 文件 × 5 R15 invariants → **0 fixes needed** (sub-sessions correctly applied R15 from kickoff context)
+  - STEP 2 backup root + sequential merge 6 batch 文件 → `pdf_atoms.jsonl` 3200 → **3877 atoms / 0 collisions / 0 schema errors / 150/150 pages 全到 / 9/9 atom_type**
+  - STEP 3 audit_matrix.md 更新 (3 batch 行 + 1 drift cal 行 + 3 Rule A 行 + Rule D 21→24 roster + reviewer quality 段 + n=70 cumulative anchored audit 0 FP / 0 inversion 7 consecutive batches across 3 families 结论)
+  - STEP 4 _progress.json 顶层 status / current_phase / plan_version / recovery_hint (6484 chars rewritten) + P1 nested + 底层 fields 全更新到 150/3877/15
+  - STEP 5 v1.3 prompt formal cut **RECOMMENDED** (R10 ≥4 / R11 ≥3 / R12 ≥4 / R14 ≥4 / R15 ≥4 / O-P1-26 ≥5 batches evidence threshold met), **execution deferred to dedicated v1.3 cut session per Rule D writer/reviewer isolation**; v1.3_patch_candidates.md 升级 (113 → 188 行) 加 5 NEW v1.3 candidates (NEW1 drift cal dual-threshold / NEW2 writer spec-table self-validation / NEW3 Option E rerun outer-pipe+null-key / NEW4 dataset filename HEADING-vs-CODE_LITERAL codification / NEW5 R12 chapter-level transition strengthening)
+  - STEP 6 写 `multi_session/MULTI_SESSION_RETRO.md` (Rule C 强制, 8 段: 入参 / 8 retain (R-MS-1..8) / 8 gap (G-MS-1..8) / 7 key-decision (D-MS-1..7) / Rule A/B/C/D/E 合规 / 跨 retro 呼应 / 下 session 准备 / cleanup readiness + 2 appendix evidence 速查 + 元反思)
+  - STEP 7 cleanup deferred to user (4 kickoff.md + CLAUDE.md routing rule 留 user 决定)
+  - STEP 8 final message + user-facing summary (`RECONCILER_DONE root_atoms=3877 pages_done=150 batches_done=15 sibling_fixes=0 v1.3_cut=recommended_deferred retro_written=true`)
+- **节省 wall**: ~3 sessions 物理并行 ~50 min 各 + reconciler 25 min serial = ~75 min total vs ~150 min serial baseline = **~50% saved**, **0 quality regression / 0 protocol violation / 0 cross-session Rule D collision / 0 sibling continuity gap**
+- **累计**: pdf_atoms.jsonl **3877 atoms / 150 pages (28% of 535) / 15 batches / 1 dropout / 27 cumulative repair cycles across 8 batches / Rule D 烧 24/扩 / TOC anchor n=70 cumulative anchored audit 0 FP / 0 inversion 7 consecutive batches firmly locked / 5 AUDIT-mode pivots cross-family 验证 (#20-#24)**
+- **关键 insight (multi-session experiment)**:
+  1. Multi-session 物理并行 + reconciler 收尾 模式 validated for **independent dense batches**; defer for high-coupling content (D-MS-2)
+  2. Pre-allocated Rule D reviewer pool partition 0 cross-session 撞 — design correct-by-construction (R-MS-1)
+  3. TOC ground truth + R15 cross-batch sibling context inline-prepended in kickoff 是 sub-sessions 互盲场景下 essential synchronous handoff (R-MS-2)
+  4. AUDIT-mode pivot pool extension validated cross-family (vercel + omc + pr-review-toolkit 3 families): 5 cumulative AUDIT pivots (#20-#24) all 0 FP / 0 inverted on TOC-anchored n=70 audit (R-MS-4)
+  5. v1.3 prompt formal cut RECOMMENDED but execution deferred per Rule D — separate v1.3 cut session 是正确决定 (D-MS-6)
+  6. Writer-family hallucination pattern 完全 characterized: STUDIID×8 / supple→suppbe / JPTW / HYPOT / HYPOG / AERLPRT / AELLT 类 character-level typos + bs.xpt swap + relspec REFID + relrec corruption + page-shift + under-extraction — same root pattern across batches 09/12/13/14/15 (O-P1-23/O-P1-34/O-P1-37 类), drift cal value-add 超 Rule A 5 次 precedent reaffirmed
+- **新产物路径** (commit `4d6165a` 40 files / +7387 / -17):
+  - `evidence/checkpoints/` × 33 新 (3 batch 报告 + 3 sub-progress + Rule A × 3 batch (sample/verdicts/summary 各 3) + 6 batch jsonl + 6 .bak Rule B + 4 Option E rerun + 1 drift cal report + 3 drift cal Option E rerun jsonl)
+  - `multi_session/sibling_continuity_sweep_report.md` (NEW, 88 行) + `multi_session/MULTI_SESSION_RETRO.md` (NEW, 346 行 Rule C 强制)
+  - `pdf_atoms.jsonl` (3200 → 3877, +677) + `pdf_atoms.jsonl.pre-multi-13-15.bak` (3200 行 Rule B)
+  - `audit_matrix.md` (84 → 95 行)
+  - `_progress.json` (top-level + P1 + bottom-level + recovery_hint 6484 chars)
+  - `subagent_prompts/v1.3_patch_candidates.md` (113 → 188 行, batches 12-15 evidence + 5 NEW v1.3 candidates + formal cut RECOMMENDED 决定)
+- **影响面**:
+  - 独立旁枝, 不动 `03_verification/` 及 `knowledge_base/`
+  - Chain F (06_deep_verification 旁枝) 触发 ✓
+  - Chain B (worklog → progress.json → PROGRESS.md → MANIFEST.md → CLAUDE.md Key Paths) 触发本 wrap-up ✓
+  - 无 knowledge_base/ 变动 → Chain D 不触发
+- **Carry-over 给下 session**:
+  - **HIGH PRIORITY**: 启动 v1.3 cut session — 投入 1-2 hour 让 30+ 后续 batch benefit; 否则 v1.2 inline prompt prepend ~5-10 min/batch × 30+ batches = ~150-300 min 重复劳动
+  - Recovery hint 在 `_progress.json.recovery_hint` (6484 chars 完整)
+  - Multi-session protocol cleanup 由 user 决定 (4 kickoff.md 删/留 + CLAUDE.md routing rule 移除/保留)
+  - batch 16 kickoff 待 v1.3 cut 后启动 (or v1.2 + inline prepend if 急)
+  - 下次 multi-session round 2 候选 batches 16/17/18 (v1.3 cut 后 + protocol v2 升级补 G-MS-4 halt fallback + G-MS-7 finding ID range pre-allocation)
+- **下一步**: 4 index 文件本 session 已更新 → push 已完成 (commit `4d6165a` → main) → 用户新 session 启动 v1.3 cut OR multi-session round 2
