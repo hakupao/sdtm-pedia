@@ -16,6 +16,28 @@ Every new session, **before doing any work**, read these files in order:
 
 Then summarize to the user: current status, open issues, and suggested next step.
 
+## Multi-Session Parallel Protocol (temporary, 06 Deep Verification 旁枝 batches 13-15 实验, 2026-04-25)
+
+**Routing rule** — if user's first message in a fresh session matches one of these patterns, **SKIP** the standard Session Startup above and instead:
+
+| User says (case-insensitive, Chinese or English) | Read this file as full session task |
+|---|---|
+| `batch 13 开始任务` / `batch 13 start` / `batch13` | `.work/06_deep_verification/multi_session/batch_13_kickoff.md` |
+| `batch 14 开始任务` / `batch 14 start` / `batch14` | `.work/06_deep_verification/multi_session/batch_14_kickoff.md` |
+| `batch 15 开始任务` / `batch 15 start` / `batch15` | `.work/06_deep_verification/multi_session/batch_15_kickoff.md` |
+| `reconciler 开始任务` / `reconciler start` / `合并收尾` | `.work/06_deep_verification/multi_session/reconciler_kickoff.md` |
+
+The kickoff files are self-contained with all context (TOC ground truth, R-rules, dispatch protocol, pre-assigned reviewer slot, output file paths, "do not touch" list). Execute the file as if it were the user's full prompt.
+
+**Background context** (each session needs to know):
+- 3 终端 (B/C/D) 同时跑 batches 13/14/15 — 物理并行
+- 1 终端 (E) 启动 reconciler 收尾 (after B+C+D 全 PARALLEL_SESSION_NN_DONE)
+- 各 session 写独立 batch files, **绝对不动** root `pdf_atoms.jsonl` / `audit_matrix.md` / `_progress.json` — 留 reconciler 串行合并
+- Reviewer pool 已预分配 (Rule D 不撞): batch 13 = #22 vercel:performance-optimizer / batch 14 = #23 oh-my-claudecode:designer / batch 15 = #24 vercel:deployment-expert
+- 详见 `.work/06_deep_verification/multi_session/MULTI_SESSION_PROTOCOL.md` (master guide)
+
+**Cleanup** — 本次实验完成后 (reconciler session 末尾会提示), 移除本节 + 删除 `multi_session/batch_NN_kickoff.md` + `reconciler_kickoff.md` 即可 (留 `MULTI_SESSION_PROTOCOL.md` + `MULTI_SESSION_RETRO.md` 作历史).
+
 ## Change Chains
 
 This project uses a change-chain system to prevent forgotten updates.
@@ -37,7 +59,8 @@ Full chain definitions are in `.work/MANIFEST.md`.
 | TODO (Phase 6) | `.work/04_optimization/retrieval_optimization.md` |
 | Phase 7 设计文档 | `docs/DESIGN_RAG_KG.md` |
 | Phase 7 session 记录 | `.work/05_rag_kg/session_2026-04-16_design.md` |
-| **06 Deep Verification 旁枝入口** | **`.work/06_deep_verification/PLAN.md`** v0.5 (user ack'd) — 字面级 PDF→KB 深审; P0 Pilot PASS + v1.2 schema frozen + P1 ramping: **batch 01-03 done cumulative 918 atoms / 30 页** (batch 01 executor 326 TOC+Ch.1 / batch 02 writer 323 Ch.2 **9/9 type 单批首覆盖** + CODE_LITERAL 63 / batch 03 executor 269 Ch.2→Ch.3); **30-page milestone gate PASS via Option 2'** (Rule A 100% PASS slot #12 superpowers:code-reviewer + Drift 3-way FAIL QS sparse-cell TABLE_ROW reproducibility, Rule A cadence 加密 per-batch + v1.3 prompt defer P1 末); O-P1-07 resolved X' (2-type alternation executor↔writer only, document-specialist 无 Write tool); Rule D 烧 12/16; sub-plan `plans/P1_pdf_atomization.md` **v1.0 ack'd** (§E.2 v1.1 per-batch Rule A); `_progress.json.recovery_hint` 含下 session batch 04 kickoff 全参数 |
+| **06 Deep Verification 旁枝入口** | **`.work/06_deep_verification/PLAN.md`** v0.5 (user ack'd) — 字面级 PDF→KB 深审; P0 Pilot PASS + v1.2 schema frozen + **P1 batch 01-12 done cumulative 3200 atoms / 120 页 (22.4% of 535)** + 14 repair cycles + 35 findings + Rule D 烧 21 (last #21 oh-my-claudecode:debugger AUDIT-mode pivot); 4 drift cal runs (p.25/p.60/p.89/p.118 全 FAIL but root-caused 非 reproducibility 噪声); TOC anchor methodology n=40 累 0 FP/0 inversion firmly locked; 9 successful Option E full-page rerun precedents (p.60 + p.103 + p.119); R14 writer-family BREAKTHROUGH (12b 首次 DONE=file strict match); details in `_progress.json.recovery_hint` + `audit_matrix.md` + `evidence/checkpoints/P1_batch_NN_report.md` × 12; sub-plan `plans/P1_pdf_atomization.md` v1.0 ack'd |
+| **06 Deep Verification multi-session 实验 (temporary, 2026-04-25)** | **`.work/06_deep_verification/multi_session/MULTI_SESSION_PROTOCOL.md`** + 3 batch_NN_kickoff.md + reconciler_kickoff.md — 方案 B 物理并行 batches 13/14/15 (3 终端 + 1 reconciler 收尾), reviewer pool 预分配 (#22 vercel:performance-optimizer / #23 oh-my-claudecode:designer / #24 vercel:deployment-expert AUDIT-mode 3 family pivot), CLAUDE.md routing 规则已加 (`batch 13/14/15 开始任务` / `reconciler 开始任务` 触发); 实验完后 reconciler 提示 cleanup |
 | 06 Deep Verification v1.2 prompts | `.work/06_deep_verification/subagent_prompts/P0_writer_pdf_v1.2.md` + `P0_writer_md_v1.2.md` + `P0_matcher_v1.2.md` (最大升级, H2' reverse forward-aware 硬 gate + EDITORIAL_CORRECTION 新 verdict) + `P0_reviewer_v1.2.md`; v1 原稿归档 `archive/v1_final_2026-04-24/` |
 | 06 Deep Verification schema frozen | `.work/06_deep_verification/schema/atom_schema.json` + `ledger_schema.json` — JSON Schema 2020-12, 9-enum atom_type + forward 9 verdict + reverse 5 verdict |
 | Phase 6.5 AI 平台部署 | `ai_platforms/` (总览 + 三平台子目录) |
