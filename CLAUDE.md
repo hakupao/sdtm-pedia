@@ -16,27 +16,31 @@ Every new session, **before doing any work**, read these files in order:
 
 Then summarize to the user: current status, open issues, and suggested next step.
 
-## Multi-Session Parallel Protocol (temporary, 06 Deep Verification 旁枝 batches 13-15 实验, 2026-04-25)
+## Multi-Session Parallel Protocol (temporary, 06 Deep Verification 旁枝 round 2 batches 17/18/19 实验, 2026-04-25)
 
 **Routing rule** — if user's first message in a fresh session matches one of these patterns, **SKIP** the standard Session Startup above and instead:
 
 | User says (case-insensitive, Chinese or English) | Read this file as full session task |
 |---|---|
-| `batch 13 开始任务` / `batch 13 start` / `batch13` | `.work/06_deep_verification/multi_session/batch_13_kickoff.md` |
-| `batch 14 开始任务` / `batch 14 start` / `batch14` | `.work/06_deep_verification/multi_session/batch_14_kickoff.md` |
-| `batch 15 开始任务` / `batch 15 start` / `batch15` | `.work/06_deep_verification/multi_session/batch_15_kickoff.md` |
+| `batch 17 开始任务` / `batch 17 start` / `batch17` | `.work/06_deep_verification/multi_session/batch_17_kickoff.md` |
+| `batch 18 开始任务` / `batch 18 start` / `batch18` | `.work/06_deep_verification/multi_session/batch_18_kickoff.md` |
+| `batch 19 开始任务` / `batch 19 start` / `batch19` | `.work/06_deep_verification/multi_session/batch_19_kickoff.md` |
 | `reconciler 开始任务` / `reconciler start` / `合并收尾` | `.work/06_deep_verification/multi_session/reconciler_kickoff.md` |
 
 The kickoff files are self-contained with all context (TOC ground truth, R-rules, dispatch protocol, pre-assigned reviewer slot, output file paths, "do not touch" list). Execute the file as if it were the user's full prompt.
 
 **Background context** (each session needs to know):
-- 3 终端 (B/C/D) 同时跑 batches 13/14/15 — 物理并行
+- 3 终端 (B/C/D) 同时跑 batches 17/18/19 — 物理并行
 - 1 终端 (E) 启动 reconciler 收尾 (after B+C+D 全 PARALLEL_SESSION_NN_DONE)
 - 各 session 写独立 batch files, **绝对不动** root `pdf_atoms.jsonl` / `audit_matrix.md` / `_progress.json` — 留 reconciler 串行合并
-- Reviewer pool 已预分配 (Rule D 不撞): batch 13 = #22 vercel:performance-optimizer / batch 14 = #23 oh-my-claudecode:designer / batch 15 = #24 vercel:deployment-expert
-- 详见 `.work/06_deep_verification/multi_session/MULTI_SESSION_PROTOCOL.md` (master guide)
+- Reviewer pool 已预分配 (Rule D 不撞 round 1 #22-#24 + batch 16 #25): batch 17 = #26 `vercel:ai-architect` (vercel-family 3rd burn, 7th AUDIT pivot) / batch 18 = #27 `plugin-dev:agent-creator` (plugin-dev 2nd burn, 8th AUDIT pivot) / batch 19 = #28 `oh-my-claudecode:qa-tester` (omc 3rd burn, 9th AUDIT pivot)
+- Round 2 protocol upgrades absorbed (per round 1 retro G-MS-4 halt fallback + G-MS-7 finding ID range pre-allocation O-P1-42..53 spec)
+- batch 18 含 mandatory drift cal (per cadence cumulative atoms post-p.147 ≥300 + every-3-batches batch 15→18, per NEW1 dual-threshold strict + verbatim hash overlap ≥80%)
+- 详见 `.work/06_deep_verification/multi_session/MULTI_SESSION_PROTOCOL.md` (master guide round 1, round 2 augmented inline in kickoff files)
 
-**Cleanup** — 本次实验完成后 (reconciler session 末尾会提示), 移除本节 + 删除 `multi_session/batch_NN_kickoff.md` + `reconciler_kickoff.md` 即可 (留 `MULTI_SESSION_PROTOCOL.md` + `MULTI_SESSION_RETRO.md` 作历史).
+**Round 1 历史** (batches 13/14/15 已完成 commit `4d6165a` + reconciler wrap-up `6d173b1`; batch 16 single-session resume commit `7447ec0`): kickoff files `batch_13_kickoff.md` + `batch_14_kickoff.md` + `batch_15_kickoff.md` 留 disk 作历史 trace, routing rules 已切换到 round 2 batches 17/18/19.
+
+**Cleanup** — 本次 round 2 实验完成后 (reconciler session 末尾会提示), 移除本节 + 删除 `multi_session/batch_17/18/19_kickoff.md` + `reconciler_kickoff.md` 即可 (留 `MULTI_SESSION_PROTOCOL.md` + `MULTI_SESSION_RETRO.md` + `MULTI_SESSION_RETRO_ROUND_2.md` 作历史).
 
 ## Change Chains
 
