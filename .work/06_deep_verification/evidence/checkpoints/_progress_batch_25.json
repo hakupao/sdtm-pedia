@@ -1,0 +1,182 @@
+{
+  "batch_id": 25,
+  "session_id": "session_d_round_4",
+  "round": 4,
+  "status": "completed",
+  "scope_pages": "ig34 p.241-250",
+  "page_count": 10,
+  "atoms_done": 210,
+  "atoms_breakdown": {
+    "25a_p241_245": 100,
+    "25b_p246_250": 110,
+    "by_page": {
+      "241": 25, "242": 22, "243": 18, "244": 20, "245": 15,
+      "246": 15, "247": 22, "248": 27, "249": 21, "250": 25
+    },
+    "by_atom_type_25a": {
+      "TABLE_ROW": 77,
+      "LIST_ITEM": 7,
+      "TABLE_HEADER": 4,
+      "HEADING": 4,
+      "CODE_LITERAL": 4,
+      "SENTENCE": 3,
+      "NOTE": 1
+    },
+    "by_atom_type_25b": {
+      "TABLE_ROW": 55,
+      "LIST_ITEM": 25,
+      "SENTENCE": 13,
+      "TABLE_HEADER": 6,
+      "CODE_LITERAL": 6,
+      "HEADING": 5
+    },
+    "by_atom_type_combined": {
+      "TABLE_ROW": 132,
+      "LIST_ITEM": 32,
+      "SENTENCE": 16,
+      "HEADING": 9,
+      "CODE_LITERAL": 10,
+      "TABLE_HEADER": 10,
+      "NOTE": 1
+    }
+  },
+  "failures": 0,
+  "repair_cycles": 0,
+  "repair_cycle_notes": [],
+  "rule_a": {
+    "reviewer_slot": 34,
+    "reviewer_type": "feature-dev:code-architect",
+    "reviewer_audit_pivot_index": 15,
+    "reviewer_family": "feature-dev",
+    "reviewer_family_burn_count_post_batch": 3,
+    "reviewer_family_pool_status_post_batch": "COMPLETED (3rd burn = 3rd family pool exhausted: feature-dev:code-explorer #5 + feature-dev:code-reviewer #11 + feature-dev:code-architect #34)",
+    "audit_mode_pivot_label": "AUDIT for PDF atomization quality, NOT architecture design / NOT feature blueprint / NOT codebase pattern analysis",
+    "tools_adaptation": "write-tool-less + no-Bash inline content (per round 3 batch 20 #29 plugin-dev:skill-reviewer sub-pattern); reviewer produced verdicts.jsonl + summary.md content inline; main session wrote files preserving content verbatim",
+    "sample_size": 10,
+    "sample_seed": 20260530,
+    "sample_coverage": "1/page p.241-250 stratified (4 TABLE_ROW + 3 HEADING + 2 LIST_ITEM + 1 CODE_LITERAL)",
+    "raw_pass": 10,
+    "raw_partial": 0,
+    "raw_fail": 0,
+    "raw_weighted_pct": 100.0,
+    "raw_verdict": "PASS_AT_THRESHOLD",
+    "tom_anchor_audit_n_cumulative": 150,
+    "tom_anchor_consecutive_batches": 15,
+    "tom_anchor_fp_count": 0,
+    "tom_anchor_inversion_count": 0,
+    "special_checks": {
+      "new6_b_lb_l4_self_parent": "PASS — §6.3.5.6 LB L4 HEADING (ig34_p0241_a023) parent='§6.3.5 Specimen-based Findings Domains' (NOT self-parent)",
+      "new6_b_microbiology_l4_self_parent": "PASS — §6.3.5.7 Microbiology Domains L4 HEADING (ig34_p0248_a023) parent='§6.3.5 Specimen-based Findings Domains' (NOT self-parent)",
+      "new_round_4_l5_restart_under_l4_group_container": "PASS — §6.3.5.7.1 Microbiology Specimen (MB) L5 HEADING (ig34_p0248_a025) parent='§6.3.5.7 Microbiology Domains' (NEW round-4 precedent verified by main-session programmatic sweep; not in 1/page sample but verified outside)"
+    }
+  },
+  "drift_cal": {
+    "triggered": false,
+    "rationale": "per cadence: last cal batch 21 (p.205), next mandatory batch 27 (every-3-batches batch 24→27); cumulative atoms post-p.220 below ≥300 trigger threshold for this batch; batch 24 sister session covers cadence drift cal mandatory slot",
+    "next_mandatory": "batch 27"
+  },
+  "density_alarm_check_round_4_G_MS_12": {
+    "applied": true,
+    "lowest_per_page_atoms": "p.245=15 + p.246=15 (both at 15-atom floor, NOT below)",
+    "sub_batch_25a_total": 100,
+    "sub_batch_25a_at_100_floor": true,
+    "sub_batch_25b_total": 110,
+    "sub_batch_25b_above_100_floor": true,
+    "alarm_triggered": false,
+    "main_session_pdf_cross_check": "NOT required — all pages ≥15 floor and both sub-batches ≥100 floor; density distribution healthy across DOUBLE-transition batch"
+  },
+  "new6_format_sweep": {
+    "applied": true,
+    "violations_found": 0,
+    "lb_l4_heading_check": "PASS (parent='§6.3.5 Specimen-based Findings Domains' NOT self-parent)",
+    "microbiology_l4_heading_check": "PASS (parent='§6.3.5 Specimen-based Findings Domains' NOT self-parent)",
+    "post_sweep_compliance": "100%"
+  },
+  "new7_l4_l7_chain_check": {
+    "applied": true,
+    "lb_l5_chain": "Description (sib=1) + Specification (sib=2) RESTART under §6.3.5.6 LB",
+    "microbiology_l5_l6_chain": "§6.3.5.7.1 MB L5 sib=1 RESTART under §6.3.5.7; MB-Description L6 sib=1 + MB-Specification L6 sib=2 RESTART under §6.3.5.7.1 MB",
+    "round_4_NEW_precedent": "L5 sub-domain RESTART under L4 group container (§6.3.5.7.1 MB under §6.3.5.7) — extends NEW7 deep-nesting model to add L5 RESTART when L4 is a group-container (similar to §6.3.5 itself but at L4 level). Recorded as O-P1-75 INFO for v1.4 codification."
+  },
+  "r12_transition_check": {
+    "applied": true,
+    "transition_pages": [
+      {
+        "page": 241,
+        "type": "sub-domain (§6.3.5.5 IS → §6.3.5.6 LB)",
+        "atoms_on_page": 25,
+        "threshold": 8,
+        "compliance": "PASS (25 ≥ 8)",
+        "zone_partition": "IS tail (a001-a022) / LB L4 HEADING a023 / LB L5 Description HEADING a024 + LB Description SENTENCE a025"
+      },
+      {
+        "page": 248,
+        "type": "sub-domain GROUP CONTAINER (§6.3.5.6 LB → §6.3.5.7 Microbiology Domains)",
+        "atoms_on_page": 27,
+        "threshold": 8,
+        "compliance": "PASS (27 ≥ 8)",
+        "zone_partition": "LB tail (a001-a022 — Examples 4 + 5 lb.xpt tables) / §6.3.5.7 Microbiology Domains L4 HEADING a023 + intro SENTENCE a024 / §6.3.5.7.1 MB L5 HEADING a025 + MB-Description L6 HEADING a026 + MB description SENTENCE a027"
+      }
+    ],
+    "double_transition_compliance": "PASS — both transitions ≥8 atoms with 3-zone partition"
+  },
+  "r15_cross_batch_sibling_check": {
+    "applied": true,
+    "lb_sibling_continuity": "§6.3.5.6 LB L4 sib=6 RESTART under §6.3.5 contiguous from §6.3.5.5 IS L4 sib=5 (batch 23 sister session)",
+    "microbiology_sibling_continuity": "§6.3.5.7 Microbiology Domains L4 sib=7 RESTART under §6.3.5 contiguous from §6.3.5.6 LB L4 sib=6 (within batch 25)",
+    "main_session_local_validation": "L4 sibling chain sib=6→7 visible PDF p.241→p.248; reconciler will confirm cross-session R15 across batch 23 (sib=5) → batch 25 (sib=6, sib=7)"
+  },
+  "findings_added": [
+    {
+      "finding_id": "O-P1-75",
+      "severity": "INFO",
+      "category": "NEW7-precedent-extension",
+      "title": "Round-4 NEW deep-nesting precedent: L5 sub-domain RESTART under L4 group container (§6.3.5.7.1 MB under §6.3.5.7 Microbiology Domains)",
+      "scope": "p.248 ig34_p0248_a025 §6.3.5.7.1 Microbiology Specimen (MB) L5 HEADING + downstream MB body p.248-250 atoms",
+      "atom_id_anchor": "ig34_p0248_a025",
+      "parent_assigned": "§6.3.5.7 Microbiology Domains (L4 group canonical full-form)",
+      "rule_application": "Extends NEW7 deep-nesting model: previously L5 chain was Description/Specification/Assumptions/Examples under L4 sub-domain (e.g. LB-Description L5 sib=1 under §6.3.5.6 LB). NEW round-4 case: when L4 is a GROUP CONTAINER (plural like 'Microbiology Domains' similar to §6.3.5 itself), internal sub-domains §N.N.N.N (here §6.3.5.7.1 MB) RESTART at L5 sib=1 under that L4 group container. Each MB own internal sub-sections (Description/Specification/Assumptions/Examples) then RESTART at L6 sib=1..N under §6.3.5.7.1 MB.",
+      "v1_4_candidate": "Codify in NEW7 chain: 'L4 sub-domain' vs 'L4 group container' branch — group container case adds L5 RESTART for internal sub-domains, with L6 chain underneath each L5 sub-domain. Mirrors §6.3.5 (L3 group) → §6.3.5.X (L4 sub-domain) RESTART pattern from rounds 1-3, now applied at L4→L5 level."
+    }
+  ],
+  "finding_id_range_allocated": "O-P1-75..78 (4 IDs reserved per round 4 G-MS-13)",
+  "finding_id_range_used": ["O-P1-75"],
+  "finding_id_self_validation_gate": "PASS — only finding ID is O-P1-75 ∈ {75,76,77,78}; 0 findings with ID ≤74 (no collision with batch 23 O-P1-67..70 or batch 24 O-P1-71..74)",
+  "rule_d_slot_used": 34,
+  "rule_d_audit_pivot_count_post_batch": 15,
+  "rule_d_family_post_batch": "feature-dev 3rd burn = pool COMPLETED (cumulative #5 code-explorer / #11 code-reviewer / #34 code-architect)",
+  "files_written": [
+    "evidence/checkpoints/pdf_atoms_batch_25a.jsonl (100 atoms, p.241-245, no repair cycles)",
+    "evidence/checkpoints/pdf_atoms_batch_25b.jsonl (110 atoms, p.246-250, no repair cycles)",
+    "evidence/checkpoints/_progress_batch_25.json (this file)",
+    "evidence/checkpoints/P1_batch_25_report.md (full batch report)",
+    "evidence/checkpoints/rule_a_batch_25_sample.jsonl (10-atom Rule A sample seed=20260530)",
+    "evidence/checkpoints/rule_a_batch_25_verdicts.jsonl (slot #34 feature-dev:code-architect verdicts inline-captured)",
+    "evidence/checkpoints/rule_a_batch_25_summary.md (Rule A summary inline-captured)"
+  ],
+  "files_NOT_touched": [
+    "root pdf_atoms.jsonl",
+    "audit_matrix.md",
+    "_progress.json",
+    "sister batch files (pdf_atoms_batch_23*, pdf_atoms_batch_24*)",
+    "subagent_prompts/* (v1.3 cut deferred per Rule D)",
+    "schema/*.json",
+    "PLAN.md",
+    "plans/*.md",
+    "CLAUDE.md",
+    "MEMORY/*"
+  ],
+  "halt_state": null,
+  "round_4_compliance": {
+    "G_MS_4_halt_fallback": "spec'd (kickoff Step 0.5 decision tree); NOT triggered this batch",
+    "G_MS_7_finding_id_range_pre_allocation": "compliant — O-P1-75..78 reserved, 1 used (O-P1-75); 3 unused (76/77/78); no over-allocation, no cross-session collision (sister batches 23/24 reserve disjoint O-P1-67..70 + O-P1-71..74)",
+    "G_MS_11_NEW6_dual_form_codified": "applied in writer prompt prepend + post-DONE NEW6.b sweep verified 0 violations (both LB L4 + Microbiology L4 HEADINGs use L3 group container as parent, not self-parent)",
+    "G_MS_11_b_round_3_extension_codified": "applied — both DOUBLE-transition L4 HEADINGs (§6.3.5.6 LB + §6.3.5.7 Microbiology Domains) PASS NEW6.b L3-group-parent check; the round-3 batch 22 GF L4 self-parent O-P1-64 lesson successfully codified into round-4 kickoff prepend + applied without recurrence",
+    "G_MS_12_density_alarm_check_applied": "applied — lowest pages p.245+p.246 at 15-atom floor (exactly at threshold, NOT below); both sub-batches ≥100 atom floor; alarm NOT triggered; main-session PDF cross-check NOT required for batch 25",
+    "G_MS_13_finding_id_range_cross_validation_table": "applied — kickoff §0 cross-validation table read pre-dispatch; finding ID self-validation gate at STEP 7 confirmed only O-P1-75 used (∈ {75,76,77,78}); 0 collision with sister sessions"
+  },
+  "round_4_NEW_precedents_observed": [
+    "L5 sub-domain RESTART under L4 group container (§6.3.5.7.1 MB under §6.3.5.7 Microbiology Domains) — extends NEW7 deep-nesting model with new branching for group-container L4 sub-domains; documented as O-P1-75 INFO; v1.4 codification candidate"
+  ],
+  "handoff_to_reconciler": "Session D contributes 210 atoms (100 + 110) over p.241-250 (DOUBLE sub-domain transition: §6.3.5.6 LB NEW + §6.3.5.7 Microbiology Domains group NEW). Reconciler should: (a) merge pdf_atoms_batch_25a.jsonl + pdf_atoms_batch_25b.jsonl into root pdf_atoms.jsonl post 23a/23b + 24a/24b sister batch merges; (b) sweep cross-batch sibling continuity for §6.3.5.X L4 chain — sib=4 GF (batch 22) → sib=5 IS (batch 23) → sib=6 LB (batch 25) → sib=7 Microbiology (batch 25) — verify continuity across 3 sessions × 2 rounds; (c) update root audit_matrix.md with batch 25 row + Rule A 25 row + Rule D roster 33→34 (feature-dev family 3rd burn = pool COMPLETED); (d) update root _progress.json (pages 220→230 baseline + 25's 10 → check sister batch contributions / atoms 5502 + 25's 210 = 5712 + 23's + 24's / batches 24→25 / Rule D 33→34 / repair_cycles +0 / findings +1 [O-P1-75]); (e) v1.3 prompt cut decision STILL DEFERRED per Rule D (4th time deferred post round 4) — evidence DOUBLE-saturated (R10/R11/R12/R14/R15 + O-P1-26 + NEW1-NEW8 + round-4 NEW L5 RESTART under L4 group container precedent O-P1-75); (f) v1.4 candidate accumulation: codify NEW7 group-container branch in v1.4 patch alongside any sister batch findings; (g) multi-session round 4 protocol cleanup (per kickoff): preserve MULTI_SESSION_PROTOCOL.md + 3 round retro files + write MULTI_SESSION_RETRO_ROUND_4.md; remove CLAUDE.md round-4 routing rule + delete batch_23/24/25_kickoff.md + reconciler_kickoff_round4.md (one-shot use done)."
+}

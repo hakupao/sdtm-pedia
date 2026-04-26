@@ -1,0 +1,215 @@
+{
+  "batch_id": 23,
+  "session_id": "session_b_round_4",
+  "round": 4,
+  "status": "completed",
+  "scope_pages": "ig34 p.221-230",
+  "page_count": 10,
+  "atoms_done": 226,
+  "atoms_breakdown": {
+    "23a_p221_225": 107,
+    "23b_p226_230": 119,
+    "23b_split_strategy": "32K output token cap on first 23b 5-page attempt → split into 23b_i (p.226-228, 76 atoms) + 23b_ii (p.229-230, 43 atoms), concatenated into pdf_atoms_batch_23b.jsonl (119 atoms total)",
+    "by_page": {
+      "221": 26, "222": 24, "223": 18, "224": 20, "225": 19,
+      "226": 30, "227": 22, "228": 24, "229": 21, "230": 22
+    },
+    "by_atom_type": {
+      "TABLE_ROW": 131,
+      "LIST_ITEM": 39,
+      "SENTENCE": 19,
+      "HEADING": 11,
+      "CODE_LITERAL": 11,
+      "TABLE_HEADER": 11,
+      "NOTE": 2,
+      "FIGURE": 2
+    }
+  },
+  "failures": 0,
+  "repair_cycles": 1,
+  "repair_cycle_notes": [
+    {
+      "cycle": 1,
+      "type": "Option H",
+      "scope": "p.227 ig34_p0227_a001 + ig34_p0227_a013 (Example 4 + Example 5) heading_level fix",
+      "from": "heading_level=5 (sub-batch context drift — 23b executor didn't see 23a Examples 1/2/3 hl=6 precedent)",
+      "to": "heading_level=6 (NEW7 L6 GF Examples chain consistent with 23a Example 1/2/3 + batch 22 CP Examples L6 convention)",
+      "trigger": "STEP 4 NEW6/NEW7 sweep caught hl=5/6 inconsistency for GF Example HEADINGs across 23a/23b sub-batches",
+      "atoms_affected": 2,
+      "rule_b_backup": "pdf_atoms_batch_23b.jsonl.pre-OptionH-NEW7-Example-L6.bak",
+      "finding_id": "O-P1-68"
+    }
+  ],
+  "rule_a": {
+    "reviewer_slot": 32,
+    "reviewer_type": "oh-my-claudecode:security-reviewer",
+    "reviewer_audit_pivot_index": 13,
+    "reviewer_family": "oh-my-claudecode",
+    "reviewer_family_burn_count_post_batch": 6,
+    "audit_mode_pivot_label": "AUDIT for PDF atomization quality, NOT security review / NOT OWASP Top 10 / NOT secrets detection / NOT unsafe pattern detection",
+    "reviewer_adaptation": "write-tool-less + Bash heredoc adaptation per round 3 batch 20 #29 plugin-dev:skill-reviewer sub-pattern; reviewer produces verdicts + summary inline, main session writes files preserving content verbatim",
+    "sample_size": 10,
+    "sample_seed": 20260520,
+    "sample_coverage": "1/page p.221-230 stratified (6 TABLE_ROW + 3 HEADING + 1 LIST_ITEM)",
+    "raw_pass": 9,
+    "raw_partial": 1,
+    "raw_fail": 0,
+    "raw_weighted_pct": 95.0,
+    "raw_verdict": "PASS",
+    "post_rerun_pass": null,
+    "post_rerun_partial": null,
+    "post_rerun_fail": null,
+    "post_rerun_weighted_pct": null,
+    "post_rerun_verdict": "NOT_APPLICABLE_raw_already_pass",
+    "tom_anchor_audit_n_cumulative": 150,
+    "tom_anchor_consecutive_batches": 15,
+    "tom_anchor_fp_count": 0,
+    "tom_anchor_inversion_count": 0
+  },
+  "drift_cal": {
+    "triggered": false,
+    "rationale": "per cadence: last cal batch 21 p.205, next mandatory batch 24 (every-3-batches batch 21→24); cumulative atoms post-p.205 below ≥300 threshold for this batch (batch 22 193 + batch 23 226 = 419 cumulative will trigger batch 24 mandatory)",
+    "next_mandatory": "batch 24"
+  },
+  "density_alarm_check_round_4_G_MS_12": {
+    "applied": true,
+    "per_page_min": 18,
+    "per_page_max": 30,
+    "per_page_avg": 22.6,
+    "below_15_floor_count": 0,
+    "below_20_continuous_count": 0,
+    "sub_batch_23a_total": 107,
+    "sub_batch_23a_below_100_threshold": false,
+    "sub_batch_23b_total": 119,
+    "sub_batch_23b_below_100_threshold": false,
+    "alarm_fired": false,
+    "main_session_pdf_cross_check": "NOT triggered (no alarm)",
+    "option_e_decision": "NOT triggered (no alarm + Rule A raw 95% PASS)"
+  },
+  "new6_format_sweep": {
+    "applied": true,
+    "violations_found": 0,
+    "new6_b_proactive_pass": {
+      "scope": "p.228 ig34_p0228_a022 §6.3.5.5 IS L4 HEADING",
+      "parent_section_correct": "§6.3.5 Specimen-based Findings Domains (L3 group canonical full-form per NEW6.b round 3 G-MS-11.b extension)",
+      "first_attempt_correct": true,
+      "validates": "round 3 G-MS-11.b extension codification flowing into round 4 kickoff prepend is EFFECTIVE proactively (round 3 batch 22 GF L4 was post-detection Option H fix; round 4 batch 23 IS L4 was correct from executor at first attempt)"
+    }
+  },
+  "new7_l4_chain_check": {
+    "applied": true,
+    "gf_l5_chain_continuation_p221_227": "Specification=2 (p.221 a001 hl=5 sib=2) / Assumptions=3 (p.223 a013 hl=5 sib=3) / Examples=4 (p.224 a011 hl=5 sib=4) — continuing from batch 22 GF Description=1 ✓ NEW7 deterministic chain",
+    "gf_l6_examples_chain_p224_227": "Example 1 (p.224 a012 hl=6 sib=1) / Example 2 (p.225 a011 hl=6 sib=2) / Example 3 (p.225 a018 hl=6 sib=3) / Example 4 (p.227 a001 hl=6 sib=4 post-OptionH) / Example 5 (p.227 a013 hl=6 sib=5 post-OptionH) ✓ post-fix",
+    "is_l5_chain_p228_230": "Description=1 (p.228 a023 hl=5 sib=1) / Specification=2 (p.229 a001 hl=5 sib=2) ✓ RESTART under §6.3.5.5 IS"
+  },
+  "r12_transition_check": {
+    "applied": true,
+    "transition_page": "p.228",
+    "transition_type": "sub-domain (§6.3.5.4 GF → §6.3.5.5 IS)",
+    "atoms_on_transition_page": 24,
+    "atoms_threshold": 8,
+    "compliance": "PASS (24 ≥ 8)",
+    "zone_partition": {
+      "gf_tail": "p.228 atoms a001-a021 (GF Example 5 dataset tail content)",
+      "is_l4_heading": "p.228 a022 (heading_level=4, sibling_index=5 RESTART under §6.3.5, parent=§6.3.5 Specimen-based Findings Domains per NEW6.b at first attempt)",
+      "is_description_l5_heading": "p.228 a023 (heading_level=5, sibling_index=1 RESTART, parent=§6.3.5.5 Immunogenicity Specimen Assessments (IS))",
+      "is_intro": "p.228 (additional IS-Description text below the heading)"
+    },
+    "chapter_level_transition": "NOT applicable (still within §6.3.5 group)"
+  },
+  "r15_cross_batch_sibling_check": {
+    "applied": true,
+    "is_l4_sib": "p.228 a022 sib=5 contiguous from §6.3.5.4 GF L4 sib=4 (batch 22 p.220 terminal)",
+    "gf_l5_chain_cross_batch": "Description=1 (batch 22 p.220 a022) → Specification=2 (batch 23 p.221 a001) ✓ contiguous",
+    "gf_l6_examples_chain": "Example 1-5 sib=1..5 fully contained within batch 23 (no cross-batch boundary for Examples)",
+    "main_session_local_validation": "All HEADING sibling_index matches expected: GF Specification=2, Assumptions=3, Examples=4, Example 1-5=1..5 hl=6, IS sib=5 hl=4, IS-Description sib=1, IS-Specification sib=2 — 11/11 HEADING fields correct"
+  },
+  "findings_added": [
+    {
+      "finding_id": "O-P1-67",
+      "severity": "LOW",
+      "category": "writer-family-r10-narrow-scope",
+      "title": "Writer-family R10 verbatim deviation single-row a023 p.226 GF Example 3 row 15 GFTSTDTL + GRCh38 case",
+      "scope": "p.226 ig34_p0226_a023 single TABLE_ROW atom (GF Example 3 gf.xpt row 15 gene signature score row)",
+      "atom_pre_state": "GFTSTDTL='GENETIC TRANSCRIPTION INDICATOR' (cell mis-attribution from rows 6/12 predicted-expression-status); GFGENRSI='GRCH38g12' (case loss + period drop vs PDF GRCh38.p12)",
+      "rule_violation": "R10 verbatim strict + NEW2/NEW8 char-level discipline for variable name + reference value cells",
+      "writer_family_motif": "narrow-scope single-cell mis-attribution + case loss — joins cumulative writer-family R10 family (O-P1-23/34/36/37/38/50/63) but at lower severity than wide-table systemic corruption batch 22 O-P1-63 multi-symptom 7-batch motif",
+      "repair_recommendation": "reconciler-deferred Option H targeted edit (single-row scope, low-risk mechanical fix); main session did NOT apply Option H in-batch since (a) Rule A raw 95% PASS already above 90% threshold, (b) row 15 PDF text requires re-verification at reconciler stage with full p.226 cross-check (per round 3 batch 22 O-P1-65/O-P1-66 reconciler-deferred precedent for narrow-scope post-Rule-A residuals)",
+      "v1_4_candidate": "extend NEW2/NEW8 char-level discipline beyond variable names to controlled vocabulary cells (gene transcription indicator/interpretation, reference genome identifiers like GRCh38.p12) — adjacent-context cell mis-attribution is a new failure mode not addressed by current R10/NEW2/NEW8 spec which focus on Variable Name column"
+    },
+    {
+      "finding_id": "O-P1-68",
+      "severity": "LOW",
+      "category": "NEW7-cross-sub-batch-context-drift",
+      "title": "NEW7 L6 vs L5 heading_level inconsistency for GF Examples 4+5 across 23a/23b sub-batch boundary",
+      "scope": "p.227 ig34_p0227_a001 (Example 4) + ig34_p0227_a013 (Example 5) — 2 HEADING atoms",
+      "atom_pre_fix": "heading_level=5, sibling_index=4 + 5 (chain numerically correct, level wrong)",
+      "atom_post_fix": "heading_level=6 (NEW7 L6 GF Examples convention) — matches 23a Example 1/2/3 hl=6 precedent + batch 22 CP Examples L6 sib=2..9 historical convention",
+      "rule_violation": "NEW7 deep-nesting L6 Examples chain consistency",
+      "root_cause": "Sub-batch context drift — 23b executor (p.226-230 split into 23b_i p.226-228 + 23b_ii p.229-230 due to 32K output cap) did not see 23a (p.221-225) Example 1/2/3 hl=6 precedent established by 23a writer; 23b inferred hl=5 from broader L5 sub-section pattern (Description/Spec/Assumptions/Examples) without recognizing Example N as L6 children of L5 Examples container",
+      "repair": "Option H inline cycle 1 (2 atoms + Rule B backup pdf_atoms_batch_23b.jsonl.pre-OptionH-NEW7-Example-L6.bak preserved)",
+      "v1_4_candidate": "Codify NEW7 L6 Example precedent into kickoff dispatch prompt with explicit '§6.3.5.X.Examples N HEADING ALWAYS heading_level=6' bullet (currently stated narratively in NEW7 chain spec but easy to drift on sub-batch context cuts); also consider sibling-aware sub-batch handoff in dispatch prompt for cross-sub-batch HEADING continuity"
+    },
+    {
+      "finding_id": "O-P1-69",
+      "severity": "INFO",
+      "category": "NEW6.b-proactive-effective-precedent",
+      "title": "NEW6.b round 3 G-MS-11.b extension EFFECTIVE proactively round 4 batch 23 IS L4 first-attempt correct",
+      "scope": "p.228 ig34_p0228_a022 §6.3.5.5 IS L4 HEADING parent_section",
+      "observation": "Batch 23 IS L4 HEADING parent_section = `§6.3.5 Specimen-based Findings Domains` (L3 group canonical) at FIRST ATTEMPT by executor — no main-session Option H fix needed (vs round 3 batch 22 GF L4 which was post-detection Option H O-P1-64 fix). This validates that NEW6.b spec text in round 4 kickoff prepend is generating correct L4 sub-domain section-start HEADING parent semantics in writer/executor agents. Round 4 batch 24 + 25 will provide additional NEW6.b proactive-effective evidence (batch 24 LB L4 + batch 25 Microbiology L4 + MB L5 transitions per kickoff PDF preview).",
+      "writer_family_pattern_reverse": "this is the first NEW6 finding category in P1 cumulative that documents EFFECTIVE proactive correct-at-first-attempt application rather than post-detection corrective Option H — joins the positive-precedent finding family (similar to round 3 batch 20 ZERO-finding batch first since batch 18, with batch 23 being NEW6.b proactive-effective second precedent)",
+      "v1_4_candidate": "no codification change needed — NEW6.b spec is already EFFECTIVE in round 4 prepend; document as positive precedent in MULTI_SESSION_RETRO_ROUND_4.md and audit_matrix.md (reconciler scope)"
+    }
+  ],
+  "finding_id_range_allocated": "O-P1-67..70 (4 IDs reserved per round 4 G-MS-7 + G-MS-13 cross-validation table)",
+  "finding_id_range_used": ["O-P1-67", "O-P1-68", "O-P1-69"],
+  "finding_id_range_unused": ["O-P1-70"],
+  "finding_id_self_validation_gate": "PASS — all 3 used IDs ∈ {O-P1-67, O-P1-68, O-P1-69, O-P1-70} reserved range; 0 IDs ≥71 (would collide with sister batch 24 O-P1-71..74 or batch 25 O-P1-75..78); G-MS-13 round 3 NEW gap (sister session ID range mis-read) NOT recurred batch 23",
+  "rule_d_slot_used": 32,
+  "rule_d_audit_pivot_count_post_batch": 13,
+  "rule_d_family_post_batch": "oh-my-claudecode 6th burn (cumulative #21 debugger / #23 designer / #28 qa-tester / #30 test-engineer / #31 git-master / #32 security-reviewer)",
+  "files_written": [
+    "evidence/checkpoints/pdf_atoms_batch_23a.jsonl (107 atoms, p.221-225, single-shot writer no Option E)",
+    "evidence/checkpoints/pdf_atoms_batch_23b.jsonl (119 atoms, p.226-230, post-OptionH NEW7 L6 Example fix; concatenated from 23b_i p.226-228 76 atoms + 23b_ii p.229-230 43 atoms due to 32K output token cap on initial 5-page attempt)",
+    "evidence/checkpoints/pdf_atoms_batch_23b_i.jsonl (76 atoms, p.226-228, intermediate sub-split file per Rule B)",
+    "evidence/checkpoints/pdf_atoms_batch_23b_ii.jsonl (43 atoms, p.229-230, intermediate sub-split file per Rule B)",
+    "evidence/checkpoints/pdf_atoms_batch_23b.jsonl.pre-OptionH-NEW7-Example-L6.bak (Rule B 119 atoms pre-Option-H NEW7 L6 fix)",
+    "evidence/checkpoints/_progress_batch_23.json (this file)",
+    "evidence/checkpoints/P1_batch_23_report.md (full batch report)",
+    "evidence/checkpoints/rule_a_batch_23_sample.jsonl (10-atom Rule A sample seed=20260520)",
+    "evidence/checkpoints/rule_a_batch_23_verdicts.jsonl (slot #32 security-reviewer AUDIT-mode verdicts)",
+    "evidence/checkpoints/rule_a_batch_23_summary.md (Rule A summary preserving reviewer inline content verbatim)"
+  ],
+  "files_NOT_touched": [
+    "root pdf_atoms.jsonl (5502 atoms unchanged — reconciler scope)",
+    "audit_matrix.md (reconciler scope)",
+    "_progress.json (reconciler scope)",
+    "subagent_prompts/* (v1.3 cut DOUBLE-RECOMMENDED 4th time — defer per Rule D)",
+    "schema/*.json",
+    "PLAN.md",
+    "plans/*.md",
+    "CLAUDE.md (frozen)",
+    "MEMORY/* (frozen)",
+    "sister batch files (pdf_atoms_batch_24*, pdf_atoms_batch_25*) — physical parallel sister sessions",
+    "historical .bak files (preserved per Rule B)"
+  ],
+  "halt_state": null,
+  "round_4_compliance": {
+    "G_MS_4_halt_fallback": "spec'd (kickoff §HARD-STOP DIRECTIVE + halt-only fallback); NOT triggered this batch (4 rounds spec-only — recommend live-fire test scenario design or accept spec-only validation)",
+    "G_MS_7_finding_id_range_pre_allocation": "compliant — O-P1-67..70 reserved, 3 used (67/68/69) + 1 freed (70), self-validation gate PASS (0 IDs ≥71)",
+    "G_MS_11_NEW6_dual_form_codified": "applied in writer/executor prompt prepend + 0 violations across 226 atoms vs round 3 batch 22 GF L4 self-parent 1 violation",
+    "G_MS_11_b_NEW6_extension_proactive": "EFFECTIVE — IS L4 HEADING first-attempt correct (NEW6.b round 3 codification flowing into round 4 prepend works proactively) → finding O-P1-69 INFO",
+    "G_MS_12_density_alarm_check_applied": "applied — 0 alarms fired (per-page 18-30 atoms, all ≥18 above 15 floor; sub-batch 23a 107 + 23b 119 both ≥100)",
+    "G_MS_13_finding_id_range_self_validation": "PASS — kickoff §0 cross-validation table prepended; main session validated 0 IDs ≥71 before finalizing findings_added; G-MS-13 round 3 mis-read pattern NOT recurred"
+  },
+  "kickoff_8_step_completion": {
+    "step_0_pre_flight": "PASS (root atoms=5502 + batch 22 _progress completed + TOC verified + reviewer #32 dispatchable + writer prompt readable)",
+    "step_1_3_dispatch": "PASS (23a 107 atoms via oh-my-claudecode:executor writer-role + 23b 119 atoms via oh-my-claudecode:executor sub-split into 23b_i 76 + 23b_ii 43 due to 32K output cap)",
+    "step_4_sweeps": "PASS (schema 0 errors + density 0 alarms + NEW6 0 violations + NEW6.b proactive-correct + NEW7 1 violation Option H repaired + R12 p.228 24 atoms ≥8 + R15 IS sib=5 contiguous)",
+    "step_5_drift_cal": "SKIP (per cadence next mandatory batch 24)",
+    "step_6_rule_a": "PASS (slot #32 oh-my-claudecode:security-reviewer AUDIT-mode 13th pivot 95% effective ≥90% threshold)",
+    "step_7_findings": "PASS (3 findings O-P1-67/68/69 LOW/LOW/INFO + O-P1-70 unused freed; self-validation gate PASS)",
+    "step_8_final_message": "in_progress (PARALLEL_SESSION_23_DONE single-line echo + brief user-facing summary)"
+  },
+  "handoff_to_reconciler": "Session B contributes 226 atoms (107 + 119) over p.221-230. Reconciler should: (a) merge pdf_atoms_batch_23a.jsonl + pdf_atoms_batch_23b.jsonl into root pdf_atoms.jsonl (post round 3 5502 baseline → 5502+226=5728 if batch 23 merges first OR after sister batch 24/25 merges in round 4 reconciler order); (b) sweep cross-batch sibling continuity for §6.3.5.X chain (GF L4 sib=4 → IS L4 sib=5 → LB L4 sib=6 expected at batch 24); (c) update root audit_matrix.md with batch 23 row + Rule A 23 row + Rule D roster 31→32; (d) update root _progress.json (pages 220→230 / atoms 5502+226 / batches 22→23 / Rule D 31→32 / repair_cycles +1 / findings +3 [O-P1-67/68/69] + 1 freed [O-P1-70]); (e) consider Option H targeted fix for p.226 a023 row 15 GFTSTDTL INDICATOR→INTERPRETATION + GRCh38g12→GRCh38.p12 (per O-P1-67 reconciler-deferred recommendation, low-risk single-row mechanical fix after PDF re-verification); (f) v1.4 cut decision (post round 4): NEW2/NEW8 extension to controlled-vocabulary cells (per O-P1-67 v1.4 candidate) + NEW7 L6 explicit codification in dispatch prompt (per O-P1-68 v1.4 candidate); (g) MULTI_SESSION_RETRO_ROUND_4.md authorship per Rule C (3 sister sessions B/C/D + reconciler); (h) update CLAUDE.md routing rule cleanup post round 4 if accepting (per round 3 retro precedent + reconciler decision tree)."
+}
