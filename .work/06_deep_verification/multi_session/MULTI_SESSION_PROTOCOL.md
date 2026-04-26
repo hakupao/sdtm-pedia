@@ -79,8 +79,8 @@ NN ∈ {13, 14, 15}. 任何 session 写跨 NN 的文件都是错.
   pdf_atoms.jsonl                            ← root, reconciler 串行 merge
   audit_matrix.md                            ← reconciler 串行 append 3 batch row + Rule A row + Rule D update
   _progress.json                             ← reconciler 串行 update headline + recovery_hint
-  subagent_prompts/v1.3_patch_candidates.md  ← reconciler 决定是否 cut v1.3 formal
-  subagent_prompts/P0_writer_pdf_v1.2.md     ← 不动 (v1.3 cut 是 reconciler 的事)
+  subagent_prompts/v1.3_patch_candidates.md  ← v1.3 cut EXECUTED 2026-04-27 (historical)
+  subagent_prompts/P0_writer_pdf_v1.3.md     ← v1.3 active 2026-04-27 (cut completed; P0_writer_pdf_v1.2.md retained side-by-side per archive convention)
   schema/*.json                              ← 不动
   PLAN.md                                    ← 不动
   plans/*.md                                 ← 不动
@@ -181,8 +181,7 @@ Reconciler session E 负责 (当 1+2+3 全 PARALLEL_SESSION_NN_DONE 后):
    - Rewrite recovery_hint with 3-batch summary + lessons + next batch 16 kickoff
 
 6. **v1.3 prompt formal cut decision**:
-   - 检 R10/R11/R12/R13/R14/R15 是否累 ≥3 batch evidence
-   - 若是, cut `subagent_prompts/P0_writer_pdf_v1.3.md` + archive v1.2
+   - **RESOLVED 2026-04-27** in dedicated v1.3 cut session — 4 v1.3 prompts written + Rule D reviewer #35 PASS + v1.2 archived. Round 5+ reconcilers skip this step; v1.4 candidates surface to retro instead.
 
 7. **Session-end retro**:
    - 写 `multi_session/MULTI_SESSION_RETRO.md` (Rule C 强制)
