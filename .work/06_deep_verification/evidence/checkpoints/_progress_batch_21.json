@@ -1,0 +1,143 @@
+{
+  "batch_id": 21,
+  "session_id": "C",
+  "round": 3,
+  "status": "completed",
+  "scope_pages": "p.201-210",
+  "scope_section": "§6.3.5.3 Cell Phenotype Findings (CP) middle 10 pages of 21-page CP span (p.199-219)",
+  "atoms_done": 185,
+  "atoms_breakdown": {
+    "21a_executor_p201_p205": 105,
+    "21b_writer_p206_p210_post_OptionE_OptionH": 80,
+    "per_page": {
+      "p201": 12,
+      "p202": 28,
+      "p203": 35,
+      "p204": 13,
+      "p205": 17,
+      "p206": 9,
+      "p207": 14,
+      "p208_post_OptionE": 23,
+      "p209": 7,
+      "p210": 27
+    }
+  },
+  "failures": 0,
+  "repair_cycles": 2,
+  "repair_cycle_notes": [
+    {
+      "cycle": 1,
+      "type": "Option E",
+      "scope": "p.208 single-page rerun",
+      "trigger": "G-MS-12 density alarm: 21b sub-batch 67 atoms < 100 atoms threshold for 5 pages; PDF cross-check showed p.208 transition page (items 9+10 + CP-Examples HEADING + multi-sentence intro + Example 1 + Example 1a + Rows 1-3 start) under-extracted at 10 atoms vs ~13-17 expected; multi-sentence intro paragraphs collapsed",
+      "agent": "oh-my-claudecode:executor",
+      "result": "23 atoms (vs original 10) +130%; multi-sentence intros expanded per v1.2 M2; new SDTM variables list expanded to CODE_LITERAL atoms",
+      "backup": "pdf_atoms_batch_21b.jsonl.pre-OptionE-fullbatch.bak"
+    },
+    {
+      "cycle": 2,
+      "type": "Option H",
+      "scope": "Example 1a + Example 1b heading_level + sibling_index normalize",
+      "trigger": "Post Option E rerun: 3 HEADINGs (Example 1, 1a, 1b) all set to L6 sib=1 → sibling collision; per kickoff §R15 deep-nesting model + L7 sub-example interpretation",
+      "fix": "Example 1 keep L6 sib=1; Example 1a → L7 sib=1; Example 1b → L7 sib=2",
+      "atoms_fixed": 2,
+      "backup": "pdf_atoms_batch_21b.jsonl.pre-OptionH-NEW7-L7-sub-example.bak"
+    }
+  ],
+  "rule_a": {
+    "reviewer_slot": 30,
+    "reviewer_type": "oh-my-claudecode:test-engineer",
+    "reviewer_audit_pivot_index": 11,
+    "reviewer_family_burn_count": "omc-family 4th burn (cumulative 4: debugger#21, designer#23, qa-tester#28, test-engineer#30)",
+    "sample_size": 10,
+    "sample_seed": 20260510,
+    "sample_stratification": {
+      "TABLE_ROW": 4,
+      "HEADING": 2,
+      "LIST_ITEM": 3,
+      "CODE_LITERAL": 1
+    },
+    "sample_pages": "p.201-210 1/page strict",
+    "raw_pass": 40,
+    "raw_partial": 0,
+    "raw_fail": 0,
+    "weighted_pct": 100.0,
+    "verdict": "PASS",
+    "threshold": 90,
+    "notes": "11th cumulative AUDIT-mode pivot 0 FP / 0 inverted; n=120 cumulative anchored audit firmly locked at 12 consecutive batches across 4 families post round 3 batch 21; omc-family pool depth at 4 burns; cross-family pool not exhausted (data/firecrawl/superpowers families untouched, plugin-dev 2/3, pr 1/N)"
+  },
+  "drift_cal": {
+    "triggered": true,
+    "mandatory_reason": "every-3-batches cadence (last cal batch 18 p.180 → batch 21) + cumulative atoms post-p.180 (~691-731 ≥300 双触发)",
+    "page": 205,
+    "page_selection_rationale": "kickoff priority p.205 (CP-Assumptions HEADING + 16 numbered/lettered/roman LIST_ITEMs, 17 atoms ≥15 threshold); HEADING + LIST_ITEM mix tests both heading_fields drift + verbatim drift",
+    "baseline_agent": "oh-my-claudecode:executor (sub-batch 21a)",
+    "rerun_agent": "oh-my-claudecode:writer (drift cal independent re-run)",
+    "alternation_rule": "21a baseline executor → drift cal rerun writer (opposite family per round 2 batch 18 precedent)",
+    "strict_count_baseline": 17,
+    "strict_count_rerun": 17,
+    "strict_pct": 100.0,
+    "strict_verdict": "PASS",
+    "verbatim_hash_overlap": 16,
+    "verbatim_hash_total_max": 17,
+    "verbatim_pct": 94.1,
+    "verbatim_verdict": "PASS",
+    "dual_threshold_overall": "PASS (both ≥80%)",
+    "drift_atoms": 1,
+    "drift_detail": "ig34_p0205_a005 LIST_ITEM #4: baseline (executor) writes 'CPCSMRKS' (3 occurrences in same atom); rerun (writer) writes 'CPSCMRKS' (C/S adjacent character swap, 3 occurrences)",
+    "ground_truth": "PDF p.201 spec table + p.207 narrative confirm 'CPCSMRKS' (Cell-State Marker-String). Baseline correct. Rerun introduced drift.",
+    "direction": "REVERSED (baseline correct, rerun drift) — 7th DIRECTION REVERSED precedent + 7th drift cal value-add precedent",
+    "root_cause": "Writer-family character-swap motif within Latin alphabet (C↔S adjacent letters in trigram); new sub-motif within character-error family (joins O-P1-23 character-drop / O-P1-34 character-drop / O-P1-36 character-extra-letter / O-P1-46 character-drop+paraphrase). NEW2 character-level self-validation catches non-Latin (Cyrillic) substitutions but misses adjacent-letter swaps within Latin alphabet (writer self-caught CPCЕЛSTA→CPCELSTA Cyrillic but missed CPSCMRKS→CPCSMRKS swap)",
+    "action": "NO root file repair (baseline 21a correct; reconciler will inherit correct CPCSMRKS); NO Option E (drift confined to 1 atom); NO Option H bulk fix (single-atom isolated); document NEW8 v1.3 candidate (substring n-gram cross-check vs canonical CDISC variable list)",
+    "report_file": ".work/06_deep_verification/evidence/checkpoints/drift_cal_batch_21_p205_report.md"
+  },
+  "findings_added": [
+    "O-P1-63 writer-family character-swap motif CPSCMRKS vs CPCSMRKS (adjacent-letter swap C↔S within Latin alphabet, NEW sub-motif within character-error family, drift cal value-add 7th precedent + DIRECTION REVERSED 7th instance)",
+    "O-P1-64 NEW7 deep-nesting L7 interpretation: Example 1a/1b sub-examples nested under Example 1 (L6) → L7 sib=1, 2 (NEW deep-nesting precedent under §6.3.5.X group container; previously only L6 max for Example N)",
+    "O-P1-65 G-MS-12 density alarm threshold validated for finding-domain narrative+spec page (round 3 reaffirms): writer-family p.208 transition page caught at 10 atoms vs ~13-17 expected, Option E rerun successful at 23 atoms; protocol-spec'd alarm threshold (sub-batch <100 atoms for 5 pages) caught the under-extraction"
+  ],
+  "finding_id_range_allocated": "O-P1-63..66 (4 IDs reserved per round 3 G-MS-7 protocol; 3 used: 63/64/65; 1 unused 66)",
+  "rule_d_slot_used": 30,
+  "rule_d_audit_pivot_count_post_batch": 11,
+  "rule_d_chain_post_batch": "#1-#28 + #29 (batch 20, plugin-dev:skill-reviewer expected) + #30 (batch 21, oh-my-claudecode:test-engineer) + #31 (batch 22, oh-my-claudecode:git-master expected)",
+  "files_written": [
+    "evidence/checkpoints/pdf_atoms_batch_21a.jsonl (105 atoms / 5 pages / 0 failures)",
+    "evidence/checkpoints/pdf_atoms_batch_21b.jsonl (80 atoms / 5 pages / 0 failures, post Option E + Option H)",
+    "evidence/checkpoints/pdf_atoms_batch_21b.jsonl.pre-OptionE-fullbatch.bak (Rule B, original 67 atoms)",
+    "evidence/checkpoints/pdf_atoms_batch_21b.jsonl.pre-OptionH-NEW7-L7-sub-example.bak (Rule B, post-Option-E pre-Option-H 80 atoms)",
+    "evidence/checkpoints/option_e_rerun_p208.jsonl (23 atoms p.208 rerun)",
+    "evidence/checkpoints/drift_cal_p205_writer_rerun.jsonl (17 atoms p.205 drift cal rerun)",
+    "evidence/checkpoints/drift_cal_batch_21_p205_report.md (NEW1 dual-threshold + root cause + action + NEW8 v1.3 candidate)",
+    "evidence/checkpoints/rule_a_batch_21_sample.jsonl (10 atoms sample)",
+    "evidence/checkpoints/rule_a_batch_21_verdicts.jsonl (10 verdicts)",
+    "evidence/checkpoints/rule_a_batch_21_summary.md",
+    "evidence/checkpoints/_progress_batch_21.json (this file)",
+    "evidence/checkpoints/P1_batch_21_report.md (full batch report)"
+  ],
+  "files_NOT_touched": [
+    "root pdf_atoms.jsonl (reconciler scope)",
+    "audit_matrix.md (reconciler scope)",
+    "_progress.json (reconciler scope)",
+    "subagent_prompts/v1.3_patch_candidates.md (reconciler / dedicated v1.3 cut session scope)",
+    "subagent_prompts/P0_writer_pdf_v1.2.md (frozen)",
+    "schema/*.json (frozen)",
+    "PLAN.md (frozen)",
+    "plans/*.md (frozen)",
+    "CLAUDE.md (frozen)",
+    "MEMORY/* (frozen)",
+    "sister batch files pdf_atoms_batch_20* + pdf_atoms_batch_22* (sister session scope)"
+  ],
+  "halt_state": null,
+  "round_3_compliance": {
+    "G_MS_4_halt_fallback": "NOT triggered (no halt this batch); decision tree spec'd in protocol Step 0.5 remains live-ready for future halt",
+    "G_MS_7_finding_id_range_pre_allocation": "100% compliant — 4 IDs reserved (O-P1-63..66) for batch 21; 3 used (63/64/65), 1 unused (66) for reconciler-added findings if any",
+    "G_MS_11_NEW6_dual_form_codified": "PASS — all 185 atoms parent_section = '§6.3.5.3 Cell Phenotype Findings (CP)' (sub-domain canonical full-form per kickoff §1 NEW6 dual-form spec); 0 chapter-parent atoms in batch 21 (no chapter transitions); 0 short-bracket deviation; 0 sentence-case deviation",
+    "G_MS_12_density_alarm_check_applied": "PASS — alarm triggered (21b sub-batch 67 atoms < 100 threshold); main session PDF cross-check applied + Option E rerun executed for p.208 single page; post-rerun batch 21 = 185 atoms / 10 pages = 18.5/page (within 60% baseline floor of 25-30/page); R12 transition page p.208 ≥8 atoms compliant post-rerun (23 atoms)",
+    "NEW1_dual_threshold_drift_cal": "PASS — both strict (100%) AND verbatim (94.1%) ≥80%; caught 7th drift cal value-add precedent (CPSCMRKS character-swap) + 7th DIRECTION REVERSED precedent; v1.3 NEW8 candidate proposed (substring n-gram cross-check)",
+    "multi_session_protocol_compliance": "100% — 0 writes to root files, 0 writes to sister batch files, 0 writes to subagent_prompts, 0 writes to schema/PLAN/CLAUDE.md/MEMORY"
+  },
+  "next_session_handoff": {
+    "for_reconciler": "Merge 21a (105) + 21b (80) = 185 atoms into root pdf_atoms.jsonl. Cross-batch sibling continuity sweep with batches 20 + 22 outputs. NEW7 L7 sub-example precedent (Example 1a/1b) cross-check vs sister batches 20/22 if they hit similar nesting. Update audit_matrix.md row for batch 21 + Rule A row + drift cal row + Rule D #30 + reviewer quality bullet. Update _progress.json headline + recovery_hint with O-P1-63/64/65. Document NEW8 v1.3 candidate in v1.3_patch_candidates.md.",
+    "for_v1.3_cut_session": "NEW8 (substring n-gram cross-check vs canonical CDISC variable list) + NEW7 deep-nesting L7 sub-example codification + sustain NEW6 dual-form + sustain NEW1 dual-threshold drift cal cadence + sustain G-MS-12 density alarm threshold spec"
+  }
+}
