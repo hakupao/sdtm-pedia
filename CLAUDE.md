@@ -16,35 +16,34 @@ Every new session, **before doing any work**, read these files in order:
 
 Then summarize to the user: current status, open issues, and suggested next step.
 
-## Multi-Session Parallel Protocol (temporary, 06 Deep Verification 旁枝 round 3 batches 20/21/22 实验, 2026-04-26)
+## Multi-Session Parallel Protocol (temporary, 06 Deep Verification 旁枝 round 4 batches 23/24/25 实验, 2026-04-26)
 
 **Routing rule** — if user's first message in a fresh session matches one of these patterns, **SKIP** the standard Session Startup above and instead:
 
 | User says (case-insensitive, Chinese or English) | Read this file as full session task |
 |---|---|
-| `batch 20 开始任务` / `batch 20 start` / `batch20` | `.work/06_deep_verification/multi_session/batch_20_kickoff.md` |
-| `batch 21 开始任务` / `batch 21 start` / `batch21` | `.work/06_deep_verification/multi_session/batch_21_kickoff.md` |
-| `batch 22 开始任务` / `batch 22 start` / `batch22` | `.work/06_deep_verification/multi_session/batch_22_kickoff.md` |
-| `reconciler 开始任务` / `reconciler start` / `合并收尾` | `.work/06_deep_verification/multi_session/reconciler_kickoff_round3.md` |
+| `batch 23 开始任务` / `batch 23 start` / `batch23` | `.work/06_deep_verification/multi_session/batch_23_kickoff.md` |
+| `batch 24 开始任务` / `batch 24 start` / `batch24` | `.work/06_deep_verification/multi_session/batch_24_kickoff.md` |
+| `batch 25 开始任务` / `batch 25 start` / `batch25` | `.work/06_deep_verification/multi_session/batch_25_kickoff.md` |
+| `reconciler 开始任务` / `reconciler start` / `合并收尾` | `.work/06_deep_verification/multi_session/reconciler_kickoff_round4.md` |
 
 The kickoff files are self-contained with all context (TOC ground truth main-session pre-dispatch verify, R-rules, dispatch protocol, pre-assigned reviewer slot, hard-stop directive at top, "do not touch" list). Execute the file as if it were the user's full prompt.
 
 **Background context** (each session needs to know):
-- 3 终端 (B/C/D) 同时跑 batches 20/21/22 — 物理并行
+- 3 终端 (B/C/D) 同时跑 batches 23/24/25 — 物理并行
 - 1 终端 (E) 启动 reconciler 收尾 (after B+C+D 全 PARALLEL_SESSION_NN_DONE)
 - 各 session 写独立 batch files, **绝对不动** root `pdf_atoms.jsonl` / `audit_matrix.md` / `_progress.json` — 留 reconciler 串行合并
-- Reviewer pool 已预分配 (Rule D 不撞 round 1 #22-#24 + batch 16 #25 + round 2 #26-#28): batch 20 = #29 `plugin-dev:skill-reviewer` (plugin-dev 3rd burn = pool completed, 10th AUDIT pivot, write-tool-less Bash heredoc) / batch 21 = #30 `oh-my-claudecode:test-engineer` (omc 4th burn, 11th AUDIT pivot) / batch 22 = #31 `oh-my-claudecode:git-master` (omc 5th burn, 12th AUDIT pivot)
-- Round 2 protocol upgrades sustained: G-MS-4 halt fallback decision tree (live-ready) + G-MS-7 finding ID range pre-allocation (3 sessions reserved O-P1-55..58/59..62/63..66)
-- Round 2 retro G-MS-11 修补 codified inline: NEW6 parent_section dual-form (chapter `§N.N [TITLE-ALL-CAPS]` + sub-domain `§N.N.N Title (CODE)`)
-- Round 2 retro G-MS-12 修补 codified inline: density alarm threshold spec (<60% baseline atoms/page → trigger main-session PDF cross-check + Option E rerun consideration)
-- batch 21 含 mandatory drift cal (per cadence cumulative atoms post-p.180 ≥300 + every-3-batches batch 18→21, per NEW1 dual-threshold strict + verbatim hash overlap ≥80%)
+- Reviewer pool 已预分配 (Rule D 不撞 round 1 #22-#24 + batch 16 #25 + round 2 #26-#28 + round 3 #29-#31; vercel + plugin-dev 池均 EXHAUSTED post round 3): batch 23 = #32 `oh-my-claudecode:security-reviewer` (omc 6th burn, 13th AUDIT pivot, write-tool-less + no-Bash adaptation per round 3 batch 20 #29 sub-pattern) / batch 24 = #33 `oh-my-claudecode:scientist` (omc 7th burn, 14th AUDIT pivot, write-tool-less) / batch 25 = #34 `feature-dev:code-architect` (feature-dev 3rd burn = pool COMPLETED 3rd family pool exhausted, 15th AUDIT pivot, write-tool-less)
+- Round 4 protocol sustains round 2+3 spec: G-MS-4 halt fallback decision tree (live-ready, 4 rounds spec-only) + G-MS-7 finding ID range pre-allocation (3 sessions reserved O-P1-67..70/71..74/75..78) + G-MS-11 NEW6 dual-form codified (round 2 + round 3 EFFECTIVE) + G-MS-11.b extension round 3 NEW (L4 sub-domain section-start HEADING parent = L3 group container NOT self-parent) + G-MS-12 density alarm threshold spec (round 2+3 validated 3×) + G-MS-13 round 3 NEW fix (kickoff prepend 3-batch finding ID range cross-validation table at top of each kickoff to prevent sister session ID range mis-read like round 3 batch 21)
+- batch 24 含 mandatory drift cal (per cadence every-3-batches batch 21→24 + cumulative atoms post-p.205 ≥300 双触发, per NEW1 dual-threshold strict ≥80% AND verbatim hash overlap ≥80%, target page TBD by session C — recommend dense IS spec table or Examples page)
 - 每 kickoff 顶部有 HARD-STOP DIRECTIVE — 禁止中途回交 control / summarize / ask user — 唯一合法停止 = `PARALLEL_SESSION_NN_DONE` 单行 echo OR `HALT_BATCH_NN reason=<X>` halt 信号
-- 详见 `.work/06_deep_verification/multi_session/MULTI_SESSION_PROTOCOL.md` (master guide round 1, round 2/3 augmented inline in kickoff files)
+- 详见 `.work/06_deep_verification/multi_session/MULTI_SESSION_PROTOCOL.md` (master guide round 1, round 2/3/4 augmented inline in kickoff files) + `MULTI_SESSION_RETRO_ROUND_3.md` (round 3 retro 11 R-MS retain + 8 G-MS gap including G-MS-11.b/G-MS-13/G-MS-14 NEW round 3 + 6 D-MS decision)
 
 **Round 1 历史** (batches 13/14/15 commit `4d6165a` + reconciler `6d173b1`; batch 16 single-session resume commit `7447ec0`).
-**Round 2 历史** (batches 17/18/19 + reconciler — pending commit): kickoff files `batch_13/14/15/17/18/19_kickoff.md` + `reconciler_kickoff.md` 留 disk 作历史 trace, routing rules 已切换到 round 3 batches 20/21/22.
+**Round 2 历史** (batches 17/18/19 commit `d6bc41c` 实际 wrap-up).
+**Round 3 历史** (batches 20/21/22 + reconciler commit `eb51567`): 11 个 round 1+2+3 one-shot kickoffs 已 cleanup 删除 (post round 3 reconciler 提示 + user "清理 multi-session" 指令). 路由规则切换到 round 4 batches 23/24/25.
 
-**Cleanup** — 本次 round 3 实验完成后 (reconciler session 末尾会提示), 移除本节 + 删除 round 3 one-shot kickoffs 即可 (留 `MULTI_SESSION_PROTOCOL.md` + `MULTI_SESSION_RETRO.md` + `MULTI_SESSION_RETRO_ROUND_2.md` + `MULTI_SESSION_RETRO_ROUND_3.md` 作历史).
+**Cleanup** — 本次 round 4 实验完成后 (reconciler session 末尾会提示), 移除本节 + 删除 round 4 one-shot kickoffs 即可 (留 `MULTI_SESSION_PROTOCOL.md` + `MULTI_SESSION_RETRO.md` + `MULTI_SESSION_RETRO_ROUND_2.md` + `MULTI_SESSION_RETRO_ROUND_3.md` + 即将写入 `MULTI_SESSION_RETRO_ROUND_4.md` 作历史).
 
 ## Change Chains
 
