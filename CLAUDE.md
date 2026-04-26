@@ -26,6 +26,7 @@ Then summarize to the user: current status, open issues, and suggested next step
 | `batch 27 开始任务` / `batch 27 start` / `batch27` | `.work/06_deep_verification/multi_session/batch_27_kickoff.md` |
 | `batch 28 开始任务` / `batch 28 start` / `batch28` | `.work/06_deep_verification/multi_session/batch_28_kickoff.md` |
 | `reconciler 开始任务` / `reconciler start` / `合并收尾` | `.work/06_deep_verification/multi_session/reconciler_kickoff_round5.md` |
+| `v1.3 cut 开始任务` / `v1.3 cut start` / `v1_3_cut` | `.work/06_deep_verification/subagent_prompts/v1_3_cut_kickoff.md` |
 
 The kickoff files are self-contained with all context (TOC ground truth main-session pre-dispatch verify, R-rules, dispatch protocol, pre-assigned reviewer slot, hard-stop directive at top, "do not touch" list). Execute the file as if it were the user's full prompt.
 
