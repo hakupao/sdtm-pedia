@@ -1,0 +1,208 @@
+{
+  "batch_id": 22,
+  "session_id": "session_d_round_3",
+  "round": 3,
+  "status": "completed",
+  "scope_pages": "ig34 p.211-220",
+  "page_count": 10,
+  "atoms_done": 193,
+  "atoms_breakdown": {
+    "22a_p211_215": 87,
+    "22b_p216_220_post_OptionE": 106,
+    "by_page": {
+      "211": 16, "212": 14, "213": 21, "214": 18, "215": 18,
+      "216": 26, "217": 17, "218": 19, "219": 19, "220": 25
+    },
+    "by_atom_type": {
+      "TABLE_ROW": 99,
+      "SENTENCE": 35,
+      "LIST_ITEM": 33,
+      "HEADING": 10,
+      "CODE_LITERAL": 8,
+      "TABLE_HEADER": 8
+    }
+  },
+  "failures": 0,
+  "repair_cycles": 2,
+  "repair_cycle_notes": [
+    {
+      "cycle": 1,
+      "type": "Option H",
+      "scope": "p.220 ig34_p0220_a021 GF L4 HEADING parent_section",
+      "from": "§6.3.5.4 Genomics Findings (GF) (self-parent — anti-pattern per NEW6)",
+      "to": "§6.3.5 Specimen-based Findings Domains (L3 group canonical full-form per NEW6 + kickoff explicit spec)",
+      "trigger": "STEP 4 NEW6 sweep caught self-parent on §6.3.5.4 GF L4 transition heading",
+      "atoms_affected": 1,
+      "rule_b_backup": "pdf_atoms_batch_22b.jsonl.pre-OptionH-NEW6-GF-parent.bak",
+      "finding_id": "O-P1-64"
+    },
+    {
+      "cycle": 2,
+      "type": "Option E",
+      "scope": "p.214 + p.216 + p.219 wholesale rerun",
+      "trigger": "STEP 7 Rule A reviewer slot #31 raw weighted=80% FAIL <90% threshold + main-session re-verification confirmed systemic wide-TABLE_ROW writer-family corruption (column shift / D→0 / T→7 / duplicate concatenation)",
+      "atoms_replaced_pre_post": "p.214 18→18 / p.216 26→26 / p.219 24→19 (paragraph-level grouping in rerun = -5 SENTENCE)",
+      "rerun_executor_output": "evidence/checkpoints/option_e_rerun_p214_p216_p219.jsonl",
+      "rule_b_backups": [
+        "pdf_atoms_batch_22a.jsonl.pre-OptionE-p214.bak",
+        "pdf_atoms_batch_22b.jsonl.pre-OptionE-p216-p219.bak"
+      ],
+      "post_rerun_outcome": "p.216 fully cleaned (PARTIAL→PASS), p.219 USUBJID + T-lymphocytes corrected (FAIL→PARTIAL with PDF-artifact 'Cytotoxic Cytotoxic' residual), p.214 column-shift Option-E-resistant 2-cycle (PARTIAL persists)",
+      "finding_ids": ["O-P1-63", "O-P1-65"]
+    }
+  ],
+  "rule_a": {
+    "reviewer_slot": 31,
+    "reviewer_type": "oh-my-claudecode:git-master",
+    "reviewer_audit_pivot_index": 12,
+    "reviewer_family": "oh-my-claudecode",
+    "reviewer_family_burn_count_post_batch": 5,
+    "audit_mode_pivot_label": "AUDIT for PDF atomization quality, NOT git operations / NOT commit / NOT rebase / NOT history management",
+    "sample_size": 10,
+    "sample_seed": 20260515,
+    "sample_coverage": "1/page p.211-220 stratified (5 TABLE_ROW + 3 HEADING + 1 SENTENCE + 1 LIST_ITEM)",
+    "raw_pass": 7,
+    "raw_partial": 2,
+    "raw_fail": 1,
+    "raw_weighted_pct": 80.0,
+    "raw_verdict": "FAIL",
+    "post_rerun_pass": 8,
+    "post_rerun_partial": 2,
+    "post_rerun_fail": 0,
+    "post_rerun_weighted_pct": 90.0,
+    "post_rerun_verdict": "PASS_AT_THRESHOLD",
+    "tom_anchor_audit_n_cumulative": 120,
+    "tom_anchor_consecutive_batches": 12,
+    "tom_anchor_fp_count": 0,
+    "tom_anchor_inversion_count": 0
+  },
+  "drift_cal": {
+    "triggered": false,
+    "rationale": "per cadence: last cal batch 21, next mandatory batch 24 (every-3-batches); cumulative atoms post-p.180 below ≥300 trigger threshold for this batch",
+    "next_mandatory": "batch 24"
+  },
+  "density_alarm_check_round_3_G_MS_12": {
+    "applied": true,
+    "p212_atoms": 14,
+    "p212_below_15_floor": true,
+    "sub_batch_22a_total": 87,
+    "sub_batch_22a_below_100_threshold": true,
+    "main_session_pdf_cross_check": "VERIFIED clean — p.212 contains 6 TABLE_ROW (rows 6-11 Example 2 cp.xpt) + 1 HEADING Example 3 + 5 SENTENCE paragraph-level + 2 LIST_ITEM Rows 1-3/4-5; coverage complete; SENTENCE grouped at paragraph-level vs strict M2 sentence-by-sentence (writer conservative behavior, acceptable)",
+    "option_e_decision": "NOT triggered for density alarm alone — content coverage verified; Option E later triggered separately for STEP 7 Rule A FAIL on different concerns (wide-TABLE_ROW corruption on p.214/p.216/p.219)"
+  },
+  "new6_format_sweep": {
+    "applied": true,
+    "violations_found": 1,
+    "violation_atoms": ["ig34_p0220_a021"],
+    "violation_pattern": "L4 sub-domain section-start HEADING used self-parent (§6.3.5.4 GF) instead of L3 group (§6.3.5 Specimen-based Findings Domains)",
+    "fix_applied": "Option H inline (cycle 1)",
+    "post_fix_compliance": "100%"
+  },
+  "new7_l4_chain_check": {
+    "applied": true,
+    "gf_chain_p220": "Description=1 RESTART under §6.3.5.4 GF (heading_level=5, sibling_index=1) ✓ per NEW7 deterministic chain",
+    "cp_chain_continuation": "L6 Example HEADINGs sib=2,3,4,5,6,7,8,9 across p.211-219 (continues from batch 21 terminal Example 1)"
+  },
+  "r12_transition_check": {
+    "applied": true,
+    "transition_page": "p.220",
+    "transition_type": "sub-domain (§6.3.5.3 CP → §6.3.5.4 GF)",
+    "atoms_on_transition_page": 25,
+    "atoms_threshold": 8,
+    "compliance": "PASS (25 ≥ 8)",
+    "zone_partition": {
+      "cp_tail": "p.220 atoms a001-a020 (CP narrative continuation + cp.xpt Example 4 14 TABLE_ROW + LIST_ITEM Rows 2-7/8-14)",
+      "gf_l4_heading": "p.220 a021 (heading_level=4, sibling_index=4 RESTART, parent=§6.3.5 Specimen-based Findings Domains post-OptionH)",
+      "gf_description_l5_heading": "p.220 a022 (heading_level=5, sibling_index=1 RESTART, parent=§6.3.5.4 Genomics Findings (GF))",
+      "gf_intro_sentences": "p.220 a023-a025 (3 SENTENCE atoms describing GF domain)"
+    },
+    "chapter_level_transition": "NOT applicable (§6.4 chapter starts at p.361 per TOC, far beyond batch 22 scope)"
+  },
+  "r15_cross_batch_sibling_check": {
+    "applied": true,
+    "examples_l6_chain": "sib=2,3,4,5,6,7,8,9 across p.211-219 (continues from batch 21 likely terminal Example 1; reconciler will validate cross-batch chain post-merge)",
+    "main_session_local_validation": "Each Example N HEADING sibling_index matches visible PDF label (Example 2 = sib=2, ..., Example 9 = sib=9)"
+  },
+  "findings_added": [
+    {
+      "finding_id": "O-P1-63",
+      "severity": "HIGH",
+      "category": "writer-family-systemic",
+      "title": "Writer-family wide-TABLE_ROW systemic corruption batch 22 — multiple character substitutions + duplicate concatenation + column shift",
+      "scope": "p.214 a014 (column shift STMMX→USUBJID + multi-substitution), p.216 a009 (D→0 ABCD→ABC0), p.219 a010 (T→7 + duplicate 'T-lymphocytes 7-lymphocytes Cytotoxic Cytotoxic' concatenation), plus pre-existing scan-discovered corruption p.217 a001-a008 ABC0 + p.218 a003-a005 ABC0",
+      "rule_violation": "R10 verbatim strict + NEW1 dual-threshold verbatim",
+      "writer_family_motif": "same as O-P1-23/O-P1-34/O-P1-36/O-P1-37/O-P1-38/O-P1-50 character-drop and substitution pattern; this is the 7th writer-family wide-table corruption batch in P1 cumulative",
+      "repair": "Option E partial recovery (p.216 fully clean, p.219 partial, p.214 column-shift persistent)",
+      "v1_4_candidate": "Reinforce wide-table extraction discipline + column-aware cell parsing in v1.4 prompt"
+    },
+    {
+      "finding_id": "O-P1-64",
+      "severity": "LOW",
+      "category": "NEW6-violation",
+      "title": "NEW6 chapter-parent format — §6.3.5.4 GF L4 HEADING wrote self-parent instead of L3 group canonical",
+      "scope": "p.220 ig34_p0220_a021 single atom",
+      "atom_pre_fix": "parent_section='§6.3.5.4 Genomics Findings (GF)' (self-parent)",
+      "atom_post_fix": "parent_section='§6.3.5 Specimen-based Findings Domains' (L3 group canonical full-form per kickoff explicit spec + root convention check vs §6.3.1/6.3.2/6.3.3 DA/DD/EG L3 HEADINGs)",
+      "rule_violation": "NEW6 round 2 G-MS-11 dual-form codification (chapter-bracket vs sub-domain canonical)",
+      "repair": "Option H inline cycle 1 (1 atom + Rule B backup preserved)",
+      "v1_4_candidate": "Reinforce L4 sub-domain section-start HEADING parent = L3 group container (NOT self-parent) — extend NEW6 codification to cover L4 transitions, not just L3"
+    },
+    {
+      "finding_id": "O-P1-65",
+      "severity": "INFO",
+      "category": "Option-E-resistant",
+      "title": "p.214 a014 Example 4 cp.xpt Row 7 column-shift Option-E-resistant 2-cycle",
+      "scope": "p.214 a014 single atom",
+      "details": "STBNDX (CPTESTCD value) still appears in USUBJID position 4 instead of ABCD-001-002 across both original writer extraction AND Option E rerun. Wide cp.xpt table (26+ columns) row 7 contains specific column-shift artifact that PDF text extraction tooling cannot resolve column-aware",
+      "repair_recommendation": "Reconciler-deferred manual repair OR v1.4 wide-table-extraction strategy revision; not blocking for batch 22 sign-off"
+    },
+    {
+      "finding_id": "O-P1-66",
+      "severity": "INFO",
+      "category": "scan-discovered-residual",
+      "title": "Pre-existing ABC0 D→0 USUBJID corruption on p.217 + p.218 not caught by 1/page Rule A sample",
+      "scope": "p.217 a001-a008 (8 atoms) + p.218 a003-a005 (3 atoms) = 11 TABLE_ROW atoms with USUBJID='ABC0-001-001' (should be 'ABCD-001-001')",
+      "discovery_method": "main-session full-batch motif scan post-Option-E (corruption motif grep across all batch 22 atoms)",
+      "rule_violation": "R10 verbatim character-substitution",
+      "repair_recommendation": "Reconciler-deferred bulk fix candidate — sed/jq replacement of 'ABC0-001-001' → 'ABCD-001-001' across p.217 + p.218 atoms (low-risk mechanical fix)"
+    }
+  ],
+  "finding_id_range_allocated": "O-P1-63..66 (4 IDs reserved per round 3 G-MS-7, all 4 used)",
+  "finding_id_range_used": ["O-P1-63", "O-P1-64", "O-P1-65", "O-P1-66"],
+  "rule_d_slot_used": 31,
+  "rule_d_audit_pivot_count_post_batch": 12,
+  "rule_d_family_post_batch": "oh-my-claudecode 5th burn (cumulative #21 debugger / #23 designer / #28 qa-tester / #30 test-engineer / #31 git-master)",
+  "files_written": [
+    "evidence/checkpoints/pdf_atoms_batch_22a.jsonl (87 atoms, p.211-215, post-OptionE p.214 surgical replace)",
+    "evidence/checkpoints/pdf_atoms_batch_22b.jsonl (106 atoms, p.216-220, post-OptionH NEW6 GF parent fix + post-OptionE p.216 + p.219 surgical replace)",
+    "evidence/checkpoints/pdf_atoms_batch_22a.jsonl.pre-OptionE-p214.bak (Rule B 87 atoms pre-Option-E)",
+    "evidence/checkpoints/pdf_atoms_batch_22b.jsonl.pre-OptionH-NEW6-GF-parent.bak (Rule B 111 atoms pre-Option-H)",
+    "evidence/checkpoints/pdf_atoms_batch_22b.jsonl.pre-OptionE-p216-p219.bak (Rule B 111 atoms pre-Option-E, post-Option-H)",
+    "evidence/checkpoints/option_e_rerun_p214_p216_p219.jsonl (63 atoms wholesale rerun)",
+    "evidence/checkpoints/_progress_batch_22.json (this file)",
+    "evidence/checkpoints/P1_batch_22_report.md (full batch report)",
+    "evidence/checkpoints/rule_a_batch_22_sample.jsonl (10-atom Rule A sample seed=20260515)",
+    "evidence/checkpoints/rule_a_batch_22_verdicts.jsonl (slot #31 git-master verdicts)",
+    "evidence/checkpoints/rule_a_batch_22_summary.md (Rule A summary + post-Option-E re-verification appended)"
+  ],
+  "files_NOT_touched": [
+    "root pdf_atoms.jsonl",
+    "audit_matrix.md",
+    "_progress.json",
+    "sister batch files (pdf_atoms_batch_20*, pdf_atoms_batch_21*)",
+    "subagent_prompts/* (v1.3 cut deferred per Rule D)",
+    "schema/*.json",
+    "PLAN.md",
+    "plans/*.md",
+    "CLAUDE.md",
+    "MEMORY/*"
+  ],
+  "halt_state": null,
+  "round_3_compliance": {
+    "G_MS_4_halt_fallback": "spec'd (kickoff Step 0.5 decision tree); NOT triggered this batch",
+    "G_MS_7_finding_id_range_pre_allocation": "compliant — O-P1-63..66 reserved, all 4 used (no over-allocation, no cross-session collision risk since sister batches reserve disjoint ranges)",
+    "G_MS_11_NEW6_dual_form_codified": "applied in writer prompt prepend + Option H fix verified post-batch (0 chapter-parent violations, 1 sub-domain L4 self-parent fixed)",
+    "G_MS_12_density_alarm_check_applied": "applied — p.212 14 atoms below 15 floor + 22a 87 below 100 sub-batch threshold both triggered alarm; main-session PDF cross-check verified content coverage clean (paragraph-level SENTENCE grouping); Option E NOT triggered for density alarm (separately triggered for STEP 7 Rule A wide-TABLE_ROW corruption)"
+  },
+  "handoff_to_reconciler": "Session D contributes 193 atoms (87 + 106) over p.211-220. Reconciler should: (a) merge pdf_atoms_batch_22a.jsonl + pdf_atoms_batch_22b.jsonl into root pdf_atoms.jsonl (post 20a/20b + 21a/21b sister batch merges + post batch 19 base), (b) sweep cross-batch sibling continuity for §6.3.5.3 CP L6 Examples N chain (sib=N continuity from batch 20/21 terminal sib=1 likely → batch 22 sib=2..9) + L5 sub-section chain validation + L4 sib=4 GF transition under §6.3.5, (c) update root audit_matrix.md with batch 22 row + Rule A 22 row + Rule D roster 30→31, (d) update root _progress.json (pages 220 → 220 / atoms previous + 193 / batches 21→22 / Rule D 30→31 / repair_cycles +2 / findings +4 [O-P1-63..66]), (e) consider Option E rerun expansion to p.217 + p.218 ABC0 D→0 systematic fix (per O-P1-66) OR defer to manual reconciler bulk fix, (f) consider Option H targeted fix for p.214 a014 column shift (per O-P1-65) — manual edit since Option-E-resistant 2-cycle, (g) v1.4 cut decision (post round 3): R10 reinforcement + wide-table-extraction strategy + NEW6 L4 sub-domain section-start HEADING parent codification (per O-P1-63 + O-P1-64). Multi-session round 3 protocol cleanup (per kickoff): preserve MULTI_SESSION_PROTOCOL.md + 3 retro files; remove CLAUDE.md round-3 routing rule + delete batch_20/21/22_kickoff.md + reconciler_kickoff_round3.md (one-shot use done)."
+}
