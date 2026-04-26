@@ -49,7 +49,7 @@
 ## §2 — Cumulative R-Rules + NEW Codification Carry-Forward
 ═══════════════════════════════════════════════════════════════════
 
-[同 batch_26_kickoff.md §2 完整 R1-R15 + NEW1-NEW8 + NEW6/NEW6.b + NEW7 L6 procedural + density + G-MS-13]
+**v1.3 cut completed 2026-04-27** — 13 codification items (A-M: R1-R15 + O-P1-26 + NEW1-NEW8 + NEW6/NEW6.b dual-form L4 self-parent + NEW7 chain + NEW7 L4 group-container branch + NEW8.b SENTENCE-trigram + NEW8.c TABLE_HEADER column-set + G-MS-12 density + G-MS-12.a content-type-aware floor + G-MS-13 cross-validation table cross-reference) all codified inline in `subagent_prompts/P0_writer_pdf_v1.3.md`. Each sub-batch dispatch prompt MUST inline-prepend the v1.3 prompt body. See `P0_writer_pdf_v1.3.md` §CODIFIED R-RULES + NEW for full details A-M.
 
 ### 🔴 NEW7 L6 Sub-Batch Handoff (PROCEDURAL ENFORCEMENT — ROUND 5 MANDATORY)
 
@@ -71,7 +71,7 @@ PRIOR SUB-BATCH 28a HEADING STATE (sub-batch 28b MUST continue, NOT restart):
 ### STEP 0.1 Read necessary files (并行 Read)
 1. `multi_session/MULTI_SESSION_PROTOCOL.md`
 2. `multi_session/MULTI_SESSION_RETRO_ROUND_4.md`
-3. `subagent_prompts/P0_writer_pdf_v1.2.md`
+3. `subagent_prompts/P0_writer_pdf_v1.3.md` (v1.3 cut 2026-04-27, 13 items A-M codified inline)
 4. `evidence/checkpoints/_progress_batch_25.json` (round 4 batch 25 terminal R15 carry)
 
 ### STEP 0.2 Pre-dispatch verify

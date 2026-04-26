@@ -156,8 +156,12 @@ Update headline:
 Rewrite recovery_hint with 3-batch summary + cross-batch lessons + Round 5 vs round 1+2+3+4 comparison + next batch 29 kickoff prep + Rule D 烧 37 (5 families: pr/omc/vercel-EXHAUSTED/plugin-dev-EXHAUSTED/feature-dev-EXHAUSTED/general-purpose-first-burn; omc-family burned 9× post round 5 architect; remaining = data/firecrawl/superpowers/general-purpose-extension/omc-family-remaining for round 6+).
 
 ═══════════════════════════════════════════════════════════════════
-## STEP 5 — v1.3 Prompt Formal Cut Decision (FINAL CALL — 5th opportunity post round 1+2+3+4 RECOMMENDED-TRIPLE-ULTRA)
+## STEP 5 — v1.3 Prompt Cut Status (ALREADY COMPLETED 2026-04-27)
 ═══════════════════════════════════════════════════════════════════
+
+**v1.3 cut RESOLVED 2026-04-27** in dedicated cut session — 4 v1.3 prompts written (P0_writer_pdf/P0_writer_md/P0_matcher/P0_reviewer v1.3) + 13 codification items A-M codified inline + Rule D reviewer #35 oh-my-claudecode:critic AUDIT verdict PASS 13/13 + v1.2 archived to `subagent_prompts/archive/v1.2_final_2026-04-27/`. Round 5 batches 26/27/28 already use v1.3 prompts (kickoff §2 cross-references). Round 5 reconciler skips this STEP — v1.3 cut decision is OBSOLETE; this STEP becomes "verify v1.3 prompts continue to deliver effectiveness round 5 (any G-MS-NEW-5-X gaps surfaced) → log to retro for v1.4 candidate planning".
+
+(Historical context retained below for round 1-4 narrative continuity:)
 
 Round 1+2+3+4 reconcilers all RECOMMENDED v1.3 cut + DEFERRED execution per Rule D writer/reviewer isolation. Round 5 reconciler **5th opportunity**:
 

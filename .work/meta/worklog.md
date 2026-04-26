@@ -43,6 +43,21 @@
 
 ## 工作记录
 
+### 2026-04-27 06 Deep Verification v1.3 prompt formal cut + archive v1.2 + retire inline-prepend overhead
+
+- **状态**: 已完成
+- **触发**: 4 prior multi-session rounds (round 1+2+3+4) all RECOMMENDED-DOUBLE-TRIPLE-ULTRA v1.3 cut + DEFERRED execution per Rule D writer/reviewer isolation. Round 4 retro D-MS-3 escalated to EMERGENCY-CRITICAL — must complete BEFORE batch 27 next mandatory drift cal. Inline-prepend overhead growing each round (~10-15 min/batch × 13 batches ≥ ~3 hours cumulative; ~250-375 min if continuing through P1 55-batch end).
+- **处理内容**:
+  - STEP 0: 10-file parallel Read (4 multi-session retros + 4 v1.2 prompts + patch_candidates + schemas) — full v1.3 cut context loaded
+  - STEP 1: Writer pass — 4 v1.3 prompts written (P0_writer_pdf_v1.3.md 340 lines main + P0_writer_md_v1.3.md 154 + P0_matcher_v1.3.md 164 + P0_reviewer_v1.3.md 257). 13 codification items A-M absorbed inline: R1-R15 + O-P1-26 + NEW1-NEW8 + NEW6/NEW6.b dual-form L4 self-parent NEVER + NEW7 L4-L7 chain + 🔴 NEW7 L6 procedural sub-batch handoff template (concrete state block) + NEW7 L4 group-container branch (round 4 NEW O-P1-75) + NEW8.b SENTENCE-trigram + NEW8.c TABLE_HEADER column-set + G-MS-12 density alarm + G-MS-12.a content-type-aware floor + G-MS-13 cross-validation table cross-reference. Schema link / output JSONL shape / atom_type 9-enum / Rule B backup discipline 全 carry-forward unchanged.
+  - STEP 2: Reviewer pass — Rule D 独立 reviewer slot #35 `oh-my-claudecode:critic` (Opus, READ-ONLY, AUDIT mode) dispatched. Verdict **PASS 13/13 items A-M**. 1 non-blocking changelog precision finding (DONE format simplified `DONE atoms=<N> failures=<F>` drop `page=<N>` + atom_id 4-digit `p<NNNN>` finalization) applied via single-line edit to v1.3 changelog. Reviewer report: `evidence/checkpoints/v1_3_cut_reviewer_report.md`.
+  - STEP 3: 4 v1.2 prompts archived to `subagent_prompts/archive/v1.2_final_2026-04-27/` (provenance copy; primary location retained per archive convention).
+  - STEP 4: batch 26/27/28 kickoff §2 + reconciler_kickoff_round5.md §STEP 5 + MULTI_SESSION_PROTOCOL.md updated — narrative R1-R15 + NEW1-NEW8 inline-prepend replaced with 1-sentence reference to v1.3 prompts; kickoff-level NEW7 L6 procedural handoff block + G-MS-13 cross-validation table retained (kickoff dispatch-time concrete state).
+  - STEP 5: 7 index files synced — _progress.json (v1_3_cut_completed field + v1_3_cut_details block + status string) + v1.3_patch_candidates.md (STATUS: EXECUTED prepended) + CLAUDE.md Key Paths (06 旁枝入口 + v1.3 prompts entry) + .work/MANIFEST.md (header) + .work/meta/worklog.md (this entry) + docs/PROGRESS.md (header) + skipped PLAN.md (only references v1.2 schema which is correctly frozen v1.2).
+  - STEP 6: single commit + push + user-facing V1_3_CUT_DONE summary
+- **效益**: ~10-15 min/batch inline-prepend overhead retired × 30+ batches remaining ≈ ~5-7 hours total wall savings across P1 closure. v1.3 prompt stability for round 5+ multi-session OR single-session execution unblocked. NEW7 L6 sub-batch context drift (round 3+4 RECURRENCE = 2× O-P1-68 + O-P1-79 motif) procedurally enforced — expect 0 recurrence round 5+.
+- **Rule 合规**: Rule A (writer/reviewer 同 session 禁) ✓ via slot #35 omc:critic isolation; Rule B (failures 归档不删) ✓ v1.2 archived not deleted; Rule C (Tier 3 retro 强制) — not needed yet (this is dedicated cut session, not multi-session retro); Rule D (writer/reviewer 不同 subagent_type) ✓ writer=main session + reviewer=omc:critic 不同 family; Rule E (语义抽检 N 写进 PLAN) — N/A this session is prompt cut not data atomization.
+
 ### 2026-04-13 方案设计阶段
 
 - **状态**: 已完成

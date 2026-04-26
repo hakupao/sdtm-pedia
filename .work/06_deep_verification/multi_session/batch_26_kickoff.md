@@ -54,25 +54,11 @@
 ## §2 — Cumulative R-Rules + NEW Codification Carry-Forward (ROUND 5 PROCEDURAL ENFORCEMENT)
 ═══════════════════════════════════════════════════════════════════
 
-### R-Rules R1-R15 (15 累, 全 batch 通用)
-[Reference: `multi_session/MULTI_SESSION_PROTOCOL.md` §R-rules + `subagent_prompts/P0_writer_pdf_v1.2.md` 完整 R-rule block 必须 inline-prepend 到每 sub-batch dispatch prompt]
+### R-Rules R1-R15 + NEW1-NEW8 Codification
 
-### NEW1-NEW8 Codification (round 1-4 cumulative)
-- **NEW1 dual-threshold drift cal**: strict ≥80% AND verbatim hash overlap ≥80% (round 1+2+3+4 STRONGLY VALIDATED 4×)
-- **NEW2 single-character iteration self-validation** (Cyrillic/Latin substitution catch)
-- **NEW3-NEW5** (per v1.3_patch_candidates.md)
-- **NEW6/NEW6.b dual-form** (G-MS-11 + G-MS-11.b round 2+3+4):
-  - Chapter (§6/§6.2/§6.3): `§N.N [TITLE-ALL-CAPS]` short-bracket
-  - L3 sub-domain group (§6.3.5): canonical full-form `§6.3.5 Specimen-based Findings Domains`
-  - L4 §6.3.5.X individual domain: `§6.3.5.X Title (CODE)` canonical full-form
-  - L4 §6.3.5.X group container (e.g. §6.3.5.7 Microbiology Domains): canonical full-form (no CODE)
-  - **L4 sub-domain section-start HEADING parent = L3 group container `§6.3.5 Specimen-based Findings Domains` (NEVER self-parent)** ← G-MS-11.b round 3+4 EFFECTIVE 4× proactive
-- **NEW7 deep-nesting chain (PROCEDURAL ENFORCEMENT round 5 — RECURRENCE round 3+4 = formal mandatory)**:
-  - L5 sub-section chain per §6.3.5.X domain: Description=1 / Specification=2 / Assumptions=3 / Examples=4 (± References=5)
-  - L5 group-container case (§6.3.5.7 type): internal sub-domain §N.N.N.N L5 sib=1..N RESTART; each own L6 chain Description=1/Spec=2/Assump=3/Examples=4
-  - **L6 Examples N HEADING ALWAYS heading_level=6 sibling_index=1..N RESTART per §6.3.5.X domain (NEVER SENTENCE)** ← round 3 batch 23 O-P1-68 + round 4 batch 25 O-P1-79 = 2× recurrence
-  - L7 sub-example (Example Na/Nb under Example N): hl=7 sib=1, 2 RESTART under Example N (round 3 NEW7 L7 precedent)
-- **NEW8 substring n-gram cross-check** vs canonical CDISC variable list (round 3 catches CPSCMRKS / round 4 catches 6+ ISBDAGNT etc)
+**v1.3 cut completed 2026-04-27** — 13 codification items (A-M: R1-R15 + O-P1-26 + NEW1-NEW8 + NEW6/NEW6.b dual-form L4 self-parent + NEW7 chain + NEW7 L4 group-container branch + NEW8.b SENTENCE-trigram + NEW8.c TABLE_HEADER column-set + G-MS-12 density + G-MS-12.a content-type-aware floor + G-MS-13 cross-validation table cross-reference) all codified inline in `subagent_prompts/P0_writer_pdf_v1.3.md`. Each sub-batch dispatch prompt MUST inline-prepend the v1.3 prompt body (no need to repeat individual R-rule + NEW item details in this kickoff).
+
+See `subagent_prompts/P0_writer_pdf_v1.3.md` §CODIFIED R-RULES + NEW (v1.3 retire inline-prepend) for full details A-M.
 
 ### 🔴 NEW7 L6 Sub-Batch Handoff (PROCEDURAL ENFORCEMENT — ROUND 5 MANDATORY)
 
@@ -108,7 +94,7 @@ PRIOR SUB-BATCH A HEADING STATE (sub-batch B MUST continue, NOT restart):
 ### STEP 0.1 Read necessary files (并行 Read)
 1. `multi_session/MULTI_SESSION_PROTOCOL.md` (master)
 2. `multi_session/MULTI_SESSION_RETRO_ROUND_4.md` (round 4 retro)
-3. `subagent_prompts/P0_writer_pdf_v1.2.md` (writer/executor R-rule block)
+3. `subagent_prompts/P0_writer_pdf_v1.3.md` (writer/executor R-rule block — v1.3 cut 2026-04-27, 13 items A-M codified inline)
 4. `evidence/checkpoints/_progress_batch_25.json` (round 4 batch 25 terminal state for R15 carry)
 
 ### STEP 0.2 Pre-dispatch verify
