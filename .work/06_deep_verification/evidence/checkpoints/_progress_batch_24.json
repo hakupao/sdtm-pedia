@@ -1,0 +1,228 @@
+{
+  "batch_id": 24,
+  "session_id": "session_c_round_4",
+  "round": 4,
+  "status": "completed",
+  "scope_pages": "ig34 p.231-240",
+  "page_count": 10,
+  "atoms_done": 208,
+  "atoms_breakdown": {
+    "24a_p231_235": 118,
+    "24b_p236_240_post_OptionE": 90,
+    "24b_p236_240_pre_OptionE_writer": 113,
+    "atoms_dropped_via_OptionE": 23,
+    "by_page": {
+      "231": 19, "232": 14, "233": 32, "234": 23, "235": 30,
+      "236": 16, "237": 18, "238": 15, "239": 16, "240": 25
+    },
+    "by_atom_type": {
+      "TABLE_ROW": 70,
+      "SENTENCE": 57,
+      "LIST_ITEM": 45,
+      "HEADING": 13,
+      "CODE_LITERAL": 10,
+      "TABLE_HEADER": 10,
+      "NOTE": 3
+    }
+  },
+  "failures": 0,
+  "repair_cycles": 2,
+  "repair_cycle_notes": [
+    {
+      "cycle": 1,
+      "type": "Option H",
+      "scope": "24b Examples 6-11 L6 sibling_index renumber sib=1-6 → sib=6-11",
+      "trigger": "STEP 4 R15 cross-batch sibling continuity sweep — 24b writer restarted Example sib counter at 1 instead of continuing from 24a Example 5 sib=5",
+      "atoms_affected": 6,
+      "rule_b_backup": "pdf_atoms_batch_24b.jsonl.pre-OptionH-R15-Examples.bak",
+      "resolution": "inline renumber via python jq-style edit"
+    },
+    {
+      "cycle": 2,
+      "type": "Option E",
+      "scope": "24b p.236-240 wholesale rerun via oh-my-claudecode:executor",
+      "trigger": "STEP 4 NEW8 substring n-gram cross-check caught 6+ writer-family wide-TABLE_HEADER character drifts: STUDYID→USUBJID (pos 1), ISBDAGNT→ISBDAGNY (T→Y), ISTSTDTL→ISTOTL (multi-char drop), ISTSTOPO→ISTOTL+ISTETOPO (duplicate hallucination), ISORRESU→ISBORRES (substring corruption), ISSTRESN→ISSTREAM (multi-char drop), ISDTC→ISOTC (D→O swap)",
+      "atoms_replaced_pre_post": "24b 113 → 90 (Option E rerun output, -23 atoms net, primarily duplicate-hallucinated TABLE_HEADER columns removed)",
+      "rerun_executor_output": "evidence/checkpoints/option_e_rerun_p236_240.jsonl",
+      "rule_b_backup": "pdf_atoms_batch_24b.jsonl.pre-OptionE-p236-240.bak",
+      "post_rerun_outcome": "Post-Option-E NEW8 re-run flags 0 real char-swap candidates (1 FALSE POSITIVE 'STUDY' substring of STUDYID + 1 FALSE POSITIVE 'ISTSTCND' = legitimate distinct CDISC variable Test Condition appears alongside ISTESTCD in same header). Writer-family wide-TABLE corruption 8th batch P1 cumulative (joins O-P1-23/34/36/37/38/50/63).",
+      "finding_id": "O-P1-71"
+    }
+  ],
+  "rule_a": {
+    "reviewer_slot": 33,
+    "reviewer_type": "oh-my-claudecode:scientist",
+    "reviewer_audit_pivot_index": 14,
+    "reviewer_family": "oh-my-claudecode",
+    "reviewer_family_burn_count_post_batch": 7,
+    "audit_mode_pivot_label": "AUDIT for PDF atomization quality, NOT data analysis / NOT research execution / NOT scientific computing",
+    "tools_adaptation": "write-tool-less + Bash heredoc per #25/#27 omc-family precedent",
+    "sample_size": 10,
+    "sample_seed": 20260525,
+    "sample_coverage": "1/page p.231-240 stratified (5 TABLE_ROW + 3 HEADING + 1 LIST_ITEM + 1 TABLE_HEADER)",
+    "raw_pass": 9,
+    "raw_partial": 0,
+    "raw_fail": 1,
+    "raw_weighted_pct": 90.0,
+    "raw_verdict": "PASS_AT_THRESHOLD",
+    "fail_atom_id": "ig34_p0238_a004",
+    "fail_reason": "TABLE_HEADER for Example 7 (cytokine-secreting cells ELISPOT table) omits NHOID column, spuriously includes ISORRESU; Option-E rerun char-fixed individual variable names but column-set still incorrect — reconciler-deferred manual repair candidate",
+    "tom_anchor_audit_n_cumulative": 150,
+    "tom_anchor_consecutive_batches": 15,
+    "tom_anchor_fp_count": 0,
+    "tom_anchor_inversion_count": 0
+  },
+  "drift_cal": {
+    "triggered": true,
+    "mandatory": true,
+    "trigger_basis": "every-3-batches cadence batch 21→24 + cumulative atoms post-p.205 (batch 22 193 + batch 23 ~250 + batch 24 ~250 ≥300) — 双触发 MANDATORY",
+    "target_page": 233,
+    "target_page_selection_reason": "densest page in 24a scope (32 atoms) with HEADING transitions (IS-Examples L5 + Example 1 L6 + Example 2 L6) AND TABLE_HEADER + TABLE_ROW Examples 1-2 dataset rows = mixed content tests both heading_fields drift AND verbatim drift",
+    "baseline_subagent": "24a oh-my-claudecode:executor",
+    "baseline_atoms_p233": 32,
+    "rerun_subagent": "oh-my-claudecode:writer (alternation: executor baseline → writer rerun)",
+    "rerun_atoms_p233": 34,
+    "rerun_output_file": "evidence/checkpoints/drift_cal_p233_writer_rerun.jsonl",
+    "report_file": "evidence/checkpoints/drift_cal_batch_24_p233_report.md",
+    "new1_dual_threshold": {
+      "strict_count_match_pct": 94.1,
+      "strict_verdict": "PASS",
+      "verbatim_hash_overlap_pct": 41.2,
+      "verbatim_verdict": "FAIL",
+      "overall_verdict": "FAIL"
+    },
+    "direction": "REVERSED — baseline 24a executor likely correct (PDF copy), writer rerun semantic-drifted on SENTENCE atoms (paraphrase / synonym substitution / whitespace normalization)",
+    "writer_family_motif": "R10 verbatim drift on SENTENCE/LIST_ITEM atoms (joins O-P1-23/34/36/46 SENTENCE-paraphrase motif precedent)",
+    "value_add": "drift cal NEW1 dual-threshold STRONGLY VALIDATED 4th time (round 1+2+3+4) — strict count alone misses semantic drift; drift cal value-add 9th precedent",
+    "v14_candidate": "NEW8.b extension — extend NEW8 substring n-gram cross-check to whole-SENTENCE trigram comparison vs baseline (currently only catches [A-Z]{3,} variable name char-swap)",
+    "root_repair_needed": false,
+    "root_repair_reason": "baseline 24a executor correct → root inherits 24a executor verbatim via reconciler merge",
+    "finding_id": "O-P1-72"
+  },
+  "findings_added": [
+    {
+      "id": "O-P1-71",
+      "severity": "HIGH",
+      "category": "writer-family wide-TABLE_HEADER systemic corruption",
+      "title": "writer 24b emitted 6+ char-drift in TABLE_HEADER atoms p.236-240; Option E wholesale rerun applied",
+      "scope": "ig34 p.236-240 24b writer output (113 atoms), 5 pages, all TABLE_HEADER atoms drifted",
+      "atom_ids_affected": ["pre-OptionE: ig34_p0236_a010", "ig34_p0237_a014", "ig34_p0238_a003", "ig34_p0239_a004", "ig34_p0239_a020", "ig34_p0240_a007"],
+      "rule_violation": "R10 spec table verbatim accuracy + char-level (variable names like ISBDAGNT/ISTSTDTL/ISTSTOPO/ISORRESU/ISSTRESN/ISDTC must match PDF EXACTLY char-by-char)",
+      "drift_pattern": "char swap T→Y (ISBDAGNT→ISBDAGNY) + multi-char drop (ISTSTDTL→ISTOTL) + duplicate hallucination (ISTSTOPO→ISTOTL+ISTETOPO) + substring corruption (ISORRESU→ISBORRES) + multi-char drop (ISSTRESN→ISSTREAM) + char swap D→O (ISDTC→ISOTC) + STUDYID→USUBJID col-1 drift",
+      "repair_action": "Option E wholesale executor rerun for p.236-240, baseline replaced; rule_b_backup pdf_atoms_batch_24b.jsonl.pre-OptionE-p236-240.bak preserved",
+      "post_repair_state": "Post-Option-E NEW8 re-run = 0 real char-swap (2 false positives), Rule A reviewer slot #33 PASS_n=9 / FAIL_n=1 = 90% at-threshold",
+      "v14_candidate": "writer-family R10 strict no-paraphrase prepend re-emphasis — already in v1.2 but writer family ignores; needs char-level pre-DONE NEW2 hook for SENTENCE atoms similar to NEW2 for variable names",
+      "cumulative_motif": "8th batch P1 cumulative writer-family wide-TABLE_HEADER corruption (joins O-P1-23/34/36/37/38/50/63)"
+    },
+    {
+      "id": "O-P1-72",
+      "severity": "MEDIUM",
+      "category": "drift cal NEW1 verbatim FAIL writer-family SENTENCE/LIST_ITEM paraphrase drift",
+      "title": "drift cal p.233 writer rerun semantic-drifted vs 24a executor baseline; NEW1 dual-threshold strict 94.1% PASS / verbatim 41.2% FAIL",
+      "scope": "ig34 p.233 drift cal target page (single page)",
+      "atom_ids_affected": "writer rerun p.233 a008/a009/a010/a013-a015 SENTENCE+LIST_ITEM paraphrased",
+      "rule_violation": "R10 verbatim 严格字面 (SENTENCE atoms must copy PDF text exact, no OCR correction, no paraphrase / synonym substitution / whitespace normalization)",
+      "drift_pattern": "writer-family SENTENCE-level paraphrase: 'illustrate' → 'distinguish' / wholesale re-summarization / 5-space → 1-space normalization in 'Row 1:' indent",
+      "repair_action": "no root repair (baseline executor correct, writer rerun isolated to drift_cal_p233_writer_rerun.jsonl); document as DIRECTION REVERSED 8th precedent + drift cal value-add 9th precedent",
+      "value_add": "drift cal NEW1 dual-threshold STRONGLY VALIDATED 4th time (round 1+2+3+4) — strict count threshold alone misses semantic verbatim drift",
+      "v14_candidate": "NEW8.b extension — extend NEW8 substring n-gram cross-check to whole-SENTENCE trigram comparison vs baseline (currently NEW8 only catches [A-Z]{3,} variable name char-swap)"
+    },
+    {
+      "id": "O-P1-73",
+      "severity": "LOW",
+      "category": "G-MS-12 density alarm content-type-aware threshold",
+      "title": "p.232 14 atoms <15 floor density alarm = FALSE POSITIVE (list-only page genuinely sparse)",
+      "scope": "ig34 p.232 (IS-Assumptions LIST_ITEM continuation, items 3-10 + lettered sub-items 7a/7b + 9a-d)",
+      "atom_count_extracted": 14,
+      "rule_violation": "G-MS-12 density alarm baseline 25-30 atoms/page floor 15 (round 2 + round 3 spec)",
+      "drift_pattern": "page is purely LIST_ITEM content (14 numbered+lettered list items + URL embedded in LIST_ITEM 7) with no TABLE_ROW / TABLE_HEADER / HEADING density multipliers",
+      "repair_action": "no Option E rerun (FALSE POSITIVE per G-MS-12 main-session PDF cross-check verdict — content type matches baseline)",
+      "v14_candidate": "G-MS-12.a content-type-aware density baseline sub-rule: list-only pages floor=8 (not 15); spec-table pages floor=15 (current); transition pages floor=8 (R12 ≥8 atoms 3-zone partition)",
+      "cumulative_motif": "G-MS-12 round 4 reaffirm + 3rd FALSE POSITIVE precedent (post round 3 batch 20 p.192 sparse eg.xpt 8-row dataset)"
+    },
+    {
+      "id": "O-P1-74",
+      "severity": "INFO",
+      "category": "Rule A residual TABLE_HEADER column-set error",
+      "title": "p.238 a004 Example 7 TABLE_HEADER omits NHOID column + spuriously includes ISORRESU; Option E char-fixed individual var names but column-set incorrect",
+      "scope": "ig34 p.238 a004 single TABLE_HEADER atom (Example 7 cytokine-secreting cells ELISPOT table)",
+      "atom_ids_affected": ["ig34_p0238_a004"],
+      "rule_violation": "R10 spec table verbatim accuracy — 23 columns count correct but column SET wrong (missing NHOID, extra ISORRESU)",
+      "repair_action": "reconciler-deferred manual repair candidate; not Option-E-rerun-trippable (executor char-fixed individual names but didn't notice column-set mismatch)",
+      "v14_candidate": "NEW8.c column-set validation — extend NEW8 to verify TABLE_HEADER column SET (not just individual variable spell) matches expected canonical column set per PDF + per CDISC IS spec",
+      "cumulative_motif": "executor char-by-char check passes 27 unique vars correct individually but misses column-set membership errors — gap in NEW8 single-variable focus"
+    }
+  ],
+  "round_4_compliance": {
+    "g_ms_4_halt_fallback_decision_tree": "NOT triggered batch 24 (no unrecoverable halt; live-fire still NOT triggered round 4 — recommend live-fire test scenario design for round 5 OR accept spec-only validation 4th round)",
+    "g_ms_7_finding_id_range_pre_allocation": "PASS — all 4 findings IDs ∈ {O-P1-71, O-P1-72, O-P1-73, O-P1-74} reserved range (cross-validation table §0 PASS, no collision with batch 23 O-P1-67..70 or batch 25 O-P1-75..78)",
+    "g_ms_11_new6_dual_form_codification": "EFFECTIVE — 0 violations across 208 batch 24 atoms (all parent_section = §6.3.5.5 IS canonical full-form; no chapter/sub-domain transitions in batch 24 scope)",
+    "g_ms_11b_l4_self_parent_extension": "N/A — no L4 sub-domain section-start HEADING in batch 24 (entirely inside §6.3.5.5 IS body)",
+    "g_ms_12_density_alarm_round_4_status": "TRIGGERED + main-session PDF cross-check verdict FALSE POSITIVE (p.232 list-only page) — round 4 reaffirm 3rd precedent",
+    "g_ms_13_finding_id_range_self_validation": "PASS — pre-final-message self-validation gate verified all finding IDs ∈ O-P1-71..74 (preventive check round 3 batch 21 mis-allocation pattern)",
+    "new1_dual_threshold_drift_cal_status": "STRONGLY VALIDATED 4th time round 4 (round 1+2+3+4) — verbatim FAIL caught writer-family SENTENCE paraphrase drift; DIRECTION REVERSED 8th precedent",
+    "new7_l4_l7_chain_status": "L5 chain IS-Description=1 / IS-Specification=2 / IS-Assumptions=3 (24a) / IS-Examples=4 (24a) all confirmed; L6 Examples 1-11 sib=1-11 contiguous post Option H R15 fix (24a Examples 1-5 sib=1-5 + 24b post Option E Examples 6-11 sib=6-11)",
+    "new8_substring_n_gram_status": "EFFECTIVE — caught 6+ writer-family wide-TABLE_HEADER char-drift in 24b pre-Option-E (writer-family motif 8th batch); post-Option-E re-run = 0 real char-swap (2 false positives = STUDY substring + ISTSTCND distinct CDISC var); v1.4 NEW8.b SENTENCE-trigram + NEW8.c column-set extensions queued"
+  },
+  "rule_d_chain_post_batch": {
+    "slot_used": 33,
+    "agent_type": "oh-my-claudecode:scientist",
+    "audit_pivot_index": 14,
+    "family": "oh-my-claudecode",
+    "family_burn_count_cumulative_post_batch": 7,
+    "tools_adaptation": "write-tool-less + Bash heredoc heredoc-style (per #25/#27 omc-family + plugin-dev #29 sub-pattern reference)",
+    "verdict": "PASS_AT_THRESHOLD raw 90.0% PASS_n=9 / PARTIAL_n=0 / FAIL_n=1"
+  },
+  "handoff_to_reconciler": {
+    "files_written_by_session_c_independent_scope": [
+      "evidence/checkpoints/pdf_atoms_batch_24a.jsonl (118 atoms p.231-235)",
+      "evidence/checkpoints/pdf_atoms_batch_24b.jsonl (90 atoms p.236-240 post Option E rerun + Option H R15 sib renumber)",
+      "evidence/checkpoints/pdf_atoms_batch_24b.jsonl.pre-OptionH-R15-Examples.bak (113 atoms pre Option H R15 fix)",
+      "evidence/checkpoints/pdf_atoms_batch_24b.jsonl.pre-OptionE-p236-240.bak (113 atoms pre Option E rerun)",
+      "evidence/checkpoints/option_e_rerun_p236_240.jsonl (90 atoms Option E executor rerun output)",
+      "evidence/checkpoints/drift_cal_p233_writer_rerun.jsonl (34 atoms drift cal writer rerun output)",
+      "evidence/checkpoints/drift_cal_batch_24_p233_report.md (NEW1 dual-threshold report)",
+      "evidence/checkpoints/_progress_batch_24.json (this file)",
+      "evidence/checkpoints/P1_batch_24_report.md (full batch report)",
+      "evidence/checkpoints/rule_a_batch_24_sample.jsonl (10 atoms 1/page stratified)",
+      "evidence/checkpoints/rule_a_batch_24_verdicts.jsonl (10 verdicts per-atom 4-dim)",
+      "evidence/checkpoints/rule_a_batch_24_summary.md (Rule A summary 125 lines)"
+    ],
+    "files_NOT_touched": [
+      "root pdf_atoms.jsonl",
+      "audit_matrix.md",
+      "_progress.json",
+      "subagent_prompts/* (all)",
+      "schema/*.json",
+      "PLAN.md",
+      "plans/*.md",
+      "CLAUDE.md / MEMORY",
+      "sister batch files pdf_atoms_batch_23* / pdf_atoms_batch_25*"
+    ],
+    "reconciler_action_items": [
+      "Merge pdf_atoms_batch_24a.jsonl + pdf_atoms_batch_24b.jsonl to root pdf_atoms.jsonl (5502 + 208 = 5710 atoms expected post merge)",
+      "Update root _progress.json with batch 24 row + 4 findings O-P1-71..74",
+      "Update audit_matrix.md with batch 24 row (1 new repair cycle = Option H + Option E count as 2; Rule A row; drift cal row 8th)",
+      "Manual repair candidate: ig34_p0238_a004 TABLE_HEADER NHOID-missing/ISORRESU-spurious column-set (low priority, reconciler-deferred per O-P1-74 INFO)",
+      "G-MS-13 round 4 status: PASS (no finding ID mis-allocation; cross-validation table §0 effective)",
+      "Round 4 retro decision: combine with batches 23 + 25 for MULTI_SESSION_RETRO_ROUND_4.md per Rule C"
+    ]
+  },
+  "next_batch_recommendations": {
+    "v13_cut_priority": "DOUBLE-RECOMMENDED 4th time — round 4 evidence further saturated NEW1 4× / NEW8 round 4 caught 6+ writer-family drifts / NEW6 effective / NEW7 L4-L7 chain validated 4 rounds; all v1.3 + 3 NEW v1.4 candidates (NEW8.b SENTENCE-trigram + NEW8.c column-set + G-MS-12.a content-type-aware density) ready for codification",
+    "v14_candidates_added_round_4": [
+      "NEW8.b SENTENCE-trigram extension (whole-SENTENCE comparison)",
+      "NEW8.c TABLE_HEADER column-set validation (column membership not just var spell)",
+      "G-MS-12.a content-type-aware density floor (list-only pages floor=8 not 15)"
+    ],
+    "rule_d_slot_32_to_34_used_round_4": [
+      "#32 oh-my-claudecode:security-reviewer (batch 23, AUDIT pivot 13th, omc-family 6th burn)",
+      "#33 oh-my-claudecode:scientist (batch 24, AUDIT pivot 14th, omc-family 7th burn)",
+      "#34 feature-dev:code-architect (batch 25, AUDIT pivot 15th, feature-dev family 3rd burn = pool COMPLETED)"
+    ],
+    "drift_cal_next_mandatory": "every-3-batches batch 24→27 + cumulative atoms post-p.205 ≥600 by batch 27 (likely)",
+    "next_batch_pre_dispatch_critical": "v1.3 cut DOUBLE-RECOMMENDED 4th time = HIGHEST PRIORITY; otherwise continue inline-prepend R10-R15 + NEW1-NEW8 + NEW8.b/c + G-MS-12.a to each kickoff"
+  },
+  "created": "2026-04-26",
+  "session_c_completed": "2026-04-26"
+}

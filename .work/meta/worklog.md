@@ -1556,3 +1556,44 @@
   - Drift cal next mandatory: batch 24 per cadence (every 3 batches post-batch-21 = batch 24 OR cumulative ≥300 atoms post-p.205)
   - findings 累 53 (46 + 0 batch 20 + 3 renumbered batch 21 O-P1-59/60/61 + 4 batch 22 O-P1-63/64/65/66 = 7 new round 3, O-P1-62 unused freed for compression)
 - **下一步**: 4 index 文件本 session 已更新 → push pending → 用户新 session 启动 v1.3 cut OR multi-session/ralph round 4 batches 23/24/25
+
+### 2026-04-26 **06 Deep Verification P1 batch 23-25 multi-session round 4 + reconciler merge (round 5 batches 26/27/28 kickoff prep)**
+
+- **What done (本 session)**:
+  - 收尾 round 4 multi-session reconciler (ralph-mode `reconciler 开始任务` 触发) — 3 sister sessions B/C/D PARALLEL_SESSION_NN_DONE 后串行合并:
+    - 6 batch jsonl cat → root pdf_atoms.jsonl: 5502 → **6146 atoms** (+644: batch 23 226 + batch 24 208 + batch 25 210); 0 schema err / 0 atom_id collision / 250 unique pages 1-250 / 9-enum compliant
+    - Cross-batch sibling continuity sweep 抓到 **1 处系统性缺陷** in batch 25b §6.3.5.6 LB-Examples block (4 atoms NEW7 L6 sub-batch context drift = round 3 batch 23 O-P1-68 同 motif 第 2 次复现 = formal v1.3+ codification mandatory); reconciler-side Option H 4-atom 修 (LB-Examples hl=6 sib=3 → hl=5 sib=4 + Example 1/2/3 SENTENCE → HEADING hl=6 sib=1/2/3) + Rule B backup; finding O-P1-79 LOW
+    - audit_matrix.md: 119 → 129 行 (+3 batch row + 1 drift cal row + 3 Rule A row + Rule D 31→34 narrative)
+    - _progress.json: top-level + P1 nested + status + plan_version + recovery_hint 全更新; pages_done 250 / atoms_done 6146 / batches_done 25
+    - Round 4 retro (Rule C 三段式) MULTI_SESSION_RETRO_ROUND_4.md 26180 bytes (12 R-MS retain + 6 G-MS gap + 7 D-MS decision; key items: NEW7 L6 RECURRENCE formal codification mandatory + 3 family pools EXHAUSTED post round 4 + v1.3 cut DEFERRED 4th time + ULTRA-CRITICAL 升级)
+    - sibling_continuity_sweep_report_round4.md 11680 bytes
+    - Drift cal batch 24 p.233 NEW1 dual-threshold STRONGLY VALIDATED 4th time (round 1+2+3+4): strict 94.1% PASS / verbatim 41.2% FAIL = overall FAIL (writer-family SENTENCE/LIST_ITEM paraphrase drift; DIRECTION REVERSED 8th + value-add 9th precedent)
+    - Reviewer 3 slots burned: #32 oh-my-claudecode:security-reviewer 95% PASS / #33 oh-my-claudecode:scientist 90% PASS_AT_THRESHOLD / #34 feature-dev:code-architect 100% PASS = feature-dev family pool COMPLETED 3rd burn
+    - 3 family pools EXHAUSTED post round 4 (vercel + plugin-dev + feature-dev); omc-family burned 7×; pr-family burned 1×
+    - NEW round-4 deep-nesting precedent: §6.3.5.7.1 MB L5 sib=1 RESTART under §6.3.5.7 Microbiology Domains group container (extends NEW7 model with group-container branch; v1.4 candidate)
+    - NEW6.b L4 self-parent extension EFFECTIVE proactively 3× (IS p.228 + LB p.241 + Microbiology Domains p.248 全 first-attempt correct)
+    - Writer-family wide-TABLE_HEADER 8th batch P1 cumulative corruption (joins O-P1-23/34/36/37/38/50/63/71)
+    - findings cumulative: 53 → **62** (+8 issued: 67/68/69/71/72/73/74/75 + 1 reconciler-side O-P1-79; 70/76/77/78 reserved-but-unused freed)
+    - Ralph workflow STEP 7 architect reviewer (sonnet, READ-ONLY) 总判 PASS (8 PASS + 1 CONDITIONAL_PASS overturned by spot-check); STEP 7.5 ai-slop-cleaner --review pass: 0 follow-ups (Rule C verbose-by-spec); STEP 7.6 regression PASS; STEP 8 /oh-my-claudecode:cancel cleared ralph + ultrawork + skill-active states
+  - 写完 4 个 round 5 kickoff 文件 (用户准备 3 终端并行 batches 26/27/28 + reconciler):
+    - `multi_session/batch_26_kickoff.md` (252 行, p.251-260, slot #35 omc:analyst, AUDIT pivot 16th, omc 8th burn, write-tool-less + Bash heredoc)
+    - `multi_session/batch_27_kickoff.md` (223 行, p.261-270, **drift cal MANDATORY** at TBD page, slot #36 omc:architect AUDIT pivot 17th omc 9th burn READ-ONLY + no-Bash inline content, R12 transition critical at p.263 §6.3.5.7→§6.3.5.8 MI)
+    - `multi_session/batch_28_kickoff.md` (182 行, p.271-280, slot #37 general-purpose AUDIT pivot 18th **NEW family first burn** validate AUDIT-mode pivot recipe family-agnostic on inaugural new family)
+    - `multi_session/reconciler_kickoff_round5.md` (237 行, post-3-DONE serial merge + retro + v1.3 cut 5th decision)
+  - CLAUDE.md routing rule 切换 round 4 → round 5 (batch 26/27/28 + reconciler_kickoff_round5.md)
+  - **🔴 NEW7 L6 sub-batch handoff PROCEDURAL ENFORCEMENT** codified in 4 round 5 kickoffs (round 3 + round 4 = 2× recurrence = formal mandatory; 主 session dispatch sub-batch B prompt MUST inline-prepend prior sub-batch A 终态)
+- **影响面**:
+  - 独立旁枝, 不动 `03_verification/` 及 `knowledge_base/`
+  - Chain F (06_deep_verification 旁枝) 触发 ✓
+  - Chain B (worklog → progress.json → PROGRESS.md → MANIFEST.md → CLAUDE.md Key Paths) 触发本 wrap-up ✓
+  - 无 knowledge_base/ 变动 → Chain D 不触发
+- **Carry-over 给下 session (用户准备 3 终端并行 batches 26/27/28)**:
+  - **HIGHEST PRIORITY ULTRA-CRITICAL EMERGENCY**: 启动 v1.3 cut session — 4 rounds RECOMMENDED + DEFERRED 4 次 = 5th-time defer 升级 EMERGENCY-CRITICAL halt-recommendation; ~10-15 min/batch × 16+ batches inline-prepend overhead growing; NEW7 L6 RECURRENCE round 3+4 = formal codification 必须 (procedural enforcement bullet + 'Example N HEADING hl=6' 显式)
+  - Recovery hint 在 `_progress.json.recovery_hint` (~14500 chars 完整 round 4 narrative)
+  - 5 cumulative reconciler-deferred manual repair items 待清: O-P1-65 column-shift / O-P1-66 ABC0→ABCD / O-P1-67 GFTSTDTL+GRCh38 / O-P1-74 ELISPOT column-set / 其他 narrow-scope mechanical sed/jq 低风险
+  - Round 5 page range estimate (per CLAUDE.md TOC carry-forward): batch 26 = p.251-260 (§6.3.5.7 Microbiology cont) / batch 27 = p.261-270 (§6.3.5.8 MI NEW at p.263) / batch 28 = p.271-280 (§6.3.5.9+ TBD)
+  - Drift cal next mandatory: batch 27 per cadence (every 3 batches post-batch-24 = batch 27 OR cumulative ≥600 atoms post-p.233)
+  - Round 5 finding ID range: batch 26 O-P1-80..83 / batch 27 O-P1-84..87 / batch 28 O-P1-88..91 (+ reconciler-side O-P1-92+)
+  - Round 5 reviewer slots: #35 omc:analyst / #36 omc:architect / #37 general-purpose
+  - Multi-session experiment cleanup pending: round 4 4 one-shot kickoffs (batch_23/24/25 + reconciler_kickoff_round4) + 11 prior round 1-3 kickoffs by user 决定; 留 MULTI_SESSION_PROTOCOL.md + 4 retro + 4 sibling sweep reports 作历史
+- **下一步**: 4 index 文件本 session 已更新 → CLAUDE.md routing rule 切到 round 5 → push pending → 用户启动 3 终端 batch 26/27/28 + 1 终端 reconciler round 5 (after 3 DONE)
