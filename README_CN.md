@@ -115,10 +115,12 @@ sdtm-pedia/
 │   │   ├── DM/
 │   │   ├── LB/
 │   │   └── ...                  # 共 63 个 domain
-│   └── terminology/             # CDISC 受控术语（91 个文件）
-│       ├── core/                # 核心 codelist（42 个文件）
-│       ├── questionnaires/      # 问卷 codelist（43 个文件）
-│       └── supplementary/       # 补充 codelist（6 个文件）
+│   ├── terminology/             # CDISC 受控术语（91 个文件）
+│   │   ├── core/                # 核心 codelist（42 个文件）
+│   │   ├── questionnaires/      # 问卷 codelist（43 个文件）
+│   │   └── supplementary/       # 补充 codelist（6 个文件）
+│   ├── ROUTING.md               # 问题路由索引（Phase 6.1）
+│   └── VARIABLE_INDEX.md        # 变量级反向索引（Phase 6.3）
 │
 ├── source/                      # CDISC 原始源文件
 │   ├── SDTMIG v3.4 (no header footer).pdf
@@ -126,20 +128,29 @@ sdtm-pedia/
 │   ├── SDTM_v2.0.pdf
 │   └── SDTM Terminology.xlsx
 │
+├── ai_platforms/                # Phase 6.5 — AI 平台部署资产
+│   ├── claude_projects/         # Claude Projects 部署包（v2.6, 19 上传）
+│   ├── chatgpt_gpt/             # ChatGPT GPTs 部署包（9 上传）
+│   ├── gemini_gems/             # Gemini Gems 部署包（4 上传）
+│   ├── notebooklm/              # NotebookLM 部署包（42 上传）
+│   └── release/v1.0/            # 公司发布版（自包含, 26M, 4 平台）
+│
 ├── .work/                       # 构建工作区
 │   ├── 00_planning/             # 方案设计文档
 │   ├── 01_generation/scripts/   # Python 生成与校验脚本
 │   ├── 02_indexing/             # PDF 页码索引
 │   ├── 03_verification/         # 验证结果与报告
-│   ├── 04_optimization/         # 检索优化路线图
+│   ├── 04_optimization/         # Phase 6 检索优化
+│   ├── 05_rag_kg/               # Phase 7 RAG + 知识图谱设计
+│   ├── 06_deep_verification/    # PDF→KB 字面级深审（进行中）
+│   ├── 07_release/              # Release v1.0 计划与复盘
 │   ├── meta/                    # 工作日志、映射、质量记录
 │   └── MANIFEST.md              # 文件清单与变更链
 │
 ├── docs/                        # 项目文档
 │   ├── PROGRESS.md              # 构建进度看板
 │   ├── TRACEABILITY.md          # 溯源矩阵
-│   ├── claude_project_instructions.md  # Claude Project 指令模板
-│   └── claude_project_setup.md  # 搭建步骤指南
+│   └── DESIGN_RAG_KG.md         # Phase 7 RAG + 知识图谱设计
 ```
 
 ## Domain 覆盖范围
@@ -257,36 +268,35 @@ sdtm-pedia/
 
 ## 快速开始
 
-### 搭配 Claude Project 使用
+### 方式 A — 在主流 AI 平台自部署（推荐）
 
-最快的使用方式是作为 Claude Project 的知识库。
+`ai_platforms/release/v1.0/` 提供 **4 个平台**（Claude Projects / ChatGPT GPTs / Gemini Gems / NotebookLM）的开箱即用部署包。每个平台子目录自成一体：system prompt + 上传文件 + 三语教程（zh/en/ja）。
 
 1. **克隆仓库**
    ```bash
    git clone https://github.com/hakupao/sdtm-pedia.git
-   cd sdtm-pedia
+   cd sdtm-pedia/ai_platforms/release/v1.0
    ```
 
-2. **创建 Claude Project** — 打开 [claude.ai](https://claude.ai) → Projects → Create project
+2. **挑一个平台** — 阅读 `self_deploy/README.zh.md` 中的决策树（容量、分享方式、Audio Overview 等）
 
-3. **设置 Instructions** — 将 `docs/claude_project_instructions.md` 中的内容复制到 Project 指令框
+3. **跟着教程走** — `self_deploy/<平台>/tutorial.zh.md`，所需上传文件和 prompt 都在同一目录
 
-4. **上传知识库文件** — 将 `knowledge_base/` 中的文件上传到 Project Knowledge，详见 `docs/claude_project_setup.md` 中的优先级建议
+4. **用演示题验证** — `DEMO_QUESTIONS.md` 含 10 题 × 三语 + 期望答案
 
-5. **开始查询**
-   ```
-   AE domain 有哪些 Required 变量？
-   DM 的 RFSTDTC 怎么填？
-   SEX codelist 有哪些可选值？
-   ```
+> 消费者侧总览见 `USER_GUIDE.zh.md`，已知限制见 `KNOWN_LIMITATIONS.en.md`，发布历史见 `CHANGELOG.md`。
 
-> 详细搭建步骤请参考 [docs/claude_project_setup.md](docs/claude_project_setup.md)
+### 方式 B — 搭配 Claude Code 使用
 
-### 搭配 Claude Code 使用
+将 Claude Code 指向 `knowledge_base/` 目录，它会通过 `INDEX.md` + `ROUTING.md` + `VARIABLE_INDEX.md` 自动导航并按需读取相关文件。
 
-将 Claude Code 指向 `knowledge_base/` 目录，它会通过 `INDEX.md` 自动导航并按需读取相关文件。
+```
+AE domain 有哪些 Required 变量？
+DM 的 RFSTDTC 怎么填？
+SEX 绑定哪个 codelist？
+```
 
-### 搭配其他 LLM 使用
+### 方式 C — 搭配其他 LLM 使用
 
 知识库是纯 Markdown 格式，可用于任何支持文件上下文的 LLM（Cursor、Windsurf、GitHub Copilot 等）。
 
@@ -306,10 +316,13 @@ sdtm-pedia/
 - [x] Phase 3 — PDF 逐批提取（assumptions + examples）
 - [x] Phase 4 — 补充内容（model + chapters）
 - [x] Phase 5 — 验证与 INDEX.md
-- [ ] Phase 6.1 — 问题路由索引（ROUTING.md）
-- [ ] Phase 6.2 — Domain 交叉引用
-- [ ] Phase 6.3 — 变量级反向索引
-- [ ] Phase 6.4 — 结构化元数据（YAML/JSON）
+- [x] Phase 6.1 — 问题路由索引（`knowledge_base/ROUTING.md`）
+- [x] Phase 6.2 — Domain 交叉引用（写入各 domain 的 `spec.md` 末尾）
+- [x] Phase 6.3 — 变量级反向索引（`knowledge_base/VARIABLE_INDEX.md`，1,523 个变量）
+- [x] Phase 6.5 — 多平台 AI 部署 + Release v1.0（4 平台，`ai_platforms/release/v1.0/`）
+- [ ] Phase 6.4 — 结构化元数据（YAML/JSON）— 已并入 Phase 7 Step 7
+- [ ] Phase 7 — RAG + 知识图谱 + 数据集校验（设计完成，详见 `docs/DESIGN_RAG_KG.md`）
+- [ ] Deep Verification — PDF→KB 字面级 atom 逐条审计（进行中，详见 `.work/06_deep_verification/`）
 
 ## 免责声明
 
