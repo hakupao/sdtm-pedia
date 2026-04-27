@@ -1,0 +1,45 @@
+---
+import SectionLabel from './SectionLabel.astro';
+import dims from '../../data/compare-dimensions.json';
+import platforms from '../../data/platforms.json';
+import { getUIStrings, type Lang } from '../../i18n/helpers';
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const t = getUIStrings(lang);
+const subhead = {
+  zh: '按你想做的事来挑.',
+  en: "Pick by what you're about to do.",
+  ja: 'やりたいことで選ぶ。',
+}[lang];
+---
+<section class="enter-fade px-7 py-8 border-b border-rule">
+  <SectionLabel number="03" label="WHICH ONE?" />
+  <h2 class="font-display text-2xl mb-5 leading-tight">{subhead}</h2>
+  <div class="overflow-x-auto">
+    <table class="w-full font-serif text-[12px] border-collapse min-w-[600px]">
+      <thead>
+        <tr class="border-b border-rule">
+          <th class="text-left py-2 px-2 font-mono text-[9px] tracking-wider text-ink-mute">DIMENSION</th>
+          {platforms.map((p) => (
+            <th class="text-left py-2 px-2 font-mono text-[9px] tracking-wider text-ink-mute">{p.name}</th>
+          ))}
+        </tr>
+      </thead>
+      <tbody>
+        {dims.map((d) => (
+          <tr class="border-b border-rule">
+            <td class="py-2 px-2 font-mono text-[10px] tracking-wider">{d.label[lang]}</td>
+            {platforms.map((p) => (
+              <td class={`py-2 px-2 ${d.winners.includes(p.key) ? 'text-accent font-bold' : ''}`}>
+                {d.values[p.key as keyof typeof d.values]}
+              </td>
+            ))}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <a href="/compare" class="inline-block mt-4 font-mono text-[10px] tracking-wider text-accent hover:underline">
+    {t['section.compare.cta']}
+  </a>
+</section>
