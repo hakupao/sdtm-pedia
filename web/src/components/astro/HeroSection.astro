@@ -1,0 +1,40 @@
+---
+import { getUIStrings, type Lang } from '../../i18n/helpers';
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const t = getUIStrings(lang);
+const headline = {
+  zh: { main: 'SDTM 知识库,', em: '横跨四个', tail: 'AI 平台.' },
+  en: { main: 'SDTM Knowledge,', em: 'across four', tail: 'AI platforms.' },
+  ja: { main: 'SDTM ナレッジ、', em: '4 つの', tail: 'AI プラットフォームへ。' },
+}[lang];
+const subdeck = {
+  zh: '一份精心整理的 CDISC SDTMIG v3.4 参考 — 已映射, 已部署, 已评测. 一道问题, 一分钟, 一个带引用的答案.',
+  en: 'A curated reference of CDISC SDTMIG v3.4 — mapped, deployed, evaluated. One question, one minute, one cited answer.',
+  ja: 'CDISC SDTMIG v3.4 のキュレーテッドリファレンス — マッピング・デプロイ・評価済み。1 つの問い、1 分、1 つの引用付き回答。',
+}[lang];
+---
+<section class="enter-fade px-7 pt-14 pb-8 border-b border-rule">
+  <div class="font-mono text-[10px] tracking-[0.2em] text-accent font-bold mb-6">
+    — 04 INTERNAL RELEASE
+  </div>
+  <h1 class="font-display text-4xl md:text-6xl font-bold leading-[1.05] tracking-[-0.025em] mb-4">
+    {headline.main}<br />
+    <em class="font-medium italic">{headline.em}</em> {headline.tail}
+  </h1>
+  <p class="font-serif text-[15px] leading-[1.55] text-ink-mute max-w-[480px] mt-5">{subdeck}</p>
+  <div class="flex gap-2 mt-8 items-center flex-wrap">
+    <a href={`/${lang}/guide/`} class="bg-ink text-bg px-4 py-2 font-mono text-[11px] tracking-wider font-bold hover:bg-accent transition-colors">
+      {t['hero.cta.read']}
+    </a>
+    <a href="#downloads" class="border border-ink px-4 py-2 font-mono text-[11px] tracking-wider font-bold hover:border-accent hover:text-accent transition-colors">
+      {t['hero.cta.download']}
+    </a>
+    <a href="https://github.com/hakupao/sdtm-pedia" class="px-3 py-2 font-mono text-[11px] tracking-wider text-ink-mute hover:text-accent transition-colors">
+      {t['hero.cta.github']}
+    </a>
+  </div>
+  <div class="mt-4 font-mono text-[9px] tracking-wider text-ink-mute">
+    <span class="text-accent">●</span>  LIVE · CLAUDE 17/17 · GPT 16.5 · GEMINI 16 · NBLM 15
+  </div>
+</section>
