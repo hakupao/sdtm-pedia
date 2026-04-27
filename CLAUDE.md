@@ -16,9 +16,40 @@ Every new session, **before doing any work**, read these files in order:
 
 Then summarize to the user: current status, open issues, and suggested next step.
 
-## Multi-Session Parallel Protocol (history)
+## Multi-Session Parallel Protocol (temporary, 06 Deep Verification 旁枝 round 8 batches 35/36/37 实验, 2026-04-28+)
 
-Multi-session 物理并行 experiment ran 7 rounds (batches 13-34, 2026-04-25 → 2026-04-28; ~10-12 hours cumulative wall savings vs serial; 0 cross-round Rule D collision; 24 AUDIT-mode pivots cumulative cross-family). Round 7 reconciler 完成后 cleanup 移除 routing rule + 删除 round 4-7 one-shot kickoffs (rounds 1-3 prior cleanup). 历史保留 `MULTI_SESSION_PROTOCOL.md` master + 7 `MULTI_SESSION_RETRO_ROUND_*.md` retros + 7 `sibling_continuity_sweep_report*.md` + `evidence/checkpoints/halt_state_batch_32.md` (G-MS-4 1st LIVE-FIRE evidence). Next batches (35+) use single-session via standard Session Startup; v1.4 prompts active 2026-04-28 (P0_writer_pdf/P0_writer_md/P0_matcher/P0_reviewer v1.4, 24 cumulative round 5+6+7 candidates absorbed N1-N14, Rule D reviewer #44 oh-my-claudecode:document-specialist AUDIT verdict PASS 22/22).
+**Routing rule** — if user's first message in a fresh session matches one of these patterns, **SKIP** the standard Session Startup above and instead:
+
+| User says (case-insensitive, Chinese or English) | Read this file as full session task |
+|---|---|
+| `batch 35 开始任务` / `batch 35 start` / `batch35` | `.work/06_deep_verification/multi_session/batch_35_kickoff.md` |
+| `batch 36 开始任务` / `batch 36 start` / `batch36` | `.work/06_deep_verification/multi_session/batch_36_kickoff.md` |
+| `batch 37 开始任务` / `batch 37 start` / `batch37` | `.work/06_deep_verification/multi_session/batch_37_kickoff.md` |
+| `reconciler 开始任务` / `reconciler start` / `合并收尾` | `.work/06_deep_verification/multi_session/reconciler_kickoff_round8.md` |
+
+The kickoff files are self-contained with all context (TOC ground truth main-session pre-dispatch verify, R-rules via v1.4 prompts reference, dispatch protocol, pre-assigned reviewer slot, hard-stop directive at top, "do not touch" list). Execute the file as if it were the user's full prompt.
+
+**Background context** (each session needs to know):
+- 3 终端 (B/C/D) 同时跑 batches 35/36/37 — 物理并行 (round 8 第 8 轮; **1st round running v1.4 baseline post v1.4 cut 2026-04-28**)
+- 1 终端 (E) 启动 reconciler 收尾 (after B+C+D 全 PARALLEL_SESSION_NN_DONE)
+- 各 session 写独立 batch files, **绝对不动** root `pdf_atoms.jsonl` (post round 7 baseline = 8552 atoms / 340 pages / 34 batches) / `audit_matrix.md` / `_progress.json` — 留 reconciler 串行合并
+- v1.4 prompts ACTIVE since 2026-04-28: P0_writer_pdf_v1.4 (488 lines, 14 N1-N14 patches + Self-Validate hooks 9→14) / P0_writer_md_v1.4 / P0_matcher_v1.4 (4 NEW v1.4 discrepancy markers) / P0_reviewer_v1.4 (Rule D roster 34→43 + 22-item fix matrix A-V); 4 EMERGENCY-CRITICAL items P=N3 NEW8.d whole-row + R=N5 TABLE_ROW empty-cell + S=N6 ALL L6 sub-headings + INTRA-AGENT + U=N8 NEW9 L2 short-bracket FORBID 全 ACTIVE
+- Reviewer pool 已预分配 (Rule D 不撞 round 1-7 cumulative #1-#44, post round 7 family pool state: 3 EXHAUSTED [vercel+plugin-dev+feature-dev round 4] + omc 9× saturated + pr-review-toolkit 5/6 saturated + general-purpose 2× + superpowers 1×): batch 35 = #45 `pr-review-toolkit:pr-test-analyzer` (**pr-family 4th-agent intra-family depth burn = FIRST 4th-agent intra-family depth burn for ANY family in P1 cumulative**, AUDIT pivot 26th, full-tool — pr-family 6/6 COMPLETED post burn = 4th family pool exhausted) / batch 36 = #46 `superpowers:verification-before-completion` (**superpowers family 2nd burn intra-family depth + drift cal carrier 8th time**, AUDIT pivot 27th, full-tool) / batch 37 = #47 `claude-code-guide` (**claude-code-guide family INAUGURAL burn**, AUDIT pivot 28th, full-tool — NEW family inaugural validates recipe at 9th family pool)
+- Round 8 protocol sustains round 7 spec: G-MS-4 halt fallback (round 7 1st LIVE-FIRE EFFECTIVE precedent — accept resume via halt_state file + user authorization fallback) + G-MS-7 finding ID range pre-allocation (3 sessions reserved O-P1-117..120/121..124/125..128) + G-MS-13 cross-validation table at top of each kickoff + N14 strict alternation methodology procedural enforcement (drift cal in batch 36 only, 2nd live-fire opportunity post round 7 1st live-fire EFFECTIVE)
+- 🔴 **NEW7 L6 sub-batch handoff codification status post v1.4 cut** — v1.4 N6 ACTIVE: handoff template extended to ALL L6 sub-headings (Examples + non-Example like Conclusions/Suggestions/Datasets/Records/Description/Specification/Assumptions/References) + INTRA-AGENT consistency check field. 主 session dispatch sub-batch B prompt MUST inline-prepend prior sub-batch A 终态 AND 主 session dispatch batch N sub-batch a prompt MUST inline-prepend prior batch N-1 sub-batch b 终态 — for batch 35a, prior = round 7 batch 34b 终态 §6.3.10 SC L4 sib=2 Specification head at p.340
+- batch 36 含 mandatory drift cal (per cadence every-3-batches batch 33→36 + cumulative atoms post-p.325 ≥600 双触发, per v1.4 N14 strict alternation table — 8th time NEW1 dual-threshold; round 5+6+7 累 3 cumulative writer-direction main-line VALUE HALLUCINATION recurrences (round 5 O-P1-85 + round 6 O-P1-103 + round 7 O-P1-109 = NEW1 7th time CATASTROPHIC FAIL); v1.4 N3 NEW8.d EMERGENCY-CRITICAL whole-row check expected to catch any 4th cumulative recurrence with halt-on-violation; target page TBD by session C — recommend dense Spec/Assumption table OR R12 transition page)
+- 每 kickoff 顶部 HARD-STOP DIRECTIVE — 禁止中途回交 control / summarize / ask user — 唯一合法停止 = `PARALLEL_SESSION_NN_DONE` 单行 echo OR `HALT_BATCH_NN reason=<X>` halt 信号
+- 详见 `.work/06_deep_verification/multi_session/MULTI_SESSION_PROTOCOL.md` (master guide round 1, round 2-7 augmented inline) + `MULTI_SESSION_RETRO_ROUND_7.md` (round 7 retro — G-MS-4 1st LIVE-FIRE EFFECTIVE + strict alternation 1st live-fire EFFECTIVE + pr-review-toolkit family 3rd-agent intra-family depth burn first 3rd-agent for ANY family + 24 cumulative v1.4 candidates EMERGENCY-CRITICAL ESCALATED → v1.4 cut COMPLETED 2026-04-28 reviewer #44 PASS 22/22)
+
+**Round 1 历史** (batches 13/14/15 commit `4d6165a` + reconciler `6d173b1`; batch 16 single-session resume commit `7447ec0`).
+**Round 2 历史** (batches 17/18/19 commit `d6bc41c`).
+**Round 3 历史** (batches 20/21/22 + reconciler commit `eb51567`).
+**Round 4 历史** (batches 23/24/25 + reconciler 2026-04-26): 6146 atoms / 250 pages / 25 batches; 3 family pools EXHAUSTED post round 4 (vercel + plugin-dev + feature-dev).
+**Round 5 历史** (batches 26/27/28 + reconciler 2026-04-27): 7092 atoms / 280 pages / 28 batches; general-purpose family first burn AUDIT pivot recipe family-agnostic VALIDATED.
+**Round 6 历史** (batches 29/30/31 + reconciler 2026-04-27): 7939 atoms / 310 pages / 31 batches; pr-review-toolkit + superpowers families inaugural; first L3 transitions §6.3.6+§6.3.7.
+**Round 7 历史** (batches 32/33/34 + reconciler 2026-04-28 commit `1af10c5`): 8552 atoms / 340 pages / 34 batches; G-MS-4 halt fallback 1st LIVE-FIRE EFFECTIVE + strict alternation 1st live-fire EFFECTIVE + pr-review-toolkit 3rd-agent intra-family depth burn first 3rd-agent for ANY family; v1.4 cut COMPLETED post round 7 (24 candidates absorbed N1-N14, reviewer #44 omc:document-specialist AUDIT PASS 22/22).
+
+**Cleanup** — 本次 round 8 实验完成后 (reconciler session 末尾会提示), 移除本节 + 删除 round 8 one-shot kickoffs 即可 (留 `MULTI_SESSION_PROTOCOL.md` + 7 retro files round 1-7 + 即将写入 `MULTI_SESSION_RETRO_ROUND_8.md` + halt_state_batch_32.md 作历史).
 
 ## Change Chains
 
