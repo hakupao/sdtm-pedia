@@ -9,8 +9,8 @@
 # 06 Deep Verification — Word-Level PDF→KB Audit
 
 > 创建: 2026-04-24
-> 状态: **DRAFT v0.5** — P0 Pilot ✅ PASS (9/9 atom + v1.2 6/6 fix 实战 PASS + Rule D 11 slot); schema v1.2 frozen; 待用户 ack 进 P1 PDF 535 页原子化 (`plans/P1_pdf_atomization.md` v0.1 DRAFT 已就绪)
-> 历史: v0.4 (post verifier v0.3) → **v0.5** (post P0 Pilot 收官 + T2b FIGURE 补测)
+> 状态: **DRAFT v0.6** — P0 Pilot ✅ PASS + P1 batch 01-34 cumulative **8552 atoms / 340 页 (61.8% of 535) / 1 dropout / 50 repair cycles across 18 batches / 92 findings**; schema v1.2 frozen; **v1.4 prompts active 2026-04-28** (4 prompts P0_writer_pdf/md/matcher/reviewer 24 round 5+6+7 candidates absorbed N1-N14 EMERGENCY-CRITICAL — Rule D reviewer #44 omc:document-specialist AUDIT verdict PASS 22/22 + v1.3 archived to `archive/v1.3_final_2026-04-28/`); multi-session 7 rounds COMPLETED (~10-12 hours wall savings vs serial baseline / 0 quality regression / 0 cross-round Rule D collision / 24 AUDIT-mode pivots cumulative); 待用户 ack v0.6
+> 历史: v0.4 (post verifier v0.3) → v0.5 (post P0 Pilot 收官 + T2b FIGURE 补测) → **v0.6** (post v1.4 cut 2026-04-28 + multi-session round 7 closure + cleanup)
 > Tier: **3** (>15 step, 多 session, 高 stakes, 不计时间成本)
 > 旁枝定位: 独立于 `.work/03_verification/` (Step 0-4 已全部 PASS), 本工程为"字面级"深审, 发现的问题走 Issue 5+ 回流修复
 

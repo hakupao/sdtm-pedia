@@ -1,0 +1,258 @@
+{
+  "batch_id": 32,
+  "session_id": "session_b_round_7",
+  "round": 7,
+  "status": "completed",
+  "scope_pages": "ig34 p.311-320",
+  "page_count": 10,
+  "atoms_done": 241,
+  "atoms_breakdown": {
+    "32a_p311_315": 133,
+    "32b_p316_320": 108,
+    "by_page": {
+      "311": 35, "312": 27, "313": 24, "314": 21, "315": 26,
+      "316": 24, "317": 17, "318": 21, "319": 23, "320": 23
+    },
+    "by_atom_type_32a": {
+      "TABLE_ROW": 68, "SENTENCE": 24, "HEADING": 12, "LIST_ITEM": 10, "CODE_LITERAL": 9, "TABLE_HEADER": 9, "NOTE": 1
+    },
+    "by_atom_type_32b": {
+      "TABLE_ROW": 74, "SENTENCE": 9, "LIST_ITEM": 9, "HEADING": 8, "CODE_LITERAL": 3, "TABLE_HEADER": 3, "NOTE": 2
+    },
+    "by_atom_type_combined": {
+      "TABLE_ROW": 142, "SENTENCE": 33, "HEADING": 20, "LIST_ITEM": 19, "CODE_LITERAL": 12, "TABLE_HEADER": 12, "NOTE": 3
+    }
+  },
+  "failures": 0,
+  "repair_cycles": 0,
+  "repair_cycle_notes": [
+    "Zero repair cycles needed: schema sweeps PASS first-attempt (0 parse errors / 0 BAD atom_type / 0 BAD atom_id / 0 dup / 0 root collision / 0 frame tags / 0 missing hl/sib / 0 NEW6.b L4 self-parent / 0 NEW2 Cyrillic / 0 NEW4 *.xpt violation / 3 NEW8 flagged tokens all FALSE POSITIVE: URNSTSCD/URNSTS = CDISC codelist names referenced in spec column, REFUSED = example narrative). All density floors met (lowest p.317=17 ≥15 floor). Cross-batch sib chain validated (§6.3 L3 7→8→9 contiguous; §6.3.7 L4 7→8 contiguous; §6.3.7.7 RE Examples L6 1→2 cross-batch handoff EFFECTIVE 2nd live-fire round 7). Sub-batch 32a→32b INTRA-batch procedural handoff EFFECTIVE 3rd live-fire round 7."
+  ],
+  "rule_a": {
+    "reviewer_slot": 41,
+    "reviewer_type": "general-purpose",
+    "reviewer_type_originally_assigned": "data:debugging-dags",
+    "reviewer_assignment_change_reason": "Pre-assigned data:debugging-dags + 4 listed alternatives (data:airflow-hitl/warehouse-init/profiling-tables/checking-freshness) all unavailable in session agent registry. G-MS-4 halt fallback 1st live-fire (spec-only carry-forward through round 1-6, round 7 first invocation). User authorized cross-family fallback to general-purpose (2nd burn = general-purpose-extension per D-MS-7 round 7 valid pivot path; 1st burn was round 5 batch 28 #37 inaugural). AUDIT pivot 22nd preserved.",
+    "reviewer_audit_pivot_index": 22,
+    "reviewer_family": "general-purpose",
+    "reviewer_family_burn_count_post_batch": 2,
+    "reviewer_family_pool_status_post_batch": "general-purpose family 2nd burn (1st burn round 5 batch 28 #37 inaugural + 2nd burn round 7 batch 32 #41 fallback-extension); validates same-agent depth burn AUDIT recipe consistency. D-MS-7 round 7 family-agnostic recipe extended to 8th cumulative family (data scheduled but unavailable → general-purpose-extension fallback path validated as round 7+ resilience codification).",
+    "audit_mode_pivot_label": "AUDIT for SDTM PDF atomization quality, NOT general task execution / NOT codebase exploration / NOT multi-step research",
+    "tools_adaptation": "full-tool — reviewer wrote verdicts.jsonl + summary.md directly via Write tool (general-purpose 2nd burn validates round 5 1st burn precedent — full-tool consistency across general-purpose family burns)",
+    "sample_size": 10,
+    "sample_seed": 20260630,
+    "sample_coverage": "1/page p.311-320 stratified (4 TABLE_ROW + 3 HEADING + 2 LIST_ITEM + 1 TABLE_HEADER)",
+    "raw_pass": 10,
+    "raw_partial": 0,
+    "raw_fail": 0,
+    "raw_weighted_pct": 100.0,
+    "main_session_adjudication": {
+      "verdict": "100% PASS — highest weighted score in P1 cumulative; all 10 atoms verified with detailed PDF cross-evidence per atom. No HIGH/MEDIUM/LOW defects detected. Reviewer's 7-checklist (verbatim/atom_type/parent_section/heading_lvl_sib/outer_pipe/new8_canonical/new2_cyrillic) all PASS for every atom in stratified sample.",
+      "post_adjudication_pass": 10,
+      "post_adjudication_partial": 0,
+      "post_adjudication_fail": 0,
+      "post_adjudication_weighted_pct": 100.0,
+      "post_adjudication_verdict": "PASS at threshold ceiling (≥90% per kickoff §7 effective threshold; achieved 100% margin +10pp)",
+      "main_session_structural_sweep_extension": "Main-session structural sweep applied independently before reviewer dispatch (per round 6 batch 31 D-MS-6 4th cumulative validation precedent). Found 0 issues across 241 atoms — first batch in P1 cumulative with reviewer 100% PASS + structural sweep 0 issues. Suggests v1.3 prompts have stabilized post-round-6 codification across UR/PE/FT canonical-canonical-canonical L4 spec tables. Two-layer audit architecture validated 5th cumulative (round 2/4/5/6 + round 7 batch 32 — though round 7 batch 32 finds 0 issues at both layers, confirming both layers can produce concordant clean verdicts when writer is performant)."
+    },
+    "reviewer_audit_mode_pivot_quality": {
+      "reflection": "general-purpose 2nd burn = general-purpose-extension reflection: Generic universal-task framing (no domain-specific tooling, no opinionated workflow) maps cleanly to deterministic step-by-step audit flow without family-specific bias contamination. Round 5 1st burn vs round 7 2nd burn: structure preserved, no drift in audit framing, no slack in 7-checklist application. AUDIT recipe deterministic across general-purpose burns — validates D-MS-7 hypothesis that family-agnostic recipe survives intra-family agent variance with near-zero variance for general-purpose specifically.",
+      "general_purpose_2nd_burn_recipe_consistency": "PASS — same-agent depth-burn recipe holds; full-tool variant (Write tool direct) preserved from round 5 1st burn; verdict structure (7-checklist + per-atom evidence + summary §1-§5) preserved",
+      "ground_truth_two_layer_validation": "Reviewer 10/10 PASS ON canonical sample; main-session structural sweep 0 issues across 241 atoms; first batch with concordant 0-issue verdicts at both layers — confirms structural sweep is mandatory complement BUT can produce 0 issues when writer is consistently performant (D-MS-6 cumulative validation 5th)",
+      "fallback_dispatch_resilience": "Slot #41 fallback chain VALIDATED first live-fire: pre-assigned data:debugging-dags unavailable → halt_state_batch_32.md written with 4 resume options → user authorized Option B general-purpose substitution → 2nd burn dispatch successful → AUDIT pivot 22nd preserved with 100% PASS. Demonstrates dispatch-layer resilience of AUDIT-mode recipe: portable across any reasonable general-text agent regardless of nominal slot family."
+    },
+    "tom_anchor_audit_n_cumulative": 230,
+    "tom_anchor_consecutive_batches": 23,
+    "tom_anchor_fp_count": 0,
+    "tom_anchor_inversion_count": 0,
+    "special_checks": {
+      "new6_b_l4_self_parent": "PASS proactively (10th cumulative round 7 NEW + 0 violations)— §6.3.7.8 UR L4 sib=8 parent='§6.3.7 Morphology/Physiology Domains' L3-group canonical NEVER self-parent; §6.3.9.1 FT L4 sib=1 parent='§6.3.9 Questionnaires, Ratings, and Scales (QRS) Domains (FT, QS, RS)' L3-group canonical NEVER self-parent. 10 cumulative L4 self-parent NOT proactive precedents post round 7 batch 32 (round 4 4× + round 5 2× + round 6 2× + round 7 batch 32 2× = 10).",
+      "new6_chapter_short_bracket": "PASS — §6.3.8 PE NEW L3 leaf sib=8 parent='§6.3 [MODELS FOR FINDINGS DOMAINS]' chapter-short-bracket all-caps + §6.3.9 QRS NEW L3 group sib=9 parent='§6.3 [MODELS FOR FINDINGS DOMAINS]' chapter-short-bracket all-caps. Extends round 6 batch 29 first L3 transitions §6.3.6 MO sib=6 + §6.3.7 sib=7 to round 7 batch 32 sib=8 + sib=9. NEW6 dual-form chapter-short-bracket extension EFFECTIVE 4× cumulative round 6+7.",
+      "new7_l5_chain_under_UR": "PASS — UR-Description L5 sib=1 + UR-Specification L5 sib=2 + UR-Assumptions L5 sib=3 + UR-Examples L5 sib=4 RESTART under §6.3.7.8 UR per NEW7 L5 chain Description=1/Spec=2/Assump=3/Examples=4 (canonical 4-entry chain)",
+      "new7_l4_chain_under_PE_leaf_pattern_NEW_PRE_CANONICAL": "PASS first-attempt (NEW PATTERN documented in O-P1-105) — §6.3.8 PE L3 leaf-pattern with 6 L4 sub-sections in document order: PE - Proposed Removal of --MODIFY and --BODSYS L4 sib=1 (NEW pre-canonical) + PE - Alignment with CDASH Best Practice L4 sib=2 (NEW pre-canonical) + PE - Description/Overview L4 sib=3 (canonical) + PE - Specification L4 sib=4 (canonical) + PE - Assumptions L4 sib=5 (canonical) + PE - Examples L4 sib=6 (canonical). Pre-canonical sub-sections specific to deprecation/CDASH-alignment domain context. v1.4 candidate: extend NEW7 spec to allow domain-specific pre-canonical L4 sub-sections under L3 leaf-pattern domains.",
+      "new7_l5_chain_under_FT": "PARTIAL PASS — FT-Description L5 sib=1 + FT-Specification L5 sib=2 RESTART under §6.3.9.1 FT (canonical chain begin); chain continues to p.321+ outside batch 32 scope (FT-Assumptions L5 sib=3 + FT-Examples L5 sib=4 expected p.321+; cross-batch handoff to batch 33 at sister session C scope)",
+      "new7_l6_chain_under_RE_examples": "PASS — Example 2 L6 sib=2 RESTART under §6.3.7.7 RE Examples (cross-batch continuation from prior batch 31b Example 1 sib=1; round 7 NEW7 L6 cross-batch handoff EFFECTIVE 2nd live-fire after round 6 1st)",
+      "new7_l6_chain_under_UR_examples": "PASS — Example 1 L6 sib=1 + Example 2 L6 sib=2 RESTART under §6.3.7.8 UR Examples per NEW7 L6 RESTART per L4 sub-domain",
+      "new7_l5_chain_under_PE_leaf_examples_NEW_LEAF_PATTERN": "PASS first-attempt (NEW PATTERN documented in O-P1-107) — Example 1 hl=5 sib=1 RESTART under §6.3.8 PE Examples (L4 sib=6); leaf-pattern variant where Examples are at L5 NOT L6 because parent §6.3.8 PE is L3 (not L4). Distinct from L4-domain group-container variant. v1.4 candidate: formalize 'Example level depends on parent domain depth — L4 domain → L6 Examples; L3 leaf domain → L5 Examples'.",
+      "new7_l6_intra_batch_procedural_handoff_32a_to_32b": "PASS — 32a ended with §6.3.8 PE L3 leaf NEW + PE pre-canonical L4 sib=1+2 + PE-Description L4 sib=3 (parent §6.3.8 PE); 32b started with PE-Specification L4 sib=4 chain continuation under §6.3.8 PE per NEW pre-canonical pattern. Procedural enforcement EFFECTIVE 3rd live-fire round 7 — round 5 D-MS-4 codification mandate validated 3rd round (round 5 1st + round 6 2nd + round 7 3rd, zero recurrence).",
+      "new7_l6_cross_batch_handoff_round_7_2nd_live_fire": "PASS first-attempt — main-session predicted batch 31b terminal state (§6.3.7.7 RE Examples sib=4 / Example 1 sib=1 territory; p.310 末 atom = LIST_ITEM Row 5 PEF) and inline-prepended into 32a dispatch prompt per round 5 D-MS-2 cross-batch codification mandate. 32a writer first-attempt correctly continued §6.3.7.7 RE Example 1 narrative + Example 2 sib=2 RESTART (no sibling chain restart). Round 7 NEW7 L6 cross-batch handoff EFFECTIVE 2nd live-fire (round 6 1st live-fire EFFECTIVE precedent extension).",
+      "quadruple_new_transition_density_round_7_NEW_precedent": "PASS — 4 NEW transitions in single batch (1 L4 §6.3.7.8 UR sib=8 under §6.3.7 group + 1 L3 leaf §6.3.8 PE sib=8 under §6.3 chapter + 1 L3 group §6.3.9 QRS sib=9 under §6.3 chapter + 1 L4 §6.3.9.1 FT sib=1 under §6.3.9 group); extends round 6 batch 31 DOUBLE precedent (RP+RE) to QUADRUPLE; round-7-NEW precedent for cross-level transition-density (L3-leaf + L3-group + 2× L4 in same 10-page batch)",
+      "halt_fallback_first_live_fire_round_7": "PASS — G-MS-4 halt fallback 1st live-fire spec-correct: pre-assigned data:debugging-dags unavailable → halt_state_batch_32.md written with full progress preserved + 4 resume options → user authorized Option B general-purpose substitution → resume from STEP 6 with original sample.jsonl preserved → AUDIT pivot 22nd preserved with 100% PASS. Documents G-MS-4 protocol effectiveness post-6-rounds spec-only carry-forward — round 7 1st natural live-fire opportunity arrived organically (vs round 6 D-MS-4 considered adversarial halt experiment but rejected as unnecessary; round 7 confirms organic trigger sufficient). v1.4 candidate: formalize fallback dispatch protocol — 'cross-family substitution allowed if (a) pre-assigned + alternatives unavailable AND (b) fallback agent is in D-MS-7 valid round-N pivot list AND (c) user explicit authorization received'."
+    }
+  },
+  "drift_cal": {
+    "triggered": false,
+    "rationale": "per cadence: batch 30 = mandatory drift cal (sister session C scope round 6); batch 31 = SKIP per cadence; batch 32 = SKIP per cadence; next mandatory at batch 33 (sister session C scope round 7 — both every-3-batches trigger AND cumulative atoms post-p.293 ≥600 dual trigger expected to be met by batch 33)",
+    "next_mandatory": "batch 33"
+  },
+  "density_alarm_check_round_7_G_MS_12": {
+    "applied": true,
+    "lowest_per_page_atoms": "p.317=17 (lowest, well above 15-atom floor; PE-Assumptions list-only-content page 17/15 = 113% of floor)",
+    "highest_per_page_atoms": "p.311=35 (RE Example 1 + Example 2 dense narrative + 2 spec tables di.xpt + du.xpt + suppre.xpt)",
+    "sub_batch_32a_total": 133,
+    "sub_batch_32a_above_100_floor": true,
+    "sub_batch_32b_total": 108,
+    "sub_batch_32b_above_100_floor": true,
+    "alarm_triggered": false,
+    "main_session_pdf_cross_check": "NOT required for density (alarm did not trigger); main-session PDF cross-check applied for verbatim corruption sweep (round 6 batch 31 O-P1-101..103 motif scrutiny replicated for batch 32 PE/FT/UR identifier-cell systematic scan + Cyrillic homoglyph extension scan + multi-axis stale-template SUPPQUAL spot-check — 0 issues found, contrasts with round 6 batch 31 10-atom Option H. Confirms two-layer audit can produce concordant 0-issue verdicts when writer is performant.)"
+  },
+  "new6_format_sweep": {
+    "applied": true,
+    "violations_found": 0,
+    "post_sweep_compliance": "100% — 4 NEW HEADING transitions all proactively correct first-attempt: §6.3.7.8 UR L4 sib=8 parent='§6.3.7 Morphology/Physiology Domains' L3-group canonical (NEW6.b NEVER self-parent) + §6.3.8 PE L3 leaf sib=8 parent='§6.3 [MODELS FOR FINDINGS DOMAINS]' chapter-short-bracket all-caps (NEW6) + §6.3.9 QRS L3 group sib=9 parent='§6.3 [MODELS FOR FINDINGS DOMAINS]' chapter-short-bracket all-caps (NEW6) + §6.3.9.1 FT L4 sib=1 parent='§6.3.9 Questionnaires, Ratings, and Scales (QRS) Domains (FT, QS, RS)' L3-group canonical (NEW6.b NEVER self-parent). 10 cumulative L4 self-parent NOT proactive precedents post round 7 batch 32; 4 cumulative L3 chapter-short-bracket NEW6 precedents."
+  },
+  "new7_l4_l7_chain_check": {
+    "applied": true,
+    "summary": "QUADRUPLE NEW transitions in single batch + dual L4/L3 transition variants validated: §6.3.7.8 UR L4 sub-domain under §6.3.7 group container with canonical L5 chain Description=1/Spec=2/Assump=3/Examples=4 + L6 Examples 1+2 + §6.3.8 PE L3 leaf-pattern with NEW pre-canonical L4 chain (Proposed Removal sib=1 + CDASH Alignment sib=2 + Description sib=3 + Spec sib=4 + Assump sib=5 + Examples sib=6) + L5 Example 1 (leaf-pattern L5-Example) + §6.3.9 QRS L3 group container + §6.3.9.1 FT L4 sub-domain with partial L5 chain Description=1/Spec=2 (chain continues outside batch scope to p.321+).",
+    "round_7_NEW_precedent": "QUADRUPLE NEW transitions in single batch (4× cross-level transitions: L4 + L3-leaf + L3-group + L4) extends round 6 batch 31 DOUBLE precedent (RP+RE both L4) and round 4 batch 25 TRIPLE precedent (IS+LB+Microbiology Domains L4) to round 7 batch 32 QUADRUPLE; confirms transition density at chapter-boundary regions can reach 4-N transitions per batch when boundary spans cross-level. PE pre-canonical L4 sub-section pattern + leaf-pattern L5-Examples = 2 NEW v1.4 candidates."
+  },
+  "r12_transition_check": {
+    "applied": true,
+    "transition_pages": [
+      {
+        "page": 312,
+        "type": "L4 sub-section transition (§6.3.7.7 RE Example 2 tail → §6.3.7.8 UR NEW L4 head)",
+        "atoms_on_page": 27,
+        "threshold": 8,
+        "compliance": "PASS (27 ≥ 8)",
+        "zone_partition": "Zone 1 RE Example 2 suppre.xpt + DI narrative + di.xpt 1-row (a001-a010); Zone 2 §6.3.7.8 UR L4 NEW HEADING + UR-Description L5 sib=1 + UR-Specification L5 sib=2 + ur.xpt CODE_LITERAL caption + variable spec TABLE_HEADER + first batch of TABLE_ROWs (a011-a027)"
+      },
+      {
+        "page": 315,
+        "type": "L3 leaf-pattern transition (§6.3.7.8 UR Example 2 tail → §6.3.8 PE NEW L3 leaf head + pre-canonical L4 chain start)",
+        "atoms_on_page": 26,
+        "threshold": 8,
+        "compliance": "PASS (26 ≥ 8)",
+        "zone_partition": "Zone 1 UR Example 2 ur.xpt 3-row tail (a001-a014); Zone 2 §6.3.8 PE NEW L3 leaf HEADING + PE - Proposed Removal of --MODIFY and --BODSYS L4 sib=1 + PE - Alignment with CDASH Best Practice L4 sib=2 + PE - Description/Overview L4 sib=3 + intro SENTENCE (a015-a026)"
+      },
+      {
+        "page": 318,
+        "type": "L3 group-container transition (§6.3.8 PE Examples 1 pe.xpt 6-row tail → §6.3.9 QRS NEW L3 group head)",
+        "atoms_on_page": 21,
+        "threshold": 8,
+        "compliance": "PASS (21 ≥ 8)",
+        "zone_partition": "Zone 1 PE Example 1 pe.xpt 6-row + PE Example narrative tail (a001-a013); Zone 2 §6.3.9 QRS L3 group NEW HEADING + intro 3 SENTENCEs + 2 LIST_ITEM bullets (Controlled Terminology + QRS supplements URLs) + 1 SENTENCE (a014-a021)"
+      },
+      {
+        "page": 319,
+        "type": "L4 sub-domain transition (§6.3.9 QRS group intro continuation → §6.3.9.1 FT NEW L4 head)",
+        "atoms_on_page": 23,
+        "threshold": 8,
+        "compliance": "PASS (23 ≥ 8)",
+        "zone_partition": "Zone 1 (none — QRS intro ended on p.318); Zone 2 §6.3.9.1 FT NEW L4 HEADING + FT-Description L5 sib=1 + FT-Specification L5 sib=2 + ft.xpt CODE_LITERAL caption + variable spec TABLE_HEADER + first TABLE_ROWs (a001-a023)"
+      }
+    ],
+    "quadruple_transition_compliance": "PASS — all 4 transition pages (p.312/p.315/p.318/p.319) ≥8 atoms; round 7 batch 32 QUADRUPLE-transition pattern at L3/L4 levels (L4 UR + L3-leaf PE + L3-group QRS + L4 FT); analogous to round 6 batch 31 DOUBLE-transition pattern but extended to cross-level transitions"
+  },
+  "r15_cross_batch_sibling_check": {
+    "applied": true,
+    "intra_batch_32_continuity": "PASS — 32a→32b L4 PE chain continues correctly: PE pre-canonical Proposed Removal sib=1 + CDASH Alignment sib=2 + Description sib=3 (32a p.315) → 32b PE-Specification sib=4 (32b p.316) + PE-Assumptions sib=5 (p.317) + PE-Examples sib=6 (p.318); intra-batch handoff EFFECTIVE 3rd live-fire round 7 (round 5 1st + round 6 2nd + round 7 3rd, zero recurrence)",
+    "cross_batch_32_to_31_continuity_validated": "PASS first-attempt — main-session predicted batch 31b terminal state (§6.3.7.7 RE Examples sib=4 territory; Example 1 sib=1 active; p.310 末 atom = LIST_ITEM Row 5 PEF) inline-prepended into 32a dispatch prompt per round 5 D-MS-2 cross-batch codification mandate. 32a writer first-attempt correctly continued §6.3.7.7 RE Example 1 narrative (re.xpt 5-row + di.xpt + du.xpt + 2 SENTENCEs) THEN Example 2 hl=6 sib=2 RESTART under §6.3.7.7 RE Examples (no sibling chain restart). Round 7 NEW7 L6 cross-batch handoff EFFECTIVE 2nd live-fire (round 6 1st live-fire on §6.3.5.9.3 Method B/C/D L7 chain + this round 7 batch 32 2nd live-fire on §6.3.7.7 RE L6 chain).",
+    "main_session_local_validation": "L3 sibling chain (under §6.3 [MODELS FOR FINDINGS DOMAINS]): post round 6 sib=7 (§6.3.7) → round 7 batch 32 contributes sib=8 (§6.3.8 PE L3 leaf) + sib=9 (§6.3.9 QRS L3 group) → next batch 33 expected sib=10 (§6.3.10 SC L3 leaf). L4 sibling chain (under §6.3.7 group container): post round 6 sib=7 (RE) → round 7 batch 32 contributes sib=8 (UR) → §6.3.7 group complete (no §6.3.7.9+ in TOC). L4 sibling chain (under §6.3.8 PE leaf-pattern, NEW pre-canonical chain): batch 32 contributes sib=1..6 full chain (Proposed Removal + CDASH Alignment + Description + Spec + Assump + Examples). L4 sibling chain (under §6.3.9 group container): batch 32 contributes sib=1 (FT) → next batch 33 expected sib=2 (QS). L5 sibling chain (under §6.3.7.8 UR): batch 32 contributes full sib=1..4 chain. L5 sibling chain (under §6.3.9.1 FT): batch 32 contributes sib=1+2 (Description + Spec); chain continues outside scope."
+  },
+  "findings_added": [
+    {
+      "finding_id": "O-P1-105",
+      "severity": "INFO",
+      "category": "NEW7 spec architectural extension — L3 leaf-pattern domain with NEW pre-canonical L4 sub-section pattern",
+      "title": "§6.3.8 PE leaf-pattern with NEW pre-canonical L4 sub-section pattern (Proposed Removal of --MODIFY and --BODSYS sib=1 + Alignment with CDASH Best Practice sib=2 BEFORE canonical Description=3/Spec=4/Assump=5/Examples=6)",
+      "scope": "§6.3.8 PE L3 leaf-pattern domain — first occurrence in P1 cumulative of pre-canonical L4 sub-sections under L3 leaf-pattern domain. 6 L4 sub-section atoms: ig34_p0315_a016 (Proposed Removal sib=1) + ig34_p0315_a018 (CDASH Alignment sib=2) + ig34_p0315_a025 (Description sib=3) + ig34_p0316_a001 (Specification sib=4) + ig34_p0317_a012 (Assumptions sib=5) + ig34_p0318_a001 (Examples sib=6).",
+      "atom_id_anchor": "ig34_p0315_a016, ig34_p0315_a018, ig34_p0315_a025, ig34_p0316_a001, ig34_p0317_a012, ig34_p0318_a001",
+      "rule_violation": "n/a (architectural NEW precedent, not defect)",
+      "repair_action": "n/a — writer first-attempt correctly identified all 6 L4 sub-sections in document order with proper hl=4 sib chain.",
+      "v1_4_codification_candidate": "v1.4 NEW7 L3 leaf-pattern extension: 'L3 leaf-pattern domain (e.g., §6.3.6 MO, §6.3.8 PE, §6.3.10 SC, §6.3.11 SS) MAY include pre-canonical L4 sub-sections (e.g., \"Proposed Removal of --X\", \"Alignment with CDASH Best Practice\", \"Proposed Renaming of --Y\") BEFORE the canonical chain Description/Spec/Assump/Examples; sib chain numbering follows document order (pre-canonical first, then canonical)'. Joins round 6 v1.4 candidate stack (G-MS-NEW-6-5..7) + round 5 carry-forward (5 candidates) + round 6 batch 31 (4 candidates) = 10 cumulative v1.4 candidates round 5+6+7.",
+      "writer_family_motif": "n/a (NEW v1.4 architectural codification, not writer-family motif)"
+    },
+    {
+      "finding_id": "O-P1-106",
+      "severity": "INFO",
+      "category": "Transition density milestone — QUADRUPLE NEW transitions in single batch (cross-level)",
+      "title": "QUADRUPLE NEW transitions in single batch (1 L4 §6.3.7.8 UR + 1 L3-leaf §6.3.8 PE + 1 L3-group §6.3.9 QRS + 1 L4 §6.3.9.1 FT) — extends round 6 batch 31 DOUBLE precedent + round 4 batch 25 TRIPLE precedent to QUADRUPLE cross-level pattern",
+      "scope": "Round 7 batch 32 NEW maximum-transition-density precedent. Distinct from prior precedents: round 4 batch 25 TRIPLE was 3× L4 (IS+LB+Microbiology Domains all L4 under same §6.3.5 group); round 5 batch 27 TRIPLE+ was multi-L4 with NEW6.b group container; round 6 batch 31 DOUBLE was 2× L4 (RP+RE under same §6.3.7 group). Round 7 batch 32 is FIRST cross-level transition density (mixing L3 + L4 transitions in same batch).",
+      "atom_id_anchor": "ig34_p0312_a011 (UR L4), ig34_p0315_a015 (PE L3-leaf), ig34_p0318_a014 (QRS L3-group), ig34_p0319_a001 (FT L4)",
+      "rule_violation": "n/a (architectural milestone, not defect)",
+      "repair_action": "n/a — all 4 transitions handled correctly first-attempt with proper NEW6 dual-form parent_section + NEW6.b L3-group canonical NEVER self-parent + NEW7 chain semantics + R12 ≥8 atoms 3-zone partition per transition page",
+      "v1_4_codification_candidate": "v1.4 G-MS-NEW-7-X: 'QUADRUPLE+ NEW transitions in single batch is normal protocol cadence at multi-level chapter-boundary regions (L3 + L4 mixed); NEW6 dual-form parent_section + NEW6.b L4-group canonical + NEW7 chain semantics handle cross-level density correctly per round 7 batch 32 first-attempt zero-violation precedent'.",
+      "writer_family_motif": "n/a (architectural milestone, not writer-family motif)"
+    },
+    {
+      "finding_id": "O-P1-107",
+      "severity": "INFO",
+      "category": "NEW7 spec architectural extension — L3 leaf-pattern domain Examples at L5 (not L6)",
+      "title": "§6.3.8 PE leaf-pattern Examples at L5 (NOT L6) — leaf-pattern variant Example level distinct from L4-domain group-container variant where Examples are at L6",
+      "scope": "§6.3.8 PE Example 1 (ig34_p0318_a002) hl=5 sib=1 vs §6.3.7.8 UR Example 1 (ig34_p0314_a014) hl=6 sib=1 + §6.3.7.7 RE Example 2 (ig34_p0311_a020) hl=6 sib=2 — same batch contains both L5 leaf-pattern Examples and L6 group-container-pattern Examples.",
+      "atom_id_anchor": "ig34_p0318_a002 (PE Example 1 hl=5), ig34_p0314_a014 (UR Example 1 hl=6), ig34_p0311_a020 (RE Example 2 hl=6)",
+      "rule_violation": "n/a (architectural NEW precedent, not defect)",
+      "repair_action": "n/a — writer first-attempt correctly differentiated L5 leaf-pattern Example level vs L6 group-container-pattern Example level based on parent domain depth.",
+      "v1_4_codification_candidate": "v1.4 NEW7 chain spec extension: 'Example heading_level depends on parent domain depth — L4 domain (under L3 group container) → Examples at L5 (heading_level=5 sibling_index=4) and Example N at L6 (heading_level=6 sibling_index=N); L3 leaf-pattern domain → Examples at L4 (heading_level=4 with sibling_index=N where N is document-order position in pre-canonical+canonical chain) and Example N at L5 (heading_level=5 sibling_index=N)'. Distinguishes leaf-pattern variant from group-container-variant unambiguously.",
+      "writer_family_motif": "n/a (NEW v1.4 architectural codification, not writer-family motif)"
+    },
+    {
+      "finding_id": "O-P1-108",
+      "severity": "INFO",
+      "category": "G-MS-4 halt fallback 1st live-fire round 7 batch 32 — protocol-correct halt + user-authorized cross-family fallback validated",
+      "title": "Reviewer slot #41 data:debugging-dags + 4 alternatives unavailable in session agent registry → halt_state_batch_32.md written → user-authorized cross-family fallback to general-purpose 2nd burn → AUDIT pivot 22nd preserved with 100% PASS verdict",
+      "scope": "Round 7 batch 32 STEP 6 reviewer dispatch — first natural live-fire of G-MS-4 halt fallback spec in 7 rounds (was spec-only carry-forward through round 1-6).",
+      "atom_id_anchor": "n/a (protocol enforcement milestone, no atom anchors)",
+      "rule_violation": "n/a (protocol enforcement validation, not defect)",
+      "repair_action": "n/a — halt + resume sequence: (1) main session detected pre-assigned data:debugging-dags + 4 listed alternatives all unavailable in session agent registry; (2) per MULTI_SESSION_PROTOCOL.md G-MS-4 spec written halt_state_batch_32.md with full progress preserved (241 atoms + 10-atom Rule A sample + 4 schema sweep PASS) + 4 resume options A-D; (3) user authorized Option B cross-family fallback to general-purpose (per D-MS-7 round 7 valid pivot path: general-purpose-extension 2nd burn after round 5 1st burn inaugural); (4) main session resumed STEP 6 with general-purpose dispatch + AUDIT-mode pivot prompt; (5) reviewer 100% PASS preserves AUDIT pivot count 22nd cumulative + slot #41 designation.",
+      "v1_4_codification_candidate": "v1.4 G-MS-NEW-7-Y fallback dispatch protocol formalization: 'Cross-family fallback substitution for unavailable pre-assigned reviewer is allowed if (a) pre-assigned + listed alternatives all unavailable in session agent registry AND (b) fallback agent is in D-MS-7 valid round-N pivot list (current valid: data/firecrawl/superpowers-extension/general-purpose-extension/pr-review-toolkit-remaining/omc-remaining) AND (c) user explicit authorization received via session message (e.g., 按照你推荐的来 / authorize fallback to <agent_type>); (d) main session writes halt_state_batch_NN.md before requesting authorization; (e) post-resume, AUDIT pivot count + slot # designation preserved (no double-incrementing)'. Validates G-MS-4 protocol effectiveness post-6-rounds spec-only carry-forward — round 7 1st natural live-fire opportunity arrived organically from environment (vs round 6 D-MS-4 considered adversarial halt experiment but rejected as unnecessary; round 7 confirms organic trigger sufficient).",
+      "writer_family_motif": "n/a (protocol enforcement milestone, not writer-family motif)",
+      "round_7_protocol_validation_observation": "G-MS-4 → halt_state.md → user-authorized fallback → resume = clean execution path. Auto-mode + halt-on-uncertain combined gracefully: auto mode would tempt private fallback but G-MS-4 'do not 私自选 fallback' rule forced halt; halt rule preserved Rule D collision protection; user authorization re-enabled progress without sacrificing roster integrity. Demonstrates safety gates work as designed under auto-mode pressure."
+    }
+  ],
+  "finding_id_range_allocated": "O-P1-105..108 (4 IDs reserved per round 7 G-MS-13)",
+  "finding_id_range_used": ["O-P1-105", "O-P1-106", "O-P1-107", "O-P1-108"],
+  "finding_id_self_validation_gate": "PASS — all 4 finding IDs ∈ {105, 106, 107, 108}; 0 findings with ID ≤104 (no collision with prior round 6 last O-P1-104 INFO two-layer audit milestone) or ≥109 (no collision with sister batch 33 O-P1-109..112 OR batch 34 O-P1-113..116)",
+  "rule_d_slot_used": 41,
+  "rule_d_audit_pivot_count_post_batch": 22,
+  "rule_d_family_post_batch": "general-purpose family 2nd burn (1st burn round 5 batch 28 #37 inaugural + 2nd burn round 7 batch 32 #41 fallback-extension); validates same-agent depth-burn AUDIT recipe consistency. 22nd AUDIT pivot cumulative across rounds 1-7. data family inaugural burn DEFERRED to future batch (data:debugging-dags + 4 alternatives unavailable in current session agent registry).",
+  "files_written": [
+    "evidence/checkpoints/pdf_atoms_batch_32a.jsonl (133 atoms, p.311-315, no fixes — clean writer output)",
+    "evidence/checkpoints/pdf_atoms_batch_32b.jsonl (108 atoms, p.316-320, no fixes — clean executor output)",
+    "evidence/checkpoints/_progress_batch_32.json (this file)",
+    "evidence/checkpoints/P1_batch_32_report.md (full batch report)",
+    "evidence/checkpoints/rule_a_batch_32_sample.jsonl (10-atom sample seed=20260630)",
+    "evidence/checkpoints/rule_a_batch_32_verdicts.jsonl (slot #41 fallback general-purpose 2nd burn verdicts; 10 PASS + 0 PARTIAL + 0 FAIL = 100% raw weighted = PASS at threshold ceiling)",
+    "evidence/checkpoints/rule_a_batch_32_summary.md (Rule A summary §1-§5 + AUDIT-mode pivot reflection + fallback dispatch resilience codification)",
+    "evidence/checkpoints/halt_state_batch_32.md (G-MS-4 halt fallback 1st live-fire documentation; preserved as historical evidence of protocol validation)"
+  ],
+  "files_NOT_touched": [
+    "root pdf_atoms.jsonl (7939 atoms unchanged — reconciler scope)",
+    "audit_matrix.md (reconciler scope)",
+    "_progress.json (reconciler scope)",
+    "sister batch files (pdf_atoms_batch_33*, pdf_atoms_batch_34*)",
+    "subagent_prompts/* (v1.3 active — no edits; v1.4 candidate stack accumulating reconciler-side: round 5 5 + round 6 4 + round 7 batch 32 4 = 13 cumulative)",
+    "schema/*.json",
+    "PLAN.md",
+    "plans/*.md",
+    "CLAUDE.md",
+    "MEMORY/*"
+  ],
+  "halt_state": "halt_state_batch_32.md written + RESOLVED via user authorization; preserved as historical evidence (NOT deleted post-resume — documents G-MS-4 1st live-fire)",
+  "round_7_compliance": {
+    "G_MS_4_halt_fallback": "FIRST LIVE-FIRE round 7 (was spec-only carry-forward through round 1-6); spec-correct execution: (1) detect unavailable agent → (2) write halt_state with progress preserved + 4 resume options → (3) user-authorized fallback per D-MS-7 valid pivot path → (4) resume STEP 6 with full state intact → (5) 100% PASS verdict + AUDIT pivot count preserved",
+    "G_MS_7_finding_id_range_pre_allocation": "compliant — O-P1-105..108 reserved (4 IDs), 4 used (O-P1-105/106/107/108); 0 unused; no over-allocation, no cross-session collision",
+    "G_MS_11_NEW6_dual_form_codified": "applied — 0 violations; 2 NEW L3 transitions (PE leaf sib=8 + QRS group sib=9) parent='§6.3 [MODELS FOR FINDINGS DOMAINS]' chapter-short-bracket all-caps + 2 NEW L4 transitions (UR sib=8 under §6.3.7 + FT sib=1 under §6.3.9) parent=L3-group canonical full-form NEVER self-parent",
+    "G_MS_11_b_round_3_extension_codified": "applied PROACTIVELY — UR L4 sib=8 + FT L4 sib=1 first-attempt correct with parent=L3-group canonical NEVER self-parent; 10 cumulative L4 self-parent NOT proactive precedents post round 7 batch 32",
+    "G_MS_12_density_alarm_check_applied": "applied — lowest p.317=17 atoms (well above 15-atom floor); both sub-batches above 100-atom floor (133 + 108); alarm NOT triggered; main-session PDF cross-check applied for verbatim corruption sweep extending round 6 batch 31 motif scrutiny — 0 issues found, contrasts with batch 31 10-atom Option H bulk-fix",
+    "G_MS_13_finding_id_range_cross_validation_table": "applied — kickoff §0 cross-validation table read pre-dispatch; finding ID self-validation gate at STEP 7 confirmed all 4 IDs ∈ {105,106,107,108}; 0 collision with sister sessions C (O-P1-109..112) or D (O-P1-113..116) or prior cumulative (≤104)",
+    "round_7_NEW7_L6_INTRA_batch_procedural_handoff_3rd_live_fire": "EFFECTIVE — 32a→32b sub-batch handoff prepend (round 5 D-MS-4 codification mandate, round 6 batch 31 2nd live-fire, round 7 batch 32 3rd live-fire) successfully applied: 32b dispatch prompt inline-prepended 32a predicted terminal state (PE L3-leaf NEW + PE pre-canonical L4 sib=1+2+3 chain continuation territory); 32b executor first-attempt correctly continued at PE-Specification L4 sib=4 (continuation, not restart); 0 NEW7 L6 intra-batch recurrence in batch 32. 3rd consecutive live-fire validation of round 5 D-MS-4 INTRA-batch procedural enforcement codification.",
+    "round_7_NEW7_L6_CROSS_batch_handoff_2nd_live_fire": "EFFECTIVE — main-session predicted batch 31b terminal state (§6.3.7.7 RE Examples sib=4 / Example 1 sib=1; p.310 末 atom = LIST_ITEM Row 5 PEF) inline-prepended into 32a dispatch prompt per round 5 D-MS-2 codification mandate. 32a writer first-attempt correctly continued §6.3.7.7 RE Example 1 narrative + Example 2 hl=6 sib=2 RESTART (no sibling chain restart). Round 7 batch 32 2nd live-fire after round 6 1st live-fire (§6.3.5.9.3 PP-PC Method B/C/D L7 chain). Cross-batch handoff codification mandate VALIDATED 2nd consecutive round.",
+    "round_7_NEW6_chapter_short_bracket_extension_validated": "EFFECTIVE — 4 cumulative L3 transitions with chapter-short-bracket parent: round 6 batch 29 §6.3.6 MO sib=6 + §6.3.7 sib=7 (1st+2nd L3 transitions) + round 7 batch 32 §6.3.8 PE sib=8 + §6.3.9 QRS sib=9 (3rd+4th L3 transitions). NEW6 dual-form chapter-short-bracket all-caps EFFECTIVE 4× cumulative.",
+    "round_7_QUADRUPLE_transition_NEW_precedent": "EFFECTIVE — 4 NEW transitions in single batch (1 L4 UR + 1 L3-leaf PE + 1 L3-group QRS + 1 L4 FT) handled correctly first-attempt with proper R12 ≥8 atoms 3-zone partition per transition page (p.312/p.315/p.318/p.319 all PASS); cross-level transition density (L3 + L4 mixed) is NEW round-7 precedent extending round 6 DOUBLE + round 4 TRIPLE patterns.",
+    "round_7_PE_leaf_pattern_pre_canonical_L4_chain_NEW_precedent": "EFFECTIVE — §6.3.8 PE L3 leaf-pattern with NEW pre-canonical L4 sub-section chain (Proposed Removal sib=1 + CDASH Alignment sib=2 BEFORE canonical Description=3/Spec=4/Assump=5/Examples=6) handled correctly first-attempt; v1.4 candidate codification (O-P1-105) for L3 leaf-pattern domains accepting domain-specific pre-canonical L4 sub-sections.",
+    "round_7_PE_leaf_pattern_L5_examples_NEW_precedent": "EFFECTIVE — §6.3.8 PE Example 1 hl=5 sib=1 RESTART under §6.3.8 PE Examples (L4 sib=6); leaf-pattern variant Examples at L5 (not L6 like L4-domain group-container variant). v1.4 candidate codification (O-P1-107) for Example heading_level dependence on parent domain depth.",
+    "round_7_two_layer_audit_5th_cumulative_validation": "validated (extends D-MS-6 4th cumulative round 6 to 5th round 7): reviewer 10/10 PASS on canonical sample; main-session structural sweep 0 issues across 241 atoms; first batch in P1 cumulative with concordant 0-issue verdicts at both layers — confirms structural sweep is mandatory complement BUT can produce 0 issues when writer is consistently performant. 5th cumulative round of 2-layer concordance validation (round 2/4/5/6/7 — round 7 batch 32 is FIRST 0-issue at both layers).",
+    "round_7_v1_4_candidate_accumulation": "13 cumulative v1.4 candidates round 5+6+7 (round 5 5 + round 6 batch 31 4 + round 7 batch 32 4); v1.4 cut session BEFORE batch 33 (next mandatory drift cal) RECOMMENDED per round 6 D-MS-5 ESCALATED + round 7 batch 32 strengthens — round 7 batch 32 contributed 4 v1.4 candidates: O-P1-105 NEW7 L3-leaf pre-canonical L4 + O-P1-106 QUADRUPLE-transition cadence + O-P1-107 NEW7 leaf-pattern Examples-at-L5 vs group-container-Examples-at-L6 + O-P1-108 G-MS-NEW-7-Y fallback dispatch protocol formalization."
+  },
+  "round_7_NEW_precedents_observed": [
+    "G-MS-4 halt fallback 1st live-fire — pre-assigned data:debugging-dags + 4 alternatives unavailable → halt_state.md written → user-authorized fallback to general-purpose 2nd burn → resume STEP 6 → 100% PASS preserves AUDIT pivot count + slot # designation; demonstrates protocol effectiveness post-6-rounds spec-only carry-forward",
+    "QUADRUPLE NEW transitions in single batch (cross-level: L4 UR + L3-leaf PE + L3-group QRS + L4 FT) — extends round 6 batch 31 DOUBLE precedent (L4×2) + round 4 batch 25 TRIPLE precedent (L4×3) to QUADRUPLE cross-level (L3×2 + L4×2)",
+    "L3 leaf-pattern domain with NEW pre-canonical L4 sub-section pattern (PE Proposed Removal of --MODIFY/--BODSYS + Alignment with CDASH Best Practice BEFORE canonical Description/Spec/Assump/Examples) — first occurrence in P1 cumulative; v1.4 candidate to extend NEW7 spec for L3 leaf-pattern variant",
+    "L3 leaf-pattern domain Examples at L5 (NOT L6) — leaf-pattern variant Example level distinct from L4-domain group-container variant where Examples are at L6; same batch contains both variants (UR Example at L6 + PE Example at L5) demonstrating clear discrimination",
+    "First batch in P1 cumulative with 100% Rule A PASS + 0 main-session structural sweep issues = first concordant-clean two-layer audit verdict; suggests v1.3 prompts have stabilized post-round-6 codification across UR/PE/FT canonical-canonical-canonical L4 spec tables",
+    "Cross-family fallback dispatch resilience (slot #41 fallback): general-purpose 2nd burn = general-purpose-extension per D-MS-7 round 7 valid pivot path; full-tool variant continues to validate across general-purpose family burns (round 5 1st + round 7 2nd); AUDIT pivot count preserved (22nd cumulative)"
+  ],
+  "handoff_to_reconciler": "Session B (round 7 batch 32) contributes 241 atoms (133 + 108) over p.311-320 (QUADRUPLE NEW transitions: §6.3.7.8 UR L4 NEW + §6.3.8 PE L3-leaf NEW with pre-canonical L4 chain + §6.3.9 QRS L3-group NEW + §6.3.9.1 FT L4 NEW; cross-batch §6.3.7.7 RE Example 2 continuation from sister batch 31). Reconciler should: (a) merge pdf_atoms_batch_32a.jsonl + pdf_atoms_batch_32b.jsonl into root pdf_atoms.jsonl post sister batches 33+34 merges; (b) sweep cross-batch sibling continuity for §6.3 L3 chain — sib=7 (§6.3.7 round 6) → sib=8 (§6.3.8 PE batch 32) → sib=9 (§6.3.9 QRS batch 32) → sib=10 (§6.3.10 SC sister batch 33 expected); (c) sweep cross-batch sibling continuity for §6.3.7 L4 chain — sib=7 RE (round 6) → sib=8 UR (batch 32) — §6.3.7 group complete (no §6.3.7.9+ in TOC); (d) sweep cross-batch sibling continuity for §6.3.9 L4 chain — sib=1 FT (batch 32) → sib=2 QS (sister batch 33 expected p.324) → sib=3 RS (sister batch 33 expected p.329); (e) validate cross-session R15 RE-Example 2 L6 chain (batch 32a) under §6.3.7.7 RE (batch 31b territory) — round 7 NEW7 L6 cross-batch handoff 2nd live-fire validation; (f) update root audit_matrix.md with batch 32 row + Rule A 32 row + Rule D roster 40→41 (general-purpose 2nd burn fallback notation) + slot #41 fallback dispatch documentation; (g) update root _progress.json (atoms 7939→8180 if all 3 round-7 sister merges done; pages cumulative 310→320; batches 31→32; Rule D 40→41; repair_cycles +0 for batch 32; findings +4 [O-P1-105/106/107/108]); (h) v1.4 patch session decision — round 7 batch 32 cumulative v1.4 candidates: round 5 5 + round 6 4 + round 7 batch 32 4 = 13 cumulative v1.4 candidates accumulated; v1.4 cut session BEFORE batch 33 (next mandatory drift cal) RECOMMENDED per round 6 D-MS-5 ESCALATED + round 7 batch 32 4 NEW candidates strengthen — but TIMING is up to user decision (insertion before batch 33 OR after round 7 reconciler); (i) reconciler-side optional bulk-patch validation (round 7 batch 32 needs no bulk patch — 0 repair cycles); (j) multi-session round 7 protocol: prepare to write MULTI_SESSION_RETRO_ROUND_7.md (Rule C 三段式 12+ R-MS retain / 6+ G-MS gap / 7+ D-MS decision) post all 3 sister sessions DONE; cleanup CLAUDE.md round-7 routing rule + delete batch_32/33/34_kickoff.md + reconciler_kickoff_round7.md (one-shot use done after reconciler completes); (k) preserve halt_state_batch_32.md as historical evidence of G-MS-4 1st live-fire (do NOT delete with one-shot kickoffs)."
+}
