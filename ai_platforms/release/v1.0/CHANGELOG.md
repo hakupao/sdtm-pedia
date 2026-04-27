@@ -5,14 +5,14 @@
 **First public release for company-internal use.**
 
 ### Added
-- 4-platform LIVE deployments: Claude Projects v2.6 / ChatGPT GPTs v2.2 / Gemini Gems v7.1 / NotebookLM (Custom mode 9011 chars)
+- 4-platform LIVE deployments: Claude Projects v2.6 / ChatGPT GPTs v2.2 / Gemini Gems v7.1 / NotebookLM (Custom mode instructions 8,925 chars)
 - Trilingual user documentation (zh / en / ja): top README, USER_GUIDE, self_deploy/README, 4 × UPLOAD_TUTORIAL
 - 10-question DEMO pack with multilingual prompts
 - KNOWN_LIMITATIONS reference (en)
 - 17-question smoke test framework v4.0 with 3 anti-hallucination probes (AHP)
 - Per-platform decision tree ("which platform for what")
 
-### Quality baselines (smoke v4 R1+R2)
+### Quality baselines (17-question evaluation, R1+R2)
 - Claude Projects: 17/17 (100%) — all PASS
 - ChatGPT GPTs: 16.5/17 (97%) — post v2.2 Q1 GFINHERT spelling fix
 - Gemini Gems: 16/17 (94%) — post v7.1 Q10 SUPP-- Core anchor; R2 dual-gate PASS
@@ -20,7 +20,7 @@
 
 ### Methodology references
 - 4 prevention rules (Rules A/B/C/D) governing all AI-assisted content work
-- 28-slot independent reviewer chain (Rule D) across smoke v4 + V5C regression
+- 28-slot independent reviewer chain (Rule D) across 17-question evaluation + V5C regression
 - Per-platform Phase 0-5 lifecycle with sign-off (PHASE5_RETROSPECTIVE.md)
 
 ### Source Knowledge Base

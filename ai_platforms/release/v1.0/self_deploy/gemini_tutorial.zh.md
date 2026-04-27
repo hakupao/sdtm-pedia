@@ -1,7 +1,7 @@
 # Gemini Gem 制作教程 — SDTM 知识库发布版
 
 > 从零开始搭建一个能查 CDISC SDTM 标准 (63 域 + chapters + 业务弹药包) 的 Custom Gem.
-> 读完本教程你会得到: 一个可用的 Gemini Gem, 能精确回答 SDTM 变量定义 / 业务场景映射 / 跨域关联, 且能识破常见虚构前提 (AHP × 3 anti-hallucination guard).
+> 读完本教程你会得到: 一个可用的 Gemini Gem, 能精确回答 SDTM 变量定义 / 业务场景映射 / 跨域关联, 且能识破常见虚构前提 (3 道反虚构锚 / anti-hallucination guard).
 > 总耗时: **20-40 分钟** (Gemini indexing 比 ChatGPT 快得多).
 
 ---
@@ -79,7 +79,7 @@ ChatGPT 是 RAG 召回, Gemini 是全注入 — 两者底层架构不同, 不要
 
 ## 6. 完整回归 (10 题, ~30 分钟, 可选)
 
-打开 `../DEMO_QUESTIONS.md`, 逐题提问 Q1-Q10. **一题一新 chat**. R2 baseline 16/17 (94.1%) AHP × 3 全 PASS+, 你部署的 Gem ≥ 8/10 strict = 等同基线.
+打开 [`../DEMO_QUESTIONS.md`](../DEMO_QUESTIONS.md), 逐题提问 D0-D9 (10 题 demo). **一题一新 chat**. 项目内部完整 17 题 baseline 16/17 (94.1%), 3 道反虚构题全识破; 你部署的 Gem 跑这 10 题 ≥ 8/10 = 等同基线.
 
 ---
 

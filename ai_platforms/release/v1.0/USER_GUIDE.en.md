@@ -2,20 +2,22 @@
 
 ## 1. What This Is (Project Background)
 
-SDTM (Study Data Tabulation Model) is the CDISC standard for clinical trial data tabulation. It covers 63 domains, thousands of variables, and extensive CT (Controlled Terminology). Looking up a single variable's Core attribute or C-code — flipping through the SDTMIG v3.4 PDF and the NCI EVS Browser — can easily take 10–15 minutes. This project organizes CDISC SDTMIG v3.4, the v2.0 model, and CDISC CT into 295 Markdown source files, deployed across 4 AI platforms (Claude Projects / ChatGPT GPTs / Gemini Gems / NotebookLM), so that colleagues can **ask questions in plain language and get answers with spec citations in under a minute**.
+If you need to look up CDISC SDTM variable definitions / Core / codelist, flipping through SDTMIG v3.4 PDF + NCI EVS Browser usually takes 10+ minutes. This project organizes all that material and deploys it to 4 AI platforms (Claude Projects / ChatGPT GPTs / Gemini Gems / NotebookLM). You just ask in natural language and **get answers with spec citations in 1 minute**.
+
+Technical background: SDTM (Study Data Tabulation Model) covers 63 domains + thousands of variables + extensive CT (Controlled Terminology). We organized CDISC SDTMIG v3.4 + v2.0 model + CDISC CT into 295 Markdown sources, then fed them to 4 AI platforms with prompt engineering. New to terms like RAG / system prompt / Core (Req/Exp/Perm) / Extensible / anti-hallucination probe? See [`./GLOSSARY.en.md`](./GLOSSARY.en.md) (1-page lookup).
 
 ## 2. What We Built (Technical Highlights)
 
-All 4 platforms are LIVE and have each been evaluated on 17 smoke v4 questions (including 3 anti-hallucination probe questions):
+We tested each platform with 17 representative SDTM questions, including 3 "deliberately wrong premise" anti-hallucination probes (testing whether the AI catches false premises rather than playing along). The 4-platform scorecard:
 
-| Platform | smoke v4 | Version | Strengths |
+| Platform | 17-Q score | Version | Strengths |
 |---|:---:|:---:|---|
 | Claude Projects | 17/17 (100%) | v2.6 | Precise variables + multi-step reasoning |
 | ChatGPT GPTs | 16.5/17 (97%) | v2.2 LIVE | Full coverage + shareable within teams / GPT Store |
 | Gemini Gems | 16/17 (94%) | v7.1 LIVE | Long context + broad exploratory queries |
 | NotebookLM | 15/17 (88%) | Custom mode | in-KB-only anti-hallucination |
 
-Highlights: v3.4 new domains (GF / CP / BE / BS), Timing rules, CT Extensible handling, SUPPQUAL scope, cross-domain death-date alignment, and 3 AHP probes (LBCLINSIG / Trial-Level SAE Aggregate / PF deprecated domain). Throughout, quality was enforced with 4 rules (Rule A–D) and a cumulative total of 28 independent reviewer validations. Sources: `./CHANGELOG.md` and `../../SMOKE_V4.md` §3.
+Highlights: v3.4 new domains (GF / CP / BE / BS), Timing rules, CT Extensible handling, SUPPQUAL scope, cross-domain death-date alignment, and 3 anti-hallucination questions (LBCLINSIG / Trial-Level SAE Aggregate / PF deprecated domain). Throughout, quality was enforced with 4 internal quality rules + 28 independent reviewers cumulative. Sources: `./CHANGELOG.md` and `../../SMOKE_V4.md` §3. Glossary: [`./GLOSSARY.en.md`](./GLOSSARY.en.md)
 
 ## 3. Which Platform Should I Use? (Decision Tree)
 

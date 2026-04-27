@@ -2,20 +2,22 @@
 
 ## 1. 这是什么 (项目背景)
 
-SDTM (Study Data Tabulation Model) 是 CDISC 临床试验数据制表标准, 含 63 个域 + 上千变量 + 大量 CT (Controlled Terminology). 日常查一个变量 Core 属性或 C-code, 翻 SDTMIG v3.4 PDF + NCI EVS Browser 要十几分钟. 本项目把 CDISC SDTMIG v3.4 + v2.0 model + CDISC CT 整理成 295 个 Markdown 源, 部署到 4 个 AI 平台 (Claude Projects / ChatGPT GPTs / Gemini Gems / NotebookLM), 让同事**自然语言提问, 1 分钟拿到带 spec 引用的答案**.
+如果你日常需要查 CDISC 临床试验数据制表标准 (SDTM) 的某个变量定义、Core 属性或 codelist, 翻 SDTMIG v3.4 PDF + NCI EVS Browser 常常要十几分钟. 本项目把这些资料整理好, 部署到 4 个 AI 平台 (Claude Projects / ChatGPT GPTs / Gemini Gems / NotebookLM), 你只需用自然语言提问, **1 分钟就能拿到带 spec 引用的答案**.
+
+技术背景: SDTM (Study Data Tabulation Model) 含 63 个域 + 上千变量 + 大量 CT (Controlled Terminology). 我们把 CDISC SDTMIG v3.4 + v2.0 model + CDISC CT 整理成 295 个 Markdown 源, 加上提示词工程喂给 4 个 AI 平台. 不熟悉 RAG / system prompt / Core (Req/Exp/Perm) / Extensible / 反虚构探针 等术语? 见 [`./GLOSSARY.zh.md`](./GLOSSARY.zh.md) (1 页速查).
 
 ## 2. 工作成果概览 (技术亮点)
 
-4 平台均已 LIVE, 各跑过 17 题 smoke v4 评测 (含 3 道 anti-hallucination probe 反虚构探针):
+我们用 17 道代表性 SDTM 问题给每个平台做了完整评测, 含 3 道"故意问错"反虚构题 (测 AI 能否识破假前提, 而不是顺着错前提编). 4 平台得分如下:
 
-| 平台 | smoke v4 | 版本 | 强项 |
+| 平台 | 17 题得分 | 版本 | 强项 |
 |---|:---:|:---:|---|
 | Claude Projects | 17/17 (100%) | v2.6 | 精确变量 + 多步推理 |
 | ChatGPT GPTs | 16.5/17 (97%) | v2.2 LIVE | 全量 + 可团队/Store 共享 |
 | Gemini Gems | 16/17 (94%) | v7.1 LIVE | 长上下文 + 大范围探索 |
 | NotebookLM | 15/17 (88%) | Custom mode | in-KB-only 反虚构 |
 
-亮点: v3.4 新域 (GF / CP / BE / BS) + Timing + CT Extensible + SUPPQUAL scope + 跨域死亡日级对齐 + 3 道 AHP (LBCLINSIG / Trial-Level SAE Aggregate / PF 已废域); 全程 Rule A-D 4 条质量规则 + 累计 28 个独立 reviewer 验证. 信源: `./CHANGELOG.md` + `../../SMOKE_V4.md` §3.
+亮点: v3.4 新域 (GF / CP / BE / BS) + Timing + CT Extensible + SUPPQUAL scope + 跨域死亡日级对齐 + 3 道反虚构题 (LBCLINSIG / Trial-Level SAE Aggregate / PF 已废域); 每份产出都过 4 条内部质量规则 + 累计 28 个独立 reviewer 验证. 完整 baseline 见 [`./CHANGELOG.md`](./CHANGELOG.md); 完整题库见 [`../../SMOKE_V4.md`](../../SMOKE_V4.md) §3. 不懂术语见 [`./GLOSSARY.zh.md`](./GLOSSARY.zh.md).
 
 ## 3. 我该用哪个平台? (决策树)
 

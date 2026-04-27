@@ -1,7 +1,7 @@
 # Claude Project 制作教程 — SDTM 知识库发布版 v1.0
 
 > release v1.0 自部署教程 (从零搭一个能查 CDISC SDTM 的 Claude Project).
-> 读完本教程: 30-90 分钟得到一个完整可用的 Claude Project, 容量 ~77%, 19 文件 1.29M tokens, smoke test 24/24 PASS 基线.
+> 读完本教程: 30-60 分钟得到一个完整可用的 Claude Project (含 indexing 后台等待时间). 容量 ~77%, 19 文件 1.29M tokens, 完整 24 题测试全通过基线.
 > 信源: 项目仓库 ai_platforms/claude_projects/current/ (system_prompt.md + uploads/ × 19).
 
 ---

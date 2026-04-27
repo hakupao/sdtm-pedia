@@ -18,7 +18,7 @@ Choosing by deployment preference (consistent with USER_GUIDE.en.md §3): fastes
 - **Claude Projects** → [./claude_tutorial.en.md](./claude_tutorial.en.md) (19 files + system_prompt + 24-question smoke test)
 - **ChatGPT GPTs** → [./chatgpt_tutorial.en.md](./chatgpt_tutorial.en.md) (Custom GPT + 9 files + v2.2 system prompt + 17-question smoke test)
 - **Gemini Gems** → [./gemini_tutorial.en.md](./gemini_tutorial.en.md) (Gem + 4 merged files + v7.1 system prompt + AHP acceptance check)
-- **NotebookLM** → [./notebooklm_tutorial.en.md](./notebooklm_tutorial.en.md) (notebook + 42 sources + Custom mode 9011 chars + three sharing tiers)
+- **NotebookLM** → [./notebooklm_tutorial.en.md](./notebooklm_tutorial.en.md) (notebook + 42 sources + Custom mode instructions 8,925 chars + three sharing tiers)
 
 ## 3. Common Prerequisites
 

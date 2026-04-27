@@ -43,6 +43,22 @@
 
 ## 工作记录
 
+### 2026-04-27 PM 07 Release v1.1 polish — R5 8 项 polish 全 resolved + GLOSSARY × 3 lang 新增 (30min single wave)
+
+- **状态**: 已完成
+- **触发**: v1.0 闭环后用户请求"想 release 完整, 不做分发 1+2 步, 进入下一步把 release polish 完". 跳过 v1.0 retro deferred-to-v1.1 backlog 的"等 feedback 再修", 直接 inline 把 R5 8 项 polish 一次性消化.
+- **处理内容**:
+  - **Wave 1** (主 session, 10min): 19 zh 源文件 polish (USER_GUIDE.zh §1 split + §2 友好 intro + GLOSSARY pointer / self_deploy/README.zh L21 instructions size 9011→8925 / notebooklm_tutorial.zh 7 处 codename + number wall + 单位 / claude_tutorial.zh header pacing 30-90→30-60 / chatgpt + gemini AHP × 3→3 道反虚构锚 / gemini §6 Q1-Q10→D0-D9 / DEMO_QUESTIONS.md Q-D 编号说明) + GLOSSARY.zh.md 新建 (7178 chars, 3 段: SDTM 行业 17 + AI/RAG 12 + 项目内部 5)
+  - **Wave 2** (4 Agent 并发, 10min): 2 个 translator agent (GLOSSARY.zh → GLOSSARY.en + GLOSSARY.ja, executor opus×2) + 2 个 polish sync agent (zh 源文件改动 → en/ja siblings 等价同步, executor sonnet×2). 7 文件 × 2 lang = 14 文件 polish 同步, ~40 edits 跨 13 文件 + 3 new GLOSSARY 文件
+  - **Wave 3** (主 session, 10min): 漏修补 (chatgpt §6 Q1-Q10→D0-D9 全 3 lang) + CHANGELOG 单位修 (9011→8925 + smoke v4 R1+R2 codename→17-question evaluation) + notebooklm 5 处 P3.9 codename 残留全清 + grep 验证 0 残余 (smoke v4 R1 / H3 VERIFIED / AHP × 3 / P3.x / Q1-Q10 / 9011 chars / 30-90 分 全 0 hits) + retro 附录 v1.1 + _progress.json v1_1_polish key + 4 索引同步 + commit
+- **产出**:
+  - 3 new files: GLOSSARY.zh.md (7178 chars / 17+12+5 terms) + GLOSSARY.en.md (8475 chars / 2-column drop Chinese column) + GLOSSARY.ja.md (11655 chars / 3-column with Japanese rendering 敬体)
+  - ~40 edits in 13 existing release files: USER_GUIDE.{zh,en,ja} + self_deploy/README.{zh,en,ja} + 4 tutorial × 3 lang + DEMO_QUESTIONS + CHANGELOG
+- **R-RELEASE-8 启示** (留作 release v2.0+ 实践): polish 应作 release 标配 phase, 非 deferred. 30-60 min 内可完成的 readability/style polish, Phase D 末尾 inline 修, 不要 defer 到下个 release. 决策树: polish 30 min 内 + 影响第一次接触体验 (USER_GUIDE / README) → inline; 大幅重写 (>1h) OR 风险新引入 SDTM 事实错 → defer.
+- **效益**: v1.0 后 30min 内 release "完整" — USER_GUIDE.zh §1 不再 jargon dump (split 2 段渐进) + GLOSSARY.{zh,en,ja}.md 1 页速查 + pacing/单位/编号/codename 全统一 + R5 readability MINOR 全 resolved.
+- **Rule 合规**: Rule A N/A (polish 是 plain-language replacement, 0 SDTM 事实错可能引入, 无需 N=3 抽检) / Rule B N/A / Rule C ✓ retro 附录 v1.1 + R-RELEASE-8 启示 / Rule D ✓ 4 sync agent 全 executor (writer family) 不撞 v1.0 reviewer 5 family / Rule E candidates: R-RELEASE-8 (polish-not-deferred) 拟回灌 ~/.claude/CLAUDE.md.
+- **下一步**: post v1.1 → release 真正分发给同事 (邮件 / Daisy 邀请 / IT 自部署链接) + 异步 JP native 校 ja translation. v1.2+ 仅在 feedback 累积后才 release (不再做 polish-only minor).
+
 ### 2026-04-27 07 Release v1.0 (公司发布版) — 24 文件三语 release 包闭环 (1h45m vs PLAN 5h30m -68% wall)
 
 - **状态**: 已完成

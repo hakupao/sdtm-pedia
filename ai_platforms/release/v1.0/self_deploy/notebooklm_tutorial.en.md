@@ -1,14 +1,14 @@
 # NotebookLM Deployment Tutorial — SDTM Knowledge Base Release v1.0
 
 > Release v1.0 self-deployment tutorial (NotebookLM 1 notebook × 42 sources + Custom mode).
-> After completing this tutorial: 30–60 minutes to get a working NotebookLM notebook, in-KB-only natural anti-hallucination, smoke v4 R1 15/17 (88%) baseline.
+> After completing this tutorial: 30–60 minutes to get a working NotebookLM notebook, in-KB-only natural anti-hallucination, complete 17-question test 15/17 PASS (88%) baseline.
 > Source files: project repository `ai_platforms/notebooklm/current/` (instructions.md + uploads/ × 42).
 
 ---
 
 ## 0. Prerequisites
 
-- [ ] **Google AI Pro subscription** (subscription page [ai.google.com](https://ai.google.com)): NotebookLM Pro tier limits = 500 notebooks × 300 sources × 500K words/source × 500 chats/day × 20 audio/day; **Free tier limit is 50 sources** and applies under the Restricted sharing level — this deployment uses 42 sources, just under the Free tier boundary, but a Pro subscription is more stable
+- [ ] **Google AI Pro subscription** ([ai.google.com](https://ai.google.com)): this deployment uses 42 sources, well within Pro tier limits (Pro caps far exceed our usage). Free tier 50-source limit fits exactly, also workable but Pro is more stable. For full caps (notebooks / sources / words / chat / audio), see [`../../notebooklm/docs/PLAN.md`](../../notebooklm/docs/PLAN.md) §A
 - [ ] **Google account** (personal Gmail or Workspace): one account manages all notebooks; if you plan to do team sharing in the future, using a Workspace account is recommended
 - [ ] **Web browser access** to [notebooklm.google.com](https://notebooklm.google.com): this tutorial is entirely Web UI operations (NotebookLM has no consumer GA API)
 - [ ] **Local clone of this repository**: you need to upload the **42 source files** under `../../notebooklm/current/uploads/*.md` and paste `../../notebooklm/current/instructions.md` into the Chat Custom mode
@@ -17,7 +17,7 @@
 - This release occupies **42/300 = 14%** of the Pro source slots (well below the cap; 8-slot headroom for future expansion)
 - Total words: **1,582,085** (largest bucket 302K < 500K/source cap; 0 over-cap / 0 missing)
 - Chat Custom mode instructions.md: **8,925 Unicode chars / 10,000 char limit = 10.75% headroom**
-- **Coverage**: 63/63 domains fully covered / 176/176 Req variables ∅ gap (A4 structural-level + P3.4.5 semantic-level dual anchor closed) / 295 md files fully ingested across 42 concept buckets
+- **Coverage**: 63/63 domains fully covered / 176/176 Req variables ∅ gap (structural-level + semantic-level dual-anchor closure) / 295 md files fully ingested across 42 concept buckets
 
 ---
 
@@ -52,7 +52,7 @@ The release instructions.md contains:
 
 The **10.75% headroom** is reserved for your future fine-tuning (~1,000 chars can accommodate 3–5 additional anchors you define). Exceeding 10K will cause NotebookLM to truncate the content — do not paste more than that.
 
-### H3 VERIFIED: Custom mode is dynamically switchable
+### Custom mode is per-chat switchable, doesn't lock the whole notebook
 
 Each chat session can independently switch between Default / Learning Guide / Custom (at the UI level). It does not lock the entire notebook. To verify this yourself:
 1. Open a chat, switch to "Learning Guide", ask about AE domain rules → you will get a Socratic teaching-style answer
@@ -76,7 +76,7 @@ NotebookLM officially acknowledges a very small probability of indexing silent f
 - **All 42 tiles present**: none can be missing. Every tile must show a green "Indexed" status
 - **Open a few sources and preview**: spot-check 5–10 sources (first source_01 + last source_42 + a few random ones) by clicking them and reading the opening paragraph, to guard against "uploaded successfully but content is garbled"
 
-In project Phase 3 P3.2 live testing, 42/42 indexed with 0 silent fails (`../../notebooklm/dev/evidence/p3_2_upload_log.md`).
+On upload, this release was measured 42/42 indexed with 0 silent fail (upload log: `../../notebooklm/dev/evidence/p3_2_upload_log.md`).
 
 ---
 
@@ -117,7 +117,7 @@ In addition to the 3 sanity questions in this tutorial, release v1.0 provides a 
 
 ## 6. Full Regression Testing (Optional, 17 Questions, ~30 minutes)
 
-This release was tested against the full 17-question suite (Q1–Q14 + AHP1–3) during smoke v4 R1, achieving **15/17 strict PASS (88.2%)**, with AHP × 3 all PASS+ (strongest tier). You can re-run these to verify your own deployment reaches the same level of stability.
+Complete test of 17-question suite (including 3 anti-hallucination questions): 15/17 PASS (88.2%), all 3 anti-hallucination questions caught — tied for strongest among the 4 platforms (NotebookLM in-KB-only architecture is naturally anti-hallucination). You can re-run these 17 questions to verify your own deployed notebook is equally stable.
 
 - **Question bank**: [`../../../SMOKE_V4.md`](../../../SMOKE_V4.md) §2
 - **Per-question answers + verdicts**: `../../notebooklm/dev/evidence/smoke_v4_answers/*.md`
@@ -143,7 +143,7 @@ This release was tested against the full 17-question suite (Q1–Q14 + AHP1–3)
 - Q1–Q8 / Q10 / Q14 / AHP1–3 should PASS (90%+)
 - Q9 **expected FAIL** (safety-correct PUNT; in-KB-only architecture naturally cannot reach Pinnacle 21 external documentation — this is an architectural limitation, not a capability failure)
 - Q11–Q12 **expected PARTIAL** (supplemental topics; in-KB coverage incomplete)
-- AHP × 3 should all PASS+ (strongest tier) — NotebookLM architecture has a natural anti-hallucination advantage
+- all 3 anti-hallucination questions caught (strongest tier) — NotebookLM architecture has a natural anti-hallucination advantage
 
 ---
 
@@ -154,7 +154,7 @@ This release was tested against the full 17-question suite (Q1–Q14 + AHP1–3)
 | Answer has no citation | Custom mode not active | Return to §2, re-paste instructions.md, confirm green Save checkmark |
 | Answer says variable is not in KB (but it should be) | Source indexing silent fail | In §3, find the corresponding source tile and check its status; if yellow loading times out → delete and re-upload |
 | Answer gets AESER wrong (says Req) | instructions.md was pasted truncated | Original text is 8,925 chars; if character count is significantly lower after pasting → re-paste |
-| smoke v4 Q9 FAIL | **Expected** in-KB-only architectural limitation, safety-correct PUNT | Do not modify instructions.md to add "allow extrapolation" — doing so will degrade the AHP × 3 anti-hallucination advantage |
+| 17-Q Q9 FAIL (architecture limit) | **Expected** in-KB-only architectural limitation, safety-correct PUNT | Do not modify instructions.md to add "allow extrapolation" — doing so will degrade the anti-hallucination advantage |
 | AHP1–3 shows fabrication (e.g., answers that LBCLINSIG exists) | instructions.md "boundary honesty" anchor not taking effect | Return to §2 and verify instructions.md is complete; or switch Chat mode away from Custom and switch back to refresh |
 | Pro viewer cannot see all sources under Anyone-with-link | Should not happen; this sharing level does not apply the Free tier cap | Check Google account login state; regenerate the share link |
 | Table rendering drift (single-row misalignment) | F-1-recurring known behavior; does not deduct semantic score | Re-sending the same question usually refreshes it; retry idempotency is not enforced |
@@ -168,7 +168,7 @@ This release was tested against the full 17-question suite (Q1–Q14 + AHP1–3)
 
 - Pro cap is 300 sources; current usage is 14%, leaving 8-slot + 258 Pro cap headroom
 - To expand the KB (e.g., adding SDTMIG next version v3.5 / new domains), add bucket 43+ to `../../notebooklm/dev/scripts/bucket_config.json` → run `merge_sources.py` → upload the new source incrementally
-- Note: ≥51 sources will trigger the Free tier viewer 50-cap; re-run P3.9 (f) Free tier testing
+- Note: ≥51 sources will trigger the Free tier viewer 50-cap; re-run Free tier testing
 
 ### Scaling down (42 → Free tier compatible)
 
@@ -187,7 +187,7 @@ This release was tested against the full 17-question suite (Q1–Q14 + AHP1–3)
 
 ## 9. Team Collaboration / Three-Tier Sharing Toggle
 
-NotebookLM supports dynamically switching the same notebook among 3 sharing levels without needing to create multiple notebooks. The P3.9 three-tier toggle drill was VERIFIED + deepened on 2026-04-23 (`../../notebooklm/dev/evidence/share_level_toggle_drill.md`).
+NotebookLM supports dynamically switching the same notebook among 3 sharing levels without needing to create multiple notebooks. The share level toggle drill was VERIFIED + deepened on 2026-04-23 (`../../notebooklm/dev/evidence/share_level_toggle_drill.md`).
 
 ### Three-tier semantics
 
@@ -201,9 +201,9 @@ NotebookLM supports dynamically switching the same notebook among 3 sharing leve
 
 1. Click the "**Share**" button in the upper-right of the notebook → open the share panel
 2. Select the desired level and click "**Copy link**" to generate an access link
-3. Switching back to Restricted **immediately revokes** the previous link (P3.9 (d) live-tested PASS; no caching residuals)
+3. Switching back to Restricted **immediately revokes** the previous link (live-tested PASS; no caching residuals)
 
-### Important: Public level ≠ automatic broadcast (P3.9 new finding)
+### Important: Public level ≠ automatic broadcast (new finding)
 
 - The Public level means "**any link holder can access without logging in**" — it does NOT auto-list the notebook in the NotebookLM public gallery
 - The NotebookLM public gallery (Featured) is a **curated list**, not auto-listed; setting your notebook to Public does **not automatically expose it**
@@ -255,8 +255,8 @@ Trigger condition: you explicitly request "refine the Studio three-piece set lat
 | **RETROSPECTIVE (this platform)** | `../../notebooklm/docs/RETROSPECTIVE.md` | Rule C three-section + pivot case + _template/ patches |
 | **Cross-4-platform Phase 5 retro** | `../../retrospectives/PHASE5_RETROSPECTIVE.md` | v1.0 FINAL 2026-04-24 Daisy-acknowledged 4-platform sign-off |
 | **PLAN** | `../../notebooklm/docs/PLAN.md` | 662-line v2.2 (complete plan after architecture pivot) |
-| **smoke v4 R1 results** | `../../notebooklm/dev/evidence/smoke_v4_results.md` + `smoke_v4_answers/` | Per-question verdict for all 17 questions |
-| **P3.9 three-tier toggle evidence** | `../../notebooklm/dev/evidence/share_level_toggle_drill.md` | v1.0 FINAL 6 sub-steps + Public semantics deep-dive |
+| **Complete 17-Q test results** | `../../notebooklm/dev/evidence/smoke_v4_results.md` + `smoke_v4_answers/` | Per-question verdict for all 17 questions |
+| **share level toggle drill evidence** | `../../notebooklm/dev/evidence/share_level_toggle_drill.md` | v1.0 FINAL 6 sub-steps + Public semantics deep-dive |
 | **v1→v2 architecture pivot record** | `../../notebooklm/archive/v1_3notebook_SUPERSEDED_2026-04-21/ARCHITECTURE_PIVOT_RECORD.md` | Key lesson: writer narrative synthesis pseudo-constraint |
 | **Reviewer report** | `../../notebooklm/dev/evidence/phase5_retrospective_reviewer.md` | v0.2 post-fix independent audit 10 action items |
 
@@ -270,7 +270,7 @@ After deployment, run through the following checklist:
 - [ ] Chat Custom mode has the full instructions.md content pasted (8,925 chars)
 - [ ] 42 sources uploaded + all ✅ Indexed
 - [ ] Smoke 3 questions (AESER Core / LBNRIND 4 values / CMINDC scenario) 3/3 PASS
-- [ ] (Optional) smoke v4 R1 17 questions ≥12/17 PASS
+- [ ] (Optional) complete 17-question test ≥12/17 PASS
 - [ ] Three-tier toggle verified for ≥2 levels (at minimum Restricted and Anyone with link)
 - [ ] Notebook URL noted and shared with team (only under Anyone-with-link / Public level)
 - [ ] Read §10.2 Known Limitations; do not push Pinnacle 21 or similar requirements to NotebookLM

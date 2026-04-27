@@ -18,7 +18,7 @@
 - **Claude Projects** → [./claude_tutorial.ja.md](./claude_tutorial.ja.md) (19 ファイル + system_prompt + 24 題 smoke)
 - **ChatGPT GPTs** → [./chatgpt_tutorial.ja.md](./chatgpt_tutorial.ja.md) (Custom GPT + 9 ファイル + v2.2 system prompt + 17 題 smoke)
 - **Gemini Gems** → [./gemini_tutorial.ja.md](./gemini_tutorial.ja.md) (Gem + 4 統合ファイル + v7.1 system prompt + AHP 検収)
-- **NotebookLM** → [./notebooklm_tutorial.ja.md](./notebooklm_tutorial.ja.md) (notebook + 42 sources + Custom mode 9011 chars + 3 段階共有)
+- **NotebookLM** → [./notebooklm_tutorial.ja.md](./notebooklm_tutorial.ja.md) (notebook + 42 sources + Custom mode instructions 8,925 chars + 3 段階共有)
 
 ## 3. 共通の前提準備
 
