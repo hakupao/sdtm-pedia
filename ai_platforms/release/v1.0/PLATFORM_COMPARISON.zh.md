@@ -16,7 +16,7 @@ title: "4 平台多维对比"
 | Claude Projects | 17/17 (100%) | v2.6 | 无 |
 | ChatGPT GPTs | 16.5/17 (97%) | v2.2 LIVE | Q1 GFINHERT 拼写 (post v2.2 已修); 长尾 chunk 表格中段可能 miss |
 | Gemini Gems | 16/17 (94%) | v7.1 LIVE | Q10 SUPP-- Core anchor (post v7.1 已修); R1 65% → R2 94% (v6→v7 升级) |
-| NotebookLM | 15/17 (88%) | Custom mode | Q9 Pinnacle 21 / Q11 Dataset-JSON / Q12 CT version 三题 PUNT (in-KB-only 架构限制, 安全行为非 bug) |
+| NotebookLM | 15/17 (88%) | v1.0 / Custom mode | Q9 Pinnacle 21 / Q11 Dataset-JSON / Q12 CT version 三题 PUNT (in-KB-only 架构限制, 安全行为非 bug) |
 
 ## 2. 容量上限
 
@@ -33,7 +33,7 @@ title: "4 平台多维对比"
 |---|---|---|
 | Claude Projects | Organization / Project 邀请 (Team / Enterprise 套餐共享 Project; Pro 用户需各自重新部署) | 不适用 (内部直接邀请) |
 | ChatGPT GPTs | Custom GPT 分享至 organization (免审核) 或发布 GPT Store (走 OpenAI review) | 仅 Store 发布需审核 |
-| Gemini Gems | 个人账号无法直接团队共享; Workspace 套餐提供部分共享能力, 否则同事各自自部署 | 不适用 |
+| Gemini Gems | Workspace 套餐: Daisy 直接分享; 个人账号: 同事各自自部署 (粘贴完整 v7.1 system prompt) | 不适用 |
 | NotebookLM | 邮件邀请加入 notebook (Pro / Workspace), 或同事自建 (50-source cap) | 不适用 |
 
 ## 4. 套餐要求
@@ -43,7 +43,7 @@ title: "4 平台多维对比"
 | Claude Projects | Claude Pro / Team / Enterprise | 否 |
 | ChatGPT GPTs | ChatGPT Plus / Team / Enterprise | 否 |
 | Gemini Gems | Gemini Advanced 个人 / Google Workspace | 否 |
-| NotebookLM | NotebookLM Pro / Google Workspace | 不适用 (Pro 套餐方有 50-source cap) |
+| NotebookLM | NotebookLM Pro / Google Workspace | 否 (50-source cap 仅 Pro/Workspace 套餐) |
 
 ## 5. 联网能力
 
@@ -60,7 +60,7 @@ title: "4 平台多维对比"
 |---|:---:|---|
 | Claude Projects | 强 | 多步推理 + system prompt anti-fabrication anchor + Stage 6 Deferred Stub 规则 |
 | ChatGPT GPTs | 中 | system prompt 引导 + post v2.2 GFINHERT 精确变量校验; 长尾 chunk 偶尔 miss |
-| Gemini Gems | 中 (post v7.1 升至偏强) | R1 baseline 较弱, v6→v7 系统提示升级带 AHP guardrail 后从 65% 升至 94%; 同事部署须完整粘贴 v7.1 |
+| Gemini Gems | 偏强 (post v7.1) | v6→v7 升级带 AHP guardrail, R1→R2 评分从 65% 升至 94%; 同事部署须完整粘贴 v7.1 system prompt |
 | NotebookLM | 最强 | in-KB-only 架构天然反虚构; 不在 42 source 内宁可 PUNT 也不编造; inline citation 反查 |
 
 ## 7. 文件数限制
@@ -69,8 +69,8 @@ title: "4 平台多维对比"
 |---|---|:---:|
 | Claude Projects | 软上限受 token 容量约束 (~77% 已用 / 1.29M tokens) | 19 |
 | ChatGPT GPTs | 20 文件硬上限 | 9 |
-| Gemini Gems | 不适用 (主要受 1M token 窗口约束, 实际部署 4 文件激进合并) | 4 |
-| NotebookLM | 50 source 硬上限 (Pro) | 42 |
+| Gemini Gems | 无显式文件数限制 (受 1M token 窗口约束) | 4 |
+| NotebookLM | 50 source 硬上限 (Pro) — 详见 §2 | 42 |
 
 ## 8. 最强场景
 
