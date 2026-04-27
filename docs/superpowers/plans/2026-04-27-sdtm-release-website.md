@@ -1174,7 +1174,7 @@ export function replaceLangInPath(pathname: string, target: Lang): string {
     const rest = m[2] + m[3];
     return `/${target}${rest}`;
   }
-  return `/${target}${pathname.endsWith('/') ? '' : '/'}${pathname.slice(1)}`;
+  return `/${target}/${pathname.slice(1)}`;
 }
 ```
 
