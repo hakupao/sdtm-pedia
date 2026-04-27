@@ -3,6 +3,10 @@ dist/
 # generated types
 .astro/
 
+# Playwright e2e artifacts
+test-results/
+playwright-report/
+
 # dependencies
 node_modules/
 
