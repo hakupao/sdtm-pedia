@@ -4,7 +4,12 @@
 
 ## 总体状态
 
-**Phase 5 验证 — 全部完成** (2026-04-16)
+- **Phase 1-5 知识库构建 — 全部完成** (2026-04-16, 293 文件 / 0 质量问题)
+- **Phase 6.1-6.3 检索优化 — 全部完成** (ROUTING.md + Cross References + VARIABLE_INDEX.md)
+- **Phase 6.5 AI 平台部署 — 4 平台全部完成** (Claude / ChatGPT / Gemini / NotebookLM)
+- **07 Release v1.0 — 公司发布版交付完成** (2026-04-27, 27 文档 + 4 平台 bundle = 26M, git tag `v1.0-company-release`)
+- **06 Deep Verification — 进行中**（旁枝 PDF→KB 字面级深审，详见 `.work/06_deep_verification/`）
+- **Phase 7 RAG + 知识图谱 — 设计完成，待实施**
 
 ## 阶段进度
 
@@ -119,6 +124,37 @@
 - Long tail 302 codelist (296 quest + 6 tail giants) → Phase 7 自建索引
 
 **Rule D 三 lane 独立复核**: v2.4 F4 + V6.2 (v2.6) + H1 RETROSPECTIVE_V2 三次全部过 — Cowork writer (A/B 测试) + 主控 writer (脚本/产物/复盘) + 独立 reviewer subagent (code-reviewer 7 维度审) 三 lane 隔离全程到位, 规则 D 固化完成
+
+## 07 Release v1.0（公司发布版，已交付 2026-04-27）
+
+> 4 平台部署成果打包成自包含 release，公司同事拿 `ai_platforms/release/v1.0/` 即可独立部署
+> 设计文档：[.work/07_release/PLAN.md](../.work/07_release/PLAN.md) ｜ 复盘：[.work/07_release/RETROSPECTIVE.md](../.work/07_release/RETROSPECTIVE.md)
+
+| Phase | 内容 | 工时 | 状态 |
+|------|------|------|------|
+| A | PLAN + DEMO + LIMITATIONS + CHANGELOG + 3 worker kickoff | 30min | **已完成** |
+| B | 3 worker zh 内容写作（Agent runtime pivot） | 7min | **已完成** |
+| C | 14 翻译 fan-out（zh→en + zh→ja） | 10min | **已完成** |
+| D | 5 reviewer + Rule A N=3 抽检 + 22 fix edits | 25min | **已完成** |
+| E | RETROSPECTIVE + 索引同步 + git tag + commit | 30min | **已完成** |
+| v1.1 polish | R5 8 项 readability polish + GLOSSARY × 3 lang 新增 | 30min | **已完成** |
+| post-v1.1 reorg | 4 平台 deploy 资产 bundle 入 release/v1.0/self_deploy/ | 30min | **已完成** |
+
+### Release 产出
+
+| 类别 | 数量 | 说明 |
+|------|------|------|
+| 顶层文档 | 12 | README × 3 lang + USER_GUIDE × 3 lang + GLOSSARY × 3 lang + DEMO_QUESTIONS + KNOWN_LIMITATIONS.en + CHANGELOG |
+| self_deploy 文档 | 15 | self_deploy/README × 3 lang + 4 平台 tutorial × 3 lang |
+| 4 平台 deploy bundle | 75 上传 | claude 19 / chatgpt 9 / gemini 4 / notebooklm 43 + 各自 system_prompt 或 instructions |
+| **总计** | **27 文档 + 4 平台 bundle** | **总尺寸 26M, 公司云直接分发** |
+
+### 质量结论
+
+- Rule A N=3 抽检：15 段 / 0 numerical drift / 0 SDTM term drift / 0 fabrication
+- Rule D 隔离：6 不同 family reviewer（pr / omc:critic 两轮 / feature-dev / omc:verifier × 2）
+- 22 fix edits：MAJOR ×2（cross-language link suffix）+ MINOR ×20（footer / terminology / DEMO 漏点）
+- git tag：`v1.0-company-release`
 
 ## Phase 7: RAG + 知识图谱 + 数据集校验（设计完成）
 
