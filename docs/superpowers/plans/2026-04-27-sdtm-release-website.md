@@ -351,6 +351,8 @@ git commit -m "07 Website Phase 1.1 — Astro minimal scaffold (web/)"
 
 ### Task 1.2: Install dependencies
 
+> **Astro v6 + Tailwind v4 integration note (2026-04-27 erratum).** The legacy `@astrojs/tailwind` integration only declares peer-dep support for Astro 3/4/5 and refuses to install against Astro 6. The supported 2026 path is the framework-agnostic `@tailwindcss/vite` plugin, registered via Astro's `vite.plugins` config. PostCSS-side deps (`@tailwindcss/postcss`, `postcss`, `autoprefixer`) are also dropped — `@tailwindcss/vite` compiles Tailwind directly through Vite/Lightning CSS.
+
 **Files:**
 - Modify: `web/package.json`
 
@@ -358,8 +360,8 @@ git commit -m "07 Website Phase 1.1 — Astro minimal scaffold (web/)"
 
 ```bash
 cd web
-npm install astro @astrojs/react @astrojs/sitemap @astrojs/tailwind react react-dom
-npm install -D @types/react @types/react-dom typescript tailwindcss@next @tailwindcss/postcss postcss autoprefixer
+npm install astro @astrojs/react @astrojs/sitemap react react-dom
+npm install -D @types/react @types/react-dom typescript tailwindcss@next @tailwindcss/vite
 npm install @fontsource/playfair-display @fontsource/source-serif-pro @fontsource/jetbrains-mono
 npm install -D vitest @vitest/ui @testing-library/react @testing-library/jest-dom jsdom @playwright/test @vitejs/plugin-react
 npm install -D pagefind
@@ -387,16 +389,18 @@ git commit -m "07 Website Phase 1.2 — install Astro + React + Tailwind v4 + Pa
 // web/astro.config.mjs
 import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
-import tailwind from '@astrojs/tailwind';
 import sitemap from '@astrojs/sitemap';
+import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
   site: 'https://sdtm-pedia.pages.dev',  // replace with custom domain when set
   integrations: [
     react(),
-    tailwind({ applyBaseStyles: false }),
     sitemap(),
   ],
+  vite: {
+    plugins: [tailwindcss()],
+  },
   i18n: {
     defaultLocale: 'zh',
     locales: ['zh', 'en', 'ja'],
@@ -423,55 +427,31 @@ git add web/astro.config.mjs
 git commit -m "07 Website Phase 1.3 — astro.config: react + tailwind + sitemap + i18n (zh default, prefixDefaultLocale)"
 ```
 
-### Task 1.4: Configure Tailwind v4
+### Task 1.4: Tailwind v4 CSS-first entry stub
+
+> **Tailwind v4 is CSS-first.** No JS `tailwind.config.mjs` is needed — theme tokens, font families, and dark-mode selector are declared inside CSS via `@theme {…}` and `@custom-variant`. No `postcss.config.mjs` either, since `@tailwindcss/vite` (registered in Task 1.3) compiles Tailwind through Vite directly. Phase 2 §2.1 will fill in the full token set inside the same `global.css`. This task only creates the minimal entry so Tailwind utilities resolve in any Phase 1 smoke test.
 
 **Files:**
-- Create: `web/tailwind.config.mjs`
-- Create: `web/postcss.config.mjs`
+- Create: `web/src/styles/global.css`
 
-- [ ] **Step 1: tailwind.config.mjs**
-
-```javascript
-export default {
-  content: ['./src/**/*.{astro,html,js,jsx,ts,tsx,md,mdx}'],
-  darkMode: ['class', '[data-theme="dark"]'],
-  theme: {
-    extend: {
-      fontFamily: {
-        serif: ['"Source Serif Pro"', 'Georgia', 'serif'],
-        display: ['"Playfair Display"', '"Source Serif Pro"', 'Georgia', 'serif'],
-        mono: ['"JetBrains Mono"', '"Courier New"', 'monospace'],
-      },
-      colors: {
-        bg: 'var(--bg)',
-        'bg-alt': 'var(--bg-alt)',
-        ink: 'var(--ink)',
-        'ink-mute': 'var(--ink-mute)',
-        'ink-faint': 'var(--ink-faint)',
-        accent: 'var(--accent)',
-        rule: 'var(--rule)',
-      },
-    },
-  },
-};
-```
-
-- [ ] **Step 2: postcss.config.mjs**
-
-```javascript
-export default {
-  plugins: {
-    '@tailwindcss/postcss': {},
-    autoprefixer: {},
-  },
-};
-```
-
-- [ ] **Step 3: Commit**
+- [ ] **Step 1: Stub global.css**
 
 ```bash
-git add web/tailwind.config.mjs web/postcss.config.mjs
-git commit -m "07 Website Phase 1.4 — tailwind config: var-driven colors + serif/display/mono fonts + dark via [data-theme=dark]"
+cd web
+mkdir -p src/styles
+```
+
+`web/src/styles/global.css`:
+```css
+/* Tailwind v4 entry. Phase 2 §2.1 expands this with @theme tokens, fonts, and dark-mode rules. */
+@import "tailwindcss";
+```
+
+- [ ] **Step 2: Commit**
+
+```bash
+git add web/src/styles/global.css
+git commit -m "07 Website Phase 1.4 — Tailwind v4 CSS entry stub (@import tailwindcss; full theme deferred to §2.1)"
 ```
 
 ### Task 1.5: Set up directory structure + assets
@@ -632,9 +612,7 @@ git commit -m "07 Website Phase 1.7 — Playwright config (chromium, reuse dev s
 @import "@fontsource/jetbrains-mono/500.css";
 @import "@fontsource/jetbrains-mono/700.css";
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 :root, [data-theme="light"] {
   --bg:        #f8f5ef;
