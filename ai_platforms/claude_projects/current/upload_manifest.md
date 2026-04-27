@@ -6,7 +6,7 @@
 ## 当前状态
 - 阶段: v2.0-setup
 - 文件数: 9 (v1 不变 8 + system_prompt_v2)
-- 总 tokens: TBD (Stage v2.1 起测)
+- 总 tokens: 1,336,360 (v2.6 终态, ~77% capacity)
 
 ## 阶段历史
 

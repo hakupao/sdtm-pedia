@@ -1,0 +1,118 @@
+{
+  "project": "07_release_v1.0",
+  "tier": 2,
+  "started": "2026-04-27T11:30:00Z",
+  "completed": "2026-04-27T13:15:00Z",
+  "wall_clock_actual": "1h45m",
+  "wall_clock_planned": "5h30m",
+  "savings_pct": 68,
+  "current_phase": "E-completed",
+  "status": "completed",
+  "phases": {
+    "A": {
+      "status": "completed",
+      "completed_at": "2026-04-27T11:45:00Z",
+      "wall": "30min",
+      "deliverables": [
+        ".work/07_release/PLAN.md (270 lines)",
+        ".work/07_release/subagent_prompts/worker_{b,c,d}_*.md",
+        "ai_platforms/release/v1.0/{DEMO_QUESTIONS.md,KNOWN_LIMITATIONS.en.md,CHANGELOG.md}",
+        "stale_marker_fixes (chatgpt/gemini ROADMAP + claude upload_manifest TBD)",
+        "CLAUDE.md temporary routing rule"
+      ]
+    },
+    "B": {
+      "status": "completed",
+      "completed_at": "2026-04-27T12:06:00Z",
+      "wall": "7min",
+      "runtime_pivot": "omc-teams tmux idle 1h (3 panes stuck on Bypass Permissions warning) → Agent runtime 7min (D-RELEASE-1)",
+      "agent_dispatch": {
+        "worker_b": "oh-my-claudecode:executor (opus) → 3 zh files: USER_GUIDE / README / self_deploy/README",
+        "worker_c": "oh-my-claudecode:executor (opus) → 2 zh files: chatgpt_tutorial + gemini_tutorial",
+        "worker_d": "oh-my-claudecode:executor (sonnet) → 2 zh files: claude_tutorial + notebooklm_tutorial (copy-adapt)"
+      },
+      "output_files": 7,
+      "output_chars_zh_total": 48748
+    },
+    "C": {
+      "status": "completed",
+      "completed_at": "2026-04-27T12:53:00Z",
+      "wall": "10min (en batch ~5min + ja batch ~5min)",
+      "translator_count": 14,
+      "agent_type": "oh-my-claudecode:executor (sonnet × 14)",
+      "en_batch": 7,
+      "ja_batch": 7,
+      "output_files": 14,
+      "all_files_present": true
+    },
+    "D": {
+      "status": "completed",
+      "completed_at": "2026-04-27T13:00:00Z",
+      "wall": "25min (5 reviewer parallel ~15min + 22 fix edits ~5min + Rule A audit ~3min)",
+      "rule_d_chain": {
+        "R1": "pr-review-toolkit:code-reviewer (en lang + SDTM term)",
+        "R2": "oh-my-claudecode:critic opus (ja 敬体 + industry usage)",
+        "R3": "feature-dev:code-reviewer (cross-platform consistency)",
+        "R4": "oh-my-claudecode:verifier (DEMO answer fidelity)",
+        "R5": "oh-my-claudecode:critic opus 二轮 (beginner readability)"
+      },
+      "rule_a_audit": {
+        "agent": "oh-my-claudecode:verifier",
+        "n_samples": 3,
+        "paragraphs_audited": 15,
+        "verdict": "PASS (0 numerical drift / 0 SDTM term drift / 0 fabrication / 2 LOW polish 已修)",
+        "evidence": ".work/07_release/evidence/checkpoints/rule_a_translation_audit.md"
+      },
+      "fix_edits_applied": 22,
+      "fix_summary": [
+        "MAJOR x2: README.en.md + README.ja.md L7/20/26 cross-language link suffix .zh.md → .en.md/.ja.md (6 edits)",
+        "MINOR x6: chatgpt + gemini tutorial × 3 lang footer 加 公司发布版/Company Release/社内公開版",
+        "MINOR x3: claude_tutorial.ja.md L3 セルフデプロイ教程→チュートリアル + L143/228 ゼロ臆造→ハルシネーションなし",
+        "MINOR x1: gemini_tutorial.ja.md L74 クローズポイント→重要検証項目",
+        "MINOR x6: USER_GUIDE.ja.md 反虚構→アンチハルシネーション + 跨ドメイン→クロスドメイン + 跨変数→クロスドメイン変数 + 幻覚→ハルシネーション",
+        "MINOR x3: notebooklm_tutorial.{zh,en,ja}.md L121 orphan path → ../../../SMOKE_V4.md",
+        "MINOR x1: DEMO_QUESTIONS.md D7 加 AESCAN to serious sub-variable list",
+        "MINOR x2 (Rule A): USER_GUIDE.en.md Four-Platform Roles + self_deploy/README.ja.md 章の順序を厳守して"
+      ],
+      "deferred_to_v1_1": [
+        "R5 8 项 polish (USER_GUIDE.zh.md §1 重写 / GLOSSARY / pacing 统一 / instructions size 9011 vs 8925 单位修齐 / 内部 codename 清扫 / Q1-Q10 vs D0-D9 编号统一)"
+      ]
+    },
+    "E": {
+      "status": "completed",
+      "completed_at": "2026-04-27T13:15:00Z",
+      "wall": "30min",
+      "deliverables": [
+        ".work/07_release/RETROSPECTIVE.md (Rule C 三段 + 决策复盘 + Rule A/B/C/D/E 合规)",
+        "git tag v1.0-company-release",
+        "CLAUDE.md cleanup (移除 Release v1.0 Worker Protocol routing block + Key Paths 加 release v1.0 entry)",
+        "MANIFEST.md + worklog.md + docs/PROGRESS.md 同步",
+        "subagent_prompts/worker_{b,c,d}_*.md 删除 (one-shot kickoff cleanup)",
+        "git commit + push"
+      ]
+    }
+  },
+  "deliverables_total": {
+    "release_files": 24,
+    "language_breakdown": "12 zh + 6 en + 6 ja",
+    "filetree_root": "ai_platforms/release/v1.0/",
+    "filelist": [
+      "README.{zh,en,ja}.md",
+      "USER_GUIDE.{zh,en,ja}.md",
+      "DEMO_QUESTIONS.md",
+      "KNOWN_LIMITATIONS.en.md",
+      "CHANGELOG.md",
+      "self_deploy/README.{zh,en,ja}.md",
+      "self_deploy/{claude,chatgpt,gemini,notebooklm}_tutorial.{zh,en,ja}.md"
+    ]
+  },
+  "rule_compliance": {
+    "rule_a": "PASS (Rule A 抽检 N=3 / 15 段 / 0 drift / evidence 留)",
+    "rule_b": "N/A (0 failed attempt to archive)",
+    "rule_c": "PASS (RETROSPECTIVE.md 三段 + 决策复盘)",
+    "rule_d": "PASS (writer/reviewer/Rule A verifier 6 不同 family 严格隔离)",
+    "rule_e": "candidates carried forward to ~/.claude/CLAUDE.md (R-RELEASE-1/2/3/5)"
+  },
+  "evidence_root": ".work/07_release/evidence/",
+  "recovery_hint": "Phase E 全部完成 2026-04-27 13:15. 24 release files 落盘 ai_platforms/release/v1.0/. Phase B Agent runtime pivot (omc-teams 1h idle → Agent 7min). Phase C 14 translator parallel. Phase D 5 reviewer + Rule A 抽检 / 22 fix edits / 8 polish 留 v1.1. Retro 三段 (R-RELEASE-1..7 / G-RELEASE-1..6 / D-RELEASE-1..7). git tag v1.0-company-release. CLAUDE.md routing block removed."
+}

@@ -1,6 +1,6 @@
 # Gemini Gems — 行进路线
 
-> 状态: **待开始** (范本就绪, 等 Phase 0 启动)
+> 状态: **Phase 5 sign-off 完成** (2026-04-23 PM, R2 16/17 双硬 gate PASS; v7.1 LIVE 2026-04-24 PM post-apply Q10 PASS+); release v1.0 公司发布 2026-04-27.
 > 着重方向: 大范围探索 + 全域对比 + 长上下文全量
 > 平台: Gemini Advanced — Gems
 > Tier 等级: **Tier 1-2** (预计 3-8 步, 半天-1 天; 本系列最轻量平台)
