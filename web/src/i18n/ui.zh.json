@@ -1,0 +1,19 @@
+{
+  "nav.guide": "文档",
+  "nav.platforms": "4 平台",
+  "nav.demo": "演示",
+  "nav.download": "下载",
+  "hero.cta.read": "查看文档 →",
+  "hero.cta.download": "下载 .ZIP",
+  "hero.cta.github": "→ GITHUB",
+  "section.platforms.subhead": "四种部署, 各有性格.",
+  "section.compare.subhead": "按你想做的事来挑.",
+  "section.compare.cta": "→ 完整对比",
+  "section.demo.subhead": "试试这三道. 完整十题在文档里.",
+  "section.demo.cta": "→ 完整 10 题",
+  "section.downloads.subhead": "自部署你自己的.",
+  "section.downloads.cta": "→ 全部 release 资产",
+  "footer.maintainer": "维护: Daisy. 内部发布版.",
+  "search.placeholder": "搜索文档...",
+  "search.shortcut": "Cmd K"
+}

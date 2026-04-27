@@ -1,0 +1,19 @@
+{
+  "nav.guide": "ドキュメント",
+  "nav.platforms": "4 プラットフォーム",
+  "nav.demo": "デモ",
+  "nav.download": "ダウンロード",
+  "hero.cta.read": "ガイドを読む →",
+  "hero.cta.download": ".ZIP をダウンロード",
+  "hero.cta.github": "→ GITHUB",
+  "section.platforms.subhead": "4 つのデプロイ、それぞれの性格。",
+  "section.compare.subhead": "やりたいことで選ぶ。",
+  "section.compare.cta": "→ 完全比較",
+  "section.demo.subhead": "この 3 問をお試しください。10 問全てはガイドに。",
+  "section.demo.cta": "→ 全 10 問",
+  "section.downloads.subhead": "セルフデプロイしましょう。",
+  "section.downloads.cta": "→ 全リリース",
+  "footer.maintainer": "メンテナー: Daisy. 社内公開版。",
+  "search.placeholder": "ドキュメント検索...",
+  "search.shortcut": "Cmd K"
+}
