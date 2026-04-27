@@ -1,0 +1,30 @@
+[
+  {
+    "code": "D0",
+    "kind": "WARMUP",
+    "question": {
+      "zh": "AESER 是 SDTMIG v3.4 哪个域什么变量? Core? CT C-code?",
+      "en": "Which SDTMIG v3.4 domain and variable is AESER? Core? CT C-code?",
+      "ja": "AESER は SDTMIG v3.4 のどのドメイン・変数？Core？CT C-code？"
+    }
+  },
+  {
+    "code": "D1",
+    "kind": "NEW DOMAIN",
+    "question": {
+      "zh": "EGFR / Exon 19 / dbSNP 怎么映射到 GF 域?",
+      "en": "How do EGFR / Exon 19 / dbSNP map to the GF domain?",
+      "ja": "EGFR / Exon 19 / dbSNP は GF ドメインにどうマッピングされる？"
+    }
+  },
+  {
+    "code": "D5",
+    "kind": "PREMISE PROBE",
+    "question": {
+      "zh": "SUPPTS 是 SDTM 标准里什么? QORIG 必填吗?",
+      "en": "What is SUPPTS in the SDTM standard? Is QORIG required?",
+      "ja": "SUPPTS は SDTM 標準の何？QORIG は必須？"
+    },
+    "hint": { "zh": "(故意问错前提)", "en": "(deliberate false premise)", "ja": "(意図的な誤前提)" }
+  }
+]
