@@ -361,7 +361,7 @@ git commit -m "07 Website Phase 1.1 — Astro minimal scaffold (web/)"
 ```bash
 cd web
 npm install astro @astrojs/react @astrojs/sitemap react react-dom
-npm install -D @types/react @types/react-dom typescript tailwindcss@next @tailwindcss/vite
+npm install -D @types/react @types/react-dom typescript tailwindcss@^4 @tailwindcss/vite
 npm install @fontsource/playfair-display @fontsource/source-serif-pro @fontsource/jetbrains-mono
 npm install -D vitest @vitest/ui @testing-library/react @testing-library/jest-dom jsdom @playwright/test @vitejs/plugin-react
 npm install -D pagefind
