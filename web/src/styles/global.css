@@ -65,3 +65,16 @@ html, body {
     scroll-behavior: auto !important;
   }
 }
+
+.enter-fade {
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 400ms ease-out, transform 400ms ease-out;
+}
+.enter-fade.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .enter-fade { opacity: 1; transform: none; transition: none; }
+}
