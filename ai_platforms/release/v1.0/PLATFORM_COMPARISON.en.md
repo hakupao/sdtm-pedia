@@ -79,7 +79,7 @@ title: "4 Platforms — Multi-dimensional Comparison"
 | Claude Projects | Precise variable lookup + multi-step reasoning (Core + C-code + cross-variable, e.g. PCTPT five-item set); wrong-premise correction (SUPPTS); domain boundary determination |
 | ChatGPT GPTs | Full-domain queries; team sharing / GPT Store publishing; organization-internal sharing without review |
 | Gemini Gems | One-shot large-context ingestion / cross-domain pattern comparison; long sessions; broad exploration; deep 4-file merge |
-| NotebookLM | Strong anti-hallucination (audit / compliance); inline citation verification; refusal preferred over fabrication; cross-domain death-day alignment and v3.4 new-domain PASS+ |
+| NotebookLM | Strong anti-hallucination (audit / compliance); inline citation verification; refusal preferred over fabrication; cross-domain death-date–level alignment and v3.4 new-domain PASS+ |
 
 ## 9. Worst-at Scenario
 
