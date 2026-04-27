@@ -5,9 +5,17 @@ import ja from './ui.ja.json';
 export type Lang = 'zh' | 'en' | 'ja';
 export const supportedLangs: Lang[] = ['zh', 'en', 'ja'];
 
-const DICTS: Record<Lang, Record<string, string>> = { zh, en, ja };
+// Single source of truth for UI keys. zh is the seed dictionary; en/ja must
+// have the same keys (enforced by helpers.test.ts key parity tests).
+export type UIKey = keyof typeof zh;
 
-export function getUIStrings(lang: Lang): Record<string, string> {
+const DICTS: Record<Lang, Record<UIKey, string>> = {
+  zh,
+  en: en as Record<UIKey, string>,
+  ja: ja as Record<UIKey, string>,
+};
+
+export function getUIStrings(lang: Lang): Record<UIKey, string> {
   if (!supportedLangs.includes(lang)) throw new Error(`Unsupported lang: ${lang}`);
   return DICTS[lang];
 }

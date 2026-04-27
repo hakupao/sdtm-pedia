@@ -1,8 +1,10 @@
 ---
 import { getUIStrings, type Lang } from '../../i18n/helpers';
+import platforms from '../../data/platforms.json';
 interface Props { lang: Lang; }
 const { lang } = Astro.props;
 const t = getUIStrings(lang);
+const statusLine = platforms.map((p) => `${p.name} ${p.scoreText}/17`).join(' · ');
 const headline = {
   zh: { main: 'SDTM 知识库,', em: '横跨四个', tail: 'AI 平台.' },
   en: { main: 'SDTM Knowledge,', em: 'across four', tail: 'AI platforms.' },
@@ -35,6 +37,6 @@ const subdeck = {
     </a>
   </div>
   <div class="mt-4 font-mono text-[9px] tracking-wider text-ink-mute">
-    <span class="text-accent">●</span>  LIVE · CLAUDE 17/17 · GPT 16.5 · GEMINI 16 · NBLM 15
+    <span class="text-accent">●</span>  LIVE · {statusLine}
   </div>
 </section>

@@ -1,5 +1,8 @@
 import { describe, it, expect } from 'vitest';
 import { getUIStrings, replaceLangInPath, supportedLangs, type Lang } from './helpers';
+import zh from './ui.zh.json';
+import en from './ui.en.json';
+import ja from './ui.ja.json';
 
 describe('i18n.getUIStrings', () => {
   it('returns zh dictionary', () => {
@@ -10,6 +13,15 @@ describe('i18n.getUIStrings', () => {
   });
   it('throws on invalid lang', () => {
     expect(() => getUIStrings('fr' as Lang)).toThrow();
+  });
+});
+
+describe('i18n key parity', () => {
+  it('en has same keys as zh', () => {
+    expect(Object.keys(en).sort()).toEqual(Object.keys(zh).sort());
+  });
+  it('ja has same keys as zh', () => {
+    expect(Object.keys(ja).sort()).toEqual(Object.keys(zh).sort());
   });
 });
 
