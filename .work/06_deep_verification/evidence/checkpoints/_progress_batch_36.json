@@ -1,0 +1,272 @@
+{
+  "batch_id": 36,
+  "session_id": "session_c_round_8",
+  "round": 8,
+  "status": "completed_with_halt_and_resume",
+  "scope_pages": "ig34 p.351-360",
+  "page_count": 10,
+  "atoms_done": 241,
+  "atoms_breakdown": {
+    "36a_p351_355_executor_baseline": 112,
+    "36b_p356_360_post_OptionH_executor_repair": 129,
+    "by_page": {
+      "351": 22, "352": 10, "353": 18, "354": 35, "355": 27,
+      "356": 29, "357": 25, "358": 26, "359": 25, "360": 24
+    },
+    "by_atom_type_combined": {
+      "TABLE_ROW": 159, "LIST_ITEM": 23, "HEADING": 16, "SENTENCE": 20,
+      "TABLE_HEADER": 9, "CODE_LITERAL": 5, "NOTE": 2
+    }
+  },
+  "failures": 0,
+  "halt_event": {
+    "triggered": true,
+    "halt_reason": "N3_NEW8d_4th_cumulative_writer_direction_value_hallucination + drift_cal_both_thresholds_FAIL",
+    "halt_protocol": "G-MS-4 round 7 1st LIVE-FIRE EFFECTIVE precedent → round 8 batch 36 = 2nd LIVE-FIRE EFFECTIVE",
+    "halt_state_file": "evidence/checkpoints/halt_state_batch_36.md (191 lines, 13.7KB)",
+    "halt_evidence_summary": "drift cal p.357 verbatim 0% FAIL (strict 100% PASS) + 38 corrupt rows in 36b writer (5 tu.xpt p.356 + 32 tr.xpt p.356-358 + 1 VSCAT p.358) + multi-axis writer-direction motif (char corruption R1↔RT, numeric value hallucination 0↔9, test code corruption ACNSD↔ACRSD/PCBSD↔PCRSD, classification mis-assignment NEW↔TARGET, paraphrase Sum Diameters↔Sum of Diameters of Target, header column collapse TRSTRESC×4 vs distinct TRSTRESC/TRSTRESN/TRSTRESU/TRSTAT, header typos TRORRSU/TRREAND/TREVALDI)",
+    "user_authorization_received": "RESUME_BATCH_36 option=A (Option H bulk repair via executor rerun on p.356/358/359/360)",
+    "resume_action": "Option H bulk repair: executor rerun produced 104 atoms across 4 corrupt pages + drift_cal p.357 executor 25 atoms = 129 atoms clean replacement for 36b writer's 127 corrupt atoms"
+  },
+  "repair_cycles": 2,
+  "repair_cycle_notes": [
+    "Cycle 1 (Option H bulk via executor rerun, post-halt user authorization Option A, 129 atoms replacement): Rule B backup pdf_atoms_batch_36b.jsonl.pre-OptionH-bulk.bak preserved corrupt 127-atom 36b writer baseline. Dispatched oh-my-claudecode:executor on p.356, p.358, p.359, p.360 (4 pages, sequential Read tool 1-page-at-a-time per writer prompt v1.4 IR1 hard constraint) + reused drift_cal_p357_executor_rerun.jsonl (25 atoms p.357). Combined 104+25=129 atoms via Python sort-by-atom_id + JSONL write. Post-merge schema sweep PASS: 0 9-enum violations / 0 N8 NEW9 L2 short-bracket violations / 0 atom_id format violations / 0 HEADING sib collisions / 27 distinct .xpt-parent atoms (8 tu.xpt + 8 tr.xpt + 6 relrec.xpt + 5 vs.xpt) flagged AMBIGUOUS for v1.5 codification (joins O-P1-122). N5 cross-page TABLE_HEADER continuation: 23 NO_PRECEDING_HEADER (sister batch 35 dependency, expected) + 1 cross-page minor mismatch (p.356 a001 23-pipe vs p.355 a002 24-pipe TR Example 2 row 27 — 1 empty cell delta). Spot-check post-repair PASS: Row 9 (0|0|0 vs writer 9|9|9) + VSCAT (Perm Core present) + Row 14 (ACNSD vs ACRSD) + Row 15 (PCBSD vs PCRSD) + Row 19 (NEW/R1-NEW01 vs TARGET/RT-NEWT1) all corrected.",
+    "Cycle 2 (Plan agent inaugural reviewer slot #46 pivot from superpowers:verification-before-completion SKILL not AGENT): Originally pre-allocated reviewer subagent_type 'superpowers:verification-before-completion' failed Agent dispatch with error 'Agent type not found. Available agents: ...' — same root-cause as round 7 O-P1-110 motif (skills mistakenly listed in kickoff §1 family pre-allocation). Pivoted to Plan agent inaugural burn (Plan family unburned in P1 cumulative). Plan returned CONDITIONAL_PASS, 9 CONFIRM / 0 OVERRIDE / 1 AMBIGUOUS-lean-OVERRIDE on atom 6 (p.356 a005 relrec.xpt parent_section table-caption discipline). v1.4 fix matrix 7/8 PASS + 1 ADVISORY (item S). Reviewer accuracy 95.0% ≥80% Rule D PASS. Plan agent toolset adaptation: no Write tool — inline markdown output for main-session write substitution (analog to round 5+6+7 Write-tool-less precedents)."
+  ],
+  "rule_a": {
+    "reviewer_slot": 46,
+    "reviewer_type_attempted": "superpowers:verification-before-completion",
+    "reviewer_type_attempted_status": "FAILED — SKILL not registered AGENT (round 7 O-P1-110 motif RECURRING despite v1.4 codification removing data/firecrawl families for same reason)",
+    "reviewer_type_actual": "Plan",
+    "reviewer_audit_pivot_index": 27,
+    "reviewer_family": "Plan",
+    "reviewer_family_burn_count_post_batch": 1,
+    "reviewer_family_pool_status_post_batch": "Plan family INAUGURAL burn (1/1 single-agent family); 27th cumulative AUDIT pivot validates AUDIT recipe at 9th family pool inaugural (Plan post claude-code-guide reserved batch 37); validates pre-allocation pivot fallback chain Plan ← claude-code-guide ← codex:codex-rescue ← Explore ← general-purpose 3rd burn",
+    "audit_mode_pivot_label": "AUDIT for SDTM PDF atomization quality, NOT software architect implementation plan design / NOT step-by-step plan output",
+    "tools_adaptation": "Write-tool-less — Plan agent toolset: All tools except Agent, ExitPlanMode, Edit, Write, NotebookEdit. Reviewer produced inline markdown verdicts.jsonl + summary.md content; main session wrote files verbatim per established Write-tool-less substitution pattern (round 5 #37 general-purpose + round 6 #38 pr-family + round 7 #41 general-purpose 2nd burn fallback precedents)",
+    "sample_size": 10,
+    "sample_seed": 20260641,
+    "sample_coverage": "1/page p.351-360 stratified (4 TABLE_ROW + 2 LIST_ITEM + 2 TABLE_HEADER + 1 SENTENCE + 1 HEADING)",
+    "raw_pass": 9,
+    "raw_partial": 1,
+    "raw_fail": 0,
+    "raw_weighted_pct": 95.0,
+    "main_session_adjudication": {
+      "verdict": "PASS at threshold ≥90% (95.0% weighted) post Option H bulk repair; 1 AMBIGUOUS atom 6 (p.356 a005 relrec.xpt) parent_section discipline regression flagged O-P1-122 MEDIUM v1.5 codification candidate (joins round 7 O-P1-114 deferred decision pattern); 0 FAIL on verbatim/atom_type/heading_chain/table_pipes/N3-N8 dimensions = post-repair writer-direction VALUE HALLUCINATION COMPLETELY REPAIRED; v1.4 fix matrix 7/8 PASS + 1 ADVISORY (item S = N6 NEW7 L6 .xpt textual-heading-as-parent advisory)",
+      "post_adjudication_pass": 9,
+      "post_adjudication_partial": 1,
+      "post_adjudication_fail": 0,
+      "post_adjudication_weighted_pct": 95.0,
+      "post_adjudication_verdict": "PASS (1 AMBIGUOUS deferred to v1.5 cut session, joins round 7 O-P1-114 + round 8 batch 36 O-P1-122 .xpt-as-parent ~27 atoms cumulative scope retroactive sweep candidate)"
+    },
+    "reviewer_audit_mode_pivot_quality": {
+      "reflection": "Plan agent normal mode (software architect implementation plan design with step-by-step plans + critical files identification + architectural trade-offs) mapped naturally to SDTM atomization quality audit via 3-axis analogy: 'implementation plan design ↔ Rule A pre-DONE audit plan' / 'identifying critical files ↔ atom verbatim ground-truth verification' / 'architectural trade-offs ↔ atom_type 9-enum coverage trade-offs'. Plan family inaugural burn observation: Plan brings architectural-overview posture which materialized as careful parent_section discipline scrutiny (1/10 AMBIGUOUS-lean-OVERRIDE on parent_section dimension, 0 on other dimensions) — analogous to Plan's normal mode flagging architectural debt + abstraction-leak patterns in code review.",
+      "plan_family_inaugural_recipe_consistency": "PASS — single-agent family inaugural burn at 27th AUDIT pivot validates AUDIT recipe at 9th family pool (Plan post round 7 8 family pools + Plan inaugural #46 + claude-code-guide reserved #47 + codex/Explore unburned). Recipe family-agnostic AND single-agent-family-acceptable validated. Write-tool-less adaptation pattern reused successfully.",
+      "round_8_2nd_inaugural_per_round": "Round 8 batch 36 = 2nd cumulative single-agent inaugural burn (round 5 batch 28 #28 general-purpose 1st single-agent family inaugural + round 8 batch 36 Plan 2nd); pattern consolidates fallback chain expansion for future rounds with shrinking remaining family pool."
+    },
+    "tom_anchor_audit_n_cumulative": 250,
+    "tom_anchor_consecutive_batches": 25,
+    "tom_anchor_fp_count": 0,
+    "tom_anchor_inversion_count": 0,
+    "special_checks": {
+      "new6_b_l4_self_parent": "PASS proactively (10th cumulative round 8 NEW) — VS – Description/Overview L4 sib=1 + VS – Specification L4 sib=2 + VS – Assumptions L4 sib=3 + VS – Examples L4 sib=4 (atoms p0358_a013/a015 + p0360_a006/a011) parent='§6.3.13 Vital Signs (VS)' canonical NEVER self-parent; round 4 4× IS/LB/Microbiology Domains/GF + round 5 2× MI/PD + round 6 batch 31 2× RP/RE + round 7 batch 34 1× SC + round 8 batch 36 4× VS = 14 cumulative L4 self-parent NOT proactive precedents",
+      "new7_l3_round_8_first_transition": "PASS — §6.3.13 Vital Signs (VS) L3 sib=13 NEW (atom p0358_a012) parent='§6.3 [MODELS FOR FINDINGS DOMAINS]' short-bracket all-caps per N11 chapter-short-bracket extension; 4th cumulative L3 sub-domain transition in P1 (round 6 batch 29 §6.3.6 MO + §6.3.7 Morph/Phys = 1st+2nd; round 7 batch 34 §6.3.10 SC = 3rd; round 8 batch 36 §6.3.13 VS = 4th); §6.3.13 is single-domain L3 LEAF-pattern (with code VS), NOT group container — analogous to round 7 §6.3.10 SC + round 6 §6.3.6 MO single-domain L3 leaf-pattern",
+      "new7_l4_sub_section_under_3_6_12": "PASS — §6.3.12.3 Tumor Identification/Tumor Results Examples L4 sib=3 NEW (atom p0353_a005) parent='§6.3.12 Tumor/Lesion Domains' canonical (group container per N6.b NEVER self-parent); analogous to round 5 batch 27 §6.3.5.7.3 Examples L5 peer pattern shared across MB/MS sub-domains, but here §6.3.12.3 is L4 NUMBERED sub-section under §6.3.12 group container (TU+TR sibling)",
+      "new7_l5_chain_under_3_6_13_VS_leaf_pattern": "PASS — VS L4 chain (Description=1/Specification=2/Assumptions=3/Examples=4) emitted per N9 L3-leaf canonical chain start (NO pre-canonical L4 sub-sections — VS does not have Proposed Removal or CDASH Alignment patterns like round 7 §6.3.8 PE); VS L5 Example 1 sib=1 RESTART under VS – Examples L4 (atom p0360_a012 parent='VS – Examples') + vs.xpt L6 sib=1 RESTART under VS – Examples (atom p0360_a019 parent='VS – Examples') per N10 leaf-pattern Examples-at-L5 distinction",
+      "new7_l6_xpt_textual_heading_pattern": "ADVISORY — 4 .xpt L6 textual headings emitted in 36b: relrec.xpt L6 sib=1+sib=4 (Example 2 close + Example 3) + tu.xpt L6 sib=2 (Example 3) + tr.xpt L6 sib=3 (Example 3) + vs.xpt L6 sib=1 (VS Example 1); 27 cumulative .xpt-as-parent_section atoms (8 tu.xpt + 8 tr.xpt + 6 relrec.xpt + 5 vs.xpt) flagged O-P1-122 MEDIUM AMBIGUOUS by reviewer slot #46 — recommend v1.5 codification 'table_caption is NEVER a parent_section' sub-clause OR formal recognition of L6 .xpt textual-heading-as-parent convention",
+      "new7_l6_intra_batch_procedural_handoff_36a_to_36b": "EFFECTIVE post Option H repair — 36a (executor) → 36b (writer corrupt → executor repair via Option H) procedural enforcement applied via (a) drift cal pre-DONE catch on p.357 + (b) main session bulk repair dispatch with inline-prepended 36a terminal state in repair prompt; cross-sub-batch handoff codification round 5 D-MS-4 + round 6 R-MS-5 + round 7 D-MS-4 carry-forward EFFECTIVE 4th live-fire intra-batch round 8",
+      "new7_l6_cross_batch_handoff_with_batch_35_predicted": "PARTIAL — 36a executor correctly continued §6.3.12.2 TR L4 sib=2 + L5 chain Description=1/Specification=2/Assumptions=3 from sister batch 35 territory predicted terminal state (parent_section '§6.3.12.2 Tumor/Lesion Results (TR)' canonical for all 22 p.351 TR Spec TABLE_ROW continuation atoms); cross-BATCH handoff codification round 5 D-MS-2 mandate VALIDATED 3rd live-fire round 8 (round 6 batch 30 1st + round 7 batch 34 2nd + round 8 batch 36 3rd live-fire); reconciler will validate cross-session R15 once sister batches 35+37 DONE",
+      "n14_strict_alternation_methodology_2nd_live_fire": "EFFECTIVE — 36b baseline=writer + drift_cal rerun=executor + Option H repair rerun=executor (all on opposite-family-side per N14 alternation table); cleanly disentangled writer-direction signal from intra-family non-determinism; without N14 alternation, baseline+rerun=same family would have masked the 4th cumulative writer-direction VALUE HALLUCINATION recurrence as intra-family non-determinism. Round 7 batch 33 1st live-fire + round 8 batch 36 2nd live-fire EFFECTIVE methodology validation — codify as N14 STRONGLY VALIDATED post 2nd live-fire",
+      "g_ms_4_halt_fallback_2nd_live_fire": "EFFECTIVE — 4th cumulative writer-direction VALUE HALLUCINATION recurrence detected via drift_cal pre-DONE hook → halt → halt_state_batch_36.md written with 4 resume options + evidence + G-MS-4 protocol → user reviewed + authorized RESUME_BATCH_36 option=A → main session executed Option H bulk repair → reviewer slot #46 confirmed CONDITIONAL_PASS post-repair → DONE. End-to-end G-MS-4 halt-resume cycle 2nd LIVE-FIRE EFFECTIVE post round 7 batch 33 1st live-fire (codify G-MS-4 STRONGLY VALIDATED post 2nd live-fire)"
+    }
+  },
+  "drift_cal": {
+    "triggered": true,
+    "rationale": "MANDATORY per cadence: batch 33→36 every-3-batches + cumulative atoms post-p.325 ≥600 双触发, per v1.4 N14 strict alternation table",
+    "target_page": 357,
+    "target_page_rationale": "dense TR Example 3 tr.xpt 25 TABLE_ROW page in 36b writer baseline scope; Examples table content type per kickoff recommendation; chosen by main session post 36b dispatch",
+    "baseline_subagent_type": "oh-my-claudecode:writer (36b baseline)",
+    "rerun_subagent_type": "oh-my-claudecode:executor (per N14 alternation table baseline writer → rerun executor)",
+    "n14_alternation_compliance": "PASS (alternation table compliance: 36b writer ↔ drift_cal executor cross-family signal disentangle)",
+    "strict_count_overlap_pct": 100.0,
+    "verbatim_hash_overlap_pct_jaccard": 0.0,
+    "verbatim_hash_overlap_pct_intersection_max": 0.0,
+    "dual_threshold_strict_pass": true,
+    "dual_threshold_verbatim_pass": false,
+    "both_thresholds_pass": false,
+    "verdict": "FAIL — both thresholds FAIL (verbatim 0.0% << 80%) → DIRECTION_REVERSED writer-family motif → 4th cumulative writer-direction main-line VALUE HALLUCINATION recurrence (post round 5 O-P1-85 + round 6 O-P1-103 + round 7 O-P1-109) = N3 NEW8.d EMERGENCY-CRITICAL halt threshold crossed → halt + Option H bulk repair user authorization Option A",
+    "direction_reversed_count_post_batch": 12,
+    "value_add_count_post_batch": 13,
+    "writer_direction_main_line_recurrence_count_post_batch": 4,
+    "drift_cal_carrier_8th_cumulative_verification": "PASS post Option H repair — atom ig34_p0357_a001 (Row 2 Example 3 tr.xpt) PDF-cross-checked TARGET / A1 / R1-T02 / DIAMETER / 15 mm / ACE IMAGING / INDEPENDENT ASSESSOR / RADIOLOGIST 1 — verbatim CLEAN (executor rerun ground-truth = PDF, writer original was hallucinated)",
+    "report_file": "evidence/checkpoints/drift_cal_batch_36_p357_report.md (TBD or skipped — halt+Option H supersedes traditional drift cal report; halt_state_batch_36.md §1 + this _progress.json drift_cal block serve as report)",
+    "rerun_jsonl_file": "evidence/checkpoints/drift_cal_p357_executor_rerun.jsonl"
+  },
+  "density_alarm_check_round_8_G_MS_12": {
+    "applied": true,
+    "lowest_per_page_atoms": "p.352=10 (transition zone with TR Spec table tail + TR Assumptions L5 NEW + Assumption LIST_ITEMs head; G-MS-12.a transition floor=8 met)",
+    "highest_per_page_atoms": "p.354=35 (Examples-narrative content type with 3 TABLE_HEADER + 18 TABLE_ROW + 10 SENTENCE supptu narrative + Example 1/2 narrative)",
+    "sub_batch_36a_total": 112,
+    "sub_batch_36a_above_100_floor": true,
+    "sub_batch_36b_total": 129,
+    "sub_batch_36b_above_100_floor_post_OptionH": true,
+    "sub_batch_36b_pre_OptionH_writer_total": 127,
+    "sub_batch_36b_pre_OptionH_above_100_floor": true,
+    "alarm_triggered_sub_batch": false,
+    "alarm_triggered_per_page": false,
+    "main_session_pdf_cross_check_adjudication": "NO ALARM — both 36a (112) + 36b post-Option-H (129) above 100 sub-batch floor; per-page floors all ≥10 (≥15 standard, ≥8 transition floor); no missing sections detected. G-MS-12 density alarm NOT triggered round 8 batch 36."
+  },
+  "new6_format_sweep": {
+    "applied": true,
+    "violations_found": 0,
+    "post_sweep_compliance": "100% — 0 N8 NEW9 L2 short-bracket parent on non-L3-HEADING violations; ONLY §6.3.13 VS L3 sib=13 NEW HEADING (atom p0358_a012) uses parent='§6.3 [MODELS FOR FINDINGS DOMAINS]' short-bracket per N11 chapter-short-bracket extension correct; 14 cumulative L4 self-parent NOT proactive precedents (4 NEW VS L4 atoms post round 8 batch 36)"
+  },
+  "new7_l4_l7_chain_check": {
+    "applied": true,
+    "summary": "QUADRUPLE structural transition single batch: (1) §6.3.12.3 L4 sib=3 NEW Examples sub-section under §6.3.12 group container at p.353 + (2) §6.3.13 VS L3 sib=13 NEW transition at p.358 + (3) DOUBLE L4 sub-section under §6.3.13 VS (Description/Spec/Assump/Examples sib=1/2/3/4 at p.358-360) + (4) Multiple L6 .xpt textual headings (relrec.xpt sib=1+4 / tu.xpt sib=2 / tr.xpt sib=3 / vs.xpt sib=1 RESTART under VS – Examples)",
+    "round_8_NEW_precedents": "QUADRUPLE structural transition single batch — round 8 batch 36 NEW; analogous to round 7 batch 34 QUADRUPLE R12 transition pattern; round 8 confirms multi-level transitions per batch is normal protocol cadence at boundary regions",
+    "first_round_8_v1_4_codification_validation": "Round 8 batch 36 = 1st live-fire validation of v1.4 N1-N14 codification end-to-end: N1 oracle expansion EFFECTIVE (caught header column collapse TRSTRESC×4 vs distinct 4 cols + typos TRORRSU/TRREAND/TREVALDI flagged for repair), N3 NEW8.d EMERGENCY-CRITICAL EFFECTIVE (caught 4th cumulative VALUE HALLUCINATION via drift cal + halt protocol), N5 G-MS-NEW-6-1 EFFECTIVE (38 row pipe-count violations identified in writer, 0 post-repair), N6 NEW7 L6 INTRA-AGENT EFFECTIVE (sub-batch handoff prepend reused for repair dispatch), N8 NEW9 EFFECTIVE (0 L2 short-bracket violations on non-L3-HEADING), N11 chapter-short-bracket EFFECTIVE (§6.3.13 VS L3 sib=13 emitted with §6.3 [...] parent), N14 strict alternation EFFECTIVE 2nd live-fire (drift cal + repair both per alternation table)"
+  },
+  "r12_transition_check": {
+    "applied": true,
+    "transition_pages": [
+      {
+        "page": 352,
+        "type": "L5 sub-section transition (TR Spec table tail → TR – Assumptions L5 NEW)",
+        "atoms_on_page": 10,
+        "threshold": 8,
+        "compliance": "PASS (10 ≥ 8 transition floor)"
+      },
+      {
+        "page": 353,
+        "type": "L4 sub-section transition (TR – Assumptions LIST_ITEMs tail → §6.3.12.3 Tumor Identification/Tumor Results Examples L4 sib=3 NEW + Example 1 L5 NEW)",
+        "atoms_on_page": 18,
+        "threshold": 8,
+        "compliance": "PASS (18 ≥ 8 transition floor)"
+      },
+      {
+        "page": 358,
+        "type": "MAJOR L3 sub-domain transition (§6.3.12.3 Examples tail + relrec.xpt L6 sib=4 → §6.3.13 Vital Signs (VS) L3 sib=13 NEW + VS – Description/Overview L4 sib=1 NEW + VS – Specification L4 sib=2 NEW + VS Spec TABLE_HEADER + VS Spec TABLE_ROWs head)",
+        "atoms_on_page": 26,
+        "threshold": 8,
+        "compliance": "PASS (26 ≥ 8 transition floor; 3-zone partition with all 3 zones substantive)"
+      },
+      {
+        "page": 360,
+        "type": "DOUBLE L4 sub-section transition (VS Spec TABLE_ROW tail → VS – Assumptions L4 sib=3 NEW + VS – Examples L4 sib=4 NEW + VS Example 1 L5 sib=1 NEW + vs.xpt L6 sib=1 NEW + vs.xpt TABLE_HEADER + vs.xpt TABLE_ROWs)",
+        "atoms_on_page": 24,
+        "threshold": 8,
+        "compliance": "PASS (24 ≥ 8 transition floor)"
+      }
+    ],
+    "quadruple_transition_compliance": "PASS — 4 R12 transition pages in single batch (p.352 L5 + p.353 L4 + p.358 MAJOR L3 + p.360 DOUBLE L4); analogous to round 7 batch 34 first QUADRUPLE transition pattern; round 8 batch 36 = 2nd cumulative QUADRUPLE transition single batch precedent"
+  },
+  "r15_cross_batch_sibling_check": {
+    "applied": true,
+    "intra_batch_36_continuity": "PASS post Option H repair — 36a→36b L4/L5/L6 sib chain continues correctly: §6.3.12 group container L3 sib=12 (sister batch 35 territory) → §6.3.12.2 TR L4 sib=2 + L5 chain Description=1/Spec=2/Assumptions=3 (36a) → §6.3.12.3 Examples L4 sib=3 NEW (36a p.353) + Example 1 L5 sib=1 + Example 2 L5 sib=2 (36a p.353-355) → 36b: relrec.xpt L6 sib=1 (Example 2 close p.356) + Example 3 L5 sib=3 (36b p.356) + tu.xpt L6 sib=2 + tr.xpt L6 sib=3 (36b p.356) → 36b p.358: relrec.xpt L6 sib=4 (Example 3 close) → §6.3.13 VS L3 sib=13 NEW + VS L4 chain Description=1/Spec=2/Assump=3/Examples=4 + VS Example 1 L5 sib=1 + vs.xpt L6 sib=1 (RESTART under VS – Examples per N10 leaf-pattern)",
+    "cross_session_continuity_predicted_batch_35_terminal": "PREDICTED state for sister session B batch 35 (p.341-350): §6.3.12 Tumor/Lesion Domains L3 sib=12 (group container) + §6.3.12.1 TU L4 sib=1 + TU L5 chain Description/Spec/Assump/Examples + §6.3.12.2 TR L4 sib=2 head at p.350. Main session pre-dispatch state used '§6.3.12 Tumor/Lesion Domains' L3 + §6.3.12.2 TR L4 sib=2 head. Reconciler will validate cross-session R15 once sister batches 35+37 DONE.",
+    "main_session_local_validation": "L3 sibling chain (under §6.3 [MODELS FOR FINDINGS DOMAINS]): prior cumulative sib=1 DA + sib=2 DD + sib=3 EG + sib=4 IE + sib=5 Specimen-based + sib=6 MO + sib=7 Morph/Phys + sib=8 PE + sib=9 QRS + sib=10 SC (round 7 batch 34) + sib=11 SS (sister batch 35 expected) + sib=12 §6.3.12 (sister batch 35 expected); batch 36 contributes sib=13 VS NEW. L4 sibling chain under §6.3.12 group container: sib=1 TU (sister batch 35) + sib=2 TR (sister batch 35 head + 36a) + sib=3 §6.3.12.3 Examples (36a NEW). L4 sibling chain under §6.3.13 VS L3 leaf: sib=1 Description + sib=2 Specification + sib=3 Assumptions + sib=4 Examples (36b)."
+  },
+  "findings_added": [
+    {
+      "finding_id": "O-P1-121",
+      "severity": "MEDIUM",
+      "category": "kickoff §1 SKILL-vs-AGENT pre-allocation lint missing (recurring O-P1-110 motif round 7 → round 8)",
+      "title": "Reviewer slot #46 originally pre-allocated `superpowers:verification-before-completion` SKILL not registered AGENT — Plan agent inaugural pivot required",
+      "scope": "Kickoff §1 family pre-allocation table reserved `superpowers:verification-before-completion` for batch 36 slot #46 reviewer (per round 8 protocol round 7 carry-forward). Agent dispatch at STEP 5 failed with error 'Agent type superpowers:verification-before-completion not found'. Same root-cause as round 7 O-P1-110 motif (`data:*` + `firecrawl:*` families REMOVED post round 7 codification for being SKILLS not AGENTS). Despite v1.4 codification removal of those 2 families, kickoff §1 still scheduled a SKILL — recurrence indicates registry validation gate missing from kickoff §1 generator.",
+      "atom_id_anchor": "n/a (kickoff-level finding, not atom-level)",
+      "rule_violation": "Kickoff §1 family pre-allocation MUST validate each subagent_type candidate against registered AGENT roster (Task tool's `subagent_type` enum) at pre-allocation time. v1.4 N? candidate (post round 7 O-P1-110 codification appears incomplete — explicit lint missing).",
+      "repair_action": "Pivoted to Plan agent inaugural burn (Plan family unburned in P1 cumulative); Plan returned CONDITIONAL_PASS 95.0% accuracy. Kickoff §1 dispatch failed gracefully (no halt required, single round-trip cost). Plan agent toolset adaptation: Write-tool-less inline markdown output + main-session write substitution.",
+      "v1_5_codification_candidate": "v1.5 NEW codification — kickoff §1 lint: pre-flight check at kickoff §1 generation time validates each `Rule D slot N+1 reserved` candidate against actual agent registry before kickoff is committed. HALT-on-mismatch with explicit list of registered AGENTS. Implementation: kickoff §1 generator script that calls `Task` tool's agent registry list + filters out SKILLS (loaded via `Skill` tool only). Failure mode pattern signature: `Agent type 'X' not found. Available agents: ...` error → registry mismatch.",
+      "round_8_motif": "Round 8 NEW motif: kickoff pre-allocation lint regression. Joins round 7 O-P1-110 (data + firecrawl families removed) as recurring SKILL-vs-AGENT confusion at kickoff-generator level. v1.5 codification mandatory before round 9+ batches."
+    },
+    {
+      "finding_id": "O-P1-122",
+      "severity": "MEDIUM",
+      "category": "writer-family parent_section table_caption regression — .xpt textual heading used as parent_section",
+      "title": "27 atoms in 36b post-Option-H use .xpt file caption as parent_section instead of canonical section ancestor (8 tu.xpt + 8 tr.xpt + 6 relrec.xpt + 5 vs.xpt) — flagged AMBIGUOUS by reviewer slot #46 atom 6",
+      "scope": "Reviewer slot #46 Plan flagged atom 6 (ig34_p0356_a005, relrec.xpt TABLE_HEADER) parent_section='relrec.xpt' as AMBIGUOUS-lean-OVERRIDE. Main-session structural sweep extended scope: 27 cumulative .xpt-as-parent_section atoms in 36b post-Option-H (8 tu.xpt + 8 tr.xpt + 6 relrec.xpt + 5 vs.xpt). Both writer original AND executor repair used .xpt textual heading as parent_section for child rows of those L6 .xpt HEADINGs. Per N7 v1.4 'L6 textual heading canonical full-form' rule, the L6 .xpt textual heading IS used as parent_section consistently — but the reviewer questioned whether `relrec.xpt` (file caption) qualifies as 'textual heading canonical full-form' or whether parent_section should resolve up to §6.3.12.3 (or to a more descriptive form like 'TU – Example 3 Dataset').",
+      "atom_id_anchor": "ig34_p0356_a005 (sample anchor) + 26 other .xpt-parent atoms in 36b post-Option-H (atoms with parent ∈ {tu.xpt, tr.xpt, relrec.xpt, vs.xpt})",
+      "rule_violation": "AMBIGUOUS — both readings defensible. (a) Strict N7 v1.4 reading: L6 textual heading canonical full-form is whatever PDF emits (here `tu.xpt` / `tr.xpt` etc are PDF visual labels for those Example dataset tables). (b) Discipline-extension reading: parent_section should be a SECTION DESCRIPTOR not a FILE CAPTION; resolve to §6.3.12.3 (numbered ancestor) or 'TU – Example 3 Dataset' (descriptive form). Reviewer Plan favored (b) discipline-extension reading per architectural-overview posture.",
+      "repair_action": "DEFERRED to v1.5 cut OR reconciler-side decision — reviewer flagged AMBIGUOUS not FAIL; 27 atoms scope warrants v1.5 codification before mass-rewrite. Joins round 7 O-P1-114 (L7 Example parent canonical-form) + round 8 batch 36 O-P1-122 = 2 cumulative parent_section discipline regression motifs deferred to v1.5 cut session.",
+      "v1_5_codification_candidate": "v1.5 NEW codification — extend N7 / NEW6 parent_section rule: (a) explicit 'table_caption is NEVER a parent_section' sub-clause OR (b) formal recognition of L6 .xpt textual-heading-as-parent convention (codify either way for consistency). Rule A pre-check: if parent_section value matches `^[a-z]+\\.xpt$` or similar caption pattern, flag as discipline regression OR explicit OK per (b). Recommend collecting cumulative scope across rounds 5-7+8 .xpt-as-parent occurrences before bulk fix.",
+      "writer_family_motif": "NEW round-8 motif: writer-family parent_section table_caption regression. Distinct from round 5 O-P1-91 bare 'Example N' shortcut + round 7 O-P1-113 L2 short-bracket parent-skip + round 7 O-P1-114 L7 Example L5-numbered-vs-L6-textual canonical form. Joins parent_section discipline family motif as 4th distinct sub-pattern. Severity MEDIUM because (a) reviewer flagged AMBIGUOUS not FAIL; (b) Option H auto-fix is straightforward once v1.5 codifies preferred form; (c) deferred per project policy — non-blocking for batch 36 closure."
+    },
+    {
+      "finding_id": "O-P1-123",
+      "severity": "INFO",
+      "category": "drift_cal carrier 8/8 cumulative verification milestone post Option H bulk repair",
+      "title": "Drift_cal carrier representative atom 7 (ig34_p0357_a001) PDF-cross-checked PASS post Option H — N3 NEW8.d EMERGENCY-CRITICAL hook EFFECTIVE end-to-end",
+      "scope": "Reviewer slot #46 Plan independently verified atom 7 (Row 2 Example 3 tr.xpt) against PDF p.357: TARGET / A1 / R1-T02 / DIAMETER / 15 mm / ACE IMAGING / INDEPENDENT ASSESSOR / RADIOLOGIST 1 — all verbatim-correct; pipe-count 23 == p.356 a028 tr.xpt header pipe-count. The 4th cumulative writer-direction main-line VALUE HALLUCINATION recurrence on p.357 (writer wrote `RT-T02 / 9 mm / TARGET A2`, PDF says `R1-T02 / 0 mm / NEW A2 R1-NEW01` etc.) is REPAIRED.",
+      "v1_4_codification_validation": "v1.4 N3 NEW8.d EMERGENCY-CRITICAL hook EFFECTIVE — drift cal pre-DONE write hook caught the writer-direction motif → halt → user authorization → Option H repair → reviewer confirmation. End-to-end methodology validated: writer-direction VALUE HALLUCINATION can be detected, halted, repaired, and verified within v1.4 framework. Cumulative drift_cal carrier success rate 8/8 (rounds 1-8 inclusive).",
+      "v1_5_strengthening_recommendation": "Continue drift_cal carrier monitoring on every Rule D audit until cumulative ≥10 with 0 regression. If 4 cumulative writer-direction recurrences continue post v1.4 cut, escalate to v1.5 writer-family ban for Examples-narrative + spec-table content type."
+    },
+    {
+      "finding_id": "O-P1-124",
+      "severity": "INFO",
+      "category": "N14 strict alternation methodology 2nd live-fire EFFECTIVE + G-MS-4 halt fallback 2nd live-fire EFFECTIVE — both v1.4 codifications STRONGLY VALIDATED post 2nd live-fire",
+      "title": "Round 8 batch 36 = 2nd live-fire of N14 strict alternation methodology + G-MS-4 halt fallback (round 7 batch 33 1st live-fire precedent)",
+      "n14_alternation_validation": "36b baseline=writer + drift_cal rerun=executor + Option H repair rerun=executor (all on opposite-family-side per N14 alternation table) — cleanly disentangled writer-direction signal from intra-family non-determinism. Without N14 alternation, baseline+rerun=same family would have masked the 4th cumulative writer-direction VALUE HALLUCINATION recurrence as intra-family non-determinism. **Codify N14 STRONGLY VALIDATED post 2nd live-fire.**",
+      "g_ms_4_halt_fallback_validation": "End-to-end G-MS-4 halt-resume cycle 2nd LIVE-FIRE EFFECTIVE: 4th cumulative writer-direction VALUE HALLUCINATION recurrence detected via drift_cal pre-DONE hook → halt → halt_state_batch_36.md written with 4 resume options + evidence + G-MS-4 protocol → user reviewed + authorized RESUME_BATCH_36 option=A → main session executed Option H bulk repair → reviewer slot #46 confirmed CONDITIONAL_PASS post-repair → DONE. **Codify G-MS-4 STRONGLY VALIDATED post 2nd live-fire.**",
+      "v1_5_codification_recommendation": "Both N14 strict alternation methodology + G-MS-4 halt fallback graduate from 1st-live-fire-EFFECTIVE (round 7) → STRONGLY VALIDATED (round 8 2nd live-fire). Future rounds 9+ should treat both as production-ready protocols (no further validation needed). v1.5 codification: promote both to 'STRONGLY VALIDATED' status in P0_writer_pdf_v1.5 and P0_reviewer_v1.5 prompts."
+    }
+  ],
+  "finding_id_range_allocated": "O-P1-121..124 (4 IDs reserved per round 8 G-MS-13)",
+  "finding_id_range_used": ["O-P1-121", "O-P1-122", "O-P1-123", "O-P1-124"],
+  "finding_id_self_validation_gate": "PASS — all 4 finding IDs ∈ {121, 122, 123, 124}; 0 findings with ID ≤120 (no collision with sister batch 35 O-P1-117..120 or batch 37 O-P1-125..128) or ≥129 (no over-allocation)",
+  "rule_d_slot_used": 46,
+  "rule_d_audit_pivot_count_post_batch": 27,
+  "rule_d_family_post_batch": "Plan family INAUGURAL burn (single-agent family); 27th cumulative AUDIT pivot validates AUDIT recipe at 9th family pool (Plan post round 7 8 family pools + Plan inaugural #46); claude-code-guide reserved batch 37 #47 INAUGURAL; codex:codex-rescue / Explore unburned post round 8 batch 36; general-purpose 3rd burn reserved fallback per round 7 D-MS-5",
+  "files_written": [
+    "evidence/checkpoints/pdf_atoms_batch_36a.jsonl (112 atoms, p.351-355, oh-my-claudecode:executor baseline, schema sweep PASS)",
+    "evidence/checkpoints/pdf_atoms_batch_36b.jsonl (129 atoms, p.356-360, post Option H bulk repair via executor rerun + drift_cal_p357 reuse)",
+    "evidence/checkpoints/pdf_atoms_batch_36b.jsonl.pre-OptionH-bulk.bak (Rule B backup, 127 atoms corrupt 36b writer original — preserved per Rule B discipline)",
+    "evidence/checkpoints/pdf_atoms_batch_36b_executor_repair.jsonl (104 atoms, p.356/358/359/360 executor rerun for Option H repair source)",
+    "evidence/checkpoints/drift_cal_p357_executor_rerun.jsonl (25 atoms, p.357 executor rerun per N14 alternation, drift cal baseline-rerun source)",
+    "evidence/checkpoints/halt_state_batch_36.md (191 lines, 13.7KB, G-MS-4 halt protocol evidence + 4 resume options + user authorization gate)",
+    "evidence/checkpoints/_progress_batch_36.json (this file)",
+    "evidence/checkpoints/P1_batch_36_report.md (full batch report)",
+    "evidence/checkpoints/rule_a_batch_36_sample.jsonl (10-atom sample seed=20260641)",
+    "evidence/checkpoints/rule_a_batch_36_verdicts.jsonl (slot #46 Plan verdicts; 9 PASS + 1 PARTIAL + 0 FAIL = 95.0% raw weighted = PASS at threshold ≥80%)",
+    "evidence/checkpoints/rule_a_batch_36_summary.md (Rule A summary 129 lines + AUDIT-mode pivot reflection + Plan family inaugural burn recipe consistency check)"
+  ],
+  "files_NOT_touched": [
+    "root pdf_atoms.jsonl (8552 atoms unchanged — reconciler scope)",
+    "audit_matrix.md (reconciler scope)",
+    "_progress.json (reconciler scope)",
+    "sister batch files (pdf_atoms_batch_35*, pdf_atoms_batch_37*) — sister sessions still running parallel",
+    "subagent_prompts/* (v1.4 active — no edits; v1.5 candidate stack accumulating reconciler-side; round 8 batch 36 adds O-P1-121+122+123+124 to v1.5 stack)",
+    "schema/*.json",
+    "PLAN.md",
+    "plans/*.md",
+    "CLAUDE.md (absolute do-not-touch per kickoff §8)",
+    "MEMORY/* (absolute do-not-touch)"
+  ],
+  "halt_state": "RESOLVED — halt_state_batch_36.md preserved as historical evidence per round 7 D-MS-8 G-MS-4 halt evidence preservation precedent (analog to halt_state_batch_32.md round 7 1st live-fire historical preservation)",
+  "round_8_compliance": {
+    "G_MS_4_halt_fallback": "EFFECTIVE 2nd LIVE-FIRE (round 7 batch 33 1st live-fire + round 8 batch 36 2nd live-fire) — promote G-MS-4 STRONGLY VALIDATED status post 2nd live-fire",
+    "G_MS_7_finding_id_range_pre_allocation": "compliant — O-P1-121..124 reserved (4 IDs), 4 used (O-P1-121/122/123/124); 0 unused; no over-allocation, no cross-session collision (sister B reserved O-P1-117..120, sister D reserved O-P1-125..128)",
+    "G_MS_11_NEW6_dual_form_codified": "applied — 0 violations found (no L4 self-parent + 4 NEW VS L4 atoms proactively correct + §6.3.12.3 L4 sib=3 NEW proactively correct + §6.3.13 VS L3 sib=13 short-bracket parent correct per N11)",
+    "G_MS_11_b_round_8_extension_codified": "applied PROACTIVELY — all 4 VS L4 HEADINGs (Description sib=1 + Specification sib=2 + Assumptions sib=3 + Examples sib=4) first-attempt correct with parent='§6.3.13 Vital Signs (VS)' canonical NEVER self-parent; 14 cumulative L4 self-parent NOT proactive precedents post round 8 batch 36",
+    "G_MS_12_density_alarm_check_applied": "applied — sub-batch 36a 112 + 36b post-Option-H 129 both ABOVE 100-floor; per-page floors all ≥10 (≥15 standard or ≥8 transition); main-session adjudicated NO ALARM (no FALSE/TRUE POSITIVE in round 8 batch 36)",
+    "G_MS_13_finding_id_range_cross_validation_table": "applied — kickoff §0 cross-validation table read pre-dispatch; finding ID self-validation gate at STEP 7 confirmed all 4 IDs ∈ {121,122,123,124}; 0 collision with sister sessions B (O-P1-117..120) or D (O-P1-125..128)",
+    "round_8_NEW7_L6_INTRA_batch_procedural_handoff_4th_live_fire": "EFFECTIVE post Option H repair — 36a→36b sub-batch handoff prepend (round 5 D-MS-4 codification + round 6 R-MS-5 + round 7 D-MS-4 carry-forward) successfully applied via Option H repair dispatch with inline-prepended 36a terminal state in repair prompt; 4th live-fire validation of round 5 D-MS-4 INTRA-batch procedural enforcement codification (round 5 1st + round 6 2nd + round 7 3rd + round 8 4th).",
+    "round_8_NEW7_L6_CROSS_batch_handoff_3rd_live_fire": "EFFECTIVE first-attempt — 36a executor correctly continued §6.3.12.2 TR L4 sib=2 + L5 chain Description=1/Specification=2/Assumptions=3 from sister batch 35 territory predicted terminal state (parent_section '§6.3.12.2 Tumor/Lesion Results (TR)' canonical for all 22 p.351 TR Spec TABLE_ROW continuation atoms); cross-BATCH handoff codification round 5 D-MS-2 mandate VALIDATED 3rd live-fire round 8 (round 6 batch 30 1st + round 7 batch 34 2nd + round 8 batch 36 3rd live-fire); reconciler will validate post-merge once sister batches 35+37 DONE.",
+    "round_8_NEW7_L3_4th_cumulative_transition": "EFFECTIVE — §6.3.13 Vital Signs (VS) L3 sib=13 NEW (atom p0358_a012) parent='§6.3 [MODELS FOR FINDINGS DOMAINS]' short-bracket all-caps per N11 chapter-short-bracket extension; 4th cumulative L3 sub-domain transition in P1 (round 6 §6.3.6 MO + §6.3.7 Morph/Phys = 1st+2nd; round 7 §6.3.10 SC = 3rd; round 8 §6.3.13 VS = 4th); §6.3.13 is single-domain L3 LEAF-pattern per N9 — analogous to round 7 §6.3.10 SC + round 6 §6.3.6 MO leaf-pattern.",
+    "round_8_NEW9_v1_4_N3_EMERGENCY_CRITICAL_4th_recurrence": "DETECTED + REPAIRED — drift cal p.357 verbatim 0% FAIL → halt → user authorization Option A → Option H bulk repair via executor rerun on p.356/358/359/360 + reuse drift_cal p.357 → 129 atoms clean replacement for 127 corrupt atoms; reviewer slot #46 Plan CONDITIONAL_PASS confirms post-repair integrity. v1.4 N3 NEW8.d EMERGENCY-CRITICAL halt-on-violation EFFECTIVE end-to-end. 4 cumulative writer-direction main-line VALUE HALLUCINATION recurrences cumulative across rounds 5/6/7/8.",
+    "round_8_v1_4_candidate_O_P1_121_kickoff_lint": "v1.5 candidate (O-P1-121 MEDIUM NEW round-8 motif): kickoff §1 SKILL-vs-AGENT pre-allocation lint missing — recurring O-P1-110 round 7 motif. v1.5 codification mandatory before round 9+ batches.",
+    "round_8_v1_4_candidate_O_P1_122_xpt_parent": "v1.5 candidate (O-P1-122 MEDIUM AMBIGUOUS): parent_section table_caption regression discipline. ~27 atoms in batch 36 + retroactive sweep candidate ~20-50 atoms cumulative round 4-8 P1.",
+    "round_8_n14_alternation_2nd_live_fire": "EFFECTIVE — 36b baseline=writer + drift_cal rerun=executor + Option H repair rerun=executor (all on opposite-family-side per N14 alternation table); cleanly disentangled writer-direction signal from intra-family non-determinism. Round 7 batch 33 1st live-fire + round 8 batch 36 2nd live-fire EFFECTIVE methodology validation — codify as N14 STRONGLY VALIDATED post 2nd live-fire.",
+    "round_8_two_layer_audit_6th_cumulative_validation": "validated (drift cal + reviewer slot #46 Plan): drift cal pre-DONE hook caught 38 corrupt rows in 36b writer + reviewer 1/page sample caught atom 6 .xpt-parent AMBIGUOUS (1 sample → 27 atoms structural sweep extension = 1:27 amplification ratio = 6th cumulative round of structural-sweep-finds-more-than-sample validation post round 2 + round 4 + round 5 + round 6 + round 7 + round 8 = average 1:13 amplification ratio across 6 rounds)"
+  },
+  "round_8_NEW_precedents_observed": [
+    "QUADRUPLE structural transition single batch (p.352 L5 + p.353 L4 + p.358 MAJOR L3 + p.360 DOUBLE L4) — round 8 batch 36 NEW; analogous to round 7 batch 34 first QUADRUPLE pattern; round 8 confirms multi-level transitions per batch is normal protocol cadence",
+    "First DOUBLE Examples L4 sub-section coexistence (§6.3.12.3 Examples L4 sib=3 numbered + §6.3.12 group container L4 chain) — round 8 batch 36 NEW; analogous to round 7 batch 34 §6.3.9.3.1+§6.3.9.3.2 DOUBLE L5 numbered sub-section pattern; v1.5 codification candidate for L4 numbered Examples-as-section pattern",
+    "Plan family INAUGURAL burn at slot #46 (single-agent family) — round 8 batch 36 NEW; second cumulative single-agent family inaugural burn post round 5 #28 general-purpose (1st single-agent family inaugural)",
+    "G-MS-4 halt fallback 2nd LIVE-FIRE EFFECTIVE post round 7 1st live-fire — promote G-MS-4 STRONGLY VALIDATED status; v1.5 codification graduates G-MS-4 from 1st-live-fire-EFFECTIVE → STRONGLY VALIDATED",
+    "N14 strict alternation methodology 2nd LIVE-FIRE EFFECTIVE post round 7 1st live-fire — promote N14 STRONGLY VALIDATED status; v1.5 codification graduates N14 from 1st-live-fire-EFFECTIVE → STRONGLY VALIDATED",
+    "4th cumulative writer-direction main-line VALUE HALLUCINATION recurrence (post round 5 O-P1-85 + round 6 O-P1-103 + round 7 O-P1-109 + round 8 batch 36 O-P1-122-related) — drift cal verbatim 0% FAIL on p.357 + 38 corrupt rows + multi-axis writer-direction motif (char/numeric/classification/paraphrase/header collapse); v1.5 candidate writer-family ban for Examples-narrative + spec-table content type STRONGLY RECOMMENDED",
+    "Two-layer audit 6th cumulative validation (drift cal pre-DONE hook + reviewer 1/page sample + main-session structural sweep amplification 1:27 ratio for O-P1-122 .xpt-parent AMBIGUOUS) — confirms structural sweep is mandatory complement to 1/page Rule A sample"
+  ],
+  "handoff_to_reconciler": "Session C contributes 241 atoms (112 + 129) over p.351-360 (§6.3.12.2 TR L5 chain Description/Spec/Assumptions completion + §6.3.12.3 Tumor Identification/Tumor Results Examples L4 sib=3 NEW + Example 1/2/3 L5 RESTART + §6.3.13 Vital Signs (VS) L3 sib=13 NEW LEAF-pattern + VS L4 chain Description/Spec/Assumptions/Examples + VS Example 1 L5 + vs.xpt L6 + cross-batch RS Spec table continuation from sister batch 35 territory). Reconciler should: (a) merge pdf_atoms_batch_36a.jsonl + pdf_atoms_batch_36b.jsonl into root pdf_atoms.jsonl post sister batch 35+37 merges; (b) sweep cross-batch sibling continuity for §6.3 L3 chain — sib=12 §6.3.12 (sister batch 35 expected) → sib=13 VS (batch 36); §6.3.12 L4 chain — sib=1 TU (sister batch 35) + sib=2 TR (sister batch 35 head + 36a) + sib=3 §6.3.12.3 Examples (36a NEW); §6.3.12.3 L5 chain — sib=1 Example 1 (36a) + sib=2 Example 2 (36a) + sib=3 Example 3 (36b); §6.3.13 VS L4 chain — sib=1 Description + sib=2 Specification + sib=3 Assumptions + sib=4 Examples (36b); (c) validate cross-session R15 TR Spec table TABLE_ROW continuity (sister batch 35 territory tail at p.350 → batch 36 36a head at p.351 — 22 TR Spec atoms parent_section canonical match); (d) update root audit_matrix.md with batch 36 row + Rule A 36 row + Rule D roster 43→46 (slot #44 v1.4 cut + slot #45 batch 35 + slot #46 Plan inaugural batch 36) + Plan family INAUGURAL burn; (e) update root _progress.json (atoms 8552→8793 if all 3 round-8 sister merges done OR cumulative including batch 36; pages 340→370; batches 34→37; Rule D 43→46 cumulative; repair_cycles +2; findings +4 [O-P1-121/122/123/124]); (f) v1.5 patch session decision — round 5+6+7+8 cumulative v1.5 candidates: round 5 5 + round 6 batch 31 4 + round 7 batch 34 4 + round 8 batch 36 4 (O-P1-121 NEW kickoff lint MEDIUM + O-P1-122 .xpt-parent MEDIUM AMBIGUOUS + O-P1-123 INFO drift cal carrier 8/8 + O-P1-124 INFO N14+G-MS-4 STRONGLY VALIDATED) = 17 cumulative v1.5 candidates accumulated round 5+6+7+8; v1.5 cut session BEFORE batch 39 (next mandatory drift cal) STRONGLY RECOMMENDED — particularly given 4th cumulative writer-direction VALUE HALLUCINATION recurrence threshold reached (writer-family ban for Examples-narrative + spec-table content type STRONGLY RECOMMENDED for v1.5); (g) Issue O-P1-122 .xpt-parent reconciler-side decision — defer or apply L6 textual canonical bulk fix (~27 atoms batch 36 + retroactive ~20-50 atoms cumulative round 4-8 P1); (h) multi-session round 8 protocol: write MULTI_SESSION_RETRO_ROUND_8.md (Rule C 三段式 13+ R-MS retain / 7+ G-MS gap / 8+ D-MS decision); cleanup CLAUDE.md round-8 routing rule + delete batch_35/36/37_kickoff.md + reconciler_kickoff_round8.md (one-shot use done); preserve halt_state_batch_36.md as historical evidence (analog round 7 halt_state_batch_32.md preservation per D-MS-8)."
+}
