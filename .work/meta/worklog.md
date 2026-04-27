@@ -1612,3 +1612,42 @@
   - Round 5 reviewer slots: #35 omc:analyst / #36 omc:architect / #37 general-purpose
   - Multi-session experiment cleanup pending: round 4 4 one-shot kickoffs (batch_23/24/25 + reconciler_kickoff_round4) + 11 prior round 1-3 kickoffs by user 决定; 留 MULTI_SESSION_PROTOCOL.md + 4 retro + 4 sibling sweep reports 作历史
 - **下一步**: 4 index 文件本 session 已更新 → CLAUDE.md routing rule 切到 round 5 → push pending → 用户启动 3 终端 batch 26/27/28 + 1 终端 reconciler round 5 (after 3 DONE)
+
+### 2026-04-27 **06 Deep Verification P1 round 5 reconciler closure (用户在另一终端跑) + round 6 batches 29/30/31 kickoff prep with TBD fill-in**
+
+> 工程: `.work/06_deep_verification/` P1 phase 持续 (round 5 收尾 + round 6 准备)
+> 本 session 主要做 round 6 kickoff prep, round 5 reconciler artifacts 系另一终端 session 产物本 commit 一并入库.
+
+- **What done (本 session)**:
+  - Round 5 reconciler artifacts 入库 (另一终端 session 已跑完 reconciler — 本 session 仅观察并基于 _progress.json + retro + 3 batch progress.json 数据回填 round 6 kickoff TBD): root pdf_atoms.jsonl 6146 → **7092 atoms** (+946: batch 26 325 + batch 27 249 + batch 28 372) / pages 250 → **280** / batches 25 → **28** / 1 reconciler-side O-P1-92 修 (NEW7 L6 cross-batch context drift 3rd recurrence post round 3 O-P1-68 + round 4 O-P1-79); MULTI_SESSION_RETRO_ROUND_5.md 36469 bytes 写入 (Rule C 三段); sibling_continuity_sweep_report_round5.md 15307 bytes; pdf_atoms.jsonl.pre-multi-26-28.bak Rule B; audit_matrix.md 129 → 行数更新; _progress.json recovery_hint 改写
+  - Round 5 关键 verdict 落档 (driving round 6 carry-forward):
+    - **NEW7 L6 INTRA-batch procedural enforcement EFFECTIVE 1st live-fire 0 recurrence** (O-P1-81 batch 26 §6.3.5.7.3 Examples 1/2/3 hl=6 sib=1/2/3 PROACTIVE first-attempt; round 4 D-MS-4 codification mandate validation milestone)
+    - **NEW7 L6 CROSS-batch procedural enforcement INSUFFICIENT** (O-P1-92 reconciler-side Option H 4-atom = round 3 + round 4 + round 5 = 3× recurrence) → round 6 kickoff CROSS-batch handoff codification mandatory (kickoff §1 prior batch terminal state + §4 dispatch prepend)
+    - **NEW1 dual-threshold drift cal CATASTROPHIC FAIL 5th time** (batch 27 p.270 strict 71.1% / verbatim 6.7% LOWEST EVER — first FAIL after 4× PASS; writer-family value-hallucination NEW motif O-P1-85 distinct from prior paraphrase + wide-TABLE families; safety net validated writer rerun discarded root preserved with executor baseline)
+    - **NEW6.b L4 self-parent proactive 6× streak** (round 5 batch 27 MI + batch 28 PD L4 transitions both first-attempt correct, joining IS/LB/Microbiology Domains)
+    - **General-purpose family AUDIT pivot 18th SUCCESS** = AUDIT-mode pivot recipe family-agnostic VALIDATED → round 6 extends to pr-review-toolkit + superpowers families NEW first burns
+    - **Writer-family Write-overwrite NEW motif O-P1-89 HIGH** = oh-my-claudecode:writer per-page Write tool overwrite-not-append silent data loss (sub-batch 28b initial dispatch atoms=342 reported but only 50 persisted, 4/5 pages lost; recovered via Option E full-batch rerun via executor with Bash-heredoc append protocol) → v1.4 candidate procedural enforcement: writer/executor MUST use Bash-heredoc append, NOT Write tool
+    - **Round 5 13 new findings O-P1-80..92** (3 batch 26 INFO + 3 batch 27 含 1 HIGH drift cal CATASTROPHIC FAIL + 1 MEDIUM VALUE-HALLUCINATION + 1 INFO L7 deepest + 4 batch 28 含 2 HIGH EDITORIAL_CORRECTION + Write-overwrite + 2 LOW padding + parent_section + 1 reconciler-side O-P1-92 LOW); 5 v1.4 candidates accumulated (HIGH×2: EDITORIAL_CORRECTION + Bash-heredoc append; MEDIUM×1: NEW8.d TABLE_ROW value-cell verbatim; LOW×2: atom_id 4-digit padding + parent_section canonical full-form)
+  - 写 4 个 round 6 kickoff 文件 (用户准备 3 终端并行 batches 29/30/31 + reconciler):
+    - 第一阶段: 写 4 个 skeleton kickoff 文件含 46 处 `<TBD-RECONCILER>` 占位 (batch_29 22 + batch_30 13 + batch_31 11 + reconciler_round6 0 自身 resolves runtime); 因 reconciler 当时还在另一终端跑, 不能 hardcode round 5 outcomes
+    - 第二阶段 (reconciler 完成后): 串行 fill-in pass 把 46 处 TBD 全填 — finding ID 起点 O-P1-93 / 3 sister disjoint 范围 93..96/97..100/101..104 / root atoms 7092 / drift cal batch 27 page p.270 / batch 28 终态 §6.3.5.9.3 PP-PC Relating L5 sib=3 Examples L5 sib=4 Example 3 L6 sib=3 Method D L7 sib=4 / round 5 verdicts (NEW7 INTRA EFFECTIVE + CROSS 3rd recurrence + NEW1 5th CATASTROPHIC FAIL + NEW6.b 6× streak + general-purpose family-agnostic VALIDATED)
+    - Reviewer slots: #38 pr-review-toolkit:code-reviewer (pr family first burn, 19th AUDIT pivot, full-tool) / #39 superpowers:code-reviewer (superpowers family first burn, 20th AUDIT pivot, full-tool, drift cal carrier 6th time) / #40 pr-review-toolkit:silent-failure-hunter (pr family second-agent depth burn, 21st AUDIT pivot, validates intra-family agent variation)
+    - 策略: 2 NEW family first burn (pr + superpowers) + 1 intra-family depth burn (pr second agent) — 平衡 family-agnostic recipe extension 与 intra-family agent variance validation
+  - CLAUDE.md routing rule 切换 round 5 → round 6 (4 routing 行 + Background context 全段 + Round 5 历史 added + Cleanup 引用 list 更新 + v1.3 cut 路由删除); Key Paths 大表两条 (06 Deep Verification + multi_session) **未动** — 留收尾时统一更新避免本 session pollution
+  - 🔴 **CROSS-batch handoff codification round 6 mandatory** (round 5 verdict driven): kickoffs 加 prior batch N-1 sub-batch b 终态 inline-prepend (batch 29a 用 round 5 batch 28b 终态)
+- **影响面**:
+  - 独立旁枝, 不动 `03_verification/` 及 `knowledge_base/`
+  - Chain F (06_deep_verification 旁枝) 触发 ✓
+  - Chain B (worklog → progress.json → PROGRESS.md → MANIFEST.md → CLAUDE.md Key Paths) 触发本 wrap-up ✓
+  - 无 knowledge_base/ 变动 → Chain D 不触发
+- **Carry-over 给下 session (用户准备 3 终端并行 batches 29/30/31)**:
+  - **HIGHEST PRIORITY**: 用户启动 3 终端 batch 29/30/31 + 1 终端 reconciler round 6 (after 3 DONE) via 路由 rule
+  - Recovery hint 在 `_progress.json.recovery_hint` (round 5 reconciler 已 rewritten 含 round 6 next prep)
+  - 5 cumulative reconciler-deferred manual repair items 待清 (round 5 sweep report 提及 6 cumulative): O-P1-65/66/67/74/79 + 任何 round 5 累 (O-P1-91 reconciler-deferred bulk-patch ~30+ atoms parent_section canonical full-form 待 v1.4 OR 后续 reconciler)
+  - Round 6 page range: batch 29 p.281-290 / batch 30 p.291-300 / batch 31 p.301-310 (310 = 58% of 535 IG34 cumulative)
+  - Drift cal next mandatory: batch 30 per cadence batch 27→30; round 5 5th time CATASTROPHIC FAIL 后 round 6 6th time = expect VALUE-HALLUCINATION motif extension OR recovery
+  - Round 6 finding ID range: batch 29 O-P1-93..96 / batch 30 O-P1-97..100 / batch 31 O-P1-101..104 (+ reconciler-side O-P1-105+)
+  - Round 6 reviewer slots: #38 pr-review-toolkit:code-reviewer / #39 superpowers:code-reviewer / #40 pr-review-toolkit:silent-failure-hunter
+  - v1.4 cut decision **pending round 6 reconciler** — 5 累 v1.4 candidates post round 5 (HIGH×2 + MEDIUM×1 + LOW×2); round 6 reconciler 决定: (a) cut v1.4 if ≥3 candidates accumulated (target 6+ post round 6) OR (b) defer if 0 net new G-MS gaps round 6 + accept v1.3 saturation; 若 NEW7 L6 cross-batch 4th recurrence post round 6 cross-batch handoff codification → ESCALATE v1.4 EMERGENCY-CRITICAL
+  - Multi-session experiment cleanup pending: round 5 4 one-shot kickoffs (batch_26/27/28 + reconciler_kickoff_round5) + round 6 4 kickoffs by user 决定 post round 6 完成; 留 MULTI_SESSION_PROTOCOL.md + 5 retro + 5 sibling sweep reports 作历史
+- **下一步**: 4 index 文件本 session 已更新 → CLAUDE.md routing rule 切到 round 6 → push pending → 用户启动 3 终端 batch 29/30/31 + 1 终端 reconciler round 6 (after 3 DONE)
