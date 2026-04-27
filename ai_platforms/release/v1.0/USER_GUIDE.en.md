@@ -1,3 +1,10 @@
+---
+lang: en
+slug: user-guide
+order: 10
+title: "User Guide"
+---
+
 # SDTM AI Knowledge Base — User Guide v1.0
 
 ## 1. What This Is (Project Background)

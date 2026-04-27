@@ -1,3 +1,10 @@
+---
+lang: en
+slug: changelog
+order: 60
+title: "Changelog"
+---
+
 # CHANGELOG — SDTM AI Knowledge Base Release
 
 ## v1.0 — 2026-04-27 (Company Release)

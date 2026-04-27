@@ -1,3 +1,10 @@
+---
+lang: zh
+slug: glossary
+order: 40
+title: "术语表"
+---
+
 # 术语速查 — SDTM AI 知识库
 
 > 1 页 1 览, 不熟悉的术语回这查. 按 SDTM 行业 / AI 平台 / 项目内部 三大类分.

@@ -1,3 +1,10 @@
+---
+lang: zh
+slug: user-guide
+order: 10
+title: "用户手册"
+---
+
 # SDTM AI 知识库 — 用户手册 v1.0
 
 ## 1. 这是什么 (项目背景)
