@@ -1,0 +1,9 @@
+{
+  "tag": "v1.0",
+  "bundles": [
+    { "platform": "claude",     "filename": "claude_bundle_v1.0.zip",     "files": 19, "sizeMB": 4.6 },
+    { "platform": "chatgpt",    "filename": "chatgpt_bundle_v1.0.zip",    "files":  9, "sizeMB": 9.3 },
+    { "platform": "gemini",     "filename": "gemini_bundle_v1.0.zip",     "files":  4, "sizeMB": 2.2 },
+    { "platform": "notebooklm", "filename": "notebooklm_bundle_v1.0.zip", "files": 43, "sizeMB": 9.4 }
+  ]
+}
