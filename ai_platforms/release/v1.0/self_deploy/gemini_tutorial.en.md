@@ -1,7 +1,7 @@
 # Gemini Gem Creation Tutorial — SDTM Knowledge Base Release
 
 > Build from scratch a Custom Gem that can look up CDISC SDTM standards (63 domains + chapters + business scenario ammunition pack).
-> After completing this tutorial you will have: a working Gemini Gem that can precisely answer SDTM variable definitions / business scenario mapping / cross-domain associations, and can detect common fabricated premises (AHP × 3 anti-hallucination guard).
+> After completing this tutorial you will have: a working Gemini Gem that can precisely answer SDTM variable definitions / business scenario mapping / cross-domain associations, and can detect common fabricated premises (3 anti-hallucination anchors (anti-hallucination guard)).
 > Total time: **20-40 minutes** (Gemini indexing is much faster than ChatGPT).
 
 ---
@@ -79,7 +79,7 @@ ChatGPT uses RAG retrieval; Gemini uses full injection — the two have fundamen
 
 ## 6. Full Regression (10 Questions, ~30 min, Optional)
 
-Open `../DEMO_QUESTIONS.md` and ask questions Q1-Q10 one by one. **One new chat per question**. The R2 baseline is 16/17 (94.1%) with AHP × 3 all PASS+; your deployed Gem scoring ≥ 8/10 strict is equivalent to the baseline.
+Open `../DEMO_QUESTIONS.md` and ask questions D0-D9 (10 demo questions). **One new chat per question**. Internal complete 17-question baseline 16/17 (94.1%), all 3 anti-hallucination questions caught; your Gem scoring ≥ 8/10 on these 10 = equivalent baseline.
 
 ---
 

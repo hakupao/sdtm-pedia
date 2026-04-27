@@ -75,8 +75,33 @@
         "MINOR x2 (Rule A): USER_GUIDE.en.md Four-Platform Roles + self_deploy/README.ja.md 章の順序を厳守して"
       ],
       "deferred_to_v1_1": [
-        "R5 8 项 polish (USER_GUIDE.zh.md §1 重写 / GLOSSARY / pacing 统一 / instructions size 9011 vs 8925 单位修齐 / 内部 codename 清扫 / Q1-Q10 vs D0-D9 编号统一)"
+        "R5 8 项 polish (USER_GUIDE.zh.md §1 重写 / GLOSSARY / pacing 统一 / instructions size 9011 vs 8925 单位修齐 / 内部 codename 清扫 / Q1-Q10 vs D0-D9 编号统一) — RESOLVED 2026-04-27 PM in v1.1 polish wave (see v1_1_polish key)"
       ]
+    },
+    "v1_1_polish": {
+      "status": "completed",
+      "completed_at": "2026-04-27T13:45:00Z",
+      "wall": "30min",
+      "trigger": "user request to make release complete (skip distribution + JP native review steps, polish all R5 items now)",
+      "scope_resolved": [
+        "USER_GUIDE.zh.md §1 jargon split (1 dense paragraph → 2 paragraphs jargon-light + technical with GLOSSARY pointer)",
+        "USER_GUIDE.zh.md §2 friendly intro + Rule A-D codename → 4 内部质量规则 + GLOSSARY pointer + 17 题得分 column header",
+        "GLOSSARY.{zh,en,ja}.md created (3 sections: SDTM industry / AI platform & RAG / project-internal, ~30+ terms each)",
+        "self_deploy/README.{zh,en,ja}.md L21 instructions size 9011 chars → 8,925 chars unit-aligned",
+        "notebooklm_tutorial.{zh,en,ja}.md §0 number wall (500/300/500K/500/20) → 1-line summary + PLAN.md §A pointer",
+        "notebooklm_tutorial.{zh,en,ja}.md §2 H3 VERIFIED heading → user-friendly Custom mode dynamic switching",
+        "notebooklm_tutorial.{zh,en,ja}.md §3 P3.2 → upload measurement; §6 smoke v4 R1 jargon → complete 17-question test; §7 P3.9 references → share level toggle drill",
+        "claude_tutorial.{zh,en,ja}.md header pacing 30-90 min → 30-60 min (with indexing background note); smoke test 24/24 PASS → complete 24-question test",
+        "chatgpt + gemini tutorial AHP × 3 → 3 anti-hallucination anchors (plain-language)",
+        "gemini + chatgpt §6 Q1-Q10 → D0-D9 (DEMO_QUESTIONS uses D-id)",
+        "DEMO_QUESTIONS.md add Q-vs-D numbering note explaining demo D-id vs internal Q-id distinction",
+        "USER_GUIDE.ja.md 反虚構/幻覚 → アンチハルシネーション unify (Phase D residual cross-language drift)",
+        "CHANGELOG.md L8 9011 chars → 8,925 chars; L15+L23 smoke v4 R1+R2 codename → 17-question evaluation"
+      ],
+      "edits_total": "~40 edits across 13 files (zh source + en/ja siblings) + 3 new files (GLOSSARY × 3 lang)",
+      "agent_dispatch": "Wave 2: 4 agents parallel (2 GLOSSARY translator opus → en/ja + 2 polish sync agents executor → en/ja siblings of 6 source-edited files)",
+      "verification": "grep residual codenames (smoke v4 R1 / H3 VERIFIED / AHP × 3 / P3.x / Q1-Q10 / 9011 chars / 30-90 分): 0 hits across release/v1.0/ — clean",
+      "deliverables_added": ["GLOSSARY.zh.md (7178 chars)", "GLOSSARY.en.md (8475 chars)", "GLOSSARY.ja.md (11655 chars)"]
     },
     "E": {
       "status": "completed",

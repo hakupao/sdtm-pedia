@@ -18,7 +18,7 @@
 - **Claude Projects** → [./claude_tutorial.zh.md](./claude_tutorial.zh.md) (19 文件 + system_prompt + 24 题 smoke)
 - **ChatGPT GPTs** → [./chatgpt_tutorial.zh.md](./chatgpt_tutorial.zh.md) (Custom GPT + 9 文件 + v2.2 system prompt + 17 题 smoke)
 - **Gemini Gems** → [./gemini_tutorial.zh.md](./gemini_tutorial.zh.md) (Gem + 4 合并文件 + v7.1 system prompt + AHP 验收)
-- **NotebookLM** → [./notebooklm_tutorial.zh.md](./notebooklm_tutorial.zh.md) (notebook + 42 sources + Custom mode 9011 chars + 三档分享)
+- **NotebookLM** → [./notebooklm_tutorial.zh.md](./notebooklm_tutorial.zh.md) (notebook + 42 sources + Custom mode instructions 8,925 chars + 三档分享)
 
 ## 3. 通用前置准备
 

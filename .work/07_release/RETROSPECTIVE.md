@@ -152,6 +152,45 @@
 - **结果验证**: 22 fix edits 是 Phase D 集体产出, 单 reviewer 漏检率 < 6 reviewer 漏检.
 - **保留**: 三语 + 多平台类 release, Phase D 至少 4-5 reviewer family + 1 Rule A 抽检, 不省.
 
+---
+
+## 附录: v1.1 polish 闭环 (2026-04-27 PM, +30min wall)
+
+> 用户请求"让 release 完整", 跳过分发 + JP native 校 (作 PASS 视为通过), 直接进入 v1.1 polish 把 R5 8 项缺口全填.
+
+### v1.1 scope (RETROSPECTIVE §2 G-RELEASE-6 全部 resolved)
+
+1. **USER_GUIDE.zh §1 jargon density 重写**: 1 段 dense → 2 段 (友好版 1 分钟价值 + 技术细节有 GLOSSARY pointer)
+2. **GLOSSARY.{zh,en,ja}.md 新增** (1 页 3 段: SDTM 行业 17 + AI/RAG 11-12 + 项目内部 5)
+3. **Pacing 统一**: claude_tutorial.zh header 30-90 分 → 30-60 分 (+ "indexing 后台等待"备注), 与 self_deploy/README §1 表对齐
+4. **instructions size 单位修齐**: self_deploy/README + CHANGELOG 9011 chars (byte) → 8,925 chars (Unicode)
+5. **NotebookLM §0 number wall 解构**: 500×300×500K×500×20 → 1 行 plain-language + PLAN.md §A pointer
+6. **内部 codename 全清**: P3.2 / P3.9 / H3 VERIFIED / smoke v4 R1 / AHP × 3 / Rule A-D → 用户语言 ("17 题完整测试" / "三档切换实测" / "Custom mode 是按 chat 切" / "3 道反虚构题" / "4 条内部质量规则")
+7. **Q-D 编号统一**: DEMO_QUESTIONS 顶部加 D0-D9 vs Q1-Q14 关系说明; chatgpt + gemini §6 Q1-Q10 → D0-D9
+8. **NotebookLM §9 团队协作 parallelism** (R3 F6): NotebookLM 没有"团队协作"专章, share-level toggle 已是 NotebookLM 等价, kickoff §9 框定不变
+9. **遗漏: USER_GUIDE.ja terminology unify** (Phase D 修了 5 处但 cross-language drift 残留): 反虚構 → アンチハルシネーション 全文统一
+
+### Wave 流程
+
+- **Wave 1** (主 session, ~10min): 19 zh 源文件 polish + GLOSSARY.zh.md 新建
+- **Wave 2** (4 Agent 并发, ~10min): 2 个 translator (GLOSSARY.zh → en/ja, oh-my-claudecode:executor) + 2 个 polish sync agent (zh 改 → en/ja siblings 应用等价 polish, oh-my-claudecode:executor)
+- **Wave 3** (主 session, ~10min): chatgpt §6 Q-D 漏修补 + CHANGELOG 单位修 + notebooklm 5 处 P3.9 codename 残留全清 + grep 验证 0 残余 + retro/progress/index 更新 + commit
+
+### v1.1 产出统计
+
+- ~40 edits across 13 已有 release 文件 (USER_GUIDE × 3 + self_deploy/README × 3 + 4 tutorial × 3 + DEMO + CHANGELOG)
+- 3 new files: GLOSSARY.{zh,en,ja}.md (7178 / 8475 / 11655 chars)
+- 0 SDTM 错点新增 (polish 仅 jargon → plain-language 替换, 不动事实)
+- grep 验证: 0 残余 codename / 0 残余单位 drift / 0 Q-D 编号矛盾
+
+### v1.1 启示 (R-RELEASE-8: 留作 release v2.0+ 实践)
+
+**R-RELEASE-8** [polish 应作 release 标配 phase, 非 deferred]: v1.0 把 R5 polish 当 deferred-to-v1.1 是错的判断.
+- 实际成本: ~30min 单 wave (Wave 1 + 2 + 3 串)
+- 实际价值: 用户明确表态"想 release 完整", 同事第一次接触 release 体感差异大 (jargon 密集 vs 友好渐进)
+- 教训: 下次 release Phase D reviewer 给 readability MINOR 时, 不要直接 defer; 评估 30-60 分能否完成, 能则 inline 补 (作 D 末尾 wave OR Phase E 前一步)
+- 决策树: polish/style finding 30 min 内可完成 + 影响第一次接触体验 (USER_GUIDE / README) → inline; 涉及大幅重写 (>1h) OR 风险新引入 SDTM 事实错 → defer.
+
 **D-RELEASE-6** [R5 8 项 polish 留 v1.1 不堵 v1.0 sign-off]: scope cut 决策.
 - R5 verdict MINOR-NEEDS_FIX, 给 8 项 polish 建议 (jargon density / pacing / instructions size / number wall / 内部 codename 等).
 - 评估: 都是 polish/style preferences, 非 SDTM 错 / 非 cross-language 错 / 非链接错. 修要 1-2h.

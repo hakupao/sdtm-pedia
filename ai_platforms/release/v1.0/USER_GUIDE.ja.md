@@ -2,20 +2,22 @@
 
 ## 1. これは何ですか (プロジェクト背景)
 
-SDTM (Study Data Tabulation Model) は CDISC の臨床試験データ集計標準であり、63 ドメイン・数千の変数・大量の CT (Controlled Terminology) を含みます。変数 1 つの Core 属性や C-code を調べるだけでも、SDTMIG v3.4 PDF と NCI EVS Browser を参照すると十数分かかることがあります。本プロジェクトは CDISC SDTMIG v3.4・v2.0 model・CDISC CT を 295 個の Markdown ソースに整理し、4 つの AI プラットフォーム (Claude Projects / ChatGPT GPTs / Gemini Gems / NotebookLM) に展開しました。これにより、同僚の皆さんが**自然言語で質問し、spec 参照付きの回答を 1 分以内に得られる**環境を実現しています。
+CDISC 臨床試験データ集計標準 (SDTM) の変数定義 / Core 属性 / codelist を確認する際、SDTMIG v3.4 PDF と NCI EVS Browser を参照すると 10 分以上かかることがよくあります。本プロジェクトはこれらの資料を整理し、4 つの AI プラットフォーム (Claude Projects / ChatGPT GPTs / Gemini Gems / NotebookLM) に展開しました。自然言語で質問するだけで、**spec 引用付きの回答を 1 分以内に取得できます**。
+
+技術背景: SDTM (Study Data Tabulation Model) は 63 ドメイン + 数千の変数 + 大量の CT (Controlled Terminology) を含みます。CDISC SDTMIG v3.4 + v2.0 model + CDISC CT を 295 個の Markdown ソースに整理し、プロンプトエンジニアリングを加えて 4 プラットフォームに投入しました。RAG / system prompt / Core (Req/Exp/Perm) / Extensible / アンチハルシネーション探針 などの用語が不明な場合は [`./GLOSSARY.ja.md`](./GLOSSARY.ja.md) (1 ページ早見表) をご参照ください。
 
 ## 2. 成果概要 (技術ハイライト)
 
-4 プラットフォームすべてが LIVE 状態です。各プラットフォームで 17 問の smoke v4 評価 (anti-hallucination probe アンチハルシネーション探針 3 問を含む) を実施しました。
+各プラットフォームに 17 問の代表的な SDTM 問題で完全評価を実施しました。3 問は『誤った前提を含むアンチハルシネーション探針』で、AI が誤前提を見破るかどうかをテストします。4 プラットフォームのスコアは以下の通りです:
 
-| プラットフォーム | smoke v4 | バージョン | 強み |
+| プラットフォーム | 17 問スコア | バージョン | 強み |
 |---|:---:|:---:|---|
 | Claude Projects | 17/17 (100%) | v2.6 | 変数精度 + 多段階推論 |
 | ChatGPT GPTs | 16.5/17 (97%) | v2.2 LIVE | 全量対応 + チーム/Store 共有可能 |
 | Gemini Gems | 16/17 (94%) | v7.1 LIVE | 長コンテキスト + 広範囲な探索 |
 | NotebookLM | 15/17 (88%) | Custom mode | in-KB-only によるアンチハルシネーション |
 
-ハイライト: v3.4 新ドメイン (GF / CP / BE / BS) + Timing + CT Extensible + SUPPQUAL scope + クロスドメイン死亡日レベル整合 + AHP 3 問 (LBCLINSIG / Trial-Level SAE Aggregate / PF 廃止ドメイン)。全工程で Rule A-D 4 つの品質規則 + 累計 28 名の独立 reviewer による検証を実施しています。参照元: `./CHANGELOG.md` + `../../SMOKE_V4.md` §3。
+ハイライト: v3.4 新ドメイン (GF / CP / BE / BS) + Timing + CT Extensible + SUPPQUAL scope + クロスドメイン死亡日レベル整合 + アンチハルシネーション問題 3 問 (LBCLINSIG / Trial-Level SAE Aggregate / PF 廃止ドメイン)。全工程で内部 4 つの品質規則 + 累計 28 名の独立 reviewer による検証を実施しています。参照元: `./CHANGELOG.md` + `../../SMOKE_V4.md` §3。用語集: [`./GLOSSARY.ja.md`](./GLOSSARY.ja.md)
 
 ## 3. どのプラットフォームを使うべきですか? (判断ツリー)
 

@@ -1,7 +1,7 @@
 # Claude Project Creation Tutorial — SDTM Knowledge Base Release v1.0
 
 > Release v1.0 self-deployment tutorial (set up a Claude Project capable of answering CDISC SDTM queries from scratch).
-> After following this tutorial: 30–90 minutes to a fully functional Claude Project, ~77% capacity, 19 files / 1.29M tokens, smoke test 24/24 PASS baseline.
+> After following this tutorial: 30–60 minutes to a complete working Claude Project (including indexing wait time which runs in background). Capacity ~77%, 19 files / 1.29M tokens, complete 24-question test all-pass baseline.
 > Source: project repository `ai_platforms/claude_projects/current/` (system_prompt.md + uploads/ × 19).
 
 ---

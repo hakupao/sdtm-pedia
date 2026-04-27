@@ -5,6 +5,8 @@
 > **Audience**: company colleagues testing the deployed Claude Project / ChatGPT GPT / Gemini Gem / NotebookLM after onboarding.
 >
 > **构成**: 1 热身基础题 + 5 实战推理题 + 3 反虚构探针 (anti-hallucination probe) + 1 跨域终极题.
+>
+> **编号说明**: 本文件用 D0-D9 (Demo) 编号, 是给同事用的 10 题快速感受包. 项目内部完整测试用 Q1-Q14 编号, 共 17 题 (`../../SMOKE_V4.md` §2). 二者编号无对应关系 — 自部署 tutorial 内部测试题如果出现 "Q1-Q10" 等编号是指内部 17 题, 不要找 D-id 对应.
 
 ## 题型分布
 

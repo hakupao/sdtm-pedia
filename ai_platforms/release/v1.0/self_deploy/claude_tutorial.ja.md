@@ -1,7 +1,7 @@
 # Claude Project 作成チュートリアル — SDTM ナレッジベース公開版 v1.0
 
 > release v1.0 セルフデプロイチュートリアル (ゼロから CDISC SDTM を照会できる Claude Project を構築します).
-> 本チュートリアルを完了すると、30〜90 分で完全に使用可能な Claude Project が得られます。容量 ~77%、19 ファイル 1.29M tokens、smoke test 24/24 PASS ベースライン。
+> 本チュートリアルを完了すると、30〜60 分で完全に使用可能な Claude Project が得られます (indexing 待機時間はバックグラウンドで進行)。容量 ~77%、19 ファイル 1.29M tokens、完全 24 問テスト全 PASS ベースライン。
 > 情報源: プロジェクトリポジトリ `../../claude_projects/current/` (system_prompt.md + uploads/ × 19).
 
 ---

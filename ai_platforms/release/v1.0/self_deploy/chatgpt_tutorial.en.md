@@ -39,7 +39,7 @@
 **v2.2 LIVE key capabilities** (preserve after pasting, do not edit):
 - GFINHERT 7-letter exact spelling (fixes R1 GFINHERTG extra-G spelling drift)
 - L858R / Exon 19 scientific consistency active detection (anti-hallucination bonus)
-- AHP × 3 anti-fabrication anchors (variable-level / cross-domain-level / deprecated-level)
+- 3 anti-hallucination anchors (variable-level / cross-domain / deprecated)
 
 ---
 
@@ -92,7 +92,7 @@ Click **Preview** in the top-right. Ask each question in a **new chat**:
 
 ## 6. Full Regression (10 Questions, Optional ~30 min)
 
-Open `../DEMO_QUESTIONS.md` and submit questions Q1–Q10 one by one. Use a **new chat per question** to avoid context contamination. Score ≥ 8/10 = equivalent to the baseline release version.
+Open [`../DEMO_QUESTIONS.md`](../DEMO_QUESTIONS.md) and submit questions D0–D9 (10 demo questions) one by one. Use a **new chat per question** to avoid context contamination. Score ≥ 8/10 = equivalent to the baseline release version.
 
 ---
 
