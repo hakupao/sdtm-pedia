@@ -20,3 +20,7 @@ tmp/
 # Personal notes (private reflections, not for repo)
 notes/
 .superpowers/
+
+# npm tooling at repo root (og-image generation etc.)
+/node_modules/
+/package-lock.json
