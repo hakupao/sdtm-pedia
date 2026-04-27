@@ -11,7 +11,7 @@ interface Props {
 export function LangSwitcher({ currentLang, pathname }: Props) {
   const langs: Lang[] = ['en', 'zh', 'ja'];
   return (
-    <nav className="flex gap-2 font-mono text-[10px] tracking-wider">
+    <nav aria-label="Language" className="flex gap-2 font-mono text-[10px] tracking-wider">
       {langs.map((l) => (
         <a
           key={l}
