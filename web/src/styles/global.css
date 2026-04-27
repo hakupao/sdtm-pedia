@@ -9,6 +9,16 @@
 
 @import "tailwindcss";
 
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-alt: var(--bg-alt);
+  --color-ink: var(--ink);
+  --color-ink-mute: var(--ink-mute);
+  --color-ink-faint: var(--ink-faint);
+  --color-accent: var(--accent);
+  --color-rule: var(--rule);
+}
+
 :root, [data-theme="light"] {
   --bg:        #f8f5ef;
   --bg-alt:    #ffffff;
