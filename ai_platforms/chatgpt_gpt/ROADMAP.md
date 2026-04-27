@@ -1,6 +1,6 @@
 # ChatGPT GPTs — 行进路线
 
-> 状态: **待开始** (范本就绪, 等 Phase 0 启动)
+> 状态: **Phase 5 sign-off 完成** (2026-04-23 PM, 28th reviewer ack-ready; v2.2 LIVE 2026-04-24 post-apply Q1 PASS); release v1.0 公司发布 2026-04-27.
 > 着重方向: 全量覆盖 + 团队分享 + Custom GPT Store 发布
 > 平台: ChatGPT Plus / Team — GPTs (Custom GPTs)
 > Tier 等级: **Tier 2** (预计 5-10 步, 1-2 天)
