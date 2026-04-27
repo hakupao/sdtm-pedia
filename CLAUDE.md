@@ -16,37 +16,37 @@ Every new session, **before doing any work**, read these files in order:
 
 Then summarize to the user: current status, open issues, and suggested next step.
 
-## Multi-Session Parallel Protocol (temporary, 06 Deep Verification 旁枝 round 5 batches 26/27/28 实验, 2026-04-26)
+## Multi-Session Parallel Protocol (temporary, 06 Deep Verification 旁枝 round 6 batches 29/30/31 实验, 2026-04-27)
 
 **Routing rule** — if user's first message in a fresh session matches one of these patterns, **SKIP** the standard Session Startup above and instead:
 
 | User says (case-insensitive, Chinese or English) | Read this file as full session task |
 |---|---|
-| `batch 26 开始任务` / `batch 26 start` / `batch26` | `.work/06_deep_verification/multi_session/batch_26_kickoff.md` |
-| `batch 27 开始任务` / `batch 27 start` / `batch27` | `.work/06_deep_verification/multi_session/batch_27_kickoff.md` |
-| `batch 28 开始任务` / `batch 28 start` / `batch28` | `.work/06_deep_verification/multi_session/batch_28_kickoff.md` |
-| `reconciler 开始任务` / `reconciler start` / `合并收尾` | `.work/06_deep_verification/multi_session/reconciler_kickoff_round5.md` |
-| `v1.3 cut 开始任务` / `v1.3 cut start` / `v1_3_cut` | `.work/06_deep_verification/subagent_prompts/v1_3_cut_kickoff.md` |
+| `batch 29 开始任务` / `batch 29 start` / `batch29` | `.work/06_deep_verification/multi_session/batch_29_kickoff.md` |
+| `batch 30 开始任务` / `batch 30 start` / `batch30` | `.work/06_deep_verification/multi_session/batch_30_kickoff.md` |
+| `batch 31 开始任务` / `batch 31 start` / `batch31` | `.work/06_deep_verification/multi_session/batch_31_kickoff.md` |
+| `reconciler 开始任务` / `reconciler start` / `合并收尾` | `.work/06_deep_verification/multi_session/reconciler_kickoff_round6.md` |
 
 The kickoff files are self-contained with all context (TOC ground truth main-session pre-dispatch verify, R-rules, dispatch protocol, pre-assigned reviewer slot, hard-stop directive at top, "do not touch" list). Execute the file as if it were the user's full prompt.
 
 **Background context** (each session needs to know):
-- 3 终端 (B/C/D) 同时跑 batches 26/27/28 — 物理并行 (round 5 第 5 轮)
+- 3 终端 (B/C/D) 同时跑 batches 29/30/31 — 物理并行 (round 6 第 6 轮)
 - 1 终端 (E) 启动 reconciler 收尾 (after B+C+D 全 PARALLEL_SESSION_NN_DONE)
 - 各 session 写独立 batch files, **绝对不动** root `pdf_atoms.jsonl` / `audit_matrix.md` / `_progress.json` — 留 reconciler 串行合并
-- Reviewer pool 已预分配 (Rule D 不撞 round 1 #22-#24 + batch 16 #25 + round 2 #26-#28 + round 3 #29-#31 + round 4 #32-#34; vercel + plugin-dev + feature-dev 3 池均 EXHAUSTED post round 4): batch 26 = #35 `oh-my-claudecode:analyst` (omc 8th burn, 16th AUDIT pivot, write-tool-less + Bash heredoc adaptation per round 4 #32/#33 sub-pattern) / batch 27 = #36 `oh-my-claudecode:architect` (omc 9th burn, 17th AUDIT pivot, **READ-ONLY** = write-tool-less + no-Bash inline content adaptation per round 3 #29 + round 4 #34 sub-pattern) / batch 28 = #37 `general-purpose` (**NEW family first burn**, 18th AUDIT pivot, full-tool — validate AUDIT-mode pivot recipe family-agnostic on inaugural new family)
-- Round 5 protocol sustains round 4 spec: G-MS-4 halt fallback decision tree (5 rounds spec-only no live-fire — accept OR design adversarial halt for round 6+) + G-MS-7 finding ID range pre-allocation (3 sessions reserved O-P1-80..83/84..87/88..91) + G-MS-11 NEW6 dual-form codified (round 2-4 EFFECTIVE) + G-MS-11.b extension (round 3+4 EFFECTIVE proactive 4×) + G-MS-12 density alarm threshold spec (round 2-4 validated 3 FALSE POSITIVE) + G-MS-13 cross-validation table at top of each kickoff (round 4 EFFECTIVE 0 mis-allocation)
-- 🔴 **NEW7 L6 sub-batch handoff PROCEDURAL ENFORCEMENT round 5 mandatory** — round 3 batch 23 + round 4 batch 25 = 2× recurrence; 主 session dispatch sub-batch B prompt MUST inline-prepend prior sub-batch A 终态 (last L4/L5/L6 sib + Example N HEADING hl=6 convention)
-- batch 27 含 mandatory drift cal (per cadence every-3-batches batch 24→27 + cumulative atoms post-p.233 ≥600 双触发, per NEW1 dual-threshold strict ≥80% AND verbatim hash overlap ≥80%, target page TBD by session C — recommend dense MI spec table or transition page)
+- Reviewer pool 已预分配 (Rule D 不撞 round 1 #22-#24 + batch 16 #25 + round 2 #26-#28 + round 3 #29-#31 + round 4 #32-#34 + round 5 #35-#37; vercel + plugin-dev + feature-dev 3 池均 EXHAUSTED post round 4 + general-purpose family first burn round 5 batch 28 SUCCESS = AUDIT-mode pivot recipe family-agnostic VALIDATED 18th pivot): batch 29 = #38 `pr-review-toolkit:code-reviewer` (**pr family first burn**, 19th AUDIT pivot, full-tool — All tools incl Write/Edit no adaptation needed per round 5 #37 general-purpose precedent) / batch 30 = #39 `superpowers:code-reviewer` (**superpowers family first burn**, 20th AUDIT pivot, full-tool, drift cal carrier 6th time) / batch 31 = #40 `pr-review-toolkit:silent-failure-hunter` (**pr family second-agent depth burn**, 21st AUDIT pivot, full-tool — validates intra-family agent variation post #38 pr-review-toolkit:code-reviewer)
+- Round 6 protocol sustains round 5 spec: G-MS-4 halt fallback decision tree (5 rounds spec-only no live-fire — round 5 confirmed spec-only carry-forward; round 6+ accept OR design adversarial halt) + G-MS-7 finding ID range pre-allocation (3 sessions reserved O-P1-93..96/97..100/101..104) + G-MS-11 NEW6 dual-form codified (round 2-5 EFFECTIVE) + G-MS-11.b extension (round 3-5 EFFECTIVE proactive 6×) + G-MS-12 density alarm threshold spec (round 2-5 validated FALSE POSITIVES) + G-MS-13 cross-validation table at top of each kickoff (round 4-5 EFFECTIVE 0 mis-allocation, 6 sister sessions cumulative)
+- 🔴 **NEW7 L6 sub-batch handoff round 6 status** — round 3 batch 23 + round 4 batch 25 + **round 5 reconciler-side O-P1-92 = 3× CROSS-batch recurrence**. Round 5 verdict: INTRA-batch procedural prepend EFFECTIVE 1st live-fire 0 recurrence (O-P1-81 PROACTIVE batch 26); CROSS-batch 仍 drift (O-P1-92 reconciler-side Option H 4-atom). 主 session dispatch sub-batch B prompt MUST inline-prepend prior sub-batch A 终态 (last L4/L5/L6 sib + Example N HEADING hl=6 convention) **AND** 主 session dispatch batch N sub-batch a prompt MUST inline-prepend prior batch N-1 sub-batch b 终态 (CROSS-batch handoff codification round 6 mandatory) — for batch 29a, prior = round 5 batch 28b 终态 §6.3.5.9.3 PP-PC Relating L5 sib=3 / Examples L5 sib=4 / Example 3 L6 sib=3 / Method D L7 sib=4 at p.280
+- batch 30 含 mandatory drift cal (per cadence every-3-batches batch 27→30 + cumulative atoms post-p.270 ≥600 双触发, per NEW1 dual-threshold strict ≥80% AND verbatim hash overlap ≥80%, **round 5 5th time CATASTROPHIC FAIL p.270 strict 71.1% verbatim 6.7% LOWEST EVER** — first FAIL after 4× PASS; round 6 6th time = expect VALUE-HALLUCINATION motif extension OR recovery; target page TBD by session C — recommend dense Spec/Assumption table OR R12 transition page if §6.3.5 完结 transition visible)
 - 每 kickoff 顶部有 HARD-STOP DIRECTIVE — 禁止中途回交 control / summarize / ask user — 唯一合法停止 = `PARALLEL_SESSION_NN_DONE` 单行 echo OR `HALT_BATCH_NN reason=<X>` halt 信号
-- 详见 `.work/06_deep_verification/multi_session/MULTI_SESSION_PROTOCOL.md` (master guide round 1, round 2-5 augmented inline in kickoff files) + `MULTI_SESSION_RETRO_ROUND_4.md` (round 4 retro 12 R-MS retain + 6 G-MS gap including NEW7 L6 RECURRENCE formal codification mandatory + 7 D-MS decision)
+- 详见 `.work/06_deep_verification/multi_session/MULTI_SESSION_PROTOCOL.md` (master guide round 1, round 2-6 augmented inline in kickoff files) + `MULTI_SESSION_RETRO_ROUND_5.md` (round 5 retro 36469 bytes — INTRA-batch L6 EFFECTIVE 1st live-fire / CROSS-batch L6 3rd recurrence / NEW1 5th CATASTROPHIC FAIL / NEW6.b 6× streak / general-purpose family-agnostic VALIDATED + 5 v1.4 candidates accumulated)
 
 **Round 1 历史** (batches 13/14/15 commit `4d6165a` + reconciler `6d173b1`; batch 16 single-session resume commit `7447ec0`).
 **Round 2 历史** (batches 17/18/19 commit `d6bc41c`).
 **Round 3 历史** (batches 20/21/22 + reconciler commit `eb51567`).
-**Round 4 历史** (batches 23/24/25 + reconciler 2026-04-26): 6146 atoms / 250 pages / 25 batches; 1 reconciler-side Option H 4-atom NEW7 L6 LB-Examples sub-batch context drift 修 + finding O-P1-79; 3 family pools EXHAUSTED post round 4 (vercel + plugin-dev + feature-dev). 路由规则切换到 round 5 batches 26/27/28.
+**Round 4 历史** (batches 23/24/25 + reconciler 2026-04-26): 6146 atoms / 250 pages / 25 batches; 1 reconciler-side Option H 4-atom NEW7 L6 LB-Examples sub-batch context drift 修 + finding O-P1-79; 3 family pools EXHAUSTED post round 4 (vercel + plugin-dev + feature-dev).
+**Round 5 历史** (batches 26/27/28 + reconciler 2026-04-27): 7092 atoms / 280 pages / 28 batches (+946 atoms +30 pages 3 batches); findings O-P1-80..92 (13 new — 3 batch 26 INFO + 3 batch 27 含 O-P1-84 drift cal CATASTROPHIC FAIL HIGH + O-P1-85 NEW VALUE-HALLUCINATION motif MEDIUM + O-P1-86 L7 deepest INFO + 4 batch 28 含 O-P1-88 EDITORIAL_CORRECTION HIGH + O-P1-89 Write-overwrite NEW motif HIGH + O-P1-90 padding LOW + O-P1-91 parent_section LOW + 1 reconciler-side O-P1-92 NEW7 L6 cross-batch 3rd recurrence); general-purpose family first burn AUDIT pivot recipe family-agnostic VALIDATED; NEW7 L6 INTRA-batch procedural EFFECTIVE 1st live-fire / CROSS-batch 3rd recurrence; NEW6.b 6× streak; 5 v1.4 candidates accumulated. 路由规则切换到 round 6 batches 29/30/31.
 
-**Cleanup** — 本次 round 5 实验完成后 (reconciler session 末尾会提示), 移除本节 + 删除 round 5 one-shot kickoffs 即可 (留 `MULTI_SESSION_PROTOCOL.md` + `MULTI_SESSION_RETRO.md` + `MULTI_SESSION_RETRO_ROUND_2.md` + `MULTI_SESSION_RETRO_ROUND_3.md` + `MULTI_SESSION_RETRO_ROUND_4.md` + 即将写入 `MULTI_SESSION_RETRO_ROUND_5.md` 作历史).
+**Cleanup** — 本次 round 6 实验完成后 (reconciler session 末尾会提示), 移除本节 + 删除 round 6 one-shot kickoffs 即可 (留 `MULTI_SESSION_PROTOCOL.md` + `MULTI_SESSION_RETRO.md` + `MULTI_SESSION_RETRO_ROUND_2.md` + `MULTI_SESSION_RETRO_ROUND_3.md` + `MULTI_SESSION_RETRO_ROUND_4.md` + `MULTI_SESSION_RETRO_ROUND_5.md` + 即将写入 `MULTI_SESSION_RETRO_ROUND_6.md` 作历史).
 
 ## Change Chains
 

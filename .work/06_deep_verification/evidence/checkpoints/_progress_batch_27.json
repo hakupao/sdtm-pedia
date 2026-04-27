@@ -1,0 +1,279 @@
+{
+  "batch_id": 27,
+  "session_id": "session_c_round_5",
+  "round": 5,
+  "status": "completed",
+  "scope_pages": "ig34 p.261-270",
+  "page_count": 10,
+  "atoms_done": 249,
+  "atoms_breakdown": {
+    "27a_p261_265": 124,
+    "27b_p266_270": 125,
+    "by_page": {
+      "261": 18, "262": 30, "263": 31, "264": 25, "265": 20,
+      "266": 23, "267": 28, "268": 19, "269": 23, "270": 32
+    },
+    "by_atom_type_27a": {
+      "TABLE_ROW": 73,
+      "LIST_ITEM": 15,
+      "SENTENCE": 10,
+      "CODE_LITERAL": 10,
+      "TABLE_HEADER": 10,
+      "HEADING": 6
+    },
+    "by_atom_type_27b": {
+      "TABLE_ROW": 73,
+      "LIST_ITEM": 17,
+      "HEADING": 11,
+      "SENTENCE": 10,
+      "TABLE_HEADER": 7,
+      "CODE_LITERAL": 6,
+      "NOTE": 1
+    },
+    "by_atom_type_combined": {
+      "TABLE_ROW": 146,
+      "LIST_ITEM": 32,
+      "SENTENCE": 20,
+      "TABLE_HEADER": 17,
+      "HEADING": 17,
+      "CODE_LITERAL": 16,
+      "NOTE": 1
+    }
+  },
+  "failures": 0,
+  "repair_cycles": 0,
+  "repair_cycle_notes": [],
+  "scope_deviation_from_kickoff": "kickoff §1 predicted §6.3.5.8 MI (p.263) only; pre-dispatch TOC verify (PDF p.4) caught additional §6.3.5.9 Pharmacokinetics Domains L4 group container + §6.3.5.9.1 PC L5 sub-domain transitions at p.267; dispatch context updated to TRIPLE-transition batch (vs round 4 batch 25 DOUBLE-transition LB+Microbiology)",
+  "rule_a": {
+    "reviewer_slot": 36,
+    "reviewer_type": "oh-my-claudecode:architect",
+    "reviewer_audit_pivot_index": 17,
+    "reviewer_family": "oh-my-claudecode",
+    "reviewer_family_burn_count_post_batch": 9,
+    "reviewer_family_pool_status_post_batch": "active 9th burn (post round 4 #33 omc:scientist 7th + round 5 #35 omc:analyst 8th); 1-2 candidates remaining (release/explore/etc)",
+    "audit_mode_pivot_label": "AUDIT for PDF atomization quality, NOT strategic architecture / NOT debugging advisor / NOT codebase pattern analysis",
+    "tools_adaptation": "write-tool-less + no-Bash inline content (per round 3 batch 20 #29 plugin-dev:skill-reviewer + round 4 batch 25 #34 feature-dev:code-architect sub-pattern); reviewer produced verdicts.jsonl + summary.md inline; main session wrote files preserving content verbatim",
+    "sample_size": 10,
+    "sample_seed": 20260605,
+    "sample_coverage": "1/page p.261-270 stratified (6 TABLE_ROW + 3 HEADING + 1 LIST_ITEM)",
+    "sample_stratification_target": "4-5 TABLE_ROW + 3 HEADING (MI L4 + PD L4 + PC L5 + R12 transitions) + 1-2 LIST_ITEM + 1 CODE_LITERAL",
+    "sample_stratification_actual": "6 TABLE_ROW + 3 HEADING + 1 LIST_ITEM (CODE_LITERAL not drawn at this seed; close to target)",
+    "raw_pass": 10,
+    "raw_partial": 0,
+    "raw_fail": 0,
+    "raw_weighted_pct": 100.0,
+    "raw_verdict": "PASS_AT_THRESHOLD (first non-residual perfect score in round 5)",
+    "tom_anchor_audit_n_cumulative": 180,
+    "tom_anchor_consecutive_batches": 18,
+    "tom_anchor_fp_count": 0,
+    "tom_anchor_inversion_count": 0,
+    "special_checks": {
+      "new6_b_mi_l4_self_parent": "PASS — §6.3.5.8 MI L4 HEADING (ig34_p0263_a028) parent='§6.3.5 Specimen-based Findings Domains' (NOT self-parent); 5th proactive precedent post round 4",
+      "new6_b_pd_l4_self_parent": "PASS — §6.3.5.9 Pharmacokinetics Domains L4 HEADING (ig34_p0267_a016) parent='§6.3.5 Specimen-based Findings Domains' (NOT self-parent); 6th proactive precedent post round 4",
+      "new7_l5_pc_restart_under_l4_group_container": "PASS — §6.3.5.9.1 PC L5 HEADING (ig34_p0267_a017) parent='§6.3.5.9 Pharmacokinetics Domains' (round-4 §6.3.5.7.1 MB precedent recurrence; 2nd L5 RESTART under L4 group container)",
+      "new7_l6_sub_batch_handoff_procedural_enforcement": "EFFECTIVE — 27b emitted Example 1/2/3 as HEADING hl=6 sib=1/2/3 (NOT SENTENCE); round 3 batch 23 + round 4 batch 25 = 2× recurrence motif PREVENTED in round 5; main-session inline-prepend of 27a end-state ('Last L4 sib=8, Last L5 sib=3, Convention: Example N HEADING hl=6 sib=N RESTART') works as designed",
+      "new7_l7_deepest_depth_precedent": "NEW round-5 INFO — PC Example 1 (ig34_p0270_a001) hl=7 sib=1 RESTART under §6.3.5.9.1 PC; first L7-under-group-container-L5-sub-domain precedent; depth path §6.3.5 → §6.3.5.9 (L4 group) → §6.3.5.9.1 PC (L5) → PC-Examples (L6 sib=4) → Example 1 (L7 sib=1)",
+      "wide_TABLE_corruption_p270_baseline": "CLEAN — pc.xpt Row 19 (32 cols, 4 consecutive blank cells) executor baseline preserved verbatim; writer-family wide-TABLE corruption motif NOT recurring on root atoms (executor family wrote both 27a + 27b); corruption surfaced only on writer rerun probe (see drift cal report)"
+    }
+  },
+  "drift_cal": {
+    "triggered": true,
+    "rationale": "MANDATORY per cadence every-3-batches batch 24→27 + cumulative atoms post-p.233 ≥600 双触发",
+    "target_page": 270,
+    "target_rationale": "p.270 PC Example 1 dense narrative (1 SENTENCE intro + 1 PCTPTREF discussion SENTENCE) + 7 LIST_ITEM row-groups + pc.xpt CODE_LITERAL + TABLE_HEADER + 30 TABLE_ROW = most diverse motif page in batch 27 scope (triggers all writer-family drift motifs simultaneously: paraphrase / synonym / whitespace / wide-TABLE / value-hallucination)",
+    "baseline": {
+      "subagent": "27b oh-my-claudecode:executor (sub-batch 27b)",
+      "atoms": 32,
+      "file": "pdf_atoms_batch_27b.jsonl (filtered p.270)"
+    },
+    "rerun": {
+      "subagent": "oh-my-claudecode:writer (drift cal probe — never merged to root)",
+      "atoms": 45,
+      "file": "drift_cal_p270_writer_rerun.jsonl"
+    },
+    "new1_dual_threshold": {
+      "strict_count_match_pct": 71.1,
+      "strict_count_threshold": 80.0,
+      "strict_count_verdict": "FAIL",
+      "strict_count_detail": "32 baseline vs 45 rerun = 71.1% (rerun fabricated 13 extra atoms — 10 extra TABLE_ROW + 3 extra SENTENCE)",
+      "verbatim_hash_overlap_pct": 6.7,
+      "verbatim_hash_threshold": 80.0,
+      "verbatim_hash_verdict": "FAIL",
+      "verbatim_hash_detail": "intersection 3 / union 45 = 6.7% (LOWEST verbatim hash overlap ever recorded; round 4 batch 24 p.233 was 41.2% — round 5 batch 27 p.270 = 5th time validation, FAIL more dramatic)",
+      "overall_verdict": "FAIL"
+    },
+    "direction_analysis": {
+      "baseline_only_atoms": 29,
+      "rerun_only_atoms": 42,
+      "common_atoms": 3,
+      "direction_inference": "writer-family drift (paraphrase / synonym / whitespace / VALUE HALLUCINATION)",
+      "direction_reversed_precedent": "9th precedent (post round 4 batch 24 p.233 8th)",
+      "specific_drift_examples": [
+        "TABLE_ROW value hallucination: rerun row 28 wrote USUBJID='1223-0111' (correct: '123-0001' per PDF p.270) + PCREFID='1223-0111' (correct: 'A854134-XX' suffixed) + PCTESTCD='METABOLITE A' (correct: 'DRGA_MET') — INVENTED IDs not in PDF",
+        "Extra TABLE_ROW count: rerun 30 TABLE_ROW vs baseline 20 — fabricated 10 rows beyond PDF's 30 (rerun likely doubled some rows or invented continuation)",
+        "SENTENCE over-split: rerun split 1 long PCTPTREF rule sentence into 5 fragments (SENTENCE count 5 vs baseline 2) — broke R1 'don't split X shall Y when Z' rule",
+        "Whitespace normalization: rerun collapsed multi-space indents to single spaces in LIST_ITEM 'Rows 17-20:'"
+      ]
+    },
+    "value_hallucination_NEW_motif_round_5": {
+      "description": "Writer rerun did not perform char-level verbatim copy on TABLE_ROW value cells; appears to perform semantic inference + ID generation (filling in plausible-looking USUBJIDs/PCREFIDs/PCTESTCDs from training data rather than reading PDF char-by-char)",
+      "examples": [
+        "STUDYID 'ABC-123' rerun → '1223-001' (writer training-data generic study ID pattern)",
+        "USUBJID '123-0001' rerun → '1223-0111' (writer template subject pattern)",
+        "PCREFID 'A854134-10..A854134-17' rerun → '1223-0111' (writer placeholder)",
+        "PCTESTCD 'DRGA_MET' rerun → 'METABOLITE A' (writer expanded label vs short code)"
+      ],
+      "v1_4_candidate": "NEW8.d TABLE_ROW value-cell verbatim integrity check (extension of NEW8 substring n-gram cross-check from variable-name-only to ID-value-also)",
+      "severity": "MEDIUM (caught by drift cal probe BEFORE merge to root; root unaffected; safety net validated)"
+    },
+    "action": "NO root file repair needed — baseline 27b executor verbatim CORRECT vs PDF ground truth p.270 (validated by Rule A reviewer slot #36 atom 10 ig34_p0270_a031 PASS); root inherits executor atoms via reconciler merge; writer rerun discarded (probe-only, never merged)",
+    "writer_family_motif": "YES (cumulative 9th batch P1 — joins O-P1-23/34/36/37/38/50/63/71)",
+    "v1_3_cut_implication_5th_time_validation": "Writer-family R10 strict no-paraphrase prepend INSUFFICIENT — round 5 batch 27 5th consecutive FAIL of NEW1 dual-threshold (round 1+2+3+4+5 all FAIL with writer-family drift); v1.3 cut MUST include: (a) MANDATORY executor-only family for dense TABLE_ROW pages; (b) char-level pre-DONE NEW2-style hook for SENTENCE atoms similar to NEW2 for variable names; (c) NEW8.d TABLE_ROW value-cell verbatim integrity hook (round-5 NEW); evidence QUADRUPLE-saturated post round 5",
+    "next_mandatory": "batch 30 (every-3-batches cadence batch 27 → 30)"
+  },
+  "density_alarm_check_round_5_G_MS_12": {
+    "applied": true,
+    "lowest_per_page_atoms": "p.261=18 + p.268=19 (both well above 15-atom floor)",
+    "sub_batch_27a_total": 124,
+    "sub_batch_27a_above_100_floor": true,
+    "sub_batch_27b_total": 125,
+    "sub_batch_27b_above_100_floor": true,
+    "alarm_triggered": false,
+    "main_session_pdf_cross_check": "NOT required — all pages ≥18 (well above 15 floor) and both sub-batches ≥124 (well above 100 floor); density healthy across TRIPLE-transition batch"
+  },
+  "new6_format_sweep": {
+    "applied": true,
+    "violations_found": 0,
+    "mi_l4_heading_check": "PASS (parent='§6.3.5 Specimen-based Findings Domains' NOT self-parent)",
+    "pd_l4_heading_check": "PASS (parent='§6.3.5 Specimen-based Findings Domains' NOT self-parent)",
+    "post_sweep_compliance": "100%"
+  },
+  "new7_l4_l7_chain_check": {
+    "applied": true,
+    "mi_l5_chain": "Description (sib=1) + Specification (sib=2) + Assumptions (sib=3) + Examples (sib=4) RESTART under §6.3.5.8 MI",
+    "mi_l6_chain": "Example 1 (sib=1) + Example 2 (sib=2) + Example 3 (sib=3) RESTART under §6.3.5.8 MI",
+    "pc_l5_l6_chain": "§6.3.5.9.1 PC L5 sib=1 RESTART under §6.3.5.9 PD group container; PC-Description L6 sib=1 + PC-Specification L6 sib=2 + PC-Assumptions L6 sib=3 + PC-Examples L6 sib=4 RESTART under §6.3.5.9.1 PC",
+    "pc_l7_chain": "Example 1 (sib=1) RESTART under §6.3.5.9.1 PC at depth L7 — first L7-under-L5-sub-domain precedent in round 5",
+    "round_5_NEW_precedent": "L7 deepest depth precedent (PC Example 1 hl=7 sib=1 under §6.3.5.9.1 PC under §6.3.5.9 PD group container); recorded as O-P1-86 INFO for v1.4 codification (depth path §6.3.5 → §6.3.5.9 L4 group → §6.3.5.9.1 PC L5 → PC-Examples L6 sib=4 → Example 1 L7 sib=1)"
+  },
+  "r12_transition_check": {
+    "applied": true,
+    "transition_pages": [
+      {
+        "page": 263,
+        "type": "sub-domain (§6.3.5.7 Microbiology Domains group container 末 → §6.3.5.8 Microscopic Findings (MI) NEW L4 sub-domain)",
+        "atoms_on_page": 31,
+        "threshold": 8,
+        "compliance": "PASS (31 ≥ 8)",
+        "zone_partition": "Microbiology tail (a001-a014 — DI cross-domain + relrec.xpt + Example 4 narrative + mb.xpt contaminated culture rows + suppmb.xpt) / Example 4 L6 HEADING a015 / Microbiology suppmb.xpt rows continuation a016-a027 / §6.3.5.8 MI L4 HEADING a028 + MI – Description/Overview L5 HEADING a029 + 2 MI Description SENTENCE a030-a031"
+      },
+      {
+        "page": 267,
+        "type": "TRIPLE transition: §6.3.5.8 MI Examples 末 → §6.3.5.9 Pharmacokinetics Domains NEW L4 group container → §6.3.5.9.1 PC NEW L5 sub-domain RESTART under group container",
+        "atoms_on_page": 28,
+        "threshold": 8,
+        "compliance": "PASS (28 ≥ 8)",
+        "zone_partition": "MI Example 3 tail (a001 Example 3 L6 HEADING + Example 3 narrative + Rows 1-4: + Row 5: LIST_ITEM + mi.xpt 5 TABLE_ROW + suppmi.xpt 1 TABLE_ROW a002-a015) / §6.3.5.9 Pharmacokinetics Domains L4 HEADING a016 / §6.3.5.9.1 PC L5 HEADING a017 + PC-Description L6 HEADING a018 + PC-Description SENTENCE a019 + PC-Specification L6 HEADING a020 + pc.xpt caption HEADING a021 + Spec table TABLE_HEADER a022 + first 6 TABLE_ROW a023-a028"
+    }
+    ],
+    "triple_transition_compliance": "PASS — both transitions ≥8 atoms with multi-zone partition; p.267 TRIPLE-transition handled in single sub-batch (27b) without sibling counter restart issues"
+  },
+  "r15_cross_batch_sibling_check": {
+    "applied": true,
+    "mi_sibling_continuity": "§6.3.5.8 MI L4 sib=8 RESTART under §6.3.5 contiguous from §6.3.5.7 Microbiology Domains L4 sib=7 (round 4 batch 25)",
+    "pd_sibling_continuity": "§6.3.5.9 Pharmacokinetics Domains L4 sib=9 RESTART under §6.3.5 contiguous from §6.3.5.8 MI L4 sib=8 (within batch 27)",
+    "main_session_local_validation": "L4 sibling chain sib=8→9 visible PDF p.263→p.267; reconciler will confirm cross-session R15 across batch 25 (sib=7) → batch 27 (sib=8, sib=9) and verify sister batch 26 (sib=7 internal §6.3.5.7.X chain) does not collide",
+    "potential_reconciler_deferred_item": "Examples within Microbiology Domains group container (Example 4 sib=4 on p.263 a015) assumes sister batch 26 emitted Examples 1, 2, 3 with sib=1, 2, 3 under same parent §6.3.5.7 Microbiology Domains; reconciler post-merge sweep must verify cross-session sibling continuity"
+  },
+  "findings_added": [
+    {
+      "finding_id": "O-P1-84",
+      "severity": "HIGH",
+      "category": "drift-cal-FAIL writer-family-corruption-VALUE-HALLUCINATION",
+      "title": "Drift cal NEW1 dual-threshold round 5 5th time CATASTROPHIC FAIL p.270 (strict 71.1% / verbatim 6.7% lowest ever)",
+      "scope": "drift cal probe writer rerun on p.270 PC Example 1 (NOT root atoms — root has executor baseline preserved correctly)",
+      "atom_id_anchor": "drift_cal_p270_writer_rerun.jsonl (45 atoms vs 32 baseline executor)",
+      "rule_violation": "Writer-family R10 strict no-paraphrase + R8 verbatim integrity FAIL — 6.7% verbatim hash overlap = lowest ever recorded; writer rerun fabricated 10 extra TABLE_ROW + invented USUBJID/PCREFID/PCTESTCD values + over-split SENTENCE",
+      "repair_action": "NO root repair needed — baseline 27b executor verbatim CORRECT vs PDF ground truth p.270 (validated by Rule A reviewer slot #36 atom 10 PASS); writer rerun discarded (drift cal probe-only, never merged to root)",
+      "v1_3_candidate": "ULTRA-CRITICAL re-emphasis 5th time: writer-family R10 strict no-paraphrase prepend INSUFFICIENT — v1.3 MUST include MANDATORY executor-only family for dense TABLE_ROW + char-level pre-DONE NEW2-style hook for SENTENCE + NEW8.d TABLE_ROW value-cell verbatim integrity hook",
+      "writer_family_motif": "YES (cumulative 9th batch P1 — joins O-P1-23/34/36/37/38/50/63/71 wide-TABLE corruption family + O-P1-72 round 4 verbatim drift)"
+    },
+    {
+      "finding_id": "O-P1-85",
+      "severity": "MEDIUM",
+      "category": "NEW-corruption-motif writer-family",
+      "title": "NEW writer-family VALUE HALLUCINATION motif (round-5 NEW pattern beyond paraphrase)",
+      "scope": "drift cal writer rerun p.270 TABLE_ROW (30 atoms; NOT root which has executor baseline)",
+      "atom_id_anchor": "drift_cal_p270_writer_rerun.jsonl rows 16-45 (TABLE_ROW pc.xpt rerun)",
+      "rule_violation": "Writer-family does not perform char-level verbatim copy on TABLE_ROW value cells; performs semantic inference + ID generation (training-data templates instead of PDF reading)",
+      "specific_examples": [
+        "STUDYID 'ABC-123' → '1223-001' (writer training-data generic study ID pattern)",
+        "USUBJID '123-0001' → '1223-0111' (writer template subject pattern)",
+        "PCREFID 'A854134-10..A854134-17' → '1223-0111' (writer placeholder)",
+        "PCTESTCD 'DRGA_MET' → 'METABOLITE A' (writer expanded label vs short code)"
+      ],
+      "repair_action": "Severity MEDIUM not HIGH because failure caught by drift cal probe BEFORE merge to root; root unaffected; safety net validated; v1.4 NEW8.d candidate (TABLE_ROW value-cell verbatim integrity check)",
+      "v1_4_candidate": "NEW8.d TABLE_ROW value-cell verbatim integrity check (extension of NEW8 substring n-gram cross-check from variable-name-only to ID-value-also; regex cross-check `[A-Z]+-\\d+(?:-\\d+)?` + `[A-Z][a-z]+\\d+` vs baseline executor)",
+      "writer_family_motif": "NEW round-5 motif (distinct from prior paraphrase + wide-TABLE corruption motifs)"
+    },
+    {
+      "finding_id": "O-P1-86",
+      "severity": "INFO",
+      "category": "NEW7-precedent-extension",
+      "title": "Round-5 deepest L7 precedent: PC Example 1 hl=7 sib=1 RESTART under §6.3.5.9.1 PC (under §6.3.5.9 PD group container)",
+      "scope": "p.270 ig34_p0270_a001 §6.3.5.9.1 PC – Examples Example 1 L7 HEADING + downstream PC Example 1 atoms (narrative SENTENCE + 7 LIST_ITEM row-groups + pc.xpt 30-row TABLE_ROW)",
+      "atom_id_anchor": "ig34_p0270_a001",
+      "parent_assigned": "§6.3.5.9.1 Pharmacokinetics Concentrations (PC)",
+      "rule_application": "Extends NEW7 deep-nesting model: round-3 batch 21 had L7 sub-example (Example 1a/1b under Example N at depth 7 = L7 sub-example branch); round-5 NEW = L7 Example N under L5 sub-domain (PC) which itself sits under L4 group container (PD). Depth path: §6.3.5 (L3) → §6.3.5.9 (L4 group container) → §6.3.5.9.1 PC (L5 sub-domain) → PC-Examples (L6 sib=4) → Example 1 (L7 sib=1). First L7-under-group-container-L5-sub-domain precedent.",
+      "v1_4_candidate": "Codify in NEW7 chain: deepest depth varies by branch; group-container case adds L7 depth for Examples N under L5 sub-domains (mirrors §6.3.5.7.1 MB MB-Examples L7 in batch 26 if MB has Examples)."
+    }
+  ],
+  "finding_id_range_allocated": "O-P1-84..87 (4 IDs reserved per round 5 G-MS-13)",
+  "finding_id_range_used": ["O-P1-84", "O-P1-85", "O-P1-86"],
+  "finding_id_range_freed_for_compression": ["O-P1-87"],
+  "finding_id_self_validation_gate": "PASS — 3 finding IDs all ∈ {84,85,86,87}; 0 findings with ID ≤83 (no collision with sister batch 26 O-P1-80..83) or ≥88 (no collision with sister batch 28 O-P1-88..91)",
+  "rule_d_slot_used": 36,
+  "rule_d_audit_pivot_count_post_batch": 17,
+  "rule_d_family_post_batch": "oh-my-claudecode 9th burn (cumulative #21 debugger / #23 designer / #26 architect-prior / #29 deep-interview / #32 security-reviewer / #33 scientist / #35 analyst / #36 architect-current; 1-2 candidates remaining release/explore/etc)",
+  "files_written": [
+    "evidence/checkpoints/pdf_atoms_batch_27a.jsonl (124 atoms, p.261-265, no repair cycles)",
+    "evidence/checkpoints/pdf_atoms_batch_27b.jsonl (125 atoms, p.266-270, no repair cycles)",
+    "evidence/checkpoints/_progress_batch_27.json (this file)",
+    "evidence/checkpoints/P1_batch_27_report.md (full batch report)",
+    "evidence/checkpoints/rule_a_batch_27_sample.jsonl (10-atom Rule A sample seed=20260605)",
+    "evidence/checkpoints/rule_a_batch_27_verdicts.jsonl (slot #36 oh-my-claudecode:architect verdicts inline-captured)",
+    "evidence/checkpoints/rule_a_batch_27_summary.md (Rule A summary inline-captured)",
+    "evidence/checkpoints/drift_cal_p270_writer_rerun.jsonl (45 atoms — drift cal probe-only, NOT merged to root)",
+    "evidence/checkpoints/drift_cal_batch_27_p270_report.md (NEW1 dual-threshold report + DIRECTION + writer-family motif analysis)"
+  ],
+  "files_NOT_touched": [
+    "root pdf_atoms.jsonl",
+    "audit_matrix.md",
+    "_progress.json",
+    "sister batch files (pdf_atoms_batch_26*, pdf_atoms_batch_28*)",
+    "subagent_prompts/* (v1.3 cut DEFERRED 5th time per Rule D — drift cal 5th time validation TRIPLE-saturates evidence further)",
+    "schema/*.json",
+    "PLAN.md",
+    "plans/*.md",
+    "CLAUDE.md",
+    "MEMORY/*"
+  ],
+  "halt_state": null,
+  "round_5_compliance": {
+    "G_MS_4_halt_fallback": "spec'd (kickoff Step 0.5 decision tree); NOT triggered this batch; 5 rounds spec-only no live-fire — round 5 retro decision pending (accept spec-only validation OR design adversarial halt for round 6+)",
+    "G_MS_7_finding_id_range_pre_allocation": "compliant — O-P1-84..87 reserved, 3 used (O-P1-84/85/86); 1 unused (O-P1-87) freed for compression; no over-allocation, no cross-session collision (sister batches 26/28 reserve disjoint O-P1-80..83 + O-P1-88..91)",
+    "G_MS_11_NEW6_dual_form_codified": "applied in writer prompt prepend + post-DONE NEW6.b sweep verified 0 violations (both MI L4 + PD L4 HEADINGs use L3 group container as parent, not self-parent)",
+    "G_MS_11_b_round_3_extension_codified": "applied — both TRIPLE-transition L4 HEADINGs (§6.3.5.8 MI + §6.3.5.9 PD) PASS NEW6.b L3-group-parent check; the round-3 batch 22 GF L4 self-parent O-P1-64 lesson successfully codified into round-5 kickoff prepend + applied without recurrence (5th + 6th proactive precedent post round 4 4×)",
+    "G_MS_12_density_alarm_check_applied": "applied — lowest pages p.261=18 + p.268=19 (both well above 15 floor); both sub-batches ≥124 (well above 100 floor); alarm NOT triggered; main-session PDF cross-check NOT required for batch 27",
+    "G_MS_13_finding_id_range_cross_validation_table": "applied — kickoff §0 cross-validation table read pre-dispatch; finding ID self-validation gate at STEP 7 confirmed only O-P1-84/85/86 used (∈ {84,85,86,87}); 0 collision with sister sessions",
+    "NEW7_L6_sub_batch_handoff_procedural_enforcement": "EFFECTIVE round 5 1st live-fire — round 3 batch 23 + round 4 batch 25 = 2× recurrence motif PREVENTED in round 5 batch 27 via main-session inline-prepend of 27a end-state to 27b dispatch prompt; round 4 D-MS-4 codification mandate VALIDATED"
+  },
+  "round_5_NEW_precedents_observed": [
+    "TRIPLE L4-level transitions in single batch (§6.3.5.7→§6.3.5.8→§6.3.5.9→§6.3.5.9.1) — kickoff §1 predicted only DOUBLE; pre-dispatch TOC verify caught additional §6.3.5.9 PD; demonstrates value of pre-dispatch ground truth verification",
+    "L7 deepest depth precedent (PC Example 1 hl=7 sib=1 under §6.3.5.9.1 PC under §6.3.5.9 PD group container) — first L7-under-group-container-L5-sub-domain precedent; v1.4 codification candidate",
+    "VALUE HALLUCINATION NEW writer-family corruption motif (USUBJID/PCREFID/PCTESTCD INVENTED IDs not in PDF) — distinct from prior paraphrase + wide-TABLE corruption motifs; v1.4 NEW8.d candidate (TABLE_ROW value-cell verbatim integrity check)",
+    "NEW7 L6 sub-batch handoff procedural enforcement first live-fire EFFECTIVE — main-session inline-prepend of prior sub-batch end-state PREVENTS round 3+4 motif recurrence in round 5",
+    "Drift cal NEW1 dual-threshold 5th consecutive validation FAIL with writer-family drift — round 1+2+3+4+5 all FAIL = 100% historical FAIL bias confirms writer-family unreliability for dense TABLE_ROW pages; v1.3 cut codification ULTRA-CRITICAL 5th time (CRITICAL-EMERGENCY escalation)"
+  ],
+  "handoff_to_reconciler": "Session C contributes 249 atoms (124 + 125) over p.261-270 (TRIPLE L4 transition: §6.3.5.7 Microbiology Domains 末 + §6.3.5.8 Microscopic Findings (MI) NEW L4 + §6.3.5.9 Pharmacokinetics Domains NEW L4 group container + §6.3.5.9.1 PC NEW L5 sub-domain RESTART). Reconciler should: (a) merge pdf_atoms_batch_27a.jsonl + pdf_atoms_batch_27b.jsonl into root pdf_atoms.jsonl post 26a/26b sister batch merges; drift_cal_p270_writer_rerun.jsonl is DRIFT CAL PROBE ONLY — DO NOT MERGE; (b) sweep cross-batch sibling continuity for §6.3.5.X L4 chain across rounds — sib=6 LB (batch 25) → sib=7 Microbiology (batch 25) → batch 26 internal §6.3.5.7.X (sister) → sib=8 MI (batch 27) → sib=9 PD (batch 27) — verify continuity; (c) verify §6.3.5.7 group container Example 1/2/3 sib=1/2/3 from sister batch 26 + Example 4 sib=4 from batch 27 = continuous L6 RESTART under §6.3.5.7; (d) update root audit_matrix.md with batch 27 row + Rule A 27 row + drift cal p.270 row + Rule D roster 35→36 (omc-family 9th burn); (e) update root _progress.json (pages 250→260 baseline + 27's 10 → check sister batch contributions / atoms 6146 + 27's 249 = 6395 + 26's + 28's / batches 25→26-27-28 / Rule D 35→36 + 37 + 38 / repair_cycles +0 / findings +3 [O-P1-84/85/86]); (f) v1.3 prompt cut decision NOW EMERGENCY-CRITICAL escalation 5th time deferred per Rule D — evidence QUADRUPLE-saturated post round 5 (R10/R11/R12/R14/R15 + O-P1-26 + NEW1-NEW8 + NEW6/NEW6.b dual-form 6× proactive + NEW7 L6 procedural enforcement EFFECTIVE round 5 + NEW7 L7 round-5 precedent O-P1-86 + NEW8.d round-5 VALUE HALLUCINATION candidate O-P1-85 + drift cal NEW1 round 5 5th time CATASTROPHIC FAIL); (g) v1.4 candidate accumulation: NEW7 L7 group-container branch (O-P1-86) + NEW8.d TABLE_ROW value-cell verbatim integrity (O-P1-85); (h) multi-session round 5 protocol cleanup: preserve MULTI_SESSION_PROTOCOL.md + 4 round retro files + write MULTI_SESSION_RETRO_ROUND_5.md (Rule C 强制 三段式: 保留 / 缺口 / 决策); remove CLAUDE.md round-5 routing rule + delete batch_26/27/28_kickoff.md + reconciler_kickoff_round5.md (one-shot use done); (i) reconciler safety net continues — Rule A 100% PASS on baseline does not preclude reconciler structural sweep (recall round 4 batch 25 100% Rule A but reconciler caught 4-atom NEW7 L6 LB-Examples drift O-P1-79); reconciler must run cross-batch sibling continuity sweep across batch 25 + 26 + 27 + 28 jsonls."
+}
