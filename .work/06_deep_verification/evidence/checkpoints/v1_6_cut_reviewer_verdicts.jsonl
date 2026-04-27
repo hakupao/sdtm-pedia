@@ -1,0 +1,28 @@
+{"item":"A","verdict":"PASS","note":"v1.5 carry-forward"}
+{"item":"B","verdict":"PASS","note":"v1.5 carry-forward"}
+{"item":"C","verdict":"PASS","note":"v1.5 carry-forward"}
+{"item":"D","verdict":"PASS","note":"v1.5 carry-forward"}
+{"item":"E","verdict":"PASS","note":"v1.5 carry-forward"}
+{"item":"F","verdict":"PASS","note":"v1.5 carry-forward"}
+{"item":"G","verdict":"PASS","note":"v1.5 carry-forward"}
+{"item":"H","verdict":"PASS","note":"v1.5 carry-forward"}
+{"item":"I","verdict":"PASS","note":"v1.5 carry-forward"}
+{"item":"J","verdict":"PASS","note":"v1.5 carry-forward"}
+{"item":"K","verdict":"PASS","note":"v1.5 carry-forward"}
+{"item":"L","verdict":"PASS","note":"v1.5 carry-forward"}
+{"item":"M","verdict":"PASS","note":"v1.5 carry-forward"}
+{"item":"N","verdict":"PASS","note":"v1.5 carry-forward"}
+{"item":"O","verdict":"PASS","note":"v1.5 carry-forward"}
+{"item":"P","verdict":"PASS","note":"v1.5 carry-forward"}
+{"item":"Q","verdict":"PASS","note":"v1.5 carry-forward"}
+{"item":"R","verdict":"PASS","note":"v1.5 carry-forward"}
+{"item":"S","verdict":"PASS","note":"v1.5 carry-forward"}
+{"item":"T","verdict":"PASS","note":"v1.5 carry-forward"}
+{"item":"U","verdict":"PASS","note":"v1.5 carry-forward"}
+{"item":"V","verdict":"PASS","note":"v1.5 carry-forward"}
+{"item":"W","verdict":"PASS","note":"v1.5 carry-forward + OBS-1 tightening"}
+{"item":"X","verdict":"PASS","note":"v1.5 carry-forward; extended in v1.6 N18"}
+{"item":"Y","verdict":"PASS","note":"v1.5 carry-forward; extended in v1.6 N20"}
+{"item":"Z","verdict":"PASS_post_M1_remediation","raw_verdict":"PARTIAL","note":"N18 EXTENDED scope a-e; M1 fix added N18.d general VERBATIM-CRITICAL branch to Hook 16.6 pseudo-code"}
+{"item":"AA","verdict":"PASS_post_M2_remediation","raw_verdict":"PARTIAL","note":"N19 Hook 18 SENTENCE-paragraph-concat WARN-mode; M2 fix added matcher-side N19 sync marker"}
+{"item":"AB","verdict":"PASS_post_M3_remediation","raw_verdict":"PARTIAL","note":"N20 PDF-cross-verify expansion N=3→N=10 + mandatory URL/DOI/citation cross-check; M3 fix added matcher-side N20 sync marker + MD writer halt-on-violation language"}
