@@ -15,17 +15,16 @@ Choosing by deployment preference (consistent with USER_GUIDE.en.md §3): fastes
 
 ## 2. Four Platform Deployment Tutorials (Independent, Pick One)
 
-- **Claude Projects** → [./claude_tutorial.en.md](./claude_tutorial.en.md) (19 files + system_prompt + 24-question smoke test)
-- **ChatGPT GPTs** → [./chatgpt_tutorial.en.md](./chatgpt_tutorial.en.md) (Custom GPT + 9 files + v2.2 system prompt + 17-question smoke test)
-- **Gemini Gems** → [./gemini_tutorial.en.md](./gemini_tutorial.en.md) (Gem + 4 merged files + v7.1 system prompt + AHP acceptance check)
-- **NotebookLM** → [./notebooklm_tutorial.en.md](./notebooklm_tutorial.en.md) (notebook + 42 sources + Custom mode instructions 8,925 chars + three sharing tiers)
+- **Claude Projects** → [./claude/tutorial.en.md](./claude/tutorial.en.md) (19 files + system_prompt + 24-question smoke test)
+- **ChatGPT GPTs** → [./chatgpt/tutorial.en.md](./chatgpt/tutorial.en.md) (Custom GPT + 9 files + v2.2 system prompt + 17-question smoke test)
+- **Gemini Gems** → [./gemini/tutorial.en.md](./gemini/tutorial.en.md) (Gem + 4 merged files + v7.1 system prompt + AHP acceptance check)
+- **NotebookLM** → [./notebooklm/tutorial.en.md](./notebooklm/tutorial.en.md) (notebook + 42 sources + Custom mode instructions 8,925 chars + three sharing tiers)
 
 ## 3. Common Prerequisites
 
-1. `git clone` this repository locally and enter the root directory.
-2. Locate the corresponding platform directory `ai_platforms/{claude_projects,chatgpt_gpt,gemini_gems,notebooklm}/current/` (do not copy from `dev/` or `archive/`).
-3. Set up your account and plan (see §1 table).
-4. Open the matching tutorial from §2 and follow sections in strict order (skipping steps will lose system_prompt gating rules).
+1. Enter this directory (download the release pack from the company cloud, or `git clone` the repository and enter `ai_platforms/release/v1.0/`). Per-platform deploy assets are already in place under `./{claude,chatgpt,gemini,notebooklm}/` (`system_prompt.md` or `instructions.md` + `uploads/` + `tutorial.<lang>.md`).
+2. Set up your account and plan (see §1 table).
+3. Open the matching tutorial from §2 and follow sections in strict order (skipping steps will lose system_prompt gating rules).
 
 ## 4. Post-Deployment Verification (smoke test)
 
@@ -39,7 +38,7 @@ All 3 PASS = deployment successful. If any question fails, consult `../KNOWN_LIM
 
 ## 5. Upgrade / Maintenance
 
-The source repository will be updated: on each minor release (`../CHANGELOG.md` tagged v1.1 / v1.2) or when a new SDTMIG version (v3.5+) is published. Re-upload steps: `git pull` → enter `current/` → delete old uploads and re-upload → **copy-paste the new system_prompt.md in full** (truncation must not occur, or AHP gating rules will be lost — e.g. Gemini v7.1 CO-1d SUPPQUAL hard anchor + ChatGPT v2.2 v3.4 new-domain variable name validation). Rollback: historical versions are retained in each platform's `dev/archive/drafts/` and can be reverted to.
+Release packs will be updated: on each minor release (`../CHANGELOG.md` tagged v1.1 / v1.2) or when a new SDTMIG version (v3.5+) is published, Daisy distributes a fresh release pack via the company cloud. Re-upload steps: obtain the new pack → enter the matching platform subdirectory (`./{claude,chatgpt,gemini,notebooklm}/`) → delete old uploads and re-upload → **copy-paste the new system_prompt.md in full** (truncation must not occur, or AHP gating rules will be lost — e.g. Gemini v7.1 CO-1d SUPPQUAL hard anchor + ChatGPT v2.2 v3.4 new-domain variable name validation). Rollback: contact Daisy for a historical release pack.
 
 ## 6. Feedback
 

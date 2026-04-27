@@ -43,6 +43,28 @@
 
 ## 工作记录
 
+### 2026-04-27 evening 07 Release self_deploy 重组 — 4 平台 deploy 资产 bundle 入 release 包 / 公司云分发自包含 (~30min)
+
+- **状态**: 已完成
+- **触发**: 用户准备只把 release 目录上公司云 (不传整个 ai_platforms/, 太大太多文件层级太深 colleague 看着麻烦). 现状 release/v1.0/self_deploy/ 只有 12 个 flat tutorial, 实际 deploy 资产 (system_prompt + uploads/) 还在 ai_platforms/<platform>/current/ 里 — colleague 拿到 release pack 跟着 tutorial 走会卡在 "找不到 system_prompt.md" 步骤.
+- **处理内容**:
+  - 4 平台 current/ → release/v1.0/self_deploy/<platform>/ 快照 cp (claude+chatgpt+gemini+notebooklm). current/ 不动作 source-of-truth 工作目录, release 是冻结快照
+  - 12 个 flat tutorial (`<p>_tutorial.<lang>.md`) → 平台子目录化 (`<p>/tutorial.<lang>.md`)
+  - sed 12 tutorials 内 `../../<p>/current/` → `./` (co-located with assets)
+  - 删除 4 个 dev-only manifest (claude+chatgpt+gemini upload_manifest.md + chatgpt manifest_segments.json) — 不被 tutorial 引用 / dev 内部用 / colleague 不需
+  - 改 self_deploy/README × 3 §3 prereq + §5 upgrade flow (移除 "git clone 进 ai_platforms/.../current/" + "git pull → current/ 删旧重传" + "dev/archive/drafts/ rollback" 假设 → 改 "拿到 release pack 进对应平台子目录" + "联系 Daisy 取历史 pack")
+  - 改 CHANGELOG.md (Release artifacts 段重写) + KNOWN_LIMITATIONS.en.md L78 (ai_platforms/release/v1.0/CHANGELOG → ./CHANGELOG)
+  - 加 GLOSSARY × 3 + DEMO_QUESTIONS + notebooklm tutorial × 3 footer 提示 "本节中 ../../... / dev/evidence/... 路径指向项目内部文档 (Daisy 保管), 不在本 release 包内"
+- **产出**:
+  - release/v1.0/ 总尺寸 296K → 26M (4 平台 deploy bundle + 75 uploads + 4 prompts/instructions)
+  - 4 平台 self_deploy/<p>/ 自足: claude (4.6M, 19 uploads), chatgpt (9.3M, 9 uploads), gemini (2.2M, 4 uploads), notebooklm (9.4M, 43 uploads)
+  - 12 flat tutorial 删 + 75 upload files cp + 4 dev manifest 删 + ~22 surgical edits 跨 9 文档
+  - 验证 grep: 残 3 处 ai_platforms/ 引用全是故意保留 (self_deploy/README × 3 dev 用可选 git clone path + gemini upload 文件 HTML comment metadata)
+- **R-RELEASE-9 启示** (留 release v1.2+ 实践): release 包应自包含 (deploy 资产 co-located with tutorials, 不依赖工作目录), 不该让 colleague 进多层 ai_platforms/<platform>/<lifecycle>/ 翻路径. v1.0 当时把 deploy 资产留 current/ 是因为 release 当方法论文档包用; 后置发现实际是 colleague 部署包 → 必须 bundle. 决策树: release 是发布包 (colleague 不再访问源仓库) → 必须 self-contained snapshot; release 是 docs-only 用户手册 → 可 link 工作目录.
+- **效益**: 公司云只放 release/ 整目录就完整可用; colleague 不需 git clone 仓库 / 不需进 ai_platforms/<p>/current/ / 不需懂内部 dev/archive 结构; release 包从"文档+方法论"升为"完整可分发 deploy bundle".
+- **Rule 合规**: Rule A N/A (mechanical reorg, 0 SDTM 事实变更, current/ snapshot 不改语义) / Rule B N/A (无 failed attempt) / Rule C ✓ retro 走本 worklog 段附 R-RELEASE-9 启示 (作 v1.0 retro 的小规模 follow-up addendum, 不另开 retro 文件) / Rule D N/A (无 reviewer dispatch — 文件 mv/cp 无 quality gate) / Rule E candidate: R-RELEASE-9 (release 包自包含原则) 拟回灌 ~/.claude/CLAUDE.md.
+- **下一步**: 公司云上传 release/v1.0/ 整目录, colleague 自部署反馈累积后再 v1.2 minor.
+
 ### 2026-04-27 PM 07 Release v1.1 polish — R5 8 项 polish 全 resolved + GLOSSARY × 3 lang 新增 (30min single wave)
 
 - **状态**: 已完成

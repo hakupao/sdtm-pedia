@@ -15,17 +15,16 @@
 
 ## 2. 4 プラットフォーム デプロイチュートリアル (独立, 1 つ選んで実行)
 
-- **Claude Projects** → [./claude_tutorial.ja.md](./claude_tutorial.ja.md) (19 ファイル + system_prompt + 24 題 smoke)
-- **ChatGPT GPTs** → [./chatgpt_tutorial.ja.md](./chatgpt_tutorial.ja.md) (Custom GPT + 9 ファイル + v2.2 system prompt + 17 題 smoke)
-- **Gemini Gems** → [./gemini_tutorial.ja.md](./gemini_tutorial.ja.md) (Gem + 4 統合ファイル + v7.1 system prompt + AHP 検収)
-- **NotebookLM** → [./notebooklm_tutorial.ja.md](./notebooklm_tutorial.ja.md) (notebook + 42 sources + Custom mode instructions 8,925 chars + 3 段階共有)
+- **Claude Projects** → [./claude/tutorial.ja.md](./claude/tutorial.ja.md) (19 ファイル + system_prompt + 24 題 smoke)
+- **ChatGPT GPTs** → [./chatgpt/tutorial.ja.md](./chatgpt/tutorial.ja.md) (Custom GPT + 9 ファイル + v2.2 system prompt + 17 題 smoke)
+- **Gemini Gems** → [./gemini/tutorial.ja.md](./gemini/tutorial.ja.md) (Gem + 4 統合ファイル + v7.1 system prompt + AHP 検収)
+- **NotebookLM** → [./notebooklm/tutorial.ja.md](./notebooklm/tutorial.ja.md) (notebook + 42 sources + Custom mode instructions 8,925 chars + 3 段階共有)
 
 ## 3. 共通の前提準備
 
-1. 本リポジトリを `git clone` してローカルに展開し、ルートディレクトリに移動します。
-2. 対象プラットフォームの `ai_platforms/{claude_projects,chatgpt_gpt,gemini_gems,notebooklm}/current/` を参照してください (dev/ や archive/ からはコピーしないでください)。
-3. §1 の表に従い、アカウントとプランを準備します。
-4. §2 の該当 tutorial を開き、章の順序を**厳守して**実行してください (手順をスキップすると system_prompt のゲートルールが失われます)。
+1. 本ディレクトリに移動します (社内クラウドから release パックをダウンロード、または本リポジトリを `git clone` し `ai_platforms/release/v1.0/` に移動)。各プラットフォームのデプロイ資材は `./{claude,chatgpt,gemini,notebooklm}/` 配下に配置済みです (`system_prompt.md` または `instructions.md` + `uploads/` + `tutorial.<lang>.md`)。
+2. §1 の表に従い、アカウントとプランを準備します。
+3. §2 の該当 tutorial を開き、章の順序を**厳守して**実行してください (手順をスキップすると system_prompt のゲートルールが失われます)。
 
 ## 4. デプロイ後の検証 (smoke test)
 
@@ -39,7 +38,7 @@
 
 ## 5. アップグレード / メンテナンス
 
-ソースリポジトリは今後も更新されます: minor release (`../CHANGELOG.md` に v1.1 / v1.2 と記載) または SDTMIG 新版 (v3.5+) のタイミングです。再アップロード手順: `git pull` → `current/` に移動 → 旧 uploads を削除して再アップロード → **新しい system_prompt.md を完全にコピー&ペースト** (途中で切断すると AHP ゲートルールが失われます。例: Gemini v7.1 CO-1d SUPPQUAL ハードアンカー + ChatGPT v2.2 v3.4 新ドメイン変数名検証)。ロールバック: 各プラットフォームの `dev/archive/drafts/` に過去バージョンが保存されています。
+release パックは今後も更新されます: minor release (`../CHANGELOG.md` に v1.1 / v1.2 と記載) または SDTMIG 新版 (v3.5+) のタイミングで、Daisy が社内クラウドから新しい release パックを配布します。再アップロード手順: 新パックを取得 → 対応するプラットフォームのサブディレクトリ (`./{claude,chatgpt,gemini,notebooklm}/`) に移動 → 旧 uploads を削除して再アップロード → **新しい system_prompt.md を完全にコピー&ペースト** (途中で切断すると AHP ゲートルールが失われます。例: Gemini v7.1 CO-1d SUPPQUAL ハードアンカー + ChatGPT v2.2 v3.4 新ドメイン変数名検証)。ロールバック: 過去の release パックは Daisy までご連絡ください。
 
 ## 6. フィードバック
 

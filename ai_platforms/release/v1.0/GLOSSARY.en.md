@@ -62,5 +62,7 @@
 | Project methodology | `../../claude_projects/docs/RETROSPECTIVE_V2.md` (Claude v2 final retrospective) + `../../notebooklm/docs/RETROSPECTIVE.md` (NotebookLM retrospective) |
 | Cross-platform retrospective (4 platforms) | `../../retrospectives/PHASE5_RETROSPECTIVE.md` (v1.0 FINAL) |
 
+> ⚠️ Note: Paths shown as `../../...` or `dev/evidence/...` in this section refer to project-internal artifacts retained by Daisy; they are NOT included in this release pack. Contact Daisy for access if needed.
+
 ---
 *v1.1 — 2026-04-27 — Maintained by Daisy*
