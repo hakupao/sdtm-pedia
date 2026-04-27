@@ -1707,3 +1707,51 @@
   - v1.4 cut decision **pending round 6 reconciler** — 5 累 v1.4 candidates post round 5 (HIGH×2 + MEDIUM×1 + LOW×2); round 6 reconciler 决定: (a) cut v1.4 if ≥3 candidates accumulated (target 6+ post round 6) OR (b) defer if 0 net new G-MS gaps round 6 + accept v1.3 saturation; 若 NEW7 L6 cross-batch 4th recurrence post round 6 cross-batch handoff codification → ESCALATE v1.4 EMERGENCY-CRITICAL
   - Multi-session experiment cleanup pending: round 5 4 one-shot kickoffs (batch_26/27/28 + reconciler_kickoff_round5) + round 6 4 kickoffs by user 决定 post round 6 完成; 留 MULTI_SESSION_PROTOCOL.md + 5 retro + 5 sibling sweep reports 作历史
 - **下一步**: 4 index 文件本 session 已更新 → CLAUDE.md routing rule 切到 round 6 → push pending → 用户启动 3 终端 batch 29/30/31 + 1 终端 reconciler round 6 (after 3 DONE)
+
+---
+
+## 2026-04-28 06 Deep Verification v1.4 prompt cut + multi-session cleanup
+
+- **任务**: v1.4 cut 4 prompts (24 round 5+6+7 candidates EMERGENCY-CRITICAL 吸收) + multi-session round 4-7 one-shot cleanup
+- **输入**:
+  - Round 7 retro D-MS-7 ESCALATED EMERGENCY-CRITICAL recommendation
+  - 24 cumulative v1.4 candidates round 5+6+7 (round 5: 5 + round 6: 8 + round 7: 11)
+  - 4-time deferred per Rule D writer/reviewer isolation (round 4 + 5 + 6 + 7 reconcilers all RECOMMENDED but DEFERRED)
+- **执行 6 STEPs (per v1.3 cut precedent)**:
+  - **STEP 1 Writer pass**: 4 v1.4 prompt files written (主 session = writer per Rule D):
+    - `P0_writer_pdf_v1.4.md` (488 lines, MAIN writer, 14 NEW patches N1-N14 + 13 v1.3 carry-forward A-M + Self-Validate hooks 9→14)
+    - `P0_writer_md_v1.4.md` (158 lines, paired sync N1/N2/N3/N5/N8/N13 + Self-Validate hooks 8→12)
+    - `P0_matcher_v1.4.md` (161 lines, 4 NEW v1.4 discrepancy markers `[NEW8.d_value_hallucination]`/`[NEW9_L2_short_bracket_parent_skip]`/`[NEW7_L6_canonical_form_violation]`/`[NEW2_extended_homoglyph]` + v1.3 markers carry-forward)
+    - `P0_reviewer_v1.4.md` (273 lines, Rule D roster 34→43 + v1.4 fix matrix 13→22 items A-V + next-pool candidates pivot post round 7 O-P1-110 data+firecrawl REMOVED)
+  - **STEP 2 Reviewer pass (Rule D ISOLATION)**: Dispatched `oh-my-claudecode:document-specialist` (slot #44 AUDIT pivot 25th re-burn AUDIT mode) AUDIT-mode reviewing 4 v1.4 prompts against 22 items A-V — verdict **PASS 22/22** with 2 non-blocking observations (N7 retroactive sweep deferred + N14 alternation placement minor redundancy); 4 EMERGENCY-CRITICAL items P (N3 NEW8.d) + R (N5 G-MS-NEW-6-1) + S (N6 ALL L6 + INTRA-AGENT) + U (N8 NEW9) all PROCEDURAL CONFIRMED with explicit halt-on-violation mechanisms; reviewer report `evidence/checkpoints/v1_4_cut_reviewer_report.md`
+  - **STEP 3 Archive v1.3**: 4 v1.3 prompts copied to `subagent_prompts/archive/v1.3_final_2026-04-28/` (provenance copy, primary location retained side-by-side)
+  - **STEP 4 Cleanup multi-session round 4-7 one-shot files** (per round 7 retro D-MS-8): 16 files deleted (12 batch_NN_kickoff.md + 4 reconciler_kickoff_round_NN.md, rounds 4-7; rounds 1-3 prior cleanup); preserved: MULTI_SESSION_PROTOCOL.md + 7 MULTI_SESSION_RETRO_*.md + 7 sibling_continuity_sweep_report*.md + `evidence/checkpoints/halt_state_batch_32.md` (G-MS-4 1st LIVE-FIRE evidence)
+  - **STEP 5 Update index files**:
+    - `_progress.json`: v1_4_cut_completed block added (top-level + breakdown structured field)
+    - `PLAN.md` v0.5 → v0.6 (post v1.4 cut)
+    - `CLAUDE.md`: routing rule "Multi-Session Parallel Protocol" 段 (32 lines) replaced with 1-paragraph concise history; Key Paths 3 entries bumped (06 旁枝入口 + multi-session 实验 (历史) + v1.4 prompts active 2026-04-28)
+    - `MANIFEST.md`: 头部 + tail v1.4 entry
+    - `docs/PROGRESS.md`: header v1.4 cut entry
+    - `worklog.md`: 本 entry
+  - **STEP 6 Commit + push**: pending
+- **关键决策**:
+  - **D-v1.4-1**: 主 session = writer + dispatched reviewer = different subagent_type per Rule D (slot #44 omc:document-specialist re-burn AUDIT mode allowed since slot #6 was P0 v1 reverse matcher non-AUDIT, this is AUDIT mode for prompt verification)
+  - **D-v1.4-2**: All 14 NEW writer-side patches N1-N14 codified explicit halt-on-violation procedural hooks (NOT aspirational narrative) — verified by reviewer for P/R/S/U EMERGENCY-CRITICAL items
+  - **D-v1.4-3**: Carry-forward unchanged: schema link / output JSONL shape / atom_type 9-enum / heading_level + sibling_index 语义 / DONE single-line / Rule B backup / R1-R15 + A-M base codification
+  - **D-v1.4-4**: Multi-session cleanup per round 7 D-MS-8: delete 16 round 4-7 one-shot kickoffs + remove CLAUDE.md routing rule + preserve halt_state_batch_32.md + 7 retros + 7 sweep reports + protocol
+  - **D-v1.4-5**: Non-blocking N7 retroactive sweep (~30 atoms batch 34 + ~50-100 atoms cumulative round 4-7 P1) deferred to v1.5 dedicated sweep session before P1 closure
+- **影响面**:
+  - 独立旁枝, 不动 `03_verification/` 及 `knowledge_base/`
+  - Chain F (06_deep_verification 旁枝) 触发 ✓
+  - Chain B (worklog → progress.json → PROGRESS.md → MANIFEST.md → CLAUDE.md Key Paths) 触发本 wrap-up ✓
+  - 无 knowledge_base/ 变动 → Chain D 不触发
+- **Carry-over 给下 session**:
+  - **HIGHEST PRIORITY**: P1 batch 35 起用 v1.4 prompts (single-session, multi-session experiment 7 rounds 已完成 cleanup)
+  - Recovery hint 在 `_progress.json.recovery_hint` (round 7 reconciler 已 written 含 round 8 next prep)
+  - 5 cumulative reconciler-deferred manual repair items 待清: O-P1-65/66/67/74/79
+  - N7 retroactive sweep ~30+~50-100 atoms candidate dedicated sweep session before P1 closure
+  - Page range: batch 35 起 p.341+; remaining ~195 pages / ~21 batches to P1 closure
+  - Drift cal next mandatory: batch 36 per cadence batch 33→36; v1.4 N14 strict alternation methodology MANDATORY enforcement
+  - Rule D 候选: superpowers-extension / pr-review-toolkit-remaining (pr-test-analyzer 1) / general-purpose-extension / claude-code-guide / codex / Plan / Explore / omc-family-remaining
+  - v1.5 candidates: N7 retroactive sweep + N14 alternation hard-halt extension
+- **下一步**: commit + push v1.4 cut + cleanup → 用户 ack v0.6 PLAN → P1 batch 35 single-session 起跑

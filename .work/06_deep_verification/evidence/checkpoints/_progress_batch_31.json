@@ -1,0 +1,231 @@
+{
+  "batch_id": 31,
+  "session_id": "session_d_round_6",
+  "round": 6,
+  "status": "completed",
+  "scope_pages": "ig34 p.301-310",
+  "page_count": 10,
+  "atoms_done": 259,
+  "atoms_breakdown": {
+    "31a_p301_305": 139,
+    "31b_p306_310": 120,
+    "by_page": {
+      "301": 18, "302": 29, "303": 31, "304": 29, "305": 32,
+      "306": 26, "307": 28, "308": 27, "309": 23, "310": 16
+    },
+    "by_atom_type_31a": {
+      "TABLE_ROW": 66, "LIST_ITEM": 26, "CODE_LITERAL": 13, "TABLE_HEADER": 13, "SENTENCE": 12, "HEADING": 9
+    },
+    "by_atom_type_31b": {
+      "TABLE_ROW": 89, "LIST_ITEM": 11, "HEADING": 9, "SENTENCE": 5, "TABLE_HEADER": 2, "CODE_LITERAL": 2, "NOTE": 2
+    },
+    "by_atom_type_combined": {
+      "TABLE_ROW": 155, "LIST_ITEM": 37, "TABLE_HEADER": 15, "CODE_LITERAL": 15, "HEADING": 18, "SENTENCE": 17, "NOTE": 2
+    }
+  },
+  "failures": 0,
+  "repair_cycles": 1,
+  "repair_cycle_notes": [
+    "Cycle 1 (Option H bulk targeted fix): Main-session structural sweep caught SYSTEMATIC OE-domain TABLE_ROW + TABLE_HEADER corruption in 31a p.302-304 that Rule A 1/page sample (slot #40 pr-review-toolkit:silent-failure-hunter) detected only in 1 atom (atom 2 ig34_p0302_a009). Bulk sweep revealed 10 affected atoms across 3 distinct motifs: (a) OESEQ → OESEO Q→O Latin-Latin adjacent-key substitution in 8 atoms (a002 + a009 + a010 + a021 + a003 + a004 + a014 + a025); (b) Cyrillic У → Latin U homoglyph in 2 TABLE_HEADERs (a021 + a025) — NEW2 substitution list (А Е О Р С Т Х) does NOT include У; (c) SUPPQUAL Example 3 multi-axis stale-template IDVAR/QNAM in 2 atoms (a023 = OESEO+OEEDILST should be OELNKID+OEEVLDTC; a024 = OESEO+OAEYLDTC should be OELNKID+OEEVLDTC). Plus inline (d) TABLE_HEADER OESTRESN duplicated where OESTRESU should be (a014 — co-fixed in same Option H call). Backup: pdf_atoms_batch_31a.jsonl.pre-OptionH-OE-corruption-bulk.bak. Post-fix: 0 OESEO + 0 Cyrillic У remaining; 8 OESEQ canonical present; a014/a023/a024 verified against PDF p.303 ground truth; schema integrity CLEAN; 259 atoms preserved (139 + 120). Findings O-P1-101..104 documenting all 4 motifs."
+  ],
+  "rule_a": {
+    "reviewer_slot": 40,
+    "reviewer_type": "pr-review-toolkit:silent-failure-hunter",
+    "reviewer_audit_pivot_index": 21,
+    "reviewer_family": "pr-review-toolkit",
+    "reviewer_family_burn_count_post_batch": 2,
+    "reviewer_family_pool_status_post_batch": "pr-review-toolkit family 2nd burn (batch 29 #38 pr-review-toolkit:code-reviewer 1st burn round 6 + batch 31 #40 pr-review-toolkit:silent-failure-hunter 2nd burn — validates same-family different-agent AUDIT recipe consistency within pr-review-toolkit family per round 6 D-MS-7 successor pivot recipe)",
+    "audit_mode_pivot_label": "AUDIT for SDTM PDF atomization quality, NOT silent failure detection in catch blocks / NOT inadequate error handling review / NOT fallback behavior audit / NOT PR diff review",
+    "tools_adaptation": "full-tool — reviewer wrote verdicts.jsonl + summary.md directly via Write tool (no adaptation needed; vs round 3-4 omc/feature-dev/vercel/plugin-dev write-tool-less family + bash-heredoc adaptation). pr-review-toolkit family validates AUDIT recipe family-agnostic full-tool variant consistency per general-purpose round 5 inaugural precedent.",
+    "sample_size": 10,
+    "sample_seed": 20260625,
+    "sample_coverage": "1/page p.301-310 stratified (4 HEADING + 4 TABLE_ROW + 1 CODE_LITERAL + 1 LIST_ITEM)",
+    "raw_pass": 9,
+    "raw_partial": 0,
+    "raw_fail": 1,
+    "raw_weighted_pct": 90.0,
+    "main_session_adjudication": {
+      "verdict": "TRUE POSITIVE confirmed independently — both reviewer (atom 2 OESEO FAIL with PDF p.302 cross-check evidence) and main session (pre-noted same concern during sample build inspection) flagged the same defect on the same atom",
+      "post_adjudication_pass": 9,
+      "post_adjudication_partial": 0,
+      "post_adjudication_fail": 1,
+      "post_adjudication_weighted_pct": 90.0,
+      "post_adjudication_verdict": "PASS at threshold floor (≥90% per kickoff §7 effective threshold)",
+      "main_session_structural_sweep_extension": "Main-session post-reviewer comprehensive grep + Cyrillic homoglyph scan caught 9 ADDITIONAL corrupted atoms beyond reviewer's 1/page sample — confirming 4th cumulative validation of two-layer audit architecture (round 2 reconciler-side 5 fixes + round 4 reconciler-side 4 atoms NEW7 L6 + round 5 reconciler-side 13 atoms NEW7 L6 cross-batch + 168 bulk patch + round 6 batch 31 main-session 10 atoms OE corruption). Statistical 1/page sample is necessary BUT not sufficient; structural sweep is mandatory complement (D-MS-6 round 5 D-MS-6 cumulative validation 4×)."
+    },
+    "reviewer_audit_mode_pivot_quality": {
+      "reflection": "silent-failure-hunter normal mode mapped naturally to SDTM atomization quality audit via 3-axis analogy: 'silent failure ↔ verbatim drift' (atom passes structural validation while semantically corrupting downstream consumption); 'broad catch block ↔ NEW2 char-level scope too narrow' (NEW2 catches Cyrillic-Latin only, silently passes Latin-Latin adjacent-key swaps just like bare-except hides unknown error types); 'fallback-to-mock ↔ writer paraphrase fallback' (writer template stale-fillin equivalent to fallback-to-mock anti-pattern in code). pr-review-toolkit family 2nd burn observation: silent-failure-hunter brings more skeptical default posture which materialized as careful PDF cross-check on atom 2 — adjacent-letter substitutions are exact failure mode silent-failure-hunter normal mode is tuned to surface in code (typos in error-ID constants that silently break Sentry routing).",
+      "pr_family_2nd_burn_recipe_consistency": "PASS — same-family different-agent recipe holds (batch 29 code-reviewer 1st burn + batch 31 silent-failure-hunter 2nd burn both produced quality verdicts with appropriate detail; full-tool variant validates round 5 general-purpose precedent extending to pr-review-toolkit family)",
+      "ground_truth_two_layer_validation": "Reviewer caught the canonical sample (atom 2 OESEO); structural sweep extended to 9 more (a002, a010, a021, a003, a004, a014, a025 OESEQ + a021/a025 Cyrillic У + a023/a024 multi-axis); confirms 1/page is statistical but reconciler structural sweep is mandatory complement (D-MS-6 4th cumulative validation)"
+    },
+    "tom_anchor_audit_n_cumulative": 220,
+    "tom_anchor_consecutive_batches": 22,
+    "tom_anchor_fp_count": 0,
+    "tom_anchor_inversion_count": 0,
+    "special_checks": {
+      "new6_b_l4_self_parent": "PASS proactively (5th cumulative round 6 NEW) — both §6.3.7.6 RP HEADING (a011 p.305) + §6.3.7.7 RE HEADING (a001 p.308) parent='§6.3.7 Morphology/Physiology Domains' L3-group canonical NEVER self-parent; round 4 4× IS/LB/Microbiology Domains/GF + round 5 2× MI/PD + round 6 batch 31 2× RP/RE = 8 cumulative L4 self-parent NOT proactive precedents",
+      "new7_l5_chain_under_RP": "PASS — RP-Description L5 sib=1 + RP-Specification L5 sib=2 (31a) + RP-Assumptions L5 sib=3 + RP-Examples L5 sib=4 (31b) RESTART under §6.3.7.6 RP per NEW7 L5 chain Description=1/Spec=2/Assump=3/Examples=4",
+      "new7_l5_chain_under_RE": "PASS — RE-Description L5 sib=1 + RE-Specification L5 sib=2 + RE-Assumptions L5 sib=3 + RE-Examples L5 sib=4 RESTART under §6.3.7.7 RE per NEW7 L5 chain",
+      "new7_l6_chain_under_OE_examples": "PASS — Example 1/2/3/4 L6 sib=1/2/3/4 RESTART under §6.3.7.5 OE (cross-batch handoff with sister batch 30 OE chain — predicted state in dispatch prompt; reconciler will validate post-merge once batch 30 DONE)",
+      "new7_l6_chain_under_RP_examples": "PASS — Example 1 L6 sib=1 RESTART under §6.3.7.6 RP",
+      "new7_l6_chain_under_RE_examples": "PASS — Example 1 L6 sib=1 RESTART under §6.3.7.7 RE",
+      "new7_l6_intra_batch_procedural_handoff_31a_to_31b": "PASS — 31a ended with §6.3.7.6 RP-Specification L5 sib=2 (parent §6.3.7.6 RP); 31b started with §6.3.7.6 RP-Specification table TAIL TABLE_ROWs (continuation, parent §6.3.7.6 RP); then NEW HEADING RP-Assumptions L5 sib=3 (continuation of L5 sib chain). Procedural enforcement EFFECTIVE first-attempt — round 5 D-MS-4 INTRA-batch codification mandate validated 2nd live-fire round 6 (zero recurrence)."
+    }
+  },
+  "drift_cal": {
+    "triggered": false,
+    "rationale": "per cadence: batch 30 = mandatory drift cal (sister session C scope); batch 31 = SKIP per cadence; next mandatory at batch 33",
+    "next_mandatory": "batch 33"
+  },
+  "density_alarm_check_round_6_G_MS_12": {
+    "applied": true,
+    "lowest_per_page_atoms": "p.310=16 (lowest), all pages ≥15 floor",
+    "highest_per_page_atoms": "p.305=32 (R12 transition page OE Example 4 tail + §6.3.7.6 RP NEW L4 head dense), p.303=31 (Example 3 multi-domain oe.xpt + suppoe.xpt + pr.xpt + di.xpt + relrec.xpt cluster)",
+    "sub_batch_31a_total": 139,
+    "sub_batch_31a_above_100_floor": true,
+    "sub_batch_31b_total": 120,
+    "sub_batch_31b_above_100_floor": true,
+    "alarm_triggered": false,
+    "main_session_pdf_cross_check": "NOT required for density (alarm did not trigger); BUT main-session PDF cross-check WAS required for verbatim corruption sweep (caught 10 corrupted atoms beyond reviewer 1/page sample) — confirms structural sweep is mandatory complement to statistical 1/page Rule A audit"
+  },
+  "new6_format_sweep": {
+    "applied": true,
+    "violations_found": 0,
+    "post_sweep_compliance": "100% — 2 NEW L4 sub-domain HEADINGs (RP + RE) both proactively correct first-attempt with parent='§6.3.7 Morphology/Physiology Domains' L3-group canonical full-form (NEW6.b NEVER self-parent); 8 cumulative L4 self-parent NOT proactive precedents post round 6"
+  },
+  "new7_l4_l7_chain_check": {
+    "applied": true,
+    "summary": "DOUBLE L4 sub-domain transition under §6.3.7 group container (§6.3.7.6 RP at p.305 + §6.3.7.7 RE at p.308) + cross-batch OE chain continuation (Example 1/2/3/4 L6 RESTART under §6.3.7.5 OE from sister batch 30); all L5 chain Description=1/Spec=2/Assump=3/Examples=4 RESTART per L4 domain correctly applied per NEW7",
+    "round_6_NEW_precedent": "DOUBLE L4 sub-domain transition in single batch (RP + RE) under same L3 group container §6.3.7 — analogous to round 4 batch 25 IS+LB+Microbiology Domains TRIPLE transition + round 5 batch 27 §6.3.5.7→§6.3.5.8→§6.3.5.9→§6.3.5.9.1 TRIPLE L4 transition with L5 NEW6.b group-container precedent; round 6 confirms 2-N L4 transitions per batch is normal protocol cadence at boundary regions"
+  },
+  "r12_transition_check": {
+    "applied": true,
+    "transition_pages": [
+      {
+        "page": 305,
+        "type": "L4 sub-section transition (§6.3.7.5 OE Example 4 tail → §6.3.7.6 RP NEW L4 head)",
+        "atoms_on_page": 32,
+        "threshold": 8,
+        "compliance": "PASS (32 ≥ 8)",
+        "zone_partition": "Zone 1 OE Example 4 ae.xpt + suppoe.xpt + ae.xpt narrative SENTENCE (a001-a010); Zone 2 §6.3.7.6 RP L4 NEW HEADING + RP-Description/Overview L5 sib=1 + RP-Specification L5 sib=2 + rp.xpt CODE_LITERAL caption + variable spec TABLE_HEADER + first batch of TABLE_ROWs (a011-a032)"
+      },
+      {
+        "page": 308,
+        "type": "L4 sub-section transition (§6.3.7.6 RP-Examples Example 1 tail → §6.3.7.7 RE NEW L4 head)",
+        "atoms_on_page": 27,
+        "threshold": 8,
+        "compliance": "PASS (27 ≥ 8)",
+        "zone_partition": "Zone 1 (none in batch 31b — RP Example 1 ended on p.307); Zone 2 §6.3.7.7 RE L4 NEW HEADING + RE-Description/Overview L5 sib=1 + RE-Specification L5 sib=2 + re.xpt CODE_LITERAL caption + variable spec TABLE_HEADER + first batch of TABLE_ROWs (a001-a027)"
+      }
+    ],
+    "double_transition_compliance": "PASS — both L4 transitions (p.305 + p.308) ≥8 atoms; analogous to round 4 batch 25 LB→Microbiology DOUBLE-transition pattern at L4 level"
+  },
+  "r15_cross_batch_sibling_check": {
+    "applied": true,
+    "intra_batch_31_continuity": "PASS — 31a→31b L5/L6 sib chain continues correctly: §6.3.7.6 RP L4 sib=6 + RP-Description L5 sib=1 + RP-Specification L5 sib=2 (31a p.305) → 31b reuses §6.3.7.6 RP as parent for p.306 RP-Specification table TAIL atoms; then RP-Assumptions L5 sib=3 (31b p.306) + RP-Examples L5 sib=4 (31b p.307) + Example 1 L6 sib=1 (31b p.307) RESTART under §6.3.7.6 RP",
+    "cross_session_continuity_predicted_batch_30_terminal": "PREDICTED state for sister session C batch 30 (p.291-300): §6.3.7.X (likely §6.3.7.4 NV tail or §6.3.7.5 OE start at p.298) + OE-Description L5 sib=1 + OE-Specification L5 sib=2 (oe.xpt + variable spec table starting p.298 spilling tail to p.301 batch 31 territory). Reconciler will validate cross-session R15 once sister batches 29+30 DONE.",
+    "main_session_local_validation": "L4 sibling chain (under §6.3.7): batch 30 expected sib=5 OE; batch 31 contributes sib=6 RP + sib=7 RE. L5 sibling chain under §6.3.7.5 OE: batch 30 territory expected sib=1 Description + sib=2 Specification (table tail spans into 31a p.301); batch 31 contributes sib=3 Assumptions + sib=4 Examples + L6 Examples 1/2/3/4 chain. L5 sibling chain under §6.3.7.6 RP: 31a contributes sib=1 Description + sib=2 Specification; 31b contributes sib=3 Assumptions + sib=4 Examples + L6 Example 1. L5 sibling chain under §6.3.7.7 RE: 31b contributes sib=1 Description + sib=2 Specification + sib=3 Assumptions + sib=4 Examples + L6 Example 1."
+  },
+  "findings_added": [
+    {
+      "finding_id": "O-P1-101",
+      "severity": "HIGH",
+      "category": "writer-family R10 strict no-paraphrase violation — SYSTEMATIC OESEQ → OESEO Q→O Latin-Latin adjacent-key substitution + co-located OESTRESN duplicate column (TABLE_HEADER eye-skip)",
+      "title": "SYSTEMATIC OE-domain Identifier corruption: OESEQ → OESEO Q→O Latin-Latin adjacent-key swap across 8 atoms in p.302-304 OE Examples tables + a014 TABLE_HEADER duplicate OESTRESN where OESTRESU should be",
+      "scope": "8 atoms across §6.3.7.5 OE Examples (Example 1 / Example 2 / Example 3 / Example 4) tables: ig34_p0302_a002 (TABLE_HEADER oe.xpt), p0302_a009 (TABLE_ROW Row 1), p0302_a010 (TABLE_ROW Row 2), p0302_a021 (TABLE_HEADER oe.xpt Example 2), p0303_a003 (TABLE_ROW suppoe.xpt Example 2 Row 1), p0303_a004 (TABLE_ROW suppoe.xpt Example 2 Row 2), p0303_a014 (TABLE_HEADER oe.xpt Example 3 — also had duplicate OESTRESN), p0304_a025 (TABLE_HEADER oe.xpt Example 4)",
+      "atom_id_anchor": "ig34_p0302_a002, ig34_p0302_a009, ig34_p0302_a010, ig34_p0302_a021, ig34_p0303_a003, ig34_p0303_a004, ig34_p0303_a014, ig34_p0304_a025",
+      "rule_violation": "R10 strict no-paraphrase violation; v1.3 NEW2 char-level scan §D explicitly notes 'misses adjacent Latin-Latin swap' limitation (Q→O is exactly such adjacent key); v1.3 NEW8 substring n-gram §H should have caught OESEO ∉ canonical CDISC variable list (OESEQ ∈ canonical) — writer either (a) skipped NEW8 self-validate step 6 OR (b) NEW8 oracle missing OESEQ canonical SUPPQUAL Identifier set",
+      "repair_action": "Option H bulk targeted fix (cycle 1) — Python in-place replacement OESEO → OESEQ across 8 atoms + co-located OESTRESN | OESTRESN → OESTRESN | OESTRESU in a014 TABLE_HEADER (visual eye-skip on similar OESTR-prefix tokens). Backup: pdf_atoms_batch_31a.jsonl.pre-OptionH-OE-corruption-bulk.bak. Post-fix: 0 OESEO remaining; 8 OESEQ canonical present; a014 verbatim verified against PDF p.303 ground truth (oe.xpt Example 3 columns OESEQ + OELNKID + ... + OEORRESU + OESTRESC + OESTRESN + OESTRESU + OELOC ...)",
+      "v1_4_codification_candidate": "v1.4 NEW8 oracle expansion: writer/executor MUST cross-check every uppercase token in TABLE_ROW Identifier-cell (IDVAR cell of SUPPQUAL) AND every TABLE_HEADER column-name token against canonical CDISC variable list per parent domain; for SUPPQUAL: IDVAR ∈ {<DOMAIN>SEQ, <DOMAIN>GRPID, <DOMAIN>SPID, <DOMAIN>LNKID, <DOMAIN>LNKGRP, <DOMAIN>REFID}; for spec TABLE_HEADER: column-name set ∈ canonical Variable Name set per SDTMIG v3.4 §6.x Specification tables. Mandatory pre-DONE write hook with halt-on-violation OR Option H auto-fix proposal. Joins round 5 v1.4 candidate stack (G-MS-NEW-5-1 through G-MS-NEW-5-6).",
+      "writer_family_motif": "Joins round 3 batch 21 CPSCMRKS↔CPCSMRKS adjacent-letter swap motif (caught by NEW8 substring n-gram per drift cal verbatim hash overlap); first INTRA-batch occurrence in P1 cumulative for OE-domain Identifier-cell systematic corruption; previously bounded to single-atom defect (round 3) now scales to 8-atom systematic cluster (round 6 batch 31). Severity HIGH because data corruption impacts downstream RAG retrieval / KB consumer joins to canonical SUPPQUAL spec — silent semantic failure motif (per slot #40 silent-failure-hunter AUDIT-mode reflection)."
+    },
+    {
+      "finding_id": "O-P1-102",
+      "severity": "MEDIUM",
+      "category": "writer-family NEW2 char-level scan substitution list incomplete — Cyrillic У → Latin U homoglyph",
+      "title": "Cyrillic У → Latin U homoglyph in 2 OE-Spec TABLE_HEADER atoms (OEORRESУ where OEORRESU should be)",
+      "scope": "2 TABLE_HEADER atoms within §6.3.7.5 OE oe.xpt spec tables: ig34_p0302_a021 (oe.xpt Example 2 columns) + ig34_p0304_a025 (oe.xpt Example 4 columns). Both atoms had OEORRESУ (with Cyrillic У U+0423) in column position where OEORRESU (Latin U U+0055) is the canonical CDISC OE Variable Qualifier name.",
+      "atom_id_anchor": "ig34_p0302_a021, ig34_p0304_a025",
+      "rule_violation": "v1.3 §D NEW2 single-character iteration self-validation step 7: 'scan for Cyrillic-Latin homoglyph substitution (Cyrillic А Е О Р С Т Х → Latin A E O P C T X) — if found, replace with Latin'. Substitution set DOES NOT INCLUDE Cyrillic У (U+0423), so writer self-validate inert on this character. R10 strict verbatim default would say 'preserve PDF as-is' BUT canonical CDISC variable name list has OEORRESU with Latin U (NOT Cyrillic), so PDF-side appearance of Cyrillic У is a PDF-rendering artifact (not editorial choice), and NEW2 should have substituted.",
+      "repair_action": "Option H bulk targeted fix (cycle 1, co-applied with O-P1-101) — Python in-place replacement OEORRESУ → OEORRESU using UTF-8 byte-precise substring match. Backup: pdf_atoms_batch_31a.jsonl.pre-OptionH-OE-corruption-bulk.bak (same backup as O-P1-101). Post-fix: 0 Cyrillic У remaining in either batch 31 file.",
+      "v1_4_codification_candidate": "v1.4 NEW2 substitution list expansion: extend Cyrillic-Latin homoglyph set from current 7 chars (А Е О Р С Т Х) to 11+ chars including К М Н В **У** (and possibly Ѕ І Ј Ѕ uppercase variants); rationale: Cyrillic alphabet has more Latin-look-alikes than the original 7; canonical CDISC variable names use Latin letters only, so any Cyrillic homoglyph in identifier position is a PDF-rendering artifact requiring auto-substitution. Implementation: v1.3 self-validate step 7 char dictionary {'А':'A','Е':'E','О':'O','Р':'P','С':'C','Т':'T','Х':'X', '+ К':'K', 'М':'M', 'Н':'H', 'В':'B', 'У':'U'}.",
+      "writer_family_motif": "Adjacent to O-P1-101 (writer transcribed PDF rendering literally without NEW2 substitution); distinct because PDF source genuinely contains Cyrillic У glyph (v.s. O-P1-101 where writer added Q→O slip not in PDF). Severity MEDIUM because (a) homoglyph defect identified by structural sweep BEFORE merge to root, and (b) NEW2 list extension is straightforward 4-char addition; writer would auto-correct first-attempt with v1.4 list."
+    },
+    {
+      "finding_id": "O-P1-103",
+      "severity": "HIGH",
+      "category": "writer-family stale-template-fillin VALUE HALLUCINATION motif extension (round 5 O-P1-85 VALUE HALLUCINATION extended to multi-axis IDVAR + QNAM corruption)",
+      "title": "SUPPQUAL Example 3 multi-axis stale-template fillin: 2 atoms with IDVAR=OESEO (should be OELNKID) + QNAM=OEEDILST/OAEYLDTC (should be OEEVLDTC) — writer wrote stale prior-table values rather than transcribing from current table",
+      "scope": "2 atoms within §6.3.7.5 OE Example 3 suppoe.xpt (the second SUPPQUAL table on p.303, NOT Example 2's first SUPPQUAL): ig34_p0303_a023 (Row 1) + ig34_p0303_a024 (Row 2). PDF p.303 ground truth: IDVAR=OELNKID + QNAM=OEEVLDTC for both rows. Writer wrote: a023 IDVAR=OESEO + QNAM=OEEDILST; a024 IDVAR=OESEO + QNAM=OAEYLDTC.",
+      "atom_id_anchor": "ig34_p0303_a023, ig34_p0303_a024",
+      "rule_violation": "R10 strict verbatim violation on TABLE_ROW value cells (multi-axis); writer-family failure mode: stale-template fillin where writer carried over prior table's IDVAR (OESEQ which itself was Q→O corrupted to OESEO) and QNAM (OEEDILST from prior Example 2 suppoe.xpt) AND additionally hallucinated OAEYLDTC (letter-jumbled from OEEVLDTC). NEW8 substring n-gram self-validate inert because OEEDILST IS canonical (just wrong table); OAEYLDTC NOT canonical but writer didn't self-validate. NEW2 char-level inert (no homoglyph involved).",
+      "repair_action": "Option H targeted fix (cycle 1, co-applied with O-P1-101+102) — Python in-place replacement 'OESEO | 1 | OEEDILST' → 'OELNKID | 1 | OEEVLDTC' for a023; 'OESEO | 2 | OAEYLDTC' → 'OELNKID | 2 | OEEVLDTC' for a024. Both verified against PDF p.303 Example 3 suppoe.xpt ground truth (IDVAR=OELNKID + QNAM=OEEVLDTC + IDVARVAL=1/2 + QLABEL='Evaluation Date' + QVAL='2012-04-30'). Backup: pdf_atoms_batch_31a.jsonl.pre-OptionH-OE-corruption-bulk.bak.",
+      "v1_4_codification_candidate": "v1.4 NEW8.d codification (round 5 O-P1-85 candidate extension): TABLE_ROW value-cell verbatim integrity check beyond single-cell to whole-row context. Writer/executor MUST cross-check each TABLE_ROW value-cell against (a) parent TABLE_HEADER column type expectation (e.g. IDVAR column expects canonical Identifier name), AND (b) per-table-context coherence (rows within same TABLE_HEADER should share consistent IDVAR domain conventions). For SUPPQUAL: IDVAR cell value MUST appear in parent domain's Identifier set (OE: OESEQ/OEGRPID/OESPID/OELNKID/OELNKGRP/OEREFID); QNAM cell value MUST appear in parent domain's Variable Name set OR be a non-standard variable explicitly flagged. Mandatory pre-DONE write hook with halt-on-violation OR Option H auto-fix proposal.",
+      "writer_family_motif": "Joins round 5 O-P1-85 NEW VALUE HALLUCINATION motif (writer fabricated USUBJID/PCREFID/PCTESTCD on p.270 drift cal probe); extends from drift-cal-rerun context to MAIN-LINE production batch context (round 5 was rerun-only; round 6 batch 31 is FIRST main-line occurrence). 2nd recurrence within 2 rounds = formal v1.4 codification mandatory. Severity HIGH because multi-axis corruption is more pernicious than single-cell (downstream RAG/KB consumers will fail JOINS on multiple variable-name keys simultaneously)."
+    },
+    {
+      "finding_id": "O-P1-104",
+      "severity": "INFO",
+      "category": "two-layer audit architecture validation milestone — round 6 4th cumulative validation",
+      "title": "Two-layer audit architecture (Rule A 1/page sample + main-session structural sweep) validated 4th cumulative round; reviewer slot #40 caught 1 atom; main-session sweep extended to 9 more (10× scaling)",
+      "scope": "Audit-architecture meta-finding spanning batch 31 Rule A reviewer + main-session post-reviewer sweep. Reviewer slot #40 pr-review-toolkit:silent-failure-hunter (AUDIT-mode pivot 21st cumulative; pr-review-toolkit family 2nd burn) on 10-atom stratified sample identified 1 FAIL (atom 2 OESEO with PDF cross-check evidence + 'silent failure' AUDIT-mode framing reflection). Main-session post-reviewer comprehensive grep + Cyrillic homoglyph scan + multi-axis SUPPQUAL spot-check identified 9 ADDITIONAL corrupted atoms (a002, a010, a021, a003, a004, a014, a025 OESEQ + a021/a025 Cyrillic У + a023/a024 multi-axis = 10 fixes total; but a014 and a021 each had 2 fixes co-applied, reducing distinct atoms to 9 net beyond the reviewer-caught 1 = 10 total atoms patched).",
+      "atom_id_anchor": "all 10 patched atoms above",
+      "rule_violation": "n/a (architectural validation, not a defect)",
+      "repair_action": "n/a (covered by O-P1-101..103 Option H fixes)",
+      "v1_4_codification_candidate": "n/a — confirms existing 2-layer architecture per round 5 D-MS-6 (retain Rule A 1/page sample + reconciler/main-session structural sweep as complementary layers, NOT redundancy; mandatory regardless of sub-session quality). 4th cumulative round of structural-sweep-finds-more-than-sample validation: round 2 (5 reconciler-side fixes) + round 4 (4 atoms NEW7 L6) + round 5 (13 atoms NEW7 L6 cross-batch + 168 bulk patch) + round 6 batch 31 (10 atoms OE corruption).",
+      "writer_family_motif": "n/a (not a writer-family motif; this is an audit-architecture milestone validating two-layer design)",
+      "round_6_validation_scaling_observation": "Reviewer-to-sweep amplification ratio: round 2 = 1:5 (1 sample-side issue reviewed → 5 reconciler-side); round 4 = 1:4; round 5 = 1:13 cross-batch + 1:168 bulk = significant; round 6 batch 31 = 1:10. Trend: structural sweep consistently finds 5-15× more issues than 1/page Rule A sample. Confirms statistical sample is NECESSARY (gives reviewer per-atom verdict resolution + AUDIT-mode pivot family validation) but NOT SUFFICIENT (sweep is the safety net for systematic block violations)."
+    }
+  ],
+  "finding_id_range_allocated": "O-P1-101..104 (4 IDs reserved per round 6 G-MS-13)",
+  "finding_id_range_used": ["O-P1-101", "O-P1-102", "O-P1-103", "O-P1-104"],
+  "finding_id_self_validation_gate": "PASS — all 4 finding IDs ∈ {101, 102, 103, 104}; 0 findings with ID ≤100 (no collision with sister batch 29 O-P1-93..96 or batch 30 O-P1-97..100) or ≥105 (no over-allocation)",
+  "rule_d_slot_used": 40,
+  "rule_d_audit_pivot_count_post_batch": 21,
+  "rule_d_family_post_batch": "pr-review-toolkit family 2nd burn (1st burn batch 29 #38 pr-review-toolkit:code-reviewer + 2nd burn batch 31 #40 pr-review-toolkit:silent-failure-hunter); validates same-family different-agent AUDIT-mode pivot recipe consistency within pr-review-toolkit family. 21st AUDIT pivot cumulative across rounds 1-6.",
+  "files_written": [
+    "evidence/checkpoints/pdf_atoms_batch_31a.jsonl (139 atoms, p.301-305, post Option H bulk OE-corruption fix)",
+    "evidence/checkpoints/pdf_atoms_batch_31a.jsonl.pre-OptionH-OE-corruption-bulk.bak (Rule B backup pre-cycle-1, 139 atoms preserving 10-atom corrupted state as O-P1-101..103 evidence)",
+    "evidence/checkpoints/pdf_atoms_batch_31b.jsonl (120 atoms, p.306-310, no fixes needed — clean writer output)",
+    "evidence/checkpoints/_progress_batch_31.json (this file)",
+    "evidence/checkpoints/P1_batch_31_report.md (full batch report)",
+    "evidence/checkpoints/rule_a_batch_31_sample.jsonl (10-atom sample seed=20260625)",
+    "evidence/checkpoints/rule_a_batch_31_verdicts.jsonl (slot #40 pr-review-toolkit:silent-failure-hunter verdicts; 9 PASS + 0 PARTIAL + 1 FAIL = 90.0% raw weighted = PASS at threshold floor)",
+    "evidence/checkpoints/rule_a_batch_31_summary.md (Rule A summary §1-§5 + AUDIT-mode pivot reflection)"
+  ],
+  "files_NOT_touched": [
+    "root pdf_atoms.jsonl (7092 atoms unchanged — reconciler scope)",
+    "audit_matrix.md (reconciler scope)",
+    "_progress.json (reconciler scope)",
+    "sister batch files (pdf_atoms_batch_29*, pdf_atoms_batch_30*)",
+    "subagent_prompts/* (v1.3 active — no edits; v1.4 candidate stack accumulating reconciler-side)",
+    "schema/*.json",
+    "PLAN.md",
+    "plans/*.md",
+    "CLAUDE.md",
+    "MEMORY/*"
+  ],
+  "halt_state": null,
+  "round_6_compliance": {
+    "G_MS_4_halt_fallback": "spec'd (kickoff §0 hard-stop directive); NOT triggered this batch (failure rate 0/259=0% well below 15%, Rule A 90.0% post-adjudication AT threshold ≥90% PASS, ctx well below 80%, reviewer dispatched fine, no shared-file write attempts, single repair cycle below threshold)",
+    "G_MS_7_finding_id_range_pre_allocation": "compliant — O-P1-101..104 reserved (4 IDs), 4 used (O-P1-101/102/103/104); 0 unused; no over-allocation, no cross-session collision",
+    "G_MS_11_NEW6_dual_form_codified": "applied — 0 violations; 2 NEW L4 sub-domain HEADINGs proactively correct (RP + RE)",
+    "G_MS_11_b_round_3_extension_codified": "applied PROACTIVELY — both §6.3.7.6 RP + §6.3.7.7 RE L4 sub-domain HEADINGs first-attempt correct with parent='§6.3.7 Morphology/Physiology Domains' L3-group canonical NEVER self-parent; 8 cumulative L4 self-parent NOT proactive precedents post round 6 batch 31 (round 3 batch 22 GF post-detection + round 4 IS/LB/Microbiology Domains/GF-extended + round 5 MI/PD + round 6 batch 31 RP/RE)",
+    "G_MS_12_density_alarm_check_applied": "applied — lowest p.310=16 atoms (well above 15-atom floor); both sub-batches above 100-atom floor (139 + 120); alarm NOT triggered; main-session PDF cross-check NOT required for density (BUT was required for verbatim corruption sweep — see O-P1-104 two-layer audit milestone)",
+    "G_MS_13_finding_id_range_cross_validation_table": "applied — kickoff §0 cross-validation table read pre-dispatch; finding ID self-validation gate at STEP 7 confirmed all 4 IDs ∈ {101,102,103,104}; 0 collision with sister sessions B (O-P1-93..96) or C (O-P1-97..100)",
+    "round_6_NEW7_L6_INTRA_batch_procedural_handoff_2nd_live_fire": "EFFECTIVE — 31a→31b sub-batch handoff prepend (round 5 D-MS-4 codification mandatory) successfully applied: 31b dispatch prompt inline-prepended 31a predicted terminal state (RP-Specification L5 sib=2 chain continuation); 31b executor first-attempt correctly continued at RP-Specification table TAIL TABLE_ROWs then NEW HEADING RP-Assumptions L5 sib=3 (continuation, not restart); 0 NEW7 L6 intra-batch recurrence in batch 31. 2nd live-fire validation of round 5 D-MS-4 INTRA-batch procedural enforcement codification.",
+    "round_6_NEW7_L6_CROSS_batch_handoff_round_5_G_MS_NEW_5_1_test": "DEFERRED to reconciler — main-session predicted batch 30 terminal state (OE-Description L5 sib=1 + OE-Specification L5 sib=2 spilling into 31a p.301 spec table tail) and inline-prepended into 31a dispatch prompt per round 5 G-MS-NEW-5-1 codification. 31a writer first-attempt correctly continued OE-Specification spec TABLE_ROWs at p.301 with parent='§6.3.7.5 Ophthalmic Examinations (OE)' (NOT restart sibling chain). Reconciler post-merge will validate cross-session R15 once batch 30 DONE. Round 5 G-MS-NEW-5-1 codification 1st cross-batch live-fire test.",
+    "round_6_NEW2_substitution_list_extension_v1_4_candidate": "v1.4 candidate (O-P1-102): extend NEW2 char-level scan substitution list from 7 chars (А Е О Р С Т Х) to include Cyrillic У (and К М Н В for completeness); v1.3 self-validate step 7 dictionary expansion mandatory pre-DONE",
+    "round_6_NEW8_oracle_expansion_v1_4_candidate": "v1.4 candidate (O-P1-101 + O-P1-103): extend NEW8 substring n-gram oracle to include canonical SUPPQUAL Identifier set per parent domain (IDVAR cell ∈ {<DOM>SEQ, <DOM>GRPID, <DOM>SPID, <DOM>LNKID, <DOM>LNKGRP, <DOM>REFID}) + per-table-context coherence check (rows within same TABLE_HEADER share consistent IDVAR domain conventions); mandatory pre-DONE write hook with halt-on-violation OR Option H auto-fix proposal",
+    "round_6_two_layer_audit_4th_cumulative_validation": "validated (O-P1-104 milestone): reviewer 1/page sample caught 1 atom; main-session structural sweep extended to 9 more (10× scaling); 4th cumulative round of structural-sweep-finds-more-than-sample validation post round 2 + round 4 + round 5"
+  },
+  "round_6_NEW_precedents_observed": [
+    "DOUBLE L4 sub-domain transition under §6.3.7 group container (§6.3.7.6 RP + §6.3.7.7 RE) within single batch — round-6 batch 31 NEW; analogous to round 4 batch 25 IS+LB+Microbiology Domains TRIPLE transition pattern; confirms 2-N L4 transitions per batch is normal protocol cadence at boundary regions",
+    "Cross-BATCH OE chain handoff first live-fire (round 5 G-MS-NEW-5-1 codification mandate) — main-session predicted batch 30 OE terminal state (OE-Description + OE-Specification L5 chain) inline-prepended into 31a dispatch prompt; 31a writer first-attempt correctly continued OE chain without sibling restart; reconciler will validate post-merge",
+    "pr-review-toolkit family 2nd burn (slot #40 silent-failure-hunter) — same-family different-agent AUDIT recipe consistency validated; full-tool variant continues to validate per round 5 general-purpose precedent extending to pr-review-toolkit family",
+    "Writer-family multi-axis stale-template fillin VALUE HALLUCINATION motif extension to MAIN-LINE production batch context (round 5 O-P1-85 was drift-cal-rerun-only context; round 6 batch 31 O-P1-103 is FIRST main-line occurrence); 2nd recurrence within 2 rounds formal v1.4 codification mandatory",
+    "Cyrillic У homoglyph corruption — NEW Cyrillic letter not in v1.3 NEW2 substitution set (А Е О Р С Т Х); v1.4 candidate extension to К М Н В У set",
+    "Two-layer audit 4th cumulative validation (1:10 reviewer-to-sweep amplification ratio) — confirms structural sweep is mandatory complement to 1/page Rule A sample, NOT redundant"
+  ],
+  "handoff_to_reconciler": "Session D contributes 259 atoms (139 + 120) over p.301-310 (DOUBLE L4 sub-domain transition: §6.3.7.6 RP NEW + §6.3.7.7 RE NEW within §6.3.7 Morphology/Physiology Domains group container; cross-batch OE chain continuation from sister batch 30). Reconciler should: (a) merge pdf_atoms_batch_31a.jsonl + pdf_atoms_batch_31b.jsonl into root pdf_atoms.jsonl post sister batch 29+30 merges; (b) sweep cross-batch sibling continuity for §6.3.7 L4 chain — sib=5 OE (sister batch 30) → sib=6 RP (batch 31a) → sib=7 RE (batch 31b); (c) validate cross-session R15 OE-Examples L6 chain Example 1/2/3/4 (batch 31a) under §6.3.7.5 OE (batch 30 territory) — first cross-batch handoff round 5 G-MS-NEW-5-1 live-fire test; (d) update root audit_matrix.md with batch 31 row + Rule A 31 row + Rule D roster 39→40 + pr-review-toolkit family burn (2/N); (e) update root _progress.json (atoms 7092→7351 if all 3 round-6 sister merges done OR cumulative including batch 31; pages cumulative; batches 28→31; Rule D 39→40; repair_cycles +1; findings +4 [O-P1-101/102/103/104]); (f) v1.4 patch session decision — round 6 batch 31 cumulative v1.4 candidates: round 5 5 (O-P1-89 Write-overwrite + O-P1-91 parent_section canonical + O-P1-85 NEW8.d TABLE_ROW value-cell + O-P1-88 EDITORIAL_CORRECTION + O-P1-90 atom_id padding) + round 6 batch 31 4 (O-P1-101 NEW8 oracle expansion canonical SUPPQUAL Identifier set + O-P1-102 NEW2 list extension Cyrillic У К М Н В + O-P1-103 NEW8.d extension multi-axis stale-template + O-P1-104 two-layer audit milestone validation) = 9 cumulative v1.4 candidates accumulated; v1.4 cut session BEFORE batch 33 (next mandatory drift cal) recommended (was already on deck per round 5 D-MS-5; round 6 batch 31 EVIDENCE strengthens recommendation); (g) reconciler-side optional bulk-patch validation (verify Option H bulk-patch O-P1-101..103 fixes preserved across sister batch 29+30 merges); (h) multi-session round 6 protocol: write MULTI_SESSION_RETRO_ROUND_6.md (Rule C 三段式 12+ R-MS retain / 6+ G-MS gap / 7+ D-MS decision); cleanup CLAUDE.md round-6 routing rule + delete batch_29/30/31_kickoff.md + reconciler_kickoff_round6.md (one-shot use done)."
+}
