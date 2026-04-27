@@ -1,0 +1,6 @@
+[
+  { "key": "claude",     "name": "CLAUDE",     "score": 17,   "scoreText": "17",   "strength": { "zh": "精确变量 + 多步推理", "en": "Precise vars + multi-step", "ja": "精確変数 + 多段推論" } },
+  { "key": "chatgpt",    "name": "CHATGPT",    "score": 16.5, "scoreText": "16.5", "strength": { "zh": "团队共享 / Store",    "en": "Team / Store sharing",  "ja": "チーム共有 / Store" } },
+  { "key": "gemini",     "name": "GEMINI",     "score": 16,   "scoreText": "16",   "strength": { "zh": "长上下文 / 跨域",     "en": "Long context / cross-domain", "ja": "長文脈 / クロスドメイン" } },
+  { "key": "notebooklm", "name": "NOTEBOOKLM", "score": 15,   "scoreText": "15",   "strength": { "zh": "100% 反虚构",         "en": "100% anti-hallucination",     "ja": "100% アンチハルシネーション" } }
+]

@@ -65,3 +65,23 @@ if (typeof globalThis.matchMedia !== 'function') {
     }),
   });
 }
+
+// jsdom does not implement IntersectionObserver; provide a no-op stub so tests
+// that mount components using it do not crash. Tests that assert visibility
+// behavior should explicitly mock this.
+if (typeof globalThis.IntersectionObserver === 'undefined') {
+  class StubIntersectionObserver {
+    readonly root = null;
+    readonly rootMargin = '';
+    readonly thresholds: ReadonlyArray<number> = [];
+    observe(): void {}
+    unobserve(): void {}
+    disconnect(): void {}
+    takeRecords(): IntersectionObserverEntry[] { return []; }
+  }
+  Object.defineProperty(globalThis, 'IntersectionObserver', {
+    writable: true,
+    configurable: true,
+    value: StubIntersectionObserver,
+  });
+}
