@@ -36,7 +36,7 @@ title: "4 プラットフォーム多次元比較"
 | Gemini Gems | Workspace プラン: Daisy が直接共有; 個人アカウント: 同僚が各自でセルフデプロイ (完全な v7.1 system prompt を貼り付け) | 該当なし |
 | NotebookLM | メール招待で notebook に参加 (Pro / Workspace)、または同僚が自己構築 (50-source cap) | 該当なし |
 
-## 4. サブスクリプション要件
+## 4. プラン要件
 
 | プラットフォーム | 対応プラン | Free プランで利用可能か |
 |---|---|:---:|
@@ -61,7 +61,7 @@ title: "4 プラットフォーム多次元比較"
 | Claude Projects | 強い | 多段階推論 + system prompt anti-fabrication anchor + Stage 6 Deferred Stub ルール |
 | ChatGPT GPTs | 中 | system prompt 誘導 + v2.2 適用後の GFINHERT 精確変数検証; 長尾 chunk で miss される場合あり |
 | Gemini Gems | やや強い (v7.1 以降) | v6→v7 アップグレードで AHP guardrail 追加、R1→R2 スコアが 65% から 94% に向上; 同僚デプロイ時は完全な v7.1 system prompt の貼り付けが必要 |
-| NotebookLM | 非常に強い | in-KB-only アーキテクチャが天然のアンチハルシネーション; 42 source 外の質問は捏造より拒答を優先; inline citation による逆引き確認 |
+| NotebookLM | 最強 | in-KB-only アーキテクチャが天然のアンチハルシネーション; 42 source 外の質問は捏造より拒答を優先; inline citation による逆引き確認 |
 
 ## 7. ファイル数制限
 
