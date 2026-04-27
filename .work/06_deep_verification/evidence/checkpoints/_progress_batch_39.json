@@ -1,0 +1,208 @@
+{
+  "batch": 39,
+  "round": 9,
+  "session": "C",
+  "status": "completed",
+  "completed_at": "2026-04-29",
+  "page_range": "p.381-390",
+  "pages": 10,
+  "sub_batches": {
+    "39a": {
+      "page_range": "p.381-385",
+      "subagent_type": "oh-my-claudecode:executor",
+      "content_type_hint": "mixed_structural_transition",
+      "n16_compliance": "executor PREFERRED for mixed_structural_transition (compliant)",
+      "atoms": 86,
+      "page_breakdown": {"p381": 5, "p382": 22, "p383": 12, "p384": 30, "p385": 17},
+      "hooks_pass": "17/17",
+      "structural_milestones": [
+        "§7 TRIAL DESIGN MODEL DATASETS L1 NEW chapter at p.382 — FIRST L1 CHAPTER TRANSITION IN P1 CUMULATIVE (since project start)",
+        "§7.1 + §7.2 L2 NEW",
+        "§7.1.1 + §7.1.2 + §7.1.3 + §7.2.1 (TA) L3 NEW",
+        "§7.2.1 TA L4 leaf-pattern chain (per N9): sib=1 Description/Overview + sib=2 Specification + sib=3 Assumptions",
+        "N11 chapter-short-bracket extension to L1 first live-fire post v1.4 codification (§7 [TRIAL DESIGN MODEL DATASETS] short-bracket all-caps applied to L2 children)"
+      ]
+    },
+    "39b": {
+      "page_range": "p.386-390",
+      "subagent_type": "oh-my-claudecode:executor",
+      "content_type_hint": "examples_narrative_spec_table",
+      "n16_compliance": "executor MANDATORY for examples_narrative_spec_table (compliant)",
+      "n14_alternation_note": "39a executor → 39b executor (alternation broken by N16 dominance over N14 for spec-table content); drift cal alternation applied at p.382 mixed_structural_transition target where writer-family acceptable",
+      "atoms": 59,
+      "page_breakdown": {"p386": 15, "p387": 12, "p388": 5, "p389": 22, "p390": 5},
+      "hooks_pass": "17/17",
+      "structural_milestones": [
+        "§7.2.1 TA L4 leaf-pattern chain continuation: sib=4 NEW 'TA – Examples'",
+        "§7.2.1 TA L5 Examples-at-L5 per N10 leaf-pattern: Example 1 sib=1 + Example 2 sib=2",
+        "§7.2.1 TA L6 sub-heading (Trial Design Matrix layer at p.389 a003 sib=1) — N7 L6 canonical-form parent_section",
+        "Two distinct tables under same L5 parent (Trial Design Matrix 5-pipe + ta.xpt 9-row 12-pipe at p.389) — per-table internal pipe-count consistency PASS, cross-table parent_section reuse OBS-4 v1.6 candidate",
+        "Density p.388 (5 atoms) + p.390 (5 atoms) FALSE POSITIVE — figure-only pages (Trial Design diagrams)"
+      ],
+      "closing_state": "§7.2.1 TA – Examples Example 2 still open at p.390 bottom (continuing into sister batch 40 territory p.391+); §7.2.2 TE NOT yet started"
+    }
+  },
+  "totals": {
+    "atoms": 145,
+    "atom_type_distribution": {
+      "HEADING": 14,
+      "SENTENCE": 43,
+      "LIST_ITEM": 39,
+      "TABLE_HEADER": 5,
+      "TABLE_ROW": 33,
+      "CODE_LITERAL": 3,
+      "FIGURE": 7,
+      "NOTE": 1
+    },
+    "9_enum_coverage": "8/9 (no CROSS_REF in this batch; root P1 cumulative has 241 CROSS_REF)",
+    "failures": 0,
+    "repair_cycles": 0,
+    "option_h_applied": false,
+    "rule_b_backup": false
+  },
+  "schema_sweep": {
+    "step_4_status": "PASS — 0 violations, 0 Option H needed",
+    "checks": [
+      {"check": "9-enum atom_type", "verdict": "PASS"},
+      {"check": "FIGURE figure_ref required field", "verdict": "PASS (7/7 populated)"},
+      {"check": "HEADING heading_level + sibling_index required", "verdict": "PASS (14/14 both fields)"},
+      {"check": "§7.2.1 TA L4 chain cross-batch continuity (R15)", "verdict": "PASS — sib=1/2/3 (39a) → sib=4 (39b)"},
+      {"check": "N15 .xpt-parent FORBID assert", "verdict": "PASS 0 violations"},
+      {"check": "N8 NEW9 L2 short-bracket FORBID for non-L3-HEADING", "verdict": "PASS — only N11 L1 chapter-short-bracket extension first live-fire (correct)"},
+      {"check": "TABLE_ROW pipe-count per-table internal consistency", "verdict": "PASS (5 distinct tables, each internally consistent)"},
+      {"check": "Density alarm p.388/p.390 = 5 atoms", "verdict": "FALSE POSITIVE — figure-only pages legitimately low; G-MS-12.b boundary-region floor adjustment applied"}
+    ]
+  },
+  "rule_a_audit": {
+    "slot": 50,
+    "subagent_type": "oh-my-claudecode:planner",
+    "audit_pivot_index": 31,
+    "family_burn": "omc-family 10th burn intra-family depth (D-MS-7 round 8 candidate 'planner-strategist' validated)",
+    "agent_vs_skill_lint": "PASS — oh-my-claudecode:planner is registered AGENT per v1.5 §0 roster",
+    "branch": "A (Write tool default per v1.5 §Step 4)",
+    "sample_size": 10,
+    "sample_distribution": {"SENTENCE": 5, "TABLE_ROW": 3, "LIST_ITEM": 1, "FIGURE": 1},
+    "sample_seed": 20260428,
+    "weighted_score_pct": 90.0,
+    "verdict": "PASS (exact-floor 90% threshold)",
+    "atoms_full_pass": 6,
+    "atoms_partial": 4,
+    "atoms_fail": 0,
+    "files_written": [
+      "evidence/checkpoints/rule_a_batch_39_sample.jsonl",
+      "evidence/checkpoints/rule_a_batch_39_verdicts.jsonl",
+      "evidence/checkpoints/rule_a_batch_39_summary.md (162 lines)"
+    ],
+    "planner_strategist_inaugural_recipe_validated": true,
+    "strongly_validated_candidacy": "post 1st live-fire — 2nd live-fire opportunity opens at batch 40+ omc-family extension"
+  },
+  "drift_cal": {
+    "carrier_index": 9,
+    "target_page": 382,
+    "target_content_type": "mixed_structural_transition",
+    "baseline_subagent": "oh-my-claudecode:executor (39a)",
+    "rerun_subagent": "oh-my-claudecode:writer",
+    "n14_alternation": "executor baseline → writer rerun (3rd live-fire of N14 STRONGLY VALIDATED methodology)",
+    "n16_compliance": "writer acceptable for mixed_structural_transition (free choice per N16 dispatch table)",
+    "n11_l1_chapter_short_bracket_extension_first_live_fire": true,
+    "baseline_atoms": 22,
+    "rerun_atoms": 22,
+    "strict_count_overlap_pct": 100.0,
+    "verbatim_hash_jaccard_pct": 69.2,
+    "verbatim_hash_intersection_max_pct": 81.8,
+    "intersection": 18,
+    "union": 26,
+    "dual_threshold_strict_pass": true,
+    "dual_threshold_verbatim_pass": false,
+    "both_thresholds_pass": false,
+    "verdict": "FAIL (single-threshold) + 5th cumulative writer-direction main-line VALUE HALLUCINATION recurrence",
+    "halt_decision": "NOT halt (drift cal both-thresholds halt clause requires BOTH <80%; here strict 100% PASS rules out halt; N3 NEW8.d 5th-cumulative liberal reading triggers halt but strict reading does not — main session decided NOT halt because 39a/39b root atoms are executor-clean, only writer rerun is hallucinated and is NOT merged to root)",
+    "direction": "REVERSED (12th cumulative occurrence) — baseline executor PDF-correct, rerun writer hallucinated",
+    "value_add": "13th cumulative drift cal value-add precedent — Rule A 10-atom sample drew from 39a baseline (PDF-correct) and would not detect rerun hallucination; drift cal full-page 2-way captured 3 hallucinations Rule A missed",
+    "writer_direction_main_line_value_hallucination_recurrence_count": 5,
+    "writer_direction_recurrence_history": [
+      {"round": 5, "batch": 28, "page": 270, "content_type": "examples_narrative_spec_table", "finding": "O-P1-85"},
+      {"round": 6, "batch": 31, "page": 293, "content_type": "examples_narrative_spec_table", "finding": "O-P1-103"},
+      {"round": 7, "batch": 34, "page": 325, "content_type": "examples_narrative_spec_table", "finding": "O-P1-109"},
+      {"round": 8, "batch": 36, "page": 357, "content_type": "examples_narrative_spec_table", "finding": "round 8 batch 36 halt+Option H repair → triggered v1.5 N16 codification"},
+      {"round": 9, "batch": 39, "page": 382, "content_type": "mixed_structural_transition", "finding": "O-P1-134 (NEW this batch)"}
+    ],
+    "n16_escalation_status": "ESCALATION TRIGGER per kickoff §6 — 5th cumulative recurrence on content type N16 v1.5 PERMITS (mixed_structural_transition); proves N16 v1.5 scope insufficient (writer-direction VALUE HALLUCINATION extends beyond examples_narrative_spec_table to URLs / sentence content / TABLE_ROW long-cell content); v1.6 N16.b emergency candidate filed",
+    "specific_hallucinations": [
+      {"atom_id": "ig34_p0382_a001", "type": "HEADING", "motif": "R10 whitespace drift (MINOR — 2 spaces vs 1 space)", "severity": "MINOR"},
+      {"atom_id": "ig34_p0382_a004", "type": "SENTENCE", "motif": "URL VALUE HALLUCINATION (.org → .ch fabrication)", "severity": "HIGH"},
+      {"atom_id": "ig34_p0382_a017", "type": "SENTENCE", "motif": "WORD DELETION VALUE HALLUCINATION ('clinical' dropped)", "severity": "HIGH"},
+      {"atom_id": "ig34_p0382_a022", "type": "TABLE_ROW", "motif": "TEXT TRUNCATION + REORDER VALUE HALLUCINATION (1032→758 chars, ~26% drift)", "severity": "HIGH"}
+    ],
+    "n17_hooks_15_16_17_self_validate_evidence": "Writer self-claimed '17/17 hooks PASS' but 3 atoms hallucinated; either (a) random N=3 sample missed hallucinated atoms or (b) hooks are procedural-not-evidential; v1.6 OBS-5 candidate — expand pre-DONE PDF-cross-verify sample N=3 → N=10 OR mandatory cross-check for atoms with URLs/citations",
+    "files_written": [
+      "evidence/checkpoints/drift_cal_p382_writer_rerun.jsonl (22 atoms, drift cal artifact NOT merged to root)",
+      "evidence/checkpoints/drift_cal_p382_metrics.json",
+      "evidence/checkpoints/drift_cal_batch_39_p382_report.md (133 lines)"
+    ]
+  },
+  "n14_strict_alternation_methodology_3rd_live_fire": "EFFECTIVE — round 7 batch 33 1st + round 8 batch 36 2nd + round 9 batch 39 3rd live-fire of methodology; STRONGLY VALIDATED status sustained (3 cumulative live-fires); production-ready alternation methodology validated for direction-attribution (here REVERSED direction = writer-side hallucination, attributed correctly via baseline-PDF cross-check)",
+  "g_ms_4_halt_fallback": "spec-only this batch (NOT triggered — drift cal verdict FAIL but not both-threshold halt; STRONGLY VALIDATED status sustained from round 7 + round 8 2 live-fires)",
+  "rule_d_slot_used": 50,
+  "rule_d_audit_pivot_count_post_batch": 31,
+  "findings_added": [
+    {
+      "finding_id": "O-P1-133",
+      "severity": "MEDIUM",
+      "title": "SENTENCE-not-paragraph rule under-enforcement on §7.2.1 TA narrative pages",
+      "source": "Rule A audit slot #50 omc:planner",
+      "details": "4 SENTENCE atoms in 10-atom Rule A sample (atoms 6/8/9 + atom 3 TABLE_ROW with cell-internal bullets) collapse multi-sentence prose paragraphs into single SENTENCE atoms. Per atom_schema notes line 180 each sentence should be its own atom. Original assignment by reviewer: O-P1-130; renumbered by main session to O-P1-133 per G-MS-13 batch 39 reserved range.",
+      "v1_6_candidate": "item Z — Self-Validate Hook 18 sentence-terminator regex `\\.\\s+[A-Z]` + writer prompt narrative-chapter exemplar"
+    },
+    {
+      "finding_id": "O-P1-134",
+      "severity": "HIGH",
+      "title": "5th cumulative writer-direction main-line VALUE HALLUCINATION recurrence on mixed_structural_transition content type — N16 v1.5 scope insufficient",
+      "source": "Drift cal batch 39 p.382 dual-threshold FAIL motif analysis",
+      "details": "Writer rerun hallucinated 3 atoms: (a) URL .org→.ch fabrication (ig34_p0382_a004), (b) word 'clinical' deletion (ig34_p0382_a017), (c) TABLE_ROW Study cell text truncation+reorder (ig34_p0382_a022, ~26% content drift). Plus 1 R10 whitespace minor (ig34_p0382_a001). Round 9 batch 39 = 5th cumulative writer-direction main-line VALUE HALLUCINATION recurrence post round 5/6/7/8 (4 prior all on examples_narrative_spec_table). This 5th occurrence is on mixed_structural_transition content type where N16 v1.5 PERMITS writer-family — proves N16 ban scope insufficient. Direction REVERSED — baseline executor PDF-correct via main session cross-check (PDF p.382 Read).",
+      "v1_6_candidate": "EMERGENCY-CRITICAL N16.b extension — broaden writer-family ban beyond examples_narrative_spec_table to (a) SENTENCE atoms with URLs/DOIs/citations, (b) TABLE_ROW atoms with cell content ≥500 chars, (c) any content where verbatim drift could fabricate identifier/citation values; recommendation: writer-family ban for ALL P1 atomization tasks pending v1.6 cut session"
+    }
+  ],
+  "finding_id_range_allocated": "O-P1-133..136 (4 IDs reserved per G-MS-13)",
+  "finding_id_range_used": ["O-P1-133", "O-P1-134"],
+  "finding_id_self_validation_gate": "PASS — both findings ∈ {133, 134, 135, 136} reserved range; 2/4 used 2/4 unused; no over-allocation; reviewer originally assigned O-P1-130 for SENTENCE-paragraph-concat finding (outside range; main-session renumbered to O-P1-133 per gate enforcement)",
+  "files_written": [
+    "evidence/checkpoints/pdf_atoms_batch_39a.jsonl (86 atoms, p.381-385, executor; 0 Option H)",
+    "evidence/checkpoints/pdf_atoms_batch_39b.jsonl (59 atoms, p.386-390, executor; 0 Option H)",
+    "evidence/checkpoints/_progress_batch_39.json (this file)",
+    "evidence/checkpoints/P1_batch_39_report.md (full batch report)",
+    "evidence/checkpoints/rule_a_batch_39_sample.jsonl (10 atoms 1/page seed=20260428)",
+    "evidence/checkpoints/rule_a_batch_39_verdicts.jsonl (slot #50 omc:planner verdicts; 6 PASS + 4 PARTIAL + 0 FAIL = 90% weighted)",
+    "evidence/checkpoints/rule_a_batch_39_summary.md (Rule A summary §1-§8 + AUDIT-mode pivot reflection + omc-family 10th burn recipe consistency check)",
+    "evidence/checkpoints/drift_cal_p382_writer_rerun.jsonl (22 atoms, drift cal artifact NOT merged to root)",
+    "evidence/checkpoints/drift_cal_p382_metrics.json (dual-threshold computed metrics)",
+    "evidence/checkpoints/drift_cal_batch_39_p382_report.md (133 lines, motif analysis + N16 escalation candidate)"
+  ],
+  "files_NOT_touched": [
+    "root pdf_atoms.jsonl (8552 atoms unchanged — reconciler scope post round 9 batch 38+39+40 merge)",
+    "audit_matrix.md (reconciler scope)",
+    "_progress.json (reconciler scope)",
+    "sister batch files (pdf_atoms_batch_38*, pdf_atoms_batch_40*)",
+    "subagent_prompts/* (v1.5 active 2026-04-28 — no edits)",
+    "schema/*.json",
+    "PLAN.md",
+    "plans/*.md",
+    "CLAUDE.md",
+    "MEMORY/*"
+  ],
+  "halt_state": null,
+  "round_9_compliance": {
+    "g_ms_4_halt_fallback": "spec-only this batch (NOT triggered — drift cal single-threshold FAIL but not both-threshold halt-condition; STRONGLY VALIDATED post 2 prior live-fires sustained)",
+    "g_ms_7_finding_id_range_pre_allocation": "compliant — O-P1-133..136 reserved (4 IDs), 2 used (O-P1-133/134), 2 unused (O-P1-135/136 available for reconciler if cross-batch findings arise during merge); no over-allocation; no cross-session collision (sister 38 has O-P1-129..132, sister 40 has O-P1-137..140 disjoint)",
+    "g_ms_13_finding_id_cross_validation_table": "applied — kickoff §0 cross-validation table read pre-dispatch each batch; finding ID self-validation gate at STEP 7 confirmed both used IDs ∈ {133, 134, 135, 136}; reviewer originally assigned O-P1-130 (outside range), main-session renumbered to O-P1-133 per gate enforcement (1st cross-session range-collision ∼1∼-correction in P1 cumulative — sister 38 reserved range respected)",
+    "skill_vs_agent_pre_allocation_lint": "applied — slot #50 oh-my-claudecode:planner verified AGENT (per v1.5 §0 roster), pre-dispatch lint PASS (NEW v1.5 N15+ G-MS-NEW-8-1 codification in action 1st live-fire post v1.5 cut)",
+    "n14_strict_alternation_3rd_live_fire": "EFFECTIVE methodology — drift cal alternation executor baseline → writer rerun direction-attribution working as designed (REVERSED direction caught writer-side hallucination); STRONGLY VALIDATED status sustained",
+    "n16_dispatch_compliance": "EFFECTIVE for known content types: (a) 39a executor for mixed_structural_transition (N16 PREFERRED), (b) 39b executor for examples_narrative_spec_table (N16 MANDATORY); (c) drift cal writer rerun for mixed_structural_transition (N16 free choice); BUT 5th cumulative writer-direction VALUE HALLUCINATION on mixed_structural_transition where N16 PERMITS writer = N16 v1.5 scope INSUFFICIENT — v1.6 N16.b ESCALATION candidate EMERGENCY-CRITICAL filed (O-P1-134)",
+    "n11_l1_chapter_short_bracket_extension_1st_live_fire": "EFFECTIVE 1st live-fire post v1.4 cut codification — §7 NEW chapter L1 sib=7 with parent='(SDTMIG v3.4)' document root + L2 children parent='§7 [TRIAL DESIGN MODEL DATASETS]' all-caps short-bracket symmetric to L2/L3 chapter-short-bracket extension",
+    "round_9_first_l1_chapter_transition_in_p1_cumulative": "FIRST L1 CHAPTER TRANSITION (§6→§7) since project start — round 1-8 was all §6 sub-chapter content (§6.1-§6.4); round 9 batch 39 introduces §7 Trial Design Model Datasets cumulative milestone",
+    "round_9_planner_strategist_inaugural_recipe_validated": "VALIDATED — slot #50 omc-family planner-agent inaugural burn at AUDIT pivot 31st cumulative; clean Branch A execution + hard-constraint preservation across reflection bridge + no AUDIT-mode protocol breakage + actionable v1.6 candidate produced (finding O-P1-133); STRONGLY VALIDATED candidacy at 2nd live-fire post batch 40+",
+    "round_9_two_layer_audit_7th_cumulative_validation": "VALIDATED 7th cumulative — Rule A 10-atom sample (1/page p.381-390 seed=20260428) PASS 90% (4 PARTIAL on SENTENCE-paragraph-concat motif) + drift cal full-page p.382 FAIL on writer-direction VALUE HALLUCINATION (3 atoms hallucinated by writer rerun, baseline executor PDF-correct); Rule A + drift cal complementary (Rule A drew from baseline = PDF-correct = MISSED writer-direction hallucination; drift cal 2-way alternation CAPTURED writer-direction hallucination); 7th cumulative validation of two-layer audit architecture amplification",
+    "round_9_v1_6_emergency_critical_escalation_candidate": "FILED — N16.b extension to broaden writer-family ban beyond examples_narrative_spec_table to URLs/citations/long-cell-content; analogous to v1.5 N16 EMERGENCY-CRITICAL escalation post 4 cumulative writer-direction recurrences; v1.6 cut session candidacy promoted to STRONGLY RECOMMENDED before round 10 batch 42 next mandatory drift cal"
+  },
+  "handoff_to_reconciler": "Session C contributes 145 atoms (86 + 59) over p.381-390 covering: §6.4.5 SR Examples table tail at p.381 (5 atoms cross-batch tail from sister 38 territory) + FIRST L1 CHAPTER §7 TRIAL DESIGN MODEL DATASETS NEW at p.382 + §7.1 / §7.2 L2 NEW + §7.1.1/2/3 + §7.2.1 (TA) L3 NEW + §7.2.1 TA L4 leaf-pattern chain (Description/Specification/Assumptions/Examples sib=1/2/3/4) + §7.2.1 TA L5 Examples-at-L5 (Example 1 sib=1 + Example 2 sib=2) + §7.2.1 TA L6 sub-heading at p.389 (Trial Design Matrix layer). Reconciler should: (a) merge pdf_atoms_batch_39a.jsonl + pdf_atoms_batch_39b.jsonl into root pdf_atoms.jsonl post sister batch 38+40 merges; (b) sweep cross-batch sibling continuity for §6.4.4 FA Examples tail (sister 37→38) → §6.4.5 SR L3-leaf NEW (sister 38) → §6.4.5 SR Examples tail at p.381 (39a head, 5 cross-batch atoms parent_section canonical match '§6.4.5 SR – Examples') → §7 L1 NEW chapter at p.382 (39a head — first L1 transition in P1 cumulative) → §7.2.1 TA L4/L5 chain extending into sister batch 40 (TA Example 2 continues p.391+); (c) update root audit_matrix.md with batch 39 row + Rule A 39 row (slot #50 omc:planner 90% PASS) + drift cal 39 p.382 row (FAIL+5th-cumulative-writer-direction-recurrence) + Rule D roster 47→50 (round 8 batch 37 #47 + sister 38 #49 + 本 39 #50 + sister 40 #51 cumulative; sister 38/40 reviewer slots TBD post sister DONE); (d) update root _progress.json (atoms 8552 → cumulative including batch 38+39+40 + sisters; pages 370 → 400; batches 37 → 40; Rule D 47 → 50+; repair_cycles +0 batch 39; findings +2 batch 39 = O-P1-133/134); (e) v1.6 cut session candidacy STRONGLY RECOMMENDED before round 10 batch 42 (next mandatory drift cal) to absorb O-P1-134 EMERGENCY-CRITICAL N16.b ESCALATION + 5 v1.6 candidates (N16.b + Item Z + OBS-1/2/3 carry-forward + OBS-4 NEW + OBS-5 NEW); (f) multi-session round 9 protocol: after E reconciler completes, write MULTI_SESSION_RETRO_ROUND_9.md (Rule C 三段式 retain/gap/decision with v1.6 emergency promotion); cleanup CLAUDE.md round-9 routing rule + delete batch_38/39/40_kickoff.md + reconciler_kickoff_round9.md (one-shot use done)."
+}
