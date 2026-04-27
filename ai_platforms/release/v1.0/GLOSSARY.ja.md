@@ -62,5 +62,7 @@
 | プロジェクト方法論 | `../../claude_projects/docs/RETROSPECTIVE_V2.md`（Claude v2 最終状態の振り返り）+ `../../notebooklm/docs/RETROSPECTIVE.md`（NotebookLM 振り返り） |
 | 4 プラットフォームの横断的振り返り | `../../retrospectives/PHASE5_RETROSPECTIVE.md`（v1.0 FINAL） |
 
+> ⚠️ 注記: 本節における `../../...` または `dev/evidence/...` 形式のパスは、プロジェクト内部の成果物 (Daisy が保管) を指しており、本 release パックには含まれていません。詳細が必要な場合は Daisy までご連絡ください。
+
 ---
 *v1.1 — 2026-04-27 — メンテナー: Daisy*

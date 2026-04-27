@@ -29,8 +29,7 @@
 - ~2,400K total tokens across all source files
 
 ### Release artifacts
-- `ai_platforms/release/v1.0/` — public-facing docs
-- `ai_platforms/{claude_projects,chatgpt_gpt,gemini_gems,notebooklm}/current/` — actual deployment files
+- `./` (this folder) — self-contained release: public-facing docs + per-platform deploy bundles under `self_deploy/{claude,chatgpt,gemini,notebooklm}/`, each with `system_prompt.md` (or `instructions.md`) + `uploads/` + trilingual `tutorial.{zh,en,ja}.md`
 - git tag: `v1.0-company-release` (created at Phase E end)
 
 ### Known limitations
@@ -47,4 +46,4 @@ See `KNOWN_LIMITATIONS.en.md` for full list (L1-L3 cross-platform + L4 per-platf
 - 2026-04-20: Claude Projects v2.6 final (24/24 PASS, 1.29M tokens / 77% capacity)
 - 2026-04-18 onwards: 4-platform parallel deployment program kickoff
 
-For full development history see `ai_platforms/retrospectives/` (R1, R2, PHASE5, V5C reviewers) and per-platform `docs/RETROSPECTIVE.md`.
+Full development history (28-slot Rule D reviewer chain, R1/R2/PHASE5/V5C retrospectives, per-platform retros) is maintained internally and available from Daisy on request.

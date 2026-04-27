@@ -139,5 +139,29 @@
     "rule_e": "candidates carried forward to ~/.claude/CLAUDE.md (R-RELEASE-1/2/3/5)"
   },
   "evidence_root": ".work/07_release/evidence/",
-  "recovery_hint": "Phase E 全部完成 2026-04-27 13:15. 24 release files 落盘 ai_platforms/release/v1.0/. Phase B Agent runtime pivot (omc-teams 1h idle → Agent 7min). Phase C 14 translator parallel. Phase D 5 reviewer + Rule A 抽检 / 22 fix edits / 8 polish 留 v1.1. Retro 三段 (R-RELEASE-1..7 / G-RELEASE-1..6 / D-RELEASE-1..7). git tag v1.0-company-release. CLAUDE.md routing block removed."
+  "post_v1_1_self_deploy_reorg": {
+    "status": "completed",
+    "completed_at": "2026-04-27T14:30:00Z",
+    "wall": "~30min",
+    "trigger": "user wants to ship only release/ to company cloud — colleagues should not need to navigate ai_platforms/<platform>/current/",
+    "scope": [
+      "snapshot cp 4 platform current/ → release/v1.0/self_deploy/<platform>/ (claude 4.6M/19 + chatgpt 9.3M/9 + gemini 2.2M/4 + notebooklm 9.4M/43)",
+      "12 flat tutorials → per-platform subdir: <p>_tutorial.<lang>.md → <p>/tutorial.<lang>.md",
+      "tutorial path rewrite: ../../<platform>/current/ → ./ (co-located with assets)",
+      "delete 4 dev-only manifests: claude+chatgpt+gemini upload_manifest.md + chatgpt manifest_segments.json",
+      "rewrite self_deploy/README.{zh,en,ja}.md §3 prereq + §5 upgrade flow (drop git pull / current/ / dev/archive/drafts/ assumptions → release pack distribution model)",
+      "edit CHANGELOG.md (Release artifacts) + KNOWN_LIMITATIONS.en.md (./ relative path)",
+      "add 'internal docs kept by Daisy' footer notes to GLOSSARY × 3 + DEMO_QUESTIONS + notebooklm tutorial × 3 (cover residual ../../... / dev/evidence/... refs)"
+    ],
+    "size_change": "release/ 296K → 26M (4 platform bundles + 75 uploads + 4 prompts/instructions)",
+    "rule_compliance": {
+      "rule_a": "N/A (mechanical reorg, current/ snapshot 0 SDTM semantic change)",
+      "rule_b": "N/A (no failed attempts)",
+      "rule_c": "PASS (retro recorded in worklog as v1.0 follow-up addendum; R-RELEASE-9 release self-containment principle)",
+      "rule_d": "N/A (no reviewer dispatch — file mv/cp no quality gate)",
+      "rule_e_candidate": "R-RELEASE-9 release-pack-must-be-self-contained → carry to ~/.claude/CLAUDE.md"
+    },
+    "verification": "grep residual ai_platforms/ refs in release/: 3 hits, all intentional (self_deploy/README × 3 dev-optional git clone path + gemini upload HTML comment metadata)"
+  },
+  "recovery_hint": "v1.0 + v1.1 polish + post-v1.1 self_deploy reorg 全部完成 2026-04-27. 24 release files (v1.0) → 27 (v1.1 +3 GLOSSARY) → 26M complete deploy bundle (reorg). 4 platforms self-contained at release/v1.0/self_deploy/<p>/ (claude/chatgpt/gemini/notebooklm 各含 system_prompt 或 instructions + uploads/ + tutorial × 3 lang). Colleague 拿 release/ 即可独立部署 (不需访问 ai_platforms/<platform>/current/). Phase B Agent runtime pivot. Phase D Rule A 抽检. Retro Rule C 三段 R-RELEASE-1..7 + R-RELEASE-9 (reorg addendum, release self-containment). git tag v1.0-company-release."
 }

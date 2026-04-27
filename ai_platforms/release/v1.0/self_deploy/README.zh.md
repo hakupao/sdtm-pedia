@@ -15,17 +15,16 @@
 
 ## 2. 4 平台部署教程 (选一个跟着做)
 
-- **Claude Projects** → [./claude_tutorial.zh.md](./claude_tutorial.zh.md) (19 文件 + system_prompt + 24 题 smoke)
-- **ChatGPT GPTs** → [./chatgpt_tutorial.zh.md](./chatgpt_tutorial.zh.md) (Custom GPT + 9 文件 + v2.2 system prompt + 17 题 smoke)
-- **Gemini Gems** → [./gemini_tutorial.zh.md](./gemini_tutorial.zh.md) (Gem + 4 合并文件 + v7.1 system prompt + AHP 验收)
-- **NotebookLM** → [./notebooklm_tutorial.zh.md](./notebooklm_tutorial.zh.md) (notebook + 42 sources + Custom mode instructions 8,925 chars + 三档分享)
+- **Claude Projects** → [./claude/tutorial.zh.md](./claude/tutorial.zh.md) (19 文件 + system_prompt + 24 题 smoke)
+- **ChatGPT GPTs** → [./chatgpt/tutorial.zh.md](./chatgpt/tutorial.zh.md) (Custom GPT + 9 文件 + v2.2 system prompt + 17 题 smoke)
+- **Gemini Gems** → [./gemini/tutorial.zh.md](./gemini/tutorial.zh.md) (Gem + 4 合并文件 + v7.1 system prompt + AHP 验收)
+- **NotebookLM** → [./notebooklm/tutorial.zh.md](./notebooklm/tutorial.zh.md) (notebook + 42 sources + Custom mode instructions 8,925 chars + 三档分享)
 
 ## 3. 通用前置准备
 
-1. `git clone` 本仓库到本地, 进根目录.
-2. 找对应平台 `ai_platforms/{claude_projects,chatgpt_gpt,gemini_gems,notebooklm}/current/` (不要从 dev/ 或 archive/ 拷).
-3. 准备账号 + 套餐 (按 §1 表格).
-4. 打开 §2 对应 tutorial, 严格按章节顺序执行 (跳步会丢 system_prompt 守门规则).
+1. 进入本目录 (公司云下载 release pack, 或 `git clone` 本仓库后进 `ai_platforms/release/v1.0/`). 各平台部署资产已就位在 `./{claude,chatgpt,gemini,notebooklm}/` (`system_prompt.md` 或 `instructions.md` + `uploads/` + `tutorial.<lang>.md`).
+2. 准备账号 + 套餐 (按 §1 表格).
+3. 打开 §2 对应 tutorial, 严格按章节顺序执行 (跳步会丢 system_prompt 守门规则).
 
 ## 4. 部署后验证 (smoke test)
 
@@ -39,7 +38,7 @@
 
 ## 5. 升级 / 维护
 
-source 仓库后续会更新: 每个 minor release (`../CHANGELOG.md` 标 v1.1 / v1.2) 或 SDTMIG 新版 (v3.5+) 时. 重传步骤: `git pull` → 进 `current/` → 删旧 uploads + 重传 → **完整复制粘贴新 system_prompt.md** (绝不能截断, 否则丢 AHP 守门规则, 例 Gemini v7.1 CO-1d SUPPQUAL 硬锚 + ChatGPT v2.2 v3.4 新域变量名校验). 回滚: 各平台 `dev/archive/drafts/` 留历史版本可回退.
+release 包后续会更新: 每个 minor release (`../CHANGELOG.md` 标 v1.1 / v1.2) 或 SDTMIG 新版 (v3.5+) 时, Daisy 通过公司云分发新 release pack. 重传步骤: 拿到新 pack → 进对应平台子目录 (`./{claude,chatgpt,gemini,notebooklm}/`) → 删旧 uploads + 重传 → **完整复制粘贴新 system_prompt.md** (绝不能截断, 否则丢 AHP 守门规则, 例 Gemini v7.1 CO-1d SUPPQUAL 硬锚 + ChatGPT v2.2 v3.4 新域变量名校验). 回滚: 联系 Daisy 取历史 release pack.
 
 ## 6. 反馈
 

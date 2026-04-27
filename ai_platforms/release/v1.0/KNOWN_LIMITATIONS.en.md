@@ -75,4 +75,4 @@ If you encounter a hallucination, factual error, or scope gap not covered above:
 3. Email Daisy / open a project tracker issue with the above attached.
 4. Include expected vs actual: cite the SDTMIG v3.4 spec section or CDISC CT C-code.
 
-We track these in `ai_platforms/release/v1.0/CHANGELOG.md` for the next minor release.
+We track these in `./CHANGELOG.md` for the next minor release.
