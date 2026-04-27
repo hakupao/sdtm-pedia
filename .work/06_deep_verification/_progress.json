@@ -1095,5 +1095,68 @@
     "round_9_omc_family_10th_burn_intra_family_depth_planner_strategist_validated": "oh-my-claudecode:planner slot #50 omc family 10th burn intra-family depth (debugger+designer+qa-tester+test-engineer+git-master+security-reviewer+scientist+analyst+architect+planner = 10-burn intra-family depth); D-MS-7 round 8 candidate 'planner-strategist' VALIDATED at 1st live-fire; STRONGLY VALIDATED candidacy at 2nd live-fire post batch 40+; 31st cumulative AUDIT pivot",
     "round_9_general_purpose_family_3rd_burn_extension_validated": "general-purpose family 3rd burn extension at slot #51 (precedent chain #28 round 5 1st burn inaugural + #41 round 7 2nd burn G-MS-4 1st LIVE-FIRE fallback + #51 round 9 3rd burn extension validation); recipe family-agnostic at 3-burn intra-family depth scale validated post round 9; round 9 #51 confirms general-purpose full-tool variant supports Branch A direct write at intra-family-3rd-burn depth (vs round 5 #28 + round 7 #41 used Branch C content-substitution); 32nd cumulative AUDIT pivot",
     "round_9_reconciler_side_canonical_form_drift_Option_H_bulk_fix_first_cross_session_form_drift_fix": "EFFECTIVE — reconciler sibling continuity sweep §3 INTRA-AGENT consistency check N6 round-7 dimension extension caught 37 atoms in 39b with short-form `§7.2.1 TA – Example 1/2` parent_section while 40a/b consistently used full-form `§7.2.1 Trial Arms (TA) – Example 1/2` (and 39b's own L5 chain `§7.2.1 Trial Arms (TA) – Examples` full-form); 30 atoms Example 1 + 7 atoms Example 2 = 37 total covering SENTENCE/FIGURE/TABLE_HEADER/TABLE_ROW/CODE_LITERAL/HEADING types under L6 'Trial Design Matrix' sib=1 chain; Rule B backup `evidence/checkpoints/pdf_atoms_batch_39b.jsonl.pre-OptionH-form-drift.bak` preserved + post-fix sweep 0 short-form residual + 59 full-form usages 59/59 atoms in 39b consistent; round 9 = 1st reconciler-side cross-session canonical-form drift fix in P1 cumulative (extends round 7 batch 34 O-P1-115 LOW intra-batch sub-batch L4 canonical drift precedent to cross-session L6+descendants scope post v1.5 cut N16 same-family content-type-bound dispatch first-batch)"
+  },
+  "v1_6_cut_completed": "2026-04-29",
+  "v1_6_cut_details": {
+    "trigger": "round 9 batch 39 5th cumulative writer-direction main-line VALUE HALLUCINATION recurrence on `mixed_structural_transition` content type DESPITE N16 v1.5 PERMISSION (O-P1-134 HIGH = N16 v1.5 ban scope INSUFFICIENT proof) + O-P1-133 MEDIUM SENTENCE-paragraph-concat motif + 5 v1.6 candidates total accumulated round 9",
+    "candidates_absorbed": 5,
+    "candidates_source": "round 9 (batches 38/39/40 + reconciler closure 2026-04-29) + carry-forward OBS-1/2/3 from v1.5 cut codex audit",
+    "writer_side_patches": [
+      "N18 EMERGENCY-CRITICAL writer-family ban EXTENDED scope (5 sub-rules a-e: a=carry-forward Examples-narrative+spec-table N16 + b=URLs/DOIs + c=TABLE_ROW ≥500 chars + d=general VERBATIM-CRITICAL clause + e=mixed_structural_transition MANDATORY was PREFERRED v1.5 N16) post 5th cumulative writer-direction VALUE HALLUCINATION recurrence on mixed_structural_transition DESPITE N16 v1.5 PERMISSION",
+      "N19 SENTENCE-paragraph-concat detection Hook 18 WARN-mode pre-DONE per O-P1-133 MEDIUM + Item Z + 5 PARTIAL atoms cumulative round 9; writer prompt narrative-chapter exemplar showing 1-sentence-per-atom split",
+      "N20 PDF-cross-verify expansion N=3→N=10 + mandatory URL/DOI/citation cross-check regardless of sample + long-cell TABLE_ROW (≥500 chars) mandatory cross-check + halt-on-violation per OBS-5 detection-not-prevention escalation"
+    ],
+    "matcher_side_markers": [
+      "[NEW18_writer_family_extended_ban_scope_violation] HIGH severity covering N18 EXTENDED scope 5 sub-rules a-e",
+      "[N19_sentence_paragraph_concat] MEDIUM severity covering N19 Hook 18 WARN-mode detection (post M2 remediation)",
+      "[N20_pdf_cross_verify_failure] HIGH severity covering N20 Hook 19 post-merge cross-check failure (post M3 remediation)",
+      "[NEW8.e_writer_direction_url_value_hallucination] HIGH severity covering specific URL/citation fabrication motif (round 9 batch 39 p.382 ig34_p0382_a004 .org→.ch)"
+    ],
+    "reviewer_side_changes": [
+      "Rule D roster expanded 48 → 52 slots (+4 cumulative: #49 Explore round 9 batch 38 + #50 oh-my-claudecode:planner round 9 batch 39 + #51 general-purpose round 9 batch 40 + #52 codex:codex-rescue v1.6 cut 2nd burn extension)",
+      "v1.6 fix verification matrix expanded 25 → 28 items A-AB (3 NEW v1.6 items Z-AB covering N18-N20)",
+      "§0 AGENT-vs-SKILL roster doc UPDATED post round 9 (omc 10× saturated planner #50 / general-purpose 3× / Explore inaugural / codex inaugural; D-MS-7 successor candidates 'verifier-strategist' / 'tracer-strategist' identified for round 10+)",
+      "§0.5 NEW reconciler-side cross-session canonical-form drift sweep codification per round 9 D-MS-NEW-9-2 (37-atom Option H bulk fix in 39b first reconciler-side cross-session form-drift fix in P1 cumulative); reconciler-side Hook R1 NEW",
+      "§Step 2 OBS absorbed list expanded to OBS-1/2/3/4 with explicit OBS-4 codification (post M4 remediation)"
+    ],
+    "status_promotions": [
+      "N14 strict alternation methodology graduate from STRONGLY VALIDATED post 2nd live-fire → STRONGLY VALIDATED post 3rd live-fire (round 7 batch 33 + round 8 batch 36 + round 9 batch 39); production-ready protocol sustained at 3 cumulative live-fires",
+      "G-MS-4 halt fallback STRONGLY VALIDATED sustained (NOT triggered round 9; carry-forward unchanged)",
+      "N9 + N10 leaf-pattern codifications (NEW v1.6 promotion): graduate from 1st-live-fire-EFFECTIVE → CROSS-LEAF-DOMAIN VALIDATED post 3rd live-fire (round 8 batch 37 FA + round 9 batch 38 SR + round 9 batch 39 TA = 3 cumulative leaf-domain validations clean first-attempt)",
+      "N11 chapter-short-bracket extension (NEW v1.6 promotion): graduate from L2/L3 1st live-fire → L1+L2+L3 FULL-SCOPE VALIDATED (round 8 batch 37 L2/L3 1st live-fire + round 9 batch 39 L1 1st live-fire = N11 fully validated across L1+L2+L3 chapter-short-bracket extension scope)"
+    ],
+    "retroactive_option_h_bulk_fix": {
+      "applied": false,
+      "rationale": "v1.6 cut prospective-only per Tier 3 leanness — N18 EXTENDED scope applies prospectively round 10+ (no retroactive sweep of round 1-9 atoms required); Item Z N19 SENTENCE-paragraph-concat WARN-mode also prospective-only (round 9 5 PARTIAL findings already filed as O-P1-133 / not blocking quality); v1.5 cut retroactive sweep 35 atoms (8 p.133 NEW9 + 27 .xpt-parent batch 36) carry-forward unchanged"
+    },
+    "reviewer_audit": {
+      "slot_used": 52,
+      "subagent_type": "codex:codex-rescue",
+      "audit_pivot_index": 33,
+      "family": "codex-family 2nd burn extension (sustains external runtime / different model = strongest Rule D isolation principle for prompt cut audit purpose; #48 v1.5 cut INAUGURAL + #52 v1.6 cut extension = codex-family 2-burn intra-family depth validated)",
+      "audit_mode_pivot_label": "AUDIT for SDTM v1.6 prompt cut quality, NOT rescue / second implementation / diagnosis pass",
+      "tools_adaptation": "Branch C Write-tool-less inline content substitution (codex returned content inline per V7 codification + main session wrote files verbatim per round 8 #46/#47 + v1.5 cut #48 + this v1.6 cut #52 precedents)",
+      "verdicts_jsonl": "evidence/checkpoints/v1_6_cut_reviewer_verdicts.jsonl (28 rows A-AB)",
+      "report_md": "evidence/checkpoints/v1_6_cut_reviewer_report.md (8 sections + per-item verdict table + AUDIT-mode pivot reflection codex 2nd burn extension)",
+      "raw_verdict": "PASS_25_OF_28 (PASS=25 / PARTIAL=3 / FAIL=0)",
+      "post_fix_verdict": "PASS_28_OF_28 (after 4 remediations applied: M1 HIGH Hook 16.6 N18.d branch + M2 MEDIUM matcher N19 sync + M3 MEDIUM matcher N20 sync + MD writer halt-on-violation language + M4 LOW reviewer OBS-4 codification)",
+      "threshold": "≥22/28 PASS = production-ready bar (analogous to v1.5 cut codex audit ≥22/25)",
+      "sign_off": "SAFE_FOR_DAISY_ACK",
+      "remediations_applied": [
+        "M1 HIGH [Z]: Hook 16.6 pseudo-code in P0_writer_pdf_v1.6.md §派发 EXTENDED with N18.d general VERBATIM-CRITICAL citation/identifier branch (citations regex + clinical trial registry IDs + publication identifiers + regulatory codes)",
+        "M2 MEDIUM [AA]: P0_matcher_v1.6.md added NEW discrepancy marker [N19_sentence_paragraph_concat] syncing with writer N19 Hook 18 (regex + WARN-mode + source O-P1-133 + resolution writer-side N19 + matcher-side flagging non-blocking)",
+        "M3 MEDIUM [AB]: (a) P0_matcher_v1.6.md added NEW discrepancy marker [N20_pdf_cross_verify_failure] syncing with writer N20 Hook 19 (URL/DOI/citation/long-cell post-merge PDF cross-check + halt-on-violation per N20); (b) P0_writer_md_v1.6.md §N20 added explicit halt-on-violation language for URL/DOI/citation discrepancy + long-cell content drift",
+        "M4 LOW [OBS-4]: P0_reviewer_v1.6.md §Step 2 OBS absorbed list expanded to OBS-1/2/3/4 with explicit OBS-4 codification cross-reference to writer §N20 Hook 20"
+      ]
+    },
+    "v1_5_archived_to": "subagent_prompts/archive/v1.5_final_2026-04-29/",
+    "v1_6_cut_compliance": {
+      "rule_a": "applied — codex reviewer slot #52 28/28 PASS post-fix (raw 25/28 → effective 28/28 after 4 remediations applied)",
+      "rule_b": "N/A applied — no retroactive Option H needed (v1.6 prospective-only)",
+      "rule_c": "applied — v1.6 cut session retro embedded in v1_6_cut_details + reviewer report",
+      "rule_d": "applied — codex:codex-rescue (slot #52) AUDIT independence preserved Branch C Write-tool-less + main-session-write substitution; codex-family 2-burn intra-family depth validated post v1.6 cut",
+      "rule_e": "applied — 0 OBS observations (all 4 audit findings M1-M4 remediated post-audit; no observations deferred to v1.7); v1.7 candidates expected to surface from round 10+ batches"
+    },
+    "next_step": "v1.6 cut DONE 2026-04-29. Round 10 batches 41/42/43 multi-session preparation: 4 kickoff files to create — `multi_session/batch_41_kickoff.md` + `batch_42_kickoff.md` + `batch_43_kickoff.md` + `reconciler_kickoff_round10.md`. Pre-allocated reviewer slots #53/#54/#55 (NOT cumulative #1-#52); content_type_hint per sub-batch + drift cal target page batch 42 (10th time NEW1 dual-threshold per cadence batch 39→42); v1.7 cut session candidacy: depends on round 10 outcomes (6th cumulative writer-direction recurrence trigger / N19 motif persistence / new candidates surfaced)"
   }
 }
