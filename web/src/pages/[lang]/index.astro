@@ -1,0 +1,23 @@
+---
+import LandingLayout from '../../layouts/LandingLayout.astro';
+import HeroSection from '../../components/astro/HeroSection.astro';
+import PlatformsSection from '../../components/astro/PlatformsSection.astro';
+import ComparePreviewSection from '../../components/astro/ComparePreviewSection.astro';
+import DemoSection from '../../components/astro/DemoSection.astro';
+import DownloadsSection from '../../components/astro/DownloadsSection.astro';
+import { supportedLangs, type Lang } from '../../i18n/helpers';
+
+export function getStaticPaths() {
+  return supportedLangs.map((lang) => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as Lang;
+const titles = { zh: 'SDTM 知识库', en: 'SDTM Knowledge', ja: 'SDTM ナレッジ' };
+---
+<LandingLayout title={titles[lang]} lang={lang}>
+  <HeroSection lang={lang} />
+  <PlatformsSection lang={lang} />
+  <ComparePreviewSection lang={lang} />
+  <DemoSection lang={lang} />
+  <DownloadsSection lang={lang} />
+</LandingLayout>
