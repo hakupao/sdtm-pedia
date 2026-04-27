@@ -1,2 +1,58 @@
-/* Tailwind v4 entry. Phase 2 §2.1 expands this with @theme tokens, fonts, and dark-mode rules. */
+@import "@fontsource/playfair-display/400.css";
+@import "@fontsource/playfair-display/700.css";
+@import "@fontsource/playfair-display/700-italic.css";
+@import "@fontsource/source-serif-pro/400.css";
+@import "@fontsource/source-serif-pro/500.css";
+@import "@fontsource/source-serif-pro/400-italic.css";
+@import "@fontsource/jetbrains-mono/500.css";
+@import "@fontsource/jetbrains-mono/700.css";
+
 @import "tailwindcss";
+
+:root, [data-theme="light"] {
+  --bg:        #f8f5ef;
+  --bg-alt:    #ffffff;
+  --ink:       #0a0a0a;
+  --ink-mute:  #555555;
+  --ink-faint: rgba(10, 10, 10, 0.4);
+  --accent:    #1e40af;
+  --rule:      #1a1a1a;
+}
+
+[data-theme="dark"] {
+  --bg:        #0d0c0a;
+  --bg-alt:    #1a1815;
+  --ink:       #f5f1ea;
+  --ink-mute:  #b8b3a8;
+  --ink-faint: rgba(245, 241, 234, 0.4);
+  --accent:    #60a5fa;
+  --rule:      #f5f1ea;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --bg:        #0d0c0a;
+    --bg-alt:    #1a1815;
+    --ink:       #f5f1ea;
+    --ink-mute:  #b8b3a8;
+    --ink-faint: rgba(245, 241, 234, 0.4);
+    --accent:    #60a5fa;
+    --rule:      #f5f1ea;
+  }
+}
+
+html, body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Source Serif Pro', Georgia, serif;
+  transition: background 250ms ease-in-out, color 250ms ease-in-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
