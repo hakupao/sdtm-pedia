@@ -1,3 +1,10 @@
+---
+lang: en
+slug: demo-questions
+order: 30
+title: "Demo Questions"
+---
+
 # SDTM AI Knowledge Base — 10 Demo Questions
 
 > **目的 / Purpose / 目的**: 同事拿到 4 平台访问后, 用这 10 题快速感受能力. 5 分钟 (3 题) ~ 30 分钟 (全 10 题). 题面三语 (中/EN/JA), 答案判据保英文 (SDTM 术语原样).

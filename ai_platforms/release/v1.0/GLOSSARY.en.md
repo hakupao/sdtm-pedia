@@ -1,3 +1,10 @@
+---
+lang: en
+slug: glossary
+order: 40
+title: "Glossary"
+---
+
 # Glossary — SDTM AI Knowledge Base
 
 > One-page lookup. When you encounter an unfamiliar term, return here. Three categories: SDTM industry / AI platform / project-internal.

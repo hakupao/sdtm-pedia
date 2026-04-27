@@ -1,3 +1,10 @@
+---
+lang: ja
+slug: readme
+order: 0
+title: "README"
+---
+
 # SDTM AI ナレッジベース v1.0 — 社内公開版
 
 > 2026-04-27 / 4 AI プラットフォーム LIVE / ユーザーマニュアル + セルフデプロイチュートリアル完備

@@ -1,3 +1,10 @@
+---
+lang: zh
+slug: readme
+order: 0
+title: "README"
+---
+
 # SDTM AI 知识库 v1.0 — 公司发布版
 
 > 2026-04-27 / 4 个 AI 平台 LIVE / 用户手册 + 自部署教程齐全

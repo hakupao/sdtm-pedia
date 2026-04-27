@@ -1,3 +1,10 @@
+---
+lang: en
+slug: known-limitations
+order: 50
+title: "Known Limitations"
+---
+
 # Known Limitations — SDTM AI Knowledge Base v1.0
 
 > Maintained as a single English file. Each limitation lists: which platform(s) it affects, the evidence/reproduction, and the recommended workaround.

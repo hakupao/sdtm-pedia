@@ -1,3 +1,10 @@
+---
+lang: en
+slug: readme
+order: 0
+title: "README"
+---
+
 # SDTM AI Knowledge Base v1.0 — Company Release
 
 > 2026-04-27 / 4 AI platforms LIVE / Full user manual + self-deploy tutorials
