@@ -1,0 +1,137 @@
+{
+  "phase": 8,
+  "tier": 3,
+  "opened_date": "2026-04-29",
+  "branch": "main",
+  "head_at_open": "fbc2ccd",
+  "production_url": "https://sdtm-pedia.pages.dev/",
+  "preflight_decisions_acked_session_start": [
+    "scope_pagefind_only_defer_carryover_to_phase_9_or_10",
+    "reviewer_slot_superpowers_silent_failure_hunter_2nd_burn_superpowers_family",
+    "plan_deviation_flag_none_expected_master_plan_followed_verbatim"
+  ],
+  "plan_deviation": "NONE expected. Master plan §'Phase 7 — Search (Pagefind)' followed verbatim. Two minor spec-drift notes (NOT deviations): (1) Pagefind 1.5.2 output naming uses index/+fragment/ subdirs + *.pf_meta, not *.pf_index per master plan Step 1; (2) 4 redirect pages 'no <html> element' warnings = pre-existing C-P7-6 expected behavior.",
+  "tasks": {
+    "8.1_verify_pagefind_builds": {
+      "status": "completed",
+      "mode": "direct_main_session_verification_only",
+      "absorbs_carryover": [],
+      "files_touched": [],
+      "commit": null,
+      "verdict": "PASS",
+      "evidence": ".work/07_website/phase8/evidence/checkpoints/task_8_1_report.md",
+      "findings": {
+        "F-8.1-1_pagefind_artifacts_present": "PASS — 17 artifacts in dist/pagefind/ including pagefind.js + pagefind-ui.js + pagefind-component-ui.js + index/ + fragment/ + pagefind-entry.json + 3 *.pf_meta + wasm.{en,unknown}.pagefind",
+        "F-8.1-2_languages_indexed": "PASS — 3 langs (zh, en, ja) matches Phase 7 close baseline",
+        "F-8.1-3_pages_indexed": "PASS — 27 pages indexed matches Phase 7 close 27 content pages baseline",
+        "F-8.1-4_words_indexed": "INFO — 6454 words across 3 langs",
+        "F-8.1-5_redirect_pages_html_warnings": "ACCEPTED — 4 pages without <html> matches C-P7-6 (correct: redirect pages should not be indexed)",
+        "F-8.1-6_master_plan_pf_index_naming_drift": "INFO — Pagefind 1.5.2 uses index/ + fragment/ subdirs + *.pf_meta, not *.pf_index per master plan Step 1 line 2496. Functionally equivalent. Documented in PLAN.md §'Plan deviation flag'."
+      }
+    },
+    "8.2_searchoverlay_react_island": {
+      "status": "completed",
+      "mode": "subagent_dispatch_oh_my_claudecode_executor_opus",
+      "files_to_create": [
+        "web/src/components/react/SearchOverlay.tsx",
+        "web/src/components/react/SearchOverlay.test.tsx",
+        "web/tests/e2e/search.spec.ts"
+      ],
+      "files_to_modify": [
+        "web/src/components/astro/TopNav.astro"
+      ],
+      "vitest_delta_target": "32 -> 34 (+2 SearchOverlay tests)",
+      "vitest_delta_actual": "32 -> 34 PASS (+2 SearchOverlay tests in 9 files)",
+      "verifications_target": "tsc_0 vitest_34_of_34 build_fresh_31_pages dist_pagefind_populated e2e_includes_search_spec",
+      "verifications_actual": "tsc_0 vitest_34_of_34 build_31_pages dist_pagefind_17_artifacts e2e_full_suite_7_of_7_against_preview",
+      "commit": "4206203",
+      "verdict": "PASS",
+      "evidence": ".work/07_website/phase8/evidence/checkpoints/task_8_2_report.md",
+      "subagent_prompt": ".work/07_website/phase8/subagent_prompts/task_8_2_executor_prompt.md",
+      "spec_adjustments": [
+        "Adj-1: dynamic import indirected via const pagefindUrl + .catch() — Vite import-analysis static check fails on adjacent literal even with /* @vite-ignore */; .catch silences jsdom + dev-server unhandled rejection",
+        "Adj-2: e2e exercises ⌘K hint button click (whose inline onclick dispatches synthetic keydown on document) instead of raw page.keyboard.press('Meta+k') — keypress without focused target wasn't reaching React document listener in headless chromium; layered coverage retained (vitest covers raw-keydown path)",
+        "Adj-3: aria-label='Search docs' added to input for parity with CompareFilter pattern"
+      ],
+      "blockers_flagged": {
+        "B-1_playwright_webserver_uses_dev_not_preview": "INFORMATIONAL — playwright.config.ts uses `npm run dev` as webServer.command; search.spec.ts requires `npm run build && npm run preview` lane (Pagefind index built only on build). Test file header documents manual lane. Recommend C-P8-1 carryover Phase 9 polish: switch playwright webServer to build+preview (~2-3s slowdown but CI-green). Per task brief: STOPPED + reported instead of modifying config.",
+        "B-2_astro_island_missing_await_children_on_searchoverlay": "RESOLVED during execution — correct: SearchOverlay SSRs as null (closed state), no children to await."
+      }
+    },
+    "8.3_reviewer_pass": {
+      "status": "completed",
+      "subagent": "pr-review-toolkit:silent-failure-hunter",
+      "verdict": "CONDITIONAL_PASS H=1 M=4 L=5 -> upgraded to PASS post 8.5 fix bundle",
+      "report": ".work/07_website/phase8/evidence/checkpoints/phase_8_reviewer_report.md",
+      "report_lines": 453,
+      "findings_summary": {
+        "F-1_HIGH_searchoverlay_hardcoded_english_chrome_despite_i18n_keys_already_defined": "FIXED in 8.5 (commit b00b63c)",
+        "F-2_MEDIUM_cmdk_hint_button_literal_text_not_localized": "FIXED in 8.5",
+        "F-3_MEDIUM_aria_label_hardcoded_english": "FIXED in 8.5 (folded into F-1 edit)",
+        "F-4_MEDIUM_catch_swallows_all_dynamic_import_failures": "FIXED in 8.5 (PROD-only console.warn)",
+        "F-5_MEDIUM_e2e_test_name_lies_about_trigger": "FIXED in 8.5 (renamed + comment block tying to C-P8-2)",
+        "F-6_LOW_no_focus_return_on_close": "DEFER C-P8-3",
+        "F-7_LOW_no_keyboard_equivalent_for_backdrop_click_close": "ACCEPTED (Esc covers it per reviewer)",
+        "F-8_LOW_no_aria_live_region_for_results": "DEFER C-P8-4",
+        "F-9_LOW_no_retry_bounded_backoff_pagefind_init": "DEFER C-P8-5",
+        "F-10_LOW_cmdk_hint_md_breakpoint_only": "DEFER C-P8-6"
+      },
+      "subagent_substitution_note": "handoff recommended superpowers:silent-failure-hunter but that agent does not exist as registered in this environment (superpowers family only has code-reviewer). Substituted at session-time per Daisy ack. pr-family 5th burn overall but FIRST burn of silent-failure-hunter agent; cross-family from Phase 7 superpowers:code-reviewer.",
+      "rule_d_isolation": "pr_family_5th_burn_overall_but_first_burn_of_silent_failure_hunter_agent_cross_family_from_phase_7_superpowers",
+      "stress_dimensions": ["D1_silent_index_failures", "D2_broken_result_urls", "D3_dynamic_import_path_correctness", "D4_a11y_search_overlay", "D5_plan_adherence_master_spec"],
+      "evidence_subagent_prompt": ".work/07_website/phase8/subagent_prompts/task_8_3_reviewer_prompt.md"
+    },
+    "8.5_fix_bundle_F1_F2_F3_F4_F5": {
+      "status": "completed",
+      "mode": "direct_main_session_post_reviewer",
+      "trigger": "reviewer 8.3 CONDITIONAL_PASS verdict; F-1 HIGH fixable in small patch (~6 LOC) absorbing F-2 + F-3 in same edit family + F-4 + F-5 cheap MEDIUM fixes",
+      "files_touched": [
+        "web/src/components/astro/TopNav.astro",
+        "web/src/components/react/SearchOverlay.tsx",
+        "web/src/components/react/SearchOverlay.test.tsx",
+        "web/tests/e2e/search.spec.ts"
+      ],
+      "loc_delta": "+25 / -11 across 4 files",
+      "verifications": "tsc_0 vitest_34_of_34 build_31_pages dist_pagefind_17_artifacts dist_html_grep_ja_lang_prop_and_cmd_k_button_text_verified e2e_full_suite_7_of_7_against_preview",
+      "commit": "b00b63c",
+      "verdict": "PASS",
+      "evidence": ".work/07_website/phase8/evidence/checkpoints/task_8_5_fix_bundle_report.md",
+      "verdict_upgrade": "phase_8_reviewer_CONDITIONAL_PASS -> PASS"
+    }
+  },
+  "rule_d_reviewer_history_post_phase_7": {
+    "phase_1": "pr-review-toolkit:code-reviewer",
+    "phase_2": "pr-review-toolkit:code-reviewer",
+    "phase_3_6": "pr-review-toolkit:code-reviewer",
+    "phase_4": "pr-review-toolkit:code-reviewer",
+    "phase_5": "feature-dev:code-reviewer",
+    "phase_6": "oh-my-claudecode:critic",
+    "phase_7": "superpowers:code-reviewer",
+    "phase_8": "pr-review-toolkit:silent-failure-hunter (planned, substituted from superpowers:silent-failure-hunter unavailable)"
+  },
+  "carryover_from_phase_7_status_planned": {
+    "C-P7-1_astro_i18n_soft_404": "ACCEPTED indefinitely",
+    "C-P7-4_wcag_141_deferral": "RESOLVED (not a violation)",
+    "C-P7-5_master_plan_annotation": "RESOLVED in fbc2ccd",
+    "C-P7-6_redirect_html_warnings": "DEFER to Phase 9-or-10 polish",
+    "C-P7-7_rule_a_rubric_expansion": "DEFER process improvement",
+    "C-P7-8_readme_cf_auto_deploy_unverified": "DEFER",
+    "C-P7-10_cf_preview_probe_checklist": "DEFER to Phase 9 (Deploy)",
+    "C-P6-2_color_only_winner": "RESOLVED via C-P7-4",
+    "C-P6-4_playwright_reuseExistingServer": "DEFER polish",
+    "C-P6-5_compare_route_redundancy": "DEFER design decision",
+    "C-P6-6_no_vitest_plugin_throw_guard": "DEFER fixture test",
+    "C-P6-7_no_schema_validation": "DEFER defensive",
+    "C-P5-M2_docssidebar_drawer_VT": "DEFER no VT",
+    "C-P5-L1_fallback_banner_i18n": "DEFER not on phase 8 surface",
+    "C-P5-L2_empty_toc_aside_guard": "DEFER cosmetic"
+  },
+  "metrics_at_open": {
+    "tsc_errors": 0,
+    "vitest": "32_of_32",
+    "e2e": "6_of_6_strict_over_8_routes",
+    "build_pages": 31,
+    "dist_pagefind_size_kb": 932,
+    "head": "fbc2ccd"
+  }
+}
