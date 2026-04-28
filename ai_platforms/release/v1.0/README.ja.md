@@ -26,7 +26,7 @@ title: "README"
 
 1. [USER_GUIDE.ja.md](./USER_GUIDE.ja.md) §3 のデシジョンツリーでプラットフォームを選択してください (どれを選ぶか迷う場合 → Claude Projects をお勧めします)。
 2. [DEMO_QUESTIONS.md](./DEMO_QUESTIONS.md) から任意の 3 題を試してください (D0 + D1 + D5 を推奨)。
-3. フィードバックを Daisy へお送りください。
+3. フィードバックを Bojiang Zhang へお送りください。
 
 ## セルフデプロイ
 

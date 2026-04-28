@@ -41,15 +41,15 @@ CDISC 臨床試験データ集計標準 (SDTM) の変数定義 / Core 属性 / c
 
 ### 4.1 Claude Projects (入門におすすめ)
 
-- **アクセス方法**: Daisy から organization への招待をお待ちください。メールのリンクから参加できます。
-- **URL**: claude.ai → Projects → "SDTM Knowledge Base" (具体的な URL は Daisy から個別にお送りします)。
+- **アクセス方法**: Bojiang Zhang から organization への招待をお待ちください。メールのリンクから参加できます。
+- **URL**: claude.ai → Projects → "SDTM Knowledge Base" (具体的な URL は Bojiang Zhang から個別にお送りします)。
 - **プラン要件**: Claude Pro / Team / Enterprise。
 - **適したシナリオ**: 変数の Core + CT バインド精度が必要な場合 / クロスドメイン変数推論 (PCTPT 5 点セット) / 誤った前提の訂正 (SUPPTS)。
 - **適さないシナリオ**: リアルタイムでの FDA / Pinnacle 21 情報取得 (cdisc.org での手動確認が必要)、超大量ドメインの一括比較。
 
 ### 4.2 ChatGPT GPTs
 
-- **アクセス方法**: Daisy が Custom GPT を organization に共有します。「自分の GPTs に追加」してください。
+- **アクセス方法**: Bojiang Zhang が Custom GPT を organization に共有します。「自分の GPTs に追加」してください。
 - **URL**: chatgpt.com → 上部ドロップダウン → "SDTM Knowledge Base"。
 - **プラン要件**: ChatGPT Plus / Team / Enterprise (Free プランは不可)。
 - **適したシナリオ**: 全ドメインの照会 / チーム共有 / GPT Store への OpenAI review 経由での公開。
@@ -57,7 +57,7 @@ CDISC 臨床試験データ集計標準 (SDTM) の変数定義 / Core 属性 / c
 
 ### 4.3 Gemini Gems
 
-- **アクセス方法**: Daisy が共有 (Workspace 経由) するか、個人で自己展開します。
+- **アクセス方法**: Bojiang Zhang が共有 (Workspace 経由) するか、個人で自己展開します。
 - **URL**: gemini.google.com → Gems → "SDTM Knowledge Base"。
 - **プラン要件**: Gemini Advanced 個人 / Google Workspace。
 - **適したシナリオ**: 大量のコンテキストを一度に扱う場合 / クロスドメインパターン比較 / 長いセッション。
@@ -65,7 +65,7 @@ CDISC 臨床試験データ集計標準 (SDTM) の変数定義 / Core 属性 / c
 
 ### 4.4 NotebookLM
 
-- **アクセス方法**: Daisy から notebook への招待を受けるか、自己構築 (50 ソースの上限あり) します。
+- **アクセス方法**: Bojiang Zhang から notebook への招待を受けるか、自己構築 (50 ソースの上限あり) します。
 - **URL**: notebooklm.google.com → "SDTM Knowledge Base"。
 - **プラン要件**: NotebookLM Pro / Google Workspace。
 - **適したシナリオ**: 強いアンチハルシネーション性が必要な場合 (監査 / コンプライアンス) / inline citation による逆引き確認 / 回答拒否は捏造より望ましいです。
@@ -99,11 +99,11 @@ CDISC 臨床試験データ集計標準 (SDTM) の変数定義 / Core 属性 / c
 
 ## 8. フィードバック
 
-誤り / ハルシネーション / 意図しない回答を発見した場合: (1) スクリーンショットを撮り、質問の全文と AI の回答を保存してください。(2) プラットフォーム名とバージョン番号 (例: "ChatGPT GPT v2.2 LIVE 2026-04-24") + 期待される回答 (SDTMIG v3.4 の章番号または CDISC CT C-code を引用) を添えてください。(3) Daisy にメールするか、社内の issue tracker または部門グループチャットで @Daisy にご連絡ください。フィードバックは `./CHANGELOG.md` に集約され、次の minor release に反映されます。
+誤り / ハルシネーション / 意図しない回答を発見した場合: (1) スクリーンショットを撮り、質問の全文と AI の回答を保存してください。(2) プラットフォーム名とバージョン番号 (例: "ChatGPT GPT v2.2 LIVE 2026-04-24") + 期待される回答 (SDTMIG v3.4 の章番号または CDISC CT C-code を引用) を添えてください。(3) Bojiang Zhang にメールするか、社内の issue tracker または部門グループチャットで @Bojiang Zhang にご連絡ください。フィードバックは `./CHANGELOG.md` に集約され、次の minor release に反映されます。
 
 ## 9. ロードマップ
 
 短期 (v1.0 メンテナンス): フィードバックを受けて SDTM の誤りを修正し、四半期ごとに v1.x minor リリースを行います。中期 (Phase 7 自社 RAG 構築): 4 プラットフォームの容量制約から脱却し、295 ファイルをフル搭載 + QS codelist の完全展開を目指します。長期: SDTMIG v3.5+ との同期 + ADaM / Define-XML 拡張。
 
 ---
-*v1.0 — 2026-04-27 — メンテナー: Daisy*
+*v1.0 — 2026-04-27 — メンテナー: Bojiang Zhang*

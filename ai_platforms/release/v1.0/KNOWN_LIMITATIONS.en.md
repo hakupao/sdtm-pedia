@@ -79,7 +79,7 @@ Based on SMOKE_V4 R1+R2 results (2026-04-22 to 2026-04-24):
 If you encounter a hallucination, factual error, or scope gap not covered above:
 1. Save the full question + AI response (screenshot + text).
 2. Note which platform + version (e.g., "ChatGPT GPT v2.2 LIVE 2026-04-24").
-3. Email Daisy / open a project tracker issue with the above attached.
+3. Email Bojiang Zhang / open a project tracker issue with the above attached.
 4. Include expected vs actual: cite the SDTMIG v3.4 spec section or CDISC CT C-code.
 
 We track these in `./CHANGELOG.md` for the next minor release.

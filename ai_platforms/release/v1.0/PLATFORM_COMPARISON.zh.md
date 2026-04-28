@@ -33,7 +33,7 @@ title: "4 平台多维对比"
 |---|---|---|
 | Claude Projects | Organization / Project 邀请 (Team / Enterprise 套餐共享 Project; Pro 用户需各自重新部署) | 不适用 (内部直接邀请) |
 | ChatGPT GPTs | Custom GPT 分享至 organization (免审核) 或发布 GPT Store (走 OpenAI review) | 仅 Store 发布需审核 |
-| Gemini Gems | Workspace 套餐: Daisy 直接分享; 个人账号: 同事各自自部署 (粘贴完整 v7.1 system prompt) | 不适用 |
+| Gemini Gems | Workspace 套餐: Bojiang Zhang 直接分享; 个人账号: 同事各自自部署 (粘贴完整 v7.1 system prompt) | 不适用 |
 | NotebookLM | 邮件邀请加入 notebook (Pro / Workspace), 或同事自建 (50-source cap) | 不适用 |
 
 ## 4. 套餐要求
@@ -91,4 +91,4 @@ title: "4 平台多维对比"
 | NotebookLM | 不在 42 source 内的题 (实时 Pinnacle 21 / breaking news / Dataset-JSON v1.1 / CT version locking + MedDRA) 主动 PUNT — 设计如此, 非 bug |
 
 ---
-*v1.0 — 2026-04-27 — 维护者: Daisy*
+*v1.0 — 2026-04-27 — 维护者: Bojiang Zhang*

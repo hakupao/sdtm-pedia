@@ -69,7 +69,7 @@ title: "术语表"
 | 项目方法论 | `../../claude_projects/docs/RETROSPECTIVE_V2.md` (Claude v2 终态复盘) + `../../notebooklm/docs/RETROSPECTIVE.md` (NotebookLM 复盘) |
 | 4 平台跨平台复盘 | `../../retrospectives/PHASE5_RETROSPECTIVE.md` (v1.0 FINAL) |
 
-> ⚠️ 注: 本节中形如 `../../...` 或 `dev/evidence/...` 的路径指向项目内部文档 (由 Daisy 保管), 不在本 release 包内. 如需详情请联系 Daisy.
+> ⚠️ 注: 本节中形如 `../../...` 或 `dev/evidence/...` 的路径指向项目内部文档 (由 Bojiang Zhang 保管), 不在本 release 包内. 如需详情请联系 Bojiang Zhang.
 
 ---
-*v1.1 — 2026-04-27 — 维护者: Daisy*
+*v1.1 — 2026-04-27 — 维护者: Bojiang Zhang*

@@ -26,7 +26,7 @@ Chinese (zh) / English (en) / Japanese (ja). Full trilingual coverage: top-level
 
 1. Read [USER_GUIDE.en.md](./USER_GUIDE.en.md) §3 decision tree to pick a platform (not sure which → Claude Projects).
 2. Try any 3 questions from [DEMO_QUESTIONS.md](./DEMO_QUESTIONS.md) (recommended: D0 + D1 + D5).
-3. Send feedback to Daisy.
+3. Send feedback to Bojiang Zhang.
 
 ## Self-Deployment
 

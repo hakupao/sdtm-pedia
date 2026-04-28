@@ -7,7 +7,7 @@
 > **Lane**: against production `https://sdtm-pedia.pages.dev/zh/` (post Phase 9
 > push). Run after CF Pages auto-deploys the post-Phase-9 commit.
 >
-> **Methodology pattern**: this file is a checklist Daisy ticks off in each
+> **Methodology pattern**: this file is a checklist Bojiang Zhang ticks off in each
 > browser. Failures get a 1-line note and a Phase 9 fix bundle (or C-P9-*
 > carryover). Pass with no notes = ship.
 
@@ -16,8 +16,8 @@
 | Browser | Version target | Tester |
 |---|---|---|
 | Chromium (via Playwright `chromium`) | bundled @playwright/test 1.59.x | **automated** — `web/tests/e2e/` 7-test suite covers most flows |
-| Safari | macOS Tahoe 26+ default | manual (Daisy) |
-| Firefox | Firefox 132+ | manual (Daisy) |
+| Safari | macOS Tahoe 26+ default | manual (Bojiang Zhang) |
+| Firefox | Firefox 132+ | manual (Bojiang Zhang) |
 
 Playwright `webkit` and `firefox` are NOT installed in this repo (`@playwright/test` defaults to `chromium`-only when projects are unspecified in `playwright.config.ts`); installing them would require `npx playwright install webkit firefox` ~250MB download — deferred per release-grade scope until cross-browser regressions are observed in the wild.
 
@@ -49,4 +49,4 @@ For each flow, write `OK` / `FAIL — <1-line reason>` per cell.
 ## Phase 9 sign-off
 
 - **Chrome lane**: ✓ green via Playwright suite (7/7 e2e + 46/46 vitest as of post-9.9 commit)
-- **Safari + Firefox lanes**: pending Daisy manual sweep (one-shot, ~10 min total). Recorded as carryover **C-P9-1** if not run before public-release announcement.
+- **Safari + Firefox lanes**: pending Bojiang Zhang manual sweep (one-shot, ~10 min total). Recorded as carryover **C-P9-1** if not run before public-release announcement.

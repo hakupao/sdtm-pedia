@@ -33,7 +33,7 @@ title: "4 Platforms — Multi-dimensional Comparison"
 |---|---|---|
 | Claude Projects | Organization / Project invite (Team / Enterprise plan shares Project; Pro users must each redeploy independently) | N/A (direct internal invite) |
 | ChatGPT GPTs | Share Custom GPT within organization (no review) or publish to GPT Store (OpenAI review required) | Store publishing only |
-| Gemini Gems | Workspace plan: Daisy shares directly; personal account: colleagues self-deploy (paste full v7.1 system prompt) | N/A |
+| Gemini Gems | Workspace plan: Bojiang Zhang shares directly; personal account: colleagues self-deploy (paste full v7.1 system prompt) | N/A |
 | NotebookLM | Email-invite to join notebook (Pro / Workspace), or colleagues build their own (50-source cap) | N/A |
 
 ## 4. Subscription Requirements
@@ -91,4 +91,4 @@ title: "4 Platforms — Multi-dimensional Comparison"
 | NotebookLM | Questions outside the 42 sources (real-time Pinnacle 21 / breaking news / Dataset-JSON v1.1 / CT version locking + MedDRA) are proactively PUNTed — by design, not a bug |
 
 ---
-*v1.0 — 2026-04-27 — Maintained by Daisy*
+*v1.0 — 2026-04-27 — Maintained by Bojiang Zhang*

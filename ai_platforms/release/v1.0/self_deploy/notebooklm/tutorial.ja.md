@@ -4,7 +4,7 @@
 > 本チュートリアルを完了すると、30〜60 分で NotebookLM notebook が立ち上がります。in-KB-only による天然のハルシネーション対策を備え、完全 17 問テスト 15/17 PASS (88%) ベースラインを達成しています。
 > 情報源: プロジェクトリポジトリ ./ (instructions.md + uploads/ × 42).
 >
-> ℹ️ 本ドキュメント内の `../../notebooklm/dev/evidence/...` パスはすべてプロジェクト内部の QA エビデンス (Daisy が保管) を指しており、本 release パックには含まれていません。詳細が必要な場合は Daisy までご連絡ください。
+> ℹ️ 本ドキュメント内の `../../notebooklm/dev/evidence/...` パスはすべてプロジェクト内部の QA エビデンス (Bojiang Zhang が保管) を指しており、本 release パックには含まれていません。詳細が必要な場合は Bojiang Zhang までご連絡ください。
 
 ---
 
@@ -254,7 +254,7 @@ PLAN §10 に保留されている Studio の 3 点セット:
 | ドキュメント | パス | 用途 |
 |-------------|------|------|
 | **RETROSPECTIVE (本プラットフォーム)** | `../../notebooklm/docs/RETROSPECTIVE.md` | Rule C の 3 段構成 + pivot 事例 + _template/ パッチ |
-| **4 プラットフォーム横断 Phase 5 retro** | `../../retrospectives/PHASE5_RETROSPECTIVE.md` | v1.0 FINAL 2026-04-24 Daisy 承認済み 4 プラットフォーム sign-off |
+| **4 プラットフォーム横断 Phase 5 retro** | `../../retrospectives/PHASE5_RETROSPECTIVE.md` | v1.0 FINAL 2026-04-24 Bojiang Zhang 承認済み 4 プラットフォーム sign-off |
 | **PLAN** | `../../notebooklm/docs/PLAN.md` | 662 行 v2.2 (アーキテクチャ pivot 後の完全 plan) |
 | **完全 17 問テスト結果** | `../../notebooklm/dev/evidence/smoke_v4_results.md` + `smoke_v4_answers/` | 17 問の問ごとの verdict |
 | **3 段階切替 evidence** | `../../notebooklm/dev/evidence/share_level_toggle_drill.md` | v1.0 FINAL 6 サブステップ + Public 意味論の詳細確認 |
