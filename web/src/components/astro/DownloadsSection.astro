@@ -7,9 +7,11 @@ interface Props { lang: Lang; }
 const { lang } = Astro.props;
 const t = getUIStrings(lang);
 const subhead = { zh: '自部署你自己的.', en: 'Self-deploy your own.', ja: 'セルフデプロイしましょう。' }[lang];
-// Toggle via PUBLIC_RELEASE_PUBLISHED env var. Default off so links never
-// 404 before the v1.0 zips are uploaded to a GitHub release.
-const releasePublished = import.meta.env.PUBLIC_RELEASE_PUBLISHED === 'true';
+// Toggle via PUBLIC_RELEASE_PUBLISHED env var. Defaults to published now
+// that v1.0 is live with 4 zip artifacts. Set to "false" locally to preview
+// the pending placeholder, or during a release-prep window where downloads.json
+// references a tag that has not yet been published.
+const releasePublished = import.meta.env.PUBLIC_RELEASE_PUBLISHED !== 'false';
 ---
 <section id="downloads" class="enter-fade px-7 py-8 border-b border-rule">
   <SectionLabel number="05" label="DOWNLOADS" />
