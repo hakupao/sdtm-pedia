@@ -156,6 +156,64 @@
 - 22 fix edits：MAJOR ×2（cross-language link suffix）+ MINOR ×20（footer / terminology / DEMO 漏点）
 - git tag：`v1.0-company-release`
 
+## 07 Website (sdtm-pedia 公司发布版网站, 2026-04-28 Phase 6 闭环)
+
+> 目标：把 `ai_platforms/release/v1.0/` 27 文档 + 4 平台 deploy bundle 包装成公司内可访问的静态网站，部署 Cloudflare Pages
+> 入口：[.work/07_website/phase6/PLAN.md](../.work/07_website/phase6/PLAN.md) ｜ Phase 6 → 7 handoff：[.work/meta/website_phase6_to_phase7_handoff_2026-04-28.md](../.work/meta/website_phase6_to_phase7_handoff_2026-04-28.md)
+> Production URL：`https://sdtm-pedia.pages.dev/` ｜ Stack：Astro 6 + React 19 + Tailwind 4 + Cloudflare Pages
+
+| Phase | 范围 | 状态 |
+|------|------|------|
+| 1-4 | 设计 + 着陆页 + 平台介绍 + 4 平台对比 4-dim 预览 + 9.1 CF Pages config | 已完成 (历史 commits 略) |
+| 5 | DocsLayout 三栏 + sidebar + TOC + PrevNext + docs catchall + lang fallback + `/changelog` + `/compare` stub + link-resolution e2e | 已完成 (commits `496ae6f / 43d7445 / 56a18f7 / ae05afd`) |
+| **6** | **Multi-dim Comparison Page (6.0 remark plugin + slug rename + e2e strict / 6.1 CompareFilter island + `[lang]/compare.astro` real page / 6.2 expand 4→9 dims / 6.4 reviewer fix bundle H1+H2+M3)** | **已完成 (2026-04-28, 5 commits `b25b834..45856ad`)** |
+| 7+ | TBD per master plan | 待开始 |
+
+### Phase 6 commits
+
+| SHA | Subject |
+|---|---|
+| `b25b834` | 6.0 — remark plugin + PLATFORM_COMPARISON slug rename + e2e link-resolution strict (C-P5-1 + C-P5-2 absorbed) |
+| `c52b4a7` | 6.1 — CompareFilter React island + overwrite `[lang]/compare.astro` real page (path-based i18n per plan deviation) |
+| `362b401` | 6.2 — expand `compare-dimensions.json` 4→9 dims (preview slice 4) |
+| `0b0e822` | 6.4 — reviewer fix bundle H1+H2+M3 (catchall changelog skip + plugin widen drops directory refs + e2e strict over 8 routes + landing tbody count guard) |
+| `45856ad` | Phase 6 close — Phase 6→7 handoff + `_progress.json` final (Tier 3 trace, Rule C retro) |
+
+### Phase 6 reviewer & quality
+
+- **Reviewer 6.3**: `oh-my-claudecode:critic` opus READ-ONLY adversarial — Rule D 1st-burn omc-family on website lane (cross-family from `pr-review-toolkit ×4` + `feature-dev ×1`)
+- **Verdict**: CONDITIONAL_PASS H=2 / M=5 / L=4 → **PASS** post 6.4 fix bundle (~25 LOC across 4 files)
+- **H1 fixed**: dual-route changelog SEO dupe (catchall now skips `slug:'changelog'`; sitemap −6 URLs; `dist/[lang]/guide/changelog/` gone)
+- **H2 fixed**: `./self_deploy/` 3-lang dead link in README (plugin widened to drop `<a>` wrapper for ALL relative-but-out-of-collection refs; e2e adds `/[lang]/guide/readme` × 3 routes)
+- **M3 fixed**: `slice(0, 4)` magic number → `LANDING_PREVIEW_KEYS` named const + landing `tbody tr count = 4` e2e assertion
+- **M1/M2/M4/M5/L1/L2/L4 deferred** to Phase 7 carryover C-P6-1..7 (M3 promoted out; H1/H2 closed)
+
+### Phase 6 metrics
+
+| 项 | Phase 5 close | Phase 6 close | Δ |
+|---|---|---|---|
+| tsc errors | 0 | 0 | 0 |
+| vitest | 29/29 | 31/31 | +2 (CompareFilter) |
+| e2e routes (link-resolution strict) | 5 | 8 | +3 (zh/en/ja `/guide/readme`) |
+| build pages | 19 | 27 | +8 (3 `/compare` + 3 `/guide/platform-comparison` + 3 `/guide/readme` − 3 catchall changelog dropped 6.4 + ~2 misc) |
+| dist sitemap dual-route changelog | dup | gone | -6 dupe URLs |
+| `./self_deploy/` dead links in dist HTML | 3 | 0 | -3 (wrappers dropped; text preserved) |
+
+### Phase 6 → 7 carryover (NEW IDs from reviewer)
+
+- **C-P6-1** Hardcoded English UI chrome on `/[lang]/compare` (M1+M4) — widens C-P5-L1 scope, 4 keys to `ui.{zh,en,ja}.json`
+- **C-P6-2** Color-only winner signaling WCAG SC 1.4.1 (M5)
+- **C-P6-3** Missing `<link rel="canonical">` site-wide — defensive SEO before public release
+- **C-P6-4** `playwright.config.ts reuseExistingServer: true` stale-dev burn (L2)
+- **C-P6-5** `/[lang]/guide/platform-comparison` vs `/[lang]/compare` route redundancy (M2)
+- **C-P6-6** No vitest for plugin lang-neutral throw guard
+- **C-P6-7** No schema validation on `compare-dimensions.json`
+- **C-P6-8 (NEW from 6.4)** Astro content-cache invalidation — `npm run build:fresh` script + `web/README.md` doc (cache-clear-before-plugin-rebuild trap caught during 6.4 verify)
+
+Pre-existing C-P5-M3 (CF Pages preview-deploy trailing-slash verification) DEFERRED to Phase 7 first task per handoff recommendation.
+
+---
+
 ## Phase 7: RAG + 知识图谱 + 数据集校验（设计完成）
 
 > 目标：语义检索 + 关系查询 + SDTM 数据集自动校验
