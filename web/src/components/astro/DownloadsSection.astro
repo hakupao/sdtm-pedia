@@ -13,34 +13,36 @@ const subhead = { zh: '自部署你自己的.', en: 'Self-deploy your own.', ja:
 // references a tag that has not yet been published.
 const releasePublished = import.meta.env.PUBLIC_RELEASE_PUBLISHED !== 'false';
 ---
-<section id="downloads" class="enter-fade px-7 py-8 border-b border-rule">
-  <SectionLabel number="05" label="DOWNLOADS" />
-  <h2 class="font-display text-2xl mb-5 leading-tight">{subhead}</h2>
-  {releasePublished ? (
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-      {downloads.bundles.map((b) => (
-        <a href={buildReleaseAssetURL(downloads.tag, b.filename)}
-           class="bg-bg-alt p-3 border border-rule flex justify-between items-center hover:border-accent transition-colors">
-          <div>
-            <div class="font-mono text-[11px] font-bold">{b.filename}</div>
-            <div class="font-mono text-[9px] text-ink-mute">{b.files} files · {b.sizeMB} MB</div>
-          </div>
-          <span class="font-mono text-lg text-accent">↓</span>
+<section id="downloads" class="enter-fade py-8 border-b border-rule">
+  <div class="max-w-screen-xl mx-auto px-7">
+    <SectionLabel number="05" label="DOWNLOADS" />
+    <h2 class="font-display text-2xl mb-5 leading-tight">{subhead}</h2>
+    {releasePublished ? (
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+        {downloads.bundles.map((b) => (
+          <a href={buildReleaseAssetURL(downloads.tag, b.filename)}
+             class="bg-bg-alt p-3 border border-rule flex justify-between items-center hover:border-accent transition-colors">
+            <div>
+              <div class="font-mono text-[11px] font-bold">{b.filename}</div>
+              <div class="font-mono text-[9px] text-ink-mute">{b.files} files · {b.sizeMB} MB</div>
+            </div>
+            <span class="font-mono text-lg text-accent">↓</span>
+          </a>
+        ))}
+      </div>
+    ) : (
+      <div class="bg-bg-alt p-4 border border-rule font-serif text-[12px] text-ink-mute">
+        {t['section.downloads.pending']}
+        {' '}
+        <a href={`https://github.com/${REPO}/releases`} class="text-accent hover:underline">
+          github.com/{REPO}/releases
         </a>
-      ))}
-    </div>
-  ) : (
-    <div class="bg-bg-alt p-4 border border-rule font-serif text-[12px] text-ink-mute">
-      {t['section.downloads.pending']}
-      {' '}
-      <a href={`https://github.com/${REPO}/releases`} class="text-accent hover:underline">
-        github.com/{REPO}/releases
+      </div>
+    )}
+    {releasePublished && (
+      <a href={`https://github.com/${REPO}/releases`} class="inline-block mt-3 font-mono text-[9px] tracking-wider text-ink-mute hover:text-accent">
+        {t['section.downloads.cta']}
       </a>
-    </div>
-  )}
-  {releasePublished && (
-    <a href={`https://github.com/${REPO}/releases`} class="inline-block mt-3 font-mono text-[9px] tracking-wider text-ink-mute hover:text-accent">
-      {t['section.downloads.cta']}
-    </a>
-  )}
+    )}
+  </div>
 </section>

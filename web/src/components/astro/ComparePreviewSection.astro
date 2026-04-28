@@ -18,34 +18,36 @@ const previewDims = LANDING_PREVIEW_KEYS
   .map((k) => dims.find((d) => d.key === k))
   .filter((d): d is (typeof dims)[number] => d !== undefined);
 ---
-<section class="enter-fade px-7 py-8 border-b border-rule">
-  <SectionLabel number="03" label="WHICH ONE?" />
-  <h2 class="font-display text-2xl mb-5 leading-tight">{subhead}</h2>
-  <div class="overflow-x-auto">
-    <table class="w-full font-serif text-[12px] border-collapse min-w-[600px]">
-      <thead>
-        <tr class="border-b border-rule">
-          <th class="text-left py-2 px-2 font-mono text-[9px] tracking-wider text-ink-mute">DIMENSION</th>
-          {platforms.map((p) => (
-            <th class="text-left py-2 px-2 font-mono text-[9px] tracking-wider text-ink-mute">{p.name}</th>
-          ))}
-        </tr>
-      </thead>
-      <tbody>
-        {previewDims.map((d) => (
+<section class="enter-fade py-8 border-b border-rule">
+  <div class="max-w-screen-xl mx-auto px-7">
+    <SectionLabel number="03" label="WHICH ONE?" />
+    <h2 class="font-display text-2xl mb-5 leading-tight">{subhead}</h2>
+    <div class="overflow-x-auto">
+      <table class="w-full font-serif text-[12px] border-collapse min-w-[600px]">
+        <thead>
           <tr class="border-b border-rule">
-            <td class="py-2 px-2 font-mono text-[10px] tracking-wider">{d.label[lang]}</td>
+            <th class="text-left py-2 px-2 font-mono text-[9px] tracking-wider text-ink-mute">DIMENSION</th>
             {platforms.map((p) => (
-              <td class={`py-2 px-2 ${d.winners.includes(p.key) ? 'text-accent font-bold' : ''}`}>
-                {d.values[p.key as keyof typeof d.values]}
-              </td>
+              <th class="text-left py-2 px-2 font-mono text-[9px] tracking-wider text-ink-mute">{p.name}</th>
             ))}
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {previewDims.map((d) => (
+            <tr class="border-b border-rule">
+              <td class="py-2 px-2 font-mono text-[10px] tracking-wider">{d.label[lang]}</td>
+              {platforms.map((p) => (
+                <td class={`py-2 px-2 ${d.winners.includes(p.key) ? 'text-accent font-bold' : ''}`}>
+                  {d.values[p.key as keyof typeof d.values]}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <a href={`/${lang}/compare`} class="inline-block mt-4 font-mono text-[10px] tracking-wider text-accent hover:underline">
+      {t['section.compare.cta']}
+    </a>
   </div>
-  <a href={`/${lang}/compare`} class="inline-block mt-4 font-mono text-[10px] tracking-wider text-accent hover:underline">
-    {t['section.compare.cta']}
-  </a>
 </section>

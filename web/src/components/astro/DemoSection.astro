@@ -6,21 +6,23 @@ interface Props { lang: Lang; }
 const { lang } = Astro.props;
 const t = getUIStrings(lang);
 ---
-<section class="enter-fade px-7 py-8 bg-bg-alt border-b border-rule">
-  <SectionLabel number="04" label="DEMO QUESTIONS" />
-  <h2 class="font-display text-2xl mb-5 leading-tight">{t['section.demo.subhead']}</h2>
-  <div class="flex flex-col gap-2">
-    {demos.map((d) => (
-      <div class="bg-bg p-3 border-l-[3px] border-accent">
-        <div class="font-mono text-[9px] tracking-wider text-accent mb-1">{d.code} · {d.kind}</div>
-        <div class="font-serif text-[12px]">
-          {d.question[lang]}
-          {d.hint && <span class="text-ink-mute italic ml-1">{d.hint[lang]}</span>}
+<section class="enter-fade py-8 bg-bg-alt border-b border-rule">
+  <div class="max-w-screen-xl mx-auto px-7">
+    <SectionLabel number="04" label="DEMO QUESTIONS" />
+    <h2 class="font-display text-2xl mb-5 leading-tight">{t['section.demo.subhead']}</h2>
+    <div class="flex flex-col gap-2">
+      {demos.map((d) => (
+        <div class="bg-bg p-3 border-l-[3px] border-accent">
+          <div class="font-mono text-[9px] tracking-wider text-accent mb-1">{d.code} · {d.kind}</div>
+          <div class="font-serif text-[12px]">
+            {d.question[lang]}
+            {d.hint && <span class="text-ink-mute italic ml-1">{d.hint[lang]}</span>}
+          </div>
         </div>
-      </div>
-    ))}
+      ))}
+    </div>
+    <a href={`/${lang}/guide/demo-questions`} class="inline-block mt-4 font-mono text-[10px] tracking-wider text-accent hover:underline">
+      {t['section.demo.cta']}
+    </a>
   </div>
-  <a href={`/${lang}/guide/demo-questions`} class="inline-block mt-4 font-mono text-[10px] tracking-wider text-accent hover:underline">
-    {t['section.demo.cta']}
-  </a>
 </section>
