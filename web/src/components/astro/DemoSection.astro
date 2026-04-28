@@ -6,7 +6,7 @@ interface Props { lang: Lang; }
 const { lang } = Astro.props;
 const t = getUIStrings(lang);
 ---
-<section class="enter-fade py-8 bg-bg-alt border-b border-rule">
+<section id="demo" class="enter-fade py-8 bg-bg-alt border-b border-rule">
   <div class="max-w-screen-xl mx-auto px-7">
     <SectionLabel number="04" label="DEMO QUESTIONS" />
     <h2 class="font-display text-2xl mb-5 leading-tight">{t['section.demo.subhead']}</h2>
@@ -16,7 +16,7 @@ const t = getUIStrings(lang);
           <div class="font-mono text-[9px] tracking-wider text-accent mb-1">{d.code} · {d.kind}</div>
           <div class="font-serif text-[12px]">
             {d.question[lang]}
-            {d.hint && <span class="text-ink-mute italic ml-1">{d.hint[lang]}</span>}
+            {d.hint && <span class="text-ink-mute ml-1">{d.hint[lang]}</span>}
           </div>
         </div>
       ))}

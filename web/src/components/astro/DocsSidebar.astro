@@ -9,7 +9,7 @@ all.sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99));
 <button id="docs-sidebar-toggle" class="lg:hidden font-mono text-[10px] tracking-wider px-3 py-2 border border-rule mx-7 mt-4" aria-controls="docs-sidebar-content" aria-expanded="false">
   ☰ DOCS
 </button>
-<aside id="docs-sidebar-content" class="hidden lg:block w-full lg:w-60 border-b lg:border-b-0 lg:border-r border-rule p-5 shrink-0">
+<aside id="docs-sidebar-content" class="hidden lg:block w-full lg:w-60 border-b lg:border-b-0 lg:border-r border-rule p-5 shrink-0 lg:sticky lg:top-0 lg:self-start lg:max-h-screen lg:overflow-y-auto">
   <div class="font-mono text-[9px] tracking-wider text-ink-mute mb-3">DOCS / {lang.toUpperCase()}</div>
   <ul class="flex flex-col gap-1 font-serif text-[13px]">
     {all.map((doc) => (
