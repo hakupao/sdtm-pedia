@@ -5,14 +5,14 @@ import { SearchOverlay } from './SearchOverlay';
 
 describe('<SearchOverlay>', () => {
   it('opens on Cmd+K', () => {
-    render(<SearchOverlay />);
+    render(<SearchOverlay lang="en" />);
     expect(screen.queryByRole('searchbox')).not.toBeInTheDocument();
     fireEvent.keyDown(document, { key: 'k', metaKey: true });
     expect(screen.getByRole('searchbox')).toBeInTheDocument();
   });
 
   it('closes on Escape', () => {
-    render(<SearchOverlay />);
+    render(<SearchOverlay lang="en" />);
     fireEvent.keyDown(document, { key: 'k', metaKey: true });
     expect(screen.getByRole('searchbox')).toBeInTheDocument();
     fireEvent.keyDown(document, { key: 'Escape' });

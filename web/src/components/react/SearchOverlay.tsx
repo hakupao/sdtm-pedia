@@ -1,5 +1,6 @@
 // web/src/components/react/SearchOverlay.tsx
 import { useEffect, useRef, useState } from 'react';
+import { getUIStrings, type Lang } from '../../i18n/helpers';
 
 interface Result {
   url: string;
@@ -11,7 +12,8 @@ function stripHtml(html: string): string {
   return html.replace(/<[^>]*>/g, '');
 }
 
-export function SearchOverlay() {
+export function SearchOverlay({ lang = 'en' }: { lang?: Lang } = {}) {
+  const t = getUIStrings(lang);
   const [open, setOpen] = useState(false);
   const [results, setResults] = useState<Result[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -43,9 +45,14 @@ export function SearchOverlay() {
         .then((m) => {
           pagefindRef.current = m;
         })
-        .catch(() => {
-          // Pagefind index missing (e.g. dev server, jsdom test, or build skipped).
-          // Search will simply return no results — no need to surface a runtime error.
+        .catch((err) => {
+          // Pagefind index missing (e.g. dev server, jsdom test, build skipped).
+          // Search returns no results in that case. In production a runtime
+          // failure here is genuinely unexpected (CF Pages serves dist/ root)
+          // so we surface it via console.warn for telemetry / DevTools triage.
+          if (import.meta.env.PROD) {
+            console.warn('[SearchOverlay] Pagefind init failed:', err);
+          }
         });
     }
   }, [open]);
@@ -75,8 +82,8 @@ export function SearchOverlay() {
           ref={inputRef}
           type="search"
           role="searchbox"
-          placeholder="Search docs..."
-          aria-label="Search docs"
+          placeholder={t['search.placeholder']}
+          aria-label={t['search.placeholder']}
           onChange={onChange}
           className="w-full px-4 py-3 font-mono text-sm border-b border-rule bg-bg"
         />

@@ -24,14 +24,14 @@ const t = getUIStrings(lang);
         onclick="document.dispatchEvent(new KeyboardEvent('keydown', {key:'k', metaKey:true}))"
         aria-label="Open search"
       >
-        ⌘K
+        {t['search.shortcut']}
       </button>
       <LangSwitcher client:load currentLang={lang} pathname={pathname} />
       <ThemeToggle client:load />
     </span>
   </nav>
 </header>
-<SearchOverlay client:load />
+<SearchOverlay client:load lang={lang} />
 <script>
   const btn = document.getElementById('mobile-nav-toggle');
   const nav = document.getElementById('mobile-nav-content');

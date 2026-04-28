@@ -10,7 +10,14 @@ import { test, expect } from '@playwright/test';
 //   npm run preview &
 //   npx playwright test tests/e2e/search.spec.ts --config=<override-baseURL-to-:4322>
 //   kill %1
-test('search opens with Cmd+K and finds AESER', async ({ page }) => {
+// Test name reflects the actual trigger (button click → synthetic keydown), not
+// raw `page.keyboard.press('Meta+k')`. The raw keypress isn't reliably delivered
+// to the React document listener in headless chromium without a focused target;
+// the button's inline onclick exercises the same setOpen(true) code path.
+// Vitest covers the raw-keydown listener wiring separately (SearchOverlay.test.tsx).
+// Tracked: C-P8-2 — promote to real-keypress test once playwright webServer is
+// switched to build+preview (C-P8-1) so we can investigate focus delivery.
+test('search opens via ⌘K hint button click (synthetic keydown) and finds AESER', async ({ page }) => {
   await page.goto('/zh/guide/user-guide/');
   // Wait for the SearchOverlay React island to hydrate before dispatching a
   // keyboard event — Astro's astro-island custom element wires the document
