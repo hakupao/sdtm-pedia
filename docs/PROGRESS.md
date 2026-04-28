@@ -156,18 +156,21 @@
 - 22 fix edits：MAJOR ×2（cross-language link suffix）+ MINOR ×20（footer / terminology / DEMO 漏点）
 - git tag：`v1.0-company-release`
 
-## 07 Website (sdtm-pedia 公司发布版网站, 2026-04-28 Phase 6 闭环)
+## 07 Website (sdtm-pedia 公司发布版网站, 2026-04-29 Phase 7 闭环)
 
 > 目标：把 `ai_platforms/release/v1.0/` 27 文档 + 4 平台 deploy bundle 包装成公司内可访问的静态网站，部署 Cloudflare Pages
-> 入口：[.work/07_website/phase6/PLAN.md](../.work/07_website/phase6/PLAN.md) ｜ Phase 6 → 7 handoff：[.work/meta/website_phase6_to_phase7_handoff_2026-04-28.md](../.work/meta/website_phase6_to_phase7_handoff_2026-04-28.md)
+> 入口：[.work/07_website/phase7/PLAN.md](../.work/07_website/phase7/PLAN.md) ｜ Phase 7 → 8 handoff：[.work/meta/website_phase7_to_phase8_handoff_2026-04-29.md](../.work/meta/website_phase7_to_phase8_handoff_2026-04-29.md)
+> Phase 6 入口 (历史)：[.work/07_website/phase6/PLAN.md](../.work/07_website/phase6/PLAN.md) ｜ Phase 6 → 7 handoff：[.work/meta/website_phase6_to_phase7_handoff_2026-04-28.md](../.work/meta/website_phase6_to_phase7_handoff_2026-04-28.md)
 > Production URL：`https://sdtm-pedia.pages.dev/` ｜ Stack：Astro 6 + React 19 + Tailwind 4 + Cloudflare Pages
 
 | Phase | 范围 | 状态 |
 |------|------|------|
 | 1-4 | 设计 + 着陆页 + 平台介绍 + 4 平台对比 4-dim 预览 + 9.1 CF Pages config | 已完成 (历史 commits 略) |
 | 5 | DocsLayout 三栏 + sidebar + TOC + PrevNext + docs catchall + lang fallback + `/changelog` + `/compare` stub + link-resolution e2e | 已完成 (commits `496ae6f / 43d7445 / 56a18f7 / ae05afd`) |
-| **6** | **Multi-dim Comparison Page (6.0 remark plugin + slug rename + e2e strict / 6.1 CompareFilter island + `[lang]/compare.astro` real page / 6.2 expand 4→9 dims / 6.4 reviewer fix bundle H1+H2+M3)** | **已完成 (2026-04-28, 5 commits `b25b834..45856ad`)** |
-| 7+ | TBD per master plan | 待开始 |
+| 6 | Multi-dim Comparison Page (6.0 remark plugin + slug rename + e2e strict / 6.1 CompareFilter island + `[lang]/compare.astro` real page / 6.2 expand 4→9 dims / 6.4 reviewer fix bundle H1+H2+M3) | 已完成 (2026-04-28, 5 commits `b25b834..45856ad`) |
+| **7** | **Pre-Public-Release Bundle (plan deviation: Pagefind → Phase 8). 7.0 CF preview verify + 7.1 compare i18n chrome (4 keys × 3 langs) + 7.2 site-wide canonical + 7.3 build:fresh + project README + 7.5 reviewer fix bundle F-1 HIGH + F-2/3/4 MEDIUM + F-8 LOW** | **已完成 (2026-04-29, 4 commits `3c151de..e7e64c0`)** |
+| 8 | Pagefind / Search (master plan §"Phase 7" pre-renumber) — Pagefind verify + SearchOverlay React island Cmd+K | 待开始 |
+| 9-10 | Downloads pipeline (renumbered) + Deploy (renumbered) | 待开始 |
 
 ### Phase 6 commits
 
@@ -199,18 +202,64 @@
 | dist sitemap dual-route changelog | dup | gone | -6 dupe URLs |
 | `./self_deploy/` dead links in dist HTML | 3 | 0 | -3 (wrappers dropped; text preserved) |
 
-### Phase 6 → 7 carryover (NEW IDs from reviewer)
+### Phase 6 → 7 carryover (status post Phase 7)
 
-- **C-P6-1** Hardcoded English UI chrome on `/[lang]/compare` (M1+M4) — widens C-P5-L1 scope, 4 keys to `ui.{zh,en,ja}.json`
-- **C-P6-2** Color-only winner signaling WCAG SC 1.4.1 (M5)
-- **C-P6-3** Missing `<link rel="canonical">` site-wide — defensive SEO before public release
-- **C-P6-4** `playwright.config.ts reuseExistingServer: true` stale-dev burn (L2)
-- **C-P6-5** `/[lang]/guide/platform-comparison` vs `/[lang]/compare` route redundancy (M2)
-- **C-P6-6** No vitest for plugin lang-neutral throw guard
-- **C-P6-7** No schema validation on `compare-dimensions.json`
-- **C-P6-8 (NEW from 6.4)** Astro content-cache invalidation — `npm run build:fresh` script + `web/README.md` doc (cache-clear-before-plugin-rebuild trap caught during 6.4 verify)
+- **C-P6-1** Hardcoded English UI chrome on `/[lang]/compare` — **RESOLVED** in Phase 7.1 (4 keys × 3 langs)
+- **C-P6-2** Color-only winner signaling WCAG SC 1.4.1 — **RESOLVED via deferral analysis** in Phase 7 handoff (font-bold IS sufficient non-color cue per strict WCAG reading; not a violation)
+- **C-P6-3** Missing `<link rel="canonical">` site-wide — **RESOLVED** in Phase 7.2 (BaseLayout emits canonical + og:url; 31/31 dist coverage)
+- **C-P6-4** `playwright.config.ts reuseExistingServer: true` stale-dev burn — **PARTIAL** (Phase 7.3 README tribal-knowledge documented; code-level fix deferred)
+- **C-P6-5** `/[lang]/guide/platform-comparison` vs `/[lang]/compare` route redundancy — DEFER
+- **C-P6-6** No vitest for plugin lang-neutral throw guard — DEFER
+- **C-P6-7** No schema validation on `compare-dimensions.json` — DEFER
+- **C-P6-8** Astro content-cache invalidation — **RESOLVED** in Phase 7.3 (`build:fresh` script + README "Astro content cache after editing markdown processors" tribal-knowledge section)
 
-Pre-existing C-P5-M3 (CF Pages preview-deploy trailing-slash verification) DEFERRED to Phase 7 first task per handoff recommendation.
+Pre-existing C-P5-M3 (CF Pages preview-deploy trailing-slash verification) — **RESOLVED** in Phase 7.0 (27 probes, all clean).
+
+---
+
+### Phase 7 commits
+
+| SHA | Subject |
+|---|---|
+| `3c151de` | 7.1 — compare page i18n chrome (4 keys × 3 langs, C-P6-1 absorbed) + Phase 7 Tier 3 trace open + Task 7.0 PASS |
+| `4047b85` | 7.2 — site-wide canonical link via BaseLayout (C-P6-3 absorbed) |
+| `a1ad23e` | 7.3 — build:fresh script + replace web/README.md placeholder with project content (C-P6-8 absorbed) |
+| `e7e64c0` | 7.5 — reviewer fix bundle (F-1 HIGH + F-2/3/4 MEDIUM ×3 + F-8 LOW): redirect canonical trailing-slash + ja i18n convention + build:fresh composability |
+
+### Phase 7 reviewer & quality
+
+- **Reviewer 7.4**: `superpowers:code-reviewer` opus adversarial — Rule D **3rd-family inaugural** on website lane (cross-family from `pr-review-toolkit ×4` + `feature-dev ×1` + `oh-my-claudecode ×1`)
+- **Verdict**: CONDITIONAL_PASS H=1 / M=4 / L=5 → **PASS** post 7.5 fix bundle (~10 LOC across 4 files)
+- **F-1 HIGH fixed**: redirect-page canonical → 308-target chain (`[lang]/guide/index.astro` Astro.redirect target now has trailing slash; 3 redirect canonicals match content canonicals exactly)
+- **F-2/F-3/F-4 MEDIUM fixed**: ja i18n convention drift (subhead 「。」 / placeholder + label noun-form 次元の絞り込み)
+- **F-8 LOW fixed**: build:fresh script now composes `npm run build` (eliminates silent-divergence risk)
+- **F-5 MEDIUM closed via documented analysis**: C-P6-2 WCAG deferral rationale in handoff (font-bold IS non-color cue; not a violation)
+- **F-6/F-7/F-9/F-10 LOW deferred** to Phase 8 carryover C-P7-6/8/(absorbed-by-G-P7-1)/7
+
+### Phase 7 metrics
+
+| 项 | Phase 6 close | Phase 7 close | Δ |
+|---|---|---|---|
+| tsc errors | 0 | 0 | 0 |
+| vitest | 31/31 | 32/32 | +1 (CompareFilter i18n localization test) |
+| e2e | 6/6 | 6/6 | 0 (8 routes preserved) |
+| build pages | 27 | 31 | +4 (canonical-coverage report counts both content + redirect HTMLs; pagefind still indexes 27 content pages) |
+| canonical coverage | 0% | 31/31 (100%) | +31 |
+| og:url coverage | 0% | 31/31 (100%) | +31 |
+| compare page chrome English-only | yes | localized 3 langs | i18n complete |
+| redirect-canonical chain consistency | broken (no-slash → 308 → with-slash) | consistent (with-slash) | F-1 fixed |
+
+### Phase 7 → 8 carryover (C-P7-* namespace)
+
+- **C-P7-1** Astro i18n soft-404 200 + meta-refresh on unmatched paths — accepted indefinitely; documented in `web/README.md`
+- **C-P7-4** C-P6-2 WCAG deferral rationale — RESOLVED via handoff analysis
+- **C-P7-5** Master plan §"Phase 7" annotated for Pagefind renumber — RESOLVED in Phase 7 close commit
+- **C-P7-6** Build noise (4 redirect "no `<html>` element" warnings) — DEFER (cosmetic; Phase 9 deploy backlog)
+- **C-P7-7** Rule A rubric expansion for translation work — process improvement Phase 8+
+- **C-P7-8** README CF auto-deploy claim — verify-or-amend before first external announcement
+- **C-P7-10** CF preview probe checklist for future infra phases — Phase 9 deploy pre-flight
+
+C-P7-2/3/9 RESOLVED in Phase 7.5 fix bundle (no carryover).
 
 ---
 
