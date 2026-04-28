@@ -16,7 +16,7 @@ const target = `/${lang}/guide/user-guide/`;
     <title>Redirecting to: {target}</title>
     <meta http-equiv="refresh" content={`0;url=${target}`} />
     <meta name="robots" content="noindex" />
-    <link rel="canonical" href={`https://sdtm-pedia.pages.dev${target}`} />
+    <link rel="canonical" href={new URL(target.slice(1), Astro.site).toString()} />
   </head>
   <body>
     <a href={target}>Redirecting from <code>/{lang}/guide/</code> to <code>{target}</code></a>
