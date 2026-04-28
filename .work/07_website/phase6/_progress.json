@@ -2,20 +2,22 @@
   "phase": 6,
   "tier": 3,
   "opened_date": "2026-04-28",
+  "closed_date": "2026-04-28",
   "branch": "main",
   "head_at_open": "3d00a96",
+  "head_at_close": "0b0e822",
   "production_url": "https://sdtm-pedia.pages.dev/",
-  "preflight_decisions_pending_session_start": [
+  "preflight_decisions_acked_session_start": [
     "absorb_C-P5-1_and_C-P5-2_into_task_6_0",
     "plan_deviation_lang_path_for_compare_astro",
     "reviewer_slot_oh_my_claudecode_critic"
   ],
   "tasks": {
     "6.0_remark_plugin_plus_slug_rename_plus_e2e_strict": {
-      "status": "pending",
-      "subagent": "executor_opus",
+      "status": "completed",
+      "subagent": "oh-my-claudecode:executor (opus)",
       "absorbs_carryover": ["C-P5-1", "C-P5-2"],
-      "files": [
+      "files_touched": [
         "web/remark-md-link-rewrite.mjs",
         "web/astro.config.mjs",
         "ai_platforms/release/v1.0/PLATFORM_COMPARISON.zh.md",
@@ -23,49 +25,137 @@
         "ai_platforms/release/v1.0/PLATFORM_COMPARISON.ja.md",
         "web/tests/e2e/smoke.spec.ts"
       ],
-      "verdict": null
+      "commit": "b25b834",
+      "verdict": "PASS",
+      "evidence": ".work/07_website/phase6/evidence/checkpoints/task_6_0_report.md",
+      "subagent_prompt": ".work/07_website/phase6/subagent_prompts/task_6_0_prompt.md",
+      "judgment_calls": [
+        "stale_astro_dev_burned_first_e2e_attempt_killed_92189_92320_re-ran_6_of_6_pass",
+        "self_deploy_dir_ref_no_md_ext_NOT_dropped_by_plugin_flagged_for_6_3_LATER_FIXED_IN_6_4_H2",
+        "no_unist_util_visit_install_needed_transitive_dep"
+      ]
     },
     "6.1_compare_filter_plus_real_page": {
-      "status": "pending",
-      "subagent": "executor_opus",
-      "plan_deviation": "overwrite [lang]/compare.astro stub instead of creating root compare.astro per plan §6.1 Step 3",
-      "files": [
+      "status": "completed",
+      "subagent": "oh-my-claudecode:executor (opus)",
+      "plan_deviation": "overwrite [lang]/compare.astro stub instead of creating root compare.astro per plan §6.1 Step 3 — Astro.params.lang not ?lang= query",
+      "files_touched": [
         "web/src/components/react/CompareFilter.tsx",
         "web/src/components/react/CompareFilter.test.tsx",
         "web/src/pages/[lang]/compare.astro"
       ],
-      "verdict": null
+      "commit": "c52b4a7",
+      "verdict": "PASS",
+      "evidence": ".work/07_website/phase6/evidence/checkpoints/task_6_1_report.md",
+      "subagent_prompt": ".work/07_website/phase6/subagent_prompts/task_6_1_prompt.md",
+      "vitest_delta": "29 -> 31",
+      "judgment_calls": [
+        "role_searchbox_grep_returns_0_implicit_aria_role_via_input_type_search_substituted_with_type_search_plus_aria_label_grep",
+        "working_tree_state_differed_5_kickoff_deletions_already_committed_in_72ef5a9_between_6_0_and_6_1",
+        "4_pre_existing_no_html_element_build_warnings_inherited_not_blocking"
+      ]
     },
     "6.2_expand_dimensions_to_9": {
-      "status": "pending",
-      "mode": "direct",
-      "files": [
+      "status": "completed",
+      "mode": "direct_main_session",
+      "files_touched": [
         "web/src/data/compare-dimensions.json",
         "web/src/components/astro/ComparePreviewSection.astro"
       ],
-      "verdict": null
+      "commit": "362b401",
+      "verdict": "PASS",
+      "evidence": ".work/07_website/phase6/evidence/checkpoints/task_6_2_report.md",
+      "verifications": "tsc_0 vitest_31_of_31 build_30_pages landing_zh_4_dims compare_zh_9_dims e2e_6_of_6"
     },
     "6.3_reviewer_pass": {
-      "status": "pending",
-      "subagent": "oh-my-claudecode:critic",
-      "rule_d_isolation": "cross_family_from_pr_review_toolkit_x4_and_feature_dev_x1",
-      "verdict": null
+      "status": "completed",
+      "subagent": "oh-my-claudecode:critic (opus, READ-ONLY)",
+      "rule_d_isolation": "first_burn_oh_my_claudecode_family_cross_family_from_pr_review_toolkit_x4_and_feature_dev_x1",
+      "verdict": "CONDITIONAL_PASS H=2 M=5 L=4 -> upgraded to PASS post 6.4 fix bundle",
+      "report": ".work/07_website/phase6/evidence/checkpoints/phase_6_reviewer_report.md",
+      "subagent_prompt": ".work/07_website/phase6/subagent_prompts/task_6_3_reviewer_prompt.md",
+      "findings_summary": {
+        "H1_dual_route_changelog_seo_dupe": "FIXED in 6.4",
+        "H2_self_deploy_dead_link_3_lang_readme": "FIXED in 6.4 plugin widen + e2e widen",
+        "M1_hardcoded_english_chrome_compare": "DEFER C-P6-1",
+        "M2_platform_comparison_vs_compare_redundancy": "DEFER C-P6-5",
+        "M3_slice_0_4_magic_number": "FIXED in 6.4 LANDING_PREVIEW_KEYS + e2e tbody count",
+        "M4_aria_label_english_in_zh_ja": "DEFER C-P6-1 covered by M1 fix",
+        "M5_winner_color_only_signaling": "DEFER C-P6-2",
+        "L1_empty_filter_no_message": "DEFER",
+        "L2_reuseExistingServer_stale_dev": "DEFER C-P6-4",
+        "L3_docssidebar_omits_changelog": "RESOLVED transitively by H1 fix",
+        "L4_no_html_element_warnings": "INHERITED pre-Phase-6 cosmetic"
+      }
+    },
+    "6.4_fix_bundle_H1_H2_M3": {
+      "status": "completed",
+      "mode": "direct_main_session_post_reviewer",
+      "trigger": "reviewer 6.3 CONDITIONAL_PASS verdict requires HIGH+blocking fixes before Phase 7 entry per brief contract",
+      "files_touched": [
+        "web/src/pages/[lang]/guide/[...slug].astro",
+        "web/remark-md-link-rewrite.mjs",
+        "web/tests/e2e/smoke.spec.ts",
+        "web/src/components/astro/ComparePreviewSection.astro"
+      ],
+      "commit": "0b0e822",
+      "verdict": "PASS",
+      "evidence": ".work/07_website/phase6/evidence/checkpoints/task_6_4_report.md",
+      "verifications": "tsc_0 vitest_31_of_31 build_27_pages_post_changelog_skip dist_no_guide_changelog dist_no_self_deploy_a_wrapper landing_4_dims compare_9_dims e2e_6_of_6_strict_over_8_routes_plus_landing_tbody_count",
+      "judgment_calls": [
+        "h2_first_build_attempt_didnt_take_due_to_astro_content_cache_required_rm_rf_astro_node_modules_astro_dist_documented_as_C-P6-8",
+        "scope_limited_to_H1_H2_M3_M_level_findings_deferred_to_phase_7_per_reviewer_recommendation",
+        "subagent_prompts_dir_finally_committed_in_6_4_per_D-P6-6_decision",
+        "no_failures_archive_for_cache_stale_attempt_per_D-P6-7"
+      ]
     }
   },
-  "rule_d_reviewer_history_post_phase_5": {
+  "rule_d_reviewer_history_post_phase_6": {
     "phase_1": "pr-review-toolkit:code-reviewer",
     "phase_2": "pr-review-toolkit:code-reviewer",
     "phase_3_6": "pr-review-toolkit:code-reviewer",
     "phase_4": "pr-review-toolkit:code-reviewer",
     "phase_5": "feature-dev:code-reviewer",
-    "phase_6_planned": "oh-my-claudecode:critic"
+    "phase_6": "oh-my-claudecode:critic"
   },
-  "carryover_from_phase_5": {
-    "C-P5-1_md_cross_refs": "absorbed_into_task_6_0",
-    "C-P5-2_platform_comparison_slug_rename": "absorbed_into_task_6_0",
-    "C-P5-M2_docssidebar_drawer_VT": "DEFER_no_VT_enabled",
-    "C-P5-M3_trailing_slash_hosting": "VERIFY_during_phase_6_CF_preview_deploy",
-    "C-P5-L1_fallback_banner_i18n": "DEFER_next_i18n_touch",
-    "C-P5-L2_empty_toc_aside_guard": "DEFER_cosmetic"
+  "carryover_from_phase_5_status": {
+    "C-P5-1_md_cross_refs": "RESOLVED in 6.0 + plugin widen 6.4",
+    "C-P5-2_platform_comparison_slug_rename": "RESOLVED in 6.0",
+    "C-P5-M2_docssidebar_drawer_VT": "DEFER no VT enabled",
+    "C-P5-M3_trailing_slash_hosting": "DEFER Phase 7 must verify pre-distribution",
+    "C-P5-L1_fallback_banner_i18n": "WIDEN scope to C-P6-1 hardcoded English UI chrome incl compare page",
+    "C-P5-L2_empty_toc_aside_guard": "DEFER cosmetic"
+  },
+  "carryover_for_phase_7_new": {
+    "C-P6-1_hardcoded_english_compare_chrome": "MEDIUM mechanical 4 keys to ui.{zh,en,ja}.json",
+    "C-P6-2_color_only_winner_signaling_wcag_1_4_1": "MEDIUM CompareFilter sr-only or visible marker",
+    "C-P6-3_no_link_rel_canonical_site_wide": "MEDIUM defensive SEO before public release add to BaseLayout",
+    "C-P6-4_playwright_reuseExistingServer_true_stale_dev": "LOW pick one of 3 workarounds",
+    "C-P6-5_platform_comparison_vs_compare_route_redundancy": "MEDIUM design decision cross-link or merge",
+    "C-P6-6_no_vitest_for_plugin_lang_neutral_throw_guard": "LOW fixture test before contract breaks at runtime",
+    "C-P6-7_no_schema_validation_on_compare_dimensions_json": "MEDIUM zod or content collection schema",
+    "C-P6-8_astro_content_cache_invalidation_undocumented_NEW_from_6_4": "LOW add npm run build:fresh + web/README.md or CONTRIBUTING.md"
+  },
+  "metrics": {
+    "tsc_errors_at_close": 0,
+    "vitest_at_close": "31_of_31",
+    "vitest_delta_phase_6": "+2 (CompareFilter renders all rows by default + filters by search input)",
+    "e2e_at_close": "6_of_6",
+    "e2e_routes_at_close": 8,
+    "e2e_routes_delta_phase_6": "+3 (zh/en/ja guide/readme)",
+    "build_pages_at_close": 27,
+    "build_pages_delta_phase_6": "30 -> 30 (6.2) -> 27 (6.4 H1 dropped 3 changelog catchall variants)",
+    "build_pages_overall_delta": "+8 since Phase 5 close (was 19 pre-Phase-6) -- includes /[lang]/compare 3 + /[lang]/guide/platform-comparison 3 + /[lang]/guide/readme 3 - 1 cleanup",
+    "commits": 4,
+    "commit_shas": ["b25b834", "c52b4a7", "362b401", "0b0e822"]
+  },
+  "exit_criteria_per_PLAN_md_status": {
+    "1_tsc_0_errors": "PASS",
+    "2_vitest_at_least_31": "PASS (31)",
+    "3_e2e_6_of_6_strict_post_md_skip_removal": "PASS (8 routes covered post 6.4)",
+    "4_build_green_per_lang_compare_real_page_per_lang_guide_platform_comparison_post_rename": "PASS",
+    "5_oh_my_claudecode_critic_reviewer_at_least_CONDITIONAL_PASS_all_HIGH_fixed": "PASS (CONDITIONAL_PASS -> PASS via 6.4 fix bundle)",
+    "6_cf_pages_preview_deploy_from_feature_branch_passes": "DEFERRED to Phase 7 entry verification (C-P5-M3 pre-existing carryover)",
+    "7_phase_6_to_phase_7_handoff_doc": "PASS (.work/meta/website_phase6_to_phase7_handoff_2026-04-28.md)"
   }
 }
