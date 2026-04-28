@@ -1,0 +1,18 @@
+---
+import { getCollection, render } from 'astro:content';
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import { type Lang } from '../../i18n/helpers';
+
+export function getStaticPaths() {
+  return [{ params: { lang: 'zh' } }, { params: { lang: 'en' } }, { params: { lang: 'ja' } }];
+}
+
+const lang = Astro.params.lang as Lang;
+const all = await getCollection('guide');
+const entry = all.find((d) => d.data.slug === 'changelog');
+if (!entry) throw new Error('CHANGELOG entry not found in collection');
+const { Content, headings } = await render(entry);
+---
+<DocsLayout title="Changelog" lang={lang} slug="changelog" headings={headings}>
+  <Content />
+</DocsLayout>

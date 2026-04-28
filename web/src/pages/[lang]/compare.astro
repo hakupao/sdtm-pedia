@@ -1,0 +1,19 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TopNav from '../../components/astro/TopNav.astro';
+import type { Lang } from '../../i18n/helpers';
+export function getStaticPaths() {
+  return [{ params: { lang: 'zh' } }, { params: { lang: 'en' } }, { params: { lang: 'ja' } }];
+}
+const lang = Astro.params.lang as Lang;
+const pathname = Astro.url.pathname;
+---
+<BaseLayout title="Compare" lang={lang}>
+  <TopNav lang={lang} pathname={pathname} />
+  <main class="max-w-screen-md mx-auto px-7 py-20 text-center">
+    <p class="font-mono text-[10px] tracking-wider text-ink-mute mb-3">PHASE 6 PENDING</p>
+    <h1 class="font-serif italic text-4xl mb-6">Multi-dimensional Comparison</h1>
+    <p class="font-serif text-base text-ink-mute">The full comparison page lands in v1.1. For now, see the 4-dimension preview on the landing page.</p>
+    <p class="mt-8"><a href={`/${lang}/`} class="font-mono text-[10px] tracking-wider underline hover:text-accent">← BACK TO LANDING</a></p>
+  </main>
+</BaseLayout>
