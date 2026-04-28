@@ -16,5 +16,9 @@
   "section.downloads.pending": "The v1.0 release bundles are being prepared. Track progress on the GitHub releases page:",
   "footer.maintainer": "Maintained by Daisy. Internal release.",
   "search.placeholder": "Search docs...",
-  "search.shortcut": "Cmd K"
+  "search.shortcut": "Cmd K",
+  "compare.title": "Multi-dimensional Comparison",
+  "compare.subhead": "Side-by-side across 4 platforms. Filter by dimension keyword.",
+  "compare.filter.placeholder": "Filter dimensions...",
+  "compare.filter.label": "Filter dimensions"
 }

@@ -1,0 +1,114 @@
+{
+  "phase": 7,
+  "tier": 3,
+  "opened_date": "2026-04-29",
+  "closed_date": null,
+  "branch": "main",
+  "head_at_open": "e1737f1",
+  "head_at_close": null,
+  "production_url": "https://sdtm-pedia.pages.dev/",
+  "preflight_decisions_acked_session_start": [
+    "cf_pages_preview_verify_first_task_7_0",
+    "bundle_C-P6-1_C-P6-3_C-P6-8_C-P5-M3_as_phase_7_defer_master_plan_pagefind_to_phase_8",
+    "reviewer_slot_superpowers_code_reviewer_3rd_family_inaugural"
+  ],
+  "plan_deviation": "master plan §\"Phase 7\" Pagefind deferred to Phase 8; Phase 7 scope = release-readiness bundle (C-P5-M3 + C-P6-1 + C-P6-3 + C-P6-8). Justification in PLAN.md §\"Plan deviation flag\".",
+  "fact_correction_at_open": "handoff G-P6-3 + C-P6-8 said web/README.md missing; actual: file exists with default Astro starter boilerplate (43 lines). C-P6-8 deliverable reframed: replace placeholder, not create new.",
+  "tasks": {
+    "7.0_cf_pages_preview_verify": {
+      "status": "completed",
+      "mode": "direct_main_session_verification_only",
+      "absorbs_carryover": ["C-P5-M3"],
+      "files_touched": [],
+      "commit": null,
+      "verdict": "PASS",
+      "evidence": ".work/07_website/phase7/evidence/checkpoints/task_7_0_report.md",
+      "findings": {
+        "F-7.0-1_trailing_slash_hosting": "PASS — 27 probes, all with-slash routes 200 / no-slash 308 redirect / cross-lang clean / no 5xx",
+        "F-7.0-2_astro_i18n_soft_404_200_response": "DRIFT-NOT-REGRESSION — root caused as Astro design intent under prefixDefaultLocale:true, mitigated by noindex meta. Phase 6.4 H1 fix accomplishes sitemap-level goal correctly.",
+        "new_carryover_C-P7-1": "Astro i18n soft-404 LOW; resolution options (a accept / b catchall 404 route / c CF _routes.json / d README doc), recommend defer or accept indefinitely"
+      }
+    },
+    "7.1_compare_i18n_chrome": {
+      "status": "pending",
+      "mode": "direct_main_session_mechanical",
+      "absorbs_carryover": ["C-P6-1"],
+      "files_to_touch": [
+        "web/src/i18n/ui.zh.json",
+        "web/src/i18n/ui.en.json",
+        "web/src/i18n/ui.ja.json",
+        "web/src/pages/[lang]/compare.astro",
+        "web/src/components/react/CompareFilter.tsx",
+        "web/src/components/react/CompareFilter.test.tsx"
+      ],
+      "commit": null,
+      "verdict": null,
+      "evidence": ".work/07_website/phase7/evidence/checkpoints/task_7_1_report.md"
+    },
+    "7.2_canonical_site_wide": {
+      "status": "pending",
+      "mode": "direct_main_session_one_file",
+      "absorbs_carryover": ["C-P6-3"],
+      "files_to_touch": [
+        "web/src/layouts/BaseLayout.astro",
+        "web/astro.config.mjs (verify site set)"
+      ],
+      "commit": null,
+      "verdict": null,
+      "evidence": ".work/07_website/phase7/evidence/checkpoints/task_7_2_report.md"
+    },
+    "7.3_build_fresh_and_readme": {
+      "status": "pending",
+      "mode": "direct_main_session_two_files",
+      "absorbs_carryover": ["C-P6-8"],
+      "files_to_touch": [
+        "web/package.json",
+        "web/README.md"
+      ],
+      "commit": null,
+      "verdict": null,
+      "evidence": ".work/07_website/phase7/evidence/checkpoints/task_7_3_report.md"
+    },
+    "7.4_reviewer_pass": {
+      "status": "pending",
+      "subagent": "superpowers:code-reviewer",
+      "rule_d_isolation": "3rd_inaugural_family_after_pr_review_toolkit_x4_feature_dev_x1_oh_my_claudecode_x1",
+      "verdict": null,
+      "report": ".work/07_website/phase7/evidence/checkpoints/phase_7_reviewer_report.md",
+      "subagent_prompt": ".work/07_website/phase7/subagent_prompts/task_7_4_reviewer_prompt.md"
+    }
+  },
+  "rule_d_reviewer_history_post_phase_7_planned": {
+    "phase_1": "pr-review-toolkit:code-reviewer",
+    "phase_2": "pr-review-toolkit:code-reviewer",
+    "phase_3_6": "pr-review-toolkit:code-reviewer",
+    "phase_4": "pr-review-toolkit:code-reviewer",
+    "phase_5": "feature-dev:code-reviewer",
+    "phase_6": "oh-my-claudecode:critic",
+    "phase_7": "superpowers:code-reviewer (planned)"
+  },
+  "carryover_from_phase_6_status_planned": {
+    "C-P5-M3_trailing_slash_hosting": "ABSORBED into 7.0",
+    "C-P6-1_hardcoded_english_compare_chrome": "ABSORBED into 7.1",
+    "C-P6-3_no_link_rel_canonical_site_wide": "ABSORBED into 7.2",
+    "C-P6-8_astro_content_cache_invalidation_undocumented": "ABSORBED into 7.3",
+    "C-P6-2_color_only_winner_signaling_wcag": "DEFER",
+    "C-P6-4_playwright_reuseExistingServer_true_stale_dev": "PARTIAL — covered by 7.3 README tribal-knowledge box, no code change",
+    "C-P6-5_platform_comparison_vs_compare_redundancy": "DEFER",
+    "C-P6-6_no_vitest_for_plugin_lang_neutral_throw_guard": "DEFER",
+    "C-P6-7_no_schema_validation_on_compare_dimensions_json": "DEFER",
+    "C-P5-M2_docssidebar_drawer_VT": "DEFER no VT enabled",
+    "C-P5-L1_fallback_banner_i18n": "PROBE during 7.1 (resolved transitively if banner uses ui keys)",
+    "C-P5-L2_empty_toc_aside_guard": "DEFER cosmetic"
+  },
+  "carryover_new_phase_7": {
+    "C-P7-1_astro_i18n_soft_404_200_response": "LOW — surfaced by Task 7.0; Astro design intent, mitigated by <meta name='robots' content='noindex'>; recommend defer or accept indefinitely; consider documenting in 7.3 README"
+  },
+  "metrics_at_open": {
+    "tsc_errors": 0,
+    "vitest": "31_of_31",
+    "e2e": "6_of_6_strict_over_8_routes",
+    "build_pages": 27,
+    "head": "e1737f1"
+  }
+}
