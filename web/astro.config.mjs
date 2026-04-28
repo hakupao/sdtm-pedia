@@ -3,6 +3,7 @@ import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
+import remarkMdLinkRewrite from './remark-md-link-rewrite.mjs';
 
 export default defineConfig({
   site: 'https://sdtm-pedia.pages.dev',  // replace with custom domain when set
@@ -20,5 +21,8 @@ export default defineConfig({
   },
   build: {
     format: 'directory',
+  },
+  markdown: {
+    remarkPlugins: [remarkMdLinkRewrite],
   },
 });

@@ -1,6 +1,6 @@
 ---
 lang: ja
-slug: compare
+slug: platform-comparison
 order: 20
 title: "4 プラットフォーム多次元比較"
 ---

@@ -1,6 +1,6 @@
 ---
 lang: en
-slug: compare
+slug: platform-comparison
 order: 20
 title: "4 Platforms — Multi-dimensional Comparison"
 ---
