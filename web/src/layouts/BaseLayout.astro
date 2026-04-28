@@ -6,6 +6,9 @@ interface Props {
   lang?: string;
 }
 const { title, description = 'SDTM Knowledge — across four AI platforms.', lang = 'zh' } = Astro.props;
+const canonicalHref = Astro.site
+  ? new URL(Astro.url.pathname, Astro.site).href
+  : Astro.url.pathname;
 ---
 <!DOCTYPE html>
 <html lang={lang}>
@@ -13,9 +16,11 @@ const { title, description = 'SDTM Knowledge — across four AI platforms.', lan
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={canonicalHref} />
     <meta property="og:image" content="/og-default.png" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalHref} />
     <meta name="description" content={description} />
     <title>{title}</title>
     <script is:inline>
