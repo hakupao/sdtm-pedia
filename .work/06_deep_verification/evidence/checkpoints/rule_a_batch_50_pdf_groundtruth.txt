@@ -1,0 +1,650 @@
+===== sv20_p30 =====
+CDISC Study Data Tabulation Model (2.0 Final)
+
+
+#    Variable   Variable Label         Type Format Role        Variable(s)   Usage             Variable   Definition         Notes                                     Examples
+     Name                                                      Qualified     Restrictions      C-code
+77   --         Test Method            Char        Record                                                                    The sensitivity of the test methodology "LOW SENSITIVITY", "HIGH
+     TMTHSN     Sensitivity                        Qualifier                                                                 with respect to observation, detection, SENSITIVITY", "ULTRA-HIGH
+                                                                                                                             or quantification.                      SENSITIVITY"
+78   --LEAD     Lead Identified to     Char        Record                                      C170997 An electrical                                                 "LEAD I", "LEAD V2", "LEAD CM5"
+                Collect                            Qualifier                                           recording from
+                Measurements                                                                           some region of the
+                                                                                                       body that
+                                                                                                       represents the
+                                                                                                       voltage difference
+                                                                                                       between 2
+                                                                                                       electrodes.
+79   --         Consciousness          Char        Record                                      C88429 The subject's level                                              "CONSCIOUS", "SEMI-
+     CSTATE     State                              Qualifier                                           of consciousness.                                               CONSCIOUS", "UNCONSCIOUS"
+80   --         Last Observation       Char        Record                                                                    Operationally derived indicator used
+     LOBXFL     Before Exposure                    Qualifier                                                                 to identify the last non-missing value
+                Flag                                                                                                         prior to RFXSTDTC. Result value is in
+                                                                                                                             --STRESC. Should be "Y" or null.
+81   --BLFL     Baseline Flag          Char        Record                                      C82526  An indication that    Result value is in --STRESC. Should
+                                                   Qualifier                                           the record is the     be "Y" or null.
+                                                                                                       sponsor-defined
+                                                                                                       baseline
+                                                                                                       assessment, used
+                                                                                                       in study data
+                                                                                                       tabulation.
+82   --FAST     Fasting Status         Char        Record                                      C93566 An indication as to    Valid values include "Y", "N", "U", or
+                                                   Qualifier                                           whether a subject     null if not relevant.
+                                                                                                       has abstained
+                                                                                                       from food and
+                                                                                                       liquid for a
+                                                                                                       prescribed amount
+                                                                                                       of time.
+83   --DRVFL    Derived Flag           Char        Record                                      C81197 An indication that     Should be "Y" or null.                    The average of other records used
+                                                   Qualifier                                           the measurement                                                 as a computed baseline.
+                                                                                                       or finding is not a
+                                                                                                       collected value but
+                                                                                                       is processed or
+                                                                                                       computed by the
+                                                                                                       sponsor from
+                                                                                                       collected data.
+84   --EVAL     Evaluator              Char        Record                    Not in QS, FT,    C51824 The role of the        Used only for results that are            "ADJUDICATION COMMITTEE",
+                                                   Qualifier                 and clinical              person(s)             subjective (e.g., assigned by a person    "INDEPENDENT ASSESSOR"
+                                                                             classifications           providing an          or a group).
+                                                                             use case of               evaluation,
+                                                                             RS                        appraisal, or
+                                                                                                       interpretation.
+85   --EVALID   Evaluator Identifier   Char        Variable    --EVAL        Not in QS, FT,    C117043 A sequence of         Used to distinguish multiple              "RADIOLOGIST1",
+                                                   Qualifier                 and clinical              characters used to    evaluators with the same role             "RADIOLOGIST2"
+                                                                             classifications           uniquely identify     recorded in --EVAL.
+                                                                             use case of               the evaluator(s).
+                                                                             RS
+86   --         Accepted Record        Char        Record                                      C117038 An indication that    Expected values can include "Y", "N",
+     ACPTFL     Flag                               Qualifier                                           a record is the       or null. This is not intended to be an
+                                                                                                       endorsed              analysis flag to indicate acceptability
+                                                                                                       assessment.           for a given analysis.
+
+
+
+
+© 2021 Clinical Data Interchange Standards Consortium, Inc. All rights reserved                                                                                                                 Page 30
+2021-11-29
+===== END p30 =====
+===== sv20_p31 =====
+CDISC Study Data Tabulation Model (2.0 Final)
+
+
+#    Variable   Variable Label       Type Format Role        Variable(s)   Usage             Variable   Definition          Notes                                   Examples
+     Name                                                    Qualified     Restrictions      C-code
+87   --TOX      Toxicity             Char        Variable    --TOXGR                         C27990  The standardized       Sponsors should specify which scale     An NCI CTCAE Short Name.
+                                                 Qualifier                                           or dictionary-         and version is used in the Sponsor      "HYPERCALCEMIA",
+                                                                                                     derived name for       Comments column of the Define-XML       "HYPOCALCEMIA"
+                                                                                                     an untoward event      document.
+                                                                                                     or finding.
+88   --TOXGR    Toxicity Grade       Char        Record                                      C82528 A categorical           Sponsors should specify which scale     A grade from the NCI CTCAE.
+                                                 Qualifier                                           classification of      and version is used in the Sponsor      "2"
+                                                                                                     the severity of an     Comments column of the Define-XML
+                                                                                                     event or finding,      document.
+                                                                                                     based on a
+                                                                                                     standard scale,
+                                                                                                     used in study data
+                                                                                                     tabulation.
+89   --SEV      Severity/Intensity   Char        Record                                      C25676 The quality or                                                  "MILD", "MODERATE", "SEVERE"
+                                                 Qualifier                                           degree of harm
+                                                                                                     associated with a
+                                                                                                     finding or event,
+                                                                                                     as collected.
+90   --CLSIG    Clinically           Char        Record                                      C93532 An indication as to     For collected assessments of clinical   "Y", "N"
+                Significant,                     Qualifier                                           whether an             significance of a result.
+                Collected                                                                            observation is
+                                                                                                     clinically
+                                                                                                     significant based
+                                                                                                     on judgment.
+91   --         Relationship to      Char        Record                    Not in human      C82563 An indication that                                              "Y", "N", or "U"
+     DTHREL     Death                            Qualifier                 clinical trials           a particular finding
+                                                                                                     is related to the
+                                                                                                     cause of death.
+92   --LLOQ     Lower Limit of       Num         Variable    --STRESC; -                     C82589 The lowest              Units will be those used for --
+                Quantitation                     Qualifier   -STRESN                                 threshold for          STRESU.
+                                                                                                     reliably quantifying
+                                                                                                     the amount of
+                                                                                                     substance
+                                                                                                     measured by a
+                                                                                                     specific test, in
+                                                                                                     standardized
+                                                                                                     units.
+93   --ULOQ     Upper Limit of       Num         Variable    --STRESC; -                     C85533 The highest             Units will be those used for --
+                Quantitation                     Qualifier   -STRESN                                 threshold for          STRESU.
+                                                                                                     reliably detecting
+                                                                                                     the result of a
+                                                                                                     specific test in
+                                                                                                     standardized
+                                                                                                     units.
+94   --         Reason Test          Char        Record                                      C171003 The explanation
+     REASPF     Performed                        Qualifier                                           for why a test,
+                                                                                                     measurement, or
+                                                                                                     assessment is
+                                                                                                     executed.
+95   --EXCLFL Exclude from           Char        Record                    Not in human      C117045 An indication that     Expected to be "Y" or null. --EXCLFL
+              Statistics                         Qualifier                 clinical trials           the result is to be    should be null when --STAT is "NOT
+                                                                                                     excluded from all      DONE".
+                                                                                                     calculations.
+
+
+
+
+© 2021 Clinical Data Interchange Standards Consortium, Inc. All rights reserved                                                                                                             Page 31
+2021-11-29
+===== END p31 =====
+===== sv20_p32 =====
+CDISC Study Data Tabulation Model (2.0 Final)
+
+
+#    Variable     Variable Label       Type Format Role          Variable(s)   Usage             Variable Definition            Notes                                     Examples
+     Name                                                        Qualified     Restrictions      C-code
+96   --           Reason for           Char          Record                    Not in human      C117057 The explanation        Used in conjunction with --EXCLFL
+     REASEX       Exclusion from                     Qualifier                 clinical trials            for why a result is   when its value is "Y".
+                  Statistics                                                                              excluded from all
+                                                                                                          calculations.
+97   --           Unscheduled Flag     Char          Record                    Not in human      C170510 An indication that     If a test or observation was performed
+     USCHFL                                          Qualifier                 clinical trials            the performed test    based upon a schedule defined in the
+                                                                                                          or observation        protocol, this flag should be null.
+                                                                                                          was done at a         Expected values are "Y" or null. This
+                                                                                                          time that was not     variable would not be needed when
+                                                                                                          planned.              information on planned assessments
+                                                                                                                                is provided, such as when the Trial
+                                                                                                                                Visits (TV) and Subject Visits (SV)
+                                                                                                                                domains are used.
+98   --     Repetition Number          Num           Record                                                                     The instance number of a test that is     Multiple measurements of blood
+     REPNUM                                          Qualifier                                                                  repeated within a given timeframe for     pressure or multiple analyses of a
+                                                                                                                                the same test. The level of granularity   sample.
+                                                                                                                                can vary (e.g., within a time point or
+                                                                                                                                within a visit).
+99   --RSTIND Restraint Indicator      Char          Record                    Not in human                                     An indicator as to whether the animal
+                                                     Qualifier                 clinical trials                                  was restrained during the observation
+                                                                                                                                period. Expected values are "Y" or
+                                                                                                                                null.
+100 --     Restraint Mode              Char          Record                    Not in human                                     A description of whether the restraint
+    RSTMOD                                           Qualifier                 clinical trials                                  was physical and/or chemical.
+
+
+3.1.3.1 Findings About Events or Interventions
+Findings About Events or Interventions is a specialization of the Findings class that utilizes the Findings general observation class variables with the addition of
+the --OBJ variable, as described in the following table. The order of the --OBJ variable among Findings qualifiers is immediately after the --TEST variable.
+Findings About—Additional Qualifier Variables
+# Variable      Variable        Type Format Role          Variable(s)    Usage           Variable    Definition Notes                                           Examples
+  Name          Label                                     Qualified      Restrictions    C-code
+1 --OBJ         Object of the   Char          Record                                                             Used in domains modeled as Findings            An event of vomiting which has findings,
+                Observation                   Qualifier                                                          About Events or Findings About                 where --OBJ="VOMIT" and the volume of
+                                                                                                                 Interventions. Describes the event or          VOMIT is being measured where --
+                                                                                                                 intervention whose property is being           TESTCD="VOLUME".
+                                                                                                                 measured in --TESTCD/--TEST.
+
+
+3.1.4 Identifiers for All Classes
+STUDYID, DOMAIN, and --SEQ are required in all domains based on one of the 3 general observation classes. Each general class domain must also include at
+least 1 of the following subject identifiers: USUBJID, SPDEVID, or POOLID.
+All identifier variables are allowed for any domain based on one of the 3 general observation classes, unless otherwise noted in the Usage Restrictions.
+
+
+
+
+© 2021 Clinical Data Interchange Standards Consortium, Inc. All rights reserved                                                                                                                      Page 32
+2021-11-29
+===== END p32 =====
+===== sv20_p33 =====
+CDISC Study Data Tabulation Model (2.0 Final)
+
+
+
+All Observation Classes—Identifiers
+#   Variable   Variable       Type Format Role          Variable(s)   Usage             Variable   Definition                  Notes                                      Examples
+    Name       Label                                    Qualified     Restrictions      C-code
+1   STUDYID    Study          Char         Identifier                                   C83082     A sequence of
+               Identifier                                                                          characters used by the
+                                                                                                   sponsor to uniquely
+                                                                                                   identify the study.
+2   DOMAIN     Domain         Char         Identifier                                   C49558     An abbreviation for a       2-character abbreviation. The domain
+               Abbreviation                                                                        collection of               abbreviation is also used as a prefix
+                                                                                                   observations, with a        for variables to ensure uniqueness
+                                                                                                   topic-specific              when datasets are merged.
+                                                                                                   commonality.
+3   USUBJID    Unique         Char         Identifier                                   C69256     A sequence of
+               Subject                                                                             characters used to
+               Identifier                                                                          uniquely identify a
+                                                                                                   subject across all
+                                                                                                   studies for all
+                                                                                                   applications or
+                                                                                                   submissions involving
+                                                                                                   the product.
+4   POOLID     Pool Identifier Char        Identifier                                   C117053    A sequence of               Used for results that are not
+                                                                                                   characters used to          assignable to a specific subject.
+                                                                                                   uniquely identify a group
+                                                                                                   of subjects that have
+                                                                                                   been pooled together.
+5   SPDEVID    Sponsor        Char         Identifier                                   C117060    A sequence of
+               Device                                                                              characters used by the
+               Identifier                                                                          sponsor to uniquely
+                                                                                                   identify a specific
+                                                                                                   device.
+6   NHOID      Non-Host       Char         Identifier                                                                          Sponsor-defined identifier for a non-  "A/California/7/2009 (H1N1)"
+               Organism                                                                                                        host organism. This variable should be
+               Identifier                                                                                                      populated with an intuitive name
+                                                                                                                               based on the identity of the non-host
+                                                                                                                               organism as reported by the lab.
+7   FETUSID    Fetus          Char         Identifier                 Not in human      C170497    A sequence of
+               Identifier                                             clinical trials              characters used to
+                                                                                                   uniquely identify a fetus
+                                                                                                   associated with a
+                                                                                                   maternal subject, for a
+                                                                                                   particular prenatal
+                                                                                                   evaluation.
+8   FOCID      Focus of       Char         Identifier                                                                          Identification of a focus of study-        A drug application site (e.g., "Injection
+               Study-                                                                                                          specific interest on or within a subject   site 1", "Biopsy site 1", "Treated site
+               Specific                                                                                                        or specimen as called out in the           1"), or a more specific focus (e.g.,
+               Interest                                                                                                        protocol for which a measurement,          "OD" (right eye), "Upper left quadrant
+                                                                                                                               test, or examination was performed.        of the back")
+                                                                                                                               The value in this variable should have
+                                                                                                                               inherent semantic meaning.
+9   --SEQ      Sequence       Num          Identifier                                   C70710     A number used in            May be any valid number (including
+               Number                                                                              combination with the        decimals) and does not have to start at
+                                                                                                   identifier of the subject   1. Datasets that do not contain subject
+                                                                                                   of the observation to       data, such as the Trial Summary (TS)
+                                                                                                   uniquely identify a         domain and the Device Tracking (DT)
+                                                                                                   record within a domain.     domains, use --SEQ as a sequence
+
+
+
+
+© 2021 Clinical Data Interchange Standards Consortium, Inc. All rights reserved                                                                                                                           Page 33
+2021-11-29
+===== END p33 =====
+===== sv20_p34 =====
+CDISC Study Data Tabulation Model (2.0 Final)
+
+
+#   Variable   Variable       Type Format Role          Variable(s)   Usage          Variable   Definition                   Notes                                    Examples
+    Name       Label                                    Qualified     Restrictions   C-code
+                                                                                                                             number to ensure uniqueness within
+                                                                                                                             the dataset.
+10 --GRPID     Group ID       Char         Identifier                                C170996    A sequence of                See also Section 5.1.6, Trial Summary
+                                                                                                characters used to           Information and Section 5.1.7,
+                                                                                                uniquely identify related    Challenge Agent Characterization.
+                                                                                                records for a subject
+                                                                                                within a domain, or
+                                                                                                related parameters in
+                                                                                                the Trial Summary (TS)
+                                                                                                dataset.
+11 --REFID     Reference ID   Char         Identifier                                C82531     A sequence of                                                         A lab specimen ID, the UUID for an
+                                                                                                characters used to                                                    ECG waveform or a medical image.
+                                                                                                uniquely identify a
+                                                                                                source of information.
+12 --RECID     Invariant      Char         Identifier                                                                        Identifier for a record that is unique
+               Record                                                                                                        within a domain for a study and that
+               Identifier                                                                                                    remains invariant through subsequent
+                                                                                                                             versions of the dataset, even if the
+                                                                                                                             content of the record is modified.
+                                                                                                                             When a record is deleted, this value
+                                                                                                                             must not be reused to identify another
+                                                                                                                             record in either the current or future
+                                                                                                                             versions of the domain.
+13 --SPID      Sponsor-       Char         Identifier                                C82530     A sponsor-defined                                                     A preprinted line identifier on a
+               Defined                                                                          sequence of characters                                                Concomitant Medications form.
+               Identifier                                                                       used to identify an
+                                                                                                instance of an
+                                                                                                observation.
+14 --LNKID     Link ID        Char         Identifier                                C117050    A sequence of                This may be a one-to-one or a one-to-    A value that links a single tumor to
+                                                                                                characters used to           many relationship.                       multiple measurements/assessments
+                                                                                                uniquely identify a                                                   performed at different times.
+                                                                                                record, for a subject, in
+                                                                                                one domain and link it to
+                                                                                                1 or more records for
+                                                                                                that subject in another
+                                                                                                domain.
+15 --          Link Group ID Char          Identifier                                C117049    A sequence of                This will usually be a many-to-one       A value that links multiple tumor
+   LNKGRP                                                                                       characters used to           relationship.                            measurement/assessments to a
+                                                                                                uniquely identify a group                                             single response to therapy.
+                                                                                                of records, for a subject,
+                                                                                                in one domain and link it
+                                                                                                to 1 or more records for
+                                                                                                that subject in another
+                                                                                                domain.
+16 --          ECG Beat       Num          Identifier                 EG Domain                                              A sequence number that identifies the
+   BEATNO      Number                                                 only                                                   beat within an ECG.
+
+
+3.1.5 Timing Variables for All Classes
+The following timing variables are available for use in any domain based on one of the 3 general observation classes, except where restricted in the assumptions
+for the standard domain models in the implementation guides. See Section 3.2, Special-purpose Domains, for additional guidance relating to special-purpose
+domains.
+
+
+© 2021 Clinical Data Interchange Standards Consortium, Inc. All rights reserved                                                                                                                      Page 34
+2021-11-29
+===== END p34 =====
+===== sv20_p35 =====
+CDISC Study Data Tabulation Model (2.0 Final)
+
+
+
+All Observation Classes—Timing Variables
+#   Variable     Variable Label         Type Format   Role     Variable(s)   Usage             Variable   Definition                           Notes                              Examples
+    Name                                                       Qualified     Restrictions      C-code
+1   VISITNUM     Visit Number           Num           Timing                                   C83101     An assigned numeric identifier       Numeric version of VISIT, used     1, 1.1, 503.75
+                                                                                                          that aligns to the chronological     for sorting. VISITNUM does not
+                                                                                                          order of a clinical encounter.       have to be an integer value.
+2   VISIT        Visit Name             Char          Timing                                   C171010    The label for a protocol-defined
+                                                                                                          clinical encounter.
+3   VISITDY      Planned Study Day of   Num           Timing                                   C171011    The planned study day of a           Should be an integer.
+                 Visit                                                                                    clinical encounter relative to the
+                                                                                                          sponsor-defined reference start
+                                                                                                          date.
+4   TAETORD      Planned Order of       Num           Timing                                   C83438     An assigned numeric identifier       See Section 5.1.1.2, Trial Arms.
+                 Element Within Arm                                                                       that gives the planned order of
+                                                                                                          the element within the trial arm
+                                                                                                          of the study.
+5   EPOCH        Epoch                  Char          Timing                                   C71738     A time period defined in the    The epoch associated with an
+                                                                                                          protocol with a study-specific  observation is determined by the
+                                                                                                          purpose.                        start date or start date and time
+                                                                                                                                          of the observation, or the
+                                                                                                                                          date/time of collection if start
+                                                                                                                                          date/time is not collected (see
+                                                                                                                                          Section 5.1.1.2, Trial Arms).
+6   RPHASE       Repro Phase            Char          Timing                 Not in human                                                 Reproductive phase with which
+                                                                             clinical trials                                              the reproductive stage of the
+                                                                                                                                          reproductive path is associated.
+                                                                                                                                          Defined in Trial Paths domain.
+                                                                                                                                          The RPHASE variable is
+                                                                                                                                          Required when any Reproductive
+                                                                                                                                          Phase Day variable is used.
+7   RPPLDY       Planned Repro Phase    Num           Timing                 Not in human      C170506    The day within the reproductive Expressed as an integer.
+                 Day of Observation                                          clinical trials              phase on which the test or
+                                                                                                          observation was scheduled to
+                                                                                                          occur.
+8   RPPLSTDY     Planned Repro Phase    Num           Timing                 Not in human      C170508    The day within the reproductive Expressed as an integer.
+                 Day of Obs Start                                            clinical trials              phase on which the test or
+                                                                                                          observation was scheduled to
+                                                                                                          begin.
+9   RPPLENDY Planned Repro Phase        Num           Timing                 Not in human      C170507    The day within the reproductive Expressed as an integer.
+             Day of Obs End                                                  clinical trials              phase on which the test or
+                                                                                                          observation was scheduled to
+                                                                                                          end.
+10 --DTC         Date/Time of           Char ISO 8601 Timing                                   C82515     The date or date and time of
+                 Collection                  datetime                                                     the assessment or the
+                                             or interval                                                  specimen or data collection
+                                                                                                          from the subject, represented
+                                                                                                          in a standardized character
+                                                                                                          format.
+11 --STDTC       Start Date/Time of     Char ISO 8601 Timing                 Not in Findings   C82517     The start date or date and time The start date of a Findings class
+                 Observation                 datetime                        class domains                of an intervention or event,    record is stored in the --DTC
+                                             or interval                                                  represented in a standardized   variable.
+                                                                                                          character format.
+12 --ENDTC       End Date/Time of       Char ISO 8601 Timing                                   C82516     The end date or date and time
+                 Observation                 datetime                                                     of an intervention, event, or
+                                             or interval                                                  finding, represented in a
+                                                                                                          standardized character format.
+
+
+
+© 2021 Clinical Data Interchange Standards Consortium, Inc. All rights reserved                                                                                                                Page 35
+2021-11-29
+===== END p35 =====
+===== sv20_p36 =====
+CDISC Study Data Tabulation Model (2.0 Final)
+
+
+#  Variable      Variable Label          Type Format   Role     Variable(s)   Usage             Variable   Definition                           Notes                               Examples
+   Name                                                         Qualified     Restrictions      C-code
+13 --DY          Study Day of            Num           Timing                                   C170993    The number of days from the          The sponsor-defined reference
+                 Visit/Collection/Exam                                                                     sponsor-defined reference start      start date is RFSTDTC in
+                                                                                                           date to the date of collection (--   Demographics.
+                                                                                                           DTC), used in study data
+                                                                                                           tabulation.
+14 --STDY        Study Day of Start of   Num           Timing                 Not in Findings   C171005    The number of days from the          The sponsor-defined reference
+                 Observation                                                  class domains                sponsor-defined reference start      start date is RFSTDTC in
+                                                                                                           date to the start of an              Demographics.
+                                                                                                           intervention or event (--
+                                                                                                           STDTC), used for study data
+                                                                                                           tabulation.
+15 --ENDY        Study Day of End of     Num           Timing                                   C170995    The number of days from the          The sponsor-defined reference
+                 Observation                                                                               sponsor-defined reference start      start date is RFSTDTC in
+                                                                                                           date to the end of an                Demographics.
+                                                                                                           intervention, event, or finding (-
+                                                                                                           -ENDTC), used for study data
+                                                                                                           tabulation.
+16 --NOMDY       Nominal Study Day       Num           Timing                 Not in human      C170498    The nominal study day, relative
+                 for Tabulations                                              clinical trials              to the sponsor-defined
+                                                                                                           reference start date, used by
+                                                                                                           data collection and reporting
+                                                                                                           systems for grouping records
+                                                                                                           for observations that may be
+                                                                                                           scheduled to occur on different
+                                                                                                           days into a single study day
+                                                                                                           (e.g., for output on a tabulation
+                                                                                                           report).
+17 --NOMLBL      Label for Nominal       Char          Timing                 Not in human      C170499    The name for a protocol-             As presented in the study report.
+                 Study Day                                                    clinical trials              defined nominal study day.
+18 --RPDY        Actual Repro Phase      Num           Timing                 Not in human      C170504    The day within the reproductive      Expressed as an integer.
+                 Day of Observation                                           clinical trials              phase on which the test or
+                                                                                                           observation occurred.
+19 --RPSTDY      Actual Repro Phase      Num           Timing                 Not in human      C170509    The day within the reproductive      Expressed as an integer.
+                 Day of Obs Start                                             clinical trials              phase on which the test or
+                                                                                                           observation began.
+20 --RPENDY      Actual Repro Phase      Num           Timing                 Not in human      C170505    The day within the reproductive      Expressed as an integer.
+                 Day of Obs End                                               clinical trials              phase on which the test or
+                                                                                                           observation ended.
+21 --XDY         Day of Obs Relative     Num           Timing                                                                                   The actual study day of an
+                 to Exposure                                                                                                                    intervention, event, or finding,
+                                                                                                                                                derived relative to the first
+                                                                                                                                                exposure to any protocol-
+                                                                                                                                                specified treatment. Expressed in
+                                                                                                                                                integer days relative to
+                                                                                                                                                RFXSTDTC in Demographics.
+22 --XSTDY       Start Day of Obs        Num           Timing                 Not in Findings                                                   The actual study day of the start
+                 Relative to Exposure                                         class domains                                                     of an intervention or event,
+                                                                                                                                                derived relative to the first
+                                                                                                                                                exposure to any protocol-
+                                                                                                                                                specified treatment. Expressed in
+                                                                                                                                                integer days relative to
+                                                                                                                                                RFXSTDTC in Demographics.
+23 --XENDY       End Day of Obs          Num           Timing                                                                                   The actual study day of the end
+                 Relative to Exposure                                                                                                           of an intervention, event, or
+                                                                                                                                                finding, derived relative to the
+
+
+
+© 2021 Clinical Data Interchange Standards Consortium, Inc. All rights reserved                                                                                                                Page 36
+2021-11-29
+===== END p36 =====
+===== sv20_p37 =====
+CDISC Study Data Tabulation Model (2.0 Final)
+
+
+#   Variable     Variable Label         Type Format   Role     Variable(s)   Usage             Variable   Definition                         Notes                                   Examples
+    Name                                                       Qualified     Restrictions      C-code
+                                                                                                                                             first exposure to any protocol-
+                                                                                                                                             specified treatment. Expressed in
+                                                                                                                                             integer days relative to
+                                                                                                                                             RFXSTDTC in Demographics.
+24 --CHDY        Day of Obs Rel to      Num           Timing                                                                                 The actual study day of an
+                 Challenge Agent                                                                                                             intervention, event, or finding,
+                                                                                                                                             derived relative to the first
+                                                                                                                                             exposure to the challenge agent
+                                                                                                                                             that induces the disease or
+                                                                                                                                             condition that the investigational
+                                                                                                                                             treatment is intended to cure,
+                                                                                                                                             mitigate, treat, or prevent.
+                                                                                                                                             Expressed in integer days
+                                                                                                                                             relative to RFCSTDTC in
+                                                                                                                                             Demographics.
+25 --CHSTDY      Start Day of Obs Rel   Num           Timing                 Not in Findings                                                 The actual study day of the start
+                 to Challenge Agent                                          class domains                                                   of an intervention or event
+                                                                                                                                             derived relative to the first
+                                                                                                                                             exposure to the challenge agent
+                                                                                                                                             that induces the disease or
+                                                                                                                                             condition that the investigational
+                                                                                                                                             treatment is intended to c ure,
+                                                                                                                                             mitigate, treat, or prevent.
+                                                                                                                                             Expressed in integer days
+                                                                                                                                             relative to RFCSTDTC in
+                                                                                                                                             Demographics.
+26 --CHENDY      End Day of Obs Rel to Num            Timing                                                                                 The actual study day of the end
+                 Challenge Agent                                                                                                             of an intervention, event, or
+                                                                                                                                             finding derived relative to the first
+                                                                                                                                             exposure to the challenge agent
+                                                                                                                                             that induces the disease or
+                                                                                                                                             condition that the investigational
+                                                                                                                                             treatment is intended to cure,
+                                                                                                                                             mitigate, treat, or prevent.
+                                                                                                                                             Expressed in integer days
+                                                                                                                                             relative to RFCSTDTC in
+                                                                                                                                             Demographics.
+27 --DUR         Collected Duration     Char ISO 8601 Timing                                   C170992    The collected length of time       Used only if collected on the
+                                             duration                                                     during which an observation        CRF and not derived.
+                                                                                                          continues, represented in a
+                                                                                                          standardized character format.
+28 --TPT         Planned Time Point     Char          Timing                                   C171029    The description of the time        This may be represented as an     "PREDOSE", "1
+                 Name                                                                                     when a protocol-defined activity   elapsed time relative to a fixed  HOUR POST-DOSE"
+                                                                                                          is planned to occur, used for      reference point (e.g., time since
+                                                                                                          study data tabulation.             last dose). See --TPTNUM and --
+                                                                                                                                             TPTREF.
+29 --TPTNUM      Planned Time Point     Num           Timing                                   C82545     The numeric identifier of when     Used in sorting.
+                 Number                                                                                   an observation is planned to
+                                                                                                          occur.
+30 --ELTM        Planned Elapsed        Char ISO 8601 Timing                                   C170994    The interval of time between a     The fixed reference point is in --
+                 Time from Time Point        duration                                                     planned time point and a fixed     TPTREF. This variable is useful
+                 Ref                                                                                      reference point, represented in    where there are repetitive
+                                                                                                          a standardized character           measures. Not a clock time or a
+                                                                                                          format.                            date/time variable, but an
+                                                                                                                                             interval.
+
+
+
+© 2021 Clinical Data Interchange Standards Consortium, Inc. All rights reserved                                                                                                                 Page 37
+2021-11-29
+===== END p37 =====
+===== sv20_p38 =====
+CDISC Study Data Tabulation Model (2.0 Final)
+
+
+#  Variable      Variable Label         Type Format   Role     Variable(s)   Usage          Variable   Definition                          Notes                                Examples
+   Name                                                        Qualified     Restrictions   C-code
+31 --TPTREF      Time Point Reference   Char          Timing                                C171030    The description of a time point     Description of the fixed reference "PREVIOUS DOSE",
+                                                                                                       that acts as a fixed reference      point referred to by --ELTM, --    "PREVIOUS MEAL"
+                                                                                                       for a series of planned time        TPTNUM, --TPT, --STINT, and --
+                                                                                                       points, used for study data         ENINT.
+                                                                                                       tabulation.
+32 --RFTDTC      Date/Time of           Char ISO 8601 Timing                                C82518     The actual date or date and         The fixed reference point is in --
+                 Reference Time Point        datetime                                                  time of a time point that acts as   TPTREF.
+                                             or interval                                               a fixed reference for a series of
+                                                                                                       planned time points,
+                                                                                                       represented in a standardized
+                                                                                                       character format.
+33 --STRF        Start Relative to      Char          Timing                                C82559     The characterization of the       The sponsor-defined reference
+                 Reference Period                                                                      start of an observation relative  period is a continuous period of
+                                                                                                       to the study reference period.    time defined by a discrete
+                                                                                                                                         starting point and a discrete
+                                                                                                                                         ending point represented by
+                                                                                                                                         RFSTDTC and RFENDTC in
+                                                                                                                                         Demographics.
+34 --ENRF        End Relative to        Char          Timing                                C82557     The characterization of the end The sponsor-defined reference
+                 Reference Period                                                                      of an observation relative to the period is a continuous period of
+                                                                                                       study reference period.           time defined by a discrete
+                                                                                                                                         starting point and a discrete
+                                                                                                                                         ending point represented by
+                                                                                                                                         RFSTDTC and RFENDTC in
+                                                                                                                                         Demographics.
+35 --EVLINT      Evaluation Interval    Char ISO 8601 Timing                                C82534     The planned time interval for     Usually used with --DTC to             "-P2M" to represent a
+                                             duration                                                  which an observation is           describe an interval of this           period of the past 2
+                                             or interval                                               assessed, represented in a        duration that ended at the time        months as the
+                                                                                                       standardized character format. represented in --DTC.                     evaluation interval for
+                                                                                                                                                                                a question from a
+                                                                                                                                                                                questionnaire.
+36 --EVINTX      Evaluation Interval    Char          Timing                                C117044    A textual description of the        A value that cannot be               "LIFETIME", "LAST
+                 Text                                                                                  planned time interval for which     represented in ISO 8601 format.      NIGHT",
+                                                                                                       an observation is assessed,                                              "RECENTLY",
+                                                                                                       where the interval is not able to                                        "OVER THE LAST
+                                                                                                       be represented in a                                                      FEW WEEKS"
+                                                                                                       standardized character format.
+37 --STRTPT      Start Relative to      Char          Timing                                C82560     The characterization of the         The sponsor-defined reference
+                 Reference Time Point                                                                  start of an observation relative    time point is in --STTPT.
+                                                                                                       to a reference time point.
+38 --STTPT       Start Reference Time   Char          Timing                                C82575     The description or date and/or      This is the sponsor-defined          "2003-12-15", "VISIT
+                 Point                                                                                 time of a time point that acts as   reference point referred to by --    1"
+                                                                                                       a fixed reference for               STRTPT.
+                                                                                                       characterizing the start of an
+                                                                                                       observation.
+39 --ENRTPT      End Relative to        Char          Timing                                C82558     The characterization of the end     The sponsor-defined reference
+                 Reference Time Point                                                                  of an observation relative to a     time point is in --ENTPT.
+                                                                                                       reference time point.
+40 --ENTPT       End Reference Time     Char          Timing                                C82574     The description or date and/or      This is the sponsor-defined          "2003-12-25", "VISIT
+                 Point                                                                                 time of a time point that acts as   reference point referred to by --    2"
+                                                                                                       a fixed reference for               ENRTPT.
+                                                                                                       characterizing the end of an
+                                                                                                       observation.
+41 MIDS          Disease Milestone      Char          Timing                                                                               The name of a specific instance
+                 Instance Name                                                                                                             of a Disease Milestone Type
+
+
+
+© 2021 Clinical Data Interchange Standards Consortium, Inc. All rights reserved                                                                                                               Page 38
+2021-11-29
+===== END p38 =====
+===== sv20_p39 =====
+CDISC Study Data Tabulation Model (2.0 Final)
+
+
+#   Variable     Variable Label         Type Format   Role     Variable(s)   Usage              Variable   Definition                        Notes                                Examples
+    Name                                                       Qualified     Restrictions       C-code
+                                                                                                                                             (MIDSTYPE) described in the
+                                                                                                                                             Trial Disease Milestones dataset
+                                                                                                                                             (see Section 5.1.4.3, Trial
+                                                                                                                                             Disease Milestones). This should
+                                                                                                                                             be unique within a subject. Used
+                                                                                                                                             only in conjunction with
+                                                                                                                                             RELMIDS and MIDSDTC.
+42 RELMIDS       Temporal Relation to   Char          Timing                                                                                 The temporal relationship of the  "IMMEDIATELY
+                 Milestone Instance                                                                                                          observation to the Disease        BEFORE", "AT TIME
+                                                                                                                                             Milestone Instance Name in        OF", "AFTER"
+                                                                                                                                             MIDS.
+43 MIDSDTC       Disease Milestone      Char ISO 8601 Timing                                                                                 The start date/time of the
+                 Instance Date/Time          datetime                                                                                        Disease Milestone Instance
+                                             or interval                                                                                     Name in MIDS.
+44 --STINT       Planned Start of       Char ISO 8601 Timing                                    C117061    The start of a planned            The reference time point is in --
+                 Assessment Interval         duration                                                      assessment interval relative to   TPTREF. As this variable
+                                                                                                           a reference time point,           describes planned timing of an
+                                                                                                           represented in a standardized     assessment, caution should be
+                                                                                                           character format.                 exercised when using outside of
+                                                                                                                                             the Findings class of domains. In
+                                                                                                                                             an Events or Interventions
+                                                                                                                                             domain, it may refer to the
+                                                                                                                                             interval over which --OCCUR is
+                                                                                                                                             assessed.
+45 --ENINT       Planned End of         Char ISO 8601 Timing                                    C117042    The end of a planned              The reference time point is in --
+                 Assessment Interval         duration                                                      assessment interval relative to   TPTREF. As this variable
+                                                                                                           a reference time point,           describes planned timing of an
+                                                                                                           represented in a standardized     assessment, caution should be
+                                                                                                           character format.                 exercised when using outside of
+                                                                                                                                             the Findings class of domains. In
+                                                                                                                                             an Events or Interventions
+                                                                                                                                             domain, it may refer to the
+                                                                                                                                             interval over which --OCCUR is
+                                                                                                                                             assessed.
+46 --DETECT      Time in Days to        Num           Timing                 Not in human       C117041    The number of days from the
+                 Detection                                                   clinical trials               start of dosing to the earliest
+                                                                                                           detection of a condition or
+                                                                                                           pathogen.
+47 --PTFL        Point in Time Flag     Char          Timing                 Only in Findings                                                An indication that the specimen
+                                                                             class specimen-                                                 was collected at a single point in
+                                                                             based domains:                                                  time. The value is "Y" or null.
+                                                                             BS, CP, GF, IS,
+                                                                             LB, MB, MS, MI,
+                                                                             PC, PP
+48 --PDUR        Planned Duration       Char ISO 8601 Timing                 Only in Findings                                                Planned duration of a finding. For
+                                             duration                        class specimen-                                                 a sample-based finding, this
+                                                                             based domains:                                                  could apply to the planned
+                                                                             BS, CP, GF, IS,                                                 duration of specimen collection.
+                                                                             LB, MB, MS, MI,
+                                                                             PC, PP
+
+
+
+
+© 2021 Clinical Data Interchange Standards Consortium, Inc. All rights reserved                                                                                                              Page 39
+2021-11-29
+===== END p39 =====

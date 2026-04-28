@@ -1,0 +1,114 @@
+{
+  "session": "D",
+  "round": 13,
+  "batch": 52,
+  "status": "completed",
+  "completed_at": "2026-04-30T12:00:00Z",
+  "scope": {
+    "pages": "sv20_p51-p59",
+    "pages_count": 9,
+    "page_skip_decision": "Option_a_SKIP_p50_per_kickoff_default",
+    "p0_overlap_resolution": "SKIP_per_kickoff_default_p50_baseline_absent_in_root_documented_O-P1-185_LOW",
+    "sub_batches": {
+      "52a": "sv20_p51-p55",
+      "52b": "sv20_p56-p59"
+    }
+  },
+  "writer": {
+    "subagent_type": "oh-my-claudecode:executor",
+    "v1.7_N21_compliance": "PASS_executor_mandatory_for_production_atomization",
+    "agent_id": "a5f61d2484cbbeea2",
+    "n6_pattern": "single_dispatch_4th_cumulative_live_fire_STRONGLY_VALIDATED",
+    "prompt_version": "P0_writer_pdf_v1.7"
+  },
+  "reviewer": {
+    "subagent_type": "Plan",
+    "slot_number": 65,
+    "audit_pivot_number": 46,
+    "family": "single-agent",
+    "burn_count": 3,
+    "intra_family_depth_scale": "3-burn_1st_single_agent_family_at_3-burn_post_v1.7_cut",
+    "branch": "C_inline_content_substitution_main_session_writes",
+    "rule_a_pass_rate": "100.0%",
+    "dim_checks_total": 36,
+    "dim_checks_pass": 36,
+    "dim_checks_partial": 0,
+    "dim_checks_fail": 0
+  },
+  "atoms": {
+    "52a_count": 95,
+    "52b_count": 70,
+    "total": 165,
+    "by_atom_type": {
+      "HEADING": 25,
+      "SENTENCE": 34,
+      "LIST_ITEM": 10,
+      "TABLE_HEADER": 10,
+      "TABLE_ROW": 83,
+      "NOTE": 3
+    },
+    "by_page": {
+      "51": 23, "52": 17, "53": 18, "54": 20, "55": 17,
+      "56": 22, "57": 13, "58": 18, "59": 17
+    }
+  },
+  "self_validate_hooks": {
+    "passed": "20/20",
+    "hook_16_7_writer_family_ban_pre_dispatch": "PASS_executor_permitted",
+    "hook_18_sentence_paragraph_concat": "0_warn_executor_clean",
+    "hook_19_pdf_cross_verify_n10": "PASS_no_url_doi_in_scope",
+    "hook_13_table_row_pipe_count": "consistent_across_83_TABLE_ROW_4_warn_non_blocking_examples_column_variance",
+    "schema_sweep_errors": 0,
+    "furniture_leaks": 0,
+    "page_boundary_wraps_handled": 3
+  },
+  "drift_cal": "skipped_per_cadence_next_mandatory_batch_51_sister_session_for_round_13_cycle_already_pre_allocated",
+  "findings": {
+    "raised_batch_52_quality": [],
+    "raised_project_level_discovery": ["O-P1-185_LOW_p0_pilot_baseline_absent_sv20_p50_4_l1_chapter_unrepresented_v1.8_backfill_candidate"],
+    "id_range_reserved": ["O-P1-185", "O-P1-186", "O-P1-187", "O-P1-188"],
+    "id_range_used": ["O-P1-185"],
+    "id_range_unused": ["O-P1-186", "O-P1-187", "O-P1-188"]
+  },
+  "v1_8_codification_candidates_surfaced_round_13_batch_52": [
+    "P0_pilot_baseline_absence_reconciliation_plans_A2_stale_or_superseded",
+    "L3_with_L4_children_parent_section_natural_form_codification_explicit",
+    "SENTENCE_atomization_rule_multi_sentence_section_intro_paragraphs_granularity",
+    "TABLE_ROW_empty_cell_preservation_pipe_delimited_consecutive_null_evidence_base_sv20_specific",
+    "section_4_associated_persons_data_l1_chapter_gap_v1.8_backfill_candidate"
+  ],
+  "raw_and_adjudicated_chain": {
+    "batch_52_status": "9th_cumulative_100pct_raw_and_adjudicated_chain_candidate_subject_to_reconciler_E_validation",
+    "prior_chain": [
+      "round_8_batch_37",
+      "round_9_batch_38",
+      "round_10_batch_41",
+      "round_10_batch_43",
+      "round_11_batch_44",
+      "round_11_batch_45",
+      "round_12_batch_48",
+      "round_12_batch_49",
+      "round_13_batch_52"
+    ]
+  },
+  "output_files": {
+    "atoms_52a": ".work/06_deep_verification/evidence/checkpoints/pdf_atoms_batch_52a.jsonl",
+    "atoms_52b": ".work/06_deep_verification/evidence/checkpoints/pdf_atoms_batch_52b.jsonl",
+    "rule_a_sample": ".work/06_deep_verification/evidence/checkpoints/rule_a_batch_52_sample.jsonl",
+    "rule_a_verdicts": ".work/06_deep_verification/evidence/checkpoints/rule_a_batch_52_verdicts.jsonl",
+    "rule_a_summary": ".work/06_deep_verification/evidence/checkpoints/rule_a_batch_52_summary.md",
+    "batch_report": ".work/06_deep_verification/evidence/checkpoints/P1_batch_52_report.md",
+    "progress": ".work/06_deep_verification/evidence/checkpoints/_progress_batch_52.json"
+  },
+  "DO_NOT_TOUCH_verification": {
+    "root_pdf_atoms_jsonl": "untouched_11774_atoms_baseline_preserved",
+    "audit_matrix_md": "untouched_reconciler_scope",
+    "root_progress_json": "untouched_reconciler_scope",
+    "sister_batch_files": "untouched_session_B_C_scope",
+    "subagent_prompts": "untouched_v1.7_active",
+    "schema_json": "untouched_v1.2_frozen",
+    "plan_md_files": "untouched_no_plan_layer_modification",
+    "claude_md_memory": "untouched_project_scope"
+  },
+  "done_signal": "PARALLEL_SESSION_52_DONE atoms=165 failures=0 repair_cycles=0 rule_a=100.0% drift_cal=skipped p0_overlap=SKIP findings_added=O-P1-185"
+}

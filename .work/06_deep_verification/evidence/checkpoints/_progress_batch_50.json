@@ -1,0 +1,117 @@
+{
+  "batch_id": 50,
+  "round": 13,
+  "session": "B",
+  "status": "completed",
+  "v1_baseline": "v1.7 N21 EMERGENCY-CRITICAL writer-family complete deprecation (3rd round running post round 11 INAUGURAL + round 12 2nd cumulative)",
+  "commit_baseline": "ba1ae12",
+  "page_range": "sv20 p.30-39 (10 pages)",
+  "sub_batches": {
+    "50a": {"pages": "sv20 p.30-34", "atoms": 55, "writer": "oh-my-claudecode:executor", "agent_id": "ae54c5dded3c033fb", "content_type": "mixed_structural_transition+spec_table"},
+    "50b": {"pages": "sv20 p.35-39", "atoms": 50, "writer": "oh-my-claudecode:executor", "agent_id": "ae54c5dded3c033fb (single-dispatch with 50a)", "content_type": "spec_table_sustained_content_narrative"}
+  },
+  "atoms_total": 105,
+  "atoms_distribution_by_type": {
+    "TABLE_ROW": 89,
+    "SENTENCE": 7,
+    "HEADING": 6,
+    "TABLE_HEADER": 3
+  },
+  "atoms_distribution_by_page": {
+    "30": 10, "31": 9, "32": 15, "33": 11, "34": 10,
+    "35": 14, "36": 11, "37": 7, "38": 11, "39": 7
+  },
+  "schema_violations": 0,
+  "atom_id_format_violations": 0,
+  "atom_type_enum_fabrication_count": 0,
+  "xpt_parent_violations": 0,
+  "header_footer_leak_count": 0,
+  "duplicate_atom_ids": 0,
+  "source_field": "SDTM_v2.0",
+  "single_dispatch_n6": {"status": "PASS", "live_fire_cumulative": 3, "status_promotion": "STRONGLY VALIDATED", "agent_id": "ae54c5dded3c033fb"},
+  "v1_7_n21_dispatch": {"status": "PASS", "round_running": 3, "writer_family_contamination": 0, "executor_only_atoms": 105},
+  "hook_19_pdf_cross_verify": {"sample_size": 13, "pass": 13, "fail": 0, "url_doi_count": 0},
+  "rule_a": {
+    "reviewer_slot": 63,
+    "reviewer_subagent_type": "oh-my-claudecode:architect",
+    "audit_pivot_cumulative": 44,
+    "branch": "C (READ-ONLY tool profile; main session writes verdict file)",
+    "sample_size": 10,
+    "sample_seed": 20260601,
+    "stratification": "1/page sv20 p.30-39",
+    "dim_pass_count": 36,
+    "dim_partial_count": 4,
+    "dim_fail_count": 0,
+    "weighted_pass_rate": 95.0,
+    "threshold": 80.0,
+    "threshold_met": true,
+    "verdicts_file": "evidence/checkpoints/rule_a_batch_50_verdicts.jsonl",
+    "summary_file": "evidence/checkpoints/rule_a_batch_50_summary.md",
+    "groundtruth_file": "evidence/checkpoints/rule_a_batch_50_pdf_groundtruth.txt",
+    "sample_file": "evidence/checkpoints/rule_a_batch_50_sample.jsonl",
+    "d_ms_7_candidate": "architect-strategist 1st live-fire EFFECTIVE",
+    "sister_chain_extension": "6th successive omc D-MS-7 candidate at intra-family-15th-burn STRONGLY VALIDATED EXTENDED",
+    "audit_mode_pivot_3axis_reflection": "Architect strategic-architecture lens identified Axis 4 motif (spec-table column-slot positional drift) as system-level architectural finding; complementary to per-atom point-defect detection lenses of prior 5 sister chain D-MS-7 candidates (planner/verifier/tracer/code-reviewer/critic)"
+  },
+  "drift_cal": {"triggered": false, "next_mandatory_batch": 51, "next_mandatory_page": "sv20 p.45", "rationale": "every-3-batches cadence batch 48 was last drift cal; batch 51 next"},
+  "findings_added": [
+    {
+      "id": "O-P1-177",
+      "severity": "MEDIUM",
+      "title": "spec_table_blank_cell_column_slot_drift_motif",
+      "axis": "Axis 4 NEW class (executor-direction)",
+      "trigger_condition": "row has BLANK C-code (slot 9) AND BLANK Definition (slot 10) AND POPULATED Notes (slot 11); writer fills slot 10 with Notes-content leaves slot 11 blank",
+      "affected_atoms_in_sample": 4,
+      "sample_total": 8,
+      "rule_a_threshold_breached": false,
+      "value_hallucination": false,
+      "byte_exact_preserved": true,
+      "v1_8_codification_candidate": "N24 + Self-Validate Hook 21 (writer-side post-extraction VALIDATION pass; pre-DONE check for blank-blank-populated-blank slot pattern + right-shift correction or WARN)",
+      "disposition": "KEEP atoms as-emitted; defer corrective action to v1.8 cut session",
+      "esclate_to_v1_8_trigger": false,
+      "rationale_no_escalate": "MEDIUM severity (NOT HIGH) because content-preserving + recoverable + threshold not breached; though first executor-direction motif in P1 cumulative ~11097 production atoms"
+    }
+  ],
+  "findings_reserved_unused": ["O-P1-178", "O-P1-179", "O-P1-180"],
+  "rule_d_burn": {"slot": 63, "subagent_type": "oh-my-claudecode:architect", "audit_pivot": 44, "family": "omc", "family_burn_count_cumulative": 15, "d_ms_7_candidate": true, "d_ms_7_sister_chain_position": 6},
+  "halt_triggered": false,
+  "rule_compliance": {"A": "PASS", "B": "N/A", "C": "DEFERRED", "D": "PASS", "E": "APPLIED"},
+  "v1_8_candidates": [
+    "Single-dispatch N6 STRONGLY VALIDATED at 3 cumulative live-fires → codify as preferred default over SendMessage",
+    "sv20 header/footer skip rule STRONGLY VALIDATED at 3 cumulative live-fires → codify as permanent sv20 extraction discipline",
+    "L5 caption (table caption HEADING under L4 sub-section) sib=1 pattern at 2 cumulative instances",
+    "Axis 4 NEW class spec-table column-slot positional drift O-P1-177 MEDIUM → v1.8 N24 + Self-Validate Hook 21 codification candidate"
+  ],
+  "next_predicted_transitions_p40_onwards": "§3.2 Special-purpose Domains L2 NEW (sib=2 under §3) at p.40 — OUT of batch 50 scope (batch 51 territory)",
+  "active_heading_state_at_end_of_p39": {
+    "L1": "§3 [MODEL ELEMENTS] (chapter-short-bracket per N11; sib=3 under sv20 root)",
+    "L2": "§3.1 General Observation Classes (sib=1 under §3; natural form)",
+    "L3_active": "§3.1.5 Timing Variables for All Classes (sib=5 under §3.1; spec-table rows 1-48 completed through p.39)",
+    "L4_active_caption": "All Observation Classes—Timing Variables (sib=1 under §3.1.5, p.35 emitted)"
+  },
+  "single_line_done": "PARALLEL_SESSION_50_DONE atoms=105 failures=0 repair_cycles=0 rule_a=95.0% drift_cal=skipped findings_added=O-P1-177_MEDIUM_axis4_executor_direction_column_slot_drift O-P1-178..180_reserved_unused",
+  "last_updated": "2026-04-30",
+  "owned_files": [
+    "evidence/checkpoints/pdf_atoms_batch_50a.jsonl",
+    "evidence/checkpoints/pdf_atoms_batch_50b.jsonl",
+    "evidence/checkpoints/_progress_batch_50.json",
+    "evidence/checkpoints/P1_batch_50_report.md",
+    "evidence/checkpoints/rule_a_batch_50_sample.jsonl",
+    "evidence/checkpoints/rule_a_batch_50_verdicts.jsonl",
+    "evidence/checkpoints/rule_a_batch_50_summary.md",
+    "evidence/checkpoints/rule_a_batch_50_pdf_groundtruth.txt"
+  ],
+  "untouched_files": [
+    "pdf_atoms.jsonl (root)",
+    "audit_matrix.md",
+    "_progress.json (root)",
+    "subagent_prompts/* (v1.7 active)",
+    "schema/*.json",
+    "PLAN.md",
+    "plans/*.md",
+    "CLAUDE.md",
+    "MEMORY/*",
+    "evidence/checkpoints/pdf_atoms_batch_51* (sister C scope)",
+    "evidence/checkpoints/pdf_atoms_batch_52a/52b.jsonl (sister D scope; observed pre-existing)"
+  ]
+}
