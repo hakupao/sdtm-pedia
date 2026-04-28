@@ -11,13 +11,17 @@ interface Props {
 export function LangSwitcher({ currentLang, pathname }: Props) {
   const langs: Lang[] = ['en', 'zh', 'ja'];
   return (
-    <nav aria-label="Language" className="flex gap-2 font-mono text-[10px] tracking-wider">
+    <nav aria-label="Language" className="flex items-center gap-2 font-mono tracking-wider">
       {langs.map((l) => (
         <a
           key={l}
           href={replaceLangInPath(pathname, l)}
           aria-current={l === currentLang ? 'page' : undefined}
-          className={l === currentLang ? 'text-ink font-bold' : 'text-ink-mute hover:text-accent'}
+          className={`pb-0.5 border-b ${
+            l === currentLang
+              ? 'text-accent border-accent'
+              : 'text-ink-mute border-transparent hover:text-accent'
+          }`}
         >
           {LABELS[l]}
         </a>

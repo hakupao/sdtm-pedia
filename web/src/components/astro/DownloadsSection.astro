@@ -6,7 +6,7 @@ import { getUIStrings, type Lang } from '../../i18n/helpers';
 interface Props { lang: Lang; }
 const { lang } = Astro.props;
 const t = getUIStrings(lang);
-const subhead = { zh: '自部署你自己的.', en: 'Self-deploy your own.', ja: 'セルフデプロイしましょう。' }[lang];
+const subhead = t['section.downloads.subhead'];
 // Toggle via PUBLIC_RELEASE_PUBLISHED env var. Defaults to published now
 // that v1.0 is live with 4 zip artifacts. Set to "false" locally to preview
 // the pending placeholder, or during a release-prep window where downloads.json

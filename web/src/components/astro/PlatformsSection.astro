@@ -2,14 +2,11 @@
 import SectionLabel from './SectionLabel.astro';
 import { CountUp } from '../react/CountUp';
 import platforms from '../../data/platforms.json';
-import { type Lang } from '../../i18n/helpers';
+import { getUIStrings, type Lang } from '../../i18n/helpers';
 interface Props { lang: Lang; }
 const { lang } = Astro.props;
-const subhead = {
-  zh: '四种部署, 各有性格.',
-  en: 'Four deployments, each with a temperament.',
-  ja: '4 つのデプロイメント、それぞれの性格。',
-}[lang];
+const t = getUIStrings(lang);
+const subhead = t['section.platforms.subhead'];
 ---
 <section id="platforms" class="enter-fade py-8 bg-bg-alt border-b border-rule">
   <div class="max-w-screen-xl mx-auto px-7">

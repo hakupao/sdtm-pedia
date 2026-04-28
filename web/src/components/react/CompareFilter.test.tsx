@@ -33,13 +33,13 @@ describe('<CompareFilter>', () => {
   });
   it('localizes filter input placeholder + aria-label per lang', () => {
     const { rerender } = render(<CompareFilter dims={dims} lang="zh" />);
-    expect(screen.getByPlaceholderText('过滤维度...')).toBeInTheDocument();
-    expect(screen.getByLabelText('过滤维度')).toBeInTheDocument();
+    expect(screen.getByPlaceholderText('按维度筛选...')).toBeInTheDocument();
+    expect(screen.getByLabelText('按维度筛选')).toBeInTheDocument();
     rerender(<CompareFilter dims={dims} lang="ja" />);
-    expect(screen.getByPlaceholderText('次元の絞り込み...')).toBeInTheDocument();
-    expect(screen.getByLabelText('次元の絞り込み')).toBeInTheDocument();
+    expect(screen.getByPlaceholderText('次元で絞り込み...')).toBeInTheDocument();
+    expect(screen.getByLabelText('次元で絞り込み')).toBeInTheDocument();
     rerender(<CompareFilter dims={dims} lang="en" />);
-    expect(screen.getByPlaceholderText('Filter dimensions...')).toBeInTheDocument();
-    expect(screen.getByLabelText('Filter dimensions')).toBeInTheDocument();
+    expect(screen.getByPlaceholderText('Filter by dimension...')).toBeInTheDocument();
+    expect(screen.getByLabelText('Filter by dimension')).toBeInTheDocument();
   });
 });

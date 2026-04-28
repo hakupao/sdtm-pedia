@@ -6,6 +6,13 @@
 @import "@fontsource/jetbrains-mono/500.css";
 @import "@fontsource/jetbrains-mono/700.css";
 
+/* CJK fonts — chunked by unicode-range; only on-page glyph subsets are downloaded */
+@import "@fontsource/noto-serif-sc/400.css";
+@import "@fontsource/noto-serif-sc/700.css";
+@import "@fontsource/noto-serif-jp/400.css";
+@import "@fontsource/noto-serif-jp/700.css";
+@import "@fontsource/shippori-mincho/700.css";
+
 @import "tailwindcss";
 @import "./prose.css";
 
@@ -17,6 +24,29 @@
   --color-ink-faint: var(--ink-faint);
   --color-accent: var(--accent);
   --color-rule: var(--rule);
+
+  /* Font tokens. Latin face first; per-language CJK chain (set via :lang() below) fills in CJK glyphs;
+     Generic family last as ultimate fallback. Activates Playfair Display + JetBrains Mono utilities,
+     which until now were loaded but never referenced by any rule. */
+  --font-display: 'Playfair Display', var(--font-cjk-display), Georgia, Cambria, 'Times New Roman', Times, serif;
+  --font-serif: 'Source Serif Pro', var(--font-cjk-body), Georgia, Cambria, 'Times New Roman', Times, serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, var(--font-cjk-body), monospace;
+}
+
+/* CJK font chain swaps by HTML lang attribute. Default (en or unset) prefers SC then JP for any
+   stray CJK glyphs. zh narrows to Noto Serif SC. ja prefers Shippori Mincho for kana/kanji
+   (editorial display feel) with Noto Serif JP as full-coverage fallback. */
+:root {
+  --font-cjk-display: 'Noto Serif SC', 'Noto Serif JP';
+  --font-cjk-body: 'Noto Serif SC', 'Noto Serif JP';
+}
+:root:lang(zh) {
+  --font-cjk-display: 'Noto Serif SC';
+  --font-cjk-body: 'Noto Serif SC';
+}
+:root:lang(ja) {
+  --font-cjk-display: 'Shippori Mincho', 'Noto Serif JP';
+  --font-cjk-body: 'Noto Serif JP';
 }
 
 :root, [data-theme="light"] {
@@ -66,7 +96,7 @@
 html, body {
   background: var(--bg);
   color: var(--ink);
-  font-family: 'Source Serif Pro', Georgia, serif;
+  font-family: var(--font-serif);
   transition: background 250ms ease-in-out, color 250ms ease-in-out;
 }
 
