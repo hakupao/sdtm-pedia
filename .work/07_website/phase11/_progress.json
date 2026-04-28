@@ -1,7 +1,8 @@
 {
   "phase": "07_website_phase_11_v1.2_font_size_chrome_polish",
   "tier": 2,
-  "status": "EXECUTING",
+  "status": "CLOSED",
+  "closed_at": "2026-04-30",
   "branch": "main",
   "head_at_plan_ack": "cdd8f8e",
   "plan_ack_date": "2026-04-30",
@@ -40,8 +41,40 @@
       "Pagefind 27 pages = 9+9+9 (zh+en+ja)"
     ]
   },
-  "completed_steps": [],
-  "next_step": "11.1 TopNav + Footer max-w wrap (in progress)",
+  "completed_steps": [
+    {"step": "11.1", "commit": "e36354c", "subject": "TopNav + Footer max-w-screen-xl content wrap", "files": 4, "loc": "+293 / -39"},
+    {"step": "11.2", "commit": "43c0b84", "subject": "⌘K hint → 搜索/Search/検索 (Option A)", "files": 5, "loc": "+9 / -7"},
+    {"step": "11.3", "commit": "41c54da", "subject": "TopNav utilities visual divider", "files": 1, "loc": "+16 / -12"},
+    {"step": "11.4", "commit": "d01aa0a", "subject": "DocsLayout add Footer mount", "files": 1, "loc": "+2 / -0"},
+    {"step": "11.5", "commit": "6c92b05", "subject": "v1.2 font-size 4-tier adjuster (FontSizeToggle + html data-fontsize)", "files": 9, "loc": "+174 / -2"},
+    {"step": "11.5-fix", "commit": "0549317", "subject": "html font-size cascade → body zoom (caught by Daisy visual smoke)", "files": 1, "loc": "+13 / -10"},
+    {"step": "11.6", "commit": "(no fix bundle needed)", "subject": "code-reviewer PASS H=0 M=0 L=2 (2 LOW → C-P11-3+4 carryover)", "reviewer": "oh-my-claudecode:code-reviewer", "report_path": ".work/07_website/phase11/evidence/checkpoints/phase_11_reviewer_report.md"},
+    {"step": "11.7", "commit": "pending (this commit)", "subject": "Phase 11 close — handoff + master plan annotation + index sync"}
+  ],
+  "reviewer_verdict": "PASS",
+  "reviewer_findings": {"high": 0, "medium": 0, "low": 2, "deferred": 2},
+  "test_baseline_at_phase_close": {
+    "tsc_errors": 0,
+    "vitest_pass": "57/57",
+    "vitest_files": 12,
+    "vitest_delta_vs_phase_10": "+6 (FontSizeToggle 6 new tests)",
+    "e2e_pass": "7/7",
+    "e2e_lane": "npm run preview",
+    "build_pages": 31,
+    "pagefind_pages_indexed": 27,
+    "pagefind_words_indexed": 6457
+  },
+  "daisy_visual_smoke_ack": "可以推送吧 (2026-04-30 PM, post 11.5-fix screenshots verified md/xl/sm tier scaling + docs Footer + TopNav 4-group divider)",
+  "screenshots_evidence": [
+    "evidence/screenshots/02_landing_zh_md_default.png",
+    "evidence/screenshots/03_landing_zh_xl_zoom_125.png",
+    "evidence/screenshots/04_landing_zh_sm_zoom_87.png",
+    "evidence/screenshots/05_landing_zh_md_full.png",
+    "evidence/screenshots/06_landing_zh_xl_full.png",
+    "evidence/screenshots/09_docs_zh_footer_correct.png",
+    "evidence/screenshots/10_topnav_closeup.png"
+  ],
+  "next_step": "PUSH origin main; post-push verify 6 surfaces (chrome max-w + 搜索 + 4-divider + docs Footer + FontSizeToggle 4 buttons + zoom scaling); Phase 12 entry candidates A v1.2.x polish (C-P11-*) / B C-P9-* carryover bundle / C new user feedback / F STOP",
   "evidence_dir": ".work/07_website/phase11/evidence/",
   "subagent_prompts_dir": ".work/07_website/phase11/subagent_prompts/",
   "plan_path": ".work/07_website/phase11/PLAN.md",
