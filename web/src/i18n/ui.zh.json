@@ -13,6 +13,7 @@
   "section.demo.cta": "→ 完整 10 题",
   "section.downloads.subhead": "自部署你自己的.",
   "section.downloads.cta": "→ 全部 release 资产",
+  "section.downloads.pending": "v1.0 发布包正在准备, 敬请期待. 同时可以在 GitHub releases 页面查看进度:",
   "footer.maintainer": "维护: Daisy. 内部发布版.",
   "search.placeholder": "搜索文档...",
   "search.shortcut": "Cmd K"

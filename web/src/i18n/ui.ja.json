@@ -13,6 +13,7 @@
   "section.demo.cta": "→ 全 10 問",
   "section.downloads.subhead": "セルフデプロイしましょう。",
   "section.downloads.cta": "→ 全リリース",
+  "section.downloads.pending": "v1.0 リリースバンドルを準備中です。進捗は GitHub releases ページでご確認ください:",
   "footer.maintainer": "メンテナー: Daisy. 社内公開版。",
   "search.placeholder": "ドキュメント検索...",
   "search.shortcut": "Cmd K"

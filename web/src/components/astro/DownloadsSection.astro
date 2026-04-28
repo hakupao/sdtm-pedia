@@ -7,23 +7,38 @@ interface Props { lang: Lang; }
 const { lang } = Astro.props;
 const t = getUIStrings(lang);
 const subhead = { zh: '自部署你自己的.', en: 'Self-deploy your own.', ja: 'セルフデプロイしましょう。' }[lang];
+// Toggle via PUBLIC_RELEASE_PUBLISHED env var. Default off so links never
+// 404 before the v1.0 zips are uploaded to a GitHub release.
+const releasePublished = import.meta.env.PUBLIC_RELEASE_PUBLISHED === 'true';
 ---
 <section id="downloads" class="enter-fade px-7 py-8 border-b border-rule">
   <SectionLabel number="05" label="DOWNLOADS" />
   <h2 class="font-display text-2xl mb-5 leading-tight">{subhead}</h2>
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-    {downloads.bundles.map((b) => (
-      <a href={buildReleaseAssetURL(downloads.tag, b.filename)}
-         class="bg-bg-alt p-3 border border-rule flex justify-between items-center hover:border-accent transition-colors">
-        <div>
-          <div class="font-mono text-[11px] font-bold">{b.filename}</div>
-          <div class="font-mono text-[9px] text-ink-mute">{b.files} files · {b.sizeMB} MB</div>
-        </div>
-        <span class="font-mono text-lg text-accent">↓</span>
+  {releasePublished ? (
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+      {downloads.bundles.map((b) => (
+        <a href={buildReleaseAssetURL(downloads.tag, b.filename)}
+           class="bg-bg-alt p-3 border border-rule flex justify-between items-center hover:border-accent transition-colors">
+          <div>
+            <div class="font-mono text-[11px] font-bold">{b.filename}</div>
+            <div class="font-mono text-[9px] text-ink-mute">{b.files} files · {b.sizeMB} MB</div>
+          </div>
+          <span class="font-mono text-lg text-accent">↓</span>
+        </a>
+      ))}
+    </div>
+  ) : (
+    <div class="bg-bg-alt p-4 border border-rule font-serif text-[12px] text-ink-mute">
+      {t['section.downloads.pending']}
+      {' '}
+      <a href={`https://github.com/${REPO}/releases`} class="text-accent hover:underline">
+        github.com/{REPO}/releases
       </a>
-    ))}
-  </div>
-  <a href={`https://github.com/${REPO}/releases`} class="inline-block mt-3 font-mono text-[9px] tracking-wider text-ink-mute hover:text-accent">
-    {t['section.downloads.cta']}
-  </a>
+    </div>
+  )}
+  {releasePublished && (
+    <a href={`https://github.com/${REPO}/releases`} class="inline-block mt-3 font-mono text-[9px] tracking-wider text-ink-mute hover:text-accent">
+      {t['section.downloads.cta']}
+    </a>
+  )}
 </section>
