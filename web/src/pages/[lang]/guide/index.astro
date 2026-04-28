@@ -1,7 +1,24 @@
 ---
+// /{lang}/guide/ → /{lang}/guide/user-guide/ redirect. Same approach as
+// web/src/pages/index.astro: replaces Astro.redirect() with a hand-rolled
+// HTML template so <html lang> + data-pagefind-ignore are emitted.
+// Phase 9 / C-P7-6. Trailing-slash canonical preserved per Phase 7.5 fix.
 export function getStaticPaths() {
   return [{ params: { lang: 'zh' } }, { params: { lang: 'en' } }, { params: { lang: 'ja' } }];
 }
 const { lang } = Astro.params;
-return Astro.redirect(`/${lang}/guide/user-guide/`);
+const target = `/${lang}/guide/user-guide/`;
 ---
+<!doctype html>
+<html lang={lang} data-pagefind-ignore="all">
+  <head>
+    <meta charset="utf-8" />
+    <title>Redirecting to: {target}</title>
+    <meta http-equiv="refresh" content={`0;url=${target}`} />
+    <meta name="robots" content="noindex" />
+    <link rel="canonical" href={`https://sdtm-pedia.pages.dev${target}`} />
+  </head>
+  <body>
+    <a href={target}>Redirecting from <code>/{lang}/guide/</code> to <code>{target}</code></a>
+  </body>
+</html>

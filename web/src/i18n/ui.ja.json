@@ -17,6 +17,8 @@
   "footer.maintainer": "メンテナー: Daisy. 社内公開版。",
   "search.placeholder": "ドキュメント検索...",
   "search.shortcut": "Cmd K",
+  "search.results.label": "件の結果",
+  "search.unavailable": "検索インデックスが利用できません",
   "compare.title": "多次元プラットフォーム比較",
   "compare.subhead": "4 プラットフォーム横並び。次元キーワードで絞り込み。",
   "compare.filter.placeholder": "次元の絞り込み...",

@@ -1,3 +1,21 @@
 ---
-return Astro.redirect('/zh/');
+// Root redirect → /zh/. Replaces Astro.redirect() so the emitted HTML carries
+// <html lang> + data-pagefind-ignore (Phase 9 / C-P7-6: silences 4 Pagefind
+// "no <html> element" build warnings + makes Pagefind explicitly skip).
+// Behavior unchanged: 200 OK + <meta http-equiv=refresh>; canonical with
+// trailing slash preserved per Phase 7.5 redirect canonical fix.
+const target = '/zh/';
 ---
+<!doctype html>
+<html lang="zh" data-pagefind-ignore="all">
+  <head>
+    <meta charset="utf-8" />
+    <title>Redirecting to: {target}</title>
+    <meta http-equiv="refresh" content={`0;url=${target}`} />
+    <meta name="robots" content="noindex" />
+    <link rel="canonical" href={`https://sdtm-pedia.pages.dev${target}`} />
+  </head>
+  <body>
+    <a href={target}>Redirecting from <code>/</code> to <code>{target}</code></a>
+  </body>
+</html>

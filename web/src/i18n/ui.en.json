@@ -17,6 +17,8 @@
   "footer.maintainer": "Maintained by Daisy. Internal release.",
   "search.placeholder": "Search docs...",
   "search.shortcut": "Cmd K",
+  "search.results.label": "results",
+  "search.unavailable": "Search index unavailable",
   "compare.title": "Multi-dimensional Comparison",
   "compare.subhead": "Side-by-side across 4 platforms. Filter by dimension keyword.",
   "compare.filter.placeholder": "Filter dimensions...",
