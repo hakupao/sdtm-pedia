@@ -4,6 +4,11 @@
 // "no <html> element" build warnings + makes Pagefind explicitly skip).
 // Behavior unchanged: 200 OK + <meta http-equiv=refresh>; canonical with
 // trailing slash preserved per Phase 7.5 redirect canonical fix.
+//
+// Phase 10.1: in production, Cloudflare Pages `web/public/_redirects` does
+// a real HTTP 301 before this HTML is served — no white-screen flash, no
+// visible "Redirecting from / to /zh/" body text. This template remains the
+// fallback for local astro dev/preview where _redirects isn't honored.
 const target = '/zh/';
 ---
 <!doctype html>
