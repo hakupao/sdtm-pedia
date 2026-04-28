@@ -24,12 +24,16 @@ const canonicalHref = Astro.site
     <meta name="description" content={description} />
     <title>{title}</title>
     <script is:inline>
-      // Avoid theme flash: read localStorage before paint
+      // Avoid theme + fontsize flash: read localStorage before paint
       (function () {
         try {
           var t = localStorage.getItem('theme');
           if (t === 'light' || t === 'dark') {
             document.documentElement.dataset.theme = t;
+          }
+          var f = localStorage.getItem('fontsize');
+          if (f === 'sm' || f === 'lg' || f === 'xl') {
+            document.documentElement.dataset.fontsize = f;
           }
         } catch (_) { /* localStorage may throw in Safari private mode */ }
       })();

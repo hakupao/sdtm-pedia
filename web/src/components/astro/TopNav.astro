@@ -1,5 +1,6 @@
 ---
 import { ThemeToggle } from '../react/ThemeToggle';
+import { FontSizeToggle } from '../react/FontSizeToggle';
 import { LangSwitcher } from '../react/LangSwitcher';
 import { SearchOverlay } from '../react/SearchOverlay';
 import { getUIStrings, type Lang } from '../../i18n/helpers';
@@ -30,7 +31,7 @@ const t = getUIStrings(lang);
         <span class="border-l border-rule pl-4 pr-4 flex items-center">
           <LangSwitcher client:load currentLang={lang} pathname={pathname} />
         </span>
-        <span class="border-l border-rule pl-4 flex items-center">
+        <span class="border-l border-rule pl-4 pr-4 flex items-center">
           <ThemeToggle
             client:load
             navLabel={t['theme.label']}
@@ -38,6 +39,18 @@ const t = getUIStrings(lang);
               light: t['theme.light'],
               dark: t['theme.dark'],
               system: t['theme.system'],
+            }}
+          />
+        </span>
+        <span class="border-l border-rule pl-4 flex items-center">
+          <FontSizeToggle
+            client:load
+            navLabel={t['fontsize.label']}
+            labels={{
+              sm: t['fontsize.sm'],
+              md: t['fontsize.md'],
+              lg: t['fontsize.lg'],
+              xl: t['fontsize.xl'],
             }}
           />
         </span>
