@@ -1,5 +1,4 @@
 ---
-lang: en
 slug: demo-questions
 order: 30
 title: "Demo Questions"
