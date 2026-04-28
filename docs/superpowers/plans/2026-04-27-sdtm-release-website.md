@@ -2482,6 +2482,8 @@ git commit -m "07 Website Phase 6.2 — expand compare-dimensions to 9 dims (pre
 
 ## Phase 7 — Search (Pagefind)
 
+> ⚠️ **Renumbered to Phase 8** — see `.work/07_website/phase7/PLAN.md` §"Plan deviation flag" + `.work/meta/website_phase7_to_phase8_handoff_2026-04-29.md` (2026-04-29). Phase 7 was reallocated to a release-readiness bundle (CF preview verify + compare page i18n + site-wide canonical + build:fresh + project README) absorbing 4 Phase 5/6 carryovers (C-P5-M3 / C-P6-1 / C-P6-3 / C-P6-8). Pagefind moves down one slot; current Phase 8 (Downloads Pipeline) → Phase 9; current Phase 9 (Deploy) → Phase 10. Phase 8 session starts here.
+
 ### Task 7.1: Verify Pagefind builds with site
 
 - [ ] **Step 1: Run build**

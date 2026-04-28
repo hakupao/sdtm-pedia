@@ -2,10 +2,10 @@
   "phase": 7,
   "tier": 3,
   "opened_date": "2026-04-29",
-  "closed_date": null,
+  "closed_date": "2026-04-29",
   "branch": "main",
   "head_at_open": "e1737f1",
-  "head_at_close": null,
+  "head_at_close": "e7e64c0_pre_index_sync",
   "production_url": "https://sdtm-pedia.pages.dev/",
   "preflight_decisions_acked_session_start": [
     "cf_pages_preview_verify_first_task_7_0",
