@@ -1,0 +1,110 @@
+{
+  "phase": "07_website_phase_10_v1.1_polish",
+  "tier": 2,
+  "status": "REVIEWER_COMPLETE_PENDING_CLOSE",
+  "branch": "main",
+  "head_at_plan_ack": "0b39fc1",
+  "plan_ack_date": "2026-04-30",
+  "plan_ack_quote": "ok 落实 plan.md 然后不开干, 等 17 点 usage 恢复了再开干",
+  "execute_window_open": "2026-04-30T17:00+local (post Daisy usage cutoff reset)",
+  "execute_started": "2026-04-30T17:00+local",
+  "scope_locked": [
+    "10.1 CF _redirects 301 (kill meta-refresh white-screen)",
+    "10.2 Landing content container (max-w-screen-xl, bg full-width)",
+    "10.3 ThemeToggle 平铺 3 按钮 (mirror LangSwitcher)",
+    "10.4 Daisy → Bojiang Zhang (web 5 + release 29)"
+  ],
+  "deferred_to_v1_2": [
+    "Font size 4-tier adjuster (independent feature, needs layout QA)"
+  ],
+  "deferred_to_phase_11": [
+    "All C-P9-1..16 from Phase 9→10 handoff carryover",
+    "C-P5-M2 / C-P6-5 / C-P7-7 / C-P7-8 / C-P8-6 pre-existing"
+  ],
+  "reviewer_slot": "oh-my-claudecode:verifier",
+  "reviewer_rationale": "Phase 9→10 handoff §4 recommendation; 2nd-burn omc-family (Phase 6 critic vs verifier different agent); cross-family vs Phase 8 pr / Phase 7 superpowers / Phase 9 feature-dev; evidence-based 'is the polish actually polished' lens fit for live-prod verification",
+  "reviewer_verdict": "CONDITIONAL_PASS",
+  "reviewer_findings": {
+    "high": 0,
+    "medium": 0,
+    "low": 2,
+    "deferred": 0
+  },
+  "reviewer_report_path": ".work/07_website/phase10/evidence/checkpoints/phase_10_reviewer_report.md",
+  "test_baseline_at_plan_ack": {
+    "tsc_errors": 0,
+    "vitest_pass": "47/47",
+    "vitest_files": 11,
+    "e2e_pass": "7/7",
+    "e2e_lane": "npm run preview",
+    "build_pages": 31,
+    "pagefind_artifacts": 17,
+    "lighthouse_a11y": 91,
+    "lighthouse_best_practices": 73,
+    "lighthouse_seo": 100
+  },
+  "test_baseline_at_phase_close": {
+    "tsc_errors": 0,
+    "vitest_pass": "51/51",
+    "vitest_files": 11,
+    "vitest_delta_vs_phase_9": "+4 (ThemeToggle 6 new − 2 old = +4 net)",
+    "e2e_pass": "7/7",
+    "e2e_lane": "npm run preview",
+    "build_pages": 31,
+    "pagefind_pages_indexed": 27,
+    "pagefind_words_indexed": 6457,
+    "pagefind_words_delta": "+3 vs Phase 9 (Bojiang Zhang name additions)"
+  },
+  "production_state_at_plan_ack": {
+    "url": "https://sdtm-pedia.pages.dev/",
+    "status": "LIVE",
+    "auto_deploy": "CF Pages from main push",
+    "gh_release_v1_0_live_since": "2026-04-28T00:42:36Z",
+    "gh_release_assets": 4
+  },
+  "completed_steps": [
+    {
+      "step": "10.1",
+      "commit": "58173ba",
+      "subject": "CF _redirects 301 (kill meta-refresh white-screen)",
+      "files_changed": 3,
+      "loc_delta": "+24 / -0"
+    },
+    {
+      "step": "10.2",
+      "commit": "09e6424",
+      "subject": "Landing content container (max-w-screen-xl, bg full-width preserved)",
+      "files_changed": 5,
+      "loc_delta": "+113 / -103"
+    },
+    {
+      "step": "10.3",
+      "commit": "41f2aee",
+      "subject": "ThemeToggle 平铺 3 按钮 (mirror LangSwitcher pattern)",
+      "files_changed": 6,
+      "loc_delta": "+90 / -33"
+    },
+    {
+      "step": "10.4",
+      "commit": "a718c95",
+      "subject": "Daisy → Bojiang Zhang (web 8 + release 67 = 75 occurrences)",
+      "files_changed": 26,
+      "loc_delta": "+60 / -60"
+    },
+    {
+      "step": "10.5",
+      "commit": "pending",
+      "subject": "reviewer fix bundle (F-1 LOW: _progress.json housekeeping)",
+      "files_changed": 1,
+      "loc_delta": "+~30 / -~5",
+      "reviewer_findings_resolved": ["F-1"],
+      "reviewer_findings_carryover": ["F-2 → C-P10-1 (commit message count documentation)"]
+    }
+  ],
+  "next_step": "10.6 Phase 10 close + handoff + master plan annotation + index sync (single push)",
+  "evidence_dir": ".work/07_website/phase10/evidence/",
+  "subagent_prompts_dir": ".work/07_website/phase10/subagent_prompts/",
+  "plan_path": ".work/07_website/phase10/PLAN.md",
+  "estimated_total_hours": "4-5",
+  "actual_execute_duration_minutes": "TBD (filled at close)"
+}
