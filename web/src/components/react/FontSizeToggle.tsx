@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { getStoredFontSize, setStoredFontSize, applyFontSize, type FontSize } from '../../lib/fontSize';
 
 const TIERS: FontSize[] = ['sm', 'md', 'lg', 'xl'];
-const TIER_PX: Record<FontSize, string> = { sm: '12px', md: '14px', lg: '16px', xl: '18px' };
+const TIER_PX: Record<FontSize, string> = { sm: '10px', md: '12px', lg: '14px', xl: '16px' };
 
 interface Props {
   navLabel: string;
@@ -35,7 +35,7 @@ export function FontSizeToggle({ navLabel, labels }: Props) {
           aria-label={labels[t]}
           title={labels[t]}
           style={{ fontSize: TIER_PX[t] }}
-          className={t === size ? 'text-ink font-bold' : 'text-ink-mute hover:text-accent'}
+          className={t === size ? 'text-accent' : 'text-ink-mute hover:text-accent'}
         >
           A
         </button>
