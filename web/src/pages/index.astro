@@ -1,26 +1,18 @@
 ---
-// Root redirect → /zh/. Replaces Astro.redirect() so the emitted HTML carries
-// <html lang> + data-pagefind-ignore (Phase 9 / C-P7-6: silences 4 Pagefind
-// "no <html> element" build warnings + makes Pagefind explicitly skip).
-// Behavior unchanged: 200 OK + <meta http-equiv=refresh>; canonical with
-// trailing slash preserved per Phase 7.5 redirect canonical fix.
-//
-// Phase 10.1: in production, Cloudflare Pages `web/public/_redirects` does
-// a real HTTP 301 before this HTML is served — no white-screen flash, no
-// visible "Redirecting from / to /zh/" body text. This template remains the
-// fallback for local astro dev/preview where _redirects isn't honored.
-const target = '/zh/';
+import LandingLayout from '../layouts/LandingLayout.astro';
+import HeroSection from '../components/astro/HeroSection.astro';
+import PlatformsSection from '../components/astro/PlatformsSection.astro';
+import ComparePreviewSection from '../components/astro/ComparePreviewSection.astro';
+import DemoSection from '../components/astro/DemoSection.astro';
+import DownloadsSection from '../components/astro/DownloadsSection.astro';
+import type { Lang } from '../i18n/helpers';
+
+const lang: Lang = 'zh';
 ---
-<!doctype html>
-<html lang="zh" data-pagefind-ignore="all">
-  <head>
-    <meta charset="utf-8" />
-    <title>Redirecting to: {target}</title>
-    <meta http-equiv="refresh" content={`0;url=${target}`} />
-    <meta name="robots" content="noindex" />
-    <link rel="canonical" href={new URL(target.slice(1), Astro.site).toString()} />
-  </head>
-  <body>
-    <a href={target}>Redirecting from <code>/</code> to <code>{target}</code></a>
-  </body>
-</html>
+<LandingLayout title="SDTM 知识库" lang={lang} pagefindIgnore={true}>
+  <HeroSection lang={lang} />
+  <PlatformsSection lang={lang} />
+  <ComparePreviewSection lang={lang} />
+  <DemoSection lang={lang} />
+  <DownloadsSection lang={lang} />
+</LandingLayout>

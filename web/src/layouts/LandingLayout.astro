@@ -4,11 +4,11 @@ import TopNav from '../components/astro/TopNav.astro';
 import Footer from '../components/astro/Footer.astro';
 import EnterFadeScript from '../components/astro/EnterFadeScript.astro';
 import type { Lang } from '../i18n/helpers';
-interface Props { title: string; lang: Lang; }
-const { title, lang } = Astro.props;
+interface Props { title: string; lang: Lang; pagefindIgnore?: boolean; }
+const { title, lang, pagefindIgnore = false } = Astro.props;
 const pathname = Astro.url.pathname;
 ---
-<BaseLayout title={title} lang={lang}>
+<BaseLayout title={title} lang={lang} pagefindIgnore={pagefindIgnore}>
   <TopNav lang={lang} pathname={pathname} />
   <main>
     <slot />
