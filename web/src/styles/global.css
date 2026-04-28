@@ -52,17 +52,20 @@
 }
 
 /* Phase 11.5 / v1.2 — 4-tier font-size adjuster.
-   Percentage-based root font-size respects browser-level zoom defaults.
-   Tailwind rem-relative tokens (text-base, text-lg, prose, sidebar, TOC)
-   scale automatically. Chrome text-[Npx] arbitrary classes stay fixed by
-   design (preserves data-density typography intent). */
-:root { --fs-base: 100%; }
-[data-fontsize="sm"] { --fs-base: 87.5%; }
-[data-fontsize="lg"] { --fs-base: 112.5%; }
-[data-fontsize="xl"] { --fs-base: 125%; }
+   Strategy: CSS `zoom` on <body>. The site uses many `text-[Npx]` arbitrary
+   absolute-px classes (Hero subdeck 15px, Platforms 8/11px, Compare 9-12px,
+   Footer 10/11px) which don't cascade through rem-based root font-size.
+   `zoom` scales the entire visual tree (text + spacing + borders + icons)
+   proportionally so the user-perceived size of EVERYTHING — including
+   px-typed editorial typography — changes with the tier.
+   Supported in Chrome/Safari historically + Firefox 126+ (2024). */
+:root { --fs-zoom: 1; }
+[data-fontsize="sm"] { --fs-zoom: 0.875; }
+[data-fontsize="lg"] { --fs-zoom: 1.125; }
+[data-fontsize="xl"] { --fs-zoom: 1.25; }
 
-html {
-  font-size: var(--fs-base);
+body {
+  zoom: var(--fs-zoom);
 }
 
 html, body {
