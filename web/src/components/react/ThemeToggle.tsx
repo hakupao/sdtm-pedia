@@ -1,11 +1,16 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { getStoredTheme, setStoredTheme, applyTheme, type ThemeChoice } from '../../lib/theme';
 
-const LABEL: Record<ThemeChoice, string> = { light: '☀', dark: '☾', system: '◐' };
+const ICON: Record<ThemeChoice, string> = { light: '☀', dark: '☾', system: '◐' };
+const CHOICES: ThemeChoice[] = ['light', 'dark', 'system'];
 
-export function ThemeToggle() {
+interface Props {
+  navLabel: string;
+  labels: Record<ThemeChoice, string>;
+}
+
+export function ThemeToggle({ navLabel, labels }: Props) {
   const [theme, setTheme] = useState<ThemeChoice>('system');
-  const nextFlip = useRef<'dark' | 'light'>('dark');
 
   useEffect(() => {
     const t = getStoredTheme();
@@ -13,26 +18,27 @@ export function ThemeToggle() {
     applyTheme(t);
   }, []);
 
-  const handleClick = () => {
-    let next: ThemeChoice;
-    if (theme === 'system') {
-      next = nextFlip.current;
-      nextFlip.current = nextFlip.current === 'dark' ? 'light' : 'dark';
-    } else {
-      next = 'system';
-    }
-    setStoredTheme(next);
-    applyTheme(next);
-    setTheme(next);
+  const switchTo = (t: ThemeChoice) => {
+    setStoredTheme(t);
+    applyTheme(t);
+    setTheme(t);
   };
 
   return (
-    <button
-      onClick={handleClick}
-      aria-label={`Theme: ${theme}, click to switch`}
-      className="font-mono text-sm px-2 py-1 hover:text-accent transition-colors"
-    >
-      {LABEL[theme]}
-    </button>
+    <nav aria-label={navLabel} className="flex gap-2 font-mono text-[10px] tracking-wider">
+      {CHOICES.map((t) => (
+        <button
+          key={t}
+          type="button"
+          onClick={() => switchTo(t)}
+          aria-pressed={t === theme}
+          aria-label={labels[t]}
+          title={labels[t]}
+          className={t === theme ? 'text-ink font-bold' : 'text-ink-mute hover:text-accent'}
+        >
+          {ICON[t]}
+        </button>
+      ))}
+    </nav>
   );
 }
