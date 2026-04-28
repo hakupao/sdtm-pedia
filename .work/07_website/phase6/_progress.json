@@ -1,0 +1,71 @@
+{
+  "phase": 6,
+  "tier": 3,
+  "opened_date": "2026-04-28",
+  "branch": "main",
+  "head_at_open": "3d00a96",
+  "production_url": "https://sdtm-pedia.pages.dev/",
+  "preflight_decisions_pending_session_start": [
+    "absorb_C-P5-1_and_C-P5-2_into_task_6_0",
+    "plan_deviation_lang_path_for_compare_astro",
+    "reviewer_slot_oh_my_claudecode_critic"
+  ],
+  "tasks": {
+    "6.0_remark_plugin_plus_slug_rename_plus_e2e_strict": {
+      "status": "pending",
+      "subagent": "executor_opus",
+      "absorbs_carryover": ["C-P5-1", "C-P5-2"],
+      "files": [
+        "web/remark-md-link-rewrite.mjs",
+        "web/astro.config.mjs",
+        "ai_platforms/release/v1.0/PLATFORM_COMPARISON.zh.md",
+        "ai_platforms/release/v1.0/PLATFORM_COMPARISON.en.md",
+        "ai_platforms/release/v1.0/PLATFORM_COMPARISON.ja.md",
+        "web/tests/e2e/smoke.spec.ts"
+      ],
+      "verdict": null
+    },
+    "6.1_compare_filter_plus_real_page": {
+      "status": "pending",
+      "subagent": "executor_opus",
+      "plan_deviation": "overwrite [lang]/compare.astro stub instead of creating root compare.astro per plan §6.1 Step 3",
+      "files": [
+        "web/src/components/react/CompareFilter.tsx",
+        "web/src/components/react/CompareFilter.test.tsx",
+        "web/src/pages/[lang]/compare.astro"
+      ],
+      "verdict": null
+    },
+    "6.2_expand_dimensions_to_9": {
+      "status": "pending",
+      "mode": "direct",
+      "files": [
+        "web/src/data/compare-dimensions.json",
+        "web/src/components/astro/ComparePreviewSection.astro"
+      ],
+      "verdict": null
+    },
+    "6.3_reviewer_pass": {
+      "status": "pending",
+      "subagent": "oh-my-claudecode:critic",
+      "rule_d_isolation": "cross_family_from_pr_review_toolkit_x4_and_feature_dev_x1",
+      "verdict": null
+    }
+  },
+  "rule_d_reviewer_history_post_phase_5": {
+    "phase_1": "pr-review-toolkit:code-reviewer",
+    "phase_2": "pr-review-toolkit:code-reviewer",
+    "phase_3_6": "pr-review-toolkit:code-reviewer",
+    "phase_4": "pr-review-toolkit:code-reviewer",
+    "phase_5": "feature-dev:code-reviewer",
+    "phase_6_planned": "oh-my-claudecode:critic"
+  },
+  "carryover_from_phase_5": {
+    "C-P5-1_md_cross_refs": "absorbed_into_task_6_0",
+    "C-P5-2_platform_comparison_slug_rename": "absorbed_into_task_6_0",
+    "C-P5-M2_docssidebar_drawer_VT": "DEFER_no_VT_enabled",
+    "C-P5-M3_trailing_slash_hosting": "VERIFY_during_phase_6_CF_preview_deploy",
+    "C-P5-L1_fallback_banner_i18n": "DEFER_next_i18n_touch",
+    "C-P5-L2_empty_toc_aside_guard": "DEFER_cosmetic"
+  }
+}
