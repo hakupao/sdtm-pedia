@@ -7,37 +7,39 @@ interface Props { lang: Lang; pathname: string; }
 const { lang, pathname } = Astro.props;
 const t = getUIStrings(lang);
 ---
-<header class="flex justify-between items-center px-7 py-4 border-b border-rule">
-  <div class="font-mono text-[10px] tracking-[0.18em] text-ink font-bold">
-    SDTM/KB · VOL.01 · 2026
+<header class="border-b border-rule">
+  <div class="max-w-screen-xl mx-auto px-7 py-4 flex justify-between items-center">
+    <div class="font-mono text-[10px] tracking-[0.18em] text-ink font-bold">
+      SDTM/KB · VOL.01 · 2026
+    </div>
+    <button id="mobile-nav-toggle" class="md:hidden font-mono text-base px-2" aria-label="Open menu">☰</button>
+    <nav id="mobile-nav-content" class="hidden md:flex items-center gap-4 font-mono text-[10px] tracking-wider text-ink-mute">
+      <a href={`/${lang}/guide/`} class="hover:text-accent">{t['nav.guide']}</a>
+      <a href={`/${lang}/#platforms`} class="hover:text-accent">{t['nav.platforms']}</a>
+      <a href={`/${lang}/guide/demo-questions`} class="hover:text-accent">{t['nav.demo']}</a>
+      <a href={`/${lang}/#downloads`} class="hover:text-accent">{t['nav.download']}</a>
+      <span class="border-l border-rule pl-4 ml-2 flex items-center gap-3">
+        <button
+          type="button"
+          class="font-mono text-[10px] tracking-wider text-ink-mute hover:text-accent"
+          onclick="document.dispatchEvent(new KeyboardEvent('keydown', {key:'k', metaKey:true}))"
+          aria-label="Open search"
+        >
+          {t['search.shortcut']}
+        </button>
+        <LangSwitcher client:load currentLang={lang} pathname={pathname} />
+        <ThemeToggle
+          client:load
+          navLabel={t['theme.label']}
+          labels={{
+            light: t['theme.light'],
+            dark: t['theme.dark'],
+            system: t['theme.system'],
+          }}
+        />
+      </span>
+    </nav>
   </div>
-  <button id="mobile-nav-toggle" class="md:hidden font-mono text-base px-2" aria-label="Open menu">☰</button>
-  <nav id="mobile-nav-content" class="hidden md:flex items-center gap-4 font-mono text-[10px] tracking-wider text-ink-mute">
-    <a href={`/${lang}/guide/`} class="hover:text-accent">{t['nav.guide']}</a>
-    <a href={`/${lang}/#platforms`} class="hover:text-accent">{t['nav.platforms']}</a>
-    <a href={`/${lang}/guide/demo-questions`} class="hover:text-accent">{t['nav.demo']}</a>
-    <a href={`/${lang}/#downloads`} class="hover:text-accent">{t['nav.download']}</a>
-    <span class="border-l border-rule pl-4 ml-2 flex items-center gap-3">
-      <button
-        type="button"
-        class="font-mono text-[10px] tracking-wider text-ink-mute hover:text-accent"
-        onclick="document.dispatchEvent(new KeyboardEvent('keydown', {key:'k', metaKey:true}))"
-        aria-label="Open search"
-      >
-        {t['search.shortcut']}
-      </button>
-      <LangSwitcher client:load currentLang={lang} pathname={pathname} />
-      <ThemeToggle
-        client:load
-        navLabel={t['theme.label']}
-        labels={{
-          light: t['theme.light'],
-          dark: t['theme.dark'],
-          system: t['theme.system'],
-        }}
-      />
-    </span>
-  </nav>
 </header>
 <SearchOverlay client:load lang={lang} />
 <script>
