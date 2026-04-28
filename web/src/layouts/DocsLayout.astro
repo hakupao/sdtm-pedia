@@ -1,0 +1,22 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import TopNav from '../components/astro/TopNav.astro';
+import DocsSidebar from '../components/astro/DocsSidebar.astro';
+import DocsTOC from '../components/astro/DocsTOC.astro';
+import PrevNextNav from '../components/astro/PrevNextNav.astro';
+import type { Lang } from '../i18n/helpers';
+interface Props { title: string; lang: Lang; slug: string; headings: { depth: number; slug: string; text: string }[]; }
+const { title, lang, slug, headings } = Astro.props;
+const pathname = Astro.url.pathname;
+---
+<BaseLayout title={title} lang={lang}>
+  <TopNav lang={lang} pathname={pathname} />
+  <div class="flex max-w-screen-xl mx-auto flex-col lg:flex-row">
+    <DocsSidebar lang={lang} currentSlug={slug} />
+    <article class="flex-1 px-6 py-10 max-w-[720px] prose-doc">
+      <slot />
+      <PrevNextNav lang={lang} currentSlug={slug} />
+    </article>
+    <DocsTOC headings={headings} />
+  </div>
+</BaseLayout>
