@@ -1,0 +1,153 @@
+{
+  "batch": 43,
+  "session": "D (Round 10)",
+  "round": 10,
+  "round_status": "1st_round_running_v1.6_baseline_post_v1.6_cut_2026-04-29",
+  "pages": "p.421-430",
+  "pages_count": 10,
+  "status": "completed",
+  "completed_at": "2026-04-29T11:30:00Z",
+  "writer_subagent": "oh-my-claudecode:executor",
+  "writer_prompt_version": "P0_writer_pdf_v1.6",
+  "n18_extended_scope_dispatch_justification": [
+    "N18.a Examples-narrative + spec-table (TS Examples 1-4 on p.421-423; cm.xpt --GRPID Example p.427; RELREC Examples 1-3 on p.429-430)",
+    "N18.b URLs (https://www.iso.org/standard/35646.html + https://www.cdisc.org/standards/ both at p.424)",
+    "N18.e mixed_structural_transition (§7.4.2.1 L4 NEW + §7.5 L2 NEW + §8 L1 NEW + §8.1 L2 NEW + §8.1.1 L3 NEW + §8.2 L2 NEW + §8.2.1 L3 NEW + §8.2.2 L3 NEW + §8.3 L2 NEW = 9 NEW transitions across 5 pages of 43b alone)"
+  ],
+  "sub_batches": {
+    "43a": {
+      "pages": "p.421-425",
+      "atoms": 152,
+      "atom_type_distribution": {
+        "TABLE_ROW": 78,
+        "LIST_ITEM": 29,
+        "SENTENCE": 29,
+        "TABLE_HEADER": 7,
+        "HEADING": 5,
+        "CODE_LITERAL": 3,
+        "NOTE": 1
+      },
+      "writer_done_echo": "WRITER_43A_DONE atoms=152 file=evidence/checkpoints/pdf_atoms_batch_43a.jsonl content_type=mixed_examples_transitions hooks_pass=20/20 url_verify=2/2 sample_N10_pass=10/10",
+      "self_validate_hooks_status": "20/20 PASS"
+    },
+    "43b": {
+      "pages": "p.426-430",
+      "atoms": 128,
+      "atom_type_distribution_post_optionh": {
+        "TABLE_ROW": 34,
+        "LIST_ITEM": 28,
+        "SENTENCE": 43,
+        "TABLE_HEADER": 5,
+        "HEADING": 12,
+        "CODE_LITERAL": 5,
+        "NOTE": 1
+      },
+      "writer_done_echo": "WRITER_43B_DONE atoms=128 file=evidence/checkpoints/pdf_atoms_batch_43b.jsonl content_type=mixed_examples_transitions_high_density hooks_pass=20/20 url_verify=0/0 sample_N10_pass=10/10",
+      "self_validate_hooks_status": "20/20 PASS (1 non-blocking WARN: XPT header caption false positive)"
+    }
+  },
+  "atoms_total": 280,
+  "n6_intra_agent_consistency": "PASS — both 43a + 43b SAME executor (a7eaf05a193562d05) via SendMessage continuation; canonical parent_section forms preserved across sub-batches: TS – Examples / §7.4.2 Trial Summary (TS) / §7.4.2.1 Use of Null Flavor / §7 [TRIAL DESIGN MODEL DATASETS] / §7.5 How to Model the Design of a Clinical Trial / §8 [REPRESENTING RELATIONSHIPS AND DATA] / §8.1 [RELATING GROUPS OF RECORDS WITHIN A DOMAIN USING THE --GRPID VARIABLE] / §8.1.1 --GRPID Example / §8.2 [RELATING PEER RECORDS] / §8.2.1 Related Records (RELREC) / §8.2.2 RELREC Dataset Examples / §8.3 Relating Datasets / RELREC – Specification (en-dash) / RELREC - Description/Overview (ASCII hyphen — PDF source uses both inconsistently per OBS-A FALSE_POSITIVE)",
+  "schema_sweep": {
+    "required_field_violations": 0,
+    "atom_id_pattern_violations": 0,
+    "atom_type_9_enum_violations": 0,
+    "n15_xpt_parent_forbid_violations": 0,
+    "heading_required_field_violations": 0,
+    "verbatim_non_empty_violations": 0,
+    "duplicate_atom_ids": 0,
+    "page_coverage": "p.421-430 contiguous 10 pages",
+    "verdict": "PASS"
+  },
+  "heading_transitions_observed": {
+    "count": 17,
+    "highest_density_in_p1_cumulative": "tied with round 8 batch 37 §6.4 (11 NEW HEADINGs in 10-page batch); batch 43 has 17 NEW HEADINGs = NEW HIGHEST DENSITY 1.7 NEW HEADINGs/page",
+    "transitions": [
+      {"page": 421, "level": 5, "sib": 2, "verbatim": "Example 2", "parent": "TS – Examples"},
+      {"page": 422, "level": 5, "sib": 3, "verbatim": "Example 3", "parent": "TS – Examples"},
+      {"page": 422, "level": 5, "sib": 4, "verbatim": "Example 4", "parent": "TS – Examples"},
+      {"page": 424, "level": 4, "sib": 1, "verbatim": "7.4.2.1 Use of Null Flavor", "parent": "§7.4.2 Trial Summary (TS)"},
+      {"page": 425, "level": 2, "sib": 5, "verbatim": "7.5 How to Model the Design of a Clinical Trial", "parent": "§7 [TRIAL DESIGN MODEL DATASETS]"},
+      {"page": 427, "level": 1, "sib": 2, "verbatim": "8 Representing Relationships and Data", "parent": "(SDTMIG v3.4) [post O-P1-149 Option H fix; pre-fix was §7 [TRIAL DESIGN MODEL DATASETS]]"},
+      {"page": 427, "level": 2, "sib": 1, "verbatim": "8.1 Relating Groups of Records Within a Domain Using the --GRPID Variable", "parent": "§8 [REPRESENTING RELATIONSHIPS AND DATA]"},
+      {"page": 428, "level": 3, "sib": 1, "verbatim": "8.1.1 --GRPID Example", "parent": "§8.1 [RELATING GROUPS OF RECORDS WITHIN A DOMAIN USING THE --GRPID VARIABLE]"},
+      {"page": 429, "level": 2, "sib": 2, "verbatim": "8.2 Relating Peer Records", "parent": "§8 [REPRESENTING RELATIONSHIPS AND DATA]"},
+      {"page": 429, "level": 3, "sib": 1, "verbatim": "8.2.1 Related Records (RELREC)", "parent": "§8.2 [RELATING PEER RECORDS]"},
+      {"page": 429, "level": 4, "sib": 1, "verbatim": "RELREC - Description/Overview", "parent": "§8.2.1 Related Records (RELREC)"},
+      {"page": 429, "level": 4, "sib": 2, "verbatim": "RELREC – Specification", "parent": "§8.2.1 Related Records (RELREC)"},
+      {"page": 430, "level": 3, "sib": 2, "verbatim": "8.2.2 RELREC Dataset Examples", "parent": "§8.2 [RELATING PEER RECORDS]"},
+      {"page": 430, "level": 5, "sib": 1, "verbatim": "Example 1", "parent": "§8.2.2 RELREC Dataset Examples"},
+      {"page": 430, "level": 5, "sib": 2, "verbatim": "Example 2", "parent": "§8.2.2 RELREC Dataset Examples"},
+      {"page": 430, "level": 5, "sib": 3, "verbatim": "Example 3", "parent": "§8.2.2 RELREC Dataset Examples"},
+      {"page": 430, "level": 2, "sib": 3, "verbatim": "8.3 Relating Datasets", "parent": "§8 [REPRESENTING RELATIONSHIPS AND DATA]"}
+    ]
+  },
+  "critical_milestones": [
+    "**§8 L1 NEW chapter at p.427 = 2nd L1 CHAPTER TRANSITION IN P1 CUMULATIVE** after §7 at p.382 round 9 batch 39",
+    "**N11 chapter-short-bracket extension to L1+L2+L3 SUSTAINED** at 2nd cumulative L1 live-fire (round 10 batch 43 §8 L1 = 2nd live-fire after round 9 batch 39 §7 L1 1st live-fire) — N11 L1+L2+L3 FULL-SCOPE VALIDATED status confirmed sustained",
+    "**Highest density NEW HEADING transition batch in P1 cumulative**: 17 NEW HEADINGs in single 10-page batch (vs prior record round 8 batch 37 §6.4 with 11 NEW HEADINGs)",
+    "**3rd cumulative 100% raw-and-adjudicated batch in P1**: batch 43 weighted_pass_rate=100.0% (10 PASS / 0 PARTIAL / 0 FAIL) joins round 8 batch 37 1st (100%) + round 9 batch 38 2nd (100%) baseline",
+    "**1st live-fire EFFECTIVE for v1.6 N18 EXTENDED scope dispatch (post 2026-04-29 v1.6 cut)**: both 43a + 43b dispatched as oh-my-claudecode:executor per N18.a/b/e multi-trigger; 0 writer-direction VALUE HALLUCINATION recurrences (sustains 5 cumulative round 5+6+7+8+9 motif AT 5 since round 9 batch 39 5th — N18 EXTENDED scope prevention layer holding)",
+    "**1st live-fire EFFECTIVE for v1.6 N20 PDF-cross-verify expansion N=10**: 2 URL atoms byte-exact verified pre-DONE (no `.org→.ch` style fabrication recurrence)",
+    "**N6 INTRA-AGENT consistency cross-sub-batch via SendMessage continuation**: NEW precedent — same agent ID (a7eaf05a193562d05) across 43a + 43b instead of fresh dispatch; canonical parent_section forms preserved zero drift",
+    "**1st live-fire EFFECTIVE for D-MS-7 candidate 'tracer-strategist'**: oh-my-claudecode:tracer slot #55 omc-family 12th burn intra-family depth — sister extension to round 9 batch 39 #50 omc:planner 'planner-strategist' 1st live-fire EFFECTIVE = D-MS-7 successor candidate validation pattern repeatable in same family at intra-family-12th-burn depth scale"
+  ],
+  "rule_a_audit": {
+    "reviewer_subagent": "oh-my-claudecode:tracer",
+    "rule_d_slot": 55,
+    "audit_pivot_index": 36,
+    "family_burn_count": "omc-family 12th burn intra-family depth (D-MS-7 candidate 'tracer-strategist' 1st live-fire)",
+    "branch_used": "Branch A direct-write Write-tool default per v1.6 §Step 4",
+    "audit_independence_preserved": true,
+    "sample_size": 10,
+    "sample_seed": 20260429,
+    "verdicts": "P:10/PA:0/F:0",
+    "weighted_pass_rate": 100.0,
+    "halt_threshold": 70.0,
+    "dimension_breakdown": "10/10 atom_type + 10/10 verbatim + 10/10 parent_section + 10/10 schema = 40/40 dimension checks clean",
+    "9_enum_coverage": "4 of 9 hit (TABLE_ROW=2, LIST_ITEM=3, SENTENCE=4, CODE_LITERAL=1)",
+    "obs_a_verdict": "FALSE_POSITIVE — RELREC hyphen vs en-dash inconsistency originates in PDF source itself (verified via xxd byte-level inspection: PDF uses 0x2D ASCII hyphen for 'RELREC - Description/Overview' and 0xE2 0x80 0x93 UTF-8 en-dash for 'RELREC – Specification'); writer is byte-exact correct",
+    "obs_b_verdict": "REAL_FINDING — O-P1-149 LOW filed; §8 L1 HEADING parent_section sibling-as-parent error fixed via Option H single-atom edit"
+  },
+  "drift_cal": {
+    "applied": false,
+    "rationale": "SKIP per cadence (last drift cal batch 42 p.412; next mandatory batch 45 p.442 per every-3-batches cadence + cumulative atoms post-p.412 ≥600 dual-threshold)"
+  },
+  "findings_added": [
+    {
+      "id": "O-P1-149",
+      "severity": "LOW",
+      "atom_id_initial": "ig34_p0427_a001",
+      "issue": "§8 L1 HEADING parent_section used sibling §7 [TRIAL DESIGN MODEL DATASETS] as parent instead of (SDTMIG v3.4) root sentinel per §7 L1 precedent at ig34_p0382_a001 batch 39a round 9",
+      "resolution_status": "RESOLVED via Option H single-atom fix in main session this batch",
+      "fix_applied": "ig34_p0427_a001 parent_section '§7 [TRIAL DESIGN MODEL DATASETS]' → '(SDTMIG v3.4)'",
+      "rule_b_backup": "evidence/checkpoints/pdf_atoms_batch_43b.jsonl.pre-OptionH-OBS-B-fix.bak"
+    }
+  ],
+  "findings_unused": ["O-P1-150", "O-P1-151", "O-P1-152"],
+  "rule_d_slot_used": 55,
+  "audit_pivot_cumulative": 36,
+  "v1_6_codification_first_round_running_validation": {
+    "n18_extended_scope_writer_family_ban": "EFFECTIVE — both sub-batches dispatched executor per multi-trigger N18.a+b+e; 0 writer-direction VALUE HALLUCINATION on URL/long-cell/transition content — 5th cumulative motif (round 9 batch 39) NOT recurring in batch 43",
+    "n19_sentence_paragraph_concat_warn_mode": "EFFECTIVE — 1 WARN in batch 43 SENTENCE atoms (ig34_p0429_a021 spec-table preamble borderline classification; non-blocking per WARN-mode codification); 0 WARN in 10-atom Rule A sample",
+    "n20_pdf_cross_verify_expansion": "EFFECTIVE — N=10 mandatory + URL byte-exact verify both PASS first-attempt for both 43a (2 URLs verified) + 43b (0 URLs)",
+    "n11_chapter_short_bracket_l1_l2_l3_full_scope": "SUSTAINED — 2nd L1 live-fire at §8 p.427 = N11 L1+L2+L3 FULL-SCOPE VALIDATED status confirmed sustained post 2nd cumulative L1 live-fire (round 9 batch 39 §7 1st + round 10 batch 43 §8 2nd)"
+  },
+  "boundary_state_for_batch_44_handoff": {
+    "active_chain_at_end_of_p_430": {
+      "L1": "§8 [REPRESENTING RELATIONSHIPS AND DATA] (sib=2 under root; chapter-short-bracket per N11 with L2 children §8.1, §8.2, §8.3)",
+      "L2": "§8.3 Relating Datasets (sib=3 under §8; natural form — no L3 children visible in batch 43; if batch 44 reveals L3 children, switch to chapter-short-bracket §8.3 [RELATING DATASETS])",
+      "L3_active": "(no L3 active at end of p.430; §8.3 may have §8.3.1 emerging in batch 44 territory p.431+)"
+    },
+    "next_predicted_transitions_p_431_440": "TBD per batch 44 PDF verification — §8.3 likely has L3 children + further §8.4 / §8.5 / §8.6 / §8.7 / §8.8 L2 NEW transitions per p.425 §8 bullet list (Section 8.4 SUPP-- + 8.5 CO + 8.6 SDTM-Compliant + 8.7 RELSUB + 8.8 Related Specimens RELSPEC)",
+    "round_10_drift_cal_next_mandatory": "batch 45 p.442 (per every-3-batches cadence batch 42→45)"
+  },
+  "rule_a_b_c_d_e_compliance": {
+    "rule_a": "PASS — slot #55 oh-my-claudecode:tracer 10/10 PASS weighted=100.0%",
+    "rule_b": "APPLIED — pdf_atoms_batch_43b.jsonl.pre-OptionH-OBS-B-fix.bak preserved pre Option H single-atom fix for O-P1-149",
+    "rule_c": "DEFERRED — round 10 retro is reconciler-stage product post sister 41/42 done",
+    "rule_d": "PASS — writer (oh-my-claudecode:executor) ≠ reviewer (oh-my-claudecode:tracer); slot #55 uniqueness vs cumulative #1-#54 verified zero collision",
+    "rule_e": "APPLIED — v1.7 candidate captured: AA borderline SENTENCE-vs-NOTE classification for spec-table preamble (ig34_p0429_a021 'relrec.xpt, Related Records — Relationship. One record per related record, group of records or dataset, Tabulation.' triggered N19 Hook 18 WARN; consider extending Hook 18 OR adding NOTE-vs-SENTENCE classification rule for spec-table descriptors); N20 working as designed — no v1.7 candidate"
+  },
+  "single_line_done": "PARALLEL_SESSION_43_DONE atoms=280 failures=0 repair_cycles=1 rule_a=100.0% drift_cal=skipped findings_added=O-P1-149-LOW-RESOLVED-OptionH-fix-applied"
+}

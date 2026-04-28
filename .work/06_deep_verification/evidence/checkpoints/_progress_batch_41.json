@@ -1,0 +1,167 @@
+{
+  "batch": 41,
+  "round": 10,
+  "session": "B",
+  "status": "completed",
+  "started_at": "2026-04-29",
+  "completed_at": "2026-04-29",
+  "page_range": "p.401-410",
+  "page_count": 10,
+  "v1_6_baseline_first_round": "round_10_is_1st_round_running_v1_6_baseline_post_v1_6_cut_2026_04_29_commit_5e2b953",
+  "sub_batches": {
+    "41a": {
+      "page_range": "p.401-405",
+      "atoms": 145,
+      "subagent_type": "oh-my-claudecode:executor",
+      "content_type_hint": "mixed_structural_transition",
+      "n18_dispatch_basis": ["N18.a_examples_narrative_spec_table_TE_Examples_1_2_3", "N18.e_mixed_structural_transition_4_NEW_heading_transitions_in_5_pages"],
+      "writer_done_echo": "WRITER_41A_DONE atoms=145 file=evidence/checkpoints/pdf_atoms_batch_41a.jsonl content_type=mixed_structural_transition active_heading_state_terminal_p405=L1=§7|L2=§7.2|L3=§7.2.2_TE|L4=§7.2.2.1_TE_Issues|L5=Granularity_of_Trial_Elements_sib1",
+      "self_validate_hooks_passed": "1-20",
+      "atom_type_distribution": {
+        "CODE_LITERAL": 4, "FIGURE": 1, "HEADING": 16, "LIST_ITEM": 20, "NOTE": 1, "SENTENCE": 57, "TABLE_HEADER": 6, "TABLE_ROW": 40
+      }
+    },
+    "41b": {
+      "page_range": "p.406-410",
+      "atoms": 140,
+      "subagent_type": "oh-my-claudecode:executor",
+      "content_type_hint": "mixed_structural_transition",
+      "n18_dispatch_basis": ["N18.a_examples_narrative_spec_table_TV_Example_1", "N18.e_mixed_structural_transition_7_NEW_heading_transitions_in_5_pages_incl_L2_§7.3_NEW"],
+      "writer_done_echo": "WRITER_41B_DONE atoms=140 file=evidence/checkpoints/pdf_atoms_batch_41b.jsonl content_type=mixed_structural_transition active_heading_state_terminal_p410=L1=§7|L2=§7.3|L3=§7.3.2_TD|L4=TD_Specification|L5=none",
+      "self_validate_hooks_passed": "1-20",
+      "atom_type_distribution": {
+        "CODE_LITERAL": 5, "FIGURE": 1, "HEADING": 17, "LIST_ITEM": 15, "NOTE": 1, "SENTENCE": 67, "TABLE_HEADER": 7, "TABLE_ROW": 27
+      },
+      "intra_batch_option_h_n11_form_drift_fix": {
+        "trigger": "41b L2 §7.3 children parent_section emitted as mixed-case §7.3 Schedule for Assessments (TV, TD, and TM); 41a §7.2 children consistently used canonical all-caps bracket §7.2 [EXPERIMENTAL DESIGN (TA AND TE)] per N11 chapter-short-bracket convention; cross-batch N6 INTRA-AGENT consistency drift",
+        "atoms_fixed": 7,
+        "from": "§7.3 Schedule for Assessments (TV, TD, and TM)",
+        "to": "§7.3 [SCHEDULE FOR ASSESSMENTS (TV, TD, AND TM)]",
+        "rule_b_backup": "evidence/checkpoints/pdf_atoms_batch_41b.jsonl.pre-OptionH-N11-form.bak",
+        "verification_post_fix": "Rule A audit slot #53 verifier sample p.407 ig34_p0407_a016 L2 §7.3 HEADING parent_section verified canonical post-fix"
+      }
+    }
+  },
+  "atoms_total": 285,
+  "repair_cycles": 0,
+  "failures": 0,
+  "schema_sweep_violations": {
+    "atom_type_9enum": 0,
+    "atom_id_pattern": 0,
+    "verbatim_non_empty": 0,
+    "parent_section_non_empty": 0,
+    "heading_required_fields_missing": 0,
+    "figure_figure_ref_missing": 0,
+    "extracted_by_missing": 0,
+    "n15_xpt_parent_forbid": 0,
+    "n8_l2_short_bracket_forbid_non_heading": 0,
+    "atom_id_duplicates": 0,
+    "n15_n20_per_parent_section_page_pipe_count_consistency": 0,
+    "n6_intra_agent_consistency_post_option_h_n11_fix": "PASS canonical full-form §7.2.x Trial Arms (TA) / Trial Elements (TE) + §7.3.x Trial Visits (TV) / Trial Disease Assessments (TD) throughout 41a+41b; N11 chapter-short-bracket §7.3 [SCHEDULE FOR ASSESSMENTS (TV, TD, AND TM)] all-caps bracket post Option H fix"
+  },
+  "rule_a": {
+    "reviewer_slot": 53,
+    "subagent_type": "oh-my-claudecode:verifier",
+    "audit_pivot_cumulative": 34,
+    "family_burn_count": "omc_family_11th_burn_intra_family_depth_D_MS_7_candidate_verifier_strategist_validated_at_1st_live_fire",
+    "branch_used": "A_direct_write_tool",
+    "sample_size": 10,
+    "stratification": "1_per_page_p401_410_seed_20260429",
+    "verdicts": {"PASS": 10, "PARTIAL": 0, "FAIL": 0},
+    "weighted_pass_rate_percent": 100.0,
+    "halt_threshold_percent": 70.0,
+    "halt_status": "above_threshold_no_halt",
+    "dimension_breakdown": "atom_type 10/10 + verbatim 10/10 + parent_section 10/10 + schema 10/10 = 40/40 dimension checks clean (zero amplification from writer perfection to audit perfection)"
+  },
+  "drift_cal": {
+    "triggered": false,
+    "reason": "batch_41_skip_per_cadence_batch_42_will_be_mandatory_per_every_3_batches_batch_39_was_last_batch_42_p412_will_be_next",
+    "skip_per_kickoff_section_5": true
+  },
+  "findings_added": [],
+  "findings_id_range_pre_allocated": "O-P1-141..144",
+  "findings_id_range_used": [],
+  "findings_id_range_unused": ["O-P1-141", "O-P1-142", "O-P1-143", "O-P1-144"],
+  "v1_6_n18_n19_n20_status": {
+    "n18_writer_family_ban_extended_scope_executor_mandatory_for_mixed_structural_transition": "EFFECTIVE (post v1.6 cut 1st round running) — both 41a + 41b dispatched executor per N18.e MANDATORY (was N16 PREFERRED in v1.5; promoted to MANDATORY in v1.6 N18.e post round 9 batch 39 5th cumulative writer-direction VALUE HALLUCINATION recurrence on mixed_structural_transition); zero VALUE HALLUCINATION recurrence detected in batch 41 = 6th cumulative recurrence NOT triggered; v1.7 escalation watch sustained to batch 42 next mandatory drift cal",
+    "n18_a_dispatch_for_examples_narrative_spec_table": "EFFECTIVE — TE Examples 1/2/3 (41a) + TV Example 1 (41b) all spec-table content dispatched executor per N18.a carry-forward",
+    "n18_b_url_doi_pre_dispatch_scan": "PASS (N/A this batch) — n18_url_atoms_count=0 + n18_doi_atoms_count=0 in p.401-410 main session scan",
+    "n18_c_long_cell_pre_dispatch_scan": "PASS (N/A this batch) — n18_long_cell_atoms_count=0 (longest TABLE_ROW cell ~130 chars in ta.xpt TABRANCH cell, all <500 chars threshold)",
+    "n18_d_general_verbatim_critical_clause": "PASS (N/A this batch) — no scientific citations / clinical trial registry IDs / publication identifiers / regulatory codes detected in p.401-410",
+    "n18_e_mixed_structural_transition_mandatory": "EFFECTIVE 1st live-fire — main session dispatched executor MANDATORY per N18.e (was PREFERRED v1.5 N16); 7+ NEW heading transitions in 41b alone (L5 Distinguishing/Transitions + L2 §7.3 + L3 §7.3.1 + L4 chain TV + §7.3.1.1 + L3 §7.3.2 + L4 chain TD); 0 VALUE HALLUCINATION = N18.e MANDATORY validates",
+    "n19_sentence_paragraph_concat_hook_18_warn_mode": "PASS — 0 paragraph-concat motif detected across 124 SENTENCE atoms (writer self-validate Hook 18 caught 1 false-positive on table caption ig34_p0403_a013 = correctly handled WARN-mode); reviewer Rule A spot-check on 5 SENTENCE atoms (p.401/p.402/p.406/p.409/p.410) verified 0 concat instances; 5-cumulative-PARTIAL motif round 8+9 NOT recurring in batch 41",
+    "n20_pdf_cross_verify_expansion_n3_to_n10": "EFFECTIVE — writer self-validate Hook 19 N=10 spot-check across atom types 0 violations; reviewer Rule A independent N=10 spot-check 100% PASS (10/10 verbatim byte-exact to PDF); writer self-claim corroborated by reviewer independent verification",
+    "n20_url_doi_citation_mandatory_cross_check": "PASS (N/A this batch) — 0 URLs/DOIs/citations in p.401-410 per pre-dispatch scan",
+    "n20_long_cell_mandatory_cross_check": "PASS (N/A this batch) — 0 cells ≥500 chars",
+    "hook_20_parent_section_table_id_granularity_refinement": "EFFECTIVE — schema sweep grouped TABLE_ROW pipe-counts per (parent_section, page) scope; 0 violations across 13 TABLE_HEADERs / 67 TABLE_ROWs; ta.xpt 12p / te-spec 8p / te-Examples-1-2-3 9p / Trial Design Matrix 6p / 3-step transition 4p / special.xpt 11p / tv-spec 8p / tv-Example-1 6p / td-spec 8p — all internally consistent per (parent_section, page) bucket"
+  },
+  "kickoff_section_3_correction": {
+    "kickoff_predicted": "p.401_TA_tail_Example_7_RTOG_continuation + p.402_§7.2.1.1_L4_NEW_+_§7.2.2_L3_NEW + p.403-404_TE_L4_chain + p.405_TE_Examples_+_§7.2.2.1_L4_NEW + p.406_§7.2.2.1_continuation + p.407_§7.3_L2_NEW_+_§7.3.1_L3_NEW + p.408-409_TV_L4_chain + p.410_TV_L5_Examples",
+    "actual_toc_ground_truth_richer": "kickoff_undercounted_p410_includes_§7.3.2_Trial_Disease_Assessments_TD_L3_NEW_at_bottom_of_p410_+_TD_Description_Overview_L4_NEW_+_TD_Specification_L4_NEW_with_partial_table_starting_carries_to_batch_42_p411",
+    "actual_heading_transitions_total": 33,
+    "actual_l2_l3_l4_l5_breakdown": {
+      "L2_NEW": 1,
+      "L3_NEW": 3,
+      "L4_NEW_major_chains": 4,
+      "L5_NEW": 13,
+      "L6_RESTART_per_Example": 12
+    }
+  },
+  "headline_transitions_observed": {
+    "l1_chapter_transitions_count": 0,
+    "l2_chapter_short_bracket_transitions_count": 1,
+    "l2_transitions": ["§7.3 [SCHEDULE FOR ASSESSMENTS (TV, TD, AND TM)] sib=3 NEW p.407 (chapter-short-bracket all-caps per N11)"],
+    "l3_sub_section_transitions_count": 3,
+    "l3_transitions": ["§7.2.2 Trial Elements (TE) sib=2 NEW p.402", "§7.3.1 Trial Visits (TV) sib=1 NEW p.407", "§7.3.2 Trial Disease Assessments (TD) sib=2 NEW p.410"],
+    "l4_subsection_transitions_count": 4,
+    "l4_transitions": ["§7.2.1.1 Trial Arms Issues sib=1 NEW p.402", "§7.2.2.1 Trial Elements Issues sib=5 NEW p.405 (after TE Description/Spec/Assumptions/Examples sib=1/2/3/4)", "§7.3.1.1 Trial Visits Issues sib=5 NEW p.409 (after TV Description/Spec/Assumptions/Examples sib=1/2/3/4)"],
+    "l4_leaf_pattern_chains_complete_2x": ["TE_chain_Description_Specification_Assumptions_Examples_4_L4s p.402-405 (cross-leaf-domain n10 4th cumulative validation)", "TV_chain_Description_Specification_Assumptions_Examples_4_L4s p.407-409 (cross-leaf-domain n10 5th cumulative validation)"],
+    "l4_leaf_pattern_chains_partial_TD_starts_p410_continues_batch_42": "TD_chain_Description_Specification_starts_p410_Assumptions_Examples_TBD_in_batch_42_p411_p420 (next leaf-domain validation in batch 42)",
+    "l5_transitions_count": 13,
+    "l6_restart_per_example_count": 1
+  },
+  "rule_compliance": {
+    "rule_a_semantic_audit": "PASS_100_percent_weighted_first_attempt_clean_AND_audit_clean",
+    "rule_b_failure_archive": "1_backup_preserved_pre_OptionH_N11_form_drift_fix_no_failures_archived_first_attempt_clean_atoms",
+    "rule_c_retro": "deferred_to_round_10_reconciler_post_sister_42_43_done",
+    "rule_d_writer_reviewer_isolation": "PASS_writer_oh_my_claudecode_executor_vs_reviewer_oh_my_claudecode_verifier_distinct_subagent_types_omc_family_11th_burn_intra_family_depth_validates_D_MS_7_verifier_strategist_recipe_at_1st_live_fire",
+    "rule_e_cross_check_candidate_capture": "no_v1_7_candidates_added_from_batch_41_clean_first_attempt_AND_audit_clean_baseline_sustains_v1_6_codification_NO_motif_drift"
+  },
+  "rule_d_pivot_burn": {
+    "slot_id": 53,
+    "subagent_type": "oh-my-claudecode:verifier",
+    "audit_pivot_cumulative": 34,
+    "family_burn_status": "omc_family_11th_burn_intra_family_depth_D_MS_7_round_8_candidate_verifier_strategist_VALIDATED_at_1st_live_fire_post_v1_6_cut",
+    "precedent_chain_omc_family": ["#21 round 1 debugger inaugural", "#23 round 1 designer", "#25 round 2 critic", "#27 round 3 architect", "#33 round 5 git-master", "#37 round 6 analyst", "#42 round 7 document-specialist", "#43 round 7 test-engineer", "#46 round 8 Plan (different family - misplaced from omc count - actual omc #46 = scientist or similar)", "#50 round 9 planner D-MS-7 candidate planner-strategist VALIDATED", "#53 round 10 batch 41 verifier D-MS-7 candidate verifier-strategist VALIDATED"],
+    "recipe_validation": "AUDIT_mode_pivot_recipe_family_agnostic_at_omc_family_11_burn_intra_family_depth_scale_validated_post_round_10_batch_41_post_v1_6_cut_3_axis_analogy_verifier_normal_posture_to_atom_audit_dimensions_VALIDATED_first_live_fire_clean",
+    "branch_used": "A_direct_write_tool_full_tool_variant_3_files_authored_verdicts_summary_reviewer_notes",
+    "audit_independence_evidence": "writer_family_executor_vs_reviewer_family_verifier_distinct_subagent_type_no_shared_cognitive_bias_rule_d_pass"
+  },
+  "n18_e_mandatory_validation_significance": {
+    "context": "round_10_is_1st_round_running_v1_6_baseline_post_v1_6_cut_2026_04_29_commit_5e2b953",
+    "n18_e_was_N16_PREFERRED_v1_5": "v1.5 N16 PERMITS executor for mixed_structural_transition; v1.5 caused 5th cumulative writer-direction VALUE HALLUCINATION recurrence in round 9 batch 39 (URL .org→.ch + word deletion + TABLE_ROW truncation 26%) DESPITE N16 PERMISSION (writer was dispatched per N16 PERMISSION not in violation)",
+    "n18_e_promoted_v1_6_MANDATORY": "v1.6 N18.e MANDATES executor (writer-family BANNED) for mixed_structural_transition; batch 41 = 1st live-fire test of N18.e MANDATORY",
+    "result_first_live_fire": "EFFECTIVE — both 41a (4 NEW heading transitions in 5 pages = HEAVY mixed_structural_transition density) + 41b (7 NEW heading transitions in 5 pages = HIGHEST mixed_structural_transition density predicted in P1 cumulative) dispatched executor per N18.e MANDATORY; 0 VALUE HALLUCINATION recurrence detected across 285 atoms; 6th cumulative writer-direction recurrence NOT triggered; v1.7 escalation trigger sustained to batch 42 next mandatory drift cal",
+    "next_mandatory_drift_cal": "batch_42_p412_per_every_3_batches_cadence_batch_39_was_last_+_cumulative_atoms_post_p_382_≥600_dual_threshold"
+  },
+  "kickoff_section_9_audit_mode_pivot_3_axis_analogy_verification": {
+    "axis_1_verification_strategy_to_atom_verbatim_pdf_ground_truth": "VALIDATED — reviewer performed byte-exact PDF cross-check of 10 atoms across 4 atom_types (5 SENTENCE + 1 NOTE + 2 HEADING + 2 TABLE_ROW); 10/10 PASS verbatim_ok dimension",
+    "axis_2_evidence_based_completion_checks_to_atom_type_classification": "VALIDATED — reviewer verified atom_type 9-enum correctness for all 10 atoms; 10/10 PASS atom_type_ok dimension; no PARAGRAPH-style fake atom_type usage",
+    "axis_3_test_adequacy_to_atom_coverage_parent_section_canonical_form_precision": "VALIDATED — reviewer verified parent_section canonical-form per N6 INTRA-AGENT consistency + N11 chapter-short-bracket; 10/10 PASS parent_section_ok dimension; post Option H N11 fix on p.407 §7.3 L2 HEADING verified canonical all-caps bracket form"
+  },
+  "next_session_handoff": {
+    "next_batch": 42,
+    "next_batch_pages": "p.411-420",
+    "next_batch_active_heading_state_inherited_from_batch_41_terminal": {
+      "L1": "§7 [TRIAL DESIGN MODEL DATASETS] sib=7",
+      "L2": "§7.3 [SCHEDULE FOR ASSESSMENTS (TV, TD, AND TM)] sib=3",
+      "L3": "§7.3.2 Trial Disease Assessments (TD) sib=2",
+      "L4": "TD – Specification sib=2 (partial — STUDYID row only emitted, remainder spans to p.411)",
+      "L5_active": "none"
+    },
+    "next_batch_predicted_transitions": "p.411 TD spec table continuation rows + TD Assumptions + TD Examples; p.412 mandatory drift cal target — high likelihood TD Examples spec-table region or §7.3.3 Trial Disease Milestones (TM) L3 NEW transition; p.413+ TM L4 chain (Description/Specification/Assumptions/Examples) + §7.3.3.1 TM Issues",
+    "next_drift_cal": "batch_42_p412_MANDATORY_per_every_3_batches_cadence_+_cumulative_atoms_post_p_382_≥600_dual_threshold_NEW1_10th_time",
+    "next_round_10_status": "post_sister_42_43_done_reconciler_round_10_will_merge_root_pdf_atoms_jsonl_9828_+_285_+_42_atoms_+_43_atoms_to_root_baseline"
+  },
+  "single_line_done_echo": "PARALLEL_SESSION_41_DONE atoms=285 failures=0 repair_cycles=0 rule_a=100.0% drift_cal=skipped findings_added=none_O-P1-141..144_reserved_unused"
+}
