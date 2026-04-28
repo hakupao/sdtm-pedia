@@ -30,10 +30,10 @@
       }
     },
     "7.1_compare_i18n_chrome": {
-      "status": "pending",
+      "status": "completed",
       "mode": "direct_main_session_mechanical",
       "absorbs_carryover": ["C-P6-1"],
-      "files_to_touch": [
+      "files_touched": [
         "web/src/i18n/ui.zh.json",
         "web/src/i18n/ui.en.json",
         "web/src/i18n/ui.ja.json",
@@ -41,32 +41,36 @@
         "web/src/components/react/CompareFilter.tsx",
         "web/src/components/react/CompareFilter.test.tsx"
       ],
-      "commit": null,
-      "verdict": null,
+      "vitest_delta": "31 -> 32 (+1 i18n localization test)",
+      "verifications": "tsc_0 vitest_32_of_32 build_31_pages dist_html_grep_zh_en_ja_strings rule_a_spot_check_3_of_3_pass",
+      "commit": "3c151de",
+      "verdict": "PASS",
       "evidence": ".work/07_website/phase7/evidence/checkpoints/task_7_1_report.md"
     },
     "7.2_canonical_site_wide": {
-      "status": "pending",
+      "status": "completed",
       "mode": "direct_main_session_one_file",
       "absorbs_carryover": ["C-P6-3"],
-      "files_to_touch": [
-        "web/src/layouts/BaseLayout.astro",
-        "web/astro.config.mjs (verify site set)"
+      "files_touched": [
+        "web/src/layouts/BaseLayout.astro"
       ],
-      "commit": null,
-      "verdict": null,
+      "verifications": "tsc_0 vitest_32_of_32 e2e_6_of_6 build_31_html_pages canonical_coverage_31_of_31_100pct og_url_added",
+      "commit": "pending_after_7_3",
+      "verdict": "PASS",
       "evidence": ".work/07_website/phase7/evidence/checkpoints/task_7_2_report.md"
     },
     "7.3_build_fresh_and_readme": {
-      "status": "pending",
+      "status": "completed",
       "mode": "direct_main_session_two_files",
-      "absorbs_carryover": ["C-P6-8"],
-      "files_to_touch": [
+      "absorbs_carryover": ["C-P6-8", "G-P6-3"],
+      "partial_carryover_resolution": ["C-P6-4 (README tribal-knowledge box only, no code fix)", "C-P7-1 (README docs accept-as-is)"],
+      "files_touched": [
         "web/package.json",
         "web/README.md"
       ],
-      "commit": null,
-      "verdict": null,
+      "verifications": "build_fresh_script_works npm_test_32_of_32 readme_5513_bytes_113_lines tribal_knowledge_5_sections_all_accurate",
+      "commit": "pending",
+      "verdict": "PASS",
       "evidence": ".work/07_website/phase7/evidence/checkpoints/task_7_3_report.md"
     },
     "7.4_reviewer_pass": {
