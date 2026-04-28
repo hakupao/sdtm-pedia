@@ -1,9 +1,9 @@
 {
   "tag": "v1.0",
   "bundles": [
-    { "platform": "claude",     "filename": "claude_bundle_v1.0.zip",     "files": 19, "sizeMB": 4.6 },
-    { "platform": "chatgpt",    "filename": "chatgpt_bundle_v1.0.zip",    "files":  9, "sizeMB": 9.3 },
-    { "platform": "gemini",     "filename": "gemini_bundle_v1.0.zip",     "files":  4, "sizeMB": 2.2 },
-    { "platform": "notebooklm", "filename": "notebooklm_bundle_v1.0.zip", "files": 43, "sizeMB": 9.4 }
+    { "platform": "claude",     "filename": "claude_bundle_v1.0.zip",     "files": 23, "sizeMB": 0.8 },
+    { "platform": "chatgpt",    "filename": "chatgpt_bundle_v1.0.zip",    "files": 13, "sizeMB": 1.5 },
+    { "platform": "gemini",     "filename": "gemini_bundle_v1.0.zip",     "files": 11, "sizeMB": 0.5 },
+    { "platform": "notebooklm", "filename": "notebooklm_bundle_v1.0.zip", "files": 47, "sizeMB": 1.5 }
   ]
 }

@@ -24,3 +24,7 @@ notes/
 # npm tooling at repo root (og-image generation etc.)
 /node_modules/
 /package-lock.json
+
+# Build output for the website's release-bundle pipeline (web/scripts/build-bundles.sh).
+# Zips are uploaded to GitHub releases instead of committed.
+web/dist-bundles/
