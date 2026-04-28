@@ -7,6 +7,7 @@
 @import "@fontsource/jetbrains-mono/700.css";
 
 @import "tailwindcss";
+@import "./prose.css";
 
 @theme inline {
   --color-bg: var(--bg);
