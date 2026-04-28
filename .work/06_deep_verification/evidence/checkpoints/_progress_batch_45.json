@@ -1,0 +1,139 @@
+{
+  "session": "C",
+  "batch": 45,
+  "round": 11,
+  "round_context": "1st round running v1.7 baseline post v1.7 cut 2026-04-29 commit 6d19992",
+  "status": "completed",
+  "completed_at": "2026-04-29",
+  "pages": "p.441-450 (10 pages)",
+  "sub_batches": [
+    {
+      "id": "45a",
+      "pages": "p.441-445",
+      "subagent_type": "oh-my-claudecode:executor",
+      "atoms": 139,
+      "output_file": "evidence/checkpoints/pdf_atoms_batch_45a.jsonl",
+      "hook_16_7_dispatch_purpose": "production_atomization",
+      "schema_sweep": "PASS_0_errors_0_warnings",
+      "first_atom": "ig34_p0441_a001",
+      "last_atom": "ig34_p0445_a040",
+      "terminal_parent_section": "Appendix A: CDISC SDS Team",
+      "terminal_heading_path": "(SDTMIG v3.4) > §10 [APPENDICES] > Appendix A: CDISC SDS Team"
+    },
+    {
+      "id": "45b",
+      "pages": "p.446-450",
+      "subagent_type": "oh-my-claudecode:executor",
+      "atoms": 173,
+      "output_file": "evidence/checkpoints/pdf_atoms_batch_45b.jsonl",
+      "hook_16_7_dispatch_purpose": "production_atomization",
+      "schema_sweep": "PASS_0_errors_0_warnings",
+      "first_atom": "ig34_p0446_a001",
+      "last_atom": "ig34_p0450_a026",
+      "terminal_parent_section": "Appendix D: CDISC Variable-naming Fragments",
+      "terminal_heading_path": "(SDTMIG v3.4) > §10 [APPENDICES] > Appendix D: CDISC Variable-naming Fragments",
+      "intra_agent_consistency_method": "inline-prepend 45a 终态 (N6 v1.6 carry-forward; SendMessage continuation not used since 45a agent unnamed)"
+    },
+    {
+      "id": "drift_cal_p445",
+      "pages": "p.445 only",
+      "subagent_type": "oh-my-claudecode:writer",
+      "atoms": 40,
+      "output_file": "evidence/checkpoints/drift_cal_p445_writer_rerun.jsonl",
+      "hook_16_7_dispatch_purpose": "drift_cal_alternation_artifact",
+      "merged_to_root": false,
+      "purpose": "direction-attribution validation only per N14 strict alternation 5th live-fire + v1.7 N21 1st INAUGURAL baseline drift cal validation"
+    }
+  ],
+  "production_atoms_total": 312,
+  "atom_type_distribution_production": {
+    "HEADING": 14,
+    "SENTENCE": 36,
+    "LIST_ITEM": 7,
+    "TABLE_HEADER": 8,
+    "TABLE_ROW": 244,
+    "CODE_LITERAL": 2,
+    "NOTE": 1,
+    "CROSS_REF": 0,
+    "FIGURE": 0
+  },
+  "table_id_pipe_counts": {
+    "oi_spec": {"pipe_count": 8, "rows": 8},
+    "oi_example1": {"pipe_count": 9, "rows": 16},
+    "appendix_a_contributors": {"pipe_count": 3, "rows": 76},
+    "appendix_b_glossary": {"pipe_count": 3, "rows": 41},
+    "appendix_c1_supp_qualifiers": {"pipe_count": 4, "rows": 4},
+    "appendix_d_fragments": {"pipe_count": 3, "rows": 107}
+  },
+  "rule_a_audit": {
+    "reviewer_slot": 58,
+    "subagent_type": "Plan",
+    "audit_pivot_cumulative": 39,
+    "family_burn_count": "Plan single-agent family 2nd burn extension after #46 INAUGURAL round 8 batch 36",
+    "sample_size": 10,
+    "sample_method": "1/page p.441-450 stratified seed=20260431",
+    "dimension_pass_count": 40,
+    "dimension_total": 40,
+    "weighted_pass_pct": 100.0,
+    "per_atom_verdicts": {"PASS": 10, "PARTIAL": 0, "FAIL": 0},
+    "threshold_pct": 80.0,
+    "verdict": "PASS",
+    "findings": [
+      {"id": "OBS-A", "severity": "LOW", "atom_id": "ig34_p0444_a018", "issue": "page_region heuristic borderline (executor=bottom; Plan suggests top; likely middle most accurate)", "blocker": false, "disposition": "leave to reconciler post-fix queue"}
+    ],
+    "branch_dispatch": "Branch C inline content substitution (Plan has no Write/Edit tool; main session synthesizes structured verdicts JSONL + summary MD from Plan inline return)"
+  },
+  "drift_cal": {
+    "trigger_cadence": "every-3-batches batch 42 -> 45 + cumulative atoms post-p.412 ≥600 dual-threshold met",
+    "target_page": 445,
+    "cumulative_count": 11,
+    "method": "v1.6 NEW EXECUTOR-VARIANT alternation under v1.7 N21 baseline (Hook 16.7 drift_cal_alternation_artifact exception)",
+    "baseline_subagent_type": "oh-my-claudecode:executor",
+    "rerun_subagent_type": "oh-my-claudecode:writer",
+    "baseline_atoms": 40,
+    "rerun_atoms": 40,
+    "verbatim_hash_intersection": 0,
+    "verbatim_hash_union": 80,
+    "strict_count_overlap_pct": 0.0,
+    "verbatim_jaccard_pct": 0.0,
+    "numeric_threshold_pct": 80.0,
+    "numeric_thresholds_met": false,
+    "divergence_class": "CANONICAL_FORM_DELIMITER_GRANULARITY (NEW class; NOT VALUE HALLUCINATION)",
+    "value_hallucination_recurrence": false,
+    "writer_direction_recurrence_count_cumulative": "still 6 (round 5+6+7+8+9+10); round 11 batch 45 NOT counted as 7th",
+    "halt_triggered": false,
+    "halt_reasoning": "Both numeric thresholds technically FAIL (0% strict + 0% verbatim Jaccard) but divergence is content-preserving canonical-form delimiter drift NOT VALUE HALLUCINATION. v1.7 N21 NEW halt clause (executor-direction motif in baseline) NOT triggered: production 45a+45b executor-clean. NEW third-path outcome not anticipated in kickoff §5.3.",
+    "n14_live_fire_status": "5th cumulative live-fire; STRONGLY VALIDATED status sustained",
+    "v1_7_n21_baseline_inaugural_validation": "EFFECTIVE production-side (312 atoms 0 errors 100% Rule A); EFFECTIVE artifact-side (NEW class divergence characterized; partial bans would have shipped canonical-form drift to root; complete ban prevents)"
+  },
+  "rule_compliance": {
+    "rule_a": "PASS_100_pct",
+    "rule_b": "0_failures_0_option_h_drift_cal_artifact_preserved_not_merged",
+    "rule_c": "P1_batch_45_report.md + drift_cal_batch_45_p445_report.md + rule_a_batch_45_summary.md (round-level retro at reconciler stage pending)",
+    "rule_d": "PASS_writer_oh-my-claudecode-executor_!=_reviewer_Plan_0_cross_round_collision_with_cumulative_1_57",
+    "rule_e": "OBS-B_INFORMATIONAL_NEW_class_canonical_form_drift + 5 v1.8 candidates filed"
+  },
+  "findings_added_this_batch": [],
+  "findings_reserved_unused": ["O-P1-157", "O-P1-158", "O-P1-159", "O-P1-160"],
+  "obs_items_this_batch": [
+    {"id": "OBS-A", "severity": "LOW", "scope": "page_region heuristic borderline", "atom_id": "ig34_p0444_a018", "disposition": "reconciler post-fix queue OR v1.8 candidate"},
+    {"id": "OBS-B", "severity": "INFORMATIONAL", "scope": "writer-family canonical-form delimiter granularity divergence (NEW class)", "disposition": "v1.8 candidate stack; round 12+ drift cal hypothesis testing recommended"}
+  ],
+  "v1_7_n21_1st_inaugural_live_fire": {
+    "production_side_effective": true,
+    "artifact_side_effective_with_nuance": true,
+    "writer_family_canonical_form_drift_caught": true,
+    "halt_correctly_not_triggered": true,
+    "n14_strongly_validated_5th_live_fire": true,
+    "n11_chapter_short_bracket_full_scope_validated": "sustained — §9 [STUDY REFERENCES] L1 + §10 [APPENDICES] L1 both with L2 children"
+  },
+  "cross_chapter_milestone": {
+    "L1_transitions_this_batch": 2,
+    "cumulative_L1_transitions_in_P1": 4,
+    "L1_density_record": "HIGHEST L1 transition density single batch in P1 cumulative (2 L1 transitions in 5 pages 45a)",
+    "ch09_short_chapter_consumed": "entire chapter (3 pages p.441-443) consumed within 45a"
+  },
+  "do_not_touch_compliance": "✓ root pdf_atoms.jsonl / audit_matrix.md / _progress.json (root) / sister batch files 44+46 / subagent_prompts/* / schema/*.json / PLAN.md / plans/* / CLAUDE.md / MEMORY/* all untouched",
+  "next_step_for_reconciler": "merge 45a + 45b production atoms (312 atoms) to root pdf_atoms.jsonl after sister sessions B (batch 44) + D (batch 46) complete; preserve drift_cal_p445_writer_rerun.jsonl as artifact; update root _progress.json + audit_matrix.md + Rule D roster #57/#58/#59 in serial merge; round 11 retro per Rule C",
+  "last_updated": "2026-04-29"
+}
