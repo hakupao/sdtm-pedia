@@ -3,5 +3,5 @@ export function getStaticPaths() {
   return [{ params: { lang: 'zh' } }, { params: { lang: 'en' } }, { params: { lang: 'ja' } }];
 }
 const { lang } = Astro.params;
-return Astro.redirect(`/${lang}/guide/user-guide`);
+return Astro.redirect(`/${lang}/guide/user-guide/`);
 ---

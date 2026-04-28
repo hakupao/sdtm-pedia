@@ -36,8 +36,8 @@ describe('<CompareFilter>', () => {
     expect(screen.getByPlaceholderText('过滤维度...')).toBeInTheDocument();
     expect(screen.getByLabelText('过滤维度')).toBeInTheDocument();
     rerender(<CompareFilter dims={dims} lang="ja" />);
-    expect(screen.getByPlaceholderText('次元を絞り込み...')).toBeInTheDocument();
-    expect(screen.getByLabelText('次元を絞り込む')).toBeInTheDocument();
+    expect(screen.getByPlaceholderText('次元の絞り込み...')).toBeInTheDocument();
+    expect(screen.getByLabelText('次元の絞り込み')).toBeInTheDocument();
     rerender(<CompareFilter dims={dims} lang="en" />);
     expect(screen.getByPlaceholderText('Filter dimensions...')).toBeInTheDocument();
     expect(screen.getByLabelText('Filter dimensions')).toBeInTheDocument();
