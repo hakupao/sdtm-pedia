@@ -24,7 +24,10 @@ const guide = defineCollection({
   }),
   schema: z.object({
     lang: z.enum(['zh', 'en', 'ja']).optional(),
-    slug: z.string().optional(),
+    // slug is required: it composes the unique id (with lang) and is the URL
+    // segment for every guide route. Schema validation gives a clearer error
+    // than the generateId throw if any future doc is added without it.
+    slug: z.string(),
     order: z.number().optional(),
     title: z.string().optional(),
   }),

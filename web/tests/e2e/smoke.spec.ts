@@ -26,7 +26,7 @@ test('docs reader renders user-guide in zh', async ({ page }) => {
 });
 
 test('link-resolution: every <a> in main resolves ≠404 across landing + guide + changelog', async ({ page, request }) => {
-  const routes = ['/zh/', '/zh/guide/user-guide', '/zh/changelog'];
+  const routes = ['/zh/', '/en/', '/ja/', '/zh/guide/user-guide', '/zh/changelog'];
   const seen = new Set<string>();
   for (const route of routes) {
     await page.goto(route);
