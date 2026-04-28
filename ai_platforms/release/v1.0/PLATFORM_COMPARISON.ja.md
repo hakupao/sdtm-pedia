@@ -33,7 +33,7 @@ title: "4 プラットフォーム多次元比較"
 |---|---|---|
 | Claude Projects | Organization / Project 招待 (Team / Enterprise プランで Project を共有; Pro ユーザーは各自が再デプロイが必要) | 該当なし (内部直接招待) |
 | ChatGPT GPTs | Custom GPT を organization に共有 (審査不要) または GPT Store 公開 (OpenAI review が必要) | Store 公開のみ審査あり |
-| Gemini Gems | Workspace プラン: Daisy が直接共有; 個人アカウント: 同僚が各自でセルフデプロイ (完全な v7.1 system prompt を貼り付け) | 該当なし |
+| Gemini Gems | Workspace プラン: Bojiang Zhang が直接共有; 個人アカウント: 同僚が各自でセルフデプロイ (完全な v7.1 system prompt を貼り付け) | 該当なし |
 | NotebookLM | メール招待で notebook に参加 (Pro / Workspace)、または同僚が自己構築 (50-source cap) | 該当なし |
 
 ## 4. プラン要件
@@ -91,4 +91,4 @@ title: "4 プラットフォーム多次元比較"
 | NotebookLM | 42 source 外の質問 (リアルタイムの Pinnacle 21 / 最新ニュース / Dataset-JSON v1.1 / CT version locking + MedDRA) は積極的に PUNT — 設計上の仕様であり、バグではありません |
 
 ---
-*v1.0 — 2026-04-27 — メンテナー: Daisy*
+*v1.0 — 2026-04-27 — メンテナー: Bojiang Zhang*

@@ -41,15 +41,15 @@ Short version: Not sure which to pick? Start with Claude Projects. Bringing coll
 
 ### 4.1 Claude Projects (Recommended Starting Point)
 
-- **Access**: Wait for Daisy to add you to the organization — join via the email invite link.
-- **URL**: claude.ai → Projects → "SDTM Knowledge Base" (Daisy will send the specific URL directly).
+- **Access**: Wait for Bojiang Zhang to add you to the organization — join via the email invite link.
+- **URL**: claude.ai → Projects → "SDTM Knowledge Base" (Bojiang Zhang will send the specific URL directly).
 - **Subscription required**: Claude Pro / Team / Enterprise.
 - **Best for**: Precise variable Core + CT lookups, cross-variable reasoning (e.g., the PCTPT five-variable set), correcting wrong premises (e.g., SUPPTS).
 - **Not ideal for**: Real-time lookups on FDA / Pinnacle 21 (verify manually at cdisc.org); very large batch domain comparisons.
 
 ### 4.2 ChatGPT GPTs
 
-- **Access**: Daisy shares the Custom GPT to your organization; click "Add to My GPTs".
+- **Access**: Bojiang Zhang shares the Custom GPT to your organization; click "Add to My GPTs".
 - **URL**: chatgpt.com → top dropdown → "SDTM Knowledge Base".
 - **Subscription required**: ChatGPT Plus / Team / Enterprise (Free tier is not supported).
 - **Best for**: Full domain queries, team sharing, publishing to GPT Store via OpenAI review.
@@ -57,7 +57,7 @@ Short version: Not sure which to pick? Start with Claude Projects. Bringing coll
 
 ### 4.3 Gemini Gems
 
-- **Access**: Daisy shares via Google Workspace, or you can self-deploy (personal account).
+- **Access**: Bojiang Zhang shares via Google Workspace, or you can self-deploy (personal account).
 - **URL**: gemini.google.com → Gems → "SDTM Knowledge Base".
 - **Subscription required**: Gemini Advanced (personal) / Google Workspace.
 - **Best for**: Loading large amounts of context at once, cross-domain pattern comparisons, long sessions.
@@ -65,7 +65,7 @@ Short version: Not sure which to pick? Start with Claude Projects. Bringing coll
 
 ### 4.4 NotebookLM
 
-- **Access**: Daisy invites you to the notebook, or you can create your own (50-source cap).
+- **Access**: Bojiang Zhang invites you to the notebook, or you can create your own (50-source cap).
 - **URL**: notebooklm.google.com → "SDTM Knowledge Base".
 - **Subscription required**: NotebookLM Pro / Google Workspace.
 - **Best for**: Strong anti-hallucination (audit / compliance use), inline citation lookups, preferring "I don't know" over making something up.
@@ -99,11 +99,11 @@ Full details are in `./KNOWN_LIMITATIONS.en.md`. Summary:
 
 ## 8. Feedback
 
-If you find an error, hallucination, or off-topic answer: (1) Take a screenshot and save the full original question and AI response. (2) Note the platform and version (e.g., "ChatGPT GPT v2.2 LIVE 2026-04-24") and the expected answer (citing the SDTMIG v3.4 section number or CDISC CT C-code). (3) Email Daisy, file in the company issue tracker, or @Daisy in the department group chat. Issues are consolidated in `./CHANGELOG.md` and addressed in the next minor release.
+If you find an error, hallucination, or off-topic answer: (1) Take a screenshot and save the full original question and AI response. (2) Note the platform and version (e.g., "ChatGPT GPT v2.2 LIVE 2026-04-24") and the expected answer (citing the SDTMIG v3.4 section number or CDISC CT C-code). (3) Email Bojiang Zhang, file in the company issue tracker, or @Bojiang Zhang in the department group chat. Issues are consolidated in `./CHANGELOG.md` and addressed in the next minor release.
 
 ## 9. Road Map
 
 **Short term (v1.0 maintenance)**: Collect feedback and fix SDTM content errors; quarterly v1.x minor releases. **Medium term (Phase 7 — self-hosted RAG)**: Break free of the 4-platform capacity constraints, enabling all 295 files at full resolution plus complete QS codelist expansion. **Long term**: Keep pace with SDTMIG v3.5+ and extend coverage to ADaM and Define-XML.
 
 ---
-*v1.0 — 2026-04-27 — Maintained by Daisy*
+*v1.0 — 2026-04-27 — Maintained by Bojiang Zhang*

@@ -38,8 +38,8 @@
 
 ## 5. アップグレード / メンテナンス
 
-release パックは今後も更新されます: minor release (`../CHANGELOG.md` に v1.1 / v1.2 と記載) または SDTMIG 新版 (v3.5+) のタイミングで、Daisy が社内クラウドから新しい release パックを配布します。再アップロード手順: 新パックを取得 → 対応するプラットフォームのサブディレクトリ (`./{claude,chatgpt,gemini,notebooklm}/`) に移動 → 旧 uploads を削除して再アップロード → **新しい system_prompt.md を完全にコピー&ペースト** (途中で切断すると AHP ゲートルールが失われます。例: Gemini v7.1 CO-1d SUPPQUAL ハードアンカー + ChatGPT v2.2 v3.4 新ドメイン変数名検証)。ロールバック: 過去の release パックは Daisy までご連絡ください。
+release パックは今後も更新されます: minor release (`../CHANGELOG.md` に v1.1 / v1.2 と記載) または SDTMIG 新版 (v3.5+) のタイミングで、Bojiang Zhang が社内クラウドから新しい release パックを配布します。再アップロード手順: 新パックを取得 → 対応するプラットフォームのサブディレクトリ (`./{claude,chatgpt,gemini,notebooklm}/`) に移動 → 旧 uploads を削除して再アップロード → **新しい system_prompt.md を完全にコピー&ペースト** (途中で切断すると AHP ゲートルールが失われます。例: Gemini v7.1 CO-1d SUPPQUAL ハードアンカー + ChatGPT v2.2 v3.4 新ドメイン変数名検証)。ロールバック: 過去の release パックは Bojiang Zhang までご連絡ください。
 
 ## 6. フィードバック
 
-誤りや幻覚を発見した場合: (1) スクリーンショットを撮り、質問の原文と AI の回答を保存します; (2) プラットフォーム + バージョン (例: "ChatGPT GPT v2.2 LIVE 2026-04-24") + 期待される回答 (SDTMIG v3.4 章番号または CDISC CT C-code を引用) + セルフデプロイバージョン番号 + smoke スコアを添付します; (3) メールで Daisy に連絡 / issue tracker / 部門グループチャットで @Daisy。内容は `../CHANGELOG.md` に集約し、次の minor release で対応します。
+誤りや幻覚を発見した場合: (1) スクリーンショットを撮り、質問の原文と AI の回答を保存します; (2) プラットフォーム + バージョン (例: "ChatGPT GPT v2.2 LIVE 2026-04-24") + 期待される回答 (SDTMIG v3.4 章番号または CDISC CT C-code を引用) + セルフデプロイバージョン番号 + smoke スコアを添付します; (3) メールで Bojiang Zhang に連絡 / issue tracker / 部門グループチャットで @Bojiang Zhang。内容は `../CHANGELOG.md` に集約し、次の minor release で対応します。

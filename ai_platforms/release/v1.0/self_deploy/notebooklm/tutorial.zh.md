@@ -4,7 +4,7 @@
 > 读完本教程: 30-60 分钟得到一个 NotebookLM notebook, in-KB-only 天然反虚构, 完整 17 题测试 15/17 通过 (88%) 基线.
 > 信源: 项目仓库 ./ (instructions.md + uploads/ × 42).
 >
-> ℹ️ 本文件中所有 `../../notebooklm/dev/evidence/...` 路径指向项目内部 QA 证据 (由 Daisy 保管), 不在本 release 包内. 如需详情请联系 Daisy.
+> ℹ️ 本文件中所有 `../../notebooklm/dev/evidence/...` 路径指向项目内部 QA 证据 (由 Bojiang Zhang 保管), 不在本 release 包内. 如需详情请联系 Bojiang Zhang.
 
 ---
 
@@ -254,7 +254,7 @@ PLAN §10 保留的 Studio 三件套:
 | 文档 | 路径 | 用途 |
 |------|------|------|
 | **RETROSPECTIVE (本平台)** | `../../notebooklm/docs/RETROSPECTIVE.md` | Rule C 三段 + pivot 案例 + _template/ 补丁 |
-| **跨 4 平台 Phase 5 retro** | `../../retrospectives/PHASE5_RETROSPECTIVE.md` | v1.0 FINAL 2026-04-24 Daisy 认可 4 平台 sign-off |
+| **跨 4 平台 Phase 5 retro** | `../../retrospectives/PHASE5_RETROSPECTIVE.md` | v1.0 FINAL 2026-04-24 Bojiang Zhang 认可 4 平台 sign-off |
 | **PLAN** | `../../notebooklm/docs/PLAN.md` | 662 行 v2.2 (架构 pivot 后完整 plan) |
 | **完整 17 题测试结果** | `../../notebooklm/dev/evidence/smoke_v4_results.md` + `smoke_v4_answers/` | 17 题逐题 verdict |
 | **三档切换 evidence** | `../../notebooklm/dev/evidence/share_level_toggle_drill.md` | v1.0 FINAL 6 子步 + Public 语义深化 |

@@ -38,8 +38,8 @@
 
 ## 5. 升级 / 维护
 
-release 包后续会更新: 每个 minor release (`../CHANGELOG.md` 标 v1.1 / v1.2) 或 SDTMIG 新版 (v3.5+) 时, Daisy 通过公司云分发新 release pack. 重传步骤: 拿到新 pack → 进对应平台子目录 (`./{claude,chatgpt,gemini,notebooklm}/`) → 删旧 uploads + 重传 → **完整复制粘贴新 system_prompt.md** (绝不能截断, 否则丢 AHP 守门规则, 例 Gemini v7.1 CO-1d SUPPQUAL 硬锚 + ChatGPT v2.2 v3.4 新域变量名校验). 回滚: 联系 Daisy 取历史 release pack.
+release 包后续会更新: 每个 minor release (`../CHANGELOG.md` 标 v1.1 / v1.2) 或 SDTMIG 新版 (v3.5+) 时, Bojiang Zhang 通过公司云分发新 release pack. 重传步骤: 拿到新 pack → 进对应平台子目录 (`./{claude,chatgpt,gemini,notebooklm}/`) → 删旧 uploads + 重传 → **完整复制粘贴新 system_prompt.md** (绝不能截断, 否则丢 AHP 守门规则, 例 Gemini v7.1 CO-1d SUPPQUAL 硬锚 + ChatGPT v2.2 v3.4 新域变量名校验). 回滚: 联系 Bojiang Zhang 取历史 release pack.
 
 ## 6. 反馈
 
-发现错误 / 幻觉: (1) 截图 + 留底完整问题原文 + AI 回答; (2) 附平台 + 版本 (例 "ChatGPT GPT v2.2 LIVE 2026-04-24") + 期望答案 (引 SDTMIG v3.4 章节号或 CDISC CT C-code) + 自部署版本号 + smoke 分数; (3) 邮件 Daisy / issue tracker / 部门群 @Daisy. 汇总到 `../CHANGELOG.md` 走下个 minor release.
+发现错误 / 幻觉: (1) 截图 + 留底完整问题原文 + AI 回答; (2) 附平台 + 版本 (例 "ChatGPT GPT v2.2 LIVE 2026-04-24") + 期望答案 (引 SDTMIG v3.4 章节号或 CDISC CT C-code) + 自部署版本号 + smoke 分数; (3) 邮件 Bojiang Zhang / issue tracker / 部门群 @Bojiang Zhang. 汇总到 `../CHANGELOG.md` 走下个 minor release.

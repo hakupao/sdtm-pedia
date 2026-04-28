@@ -41,15 +41,15 @@ title: "用户手册"
 
 ### 4.1 Claude Projects (推荐入门)
 
-- **访问**: 等 Daisy 加 organization 邀请, 邮件链接加入.
-- **URL**: claude.ai → Projects → "SDTM Knowledge Base" (Daisy 单发具体 URL).
+- **访问**: 等 Bojiang Zhang 加 organization 邀请, 邮件链接加入.
+- **URL**: claude.ai → Projects → "SDTM Knowledge Base" (Bojiang Zhang 单发具体 URL).
 - **套餐**: Claude Pro / Team / Enterprise.
 - **适合**: 精确变量 Core+CT 绑定 / 跨变量推理 (PCTPT 五件套) / 错前提纠错 (SUPPTS).
 - **不适合**: 实时联网 FDA/Pinnacle 21 (手动核 cdisc.org); 超大批量域对比.
 
 ### 4.2 ChatGPT GPTs
 
-- **访问**: Daisy 分享 Custom GPT 到 organization, "添加到我的 GPTs".
+- **访问**: Bojiang Zhang 分享 Custom GPT 到 organization, "添加到我的 GPTs".
 - **URL**: chatgpt.com → 顶部下拉 → "SDTM Knowledge Base".
 - **套餐**: ChatGPT Plus / Team / Enterprise (Free 不可).
 - **适合**: 全量域查询 / 团队共享 / 想发布 GPT Store 走 OpenAI review.
@@ -57,7 +57,7 @@ title: "用户手册"
 
 ### 4.3 Gemini Gems
 
-- **访问**: Daisy 分享 (Workspace) 或自部署 (个人).
+- **访问**: Bojiang Zhang 分享 (Workspace) 或自部署 (个人).
 - **URL**: gemini.google.com → Gems → "SDTM Knowledge Base".
 - **套餐**: Gemini Advanced 个人 / Google Workspace.
 - **适合**: 一次性塞大量上下文 / 跨域模式比对 / 长会话.
@@ -65,7 +65,7 @@ title: "用户手册"
 
 ### 4.4 NotebookLM
 
-- **访问**: Daisy 邀请加入 notebook, 或自建 (50-source cap).
+- **访问**: Bojiang Zhang 邀请加入 notebook, 或自建 (50-source cap).
 - **URL**: notebooklm.google.com → "SDTM Knowledge Base".
 - **套餐**: NotebookLM Pro / Google Workspace.
 - **适合**: 强反虚构 (审计/合规) / inline citation 反查 / 拒答优于编造.
@@ -99,11 +99,11 @@ title: "用户手册"
 
 ## 8. 反馈渠道
 
-发现错误 / 幻觉 / 答非所问: (1) 截图 + 留底完整问题原文 + AI 回答; (2) 附平台 + 版本号 (例 "ChatGPT GPT v2.2 LIVE 2026-04-24") + 期望答案 (引 SDTMIG v3.4 章节号或 CDISC CT C-code); (3) 邮件 Daisy / 公司 issue tracker / 部门群 @Daisy. 汇总到 `./CHANGELOG.md` 走下个 minor release.
+发现错误 / 幻觉 / 答非所问: (1) 截图 + 留底完整问题原文 + AI 回答; (2) 附平台 + 版本号 (例 "ChatGPT GPT v2.2 LIVE 2026-04-24") + 期望答案 (引 SDTMIG v3.4 章节号或 CDISC CT C-code); (3) 邮件 Bojiang Zhang / 公司 issue tracker / 部门群 @Bojiang Zhang. 汇总到 `./CHANGELOG.md` 走下个 minor release.
 
 ## 9. 后续路径
 
 短期 (v1.0 维护): 收反馈修 SDTM 错点, 季度 v1.x minor. 中期 (Phase 7 自建 RAG): 摆脱 4 平台容量约束, 295 文件全量 + QS codelist 全展开. 长期: 跟 SDTMIG v3.5+ 同步 + ADaM / Define-XML 扩展.
 
 ---
-*v1.0 — 2026-04-27 — 维护者: Daisy*
+*v1.0 — 2026-04-27 — 维护者: Bojiang Zhang*

@@ -26,7 +26,7 @@ title: "README"
 
 1. 看 [USER_GUIDE.zh.md](./USER_GUIDE.zh.md) §3 决策树挑平台 (不知道选什么 → Claude Projects).
 2. 试 [DEMO_QUESTIONS.md](./DEMO_QUESTIONS.md) 任意 3 题 (推荐 D0 + D1 + D5).
-3. 反馈给 Daisy.
+3. 反馈给 Bojiang Zhang.
 
 ## 自部署
 

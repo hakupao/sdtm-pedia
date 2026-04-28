@@ -4,7 +4,7 @@
 > After completing this tutorial: 30–60 minutes to get a working NotebookLM notebook, in-KB-only natural anti-hallucination, complete 17-question test 15/17 PASS (88%) baseline.
 > Source files: project repository `./` (instructions.md + uploads/ × 42).
 >
-> ℹ️ All `../../notebooklm/dev/evidence/...` paths referenced in this document point to internal QA artifacts retained by Daisy and are NOT included in this release pack. Contact Daisy for access if needed.
+> ℹ️ All `../../notebooklm/dev/evidence/...` paths referenced in this document point to internal QA artifacts retained by Bojiang Zhang and are NOT included in this release pack. Contact Bojiang Zhang for access if needed.
 
 ---
 
@@ -255,7 +255,7 @@ Trigger condition: you explicitly request "refine the Studio three-piece set lat
 | Document | Path | Purpose |
 |----------|------|---------|
 | **RETROSPECTIVE (this platform)** | `../../notebooklm/docs/RETROSPECTIVE.md` | Rule C three-section + pivot case + _template/ patches |
-| **Cross-4-platform Phase 5 retro** | `../../retrospectives/PHASE5_RETROSPECTIVE.md` | v1.0 FINAL 2026-04-24 Daisy-acknowledged 4-platform sign-off |
+| **Cross-4-platform Phase 5 retro** | `../../retrospectives/PHASE5_RETROSPECTIVE.md` | v1.0 FINAL 2026-04-24 Bojiang Zhang-acknowledged 4-platform sign-off |
 | **PLAN** | `../../notebooklm/docs/PLAN.md` | 662-line v2.2 (complete plan after architecture pivot) |
 | **Complete 17-Q test results** | `../../notebooklm/dev/evidence/smoke_v4_results.md` + `smoke_v4_answers/` | Per-question verdict for all 17 questions |
 | **share level toggle drill evidence** | `../../notebooklm/dev/evidence/share_level_toggle_drill.md` | v1.0 FINAL 6 sub-steps + Public semantics deep-dive |
