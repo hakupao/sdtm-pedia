@@ -1,0 +1,129 @@
+{
+  "session": "C",
+  "batch": 51,
+  "round": 13,
+  "status": "completed",
+  "completed_at": "2026-04-30",
+  "v1_baseline": "v1.7",
+  "v1_baseline_decision_source": "_progress.json recovery_hint round_13_baseline_decision = round 13 dispatched BEFORE v1.8 cut commit completes runs v1.7 baseline (no mid-round prompt swap precedent)",
+  "page_range": "sv20 p.40-49",
+  "sub_batches": {
+    "51a": {
+      "page_range": "sv20 p.40-44",
+      "atoms": 65,
+      "atom_distribution": "p.40=18, p.41=7, p.42=13, p.43=11, p.44=16"
+    },
+    "51b": {
+      "page_range": "sv20 p.45-49",
+      "atoms": 85,
+      "atom_distribution": "p.45=16, p.46=19, p.47=17, p.48=18, p.49=15"
+    }
+  },
+  "atoms_total": 150,
+  "failures": 0,
+  "repair_cycles": 0,
+  "active_heading_terminal": "§3.2.3.4 [Subject Disease Milestones]",
+  "rule_a": {
+    "slot": 64,
+    "subagent_type": "codex:codex-rescue",
+    "audit_pivot_cumulative": 45,
+    "family_burn_extension": "codex-family 5th burn extension",
+    "sample_n": 10,
+    "stratification": "1/page sv20 p.40-49 seed=20260602",
+    "weighted_pass_pct": 90.0,
+    "verbatim_pass": "9/10",
+    "atom_type_pass": "10/10",
+    "parent_section_pass": "10/10",
+    "schema_pass": "7/10 (3 codex-strict-rubric false positives reclassified non-violation per schema reality)",
+    "halt_grade_fails": 1,
+    "halt_grade_fails_resolution": "N26 page-boundary off-by-one motif on sv20_p0043_a011 (codex strict-rubric verbatim FAIL = page-local non-byte-exact); main session reclassified as N26 motif per kickoff §5.2 not Hook 19 value fab not schema sweep = NO HALT under strict halt clause",
+    "main_session_halt_disposition": "NO HALT (kickoff §5.2 v1.7 N21 strict halt clause not triggered; codex's HALT verdict was per stricter codex-prompt rubric)",
+    "threshold_met": true
+  },
+  "drift_cal": {
+    "target_page": "sv20 p.45",
+    "cumulative_count": 13,
+    "n14_live_fire_cumulative": 7,
+    "v1_7_n21_baseline_cumulative": 3,
+    "sv20_drift_cal_cumulative": 2,
+    "method": "v1.6 NEW EXECUTOR-VARIANT alternation under v1.7 N21 §派发 drift_cal_alternation_artifact exception",
+    "baseline_atoms": 16,
+    "rerun_atoms": 16,
+    "verbatim_hash_intersection": 8,
+    "verbatim_hash_union": 24,
+    "strict_count_overlap_pct": 50.0,
+    "verbatim_hash_jaccard_pct": 33.3,
+    "verdict": "GRANULARITY_DIVERGENCE_MULTI_AXIS_BIDIRECTIONAL",
+    "multi_axis_motif_classification": {
+      "axis_1_verbatim_cell_value_fab": "NONE — writer rerun preserves byte-exact cell content",
+      "axis_2_canonical_form_delimiter_granularity": "REVERSED DIRECTION from round 12 batch 48 (executor=minimal, writer=full pipes); cross-family Axis 2 cumulative 2 writer + 1 executor = 3 cross-family",
+      "axis_3_schema_field_enum_fab": "NONE",
+      "new_axis_4_parent_section_casing_suffix_variation": "1st cumulative (round 13 batch 51 NEW class) — bidirectional content-preserving",
+      "n26_page_boundary_off_by_one": "2 atoms in batch 51 (sv20_p0043_a011 + sv20_p0045_a001) — exceeds v1.8 ≤1/batch WARN threshold = halt-promotion candidate; 2nd cumulative N26 motif at executor-direction post round 12 batch 49 1st cumulative",
+      "table_header_continuation_page_emission_divergence": "1st cumulative NEW class (executor convention vs writer convention)"
+    },
+    "halt_clause_analysis": "kickoff §5.2 v1.7 N21 strict halt clause requires Hook 19 value fab OR schema sweep failure; N26 is page-attribution NOT value fab; heading_text codex flag is schema-reality non-violation; numeric trip is legacy clause superseded by multi-axis classification. NO HALT.",
+    "writer_rerun_artifact": "drift_cal_sv20_p045_writer_rerun.jsonl 16 atoms NOT merged to root",
+    "counter_intuitive_finding": "writer rerun page-boundary handling SUPERIOR to executor on this batch (writer correctly started p.45 atoms at row 9; executor mis-attributed row 8 IDVAR to p.45). FIRST observed instance in P1 cumulative where writer-direction handling outperforms executor-direction on a specific axis."
+  },
+  "findings_added": [
+    {
+      "id": "O-P1-181",
+      "severity": "MEDIUM",
+      "title": "N26 page-boundary off-by-one motif at executor-direction ≥2/batch (sv20_p0043_a011 + sv20_p0045_a001)",
+      "atoms_affected": ["sv20_p0043_a011", "sv20_p0045_a001"],
+      "cumulative_executor_direction": 2,
+      "v1_8_codification_threshold": "≤1/batch WARN; ≥2/batch halt-on-violation candidate (round 13 batch 51 = 2 atoms exceeds threshold)",
+      "recommendation": "Option H page-label correction at reconciler stage; v1.9 candidate stack promote N26 from WARN-mode to halt-on-violation"
+    },
+    {
+      "id": "O-P1-182",
+      "severity": "LOW",
+      "title": "Codex strict-prompt-rubric false positive on heading_text field (14/150 atoms flagged schema FAIL but schema does NOT set additionalProperties:false)",
+      "main_session_resolution": "non-violation per JSON Schema 2020-12 default; recommend v1.9 schema clarification (declare heading_text explicitly OR set additionalProperties:false with writer protocol update)",
+      "atoms_affected_count": 14
+    },
+    {
+      "id": "O-P1-183",
+      "severity": "LOW",
+      "title": "NEW Axis 4 parent_section casing/suffix variation (1st cumulative cross-direction)",
+      "examples": "title-case [Special-Purpose Domains] vs UPPERCASE [SPECIAL-PURPOSE DOMAINS]; [Comments] vs [Comments (CO)] domain-code suffix",
+      "recommendation": "v1.9 codification extend N27 single canonical form mandate to L2/L3/L4 sub-section parent_section casing + suffix convention"
+    },
+    {
+      "id": "O-P1-184",
+      "severity": "LOW",
+      "title": "TABLE_HEADER continuation-page emission convention divergence (1st cumulative NEW class)",
+      "examples": "executor convention TABLE_HEADER once per logical table vs writer convention TABLE_HEADER per physical-page emission on continuation pages",
+      "recommendation": "v1.9 codification design single canonical form for multi-page TABLE_HEADER convention"
+    }
+  ],
+  "halt_signal": false,
+  "halt_reason": null,
+  "n6_single_dispatch_pattern_cumulative": 4,
+  "n14_strict_alternation_cumulative": 7,
+  "v1_7_n21_baseline_cumulative_live_fire": 3,
+  "production_atoms_cumulative_post_n21": 1314,
+  "writer_family_contamination_post_n21": 0,
+  "evidence_files_written": [
+    "evidence/checkpoints/pdf_atoms_batch_51a.jsonl (65 atoms)",
+    "evidence/checkpoints/pdf_atoms_batch_51b.jsonl (85 atoms)",
+    "evidence/checkpoints/drift_cal_sv20_p045_writer_rerun.jsonl (16 atoms artifact NOT merged)",
+    "evidence/checkpoints/drift_cal_batch_51_sv20_p045_report.md (12 sections)",
+    "evidence/checkpoints/rule_a_batch_51_sample.jsonl (10 atoms)",
+    "evidence/checkpoints/rule_a_batch_51_verdicts.jsonl (10 verdicts)",
+    "evidence/checkpoints/rule_a_batch_51_summary.md (9 sections)",
+    "evidence/checkpoints/P1_batch_51_report.md (11 sections)",
+    "evidence/checkpoints/_progress_batch_51.json (this file)"
+  ],
+  "do_not_touch_compliance": "Verified — no modifications to root pdf_atoms.jsonl / audit_matrix.md / _progress.json / sister batch_50/52 files / subagent_prompts/ / schema/ / PLAN.md / plans/ / CLAUDE.md / multi_session/ kickoff files",
+  "v1_9_candidate_stack_items": [
+    "N26 promotion to halt-on-violation per ≥2/batch empirical evidence round 13 batch 51",
+    "Per-family cumulative count tracking (Axis 2 BIDIRECTIONAL evidence) — refine v1.8 N24 multi-axis taxonomy",
+    "NEW Axis 4 parent_section casing/suffix variation codification (extend N27 to L2-L4)",
+    "NEW Axis 5 N26 motif integration into multi-axis taxonomy",
+    "TABLE_HEADER continuation-page emission convention codification",
+    "Schema clarification on heading_text (declare explicitly OR set additionalProperties:false)",
+    "Hook 21 backport recommendation for round 13 batch 51 evidence support"
+  ]
+}
