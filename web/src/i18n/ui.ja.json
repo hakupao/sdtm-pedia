@@ -16,5 +16,9 @@
   "section.downloads.pending": "v1.0 リリースバンドルを準備中です。進捗は GitHub releases ページでご確認ください:",
   "footer.maintainer": "メンテナー: Daisy. 社内公開版。",
   "search.placeholder": "ドキュメント検索...",
-  "search.shortcut": "Cmd K"
+  "search.shortcut": "Cmd K",
+  "compare.title": "多次元プラットフォーム比較",
+  "compare.subhead": "4 プラットフォーム横並び. 次元キーワードで絞り込み.",
+  "compare.filter.placeholder": "次元を絞り込み...",
+  "compare.filter.label": "次元を絞り込む"
 }

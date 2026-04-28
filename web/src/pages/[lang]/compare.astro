@@ -3,7 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import TopNav from '../../components/astro/TopNav.astro';
 import { CompareFilter } from '../../components/react/CompareFilter';
 import dims from '../../data/compare-dimensions.json';
-import { type Lang } from '../../i18n/helpers';
+import { getUIStrings, type Lang } from '../../i18n/helpers';
 
 export function getStaticPaths() {
   return [
@@ -15,14 +15,13 @@ export function getStaticPaths() {
 
 const lang = Astro.params.lang as Lang;
 const pathname = Astro.url.pathname;
+const t = getUIStrings(lang);
 ---
-<BaseLayout title="Platform Comparison" lang={lang}>
+<BaseLayout title={t['compare.title']} lang={lang}>
   <TopNav lang={lang} pathname={pathname} />
   <main class="px-7 py-8 max-w-screen-xl mx-auto">
-    <h1 class="font-display text-4xl font-bold mb-2">Multi-dimensional Comparison</h1>
-    <p class="font-serif text-ink-mute mb-8">
-      Side-by-side across 4 platforms. Filter by dimension keyword.
-    </p>
+    <h1 class="font-display text-4xl font-bold mb-2">{t['compare.title']}</h1>
+    <p class="font-serif text-ink-mute mb-8">{t['compare.subhead']}</p>
     <CompareFilter client:load dims={dims} lang={lang} />
   </main>
 </BaseLayout>

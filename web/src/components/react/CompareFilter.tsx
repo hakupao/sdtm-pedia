@@ -1,7 +1,7 @@
 // web/src/components/react/CompareFilter.tsx
 import { useState } from 'react';
 import platforms from '../../data/platforms.json';
-import type { Lang } from '../../i18n/helpers';
+import { getUIStrings, type Lang } from '../../i18n/helpers';
 
 interface Dim {
   key: string;
@@ -14,6 +14,7 @@ interface Props { dims: Dim[]; lang: Lang; }
 
 export function CompareFilter({ dims, lang }: Props) {
   const [q, setQ] = useState('');
+  const t = getUIStrings(lang);
   const lower = q.toLowerCase().trim();
   const filtered = lower
     ? dims.filter((d) => d.label[lang].toLowerCase().includes(lower))
@@ -25,8 +26,8 @@ export function CompareFilter({ dims, lang }: Props) {
         type="search"
         value={q}
         onChange={(e) => setQ(e.target.value)}
-        placeholder="Filter dimensions..."
-        aria-label="Filter dimensions"
+        placeholder={t['compare.filter.placeholder']}
+        aria-label={t['compare.filter.label']}
         className="font-mono text-sm px-3 py-2 border border-rule bg-bg w-64 mb-6"
       />
       <div className="overflow-x-auto">
