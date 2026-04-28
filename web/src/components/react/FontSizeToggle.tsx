@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { getStoredFontSize, setStoredFontSize, applyFontSize, type FontSize } from '../../lib/fontSize';
 
 const TIERS: FontSize[] = ['sm', 'md', 'lg', 'xl'];
-const TIER_PX: Record<FontSize, string> = { sm: '9px', md: '11px', lg: '13px', xl: '15px' };
+const TIER_PX: Record<FontSize, string> = { sm: '12px', md: '14px', lg: '16px', xl: '18px' };
 
 interface Props {
   navLabel: string;
