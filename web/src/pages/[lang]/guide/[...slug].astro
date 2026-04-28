@@ -1,0 +1,45 @@
+---
+import { getCollection, render } from 'astro:content';
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+import { type Lang } from '../../../i18n/helpers';
+
+export async function getStaticPaths() {
+  const all = await getCollection('guide');
+  const paths: any[] = [];
+  for (const doc of all) {
+    if (doc.data.lang === undefined) {
+      // language-neutral entry: emit zh+en+ja paths with banner suppressed
+      for (const l of ['zh', 'en', 'ja'] as const) {
+        paths.push({ params: { lang: l, slug: doc.data.slug }, props: { entry: doc, fallback: false } });
+      }
+      continue;
+    }
+    const docLang = doc.data.lang;
+    const slug = doc.data.slug;
+    paths.push({ params: { lang: docLang, slug }, props: { entry: doc, fallback: false } });
+    if (docLang === 'en') {
+      for (const altLang of ['zh', 'ja'] as const) {
+        const localized = all.find((d) => d.data.slug === slug && d.data.lang === altLang);
+        if (!localized) {
+          paths.push({ params: { lang: altLang, slug }, props: { entry: doc, fallback: true } });
+        }
+      }
+    }
+  }
+  return paths;
+}
+
+const { entry, fallback } = Astro.props;
+const { Content, headings } = await render(entry);
+const lang = Astro.params.lang as Lang;
+const slug = entry.data.slug as string;
+const title = entry.data.title || slug;
+---
+<DocsLayout title={title} lang={lang} slug={slug} headings={headings}>
+  {fallback && (
+    <div class="bg-bg-alt border border-rule p-3 mb-6 font-mono text-[10px] tracking-wider text-ink-mute">
+      English source — translation pending
+    </div>
+  )}
+  <Content />
+</DocsLayout>

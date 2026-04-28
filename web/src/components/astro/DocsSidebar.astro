@@ -3,7 +3,7 @@ import { getCollection } from 'astro:content';
 import type { Lang } from '../../i18n/helpers';
 interface Props { lang: Lang; currentSlug: string; }
 const { lang, currentSlug } = Astro.props;
-const all = await getCollection('guide', (e) => e.data.lang === lang);
+const all = await getCollection('guide', (e) => e.data.lang === lang || e.data.lang === undefined);
 all.sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99));
 ---
 <button id="docs-sidebar-toggle" class="lg:hidden font-mono text-[10px] tracking-wider px-3 py-2 border border-rule mx-7 mt-4" aria-controls="docs-sidebar-content" aria-expanded="false">
