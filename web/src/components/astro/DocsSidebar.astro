@@ -1,0 +1,32 @@
+---
+import { getCollection } from 'astro:content';
+import type { Lang } from '../../i18n/helpers';
+interface Props { lang: Lang; currentSlug: string; }
+const { lang, currentSlug } = Astro.props;
+const all = await getCollection('guide', (e) => e.data.lang === lang);
+all.sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99));
+---
+<button id="docs-sidebar-toggle" class="lg:hidden font-mono text-[10px] tracking-wider px-3 py-2 border border-rule mx-7 mt-4" aria-controls="docs-sidebar-content" aria-expanded="false">
+  ☰ DOCS
+</button>
+<aside id="docs-sidebar-content" class="hidden lg:block w-full lg:w-60 border-b lg:border-b-0 lg:border-r border-rule p-5 shrink-0">
+  <div class="font-mono text-[9px] tracking-wider text-ink-mute mb-3">DOCS / {lang.toUpperCase()}</div>
+  <ul class="flex flex-col gap-1 font-serif text-[13px]">
+    {all.map((doc) => (
+      <li>
+        <a href={`/${lang}/guide/${doc.data.slug}`}
+           class={`block py-1 ${doc.data.slug === currentSlug ? 'text-accent font-bold' : 'hover:text-accent'}`}>
+          {doc.data.title || doc.data.slug}
+        </a>
+      </li>
+    ))}
+  </ul>
+</aside>
+<script>
+  const btn = document.getElementById('docs-sidebar-toggle');
+  const drawer = document.getElementById('docs-sidebar-content');
+  btn?.addEventListener('click', () => {
+    const open = drawer?.classList.toggle('hidden');
+    btn.setAttribute('aria-expanded', String(!open));
+  });
+</script>
