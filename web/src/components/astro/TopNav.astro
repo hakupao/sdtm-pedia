@@ -27,7 +27,15 @@ const t = getUIStrings(lang);
         {t['search.shortcut']}
       </button>
       <LangSwitcher client:load currentLang={lang} pathname={pathname} />
-      <ThemeToggle client:load />
+      <ThemeToggle
+        client:load
+        navLabel={t['theme.label']}
+        labels={{
+          light: t['theme.light'],
+          dark: t['theme.dark'],
+          system: t['theme.system'],
+        }}
+      />
     </span>
   </nav>
 </header>
