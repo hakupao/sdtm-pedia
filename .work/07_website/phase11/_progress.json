@@ -1,0 +1,49 @@
+{
+  "phase": "07_website_phase_11_v1.2_font_size_chrome_polish",
+  "tier": 2,
+  "status": "EXECUTING",
+  "branch": "main",
+  "head_at_plan_ack": "cdd8f8e",
+  "plan_ack_date": "2026-04-30",
+  "plan_ack_quote": "把这次就当作1.2，1.1可以结束了",
+  "scope_locked": [
+    "11.1 TopNav + Footer max-w-screen-xl content wrap",
+    "11.2 ⌘K → 搜索/Search/検索 (Option A: shortcut hint deleted)",
+    "11.3 TopNav utilities visual divider",
+    "11.4 DocsLayout add Footer mount",
+    "11.5 v1.2 font-size 4-tier adjuster (FontSizeToggle + html data-fontsize)"
+  ],
+  "decisions_acked": {
+    "D-P11-1": "Option A — ⌘K hint completely deleted, replaced with explicit 搜索 text",
+    "D-P11-2": "Implement v1.2 font-size adjuster this phase (not deferred to Phase 12)"
+  },
+  "reviewer_slot": "oh-my-claudecode:code-reviewer",
+  "reviewer_rationale": "3rd-burn omc-family NEW agent (Phase 6 critic / Phase 10 verifier / Phase 11 code-reviewer = 3 different omc agents); cross-family vs Phase 9 feature-dev / Phase 8 pr / Phase 7 superpowers — sustained Rule D 6-phase rotation chain at omc family extension",
+  "test_baseline_at_plan_ack": {
+    "tsc_errors": 0,
+    "vitest_pass": "51/51",
+    "vitest_files": 11,
+    "e2e_pass": "7/7",
+    "e2e_lane": "npm run preview",
+    "build_pages": 31,
+    "pagefind_pages_indexed": 27,
+    "pagefind_words_indexed": 6457
+  },
+  "production_state_at_plan_ack": {
+    "url": "https://sdtm-pedia.pages.dev/",
+    "status": "LIVE",
+    "phase_10_verified_2026_04_30": [
+      "/ HTTP/2 301",
+      "/zh/guide HTTP/2 301 to /zh/guide/user-guide/",
+      "footer Bojiang Zhang",
+      "theme i18n keys 主题/跟随系统/Theme rendered",
+      "Pagefind 27 pages = 9+9+9 (zh+en+ja)"
+    ]
+  },
+  "completed_steps": [],
+  "next_step": "11.1 TopNav + Footer max-w wrap (in progress)",
+  "evidence_dir": ".work/07_website/phase11/evidence/",
+  "subagent_prompts_dir": ".work/07_website/phase11/subagent_prompts/",
+  "plan_path": ".work/07_website/phase11/PLAN.md",
+  "estimated_total_hours": "4-5"
+}

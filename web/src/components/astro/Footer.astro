@@ -4,14 +4,16 @@ interface Props { lang: Lang; }
 const { lang } = Astro.props;
 const t = getUIStrings(lang);
 ---
-<footer class="bg-ink text-bg px-7 py-6 flex justify-between items-center">
-  <div>
-    <div class="font-mono text-[10px] tracking-[0.18em] font-bold">SDTM/KB · v1.0 · 2026</div>
-    <div class="font-serif text-[11px] italic mt-1" style="color: rgba(245, 241, 234, 0.6);">{t['footer.maintainer']}</div>
-  </div>
-  <div class="flex gap-3 font-mono text-[10px] tracking-wider">
-    <a href={`/${lang}/changelog`}>CHANGELOG</a>
-    <a href={`/${lang}/guide/`}>GUIDE</a>
-    <a href="https://github.com/hakupao/sdtm-pedia">GITHUB</a>
+<footer class="bg-ink text-bg">
+  <div class="max-w-screen-xl mx-auto px-7 py-6 flex justify-between items-center">
+    <div>
+      <div class="font-mono text-[10px] tracking-[0.18em] font-bold">SDTM/KB · v1.0 · 2026</div>
+      <div class="font-serif text-[11px] italic mt-1" style="color: rgba(245, 241, 234, 0.6);">{t['footer.maintainer']}</div>
+    </div>
+    <div class="flex gap-3 font-mono text-[10px] tracking-wider">
+      <a href={`/${lang}/changelog`}>CHANGELOG</a>
+      <a href={`/${lang}/guide/`}>GUIDE</a>
+      <a href="https://github.com/hakupao/sdtm-pedia">GITHUB</a>
+    </div>
   </div>
 </footer>
