@@ -1,33 +1,25 @@
 {
   "phase": 9,
   "tier": 3,
+  "status": "completed",
   "opened_date": "2026-04-30",
-  "last_updated": "2026-04-30",
+  "closed_date": "2026-04-30",
   "branch": "main",
   "head_at_open": "0e682a7",
+  "head_at_close": "(close commit pending)",
   "production_url": "https://sdtm-pedia.pages.dev/",
   "github_release": "https://github.com/hakupao/sdtm-pedia/releases/tag/v1.0",
-  "scope_summary": "Pre-public-release polish + QA bundle (Option D). Combines: (A) Phase 8 carryover C-P8-1..6, (B) selected Phase 6/7 deferred carryover, (C) master plan §'Phase 10 — QA + Polish'. Non-trivial archeology finding pre-flight: master plan §'Phase 8 — Downloads Pipeline' + §'Phase 9 — CF Pages Deploy' + §'Phase 10.4 README' already shipped 4-28 / 4-28 / Phase 7.3.",
+  "scope_summary": "Pre-public-release polish + QA bundle (Option D). Combines: (A) Phase 8 carryover C-P8-1..5, (B) selective Phase 6/7 deferred polish (C-P5-L2, C-P6-4/6/7, C-P7-6), (C) master plan §'Phase 10 — QA + Polish'. Pre-flight archeology revealed master plan §'Phase 8 Downloads Pipeline' + §'Phase 9 CF Deploy' + §'Phase 10.4 README' already shipped 4-28/4-28/Phase 7.3.",
   "preflight_archeology": {
     "discovery_method": "git log --oneline web/scripts/build-bundles.sh web/RELEASE.md + gh release view v1.0 + git ls-remote --tags origin",
-    "findings": {
-      "phase_8_downloads_already_shipped": {
-        "commits": ["2de87c4 (4-28 09:37 Phase 8.1+8.2)", "8e7bd83 (4-28 09:44 Phase 8.3)"],
-        "evidence": "gh release view v1.0 returns: title 'v1.0 — Company Release (Internal)' / published 2026-04-28T00:42:36Z / 4 assets / draft false",
-        "tag_origin": "v1.0 pushed to origin (git ls-remote --tags origin shows refs/tags/v1.0 = 2de87c4)"
-      },
-      "phase_9_cf_pages_deploy_already_shipped": {
-        "evidence": "web/.cloudflare-pages.md (5351 bytes, comprehensive) + production https://sdtm-pedia.pages.dev/ live"
-      },
-      "phase_10_4_readme_already_shipped": {
-        "evidence": "web/README.md exists from Phase 7.3, 113 lines"
-      }
-    },
-    "implication": "Phase 9-of-this-execution = master plan §'Phase 10 — QA + Polish' renumbered, plus Phase 8 close carryover C-P8-1..6, plus selective Phase 6/7 deferred polish."
+    "phase_8_downloads_already_shipped_commits": ["2de87c4", "8e7bd83"],
+    "phase_8_downloads_evidence": "gh release view v1.0 = title 'v1.0 — Company Release (Internal)' / published 2026-04-28T00:42:36Z / 4 assets / draft false / tag pushed origin",
+    "phase_9_cf_deploy_evidence": "web/.cloudflare-pages.md 5351 bytes + production https://sdtm-pedia.pages.dev/ live",
+    "phase_10_4_readme_evidence": "web/README.md exists from Phase 7.3, 113 lines"
   },
   "preflight_decisions_acked_session_start": [
     "scope_option_d_b_plus_c_combined",
-    "reviewer_slot_feature_dev_code_architect_2nd_burn_feature_dev_family_NEW_agent_cross_family_from_phase_8_pr_family",
+    "reviewer_slot_feature_dev_code_architect_2nd_burn_feature_dev_family_NEW_agent",
     "plan_deviation_flag_NONE_master_plan_phase_10_followed_with_archeology_annotation"
   ],
   "plan_deviation": "NONE.",
@@ -39,38 +31,42 @@
     "pagefind_warnings": 4,
     "head": "0e682a7"
   },
-  "metrics_post_polish_pre_reviewer": {
+  "metrics_at_close": {
     "tsc_errors": 0,
-    "vitest": "46_of_46_in_11_files",
-    "vitest_delta": "+12 tests / +2 files (SearchOverlay focus return/live region + plugin fixture 6 + zod schemas 4)",
+    "vitest": "47_of_47_in_11_files",
+    "vitest_delta": "+13 tests (+2 SearchOverlay focus return/live region + 6 plugin throw-guard fixture + 4 schema validation + 1 CHANGELOG hash) / +2 files",
     "e2e": "7_of_7_against_npm_run_preview_lane",
-    "e2e_delta": "lane changed dev->preview (C-P8-1) + real keypress (C-P8-2)",
+    "e2e_delta": "lane changed dev->preview (C-P8-1) + real Ctrl+k keypress (C-P8-2)",
     "build_pages": 31,
     "pagefind_warnings": 0,
-    "pagefind_warnings_delta": "-4 (C-P7-6 resolved by 9.9 redirect <html lang> + data-pagefind-ignore)",
+    "pagefind_warnings_delta": "-4 (C-P7-6 resolved by 9.9)",
     "lighthouse_a11y": 91,
     "lighthouse_best_practices": 73,
     "lighthouse_seo": 100,
-    "lighthouse_perf": "not_measured_tool_limited"
+    "lighthouse_perf": "not_measured_tool_limited",
+    "github_release_assets_4": "all HTTP/2 302 verified 2026-04-30",
+    "production_landing": "HTTP/2 200 verified 2026-04-30",
+    "pagefind_js_production": "HTTP/2 200 verified 2026-04-30",
+    "redirect_canonicals_4": "all derived from Astro.site, trailing slash preserved per Phase 7.5"
   },
   "tasks": {
-    "9.1_playwright_preview_lane": {"status": "completed", "absorbs": ["C-P8-1"], "files_touched": ["web/playwright.config.ts"], "verification": "e2e 7/7 against build+preview lane"},
-    "9.2_real_keypress_promotion": {"status": "completed", "absorbs": ["C-P8-2"], "files_touched": ["web/tests/e2e/search.spec.ts"], "verification": "e2e search.spec.ts green via real page.keyboard.press('Control+k')"},
-    "9.3_focus_return_aria_live": {"status": "completed", "absorbs": ["C-P8-3", "C-P8-4"], "files_touched": ["web/src/components/react/SearchOverlay.tsx", "web/src/components/react/SearchOverlay.test.tsx", "web/src/i18n/ui.zh.json", "web/src/i18n/ui.en.json", "web/src/i18n/ui.ja.json"], "verification": "vitest +2 cases (focus return + live region) pass; i18n parity 26/26"},
-    "9.4_pagefind_retry_backoff": {"status": "completed", "absorbs": ["C-P8-5"], "files_touched": ["web/src/components/react/SearchOverlay.tsx"], "note": "1-retry with 1s backoff before initFailed; merged into 9.3 edit"},
-    "9.5_focus_visible_css": {"status": "completed", "absorbs_master_plan": ["10.2_step_2"], "files_touched": ["web/src/styles/global.css"], "verification": "build green; visual smoke deferred to manual"},
-    "9.6_empty_toc_guard": {"status": "completed", "absorbs": ["C-P5-L2"], "files_touched": ["web/src/components/astro/DocsTOC.astro"], "verification": "filtered.length > 0 conditional render guard; build green"},
-    "9.7_plugin_throw_fixture": {"status": "completed", "absorbs": ["C-P6-6"], "files_touched": ["web/remark-md-link-rewrite.test.mjs"], "verification": "vitest 6 cases pass (throw / rewrite / changelog route / anchor / drop wrapper / absolute URL skip)"},
-    "9.8_zod_schemas": {"status": "completed", "absorbs": ["C-P6-7"], "files_touched": ["web/src/data/schemas.ts", "web/src/data/schemas.test.ts"], "verification": "vitest 4 cases pass; existing import sites untouched (parallel validator strategy)"},
-    "9.9_redirect_html_lang": {"status": "completed", "absorbs": ["C-P7-6"], "files_touched": ["web/src/pages/index.astro", "web/src/pages/[lang]/guide/index.astro"], "verification": "Pagefind warnings 4->0; dist redirect HTML emits <html lang=zh|en|ja data-pagefind-ignore=all>; trailing-slash canonical preserved per Phase 7.5"},
-    "9.10_lighthouse_audit": {"status": "completed", "absorbs_master_plan": ["10.1"], "files_touched": ["web/qa/lighthouse-zh-landing-2026-04-30.html", "web/qa/lighthouse-zh-landing-2026-04-30.json"], "scores": {"a11y": 91, "best_practices": 73, "seo": 100}, "verdict": "Daisy ack 还可以 baseline; 6 carryover C-P9-4..9 for v1.1 polish", "evidence": ".work/07_website/phase9/evidence/checkpoints/lighthouse-evidence-2026-04-30.md"},
-    "9.11_cross_browser_smoke": {"status": "completed_template_only", "absorbs_master_plan": ["10.3"], "files_touched": ["web/qa/cross-browser-2026-04-30.md"], "scope": "Chrome lane auto via Playwright (7/7 + 46/46 vitest); Safari/Firefox left as Daisy manual checklist (C-P9-1)"},
-    "9.12_final_verify_checklist": {"status": "completed", "absorbs_master_plan": ["10.5_step_3"], "files_touched": [".work/07_website/phase9/evidence/checkpoints/final_verify_checklist.md"], "verdict": "8 master plan items: 7 automated green / 1 (Lighthouse) Daisy ack baseline + carryover"},
-    "9.13_reviewer_dispatch": {"status": "pending", "subagent_planned": "feature-dev:code-architect", "files_planned": [".work/07_website/phase9/subagent_prompts/task_9_13_reviewer_prompt.md"]},
-    "9.14_reviewer_fix_bundle": {"status": "conditional_pending_9_13"},
-    "9.15_close_handoff_index_sync": {"status": "pending", "files_planned": [".work/meta/website_phase9_to_phase10_handoff_2026-04-30.md", ".work/07_website/phase9/RETROSPECTIVE.md", "CLAUDE.md", ".work/MANIFEST.md", "docs/PROGRESS.md", ".work/meta/worklog.md", "docs/superpowers/plans/2026-04-27-sdtm-release-website.md"]}
+    "9.1_playwright_preview_lane": {"status": "completed", "absorbs": ["C-P8-1", "C-P6-4_transitive"], "commit": "e89da8a"},
+    "9.2_real_keypress_promotion": {"status": "completed", "absorbs": ["C-P8-2"], "commit": "e89da8a"},
+    "9.3_focus_return_aria_live": {"status": "completed", "absorbs": ["C-P8-3", "C-P8-4"], "commit": "e89da8a"},
+    "9.4_pagefind_retry_backoff": {"status": "completed", "absorbs": ["C-P8-5"], "commit": "e89da8a"},
+    "9.5_focus_visible_css": {"status": "completed", "absorbs_master_plan": ["10.2_step_2"], "commit": "e89da8a"},
+    "9.6_empty_toc_guard": {"status": "completed", "absorbs": ["C-P5-L2"], "commit": "e89da8a"},
+    "9.7_plugin_throw_fixture": {"status": "completed", "absorbs": ["C-P6-6"], "commit": "e89da8a", "vitest_cases_added": 6, "fix_bundle_added": "+1 case in 9.14 (CHANGELOG hash)"},
+    "9.8_zod_schemas": {"status": "completed", "absorbs": ["C-P6-7"], "commit": "e89da8a", "fix_bundle_tightened": "values keys to platformKeys enum in 9.14"},
+    "9.9_redirect_html_lang": {"status": "completed", "absorbs": ["C-P7-6"], "commit": "e89da8a", "fix_bundle_canonical_derivation": "Astro.site via new URL() in 9.14"},
+    "9.10_lighthouse_audit": {"status": "completed", "absorbs_master_plan": ["10.1"], "commit": "e89da8a", "scores": {"a11y": 91, "best_practices": 73, "seo": 100}, "verdict": "Daisy ack 还可以 baseline; 6 carryover C-P9-4..9 for v1.1 polish"},
+    "9.11_cross_browser_smoke": {"status": "completed_template_only", "absorbs_master_plan": ["10.3"], "commit": "e89da8a", "scope": "Chrome auto via Playwright; Safari/Firefox manual checklist C-P9-1"},
+    "9.12_final_verify_checklist": {"status": "completed", "absorbs_master_plan": ["10.5_step_3"], "commit": "e89da8a"},
+    "9.13_reviewer_dispatch": {"status": "completed", "subagent": "feature-dev:code-architect", "verdict": "CONDITIONAL_PASS_H1_M4_L4", "report": ".work/07_website/phase9/evidence/checkpoints/phase_9_reviewer_report.md", "report_lines": 280, "stress_dimensions": "D1_e2e_infra D2_searchoverlay_a11y D3_plugin_fixture D4_zod_schema D5_redirect_html D6_focus_visible_css D7_archeology_scope", "rule_a_spot_check": "6 new i18n strings × full-coverage; zh ✓ / ja ✓ / en F-1; 17% error rate WARRANTED"},
+    "9.14_reviewer_fix_bundle": {"status": "completed", "commit": "309239f", "scope": "F-1 HIGH + F-3 + F-4 + F-5 MEDIUM (4 of 9 findings); F-2 + F-6/7/8/9 deferred to C-P9-10/12/13/14/15", "loc_delta": "+14 across 5 files", "verdict_upgrade": "CONDITIONAL_PASS -> PASS"},
+    "9.15_close_handoff_index_sync": {"status": "completed", "files_touched": [".work/meta/website_phase9_to_phase10_handoff_2026-04-30.md", ".work/07_website/phase9/RETROSPECTIVE.md", ".work/07_website/phase9/subagent_prompts/task_9_13_reviewer_prompt.md", "docs/superpowers/plans/2026-04-27-sdtm-release-website.md", "docs/PROGRESS.md", ".work/MANIFEST.md", ".work/meta/worklog.md"], "claude_md_deferred": "06-deep-verification round-12 dirty state ownership another session; Phase 10 entry recommendation: add Phase 9 row to CLAUDE.md Key Paths once dirty state clears"}
   },
-  "rule_d_reviewer_history_post_phase_8": {
+  "rule_d_reviewer_history_post_phase_9": {
     "phase_1": "pr-review-toolkit:code-reviewer",
     "phase_2": "pr-review-toolkit:code-reviewer",
     "phase_3_6": "pr-review-toolkit:code-reviewer",
@@ -79,30 +75,56 @@
     "phase_6": "oh-my-claudecode:critic",
     "phase_7": "superpowers:code-reviewer",
     "phase_8": "pr-review-toolkit:silent-failure-hunter",
-    "phase_9_planned": "feature-dev:code-architect (2nd-burn feature-dev, NEW agent within family)"
+    "phase_9": "feature-dev:code-architect"
   },
-  "carryover_for_phase_10_or_v1_1": {
-    "C-P9-1": "Safari + Firefox cross-browser sweep per web/qa/cross-browser-2026-04-30.md (Daisy manual ~10 min)",
-    "C-P9-2": "Lighthouse manual run accepting baseline 91/73/100 OR remediation pass to 95/95/95",
-    "C-P9-3": "axe DevTools scan per master plan §10.2 step 1 (Daisy manual ~10 min)",
-    "C-P9-4": "Lighthouse Performance trace via chrome-devtools performance_start_trace (separate tool)",
-    "C-P9-5": "color-contrast remediation (likely fine-text + --ink-faint 0.4 alpha)",
-    "C-P9-6": "label-content-name-mismatch on ⌘K hint button (aria-label vs visible text WCAG 2.5.3)",
-    "C-P9-7": "target-size mobile audit + bump dense flex spacing",
-    "C-P9-8": "errors-in-console triage (Pagefind warn intentional? or gate to DEV?)",
+  "family_pool_at_close": {
+    "pr-review-toolkit": "5× (Phases 1, 2, 3.6, 4 = code-reviewer + Phase 8 = silent-failure-hunter)",
+    "feature-dev": "2× (Phase 5 = code-reviewer + Phase 9 = code-architect NEW agent within family)",
+    "oh-my-claudecode": "1× (Phase 6 = critic)",
+    "superpowers": "1× (Phase 7 = code-reviewer)"
+  },
+  "carryover_for_phase_10": {
+    "C-P9-1": "Safari + Firefox cross-browser sweep (Daisy manual ~10 min)",
+    "C-P9-2": "Lighthouse remediation pass to 95/95/95 (OPTIONAL)",
+    "C-P9-3": "axe DevTools manual scan (Daisy manual ~10 min)",
+    "C-P9-4": "Lighthouse Performance trace via chrome-devtools performance_start_trace",
+    "C-P9-5": "color-contrast remediation",
+    "C-P9-6": "label-content-name-mismatch on ⌘K hint button",
+    "C-P9-7": "target-size mobile audit",
+    "C-P9-8": "errors-in-console triage",
     "C-P9-9": "third-party-cookies — ACCEPTED indefinitely (CF Pages baseline)",
-    "C-P8-6": "mobile UX deferred (no UX direction yet)",
-    "C-P6-5": "compare route redundancy — design decision deferred",
-    "C-P5-M2": "ViewTransitions deferred (no VT enabled)",
-    "C-P7-7": "Rule A rubric expansion process improvement deferred",
-    "C-P7-8": "README CF auto-deploy verify (Daisy manual CF dashboard check)"
+    "C-P9-10": "SearchOverlay Escape stale closure (F-2 non-trivial refactor)",
+    "C-P9-11_resolved": "Astro.site canonical derivation — RESOLVED in 9.14 F-5",
+    "C-P9-12": "playwright stdout swallow on build fail (F-6 LOW)",
+    "C-P9-13": "CI env comment misleading for CF Pages (F-7 LOW)",
+    "C-P9-14": "Remove redundant role=searchbox (F-8 LOW)",
+    "C-P9-15": "Plugin fixture missing ./UPPERCASE.md form (F-9 LOW)",
+    "C-P9-16": "[Process improvement] Canonical-derivation grep before adding new pages emitting <link rel=canonical>"
+  },
+  "preexisting_carryover_not_touched": {
+    "C-P7-1": "Astro i18n soft-404 200 — ACCEPTED indefinitely",
+    "C-P7-7": "Rule A rubric expansion — DEFER process improvement (R-P9-4 partial materialization)",
+    "C-P7-8": "README CF auto-deploy verify — DEFER",
+    "C-P8-6": "Mobile UX (⌘K hint md:+ breakpoint) — DEFER",
+    "C-P6-5": "compare route redundancy — DEFER design decision",
+    "C-P5-M2": "DocsSidebar drawer ViewTransitions — DEFER"
   },
   "exit_criteria_status": {
     "tasks_9_1_to_9_12_green": "completed",
-    "reviewer_effective_pass": "pending",
-    "master_plan_annotated": "pending",
-    "phase_close_handoff_written": "pending",
-    "index_sync_done": "pending",
-    "tier_3_trace_preserved": "in_progress"
+    "reviewer_effective_pass": "completed_via_9_14_fix_bundle",
+    "master_plan_annotated": "completed (§'Phase 8 Downloads' + §'Phase 9 CF Deploy' + §'Phase 10 QA + Polish')",
+    "phase_close_handoff_written": "completed",
+    "index_sync_done": "completed (PROGRESS + MANIFEST + worklog; CLAUDE.md deferred dirty state)",
+    "tier_3_trace_preserved": "completed"
+  },
+  "uncommitted_state_at_close": {
+    "M_CLAUDE_md": "06-deep-verification round-12 prep (round 11→12 routing rule + retro round 11 history); web lane DOES NOT TOUCH",
+    "untracked_4_files": [
+      ".work/06_deep_verification/multi_session/batch_47_kickoff.md",
+      ".work/06_deep_verification/multi_session/batch_48_kickoff.md",
+      ".work/06_deep_verification/multi_session/batch_49_kickoff.md",
+      ".work/06_deep_verification/multi_session/reconciler_kickoff_round12.md"
+    ],
+    "owner": "06 Deep Verification side branch (parallel session); web lane explicitly does NOT touch these"
   }
 }

@@ -2650,6 +2650,8 @@ git commit -m "07 Website Phase 7.2 — SearchOverlay (Cmd+K, Pagefind dynamic i
 
 ## Phase 8 — Downloads Pipeline
 
+> ✅ **ALREADY SHIPPED 2026-04-28** (pre-Phase-5/6/7/8-of-execution chain) — commits `2de87c4` (Tasks 8.1+8.2 = `web/scripts/build-bundles.sh` + `web/RELEASE.md` + corrected `web/src/data/downloads.json`) + `8e7bd83` (Task 8.3 = `git tag v1.0` pushed origin + `gh release create v1.0` LIVE with 4 zip assets + DownloadsSection feature flag inverted to default-published). Tag `v1.0` immutable. Release URL: `https://github.com/hakupao/sdtm-pedia/releases/tag/v1.0`. All 4 download URLs HTTP/2 302 ✓ verified post-Phase-9. **Discovery via Phase 9 archeology (2026-04-30)** — Phase 8→9 handoff erroneously named "Phase 9 = Downloads Pipeline" without verifying these commits already on `main`. Phase 9 pivoted to renumbered §"Phase 10 — QA + Polish" + Phase 8 close carryover absorption per Daisy ack 2026-04-30. Tasks 8.1-8.3 below preserved verbatim for historical reference; the 4-28 commits implemented them as-spec'd.
+
 ### Task 8.1: Bundle build script
 
 **Files:**
@@ -2797,6 +2799,8 @@ Expected: each returns `HTTP/2 302`.
 
 ## Phase 9 — CF Pages Deploy
 
+> ✅ **ALREADY SHIPPED** (incrementally during Phase 5-9 chain on `main`) — production live `https://sdtm-pedia.pages.dev/` since first push. `web/.cloudflare-pages.md` (5,351 bytes, comprehensive — Task 9.2 Step 4 doc + walkthrough + troubleshooting + custom-domain note) shipped 2026-04-28. Daisy operates the CF Pages dashboard manually (Task 9.2 Step 1 = manual setup); no automation path possible from this codebase. **Discovery via Phase 9 archeology (2026-04-30)**. Tasks 9.1-9.2 below preserved verbatim; the actual deploy already happened.
+
 ### Task 9.1: First push smoke
 
 - [ ] **Step 1: Push current branch**
@@ -2861,6 +2865,8 @@ git commit -m "07 Website Phase 9.2 — CF Pages settings doc (build cmd, watch 
 ---
 
 ## Phase 10 — QA + Polish
+
+> ✅ **Phase 9 (-of-execution) COMPLETE 2026-04-30** = renumbered §"Phase 10 — QA + Polish" (this section) + Phase 8 close carryover C-P8-1..5 + selective Phase 6/7 deferred polish — see `.work/07_website/phase9/PLAN.md` + `.work/meta/website_phase9_to_phase10_handoff_2026-04-30.md`. 3 commits `e89da8a` (9.1-9.12 polish bundle) + `309239f` (9.14 reviewer fix bundle: F-1 HIGH EN pluralization + F-3/4/5 MEDIUM ×3) + Phase 9 close (this commit). 12 polish tasks shipped: playwright preview lane (C-P8-1) / e2e real keypress (C-P8-2) / SearchOverlay focus return + aria live + 1-retry backoff (C-P8-3+4+5) / focus-visible CSS (10.2) / DocsTOC empty guard (C-P5-L2) / remark plugin throw fixture (C-P6-6) / zod schemas (C-P6-7) / redirect <html lang> + data-pagefind-ignore (C-P7-6) / Lighthouse audit (10.1) / cross-browser smoke template (10.3) / final 8-item verify checklist (10.5). Reviewer 9.13 `feature-dev:code-architect` (2nd-burn feature-dev family NEW agent vs Phase 5 code-reviewer; cross-family from Phase 8 pr-family) CONDITIONAL_PASS H=1 M=4 L=4 → effective PASS post 9.14. Test status post Phase 9: tsc 0 / vitest 47/47 in 11 files / e2e 7/7 against `npm run preview` lane / build 31 pages / Pagefind 0 no-`<html>` warnings (was 4) / Lighthouse a11y 91 / Best Practices 73 / SEO 100 (Daisy ack 还可以 baseline). Tasks 10.1-10.5 below preserved verbatim; 10.4 README already shipped Phase 7.3.
 
 ### Task 10.1: Lighthouse audit
 
