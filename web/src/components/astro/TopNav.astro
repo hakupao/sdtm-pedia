@@ -10,16 +10,16 @@ const t = getUIStrings(lang);
 ---
 <header class="border-b border-rule">
   <div class="max-w-screen-xl mx-auto px-7 h-14 flex justify-between items-center">
-    <div class="font-mono text-[10px] tracking-[0.18em] text-ink font-bold whitespace-nowrap">
-      SDTM/KB · VOL.01 · 2026
-    </div>
+    <a href={`/${lang}/`} class="font-mono text-[10px] tracking-[0.12em] text-ink font-bold whitespace-nowrap hover:text-accent transition-colors">
+      SDTM Knowledge Base · ISSUE 2026-04 · SDTMIG v3.4
+    </a>
     <button id="mobile-nav-toggle" class="md:hidden font-mono text-base px-2" aria-label="Open menu">☰</button>
     <nav id="mobile-nav-content" class="hidden md:flex items-center font-mono text-xs tracking-wider text-ink-mute">
       <div class="flex items-center gap-5">
-        <a href={`/${lang}/guide/user-guide/`} class="hover:text-accent">{t['nav.guide']}</a>
         <a href={`/${lang}/#platforms`} class="hover:text-accent">{t['nav.platforms']}</a>
-        <a href={`/${lang}/guide/demo-questions`} class="hover:text-accent">{t['nav.demo']}</a>
+        <a href={`/${lang}/#demo`} class="hover:text-accent">{t['nav.demo']}</a>
         <a href={`/${lang}/#downloads`} class="hover:text-accent">{t['nav.download']}</a>
+        <a href={`/${lang}/guide/user-guide/`} class="hover:text-accent">{t['nav.guide']}</a>
       </div>
       <div class="flex items-center ml-5 divide-x divide-rule">
         <button
