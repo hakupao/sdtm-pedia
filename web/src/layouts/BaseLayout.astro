@@ -4,14 +4,20 @@ interface Props {
   title: string;
   description?: string;
   lang?: string;
+  pagefindIgnore?: boolean;
 }
-const { title, description = 'SDTM Knowledge — across four AI platforms.', lang = 'zh' } = Astro.props;
+const {
+  title,
+  description = 'SDTM Knowledge — across four AI platforms.',
+  lang = 'zh',
+  pagefindIgnore = false,
+} = Astro.props;
 const canonicalHref = Astro.site
   ? new URL(Astro.url.pathname, Astro.site).href
   : Astro.url.pathname;
 ---
 <!DOCTYPE html>
-<html lang={lang}>
+<html lang={lang} data-pagefind-ignore={pagefindIgnore ? 'all' : undefined}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />

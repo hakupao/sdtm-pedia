@@ -19,6 +19,8 @@ test.describe('landing', () => {
       // expands LANDING_PREVIEW_KEYS or reorders the JSON, this trips loud.
       const whichOne = page.locator('section').filter({ hasText: 'WHICH ONE?' });
       await expect(whichOne.locator('tbody tr')).toHaveCount(4);
+      await expect(page.locator(`a[href="/${lang}/guide/"]`)).toHaveCount(0);
+      await expect(page.locator(`a[href="/${lang}/guide/user-guide/"]`).first()).toBeVisible();
     });
   }
 });
