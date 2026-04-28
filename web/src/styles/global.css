@@ -51,28 +51,47 @@
   }
 }
 
-/* Phase 11.5 / v1.2 — 4-tier font-size adjuster.
-   Strategy: CSS `zoom` on <body>. The site uses many `text-[Npx]` arbitrary
-   absolute-px classes (Hero subdeck 15px, Platforms 8/11px, Compare 9-12px,
-   Footer 10/11px) which don't cascade through rem-based root font-size.
-   `zoom` scales the entire visual tree (text + spacing + borders + icons)
-   proportionally so the user-perceived size of EVERYTHING — including
-   px-typed editorial typography — changes with the tier.
-   Supported in Chrome/Safari historically + Firefox 126+ (2024). */
-:root { --fs-zoom: 1; }
-[data-fontsize="sm"] { --fs-zoom: 0.875; }
-[data-fontsize="lg"] { --fs-zoom: 1.125; }
-[data-fontsize="xl"] { --fs-zoom: 1.25; }
-
-body {
-  zoom: var(--fs-zoom);
+/* Four-tier UI font-size adjuster.
+   Containers stay at their authored dimensions: only font-size changes.
+   Markdown-rendered guide content is scoped under `.prose-doc` and keeps the
+   fixed prose sizes from prose.css. */
+:root {
+  --ui-font-scale: 1;
+  --ui-font-bump: 3px;
 }
+[data-fontsize="sm"] { --ui-font-scale: 0.875; }
+[data-fontsize="lg"] { --ui-font-scale: 1.125; }
+[data-fontsize="xl"] { --ui-font-scale: 1.25; }
 
 html, body {
   background: var(--bg);
   color: var(--ink);
   font-family: 'Source Serif Pro', Georgia, serif;
   transition: background 250ms ease-in-out, color 250ms ease-in-out;
+}
+
+body {
+  font-size: calc(16px * var(--ui-font-scale) + var(--ui-font-bump));
+}
+
+body :where(.text-\[8px\]):not(.prose-doc, .prose-doc *) { font-size: calc(8px * var(--ui-font-scale) + var(--ui-font-bump)); }
+body :where(.text-\[9px\]):not(.prose-doc, .prose-doc *) { font-size: calc(9px * var(--ui-font-scale) + var(--ui-font-bump)); }
+body :where(.text-\[10px\]):not(.prose-doc, .prose-doc *) { font-size: calc(10px * var(--ui-font-scale) + var(--ui-font-bump)); }
+body :where(.text-\[11px\]):not(.prose-doc, .prose-doc *) { font-size: calc(11px * var(--ui-font-scale) + var(--ui-font-bump)); }
+body :where(.text-\[12px\]):not(.prose-doc, .prose-doc *) { font-size: calc(12px * var(--ui-font-scale) + var(--ui-font-bump)); }
+body :where(.text-\[13px\]):not(.prose-doc, .prose-doc *) { font-size: calc(13px * var(--ui-font-scale) + var(--ui-font-bump)); }
+body :where(.text-\[15px\]):not(.prose-doc, .prose-doc *) { font-size: calc(15px * var(--ui-font-scale) + var(--ui-font-bump)); }
+body :where(.text-sm):not(.prose-doc, .prose-doc *) { font-size: calc(14px * var(--ui-font-scale) + var(--ui-font-bump)); }
+body :where(.text-base):not(.prose-doc, .prose-doc *) { font-size: calc(16px * var(--ui-font-scale) + var(--ui-font-bump)); }
+body :where(.text-lg):not(.prose-doc, .prose-doc *) { font-size: calc(18px * var(--ui-font-scale) + var(--ui-font-bump)); }
+body :where(.text-2xl):not(.prose-doc, .prose-doc *) { font-size: calc(24px * var(--ui-font-scale) + var(--ui-font-bump)); }
+body :where(.text-3xl):not(.prose-doc, .prose-doc *) { font-size: calc(30px * var(--ui-font-scale) + var(--ui-font-bump)); }
+body :where(.text-4xl):not(.prose-doc, .prose-doc *) { font-size: calc(36px * var(--ui-font-scale) + var(--ui-font-bump)); }
+
+@media (min-width: 48rem) {
+  body :where(.md\:text-6xl):not(.prose-doc, .prose-doc *) {
+    font-size: calc(60px * var(--ui-font-scale) + var(--ui-font-bump));
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
