@@ -42,6 +42,11 @@
 - P0 Pilot 已原子化页 (non-gap, 作 baseline 不重跑): sv20 p.50 / ig34 p.137 (前 30 行 scope) / ig34 p.428 (前 50 行 scope) / ig34 p.440 (figure 区 scope)
 - P1 重做上述 4 页**全页全量** (而非 P0 scope 子集), 产 new atoms 和 P0 子集 diff, 作 calibration 样本
 
+**Status post round 14 P1 CLOSURE 2026-04-29** (commit `5ca009a`):
+- **sv20 p.50**: P0-baseline-backfill-completed via **round 14 batch 55** (sister D, 21 atoms; §4 [ASSOCIATED PERSONS DATA] L1 NEW chapter complete coverage; resolves O-P1-185 LOW filed round 13 batch 52 §6 pre-flight discovery — pre-batch-55 root pdf_atoms.jsonl had 0 atoms at sv20 p.50 despite this §A.2 baseline mandate)
+- **ig34 p.137 / p.428 / p.440**: 已 P1 全页全量 (round 1+ 早期已纳入 P1 atomization scope); round 14 reconciler E §3.6 carry-forward verification confirmed populated (16/23/20 atoms 分别) — no further P1 backfill candidates
+- **P1 CLOSURE state**: 535/535 = 100% (ig34 1-461 contiguous + sv20 1-74 contiguous); 转 P2/P3/P4 stages per parent PLAN.md v0.6 §3
+
 ### A.3 Spec 表处理策略 (重要)
 
 SDTMIG v3.4 内 63 域各有 `Specification` 表 (变量 spec 行), xlsx 脚本已独立派生 `knowledge_base/domains/*/spec.md`.
