@@ -3,6 +3,11 @@
 // web/src/pages/index.astro: replaces Astro.redirect() with a hand-rolled
 // HTML template so <html lang> + data-pagefind-ignore are emitted.
 // Phase 9 / C-P7-6. Trailing-slash canonical preserved per Phase 7.5 fix.
+//
+// Phase 10.1: in production, Cloudflare Pages `web/public/_redirects` does
+// a real HTTP 301 before this HTML is served — no white-screen flash. This
+// template is the fallback for local astro dev/preview where _redirects
+// isn't honored.
 export function getStaticPaths() {
   return [{ params: { lang: 'zh' } }, { params: { lang: 'en' } }, { params: { lang: 'ja' } }];
 }

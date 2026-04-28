@@ -1,0 +1,14 @@
+# Server-side 301 redirects (Cloudflare Pages). Supersedes meta-refresh HTML
+# in web/src/pages/{index,[lang]/guide/index}.astro for production.
+# Local astro dev/preview falls back to the meta-refresh HTML — CF only.
+#
+# Phase 10.1 — kills white-screen flash from
+# `<a>Redirecting from <code>/</code> to <code>/zh/</code></a>` body text.
+
+/                /zh/                       301
+/zh/guide        /zh/guide/user-guide/      301
+/zh/guide/       /zh/guide/user-guide/      301
+/en/guide        /en/guide/user-guide/      301
+/en/guide/       /en/guide/user-guide/      301
+/ja/guide        /ja/guide/user-guide/      301
+/ja/guide/       /ja/guide/user-guide/      301
