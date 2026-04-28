@@ -1,7 +1,8 @@
 {
   "phase": "07_website_phase_10_v1.1_polish",
   "tier": 2,
-  "status": "REVIEWER_COMPLETE_PENDING_CLOSE",
+  "status": "CLOSED",
+  "closed_at": "2026-04-30",
   "branch": "main",
   "head_at_plan_ack": "0b39fc1",
   "plan_ack_date": "2026-04-30",
@@ -93,15 +94,22 @@
     },
     {
       "step": "10.5",
-      "commit": "pending",
-      "subject": "reviewer fix bundle (F-1 LOW: _progress.json housekeeping)",
-      "files_changed": 1,
-      "loc_delta": "+~30 / -~5",
+      "commit": "39c7d68",
+      "subject": "reviewer fix bundle (F-1 LOW: _progress.json housekeeping + trace artifacts)",
+      "files_changed": 3,
+      "loc_delta": "+480 / -0 (mostly trace artifacts: reviewer prompt + report)",
       "reviewer_findings_resolved": ["F-1"],
       "reviewer_findings_carryover": ["F-2 → C-P10-1 (commit message count documentation)"]
+    },
+    {
+      "step": "10.6",
+      "commit": "pending (this commit)",
+      "subject": "Phase 10 close — handoff + master plan annotation + index sync",
+      "files_changed": "TBD",
+      "loc_delta": "TBD"
     }
   ],
-  "next_step": "10.6 Phase 10 close + handoff + master plan annotation + index sync (single push)",
+  "next_step": "PUSH origin main; post-push verify curl 301 + Bojiang Zhang + Pagefind 27 pages; Phase 11 entry: C-P10-3 v1.2 font-size 4-tier adjuster PRIMARY candidate",
   "evidence_dir": ".work/07_website/phase10/evidence/",
   "subagent_prompts_dir": ".work/07_website/phase10/subagent_prompts/",
   "plan_path": ".work/07_website/phase10/PLAN.md",
