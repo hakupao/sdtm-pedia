@@ -20,7 +20,7 @@
   "theme.dark": "Dark",
   "theme.system": "System",
   "search.placeholder": "Search docs...",
-  "search.shortcut": "Cmd K",
+  "search.label": "Search",
   "search.results.label": "results",
   "search.unavailable": "Search index unavailable",
   "compare.title": "Multi-dimensional Comparison",

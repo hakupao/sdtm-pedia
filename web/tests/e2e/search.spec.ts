@@ -7,9 +7,11 @@ import { test, expect } from '@playwright/test';
 // key); SearchOverlay listener accepts either ctrlKey or metaKey + 'k'.
 test('search opens via Cmd/Ctrl+K and finds AESER', async ({ page }) => {
   await page.goto('/zh/guide/user-guide/');
-  // Hydration completion proxy: wait for the ⌘K hint button (rendered by
+  // Hydration completion proxy: wait for the search button (rendered by
   // Astro at SSR, hydrated by React island wiring the document keydown listener).
-  await expect(page.getByLabel('Open search')).toBeVisible();
+  // Phase 11.2: button text/aria-label is now i18n "搜索" on /zh/ (was "Open search"
+  // hardcoded EN). Locale-scoped getByLabel('搜索') matches the page's lang.
+  await expect(page.getByLabel('搜索')).toBeVisible();
   // Click body first to ensure document focus (not browser chrome). Without
   // this, headless chromium routes the keypress to the chrome and the React
   // document listener never sees it.
