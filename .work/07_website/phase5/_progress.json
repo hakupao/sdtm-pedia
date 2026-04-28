@@ -1,0 +1,35 @@
+{
+  "phase": 5,
+  "tier": 3,
+  "opened_date": "2026-04-28",
+  "branch": "main",
+  "head_at_open": "8e7bd83",
+  "preflight_decisions": {
+    "h2_zips": "resolved_pre_phase_by_phase_8_1_to_8_3",
+    "demo_questions_lang": "option_b_drop_lang_field_treat_as_language_neutral",
+    "link_resolution_e2e": "add_as_5_3_step_5_increment"
+  },
+  "tasks": {
+    "5.1_docs_layout_plus_components": {"status": "completed", "subagent": "executor_opus", "agent_id": "af6be6191ad2e5537", "commit": "496ae6f", "verdict": "PASS_with_retroactive_note", "note": "build green at commit time but masked silent collection-id collision; 5.3 retroactively repaired"},
+    "5.2_prose_css": {"status": "completed", "mode": "direct", "commit": "43d7445", "verdict": "PASS"},
+    "5.3_catchall_route_plus_changelog_plus_e2e": {"status": "completed", "subagent": "executor_opus", "agent_id": "a4d79a9b53bab73d3", "commit": "56a18f7", "verdict": "PASS_plus_3_carryover_for_phase_6", "augmentations_applied": ["A_lang_neutral_fallback", "B_sidebar_lang_undefined", "C_compare_stub", "D_link_resolution_e2e"], "load_bearing_scope_violation": "content.config.ts modified (generateId fix) — accepted as required for fallback logic to work", "carryover": ["C-P5-1: ~30 *.md cross-refs dead (Phase 6 remark plugin)", "C-P5-2: PLATFORM_COMPARISON slug=compare collides naming with Phase 6 stub (cosmetic)", "C-P5-3: collection now requires slug: frontmatter (intended fail-loud)"]},
+    "5.4_reviewer_pass": {"status": "completed", "subagent": "feature-dev:code-reviewer", "agent_id": "a9a0cf22ddee7e31a", "rule_d_isolation": "cross_family_from_pr_review_toolkit_phase_1_4_hot", "verdict_initial": "CONDITIONAL_PASS_H3_M3_L2", "verdict_final_post_remediation": "PASS", "remediation_commit": "ae05afd", "remediated": ["H1_prevnext_filter_mismatch", "H2_changelog_lang_bypass", "H3_schema_slug_required", "M1_e2e_routes_extended_to_en_ja"], "deferred_to_phase_6_carryover": ["C-P5-M2_docssidebar_drawer_VT", "C-P5-M3_trailing_slash_hosting", "C-P5-L1_fallback_banner_i18n", "C-P5-L2_empty_toc_aside_guard"]}
+  },
+  "phase_5_close": {
+    "status": "ready_for_user_ack",
+    "commit_range": "8e7bd83..ae05afd",
+    "commits": ["496ae6f Phase 5.1", "43d7445 Phase 5.2", "56a18f7 Phase 5.3", "ae05afd Phase 5.4 reviewer-fix"],
+    "test_status": "tsc 0 errors / vitest 29/29 / e2e 6/6 / build 34 pages green",
+    "carryover_to_phase_6": ["C-P5-1 .md cross-refs need remark plugin", "C-P5-2 PLATFORM_COMPARISON slug rename cosmetic", "C-P5-M2 sidebar drawer VT", "C-P5-M3 trailing slash", "C-P5-L1 banner i18n", "C-P5-L2 empty TOC guard"],
+    "rule_d_history_post_phase_5": ["pr-review-toolkit:code-reviewer x4 (Phase 1/2/3.6/4)", "feature-dev:code-reviewer x1 (Phase 5)"],
+    "next_reviewer_candidates_for_phase_6": ["oh-my-claudecode:code-reviewer", "oh-my-claudecode:critic", "oh-my-claudecode:verifier"]
+  },
+  "rule_d_reviewer_history": {
+    "phase_1": "pr-review-toolkit:code-reviewer",
+    "phase_2": "pr-review-toolkit:code-reviewer",
+    "phase_3_6": "pr-review-toolkit:code-reviewer",
+    "phase_4": "pr-review-toolkit:code-reviewer",
+    "phase_5_planned": "feature-dev:code-reviewer"
+  },
+  "demo_questions_frontmatter_edit_applied": true
+}
