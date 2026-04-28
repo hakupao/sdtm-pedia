@@ -7,6 +7,9 @@ export async function getStaticPaths() {
   const all = await getCollection('guide');
   const paths: any[] = [];
   for (const doc of all) {
+    // The dedicated /[lang]/changelog route owns the changelog entry; skipping
+    // here prevents a duplicate /[lang]/guide/changelog/ route from emitting.
+    if (doc.data.slug === 'changelog') continue;
     if (doc.data.lang === undefined) {
       // language-neutral entry: emit zh+en+ja paths with banner suppressed
       for (const l of ['zh', 'en', 'ja'] as const) {
