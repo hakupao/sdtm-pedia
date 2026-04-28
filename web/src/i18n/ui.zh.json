@@ -20,7 +20,7 @@
   "theme.dark": "深色",
   "theme.system": "跟随系统",
   "search.placeholder": "搜索文档...",
-  "search.shortcut": "Cmd K",
+  "search.label": "搜索",
   "search.results.label": "个结果",
   "search.unavailable": "搜索索引不可用",
   "compare.title": "多维平台对比",

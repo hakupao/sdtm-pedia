@@ -23,9 +23,9 @@ const t = getUIStrings(lang);
           type="button"
           class="font-mono text-[10px] tracking-wider text-ink-mute hover:text-accent"
           onclick="document.dispatchEvent(new KeyboardEvent('keydown', {key:'k', metaKey:true}))"
-          aria-label="Open search"
+          aria-label={t['search.label']}
         >
-          {t['search.shortcut']}
+          {t['search.label']}
         </button>
         <LangSwitcher client:load currentLang={lang} pathname={pathname} />
         <ThemeToggle

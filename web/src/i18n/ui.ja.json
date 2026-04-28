@@ -20,7 +20,7 @@
   "theme.dark": "ダーク",
   "theme.system": "システム",
   "search.placeholder": "ドキュメント検索...",
-  "search.shortcut": "Cmd K",
+  "search.label": "検索",
   "search.results.label": "件の結果",
   "search.unavailable": "検索インデックスが利用できません",
   "compare.title": "多次元プラットフォーム比較",
