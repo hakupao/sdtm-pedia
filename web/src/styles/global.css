@@ -79,3 +79,9 @@ html, body {
 @media (prefers-reduced-motion: reduce) {
   .enter-fade { opacity: 1; transform: none; transition: none; }
 }
+
+/* a11y: visible focus ring for keyboard navigation. Phase 9 / master plan §10.2. */
+*:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}

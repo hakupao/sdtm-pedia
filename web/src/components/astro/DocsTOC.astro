@@ -3,18 +3,20 @@ interface Props { headings: { depth: number; slug: string; text: string }[]; }
 const { headings } = Astro.props;
 const filtered = headings.filter((h) => h.depth === 2 || h.depth === 3);
 ---
-<aside class="w-56 p-5 hidden xl:block sticky top-0 self-start max-h-screen overflow-y-auto shrink-0">
-  <div class="font-mono text-[9px] tracking-wider text-ink-mute mb-3">ON THIS PAGE</div>
-  <ul class="flex flex-col gap-1 font-serif text-[12px]">
-    {filtered.map((h) => (
-      <li class={h.depth === 3 ? 'pl-3' : ''}>
-        <a href={`#${h.slug}`} class="text-ink-mute hover:text-accent block py-0.5" data-toc-link={h.slug}>
-          {h.text}
-        </a>
-      </li>
-    ))}
-  </ul>
-</aside>
+{filtered.length > 0 && (
+  <aside class="w-56 p-5 hidden xl:block sticky top-0 self-start max-h-screen overflow-y-auto shrink-0">
+    <div class="font-mono text-[9px] tracking-wider text-ink-mute mb-3">ON THIS PAGE</div>
+    <ul class="flex flex-col gap-1 font-serif text-[12px]">
+      {filtered.map((h) => (
+        <li class={h.depth === 3 ? 'pl-3' : ''}>
+          <a href={`#${h.slug}`} class="text-ink-mute hover:text-accent block py-0.5" data-toc-link={h.slug}>
+            {h.text}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </aside>
+)}
 <script>
   const links = document.querySelectorAll('[data-toc-link]');
   const observer = new IntersectionObserver((entries) => {

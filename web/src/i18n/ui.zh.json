@@ -17,6 +17,8 @@
   "footer.maintainer": "维护: Daisy. 内部发布版.",
   "search.placeholder": "搜索文档...",
   "search.shortcut": "Cmd K",
+  "search.results.label": "个结果",
+  "search.unavailable": "搜索索引不可用",
   "compare.title": "多维平台对比",
   "compare.subhead": "四平台横向对比. 按维度关键字过滤.",
   "compare.filter.placeholder": "过滤维度...",
