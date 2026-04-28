@@ -11,19 +11,21 @@ const subhead = {
   ja: '4 つのデプロイメント、それぞれの性格。',
 }[lang];
 ---
-<section id="platforms" class="enter-fade px-7 py-8 bg-bg-alt border-b border-rule">
-  <SectionLabel number="02" label="FOUR PLATFORMS" />
-  <h2 class="font-display text-2xl mb-5 leading-tight">{subhead}</h2>
-  <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
-    {platforms.map((p) => (
-      <div class="bg-bg p-4 border border-rule">
-        <div class="font-mono text-[8px] tracking-[0.15em] text-ink-mute">{p.name}</div>
-        <div class="font-display text-3xl font-bold my-1">
-          <CountUp client:visible end={p.score} decimals={p.score % 1 === 0 ? 0 : 1} />
-          <span class="text-sm text-ink-faint">/17</span>
+<section id="platforms" class="enter-fade py-8 bg-bg-alt border-b border-rule">
+  <div class="max-w-screen-xl mx-auto px-7">
+    <SectionLabel number="02" label="FOUR PLATFORMS" />
+    <h2 class="font-display text-2xl mb-5 leading-tight">{subhead}</h2>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
+      {platforms.map((p) => (
+        <div class="bg-bg p-4 border border-rule">
+          <div class="font-mono text-[8px] tracking-[0.15em] text-ink-mute">{p.name}</div>
+          <div class="font-display text-3xl font-bold my-1">
+            <CountUp client:visible end={p.score} decimals={p.score % 1 === 0 ? 0 : 1} />
+            <span class="text-sm text-ink-faint">/17</span>
+          </div>
+          <div class="font-serif text-[11px] text-ink-mute leading-snug">{p.strength[lang]}</div>
         </div>
-        <div class="font-serif text-[11px] text-ink-mute leading-snug">{p.strength[lang]}</div>
-      </div>
-    ))}
+      ))}
+    </div>
   </div>
 </section>
