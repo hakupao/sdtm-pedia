@@ -90,11 +90,16 @@ export function SearchOverlay({ lang = 'en' }: { lang?: Lang } = {}) {
   if (!open) return null;
   // C-P8-4: aria live region announces result count / unavailability to
   // screen readers. Empty string when no input typed yet.
+  // 9.14 / F-1 fix: English needs singular "1 result" — zh "个结果" + ja
+  // "件の結果" are count-neutral suffixes (correct for any N), so only EN
+  // branches. Inline guard avoids a 4th i18n key per language.
   const liveMessage = initFailed
     ? t['search.unavailable']
     : results.length === 0
       ? ''
-      : `${results.length} ${t['search.results.label']}`;
+      : results.length === 1 && lang === 'en'
+        ? '1 result'
+        : `${results.length} ${t['search.results.label']}`;
 
   return (
     <div

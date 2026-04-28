@@ -40,6 +40,14 @@ describe('remark-md-link-rewrite', () => {
     expect(t.children[0].children[0].url).toBe('/en/changelog');
   });
 
+  // 9.14 / F-3: CHANGELOG branch must preserve the hash like the other branch.
+  it('preserves anchor on CHANGELOG cross-ref', () => {
+    const t = tree('CHANGELOG.md#v1.0');
+    const file = { data: { astro: { frontmatter: { lang: 'en' } } } };
+    transform(t, file);
+    expect(t.children[0].children[0].url).toBe('/en/changelog#v1.0');
+  });
+
   it('preserves anchor on cross-ref', () => {
     const t = tree('USER_GUIDE.md#install');
     const file = { data: { astro: { frontmatter: { lang: 'ja' } } } };
