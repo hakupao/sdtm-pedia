@@ -1,0 +1,601 @@
+CDISC Study Data Tabulation Model (2.0 Final)
+
+
+
+date, datetime); see the Define-XML specification for information about how to represent SDTM types using
+Define-XML data types.
+
+2.2 Table Structure
+Tables in this document include the following variable metadata:
+     •    Variable Name
+     •    Variable Label
+     •    Type (i.e., SAS data type, as described in Section 2.1, Model Concepts and Terms – Variables)
+     •    Format (an ISO format standard or a description such as "number-number")
+     •    Role (as defined in Section 2.1)
+     •    Variable(s) Qualified (for the variables with a role of Variable Qualifier or Synonym Qualifier)
+     •    Usage Restrictions (rules for when a variable can or cannot be used in a particular kind of trial, a particular
+          class, or a particular domain)
+     •    Variable C-code (the concept code associated with a variable definition by the National Cancer Institute
+          Enterprise Vocabulary Services (NCI-EVS))
+     •    Definition (published as part of CDISC Controlled Terminology through the NCI-EVS)
+     •    Notes (descriptive information not covered elsewhere)
+     •    Examples (sample values or descriptions of kinds of information used to populate the variable)
+Information on usage restrictions and examples that were in the Description column in SDTM v1.x tables have been
+moved to the Usage Restrictions and Examples columns. Other information previously in the Description column
+has been moved to the Notes column, except that definition-like information has been removed for variables which
+have approved definitions.
+
+
+
+
+© 2021 Clinical Data Interchange Standards Consortium, Inc. All rights reserved                                   Page 10
+2021-11-29
+CDISC Study Data Tabulation Model (2.0 Final)
+
+
+
+
+3 Study Subject Data
+Observations about study subjects are normally represented in a series of domains. A domain is defined as a
+collection of logically related observations with a common topic. The logic of the relationship may pertain to the
+scientific subject matter of the data or to its role in the trial. For example, "Subject 101 had an adverse event of mild
+nausea starting on study day 6" is an observation belonging to the Adverse Events (AE) domain in a clinical trial.
+SDTM datasets that represent data about study subjects are of 2 types: general observation class datasets and
+special-purpose datasets. General observation class domains conform to general structures for 1 of 3 classes:
+findings, events, and interventions. The data for a study would generally include multiple domains in each general
+observation class. In contrast to general observation class models on which individual domains can be based,
+special-purpose domains are specified completely.
+Domains based on the general observation classes are specified in SDTM implementation guides (see Section 1.2,
+Implementation Advice for this Model).
+Each study subject domain dataset is distinguished by a unique 2-character code. This code, which is stored in the
+SDTM variable named DOMAIN, is used in the dataset name, as the value of the DOMAIN variable in that dataset,
+and as a prefix for most variable names in that dataset.
+Domain codes are also used in RDOMAIN, a variable that is included in several relationship datasets and in the
+Comments special-purpose domain.
+
+3.1 The General Observation Classes
+The majority of observations collected during a study can be divided among 3 general observation classes:
+Interventions, Events, and Findings.
+     •    The Interventions Observation Class represents investigational, therapeutic, and other treatments that are
+          administered to or used by a subject (with some actual or expected physiological effect). This includes
+          treatments specified by the study protocol (i.e., "exposure").
+     •    The Events Observation Class represents planned protocol milestones such as randomization and study
+          completion, and occurrences, conditions, or incidents independent of planned study evaluations occurring
+          during the study (e.g., adverse events) or prior to the study (e.g., medical history).
+     •    The Findings Observation Class represents observations resulting from planned evaluations to address
+          specific tests or questions such as laboratory tests, electrocardiogram (ECG) testing, and questions listed on
+          questionnaires. The Findings class also includes a subtype, Findings About, which is used to record
+          findings related to observations in the Interventions or Events classes.
+Datasets based on any of the general observation classes share a set of common identifier and timing variables (see
+Section 3.1.4, Identifiers for All Classes, and Section 3.1.5, Timing Variables for All Classes). As a general rule, any
+valid identifier or timing variable is permissible for use in any dataset based on a general observation class.
+The SDTM is the foundation for many implementations. SDTM implementation guides specify particular domains
+based on the general observation classes. Domain specification tables in the implementation guides describe which
+variables must be included in the domain. Not all variables described in the tables in this document (SDTM tables)
+are appropriate for all domains in all implementations. The SDTM includes information on variables which are not
+to be used in human clinical trials. Refer to the implementation guides for specific information on any identifier or
+timing variables that are not allowed in a particular observation class domain.
+In the tables in this document, the presence of 2 hyphens before the variable name (e.g., --TRT) is used to indicate
+the required use of a prefix based on the 2-character domain code. The domain code is used as a variable prefix to
+minimize the risk of difficulty when merging or joining domains for reporting purposes. The variable with 2
+hyphens may be referred to as a "root" variable.
+Domain-specific variables, a concept introduced in SDTM v1.5, are for use in a limited number of designated
+domains based on general observation classes and will be identified in the appropriate implementation guide. The
+variable names include the specific domain prefix. Domain-specific variables are included in the table of general
+
+
+
+© 2021 Clinical Data Interchange Standards Consortium, Inc. All rights reserved                                   Page 11
+2021-11-29
+CDISC Study Data Tabulation Model (2.0 Final)
+
+
+
+observation class variables; the Usage Restrictions column of the table indicates the domains in which the variable is allowed.
+In addition to the 3 general observation classes, a study will generally include a set of other special-purpose datasets; see Section 3.2, Special-purpose Domains.
+
+3.1.1 The Interventions Observation Class
+Interventions—Topic and Qualifier Variables—One Record per Constant-dosing Interval or Intervention Episode
+#   Variable   Variable Label      Type Format Role         Variable(s)   Usage          Variable   Definition                     Notes                                    Examples
+    Name                                                    Qualified     Restrictions   C-code
+1   --TRT      Name of             Char         Topic                                    C82542     The reported name of the       The topic for the intervention
+               Treatment                                                                            drug, procedure, or therapy.   observation, usually the verbatim
+                                                                                                                                   name of the treatment, drug,
+                                                                                                                                   medicine, or therapy given during the
+                                                                                                                                   dosing interval for the observation.
+2   --MODIFY Modified              Char         Synonym     --TRT                        C170998    A value which represents an    If the value for --TRT is modified for
+             Treatment Name                     Qualifier                                           alteration to a collected      coding purposes, then the modified
+                                                                                                    value for coding purposes.     text is placed here.
+3   --DECOD    Standardized        Char         Synonym     --TRT                        C170991    Standardized or dictionary-    Equivalent to the generic drug name
+               Treatment Name                   Qualifier                                           derived text for the           in WHODrug, or a term in SNOMED,
+                                                                                                    description of an event or     ICD-9, or other published or sponsor-
+                                                                                                    intervention.                  defined dictionaries.
+4   --MOOD     Mood                Char         Record                                   C117051    The state that may be                                                   "SCHEDULED",
+                                                Qualifier                                           applied to a record to                                                  "PERFORMED"
+                                                                                                    indicate its phase in a life
+                                                                                                    cycle or business process
+                                                                                                    (e.g., scheduled, performed).
+5   --CAT      Category            Char         Grouping                                 C25372     A grouping or classification
+                                                Qualifier                                           of the topic of the finding,
+                                                                                                    event, or intervention.
+6   --SCAT     Subcategory         Char         Grouping                                            A further grouping or          The category is in --CAT.
+                                                Qualifier                                           classification of the category
+                                                                                                    for the topic of the finding,
+                                                                                                    event, or intervention.
+7   --PRESP    Pre-Specified       Char         Variable    --TRT         Not in         C82510     An indication that the event   Values should be "Y" or null.
+                                                Qualifier                 nonclinical               or intervention was
+                                                                          trials                    prospectively stated or
+                                                                                                    detailed on the CRF.
+8   --OCCUR    Occurrence          Char         Record                                   C171000    An indication as to whether a
+               Indicator                        Qualifier                                           prespecified event or
+                                                                                                    intervention has occurred.
+9   --         Reason for Occur    Char         Record                                                                             --REASOC is the reason the
+    REASOC     Value                            Qualifier                                                                          intervention did or did not occur,
+                                                                                                                                   according to the value in --OCCUR.
+                                                                                                                                   This does not replace --INDC.
+10 --STAT      Completion Status   Char         Record                                                                             Used to indicate when a question
+                                                Qualifier                                                                          about the occurrence of a
+                                                                                                                                   prespecified intervention was not
+                                                                                                                                   answered. Should be null or have a
+                                                                                                                                   value of "NOT DONE".
+11 --          Reason Not Done     Char         Record                                   C82556     The explanation for why        Used in conjunction with --STAT
+   REASND                                       Qualifier                                           requested information was      when value is "NOT DONE".
+                                                                                                    not available.
+12 --          Contact Mode        Char         Record                                                                             The way in which the event, visit, or
+   CNTMOD                                       Qualifier                                                                          contact was conducted.
+
+
+
+© 2021 Clinical Data Interchange Standards Consortium, Inc. All rights reserved                                                                                                            Page 12
+2021-11-29
+CDISC Study Data Tabulation Model (2.0 Final)
+
+
+#  Variable    Variable Label      Type Format Role         Variable(s)   Usage          Variable   Definition                        Notes                                      Examples
+   Name                                                     Qualified     Restrictions   C-code
+13 --EPCHGI    Epi/Pandemic        Char         Record                                                                                Indicates whether the intervention
+               Related Change                   Qualifier                                                                             was changed due to an epidemic or
+               Indicator                                                                                                              pandemic.
+14 --INDC      Indication          Char         Record                                   C41184     The sign, symptom, or
+                                                Qualifier                                           condition that is the basis for
+                                                                                                    initiation of a treatment.
+15 --CLAS      Class               Char         Variable    --TRT                        C170987    A standardized or dictionary-
+                                                Qualifier                                           derived name for a grouping
+                                                                                                    of drugs, procedures, or
+                                                                                                    therapies.
+16 --          Class Code          Char         Variable    --TRT                        C170988    A standardized or dictionary-     Used to represent code for --CLAS.
+   CLASCD                                       Qualifier                                           derived short sequence of
+                                                                                                    characters used to represent
+                                                                                                    a grouping of drugs,
+                                                                                                    procedures, or therapies.
+17 --DOSE      Dose                Num          Record                                   C25488     The quantity of an agent          Not populated when --DOSTXT is
+                                                Qualifier                                           (e.g., drug, substance,           populated.
+                                                                                                    radiation) taken or absorbed
+                                                                                                    at a single administration.
+18 --          Dose Description    Char         Record                                   C70961     A textual description of the      Not populated when --DOSE is               "200-400"
+   DOSTXT                                       Qualifier                                           quantity of an agent (e.g.,       populated.
+                                                                                                    drug, substance, radiation)
+                                                                                                    taken or absorbed at a
+                                                                                                    single administration.
+19 --DOSU      Dose Units          Char         Variable    --DOSE; --                   C73558     The unit of measure for the       Units for --DOSE, --DOSTOT, or --          "ng", "mg", "mg/kg"
+                                                Qualifier   DOSTXT; --                              administered agent (e.g.,         DOSTXT.
+                                                            DOSTOT                                  drug, substance, radiation),
+                                                                                                    using standardized values.
+20 --TDOSD     Toxic/Physiologic   Char         Record                                                                                A description of a statistically derived   "LD50", "ED90"
+               Dose Descr                       Qualifier                                                                             estimate of a dose with a certain
+                                                                                                                                      toxicological or physiological effect in
+                                                                                                                                      a population, based on data from a
+                                                                                                                                      dose-response study.
+21 --          Factor for          Num          Variable    --TDOSD                                                                   The quantity given for the multiplier of   If --TDOSD="LD50" and -
+   FTDOSD      Toxic/Physiologic                Qualifier                                                                             --TDOSD.                                   -FTDOSD="5", then the
+               Dose Descr                                                                                                                                                        value represented by --
+                                                                                                                                                                                 DOSE and --DOSU is 5
+                                                                                                                                                                                 times the LD50.
+22 --          Dose Form           Char         Variable    --TRT                        C42636     Physical characteristics of a                                                "TABLET", "CAPSULE"
+   DOSFRM                                       Qualifier                                           drug product, (e.g., tablet,
+                                                                                                    capsule, or solution) that
+                                                                                                    contains a drug substance,
+                                                                                                    generally (but not
+                                                                                                    necessarily) in association
+                                                                                                    with one or more other
+                                                                                                    ingredients.
+23 --          Dosing Frequency    Char         Record                                   C15682     The number of times that an                                                  "Q2H", "QD", "PRN"
+   DOSFRQ      per Interval                     Qualifier                                           agent (e.g., drug, substance,
+                                                                                                    radiation) is administered
+                                                                                                    per unit of time.
+24 --          Total Daily Dose    Num          Record                                   C70888     The quantity of an agent      Uses the units in --DOSU.
+   DOSTOT                                       Qualifier                                           (e.g., drug, substance,
+                                                                                                    radiation) taken or absorbed
+                                                                                                    on a single day.
+
+
+
+
+© 2021 Clinical Data Interchange Standards Consortium, Inc. All rights reserved                                                                                                                   Page 13
+2021-11-29
+CDISC Study Data Tabulation Model (2.0 Final)
+
+
+#  Variable    Variable Label        Type Format Role        Variable(s)   Usage              Variable   Definition                       Notes                                      Examples
+   Name                                                      Qualified     Restrictions       C-code
+25 --          Intended Dose         Char        Record                                       C71137     The planned schedule for                                                    "TWO WEEKS ON, TWO
+   DOSRGM      Regimen                           Qualifier                                               the administration of an                                                    WEEKS OFF"
+                                                                                                         agent (e.g., drug, substance,
+                                                                                                         radiation).
+26 --ROUTE     Route of              Char        Record                                       C38114     Designation of the part of the                                              "ORAL",
+               Administration                    Qualifier                                               body through which or into                                                  "INTRAVENOUS"
+                                                                                                         which, or the way in which, a
+                                                                                                         substance is introduced.
+27 --LOT       Lot Number            Char        Record                                       C70848     An identifier assigned by the    Although the identifier for a lot is
+                                                 Qualifier                                               manufacturer or distributor to   generally called a lot number, it may
+                                                                                                         a specific quantity of           contain characters other than digits
+                                                                                                         manufactured material or         (e.g., letters).
+                                                                                                         product.
+28 --LOC       Location of           Char        Record                                                                                   Anatomical location of an                  "ARM" for an injection
+               Administration                    Qualifier                                                                                intervention, such as an injection site.
+29 --          Method of             Char        Record                    Not in human                  Method of administration of                                                 "INFUSION" when
+   METHOD      Administration                    Qualifier                 clinical trials;              the treatment.                                                              ROUTE is
+                                                                           EX domain                                                                                                 "INTRAVENOUS"
+                                                                           only
+30 --LAT       Laterality            Char        Variable    --LOC                                                                     Qualifier for anatomical location             "RIGHT", "LEFT",
+                                                 Qualifier                                                                             further detailing laterality of               "BILATERAL"
+                                                                                                                                       intervention administration.
+31 --DIR       Directionality        Char        Variable    --LOC                                                                     Qualifier for anatomical location             "ANTERIOR", "LOWER",
+                                                 Qualifier                                                                             further detailing directionality of           "PROXIMAL"
+                                                                                                                                       intervention administration.
+32 --          Portion or Totality   Char        Variable    --LOC                                                                     Qualifier for anatomical location             "ENTIRE", "SINGLE",
+   PORTOT                                        Qualifier                                                                             further detailing the distribution, which     "SEGMENT", "MANY"
+                                                                                                                                       means arrangement of or
+                                                                                                                                       apportioning of the intervention
+                                                                                                                                       administration.
+33 --FAST      Fasting Status        Char        Record                                       C93566     An indication as to whether a Valid values include "Y", "N", "U", or
+                                                 Qualifier                                               subject has abstained from    null if not relevant.
+                                                                                                         food and liquid for a
+                                                                                                         prescribed amount of time.
+34 --PSTRG     Pharmaceutical        Num         Record                                       C53294     The amount of active                                                        "50", "300"
+               Strength                          Qualifier                                               ingredient per unit of
+                                                                                                         pharmaceutical dosage
+                                                                                                         form.
+35 --          Pharmaceutical        Char        Variable    --PSTRG                          C117055    The unit of measure for the   Unit for --PSTRG.                             "mg/TABLET", "mg/mL"
+   PSTRGU      Strength Units                    Qualifier                                               amount of active ingredient
+                                                                                                         per unit of pharmaceutical
+                                                                                                         dosage form, using
+                                                                                                         standardized values.
+36 --TRTV      Treatment Vehicle     Char        Record                                       C927       A carrier or inert medium in                                                "SALINE"
+                                                 Qualifier                                               which a medicinally active
+                                                                                                         agent is administered.
+37 --VAMT      Treatment Vehicle     Num         Record                                       C82553     Amount of the prepared        Note: Should not be diluent amount
+               Amount                            Qualifier                                               product (treatment plus       alone.
+                                                                                                         vehicle) administered.
+38 --VAMTU     Treatment Vehicle     Char        Variable    --VAMT                           C82583     The unit of measure for the                                                 "mL", "mg"
+               Amount Units                      Qualifier                                               prepared product (treatment
+                                                                                                         plus vehicle) using
+                                                                                                         standardized values.
+39 --ADJ       Reason for Dose       Char        Record                                       C82555     The explanation given for                                                   "ADVERSE EVENT",
+               Adjustment                        Qualifier                                               why a dose was changed as                                                   "INSUFFICIENT
+
+
+© 2021 Clinical Data Interchange Standards Consortium, Inc. All rights reserved                                                                                                                      Page 14
+2021-11-29
+CDISC Study Data Tabulation Model (2.0 Final)
+
+
+#   Variable   Variable Label        Type Format Role         Variable(s)   Usage               Variable     Definition                   Notes                                    Examples
+    Name                                                      Qualified     Restrictions        C-code
+                                                                                                             compared to a previous                                                RESPONSE", "NON-
+                                                                                                             dose.                                                                 MEDICAL REASON"
+40 --RSDISC Reason for               Char        Record                                                                                   Reason the treatment was
+            Treatment                            Qualifier                                                                                discontinued.
+            Discontinuation
+41 --USCHFL Unscheduled Flag         Char        Record                     Not in human        C170510      An indication that the       If a test or observation was performed
+                                                 Qualifier                  clinical trials                  performed test or            based upon a schedule defined in the
+                                                                                                             observation was done at a    protocol, this flag should be null.
+                                                                                                             time that was not planned.   Expected values are "Y" or null. This
+                                                                                                                                          variable would not be needed when
+                                                                                                                                          information on planned assessments
+                                                                                                                                          is provided, such as when the Trial
+                                                                                                                                          Visits (TV) and Subject Visits (SV)
+                                                                                                                                          domains are used.
+42 --RSTIND    Restraint Indicator   Char        Record                     Not in human                                                  An indicator as to whether the animal
+                                                 Qualifier                  clinical trials                                               subject was restrained during the
+                                                                                                                                          intervention period. Expected values
+                                                                                                                                          are "Y" or null.
+43 --          Restraint Mode        Char        Record                     Not in human                                                  A description of whether the restraint
+   RSTMOD                                        Qualifier                  clinical trials                                               was physical and/or chemical.
+
+
+3.1.2 The Events Observation Class
+Events—Topic and Qualifier Variables—One Record per Event
+#   Variable   Variable Label        Type Format Role         Variable(s)   Usage             Variable     Definition                 Notes                                 Examples
+    Name                                                      Qualified     Restrictions      C-code
+1   --TERM     Reported Term         Char         Topic                                       C82571  The collected name for an       The verbatim or prespecified name
+                                                                                                      event observation.              of the event.
+2   --         Modified Reported     Char         Synonym --TERM                              C170998 A value which represents        If the value for --TERM is modified
+    MODIFY     Term                               Qualifier                                           an alteration to a collected    for coding purposes, then the
+                                                                                                      value for coding.               modified text is placed here.
+3   --LLT      Lowest Level Term     Char         Variable    --TERM        Not in            C71886  The lowest-level term
+                                                  Qualifier                 nonclinical               assigned to the event from
+                                                                            trials                    MedDRA.
+4   --LLTCD    Lowest Level Term     Num          Variable    --LLT         Not in            C117048 The lowest-level term
+               Code                               Qualifier                 nonclinical               code assigned to the
+                                                                            trials                    event from MedDRA.
+5   --DECOD    Dictionary-Derived    Char         Synonym --TERM                              C170991 Standardized or                 Equivalent to the Preferred Term
+               Term                               Qualifier                                           dictionary-derived text for     ("PT" in MedDRA).
+                                                                                                      the description of an event
+                                                                                                      or intervention.
+6   --         Medical History       Char         Variable    --STDTC; -- MH domain                                                   Specifies the aspect of the medical   "DIAGNOSIS", "SYMPTOM
+    EVDTYP     Event Date Type                    Qualifier   ENDTC       only                                                        condition or event by which           ONSET", "DISEASE
+                                                                                                                                      MHSTDTC and/or the MHENDTC is         RELAPSE"
+                                                                                                                                      defined.
+7   --PTCD     Preferred Term        Num          Variable    --DECOD       Not in            C117056 The preferred term code
+               Code                               Qualifier                 nonclinical               assigned to the event from
+                                                                            trials                    the MedDRA dictionary.
+8   --HLT      High Level Term       Char         Variable    --TERM        Not in            C71880  The high-level term from
+                                                  Qualifier                 nonclinical               the primary hierarchy
+                                                                            trials                    assigned to the event from
+                                                                                                      MedDRA.
+
+
+
+© 2021 Clinical Data Interchange Standards Consortium, Inc. All rights reserved                                                                                                                Page 15
+2021-11-29
+CDISC Study Data Tabulation Model (2.0 Final)
+
+
+#   Variable   Variable Label      Type Format Role          Variable(s)   Usage          Variable Definition                    Notes                                    Examples
+    Name                                                     Qualified     Restrictions   C-code
+9   --HLTCD    High Level Term     Num           Variable    --HLT         Not in         C117047 The high-level term code
+               Code                              Qualifier                 nonclinical             from the primary hierarchy
+                                                                           trials                  assigned to the event from
+                                                                                                   MedDRA.
+10 --HLGT      High Level Group    Char          Variable    --TERM        Not in         C71889   The high-level group term
+               Term                              Qualifier                 nonclinical             from the primary hierarchy
+                                                                           trials                  assigned to the event from
+                                                                                                   MedDRA.
+11 --          High Level Group    Num           Variable    --HLGT        Not in         C117046 The high-level group term
+   HLGTCD      Term Code                         Qualifier                 nonclinical             code from the primary
+                                                                           trials                  hierarchy assigned to the
+                                                                                                   event from MedDRA.
+12 --CAT       Category            Char          Grouping                                 C25372   A grouping or
+                                                 Qualifier                                         classification of the topic
+                                                                                                   of the finding, event, or
+                                                                                                   intervention.
+13 --SCAT      Subcategory         Char          Grouping                                          A further grouping or         The category is in --CAT.
+                                                 Qualifier                                         classification of the
+                                                                                                   category for the topic of
+                                                                                                   the finding, event, or
+                                                                                                   intervention.
+14 --PRESP     Pre-Specified       Char          Variable    --TERM                       C82510   An indication that the        Value is "Y" for prespecified events,
+                                                 Qualifier                                         event or intervention was     null for spontaneously reported
+                                                                                                   prospectively stated or       events.
+                                                                                                   detailed on the CRF.
+15 --OCCUR Occurrence              Char          Record                    Not in AE      C171000 An indication as to
+           Indicator                             Qualifier                 domain                  whether a prespecified
+                                                                                                   event or intervention has
+                                                                                                   occurred.
+16 --          Reason for Occur    Char          Record                    Not in AE                                             --REASOC is the reason the event
+   REASOC      Value                             Qualifier                 domain                                                did or did not occur, according to the
+                                                                                                                                 value in --OCCUR.
+17 --STAT      Completion Status   Char          Record                    Not in AE                                             Used to indicate when a question
+                                                 Qualifier                 domain                                                about the occurrence of a
+                                                                                                                                 prespecified event was not
+                                                                                                                                 answered. Should be null or have a
+                                                                                                                                 value of "NOT DONE".
+18 --          Reason Not Done     Char          Record                    Not in AE      C82556  The explanation for why        Used in conjunction with --STAT
+   REASND                                        Qualifier                 domain                 requested information was      when its value is "NOT DONE".
+                                                                                                  not available.
+19 --          Body System or      Char          Record                                   C170986 A standardized or              Body system or system organ class        "GASTROINTESTINAL
+   BODSYS      Organ Class                       Qualifier                                        dictionary-derived name        assigned for analysis from a             DISORDERS"
+                                                                                                  for the body system or         standard hierarchy (e.g., MedDRA)
+                                                                                                  organ class.                   associated with an event.
+20 --          Body System or      Num           Variable    --BODSYS      Not in         C170985 A standardized or              MedDRA System Organ Class code
+   BDSYCD      Organ Class Code                  Qualifier                 nonclinical            dictionary-derived short       corresponding to --BODSYS
+                                                                           trials                 sequence of characters         assigned for analysis.
+                                                                                                  used to represent the body
+                                                                                                  system or organ class.
+21 --SOC       Primary System      Char          Variable    --TERM        Not in         C71888  The system organ class
+               Organ Class                       Qualifier                 nonclinical            from the primary hierarchy
+                                                                           trials                 assigned in the MedDRA
+                                                                                                  dictionary.
+
+
+
+
+© 2021 Clinical Data Interchange Standards Consortium, Inc. All rights reserved                                                                                                           Page 16
+2021-11-29
+CDISC Study Data Tabulation Model (2.0 Final)
+
+
+#  Variable    Variable Label        Type Format Role        Variable(s)   Usage          Variable Definition                  Notes                                       Examples
+   Name                                                      Qualified     Restrictions   C-code
+22 --SOCCD     Primary System        Num         Variable    --SOC         Not in         C117059 The system organ class
+               Organ Class Code                  Qualifier                 nonclinical             code from the primary
+                                                                           trials                  hierarchy assigned in the
+                                                                                                   MedDRA dictionary.
+23 --     Contact Mode               Char        Record                                                                        The way in which the event, visit, or       "IN PERSON", "TELEPHONE",
+   CNTMOD                                        Qualifier                                                                     contact was conducted.                      "IVRS"
+24 --     Epi/Pandemic               Char        Record                                                                        Indicates whether the event was
+   EPCHGI Related Change                         Qualifier                                                                     changed due to an epidemic or
+          Indicator                                                                                                            pandemic. Not the same as whether
+                                                                                                                               a medical condition was caused by
+                                                                                                                               an epidemic or pandemic.
+25 --LOC       Location of Event     Char        Record                                                                        Describes anatomical location               "ARM" for skin rash
+                                                 Qualifier                                                                     relevant for the event.
+26 --LAT       Laterality            Char        Variable    --LOC                                                             Qualifier for anatomical location,          "RIGHT", "LEFT",
+                                                 Qualifier                                                                     further detailing laterality.               "BILATERAL"
+27 --DIR       Directionality        Char        Variable    --LOC                                                             Qualifier for anatomical location,          "ANTERIOR", "LOWER",
+                                                 Qualifier                                                                     further detailing directionality.           "PROXIMAL"
+28 --          Portion or Totality   Char        Variable    --LOC                                                             Qualifier for anatomical location,          "ENTIRE", "SINGLE",
+   PORTOT                                        Qualifier                                                                     further detailing the distribution (i.e.,   "SEGMENT", "MANY"
+                                                                                                                               arrangement of, apportioning of).
+29 --PARTY     Accountable Party     Char        Record                    Not in         C117052 The role of the individual   The party could be an individual
+                                                 Qualifier                 nonclinical            or entity responsible for    (e.g., subject), an organization (e.g.,
+                                                                           trials                 the receipt of the           sponsor), or a location that is a
+                                                                                                  transferred object (e.g.,    proxy for an individual or
+                                                                                                  device, specimen).           organization (e.g., site). It is usually
+                                                                                                                               a somewhat general term that is
+                                                                                                                               further identified in the --PRTYID
+                                                                                                                               variable.
+30 --PRTYID Identification of        Char        Variable    --PARTY       Not in         C117054 A sequence of characters     Used in conjunction with --PARTY.
+            Accountable Party                    Qualifier                 nonclinical            used to uniquely identify
+                                                                           trials                 the individual or entity
+                                                                                                  responsible for the receipt
+                                                                                                  of the transferred object
+                                                                                                  (e.g., device, specimen).
+31 --SEV       Severity/Intensity    Char        Record                                   C25676  The quality or degree of                                                 "MILD", "MODERATE",
+                                                 Qualifier                                        harm associated with a                                                   "SEVERE"
+                                                                                                  finding or event, as
+                                                                                                  collected.
+32 --SER       Serious Event         Char        Record                                   C82578  A collected indication as to Valid values are "Y" and "N".
+                                                 Qualifier                                        whether an event meets
+                                                                                                  regulatory criteria for
+                                                                                                  seriousness.
+33 --ACN       Action Taken with     Char        Record                                   C49499  An action taken with study                                               "DOSE INCREASED", "DOSE
+               Study Treatment                   Qualifier                                        treatment as the result of                                               NOT CHANGED"
+                                                                                                  the event.
+34 --          Other Action Taken    Char        Record                                   C82509  An action taken unrelated
+   ACNOTH                                        Qualifier                                        to study treatment, as the
+                                                                                                  result of the event.
+35 --          Action Taken with     Char        Record                                   C117037 An action taken with a       The device may or may not be the
+   ACNDEV      Device                            Qualifier                                        device as the result of the device under study.
+                                                                                                  event.
+36 --REL       Causality             Char        Record                                   C103163 The investigator's                                                       "NOT RELATED", "UNLIKELY
+                                                 Qualifier                                        assessment of the                                                        RELATED", "POSSIBLY
+                                                                                                  likelihood that the study                                                RELATED", "RELATED"
+
+
+
+
+© 2021 Clinical Data Interchange Standards Consortium, Inc. All rights reserved                                                                                                                  Page 17
+2021-11-29
+CDISC Study Data Tabulation Model (2.0 Final)
+
+
+#   Variable   Variable Label        Type Format Role        Variable(s)   Usage          Variable   Definition                   Notes                                  Examples
+    Name                                                     Qualified     Restrictions   C-code
+                                                                                                     treatment was the cause
+                                                                                                     of the event.
+37 --RLDEV     Relationship of       Char        Record                                              A judgement as to the        The device may or may not be the       "CAUSAL", "UNLIKELY"
+               Event to Device                   Qualifier                                           likelihood that the device   device under study. Controlled
+                                                                                                     caused the event.            terminology from EC Directive
+                                                                                                                                  MEDDEV 2.7/3 March 2015 is
+                                                                                                                                  required in EU but not US.
+38 --          Relationship to Non- Char         Record                                   C82564  The investigator's                                                     "MORE LIKELY RELATED TO
+   RELNST      Study Treatment                   Qualifier                                        assessment of the causal                                               ASPIRIN USE"
+                                                                                                  relationship of the event to
+                                                                                                  a non-study treatment.
+39 --PATT      Pattern of Event      Char        Record                                   C82550  A characterization of the                                              "INTERMITTENT",
+                                                 Qualifier                                        temporal pattern of                                                    "CONTINUOUS", "SINGLE
+                                                                                                  occurrences of the event.                                              EVENT"
+40 --OUT       Outcome of Event      Char        Record                                   C171001 The status associated with                                             "RECOVERED/RESOLVED",
+                                                 Qualifier                                        the result or conclusion of                                            "FATAL"
+                                                                                                  the event.
+41 --SCAN      Involves Cancer       Char        Record                    Not in         C82561  An indication as to             Valid values are "Y", "N", and null.
+                                                 Qualifier                 nonclinical            whether the reason an
+                                                                           trials                 event was serious was
+                                                                                                  because the event was
+                                                                                                  associated with cancer.
+42 --SCONG Congenital Anomaly        Char        Record                    Not in         C2849   An indication as to             Valid values are "Y", "N", and null.
+           or Birth Defect                       Qualifier                 nonclinical            whether the reason an
+                                                                           trials                 event is serious is
+                                                                                                  because the event is
+                                                                                                  associated with congenital
+                                                                                                  anomaly or birth defect in
+                                                                                                  an offspring of the subject.
+43 --SDISAB Persist or Signif        Char        Record                    Not in         C68606  An indication as to             Valid values are "Y", "N", and null.
+            Disability/Incapacity                Qualifier                 nonclinical            whether the reason an
+                                                                           trials                 event is serious is
+                                                                                                  because the event
+                                                                                                  resulted in a significant,
+                                                                                                  persistent, or permanent
+                                                                                                  change, impairment,
+                                                                                                  damage, or disruption in
+                                                                                                  the subject's body
+                                                                                                  function/structure, physical
+                                                                                                  activities, and/or quality of
+                                                                                                  life.
+44 --SDTH      Results in Death      Char        Record                    Not in         C82549  An indication as to             Valid values are "Y", "N", and null.
+                                                 Qualifier                 nonclinical            whether the reason an
+                                                                           trials                 event is serious is
+                                                                                                  because the event
+                                                                                                  resulted in death.
+45 --SHOSP     Requires or           Char        Record                    Not in         C68605  An indication as to             Valid values are "Y", "N", and null.
+               Prolongs                          Qualifier                 nonclinical            whether the reason an
+               Hospitalization                                             trials                 event is serious is
+                                                                                                  because the event
+                                                                                                  resulted in or prolonged
+                                                                                                  hospitalization.
+46 --SLIFE     Is Life Threatening   Char        Record                    Not in         C82508  An indication as to             Valid values are "Y", "N", and null.
+                                                 Qualifier                 nonclinical            whether the reason an
+                                                                           trials                 event is serious is
+
+
+
+© 2021 Clinical Data Interchange Standards Consortium, Inc. All rights reserved                                                                                                            Page 18
+2021-11-29
+CDISC Study Data Tabulation Model (2.0 Final)
+
+
+#   Variable   Variable Label       Type Format Role         Variable(s)   Usage          Variable   Definition                   Notes                                    Examples
+    Name                                                     Qualified     Restrictions   C-code
+                                                                                                     because the event
+                                                                                                     resulted in a substantial
+                                                                                                     risk of dying.
+47 --SOD       Occurred with        Char         Record                    Not in         C82548     An indication as to         Valid values are "Y", "N", and null.
+               Overdose                          Qualifier                 nonclinical               whether the reason an
+                                                                           trials                    event is serious is
+                                                                                                     because the event is
+                                                                                                     associated with overdose.
+48 --SMIE      Other Medically      Char         Record                    Not in         C82521     An indication as to         Valid values are "Y", "N", and null.
+               Important Serious                 Qualifier                 nonclinical               whether the reason an
+               Event                                                       trials                    event is serious is
+                                                                                                     because the event may
+                                                                                                     jeopardize the subject and
+                                                                                                     may require intervention to
+                                                                                                     prevent one of the other
+                                                                                                     outcomes associated with
+                                                                                                     serious adverse events.
+49 --SINTV     Needs Intervention   Char         Record                    AE domain                                             Valid values are "Y", "N", and null.
+               to Prevent                        Qualifier                 only                                                  Expected use is in medical device-
+               Impairment                                                                                                        related trials. It is part of the
+                                                                                                                                 definition of a serious AE as
+                                                                                                                                 represented in 21 CFR Part
+                                                                                                                                 803.3(w)(3).
+                                                                                                                                 Records whether medical or surgical
+                                                                                                                                 intervention was necessary to
+                                                                                                                                 preclude permanent impairment of a
+                                                                                                                                 body function, or prevent permanent
+                                                                                                                                 damage to a body structure, with
+                                                                                                                                 either situation suspected to be due
+                                                                                                                                 to the use of a medical product.
+50 --UNANT     Unanticipated        Char         Record                    AE domain                                             The assessment is about a device
+               Adverse Device                    Qualifier                 only                                                  identified in the data (i.e., which has
+               Effect                                                                                                            an SPDEVID). The device may be
+                                                                                                                                 ancillary or under study.
+                                                                                                                                 Any serious adverse effect on health
+                                                                                                                                 or safety or any life-threatening
+                                                                                                                                 problem or death caused by or
+                                                                                                                                 associated with a device, if that
+                                                                                                                                 effect, problem, or death was not
+                                                                                                                                 previously identified in nature,
+                                                                                                                                 severity, or degree of incidence in
+                                                                                                                                 the investigational plan or
+                                                                                                                                 application (including a
+                                                                                                                                 supplementary plan or application),
+                                                                                                                                 or any other unanticipated serious
+                                                                                                                                 problem associated with a device
+                                                                                                                                 that relates to the rights, safety, or
+                                                                                                                                 welfare of subjects. (21 CFR
+                                                                                                                                 812.3(s)).
+51 --RLPRT     Rel of AE to Device- Char         Record                    AE domain                                             The investigator's opinion as to the      "CAUSAL", "UNLIKELY"
+               Related Procedure                 Qualifier                 only                                                  likelihood that the device-related
+                                                                                                                                 study procedure caused the AE
+                                                                                                                                 (e.g., implant/insertion,
+                                                                                                                                 revision/adjustment,
+                                                                                                                                 explant/removal)
+
+
+
+© 2021 Clinical Data Interchange Standards Consortium, Inc. All rights reserved                                                                                                              Page 19
+2021-11-29
+

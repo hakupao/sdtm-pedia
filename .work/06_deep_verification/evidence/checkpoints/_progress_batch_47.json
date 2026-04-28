@@ -1,0 +1,107 @@
+{
+  "session_id": "B",
+  "round": 12,
+  "batch_id": "47",
+  "status": "completed",
+  "completed_at": "2026-04-30",
+  "scope": {
+    "page_range": "ig34 p.461 + sv20 p.1-9",
+    "page_count": 10,
+    "cross_pdf_boundary": true,
+    "ig34_terminal_page": 461,
+    "sv20_initial_pages": "1-9",
+    "milestone": "END-OF-ig34 + START-OF-sv20"
+  },
+  "production_atoms": {
+    "47a": {
+      "file": "evidence/checkpoints/pdf_atoms_batch_47a.jsonl",
+      "atom_count": 115,
+      "page_range": "ig34 p.461 + sv20 p.1-4",
+      "atom_type_distribution": {"HEADING": 12, "SENTENCE": 25, "LIST_ITEM": 11, "TABLE_HEADER": 1, "TABLE_ROW": 9, "CROSS_REF": 56, "NOTE": 1},
+      "page_distribution": {"ig34_p461": 14, "sv20_p001": 18, "sv20_p002": 45, "sv20_p003": 12, "sv20_p004": 26},
+      "writer_subagent_type": "oh-my-claudecode:executor",
+      "writer_agent_id": "a55a7c2f436fe7df5",
+      "writer_hooks_pass": "20/20",
+      "writer_prompt_version": "P0_writer_pdf_v1.7"
+    },
+    "47b": {
+      "file": "evidence/checkpoints/pdf_atoms_batch_47b.jsonl",
+      "atom_count": 92,
+      "page_range": "sv20 p.5-9",
+      "atom_type_distribution": {"HEADING": 7, "SENTENCE": 45, "LIST_ITEM": 39, "FIGURE": 1},
+      "page_distribution": {"sv20_p005": 32, "sv20_p006": 28, "sv20_p007": 1, "sv20_p008": 10, "sv20_p009": 21},
+      "writer_subagent_type": "oh-my-claudecode:executor",
+      "writer_agent_id": "a55a7c2f436fe7df5",
+      "writer_hooks_pass": "20/20",
+      "writer_prompt_version": "P0_writer_pdf_v1.7",
+      "n6_intra_agent_pattern": "SendMessage continuation cross-PDF (3rd cumulative live-fire of N6 SendMessage continuation; 1st cumulative cross-PDF carry-forward instance)"
+    },
+    "total_atom_count": 207
+  },
+  "rule_a_audit": {
+    "reviewer_slot": "#60",
+    "reviewer_subagent_type": "oh-my-claudecode:critic",
+    "audit_pivot_cumulative": 41,
+    "family_burn": "omc-family 14th burn intra-family depth — D-MS-7 candidate critic-strategist 1st live-fire EFFECTIVE",
+    "sample_seed": 20260501,
+    "sample_size": 10,
+    "stratification": "1 atom per (source, page) pair × 10 page strata",
+    "weighted_pass_pct": 97.75,
+    "threshold": 80.0,
+    "verdict": "PASS",
+    "verdicts_file": "evidence/checkpoints/rule_a_batch_47_verdicts.jsonl",
+    "summary_file": "evidence/checkpoints/rule_a_batch_47_summary.md"
+  },
+  "drift_cal": {
+    "triggered": false,
+    "reason": "kickoff §5 + §0.2 cadence — drift cal SKIPPED for batch 47; next mandatory batch 48 sv20 p.15"
+  },
+  "halt": {
+    "triggered": false,
+    "reason": ""
+  },
+  "findings": {
+    "reserved_range": "O-P1-165..168",
+    "raised": [
+      {
+        "id": "O-P1-165",
+        "severity": "LOW",
+        "title": "L1 NEW HEADING parent_section convention requires v1.8 codification",
+        "summary": "Three observed variants across rounds: (a) self-bracket §N [TITLE] dominant ig34 v1.4+ 8/11 cases; (b) natural-form §N TITLE (ig34 v1.2 anomalies); (c) cover-anchor §0 [Cover] (NEW sv20 cross-PDF batch 47, 2/2 cases sv20_p0004_a001 + sv20_p0008_a001). v1.8 should mandate single form.",
+        "atoms_affected": ["sv20_p0004_a001", "sv20_p0008_a001"],
+        "disposition": "DEFER_to_v1.8_cut_session_per_critic_option_b_recommendation; sustain D-MS-NEW-11-4 preserve-as-emitted decision; reconciler does NOT apply Option H bulk fix this round"
+      },
+      {
+        "id": "O-P1-166",
+        "severity": "LOW",
+        "title": "L2 active-heading parent_section drift on sv20 §2.1 children",
+        "summary": "Children atoms on page where L2 heading is active should arguably use §N.M [TITLE] parent rather than §N [TITLE] L1 ancestor. Observed systemically across sv20_p0009 a002-a019 (§2.1 Model Concepts and Terms – Variables active but parent uses §2 [...] L1 form). ~18 atoms affected.",
+        "atoms_affected_count": 18,
+        "atoms_affected_pattern": "sv20_p0009 a002-a019 (excluding a001 which is §2.1 HEADING itself)",
+        "disposition": "DEFER_to_v1.8_cut_session"
+      }
+    ],
+    "reserved_unused": ["O-P1-167", "O-P1-168"]
+  },
+  "status_promotions": {
+    "n11_chapter_short_bracket": "STRONGLY VALIDATED + L1+L2+L3 FULL-SCOPE sustained at 5th cumulative live-fire (round 9 §7 + round 10 §8 + round 11 batch 45 §9+§10 + round 12 batch 47 sv20 §1+§2 = 6 cumulative L1 transitions in P1)",
+    "n6_intra_agent_sendmessage_continuation": "3rd cumulative live-fire (round 10 batch 43 1st NEW PRECEDENT + round 11 batch 44 2nd + round 12 batch 47 3rd cross-PDF carry-forward) — agent ID a55a7c2f436fe7df5 preserved 47a→47b zero drift",
+    "d_ms_7_candidate_sister_chain_omc": "5 successive D-MS-7 candidates at 10/11/12/13/14th-burn intra-family depth (planner round 9 + verifier + tracer round 10 + code-reviewer round 11 + critic round 12 batch 47)",
+    "o_p1_153_g_ms_new_10_3_motif": "4th cumulative recurrence STRONGLY VALIDATED status sustained (kickoff §3 TOC predictions vs PDF actual divergence; round 12 batch 47 ig34 p.461 = §10.F NEW L2 not predicted)",
+    "v1_7_n21_baseline": "2nd round running production-side prevention layer EFFECTIVE — 207 atoms 0 writer-family contamination, 0 hallucinations, executor-only across cross-PDF boundary",
+    "g_ms_4_halt_fallback": "STRONGLY VALIDATED status sustained at 3 cumulative live-fires unchanged (round 12 batch 47 did NOT trigger halt)"
+  },
+  "cross_pdf_boundary_milestone": {
+    "ig34_terminal": "ig34 p.461 last page of SDTMIG v3.4 — ig34 namespace fully atomized post batch 47a (cumulative ig34 atoms = previous + 14 = ig34 fully done)",
+    "sv20_initial": "sv20 p.1-9 first 9 pages atomized — sv20 namespace begins with batch 47",
+    "atom_id_namespace_partition": "ig34_pNNNN vs sv20_pNNNN clean partition; 0 cross-source contamination",
+    "source_field_enum": "all atoms use schema-canonical underscored form SDTMIG_v3.4 / SDTM_v2.0 (NOT kickoff §3.1 spaced-form variant which was incorrect)"
+  },
+  "kickoff_compliance": {
+    "hard_stop_directive": "STEP 1-7 completed; PARALLEL_SESSION_47_DONE echoed (no premature stop)",
+    "reviewer_slot_pre_allocation": "#60 oh-my-claudecode:critic verified registered AGENT in agent roster pre-dispatch (no G-MS-4 halt fallback needed)",
+    "do_not_touch_compliance": "root pdf_atoms.jsonl + audit_matrix.md + _progress.json (root) + sister batch files 48/49 + subagent_prompts/* + schema/* + PLAN.md + plans/* + CLAUDE.md — all UNTOUCHED per kickoff §8",
+    "atom_id_4_digit_pattern": "all 207 atoms match schema v1.2 pattern ^(ig34|sv20)_p[0-9]{4}_a[0-9]{3}$ (kickoff §3.1 3-digit suggestion overridden in main session pre-dispatch correction)",
+    "sv20_header_footer_skip_rule": "0 furniture leaks across all 207 atoms (4-line pattern check: top header / © 2021 / 2021-11-29 / Page N — all 0 occurrences post-extraction validation per §0.5+§3.6)"
+  }
+}
