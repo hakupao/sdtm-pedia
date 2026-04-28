@@ -1,6 +1,6 @@
 ---
 lang: zh
-slug: compare
+slug: platform-comparison
 order: 20
 title: "4 平台多维对比"
 ---

@@ -35,10 +35,6 @@ test('link-resolution: every <a> in main resolves ≠404 across landing + guide 
     );
     for (const href of hrefs) {
       if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('http')) continue;
-      // Skip raw .md links (markdown source cross-refs like [Glossary](GLOSSARY.zh.md));
-      // these are render-pipeline artifacts, not navigation links. A remark plugin
-      // to rewrite them to web routes is Phase 6+ scope.
-      if (/\.md(?:#|$)/.test(href)) continue;
       const url = href.startsWith('/') ? href : new URL(href, `http://localhost:4321${route}`).pathname;
       if (seen.has(url)) continue;
       seen.add(url);
