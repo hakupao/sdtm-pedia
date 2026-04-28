@@ -16,11 +16,36 @@ Every new session, **before doing any work**, read these files in order:
 
 Then summarize to the user: current status, open issues, and suggested next step.
 
-## Multi-Session Parallel Protocol (round 1-10 完成 + v1.7 cut 闭环, 2026-04-29; round 11 prep DEFERRED)
+## Multi-Session Parallel Protocol (temporary, 06 Deep Verification 旁枝 round 11 batches 44/45/46 实验, 2026-04-29+ post v1.7 cut)
 
-**Status post v1.7 cut**: round 10 batches 41/42/43 routing rule REMOVED per round 8/9 cleanup precedent. v1.7 baseline ACTIVE since 2026-04-29 (writer-family INELIGIBLE for ALL P1 production atomization across ALL content types per N21 PRIMARY trigger; MD-side preserves writer-family eligibility under v1.6 N18 EXTENDED scope baseline per N21 PDF-only scoping decision).
+**Routing rule** — if user's first message in a fresh session matches one of these patterns, **SKIP** the standard Session Startup above and instead:
 
-**Round 11 batches 44/45/46 + reconciler_kickoff_round11 routing rule** — DEFERRED to next session OR Task 6 continuation per Daisy decision. When prepped, dispatch under v1.7 N21 baseline (ALL writer dispatch = `oh-my-claudecode:executor`). Pre-allocated reviewer slots #57/#58/#59. Drift cal target page batch 45 (cadence batch 42→45).
+| User says (case-insensitive, Chinese or English) | Read this file as full session task |
+|---|---|
+| `batch 44 开始任务` / `batch 44 start` / `batch44` | `.work/06_deep_verification/multi_session/batch_44_kickoff.md` |
+| `batch 45 开始任务` / `batch 45 start` / `batch45` | `.work/06_deep_verification/multi_session/batch_45_kickoff.md` |
+| `batch 46 开始任务` / `batch 46 start` / `batch46` | `.work/06_deep_verification/multi_session/batch_46_kickoff.md` |
+| `reconciler 开始任务` / `reconciler start` / `合并收尾` | `.work/06_deep_verification/multi_session/reconciler_kickoff_round11.md` |
+
+The kickoff files are self-contained (TOC ground truth pre-dispatch verify mandatory per G-MS-NEW-10-3 carry-forward, R-rules via v1.7 prompts reference, dispatch protocol per N21 COMPLETE BAN, pre-assigned reviewer slot, hard-stop directive at top, "do not touch" list). Execute the file as if it were the user's full prompt.
+
+**Background context** (each session needs to know):
+- 3 终端 (B/C/D) 同时跑 batches 44/45/46 — 物理并行 (round 11 第 11 轮; **1st round running v1.7 baseline post v1.7 cut 2026-04-29 commit `6d19992`**)
+- 1 终端 (E) 启动 reconciler 收尾 (after B+C+D 全 PARALLEL_SESSION_NN_DONE)
+- 各 session 写独立 batch files, **绝对不动** root `pdf_atoms.jsonl` (post round 10 + v1.7 cut baseline = 10610 atoms / 430 pages / 43 batches) / `audit_matrix.md` / `_progress.json` — 留 reconciler 串行合并
+- v1.7 prompts ACTIVE since 2026-04-29: P0_writer_pdf_v1.7 (176 lines, 1 NEW v1.7 patch N21 PRIMARY EMERGENCY-CRITICAL writer-family complete deprecation + 2 SECONDARY decisions N22 + N23 + Self-Validate Hook 16.7 REPLACES v1.6 Hook 16.6 + REMOVE v1.6 N18 input fields) / P0_writer_md_v1.7 (102 lines, paired sync with explicit N21 PDF-only scoping per handoff §4.2) / P0_matcher_v1.7 (69 lines, +1 NEW marker `[N21_writer_family_deprecation_violation]` HIGH severity PDF-side ONLY) / P0_reviewer_v1.7 (137 lines, Rule D roster 52→56 + 31-item fix matrix A-AE + AGENT-vs-SKILL roster doc UPDATED post round 10 + STATUS PROMOTIONS sustained 4th cumulative live-fires)
+- 🔴 **v1.7 patches ACTIVE**: **N21 EMERGENCY-CRITICAL writer-family complete deprecation entirely from P1 production atomization across ALL content types** (replaces v1.5 N16 partial + v1.6 N18 EXTENDED partial bans with COMPLETE BAN; writer-family permitted ONLY for Rule D AUDIT pivot reviewer slots NOT atomization + drift cal EXECUTOR-VARIANT alternation rerun NOT merged regardless) post 6th cumulative writer-direction VALUE HALLUCINATION recurrence on examples_narrative_spec_table content type DESPITE v1.6 N18.a EXPLICITLY BANS (round 10 batch 42 O-P1-145 HIGH; user pre-authorized Option B 2026-04-29 §9 Daisy ack)
+- Reviewer pool 已预分配 (Rule D 不撞 round 1-10 + v1.7 cut cumulative #1-#56; family pool state post v1.7 cut: 4 EXHAUSTED [vercel + plugin-dev + feature-dev + pr-review-toolkit 6/6] + omc 12× + general-purpose 4× + superpowers 1× + Plan 1× INAUGURAL + claude-code-guide 1× INAUGURAL + codex 3× (1× INAUGURAL v1.5 cut + 1× extension v1.6 cut + 1× extension v1.7 cut) + Explore 1× INAUGURAL = 11 active families):
+  - batch 44 = #57 `oh-my-claudecode:code-reviewer` (**omc family 13th burn intra-family depth — D-MS-7 candidate "code-reviewer-strategist"** 1st live-fire opportunity, AUDIT pivot 38th cumulative, full-tool variant)
+  - batch 45 = #58 `Plan` 2nd burn extension (**Plan single-agent family extension** after #46 inaugural round 8 batch 36, AUDIT pivot 39th, drift cal carrier 11th time + **v1.7 N21 1st INAUGURAL live-fire baseline drift cal validation** + N14 5th cumulative live-fire of strict alternation methodology)
+  - batch 46 = #59 `claude-code-guide` 2nd burn extension (**single-agent family extension** after #47 inaugural round 8 batch 37, AUDIT pivot 40th, **appendices content fit — documentation-specialist family scaling**)
+- 🔴 **§0.5 SKILL-vs-AGENT pre-allocation lint** (v1.5 §0 codification + round 9 1st + round 10 2nd live-fire EFFECTIVE): all 3 reviewer slots verified as registered AGENTS (NOT SKILLS) pre-dispatch
+- Round 11 protocol sustains v1.7 N21 baseline: G-MS-4 halt fallback **STRONGLY VALIDATED post 3rd live-fire** + G-MS-7 finding ID range pre-allocation (3 sessions reserved O-P1-153..156 / 157..160 / 161..164) + G-MS-13 cross-validation table at top of each kickoff + N14 strict alternation methodology procedural enforcement **STRONGLY VALIDATED post 4th live-fire** (drift cal in batch 45 only, 5th cumulative live-fire opportunity)
+- batch 45 含 mandatory drift cal at p.445 (per cadence every-3-batches batch 42→45 + cumulative atoms post-p.412 ≥600 双触发, per v1.7 carry-forward N14 STRONGLY VALIDATED strict alternation table — 11th time NEW1 dual-threshold; round 5+6+7+8+9+10 累 6 cumulative writer-direction main-line VALUE HALLUCINATION recurrences ESCALATED to v1.7 N21 COMPLETE BAN; **under v1.7 N21 design, 7th cumulative writer-direction recurrence impossible by construction (writer NOT used in production); writer rerun WILL likely fabricate AGAIN on examples_narrative_spec_table or mixed_structural_transition content as EXPECTED design outcome validating N21 ban scope (artifact NOT merged regardless); halt only if executor-direction motif surfaces in baseline 45a/45b production atoms → ESCALATE to v1.8 trigger candidate (executor-family hardening — out-of-scope for v1.7)**)
+- 每 kickoff 顶部 HARD-STOP DIRECTIVE — 禁止中途回交 control / summarize / ask user — 唯一合法停止 = `PARALLEL_SESSION_NN_DONE` 单行 echo OR `HALT_BATCH_NN reason=<X>` halt 信号
+- 详见 `.work/06_deep_verification/multi_session/MULTI_SESSION_PROTOCOL.md` (master guide round 1, round 2-10 augmented inline) + `MULTI_SESSION_RETRO_ROUND_10.md` (round 10 retro for context — N21 trigger evidence + §6 next-batch readiness)
+
+**Cleanup** — 本次 round 11 实验完成后 (reconciler session 末尾会提示), 移除本节 + 删除 round 11 one-shot kickoffs 即可 (留 `MULTI_SESSION_PROTOCOL.md` + 11 retro files round 1-11 + halt_state files + drift cal reports + v1_x_cut_reviewer_reports 作历史).
 
 **Round 1-10 历史 (cumulative)**:
 - Round 1 (batches 13/14/15 commit `4d6165a` + reconciler `6d173b1`; batch 16 single-session resume `7447ec0`).
