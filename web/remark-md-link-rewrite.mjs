@@ -24,14 +24,21 @@ export default function remarkMdLinkRewrite() {
 
     visit(tree, 'link', (node, index, parent) => {
       const url = node.url;
-      if (!url || !/\.md(?:#|$)/.test(url)) return;
+      if (!url) return;
+      // Skip absolute URLs (http:, https:, mailto:, tel:, etc.), anchor-only,
+      // and absolute paths. Process every remaining (relative) ref so
+      // out-of-collection ones — including non-.md directory refs like
+      // ./self_deploy/ — get their <a> wrapper dropped, not just .md
+      // cross-refs.
+      if (/^(?:[a-z][a-z0-9+.-]*:|#|\/)/i.test(url)) return;
 
       const m = url.match(SHAPE);
       const knownSlug = m && SLUG_MAP.get(m[1]);
 
       if (!knownSlug) {
-        // Out-of-collection (self_deploy/, ../../, unknown stem). Drop the
-        // <a> wrapper, keep the inline text children in place.
+        // Out-of-collection (self_deploy/, ./self_deploy/X.md, ../../X.md,
+        // unknown stem). Drop the <a> wrapper, keep the inline text children
+        // in place.
         if (parent && typeof index === 'number') {
           parent.children.splice(index, 1, ...node.children);
           return [SKIP, index];

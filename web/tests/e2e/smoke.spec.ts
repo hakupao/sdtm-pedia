@@ -15,6 +15,10 @@ test.describe('landing', () => {
         await loc.scrollIntoViewIfNeeded();
         await expect(loc).toBeVisible();
       }
+      // Pin the landing comparison preview to its 4-dim shape; if a contributor
+      // expands LANDING_PREVIEW_KEYS or reorders the JSON, this trips loud.
+      const whichOne = page.locator('section').filter({ hasText: 'WHICH ONE?' });
+      await expect(whichOne.locator('tbody tr')).toHaveCount(4);
     });
   }
 });
@@ -26,7 +30,13 @@ test('docs reader renders user-guide in zh', async ({ page }) => {
 });
 
 test('link-resolution: every <a> in main resolves ≠404 across landing + guide + changelog', async ({ page, request }) => {
-  const routes = ['/zh/', '/en/', '/ja/', '/zh/guide/user-guide', '/zh/changelog'];
+  const routes = [
+    '/zh/', '/en/', '/ja/',
+    '/zh/guide/user-guide', '/zh/changelog',
+    // README pages in all 3 langs — these contain the non-.md relative refs
+    // (./self_deploy/) that must be dropped by the rewrite plugin.
+    '/zh/guide/readme', '/en/guide/readme', '/ja/guide/readme',
+  ];
   const seen = new Set<string>();
   for (const route of routes) {
     await page.goto(route);
