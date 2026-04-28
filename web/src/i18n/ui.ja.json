@@ -18,7 +18,7 @@
   "search.placeholder": "ドキュメント検索...",
   "search.shortcut": "Cmd K",
   "compare.title": "多次元プラットフォーム比較",
-  "compare.subhead": "4 プラットフォーム横並び. 次元キーワードで絞り込み.",
-  "compare.filter.placeholder": "次元を絞り込み...",
-  "compare.filter.label": "次元を絞り込む"
+  "compare.subhead": "4 プラットフォーム横並び。次元キーワードで絞り込み。",
+  "compare.filter.placeholder": "次元の絞り込み...",
+  "compare.filter.label": "次元の絞り込み"
 }

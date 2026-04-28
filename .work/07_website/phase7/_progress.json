@@ -74,12 +74,40 @@
       "evidence": ".work/07_website/phase7/evidence/checkpoints/task_7_3_report.md"
     },
     "7.4_reviewer_pass": {
-      "status": "pending",
+      "status": "completed",
       "subagent": "superpowers:code-reviewer",
       "rule_d_isolation": "3rd_inaugural_family_after_pr_review_toolkit_x4_feature_dev_x1_oh_my_claudecode_x1",
-      "verdict": null,
+      "verdict": "CONDITIONAL_PASS H=1 M=4 L=5 -> upgraded to PASS post 7.5 fix bundle",
       "report": ".work/07_website/phase7/evidence/checkpoints/phase_7_reviewer_report.md",
-      "subagent_prompt": ".work/07_website/phase7/subagent_prompts/task_7_4_reviewer_prompt.md"
+      "subagent_prompt": ".work/07_website/phase7/subagent_prompts/task_7_4_reviewer_prompt.md",
+      "findings_summary": {
+        "F-1_HIGH_redirect_canonical_chain": "FIXED in 7.5 trailing-slash on Astro.redirect target",
+        "F-2_MEDIUM_ja_subhead_ascii_period": "FIXED in 7.5",
+        "F-3_MEDIUM_ja_placeholder_verb_stem": "FIXED in 7.5 noun-form 次元の絞り込み...",
+        "F-4_MEDIUM_ja_aria_label_finite_verb": "FIXED in 7.5 noun-form 次元の絞り込み",
+        "F-5_MEDIUM_C-P6-2_wcag_audit_thin": "DOCUMENTED in handoff via C-P7-4 (deferral analysis to be written)",
+        "F-6_LOW_build_noise_4_redirect_warnings": "DEFER C-P7-6",
+        "F-7_LOW_readme_cf_auto_deploy_unverified": "DEFER C-P7-8 verify-before-external-announcement",
+        "F-8_LOW_build_fresh_script_divergence": "FIXED in 7.5 npm run build composable",
+        "F-9_LOW_plan_deviation_reason_4_handwavey": "ADDRESS in handoff master plan annotation",
+        "F-10_LOW_rule_a_rubric_lexical_only": "DEFER C-P7-7 process improvement Phase 8+"
+      }
+    },
+    "7.5_fix_bundle_F1_F2_F3_F4_F8": {
+      "status": "completed",
+      "mode": "direct_main_session_post_reviewer",
+      "trigger": "reviewer 7.4 CONDITIONAL_PASS verdict; F-1 HIGH fixable in small patch (~5 min)",
+      "files_touched": [
+        "web/src/pages/[lang]/guide/index.astro",
+        "web/src/i18n/ui.ja.json",
+        "web/package.json",
+        "web/src/components/react/CompareFilter.test.tsx"
+      ],
+      "verifications": "tsc_0 vitest_32_of_32 build_fresh_31_html_pages e2e_6_of_6 redirect_canonical_chain_resolved_3_routes ja_strings_updated_old_strings_zero_count",
+      "commit": "pending",
+      "verdict": "PASS",
+      "evidence": ".work/07_website/phase7/evidence/checkpoints/task_7_5_fix_bundle_report.md",
+      "verdict_upgrade": "phase_7_reviewer_CONDITIONAL_PASS -> PASS"
     }
   },
   "rule_d_reviewer_history_post_phase_7_planned": {
