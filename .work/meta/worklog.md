@@ -2176,3 +2176,28 @@
   - **路由词 quick reference**: `P2 bulk B-02 batch 02 开始任务` (待 batch 02 kickoff 写完后路由)
   - Recovery hint 在 `_progress.json.phases.P2_md_atomization.recovery_hint` + `next_batch.{id,target,slice,atom_id_start}`
 - **下一步**: commit + push (single milestone) → 用户开下 session
+
+## 2026-04-29 docs/jp/ Phase 1 P0 着手順 1「04 要件定義書 v1.0」PASS (post P2 B-02 batch 01 同日)
+
+- **触発**: 用户「04 要件定義書から始めて」 — Phase 0/0.5/0.7/0.5.8 完了状態から Phase 1 起動
+- **完了の作業**:
+  - **STEP A 派発前テンプレ整備**: `prompts/{writer_xlsx,reviewer_xlsx,term_audit}.md` 起草 + `sources/04_要件定義書.yml` 骨格 + `glossary/research_reports/04_source_mapping_2026-04-29.md` (引用源 8 件マッピング)
+  - **STEP B Round 1 並列派発**: 起草担当 (executor opus) + 用語監査機械検査機能 implementor (executor sonnet) — 起草 self-check 5/5 PASS / 機械検査機能 (audit_terms 538 行 + extract_xlsx_text 164 行) 検証 5/5 PASS
+  - **STEP C 確認担当 Round 1 (code-reviewer opus, 規律 D 隔離宣言済)**: sha256 一致 + 数値突合 18/18 + Phase 番号 7/7 + ALCOA+ 4/4 + 禁止語 31/31 ゼロ + である調 100% — CONDITIONAL_PASS (HIGH 0 / MEDIUM 1 R1-F-1 C-04 範囲整合 / LOW 4 / 情報 4)
+  - **STEP D Q1+Q2 修正 + 機械検査機能拡張**: audit_terms.py に exempt_files 自動除外 (`*用語集*.xlsx` 追加) + 用語写像辞書 v0.4 (ack candidates「確認」除外) — 検証 4/4 PASS
+  - **STEP E 用語監査 Round 1 (document-specialist sonnet, 規律 D 隔離宣言済)**: PASS 4 verdict CONDITIONAL_PASS — A-F-1〜4 実問題 + A-F-5/6/8 false-positive + A-F-7 IT 業界標準語 (パイプライン) 判断
+  - **STEP F 用語写像辞書 v0.5**: writer / drift / chain candidates から汎用日本語語 (作成者 / 差異 / 相互参照) 除外 → audit inconsistency 6 → 3 (うち 1 件 writer 改修対象 atom; 残 2 件 既知 false-positive)
+  - **STEP G 起草担当 Round 2 (executor opus)**: R1-F-1 C-04 抽象化 (案 A; AI 平台固有数値完全削除) + R1-F-2 P-04 帰属短縮 + R1-F-3 NFR-01 行頁比書換 + R1-F-4 NFR-04 出典補足 + R1-F-5 NFR-03 機械可読ラベル注記 + A-F-2 atom 採用語訂正 → self-check 6/6 PASS
+  - **STEP H 確認担当 Round 2 (code-reviewer opus, 規律 D 隔離宣言済)**: 全 R1 finding 5 件 + A-F-2 妥当反映確認 + regression 検査 (R2 初実施) PASS → **PASS 無条件**
+  - **STEP I closure 反映**: yml v0.2 → v1.0 + revisions v1.0 + xlsx 再生成 (sha256 f8a5b049…) + `_progress.json` 04 status PASS / current_phase phase_1_in_progress (1/4 完了) + CHANGELOG ITMS-SDTM-04 v1.0 追記
+- **関鍵決定**:
+  - **D-r29-10 規律 D 三 type 隔離 production 検証**: writer = executor / reviewer = code-reviewer / 用語監査 = document-specialist 三 type 完全隔離 + Round 1/2 各々独立規律 D 自己宣言. METHODOLOGY §5 #2 (Author–approver separation) を実装レベルで実証
+  - **D-r29-11 用語写像辞書 汎用語衝突対応 pattern**: 確認 / 作成者 / 差異 / 相互参照 = 一般日本語語が candidates 化されると mapping consistency 誤検出多発. 「adopted 強制で規律目的達成可」と判断し candidates から除外する pattern を確立 (term_mapping v0.4 + v0.5). 後段 01/02/03 でも同型パターン適用候補
+  - **D-r29-12 04 要件定義書 範囲 (PLAN §0.2 整合)**: AI 平台 v1.0 リリース固有数値 (LB Test Code C65047 / 2,536 用語 / QS 系 296) は本納品物全体の根拠章 (= 04) 範囲外. KNOWN_LIMITATIONS.en.md 参照リンクで処理し抽象記述化. 案 A 採用. PLAN §0.2 Out-of-scope と整合
+  - **D-r29-13 パイプライン IT 業界標準語**: METHODOLOGY「Construction pipeline」直接訳「パイプライン」を IT 業界標準語として現状維持 (auditor 推奨「処理連鎖」非採用). Phase 3 で 99_用語集.xlsx に正式登録予定 (出典 IPA / JIS X 0160)
+- **Carry-over for next session**:
+  - **NEXT**: docs/jp/ Phase 1 P0 着手順 2「01 基本設計書」 — 04 §3 業務 + §3 機能要件 引用継承
+  - **その後**: 02 運用保守 (04 §4 非機能 / §5 制約引用) + 03 試験結果報告書 (04 §6 前提引用, 並列可) → Phase 1 P0 closure
+  - **Phase 3 deferred**: パイプライン用語の 99_用語集.xlsx 正式登録
+  - **PASS 五条 Open**: I-1 日方ネイティブ確認担当指名 (PLAN §6 補完事項) — 各文書 v1.0 confirmer 欄に明記
+- **下一步**: commit + push (本 session 04 closure milestone)

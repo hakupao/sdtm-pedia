@@ -56,9 +56,27 @@
 - 確認: pending
 - 承認: pending
 
+## term_mapping.yml v0.4 (2026-04-29)
+- 改訂区分: 用語変更
+- 改訂内容: ack エントリの candidates から「確認」除外. reason 欄に汎用語衝突理由を追記.
+- 作成: Phase 1 04 要件定義書 着手時の検証で発覚した審査担当による mapping consistency 誤検出への対応.
+
+## term_mapping.yml v0.5 (2026-04-29)
+- 改訂区分: 用語変更
+- 改訂内容: writer エントリの candidates から「作成者」, drift エントリから「差異」, chain エントリから「相互参照」を除外. adopted 値および notes は不変. 汎用日本語衝突による誤検出 3 件への対応.
+- 作成: Phase 1 04 要件定義書 用語監査担当 round 1 指摘 (A-F-1 / A-F-3 / A-F-4) を統合した対応.
+
 ## ITMS-SDTM-EXEC v0.2 (2026-04-29)
 - 改訂区分: 内容修正 (PLAN v0.3 同期)
 - 改訂内容: §3 Phase 1 のスケジュールを「Day 1 = 04 直列 → Day 1 後半/Day 2 = 01 直列 → Day 3 = 02 + 03 並列 → Day 4 = 用語監査 並列」に更新. §3 Phase 2 を 05 単独 1 日構成に縮小. §8 並列効果サマリの所要工数を P0 四点換算 (5/3.5/2.5 日) + Phase 2 圧縮 (1.5/1/0.7 日) で再算出.
 - 作成: 主 session
 - 確認: pending
 - 承認: pending
+
+## ITMS-SDTM-04 v1.0 (2026-04-29)
+- 改訂区分: 新規作成
+- 改訂内容: 要件定義書 初版受信者納品候補確定. Phase 1 P0 着手順 1 として起草. 起草 (writer round 1) → 確認担当指摘反映 (writer round 2) → 独立確認担当 round 2 PASS 無条件 → 用語監査 round 1 指摘 4 件実体修正 (mapping v0.5 + writer v0.2 反映) + 1 件 IT 業界標準語として現状維持 (Phase 3 用語集登録予定) → 用户口頭承認の経路で 2026-04-29 に v1.0 確定.
+- 産物: docs/jp/sources/04_要件定義書.yml (217 行) + docs/jp/04_要件定義書.xlsx (10 シート).
+- 作成: Phase 1 P0 着手順 1 (主 session 統括 + executor / code-reviewer / document-specialist subagent 3 種並列).
+- 確認: 日方ネイティブ確認担当指名待ち (PLAN §6 PASS 五条 補完事項).
+- 承認: Bojiang Zhang (用户).

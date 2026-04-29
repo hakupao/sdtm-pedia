@@ -317,3 +317,17 @@ C-P7-2/3/9 RESOLVED in Phase 7.5 fix bundle (no carryover).
 | v1.9 Prompt Cut | ✅ 完成 (4 prompts) | 8 NEW patches C-1..C-8; H_C 假说 REJECTED; MD hooks 18 → 22 |
 | P2 MD 原子化 Bulk B-01 | ✅ CLOSED 2026-04-29 | 4 batches PASS (model 02/03/05/06, 705 atoms); cumulative cross-batch audit 28/30=93.3% PASS; 1 HIGH hotfix (md_model01_a013 figure_ref); md_atoms.jsonl 累计 1102 |
 | P2 MD 原子化 Bulk B-02 | 🔄 进行中 1/9 | batch 01 PASS (ch04 L301-600 196 atoms; 14-sweep clean; FIGURE Hook A4 inline live-fire 1st success); md_atoms.jsonl 累计 1298; 剩 8 batches (ch04 续 3 段 + ch01/02/03/08/10 全) |
+
+---
+
+## docs/jp/ iTMS 納品旁枝 — Phase 1 P0 進捗 (起動 2026-04-29)
+
+| 工程 | 状態 | 数据 |
+|------|------|------|
+| Phase 0 Setup | ✅ 完了 2026-04-29 | ディレクトリ骨格 + _progress.json + CHANGELOG + glossary 初期 + 上流索引登録 |
+| Phase 0.5 用語調研 | ✅ 完了 2026-04-29 | 16 規格調査 (15/16 アクセス) + 33 用語写像辞書 v0.3 (3 round 独立確認 PASS) + 99_用語集.xlsx 骨格 (33 entries / 7 シート) |
+| Phase 0.7 Excel 基盤 | ✅ 完了 2026-04-29 | openpyxl 採用 + style_guide.xlsx + cover_template.xlsx + build_xlsx.py 754 行 (schema validation + CJK auto-fit) — 視覚 ack「模板确认没问题」 |
+| Phase 1 P0 着手順 1 (04 要件定義書) | ✅ **v1.0 PASS 2026-04-29** | sha256 f8a5b049… / 起草 R1 → 改修 R2 → 確認担当 R2 PASS 無条件 → 用語監査 R1 指摘 4 件実体修正 (mapping v0.5 + writer v0.2) → 用户 ack; 規律 D 三 type 完全隔離検証 (writer=executor / reviewer=code-reviewer / 用語監査=document-specialist) |
+| Phase 1 P0 残 (01/02/03) | ⏳ 着手順 2-4 待 | 01 基本設計書 (04 業務/機能要件 引用) → 02 運用保守 + 03 試験結果報告書 (04 非機能/制約/前提 引用, 並列可) |
+
+**用語規律統制改訂 (Phase 1 04 着手時)**: term_mapping.yml v0.4 (ack candidates「確認」除外) + v0.5 (writer/drift/chain candidates から汎用日本語語除外) + term_blacklist.yml `audit_rules.exempt_files` 拡張 + `audit_terms.py` 538→672 行 (exempt_files 自動除外) + `extract_xlsx_text.py` 新設.
