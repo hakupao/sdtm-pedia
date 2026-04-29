@@ -5,7 +5,7 @@ const { lang } = Astro.props;
 const t = getUIStrings(lang);
 ---
 <footer class="bg-ink text-bg">
-  <div class="max-w-screen-xl mx-auto px-7 py-6 flex justify-between items-center">
+  <div class="max-w-screen-xl mx-auto px-5 md:px-7 py-6 flex flex-col md:flex-row md:justify-between md:items-center gap-3 md:gap-0">
     <div>
       <div class="font-mono text-[10px] tracking-[0.12em] font-bold">SDTM Knowledge Base · v1.0 · 2026</div>
       <div class="font-serif text-[11px] mt-1" style="color: rgba(245, 241, 234, 0.6);">{t['footer.maintainer']}</div>

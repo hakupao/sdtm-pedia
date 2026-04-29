@@ -14,7 +14,7 @@ const pathname = Astro.url.pathname;
   <TopNav lang={lang} pathname={pathname} />
   <div class="flex max-w-screen-xl mx-auto flex-col lg:flex-row">
     <DocsSidebar lang={lang} currentSlug={slug} />
-    <article class="flex-1 px-6 py-10 max-w-[720px]">
+    <article class="flex-1 px-5 md:px-6 py-8 md:py-10 max-w-full lg:max-w-[720px] min-w-0">
       <div class="font-mono text-[10px] tracking-[0.14em] text-ink-mute uppercase border-t-2 border-b border-ink pt-2 pb-2 mb-8 flex flex-wrap gap-x-4 gap-y-1">
         <span>STD · SDTMIG v3.4</span>
         <span aria-hidden="true">·</span>
@@ -24,12 +24,13 @@ const pathname = Astro.url.pathname;
         <span aria-hidden="true">·</span>
         <span>LANG · {lang.toUpperCase()}</span>
       </div>
+      <DocsTOC headings={headings} variant="mobile-inline" />
       <div class="prose-doc">
         <slot />
       </div>
       <PrevNextNav lang={lang} currentSlug={slug} />
     </article>
-    <DocsTOC headings={headings} />
+    <DocsTOC headings={headings} variant="desktop-aside" />
   </div>
   <Footer lang={lang} />
 </BaseLayout>

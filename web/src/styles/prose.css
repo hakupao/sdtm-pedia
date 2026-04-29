@@ -23,3 +23,20 @@
 .prose-doc hr { border: 0; border-top: 1px solid var(--rule); margin: 32px 0; }
 .prose-doc em { font-style: italic; }
 .prose-doc strong { font-weight: 700; }
+
+/* Mobile (< 48rem). Desktop sizes above are the audited Phase 6-8 design and
+   stay untouched; this block only narrows headings, code, and tables so a 360px
+   viewport doesn't horizontal-scroll. Tables become block-scroll containers
+   because markdown gives us no wrapper to attach overflow to. */
+@media (max-width: 47.99rem) {
+  .prose-doc { font-size: 15px; line-height: 1.65; }
+  .prose-doc h1 { font-size: 26px; margin-bottom: 16px; line-height: 1.15; }
+  .prose-doc h2 { font-size: 22px; margin-top: 32px; margin-bottom: 12px; }
+  .prose-doc h3 { font-size: 18px; margin-top: 24px; margin-bottom: 10px; }
+  .prose-doc h4 { font-size: 16px; margin-top: 20px; }
+  .prose-doc pre { font-size: 12px; padding: 12px; }
+  .prose-doc code { font-size: 12px; word-break: break-word; }
+  .prose-doc table { display: block; overflow-x: auto; max-width: 100%; -webkit-overflow-scrolling: touch; font-size: 13px; }
+  .prose-doc ul, .prose-doc ol { padding-left: 20px; }
+  .prose-doc blockquote { padding-left: 12px; margin: 16px 0; }
+}

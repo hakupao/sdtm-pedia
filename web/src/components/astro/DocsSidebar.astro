@@ -6,11 +6,18 @@ const { lang, currentSlug } = Astro.props;
 const all = await getCollection('guide', (e) => e.data.lang === lang || e.data.lang === undefined);
 all.sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99));
 ---
-<button id="docs-sidebar-toggle" class="lg:hidden font-mono text-[10px] tracking-wider px-3 py-2 border border-rule mx-7 mt-4" aria-controls="docs-sidebar-content" aria-expanded="false">
+<button id="docs-sidebar-toggle" class="lg:hidden font-mono text-[10px] tracking-wider px-3 py-2 border border-rule mx-5 md:mx-7 mt-4" aria-controls="docs-sidebar-content" aria-expanded="false">
   ☰ DOCS
 </button>
-<aside id="docs-sidebar-content" class="hidden lg:block w-full lg:w-60 border-b lg:border-b-0 lg:border-r border-rule p-5 shrink-0 lg:sticky lg:top-0 lg:self-start lg:max-h-screen lg:overflow-y-auto">
-  <div class="font-mono text-[9px] tracking-wider text-ink-mute mb-3">DOCS / {lang.toUpperCase()}</div>
+<div id="docs-sidebar-backdrop" class="hidden lg:hidden fixed inset-0 bg-ink/40 z-40" aria-hidden="true"></div>
+<aside
+  id="docs-sidebar-content"
+  class="hidden lg:block fixed lg:static inset-y-0 left-0 z-50 lg:z-auto w-72 lg:w-60 max-w-[80vw] lg:max-w-none bg-bg lg:bg-transparent border-r lg:border-r border-b-0 lg:border-b-0 border-rule p-5 shrink-0 overflow-y-auto lg:sticky lg:top-0 lg:self-start lg:max-h-screen"
+>
+  <div class="flex items-center justify-between mb-3 lg:block">
+    <div class="font-mono text-[9px] tracking-wider text-ink-mute">DOCS / {lang.toUpperCase()}</div>
+    <button id="docs-sidebar-close" class="lg:hidden font-mono text-base px-2 -mr-2" aria-label="Close menu">×</button>
+  </div>
   <ul class="flex flex-col gap-1 font-serif text-[13px]">
     {all.map((doc) => (
       <li>
@@ -25,8 +32,26 @@ all.sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99));
 <script>
   const btn = document.getElementById('docs-sidebar-toggle');
   const drawer = document.getElementById('docs-sidebar-content');
+  const backdrop = document.getElementById('docs-sidebar-backdrop');
+  const closeBtn = document.getElementById('docs-sidebar-close');
+  function open() {
+    drawer?.classList.remove('hidden');
+    backdrop?.classList.remove('hidden');
+    btn?.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+  function close() {
+    drawer?.classList.add('hidden');
+    backdrop?.classList.add('hidden');
+    btn?.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
   btn?.addEventListener('click', () => {
-    const open = drawer?.classList.toggle('hidden');
-    btn.setAttribute('aria-expanded', String(!open));
+    if (drawer?.classList.contains('hidden')) open(); else close();
+  });
+  backdrop?.addEventListener('click', close);
+  closeBtn?.addEventListener('click', close);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !drawer?.classList.contains('hidden') && window.matchMedia('(max-width: 1023.98px)').matches) close();
   });
 </script>
