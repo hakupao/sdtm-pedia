@@ -2201,3 +2201,27 @@
   - **Phase 3 deferred**: パイプライン用語の 99_用語集.xlsx 正式登録
   - **PASS 五条 Open**: I-1 日方ネイティブ確認担当指名 (PLAN §6 補完事項) — 各文書 v1.0 confirmer 欄に明記
 - **下一步**: commit + push (本 session 04 closure milestone)
+
+## 2026-04-29 docs/jp/ Phase 1 P0 着手順 2「01 基本設計書 v1.0」PASS (post 04 closure 同日)
+
+- **触発**: 用户「01 基本設計書から始めて」 — 04 PASS 直後の連続着手
+- **完了の作業**:
+  - **STEP A 派発前準備**: `glossary/research_reports/01_source_mapping_2026-04-29.md` 起草 (引用源 14 件 S-1〜S-14 + 公式刊行物 4 + 規格 5 = 23 件マッピング, 6 シート × 引用源対応表) + `sources/01_基本設計書.yml` 骨格 (シート構成 + headers + column_widths + プレースホルダ) + build_xlsx.py 試走 (rc=0) で構造検証
+  - **STEP B 起草担当 Round 1 (executor sonnet, 規律 D 隔離宣言)**: 6 シート content / rows 充填 — 1 概要 / 2 全体構成 (4 サブシステム + Phase 7 設計済・未実装 明示) / 3 データモデル (atom_schema 9 enum + ledger_schema forward 9 / reverse 5 + RAG chunk + KG 6 nodes 7 relationships) / 4 外部 IF (CDISC 4 種 + NCI EVS Browser + AI 平台 + LiteLLM + 生成基盤) / 5 制約事項 (D-01〜D-05) / 6 参考資料 — self-check 9/9 PASS
+  - **STEP C 並列派発: 確認担当 R1 (code-reviewer opus) + 用語監査 R1 (document-specialist sonnet)** — 規律 D 三役完全隔離宣言: 確認 = CONDITIONAL_PASS (HIGH 0 / MEDIUM 4 / LOW 4 / 情報 2; sha256 再現性 / chapters 章番号体系不連続性 / Claude 平台「最大」根拠不在 / 知識グラフ ノード件数情報落ち); 用語監査 = CONDITIONAL_PASS (HIGH 0 / MEDIUM 1 トレーサビリティ vs 追跡可能性 / LOW 3 false-positive 系 / mapping_proposal 5)
+  - **STEP D 起草担当 Round 2 (executor sonnet, R1 とは別 instance)**: 確認 9 件 + 用語監査 1 件 = 10 件反映 (chapters 全列挙 / Claude 数値根拠 / KG count 復元 / 293 件算術整合 / §1.5 出典 4 設計理念別分割 / P3 meta.yaml 設計済・出力未実施分離 / sdtm-rag 「独立プロジェクト」/ PMDA 正式名称 / 97% inline 出典 / トレーサビリティ管理表 文書名維持) → yml v0.1 → v0.2 → self-check 12/12 PASS
+  - **STEP E 主 session 整合補正 1 件 (T-01)**: writer R2 が用語監査 F-2 で「追跡可能性管理表 (文書正式名称: トレーサビリティ管理表)」と primary/secondary を反転していたため, yml §1.4 06 行を「トレーサビリティ管理表 (ITMS-SDTM-06)」primary 維持に補正 (PLAN §1 + 04 §1.4 整合). 規律 D 主旨は writer↔reviewer 自审禁止であり, 主 session の指示逸脱補正は別範疇として運用
+  - **STEP F 確認担当 Round 2 (code-reviewer opus, R1 とは別 instance, 規律 D 隔離宣言)**: 11 件 (10 + T-01) 全反映確認 + 4 軸回帰検査 (04 接続 / atom_schema / ledger_schema / CDISC 数値) 差分ゼロ → **PASS 無条件** (新規 finding HIGH 0 / MEDIUM 0 / LOW 0 / 情報 2)
+  - **STEP G 用語監査 機械再検査**: blacklist 0 hits / mapping consistency 1 false-positive (口語判定エントリ adopted=「文脈依存」設計上偽陽性 17 occurrences 全件正当) — 04 既知 false-positive pattern 整合
+  - **STEP H closure 反映**: yml v0.2 → v1.0 + revisions v1.0 + xlsx 再生成 (31,860 bytes / sha256 12721d04050f5…ad8310cb) + revisions 内部用語クリーニング (writer / reviewer / round / だいたい 全削除 → 04 同パターン踏襲, blacklist hit 0 維持) + `_progress.json` 01 status PASS + phase_1_p0_four_docs (2/4 完了) + CHANGELOG ITMS-SDTM-01 v1.0 追記 + WORKLOG Day 1 補遺 2 + 累積知見 4 項
+- **関鍵決定**:
+  - **D-r29-14 三役完全隔離 round 別 instance まで徹底 = 集束パターン確立**: writer R1 / R2 別 instance + reviewer R1 / R2 別 instance + 用語監査 R1 = 5 別 subagent. 1 サイクル目 CONDITIONAL_PASS → 2 サイクル目 PASS 無条件 への集束パターン (04 + 01 で 2 連続再現). 規律 D + 規則 D の完全準拠
+  - **D-r29-15 主 session 整合補正の運用範疇定義**: writer↔reviewer 自审禁止が規律 D 主旨であり, 主 session が writer の指示逸脱を補正する 1 line edit は別範疇として OK (今後同類補正を推奨手順化). T-01 が初の precedent. ただし大規模補正は writer round 3 派発に切替
+  - **D-r29-16 revisions 改訂履歴も用語規律対象**: 04 で 1 件 round 既知 false-positive として PASS だったが, 01 では writer round 2 産物の v0.2 revisions 文案に writer / reviewer / round / だいたい が 6 件混入. 主 session で v0.2 + v1.0 revisions を 04 同パターンに書換え blacklist 0 hits まで圧縮. 後段 02 / 03 の writer 派発時にも revisions 文案の用語規律遵守を kickoff prompt で明示要
+  - **D-r29-17 mapping consistency 偽陽性は 04 同パターンで documented PASS**: 口語判定エントリ adopted=「文脈依存」設計 (notes に「数値→約 / 範囲→概ね / 内容要約→概略として」明記) では candidates 出現が必然的に inconsistency と検出される. 04 「A-F-5/6/8 既知 false-positive」と同 pattern で documented PASS. term_mapping.yml v0.6 改訂 (口語判定エントリ candidates から「約」削除等) は Phase 3 案件
+- **Carry-over for next session**:
+  - **NEXT**: docs/jp/ Phase 1 P0 着手順 3-4「02 運用保守マニュアル + 03 試験結果報告書」並列起動可 — 04 §4 非機能 / §5 制約 / §6 前提 + 01 §2-§4 設計 を引用継承
+  - **その後**: P1 補完 = 05 詳細設計書 単独 → P2 仕上げ = 06 / 07 / 99 + 00_README → Phase 4 Pack & Handoff
+  - **Phase 3 deferred** (新規 4 件): build_xlsx.py 改修 (sha256 再現性 = openpyxl 作成日時固定化) / term_mapping.yml v0.6 改訂 (口語判定エントリ「約」削除案 + pipeline 登録 + 新規訳語 5 件 — チャンク / ノード / リレーション / ローカル先行 / 順方向・逆方向) / 99_用語集.xlsx 仕上げ時の新規訳語登録
+  - **PASS 五条 Open** (継承): I-1 日方ネイティブ確認担当指名 — 各文書 v1.0 confirmer 欄に明記
+- **下一步**: commit + push (本 session 01 closure milestone)

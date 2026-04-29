@@ -80,3 +80,12 @@
 - 作成: Phase 1 P0 着手順 1 (主 session 統括 + executor / code-reviewer / document-specialist subagent 3 種並列).
 - 確認: 日方ネイティブ確認担当指名待ち (PLAN §6 PASS 五条 補完事項).
 - 承認: Bojiang Zhang (用户).
+
+## ITMS-SDTM-01 v1.0 (2026-04-29)
+- 改訂区分: 新規作成
+- 改訂内容: 基本設計書 初版受信者納品候補確定. Phase 1 P0 着手順 2 として起草. 04 要件定義書 §3 機能要件 (FR-01〜FR-11) + §4 非機能要件 (NFR-01〜NFR-06) + §5 制約条件 (C-01〜C-05) を実現する設計レベル文書. 6 シート構成 (1 概要 / 2 全体構成 / 3 データモデル / 4 外部 IF / 5 制約事項 / 6 参考資料) で 4 サブシステム (知識ベース本体 / 検証パイプライン / AI 平台展開 / Phase 7 RAG+KG 設計済・未実装) を扱う. 起草 (writer round 1, self-check 9/9 PASS) → 確認担当 round 1 (CONDITIONAL_PASS, MEDIUM 4 / LOW 4 / info 2) + 用語監査 round 1 (CONDITIONAL_PASS, MEDIUM 1) 並列 → writer round 2 で 10 件反映 + 主 session で T-01 (トレーサビリティ管理表 文書正式名称復元) 補正 → 確認担当 round 2 PASS 無条件 (回帰差分ゼロ + 新規 finding HIGH 0 / MEDIUM 0) → 用语監査 機械再検査 PASS (blacklist 0 hits / mapping 1 false-positive 既知) → 用户口頭承認の経路で 2026-04-29 に v1.0 確定.
+- 産物: docs/jp/sources/01_基本設計書.yml + docs/jp/01_基本設計書.xlsx (31,860 bytes / 10 シート / sha256 12721d04050f525014549eada7aef662edcbfd550acbfde7e4c4bc65ad8310cb).
+- 作成: Phase 1 P0 着手順 2 (主 session 統括 + executor / code-reviewer / document-specialist subagent 3 種; round 1 + round 2 別 instance; 規律 D 三役完全隔離).
+- 確認: 日方ネイティブ確認担当指名待ち (PLAN §6 PASS 五条 補完事項).
+- 承認: Bojiang Zhang (用户).
+- 申送り (Phase 3): build_xlsx.py 改修 (sha256 再現性 = openpyxl 作成日時固定化) / term_mapping.yml v0.6 改訂 (口語判定エントリ「約」削除案 + pipeline 登録 + 新規訳語 5 件) / 99_用語集.xlsx 仕上げ時の新規訳語登録.

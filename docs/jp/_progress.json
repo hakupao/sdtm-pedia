@@ -5,7 +5,7 @@
   "recipient": "iTMS 株式会社",
   "created": "2026-04-29",
   "updated": "2026-04-29",
-  "current_phase": "phase_1_in_progress (04 要件定義書 PASS 2026-04-29 — 着手順 1 完了; 残 P0 = 01 → 02 + 03 並列)",
+  "current_phase": "phase_1_in_progress (04 要件定義書 + 01 基本設計書 PASS 2026-04-29 — 着手順 1+2 完了; 残 P0 = 02 + 03 並列可)",
   "phases": {
     "phase_0_setup": {
       "status": "completed",
@@ -162,12 +162,15 @@
       }
     },
     "phase_1_p0_four_docs": {
-      "status": "in_progress (1/4 完了)",
+      "status": "in_progress (2/4 完了)",
       "pass_at": null,
       "v0_3_revision": "04 要件定義書 を P1 → P0 格上げ 2026-04-29 (Bojiang 判断, 工程順序整合)",
       "ordering": "04 → 01 (serial) → 02 + 03 (parallel)",
       "rationale": "04 要件定義書 が後段 3 文書の根拠章になるため先頭. 01 が 04 の業務/機能要件を引用, 02 が 04 の非機能/制約を引用, 03 が 04 の前提で試験範囲を画定.",
-      "completed_documents": [{"id": "04_要件定義書", "version": "v1.0", "pass_at": "2026-04-29"}]
+      "completed_documents": [
+        {"id": "04_要件定義書", "version": "v1.0", "pass_at": "2026-04-29"},
+        {"id": "01_基本設計書", "version": "v1.0", "pass_at": "2026-04-29"}
+      ]
     },
     "phase_2_p1_completion": {"status": "pending", "pass_at": null, "v0_3_revision": "04 を Phase 1 に移したため 05 詳細設計書のみ"},
     "phase_3_p2_polish": {"status": "pending", "pass_at": null},
@@ -175,7 +178,50 @@
   },
   "documents": {
     "04_requirements_definition": {"status": "PASS", "version": "v1.0", "pass_at": "2026-04-29", "priority": "P0_promoted_2026_04_29", "kickoff_order": 1, "writer_rounds": 2, "reviewer_rounds": 2, "term_audit_rounds": 1, "writer_artifacts": ["docs/jp/sources/04_要件定義書.yml", "docs/jp/04_要件定義書.xlsx", "docs/jp/glossary/research_reports/phase_1_04_writer_2026-04-29.md", "docs/jp/glossary/research_reports/phase_1_04_writer_round_2_2026-04-29.md"], "reviewer_artifacts": ["docs/jp/glossary/research_reports/phase_1_04_reviewer_round_2_2026-04-29.md"], "term_audit_artifacts": ["docs/jp/glossary/research_reports/phase_1_04_term_audit_2026-04-29.md"], "pass_conditions": {"1_evidence_links_valid": "PASS (8/8 件 reviewer round 2 確認)", "2_format_compliance": "PASS (build rc=0 / sha256 v0.2=e361537722590265629d7d4ad4bdb4f032dc3871ce3b2a6017bb6c8ecdde5c8c)", "3_independent_reviewer_pass": "PASS_round_2_unconditional (規律 D 隔離宣言済)", "4_term_audit_pass": "PASS (round 1 指摘 A-F-1/2/3/4 実体修正済 — mapping v0.5 + writer v0.2; A-F-7 パイプライン IT 業界標準語として現状維持 — Phase 3 用語集登録予定; A-F-5/6/8 既知 false-positive)", "5_user_ack": "PASS_2026-04-29 (Bojiang Zhang 口頭承認)"}, "deferred_to_phase_3": ["パイプライン用語の 99_用語集.xlsx 正式登録 (出典: IPA システム開発関連ガイド / JIS X 0160)"]},
-    "01_basic_design": {"status": "pending", "version": null, "pass_at": null, "priority": "P0", "kickoff_order": 2, "pass_conditions": {"1_evidence_links_valid": null, "2_format_compliance": null, "3_independent_reviewer_pass": null, "4_term_audit_pass": null, "5_user_ack": null}},
+    "01_basic_design": {
+      "status": "PASS",
+      "version": "v1.0",
+      "pass_at": "2026-04-29",
+      "priority": "P0",
+      "kickoff_order": 2,
+      "writer_rounds": 2,
+      "reviewer_rounds": 2,
+      "term_audit_rounds": 1,
+      "main_session_corrections": 1,
+      "main_session_correction_note": "writer round 2 が用語監査 F-2 (T-01) で「追跡可能性管理表 (文書正式名称: トレーサビリティ管理表)」と primary/secondary を反転していたため, 主 session が yml §1.4 06 行を「トレーサビリティ管理表 (ITMS-SDTM-06)」primary 維持に補正 (PLAN §1 + 04 §1.4 整合). reviewer round 2 で T-01 PASS 確認済.",
+      "writer_artifacts": [
+        "docs/jp/sources/01_基本設計書.yml",
+        "docs/jp/01_基本設計書.xlsx",
+        "docs/jp/glossary/research_reports/01_source_mapping_2026-04-29.md",
+        "docs/jp/glossary/research_reports/phase_1_01_writer_2026-04-29.md",
+        "docs/jp/glossary/research_reports/phase_1_01_writer_round_2_2026-04-29.md"
+      ],
+      "reviewer_artifacts": [
+        "docs/jp/glossary/research_reports/phase_1_01_reviewer_round_1_2026-04-29.md",
+        "docs/jp/glossary/research_reports/phase_1_01_reviewer_round_2_2026-04-29.md"
+      ],
+      "term_audit_artifacts": ["docs/jp/glossary/research_reports/phase_1_01_term_audit_2026-04-29.md"],
+      "deliverable_metrics": {
+        "xlsx_size_bytes": 31860,
+        "xlsx_sha256": "12721d04050f525014549eada7aef662edcbfd550acbfde7e4c4bc65ad8310cb",
+        "sheet_count": 10,
+        "yml_schema_rc": 0,
+        "blacklist_hit_count": 0,
+        "dearu_chou_violation_count": 0
+      },
+      "pass_conditions": {
+        "1_evidence_links_valid": "PASS (引用源 14 件 (S-1〜S-14) + 公式刊行物 4 件 + 規格 5 件 全実在; reviewer round 2 抽検 11 件全件確認)",
+        "2_format_compliance": "PASS (build rc=0 / 31,860 bytes / 10 シート / Yu Gothic UI 階層 / A4 縦 / ハイパーリンク 9 件全解決; reviewer round 1 F-1 sha256 再現性 = build_xlsx.py 改修案件 deferred to phase_3)",
+        "3_independent_reviewer_pass": "PASS_round_2_unconditional (規律 D 隔離 ✅: writer=executor / reviewer=code-reviewer; round 1 + round 2 別 instance; T-01 含む 11 件全反映 + 回帰差分ゼロ + 新規 finding HIGH 0 / MEDIUM 0)",
+        "4_term_audit_pass": "PASS (round 1 MEDIUM F-2 = T-01 で writer round 2 + 主 session 補正実体修正済 → reviewer round 2 で T-01 PASS 確認; blacklist 0 hits 維持; mapping consistency 1 false-positive 既知 — 口語判定エントリ adopted=「文脈依存」設計上偽陽性 17 occurrences 全件正当 = 04 既知 false-positive pattern 整合)",
+        "5_user_ack": "PASS_2026-04-29 (Bojiang Zhang 口頭承認)"
+      },
+      "deferred_to_phase_3": [
+        "term_mapping.yml v0.6 改訂 (口語判定エントリ candidates から「約」削除案 / pipeline 登録 / 新規訳語 5 件追加 — チャンク / ノード / リレーション / ローカル先行 / 順方向・逆方向)",
+        "99_用語集.xlsx 仕上げ時の新規訳語追加",
+        "build_xlsx.py 改修 (sha256 再現性 = openpyxl 作成日時固定化 — reviewer F-1)"
+      ]
+    },
     "02_operations_maintenance": {"status": "pending", "version": null, "pass_at": null, "priority": "P0", "kickoff_order": 3},
     "03_test_result_report": {"status": "pending", "version": null, "pass_at": null, "priority": "P0", "kickoff_order": 4},
     "05_detailed_design": {"status": "pending", "version": null, "pass_at": null, "priority": "P1", "kickoff_order": 5},

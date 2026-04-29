@@ -1,0 +1,396 @@
+# docs/jp/sources/01_基本設計書.yml
+#
+# Phase 1 P0 着手順 2 産物 (作成日: 2026-04-29).
+# 本 yml は build_xlsx.py の入力で、各シート content フィールドは引用源に基づき充填済.
+# 用語規律は docs/jp/glossary/term_blacklist.yml + term_mapping.yml v0.5 に厳格準拠.
+#
+# 上位文書: docs/jp/04_要件定義書.xlsx (v1.0 PASS 2026-04-29)
+#
+# build_xlsx.py 仕様抜粋:
+#   - 固定シート (1_表紙 / 2_改訂履歴 / 3_目次 / 4_承認欄) は自動生成のため sheets[] には書かない
+#   - 本文シート名は固定 4 名と衝突禁止 (検証 raise)
+#   - sheet type: text / table / links
+
+document:
+  name: "基本設計書"
+  number: "ITMS-SDTM-01-BASIC-DESIGN-v1.0"
+  recipient: "iTMS 株式会社 御中"
+  author: "(担当部門)"
+  created: "2026-04-29"
+  updated: "2026-04-29"
+  version: "v1.0"
+  output: "docs/jp/01_基本設計書.xlsx"
+
+revisions:
+  - version: "v0.1"
+    date: "2026-04-29"
+    content: "初版作成 (Phase 1 P0 着手順 2; 04 要件定義書 v1.0 PASS 後の設計章)"
+    author: "(担当部門)"
+    confirmer: ""
+    approver: ""
+  - version: "v0.2"
+    date: "2026-04-29"
+    content: "確認指摘および用語監査指摘の反映 (計 10 件): chapters/ 6 件全列挙 + 不連続選択補足 (F-2); Claude Projects 説明を数値根拠 (55.8% / 77% / 1.29M tokens) に修正し相対比較表現を削除 (F-3); 知識グラフ ノード 6 種に件数付き列挙 + リレーション 7 種に方向情報追記 (F-4); 受控用語 91 件と索引層算術整合追記 (189+91+6+6+1=293) (F-5); §1.5 出典を 4 設計理念別に分割 (F-6); P3 meta.yaml 表現を設計済・出力未実施に分離 (F-7); sdtm-rag/ を独立プロジェクトに修正 (F-8); PMDA ER/ES 指針の正式名称整合 (F-9); §2.1 97% に inline 出典付与 (F-10); §1.4 の「トレーサビリティ管理表」を文書正式名称として維持し概念用語との区別を明示 (用語監査 F-2 + 主 session 補正)."
+    author: "(担当部門)"
+    confirmer: ""
+    approver: ""
+  - version: "v1.0"
+    date: "2026-04-29"
+    content: "初版受信者納品候補確定. 全合格判定基準充足: 引用源 14 件 + 公式刊行物 4 件 + 規格 5 件 全件実在 / 形式 100% 準拠 (生成成功 / 10 シート / Yu Gothic UI 階層 / A4 縦) / 独立確認担当 PASS 無条件 (三役完全隔離: 作成担当 + 確認担当 + 用語監査担当 各別担当) / 用語規律監査 指摘 1 件 (F-2) を v0.2 で実体修正済 (用語禁止語 ヒット ゼロ / 採用語整合の偽陽性 1 件は口語判定エントリ adopted=「文脈依存」の設計上既知, 全件正当) / 用户口頭承認 (2026-04-29)."
+    author: "(担当部門)"
+    confirmer: "(日方ネイティブ確認担当指名待ち)"
+    approver: "Bojiang Zhang"
+
+sheets:
+
+  # ─────────────────────────────────────────────
+  # 1. 概要
+  # 引用源: S-1 (METHODOLOGY.md) + S-7 (04 要件定義書) + S-2 (DESIGN_RAG_KG.md) + S-11 (ai_platforms/release/v1.0/)
+  # ─────────────────────────────────────────────
+  - name: "1_概要"
+    type: "text"
+    content_summary: "本書の目的・設計対象システムの範囲・想定読者・関連文書・設計方針"
+    content: |
+      1.1 本書の目的
+
+      本書は、ITMS-SDTM-04 要件定義書 (v1.0、以下「04 要件定義書」という) が定めた機能要件 (FR-01〜FR-11) および非機能要件 (NFR-01〜NFR-06) を実現する基本設計を提示する。本書は 04 要件定義書の設計レベル後続文書であり、知識ベース本体・検証パイプライン・AI 平台展開・Phase 7 検索拡張生成 (RAG: Retrieval-Augmented Generation) および知識グラフ (KG: Knowledge Graph) の 4 サブシステムについて、その全体構成、データモデル、外部インタフェース、および設計制約を規定する。
+
+      出典: docs/jp/04_要件定義書.xlsx §1.5 + METHODOLOGY.md Purpose。
+
+      1.2 設計対象システムの範囲
+
+      本書の設計対象は以下の 4 サブシステムである。
+
+      (1) 知識ベース本体 — 臨床試験データ表形式モデル (SDTM: Study Data Tabulation Model) の CDISC 公式刊行物から抽出・再構成した 293 件の Markdown ファイル群。63 ドメイン・6 章・6 モデル文書・受控用語群・索引文書で構成される。現行運用中。
+
+      (2) 検証パイプライン — 知識ベース本体の各記述を出典 PDF と頁単位で照合する字面級確認の独立工程。検証単位データ schema (atom_schema v1.2 凍結済) および突合管理表データ schema (ledger_schema v1.2 凍結済) を基盤とする。現行運用中 (対象範囲の 97% 完了)。
+
+      (3) AI 平台展開 — 知識ベースを ChatGPT GPTs・Google Gemini Gems・Google NotebookLM・Anthropic Claude Projects の 4 平台向けに再パッケージしたリリース版 v1.0。現行運用中 (Phase 6.5 完了)。
+
+      (4) Phase 7 RAG+KG — 検索拡張生成 (RAG) および知識グラフ (KG) を組み合わせた二段階インテリジェント検索・確認システムの設計仕様。現状は設計確定・実装未着手。
+
+      出典: METHODOLOGY.md §2 + docs/DESIGN_RAG_KG.md §1.4 + ai_platforms/release/v1.0/。
+
+      1.3 想定読者
+
+      本書の想定読者は、IT 分野および医療データ分野の双方に知見を有する実務担当者である。具体的には、臨床試験データ管理、SDTM データプログラミング、マッピング品質確認、SDTM 教育に従事する技術者および管理者を想定する。04 要件定義書 §1.3 と同一の読者層を対象とする。
+
+      出典: docs/jp/04_要件定義書.xlsx §1.3 + docs/jp/PLAN.md §0 受信者欄。
+
+      1.4 関連文書
+
+      本書は以下の文書群と連携する。
+
+      ・04 要件定義書 (ITMS-SDTM-04): 本書の上位根拠章。機能要件 FR-01〜FR-11、非機能要件 NFR-01〜NFR-06、制約条件 C-01〜C-05 を規定する。
+      ・02 運用保守マニュアル (ITMS-SDTM-02): 本書が規定するシステム構成に基づく日常運用手順・保守手順・障害対応を記述する。
+      ・03 テスト結果報告書 (ITMS-SDTM-03): 本書が規定する設計の試験範囲・実施結果・合格判定・根拠資料を記録する。
+      ・05 詳細設計書 (ITMS-SDTM-05): 本書の各章 (特に §3 データモデル) の章別詳細展開を記述する。
+      ・06 トレーサビリティ管理表 (ITMS-SDTM-06): 本書の設計項目と要件・試験・根拠資料の横断対応を記録する。なお「トレーサビリティ管理表」は文書の正式名称 (固有名) であり、概念用語としての「追跡可能性 (traceability)」とは区別して用いる。
+      ・99 用語集: 本書で用いる技術用語の英語・日本語・中国語・出典規格の四列対照辞書。
+
+      出典: docs/jp/PLAN.md §1。
+
+      1.5 設計方針 (中核理念)
+
+      本書全体を貫く設計方針は以下の 4 点である。
+
+      (1) 字面追跡可能性 — 知識ベースの任意の記述について、出典 PDF の対応頁および節を数秒で照合できる構造を設計原則とする。ドメイン・章節・受控用語の各層で追跡経路を完備する。
+
+      (2) リスク主導確認 — GAMP 5 (国際製薬技術協会 ISPE 発行) のリスク主導確認の考え方に整合し、宣言された仕様・実行された確認・独立した審査・文書化された不整合追跡を備える。
+
+      (3) ローカル先行・プロバイダー非依存 — Phase 7 RAG+KG はすべて Docker Compose によるローカル実行を前提とし、特定の LLM 供給者に固定しない設計とする。クラウド展開は本設計範囲外とする。
+
+      (4) 読取専用源 + 派生著作物 — knowledge_base/ ディレクトリは変更不可の読取専用源として扱う。本納品物を含む改修は派生著作物側にのみ適用する。
+
+      出典: (1) 字面追跡可能性 = METHODOLOGY.md §3、(2) リスク主導確認 = METHODOLOGY.md §5 + Compliance framing、(3) ローカル先行・プロバイダー非依存 = docs/DESIGN_RAG_KG.md §1.4、(4) 読取専用源 + 派生著作物 = docs/DESIGN_RAG_KG.md §1.4。
+
+  # ─────────────────────────────────────────────
+  # 2. 全体構成
+  # 引用源: S-1 §2 (7 工程) + S-9 (INDEX.md) + S-5 (restructure_plan.md) +
+  #         S-3 + S-4 (検証 schema) + S-11 (Phase 6.5) + S-2 (Phase 7 設計仕様)
+  # ─────────────────────────────────────────────
+  - name: "2_全体構成"
+    type: "text"
+    content_summary: "システム全体像・4 サブシステム (知識ベース本体・検証パイプライン・AI 平台展開・Phase 7 RAG+KG)・サブシステム間関係"
+    content: |
+      2.1 システム全体像
+
+      本システムは、CDISC 公式刊行物を唯一の根拠とする 4 サブシステムで構成される。知識ベース本体を共通の読取専用源として、検証パイプラインが品質を担保し、AI 平台展開が業務利用を可能にする。Phase 7 RAG+KG は知識ベースを入力源として高度な検索・確認機能を提供する予定である (設計済・実装未着手)。
+
+      システムの状態区分は以下のとおりである。
+      ・知識ベース本体 — 現行運用中
+      ・検証パイプライン — 現行運用中 (対象範囲 97% 完了 (METHODOLOGY.md §2 末尾段落)、継続中)
+      ・AI 平台展開 — Phase 6.5 完了、現行運用中 (リリース版 v1.0)
+      ・Phase 7 RAG+KG — 設計確定、実装未着手
+
+      出典: METHODOLOGY.md §2 + docs/DESIGN_RAG_KG.md §2 + ai_platforms/release/v1.0/。
+
+      2.2 知識ベース本体
+
+      知識ベース本体 (knowledge_base/) は、CDISC 公式刊行物 4 種から 7 工程パイプラインで抽出・再構成した 293 件の Markdown ファイル群である。以下の 5 層で構成される。
+
+      (1) ドメイン層 (knowledge_base/domains/) — 63 ドメイン × 3 件 = 189 ファイル。各ドメインは spec.md (変数仕様、SDTMIG xlsx 源)・assumptions.md (業務上の前提、PDF 源)・examples.md (実装例、PDF 源) の 3 件パターンで構成される。
+
+      (2) 章節層 (knowledge_base/chapters/) — SDTMIG v3.4 の共通章 6 件 (ch01_introduction.md / ch02_fundamentals.md / ch03_submitting_data.md / ch04_general_assumptions.md / ch08_relationships.md / ch10_appendices.md)。ch05〜ch07 および ch09 はドメイン各論章であり SDTMIG v3.4 の章番号体系に準拠した不連続選択である。各ファイルの先頭に PDF 頁範囲を付与し、SDTMIG 目次と直接対応する。
+
+      (3) モデル層 (knowledge_base/model/) — SDTM Model v2.0 の概念モデル 6 件 (concepts_and_terms.md 他)。観察クラス・変数役割・特殊目的ドメイン・関連データセットの設計概念を収録する。
+
+      (4) 受控用語層 (knowledge_base/terminology/) — CDISC 受控用語 (Controlled Terminology) xlsx 2024 年版から生成。1,005 のコードリスト・37,939 用語を三層 (core/ / questionnaires/ / supplementary/) に分類する。各コードリスト文書に CDISC 割当の C 符号 (例: C66731) を保持し、米国国立がん研究所 EVS Browser (NCI EVS Browser) との相互参照を可能とする。terminology/ 配下のファイル数は 91 件である。
+
+      (5) 索引層 — INDEX.md (全 293 ファイルのクイックリファレンス、主索引として 1 件扱い) + ROUTING.md (問題種別別参照経路の経路層文書) + VARIABLE_INDEX.md (1,523 変数の逆引き索引)。なお、公式合計 293 件の内訳は「INDEX.md では索引を 1 件として計上」する方式であり、3 ファイルの物理的存在とは区別する。
+
+      5 層の合計: 189 (ドメイン層) + 91 (受控用語層) + 6 (モデル層) + 6 (章節層) + 1 (主索引) = 293 件 (knowledge_base/INDEX.md l.4 の公式合計と一致)。
+
+      出典: knowledge_base/INDEX.md + .work/00_planning/restructure_plan.md §三 + METHODOLOGY.md §3。
+
+      2.3 検証パイプライン
+
+      検証パイプラインは、知識ベース本体の各記述を出典 PDF と頁単位で字面照合する独立工程である。7 工程パイプラインと並行して継続実施されており、本書執筆時点で対象範囲の 97% を完了している。
+
+      工程は以下の 3 段階で構成される。
+
+      (1) 検証単位抽出 — PDF 原子および MD 原子を検証単位データ schema (atom_schema v1.2 凍結済) に従い抽出する。PDF 原子は atom_id 形式 <source_short>_p<NNN>_a<NNN> (例: ig34_p0425_a012) で識別する。MD 原子は md_<file_stem>_a<NNN> (例: md_ch08_a042) で識別する。atom_type は HEADING / SENTENCE / LIST_ITEM / TABLE_HEADER / TABLE_ROW / CODE_LITERAL / CROSS_REF / FIGURE / NOTE の 9 値硬列挙型である。
+
+      (2) 突合判定 — 突合管理表データ schema (ledger_schema v1.2 凍結済) に従い、各検証単位について突合管理表の 1 行 JSONL として記録する。順方向 (PDF→MD) の verdict は 9 値 (EXACT / EQUIVALENT / EDITORIAL_CORRECTION / TABLE_SIMPLIFIED / PARTIAL / MISPLACED / ERROR / MISSING / INTENTIONAL_EXCLUDE)、逆方向 (MD→PDF) の verdict は 5 値 (SOURCED / EDITORIAL_ADDITION / SYNTHESIZED / UNSOURCED / HALLUCINATED) である。類似度スコア (similarity_score) は 0.0〜1.0 の範囲で、PARTIAL は 0.50 以上、SOURCED は 0.50 以上が必須条件である。
+
+      (3) 独立二次審査 — 審査独立性原則に従い、整合確認担当者とは異なる主体が審査記録 (audited_by 配列) に CONFIRM / OVERRIDE / AMBIGUOUS を追記する。
+
+      出典: .work/06_deep_verification/schema/atom_schema.json + .work/06_deep_verification/schema/ledger_schema.json + METHODOLOGY.md §2 末尾段落。
+
+      2.4 AI 平台展開 (Phase 6.5 完了)
+
+      AI 平台展開は、知識ベース本体を 4 種の AI 平台向け配布物として整形したものである。Phase 6.5 として完了し、リリース版 v1.0 として運用中である。
+
+      4 平台の概要は以下のとおりである。
+
+      ・ChatGPT GPTs (v2.2 LIVE) — 20 ファイル上限に整合した結合ファイル構成。ドメイン仕様・受控用語・章節を統合した参照ツール。
+      ・Google Gemini Gems (v7.1 LIVE) — 大きなコンテキストウィンドウを活用した 4 ファイル積極結合構成。幻覚防止プロンプトを v7.1 で強化済。
+      ・Google NotebookLM — 42 ソース構成 (上限 50 のうち 42 使用)。知識ベース内のソースのみに限定した高精度参照モデル。
+      ・Anthropic Claude Projects (v2.6) — 19 ファイル構成 (容量約 77%、約 1.29M トークン使用)。QS コードリスト展開率 約 55.8% (KNOWN_LIMITATIONS.en.md L1 計測)。
+
+      各平台は容量制約・機能制約に整合させた配布物として再パッケージされており、既知の限界は ai_platforms/release/v1.0/KNOWN_LIMITATIONS.en.md に一覧化されている。
+
+      出典: ai_platforms/release/v1.0/ + METHODOLOGY.md §2 Phase 6.5。
+
+      2.5 Phase 7 RAG+KG (設計済・実装未着手)
+
+      Phase 7 RAG+KG は、知識ベースを入力源とした二段階インテリジェント検索・確認システムの設計仕様である。設計は確定しているが、実装は未着手である。本書での扱いは設計書面のみであり、実装到達は別工程による。
+
+      二段階ロードマップは以下のとおりである。
+
+      Phase 7 第 1 段階 (RAG + データセット確認): 検索拡張生成 (RAG) パイプラインとして、Markdown ファイルをチャンク化して Chroma ベクトル DB に格納し、LiteLLM 抽象層経由で Claude / GPT 他の LLM を呼び出す。Streamlit インタフェースで意味的質問応答とデータセット確認レポートを提供する設計。前提: 既存の 293 件 Markdown ファイルを利用可能。
+
+      Phase 7 第 2 段階 (KG + 混合経路): 知識グラフ (KG) として Neo4j にノード・リレーションを投入し、Cypher クエリにより横断参照・影響範囲分析を可能にする。意図分類器によりベクトル検索経路・グラフ検索経路・混合経路を自動選択する設計。前提: P3 構造化メタデータ (knowledge_base/domains/<DOMAIN>/meta.yaml) の自動生成スクリプト (docs/DESIGN_RAG_KG.md §5.1 設計済) による出力が完了していること。本書執筆時点で当該生成スクリプトの実装および meta.yaml 出力は未実施。
+
+      全コンポーネントは Docker Compose によるローカル実行を前提とし、クラウド展開は本設計範囲外である。
+
+      出典: docs/DESIGN_RAG_KG.md §2 + §7。
+
+      2.6 サブシステム間の関係
+
+      各サブシステムの入力・出力関係は以下のとおりである。
+
+      知識ベース本体は、すべてのサブシステムの共通読取専用源である。変更不可の入力として扱い、派生著作物側のみで改修を行う。
+
+      検証パイプラインは、knowledge_base/ を入力とし、突合管理表 (JSONL 形式) および根拠資料を .work/06_deep_verification/ 配下に出力する。知識ベースの品質を支える独立した工程として機能する。
+
+      AI 平台展開は、知識ベースを容量制約・機能制約に整合させた配布物に再パッケージしたものである。知識ベース本体を参照するが、改変はしない。
+
+      Phase 7 RAG+KG は、knowledge_base/ を入力源として意味的検索・グラフ横断クエリ・データセット確認機能を提供する予定である (実装未着手)。ベクトル DB (Chroma) およびグラフ DB (Neo4j) は独立プロジェクトとして別ディレクトリ (sdtm-rag/) で保持する設計。knowledge_base/ を読取専用源とし、本ディレクトリは sdtm-rag/ に派生する。
+
+      出典: METHODOLOGY.md §3 + docs/DESIGN_RAG_KG.md §1.4。
+
+  # ─────────────────────────────────────────────
+  # 3. データモデル
+  # 引用源: S-1 §3 + S-9 + S-3 (atom_schema v1.2 frozen) + S-4 (ledger_schema v1.2 frozen) +
+  #         S-2 §3.2 §5.2 (RAG chunk + KG nodes/relationships)
+  # ─────────────────────────────────────────────
+  - name: "3_データモデル"
+    type: "table"
+    content_summary: "データモデル — 知識ベース本体 + 検証パイプライン + Phase 7 RAG+KG"
+    headers: ["項目 ID", "対象", "データ構造概要", "状態", "出典"]
+    column_widths: [10, 26, 56, 14, 24]
+    rows:
+      - ["3.1",
+         "知識ベース三件パターン (ドメイン)",
+         "各ドメインディレクトリ (例: knowledge_base/domains/AE/) に spec.md / assumptions.md / examples.md の 3 件構成を採用する。spec.md は変数仕様 (変数名・ラベル・型・Core 区分・C 符号) を SDTMIG xlsx から生成。assumptions.md は業務上の前提・変数使用指導・編码規範を PDF から抽出。examples.md は実装例のデータ表を PDF から抽出。63 ドメイン全件に適用する固定パターンである。",
+         "運用中",
+         "METHODOLOGY.md §3 + knowledge_base/INDEX.md"]
+      - ["3.2",
+         "章節文書・モデル文書",
+         "chapters/ には SDTMIG v3.4 の共通章 6 件 (ch01_introduction.md / ch02_fundamentals.md / ch03_submitting_data.md / ch04_general_assumptions.md / ch08_relationships.md / ch10_appendices.md) を収録する。ch05〜ch07 および ch09 はドメイン各論章であり SDTMIG v3.4 の章番号体系に準拠した不連続選択である。各ファイルの先頭に PDF 頁範囲を付与し、SDTMIG 目次と直接対応する。model/ には SDTM Model v2.0 の概念モデル 6 件 (concepts_and_terms.md / observation_classes.md / special_purpose_domains.md / associated_persons.md / study_level_data.md / relationship_datasets.md) を収録する。",
+         "運用中",
+         "knowledge_base/INDEX.md + METHODOLOGY.md §2 Phase 4"]
+      - ["3.3",
+         "受控用語データ構造",
+         "knowledge_base/terminology/ 配下にコードリスト文書群を収録する。CDISC 受控用語 (Controlled Terminology) xlsx 2024 年版を根拠とし、1,005 のコードリストおよび 37,939 用語を three 層 (core/ / questionnaires/ / supplementary/) に分類する。各コードリスト文書に CDISC 割当の C 符号 (例: C66731) を保持し、米国国立がん研究所 EVS Browser (NCI EVS Browser) との相互参照を可能とする。",
+         "運用中",
+         "METHODOLOGY.md §3 第 3 段落 + docs/jp/04_要件定義書.xlsx §3 FR-10"]
+      - ["3.4",
+         "検証単位データモデル (atom_schema v1.2)",
+         "検証単位データ schema (atom_schema v1.2、凍結日: 2026-04-24) に従う。PDF 原子と MD 原子の共存型 (oneOf) で、atom_id 前缀により区別する。PDF 原子の atom_id 形式: <source_short>_p<NNN>_a<NNN> (例: ig34_p0425_a012)。MD 原子の atom_id 形式: md_<file_stem>_a<NNN> (例: md_ch08_a042)。atom_type は 9 値硬列挙型 (HEADING / SENTENCE / LIST_ITEM / TABLE_HEADER / TABLE_ROW / CODE_LITERAL / CROSS_REF / FIGURE / NOTE)。dataset 文件名 (*.xpt 等) は文脈に関わらず CODE_LITERAL として扱う硬規則あり。",
+         "凍結済",
+         ".work/06_deep_verification/schema/atom_schema.json (v1.2)"]
+      - ["3.5",
+         "突合管理表データモデル (ledger_schema v1.2)",
+         "突合管理表データ schema (ledger_schema v1.2、凍結日: 2026-04-24) に従う。1 行 JSONL = 1 突合決定として記録する。必須フィールド: verdict / similarity_score (0.0〜1.0) / matched_by。順方向 (PDF→MD) verdict は 9 値 (EXACT / EQUIVALENT / EDITORIAL_CORRECTION / TABLE_SIMPLIFIED / PARTIAL / MISPLACED / ERROR / MISSING / INTENTIONAL_EXCLUDE)。逆方向 (MD→PDF) verdict は 5 値 (SOURCED / EDITORIAL_ADDITION / SYNTHESIZED / UNSOURCED / HALLUCINATED)。数値条件: PARTIAL は similarity_score ≥ 0.50、SOURCED は similarity_score ≥ 0.50 が必須。独立二次審査記録は audited_by 配列に追記する。",
+         "凍結済",
+         ".work/06_deep_verification/schema/ledger_schema.json (v1.2)"]
+      - ["3.6",
+         "RAG チャンクメタデータ (Phase 7 設計済・実装未着手)",
+         "Phase 7 第 1 段階 RAG ベクトル検索向けに、各チャンクへ構造化メタデータを付与する設計。メタデータ 6 項目: source (ソースファイルパス) / domain (ドメイン符号、63 値) / class (観察クラス) / file_type (spec / assumptions / examples / chapter / model / terminology) / section (節・変数名) / chunk_index (チャンク連番)。ドメイン絞込検索と意味類似度の 2 段検索を可能とする。現状は設計確定・実装未着手である。",
+         "設計済・未実装",
+         "docs/DESIGN_RAG_KG.md §3.2"]
+      - ["3.7",
+         "知識グラフ ノード・リレーション (Phase 7 設計済・実装未着手)",
+         "Phase 7 第 2 段階 KG 向けに、Neo4j へノードおよびリレーションを投入する設計。ノード 6 種 (件数付き): Domain 63 件 / Variable 約 1,523 件 / Codelist 約 1,005 件 / Term 約 37,939 件 / Class 7 件 / Chapter 6 件。リレーション 7 種 (方向付き): HAS_VARIABLE (Domain → Variable) / BELONGS_TO (Domain → Class) / USES_CT (Variable → Codelist) / CONTAINS_TERM (Codelist → Term) / RELATED_TO (Domain → Domain、機序付き) / DESCRIBED_IN (Domain → Chapter) / SHARED_VARIABLE (Variable → Variable)。データソースは各ドメインの meta.yaml (P3 構造化メタデータ) であり、自動生成スクリプト (DESIGN_RAG_KG.md §5.1 設計済) による meta.yaml の出力は本書執筆時点で未実施。現状は設計確定・実装未着手である。",
+         "設計済・未実装",
+         "docs/DESIGN_RAG_KG.md §5.2"]
+    note_rows: []
+
+  # ─────────────────────────────────────────────
+  # 4. 外部 IF
+  # 引用源: S-1 §1 + S-6 + S-11 + S-2 §3.6 §5.5
+  # ─────────────────────────────────────────────
+  - name: "4_外部IF"
+    type: "table"
+    content_summary: "外部インタフェース — CDISC 一次資料・NCI EVS Browser・AI 平台・LLM プロバイダー・生成基盤"
+    headers: ["IF ID", "対向先", "用途", "状態", "出典"]
+    column_widths: [10, 26, 56, 14, 24]
+    rows:
+      - ["IF-01",
+         "CDISC 一次資料 (4 種公式刊行物)",
+         "SDTMIG v3.4 PDF (461 頁) / SDTM Model v2.0 PDF (74 頁) / SDTMIG xlsx v3.4 (1,917 変数 / 63 ドメイン) / CDISC 受控用語 xlsx 2024 年版 (1,005 コードリスト / 37,939 用語) を知識ベース構築の唯一の根拠とする。これらの公式刊行物は CDISC Library 経由で入手する。本知識ベースはこれら一次資料の派生著作物として位置付ける。原刊行物は本リポジトリに再配布せず、CDISC が著作権を保持する。",
+         "参照のみ",
+         "METHODOLOGY.md §1 Table + .work/00_planning/source_relationship.md §一"]
+      - ["IF-02",
+         "NCI EVS Browser (米国国立がん研究所 提供)",
+         "受控用語の C 符号 (例: C66731) を入力に、コードリスト内容を外部 web で照合するインタフェース。本知識ベースの terminology/ 配下の各コードリスト文書に C 符号を保持することで、NCI EVS Browser への接続を可能とする。本知識ベース自体はリアルタイム接続を持たず、静的な C 符号保持のみを担う。",
+         "参照のみ",
+         "METHODOLOGY.md §3 第 3 段落 + docs/jp/04_要件定義書.xlsx §3 FR-10"]
+      - ["IF-03",
+         "AI 平台 4 種 (Phase 6.5 完了)",
+         "ChatGPT GPTs (v2.2 LIVE) / Google Gemini Gems (v7.1 LIVE) / Google NotebookLM / Anthropic Claude Projects (v2.6) の 4 平台向けに、知識ベースを容量制約・機能制約に整合させた配布物として再パッケージした。リリース版 v1.0 として運用中。各平台の主用途: ChatGPT GPTs — 統合ファイル参照 / Gemini Gems — 大コンテキスト活用参照 / NotebookLM — 知識ベース内限定高精度参照 / Claude Projects — 容量 77% (約 1.29M トークン) を活用した広範な受控用語展開 (QS コードリスト展開率 約 55.8%、KNOWN_LIMITATIONS.en.md L1 計測)。",
+         "運用中",
+         "ai_platforms/release/v1.0/ + docs/jp/04_要件定義書.xlsx §3 FR-07"]
+      - ["IF-04",
+         "LLM プロバイダー (Phase 7 設計済・実装未着手)",
+         "Phase 7 RAG+KG において、LiteLLM 抽象層により Claude / GPT / DeepSeek 他の複数 LLM 供給者を非依存に呼び出す設計。ベクトル化には OpenAI text-embedding-3-small 等を想定。ベクトル DB は Chroma (ローカル)、知識グラフ DB は Neo4j (ローカル)、API 層は FastAPI、フロントエンドは Streamlit を採用する設計。全コンポーネントは Docker Compose によるローカル実行を前提とし、クラウド展開は本設計範囲外とする。現状は設計確定・実装未着手である。",
+         "設計済・未実装",
+         "docs/DESIGN_RAG_KG.md §3.6 + §5.5"]
+      - ["IF-05",
+         "本納品物生成基盤 (内製スクリプト)",
+         "本納品物 7 文書 (.xlsx) および 99 用語集の生成基盤として、openpyxl 3.1.5 (Python) および内製スクリプト build_xlsx.py / audit_terms.py を使用する。テンプレート (style_guide.xlsx / cover_template.xlsx) で表紙・改訂履歴・目次・承認欄の書式を統一する。YAML 源ファイル (docs/jp/sources/) をスクリプトで変換し .xlsx を生成する方式を採用している。詳細な生成手順は 05 詳細設計書に委譲する。",
+         "運用中",
+         "docs/jp/PLAN.md §3.1 + docs/jp/scripts/build_xlsx.py"]
+    note_rows: []
+
+  # ─────────────────────────────────────────────
+  # 5. 制約事項
+  # 引用源: S-7 §5 + S-12 §10 + S-3 / S-4 (frozen 注記) + S-14 + S-2 §8 + S-13
+  # ─────────────────────────────────────────────
+  - name: "5_制約事項"
+    type: "table"
+    content_summary: "制約事項 — 04 要件定義書 §5 継承 + 設計レベル制約 + 設計凍結 + 著作権 + 範囲外"
+    headers: ["制約 ID", "種別", "制約内容", "出典"]
+    column_widths: [10, 14, 64, 26]
+    rows:
+      - ["D-01",
+         "上位制約継承",
+         "04 要件定義書 §5 制約条件 (C-01〜C-05) をすべて本書においても有効とする。C-01 規格優先性: 本書の設計意思決定が CDISC 公式刊行物の記述と矛盾する場合は、公式刊行物が優先される。C-02 規制範囲外: 本書が規定するシステムは 21 CFR Part 11 または PMDA が想定する電磁的記録の代替ではない。C-03 著作権: CDISC が著作権を保持し、本書は派生著作物のみを扱う。C-04 機能限界: 大規模受控用語コードリストの完全展開および外部実時間検索の組込みは範囲外。C-05 機密区分: 本書の機密区分は公開可レベルとする。",
+         "docs/jp/04_要件定義書.xlsx §5 (C-01〜C-05)"]
+      - ["D-02",
+         "設計レベル制約",
+         "本書固有の設計レベル制約は以下の 4 件である。(1) ローカル先行: Phase 7 RAG+KG は Docker Compose によるローカル実行を前提とし、クラウド展開・認証・マルチテナントは本設計範囲外とする。(2) プロバイダー非依存: 特定の LLM 供給者に固定しない設計とする。LiteLLM 抽象層により多供給者を切り替え可能にする。(3) 読取専用源: knowledge_base/ は変更不可とし、本書記述の改修は派生著作物側に限定する。(4) 日本語化範囲: ai_platforms/ 配下文書の日本語化、リアルタイム同期パイプライン構築、法務契約書類は本納品物の範囲外とする。",
+         "docs/DESIGN_RAG_KG.md §1.4 + docs/jp/PLAN.md §0.2 + §0.3"]
+      - ["D-03",
+         "設計凍結",
+         "検証単位データ schema (atom_schema) および突合管理表データ schema (ledger_schema) は v1.2 (凍結日: 2026-04-24) に固定されている。P0 Pilot 完了をもって以後の変更を禁ずる旨が schema ファイル自体の frozen_at フィールドおよび frozen_evidence 配列に明記されている。本書 §3.4 および §3.5 の記述はこの凍結版に依拠する。凍結後の schema 変更が必要な場合は本書および 05 詳細設計書の改訂を要する。",
+         ".work/06_deep_verification/schema/atom_schema.json (frozen_at 2026-04-24) + ledger_schema.json (frozen_at 2026-04-24)"]
+      - ["D-04",
+         "著作権",
+         "SDTM・SDTMIG・CDISC Controlled Terminology の各規格および原刊行物の著作権は CDISC が保持する。本リポジトリは原刊行物そのものを再配布せず、業務利用しやすい形に再構成した派生著作物のみを CC BY 4.0 ライセンスで配布する。原刊行物の入手は CDISC Library 経由で利用者が個別に行う。本知識ベースは CDISC の公式製品ではなく、CDISC による認証・推奨を受けていない。",
+         "DISCLAIMER.md + docs/jp/04_要件定義書.xlsx §5 C-03"]
+      - ["D-05",
+         "設計範囲外",
+         "以下の事項は本書の設計範囲外とする。(1) クラウド展開・ユーザー認証・マルチテナント (Phase 7 設計において deferred と明記)。(2) 知識ベースの自動連続更新パイプライン (rebuild pipeline)。(3) 複数 SDTM 版数管理 (現状 SDTMIG v3.4 のみ対象)。(4) ai_platforms/ 配下の日本語化 (PLAN §0.2 Out-of-scope 決定事項)。(5) 法務契約書類 (NDA / SOW)。",
+         "docs/DESIGN_RAG_KG.md §8 + docs/jp/PLAN.md §0.2 + §0.3"]
+    note_rows: []
+
+  # ─────────────────────────────────────────────
+  # 6. 参考資料
+  # 引用源: source_mapping §1 シート 6 + 引用源 一覧 全 14 件
+  # ─────────────────────────────────────────────
+  - name: "6_参考資料"
+    type: "table"
+    content_summary: "参考資料 — 上位根拠・内部設計仕様・内部計画・知識ベース・Phase 6.5・公式刊行物・規格・配布許諾"
+    headers: ["区分", "資料名", "所在 / 出典"]
+    column_widths: [16, 50, 44]
+    rows:
+      - ["上位根拠",
+         "04 要件定義書 (ITMS-SDTM-04-REQUIREMENTS-DEFINITION-v1.0)",
+         "docs/jp/04_要件定義書.xlsx"]
+      - ["方法論",
+         "本知識ベース 構築方法論・検証声明 (METHODOLOGY.md)",
+         "METHODOLOGY.md"]
+      - ["内部設計仕様",
+         "RAG + 知識グラフ 設計仕様 (Phase 7、設計済・未実装)",
+         "docs/DESIGN_RAG_KG.md"]
+      - ["内部設計仕様",
+         "検証単位データ schema v1.2 (凍結日: 2026-04-24)",
+         ".work/06_deep_verification/schema/atom_schema.json"]
+      - ["内部設計仕様",
+         "突合管理表データ schema v1.2 (凍結日: 2026-04-24)",
+         ".work/06_deep_verification/schema/ledger_schema.json"]
+      - ["内部計画",
+         "知識ベース構造方針",
+         ".work/00_planning/restructure_plan.md"]
+      - ["内部計画",
+         "CDISC 4 種公式刊行物の関係整理",
+         ".work/00_planning/source_relationship.md"]
+      - ["知識ベース 索引",
+         "知識ベース 総合索引 (INDEX.md)",
+         "knowledge_base/INDEX.md"]
+      - ["知識ベース 経路層",
+         "問題種別別参照経路文書 (ROUTING.md)",
+         "knowledge_base/ROUTING.md"]
+      - ["Phase 6.5 リリース",
+         "AI 平台展開 v1.0 リリース一式",
+         "ai_platforms/release/v1.0/"]
+      - ["Phase 6.5 限界",
+         "既知の限界 (KNOWN_LIMITATIONS.en.md)",
+         "ai_platforms/release/v1.0/KNOWN_LIMITATIONS.en.md"]
+      - ["配布許諾",
+         "著作権・免責・CC BY 4.0 (派生著作物)",
+         "DISCLAIMER.md"]
+      - ["公式刊行物",
+         "SDTM Implementation Guide v3.4 (2021 年 11 月) 461 頁",
+         "CDISC Library (https://www.cdisc.org/cdisc-library)"]
+      - ["公式刊行物",
+         "SDTM Model v2.0 Final (2021 年 11 月) 74 頁",
+         "CDISC Library (https://www.cdisc.org/cdisc-library)"]
+      - ["公式刊行物",
+         "SDTMIG xlsx v3.4 (1,917 変数 / 63 ドメイン)",
+         "CDISC Library (https://www.cdisc.org/cdisc-library)"]
+      - ["公式刊行物",
+         "CDISC Controlled Terminology xlsx 2024 年版 (1,005 コードリスト / 37,939 用語)",
+         "CDISC Library (https://www.cdisc.org/cdisc-library)"]
+      - ["規格",
+         "GAMP 5 (ISPE 2nd Edition 2022) — リスク主導コンピュータ化システム検証",
+         "ISPE (https://ispe.org/)"]
+      - ["規格",
+         "ICH E6(R3) Good Clinical Practice (GCP) ガイドライン",
+         "ICH (https://www.ich.org/)"]
+      - ["規格",
+         "ALCOA+ データ完全性原則 (Attributable / Legible / Contemporaneous / Original / Accurate +)",
+         "(FDA / MHRA / WHO ガイダンス総称)"]
+      - ["規格",
+         "21 CFR Part 11 — 電子記録・電子署名 (米国 FDA)",
+         "FDA (https://www.ecfr.gov/)"]
+      - ["規格",
+         "PMDA ER/ES 指針 (正式名: 「医薬品等の承認又は許可等に係る申請等における電磁的記録及び電子署名の利用について」)",
+         "PMDA (https://www.pmda.go.jp/)"]
+    note_rows: []
+
+approval:
+  enabled: true
