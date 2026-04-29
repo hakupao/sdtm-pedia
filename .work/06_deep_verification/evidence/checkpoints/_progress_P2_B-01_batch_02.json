@@ -1,0 +1,150 @@
+{
+  "_note": "Sidecar progress file written 2026-04-29 post P2 B-01 batch 02 closure. Continues sidecar chain established post pilot + batch 01 (avoids surgical edit on main _progress.json 1698 lines). Future session should integrate sidecar chain into main _progress.json or treat latest sidecar as authoritative for P2 phase state.",
+  "project": "06_deep_verification",
+  "tier": 3,
+  "current_phase": "P2_bulk_in_progress",
+  "current_phase_started": "2026-04-29",
+  "predecessors": [
+    "evidence/checkpoints/_progress_P2_pilot_and_B-01_batch_01.json"
+  ],
+  "P2_pilot": {
+    "status": "completed",
+    "completed_at": "2026-04-29T11:00:00Z",
+    "ref": "predecessor sidecar"
+  },
+  "P2_bulk": {
+    "status": "in_progress",
+    "writer_pool": "1-type lock: oh-my-claudecode:executor (N21 MD-side blanket ban)",
+    "drift_cal": "WAIVED (single writer type makes drift cal moot)",
+    "B-01": {
+      "scope": "model/* remaining 4 files (model/02, 03, 05, 06)",
+      "completed_count": 2,
+      "remaining_count": 2,
+      "batches": {
+        "batch_01": {
+          "status": "completed",
+          "completed_at": "2026-04-29T11:30:00Z",
+          "file": "knowledge_base/model/06_relationship_datasets.md",
+          "atoms": 109,
+          "rule_a_pass_rate": 1.00
+        },
+        "batch_02": {
+          "status": "completed",
+          "completed_at": "2026-04-29T12:30:00Z",
+          "file": "knowledge_base/model/02_observation_classes.md",
+          "lines": 298,
+          "atoms": 244,
+          "writer": "oh-my-claudecode:executor (slot 70, opus model)",
+          "writer_dispatch_mode": "single dispatch (no fallback split needed; output well under 32K cap)",
+          "writer_self_validation": {
+            "wc_l": 244,
+            "atom_id_null_or_empty": 0,
+            "atom_id_dup": 0,
+            "atom_type_distinct": 7,
+            "file_field_violations": 0,
+            "prompt_version_violations": 0,
+            "max_line_end": 298,
+            "table_header_C5_violations": 0,
+            "all_8_checks": "PASS"
+          },
+          "atom_type_distribution": {
+            "TABLE_ROW": 180,
+            "SENTENCE": 20,
+            "HEADING": 18,
+            "TABLE_HEADER": 15,
+            "NOTE": 7,
+            "CROSS_REF": 2,
+            "CODE_LITERAL": 2
+          },
+          "atom_type_coverage": "7/9 (LIST_ITEM + FIGURE absent — source has zero markdown bullet-lists and zero figures, all enumerated content via numeric tables; objective N/A not defect)",
+          "reviewer": "oh-my-claudecode:scientist (slot 72 reused, fresh dispatch independence) opus model",
+          "rule_a_pass_rate_strict": 1.00,
+          "rule_a_pass_rate_functional": 1.00,
+          "anti_defect_check": {
+            "C-1_sub_line_SENTENCE_legality": "PASS",
+            "C-2_N21_Rule_D_isolation": "PASS",
+            "C-3_slice_coverage": "N/A (full-file dispatch)",
+            "C-4_Hook_22": "N/A (no hard slice mode)",
+            "C-5_TABLE_HEADER_span_le_1": "PASS (15/15)",
+            "C-6_bold_not_HEADING": "PASS (18/18)",
+            "C-7_LIST_ITEM_prefix": "N/A_vacuous (0 LIST_ITEM, source has none)",
+            "C-8_file_field_full_path": "PASS (244/244)"
+          },
+          "schema_check": "PASS (5/5: 8 required fields / atom_id pattern md_model02_a\\d{3} / extracted_by 3 sub-fields {subagent_type,prompt_version,ts} / HEADING heading_level+sibling_index / atom_type 9-enum)",
+          "open_findings": [],
+          "dispatch_prompt_deviations_executor_correctly_resolved_via_schema_authority": [
+            "extracted_by shape: dispatch said {subagent_type,model,session_date} but schema v1.2 frozen says {subagent_type,prompt_version,ts}; executor used schema (correct)",
+            "batch_id field: dispatch mentioned but schema does not include; executor omitted (correct)",
+            "atom_type names: dispatch said CODE_BLOCK/FIGURE_CAPTION/CALLOUT but schema enum is CODE_LITERAL/FIGURE/NOTE; executor used schema enum (correct)"
+          ],
+          "evidence": {
+            "writer_jsonl": "evidence/checkpoints/P2_B-01_batch_02_md_atoms.jsonl",
+            "rule_a_verdicts": "evidence/checkpoints/rule_a_P2_B-01_batch_02_verdicts.jsonl",
+            "rule_a_summary": "evidence/checkpoints/rule_a_P2_B-01_batch_02_summary.md"
+          }
+        },
+        "batch_03": {
+          "status": "pending",
+          "file": "knowledge_base/model/03_special_purpose_domains.md",
+          "lines": 190,
+          "estimated_atoms": 135
+        },
+        "batch_04": {
+          "status": "pending",
+          "file": "knowledge_base/model/05_study_level_data.md",
+          "lines": 296,
+          "estimated_atoms": 210
+        }
+      }
+    },
+    "remaining_after_B-01": "B-02 chapters/* remaining 5 + ch04 lines 301-1395 5-segment / B-03..B-08 domains/*/assumptions x 62 / B-09..B-14 domains/*/examples x 62 / B-15 top-level x 3"
+  },
+  "md_atoms_jsonl_state": {
+    "path": ".work/06_deep_verification/md_atoms.jsonl",
+    "total_atoms": 750,
+    "atoms_by_file": {
+      "knowledge_base/chapters/ch04_general_assumptions.md": 218,
+      "knowledge_base/domains/CM/assumptions.md": 6,
+      "knowledge_base/domains/CM/examples.md": 77,
+      "knowledge_base/model/01_concepts_and_terms.md": 72,
+      "knowledge_base/model/02_observation_classes.md": 244,
+      "knowledge_base/model/04_associated_persons.md": 24,
+      "knowledge_base/model/06_relationship_datasets.md": 109
+    },
+    "uniqueness_check": "0 dup (jq atom_id sort uniq -d empty post-append)",
+    "schema_compliance": "100% (all atoms post path-fix have knowledge_base/ prefix; all prompt_version P0_writer_md_v1.X canonical literal; all extracted_by structured per schema v1.2)",
+    "files_atomized": 7,
+    "files_in_scope_total": 141
+  },
+  "rule_d_slot_usage_post_p2_b01_batch_02": {
+    "active_pool": [
+      "oh-my-claudecode:executor (writer)",
+      "oh-my-claudecode:scientist (Rule A)",
+      "oh-my-claudecode:code-reviewer (Rule D, last burned at pilot Attempt 1)"
+    ],
+    "banned_writer_family": [
+      "oh-my-claudecode:writer (P2 attempt 1 evidence)",
+      "Explore",
+      "feature-dev:code-explorer",
+      "oh-my-claudecode:document-specialist (no Write tool)"
+    ],
+    "p1_carry_forward_slots_total": 69,
+    "p2_pilot_added_slots": 4,
+    "p2_bulk_b01_batch_01_added_slots": 0,
+    "p2_bulk_b01_batch_02_added_slots": 0,
+    "rule_d_isolation_compliance": "writer (executor) != reviewer (scientist) every batch; same subagent_type reused across batches with fresh dispatch is permitted by Rule D (Rule D bans writer=reviewer same atom, not cross-batch reuse)"
+  },
+  "v1_9_1_candidate_backlog": [
+    {
+      "id": "v1.9.1-1",
+      "severity": "LOW",
+      "source": "B-01 batch 01 Rule A scientist",
+      "description": "md_model06_a029 line_start off-by-one (atom claims line 43 but heading at line 42); writer prompt explicit reminder needed: HEADING atom line_start = source heading physical line number, do not estimate via Read offset",
+      "carry_forward": true
+    }
+  ],
+  "v1_9_1_candidate_count_post_batch_02": 1,
+  "recovery_hint": "Next session: read latest sidecar (this file) + p2_pilot_report.md + multi_session/P2_B-01_batch_03_kickoff.md (TODO write) or reuse batch_02_kickoff §3 spec for batch 03/04. Route word 'P2 bulk B-01 batch 03 开始任务' -> dispatch executor for model/03 (~190 lines / ~135 atoms / single dispatch). 'P2 bulk B-01 batch 04 开始任务' -> dispatch for model/05 (~296 lines / ~210 atoms / single dispatch likely OK).",
+  "last_session_end": "2026-04-29T12:30:00Z",
+  "next_session_recommended_action": "dispatch P2 B-01 batch 03 (model/03 ~190 lines ~135 atoms) per existing kickoff §3 spec; OR continue same session if context allows."
+}

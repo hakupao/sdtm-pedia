@@ -290,9 +290,9 @@
 | batch_id | writer slot | atoms | Rule A reviewer slot | Rule A result | gate |
 |---|---|---|---|---|---|
 | P2_B-01_batch_01 | 70 (executor) | 109 (model/06 full) | 72 (scientist v1.9) | 10/10 = 100% | **PASS** |
-| P2_B-01_batch_02 | TBD | TBD (model/02 ~298 lines, 估 split 2 chunks) | TBD | TBD | pending next session |
-| P2_B-01_batch_03 | TBD | TBD (model/03 190 lines) | TBD | TBD | pending |
-| P2_B-01_batch_04 | TBD | TBD (model/05 ~296 lines, 估 split 2 chunks) | TBD | TBD | pending |
+| P2_B-01_batch_02 | 70 (executor) | 244 (model/02 full, 298 lines, single dispatch) | 72 (scientist v1.9) | 10/10 = 100% strict + functional | **PASS** |
+| P2_B-01_batch_03 | 70 (executor) | 160 (model/03 full, 190 lines, single dispatch) | 72 (scientist v1.9) | 10/10 = 100% strict + functional | **PASS** |
+| P2_B-01_batch_04 | 70 (executor) | 192 (model/05 full, 296 lines, single dispatch — no fallback split needed) | 72 (scientist v1.9) | 10/10 = 100% strict + functional | **PASS** (B-01 全闭环) |
 
 ### v1.9 prompt cut (2026-04-29, post P2 Pilot)
 
@@ -301,12 +301,20 @@
 - 8 NEW patches: **C-1** sub-line SENTENCE 显式允许 / **C-2** N21 全 ban writer-family 扩 MD-side (推翻 H_C 假说) / **C-3** R-MD-Slice-Hard / **C-4** Hook 22 NEW pre-DONE / **C-5** TABLE_HEADER `line_end - line_start ≤ 1` / **C-6** bold non-HEADING ban / **C-7** LIST_ITEM verbatim 全 prefix + multi-sentence / **C-8** file field full repo-relative path
 - MD-side hooks: 18 (v1.7) → 22 (v1.9, +Hook 22+A1+A2+A3)
 
-### Cumulative state post P2 Pilot + B-01 batch 01
+### Cumulative state post P2 Pilot + B-01 cycle complete + cumulative audit + hotfix
 
 | 指标 | 值 |
 |---|---|
-| md_atoms.jsonl total | **506 atoms** (397 pilot + 109 batch 01, 0 dup) |
-| Files atomized | 6 / 141 in-scope (model/01, model/04, model/06, ch04 lines 1-300, CM/assumptions, CM/examples) |
-| v1.9 anti-defect 实测 | 0 across batch 01 (executor v1.9 prompt 工作正常) |
-| Open findings | 1 LOW (md_model06_a029 line_start off-by-one, v1.9.1 候选) |
+| md_atoms.jsonl total | **1102 atoms** (397 pilot + 705 B-01, 0 dup, all 1102 valid JSON, schema 100% 合规 post-hotfix) |
+| Files atomized | 9 / 141 in-scope (model/01-06 全 + ch04 lines 1-300 + CM/assumptions + CM/examples) — **B-01 cycle CLOSED + cumulative audit PASS + hotfix landed** |
+| v1.9 anti-defect 实测 | 0 across batch 01-04 (executor v1.9 prompt 持续 4 batch 0 violation; atom_type 覆盖 batch 02=7/9, batch 03=5/9, batch 04=7/9 含 FIGURE) |
+| Per-batch Rule A audit | 40/40 atoms PASS = 100% (10 sample × 4 batch, scientist 独立独审) |
+| Cumulative cross-batch audit | **28/30 = 93.3% PASS** (code-reviewer 跨 9 file 30-atom 分层独审, gate ≥90% PASS); 抓到 1 HIGH (model/01 a013 figure_ref null, v1.8 pilot 期遗留) + 2 NEW v1.9.1 candidates |
+| Hotfix applied 本 session | md_model01_a013 figure_ref null → `md_model01_sdtm_domains_concept_map` (mirror v1.9 batch 04 convention `md_<stem>_<topic>_concept_map`); extracted_by 加 hotfix_<ts> audit trail key (schema 无 additionalProperties:false 限制, 合规) |
+| Open findings post-hotfix | 1 LOW carry-forward (md_model06_a029 line_start off-by-one, v1.9.1 候选, defer 不修); 0 HIGH 0 MEDIUM |
+| v1.9.1 candidates accumulated | **4** (1 carry-forward LOW + 3 NEW: V1 HIGH figure_ref pre-DONE Hook A4 / V2 MEDIUM parent_section format unification / V3 LOW pilot re-emit DEFERRED-not-doing) |
+| Writer family quality cluster post B-01 | executor v1.9 prompt 4-batch 100% Rule A PASS streak, production-stable for full-file MD-side dispatch |
+| Inter-cycle audit 制度 | B-01 cumulative audit 沉淀为 inter-cycle gate; B-02 入口前 + B-02 闭环后再触发 (30-atom × 累积 N file × code-reviewer × ≥90% gate) |
+| FIGURE atoms total | 3 (md_model01_a013 hotfix + md_model05_a170 + md_model05_a184) all figure_ref non-null post-hotfix |
+| Retrospective | `evidence/checkpoints/B01_retrospective.md` 6 段 (保留做法 / 缺口 / 关键决策复盘 / 量化 / B-02 conditions / 下次 audit trigger) |
 

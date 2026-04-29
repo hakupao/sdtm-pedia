@@ -1,0 +1,192 @@
+{
+  "_note": "Sidecar progress file written 2026-04-29 post P2 B-01 cycle close + cumulative cross-batch audit + hotfix + retrospective. This is the strictness-tier closure: per-batch scientist 40/40 PASS + cumulative code-reviewer 28/30 = 93.3% PASS + 1 HIGH hotfixed in-cycle + retrospective written. B-02 GREEN-LIGHT WITH 4 CONDITIONS (B01_retrospective §5). Closes the rule-A-strict closure interpretation per user 'strict' directive.",
+  "project": "06_deep_verification",
+  "tier": 3,
+  "current_phase": "P2_bulk_in_progress",
+  "current_phase_started": "2026-04-29",
+  "predecessors": [
+    "evidence/checkpoints/_progress_P2_pilot_and_B-01_batch_01.json",
+    "evidence/checkpoints/_progress_P2_B-01_batch_02.json",
+    "evidence/checkpoints/_progress_P2_B-01_complete.json"
+  ],
+  "P2_pilot": {
+    "status": "completed",
+    "completed_at": "2026-04-29T11:00:00Z"
+  },
+  "P2_bulk": {
+    "status": "in_progress",
+    "B-01": {
+      "status": "COMPLETE_AND_AUDITED_AND_HOTFIXED",
+      "completed_at": "2026-04-29T13:30:00Z",
+      "cumulative_audit_completed_at": "2026-04-29T14:00:00Z",
+      "hotfix_completed_at": "2026-04-29T14:00:30Z",
+      "retrospective_at": "2026-04-29T14:05:00Z",
+      "ref": "_progress_P2_B-01_complete.json for batch 01-04 details"
+    },
+    "remaining": "B-02 chapters/* + ch04 lines 301-1395 / B-03..B-08 domains/*/assumptions x 62 / B-09..B-14 domains/*/examples x 62 / B-15 top-level x 3"
+  },
+  "cumulative_audit_post_B01": {
+    "type": "inter-cycle gate",
+    "scope": "P2 pilot + B-01 cycle complete (1102 atoms across 9 files)",
+    "reviewer": {
+      "subagent_type": "oh-my-claudecode:code-reviewer",
+      "model": "opus",
+      "rule_d_isolation_vs_per_batch_scientist": "different subagent_type (scientist vs code-reviewer), independent second-opinion across batches"
+    },
+    "sample_size": 30,
+    "sampling_protocol": "stratified by file proportional to file's atom share; within-file stratified by atom_type",
+    "sample_distribution_by_file": {
+      "ch04_general_assumptions.md": 6,
+      "model/02_observation_classes.md": 6,
+      "model/05_study_level_data.md": 5,
+      "model/03_special_purpose_domains.md": 4,
+      "model/06_relationship_datasets.md": 3,
+      "domains/CM/examples.md": 2,
+      "model/01_concepts_and_terms.md": 2,
+      "model/04_associated_persons.md": 1,
+      "domains/CM/assumptions.md": 1
+    },
+    "strict_pass_rate": 0.933,
+    "functional_pass_rate": 0.933,
+    "gate_threshold": 0.90,
+    "gate_verdict": "PASS",
+    "anti_defect_full_batch_sweep": {
+      "C-1_sub_line_SENTENCE_legality": "PASS (all sample sub-line atoms byte-exact)",
+      "C-2_N21_reviewer_isolation": "PASS (3 distinct subagent_types in audit chain)",
+      "C-3_slice_coverage": "N/A (no hard-slice mode in B-01)",
+      "C-4_Hook_22": "N/A",
+      "C-5_TABLE_HEADER_span": "PASS (62/62 compliant)",
+      "C-6_bold_not_HEADING": "PASS (109/109 HEADING match ^# prefix; 50 NOTE atoms catch bold captions)",
+      "C-7_LIST_ITEM_prefix": "PASS (70/70 valid bullet/numeric prefix)",
+      "C-8_file_field_full_path": "PASS (1102/1102)"
+    },
+    "schema_check_full_batch_sweep_10_checks": {
+      "1_parent_section_format": "MIXED stylistic (v1.8 bracketed §<num> [<title>] vs v1.9 spaced § <title>; not schema violation; 4 sub-variants observed correlated with prompt version)",
+      "2_extracted_by_uniformity": "PASS subagent_type 100% executor; PROMPT_VERSION SPLIT 397 v1.8 + 705 v1.9 (correlated with pilot vs B-01); ts within session window 2026-04-29 only",
+      "3_atom_id_pattern": "PASS (0 mismatches against ^md_[A-Za-z0-9_]+_a\\d{3}$)",
+      "4_no_rogue_fields": "PASS (12 keys all schema-defined)",
+      "5_atom_type_enum": "PASS (all 1102 in 9-enum)",
+      "6_HEADING_completeness": "PASS (109/109 with heading_level + sibling_index)",
+      "7_FIGURE_figure_ref": "FAIL_PRE_HOTFIX_HIGH (md_model01_a013 had figure_ref=null) -> HOTFIXED (now PASS)",
+      "8_line_monotonicity": "MIXED-by-design (model02 break is CODE_LITERAL nested-after-TABLE_ROW per schema notes.code_literal_hard_rule; not violation)",
+      "9_verbatim_dedup": "PASS (all duplicates SDTM table-convention legal)",
+      "10_md_model06_a029_reverify": "CONFIRMED LOW carry-forward (off-by-one L43 vs L42; verbatim correct; 0.9% isolated)"
+    },
+    "findings_summary": {
+      "HIGH": 1,
+      "MEDIUM": 0,
+      "LOW_new": 0,
+      "LOW_carry_forward": 1,
+      "details": [
+        {
+          "id": "V1",
+          "severity": "HIGH",
+          "title": "FIGURE figure_ref completeness validator (Hook A4 pre-DONE)",
+          "source_atom": "md_model01_a013",
+          "disposition": "HOTFIXED in-cycle + Hook A4 added to v1.9.1 backlog (alt: B-02 dispatch-template-level self-check, no v1.9.1 cut needed)",
+          "decision": "B-02 dispatch template gets FIGURE figure_ref self-check; no v1.9.1 prompt cut (lighter-weight)"
+        },
+        {
+          "id": "V2",
+          "severity": "MEDIUM",
+          "title": "parent_section format unification across v1.8/v1.9 corpus",
+          "disposition": "B-02 kickoff declares canonical format §<num>.<num> [<title>] for chapters; v1.9 model/* simplified format (§ <title>) accepted as 源-driven (no formal numbering); two formats tolerated by source-driven branching",
+          "decision": "no re-emit; downstream matcher normalizes if needed"
+        },
+        {
+          "id": "V3",
+          "severity": "LOW",
+          "title": "re-emit pilot 397 atoms under v1.9 to enforce uniform §C-1..C-8",
+          "disposition": "DEFERRED — DENIED",
+          "rationale": "pilot atoms schema-valid; re-emit risk > benefit (introduces new defects, backdates prompt_version, loses honest historical record); pilot prompt_version=v1.8 = honest record of when emitted"
+        },
+        {
+          "id": "v1.9.1-1",
+          "severity": "LOW",
+          "title": "md_model06_a029 line_start off-by-one (L43 claimed, heading at L42)",
+          "carry_forward": true,
+          "decision": "DEFER, no surgical edit (verbatim correct, line metadata aux only, isolated 0.9%, downstream impact minimal)"
+        }
+      ]
+    },
+    "cross_batch_unique_value": "caught defect in pilot-era v1.8 file (model/01) outside all 4 per-batch scientist scopes — would have escaped to B-02 without this audit; validates 2-tier review model (per-batch scientist + cumulative cross-batch reviewer)",
+    "evidence": {
+      "report": "evidence/checkpoints/cumulative_audit_post_B01.md",
+      "verdicts_jsonl": "evidence/checkpoints/cumulative_audit_post_B01_verdicts.jsonl",
+      "retrospective": "evidence/checkpoints/B01_retrospective.md"
+    }
+  },
+  "hotfix_record": {
+    "atom_id": "md_model01_a013",
+    "field": "figure_ref",
+    "before": null,
+    "after": "md_model01_sdtm_domains_concept_map",
+    "applied_at": "2026-04-29T14:00:30Z",
+    "method": "Edit tool surgical edit on line 13 of md_atoms.jsonl, anchored on unique mermaid classDef line",
+    "convention_source": "v1.9 batch 04 figure_ref pattern md_<file_stem>_<topic>_concept_map (mirror md_model05_DI_concept_map / md_model05_OI_concept_map)",
+    "audit_trail": "extracted_by.hotfix_2026-04-29T14:00:00Z key added with finding reference; original prompt_version=v1.8 + ts preserved (no backdating)",
+    "schema_compliance": "extracted_by has no additionalProperties:false constraint, hotfix audit key allowed",
+    "post_fix_verification": {
+      "jsonl_total_lines": 1102,
+      "jsonl_parse_validity": "all 1102 lines valid JSON",
+      "atom_id_dup_check": 0,
+      "missing_required_fields_check": 0,
+      "figure_atoms_with_null_figure_ref": 0,
+      "figure_atoms_total": 3,
+      "schema_compliance": "100%"
+    }
+  },
+  "md_atoms_jsonl_state_post_hotfix": {
+    "path": ".work/06_deep_verification/md_atoms.jsonl",
+    "total_atoms": 1102,
+    "atoms_by_file": {
+      "knowledge_base/chapters/ch04_general_assumptions.md": 218,
+      "knowledge_base/domains/CM/assumptions.md": 6,
+      "knowledge_base/domains/CM/examples.md": 77,
+      "knowledge_base/model/01_concepts_and_terms.md": 72,
+      "knowledge_base/model/02_observation_classes.md": 244,
+      "knowledge_base/model/03_special_purpose_domains.md": 160,
+      "knowledge_base/model/04_associated_persons.md": 24,
+      "knowledge_base/model/05_study_level_data.md": 192,
+      "knowledge_base/model/06_relationship_datasets.md": 109
+    },
+    "uniqueness_check": "0 dup",
+    "schema_compliance": "100% post-hotfix (28/30 audit gate PASS + 1 HIGH hotfixed)",
+    "files_atomized": 9,
+    "files_in_scope_total": 141,
+    "completion_pct_files": "6.4%",
+    "completion_pct_atoms_estimate": "~11% (1102 / ~10000)"
+  },
+  "rule_d_slot_usage_post_cumulative_audit": {
+    "active_pool": [
+      "oh-my-claudecode:executor (writer)",
+      "oh-my-claudecode:scientist (per-batch Rule A)",
+      "oh-my-claudecode:code-reviewer (cumulative cross-batch + Rule D end-to-end)"
+    ],
+    "rule_d_isolation_compliance_full_session": "writer (executor) != per-batch reviewer (scientist) != cumulative reviewer (code-reviewer); 3 distinct subagent_type in audit chain; cumulative audit reviewer subagent_type explicitly different from per-batch reviewer for true second-opinion",
+    "p2_b01_added_slots_total": 0,
+    "p2_b01_pure_cumulative_audit_added_slots": 1
+  },
+  "v1_9_1_candidate_backlog_post_b01_close": {
+    "count": 4,
+    "items": [
+      {"id": "v1.9.1-1", "severity": "LOW", "carry_forward_from": "B-01 batch 01", "title": "HEADING line_start off-by-one (md_model06_a029)", "decision": "DEFER"},
+      {"id": "V1", "severity": "HIGH", "source": "cumulative_audit_post_B01", "title": "FIGURE figure_ref completeness Hook A4", "decision": "B-02 dispatch-template self-check (no v1.9.1 prompt cut)"},
+      {"id": "V2", "severity": "MEDIUM", "source": "cumulative_audit_post_B01", "title": "parent_section format unification across pilot v1.8 + B-01 v1.9", "decision": "B-02 kickoff declares canonical format; chapters use v1.8 §<num>.<num> [<title>] style; model/* uses v1.9 § <title>; source-driven branching"},
+      {"id": "V3", "severity": "LOW", "source": "cumulative_audit_post_B01", "title": "re-emit pilot 397 atoms under v1.9 prompt", "decision": "DENIED (re-emit risk > benefit, preserves honest historical record)"}
+    ]
+  },
+  "B02_entry_conditions_per_retrospective_section_5": [
+    {"id": "C1", "title": "hotfix landed", "status": "DONE"},
+    {"id": "C2", "title": "FIGURE figure_ref pre-DONE check in B-02 dispatch template", "status": "PENDING (B-02 kickoff write task)"},
+    {"id": "C3", "title": "parent_section canonical format declared in B-02 kickoff (chapters: §<num>.<num> [<title>])", "status": "PENDING (B-02 kickoff write task)"},
+    {"id": "C4", "title": "schema field table + atom_type 9-enum verbatim quoted at top of B-02 dispatch template", "status": "PENDING (B-02 kickoff write task)"},
+    {"id": "C5", "title": "md_model06_a029 LOW deferred", "status": "DONE (decision documented in retro)"},
+    {"id": "C6", "title": "B-02 multi-session kickoff written", "status": "PENDING"},
+    {"id": "C7", "title": "user ack of B-01 retrospective", "status": "PENDING"}
+  ],
+  "next_cumulative_audit_trigger": "B-02 entry (sample 30 atoms across 14-19 files, code-reviewer, ≥90% gate)",
+  "recovery_hint": "Next session: read this sidecar (latest in chain) + B01_retrospective.md + cumulative_audit_post_B01.md. B-01 fully closed (all conditions DONE except B-02 kickoff which is the next session's first task). Route word 'P2 bulk B-02 开始任务' once kickoff written. Do NOT enter B-02 without addressing C2/C3/C4/C6 PENDING conditions in retro §5.",
+  "last_session_end": "2026-04-29T14:05:00Z",
+  "next_session_recommended_action": "(option A) write B-02 multi-session kickoff (incorporate C2/C3/C4 conditions inline) and dispatch first batch; (option B) take stock + commit + push current B-01 close state, leave B-02 kickoff to next session"
+}
