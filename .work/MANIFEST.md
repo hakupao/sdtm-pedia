@@ -332,7 +332,7 @@ ai_platforms/ ── Phase 6.5 AI 平台部署 ── [Claude v1 完成 (9/9 PAS
 | **Phase 6.5 NotebookLM 42 bucket config** | **`../ai_platforms/notebooklm/dev/scripts/bucket_config.json`** + **`../ai_platforms/notebooklm/current/uploads/MANIFEST.md`** — 295 md → 42 bucket concept cluster (63/63 domains + 176/176 Req ∅ gap) |
 | **AI 工作质量规则** | **`meta/retrospective.md`** ⚑ 四条预防规则必须遵守 |
 | 查残余风险排查计划 | `03_verification/followup_plan.md` |
-| **docs/jp/ iTMS 納品旁枝** | **`../docs/jp/PLAN.md`** v0.3 (WHAT/WHY, 04 P0 格上げ) + **`../docs/jp/EXECUTION_PLAN.md`** v0.2 (HOW, P0 四点セット 並列効果 11→8→5-6 日) — Chain J; Excel (.xlsx) 主体 / 浅色 IT+医療 / 用語規律 §11 (blacklist + mapping v0.5 + dual standard reference); Phase 0/0.5/0.7/0.5.8 完了 + **Phase 1 P0 着手順 1「04 要件定義書 v1.0」PASS 2026-04-29** (1/4 完了, 残 01/02/03; 用语监查 audit_terms.py 672 行 + extract_xlsx_text.py production 化) |
+| **docs/jp/ iTMS 納品旁枝** | **`../docs/jp/PLAN.md`** v0.3 (WHAT/WHY, 04 P0 格上げ) + **`../docs/jp/EXECUTION_PLAN.md`** v0.2 (HOW, P0 四点セット 並列効果 11→8→5-6 日) — Chain J; Excel (.xlsx) 主体 / 浅色 IT+医療 / 用語規律 §11 (blacklist + mapping v0.5 + dual standard reference); Phase 0/0.5/0.7/0.5.8 完了 + **Phase 1 P0 着手順 1+2「04 要件定義書 + 01 基本設計書」v1.0 PASS 2026-04-29** (2/4 完了, 残 02/03; 三役完全隔離 round 別 instance まで徹底 = 1 サイクル CONDITIONAL_PASS → 2 サイクル PASS 無条件 集束パターン確立; revisions 改訂履歴も用語規律対象であることを 01 で確証 → 04 同パターン踏襲; 主 session 整合補正 1 件 = T-01 トレーサビリティ管理表 primary 復元) |
 
 ## P2 — MD 原子化 (启动 2026-04-29, post P1 CLOSURE 同日)
 

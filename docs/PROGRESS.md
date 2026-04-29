@@ -328,6 +328,7 @@ C-P7-2/3/9 RESOLVED in Phase 7.5 fix bundle (no carryover).
 | Phase 0.5 用語調研 | ✅ 完了 2026-04-29 | 16 規格調査 (15/16 アクセス) + 33 用語写像辞書 v0.3 (3 round 独立確認 PASS) + 99_用語集.xlsx 骨格 (33 entries / 7 シート) |
 | Phase 0.7 Excel 基盤 | ✅ 完了 2026-04-29 | openpyxl 採用 + style_guide.xlsx + cover_template.xlsx + build_xlsx.py 754 行 (schema validation + CJK auto-fit) — 視覚 ack「模板确认没问题」 |
 | Phase 1 P0 着手順 1 (04 要件定義書) | ✅ **v1.0 PASS 2026-04-29** | sha256 f8a5b049… / 起草 R1 → 改修 R2 → 確認担当 R2 PASS 無条件 → 用語監査 R1 指摘 4 件実体修正 (mapping v0.5 + writer v0.2) → 用户 ack; 規律 D 三 type 完全隔離検証 (writer=executor / reviewer=code-reviewer / 用語監査=document-specialist) |
-| Phase 1 P0 残 (01/02/03) | ⏳ 着手順 2-4 待 | 01 基本設計書 (04 業務/機能要件 引用) → 02 運用保守 + 03 試験結果報告書 (04 非機能/制約/前提 引用, 並列可) |
+| Phase 1 P0 着手順 2 (01 基本設計書) | ✅ **v1.0 PASS 2026-04-29** | sha256 12721d04… / 6 シート (1 概要 / 2 全体構成 / 3 データモデル / 4 外部 IF / 5 制約事項 / 6 参考資料) / 4 サブシステム (知識ベース本体 + 検証パイプライン + AI 平台展開 + Phase 7 RAG+KG 設計済・未実装) を扱う設計レベル文書. 04 §3 機能要件 + §4 非機能要件 + §5 制約条件 を実現. 起草 R1 (self-check 9/9 PASS) → 確認 R1 + 用語監査 R1 並列 (CONDITIONAL_PASS, MEDIUM 4+1) → writer R2 で 10 件反映 + 主 session 補正 1 件 (T-01 トレーサビリティ管理表 primary 復元) → 確認 R2 **PASS 無条件** (回帰差分ゼロ) → 用語監査 機械再検査 PASS (blacklist 0 hits / mapping 1 false-positive 既知) → 用户 ack. 三役完全隔離 round 別 instance まで徹底 (規律 D + 規則 D 完全準拠); revisions 改訂履歴も用語規律対象であることを 01 で確証 |
+| Phase 1 P0 残 (02/03) | ⏳ 着手順 3-4 待 | 02 運用保守 (04 §4 非機能 / §5 制約引用) + 03 試験結果報告書 (04 §6 前提引用, 並列可) → Phase 1 P0 closure |
 
 **用語規律統制改訂 (Phase 1 04 着手時)**: term_mapping.yml v0.4 (ack candidates「確認」除外) + v0.5 (writer/drift/chain candidates から汎用日本語語除外) + term_blacklist.yml `audit_rules.exempt_files` 拡張 + `audit_terms.py` 538→672 行 (exempt_files 自動除外) + `extract_xlsx_text.py` 新設.
