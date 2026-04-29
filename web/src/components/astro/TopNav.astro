@@ -8,32 +8,35 @@ interface Props { lang: Lang; pathname: string; }
 const { lang, pathname } = Astro.props;
 const t = getUIStrings(lang);
 ---
-<header class="border-b border-rule">
-  <div class="max-w-screen-xl mx-auto px-7 h-14 flex justify-between items-center">
-    <a href={`/${lang}/`} class="font-mono text-[10px] tracking-[0.12em] text-ink font-bold whitespace-nowrap hover:text-accent transition-colors">
+<header class="border-b border-rule relative">
+  <div class="max-w-screen-xl mx-auto px-5 md:px-7 h-14 flex justify-between items-center gap-3">
+    <a href={`/${lang}/`} class="font-mono text-[9px] md:text-[10px] tracking-[0.12em] text-ink font-bold whitespace-nowrap hover:text-accent transition-colors min-w-0 truncate">
       SDTM Knowledge Base · ISSUE 2026-04 · SDTMIG v3.4
     </a>
-    <button id="mobile-nav-toggle" class="md:hidden font-mono text-base px-2" aria-label="Open menu">☰</button>
-    <nav id="mobile-nav-content" class="hidden md:flex items-center font-mono text-xs tracking-wider text-ink-mute">
-      <div class="flex items-center gap-5">
-        <a href={`/${lang}/#platforms`} class="hover:text-accent">{t['nav.platforms']}</a>
-        <a href={`/${lang}/#demo`} class="hover:text-accent">{t['nav.demo']}</a>
-        <a href={`/${lang}/#downloads`} class="hover:text-accent">{t['nav.download']}</a>
-        <a href={`/${lang}/guide/user-guide/`} class="hover:text-accent">{t['nav.guide']}</a>
+    <button id="mobile-nav-toggle" class="md:hidden font-mono text-base px-2 shrink-0" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav-content">☰</button>
+    <nav
+      id="mobile-nav-content"
+      class="hidden md:flex md:items-center font-mono text-xs tracking-wider text-ink-mute md:static absolute left-0 right-0 top-14 bg-bg border-b border-rule md:border-b-0 md:bg-transparent flex-col md:flex-row z-40 px-5 md:px-0 py-3 md:py-0"
+    >
+      <div class="flex flex-col md:flex-row md:items-center gap-3 md:gap-5 w-full md:w-auto">
+        <a href={`/${lang}/#platforms`} class="hover:text-accent py-1 md:py-0">{t['nav.platforms']}</a>
+        <a href={`/${lang}/#demo`} class="hover:text-accent py-1 md:py-0">{t['nav.demo']}</a>
+        <a href={`/${lang}/#downloads`} class="hover:text-accent py-1 md:py-0">{t['nav.download']}</a>
+        <a href={`/${lang}/guide/user-guide/`} class="hover:text-accent py-1 md:py-0">{t['nav.guide']}</a>
       </div>
-      <div class="flex items-center ml-5 divide-x divide-rule">
+      <div class="flex flex-col md:flex-row md:items-center md:ml-5 md:divide-x divide-rule mt-3 md:mt-0 pt-3 md:pt-0 border-t md:border-t-0 border-rule w-full md:w-auto gap-2 md:gap-0">
         <button
           type="button"
-          class="px-4 hover:text-accent"
+          class="md:px-4 py-1 md:py-0 text-left md:text-center hover:text-accent"
           onclick="document.dispatchEvent(new KeyboardEvent('keydown', {key:'k', metaKey:true}))"
           aria-label={t['search.label']}
         >
           {t['search.label']}
         </button>
-        <span class="px-4 flex items-center">
+        <span class="md:px-4 py-1 md:py-0 flex items-center">
           <LangSwitcher client:load currentLang={lang} pathname={pathname} />
         </span>
-        <span class="px-4 flex items-center">
+        <span class="md:px-4 py-1 md:py-0 flex items-center">
           <ThemeToggle
             client:load
             navLabel={t['theme.label']}
@@ -44,7 +47,7 @@ const t = getUIStrings(lang);
             }}
           />
         </span>
-        <span class="pl-4 flex items-center">
+        <span class="md:pl-4 py-1 md:py-0 flex items-center">
           <FontSizeToggle
             client:load
             navLabel={t['fontsize.label']}
@@ -65,6 +68,7 @@ const t = getUIStrings(lang);
   const btn = document.getElementById('mobile-nav-toggle');
   const nav = document.getElementById('mobile-nav-content');
   btn?.addEventListener('click', () => {
-    nav?.classList.toggle('hidden');
+    const wasHidden = nav?.classList.toggle('hidden');
+    btn.setAttribute('aria-expanded', String(!wasHidden));
   });
 </script>

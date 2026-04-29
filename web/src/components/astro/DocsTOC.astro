@@ -1,9 +1,12 @@
 ---
-interface Props { headings: { depth: number; slug: string; text: string }[]; }
-const { headings } = Astro.props;
+interface Props {
+  headings: { depth: number; slug: string; text: string }[];
+  variant?: 'desktop-aside' | 'mobile-inline';
+}
+const { headings, variant = 'desktop-aside' } = Astro.props;
 const filtered = headings.filter((h) => h.depth === 2 || h.depth === 3);
 ---
-{filtered.length > 0 && (
+{filtered.length > 0 && variant === 'desktop-aside' && (
   <aside class="w-56 p-5 hidden xl:block sticky top-0 self-start max-h-screen overflow-y-auto shrink-0">
     <div class="font-mono text-[9px] tracking-wider text-ink-mute mb-3">ON THIS PAGE</div>
     <ul class="flex flex-col gap-1 font-serif text-[12px]">
@@ -17,19 +20,38 @@ const filtered = headings.filter((h) => h.depth === 2 || h.depth === 3);
     </ul>
   </aside>
 )}
-<script>
-  const links = document.querySelectorAll('[data-toc-link]');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((e) => {
-      if (e.isIntersecting) {
-        const id = (e.target as HTMLElement).id;
-        links.forEach((l) => {
-          const match = l.getAttribute('data-toc-link') === id;
-          l.classList.toggle('text-accent', match);
-          l.classList.toggle('font-bold', match);
-        });
-      }
-    });
-  }, { rootMargin: '-30% 0px -60% 0px' });
-  document.querySelectorAll('h2[id], h3[id]').forEach((h) => observer.observe(h));
-</script>
+{filtered.length > 0 && variant === 'mobile-inline' && (
+  <details class="xl:hidden border-y border-rule mb-6 group">
+    <summary class="cursor-pointer py-3 font-mono text-[10px] tracking-wider text-ink-mute hover:text-accent flex items-center justify-between">
+      <span>ON THIS PAGE</span>
+      <span class="transition-transform group-open:rotate-180" aria-hidden="true">▾</span>
+    </summary>
+    <ul class="flex flex-col gap-1 font-serif text-[13px] pb-3">
+      {filtered.map((h) => (
+        <li class={h.depth === 3 ? 'pl-3' : ''}>
+          <a href={`#${h.slug}`} class="text-ink-mute hover:text-accent block py-1" data-toc-link={h.slug}>
+            {h.text}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </details>
+)}
+{variant === 'desktop-aside' && (
+  <script>
+    const links = document.querySelectorAll('[data-toc-link]');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          const id = (e.target as HTMLElement).id;
+          links.forEach((l) => {
+            const match = l.getAttribute('data-toc-link') === id;
+            l.classList.toggle('text-accent', match);
+            l.classList.toggle('font-bold', match);
+          });
+        }
+      });
+    }, { rootMargin: '-30% 0px -60% 0px' });
+    document.querySelectorAll('h2[id], h3[id]').forEach((h) => observer.observe(h));
+  </script>
+)}
