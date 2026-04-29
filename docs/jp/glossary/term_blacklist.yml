@@ -1,0 +1,143 @@
+# docs/jp/glossary/term_blacklist.yml
+# 納品物 (.xlsx) 内 一切使用禁止語リスト
+#
+# 本ファイルの位置づけ:
+#   - 納品物 (.xlsx) 内では下記の語を一切使用しない
+#   - 内部文書 (PLAN.md / EXECUTION_PLAN.md / 00_README.md / CHANGELOG.md) は対象外
+#   - 用語監査 (PASS 五条 第 4 条) で `scripts/audit_terms.py` が機械検査
+#
+# 維持規則:
+#   - 新たに開発過程の内部用語を見つけたら追記
+#   - 削除する場合は理由を CHANGELOG.md に記録
+#   - 各 term の suggested_replacement は term_mapping.yml で正式採用語を確定
+
+version: 0.1
+created: 2026-04-29
+maintained_in: docs/jp/PLAN.md §11.1 + EXECUTION_PLAN.md
+audit_script: docs/jp/scripts/audit_terms.py
+
+categories:
+
+  # 開発工程・タスク管理用語
+  process_jargon:
+    - term: round
+      suggested_replacement: ["回次", "フェーズ"]
+      reason: 開発内部のイテレーション番号. 納品先には無関係.
+    - term: batch
+      suggested_replacement: ["ロット", "バッチ処理", "一括処理"]
+      reason: 文脈次第で意味が変わる. 機械的訳語禁止.
+    - term: kickoff
+      suggested_replacement: ["開始指示", "着手指示"]
+      reason: 英語直訳のカタカナ語は職場慣習に合わない場合あり.
+    - term: handoff
+      suggested_replacement: ["引継ぎ", "引渡し"]
+      reason: 同上.
+    - term: cut
+      suggested_replacement: ["版締め", "版確定"]
+      reason: 開発内部の版管理用語.
+    - term: multi-session
+      suggested_replacement: ["並列作業", "複数班作業"]
+      reason: ツール固有用語.
+    - term: reconciler
+      suggested_replacement: ["整合確認担当", "突合担当"]
+      reason: 開発内部役割名.
+    - term: writer
+      suggested_replacement: ["作成担当", "起草者"]
+      reason: agent 役割名は納品先には開示しない.
+    - term: reviewer
+      suggested_replacement: ["確認担当", "レビュー担当"]
+      reason: 同上.
+    - term: subagent
+      suggested_replacement: ["担当者", "処理プロセス"]
+      reason: AI 開発手法の内部用語.
+
+  # データ・成果物用語
+  artifact_jargon:
+    - term: atom
+      suggested_replacement: ["項目", "データ単位", "情報単位"]
+      reason: 開発内部の最小単位呼称. 採用語は term_mapping.yml で確定.
+    - term: ledger
+      suggested_replacement: ["管理表", "突合表", "対応表"]
+      reason: 同上.
+    - term: evidence
+      suggested_replacement: ["証跡", "裏付資料", "根拠資料"]
+      reason: 規制業界での標準訳に合わせる.
+    - term: drift
+      suggested_replacement: ["ずれ", "乖離"]
+      reason: 開発内部用語.
+    - term: dropout
+      suggested_replacement: ["対象外", "除外項目", "除外対象"]
+      reason: 文脈次第.
+    - term: progress.json
+      suggested_replacement: ["進捗管理ファイル"]
+      reason: 内部ファイル名は開示しない.
+    - term: worklog
+      suggested_replacement: ["作業記録", "作業日誌"]
+      reason: 内部ファイル呼称.
+
+  # 工程管理・規律用語
+  governance_jargon:
+    - term: Rule D
+      suggested_replacement: ["審査独立性原則"]
+      reason: 内部規律名はそのまま使用しない.
+    - term: PASS 四条
+      suggested_replacement: ["合格判定基準"]
+      reason: 同上.
+    - term: PASS 五条
+      suggested_replacement: ["合格判定基準"]
+      reason: 同上.
+    - term: Tier 1
+      suggested_replacement: ["小規模分類"]
+      reason: 内部分類は開示しない.
+    - term: Tier 2
+      suggested_replacement: ["中規模分類"]
+      reason: 同上.
+    - term: Tier 3
+      suggested_replacement: ["大規模分類"]
+      reason: 同上.
+    - term: chain
+      suggested_replacement: ["変更連鎖", "同期対象"]
+      reason: 開発内部用語.
+    - term: gate
+      suggested_replacement: ["関門", "判定", "承認関門"]
+      reason: 同上.
+    - term: ack
+      suggested_replacement: ["承認", "確認", "了承"]
+      reason: 同上.
+
+  # 口語・俗語 (常時禁止)
+  colloquial:
+    - term: だいたい
+      suggested_replacement: ["概ね", "約"]
+      reason: 技術文書では曖昧な口語表現は避ける.
+    - term: ちゃんと
+      suggested_replacement: ["適切に", "確実に"]
+      reason: 同上.
+    - term: ざっくり
+      suggested_replacement: ["概略", "概要として"]
+      reason: 同上.
+    - term: いい感じ
+      suggested_replacement: ["適切な状態", "良好な状態"]
+      reason: 同上.
+    - term: アトム
+      suggested_replacement: ["項目", "データ単位"]
+      reason: 英語直訳のカタカナ語は職場慣習に合わない.
+    - term: レジャー
+      suggested_replacement: ["管理表"]
+      reason: 同上.
+    - term: サブエージェント
+      suggested_replacement: ["担当者", "処理プロセス"]
+      reason: 同上.
+
+audit_rules:
+  case_sensitive: false
+  match_whole_word: true
+  exempt_files:
+    - PLAN.md
+    - EXECUTION_PLAN.md
+    - 00_README.md
+    - CHANGELOG.md
+    - _progress.json
+    - glossary/**
+    - failures/**
+  scope: deliverables_only

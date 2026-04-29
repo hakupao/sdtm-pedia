@@ -6,7 +6,36 @@
 
 # 工作日志 (Work Log)
 
-### 2026-04-29 PM METHODOLOGY 公开声明语体重写 — 监管临床 IT 合规口径 (FDA/PMDA/EMA · ICH E6 (R3) · ALCOA+ · GAMP 5)
+### 2026-04-29 PM iTMS 納品旁枝 docs/jp/ — Phase 0 / 0.5 / 0.7 / 0.5.8 全閉合 + PLAN v0.3 (04 要件定義書 を P0 格上げ, 工程順序整合) — Phase 1 起動準備可
+
+- **触发**: ユーザー指示 "docs/jp/PLAN.md + EXECUTION_PLAN.md + _progress.json + WORKLOG.md を読んで, Phase 0.5 完了状態を確認した上で Phase 0.7 (Excel スタイル基盤) を起動して. EXECUTION_PLAN §3 Phase 0.7 の派発計画通りに進めて". Phase 0 + Phase 0.5 用語調研 (16 規格 / 33 entries / term_mapping.yml v0.3 PASS Round 3) は前 session で完了済, 本 session は Phase 0.7 (Excel スタイル基盤 6 step) → Phase 0.5.8 (用語集 xlsx 骨格) → 走法 B 厳守の Round 2 PASS → PLAN v0.3 改訂 (04 要件定義書 P0 格上げ) を完遂.
+- **完了の工程**:
+  - **Phase 0.7 Excel 基盤 6 step**: 0.7.1 architect (engine 確定 = openpyxl 3.1.5, I-6 解消) → 0.7.2 executor (style_guide.xlsx 6 sheets / 17.4KB) + 0.7.3 executor (cover_template.xlsx 5 sheets / 10.7KB, 並列) → 0.7.4 executor (build_xlsx.py + _styles.py 共通化 + sample_demo.yml + sample_demo.xlsx 7 sheets) → 0.7.5 R1 code-reviewer **CONDITIONAL_PASS** (HIGH 0 / MEDIUM 3 / LOW 4, 機械検証 6/6 全 PASS) → 0.7.6 user 視覚 ack「模板确认没问题」→ 走法 B 採用 → executor remediation (M-1 schema 検証 4 ガード + M-3 docstring 8 関数, build_xlsx.py 564 → 754 行) → 0.7.5 R2 code-reviewer **PASS 無条件** (M-1 6/6 + M-3 8/8 + 副作用ゼロ + 回帰 diff=0) → Phase 0.7 final close.
+  - **Phase 0.5.8 用語集 .xlsx 骨格**: yml_to_glossary.py (新規, term_mapping.yml v0.3 → build_xlsx 入力形式変換, blacklist 鉤括弧 wrap 規律準拠) → 99_用語集.yml → build_xlsx.py 経由 99_用語集.xlsx (7 sheets / 24.8KB / 33 entries / blacklist 33 語 deliverable scope 0 hits / 中文列は Phase 3 充填用 placeholder).
+  - **Phase 1 着手前 LOW patch** (Bojiang 判断 走法 Y): build_xlsx.py に CJK-aware 列幅 auto-fit (上限 60 char, 全角=2 半角=1) + note_rows 任意キー注意行スタイル分岐 (ZEBRA 背景 + caption_gray + italic) を追加. 754 → 877 行 (+123). 失敗系 5/5 rc=1 検証 (note_rows 型検証 1 件新規追加), sample_demo cell-value diff = 0 (回帰なし), 99_用語集 列幅 5 columns 自動調整 + 注意行 3/3 視覚区別.
+  - **PLAN v0.2 → v0.3 改訂** (Bojiang 質問 "从基本设计书开始写吗 没有要件定义书吗" → 工程順序として 04 要件定義書を先頭にすべきという指摘): 04 要件定義書 を P1 → **P0** 格上げ. PLAN §1 表に着手順列を追加 (04 → 01 → 02 → 03 → 05 → 07 → 06). PLAN §5 Phase 1 を「P0 三点」→「P0 四点」(2.5-3.5 日), Phase 2 を 05 単独 (1 日) に再分割. EXECUTION_PLAN §3 Phase 1 スケジュールを「Day 1 = 04 直列 → Day 1 後半/Day 2 = 01 直列 → Day 3 = 02 + 03 並列 → Day 4 = 用語監査 並列」に更新. §8 並列効果サマリ所要工数を 11.5/8/5.5-6 日 (直列/並列/多 session) で再算出. _progress.json に各文書 priority + kickoff_order メタ追加. CHANGELOG.md に PLAN v0.3 + EXEC v0.2 entry 2 件 append.
+- **本 session 産物 (新規 docs/jp/ 配下)**:
+  - **計画系**: `PLAN.md` (v0.3) / `EXECUTION_PLAN.md` (v0.2) / `_progress.json` (Tier 2 schema, 全 7 phase 構造化) / `CHANGELOG.md` (改訂履歴 4 entry) / `00_README.md` / `WORKLOG.md`
+  - **用語規律 (glossary/)**: `term_blacklist.yml` (33 語) / `term_mapping.yml` (v0.3, 33 entries / 542 行 / Round 3 PASS) / `reference_standards.md` (16 規格 一覧) / `research_reports/` 配下に 11 件 (session_A/B/C 規格調研 + reviewer R1/R2/R3 + Phase 0.7.{1,2,3,4,5_R1,5_R2_remediation,5_R2_review} + 0.5.8 + LOW remediation)
+  - **Excel 基盤 (scripts/)**: `_styles.py` (共通モジュール, 配色 9 + フォント 5 + ヘルパ) / `build_xlsx.py` (877 行, schema 検証 7 ガード + 8 関数 docstring + 列幅 auto-fit + note_rows) / `generate_style_guide.py` (642 行) / `generate_cover_template.py` (507 行) / `yml_to_glossary.py` (term_mapping → glossary yml 変換)
+  - **テンプレ + 納品物 (templates/, 直下)**: `templates/style_guide.xlsx` (6 sheets / 17.4KB) / `templates/cover_template.xlsx` (5 sheets / 10.7KB) / `templates/sample_demo.xlsx` (7 sheets / 13.1KB) / `99_用語集.xlsx` (骨格 v0.1, 7 sheets / 24.8KB)
+  - **入力源 (sources/)**: `sample_demo.yml` / `99_用語集.yml`
+  - **失敗保管 (failures/)**: 0 件 (本 session ゼロ failure attempt)
+- **build_xlsx.py 進化履歴**: Phase 0.7 R1 PoC 564 行 → R2 M-1 schema validation + M-3 docstring +191 → 754 行 → 0.5.8 LOW patch 列幅 + note_rows +123 → **877 行** (final). 7 ガード schema 検証 + 8 関数 docstring + CJK 列幅 auto-fit + 注意行スタイル分岐 + 失敗系 rc=1 5/5 検証 + 後方互換 (任意キー note_rows / column_widths は無くても従来動作).
+- **关键决策**:
+  - **D-jp-1 走法 B 採用** (CONDITIONAL_PASS でも 0.7.6 進めず Round 2 PASS を取る): Phase 0.5 round 1 → round 3 PASS 先例に倣い, 走法 A (時間優先) より走法 B (規律厳守) を選択. 結果として M-1 + M-3 を Phase 1 着手前に閉じた + Round 2 reviewer が executor 主張外 +2 件 (空白のみ sheet 名 / sheets キー欠落) を独立追加検証.
+  - **D-jp-2 LOW 2 件を Phase 1 着手前に修正** (Bojiang 判断 Y): Phase 0.5.8 で発見した build_xlsx.py の列幅 + 注意行 LOW 2 件は Phase 1 で 7 文書すべてに波及するため早期修正. 結果として後方互換 (note_rows / column_widths 任意キー) 維持 + sample_demo cell-value diff=0 + 失敗系 5/5 (新規 1 件追加) で品質保持.
+  - **D-jp-3 PLAN v0.3 04 要件定義書 P0 格上げ** (Bojiang 質問起点): v0.2 で「受信者視点 = 既存成果物の規格 (基本設計 + 運用 + 試験) を P0 視」だった優先度設計を, 「日本職場標準工程順序 (要件 → 設計 → 試験 → 運用)」に整合. 04 を先頭に書くことで後段 3 文書 (01/02/03) が 04 の業務要件 / 機能要件 / 非機能要件 / 制約 / 前提 を引用できる構造に. ファイル番号は不変 (連番) + 着手順列で順序を表現.
+  - **D-jp-4 99_用語集 中文列 placeholder 留保**: Phase 0.5.8 骨格段階では中文訳を全 33 行 placeholder. Phase 3 仕上げで Bojiang or document-specialist が充填する前提. 既知用語 (SDTM / CDISC 等) は executor 判断で先行充填の余地あり.
+  - **D-jp-5 deferred 5 件 Phase 1 着手前/設計事項として pin**: M-2 (仕様書 25 vs 実 33 語ドリフト → audit_terms.py 設計時 yml 単一ソース化) / L-1 (重複ヘルパ整理) / L-2 (cover_template __placeholders 非表示化) / L-3 (図表番号自動採番設計) / L-4 (prohibited_items データ外出し). HIGH 0 件のため Phase 1 着手をブロックしない.
+- **Rule 合规** (Tier 2 旁枝):
+  - **Rule A 語意抽検 N≥3 写在 PLAN** ✓: 配色 9 種 + ARGB 9 種 (Round 1 reviewer 全 18 抽検 100%) + フォント 5 種 + シート 18 枚 (style_guide 6 + cover_template 5 + sample_demo 7) + 失敗系 5/5 + blacklist 33 語 × 3 xlsx 全 deliverable scope 0 hits. 規律 A の N=3 強制を大幅超過 (実 N≥18 各観点で).
+  - **Rule B 失败归档不删** ✓: 本 session 0 failure attempt (failures/ 配下空ディレクトリ).
+  - **Rule C retro 强制** Phase 4 集約予定 (Tier 2 規則 — 全 phase 完了時 RETROSPECTIVE.md 1 本に集約; Phase 0.7 / 0.5.8 / LOW patch 個別 retro は CHANGELOG.md + research_reports/ で代替).
+  - **Rule D writer/reviewer 不能是同一 agent 同一 session 自審** ✓: Phase 0.7 R1 + R2 とも writer = `oh-my-claudecode:executor` (Sonnet) + reviewer = `oh-my-claudecode:code-reviewer` (Opus 異 type) + 用語監査見越して `oh-my-claudecode:document-specialist` (Phase 1 で発動予定) — 3 type 全異, 同 context 自審ゼロ.
+- **下一步**: Phase 1 P0 四点セット 起動 = **04_要件定義書.xlsx writer 派発** (executor, kickoff_order=1). Day 1 直列で reviewer + 用語監査 + user ack まで. その後 01_基本設計書 (Day 1 後半 / Day 2), 02 + 03 並列 (Day 3), 用語監査並列 + ack (Day 4 前半). 推定工数 2.5-3.5 日.
+
+
 
 - **触发**: 用户审阅四份既有 METHODOLOGY 文件 (root + `ai_platforms/release/v1.0/METHODOLOGY.{en,zh,ja}.md`) 反映「表述措辞低级, 缺医疗 + IT 双重属性, 应严肃沉稳, 减少口语化, 要规范」, 要求按规范+严肃文风重写并多查资料.
 - **完成的工作** (commits `844afb3` 原始落地 → `6bf3580` 合规口径 reframe → 本 wrap-up 收尾):
