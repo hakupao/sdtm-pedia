@@ -78,6 +78,7 @@ Full chain definitions are in `.work/MANIFEST.md`.
 | Phase 6.5 NotebookLM | `ai_platforms/notebooklm/` (current/ + docs/RETROSPECTIVE.md) |
 | Phase 6.5 Claude Projects | `ai_platforms/claude_projects/` (current/UPLOAD_TUTORIAL.md + docs/) |
 | Phase 6.5 Release v1.0 | `ai_platforms/release/v1.0/` + `.work/07_release/{PLAN,RETROSPECTIVE}.md` (tag `v1.0-company-release`) |
+| METHODOLOGY 公开声明 | `METHODOLOGY.md` + `ai_platforms/release/v1.0/METHODOLOGY.{en,zh,ja}.md` |
 | 07 Website Phases 6-8 (closed) | `.work/07_website/phase{6,7,8}/` + handoffs `.work/meta/website_phase*_handoff_*.md`; prod https://sdtm-pedia.pages.dev/ |
 
 ## AI 平台双平台并行部署 (锁步规则)
