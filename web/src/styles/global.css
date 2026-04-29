@@ -113,22 +113,29 @@ body {
   font-size: calc(16px * var(--ui-font-scale) + var(--ui-font-bump));
 }
 
-body :where(.text-\[8px\]):not(.prose-doc, .prose-doc *) { font-size: calc(8px * var(--ui-font-scale) + var(--ui-font-bump)); }
-body :where(.text-\[9px\]):not(.prose-doc, .prose-doc *) { font-size: calc(9px * var(--ui-font-scale) + var(--ui-font-bump)); }
-body :where(.text-\[10px\]):not(.prose-doc, .prose-doc *) { font-size: calc(10px * var(--ui-font-scale) + var(--ui-font-bump)); }
-body :where(.text-\[11px\]):not(.prose-doc, .prose-doc *) { font-size: calc(11px * var(--ui-font-scale) + var(--ui-font-bump)); }
-body :where(.text-\[12px\]):not(.prose-doc, .prose-doc *) { font-size: calc(12px * var(--ui-font-scale) + var(--ui-font-bump)); }
-body :where(.text-\[13px\]):not(.prose-doc, .prose-doc *) { font-size: calc(13px * var(--ui-font-scale) + var(--ui-font-bump)); }
-body :where(.text-\[15px\]):not(.prose-doc, .prose-doc *) { font-size: calc(15px * var(--ui-font-scale) + var(--ui-font-bump)); }
-body :where(.text-sm):not(.prose-doc, .prose-doc *) { font-size: calc(14px * var(--ui-font-scale) + var(--ui-font-bump)); }
-body :where(.text-base):not(.prose-doc, .prose-doc *) { font-size: calc(16px * var(--ui-font-scale) + var(--ui-font-bump)); }
-body :where(.text-lg):not(.prose-doc, .prose-doc *) { font-size: calc(18px * var(--ui-font-scale) + var(--ui-font-bump)); }
-body :where(.text-2xl):not(.prose-doc, .prose-doc *) { font-size: calc(24px * var(--ui-font-scale) + var(--ui-font-bump)); }
-body :where(.text-3xl):not(.prose-doc, .prose-doc *) { font-size: calc(30px * var(--ui-font-scale) + var(--ui-font-bump)); }
-body :where(.text-4xl):not(.prose-doc, .prose-doc *) { font-size: calc(36px * var(--ui-font-scale) + var(--ui-font-bump)); }
+body .text-\[8px\]:not(.prose-doc, .prose-doc *) { font-size: calc(8px * var(--ui-font-scale) + var(--ui-font-bump)); }
+body .text-\[9px\]:not(.prose-doc, .prose-doc *) { font-size: calc(9px * var(--ui-font-scale) + var(--ui-font-bump)); }
+body .text-\[10px\]:not(.prose-doc, .prose-doc *) { font-size: calc(10px * var(--ui-font-scale) + var(--ui-font-bump)); }
+body .text-\[11px\]:not(.prose-doc, .prose-doc *) { font-size: calc(11px * var(--ui-font-scale) + var(--ui-font-bump)); }
+body .text-\[12px\]:not(.prose-doc, .prose-doc *) { font-size: calc(12px * var(--ui-font-scale) + var(--ui-font-bump)); }
+body .text-\[13px\]:not(.prose-doc, .prose-doc *) { font-size: calc(13px * var(--ui-font-scale) + var(--ui-font-bump)); }
+body .text-\[15px\]:not(.prose-doc, .prose-doc *) { font-size: calc(15px * var(--ui-font-scale) + var(--ui-font-bump)); }
+body .text-xs:not(.prose-doc, .prose-doc *) { font-size: calc(12px * var(--ui-font-scale) + var(--ui-font-bump)); }
+body .text-sm:not(.prose-doc, .prose-doc *) { font-size: calc(14px * var(--ui-font-scale) + var(--ui-font-bump)); }
+body .text-base:not(.prose-doc, .prose-doc *) { font-size: calc(16px * var(--ui-font-scale) + var(--ui-font-bump)); }
+body .text-lg:not(.prose-doc, .prose-doc *) { font-size: calc(18px * var(--ui-font-scale) + var(--ui-font-bump)); }
+body .text-2xl:not(.prose-doc, .prose-doc *) { font-size: calc(24px * var(--ui-font-scale) + var(--ui-font-bump)); }
+body .text-3xl:not(.prose-doc, .prose-doc *) { font-size: calc(30px * var(--ui-font-scale) + var(--ui-font-bump)); }
+body .text-4xl:not(.prose-doc, .prose-doc *) { font-size: calc(36px * var(--ui-font-scale) + var(--ui-font-bump)); }
 
 @media (min-width: 48rem) {
-  body :where(.md\:text-6xl):not(.prose-doc, .prose-doc *) {
+  body .md\:text-\[10px\]:not(.prose-doc, .prose-doc *) {
+    font-size: calc(10px * var(--ui-font-scale) + var(--ui-font-bump));
+  }
+  body .md\:text-4xl:not(.prose-doc, .prose-doc *) {
+    font-size: calc(36px * var(--ui-font-scale) + var(--ui-font-bump));
+  }
+  body .md\:text-6xl:not(.prose-doc, .prose-doc *) {
     font-size: calc(60px * var(--ui-font-scale) + var(--ui-font-bump));
   }
 }
@@ -143,16 +150,21 @@ body :where(.text-4xl):not(.prose-doc, .prose-doc *) { font-size: calc(36px * va
 }
 
 .enter-fade {
+  opacity: 1;
+  transform: none;
+}
+
+.enter-fade-ready .enter-fade {
   opacity: 0;
   transform: translateY(6px);
   transition: opacity 400ms ease-out, transform 400ms ease-out;
 }
-.enter-fade.is-visible {
+.enter-fade-ready .enter-fade.is-visible {
   opacity: 1;
   transform: translateY(0);
 }
 @media (prefers-reduced-motion: reduce) {
-  .enter-fade { opacity: 1; transform: none; transition: none; }
+  .enter-fade-ready .enter-fade { opacity: 1; transform: none; transition: none; }
 }
 
 /* a11y: visible focus ring for keyboard navigation. Phase 9 / master plan §10.2. */

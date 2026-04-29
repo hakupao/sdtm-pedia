@@ -25,7 +25,7 @@ const pathname = Astro.url.pathname;
         <span>LANG · {lang.toUpperCase()}</span>
       </div>
       <DocsTOC headings={headings} variant="mobile-inline" />
-      <div class="prose-doc">
+      <div class="prose-doc" data-pagefind-body>
         <slot />
       </div>
       <PrevNextNav lang={lang} currentSlug={slug} />

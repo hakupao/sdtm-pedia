@@ -10,7 +10,7 @@ const pathname = Astro.url.pathname;
 ---
 <BaseLayout title={title} lang={lang} pagefindIgnore={pagefindIgnore}>
   <TopNav lang={lang} pathname={pathname} />
-  <main>
+  <main data-pagefind-body>
     <slot />
   </main>
   <Footer lang={lang} />
