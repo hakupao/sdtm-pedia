@@ -1,0 +1,224 @@
+{
+  "$schema_note": "Tier 2 progress schema for docs/jp/ (iTMS 納品旁枝)",
+  "branch": "docs/jp",
+  "tier": 2,
+  "recipient": "iTMS 株式会社",
+  "created": "2026-04-29",
+  "updated": "2026-04-29",
+  "current_phase": "phase_1_kickoff_ready (Phase 0 + 0.5 + 0.7 + 0.5.8 + LOW patch すべて完了; Phase 1 P0 三点セット 起動可)",
+  "phases": {
+    "phase_0_setup": {
+      "status": "completed",
+      "started_at": "2026-04-29",
+      "pass_at": "2026-04-29",
+      "tasks": {
+        "0_1_directory_skeleton": "completed",
+        "0_2_progress_json": "completed",
+        "0_3_changelog": "completed",
+        "0_4_readme": "completed",
+        "0_5_term_blacklist": "completed",
+        "0_6_reference_standards": "completed",
+        "0_7_manifest_claude_md_update": "completed"
+      },
+      "next_phase_gate": "Phase 0.5 — 用語調研 (1-2 日, 短縮厳禁) — 用户合図待ち"
+    },
+    "phase_0_5_terminology_research": {
+      "status": "in_progress",
+      "started_at": "2026-04-29",
+      "pass_at": null,
+      "subtasks": {
+        "0_5_1_IT_standards": {"status": "completed", "evidence": "docs/jp/glossary/research_reports/session_A_IT_standards_2026-04-29.md", "access_success": "6/7"},
+        "0_5_2_medical_standards": {"status": "completed", "evidence": "docs/jp/glossary/research_reports/session_B_medical_standards_2026-04-29.md", "access_success": "5/5"},
+        "0_5_3_supplementary": {"status": "completed", "evidence": "docs/jp/glossary/research_reports/session_C_supplementary_standards_2026-04-29.md", "access_success": "4/4"},
+        "0_5_4_term_mapping_proposal": {"status": "completed", "completed_at": "2026-04-29", "batches": "3 parallel (process+governance=11, artifact+SDTM=10, formal+colloquial=12)", "total_entries": 33},
+        "0_5_5_integrate_mapping_yml": {"status": "completed", "completed_at": "2026-04-29", "output": "docs/jp/glossary/term_mapping.yml", "lines": 517, "cross_batch_reconciliations": 1, "reconciliation_note": "subagent vs サブエージェント unified to 実行担当者"},
+        "0_5_6_independent_review": {
+          "status": "PASS_round_3",
+          "completed_at": "2026-04-29",
+          "total_rounds": 3,
+          "final_verdict": "PASS (term_mapping.yml v0.3)",
+          "rounds": [
+            {"round": 1, "started_at": "2026-04-29", "agent": "oh-my-claudecode:code-reviewer", "rule_d_isolation": "writer=document-specialist, reviewer=code-reviewer (異 type)", "verdict": "CONDITIONAL_PASS", "findings": {"HIGH": 2, "MEDIUM": 5, "LOW": 4, "informational": 6}, "evidence": "docs/jp/glossary/research_reports/reviewer_report_term_mapping_v0.1_2026-04-29.md"},
+            {"round": 2, "started_at": "2026-04-29", "agent": "oh-my-claudecode:code-reviewer", "rule_d_isolation": "同上", "verdict": "CONDITIONAL_PASS", "input_version": "term_mapping.yml v0.2", "findings": {"HIGH": 1, "MEDIUM": 1, "LOW": 1, "informational": 6}, "new_findings": ["N-1 [HIGH] reviewer_checklist YAML 構文エラー (`- [ ]` markdown checkbox が PyYAML で parse 失敗)", "N-2 [MEDIUM] cjug_d2_application_count 7 vs 実 9 (アトム/レジャー カウント漏れ — Round 1 同型ミス再発)", "N-3 [LOW] revision_history F-3 主張も同期訂正要"], "remediation_path": "Option C (hybrid: 主 session 機械修正 + writer 再派発 for F-2 verification + LOW 次フェーズ送り)", "remediation_evidence": ["docs/jp/glossary/research_reports/jis_section_verification_2026-04-29.md"]},
+            {"round": 3, "started_at": "2026-04-29", "completed_at": "2026-04-29", "agent": "oh-my-claudecode:code-reviewer", "rule_d_isolation": "同上", "verdict": "PASS", "input_version": "term_mapping.yml v0.3", "v0_3_fixes": "N-1 reviewer_checklist quoted string 化 + N-2 cjug_d2 7→9 訂正 + N-3 revision_history F-3 同期訂正", "machine_verification": "PyYAML + Ruby 両 parser load 成功 / 33 entries / cjug_d2=9 (実 grep 9 と整合) / 副作用ゼロ / 新規 finding ゼロ", "evidence": "docs/jp/glossary/research_reports/reviewer_round_2_3_term_mapping_2026-04-29.md"}
+          ],
+          "remediation_summary": {
+            "HIGH_addressed": 2,
+            "MEDIUM_addressed": 4,
+            "LOW_deferred": 4,
+            "term_mapping_yml_version": "v0.2 (542 lines, 33 entries unchanged, F-1+F-2+F-3+F-4+F-5+F-6 fixes applied)"
+          }
+        },
+        "0_5_8_glossary_xlsx_skeleton": {
+          "status": "completed",
+          "started_at": "2026-04-29",
+          "completed_at": "2026-04-29",
+          "agent": "oh-my-claudecode:executor",
+          "input": "docs/jp/glossary/term_mapping.yml v0.3 (33 entries)",
+          "artifacts": {
+            "yml_converter": "docs/jp/scripts/yml_to_glossary.py",
+            "source_yml": "docs/jp/sources/99_用語集.yml",
+            "deliverable_xlsx": "docs/jp/99_用語集.xlsx",
+            "report": "docs/jp/glossary/research_reports/phase_0_5_8_glossary_skeleton_2026-04-29.md"
+          },
+          "verification": {
+            "sheets": 7,
+            "size_bytes": 24841,
+            "entries": 33,
+            "blacklist_scan": "0 hits (鉤括弧 wrap で禁止語表示 — 規律準拠)",
+            "build_xlsx_schema_validation": "PASS (Phase 0.7 R2 schema guards 全通過)"
+          },
+          "build_xlsx_initial_run_findings": [
+            "(closed 2026-04-29) LOW-A 列幅自動調整なし → build_xlsx.py に CJK-aware auto-fit 追加 (754→877 行, 5 columns 動作確認)",
+            "(closed 2026-04-29) LOW-B 注意書き行スタイル区別なし → note_rows 任意キー + 背景 ZEBRA + italic + caption_gray 適用 (3/3 sheets 動作確認)"
+          ],
+          "low_remediation_evidence": "docs/jp/glossary/research_reports/phase_0_5_8_low_remediation_2026-04-29.md",
+          "low_remediation_verification": "失敗系 5/5 PASS (note_rows 型検証 1 件 新規追加) / sample_demo cell-value diff=0 / 99_用語集 列幅 5 cols 自動調整 / 注意行 3/3 視覚区別",
+          "chinese_column_status": "全 33 行 placeholder (Phase 3 充填予定; 既知用語 SDTM/CDISC 等は executor 判断で先行充填の余地あり)"
+        }
+      },
+      "research_summary": {
+        "standards_total": 16,
+        "access_success": 15,
+        "terms_extracted_approx": 160,
+        "decisions_locked_at": "2026-04-29 (Bojiang ack)",
+        "decisions": {
+          "D-1_jis_x_25010": "adopt 2025 edition (newer)",
+          "D-2_cjug_v32_vs_v34_gap": "v3.2 primary + v3.3/v3.4 diff with provisional translation marked",
+          "D-3_cjug_files": "completed — placed in source/ by Bojiang (SDTM_IG_3_2 _JPN_Final.pdf + SDTM_1_4 _JPN.pdf + ADaM_IG_v1_0_JPN.pdf)",
+          "D-4_ich_e6r3_m11_jp_gap": "explicit 'no official JP translation' + inherit from E6(R2) old translation",
+          "D-5_gamp5_paid": "no purchase — use public TOC + industry articles",
+          "D-6_paid_jis": "no purchase — use kikakurui.com + public comment drafts + summary PDFs",
+          "D-7_long_sound_mark": "case-by-case in term_mapping with reason"
+        }
+      }
+    },
+    "phase_0_7_excel_foundation": {
+      "status": "completed",
+      "started_at": "2026-04-29",
+      "pass_at": "2026-04-29",
+      "round_2_pass_at": "2026-04-29",
+      "round_2_review": "docs/jp/glossary/research_reports/phase_0_7_5_round_2_review_2026-04-29.md",
+      "final_verdict": "PASS (無条件) — M-1 6/6 + M-3 8/8 + 回帰 diff=0 + 副作用ゼロ",
+      "user_visual_ack": {"received_at": "2026-04-29", "quote": "模板确认没问题"},
+      "deferred_low_findings": ["L-1 重複ヘルパ整理", "L-2 __placeholders 非表示化", "L-3 図表番号自動採番設計", "L-4 prohibited_items データ外出し"],
+      "deferred_to_phase_1_audit_terms": "M-2 仕様書 25→33 語ドリフト → audit_terms.py で yml を単一ソース化",
+      "subtasks": {
+        "0_7_1_engine_decision": {"status": "completed", "agent": "oh-my-claudecode:architect", "completed_at": "2026-04-29", "engine_adopted": "openpyxl 3.1.5 (Python)", "evidence": "docs/jp/glossary/research_reports/phase_0_7_engine_decision_2026-04-29.md", "I_6_resolved": true},
+        "0_7_2_style_guide_xlsx": {"status": "completed", "agent": "oh-my-claudecode:executor", "completed_at": "2026-04-29", "artifacts": {"script": "docs/jp/scripts/generate_style_guide.py", "xlsx": "docs/jp/templates/style_guide.xlsx", "report": "docs/jp/glossary/research_reports/phase_0_7_2_style_guide_2026-04-29.md"}, "sheets": 6, "xlsx_size_kb": 17, "blacklist_hits": 0},
+        "0_7_3_cover_template_xlsx": {"status": "completed", "agent": "oh-my-claudecode:executor", "completed_at": "2026-04-29", "artifacts": {"script": "docs/jp/scripts/generate_cover_template.py", "xlsx": "docs/jp/templates/cover_template.xlsx", "report": "docs/jp/glossary/research_reports/phase_0_7_3_cover_template_2026-04-29.md"}, "sheets": 5, "xlsx_size_kb": 11, "placeholders": 6},
+        "0_7_4_build_script_PoC": {"status": "completed", "agent": "oh-my-claudecode:executor", "completed_at": "2026-04-29", "artifacts": {"shared_module": "docs/jp/scripts/_styles.py", "build_script": "docs/jp/scripts/build_xlsx.py", "sample_yml": "docs/jp/sources/sample_demo.yml", "sample_xlsx": "docs/jp/templates/sample_demo.xlsx", "report": "docs/jp/glossary/research_reports/phase_0_7_4_build_xlsx_PoC_2026-04-29.md"}, "sample_xlsx_sheets": 7, "sample_xlsx_size_bytes": 13143, "blacklist_hits": 0, "regression_check": "generate_style_guide + generate_cover_template cell-level identity preserved (sha256 diff is openpyxl ZIP timestamp only)"},
+        "0_7_5_visual_QA": {
+          "status": "PASS_round_1_conditional",
+          "agent": "oh-my-claudecode:code-reviewer",
+          "rule_d_isolation": "writer=executor, reviewer=code-reviewer (異 type)",
+          "completed_at": "2026-04-29",
+          "verdict": "CONDITIONAL_PASS",
+          "findings": {"HIGH": 0, "MEDIUM": 3, "LOW": 4},
+          "machine_verification": "6/6 全項 PASS (配色9種+ARGB9種 / フォント5種 / シート18枚 / blacklist 0 deliverable hits / 印刷設定 18/18 / 回帰差異0)",
+          "evidence": "docs/jp/glossary/research_reports/phase_0_7_5_visual_qa_review_2026-04-29.md",
+          "phase_0_7_close_rationale": "reviewer 申送り: HIGH 0 + 機械検証全 PASS により Phase 0.7 全体クローズ可能. MEDIUM 3 + LOW 4 は Phase 1 着手前 remediation で対応",
+          "remediation_pinned_for_phase_1": ["M-1 build_xlsx schema validation (必須キー + 固定シート名衝突 + 重複検査)", "M-3 build_xlsx 内部関数 docstring 補完"],
+          "deferred_to_phase_1_design": ["L-1 重複ヘルパ整理", "L-2 __placeholders シート非表示化", "L-3 図表番号自動採番設計", "L-4 prohibited_items データ外出し"],
+          "spec_drift_noted": "M-2: 仕様書 25 語 vs 実 yml 33 語 → audit_terms.py で yml を単一ソース化"
+        },
+        "0_7_6_user_ack": {
+          "status": "completed",
+          "started_at": "2026-04-29",
+          "completed_at": "2026-04-29",
+          "user_visual_ack_at": "2026-04-29",
+          "user_visual_ack_quote": "模板确认没问题",
+          "user_choice": "走法 B (严守规律) — Round 2 PASS 後に Phase 0.7 final close",
+          "ack_target_files": ["docs/jp/templates/style_guide.xlsx", "docs/jp/templates/cover_template.xlsx", "docs/jp/templates/sample_demo.xlsx"],
+          "final_close_at": "2026-04-29 (Round 2 unconditional PASS 受領)"
+        },
+        "0_7_5_round_2_remediation": {
+          "status": "completed",
+          "round_2_review_pass_at": "2026-04-29",
+          "round_2_review_evidence": "docs/jp/glossary/research_reports/phase_0_7_5_round_2_review_2026-04-29.md",
+          "additional_checks_by_reviewer": "+2 cases (whitespace-only sheet name + missing sheets key)",
+          "_legacy_status": "executor_completed_pending_reviewer",
+          "started_at": "2026-04-29",
+          "scope": "M-1 build_xlsx schema validation + M-3 build_xlsx 内部関数 docstring",
+          "executor_completed_at": "2026-04-29",
+          "executor_agent": "oh-my-claudecode:executor",
+          "modifications": {
+            "file": "docs/jp/scripts/build_xlsx.py",
+            "lines_before": 563,
+            "lines_after": 754,
+            "delta": "+191",
+            "api_changes": "none",
+            "new_dependencies": "none"
+          },
+          "verification": {
+            "normal_run": "rc=0, 7 sheets, 13142 bytes",
+            "regression_diff": 0,
+            "failure_cases_pass": "4/4 (missing document / missing output / reserved name collision / duplicate name)",
+            "blacklist_hits": 0
+          },
+          "remediation_report": "docs/jp/glossary/research_reports/phase_0_7_5_round_2_remediation_2026-04-29.md",
+          "round_2_reviewer_pending": true
+        }
+      }
+    },
+    "phase_1_p0_four_docs": {
+      "status": "pending",
+      "pass_at": null,
+      "v0_3_revision": "04 要件定義書 を P1 → P0 格上げ 2026-04-29 (Bojiang 判断, 工程順序整合)",
+      "ordering": "04 → 01 (serial) → 02 + 03 (parallel)",
+      "rationale": "04 要件定義書 が後段 3 文書の根拠章になるため先頭. 01 が 04 の業務/機能要件を引用, 02 が 04 の非機能/制約を引用, 03 が 04 の前提で試験範囲を画定."
+    },
+    "phase_2_p1_completion": {"status": "pending", "pass_at": null, "v0_3_revision": "04 を Phase 1 に移したため 05 詳細設計書のみ"},
+    "phase_3_p2_polish": {"status": "pending", "pass_at": null},
+    "phase_4_pack_handoff": {"status": "pending", "pass_at": null}
+  },
+  "documents": {
+    "04_requirements_definition": {"status": "pending", "version": null, "pass_at": null, "priority": "P0_promoted_2026_04_29", "kickoff_order": 1, "pass_conditions": {"1_evidence_links_valid": null, "2_format_compliance": null, "3_independent_reviewer_pass": null, "4_term_audit_pass": null, "5_user_ack": null}},
+    "01_basic_design": {"status": "pending", "version": null, "pass_at": null, "priority": "P0", "kickoff_order": 2, "pass_conditions": {"1_evidence_links_valid": null, "2_format_compliance": null, "3_independent_reviewer_pass": null, "4_term_audit_pass": null, "5_user_ack": null}},
+    "02_operations_maintenance": {"status": "pending", "version": null, "pass_at": null, "priority": "P0", "kickoff_order": 3},
+    "03_test_result_report": {"status": "pending", "version": null, "pass_at": null, "priority": "P0", "kickoff_order": 4},
+    "05_detailed_design": {"status": "pending", "version": null, "pass_at": null, "priority": "P1", "kickoff_order": 5},
+    "06_traceability_matrix": {"status": "pending", "version": null, "pass_at": null, "priority": "P2", "kickoff_order": 7},
+    "07_progress_report": {"status": "pending", "version": null, "pass_at": null, "priority": "P2", "kickoff_order": 6},
+    "99_glossary": {"status": "skeleton_completed", "skeleton_pass_at": "2026-04-29", "skeleton_artifact": "docs/jp/99_用語集.xlsx (33 entries, 7 sheets)", "version": "v0.1-skeleton", "pass_at": null, "remaining_for_full_completion": "中文訳 33 行充填 (Phase 3 仕上げ)"}
+  },
+  "decisions": {
+    "I_1_recipient": "iTMS 株式会社",
+    "I_2_delivery_format": "Excel (.xlsx) primary; md internal-only",
+    "I_3_agent_pool": "OMC full catalog allowed; default 6 roles per EXECUTION_PLAN.md §1 (W/R/A/V/S/D)",
+    "I_4_parallelism_cap_single_session": 2,
+    "I_5_multi_session_adoption": "optional for Phase 0.5 and Phase 1",
+    "I_6_excel_engine": "openpyxl (Python) — to be confirmed in Phase 0.7",
+    "I_7_jp_native_reviewer": "unspecified — pending JP review state allowed",
+    "I_8_user_ack_frequency": "per Phase + per document (~12 ack points total)",
+    "decisions_locked_at": "2026-04-29"
+  },
+  "constraints": {
+    "hard": [
+      "H-1: no internal jargon in deliverables",
+      "H-2: dual IT+medical standard reference required for term selection",
+      "H-3: .xlsx is primary deliverable, light IT+medical visual style",
+      "H-4: public document classification (no confidentiality marker)",
+      "H-5: ai_platforms/ excluded from scope; source artifacts read-only"
+    ],
+    "soft": [
+      "S-1: light IT+medical color palette",
+      "S-2: cross-document consistency via templates/",
+      "S-3: A4 print-friendly layout"
+    ]
+  },
+  "open_issues": [
+    "I-1: JP native reviewer to be named (currently allowed as pending)",
+    "I-2: Excel engine final selection deferred to Phase 0.7"
+  ],
+  "failures_archive": [],
+  "references": {
+    "plan": "docs/jp/PLAN.md (v0.2)",
+    "execution_plan": "docs/jp/EXECUTION_PLAN.md (v0.1)",
+    "manifest": ".work/MANIFEST.md (Chain J registration)",
+    "claude_md": "CLAUDE.md Key Paths",
+    "blacklist": "docs/jp/glossary/term_blacklist.yml",
+    "reference_standards": "docs/jp/glossary/reference_standards.md",
+    "changelog": "docs/jp/CHANGELOG.md"
+  }
+}

@@ -1,0 +1,46 @@
+document:
+  name: "動作確認用サンプル文書"
+  number: "ITMS-SDTM-XX-SAMPLE-v0.1"
+  recipient: "iTMS 株式会社 御中"
+  author: "担当部門"
+  created: "2026-04-29"
+  updated: "2026-04-29"
+  version: "v0.1"
+  output: "docs/jp/templates/sample_demo.xlsx"
+
+revisions:
+  - version: "v0.1"
+    date: "2026-04-29"
+    content: "初版作成"
+    author: "担当部門"
+    confirmer: ""
+    approver: ""
+
+sheets:
+  - name: "1_概要"
+    type: "text"
+    content: |
+      本書は build_xlsx.py の動作確認用サンプル文書である。
+      本スクリプトは yml 形式の入力ファイルを読み込み、表紙・改訂履歴・目次・本文シート・承認欄を備えた xlsx ファイルを生成する。
+      生成された xlsx は PLAN §3.1 に定める配色・フォント・セル書式に完全準拠する。
+
+  - name: "2_項目一覧"
+    type: "table"
+    headers: ["項目", "説明", "判定"]
+    rows:
+      - ["項目1", "スクリプト動作確認用の第 1 項目である。", "合格"]
+      - ["項目2", "スクリプト動作確認用の第 2 項目である。", "要対応"]
+      - ["項目3", "スクリプト動作確認用の第 3 項目である。", "合格"]
+
+  - name: "3_参考資料"
+    type: "links"
+    links:
+      - label: "PLAN.md"
+        target: "../PLAN.md"
+      - label: "EXECUTION_PLAN.md"
+        target: "../EXECUTION_PLAN.md"
+      - label: "phase_0_7_engine_decision_2026-04-29.md"
+        target: "../glossary/research_reports/phase_0_7_engine_decision_2026-04-29.md"
+
+approval:
+  enabled: true
