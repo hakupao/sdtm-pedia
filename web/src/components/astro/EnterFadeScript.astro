@@ -1,5 +1,9 @@
 <script>
-  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  const fadeTargets = document.querySelectorAll('.enter-fade');
+  if (
+    !window.matchMedia('(prefers-reduced-motion: reduce)').matches &&
+    'IntersectionObserver' in window
+  ) {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((e) => {
         if (e.isIntersecting) {
@@ -8,8 +12,9 @@
         }
       });
     }, { threshold: 0.15 });
-    document.querySelectorAll('.enter-fade').forEach((el) => observer.observe(el));
+    document.documentElement.classList.add('enter-fade-ready');
+    fadeTargets.forEach((el) => observer.observe(el));
   } else {
-    document.querySelectorAll('.enter-fade').forEach((el) => el.classList.add('is-visible'));
+    fadeTargets.forEach((el) => el.classList.add('is-visible'));
   }
 </script>

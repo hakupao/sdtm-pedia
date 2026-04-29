@@ -53,7 +53,7 @@ export function ThemeToggle({ navLabel, labels }: Props) {
           aria-pressed={t === theme}
           aria-label={labels[t]}
           title={labels[t]}
-          className={`inline-flex items-center justify-center w-5 h-5 pb-0.5 border-b ${
+          className={`inline-flex items-center justify-center min-w-8 min-h-8 pb-0.5 border-b ${
             t === theme
               ? 'text-accent border-accent'
               : 'text-ink-mute border-transparent hover:text-accent'

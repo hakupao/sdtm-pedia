@@ -17,7 +17,7 @@ export function LangSwitcher({ currentLang, pathname }: Props) {
           key={l}
           href={replaceLangInPath(pathname, l)}
           aria-current={l === currentLang ? 'page' : undefined}
-          className={`pb-0.5 border-b ${
+          className={`inline-flex min-h-8 min-w-8 items-center justify-center pb-0.5 border-b ${
             l === currentLang
               ? 'text-accent border-accent'
               : 'text-ink-mute border-transparent hover:text-accent'
