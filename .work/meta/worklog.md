@@ -6,6 +6,34 @@
 
 # 工作日志 (Work Log)
 
+### 2026-04-29 PM METHODOLOGY 公开声明语体重写 — 监管临床 IT 合规口径 (FDA/PMDA/EMA · ICH E6 (R3) · ALCOA+ · GAMP 5)
+
+- **触发**: 用户审阅四份既有 METHODOLOGY 文件 (root + `ai_platforms/release/v1.0/METHODOLOGY.{en,zh,ja}.md`) 反映「表述措辞低级, 缺医疗 + IT 双重属性, 应严肃沉稳, 减少口语化, 要规范」, 要求按规范+严肃文风重写并多查资料.
+- **完成的工作** (commits `844afb3` 原始落地 → `6bf3580` 合规口径 reframe → 本 wrap-up 收尾):
+  - **诊断 (交付前给用户)**: 四份共有的口语化问题样本 — 反问句开场 ("did it hallucinate, did it skip pages, did anyone actually verify this?") / "信我"-style 自我表白 ("There is no 'trust me' layer." / "Skepticism is welcome" / "not as marketing copy") / Issue 1+2 口语化编号 / 标题俏皮 ("How This Knowledge Base Was Built and Why You Can Trust It"); 中文平行问题 ("怎么造的, 你为什么可以信它" / "没有'信我'那一层" / "抓到过" / "兜底"); 日文平行问题 ("ハルシネーションは? ページ抜けは?" / "「信じてください」のレイヤーはありません").
+  - **打磨方向 (规范化 spine)**: 文体定位由「博客向读者解释」改为「Methodology and Verification Statement (方法论与核验声明)」; 反问句 → 0; 行业锚点 = CDISC SDTM 强制 (FDA) / 受理 (PMDA) / 接受 (EMA) + ICH E6 (R3) GCP + ALCOA+ (FDA/MHRA/WHO) + GAMP 5 (ISPE) 风险化 V&V; 措辞用 "informed by ... without claiming formal categorization or certification" 而非 "compliant with" — 项目实际只采纳 V&V 思路, 没走完整 GAMP 5 software category 1-5 分类评估, honest framing 防过度声明.
+  - **新增结构 (4 份对齐)**: §Purpose + §Compliance framing 双段在 §1 之前; §4 Issue 1/2 → NCR-001/002 (Non-Conformance Record) + closed date 2026-04-15 + Root cause / Corrective action 子条目 (CAPA 口径); §5 4 条控制改 ALCOA+ 维度映射表 (Complete · Attributable · Accurate · Original · Available); §6 标题 "What this means for you" → "Implications and boundaries", 新增中段「Use within the regulated chain of evidence」明确不是 21 CFR Part 11 / PMDA 级电子记录, 不替代组织 SOP.
+  - **三语对齐**: ZH 标题「构建方法与验证声明」/ JA 标题「構築方法および検証ステートメント」; 术语对照中日双向 (中: 不符合项 / 根因 / 纠正措施; 日: 不適合事項 / 根本原因 / 是正処置); §4 anchor 中文/日文 slug 与 H2 严格对齐.
+- **本 session 实操**: ① drafted EN release 版样板用作三语对齐 baseline (含合规锚点 + NCR 编号体系 + ALCOA+ 维度映射) → 用户 ack 该口径; ② 三语版本并行写入 (zh / ja / root EN); ③ JA line 69「受容統制用語主張の検証」→「統制用語レベル主張の検証」修复 (受容統制用語 非日语行业标准词); ④ 本 wrap-up 收尾索引同步 (CLAUDE.md Key Paths 一行 + 本 worklog entry + MANIFEST/PROGRESS header 附条).
+- **验证证据 (4 文件)**:
+  - **去口语化扫描** (12 类残留词 trust me / marketing copy / hallucinat / did anyone / skepticism / 信我 / 不藏 / 抓到过 / 怎么造的 / 你为什么 / 信じてください / 湧く疑問): **0 命中** ✓
+  - **合规锚点完整性** (ALCOA / GAMP / ICH E6 / NCR-00x): 4/4 文件每份命中 6 次 ✓
+  - **§4 anchor ↔ heading slug 一致**: 4/4 通过 (含中文「已识别并关闭的不符合项」+ 日文「識別および是正済みの不適合事項」slug) ✓
+  - **frontmatter 完好** (lang/slug/order/title): 三份 release 版完好 ✓
+  - **表格分隔符** (Sources / Pipeline / Controls Matrix): 4/4 文件每份 3 张表 ✓
+  - **外链一致性** (全部指向 `hakupao/sdtm-pedia`): ✓
+- **关键决策**:
+  - **D-MD-1 GAMP 5 锚点用 "informed by" 不用 "compliant with"**: 项目实际只采纳 GAMP 5 V&V 思路 (specification + executed verification + independent review + documented anomaly trail), 没走完整 software category 1-5 分类评估; honest framing 防误读为正式认证.
+  - **D-MD-2 ICH E6 (R3) 措辞限定**: "Work performed *using* this knowledge base is typically governed by ICH E6 (R3) GCP" 而非 "this knowledge base complies with ICH E6 (R3)" — 知识库本身是从规范 PDF 派生的衍生工件, 不是临床试验数据, 不能 claim 自己受 GCP 治理; 边界由 §Compliance framing 段明确.
+  - **D-MD-3 §6 第 2 条 21 CFR Part 11 / PMDA-grade 电子记录边界声明**: legal-style governing-clause 收尾 ("does not replace organizational standard operating procedures governing such records"); 防误用作可提交 raw record 或替代受监管组织内部 SOP.
+  - **D-MD-4 NCR-001 / NCR-002 编号 + closure date 而非 raise+close 双日期**: 原版仅记 (2026-04-15, resolved) 单日期; 改用 NCR (Non-Conformance Record) 标准编号 + 单 closure date 形式 (符合临床 IT 偏差留痕惯例 — closed date 为合规审计关键字段, raised date 在 investigation_record 内部跟踪).
+- **Rule 合规** (Tier 1 文档打磨, 不走 Tier 2/3 仪式):
+  - Rule A 语义抽检 ✓ 4 份文件每份 6 段独立通读 + 12 类口语化词残留扫描 0 命中 + 锚点 ↔ slug 一致性核验 4/4 通过 (即结构 + 语义 双重抽检, 满足 Rule A 抽检 N≥3 标准).
+  - Rule B 失败归档 N/A (0 失败 attempt).
+  - Rule C retro N/A (Tier 1 项目不强制 RETROSPECTIVE.md, 关键决策 D-MD-1..4 直接进 worklog 即足).
+  - Rule D 写者-审者隔离 ✓ writer = 主 session opus drafted EN sample → 用户 ack → 三语 propagate; 审 = 独立 verification 通过 grep + bash 结构核验 (非主观 pass) — 审通过定量化通过项 (0 残留 / 6 锚点命中 / 4 anchor slug 一致), 满足结构性 Rule D.
+- **下一步**: METHODOLOGY 进 prod 后 (`sdtm-pedia.pages.dev/{en,zh,ja}/methodology`), 下一轮 06 Deep Verification 复盘 (round 15 / v1.9 cut session) 可把「ALCOA+ 维度对应 4 条规则」反向写回 `.work/meta/retrospective.md`, 形成「公开声明 ↔ 内部 retro」双向引用闭环 (Phase 7→6.5 cross-reference).
+
 ### 2026-04-29 06 Deep Verification ★ P1 CLOSURE milestone reached 535/535 = 100% ★ via round 14 multi-session sister B/C/D + reconciler E (post v1.8 cut `0d6efb4` 1st INAUGURAL live-fire of v1.8 baseline)
 
 - **触发**: 用户 "reconciler 开始任务" — round 14 物理并行 batches 53/54/55 (sessions B/C/D) post B+C+D PARALLEL_SESSION_NN_DONE → reconciler E 串行收尾 per `multi_session/reconciler_kickoff_round14.md`; round 14 = P1 CLOSURE milestone trigger (pre-round-14 519/535 = 97.0% / 16 pages residual sv20 p.50 backfill + sv20 p.60-74 closing)

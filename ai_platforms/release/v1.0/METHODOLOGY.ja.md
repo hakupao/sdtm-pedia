@@ -66,7 +66,7 @@ title: "構築方法および検証ステートメント"
 
 **章レベル主張の検証**: `knowledge_base/chapters/chXX_*.md` を開く. ページ範囲と節番号は SDTMIG 目次と直接対応.
 
-**受容統制用語主張の検証**: `knowledge_base/terminology/` 配下の各 codelist ファイルには, 割当てられた CDISC C-code (例: `C66731`) が付与されており, NCI EVS Browser に対して相互参照可能.
+**統制用語レベル主張の検証**: `knowledge_base/terminology/` 配下の各 codelist ファイルには, 割当てられた CDISC C-code (例: `C66731`) が付与されており, NCI EVS Browser に対して相互参照可能.
 
 完全な source-to-output マッピングは [トレーサビリティマトリクス](https://github.com/hakupao/sdtm-pedia/blob/main/docs/TRACEABILITY.md) (`docs/TRACEABILITY.md`) として公開されています.
 
