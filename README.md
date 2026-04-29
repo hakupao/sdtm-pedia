@@ -26,6 +26,8 @@ CDISC SDTM standards are locked inside dense PDFs and sprawling Excel files — 
 
 **SDTM Pedia** converts these source documents into **293 structured Markdown files**, organized by domain, terminology, and conceptual model. The result is a knowledge base that both humans and AI can navigate instantly — no vector database required.
 
+> **How can you trust an AI-extracted knowledge base?** See [METHODOLOGY.md](METHODOLOGY.md) — sources, traceability, the two issues we caught and fixed during validation, and how to spot-check any answer against the source PDF.
+
 ## Features
 
 | Feature | Description |
