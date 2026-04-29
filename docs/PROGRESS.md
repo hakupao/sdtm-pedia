@@ -8,7 +8,7 @@
 - **Phase 6.1-6.3 检索优化 — 全部完成** (ROUTING.md + Cross References + VARIABLE_INDEX.md)
 - **Phase 6.5 AI 平台部署 — 4 平台全部完成** (Claude / ChatGPT / Gemini / NotebookLM)
 - **07 Release v1.0 — 公司发布版交付完成** (2026-04-27, 27 文档 + 4 平台 bundle = 26M, git tag `v1.0-company-release`)
-- **06 Deep Verification — P1 PDF Atomization 已完成** (2026-04-29, round 14 P1 CLOSURE 535/535 = 100%; 12487 atoms / 55 batches / 121 findings; commit `5ca009a`; 进入 P2 matcher / markdown atomization + P3 ledger build + P4 compare report 详见 `.work/06_deep_verification/`)
+- **06 Deep Verification — P1 PDF Atomization 已完成 / P2 MD Atomization 进行中 (B-01 cycle closed)** (2026-04-29 同日, P1 round 14 CLOSURE 535/535 = 100% commit `5ca009a` + P2 Pilot 闭环 commit `1757d34` + 本 session **P2 Bulk B-01 cycle 全闭环** model/* 4 文件全原子化 batch 02-04 = +596 atoms 总 1102 md atoms / 9 files / 0 dup / 100% schema 合规 post-hotfix + cumulative cross-batch audit code-reviewer 30-atom 跨 9 file 28/30 = **93.3% PASS** + 1 HIGH hotfix md_model01_a013 figure_ref backfill + B01_retrospective.md Rule C 6 段 + 4 v1.9.1 candidates accumulated (3 NEW post-cumulative-audit). 进入 B-02 chapters + ch04 续段 待 kickoff; P3/P4 后续. 详见 `.work/06_deep_verification/evidence/checkpoints/B01_retrospective.md` + `cumulative_audit_post_B01.md`)
 - **Phase 7 RAG + 知识图谱 — 设计完成，待实施**
 
 ## 阶段进度
