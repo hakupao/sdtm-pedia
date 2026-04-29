@@ -1,0 +1,30 @@
+{"atom_id": "md_ch04_a001", "verdict": "PASS", "discrepancy": "", "source_file": "chapters/ch04_general_assumptions.md", "verified_against_lines": [1, 1]}
+{"atom_id": "md_ch04_a069", "verdict": "PASS", "discrepancy": "", "source_file": "chapters/ch04_general_assumptions.md", "verified_against_lines": [87, 87]}
+{"atom_id": "md_ch04_a201", "verdict": "PASS", "discrepancy": "", "source_file": "chapters/ch04_general_assumptions.md", "verified_against_lines": [266, 266]}
+{"atom_id": "md_model01_a001", "verdict": "PASS", "discrepancy": "", "source_file": "knowledge_base/model/01_concepts_and_terms.md", "verified_against_lines": [1, 1]}
+{"atom_id": "md_model04_a016", "verdict": "PASS", "discrepancy": "", "source_file": "knowledge_base/model/04_associated_persons.md", "verified_against_lines": [27, 27]}
+{"atom_id": "md_ch04_a002", "verdict": "PASS", "discrepancy": "", "source_file": "chapters/ch04_general_assumptions.md", "verified_against_lines": [3, 3]}
+{"atom_id": "md_ch04_a042", "verdict": "FAIL_VERBATIM", "discrepancy": "Sub-sentence extraction: verbatim='...dm.xpt.' (131 chars) is first sentence of 507-char paragraph at line 53; line pointer correct but verbatim truncates source line", "source_file": "chapters/ch04_general_assumptions.md", "verified_against_lines": [53, 53]}
+{"atom_id": "md_ch04_a129", "verdict": "FAIL_VERBATIM", "discrepancy": "Sub-sentence extraction: verbatim picks last sentence of 604-char paragraph at line 165; source line begins 'The origin element...' not 'Additional guidance...'", "source_file": "chapters/ch04_general_assumptions.md", "verified_against_lines": [165, 165]}
+{"atom_id": "md_ch04_a158", "verdict": "PASS", "discrepancy": "", "source_file": "chapters/ch04_general_assumptions.md", "verified_against_lines": [194, 194]}
+{"atom_id": "md_dmCM_ex_a005", "verdict": "FAIL_VERBATIM", "discrepancy": "Sub-sentence extraction: verbatim picks 3rd sentence of 526-char paragraph at line 5; source line begins 'Sponsors collect...'", "source_file": "knowledge_base/domains/CM/examples.md", "verified_against_lines": [5, 5]}
+{"atom_id": "md_dmCM_ex_a062", "verdict": "FAIL_VERBATIM", "discrepancy": "Sub-sentence extraction: verbatim picks 2nd sentence of 577-char paragraph at line 82; source line begins 'In this rheumatoid arthritis...'", "source_file": "knowledge_base/domains/CM/examples.md", "verified_against_lines": [82, 82]}
+{"atom_id": "md_model01_a024", "verdict": "FAIL_VERBATIM", "discrepancy": "Sub-sentence extraction: verbatim picks penultimate sentence of 925-char paragraph at line 47; source line begins 'Each observation consists...'", "source_file": "knowledge_base/model/01_concepts_and_terms.md", "verified_against_lines": [47, 47]}
+{"atom_id": "md_model04_a024", "verdict": "FAIL_VERBATIM", "discrepancy": "Sub-sentence extraction: verbatim picks 2nd sentence of 297-char paragraph at line 38; source line begins 'Relationships of an associated person...'", "source_file": "knowledge_base/model/04_associated_persons.md", "verified_against_lines": [38, 38]}
+{"atom_id": "md_ch04_a038", "verdict": "PASS", "discrepancy": "", "source_file": "chapters/ch04_general_assumptions.md", "verified_against_lines": [47, 47]}
+{"atom_id": "md_ch04_a067", "verdict": "PASS", "discrepancy": "", "source_file": "chapters/ch04_general_assumptions.md", "verified_against_lines": [83, 83]}
+{"atom_id": "md_ch04_a187", "verdict": "PASS", "discrepancy": "", "source_file": "chapters/ch04_general_assumptions.md", "verified_against_lines": [243, 243]}
+{"atom_id": "md_model01_a027", "verdict": "PASS", "discrepancy": "", "source_file": "knowledge_base/model/01_concepts_and_terms.md", "verified_against_lines": [51, 51]}
+{"atom_id": "md_model04_a015", "verdict": "PASS", "discrepancy": "", "source_file": "knowledge_base/model/04_associated_persons.md", "verified_against_lines": [25, 25]}
+{"atom_id": "md_ch04_a034", "verdict": "PASS", "discrepancy": "", "source_file": "chapters/ch04_general_assumptions.md", "verified_against_lines": [41, 41]}
+{"atom_id": "md_ch04_a096", "verdict": "PASS", "discrepancy": "", "source_file": "chapters/ch04_general_assumptions.md", "verified_against_lines": [123, 123]}
+{"atom_id": "md_dmCM_ex_a013", "verdict": "PASS", "discrepancy": "", "source_file": "knowledge_base/domains/CM/examples.md", "verified_against_lines": [20, 20]}
+{"atom_id": "md_dmCM_ex_a075", "verdict": "PASS", "discrepancy": "", "source_file": "knowledge_base/domains/CM/examples.md", "verified_against_lines": [101, 101]}
+{"atom_id": "md_model04_a022", "verdict": "PASS", "discrepancy": "", "source_file": "knowledge_base/model/04_associated_persons.md", "verified_against_lines": [36, 36]}
+{"atom_id": "md_ch04_a033", "verdict": "PASS", "discrepancy": "", "source_file": "chapters/ch04_general_assumptions.md", "verified_against_lines": [39, 40]}
+{"atom_id": "md_ch04_a208", "verdict": "PASS", "discrepancy": "", "source_file": "chapters/ch04_general_assumptions.md", "verified_against_lines": [280, 281]}
+{"atom_id": "md_model04_a018", "verdict": "PASS", "discrepancy": "", "source_file": "knowledge_base/model/04_associated_persons.md", "verified_against_lines": [31, 32]}
+{"atom_id": "md_ch04_a068", "verdict": "PASS", "discrepancy": "", "source_file": "chapters/ch04_general_assumptions.md", "verified_against_lines": [85, 85]}
+{"atom_id": "md_model04_a002", "verdict": "PASS", "discrepancy": "", "source_file": "knowledge_base/model/04_associated_persons.md", "verified_against_lines": [3, 3]}
+{"atom_id": "md_ch04_a153", "verdict": "PASS", "discrepancy": "", "source_file": "chapters/ch04_general_assumptions.md", "verified_against_lines": [189, 190]}
+{"atom_id": "md_model01_a013", "verdict": "PASS", "discrepancy": "", "source_file": "knowledge_base/model/01_concepts_and_terms.md", "verified_against_lines": [13, 39]}
