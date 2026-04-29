@@ -271,3 +271,42 @@
 ---
 
 *Appended per batch + per drift calibration + per Rule A sampling. 不删行, 保留全历史.*
+
+---
+
+## P2 — MD 原子化 (启动 2026-04-29, post P1 CLOSURE)
+
+### Pilot (2 attempts, 同日闭环)
+
+| audit slot # | subagent_type | role | scope | result |
+|---|---|---|---|---|
+| 70 | oh-my-claudecode:executor | writer | Attempt 1 (T1+baseline+T3a) + Attempt 2 全 5 target | clean (0 anti-defect class) |
+| 71 | oh-my-claudecode:writer | writer | Attempt 1 (T2+T3b) | **FAIL** — 3 系统缺陷 (TABLE_HEADER 100% / bold-as-HEADING 14 / LIST_ITEM truncation); 触发 N21 MD-side 扩展 |
+| 72 | oh-my-claudecode:scientist | Rule A | Attempt 1 30-atom + Attempt 2 30-atom (fresh dispatch each) | 63.3% / 80% strict (100% functional 经主 session reclassify §R-C1) |
+| 73 | oh-my-claudecode:code-reviewer | Rule D end-to-end | Attempt 1 全 5 jsonl 端到端 | CONDITIONAL_PASS |
+
+### Bulk B-01 (model/ 剩 4 文件, in progress)
+
+| batch_id | writer slot | atoms | Rule A reviewer slot | Rule A result | gate |
+|---|---|---|---|---|---|
+| P2_B-01_batch_01 | 70 (executor) | 109 (model/06 full) | 72 (scientist v1.9) | 10/10 = 100% | **PASS** |
+| P2_B-01_batch_02 | TBD | TBD (model/02 ~298 lines, 估 split 2 chunks) | TBD | TBD | pending next session |
+| P2_B-01_batch_03 | TBD | TBD (model/03 190 lines) | TBD | TBD | pending |
+| P2_B-01_batch_04 | TBD | TBD (model/05 ~296 lines, 估 split 2 chunks) | TBD | TBD | pending |
+
+### v1.9 prompt cut (2026-04-29, post P2 Pilot)
+
+- 4 prompt files cut: `P0_writer_md_v1.9.md` (134 行, 主体) / `P0_writer_pdf_v1.9.md` (66 行, paired-sync) / `P0_matcher_v1.9.md` (55 行) / `P0_reviewer_v1.9.md` (75 行)
+- v1.8 archived: `subagent_prompts/archive/v1.8_final_2026-04-29/`
+- 8 NEW patches: **C-1** sub-line SENTENCE 显式允许 / **C-2** N21 全 ban writer-family 扩 MD-side (推翻 H_C 假说) / **C-3** R-MD-Slice-Hard / **C-4** Hook 22 NEW pre-DONE / **C-5** TABLE_HEADER `line_end - line_start ≤ 1` / **C-6** bold non-HEADING ban / **C-7** LIST_ITEM verbatim 全 prefix + multi-sentence / **C-8** file field full repo-relative path
+- MD-side hooks: 18 (v1.7) → 22 (v1.9, +Hook 22+A1+A2+A3)
+
+### Cumulative state post P2 Pilot + B-01 batch 01
+
+| 指标 | 值 |
+|---|---|
+| md_atoms.jsonl total | **506 atoms** (397 pilot + 109 batch 01, 0 dup) |
+| Files atomized | 6 / 141 in-scope (model/01, model/04, model/06, ch04 lines 1-300, CM/assumptions, CM/examples) |
+| v1.9 anti-defect 实测 | 0 across batch 01 (executor v1.9 prompt 工作正常) |
+| Open findings | 1 LOW (md_model06_a029 line_start off-by-one, v1.9.1 候选) |
+

@@ -2057,3 +2057,32 @@
 - **Metrics post Phase 6**: tsc 0 / vitest 31/31 (+2 CompareFilter Phase 6.1) / e2e 6/6 strict over 8 routes (+3 readme/{zh,en,ja} Phase 6.4) / build 27 pages green (was 30 in 6.2; -3 changelog catchall variants in 6.4 H1 fix) / 5 commits / production live `https://sdtm-pedia.pages.dev/`
 - **Family pool state at Phase 6 close**: `pr-review-toolkit ×4` (Phases 1, 2, 3.6, 4) + `feature-dev ×1` (Phase 5) + `oh-my-claudecode:critic ×1` (Phase 6 6.3 reviewer = 1st-burn omc-family on website lane). Phase 7 candidates: `superpowers:code-reviewer` (inaugural 3rd family) recommended; backup `pr-review-toolkit:silent-failure-hunter` / `type-design-analyzer` (4th burn pr-family) / `oh-my-claudecode:code-reviewer` / `verifier` (2nd burn omc-family)
 - **下一步**: 收尾 commit (this index update) + push to remote (5 commits cumulative not pushed: `b25b834 c52b4a7 362b401 0b0e822 45856ad` + 收尾) → user 单独开 Phase 7 新 session
+
+## 2026-04-29 06 Deep Verification P2 Pilot + B-01 batch 01 启动 (post P1 CLOSURE 同日)
+
+- **触发**: P1 CLOSURE 535/535 = 100% 当日, 用户 ack 进 P2 pilot batch
+- **完成的工作**:
+  - **STEP 1 P2 Sub-plan 起草 + ack**: `plans/P2_md_atomization.md` v0.1 → v1.0 (255 行) 含 §0 入参 / §A.1 4-target Pilot / §B 138 文件 bulk 分片 / §A.3 8-条 Pilot Gate / §C drift cal / §E Rule A 抽检 / §F Exit Gate; 用户 ack 升 v1.0
+  - **STEP 2 P2 Pilot Attempt 1 (2 writers 派发)**: Writer A `oh-my-claudecode:executor` 处理 T1 (model/01) + T-baseline (model/04) + T3a (CM/assumptions) = 111 atoms 0 缺陷; Writer B `oh-my-claudecode:writer` 处理 T2 (ch04 lines 1-300) + T3b (CM/examples) = 272 atoms; 合计 383 atoms 5 jsonl
+  - **STEP 3 Pilot Attempt 1 review**: Rule A scientist 30-atom 分层 19 PASS / 6 PARTIAL / 5 FAIL = **63.3%** (远低 ≥90% gate) — 3 类系统缺陷全在 Writer B (TABLE_HEADER 100% line_end 越界 + 14 atoms bold-as-HEADING + LIST_ITEM 系统截断 + 切片 71% 覆盖). Rule D code-reviewer 端到端 CONDITIONAL_PASS
+  - **STEP 4 Rule B 失败归档**: `evidence/failures/P2_pilot_attempt_1.md` (179 行) 含输入/产物/技术判定/业务判定/下次输入. H_C 假说 (round 14) **REJECTED** — writer-family 在 MD narrative 也不可信
+  - **STEP 5 P2 Pilot Attempt 2 (executor only)**: 单 executor 处理 5 target 分 4 dispatch (1 大 batch 处理 model/01+04+CM_assn+CM_ex; T2 ch04 lines 1-300 因 32K output cap 必须 split 3 parts). Attempt 2 = 397 atoms (T1 72 / baseline 24 / T3a 6 / T2 218 / T3b 77)
+  - **STEP 6 Attempt 2 review**: Rule A scientist 24 PASS / 6 FAIL_VERBATIM = **80% strict** — 6 fail 全是 sub-line SENTENCE 解读分歧. 主 session 直接验证 ch04 line 53 a042 verbatim 是 byte-exact substring → reclassify 为 functional PASS (与 IR2 语义原子 + P1 PDF-side 同粒度 + 服务 P4a matcher)
+  - **STEP 7 v1.9 Prompt Cut (post P2 Pilot)**: 4 文件 cut at `subagent_prompts/P0_{writer_md,writer_pdf,matcher,reviewer}_v1.9.md` 含 8 NEW patches: **C-1** sub-line SENTENCE 显式允许 / **C-2** N21 全 ban writer-family 扩 MD-side (推翻 H_C) / **C-3** R-MD-Slice-Hard / **C-4** Hook 22 NEW pre-DONE last_atom.line_end ≥ slice_end / **C-5** TABLE_HEADER `line_end - line_start ≤ 1` / **C-6** bold non-HEADING ban / **C-7** LIST_ITEM verbatim 全 prefix + multi-sentence / **C-8** file field full repo-relative path. v1.8 archived `archive/v1.8_final_2026-04-29/`. MD hooks 18 → 22 (+Hook22 +A1 +A2 +A3)
+  - **STEP 8 Pilot 397 atoms → root md_atoms.jsonl 落地**: jq 修 T2 atoms file path inconsistency (添加 `knowledge_base/` 前缀) + cat append. 累计 506 atoms (含 batch 01)
+  - **STEP 9 P2 Bulk B-01 batch 01 派发**: 单 executor for `model/06_relationship_datasets.md` (174 行) → 109 atoms / 22 hooks PASS (含 v1.9 NEW Hook A1/A2/A3) / 4 sub-line C-1 实测 / anti-defect C5/C6/C7/C8 全 clean
+  - **STEP 10 batch 01 Rule A**: `oh-my-claudecode:scientist` with v1.9 reviewer prompt 10/10 = **100% PASS**; 1 LOW finding md_model06_a029 line_start off-by-one (1/14 HEADING; v1.9.1 候选; 不阻塞)
+  - **STEP 11 collateral updates**: trace.jsonl 2 phase_report events (`P2_pilot` PASS + `P2_B-01_batch_01` PASS) / audit_matrix.md P2 section 追加 / `evidence/checkpoints/_progress_P2_pilot_and_B-01_batch_01.json` 写 sidecar (避免直接 surgical edit 1698-line 主 _progress.json) / `multi_session/P2_B-01_batch_02_kickoff.md` 写下一 session kickoff
+- **关键决策**:
+  - **D-r29-1 N21 MD-side 扩展**: P2 Pilot Attempt 1 实证 writer-family 在 MD narrative + table + list 全场景不可信; round 14 H_C 假说 REJECTED; v1.9 N21 final = blanket all-side ban (PDF + MD)
+  - **D-r29-2 Sub-line SENTENCE 显式允许 (§R-C1 reviewer rule)**: byte-exact substring 视为合法; 多 atom 同 line_start=line_end 是 FEATURE 非 defect; 服务 P4a matcher 1-PDF-sentence ↔ 1-MD-sub-line-atom 粒度
+  - **D-r29-3 P2 Bulk Writer 池 1-type lock**: executor-only (`oh-my-claudecode:executor`); drift cal §C 整段废弃 (单 writer 无 cross-type drift)
+  - **D-r29-4 32K output cap 触发拆分**: T2 ch04 lines 1-300 单 dispatch 估 ~93K chars JSONL = ~23K tokens 单 Write + reasoning 累计撞 32K; 拆 3 parts (1-100 / 101-200 / 201-300) sequential, atom_id + sibling_index 跨段续接; pattern 适用未来 ≥250 atoms 文件 (model/02 + model/05 候选 split)
+  - **D-r29-5 Sidecar progress JSON**: 主 _progress.json 1698 行 + 14 round state, surgical edit 风险高; 改写 sidecar `_progress_P2_pilot_and_B-01_batch_01.json` 让下 session 决定整合或 sidecar-as-authoritative-for-P2
+- **Carry-over for next session**:
+  - **NEXT**: P2 B-01 batch 02 (model/02 ~298 lines / 估 ~210 atoms / 单 executor dispatch fallback 2-split) — kickoff 在 `multi_session/P2_B-01_batch_02_kickoff.md`, 路由词 `P2 bulk B-01 batch 02 开始任务`
+  - **B-01 后续**: batch 03 model/03 + batch 04 model/05 → B-01 closure
+  - **B-02..B-15**: chapters 5 + ch04 续 5 段 + assumptions 62 + examples 62 + top-level 3 = 134 文件待 atomize ≈ 8500+ atoms / 12-15 batch
+  - **v1.9.1 候选 backlog**: 1 item (md_model06_a029 line_start off-by-one HEADING precision rule) — 累积达 trigger 阈值再 cut
+  - Recovery hint 在 `evidence/checkpoints/_progress_P2_pilot_and_B-01_batch_01.json`
+- **下一步**: commit + push (single milestone) → 用户开下 session

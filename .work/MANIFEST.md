@@ -96,6 +96,32 @@ meta/worklog.md                      ← 记录决策变更
 
 ---
 
+### Chain J: 日本同事交付链 (docs/jp/, iTMS 様 納品)
+
+**触发**: `docs/jp/` 配下任何文件修改 (PLAN, EXECUTION_PLAN, .xlsx 産物, glossary, scripts, templates)
+
+```
+docs/jp/PLAN.md / EXECUTION_PLAN.md      ← 規範改訂
+  ↓
+docs/jp/_progress.json                    ← 進捗書込み (Tier 2 schema)
+  ↓
+docs/jp/CHANGELOG.md                      ← 改訂履歴一元管理
+  ↓
+docs/jp/glossary/{term_blacklist,term_mapping}.yml  ← 用語規律変更時
+  ↓
+docs/jp/templates/style_guide.xlsx        ← 配色 / フォント 変更時
+  ↓
+.work/MANIFEST.md (本文件)                ← 入口登録 + Quick Reference 更新
+  ↓
+.work/meta/worklog.md                     ← 作業記録
+  ↓
+../CLAUDE.md Key Paths                    ← 新規 Key Path 追加時のみ
+```
+
+下流 (J'): `docs/jp/EXECUTION_PLAN.md` 改訂時は `docs/jp/prompts/`, `docs/jp/failures/`, `docs/jp/scripts/` 整合性を確認.
+
+---
+
 ## 计划导航 (Plan Map)
 
 所有计划/TODO 文件的从属关系、状态和执行顺序。新 session 开始时先看这里，决定该做什么。
@@ -306,3 +332,21 @@ ai_platforms/ ── Phase 6.5 AI 平台部署 ── [Claude v1 完成 (9/9 PAS
 | **Phase 6.5 NotebookLM 42 bucket config** | **`../ai_platforms/notebooklm/dev/scripts/bucket_config.json`** + **`../ai_platforms/notebooklm/current/uploads/MANIFEST.md`** — 295 md → 42 bucket concept cluster (63/63 domains + 176/176 Req ∅ gap) |
 | **AI 工作质量规则** | **`meta/retrospective.md`** ⚑ 四条预防规则必须遵守 |
 | 查残余风险排查计划 | `03_verification/followup_plan.md` |
+| **docs/jp/ iTMS 納品旁枝** | **`../docs/jp/PLAN.md`** v0.2 (WHAT/WHY) + **`../docs/jp/EXECUTION_PLAN.md`** v0.1 (HOW + agent 调度, 並列効果サマリ 11→8→5-6 日) — Chain J; Excel (.xlsx) 主体 / 浅色 IT+医療 デザイン / 用語規律 §11 (blacklist + mapping + dual standard reference); Phase 0 Setup 完了 (2026-04-29), Phase 0.5 用語調研 待起動 |
+
+## P2 — MD 原子化 (启动 2026-04-29, post P1 CLOSURE 同日)
+
+| What | Where |
+|------|-------|
+| Sub-plan | `.work/06_deep_verification/plans/P2_md_atomization.md` v1.0 |
+| Pilot 报告 | `.work/06_deep_verification/evidence/checkpoints/p2_pilot_report.md` |
+| Pilot Attempt 1 失败归档 (Rule B) | `.work/06_deep_verification/evidence/failures/P2_pilot_attempt_1.md` |
+| Pilot Rule A verdicts (Attempt 1) | `evidence/checkpoints/p2_pilot_rule_a_verdicts.jsonl` + `_summary.md` |
+| Pilot Rule A verdicts (Attempt 2) | `evidence/checkpoints/p2_pilot_rule_a_verdicts_v2.jsonl` + `_summary_v2.md` |
+| Pilot Rule D 报告 | `evidence/checkpoints/p2_pilot_review_report.md` |
+| v1.9 Prompts (post-pilot cut) | `subagent_prompts/P0_{writer_md,writer_pdf,matcher,reviewer}_v1.9.md` |
+| v1.8 archive | `subagent_prompts/archive/v1.8_final_2026-04-29/` |
+| Bulk B-01 batch 01 (model/06) | `evidence/checkpoints/P2_B-01_batch_01_md_atoms.jsonl` (109 atoms) + `rule_a_*_summary.md` |
+| Sidecar progress (next session 用) | `evidence/checkpoints/_progress_P2_pilot_and_B-01_batch_01.json` |
+| Next session kickoff | `multi_session/P2_B-01_batch_02_kickoff.md` (路由词 `P2 bulk B-01 batch 02 开始任务`) |
+| md_atoms.jsonl (累计) | `md_atoms.jsonl` 506 atoms (397 pilot + 109 batch 01, 0 dup) |

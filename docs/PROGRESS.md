@@ -305,3 +305,14 @@ C-P7-2/3/9 RESOLVED in Phase 7.5 fix bundle (no carryover).
 | chapters/ | 6 | **6** | 0 (已验证+6图) |
 | INDEX.md | 1 | **1** | 0 |
 | **总计** | **293** | **293** | **0** |
+
+---
+
+## Phase 06 Deep Verification — P2 启动 (2026-04-29)
+
+| 阶段 | 状态 | 数据 |
+|------|------|------|
+| P1 PDF 原子化 | ✅ CLOSURE 100% | 535 pages / 12487 atoms / 55 batches / 14 multi-session rounds |
+| P2 MD 原子化 Pilot | ✅ functional PASS | Attempt 2 397 atoms (executor only) — Attempt 1 FAIL 触发 v1.9 cut + N21 MD-side 扩展 |
+| v1.9 Prompt Cut | ✅ 完成 (4 prompts) | 8 NEW patches C-1..C-8; H_C 假说 REJECTED; MD hooks 18 → 22 |
+| P2 MD 原子化 Bulk | 🔄 进行中 | B-01 batch 01 PASS (model/06 109 atoms); md_atoms.jsonl 累计 506; B-01 剩 3 文件 + B-02..B-15 待 |
