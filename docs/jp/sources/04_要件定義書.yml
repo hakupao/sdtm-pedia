@@ -1,0 +1,223 @@
+# docs/jp/sources/04_要件定義書.yml
+#
+# Phase 1 P0 着手順 1 産物 (作成日: 2026-04-29).
+# 本 yml は build_xlsx.py の入力骨格で、各シート content フィールドは引用源に基づき
+# 充填済みである. 用語規律は docs/jp/glossary/term_blacklist.yml + term_mapping.yml に
+# 厳格準拠.
+#
+# build_xlsx.py 仕様抜粋:
+#   - 固定シート (1_表紙 / 2_改訂履歴 / 3_目次 / 4_承認欄) は自動生成のため sheets[] には書かない
+#   - 本文シート名は固定 4 名と衝突禁止 (検証 raise)
+#   - sheet type: text / table / links
+
+document:
+  name: "要件定義書"
+  number: "ITMS-SDTM-04-REQUIREMENTS-DEFINITION-v1.0"
+  recipient: "iTMS 株式会社 御中"
+  author: "(担当部門)"
+  created: "2026-04-29"
+  updated: "2026-04-29"
+  version: "v1.0"
+  output: "docs/jp/04_要件定義書.xlsx"
+
+revisions:
+  - version: "v0.1"
+    date: "2026-04-29"
+    content: "初版作成 (Phase 1 P0 着手順 1; 04 → 01 → 02 → 03 計画で先頭文書として起草)"
+    author: "(担当部門)"
+    confirmer: ""
+    approver: ""
+  - version: "v0.2"
+    date: "2026-04-29"
+    content: "確認指摘および用語監査指摘の反映 (C-04 既知の限界の抽象化 / P-04 帰属表記短縮 / NFR-01 行頁比表記書換 / NFR-04 出典補足 / NFR-03 機械可読ラベル注記追加 / FR-11 用語採用語訂正)"
+    author: "(担当部門)"
+    confirmer: ""
+    approver: ""
+  - version: "v1.0"
+    date: "2026-04-29"
+    content: "初版受信者納品候補確定. 全合格判定基準充足: 引用源 8 件全件実在 / 形式 100% 準拠 / 独立確認担当 round 2 PASS 無条件 / 用語規律監査 round 1 指摘実体修正済 / 用户口頭承認 (2026-04-29)."
+    author: "(担当部門)"
+    confirmer: "(日方ネイティブ確認担当指名待ち)"
+    approver: "Bojiang Zhang"
+
+sheets:
+
+  # ─────────────────────────────────────────────
+  # 1. 背景 / 目的 / 想定読者
+  # 引用源: METHODOLOGY.md 序文 + Compliance framing
+  #         + .work/00_planning/restructure_plan.md §一 (重構決断理由)
+  #         + .work/00_planning/source_relationship.md §一 (源文件清単)
+  # ─────────────────────────────────────────────
+  - name: "1_背景目的"
+    type: "text"
+    content_summary: "本書の背景・目的・想定読者・関連文書"
+    content: |
+      1.1 本知識ベース (SDTM Knowledge Base) の存在意義
+
+      本知識ベースは、米国食品医薬品局 (FDA: Food and Drug Administration) が義務付け、独立行政法人医薬品医療機器総合機構 (PMDA: Pharmaceuticals and Medical Devices Agency) が認め、欧州医薬品庁 (EMA: European Medicines Agency) が受理する臨床試験データ表形式モデル (SDTM: Study Data Tabulation Model) の標準刊行物に基づき、業務利用しやすい形に再構成した参考資料である。
+
+      対象は、CDISC SDTM 規格に依拠する臨床試験データ提出、データプログラミング、品質確認業務である。本知識ベースは、これら業務における日常参照を効率化することを目的とし、規制当局への提出時の権威源を代替するものではない。
+
+      出典: METHODOLOGY.md Purpose + Compliance framing。
+
+      1.2 本納品物の目的
+
+      本納品物 (要件定義書、基本設計書、運用保守マニュアル、テスト結果報告書、詳細設計書、トレーサビリティ管理表、進捗報告書、用語集) は、本知識ベースおよびその検証根拠資料を、iTMS 株式会社が自社業務に違和感なく組み込めるよう、日本職場の標準ドキュメント形式 (Excel 主体) に再構成したものである。
+
+      Excel 形式を主体に選定した理由は、受信者側の社内文書レビュー、印刷、承認欄記入といった既存業務手順との適合性が高いためである。
+
+      出典: docs/jp/PLAN.md §0.1。
+
+      1.3 想定読者
+
+      本納品物の想定読者は、IT 分野および医療データ分野の双方に知見を有する実務担当者である。具体的には、臨床試験データ管理、SDTM データプログラミング、マッピング品質確認、SDTM 教育に従事する技術者および管理者を想定する。
+
+      出典: docs/jp/PLAN.md §0 受信者欄。
+
+      1.4 関連文書一覧
+
+      本納品物は以下の文書群で構成される。
+
+      ・01 基本設計書: 知識ベース全体構成、データモデル、外部 IF を定義する設計根拠章。
+      ・02 運用保守マニュアル: 日常運用手順、保守作業手順、障害対応の運用根拠章。
+      ・03 テスト結果報告書: 試験範囲、実施結果、合格判定、根拠資料一覧の検証根拠章。
+      ・04 要件定義書: 本書。背景、業務要件、機能要件、非機能要件、制約条件、前提条件の最上位根拠章。
+      ・05 詳細設計書: 01 基本設計の章別詳細展開。
+      ・06 トレーサビリティ管理表: 要件、設計、試験、根拠資料の横断対応表。
+      ・07 進捗報告書: 全体サマリ、工程別進捗、課題管理、今後の予定。
+      ・99 用語集: 英語、日本語、中国語、出典規格の四列対照辞書。
+
+      出典: docs/jp/PLAN.md §1。
+
+      1.5 本書の位置付け
+
+      本書は本納品物の最上位根拠章であり、後段三文書 (01 基本設計書、02 運用保守マニュアル、03 テスト結果報告書) すべての根拠章となる。01 は本書 §3 機能要件を、02 は本書 §4 非機能要件および §5 制約条件を、03 は本書 §6 前提条件を引用して試験範囲を画定する。
+
+      出典: docs/jp/PLAN.md §1 v0.3 改訂注記。
+
+      出典: METHODOLOGY.md Purpose + Compliance framing / docs/jp/PLAN.md §0 §1。
+
+  # ─────────────────────────────────────────────
+  # 2. 業務要件
+  # 引用源: METHODOLOGY.md §1 (Authoritative sources)
+  #         + §6 (Implications and boundaries)
+  #         + .work/00_planning/source_relationship.md (PDF と xlsx 関係)
+  # ─────────────────────────────────────────────
+  - name: "2_業務要件"
+    type: "text"
+    content_summary: "業務上の要件 — 本知識ベースが満たすべき業務的価値"
+    content: |
+      2.1 業務シナリオ
+
+      本知識ベースは、以下三用途における作業参照資料として用いることを業務要件とする。
+
+      ・SDTM データプログラミング: 各ドメインの変数定義、Core 区分、受控用語との照合を日常参照する場面。
+      ・マッピング品質確認: 提出予定データセットを SDTMIG v3.4 仕様と照合し、不整合を抽出する場面。
+      ・SDTM 教育: 規格初学者および中堅技術者が、ドメイン構造、観察クラス概念、受控用語体系を学習する場面。
+
+      出典: METHODOLOGY.md §6 first bullet。
+
+      2.2 一次資料との対応関係
+
+      本知識ベースは、CDISC が公表する以下四種の公式刊行物のみを根拠とする。第三者要約や言換え版から派生したコンテンツを一切含まない。
+
+      ・SDTM 実装ガイド (SDTMIG: SDTM Implementation Guide) PDF v3.4 (2021 年 11 月 29 日公表)、461 頁。各ドメインの仕様、業務上の前提、実装例を収録する。
+      ・SDTM モデル (SDTM Model) PDF v2.0 Final (2021 年 11 月 29 日公表)、74 頁。観察クラスおよび変数役割の概念モデルを規定する。
+      ・SDTMIG xlsx v3.4。63 ドメインにわたる 1,917 変数の構造化メタデータを含む。
+      ・CDISC 受控用語 (Controlled Terminology) xlsx 2024 年版。1,005 のコードリスト、合計 37,939 用語を含む。
+
+      原刊行物自体は本リポジトリに再配布せず、CDISC が著作権を保持する。
+
+      出典: METHODOLOGY.md §1 Table。
+
+      2.3 業務的限界
+
+      本知識ベースは作業参照資料としての性質を有し、以下二点の業務的限界を本書冒頭で明示する。
+
+      第一に、本知識ベースは、米国 21 CFR Part 11 または PMDA が想定する電子記録および電子署名要件を充足する電磁的記録の代替ではない。組織標準作業手順書がこれら電子記録について規定する場合、その規定が優先される。
+
+      第二に、規制当局への提出時の権威源は CDISC 公式刊行物であり、本知識ベースの記述と公式刊行物との間に差異が見られた場合は、公式刊行物が優先される。
+
+      出典: METHODOLOGY.md §6 (last 2 bullets)。
+
+  # ─────────────────────────────────────────────
+  # 3. 機能要件
+  # 引用源: METHODOLOGY.md §2 (Construction pipeline 7 phases)
+  #         + §3 (Traceability — auditing)
+  # ─────────────────────────────────────────────
+  - name: "3_機能要件"
+    type: "table"
+    content_summary: "機能要件 — 工程別の構築機能と追跡機能"
+    headers: ["要件 ID", "要件項目", "要件内容", "出典"]
+    column_widths: [10, 22, 60, 28]
+    rows:
+      - ["FR-01", "仕様自動変換機能", "SDTMIG xlsx v3.4 を入力とし、63 ドメインの仕様 Markdown ファイルおよび用語索引を Python 処理単位で機械的に生成する。", "METHODOLOGY.md §2 Phase 1"]
+      - ["FR-02", "PDF ページ索引機能", "SDTMIG v3.4 PDF を入力とし、ページ位置を機械的に索引化する。視覚推定値の混入を排除し、page_index.json を唯一の権威源とする。", "METHODOLOGY.md §2 Phase 2"]
+      - ["FR-03", "PDF 抽出機能", "SDTMIG v3.4 PDF から各ドメインの業務上の前提および実装例を AI 補助で抽出する。全 11 処理単位に分割し、各処理単位ごとに独立確認を実施する。", "METHODOLOGY.md §2 Phase 3"]
+      - ["FR-04", "補完抽出機能", "SDTM Model v2.0 PDF からモデル概念 6 文書、SDTMIG v3.4 PDF から共通章 6 文書を補完抽出する。", "METHODOLOGY.md §2 Phase 4"]
+      - ["FR-05", "全件確認・索引化機能", "全ファイルを対象に網羅確認を実施し、索引文書 INDEX.md を生成する。確認報告書を併せて産出する。", "METHODOLOGY.md §2 Phase 5"]
+      - ["FR-06", "検索最適化機能", "経路層文書 ROUTING.md および逆引き変数索引 VARIABLE_INDEX.md (1,523 変数収録) を生成し、知識ベースの検索効率を向上させる。", "METHODOLOGY.md §2 Phase 6"]
+      - ["FR-07", "AI 平台展開機能", "知識ベースを四種の AI 平台向け配布物として整形する。各平台の容量制約および機能制約に整合させた構成で出力する。", "METHODOLOGY.md §2 Phase 6.5"]
+      - ["FR-08", "ドメイン回答追跡機能", "ドメインに関する任意の主張について、ドメイン符号特定、knowledge_base/domains/<DOMAIN>/ 配下三件 (spec.md / assumptions.md / examples.md) の参照、PDF 頁範囲の照合の手順で、一次資料に追跡可能とする。", "METHODOLOGY.md §3 第 1 段落"]
+      - ["FR-09", "章節回答追跡機能", "章節レベルの主張について、knowledge_base/chapters/chXX_*.md の頁範囲および節番号が、SDTMIG 目次と直接対応する構造を提供する。", "METHODOLOGY.md §3 第 2 段落"]
+      - ["FR-10", "受控用語追跡機能", "knowledge_base/terminology/ 配下の各コードリスト文書に CDISC 割当の C 符号 (例 C66731) を保持し、米国国立がん研究所 EVS Browser (NCI EVS Browser) との相互参照を可能とする。", "METHODOLOGY.md §3 第 3 段落"]
+      - ["FR-11", "字面級確認継続実施機能", "七工程パイプラインと並行し、知識ベースの字面級確認を独立した作業群として継続実施する。各検証単位の主張を出典 PDF と頁単位で照合する。2026 年 4 月 29 日時点で対象範囲の 97% を完了し、進行中である。", "METHODOLOGY.md §2 末尾段落"]
+
+  # ─────────────────────────────────────────────
+  # 4. 非機能要件
+  # 引用源: METHODOLOGY.md §5 (Standing controls — 4 項)
+  #         + .work/meta/retrospective.md §4 (4 条予防規則)
+  #         + GAMP 5 / ALCOA+ 言及 (METHODOLOGY.md Compliance framing)
+  # ─────────────────────────────────────────────
+  - name: "4_非機能要件"
+    type: "table"
+    content_summary: "非機能要件 — 品質・追跡可能性・規律統制"
+    headers: ["要件 ID", "観点", "要件内容", "ALCOA+ 次元", "出典"]
+    column_widths: [10, 22, 50, 16, 24]
+    rows:
+      - ["NFR-01", "定量合格判定基準", "合格判定基準は定量化する。覆盖率は 95% 以上、占位マーカー (待補全、TODO、待後続) は 0 件、行頁比は概ね 1 頁あたり 15 行から 20 行を基準とする。「見た目で正しい」といった主観評価は許容しない。", "Complete · Accurate", "METHODOLOGY.md §5 #1 + 規律 1"]
+      - ["NFR-02", "作成者・承認者分離", "ファイルを作成した処理プロセスまたは担当者は、当該ファイルを承認できない。承認担当者は出典 PDF を独立に読み、構造化された覆盖率報告を作成する。", "Attributable", "METHODOLOGY.md §5 #2 + 規律 2"]
+      - ["NFR-03", "AI 推測値の明示", "AI が機械的に確認できない値はすべて (estimated) ラベルを付与する。当該値は権威索引から除外する。精確値が必要な場合は機械処理または人手照合を経る。なお (estimated) は知識ベース内部の機械可読ラベルとして英語表記のまま運用する。", "Original · Accurate", "METHODOLOGY.md §5 #3 + 規律 3"]
+      - ["NFR-04", "各工程閉幕の無作為抽出確認", "各工程の閉幕時に無作為抽出による出典照合確認を組込む。事後是正ではなく工程閉幕の必須手順とする。本要件は事後検出のみに依存しない品質保証の要となる。", "Accurate · Available", "METHODOLOGY.md §5 #4 (retrospective.md §4 規律 4 を恒常統制へ格上げ)"]
+      - ["NFR-05", "追跡可能性", "任意の主張について、出典 PDF の該当頁および節を数秒で照合できる構造を提供する。ドメイン回答は三件 (spec / assumptions / examples)、章節回答は頁範囲付き Markdown、受控用語は C 符号で追跡可能とする。", "Attributable · Accurate", "METHODOLOGY.md §3 + §6"]
+      - ["NFR-06", "GAMP 5 / ALCOA+ 整合", "本知識ベースの構築は、GAMP 5 (国際製薬技術協会 ISPE 発行) のリスク主導検証の考え方に整合する。具体的には、宣言された仕様、実行された確認、独立した審査、文書化された不整合追跡を備える。ただし、GAMP 5 への正式分類取得または ALCOA+ への公式認証取得は本範囲外とする。", "—", "METHODOLOGY.md Compliance framing"]
+    note_rows: []
+
+  # ─────────────────────────────────────────────
+  # 5. 制約条件
+  # 引用源: METHODOLOGY.md §6 (Implications and boundaries)
+  #         + DISCLAIMER.md (再掲のみ)
+  #         + docs/jp/PLAN.md §10 (Constraints — 本納品物自身の制約として再構成)
+  # ─────────────────────────────────────────────
+  - name: "5_制約条件"
+    type: "table"
+    content_summary: "制約条件 — 本知識ベース利用時の前提となる制限事項"
+    headers: ["制約 ID", "種別", "制約内容", "出典"]
+    column_widths: [10, 14, 64, 26]
+    rows:
+      - ["C-01", "規格優先性", "本知識ベースの記述と CDISC 公式刊行物の記述に差異が見られた場合は、公式刊行物が優先される。規制当局への提出時の権威源は SDTMIG、SDTM Model、Controlled Terminology の各公式刊行物である。", "METHODOLOGY.md §6 last bullet"]
+      - ["C-02", "規制範囲外", "本知識ベースは、米国 21 CFR Part 11 または PMDA が想定する電子記録および電子署名要件を充足する電磁的記録の代替ではない。組織標準作業手順書が当該電子記録を規定する場合、その規定が優先される。", "METHODOLOGY.md §6 second bullet"]
+      - ["C-03", "著作権", "SDTM、SDTMIG、CDISC Controlled Terminology の各規格および原刊行物の著作権は CDISC が保持する。本リポジトリは原刊行物そのものを再配布せず、業務利用しやすい形に再構成した派生著作物のみを CC BY 4.0 ライセンスで配布する。原刊行物の入手は CDISC Library 経由で利用者が個別に行う。", "METHODOLOGY.md §1 末尾 + DISCLAIMER.md"]
+      - ["C-04", "機能限界", "本知識ベースは、大規模な受控用語コードリストの完全展開および外部実時間検索の組込みを範囲外とする。これら個別事項の詳細は別途配布される技術文書 KNOWN_LIMITATIONS を参照する。", "METHODOLOGY.md §4 Standing limitations + KNOWN_LIMITATIONS.en.md"]
+      - ["C-05", "機密区分", "本納品物の機密区分は公開可レベルとする。CDISC 規格自体が公開資料であり、本納品物にも個人情報および組織機密情報を含めない。", "docs/jp/PLAN.md §10 H-4"]
+
+  # ─────────────────────────────────────────────
+  # 6. 前提条件
+  # 引用源: .work/00_planning/source_relationship.md §一 (源文件清単)
+  #         + .work/00_planning/restructure_plan.md §四 (データ源分工)
+  #         + METHODOLOGY.md §1
+  # ─────────────────────────────────────────────
+  - name: "6_前提条件"
+    type: "table"
+    content_summary: "前提条件 — 利用環境・参照資料・読者前提知識"
+    headers: ["前提 ID", "種別", "前提内容", "出典"]
+    column_widths: [10, 14, 64, 26]
+    rows:
+      - ["P-01", "一次資料利用可能性", "受信者は、必要に応じて CDISC 公式刊行物 4 件 (SDTMIG v3.4 PDF / SDTM Model v2.0 PDF / SDTMIG xlsx v3.4 / Controlled Terminology xlsx 2024 年版) を CDISC Library 経由で参照可能であることを前提とする。", "METHODOLOGY.md §1 Table"]
+      - ["P-02", "読者背景", "受信者は IT 分野および医療データ分野の双方に知見を有する実務担当者であることを前提とする。基本的な臨床試験用語、Excel および Markdown の基本操作、業務系規格への抵抗のなさを想定する。", "docs/jp/PLAN.md §0 受信者欄"]
+      - ["P-03", "概念整理", "受信者は SDTMIG v3.4 が SDTM Model v2.0 の実装ガイドである関係性を理解していることを前提とする。SDTM Model v2.0 は概念モデル (観察クラス、変数役割、ドメイン分類体系) を規定し、SDTMIG v3.4 はこれを前提として各ドメインの具体実装 (変数名、ラベル、Core 区分、業務上の前提、実装例) を規定する。", ".work/00_planning/restructure_plan.md §二"]
+      - ["P-04", "受控用語体系", "受信者は CDISC 受控用語の C 符号体系 (例: C66731) を理解しており、米国国立がん研究所 EVS Browser (NCI EVS Browser) を用いた符号照合が可能であることを前提とする。", "METHODOLOGY.md §3 第 3 段落"]
+      - ["P-05", "確認根拠資料保管", "本知識ベースの構築過程で生成した確認根拠資料は、再監査可能な形式で組織内に保管されていることを前提とする。各処理単位の独立確認結果、覆盖率報告、無作為抽出確認記録を含む。", "METHODOLOGY.md §2 末尾"]
+
+approval:
+  enabled: true

@@ -24,6 +24,8 @@ revision_history:
   - "v0.1 (2026-04-29): 初版起草 (3 並列 batch + 主 session 統合)"
   - "v0.2 (2026-04-29): code-reviewer Round 1 CONDITIONAL_PASS の指摘修正 (HIGH F-1 dropout §SE→§DS / F-2 JIS § 名 11 件 UNVERIFIED 表記緩和 + 3 件 §節置換 / MEDIUM F-3/F-4/F-5/F-6 メタ整合)"
   - "v0.3 (2026-04-29): code-reviewer Round 2 CONDITIONAL_PASS の指摘修正 (HIGH N-1 reviewer_checklist の YAML 構文エラー → 各行 quoted string 化 / MEDIUM N-2 cjug_d2_application_count 7→9 訂正 katakana エイリアス含算 / LOW N-3 F-3 主張文も同期訂正)"
+  - "v0.4 (2026-04-29): Phase 1 04 要件定義書 着手時の用語監査誤検出対応 (ack candidates から「確認」除外 — 汎用日本語衝突回避; adopted「承認」維持)"
+  - "v0.5 (2026-04-29): Phase 1 04 要件定義書 用語監査担当 round 1 指摘 A-F-1 / A-F-3 / A-F-4 への対応 (writer から「作成者」/ drift から「差異」/ chain から「相互参照」を candidates 除外 — 汎用日本語衝突回避; adopted 値および notes は不変)"
 total_entries: 33
 batches_integrated: 3
 cross_batch_reconciliations:
@@ -148,7 +150,7 @@ entries:
       AI が担う場合は「整合確認担当者 (AI)」と括弧書き. Excel では「整合確認者」に短縮可.
 
   - internal: writer
-    candidates: ["文書作成担当者", "起草担当者", "作成者", "文書作成プロセス担当"]
+    candidates: ["文書作成担当者", "起草担当者", "文書作成プロセス担当"]
     adopted: "文書作成担当者"
     reason: |
       「作成者」は範囲不明確 (設計者・実装者も該当しうる). 「起草担当者」は法的文書語感.
@@ -240,7 +242,7 @@ entries:
       ディレクトリ: `.work/06_deep_verification/evidence/`.
 
   - internal: drift
-    candidates: ["乖離", "差異", "逸脱", "ずれ"]
+    candidates: ["乖離", "逸脱", "ずれ"]
     adopted: "乖離"
     reason: |
       「逸脱」は CSV ガイドライン「手順書からの逸脱」固有用法と衝突. 「差異」は経時的ずれを表現不足.
@@ -380,7 +382,7 @@ entries:
       納品物には記載しない. Tier 3 固有成果物 (trace.jsonl / audit_matrix.md) は対象外, 内容のみ抽出提供.
 
   - internal: chain
-    candidates: ["変更連鎖", "関連文書連動", "相互参照"]
+    candidates: ["変更連鎖", "関連文書連動"]
     adopted: "変更連鎖"
     reason: |
       「相互参照」は双方向参照のみで「更新時の同期義務」動的側面欠落.
@@ -406,11 +408,12 @@ entries:
       説明文を付記推奨. 内部 CLAUDE.md / SYNC_BOARD.md の gate 用語は維持.
 
   - internal: ack
-    candidates: ["承認", "確認", "了承"]
+    candidates: ["承認", "了承"]
     adopted: "承認"
     reason: |
-      「確認」は事実認知を指し意思決定意味なし. 「了承」は商慣行的, 公文書では「承認」優先.
+      「了承」は商慣行的, 公文書では「承認」優先.
       「承認」は CSV ガイドライン §6.6 変更管理 + IPA モデル契約書 §承認欄 で標準語.
+      「確認」は日本語汎用語で承認欄列ラベル等に頻出. candidates 化は誤検出が多発するため除外. adopted の「承認」強制で規律目的は達成される.
     reference:
       - "厚労省 CSV ガイドライン §6.6 変更管理 (2010)"
       - "IPA 情報システム・モデル取引・契約書 第二版 §承認欄 (2020)"

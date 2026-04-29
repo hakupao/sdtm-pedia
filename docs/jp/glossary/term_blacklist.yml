@@ -139,5 +139,6 @@ audit_rules:
     - CHANGELOG.md
     - _progress.json
     - glossary/**
+    - "*用語集*.xlsx"
     - failures/**
   scope: deliverables_only
