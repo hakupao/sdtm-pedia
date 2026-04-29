@@ -5,111 +5,119 @@ order: 15
 title: "Methodology"
 ---
 
-# Methodology — How This Knowledge Base Was Built and Why You Can Trust It
+# Methodology and Verification Statement
 
-> Last updated: 2026-04-29 · Maintained alongside the build itself, not as marketing copy.
+> Last updated: 2026-04-29 · Maintained alongside the build process. The status reported below reflects the current state of the verification track.
 
-The natural first reaction to an AI-extracted SDTM knowledge base is *"did it hallucinate, did it skip pages, did anyone actually verify this?"* This page is the answer. It documents what was done, what is traceable, what was found wrong along the way, and how you can audit any specific answer yourself.
+## Purpose
 
-If you only read one section, read [§4 — Verification and known issues](#4-verification-and-known-issues).
+This document specifies how the SDTM knowledge base in this repository was constructed, the controls that govern its accuracy, and the procedures by which any individual claim can be independently audited against the source publications. It is published in this form so that users who rely on the knowledge base in regulated work — FDA, PMDA, or EMA submissions; SDTM data programming; mapping quality control — can establish, and re-establish, the level of trust they require.
 
----
+The structure of the statement follows a verification logic familiar in clinical IT: declared sources of truth (§1), a defined construction pipeline (§2), an end-to-end traceability map (§3), a public record of identified non-conformances and their closure (§4), the standing controls the project enforces (§5), and the boundaries within which the artifact may be used (§6). Readers conducting a focused review may begin with [§4](#4-non-conformances-identified-and-closed).
 
-## 1. Sources of truth
+## Compliance framing
 
-Every artifact in `knowledge_base/` traces back to one of four official CDISC publications. Nothing in this repository is generated from third-party summaries or paraphrased standards.
+The knowledge base derives from CDISC SDTM publications mandated by the U.S. Food and Drug Administration, recognized by the Japanese Pharmaceuticals and Medical Devices Agency, and accepted by the European Medicines Agency for clinical study data submissions. Work performed *using* this knowledge base is typically governed by ICH E6 (R3) Good Clinical Practice and the data-integrity principles consolidated as ALCOA+ (FDA, MHRA, WHO).
+
+The construction methodology described below adopts a risk-based verification approach informed by GAMP 5 (ISPE) — declared specification, executed verification, independent review, and a documented anomaly trail — without claiming formal categorization or certification under those frameworks. Each control in §5 is mapped to its corresponding ALCOA+ dimension, and the verification evidence is retained in the repository for re-audit.
+
+## 1. Authoritative sources
+
+Every artifact under `knowledge_base/` is traceable to one of four official CDISC publications. No content in this repository is generated from third-party summaries or paraphrased renditions of the standard. AI-assisted components produce only source-grounded extractions; ungrounded generation is not permitted in the pipeline.
 
 | Source | Version | Scope |
 |---|---|---|
-| SDTM Implementation Guide PDF | v3.4 (2021-11-29) | 461 pages — domain specs, assumptions, examples |
-| SDTM Model PDF | v2.0 Final (2021-11-29) | 74 pages — conceptual model |
-| SDTMIG xlsx | v3.4 | 1,917 variables across 63 domains |
-| CDISC Controlled Terminology xlsx | 2024 release | 1,005 codelists / 37,939 terms |
+| SDTM Implementation Guide (PDF) | v3.4 (2021-11-29) | 461 pages — domain specifications, assumptions, examples |
+| SDTM Model (PDF) | v2.0 Final (2021-11-29) | 74 pages — conceptual model |
+| SDTMIG (xlsx) | v3.4 | 1,917 variables across 63 domains |
+| CDISC Controlled Terminology (xlsx) | 2024 release | 1,005 codelists / 37,939 terms |
 
-The originals are not redistributed in this repository (CDISC copyright). See the [project DISCLAIMER](https://github.com/hakupao/sdtm-pedia/blob/main/DISCLAIMER.md).
+The original publications are not redistributed in this repository; CDISC retains copyright. See the [project disclaimer](https://github.com/hakupao/sdtm-pedia/blob/main/DISCLAIMER.md).
 
-## 2. How it was built
+## 2. Construction pipeline
 
-A seven-phase pipeline. Each phase has its own plan, execution log, and verification record under `.work/` in the [GitHub repository](https://github.com/hakupao/sdtm-pedia/tree/main/.work) — they are part of the source, not a separate documentation site.
+The knowledge base was produced through a seven-phase pipeline. Each phase is documented as a separate work package — a phase plan, an execution log, and a verification record — held under [`.work/`](https://github.com/hakupao/sdtm-pedia/tree/main/.work) in the repository, which forms part of the auditable source rather than a separate documentation product.
 
-| Phase | What happened | Primary output |
+| Phase | Activity | Primary output |
 |---|---|---|
-| 1 | xlsx → Markdown via Python | 63 `spec.md` files + terminology |
-| 2 | PDF page indexing (programmatic, not visual) | `page_index.json` |
-| 3 | AI-assisted extraction from PDF, in 11 batches | per-domain `assumptions.md` + `examples.md` |
-| 4 | Supplementary content extraction | 6 model files + 6 chapter files |
-| 5 | Full validation pass + master index | `INDEX.md` + verification reports |
-| 6 | Retrieval optimization (routing, reverse index) | `ROUTING.md` + `VARIABLE_INDEX.md` (1,523 variables) |
-| 6.5 | AI platform deployment | 4-platform release bundle |
+| 1 | Programmatic conversion of xlsx specifications to Markdown (Python) | 63 `spec.md` files; terminology indices |
+| 2 | Programmatic PDF page indexing (no visual estimation) | `page_index.json` |
+| 3 | AI-assisted extraction from the SDTMIG PDF, executed in 11 batches with per-batch verification | per-domain `assumptions.md`, `examples.md` |
+| 4 | Supplementary content extraction (model and chapter level) | 6 model files; 6 chapter files |
+| 5 | Full-pass validation with master indexing | `INDEX.md`; validation reports |
+| 6 | Retrieval optimization (routing layer; reverse variable index) | `ROUTING.md`; `VARIABLE_INDEX.md` (1,523 variables) |
+| 6.5 | AI platform deployment | Four-platform release bundle |
 
-A separate **literal-level deep verification audit** runs as an ongoing track. It compares every atomic claim in the knowledge base against the source PDF, page by page. As of 2026-04-29 the audit has reached **97% coverage of the in-scope pages** and is still running. Per-batch reports live under [`.work/06_deep_verification/evidence/checkpoints/`](https://github.com/hakupao/sdtm-pedia/tree/main/.work/06_deep_verification/evidence/checkpoints).
+In parallel with the seven-phase pipeline, an independent **atom-level literal verification audit** is being executed as a continuing work track. Each atomic claim in the knowledge base is reconciled against the source PDF on a page-by-page basis. As of 2026-04-29 the audit covers **97% of the in-scope pages** and remains active. Per-batch evidence is published under [`.work/06_deep_verification/evidence/checkpoints/`](https://github.com/hakupao/sdtm-pedia/tree/main/.work/06_deep_verification/evidence/checkpoints).
 
-## 3. Traceability — how to audit any single answer
+## 3. Traceability — auditing an individual answer
 
-The repository is deliberately structured so that a reader can spot-check the knowledge base against the PDF in seconds. There is no "trust me" layer.
+The repository is structured so that any single answer can be reconciled against the source publication within seconds, supporting the *Attributable* and *Accurate* dimensions of ALCOA+.
 
-**To verify a domain-level answer:**
+**Verification of a domain-level claim:**
 
-1. Note the domain code in the answer (`AE`, `LB`, `DM`, …).
+1. Identify the domain code in the answer (`AE`, `LB`, `DM`, …).
 2. Open `knowledge_base/domains/<DOMAIN>/`:
-   - `spec.md` — variable-level specification (sourced from xlsx, Core / type / codelist binding)
-   - `assumptions.md` — domain-specific business rules (sourced from PDF)
+   - `spec.md` — variable-level specification (sourced from xlsx; Core, type, and codelist binding)
+   - `assumptions.md` — domain-specific assumptions (sourced from PDF)
    - `examples.md` — implementation examples (sourced from PDF)
-3. Each file's header references the relevant PDF page range. Cross-check against the SDTMIG v3.4 PDF.
-4. For variable Core / codelist binding, verify against the SDTMIG xlsx if you have it.
+3. Each file's header carries the corresponding PDF page range. Reconcile against the SDTMIG v3.4 PDF.
+4. Variable Core and codelist bindings can be verified against the SDTMIG xlsx where available.
 
-**For a chapter-level answer:** open `knowledge_base/chapters/chXX_*.md`. The page range and section numbers match the PDF table of contents directly.
+**Verification of a chapter-level claim:** open `knowledge_base/chapters/chXX_*.md`. Page ranges and section numbers correspond directly to the SDTMIG table of contents.
 
-**For a terminology answer:** every codelist file in `knowledge_base/terminology/` carries the CDISC C-code (e.g. `C66731`) so it can be cross-checked against the NCI EVS Browser.
+**Verification of a controlled-terminology claim:** every codelist file under `knowledge_base/terminology/` carries the assigned CDISC C-code (for example `C66731`), enabling cross-reference against the NCI EVS Browser.
 
-The full source-to-output map is at [`docs/TRACEABILITY.md`](https://github.com/hakupao/sdtm-pedia/blob/main/docs/TRACEABILITY.md) in the repository.
+The complete source-to-output mapping is published as the [traceability matrix](https://github.com/hakupao/sdtm-pedia/blob/main/docs/TRACEABILITY.md) (`docs/TRACEABILITY.md`).
 
-## 4. Verification and known issues
+## 4. Non-conformances identified and closed
 
-Two systemic issues were caught during the validation phase and are publicly documented. They are not hidden because they are the most useful evidence that the verification process actually works.
+Two systemic non-conformances were identified during the validation phase. Both are publicly documented; their disclosure is a structural feature of the methodology, in line with the audit-trail expectations applied to electronic records in regulated clinical-IT environments.
 
-### Issue 1 — Page index drift (2026-04-15, resolved)
+### NCR-001 — Page-index drift (closed 2026-04-15)
 
-The first pass at PDF image and figure indexing relied on AI agents visually identifying page numbers. Spot-checking by a domain expert revealed that the page references for the TD example were off by 4 pages, and similar drift (±2–4 pages) was distributed across roughly 60 figures.
+The first iteration of the PDF figure-and-image index relied on AI components identifying page numbers by visual inspection. A sampling review by a domain expert determined that the page reference for the TD example was offset by four pages, with comparable drift of ±2 to ±4 pages distributed across approximately 60 figures.
 
-**Root cause:** AI agents reading a PDF cannot reliably observe page boundaries — they estimate. The pipeline did not distinguish "exact value" from "estimated value."
+**Root cause.** AI components performing visual reading of PDF cannot reliably observe page boundaries; they estimate. The pipeline did not, at that point, distinguish *exact* values from *estimated* values.
 
-**Fix:** the page index was rebuilt programmatically — `page_index.json` is now the single authoritative source, all downstream files reference it, and any AI-produced page estimate is now labelled `(estimated)` rather than written into the index.
+**Corrective action.** The page index was rebuilt programmatically. `page_index.json` is now the single authoritative source; all downstream files reference it; any AI-produced page reference that cannot be confirmed programmatically is labelled `(estimated)` and is not written into the authoritative index.
 
-Full investigation: [`.work/03_verification/issue1_investigation.md`](https://github.com/hakupao/sdtm-pedia/blob/main/.work/03_verification/issue1_investigation.md).
+Investigation record: [`.work/03_verification/issue1_investigation.md`](https://github.com/hakupao/sdtm-pedia/blob/main/.work/03_verification/issue1_investigation.md).
 
-### Issue 2 — Skeleton-only content marked as PASS (2026-04-15, resolved)
+### NCR-002 — Skeleton content accepted as PASS (closed 2026-04-15)
 
-`ch04_general_assumptions.md` was marked PASS in the first validation pass even though approximately 30% of its subsections contained only one or two sentences of placeholder text with `<!-- 待补全 -->` markers. The PDF contains 38 pages of detailed rules; the file at the time contained roughly 9 lines per page. The post-fix version contains roughly 17 lines per page.
+`ch04_general_assumptions.md` was assigned a PASS verdict in the first validation pass although approximately 30% of its subsections contained only one or two sentences of placeholder text marked with `<!-- 待补全 -->`. The corresponding chapter of the SDTMIG comprises 38 pages of detailed rules; the file at the time of the original PASS averaged approximately 9 lines per page, against approximately 17 lines per page after remediation.
 
-**Root cause:** the PASS criterion accepted *"missing content has been clearly marked as missing"* as a substitute for *"content is complete."* In addition, the same agent both wrote and approved the file — there was no independent reviewer reading the PDF.
+**Root cause.** The PASS criterion accepted *"missing content has been clearly marked as missing"* as a substitute for *"content is complete."* In addition, the agent that authored the file also approved it; no independent reviewer read the source PDF.
 
-**Fix:** every flagged subsection was rebuilt from the source PDF. The PASS criterion was rewritten to require quantitative coverage (lines-per-page ratio against a baseline, zero placeholder markers, ≥95% point coverage). From then on, the agent that writes a file cannot be the same context that approves it.
+**Corrective action.** Every flagged subsection was reconstructed from the source PDF. The PASS criterion was rewritten to require quantitative coverage: a defined minimum lines-per-page ratio against a baseline; zero placeholder markers; ≥ 95% point coverage. Author–approver separation became a standing control (rule 2 in §5).
 
-Full record: [`.work/03_verification/issues_found.md`](https://github.com/hakupao/sdtm-pedia/blob/main/.work/03_verification/issues_found.md).
+Closure record: [`.work/03_verification/issues_found.md`](https://github.com/hakupao/sdtm-pedia/blob/main/.work/03_verification/issues_found.md).
 
 ### Standing limitations
 
-Some limitations cannot be fully resolved within the AI-platform deployment (giant codelists stored as stubs, real-time external lookups not embedded, etc.). They are tracked separately: see [Known Limitations](./known-limitations/).
+Certain limitations cannot be fully resolved within the current AI-platform deployment form — for example, large codelists stored as stubs, and real-time external lookups not embedded. These are tracked separately and disclosed in the deployment artifact: [Known Limitations](./known-limitations/).
 
-## 5. Independent review process
+## 5. Standing verification controls
 
-The two issues above produced four standing rules. They are enforced for every phase of every track in this repository.
+The two non-conformances above resulted in four standing controls. They apply to every phase of every track in the repository, and their evidence is retained for re-audit.
 
-1. **Quantitative PASS criteria.** Coverage ratios, lines-per-page ratios, zero placeholder markers — not subjective "looks right."
-2. **Author and reviewer must be separate.** The agent or process that writes a file cannot be the one that approves it. Reviewer agents read the source PDF independently and produce a structured coverage report.
-3. **AI estimates must be labelled.** Anything an AI cannot programmatically confirm is marked `(estimated)` rather than written into an authoritative index.
-4. **Human spot-check is part of the workflow.** A random sample is reviewed against the source PDF at every phase close — not as a one-time afterthought.
+| # | Control | ALCOA+ dimension |
+|---|---|---|
+| 1 | **Quantitative PASS criteria.** Coverage ratios, lines-per-page ratios, zero placeholder markers; subjective acceptance ("looks correct") is not permitted. | Complete · Accurate |
+| 2 | **Author–approver separation.** The agent or process that authored a file may not approve it. The reviewer reads the source PDF independently and produces a structured coverage report. | Attributable |
+| 3 | **AI estimates are labelled.** Any value the AI cannot programmatically confirm is labelled `(estimated)` and is excluded from the authoritative index. | Original · Accurate |
+| 4 | **Human sampling review at every phase close.** A randomized sample is reconciled against the source PDF at the close of every phase, not as a post-hoc remedy. | Accurate · Available |
 
-The four rules and the failure cases that produced them are documented at [`.work/meta/retrospective.md`](https://github.com/hakupao/sdtm-pedia/blob/main/.work/meta/retrospective.md).
+The four controls and their originating non-conformances are documented in full at [`.work/meta/retrospective.md`](https://github.com/hakupao/sdtm-pedia/blob/main/.work/meta/retrospective.md).
 
-In addition, the verification track itself is iterative — the deep-verification audit (§2) has been through 14 review rounds at the time of writing, with each round documented and discrepancies pushed back into the knowledge base.
+The verification track is iterative. As of the date of this statement, the deep-verification audit referenced in §2 has completed 14 review rounds; each round is preserved as evidence, and any discrepancy identified in a round is fed back into the knowledge base.
 
-## 6. What this means for you
+## 6. Implications and boundaries
 
-- **Skepticism is welcome.** Locate the source page in seconds; if a number feels off, you can confirm or refute it directly against the PDF.
-- **Discrepancies should be reported.** If the deep-verification audit missed something, please open a [GitHub issue](https://github.com/hakupao/sdtm-pedia/issues). The audit track is open-ended.
-- **Not a regulatory substitute.** This knowledge base is an aid for engineers, programmers, and reviewers working with SDTM. For regulatory submissions, always defer to the official CDISC publications.
+- **Independent review is supported by design.** A user may locate the source page of a stated value within seconds and verify it directly against the SDTMIG PDF. Discrepancies should be reported via [GitHub issues](https://github.com/hakupao/sdtm-pedia/issues); the audit track is open-ended and accepts external findings.
+- **Use within the regulated chain of evidence.** The knowledge base may be used as a working reference for SDTM data programming, mapping review, and SDTM training. It is not itself a 21 CFR Part 11 / PMDA-grade electronic record and does not replace organizational standard operating procedures governing such records.
+- **Not a substitute for the official standard.** For regulatory submissions, the authoritative reference is the corresponding CDISC publication (SDTMIG, SDTM Model, Controlled Terminology). Where this knowledge base and the official publication appear to differ, the official publication governs.
 
 ---
 
