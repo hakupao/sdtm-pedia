@@ -285,7 +285,7 @@
 | 72 | oh-my-claudecode:scientist | Rule A | Attempt 1 30-atom + Attempt 2 30-atom (fresh dispatch each) | 63.3% / 80% strict (100% functional 经主 session reclassify §R-C1) |
 | 73 | oh-my-claudecode:code-reviewer | Rule D end-to-end | Attempt 1 全 5 jsonl 端到端 | CONDITIONAL_PASS |
 
-### Bulk B-01 (model/ 剩 4 文件, in progress)
+### Bulk B-01 (model/ 剩 4 文件, **CLOSED 2026-04-29** — cumulative audit + 1 HIGH hotfix)
 
 | batch_id | writer slot | atoms | Rule A reviewer slot | Rule A result | gate |
 |---|---|---|---|---|---|
@@ -293,6 +293,12 @@
 | P2_B-01_batch_02 | 70 (executor) | 244 (model/02 full, 298 lines, single dispatch) | 72 (scientist v1.9) | 10/10 = 100% strict + functional | **PASS** |
 | P2_B-01_batch_03 | 70 (executor) | 160 (model/03 full, 190 lines, single dispatch) | 72 (scientist v1.9) | 10/10 = 100% strict + functional | **PASS** |
 | P2_B-01_batch_04 | 70 (executor) | 192 (model/05 full, 296 lines, single dispatch — no fallback split needed) | 72 (scientist v1.9) | 10/10 = 100% strict + functional | **PASS** (B-01 全闭环) |
+
+### Bulk B-02 (chapters/ 6 文件: ch04 续 4 段 + ch01/02/03/08/10 全, in progress)
+
+| batch_id | writer slot | atoms | Rule A reviewer slot | Rule A result | gate |
+|---|---|---|---|---|---|
+| P2_B-02_batch_01 | 70 (executor) | 196 (ch04 L301-600 续 pilot 1-300; 1 FIGURE a345 mermaid figure_ref `md_ch04_obj_decision_tree_concept_map`; sib 1-based 续 pilot a217 sib=6 → a257 sib=7) | 72 (scientist v1.9) | 10/10 = 100% strict + functional + 14 hooks full-batch sweep all PASS | **PASS** |
 
 ### v1.9 prompt cut (2026-04-29, post P2 Pilot)
 

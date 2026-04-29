@@ -1,0 +1,10 @@
+{"atom_id": "md_ch04_a219", "verdict": "PASS", "severity": "PASS", "rationale": "byte-exact substring of source L302..302; H4 sib=1 1-based ok"}
+{"atom_id": "md_ch04_a220", "verdict": "PASS", "severity": "PASS", "rationale": "byte-exact substring of source L304..313; CODE_LITERAL boundary acceptable (fenced or hard_rule filename)"}
+{"atom_id": "md_ch04_a236", "verdict": "PASS", "severity": "PASS", "rationale": "byte-exact substring of source L340..340; sub-line SENTENCE byte-exact substring (§R-C1 PASS)"}
+{"atom_id": "md_ch04_a245", "verdict": "PASS", "severity": "PASS", "rationale": "byte-exact substring of source L351..351; full-line SENTENCE"}
+{"atom_id": "md_ch04_a268", "verdict": "PASS", "severity": "PASS", "rationale": "byte-exact substring of source L379..380; line_end-line_start=1 ≤ 1"}
+{"atom_id": "md_ch04_a269", "verdict": "PASS", "severity": "PASS", "rationale": "byte-exact substring of source L381..381; pipe-formatted single-line"}
+{"atom_id": "md_ch04_a275", "verdict": "PASS", "severity": "PASS", "rationale": "byte-exact substring of source L390..390; Hook C-6 bold-caption confirmed not HEADING"}
+{"atom_id": "md_ch04_a345", "verdict": "PASS", "severity": "PASS", "rationale": "byte-exact substring of source L492..502; figure_ref=md_ch04_obj_decision_tree_concept_map; mermaid block enclosed"}
+{"atom_id": "md_ch04_a405", "verdict": "PASS", "severity": "PASS", "rationale": "byte-exact substring of source L590..590; sub-line SENTENCE byte-exact substring (§R-C1 PASS)"}
+{"atom_id": "md_ch04_a414", "verdict": "PASS", "severity": "PASS", "rationale": "byte-exact substring of source L600..600; bullet prefix preserved"}

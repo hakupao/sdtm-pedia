@@ -346,7 +346,9 @@ ai_platforms/ ── Phase 6.5 AI 平台部署 ── [Claude v1 完成 (9/9 PAS
 | Pilot Rule D 报告 | `evidence/checkpoints/p2_pilot_review_report.md` |
 | v1.9 Prompts (post-pilot cut) | `subagent_prompts/P0_{writer_md,writer_pdf,matcher,reviewer}_v1.9.md` |
 | v1.8 archive | `subagent_prompts/archive/v1.8_final_2026-04-29/` |
-| Bulk B-01 batch 01 (model/06) | `evidence/checkpoints/P2_B-01_batch_01_md_atoms.jsonl` (109 atoms) + `rule_a_*_summary.md` |
-| Sidecar progress (next session 用) | `evidence/checkpoints/_progress_P2_pilot_and_B-01_batch_01.json` |
-| Next session kickoff | `multi_session/P2_B-01_batch_02_kickoff.md` (路由词 `P2 bulk B-01 batch 02 开始任务`) |
+| Bulk B-01 batch 01-04 (model 02/03/05/06) | `evidence/checkpoints/P2_B-01_batch_*_md_atoms.jsonl` × 4 (109+244+160+192 = 705 atoms) + `rule_a_P2_B-01_batch_*` × 4 (10/10 PASS each) |
+| Bulk B-01 cumulative audit + hotfix (CLOSED 2026-04-29) | `evidence/checkpoints/cumulative_audit_post_B01.md` (28/30=93.3% PASS, 1 HIGH hotfix `md_model01_a013` figure_ref) + `B01_retrospective.md` (4 节 retro: 保留做法 / 缺口 / 决策 / 量化) |
+| Bulk B-02 umbrella kickoff | `multi_session/P2_B-02_kickoff.md` (9-batch plan, ~1570 atoms 估; chapters/ ch04 续 4 段 + ch01/02/03/08/10 全) |
+| Bulk B-02 batch 01 (ch04 L301-600) | `evidence/checkpoints/P2_B-02_batch_01_md_atoms.jsonl` (196 atoms a219..a414) + `rule_a_*_summary.md` (10/10 PASS, 14-sweep clean) + `P2_B-02_batch_01_report.md` (8 节 report) |
+| Next session kickoff | `multi_session/P2_B-02_batch_01_kickoff.md` (路由词 `P2 bulk B-02 batch 01 开始任务` — 已完成); 下一 batch_02 kickoff 待写 (路由词 `P2 bulk B-02 batch 02 开始任务` ch04 L601-900) |
 | md_atoms.jsonl (累计) | `md_atoms.jsonl` 506 atoms (397 pilot + 109 batch 01, 0 dup) |

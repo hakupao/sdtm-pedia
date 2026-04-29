@@ -2153,4 +2153,26 @@
   - **B-02..B-15**: chapters 5 + ch04 续 5 段 + assumptions 62 + examples 62 + top-level 3 = 134 文件待 atomize ≈ 8500+ atoms / 12-15 batch
   - **v1.9.1 候选 backlog**: 1 item (md_model06_a029 line_start off-by-one HEADING precision rule) — 累积达 trigger 阈值再 cut
   - Recovery hint 在 `evidence/checkpoints/_progress_P2_pilot_and_B-01_batch_01.json`
+
+## 2026-04-29 06 Deep Verification P2 Bulk B-02 cycle 启动 + batch 01 闭环 (post B-01 全闭环 + cumulative audit + hotfix 同日)
+
+- **触发**: 用户路由 "P2 bulk B-02 开始任务" — 主 session 发现无 B-02 kickoff (B-01 batch 02 kickoff §5 路由表标注 "(待写新 kickoff)") 停下问 (Path A 起草 vs Path B inline 派); 用户选 A 起草 B-02 kickoff
+- **完成的工作**:
+  - **STEP 1 B-02 cycle drafting**: 读 `B01_retrospective.md` (4 节 retro) + `cumulative_audit_post_B01.md` (10 节 audit) + `plans/P2_md_atomization.md` §B.1/§B.4; 写 `multi_session/P2_B-02_kickoff.md` (umbrella, 9-batch 序列, ~1570 atoms 估; B-01 retro §5 7 conditions 全落地: hotfix ✓ / Hook A4 inline alt ✓ / parent_section v1.8 bracketed canonical ✓ / dispatch template schema-first ✓ / LOW deferred ✓ / multi-session kickoff 写 ✓ / 用户 ack ✓) + `multi_session/P2_B-02_batch_01_kickoff.md` (batch 01 specific, ch04 lines 301-600)
+  - **STEP 2 dispatch executor**: 用户 ack, 派 `oh-my-claudecode:executor` opus 单 dispatch ch04 L301-600 (300 line slice, 续 pilot a218 末态 §4.2.6)
+  - **STEP 3 writer 产物**: 196 atoms (a219..a414, 0 gap, all 22 hooks PASS), atom_type 8/9 命中 (SENTENCE 73 / LIST_ITEM 39 / TABLE_ROW 36 / HEADING 14 / TABLE_HEADER 14 / NOTE 12 / CODE_LITERAL 7 / FIGURE 1; CROSS_REF 缺同 B-01 自然分布), Hook A4 inline 拦截通过 (a345 mermaid figure_ref `md_ch04_obj_decision_tree_concept_map`), output ~25K tokens 远低于 32K cap (single dispatch 模式 cross-cycle 持续稳定)
+  - **STEP 4 Rule A scientist 派发**: 派 `oh-my-claudecode:scientist` opus (Rule D 隔离: ≠ writer executor, fresh dispatch); 10/10 strict + functional PASS, 14 anti-defect sweeps 全 clean (C-5 TABLE_HEADER 跨度 / C-6 HEADING regex / C-7 LIST_ITEM prefix / C-8 file 全路径 / A-4 FIGURE figure_ref / atom_id pattern + sequence + line range / 1-based sibling_index / extracted_by 一致 / parent_section v1.8 bracketed / heading_level required / verbatim byte-exact); 0 v1.9.1 candidates added; boundary atoms (a219/a345/a414) 强制入 sample 全 PASS
+  - **STEP 5 collateral updates**: append batch 01 jsonl → root md_atoms.jsonl (1102 → 1298, 0 dup, 196 batch 全入); audit_matrix.md 加 B-02 sub-section + batch 01 行 (B-01 header 加 CLOSED 2026-04-29 mark); trace.jsonl phase_report event 追加 (53 lines, all valid JSON); _progress.json phases.P2_md_atomization restructured 含 sub_cycles {pilot CLOSED 397 atoms / B-01 CLOSED 705 atoms with cumulative_audit_and_hotfix / B-02 in_progress 196 atoms 1/9 batches} + last_completed_batch + recovery_hint + next_batch hint; 写 `evidence/checkpoints/P2_B-02_batch_01_report.md` (8 节)
+- **关键决策**:
+  - **D-r29-6 schema-wins 第二次拒绝 dispatch instruction**: kickoff §3 我写 "sibling_index 0-based" 错; writer cross-check schema (`atom_schema.json $defs.md_atom.properties.sibling_index minimum: 1`) + pilot 全 1-based + B-01 model02 全 1-based, 拒绝 dispatch emit 1-based; 主 session post-PASS 修 kickoff §2.2 + 加入续接 H3 sib 链推断 (a217 sib=6 → a257 sib=7, a346 sib=8, a407 sib=9). B-01 retro §1.3 schema-wins 原则 cross-cycle 持续生效. **Lesson**: kickoff 写作流程加 schema 校验 step, 不凭印象写字段约束
+  - **D-r29-7 Hook A4 inline 路线证伪 v1.9.1 cut 必要性**: B-01 retro §2.2 提的 "FIGURE figure_ref pre-DONE check" alt 路线 = 不 cut v1.9.1, dispatch template 顶部加 self-check; 本 batch 1 FIGURE atom 验过, alt 路线 work, 不需 v1.9.1 baseline cut. v1.9 + 5-batch streak (B-01 4 + B-02 1) 持续 production-stable
+  - **D-r29-8 chapters/ 用 v1.8 bracketed parent_section format**: 与 pilot ch04 1-300 已写 218 atoms 对齐, 不与 B-01 model/* v1.9 spaced format 统一 — 因 chapters/ 章节有正式编号 (4.2.6, 4.3 等) bracket 增可读性; B-01 retro §2.3 codified, 本 batch 13 distinct parent_section 全 v1.8 bracketed PASS
+  - **D-r29-9 Multi-session kickoff routing 找不到时 STOP-AND-ASK**: B-01 batch 02 kickoff §5 标 "(待写新 kickoff)", 用户路由 "P2 bulk B-02 开始任务" 时主 session 没盲跑, 停下问 user (CLAUDE.md §06 Deep Verification 段 "找不到对应 batch_NN_kickoff.md 时停下问"). User 选择 Path A 起草 vs Path B inline 派, 选 A; 此 protocol cross-cycle 持续生效
+- **Carry-over for next session**:
+  - **NEXT**: P2 B-02 batch 02 (ch04 lines 601-900 ~190 atoms / 单 executor dispatch / atom_id 起 a415) — kickoff 待写 mirror batch 01 kickoff §2-§6 改 line range + atom_id start + 续接 a414 末态
+  - **B-02 后续**: batch 03 ch04 L901-1200 / batch 04 ch04 L1201-1395 / batch 05 ch01 全 / batch 06 ch03 全 / batch 07 ch02 全 / batch 08 ch10 全 / batch 09 ch08 全 → B-02 closure
+  - **B-02 闭环 cumulative audit**: post batch 09, 30-atom 跨累积 14 file 分层 by ai-slop-cleaner / critic (Rule D 跨-cycle 隔离更严, 与 B-01 用过的 code-reviewer/scientist 不同 type)
+  - **v1.9.1 候选 backlog**: 累积 4 (post B-01 hotfix) + 0 NEW 本 batch = 4 unchanged (1 LOW carry-forward md_model06_a029 line off-by-one + V1 HIGH FIGURE alt 已实施 + V2 MEDIUM parent_section format 双轨 / chapters v1.8 + model v1.9 / accept / V3 LOW pilot re-emit DEFERRED)
+  - **路由词 quick reference**: `P2 bulk B-02 batch 02 开始任务` (待 batch 02 kickoff 写完后路由)
+  - Recovery hint 在 `_progress.json.phases.P2_md_atomization.recovery_hint` + `next_batch.{id,target,slice,atom_id_start}`
 - **下一步**: commit + push (single milestone) → 用户开下 session
