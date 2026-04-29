@@ -299,6 +299,7 @@
 | batch_id | writer slot | atoms | Rule A reviewer slot | Rule A result | gate |
 |---|---|---|---|---|---|
 | P2_B-02_batch_01 | 70 (executor) | 196 (ch04 L301-600 续 pilot 1-300; 1 FIGURE a345 mermaid figure_ref `md_ch04_obj_decision_tree_concept_map`; sib 1-based 续 pilot a217 sib=6 → a257 sib=7) | 72 (scientist v1.9) | 10/10 = 100% strict + functional + 14 hooks full-batch sweep all PASS | **PASS** |
+| P2_B-02_batch_02 | 70 (executor) | 238 (ch04 L601-900 续 batch 01 a414; 0 FIGURE 扫源符合预期; structural transitions §4.2.9 LIST_ITEM 续接 → §4.3 H2 sib=3 → §4.3.1..§4.3.X H3 chain → §4.4 H2 sib=4 → §4.4.7 L3; L604/L672 `---` 跳过 (非 content); density 0.79 vs batch 01 0.65 — controlled-terminology 段更密 sub-headings + tables + lists) | 72 (scientist v1.9) | 10/10 = 100% strict + functional; 3 boundary atoms (a415 cross-batch §4.2.9 续 / a417 §4.3 H2 sib=3 transition / a652 段末 §4.4.7) all PASS | **PASS** |
 
 ### v1.9 prompt cut (2026-04-29, post P2 Pilot)
 

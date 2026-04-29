@@ -863,21 +863,22 @@
           "started": "2026-04-29",
           "files_planned": 6,
           "batches_planned": 9,
-          "batches_done": 1,
-          "atoms_so_far": 196
+          "batches_done": 2,
+          "atoms_so_far": 434
         }
       },
-      "last_completed_batch": "P2_B-02_batch_01",
-      "cumulative_atoms_in_md_atoms_jsonl": 1298,
+      "last_completed_batch": "P2_B-02_batch_02",
+      "cumulative_atoms_in_md_atoms_jsonl": 1536,
       "next_batch": {
-        "id": "P2_B-02_batch_02",
+        "id": "P2_B-02_batch_03",
         "target": "knowledge_base/chapters/ch04_general_assumptions.md",
-        "slice": "lines 601-900",
-        "estimated_atoms": 190,
-        "atom_id_start": "md_ch04_a415",
-        "kickoff_pending": true
+        "slice": "lines 901-1200",
+        "estimated_atoms": 200,
+        "atom_id_start": "md_ch04_a653",
+        "kickoff_pending": true,
+        "continuity_anchor": "batch 02 末 a652 L900 LIST_ITEM parent='§4.4.7 [Use of Relative Timing Variables]'; batch 03 进段 active L1=§4 / L2=§4.4 / L3=§4.4.7 (除非 L901 起跨入 §4.4.8 或 §4.5+)"
       },
-      "recovery_hint": "B-02 cycle 第 1/9 batch CLOSED 2026-04-29; 下一 batch P2_B-02_batch_02 ch04 L601-900; routing word `P2 bulk B-02 batch 02 开始任务` (kickoff 文件 P2_B-02_batch_02_kickoff.md 待写, 模板 mirror P2_B-02_batch_01_kickoff.md §2-§6 with line range + atom_id update)"
+      "recovery_hint": "B-02 cycle 第 2/9 batch CLOSED 2026-04-29 (ch04 L601-900 = 238 atoms a415..a652, density 0.79); 下一 batch P2_B-02_batch_03 ch04 L901-1200; routing word `P2 bulk B-02 batch 03 开始任务` (kickoff 文件 P2_B-02_batch_03_kickoff.md 待写, 模板 mirror P2_B-02_batch_02_kickoff.md §2-§6 with line range 901-1200 + atom_id_start a653 + continuity context from a652)"
     },
     "P3_indexing": {
       "status": "pending"
