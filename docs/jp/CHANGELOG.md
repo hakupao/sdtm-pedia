@@ -17,6 +17,7 @@
 文書番号一覧:
 - `ITMS-SDTM-PLAN` — 計画書 (内部用, PLAN.md)
 - `ITMS-SDTM-EXEC` — 実行計画書 (内部用, EXECUTION_PLAN.md)
+- `ITMS-SDTM-00` — 納品範囲案内 (中間版以降 同梱)
 - `ITMS-SDTM-01` — 基本設計書
 - `ITMS-SDTM-02` — 運用・保守マニュアル
 - `ITMS-SDTM-03` — テスト結果報告書
@@ -24,6 +25,7 @@
 - `ITMS-SDTM-05` — 詳細設計書
 - `ITMS-SDTM-06` — トレーサビリティ管理表
 - `ITMS-SDTM-07` — 進捗報告書
+- `ITMS-SDTM-08` — 反復実績記録 (中間版 補助)
 - `ITMS-SDTM-99` — 用語集
 
 ---
@@ -80,6 +82,47 @@
 - 作成: Phase 1 P0 着手順 1 (主 session 統括 + executor / code-reviewer / document-specialist subagent 3 種並列).
 - 確認: 日方ネイティブ確認担当指名待ち (PLAN §6 PASS 五条 補完事項).
 - 承認: Bojiang Zhang (用户).
+
+## ITMS-SDTM-04 v1.0 用語規律 軽微修正 (2026-04-30)
+- 改訂区分: 用語変更 (本文影響なし — 改訂履歴シートの内部用語表記のみ)
+- 改訂内容: 改訂履歴 v1.0 行の内部用語 (round 表記) を「第 N 回」表記に置換. 中間版 v0.5 提出時の用語規律監査でヒット 1 件残存検出 → 修正後 hits=0 確認. 受信者向け本文 (背景目的 / 業務要件 / 機能要件 / 非機能要件 / 制約条件 / 前提条件) には影響なし. xlsx 再 build (新 sha256: 4f5c4fd6d0cf0e41f572e3bfc5ca6dc3afd91786503f5af17930818d601f45a2 / 24,131 bytes 不変).
+- 作成: 主 session (中間版 v0.5 提出時の用語規律監査結果を反映).
+- 確認: 機械再検査 (audit_terms.py blacklist hits=0).
+- 承認: Bojiang Zhang (用户).
+
+## ITMS-SDTM-00 v0.5 (2026-04-30)
+- 改訂区分: 新規作成 (中間版 補助文書)
+- 改訂内容: 中間版 zip 同梱物の案内. 元 `deliverable/README_今回納品範囲.md` を Excel 化 (受信者要望「全提交ファイル Excel 化 — 公司習慣準拠」対応 2026-04-30). 6 シート構成 (1 本納品の位置づけ / 2 同梱物一覧 / 3 進捗概況 / 4 残工程予定 / 5 ご確認いただきたい事項 / 6 連絡先).
+- 産物: docs/jp/sources/00_納品範囲.yml + docs/jp/00_納品範囲.xlsx (19,399 bytes / 10 シート / sha256 a8552b2f1fba6afd062abe6506779e145dd64da059aaf4b5c6f0558ebc2b0063).
+- 作成: 主 session (executor + build_xlsx.py).
+- 確認: 機械再検査 (audit_terms.py blacklist hits=0 一発).
+- 承認: Bojiang Zhang (用户).
+
+## ITMS-SDTM-07 v0.5 (2026-04-30)
+- 改訂区分: 新規作成 (中間版)
+- 改訂内容: 受信者向け中間版進捗報告書. 5 シート構成 (1 全体サマリ / 2 工程別進捗 / 3 課題管理 / 4 今後の予定 / 5 参考資料). 受信者向け納品候補 7 件中 2 件 (要件定義書 / 基本設計書) を確定状態 (v1.0) でお送りし, 残 5 件の予定および 4 件の追跡課題を整理.
+- 産物: docs/jp/sources/07_進捗報告書.yml + docs/jp/07_進捗報告書.xlsx (19,731 bytes / 9 シート / sha256 a96b8642af4c04eb0af3d9c5005d9c4821745b037ea243b5643bd5e4d8524be4).
+- 作成: 主 session (executor + build_xlsx.py).
+- 確認: 機械再検査 (audit_terms.py blacklist hits=0 — 1 cycle 修正後: 出典行の `_progress.json` + `WORKLOG.md` 内部ファイル名引用を抽象化).
+- 承認: Bojiang Zhang (用户).
+
+## ITMS-SDTM-08 v0.5 (2026-04-30)
+- 改訂区分: 新規作成 (中間版 補助文書)
+- 改訂内容: 受信者向け反復実績記録. 全工程 5 系統 (AI 平台 4 種プロンプト整備 / smoke 動作試験 / 知識ベース字面級確認 / 受信者向け文書整備 / 用語整備) の検査・修正・反復実績 (約 50 回次相当) を集約. 8 シート構成 (1 全体サマリ / 2 工程別反復集計 / 3 AI 平台反復履歴 / 4 smoke 試験反復履歴 / 5 深層検証反復履歴 / 6 文書整備反復履歴 / 7 主要マイルストーン / 8 参考資料). 受信者要望「過程の試行錯誤の規模を可視化」対応.
+- 産物: docs/jp/sources/08_反復実績記録.yml + docs/jp/08_反復実績記録.xlsx (27,116 bytes / 12 シート / sha256 8b9cc08cbb81fa6d3112f480305d9d683d2c392fe09419e036c4366b03fe0b00).
+- データソース: ai_platforms/release/v1.0/CHANGELOG.md + ai_platforms/retrospectives/ + ai_platforms/SMOKE_V4.md + 4 平台 dev/checkpoints/ + .work/06_deep_verification/_progress.json + docs/jp/glossary/research_reports/ + docs/jp/CHANGELOG.md + docs/jp/WORKLOG.md.
+- 作成: 主 session (executor + build_xlsx.py).
+- 確認: 機械再検査 (audit_terms.py blacklist hits=0 — 1 cycle 修正後: D-15 行の round 表記再帰引用 1 件除去).
+- 承認: Bojiang Zhang (用户).
+
+## docs/jp/ 中間版 v0.5 提出 (2026-04-30)
+- 種別: 受信者向け納品 (中間版 集約)
+- 提出産物: docs/jp/deliverable/20260430_iTMS_SDTM_進捗版_v0.5.zip (4,680,626 bytes / 130 files / sha256 087106953c202d5983f5b99c63c3cab95ce3730707a3c9a3d557eb124eed881e) + .sha256 sidecar.
+- 同梱物: 6 件 xlsx (00 案内 / 01 基本設計 / 04 要件定義 / 07 進捗報告 / 08 反復実績 / 99 用語集骨格) + ai_platforms/release/v1.0/ 公開発布版資料.
+- 経緯: ユーザー判断「P0 4 件中 2 件確定 + 公開発布版で中間版提出」→ 中間版補助文書 3 件 (00 / 07 / 08) 起草 + 全提交ファイル Excel 化 (公司習慣準拠) → audit_terms.py 監査 6/6 PASS → zip 集約 + 解凍テスト + sha256 算出.
+- 用语规律監査: 全 6 xlsx hits=0 (修正サイクル 2 件適用後; 04 改訂履歴 round 表記置換 + 07 出典内部ファイル名抽象化 + 08 D-15 行再帰引用除去).
+
+---
 
 ## ITMS-SDTM-01 v1.0 (2026-04-29)
 - 改訂区分: 新規作成

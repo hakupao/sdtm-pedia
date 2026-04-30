@@ -4,8 +4,8 @@
   "tier": 2,
   "recipient": "iTMS 株式会社",
   "created": "2026-04-29",
-  "updated": "2026-04-29",
-  "current_phase": "phase_1_in_progress (04 要件定義書 + 01 基本設計書 PASS 2026-04-29 — 着手順 1+2 完了; 残 P0 = 02 + 03 並列可)",
+  "updated": "2026-04-30",
+  "current_phase": "phase_1_in_progress + interim_v0_5_submitted (04 + 01 PASS 2026-04-29; 中間版 v0.5 zip 集約 + 受信者向け補助文書 00/07/08 追加 2026-04-30; 残 P0 = 02 + 03 並列可)",
   "phases": {
     "phase_0_setup": {
       "status": "completed",
@@ -162,7 +162,7 @@
       }
     },
     "phase_1_p0_four_docs": {
-      "status": "in_progress (2/4 完了)",
+      "status": "in_progress (2/4 完了 + 中間版 v0.5 提出 2026-04-30)",
       "pass_at": null,
       "v0_3_revision": "04 要件定義書 を P1 → P0 格上げ 2026-04-29 (Bojiang 判断, 工程順序整合)",
       "ordering": "04 → 01 (serial) → 02 + 03 (parallel)",
@@ -170,14 +170,27 @@
       "completed_documents": [
         {"id": "04_要件定義書", "version": "v1.0", "pass_at": "2026-04-29"},
         {"id": "01_基本設計書", "version": "v1.0", "pass_at": "2026-04-29"}
-      ]
+      ],
+      "interim_v0_5_submission_2026_04_30": {
+        "trigger": "用户指示 — 公司云盘提交一版进度汇报 (中間版)",
+        "scope": "04 + 01 確定版 (v1.0) + 補助 4 件 (00 案内 / 07 進捗報告 / 08 反復実績記録 / 99 用語集骨格) + 公開発布版 ai_platforms/release/v1.0/ 参考資料",
+        "user_constraint": "全提交ファイル Excel 化 — 受信者公司の習慣準拠 (md 直接投入禁止 / 公開発布版資料は md のまま zip 内同梱)",
+        "deliverable_zip": "docs/jp/deliverable/20260430_iTMS_SDTM_進捗版_v0.5.zip (4,680,626 bytes / 130 files / sha256 087106953c202d5983f5b99c63c3cab95ce3730707a3c9a3d557eb124eed881e)",
+        "audit_pass_count": "6/6 xlsx (00 / 01 / 04 / 07 / 08 / 99) blacklist hits=0",
+        "audit_remediation_cycles": 2,
+        "remediation_log": [
+          "07 _progress.json + WORKLOG.md 内部ファイル名引用 1 件 → 抽象化",
+          "08 D-15 行の round 表記再帰引用 1 件 → 表記除去",
+          "04 改訂履歴 v1.0 行の round 表記 1 件 → 「第 N 回」表記置換 + xlsx 再 build (sha256 f8a5b049 → 4f5c4fd6)"
+        ]
+      }
     },
     "phase_2_p1_completion": {"status": "pending", "pass_at": null, "v0_3_revision": "04 を Phase 1 に移したため 05 詳細設計書のみ"},
     "phase_3_p2_polish": {"status": "pending", "pass_at": null},
     "phase_4_pack_handoff": {"status": "pending", "pass_at": null}
   },
   "documents": {
-    "04_requirements_definition": {"status": "PASS", "version": "v1.0", "pass_at": "2026-04-29", "priority": "P0_promoted_2026_04_29", "kickoff_order": 1, "writer_rounds": 2, "reviewer_rounds": 2, "term_audit_rounds": 1, "writer_artifacts": ["docs/jp/sources/04_要件定義書.yml", "docs/jp/04_要件定義書.xlsx", "docs/jp/glossary/research_reports/phase_1_04_writer_2026-04-29.md", "docs/jp/glossary/research_reports/phase_1_04_writer_round_2_2026-04-29.md"], "reviewer_artifacts": ["docs/jp/glossary/research_reports/phase_1_04_reviewer_round_2_2026-04-29.md"], "term_audit_artifacts": ["docs/jp/glossary/research_reports/phase_1_04_term_audit_2026-04-29.md"], "pass_conditions": {"1_evidence_links_valid": "PASS (8/8 件 reviewer round 2 確認)", "2_format_compliance": "PASS (build rc=0 / sha256 v0.2=e361537722590265629d7d4ad4bdb4f032dc3871ce3b2a6017bb6c8ecdde5c8c)", "3_independent_reviewer_pass": "PASS_round_2_unconditional (規律 D 隔離宣言済)", "4_term_audit_pass": "PASS (round 1 指摘 A-F-1/2/3/4 実体修正済 — mapping v0.5 + writer v0.2; A-F-7 パイプライン IT 業界標準語として現状維持 — Phase 3 用語集登録予定; A-F-5/6/8 既知 false-positive)", "5_user_ack": "PASS_2026-04-29 (Bojiang Zhang 口頭承認)"}, "deferred_to_phase_3": ["パイプライン用語の 99_用語集.xlsx 正式登録 (出典: IPA システム開発関連ガイド / JIS X 0160)"]},
+    "04_requirements_definition": {"status": "PASS", "version": "v1.0", "pass_at": "2026-04-29", "priority": "P0_promoted_2026_04_29", "kickoff_order": 1, "writer_rounds": 2, "reviewer_rounds": 2, "term_audit_rounds": 1, "interim_v0_5_terminology_cleanup_at": "2026-04-30 (改訂履歴 v1.0 行 1 件の round 表記を「第 N 回」表記に置換 + xlsx 再 build)", "current_xlsx_sha256": "4f5c4fd6d0cf0e41f572e3bfc5ca6dc3afd91786503f5af17930818d601f45a2", "writer_artifacts": ["docs/jp/sources/04_要件定義書.yml", "docs/jp/04_要件定義書.xlsx", "docs/jp/glossary/research_reports/phase_1_04_writer_2026-04-29.md", "docs/jp/glossary/research_reports/phase_1_04_writer_round_2_2026-04-29.md"], "reviewer_artifacts": ["docs/jp/glossary/research_reports/phase_1_04_reviewer_round_2_2026-04-29.md"], "term_audit_artifacts": ["docs/jp/glossary/research_reports/phase_1_04_term_audit_2026-04-29.md"], "pass_conditions": {"1_evidence_links_valid": "PASS (8/8 件 reviewer round 2 確認)", "2_format_compliance": "PASS (build rc=0 / current sha256=4f5c4fd6d0cf0e41f572e3bfc5ca6dc3afd91786503f5af17930818d601f45a2 post 2026-04-30 terminology cleanup)", "3_independent_reviewer_pass": "PASS_round_2_unconditional (規律 D 隔離宣言済)", "4_term_audit_pass": "PASS (round 1 指摘 A-F-1/2/3/4 実体修正済 — mapping v0.5 + writer v0.2; 2026-04-30 中間版用 audit で改訂履歴 v1.0 行の round 表記 1 件残存検出 → 「第 N 回」表記に置換 + 再 build で hits=0 確認; A-F-7 パイプライン IT 業界標準語として現状維持 — Phase 3 用語集登録予定; A-F-5/6/8 既知 false-positive)", "5_user_ack": "PASS_2026-04-29 (Bojiang Zhang 口頭承認)"}, "deferred_to_phase_3": ["パイプライン用語の 99_用語集.xlsx 正式登録 (出典: IPA システム開発関連ガイド / JIS X 0160)"]},
     "01_basic_design": {
       "status": "PASS",
       "version": "v1.0",
@@ -226,8 +239,10 @@
     "03_test_result_report": {"status": "pending", "version": null, "pass_at": null, "priority": "P0", "kickoff_order": 4},
     "05_detailed_design": {"status": "pending", "version": null, "pass_at": null, "priority": "P1", "kickoff_order": 5},
     "06_traceability_matrix": {"status": "pending", "version": null, "pass_at": null, "priority": "P2", "kickoff_order": 7},
-    "07_progress_report": {"status": "pending", "version": null, "pass_at": null, "priority": "P2", "kickoff_order": 6},
-    "99_glossary": {"status": "skeleton_completed", "skeleton_pass_at": "2026-04-29", "skeleton_artifact": "docs/jp/99_用語集.xlsx (33 entries, 7 sheets)", "version": "v0.1-skeleton", "pass_at": null, "remaining_for_full_completion": "中文訳 33 行充填 (Phase 3 仕上げ)"}
+    "07_progress_report": {"status": "interim_v0_5_PASS", "version": "v0.5", "interim_pass_at": "2026-04-30", "priority": "P2_promoted_to_v0_5_for_interim", "kickoff_order": 6, "interim_artifacts": ["docs/jp/sources/07_進捗報告書.yml", "docs/jp/07_進捗報告書.xlsx (19,731 bytes / 9 sheets / sha256 a96b8642af4c04eb0af3d9c5005d9c4821745b037ea243b5643bd5e4d8524be4)"], "interim_audit": "PASS (1 cycle 修正済 — 出典行の _progress.json + WORKLOG.md 内部ファイル名を抽象化 → blacklist hits=0)", "v1_0_completion_pending": "Phase 3 で正式版 v1.0 化予定"},
+    "99_glossary": {"status": "skeleton_completed", "skeleton_pass_at": "2026-04-29", "skeleton_artifact": "docs/jp/99_用語集.xlsx (33 entries, 7 sheets)", "version": "v0.1-skeleton", "pass_at": null, "remaining_for_full_completion": "中文訳 33 行充填 (Phase 3 仕上げ)"},
+    "00_delivery_scope_navigator": {"status": "interim_v0_5_PASS", "version": "v0.5", "interim_pass_at": "2026-04-30", "priority": "interim_supplementary", "purpose": "中間版 zip 同梱物の案内 + 残工程予定 + 連絡先 — 元 README_今回納品範囲.md を Excel 化 (受信者要望「全提交ファイル Excel 化」対応 2026-04-30)", "interim_artifacts": ["docs/jp/sources/00_納品範囲.yml", "docs/jp/00_納品範囲.xlsx (19,399 bytes / 10 sheets / sha256 a8552b2f1fba6afd062abe6506779e145dd64da059aaf4b5c6f0558ebc2b0063)"], "interim_audit": "PASS (blacklist hits=0 一発)"},
+    "08_iteration_log": {"status": "interim_v0_5_PASS", "version": "v0.5", "interim_pass_at": "2026-04-30", "priority": "interim_supplementary", "purpose": "全工程 5 系統 (AI 平台 4 種 / smoke 試験 / 深層検証 / 文書整備 / 用語整備) の検査・修正・反復実績を集約 — 受信者要望「過程の試行錯誤の規模を可視化」対応 2026-04-30", "interim_artifacts": ["docs/jp/sources/08_反復実績記録.yml", "docs/jp/08_反復実績記録.xlsx (27,116 bytes / 12 sheets / sha256 8b9cc08cbb81fa6d3112f480305d9d683d2c392fe09419e036c4366b03fe0b00)"], "data_sources": ["ai_platforms/release/v1.0/CHANGELOG.md", "ai_platforms/retrospectives/", "ai_platforms/SMOKE_V4.md", "ai_platforms/{chatgpt_gpt,gemini_gems,claude_projects,notebooklm}/dev/checkpoints/", ".work/06_deep_verification/_progress.json", "docs/jp/glossary/research_reports/", "docs/jp/_progress.json", "docs/jp/CHANGELOG.md", "docs/jp/WORKLOG.md"], "interim_audit": "PASS (1 cycle 修正済 — D-15 行の round 表記再帰引用 1 件除去 → blacklist hits=0)", "iteration_total_documented": "約 50 回次相当 (AI 平台 18 版 / smoke 9 反復 / 深層検証 14 回次 / 文書整備 16 反復 + 用語整備 3 反復)"}
   },
   "decisions": {
     "I_1_recipient": "iTMS 株式会社",
