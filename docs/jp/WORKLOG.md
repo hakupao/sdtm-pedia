@@ -84,4 +84,22 @@
 
 ## 2026-04-30 (Day 2)
 
-- (記入予定 — 着手順 3-4「02 運用保守マニュアル + 03 試験結果報告書」並列)
+- 14:00 頃: ユーザー判断「P0 4 件中 2 件確定 (04 + 01) + 公開発布版で中間版を本日クラウド提出 + 進捗汇报」. 着手順 3-4 (02 + 03) は中間版提出後に並列実施する方針へ変更.
+- 14:30 頃: 中間版補助文書 2 件 (07 進捗報告書 + 案内 README) 起草. yml + build_xlsx.py 経由で生成. 機械検査 (audit_terms.py blacklist) で 07 に内部ファイル名引用 1 件 (`_progress.json` + `WORKLOG`) ヒット → 出典行を抽象化して再 build → hits=0 確認.
+- 14:35 頃: 04 要件定義書の機械検査も同時実施 → 改訂履歴 v1.0 行に内部用語 (round 表記) 1 件残存検出. 「第 N 回」表記に置換 + xlsx 再 build. 受信者向け本文 (背景目的 / 業務要件 / 機能要件 / 非機能要件 / 制約条件 / 前提条件) には影響なし. xlsx サイズ不変 (24,131 bytes), 新 sha256 = 4f5c4fd6…. 中間版用 audit 効果としての副次産物.
+- 14:43 頃: 中間版 zip パッケージ集約. `docs/jp/deliverable/20260430_iTMS_SDTM_進捗版_v0.5.zip` (4 件 xlsx + README md + 公開発布版 ai_platforms/release/v1.0/ 全部 + .omc 除外). 解凍テスト OK + sha256 sidecar 作成.
+- 15:00 頃: ユーザー追加要望 ① 反復実績記録 Excel 化 (受信者に「過程の試行錯誤の規模」を可視化) ② 案内 README も Excel 化 (公司の習慣として全提交ファイル Excel 化).
+- 15:00 - 15:30 頃: データ調査 (AI 平台 4 種 dev/checkpoints/ + retrospectives/ + SMOKE_V4 + .work/06_deep_verification/_progress.json + docs/jp/glossary/research_reports/ + 自身 _progress.json + WORKLOG + CHANGELOG) → 反復実績集約.
+- 15:30 - 15:35 頃: 補助文書 2 件 (00 納品範囲 + 08 反復実績記録) yml 起草 + build. 08 の D-15 行で「round 表記」を直接書いてしまった再帰引用 1 件検出 → 表記除去 + 再 build → hits=0 確認.
+- 15:38 頃: 旧 README.md と古い zip / sha256 を削除し, 新パッケージ再構築. 6 件 xlsx (00 + 01 + 04 + 07 + 08 + 99) + 公開発布版資料同梱. 全 6 件 audit blacklist hits=0. zip 4,680,626 bytes / 130 files / sha256 0871069…d881e. 解凍テスト OK (全 6 xlsx を openpyxl で開閉成功).
+- 15:50 頃: 収尾実施. _progress.json + CHANGELOG + WORKLOG (本ファイル) + .work/MANIFEST + .work/meta/worklog + docs/PROGRESS + CLAUDE.md Key Paths 更新.
+
+### Day 2 まとめ
+
+- 完了工程: **中間版 v0.5 集約 + 提出可能状態**. 受信者向け納品候補 4 件 xlsx (00 案内 + 04 要件定義 v1.0 + 01 基本設計 v1.0 + 07 進捗報告 v0.5 + 08 反復実績記録 v0.5 + 99 用語集 v0.1 骨格) + 公開発布版資料 ai_platforms/release/v1.0/ を集約.
+- 残工程: Phase 1 P0 着手順 3-4 「02 運用保守マニュアル + 03 試験結果報告書」並列 + Phase 2 (05 詳細設計書) + Phase 3 仕上げ (06 / 07 v1.0 化 / 99 中文列充填).
+- 累積知見:
+  1. 中間版提出は v0.5 名義で「確定 2 件 + 中間 / 補助 3 件 + 骨格 1 件 + 公開発布版」構成が運用しやすい. 残 5 件提出までの間, 受信者からのフィードバックを残工程に反映可能とする時間バッファとして機能.
+  2. 「全提交ファイル Excel 化」要望に対し, build_xlsx.py の text / table / links 三型シート構成で柔軟に対応可能 (md → yml → xlsx の機械変換ライン確立).
+  3. 用語規律監査は新規作成文書だけでなく中間版集約時の再監査でも価値あり. 04 改訂履歴 v1.0 行の round 表記残存は本機械再監査でしか検出できなかった (本文監査は 04 v1.0 確定時に PASS 済).
+  4. 反復実績の可視化は, 単なる「内部記録」ではなく受信者向け説明資料としても機能. 50 回次相当の検査循環を経た成果物としての信頼性訴求の補助になる.

@@ -2225,3 +2225,25 @@
   - **Phase 3 deferred** (新規 4 件): build_xlsx.py 改修 (sha256 再現性 = openpyxl 作成日時固定化) / term_mapping.yml v0.6 改訂 (口語判定エントリ「約」削除案 + pipeline 登録 + 新規訳語 5 件 — チャンク / ノード / リレーション / ローカル先行 / 順方向・逆方向) / 99_用語集.xlsx 仕上げ時の新規訳語登録
   - **PASS 五条 Open** (継承): I-1 日方ネイティブ確認担当指名 — 各文書 v1.0 confirmer 欄に明記
 - **下一步**: commit + push (本 session 01 closure milestone)
+
+## 2026-04-30 docs/jp/ 中間版 v0.5 集約 + 提出可能状態 (Phase 1 P0 中間 milestone)
+
+- **触发**: 用户「明白了, 是 A 这种情况 (中間版/进度汇报), 你帮我制作一下」+ 後続要望「反復記録も Excel にしてほしい + 全提交ファイル Excel 化 (公司の習慣)」 — Phase 1 P0 4 件中 2 件確定段階での中間版集約 + クラウド提出.
+- **完了の作業**:
+  - **STEP A 中間版補助文書 起草 第 1 弾 (07 + 旧 README md)**: yml + build_xlsx.py 経由で 07 進捗報告書.xlsx (9 シート / 19,731 bytes) + README_今回納品範囲.md 起草. audit_terms.py blacklist 機械検査で 07 に内部ファイル名引用 (`_progress.json` + `WORKLOG`) 1 件ヒット → 出典行抽象化 → hits=0 確認.
+  - **STEP B 04 改訂履歴 用語規律 軽微修正**: 04 機械再検査で改訂履歴 v1.0 行に round 表記 1 件残存検出 (本文監査 PASS 後の改訂履歴シート由来) → 「第 N 回」表記置換 + xlsx 再 build (24,131 bytes 不変, sha256 f8a5b049 → 4f5c4fd6).
+  - **STEP C 第 1 弾 zip 集約**: 4 件 xlsx (04 / 01 / 07 / 99) + README md + 公開発布版 ai_platforms/release/v1.0/ 全部 (.omc 除外) を `20260430_iTMS_SDTM_進捗版_v0.5.zip` に集約. 解凍テスト OK + sha256 sidecar 作成.
+  - **STEP D 中間版補助文書 起草 第 2 弾 (00 + 08, 全提交ファイル Excel 化要望)**: ① 旧 README md → 00_納品範囲.xlsx に変換 (10 シート / 19,399 bytes); ② 反復実績データ調査 (AI 平台 4 種 dev/checkpoints/ + retrospectives/ + SMOKE_V4 + .work/06_deep_verification/_progress.json + docs/jp/glossary/research_reports/ + 自身 _progress.json + WORKLOG + CHANGELOG) → 08_反復実績記録.xlsx 起草 (12 シート / 27,116 bytes / 5 系統 約 50 回次相当を集約). audit_terms.py で 08 に「round 表記」再帰引用 1 件ヒット → 表記除去 → hits=0 確認.
+  - **STEP E 第 2 弾 zip 再集約**: 旧 README md と古い zip / sha256 を削除し, 6 件 xlsx (00 + 01 + 04 + 07 + 08 + 99) + 公開発布版資料同梱の新パッケージ作成. 4,680,626 bytes / 130 files / sha256 0871069…d881e. 全 6 xlsx 解凍テスト OK (openpyxl 開閉成功).
+  - **STEP F 用语规律監査 6/6 PASS**: 全 6 xlsx で blacklist hits=0. 修正サイクル累計 3 件適用 (07 出典内部ファイル名抽象化 + 04 round 表記置換 + 08 D-15 行再帰引用除去).
+  - **STEP G 収尾**: _progress.json 更新 (interim_v0_5_submission_2026_04_30 + 04 sha256 訂正 + 00/07/08 documents 追加) + CHANGELOG (5 件追記) + WORKLOG Day 2 + .work/MANIFEST.md Chain J + docs/PROGRESS.md docs/jp 段 + .work/meta/worklog.md (本エントリ).
+- **関鍵決定**:
+  - **D-r30-1 中間版 v0.5 構成パターン確立**: 「確定 2 件 + 中間/補助 3 件 + 骨格 1 件 + 公開発布版資料」構成. 残工程提出までの間, 受信者からのフィードバックを残工程に反映可能とする時間バッファとして機能.
+  - **D-r30-2 全提交ファイル Excel 化要望対応**: 受信者公司の習慣として md 直接投入禁止 → build_xlsx.py の text/table/links 三型シート構成で md → yml → xlsx 機械変換ライン確立. 案内 README は 00_納品範囲.xlsx として 6 シート構成に再構成. 公開発布版資料 (md) は zip 内同梱されるが既に公開済 + 受信者社内共有可能レベル + 補助案内として明示する形で容認.
+  - **D-r30-3 反復実績の可視化価値**: 内部記録 (50 回次相当) を受信者向け説明資料に転換することで, 単なる「結果」ではなく「結果に至る検査・修正の規模」を訴求可能に. 08_反復実績記録.xlsx は今後類似プロジェクトでも再利用可能なテンプレート (5 系統 集約 + 7 シート + データソース注記).
+  - **D-r30-4 中間版 audit の improvement 効果**: 04 改訂履歴 v1.0 行 round 表記残存は本文監査では検出不能だった (本文 audit PASS 後の改訂履歴シート由来). 中間版集約時の機械再監査が catch-net として機能する確証. 今後の中間版/正式版集約時にも全件 audit 必須 = 規律 §11.4 の運用拡大.
+- **Carry-over for next session**:
+  - **NEXT**: クラウド提出 ack 受領後 → Phase 1 P0 着手順 3-4「02 運用保守マニュアル + 03 試験結果報告書」並列起動 (04 §4 非機能 + §5 制約 + §6 前提 + 01 §2-§4 設計 を引用継承). 中間版に対する受信者フィードバックがあれば残工程に反映.
+  - **その後**: Phase 2 (05 詳細設計書) → Phase 3 仕上げ (06 トレーサビリティ + 07 v1.0 化 + 99 中文列充填) → Phase 4 Pack & Handoff (正式版 v1.0 zip + RETROSPECTIVE.md). 予定 = 2026-05-中旬末 正式版 v1.0 提出.
+  - **PASS 五条 Open** (継承): I-1 日方ネイティブ確認担当指名 — 中間版 00_納品範囲 §5.1 で受信者側に明示要望済.
+- **下一步**: commit + push (本 session 中間版集約 milestone).
