@@ -8,22 +8,25 @@
 // a real HTTP 301 before this HTML is served — no white-screen flash. This
 // template is the fallback for local astro dev/preview where _redirects
 // isn't honored.
+import { getUIStrings, type Lang } from '../../../i18n/helpers';
+
 export function getStaticPaths() {
   return [{ params: { lang: 'zh' } }, { params: { lang: 'en' } }, { params: { lang: 'ja' } }];
 }
-const { lang } = Astro.params;
+const lang = Astro.params.lang as Lang;
 const target = `/${lang}/guide/user-guide/`;
+const t = getUIStrings(lang);
 ---
 <!doctype html>
 <html lang={lang} data-pagefind-ignore="all">
   <head>
     <meta charset="utf-8" />
-    <title>Redirecting to: {target}</title>
+    <title>{t['docs.redirect.title']} {target}</title>
     <meta http-equiv="refresh" content={`0;url=${target}`} />
     <meta name="robots" content="noindex" />
     <link rel="canonical" href={new URL(target.slice(1), Astro.site).toString()} />
   </head>
   <body>
-    <a href={target}>Redirecting from <code>/{lang}/guide/</code> to <code>{target}</code></a>
+    <a href={target}>{t['docs.redirect.body']} <code>/{lang}/guide/</code> → <code>{target}</code></a>
   </body>
 </html>

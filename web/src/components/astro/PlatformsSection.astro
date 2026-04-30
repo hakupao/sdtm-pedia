@@ -10,7 +10,7 @@ const subhead = t['section.platforms.subhead'];
 ---
 <section id="platforms" class="enter-fade py-8 bg-bg-alt border-b border-rule">
   <div class="max-w-screen-xl mx-auto px-5 md:px-7">
-    <SectionLabel number="02" label="FOUR PLATFORMS" />
+    <SectionLabel number="02" label={t['section.platforms.label']} />
     <h2 class="font-display text-2xl mb-5 leading-tight">{subhead}</h2>
     <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
       {platforms.map((p) => (

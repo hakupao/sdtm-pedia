@@ -6,7 +6,7 @@ import { getUIStrings, type Lang } from '../../i18n/helpers';
 interface Dim {
   key: string;
   label: Record<Lang, string>;
-  values: Record<string, string>;
+  values: Record<string, Record<Lang, string>>;
   winners: string[];
 }
 
@@ -34,7 +34,7 @@ export function CompareFilter({ dims, lang }: Props) {
         <table className="w-full font-serif text-sm border-collapse min-w-[600px]">
           <thead>
             <tr className="border-b border-rule">
-              <th className="text-left py-2 px-2 font-mono text-[9px] tracking-wider">DIMENSION</th>
+              <th className="text-left py-2 px-2 font-mono text-[9px] tracking-wider">{t['table.dimension']}</th>
               {platforms.map((p) => (
                 <th key={p.key} className="text-left py-2 px-2 font-mono text-[9px] tracking-wider">
                   {p.name}
@@ -53,7 +53,7 @@ export function CompareFilter({ dims, lang }: Props) {
                     key={p.key}
                     className={`py-2 px-2 ${d.winners.includes(p.key) ? 'text-accent font-bold' : ''}`}
                   >
-                    {d.values[p.key]}
+                    {d.values[p.key][lang]}
                   </td>
                 ))}
               </tr>

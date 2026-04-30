@@ -1,11 +1,101 @@
 [
-  { "key": "best-at",     "label": { "zh": "最强场景",   "en": "Best at",      "ja": "最も得意" },     "values": { "claude": "精确变量+推理", "chatgpt": "团队共享", "gemini": "长上下文", "notebooklm": "反虚构" }, "winners": ["claude"] },
-  { "key": "capacity",    "label": { "zh": "容量上限",   "en": "Capacity",     "ja": "容量上限" },     "values": { "claude": "1.29M tok", "chatgpt": "20 file 硬限", "gemini": "1M tok 窗口", "notebooklm": "50 source/notebook" }, "winners": ["claude", "gemini"] },
-  { "key": "sharing",     "label": { "zh": "团队共享",   "en": "Sharing",      "ja": "チーム共有" },   "values": { "claude": "Org/Project", "chatgpt": "Org/Store", "gemini": "Workspace", "notebooklm": "Email 邀请" }, "winners": ["chatgpt"] },
-  { "key": "anti-halluc", "label": { "zh": "反虚构强度", "en": "Anti-halluc.", "ja": "アンチハル強度" }, "values": { "claude": "强", "chatgpt": "中", "gemini": "中", "notebooklm": "极强 (in-KB-only)" }, "winners": ["notebooklm"] },
-  { "key": "score",        "label": { "zh": "评测得分",   "en": "Score",        "ja": "評価スコア" },     "values": { "claude": "17/17", "chatgpt": "16.5/17", "gemini": "16/17", "notebooklm": "15/17" }, "winners": ["claude"] },
-  { "key": "subscription", "label": { "zh": "套餐要求",   "en": "Subscription", "ja": "サブスク要件" },   "values": { "claude": "Pro/Team/Ent", "chatgpt": "Plus/Team/Ent", "gemini": "Advanced/Workspace", "notebooklm": "Pro/Workspace" }, "winners": [] },
-  { "key": "internet",     "label": { "zh": "联网能力",   "en": "Internet",     "ja": "インターネット" }, "values": { "claude": "需手开", "chatgpt": "默认开", "gemini": "默认开", "notebooklm": "in-KB-only" }, "winners": ["chatgpt", "gemini"] },
-  { "key": "file-limit",   "label": { "zh": "文件数上限", "en": "File limit",   "ja": "ファイル数上限" }, "values": { "claude": "无显式 (按 token)", "chatgpt": "20 file 硬限", "gemini": "无显式", "notebooklm": "50/notebook" }, "winners": ["claude", "gemini"] },
-  { "key": "worst-at",     "label": { "zh": "最弱场景",   "en": "Worst at",     "ja": "最も苦手" },       "values": { "claude": "实时联网", "chatgpt": "长尾 chunk", "gemini": "团队共享(非Workspace)", "notebooklm": "in-KB 外问题" }, "winners": [] }
+  {
+    "key": "best-at",
+    "label": { "zh": "最强场景", "en": "Best at", "ja": "最も得意" },
+    "values": {
+      "claude": { "zh": "精确变量+推理", "en": "Precise variables + reasoning", "ja": "精密な変数 + 推論" },
+      "chatgpt": { "zh": "团队共享", "en": "Team sharing", "ja": "チーム共有" },
+      "gemini": { "zh": "长上下文", "en": "Long context", "ja": "長文脈" },
+      "notebooklm": { "zh": "反虚构", "en": "Anti-hallucination", "ja": "ハルシネーション抑止" }
+    },
+    "winners": ["claude"]
+  },
+  {
+    "key": "capacity",
+    "label": { "zh": "容量上限", "en": "Capacity", "ja": "容量上限" },
+    "values": {
+      "claude": { "zh": "1.29M tok", "en": "1.29M tokens", "ja": "129 万 token" },
+      "chatgpt": { "zh": "20 file 硬限", "en": "20-file hard limit", "ja": "20 ファイル上限" },
+      "gemini": { "zh": "1M tok 窗口", "en": "1M-token window", "ja": "100 万 token ウィンドウ" },
+      "notebooklm": { "zh": "50 source/notebook", "en": "50 sources/notebook", "ja": "50 ソース/notebook" }
+    },
+    "winners": ["claude", "gemini"]
+  },
+  {
+    "key": "sharing",
+    "label": { "zh": "团队共享", "en": "Sharing", "ja": "チーム共有" },
+    "values": {
+      "claude": { "zh": "Org/Project", "en": "Org/Project", "ja": "組織/Project" },
+      "chatgpt": { "zh": "Org/Store", "en": "Org/Store", "ja": "組織/Store" },
+      "gemini": { "zh": "Workspace", "en": "Workspace", "ja": "Workspace" },
+      "notebooklm": { "zh": "Email 邀请", "en": "Email invitation", "ja": "メール招待" }
+    },
+    "winners": ["chatgpt"]
+  },
+  {
+    "key": "anti-halluc",
+    "label": { "zh": "反虚构强度", "en": "Anti-halluc.", "ja": "ハルシネーション抑止" },
+    "values": {
+      "claude": { "zh": "强", "en": "Strong", "ja": "強" },
+      "chatgpt": { "zh": "中", "en": "Medium", "ja": "中" },
+      "gemini": { "zh": "中", "en": "Medium", "ja": "中" },
+      "notebooklm": { "zh": "极强 (in-KB-only)", "en": "Very strong (in-KB-only)", "ja": "非常に強い (in-KB-only)" }
+    },
+    "winners": ["notebooklm"]
+  },
+  {
+    "key": "score",
+    "label": { "zh": "评测得分", "en": "Score", "ja": "評価スコア" },
+    "values": {
+      "claude": { "zh": "17/17", "en": "17/17", "ja": "17/17" },
+      "chatgpt": { "zh": "16.5/17", "en": "16.5/17", "ja": "16.5/17" },
+      "gemini": { "zh": "16/17", "en": "16/17", "ja": "16/17" },
+      "notebooklm": { "zh": "15/17", "en": "15/17", "ja": "15/17" }
+    },
+    "winners": ["claude"]
+  },
+  {
+    "key": "subscription",
+    "label": { "zh": "套餐要求", "en": "Subscription", "ja": "サブスク要件" },
+    "values": {
+      "claude": { "zh": "Pro/Team/Ent", "en": "Pro/Team/Ent", "ja": "Pro/Team/Ent" },
+      "chatgpt": { "zh": "Plus/Team/Ent", "en": "Plus/Team/Ent", "ja": "Plus/Team/Ent" },
+      "gemini": { "zh": "Advanced/Workspace", "en": "Advanced/Workspace", "ja": "Advanced/Workspace" },
+      "notebooklm": { "zh": "Pro/Workspace", "en": "Pro/Workspace", "ja": "Pro/Workspace" }
+    },
+    "winners": []
+  },
+  {
+    "key": "internet",
+    "label": { "zh": "联网能力", "en": "Internet", "ja": "インターネット" },
+    "values": {
+      "claude": { "zh": "需手开", "en": "Manual enablement", "ja": "手動で有効化" },
+      "chatgpt": { "zh": "默认开", "en": "On by default", "ja": "デフォルト有効" },
+      "gemini": { "zh": "默认开", "en": "On by default", "ja": "デフォルト有効" },
+      "notebooklm": { "zh": "in-KB-only", "en": "in-KB-only", "ja": "in-KB-only" }
+    },
+    "winners": ["chatgpt", "gemini"]
+  },
+  {
+    "key": "file-limit",
+    "label": { "zh": "文件数上限", "en": "File limit", "ja": "ファイル数上限" },
+    "values": {
+      "claude": { "zh": "无显式 (按 token)", "en": "No explicit file cap (token-based)", "ja": "明示上限なし (token 基準)" },
+      "chatgpt": { "zh": "20 file 硬限", "en": "20-file hard limit", "ja": "20 ファイル上限" },
+      "gemini": { "zh": "无显式", "en": "No explicit file cap", "ja": "明示上限なし" },
+      "notebooklm": { "zh": "50/notebook", "en": "50/notebook", "ja": "50/notebook" }
+    },
+    "winners": ["claude", "gemini"]
+  },
+  {
+    "key": "worst-at",
+    "label": { "zh": "最弱场景", "en": "Worst at", "ja": "最も苦手" },
+    "values": {
+      "claude": { "zh": "实时联网", "en": "Real-time web access", "ja": "リアルタイム Web アクセス" },
+      "chatgpt": { "zh": "长尾 chunk", "en": "Long-tail chunks", "ja": "長尾 chunk" },
+      "gemini": { "zh": "团队共享(非Workspace)", "en": "Team sharing outside Workspace", "ja": "Workspace 外のチーム共有" },
+      "notebooklm": { "zh": "in-KB 外问题", "en": "Out-of-KB questions", "ja": "KB 外の質問" }
+    },
+    "winners": []
+  }
 ]
