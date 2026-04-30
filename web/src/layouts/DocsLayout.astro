@@ -24,13 +24,13 @@ const pathname = Astro.url.pathname;
         <span aria-hidden="true">·</span>
         <span>LANG · {lang.toUpperCase()}</span>
       </div>
-      <DocsTOC headings={headings} variant="mobile-inline" />
+      <DocsTOC headings={headings} lang={lang} variant="mobile-inline" />
       <div class="prose-doc" data-pagefind-body>
         <slot />
       </div>
       <PrevNextNav lang={lang} currentSlug={slug} />
     </article>
-    <DocsTOC headings={headings} variant="desktop-aside" />
+    <DocsTOC headings={headings} lang={lang} variant="desktop-aside" />
   </div>
   <Footer lang={lang} />
 </BaseLayout>

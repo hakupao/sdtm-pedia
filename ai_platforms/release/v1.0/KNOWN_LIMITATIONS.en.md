@@ -33,7 +33,7 @@ title: "Known Limitations"
 
 ### Claude Projects (v2.6)
 
-- **L4-Cl1**: Capacity at ~77% (1.29M tokens / 19 files). Approaching paid-tier soft cap. Adding more content requires removing existing low-priority files (see UPLOAD_TUTORIAL §8 降级路径).
+- **L4-Cl1**: Capacity at ~77% (1.29M tokens / 19 files). Approaching paid-tier soft cap. Adding more content requires removing existing low-priority files (see UPLOAD_TUTORIAL §8 downgrade path).
 - **L4-Cl2**: Indexing indicator unreliable. Even when UI shows "Indexing", queries can hit new content. Don't wait — test directly with smoke questions.
 - **L4-Cl3**: No public sharing link. Team/Enterprise plan members share the same Project; Pro plan users must re-deploy individually.
 

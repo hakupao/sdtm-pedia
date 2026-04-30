@@ -25,15 +25,16 @@ export const DownloadsSchema = z.object({
 // 9.14 / F-4 fix: tighten values keys to the same platform enum DownloadsSchema
 // uses. Catches typos like "cladue" that would otherwise render a blank cell.
 const platformKeys = z.enum(['claude', 'chatgpt', 'gemini', 'notebooklm']);
+const localizedString = z.object({
+  zh: z.string().min(1),
+  en: z.string().min(1),
+  ja: z.string().min(1),
+});
 
 export const DimensionsSchema = z.array(z.object({
   key: z.string().regex(/^[a-z][a-z0-9-]*$/, 'key must be lowercase-hyphenated'),
-  label: z.object({
-    zh: z.string().min(1),
-    en: z.string().min(1),
-    ja: z.string().min(1),
-  }),
-  values: z.record(platformKeys, z.string()),
+  label: localizedString,
+  values: z.record(platformKeys, localizedString),
   winners: z.array(z.string()),
 }));
 

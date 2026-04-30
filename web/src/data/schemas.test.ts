@@ -25,13 +25,18 @@ describe('data schemas', () => {
     expect(() => DimensionsSchema.parse(dimsRaw)).not.toThrow();
   });
 
-  it('compare-dimensions.json: every dimension has all 3 lang labels', () => {
+  it('compare-dimensions.json: every dimension has all 3 lang labels and values', () => {
     const dims = DimensionsSchema.parse(dimsRaw);
     expect(dims.length).toBeGreaterThan(0);
     for (const d of dims) {
       expect(d.label.zh).toBeTruthy();
       expect(d.label.en).toBeTruthy();
       expect(d.label.ja).toBeTruthy();
+      for (const platform of ['claude', 'chatgpt', 'gemini', 'notebooklm'] as const) {
+        expect(d.values[platform].zh).toBeTruthy();
+        expect(d.values[platform].en).toBeTruthy();
+        expect(d.values[platform].ja).toBeTruthy();
+      }
     }
   });
 });

@@ -1,13 +1,14 @@
 ---
 import { getCollection } from 'astro:content';
-import type { Lang } from '../../i18n/helpers';
+import { getUIStrings, type Lang } from '../../i18n/helpers';
+import { selectGuideEntries } from '../../lib/guideEntries';
 interface Props { lang: Lang; currentSlug: string; }
 const { lang, currentSlug } = Astro.props;
-const all = await getCollection('guide', (e) => e.data.lang === lang || e.data.lang === undefined);
-all.sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99));
+const all = selectGuideEntries(await getCollection('guide'), lang);
+const t = getUIStrings(lang);
 ---
 <button id="docs-sidebar-toggle" class="lg:hidden font-mono text-[10px] tracking-wider px-3 py-2 border border-rule mx-5 md:mx-7 mt-4" aria-controls="docs-sidebar-content" aria-expanded="false">
-  ☰ DOCS
+  ☰ {t['docs.sidebar.label']}
 </button>
 <div id="docs-sidebar-backdrop" class="hidden lg:hidden fixed inset-0 bg-ink/40 z-40" aria-hidden="true"></div>
 <aside
@@ -15,11 +16,11 @@ all.sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99));
   class="hidden lg:block fixed lg:static inset-y-0 left-0 z-50 lg:z-auto w-72 lg:w-60 max-w-[80vw] lg:max-w-none bg-bg lg:bg-transparent border-r lg:border-r border-b-0 lg:border-b-0 border-rule p-5 shrink-0 overflow-y-auto lg:sticky lg:top-0 lg:self-start lg:max-h-screen"
 >
   <div class="flex items-center justify-between mb-3 lg:block">
-    <div class="font-mono text-[9px] tracking-wider text-ink-mute">DOCS / {lang.toUpperCase()}</div>
-    <button id="docs-sidebar-close" class="lg:hidden font-mono text-base px-2 -mr-2" aria-label="Close menu">×</button>
+    <div class="font-mono text-[9px] tracking-wider text-ink-mute">{t['docs.sidebar.label']} / {lang.toUpperCase()}</div>
+    <button id="docs-sidebar-close" class="lg:hidden font-mono text-base px-2 -mr-2" aria-label={t['nav.menu.close']}>×</button>
   </div>
   <ul class="flex flex-col gap-1 font-serif text-[13px]">
-    {all.map((doc) => (
+    {all.map(({ entry: doc }) => (
       <li>
         <a href={`/${lang}/guide/${doc.data.slug}`}
            class={`block py-1 ${doc.data.slug === currentSlug ? 'text-accent font-bold' : 'hover:text-accent'}`}>

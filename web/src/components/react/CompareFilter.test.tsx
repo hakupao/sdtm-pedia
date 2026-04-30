@@ -7,13 +7,23 @@ const dims = [
   {
     key: 'best-at',
     label: { zh: '最强场景', en: 'Best at', ja: '最も得意' },
-    values: { claude: 'A', chatgpt: 'B', gemini: 'C', notebooklm: 'D' },
+    values: {
+      claude: { zh: 'A zh', en: 'A en', ja: 'A ja' },
+      chatgpt: { zh: 'B zh', en: 'B en', ja: 'B ja' },
+      gemini: { zh: 'C zh', en: 'C en', ja: 'C ja' },
+      notebooklm: { zh: 'D zh', en: 'D en', ja: 'D ja' },
+    },
     winners: ['claude'],
   },
   {
     key: 'capacity',
-    label: { zh: '容量上限', en: 'Capacity', ja: '容量上限' },
-    values: { claude: '1.29M', chatgpt: '20', gemini: '1M', notebooklm: '50' },
+    label: { zh: '容量上限', en: 'Capacity', ja: '容量制限' },
+    values: {
+      claude: { zh: '1.29M zh', en: '1.29M en', ja: '1.29M ja' },
+      chatgpt: { zh: '20 zh', en: '20 en', ja: '20 ja' },
+      gemini: { zh: '1M zh', en: '1M en', ja: '1M ja' },
+      notebooklm: { zh: '50 zh', en: '50 en', ja: '50 ja' },
+    },
     winners: ['claude'],
   },
 ];
@@ -35,11 +45,15 @@ describe('<CompareFilter>', () => {
     const { rerender } = render(<CompareFilter dims={dims} lang="zh" />);
     expect(screen.getByPlaceholderText('按维度筛选...')).toBeInTheDocument();
     expect(screen.getByLabelText('按维度筛选')).toBeInTheDocument();
+    expect(screen.getByText('A zh')).toBeInTheDocument();
     rerender(<CompareFilter dims={dims} lang="ja" />);
     expect(screen.getByPlaceholderText('次元で絞り込み...')).toBeInTheDocument();
     expect(screen.getByLabelText('次元で絞り込み')).toBeInTheDocument();
+    expect(screen.getByText('A ja')).toBeInTheDocument();
+    expect(screen.queryByText('A zh')).not.toBeInTheDocument();
     rerender(<CompareFilter dims={dims} lang="en" />);
     expect(screen.getByPlaceholderText('Filter by dimension...')).toBeInTheDocument();
     expect(screen.getByLabelText('Filter by dimension')).toBeInTheDocument();
+    expect(screen.getByText('A en')).toBeInTheDocument();
   });
 });

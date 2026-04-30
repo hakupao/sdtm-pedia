@@ -15,7 +15,7 @@ const releasePublished = import.meta.env.PUBLIC_RELEASE_PUBLISHED !== 'false';
 ---
 <section id="downloads" class="enter-fade py-8 border-b border-rule">
   <div class="max-w-screen-xl mx-auto px-5 md:px-7">
-    <SectionLabel number="05" label="DOWNLOADS" />
+    <SectionLabel number="05" label={t['section.downloads.label']} />
     <h2 class="font-display text-2xl mb-5 leading-tight">{subhead}</h2>
     {releasePublished ? (
       <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
@@ -24,7 +24,7 @@ const releasePublished = import.meta.env.PUBLIC_RELEASE_PUBLISHED !== 'false';
              class="bg-bg-alt p-3 border border-rule flex justify-between items-center hover:border-accent transition-colors">
             <div>
               <div class="font-mono text-[11px] font-bold">{b.filename}</div>
-              <div class="font-mono text-[9px] text-ink-mute">{b.files} files · {b.sizeMB} MB</div>
+              <div class="font-mono text-[9px] text-ink-mute">{b.files} {t['downloads.files']} · {b.sizeMB} MB</div>
             </div>
             <span class="font-mono text-lg text-accent">↓</span>
           </a>

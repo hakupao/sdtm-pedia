@@ -13,7 +13,7 @@ const t = getUIStrings(lang);
     <a href={`/${lang}/`} class="font-mono text-[9px] md:text-[10px] tracking-[0.12em] text-ink font-bold whitespace-nowrap hover:text-accent transition-colors min-w-0 flex-1 truncate">
       SDTM Knowledge Base
     </a>
-    <button id="mobile-nav-toggle" class="md:hidden inline-flex min-h-8 min-w-8 items-center justify-center font-mono text-base px-2 shrink-0" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav-content">☰</button>
+    <button id="mobile-nav-toggle" class="md:hidden inline-flex min-h-8 min-w-8 items-center justify-center font-mono text-base px-2 shrink-0" aria-label={t['nav.menu.open']} aria-expanded="false" aria-controls="mobile-nav-content">☰</button>
     <nav
       id="mobile-nav-content"
       class="hidden md:flex md:items-center md:shrink-0 font-mono text-xs tracking-wider text-ink-mute md:static absolute left-0 right-0 top-14 bg-bg border-b border-rule md:border-b-0 md:bg-transparent flex-col md:flex-row z-40 px-5 md:px-0 py-3 md:py-0"

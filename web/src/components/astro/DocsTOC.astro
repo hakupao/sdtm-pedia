@@ -1,14 +1,17 @@
 ---
+import { getUIStrings, type Lang } from '../../i18n/helpers';
 interface Props {
   headings: { depth: number; slug: string; text: string }[];
+  lang: Lang;
   variant?: 'desktop-aside' | 'mobile-inline';
 }
-const { headings, variant = 'desktop-aside' } = Astro.props;
+const { headings, lang, variant = 'desktop-aside' } = Astro.props;
 const filtered = headings.filter((h) => h.depth === 2 || h.depth === 3);
+const t = getUIStrings(lang);
 ---
 {filtered.length > 0 && variant === 'desktop-aside' && (
   <aside class="w-56 p-5 hidden xl:block sticky top-0 self-start max-h-screen overflow-y-auto shrink-0">
-    <div class="font-mono text-[9px] tracking-wider text-ink-mute mb-3">ON THIS PAGE</div>
+    <div class="font-mono text-[9px] tracking-wider text-ink-mute mb-3">{t['docs.toc.label']}</div>
     <ul class="flex flex-col gap-1 font-serif text-[12px]">
       {filtered.map((h) => (
         <li class={h.depth === 3 ? 'pl-3' : ''}>
@@ -23,7 +26,7 @@ const filtered = headings.filter((h) => h.depth === 2 || h.depth === 3);
 {filtered.length > 0 && variant === 'mobile-inline' && (
   <details class="xl:hidden border-y border-rule mb-6 group">
     <summary class="cursor-pointer py-3 font-mono text-[10px] tracking-wider text-ink-mute hover:text-accent flex items-center justify-between">
-      <span>ON THIS PAGE</span>
+      <span>{t['docs.toc.label']}</span>
       <span class="transition-transform group-open:rotate-180" aria-hidden="true">▾</span>
     </summary>
     <ul class="flex flex-col gap-1 font-serif text-[13px] pb-3">

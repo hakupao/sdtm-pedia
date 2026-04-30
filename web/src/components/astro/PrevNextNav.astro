@@ -1,13 +1,13 @@
 ---
 import { getCollection } from 'astro:content';
 import type { Lang } from '../../i18n/helpers';
+import { selectGuideEntries } from '../../lib/guideEntries';
 interface Props { lang: Lang; currentSlug: string; }
 const { lang, currentSlug } = Astro.props;
-const all = await getCollection('guide', (e) => e.data.lang === lang || e.data.lang === undefined);
-all.sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99));
-const idx = all.findIndex((d) => d.data.slug === currentSlug);
-const prev = idx > 0 ? all[idx - 1] : null;
-const next = idx < all.length - 1 ? all[idx + 1] : null;
+const all = selectGuideEntries(await getCollection('guide'), lang);
+const idx = all.findIndex((d) => d.entry.data.slug === currentSlug);
+const prev = idx > 0 ? all[idx - 1].entry : null;
+const next = idx < all.length - 1 ? all[idx + 1].entry : null;
 ---
 <nav class="flex justify-between border-t border-rule pt-6 mt-10 font-mono text-[10px] tracking-wider">
   <div>
