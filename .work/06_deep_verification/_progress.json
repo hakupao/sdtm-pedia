@@ -863,22 +863,23 @@
           "started": "2026-04-29",
           "files_planned": 6,
           "batches_planned": 9,
-          "batches_done": 2,
-          "atoms_so_far": 434
+          "batches_done": 3,
+          "atoms_so_far": 661
         }
       },
-      "last_completed_batch": "P2_B-02_batch_02",
-      "cumulative_atoms_in_md_atoms_jsonl": 1536,
+      "last_completed_batch": "P2_B-02_batch_03",
+      "cumulative_atoms_in_md_atoms_jsonl": 1763,
+      "fallback_note_batch_03": "writer = general-purpose (FALLBACK for oh-my-claudecode:executor unregistered in this Claude Code session); reviewer = pr-review-toolkit:code-reviewer (FALLBACK for oh-my-claudecode:scientist); N21 §C-2 字面 banned-list 不含 general-purpose, Rule D writer≠reviewer 不同 type 硬合规; 用户 ack 选项 B 2026-05-04. v1.9.1 候选: 是否扩 §C-2 white-list 含 general-purpose / 强制 OMC env startup check / 提示 fallback 路径默认开启",
       "next_batch": {
-        "id": "P2_B-02_batch_03",
+        "id": "P2_B-02_batch_04",
         "target": "knowledge_base/chapters/ch04_general_assumptions.md",
-        "slice": "lines 901-1200",
-        "estimated_atoms": 200,
-        "atom_id_start": "md_ch04_a653",
+        "slice": "lines 1201-1395 (195 lines, ch04 末段)",
+        "estimated_atoms": 150,
+        "atom_id_start": "md_ch04_a880",
         "kickoff_pending": true,
-        "continuity_anchor": "batch 02 末 a652 L900 LIST_ITEM parent='§4.4.7 [Use of Relative Timing Variables]'; batch 03 进段 active L1=§4 / L2=§4.4 / L3=§4.4.7 (除非 L901 起跨入 §4.4.8 或 §4.5+)"
+        "continuity_anchor": "batch 03 末 a879 L1200 LIST_ITEM 'Row 3...NOT DONE' parent='§4.5.1.3 [Examples of Original and Standard Units and Test Not Done]'; batch 04 进段 active L1=§4 / L2=§4.5 / L3=§4.5.1 / L4=§4.5.1.3; L1205 起 VS table (TABLE_HEADER + TABLE_ROW × ?) 续 Example 3 vs.xpt narrative-list 之后. 后续可能转入 §4.5.2/.3+ 或 ch04 末"
       },
-      "recovery_hint": "B-02 cycle 第 2/9 batch CLOSED 2026-04-29 (ch04 L601-900 = 238 atoms a415..a652, density 0.79); 下一 batch P2_B-02_batch_03 ch04 L901-1200; routing word `P2 bulk B-02 batch 03 开始任务` (kickoff 文件 P2_B-02_batch_03_kickoff.md 待写, 模板 mirror P2_B-02_batch_02_kickoff.md §2-§6 with line range 901-1200 + atom_id_start a653 + continuity context from a652)"
+      "recovery_hint": "B-02 cycle 第 3/9 batch CLOSED 2026-05-04 (ch04 L901-1200 = 227 atoms a653..a879, density 0.757, **3 FIGURE** Hook A4 PASS); 下一 batch P2_B-02_batch_04 ch04 L1201-1395 (ch04 末段); routing word `P2 bulk B-02 batch 04 开始任务` (kickoff 文件 P2_B-02_batch_04_kickoff.md 待写, 模板 mirror P2_B-02_batch_03_kickoff.md §2-§6 with line range 1201-1395 + atom_id_start a880 + continuity context from a879). FALLBACK: 本 session OMC 家族 agents 未注册, writer/reviewer 走 standard agents (general-purpose / pr-review-toolkit:code-reviewer); 用户 2026-05-04 选 B ack. 如恢复 OMC 环境改回 executor/scientist."
     },
     "P3_indexing": {
       "status": "pending"
