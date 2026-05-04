@@ -3,8 +3,10 @@
   "$id": "https://sdtm-compare.local/schema/atom_schema.v1.2.json",
   "title": "SDTM Deep Verification Atom Schema",
   "description": "PDF / MD 原子统一 schema, P0 Pilot 收官冻结 v1.2 (2026-04-24). 支持 PDF 原子 (pdf_atoms.jsonl) 与 MD 原子 (md_atoms.jsonl), 通过 atom_id 前缀 + 字段差异区分.",
-  "version": "1.2",
+  "version": "1.2.1",
   "frozen_at": "2026-04-24",
+  "patched_at": "2026-05-04",
+  "patch_v1.2.1_note": "MD atom_id pattern relaxed `a\\d{3}` → `a\\d{3,}` (3-or-more digits) to support files with >999 atoms (ch04 全闭 1040 atoms 触发 batch 04 2026-05-04, FALLBACK general-purpose writer 标记). 完全向后兼容 — existing 3-digit IDs (a000..a999) 仍合规, 新增 a1000+ 也合规. PDF atom_id pattern (`p\\d{4}_a\\d{3}`) 不变 (per-page max 999 仍未达).",
   "frozen_evidence": [
     "evidence/checkpoints/p0_pilot_FINAL_report.md",
     "evidence/checkpoints/p0_T1_v1.1_reviewer_report.md Rule D 85%",
@@ -138,8 +140,8 @@
       "properties": {
         "atom_id": {
           "type": "string",
-          "pattern": "^md_[A-Za-z0-9_]+_a\\d{3}$",
-          "description": "格式: md_<file_stem>_a<NNN>, 例 md_ch08_a042, md_model_04_a005, md_AE_assumptions_a012"
+          "pattern": "^md_[A-Za-z0-9_]+_a\\d{3,}$",
+          "description": "格式: md_<file_stem>_a<NNN+>, 例 md_ch08_a042, md_model_04_a005, md_AE_assumptions_a012, md_ch04_a1040 (>999 supported per v1.2.1 patch 2026-05-04 for files with >999 atoms; backward-compatible)"
         },
         "file": {
           "type": "string",
