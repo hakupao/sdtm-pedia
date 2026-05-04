@@ -309,6 +309,15 @@
 - atom_type 9/9 全闭 (CROSS_REF first appearance a892 L1218 in batch 04 — 首批 cycle B-02 内 atom_type coverage 完整)
 - B-02 cycle 4/9 batch 闭, ch04 (1 文件) 全完, 余 5 batch (ch01/03/02/10/08 全文)
 
+| P2_B-02_batch_05 | **FALLBACK** general-purpose (sustained) | 88 (ch01_introduction.md 全 102 行 单 dispatch 模式; 0 FIGURE / 0 NOTE / 0 CODE_LITERAL / 0 CROSS_REF — inline refs 走 cross_refs field 而非 promote 独立 CROSS_REF atom (vs batch 04 a892 短 standalone 形态); 1 H1 + 5 H2 + 4 H3 chain 含 3 numberless H3 (L51 §1.3/Related IG / L92 §1.5/Derived Records / L96 §1.5/Use of --LNKID, parent_section 走父 H2 bracketed form 不造合成 §X.Y.Z; 3 表 (Section 11 row / Related IG 4 row / Column desc 7 row 含 bold cells); 24 LIST_ITEM 含 14 changes-bullets + 8 numbered reading-order + 2 RELTYPE; L32 split 5 SENTENCE per §C-1 sub-line 含 cross_refs 末原子 a030; density 0.86 vs ch04 平均 0.746) | **FALLBACK** pr-review-toolkit:code-reviewer (sustained) | 12/12 = 100% strict + functional (10 distinct atoms, B5+B6 各扩 2 atoms); 6 boundary (a001 H1 §1 [Introduction] / a003 H2 §1.1 sib=1 RESTART / a030 SENTENCE w/ cross_refs L32 vs batch 04 a892 CROSS_REF 区分 / a046 L51 numberless H3 §1.3 sib=1 / a079+a082 L92+L96 §1.5 numberless H3 sib=1+2 / a087+a088 L102 末 SENTENCE × 2) + 4 stratified (TABLE_HEADER / TABLE_ROW bold cells / LIST_ITEM numbered w/ inline refs / LIST_ITEM simple) all PASS | **PASS** + **🎯 ch01 全闭 milestone** (102/102 = 100%, 88 atoms a001..a088 单 dispatch full-file pattern 验证 OK) |
+
+**ch01 100% milestone (post batch 05, 2026-05-04)**:
+- ch01_introduction.md 全文 102/102 行 = 100% 原子化 (单 dispatch full-file)
+- atoms 总 = 88 (a001..a088 0 gap 0 dup)
+- atom_type 命中 5/9 (HEADING 10 / SENTENCE 31 / LIST_ITEM 24 / TABLE_HEADER 3 / TABLE_ROW 20; CODE_LITERAL/CROSS_REF/FIGURE/NOTE 自然缺 — 非数据集名内嵌 / inline refs 走 cross_refs field / 无 mermaid / 无 carve-out NOTE)
+- B-02 cycle 5/9 batch 闭, **2 文件全完** (ch04 + ch01), 余 4 batch (ch03/02/10/08 全文)
+- v1.9.1 候选 +4 LOW codification (S-01 cross-ref distinction / S-02 numberless H3 parent rule / S-03 sub-line cross_refs placement / S-04 trailing-narrative parent attachment)
+
 ### Schema v1.2 → v1.2.1 inline patch (2026-05-04, batch 04 trigger)
 
 - Trigger: ch04 全闭累计 1040 atoms, batch 04 a1000..a1040 (41 atoms) 4-digit ID 撞 schema v1.2 严格 `^md_[A-Za-z0-9_]+_a\d{3}$` (3 位限制)
