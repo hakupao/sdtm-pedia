@@ -863,8 +863,8 @@
           "started": "2026-04-29",
           "files_planned": 6,
           "batches_planned": 9,
-          "batches_done": 6,
-          "atoms_so_far": 1030,
+          "batches_done": 7,
+          "atoms_so_far": 1162,
           "ch04_atomization_complete": true,
           "ch04_completed_at": "2026-05-04",
           "ch04_total_atoms": 1040,
@@ -878,13 +878,17 @@
           "ch03_total_atoms": 120,
           "ch03_pattern": "single dispatch full-file, atom_id a001..a120, 6/9 atom_type hit (TABLE_ROW 63 dominates 巨 Dataset table + SENTENCE 32 + LIST_ITEM 15 + HEADING 7 + NOTE 2 + TABLE_HEADER 1; CODE_LITERAL/CROSS_REF/FIGURE 自然缺), density 0.923",
           "ch03_anomaly_rule_b": "L117 source markdown `## 3.2.2 Conformance` (h_lvl=2) — kickoff §2.2/§4 D5 doc 误写 `### 3.2.2` (h_lvl=3); writer Rule B (no fabrication) emit h_lvl=2 + D5 semantic parent §3.2 sib=2 dual-constraint 解; reviewer M1 finding 验证为 kickoff doc bug NOT writer defect; KB cleanup task v1.9.1 候选 LOW",
+          "ch02_atomization_complete": true,
+          "ch02_completed_at": "2026-05-05",
+          "ch02_total_atoms": 132,
+          "ch02_pattern": "single dispatch full-file, atom_id a001..a132, 6/9 atom_type hit (HEADING 15 / LIST_ITEM 50 / SENTENCE 35 / TABLE_ROW 27 / TABLE_HEADER 4 / FIGURE 1; CODE_LITERAL/CROSS_REF/NOTE 自然缺), density 0.759; 1 FIGURE a080 mermaid New Domain Creation; nested LIST_ITEM convention 1st validated (L113-114 + L117-127 11 sub-letters all flat parent §2.6); S-02 numberless H3 sib chain validated 7 times (2/§2.1 + 1/§2.5 + 4/§2.7); kickoff §4 minor 5表→4表 typo writer Rule-B'd correctly",
           "atom_type_coverage_cumulative": "9/9 全闭 (CROSS_REF 首现 batch 04 a892 L1218 'See Section 8...')",
-          "files_complete": ["chapters/ch04_general_assumptions.md", "chapters/ch01_introduction.md", "chapters/ch03_submitting_data.md"],
-          "files_remaining": ["chapters/ch02_fundamentals.md", "chapters/ch08_relationships.md", "chapters/ch10_appendices.md"]
+          "files_complete": ["chapters/ch04_general_assumptions.md", "chapters/ch01_introduction.md", "chapters/ch03_submitting_data.md", "chapters/ch02_fundamentals.md"],
+          "files_remaining": ["chapters/ch08_relationships.md", "chapters/ch10_appendices.md"]
         }
       },
-      "last_completed_batch": "P2_B-02_batch_06",
-      "cumulative_atoms_in_md_atoms_jsonl": 2132,
+      "last_completed_batch": "P2_B-02_batch_07",
+      "cumulative_atoms_in_md_atoms_jsonl": 2264,
       "schema_patch_v1_2_1": {
         "patched_at": "2026-05-04",
         "trigger_batch": "P2_B-02_batch_04",
@@ -893,18 +897,18 @@
         "fields_changed": ["version 1.2 → 1.2.1", "新增 patched_at + patch_v1.2.1_note", "md_atom.properties.atom_id.pattern + description"],
         "v1_9_1_candidates_added": "schema v1.2.1 → v1.3 promote w/ retro validation 879 atoms + writer prompt v1.9 → v1.9.1 显式 mention >999 atom_id support"
       },
-      "fallback_note_batch_03_to_06": "writer = general-purpose (FALLBACK for oh-my-claudecode:executor); reviewer = pr-review-toolkit:code-reviewer (FALLBACK for oh-my-claudecode:scientist); N21 §C-2 字面 banned-list 不含 general-purpose, Rule D writer≠reviewer 硬合规; 用户 ack Option B 2026-05-04; batch 03+04+05+06 全 FALLBACK 100% PASS (596 atoms 累计 0 finding, M1 是 kickoff doc bug NOT writer defect)",
-      "v1_9_1_candidate_backlog": "post batch 06 共 14 候选: 7 (post batch 04) + 4 (batch 05) + 3 (batch 06 reviewer): **HIGH-1** D5 sub-rule codify markdown-level inconsistent semantic numbering (writer + reviewer prompts) — prevents future ambiguity on patterns like ch03 L117; **MEDIUM-1** bold-caption SENTENCE retention rule (`**Example:**`/`**Definitions:**` = SENTENCE caption, `**Note:**`/`**Exception:**` = NOTE carve-out) explicit codify in §C-1 / §R-C7; **LOW-1** KB cleanup task — ch03 L117 `## 3.2.2` → `### 3.2.2` align markdown depth with semantic numbering",
+      "fallback_note_batch_03_to_07": "writer = general-purpose (FALLBACK for oh-my-claudecode:executor); reviewer = pr-review-toolkit:code-reviewer (FALLBACK for oh-my-claudecode:scientist); N21 §C-2 字面 banned-list 不含 general-purpose, Rule D writer≠reviewer 硬合规; 用户 ack Option B 2026-05-04; batch 03+04+05+06+07 全 FALLBACK 100% PASS (728 atoms 累计 0 writer defect; M1 是 kickoff doc bug NOT writer defect; 5-batch streak; reviewer 推 promote FALLBACK to full peer alternative non-emergency)",
+      "v1_9_1_candidate_backlog": "post batch 07 共 15 候选: 14 (post batch 06) + 1 (batch 07 reviewer C-1 NEW HIGH): **HIGH-1** D5 sub-rule codify markdown-level inconsistent semantic numbering / **HIGH-2 NEW** kickoff self-consistency rule (writer MUST grep-verify any count statement in kickoff §4 against source before acting; 2 连续 batch 06 L117 + batch 07 \"5 表\" 都是 kickoff doc internal arithmetic errors that writer Rule-B'd correctly) / **MEDIUM-1** bold-caption SENTENCE retention rule / **LOW-1** KB cleanup task ch03 L117 / 11 prior LOW carry; **INFO** FALLBACK 路径 promote to full peer (5-batch 100% sustained 728 atoms 0 finding) — non-emergency 文档化",
       "next_batch": {
-        "id": "P2_B-02_batch_07",
-        "target": "knowledge_base/chapters/ch02_fundamentals.md",
-        "slice": "全文 (174 行)",
-        "estimated_atoms": 120,
-        "atom_id_start": "md_ch02_a001",
+        "id": "P2_B-02_batch_08",
+        "target": "knowledge_base/chapters/ch10_appendices.md",
+        "slice": "全文 (310 行)",
+        "estimated_atoms": 210,
+        "atom_id_start": "md_ch10_a001",
         "kickoff_pending": true,
-        "continuity_anchor": "新 file (ch02_fundamentals.md 全 174 行); 不跨 batch continuity; 模式同 batch 05/06 单 dispatch full-file. 进段 active context: 待 writer 从 source 推断 H1/H2/H3 chain 起点; 估 ~120 atoms (174 行 × density 0.7 估)"
+        "continuity_anchor": "新 file (ch10_appendices.md 全 310 行); 不跨 batch continuity; 模式同 batch 05/06/07 单 dispatch full-file. 进段 active context: 待 writer 从 source 推断 H1/H2/H3 chain 起点 + appendix 风格 (注释材料 + 多 table 估); 估 ~210 atoms (310 行 × density 0.68 估; B-01 model05 296 行 192 atoms density 0.65 参考). **kickoff 写前必先 Read source 全 — 避复刻 L117 / 5表 kickoff doc bug pattern**"
       },
-      "recovery_hint": "B-02 cycle 第 6/9 batch CLOSED 2026-05-04 (ch03_submitting_data.md 全 130 行 = 120 atoms a001..a120, density 0.923, 6/9 atom_type hit 含 63-row 巨 Dataset table TABLE_ROW 主体; L117 source markdown `## 3.2.2` h_lvl=2 anomaly 走 Rule B + D5 semantic parent §3.2 sib=2 dual-constraint 解 — kickoff doc bug NOT writer defect); **🎯 ch03 全闭 milestone**: 130/130 = 100% 单 dispatch; B-02 累计 3 文件全完 (ch04 + ch01 + ch03), 余 3 batch (ch02/10/08 全文); 下一 batch P2_B-02_batch_07 ch02_fundamentals.md 全 174 行 (~120 atoms); routing word `P2 bulk B-02 batch 07 开始任务` (kickoff 文件 P2_B-02_batch_07_kickoff.md 待写, 模板 mirror batch 05/06 单 dispatch 模式). FALLBACK 路径仍生效. v1.9.1 候选 backlog **14** (post batch 06, 含 1 HIGH D5 sub-rule + 1 MEDIUM bold-caption rule + 1 LOW KB cleanup); v1.9.1 cut 时机由用户决定 (建议 B-02 全闭后集中 cut)."
+      "recovery_hint": "B-02 cycle 第 7/9 batch CLOSED 2026-05-05 (ch02_fundamentals.md 全 174 行 = 132 atoms a001..a132, density 0.759, 6/9 atom_type hit + 1 FIGURE a080 mermaid New Domain Creation + nested LIST_ITEM convention 1st validated L113-114/L117-127 11 sub-letters all flat parent §2.6 + S-02 numberless H3 sib chain validated 7 times 2/§2.1+1/§2.5+4/§2.7; kickoff §4 5表→4表 typo writer Rule-B'd correctly = batch 06 L117 同 pattern); **🎯 ch02 全闭 milestone**: 174/174 = 100% 单 dispatch; B-02 累计 4 文件全完 (ch04 + ch01 + ch03 + ch02), 余 2 batch (ch10/08 全文); 下一 batch P2_B-02_batch_08 ch10_appendices.md 全 310 行 (~210 atoms 估 — 是 batch 05/06/07 都大, 类比 B-01 model05 296行 192原子 pattern); routing word `P2 bulk B-02 batch 08 开始任务` (kickoff 文件 P2_B-02_batch_08_kickoff.md 待写, **写前先 Read source 全避复刻 kickoff doc bug**). FALLBACK 路径 5-batch 100% sustained, reviewer 推 promote 到 full peer alternative non-emergency. v1.9.1 候选 backlog **15** (post batch 07, +1 HIGH-2 NEW kickoff self-consistency rule); v1.9.1 cut 建议 B-02 全闭 (batch 09) 后集中 cut."
     },
     "P3_indexing": {
       "status": "pending"

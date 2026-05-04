@@ -327,6 +327,15 @@
 - B-02 cycle 6/9 batch 闭, **3 文件全完** (ch04 + ch01 + ch03), 余 3 batch (ch02/10/08 全文)
 - v1.9.1 候选 +3 (本 batch reviewer): **HIGH-1** D5 sub-rule codify "markdown-level inconsistent semantic numbering" (writer + reviewer prompts) / **MEDIUM-1** bold-caption SENTENCE retention rule (`**Example:**`/`**Definitions:**` = SENTENCE caption, `**Note:**`/`**Exception:**` = NOTE carve-out) / **LOW-1** KB cleanup task ch03 L117 `## 3.2.2` → `### 3.2.2` source MD 一致化
 
+| P2_B-02_batch_07 | **FALLBACK** general-purpose (sustained 5 batch) | 132 (ch02_fundamentals.md 全 174 行 单 dispatch; **1 FIGURE** a080 L98-108 mermaid `graph TD` `md_ch02_new_domain_creation_concept_map` (Identifier/Timing/Topic-Qualifier nodes branching to GOC OR-edges to New Domain); 15 HEADING (1 H1 + 7 H2 + 7 numberless H3 全 S-02 rule applied: 2 under §2.1 + 1 under §2.5 + 4 under §2.7); 4 表 (Qualifier Subclasses / GOC / Dataset types / SEND vars 15-row); 50 LIST_ITEM 含 nested L113-114 (under L112) + 11 sub-letter L117-127 (under L116) all flat LIST_ITEM 3-space indent prefix preserved + parent §2.6; 0 NOTE (无 carve-out); 35 SENTENCE 多 §C-1 sub-line splits + bold caption L27/L65/L129 全 SENTENCE; multi inline section refs 走 cross_refs field (Section 4/5/6/1.4.1/8.6.1/9.2/2.6); density 0.759) | **FALLBACK** pr-review-toolkit:code-reviewer (sustained) | **16/16 = 100% strict + functional** (10 distinct atoms, B2+B4+B5 expanded → 16 verdict rows: B2 a008+a014 H3 §2.1 chain / B4 a086+11 sub-letters L117-127 nested / B5 a104+a121+a124+a129 H3 §2.7 chain) + 4 stratified (TABLE_HEADER bold cells / TABLE_ROW comma-separated cell / SENTENCE caption / LIST_ITEM bold cell label) all PASS | **PASS** + **🎯 ch02 全闭 milestone** (174/174 = 100%) + nested LIST_ITEM convention validated + S-02 numberless H3 sib chain validated 7 times |
+
+**ch02 100% milestone (post batch 07, 2026-05-05)**:
+- ch02_fundamentals.md 全文 174/174 行 = 100% 原子化 (单 dispatch full-file)
+- atoms 总 = 132 (a001..a132 0 gap 0 dup)
+- atom_type 命中 7/9 (HEADING 15 / LIST_ITEM 50 / SENTENCE 35 / TABLE_ROW 27 / TABLE_HEADER 4 / FIGURE 1 / NOTE 0 — wait re-count: HEADING 15 + LIST_ITEM 50 + SENTENCE 35 + TABLE_ROW 27 + TABLE_HEADER 4 + FIGURE 1 = 6 类型; CODE_LITERAL/CROSS_REF/NOTE 自然缺 = **6/9**)
+- B-02 cycle 7/9 batch 闭, **4 文件全完** (ch04 + ch01 + ch03 + ch02), 余 2 batch (ch10/08 全文)
+- v1.9.1 候选 +1 (本 batch reviewer): **HIGH-1** kickoff self-consistency rule (writer MUST grep-verify any count statement in kickoff §4 against source before acting; 2 连续 batch 06 L117 + batch 07 "5 表" 都是 kickoff doc internal arithmetic errors that writer Rule-B'd correctly — 推 codify) + **INFO** FALLBACK 路径 5-batch 100% sustained, 推 promote 到 full peer alternative (NOT emergency-only) doc 化
+
 ### Schema v1.2 → v1.2.1 inline patch (2026-05-04, batch 04 trigger)
 
 - Trigger: ch04 全闭累计 1040 atoms, batch 04 a1000..a1040 (41 atoms) 4-digit ID 撞 schema v1.2 严格 `^md_[A-Za-z0-9_]+_a\d{3}$` (3 位限制)
