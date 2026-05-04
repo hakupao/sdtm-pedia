@@ -863,19 +863,23 @@
           "started": "2026-04-29",
           "files_planned": 6,
           "batches_planned": 9,
-          "batches_done": 4,
-          "atoms_so_far": 822,
+          "batches_done": 5,
+          "atoms_so_far": 910,
           "ch04_atomization_complete": true,
           "ch04_completed_at": "2026-05-04",
           "ch04_total_atoms": 1040,
           "ch04_segments": "pilot 218 (L1-300) + B-02 batch 01 196 (L301-600) + batch 02 238 (L601-900) + batch 03 227 (L901-1200) + batch 04 161 (L1201-1395) = 1040 atoms / 1395 行 100% atomized; atom_id 续 a001..a1040 0 gap 0 dup",
+          "ch01_atomization_complete": true,
+          "ch01_completed_at": "2026-05-04",
+          "ch01_total_atoms": 88,
+          "ch01_pattern": "single dispatch full-file (B-01 model batch pattern), atom_id a001..a088, 5/9 atom_type hit (HEADING/SENTENCE/LIST_ITEM/TABLE_HEADER/TABLE_ROW; CODE_LITERAL/CROSS_REF/FIGURE/NOTE 自然缺), density 0.86",
           "atom_type_coverage_cumulative": "9/9 全闭 (CROSS_REF 首现 batch 04 a892 L1218 'See Section 8...')",
-          "files_complete": ["chapters/ch04_general_assumptions.md"],
-          "files_remaining": ["chapters/ch01_introduction.md", "chapters/ch02_fundamentals.md", "chapters/ch03_submitting_data.md", "chapters/ch08_relationships.md", "chapters/ch10_appendices.md"]
+          "files_complete": ["chapters/ch04_general_assumptions.md", "chapters/ch01_introduction.md"],
+          "files_remaining": ["chapters/ch02_fundamentals.md", "chapters/ch03_submitting_data.md", "chapters/ch08_relationships.md", "chapters/ch10_appendices.md"]
         }
       },
-      "last_completed_batch": "P2_B-02_batch_04",
-      "cumulative_atoms_in_md_atoms_jsonl": 1924,
+      "last_completed_batch": "P2_B-02_batch_05",
+      "cumulative_atoms_in_md_atoms_jsonl": 2012,
       "schema_patch_v1_2_1": {
         "patched_at": "2026-05-04",
         "trigger_batch": "P2_B-02_batch_04",
@@ -884,17 +888,18 @@
         "fields_changed": ["version 1.2 → 1.2.1", "新增 patched_at + patch_v1.2.1_note", "md_atom.properties.atom_id.pattern + description"],
         "v1_9_1_candidates_added": "schema v1.2.1 → v1.3 promote w/ retro validation 879 atoms + writer prompt v1.9 → v1.9.1 显式 mention >999 atom_id support"
       },
-      "fallback_note_batch_03_04": "writer = general-purpose (FALLBACK for oh-my-claudecode:executor unregistered in this Claude Code session); reviewer = pr-review-toolkit:code-reviewer (FALLBACK for oh-my-claudecode:scientist); N21 §C-2 字面 banned-list 不含 general-purpose, Rule D writer≠reviewer 不同 type 硬合规; 用户 ack 选项 B 2026-05-04; batch 03 + 04 都走 FALLBACK 路径 100% PASS (388 atoms 累计 0 finding)",
+      "fallback_note_batch_03_04_05": "writer = general-purpose (FALLBACK for oh-my-claudecode:executor unregistered in this Claude Code session); reviewer = pr-review-toolkit:code-reviewer (FALLBACK for oh-my-claudecode:scientist); N21 §C-2 字面 banned-list 不含 general-purpose, Rule D writer≠reviewer 不同 type 硬合规; 用户 ack 选项 B 2026-05-04; batch 03 + 04 + 05 都走 FALLBACK 路径 100% PASS (476 atoms 累计 0 finding)",
+      "v1_9_1_candidate_backlog": "post batch 05 共 11 候选: 7 (post batch 04) + 4 (batch 05 reviewer): S-01 cross-ref distinction (long narrative inline ref vs short standalone directive 决策码) / S-02 numberless H3 parent rule (parent H2 bracketed form 不造合成 §X.Y.Z) / S-03 sub-line cross_refs placement convention (cross_refs 字段在 sub-line split 中末原子 vs 全分配) / S-04 trailing-narrative parent attachment rule (sub-section 后 narrative 归父 H2 还是 H3)",
       "next_batch": {
-        "id": "P2_B-02_batch_05",
-        "target": "knowledge_base/chapters/ch01_introduction.md",
-        "slice": "全文 (102 行)",
-        "estimated_atoms": 70,
-        "atom_id_start": "md_ch01_a001",
+        "id": "P2_B-02_batch_06",
+        "target": "knowledge_base/chapters/ch03_submitting_data.md",
+        "slice": "全文 (130 行)",
+        "estimated_atoms": 90,
+        "atom_id_start": "md_ch03_a001",
         "kickoff_pending": true,
-        "continuity_anchor": "新 file (ch01_introduction.md 全 102 行); 不跨 batch continuity (atom_id 重起 a001); B-01 model batch 模式参考 (单 dispatch 全 file, 不切片). 进段 active context: 待 writer 从 source L1-10 推断 H1/H2/H3 chain 起点 (ch01 文件起首 likely `# Chapter 1` H1 + `## 1.1 ...` H2)"
+        "continuity_anchor": "新 file (ch03_submitting_data.md 全 130 行); 不跨 batch continuity; 模式同 batch 05 单 dispatch full-file. 进段 active context: 待 writer 从 source 推断 H1/H2/H3 chain 起点; 估 ~90 atoms (130 行 × density 0.7 估)"
       },
-      "recovery_hint": "B-02 cycle 第 4/9 batch CLOSED 2026-05-04 (ch04 L1201-1395 = 161 atoms a880..a1040, density 0.826, 12 数据表 + 首 CROSS_REF a892 + 9/9 atom_type 全闭 cumulative); **🎯 ch04 全闭 milestone**: 5 segments 1040 atoms / 1395 行 = 100% atomized; **schema v1.2 → v1.2.1 inline patch** (atom_id `\\d{3}` → `\\d{3,}` 因 ch04 跨 999); 下一 batch P2_B-02_batch_05 ch01_introduction.md 全 102 行 (新 file, atom_id 重起 a001); routing word `P2 bulk B-02 batch 05 开始任务` (kickoff 文件 P2_B-02_batch_05_kickoff.md 待写, 模板可不 mirror batch 04 因新 file 不跨 batch continuity, 参考 B-01 model batch 模式). FALLBACK 路径仍生效 (OMC 未恢复)."
+      "recovery_hint": "B-02 cycle 第 5/9 batch CLOSED 2026-05-04 (ch01_introduction.md 全 102 行 = 88 atoms a001..a088, density 0.86, 0 FIGURE/CROSS_REF/NOTE/CODE_LITERAL — inline refs 走 cross_refs field; 3 numberless H3 处理 OK; L32 split 5 SENTENCE per §C-1 含 cross_refs 末原子); **🎯 ch01 全闭 milestone**: 102/102 = 100% 单 dispatch full-file 模式验证; B-02 累计 2 文件全完 (ch04 + ch01), 余 4 batch (ch03/02/10/08 全文); 下一 batch P2_B-02_batch_06 ch03_submitting_data.md 全 130 行 (~90 atoms); routing word `P2 bulk B-02 batch 06 开始任务` (kickoff 文件 P2_B-02_batch_06_kickoff.md 待写, 模板 mirror batch 05 单 dispatch 模式 — 替换 file/lines/atom_id_start). FALLBACK 路径仍生效 (OMC 未恢复). v1.9.1 候选 backlog 11 (post batch 05); 是否 v1.9.1 cut 在 batch 06 前 由用户决定."
     },
     "P3_indexing": {
       "status": "pending"
