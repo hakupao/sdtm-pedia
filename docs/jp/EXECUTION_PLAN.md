@@ -10,8 +10,8 @@
 # docs/jp/ — 落地方案 + Agent 调度設計
 
 > 创建: 2026-04-29
-> 状态: **DRAFT v0.1** — Phase -1 産物, Phase 0 Setup 起動前に確定要
-> 上流: `docs/jp/PLAN.md` v0.2 (WHAT/WHY)
+> 状态: **DRAFT v0.2** — PLAN v0.3 同期 (P0 四点セット, 04 → 01 → 02 → 03 順)
+> 上流: `docs/jp/PLAN.md` v0.3 (WHAT/WHY)
 > 本書職責: **HOW** — 各 Phase の agent 配役 / 派発順序 / 並列機会 / 隔離設計 / 失敗回路
 > Tier: **2** (PLAN.md と同 Tier)
 

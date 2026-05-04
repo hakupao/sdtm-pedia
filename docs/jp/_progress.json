@@ -275,8 +275,8 @@
   ],
   "failures_archive": [],
   "references": {
-    "plan": "docs/jp/PLAN.md (v0.2)",
-    "execution_plan": "docs/jp/EXECUTION_PLAN.md (v0.1)",
+    "plan": "docs/jp/PLAN.md (v0.3)",
+    "execution_plan": "docs/jp/EXECUTION_PLAN.md (v0.2)",
     "manifest": ".work/MANIFEST.md (Chain J registration)",
     "claude_md": "CLAUDE.md Key Paths",
     "blacklist": "docs/jp/glossary/term_blacklist.yml",
