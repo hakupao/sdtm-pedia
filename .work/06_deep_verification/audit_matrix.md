@@ -318,6 +318,15 @@
 - B-02 cycle 5/9 batch 闭, **2 文件全完** (ch04 + ch01), 余 4 batch (ch03/02/10/08 全文)
 - v1.9.1 候选 +4 LOW codification (S-01 cross-ref distinction / S-02 numberless H3 parent rule / S-03 sub-line cross_refs placement / S-04 trailing-narrative parent attachment)
 
+| P2_B-02_batch_06 | **FALLBACK** general-purpose (sustained) | 120 (ch03_submitting_data.md 全 130 行 单 dispatch; **巨 Dataset table 63 TABLE_ROW** L31-93 含 SUPP-- 字面 + [domain name] brackets + xpt filenames in cells byte-exact; 7 HEADING 含 D5 关键决策 (§3.2.1 H3 sib=1 / §3.2.1.1 H3 sib=1 under §3.2.1 / §3.2.1.2 H3 sib=2 under §3.2.1 / §3.2.2 **H2 NOT H3** sib=2 under §3.2 — source markdown `## 3.2.2` Rule B preserved + D5 semantic parent §3.2 dual-constraint); 2 NOTE (L21/L25 carve-out vs 1 SENTENCE caption L103 `**Definitions:**` + 1 SENTENCE caption L111 `**Example:**` 4-sentence kept whole); 15 LIST_ITEM 含 10 numbered conformance L121-130; 32 SENTENCE 多 §C-1 sub-line splits (L7×3/L12×4/L16×4/L95×2/L99×4/L101×4/L109×3/L113×2); L115 `---` skipped; density 0.923) | **FALLBACK** pr-review-toolkit:code-reviewer (sustained) | 12/12 = 100% strict + functional (10 distinct, B5 expanded 3 atoms a090/a102/a109); 6 boundary (a001 H1 §3 / a021 H3 §3.2.1 / a024 TABLE_HEADER 7 cols / a086 SUPP-- TABLE_ROW byte-exact `--` + `[...]` / a090+a102+a109 D5 trio 含 L117 anomaly OK / a120 末 LIST_ITEM L130) + 4 stratified (NOTE / SENTENCE caption / SENTENCE multi-clause kept-whole / LIST_ITEM multi-sentence) all PASS | **PASS** + **🎯 ch03 全闭 milestone** (130/130 = 100%, 120 atoms a001..a120 单 dispatch) + **L117 source markdown anomaly Rule-B'd** (kickoff doc bug NOT writer defect — writer 按 source `## 3.2.2` h_lvl=2 emit + D5 semantic parent §3.2 sib=2 dual-constraint 解) |
+
+**ch03 100% milestone (post batch 06, 2026-05-04)**:
+- ch03_submitting_data.md 全文 130/130 行 = 100% 原子化 (单 dispatch full-file)
+- atoms 总 = 120 (a001..a120 0 gap 0 dup)
+- atom_type 命中 6/9 (TABLE_ROW 63 dominates / SENTENCE 32 / LIST_ITEM 15 / HEADING 7 / NOTE 2 / TABLE_HEADER 1; CODE_LITERAL/CROSS_REF/FIGURE 自然缺)
+- B-02 cycle 6/9 batch 闭, **3 文件全完** (ch04 + ch01 + ch03), 余 3 batch (ch02/10/08 全文)
+- v1.9.1 候选 +3 (本 batch reviewer): **HIGH-1** D5 sub-rule codify "markdown-level inconsistent semantic numbering" (writer + reviewer prompts) / **MEDIUM-1** bold-caption SENTENCE retention rule (`**Example:**`/`**Definitions:**` = SENTENCE caption, `**Note:**`/`**Exception:**` = NOTE carve-out) / **LOW-1** KB cleanup task ch03 L117 `## 3.2.2` → `### 3.2.2` source MD 一致化
+
 ### Schema v1.2 → v1.2.1 inline patch (2026-05-04, batch 04 trigger)
 
 - Trigger: ch04 全闭累计 1040 atoms, batch 04 a1000..a1040 (41 atoms) 4-digit ID 撞 schema v1.2 严格 `^md_[A-Za-z0-9_]+_a\d{3}$` (3 位限制)
