@@ -332,9 +332,18 @@
 **ch02 100% milestone (post batch 07, 2026-05-05)**:
 - ch02_fundamentals.md 全文 174/174 行 = 100% 原子化 (单 dispatch full-file)
 - atoms 总 = 132 (a001..a132 0 gap 0 dup)
-- atom_type 命中 7/9 (HEADING 15 / LIST_ITEM 50 / SENTENCE 35 / TABLE_ROW 27 / TABLE_HEADER 4 / FIGURE 1 / NOTE 0 — wait re-count: HEADING 15 + LIST_ITEM 50 + SENTENCE 35 + TABLE_ROW 27 + TABLE_HEADER 4 + FIGURE 1 = 6 类型; CODE_LITERAL/CROSS_REF/NOTE 自然缺 = **6/9**)
+- atom_type 命中 6/9 (HEADING 15 / LIST_ITEM 50 / SENTENCE 35 / TABLE_ROW 27 / TABLE_HEADER 4 / FIGURE 1; CODE_LITERAL/CROSS_REF/NOTE 自然缺)
 - B-02 cycle 7/9 batch 闭, **4 文件全完** (ch04 + ch01 + ch03 + ch02), 余 2 batch (ch10/08 全文)
 - v1.9.1 候选 +1 (本 batch reviewer): **HIGH-1** kickoff self-consistency rule (writer MUST grep-verify any count statement in kickoff §4 against source before acting; 2 连续 batch 06 L117 + batch 07 "5 表" 都是 kickoff doc internal arithmetic errors that writer Rule-B'd correctly — 推 codify) + **INFO** FALLBACK 路径 5-batch 100% sustained, 推 promote 到 full peer alternative (NOT emergency-only) doc 化
+
+| P2_B-02_batch_08 | **FALLBACK** general-purpose (sustained 6 batch) | 258 (ch10_appendices.md 全 310 行 单 dispatch; **3 大表占主体** Glossary 40 row + Fragment Ref 5-col side-by-side 61 row (kickoff 标 62 误, 实际 L163 空行) + Section-by-Section 74 row 含 10 group separator rows w/ bold cell + 2 empty cells; **D6 letter-prefix appendix H2** 6 个 sib=1-6 全 PASS (§10.A..§10.F bracketed format); 12 numberless H3 跨 4 H2 parents (§10.C 2 / §10.D 2 / §10.E 4 / §10.F 4) all S-02 PASS; 6 个 `---` HR skip L5/L13/L62/L86/L164/L288; L310 末 SENTENCE "Note: ..." plain text NOT NOTE (无 bold); 22 LIST_ITEM 含 1 Morphology MO L201 parent §10.E; 29 SENTENCE 含 4 长 ALL CAPS legal Appendix F; density 0.832) | **FALLBACK** pr-review-toolkit:code-reviewer (sustained) | **14/14 = 100% strict + functional** (10 distinct atoms, B6 expanded 5 atoms §10.F H2+4 H3 chain → 14 verdict rows) + 3 stratified (TABLE_ROW Fragment Ref empty cells / LIST_ITEM Key Points multi-sentence / SENTENCE long ALL CAPS legal) all PASS | **PASS** + **🎯 ch10 全闭 milestone** (310/310 = 100%) + **D6 codified** (letter-prefix appendix-style H2 chain) + **3rd consecutive kickoff drift** (62→61 fragment rows, writer Rule-B'd) — v1.9.1 HIGH-2 升 **CRITICAL** |
+
+**ch10 100% milestone (post batch 08, 2026-05-05)**:
+- ch10_appendices.md 全文 310/310 行 = 100% 原子化 (单 dispatch full-file)
+- atoms 总 = 258 (a001..a258 0 gap 0 dup, density 0.832)
+- atom_type 命中 5/9 (TABLE_ROW 183 dominates / SENTENCE 29 / LIST_ITEM 22 / HEADING 19 / TABLE_HEADER 5; FIGURE/CODE_LITERAL/CROSS_REF/NOTE 自然缺)
+- B-02 cycle 8/9 batch 闭, **5 文件全完** (ch04 + ch01 + ch03 + ch02 + ch10), 余 1 batch (ch08 全 439 行)
+- v1.9.1 候选 +2 (本 batch reviewer): **CRITICAL promotion** HIGH-2 kickoff self-consistency rule → CRITICAL (3 连续 batch 06/07/08 都暴露 kickoff doc bug, writer Rule-B'd; 推 kickoff 写前必加 pre-flight checksum block: wc -l / table count / H2/H3 count via grep) + **NEW D6 sub-rule** codify letter-prefix appendix-style H2 chain under D5 family (own parent = chapter context; sub-atom parent = chapter.letter; H3 sib RESTART under each new H2 per S-02)
 
 ### Schema v1.2 → v1.2.1 inline patch (2026-05-04, batch 04 trigger)
 
