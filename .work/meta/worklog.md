@@ -2247,3 +2247,22 @@
   - **その後**: Phase 2 (05 詳細設計書) → Phase 3 仕上げ (06 トレーサビリティ + 07 v1.0 化 + 99 中文列充填) → Phase 4 Pack & Handoff (正式版 v1.0 zip + RETROSPECTIVE.md). 予定 = 2026-05-中旬末 正式版 v1.0 提出.
   - **PASS 五条 Open** (継承): I-1 日方ネイティブ確認担当指名 — 中間版 00_納品範囲 §5.1 で受信者側に明示要望済.
 - **下一步**: commit + push (本 session 中間版集約 milestone).
+
+## 2026-05-04 docs/jp/ 内部 navigation 一致性修正
+
+- **触发**: 用户フィードバック「汇报放眼整个项目, 不要把成果物制作过程当项目进度」→ scope を docs/jp 内部に絞り直し → 内部 navigation/version 参照ドリフト 5 件特定 + 修正.
+- **修正対象**: docs/jp 内部の navigation/version 参照 (実状態に対するドリフト) — Phase / 進捗 / 産物状態は不変.
+  - `00_README.md` (65→95 行) 全面刷新: 内部 / 納品 / 中間版補助 / 子目录 4 表構成. PLAN v0.3 / EXEC v0.2 / 04+01 v1.0 PASS / 中間版 v0.5 補助 (00/08/07) / 99 v0.1 骨格 / scripts (build_xlsx + audit_terms) / 子目录入口 (sources/templates/glossary/scripts/prompts/failures/assets/deliverable) を全反映. Phase 起動順 PLAN v0.3 整合.
+  - `CHANGELOG.md` 時序修正: ITMS-SDTM-01 v1.0 (2026-04-29) を末尾から 04 v1.0 (4-29) と 04 用語規律修正 (4-30) の間 (L86) に移動 + 残骸 `---` separator 除去. 4-29 → 4-30 時系列に整合.
+  - `PLAN.md` L16 状態行: 「Phase 0+0.5+0.7+0.5.8 完了, Phase 1 起動準備可」→「Phase 1 in_progress, 04+01 v1.0 PASS, 残 02+03; 中間版 v0.5 提出済」.
+  - `EXECUTION_PLAN.md` L13-14: DRAFT v0.1 → v0.2; 上流 PLAN v0.2 → v0.3.
+  - `_progress.json` references: plan v0.2 → v0.3; exec v0.1 → v0.2 (JSON parser PASS).
+- **検証**: 5 ファイル個別 verify (sed/grep) + JSON load PASS + CHANGELOG ordering grep (78=04 v1.0 / 86=01 v1.0 / 95=04 用語修正 / 127=中間版 v0.5).
+- **scope 限定**: project-level (`.work/MANIFEST.md` L4 / `docs/PROGRESS.md` L3) の 4.8 万 / 6.9 万字符巨行は別案 — 用户が docs/jp scope を指定したため本 session は触らず. 巨行修正は別 session で計画案を出してから実施.
+- **関鍵決定**:
+  - **D-r504-1 navigation 索引 ≠ progress 看板**: 00_README は内部 navigation 専用 (誰がどのファイルを見るか) → 状態列は最小限 (✅ PASS / 未着手 / v0.5 中間版); 反復・round / writer 派発回数等は worklog / _progress.json 側. 本修正で navigation と progress 看板の役割境界が明確化.
+  - **D-r504-2 CHANGELOG 時序整合は単一情報源責務**: CHANGELOG は改訂履歴の single source of truth. 投入順ではなく文書発行日順 (4-29 → 4-30) に整列することで, 後続の正式版 v1.0 集約や RETROSPECTIVE 起草時に時系列引用可能.
+- **Carry-over for next session**:
+  - **NEXT**: 中間版 v0.5 受信者フィードバック待ち → ack 後に Phase 1 P0 着手順 3-4「02 運用保守 + 03 試験結果報告書」並列起動.
+  - **別案**: project-level 巨行修正 (`docs/PROGRESS.md` L3 = 48,234 字 / `.work/MANIFEST.md` L4 = 69,438 字) — CLAUDE.md 写作規則 + 新規則「成果物制作過程 ≠ 項目進度」両方違反. 巨行内容を `.work/meta/worklog.md` に既に mirror 済か確認 → 不足なら退避先用意 → 看板側を「最後更新: 2026-05-04. Phase 状態は下方表参照.」短文に置換 + 残長行 (PROGRESS L11/102-107/171/330-337 + MANIFEST L317-328) を ≤ 200 字短指針化.
+- **下一步**: commit + push (本 session docs/jp 内部一致性修正 milestone).
