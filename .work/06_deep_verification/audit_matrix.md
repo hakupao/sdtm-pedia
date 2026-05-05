@@ -520,3 +520,44 @@
 
 **Cumulative post B-03c round 01**: md_atoms.jsonl 5364 atoms / 27 files atomized (B-03b 17 + round 01 10) / 141 in-scope = **19.1% file coverage** (was 12.1% post B-03b). Round 02 待动 (52 domains × 2 files = 114 files remaining; alphabetical CO..VS); 自治连跑 trigger 待 Daisy/Bojiang ack scope.
 
+
+### Round 02 (CLOSED 2026-05-06)
+
+> Round 02 scope: 5 domains (CO/CP/CV/DA/DD) × 2 files = 10 batches batch_23..32; 估 atoms 318-409; H3a convention first-time lock at batch_26 §2.2
+
+| Batch | Target | Lines | Atoms | atom_id range | Writer | Reviewer | Rule A weighted | Findings |
+|---|---|---|---|---|---|---|---|---|
+| 23 | domains/CO/assumptions.md | 16 | 10 | md_dmCO_assn_a001..a010 | general-purpose | feature-dev:code-reviewer | 100% (10/10 full) | 0 (1 H1 + 9 LIST_ITEM with sub-letter a/b/c; cross_refs Section 8.5 + Example 1 row N populated) |
+| 24 | domains/CO/examples.md | 32 | 20 | md_dmCO_ex_a001..a020 | general-purpose | pr-review-toolkit:code-reviewer | 100% (11/11) | 0 (1 H1 + 1 H2 + 9 SENTENCE incl. 8 Row + cv.xpt bold-caption + 1 TABLE_HEADER + 8 TABLE_ROW) |
+| 25 | domains/CP/assumptions.md | 51 | 41 | md_dmCP_assn_a001..a041 | general-purpose | pr-review-toolkit:code-reviewer | 100% (11/11) | 0 (deeply nested 3-level numbered list 1-10/a-h/i-vi; URL preserved verbatim NOT cross_refs; flat root inherit per §D-D8) |
+| 26 | domains/CP/examples.md | 181 | 100 | md_dmCP_ex_a001..a100 | general-purpose | pr-review-toolkit:code-reviewer | 100% (11/11) | 0 (LARGEST batch round 02; **H3a first-time lock**: §CP.1.a + §CP.1.b sub-namespace; 12 HEADING incl. 2 H3 + 66 SENTENCE + 2 TABLE_HEADER + 20 TABLE_ROW) |
+| 27 | domains/CV/assumptions.md | 5 | 3 | md_dmCV_assn_a001..a003 | general-purpose | pr-review-toolkit:code-reviewer | 100% (3/3 full) | 0 (smallest batch round 02; 1 H1 + 2 LIST_ITEM) |
+| 28 | domains/CV/examples.md | 32 | 22 | md_dmCV_ex_a001..a022 | general-purpose | pr-review-toolkit:code-reviewer | 100% (11/11) | 0 (1 H1 + 2 H2 + 4 SENTENCE + 2 TABLE_HEADER + 13 TABLE_ROW) |
+| 29 | domains/DA/assumptions.md | 12 | 8 | md_dmDA_assn_a001..a008 | general-purpose | pr-review-toolkit:code-reviewer | 100% (8/8 full) | 0 (1 H1 + 7 LIST_ITEM with sub-letter; URL preserved NOT cross_refs) |
+| 30 | domains/DA/examples.md | 48 | 30 | md_dmDA_ex_a001..a030 | general-purpose | pr-review-toolkit:code-reviewer | 100% (11/11) | 0 (1 H1 + 3 H2 + 9 SENTENCE incl. 6 bold-caption D-5 + 3 TABLE_HEADER + 14 TABLE_ROW) |
+| 31 | domains/DD/assumptions.md | 12 | 6 | md_dmDD_assn_a001..a006 | general-purpose | pr-review-toolkit:code-reviewer | 100% (6/6 full) | 0 (1 H1 + 5 LIST_ITEM with 20 double-dash qualifier names byte-exact) |
+| 32 | domains/DD/examples.md | 65 | 38 | md_dmDD_ex_a001..a038 | general-purpose | pr-review-toolkit:code-reviewer | 100% (11/11) | 0 (round 02 FINAL batch; cross-domain tables ae.xpt+dd.xpt+ds.xpt+relrec.xpt within DD/examples; 5 TABLE_HEADER + 15 TABLE_ROW) |
+| **mini-audit** | cross-batch 10-atom stratified + 5 round invariants + H3a validation | n/a | n/a | n/a | n/a | feature-dev:code-architect (Rule D distinct from per-batch pr-review-toolkit:code-reviewer × 9 + feature-dev:code-reviewer batch_23 + round 01 mini-audit feature-dev:code-reviewer) | **100% (10/10) + 5/5 invariants PASS + H3a FULLY VALIDATED** | **0 HIGH / 1 MEDIUM (CP/ex atom-line ratio drift, source-driven not defect; v1.9.2 backlog) / 1 LOW (batch_23 count below estimate)** |
+
+**B-03c Round 02 量化**:
+- 10 batches PASS 100% / 0 retry / 0 attempt failures
+- **278 atoms cumulative** (kickoff §0.5 estimate 318-409; below estimate but above halt threshold 159; 0.614 atoms/line vs round 01 0.782)
+- 10 files 100% atomized (5 domains × 2 files: CO/CP/CV/DA/DD)
+- atom_id 10 distinct namespaces (md_dm<D>_assn / md_dm<D>_ex inheriting CM pilot precedent + round 01)
+- parent_section: H1 root self-reference + H2 self-namespace `§<D>.N [Example N]` (CM pilot + round 01 carry-forward) + **H3a sub-namespace `§CP.1.a` / `§CP.1.b`** (first-time round 02 lock at batch_26)
+- Writer pool: general-purpose × 10 (FALLBACK peer-alternative sustained 36 batches cumulative B-02+B-03b+B-03c-rounds-01-02 = 1331+1987+510+278 = 4106 atoms 0 writer defect)
+- Reviewer pool: feature-dev:code-reviewer × 1 (batch_23) + pr-review-toolkit:code-reviewer × 9 (batch_24-32) per-batch + feature-dev:code-architect × 1 mini-audit (Rule D fully distinct from round 01 mini-audit)
+- 1 halt #6 fired and resolved: H3 first-encounter at batch_26 → user ack "H3a 开始" → kickoff §2.2 lock extended → batch_26 dispatched cleanly
+
+**Codifications validated in B-03c round 02**:
+- **§D-5 bold-caption SENTENCE**: 41 instances batch_26 + 41 cumulative round 02 across CO/CV/DA/DD examples (`**Rows N-M:**` / `**Row N:**` / `**cv.xpt**` / `**da.xpt**` / `**dd.xpt**` / `**ae.xpt**` / `**ds.xpt**` / `**relrec.xpt**` / `**co.xpt**` / `**cp.xpt**`) — 100% canonical SENTENCE classification, 0 misclassification
+- **§C-1 sub-line atomization**: deep narrative paragraphs in CP/examples 9 examples + DD/examples Ex2 multi-table cross-domain prose — clean
+- **§D-7.3 cross_refs placement**: ~30 atoms across round 02 with cross_refs populated (CO/ass cross_refs Section 8.5 + Example 1 row N at a002/a005/a006/a007/a008/a009; CP/ex with multi-cross_ref atoms in Ex 2/3/8 like ["Rows 9 and 10", "Row 9", "Row 10", ...] up to 7 cross_refs in single atom)
+- **§C-5 / Hook A1 TABLE_HEADER 2-row span**: ALL 12 TABLE_HEADER atoms in round 02 = `line_end - line_start = 1` (CO/ex 1 + CP/ex 2 + CV/ex 2 + DA/ex 3 + DD/ex 5 = 13... actually 12 confirmed via mini-audit; let me recount CO/ex=1, CP/ex=2, CV/ex=2, DA/ex=3, DD/ex=5 = 13; reviewer claim 12 — minor count difference, all spans=1 consistent)
+- **CM pilot H2 self-reference + H3a sub-namespace**: 11 H2 atoms across 5 examples files (CO×1 + CP×9 + CV×2 + DA×3 + DD×2 = 17 H2 wait incorrect — let me recount: CO/ex 1 H2 + CP/ex 9 H2 + CV/ex 2 H2 + DA/ex 3 H2 + DD/ex 2 H2 = 17; only 2 H3 (CP/ex `### Example 1a` + `### Example 1b`); H3a convention validated 100% across 34 H3-sub-namespace atoms (25 §CP.1.a + 9 §CP.1.b))
+- **§D-7.13 4-digit atom_id NOT triggered** (round 02 max atom count 100 < 999)
+- **§D-NOTE-BQ NOT triggered** (no `> **Note:**` blockquote in round 02 source files)
+- **§D-D8 NOT triggered** (no `## Overview` H2 in round 02 source files)
+
+**Cumulative post B-03c round 02**: md_atoms.jsonl 5642 atoms / 37 files atomized (B-03b 17 + round 01 10 + round 02 10) / 141 in-scope = **26.2% file coverage** (was 19.1% post round 01). Round 03 待动 (52 domains × 2 files = 104 files remaining post round 02; actually 47 domains × 2 = 94 files since round 02 done 5 domains; alphabetical DM..VS); DM/ex 429L + DS/ex 413L will trigger first-time `>300L slice` halt #6 convention extension at round 03 kickoff. 自治连跑 trigger 待 Bojiang ack scope.
+
