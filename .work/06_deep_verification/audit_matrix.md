@@ -377,3 +377,60 @@
 | FIGURE atoms total | 3 (md_model01_a013 hotfix + md_model05_a170 + md_model05_a184) all figure_ref non-null post-hotfix |
 | Retrospective | `evidence/checkpoints/B01_retrospective.md` 6 段 (保留做法 / 缺口 / 关键决策复盘 / 量化 / B-02 conditions / 下次 audit trigger) |
 
+
+| P2_B-02_batch_09 | **FALLBACK** general-purpose (sustained 7 batch) | 345 (ch08_relationships.md 全 439 行 单 dispatch — B-02 cycle 最大 + 最后 batch; **1 FIGURE** md_ch08_a334 L420-426 mermaid figure_ref `md_ch08_relspec_specimen_lineage` 5 specimen nodes hierarchical lineage **首批 chapters/ FIGURE**; **1 NOTE blockquote** md_ch08_a315 L389 atom_type=NOTE 含 12-char prefix `> **Note:** ` byte-exact (hex `3e 20 2a 2a 4e 6f 74 65 3a 2a 2a 20`) **首批 chapters/ blockquote-NOTE D7 NEW codify**; 29 HEADING (1 H1 + 9 H2 含 1 numberless `## Overview` D8 NEW sib=1 共 chain w/ 8 numbered §8.1-§8.8 sib=2-9 + 19 H3 含 11 numbered + 8 numberless [§8.4 mixed sib chain + §8.7 3-numberless + §8.8 4-numberless 含 em-dash L391 `—` U+2014 byte-exact]); 15 表 + 84 TABLE_ROW (cm.xpt 12 / RELREC Spec 7 / RELREC Ex1/2/3 6+5+4 / RELREC §8.3.1 2 / SUPP-- Spec 10 / suppae 2 / suppqs 4 / §8.6.3 questions 6 / RELSUB Spec 5 / dm 3 / relsub 6 / RELSPEC Spec 6 / relspec 6); 48 LIST_ITEM (29 unordered 含 8 §8 Overview bold-prefix `**Section 8.X**` + 19 ordered **Axis 5 codification** 含 3 ONE/MANY combos bold-prefix `1. **ONE and ONE.**` + 8 RELSUB Assumptions + 3 RELSPEC Assumptions); 167 SENTENCE (多 §C-1 sub-line splits 22 dense lines + 17 bold-caption Rows/Example/Row + 1 bold-Figure caption + 4 footnote `^1^` superscript + L78/L82/L233 "X — Description/Overview" bold SENTENCE NOT HEADING per Hook C-6); 8 HR `---` skip L24/61/142/173/254/273/326/385; D8 NEW: L5 `## Overview` H2 sib=1 + 17 children (L7/L9-16/L18/L20-22) parent_section inherit chapter root `§8 [Representing Relationships and Data]` 修正 pilot F-P2P-002; **0 inline `**Note:**`** (与 batch 02-04 carve-out 区分); density 0.786) | **FALLBACK** pr-review-toolkit:code-reviewer (sustained 7 batch) | **16/16 = 100% strict + functional weighted PASS** (11 distinct atoms = 8 boundary + 3 stratified seed=20260505_batch09; B2/B4/B7 expanded multi-atom verdicts → 16 verdict rows; reviewer hex-dump verify D7 12-char prefix + mermaid `\n` literal byte preservation) + 5 sweep checks (a-e atom_id pattern + extracted_by + parent_section §8 prefix + HR skip + figure_ref) all PASS; 0 H/M/L findings + 1 INFO (CRITICAL kickoff self-consistency rule INAUGURAL clean实战 effective; 3 连续 drift pattern DEFUSED) | **PASS** + **🎯 ch08 全闭 milestone** (439/439 = 100%) + **★ B-02 cycle CLOSED 9/9 batch + 6/6 chapter files** + **D7 NEW codified** (blockquote-prefix bold-Note NOTE) + **D8 NEW codified** (numberless Overview chapter-root inherit) + **🎯 INAUGURAL clean kickoff post CRITICAL self-consistency rule** (kickoff §2.2 11/11 grep checksum match source byte-exact, 3 连续 batch 06/07/08 drift pattern DEFUSED) + **首批 chapters/ FIGURE + NOTE** |
+
+**ch08 100% milestone (post batch 09, 2026-05-05)**:
+- ch08_relationships.md 全文 439/439 行 = 100% 原子化 (单 dispatch full-file — B-02 cycle 最大 single-dispatch 估 < 32K cap 验证 OK)
+- atoms 总 = 345 (a001..a345 0 gap 0 dup, density 0.786)
+- atom_type 命中 7/9 (SENTENCE 167 + TABLE_ROW 84 + LIST_ITEM 48 + HEADING 29 + TABLE_HEADER 15 + FIGURE 1 + NOTE 1; CODE_LITERAL/CROSS_REF 自然缺 — `.xpt` filenames 在 caption SENTENCE 而非内嵌 code blocks; inline refs 全走 cross_refs field)
+- B-02 cycle 9/9 batch 闭 ★ **B-02 cycle CLOSED 6/6 chapter files** (ch04 + ch01 + ch03 + ch02 + ch10 + ch08 = 1983 atoms cumulative incl. pilot ch04 218 + B-02 sub-cycle batches alone = 1765 atoms)
+- v1.9.1 候选 +2 (本 batch reviewer): **D7 NEW** codify blockquote-prefix bold-Note `> **Note:**` NOTE atom_type extension + **D8 NEW** codify numberless `## Overview` H2 sib chain + chapter root inherit; backlog 17→**19**
+- 首批 chapters/ FIGURE (md_ch08_a334 L420-426 mermaid graph TD `md_ch08_relspec_specimen_lineage`) + 首批 chapters/ blockquote-NOTE (md_ch08_a315 L389 D7 NEW)
+- INAUGURAL clean kickoff (3 连续 batch 06/07/08 drift pattern DEFUSED batch 09; CRITICAL self-consistency rule 1st 实战 effective)
+
+---
+
+## ★ B-02 CYCLE CLOSURE BLOCK (post batch 09, 2026-05-05) ★
+
+| 维度 | 值 |
+|---|---|
+| Cycle status | **🌟 CLOSED 2026-05-05** |
+| Total batches | **9 / 9 PASS** (batch 01-09 all weighted PASS ≥80% threshold) |
+| Total chapter files atomized | **6 / 6** (ch04 全 + ch01 + ch03 + ch02 + ch10 + ch08) |
+| B-02 sub-cycle atoms (batches only) | **1,765** (196+238+227+161+88+120+132+258+345) |
+| B-02 cumulative chapter atoms (incl. pilot ch04 218) | **1,983** (1040 + 88 + 120 + 132 + 258 + 345 = 1983) |
+| md_atoms.jsonl root size post-cycle | **2,867 atoms** (chapters/ 1,983 + earlier work 884 = 2,867) |
+| Files coverage | 14 / 141 in-scope = **9.93%** |
+| FALLBACK PATH streak | **7 batches sustained 100%** (batch 03 → batch 09; writer general-purpose / reviewer pr-review-toolkit:code-reviewer; 1,331 atoms 0 writer defect cumulative) |
+| Per-batch Rule A audit | 9/9 PASS (10-16 verdicts each, weighted PASS 100% across all 9 batches) |
+| atom_type cumulative coverage | **9/9 全闭** sustained (HEADING/SENTENCE/LIST_ITEM/TABLE_HEADER/TABLE_ROW/FIGURE/NOTE/CODE_LITERAL/CROSS_REF; CODE_LITERAL/CROSS_REF 仅 batch 04 a892 出现) |
+| Codification milestones | **D5** (batch 06) + **D6** (batch 08) + **D7 NEW** (batch 09) + **D8 NEW** (batch 09) + **S-01..S-04** (batch 05) + **S-02** validated 7+ times (batches 05/07/08/09); **CRITICAL kickoff self-consistency rule** INAUGURAL clean batch 09 实战 |
+| Schema patches in cycle | v1.2 → **v1.2.1** inline patch (batch 04, 2026-05-04, atom_id `\d{3}` → `\d{3,}` for >999 atom IDs); 完全向后兼容 |
+| Rule B preservation cases | 3 (ch03 L117 source markdown anomaly batch 06 + ch08 L389 blockquote-NOTE D7 batch 09 + ch10 separator rows bold cell batch 08) |
+| Open findings post-cycle | 1 LOW carry-forward from B-01 (md_model06_a029 line_start off-by-one, defer 不修); 0 NEW HIGH/MEDIUM 0 carry-forward from B-02 in-cycle |
+| v1.9.1 candidate backlog | **19** (1 CRITICAL + 2 HIGH + 2 MEDIUM + 1 NEW + 13 LOW) |
+| Post-cycle triggers (4) | (1) B-02 cumulative audit (30-atom stratified cross-batch ≥90% gate) + (2) B-02 RETROSPECTIVE.md (Rule C 4 sections) + (3) v1.9.1 cut session (19 候选 4 prompt files cut) + (4) B-02 → B-03 handoff (domains/ × 126 + 余下 model + top-level 3, ~12K-20K atoms 估) |
+| Retrospective | `multi_session/P2_B-02_RETROSPECTIVE.md` (TBD post-cycle trigger 2; 4 sections per Rule C) |
+
+**B-02 cycle 量化总结 vs B-01 cycle**:
+
+| 指标 | B-01 (closed 2026-04-29) | B-02 (closed 2026-05-05) | Δ |
+|---|---|---|---|
+| Batches | 4 | **9** | +5 |
+| Files atomized | 4 (model 02/03/05/06) | **6 chapter files** | +2 |
+| Atoms | 705 | **1,765** (sub-cycle) / 1,983 (incl. pilot ch04) | +1,060 / +1,278 |
+| Per-batch Rule A | 10/10 × 4 = 100% | 10-16/16 × 9 = 100% | +5 batches sustained |
+| Cumulative audit | 28/30 = 93.3% (1 HIGH hotfix) | TBD post-cycle | TBD |
+| atom_type coverage | 8/9 (CROSS_REF 缺) | **9/9 全闭** (CROSS_REF batch 04 a892 首现) | +1 |
+| FALLBACK streak | 0 (B-01 全 executor) | **7 batches** (batch_03..09) 1,331 atoms 0 writer defect | NEW pattern |
+| Codifications | 4 (V1-V3 candidates) | **8 codified + 1 CRITICAL rule** (D5/D6/D7/D8/S-01/S-02/S-03/S-04 + CRITICAL kickoff self-consistency) | +5 codifications |
+| Rule B preservation cases | 0 | **3** (ch03 L117 + ch08 L389 + ch10 separators) | +3 cases |
+| Schema patches | 0 (B-01 baseline v1.2) | **1** (v1.2.1 atom_id `\d{3,}`) | +1 |
+| v1.9.1 candidates | 4 (post-cycle backlog) | **19** (CRITICAL + 2 HIGH + 2 MEDIUM + 1 NEW + 13 LOW) | +15 |
+
+**Inter-cycle audit gate progression**:
+- B-01 (post B-01 closure): 30-atom × 9 file × code-reviewer × ≥90% gate = 28/30 = 93.3% PASS, 1 HIGH hotfix landed
+- B-02 (post B-02 closure): 30-atom × 14 file × code-reviewer × ≥90% gate (TBD post-cycle trigger 1)
+
+---
