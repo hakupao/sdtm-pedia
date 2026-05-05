@@ -241,6 +241,8 @@ domains/ 文件 heading 结构如 `## Assumptions` 或 `## Examples` (各文件�
 
 ## 10. 路由词 quick reference
 
+### 10.1 单步路由词 (per-batch ack 模式)
+
 | 用户说 | session 动作 |
 |---|---|
 | `P2 bulk B-03 开始任务` | 读本 kickoff (umbrella), 报告下一 batch (默认 batch 01 model/03), 等 ack |
@@ -249,6 +251,28 @@ domains/ 文件 heading 结构如 `## Assumptions` 或 `## Examples` (各文件�
 | `B-03a 闭环 mini-audit 开始任务` | post batch 03 PASS, 派 reviewer 10-atom stratified Rule A (model/ 3 batch 跨 batch consistency check) |
 | `B-03b 闭环 mini-audit 开始任务` | post batch 12 PASS (top-level + VARIABLE_INDEX 切片闭环), 派 reviewer 10-atom stratified |
 | `B-03 cumulative audit 开始任务` | post final batch (~139) PASS, 派 reviewer 30-50 atom 跨 141 files 分层 audit |
+
+### 10.2 自治连跑路由词 (sub-cycle autonomous, no per-batch ack)
+
+| 用户说 | session 动作 |
+|---|---|
+| `P2 bulk B-03a 自治连跑 直到 mini-audit PASS` | 自治执行 B-03a 全段 = batch 01 (model/03) → batch 02 (model/05) → batch 03 (model/02) → B-03a 闭环 mini-audit (10-atom stratified) → 全 PASS 后 commit + push 单一 commit + 退出. 期间不 ping 用户 (除 halt 条件触发) |
+| `P2 bulk B-03b 自治连跑 直到 mini-audit PASS` | post B-03a PASS, 自治执行 B-03b 全段 = INDEX + ROUTING + VARIABLE_INDEX 7-slice (~9 batches) → mini-audit → commit + push + 退出. **跨 VARIABLE_INDEX slice atom_id 连续性** 须 enforced |
+| `P2 bulk B-03c round NN 自治连跑 ...` | (TBD per B-03c entry — domain alphabetical 分批; 单 session 一次跑 ~10-20 domains 一段, **不**给整 124 domains fire-and-forget — single session ctx 撑不住, multi-session sister B/C/D 并行模式更适合 B-03c, 详见 `MULTI_SESSION_PROTOCOL.md`) |
+
+**自治连跑 halt 条件 (任一触发 → 暂停 + ping 用户, 不强行进下一步)**:
+
+1. 任一 batch §0.5 grep checksum 任一项 FAIL (numeric drift detected at kickoff write time)
+2. 任一 batch Rule A audit < 90% PASS rate 或现 HIGH severity finding
+3. Schema violation / atom_id collision / 9 atom_type 任一异常
+4. Source markdown anomaly 需 Rule B preserve + 业务 judgment call 决定 verdict (e.g. ch03 L117 / ch08 L389 / ch10 separator rows 类形态首次遇到)
+5. v1.9.1 prompt 路径 drift — writer pool (executor + general-purpose) 任一不可用 OR reviewer pool (scientist/critic + pr-review-toolkit) 任一不可用 + FALLBACK 也不可
+6. atom_id prefix 命名约定首次需 lock (B-03b top-level + B-03c domains/ 第一 batch 派发时, 见 §7)
+7. ctx 紧张 (剩 < 30%) 或 session 累计已 > 1 hr 仍未到段闭环 — 主动写 handoff.md + resume prompt 给用户 (per CLAUDE.md feedback memory `feedback_ctx_handoff.md`)
+
+**自治连跑 intended 退出**: 当前 sub-cycle (B-03a / B-03b / B-03c round NN) 闭环 mini-audit ≥90% PASS → 单 commit (含全 batches + mini-audit + 3 index 文件更新) + push → 一行 summary 报告 → session 自然结束 / 等用户下一路由词.
+
+**为什么不给整 B-03 fire-and-forget**: 整 cycle ~139 batches / 3-5 weeks / ~10K atoms — 单 session ctx 必爆 + Rule D subagent_type 池在长 session 内 burn 完后无法 rotate (B-03c domains/ 后段需要 multi-session sister B/C/D 并行模式). 切 sub-cycle 一段一 session 是 sweet spot.
 
 ---
 
