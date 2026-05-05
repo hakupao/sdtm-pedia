@@ -434,3 +434,46 @@
 - B-02 (post B-02 closure): 30-atom × 14 file × code-reviewer × ≥90% gate (TBD post-cycle trigger 1)
 
 ---
+
+## P2 Bulk B-03b sub-cycle (2026-05-05 — 9 batches; B-03a SKIPPED post §0.5 correction)
+
+| Batch | Target | Lines | Atoms | atom_id range | Writer | Reviewer | Rule A weighted | Findings |
+|---|---|---|---|---|---|---|---|---|
+| 04 | INDEX.md | 195 | 141 | md_index_a001..a141 | general-purpose | pr-review-toolkit:code-reviewer | 100% (10/10) | 0 |
+| 05 | ROUTING.md | 211 | 48 | md_routing_a001..a048 | general-purpose | pr-review-toolkit:code-reviewer | 100% (10/10) | 0 (1st CODE_LITERAL × 7 live-fire) |
+| 06 | VARIABLE_INDEX.md slice 1 (L1-287) | 287 | 253 | md_varindex_a001..a253 | general-purpose | pr-review-toolkit:code-reviewer | 100% (10/10) | 0 (kickoff §0.5 row #14 off-by-1 corrected) |
+| 07 | slice 2 (L289-533) | 245 | 222 | a254..a475 | general-purpose | pr-review-toolkit:code-reviewer | 100% (10/10) | 0 |
+| 08 | slice 3 (L535-815) | 281 | 258 | a476..a733 | general-purpose | pr-review-toolkit:code-reviewer | 100% (10/10) | 0 |
+| 09 | slice 4 (L817-1107) | 291 | 271 | a734..a1004 | general-purpose | pr-review-toolkit:code-reviewer | 100% (10/10) | 0 (4-digit atom_id 1st cumulative milestone) |
+| 10 | slice 5 (L1109-1410) | 302 | 276 | a1005..a1280 | general-purpose | pr-review-toolkit:code-reviewer | 100% (10/10) | 0 |
+| 11 | slice 6 (L1412-1669) | 258 | 220 | a1281..a1500 | general-purpose | pr-review-toolkit:code-reviewer | 100% (10/10) | 0 |
+| 12 | slice 7 FINAL (L1671-2005) | 335 | 298 | a1501..a1798 | general-purpose | pr-review-toolkit:code-reviewer | 100% (10/10) | 0 (VARIABLE_INDEX 全 file 闭环) |
+| **mini-audit** | cross-batch 10-atom stratified | n/a | n/a | n/a | n/a | feature-dev:code-reviewer (Rule D 隔离) | **100% (10/10) weighted 100%** | **0 HIGH/MED/LOW** |
+
+**B-03b sub-cycle 量化**:
+- 9 batches PASS 100% / 0 retry / 0 attempt failures
+- 1987 atoms cumulative (141 INDEX + 48 ROUTING + 1798 VARIABLE_INDEX)
+- 3 files 100% atomized (top-level 3 完成)
+- atom_id 跨 7 切片 sequential continuity (a001..a1798 NO gaps NO collisions)
+- H3 sib_index cumulative 1..63 across 7 slices seamless
+- Writer pool: general-purpose × 9 (FALLBACK peer-alternative sustained 16 batches cumulative B-02+B-03b 1331+1987=3318 atoms 0 writer defect)
+- Reviewer pool: pr-review-toolkit:code-reviewer × 9 + feature-dev:code-reviewer × 1 mini-audit
+- Cross-batch convention consistency: spaced format `§ <H1 title>` 3 files / Chinese 一/二/三 byte-exact / D8 NOT triggered all 3 files / D-NOTE-BQ NOT triggered
+
+**B-03a SKIPPED**:
+- 2026-05-05 attempt 2 batches PASS 100% (model/03 + model/05) BUT detected B-01 已 atomized model/02/03/05 (596 atoms in md_atoms.jsonl)
+- Root cause: B-03 umbrella §0.5 grep regex `'"atom_id":"md_..."'` missed space-format atoms
+- Option A revert: my v1.9.1 dup atoms 删除, B-01 v1.9 atoms 保留, B-03 真实 scope 130 → 127 files
+- Failure archive: `evidence/failures/B-03a_drift_attempt/` (Rule B preserve)
+- Lesson codified: kickoff §0.5 grep regex 必含 `\s*` 兼容 (B-03 umbrella row 13 + 14 + 15 校正 written)
+
+**Codifications validated in B-03b**:
+- §D-5 bold-prefix SENTENCE 7 instances ROUTING `**问法示例**:` + 1 instance `**不要一次读取...**` = 8 instances
+- CODE_LITERAL multiline byte-exact 7 instances ROUTING (1st cumulative B-03 live-fire)
+- §D-7.13 4-digit atom_id 798 instances VARIABLE_INDEX a1000..a1798 (1st cumulative B-03 milestone)
+- §R-D5 bold-prefix accept rule 验证有效
+- v1.9 baseline H3 children=父 H2 (NOT 父 H3) sustained 80 H3 in B-03b (10 INDEX + 7 ROUTING + 63 VARIABLE_INDEX)
+- D8 NOT triggered (3 files 全 numbered/normal-numberless H2, none = `## Overview`)
+
+**Cumulative post B-03b**: md_atoms.jsonl 4854 atoms / 14 files atomized / 141 in-scope = 9.9% file coverage (B-03c domains/ × 124 待动); 17 files atomized total (含 B-01 model 02/03/05 + INDEX/ROUTING/VARIABLE_INDEX).
+

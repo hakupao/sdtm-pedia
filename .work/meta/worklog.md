@@ -2313,3 +2313,40 @@
   - **B-03b VARIABLE_INDEX 切 7 段 line range**: batch 06 派发前先看 logical group (table-heavy 切片应按 group 不机械等距); 本 umbrella kickoff 仅给 ~280L hard estimate, 不 lock
   - **路由词**: `P2 bulk B-03 开始任务` (umbrella read + 报告下一 batch) / `P2 bulk B-03 batch 01 开始任务` (派发 model/03 dispatch); 找不到对应 batch_NN_kickoff.md 时停下问 per CLAUDE.md §06 Deep Verification
 - **下一步**: commit + push (本 session B-03 entry kickoff prep milestone — index 文件 3 件更新).
+
+## 2026-05-05 06 Deep Verification P2 B-03b cycle CLOSED (post B-03a SKIPPED §0.5 drift correction)
+
+- **触发**: 用户路由「P2 bulk B-03b 自治连跑 直到 mini-audit PASS」 (post B-03 entry kickoff §10 expand commit `f2f80fa` 同日)
+- **完成的工作**:
+  - **B-03a 失败 + revert (Option A)**: 自治模式启动后, dispatched 2 batches (batch_01 model/03 + batch_02 model/05), 各 PASS Rule A 100%; main session post batch_02 detected `md_atoms.jsonl` 已含 model/02/03/05 v1.9 atoms (596 atoms total: 244+160+192) — B-01 batches 02-04 (commit `7a26097` 等 2026-04-29) 已完成 atomization. **Root cause**: B-03 umbrella kickoff §0.5 grep regex `'"atom_id":"md_..."'` 用 no-space format 漏数 B-01 batches 02-04 with-space format atoms (Python json.dumps default separators include space). 用户 ack Option A revert: 备份 md_atoms.jsonl → `md_atoms.jsonl.pre-B-03a-revert.bak`, 删除 v1.9.1 dup atoms, 文件回到 2867; 归档 batch 01/02 evidence + kickoffs + Rule A reports → `evidence/failures/B-03a_drift_attempt/` (Rule B preserve 不删, 含 `FAILURE_REPORT.md` root-cause 分析); B-03 真实 scope 130→127 files (B-03a SKIP, B-03b 9 batches + B-03c 124 batches).
+  - **B-03 umbrella kickoff §0.5 校正**: §0.5 row 13/14/15 加 CORRECTION 2026-05-05 (含 `\s*` 兼容 grep regex); §3 B-03a 标 SKIP; §4 batch 序列 batch 01-03 划掉; §10 路由词 routing 更新 (B-03a 路由词 SKIP, B-03b 自治路径 confirm)
+  - **B-03b 9 batches 自治连跑 全 PASS 100%**:
+    - batch_04 INDEX.md 195L → 141 atoms (HEADING 17 / SENTENCE 8 / LIST_ITEM 5 / TABLE_HEADER 11 / TABLE_ROW 100); atom_id `md_index_a001..a141`; **atom_id prefix LOCK** for top-level files
+    - batch_05 ROUTING.md 211L → 48 atoms (HEADING 12 / SENTENCE 11 / LIST_ITEM 4 / TABLE_HEADER 2 / TABLE_ROW 12 / **CODE_LITERAL 7** 1st B-03 cycle live-fire); atom_id `md_routing_a001..a048`
+    - batch_06 VARIABLE_INDEX slice 1 (L1-287) → 253 atoms; `md_varindex_a001..a253`; **§0.5 row #14 off-by-1 detected** (kickoff 说 L288 = CO 表末, 实际 L287; writer Rule-B emit source-truth)
+    - batch_07 slice 2 (L289-533, CP→EC, 8 H3 sib=8..15) → 222 atoms; `a254..a475`
+    - batch_08 slice 3 (L535-815, EG→IS, 8 H3 sib=16..23) → 258 atoms; `a476..a733`
+    - batch_09 slice 4 (L817-1107, LB→MS, 7 H3 sib=24..30) → 271 atoms; `a734..a1004` (**4-digit atom_id 1st cumulative milestone**)
+    - batch_10 slice 5 (L1109-1410, NV→RE, 9 H3 sib=31..39) → 276 atoms; `a1005..a1280`
+    - batch_11 slice 6 (L1412-1669, RELREC→SV, 13 H3 sib=40..52) → 220 atoms; `a1281..a1500`
+    - batch_12 slice 7 FINAL (L1671-2005, TA→VS + §三 CT, 11 §二 H3 sib=53..63 + 1 §三 H2 sib=4) → 298 atoms; `a1501..a1798`; VARIABLE_INDEX 全 file 1798 atoms 闭环
+  - **B-03b mini-audit cross-batch**: reviewer `feature-dev:code-reviewer` (Rule D 隔离 — distinct from per-batch `pr-review-toolkit:code-reviewer` × 9), 10-atom stratified sample across 3 files / 9 batches → 10/10 PASS 100% weighted, 0 HIGH/MEDIUM/LOW findings, gate ≥90% cleared.
+  - **B-03b 量化总结**:
+    - 9 batches PASS 100% / 0 retry / 0 attempt failures
+    - 1987 atoms (141 INDEX + 48 ROUTING + 1798 VARIABLE_INDEX)
+    - md_atoms.jsonl 2867→4854; 14→17 files atomized (含 B-01 model 02/03/05 + B-03b 3 top-level)
+    - Writer pool: general-purpose × 9 (FALLBACK peer-alternative sustained 16 batches cumulative B-02+B-03b 1331+1987=3318 atoms 0 writer defect)
+    - Reviewer pool: pr-review-toolkit:code-reviewer × 9 + feature-dev:code-reviewer × 1 mini-audit
+    - atom_id 跨 7 切片 sequential continuity (a001..a1798 NO gaps NO collisions); H3 sib_index cumulative 1..63 across 7 slices seamless
+    - Cross-batch convention consistency: spaced format `§ <H1 title>` 3 files / Chinese 一/二/三 byte-exact / D8 NOT triggered all 3 files / D-NOTE-BQ NOT triggered
+- **关键决策**:
+  - **D-r505-9 Option A revert (vs upgrade B vs coexist C)**: 选 revert 因 B-01 v1.9 atoms 已 stable (Rule A PASS), 我 v1.9.1 atoms 与 v1.9 内容差异有限 (3 NEW D-rules in model 02/03/05 几乎无触发 instance), 升级 ROI 低; revert 简单 (delete + restore backup), 释放 ctx 跑 B-03b 9 batches.
+  - **D-r505-10 §0.5 grep regex 必含 `\s*` 兼容**: B-03a drift root cause = grep 未兼容 JSON formatting variants (`"key":"v"` vs `"key": "v"`). 修复后 §0.5 grep statement 全部加 `\s*` (B-03 umbrella row 13 + 各 batch kickoff §0.5). v1.9.2 candidate stack 加 1 NEW: kickoff §0.5 grep regex 必含 `\s*` 兼容 (Hook 22b 增强).
+  - **D-r505-11 VARIABLE_INDEX 7 切片按 H3 logical boundary (NOT 等距 280L)**: 每切片切在 H3 起始前 (避免破坏 domain table); 实际 slice sizes 247-335L (vs naive 等距 ~287L). atom_id 跨 切片 sequential continuity hardcode in writer dispatch prompt.
+  - **D-r505-12 mini-audit reviewer = feature-dev:code-reviewer (跨 family Rule D 隔离)**: per-batch reviewer 9 × pr-review-toolkit:code-reviewer; mini-audit 必须 distinct family. 选 feature-dev:code-reviewer (post v1.9.1 cut Rule D AUDIT slot #70 已 burned 但 mini-audit 是 cross-batch reviewer 不算 cumulative audit pivot). v1.9.2 candidate: 是否区分 mini-audit slot 与 cumulative audit slot (本 session 暂不细分; B-03 整 cycle 末 cumulative audit 时再 lock).
+- **Carry-over for next session**:
+  - **NEXT**: P2 B-03c domains/ × 124 (62 domains × 2 files alphabetical AE→VS); 因 single session ctx 撑不住整 124 batches, 推荐 multi-session sister B/C/D 并行模式 (详见 `MULTI_SESSION_PROTOCOL.md`); 第一 domain batch_13 (AE/assumptions.md) 派发前 lock atom_id prefix convention (建议 `md_<DOMAIN>_<assumptions|examples>_aNNN`)
+  - **B-03 整 cycle 末 cumulative audit**: post B-03c CLOSED 触发 30-50 atom 跨 141 files 分层 audit; reviewer distinct from per-batch + B-01 + B-02 + B-03b mini-audit reviewers
+  - **v1.9.2 cut 触发**: TBD post B-03 cumulative audit; 当前 candidate stack 1 (kickoff §0.5 `\s*` 兼容) — 远低 v1.9.1 cut 阈值 19 candidates
+  - **路由词**: `P2 bulk B-03c round 01 自治连跑` (TBD per B-03c entry — domain alphabetical 分批; 单 session 跑 ~10-20 domains 一段, NOT fire-and-forget 整 124 domains)
+- **下一步**: commit + push (本 session B-03b CLOSED + B-03a 失败归档 milestone — index 文件 3 件更新; CLAUDE.md 无 key path 新增).
