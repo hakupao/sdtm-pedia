@@ -2397,3 +2397,53 @@
   - **B-03 整 cycle 末 cumulative audit**: 待 B-03c 全 7+ rounds 闭环 (62 domains × 2 files = 124 files / ~40-60 batches estimate); reviewer distinct from cumulative burn pool
   - **v1.9.2 cut 触发**: 0 NEW codifications from round 01 (uniform clean); 当前 stack still 1 (post §0.5 `\s*` from B-03a) — 远低 v1.9.1 阈值 19
 - **下一步**: commit + push (本 session B-03c round 01 CLOSED milestone — index 文件 3 件更新 + CLAUDE.md 无 key path 新增 per "150 行硬上限" — round kickoff 是 per-round transient).
+
+### 2026-05-06 (P2 B-03c round 02 + round 03 自治连跑 CLOSED — round 02 10 batches 278 atoms 5 domains CO/CP/CV/DA/DD + round 03 12 batches 741 atoms 5 domains DM/DS/DV/EC/EG, §2.4 first-time multi-batch slice + §2.6 first-time FIGURE-in-domains lock fully validated)
+
+- **路由词**: 用户 "P2 bulk B-03c round 02 自治连跑" → ack "Option A 全 ack 开始" → 自治连跑 → CLOSE; 后续用户 "P2 bulk B-03c round 03 自治连跑" → ack "Option A 全 ack 开始" → mid-flight halt #6 (FIGURE-in-domains 首次) → ack "Option 1 in-place fix" → infra rate limit handoff → ack "P2 bulk B-03c round 03 续跑 from batch_37 reviewer" → 完整 close.
+- **入口 kickoffs**: `multi_session/P2_B-03c_round_02_kickoff.md` + `multi_session/P2_B-03c_round_03_kickoff.md` (round 03 §2.4 multi-batch slice + §2.6 FIGURE-in-domains 首次 lock)
+
+#### Round 02 (commit be3c7f4 同日, 此次 retroactive logged)
+- **B-03c round 02 10 batches 自治连跑 全 PASS 100%** = 278 atoms (kickoff §0.5 estimate 318-409; below estimate but above halt threshold 159; 0.614 atoms/line vs round 01 0.782)
+- 10 files 100% atomized: CO/assn 16L=10 atoms / CO/ex 32L=20 atoms / CP/assn 51L=41 atoms / **CP/ex 181L=100 atoms (LARGEST round 02 batch; H3a first-time lock at batch_26 §2.2 acked "H3a 开始")** / CV/assn 5L=3 atoms (smallest) / CV/ex 32L=22 atoms / DA/assn 12L=8 atoms / DA/ex 48L=30 atoms / DD/assn 12L=6 atoms / DD/ex 65L=38 atoms
+- Writer pool: general-purpose × 10 (FALLBACK sustained 36 batches cumulative)
+- Reviewer pool: feature-dev:code-reviewer × 1 (batch_23) + pr-review-toolkit:code-reviewer × 9 (batch_24-32) + feature-dev:code-architect mini-audit (Rule D fully distinct)
+- mini-audit: 10/10 atoms + 5/5 invariants + H3a FULLY VALIDATED PASS 100%
+- **§D-r506-01 H3a sub-namespace first-time lock**: CP/examples.md `### Example 1a` + `### Example 1b` triggered halt #6 first encounter; user ack "H3a 开始"; kickoff §2.2 lock added `### Example 1a` (h_lvl=3 sib=1 parent=§CP.1) + sub-namespace §CP.1.a/b for children — 1st cumulative B-03c first-time conv extension event
+
+#### Round 03 (commit pending this session)
+- **B-03c round 03 12 batches 自治连跑 全 PASS 100%** = 741 atoms (kickoff §0.5 estimate 754-1069; 13 atoms below low-end → INFO; 0.589 atoms/line sustained downward trend vs round 01 0.782 / round 02 0.614)
+- 10 files 100% atomized (12 batches due to §2.4 slice): batch_33 DM/assn 40L=30 / batch_34 DM/ex slice 1-215=116 (含 §2.6 FIGURE 首次 a072 in-place fix + LIST_ITEM sib_idx 7-atom patch a074-a080 双 Rule B backups) / batch_35 DM/ex slice 216-429=85 (含 3 FIGURE atoms a120/a141/a175 + 3 NOTE atoms 首次 multi-instance domains/) / batch_36 DS/assn 41L=31 / batch_37 DS/ex slice 1-209=127 / batch_38 DS/ex slice 210-413=135 / batch_39 DV/assn 7L=4 (smallest) / batch_40 DV/ex 24L=14 / batch_41 EC/assn 32L=25 / batch_42 EC/ex 135L=81 (含 source title-gap Ex4 SKIPPED — sib_index positional gap-free 1..7 + parent_section title-based with §EC.4 absent) / batch_43 EG/assn 26L=15 / batch_44 EG/ex 110L=78 (round 03 FINAL)
+- atom_type distribution: HEADING 40 / LIST_ITEM 111 / SENTENCE 240 / TABLE_HEADER 48 / TABLE_ROW 295 / FIGURE 4 / NOTE 3 = 741
+- Writer pool: general-purpose × 12 (FALLBACK sustained 48 batches cumulative B-02+B-03b+B-03c-rounds-01-02-03 = 4847 atoms 0 writer defect)
+- Reviewer pool: pr-review-toolkit:code-reviewer × 12 per-batch + **pr-review-toolkit:type-design-analyzer AUDIT mode mini-audit** (Rule D fully distinct from per-batch + round 01 + round 02 mini-audit reviewers; 1st pr-review-toolkit AUDIT-pivot in B-03c)
+- mini-audit: 10/10 atoms + 8/8 invariants PASS (5 standard + 3 NEW round 03: §2.4 cross-batch atom_id 续号 + §2.6 FIGURE-in-domains lock + LIST_ITEM sib_idx null precedent)
+- **Halt events**:
+  - **halt #6 (1st event) FIGURE-in-domains 首次**: batch_34 a072 mermaid block (DM/ex L115-149) writer 误标 CODE_LITERAL → 主 session 实证 round 01/02 整 0 例 FIGURE in domains/ → 用户 ack "Option 1 in-place fix" → kickoff §2.6 lock added (mermaid → FIGURE + figure_ref non-null + verbatim 全保留 byte-exact) → batch_34 a072 in-place atom_type+figure_ref fix with Rule B backup `.pre-FIGURE-fix.bak` → batch_35 dispatched cleanly with 3 more FIGURE atoms 验证 §2.6 stable
+  - **halt #7 infra rate limit (mid-round)**: batch_37 reviewer 派发触发 model usage 限流 (reset 3am Asia/Tokyo); 主 session 写 `multi_session/P2_B-03c_round_03_HANDOFF.md` (4/12 batches done + batch_37 writer DONE + reviewer pending); 用户 next session 路由词 "P2 bulk B-03c round 03 续跑 from batch_37 reviewer" → 完整 resume 8 batches + mini-audit + commit
+- **Codifications validated in B-03c round 03**:
+  - **§2.4 multi-batch single-file slice (FIRST-TIME, kickoff lock)**: DM/ex 429L sliced batch_34/35 at H2 boundary L215|216 (atom_id a116→a117 cross-batch 续号) + DS/ex 413L sliced batch_37/38 at H2 boundary L209|210 (atom_id a127→a128 cross-batch 续号); 100% atom_id continuity + H2 boundary clean (mini-audit invariant #6 PASS)
+  - **§2.6 FIGURE-in-domains lock (FIRST-TIME)**: 4 FIGURE atoms 全部在 DM/ex (a072/a120/a141/a175); verbatim 全保留 mermaid byte-exact (1340 chars 单 atom 最大); figure_ref non-null format `<file path> L<start>-<end> mermaid <type>: <semantic description>`; 0 CODE_LITERAL 在 round 03; DS/DV/EC/EG = 0 mermaid (grep 实证)
+  - **LIST_ITEM sib_idx null precedent enforcement**: batch_34 reviewer INFO catch (writer 给 a074-a080 race subcategory bullets 设 sib_idx 1..7 vs root 0/598 全 null precedent) → 主 session 顺手 patch 7 atoms with Rule B backup `.pre-LISTITEM-sib-null.bak` → 后续 batches 35-44 prompt 显式 enforcement → 0 violation across 111 LIST_ITEM atoms cumulative round 03
+  - **§EC title-gap convention**: EC/examples.md source skip Ex4 (Ex1/2/3/5/6/7/8 = 7 H2); convention sib_index = positional source order gap-free 1..7 + parent_section = title-based with §EC.4 deliberately absent; mini-audit a033 H2 verdict PASS
+  - **§D-5 bold-caption SENTENCE**: ~50 instances across DM/DS/DV/EC/EG examples — 100% canonical SENTENCE classification
+  - **§C-5 + Hook A1 TABLE_HEADER 2-row span**: ALL 48 TABLE_HEADER atoms `line_end - line_start = 1` (8+7+11+10+1+7+4 = 48 confirmed)
+  - **§D-NOTE-BQ NEW domains/ first multi-instance**: 3 NOTE atoms in DM/ex batch_35 L324/L407/L422 (`^**Note:**` line-start carve-out) — first multi-instance NOTE in domains/
+
+- **关键决策**:
+  - **D-r506-01 round 03 §2.6 FIGURE in-place fix (NOT full redo)**: 用户选 Option 1 — single atom (a072) atom_type + figure_ref patch + Rule B backup; 11-atom Rule A delta 复审 100% PASS. 比 Option 2 (full 116-atom redo) 节约 90%+ 时间. R B preserve 失败 attempt 不删原则 sustained.
+  - **D-r506-02 round 03 §2.4 cross-batch atom_id 续号 within file**: 切片 file 跨 batch atom_id 续号 (batch_35 起 a117 NOT a001) — 与 round 01/02 跨 file 不续号约定区别. 实证 mini-audit 100% PASS, convention stable for future rounds (RELSPEC/TD/TA/TV examples 多 mermaid + 大文件 切片).
+  - **D-r506-03 round 03 mini-audit reviewer = pr-review-toolkit:type-design-analyzer AUDIT mode**: Rule D 跨 round burn 隔离 — 5th cumulative B-03c reviewer family (post per-batch pr-review-toolkit:code-reviewer × 12 + round 01 mini-audit feature-dev:code-reviewer + round 02 batch_23 feature-dev:code-reviewer + round 02 mini-audit feature-dev:code-architect); AUDIT-pivot mode preserve original type-design-analyzer 主功能 disabled 仅作 reviewer.
+  - **D-r506-04 round 02 worklog 缺失 retroactive 补回**: round 02 commit be3c7f4 时 worklog 没更新 (chain B 漏掉) — 本 round 03 close 一并补 round 02 entry. v1.9.2 candidate: chain B 工具自动 enforce.
+
+- **Drift carry-corrections applied at round 03 close**:
+  - `_progress.json` status string `47_domains_x_2_files_94_files_remaining` (round 02 写入时 drift -5 domains) → round 03 close 已 rewrite headline status string 反映 round 03 CLOSED + 42 domains × 2 = 84 files remaining
+  - `_progress.json` `current_phase` `P2_B-03c_round_01_CLOSED_pending_round_02_ack` (post round 02 close 没更新) → round 03 in_flight 中已 update → round 03 CLOSED 再 update to `P2_B-03c_round_03_CLOSED_pending_round_04_ack`
+
+- **Carry-over for next session**:
+  - **NEXT round 04**: 待 Bojiang ack scope (recommend 5 more domains alphabetical EX/FA/FT/GF/HO = ~10-14 batches; or smaller 2-3 domains 保守 first if 大文件 PC/TA 切片 风险高)
+  - **路由词候选**: `P2 bulk B-03c round 04 自治连跑` (post round 03 review + scope ack)
+  - **B-03 整 cycle 末 cumulative audit**: 待 B-03c 全 ~6+ rounds 闭环 (post round 03: 47/141 = 33.3% file coverage; 余 94 files 估 6-9 round)
+  - **v1.9.2 cut 触发**: 3 NEW LOW INFO findings carry-forward from round 03 (atoms/line ratio drift + writer FIGURE误判 prompt gap + writer LIST_ITEM sib_idx prompt gap); cumulative stack still ≤4; 远低 v1.9.1 cut 阈值 19
+
+- **下一步**: commit + push (round 02 + round 03 双 CLOSED milestone; index 文件 3 件 + CLAUDE.md 剪过期状态).

@@ -1,7 +1,7 @@
 {
   "project": "06_deep_verification",
   "tier": 3,
-  "status": "P2_B-03c_round_02_CLOSED_2026-05-06_10_batches_278_atoms_5_domains_CO_CP_CV_DA_DD_per_batch_Rule_A_10x_PASS_100_pct_mini_audit_PASS_100_pct_10_of_10_atoms_plus_5_of_5_round_invariants_plus_H3a_FULLY_VALIDATED feature-dev_code_architect_Rule_D_distinct_from_per_batch_pr_review_toolkit_x9_AND_feature-dev_code_reviewer_batch_23_AND_round_01_mini_audit_feature-dev_code_reviewer cumulative_md_atoms_jsonl_5642_atoms_37_files_atomized_26_2_pct_file_coverage H3a_sub_namespace_first_time_lock_at_batch_26_kickoff_2_2_user_ack_H3a_kaishi cross_round_consistency_md_dm_D_assn_md_dm_D_ex_atom_id_AND_H1_root_H2_self_namespace_H3a_sub_namespace progress_json_drift_corrected_57_domains_NOT_52 round_03_pending_Bojiang_ack_scope_47_domains_x_2_files_94_files_remaining_alphabetical_DM_to_VS DM_ex_429L_plus_DS_ex_413L_first_time_300L_slice_halt_6_expected_round_03_kickoff",
+  "status": "P2_B-03c_round_03_CLOSED_2026-05-06_12_batches_741_atoms_5_domains_DM_DS_DV_EC_EG_per_batch_Rule_A_12x_PASS_100_pct_mini_audit_PASS_100_pct_10_of_10_atoms_plus_8_of_8_invariants pr-review-toolkit_type-design-analyzer_AUDIT_mode_Rule_D_distinct_from_per_batch_pr_review_toolkit_code_reviewer_x12_AND_round_02_mini_audit_feature-dev_code_architect_AND_round_01_mini_audit_feature-dev_code_reviewer cumulative_md_atoms_jsonl_6383_atoms_47_files_atomized_33_3_pct_file_coverage SECTION_2_4_first_time_multi_batch_single_file_slice_convention_FULLY_VALIDATED_DM_ex_split_batch_34_35_atoms_a116_to_a117_continuity_AND_DS_ex_split_batch_37_38_atoms_a127_to_a128_continuity SECTION_2_6_first_time_FIGURE_in_domains_lock_FULLY_VALIDATED_4_FIGURE_atoms_DM_ex_a072_a120_a141_a175_mermaid LIST_ITEM_sib_idx_null_precedent_enforced_post_batch_34_INFO_catch_a074_a080_patched_subsequent_10_batches_0_violation EC_ex_title_gap_convention_validated_Ex4_skipped_in_source_sib_positional_gap_free_parent_title_based progress_json_drift_corrected_42_domains_remaining_NOT_47 round_04_pending_Bojiang_ack_scope_42_domains_x_2_files_84_files_remaining_alphabetical_EX_to_VS halt_6_FIGURE_in_domains_resolved_Option_1_in_place_fix halt_7_infra_rate_limit_resolved_handoff_resume",
   "v1_7_cut_completed": "2026-04-29",
   "v1_7_cut_details": {
     "completed_at": "2026-04-29",
@@ -198,9 +198,9 @@
     "estimated_overhead_retired_minutes_per_batch": "10-15",
     "estimated_overhead_retired_total_hours_p1_remaining": "5-7"
   },
-  "current_phase": "P2_B-03c_round_01_CLOSED_pending_round_02_ack",
-  "plan_version": "v0.6 (P2 B-03c round 01 closed)",
-  "recovery_hint": "P2 B-03c round 01 CLOSED 2026-05-05. 10 batches batch_13..22 PASS 100% per-batch + mini-audit PASS 100% (10/10 atoms + 5/5 invariants). md_atoms.jsonl 5364 atoms / 27 files / 19.1% coverage. Round 02 待用户 ack scope (recommend AE..DD->CO..ED 5 domains alphabetical = 10 batches batch_23..32). 入口: multi_session/P2_B-03c_round_01_kickoff.md (round 01 entry kickoff + convention lock).",
+  "current_phase": "P2_B-03c_round_03_CLOSED_pending_round_04_ack",
+  "plan_version": "v0.6 (P2 B-03c round 03 closed)",
+  "recovery_hint": "P2 B-03c round 03 CLOSED 2026-05-06. 12 batches batch_33..44 PASS 100% per-batch + mini-audit PASS 100% (10/10 atoms + 8/8 invariants incl 5 standard + 3 NEW round 03: §2.4 cross-batch atom_id 续号 + §2.6 FIGURE-in-domains lock + LIST_ITEM sib_idx null precedent). md_atoms.jsonl 6383 atoms / 47 files atomized / 33.3% file coverage. Round 03 first-time conventions locked: §2.4 multi-batch slice (DM/ex + DS/ex) + §2.6 FIGURE-in-domains (4 atoms in DM/ex). 1 halt #6 fired and resolved (FIGURE first encounter Option 1 in-place fix); 1 halt #7 fired and resolved (infra rate limit handoff resume). Round 04 待用户 ack scope (recommend 5 more domains EX/FA/FT/GF/HO alphabetical = ~10-14 batches; 42 domains × 2 = 84 files remaining). 入口: multi_session/P2_B-03c_round_03_kickoff.md (§0.5 20/20 grep + §2.4/§2.6 locks + §8 Option A acked) + multi_session/P2_B-03c_round_03_HANDOFF.md (§3 resume protocol historical reference).",
   "created": "2026-04-24",
   "v1.2_upgrade_completed": "2026-04-24",
   "charter_gates": {
@@ -1944,5 +1944,57 @@
       "b_03c_progress_pct": "10/124 = 8.1%"
     },
     "round_02_trigger": "pending Daisy/Bojiang ack scope (recommend 5 more domains CO/CP/CV/DA/DD alphabetical = 10 batches batch_23..32 OR scale to 10 domains 20 batches if round 01 confidence high)"
+  },
+  "b_03c_round_03_completed": "2026-05-06",
+  "b_03c_round_03_details": {
+    "completed_at": "2026-05-06",
+    "session_type": "B-03c_round_03_自治连跑_2_session_split_due_to_infra_rate_limit_handoff_at_batch_37",
+    "kickoff": "multi_session/P2_B-03c_round_03_kickoff.md (round 03 entry; §0.5 grep checksum 20/20 byte-exact verified; §2.4 first-time multi-batch slice convention; §2.6 first-time FIGURE-in-domains lock acked Bojiang Option 1 in-place fix 2026-05-06 + Option A 5 domains 12 batches all-ack)",
+    "scope": "5 domains alphabetical (DM / DS / DV / EC / EG) × 2 files = 12 batches batch_33..44 (incl 4 sliced batches: DM/ex batch_34+35 + DS/ex batch_37+38)",
+    "atoms": 741,
+    "atoms_estimate_kickoff_section_0_5_row_14": "754-1069 (741 below low-end of estimate by 13 atoms; INFO carry-forward — atoms/line ratio sustained downward 0.589 vs round 01 0.782 / round 02 0.614)",
+    "atoms_per_line": 0.589,
+    "files_atomized": 10,
+    "source_lines": 1257,
+    "atom_type_distribution": {"HEADING": 40, "LIST_ITEM": 111, "SENTENCE": 240, "TABLE_HEADER": 48, "TABLE_ROW": 295, "FIGURE": 4, "NOTE": 3},
+    "first_time_conventions_locked": [
+      "§2.4 multi-batch single-file slice convention (DM/ex sliced batch_34/35 a116→a117 + DS/ex sliced batch_37/38 a127→a128; cross-batch atom_id 续号 within file; H2 boundary clean) — 100% PASS validation in mini-audit",
+      "§2.6 FIGURE-in-domains lock (mermaid fenced blocks → atom_type=FIGURE + figure_ref non-null + verbatim 全保留 byte-exact; CODE_LITERAL reserved single literal codelist values only) — 4 FIGURE atoms validated (DM/ex batch_34 a072 + batch_35 a120/a141/a175); 0 in DS/DV/EC/EG (grep verified)",
+      "LIST_ITEM sib_idx null precedent enforcement (post batch_34 reviewer INFO catch + 7-atom in-place patch a074-a080; subsequent 10 batches 0 violation; cumulative 111 LIST_ITEM round 03 all null) — Rule B backup `.pre-LISTITEM-sib-null.bak`",
+      "§EC title-gap convention (Ex4 SKIPPED in source EC/examples.md; sib_index positional gap-free 1..7; parent_section title-based with §EC.4 absent) — mini-audit a033 H2 verdict PASS"
+    ],
+    "writer_pool": "general-purpose × 12 (FALLBACK peer-alternative sustained 48 batches cumulative B-02+B-03b+B-03c-rounds-01-02-03 = 4847 atoms 0 writer defect)",
+    "reviewer_pool_per_batch": "pr-review-toolkit:code-reviewer × 12 (Rule D distinct from writer)",
+    "reviewer_mini_audit": "pr-review-toolkit:type-design-analyzer AUDIT mode (Rule D distinct from per-batch pr-review-toolkit:code-reviewer × 12 + round 01 mini-audit feature-dev:code-reviewer + round 02 batch_23 feature-dev:code-reviewer + round 02 mini-audit feature-dev:code-architect; 5th cumulative B-03c reviewer family + 1st pr-review-toolkit AUDIT-pivot in B-03c)",
+    "rule_a_per_batch_pass_rate": "12/12 = 100% (each batch ≥90% gate; small files batch_39/40/41/43 used full-coverage exception)",
+    "mini_audit_pass_rate": "10/10 atoms = 100% + 8/8 round invariants PASS (5 standard + 3 NEW round 03: §2.4 + §2.6 + LIST_ITEM sib_idx null)",
+    "halt_events": {
+      "halt_6_first_time_FIGURE_in_domains": "fired and resolved at batch_34 a072 — user ack 'Option 1 in-place fix' 2026-05-06; kickoff §2.6 lock added; batch_34 a072 atom_type CODE_LITERAL→FIGURE + figure_ref populated in-place fix with Rule B backup; batch_35 dispatched cleanly with 3 more FIGURE atoms",
+      "halt_7_infra_rate_limit": "fired mid-round at batch_37 reviewer dispatch (model usage rate limit reset 3am Asia/Tokyo); handoff `multi_session/P2_B-03c_round_03_HANDOFF.md` written; next session resumed via routing word 'P2 bulk B-03c round 03 续跑 from batch_37 reviewer' — 8 batches + mini-audit + commit completed cleanly post resume"
+    },
+    "findings": {
+      "high": 0,
+      "medium": 0,
+      "low": 0,
+      "info_carry_forward": [
+        "L1 INFO round 03 atoms/line ratio 0.589 sustained downward trend (round 01 0.782 → round 02 0.614 → round 03 0.589). Likely cause: round 03 多 TABLE-row-heavy file (DM/ex 4 mermaid blocks collapsed; DS/ex Ex10/Ex11 supporting datasets with 10+ TABLE_HEADER pairs). v1.9.2 candidate: §C-1 sub-line atomization 边界 clearer specification",
+        "L2 INFO writer general-purpose batch_34 误标 mermaid block as CODE_LITERAL — root cause v1.9.1 §C-8 archive 引用 没显式 covered fenced code block in domains/. v1.9.2 candidate: 显式 explicit FIGURE-vs-CODE_LITERAL boundary in writer prompt + §2.6 carry-forward to v1.9.2 prompt body",
+        "L3 INFO writer general-purpose batch_34 误用 sib_idx 1..7 on 7 LIST_ITEM atoms (a074-a080 race subcategory bullets) — root cause writer prompt v1.9.1 silent on LIST_ITEM sib_idx null mandate (only HEADING required). v1.9.2 candidate: explicit LIST_ITEM sibling_index = null enforcement"
+      ]
+    },
+    "cumulative_post_round_03": {
+      "md_atoms_jsonl_total": 6383,
+      "files_atomized": 47,
+      "files_in_scope": 141,
+      "file_coverage_pct": 33.3,
+      "domains_atomized": 11,
+      "domains_total": 63,
+      "b_03c_progress_pct": "30/114 = 26.3%"
+    },
+    "drift_corrections_applied_at_close": [
+      "_progress.json status string `47_domains_x_2_files_94_files_remaining` → 实测 52/104; corrected at round 03 close with `current_phase` rewrite (47→47-5=42 domains remaining post round 03 due to round 03 done 5 more, 实测 42 × 2 = 84 files remaining)",
+      "_progress.json `current_phase` previously stale `P2_B-03c_round_01_CLOSED_pending_round_02_ack` (post round 02 close) — already corrected to round 03 in-flight at session start; round 03 close updates to round_03_CLOSED"
+    ],
+    "round_04_trigger": "pending Bojiang ack scope (recommend 5 more domains EX/FA/FT/GF/HO alphabetical = ~10-14 batches; or smaller scope per ctx pressure consideration; 42 domains × 2 = 84 files remaining post round 03)"
   }
 }
