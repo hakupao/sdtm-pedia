@@ -316,7 +316,7 @@ C-P7-2/3/9 RESOLVED in Phase 7.5 fix bundle (no carryover).
 | P2 MD 原子化 Pilot | ✅ functional PASS | Attempt 2 397 atoms (executor only) — Attempt 1 FAIL 触发 v1.9 cut + N21 MD-side 扩展 |
 | v1.9 Prompt Cut | ✅ 完成 (4 prompts) | 8 NEW patches C-1..C-8; H_C 假说 REJECTED; MD hooks 18 → 22 |
 | P2 MD 原子化 Bulk B-01 | ✅ CLOSED 2026-04-29 | 4 batches PASS (model 02/03/05/06, 705 atoms); cumulative cross-batch audit 28/30=93.3% PASS; 1 HIGH hotfix (md_model01_a013 figure_ref); md_atoms.jsonl 累计 1102 |
-| P2 MD 原子化 Bulk B-02 | 🔄 进行中 1/9 | batch 01 PASS (ch04 L301-600 196 atoms; 14-sweep clean; FIGURE Hook A4 inline live-fire 1st success); md_atoms.jsonl 累计 1298; 剩 8 batches (ch04 续 3 段 + ch01/02/03/08/10 全) |
+| P2 MD 原子化 Bulk B-02 | ✅ **CLOSED 2026-05-05** 9/9 | 6 chapter files atomized (ch04 1040 + ch01 88 + ch03 120 + ch02 132 + ch10 258 + ch08 345 = 1983 atoms incl. pilot ch04 218; B-02 sub-cycle batches alone 1765); md_atoms.jsonl 累计 2867; cumulative inter-cycle audit **30/30=100% strict PASS** (vs B-01 28/30=93.3%; 0 HIGH/MEDIUM/LOW NEW; 🟢 GREEN-LIGHT B-03); FALLBACK path 7-batch 100% sustained 1331 atoms 0 writer defect; 8 codifications (D5/D6/D7/D8/S-01..S-04) + CRITICAL kickoff self-consistency rule INAUGURAL clean batch 09; 9/9 atom_type cumulative coverage; v1.9.1 candidate backlog 19 |
 
 ---
 
