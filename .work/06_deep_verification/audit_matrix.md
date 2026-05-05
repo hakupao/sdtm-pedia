@@ -561,3 +561,49 @@
 
 **Cumulative post B-03c round 02**: md_atoms.jsonl 5642 atoms / 37 files atomized (B-03b 17 + round 01 10 + round 02 10) / 141 in-scope = **26.2% file coverage** (was 19.1% post round 01). Round 03 待动 (52 domains × 2 files = 104 files remaining post round 02; actually 47 domains × 2 = 94 files since round 02 done 5 domains; alphabetical DM..VS); DM/ex 429L + DS/ex 413L will trigger first-time `>300L slice` halt #6 convention extension at round 03 kickoff. 自治连跑 trigger 待 Bojiang ack scope.
 
+
+---
+
+### Round 03 (CLOSED 2026-05-06)
+
+> Round 03 scope: 5 domains (DM/DS/DV/EC/EG) × 2 files = 12 batches batch_33..44 (含 §2.4 first-time multi-batch slice for DM/ex + DS/ex); 估 atoms 754-1069; **§2.6 FIGURE-in-domains first-time lock at batch_34 a072** + **§2.4 cross-batch atom_id 续号 first-time validated**
+
+| Batch | Target | Lines | Atoms | atom_id range | Writer | Reviewer | Rule A weighted | Findings |
+|---|---|---|---|---|---|---|---|---|
+| 33 | domains/DM/assumptions.md | 40 | 30 | md_dmDM_assn_a001..a030 | general-purpose | pr-review-toolkit:code-reviewer | 100% (11/11) | 0 (1 H1 + 29 LIST_ITEM with deeply-nested 4a-d/i-iv/1-3; 7 atoms with cross_refs Section X.Y / DM Example N) |
+| 34 | domains/DM/examples.md slice 1-215 (Ex1-4) | 215 | 116 | md_dmDM_ex_a001..a116 | general-purpose | pr-review-toolkit:code-reviewer (post 2 in-place fixes) | 100% (11/11 post-fix) | 1 INFO LIST_ITEM sib_idx normalize null (a074-a080 patched, Rule B backup `.pre-LISTITEM-sib-null.bak`) + **§2.6 FIGURE-in-domains FIRST-TIME LOCK** at a072 (mermaid L115-149 atom_type CODE_LITERAL→FIGURE + figure_ref non-null in-place fix, Rule B backup `.pre-FIGURE-fix.bak`); §2.4 first sliced batch part 1 |
+| 35 | domains/DM/examples.md slice 216-429 (Ex5-7) | 214 | 85 | md_dmDM_ex_a117..a201 | general-purpose | pr-review-toolkit:code-reviewer | 100% (11/11) | 0 (§2.4 cross-batch atom_id 续号 a116→a117 validated; §2.6 3 more FIGURE atoms a120/a141/a175 mermaid; 3 NOTE atoms first multiple in domains/) |
+| 36 | domains/DS/assumptions.md | 41 | 31 | md_dmDS_assn_a001..a031 | general-purpose | pr-review-toolkit:code-reviewer | 100% (11/11) | 0 (1 H1 + 26 LIST_ITEM + 4 SENTENCE; bold-caption `**Categorization**` etc within numbered items) |
+| 37 | domains/DS/examples.md slice 1-209 (Ex1-9) | 209 | 127 | md_dmDS_ex_a001..a127 | general-purpose | pr-review-toolkit:code-reviewer (resume post infra rate limit) | 100% (11/11) | 0 (§2.4 second sliced batch pair part 1; HEADING:10 H1+9 H2; 0 LIST_ITEM 0 FIGURE in DS/ex) |
+| 38 | domains/DS/examples.md slice 210-413 (Ex10-11) | 204 | 135 | md_dmDS_ex_a128..a262 | general-purpose | pr-review-toolkit:code-reviewer | 100% (11/11) | 0 (§2.4 cross-batch atom_id 续号 a127→a128 validated; H2 sib chain continues 10/11 NOT restart) |
+| 39 | domains/DV/assumptions.md | 7 | 4 | md_dmDV_assn_a001..a004 | general-purpose | pr-review-toolkit:code-reviewer | 100% (4/4 full) | 0 (smallest batch round 03; 1 H1 + 3 LIST_ITEM) |
+| 40 | domains/DV/examples.md | 24 | 14 | md_dmDV_ex_a001..a014 | general-purpose | pr-review-toolkit:code-reviewer | 100% (14/14 full) | 0 (1 H1 + 1 H2 + 6 SENTENCE + 1 TABLE_HEADER + 4 TABLE_ROW + 1 LIST_ITEM with URL cross_refs; **References** caption SENTENCE per §D-5) |
+| 41 | domains/EC/assumptions.md | 32 | 25 | md_dmEC_assn_a001..a025 | general-purpose | pr-review-toolkit:code-reviewer | 100% (25/25 full) | 0 (1 H1 + 24 LIST_ITEM with sub-letter + sub-roman) |
+| 42 | domains/EC/examples.md | 135 | 81 | md_dmEC_ex_a001..a081 | general-purpose | pr-review-toolkit:code-reviewer | 100% (11/11) | 0 (**source title-gap quirk**: H2 chain Ex1/2/3/5/6/7/8 source skips Ex4; sib_index positional gap-free 1..7 + parent_section title-based with §EC.4 absent — convention validated mini-audit) |
+| 43 | domains/EG/assumptions.md | 26 | 15 | md_dmEG_assn_a001..a015 | general-purpose | pr-review-toolkit:code-reviewer | 100% (15/15 full) | 0 (1 H1 + 14 LIST_ITEM; 2 atoms with cross_refs Section 4.x.x.x) |
+| 44 | domains/EG/examples.md | 110 | 78 | md_dmEG_ex_a001..a078 | general-purpose | pr-review-toolkit:code-reviewer | 100% (11/11) | 0 (round 03 FINAL batch; 1 H1 + 4 H2 sib 1..4 clean + 20 SENTENCE + 4 TABLE_HEADER + 49 TABLE_ROW) |
+| **mini-audit** | cross-batch 10-atom + 8 invariants (5 standard + 3 NEW round 03) | n/a | n/a | n/a | n/a | **pr-review-toolkit:type-design-analyzer AUDIT mode** (Rule D distinct from per-batch pr-review-toolkit:code-reviewer × 12 + round 01 mini-audit feature-dev:code-reviewer + round 02 batch_23 feature-dev:code-reviewer + round 02 mini-audit feature-dev:code-architect) | **100% (10/10) + 8/8 invariants PASS** (incl §2.4 cross-batch atom_id 续号 + §2.6 FIGURE-in-domains lock + LIST_ITEM sib_idx null precedent) | **0 HIGH / 0 MEDIUM / 0 LOW** |
+
+**B-03c Round 03 量化**:
+- 12 batches PASS 100% / 0 retry / 0 attempt failures (含 1 in-flight reviewer rate-limit handoff resumed cleanly)
+- **741 atoms cumulative** (kickoff §0.5 estimate 754-1069; 13 atoms below low-end of estimate → INFO; 0.589 atoms/line vs round 01 0.782 / round 02 0.614 — sustained downward trend, attributed to round 03 多 TABLE-row-heavy file content)
+- 10 files 100% atomized (5 domains × 2 files: DM/DS/DV/EC/EG)
+- 12 batches across 10 files (DM/ex sliced 2 + DS/ex sliced 2 + 8 single = 12; **§2.4 first-time multi-batch single-file slice convention** validated)
+- atom_id namespaces: 10 distinct (md_dm<D>_assn / md_dm<D>_ex)
+- atom_type distribution: HEADING 40 / LIST_ITEM 111 / SENTENCE 240 / TABLE_HEADER 48 / TABLE_ROW 295 / FIGURE 4 / NOTE 3 = 741
+- parent_section: H1 root self-reference + H2 self-namespace (round 01/02 carry-forward) + **§EC title-gap convention** (positional sib_index + title-based parent_section)
+- Writer pool: general-purpose × 12 (FALLBACK peer-alternative sustained 48 batches cumulative B-02+B-03b+B-03c-rounds-01-02-03 = 4847 atoms 0 writer defect)
+- Reviewer pool: pr-review-toolkit:code-reviewer × 12 per-batch + pr-review-toolkit:type-design-analyzer × 1 mini-audit (Rule D fully distinct from round 01 + round 02 mini-audit reviewers)
+- 1 halt #6 fired and resolved: §2.6 FIGURE-in-domains first encounter at batch_34 a072 → user ack "Option 1 in-place fix" → kickoff §2.6 lock added → batch_34 patched + batch_35 dispatched cleanly with 3 more FIGURE atoms
+- 1 halt #7 fired (infra-level): mid-round reviewer subagent rate-limited at batch_37 → handoff written → next session resumed cleanly via "续跑 from batch_37 reviewer" routing word
+
+**Codifications validated in B-03c round 03**:
+- **§2.4 multi-batch single-file slice (FIRST-TIME)**: DM/ex sliced batch_34/35 (a116→a117 cross-batch) + DS/ex sliced batch_37/38 (a127→a128 cross-batch) — 100% atom_id continuity + H2 boundary clean
+- **§2.6 FIGURE-in-domains lock (FIRST-TIME)**: 4 FIGURE atoms in DM/ex (a072 + a120 + a141 + a175) + 0 elsewhere; verbatim full mermaid byte-exact; figure_ref non-null format `<path> L<start>-<end> mermaid <type>: <description>`
+- **LIST_ITEM sib_idx null precedent enforcement**: post-batch_34 reviewer INFO catch (a074-a080 7 atoms patched) + subsequent 10 batches 0 violation (cumulative 111 LIST_ITEM round 03 all sib_idx null)
+- **§EC title-gap convention validation**: Ex4 SKIPPED in source; sib_index positional gap-free 1..7; parent_section title-based with §EC.4 absent; mini-audit a033 H2 verdict PASS
+- **§D-5 bold-caption SENTENCE**: ~50 instances across DM/DS/DV/EC/EG examples (`**dm.xpt**` / `**ds.xpt**` / `**dv.xpt**` / `**ec.xpt**` / `**eg.xpt**` / `**Rows N-M:**` / `**Row N:**` / `**Demographics Sample aCRF...**` / `**CRF Mock Example**` / `**References**`) — 100% canonical SENTENCE classification
+- **§C-5 / Hook A1 TABLE_HEADER 2-row span**: ALL 48 TABLE_HEADER atoms in round 03 = `line_end - line_start = 1` (8+7+11+10+1+7+4 = 48 confirmed)
+- **§D-NOTE-BQ NEW domains/ first multi-instance**: 3 NOTE atoms in DM/ex batch_35 (L324 + L407 + L422 `^**Note:**` line-start carve-out) — first multi-instance NOTE in domains/
+
+**Cumulative post B-03c round 03**: md_atoms.jsonl 6383 atoms / 47 files atomized (B-03b 17 + round 01 10 + round 02 10 + round 03 10) / 141 in-scope = **33.3% file coverage** (was 26.2% post round 02). Round 04 待 Bojiang ack scope (47 files remaining domains alphabetical EX..VS).
