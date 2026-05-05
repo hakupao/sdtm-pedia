@@ -101,10 +101,10 @@
       "matcher": "24 hooks (18 v1.7 + 1 v1.9 [Hook M22] + 5 v1.9.1 [M-D2 + M-D4 + M-D5 + M-D6 + M-D7.1])",
       "reviewer": "26 hooks (18 v1.7 + 2 v1.9 [Hook R22 + R23] + 6 v1.9.1 [R24 + R-D2 + R-D3 + R-D4 + R-D5 + R-D6])"
     },
-    "next_session_handoff": "post v1.9.1 cut COMPLETE: B-02 → B-03 entry kickoff prep (domains/ × 126 + 余下 model + top-level 3 ≈ ~12K-20K atoms 估; 30-60 sub-batches; 2-4 weeks duration estimate). B-03 entry kickoff template 必含 §0.5 grep checksum block (per v1.9.1 §D-1 CRITICAL). Pre-allocated reviewer slots #71/#72/... per B-03 batch dispatch (NOT cumulative #1-#70). Backward compat preserved: ch04 pilot a001-a218 v1.8 atoms 自动 accepted by matcher §M-D6 + reviewer §R-D6 anti-flag.",
+    "next_session_handoff": "★ P2 B-03b cycle CLOSED 2026-05-05 ★ — 9 batches 1987 atoms 3 files (INDEX 141 + ROUTING 48 + VARIABLE_INDEX 1798); per-batch Rule A 9/9 PASS 100% (10/10 each, 0 findings); mini-audit cross-batch 10-atom stratified PASS 100% weighted (reviewer feature-dev:code-reviewer Rule D 隔离); md_atoms.jsonl 2867→4854. B-03a SKIPPED post §0.5 grep regex correction (B-01 batches 02-04 已 atomized model 02/03/05 = 596 atoms; failure archive evidence/failures/B-03a_drift_attempt/ Rule B preserve). v1.9.1 D-rule live-fires: §D-5 bold-prefix SENTENCE × 8 + CODE_LITERAL × 7 multiline byte-exact (1st B-03 live-fire) + §D-7.13 4-digit atom_id × 798 (1st cumulative milestone). B-03 真实 scope post-correction = 127 files (NOT 130); B-03b 完成 (3 top-level), B-03c 待动 (124 domains/ × 2 alphabetical AE→VS, recommend multi-session sister B/C/D parallel). Cumulative file coverage: 17/141 = 12.1%.",
     "v2.0_candidate_stack_post_v1.9.1_cut": [
       "F1 INFO carry-forward (no action): writer_md hook math trace (informational)",
-      "B-03 cycle 实证 candidates (TBD post B-03 batches)",
+      "B-03 cycle 实证 candidates (post B-03b CLOSED 2026-05-05): kickoff §0.5 grep regex 必含 \\s* 兼容 JSON formatting variants (lesson from B-03a drift; B-03 umbrella row 13/14/15 校正 written; v1.9.2 candidate stack +1 NEW)",
       "B-04 source curation pass (D-7.9 KB cleanup ch03 L117 source MD `## 3.2.2` → `### 3.2.2` 一致化 deferred + 4000+ atoms cumulative validation triggers schema v1.3 promote)",
       "OMC restoration trigger: if oh-my-claudecode:executor/scientist/critic 后续 session 重新可用, FALLBACK 路径 status sustained per peer-alternative, 不 mandate revert"
     ]
