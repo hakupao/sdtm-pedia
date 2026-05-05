@@ -2350,3 +2350,50 @@
   - **v1.9.2 cut 触发**: TBD post B-03 cumulative audit; 当前 candidate stack 1 (kickoff §0.5 `\s*` 兼容) — 远低 v1.9.1 cut 阈值 19 candidates
   - **路由词**: `P2 bulk B-03c round 01 自治连跑` (TBD per B-03c entry — domain alphabetical 分批; 单 session 跑 ~10-20 domains 一段, NOT fire-and-forget 整 124 domains)
 - **下一步**: commit + push (本 session B-03b CLOSED + B-03a 失败归档 milestone — index 文件 3 件更新; CLAUDE.md 无 key path 新增).
+
+### 2026-05-05 (P2 B-03c round 01 自治连跑 CLOSED — 10 batches 510 atoms, 5 domains AE/AG/BE/BS/CE × 2 files, CM pilot precedent inheritance lock)
+
+- **路由词**: 用户 "P2 bulk B-03c round 01 自治连跑" → entry kickoff prep + 用户 ack `自治连跑开始` + 自治连跑.
+- **入口 kickoff**: `multi_session/P2_B-03c_round_01_kickoff.md` (round 01 entry + convention 首次 lock per umbrella §10.2 halt #6 + §7.3 TBD)
+- **§0.5 grep checksum 13/13 PASS** (kickoff numeric claims byte-exact verified pre-dispatch; CM pilot atom_id + parent_section conventions verified via grep — umbrella §4 注 2 建议 `md_<D>_<assumptions|examples>_aNNN` 与实际 CM precedent `md_dmCM_assn` / `md_dmCM_ex` 矛盾, 选 CM precedent 一致性优先)
+- **Convention lock (per CM pilot precedent inheritance)**:
+  - atom_id prefix: `md_dm<D>_assn_aNNN` (assumptions) + `md_dm<D>_ex_aNNN` (examples) — "dm" 前缀 + 2-letter file abbrev
+  - parent_section H1 root: `§<D> [<D> — <File-type>]` (self-reference)
+  - parent_section H2 (examples): `§<D>.N [Example N]` (self-namespace, NOT file root)
+- **B-03c round 01 10 batches 自治连跑 全 PASS 100%**:
+  - batch_13 AE/assumptions.md (58L) → 42 atoms; cross_refs 7 atoms (Section 4.2.6/6.4/4.4.7/8.4/etc.)
+  - batch_14 AE/examples.md (97L) → 97 atoms; **1st cumulative B-03c writer self-correction**: writer detected orchestrator-side dispatch drift (H2 atoms parent=root vs CM pilot self-reference), Rule-B'd applied CM pilot precedent
+  - batch_15 AG/assumptions.md (25L) → 20 atoms (spaced JSON format)
+  - batch_16 AG/examples.md (72L) → 54 atoms; 11 bold-caption SENTENCE
+  - batch_17 BE/assumptions.md (18L) → 11 atoms
+  - batch_18 BE/examples.md (161L) → 121 atoms (largest in round 01; 7 be.xpt + 8 Row(s) bold-captions; 13 narrative lines sub-line split)
+  - batch_19 BS/assumptions.md (11L) → 6 atoms (smallest batch in round 01; no nesting)
+  - batch_20 BS/examples.md (20L) → 16 atoms
+  - batch_21 CE/assumptions.md (25L) → 17 atoms (small CRF table at L10-15; cross_refs `Section 4.4.7` at a015)
+  - batch_22 CE/examples.md (165L) → 126 atoms (round 01 FINAL; Example 3 multi-table 7 tables crf/mh/suppmh/ce/suppce/pr/relrec; cross_refs `Section 4.2.7.3` at a045)
+- **B-03c round 01 mini-audit (round close)**: reviewer `feature-dev:code-reviewer` (Rule D 跨 family 隔离 — distinct from per-batch `pr-review-toolkit:code-reviewer` × 10), 10-atom stratified sample 1/file × 10 files + 5 round-level invariants → 10/10 atoms PASS 100% + 5/5 invariants PASS, 0 HIGH/MEDIUM, 2 LOW INFO (orchestrator prompt count math 526 vs actual 510 + batch_17 sample type carry-forward), gate ≥90% cleared.
+- **B-03c round 01 量化总结**:
+  - 10 batches PASS 100% / 0 retry / 0 attempt failures
+  - 510 atoms (kickoff §0.5 estimate 460-590; within range; 0.78 atoms/line within umbrella §3 0.7-0.9)
+  - md_atoms.jsonl 4854→5364; 17→27 files atomized / 12.1%→19.1% file coverage
+  - Writer pool: general-purpose × 10 (FALLBACK peer-alternative sustained 26 batches cumulative B-02+B-03b+B-03c-round01 = 3828 atoms 0 writer defect)
+  - Reviewer pool: pr-review-toolkit:code-reviewer × 10 per-batch + feature-dev:code-reviewer × 1 mini-audit
+  - 10 distinct atom_id namespaces; 14 H2 atoms across 5 examples files all self-namespace per CM pilot precedent
+- **Codifications validated in B-03c round 01** (1st cumulative B-03c live-fires):
+  - §D-5 bold-caption SENTENCE: 50+ instances across 5 examples files
+  - §C-1 sub-line atomization: 0 fragment defects in narrative-heavy lines
+  - §D-7.3 cross_refs placement: 9+ atoms; specific sub-line atom carries ref
+  - §C-5 + Hook A1 TABLE_HEADER 2-row span: ALL 24 atoms `line_end - line_start = 1` (100% v1.9 standard)
+  - **CM pilot H2 self-reference precedent inheritance**: 14 H2 atoms verified
+- **Codifications NOT triggered in round 01**: §D-7.13 4-digit atom_id (max 126 < 999) + §D-NOTE-BQ blockquote NOTE + §D-D8 numberless `## Overview` H2
+- **关键决策**:
+  - **D-r505-13 atom_id 沿用 CM precedent (NOT umbrella §4 注 2)**: §0.5 grep verify 一致性优先选 CM precedent
+  - **D-r505-14 H2 self-namespace per CM pilot (NOT file root)**: batch_14 writer Rule-B'd 检测 orchestrator-side dispatch drift; 后续 dispatch 显式标 H2 self-reference convention; 1st cumulative B-03c writer self-correction event 验证 Rule B 工作机制 + Hook 22b 信任结构有效
+  - **D-r505-15 round 01 conservative 5 domains (NOT umbrella §10.2 中位 10 domains)**: B-03c first round + convention 首次 lock 风险 → 选小起步; round 02+ 视实测决定扩张
+  - **D-r505-16 mini-audit reviewer = feature-dev:code-reviewer**: 跨 family Rule D 隔离 from per-batch pr-review-toolkit
+- **Carry-over for next session**:
+  - **NEXT round 02**: 待 Daisy/Bojiang ack scope (recommend 5 more domains alphabetical CO/CP/CV/DA/DD = 10 batches batch_23..32; OR scale to 10 domains 20 batches if confidence high)
+  - **路由词候选**: `P2 bulk B-03c round 02 自治连跑` (post round 01 review + scope ack)
+  - **B-03 整 cycle 末 cumulative audit**: 待 B-03c 全 7+ rounds 闭环 (62 domains × 2 files = 124 files / ~40-60 batches estimate); reviewer distinct from cumulative burn pool
+  - **v1.9.2 cut 触发**: 0 NEW codifications from round 01 (uniform clean); 当前 stack still 1 (post §0.5 `\s*` from B-03a) — 远低 v1.9.1 阈值 19
+- **下一步**: commit + push (本 session B-03c round 01 CLOSED milestone — index 文件 3 件更新 + CLAUDE.md 无 key path 新增 per "150 行硬上限" — round kickoff 是 per-round transient).
