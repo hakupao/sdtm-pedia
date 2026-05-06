@@ -35,6 +35,7 @@ CLAUDE.md 是**长效约束清单**, 不是工作日志, 不是状态看板. 写
 
 Every new session, **before doing any work**, read these files in order:
 
+0. `.work/AGENT_GUIDE.md` — 一页纸进入指引 (优先, 含找东西速查 + phase 入口表 + 路由词)
 1. `.work/MANIFEST.md` — file layout, change chains, quick reference table
 2. `.work/meta/worklog.md` — work log with recovery guide
 3. `.work/03_verification/issues_found.md` — open issues
@@ -62,6 +63,9 @@ Full chain definitions are in `.work/MANIFEST.md`.
 | Source files (PDF/xlsx) | `source/` |
 | Work artifacts | `.work/` (phase-numbered dirs) |
 | Project docs | `docs/` |
+| Web 站点 (Phase 7 产物) | `web/` (Astro; prod sdtm-pedia.pages.dev) |
+| 历史归档 (只读, 不再维护) | `archive/` (含 old_knowledge_base_v0/ + legacy_logs/) |
+| Agent 进入指引 | `.work/AGENT_GUIDE.md` |
 | Page index (authoritative) | `.work/02_indexing/page_index.json` |
 | Verification plan | `.work/03_verification/plan.md` |
 | Retrospective & rules | `.work/meta/retrospective.md` |
