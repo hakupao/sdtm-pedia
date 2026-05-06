@@ -54,6 +54,52 @@
       "Carry-forward TI proposal-removal L4 sub-section codification as legitimate L4 variant (round 10 batch 42 NEW pattern)"
     ]
   },
+  "v1_9_2_cut_completed": "2026-05-06",
+  "v1_9_2_cut_details": {
+    "completed_at": "2026-05-06",
+    "session_type": "v1.9.2_cut_appended_to_round_06_close_session_post_P2_B-03c_rounds_01_06_CLOSED_cumulative_audit_8122_atoms",
+    "trigger": "10-candidate backlog post B-03c round 06 = ≥10 cut planning trigger threshold MET per round 06 kickoff §6 (1 NEW HIGH round 06 explicit JSON template prevention from batch_72 4-schema-regression HALT-RESOLVED + 1 MED round 05 LIST_ITEM hl+sib field-explicit-null MED-01 codification + 3 HIGH round 04 R-2.8-1/2/3 codification from in-place fixes + 1 LOW round 03 FIGURE-vs-CODE_LITERAL boundary clarification + 4 INFO/process candidates carry). Bojiang ack 2026-05-06 'Cut now' post round 06 close 推荐.",
+    "v1.9.2_prompt_files": [
+      "subagent_prompts/P0_writer_md_v1.9.2.md (~270 lines, main MD writer, 6 NEW E-rules consolidating 10 candidates: §E-1 CRITICAL dispatch JSON template + reference working atom + Hook 22c pre-DONE schema self-validate; §E-2 HIGH H1 sib_idx=1 universal + Hook E-2-1; §E-3 HIGH TABLE_HEADER sib_idx=null universal + Hook E-3-2; §E-4 HIGH extracted_by object schema + Hook E-4-3; §E-5 MED non-HEADING field-explicit-null + Hook E-5; §E-6 LOW FIGURE-vs-CODE_LITERAL boundary; MD-side hooks 25 → 28)",
+      "subagent_prompts/P0_writer_pdf_v1.9.2.md (~150 lines, paired-sync PDF-side cross-format applicability notes; PDF-side主体 unchanged carry-forward; STATUS PROMOTIONS sustained N21 EXTENDED + R-2.8-1/2/3 + MED-01 + Hook 22c PDF-side codification for future P3+)",
+      "subagent_prompts/P0_matcher_v1.9.2.md (~180 lines, paired-sync; 5 NEW anti-flag rules §M-E2..E-6 + 5 NEW hooks M-E2..M-E6; matcher hooks 24 → 29; §M-E1 schema regression sweep delegated to reviewer §R-E1)",
+      "subagent_prompts/P0_reviewer_v1.9.2.md (~250 lines, paired-sync; 6 NEW rules §R-E1 CRITICAL schema regression sweep PRIORITY 1 + R-E2/E-3/E-4 HIGH R-2.8-1/2/3 explicit verify + R-E5 MEDIUM MED-01 field-explicit-null verify + R-E6 LOW FIGURE/CODE_LITERAL boundary; 6 NEW hooks R25 + R-E2..R-E6; reviewer hooks 26 → 32)"
+    ],
+    "v1.9.1_archive_path": "subagent_prompts/archive/v1.9.1_final_2026-05-06/",
+    "v1.9.1_archive_files": 4,
+    "active_baseline_files": [
+      "subagent_prompts/P0_writer_md_v1.9.2.md",
+      "subagent_prompts/P0_writer_pdf_v1.9.2.md",
+      "subagent_prompts/P0_matcher_v1.9.2.md",
+      "subagent_prompts/P0_reviewer_v1.9.2.md"
+    ],
+    "hook_count_summary": {
+      "writer_md": "28 hooks (25 v1.9.1 + 5 NEW v1.9.2 [Hook 22c + E-2-1 + E-3-2 + E-4-3 + E-5]; counted with overlap acknowledgment Hook 22c 涵盖 E-2-1/E-3-2/E-4-3/E-5 sub-checks)",
+      "writer_pdf": "PDF-side hooks unchanged from v1.9.1 (paired-sync notes only; Hook 22c PDF-side codified for future P3+ batches)",
+      "matcher": "29 hooks (24 v1.9.1 + 5 NEW v1.9.2 [M-E2 + M-E3 + M-E4 + M-E5 + M-E6])",
+      "reviewer": "32 hooks (26 v1.9.1 + 6 NEW v1.9.2 [R25 + R-E2 + R-E3 + R-E4 + R-E5 + R-E6])"
+    },
+    "v1_9_2_candidate_stack_consolidated": [
+      "1 round 03 atoms/line ratio drift INFO — INFO carry-forward (no rule)",
+      "2 round 03 writer FIGURE 误判 prompt gap — addressed §E-6 FIGURE-vs-CODE_LITERAL boundary",
+      "3 round 03 writer LIST_ITEM sib_idx prompt gap — addressed §E-5 non-HEADING field-explicit-null + Hook 22c pre-DONE check",
+      "4 chain B 工具自动 enforce — workflow/process candidate (NOT prompt rule), defer to next refactor",
+      "5 round 04 H1 sib_idx=1 explicit declaration — codified §E-2 + Hook E-2-1",
+      "6 round 04 TABLE_HEADER sib_idx=null universal explicit rule — codified §E-3 + Hook E-3-2",
+      "7 round 04 extracted_by object schema pre-baked example — codified §E-4 + Hook E-4-3",
+      "8 round 05 LIST_ITEM hl+sib field-explicit-null MED-01 codification — codified §E-5 + Hook E-5",
+      "9 round 05 atoms/line ratio uptick INFO — INFO carry-forward (no rule)",
+      "10 round 06 explicit JSON template + reference working atom HIGH severity prevention — codified §E-1 CRITICAL + Hook 22c"
+    ],
+    "next_session_handoff": "v1.9.2 ACTIVE BASELINE for round 07+ dispatch. Round 07 trigger: pending Bojiang ack scope (default PC 单独 mini-round per Option C 决断 — PC/ex 572L numberless H2 含 7 H3 + numbered/numberless Ex1 slug 冲突需独立设计 sub-policy Plan A.1 vs Plan B; 30 domains × 2 = 60 files remaining post round 06; 估 4-5 more rounds to close P2 B-03c). Round 07 dispatch prompt template MUST follow §E-1 (explicit JSON template + reference working atom md_dmML_assn_a001 = batch_70 a001 as gold reference; cumulative empirical baseline 8122 atoms 0 schema violation post-fix) — orchestrator preflight FAIL if missing.",
+    "v2_0_candidate_stack_post_v1.9.2_cut": [
+      "F1 INFO carry-forward (no action): atoms/line ratio drift INFO from round 03/05 (informational)",
+      "round 06 INFO-R06-01 batch_71 kickoff dispatch prompt count drift (orchestrator-side; pre-flight grep -c '^|' source verify before round 07+ kickoff §4 dispatch contract)",
+      "B-04 source curation pass (D-7.9 KB cleanup ch03 L117 source MD 一致化 + post 8122 atoms cumulative validation triggers schema v1.3 promote evaluation)",
+      "OMC restoration trigger: if oh-my-claudecode:executor/scientist/critic 后续 session 重新可用, FALLBACK 路径 status sustained per peer-alternative, 不 mandate revert",
+      "PC 独立 round 07 sub-policy ack (Plan A.1 vs Plan B for numberless H2 in examples.md with H3 children) — pending round 07 kickoff time"
+    ]
+  },
   "v1_9_1_cut_completed": "2026-05-05",
   "v1_9_1_cut_details": {
     "completed_at": "2026-05-05",
