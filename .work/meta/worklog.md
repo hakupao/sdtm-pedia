@@ -2447,3 +2447,52 @@
   - **v1.9.2 cut 触发**: 3 NEW LOW INFO findings carry-forward from round 03 (atoms/line ratio drift + writer FIGURE误判 prompt gap + writer LIST_ITEM sib_idx prompt gap); cumulative stack still ≤4; 远低 v1.9.1 cut 阈值 19
 
 - **下一步**: commit + push (round 02 + round 03 双 CLOSED milestone; index 文件 3 件 + CLAUDE.md 剪过期状态).
+
+### 2026-05-06 (P2 B-03c round 04 自治连跑 CLOSED — 13 batches 731 atoms 6 domains EX/FA/FT/GF/HO/IE, §2.7 first-time numberless H2 in assumptions.md fully validated)
+
+- **路由词**: 用户 "P2 bulk B-03c round 04 自治连跑" → 主 session 报告 round 03 close 状态 + 提供 4 选项 (A/B/C/D) → Bojiang ack "B" (Option B = 6 domains 13 batches) → 主 session 写 round 04 kickoff (§0.5 grep checksum 20/20 byte-exact + §2.7 first-time lock proposal) → ack "ack §2.7 Plan-A" → dispatch 13 batches + mini-audit + commit → CLOSED commit `7d8db63`.
+- **入口 kickoff**: `multi_session/P2_B-03c_round_04_kickoff.md` (round 04 §2.7 first-time numberless H2 in assumptions.md lock + §2.4/§2.6 carry-forward)
+
+- **B-03c round 04 13 batches 自治连跑 全 PASS 100%** = 731 atoms (kickoff §0.5 estimate 568-965; 731 mid-band; 0.644 atoms/line vs round 03 0.589 = +9.3% slight uptick — likely cause: round 04 多 small <50L files with high SENTENCE/HEADING density)
+- 12 files 100% atomized (13 batches due to §2.4 EX/ex slice): batch_45 EX/assn 33L=27 / **batch_46 EX/ex slice 1-232 Ex1-5=144 (sliced part 1)** / **batch_47 EX/ex slice 233-434 Ex6-8=133 (sliced part 2 a145 续号 from batch_46 a144)** / batch_48 FA/assn 15L=9 / batch_49 FA/ex 244L=159 (largest batch under 300 slice threshold) / **batch_50 FT/assn 53L=38 (§2.7 first-time numberless H2 at L9 `## QRS Shared Assumptions`)** / batch_51 FT/ex 28L=17 / batch_52 GF/assn 25L=16 / batch_53 GF/ex 182L=110 / batch_54 HO/assn 13L=8 / batch_55 HO/ex 81L=54 / batch_56 IE/assn 9L=5 (smallest) / batch_57 IE/ex 18L=11
+- atom_type distribution: HEADING ~25 / LIST_ITEM 106 / SENTENCE ~250 / TABLE_HEADER 63 / TABLE_ROW ~280 / FIGURE 0 / NOTE 0 ≈ 731
+- Writer pool: general-purpose × 13 (FALLBACK sustained 73 batches cumulative B-02+B-03b+B-03c-rounds-01-04 = 5578 atoms 0 writer defect)
+- Reviewer pool: pr-review-toolkit:code-reviewer × 13 per-batch + **pr-review-toolkit:silent-failure-hunter AUDIT mode mini-audit** (Rule D fully distinct from per-batch + round 01-03 mini-audit reviewers; 6th cumulative B-03c reviewer family + 2nd pr-review-toolkit AUDIT-pivot in B-03c after round 03 type-design-analyzer)
+- mini-audit: 10/10 atoms PASS + 10/10 invariants PASS post-fix (5 standard + §2.4 + §2.6 + LIST_ITEM null + §2.7 + H1 sib=1 universal)
+- **Halt events**: 0 mid-round halt (vs round 03 撞 halt #6 + #7); round 04 all-clean dispatch.
+
+- **§2.7 first-time numberless H2 in assumptions.md lock (FIRST-TIME, kickoff §2.7)**:
+  - 触发: FT/assumptions.md L9 `## QRS Shared Assumptions` (round 01-03 整 0 例 H2 in assumptions.md per grep)
+  - Bojiang ack 2026-05-06 "ack §2.7 Plan-A" → kickoff §2.7 lock: numberless H2 atom h_lvl=2 sib=1 parent=`§FT [FT — Assumptions]` (file root); 该 H2 之前/之后所有 atoms parent=file root, **不创 sub-namespace `§FT.QRS [...]`** per v1.9.1 D-4 Hook D-D8
+  - batch_50 实证: 38 atoms (1 H1 + 1 numberless H2 + 2 SENTENCE + 34 LIST_ITEM); ALL 38 atoms parent=`§FT [FT — Assumptions]` (zero sub-namespace creation); independent reviewer verification PASS
+  - 与 round 02 §D-r506-01 H3a 区别: H3a 在 examples.md (numbered Example N + sub `### Example Na`) 创 sub-namespace; §2.7 在 assumptions.md (numberless `## Title`) 不创 sub-namespace
+  - Future rounds carry-forward: 后续 domain assumptions.md 含 numberless H2 (e.g. RP/RS) 默认按 §2.7 处理
+
+- **§2.4 multi-batch slice (round 03 carry-forward, second-time)**: EX/ex 434L sliced batch_46/47 at L232|233 H2 boundary (Ex5 ends L232 + Ex6 starts L233); atom_id a144→a145 cross-batch 续号 within file; mini-audit invariant #6 PASS; convention re-usability validated.
+
+- **§2.6 FIGURE-in-domains (round 03 carry-forward)**: round 04 expected 0 occurrence (12 source files grep verified 0 mermaid pre-dispatch); 实证 0 FIGURE atoms across all 13 batches; lock unstrained.
+
+- **3 in-place post-hoc fixes (Rule B backups preserved)**:
+  - **F-1 (LOW INFO orchestrator drift)**: batch_45 a001 H1 sib_idx null→1 (1 atom) — orchestrator dispatch prompt 误指 "sib=null"; precedent verified 47/47 prior H1 atoms = sib=1 universal; backup `.pre-batch45-h1-sib-fix.bak` (root + batch jsonl)
+  - **F-2 (LOW INFO writer drift)**: batch_49+51 TABLE_HEADER sib_idx 1/2→null (17 atoms = 15 batch_49 + 2 batch_51) — writer prompt v1.9.1 silent on TABLE_HEADER sib_idx; precedent verified 338/353 corpus = null universal; backup `.pre-table-header-sib-fix.bak` (root + 2 batch jsonl)
+  - **F-3 (HIGH mini-audit catch)**: batch_48+52+56 extracted_by string→object schema (30 atoms = 9+16+5) — orchestrator dispatch prompt 简化 form `name+version` 而非 explicit object; mini-audit Inv #5 FAIL caught; resolved pre-commit per kickoff §6 "HIGH 必修在 round 05 前"; backup `.pre-extracted-by-fix.bak` (root + 3 batch jsonl)
+
+- **关键决策**:
+  - **D-r506-05 round 04 §2.7 Plan-A acked**: numberless H2 in ass.md 不创 sub-namespace (consistent with v1.9.1 D-4 D-D8 既定 rule extension to assumptions.md). Plan-B (创 sub-namespace) 拒 — would 违反 D-D8 + 触发 v1.9.2 prompt 修订连锁.
+  - **D-r506-06 round 04 mini-audit reviewer = pr-review-toolkit:silent-failure-hunter AUDIT mode**: Rule D 跨 round burn 隔离 — 6th cumulative B-03c reviewer family + 2nd pr-review-toolkit AUDIT-pivot.
+  - **D-r506-07 in-place fix vs full redo for 3 drift events**: 选 in-place fix (1+17+30=48 atoms 总) preserve Rule B backup, 比 full redo 节约 95%+ 时间. 与 round 03 §2.6 FIGURE Option 1 in-place fix decision pattern一致.
+
+- **v1.9.2 candidates carry-forward (3 NEW from round 04 + 4 from round 03)**:
+  - **NEW round 04**: H1 sib_idx=1 explicit declaration (currently implicit empirical) + TABLE_HEADER sib_idx=null universal explicit rule + extracted_by object schema pre-baked example
+  - **From round 03**: atoms/line ratio drift INFO (0.782→0.614→0.589→0.644) + writer FIGURE 误判 prompt gap + writer LIST_ITEM sib_idx prompt gap + chain B 工具自动 enforce
+  - cumulative stack ≤7; 远低 v1.9.1 cut 阈值 19
+
+- **Cumulative post round 04**: md_atoms.jsonl 7114 atoms / 59 files atomized / 141 in-scope = **41.8% file coverage** (was 33.3% post round 03 / 26.2% post round 02 / 19.1% post round 01); 17 domains atomized / 63 total = 27.0%; B-03c progress 36/114 files = 31.6%
+
+- **Carry-over for next session**:
+  - **NEXT round 05**: 待 Bojiang ack scope (recommend 5-6 more domains alphabetical IS/LB/MB/MH/MI/MK = ~10-14 batches; or smaller per ctx pressure consideration; 41 domains × 2 = 82 files remaining post round 04)
+  - **路由词候选**: `P2 bulk B-03c round 05 自治连跑` (post round 04 review + scope ack)
+  - **B-03 整 cycle 末 cumulative audit**: 待 B-03c 全 ~6+ rounds 闭环 (post round 04: 59/141 = 41.8% file coverage; 余 82 files 估 5-7 round 完成 P2 B-03c)
+  - **v1.9.2 cut 触发**: cumulative stack ≤7; 远低 v1.9.1 cut 阈值 19; round 05 后 review 是否 cut
+
+- **下一步**: 收尾 (本 session 用户路由词 "先不进入round 05 收个尾"; index 文件 3 件 + CLAUDE.md 无 key path 新增 + CLAUDE.md 已 124 行 < 150 限 + 0 round/batch progress mention 无需 prune; round 04 close commit `7d8db63` 已 push).
