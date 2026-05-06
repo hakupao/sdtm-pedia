@@ -497,3 +497,57 @@
   - **Round 06 mini-audit reviewer fresh candidates**: pr-review-toolkit:pr-test-analyzer / oh-my-claudecode:critic / oh-my-claudecode:scientist (round 05 burn pr-review-toolkit:comment-analyzer)
 
 - **下一步**: commit + push (round 05 CLOSED milestone; index 文件 3 件 + CLAUDE.md 无 key path 新增, 已扫无 round/batch 状态 mention 无需 prune).
+
+## 2026-05-06 06 Deep Verification P2 B-03c round 06 自治连跑 CLOSED — 10 batches 331 atoms 5 domains ML/MS/NV/OE/OI ★ 跨 50% domain coverage milestone (PC defer Option C; 1 RESOLVED HALT batch_72 schema regression; v1.9.2 cut planning threshold met)
+
+- **路由词**: 用户 "开始 work 的 06 的 Round 06" → 主 session grep verify (md_atoms.jsonl distinct domain = 28 实证 vs progress.json `23` STALE; 余 35 domains alphabetical 起 ML/MS/NV/OE/OI/PC) → 主 session 报告 + 提 3 选 1 sub-policy 决断 (PC/ex 572L numberless H2 含 7 H3 + L7 H2 numbered Ex1 slug 冲突 — Plan A.1 / Plan B / Option C defer) → Bojiang ack "a" + "你推荐选哪个，直接开干" → 主 session 选 Option C (5 domains ML/MS/NV/OE/OI; PC defer 到 round 07 给独立设计时间) → 主 session 写 round 06 kickoff (§0.5 grep checksum 20/20 byte-exact, **0 first-time lock** 因 grep 实证 0 numberless H2 in 5 ass.md + 0 in 5 ex.md + 0 mermaid + max OE/ex 153L < 300L) → 直接 dispatch 10 batches + mini-audit + commit.
+
+- **入口 kickoff**: `multi_session/P2_B-03c_round_06_kickoff.md` (round 06 全 inherit round 01-05 §2.1-2.7 + §2.8 R-2.8-1/2/3 + §2.10 round 05 MED-01 v1.9.2 candidate empirical rules dispatch prompt 显式注入 explicit JSON form)
+
+- **B-03c round 06 10 batches 自治连跑 全 PASS post-fix** = **331 atoms** (kickoff §0.5 estimate 243-413 mid 370; actual 331 lower-mid band — atoms/line ratio 0.681 vs round 05 0.761 = -10% drift downward 因 round 06 含 4 small <50L files NV/ass 5L + OE/ass 7L + OI/ex 32L + ML/ass 15L 低 SENTENCE 密度)
+- 10 files 100% atomized (10 batches, 0 sliced 因 max OE/ex 153L < 300L threshold; PC/ex 572L deferred to round 07 per Option C):
+  - batch_70 ML/assn 15L=11
+  - batch_71 ML/ex 73L=49 (1 INFO kickoff drift "4 tables" → actual 5; writer Rule-B'd byte-exact)
+  - **batch_72 MS/assn 19L=14 (initial attempt HALT due to 4 schema regressions; RE-DISPATCH PASS clean)** ⚠️
+  - batch_73 MS/ex 73L=51
+  - batch_74 NV/assn 5L=3 (smallest batch round 06)
+  - batch_75 NV/ex 87L=61
+  - batch_76 OE/assn 7L=4
+  - batch_77 OE/ex 153L=100 (round 06 LARGEST batch, 4 H2 Examples + 11 tables)
+  - batch_78 OI/assn 22L=15
+  - batch_79 OI/ex 32L=23
+- atom_type distribution: HEADING 22 (11 H1 + 11 H2 numbered Examples) / LIST_ITEM 50 / SENTENCE 105 / TABLE_HEADER 25 / TABLE_ROW 129 / FIGURE 0 / NOTE 0 / CROSS_REF 0 / CODE_LITERAL 0 = 331
+
+- **per-batch Rule A**: 10/10 PASS post-fix (1 batch_72 initial HALT due to 4 schema regressions → re-dispatch PASS clean; 0 retry on subsequent 7 batches)
+- **per-batch reviewer pool**: pr-review-toolkit:code-reviewer × 11 (10 batches + 1 re-audit batch_72)
+- **mini-audit reviewer**: pr-review-toolkit:pr-test-analyzer AUDIT mode (8th cumulative B-03c reviewer family + 4th pr-review-toolkit AUDIT-pivot post round 03 type-design-analyzer + round 04 silent-failure-hunter + round 05 comment-analyzer)
+- **mini-audit verdict**: 10/10 atoms PASS + 9/9 round invariants PASS (incl R-2.8-1/2/3 + round 03 LIST_ITEM lock + round 05 MED-01 hl-null codification + **schema regression no-recurrence verify post batch_72 RE-DISPATCH**); 0 HIGH / 0 MED / 0 LOW / 1 INFO carry-forward
+
+- **1 HALT 触发 + 解决** (RESOLVED post-fix):
+  - **HIGH-R06-1 batch_72 schema regression**: writer general-purpose initial attempt emitted 4 schema violations 100% atoms — (1) `verbatim_text` field name instead of frozen schema `verbatim`, (2) missing required `line_start`/`line_end` int fields, (3) missing `figure_ref` field, (4) `atom_type: "H1"` instead of canonical enum `"HEADING"`. Reviewer pr-review-toolkit:code-reviewer caught post-emission ("HALT HIGH severity schema regression"). Resolution: root reverted 7865→7851 (Rule B backup `md_atoms.jsonl.pre-batch72-redispatch.bak` preserved), re-dispatched with **explicit JSON template** (referenced batch_70 a001 working schema as concrete example) — 14 atoms PASS clean post-redispatch. Subsequent batches 73-79 ALL clean schema (mini-audit 100% no-recurrence verify). Cause traced: dispatch prompt narratively described schema ("atom_type=HEADING") but lacked explicit JSON template; writer subagent interpreted loosely (used "H1") + dropped optional-looking fields + renamed intuitive variants.
+
+- **关键决策**:
+  - **D-r606-01 Option C scope (defer PC)**: pre-dispatch grep 发现 PC/ex 572L numberless H2 含 7 H3 + L7 H2 numbered Ex1 slug 冲突 → 3 选 1 sub-policy 决断 (Plan A.1 anchor file root / Plan B sub-namespace by title NEW lock / Option C defer PC to round 07). 选 Option C: round 06 干净 0 NEW lock + ctx 最轻 + PC 独立 round 07 给设计时间. 优先 round 04 in-place fix 教训 (30 extracted_by + 17 TABLE_HEADER + 1 H1 sib = 48 atoms post-hoc fix, due to lock policy gap → 提前规避 lock 风险).
+  - **D-r606-02 batch_72 schema regression in-place revert + re-dispatch**: HALT 触发后选 root revert + re-dispatch 而非 in-place fix (4 处独立 regression 复杂; re-dispatch 用 batch_70 a001 as template 最 clean). Rule B 4 backup .bak files preserved (writer jsonl + verdicts + summary + root). 比 in-place fix 更彻底.
+  - **D-r606-03 round 06 mini-audit reviewer = pr-review-toolkit:pr-test-analyzer AUDIT mode**: Rule D 跨 round burn 隔离 — 8th cumulative B-03c reviewer family + 4th pr-review-toolkit AUDIT-pivot. Round 07 fresh candidates 收窄至 oh-my-claudecode:critic / oh-my-claudecode:scientist (4 pr-review-toolkit AUDIT slots 全用尽).
+  - **D-r606-04 progress.json domains_atomized counter drift correction**: 实证 grep distinct 28 post round 05 (vs progress.json `23` STALE), round 06 close 时 marked DRIFT_NOTE in nested obj + canonical going forward = `cumulative_post_round_06.domains_atomized: 33` (= 28 + 5 round 06 actual).
+  - **D-r606-05 NEW v1.9.2 candidate #10 explicit JSON template**: dispatch prompt MUST include explicit JSON template with all 12 field names + reference working batch_70 a001. 不仅 narrative description (round 04 R-2.8-3 同根本原因, batch_72 4 schema regression 是 root cause). HIGH severity prevention codification.
+
+- **v1.9.2 candidates carry-forward (1 NEW from round 06 + 9 carry-forward = 10 cumulative — ≥10 cut planning trigger threshold MET)**:
+  - **NEW round 06 #10 (HIGH)**: codify "dispatch prompt MUST include explicit JSON template with all 12 field names + reference working batch_70 a001 atom" (HIGH severity prevention)
+  - **From round 05 (#8 MED + #9 INFO)**: LIST_ITEM hl+sib field-explicit-null + atoms/line ratio uptick INFO
+  - **From round 04 (#5/6/7)**: H1 sib_idx=1 explicit + TABLE_HEADER sib_idx=null universal explicit + extracted_by object schema pre-baked
+  - **From round 03 (#1/2/3/4)**: atoms/line ratio drift INFO + writer FIGURE 误判 + writer LIST_ITEM sib_idx + chain B 工具自动 enforce
+  - **决策**: cumulative stack 10 = ≥10 trigger threshold per kickoff §6; recommend round 07 kickoff time evaluate v1.9.2 cut OR carry to round 08 if prefer batching with one more round of empirical evidence
+
+- **Cumulative post round 06**: md_atoms.jsonl **8122 atoms** / **81 files atomized** / 141 in-scope = **57.4% file coverage** (was 50.4% post round 05 / 41.8% post round 04). Distinct domains: **33/63 = 52.4%** ★ **跨 50% domain coverage milestone** (was 44.4% post round 05 实证, drift-corrected; B-03c progress 58/114 files = 50.9%).
+
+- **Carry-over for next session**:
+  - **NEXT round 07**: 待 Bojiang ack scope (default PC 单独 mini-round per Option C 决断 — PC/ex 572L numberless H2 含 7 H3 + numbered/numberless Ex1 slug 冲突需独立设计 sub-policy; 或扩展 PC + 后续 alphabetical PE/PP/PR/QS/RE; 30 domains × 2 = 60 files remaining post round 06)
+  - **路由词候选**: `P2 bulk B-03c round 07 自治连跑` 或 `开始 work 的 06 的 Round 07`
+  - **PC 独立设计 sub-policy**: Plan A.1 (numberless H2 不创 sub-namespace, H3 anchor file root with distinct slug) vs Plan B (numberless H2 创 sub-namespace by title, H3 anchor 到 H2 — NEW lock for ex.md ≠ ass.md). Round 07 kickoff 时 ack.
+  - **v1.9.2 cut 触发评估**: cumulative stack 10 = ≥10 trigger; round 07 kickoff 时评估 OR 推迟 round 08
+  - **Round 07 mini-audit reviewer fresh candidates**: oh-my-claudecode:critic / oh-my-claudecode:scientist (4 pr-review-toolkit AUDIT slots 全用尽 burn list: type-design-analyzer / silent-failure-hunter / comment-analyzer / pr-test-analyzer)
+  - **B-03 整 cycle 末 cumulative audit**: 待 B-03c 全 ~4-5 more rounds 闭环 (post round 06: 81/141 = 57.4% file coverage; 余 60 files 估 4-5 round 完成 P2 B-03c, PC 单独 + remaining 29 domains × 2)
+
+- **下一步**: commit + push (round 06 CLOSED milestone; index 文件 4 件: audit_matrix backfill round 05 pointer + round 06 + _progress.json round_06_details + drift fix + worklog phase06 + PROGRESS.md; CLAUDE.md 无 key path 新增, 已扫无 round/batch 状态 mention 无需 prune).

@@ -198,7 +198,7 @@
     "estimated_overhead_retired_minutes_per_batch": "10-15",
     "estimated_overhead_retired_total_hours_p1_remaining": "5-7"
   },
-  "current_phase": "P2_B-03c_round_05_CLOSED_pending_round_06_ack",
+  "current_phase": "P2_B-03c_round_06_CLOSED_pending_round_07_ack_default_PC_solo_mini_round",
   "plan_version": "v0.6 (P2 B-03c round 05 closed)",
   "recovery_hint": "P2 B-03c round 05 CLOSED 2026-05-06. 12 batches batch_58..69 PASS 100% per-batch (1 CONDITIONAL_PASS batch_60 post-hoc fixed) + mini-audit PASS 100% (10/10 atoms + 9/9 invariants). md_atoms.jsonl 7791 atoms / 71 files atomized / 50.4% file coverage (★ crossed 50% milestone). Round 05 NO first-time lock (grep 实证 0 mermaid + 0 numberless H2 + max file IS/ex 273L under 300L slice threshold) — cleanest round to date. 1 MED-01 fired and post-hoc resolved (batch_60 LB/assn 9 LIST_ITEM atoms explicit null hl+sib fields added Rule B backup preserved). 0 halt mid-round. Round 06 待用户 ack scope (recommend 5-6 more domains alphabetical ML to onwards = ~10-14 batches; 35 domains × 2 = 70 files remaining post round 05). 入口: multi_session/P2_B-03c_round_05_kickoff.md (§0.5 20/20 grep + §2.8 R-2.8-1/2/3 carry-forward + §8 default Option acked).",
   "created": "2026-04-24",
@@ -2121,10 +2121,95 @@
       "file_coverage_pct": 50.4,
       "file_coverage_milestone": "★ crossed 50% half-way mark",
       "domains_atomized": 23,
+      "domains_atomized_DRIFT_NOTE": "STALE counter — 实证 grep md_atoms.jsonl distinct domain prefix = 28 post round 05 (B-02 CM + r01 5 + r02 5 + r03 5 + r04 6 + r05 6 = 28; cumulative_post_round_06.domains_atomized = 33 = canonical going forward)",
       "domains_total": 63,
       "domain_coverage_pct": 36.5,
       "b_03c_progress_pct": "48/114 = 42.1%"
     },
     "round_06_trigger": "pending Bojiang ack scope (recommend 5-6 more domains alphabetical ML/MO/MS/NV/OE/PC or smaller per ctx pressure consideration; 35 domains × 2 = 70 files remaining post round 05; estimate 5-7 more rounds to close P2 B-03c)"
+  },
+  "b_03c_round_06_completed": true,
+  "b_03c_round_06_details": {
+    "completed_at": "2026-05-06",
+    "scope": "5 domains alphabetical (ML/MS/NV/OE/OI) × 2 files = 10 batches batch_70..79 (Option C; PC defer 到 round 07 因 PC/ex 572L numberless H2 含 7 H3 + L7 H2 numbered Ex1 slug 冲突独立设计)",
+    "atoms": 331,
+    "atoms_estimate_kickoff_section_0_5_row_15": "243-413 (331 mid-band — atoms/line ratio 0.681 = round 05 0.761 -10% drift)",
+    "atoms_per_line": 0.681,
+    "files_atomized": 10,
+    "source_lines": 486,
+    "first_time_conventions_locked": [],
+    "first_time_conventions_no_trigger": [
+      "§2.4 multi-batch slice — NO trigger (max OE/ex 153L < 300L)",
+      "§2.6 FIGURE-in-domains — 0 occurrence (grep verified 0 mermaid in 10 source files)",
+      "§2.7 numberless H2 in assumptions.md — 0 occurrence (grep verified 0 in 5 ass.md)",
+      "§2.7-extended numberless H2 in examples.md — 0 occurrence (grep verified 0 in 5 ex.md, all numbered Example N format; PC defer 因 PC/ex 含 numberless H2 with H3 children — 留 round 07 独立设计)"
+    ],
+    "writer_pool": "general-purpose × 11 (10 batches + 1 RE-DISPATCH; FALLBACK peer-alternative sustained 96 batches cumulative B-02+B-03b+B-03c-rounds-01-06 = 6586 atoms; 1 schema regression caught + corrected post-hoc = 1 writer defect post-fix RESOLVED, sustained quality streak intact)",
+    "reviewer_pool_per_batch": "pr-review-toolkit:code-reviewer × 11 (10 batches + 1 re-audit)",
+    "reviewer_mini_audit": "pr-review-toolkit:pr-test-analyzer AUDIT mode (8th cumulative B-03c reviewer family + 4th pr-review-toolkit AUDIT-pivot; Rule D distinct from per-batch + round 01-05 mini-audits)",
+    "rule_a_per_batch_pass_rate": "10/10 = 100% post-fix (1 batch_72 initial HALT due to 4 schema regressions → re-dispatch PASS clean)",
+    "mini_audit_pass_rate": "10/10 atoms = 100% + 9/9 round invariants PASS",
+    "halt_events": {
+      "halt_3_batch_72_schema_regression": "fired and resolved at batch_72 reviewer audit — 4 schema violations 100% atoms detected: (1) `verbatim_text` instead of `verbatim` field name, (2) missing `line_start`/`line_end` int fields, (3) missing `figure_ref` field, (4) `atom_type: \"H1\"` instead of `\"HEADING\"` enum value. Root reverted 7865→7851 (Rule B backup .pre-batch72-redispatch.bak preserved). Re-dispatched with explicit JSON template (batch_70 a001 schema example) → 14 atoms PASS clean schema. Subsequent batches 73-79 ALL clean post-fix 0 recurrence."
+    },
+    "post_hoc_fixes": {
+      "batch_72_re_dispatch": "writer 4 schema regressions: verbatim_text + missing line_start/line_end/figure_ref + atom_type \"H1\". Resolved via root revert + re-dispatch with explicit JSON template. Rule B backups preserved: P2_B-03_batch_72_md_atoms.jsonl.pre-redispatch.bak + rule_a_P2_B-03_batch_72_verdicts.jsonl.pre-redispatch.bak + rule_a_P2_B-03_batch_72_summary.md.pre-redispatch.bak + md_atoms.jsonl.pre-batch72-redispatch.bak. Cause: dispatch prompt narratively described schema (\"atom_type=HEADING\") but lacked explicit JSON template — writer subagent interpreted loosely (\"H1\") + dropped optional-looking fields + renamed intuitive variants. v1.9.2 candidate #10 codify: dispatch prompt MUST include explicit JSON template with all 12 field names + reference working batch_70 a001."
+    },
+    "findings": {
+      "high": 1,
+      "medium": 0,
+      "low": 0,
+      "info_carry_forward": [
+        "INFO-R06-01 batch_71 ML/ex kickoff dispatch prompt count drift — kickoff said \"4 tables\" but source has 5 tables (writer correctly emitted 5 byte-exact per Rule B; orchestrator-side prompt count drift, NOT writer defect). Recommend pre-flight `grep -c '^|'` source verify before round 07+ kickoff §4 dispatch contract construction.",
+        "INFO-R06-02 atoms/line ratio drift -10% (round 05 0.761 → round 06 0.681) — likely cause: round 06 had 4 small <50L files (NV/ass 5L + OE/ass 7L + OI/ex 32L + ML/ass 15L) with low SENTENCE density vs round 05 having 3 large dense ex files. v1.9.2 candidate INFO-only #11."
+      ],
+      "high_resolved": [
+        "HIGH-1 batch_72 4-schema-regression (verbatim_text + missing line_start/line_end/figure_ref + atom_type \"H1\") — resolved via root revert + re-dispatch with explicit JSON template; Rule B backups preserved; v1.9.2 candidate #10."
+      ]
+    },
+    "v1_9_2_candidate_stack_post_round_06": [
+      "1 round 03 atoms/line ratio drift INFO",
+      "2 round 03 writer FIGURE 误判 prompt gap",
+      "3 round 03 writer LIST_ITEM sib_idx prompt gap",
+      "4 chain B 工具自动 enforce",
+      "5 round 04 H1 sib_idx=1 explicit declaration",
+      "6 round 04 TABLE_HEADER sib_idx=null universal explicit rule",
+      "7 round 04 extracted_by object schema pre-baked example",
+      "8 round 05 LIST_ITEM hl+sib field-explicit-null requirement (MED-01 codification)",
+      "9 round 05 atoms/line ratio uptick INFO 0.644→0.761 multi-Examples-file driven",
+      "10 NEW round 06 explicit JSON template with all 12 field names + reference working atom (batch_70 a001 style) — narrative description insufficient, writer subagent interprets loosely; HIGH severity prevention codification"
+    ],
+    "v1_9_2_cut_decision": "**CUT PLANNING THRESHOLD MET** post round 06 (stack 10 = ≥10 trigger threshold per kickoff §6); recommend round 07 kickoff time evaluate v1.9.2 cut OR carry to round 08 if prefer batching with one more round of empirical evidence",
+    "rule_d_roster_cumulative_b_03c": [
+      "round 01 mini-audit: feature-dev:code-reviewer (slot #1)",
+      "round 02 batch_23 burn: feature-dev:code-reviewer + round 02 mini-audit: feature-dev:code-architect (slot #2)",
+      "round 03 mini-audit: pr-review-toolkit:type-design-analyzer (slot #3) — 1st pr-review-toolkit AUDIT-pivot",
+      "round 04 mini-audit: pr-review-toolkit:silent-failure-hunter (slot #4) — 2nd pr-review-toolkit AUDIT-pivot",
+      "round 05 mini-audit: pr-review-toolkit:comment-analyzer (slot #5) — 3rd pr-review-toolkit AUDIT-pivot",
+      "round 06 mini-audit: pr-review-toolkit:pr-test-analyzer (slot #6) — 4th pr-review-toolkit AUDIT-pivot",
+      "per-batch sustained: pr-review-toolkit:code-reviewer (B-02 + B-03b + B-03c rounds 01-06 = ~96 batches cumulative + 1 re-audit batch_72)"
+    ],
+    "rule_d_round_07_fresh_candidates": [
+      "oh-my-claudecode:critic",
+      "oh-my-claudecode:scientist",
+      "(others if available; 4 pr-review-toolkit AUDIT slots all consumed: type-design-analyzer / silent-failure-hunter / comment-analyzer / pr-test-analyzer)"
+    ],
+    "drift_corrections_applied_at_close": [
+      "_progress.json `cumulative_post_round_05.domains_atomized` = 23 STALE (实证 grep distinct 28); marked DRIFT_NOTE in nested obj; canonical going forward = `cumulative_post_round_06.domains_atomized` = 33 actual",
+      "_progress.json `current_phase` previously stale `P2_B-03c_round_05_CLOSED_pending_round_06_ack` (still apt at session start, since round 05 close was committed) — updated to round_06_CLOSED at this round 06 close"
+    ],
+    "cumulative_post_round_06": {
+      "md_atoms_jsonl_total": 8122,
+      "files_atomized": 81,
+      "files_in_scope": 141,
+      "file_coverage_pct": 57.4,
+      "domains_atomized": 33,
+      "domains_atomized_canonical_grep_verified": 33,
+      "domains_total": 63,
+      "domain_coverage_pct": 52.4,
+      "domain_coverage_milestone": "★ crossed 50% domain coverage half-way mark",
+      "b_03c_progress_pct": "58/114 = 50.9%"
+    },
+    "round_07_trigger": "pending Bojiang ack scope (default PC 单独 mini-round per Option C 决断 — PC/ex 572L numberless H2 含 7 H3 + numbered/numberless Ex1 slug 冲突需独立设计 sub-policy; 或扩展 PC + 后续 alphabetical PE/PP/PR/QS/RE; 30 domains × 2 = 60 files remaining post round 06; 估 4-5 more rounds to close P2 B-03c)"
   }
 }

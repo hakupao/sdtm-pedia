@@ -624,3 +624,66 @@
 | batch_57 | 2026-05-06 | IE/examples.md | 18 | 11 | 0.611 | 1 H1 + 1 H2 / 4 SENTENCE / 1 TABLE_HEADER / 4 TABLE_ROW | general-purpose | pr-review-toolkit:code-reviewer | 11/11=100% (full) | 5/5 | 0 H/M/L | PASS (final batch round 04) |
 | round_04_close | 2026-05-06 | round 04 mini-audit (10 atoms × 6 domains, reviewer pr-review-toolkit:silent-failure-hunter AUDIT mode Rule D distinct from per-batch reviewers + round 01-03 mini-audits) | sample 10/10=100% PASS | invariants 9/10 (Inv #5 extracted_by post-hoc fixed) → 10/10 PASS post-fix | §2.4=PASS §2.6=PASS §2.7=PASS §2.7-Plan-A FULLY VALIDATED | 1 HIGH (extracted_by string-form 30 atoms batches 48/52/56) — resolved in-place fix Rule B backup .pre-extracted-by-fix.bak; v1.9.2 prompt candidate explicit object schema | CONDITIONAL_PASS → PASS post-fix |
 | round_04_post-hoc | 2026-05-06 | extracted_by string→object schema patch | Rule B backup .pre-extracted-by-fix.bak (root + batch_48 + batch_52 + batch_56) | 30 atoms fixed (9 batch_48 + 16 batch_52 + 5 batch_56); cause: orchestrator dispatch prompt 简化 form `name+version` 而非 explicit object — writer literally interpreted; v1.9.2 prompt candidate: object schema pre-baked example in writer prompt | resolved | PASS |
+
+### Round 05 (CLOSED 2026-05-06, commit 0ee951a — audit_matrix backfill omitted in round 05 close, summarized here as pointer)
+
+> Round 05 scope: 6 domains (IS/LB/MB/MH/MI/MK) × 2 files = 12 batches batch_58..69 (NO sliced; max IS/ex 273L < 300L); 估 atoms 445-757; **0 first-time lock** (carry-forward only); **★ 跨 50% file coverage milestone** (71/141)
+>
+> Per-batch + mini-audit details: see `evidence/checkpoints/rule_a_P2_B-03_batch_58..69_summary.md` + `_progress.json` `b_03c_round_05_details`. Compact summary:
+
+| Batch | Target | Lines | Atoms | atom_id range | Writer | Reviewer | Rule A | Verdict |
+|---|---|---|---|---|---|---|---|---|
+| batch_58..69 | 6 domains × 2 files (IS/LB/MB/MH/MI/MK) | 890 total | **677** (ratio 0.761) | md_dm{IS,LB,MB,MH,MI,MK}_{assn,ex}_a* | general-purpose × 12 | pr-review-toolkit:code-reviewer × 12 | 12/12 PASS (1 batch_60 CONDITIONAL→PASS post-fix) | PASS |
+| round_05_close | 2026-05-06 | round 05 mini-audit (10 atoms × 6 domains; reviewer pr-review-toolkit:comment-analyzer AUDIT mode — 7th cumulative B-03c family + 3rd pr-review-toolkit pivot) | 10/10 = 100% + 9/9 invariants PASS (incl R-2.8-1/2/3 + round 03 LIST_ITEM lock + §2.4/2.6/2.7 N/A trigger) | 0 HIGH / 1 MED-01 (resolved post-fix) / 0 LOW | PASS |
+| round_05_post-hoc | 2026-05-06 | batch_60 LB/assn 9 LIST_ITEM atoms missing explicit hl+sib JSON null fields → in-place fix Rule B backup .pre-batch60-list-item-fields-fix.bak (root + batch_60 jsonl); 18 fields added | cause: dispatch prompt terse `sib_idx=null universal` wording → writer omitted instead of explicit JSON; resolved batch_62+ explicit JSON form 0 recurrence | v1.9.2 candidate #8: codify LIST_ITEM hl+sib field-explicit-null requirement | resolved | PASS |
+
+**B-03c Round 05 cumulative**: md_atoms.jsonl 7791 atoms / 71 files atomized / 141 in-scope = ★ **50.4% file coverage milestone**; 28 distinct domains atomized; cumulative writer pool sustained 85 batches B-02+B-03b+B-03c-rounds-01-05 = 6255 atoms 0 writer defect.
+
+---
+
+### Round 06 (CLOSED 2026-05-06)
+
+> Round 06 scope (Option C, post sub-policy ack): 5 domains (ML/MS/NV/OE/OI) × 2 files = 10 batches batch_70..79 (NO sliced; max OE/ex 153L < 300L); PC defer 到 round 07 因 numberless H2 含 H3 children + L7 H2 numbered Ex1 slug 冲突独立设计; 估 atoms 243-413; **0 first-time lock** (carry-forward only)
+
+| Batch | Target | Lines | Atoms | Ratio | Breakdown | Writer | Reviewer | Rule A | Findings | Verdict |
+|---|---|---|---|---|---|---|---|---|---|---|
+| batch_70 | ML/assumptions.md | 15 | 11 | 0.733 | 1 H1 + 9 LIST_ITEM + 1 SENTENCE | general-purpose | pr-review-toolkit:code-reviewer | 11/11=100% (full) | 0 H/M/L | PASS |
+| batch_71 | ML/examples.md | 73 | 49 | 0.671 | 3 HEADING + 15 SENTENCE + 2 LIST_ITEM + 5 TABLE_HEADER + 24 TABLE_ROW | general-purpose | pr-review-toolkit:code-reviewer | 11/11=100% | 0 H/M/L / 1 INFO (kickoff drift "4 tables" → actual 5; writer Rule-B'd byte-exact) | PASS |
+| batch_72 | MS/assumptions.md | 19 | 14 (initial attempt FAILED) | n/a | initial attempt: `verbatim_text` instead of `verbatim` + missing line_start/line_end/figure_ref + atom_type "H1" instead of "HEADING" | general-purpose | pr-review-toolkit:code-reviewer (caught HIGH-severity schema regression) | **0/14=0% HALT** | **3 HIGH (4 schema violations 100% atoms)** | **HALT** |
+| batch_72 | post-hoc | re-dispatch with explicit JSON template (batch_70 a001 schema example) | Rule B backups preserved: `.pre-redispatch.bak` (writer jsonl + verdicts + summary) + `.pre-batch72-redispatch.bak` (root) | root reverted 7865→7851; writer re-emitted 14 atoms with frozen schema 12-key explicit | resolved | PASS |
+| batch_72 | MS/assumptions.md (RE-DISPATCH) | 19 | 14 | 0.737 | 1 H1 + 13 LIST_ITEM | general-purpose (re-dispatch) | pr-review-toolkit:code-reviewer (re-audit) | 14/14=100% (full) | 0 H/M/L (4 prior HIGH all RESOLVED) | PASS |
+| batch_73 | MS/examples.md | 73 | 51 | 0.699 | 4 HEADING + 17 SENTENCE + 4 TABLE_HEADER + 26 TABLE_ROW | general-purpose | pr-review-toolkit:code-reviewer | 11/11=100% | 0 H/M/L | PASS |
+| batch_74 | NV/assumptions.md | 5 | 3 | 0.600 | 1 H1 + 2 LIST_ITEM | general-purpose | pr-review-toolkit:code-reviewer | 3/3=100% (full, smallest batch round 06) | 0 H/M/L | PASS |
+| batch_75 | NV/examples.md | 87 | 61 | 0.701 | 3 HEADING + 24 SENTENCE (15 bold-caption §D-5) + 4 TABLE_HEADER + 30 TABLE_ROW | general-purpose | pr-review-toolkit:code-reviewer | 11/11=100% | 0 H/M/L | PASS |
+| batch_76 | OE/assumptions.md | 7 | 4 | 0.571 | 1 H1 + 3 LIST_ITEM | general-purpose | pr-review-toolkit:code-reviewer | 4/4=100% (full) | 0 H/M/L | PASS |
+| batch_77 | OE/examples.md | 153 | 100 | 0.654 | 5 HEADING + 36 SENTENCE + 9 LIST_ITEM + 11 TABLE_HEADER + 39 TABLE_ROW (round 06 LARGEST batch, 4 H2 Examples + 11 tables) | general-purpose | pr-review-toolkit:code-reviewer | 14/14=100% | 0 H/M/L | PASS |
+| batch_78 | OI/assumptions.md | 22 | 15 | 0.682 | 1 H1 + 2 SENTENCE pre-list + 12 LIST_ITEM (含 sub-letter + sub-roman) | general-purpose | pr-review-toolkit:code-reviewer | 15/15=100% (full) | 0 H/M/L | PASS |
+| batch_79 | OI/examples.md | 32 | 23 | 0.719 | 2 HEADING + 6 SENTENCE + 1 TABLE_HEADER + 14 TABLE_ROW (final batch round 06) | general-purpose | pr-review-toolkit:code-reviewer | 23/23=100% (full) | 0 H/M/L | PASS |
+| **mini-audit** | round_06_close 2026-05-06 cross-batch 10-atom + 9 invariants | n/a | n/a | n/a | n/a | n/a | **pr-review-toolkit:pr-test-analyzer AUDIT mode** (Rule D distinct from per-batch + round 01-05 mini-audit reviewers; **8th cumulative B-03c reviewer family-pivot + 4th pr-review-toolkit AUDIT-pivot**) | **10/10=100% + 9/9 invariants PASS** (incl R-2.8-1/2/3 + round 03 LIST_ITEM lock + round 05 MED-01 hl-null codification + **schema regression no-recurrence verify** post batch_72 RE-DISPATCH) | 0 HIGH / 0 MED / 0 LOW / 1 INFO (INFO-R06-01 batch_71 dispatch prompt count drift, writer-side correct) | **PASS** |
+
+**B-03c Round 06 量化**:
+- 10 batches PASS 100% / 1 RESOLVED HALT (batch_72 schema regression → re-dispatch PASS)
+- **331 atoms cumulative** (kickoff §0.5 estimate 243-413 mid 370; actual 331 within band lower-mid; ratio 0.681 vs round 05 0.761 -10%)
+- 10 files 100% atomized (5 domains × 2 files: ML/MS/NV/OE/OI; PC defer 到 round 07)
+- 10 batches across 10 files (0 sliced batch — max OE/ex 153L < 300L)
+- atom_id 10 distinct namespaces (md_dm<D>_assn / md_dm<D>_ex 5 domains × 2)
+- atom_type distribution: HEADING 22 / LIST_ITEM 50 / SENTENCE 105 / TABLE_HEADER 25 / TABLE_ROW 129 = 331
+- Writer pool: general-purpose × 11 (10 batches + 1 re-dispatch FALLBACK peer-alternative sustained 96 batches cumulative B-02+B-03b+B-03c-rounds-01-06 = 6586 atoms; 1 schema regression caught + corrected post-hoc = 1 writer defect post-fix RESOLVED)
+- Reviewer pool: pr-review-toolkit:code-reviewer × 11 (10 batches + 1 re-audit) per-batch + pr-review-toolkit:pr-test-analyzer × 1 mini-audit (Rule D fully distinct from round 01-05 mini-audits; **8th cumulative B-03c reviewer family-pivot**)
+- 1 halt #3 fired and resolved: batch_72 4 schema regressions (verbatim_text + missing line_start/line_end/figure_ref + atom_type "H1") → root reverted + Rule B backup preserved + re-dispatched with explicit JSON template (batch_70 a001 schema example) → PASS clean
+- 1 INFO carry-forward: batch_71 kickoff dispatch prompt count drift "4 tables" → source actual 5 (writer Rule-B'd byte-exact correct; orchestrator-side prompt count drift, NOT writer defect)
+
+**Codifications validated in B-03c round 06**:
+- **R-2.8-1 H1 sib_idx=1 universal** (round 04 v1.9.2 candidate): 11 H1 atoms in round 06 all sib=1 explicit ✓
+- **R-2.8-2 TABLE_HEADER sib_idx=null universal** (round 04 v1.9.2 candidate): 25 TABLE_HEADER atoms all sib=null + line_end-line_start=1 (Hook A1) ✓
+- **R-2.8-3 extracted_by object schema** (round 04 v1.9.2 candidate): 331/331 atoms object form ✓
+- **Round 05 MED-01 LIST_ITEM hl+sib field-explicit-null** (round 05 v1.9.2 candidate): 50/50 LIST_ITEM atoms + 105/105 SENTENCE + 129/129 TABLE_ROW all hl=null AND sib=null EXPLICIT JSON (NOT omitted) ✓
+- **§D-5 bold-caption SENTENCE**: ~50+ instances across 5 examples files (`**Rows N-M:**` / `**Row N:**` / `**ml.xpt**` / `**ms.xpt**` / `**nv.xpt**` / `**suppnv.xpt**` / `**relrec.xpt**` / `**oe.xpt**` / `**suppoe.xpt**` / `**pr.xpt**` / `**di.xpt**` / `**oi.xpt**`) — 100% canonical SENTENCE classification
+- **§D-7.4 sub-letter / sub-roman LIST_ITEM**: 16 instances (MS/ass + OI/ass deeply nested 3-level numbered list; 4-space sub-letter + 8-space sub-roman) all sib_idx=null per round 03 lock
+- **§C-5 / Hook A1 TABLE_HEADER 2-row span**: ALL 25 TABLE_HEADER atoms `line_end - line_start = 1` (5+4+2+11+1 = 23... let me confirm: ML/ex 5 + MS/ex 4 + NV/ex 4 + OE/ex 11 + OI/ex 1 = 25 ✓; 100% v1.9 standard)
+- **§2.4 lock NO trigger**: 0 sliced batch (max OE/ex 153L < 300L)
+- **§2.6 lock NO trigger**: 0 FIGURE / 0 mermaid (grep verified 0 in 10 source files)
+- **§2.7 lock NO trigger**: 0 numberless H2 in 5 ass.md + 0 numberless H2 in 5 ex.md (grep verified)
+- **NEW round 06 v1.9.2 candidate #10 (schema regression prevention)**: dispatch prompt MUST include explicit JSON template with all 12 field names + reference working batch_70 a001 atom (NOT just narrative description). Cause traced: when prompt only narratively describes "use atom_type=HEADING" without showing concrete JSON example, writer subagent may interpret loosely (used "H1") + drop optional-looking fields (figure_ref) + rename intuitive variants (verbatim → verbatim_text). Resolution: post batch_72 re-dispatch with explicit JSON template, batches 73-79 ALL clean schema 0 recurrence.
+
+**Cumulative post B-03c round 06**: md_atoms.jsonl 8122 atoms / 81 files atomized (B-03b 17 + round 01-06: 10+10+10+12+12+10 = 64; total 81) / 141 in-scope = **57.4% file coverage** (was 50.4% post round 05). Distinct domains: 33/63 = **52.4% ★ 跨 50% domain coverage milestone** (was 44.4% post round 05; **NOTE: prior progress.json `domains_atomized` counter 23 was STALE** — 实证 grep distinct 28 post round 05; round 06 close fixes counter to 33). v1.9.2 candidate stack now **10 candidates** (round 03 ×4 + round 04 ×3 + round 05 ×2 + round 06 ×1) — meets **≥10 cut planning trigger threshold**; recommend round 07 kickoff time evaluate cut planning. Round 07 待 Bojiang ack (default PC 单独 mini-round per Option C 决断 / 或扩展 PC + 后续 alphabetical PE/PP/PR/QS/RE; 30 domains × 2 = 60 files remaining post round 06).
