@@ -22,7 +22,7 @@ CLAUDE.md 是**长效约束清单**, 不是工作日志, 不是状态看板. 写
 - 已在 MANIFEST.md / worklog.md 写过的内容 (避免重复维护)
 
 **写完后必须及时清理 (TTL 触发条件)**:
-- 带日期 / round N / version vX 的句子, 该阶段关闭立即删除或迁移到 `.work/meta/worklog/<对应phase>.md`
+- 带日期 / round N / version vX 的句子, 该阶段关闭立即删除或迁移到 `.work/meta/worklog.md`
 - 收尾流程必须扫一遍 CLAUDE.md, 把过期状态描述剪掉 (新增到下方 Session Wrap-up checklist)
 - Key Paths 条目 ≥ 2 个月没动过, 重审一次: 在用就压短描述, 不在用就删
 
@@ -37,10 +37,9 @@ Every new session, **before doing any work**, read these files in order:
 
 0. `.work/AGENT_GUIDE.md` — 一页纸进入指引 (优先, 含找东西速查 + phase 入口表 + 路由词)
 1. `.work/MANIFEST.md` — file layout, change chains, quick reference table
-2. `docs/PROGRESS.md` — 当前各 phase 状态 (唯一状态源)
-3. `.work/meta/worklog/INDEX.md` — 历史工作日志入口 (按 phase 拆分)
-4. `.work/03_verification/issues_found.md` — open issues
-5. `.work/meta/retrospective.md` § 4 — four prevention rules (must follow when doing any AI-assisted content work)
+2. `.work/meta/worklog.md` — work log with recovery guide
+3. `.work/03_verification/issues_found.md` — open issues
+4. `.work/meta/retrospective.md` § 4 — four prevention rules (must follow when doing any AI-assisted content work)
 
 Then summarize to the user: current status, open issues, and suggested next step.
 
@@ -104,22 +103,14 @@ Claude Projects 已完成, **不**参与本锁步 — 仅作为方法论参考 (
 
 When the user says **"收尾"**, **"wrap up"**, or **"提交收尾"**, execute the following checklist automatically:
 
-**三套索引职责** (refactor v1 段 2 后):
-- `.work/MANIFEST.md` — 文件结构 + 变更链 + Key Paths 指针 (durable, 不写状态)
-- `.work/meta/worklog/<phase>.md` (按 phase 拆分, INDEX.md 入口) — 历史 append-only 日志
-- `docs/PROGRESS.md` — **唯一**当前进度状态源 (轻量看板, ≤150 行)
-- `CLAUDE.md` Key Paths — 长效路径指针 (单元格 ≤ 80 字符)
-
-**Wrap-up checklist**:
-
 1. **Review** what was done this session (read git diff + new files)
-2. **Update index files** (按相关性):
-   - `.work/meta/worklog/<phase>.md` — append 本 session work record entry (按主题选 phase06/07/jp/meta_refactor)
-   - `docs/PROGRESS.md` — 状态总览 + milestone 列表更新 (若 phase 状态变了)
-   - `.work/MANIFEST.md` — 仅当目录结构 / chain 改了, 才动 (一般不需)
-   - `CLAUDE.md` Key Paths — 仅当新 key path 创建, 才加一行 (≤ 80 字符)
+2. **Update index files** — always update these 3 (+ CLAUDE.md if new key paths):
+   - `.work/MANIFEST.md` — plan map, directory structure, phase mapping, quick reference
+   - `.work/meta/worklog.md` — execution phase table + append work record entry
+   - `docs/PROGRESS.md` — progress board status
+   - `CLAUDE.md` Key Paths table (only if new key paths were created; 单元格 ≤ 80 字符)
 3. **Prune CLAUDE.md** — 按"CLAUDE.md 写作规则"扫一遍: 该阶段已关闭的 round/batch/version 进度状态, 删除或迁移到 worklog; 总行数应稳定在 150 行以内
-4. **Check Change Chains** — knowledge_base/ 改了 → Chain D; plans 改了 → Chain E; docs/jp/ 改了 → Chain J; .work/refactor_v1/ 改了 → Chain REFACTOR-v1
+4. **Check Change Chains** — if knowledge_base/ changed → Chain D; if plans changed → Chain E
 5. **Commit + push** — single commit with descriptive message, push to main
 6. **Report** — one-line summary of what was committed
 
@@ -130,4 +121,4 @@ Do NOT ask for confirmation on each step — just execute the full checklist and
 - Knowledge base content is in English (extracted from English PDF sources)
 - Work logs, plans, and meta docs are in Chinese
 - File status fields use format: `> 状态: **已完成** (date)` or `> 状态: 描述`
-- When completing a task, follow Chain B (worklog/<phase>.md → 相应 _progress.json → docs/PROGRESS.md)
+- When completing a task, follow Chain B (work log → progress.json → docs/PROGRESS.md)
