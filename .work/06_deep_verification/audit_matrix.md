@@ -687,3 +687,51 @@
 - **NEW round 06 v1.9.2 candidate #10 (schema regression prevention)**: dispatch prompt MUST include explicit JSON template with all 12 field names + reference working batch_70 a001 atom (NOT just narrative description). Cause traced: when prompt only narratively describes "use atom_type=HEADING" without showing concrete JSON example, writer subagent may interpret loosely (used "H1") + drop optional-looking fields (figure_ref) + rename intuitive variants (verbatim → verbatim_text). Resolution: post batch_72 re-dispatch with explicit JSON template, batches 73-79 ALL clean schema 0 recurrence.
 
 **Cumulative post B-03c round 06**: md_atoms.jsonl 8122 atoms / 81 files atomized (B-03b 17 + round 01-06: 10+10+10+12+12+10 = 64; total 81) / 141 in-scope = **57.4% file coverage** (was 50.4% post round 05). Distinct domains: 33/63 = **52.4% ★ 跨 50% domain coverage milestone** (was 44.4% post round 05; **NOTE: prior progress.json `domains_atomized` counter 23 was STALE** — 实证 grep distinct 28 post round 05; round 06 close fixes counter to 33). v1.9.2 candidate stack now **10 candidates** (round 03 ×4 + round 04 ×3 + round 05 ×2 + round 06 ×1) — meets **≥10 cut planning trigger threshold**; recommend round 07 kickoff time evaluate cut planning. Round 07 待 Bojiang ack (default PC 单独 mini-round per Option C 决断 / 或扩展 PC + 后续 alphabetical PE/PP/PR/QS/RE; 30 domains × 2 = 60 files remaining post round 06).
+
+---
+
+## Round 07 — PC Solo Mini-Round (closed 2026-05-06)
+
+**Scope**: PC solo (1 domain) × 2 files = 4 batches batch_80..83 (PC/assumptions.md 7L single + PC/examples.md 572L 3-way sliced L1-249 / L250-447 / L448-572; Option C continuation post round 06 PC defer; **NEW first-time lock §2.11 Plan B sub-namespace by sib_idx for numberless H2 with H3 children**)
+
+**Per-batch Rule A audits** (all PASS 100%):
+
+| Batch | Source | Lines | Atoms | Audit scope | Pass | §R-E1 | Plan B/§2.7 | Findings |
+|---|---|---|---|---|---|---|---|---|
+| batch_80 | PC/assumptions.md | 7 | 4 | full audit (4/4) | 4/4 = 100% | PASS 0/0 | N/A (no H2) | 0 |
+| batch_81 | PC/examples.md slice 1 (L1-249) | 249 | 199 | 8 boundary + 3 stratified (11/199) | 11/11 = 100% | PASS 0/0 | ★ §2.11 Plan B PASS 5 sub-namespaces (§PC.1, §PC.2, §PC.2.1..2.4) — slug-conflict resolved | 0 |
+| batch_82 | PC/examples.md slice 2 (L250-447) | 198 | 150 | 8 boundary + 3 stratified (11/150) | 11/11 = 100% | PASS 0/0 | §2.11 Plan B PASS (§PC.2.5 + §PC.2.6 + §PC.2 H3-self) | 0 |
+| batch_83 | PC/examples.md slice 3 (L448-572) | 125 | 100 | 8 boundary + 3 stratified (11/100) | 11/11 = 100% | PASS 0/0 | ★ §2.11 + §2.7 dual-lock + boundary L555/L556 clean PASS | 0 |
+| **总** | 2 files (1 sliced 3-way) | **579** | **453** | 37/37 audited | **37/37 = 100%** | 0 regression | 0 violation | **0** |
+
+**Mini-audit (round close gate before round 08)**:
+- Reviewer: `pr-review-toolkit:code-simplifier` AUDIT mode (slot #7, **5th pr-review-toolkit AUDIT-pivot** ★ extends pool 4→5; 9th cumulative B-03c reviewer family-pivot; Rule D distinct from per-batch + round 01-06 mini-audits)
+- Sample: 8 atoms stratified (2 atoms per batch × 4 batches)
+- Pass rate: **8/8 = 100%**
+- 10/10 round invariants PASS
+- v1.9.2 §E-1..E-6 hooks: §E-1 PASS / §E-2 PASS (2 H1 sib=1) / §E-3 PASS (17 TABLE_HEADER sib=null) / §E-4 PASS (453/453 prompt_version="P0_writer_md_v1.9.2") / §E-5 PASS (441/441 non-HEADING explicit-null) / §E-6 N/A
+- Findings: 0 HIGH / 0 MED / 0 LOW; 2 INFO carry-forward (json.dumps whitespace + atoms/line ratio uptick)
+
+**Round 07 outcome**:
+- 4 batches PASS 100% / 0 halt / 0 post-hoc fix (cleanest round of B-03c — vs round 06 1 RESOLVED HALT batch_72)
+- **453 atoms cumulative** (kickoff §0.5 estimate 290-475 mid 380; actual 453 within band upper-mid; ratio 0.782 vs round 06 0.681 +15% — dense Examples table-heavy driven)
+- 2 files 100% atomized (1 domain × 2 files: PC; PC/ex 3-way sliced)
+- 4 batches across 2 files (3 sliced from 1 file: PC/ex 572L)
+- atom_id 2 distinct namespaces (md_dmPC_assn 4 atoms a001-a004 + md_dmPC_ex 449 atoms a001-a449 cross-slice monotonic)
+- atom_type distribution: HEADING 12 / LIST_ITEM 21 / SENTENCE 85 / NOTE 1 / TABLE_HEADER 17 / TABLE_ROW 317 = 453
+- Writer pool: general-purpose × 4 (FALLBACK peer-alternative sustained 100 batches cumulative B-02+B-03b+B-03c-rounds-01-07 = 7039 atoms 0 writer defect post-fix RESOLVED; +0 NEW writer defect this round)
+- Reviewer pool: pr-review-toolkit:code-reviewer × 4 per-batch + pr-review-toolkit:code-simplifier × 1 mini-audit (Rule D fully distinct from round 01-06 mini-audits; **9th cumulative B-03c reviewer family-pivot**)
+- 0 halt fired; 0 post-hoc fix needed; 2 INFO carry-forward (non-blocking)
+
+**Codifications validated in B-03c round 07**:
+- **★ §2.11 Plan B sub-namespace by sib_idx (NEW round 07 first-time lock)**: PC/ex L58 numberless H2 "Relating PC and PP — Overview" 含 7 H3 children → first production validation. Plan B atoms 392 (7 H3 + 7 sub-namespaces L62/75/89/120/250/332/448 children atoms). Slug-conflict resolved via sib_idx-disambiguation (L7 §PC.1 [Example 1] vs L120 §PC.2.4 [Example 1 (All PC records used)] distinct).
+- **§2.7 round 04 lock sustained for childless numberless H2**: L556 "PC-PP Conclusions" (sib=3) + L562 "PC-PP — Suggestions for Implementing RELREC..." (sib=4) both file-root anchored §PC [PC — Examples] (9 atoms). Boundary L555/L556 clean transition (Plan B closes / §2.7 resumes).
+- **★ v1.9.2 §E-1 CRITICAL dispatch JSON template first production validation**: 4/4 batch dispatches included explicit JSON template + reference working atom md_dmML_assn_a001; 0 schema regression across 453 atoms (vs round 06 batch_72 4-schema-regression precedent under v1.9.1 narrative-only dispatch — §E-1 codification PROVEN EFFECTIVE).
+- **R-2.8-1 (now §E-2) H1 sib_idx=1 universal**: 2 H1 atoms in round 07 (batch_80 a001 + batch_81 a001) all sib=1 explicit ✓
+- **R-2.8-2 (now §E-3) TABLE_HEADER sib_idx=null universal**: 17 TABLE_HEADER atoms (batch_81 7 + batch_82 8 + batch_83 2) all sib=null + line_end-line_start=1 (Hook A1) ✓
+- **R-2.8-3 (now §E-4) extracted_by object schema**: 453/453 atoms object form with prompt_version="P0_writer_md_v1.9.2" ✓
+- **MED-01 (now §E-5) non-HEADING hl+sib field-explicit-null**: 441/441 non-HEADING atoms explicit `"heading_level":null, "sibling_index":null` (whitespace-tolerant grep recommended for v1.9.3 per INFO-R07-01) ✓
+- **§2.4 multi-batch slice convention**: PC/ex 3-way slice (L1-249 / L250-447 / L448-572) atom_id monotonic a001..a449 cross-batch; parent_section context cleanly carried across slices (slice 2 + 3 dispatch prompts explicit "L58 in scope" notes verified)
+- **§2.6 lock NO trigger**: 0 FIGURE / 0 mermaid (grep verified 0 in PC/ass + PC/ex)
+
+**Cumulative post B-03c round 07**: md_atoms.jsonl 8575 atoms / 83 files atomized (B-03b 17 + round 01-07: 10+10+10+12+12+10+2 = 66; total 83) / 141 in-scope = **58.9% file coverage** (was 57.4% post round 06). Distinct domains: 34/63 = **54.0% domain coverage** (was 52.4% post round 06; +1 PC). v1.9.3 candidate stack now **7 candidates** (5 carry from v1.9.2 + INFO-R07-01 whitespace + INFO-R07-02 atoms/line ratio) — well below ≥10 cut planning trigger threshold; carry to round 08+. Round 08 待 Bojiang ack (default alphabetical PE/PP/PR/QS/RE next 5 domains × 2 = 10 batches similar volume to round 06; 29 domains × 2 = 58 files remaining post round 07; 估 4-5 more rounds to close P2 B-03c).
