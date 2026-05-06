@@ -551,3 +551,68 @@
   - **B-03 整 cycle 末 cumulative audit**: 待 B-03c 全 ~4-5 more rounds 闭环 (post round 06: 81/141 = 57.4% file coverage; 余 60 files 估 4-5 round 完成 P2 B-03c, PC 单独 + remaining 29 domains × 2)
 
 - **下一步**: commit + push (round 06 CLOSED milestone; index 文件 4 件: audit_matrix backfill round 05 pointer + round 06 + _progress.json round_06_details + drift fix + worklog phase06 + PROGRESS.md; CLAUDE.md 无 key path 新增, 已扫无 round/batch 状态 mention 无需 prune).
+
+## 2026-05-06 06 Deep Verification v1.9.2 Prompt Cut COMPLETED (post P2 B-03c rounds 01-06 cycle CLOSED 同日 ★ 跨 50% domain coverage milestone trigger)
+
+- **路由词**: post round 06 close commit `a0ccaf4`, 主 session 提 v1.9.2 cut option (stack 10 ≥10 trigger threshold MET) → Bojiang ack "Cut now" 2026-05-06 → 主 session 执行 cut.
+- **Trigger**: 10-candidate backlog cumulative (1 NEW HIGH round 06 #10 explicit JSON template prevention from batch_72 4-schema-regression + 1 MED round 05 #8 LIST_ITEM hl+sib MED-01 + 3 HIGH round 04 #5/6/7 R-2.8-1/2/3 + 1 LOW round 03 #2 FIGURE-vs-CODE_LITERAL boundary + 4 INFO/process #1/3/4/9 carry) — meets ≥10 cut planning trigger threshold per round 06 kickoff §6.
+
+- **v1.9.2 cut 4 prompts written + 4 v1.9.1 archived**:
+  - **archive/v1.9.1_final_2026-05-06/**: cp 4 v1.9.1 prompts (P0_writer_md_v1.9.1.md + P0_writer_pdf_v1.9.1.md + P0_reviewer_v1.9.1.md + P0_matcher_v1.9.1.md) — Rule B 历史 era 保留
+  - **subagent_prompts/P0_writer_md_v1.9.2.md** (~270 lines, main MD writer): 6 NEW E-rules consolidating 10 candidates:
+    - **§E-1 CRITICAL** dispatch JSON template + reference working atom (round 06 batch_72 4-schema-regression prevention) + Hook 22c pre-DONE schema self-validate
+    - **§E-2 HIGH** R-2.8-1 H1 sibling_index=1 universal explicit + Hook E-2-1 (round 04 codification)
+    - **§E-3 HIGH** R-2.8-2 TABLE_HEADER sibling_index=null universal explicit + Hook E-3-2 (round 04 codification)
+    - **§E-4 HIGH** R-2.8-3 extracted_by object schema universal + Hook E-4-3 (round 04 codification)
+    - **§E-5 MEDIUM** non-HEADING heading_level + sibling_index field-explicit-null requirement + Hook E-5 (round 05 MED-01 codification)
+    - **§E-6 LOW** FIGURE-vs-CODE_LITERAL boundary clarification (round 03 carry)
+    - MD-side hooks: 25 (v1.9.1) → **28** (NEW Hook 22c + E-2-1 + E-3-2 + E-4-3 + E-5)
+  - **subagent_prompts/P0_writer_pdf_v1.9.2.md** (~150 lines, paired-sync): PDF-side cross-format applicability notes for §E-1..E-6; PDF-side主体 unchanged carry-forward (P1 closure 12487 atoms baseline preserved); STATUS PROMOTIONS sustained N21 EXTENDED + R-2.8-1/2/3 + MED-01 + Hook 22c PDF-side codification for future P3+ batches if any.
+  - **subagent_prompts/P0_reviewer_v1.9.2.md** (~250 lines, paired-sync): 6 NEW E-rules audit checks:
+    - **§R-E1 CRITICAL** schema regression sweep PRIORITY 1 (must run BEFORE per-atom byte-exact verify; 4 sub-checks: verbatim field name + line_start/line_end/figure_ref present + atom_type valid enum + 12 keys per atom)
+    - **§R-E2/E-3/E-4 HIGH** R-2.8-1/2/3 explicit verify
+    - **§R-E5 MEDIUM** MED-01 field-explicit-null verify (raw byte-grep verify)
+    - **§R-E6 LOW** FIGURE/CODE_LITERAL boundary disambiguation
+    - 6 NEW hooks R25 + R-E2 + R-E3 + R-E4 + R-E5 + R-E6
+    - Reviewer hooks: 26 (v1.9.1) → **32**
+  - **subagent_prompts/P0_matcher_v1.9.2.md** (~180 lines, paired-sync): 5 NEW anti-flag rules §M-E2..E-6 (matcher 不应 emit schema_drift for codified canonical patterns: H1 sib=1 + TABLE_HEADER sib=null + extracted_by object + MED-01 explicit null + FIGURE/CODE_LITERAL boundary). §M-E1 schema regression sweep delegated to reviewer §R-E1. 5 NEW hooks M-E2..M-E6. Matcher hooks: 24 (v1.9.1) → **29**.
+
+- **v1.9.2 candidate stack consolidation table** (10 candidates → codified routing):
+
+| # | Candidate (origin round) | Codification path | Severity |
+|---|---|---|---|
+| 1 | round 03 atoms/line ratio drift | INFO carry-forward (no rule) | INFO |
+| 2 | round 03 writer FIGURE 误判 prompt gap | §E-6 FIGURE-vs-CODE_LITERAL boundary | LOW |
+| 3 | round 03 writer LIST_ITEM sib_idx prompt gap | §E-5 + Hook 22c pre-DONE | MED |
+| 4 | chain B 工具自动 enforce | workflow/process (NOT prompt rule), defer | (process) |
+| 5 | round 04 H1 sib_idx=1 explicit | §E-2 + Hook E-2-1 | HIGH |
+| 6 | round 04 TABLE_HEADER sib_idx=null universal | §E-3 + Hook E-3-2 | HIGH |
+| 7 | round 04 extracted_by object schema example | §E-4 + Hook E-4-3 | HIGH |
+| 8 | round 05 LIST_ITEM hl+sib field-explicit-null (MED-01) | §E-5 + Hook E-5 | MED |
+| 9 | round 05 atoms/line ratio uptick | INFO carry-forward (no rule) | INFO |
+| 10 | round 06 explicit JSON template + reference atom | §E-1 CRITICAL + Hook 22c | HIGH |
+
+- **关键决策**:
+  - **D-v1.9.2-01 cut now vs carry to round 08**: Bojiang ack "Cut now" 2026-05-06 — 选 cut now 因 #10 是 HIGH severity prevention (batch_72 schema regression 同根本原因 round 04 R-2.8-3); 推迟到 round 08 = 风险窗口扩大 (round 07 仍可能撞同类 regression). Cut now 给 round 07 dispatch v1.9.2 baseline = 防 round 06 batch_72 regression 重蹈.
+  - **D-v1.9.2-02 paired-sync 4 prompts vs MD-only**: 选 paired-sync 4 件 (writer_md + writer_pdf + reviewer + matcher) 而非仅 MD-side, 因 schema regression 是 PDF/MD 共同 baseline; reviewer + matcher 必须 paired-sync 接受 v1.9.2 codified canonical patterns (不 emit schema_drift for explicit JSON null + R-2.8-1/2/3 + extracted_by object).
+  - **D-v1.9.2-03 schema regression sweep PRIORITY 1 in reviewer**: §R-E1 强制 run BEFORE per-atom byte-exact verify, 因 round 06 batch_72 case shown schema regression 是 systemic-violation (100% atoms affected) — 比 per-atom verify 优先级更高; 早期 catch 节约 reviewer ctx.
+  - **D-v1.9.2-04 dispatch prompt template 强制 §E-1 + reference batch_70 a001**: round 06 cumulative empirical baseline = 8122 atoms 0 schema violation post-fix; batch_70 a001 是 sustained gold reference. round 07+ kickoff dispatch contract 必 include §E-1 explicit JSON template + reference batch_70 a001; 缺 = orchestrator preflight FAIL.
+
+- **Hook 总数变化**:
+  - writer_md: 25 → 28 (+3 explicit; Hook 22c 涵盖 E-2-1/E-3-2/E-4-3/E-5 sub-checks)
+  - writer_pdf: 不变 (paired-sync notes only; Hook 22c PDF-side codified for future P3+)
+  - matcher: 24 → 29 (+5)
+  - reviewer: 26 → 32 (+6)
+
+- **STATUS PROMOTIONS** (8 sustained + 6 NEW codified post v1.9.2 cut):
+  - 8 sustained: N21 EXTENDED + FALLBACK pool peer-alternative EXTENDED + Axis 5 ordered LIST_ITEM EXTENDED + D5/D7/D8 SUSTAINED + bold-caption SENTENCE EXTENDED + §2.4/2.6/2.7 round 03/04 locks SUSTAINED + B-03c 100% strict PASS post-fix NEW + Schema v1.2.1 SUSTAINED
+  - 6 NEW codified: R-2.8-1 §E-2 + R-2.8-2 §E-3 + R-2.8-3 §E-4 + MED-01 §E-5 + §E-1 CRITICAL dispatch JSON template + §E-6 FIGURE-vs-CODE_LITERAL boundary
+
+- **Carry-over for next session**:
+  - **Round 07 dispatch baseline = v1.9.2** (active baseline files updated in `_progress.json` `v1_9_2_cut_details.active_baseline_files`)
+  - **Round 07 dispatch prompt template MUST follow §E-1**: explicit JSON template + reference batch_70 a001 atom as gold reference. Orchestrator preflight FAIL if missing.
+  - **Round 07 trigger**: pending Bojiang ack scope (default PC 单独 mini-round per Option C 决断; PC/ex 572L numberless H2 含 7 H3 + numbered/numberless Ex1 slug 冲突需独立设计 sub-policy ack — Plan A.1 vs Plan B)
+  - **v2.0 candidate stack post v1.9.2 cut**: 5 carry candidates (atoms/line ratio drift INFO + round 06 INFO-R06-01 kickoff drift orchestrator-side fix + B-04 source curation D-7.9 + OMC restoration trigger sustained + PC sub-policy ack pending)
+  - **B-03 整 cycle 末 cumulative audit**: 待 B-03c 全 ~4-5 more rounds 闭环 (post round 06: 81/141 = 57.4% file coverage)
+
+- **下一步**: commit + push (v1.9.2 CUT COMPLETED milestone; archive 4 v1.9.1 + 4 NEW v1.9.2 prompts + _progress.json v1.9.2_cut_details + worklog phase06 entry; CLAUDE.md 无 key path 新增).
