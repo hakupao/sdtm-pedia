@@ -446,3 +446,54 @@
   - **v1.9.2 cut 触发**: cumulative stack ≤7; 远低 v1.9.1 cut 阈值 19; round 05 后 review 是否 cut
 
 - **下一步**: 收尾 (本 session 用户路由词 "先不进入round 05 收个尾"; index 文件 3 件 + CLAUDE.md 无 key path 新增 + CLAUDE.md 已 124 行 < 150 限 + 0 round/batch progress mention 无需 prune; round 04 close commit `7d8db63` 已 push).
+
+### 2026-05-06 (P2 B-03c round 05 自治连跑 CLOSED — 12 batches 677 atoms 6 domains IS/LB/MB/MH/MI/MK ★ 跨 50% file coverage milestone)
+
+- **路由词**: 用户 "看看 work 里面 06 的进度如何了, 下一步应该做什么" → 主 session 报告 round 04 CLOSED 状态 + 推荐 round 05 scope (IS/LB/MB/MH/MI/MK 6 domain alphabetical) → Bojiang ack "可以, 你建议的不错, 开始 round 05" → 主 session 写 round 05 kickoff (§0.5 grep checksum 20/20 byte-exact, NO first-time lock proposal 因 grep 实证 0 mermaid + 0 numberless H2 + max IS/ex 273L < 300L) → 直接 dispatch 12 batches (无需额外 Plan-X ack) + mini-audit + commit.
+- **入口 kickoff**: `multi_session/P2_B-03c_round_05_kickoff.md` (round 05 全 inherit round 01-04 §2.1-2.7 + §2.8 R-2.8-1/2/3 v1.9.2 candidate empirical rules dispatch prompt 显式注入)
+
+- **B-03c round 05 12 batches 自治连跑 全 PASS** = 677 atoms (kickoff §0.5 estimate 445-757; 677 上半区 — atoms/line ratio 0.761 vs round 04 0.644 = +18% drift uptick 因 round 05 含 3 大 examples 文件 IS/ex 273L 175 atoms + MB/ex 171L 148 atoms + MH/ex 109L 102 atoms 高密度 SENTENCE decomposition + bold-caption SENTENCE atoms)
+- 12 files 100% atomized (12 batches, 0 sliced 因 max 273L < 300L threshold): batch_58 IS/assn 27L=17 / batch_59 IS/ex 273L=175 (round 05 largest single batch) / batch_60 LB/assn 18L=10 (post-hoc fixed) / batch_61 LB/ex 85L=56 / batch_62 MB/assn 20L=16 / batch_63 MB/ex 171L=148 (round 05 second-largest) / batch_64 MH/assn 43L=32 (round 05 first table-in-ass + first NOTE atom) / batch_65 MH/ex 109L=102 / batch_66 MI/assn 7L=4 (smallest tied) / batch_67 MI/ex 64L=49 / batch_68 MK/assn 7L=4 (smallest tied) / batch_69 MK/ex 66L=64
+- atom_type distribution: HEADING ~38 (12 H1 + ~26 H2 numbered Examples + 2 numbered LB-Ex shared) / LIST_ITEM ~73 / SENTENCE ~232 / TABLE_HEADER ~41 / TABLE_ROW ~292 / NOTE 1 (batch_64 MH/ass L41 first round 05 NOTE atom) / FIGURE 0 / CROSS_REF 0 / CODE_LITERAL 0 ≈ 677
+- Writer pool: general-purpose × 12 (FALLBACK sustained 85 batches cumulative B-02+B-03b+B-03c-rounds-01-05 = 6255 atoms 0 writer defect)
+- Reviewer pool: pr-review-toolkit:code-reviewer × 12 per-batch + **pr-review-toolkit:comment-analyzer AUDIT mode mini-audit** (Rule D fully distinct from per-batch + round 01-04 mini-audit reviewers; 7th cumulative B-03c reviewer family + 3rd pr-review-toolkit AUDIT-pivot in B-03c after round 03 type-design-analyzer + round 04 silent-failure-hunter)
+- mini-audit: 10/10 atoms PASS + 9/9 invariants PASS (atom_id collision / Hook C-8 / H3a 0 occurrence / TABLE_HEADER Hook A1 41/41 span=1 / extracted_by R-2.8-3 / §2.4 NO trigger 0 sliced / §2.6 0 FIGURE / LIST_ITEM sib_idx null + post-MED-01 explicit-field / §2.7 NO trigger + R-2.8-1 H1 sib=1)
+- **Halt events**: 0 mid-round halt (vs round 03 撞 halt #6 + #7; round 04 0 halt; round 05 同样 0 halt — 最干净 round 至今)
+
+- **NO first-time convention lock 触发 (round 05 唯一 carry-only round, kickoff §2.1-2.7 全 inherit)**:
+  - §2.4 multi-batch slice — NO trigger (largest IS/ex 273L < 300L threshold; grep 实证 row 10)
+  - §2.6 FIGURE-in-domains — 0 occurrence (12 source files grep verified 0 mermaid; row 14)
+  - §2.7 numberless H2 in assumptions.md — 0 occurrence (6 ass.md files grep verified 0 numberless H2; row 12)
+  - 这是 round 04 §2.7 first-time lock 后第一个全 carry round (碰巧 6 domain alphabetical 都不撞 first-time pattern)
+
+- **§2.8 R-2.8-1/2/3 round 04 v1.9.2 candidate empirical rules dispatch prompt 显式注入**:
+  - R-2.8-1 H1 sib_idx=1 universal: 12/12 H1 atoms PASS (1 per file × 12 files)
+  - R-2.8-2 TABLE_HEADER sib_idx=null universal: 41/41 TABLE_HEADER atoms PASS
+  - R-2.8-3 extracted_by object schema: 677/677 atoms PASS (NO post-hoc fix needed; vs round 04 30 atoms post-hoc fixed for string-form)
+
+- **1 in-place post-hoc fix (Rule B backups preserved)**:
+  - **F-1 (MED-01)**: batch_60 LB/assn 9 LIST_ITEM atoms (a002-a010) explicit `heading_level` + `sibling_index` 字段缺失 (writer 整字段省略 instead of `null` value); 18 字段 added (9 hl + 9 sib); cause: dispatch prompt for batch_60 used terse "sib_idx=null universal" wording vs batch_58 explicit JSON form `"sibling_index": null` → writer interpretation drift; backup `evidence/checkpoints/P2_B-03_batch_60_md_atoms.jsonl.pre-list-item-fields-fix.bak` + root `md_atoms.jsonl.pre-batch60-list-item-fields-fix.bak`; reviewer pr-review-toolkit:code-reviewer caught at batch_60 mini-audit MED-01 finding; subsequent batch_62+ dispatch prompts switched to explicit JSON form per "Field-presence requirements (NEW emphasis post-batch_60 MED-01)" — 0 recurrence in batches 61/62/63/64/65/66/67/68/69 (writer self-report + reviewer-side audit confirmed 100% explicit field presence)
+
+- **关键决策**:
+  - **D-r506-08 round 05 NO additional first-time lock proposal needed**: pre-dispatch grep 实证 0 mermaid + 0 numberless H2 + max file 273L < 300L; 全 carry round, 直接 dispatch (无需 Plan-X ack 周期). 路径节约约 1 个轮次 ack.
+  - **D-r506-09 round 05 mini-audit reviewer = pr-review-toolkit:comment-analyzer AUDIT mode**: Rule D 跨 round burn 隔离 — 7th cumulative B-03c reviewer family + 3rd pr-review-toolkit AUDIT-pivot.
+  - **D-r506-10 batch_60 in-place fix vs full redo**: 选 in-place fix (9 LIST_ITEM atoms 18 字段 add) preserve Rule B backup, 比 full redo 节约 90%+ 时间. 与 round 03 §2.6 FIGURE Option 1 + round 04 3 fixes 相同 in-place pattern.
+  - **D-r506-11 dispatch prompt explicit JSON form codification**: round 05 batch_62..69 dispatch prompts include "Every atom MUST include BOTH `heading_level` + `sibling_index` fields explicit, EVEN when null. DO NOT OMIT" — 0 recurrence post-batch_60. v1.9.2 candidate #8: codify in writer prompt v1.9.2.
+
+- **v1.9.2 candidates carry-forward (1 NEW from round 05 + 1 INFO + 7 carry-forward = 9 cumulative)**:
+  - **NEW round 05 #8 (MEDIUM)**: codify "non-HEADING atoms heading_level + sibling_index field-explicit-null requirement" (MED-01 codification)
+  - **NEW round 05 #9 (INFO)**: atoms/line ratio uptick INFO 0.644→0.761 +18% multi-Examples-file driven
+  - **From round 03**: atoms/line ratio drift INFO + writer FIGURE 误判 + writer LIST_ITEM sib_idx + chain B 工具自动 enforce
+  - **From round 04**: H1 sib_idx=1 explicit + TABLE_HEADER sib_idx=null explicit + extracted_by object schema example
+  - cumulative stack 9; 远低 v1.9.1 cut 阈值 19; **round 06 后 review 是否 cut**
+
+- **Cumulative post round 05**: md_atoms.jsonl 7791 atoms / 71 files atomized / 141 in-scope = **★ 50.4% file coverage 跨 50% 半线 milestone** (was 41.8% post round 04 / 33.3% post round 03 / 26.2% post round 02 / 19.1% post round 01); 23 domains atomized / 63 total = 36.5%; B-03c progress 48/114 files = 42.1%
+
+- **Carry-over for next session**:
+  - **NEXT round 06**: 待 Bojiang ack scope (recommend 5-6 more domains alphabetical ML/MO/MS/NV/OE/PC = ~10-14 batches; or smaller per ctx pressure consideration; 35 domains × 2 = 70 files remaining post round 05)
+  - **路由词候选**: `P2 bulk B-03c round 06 自治连跑` (post round 05 review + scope ack)
+  - **B-03 整 cycle 末 cumulative audit**: 待 B-03c 全 ~6+ rounds 闭环 (post round 05: 71/141 = 50.4% file coverage; 余 70 files 估 5-7 round 完成 P2 B-03c)
+  - **v1.9.2 cut 触发评估**: cumulative stack 9 ≤ 19 阈值; round 06 后 review 是否 cut
+  - **Round 06 mini-audit reviewer fresh candidates**: pr-review-toolkit:pr-test-analyzer / oh-my-claudecode:critic / oh-my-claudecode:scientist (round 05 burn pr-review-toolkit:comment-analyzer)
+
+- **下一步**: commit + push (round 05 CLOSED milestone; index 文件 3 件 + CLAUDE.md 无 key path 新增, 已扫无 round/batch 状态 mention 无需 prune).
