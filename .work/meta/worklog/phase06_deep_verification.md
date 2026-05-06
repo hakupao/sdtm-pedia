@@ -616,3 +616,102 @@
   - **B-03 整 cycle 末 cumulative audit**: 待 B-03c 全 ~4-5 more rounds 闭环 (post round 06: 81/141 = 57.4% file coverage)
 
 - **下一步**: commit + push (v1.9.2 CUT COMPLETED milestone; archive 4 v1.9.1 + 4 NEW v1.9.2 prompts + _progress.json v1.9.2_cut_details + worklog phase06 entry; CLAUDE.md 无 key path 新增).
+
+---
+
+## P2 B-03c Round 07 — PC Solo Mini-Round CLOSED (2026-05-06)
+
+**用户路由词**: "开始 work 的 06 的 Round 07" + 主 session grep verify + sub-policy ack ("按你推荐的来" → Plan B sub-namespace + PC solo Option C continuation)
+
+### Scope (post-round-06 PC defer 解决)
+
+PC solo (1 domain) × 2 files = 4 batches batch_80..83:
+- **batch_80** PC/assumptions.md (7L single, ~3-5 atoms est; actual 4 atoms)
+- **batch_81** PC/examples.md slice 1 (L1-249, 249L, ~150-200 atoms est; actual 199 atoms)
+- **batch_82** PC/examples.md slice 2 (L250-447, 198L, ~120-160 atoms est; actual 150 atoms)
+- **batch_83** PC/examples.md slice 3 (L448-572, 125L, ~75-100 atoms est; actual 100 atoms)
+
+**Trigger 历史**: round 06 close 时 PC defer per Option C 因 PC/ex 572L 含 numberless H2 with 7 H3 children + L7 H2 numbered "Example 1" 与 L120 H3 "Example 1 (All PC records used)" slug 冲突需独立 sub-policy 设计 (Plan A.1 chapter-root-inherit vs Plan B sub-namespace)。Round 07 kickoff 时 main session 选 Plan B (sub-namespace by sib_idx) + Bojiang ack "按你推荐的来" → 进 round 07 dispatch.
+
+### NEW first-time lock §2.11 Plan B sub-namespace by sib_idx
+
+**Trigger**: PC/ex L58 `## Relating PC and PP — Overview` (numberless H2) 含 7 H3 children L62/75/89/120/250/332/448 (PC-PP Relating Datasets / PC-PP Relating Records / Shared PC Dataset for All Examples / Example 1-4 各自 H3)。
+
+**Plan B 决断**:
+- 既有 §2.7 round 04 lock 仅处理 numberless H2 **无 children** (file-root parent inherit) - 不适用 L58 case
+- 既有 §2.5 numbered H2 self-namespace 不能用因 H2 无编号
+- v1.9.1 D8 chapter root inherit (Plan A.1) 让 H3 children 全部 parent 指向 file-root → L120 H3 "Example 1" 与 L7 H2 "Example 1" 同 parent 语义混乱 + slug 冲突
+- **Plan B**: numberless H2 with H3 children → children parent_section = `§<D>.<sib_idx_of_H2> [<title>]` consistent with §2.5 numbered format; sub-sub-namespace H3-children atoms parent = `§<D>.<sib_of_H2>.<sib_of_H3> [<H3_title>]`
+
+**Plan B 应用结果** (PC/ex):
+- L58 H2 自身: parent=`§PC [PC — Examples]`, hl=2, sib=2 (file root parent, file 中第 2 个 H2)
+- 7 H3 children: parent=`§PC.2 [Relating PC and PP — Overview]`, hl=3, sib=1..7
+- 8 sub-namespaces: §PC.2 (H3 self) + §PC.2.1..§PC.2.7 (H3 children atoms)
+- **Slug-conflict resolution**: L7 H2 children parent `§PC.1 [Example 1]` vs L120 H3 children parent `§PC.2.4 [Example 1 (All PC records used)]` — 通过 sib_idx-disambiguation 区分
+
+**§2.7 round 04 lock sustained** (childless numberless H2, complementary to §2.11):
+- L556 H2 `## PC-PP Conclusions` (childless): parent=`§PC [PC — Examples]`, sib=3
+- L562 H2 `## PC-PP — Suggestions for Implementing RELREC...` (childless, 4 LIST_ITEM): parent=`§PC [PC — Examples]`, sib=4
+
+**Boundary L555/L556 clean transition validated**: Plan B closes at L555 last TABLE_ROW (under §PC.2.7); §2.7 file-root resumes at L556 H2 self-atom. 0 leakage either direction (mini-audit reviewer + batch_83 per-batch reviewer dual verification).
+
+### v1.9.2 first round post-cut validation
+
+Round 07 是 v1.9.2 active baseline cut (commit 966e6c4 同日) 后首个 round。验证 §E-1..E-6 全 PASS:
+- **§E-1 CRITICAL dispatch JSON template + reference working atom**: 4/4 batch dispatches PASS — 0 schema regression across 453 atoms (vs round 06 batch_72 4-schema-regression precedent under v1.9.1 narrative-only dispatch — §E-1 codification **PROVEN EFFECTIVE**)
+- **§E-2 R-2.8-1 H1 sib=1 universal**: 2 H1 atoms PASS
+- **§E-3 R-2.8-2 TABLE_HEADER sib=null universal**: 17 TABLE_HEADER PASS
+- **§E-4 R-2.8-3 extracted_by object schema with prompt_version=v1.9.2**: 453/453 PASS
+- **§E-5 MED-01 non-HEADING field-explicit-null**: 441/441 PASS (whitespace-tolerant grep recommended for v1.9.3 per INFO-R07-01)
+- **§E-6 LOW FIGURE/CODE_LITERAL boundary**: N/A this round (0 FIGURE, 0 standalone CODE_LITERAL — inline `--BODSYS` / `--SEV` / URL kept embedded per boundary clarification)
+
+### Per-batch + mini-audit results
+
+| Batch | Atoms | Rule A | §R-E1 | Plan B/§2.7 | Findings |
+|---|---|---|---|---|---|
+| batch_80 | 4 | 4/4 = 100% (full audit) | PASS | N/A | 0 |
+| batch_81 | 199 | 11/11 = 100% (8B+3S) | PASS | ★ Plan B 5 sub-namespaces PASS slug-conflict resolved | 0 |
+| batch_82 | 150 | 11/11 = 100% (8B+3S) | PASS | Plan B 2 sub-namespaces PASS | 0 |
+| batch_83 | 100 | 11/11 = 100% (8B+3S) | PASS | ★ dual-lock + boundary L555/L556 PASS | 0 |
+| **Mini-audit** (round close gate) | 8 sample | **8/8 = 100%** | PASS | dual-lock + boundary all PASS | 0 (2 INFO carry) |
+| **Total** | **453** | **37/37 audited PASS + 8/8 mini PASS = 45/45 = 100%** | 0 regression | all PASS | **0 actionable** |
+
+### Mini-audit reviewer
+
+- subagent_type: `pr-review-toolkit:code-simplifier` AUDIT mode (slot #7)
+- **5th pr-review-toolkit AUDIT-pivot** ★ extends pool 4→5 (post round 03 type-design / round 04 silent-failure / round 05 comment / round 06 pr-test = 4 prior pr-review-toolkit AUDIT-pivots; round 07 code-simplifier = 5th)
+- 9th cumulative B-03c reviewer family-pivot (Rule D fully distinct from per-batch + round 01-06 mini-audits)
+- Round 08 fresh AUDIT candidates: pr-review-toolkit family AUDIT pool now exhausted (5/5 burned); next round mini-audit must pivot family (Plan AUDIT mode primary candidate; feature-dev:code-explorer reviewer-only role secondary if Plan unavailable)
+
+### Cumulative post round 07
+
+| Metric | Pre round 07 | Post round 07 | Δ |
+|---|---|---|---|
+| md_atoms.jsonl total | 8122 | **8575** | +453 |
+| files atomized | 81 | **83** | +2 (PC/ass + PC/ex) |
+| file coverage | 57.4% | **58.9%** | +1.5pp |
+| distinct domains | 33 | **34** | +1 (PC) |
+| domain coverage | 52.4% | **54.0%** | +1.6pp |
+| B-03c progress | 58/114 = 50.9% | **62/114 = 54.4%** | +3.5pp |
+
+### Findings 0 HIGH / 0 MED / 0 LOW (cleanest round of B-03c)
+
+**INFO carry-forward (v1.9.3 candidate stack 7 items, well below ≥10 cut threshold)**:
+- INFO-R07-01: batch_83 writer json.dumps default whitespace serialization (`"heading_level": null` with space) vs batch_80/81/82 compact (`"heading_level":null` no space) — semantically equivalent explicit-null per §E-5; future §E-5 verification grep should be whitespace-tolerant; v1.9.3 candidate INFO-only #1 (NOT writer defect, JSON spec-compliant)
+- INFO-R07-02: atoms/line ratio uptick 0.681→0.782 +15% — likely cause: PC/ex 4 dense Examples (Method A/B/C/D table-heavy) + L562-572 numbered LIST_ITEM; sustained ratio 0.59-0.85 historical band; v1.9.3 candidate INFO-only #2
+
+### v1.9.3 cut decision: NOT triggered
+
+- v1.9.2 cut just fired 2026-05-06 (10-candidate consolidation)
+- v1.9.3 candidate stack post round 07 = 7 (5 carry from v1.9.2 + 2 NEW INFO from round 07)
+- Below ≥10 cut planning trigger; review again post round 08-09 cumulative
+
+### 下一步
+
+- **Round 08 trigger**: pending Bojiang ack scope (default alphabetical PE/PP/PR/QS/RE next 5 domains × 2 = 10 batches similar volume to round 06; 29 domains × 2 = 58 files remaining post round 07; 估 4-5 more rounds to close P2 B-03c)
+- v1.9.2 active baseline sustained for round 08+
+- Mini-audit reviewer 候选: Plan AUDIT mode (primary, family-fresh) / feature-dev:code-explorer AUDIT mode (secondary if Plan unavailable; writer-family N21-banned for atomization but reviewer-only AUDIT role allowed per kickoff §3 fresh candidates note)
+
+### Commit
+
+`06 P2 B-03c round 07 自治连跑 CLOSED — 4 batches 453 atoms 1 domain PC ★ §2.11 Plan B first production validation PASS + v1.9.2 first round post cut §E-1..E-6 all PASS + 0 halt 0 post-hoc fix cleanest B-03c round`

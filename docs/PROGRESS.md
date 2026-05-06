@@ -1,7 +1,7 @@
 # 进度看板
 
 > **唯一进度状态源**. 历史细节看 `.work/meta/worklog/INDEX.md`. 文件结构看 `.work/MANIFEST.md`. 一页纸入门看 `.work/AGENT_GUIDE.md`.
-> 最后更新: 2026-05-06 (P2 B-03c round 06 CLOSED — ★ 跨 50% domain coverage milestone)
+> 最后更新: 2026-05-06 (P2 B-03c round 07 CLOSED — ★ §2.11 Plan B first production validation + v1.9.2 first round post-cut)
 
 ---
 
@@ -17,7 +17,7 @@
 | **Phase 6** 检索优化 | ✅ 完成 (P0-P2) | — | P3 → 已合并到 Phase 7 |
 | **Phase 6.5** AI 平台部署 | 🟢 进行中 | Claude/NotebookLM 完成; ChatGPT/Gemini 双平台锁步 (范本就绪 Phase 0 待启) | 看 `ai_platforms/SYNC_BOARD.md` |
 | **Phase 7** RAG + KG | ⏸ 待启动 | 设计完成 (`docs/DESIGN_RAG_KG.md`) | 实施前 5 步待办 (见 `phase7_handoff.md`) |
-| **06 旁枝** Deep Verification | 🟢 进行中 | P2 B-03c round 06 CLOSED 2026-05-06 (★ 跨 50% domain coverage milestone, 33/63 domains; Option C defer PC); round 07 pending Bojiang ack scope (default PC solo) | 详见 `.work/06_deep_verification/_progress.json` |
+| **06 旁枝** Deep Verification | 🟢 进行中 | P2 B-03c round 07 CLOSED 2026-05-06 (★ §2.11 Plan B sub-namespace first production validation PASS + v1.9.2 first round post-cut §E-1..E-6 all PASS; 4 batches 453 atoms PC solo 0 halt 0 post-hoc fix cleanest B-03c round; 34/63 domains 54.0% / 83/141 files 58.9%); round 08 pending Bojiang ack scope (default PE/PP/PR/QS/RE) | 详见 `.work/06_deep_verification/_progress.json` |
 | **07 旁枝** Website | ✅ 完成 | Phase 6/7/8/9/10/11 全 closed; prod sdtm-pedia.pages.dev | — |
 | **docs/jp** iTMS 納品 | 🟢 进行中 | Phase 1 P0 中間版 v0.5 已提出 2026-04-30 | 残 02/03 + 05/06/99 中文列充填 (Phase 2-3, 2026-05 中下旬) |
 | **refactor v1** 项目重构 | 🟢 进行中 (段 2) | 段 1 closed 2026-05-06; 段 2 进行中 | 段 3 (路径迁移) 待 B-03c cycle 收官 |
@@ -28,6 +28,7 @@
 
 ## 关键 milestone (近 30 天)
 
+- 2026-05-06 — 06 P2 B-03c **round 07 CLOSED ★ §2.11 Plan B sub-namespace first production validation + v1.9.2 first round post-cut all PASS** (4 batches / 453 atoms / 1 domain PC solo PC/ass + PC/ex 3-way sliced; cumulative md_atoms 8575, file coverage 83/141 = 58.9%, domain coverage 34/63 = 54.0%; **NEW first-time lock §2.11 Plan B sub-namespace by sib_idx for numberless H2 with H3 children** PC/ex L58 case 7 H3 children + slug-conflict resolved L7 §PC.1 vs L120 §PC.2.4; §2.7 round 04 lock sustained for L556+L562 childless numberless H2; boundary L555/L556 clean; v1.9.2 §E-1..E-6 all PASS first production validation; per-batch Rule A 37/37 + mini-audit 8/8 + 10/10 invariants = 45/45 = 100%; 0 halt 0 post-hoc fix **cleanest B-03c round**; pr-review-toolkit:code-simplifier slot #7 5th AUDIT-pivot 9th cumulative B-03c reviewer family-pivot)
 - 2026-05-06 — 06 P2 B-03c **round 06 CLOSED ★ 跨 50% domain coverage milestone** (10 batches / 331 atoms / 5 domains ML/MS/NV/OE/OI; cumulative md_atoms 8122, file coverage 57.4%, domain coverage 33/63 = 52.4% ★, 0 first-time lock, 1 RESOLVED HALT batch_72 schema regression → re-dispatch PASS, NEW v1.9.2 candidate #10 explicit JSON template; v1.9.2 stack 10 = ≥10 cut planning trigger met; PC defer to round 07 per Option C)
 - 2026-05-06 — 06 P2 B-03c **round 05 CLOSED ★ 跨 50% file coverage milestone** (12 batches / 677 atoms / 6 domains IS-MK; cumulative md_atoms 7791, file coverage 50.4%, 0 first-time lock 最干净 round, 1 MED-01 fixed)
 - 2026-05-06 — 06 P2 B-03c round 04 CLOSED (13 batches / 731 atoms / 6 domains EX-IE; cumulative md_atoms 7114, file coverage 41.8%)
@@ -54,10 +55,10 @@
 |------|----|----|
 | 知识库 md 文件数 | 293 | `knowledge_base/` |
 | 覆盖 domain 数 | 63 | 同上 |
-| 06 累计 md_atoms | 8122 | `.work/06_deep_verification/_progress.json` `b_03c_round_06_details.cumulative_post_round_06.md_atoms_jsonl_total` |
-| 06 P2 B-03c 进度 | 58/114 = 50.9% | 同上 `b_03c_progress_pct` |
-| 06 P2 file coverage | 81/141 = 57.4% | 同上 `file_coverage_pct` |
-| 06 P2 domain coverage | 33/63 = 52.4% ★ | 同上 `domain_coverage_pct` (post drift-fix from STALE 23) |
+| 06 累计 md_atoms | 8575 | `.work/06_deep_verification/_progress.json` `b_03c_round_07_details.cumulative_post_round_07.md_atoms_jsonl_total` |
+| 06 P2 B-03c 进度 | 62/114 = 54.4% | 同上 `b_03c_progress_pct` |
+| 06 P2 file coverage | 83/141 = 58.9% | 同上 `file_coverage_pct` |
+| 06 P2 domain coverage | 34/63 = 54.0% | 同上 `domain_coverage_pct` |
 | 06 累计 pdf_atoms | 12487 | P1 CLOSURE (2026-04-29) |
 | Phase 6.5 Claude v2.6 | 24/24 A/B PASS, 0 衰减, capacity 77% | `ai_platforms/claude_projects/dev/test_results.md` |
 | Phase 6.5 NotebookLM smoke v4 R1 | 15/17 strict PASS (88.2%) | `ai_platforms/notebooklm/dev/evidence/smoke_v4_results.md` |
