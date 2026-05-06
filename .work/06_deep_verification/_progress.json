@@ -1,7 +1,7 @@
 {
   "project": "06_deep_verification",
   "tier": 3,
-  "status": "P2_B-03c_round_04_CLOSED_2026-05-06_13_batches_731_atoms_6_domains_EX_FA_FT_GF_HO_IE_per_batch_Rule_A_13x_PASS_100_pct_mini_audit_10_of_10_atoms_PASS_100_pct_plus_10_of_10_invariants_PASS_post_fix pr-review-toolkit_silent-failure-hunter_AUDIT_mode_Rule_D_distinct_from_per_batch_pr_review_toolkit_code_reviewer_x13_AND_round_03_mini_audit_pr_review_toolkit_type_design_analyzer_AND_round_02_mini_audit_feature-dev_code_architect_AND_round_01_mini_audit_feature-dev_code_reviewer cumulative_md_atoms_jsonl_7114_atoms_59_files_atomized_41_8_pct_file_coverage SECTION_2_7_first_time_numberless_H2_in_assumptions_md_FT_ass_a005_FULLY_VALIDATED_Plan_A_acked_Bojiang_38_atoms_all_file_root_no_sub_namespace SECTION_2_4_second_time_multi_batch_slice_EX_ex_batch_46_47_a144_to_a145_continuity_fully_validated SECTION_2_6_zero_FIGURE_atoms_in_scope_grep_verified_0_mermaid_in_12_round_04_files post_hoc_fixes_applied_3_in_place_Rule_B_backups_preserved_batch_45_a001_H1_sib_null_to_1_AND_batch_49_51_TABLE_HEADER_sib_1_2_to_null_17_atoms_AND_batch_48_52_56_extracted_by_string_to_object_30_atoms v1_9_2_candidates_3_explicit_H1_sib_1_TABLE_HEADER_sib_null_extracted_by_object_schema round_05_pending_Bojiang_ack_scope_41_domains_x_2_files_82_files_remaining_alphabetical_IS_to_VS",
+  "status": "P2_B-03c_round_05_CLOSED_2026-05-06_12_batches_677_atoms_6_domains_IS_LB_MB_MH_MI_MK_per_batch_Rule_A_12x_PASS_100_pct_mini_audit_10_of_10_atoms_PASS_100_pct_plus_9_of_9_invariants_PASS pr-review-toolkit_comment-analyzer_AUDIT_mode_7th_cumulative_B-03c_reviewer_family_pivot_Rule_D_distinct cumulative_md_atoms_jsonl_7791_atoms_71_files_atomized_50_4_pct_file_coverage_★_crossed_50_pct_milestone NO_FIRST_TIME_LOCK_grep_verified_0_mermaid_0_numberless_H2_max_file_IS_ex_273L_under_300_threshold post_hoc_fix_applied_1_in_place_batch_60_LB_assn_9_LIST_ITEM_atoms_explicit_null_hl_sib_fields_added_Rule_B_backup_preserved v1_9_2_candidates_8_codify_LIST_ITEM_explicit_null_field_requirement_NEW_round_05 atoms_per_line_ratio_drift_INFO_round_04_0_644_to_round_05_0_761_plus_18_pct round_06_pending_Bojiang_ack_scope_35_domains_x_2_files_70_files_remaining_alphabetical_ML_to_VS",
   "v1_7_cut_completed": "2026-04-29",
   "v1_7_cut_details": {
     "completed_at": "2026-04-29",
@@ -198,9 +198,9 @@
     "estimated_overhead_retired_minutes_per_batch": "10-15",
     "estimated_overhead_retired_total_hours_p1_remaining": "5-7"
   },
-  "current_phase": "P2_B-03c_round_04_CLOSED_pending_round_05_ack",
-  "plan_version": "v0.6 (P2 B-03c round 03 closed)",
-  "recovery_hint": "P2 B-03c round 03 CLOSED 2026-05-06. 12 batches batch_33..44 PASS 100% per-batch + mini-audit PASS 100% (10/10 atoms + 8/8 invariants incl 5 standard + 3 NEW round 03: §2.4 cross-batch atom_id 续号 + §2.6 FIGURE-in-domains lock + LIST_ITEM sib_idx null precedent). md_atoms.jsonl 6383 atoms / 47 files atomized / 33.3% file coverage. Round 03 first-time conventions locked: §2.4 multi-batch slice (DM/ex + DS/ex) + §2.6 FIGURE-in-domains (4 atoms in DM/ex). 1 halt #6 fired and resolved (FIGURE first encounter Option 1 in-place fix); 1 halt #7 fired and resolved (infra rate limit handoff resume). Round 04 待用户 ack scope (recommend 5 more domains EX/FA/FT/GF/HO alphabetical = ~10-14 batches; 42 domains × 2 = 84 files remaining). 入口: multi_session/P2_B-03c_round_03_kickoff.md (§0.5 20/20 grep + §2.4/§2.6 locks + §8 Option A acked) + multi_session/P2_B-03c_round_03_HANDOFF.md (§3 resume protocol historical reference).",
+  "current_phase": "P2_B-03c_round_05_CLOSED_pending_round_06_ack",
+  "plan_version": "v0.6 (P2 B-03c round 05 closed)",
+  "recovery_hint": "P2 B-03c round 05 CLOSED 2026-05-06. 12 batches batch_58..69 PASS 100% per-batch (1 CONDITIONAL_PASS batch_60 post-hoc fixed) + mini-audit PASS 100% (10/10 atoms + 9/9 invariants). md_atoms.jsonl 7791 atoms / 71 files atomized / 50.4% file coverage (★ crossed 50% milestone). Round 05 NO first-time lock (grep 实证 0 mermaid + 0 numberless H2 + max file IS/ex 273L under 300L slice threshold) — cleanest round to date. 1 MED-01 fired and post-hoc resolved (batch_60 LB/assn 9 LIST_ITEM atoms explicit null hl+sib fields added Rule B backup preserved). 0 halt mid-round. Round 06 待用户 ack scope (recommend 5-6 more domains alphabetical ML to onwards = ~10-14 batches; 35 domains × 2 = 70 files remaining post round 05). 入口: multi_session/P2_B-03c_round_05_kickoff.md (§0.5 20/20 grep + §2.8 R-2.8-1/2/3 carry-forward + §8 default Option acked).",
   "created": "2026-04-24",
   "v1.2_upgrade_completed": "2026-04-24",
   "charter_gates": {
@@ -2053,5 +2053,78 @@
       "b_03c_progress_pct": "36/114 = 31.6%"
     },
     "round_05_trigger": "pending Bojiang ack scope (recommend 5-6 more domains IS to MK or IS to ML alphabetical = ~10-14 batches; 41 domains × 2 = 82 files remaining post round 04)"
+  },
+  "b_03c_round_05_completed": true,
+  "b_03c_round_05_details": {
+    "completed_at": "2026-05-06",
+    "scope": "6 domains alphabetical (IS/LB/MB/MH/MI/MK) × 2 files = 12 batches batch_58..69 (NO sliced batches: max file IS/ex 273L < 300L threshold)",
+    "atoms": 677,
+    "atoms_estimate_kickoff_section_0_5_row_15": "445-757 (677 — atoms/line ratio 0.761 = round 04 0.644 + 18% uptick)",
+    "atoms_per_line": 0.761,
+    "files_atomized": 12,
+    "source_lines": 890,
+    "first_time_conventions_locked": [],
+    "first_time_conventions_no_trigger": [
+      "§2.4 multi-batch slice — NO trigger (largest IS/ex 273L < 300L)",
+      "§2.6 FIGURE-in-domains — 0 occurrence (grep verified 0 mermaid in 12 source files)",
+      "§2.7 numberless H2 in assumptions.md — 0 occurrence (grep verified 0 numberless H2 in 6 ass.md files)"
+    ],
+    "writer_pool": "general-purpose × 12 (FALLBACK peer-alternative sustained 85 batches cumulative B-02+B-03b+B-03c-rounds-01-05 = 6255 atoms 0 writer defect)",
+    "reviewer_pool_per_batch": "pr-review-toolkit:code-reviewer × 12",
+    "reviewer_mini_audit": "pr-review-toolkit:comment-analyzer AUDIT mode (7th cumulative B-03c reviewer family + 3rd pr-review-toolkit AUDIT-pivot in B-03c after round 03 type-design-analyzer + round 04 silent-failure-hunter)",
+    "rule_a_per_batch_pass_rate": "12/12 = 100% (1 batch_60 CONDITIONAL_PASS post-hoc fixed → 12/12 PASS post-fix)",
+    "mini_audit_pass_rate": "10/10 atoms = 100% + 9/9 round invariants PASS",
+    "post_hoc_fixes": {
+      "batch_60_LB_assn_list_item_explicit_null_fields": "9 atoms (a002-a010 LIST_ITEM); cause: orchestrator dispatch prompt for batch_60 used terse 'sib_idx=null universal' wording → writer omitted both heading_level and sibling_index fields entirely instead of explicit null. Compared to batch_58 dispatch prompt which used explicit JSON form '\"sibling_index\": null' → batch_58 emitted explicit null. Fix: in-place add hl=null + sib=null fields to 9 LIST_ITEM atoms in both batch_60 jsonl + root md_atoms.jsonl. Rule B backups preserved (.pre-list-item-fields-fix.bak + .pre-batch60-list-item-fields-fix.bak). v1.9.2 candidate: codify field-explicit-null requirement for non-HEADING atoms."
+    },
+    "halt_events": {},
+    "findings": {
+      "high": 0,
+      "medium": 1,
+      "low": 0,
+      "info_carry_forward": [
+        "atoms/line ratio uptick INFO (round 04 0.644 → round 05 0.761 = +18%) — likely cause: round 05 had 3 large examples files (IS/ex 273L 175 atoms 0.641 ratio + MB/ex 171L 148 atoms 0.865 ratio + MH/ex 109L 102 atoms 0.936 ratio) with dense sub-line SENTENCE decomposition + bold-caption SENTENCE atoms (`**Row N:**` / `**<domain>.xpt**`). v1.9.2 candidate INFO-only #9."
+      ],
+      "medium_resolved": [
+        "MED-01 batch_60 LB/assn 9 LIST_ITEM atoms missing explicit hl+sib fields — resolved in-place pre-commit (Rule B backups preserved); cause traced to dispatch prompt terseness; v1.9.2 candidate #8 codify"
+      ]
+    },
+    "v1_9_2_candidate_stack_post_round_05": [
+      "1 round 03 atoms/line ratio drift INFO",
+      "2 round 03 writer FIGURE 误判 prompt gap",
+      "3 round 03 writer LIST_ITEM sib_idx prompt gap",
+      "4 chain B 工具自动 enforce",
+      "5 round 04 H1 sib_idx=1 explicit declaration",
+      "6 round 04 TABLE_HEADER sib_idx=null universal explicit rule",
+      "7 round 04 extracted_by object schema pre-baked example",
+      "8 NEW round 05 LIST_ITEM hl+sib field-explicit-null requirement (MED-01 codification)",
+      "9 NEW round 05 atoms/line ratio uptick INFO 0.644→0.761 +18% multi-Examples-file driven"
+    ],
+    "v1_9_2_cut_decision": "NOT triggered post round 05 (stack 9 ≤ 19 threshold); review again post round 06",
+    "rule_d_roster_cumulative_b_03c": [
+      "round 01 mini-audit: feature-dev:code-reviewer (slot #1)",
+      "round 02 batch_23 burn: feature-dev:code-reviewer + round 02 mini-audit: feature-dev:code-architect (slot #2)",
+      "round 03 mini-audit: pr-review-toolkit:type-design-analyzer (slot #3) — 1st pr-review-toolkit AUDIT-pivot",
+      "round 04 mini-audit: pr-review-toolkit:silent-failure-hunter (slot #4) — 2nd pr-review-toolkit AUDIT-pivot",
+      "round 05 mini-audit: pr-review-toolkit:comment-analyzer (slot #5) — 3rd pr-review-toolkit AUDIT-pivot",
+      "per-batch sustained: pr-review-toolkit:code-reviewer (B-02 + B-03b + B-03c rounds 01-05 = ~85 batches cumulative)"
+    ],
+    "rule_d_round_06_fresh_candidates": [
+      "pr-review-toolkit:pr-test-analyzer",
+      "oh-my-claudecode:critic",
+      "oh-my-claudecode:scientist"
+    ],
+    "cumulative_post_round_05": {
+      "md_atoms_jsonl_total": 7791,
+      "files_atomized": 71,
+      "files_in_scope": 141,
+      "file_coverage_pct": 50.4,
+      "file_coverage_milestone": "★ crossed 50% half-way mark",
+      "domains_atomized": 23,
+      "domains_total": 63,
+      "domain_coverage_pct": 36.5,
+      "b_03c_progress_pct": "48/114 = 42.1%"
+    },
+    "round_06_trigger": "pending Bojiang ack scope (recommend 5-6 more domains alphabetical ML/MO/MS/NV/OE/PC or smaller per ctx pressure consideration; 35 domains × 2 = 70 files remaining post round 05; estimate 5-7 more rounds to close P2 B-03c)"
   }
 }
