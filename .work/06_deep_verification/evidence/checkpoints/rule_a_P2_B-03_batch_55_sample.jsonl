@@ -1,0 +1,11 @@
+{"sample_id": "s01", "kind": "boundary", "atom_id": "md_dmHO_ex_a001", "rationale": "First atom — H1 file root (§HO [HO — Examples]); verify h_lvl=1, sib_idx=1 universal precedent."}
+{"sample_id": "s02", "kind": "boundary", "atom_id": "md_dmHO_ex_a002", "rationale": "First H2 (## Example 1) at L3 — verify sib=1, parent=file root (NOT self-namespace), heading_level=2."}
+{"sample_id": "s03", "kind": "boundary", "atom_id": "md_dmHO_ex_a003", "rationale": "First SENTENCE atom inside Ex1 (L5) — verify parent_section transitions to §HO.1 [Example 1] sub-namespace per §2.5 convention."}
+{"sample_id": "s04", "kind": "boundary", "atom_id": "md_dmHO_ex_a009", "rationale": "Bold-caption SENTENCE **ho.xpt** at L17 — §R-D5 bold-caption SENTENCE accept (non-Note/Exception)."}
+{"sample_id": "s05", "kind": "boundary", "atom_id": "md_dmHO_ex_a035", "rationale": "Last atom inside Ex1 (TABLE_ROW L53) — verify parent_section still §HO.1 before Ex2 boundary."}
+{"sample_id": "s06", "kind": "boundary", "atom_id": "md_dmHO_ex_a036", "rationale": "Second H2 (## Example 2) at L55 — verify sib=2, parent=file root, h_lvl=2; Ex2 boundary."}
+{"sample_id": "s07", "kind": "boundary", "atom_id": "md_dmHO_ex_a037", "rationale": "First atom inside Ex2 (SENTENCE L57, multi-clause narrative) — verify parent transitions to §HO.2 [Example 2]."}
+{"sample_id": "s08", "kind": "boundary", "atom_id": "md_dmHO_ex_a054", "rationale": "Last atom of batch (TABLE_ROW L81 final suppho row) — verify parent §HO.2, atom_id continuity."}
+{"sample_id": "s09", "kind": "stratified_TABLE_HEADER", "atom_id": "md_dmHO_ex_a010", "rationale": "TABLE_HEADER (sib=null) — verify v1.9 standard 2-row span (line_end-line_start=1) per Hook A1/§R-D6, byte-exact 2-line verbatim."}
+{"sample_id": "s10", "kind": "stratified_TABLE_ROW_empty_cells", "atom_id": "md_dmHO_ex_a012", "rationale": "TABLE_ROW with empty cells (L22 Row 2 NURSING HOME — HOSTDTC and HOENDTC empty between pipes) — verify Rule B byte-exact preservation of empty cells `| | | P6D |`."}
+{"sample_id": "s11", "kind": "stratified_bold_caption_SENTENCE", "atom_id": "md_dmHO_ex_a004", "rationale": "Bold-caption SENTENCE `**Rows 1-2:** ...` at L7 — §R-D5 accept (non-Note caption ≠ HEADING/NOTE), verify caption is part of full sentence verbatim."}
