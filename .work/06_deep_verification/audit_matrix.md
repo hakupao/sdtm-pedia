@@ -735,3 +735,57 @@
 - **§2.6 lock NO trigger**: 0 FIGURE / 0 mermaid (grep verified 0 in PC/ass + PC/ex)
 
 **Cumulative post B-03c round 07**: md_atoms.jsonl 8575 atoms / 83 files atomized (B-03b 17 + round 01-07: 10+10+10+12+12+10+2 = 66; total 83) / 141 in-scope = **58.9% file coverage** (was 57.4% post round 06). Distinct domains: 34/63 = **54.0% domain coverage** (was 52.4% post round 06; +1 PC). v1.9.3 candidate stack now **7 candidates** (5 carry from v1.9.2 + INFO-R07-01 whitespace + INFO-R07-02 atoms/line ratio) — well below ≥10 cut planning trigger threshold; carry to round 08+. Round 08 待 Bojiang ack (default alphabetical PE/PP/PR/QS/RE next 5 domains × 2 = 10 batches similar volume to round 06; 29 domains × 2 = 58 files remaining post round 07; 估 4-5 more rounds to close P2 B-03c).
+
+---
+
+## P2 B-03c Round 08 (2026-05-06, in-flight)
+
+**Scope**: alphabetical PE/PP/PR/QS/RE 5 domains × 2 files = 10 batches batch_84..93 (全 single-batch, 0 slice; v1.9.2 active baseline 2nd round post-cut; 0 NEW first-time lock per §0.5 32/32 grep verified 0 H3 / 0 H4 / 0 mermaid + 2 numberless H2 都 childless §2.7 sustained)
+
+**Per-batch Rule A audits**:
+
+| Batch | Source | Lines | Atoms | Audit scope | Pass | §R-E1 | Lock | Findings |
+|---|---|---|---|---|---|---|---|---|
+| batch_84 | PE/assumptions.md | 9 | 4 | full audit (4/4) | 4/4 = 100% | PASS 0/0 | N/A (no H2) | 0 |
+| batch_85 | PE/examples.md | 19 | 13 | full audit (13/13) | 13/13 = 100% | PASS 0/0 | §2.5 numbered H2 self-namespace §PE.1 PASS | 0 |
+| batch_86 | PP/assumptions.md | 14 | 6 | full audit (6/6) | 6/6 = 100% | PASS 0/0 | N/A (no H2) | 0 |
+| batch_87 | PP/examples.md | 127 | 97 | 8 boundary + 3 stratified (11/97) + 0/97 byte-sweep | 11/11 = 100% | PASS 0/0 | ★ §2.7 lock first production validation PASS (15/15 L108-125 file-root anchor) + §2.5 §PP.1/.2/.3 PASS | 0 (1 INFO kickoff hint atom_id drift) |
+| batch_88 | PR/assumptions.md | 16 | 5 | full audit (5/5) | 5/5 = 100% | PASS 0/0 | N/A (no H2) + 1 cross_ref PASS Appendix C1 | 0 |
+| batch_89 | PR/examples.md | 58 | 34 | 8 boundary + 3 stratified (11/34) | 11/11 = 100% | PASS 0/0 | §2.5 §PR.1/.2/.3 PASS (3/3) + 2 cross_ref §4.2.4 | 0 |
+| batch_90 | QS/assumptions.md | 49 | 14 | full audit (14/14) | 14/14 = 100% | PASS 0/0 | ★ §2.7 lock case #2 PASS (file-root universal 14/14) — rule stable post 2 productions + 2 cross_ref multi-section | 0 (1 INFO-R08-01 kickoff atom estimate inflated; Hook A3 combined nested 14 actual vs 30-40 estimate) |
+| batch_91 | QS/examples.md | 24 | 17 | full audit (17/17) | 17/17 = 100% | PASS 0/0 | §2.5 §QS.1 PASS (3-tier file-root + H2 + children) | 0 |
+| batch_92 | RE/assumptions.md | 7 | 4 | full audit (4/4) | 4/4 = 100% | PASS 0/0 | N/A (no H2) | 0 |
+| batch_93 | RE/examples.md | 76 | 46 | 8 boundary + 3 stratified (11/46) | 11/11 = 100% | PASS 0/0 | §2.5 §RE.1/.2 PASS (2/2) | 0 |
+| **总** | 10 files (0 sliced) | **399** | **240** | 86/86 audited | **86/86 = 100%** | 0 regression | 0 violation | **0 (3 INFO-R08-01/02/03 carry)** |
+
+**Mini-audit (round close gate before round 09)**:
+- Reviewer: `Plan` AUDIT mode (slot #8, **6th cumulative B-03c reviewer family-pivot ★ 1st planner-family AUDIT-pivot** — pr-review-toolkit AUDIT pool 5/5 exhausted post round 07)
+- Sample: 8 atoms stratified across 10 batches
+- Pass rate: **8/8 = 100%**
+- 10/10 round invariants PASS
+- v1.9.2 §E-1..E-6 hooks: §E-1 PASS (10/10 dispatches with explicit JSON template) / §E-2 PASS (10 H1 sib=1) / §E-3 PASS (18 TABLE_HEADER sib=null + line_end-line_start=1) / §E-4 PASS (240/240 prompt_version="P0_writer_md_v1.9.2") / §E-5 PASS (218/218 non-HEADING explicit-null) / §E-6 N/A (0 mermaid/code)
+- Findings: 0 HIGH / 0 MED / 0 LOW; 3 INFO carry-forward (INFO-R08-01 kickoff atom estimate inflated for multi-level nested-list + INFO-R08-02 sample size note + INFO-R08-03 §2.11 Plan B untested in round 08)
+
+**Round 08 outcome**:
+- 10 batches PASS 100% / 0 halt / 0 post-hoc fix (= round 07 cleanest record sustained)
+- **240 atoms cumulative** (kickoff §0.5 estimate 235-340 mid 290; actual 240 within band lower-mid; ratio 240/399 = 0.602 vs round 07 0.782 -23% — round 08 small ass.md heavy structure 拉低 atoms/line ratio)
+- 10 files 100% atomized (5 domains × 2 files: PE/PP/PR/QS/RE; 0 sliced — all <300L)
+- 10 batches across 10 files (0 slice — round 08 cleanest 0-slice record vs round 07 1 file 3-sliced)
+- atom_id 10 distinct namespaces (md_dmPE_assn 4 + md_dmPE_ex 13 + md_dmPP_assn 6 + md_dmPP_ex 97 + md_dmPR_assn 5 + md_dmPR_ex 34 + md_dmQS_assn 14 + md_dmQS_ex 17 + md_dmRE_assn 4 + md_dmRE_ex 46 = 240 atoms)
+- atom_type distribution: HEADING 22 / SENTENCE ~56 / LIST_ITEM ~21 / TABLE_HEADER 18 / TABLE_ROW ~123 = 240
+- Writer pool: general-purpose × 10 (FALLBACK peer-alternative sustained 110 batches cumulative B-02+B-03b+B-03c-rounds-01-08 = 7279 atoms 0 writer defect post-fix RESOLVED; +0 NEW writer defect this round)
+- Reviewer pool: pr-review-toolkit:code-reviewer × 10 per-batch + Plan × 1 mini-audit (Rule D fully distinct from round 01-07 mini-audits; **6th cumulative B-03c reviewer family-pivot ★ 1st planner-family AUDIT-pivot**)
+- 0 halt fired; 0 post-hoc fix needed; 3 INFO carry-forward (non-blocking)
+
+**Codifications validated in B-03c round 08**:
+- **★ §2.7 round 04 lock 2nd sustained production validation**: PP/ex L106 numberless H2 (16 atoms file-root anchor) + QS/ass L5 numberless H2 (12 atoms file-root anchor) — childless numberless H2 → file-root parent (NOT §2.11 Plan B sub-namespace). Rule stable post 2 productions.
+- **★ §2.5 numbered H2 self-namespace 10-case validation**: PE/ex L3 + PP/ex L7/57/78 + PR/ex L3/17/48 + QS/ex L5 + RE/ex L3/40 = 10 numbered H2 cases all PASS sub-namespace `§<D>.<N> [Example N]`.
+- **★ v1.9.2 §E-1 CRITICAL dispatch JSON template 2nd sustained production validation**: 10/10 batch dispatches included explicit JSON template + reference working atom; 0 schema regression across 240 atoms (round 07 was 1st validation 453 atoms; cumulative 693 atoms 0 schema regression post v1.9.2 cut).
+- **R-2.8-1 (now §E-2) H1 sib_idx=1 universal**: 10 H1 atoms in round 08 (1 per file) all sib=1 explicit ✓
+- **R-2.8-2 (now §E-3) TABLE_HEADER sib_idx=null universal**: 18 TABLE_HEADER atoms (batch_85 1 + batch_87 5 + batch_89 5 + batch_91 1 + batch_93 6) all sib=null + line_end-line_start=1 ✓
+- **R-2.8-3 (now §E-4) extracted_by object schema**: 240/240 atoms object form with prompt_version="P0_writer_md_v1.9.2" ✓
+- **MED-01 (now §E-5) non-HEADING hl+sib field-explicit-null**: 218/218 non-HEADING atoms explicit `"heading_level":null,"sibling_index":null` ✓
+- **§2.6 lock NO trigger**: 0 FIGURE / 0 mermaid (grep verified 0 in 10 source files)
+- **§2.11 Plan B NO trigger**: 0 H3 children in any round 08 source file (grep verified) → §2.11 untested in round 08 (only round 07 PC/ex production validation history)
+
+**Cumulative post B-03c round 08**: md_atoms.jsonl 8815 atoms / 93 files atomized (B-03b 17 + round 01-08: 10+10+10+12+12+10+2+10 = 76; total 93) / 141 in-scope = **65.96% file coverage** (was 58.9% post round 07; +7.06pp). Distinct domains: 39/63 = **61.9% domain coverage** (was 54.0% post round 07; +7.9pp; +5 PE/PP/PR/QS/RE). v1.9.3 candidate stack now **10 candidates** (5 v1.9.2 carry + 2 round 07 + 3 round 08) — **threshold ≥10 cut planning trigger MET**; decision deferred to post-round-09 to confirm stack stabilization. Round 09 待 Bojiang ack (default alphabetical RELREC/RP/RS/SC/SE next 5 domains × 2 = 10 batches similar volume to round 08; 24 domains × 2 = 48 files remaining post round 08; 估 3-4 more rounds to close P2 B-03c).
