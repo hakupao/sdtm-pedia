@@ -244,7 +244,7 @@
     "estimated_overhead_retired_minutes_per_batch": "10-15",
     "estimated_overhead_retired_total_hours_p1_remaining": "5-7"
   },
-  "current_phase": "P2_B-03c_round_07_CLOSED_2026-05-06_4_batches_453_atoms_1_domain_PC_solo_PASS_§2.11_Plan_B_first_production_validation_PASS_§2.7_round_04_lock_sustained_PASS_boundary_clean_v1.9.2_first_round_post_cut_pending_round_08_ack_default_alphabetical_PE_PP_PR_QS_RE_29_domains_remaining",
+  "current_phase": "P2_B-03c_round_08_CLOSED_2026-05-06_10_batches_240_atoms_5_domains_PE_PP_PR_QS_RE_alphabetical_default_PASS_v1.9.2_2nd_sustained_round_§2.7_lock_2_cases_PASS_§2.5_lock_10_cases_PASS_0_NEW_lock_0_halt_0_post_hoc_fix_v1.9.3_planning_trigger_MET_24_domains_remaining_pending_round_09_ack",
   "plan_version": "v0.6 (P2 B-03c round 05 closed)",
   "recovery_hint": "P2 B-03c round 05 CLOSED 2026-05-06. 12 batches batch_58..69 PASS 100% per-batch (1 CONDITIONAL_PASS batch_60 post-hoc fixed) + mini-audit PASS 100% (10/10 atoms + 9/9 invariants). md_atoms.jsonl 7791 atoms / 71 files atomized / 50.4% file coverage (★ crossed 50% milestone). Round 05 NO first-time lock (grep 实证 0 mermaid + 0 numberless H2 + max file IS/ex 273L under 300L slice threshold) — cleanest round to date. 1 MED-01 fired and post-hoc resolved (batch_60 LB/assn 9 LIST_ITEM atoms explicit null hl+sib fields added Rule B backup preserved). 0 halt mid-round. Round 06 待用户 ack scope (recommend 5-6 more domains alphabetical ML to onwards = ~10-14 batches; 35 domains × 2 = 70 files remaining post round 05). 入口: multi_session/P2_B-03c_round_05_kickoff.md (§0.5 20/20 grep + §2.8 R-2.8-1/2/3 carry-forward + §8 default Option acked).",
   "created": "2026-04-24",
@@ -2342,5 +2342,106 @@
       "b_03c_progress_pct": "62/114 = 54.4%"
     },
     "round_08_trigger": "pending Bojiang ack scope (default alphabetical PE/PP/PR/QS/RE next 5 domains × 2 = 10 batches, similar volume to round 06; 29 domains × 2 = 58 files remaining post round 07; 估 4-5 more rounds to close P2 B-03c; v1.9.2 active baseline sustained for round 08+)"
+  },
+  "b_03c_round_08_completed": true,
+  "b_03c_round_08_details": {
+    "completed_at": "2026-05-06",
+    "scope": "alphabetical PE/PP/PR/QS/RE 5 domains × 2 files = 10 batches batch_84..93 (全 single-batch 0 slice — round 08 cleanest 0-slice record vs round 07 1 file 3-sliced; 0 NEW first-time lock per §0.5 32/32 grep verified 0 H3 + 0 H4 + 0 mermaid + 2 numberless H2 都 childless §2.7 sustained)",
+    "atoms": 240,
+    "atoms_breakdown": "batch_84 PE/ass=4 + batch_85 PE/ex=13 + batch_86 PP/ass=6 + batch_87 PP/ex=97 + batch_88 PR/ass=5 + batch_89 PR/ex=34 + batch_90 QS/ass=14 + batch_91 QS/ex=17 + batch_92 RE/ass=4 + batch_93 RE/ex=46",
+    "atoms_estimate_kickoff_section_0_5_row_27": "235-340 (mid ~290; actual 240 within band lower-mid; ratio 240/399 = 0.602 vs round 07 0.782 -23% — round 08 small ass.md heavy structure 拉低 atoms/line ratio)",
+    "atoms_per_line": 0.602,
+    "files_atomized": 10,
+    "source_lines": 399,
+    "first_time_conventions_locked": [],
+    "first_time_conventions_no_trigger": [
+      "§2.6 FIGURE-in-domains — 0 occurrence (grep verified 0 mermaid in 10 source files)",
+      "§2.7 numberless H2 in assumptions.md — 1 trigger (QS/ass L5 file-root sustained §2.7 lock case #2)",
+      "§2.7 numberless H2 childless in examples.md — 1 trigger (PP/ex L106 file-root sustained §2.7 lock case #1 in round 08)",
+      "§2.11 Plan B sub-namespace — 0 trigger (grep verified 0 H3 in 10 source files; §2.11 untested in round 08)"
+    ],
+    "writer_pool": "general-purpose × 10 (FALLBACK peer-alternative sustained 110 batches cumulative B-02+B-03b+B-03c-rounds-01-08 = 7279 atoms 0 writer defect post-fix RESOLVED; +0 NEW writer defect this round)",
+    "reviewer_pool_per_batch": "pr-review-toolkit:code-reviewer × 10",
+    "reviewer_mini_audit": "Plan AUDIT mode (slot #8, 6th cumulative B-03c reviewer family-pivot ★ 1st planner-family AUDIT-pivot — pr-review-toolkit AUDIT pool 5/5 exhausted post round 07; cross-family Rule D distance maximum)",
+    "rule_a_per_batch_pass_rate": "10/10 = 100% (batch_84 4/4 + batch_85 13/13 + batch_86 6/6 + batch_87 11/11 audited + 0/97 byte-sweep + batch_88 5/5 + batch_89 11/11 + batch_90 14/14 + batch_91 17/17 + batch_92 4/4 + batch_93 11/11 = 86/86 audited = 100%)",
+    "mini_audit_pass_rate": "8/8 atoms = 100% + 10/10 round invariants PASS",
+    "halt_events": {},
+    "post_hoc_fixes": {},
+    "findings": {
+      "high": 0,
+      "medium": 0,
+      "low": 0,
+      "info_carry_forward": [
+        "INFO-R08-01 batch_90 QS/ass kickoff §4 #8 atom estimate inflated (30-40 vs actual 14) — Hook A3 multi-level combined nested-list compression not accounted for in kickoff estimate; same class as round 06 INFO-R06-01 batch_71 kickoff drift; v1.9.3 candidate INFO for kickoff atom estimate calibration on multi-level nested-list domains",
+        "INFO-R08-02 batch_87 sample-only verdict count (11/97) per kickoff §6 sample policy — 86-atom byte-sweep gap relies on Rule D enforcement; round 08 closed clean; recommend retaining current sampling cadence in v1.9.3",
+        "INFO-R08-03 0 in-scope H3 in any of 10 round 08 files (per kickoff §0.5 row 25); §2.11 Plan B (sub-namespace by sib_idx for numberless H2 with H3 children) remains validated only by round 07 PC/ex — not stress-tested in round 08; future rounds with H3 should be explicitly stress-tested"
+      ]
+    },
+    "v1_9_3_candidate_stack_post_round_08": [
+      "5 carry from v1.9.2 cut (atoms/line ratio drift INFO sustained, INFO-R06-01 batch_71 kickoff dispatch prompt count drift, B-04 source curation D-7.9 KB cleanup ch03 L117, OMC restoration trigger sustained, schema v1.3 promote evaluation)",
+      "INFO-R07-01 §E-5 verification grep whitespace-tolerance",
+      "INFO-R07-02 atoms/line ratio uptick 0.681→0.782 +15% multi-Example-table driven",
+      "INFO-R08-01 kickoff atom estimate calibration on multi-level nested-list domains",
+      "INFO-R08-02 sample size note per-batch byte-sweep gap relies on Rule D",
+      "INFO-R08-03 §2.11 Plan B not stress-tested in round 08 (0 H3 in scope)"
+    ],
+    "v1_9_3_cut_decision": "PLANNING TRIGGER MET post round 08 (stack 10 = ≥10 cut planning trigger threshold MET; v1.9.2 cut 同日 2026-05-06 fired post round 06 with 10-candidate consolidation; decision deferred to post-round-09 to confirm stack stabilization vs growth — consistent with v1.9.2 pre-cut pattern)",
+    "rule_d_roster_cumulative_b_03c": [
+      "round 01 mini-audit: feature-dev:code-reviewer (slot #1)",
+      "round 02 batch_23 burn: feature-dev:code-reviewer + round 02 mini-audit: feature-dev:code-architect (slot #2)",
+      "round 03 mini-audit: pr-review-toolkit:type-design-analyzer (slot #3) — 1st pr-review-toolkit AUDIT-pivot",
+      "round 04 mini-audit: pr-review-toolkit:silent-failure-hunter (slot #4) — 2nd pr-review-toolkit AUDIT-pivot",
+      "round 05 mini-audit: pr-review-toolkit:comment-analyzer (slot #5) — 3rd pr-review-toolkit AUDIT-pivot",
+      "round 06 mini-audit: pr-review-toolkit:pr-test-analyzer (slot #6) — 4th pr-review-toolkit AUDIT-pivot",
+      "round 07 mini-audit: pr-review-toolkit:code-simplifier (slot #7) — 5th pr-review-toolkit AUDIT-pivot ★ extends pool 4→5",
+      "round 08 mini-audit: Plan AUDIT mode (slot #8) — ★ 1st planner-family AUDIT-pivot 6th cumulative B-03c reviewer family-pivot; cross-family Rule D distance maximum (planner ≠ review-family ≠ writer-family)",
+      "per-batch sustained: pr-review-toolkit:code-reviewer (B-02 + B-03b + B-03c rounds 01-08 = ~110 batches cumulative + 1 re-audit batch_72)"
+    ],
+    "rule_d_round_09_fresh_candidates": [
+      "feature-dev:code-explorer AUDIT mode (writer-family N21-banned for atomization but reviewer-only role allowed; clarification needed if used; not yet burned in mini-audit slot)",
+      "(other planner-family agents if surfaced)"
+    ],
+    "v1.9.2_second_sustained_round_validation": {
+      "active_baseline": "P0_writer_md_v1.9.2 + P0_matcher_v1.9.2 + P0_reviewer_v1.9.2 + P0_writer_pdf_v1.9.2 paired-sync (sustained from round 07 first production validation)",
+      "§E-1_CRITICAL_dispatch_JSON_template_validation": "PASS — all 10 batch dispatches included explicit JSON template + reference working atoms (md_dmPC_assn_a001 / md_dmCM_assn_a003 / batch_81 PC/ex); 0 schema regression across 240 atoms; cumulative 693 atoms post v1.9.2 cut 0 schema regression",
+      "§E-2_R-2.8-1_H1_sib_idx_1_validation": "PASS — 10 H1 atoms (one per file) all sib=1 explicit",
+      "§E-3_R-2.8-2_TABLE_HEADER_sib_idx_null_validation": "PASS — 18 TABLE_HEADER atoms (1 batch_85 + 5 batch_87 + 5 batch_89 + 1 batch_91 + 6 batch_93) all sib=null + line_end-line_start=1",
+      "§E-4_R-2.8-3_extracted_by_object_validation": "PASS — 240/240 atoms object form with prompt_version='P0_writer_md_v1.9.2'",
+      "§E-5_MED-01_non_HEADING_field_explicit_null_validation": "PASS — 218/218 non-HEADING atoms (240 total - 22 HEADING) explicit `\"heading_level\":null,\"sibling_index\":null`",
+      "§E-6_LOW_FIGURE_vs_CODE_LITERAL_boundary_validation": "N/A — 0 mermaid / 0 fenced code in round 08 scope"
+    },
+    "§2.7_lock_2_cases_validation": {
+      "applies_to": "PP/ex L106 (case #1) + QS/ass L5 (case #2) numberless H2 with 0 H3 children",
+      "case_1_pp_ex_l106": {
+        "trigger_atom": "md_dmPP_ex_a081 (HEADING hl=2 sib=4 parent=§PP [PP — Examples])",
+        "children_count": "15 atoms (a082-a096; L108-125)",
+        "all_atoms_parent_section": "§PP [PP — Examples] (file-root, NOT §PP.4)",
+        "lock_validation": "PASS"
+      },
+      "case_2_qs_ass_l5": {
+        "trigger_atom": "md_dmQS_assn_a003 (HEADING hl=2 sib=1 parent=§QS [QS — Assumptions])",
+        "children_count": "11 atoms (a004-a014; L7-49)",
+        "all_atoms_parent_section": "§QS [QS — Assumptions] (file-root, NOT §QS.1)",
+        "lock_validation": "PASS"
+      },
+      "rule_stability": "STABLE — §2.7 round 04 lock now has 2 sustained production validations in round 08 (after round 07 PC/ex L556+L562 dual case); rule stable for v1.9.2 baseline"
+    },
+    "§2.5_lock_10_cases_validation": {
+      "cases": "PE/ex L3 + PP/ex L7/57/78 + PR/ex L3/17/48 + QS/ex L5 + RE/ex L3/40 = 10 numbered H2 cases",
+      "validation": "PASS — all 10 children atoms verify sub-namespace `§<D>.<N> [Example N]` shape; H2 atoms themselves use file-root parent",
+      "lock_status": "STABLE (round 01-07 carry-forward sustained; round 08 10-case batch validation)"
+    },
+    "cumulative_post_round_08": {
+      "md_atoms_jsonl_total": 8815,
+      "files_atomized": 93,
+      "files_in_scope": 141,
+      "file_coverage_pct": 65.96,
+      "domains_atomized": 39,
+      "domains_atomized_canonical_grep_verified": 39,
+      "domains_total": 63,
+      "domain_coverage_pct": 61.9,
+      "b_03c_progress_pct": "72/114 = 63.16%"
+    },
+    "round_09_trigger": "pending Bojiang ack scope (default alphabetical RELREC/RP/RS/SC/SE next 5 domains × 2 = 10 batches similar volume to round 08; 24 domains × 2 = 48 files remaining post round 08; 估 3-4 more rounds to close P2 B-03c; v1.9.2 active baseline sustained for round 09+; v1.9.3 cut planning trigger MET — cut decision deferred post round 09)"
   }
 }
