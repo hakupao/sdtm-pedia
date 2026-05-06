@@ -1,0 +1,100 @@
+{
+  "_meta": {
+    "schema": "refactor_v1.progress.v1",
+    "created": "2026-05-06",
+    "tier": 3,
+    "trigger": "Bojiang reported agent retrieval/update/planning becoming costly; main session scan confirmed",
+    "estimated_total_hours": "段1 ~2h + 段2 ~半天 + 段3 ~1天 + retro ~1h = ~2-3 工作日 (跨 round 04 / B-03c cycle close 等待期)"
+  },
+  "overall_status": "phase_1_closed_phase_2_blocked_on_06_round04_close",
+  "phase_1_closed_at": "2026-05-06",
+  "blocking_decisions": [],
+  "phases": {
+    "phase_1_now": {
+      "status": "closed",
+      "closed_at": "2026-05-06",
+      "actual_hours": 0.5,
+      "completion_report": "evidence/checkpoints/段1_完成报告.md",
+      "trigger_condition": "Bojiang 同意 §6 决策点 + 说 '执行段 1'",
+      "scope": [
+        "D — project_knowledge_base 归档 + web/ 进 Key Paths",
+        "E — 写 .work/AGENT_GUIDE.md + CLAUDE.md 加指针",
+        "A 零冲突部分 — 删空 evidence/, 处置 tmp/ progress.txt notes/"
+      ],
+      "estimated_hours": 2,
+      "conflict_with_06_batch": "无 (不动 .work/06_deep_verification/, 不动 MANIFEST/worklog/PROGRESS)",
+      "deliverables": [
+        "archive/ 目录建立 + old_knowledge_base_v0/ + README.md",
+        ".work/AGENT_GUIDE.md (新文件)",
+        "CLAUDE.md 编辑 (Key Paths 加 web/ archive/)",
+        ".gitignore 编辑确认 web/node_modules 等",
+        "evidence/checkpoints/段1_完成报告.md (规则 A 抽检)"
+      ]
+    },
+    "phase_2_after_round_04_close": {
+      "status": "blocked",
+      "trigger_condition": "Bojiang 在另一终端确认 round 04 reconciler PASS, round 05 未 kickoff 之前, 来本 session 说 '执行段 2'",
+      "scope": [
+        "A 余 — 06 顶层 .bak 整理 + 全项目 .bak git rm 审计",
+        "B — MANIFEST 瘦身 + worklog 按 phase 拆 + PROGRESS 改为唯一状态板",
+        "CLAUDE.md Chain B (Session Wrap-up) 更新"
+      ],
+      "estimated_hours": 4,
+      "conflict_with_06_batch": "高 — 改 MANIFEST/worklog/PROGRESS, 与 06 收尾抢同一行; 必须时序错开",
+      "deliverables": [
+        ".bak 数量从 76 降到 ≤5",
+        "MANIFEST.md ≤200 行",
+        ".work/meta/worklog/ 多文件 + INDEX.md",
+        "docs/PROGRESS.md ≤150 行",
+        "evidence/checkpoints/段2_完成报告.md"
+      ]
+    },
+    "phase_3_after_b03c_cycle_close": {
+      "status": "blocked",
+      "trigger_condition": "Bojiang 判断 P2 B-03c 整个大 cycle 收官 (可能再 N 个 round), 说 '执行段 3'",
+      "scope": [
+        "C — .work/06_deep_verification/ → branches/06_deep_verification/",
+        "C — docs/jp/ → branches/jp_delivery/",
+        "CLAUDE.md 路由词 + Key Paths 全量更新",
+        "MANIFEST/AGENT_GUIDE/worklog 同步更新引用",
+        "Dry-run 验证 (C-16/17/18)",
+        "RETROSPECTIVE.md (规则 C 强制)"
+      ],
+      "estimated_hours": 8,
+      "conflict_with_06_batch": "极高 — 06 必须完全停跑; 路径迁移 + 路由词改, 影响 70+ kickoff 文件",
+      "deliverables": [
+        "branches/06_deep_verification/ 完整迁移",
+        "branches/jp_delivery/ 完整迁移",
+        "70+ kickoff 文件路径全部更新, dry-run PASS",
+        ".work/MANIFEST.md / AGENT_GUIDE.md / worklog/phase06*.md 全部同步",
+        "RETROSPECTIVE.md 三段齐备",
+        "evidence/checkpoints/段3_完成报告.md"
+      ]
+    }
+  },
+  "decisions_pending": [
+    {"id": 1, "q": "project_knowledge_base 归档 vs git rm", "default": "归档", "answered": "default (Bojiang 2026-05-06: 全用默认)"},
+    {"id": 2, "q": "tmp/pdfs/ 处置", "default": "git rm", "answered": "default (Bojiang 2026-05-06: 全用默认)"},
+    {"id": 3, "q": "notes/ 处置", "default": "迁到 .work/meta/notes/", "answered": "default (Bojiang 2026-05-06: 全用默认)"},
+    {"id": 4, "q": "worklog.md 拆分后原文件处置", "default": "git rm", "answered": "default (Bojiang 2026-05-06: 全用默认)"},
+    {"id": 5, "q": "旁枝命名 branches/ vs phases/", "default": "branches/", "answered": "default (Bojiang 2026-05-06: 全用默认)"},
+    {"id": 6, "q": "06 子目录 .bak 保留阈值", "default": "1 (最近一次)", "answered": "default (Bojiang 2026-05-06: 全用默认)"}
+  ],
+  "scan_baseline_2026-05-06": {
+    "total_files": 25376,
+    "markdown_files": 2207,
+    "06_deep_verification_size_mb": 115,
+    "06_deep_verification_files": 980,
+    "bak_files_total": 76,
+    "bak_files_total_mb": 84,
+    "bak_in_06_top": 17,
+    "multi_session_kickoffs": 72,
+    "worklog_lines": 2449,
+    "manifest_lines": 357,
+    "progress_md_lines": 339,
+    "claude_md_lines": 120,
+    "web_size_mb": 579,
+    "knowledge_base_size_mb": 9.8,
+    "project_knowledge_base_size_mb": 5.0
+  }
+}
