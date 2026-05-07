@@ -877,3 +877,31 @@
 **v2.0 candidate stack post v1.9.3 cut**: 5 actionable carries (atoms/line ratio driver investigations + INFO-R06-01 + B-04 source curation + OMC restoration + Round 09 Rule D family-pivot watch). Below ≥10 cut planning trigger threshold; no v2.0 cut planning recommended near-term.
 
 **Round 10 trigger**: pending Bojiang ack scope (default alphabetical SM/SR/SS/SU/SUPPQUAL next 5 domains × 2 = 10 batches; 19 domains × 2 = 38 files remaining post round 09; 估 2-3 more rounds to close P2 B-03c) under v1.9.3 active baseline. Dispatch prompt template MUST follow §E-1 explicit JSON template + §F-1 if numberless H2 with H3 children in scope (kickoff §0.5 grep verify H3 count per H2 scope).
+
+---
+
+## P2 B-03c Round 12 (mini-audit slot 12, plugin-dev:skill-reviewer AUDIT — **10th cumulative B-03c reviewer family-pivot**)
+
+**Scope**: TA solo (3-slice §2.4 batch_123/124/125) + TE/TI/TM glue, alphabetical 4 domains, 10 batches batch_122-131, 911L source, 404 atoms (md_atoms.jsonl 9502 → 9906)
+
+**Per-batch reviewers** (10/10 PASS): batch_122..131 all `pr-review-toolkit:code-reviewer` per-batch (or oh-my-claudecode:executor configured map) — Rule A 100% PASS each (2 reviewers reported 1 LOW INFO §F-2 small-file driver each, all source-style verified non-blocking)
+
+**Mini-audit slot 12**: `plugin-dev:skill-reviewer` AUDIT mode (10th cumulative B-03c family-pivot — plugin-dev family **2nd sub-type intra-depth** post round 11 plugin-dev:plugin-validator 9th pivot; cross-family Rule D distance maximum vs all prior burns)
+
+**Sample**: 10 atoms stratified seed=20260507 covering: 2 FIGURE (a047 Ex2 Prospective L137-L177, a126 Ex4 Retrospective L388-L412) / §F-1 5th case (TA/ex §TA.8.1 child) / §F-1 6th case (TE/ex §TE.4.1 child) / §2.4 cross-slice 续号 (a114 first slice B atom) / §2.5 numbered H2 / TABLE_HEADER / LIST_ITEM / SENTENCE / H1 file-root
+
+**Audit verdict**: **PASS 100.00%** (10/10 across 4 dims; 0 HIGH/MED/LOW)
+
+**Key milestones validated**:
+- §F-1 §2.11 Plan B **DUAL trigger** 5th case (TA/ex §TA.8.{1..4}) + 6th case (TE/ex §TE.4.{1..3}) literal mirrors gold reference (round 07 PC + round 09 RELREC) ★ 7 cumulative production cases post round 12
+- §F-1 NEW motif: descriptive-title H3 (TE/ex `### Granularity / Distinguishing / Transitions`) — title-agnostic sib_idx-based namespace empirically validated
+- §2.4 multi-batch slice **3rd cumulative production trigger** (round 03 inaugural lock + v1.9.3 cut B-02 cumulative validation 2nd + round 12 TA/ex 3-slice 3rd) — atom_id 续号 a001-a113 → a114-a217 → a218-a274 file-scope lockstep (NOT batch-scope reset); sib_idx 1/2/3 → 4/5/6 → 7+8 cumulative within file
+- §2.6 FIGURE-in-domains **20-block stress-test single-round NEW peak** (round 11=3 → round 12=20) all byte-exact PASS
+- §F-2 aggregate de-figure ratio 0.714 IN BAND 0.59-0.85 (11th sustained validation cycle; naive 0.443 OUTSIDE per kickoff §0.5 row 24 forecast)
+- §F-3 estimate calibration aggregate within ±35% threshold (12th sustained)
+
+**Cumulative state post round 12**: 9906 atoms / 129/141 files = **91.49% ★ 跨 90% file** / 57/63 domains = **90.48% ★ 跨 90% domain** / 108/114 B-03c = **94.74% ★ 跨 90% B-03c progress** / 9906 atoms 0.9% short of 10K mid-estimate
+
+**v1.9.4 cut candidates filed** (5 NEW + carries): §F-2 de-figure-naive ratio formula codification / §F-1 descriptive-title H3 motif title-agnostic codification / §2.4 multi-slice atom_id 续号 first-class sub-codification / §2.6 FIGURE-heavy domain estimate adjustment recipe / C-R12-01 §F-1 dual-trigger single-round stress-test sustained criterion (7 cumulative cases milestone)
+
+**Round 13 trigger**: P2 B-03c 收官 round expected. Remaining 6 domains × 2 = 12 files (TR/TS/TU/TV/UR/VS); 估 12 batches similar to round 06/08/10 体量; pre-allocated mini-audit slot 13 = vercel:performance-optimizer (vercel-family 3rd sub-type) OR superpowers:* AUDIT (NEW family inaugural). v1.9.4 cut PRE-round-13 strongly recommended.
