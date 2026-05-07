@@ -873,3 +873,42 @@ Pending Bojiang ack scope. Default: alphabetical SM/SR/SS/SU/SUPPQUAL next 5 dom
 ### Commit
 
 `06 P2 B-03c round 09 自治连跑 CLOSED — 10 batches 297 atoms 5 domains RELREC/RP/RS/SC/SE ★ v1.9.2 3rd sustained round + §2.11 Plan B 2nd production validation 4 cases including NEW References boundary + §2.7 lock 5 cases + §2.5 lock 6 cases + 0 NEW lock 0 halt 0 post-hoc fix v1.9.3 cut trigger MET 2 rounds sustained recommend cut next session feature-dev:code-explorer AUDIT slot #9 7th family-pivot 73.05%/69.84%/71.93% milestone`
+
+
+## 2026-05-07 v1.9.3 prompt cut COMPLETED ★ 3 NEW F-rules consolidating 10-candidate stack post B-03c rounds 07-09 close
+
+### Trigger
+10-candidate stack post B-03c round 09 = ≥10 cut planning trigger MET 2 ROUNDS SUSTAINED (post round 08 + post round 09 same stable stack); mirrors v1.9.2 pre-cut pattern. Bojiang ack 2026-05-07 Option A (cut now).
+
+### 3 NEW F-rules
+- **§F-1 HIGH §2.11 Plan B 4-layer namespace codification** SUSTAINED VALIDATED EXTENDED (round 07 PC/ex L58 1st + round 09 4 cases stress-test including NEW References boundary RS/ex L92 = 5 cumulative production cases). Codifies: H2 file-root + intro H2-sub-namespace + H3 H2-sub-namespace with sib_idx RESTART per H2 scope + H3 children H3-sub-sub-namespace `§<D>.<N>.<K>` regardless of H3 title pattern (Example N / References / Notes / arbitrary).
+- **§F-2 LOW INFO atoms/line ratio empirical band 0.59-0.85** (6-round sustained, rounds 04-09). Codifies multiplier band for kickoff §0.5 atom estimates.
+- **§F-3 LOW INFO kickoff atom estimate multi-level nested-list calibration** (round 08 INFO-R08-01). Codifies 0.7× discount factor for ass.md with multi-level nested ratio > 30% AND combined item-with-sub-bullets average > 4 lines.
+
+### 4 paired-sync prompt files written
+- writer_md v1.9.3 (~180 lines, hooks 28 → 30)
+- writer_pdf v1.9.3 (~65 lines, paired-sync only)
+- matcher v1.9.3 (~85 lines, hooks 29 → 30)
+- reviewer v1.9.3 (~120 lines, hooks 32 → 35)
+
+### Rule D reviewer audit
+- Reviewer: `vercel:ai-architect` AUDIT mode (slot #71, ★ NEW family pivot — vercel-family AI prompt design review, cross-family Rule D distance maximum)
+- Verdict: **PASS_WITH_OBSERVATION** (8/10 PASS + 2/10 OBSERVATION + 0/10 FAIL; cut NOT BLOCKED)
+- 3 in-place hotfixes applied REMEDIATED in-session:
+  1. writer_md L59 + matcher L28: "12 H3 children" → "16 H3 children" (cumulative 7 round 07 + 9 round 09)
+  2. writer_md §F-2 header: "9-round" → "6-round empirical sustained, rounds 04-09"
+  3. writer_md §F-3 RS/ass batch_98 example: reframed as counter-example
+- Report: `evidence/checkpoints/v1_9_3_cut_reviewer_report.md`
+
+### v1.9.2 archived
+`subagent_prompts/archive/v1.9.2_final_2026-05-07/` (4 files preserved)
+
+### v2.0 candidate stack post v1.9.3 cut
+5 actionable carries (atoms/line ratio driver investigations / INFO-R06-01 batch kickoff drift / B-04 source curation / OMC restoration trigger / Round 09 Rule D family-pivot exhaustion watch). Below ≥10 cut planning trigger; no v2.0 cut planning recommended near-term.
+
+### Round 10 trigger
+Pending Bojiang ack scope. Default alphabetical SM/SR/SS/SU/SUPPQUAL next 5 domains × 2 = 10 batches under v1.9.3 active baseline. 19 domains × 2 = 38 files remaining post round 09; 估 2-3 more rounds to close P2 B-03c.
+
+### Commit
+
+`06 P2 v1.9.3 prompt cut COMPLETED — 4 paired-sync prompts + 3 NEW F-rules consolidating 10 candidate stack ★ §F-1 §2.11 Plan B SUSTAINED VALIDATED EXTENDED 4-layer namespace codification + §F-2 atoms/line ratio band + §F-3 nested-list calibration v1.9.2 archived rule_d_reviewer vercel:ai-architect AUDIT slot 71 PASS_WITH_OBSERVATION 8/10+2/10+0/10 3 in-place hotfixes applied`

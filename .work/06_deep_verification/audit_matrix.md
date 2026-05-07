@@ -843,3 +843,37 @@
 - **NEW boundary `### References` H3 motif**: RS/ex L92 sub-namespace `§RS.2.2 [References]` (sib_idx-based, NOT title-slug) PASS. Boundary case codified — §2.11 Plan B applies regardless of H3 title pattern (Example N / References / etc).
 
 **Cumulative post B-03c round 09**: md_atoms.jsonl 9112 atoms / 103 files atomized (B-03b 17 + round 01-09: 10+10+10+12+12+10+2+10+10 = 86; total 103) / 141 in-scope = **73.05% file coverage** (was 65.96% post round 08; +7.09pp). Distinct domains: 44/63 = **69.84% domain coverage** (was 61.9% post round 08; +7.94pp; +5 RELREC/RP/RS/SC/SE). B-03c progress: 82/114 = **71.93%** (was 63.16%; +8.77pp). v1.9.3 candidate stack now **9 candidates actionable + 1 RESOLVED** (5 v1.9.2 carry + 2 round 07 + 3 round 08, of which INFO-R08-03 §2.11 Plan B stress-test RESOLVED post round 09; 0 NEW round 09) — **threshold ≥10 sustained 2 rounds; v1.9.3 cut planning recommended next session post Bojiang ack**. Round 10 待 Bojiang ack (default alphabetical SM/SR/SS/SU/SUPPQUAL next 5 domains × 2 = 10 batches; 19 domains × 2 = 38 files remaining post round 09; 估 2-3 more rounds to close P2 B-03c) OR v1.9.3 cut 优先.
+
+---
+
+## v1.9.3 Cut (COMPLETED 2026-05-07, post B-03c rounds 07-09 close + ★ §2.11 Plan B 2nd production validation 4 cases including References boundary + cumulative 9112 atoms post round 09)
+
+**Cut session type**: v1.9.3 cut appended to round 09 close session post P2 B-03c rounds 07-09 CLOSED cumulative audit 990 atoms post v1.9.2 cut 0 schema regression
+**Trigger**: 10-candidate stack post B-03c round 09 = ≥10 cut planning trigger MET 2 ROUNDS SUSTAINED (post round 08 + post round 09 same stable stack); mirrors v1.9.2 pre-cut pattern. Bojiang ack 2026-05-07 'a' (Option A: cut now).
+
+**v1.9.3 prompt files (4 paired-sync)**:
+- `subagent_prompts/P0_writer_md_v1.9.3.md` (~180 lines, 3 NEW F-rules; MD-side hooks 28 → 30: NEW Hook F-1 + F-2)
+- `subagent_prompts/P0_writer_pdf_v1.9.3.md` (~65 lines, paired-sync; PDF-side hooks unchanged)
+- `subagent_prompts/P0_matcher_v1.9.3.md` (~85 lines, paired-sync; matcher hooks 29 → 30: NEW Hook M-F-1)
+- `subagent_prompts/P0_reviewer_v1.9.3.md` (~120 lines, paired-sync; reviewer hooks 32 → 35: NEW Hook R-F-1 + R-F-2 + R-F-3)
+
+**Candidates consolidated**: 10 → 3 NEW F-rules + 7 INFO/process carries
+- §F-1 HIGH §2.11 Plan B 4-layer namespace codification SUSTAINED VALIDATED EXTENDED (round 07 1st 1 case + round 09 4 cases including NEW References boundary RS/ex L92 = 5 cumulative production cases)
+- §F-2 LOW INFO atoms/line ratio empirical band 0.59-0.85 (6-round sustained, rounds 04-09)
+- §F-3 LOW INFO kickoff atom estimate multi-level nested-list calibration (round 08 INFO-R08-01 codification)
+
+**Rule D reviewer**: `vercel:ai-architect` AUDIT mode (slot #71, **★ NEW family pivot — vercel-family AI architecture/prompt design review, cross-family Rule D distance maximum from B-03c per-batch + cumulative family-pivots feature-dev/pr-review-toolkit/Plan/feature-dev:code-explorer**)
+
+**Reviewer audit verdict**: `PASS_WITH_OBSERVATION` (8/10 PASS + 2/10 OBSERVATION + 0/10 FAIL; cut NOT BLOCKED)
+- 0 FAIL: rule semantics + dispatch behavior + schema + cross-file paired-sync correctness all PASS
+- 2 OBSERVATION (REMEDIATED in-session via 3 in-place hotfixes):
+  - OBS-1: writer_md L59 + matcher L28 "12 H3 children" → "16 H3 children" (round 07 PC/ex 7 + round 09 9)
+  - OBS-2: writer_md §F-2 header "9-round" → "6-round empirical sustained, rounds 04-09"
+  - OBS-A (additional): writer_md §F-3 RS/ass batch_98 example reframed as counter-example
+
+**Reviewer report**: `evidence/checkpoints/v1_9_3_cut_reviewer_report.md`
+**v1.9.2 archive**: `subagent_prompts/archive/v1.9.2_final_2026-05-07/` (4 files preserved)
+
+**v2.0 candidate stack post v1.9.3 cut**: 5 actionable carries (atoms/line ratio driver investigations + INFO-R06-01 + B-04 source curation + OMC restoration + Round 09 Rule D family-pivot watch). Below ≥10 cut planning trigger threshold; no v2.0 cut planning recommended near-term.
+
+**Round 10 trigger**: pending Bojiang ack scope (default alphabetical SM/SR/SS/SU/SUPPQUAL next 5 domains × 2 = 10 batches; 19 domains × 2 = 38 files remaining post round 09; 估 2-3 more rounds to close P2 B-03c) under v1.9.3 active baseline. Dispatch prompt template MUST follow §E-1 explicit JSON template + §F-1 if numberless H2 with H3 children in scope (kickoff §0.5 grep verify H3 count per H2 scope).

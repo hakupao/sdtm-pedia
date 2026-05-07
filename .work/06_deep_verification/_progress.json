@@ -1,7 +1,7 @@
 {
   "project": "06_deep_verification",
   "tier": 3,
-  "status": "P2_B-03c_round_09_CLOSED_2026-05-07_10_batches_297_atoms_5_domains_RELREC_RP_RS_SC_SE_alphabetical_default_PASS_v1.9.2_3rd_sustained_round_§2.11_Plan_B_4_cases_2nd_production_validation_PASS_including_NEW_References_boundary_§2.7_5_cases_PASS_§2.5_6_cases_PASS_0_NEW_lock_0_halt_0_post_hoc_fix per_batch_Rule_A_98_of_98_PASS_100pct mini_audit_8_of_8_atoms_10_of_10_invariants_PASS_feature_dev_code_explorer_AUDIT_mode_slot_9_7th_cumulative_B-03c_reviewer_family_pivot_★_feature_dev_family_AUDIT_pool_3rd_sub_type cumulative_md_atoms_jsonl_9112_atoms_103_files_atomized_73_05_pct_file_coverage_44_domains_69_84_pct_domain_coverage_B-03c_progress_82_of_114_71_93_pct v1_9_3_candidate_stack_9_actionable_plus_1_RESOLVED_INFO_R08_03_§2_11_stress_test_resolved cut_planning_trigger_MET_2_rounds_sustained_recommend_v1_9_3_cut_next_session round_10_pending_Bojiang_ack_default_alphabetical_SM_SR_SS_SU_SUPPQUAL_19_domains_remaining",
+  "status": "v1_9_3_CUT_COMPLETED_2026-05-07_3_NEW_F_rules_consolidating_10_candidate_stack_§F-1_HIGH_§2.11_Plan_B_SUSTAINED_VALIDATED_EXTENDED_4_layer_namespace_codification_including_References_boundary_+_§F-2_INFO_atoms_per_line_ratio_band_0.59_0.85_+_§F-3_INFO_kickoff_estimate_calibration_multi_level_nested_list 4_paired_sync_prompts_writer_md_pdf_matcher_reviewer_v1.9.3 hooks_writer_md_28_to_30_matcher_29_to_30_reviewer_32_to_35 v1.9.2_archived rule_d_reviewer_vercel_ai_architect_AUDIT_slot_71_PASS_WITH_OBSERVATION_8_of_10_PASS_2_of_10_OBSERVATION_0_of_10_FAIL 3_in_place_hotfixes_applied_12_to_16_H3_children_9_round_to_6_round_RS_ass_counter_example_reframe round_10_pending_Bojiang_ack_default_alphabetical_SM_SR_SS_SU_SUPPQUAL_under_v1.9.3_baseline 19_domains_x_2_38_files_remaining_post_round_09_estimate_2_to_3_more_rounds_to_close_P2_B-03c",
   "v1_7_cut_completed": "2026-04-29",
   "v1_7_cut_details": {
     "completed_at": "2026-04-29",
@@ -52,6 +52,64 @@
       "Carry-forward kickoff §3 TOC predictions auto-derived from PDF (round 9+10 retro motif)",
       "Carry-forward SendMessage continuation codification preferred pattern for multi-sub-batch dispatches under N18 same-family binding (round 10 batch 43 N6 INTRA-AGENT consistency NEW PRECEDENT)",
       "Carry-forward TI proposal-removal L4 sub-section codification as legitimate L4 variant (round 10 batch 42 NEW pattern)"
+    ]
+  },
+  "v1_9_3_cut_completed": "2026-05-07",
+  "v1_9_3_cut_details": {
+    "completed_at": "2026-05-07",
+    "session_type": "v1.9.3_cut_appended_to_round_09_close_session_post_P2_B-03c_rounds_07_09_CLOSED_cumulative_audit_990_atoms_post_v1.9.2_cut_0_schema_regression",
+    "trigger": "10-candidate stack post B-03c round 09 = ≥10 cut planning trigger MET 2 ROUNDS SUSTAINED (post round 08 + post round 09 same stable stack); mirrors v1.9.2 pre-cut pattern. Bojiang ack 2026-05-07 'a' (Option A: cut now) post round 09 close 推荐.",
+    "v1.9.3_prompt_files": [
+      "subagent_prompts/P0_writer_md_v1.9.3.md (~180 lines, main MD writer, 3 NEW F-rules consolidating 10 candidates: §F-1 HIGH §2.11 Plan B 4-layer namespace codification SUSTAINED VALIDATED EXTENDED post round 07 1st + round 09 4 cases including References boundary; §F-2 LOW INFO atoms/line ratio empirical band 0.59-0.85 6-round sustained; §F-3 LOW INFO kickoff atom estimate multi-level nested-list calibration; MD-side hooks 28 → 30: NEW Hook F-1 + F-2)",
+      "subagent_prompts/P0_writer_pdf_v1.9.3.md (~65 lines, paired-sync PDF-side cross-format applicability notes; §F-1 PDF-side N/A or limited applicability + §F-2 different metric + §F-3 similar concept)",
+      "subagent_prompts/P0_matcher_v1.9.3.md (~85 lines, paired-sync; 1 NEW anti-flag rule §M-F-1 §2.11 Plan B sub-namespace canonical accept including References-style H3 title-arbitrariness; matcher hooks 29 → 30: NEW Hook M-F-1)",
+      "subagent_prompts/P0_reviewer_v1.9.3.md (~120 lines, paired-sync; 3 NEW rules §R-F-1 HIGH §2.11 Plan B 4-layer verify + §R-F-2 LOW INFO atoms/line ratio retrospective + §R-F-3 LOW INFO kickoff estimate calibration retrospective; reviewer hooks 32 → 35: NEW Hook R-F-1 + R-F-2 + R-F-3)"
+    ],
+    "v1.9.2_archive_path": "subagent_prompts/archive/v1.9.2_final_2026-05-07/",
+    "v1.9.2_archive_files": 4,
+    "active_baseline_files": [
+      "subagent_prompts/P0_writer_md_v1.9.3.md",
+      "subagent_prompts/P0_writer_pdf_v1.9.3.md",
+      "subagent_prompts/P0_matcher_v1.9.3.md",
+      "subagent_prompts/P0_reviewer_v1.9.3.md"
+    ],
+    "hook_count_summary": {
+      "writer_md": "30 hooks (28 v1.9.2 + 2 NEW v1.9.3 [Hook F-1 §2.11 Plan B sub-namespace verify pre-DONE + Hook F-2 atoms/line ratio retrospective post-DONE INFO]; Hook F-3 N/A writer-side — orchestrator process rule)",
+      "writer_pdf": "PDF-side hooks unchanged from v1.9.2 (paired-sync notes only; §F-1 N/A direct PDF + §F-2 different metric + §F-3 similar concept)",
+      "matcher": "30 hooks (29 v1.9.2 + 1 NEW v1.9.3 [Hook M-F-1 sib_idx-based namespace canonical accept including References-style title-arbitrariness])",
+      "reviewer": "35 hooks (32 v1.9.2 + 3 NEW v1.9.3 [Hook R-F-1 §2.11 Plan B 4-layer verify HIGH + Hook R-F-2 atoms/line ratio retrospective INFO + Hook R-F-3 kickoff estimate calibration retrospective INFO])"
+    },
+    "v1_9_3_candidate_stack_consolidated": [
+      "1 §2.11 Plan B SUSTAINED VALIDATED EXTENDED post round 09 4 cases stress-test — codified §F-1 HIGH",
+      "2 NEW References boundary motif (RS/ex L92 sib_idx-based namespace) — folded into §F-1",
+      "3 atoms/line ratio empirical band 0.59-0.85 6-round sustained — codified §F-2 LOW INFO",
+      "4 INFO-R08-01 kickoff atom estimate multi-level nested-list calibration — codified §F-3 LOW INFO process",
+      "5 INFO-R07-01 §E-5 verification grep whitespace-tolerance — INFO carry, no rule (already covered §E-5)",
+      "6 INFO-R07-02 atoms/line ratio uptick driver — folded into §F-2",
+      "7 INFO-R08-02 sample size note per-batch byte-sweep gap — INFO process, no rule",
+      "8 INFO-R08-03 §2.11 Plan B not stress-tested in round 08 — RESOLVED post round 09",
+      "9 INFO-R06-01 batch kickoff dispatch prompt count drift — INFO process, Hook 22b coverage",
+      "10 B-04 source curation pass + schema v1.3 promote evaluation — defer to v2.0 candidate stack"
+    ],
+    "rule_d_reviewer_slot": 71,
+    "rule_d_reviewer_subagent_type": "vercel:ai-architect",
+    "rule_d_reviewer_audit_mode": "AI prompt design review (cross-family Rule D distance maximum from B-03c per-batch reviewer pool pr-review-toolkit:code-reviewer + cumulative B-03c family-pivots feature-dev/pr-review-toolkit/Plan/feature-dev:code-explorer all distinct from vercel family)",
+    "rule_d_reviewer_verdict": "PASS_WITH_OBSERVATION",
+    "rule_d_reviewer_items_pass_raw": "8/10 PASS + 2/10 OBSERVATION + 0/10 FAIL",
+    "rule_d_reviewer_findings": [
+      "OBSERVATION-1 (cosmetic numerical drift, REMEDIATED in-session): writer_md L59 + matcher L28 said '12 H3 children' rollup; correct count is 16 (round 07 PC/ex 7 + round 09 9). In-place hotfix applied: '12 H3' → '16 H3' both files.",
+      "OBSERVATION-2 (cosmetic framing inconsistency, REMEDIATED in-session): writer_md §F-2 header said '9-round empirical sustained' but ratio table only spans rounds 04-09 (6 rounds). In-place hotfix applied: '9-round' → '6-round empirical sustained, rounds 04-09'.",
+      "OBSERVATION-A (additional, REMEDIATED in-session): writer_md §F-3 RS/ass batch_98 example was an estimate-matched case (not compression drift); reframed as counter-example showing §F-3 discount factor is content-style-dependent.",
+      "All findings are non-blocking annotation refinements; rule semantics + dispatch behavior + schema + cross-file paired-sync correctness all PASS without modification. v1.9.3 cut NOT BLOCKED for activation. 0 FAIL items."
+    ],
+    "reviewer_report_path": "evidence/checkpoints/v1_9_3_cut_reviewer_report.md",
+    "next_session_handoff": "v1.9.3 ACTIVE BASELINE for round 10+ dispatch. Round 10 trigger: pending Bojiang ack scope (default alphabetical SM/SR/SS/SU/SUPPQUAL next 5 domains × 2 = 10 batches similar volume to round 09; 19 domains × 2 = 38 files remaining post round 09; 估 2-3 more rounds to close P2 B-03c). Round 10 dispatch prompt template MUST follow §E-1 (explicit JSON template + reference working atom md_dmML_assn_a001 = batch_70 a001 as gold reference; cumulative empirical baseline 9112 atoms 0 schema regression post round 09) + §F-1 if numberless H2 with H3 children present in scope (kickoff §0.5 grep verify H3 count per H2 scope; dispatch prompt enumerate sub-namespace shape per H2/H3 pair). Orchestrator preflight FAIL if §E-1 missing OR §F-1 missing when triggered.",
+    "v2_0_candidate_stack_post_v1.9.3_cut": [
+      "F1 INFO carry-forward (no action): atoms/line ratio drift INFO (folded into §F-2 codification but ratio-driver investigations remain open — e.g., why round 07 0.782 vs round 08 0.602 +30% delta)",
+      "F2 INFO-R06-01 batch kickoff dispatch prompt count drift (Hook 22b coverage; INFO-only carry)",
+      "F3 B-04 source curation pass + schema v1.3 promote evaluation (LOW; sustained v1.2.1 9112 atoms 0 issue; defer)",
+      "F4 OMC restoration trigger: if oh-my-claudecode:executor/scientist/critic 后续 session 重新可用, FALLBACK 路径 status sustained per peer-alternative, 不 mandate revert",
+      "F5 NEW Round 09 mini-audit reviewer Rule D distance — feature-dev:code-explorer 3rd sub-type pivot resource depleted feature-dev family; track exhaustion approaching for round 10+ (next mini-audit options: claude-code-guide AUDIT mode / plugin-dev:plugin-validator AUDIT mode / vercel sub-types other than ai-architect [used in v1.9.3 cut])"
     ]
   },
   "v1_9_2_cut_completed": "2026-05-06",
@@ -244,7 +302,7 @@
     "estimated_overhead_retired_minutes_per_batch": "10-15",
     "estimated_overhead_retired_total_hours_p1_remaining": "5-7"
   },
-  "current_phase": "P2_B-03c_round_09_CLOSED_2026-05-07_10_batches_297_atoms_5_domains_RELREC_RP_RS_SC_SE_alphabetical_default_PASS_v1.9.2_3rd_sustained_round_§2.11_Plan_B_4_cases_2nd_production_validation_including_NEW_References_boundary_§2.7_5_cases_§2.5_6_cases_0_NEW_lock_0_halt_0_post_hoc_fix_v1.9.3_cut_planning_recommended_19_domains_remaining_pending_round_10_ack",
+  "current_phase": "v1_9_3_CUT_COMPLETED_2026-05-07_3_NEW_F_rules_§F-1_§2.11_Plan_B_SUSTAINED_VALIDATED_EXTENDED_+_§F-2_§F-3_INFO_4_paired_sync_prompts_active_baseline_v1.9.3_v1.9.2_archived_rule_d_reviewer_vercel_ai_architect_PASS_WITH_OBSERVATION_3_in_place_hotfixes_applied_round_10_pending_Bojiang_ack_default_alphabetical_SM_SR_SS_SU_SUPPQUAL",
   "plan_version": "v0.6 (P2 B-03c round 05 closed)",
   "recovery_hint": "P2 B-03c round 05 CLOSED 2026-05-06. 12 batches batch_58..69 PASS 100% per-batch (1 CONDITIONAL_PASS batch_60 post-hoc fixed) + mini-audit PASS 100% (10/10 atoms + 9/9 invariants). md_atoms.jsonl 7791 atoms / 71 files atomized / 50.4% file coverage (★ crossed 50% milestone). Round 05 NO first-time lock (grep 实证 0 mermaid + 0 numberless H2 + max file IS/ex 273L under 300L slice threshold) — cleanest round to date. 1 MED-01 fired and post-hoc resolved (batch_60 LB/assn 9 LIST_ITEM atoms explicit null hl+sib fields added Rule B backup preserved). 0 halt mid-round. Round 06 待用户 ack scope (recommend 5-6 more domains alphabetical ML to onwards = ~10-14 batches; 35 domains × 2 = 70 files remaining post round 05). 入口: multi_session/P2_B-03c_round_05_kickoff.md (§0.5 20/20 grep + §2.8 R-2.8-1/2/3 carry-forward + §8 default Option acked).",
   "created": "2026-04-24",
