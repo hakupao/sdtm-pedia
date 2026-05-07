@@ -978,3 +978,90 @@ Pending Bojiang ack scope. Default alphabetical SU/SUPPQUAL/SV/TA/TD next 5 doma
 ### Commit
 
 `06 P2 B-03c round 10 自治连跑 CLOSED — 10 batches 182 atoms 5 domains RELSPEC/RELSUB/SM/SR/SS alphabetical recovery ★ 跨 80% file coverage 80.14% + 80% B-03c progress 80.70% milestones — v1.9.3 1st production validation §F-1 backward compat + §F-2 ratio band 9th sustained + §F-3 calibration 14.6% within threshold + §2.6 FIGURE 1 trigger RELSPEC/ex byte-exact 0 NEW lock 0 halt 0 post-hoc fix 0 schema regression mini-audit vercel:deployment-expert slot 10 8th family-pivot 8/8 PASS 3 LOW INFO v2.0 carries`
+
+---
+
+## 2026-05-07 P2 B-03c round 11 自治连跑 CLOSED ★★★★ 4 milestones — v1.9.3 2nd production validation + Hook A1 attempt 1 HALT RESOLVED
+
+### 触发
+
+用户 "开始 work 的 06 的 Round 11"; round 10 close 时 round 11 scope 默认 SU/SUPPQUAL/SV/TA/TD pending Bojiang ack — grep verify 后发现 TA/ex 710L 8 H2 4 H3 20 mermaid 是 §F-1 §2.11 Plan B 5th case + §2.6 mass FIGURE stress-test, 体量 = round 10 3.86×; 提议 3 选项, Bojiang ack Option B "拆分: round 11 = SU/SUPPQUAL/SV/TD 4 domain 轻 round + round 12 = TA solo 隔离 stress-test 给独立 retro 价值".
+
+### Round 11 batches
+
+| batch | file | 行 | atoms | atom_id | 备注 |
+|---|---|---:|---:|---|---|
+| 114 (attempt 2) | SU/ass | 20 | 15 | a001..a015 | attempt 1 HALT 9 strip; 重派 PASS |
+| 115 | SU/ex | 43 | 28 | a001..a028 | §2.5 ×1 + 7 TABLE_ROW |
+| 116 | SUPPQUAL/ass | 26 | 15 | a001..a015 | **§2.7 ×2** (L15 + L19 numberless childless H2) |
+| 117 | SUPPQUAL/ex | 29 | 17 | a001..a017 | §2.5 ×2 + 6 TABLE_ROW |
+| 118 | SV/ass | 43 | 27 | a001..a027 | 4×3-space + 6×4-space indented sub-bullets |
+| 119 | SV/ex | 95 | 61 | a001..a061 | §2.5 ×1 + 29 TABLE_ROW (largest non-TD batch) |
+| 120 | TD/ass | 13 | 7 | a001..a007 | smallest |
+| 121 | TD/ex | 165 | 38 | a001..a038 | **§2.5 ×3 + §2.6 FIGURE ×3** (L7-36 770B + L58-86 895B + L107-145 1340B mermaid byte-exact) |
+| **总** | 8 batches | 434 | **208** | per-file restart | §2.5 ×7 + §2.6 ×3 + §2.7 ×2 + §F-1 0 trigger |
+
+### Cumulative metrics post round 11
+
+- md_atoms.jsonl: 9294 → **9502** (+208)
+- domains atomized: 49 → **53** (+4: SU/SUPPQUAL/SV/TD)
+- files atomized: 113 → **121** (+8)
+- file_coverage_pct: 80.14% → **85.82%** ★ 跨 85% milestone
+- domain_coverage_pct: 77.78% → **84.13%** ★ 跨 80% milestone
+- B-03c progress: 92/114 = 80.70% → **100/114 = 87.72%** ★★ 跨 100 文件 + 跨 85% 双重里程碑
+- atoms/line ratio raw: 0.591 (round 10) → **0.479** (round 11 raw, below band)
+- atoms/line ratio de-FIGURE-naive: 303/434 = **0.698** IN BAND ★ (10th sustained §F-2 validation)
+
+### Mid-round HALT (RESOLVED in-session)
+
+**batch_114 attempt 1 HIGH severity HALT 2026-05-07** — writer general-purpose stripped 3-space leading whitespace from 9/15 indented sub-bullet LIST_ITEMs (a003/a004/a006/a007/a008/a010/a011/a013/a014). Reviewer pr-review-toolkit:code-reviewer caught via Hook A1 byte-exact sweep (40% pass rate < 90% threshold). 主 session 独立 grep verify confirmed: 195 prior production atoms (md_ch04_a228..a230 / md_dmAE_assn_a004..a005 等 across rounds 01-10) preserve 3-space indent byte-exact; batch_114 attempt 1 是 NEW regression mode in B-03c since round 06 batch_72 schema regression.
+
+**Resolution per round 06 batch_72 4-schema-regression precedent**:
+1. Archive failed attempt to `evidence/failures/round_11_batch_114_attempt_1_*` (3 files: writer JSONL + reviewer summary + post-mortem)
+2. `git restore` md_atoms.jsonl → 9294 baseline
+3. Re-dispatch attempt 2 with **reinforced Hook A1 prompt** (explicit anti-pattern + precedent atoms md_ch04_a228..a230 / md_dmAE_assn_a004..a005 + Bash spot-check mandate before claiming PASS)
+4. Attempt 2 PASS — 15/15 byte-exact, 9/9 sub-bullets preserved
+5. Reinforced prompt sustained for batches 115-121 (193 atoms cumulative) — 0 recurrence
+
+### v1.9.3 2nd production validation results
+
+| Rule | Result |
+|------|--------|
+| §F-1 §2.11 Plan B sub-namespace 2nd backward compat | PASS — 0 round 11 atoms with sub-namespace (TA solo deferred); 5 cumulative production cases (round 07 PC/ex + round 09 RELREC/ex×2 + RS/ex×2) preserved byte-exact |
+| §F-2 atoms/line ratio band 0.59-0.85 | PASS de-FIGURE-naive 0.698 IN BAND (10th sustained); raw 0.479 below band driven by batch_121 triple-FIGURE compression (documented INFO C-R10-01) |
+| §F-3 kickoff atom estimate calibration | PARTIAL PASS — aggregate -34.4% within ±50%; 4/8 batches per-batch above ±50% (114 +57.9% / 119 +52.5% / 120 +55.6% / 121 -62%) — all attributable to documented drivers (sub-bullet atomic-distinct + table-heavy + small-ass.md + FIGURE compression); INFO carries C-R10-02 + C-R11-NEW-01/02 |
+| §E-1..E-6 v1.9.2 carry-forward | PASS — 5th sustained validation (cumulative 1380 atoms 0 schema regression post v1.9.2 cut) |
+| §2.5 numbered H2 self-namespace | PASS — 7 cases (SU/ex×1 + SUPPQUAL/ex×2 + SV/ex×1 + TD/ex×3) all sub-namespace `§<D>.<N> [Example N]` verified |
+| §2.6 FIGURE-in-domains | PASS — 3 cases (TD/ex 770/895/1340 bytes byte-exact incl. ```mermaid opening + ``` closing fences); first triple-FIGURE production validation |
+| §2.7 round 04 lock | PASS — 2 cases (SUPPQUAL/ass L15 + L19 numberless childless H2 → file-root parent inherit); cumulative 5 production cases post round 04+08+11 |
+| Hook A1 byte-exact verbatim | 208/208 PASS post resolution; 24/24 indented sub-bullets preserved |
+
+### Reviewer roster
+
+- Per-batch: pr-review-toolkit:code-reviewer × 8 → 8/8 PASS post attempt 1 HALT resolution (attempt 2 batch_114 PASS + 7 subsequent PASS)
+- Mini-audit: **plugin-dev:plugin-validator AUDIT mode (slot #11 round-mini #9 cumulative B-03c) ★ plugin-dev family inaugural sub-type — cross-family Rule D distance maximum** vs prior 8 burns (vercel × 2: ai-architect + deployment-expert / feature-dev × 3: code-reviewer + code-architect + code-explorer / pr-review-toolkit × 5 pool exhausted: type-design-analyzer + silent-failure-hunter + comment-analyzer + pr-test-analyzer + code-simplifier / planner × 1: Plan)
+  - Sample 8/8 atoms (1 FIGURE batch_121 + 1 §2.7 SUPPQUAL/ass + 1 §2.5 LIST_ITEM TD/ex Example 3 + 2 SENTENCE SV/ex + 3 TABLE_ROW SV/ex)
+  - Pass rate: 100% (8/8); 0 HIGH severity findings; 2 INFO carries
+- 0 NEW HIGH/MED finding post HALT resolution; 5 LOW INFO carries to v2.0 candidate stack
+
+### v2.0 candidate stack post round 11 (5 LOW INFO + 1 RESOLVED HIGH)
+
+- **C-R10-01 §F-2 FIGURE-bearing band supplement** SUSTAINED 2nd production validation — round 10 batch_105 single-FIGURE 0.298 + round 11 batch_121 triple-FIGURE 0.230 = 2 production data points; v1.9.4 candidate §F-2 dual-band proposal (raw band for FIGURE-bearing batches separate from de-FIGURE band)
+- **C-R10-02 §F-3 FIGURE-aware kickoff estimate** SUSTAINED 2nd production validation — round 11 batch_121 -62% delta confirms estimate band needs FIGURE-aware adjustment; v1.9.4 cut driver candidate
+- **C-R10-03 §2.6 FIGURE sub-classification** monitoring continues — round 11 all 3 FIGURE = mermaid (uniform); no sub-classification trigger
+- **C-R11-NEW-01 small ass.md band re-tune** — batch_116 (0.577) + batch_117 (0.586) + batch_120 (0.538) all just-below 0.59 lower band; v1.9.4 candidate §F-2 small-file lower-band (e.g., 0.50-0.85 for <30L files)
+- **C-R11-NEW-02 multi-level nested-list ass.md higher multiplier** — batch_114 attempt 2 mid 15 vs kickoff §0.5 row 23 mid 9 (sub-bullet atomic-distinct expansion); v1.9.4 candidate §F-3 0.7-0.85 multiplier for ass.md with multi-level nested-lists
+- **C-R11-NEW-03 cross_refs convention codification** — batch_115 INFO-B115-01 drift detected; subsequent batches followed include-precedent; v2.0 codify "include all explicit Section X.Y references in cross_refs"
+- **C-R11-attempt1-HIGH-RESOLVED Hook A1 verbatim leading-whitespace strip mode** — RESOLVED in-session via reinforced dispatch prompt; v1.9.4 cut driver candidate IF recurs in round 12; if 0 recurrence, downgrade to LOW INFO documentation in writer prompt §A1 explicit anti-pattern
+
+**v1.9.4 cut planning trigger MET**: 5 actionable + 5 INFO ≥ 10 candidate threshold post round 11 sustained 2 rounds (round 10 + 11). Recommend cut after round 12 close (1 more sustained validation cycle).
+
+### Round 12 trigger (per Bojiang Option B 2026-05-07)
+
+Round 12 = TA solo + TE/TI/TM glue ≈ 911L 4 domains 11-12 batches with TA/ex 710L 3-slice §2.4 + §F-1 §2.11 Plan B 5th production case TA/ex L694 + §2.6 mass FIGURE 20+ block stress-test. v1.9.3 baseline sustained for round 12. Reviewer mini-audit candidate (12th cumulative): plugin-dev:skill-reviewer (plugin-dev family 2nd sub-type intra-depth) OR vercel:performance-optimizer (vercel-family 3rd sub-type intra-depth).
+
+User pre-acked: "下一个 session 我开 round 12" — round 11 close session ends here; round 12 dispatch deferred to next session.
+
+### Commit
+
+`06 P2 B-03c round 11 自治连跑 CLOSED — 8 batches 208 atoms 4 domains SU/SUPPQUAL/SV/TD ★★★★ 跨 85% file coverage 85.82% + 跨 80% domain coverage 84.13% + 跨 100 files B-03c + 跨 85% B-03c progress 87.72% quadruple milestones — v1.9.3 2nd production validation §F-1 2nd backward compat + §F-2 de-figure-naive 0.698 in band 10th sustained + §F-3 aggregate -34.4% within threshold + §2.6 FIGURE 3 trigger TD/ex byte-exact 770/895/1340 bytes + §2.7 lock 2 cases SUPPQUAL/ass + Hook A1 attempt 1 HIGH severity HALT RESOLVED in-session via reinforced Hook A1 dispatch attempt 2 PASS + 7 subsequent batches sustained 193 atoms 0 recurrence + mini-audit plugin-dev:plugin-validator AUDIT slot 11 9th cumulative B-03c family-pivot inaugural plugin-dev family cross-family Rule D distance maximum 8/8 PASS 0 HIGH severity 5 LOW INFO carries v1.9.4 cut planning trigger MET 1 more sustained validation cycle round 12 = TA solo + TE/TI/TM glue Option B Bojiang ack`

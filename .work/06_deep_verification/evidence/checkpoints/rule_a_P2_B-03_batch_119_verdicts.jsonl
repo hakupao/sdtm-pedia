@@ -1,0 +1,15 @@
+{"atom_id": "md_dmSV_ex_a001", "verdict": "PASS", "atom_type": "HEADING", "lines": "1-1", "byte_exact": true, "semantic_match": true, "notes": "H1 file root sib=1"}
+{"atom_id": "md_dmSV_ex_a002", "verdict": "PASS", "atom_type": "HEADING", "lines": "3-3", "byte_exact": true, "semantic_match": true, "notes": "H2 numbered §2.5 self-namespace; parent file-root §SV [SV — Examples]; sib=1"}
+{"atom_id": "md_dmSV_ex_a010", "verdict": "PASS", "atom_type": "TABLE_HEADER", "lines": "19-20", "byte_exact": true, "semantic_match": true, "notes": "tv.xpt header 2-line spanning; sib=null hl=null R-2.8-2"}
+{"atom_id": "md_dmSV_ex_a027", "verdict": "PASS", "atom_type": "TABLE_HEADER", "lines": "46-47", "byte_exact": true, "semantic_match": true, "notes": "ds.xpt header 2-line spanning; sib=null hl=null R-2.8-2"}
+{"atom_id": "md_dmSV_ex_a046", "verdict": "PASS", "atom_type": "TABLE_HEADER", "lines": "79-80", "byte_exact": true, "semantic_match": true, "notes": "sv.xpt header 2-line spanning; sib=null hl=null R-2.8-2"}
+{"atom_id": "md_dmSV_ex_a008", "verdict": "PASS", "atom_type": "SENTENCE", "lines": "15-15", "byte_exact": true, "semantic_match": true, "notes": "Row 8 follow-up visit narrative explicit-null hl+sib"}
+{"atom_id": "md_dmSV_ex_a021", "verdict": "PASS", "atom_type": "SENTENCE", "lines": "34-34", "byte_exact": true, "semantic_match": true, "notes": "Row 2 screen failure DSSTDY null narrative"}
+{"atom_id": "md_dmSV_ex_a036", "verdict": "PASS", "atom_type": "SENTENCE", "lines": "59-59", "byte_exact": true, "semantic_match": true, "notes": "Rows 2-3 normal completion sv.xpt narrative"}
+{"atom_id": "md_dmSV_ex_a042", "verdict": "PASS", "atom_type": "SENTENCE", "lines": "71-71", "byte_exact": true, "semantic_match": true, "notes": "Row 13 WEEK 2 SVOCCUR=N clinic closure narrative"}
+{"atom_id": "md_dmSV_ex_a044", "verdict": "PASS", "atom_type": "SENTENCE", "lines": "75-75", "byte_exact": true, "semantic_match": true, "notes": "Row 15 follow-up visit study day 26 narrative"}
+{"atom_id": "md_dmSV_ex_a014", "verdict": "PASS", "atom_type": "TABLE_ROW", "lines": "24-24", "byte_exact": true, "semantic_match": true, "notes": "tv.xpt WEEK 2 row sib=null hl=null R-2.8-2"}
+{"atom_id": "md_dmSV_ex_a033", "verdict": "PASS", "atom_type": "TABLE_ROW", "lines": "53-53", "byte_exact": true, "semantic_match": true, "notes": "ds.xpt subject 101 WITHDRAWAL row sib=null hl=null"}
+{"atom_id": "md_dmSV_ex_a050", "verdict": "PASS", "atom_type": "TABLE_ROW", "lines": "84-84", "byte_exact": true, "semantic_match": true, "notes": "sv.xpt SUBJECT LACKED TRANSPORTATION row sib=null hl=null"}
+{"atom_id": "md_dmSV_ex_a054", "verdict": "PASS", "atom_type": "TABLE_ROW", "lines": "88-88", "byte_exact": true, "semantic_match": true, "notes": "sv.xpt WEEK 8 IN PERSON row sib=null hl=null"}
+{"atom_id": "md_dmSV_ex_a057", "verdict": "PASS", "atom_type": "TABLE_ROW", "lines": "91-91", "byte_exact": true, "semantic_match": true, "notes": "sv.xpt subject 101 DAY 1 row sib=null hl=null"}
