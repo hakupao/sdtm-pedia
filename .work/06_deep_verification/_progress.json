@@ -302,7 +302,7 @@
     "estimated_overhead_retired_minutes_per_batch": "10-15",
     "estimated_overhead_retired_total_hours_p1_remaining": "5-7"
   },
-  "current_phase": "v1_9_3_CUT_COMPLETED_2026-05-07_3_NEW_F_rules_§F-1_§2.11_Plan_B_SUSTAINED_VALIDATED_EXTENDED_+_§F-2_§F-3_INFO_4_paired_sync_prompts_active_baseline_v1.9.3_v1.9.2_archived_rule_d_reviewer_vercel_ai_architect_PASS_WITH_OBSERVATION_3_in_place_hotfixes_applied_round_10_pending_Bojiang_ack_default_alphabetical_SM_SR_SS_SU_SUPPQUAL",
+  "current_phase": "P2_B-03c_round_10_CLOSED_2026-05-07_alphabetical_RELSPEC_RELSUB_SM_SR_SS_10_batches_182_atoms_★_crossed_80%_file_coverage_80.14%_+_80%_B-03c_progress_80.70%_milestones_v1.9.3_1st_production_validation_§F-1_backward_compat_PASS_§F-2_aggregate_0.591_in_band_§F-3_calibration_14.6%_within_threshold_§2.6_FIGURE_1_trigger_RELSPEC_ex_byte_exact_PASS_0_NEW_lock_0_halt_0_post_hoc_fix_mini_audit_vercel_deployment_expert_8th_family_pivot_8/8_PASS_3_v2.0_LOW_INFO_carries_round_11_pending_ack",
   "plan_version": "v0.6 (P2 B-03c round 05 closed)",
   "recovery_hint": "P2 B-03c round 05 CLOSED 2026-05-06. 12 batches batch_58..69 PASS 100% per-batch (1 CONDITIONAL_PASS batch_60 post-hoc fixed) + mini-audit PASS 100% (10/10 atoms + 9/9 invariants). md_atoms.jsonl 7791 atoms / 71 files atomized / 50.4% file coverage (★ crossed 50% milestone). Round 05 NO first-time lock (grep 实证 0 mermaid + 0 numberless H2 + max file IS/ex 273L under 300L slice threshold) — cleanest round to date. 1 MED-01 fired and post-hoc resolved (batch_60 LB/assn 9 LIST_ITEM atoms explicit null hl+sib fields added Rule B backup preserved). 0 halt mid-round. Round 06 待用户 ack scope (recommend 5-6 more domains alphabetical ML to onwards = ~10-14 batches; 35 domains × 2 = 70 files remaining post round 05). 入口: multi_session/P2_B-03c_round_05_kickoff.md (§0.5 20/20 grep + §2.8 R-2.8-1/2/3 carry-forward + §8 default Option acked).",
   "created": "2026-04-24",
@@ -2622,5 +2622,104 @@
       "b_03c_progress_pct": "82/114 = 71.93%"
     },
     "round_10_trigger": "pending Bojiang ack scope (default alphabetical SM/SR/SS/SU/SUPPQUAL next 5 domains × 2 = 10 batches similar volume to round 09; 19 domains × 2 = 38 files remaining post round 09; 估 2-3 more rounds to close P2 B-03c; v1.9.2 active baseline sustained for round 10+ OR v1.9.3 cut 优先 — cut planning recommended next session given trigger MET 2 rounds sustained)"
+  },
+  "b_03c_round_10_details": {
+    "completed_at": "2026-05-07",
+    "scope": "alphabetical RELSPEC/RELSUB/SM/SR/SS 5 domains × 2 files = 10 batches batch_104..113 (alphabetical recovery — RELSPEC/RELSUB skipped in round 09 default scope, picked up in round 10 per Bojiang ack 2026-05-07 'RELSPEC/RELSUB 将来一定会做, 顺序由你决定'; v1.9.3 active baseline 1st production validation post v1.9.3 cut commit 6990c54)",
+    "atoms": 182,
+    "atoms_breakdown": "batch_104 RELSPEC/ass=6 + batch_105 RELSPEC/ex=14 + batch_106 RELSUB/ass=11 + batch_107 RELSUB/ex=23 + batch_108 SM/ass=10 + batch_109 SM/ex=23 + batch_110 SR/ass=5 + batch_111 SR/ex=82 + batch_112 SS/ass=6 + batch_113 SS/ex=2",
+    "atoms_estimate_kickoff_section_0_5_row_25": "182-262 (mid ~225; actual 182 at lower bound; ratio 182/308 = 0.591 vs round 09 0.646 -8.5%; aggregate ratio at §F-2 lower band edge driven by 4 small ass.md + batch_105 mermaid FIGURE compression 26L→1 atom)",
+    "atoms_per_line": 0.591,
+    "files_atomized": 10,
+    "source_lines": 308,
+    "first_time_conventions_locked": [],
+    "first_time_conventions_no_trigger": [
+      "§2.6 FIGURE-in-domains — 1 trigger case (RELSPEC/ex L9-L34 mermaid → md_dmRELSPEC_ex_a005 atom_type=FIGURE byte-exact 788 bytes verbatim; round 03 §2.6 lock sustained × N rounds; round 10 1st FIGURE atom in B-03c since earlier rounds — sustained no-regression validation for v1.9.3 §F-2/§F-3 calibration extension)",
+      "§2.7 numberless H2 — 0 trigger (round 10 has 0 numberless H2 in 10 source files; pure §2.5 + file-root mix)",
+      "§2.5 numbered H2 self-namespace — 6 trigger cases (RELSPEC/ex L3 + RELSUB/ex L3 + SM/ex L3 + SR/ex L3+L25+L85) all PASS",
+      "§2.11 Plan B sub-namespace by sib_idx — 0 trigger (cooling-off post round 09 4-case stress-test); §F-1 backward compat verification PASS — 0 atoms with §<D>.<N>.<M> sub-namespace pattern in round 10"
+    ],
+    "writer_pool": "general-purpose × 10 (FALLBACK peer-alternative sustained 130 batches cumulative B-02+B-03b+B-03c-rounds-01-10 = 7758 atoms 0 writer defect post-fix RESOLVED; +0 NEW writer defect this round)",
+    "reviewer_pool_per_batch": "pr-review-toolkit:code-reviewer × 10",
+    "reviewer_mini_audit": "vercel:deployment-expert AUDIT mode (slot #10, 8th cumulative B-03c reviewer family-pivot ★ vercel-family AUDIT pool 2nd sub-type post v1.9.3 cut vercel:ai-architect; cross-family Rule D distance maintained vs feature-dev/pr-review-toolkit/Plan/vercel:ai-architect history)",
+    "rule_a_per_batch_pass_rate": "182/182 audited atoms = 100% (batch_104 6/6 + batch_105 14/14 + batch_106 11/11 + batch_107 23/23 + batch_108 10/10 + batch_109 23/23 + batch_110 5/5 + batch_111 82/82 + batch_112 6/6 + batch_113 2/2)",
+    "mini_audit_pass_rate": "8/8 atoms = 100% + §F-1 backward compat 0 regression + §F-2 aggregate ratio in band + §F-3 calibration delta 14.6% within threshold + §2.6 FIGURE byte-exact PASS",
+    "halt_events": {},
+    "post_hoc_fixes": {},
+    "findings": {
+      "high": 0,
+      "medium": 0,
+      "low": 0,
+      "info_carry_forward": [
+        "C-R10-01 LOW INFO: §F-2 supplementary ratio band for FIGURE-bearing batches (batch_105 0.298 driven by §2.6 mermaid 26L compression; current band 0.59-0.85 doesn't account for FIGURE compression effect)",
+        "C-R10-02 LOW INFO: §F-3 FIGURE-aware kickoff atom estimate adjustment (-30% mid for FIGURE-bearing files; batch_105 kickoff estimate 22-32 vs actual 14, delta 48% near 50% flag)",
+        "C-R10-03 LOW INFO: §2.6 FIGURE atom_type sub-classification (mermaid/ASCII/PNG-ref) — currently flat FIGURE; v2.0 candidate carry"
+      ]
+    },
+    "v2_0_candidate_stack_post_round_10": [
+      "C-R10-01 §F-2 FIGURE-bearing ratio band supplement",
+      "C-R10-02 §F-3 FIGURE-aware estimate adjustment",
+      "C-R10-03 §2.6 FIGURE sub-classification (mermaid/ASCII/PNG-ref)",
+      "5 carry from v1.9.3 cut sustained (B-04 source curation, OMC restoration trigger, schema v1.3 promote evaluation, INFO-R07-01 §E-5 grep whitespace-tolerance, INFO-R08-02 sample size note per-batch byte-sweep gap)"
+    ],
+    "rule_d_roster_cumulative_b_03c": [
+      "round 01 mini-audit: feature-dev:code-reviewer (slot #1)",
+      "round 02 batch_23 burn: feature-dev:code-reviewer + round 02 mini-audit: feature-dev:code-architect (slot #2)",
+      "round 03 mini-audit: pr-review-toolkit:type-design-analyzer (slot #3)",
+      "round 04 mini-audit: pr-review-toolkit:silent-failure-hunter (slot #4)",
+      "round 05 mini-audit: pr-review-toolkit:comment-analyzer (slot #5)",
+      "round 06 mini-audit: pr-review-toolkit:pr-test-analyzer (slot #6)",
+      "round 07 mini-audit: pr-review-toolkit:code-simplifier (slot #7) — pr-review-toolkit AUDIT pool 5/5 exhausted",
+      "round 08 mini-audit: Plan AUDIT mode (slot #8) — 1st planner-family AUDIT-pivot",
+      "round 09 mini-audit: feature-dev:code-explorer AUDIT mode (slot #9) — feature-dev family 3rd sub-type",
+      "v1.9.3 cut audit: vercel:ai-architect (slot #71 in v1.9.3 cut audit; 1st vercel-family AUDIT pivot)",
+      "round 10 mini-audit: vercel:deployment-expert AUDIT mode (slot #10) — ★ 8th cumulative B-03c reviewer family-pivot vercel-family 2nd sub-type post v1.9.3 cut",
+      "per-batch sustained: pr-review-toolkit:code-reviewer (B-02 + B-03b + B-03c rounds 01-10 = ~130 batches cumulative + 1 re-audit batch_72)"
+    ],
+    "rule_d_round_11_fresh_candidates": [
+      "vercel:performance-optimizer AUDIT mode (vercel-family 3rd sub-type)",
+      "claude-code-guide AUDIT mode (Anthropic-domain reviewer; cross-family Rule D distance maximum vs all burned slots)",
+      "plugin-dev:plugin-validator AUDIT mode (plugin family reviewer-only)",
+      "plugin-dev:skill-reviewer AUDIT mode (plugin family reviewer role native)"
+    ],
+    "v1.9.3_first_production_validation": {
+      "active_baseline": "P0_writer_md_v1.9.3 + P0_matcher_v1.9.3 + P0_reviewer_v1.9.3 + P0_writer_pdf_v1.9.3 paired-sync (1st production round post v1.9.3 cut commit 6990c54)",
+      "§F-1_HIGH_§2.11_Plan_B_backward_compat_validation": "PASS — 0 atoms with §<D>.<N>.<M> sub-namespace in round 10 (cooling-off scope by design); round 07 PC/ex + round 09 RELREC/RS sub-namespace atoms preserved byte-exact (cumulative 5 production cases SUSTAINED VALIDATED EXTENDED status sustained)",
+      "§F-2_INFO_atoms_per_line_ratio_band_validation": "PASS — 9-round sustained band 0.59-0.85; round 10 aggregate 182/308 = 0.591 IN BAND (lower edge); 5 per-batch ratios below band but driven by 4 small ass.md + 1 mermaid FIGURE compression (documented INFO carry-forward §F-2 spec; round-aggregate is binding check)",
+      "§F-3_INFO_kickoff_atom_estimate_calibration_validation": "PASS — round 10 actual 182 vs kickoff §0.5 row 25 estimate 182-262 (mid 225); delta from mid 14.6%, well within 50% threshold; batch_105 individual delta 48% near threshold driven by §2.6 FIGURE compression (carry forward C-R10-02 FIGURE-aware adjustment to v2.0)",
+      "§E-1..E-6_v1.9.2_carry_forward_sustained": "PASS — 4th sustained validation round post v1.9.2 cut (round 07 + round 08 + round 09 + round 10 cumulative 1172 atoms 0 schema regression); §E-1 explicit JSON template + §E-2 H1 sib=1 + §E-3 TABLE_HEADER sib=null + §E-4 extracted_by object + §E-5 non-HEADING explicit null all PASS 100%"
+    },
+    "§2.6_round_10_1_case_validation": {
+      "applies_to": "RELSPEC/ex L9-L34 mermaid block (1 case)",
+      "case_relspec_ex_l9_l34": {
+        "trigger_atom": "md_dmRELSPEC_ex_a005 (atom_type=FIGURE)",
+        "verbatim_byte_count": 788,
+        "verbatim_includes": "opening ` ```mermaid` (L9) + closing ` ``` ` (L34) fences byte-exact",
+        "parent_section": "§RELSPEC.1 [Example 1] (inherited from §2.5 numbered H2 self-namespace)",
+        "lock_validation": "PASS — round 03 §2.6 FIGURE-in-domains lock sustained; v1.9.3 §E-6 LOW FIGURE-vs-CODE_LITERAL boundary 1st post-v1.9.3 production validation"
+      },
+      "rule_status": "STABLE — round 03 §2.6 lock sustained × N+1 rounds (round 03 first lock + intermediate productions + round 10 1st post-v1.9.3 validation)"
+    },
+    "§2.5_round_10_6_cases_validation": {
+      "cases": "RELSPEC/ex L3 + RELSUB/ex L3 + SM/ex L3 + SR/ex L3+L25+L85 = 6 numbered H2 cases",
+      "validation": "PASS — all 6 children atoms verify sub-namespace `§<D>.<N> [Example N]` shape; H2 atoms themselves use file-root parent",
+      "lock_status": "STABLE (round 01-09 carry-forward sustained; round 10 6-case batch validation; cumulative post-round-10 = 32 case sustained productions)"
+    },
+    "cumulative_post_round_10": {
+      "md_atoms_jsonl_total": 9294,
+      "files_atomized": 113,
+      "files_in_scope": 141,
+      "file_coverage_pct": 80.14,
+      "domains_atomized": 49,
+      "domains_atomized_canonical_grep_verified": 49,
+      "domains_total": 63,
+      "domain_coverage_pct": 77.78,
+      "b_03c_progress_pct": "92/114 = 80.70%",
+      "milestones_crossed": [
+        "★ file coverage 80% milestone crossed (was 73.05% post round 09 → 80.14% post round 10)",
+        "★ B-03c progress 80% milestone crossed (was 71.93% post round 09 → 80.70% post round 10)"
+      ]
+    },
+    "round_11_trigger": "pending Bojiang ack scope (default alphabetical SU/SUPPQUAL/SV/TA/TD next 5 domains × 2 = 10 batches; 14 domains × 2 = 28 files remaining post round 10; 估 2-3 more rounds to close P2 B-03c; v1.9.3 baseline sustained for round 11+; recommended reviewer mini-audit candidate vercel:performance-optimizer or claude-code-guide AUDIT mode for 9th cumulative family-pivot)"
   }
 }

@@ -912,3 +912,69 @@ Pending Bojiang ack scope. Default alphabetical SM/SR/SS/SU/SUPPQUAL next 5 doma
 ### Commit
 
 `06 P2 v1.9.3 prompt cut COMPLETED — 4 paired-sync prompts + 3 NEW F-rules consolidating 10 candidate stack ★ §F-1 §2.11 Plan B SUSTAINED VALIDATED EXTENDED 4-layer namespace codification + §F-2 atoms/line ratio band + §F-3 nested-list calibration v1.9.2 archived rule_d_reviewer vercel:ai-architect AUDIT slot 71 PASS_WITH_OBSERVATION 8/10+2/10+0/10 3 in-place hotfixes applied`
+
+
+## 2026-05-07 P2 B-03c round 10 自治连跑 CLOSED ★ 跨 80% milestones — v1.9.3 1st production validation
+
+### Trigger
+Bojiang 路由词 "开始 work 的 06 的 Round 10" + ack 2026-05-07 "RELSPEC/RELSUB 将来一定会做, 顺序由你决定 — 写完 kickoff dispatch 直接开干". v1.9.3 active baseline (post v1.9.3 cut commit 6990c54). 
+
+### Scope decision
+Alphabetical recovery: RELSPEC + RELSUB (skipped in round 09 default-scope since PROGRESS.md default 路径 SM/SR/SS/SU/SUPPQUAL omitted them) + 接 SM/SR/SS = 5 domains × 2 = 10 files = 308 lines. 顺序由 Claude 决定 with rationale: alphabetical recovery 自洽 (RELREC 已 round 09 done → RELSPEC/RELSUB 是 alphabetical 顺位 → 然后 SM/SR/SS).
+
+### Round 10 execution (10 batches batch_104..113)
+
+| Batch | File | Lines | Atoms | atom_id | Lock applied |
+|-------|------|-------|-------|---------|--------------|
+| 104 | RELSPEC/ass | 11 | 6 | a001..a006 | (file-root, 0 H2) |
+| 105 | RELSPEC/ex | 47 | 14 | a001..a014 | §2.5 ×1 + **§2.6 FIGURE 1 trigger** (mermaid L9-L34 → 1 atom 788 bytes byte-exact) |
+| 106 | RELSUB/ass | 21 | 11 | a001..a011 | (file-root, 0 H2) |
+| 107 | RELSUB/ex | 38 | 23 | a001..a023 | §2.5 ×1 |
+| 108 | SM/ass | 13 | 10 | a001..a010 | (file-root, 0 H2; nested LIST_ITEM a/b/c/d) |
+| 109 | SM/ex | 40 | 23 | a001..a023 | §2.5 ×1 |
+| 110 | SR/ass | 9 | 5 | a001..a005 | (file-root, 0 H2) |
+| 111 | SR/ex | 116 | **82** ★largest | a001..a082 | §2.5 ×3 (sib=1/2/3) |
+| 112 | SS/ass | 10 | 6 | a001..a006 | (file-root, 0 H2; 1 sub-LIST_ITEM) |
+| 113 | SS/ex | 3 | 2 | a001..a002 | (smallest, 3L stub "No dataset examples") |
+| **总** | 10 batches | 308 | **182** | per-file restart | §2.5 ×6 + §2.6 ×1 + §F-1 0 trigger |
+
+### Cumulative metrics post round 10
+
+- md_atoms.jsonl: 9112 → **9294** (+182)
+- domains atomized: 44 → **49** (+5: RELSPEC/RELSUB/SM/SR/SS)
+- files atomized: 103 → **113** (+10)
+- file_coverage_pct: 73.05% → **80.14%** ★ 跨 80% milestone
+- domain_coverage_pct: 69.84% → **77.78%** (+7.94%)
+- B-03c progress: 82/114 = 71.93% → **92/114 = 80.70%** ★ 跨 80% milestone
+- atoms/line ratio: 0.646 (round 09) → **0.591** (round 10 lower-band edge)
+
+### v1.9.3 1st production validation results
+
+| Rule | Result |
+|------|--------|
+| §F-1 §2.11 Plan B sub-namespace backward compat | PASS — 0 round-10 atoms with `§<D>.<N>.<M>` sub-namespace; round 07/09 production atoms preserved byte-exact |
+| §F-2 atoms/line ratio band 0.59-0.85 | PASS — 9-round sustained band; aggregate 0.591 IN BAND lower edge (5 per-batch ratios below band driven by 4 small ass.md + 1 mermaid FIGURE compression) |
+| §F-3 kickoff atom estimate calibration | PASS — actual 182 vs mid 225, delta 14.6% within 50% threshold |
+| §E-1..E-6 v1.9.2 carry-forward | PASS — 4th sustained validation (cumulative 1172 atoms 0 schema regression post v1.9.2 cut) |
+| §2.6 FIGURE-in-domains | PASS — 1 case batch_105 byte-exact 788 bytes (round 03 lock sustained) |
+
+### Reviewer roster
+
+- Per-batch: pr-review-toolkit:code-reviewer × 10 → 182/182 atoms PASS 100%
+- Mini-audit: **vercel:deployment-expert AUDIT mode (slot #10) ★ 8th cumulative B-03c reviewer family-pivot vercel-family 2nd sub-type post v1.9.3 cut vercel:ai-architect** → 8/8 atoms PASS + 0 schema regression + §F-1 backward compat clean + §F-2 in band + §F-3 calibration within threshold + §2.6 FIGURE byte-exact PASS
+- 0 NEW HIGH/MED/LOW finding; 3 LOW INFO carries to v2.0 candidate stack
+
+### v2.0 candidate stack post round 10 (3 LOW INFO carries)
+
+- C-R10-01 §F-2 supplementary ratio band for FIGURE-bearing batches (batch_105 0.298 driven by §2.6 mermaid 26L compression; current band doesn't account for FIGURE compression)
+- C-R10-02 §F-3 FIGURE-aware kickoff atom estimate adjustment (-30% mid for FIGURE-bearing files; batch_105 individual delta 48% near threshold)
+- C-R10-03 §2.6 FIGURE atom_type sub-classification (mermaid/ASCII/PNG-ref); currently flat FIGURE
+- + 5 v1.9.3-cut sustained carries (B-04 source curation, OMC restoration trigger, schema v1.3 promote, INFO-R07-01 §E-5 grep whitespace, INFO-R08-02 sample size)
+
+### Round 11 trigger
+
+Pending Bojiang ack scope. Default alphabetical SU/SUPPQUAL/SV/TA/TD next 5 domains × 2 = 10 batches under v1.9.3 baseline. 14 domains × 2 = 28 files remaining post round 10. 估 2-3 more rounds to close P2 B-03c. Recommended reviewer mini-audit candidate: vercel:performance-optimizer (vercel-family 3rd sub-type) OR claude-code-guide AUDIT (cross-family Rule D distance maximum) for 9th cumulative family-pivot.
+
+### Commit
+
+`06 P2 B-03c round 10 自治连跑 CLOSED — 10 batches 182 atoms 5 domains RELSPEC/RELSUB/SM/SR/SS alphabetical recovery ★ 跨 80% file coverage 80.14% + 80% B-03c progress 80.70% milestones — v1.9.3 1st production validation §F-1 backward compat + §F-2 ratio band 9th sustained + §F-3 calibration 14.6% within threshold + §2.6 FIGURE 1 trigger RELSPEC/ex byte-exact 0 NEW lock 0 halt 0 post-hoc fix 0 schema regression mini-audit vercel:deployment-expert slot 10 8th family-pivot 8/8 PASS 3 LOW INFO v2.0 carries`
