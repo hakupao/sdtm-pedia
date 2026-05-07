@@ -806,3 +806,70 @@ Alphabetical default scope per round 07 close trigger (Bojiang ack "a" 2026-05-0
 
 `06 P2 B-03c round 08 自治连跑 CLOSED — 10 batches 240 atoms 5 domains PE/PP/PR/QS/RE ★ v1.9.2 2nd sustained round + §2.7 lock 2 cases + §2.5 lock 10 cases + 0 NEW lock 0 halt 0 post-hoc fix B-03c 1st grep-verified 0-trigger round + v1.9.3 cut planning trigger MET`
 
+
+
+## 2026-05-07 P2 B-03c round 09 自治连跑 CLOSED ★ §2.11 Plan B 2nd production validation 4 cases + NEW References boundary + v1.9.2 3rd sustained round
+
+### Round 09 outcome (CLOSED 2026-05-07)
+
+- **Scope**: alphabetical RELREC/RP/RS/SC/SE 5 domains × 2 files = 10 batches batch_94..103 (全 single-batch 0 slice — sustained round 08 cleanest 0-slice record)
+- **Atoms**: 297 (kickoff §0.5 row 31 estimate 270-390 mid 340; actual 297 within band lower-mid; ratio 297/460 = 0.646)
+- **Source lines**: 460
+- **Files atomized**: 10 (5 domains × 2)
+- **0 NEW first-time lock**, **0 halt**, **0 post-hoc fix** (sustained round 07/08 cleanest record)
+
+### Codifications validated
+
+- **★ §2.11 Plan B 2nd production validation 4 cases PASS**:
+  - RELREC/ex L3 sib=1 (3 H3 children L5/24/38) → §RELREC.1.{1,2,3} [Example N]
+  - RELREC/ex L53 sib=2 (1 H3 child L55) → §RELREC.2.1 [Example 1]
+  - RS/ex L3 sib=1 (3 H3 children L7/26/46) → §RS.1.{1,2,3} [Example N]
+  - RS/ex L65 sib=2 (2 H3 children L69 sib=1 RESTART + L92 `### References` sib=2 ★ NEW boundary) → §RS.2.{1 [Example 1], 2 [References]} sib_idx-based namespace
+  - **§2.11 status promoted SUSTAINED VALIDATED EXTENDED** post 2nd validation (round 07 PC/ex 1st 1 case + round 09 4 cases stress-test = cumulative 5 cases)
+- **§2.7 round 04 lock 5-case round 09 sustained validation**: RELREC/ass L7+L20 + RS/ass L3+L41+L56 numberless H2 childless file-root parent (cumulative post-round-09 = 7 cases)
+- **§2.5 numbered H2 self-namespace 6-case validation**: RP/ex L3 + SC/ex L3/L20/L36 + SE/ex L5/L50 (cumulative post-round-09 = 26 cases)
+- **v1.9.2 §E-1..E-6 3rd sustained round 0 schema regression**: cumulative 990 atoms post v1.9.2 cut (round 07 453 + round 08 240 + round 09 297) 0 schema regression
+- **NEW boundary motif `### References` H3** (RS/ex L92): §2.11 Plan B applies regardless of H3 title pattern — sib_idx-based namespace `§RS.2.2 [References]` (NOT title-slug). Codified.
+
+### Audit verdicts
+
+- **Per-batch Rule A**: 98/98 audited atoms = **100%** (10/10 batches PASS)
+- **Mini-audit**: 8/8 atoms = 100% + 10/10 round invariants PASS
+- **Reviewer**: feature-dev:code-explorer AUDIT mode (slot #9, **7th cumulative B-03c reviewer family-pivot ★ feature-dev family AUDIT pool 3rd sub-type extension**, N21 reviewer-only role exception per round 08 §3 fresh candidates list)
+- **Findings**: 0 HIGH / 0 MED / 0 LOW / 0 NEW INFO; v1.9.3 candidate INFO-R08-03 §2.11 stress-test gap RESOLVED post round 09
+
+### Cumulative state
+
+- md_atoms.jsonl: **9112 atoms** (was 8815 post round 08; +297)
+- File coverage: **103/141 = 73.05%** (was 65.96%; +7.09pp)
+- Domain coverage: **44/63 = 69.84%** (was 61.9%; +7.94pp; +5 RELREC/RP/RS/SC/SE)
+- B-03c progress: **82/114 = 71.93%** (was 63.16%; +8.77pp)
+- v1.9.3 candidate stack: **9 actionable + 1 RESOLVED** (post round 09 §2.11 stress-test resolved INFO-R08-03; 0 NEW round 09)
+- **v1.9.3 cut planning trigger MET 2 rounds sustained** — cut planning recommended next session
+
+### Per-batch breakdown
+
+| Batch | File | Lines | Atoms | Lock 触发 |
+|---|---|---|---|---|
+| 94 | RELREC/ass | 32 | 19 | §2.7 × 2 |
+| 95 | RELREC/ex | 66 | 40 | ★ §2.11 Plan B × 2 |
+| 96 | RP/ass | 10 | 6 | — |
+| 97 | RP/ex | 31 | 26 | §2.5 × 1 |
+| 98 | RS/ass | 58 | 38 | §2.7 × 3 |
+| 99 | RS/ex | 95 | 65 | ★ §2.11 Plan B × 2 + NEW References boundary |
+| 100 | SC/ass | 7 | 4 | — |
+| 101 | SC/ex | 49 | 32 | §2.5 × 3 |
+| 102 | SE/ass | 30 | 17 | — |
+| 103 | SE/ex | 82 | 50 | §2.5 × 2 |
+
+### Pipeline mode
+
+Pipelined writer + reviewer dispatch (writer batch N+1 in parallel with reviewer batch N) — ~50% wall-time reduction vs strict serial. ctx kept under 50% throughout 21-dispatch-call round.
+
+### Round 10 trigger
+
+Pending Bojiang ack scope. Default: alphabetical SM/SR/SS/SU/SUPPQUAL next 5 domains × 2 = 10 batches; 19 domains × 2 = 38 files remaining post round 09; 估 2-3 more rounds to close P2 B-03c. **OR v1.9.3 cut 优先** (recommended given trigger MET 2 rounds sustained).
+
+### Commit
+
+`06 P2 B-03c round 09 自治连跑 CLOSED — 10 batches 297 atoms 5 domains RELREC/RP/RS/SC/SE ★ v1.9.2 3rd sustained round + §2.11 Plan B 2nd production validation 4 cases including NEW References boundary + §2.7 lock 5 cases + §2.5 lock 6 cases + 0 NEW lock 0 halt 0 post-hoc fix v1.9.3 cut trigger MET 2 rounds sustained recommend cut next session feature-dev:code-explorer AUDIT slot #9 7th family-pivot 73.05%/69.84%/71.93% milestone`
