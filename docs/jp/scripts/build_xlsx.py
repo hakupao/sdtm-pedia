@@ -13,6 +13,7 @@ build_xlsx.py — docs/jp/sources/*.yml → スタイル付き .xlsx 生成ス�
 """
 
 import os
+import re
 import sys
 import yaml
 
@@ -297,7 +298,6 @@ def _sheet_cover(wb: Workbook, doc: dict) -> None:
         label_cell.alignment = Alignment(horizontal="left", vertical="center", wrap_text=True)
         label_cell.border = _thin_border()
 
-        ws.merge_cells(f"C{i}:E{i}")
         value_cell = ws.cell(row=i, column=3)
         value_cell.value = value
         value_cell.font = Font(name=_styles.FONTS["jp_primary"],
@@ -335,11 +335,11 @@ def _sheet_revision(wb: Workbook, doc: dict, revisions: list) -> None:
     """
     ws = wb.create_sheet("2_改訂履歴")
 
-    col_widths = {"A": 8, "B": 14, "C": 42, "D": 14, "E": 14, "F": 14}
+    col_widths = {"A": 8, "B": 14, "C": 50, "D": 14}
     for col, width in col_widths.items():
         ws.column_dimensions[col].width = width
 
-    headers = ["版", "改訂日", "改訂内容", "作成", "確認", "承認"]
+    headers = ["版", "改訂日", "改訂内容", "作成"]
     ws.row_dimensions[1].height = _styles.ROW_HEIGHT_HEADING
     for col_idx, header in enumerate(headers, start=1):
         cell = ws.cell(row=1, column=col_idx)
@@ -353,15 +353,13 @@ def _sheet_revision(wb: Workbook, doc: dict, revisions: list) -> None:
 
     for row_offset, rev in enumerate(revisions):
         row = 2 + row_offset
-        ws.row_dimensions[row].height = _styles.ROW_HEIGHT_BODY
+        ws.row_dimensions[row].height = 16.5
         fill = _styles.ZEBRA_FILL() if row_offset % 2 == 0 else _styles.WHITE_FILL()
         values = [
             rev.get("version", ""),
             rev.get("date", ""),
             rev.get("content", ""),
             rev.get("author", ""),
-            rev.get("confirmer", ""),
-            rev.get("approver", ""),
         ]
         for col_idx, val in enumerate(values, start=1):
             cell = ws.cell(row=row, column=col_idx)
@@ -487,18 +485,24 @@ def _sheet_toc(wb: Workbook, doc: dict, content_sheets: list,
 # 本文シート: type=text
 # ─────────────────────────────────────────────────────────────────────────────
 
+_SECTION_HEADER_PAT = re.compile(r'^\d+(\.\d+)*\.?\s')
+
+
 def _sheet_text(wb: Workbook, doc: dict, sheet_def: dict) -> None:
     """
-    本文シート (type=text) を Workbook に追加する. 1 行ずつ改行分割して縦に書き込む.
+    本文シート (type=text) を Workbook に追加する.
+
+    列構成: A (余白, 幅 2) / B (見出しアンカー, 幅 2) / C (本文, 幅 80).
+    セクション見出し行 (^\d+[\.\d]*\.?\s で始まる行) は B 列に太字で書き込み,
+    その他の本文行は C 列に折り返しで書き込む. 行高は自動 (明示設定しない).
 
     必須キー (sheet_def):
         name    : シート名
 
     任意キー (sheet_def):
         content       : 本文テキスト (改行区切り; 省略時は空シートを生成)
-        note_rows     : list[int] — 0-indexed 本文行番号 (ヘッダー行を除く). 該当行は
-                        背景 ZEBRA_FILL + フォント色 caption_gray + 斜体で描画する.
-        column_widths : list[int/float] — 列ごとの手動上書き幅 (省略時は auto-fit)
+        note_rows     : list[int] — 0-indexed 本文行番号 (注意書きスタイルを適用する行)
+        column_widths : list[int/float] — A/B/C 列幅 (省略時は 2/2/80)
 
     任意キー (doc):
         name, version, created — 印刷ヘッダー / フッターに使用
@@ -508,40 +512,52 @@ def _sheet_text(wb: Workbook, doc: dict, sheet_def: dict) -> None:
     """
     ws = wb.create_sheet(sheet_def["name"])
 
-    # タイトル行
-    _styles.make_title_cell(ws, sheet_def["name"], row=1, col=1, colspan=2,
+    # タイトル行 (A+B+C 結合, 左揃え)
+    _styles.make_title_cell(ws, sheet_def["name"], row=1, col=1, colspan=3,
                             font_size=_styles.SIZE_HEADING)
 
-    # 本文テキスト (行ごとに分割して書き込む)
     content = sheet_def.get("content", "")
     lines = [line for line in content.split("\n") if line.strip()]
     note_rows_set = set(sheet_def.get("note_rows", []))
 
-    all_row_values = [["", sheet_def["name"]]]  # タイトル行
     for i, line in enumerate(lines):
         row = 2 + i
-        ws.row_dimensions[row].height = _styles.ROW_HEIGHT_BODY
         val = line.strip()
         is_note = i in note_rows_set
-        cell = ws.cell(row=row, column=2, value=val)
-        if is_note:
-            cell.font = Font(name=_styles.FONTS["jp_primary"], size=_styles.SIZE_BODY,
-                             color=_styles.COLOR_AUX_TEXT, italic=True)
-            cell.fill = _styles.ZEBRA_FILL()
-        else:
-            cell.font = Font(name=_styles.FONTS["jp_primary"], size=_styles.SIZE_BODY,
-                             color="FF000000")
-        cell.alignment = Alignment(horizontal="left", vertical="top", wrap_text=True)
-        all_row_values.append(["", val])
+        is_header = bool(_SECTION_HEADER_PAT.match(val))
 
-    # 列幅設定: A=左余白固定 2, B=auto-fit (手動上書き可)
+        if is_header:
+            cell = ws.cell(row=row, column=2, value=val)
+            cell.font = Font(
+                name=_styles.FONTS["jp_primary"], size=_styles.SIZE_BODY,
+                bold=True, italic=is_note,
+                color=_styles.COLOR_AUX_TEXT if is_note else "FF000000",
+            )
+            if is_note:
+                cell.fill = _styles.ZEBRA_FILL()
+            cell.alignment = Alignment(horizontal="left", vertical="top")
+        else:
+            cell = ws.cell(row=row, column=3, value=val)
+            cell.font = Font(
+                name=_styles.FONTS["jp_primary"], size=_styles.SIZE_BODY,
+                italic=is_note,
+                color=_styles.COLOR_AUX_TEXT if is_note else "FF000000",
+            )
+            if is_note:
+                cell.fill = _styles.ZEBRA_FILL()
+            cell.alignment = Alignment(horizontal="left", vertical="top", wrap_text=True)
+
+    # 列幅: A=2, B=2, C=80 (column_widths で上書き可)
     manual = sheet_def.get("column_widths")
-    ws.column_dimensions["A"].width = manual[0] if manual and len(manual) > 0 else 2
-    if manual and len(manual) > 1 and manual[1] is not None:
-        ws.column_dimensions["B"].width = float(manual[1])
-    else:
-        max_w = max((_cell_display_width(r[1]) for r in all_row_values), default=0.0)
-        ws.column_dimensions["B"].width = min(max_w + 2.0, 60.0)
+    ws.column_dimensions["A"].width = (
+        float(manual[0]) if manual and len(manual) > 0 and manual[0] is not None else 2.0
+    )
+    ws.column_dimensions["B"].width = (
+        float(manual[1]) if manual and len(manual) > 1 and manual[1] is not None else 2.0
+    )
+    ws.column_dimensions["C"].width = (
+        float(manual[2]) if manual and len(manual) > 2 and manual[2] is not None else 80.0
+    )
 
     _apply_print_settings(ws, doc)
 
@@ -591,7 +607,6 @@ def _sheet_table(wb: Workbook, doc: dict, sheet_def: dict) -> None:
     # データ行
     for row_offset, row_vals in enumerate(rows_data):
         row = 3 + row_offset
-        ws.row_dimensions[row].height = _styles.ROW_HEIGHT_BODY
         zebra = (row_offset % 2 == 0)
         is_note = row_offset in note_rows_set
         for col_idx, val in enumerate(row_vals, start=1):

@@ -24,8 +24,8 @@ revision_history:
   - "v0.1 (2026-04-29): 初版起草 (3 並列 batch + 主 session 統合)"
   - "v0.2 (2026-04-29): code-reviewer Round 1 CONDITIONAL_PASS の指摘修正 (HIGH F-1 dropout §SE→§DS / F-2 JIS § 名 11 件 UNVERIFIED 表記緩和 + 3 件 §節置換 / MEDIUM F-3/F-4/F-5/F-6 メタ整合)"
   - "v0.3 (2026-04-29): code-reviewer Round 2 CONDITIONAL_PASS の指摘修正 (HIGH N-1 reviewer_checklist の YAML 構文エラー → 各行 quoted string 化 / MEDIUM N-2 cjug_d2_application_count 7→9 訂正 katakana エイリアス含算 / LOW N-3 F-3 主張文も同期訂正)"
-  - "v0.4 (2026-04-29): Phase 1 04 要件定義書 着手時の用語監査誤検出対応 (ack candidates から「確認」除外 — 汎用日本語衝突回避; adopted「承認」維持)"
-  - "v0.5 (2026-04-29): Phase 1 04 要件定義書 用語監査担当 round 1 指摘 A-F-1 / A-F-3 / A-F-4 への対応 (writer から「作成者」/ drift から「差異」/ chain から「相互参照」を candidates 除外 — 汎用日本語衝突回避; adopted 値および notes は不変)"
+  - "v0.4 (2026-04-29): Phase 1 01 要件定義書 着手時の用語監査誤検出対応 (ack candidates から「確認」除外 — 汎用日本語衝突回避; adopted「承認」維持)"
+  - "v0.5 (2026-04-29): Phase 1 01 要件定義書 用語監査担当 round 1 指摘 A-F-1 / A-F-3 / A-F-4 への対応 (writer から「作成者」/ drift から「差異」/ chain から「相互参照」を candidates 除外 — 汎用日本語衝突回避; adopted 値および notes は不変)"
 total_entries: 33
 batches_integrated: 3
 cross_batch_reconciliations:

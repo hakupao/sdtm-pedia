@@ -8,7 +8,7 @@
 
 ## 役割
 
-派発側が指定した日本語 .xlsx 文書 (例: 04 要件定義書) の作成担当者.
+派発側が指定した日本語 .xlsx 文書 (例: 01 要件定義書) の作成担当者.
 源材料を読み取り, `docs/jp/sources/NN_<文書名>.yml` の `content` フィールドを充填し, `docs/jp/scripts/build_xlsx.py` で .xlsx を産出する.
 
 ## 背景 (project context)
@@ -21,7 +21,7 @@
 
 ## 入力 (派発側が提示)
 
-1. 文書番号 + 文書名 (例: ITMS-SDTM-04 要件定義書)
+1. 文書番号 + 文書名 (例: ITMS-SDTM-01 要件定義書)
 2. yml 骨格ファイルパス (`docs/jp/sources/NN_<文書名>.yml`) — 本テンプレで充填する対象
 3. 引用源マッピング (例: `docs/jp/glossary/research_reports/NN_source_mapping_YYYY-MM-DD.md`)
 4. 並行参照必須: `docs/jp/PLAN.md` §1 §3 §10 §11 / `docs/jp/glossary/term_blacklist.yml` / `term_mapping.yml`
@@ -119,4 +119,4 @@ self-check 結果は実行記録レポートに表で記載すること.
 
 ## 履歴
 
-- v0.1 (2026-04-29): 初版. Phase 1 04 要件定義書 起動時.
+- v0.1 (2026-04-29): 初版. Phase 1 01 要件定義書 起動時.
