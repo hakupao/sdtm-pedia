@@ -1,16 +1,23 @@
 @import "@fontsource/playfair-display/400.css";
+@import "@fontsource/playfair-display/600.css";
 @import "@fontsource/playfair-display/700.css";
 @import "@fontsource/playfair-display/700-italic.css";
 @import "@fontsource/source-serif-pro/400.css";
 @import "@fontsource/source-serif-pro/400-italic.css";
+@import "@fontsource/source-serif-pro/600.css";
+@import "@fontsource/source-serif-pro/600-italic.css";
 @import "@fontsource/jetbrains-mono/500.css";
+@import "@fontsource/jetbrains-mono/600.css";
 @import "@fontsource/jetbrains-mono/700.css";
 
 /* CJK fonts — chunked by unicode-range; only on-page glyph subsets are downloaded */
 @import "@fontsource/noto-serif-sc/400.css";
+@import "@fontsource/noto-serif-sc/600.css";
 @import "@fontsource/noto-serif-sc/700.css";
 @import "@fontsource/noto-serif-jp/400.css";
+@import "@fontsource/noto-serif-jp/600.css";
 @import "@fontsource/noto-serif-jp/700.css";
+@import "@fontsource/shippori-mincho/600.css";
 @import "@fontsource/shippori-mincho/700.css";
 
 @import "tailwindcss";
@@ -88,6 +95,7 @@
 :root {
   --ui-font-scale: 1;
   --ui-font-bump: 3px;
+  --ui-font-weight: 600;
 }
 [data-fontsize="sm"] { --ui-font-scale: 0.875; }
 [data-fontsize="lg"] { --ui-font-scale: 1.125; }
@@ -111,6 +119,20 @@ body {
 
 body {
   font-size: calc(16px * var(--ui-font-scale) + var(--ui-font-bump));
+}
+
+/* Non-markdown interface text needs a heavier default than the article prose.
+   Keep `.prose-doc` as the reference body rhythm; lift the surrounding UI chrome. */
+body :where(a, button, summary, label, input, select, textarea, p, li, dt, dd, th, td, figcaption, span, div, h1, h2, h3, h4, h5, h6):not(.prose-doc, .prose-doc *) {
+  font-weight: var(--ui-font-weight);
+}
+
+body :where(.font-normal, .font-medium, .font-semibold):not(.prose-doc, .prose-doc *) {
+  font-weight: var(--ui-font-weight);
+}
+
+body :where(.font-bold, strong, b):not(.prose-doc, .prose-doc *) {
+  font-weight: 700;
 }
 
 body .text-\[8px\]:not(.prose-doc, .prose-doc *) { font-size: calc(8px * var(--ui-font-scale) + var(--ui-font-bump)); }
