@@ -222,5 +222,5 @@ def make_title_cell(ws, text: str, row: int = 1, col: int = 1,
     cell.font      = Font(name=FONTS["jp_primary"], size=font_size,
                           bold=True, color=COLOR_TEXT_WHITE)
     cell.fill      = ACCENT_FILL()
-    cell.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
+    cell.alignment = Alignment(horizontal="left", vertical="center")
     ws.row_dimensions[row].height = ROW_HEIGHT_HEADING
