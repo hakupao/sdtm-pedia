@@ -96,3 +96,22 @@
   - **別案**: project-level 巨行修正 (`docs/PROGRESS.md` L3 = 48,234 字 / `.work/MANIFEST.md` L4 = 69,438 字) — CLAUDE.md 写作規則 + 新規則「成果物制作過程 ≠ 項目進度」両方違反. 巨行内容を `.work/meta/worklog.md` に既に mirror 済か確認 → 不足なら退避先用意 → 看板側を「最後更新: 2026-05-04. Phase 状態は下方表参照.」短文に置換 + 残長行 (PROGRESS L11/102-107/171/330-337 + MANIFEST L317-328) を ≤ 200 字短指針化.
 - **下一步**: commit + push (本 session docs/jp 内部一致性修正 milestone).
 
+---
+
+## 2026-05-08 scope 錯誤根原修正 + 読者視点クリーンアップ
+
+- **発端**: 01_要件定義書 の scope 錯誤を Bojiang が指摘 — 「本納品物」が SDTM KB ではなく docs/jp Excel セット自体を指し、docs/jp session の作業動機が要件定義書本文に混入していた.
+- **Root cause trace**: PLAN.md §0.2 in-scope の歧义 + writer が PLAN.md §0.1 (docs/jp 旁枝の存在理由) を要件定義書 §1.2 に直接適用 → 「本納品物 = Excel 7件套」という誤フレーミングが §1.2/1.4/1.5 全体に伝染.
+- **修正内容 (ymls + xlsx 再生成)**:
+  - `01_要件定義書.yml`: §1.2 全面改稿 (題名「本書の目的」に変更、Excel 来由説明を削除)、§1.3「本納品物→本書」、§1.4 誤フレーム削除+関連文書再構成、§1.5 誤定位修正、C-05「本納品物→本知識ベースおよび関連納品文書」.
+  - `build_xlsx.py`: text-type シートで「出典:」行をすべて除去するフィルター追加 (全ファイル系統対応).
+  - `01_要件定義書.yml`: §1.4 内部パス (.work/06_deep_verification/schema/) 削除、NFR-01 行頁比削除、NFR-02「処理プロセス」→「担当者」、FR-02 page_index.json 削除.
+  - `02_基本設計書.yml`: IF-05 (build_xlsx.py 内部ツール) 削除、2_全体構成 §2.3 atom_id/verdict 列挙等の内部スキーマ詳細を読者向け簡略記述に置換、参考資料 .work/ パスを「内部管理リポジトリ」に変更、D-03「P0 Pilot / frozen_at / frozen_evidence」削除、§1.5(4)「本納品物→関連文書」.
+  - `07_進捗報告書.xlsx` / `08_反復実績記録.xlsx`: 再生成 (build_xlsx.py フィルター適用).
+- **未解決 (次 session へ)**:
+  - `99_用語集.yml`: 現状は blacklist 用語マッピング (round/batch/subagent/Rule D 等) のみ収録 — 読者向け SDTM 技術用語集への完全書き直しが必要.
+  - `02 §3.4/§3.5` データモデル粒度: atom_id フォーマット・verdict 列挙が基本設計書として適切か要議論.
+- **検証**: 4 xlsx 全件 CLEAN (出典行・内部パス・禁止語 0 件).
+- **関鍵決定**: 読者視点原則を確立 — 「制作者しか分からない内容 (出典行、内部パス、内部用語、ツール名) は xlsx に一切出力しない」. build_xlsx.py で系統的に担保.
+- **下一步 route word**: `docs/jp 用語集修正` → 次 session で 99_用語集 完全書き直し + §3.4/§3.5 粒度議論.
+

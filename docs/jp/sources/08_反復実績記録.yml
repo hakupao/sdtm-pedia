@@ -7,8 +7,8 @@
 document:
   name: "反復実績記録"
   number: "ITMS-SDTM-08-ITERATION-LOG-v0.5"
-  recipient: "iTMS 株式会社 御中"
-  author: "(担当部門)"
+  recipient: "統合G"
+  author: "張　泊江"
   created: "2026-04-30"
   updated: "2026-04-30"
   version: "v0.5"
@@ -18,7 +18,7 @@ revisions:
   - version: "v0.5"
     date: "2026-04-30"
     content: "中間版作成. 本知識ベース整備全期間 (2026-04-13 〜 2026-04-30, 約 18 日間) における主要工程 5 系統 (AI 平台 4 種プロンプト整備 / smoke 動作試験 / 知識ベース字面級確認 / 受信者向け文書整備 / 用語整備) の反復実績を集約."
-    author: "(担当部門)"
+    author: "張　泊江"
     confirmer: "(日本側ネイティブ確認担当指名待ち)"
     approver: "Bojiang Zhang"
 
