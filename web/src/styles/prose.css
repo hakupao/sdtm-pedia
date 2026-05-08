@@ -1,6 +1,7 @@
 .prose-doc {
   font-family: var(--font-serif);
   font-size: 16px;
+  font-weight: 400;
   line-height: 1.7;
   color: var(--ink);
 }

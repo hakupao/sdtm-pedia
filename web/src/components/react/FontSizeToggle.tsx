@@ -35,7 +35,7 @@ export function FontSizeToggle({ navLabel, labels }: Props) {
           aria-label={labels[t]}
           title={labels[t]}
           style={{ fontSize: TIER_PX[t] }}
-          className={`inline-flex min-h-8 min-w-8 items-center justify-center ${
+          className={`inline-flex min-h-8 min-w-8 cursor-pointer items-center justify-center ${
             t === size ? 'text-accent' : 'text-ink-mute hover:text-accent'
           }`}
         >
