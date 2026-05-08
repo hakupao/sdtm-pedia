@@ -517,7 +517,8 @@ def _sheet_text(wb: Workbook, doc: dict, sheet_def: dict) -> None:
                             font_size=_styles.SIZE_HEADING)
 
     content = sheet_def.get("content", "")
-    lines = [line for line in content.split("\n") if line.strip()]
+    lines = [line for line in content.split("\n")
+             if line.strip() and not line.strip().startswith("出典:")]
     note_rows_set = set(sheet_def.get("note_rows", []))
 
     for i, line in enumerate(lines):

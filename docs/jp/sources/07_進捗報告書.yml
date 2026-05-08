@@ -7,8 +7,8 @@
 document:
   name: "進捗報告書"
   number: "ITMS-SDTM-07-PROGRESS-REPORT-v0.5"
-  recipient: "iTMS 株式会社 御中"
-  author: "(担当部門)"
+  recipient: "統合G"
+  author: "張　泊江"
   created: "2026-04-30"
   updated: "2026-04-30"
   version: "v0.5"
@@ -18,7 +18,7 @@ revisions:
   - version: "v0.5"
     date: "2026-04-30"
     content: "中間版作成. 受信者向け納品候補 7 件中 2 件 (要件定義書 / 基本設計書) を確定し, 残 5 件 (運用保守マニュアル / 試験結果報告書 / 詳細設計書 / トレーサビリティ管理表 / 用語集 完成版) の予定を整理. 用語集は骨格のみ (中国語列充填は仕上げ段階で実施)."
-    author: "(担当部門)"
+    author: "張　泊江"
     confirmer: "(日本側ネイティブ確認担当指名待ち)"
     approver: "Bojiang Zhang"
 

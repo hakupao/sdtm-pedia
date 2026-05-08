@@ -14,8 +14,8 @@
 document:
   name: "基本設計書"
   number: "ITMS-SDTM-02-BASIC-DESIGN-v1.0"
-  recipient: "iTMS 株式会社 御中"
-  author: "(担当部門)"
+  recipient: "統合G"
+  author: "張　泊江"
   created: "2026-04-29"
   updated: "2026-04-29"
   version: "v1.0"
@@ -25,7 +25,7 @@ revisions:
   - version: "v1.0"
     date: "2026-04-29"
     content: "初版作成"
-    author: "(担当部門)"
+    author: "張　泊江"
 sheets:
 
   # ─────────────────────────────────────────────
@@ -85,7 +85,7 @@ sheets:
 
       (3) ローカル先行・プロバイダー非依存 — Phase 7 RAG+KG はすべて Docker Compose によるローカル実行を前提とし、特定の LLM 供給者に固定しない設計とする。クラウド展開は本設計範囲外とする。
 
-      (4) 読取専用源 + 派生著作物 — knowledge_base/ ディレクトリは変更不可の読取専用源として扱う。本納品物を含む改修は派生著作物側にのみ適用する。
+      (4) 読取専用源 + 派生著作物 — knowledge_base/ ディレクトリは変更不可の読取専用源として扱う。関連文書を含む改修は派生著作物側にのみ適用する。
 
       出典: (1) 字面追跡可能性 = METHODOLOGY.md §3、(2) リスク主導確認 = METHODOLOGY.md §5 + Compliance framing、(3) ローカル先行・プロバイダー非依存 = docs/DESIGN_RAG_KG.md §1.4、(4) 読取専用源 + 派生著作物 = docs/DESIGN_RAG_KG.md §1.4。
 
@@ -134,11 +134,11 @@ sheets:
 
       工程は以下の 3 段階で構成される。
 
-      (1) 検証単位抽出 — PDF 原子および MD 原子を検証単位データ schema (atom_schema v1.2 凍結済) に従い抽出する。PDF 原子は atom_id 形式 <source_short>_p<NNN>_a<NNN> (例: ig34_p0425_a012) で識別する。MD 原子は md_<file_stem>_a<NNN> (例: md_ch08_a042) で識別する。atom_type は HEADING / SENTENCE / LIST_ITEM / TABLE_HEADER / TABLE_ROW / CODE_LITERAL / CROSS_REF / FIGURE / NOTE の 9 値硬列挙型である。
+      (1) 検証単位抽出 — PDF 原文および知識ベース記述を検証単位として抽出する。各検証単位は一意の識別子で管理し、凍結済データ設計仕様 (v1.2、凍結日: 2026-04-24) に従い構造化データとして記録する。
 
-      (2) 突合判定 — 突合管理表データ schema (ledger_schema v1.2 凍結済) に従い、各検証単位について突合管理表の 1 行 JSONL として記録する。順方向 (PDF→MD) の verdict は 9 値 (EXACT / EQUIVALENT / EDITORIAL_CORRECTION / TABLE_SIMPLIFIED / PARTIAL / MISPLACED / ERROR / MISSING / INTENTIONAL_EXCLUDE)、逆方向 (MD→PDF) の verdict は 5 値 (SOURCED / EDITORIAL_ADDITION / SYNTHESIZED / UNSOURCED / HALLUCINATED) である。類似度スコア (similarity_score) は 0.0〜1.0 の範囲で、PARTIAL は 0.50 以上、SOURCED は 0.50 以上が必須条件である。
+      (2) 突合判定 — 各検証単位について突合管理表に記録する。PDF から知識ベースへの順方向および知識ベースから PDF への逆方向の双方で照合結果を判定し、類似度スコア (0.0〜1.0) を数値で記録する。
 
-      (3) 独立二次審査 — 審査独立性原則に従い、整合確認担当者とは異なる主体が審査記録 (audited_by 配列) に CONFIRM / OVERRIDE / AMBIGUOUS を追記する。
+      (3) 独立二次審査 — 審査独立性原則に従い、照合を実施した担当者とは異なる主体が審査記録に結果 (確認・修正・保留) を追記する。
 
       出典: .work/06_deep_verification/schema/atom_schema.json + .work/06_deep_verification/schema/ledger_schema.json + METHODOLOGY.md §2 末尾段落。
 
@@ -177,7 +177,7 @@ sheets:
 
       知識ベース本体は、すべてのサブシステムの共通読取専用源である。変更不可の入力として扱い、派生著作物側のみで改修を行う。
 
-      検証パイプラインは、knowledge_base/ を入力とし、突合管理表 (JSONL 形式) および根拠資料を .work/06_deep_verification/ 配下に出力する。知識ベースの品質を支える独立した工程として機能する。
+      検証パイプラインは、knowledge_base/ を入力とし、突合管理表 (JSONL 形式) および根拠資料を内部検証管理リポジトリに出力する。知識ベースの品質を支える独立した工程として機能する。
 
       AI 平台展開は、知識ベースを容量制約・機能制約に整合させた配布物に再パッケージしたものである。知識ベース本体を参照するが、改変はしない。
 
@@ -210,11 +210,11 @@ sheets:
          "運用中"]
       - ["3.4",
          "検証単位データモデル (atom_schema v1.2)",
-         "検証単位データ schema (atom_schema v1.2、凍結日: 2026-04-24) に従う。PDF 原子と MD 原子の共存型 (oneOf) で、atom_id 前缀により区別する。PDF 原子の atom_id 形式: <source_short>_p<NNN>_a<NNN> (例: ig34_p0425_a012)。MD 原子の atom_id 形式: md_<file_stem>_a<NNN> (例: md_ch08_a042)。atom_type は 9 値硬列挙型 (HEADING / SENTENCE / LIST_ITEM / TABLE_HEADER / TABLE_ROW / CODE_LITERAL / CROSS_REF / FIGURE / NOTE)。dataset 文件名 (*.xpt 等) は文脈に関わらず CODE_LITERAL として扱う硬規則あり。",
+         "検証単位データ設計仕様 (v1.2、凍結日: 2026-04-24) に従う。PDF 原文と知識ベース記述の双方を検証単位として扱い、一意の識別子で管理する。検証単位の種別は 9 値の固定分類 (HEADING / SENTENCE / LIST_ITEM / TABLE_HEADER / TABLE_ROW / CODE_LITERAL / CROSS_REF / FIGURE / NOTE) で記録する。",
          "凍結済"]
       - ["3.5",
          "突合管理表データモデル (ledger_schema v1.2)",
-         "突合管理表データ schema (ledger_schema v1.2、凍結日: 2026-04-24) に従う。1 行 JSONL = 1 突合決定として記録する。必須フィールド: verdict / similarity_score (0.0〜1.0) / matched_by。順方向 (PDF→MD) verdict は 9 値 (EXACT / EQUIVALENT / EDITORIAL_CORRECTION / TABLE_SIMPLIFIED / PARTIAL / MISPLACED / ERROR / MISSING / INTENTIONAL_EXCLUDE)。逆方向 (MD→PDF) verdict は 5 値 (SOURCED / EDITORIAL_ADDITION / SYNTHESIZED / UNSOURCED / HALLUCINATED)。数値条件: PARTIAL は similarity_score ≥ 0.50、SOURCED は similarity_score ≥ 0.50 が必須。独立二次審査記録は audited_by 配列に追記する。",
+         "突合管理表データ設計仕様 (v1.2、凍結日: 2026-04-24) に従う。各突合決定を構造化データとして記録する。順方向 (PDF→知識ベース) の照合結果は 9 値、逆方向 (知識ベース→PDF) の照合結果は 5 値の固定分類で判定する。類似度スコアは 0.0〜1.0 の数値で記録し、判定区分ごとに下限値を定める。独立二次審査の結果は審査記録に追記する。",
          "凍結済"]
       - ["3.6",
          "RAG チャンクメタデータ (Phase 7 設計済・実装未着手)",
@@ -252,10 +252,6 @@ sheets:
          "LLM プロバイダー (Phase 7 設計済・実装未着手)",
          "Phase 7 RAG+KG において、LiteLLM 抽象層により Claude / GPT / DeepSeek 他の複数 LLM 供給者を非依存に呼び出す設計。ベクトル化には OpenAI text-embedding-3-small 等を想定。ベクトル DB は Chroma (ローカル)、知識グラフ DB は Neo4j (ローカル)、API 層は FastAPI、フロントエンドは Streamlit を採用する設計。全コンポーネントは Docker Compose によるローカル実行を前提とし、クラウド展開は本設計範囲外とする。現状は設計確定・実装未着手である。",
          "設計済・未実装"]
-      - ["IF-05",
-         "本納品物生成基盤 (内製スクリプト)",
-         "本納品物 7 文書 (.xlsx) および 99 用語集の生成基盤として、openpyxl 3.1.5 (Python) および内製スクリプト build_xlsx.py / audit_terms.py を使用する。テンプレート (style_guide.xlsx / cover_template.xlsx) で表紙・改訂履歴・目次・承認欄の書式を統一する。YAML 源ファイル (docs/jp/sources/) をスクリプトで変換し .xlsx を生成する方式を採用している。詳細な生成手順は 05 詳細設計書に委譲する。",
-         "運用中"]
     note_rows: []
 
   # ─────────────────────────────────────────────
@@ -276,7 +272,7 @@ sheets:
          "本書固有の設計レベル制約は以下の 4 件である。(1) ローカル先行: Phase 7 RAG+KG は Docker Compose によるローカル実行を前提とし、クラウド展開・認証・マルチテナントは本設計範囲外とする。(2) プロバイダー非依存: 特定の LLM 供給者に固定しない設計とする。LiteLLM 抽象層により多供給者を切り替え可能にする。(3) 読取専用源: knowledge_base/ は変更不可とし、本書記述の改修は派生著作物側に限定する。(4) 日本語化範囲: ai_platforms/ 配下文書の日本語化、リアルタイム同期パイプライン構築、法務契約書類は本納品物の範囲外とする。"]
       - ["D-03",
          "設計凍結",
-         "検証単位データ schema (atom_schema) および突合管理表データ schema (ledger_schema) は v1.2 (凍結日: 2026-04-24) に固定されている。P0 Pilot 完了をもって以後の変更を禁ずる旨が schema ファイル自体の frozen_at フィールドおよび frozen_evidence 配列に明記されている。本書 §3.4 および §3.5 の記述はこの凍結版に依拠する。凍結後の schema 変更が必要な場合は本書および 05 詳細設計書の改訂を要する。"]
+         "検証単位データ設計仕様および突合管理表データ設計仕様は v1.2 (凍結日: 2026-04-24) に固定されている。検証パイプライン初期検証完了をもって変更を凍結済とする。本書 §3.4 および §3.5 の記述はこの凍結版に依拠する。凍結後の変更が必要な場合は本書および 05 詳細設計書の改訂を要する。"]
       - ["D-04",
          "著作権",
          "SDTM・SDTMIG・CDISC Controlled Terminology の各規格および原刊行物の著作権は CDISC が保持する。本リポジトリは原刊行物そのものを再配布せず、業務利用しやすい形に再構成した派生著作物のみを CC BY 4.0 ライセンスで配布する。原刊行物の入手は CDISC Library 経由で利用者が個別に行う。本知識ベースは CDISC の公式製品ではなく、CDISC による認証・推奨を受けていない。"]
@@ -306,16 +302,16 @@ sheets:
          "docs/DESIGN_RAG_KG.md"]
       - ["内部設計仕様",
          "検証単位データ schema v1.2 (凍結日: 2026-04-24)",
-         ".work/06_deep_verification/schema/atom_schema.json"]
+         "内部管理リポジトリ（詳細はお問い合わせください）"]
       - ["内部設計仕様",
          "突合管理表データ schema v1.2 (凍結日: 2026-04-24)",
-         ".work/06_deep_verification/schema/ledger_schema.json"]
+         "内部管理リポジトリ（詳細はお問い合わせください）"]
       - ["内部計画",
          "知識ベース構造方針",
-         ".work/00_planning/restructure_plan.md"]
+         "内部管理リポジトリ（詳細はお問い合わせください）"]
       - ["内部計画",
          "CDISC 4 種公式刊行物の関係整理",
-         ".work/00_planning/source_relationship.md"]
+         "内部管理リポジトリ（詳細はお問い合わせください）"]
       - ["知識ベース 索引",
          "知識ベース 総合索引 (INDEX.md)",
          "knowledge_base/INDEX.md"]

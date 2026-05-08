@@ -6,8 +6,8 @@
 document:
   name: "納品範囲案内"
   number: "ITMS-SDTM-00-DELIVERY-SCOPE-v0.5"
-  recipient: "iTMS 株式会社 御中"
-  author: "(担当部門)"
+  recipient: "統合G"
+  author: "張　泊江"
   created: "2026-04-30"
   updated: "2026-04-30"
   version: "v0.5"
@@ -17,7 +17,7 @@ revisions:
   - version: "v0.5"
     date: "2026-04-30"
     content: "中間版同梱物の案内. 確定版 2 件 (要件定義書 / 基本設計書) + 中間版 / 骨格版 3 件 (進捗報告書 / 用語集 骨格 / 反復実績記録) + 公開発布版資料の同梱内容 + 残工程予定 + 連絡先を集約."
-    author: "(担当部門)"
+    author: "張　泊江"
     confirmer: "(日本側ネイティブ確認担当指名待ち)"
     approver: "Bojiang Zhang"
 
