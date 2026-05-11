@@ -46,10 +46,9 @@ Then summarize to the user: current status, open issues, and suggested next step
 
 ## 06 Deep Verification (旁枝)
 
-**当前阶段: P3 索引构建 (待启动)** — P1 pdf_atoms 12,487 ✅ + P2 md_atoms 10,435 ✅; P3-P7 比对未启动.
-下一步入口: `branches/06_deep_verification/plans/P3_index_building.md` (sub-plan 就绪, 直接执行).
+**当前阶段: P4a 前向比对 (待启动)** — P1 ✅ P2 ✅ P3 ✅ (p3_candidates.jsonl 12,487行 gate ALL PASS); P4a-P7 待执行.
+下一步入口: `branches/06_deep_verification/plans/P4a_forward_matching.md` (sub-plan 待写).
 进度 / metric / archive → `branches/06_deep_verification/_progress.json`. 入口 PLAN → `branches/06_deep_verification/PLAN.md`.
-**路由词**: `P3 开始任务` → 读 `plans/P3_index_building.md` §6 启动 checklist, 直接执行.
 
 ## Change Chains
 
@@ -77,7 +76,7 @@ Full chain definitions are in `.work/MANIFEST.md`.
 | Phase 7 session 记录 | `.work/05_rag_kg/session_2026-04-16_design.md` |
 | 06 Deep Verification 入口 | `branches/06_deep_verification/PLAN.md` (字面级 PDF→KB 深审; 详细见 §06 Deep Verification 段) |
 | 06 Deep Verification schema | `branches/06_deep_verification/schema/{atom,ledger}_schema.json` (frozen JSON Schema 2020-12) |
-| 06 P3 sub-plan (下一步) | `branches/06_deep_verification/plans/P3_index_building.md` (候选索引构建, P3 启动入口) |
+| 06 P4a sub-plan (下一步) | `branches/06_deep_verification/plans/P4a_forward_matching.md` (前向比对, P3 gate PASS 后) |
 | Phase 6.5 AI 平台部署 | `ai_platforms/` (总览 + 三平台子目录) |
 | Phase 6.5 范本 + 锁步看板 | `ai_platforms/_template/README.md` + `ai_platforms/SYNC_BOARD.md` (双平台锁步 gate) |
 | Phase 6.5 smoke 题库 + retro | `ai_platforms/SMOKE_V4.md` + `ai_platforms/retrospectives/` |

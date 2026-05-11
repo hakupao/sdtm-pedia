@@ -1145,7 +1145,19 @@
       "recovery_hint": "B-02 cycle CLOSED 2026-05-05 (★ batch 09 ch08_relationships.md 全 439 行 = 345 atoms a001..a345 single-dispatch full-file FALLBACK 7th cumulative; D7 NEW codify blockquote-prefix `> **Note:**` NOTE atom_type + D8 NEW codify numberless `## Overview` H2 chapter-root inherit + INAUGURAL clean kickoff post CRITICAL self-consistency rule (3 连续 drift pattern DEFUSED) + 7/9 atom_type single-batch coverage 含 1 FIGURE + 1 NOTE 首批 chapters/). 🌟 B-02 cycle CLOSED: 9/9 batch + 6/6 chapter files = 2983 atoms incl. pilot ch04 218 (B-02 sub-cycle batches alone = 1765 atoms). FALLBACK 7-batch 100% sustained streak (1331 atoms 0 writer defect). 9/9 atom_type cumulative coverage. v1.9.1 candidate backlog 17→19. **post-cycle triggers TBD**: 1) B-02 cumulative audit 30-atom stratified cross-batch ≥90% gate; 2) B-02 RETROSPECTIVE.md Rule C 4 sections; 3) v1.9.1 cut session 19 候选; 4) B-02 → B-03 handoff (domains/ × 126 + model 余 + top-level 3, ~12K-20K atoms 估)."
     },
     "P3_indexing": {
-      "status": "pending"
+      "status": "COMPLETE",
+      "closed_ts": "2026-05-11T00:00:00Z",
+      "output": "p3_candidates.jsonl",
+      "rows": 12487,
+      "zero_candidate_rate": "0.0%",
+      "avg_candidates": 5.3,
+      "top1_score_mean": 0.702,
+      "gate": "ALL PASS",
+      "evidence": "evidence/checkpoints/p3_report.md",
+      "scripts": [
+        "p3_build_index.py",
+        "p3_report.py"
+      ]
     },
     "P4a_forward_matching": {
       "status": "pending",
