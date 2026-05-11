@@ -11,7 +11,7 @@ title: "User Guide"
 
 If you need to look up CDISC SDTM variable definitions / Core / codelist, flipping through SDTMIG v3.4 PDF + NCI EVS Browser usually takes 10+ minutes. This project organizes all that material and deploys it to 4 AI platforms (Claude Projects / ChatGPT GPTs / Gemini Gems / NotebookLM). You just ask in natural language and **get answers with spec citations in 1 minute**.
 
-Technical background: SDTM (Study Data Tabulation Model) covers 63 domains + thousands of variables + extensive CT (Controlled Terminology). We organized CDISC SDTMIG v3.4 + v2.0 model + CDISC CT into 295 Markdown sources, then fed them to 4 AI platforms with prompt engineering. New to terms like RAG / system prompt / Core (Req/Exp/Perm) / Extensible / anti-hallucination probe? See [`./GLOSSARY.en.md`](./GLOSSARY.en.md) (1-page lookup).
+Technical background: SDTM (Study Data Tabulation Model) covers 63 domains + thousands of variables + extensive CT (Controlled Terminology). We organized CDISC SDTMIG v3.4 + v2.0 model + CDISC CT into 295 Markdown sources, then fed them to 4 AI platforms with prompt engineering. New to terms like RAG / system prompt / Core (Req/Exp/Perm) / Extensible / anti-hallucination probe? See the [glossary](./GLOSSARY.en.md) (1-page lookup).
 
 ## 2. What We Built (Technical Highlights)
 
@@ -24,7 +24,7 @@ We tested each platform with 17 representative SDTM questions, including 3 "deli
 | Gemini Gems | 16/17 (94%) | v7.1 LIVE | Long context + broad exploratory queries |
 | NotebookLM | 15/17 (88%) | Custom mode | in-KB-only anti-hallucination |
 
-Highlights: v3.4 new domains (GF / CP / BE / BS), Timing rules, CT Extensible handling, SUPPQUAL scope, cross-domain death-date alignment, and 3 anti-hallucination questions (LBCLINSIG / Trial-Level SAE Aggregate / PF deprecated domain). Throughout, quality was enforced with 4 internal quality rules + 28 independent reviewers cumulative. Sources: `./CHANGELOG.md` and `../../SMOKE_V4.md` §3. Glossary: [`./GLOSSARY.en.md`](./GLOSSARY.en.md)
+Highlights: v3.4 new domains (GF / CP / BE / BS), Timing rules, CT Extensible handling, SUPPQUAL scope, cross-domain death-date alignment, and 3 anti-hallucination questions (LBCLINSIG / Trial-Level SAE Aggregate / PF deprecated domain). Throughout, quality was enforced with 4 internal quality rules + 28 independent reviewers cumulative. Sources: [changelog](./CHANGELOG.md) and [SMOKE_V4 question bank](https://github.com/hakupao/sdtm-pedia/blob/main/ai_platforms/SMOKE_V4.md). Glossary: [glossary](./GLOSSARY.en.md)
 
 ## 3. Which Platform Should I Use? (Decision Tree)
 
@@ -35,7 +35,7 @@ Highlights: v3.4 new domains (GF / CP / BE / BS), Timing rules, CT Extensible ha
 | Large context + one-shot broad exploration / cross-domain pattern queries | **Gemini Gems** | 1M context window, 4-file deep merge |
 | Maximum anti-hallucination (decline to answer rather than fabricate) + strong citation | **NotebookLM** | in-KB-only; if it's not in the 42 sources, it will PUNT rather than guess |
 
-Short version: Not sure which to pick? Start with Claude Projects. Sharing with a team? Use ChatGPT GPTs. Worried about hallucinations? Use NotebookLM. For a detailed comparison see the "Four-Platform Roles" table in `../README.md`.
+Short version: Not sure which to pick? Start with Claude Projects. Sharing with a team? Use ChatGPT GPTs. Worried about hallucinations? Use NotebookLM. For a detailed comparison see the [platform comparison](./PLATFORM_COMPARISON.en.md).
 
 ## 4. Access Links for All 4 Platforms
 
@@ -73,21 +73,21 @@ Short version: Not sure which to pick? Start with Claude Projects. Sharing with 
 
 ## 5. 5-Minute Quick Start (3 Warm-Up Questions)
 
-Open your preferred platform (Claude Projects is a good first choice) and ask these 3 questions in order. Compare your answers against the Expected answers in `./DEMO_QUESTIONS.en.md`:
+Open your preferred platform (Claude Projects is a good first choice) and ask these 3 questions in order. Compare your answers against the Expected answers in the [demo questions](./DEMO_QUESTIONS.en.md):
 
 1. **D0 (Warm-up)**: "What domain and variable is AESER in SDTMIG v3.4? What is its Core attribute? Which CT C-code does it bind to?" Expected: AE domain / Serious Event / Exp / C66742 NY {Y/N/U/NA}.
-2. **D1 (New domain)**: Copy the D1 question text from DEMO_QUESTIONS.en.md (EGFR / Exon 19 / dbSNP). Expected: Domain=GF; should return GFGENSR / GFPVRID / GFGENREF / GFINHERT.
+2. **D1 (New domain)**: Copy the D1 question text from the [demo questions](./DEMO_QUESTIONS.en.md) (EGFR / Exon 19 / dbSNP). Expected: Domain=GF; should return GFGENSR / GFPVRID / GFGENREF / GFINHERT.
 3. **D5 (Wrong-premise correction)**: "What is SUPPTS in the SDTM standard? Is QORIG required?" Expected: The model proactively recognizes that "SUPPTS does not exist in SDTMIG v3.4" and redirects to TSVAL1-TSVALn = PASS+.
 
 Grading: All core facts correct (domain / variable / Core / C-code) = PASS. Proactively catches the wrong premise = PASS+. Follows the wrong premise and fabricates = FAIL.
 
 ## 6. Full Demo Package (10 Questions)
 
-The complete 10-question set is in `./DEMO_QUESTIONS.en.md` (English questions + English grading criteria). 5-minute intro = D0 / D1 / D5; 30-minute full run = D0 through D9 (includes 3 AHP probes: D6 LBCLINSIG / D7 SAE Aggregate / D8 PF deprecated domain + the cross-domain ultimate challenge D9: AE/MH/CE + DS death-date alignment). After running, compare your results against the §2 baselines (17/17 / 16.5/17 / 16/17 / 15/17) to see how your instance performs.
+The complete 10-question set is in the [full demo package](./DEMO_QUESTIONS.en.md) (English questions + English grading criteria). 5-minute intro = D0 / D1 / D5; 30-minute full run = D0 through D9 (includes 3 AHP probes: D6 LBCLINSIG / D7 SAE Aggregate / PF deprecated domain + the cross-domain ultimate challenge D9: AE/MH/CE + DS death-date alignment). After running, compare your results against the §2 baselines (17/17 / 16.5/17 / 16/17 / 15/17) to see how your instance performs.
 
 ## 7. Known Limitations (Frequently Asked Questions)
 
-Full details are in `./KNOWN_LIMITATIONS.en.md`. Summary:
+Full details are in [known limitations](./KNOWN_LIMITATIONS.en.md). Summary:
 
 - **L1 — Incomplete QS codelist coverage**: 296 long-tail questionnaire codelists (PROMIS / EORTC) are not fully expanded due to capacity constraints (Claude ~55.8%); the remainder links out to NCI EVS Browser.
 - **L2 — Large codelists stored as stubs**: LBTESTCD (2,536 terms) and 5 other large tables are stored as stubs with pointers only — the model will not fabricate individual terms.
@@ -99,7 +99,7 @@ Full details are in `./KNOWN_LIMITATIONS.en.md`. Summary:
 
 ## 8. Feedback
 
-If you find an error, hallucination, or off-topic answer: (1) Take a screenshot and save the full original question and AI response. (2) Note the platform and version (e.g., "ChatGPT GPT v2.2 LIVE 2026-04-24") and the expected answer (citing the SDTMIG v3.4 section number or CDISC CT C-code). (3) Report it through GitHub issues or the project feedback channel. Issues are consolidated in `./CHANGELOG.md` and addressed in the next minor release.
+If you find an error, hallucination, or off-topic answer: (1) Take a screenshot and save the full original question and AI response. (2) Note the platform and version (e.g., "ChatGPT GPT v2.2 LIVE 2026-04-24") and the expected answer (citing the SDTMIG v3.4 section number or CDISC CT C-code). (3) Report it through GitHub issues or the project feedback channel. Issues are consolidated in the [changelog](./CHANGELOG.md) and addressed in the next minor release.
 
 ## 9. Road Map
 
