@@ -11,7 +11,7 @@ title: "用户手册"
 
 如果你日常需要查 CDISC 临床试验数据制表标准 (SDTM) 的某个变量定义、Core 属性或 codelist, 翻 SDTMIG v3.4 PDF + NCI EVS Browser 常常要十几分钟. 本项目把这些资料整理好, 部署到 4 个 AI 平台 (Claude Projects / ChatGPT GPTs / Gemini Gems / NotebookLM), 你只需用自然语言提问, **1 分钟就能拿到带 spec 引用的答案**.
 
-技术背景: SDTM (Study Data Tabulation Model) 含 63 个域 + 上千变量 + 大量 CT (Controlled Terminology). 我们把 CDISC SDTMIG v3.4 + v2.0 model + CDISC CT 整理成 295 个 Markdown 源, 加上提示词工程喂给 4 个 AI 平台. 不熟悉 RAG / system prompt / Core (Req/Exp/Perm) / Extensible / 反虚构探针 等术语? 见 [`./GLOSSARY.zh.md`](./GLOSSARY.zh.md) (1 页速查).
+技术背景: SDTM (Study Data Tabulation Model) 含 63 个域 + 上千变量 + 大量 CT (Controlled Terminology). 我们把 CDISC SDTMIG v3.4 + v2.0 model + CDISC CT 整理成 295 个 Markdown 源, 加上提示词工程喂给 4 个 AI 平台. 不熟悉 RAG / system prompt / Core (Req/Exp/Perm) / Extensible / 反虚构探针 等术语? 见 [术语表](./GLOSSARY.zh.md) (1 页速查).
 
 ## 2. 工作成果概览 (技术亮点)
 
@@ -24,7 +24,7 @@ title: "用户手册"
 | Gemini Gems | 16/17 (94%) | v7.1 LIVE | 长上下文 + 大范围探索 |
 | NotebookLM | 15/17 (88%) | Custom mode | in-KB-only 反虚构 |
 
-亮点: v3.4 新域 (GF / CP / BE / BS) + Timing + CT Extensible + SUPPQUAL scope + 跨域死亡日级对齐 + 3 道反虚构题 (LBCLINSIG / Trial-Level SAE Aggregate / PF 已废域); 每份产出都过 4 条内部质量规则 + 累计 28 个独立 reviewer 验证. 完整 baseline 见 [`./CHANGELOG.zh.md`](./CHANGELOG.zh.md); 完整题库见 [`../../SMOKE_V4.md`](../../SMOKE_V4.md) §3. 不懂术语见 [`./GLOSSARY.zh.md`](./GLOSSARY.zh.md).
+亮点: v3.4 新域 (GF / CP / BE / BS) + Timing + CT Extensible + SUPPQUAL scope + 跨域死亡日级对齐 + 3 道反虚构题 (LBCLINSIG / Trial-Level SAE Aggregate / PF 已废域); 每份产出都过 4 条内部质量规则 + 累计 28 个独立 reviewer 验证. 完整 baseline 见 [更新日志](./CHANGELOG.zh.md); 完整题库见 [SMOKE_V4 题库](https://github.com/hakupao/sdtm-pedia/blob/main/ai_platforms/SMOKE_V4.md); 不懂术语见 [术语表](./GLOSSARY.zh.md).
 
 ## 3. 我该用哪个平台? (决策树)
 
@@ -35,7 +35,7 @@ title: "用户手册"
 | 长上下文 + 一次性大范围探索 / 跨域模式 | **Gemini Gems** | 1M 窗口, 4 文件深度合并 |
 | 100% 反虚构 (拒答优于编造) + 强 citation | **NotebookLM** | in-KB-only, 不在 42 sources 内宁可 PUNT |
 
-简版: 不知道选什么 → Claude Projects. 面向团队共享 → ChatGPT GPTs. 担心幻觉 → NotebookLM. 详细对比见 `../README.md` "四平台分工" 表.
+简版: 不知道选什么 → Claude Projects. 面向团队共享 → ChatGPT GPTs. 担心幻觉 → NotebookLM. 详细对比见 [平台对比](./PLATFORM_COMPARISON.zh.md).
 
 ## 4. 4 平台访问入口
 
@@ -73,21 +73,21 @@ title: "用户手册"
 
 ## 5. 5 分钟快速试用 (3 题热身)
 
-打开常用平台 (建议先 Claude Projects), 依次问 3 题, 答案对照 `./DEMO_QUESTIONS.zh.md` Expected:
+打开常用平台 (建议先 Claude Projects), 依次问 3 题, 答案对照 [演示题答案](./DEMO_QUESTIONS.zh.md) Expected:
 
 1. **D0 (热身)**: "AESER 是 SDTMIG v3.4 哪个域什么变量? Core? 绑哪个 CT C-code?" 预期: AE 域 / Serious Event / Exp / C66742 NY {Y/N/U/NA}.
-2. **D1 (新域)**: 复制 DEMO_QUESTIONS.zh.md D1 题面 (EGFR / Exon 19 / dbSNP). 预期 Domain=GF, 答出 GFGENSR / GFPVRID / GFGENREF / GFINHERT.
+2. **D1 (新域)**: 复制 [演示题答案](./DEMO_QUESTIONS.zh.md) 的 D1 题面 (EGFR / Exon 19 / dbSNP). 预期 Domain=GF, 答出 GFGENSR / GFPVRID / GFGENREF / GFINHERT.
 3. **D5 (前提纠错)**: "SUPPTS 是 SDTM 标准里什么? QORIG 必填吗?" 预期: 主动识破 "SUPPTS 不在 SDTMIG v3.4" → 走 TSVAL1-TSVALn = PASS+.
 
 判 PASS/FAIL: 核心事实 (域 / 变量 / Core / C-code) 都中 = PASS; 主动识破错前提 = PASS+; 沿错前提编 = FAIL.
 
 ## 6. 完整 demo 包 (10 题)
 
-10 题完整版在 `./DEMO_QUESTIONS.zh.md` (中文题面 + 英文判据). 5 分钟入门 = D0/D1/D5; 30 分钟全跑 = D0→D9 (含 3 道 AHP D6 LBCLINSIG / D7 SAE Aggregate / D8 PF 已废 + 跨域终极 D9 AE/MH/CE + DS 死亡日级对齐). 跑完对照 §2 baseline (17/17 / 16.5/17 / 16/17 / 15/17) 看实例是否到位.
+10 题完整版见 [完整 demo 包](./DEMO_QUESTIONS.zh.md) (中文题面 + 英文判据). 5 分钟入门 = D0/D1/D5; 30 分钟全跑 = D0→D9 (含 3 道 AHP D6 LBCLINSIG / D7 SAE Aggregate / D8 PF 已废 + 跨域终极 D9 AE/MH/CE + DS 死亡日级对齐). 跑完对照 §2 baseline (17/17 / 16.5/17 / 16/17 / 15/17) 看实例是否到位.
 
 ## 7. 已知限制 (高频问题)
 
-完整版见 `./KNOWN_LIMITATIONS.zh.md`, 中文摘要:
+完整版见 [已知限制](./KNOWN_LIMITATIONS.zh.md), 中文摘要:
 
 - **L1 — QS codelist 不全**: 296 个长尾 questionnaire codelist (PROMIS/EORTC) 因容量约束未全展开 (Claude ~55.8%), 其余落 NCI EVS Browser 链接.
 - **L2 — 巨型 codelist 走 stub**: LBTESTCD (2536 term) 等 6 表只存 stub + 指针, 不会编 term.
@@ -99,7 +99,7 @@ title: "用户手册"
 
 ## 8. 反馈渠道
 
-发现错误 / 幻觉 / 答非所问: (1) 截图 + 留底完整问题原文 + AI 回答; (2) 附平台 + 版本号 (例 "ChatGPT GPT v2.2 LIVE 2026-04-24") + 期望答案 (引 SDTMIG v3.4 章节号或 CDISC CT C-code); (3) 通过 GitHub issue 或项目反馈渠道报告. 汇总到 `./CHANGELOG.zh.md` 走下个 minor release.
+发现错误 / 幻觉 / 答非所问: (1) 截图 + 留底完整问题原文 + AI 回答; (2) 附平台 + 版本号 (例 "ChatGPT GPT v2.2 LIVE 2026-04-24") + 期望答案 (引 SDTMIG v3.4 章节号或 CDISC CT C-code); (3) 通过 GitHub issue 或项目反馈渠道报告. 问题会汇总到 [更新日志](./CHANGELOG.zh.md), 并进入下个 minor release.
 
 ## 9. 后续路径
 
