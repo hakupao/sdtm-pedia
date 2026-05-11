@@ -1,7 +1,7 @@
 {
   "project": "06_deep_verification",
   "tier": 3,
-  "status": "v1_9_3_CUT_COMPLETED_2026-05-07_3_NEW_F_rules_consolidating_10_candidate_stack_§F-1_HIGH_§2.11_Plan_B_SUSTAINED_VALIDATED_EXTENDED_4_layer_namespace_codification_including_References_boundary_+_§F-2_INFO_atoms_per_line_ratio_band_0.59_0.85_+_§F-3_INFO_kickoff_estimate_calibration_multi_level_nested_list 4_paired_sync_prompts_writer_md_pdf_matcher_reviewer_v1.9.3 hooks_writer_md_28_to_30_matcher_29_to_30_reviewer_32_to_35 v1.9.2_archived rule_d_reviewer_vercel_ai_architect_AUDIT_slot_71_PASS_WITH_OBSERVATION_8_of_10_PASS_2_of_10_OBSERVATION_0_of_10_FAIL 3_in_place_hotfixes_applied_12_to_16_H3_children_9_round_to_6_round_RS_ass_counter_example_reframe round_10_pending_Bojiang_ack_default_alphabetical_SM_SR_SS_SU_SUPPQUAL_under_v1.9.3_baseline 19_domains_x_2_38_files_remaining_post_round_09_estimate_2_to_3_more_rounds_to_close_P2_B-03c",
+  "status": "v1_9_4_CUT_COMPLETED_2026-05-11_4_NEW_G_rules_§G-1_HIGH_descriptive_title_H3_title_agnostic_7_cumulative_cases_3_distinct_pattern_types_+_§G-2_HIGH_§2.4_multi_slice_续号_first_class_codification_3rd_production_STRONGLY_VALIDATED_+_§G-3_STANDARD_§F-2_de_figure_naive_formula_promote_2_consecutive_FIGURE_heavy_rounds_+_§G-4_INFO_§2.6_FIGURE_heavy_estimate_20_block_NEW_peak_validated_C-R12-07_build_script_defensive_paired_sync_writer_md_pdf_matcher_reviewer_v1.9.4_hooks_writer_md_30_to_33_reviewer_35_to_38_matcher_30_to_31_v1.9.3_archived_archive_v1.9.3_final_2026-05-11_rule_d_reviewer_oh_my_claudecode_code_reviewer_AUDIT_slot_72_PASS_WITH_OBSERVATIONS_10_of_10_100pct_round_13_pending_P2_B-03c_收官_6_domains_TR_TS_TU_TV_UR_VS",
   "v1_7_cut_completed": "2026-04-29",
   "v1_7_cut_details": {
     "completed_at": "2026-04-29",
@@ -2846,5 +2846,42 @@
       ]
     },
     "round_13_trigger": "pending Bojiang ack scope — P2 B-03c 收官 round expected. Remaining 6 domains × 2 = 12 files (TR/TS/TU/TV/UR/VS); 估 ~600-800L (pending grep verify pre-round-13 kickoff §0.5); ~12 batches similar to round 06/08/10 体量. Recommended sequence: **v1.9.4 cut PRE-round-13** (round 12 v1.9.4 candidate stack 5 NEW + carries filed; trigger MET) → round 13 = v1.9.4 1st production validation round closing P2 B-03c. Pre-allocated mini-audit slot 13 candidates (11th cumulative family-pivot): vercel:performance-optimizer AUDIT (vercel-family 3rd sub-type intra-depth) OR superpowers:* AUDIT inaugural (NEW family) OR statusline-setup AUDIT (configurations family inaugural)."
+  },
+  "v1_9_4_cut_completed": "2026-05-11",
+  "b_03c_v1_9_4_cut_details": {
+    "completed_at": "2026-05-11",
+    "session_type": "dedicated_v1.9.4_cut_session_post_round_12_close",
+    "trigger": "v1.9.4 candidate stack MET 3 rounds sustained (rounds 10+11+12 all ≥10 threshold; 7 actionable candidates)",
+    "v1.9.4_prompt_files": [
+      "subagent_prompts/P0_writer_md_v1.9.4.md (296 lines, 4 NEW G-rules §G-1..G-4, 33 hooks)",
+      "subagent_prompts/P0_reviewer_v1.9.4.md (224 lines, §R-G-1..G-4, 38 hooks)",
+      "subagent_prompts/P0_matcher_v1.9.4.md (116 lines, §M-G-2 NEW, 31 hooks)",
+      "subagent_prompts/P0_writer_pdf_v1.9.4.md (74 lines, P1 CLOSED retirement note, no new hooks)"
+    ],
+    "candidates_count": 7,
+    "candidates_breakdown": "2 HIGH (§G-1 descriptive-title H3 + §G-2 multi-slice 続号) + 1 STANDARD (§G-3 de-figure-naive promote) + 1 INFO (§G-4 FIGURE-heavy estimate + C-R12-07 build-script defensive); 3 carries folded into §G-4",
+    "candidates_categorized": {
+      "G_1_HIGH_descriptive_title_H3": "§F-1 Extension — descriptive-title H3 title-agnostic explicit codification; 7 cumulative cases milestone (round 07 PC/ex + round 09 4 cases + round 12 TA/ex+TE/ex); 3 distinct H3 title pattern types validated (Example N / References / Descriptive); Hook G-1 pre-DONE literal-title check",
+      "G_2_HIGH_multi_slice_续号": "§2.4 multi-slice atom_id 続号 first-class codification; 3rd production trigger STRONGLY VALIDATED (round 03 inaugural + B-02 2nd + round 12 TA/ex 3-slice 3rd); Hook G-2 pre-DONE continuation check; §M-G-2 matcher anti-flag atom_id_gap suppression",
+      "G_3_STANDARD_de_figure_naive": "§F-2 de-figure-naive formula promote from INFO to STANDARD; formula N_atoms/(lines-Σfig_span+N_fig); 2 consecutive FIGURE-heavy rounds 11+12 sustained (round 11 naive 0.479 → de-figure 0.698; round 12 naive 0.443 → de-figure 0.714); Hook G-3 replaces Hook F-2 INFO",
+      "G_4_INFO_FIGURE_heavy": "§2.6 FIGURE-heavy domain estimate adjustment; 20-block single-round NEW peak TA/ex round 12 validated; adjusted_lines=total-Σfig_span+N_fig×0.73=mid; TA/ex worked example 911-365+20=566→413 mid, actual 404 (98%); C-R12-07 FIGURE build-script trailing-newline defensive recipe folded in"
+    },
+    "rule_d_audit": {
+      "slot": 72,
+      "reviewer_type": "oh-my-claudecode:code-reviewer",
+      "verdict": "PASS_WITH_OBSERVATIONS",
+      "pass_rate": "100.00%",
+      "dim_verbatim": "10/10",
+      "dim_schema": "10/10",
+      "dim_parent_section": "10/10",
+      "dim_hooks": "10/10",
+      "findings_HIGH": 0,
+      "findings_MED": 0,
+      "findings_LOW": 1,
+      "findings_LOW_detail": "Hook bucket-sum arithmetic drift 36 vs cumulative claim 33 — pre-existing pattern from v1.9.2, non-blocking, NOT a v1.9.4 regression",
+      "findings_OBS": 3,
+      "notes": "10-atom stratified sample (§G-1 TE/ex descriptive-title H3 × 2 + §G-2 TA/ex slice boundary × 3 + §G-3/G-4 FIGURE × 2 + regression × 2 + backward-compat × 1); all 10 PASS 4 dimensions; internal consistency PASS (paired-sync complete, §G-3 supersedes §F-2 cleanly, archive reference verified)"
+    },
+    "v1.9.3_archived": "archive/v1.9.3_final_2026-05-11/ (4 files: writer_md/pdf + matcher + reviewer)"
   }
 }
