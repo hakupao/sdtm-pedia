@@ -46,8 +46,8 @@ Then summarize to the user: current status, open issues, and suggested next step
 
 ## 06 Deep Verification (旁枝)
 
-**当前阶段: P4a 前向比对 (待启动)** — P1 ✅ P2 ✅ P3 ✅ (p3_candidates.jsonl 12,487行 gate ALL PASS); P4a-P7 待执行.
-下一步入口: `branches/06_deep_verification/plans/P4a_forward_matching.md` (sub-plan 待写).
+**当前阶段: P4a 前向比对 S1 ✅ → S2 待启动** — P1 ✅ P2 ✅ P3 ✅ P4a-S1 ✅ (2,500/12,487 atoms, 20%); S2-S5 待执行.
+下一步: S2 batch_026-050 — `python3 scripts/p4a_build_batches.py --batches 26-50` 后派发 25 agents.
 进度 / metric / archive → `branches/06_deep_verification/_progress.json`. 入口 PLAN → `branches/06_deep_verification/PLAN.md`.
 
 ## Change Chains
@@ -83,8 +83,8 @@ Full chain definitions are in `.work/MANIFEST.md`.
 | Phase 6.5 ChatGPT + Gemini | `ai_platforms/{chatgpt_gpt,gemini_gems}/` (current/ + dev/ + docs/) |
 | Phase 6.5 NotebookLM | `ai_platforms/notebooklm/` (current/ + docs/RETROSPECTIVE.md) |
 | Phase 6.5 Claude Projects | `ai_platforms/claude_projects/` (current/UPLOAD_TUTORIAL.md + docs/) |
-| Phase 6.5 Release v1.0 | `ai_platforms/release/v1.0/` + `.work/07_release/{PLAN,RETROSPECTIVE}.md` (tag `v1.0-company-release`) |
-| METHODOLOGY 公开声明 | `METHODOLOGY.md` + `ai_platforms/release/v1.0/METHODOLOGY.{en,zh,ja}.md` |
+| Phase 6.5 Release v1.0 | `release/v1.0/` + `.work/07_release/{PLAN,RETROSPECTIVE}.md` (tag `v1.0-company-release`) |
+| METHODOLOGY 公开声明 | `METHODOLOGY.md` + `release/v1.0/METHODOLOGY.{en,zh,ja}.md` |
 | 07 Website Phases 6-8 (closed) | `.work/07_website/phase{6,7,8}/` + handoffs `.work/meta/website_phase*_handoff_*.md`; prod https://sdtm-pedia.pages.dev/ |
 | iTMS 納品旁枝 (branches) | `branches/jp_delivery/PLAN.md` + `EXECUTION_PLAN.md` (Excel 主体, Chain J) |
 

@@ -1,0 +1,44 @@
+{
+  "ts": "2026-05-11T10:33:58.050404Z",
+  "phase": "P4a",
+  "slot": "batch_quality_sample",
+  "batch_id": "batch_008",
+  "subagent_type": "oh-my-claudecode:executor",
+  "prompt_version": "P4a_forward_matcher_v1.0",
+  "stats": {
+    "EXACT": 15,
+    "EQUIVALENT": 61,
+    "PARTIAL": 14,
+    "MISPLACED": 3,
+    "MISSING": 7,
+    "ERROR": 0,
+    "INTENTIONAL_EXCLUDE": 0
+  },
+  "samples": [
+    {
+      "pdf_atom_id": "ig34_p0023_a008",
+      "verdict": "EXACT",
+      "top1_score": 0.9
+    },
+    {
+      "pdf_atom_id": "ig34_p0023_a009",
+      "verdict": "MISPLACED",
+      "top1_score": 0.69
+    },
+    {
+      "pdf_atom_id": "ig34_p0023_a010",
+      "verdict": "EQUIVALENT",
+      "top1_score": 0.9
+    },
+    {
+      "pdf_atom_id": "ig34_p0023_a011",
+      "verdict": "MISSING",
+      "top1_score": null
+    },
+    {
+      "pdf_atom_id": "ig34_p0023_a012",
+      "verdict": "EXACT",
+      "top1_score": 0.9
+    }
+  ]
+}
