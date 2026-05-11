@@ -1,0 +1,128 @@
+{
+  "batch": 40,
+  "round": 9,
+  "session": "D",
+  "status": "completed",
+  "started_at": "2026-04-27",
+  "completed_at": "2026-04-27",
+  "page_range": "p.391-400",
+  "page_count": 10,
+  "sub_batches": {
+    "40a": {
+      "page_range": "p.391-395",
+      "atoms": 72,
+      "subagent_type": "oh-my-claudecode:executor",
+      "content_type_hint": "examples_narrative_spec_table",
+      "writer_done_echo": "WRITER_40A_DONE atoms=72 file=evidence/checkpoints/pdf_atoms_batch_40a.jsonl content_type=examples_narrative_spec_table",
+      "self_validate_hooks_passed": "1-17",
+      "atom_type_distribution": {
+        "CODE_LITERAL": 2, "FIGURE": 9, "HEADING": 4, "SENTENCE": 13, "TABLE_HEADER": 4, "TABLE_ROW": 40
+      }
+    },
+    "40b": {
+      "page_range": "p.396-400",
+      "atoms": 132,
+      "subagent_type": "oh-my-claudecode:executor",
+      "content_type_hint": "examples_narrative_spec_table",
+      "writer_done_echo": "WRITER_40B_DONE atoms=132 file=evidence/checkpoints/pdf_atoms_batch_40b.jsonl content_type=examples_narrative_spec_table",
+      "self_validate_hooks_passed": "1-17",
+      "atom_type_distribution": {
+        "CODE_LITERAL": 3, "FIGURE": 7, "HEADING": 6, "SENTENCE": 49, "TABLE_HEADER": 7, "TABLE_ROW": 60
+      }
+    }
+  },
+  "atoms_total": 204,
+  "repair_cycles": 0,
+  "failures": 0,
+  "schema_sweep_violations": {
+    "atom_type_9enum": 0,
+    "atom_id_pattern": 0,
+    "n15_xpt_parent_forbid": 0,
+    "n8_l2_short_bracket_forbid_non_heading": 0,
+    "heading_required_fields_missing": 0,
+    "extracted_by_missing": 0,
+    "intra_agent_consistency": "PASS canonical §7.2.1 Trial Arms (TA) – Example N full-form throughout 40a+40b"
+  },
+  "rule_a": {
+    "reviewer_slot": 51,
+    "subagent_type": "general-purpose",
+    "audit_pivot_cumulative": 32,
+    "family_burn_count": "3rd_extension",
+    "branch_used": "A_write_tool_available",
+    "sample_size": 10,
+    "stratification": "1_per_page_p391_400",
+    "verdicts": {"PASS": 9, "PARTIAL": 1, "FAIL": 0},
+    "weighted_pass_rate_percent": 95.0,
+    "halt_threshold_percent": 70.0,
+    "halt_status": "below_threshold_no_halt",
+    "partial_atom": {
+      "atom_id": "ig34_p0391_a002",
+      "issue": "2_sentences_fused_in_1_SENTENCE_atom_soft_atomicity_sentence_not_paragraph_rule_md_codified_not_pdf",
+      "verdict": "PARTIAL"
+    },
+    "dimension_breakdown": "atom_type 10/10 + verbatim 10/10 + parent_section 10/10 + schema 10/10 = 40/40 dimension checks clean"
+  },
+  "drift_cal": {
+    "triggered": false,
+    "reason": "batch_40_skip_per_cadence_batch_39_was_mandatory_next_at_batch_42",
+    "skip_per_kickoff_section_5": true
+  },
+  "findings_added": [],
+  "findings_id_range_pre_allocated": "O-P1-137..140",
+  "findings_id_range_used": [],
+  "findings_id_range_unused": ["O-P1-137", "O-P1-138", "O-P1-139", "O-P1-140"],
+  "v1_5_n14_n16_status": {
+    "n14_alternation_strongly_validated": "deferred_this_batch_n16_binding_constraint_examples_narrative_spec_table_writer_family_banned_so_executor_for_both_40a_40b",
+    "n16_writer_family_ban_for_examples_narrative_spec_table": "EFFECTIVE_no_writer_family_used_no_value_hallucination_recurrence_5th",
+    "n16_self_validate_hook_16_5_pre_dispatch": "PASS_main_session_dispatched_executor_for_both_per_content_type_hint",
+    "n3_new8_d_emergency_critical_whole_row": "no_violations_value_hallucination_motif_clean_for_5th_consecutive_check",
+    "n15_xpt_parent_forbid": "no_violations_table_caption_discipline_clean",
+    "n17_post_extraction_validation_hooks_15_16_17": "PASS_writer_self_reports_clean"
+  },
+  "kickoff_section_3_correction": {
+    "kickoff_predicted": "§6.4_chapter_tail_or_§6.5_chapter_NEW_transition_in_p391_400",
+    "actual_toc_ground_truth": "§6.4_ends_p381_no_§6.5_exists_§7_TRIAL_DESIGN_MODEL_DATASETS_L1_chapter_at_p382_entered_by_sister_39_p391_400_is_deep_interior_of_§7_2_1_Trial_Arms_TA",
+    "active_heading_state_actual": {
+      "L1": "§7 [TRIAL DESIGN MODEL DATASETS] sib=7 (entered by sister 39 at p.382)",
+      "L2": "§7.2 [EXPERIMENTAL DESIGN (TA AND TE)] sib=2 (entered by sister 39 at p.384)",
+      "L3": "§7.2.1 Trial Arms (TA) sib=1 (entered by sister 39 at p.384)",
+      "L5_examples_emitted_in_batch_40": "Example 3, 4, 5, 6, 7 (sib=3,4,5,6,7 — Examples 1+2 were established by sister 39)",
+      "L6_sub_headings": "Trial Design Matrix sib=1 RESTART per Example (5 Examples each)"
+    },
+    "out_of_scope_boundary_for_batch_41": "§7.2.1.1 Trial Arms Issues L4 starts p.402"
+  },
+  "headline_transitions_observed": {
+    "l5_examples_count": 5,
+    "examples_emitted": ["Example 3 (p.392)", "Example 4 (p.394)", "Example 5 (p.397)", "Example 6 (p.398)", "Example 7 (p.399)"],
+    "l6_trial_design_matrix_count": 5,
+    "table_headers_count": 11,
+    "trial_design_matrix_pipe_pattern": "5p header + 9p/10p rows variable per arm/cycle count",
+    "ta_xpt_pipe_pattern": "12p header + 12p rows fixed schema cross-Examples N=2-6 consistent"
+  },
+  "rule_compliance": {
+    "rule_a_semantic_audit": "PASS_95_percent_weighted",
+    "rule_b_failure_archive": "no_failures_no_repair_no_backups_needed_first_attempt_clean",
+    "rule_c_retro": "deferred_to_reconciler_round_9_post_sister_38_39_done",
+    "rule_d_writer_reviewer_isolation": "PASS_writer_oh_my_claudecode_executor_vs_reviewer_general_purpose_distinct_subagent_types",
+    "rule_e_cross_check_candidate_capture": "obs_4_v1_6_candidate_sentence_not_paragraph_pdf_extension_hook_18_logged"
+  },
+  "v1_6_candidates_added": ["OBS-4_LOW_extend_sentence_not_paragraph_rule_from_md_only_to_pdf_self_validate_hook_18_split_on_period_followed_by_uppercase_pre_done_check"],
+  "v1_6_carry_forward": ["OBS-1_reviewer_item_W_verification_grep_tightening", "OBS-2_sweep_count_source_of_truth_normalization", "OBS-3_slot_ordinal_vs_cumulative_total_derivation"],
+  "rule_d_pivot_burn": {
+    "slot_id": 51,
+    "subagent_type": "general-purpose",
+    "audit_pivot_cumulative": 32,
+    "family_burn_status": "general_purpose_3rd_extension_burn_validated_per_round_8_d_ms_7_candidate_extension",
+    "precedent_chain": ["#28 round 5 1st burn (single-agent inaugural)", "#41 round 7 2nd burn (G-MS-4 fallback)", "#51 round 9 3rd burn (extension validation)"],
+    "recipe_validation": "family_agnostic_at_3_burn_intra_family_depth_scale_validated_post_round_9",
+    "branch_used": "A_write_tool_available_round_5_7_used_branch_C_content_substitution_general_purpose_full_tool_variant_supports_branch_A_observed"
+  },
+  "next_session_handoff": {
+    "next_batch": 41,
+    "next_batch_pages": "p.401-410",
+    "next_batch_starts_at": "§7.2.1 Trial Arms (TA) tail (p.401 last page) + §7.2.1.1 Trial Arms Issues L4 NEW transition p.402 + §7.2.2 Trial Elements (TE) L3 NEW transition p.402 + §7.2.2.1 Trial Elements Issues L4 p.405 + §7.3 [SCHEDULE FOR ASSESSMENTS (TV, TD, AND TM)] L2 NEW transition p.407",
+    "next_drift_cal": "batch_42_per_3_batch_cadence",
+    "next_round_9_status": "post_sister_38_39_done_reconciler_round_9_will_merge_root_pdf_atoms_jsonl_8552_or_higher_assuming_38_39_complete_first"
+  },
+  "single_line_done_echo": "PARALLEL_SESSION_40_DONE atoms=204 failures=0 repair_cycles=0 rule_a=95.0% drift_cal=skipped findings_added=none_O-P1-137..140_reserved_unused"
+}

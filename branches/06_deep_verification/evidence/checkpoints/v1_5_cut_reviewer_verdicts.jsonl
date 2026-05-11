@@ -1,0 +1,25 @@
+{"item":"A","verdict":"PASS","note":"P0_writer_pdf_v1.5.md:47-48 explicitly carries §A R1-R15 from archived v1.4; no v1.5 rewrite found."}
+{"item":"B","verdict":"PASS","note":"P0_writer_md_v1.5.md:33-40 syncs N15 to PDF; P0_writer_pdf_v1.5.md:67-82 contains the source N15 forbid rule and Hook 14.5."}
+{"item":"C","verdict":"PASS","note":"P0_writer_md_v1.5.md:42-44 syncs N16 to PDF; P0_writer_pdf_v1.5.md:22-24,95-97 codifies the content-type dispatch and Hook 16.5."}
+{"item":"D","verdict":"PASS","note":"P0_writer_md_v1.5.md:46-51 syncs N17 to PDF; P0_writer_pdf_v1.5.md:38-41,99-112 codifies the source validation-pass hooks."}
+{"item":"E","verdict":"PASS","note":"Hook numbering sync is explicit: MD uses Hook 12.5 + 13/14/15 at P0_writer_md_v1.5.md:40,49-51; PDF uses Hook 14.5 + 15/16/17 at P0_writer_pdf_v1.5.md:82,104-112."}
+{"item":"F","verdict":"PASS","note":"P0_matcher_v1.5.md:33 adds [NEW7_xpt_parent_caption_violation]."}
+{"item":"G","verdict":"PASS","note":"P0_matcher_v1.5.md:35,39 defines the trigger and detection regex ^[a-z]+\\.xpt$ for the new matcher marker."}
+{"item":"H","verdict":"PASS","note":"P0_reviewer_v1.5.md:77-80 states the reviewer fix matrix is 25 items A-Y, expanded from 22."}
+{"item":"I","verdict":"PASS","note":"P0_reviewer_v1.5.md:86-88 defines W/X/Y and maps them to N15/N16/N17."}
+{"item":"J","verdict":"PASS","note":"P0_reviewer_v1.5.md:17-24 opens §0 AGENT-vs-SKILL roster doc and includes the Registered AGENTS section."}
+{"item":"K","verdict":"PASS","note":"P0_writer_pdf_v1.5.md:58 says §K NEW8.c TABLE_HEADER column-set — v1.4 carry-forward; no v1.5 modification text found."}
+{"item":"L","verdict":"PASS","note":"P0_reviewer_v1.5.md:53 lists new burned slot #44 oh-my-claudecode:document-specialist."}
+{"item":"M","verdict":"PASS","note":"P0_reviewer_v1.5.md:54 lists new burned slot #45 pr-review-toolkit:pr-test-analyzer."}
+{"item":"N","verdict":"PASS","note":"P0_reviewer_v1.5.md:55 lists new burned slot #46 Plan."}
+{"item":"O","verdict":"PASS","note":"P0_reviewer_v1.5.md:56 lists new burned slot #47 claude-code-guide."}
+{"item":"P","verdict":"PARTIAL_FIXED","note":"Initial: P0_reviewer_v1.5.md:57 listed slot #48 as 29th but cumulative total said 28 (off-by-one). FIX APPLIED: cumulative 29 AUDIT pivots (28 post round 8 + #48 v1.5 cut codex INAUGURAL) / 10 active families post v1.5 cut. Internally consistent."}
+{"item":"Q","verdict":"PASS","note":"P0_reviewer_v1.5.md and MULTI_SESSION_RETRO_ROUND_8.md baseline 28 cumulative AUDIT pivots pre-v1.5 cut. Post-v1.5 cut = 29 (codex inaugural added)."}
+{"item":"R","verdict":"PASS","note":"P0_reviewer_v1.5.md states 4 family pools EXHAUSTED + 9 active families pre-v1.5 cut. Post-v1.5: 10 active (codex INAUGURAL added)."}
+{"item":"S","verdict":"PASS","note":"P0_reviewer_v1.5.md:22,24,41 codifies the §0 roster split: HALT on SKILL pre-allocation, Registered AGENTS list, and NOT AGENTS (SKILLS list)."}
+{"item":"T","verdict":"PASS","note":"Status promotion present in all 4 prompts: P0_writer_pdf_v1.5.md:119-120; P0_writer_md_v1.5.md:57-58; P0_matcher_v1.5.md:49-50; P0_reviewer_v1.5.md:113-114."}
+{"item":"U","verdict":"PASS","note":"P0_reviewer_v1.5.md:91,98-107 codifies Write-tool-less Step 4 with explicit Branch A / Branch B / Branch C applied to verdicts.jsonl + summary.md."}
+{"item":"V","verdict":"PASS","note":"P0_writer_pdf_v1.5.md:60 says §M G-MS-13 cross-validation table — v1.4 carry-forward; reviewer legacy A-V reference at P0_reviewer_v1.5.md:82 intact."}
+{"item":"W","verdict":"PARTIAL_FIXED","note":"Initial: N15 codified at P0_writer_pdf_v1.5.md:67-82; p.133 atoms a011-a018 carry §6.2 Models for Events Domains parent; tight grep shows 0 actual parent_section=*.xpt hits. Documentation count mismatch (35 vs 36/9). FIX APPLIED: normalized to 35 atoms (8 p.133 + 27 batch 36) across v1.5_patch_candidates.md + writer_pdf_v1.5 §N15 + reviewer_v1.5 item W."}
+{"item":"X","verdict":"PASS","note":"P0_writer_pdf_v1.5.md:22-24,33,95,97 and P0_writer_md_v1.5.md:18-24,42-44 codify content-type-aware dispatch table, content_type_hint, Hook 16.5, and 5th-recurrence escalation threshold."}
+{"item":"Y","verdict":"PASS","note":"P0_writer_pdf_v1.5.md:38-41,99-112 and P0_writer_md_v1.5.md:46-51 codify post-extraction validation pass with Hook 15 pipe-count, Hook 16 USUBJID format, Hook 17 multi-axis N=3 spot-check."}

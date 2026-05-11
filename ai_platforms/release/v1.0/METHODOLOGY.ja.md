@@ -48,7 +48,7 @@ title: "構築方法および検証ステートメント"
 | 6 | 検索最適化 (ルーティング層 / 逆引き変数索引) | `ROUTING.md`; `VARIABLE_INDEX.md` (1,523 変数) |
 | 6.5 | AI プラットフォーム展開 | 4 プラットフォーム配布バンドル |
 
-7 フェーズパイプラインと並行して, 独立した**原子レベル リテラル検証監査**が継続トラックとして実行されています. ナレッジベース内の各原子主張は, ソース PDF に対しページ単位で照合されます. 2026-04-29 時点で, 監査は対象範囲の **97% ページ** をカバーしており, 進行中です. バッチ毎のエビデンスは [`.work/06_deep_verification/evidence/checkpoints/`](https://github.com/hakupao/sdtm-pedia/tree/main/.work/06_deep_verification/evidence/checkpoints) に公開されています.
+7 フェーズパイプラインと並行して, 独立した**原子レベル リテラル検証監査**が継続トラックとして実行されています. ナレッジベース内の各原子主張は, ソース PDF に対しページ単位で照合されます. 2026-04-29 時点で, 監査は対象範囲の **97% ページ** をカバーしており, 進行中です. バッチ毎のエビデンスは [`branches/06_deep_verification/evidence/checkpoints/`](https://github.com/hakupao/sdtm-pedia/tree/main/branches/06_deep_verification/evidence/checkpoints) に公開されています.
 
 ## 3. トレーサビリティ — 個別の回答の監査
 

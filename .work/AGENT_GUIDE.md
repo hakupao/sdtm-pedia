@@ -34,20 +34,20 @@ SDTM 知识库, 从 CDISC PDF + xlsx 抽取, 多旁枝 (字面级深审 / 双 AI
 | 03 Verification | `.work/03_verification/plan.md` | closed (issues_found.md 有 open issues, 走 06 字面级深审回流) |
 | 04 Optimization | `.work/04_optimization/retrieval_optimization.md` | TODO |
 | 05 RAG/KG | `.work/05_rag_kg/session_2026-04-16_design.md` | **搁置** (仅设计 session, 未启动) |
-| 06 Deep Verification | `.work/06_deep_verification/PLAN.md` (段 3 后 → `branches/06_deep_verification/PLAN.md`) | active (P2 B-03c round 04 in-flight 时段) |
+| 06 Deep Verification | `branches/06_deep_verification/PLAN.md` | closed (P2 B-03c 収官 COMPLETE 2026-05-11) |
 | 6.5 AI Platforms | `ai_platforms/SYNC_BOARD.md` | active (双平台锁步) |
 | 7 Release | `.work/07_release/PLAN.md` | closed (v1.0 cut) |
 | 7 Website | `.work/07_website/phase{6,7,8}/` | closed (prod 已发布) |
-| iTMS 日本納品旁枝 | `docs/jp/PLAN.md` (段 3 后 → `branches/jp_delivery/PLAN.md`) | active |
-| **本次重构 v1** | `.work/refactor_v1/PLAN.md` | 段 1 完成, 段 2/3 等触发 |
+| iTMS 日本納品旁枝 | `branches/jp_delivery/PLAN.md` | active |
+| **本次重构 v1** | `.work/refactor_v1/PLAN.md` | ✅ 全 closed 2026-05-11 (branches/ 迁移完成) |
 
 ## 路由词速查 (06 multi-session)
 
 用户在 session 说这些词, 主 session 应该路由:
 
-- **"batch NN 开始任务"** → `.work/06_deep_verification/multi_session/batch_NN_kickoff.md` (段 3 后路径前缀变 branches/)
-- **"reconciler 开始任务"** → `.work/06_deep_verification/multi_session/reconciler_kickoff_round_NN.md`
-- **"P2 bulk B-03c round NN 自治连跑"** → `.work/06_deep_verification/multi_session/P2_B-03c_round_NN_kickoff.md`
+- **"batch NN 开始任务"** → `branches/06_deep_verification/multi_session/batch_NN_kickoff.md` 
+- **"reconciler 开始任务"** → `branches/06_deep_verification/multi_session/reconciler_kickoff_round_NN.md`
+- **"P2 bulk B-03c round NN 自治连跑"** → `branches/06_deep_verification/multi_session/P2_B-03c_round_NN_kickoff.md`
 - **"收尾"/"wrap up"/"提交收尾"** → 见 CLAUDE.md "Session Wrap-up" 段
 - **"refactor v1 执行段 N"** → `.work/refactor_v1/PLAN.md` § 段 N 详细步骤
 

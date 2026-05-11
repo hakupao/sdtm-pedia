@@ -46,9 +46,9 @@ Then summarize to the user: current status, open issues, and suggested next step
 
 ## 06 Deep Verification (旁枝)
 
-状态 / round 进度 / drift cal 历史 / Rule D roster / 累计 metric / archive 路径 → `.work/06_deep_verification/_progress.json`.
-Multi-session 派发: 当前 round kickoff 文件在 `.work/06_deep_verification/multi_session/batch_NN_kickoff.md` + `reconciler_kickoff_roundN.md`. 路由词 `batch NN 开始任务` / `reconciler 开始任务` 对应当前 round 的 kickoff 文件 (路由名遵 round 内对应 batch 号; 找不到对应 batch_NN_kickoff.md 时停下问).
-Master 协议 `.work/06_deep_verification/multi_session/MULTI_SESSION_PROTOCOL.md`. 入口 PLAN `.work/06_deep_verification/PLAN.md`.
+状态 / round 进度 / drift cal 历史 / Rule D roster / 累计 metric / archive 路径 → `branches/06_deep_verification/_progress.json`.
+Multi-session 派发: 当前 round kickoff 文件在 `branches/06_deep_verification/multi_session/batch_NN_kickoff.md` + `reconciler_kickoff_roundN.md`. 路由词 `batch NN 开始任务` / `reconciler 开始任务` 对应当前 round 的 kickoff 文件 (路由名遵 round 内对应 batch 号; 找不到对应 batch_NN_kickoff.md 时停下问).
+Master 协议 `branches/06_deep_verification/multi_session/MULTI_SESSION_PROTOCOL.md`. 入口 PLAN `branches/06_deep_verification/PLAN.md`.
 
 ## Change Chains
 
@@ -74,8 +74,8 @@ Full chain definitions are in `.work/MANIFEST.md`.
 | TODO (Phase 6) | `.work/04_optimization/retrieval_optimization.md` |
 | Phase 7 设计文档 | `docs/DESIGN_RAG_KG.md` |
 | Phase 7 session 记录 | `.work/05_rag_kg/session_2026-04-16_design.md` |
-| 06 Deep Verification 入口 | `.work/06_deep_verification/PLAN.md` (字面级 PDF→KB 深审; 详细见 §06 Deep Verification 段) |
-| 06 Deep Verification schema | `.work/06_deep_verification/schema/{atom,ledger}_schema.json` (frozen JSON Schema 2020-12) |
+| 06 Deep Verification 入口 | `branches/06_deep_verification/PLAN.md` (字面级 PDF→KB 深审; 详细见 §06 Deep Verification 段) |
+| 06 Deep Verification schema | `branches/06_deep_verification/schema/{atom,ledger}_schema.json` (frozen JSON Schema 2020-12) |
 | Phase 6.5 AI 平台部署 | `ai_platforms/` (总览 + 三平台子目录) |
 | Phase 6.5 范本 + 锁步看板 | `ai_platforms/_template/README.md` + `ai_platforms/SYNC_BOARD.md` (双平台锁步 gate) |
 | Phase 6.5 smoke 题库 + retro | `ai_platforms/SMOKE_V4.md` + `ai_platforms/retrospectives/` |
@@ -85,7 +85,7 @@ Full chain definitions are in `.work/MANIFEST.md`.
 | Phase 6.5 Release v1.0 | `ai_platforms/release/v1.0/` + `.work/07_release/{PLAN,RETROSPECTIVE}.md` (tag `v1.0-company-release`) |
 | METHODOLOGY 公开声明 | `METHODOLOGY.md` + `ai_platforms/release/v1.0/METHODOLOGY.{en,zh,ja}.md` |
 | 07 Website Phases 6-8 (closed) | `.work/07_website/phase{6,7,8}/` + handoffs `.work/meta/website_phase*_handoff_*.md`; prod https://sdtm-pedia.pages.dev/ |
-| docs/jp/ iTMS 納品旁枝 | `docs/jp/PLAN.md` + `EXECUTION_PLAN.md` (Excel 主体, Chain J) |
+| iTMS 納品旁枝 (branches) | `branches/jp_delivery/PLAN.md` + `EXECUTION_PLAN.md` (Excel 主体, Chain J) |
 
 ## AI 平台双平台并行部署 (锁步规则)
 
@@ -119,7 +119,7 @@ When the user says **"收尾"**, **"wrap up"**, or **"提交收尾"**, execute t
    - `.work/MANIFEST.md` — 仅当目录结构 / chain 改了, 才动 (一般不需)
    - `CLAUDE.md` Key Paths — 仅当新 key path 创建, 才加一行 (≤ 80 字符)
 3. **Prune CLAUDE.md** — 按"CLAUDE.md 写作规则"扫一遍: 该阶段已关闭的 round/batch/version 进度状态, 删除或迁移到 worklog; 总行数应稳定在 150 行以内
-4. **Check Change Chains** — knowledge_base/ 改了 → Chain D; plans 改了 → Chain E; docs/jp/ 改了 → Chain J; .work/refactor_v1/ 改了 → Chain REFACTOR-v1
+4. **Check Change Chains** — knowledge_base/ 改了 → Chain D; plans 改了 → Chain E; branches/jp_delivery/ 改了 → Chain J; .work/refactor_v1/ 改了 → Chain REFACTOR-v1
 5. **Commit + push** — single commit with descriptive message, push to main
 6. **Report** — one-line summary of what was committed
 

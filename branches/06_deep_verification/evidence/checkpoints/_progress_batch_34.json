@@ -1,0 +1,250 @@
+{
+  "batch_id": 34,
+  "session_id": "session_d_round_7",
+  "round": 7,
+  "status": "completed",
+  "scope_pages": "ig34 p.331-340",
+  "page_count": 10,
+  "atoms_done": 182,
+  "atoms_breakdown": {
+    "34a_p331_335": 88,
+    "34b_p336_340": 94,
+    "by_page": {
+      "331": 19, "332": 13, "333": 16, "334": 22, "335": 18,
+      "336": 17, "337": 16, "338": 15, "339": 23, "340": 23
+    },
+    "by_atom_type_combined": {
+      "TABLE_ROW": 74, "LIST_ITEM": 69, "HEADING": 14, "SENTENCE": 14,
+      "TABLE_HEADER": 6, "CODE_LITERAL": 4, "NOTE": 1
+    }
+  },
+  "failures": 0,
+  "repair_cycles": 2,
+  "repair_cycle_notes": [
+    "Cycle 1 (pre-reviewer schema sweep Option H, 2 fixes): (a) Sibling collision: ig34_p0339_a005 'Glasgow Coma Scale NINDS Version (GCS NINDS VERSION)' was emitted as HEADING hl=7 sib=1 colliding with ig34_p0339_a004 'Example 1' hl=7 sib=1 under L6 'RS – Examples - Clinical Classifications'. PDF inspection: GCS NINDS VERSION text functions as bold instrument-label sub-title under Example 1, not a structural heading. Demoted a005 atom_type HEADING→SENTENCE (heading_level=null sibling_index=null) preserving structural integrity without introducing L8 deepest-depth precedent (L7 PC Example round 5 O-P1-86 remains deepest in P1 cumulative). (b) Cross-sub-batch L4 canonical drift: ig34_p0336_a011 §6.3.9.3.2 HEADING parent_section used '§6.3.9.3 Disease Response and Clinical Classifications (RS)' (writer-side variant) while 34a + TOC + canonical use '§6.3.9.3 Disease Response and Clin Classification (RS)'. Fixed parent_section text to canonical short-form. Backup: pdf_atoms_batch_34b.jsonl.pre-OptionH-canonical-and-L7-collision.bak",
+    "Cycle 2 (post-reviewer Option H bulk targeted fix, 28 atoms): Reviewer slot #43 1/page Rule A sample flagged 3 PARTIAL all on parent_section dimension (atoms 7+8 p.337-338 Common Assumptions §6.3 short-bracket escalation + atom 4 p.334 L7 Example parent canonical). Main-session structural sweep extended Issue B from 2 sample atoms to 28 atoms (1:14 amplification ratio = round 6 R-MS-12 two-layer audit 5th cumulative validation). Bulk Python in-place replacement parent_section '§6.3 [MODELS FOR FINDINGS DOMAINS]' → '§6.3.9.3.2 Clinical Classifications Use Case' across 28 atoms p.337-339 (filter atom_type != HEADING preserves §6.3.10 SC L3 NEW HEADING parent_section §6.3 short-bracket per round 6 chapter-short-bracket extension correct). Issue C (L7 Example L5-vs-L6 parent canonical extending O-P1-91 round 5 motif) NOT bulk-fixed — documented as O-P1-114 v1.4 codification candidate (~30 atoms scope; PARTIAL severity per reviewer; reconciler-side OR v1.4 cut decision). Backup: pdf_atoms_batch_34b.jsonl.pre-OptionH-IssueB-parent-skip-bulk.bak. Post-fix: 0 atoms with §6.3 short-bracket parent on p.337-338; 1 atom on p.339 (§6.3.10 SC HEADING — correct, preserved); 28 atoms p.337-339 now correctly parented to §6.3.9.3.2 Clinical Classifications Use Case canonical full-form."
+  ],
+  "rule_a": {
+    "reviewer_slot": 43,
+    "reviewer_type": "pr-review-toolkit:type-design-analyzer",
+    "reviewer_audit_pivot_index": 24,
+    "reviewer_family": "pr-review-toolkit",
+    "reviewer_family_burn_count_post_batch": 3,
+    "reviewer_family_pool_status_post_batch": "pr-review-toolkit family 3rd burn intra-family depth (round 6 batch 29 #38 pr-review-toolkit:code-reviewer 1st burn + round 6 batch 31 #40 pr-review-toolkit:silent-failure-hunter 2nd burn + round 7 batch 34 #43 pr-review-toolkit:type-design-analyzer 3rd burn — validates AUDIT recipe consistency across 3 agents within pr-review-toolkit family per round 7 D-MS-7 successor pivot recipe; 24th cumulative AUDIT pivot)",
+    "audit_mode_pivot_label": "AUDIT for SDTM PDF atomization quality, NOT type design analysis on TypeScript/code types / NOT encapsulation/invariant expression review / NOT new type review for PRs",
+    "tools_adaptation": "full-tool — reviewer wrote verdicts.jsonl + summary.md directly via Write tool (no adaptation needed; matches round 6 #38/#39/#40 + round 5 #37 general-purpose precedent)",
+    "sample_size": 10,
+    "sample_seed": 20260640,
+    "sample_coverage": "1/page p.331-340 stratified (4 TABLE_ROW + 3 HEADING + 2 LIST_ITEM + 1 CODE_LITERAL)",
+    "raw_pass": 7,
+    "raw_partial": 3,
+    "raw_fail": 0,
+    "raw_weighted_pct": 85.0,
+    "main_session_adjudication": {
+      "verdict": "WARN BAND (<90% threshold) — all 3 PARTIAL on parent_section dimension; 0 FAIL on verbatim/atom_type/heading_chain/table_pipes/NEW2-NEW8 = writer-family core integrity SOLID; 2 of 3 PARTIAL trace to NEW writer-family parent-level-skip motif (Issue B = 28-atom systematic Common Assumptions block §6.3 short-bracket escalation = O-P1-113 HIGH); 1 PARTIAL extends round 5 O-P1-91 canonical full-form L7 Example motif (Issue C = O-P1-114 MEDIUM v1.4 codification candidate)",
+      "post_adjudication_pass": 7,
+      "post_adjudication_partial": 1,
+      "post_adjudication_fail": 0,
+      "post_adjudication_weighted_pct": 92.5,
+      "post_adjudication_verdict": "PASS at threshold ≥90% (post Option H bulk fix Issue B; Issue C remains PARTIAL pending v1.4 cut decision)",
+      "main_session_structural_sweep_extension": "Reviewer 1/page sample caught 3 PARTIAL (atoms 4, 7, 8 on parent_section). Main-session structural sweep extended Issue B from 2 sample atoms (a007 + a008 = p.337/p.338 examples) to 28 atoms across p.337-339 = 1:14 amplification ratio = 5th cumulative validation of two-layer audit architecture (round 2 = 1:5 / round 4 = 1:4 / round 5 = 1:13 cross-batch + 1:168 bulk / round 6 batch 31 = 1:10 / round 7 batch 34 = 1:14). Confirms statistical 1/page sample is necessary BUT not sufficient; structural sweep is mandatory complement (D-MS-6 5th cumulative validation post round 6)."
+    },
+    "reviewer_audit_mode_pivot_quality": {
+      "reflection": "type-design-analyzer normal mode (TypeScript type encapsulation/invariant expression rating, new-type review for PRs) mapped naturally to SDTM atomization quality audit via 4-axis analogy: 'type encapsulation ↔ atom semantic isolation' (each atom one verbatim chunk one parent_section); 'invariant expression ↔ verbatim integrity' (R10 strict no-paraphrase = invariant preservation); 'type usefulness ↔ parent_section canonical correctness' (canonical full-form L4/L5/L6 not bare 'Example N' shortcut); 'type enforcement ↔ NEW2/NEW8 oracle cross-check' (canonical CDISC variable list = type-system-style enforcement). pr-review-toolkit family 3rd-agent burn observation: type-design-analyzer brings precision-rating posture which materialized as careful parent_section dimension scrutiny (3/3 PARTIAL all on parent_section, 0 on other dimensions) — analogous to type-design-analyzer's normal mode flagging weak-typing/loose-encapsulation patterns in code review.",
+      "pr_family_3rd_burn_recipe_consistency": "PASS — same-family 3-agent recipe holds (batch 29 code-reviewer 1st burn + batch 31 silent-failure-hunter 2nd burn + batch 34 type-design-analyzer 3rd burn all produced quality verdicts with appropriate detail depth; full-tool variant continues to validate per round 5 general-purpose precedent extending across pr-review-toolkit family 3 agents)",
+      "round_7_intra_family_validation_milestone": "Round 7 batch 34 = first 3rd-agent intra-family depth burn for ANY family in P1 cumulative (round 6 batch 31 #40 was 2nd-agent depth); validates AUDIT recipe family-agnostic AND intra-family-agent-agnostic at 3-agent depth scale = recipe maturity at 8 family pools (vercel + plugin-dev + feature-dev EXHAUSTED + omc 9× + pr 3× + general-purpose 1× + superpowers 1× + data 1× + firecrawl 1× post round 7) with 3-agent intra-family validation"
+    },
+    "tom_anchor_audit_n_cumulative": 240,
+    "tom_anchor_consecutive_batches": 24,
+    "tom_anchor_fp_count": 0,
+    "tom_anchor_inversion_count": 0,
+    "special_checks": {
+      "new6_b_l4_self_parent": "PASS proactively (9th cumulative round 7 NEW) — 'SC – Description/Overview' L4 sib=1 (a022 p.339) + 'SC – Specification' L4 sib=2 (a001 p.340) parent='§6.3.10 Subject Characteristics (SC)' canonical NEVER self-parent; round 4 4× IS/LB/Microbiology Domains/GF + round 5 2× MI/PD + round 6 batch 31 2× RP/RE + round 7 batch 34 1× SC = 9 cumulative L4 self-parent NOT proactive precedents",
+      "new7_l5_chain_under_RS": "PASS — RS-Description L5 sib=1 + RS-Specification L5 sib=2 (carry from batch 33 territory) + §6.3.9.3.1 Disease Response Use Case L5 sib=3 (a005 p.332 NEW) + §6.3.9.3.2 Clinical Classifications Use Case L5 sib=4 (a011 p.336 NEW) RESTART under §6.3.9.3 RS per NEW7 L5 numbered sub-section + canonical chain coexistence (analogous to round 5 batch 27 §6.3.5.9 PK §6.3.5.9.3 PP-PC L5 sib=3 + Examples L5 sib=4)",
+      "new7_l6_chain_under_disease_response_use_case": "PASS — 'RS – Disease Response Use Case Assumptions' L6 sib=1 (a006 p.332 NEW) + 'RS – Examples - Disease Response' L6 sib=2 (a006 p.334 NEW) + 'References' L6 sib=3 (a008 p.336 NEW) RESTART under §6.3.9.3.1 per NEW7 L6 chain non-Example sub-headings continuation per round 6 G-MS-NEW-6-3",
+      "new7_l6_chain_under_clinical_classifications_use_case": "PASS — 'RS – Clinical Classifications Use Case Assumptions' L6 sib=1 (a012 p.336 NEW) + 'RS – Examples - Clinical Classifications' L6 sib=2 (a002 p.339 NEW) RESTART under §6.3.9.3.2 NEW L5 parent",
+      "new7_l7_chain_under_examples": "PASS — Example 1/2/3 L7 sib=1/2/3 RESTART under L6 'RS – Examples - Disease Response' (p.334-335 + p.336 rs.xpt continuation) + Example 1 L7 sib=1 RESTART under L6 'RS – Examples - Clinical Classifications' (p.339 GCS NINDS VERSION); 4 cumulative L7 atoms in batch 34 = 5th cumulative L7 occurrence in P1 post round 5 O-P1-86 first L7 PC Example precedent",
+      "new7_l3_chain_first_round_7_transition": "PASS — §6.3.10 Subject Characteristics (SC) L3 sib=10 NEW (a021 p.339) parent='§6.3 [MODELS FOR FINDINGS DOMAINS]' short-bracket all-caps per round 6 chapter-short-bracket extension; 3rd cumulative L3 sub-domain transition in P1 (round 6 batch 29 §6.3.6 MO + §6.3.7 Morph/Phys group container = 1st+2nd; round 7 batch 34 §6.3.10 SC = 3rd); §6.3.10 is single-domain L3 (with code SC), NOT group container — analogous to round 6 §6.3.6 MO (which was single-domain L3 between §6.3.5 PD group and §6.3.7 Morph/Phys group)",
+      "new7_l6_intra_batch_procedural_handoff_34a_to_34b": "PASS — 34a ended with L7 Example 3 sib=3 narrative LIST_ITEM (parent §6.3.9.3.1; Example 3 rs.xpt table renders on p.336 within 34b scope); 34b first-attempt correctly continued at Example 3 rs.xpt CODE_LITERAL/TABLE_HEADER/TABLE_ROWs (continuation, not restart); then NEW HEADING 'References' L6 sib=3 + NEW §6.3.9.3.2 L5 sib=4 (continuation of L5 sib chain). Procedural enforcement EFFECTIVE first-attempt — round 7 batch 34 = 3rd live-fire intra-batch procedural handoff post round 5 1st live-fire + round 6 batch 31 2nd live-fire (zero recurrence intra-batch).",
+      "new7_l6_cross_batch_handoff_with_batch_33_predicted": "PASS first-attempt — 34a writer correctly continued §6.3.9.3 RS L4 sib=3 + RS-Spec L5 sib=2 chain at p.331 from sister batch 33 territory predicted terminal state (parent_section '§6.3.9.3 Disease Response and Clin Classification (RS)' canonical full-form for all p.331 RS Spec TABLE_ROW continuation atoms); cross-BATCH handoff codification round 5 D-MS-2 mandate VALIDATED 2nd live-fire round 7 (round 6 batch 30 1st live-fire + round 7 batch 34 2nd live-fire); reconciler will validate post-merge once sister batches 32+33 DONE. Note: cross-BATCH non-Example sub-heading drift G-MS-NEW-6-3 motif NOT recurred in batch 34 (Issue B is intra-batch parent-level-skip on Common Assumptions block, distinct motif)."
+    }
+  },
+  "drift_cal": {
+    "triggered": false,
+    "rationale": "per cadence: batch 33 = mandatory drift cal (sister session C scope, NEW1 7th time); batch 34 = SKIP per cadence; next mandatory at batch 36",
+    "next_mandatory": "batch 36"
+  },
+  "density_alarm_check_round_7_G_MS_12": {
+    "applied": true,
+    "lowest_per_page_atoms": "p.332=13 (transition zone with RS Spec table tail + 2 NEW L5/L6 transitions; G-MS-12.a transition floor=8 met)",
+    "highest_per_page_atoms": "p.339=23 (L3 NEW transition zone §6.3.9 → §6.3.10 SC + L7 GCS Example with 12-row TABLE_ROW dense block) tied with p.340=23 (sc.xpt 7-col Spec table with ~22 variable TABLE_ROWs)",
+    "sub_batch_34a_total": 88,
+    "sub_batch_34a_above_100_floor": false,
+    "sub_batch_34b_total": 94,
+    "sub_batch_34b_above_100_floor": false,
+    "alarm_triggered_sub_batch": true,
+    "alarm_triggered_per_page": false,
+    "main_session_pdf_cross_check_adjudication": "FALSE POSITIVE for sub-batch 100-floor — content type is mixed LIST_ITEM-heavy (Disease Response Assumptions 11 items + Clinical Classifications Assumptions 10 items + Common FT/QS/RS Assumptions 9 items = ~30 LIST_ITEMs across 3 pages p.332-333+337-338); per-page floors all ≥13 (≥15 standard or ≥8 transition/list-only per G-MS-12.a content-type-aware floor v1.4 candidate); structural inspection of HEADING list confirms all expected NEW transitions present (§6.3.9.3.1 + §6.3.9.3.2 + §6.3.10 SC L3 NEW + L6 Examples + L7 Examples + L4 SC Description/Specification); no missing sections detected. = 4th cumulative G-MS-12 sub-batch FALSE POSITIVE (round 2-5 = 3 FP per LIST_ITEM-heavy content type; round 6 first TRUE POSITIVE; round 7 batch 34 = 4th FP); G-MS-12.a content-type-aware floor v1.4 candidate STRENGTHENED post round 7 = LIST_ITEM-heavy pages floor=8/sub-batch 80 not 15/100"
+  },
+  "new6_format_sweep": {
+    "applied": true,
+    "violations_found": 28,
+    "post_sweep_compliance": "post Option H bulk fix Issue B 100% — 28 atoms p.337-339 originally with parent_section='§6.3 [MODELS FOR FINDINGS DOMAINS]' (L2 short-bracket escalation skipping L3/L4/L5/L6 levels) bulk-corrected to '§6.3.9.3.2 Clinical Classifications Use Case' L5 canonical full-form (filter atom_type != HEADING preserves §6.3.10 SC L3 NEW HEADING parent_section §6.3 short-bracket per round 6 chapter-short-bracket extension correct); plus 1 NEW6.b L4 self-parent proactive sweep PASS — 2 NEW L4 SC HEADINGs both correct first-attempt with parent='§6.3.10 Subject Characteristics (SC)' canonical (NEW6.b NEVER self-parent 9 cumulative L4 self-parent NOT proactive precedents post round 7 batch 34)"
+  },
+  "new7_l4_l7_chain_check": {
+    "applied": true,
+    "summary": "DOUBLE L5 sub-section transition under §6.3.9.3 RS L4 (§6.3.9.3.1 Disease Response Use Case at p.332 + §6.3.9.3.2 Clinical Classifications Use Case at p.336) + L3 NEW transition §6.3.10 SC (sib=10 at p.339) + DOUBLE L4 sub-section under §6.3.10 SC (Description/Overview sib=1 + Specification sib=2 at p.339-340) + 4 L7 Example atoms (Example 1/2/3 under L6 'Examples - Disease Response' p.334-336 + Example 1 GCS under L6 'Examples - Clinical Classifications' p.339); all L5/L6/L7 chain RESTART per parent change correctly applied per NEW7",
+    "round_7_NEW_precedent": "TRIPLE structural transition single batch (1× L3 NEW §6.3.10 SC + 2× L5 NEW §6.3.9.3.1+§6.3.9.3.2 + 4× L7 Example RESTART) — round 7 batch 34 NEW; analogous to round 6 batch 29 TRIPLE L3 transition single page p.285 §6.3.5 PD tail → §6.3.6 MO → §6.3.7 Morph/Phys; round 7 confirms multi-level transitions per batch is normal protocol cadence at boundary regions; 5th cumulative L7 atom in P1 post round 5 O-P1-86 first L7 PC precedent",
+    "round_7_first_DOUBLE_L5_NUMBERED_sub_section_under_single_L4": "Round 7 batch 34 NEW precedent — first DOUBLE L5 numbered sub-section (§6.3.9.3.1 + §6.3.9.3.2) under single L4 (§6.3.9.3 RS) coexisting with canonical L5 chain (Description=1/Spec=2 in batch 33 territory then numbered Use Case 1=3 + Use Case 2=4); analogous to round 5 batch 27 §6.3.5.9 PK with §6.3.5.9.3 PP-PC + Examples L5 sib=4 mixed numbered+canonical; v1.4 candidate codify DOUBLE L5 numbered sub-section convention"
+  },
+  "r12_transition_check": {
+    "applied": true,
+    "transition_pages": [
+      {
+        "page": 332,
+        "type": "L4-internal L5 sub-section transition (RS Spec table tail → §6.3.9.3.1 Disease Response Use Case L5 NEW)",
+        "atoms_on_page": 13,
+        "threshold": 8,
+        "compliance": "PASS (13 ≥ 8 transition floor)",
+        "zone_partition": "Zone 1 RS Spec table tail (RSENRTPT + RSENTPT TABLE_ROWs) + footnote NOTE atom + transitional SENTENCE 'Assumptions and examples are different for...' (a001-a004); Zone 2 §6.3.9.3.1 L5 NEW HEADING + 'RS – Disease Response Use Case Assumptions' L6 NEW + intro SENTENCE + LIST_ITEM 1 + LIST_ITEM 2 (with 2.a-d sub-items) (a005-a013)"
+      },
+      {
+        "page": 334,
+        "type": "L6 sub-section transition (Disease Response Assumptions list 6-11 tail → 'RS – Examples - Disease Response' L6 NEW + Example 1 L7 NEW)",
+        "atoms_on_page": 22,
+        "threshold": 8,
+        "compliance": "PASS (22 ≥ 8 transition floor)",
+        "zone_partition": "Zone 1 Disease Response Assumptions LIST_ITEMs 6-11 (a001-a005); Zone 2 'RS – Examples - Disease Response' L6 NEW + intro SENTENCE + Example 1 L7 NEW + intro SENTENCE + Rows 1-3 narrative LIST_ITEM + Rows 4-7 narrative LIST_ITEM + rs.xpt CODE_LITERAL + TABLE_HEADER + 7 TABLE_ROWs (a006-a020); Zone 3 Example 2 L7 NEW + intro SENTENCE (a021-a022)"
+      },
+      {
+        "page": 336,
+        "type": "DOUBLE L5/L6 sub-section transition (Example 3 rs.xpt tail → 'References' L6 NEW → §6.3.9.3.2 Clinical Classifications Use Case L5 NEW + 'RS – Clinical Classifications Use Case Assumptions' L6 NEW)",
+        "atoms_on_page": 17,
+        "threshold": 8,
+        "compliance": "PASS (17 ≥ 8 transition floor; 3-zone partition with all 3 zones ≥4 atoms each)",
+        "zone_partition": "Zone 1 Example 3 rs.xpt CODE_LITERAL + TABLE_HEADER + 5 TABLE_ROWs (a001-a007); Zone 2 'References' L6 NEW + 2 LIST_ITEM References 1+2 with DOI CODE_LITERALs (a008-a010); Zone 3 §6.3.9.3.2 L5 NEW + 'RS – Clinical Classifications Use Case Assumptions' L6 NEW + intro SENTENCE + LIST_ITEM 1 + LIST_ITEM 2 + LIST_ITEM 3 (with 3.a-d sub-items) (a011-a017)"
+      },
+      {
+        "page": 339,
+        "type": "MAJOR L3 sub-domain transition (§6.3.9 QRS group container tail → §6.3.10 Subject Characteristics (SC) L3 NEW)",
+        "atoms_on_page": 23,
+        "threshold": 8,
+        "compliance": "PASS (23 ≥ 8 transition floor; 3-zone partition with all 3 zones substantive)",
+        "zone_partition": "Zone 1 Common Assumptions list 9.a.ii continuation + LIST_ITEM 10 (a001-a002); Zone 2 'RS – Examples - Clinical Classifications' L6 NEW + intro SENTENCE + Example 1 L7 NEW + GCS NINDS instrument-label SENTENCE (post Option H demoted from HEADING) + intro SENTENCE + rs.xpt CODE_LITERAL + TABLE_HEADER + 12 TABLE_ROWs (a003-a020); Zone 3 §6.3.10 SC L3 NEW HEADING + 'SC – Description/Overview' L4 sib=1 NEW + intro SENTENCE (a021-a023)"
+      }
+    ],
+    "quadruple_transition_compliance": "PASS — 4 R12 transition pages in single batch (p.332 L5 + p.334 L6/L7 + p.336 DOUBLE L5/L6 + p.339 MAJOR L3); analogous to round 6 batch 31 DOUBLE L4 transition pattern; round 7 batch 34 = first QUADRUPLE transition single batch precedent post round 6 batch 29 TRIPLE single page"
+  },
+  "r15_cross_batch_sibling_check": {
+    "applied": true,
+    "intra_batch_34_continuity": "PASS — 34a→34b L5/L6/L7 sib chain continues correctly: §6.3.9.3 RS L4 sib=3 + RS-Description/Spec L5 sib=1/2 (batch 33 territory) → §6.3.9.3.1 L5 sib=3 + 'Assumptions' L6 sib=1 + 'Examples - Disease Response' L6 sib=2 + Example 1/2/3 L7 sib=1/2/3 (34a ends mid-Example-3) → 34b reuses §6.3.9.3.1 + Examples-Disease-Response + Example 3 as parent for p.336 rs.xpt continuation atoms; then 'References' L6 sib=3 + §6.3.9.3.2 L5 sib=4 + 'Assumptions' L6 sib=1 RESTART + 'Examples - Clinical Classifications' L6 sib=2 + Example 1 GCS L7 sib=1 RESTART + §6.3.10 SC L3 sib=10 NEW + Description/Spec L4 sib=1/2 NEW",
+    "cross_session_continuity_predicted_batch_33_terminal": "PREDICTED state for sister session C batch 33 (p.321-330): §6.3.9.X (likely §6.3.9.2 QS or §6.3.9.3 RS based on TOC RS starts p.329 + RS Spec spans p.330-331); main session pre-dispatch state used '§6.3.9.3 Disease Response and Clin Classification (RS)' L4 sib=3 + RS-Spec L5 sib=2 mid-table at p.330 prediction. Reconciler will validate cross-session R15 once sister batches 32+33 DONE.",
+    "main_session_local_validation": "L4 sibling chain (under §6.3.9 QRS group container): batches 32-33 territory expected sib=1 FT + sib=2 QS + sib=3 RS; batch 34 contributes continuation of sib=3 RS only (no new L4 within QRS group). L5 sibling chain under §6.3.9.3 RS: batch 33 territory expected sib=1 Description + sib=2 Specification (Spec table spans into 34a p.331); batch 34 contributes sib=3 §6.3.9.3.1 Disease Response Use Case + sib=4 §6.3.9.3.2 Clinical Classifications Use Case (numbered sub-sections coexisting with canonical chain). L3 sibling chain under §6.3 [MODELS FOR FINDINGS DOMAINS]: prior cumulative sib=1 DA + sib=2 DD + sib=3 EG + sib=4 IE + sib=5 Specimen-based + sib=6 MO + sib=7 Morph/Phys + sib=8 PE (batch 32) + sib=9 QRS (batch 32-33); batch 34 contributes sib=10 SC NEW."
+  },
+  "findings_added": [
+    {
+      "finding_id": "O-P1-113",
+      "severity": "HIGH",
+      "category": "writer-family parent_section L6→L2 short-bracket parent-skip motif (NEW round-7 motif distinct from O-P1-91 round 5 canonical full-form bare 'Example N' shortcut)",
+      "title": "Common Assumptions cross-domain block parent_section escalated to L2 short-bracket §6.3 [MODELS FOR FINDINGS DOMAINS] skipping L3/L4/L5/L6 levels — 28-atom systematic bulk regression p.337-339 batch 34b",
+      "scope": "28 atoms across §6.3.9.3.2 Clinical Classifications Use Case 'Common to FT/QS/RS Clinical Classifications' Assumptions block: ig34_p0337_a005 through ig34_p0337_a016 (12 atoms) + ig34_p0338_a001 through ig34_p0338_a015 (15 atoms) + ig34_p0339_a001 (1 atom Common Assumptions list 9.a.ii continuation). ALL atoms are LIST_ITEM (numbered 1-10 with lettered/roman sub-items a/b/c/d/i/ii/iii) physically rendered under L6 'RS – Clinical Classifications Use Case Assumptions' (which is L6 sib=1 under §6.3.9.3.2 L5). Writer chose parent_section='§6.3 [MODELS FOR FINDINGS DOMAINS]' L2 short-bracket all-caps (semantic justification: 'common to FT and QS domains as well as Clinical Classifications use case of RS' = cross-domain shared rules) instead of canonical L5 '§6.3.9.3.2 Clinical Classifications Use Case' (physical rendering location).",
+      "atom_id_anchor": "ig34_p0337_a005..a016 + ig34_p0338_a001..a015 + ig34_p0339_a001",
+      "rule_violation": "v1.3 §F NEW6 dual-form parent_section rule violated — parent_section MUST anchor to most specific containing L4/L5/L6 ancestor (NOT escalate to L2 short-bracket for cross-domain semantic scope). v1.3 §G NEW7 L6 chain rule implicit violation — L6 'RS – Clinical Classifications Use Case Assumptions' explicitly emitted as separate HEADING (a012 p.336) but child LIST_ITEMs ignored that L6 heading and parented to L2 short-bracket. Round 5 O-P1-91 canonical full-form rule extension — parent_section MUST use canonical full-form NOT semantic-cross-domain shortcut.",
+      "repair_action": "Option H bulk targeted fix (cycle 2) — Python in-place replacement parent_section '§6.3 [MODELS FOR FINDINGS DOMAINS]' → '§6.3.9.3.2 Clinical Classifications Use Case' across 28 atoms p.337-339 (filter atom_type != HEADING preserves §6.3.10 SC L3 NEW HEADING parent_section §6.3 short-bracket per round 6 chapter-short-bracket extension correct). Backup: pdf_atoms_batch_34b.jsonl.pre-OptionH-IssueB-parent-skip-bulk.bak. Post-fix: 0 atoms with §6.3 short-bracket parent on p.337-338; 1 atom on p.339 (a021 §6.3.10 SC HEADING — correct, preserved); 28 atoms p.337-339 now correctly parented to §6.3.9.3.2 Clinical Classifications Use Case canonical full-form.",
+      "v1_4_codification_candidate": "v1.4 NEW9 codification candidate (NEW round-7 motif): cross-domain 'common to X/Y/Z' assumption block parent_section enforcement — pin parent to most specific containing L4/L5/L6 ancestor (NOT escalate to L2 short-bracket for cross-domain semantic scope). Implementation: writer/executor self-validate step extension — for any LIST_ITEM whose parent HEADING is L6 sub-heading (Description/Specification/Assumptions/Examples/References pattern), parent_section MUST = L5 numbered ancestor canonical full-form OR L6 textual heading; FORBID L2 short-bracket parent for non-L3-HEADING atoms. Mandatory pre-DONE write hook with halt-on-violation OR Option H auto-fix proposal. Joins round 5+6 v1.4 candidate stack: 9 cumulative round 5+6 + round 7 batch 34 NEW (O-P1-113+O-P1-114) = 11 cumulative round 5+6+7 partial.",
+      "writer_family_motif": "NEW round-7 writer-family motif: parent-level-skip semantic-cross-domain regression. Distinct from cumulative writer-family motifs: NOT verbatim corruption (R10 strict) / NOT NEW8 oracle (canonical CDISC variable list) / NOT NEW6.b L4 self-parent NEVER / NOT VALUE HALLUCINATION (whole-row context). Joins round 5 O-P1-91 canonical full-form bare 'Example N' shortcut motif as parent_section family motif (round 5 O-P1-91 = bare-shortcut L6/L7 / round 7 O-P1-113 = L2-short-bracket-escalation L6 cross-domain). Severity HIGH because (a) 28-atom systematic = ~16% of batch impact; (b) breaks downstream KB consumer / RAG retrieval graph hierarchy joins (LIST_ITEMs orphaned from §6.3.9.3.2 RS Clinical Classifications subsection structure); (c) reviewer 1/page sample caught only 2/28 = main-session structural sweep mandatory (5th two-layer audit cumulative validation 1:14 amplification ratio)."
+    },
+    {
+      "finding_id": "O-P1-114",
+      "severity": "MEDIUM",
+      "category": "writer-family L7 Example parent_section uses L5 numbered §6.3.9.3.X instead of L6 textual 'RS – Examples - X' (extends round 5 O-P1-91 canonical full-form motif)",
+      "title": "L7 Example 1/2/3/Example 1 GCS atoms parent_section uses §6.3.9.3.1/§6.3.9.3.2 L5 numbered ancestor instead of L6 'RS – Examples - Disease Response' / 'RS – Examples - Clinical Classifications' textual heading per O-P1-91 canonical full-form rule",
+      "scope": "~30 atoms across L6 Examples blocks: ig34_p0334_a008 (Example 1 L7 sib=1) + ig34_p0334_a009..a020 (Example 1 child intro/rs.xpt/TABLE_HEADER/TABLE_ROWs) + ig34_p0334_a021..a022 (Example 2 L7 sib=2 + intro) + ig34_p0335_a001..a012 (Example 2 child rs.xpt/TABLE_HEADER/TABLE_ROWs + Example 3 L7 sib=3 + intro/narrative) + ig34_p0336_a001..a007 (Example 3 child rs.xpt continuation) + ig34_p0339_a004..a020 (Example 1 GCS L7 sib=1 + GCS instrument-label SENTENCE + intro + rs.xpt + 12 TABLE_ROWs); ALL atoms have parent_section='§6.3.9.3.1 Disease Response Use Case' or '§6.3.9.3.2 Clinical Classifications Use Case' L5 numbered ancestor instead of L6 textual 'RS – Examples - Disease Response' / 'RS – Examples - Clinical Classifications' per O-P1-91 round 5 canonical full-form rule for L6/L7 atoms.",
+      "atom_id_anchor": "ig34_p0334_a008..a022 + ig34_p0335_a001..a018 + ig34_p0336_a001..a007 + ig34_p0339_a004..a020 (~30 atoms)",
+      "rule_violation": "Round 5 O-P1-91 canonical full-form rule for L6/L7 atoms — parent_section MUST use canonical full-form `§N.N.N — Sub-Heading-Title` (NOT bare 'Example N' shortcut). Round 7 batch 34 writer chose L5 numbered ancestor §6.3.9.3.X canonical instead of L6 textual heading — partial compliance with O-P1-91 (avoided bare 'Example N' shortcut) but did not adopt L6 textual heading either.",
+      "repair_action": "DEFERRED to v1.4 cut OR reconciler-side decision — NOT bulk-fixed in batch 34 because (a) reviewer flagged as PARTIAL not FAIL; (b) L5 numbered vs L6 textual is canonical-form ambiguity (both readings defensible); (c) ~30 atoms scope warrants v1.4 codification before mass-rewrite to ensure consistency across P1 cumulative; (d) round 5 O-P1-91 itself was deferred to v1.4 candidate. Decision matrix to be settled in v1.4 cut session: Option A = L6 textual heading 'RS – Examples - Disease Response' (matches O-P1-91 letter); Option B = L5 numbered §6.3.9.3.X (matches L4 §6.3.5.X domain pattern at higher level); Option C = both forms acceptable per dual-form NEW6 extension to L6/L7.",
+      "v1_4_codification_candidate": "v1.4 NEW7 L6/L7 parent_section canonical-form rule — codify L6/L7 atom parent_section format. Recommend Option A (L6 textual heading) for semantic precision in KB consumer hierarchy. Joins round 5 O-P1-91 v1.4 candidate stack as same-motif-extension. ~30 atoms in batch 34 + ~50-100 atoms cumulative round 4-7 P1 retroactive sweep candidate.",
+      "writer_family_motif": "Extends round 5 O-P1-91 canonical full-form parent_section motif from L6 'Example N' bare shortcut to L7 Example children + L6 'Examples - X' parent. Severity MEDIUM because (a) L5 numbered ancestor IS structurally valid (just not most specific); (b) reviewer flagged PARTIAL not FAIL; (c) Option H auto-fix is straightforward once v1.4 codifies preferred form; (d) deferred per project policy — non-blocking for batch 34 closure."
+    },
+    {
+      "finding_id": "O-P1-115",
+      "severity": "LOW",
+      "category": "intra-batch writer-family minor inconsistencies — sub-instrument label HEADING-SENTENCE collision + cross-sub-batch L4 canonical form drift",
+      "title": "Two minor intra-batch defects: (a) p.339_a005 GCS instrument-label sub-title HEADING-vs-SENTENCE collision + (b) p.336_a011 §6.3.9.3.2 HEADING parent_section cross-sub-batch L4 canonical drift ('Clinical Classifications' vs canonical 'Clin Classification')",
+      "scope": "2 atoms in 34b: (a) ig34_p0339_a005 'Glasgow Coma Scale NINDS Version (GCS NINDS VERSION)' originally emitted as HEADING hl=7 sib=1 colliding with ig34_p0339_a004 Example 1 L7 sib=1 under same L6 parent 'RS – Examples - Clinical Classifications'; (b) ig34_p0336_a011 §6.3.9.3.2 Clinical Classifications Use Case L5 sib=4 NEW HEADING parent_section originally used '§6.3.9.3 Disease Response and Clinical Classifications (RS)' (writer-side variant) while 34a + TOC + canonical use '§6.3.9.3 Disease Response and Clin Classification (RS)'.",
+      "atom_id_anchor": "ig34_p0339_a005 + ig34_p0336_a011",
+      "rule_violation": "(a) HEADING sibling_index uniqueness violation under same parent + heading_level (2 atoms with hl=7 sib=1 under L6 'RS – Examples - Clinical Classifications'); (b) cross-sub-batch L4 canonical full-form drift — same L4 parent_section text varies between 34a + 34b sub-batches (writer-family inconsistency on title abbreviation preserved per R10 strict for this short-form/long-form variant of the L4 heading text).",
+      "repair_action": "Option H pre-reviewer schema sweep cycle 1 (2 fixes co-applied): (a) Demoted a005 atom_type HEADING→SENTENCE (heading_level=null sibling_index=null) preserving structural integrity without introducing L8 deepest-depth precedent — GCS NINDS instrument-label functions as descriptive bold sub-title under Example 1, not separate heading; (b) Fixed a011 parent_section text 'Disease Response and Clinical Classifications (RS)' → 'Disease Response and Clin Classification (RS)' matching 34a + canonical TOC. Backup: pdf_atoms_batch_34b.jsonl.pre-OptionH-canonical-and-L7-collision.bak. Post-fix: 0 sibling collisions; 0 cross-sub-batch L4 canonical drift remaining.",
+      "v1_4_codification_candidate": "v1.4 minor codification — (a) writer self-validate step extension: for any HEADING atom check sibling_index uniqueness against prior emissions under same (parent_section, heading_level) tuple within same batch + halt-on-collision OR auto-increment; (b) writer self-validate step extension: cross-sub-batch L4/L5 HEADING parent_section text canonical-form lookup against TOC OR prior batch terminal state — flag any text drift > 5% character difference in L4 title.",
+      "writer_family_motif": "Joins minor writer-family inconsistency motifs (HEADING-vs-SENTENCE confusion on sub-title labels + cross-sub-batch L4 canonical form drift). Severity LOW because (a) defects caught pre-reviewer in cycle 1 schema sweep; (b) Option H surgical fixes preserved 100% post-fix integrity; (c) instrument-label sub-title confusion is NEW7 L7-vs-L8 deepest-depth ambiguity precedent (round 5 O-P1-86 first L7 PC remains deepest in P1; batch 34 demotion preserves that) — v1.4 candidate to codify L8 sub-instrument-label rule (HEADING hl=8 sib=1 OR SENTENCE)."
+    },
+    {
+      "finding_id": "O-P1-116",
+      "severity": "INFO",
+      "category": "two-layer audit architecture milestone + G-MS-12 sub-batch density floor 4th cumulative FALSE POSITIVE LIST_ITEM-heavy content type validation",
+      "title": "Round 7 batch 34 dual milestone: (a) two-layer audit 5th cumulative validation (1:14 amplification ratio reviewer slot #43 1/page sample 3 PARTIAL → main-session structural sweep 28-atom Issue B bulk Option H) + (b) G-MS-12 sub-batch 100-floor 4th cumulative FALSE POSITIVE per LIST_ITEM-heavy content type (round 7 batch 34 = 4 FP + 1 TP across rounds 2-7)",
+      "scope": "Audit-architecture meta-finding spanning batch 34 Rule A reviewer + main-session post-reviewer sweep + G-MS-12 density alarm adjudication. (a) Reviewer slot #43 pr-review-toolkit:type-design-analyzer (AUDIT-mode pivot 24th cumulative; pr-review-toolkit family 3rd-agent depth burn) on 10-atom stratified sample identified 3 PARTIAL all on parent_section dimension (atoms 4 + 7 + 8). Main-session post-reviewer comprehensive grep + structural sweep on parent_section dimension extended Issue B from 2 sample atoms (atoms 7+8 = p.337/p.338) to 28 atoms across p.337-339 (= O-P1-113 HIGH) — 1:14 amplification ratio (highest single-batch ratio post round 5 1:13). (b) Sub-batch 34a = 88 atoms / 34b = 94 atoms both BELOW 100-floor; per-page floors all ≥13 (≥15 standard or ≥8 transition/list-only); structural inspection of HEADING list confirms all expected NEW transitions present (no missing sections); content type is LIST_ITEM-heavy (~30 LIST_ITEMs across 3 pages from Disease Response Assumptions 11 + Clinical Classifications Assumptions 10 + Common FT/QS/RS Assumptions 9) = adjudicated FALSE POSITIVE.",
+      "atom_id_anchor": "n/a (architectural milestone)",
+      "rule_violation": "n/a (architectural validation, not a defect)",
+      "repair_action": "n/a (covered by O-P1-113 + density alarm adjudication)",
+      "v1_4_codification_candidate": "(a) Confirms existing 2-layer architecture per round 5 D-MS-6 / round 6 D-MS-6 (retain Rule A 1/page sample + reconciler/main-session structural sweep as complementary layers; mandatory regardless of sub-session quality). 5th cumulative round of structural-sweep-finds-more-than-sample validation: round 2 (5 reconciler-side fixes 1:5) + round 4 (4 atoms NEW7 L6 1:4) + round 5 (13 atoms NEW7 L6 cross-batch 1:13 + 168 bulk 1:168) + round 6 batch 31 (10 atoms OE corruption 1:10) + round 7 batch 34 (28 atoms parent-skip 1:14) = average 1:9 amplification ratio across 5 rounds. (b) G-MS-12.a content-type-aware floor v1.4 candidate STRENGTHENED post round 7 — LIST_ITEM-heavy pages floor=8 per-page / sub-batch floor=80 (not 15/100) when content type is documented as Assumptions/Common-rules cross-domain block. Implementation: kickoff §5 density alarm spec extension — main-session classify content-type per page (table-dense / list-only / transition / mixed) + apply tiered floors 8/15 per type.",
+      "writer_family_motif": "n/a (not a writer-family motif; this is an audit-architecture + density-alarm-adjudication milestone validating two-layer design + content-type-aware floor refinement)",
+      "round_7_audit_architecture_observation": "Reviewer-to-sweep amplification ratio: round 2 = 1:5 / round 4 = 1:4 / round 5 = 1:13 cross-batch + 1:168 bulk = significant / round 6 batch 31 = 1:10 / round 7 batch 34 = 1:14. Trend: structural sweep consistently finds 4-15× more issues than 1/page Rule A sample (excluding bulk-patch outlier 1:168). Confirms statistical sample is NECESSARY (gives reviewer per-atom verdict resolution + AUDIT-mode pivot family validation across 8 family pools cumulative round 1-7) but NOT SUFFICIENT (sweep is the safety net for systematic block violations — 5 cumulative motifs to date: NEW7 L6 sub-batch context drift / OE-corruption / LB-Examples / parent-skip / parent-skip-cross-domain)."
+    }
+  ],
+  "finding_id_range_allocated": "O-P1-113..116 (4 IDs reserved per round 7 G-MS-13)",
+  "finding_id_range_used": ["O-P1-113", "O-P1-114", "O-P1-115", "O-P1-116"],
+  "finding_id_self_validation_gate": "PASS — all 4 finding IDs ∈ {113, 114, 115, 116}; 0 findings with ID ≤112 (no collision with sister batch 32 O-P1-105..108 or batch 33 O-P1-109..112) or ≥117 (no over-allocation)",
+  "rule_d_slot_used": 43,
+  "rule_d_audit_pivot_count_post_batch": 24,
+  "rule_d_family_post_batch": "pr-review-toolkit family 3rd-agent depth burn (1st burn batch 29 #38 pr-review-toolkit:code-reviewer + 2nd burn batch 31 #40 pr-review-toolkit:silent-failure-hunter + 3rd burn batch 34 #43 pr-review-toolkit:type-design-analyzer); validates AUDIT-mode pivot recipe consistency across 3 agents within pr-review-toolkit family. 24th AUDIT pivot cumulative across rounds 1-7.",
+  "files_written": [
+    "evidence/checkpoints/pdf_atoms_batch_34a.jsonl (88 atoms, p.331-335, no Option H needed for 34a)",
+    "evidence/checkpoints/pdf_atoms_batch_34b.jsonl (94 atoms, p.336-340, post 2 Option H cycles: cycle 1 a005+a011 fixes + cycle 2 28-atom Issue B parent-skip bulk fix)",
+    "evidence/checkpoints/pdf_atoms_batch_34b.jsonl.pre-OptionH-canonical-and-L7-collision.bak (Rule B backup pre-cycle-1)",
+    "evidence/checkpoints/pdf_atoms_batch_34b.jsonl.pre-OptionH-IssueB-parent-skip-bulk.bak (Rule B backup pre-cycle-2)",
+    "evidence/checkpoints/_progress_batch_34.json (this file)",
+    "evidence/checkpoints/P1_batch_34_report.md (full batch report)",
+    "evidence/checkpoints/rule_a_batch_34_sample.jsonl (10-atom sample seed=20260640)",
+    "evidence/checkpoints/rule_a_batch_34_verdicts.jsonl (slot #43 pr-review-toolkit:type-design-analyzer verdicts; 7 PASS + 3 PARTIAL + 0 FAIL = 85.0% raw weighted = WARN band; post Option H bulk fix 92.5% = PASS at threshold ≥90%)",
+    "evidence/checkpoints/rule_a_batch_34_summary.md (Rule A summary §1-§5 + AUDIT-mode pivot reflection + pr-review-toolkit family 3rd-agent depth-burn recipe consistency check)"
+  ],
+  "files_NOT_touched": [
+    "root pdf_atoms.jsonl (7939 atoms unchanged — reconciler scope)",
+    "audit_matrix.md (reconciler scope)",
+    "_progress.json (reconciler scope)",
+    "sister batch files (pdf_atoms_batch_32*, pdf_atoms_batch_33*)",
+    "subagent_prompts/* (v1.3 active — no edits; v1.4 candidate stack accumulating reconciler-side; round 7 batch 34 adds O-P1-113+114+115 to v1.4 stack)",
+    "schema/*.json",
+    "PLAN.md",
+    "plans/*.md",
+    "CLAUDE.md",
+    "MEMORY/*"
+  ],
+  "halt_state": null,
+  "round_7_compliance": {
+    "G_MS_4_halt_fallback": "spec'd (kickoff §0 hard-stop directive); NOT triggered this batch (failure rate 0/182=0% well below 15%, Rule A 85.0% raw → 92.5% post Option H above ≥90% PASS threshold, ctx well below 80%, reviewer dispatched fine, no shared-file write attempts, 2 repair cycles below threshold); 7 rounds spec-only no live-fire = ACCEPT spec-only validation continued per round 6 D-MS-4 carry-forward",
+    "G_MS_7_finding_id_range_pre_allocation": "compliant — O-P1-113..116 reserved (4 IDs), 4 used (O-P1-113/114/115/116); 0 unused; no over-allocation, no cross-session collision",
+    "G_MS_11_NEW6_dual_form_codified": "applied — 28 violations found (Issue B p.337-339 §6.3 short-bracket parent escalation), bulk Option H fixed; 2 NEW L4 SC HEADINGs proactively correct (Description/Specification under §6.3.10 SC); §6.3.10 SC L3 NEW HEADING parent §6.3 short-bracket all-caps correct per round 6 chapter-short-bracket extension",
+    "G_MS_11_b_round_3_extension_codified": "applied PROACTIVELY — both 'SC – Description/Overview' L4 sib=1 + 'SC – Specification' L4 sib=2 first-attempt correct with parent='§6.3.10 Subject Characteristics (SC)' canonical NEVER self-parent; 9 cumulative L4 self-parent NOT proactive precedents post round 7 batch 34 (round 3 batch 22 GF post-detection + round 4 IS/LB/Microbiology Domains/GF-extended + round 5 MI/PD + round 6 batch 31 RP/RE + round 7 batch 34 SC)",
+    "G_MS_12_density_alarm_check_applied": "applied — sub-batch 34a 88 + 34b 94 both BELOW 100-floor; per-page floors all ≥13 (≥15 standard or ≥8 transition/list-only per G-MS-12.a content-type-aware floor v1.4 candidate); main-session adjudicated FALSE POSITIVE (4th cumulative G-MS-12 sub-batch FP per LIST_ITEM-heavy content type); G-MS-12.a content-type-aware floor v1.4 candidate STRENGTHENED",
+    "G_MS_13_finding_id_range_cross_validation_table": "applied — kickoff §0 cross-validation table read pre-dispatch; finding ID self-validation gate at STEP 7 confirmed all 4 IDs ∈ {113,114,115,116}; 0 collision with sister sessions B (O-P1-105..108) or C (O-P1-109..112)",
+    "round_7_NEW7_L6_INTRA_batch_procedural_handoff_3rd_live_fire": "EFFECTIVE — 34a→34b sub-batch handoff prepend (round 5 D-MS-4 codification mandatory + round 6 R-MS-5 EFFECTIVE 2nd live-fire) successfully applied: 34b dispatch prompt inline-prepended 34a predicted terminal state (L7 Example 3 sib=3 narrative LIST_ITEM at p.335 tail; rs.xpt continuation expected on p.336); 34b first-attempt correctly continued at Example 3 rs.xpt CODE_LITERAL/TABLE_HEADER/TABLE_ROWs then NEW HEADING 'References' L6 sib=3 + §6.3.9.3.2 L5 sib=4 NEW (continuation, not restart); 0 NEW7 L6 intra-batch recurrence in batch 34. 3rd live-fire validation of round 5 D-MS-4 INTRA-batch procedural enforcement codification.",
+    "round_7_NEW7_L6_CROSS_batch_handoff_2nd_live_fire": "EFFECTIVE first-attempt — 34a writer correctly continued §6.3.9.3 RS L4 sib=3 + RS-Spec L5 sib=2 chain at p.331 from sister batch 33 territory predicted terminal state (parent_section '§6.3.9.3 Disease Response and Clin Classification (RS)' canonical for all 19 p.331 RS Spec TABLE_ROW continuation atoms; cross-BATCH handoff codification round 5 D-MS-2 mandate VALIDATED 2nd live-fire round 7 (round 6 batch 30 1st live-fire + round 7 batch 34 2nd live-fire); reconciler will validate post-merge once sister batches 32+33 DONE.",
+    "round_7_NEW7_L3_first_round_7_transition": "EFFECTIVE — §6.3.10 Subject Characteristics (SC) L3 sib=10 NEW (a021 p.339) parent='§6.3 [MODELS FOR FINDINGS DOMAINS]' short-bracket all-caps per round 6 chapter-short-bracket extension; 3rd cumulative L3 sub-domain transition in P1 (round 6 batch 29 §6.3.6 MO + §6.3.7 Morph/Phys group container = 1st+2nd; round 7 batch 34 §6.3.10 SC = 3rd); §6.3.10 is single-domain L3 (with code SC), NOT group container — analogous to round 6 §6.3.6 MO",
+    "round_7_NEW7_L7_5th_cumulative_occurrence": "validated — 4 L7 atoms in batch 34 (Example 1/2/3 under L6 'Examples - Disease Response' + Example 1 GCS under L6 'Examples - Clinical Classifications') = 5th cumulative L7 occurrence in P1 post round 5 O-P1-86 first L7 PC Example precedent; L7 deepest-depth in P1 cumulative (no L8 introduced — a005 GCS instrument-label demoted to SENTENCE preserves L7 deepest precedent)",
+    "round_7_NEW9_v1_4_candidate_NEW_motif_O_P1_113": "v1.4 candidate (O-P1-113 HIGH NEW round-7 motif): cross-domain 'common to X/Y/Z' assumption block parent_section enforcement — pin parent to most specific containing L4/L5/L6 ancestor (NOT escalate to L2 short-bracket for cross-domain semantic scope); writer self-validate step extension mandatory pre-DONE write hook with halt-on-violation OR Option H auto-fix proposal",
+    "round_7_v1_4_candidate_O_P1_91_extension": "v1.4 candidate (O-P1-114 MEDIUM): L7 Example parent_section L5-numbered-vs-L6-textual canonical-form codification (extends round 5 O-P1-91 motif from L6 bare 'Example N' shortcut to L7 children); ~30 atoms in batch 34 + retroactive sweep candidate ~50-100 atoms cumulative round 4-7 P1",
+    "round_7_two_layer_audit_5th_cumulative_validation": "validated (O-P1-116 milestone): reviewer 1/page sample caught 3 PARTIAL atoms; main-session structural sweep extended Issue B to 28 atoms (1:14 amplification ratio); 5th cumulative round of structural-sweep-finds-more-than-sample validation post round 2 + round 4 + round 5 + round 6 + round 7"
+  },
+  "round_7_NEW_precedents_observed": [
+    "QUADRUPLE R12 transition single batch (p.332 L5 + p.334 L6/L7 + p.336 DOUBLE L5/L6 + p.339 MAJOR L3) — round 7 batch 34 NEW; analogous to round 6 batch 29 TRIPLE single-page L3 transition pattern",
+    "First DOUBLE L5 numbered sub-section (§6.3.9.3.1 + §6.3.9.3.2) under single L4 (§6.3.9.3 RS) coexisting with canonical L5 chain (Description=1/Spec=2 + numbered Use Case 1=3 + Use Case 2=4) — round 7 batch 34 NEW; analogous to round 5 batch 27 §6.3.5.9 PK §6.3.5.9.3 PP-PC pattern; v1.4 codification candidate",
+    "First QUADRUPLE-L7 atoms single batch (Example 1/2/3 under 'Examples - Disease Response' + Example 1 GCS under 'Examples - Clinical Classifications') — round 7 batch 34 NEW; 5th cumulative L7 occurrence in P1 post round 5 O-P1-86 first L7 precedent; L7 deepest-depth in P1 cumulative preserved (no L8 introduced)",
+    "pr-review-toolkit family 3rd-agent depth burn (slot #43 type-design-analyzer post #38 code-reviewer + #40 silent-failure-hunter) — first 3rd-agent intra-family depth burn for ANY family in P1 cumulative; validates AUDIT recipe family-agnostic AND intra-family-agent-agnostic at 3-agent depth scale",
+    "Writer-family parent_section L6→L2 short-bracket parent-skip motif NEW round-7 (O-P1-113 HIGH; 28-atom systematic Common Assumptions block §6.3.9.3.2) — distinct from prior writer-family motifs; v1.4 NEW9 codification mandatory",
+    "G-MS-12 sub-batch 100-floor 4th cumulative FALSE POSITIVE per LIST_ITEM-heavy content type — G-MS-12.a content-type-aware floor v1.4 candidate STRENGTHENED (LIST_ITEM-heavy pages floor=8/sub-batch=80 not 15/100)",
+    "Two-layer audit 5th cumulative validation (1:14 amplification ratio) — confirms structural sweep is mandatory complement to 1/page Rule A sample"
+  ],
+  "handoff_to_reconciler": "Session D contributes 182 atoms (88 + 94) over p.331-340 (DOUBLE L5 numbered sub-section §6.3.9.3.1 Disease Response Use Case + §6.3.9.3.2 Clinical Classifications Use Case under §6.3.9.3 RS L4 + L3 NEW transition §6.3.10 Subject Characteristics (SC) at p.339 + DOUBLE L4 SC Description/Specification at p.339-340 + 4 L7 Example atoms; cross-batch RS Spec table continuation from sister batch 33 territory). Reconciler should: (a) merge pdf_atoms_batch_34a.jsonl + pdf_atoms_batch_34b.jsonl into root pdf_atoms.jsonl post sister batch 32+33 merges; (b) sweep cross-batch sibling continuity for §6.3 L3 chain — sib=8 PE (sister batch 32 expected) → sib=9 QRS (sister batch 32-33 expected) → sib=10 SC (batch 34); §6.3.9 L4 chain — sib=1 FT + sib=2 QS + sib=3 RS; §6.3.9.3 RS L5 chain — sib=1 Description + sib=2 Specification + sib=3 §6.3.9.3.1 + sib=4 §6.3.9.3.2; (c) validate cross-session R15 RS-Spec table TABLE_ROW continuity (sister batch 33 territory tail at p.330 → batch 34a head at p.331 — 19 RS Spec atoms parent_section canonical match); (d) update root audit_matrix.md with batch 34 row + Rule A 34 row + Rule D roster 42→43 + pr-review-toolkit family 3rd-agent depth burn; (e) update root _progress.json (atoms 7939→8121 if all 3 round-7 sister merges done OR cumulative including batch 34; pages 310→340; batches 31→34; Rule D 42→43; repair_cycles +2; findings +4 [O-P1-113/114/115/116]); (f) v1.4 patch session decision — round 7 batch 34 cumulative v1.4 candidates: round 5 5 + round 6 batch 31 4 + round 7 batch 34 4 (O-P1-113 NEW9 cross-domain parent enforcement HIGH + O-P1-114 NEW7 L7 parent canonical-form MEDIUM + O-P1-115 minor LOW + O-P1-116 INFO not v1.4 actionable) = 13 cumulative v1.4 candidates accumulated round 5+6+7; v1.4 cut session BEFORE batch 36 (next mandatory drift cal) STRONGLY RECOMMENDED (round 6 D-MS-5 ESCALATED + round 7 batch 34 NEW round-7 motif strengthens recommendation); (g) Issue C O-P1-114 reconciler-side decision — defer or apply L6 textual canonical bulk fix (~30 atoms batch 34 + retroactive ~50-100 atoms cumulative round 4-7 P1); (h) multi-session round 7 protocol: write MULTI_SESSION_RETRO_ROUND_7.md (Rule C 三段式 12+ R-MS retain / 6+ G-MS gap / 7+ D-MS decision); cleanup CLAUDE.md round-7 routing rule + delete batch_32/33/34_kickoff.md + reconciler_kickoff_round7.md (one-shot use done)."
+}

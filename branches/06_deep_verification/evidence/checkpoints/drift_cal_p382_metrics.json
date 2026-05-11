@@ -1,0 +1,77 @@
+{
+  "target_page": 382,
+  "baseline_subagent": "oh-my-claudecode:executor (batch 39a)",
+  "rerun_subagent": "oh-my-claudecode:writer (drift cal rerun)",
+  "n14_alternation": "executor baseline → writer rerun (N14 STRONGLY VALIDATED 3rd live-fire)",
+  "n16_compliance": "writer acceptable for mixed_structural_transition (free choice per N16)",
+  "drift_cal_carrier": 9,
+  "n11_l1_chapter_short_bracket_extension_first_live_fire": true,
+  "baseline_atoms": 22,
+  "rerun_atoms": 22,
+  "strict_count_overlap_pct": 100.0,
+  "verbatim_hash_jaccard_pct": 69.2,
+  "verbatim_hash_intersection_max_pct": 81.8,
+  "intersection": 18,
+  "union": 26,
+  "dual_threshold_strict_pass": true,
+  "dual_threshold_verbatim_pass": false,
+  "both_thresholds_pass": false,
+  "type_breakdown_baseline": {
+    "HEADING": 4,
+    "SENTENCE": 9,
+    "LIST_ITEM": 4,
+    "TABLE_HEADER": 1,
+    "TABLE_ROW": 4
+  },
+  "type_breakdown_rerun": {
+    "HEADING": 4,
+    "SENTENCE": 9,
+    "LIST_ITEM": 4,
+    "TABLE_HEADER": 1,
+    "TABLE_ROW": 4
+  },
+  "baseline_only_atoms": [
+    {
+      "atom_id": "ig34_p0382_a001",
+      "atom_type": "HEADING",
+      "verbatim_snippet": "7  Trial Design Model Datasets"
+    },
+    {
+      "atom_id": "ig34_p0382_a004",
+      "atom_type": "SENTENCE",
+      "verbatim_snippet": "ICH E3, Guidance for Industry, Structure and Content of Clinical Study Reports (available at http://www.ich.org/products/guidelines/), Section 9.1, calls for a "
+    },
+    {
+      "atom_id": "ig34_p0382_a017",
+      "atom_type": "SENTENCE",
+      "verbatim_snippet": "See the CDISC Glossary (https://www.cdisc.org/standards/glossary) for more complete definitions of clinical trial and objective."
+    },
+    {
+      "atom_id": "ig34_p0382_a022",
+      "atom_type": "TABLE_ROW",
+      "verbatim_snippet": "| Study cell | Each planned path through the trial (i.e., each arm) is divided into pieces, 1 for each epoch. Each of these pieces is called a study cell. Thus,"
+    }
+  ],
+  "rerun_only_atoms": [
+    {
+      "atom_id": "ig34_p0382_a001",
+      "atom_type": "HEADING",
+      "verbatim_snippet": "7 Trial Design Model Datasets"
+    },
+    {
+      "atom_id": "ig34_p0382_a004",
+      "atom_type": "SENTENCE",
+      "verbatim_snippet": "ICH E3, Guidance for Industry, Structure and Content of Clinical Study Reports (available at http://www.ich.ch/products/guidelines/), Section 9.1, calls for a b"
+    },
+    {
+      "atom_id": "ig34_p0382_a017",
+      "atom_type": "SENTENCE",
+      "verbatim_snippet": "See the CDISC Glossary (https://www.cdisc.org/standards/glossary) for more complete definitions of trial and objective."
+    },
+    {
+      "atom_id": "ig34_p0382_a022",
+      "atom_type": "TABLE_ROW",
+      "verbatim_snippet": "| Study cell | Each planned path through the trial (i.e., each arm) is divided into pieces, 1 for each epoch. Each of these pieces is called a study cell. Thus,"
+    }
+  ]
+}

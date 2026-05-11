@@ -1,0 +1,221 @@
+{
+  "batch_id": 26,
+  "session_id": "session_b_round_5",
+  "round": 5,
+  "status": "completed",
+  "scope_pages": "ig34 p.251-260",
+  "page_count": 10,
+  "atoms_done": 325,
+  "atoms_breakdown": {
+    "26a_p251_255": 186,
+    "26b_p256_260": 139,
+    "by_page": {
+      "251": 30, "252": 30, "253": 36, "254": 48, "255": 42,
+      "256": 23, "257": 30, "258": 29, "259": 21, "260": 36
+    },
+    "by_atom_type_26a": {
+      "CODE_LITERAL": 91,
+      "TABLE_ROW": 65,
+      "LIST_ITEM": 19,
+      "HEADING": 5,
+      "NOTE": 2,
+      "SENTENCE": 2,
+      "CROSS_REF": 1,
+      "TABLE_HEADER": 1
+    },
+    "by_atom_type_26b": {
+      "TABLE_ROW": 66,
+      "LIST_ITEM": 28,
+      "SENTENCE": 19,
+      "CODE_LITERAL": 11,
+      "TABLE_HEADER": 11,
+      "HEADING": 4
+    },
+    "by_atom_type_combined": {
+      "TABLE_ROW": 131,
+      "CODE_LITERAL": 102,
+      "LIST_ITEM": 47,
+      "SENTENCE": 21,
+      "TABLE_HEADER": 12,
+      "HEADING": 9,
+      "NOTE": 2,
+      "CROSS_REF": 1
+    }
+  },
+  "failures": 0,
+  "repair_cycles": 0,
+  "repair_cycle_notes": [],
+  "rule_a": {
+    "reviewer_slot": 35,
+    "reviewer_type": "oh-my-claudecode:analyst",
+    "reviewer_audit_pivot_index": 16,
+    "reviewer_family": "oh-my-claudecode",
+    "reviewer_family_burn_count_post_batch": 8,
+    "reviewer_family_pool_status_post_batch": "still active (omc 8th burn; pool not exhausted — round 5 batches 27/28 will pivot to omc:architect + general-purpose new family)",
+    "audit_mode_pivot_label": "AUDIT for PDF atomization quality, NOT requirements analysis / NOT pre-planning consultation / NOT user story decomposition",
+    "tools_adaptation": "write-tool-less + Bash heredoc adaptation (per round 4 #32/#33 sub-pattern); reviewer produced verdicts.jsonl + summary.md content inline; main session wrote files preserving content verbatim",
+    "sample_size": 10,
+    "sample_seed": 20260601,
+    "sample_coverage": "1/page p.251-260 stratified (3 HEADING incl. critical NEW7 L5 §6.3.5.7.2 MS sib=2 + L5 §6.3.5.7.3 Examples sib=3 + L6 Example 2 sib=2; 4 TABLE_ROW MS-Spec p.253-255 + ms.xpt p.259; 2 LIST_ITEM MB-Assumptions p.251 + bs.xpt p.260; 1 TABLE_HEADER suppmb.xpt p.258)",
+    "raw_pass": 10,
+    "raw_partial": 0,
+    "raw_fail": 0,
+    "raw_weighted_pct": 100.0,
+    "raw_verdict": "PASS_AT_THRESHOLD",
+    "tom_anchor_audit_n_cumulative": 180,
+    "tom_anchor_consecutive_batches": 18,
+    "tom_anchor_fp_count": 0,
+    "tom_anchor_inversion_count": 0,
+    "special_checks": {
+      "new6_b_ms_l5_self_parent": "PASS — §6.3.5.7.2 MS L5 HEADING (ig34_p0252_a015) parent='§6.3.5.7 Microbiology Domains' (NOT self-parent §6.3.5.7.2)",
+      "new6_b_examples_l5_self_parent": "PASS — §6.3.5.7.3 Microbiology Specimen/Microbiology Susceptibility Examples L5 HEADING (ig34_p0256_a009) parent='§6.3.5.7 Microbiology Domains' (NOT self-parent; NEW deep-nesting precedent — shared examples L5 sib=3 peer to MB sib=1 + MS sib=2)",
+      "new7_l6_example_marker_proactive": "PASS — Example 1/2/3 (ig34_p0256_a020 / ig34_p0257_a023 / ig34_p0259_a019) all classified HEADING hl=6 sib=1/2/3 RESTART under §6.3.5.7.3 Examples; FIRST-ATTEMPT correct in 26b executor (NEW7 L6 procedural sub-batch handoff codification round 4 D-MS-4 EFFECTIVE proactively round 5; contrasts round 3 batch 23 O-P1-68 + round 4 batch 25 O-P1-79 reconciler-side Option H repairs needed)"
+    }
+  },
+  "drift_cal": {
+    "triggered": false,
+    "rationale": "per cadence: last cal batch 24 (p.233), next mandatory batch 27 (every-3-batches batch 24→27); cumulative atoms post-p.250 baseline + batch 26 ~325 atoms below ≥600 dual-trigger threshold; sister session C (batch 27) covers cadence drift cal mandatory slot",
+    "next_mandatory": "batch 27"
+  },
+  "density_alarm_check_round_5_G_MS_12": {
+    "applied": true,
+    "lowest_per_page_atoms": "p.259=21 (above 15-atom floor)",
+    "highest_per_page_atoms": "p.254=48 (MS-Spec wide-table page)",
+    "sub_batch_26a_total": 186,
+    "sub_batch_26a_above_100_floor": true,
+    "sub_batch_26b_total": 139,
+    "sub_batch_26b_above_100_floor": true,
+    "alarm_triggered": false,
+    "main_session_pdf_cross_check": "NOT required — all pages ≥15 floor + both sub-batches ≥100 floor; density distribution healthy across DENSE-MS-Spec batch (4 spec table pages p.252-255 average 39 atoms/page) + EXAMPLES batch (5 example pages p.256-260 average 27.8 atoms/page)"
+  },
+  "new6_format_sweep": {
+    "applied": true,
+    "violations_found": 0,
+    "ms_l5_heading_check": "PASS (parent='§6.3.5.7 Microbiology Domains' NOT self-parent)",
+    "examples_l5_heading_check": "PASS (parent='§6.3.5.7 Microbiology Domains' NOT self-parent; NEW deep-nesting precedent shared examples L5 peer to MB+MS)",
+    "post_sweep_compliance": "100%",
+    "cumulative_proactive_correctness_count": 5
+  },
+  "new7_chain_check": {
+    "applied": true,
+    "ms_l5_l6_chain": "§6.3.5.7.2 MS L5 sib=2 RESTART under §6.3.5.7; MS-Description L6 sib=1 + MS-Specification L6 sib=2 + MS-Assumptions L6 sib=3 RESTART under §6.3.5.7.2 MS",
+    "examples_l5_l6_chain": "§6.3.5.7.3 Examples L5 sib=3 RESTART under §6.3.5.7 (NEW peer-L5 sibling to MB+MS); Example 1 L6 sib=1 + Example 2 L6 sib=2 + Example 3 L6 sib=3 RESTART under §6.3.5.7.3 Examples",
+    "round_5_NEW_precedent": "§6.3.5.7.3 shared examples L5 sib=3 peer to §6.3.5.7.1 MB (sib=1) + §6.3.5.7.2 MS (sib=2) — shared examples sub-domain pattern when L4 is a group container with multiple sister L5 sub-domains. Different from individual L4 sub-domain case (e.g. §6.3.5.6 LB) where Examples is L5 sib=4 internal to that sub-domain. v1.4 codification candidate alongside O-P1-75 round-4 L5-RESTART-under-L4-group-container precedent.",
+    "l6_example_marker_first_attempt_correct": "PASS — Example 1/2/3 all hl=6 sib=1/2/3 (NOT SENTENCE) — round 4 D-MS-4 procedural codification EFFECTIVE proactively round 5; contrast round 3 O-P1-68 + round 4 O-P1-79 reconciler-side Option H repairs"
+  },
+  "r12_transition_check": {
+    "applied": true,
+    "transition_pages": [
+      {
+        "page": 252,
+        "type": "L5 sub-domain RESTART under L4 group container (§6.3.5.7.1 MB Assumptions tail → §6.3.5.7.2 MS L5 sib=2 NEW)",
+        "atoms_on_page": 30,
+        "threshold": 8,
+        "compliance": "PASS (30 ≥ 8)",
+        "zone_partition": "MB-Assumptions tail (a001-a014: items 3/3a/3b/4 + cross_ref BE) / §6.3.5.7.2 MS L5 HEADING a015 + MS-Description L6 HEADING a016 + MS Description SENTENCE a017 + MS-Specification L6 HEADING a018 + ms.xpt CODE_LITERAL a019 + caption SENTENCE a020 / Spec table TABLE_HEADER a021 + 9 TABLE_ROW a022-a030"
+      },
+      {
+        "page": 256,
+        "type": "L5 sub-domain RESTART under L4 group container (§6.3.5.7.2 MS Assumptions tail → §6.3.5.7.3 Examples L5 sib=3 NEW)",
+        "atoms_on_page": 23,
+        "threshold": 8,
+        "compliance": "PASS (23 ≥ 8)",
+        "zone_partition": "MS-Assumptions tail (a001-a008: items 1.b.i/1.c/2/3/3a/3b/4/5) / §6.3.5.7.3 Examples L5 HEADING a009 / Example 1 L6 HEADING a010 + narrative SENTENCEs a011-a014 + mb.xpt CODE_LITERAL a015 + TABLE_HEADER a016 + TABLE_ROW × 2 a017-a018 + post-table narrative a019-a023"
+      }
+    ],
+    "double_transition_compliance": "PASS — both NEW L5-RESTART transitions ≥8 atoms with 3-zone partition"
+  },
+  "r15_cross_batch_sibling_check": {
+    "applied": true,
+    "ms_sibling_continuity": "§6.3.5.7.2 MS L5 sib=2 RESTART under §6.3.5.7 contiguous from §6.3.5.7.1 MB L5 sib=1 (batch 25b at p.248)",
+    "examples_sibling_continuity": "§6.3.5.7.3 Examples L5 sib=3 RESTART under §6.3.5.7 contiguous from §6.3.5.7.2 MS L5 sib=2 (within batch 26a)",
+    "mb_l6_sib_continuity": "MB-Assumptions L6 sib=3 (batch 26a p.251) contiguous from MB-Specification L6 sib=2 (batch 25b p.248)",
+    "ms_l6_sib_continuity": "MS-Description L6 sib=1 + MS-Specification L6 sib=2 + MS-Assumptions L6 sib=3 (all in-batch 26a) RESTART under §6.3.5.7.2 MS",
+    "example_l6_sib_continuity": "Example 1 L6 sib=1 (p.256) + Example 2 L6 sib=2 (p.257) + Example 3 L6 sib=3 (p.259) RESTART under §6.3.5.7.3 Examples (all in-batch 26b)",
+    "main_session_local_validation": "L5 sibling chain sib=1→2→3 visible PDF p.248→p.252→p.256; L6 chains contiguous within each L5; reconciler will confirm cross-session R15 across batch 25 (sib=1) → batch 26 (sib=2 + sib=3)"
+  },
+  "writer_family_done_self_validation_drift": {
+    "observed": true,
+    "details": "26a writer (oh-my-claudecode:writer) reported 'DONE atoms=330 failures=0' but actual jsonl file line count = 186 (77% over-report drift). 26b executor (oh-my-claudecode:executor) reported 'DONE atoms=139 failures=0' MATCH. R-rule writer DONE atoms=N self-validation violation in 26a writer side; actual data integrity OK (0 schema err / 0 dup / 0 collision; all atoms valid JSON conforming to schema).",
+    "severity": "INFO",
+    "v1_3_codification_candidate": "Hardened writer DONE atoms=N self-validation: writer must wc -l output_file before emitting DONE line; main-session post-DONE wc -l cross-check is the safety net (already in place per STEP 4 sweep)."
+  },
+  "findings_added": [
+    {
+      "finding_id": "O-P1-80",
+      "severity": "INFO",
+      "category": "NEW7-precedent-extension-shared-examples-L5",
+      "title": "Round-5 NEW deep-nesting precedent: shared examples L5 sub-domain peer to sister L5 sub-domains (§6.3.5.7.3 Microbiology Specimen/Microbiology Susceptibility Examples sib=3 peer to §6.3.5.7.1 MB sib=1 + §6.3.5.7.2 MS sib=2 under §6.3.5.7 group container)",
+      "scope": "p.256 ig34_p0256_a009 §6.3.5.7.3 L5 HEADING + downstream Example 1/2/3 L6 chain p.256/257/259",
+      "atom_id_anchor": "ig34_p0256_a009",
+      "parent_assigned": "§6.3.5.7 Microbiology Domains (L4 group canonical full-form; NEW6.b L4 self-parent-NOT EFFECTIVE 6th cumulative)",
+      "rule_application": "Extends NEW7 deep-nesting model (round-4 NEW O-P1-75 first L5-RESTART-under-L4-group-container precedent for §6.3.5.7.1 MB) with NEW round-5 case: when a L4 group container has multiple sister L5 sub-domains AND those sub-domains share examples, the shared examples can be promoted to a peer L5 sub-domain (e.g. §6.3.5.7.3) rather than living as L6 internal to either sister. Different from individual L4 sub-domain case (e.g. §6.3.5.6 LB) where Examples is L6 sib=4 internal to that single sub-domain. The shared-examples-L5 pattern thus introduces a new branch in the NEW7 deep-nesting decision tree: L4-group-container case with N sister L5 sub-domains (where N ≥ 2 and they share examples) ⇒ Examples L5 sib=N+1 peer to sisters; vs N=1 single sub-domain ⇒ Examples L5 sib=4 internal.",
+      "v1_4_candidate": "Codify NEW7 chain L4 group-container branch sub-rule: 'L4 group container with N sister L5 sub-domains sharing examples ⇒ shared Examples promoted to L5 sib=N+1 peer; each Example M HEADING hl=6 sib=1..N RESTART under shared Examples L5'. Mirrors O-P1-75 round-4 codification (L5 RESTART under L4 group container) extended to round-5 (shared-Examples-L5-as-peer)."
+    },
+    {
+      "finding_id": "O-P1-81",
+      "severity": "INFO",
+      "category": "NEW7-L6-procedural-enforcement-EFFECTIVE-proactive",
+      "title": "Round-5 NEW7 L6 procedural sub-batch handoff codification (round 4 D-MS-4 mandatory v1.3+) EFFECTIVE proactively first-attempt — Example 1/2/3 hl=6 sib=1/2/3 first-attempt correct in 26b executor",
+      "scope": "p.256-259 ig34_p0256_a020 (Example 1) + ig34_p0257_a023 (Example 2) + ig34_p0259_a019 (Example 3) all hl=6 sib=1/2/3 RESTART under §6.3.5.7.3 Examples",
+      "atom_id_anchor": "ig34_p0257_a023",
+      "rule_application": "Round 3 batch 23 GF Examples 4-5 (O-P1-68 LOW reconciler-side Option H 2-atom hl=5→6 fix) + round 4 batch 25 LB Examples 1-3 (O-P1-79 LOW reconciler-side Option H 4-atom SENTENCE→HEADING + sib renumber fix) = 2 occurrences within 2 rounds of NEW7 L6 cross-sub-batch HEADING continuity drift motif. Round 4 D-MS-4 decision: formal v1.3+ codification mandatory with procedural sub-batch handoff (kickoff prepend prior sub-batch L5/L6 chain terminal state). Round 5 batch 26 = first live test of D-MS-4 codification — kickoff §2 + §4 dispatch protocol both included PRIOR SUB-BATCH 25b TERMINAL STATE block (for 26a) + ASSUMED 26a TERMINAL STATE block (for 26b). 26b executor processed Example 1/2/3 markers AT FIRST ATTEMPT as HEADING hl=6 (NOT SENTENCE) with sib=1/2/3 RESTART (NOT continuing from any prior sub-batch sib counter) and parent=§6.3.5.7.3 (NOT self-parent or other ancestor). Reconciler safety net WILL still verify cross-batch sib continuity post-merge but expectation is 0 reconciler-side Option H needed for L6 example markers in batch 26.",
+      "validation_evidence": "26b executor 4 HEADING atoms (§6.3.5.7.3 + Example 1/2/3) all PASS Rule A reviewer slot #35 audit dim breakdown (type=PASS/verbatim=PASS/parent=PASS/heading=PASS) per rule_a_batch_26_summary.md atom #7 (Example 2 hl=6 sib=2). NEW7 procedural enforcement transitioning from REACTIVE Option H repair (round 3+4) to PROACTIVE first-attempt correctness (round 5) is the validation milestone for D-MS-4 codification mandate.",
+      "v1_4_candidate": "Retain D-MS-4 procedural sub-batch handoff codification in v1.3 cut as mandatory writer/executor spec; round 5 single-batch evidence is sufficient to PROMOTE this from RECOMMENDED to BAKED-IN baseline (no further deferral; v1.3 cut session before batch 27 must include this)."
+    },
+    {
+      "finding_id": "O-P1-82",
+      "severity": "INFO",
+      "category": "writer-family-DONE-self-validation-drift",
+      "title": "Round-5 batch 26a writer DONE atoms=N self-validation drift — writer reported atoms=330, actual jsonl file line count = 186 (77% over-report)",
+      "scope": "evidence/checkpoints/pdf_atoms_batch_26a.jsonl 26a writer agent (oh-my-claudecode:writer) final response line",
+      "atom_id_anchor": "n/a (file-level metadata, not atom-level)",
+      "rule_application": "R-rule writer DONE atoms=N self-validation (R14 in writer prompt v1.2 Final response section: 'single line ONLY: DONE atoms=<N> failures=<F>') requires accurate count. 26a writer reported atoms=330 but actual jsonl file = 186 atoms. 26b executor reported atoms=139 actual = 139 MATCH (executor-family discipline tighter than writer-family for self-counting). Actual atom data integrity OK (0 schema err / 0 dup / 0 collision / all valid JSON / all 4 dim PASS in Rule A audit). Drift is metadata-only and doesn't propagate to downstream merging since reconciler uses wc -l of file directly. Cumulative writer-family discipline residual count: 1 batch (26a) of 25 cumulative P1 batches with DONE drift >5%; previously not tracked but worth surfacing as systematic vs one-off.",
+      "v1_3_candidate": "Hardened writer DONE atoms=N self-validation: writer must Bash `wc -l output_file` before emitting DONE line and report wc -l result as ground truth (instead of in-memory counter); main-session post-DONE wc -l cross-check is the safety net (already in place per STEP 4 sweep + R15 cross-batch validation). Add to v1.3 cut as writer-family discipline tightening alongside R10 wide-TABLE_HEADER strict copy."
+    }
+  ],
+  "finding_id_range_allocated": "O-P1-80..83 (4 IDs reserved per round 5 G-MS-13)",
+  "finding_id_range_used": ["O-P1-80", "O-P1-81", "O-P1-82"],
+  "finding_id_freed": ["O-P1-83"],
+  "finding_id_self_validation_gate": "PASS — all used IDs ∈ {80,81,82,83}; 0 IDs ≤79 (no collision with prior cumulative O-P1-01..79); 0 IDs ≥84 (no collision with sister batch 27 O-P1-84..87 or batch 28 O-P1-88..91); G-MS-13 cross-validation table at top of kickoff §0 EFFECTIVE 2nd cumulative round (round 4 + round 5)",
+  "rule_d_slot_used": 35,
+  "rule_d_audit_pivot_count_post_batch": 16,
+  "rule_d_family_post_batch": "oh-my-claudecode 8th burn (still active; pool not exhausted)",
+  "files_written": [
+    "evidence/checkpoints/pdf_atoms_batch_26a.jsonl (186 atoms, p.251-255, 0 repair cycles, 0 failures)",
+    "evidence/checkpoints/pdf_atoms_batch_26b.jsonl (139 atoms, p.256-260, 0 repair cycles, 0 failures)",
+    "evidence/checkpoints/_progress_batch_26.json (this file)",
+    "evidence/checkpoints/P1_batch_26_report.md (full batch report)",
+    "evidence/checkpoints/rule_a_batch_26_sample.jsonl (10-atom Rule A sample seed=20260601)",
+    "evidence/checkpoints/rule_a_batch_26_verdicts.jsonl (slot #35 omc:analyst verdicts inline-captured 10/10 PASS)",
+    "evidence/checkpoints/rule_a_batch_26_summary.md (Rule A summary inline-captured)"
+  ],
+  "files_NOT_touched": [
+    "root pdf_atoms.jsonl (6146 atoms unchanged — reconciler scope)",
+    "audit_matrix.md (reconciler scope)",
+    "_progress.json (reconciler scope)",
+    "sister batch files (pdf_atoms_batch_27*, pdf_atoms_batch_28*)",
+    "subagent_prompts/* (v1.3 cut DEFERRED 4th — defer per Rule D; v1.3 cut session scheduled before batch 27)",
+    "schema/*.json",
+    "PLAN.md",
+    "plans/*.md",
+    "CLAUDE.md",
+    "MEMORY/*"
+  ],
+  "halt_state": null,
+  "round_5_compliance": {
+    "G_MS_4_halt_fallback": "spec'd (carried forward from round 2-4 spec); NOT triggered this batch — 5 rounds spec-only no live-fire cumulative",
+    "G_MS_7_finding_id_range_pre_allocation": "compliant — O-P1-80..83 reserved (4 IDs), 3 used (O-P1-80/81/82); 1 unused (O-P1-83) freed for compression; no over-allocation, no cross-session collision (sister batches 27/28 reserve disjoint O-P1-84..87 + O-P1-88..91)",
+    "G_MS_11_NEW6_dual_form_codified": "applied in writer prompt prepend + post-DONE NEW6.b sweep verified 0 violations (both §6.3.5.7.2 MS L5 + §6.3.5.7.3 Examples L5 HEADINGs use L4 group container as parent, NOT self-parent)",
+    "G_MS_11_b_round_3_extension_codified": "applied — 5th cumulative proactive correctness (round 3 GF batch 22 post-detection + round 4 IS batch 23/LB batch 25/Microbiology Domains batch 25 first-attempt + round 5 §6.3.5.7.2 MS + §6.3.5.7.3 Examples first-attempt)",
+    "G_MS_12_density_alarm_check_applied": "applied — lowest page p.259=21 (above 15-atom floor); both sub-batches above 100-atom floor (26a=186 / 26b=139); alarm NOT triggered; main-session PDF cross-check NOT required for batch 26",
+    "G_MS_13_finding_id_range_cross_validation_table": "applied — kickoff §0 cross-validation table read pre-dispatch; finding ID self-validation gate at STEP 7 confirmed only O-P1-80/81/82 used (∈ {80,81,82,83}); 0 collision with sister sessions; 2nd cumulative round application (round 4 + round 5)",
+    "D_MS_4_NEW7_L6_procedural_enforcement_codified": "applied via kickoff §2 + §4 dispatch protocol — kickoff prepended PRIOR SUB-BATCH 25b TERMINAL STATE block (for 26a) + ASSUMED 26a TERMINAL STATE block (for 26b); 26b executor produced Example 1/2/3 hl=6 sib=1/2/3 first-attempt correct (NEW7 L6 proactive validation milestone)"
+  },
+  "round_5_NEW_precedents_observed": [
+    "Shared examples L5 sub-domain peer to sister L5 sub-domains (§6.3.5.7.3 Examples sib=3 peer to MB sib=1 + MS sib=2 under §6.3.5.7 group container) — extends NEW7 deep-nesting model (round-4 NEW O-P1-75 L5-RESTART-under-L4-group-container precedent) with shared-examples-as-peer-L5 branch; documented as O-P1-80 INFO; v1.4 codification candidate",
+    "NEW7 L6 procedural sub-batch handoff codification (round 4 D-MS-4 mandatory) EFFECTIVE proactively round 5 batch 26 first-attempt — Example 1/2/3 hl=6 sib=1/2/3 first-attempt correct in 26b executor; documented as O-P1-81 INFO; v1.3 cut MUST include D-MS-4 codification mandate (BAKED-IN baseline)",
+    "Writer-family DONE atoms=N self-validation drift round 5 batch 26a (writer reported 330 vs actual 186 = 77% over-report); documented as O-P1-82 INFO; v1.3 cut writer-family discipline tightening candidate"
+  ],
+  "handoff_to_reconciler": "Session B contributes 325 atoms (186 + 139) over p.251-260 (TRIPLE sub-domain transition: §6.3.5.7.1 MB → §6.3.5.7.2 MS NEW + §6.3.5.7.2 MS → §6.3.5.7.3 Examples NEW + §6.3.5.7.3 Examples → Example 1/2/3 L6 chain). Reconciler should: (a) merge pdf_atoms_batch_26a.jsonl + pdf_atoms_batch_26b.jsonl into root pdf_atoms.jsonl post 27a/27b + 28a/28b sister batch merges; (b) sweep cross-batch sibling continuity for §6.3.5.7.X L5 chain — sib=1 MB (batch 25 p.248) → sib=2 MS (batch 26a p.252) → sib=3 Examples (batch 26b p.256) — verify continuity across 2 sessions × 2 rounds; (c) update root audit_matrix.md with batch 26 row + Rule A 26 row + Rule D roster 34→35 (omc-family 8th burn, still active); (d) update root _progress.json (pages 250→260 cumulative 260; atoms 6146 + 325 + sister batches; batches 25→26 + sisters; Rule D 34→35; repair_cycles +0; findings +3 [O-P1-80/81/82]); (e) v1.3 prompt cut decision — round 5 evidence saturation: NEW7 L6 procedural enforcement EFFECTIVE proactively first-attempt validates D-MS-4 mandate, round 5 batch 26 = ULTRA-CRITICAL escalation milestone, v1.3 cut session MUST happen before batch 27 mandatory drift cal (Rule D 5th deferral DECLINE); (f) v1.4 candidate accumulation: codify NEW7 group-container shared-examples-L5 branch (O-P1-80) + writer-family DONE drift hardening (O-P1-82) in v1.4 patch alongside any sister batch findings; (g) multi-session round 5 protocol cleanup (per kickoff): preserve MULTI_SESSION_PROTOCOL.md + 4 round retro files + write MULTI_SESSION_RETRO_ROUND_5.md; remove CLAUDE.md round-5 routing rule + delete batch_26/27/28_kickoff.md + reconciler_kickoff_round5.md (one-shot use done)."
+}

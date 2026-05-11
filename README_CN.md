@@ -324,7 +324,7 @@ SEX 绑定哪个 codelist？
 - [x] Phase 6.5 — 多平台 AI 部署 + Release v1.0（4 平台，`ai_platforms/release/v1.0/`）
 - [ ] Phase 6.4 — 结构化元数据（YAML/JSON）— 已并入 Phase 7 Step 7
 - [ ] Phase 7 — RAG + 知识图谱 + 数据集校验（设计完成，详见 `docs/DESIGN_RAG_KG.md`）
-- [ ] Deep Verification — PDF→KB 字面级 atom 逐条审计（进行中，详见 `.work/06_deep_verification/`）
+- [ ] Deep Verification — PDF→KB 字面级 atom 逐条审计（进行中，详见 `branches/06_deep_verification/`）
 
 ## 免责声明
 

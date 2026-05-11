@@ -48,7 +48,7 @@ title: "构建方法与验证声明"
 | 6 | 检索优化 (路由层 / 反向变量索引) | `ROUTING.md`; `VARIABLE_INDEX.md` (1,523 个变量) |
 | 6.5 | AI 平台部署 | 4 平台发布包 |
 
-与上述 7 阶段流水线并行, 一条**原子级字面验证审计** track 持续推进. 知识库中每一条原子断言均在源 PDF 上按页对账. 截至 2026-04-29, 该审计已覆盖范围内 **97% 页码**, 仍在进行中. 每批证据公开于 [`.work/06_deep_verification/evidence/checkpoints/`](https://github.com/hakupao/sdtm-pedia/tree/main/.work/06_deep_verification/evidence/checkpoints).
+与上述 7 阶段流水线并行, 一条**原子级字面验证审计** track 持续推进. 知识库中每一条原子断言均在源 PDF 上按页对账. 截至 2026-04-29, 该审计已覆盖范围内 **97% 页码**, 仍在进行中. 每批证据公开于 [`branches/06_deep_verification/evidence/checkpoints/`](https://github.com/hakupao/sdtm-pedia/tree/main/branches/06_deep_verification/evidence/checkpoints).
 
 ## 3. 可追溯性 — 单条答案的审计
 

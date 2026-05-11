@@ -1,0 +1,14 @@
+{"sample_id": 1, "category": "boundary", "atom_id": "md_dmFA_ex_a001", "rationale": "H1 file root sib=1 universal precedent (round 01-04 lock)"}
+{"sample_id": 2, "category": "boundary", "atom_id": "md_dmFA_ex_a002", "rationale": "first H2 §FA.1 boundary (sib=1)"}
+{"sample_id": 3, "category": "boundary", "atom_id": "md_dmFA_ex_a003", "rationale": "first SENTENCE under §FA.1 (parent_section transition from §FA root → §FA.1 sub-namespace)"}
+{"sample_id": 4, "category": "boundary", "atom_id": "md_dmFA_ex_a037", "rationale": "H2 §FA.2 boundary (sib=2)"}
+{"sample_id": 5, "category": "boundary", "atom_id": "md_dmFA_ex_a065", "rationale": "H2 §FA.3 boundary (sib=3)"}
+{"sample_id": 6, "category": "boundary", "atom_id": "md_dmFA_ex_a082", "rationale": "H2 §FA.4 boundary (sib=4)"}
+{"sample_id": 7, "category": "boundary", "atom_id": "md_dmFA_ex_a104", "rationale": "H2 §FA.5 boundary (sib=5)"}
+{"sample_id": 8, "category": "boundary", "atom_id": "md_dmFA_ex_a131", "rationale": "H2 §FA.6 boundary (sib=6)"}
+{"sample_id": 9, "category": "boundary", "atom_id": "md_dmFA_ex_a159", "rationale": "last atom (TABLE_ROW L244 final relrec.xpt row)"}
+{"sample_id": 10, "category": "stratified", "atom_id": "md_dmFA_ex_a006", "rationale": "TABLE_HEADER ce.xpt L11-12 (Hook A1 span=1 verify)"}
+{"sample_id": 11, "category": "stratified", "atom_id": "md_dmFA_ex_a142", "rationale": "TABLE_ROW with possibly trailing AE row L217 (verify cell preservation)"}
+{"sample_id": 12, "category": "stratified", "atom_id": "md_dmFA_ex_a134", "rationale": "LIST_ITEM sib_idx=null (round 03 lock)"}
+{"sample_id": 13, "category": "stratified", "atom_id": "md_dmFA_ex_a136", "rationale": "L205 italic *Note:...* — verify SENTENCE not NOTE per Hook D-NOTE-BQ negative case"}
+{"sample_id": 14, "category": "stratified", "atom_id": "md_dmFA_ex_a013", "rationale": "L25 bold-caption **Rows 1, 6, 11:** — verify SENTENCE per §R-D5 bold-caption accept"}

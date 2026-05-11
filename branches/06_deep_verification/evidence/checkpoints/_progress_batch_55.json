@@ -1,0 +1,16 @@
+{
+  "batch_id": "55",
+  "round": 14,
+  "sister": "D",
+  "scope": "sv20 p.50 P0 baseline backfill — §4 Associated Persons Data L1 NEW chapter (entire chapter, single page)",
+  "status": "completed",
+  "atoms": 21,
+  "failures": 0,
+  "repair_cycles": 0,
+  "pages_done": [50],
+  "writer_subagent_type": "oh-my-claudecode:executor",
+  "writer_prompt_version": "P0_writer_pdf_v1.8",
+  "single_dispatch": true,
+  "completed_at_iso": "2026-04-29T00:00:00Z",
+  "notes": "1st inaugural v1.8 live-fire production batch. sv20 p.50 §4 Associated Persons Data: 1 L1 HEADING + 7 SENTENCE + 3 LIST_ITEM + 1 table-caption HEADING (L2) + 1 TABLE_HEADER + 4 TABLE_ROW + 2 SENTENCE (closing) = 21 atoms total. Hook 21 N/A (single-page batch, not dense spec-table multi-page). All 21 self-validate hooks pass."
+}

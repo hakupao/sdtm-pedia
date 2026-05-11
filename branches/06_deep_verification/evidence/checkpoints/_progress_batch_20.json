@@ -1,0 +1,94 @@
+{
+  "batch_id": 20,
+  "session_id": "B",
+  "round": 3,
+  "status": "completed",
+  "scope_pages": "p.191-200",
+  "atoms_done": 230,
+  "atoms_breakdown": {
+    "20a": {"pages": "p.191-195", "atoms": 111, "writer_subagent": "oh-my-claudecode:executor", "writer_model": "sonnet", "prompt_version": "P0_writer_pdf_v1.2_inline_R10-15_O26_NEW1-7"},
+    "20b": {"pages": "p.196-200", "atoms": 119, "writer_subagent": "oh-my-claudecode:executor", "writer_model": "sonnet", "prompt_version": "P0_writer_pdf_v1.2_inline_R10-15_O26_NEW1-7"}
+  },
+  "atoms_per_page": {
+    "p.191": 30, "p.192": 10, "p.193": 25, "p.194": 22, "p.195": 24,
+    "p.196": 28, "p.197": 25, "p.198": 22, "p.199": 22, "p.200": 22
+  },
+  "atom_type_distribution": {
+    "TABLE_ROW": 130, "HEADING": 20, "SENTENCE": 39, "LIST_ITEM": 24,
+    "CODE_LITERAL": 5, "TABLE_HEADER": 9, "NOTE": 3
+  },
+  "failures": 0,
+  "repair_cycles": 0,
+  "repair_cycle_notes": "Zero repair cycles pre-Rule-A. Density alarm fired on p.192 (10 atoms < 15 = 60% of 25 baseline) per G-MS-12 spec — main session PDF cross-check confirmed FALSE POSITIVE: p.192 physical content is only eg.xpt caption + TABLE_HEADER + 8 dataset TABLE_ROWs (sparse page with rest blank space + page footer), 10 atoms exactly matches PDF physical content. No Option E rerun triggered. G-MS-12 alarm threshold spec validated as designed (catches under-extraction proactively but allows main-session adjudication via PDF cross-check before triggering Option E).",
+  "rule_a": {
+    "reviewer_slot": 29,
+    "reviewer_type": "plugin-dev:skill-reviewer",
+    "reviewer_audit_pivot_index": 10,
+    "reviewer_family": "plugin-dev",
+    "reviewer_family_burn_count_post_batch": 3,
+    "reviewer_family_pool_status": "COMPLETED (3rd burn: plugin-validator #25 + agent-creator #27 + skill-reviewer #29)",
+    "sample_size": 10,
+    "sample_seed": 20260505,
+    "sample_strat": "1/page coverage p.191-200, TABLE_ROW×5 + HEADING×3 + LIST_ITEM×1 + CODE_LITERAL×1",
+    "raw_pass": 10,
+    "raw_partial": 0,
+    "raw_fail": 0,
+    "weighted_pct": 100.0,
+    "threshold": 90.0,
+    "verdict": "PASS",
+    "tooling_note": "Reviewer environment lacked Bash tool (vs #25/#27 precedent which had Bash for heredoc). Reviewer produced verdicts.jsonl + summary.md content inline; main session wrote files preserving content verbatim. Audit independence preserved (reviewer Read PDF + sample independently, did NOT read prior reports or main-session sweep results). Sub-pattern of write-tool-less reviewer adaptation."
+  },
+  "drift_cal": {
+    "triggered": false,
+    "next_mandatory": "batch 21 (per cadence: every 3 batches batch 18→21, cumulative atoms post-p.180 ≥300)",
+    "rationale": "Batch 20 not on drift cal cadence (last mandatory batch 18 p.180; next mandatory batch 21 per dual-trigger). Skipped per kickoff STEP 6."
+  },
+  "findings_added": [],
+  "finding_id_range_allocated": "O-P1-55..58",
+  "finding_id_range_used": [],
+  "finding_id_range_freed_for_compression": ["O-P1-55", "O-P1-56", "O-P1-57", "O-P1-58"],
+  "rule_d_slot_used": 29,
+  "rule_d_audit_pivot_count_post_batch": 10,
+  "rule_d_cumulative_post_batch": "Slots #1-#29 burned cumulative; vercel pool exhausted (post round 2); plugin-dev pool exhausted (this batch 3rd burn); pr-review-toolkit family 1 burn (#20); oh-my-claudecode family 4 burns (#21/#23/#26 vercel-misnumber error/#28); next round 3 sister batches use omc 4th/5th burns (#30 test-engineer batch 21, #31 git-master batch 22)",
+  "files_written": [
+    "evidence/checkpoints/pdf_atoms_batch_20a.jsonl (111 atoms)",
+    "evidence/checkpoints/pdf_atoms_batch_20b.jsonl (119 atoms)",
+    "evidence/checkpoints/rule_a_batch_20_sample.jsonl (10 atoms)",
+    "evidence/checkpoints/rule_a_batch_20_verdicts.jsonl (10 verdicts)",
+    "evidence/checkpoints/rule_a_batch_20_summary.md",
+    "evidence/checkpoints/_progress_batch_20.json (this file)",
+    "evidence/checkpoints/P1_batch_20_report.md"
+  ],
+  "files_NOT_touched": [
+    ".work/06_deep_verification/pdf_atoms.jsonl (root, reconciler 串行 merge)",
+    ".work/06_deep_verification/audit_matrix.md (reconciler 串行 append)",
+    ".work/06_deep_verification/_progress.json (reconciler 串行 update)",
+    ".work/06_deep_verification/subagent_prompts/v1.3_patch_candidates.md (reconciler decision)",
+    ".work/06_deep_verification/subagent_prompts/P0_writer_pdf_v1.2.md (v1.3 cut deferred)",
+    ".work/06_deep_verification/schema/*.json",
+    ".work/06_deep_verification/PLAN.md",
+    ".work/06_deep_verification/plans/*.md",
+    "CLAUDE.md / MEMORY / project meta files",
+    "sister batch files (pdf_atoms_batch_21*, pdf_atoms_batch_22*)",
+    "historical .bak files (batch 17/18/19/Option E/Option H backups preserved per Rule B)"
+  ],
+  "halt_state": null,
+  "round_3_compliance": {
+    "G_MS_4_halt_fallback_decision_tree": "spec carried forward unchanged from round 2 protocol; live-fire test NOT triggered batch 20 (no halt condition encountered)",
+    "G_MS_7_finding_id_range_pre_allocation": "100% compliant — batch 20 reserved O-P1-55..58, used 0 of 4, freed 4 for compression by next reconciler-added findings; sister batches 21=O-P1-59..62 + 22=O-P1-63..66 reserved per kickoff",
+    "G_MS_11_NEW6_dual_form_codified": "100% compliant — kickoff Step 1 §NEW6 explicitly codified chapter `§N.N [TITLE-ALL-CAPS]` short-bracket vs sub-domain `§N.N.N Title (CODE)` canonical full-form with anti-pattern禁止 examples; main session post-DONE NEW6 format sweep verified 0 violations across 230 atoms (vs round 2 batch 18 5 violations)",
+    "G_MS_12_density_alarm_check_applied": "100% compliant — main session post-DONE per-page density check fired alarm on p.192 (10 atoms < 15 = 60% of 25 baseline); main session executed protocol-specified PDF cross-check before Rule A dispatch; cross-check determined alarm = FALSE POSITIVE (sparse page eg.xpt 8-row dataset table only); G-MS-12 spec validated as designed (proactive detection + main-session adjudication prevents false-positive Option E rerun)"
+  },
+  "round_3_protocol_observations": {
+    "round_3_NEW_deep_nesting_validated": "§6.3.5 group container introduces NEW L3/L4/L5/L6 deep-nesting pattern for §6.3.5.X children (vs §6.3.1-4 flat L3/L4/L5). Writer correctly applied NEW7 chain at +1 level for §6.3.5.X domains: §6.3.5.2 BS L5 chain (Description=1/Spec=2/Assumptions=3/Example=4) + §6.3.5.3 CP L5 chain (Description=1/Spec=2 head) + §6.3.5.2 BS Example 1 L6 sib=1 (deepest nesting). Pattern reproducible — batch 21 + 22 will sustain through GF/IS/LB and other §6.3.5.X domains.",
+    "R15_cross_batch_continuity_clean": "EG-Examples L5 sib=4 (Example 4 p.191) correctly continues batch 19 sib=3 chain. §6.3.4 IE L3 sib=4 + §6.3.5 group L3 sib=5 NEW under §6.3 continue §6.3.1 DA=1 / §6.3.2 DD=2 / §6.3.3 EG=3 chain.",
+    "TOC_anchor_methodology_n_120": "n=120 cumulative anchored audit (slots #18-#29, 12 batches). Methodology firmly locked at 12 consecutive batches across vercel/pr-review-toolkit/oh-my-claudecode/plugin-dev 4 families. 0 FP / 0 inversion across all reviewers."
+  },
+  "multi_session_protocol_compliance": {
+    "shared_files_off_limits": "100% compliant — 0 writes to root pdf_atoms.jsonl / audit_matrix.md / _progress.json / sister batch files",
+    "pre_allocated_reviewer_slot_used": "#29 plugin-dev:skill-reviewer (kickoff hardcoded, not session-self-picked)",
+    "kickoff_TOC_R15_NEW6_NEW7_density_alarm_inline_prepended": "100% compliant — main session pre-dispatch verified TOC vs PDF p.4, prepended R15 cross-batch sib context + NEW6 dual-form codification + NEW7 deterministic chain + density alarm baseline to both writer prompts",
+    "session_final_message_format": "PARALLEL_SESSION_20_DONE atoms=230 failures=0 repair_cycles=0 rule_a=100.0% drift_cal=skipped findings_added=[]"
+  },
+  "last_updated": "2026-04-26"
+}

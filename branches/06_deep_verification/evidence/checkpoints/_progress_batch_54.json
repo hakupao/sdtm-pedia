@@ -1,0 +1,195 @@
+{
+  "batch": "54",
+  "round": 14,
+  "session": "C",
+  "status": "completed",
+  "completed_at": "2026-04-29T00:00:00Z",
+  "scope": {
+    "pdf_source": "SDTM_v2.0",
+    "pages": "70-74",
+    "page_count": 5,
+    "atom_id_namespace": "sv20_p<NNNN>_aXXX"
+  },
+  "prompt_version": "P0_writer_pdf_v1.8",
+  "v1_8_baseline_inaugural_live_fire": true,
+  "writer": {
+    "subagent_type": "oh-my-claudecode:executor",
+    "method": "single_dispatch",
+    "n6_single_dispatch_cumulative_live_fires": 8
+  },
+  "atoms": {
+    "total": 125,
+    "by_page": {"70": 36, "71": 39, "72": 16, "73": 20, "74": 14},
+    "by_atom_type": {"HEADING": 7, "LIST_ITEM": 64, "SENTENCE": 53, "NOTE": 1}
+  },
+  "heading_transitions": {
+    "l1_new": ["§7 [Changes from SDTM v1.8 to SDTM v2.0]", "§8 [Proposed Future Changes to the SDTM]", "§9 [Appendices]"],
+    "l2_new": ["Appendix A: Representations and Warranties, Limitations of Liability, and Disclaimers"],
+    "l3_new": ["CDISC Patent Disclaimers", "Representations and Warranties", "Limitation of Liability"],
+    "active_state_at_end": {
+      "l1": "§9 [Appendices]",
+      "l2": "Appendix A: Representations and Warranties, Limitations of Liability, and Disclaimers",
+      "l3": "Limitation of Liability"
+    }
+  },
+  "self_validate_hooks": {
+    "hooks_passed": "1-21 except hook 12/13/15-17 N/A (no TABLE_ROW)",
+    "hook_18_warns": 1,
+    "hook_18_warn_atom_ids": ["sv20_p0074_a011"],
+    "hook_18_warn_disposition": "non-blocking per N22 — legal label prefix before all-caps clause; intentional PDF structure",
+    "hook_19_pdf_cross_verify": "10/10 PASS",
+    "hook_21_page_boundary_off_by_one_warns": 0,
+    "hook_21_inaugural_live_fire": true,
+    "hook_21_verdict": "TRUE_NEGATIVE",
+    "schema_errors_at_writer_stage": 0,
+    "schema_errors_caught_downstream_by_rule_a": "prompt_version pattern mismatch — RESOLVED via Option H bulk patch this batch",
+    "furniture_skipped": 20
+  },
+  "drift_cal": {
+    "carrier_cumulative": 14,
+    "n14_strongly_validated_live_fire": 8,
+    "v18_baseline_cumulative_live_fire": 4,
+    "v18_baseline_inaugural_under_v18_prompt_cut": true,
+    "in_sv20_pdf_source_cumulative": 3,
+    "target_page": "sv20 p.72",
+    "method": "v1.6 NEW EXECUTOR-VARIANT alternation under v1.7/v1.8 N21 §派发 drift_cal_alternation_artifact exception",
+    "baseline": {"subagent_type": "oh-my-claudecode:executor", "atoms": 16},
+    "rerun": {"subagent_type": "oh-my-claudecode:writer", "atoms": 16, "merged_to_root": false, "artifact_path": "evidence/checkpoints/drift_cal_sv20_p072_writer_rerun.jsonl"},
+    "metrics": {
+      "strict_count_overlap_pct": 100.0,
+      "verbatim_jaccard_pct": 100.0,
+      "verbatim_hash_intersection": 16,
+      "verbatim_hash_union": 16,
+      "verdict_numeric": "🟢 PASS BOTH THRESHOLDS",
+      "inaugural_clean": true,
+      "first_in_p1_cumulative_without_any_axis_motif": true
+    },
+    "multi_axis_taxonomy_post_round_14_batch_54": {
+      "axis_1_value_hallucination_writer_direction_cumulative": 7,
+      "axis_1_value_hallucination_executor_direction_cumulative": 0,
+      "axis_2_canonical_form_delimiter_writer_direction_cumulative": 2,
+      "axis_2_canonical_form_delimiter_executor_direction_cumulative": 1,
+      "axis_3_schema_field_enum_fab_writer_direction_cumulative": 1,
+      "axis_4_parent_section_casing_suffix_cross_direction_cumulative": 1,
+      "axis_5_atom_type_interpretation_grouping_bullet_headers_cross_direction_cumulative_NEW": 1,
+      "n26_page_boundary_off_by_one_executor_direction_cumulative": 2
+    },
+    "axis_5_new_class_round_14_batch_54": {
+      "atoms_affected": ["sv20_p0072_a003", "sv20_p0072_a006", "sv20_p0072_a009"],
+      "executor_classification": "LIST_ITEM",
+      "writer_classification": "SENTENCE",
+      "verbatim_byte_identical": true,
+      "halt_triggered": false,
+      "disposition": "content-preserving stylistic; deferred to v1.9 codification candidate (recommend executor convention bullet-marker = LIST_ITEM)",
+      "finding_id": "O-P1-194 LOW"
+    },
+    "hypothesis_h_c_first_inaugural_evidence": {
+      "hypothesis": "content-conditional writer-direction reliability",
+      "claim": "writer-family RELIABLE on narrative_chapter_with_grouped_list_bullets content type; UNRELIABLE on TABLE_ROW dense spec-table content",
+      "round_14_batch_54_evidence": "writer rerun byte-exact across 16/16 p.72 atoms (narrative + bulleted-list content)",
+      "v1_9_candidate": "refine N21 ban scope from blanket to content-type-conditional"
+    },
+    "halt_analysis": "NO HALT (0 schema errors + 0 Hook 19 fab + 0 N26 WARN + content-preserving Axis 5 NOT VALUE HALLUCINATION + numeric thresholds PASS)",
+    "report_path": "evidence/checkpoints/drift_cal_batch_54_sv20_p072_report.md"
+  },
+  "rule_a": {
+    "reviewer_slot": 68,
+    "reviewer_subagent_type": "oh-my-claudecode:scientist",
+    "audit_pivot_count": 48,
+    "omc_family_burn_count": 16,
+    "d_ms_7_candidate": "scientist-analyst 1st live-fire",
+    "d_ms_7_sister_chain_extension": "7 successive omc agents at 10/11/12/13/14/15/16th-burn intra-family depth STRONGLY VALIDATED EXTENDED (planner+verifier+tracer+code-reviewer+critic+architect+scientist)",
+    "sample_size": 10,
+    "sample_method": "stratified 1/page sv20 p.70-74 (2 atoms/page × 5 pages, seed=20260702)",
+    "verdict_pre_option_h": {
+      "weighted_pct": 75.0,
+      "verbatim_pass": "10/10",
+      "atom_type_pass": "10/10",
+      "parent_section_pass": "10/10",
+      "schema_pass": "0/10",
+      "verdict": "FAIL",
+      "primary_cause": "extracted_by.prompt_version pattern mismatch — bare v1.8 vs canonical P0_writer_pdf_v1.8"
+    },
+    "verdict_post_option_h_mechanical_reprojection": {
+      "weighted_pct": 100.0,
+      "verbatim_pass": "10/10",
+      "atom_type_pass": "10/10",
+      "parent_section_pass": "10/10",
+      "schema_pass": "10/10",
+      "verdict": "PASS",
+      "threshold_margin_pp": 20
+    },
+    "rule_d_compliance": "scientist's original FAIL verdict stands in audit trail (rule_a_batch_54_summary.md + rule_a_batch_54_verdicts.jsonl); post-patch state mechanically verifiable via deterministic regex pattern check; scientist NOT re-dispatched per Rule D 审阅隔离"
+  },
+  "option_h_bulk_metadata_patch": {
+    "trigger": "Rule A scientist slot #68 systematic schema FAIL on extracted_by.prompt_version pattern",
+    "patches_applied": [
+      {"file": "pdf_atoms_batch_54.jsonl", "atoms": 125, "patched_prompt_version": 125, "patched_ts": 0, "post_patch_pv_fail": 0, "post_patch_ts_fail": 0, "post_patch_req_fail": 0},
+      {"file": "drift_cal_sv20_p072_writer_rerun.jsonl", "atoms": 16, "patched_prompt_version": 16, "patched_ts": 16, "post_patch_pv_fail": 0, "post_patch_ts_fail": 0, "post_patch_req_fail": 0}
+    ],
+    "rule_b_backups": [
+      "evidence/checkpoints/pdf_atoms_batch_54.jsonl.pre-OptionH-prompt_version.bak",
+      "evidence/checkpoints/drift_cal_sv20_p072_writer_rerun.jsonl.pre-OptionH-prompt_version.bak"
+    ],
+    "verbatim_hash_invariance": "pre/post-patch verbatim hashes IDENTICAL across all 125 + 16 atoms (mechanical metadata patch does not touch verbatim field)",
+    "drift_cal_metrics_unchanged": "strict 100.0% / Jaccard 100.0% (verbatim hashes unchanged)",
+    "v1_9_candidate": "dispatch prompt template MUST specify canonical extracted_by.prompt_version literal P0_writer_pdf_vX.Y + REQUIRED ts; add Hook 22 NEW Self-Validate pre-DONE pattern check on extracted_by.prompt_version + ts presence"
+  },
+  "findings_filed": {
+    "O-P1-193": {"severity": "MEDIUM", "status": "RESOLVED_THIS_BATCH_VIA_OPTION_H", "description": "prompt_version metadata pattern mismatch (Rule A scientist finding)"},
+    "O-P1-194": {"severity": "LOW", "status": "DEFERRED_TO_V1.9", "description": "NEW Axis 5 atom_type interpretation divergence on grouping-bullet headers (drift cal finding)"},
+    "O-P1-195": {"status": "RESERVED_UNUSED"},
+    "O-P1-196": {"status": "RESERVED_UNUSED"}
+  },
+  "v1_9_candidate_stack_contribution": [
+    "NEW Axis 5 atom_type interpretation grouping-bullet headers codification (single canonical form recommend executor convention bullet-marker = LIST_ITEM)",
+    "Content-conditional N21 ban scope refinement (H_C 1st INAUGURAL evidence)",
+    "Hypothesis H_C content-conditional writer-direction reliability validation continuation (need more cumulative live-fires on narrative-only pages)",
+    "Per-family cumulative count tracking (carry-forward from round 13 batch 51)",
+    "NEW Axis 4 parent_section L2/L3/L4 codification (carry-forward from round 13 batch 51 — round 14 = 2nd live-fire opportunity passed cleanly)",
+    "N26 motif integration as taxonomy axis (carry-forward — round 14 = 3rd live-fire opportunity passed cleanly)",
+    "TABLE_HEADER continuation-page emission convention codification (carry-forward — inapplicable on round 14 batch 54)",
+    "Halt clause extension to executor-direction motifs (carry-forward — sustained at round 14)",
+    "Writer/executor self-claim trust profile UNRELIABLE 6th cumulative confirmation (round 14 batch 54: both agents self-claimed PASS but main-session diff caught Axis 5 + scientist caught schema FAIL)",
+    "Dispatch prompt template best-practice codification (NEW round 14 batch 54: canonical extracted_by.prompt_version literal + REQUIRED ts; Hook 22 NEW)"
+  ],
+  "active_heading_state_handoff_to_reconciler": {
+    "l1": "§9 [Appendices]",
+    "l2": "Appendix A: Representations and Warranties, Limitations of Liability, and Disclaimers",
+    "l3": "Limitation of Liability",
+    "p1_atomization_sv20_complete": true,
+    "p1_closure_milestone_reached_at": "sv20 p.74 (pending reconciler closure ack)"
+  },
+  "rule_compliance": {
+    "rule_a": "scientist slot #68 weighted=75% FAIL pre-Option H; 100% PASS post-Option H mechanical re-projection (+20pp margin); AUDIT pivot 48th cumulative; D-MS-7 sister chain extended to 7",
+    "rule_b": "Option H bulk metadata patch with .bak preservation; Hook 18 WARN sv20_p0074_a011 preserved as-emitted",
+    "rule_c": "drift cal report 13 sections + batch report + Rule A artifacts + drift cal artifact + .bak files all preserved",
+    "rule_d": "writer (executor) ≠ rerun (writer) ≠ reviewer (scientist) ≠ all prior #1-#67; slot #68 unique; D-MS-7 sister chain extended to 7 successive omc agents at 10/11/12/13/14/15/16th-burn intra-family depth STRONGLY VALIDATED EXTENDED",
+    "rule_e": "10-item v1.9 candidate stack contribution captured (1 NEW dispatch-template + 1 NEW Axis 5 + 8 carry-forward)"
+  },
+  "files_produced": [
+    "evidence/checkpoints/pdf_atoms_batch_54.jsonl",
+    "evidence/checkpoints/pdf_atoms_batch_54.jsonl.pre-OptionH-prompt_version.bak",
+    "evidence/checkpoints/drift_cal_sv20_p072_writer_rerun.jsonl",
+    "evidence/checkpoints/drift_cal_sv20_p072_writer_rerun.jsonl.pre-OptionH-prompt_version.bak",
+    "evidence/checkpoints/drift_cal_batch_54_sv20_p072_report.md",
+    "evidence/checkpoints/rule_a_batch_54_sample.jsonl",
+    "evidence/checkpoints/rule_a_batch_54_verdicts.jsonl",
+    "evidence/checkpoints/rule_a_batch_54_summary.md",
+    "evidence/checkpoints/_progress_batch_54.json",
+    "evidence/checkpoints/P1_batch_54_report.md"
+  ],
+  "files_not_touched": [
+    "root pdf_atoms.jsonl",
+    "audit_matrix.md",
+    "_progress.json",
+    "subagent_prompts/*",
+    "schema/*.json",
+    "PLAN.md",
+    "plans/*.md",
+    "CLAUDE.md",
+    "MEMORY/*",
+    "sister batch files (pdf_atoms_batch_53*, pdf_atoms_batch_55*)"
+  ],
+  "reconciler_pre_flight_signal": "READY — _progress_batch_54.json status=completed; reconciler_kickoff_round14.md §0 pre-condition for batch 54 sister C SATISFIED"
+}
