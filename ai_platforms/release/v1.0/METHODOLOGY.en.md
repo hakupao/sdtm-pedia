@@ -48,7 +48,7 @@ The knowledge base was produced through a seven-phase pipeline. Each phase is do
 | 6 | Retrieval optimization (routing layer; reverse variable index) | `ROUTING.md`; `VARIABLE_INDEX.md` (1,523 variables) |
 | 6.5 | AI platform deployment | Four-platform release bundle |
 
-In parallel with the seven-phase pipeline, an independent **atom-level literal verification audit** is being executed as a continuing work track. Each atomic claim in the knowledge base is reconciled against the source PDF on a page-by-page basis. As of 2026-04-29 the audit covers **97% of the in-scope pages** and remains active. Per-batch evidence is published under [`.work/06_deep_verification/evidence/checkpoints/`](https://github.com/hakupao/sdtm-pedia/tree/main/.work/06_deep_verification/evidence/checkpoints).
+In parallel with the seven-phase pipeline, an independent **atom-level literal verification audit** is being executed as a continuing work track. Each atomic claim in the knowledge base is reconciled against the source PDF on a page-by-page basis. As of 2026-04-29 the audit covers **97% of the in-scope pages** and remains active. Per-batch evidence is published under [`branches/06_deep_verification/evidence/checkpoints/`](https://github.com/hakupao/sdtm-pedia/tree/main/branches/06_deep_verification/evidence/checkpoints).
 
 ## 3. Traceability — auditing an individual answer
 

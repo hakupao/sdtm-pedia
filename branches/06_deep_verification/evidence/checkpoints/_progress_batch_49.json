@@ -1,0 +1,136 @@
+{
+  "batch": 49,
+  "session": "D (Round 12)",
+  "round": 12,
+  "round_status": "2nd_round_running_v1.7_baseline_post_round_11_1st_INAUGURAL_EFFECTIVE_2026-04-30_commit_dd67cee",
+  "pages": "sv20 p.20-29",
+  "pages_count": 10,
+  "pdf_source": "SDTM_v2.0",
+  "status": "completed",
+  "completed_at": "2026-04-30T16:00:00Z",
+  "writer_subagent": "oh-my-claudecode:executor",
+  "writer_prompt_version": "P0_writer_pdf_v1.7",
+  "v1_7_n21_dispatch_justification": [
+    "v1.7 N21 EMERGENCY-CRITICAL writer-family complete deprecation entirely from P1 production atomization across ALL content types (post 6th cumulative writer-direction VALUE HALLUCINATION recurrence round 10 batch 42 O-P1-145)",
+    "writer-family BANNED for ALL production atomization regardless of content type per Hook 16.7 simplified pre-dispatch ban; executor MANDATORY across both 49a + 49b (no content-type-aware 5-sub-rule a-e check needed under N21 simplification)",
+    "this batch = 2nd cumulative round running v1.7 baseline (round 11 was 1st INAUGURAL EFFECTIVE; round 12 sustains)",
+    "halt threshold for 7th cumulative writer-direction recurrence: under N21 design (writer NOT used in production), 7th-recurrence impossible by construction. NO recurrence detected this batch (production atoms executor-direction all clean)"
+  ],
+  "sub_batches": {
+    "49a": {
+      "pages": "sv20 p.20-24",
+      "atoms": 33,
+      "atom_type_distribution": {
+        "TABLE_ROW": 30,
+        "HEADING": 2,
+        "TABLE_HEADER": 1
+      },
+      "writer_done_echo": "WRITER_DONE atoms=33 file_a=evidence/checkpoints/pdf_atoms_batch_49a.jsonl content_type=mixed_structural_transition+spec_table hooks_pass=20/20 sample_N10_pass=10/10 (single-dispatch with 49b)",
+      "self_validate_hooks_status": "20/20 PASS"
+    },
+    "49b": {
+      "pages": "sv20 p.25-29",
+      "atoms": 51,
+      "atom_type_distribution": {
+        "TABLE_ROW": 51
+      },
+      "writer_done_echo": "WRITER_DONE atoms=51 file_b=evidence/checkpoints/pdf_atoms_batch_49b.jsonl content_type=spec_table_sustained_content_narrative hooks_pass=20/20 sample_N10_pass=10/10 (single-dispatch with 49a; 0 NEW HEADING transitions across 5 pages = 1st time in P1)",
+      "self_validate_hooks_status": "20/20 PASS"
+    }
+  },
+  "atoms_total": 84,
+  "n6_intra_agent_consistency": "PASS — both 49a + 49b SAME executor agent (af8ce0e999e857604) via single-dispatch (round 11 batch 46 NEW PRECEDENT applied; cleaner alternative to round 10 batch 43 SendMessage continuation pattern; canonical parent_section forms preserved across sub-batches: §3.1.2 The Events Observation Class / §3.1 General Observation Classes / §3.1.3 The Findings Observation Class)",
+  "n6_single_dispatch_pattern_observation": "Batch 49 sustains single-dispatch pattern (one Agent call covering both 49a + 49b in same agent context) per round 11 batch 46 NEW PRECEDENT — 2nd cumulative live-fire of single-dispatch N6 satisfaction pattern post v1.7 cut. Confirmed cleaner than SendMessage continuation. v1.8 codification candidate strengthened: single-dispatch as preferred N6 satisfaction default for same-agent multi-sub-batch when 2 sub-batches share content territory.",
+  "schema_sweep": {
+    "required_field_violations": 0,
+    "atom_id_pattern_violations": 0,
+    "atom_type_9_enum_violations": 0,
+    "n15_xpt_parent_forbid_violations": 0,
+    "heading_required_field_violations": 0,
+    "verbatim_non_empty_violations": 0,
+    "duplicate_atom_ids": 0,
+    "page_coverage": "sv20 p.20-29 contiguous 10 pages (post page-label correction Option H — see §below)",
+    "verdict": "PASS"
+  },
+  "page_label_correction_option_h": {
+    "applied": true,
+    "rationale": "Executor initial output had systematic page off-by-one for 13 atoms straddling p.22→p.23 boundary (rows 13-14 mislabeled as p.22 → corrected to p.23; rows 15-25 mislabeled as p.23 → corrected to p.24). Content/verbatim unchanged; only page integer + atom_id + page_region re-derived from page-relative position",
+    "atoms_corrected": 13,
+    "rule_b_backup": "pdf_atoms_batch_49a.jsonl.pre-pagefix.bak",
+    "post_fix_validation": "schema sweep 0 violations; Hook 1 atom_id pattern PASS 84/84; Rule A 100.0% PASS slot #62 Explore",
+    "repair_cycles_count": 1,
+    "main_session_executed": true
+  },
+  "heading_transitions_observed": {
+    "count": 2,
+    "transitions": [
+      {"page": 20, "level": 3, "sib": 3, "verbatim": "3.1.3 The Findings Observation Class", "parent": "§3.1 General Observation Classes", "notes": "L3 NEW chapter start — 3rd general observation class after §3.1.1 Interventions sib=1 + §3.1.2 Events sib=2 (sister batch 48 territory)"},
+      {"page": 20, "level": 4, "sib": 1, "verbatim": "Findings—Topic and Qualifier Variables—One Record per Finding", "parent": "§3.1.3 The Findings Observation Class", "notes": "L4 caption HEADING per heading_caption_rule v1.1 M1 PDF table-caption short title rule"}
+    ],
+    "transition_density": "0.2 NEW HEADINGs/page on 49a; 0 NEW HEADINGs across 49b 5 pages = 1st time in P1 cumulative a sub-batch range with 0 NEW HEADING transitions (sustained-content-narrative within single L3 chapter §3.1.3 Findings)",
+    "first_zero_heading_subbatch_in_p1": true,
+    "round_12_2nd_round_running_v1_7": true
+  },
+  "critical_milestones": [
+    "**v1.7 N21 2nd round running validation EFFECTIVE**: writer-family complete deprecation post v1.7 cut 2026-04-29 commit 6d19992 — both 49a + 49b dispatched executor MANDATORY per Hook 16.7 simplified pre-dispatch ban; 0 writer-direction VALUE HALLUCINATION recurrence detected (cumulative motif at 6 since round 10 batch 42 — N21 prevention layer holding at 2nd round running)",
+    "**§3.1.3 The Findings Observation Class L3 NEW HEADING at sv20 p.20**: 3rd general observation class transition (after §3.1.1 Interventions sister batch 48 territory + §3.1.2 Events sister batch 48 + §3.1.3 Findings batch 49a); Findings class spans 12 pages p.20-31 (longer than Interventions 3 pages + Events 5 pages) — batch 49 covers first 10 pages of this Findings class section",
+    "**1st cumulative 0-NEW-HEADING sub-batch range in P1**: 49b sv20 p.25-29 = first sub-batch range in P1 cumulative (across all 49 P1 batches) with 0 NEW HEADING transitions across 5 contiguous pages (sustained-content-narrative within single L3 chapter §3.1.3 Findings spec table). Atom_type diversity correspondingly low (51/51 TABLE_ROW = 100% homogeneous)",
+    "**Page-label correction Option H**: 13 atoms re-labeled post-extraction (page off-by-one boundary p.22→p.23 + p.23→p.24 wrap detection). Rule B backup preserved. Content unchanged. Rule A audit post-fix 100.0% PASS confirms correction valid. **NEW pattern observation**: page-boundary off-by-one motif on dense spec-table content where row continues across page footer/header — v1.8 codification candidate to add Self-Validate Hook for cross-page row physical-page disambiguation via pdftotext per-page extraction OR explicit footer 'Page N' marker tracking (since sv20 has 'Page N' footers, this could be auto-validated)",
+    "**Single-dispatch N6 INTRA-AGENT consistency 2nd cumulative live-fire**: 49a + 49b emitted in single Agent call (cleaner alternative to round 10 batch 43 SendMessage continuation precedent). v1.8 codification candidate strengthened to STATUS PROMOTION at 2 cumulative live-fires post v1.7 cut",
+    "**Explore family 2nd burn extension validated**: slot #62 (after #49 INAUGURAL round 9 batch 38) = 3rd single-agent family at 2-burn intra-family depth scale post v1.7 cut. Sister extension to slot #58 Plan 2nd burn (round 11 batch 45) + slot #59 claude-code-guide 2nd burn (round 11 batch 46) — Explore validates single-agent family extension recipe family-agnostic across 3 single-agent families (Plan + claude-code-guide + Explore)",
+    "**sv20 header/footer skip rule effective 2nd cumulative live-fire (sister batch 47 1st)**: 0 page furniture leaks across 84 atoms; CDISC header / 2021 copyright footer / Page N / 2021-11-29 all properly excluded per kickoff §3.6 carry-forward; v1.7 N20 Hook 19 defense-in-depth Rule A re-verify 0 leaks confirmed"
+  ],
+  "rule_a_audit": {
+    "reviewer_subagent": "Explore",
+    "rule_d_slot": 62,
+    "audit_pivot_index": 43,
+    "family_burn_count": "Explore single-agent family 2nd burn extension (after #49 INAUGURAL round 9 batch 38 = single-agent family extension recipe at 2-burn intra-family depth scale VALIDATED at 3rd single-agent family post v1.7 cut)",
+    "branch_used": "Branch C content-substitution main-session-write per v1.6 §Step 4 carry-forward (Explore tool profile: All tools except Agent + ExitPlanMode + Edit + Write + NotebookEdit; no Write/Edit available; precedent: round 9 batch 38 #49 Explore Branch C INAUGURAL + round 10 batch 42 #54 general-purpose Branch B/C as appropriate + round 11 batch 45 #58 Plan + round 11 batch 46 #59 claude-code-guide)",
+    "audit_independence_preserved": true,
+    "sample_size": 10,
+    "sample_seed": 20260503,
+    "sample_stratification": "1 atom per page sv20 p.20-29 (10 pages), random within-page selection seed=20260503 — stratification yielded 100% TABLE_ROW sample due to 80/84 = 95.2% TABLE_ROW population dominance",
+    "verdicts": "P:10/PA:0/F:0",
+    "weighted_pass_rate": 100.0,
+    "halt_threshold": 70.0,
+    "p1_plan_pass_threshold": 90.0,
+    "threshold_met": true,
+    "dimension_breakdown": "10/10 D1 verbatim PASS + 10/10 D2 atom_type PASS + 10/10 D3 parent_section PASS + 10/10 D4 schema PASS = 40/40 weighted total (PASS=1.0/PARTIAL=0.5/FAIL=0.0)",
+    "9_enum_coverage_caveat": "Sample contains 1 of 9 atom_type (TABLE_ROW only) due to stratification + dominance; HEADING/TABLE_HEADER atoms in 49a population not sampled by random-within-page selection. This is a sampling-coverage NOT a quality issue — schema sweep verified 100% compliance across all 84 atoms including 2 HEADING + 1 TABLE_HEADER. v1.8 candidate to consider stratification sampling that forces atom_type diversity coverage when 9-enum is non-uniformly distributed across pages",
+    "header_footer_leak_check": "0 leaks confirmed across full 49a + 49b (84 atoms) — defense-in-depth verified per batch 47 §3.6 carry-forward",
+    "n5_pipe_count_documented_exception": "1 atom (sv20_p0023_a001 row 14 --GATDEF) has pipe-count=12 vs standard 11 due to embedded pipe character `(\"|\")` in PDF verbatim describing the vertical-line/pipe character used to separate subgates per CPGATDEF spec — N5 documented exception (legitimate PDF-byte-exact content)"
+  },
+  "drift_cal": {
+    "applied": false,
+    "rationale": "SKIP per cadence (last drift cal batch 48 sv20 p.15 sister session C MANDATORY 12th cumulative + N14 6th cumulative live-fire + 1st sv20 drift cal; next mandatory batch 51 sv20 p.45 per every-3-batches cadence batch 48→51 — round 13 if continued)"
+  },
+  "findings_added": [],
+  "findings_unused": ["O-P1-173", "O-P1-174", "O-P1-175", "O-P1-176"],
+  "findings_unused_rationale": "Batch 49 first-attempt clean post page-label Option H correction (Rule B backup preserved); 0 NEW findings raised; reserved finding ID range O-P1-173..176 fully unused = 6th cumulative 0-finding-batch in P1 cumulative (after round 8 batch 37 + round 9 batch 38 + round 9 batch 40 + round 10 batch 41 + round 11 batch 45)",
+  "rule_d_slot_used": 62,
+  "audit_pivot_cumulative": 43,
+  "v1_7_n21_2nd_round_running_validation": {
+    "n21_writer_family_complete_deprecation": "EFFECTIVE 2nd round running — both sub-batches dispatched executor MANDATORY per Hook 16.7 simplified pre-dispatch ban; 0 writer-direction VALUE HALLUCINATION across 84 production atoms (round 5-10 cumulative motif at 6 since round 10 batch 42 — N21 complete ban prevention layer sustained at 2nd round running post round 11 1st INAUGURAL EFFECTIVE)",
+    "n22_hook_18_warn_mode_sustained": "0 SENTENCE-paragraph-concat WARN candidates this batch (0 SENTENCE atoms in 84 — 100% TABLE_ROW + HEADING + TABLE_HEADER content; Hook 18 motif surface area is 0 by content-type)",
+    "n23_hook_19_pdf_cross_verify_executor_self_claim_trust_profile": "EFFECTIVE — executor self-claim N=10 sample PDF cross-verify both sub-batches PASS (10/10 stratified atoms verified byte-exact against /tmp/sv20_p20-29.txt); URL byte-exact verify 0/0 (no URL atoms in scope, sv20 §3.1.3 Findings spec table is variable-definition content with C-codes not URLs); 0 fabrication motif (executor-direction trust profile sustained 0 cumulative motif across rounds 5-11 production + round 12 batch 49)"
+  },
+  "boundary_state_for_round_13_handoff": {
+    "active_chain_at_end_of_sv20_p_29": {
+      "L1": "(active L1 chain at sv20 p.29 to be reconciled with sister batches 47/48 — likely §3 MODEL ELEMENTS OR similar L1 from sv20 §3.1 General Observation Classes scope)",
+      "L2": "§3.1 General Observation Classes (sib TBD per sister batch 47/48 namespace)",
+      "L3": "§3.1.3 The Findings Observation Class (sib=3 under §3.1; emitted by this batch p.20)",
+      "L4_active": "Findings—Topic and Qualifier Variables—One Record per Finding (caption HEADING sib=1 under §3.1.3, p.20 emitted; Findings class spans p.20-31 per TOC, batch 49 covers first 10 of 12 pages — rows 1-76 of Findings class variable inventory; rows 77+ continue into batch 50 if continued round 13)"
+    },
+    "next_predicted_transitions_sv20_p_30_onwards": "TBD — Findings class continuation per TOC sv20 p.20-31 = 12-page span; batch 49 covers first 10 (rows 1-76); rows 77+ + §3.1.3.1 Findings About Events or Interventions L4 NEW transition at p.32 = OUT of batch 49 scope (within next batch 50 if continued round 13+)",
+    "round_12_drift_cal_done": "batch 48 sv20 p.15 mandatory (sister session C scope; 12th cumulative drift cal + N14 6th cumulative live-fire + 1st sv20 drift cal; this session D = batch 49 SKIP)",
+    "next_drift_cal_in_round_13": "batch 51 sv20 p.45 per cadence batch 48→51 (every-3-batches; 13th cumulative + N14 7th cumulative if round 13 continues)"
+  },
+  "rule_a_b_c_d_e_compliance": {
+    "rule_a": "PASS — slot #62 Explore 10/10 PASS weighted=100.0% threshold≥90% met",
+    "rule_b": "APPLIED — page-label Option H correction backup preserved at pdf_atoms_batch_49a.jsonl.pre-pagefix.bak (13 atoms relabeled, content unchanged); failed initial extraction with off-by-one page error archived per Rule B no-delete policy",
+    "rule_c": "DEFERRED — round 12 retro is reconciler-stage product post sister 47/48 done",
+    "rule_d": "PASS — writer (oh-my-claudecode:executor) ≠ reviewer (Explore); slot #62 uniqueness vs cumulative #1-#61 verified zero collision (sister batches 47 #60 omc:critic + 48 #61 codex:codex-rescue all distinct)",
+    "rule_e": "APPLIED — 4 v1.8 candidates captured: (a) Page-boundary off-by-one detection Self-Validate Hook for dense spec-table content (cross-page row physical-page disambiguation via pdftotext per-page extraction OR explicit footer 'Page N' marker tracking — sv20 has 'Page N' footers usable for auto-validation); (b) Single-dispatch N6 satisfaction pattern STATUS PROMOTION at 2 cumulative live-fires post v1.7 cut (round 11 batch 46 1st + round 12 batch 49 2nd) → recommended as preferred default over SendMessage continuation; (c) Stratified sampling 9-enum diversity coverage when atom_type non-uniformly distributed (Rule A sample yielded 100% TABLE_ROW due to dominance — consider forced-coverage stratification for sub-batches with HEADING/TABLE_HEADER on subset of pages); (d) Explore family 2-burn validated as 3rd single-agent family at 2-burn intra-family depth scale post v1.7 cut (sister to Plan + claude-code-guide); single-agent family extension recipe family-agnostic across 3 single-agent families STRONGLY VALIDATED candidate"
+  },
+  "single_line_done": "PARALLEL_SESSION_49_DONE atoms=84 failures=0 repair_cycles=1 rule_a=100.0% drift_cal=skipped findings_added=none_O-P1-173..176_reserved_unused"
+}

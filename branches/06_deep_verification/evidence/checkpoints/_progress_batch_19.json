@@ -1,0 +1,176 @@
+{
+  "batch_id": 19,
+  "session_id": "D",
+  "round": 2,
+  "status": "completed",
+  "experiment": "multi_session_parallel_round_2",
+  "scope": {
+    "pages": "p.181-190",
+    "page_count": 10,
+    "domains_touched": ["DA tail (p.181-182)", "DD full (p.183-184)", "DD Examples tail (p.185)", "EG opens (p.185-190 partial)"],
+    "chapter_internal_transitions": ["p.183_DA_to_DD", "p.185_DD_to_EG", "p.188_EG_Spec_to_Assumptions", "p.189_EG_Assumptions_to_Examples"]
+  },
+  "writers": {
+    "19a": {
+      "subagent_type": "oh-my-claudecode:executor",
+      "alternation_role": "executor-led (batch 19 奇)",
+      "pages": "p.181-185",
+      "atoms_initial": 128,
+      "atoms_final": 128,
+      "duration_min": 4.4,
+      "failures": 0,
+      "notes": "R12 transitions p.183 DA->DD (20 atoms ok >=8) + p.185 DD->EG (30 atoms ok >=12) clean; NEW7 L4 sib chain Description=1/Specification=2/Assumptions=3/Examples=4 deterministic for both DD and EG; NEW6 parent_section canonical full-form 100%; R15 cross-batch sib chain §6.3.1 sib=1/§6.3.2 sib=2/§6.3.3 sib=3 ✓"
+    },
+    "19b": {
+      "subagent_type": "oh-my-claudecode:writer",
+      "alternation_role": "writer-led",
+      "pages": "p.186-190",
+      "atoms_initial": 77,
+      "atoms_after_repair": 98,
+      "duration_min": 2.2,
+      "failures": 0,
+      "notes": "Initial writer output: multi-page systemic corruption matching writer-family historical pattern (O-P1-23/34/36/37/38) — 5 variable/word typos (HETESTCD->HETSTESTCD extra ST, HETEST->HETTEST extra T, EGEVALID->EGERVALID extra R, EGRFTDTC->EGFRTDTC letter swap, Any-identifiers->By-identifiers paraphrase) + p.190 26-atom MASSIVE under-extraction (eg.xpt data tables for Examples 1/2/3 dropped: 3 captions + 3 TABLE_HEADERs + 20 TABLE_ROWs) + p.187 missing continuation TABLE_HEADER + p.188 missing footnote NOTE + p.189 a003 sentence truncation/paraphrase. Wholesale-replaced via Option E executor full-batch rerun (5th P1 precedent post p.60 batch 06 / p.103 batch 11 / p.119 batch 12 / p.136-140 batch 14 / p.146-148 batch 15)."
+    }
+  },
+  "atoms_total_batch_19": 226,
+  "atom_type_distribution": {
+    "TABLE_ROW": 117,
+    "SENTENCE": 29,
+    "LIST_ITEM": 35,
+    "HEADING": 15,
+    "TABLE_HEADER": 16,
+    "CODE_LITERAL": 11,
+    "NOTE": 3,
+    "FIGURE": 0,
+    "CROSS_REF": 0
+  },
+  "atom_type_coverage_per_batch": "7/9 (FIGURE/CROSS_REF naturally absent on event-domain narrative+spec pages, consistent with prior event-domain batches 09-18)",
+  "schema_validation": {
+    "9_enum_atom_type": "100%",
+    "atom_id_4_digit_format": "100%",
+    "atom_id_uniqueness_within_batch": "226/226 unique",
+    "schema_errors": 0,
+    "duplicate_atom_ids": 0,
+    "frame_tag_contamination": 0
+  },
+  "new3_compliance": {
+    "outer_pipe_TABLE_ROW": "117/117 (100%)",
+    "outer_pipe_TABLE_HEADER": "16/16 (100%)",
+    "explicit_null_key_non_HEADING": "211/211 (100%)"
+  },
+  "drift_cal": {
+    "triggered": false,
+    "next_mandatory": "batch 21 (per cadence cumulative + every-3-batches)",
+    "rationale": "Last mandatory drift cal was batch 18 (sister) per cadence; ad-hoc trigger condition not met for batch 19 since main-session pre-Rule-A PDF cross-check on 19b dense pages already caught writer multi-page corruption (drift cal would have only re-confirmed via verbatim hash overlap, no new info)"
+  },
+  "rule_a": {
+    "reviewer_slot": 28,
+    "reviewer_subagent_type": "oh-my-claudecode:qa-tester",
+    "reviewer_audit_pivot_index": 9,
+    "reviewer_family_first_burn": false,
+    "reviewer_family_name": "oh-my-claudecode",
+    "reviewer_family_burn_index_within_family": 3,
+    "audit_mode_label": "Mode: AUDIT for PDF atomization quality, NOT QA testing / NOT tmux session management / NOT interactive CLI testing",
+    "sample_seed": 20260500,
+    "sample_size": 10,
+    "page_coverage": "10/10 (1/page across p.181-190)",
+    "atom_type_coverage_in_sample": "TABLE_ROW×5 / HEADING×3 / CODE_LITERAL×1 / LIST_ITEM×1 (SENTENCE substituted by LIST_ITEM at p.189 due to no SENTENCE atom matching at sampled location, acceptable per kickoff fallback)",
+    "sample_critical_targets": [
+      "p.183 a002 HEADING DD-Description L4 sib=1 (NEW7 deterministic verify)",
+      "p.185 a018 HEADING §6.3.3 EG L3 sib=3 (R15 cross-batch + R12 transition + NEW6 canonical)",
+      "p.188 a006 HEADING EG-Assumptions L4 sib=3 (NEW7 deterministic + R12 spec→assumptions transition + footnote NOTE precedes)",
+      "p.190 a025 TABLE_ROW Example 2 Row 5 (post-Option-E recovery verification)",
+      "p.186/p.187 TABLE_ROW NEW2 char-level (post-Option-E typo elimination verification)"
+    ],
+    "verdict_pass": 10,
+    "verdict_partial": 0,
+    "verdict_fail": 0,
+    "weighted_pct": 100.0,
+    "raw_pct": 100.0,
+    "gate_threshold": 90,
+    "verdict_overall": "PASS (super-threshold +10pp)",
+    "false_positive": 0,
+    "inverted_rationale": 0,
+    "toc_anchor_audit_n_cumulative": 100,
+    "toc_anchor_audit_consecutive_batches": 10,
+    "audit_pivot_pool_families": "5 (pr / omc / vercel / plugin-dev / [pending] depending on batch 17 + 18 reviewer assignments — confirmed 4 from batches 13-16, omc 3rd burn this batch)",
+    "findings_raised_by_reviewer": [],
+    "spot_check_observations_outside_sample": [
+      "Option E executor rerun for 19b (p.186-190) successfully eliminated previously reported typos: (HETSTESTCD)→(HETESTCD), (HETTEST)→(HETEST), EGEVALID/EGRFTDTC variable name issues resolved",
+      "26 atoms originally dropped by writer (p.186-190 content) fully recovered with PDF-verified accuracy",
+      "R15 cross-batch sibling continuity chain §6.3.1=1/§6.3.2=2/§6.3.3=3 holds firm across batches",
+      "NEW7 L4 deterministic chains verified for both DD (p.183-184) and EG (p.185-189)",
+      "NEW6 parent_section canonical full-form 100% (no [Title] short-bracket form recurrence)"
+    ]
+  },
+  "main_session_pre_rule_a_findings": {
+    "discovery_method": "PDF cross-check on 19b dense pages (after density alarm: 77 atoms / 5 pages = 15 atoms/page vs batch 16b 145/5 = 29/page DS spec baseline)",
+    "drift_cal_value_add_super_rule_a_index": 7,
+    "issues": [
+      "writer 19b 5 typo cluster (HETSTESTCD/HETTEST/EGEVALID/EGFRTDTC/By-identifiers — same writer-family hallucination pattern as O-P1-23 DSDTC + O-P1-34 ECNKID/ECPSTRGUI + batch 13 13a JPTW/HYPOT/prespefified + batch 14 14b AERLPRT/AELLT/AEPTCD + batch 15 15b STUDIID×8 + supple→suppbe)",
+      "p.190 26-atom MASSIVE under-extraction (eg.xpt data tables for Examples 1/2/3 dropped: 3 captions + 3 TABLE_HEADERs + 20 TABLE_ROWs)",
+      "p.187 missing continuation TABLE_HEADER",
+      "p.188 missing footnote NOTE",
+      "p.189 a003 sentence truncation + word substitution (Any→By + dropped second half)",
+      "p.187 a015 TAETORD row corruption (collapsed Variable Label + dropped Type/CT/Role columns + wrong word desired→planned)"
+    ],
+    "remediation": "Option E oh-my-claudecode:executor full-batch rerun on p.186-190 (NEW3 outer-pipe + explicit null-key inline-required per round 2 G-MS-5 lesson from batch 14 O-P1-37). Result: 98 clean atoms (vs 77 broken), 0 typos remain, p.190 32 atoms (vs 13 dropped), p.187 21 atoms with TABLE_HEADER, p.188 18 atoms with NOTE, NEW3 100% compliance, Rule A slot #28 100% PASS post-repair."
+  },
+  "repair_cycles": 1,
+  "repair_cycle_log": [
+    "Cycle 1: Option E oh-my-claudecode:executor full-batch rerun on 19b p.186-190 (writer multi-page systemic corruption pattern matching O-P1-36/37/38; backup pdf_atoms_batch_19b.jsonl.pre-OptionE-fullbatch.bak preserved per Rule B). Initial 77 atoms with 5+ HIGH bugs (typos cluster + p.190 26-atom under-extraction + p.187/p.188 transition tail dropped) → final 98 atoms PDF-verified clean. NEW3 outer-pipe (57/57 TABLE_ROW + 6/6 TABLE_HEADER) + explicit null-key (93/93 non-HEADING) 100% compliance verified. 5 typos eliminated post-repair: HETESTCD/HETEST/EGEVALID/EGRFTDTC/Any-identifiers verified. 5th P1 precedent of Option E executor full-batch rerun post p.60 batch 06 / p.103 batch 11 / p.119 batch 12 / p.136-140 batch 14 / p.146-148 batch 15 — methodology firmly proven for writer-family multi-page corruption recovery."
+  ],
+  "findings_added": [
+    {
+      "id": "O-P1-50",
+      "severity": "HIGH",
+      "summary": "Writer 19b multi-page systemic R10 verbatim corruption + R12 transition under-extraction (p.190 26-atom under-extraction recovering eg.xpt data tables for Examples 1/2/3 + p.187 missing TABLE_HEADER + p.188 missing footnote NOTE + 5 variable/word typos: HETESTCD/HETEST/EGEVALID/EGRFTDTC/Any-identifiers + p.189 a003 sentence truncation+paraphrase). Same writer-family hallucination pattern as O-P1-23/O-P1-34/O-P1-36/O-P1-37/O-P1-38 cumulative writer-family multi-page systemic corruption. Repaired via Option E executor full-batch rerun on p.186-190 (5th P1 precedent). Recovery successful: 77→98 atoms / 0 typos remain post-repair / NEW3 outer-pipe + explicit null-key 100% / Rule A slot #28 100% PASS post-repair confirmed clean."
+    }
+  ],
+  "findings_id_range_allocated": "O-P1-50..53 (per round 2 G-MS-7 pre-allocation)",
+  "findings_id_actually_used": "O-P1-50 (1 of 4 reserved; 51/52/53 freed for compression)",
+  "rule_d_slot": {
+    "slot_number": 28,
+    "subagent_type": "oh-my-claudecode:qa-tester",
+    "audit_mode_pivot": true,
+    "audit_pivot_cumulative_index": 9,
+    "family_first_burn": false,
+    "family_name": "oh-my-claudecode",
+    "family_burn_index_within_family": 3,
+    "prior_omc_burns": ["#21 oh-my-claudecode:debugger AUDIT-pivot 2nd", "#23 oh-my-claudecode:designer AUDIT-pivot 4th"],
+    "rule_d_cumulative_post_batch_19": 28
+  },
+  "v1_3_prompt_status": "DEFERRED per Rule D writer/reviewer isolation (recommended cut BEFORE batch 21 drift cal next mandatory; v1.2 + inline R10-R15 + O-P1-26 + NEW1-NEW7 prepend continues to work cleanly through batches 16-19)",
+  "v1_3_patch_candidates_evidence_post_batch_19": "no NEW v1.3 candidates surfaced this batch (writer-family multi-page corruption pattern repeated, but NEW2 char-level + NEW3 outer-pipe + null-key already cover this; NEW6 + NEW7 already cover parent_section canonical + L4 deterministic chain. Rule A 0 findings + 0 inversion = methodology firmly locked across 4 families post-anchor)",
+  "multi_session_protocol_compliance": {
+    "session_d_zero_writes_to_root_files": "✓ (root pdf_atoms.jsonl / audit_matrix.md / _progress.json untouched per round 2 protocol)",
+    "session_d_zero_touches_to_sister_batches_17_18": "✓",
+    "session_d_zero_touches_to_PLAN_subagent_prompts_schema_CLAUDE": "✓",
+    "session_d_zero_git_commit_push": "✓ (留 reconciler 决定)",
+    "session_d_reviewer_slot_pre_assigned_no_self_pick": "✓ (#28 hardcoded per kickoff, no Rule D cross-session collision risk)",
+    "session_d_finding_id_range_pre_allocated": "✓ (O-P1-50..53 reserved per G-MS-7; only O-P1-50 used, no cross-session collision)",
+    "session_d_halt_condition_check": "✓ (no halt condition triggered: writer failure rate 0% < 15% / Rule A raw 100% > 70% / ctx well under 80% / reviewer dispatch successful / no shared-file write attempt; §6.3 chapter heading existence assumed per TOC ground truth — sister batch 18 should confirm at p.180)"
+  },
+  "session_budget": {
+    "session_startup_6_file_parallel_read_min": 3,
+    "TOC_already_in_kickoff": 0,
+    "19a_19b_parallel_dispatch_wait_min": 5,
+    "schema_validation_collision_check_TOC_anchor_verify_min": 3,
+    "PDF_cross_check_pre_rule_a_dense_pages_min": 8,
+    "Option_E_executor_rerun_dispatch_wait_min": 13,
+    "post_repair_validation_min": 2,
+    "Rule_A_sample_build_dispatch_wait_min": 8,
+    "paperwork_progress_batch_report_min": 12,
+    "total_min": 54,
+    "comparison_baseline": "Mid-tier P1 batch (vs batch 12 52 min / batch 14 60 min / batch 15 65 min P1 max). Multi-bug repair cost ~13 min in Option E rerun + ~2 min validation = ~15 min added overhead."
+  },
+  "post_batch_state_session_d_scope_only": {
+    "session_d_pages_done": 10,
+    "session_d_atoms_done": 226,
+    "session_d_failures": 0,
+    "session_d_repair_cycles": 1,
+    "session_d_findings_added": 1,
+    "session_d_rule_d_slot": 28
+  },
+  "handoff_to_reconciler": "Session D contributes 226 atoms (19a 128 + 19b 98 post-Option-E) over p.181-190. Reconciler should: (a) merge pdf_atoms_batch_19a.jsonl + pdf_atoms_batch_19b.jsonl into root pdf_atoms.jsonl (post 17a/17b/18a/18b sister batch merges + post batch 16 merge), (b) sweep cross-batch sibling continuity for §6.3.1 DA / §6.3.2 DD / §6.3.3 EG L3 chain + L4 sub-section chains (Description=1/Specification=2/Assumptions=3/Examples=4 deterministic per NEW7) + L5 Example chain restart per domain, (c) update root audit_matrix.md with batch 19 row + Rule A 19 row + Rule D roster 25→28 (slots #26/#27/#28 pre-assigned per round 2), (d) update root _progress.json (pages 160→190 / atoms 4175→4175+17atoms+18atoms+226 / batches 16→19 / Rule D 25→28 / repair_cycles 29→29+17cycles+18cycles+1 / findings 41→41+17findings+18findings+1=at least 43+...), (e) consider v1.3 prompt formal cut now that batch 19 also exhibits writer-family multi-page corruption pattern (cumulative O-P1-23/34/36/37/38/50 = 6 batches of evidence ≥3 batches), (f) write MULTI_SESSION_RETRO_ROUND_2.md (Rule C 强制) capturing what worked vs what didn't in round 2 (G-MS-4 halt fallback decision tree absorbed inline + G-MS-7 finding ID range pre-allocation absorbed inline). Multi-session protocol cleanup (per kickoff): remove CLAUDE.md routing rule + delete batch_NN_kickoff.md + reconciler_kickoff.md (keep MULTI_SESSION_PROTOCOL.md + MULTI_SESSION_RETRO.md + MULTI_SESSION_RETRO_ROUND_2.md as historical)."
+}

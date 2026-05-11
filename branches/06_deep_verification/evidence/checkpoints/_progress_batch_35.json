@@ -1,0 +1,271 @@
+{
+  "batch_id": 35,
+  "session_id": "session_b_round_8",
+  "round": 8,
+  "round_8_first_round_running_v1_4_baseline": true,
+  "v1_4_cut_active_since": "2026-04-28",
+  "status": "completed",
+  "scope_pages": "ig34 p.341-350",
+  "page_count": 10,
+  "atoms_done": 230,
+  "atoms_breakdown": {
+    "35a_p341_345": 118,
+    "35b_p346_350": 112,
+    "by_page": {
+      "341": 24, "342": 25, "343": 23, "344": 21, "345": 25,
+      "346": 18, "347": 31, "348": 15, "349": 22, "350": 26
+    },
+    "by_atom_type_combined": {
+      "TABLE_ROW": 113,
+      "SENTENCE": 40,
+      "LIST_ITEM": 37,
+      "HEADING": 19,
+      "TABLE_HEADER": 14,
+      "CODE_LITERAL": 4,
+      "NOTE": 2,
+      "CROSS_REF": 1
+    }
+  },
+  "writer_dispatch": {
+    "35a_subagent_type": "oh-my-claudecode:executor",
+    "35b_subagent_type": "oh-my-claudecode:writer",
+    "alternation_rationale": "v1.4 N14 strict alternation methodology — 35a=executor → 35b=writer (not for drift cal, but applied procedurally for sub-batch alternation per kickoff STEP 3)"
+  },
+  "failures": 0,
+  "repair_cycles": 3,
+  "repair_cycle_notes": [
+    "Cycle 1 (Option H, 7 atoms in 35b): unescaped double-quote inside TABLE_ROW verbatim string (e.g. 'Examples: \"MRI\", \"CT SCAN\".' broke JSON parse). Regex-driven re-escape on 7 lines (p.346 a002/a003/a004/a005/a006/a007 + p.347 a012). Backup: pdf_atoms_batch_35b.jsonl.pre-OptionH-unescaped-quotes.bak. Post-fix: 0 JSON parse errors.",
+    "Cycle 2 (Option H, 6 atoms in 35b): (a) 5 LIST_ITEM atoms in TU – Assumptions block (p.346 a016/a017/a018 + p.347 a001/a002) had non-null sibling_index (1-5) field set — schema violation (only HEADING gets sibling_index/heading_level). Stripped sibling_index + heading_level on these atoms. (b) 1 HEADING atom (p.350 a016 'tr.xpt, Tumor/Lesion Results — Findings...') was misclassified as HEADING hl=6 sib=1 — actually a Spec table caption (parallel to TU/SS/SC pattern where this caption is SENTENCE). Demoted atom_type HEADING→SENTENCE + nullified heading_level/sibling_index. Backup: pdf_atoms_batch_35b.jsonl.pre-OptionH-cycle2-listitem-and-tr-caption.bak.",
+    "Cycle 3 (Option H, 10 atoms in 35b): writer-family TABLE_HEADER fabrication + value cell drop + char corruption motif NEW round-8 (post v1.4 N3 EMERGENCY-CRITICAL codification 2026-04-28). 4 structural fixes + 6 char-substitution fixes: (a) p.347 a011 TABLE_HEADER had fabricated trailing 'SCREEN' column ('| TULNKID | TUTESTCD | TUTEST | TUORRES | VISIT | SCREEN |' — 7 pipes, 6 cols) — corrected to PDF-true 5 cols / 6 pipes ('| TULNKID | TUTESTCD | TUTEST | TUORRES | VISIT |'); (b) p.347 a026 TABLE_HEADER had col-name + data MASHED ('TULOCL TUORLOC LOCATION OF INTEREST' / 'TULOC SPLEEN' / 'TUMETHOD CT SCAN' instead of PDF's 'TUORRES | TULOC | TUMETHOD') — corrected to PDF-true 6 cols; (c) p.347 a027 L01 data row had 3 trailing empty cells (data was MASHED INTO TABLE_HEADER instead of in row) — restored to PDF-true 'LOCATION OF INTEREST | SPLEEN | CT SCAN'; (d) p.349 a010 TABLE_HEADER fabricated trailing 'VISIT' column not in PDF (10 pipes / 9 cols → 9 pipes / 8 cols); (e) p.349 a011-a016 (6 TABLE_ROWs) TUTESTCD char corruption 'DRCRCLTC' → PDF-true 'DRCRLTLC' (multi-axis char substitution at positions 5-7). Backup: pdf_atoms_batch_35b.jsonl.pre-OptionH-cycle3-table-header-fabrication-and-DRCRLTLC.bak. Post-fix: 0 N5 pipe-count violations / 0 schema violations / 0 JSON parse errors. RESIDUAL UNFIXED (pushed to findings): NT02 row missing from p.347 Table 1 (writer dropped 1 row of 9 — would require atom insertion not surgical Option H); content drop documented as O-P1-118 MEDIUM."
+  ],
+  "rule_a": {
+    "reviewer_slot": 45,
+    "reviewer_type": "pr-review-toolkit:pr-test-analyzer",
+    "reviewer_audit_pivot_index": 26,
+    "reviewer_family": "pr-review-toolkit",
+    "reviewer_family_burn_count_post_batch": 4,
+    "reviewer_family_pool_status_post_batch": "pr-review-toolkit family 4th-agent intra-family depth burn (1st burn round 6 batch 29 #38 code-reviewer + 2nd burn round 6 batch 31 #40 silent-failure-hunter + 3rd burn round 7 batch 33 #42 comment-analyzer + 4th burn round 7 batch 34 #43 type-design-analyzer + 5th burn round 8 batch 35 #45 pr-test-analyzer = 5/6 family agents post round 8 batch 35; pr-test-analyzer was the LAST remaining 1-of-6 pr-review-toolkit family agent — family pool COMPLETED post batch 35 burn; FIRST 4th-agent intra-family depth burn for ANY family in P1 cumulative (round 7 batch 34 was 3rd-agent intra-family depth burn first occurrence)). 26th AUDIT pivot cumulative.",
+    "audit_mode_pivot_label": "AUDIT for SDTM PDF atomization quality, NOT PR test coverage analysis on TypeScript/code tests / NOT test gap detection / NOT critical test coverage review for PRs",
+    "tools_adaptation": "full-tool — reviewer wrote verdicts.jsonl + summary.md directly via Write tool (matches round 6+7 #38/#39/#40/#42/#43 + round 5 #37 general-purpose + round 7 #41 general-purpose 2nd burn precedents)",
+    "sample_size": 10,
+    "sample_seed": 20260650,
+    "sample_coverage": "1/page p.341-350 stratified (3 TABLE_ROW + 4 HEADING + 1 LIST_ITEM + 1 TABLE_HEADER + 1 SENTENCE; includes 2 post-Cycle-3 fixed atoms p.347 a011 + p.349 a011 for fix-landing verification)",
+    "raw_pass": 10,
+    "raw_partial": 0,
+    "raw_fail": 0,
+    "raw_weighted_pct": 100.0,
+    "main_session_adjudication": {
+      "verdict": "PASS at threshold ≥80% (post Option H Cycle 3 bulk fix); 10/10 PASS = 100.0% — highest single-batch raw verdict since round 7 batch 32 (general-purpose 2nd burn fallback raw 100%) and round 7 batch 33 post-Option-H (pr-review-toolkit:comment-analyzer raw 100% post 88-atom bulk fix). Reviewer specifically VERIFIED 2 Cycle 3 fixes landed correctly (p.347 a011 SCREEN-column-stripped + p.349 a011 DRCRCLTC→DRCRLTLC).",
+      "post_adjudication_pass": 10,
+      "post_adjudication_partial": 0,
+      "post_adjudication_fail": 0,
+      "post_adjudication_weighted_pct": 100.0,
+      "post_adjudication_verdict": "PASS at threshold ≥80% (post 3 Option H repair cycles); main-session structural sweep PRE-Rule-A caught 7 unescaped-quote JSON breakage + 5 LIST_ITEM-with-sib + 1 caption-misclassification + 3 TABLE_HEADER fabrication + 1 row-data-drop + 6 char-corruption = 23 atom-fixes total bridging from raw writer output to Rule-A-clean state. Two-layer audit architecture validated 6th cumulative round (round 7 batch 33 = 1:88 amplification; round 8 batch 35 = main-session sweep caught 23 atoms before Rule A reviewer 0/10 sample = effectively infinite amplification — sweep-only catch with no Rule-A residual).",
+      "main_session_structural_sweep_extension": "Pre-reviewer schema sweep cycles 1+2+3 fixed 23 atoms before Rule A 1/page reviewer ran. Reviewer slot #45 then 100% PASS confirms post-fix integrity. Two-layer audit architecture 6th cumulative validation: structural sweep is mandatory complement (catches systematic block defects invisible to 1/page sample) + Rule A statistical sample is mandatory (independent confirmation post-fix integrity)."
+    },
+    "reviewer_audit_mode_pivot_quality": {
+      "reflection": "pr-test-analyzer normal mode (PR test coverage analysis, test gap detection, critical test missing review for PRs) mapped naturally to SDTM atomization quality audit via 4-axis analogy: 'test coverage gap ↔ atom verbatim/structural defect' (each atom is one PDF chunk, missing/corrupted = coverage gap); 'critical test missing ↔ value hallucination' (writer-family R10 violations like fabricated TABLE_HEADER columns); 'edge case coverage ↔ TABLE_HEADER/TABLE_ROW boundary' (sample included 1 TABLE_HEADER + 3 TABLE_ROW post-Cycle-3 fix verification); 'flaky test detection ↔ INTRA-AGENT inconsistency' (round 7 NEW dimension). pr-review-toolkit family 4th-agent intra-family depth burn observation: pr-test-analyzer brings test-completeness rigor which materialized as careful per-atom dimension breakdown (6 dimensions per verdict: verbatim_integrity / atom_type_correctness / heading_chain / parent_section_canonical / table_row_pipe_count / n2_cyrillic) — analogous to pr-test-analyzer's normal mode flagging missing test cases by category in PR review.",
+      "pr_family_4th_burn_recipe_consistency": "PASS — same-family 4-agent recipe holds (round 6 #38 code-reviewer 1st + round 6 #40 silent-failure-hunter 2nd + round 7 #42 comment-analyzer 3rd + round 7 #43 type-design-analyzer 4th + round 8 #45 pr-test-analyzer 5th = 5/6 pr-review-toolkit family agents burned, all produced quality verdicts with appropriate detail depth + dimension stratification + AUDIT-mode pivot reflection)",
+      "round_8_intra_family_validation_milestone": "Round 8 batch 35 = first 4th-agent intra-family depth burn for ANY family in P1 cumulative (round 7 batch 34 was 3rd-agent depth); validates AUDIT recipe family-agnostic AND intra-family-agent-agnostic at 4-agent depth scale = recipe maturity at 8 family pools cumulative round 1-8 with 4-agent intra-family validation. pr-review-toolkit family pool COMPLETED post burn (5/6 = 83%; pr-test-analyzer was last remaining unburned agent within pr-review-toolkit family); cumulative family pool exhaustion: 4 families EXHAUSTED post round 8 (vercel + plugin-dev + feature-dev round 4 + pr-review-toolkit round 8)."
+    },
+    "tom_anchor_audit_n_cumulative": 270,
+    "tom_anchor_consecutive_batches": 27,
+    "tom_anchor_fp_count": 0,
+    "tom_anchor_inversion_count": 0,
+    "special_checks": {
+      "new6_b_l4_self_parent": "PASS proactively (10th cumulative round 8 NEW) — 'SC – Assumptions' L4 sib=3 + 'SC – Examples' L4 sib=4 (35a p.341 a006/a010) parent='§6.3.10 Subject Characteristics (SC)' canonical NEVER self-parent; 'SS – Description/Spec/Assumptions/Examples' L4 sib=1/2/3/4 (35a p.342-344) parent='§6.3.11 Subject Status (SS)' canonical NEVER self-parent; '6.3.12.1 TU' L4 sib=1 (35a p.344 a017) parent='§6.3.12 Tumor/Lesion Domains' canonical NEVER self-parent; '6.3.12.2 TR' L4 sib=2 (35b p.350 a001) parent='§6.3.12 Tumor/Lesion Domains' canonical NEVER self-parent. Cumulative L4 self-parent NOT proactive precedents post round 8 batch 35 = 9 (round 7) + 4 (batch 35: SC L4 sib=3+4 + SS L4 sib=1+2+3+4 + TU L4 + TR L4) = expanded scope.",
+      "new7_l5_chain_under_TU": "PASS — TU – Description/Overview L5 sib=1 (35a p.344 a018) + TU – Specification L5 sib=2 (35a p.345 a005) + TU – Assumptions L5 sib=3 (35b p.346 a015) RESTART under §6.3.12.1 TU L4 per NEW7 L5 numbered sub-section + canonical chain coexistence; TU has NO separate Examples L5 sub-section (Examples are EMBEDDED in Assumption text per PDF p.347-349 multiple example tables) — distinct from leaf-pattern domains (SC/SS) which DO have Examples L5",
+      "new7_l5_chain_under_TR": "PASS — TR – Description/Overview L5 sib=1 (35b p.350 a002) + TR – Specification L5 sib=2 (35b p.350 a015) RESTART under §6.3.12.2 TR L4 per NEW7 L5 numbered sub-section; TR L5 chain barely starts at p.350 edge (Spec table head only; cross-batch into batch 36 territory)",
+      "new7_l3_chain_round_8_transitions": "PASS — DOUBLE L3 sub-domain transition single batch: §6.3.11 Subject Status (SS) L3 sib=11 NEW at p.342 (single-domain leaf) + §6.3.12 Tumor/Lesion Domains L3 sib=12 NEW at p.344 (group container); 5th cumulative L3 sub-domain transition post round 7 (round 6 batch 29 §6.3.6 MO + §6.3.7 Morph/Phys group container = 1st+2nd; round 7 batch 34 §6.3.10 SC = 3rd; round 8 batch 35 §6.3.11 SS = 4th + §6.3.12 Tumor/Lesion = 5th); §6.3.11 SS is single-domain L3 (NOT group container) analogous to §6.3.6 MO + §6.3.10 SC; §6.3.12 Tumor/Lesion is GROUP CONTAINER (analogous to §6.3.5 / §6.3.7 / §6.3.9; sub-domains TU + TR + Examples = 3-element group)",
+      "new7_l5_leaf_pattern_examples_at_L5": "PASS — SC + SS leaf-pattern (Examples-at-L5 per N9): SC – Examples L4 sib=4 + Example 1/2/3 L5 sib=1/2/3 RESTART under SC – Examples (35a p.341 a011 + p.341 a023 + p.342 a008); SS – Examples L4 sib=4 + Example 1 L5 sib=1 RESTART under SS – Examples (35a p.344 a006); validates v1.4 N9 leaf-pattern Examples-at-L5 codification 1st live-fire round 8",
+      "new7_l5_group_container_pattern_no_examples": "PASS — TU group-container sub-domain pattern (NO separate Examples L5 sub-section; Examples embedded in Assumption text via multiple example tables) per PDF p.347-349 inspection. v1.4 N10 codification VALIDATED 1st live-fire round 8 — distinguishes leaf-pattern (Examples-at-L5) from group-container-sub-domain (Examples-embedded-in-Assumption); compare round 4 LB §6.3.5.6 had its own L5 Examples vs round 8 TU §6.3.12.1 has no separate L5 Examples (different by content not pattern) — NEW round-8 evidence for v1.4 N10 group-container-sub-domain Examples-handling refinement",
+      "new7_l6_intra_batch_procedural_handoff_35a_to_35b": "PASS — 35a ended with TU – Specification L5 sib=2 + Spec table head 1 SENTENCE intro + 1 TABLE_HEADER + 19 TABLE_ROWs at p.345 a006-a025 (table extends into p.346); 35b first-attempt correctly continued at TU Spec table tail (p.346 a001-a014 = 1 TABLE_HEADER + 13 TABLE_ROWs continuing TU – Specification) then TU – Assumptions L5 sib=3 NEW (p.346 a015) — continuation, not restart. Procedural enforcement EFFECTIVE first-attempt — round 8 batch 35 = 4th live-fire intra-batch procedural handoff post round 5 1st + round 6 2nd + round 7 3rd live-fires (zero recurrence intra-batch).",
+      "new7_l6_cross_batch_handoff_with_batch_34_predicted": "PASS first-attempt — 35a writer correctly continued §6.3.10 SC L4 sib=3 Assumptions + sib=4 Examples chain at p.341 from sister batch 34 territory predicted terminal state (parent_section '§6.3.10 Subject Characteristics (SC)' canonical full-form for all SC Spec table TABLE_ROW continuation atoms p.341 a001-a004 with 8-pipe count matching root TABLE_HEADER pipes=8); cross-BATCH handoff codification round 5 D-MS-2 mandate VALIDATED 3rd live-fire round 8 (round 6 batch 30 1st live-fire + round 7 batch 34 2nd live-fire + round 8 batch 35 3rd live-fire).",
+      "v1_4_N1_oracle_SUPPQUAL": "N/A — batch 35 contains no SUPPQUAL examples (TU/TR are not SUPP-- domains)",
+      "v1_4_N2_cyrillic_homoglyph": "PASS — 0 Cyrillic homoglyphs in 230 atoms (А Е О Р С Т Х К М Н В У scan clean)",
+      "v1_4_N3_NEW8_d_whole_row_emergency_critical_FAILED_TO_PREVENT_RECURRENCE": "MIXED — v1.4 N3 EMERGENCY-CRITICAL codification (2026-04-28) was INCLUDED INLINE in 35b dispatch prompt with 'Halt-on-violation' instruction. Yet writer-family TABLE_HEADER fabrication recurred (3 tables × extra/fabricated trailing column + col-name + data MASHED motif) on first round running v1.4 baseline post-cut. Significance: prompt-text codification ALONE may not be sufficient to prevent writer-family hallucination; auto-fix Option H + structural sweep is the ACTUAL safety net per round 7 D-MS-6 + round 8 batch 35 reaffirmed. v1.5 candidate: writer-side mandatory pre-DONE TABLE_HEADER vs PDF cell-count regex AUTO-VALIDATION (not just prompt text) + halt-on-mismatch.",
+      "v1_4_N5_table_row_pipe_count": "PASS post-fix — 0 N5 violations after Cycle 3 Option H bulk fix (pre-fix 4 in 35a [false-positive cross-batch script bug] + 14 in 35b [real defects from 3 fabricated TABLE_HEADERs])",
+      "v1_4_N6_INTRA_AGENT_consistency": "PASS — 35a + 35b both used canonical L4/L5 chain form parent_section consistently from start (no bare-shortcut mixed); SC L4 sub-section atoms parent='§6.3.10 Subject Characteristics (SC)' L3 canonical; SS L4 sub-section atoms parent='§6.3.11 Subject Status (SS)' L3 canonical; TU L5 sub-section atoms parent='§6.3.12.1 Tumor/Lesion Identification (TU)' L4 canonical (35a + 35b consistent); TR L5 sub-section atoms parent='§6.3.12.2 Tumor/Lesion Results (TR)' L4 canonical",
+      "v1_4_N7_l6_l7_canonical_form": "PASS — 35a SC L5 Examples (Example 1/2/3 L5 sib=1/2/3 under SC – Examples textual heading) parent='SC – Examples'; 35a SS L5 Examples (Example 1 L5 sib=1 under SS – Examples textual heading) parent='SS – Examples'; child atoms within Example narrative parent same L5 textual heading (Option A canonical preferred form per round 7 O-P1-114 codification candidate)",
+      "v1_4_N8_NEW9_L2_short_bracket_FORBID": "PASS — 0 violations across 230 atoms; L2 short-bracket parent_section='§6.3 [MODELS FOR FINDINGS DOMAINS]' used ONLY for L3 HEADING atoms (§6.3.10 SC + §6.3.11 SS + §6.3.12 Tumor/Lesion); all non-L3 atoms used L4/L5 canonical full-form parent (round 7 batch 34 28-atom NEW9 violation NOT recurred in round 8 batch 35 = v1.4 N8 codification 1st live-fire EFFECTIVE)",
+      "v1_4_N9_L3_leaf_pattern_pre_canonical_L4": "PASS — SC + SS L3-leaf-pattern with pre-canonical L4 Description/Spec/Assumptions/Examples (sib=1/2/3/4) RESTART per L3 NEW (35a p.341-344); validates round 7 batch 32 PE precedent = 2nd live-fire of v1.4 N9",
+      "v1_4_N10_leaf_vs_group_examples_at_L5_or_L6": "PASS — SC + SS leaf-pattern Examples-at-L5 (35a p.341 + p.344 a006 SS Example 1) under L4 sib=4 'X – Examples' HEADING; TU group-container-sub-domain pattern with NO separate Examples L5 sub-section (Examples embedded in Assumption text); 1st live-fire round 8 evidence for v1.4 N10 group-container-sub-domain refinement",
+      "v1_4_N11_chapter_short_bracket_extension": "PASS — §6.3.11 SS L3 sib=11 + §6.3.12 Tumor/Lesion L3 sib=12 use chapter-short-bracket parent='§6.3 [MODELS FOR FINDINGS DOMAINS]' all-caps per round 6+7+8 chapter-short-bracket extension = 5th cumulative L3 chapter-short-bracket precedent (round 6 §6.3.6+§6.3.7 = 1st+2nd; round 7 §6.3.10 SC = 3rd; round 8 §6.3.11 SS = 4th + §6.3.12 Tumor/Lesion = 5th)",
+      "v1_4_N12_LIST_ITEM_heavy_density_floor_8": "PASS — sub-batch 35b 112 atoms above 80-floor (LIST_ITEM-heavy: 37 LIST_ITEMs across TU – Description + TU – Assumptions); per-page floors all ≥15 (transition floor 8 met for all); main-session adjudicated FALSE POSITIVE for sub-batch 100-floor 5th cumulative G-MS-12 sub-batch FP (round 7 = 4 FP)",
+      "v1_4_N13_R14_Bash_wc_l_hardening": "PASS — both writers ran Bash wc -l output_file post-write; counts confirmed (35a internal=118 wc=118; 35b internal=112 wc=112)",
+      "v1_4_N14_strict_alternation_NOT_for_drift_cal_but_applied_for_subbatch": "applied procedurally — 35a executor → 35b writer per kickoff STEP 3 alternation (this is sub-batch alternation, not drift cal alternation; v1.4 N14 was drift-cal-specific but kickoff extended principle to sub-batch dispatch as procedural discipline). NOT counted as live-fire of v1.4 N14 drift cal alternation since batch 35 = drift cal SKIP."
+    }
+  },
+  "drift_cal": {
+    "triggered": false,
+    "rationale": "per cadence: batch 33 = mandatory drift cal (sister session C scope round 7, NEW1 7th time); batch 34 = SKIP per cadence; batch 35 = SKIP per cadence; next mandatory at batch 36 (every-3-batches batch 33→36 + cumulative atoms post-p.325 ~480 from 35a+35b approaching 600 dual trigger threshold)",
+    "next_mandatory": "batch 36"
+  },
+  "density_alarm_check_round_8_G_MS_12": {
+    "applied": true,
+    "lowest_per_page_atoms": "p.348=15 (TU – Assumptions LIST_ITEM-heavy with embedded example tables; G-MS-12 standard floor=15 met)",
+    "highest_per_page_atoms": "p.347=31 (TU – Assumptions Assumption #2 + #3 with 2 embedded example tables — TULNKID/TUTSPLIT 5-col + LOCATION OF INTEREST 6-col)",
+    "sub_batch_35a_total": 118,
+    "sub_batch_35a_above_100_floor": true,
+    "sub_batch_35b_total": 112,
+    "sub_batch_35b_above_100_floor": true,
+    "alarm_triggered_sub_batch": false,
+    "alarm_triggered_per_page": false,
+    "main_session_pdf_cross_check_adjudication": "TRUE NEGATIVE — both sub-batches above 100-floor + per-page floors all ≥15; no adjudication needed"
+  },
+  "new6_format_sweep": {
+    "applied": true,
+    "violations_found": 0,
+    "post_sweep_compliance": "100% — zero NEW9 L2 short-bracket parent escalation (round 7 batch 34 28-atom violation NOT recurred); zero NEW6.b L4 self-parent (10 cumulative L4 self-parent NOT proactive precedents post round 8: 4 round 4 IS/LB/Microbiology/GF + 2 round 5 MI/PD + 2 round 6 batch 31 RP/RE + 1 round 7 batch 34 SC + 4 round 8 batch 35 [SC L4 sib=3+4 + SS L4 sib=1+2+3+4 + TU L4 + TR L4])"
+  },
+  "new7_l4_l7_chain_check": {
+    "applied": true,
+    "summary": "DOUBLE L3 sub-domain transition single batch (§6.3.11 SS leaf at p.342 + §6.3.12 Tumor/Lesion group at p.344) + L4 chain extension under §6.3.10 SC (sib=3+4 SC – Assumptions/Examples) + complete L4 chain under §6.3.11 SS (sib=1/2/3/4) + DOUBLE L4 sub-section under §6.3.12 (sib=1 TU + sib=2 TR) + L5 chain under §6.3.12.1 TU (sib=1/2/3 Description/Spec/Assumptions) + L5 chain head under §6.3.12.2 TR (sib=1/2 Description/Spec) + L5 Examples under SC (sib=1/2/3) + L5 Example under SS (sib=1); all chain RESTART per parent change correctly applied per NEW7",
+    "round_8_NEW_precedent": "DOUBLE L3 sub-domain transition single batch first since round 7 batch 34 SINGLE L3 transition (round 6 batch 29 had TRIPLE L3 transition single page p.285); round 8 batch 35 confirms multi-L3 transition at boundary regions is normal protocol cadence. First L3-leaf to L3-group adjacent transition (§6.3.11 SS leaf → §6.3.12 Tumor/Lesion group) within same batch."
+  },
+  "r12_transition_check": {
+    "applied": true,
+    "transition_pages": [
+      {"page": 341, "type": "L4 sub-section transition (SC Spec tail → Assumptions L4 sib=3 + Examples L4 sib=4 + Example 1/2 L5)", "atoms_on_page": 24, "threshold": 8, "compliance": "PASS"},
+      {"page": 342, "type": "MAJOR L3 sub-domain transition (SC Examples Example 3 tail → §6.3.11 Subject Status (SS) L3 NEW + Description/Spec L4 NEW)", "atoms_on_page": 25, "threshold": 8, "compliance": "PASS (3-zone)"},
+      {"page": 344, "type": "MAJOR L3 sub-domain transition (SS Examples tail → §6.3.12 Tumor/Lesion Domains L3 NEW group container + §6.3.12.1 TU L4 NEW + TU Description L5 NEW)", "atoms_on_page": 21, "threshold": 8, "compliance": "PASS (3-zone)"},
+      {"page": 350, "type": "MAJOR L4 sub-section transition (TU Assumptions tail → §6.3.12.2 TR L4 NEW + TR Description L5 NEW + TR Spec L5 NEW + Spec table head)", "atoms_on_page": 26, "threshold": 8, "compliance": "PASS (3-zone)"}
+    ],
+    "quadruple_transition_compliance": "PASS — 4 R12 transition pages in single batch (p.341 L4 + p.342 MAJOR L3 + p.344 MAJOR L3 + p.350 MAJOR L4); analogous to round 7 batch 34 QUADRUPLE transition pattern; round 8 batch 35 = 2nd cumulative QUADRUPLE-transition single batch precedent"
+  },
+  "r15_cross_batch_sibling_check": {
+    "applied": true,
+    "intra_batch_35_continuity": "PASS — 35a→35b L5/L6 sib chain continues correctly: §6.3.10 SC L4 sib=3 Assumptions + sib=4 Examples + L5 Examples 1/2/3 (35a) → no further (SC complete in 35a) → §6.3.11 SS L3 sib=11 NEW + L4 sib=1/2/3/4 + L5 Example 1 (35a) → §6.3.12 Tumor/Lesion L3 sib=12 NEW + §6.3.12.1 TU L4 sib=1 NEW + TU L5 sib=1/2 (35a) → 35b reuses TU L5 sib=2 Spec table tail + TU L5 sib=3 Assumptions NEW (continuation, not restart) → §6.3.12.2 TR L4 sib=2 NEW + TR L5 sib=1/2 NEW",
+    "cross_session_continuity_predicted_batch_36": "PREDICTED state for sister session C batch 36 (p.351-360): TR Spec table tail continuation from 35b p.350 a017-a026 (TABLE_HEADER + first 9 TABLE_ROWs) into p.351; TR Assumptions L5 sib=3 NEW + TR Examples block; §6.3.12.3 Tumor Identification/Tumor Results Examples L4 sib=3 NEW at p.353 (per TOC); §6.3.13 Vital Signs (VS) L3 sib=13 NEW at p.358 (per TOC)",
+    "main_session_local_validation": "L3 sibling chain under §6.3 [MODELS FOR FINDINGS DOMAINS]: prior cumulative sib=1-10 (DA/DD/EG/IE/Specimen-based/MO/Morph-Phys/PE/QRS/SC); batch 35 contributes sib=11 SS NEW + sib=12 Tumor/Lesion NEW. L4 sibling chain under §6.3.10 SC: sib=1+2 Description/Spec from batch 34 territory; batch 35 contributes sib=3 Assumptions + sib=4 Examples NEW. L4 sibling chain under §6.3.11 SS: sib=1+2+3+4 Description/Spec/Assumptions/Examples NEW (35a). L4 sibling chain under §6.3.12 Tumor/Lesion: sib=1 TU NEW (35a) + sib=2 TR NEW (35b head). L5 sibling chain under §6.3.12.1 TU: sib=1+2+3 Description/Spec/Assumptions NEW (35a + 35b)."
+  },
+  "findings_added": [
+    {
+      "finding_id": "O-P1-117",
+      "severity": "HIGH",
+      "category": "writer-family TABLE_HEADER fabrication motif NEW round-8 (post v1.4 N3 EMERGENCY-CRITICAL codification 2026-04-28 ineffective at preventing first-round-running recurrence)",
+      "title": "v1.4 N3 prompt-codification ineffective at preventing writer-family TABLE_HEADER fabrication on FIRST round running v1.4 baseline post-cut — 3 separate TABLE_HEADERs in 35b had fabricated/MASHED trailing columns",
+      "scope": "3 TABLE_HEADER atoms in 35b (1st round running v1.4 baseline post-cut 2026-04-28): (a) p.347 a011 fabricated trailing 'SCREEN' col ('| TULNKID | TUTESTCD | TUTEST | TUORRES | VISIT | SCREEN |' should be 5 cols ending with VISIT — SCREEN was data value of first row's VISIT column, not column name); (b) p.347 a026 col-names + L01 row data MASHED ('TULOCL TUORLOC LOCATION OF INTEREST' should be 'TUORRES' / 'TULOC SPLEEN' should be 'TULOC' / 'TUMETHOD CT SCAN' should be 'TUMETHOD' — 6 cols header CORRECT but 3 col-names CORRUPTED with first data row's values); (c) p.349 a010 fabricated trailing 'VISIT' col not in PDF (should be 8 cols ending with TUMETHOD).",
+      "atom_id_anchor": "ig34_p0347_a011 + ig34_p0347_a026 + ig34_p0349_a010",
+      "rule_violation": "v1.4 R10 strict verbatim no-paraphrase + v1.4 N3 EMERGENCY-CRITICAL whole-row TABLE_ROW value-cell verbatim integrity (extends to TABLE_HEADER cell-name verbatim integrity per N3 implication); writer fabricated/MASHED trailing column-names from data values in ALL 3 cases. Joins 3 cumulative round 5+6+7 writer-direction main-line VALUE HALLUCINATION recurrences (round 5 O-P1-85 + round 6 O-P1-103 + round 7 O-P1-109) as 4th cumulative writer-direction recurrence — but NEW DIMENSION: this is on FIRST round running v1.4 baseline post-cut, demonstrating prompt-text codification ALONE may not be sufficient.",
+      "repair_action": "Option H Cycle 3 surgical fix (4 atoms structural): TABLE_HEADER text correction per PDF transcription on a011/a026/a010 + L01 data row a027 restored. Backup: pdf_atoms_batch_35b.jsonl.pre-OptionH-cycle3-table-header-fabrication-and-DRCRLTLC.bak. Post-fix: 0 N5 violations + 100% Rule A reviewer verdict.",
+      "v1_5_codification_candidate": "v1.5 NEW8.e (escalation of v1.4 N3): writer-side mandatory pre-DONE TABLE_HEADER cell-count regex AUTO-VALIDATION against PDF physical ground truth (not just prompt text instruction). Implementation: writer/executor MUST after writing TABLE_HEADER atom, re-Read corresponding PDF page region + count actual table column cells via OCR/text-extraction + assert cell-count match + halt-on-mismatch with Option H auto-fix proposal. Joins v1.4 N3 codification stack as escalation candidate. Priority: HIGH (4th cumulative writer-direction main-line recurrence + prompt-only codification proven insufficient on 1st-round-running test).",
+      "writer_family_motif": "TABLE_HEADER value/structure fabrication motif. Distinct from prior writer-family motifs in form (header-side, not row-side) but EQUIVALENT in mechanism (value hallucination from training-data templates OR misreading PDF table boundaries treating data row 1 as part of header). Severity HIGH because (a) 3 separate TABLE_HEADERs affected = systematic; (b) downstream consumers/RAG see corrupted column structure for entire associated tables; (c) v1.4 N3 prompt-codification proven INSUFFICIENT on first run; (d) caught only by main-session structural sweep (1:14+ amplification ratio analogous to round 7 batch 34 1:14)."
+    },
+    {
+      "finding_id": "O-P1-118",
+      "severity": "MEDIUM",
+      "category": "writer-family TABLE_ROW value-cell drop motif (joins round 6 O-P1-97 motif extension) — partial in-batch fix, residual content drop",
+      "title": "Two related writer-family value-cell drop defects in 35b: (a) NT02 row missing from p.347 Table 1 (writer dropped 1 of 9 TABLE_ROWs) — UNFIXED IN BATCH (Option H surgical cannot insert atoms; documented for reconciler/v1.5 candidate); (b) p.347 a027 L01 data row had 3 trailing empty cells where data should have been (data was MASHED INTO TABLE_HEADER per O-P1-117) — FIXED in Cycle 3 by restoring 'LOCATION OF INTEREST | SPLEEN | CT SCAN'",
+      "scope": "(a) p.347 Table 1 (under TU – Assumptions Assumption #2 about TUTSPLIT example): PDF has 9 TABLE_ROWs (T01/T02/T03/T04/NT01/NT02/T04.1/T04.2/NEW01) but writer wrote only 8 TABLE_ROWs (NT02 missing as 6th row); 1-of-9 row drop = 11.1% data loss for this specific embedded table. (b) p.347 a027 L01 data row had data cells emptied because writer mashed them into TABLE_HEADER (interconnected with O-P1-117 a026 fabrication) — FIXED by restoring data per PDF.",
+      "atom_id_anchor": "ig34_p0347 (NT02 missing from a012-a019 sequence; would need new atom inserted between a016 NT01 and a017 T04.1) + ig34_p0347_a027 (L01 data drop, FIXED Cycle 3)",
+      "rule_violation": "v1.4 R10 strict verbatim + v1.4 N3 NEW8.d whole-row TABLE_ROW value-cell verbatim integrity (whole-row not just per-cell); joins round 6 O-P1-97 cumulative motif (round 6 batch 30 mk.xpt 22-atom TABLE_ROW empty-cell drop motif).",
+      "repair_action": "(a) NT02 row drop UNFIXED — Option H surgical cannot insert new atoms without renumbering subsequent atom_ids OR appending out-of-order atom (which violates page-sequential atom_id convention). Documented for reconciler-side decision OR v1.5 sweep candidate (~30 atom retroactive sweep across round 4-7 P1 cumulative for similar 1-row drops). (b) L01 data drop FIXED in Cycle 3 (restored to PDF-true verbatim).",
+      "v1_5_codification_candidate": "v1.5 candidate: post-write writer self-validate step extension — for each TABLE_ROW emitted, count-against-prior-similar-TABLE_ROW + count-in-PDF-image scan to detect row drops; mandatory pre-DONE Bash row-count vs PDF-page-rendering ground truth comparison.",
+      "writer_family_motif": "Writer-family content-drop motif (1 TABLE_ROW dropped + 3 cells dropped). Severity MEDIUM because (a) only 1-2 atoms affected vs systematic 3-table O-P1-117 fabrication; (b) interconnected with O-P1-117 (mashing into header caused L01 cell drop); (c) part fixed surgically (L01) but part requires Option E rerun (NT02 insertion) — pushed to reconciler/v1.5."
+    },
+    {
+      "finding_id": "O-P1-119",
+      "severity": "MEDIUM",
+      "category": "writer-family TUTESTCD char-substitution motif extending v1.4 N2 NEW2 char-iteration codification — multi-axis Latin-Latin scramble at adjacent positions",
+      "title": "p.349 6 TABLE_ROWs in Disease Recurrence example had TUTESTCD = 'DRCRCLTC' (writer-corrupted) instead of PDF-true 'DRCRLTLC'; multi-axis char substitution at positions 5-7 (PDF: L T L → Writer: C L T = 3 chars displaced)",
+      "scope": "6 TABLE_ROWs in 35b under TU – Assumptions Disease Recurrence example: ig34_p0349_a011/a012/a013/a014/a015/a016 (LOC01/REG01/REG02/DIS01/DIS02/CON01); all rows had TUTESTCD col value = 'DRCRCLTC' but PDF shows 'DRCRLTLC' for all 6 rows.",
+      "atom_id_anchor": "ig34_p0349_a011..a016 (6 atoms, TUTESTCD column 3rd cell)",
+      "rule_violation": "v1.4 R10 strict verbatim no-paraphrase + v1.4 N2 NEW2 single-character iteration self-validation extension (round 6 O-P1-101 + O-P1-102 motifs). Distinct from Cyrillic-Latin substitution (v1.4 N2 covered) — this is Latin-Latin adjacent-position permutation/scramble (analogous to round 6 O-P1-101 OESEQ→OESEO Q→O motif, also Latin-Latin adjacent-key substitution).",
+      "repair_action": "Option H Cycle 3 char-substitution fix (6 atoms): str.replace 'DRCRCLTC' → 'DRCRLTLC' across all 6 rows. Backup: pdf_atoms_batch_35b.jsonl.pre-OptionH-cycle3-table-header-fabrication-and-DRCRLTLC.bak. Post-fix: 0 occurrences of 'DRCRCLTC'; Rule A reviewer verified fix landed (a011 PASS).",
+      "v1_5_codification_candidate": "v1.5 candidate: extend v1.4 N1 NEW8 oracle expansion canonical CDISC variable list to include CT-defined Disease Recurrence Relative Location (DRCRLTLC) + similar adjacency-typo motifs. Joins round 6 O-P1-101 v1.4 N2 stack as same-mechanism cumulative motif (round 6 OESEQ→OESEO 1st + round 8 batch 35 DRCRLTLC→DRCRCLTC 2nd cumulative).",
+      "writer_family_motif": "Writer-family char-substitution motif (Latin-Latin adjacent-position scramble). Severity MEDIUM because (a) 6 atoms affected (16 atoms) but uniform single-substitution = bulk Option H feasible; (b) caught by main-session structural sweep + Rule A reviewer verification post-fix; (c) joins round 6 O-P1-101 motif but distinct in adjacency pattern (round 6 = single-char Q→O / round 8 = 3-char displacement L T L → C L T)."
+    },
+    {
+      "finding_id": "O-P1-120",
+      "severity": "INFO",
+      "category": "v1.4 N3 EMERGENCY-CRITICAL prompt-codification effectiveness audit on FIRST round running v1.4 baseline post-cut + repair-cycle architecture observation milestone",
+      "title": "Round 8 batch 35 = FIRST round running v1.4 baseline post-cut (2026-04-28); v1.4 N3 EMERGENCY-CRITICAL prompt-text codification proven INSUFFICIENT to prevent recurrence on its own (3 fabrications still occurred); structural sweep + Option H repair architecture is the ACTUAL safety net (3 repair cycles fixed 23 atoms before Rule A 100% PASS)",
+      "scope": "Architectural meta-finding spanning batch 35 writer dispatch + 3 repair cycles + Rule A reviewer verification. (1) v1.4 N3 codification was INCLUDED INLINE in 35b dispatch prompt (compressed v1.4 rules block in dispatch) with explicit 'EMERGENCY-CRITICAL' + 'Halt-on-violation' instructions yet writer-family TABLE_HEADER fabrication still recurred 3× = proof point that prompt-text codification alone insufficient for behavior change. (2) 3 repair cycles fixed 23 atoms total: Cycle 1 = 7 (JSON unescape) + Cycle 2 = 6 (schema field strip + caption demotion) + Cycle 3 = 10 (TABLE_HEADER fabrication + char corruption). (3) Rule A reviewer slot #45 raw 100% PASS post-3-cycle-fix = two-layer audit architecture validated 6th cumulative round (round 7 = 5 cumulative validations).",
+      "atom_id_anchor": "n/a (architectural milestone)",
+      "rule_violation": "n/a (effectiveness audit, not a defect)",
+      "repair_action": "n/a (covered by O-P1-117/118/119)",
+      "v1_5_codification_candidate": "v1.5 codification: BEHAVIORAL ENFORCEMENT escalation beyond prompt-text — implement writer-side AUTO-VALIDATION via Bash post-write hooks (cell-count regex / variable-name oracle lookup / pipe-count match) with halt-on-mismatch + Option H auto-fix proposal; prompt-text codification supplemented by mandatory tooling enforcement. Pattern: 4 cumulative writer-direction recurrences (round 5+6+7+8) + 1 prompt-only codification round (v1.4 N3) NOT preventing 4th = need next-level architectural enforcement.",
+      "writer_family_motif": "n/a (architectural validation milestone)",
+      "round_8_audit_architecture_observation": "Repair cycle reduction trajectory: round 5 reconciler bulk fix 168 atoms / round 6 batch 31 10 atoms / round 7 batch 33 88 atoms (Option H bulk) + batch 34 28 atoms / round 8 batch 35 23 atoms (3 cycles). Trend: per-batch repair size oscillates with content density and writer drift; structural sweep + repair architecture continues to absorb writer drift. Two-layer audit architecture 6th cumulative validation post round 7 5 cumulative. v1.4 N3 prompt-codification INSUFFICIENT alone to prevent recurrence = v1.5 candidate for behavioral enforcement escalation.",
+      "first_round_running_v1_4_observation": "Round 8 batch 35 dispatched with v1.4 inline-prepended rules in writer prompt (not explicit reference to P0_writer_pdf_v1.4.md file load). Possible mitigation: future dispatches should reference v1.4 prompt file path + ALSO inline-prepend critical rules in dispatch prompt for redundancy + writer-side post-write Bash validation hooks + halt-on-violation."
+    }
+  ],
+  "finding_id_range_allocated": "O-P1-117..120 (4 IDs reserved per kickoff §0)",
+  "finding_id_range_used": ["O-P1-117", "O-P1-118", "O-P1-119", "O-P1-120"],
+  "finding_id_self_validation_gate": "PASS — all 4 finding IDs ∈ {117, 118, 119, 120}; 0 findings with ID ≤116 (no collision with prior batch 32-34 O-P1-105..116) or ≥121 (no over-allocation to sister batches 36/37 reserved O-P1-121..128)",
+  "rule_d_slot_used": 45,
+  "rule_d_audit_pivot_count_post_batch": 26,
+  "rule_d_family_post_batch": "pr-review-toolkit family 4th-agent intra-family depth burn (1st burn round 6 batch 29 #38 code-reviewer + 2nd burn round 6 batch 31 #40 silent-failure-hunter + 3rd burn round 7 batch 33 #42 comment-analyzer + 4th burn round 7 batch 34 #43 type-design-analyzer + 5th burn round 8 batch 35 #45 pr-test-analyzer); pr-review-toolkit family pool COMPLETED post burn (5/6 cumulative of 6 listed pr-review-toolkit family agents = pr-test-analyzer was last unburned within family, family pool EXHAUSTED post round 8 batch 35); 26th AUDIT pivot cumulative across rounds 1-8. FIRST 4th-agent intra-family depth burn for ANY family in P1 cumulative (round 7 batch 34 was 3rd-agent depth first occurrence). 4 family pools EXHAUSTED post round 8 (vercel + plugin-dev + feature-dev round 4 + pr-review-toolkit round 8).",
+  "files_written": [
+    "evidence/checkpoints/pdf_atoms_batch_35a.jsonl (118 atoms, p.341-345)",
+    "evidence/checkpoints/pdf_atoms_batch_35b.jsonl (112 atoms, p.346-350, post 3 Option H cycles)",
+    "evidence/checkpoints/pdf_atoms_batch_35b.jsonl.pre-OptionH-unescaped-quotes.bak (Rule B backup pre-Cycle-1)",
+    "evidence/checkpoints/pdf_atoms_batch_35b.jsonl.pre-OptionH-cycle2-listitem-and-tr-caption.bak (Rule B backup pre-Cycle-2)",
+    "evidence/checkpoints/pdf_atoms_batch_35b.jsonl.pre-OptionH-cycle3-table-header-fabrication-and-DRCRLTLC.bak (Rule B backup pre-Cycle-3)",
+    "evidence/checkpoints/_progress_batch_35.json (this file)",
+    "evidence/checkpoints/P1_batch_35_report.md (full batch report)",
+    "evidence/checkpoints/rule_a_batch_35_sample.jsonl (10-atom sample seed=20260650)",
+    "evidence/checkpoints/rule_a_batch_35_verdicts.jsonl (slot #45 pr-review-toolkit:pr-test-analyzer verdicts; 10 PASS + 0 PARTIAL + 0 FAIL = 100.0% raw weighted = PASS at threshold ≥80%)",
+    "evidence/checkpoints/rule_a_batch_35_summary.md (Rule A summary + AUDIT-mode pivot reflection + pr-review-toolkit family 4th-agent depth-burn recipe consistency check)"
+  ],
+  "files_NOT_touched": [
+    "root pdf_atoms.jsonl (8552 atoms unchanged — reconciler scope)",
+    "audit_matrix.md (reconciler scope)",
+    "_progress.json (reconciler scope)",
+    "sister batch files (pdf_atoms_batch_32*..34*, pdf_atoms_batch_36*, pdf_atoms_batch_37*)",
+    "subagent_prompts/* (v1.4 active 2026-04-28 — no edits; v1.5 candidate stack accumulating reconciler-side; round 8 batch 35 adds O-P1-117/118/119/120 to v1.5 stack)",
+    "schema/*.json",
+    "PLAN.md",
+    "plans/*.md",
+    "CLAUDE.md",
+    "MEMORY/*",
+    "evidence/checkpoints/halt_state_batch_32.md (round 7 historical preserved per Rule B + round 7 D-MS-8)"
+  ],
+  "halt_state": null,
+  "round_8_compliance": {
+    "G_MS_4_halt_fallback": "spec'd (kickoff §0 hard-stop directive); NOT triggered this batch (failure rate 0/230=0% well below 15%, Rule A 100% raw above ≥80% PASS threshold, ctx well below 80%, reviewer dispatched fine first-attempt, no shared-file write attempts, 3 repair cycles still well below halt threshold)",
+    "G_MS_7_finding_id_range_pre_allocation": "compliant — O-P1-117..120 reserved (4 IDs), 4 used (all); 0 unused; no over-allocation, no cross-session collision",
+    "G_MS_11_NEW6_dual_form_codified": "applied — 0 violations found; 4 NEW L4 sub-domain HEADINGs (SC L4 sib=3+4 + SS L4 sib=1-4 + TU L4 sib=1 + TR L4 sib=2) all proactively correct first-attempt with parent canonical NEVER self-parent",
+    "G_MS_11_b_round_3_extension_codified": "applied PROACTIVELY — 4+ L4 self-parent NOT proactive precedents in batch 35 (10 cumulative L4 self-parent NOT proactive precedents post round 8 batch 35)",
+    "G_MS_12_density_alarm_check_applied": "applied — sub-batch 35a 118 + 35b 112 both ABOVE 100-floor; per-page floors all ≥15; no alarm triggered (5th round running G-MS-12 functioning as designed; round 7 batch 34 was 4th cumulative FALSE POSITIVE on sub-batch level + LIST_ITEM-heavy adjudication; round 8 batch 35 = TRUE NEGATIVE)",
+    "G_MS_13_finding_id_range_cross_validation_table": "applied — kickoff §0 cross-validation table read pre-dispatch; finding ID self-validation gate at STEP 7 confirmed all 4 IDs ∈ {117,118,119,120}; 0 collision with sister sessions C (batch 36 reserved 121-124) or D (batch 37 reserved 125-128); EFFECTIVE 5th cumulative round (round 4-8)",
+    "round_8_v1_4_baseline_first_round_running": "round 8 batch 35 = FIRST round running v1.4 baseline post-cut 2026-04-28; v1.4 cut absorbed 24 cumulative round 5+6+7 candidates (N1-N14 14 NEW writer-side patches + Self-Validate hooks 9→14 + 4 NEW matcher discrepancy markers + Rule D roster 34→43); writer/executor MUST follow v1.4 prompt going forward",
+    "round_8_v1_4_N3_EMERGENCY_CRITICAL_effectiveness_audit": "MIXED — v1.4 N3 EMERGENCY-CRITICAL whole-row TABLE_ROW value-cell verbatim integrity codification (post 3 cumulative writer-direction main-line VALUE HALLUCINATION recurrences round 5+6+7) was INCLUDED INLINE in 35b dispatch prompt yet writer-family TABLE_HEADER fabrication still recurred 3× on first round running v1.4 baseline; demonstrates prompt-text codification ALONE may not be sufficient (O-P1-117 documents this finding; O-P1-120 architecturally codifies the meta-observation as v1.5 candidate for behavioral enforcement escalation); structural sweep + Option H repair architecture is the ACTUAL safety net (3 repair cycles fixed 23 atoms before Rule A 100% PASS)",
+    "round_8_NEW7_L6_INTRA_batch_procedural_handoff_4th_live_fire": "EFFECTIVE — 35a→35b sub-batch handoff prepend successfully applied: 35b dispatch prompt inline-prepended 35a predicted terminal state (TU – Specification L5 sib=2 + Spec table mid-page p.345 a006-a025 with table extending to p.346); 35b first-attempt correctly continued at TU Spec table tail (p.346 a001-a014) then TU – Assumptions L5 sib=3 NEW (p.346 a015) — continuation, not restart; 0 NEW7 L6 intra-batch recurrence in batch 35. 4th live-fire validation of round 5 D-MS-4 INTRA-batch procedural enforcement codification + N6 INTRA-AGENT consistency 1st live-fire EFFECTIVE round 8 (35a + 35b both used canonical L4/L5 chain form parent_section consistently from start, no bare-shortcut mixed = N6 v1.4 codification VALIDATED 1st live-fire round 8).",
+    "round_8_NEW7_L6_CROSS_batch_handoff_3rd_live_fire": "EFFECTIVE first-attempt — 35a writer correctly continued §6.3.10 SC L4 sib=3 Assumptions + sib=4 Examples chain at p.341 from sister batch 34 territory predicted terminal state (parent_section '§6.3.10 Subject Characteristics (SC)' canonical full-form for all SC Spec table TABLE_ROW continuation atoms p.341 a001-a004 with 8-pipe count matching root TABLE_HEADER pipes=8); cross-BATCH handoff codification round 5 D-MS-2 mandate VALIDATED 3rd live-fire round 8 (round 6 batch 30 1st + round 7 batch 34 2nd + round 8 batch 35 3rd live-fire); 0 cross-batch recurrence in batch 35.",
+    "round_8_NEW7_L3_DOUBLE_transition_round_8_milestone": "EFFECTIVE — DOUBLE L3 sub-domain transition single batch (§6.3.11 SS leaf at p.342 + §6.3.12 Tumor/Lesion group at p.344) = first L3-leaf-to-L3-group adjacent transition within same batch; 5th cumulative L3 sub-domain transition in P1 (round 6 §6.3.6 MO + §6.3.7 Morph/Phys = 1st+2nd; round 7 §6.3.10 SC = 3rd; round 8 §6.3.11 SS = 4th + §6.3.12 Tumor/Lesion = 5th)",
+    "round_8_NEW7_L7_round_8_no_L7_in_batch_35": "n/a — batch 35 contains 0 L7 atoms (TU has no separate Examples L5 sub-section per group-container-sub-domain pattern; Examples embedded in Assumption text only; previous round 5 PC L7 + round 7 RS L7 cumulative L7 occurrences remain 5 in P1)",
+    "round_8_pr_review_toolkit_family_4th_agent_intra_family_depth_burn": "EFFECTIVE — pr-review-toolkit family 4th-agent intra-family depth burn (slot #45 pr-test-analyzer post round 7 #43 type-design-analyzer 3rd-agent depth) = first 4th-agent intra-family depth burn for ANY family in P1 cumulative; family pool COMPLETED post burn (5/6 = pr-test-analyzer was last unburned agent); 4 family pools EXHAUSTED post round 8 (vercel + plugin-dev + feature-dev round 4 + pr-review-toolkit round 8); validates AUDIT recipe family-agnostic AND intra-family-agent-agnostic at 4-agent depth scale = recipe maturity",
+    "round_8_two_layer_audit_6th_cumulative_validation": "EFFECTIVE — main-session structural sweep + 3 Option H repair cycles fixed 23 atoms BEFORE Rule A reviewer ran (sweep amplification ratio 1:effectively-infinite since Rule A 0/10 sample defects post-fix = 100% PASS); 6th cumulative validation of two-layer audit architecture post round 2 + round 4 + round 5 + round 6 + round 7 = sweep-only catch + reviewer post-fix verification (round 8 first explicit BEFORE-pattern-only pre-Rule-A architecture); confirms structural sweep is ACTUAL safety net for systematic block defects + Rule A reviewer is ACTUAL safety net for residual sample-specific defects + Option H + Rule B backup discipline preserves audit trail integrity",
+    "round_8_v1_4_first_round_running_baseline_observations": [
+      "v1.4 N1 SUPPQUAL Identifier oracle: N/A (batch 35 no SUPP-- examples)",
+      "v1.4 N2 Cyrillic homoglyph 11+ chars: PASS 0 violations 230 atoms",
+      "v1.4 N3 NEW8.d EMERGENCY-CRITICAL: MIXED — 3 fabrications recurred despite codification (O-P1-117 HIGH); v1.5 escalation candidate behavioral enforcement",
+      "v1.4 N5 TABLE_ROW pipe-count: PASS post-fix 0 violations (pre-fix 14 from O-P1-117 fabrication cascade)",
+      "v1.4 N6 INTRA-AGENT consistency: PASS 1st live-fire EFFECTIVE — 35a + 35b consistent canonical chain form throughout",
+      "v1.4 N7 L6/L7 parent canonical-form: PASS — L5 Examples atoms parent='X – Examples' L5 textual heading per Option A",
+      "v1.4 N8 NEW9 L2 short-bracket FORBID: PASS 0 violations (round 7 batch 34 28-atom motif NOT recurred = N8 codification VALIDATED 1st live-fire EFFECTIVE round 8)",
+      "v1.4 N9 L3 leaf-pattern pre-canonical L4: PASS 2nd live-fire EFFECTIVE (SC + SS) post round 7 PE 1st live-fire",
+      "v1.4 N10 leaf-vs-group Examples-at-L5/L6: PASS 1st live-fire EFFECTIVE — SC/SS leaf-pattern Examples-at-L5 + TU group-container-sub-domain pattern with NO separate Examples L5",
+      "v1.4 N11 L3 chapter-short-bracket: PASS 5th cumulative L3 chapter-short-bracket precedent (SS + Tumor/Lesion)",
+      "v1.4 N12 LIST_ITEM-heavy floor 8: PASS — sub-batch 35b LIST_ITEM-heavy 37 LIST_ITEMs; per-page floors all ≥15; no alarm",
+      "v1.4 N13 R14 wc -l mandatory: PASS — both writers ran Bash wc -l + counts confirmed",
+      "v1.4 N14 strict alternation drift cal: N/A (drift cal SKIP); applied procedurally for sub-batch alternation"
+    ]
+  },
+  "round_8_NEW_precedents_observed": [
+    "v1.4 prompt baseline first-round-running EFFECTIVE for 11 of 14 N1-N14 patches (N1=N/A + N2-N15 PASS / N3 MIXED escalation candidate / N14 N/A drift cal skip); prompt-text codification PROVEN INSUFFICIENT for N3 motif on 1st round running = v1.5 escalation candidate behavioral enforcement (O-P1-120)",
+    "First 4th-agent intra-family depth burn for ANY family in P1 cumulative (slot #45 pr-review-toolkit:pr-test-analyzer post round 7 batch 34 3rd-agent depth) = pr-review-toolkit family pool COMPLETED + 4 family pools EXHAUSTED post round 8",
+    "First L3-leaf-to-L3-group adjacent transition within same batch (§6.3.11 SS leaf → §6.3.12 Tumor/Lesion group at p.342→p.344)",
+    "v1.4 N6 INTRA-AGENT consistency check 1st live-fire EFFECTIVE (35a executor + 35b writer consistent canonical chain form)",
+    "v1.4 N8 NEW9 L2 short-bracket FORBID 1st live-fire EFFECTIVE (round 7 batch 34 28-atom violation NOT recurred)",
+    "v1.4 N9 leaf-pattern pre-canonical L4 2nd live-fire EFFECTIVE (SC + SS extending round 7 PE 1st)",
+    "v1.4 N10 leaf-vs-group Examples-at-L5/L6 1st live-fire EFFECTIVE",
+    "Two-layer audit architecture 6th cumulative validation BEFORE-pattern-only (sweep + 3 Option H cycles fixed 23 atoms = 100% Rule A PASS post-fix)",
+    "Writer-family TABLE_HEADER fabrication motif round-8 NEW (3 tables × extra/MASHED trailing column; O-P1-117 HIGH) = 4th cumulative writer-direction main-line recurrence post round 5+6+7 (NEW DIMENSION: header-side not row-side; NEW DIMENSION: post v1.4 N3 codification ineffective)",
+    "Writer-family Latin-Latin char-substitution motif round-8 NEW (DRCRCLTC vs DRCRLTLC; O-P1-119 MEDIUM) = 2nd cumulative Latin-Latin adjacency motif post round 6 OESEQ→OESEO (1st)",
+    "v1.4 baseline + v1.5 candidate stack: O-P1-117 HIGH + O-P1-118 MEDIUM + O-P1-119 MEDIUM + O-P1-120 INFO architectural = 4 v1.5 candidates round 8 batch 35 alone (cumulative round 8: ~4 + round 5+6+7 prior 24 = 28 v1.5 candidate stack accumulating)"
+  ],
+  "handoff_to_reconciler": "Session B (round 8) contributes 230 atoms (118 + 112) over p.341-350. Reconciler should: (a) merge pdf_atoms_batch_35a.jsonl + pdf_atoms_batch_35b.jsonl into root pdf_atoms.jsonl post sister batch 36+37 merges; (b) sweep cross-batch sibling continuity for §6.3 L3 chain — sib=10 SC (batch 34) → sib=11 SS NEW (batch 35) → sib=12 Tumor/Lesion NEW (batch 35) → sib=13 VS NEW (batch 36 expected per TOC §6.3.13 at p.358); §6.3.10 SC L4 chain — sib=1+2 (batch 34) + sib=3+4 (batch 35); §6.3.11 SS L4 chain — sib=1+2+3+4 NEW (batch 35); §6.3.12 Tumor/Lesion L4 chain — sib=1 TU (batch 35) + sib=2 TR (batch 35) + sib=3 Tumor Identification/Tumor Results Examples (batch 36 expected); §6.3.12.1 TU L5 chain — sib=1+2+3 Description/Spec/Assumptions (batch 35); §6.3.12.2 TR L5 chain — sib=1+2 Description/Spec head (batch 35) + sib=3+4 Assumptions/Examples NEW (batch 36 expected); (c) validate cross-session R15 SC Spec table TABLE_ROW continuity (batch 34 territory tail at p.340 → batch 35a head at p.341 — 5 SC Spec atoms parent_section canonical match + 8-pipe count match); (d) validate cross-session R15 TU Spec table TABLE_ROW continuity (batch 35a tail at p.345 a006-a025 → batch 35b head at p.346 a001-a014 — 14 TU Spec atoms parent_section canonical match + 8-pipe count match); (e) update root audit_matrix.md with batch 35 row + Rule A 35 row + Rule D roster 43→45 + pr-review-toolkit family 4th-agent depth burn family pool EXHAUSTED (4 pools EXHAUSTED post round 8); (f) update root _progress.json (atoms 8552→8782 + round 8 sister batch 36+37 contributions; pages 340→350 + sisters; batches 34→35 + sisters; Rule D 43→45; repair_cycles +3; findings +4 [O-P1-117/118/119/120]); (g) v1.5 patch session decision — round 8 batch 35 contributes 4 v1.5 candidates (O-P1-117 HIGH writer-family TABLE_HEADER fabrication motif post v1.4 N3 codification ineffective + O-P1-118 MEDIUM TABLE_ROW value-cell drop motif extension + O-P1-119 MEDIUM Latin-Latin char-substitution 2nd cumulative + O-P1-120 INFO v1.4 N3 codification effectiveness audit + behavioral enforcement escalation architectural) = cumulative v1.5 candidate stack ~28 (24 round 5+6+7 absorbed by v1.4 + ~4 round 8 batch 35 NEW; reconciler should recommend whether v1.5 cut session priority is HIGH/MEDIUM based on sister batch 36+37 evidence saturation); (h) Issue O-P1-118 NT02 row drop reconciler-side decision — defer to v1.5 retroactive sweep candidate OR Option E targeted re-run for batch 35 p.347 Table 1 (insert NT02 row); (i) multi-session round 8 protocol: write MULTI_SESSION_RETRO_ROUND_8.md (Rule C 三段式 12+ R-MS retain / 5+ G-MS gap / 7+ D-MS decision) with focus on v1.4 first-round-running effectiveness audit + 4-agent intra-family depth burn milestone + DOUBLE L3 transition + behavioral enforcement escalation v1.5 candidate; cleanup round 8 routing rule + delete batch_35/36/37_kickoff.md + reconciler_kickoff_round8.md (one-shot use done)."
+}

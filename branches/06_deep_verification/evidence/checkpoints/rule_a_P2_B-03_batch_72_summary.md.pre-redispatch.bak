@@ -1,0 +1,107 @@
+# Rule A audit summary — P2 B-03c round 06 batch_72 (MS/assumptions.md)
+
+> 状态: **HALT** — schema regression triggers HIGH severity; round 06 must pause before batch_73 dispatch
+
+## Verdict
+
+**HALT** — full-coverage Rule A audit (14/14 atoms, small-file exception) detected a HIGH-severity frozen-schema regression affecting 100% of atoms. Per reviewer prompt halt rule (`HIGH severity / R-2.8 violation`), reviewer halts and reports.
+
+## Stats
+
+| Metric | Value |
+|---|---|
+| Source MD | `knowledge_base/domains/MS/assumptions.md` |
+| Source lines | 19 |
+| Atoms emitted | 14 |
+| Atoms/line ratio | 0.737 |
+| Coverage sampled | 14/14 (100%, full coverage per round 03 small-file rule for batch <30 atoms) |
+| Verbatim PASS | 14/14 (100%) |
+| Schema PASS | 0/14 (0%) — frozen md_atom schema violation |
+| Overall PASS | 0/14 (0%) |
+| Severity | HIGH (HALT) |
+
+### Atom-type breakdown
+
+| Type | Count |
+|---|---|
+| H1 | 1 (a001) |
+| LIST_ITEM | 13 (a002..a014) |
+| TABLE_HEADER | 0 (no tables in source) |
+| FIGURE | 0 (no mermaid in source) |
+| Total | 14 |
+
+## Findings
+
+### HIGH-1: frozen schema field name regression `verbatim` → `verbatim_text` (all 14 atoms)
+
+- **What**: Every atom in batch_72 uses field name `verbatim_text` instead of the frozen schema's required `verbatim` field.
+- **Schema source of truth**: `.work/06_deep_verification/schema/atom_schema.json` v1.2.1, `$defs.md_atom.required` includes `"verbatim"` (NOT `"verbatim_text"`); frozen 2026-04-24, last patched 2026-05-04 only for atom_id digit relaxation.
+- **Evidence (sibling batches in same round 06 P2 B-03c branch)**:
+  - `P2_B-03_batch_70_md_atoms.jsonl` keys: `['atom_id', 'atom_type', 'cross_refs', 'extracted_by', 'figure_ref', 'file', 'heading_level', 'line_end', 'line_start', 'parent_section', 'sibling_index', 'verbatim']`
+  - `P2_B-03_batch_71_md_atoms.jsonl` keys: identical to batch_70
+  - `P2_B-03_batch_72_md_atoms.jsonl` keys: `['atom_id', 'atom_type', 'cross_refs', 'extracted_by', 'file', 'heading_level', 'parent_section', 'sibling_index', 'verbatim_text']`
+- **Impact**: 100% atoms fail JSON Schema 2020-12 validation against md_atom oneOf branch (missing required `verbatim`); also fail PDF atom branch (no `source/page`) → fail entire `oneOf` constraint.
+
+### HIGH-2: frozen schema missing required fields `line_start` / `line_end` (all 14 atoms)
+
+- **What**: All 14 atoms omit `line_start` and `line_end` integer fields.
+- **Schema source of truth**: same `md_atom.required` includes `"line_start"` and `"line_end"`.
+- **Reviewer prompt explicit check #2**: "line_start/line_end correct" — cannot verify a field that does not exist.
+- **Impact**: Reviewer cannot perform downstream offset / drift / line-coverage checks; breaks Hook 22 (last_atom.line_end ≥ slice_end - 5) carry-forward enforcement; breaks v1.9 §C-5 TABLE_HEADER `line_end - line_start ≤ 1` rule (vacuously true here since no tables, but the convention is gone).
+
+### HIGH-3: convention field `figure_ref` omitted (all 14 atoms)
+
+- **What**: All 14 atoms omit `figure_ref` (optional but conventional null in this branch).
+- **Sibling baseline**: batch_70/71 emit `"figure_ref":null` per atom.
+- **Reviewer prompt explicit check #9**: "figure_ref=null all (0 mermaid)" — cannot verify presence of null on a missing field.
+- **Impact**: cross-batch convention drift; downstream consumers expecting figure_ref defined (even null) break.
+
+## Convention inherit verify
+
+Items that PASS independent of schema regression:
+
+- **Verbatim byte-exact**: 14/14 PASS — every `verbatim_text` content (when content compared without field-name issue) matches source MD line byte-exact, including:
+  - L1 H1 marker `# MS — Assumptions` (em-dash preserved)
+  - L4/L8/L9/L14/L15 sub-letter `   a./b./c.` 3-space indent preserved
+  - L5/L6/L7 sub-roman `      i./ii./iii.` 6-space indent preserved
+  - L5 escaped double-quotes around `\"SUSCEPTIBLE\"` and `\"RESISTANT\"` preserved
+  - L9 URL `https://www.cdisc.org/standards/terminology/controlled-terminology` preserved (Rule B URL preservation PASS)
+  - L19 trailing `--TOX, --TOXGR --SEV.` (single space between TOXGR and --SEV) preserved
+- **atom_id**: 14/14 PASS — `md_dmMS_assn_a001..a014` 3-digit padded sequential, matches schema pattern `a\d{3,}`.
+- **parent_section**: 14/14 PASS — all = `§MS [MS — Assumptions]` (no H2 in file).
+- **atom_type enum**: 14/14 PASS — H1 (a001) + LIST_ITEM (a002..a014).
+  - L3/L11/L13/L17/L19 numbered "1./2./3./4./5." → LIST_ITEM ✓
+  - L4/L8/L9/L14/L15 sub-letter `   a./b./c.` → LIST_ITEM ✓ (round 02 §D-7.4 carry-forward)
+  - L5/L6/L7 sub-roman `      i./ii./iii.` → LIST_ITEM ✓ (deeper nest, same rule)
+- **R-2.8-1 H1 sib=1**: PASS — a001 has `"sibling_index":1`.
+- **MED-01 explicit null lock (round 03 lock + round 05 verify)**: PASS — raw byte read confirms 13 LIST_ITEM atoms with explicit literal `"heading_level":null` AND `"sibling_index":null` in JSONL (verified via `grep -c '"heading_level":null'` = 13 and `grep -c '"sibling_index":null'` = 13).
+- **TABLE_HEADER count**: 0 expected, 0 emitted (no tables in source) ✓.
+- **figure count**: 0 expected, 0 emitted (no mermaid in source) ✓ (but `figure_ref` field still missing per HIGH-3).
+- **cross_refs harvest**:
+  - a007 (L8) `["GF", "RELREC"]` ✓ matches expected ("Genomic Findings (GF) domain" + "linked via RELREC")
+  - a010 (L13) `["BE", "Section 6.2.2"]` ✓ matches expected ("Biospecimen Events (BE) domain" + "Section 6.2.2")
+  - other atoms `[]` — sparse harvest acceptable (a008 could optionally add "MB"; not mandatory)
+- **extracted_by object**: 14/14 PASS — full schema (`subagent_type=general-purpose`, `prompt_version=P0_writer_md_v1.9.1`, `ts=2026-05-06T22:30:00Z`).
+- **Hook C-8 file prefix**: 14/14 PASS — all `file` start with `knowledge_base/`.
+- **Rule D distinct from writer**: PASS — writer subagent_type=`general-purpose`, reviewer subagent_type=`pr-review-toolkit:code-reviewer` (distinct family).
+
+## Halt rationale
+
+Per reviewer prompt §Halt: `HIGH severity / R-2.8 violation → halt + report`. The schema regression is HIGH severity because:
+
+1. It violates the **frozen** `atom_schema.v1.2` JSON Schema 2020-12 contract that has been stable since 2026-04-24 (the only patch v1.2.1 was a digit-count relaxation for atom_id, NOT a field rename or removal).
+2. It is **systematic** — affects 100% of atoms, not a stray edge case — and indicates the writer subagent silently dropped/renamed fields between batch_71 (passing) and batch_72 (failing).
+3. It is **silent regression** — no scaffold or tooling caught it; only schema-aware reviewer detects it.
+4. It compounds reviewer's ability to perform 7 of the 13 explicit per-atom checks (#2 line offsets, #9 figure_ref) and downstream Hook 22 / drift cal pipelines.
+
+## Recommended remediation (informational, not part of audit verdict)
+
+1. Halt round 06 dispatch immediately; do NOT advance to batch_73 until writer fixed.
+2. Diagnose writer subagent regression (suspect: writer prompt was reloaded mid-round with stale variant, or a generic-purpose fallback dropped fields).
+3. Re-emit batch_72 with schema-conformant fields (`verbatim`, `line_start`, `line_end`, `figure_ref`).
+4. Re-run reviewer Rule A audit on re-emitted batch_72 before batch_73 dispatch.
+5. Add MED-02 lock candidate: writer self-validate against `atom_schema.json` BEFORE writing JSONL (catch field-name regressions at source).
+
+## audit_matrix row (pre-formatted, pending HALT resolution)
+
+| batch_72 | 2026-05-06 | MS/assumptions.md | 19 | 14 | 0.737 | H1×1 / LIST_ITEM×13 / TABLE_HEADER×0 / FIGURE×0 | general-purpose | pr-review-toolkit:code-reviewer | 0/14 (0.0%) | MED-01-PASS / R-2.8-1-PASS / Rule-B-URL-PASS / SCHEMA-FAIL | HIGH-1 verbatim_text vs verbatim; HIGH-2 missing line_start/line_end; HIGH-3 missing figure_ref | **HALT** |

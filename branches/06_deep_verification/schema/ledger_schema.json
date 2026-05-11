@@ -1,0 +1,161 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sdtm-compare.local/schema/ledger_schema.v1.2.json",
+  "title": "SDTM Deep Verification Coverage Ledger Schema",
+  "description": "Coverage ledger 统一 schema, P0 Pilot 收官冻结 v1.2 (2026-04-24). 一行 JSONL = 1 匹配决定; forward (PDF->MD) 和 reverse (MD->PDF) 共享结构, 通过 matched_by.direction 区分 + verdict 枚举分组.",
+  "version": "1.2",
+  "frozen_at": "2026-04-24",
+  "frozen_evidence": [
+    "evidence/checkpoints/p0_pilot_FINAL_report.md",
+    "subagent_prompts/P0_matcher_v1.2.md"
+  ],
+  "type": "object",
+  "required": ["verdict", "similarity_score", "matched_by"],
+  "properties": {
+    "pdf_atom_id": {
+      "type": ["string", "null"],
+      "pattern": "^(ig34|sv20)_p\\d{4}_a\\d{3}$",
+      "description": "Forward 必填; reverse 若 forward-aware 继承则填对应 pdf_atom_id, 否则 null"
+    },
+    "md_atom_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^md_[A-Za-z0-9_]+_a\\d{3}$"
+      },
+      "description": "匹配的 md 原子 id 列表. 空数组 = forward MISSING 或 reverse UNSOURCED/HALLUCINATED."
+    },
+    "verdict": {
+      "oneOf": [
+        { "$ref": "#/$defs/forward_verdict" },
+        { "$ref": "#/$defs/reverse_verdict" }
+      ]
+    },
+    "similarity_score": {
+      "type": "number",
+      "minimum": 0.0,
+      "maximum": 1.0,
+      "description": "0.0 = 全无匹配; 1.0 = 字面完全同. v1.2 硬 gate: PARTIAL ≥0.50 (forward, M3 fix); SOURCED ≥0.50 (reverse, N2 fix, 除非 H2' forward-aware 继承)."
+    },
+    "discrepancy": {
+      "type": ["string", "null"],
+      "description": "非 EXACT 时描述差异; 可含标记: [KEYWORD_MISSING: <word>] / [KEYWORD_FLAG_L2: <word>] / [INVALID_MD_ATOM_TYPE: <非 9-enum 值>]. H1 硬禁: 仅引 source_atom/candidates.verbatim 字面内容, 禁引训练数据带入 (如凭空出现的 C-code)."
+    },
+    "exclusion_reason": {
+      "type": ["string", "null"],
+      "description": "仅 verdict=INTENTIONAL_EXCLUDE 时填; 需同步登记 intentional_exclude_whitelist.md"
+    },
+    "matched_by": { "$ref": "#/$defs/matched_by" },
+    "audited_by": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/audit_record" },
+      "description": "Rule D reviewer 独立审查记录, 每次追加一条 CONFIRM/OVERRIDE/AMBIGUOUS"
+    }
+  },
+  "$defs": {
+    "forward_verdict": {
+      "type": "string",
+      "enum": [
+        "EXACT",
+        "EQUIVALENT",
+        "EDITORIAL_CORRECTION",
+        "TABLE_SIMPLIFIED",
+        "PARTIAL",
+        "MISPLACED",
+        "ERROR",
+        "MISSING",
+        "INTENTIONAL_EXCLUDE"
+      ],
+      "description": "Forward (PDF->MD) 9 值 (含 INTENTIONAL_EXCLUDE 管理层). v1.2 new: EDITORIAL_CORRECTION (M1' PDF typo 修正场景) + TABLE_SIMPLIFIED (v1.1 new 正式成文). 判定顺序见 P0_matcher_v1.2.md §forward enum."
+    },
+    "reverse_verdict": {
+      "type": "string",
+      "enum": [
+        "SOURCED",
+        "EDITORIAL_ADDITION",
+        "SYNTHESIZED",
+        "UNSOURCED",
+        "HALLUCINATED"
+      ],
+      "description": "Reverse (MD->PDF) 5 值. v1.2 new: EDITORIAL_ADDITION (md 独有元数据 'Source:' 等, 非幻觉非合成). SOURCED ≥0.50 gate (N2). H2' 硬 gate: forward-matched md_atom 强制 SOURCED 继承."
+    },
+    "matched_by": {
+      "type": "object",
+      "required": ["subagent_type", "prompt_version", "direction", "ts"],
+      "properties": {
+        "subagent_type": {
+          "type": "string",
+          "description": "执行该 matcher 的 subagent_type"
+        },
+        "prompt_version": {
+          "type": "string",
+          "pattern": "^P0_matcher_v\\d+(\\.\\d+)?$"
+        },
+        "direction": {
+          "type": "string",
+          "enum": ["forward", "reverse"]
+        },
+        "batch_id": {
+          "type": ["string", "null"],
+          "description": "Batch 标识 (v0.3 F-4: 每 100 原子 = 1 batch); P0 Pilot 用形如 'P0_T1_forward_v1.1'"
+        },
+        "forward_aware_checked": {
+          "type": "boolean",
+          "description": "v1.2 H2' 硬 gate: reverse 方向必为 true (matcher 已读 forward ledger 并依其结果); forward 方向固定 false"
+        },
+        "ts": { "type": "string", "format": "date-time" }
+      }
+    },
+    "audit_record": {
+      "type": "object",
+      "required": ["subagent_type", "verdict", "ts"],
+      "properties": {
+        "subagent_type": { "type": "string" },
+        "verdict": {
+          "type": "string",
+          "enum": ["CONFIRM", "OVERRIDE", "AMBIGUOUS"]
+        },
+        "override_to": {
+          "type": ["string", "null"],
+          "description": "OVERRIDE 时填 reviewer 推荐的新 verdict (必 ∈ forward/reverse verdict enum)"
+        },
+        "reason": { "type": "string" },
+        "ts": { "type": "string", "format": "date-time" }
+      }
+    }
+  },
+  "verdict_direction_validation": {
+    "description": "运行时 validator 规则: forward ledger 的 verdict 必 ∈ forward_verdict; reverse ledger 的 verdict 必 ∈ reverse_verdict. matched_by.direction 与 verdict 所在枚举必一致, 不一致即 schema error.",
+    "forward_direction_verdicts": ["EXACT", "EQUIVALENT", "EDITORIAL_CORRECTION", "TABLE_SIMPLIFIED", "PARTIAL", "MISPLACED", "ERROR", "MISSING", "INTENTIONAL_EXCLUDE"],
+    "reverse_direction_verdicts": ["SOURCED", "EDITORIAL_ADDITION", "SYNTHESIZED", "UNSOURCED", "HALLUCINATED"]
+  },
+  "issue_trigger_map": {
+    "description": "verdict -> 自动开 Issue 触发表 (PLAN Appendix C 同步). P6 triage 批处理按此开 Issue 5+",
+    "forward": {
+      "MISSING": { "auto_issue": true, "severity": "HIGH" },
+      "ERROR": { "auto_issue": true, "severity": "HIGH" },
+      "MISPLACED": { "auto_issue": "tracking_comment_only", "severity": "MEDIUM" },
+      "PARTIAL": { "auto_issue": "aggregated_per_section", "severity": "MEDIUM" },
+      "EDITORIAL_CORRECTION": { "auto_issue": false, "note": "MD 已修正 PDF typo, 记录即可, 不开 Issue" },
+      "TABLE_SIMPLIFIED": { "auto_issue": false, "note": "只舍弃空/元数据列, 非质量问题" },
+      "EXACT": { "auto_issue": false },
+      "EQUIVALENT": { "auto_issue": false },
+      "INTENTIONAL_EXCLUDE": { "auto_issue": false, "note": "需 intentional_exclude_whitelist.md 登记" }
+    },
+    "reverse": {
+      "HALLUCINATED": { "auto_issue": true, "severity": "HIGH" },
+      "UNSOURCED": { "auto_issue": "sample_decide", "severity": "LOW-MEDIUM" },
+      "SYNTHESIZED": { "auto_issue": false, "note": "作者合成 (Mermaid / 表重组 / Examples)" },
+      "EDITORIAL_ADDITION": { "auto_issue": false, "note": "md 独有元数据 (Source, Last updated)" },
+      "SOURCED": { "auto_issue": false }
+    }
+  },
+  "notes": {
+    "forward_verdict_decision_order": "MISPLACED > EXACT > EDITORIAL_CORRECTION > EQUIVALENT > TABLE_SIMPLIFIED > PARTIAL(>=0.50) > ERROR > MISSING (早匹配早返回)",
+    "reverse_step_zero_H2_prime": "reverse matcher 必先读 forward_ledger_snippet. forward_matched_pdf_atoms 非空时强制 verdict=SOURCED 继承 forward 结果, 不再独立判 (v1.2 H2' 硬 gate, 消 reverse/forward 矛盾 bug).",
+    "heading_equivalent_threshold": "HEADING 原子判 EQUIVALENT 要 token Jaccard >= 0.85 或核心限定词 (Additional/Only/Primary 等) 完整保留, 否则降 PARTIAL (v1.2 N3 fix).",
+    "partial_hard_gate": "PARTIAL verdict 硬 gate similarity_score >= 0.50. 低于则降 MISSING (v1.1 M3, v1.2 持续).",
+    "keyword_level_1_force_downgrade": "MISSING 原子 discrepancy 含 [KEYWORD_MISSING: shall|shall not|must|MUST|must not|required|is required|are required|is not permitted|is prohibited|not permitted|may not] 任一 -> P4b 聚合时强制降 CONTENT_TRUNCATED 进 gate",
+    "keyword_level_2_flag": "命中 [KEYWORD_FLAG_L2: should|only|except|no longer|cannot|not allowed] 不自动降级, 但 P4b 按 >=20% 抽检"
+  }
+}

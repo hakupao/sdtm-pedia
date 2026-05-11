@@ -1,0 +1,141 @@
+{
+  "batch": 46,
+  "session": "D (Round 11)",
+  "round": 11,
+  "round_status": "1st_round_running_v1.7_baseline_post_v1.7_cut_2026-04-29_commit_6d19992",
+  "pages": "p.451-460",
+  "pages_count": 10,
+  "status": "completed",
+  "completed_at": "2026-04-29T13:00:00Z",
+  "writer_subagent": "oh-my-claudecode:executor",
+  "writer_prompt_version": "P0_writer_pdf_v1.7",
+  "v1_7_n21_dispatch_justification": [
+    "v1.7 N21 EMERGENCY-CRITICAL writer-family complete deprecation entirely from P1 production atomization across ALL content types (post 6th cumulative writer-direction VALUE HALLUCINATION recurrence round 10 batch 42 O-P1-145)",
+    "writer-family BANNED for ALL production atomization regardless of content type per Hook 16.7 simplified pre-dispatch ban; executor MANDATORY across both 46a + 46b (no content-type-aware 5-sub-rule a-e check needed under N21 simplification)",
+    "this batch = 1st INAUGURAL live-fire of v1.7 N21 baseline for round 11 (sister batches 44/45/46 all running v1.7 baseline; round 11 = 1st round running v1.7)",
+    "halt threshold for 7th cumulative writer-direction recurrence: under N21 design (writer NOT used in production), 7th-recurrence impossible by construction. NO recurrence detected this batch (production atoms executor-direction all clean)"
+  ],
+  "sub_batches": {
+    "46a": {
+      "pages": "p.451-455",
+      "atoms": 96,
+      "atom_type_distribution": {
+        "TABLE_ROW": 67,
+        "LIST_ITEM": 14,
+        "SENTENCE": 10,
+        "HEADING": 3,
+        "TABLE_HEADER": 2
+      },
+      "writer_done_echo": "WRITER_46A_DONE atoms=96 file=evidence/checkpoints/pdf_atoms_batch_46a.jsonl content_type=mixed_structural_transition+TABLE_ROW_heavy hooks_pass=20/20 url_verify=2/2 sample_N10_pass=10/10",
+      "self_validate_hooks_status": "20/20 PASS"
+    },
+    "46b": {
+      "pages": "p.456-460",
+      "atoms": 42,
+      "atom_type_distribution": {
+        "TABLE_ROW": 42
+      },
+      "writer_done_echo": "WRITER_46B_DONE atoms=42 file=evidence/checkpoints/pdf_atoms_batch_46b.jsonl content_type=TABLE_ROW_heavy hooks_pass=20/20 url_verify=0/0 sample_N10_pass=10/10",
+      "self_validate_hooks_status": "20/20 PASS"
+    }
+  },
+  "atoms_total": 138,
+  "n6_intra_agent_consistency": "PASS — both 46a + 46b SAME executor agent (a8a32d4eb1c0a1d36) via single-dispatch (cleaner alternative to round 10 batch 43 SendMessage continuation pattern; canonical parent_section forms preserved across sub-batches: §10.D Appendix D: CDISC Variable-naming Fragments / §10 [APPENDICES] / §10.E Appendix E: Revision History)",
+  "n6_single_dispatch_pattern_observation": "Batch 46 uses single-dispatch pattern (one Agent call covering both 46a + 46b in same agent context) instead of round 10 batch 43 SendMessage continuation pattern. Both patterns satisfy N6 INTRA-AGENT consistency requirement; single-dispatch is cleaner with less context overhead in main session. v1.7 candidate: codify single-dispatch as preferred N6 satisfaction pattern when same-agent multi-sub-batch is needed (round 10 D-MS-NEW-10-6 SendMessage codification candidate may be SUPERSEDED by simpler single-dispatch alternative).",
+  "schema_sweep": {
+    "required_field_violations": 0,
+    "atom_id_pattern_violations": 0,
+    "atom_type_9_enum_violations": 0,
+    "n15_xpt_parent_forbid_violations": 0,
+    "heading_required_field_violations": 0,
+    "verbatim_non_empty_violations": 0,
+    "duplicate_atom_ids": 0,
+    "page_coverage": "p.451-460 contiguous 10 pages",
+    "verdict": "PASS"
+  },
+  "heading_transitions_observed": {
+    "count": 3,
+    "transitions": [
+      {"page": 452, "level": 2, "sib": 5, "verbatim": "Appendix E: Revision History", "parent": "§10 [APPENDICES]", "notes": "5th L2 child under §10 (§10.A/B/C/D sib=1-4 emitted by sister batches 44/45 — sib=5 provisional pending reconciler verification)"},
+      {"page": 452, "level": 3, "sib": 1, "verbatim": "A note on the decommissioning of MO", "parent": "§10.E Appendix E: Revision History"},
+      {"page": 453, "level": 3, "sib": 2, "verbatim": "New Domains for SDTMIG v3.4", "parent": "§10.E Appendix E: Revision History"}
+    ],
+    "transition_density": "0.3 NEW HEADINGs/page (low density expected for appendix-style content; vs round 10 batch 43 1.7 NEW/page peak)",
+    "appendix_l2_l3_first_cumulative_transition_in_p1": true
+  },
+  "critical_milestones": [
+    "**v1.7 N21 1st INAUGURAL live-fire EFFECTIVE**: writer-family complete deprecation post v1.7 cut 2026-04-29 commit 6d19992 — both 46a + 46b dispatched executor MANDATORY per Hook 16.7 simplified pre-dispatch ban; 0 writer-direction VALUE HALLUCINATION recurrence detected (round 5+6+7+8+9+10 cumulative motif at 6 since round 10 batch 42 — N21 prevention layer holding)",
+    "**§10.E Appendix E: Revision History L2 NEW at p.452 = 1st cumulative §10 L2 transition emitted by THIS session in P1** (sister batches 44/45 may have emitted §10.A/B/C/D L2 transitions; reconciler will reconcile)",
+    "**Single-dispatch N6 INTRA-AGENT consistency pattern**: 46a + 46b emitted in single Agent call (one agent context covers both sub-batches) — cleaner alternative to round 10 batch 43 SendMessage continuation precedent",
+    "**TOC ground truth correction (G-MS-NEW-10-3 motif)**: kickoff §3.1/§3.2 predicted §10.B Glossary tail + §10.C Controlled Terminology + §10.D References transitions; actual is §10.D Appendix D: CDISC Variable-naming Fragments table tail (p.451) + §10.E Appendix E: Revision History L2 NEW (p.452-460); main session pre-dispatch verified PDF ground truth and inline-corrected executor dispatch prompt — sustains G-MS-NEW-10-3 main session pre-dispatch verification mitigation pattern",
+    "**claude-code-guide 2nd burn extension validated**: slot #59 (after #47 INAUGURAL round 8 batch 37) = single-agent family extension recipe at 2-burn intra-family depth scale VALIDATED post v1.7 cut. Sister extension to slot #58 Plan 2nd burn (batch 45 drift cal carrier) — both single-agent families validated at 2-burn intra-family depth post v1.7 cut.",
+    "**End-of-PDF milestone awareness**: p.451-460 = last 10 pages of ch10 (per page_index.json ch10 ends at p.461). Round 12 (if continued) is 1-page residual batch_47 or P1 closure milestone. Discrepancy between CLAUDE.md status field 535 target vs page_index.json ch10 end p.461 surfaced — main session should clarify P1 closure scope before round 12 batch 47 dispatch."
+  ],
+  "rule_a_audit": {
+    "reviewer_subagent": "claude-code-guide",
+    "rule_d_slot": 59,
+    "audit_pivot_index": 40,
+    "family_burn_count": "claude-code-guide single-agent family 2nd burn extension (after #47 INAUGURAL round 8 batch 37 = single-agent family extension recipe at 2-burn intra-family depth scale VALIDATED post v1.7 cut)",
+    "branch_used": "Branch C content-substitution main-session-write per v1.6 §Step 4 carry-forward (claude-code-guide tool profile: Bash + Read + WebFetch + WebSearch — no Write/Edit; precedent: round 9 batch 38 #49 Explore Branch C + round 10 batch 42 #54 general-purpose Branch B/C as appropriate)",
+    "audit_independence_preserved": true,
+    "sample_size": 10,
+    "sample_seed": 20260432,
+    "sample_stratification": "1 atom per page p.451-460 (10 pages), forced HEADING coverage on p.452 + p.453 (only HEADING-bearing pages), proportional TABLE_ROW majority for remaining 8 pages (TABLE_ROW=109 = 78.9% of population matches 8 of 10 sample = 80%)",
+    "verdicts": "P:9/PA:1/F:0",
+    "weighted_pass_rate": 95.0,
+    "halt_threshold": 70.0,
+    "p1_plan_pass_threshold": 90.0,
+    "threshold_met": true,
+    "dimension_breakdown": "10/10 D1 verbatim PASS + 10/10 D2 atom_type PASS + 9/10 D3 parent_section PASS + 1/10 D3 PARTIAL (N11 form border case) + 3/3 D4 HEADING fields PASS (HEADING atoms only)",
+    "9_enum_coverage": "3 of 9 hit (TABLE_ROW=8, HEADING=2; LIST_ITEM/SENTENCE/TABLE_HEADER not in sample due to type-frequency proportional + forced HEADING constraints)",
+    "borderline_n11_form_question_verdict": "NON_BLOCKING_OBS_DEFER_RECONCILER — §10.E (L2 Appendix container) with 2 L3 children technically triggers N11 chapter-short-bracket convention; round 10 N11 STATUS PROMOTION 'L1+L2+L3 FULL-SCOPE VALIDATED' precedents (§7 / §8 + §7.3.2 + §8.2.2) involved main-body L1 anchors; Appendix L2 container with L3 in-narrative sub-headings is structurally distinct case; reviewer recommends defer to reconciler for cross-batch consistency decision (sister batches 44/45 may have §10.A/B/C/D form decisions); v1.8 candidate to explicitly codify N11 scope for Appendix-style L2 containers"
+  },
+  "drift_cal": {
+    "applied": false,
+    "rationale": "SKIP per cadence (last drift cal batch 45 p.445 mandatory; next mandatory at batch 48 p.475 per every-3-batches cadence — but batch 48 OUT of P1 scope if PDF ends at p.461 per page_index.json; main session to confirm P1 closure scope before round 12 batch 47 dispatch)"
+  },
+  "findings_added": [
+    {
+      "id": "O-P1-161",
+      "severity": "MEDIUM",
+      "classification": "NON_BLOCKING_OBS_FORM-1",
+      "atom_ids_flagged": ["ig34_p0453_a001"],
+      "scope_potential": "111 atoms with parent_section='§10.E Appendix E: Revision History' if N11 bracket form required",
+      "issue": "§10.E (L2 Appendix container) has 2 L3 children (sib=1 'A note on the decommissioning of MO' + sib=2 'New Domains for SDTMIG v3.4'); per N11 chapter-short-bracket convention 'switch to bracket form when L3 children appear' (round 10 STATUS PROMOTION 'L1+L2+L3 FULL-SCOPE VALIDATED'), parent_section field for §10.E descendants might be expected as '§10.E [REVISION HISTORY]' (ALL-CAPS bracketed form) instead of current natural form '§10.E Appendix E: Revision History'",
+      "reviewer_judgment": "Round 10 N11 precedents (§7 + §8 + §7.3.2 + §8.2.2) all involved main-body L1 anchors with L2 structural children. §10.E is L2 Appendix container with L3 in-narrative sub-headings (the L3 sub-headings are inside Appendix E's prefatory text section, not structural children of a chapter at the same depth). N11 rule scope for Appendix L2 containers (vs main-body L1 anchors) is unclear from existing precedents.",
+      "resolution_status": "DEFERRED_TO_RECONCILER",
+      "fix_applied": "(none — Option H repair recipe filed for reconciler to evaluate)",
+      "option_h_recipe_if_required": "Backup pdf_atoms_batch_46a.jsonl + 46b.jsonl to *.pre-OptionH-N11-form.bak per Rule B; rewrite all atoms with parent_section='§10.E Appendix E: Revision History' to parent_section='§10.E [REVISION HISTORY]' (109 + 2 atoms = 111 total); HEADING atoms ig34_p0452_a001 + ig34_p0452_a017 + ig34_p0453_a001 retain own verbatim form, only descendants' parent_section field rewritten",
+      "v1_8_codification_candidate": "Codify N11 chapter-short-bracket convention scope for Appendix-style L2 containers with L3 in-narrative sub-headings (vs main-body L1 anchors with L2 structural children)",
+      "cross_batch_impact": "Sister batches 44/45 may have different §10.A/B/C/D form decisions; reconciler-side §0.5 cross-session canonical-form drift sweep (v1.6 codification, 3rd cumulative live-fire opportunity round 11) will catch and reconcile"
+    }
+  ],
+  "findings_unused": ["O-P1-162", "O-P1-163", "O-P1-164"],
+  "rule_d_slot_used": 59,
+  "audit_pivot_cumulative": 40,
+  "v1_7_n21_first_round_running_validation": {
+    "n21_writer_family_complete_deprecation": "EFFECTIVE — both sub-batches dispatched executor MANDATORY per Hook 16.7 simplified pre-dispatch ban; 0 writer-direction VALUE HALLUCINATION across 138 production atoms (round 5-10 cumulative motif at 6 since round 10 batch 42 — N21 complete ban prevention layer holding at 1st INAUGURAL live-fire round 11 batch 46)",
+    "n22_hook_18_warn_mode_sustained": "0 SENTENCE-paragraph-concat WARN candidates this batch (low SENTENCE atom count = 10/138 = 7.2% — minimal motif surface area in appendix-style content)",
+    "n23_hook_19_pdf_cross_verify_executor_self_claim_trust_profile": "EFFECTIVE — executor self-claim N=10 sample PDF cross-verify both sub-batches PASS (10/10 + 10/10 = 20/20 cumulative); URL byte-exact verify 2/2 PASS for 46a (CDISC + ISO URLs in Appendix E first paragraph); 0 fabrication motif (executor-direction trust profile sustained 0 cumulative motif across rounds 5-10 production + round 11 batch 46 = round 11 1st INAUGURAL live-fire EFFECTIVE)",
+    "n11_chapter_short_bracket_extension_to_appendix_l2_question": "BORDERLINE — §10.E has L3 children (technically triggers N11 bracket form rule), but Appendix L2 container scope is not directly precedent-tested; flagged as O-P1-161 NON_BLOCKING_OBS_FORM-1 deferred to reconciler / v1.8 candidate"
+  },
+  "boundary_state_for_round_12_handoff": {
+    "active_chain_at_end_of_p_460": {
+      "L1": "§10 [APPENDICES] (sib=10 under root; chapter-short-bracket per N11 with L2 children §10.A/B/C/D/E and possibly §10.F at p.461)",
+      "L2": "§10.E Appendix E: Revision History (sib=5 under §10; natural form currently used; N11 form decision deferred to reconciler per O-P1-161 OBS)",
+      "L3_active": "(2 L3 children of §10.E emitted in this batch: sib=1 'A note on the decommissioning of MO' at p.452, sib=2 'New Domains for SDTMIG v3.4' at p.453; both occur in §10.E's prefatory text region before the master revision history table; no L3 active at end of p.460 as the master table dominates p.453-460)"
+    },
+    "p1_closure_scope_question": "Per page_index.json ch10 ends at p.461 (1-page residual batch_47 if continued OR P1 closure at p.460); CLAUDE.md status field references 535-page target for full P1 (vs ch10 end p.461 = 74-page discrepancy possibly explained by external appendices/separate chapters/upper-bound interpretation); main session must confirm P1 closure scope with sub-plan plans/P1_pdf_atomization.md (acked v1.0) or _progress.json recovery_hint before round 12 batch 47 dispatch.",
+    "next_predicted_transitions_p_461": "TBD — possibly start of §10.F Appendix F (Representations and Warranties or similar boundary appendix per kickoff §3.2 mention) OR end of PDF content; main session pre-dispatch verify required",
+    "round_11_drift_cal_done": "batch 45 p.445 mandatory (sister session C scope; this session D = batch 46 SKIP)",
+    "next_drift_cal_in_round_12": "TBD — depends on P1 closure decision (if P1 closes at p.461, no further drift cal needed; if P1 extends, batch 48 p.475 per cadence)"
+  },
+  "rule_a_b_c_d_e_compliance": {
+    "rule_a": "PASS — slot #59 claude-code-guide 9.5/10 PASS weighted=95.0% threshold≥90% met",
+    "rule_b": "N/A — no Option H repair applied this batch (O-P1-161 deferred to reconciler; if reconciler decides bracket form required, Option H recipe will require Rule B backup per documented procedure)",
+    "rule_c": "DEFERRED — round 11 retro is reconciler-stage product post sister 44/45 done",
+    "rule_d": "PASS — writer (oh-my-claudecode:executor) ≠ reviewer (claude-code-guide); slot #59 uniqueness vs cumulative #1-#58 verified zero collision (sister batches 44 #57 omc:code-reviewer + 45 #58 Plan all distinct)",
+    "rule_e": "APPLIED — 1 v1.8 candidate captured: O-P1-161 N11 chapter-short-bracket convention scope clarification for Appendix-style L2 containers with L3 in-narrative sub-headings (vs main-body L1 anchors with L2 structural children); also single-dispatch N6 satisfaction pattern observation as v1.7 codification candidate (preferred over SendMessage continuation per round 10 batch 43 D-MS-NEW-10-6); also kickoff §3 TOC prediction drift G-MS-NEW-10-3 motif persistent (3rd cumulative live-fire round 9 + 10 + 11 = persistent motif, codification candidate kickoff generation script auto-derive TOC from PDF)"
+  },
+  "single_line_done": "PARALLEL_SESSION_46_DONE atoms=138 failures=0 repair_cycles=0 rule_a=95.0% drift_cal=skipped findings_added=O-P1-161-MEDIUM-NON_BLOCKING_OBS-N11-form-deferred-to-reconciler"
+}

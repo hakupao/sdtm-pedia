@@ -1,0 +1,238 @@
+{
+  "batch_id": 28,
+  "session_id": "session_d_round_5",
+  "round": 5,
+  "status": "completed",
+  "scope_pages": "ig34 p.271-280",
+  "page_count": 10,
+  "atoms_done": 372,
+  "atoms_breakdown": {
+    "28a_p271_275": 148,
+    "28b_p276_280_post_recovery": 224,
+    "by_page": {
+      "271": 30, "272": 23, "273": 37, "274": 29, "275": 29,
+      "276": 30, "277": 30, "278": 60, "279": 57, "280": 47
+    },
+    "by_atom_type_28a": {
+      "TABLE_ROW": 94, "LIST_ITEM": 19, "SENTENCE": 12, "HEADING": 11,
+      "TABLE_HEADER": 6, "CROSS_REF": 3, "CODE_LITERAL": 2, "NOTE": 1
+    },
+    "by_atom_type_28b": {
+      "TABLE_ROW": 163, "SENTENCE": 16, "HEADING": 12, "LIST_ITEM": 11,
+      "CODE_LITERAL": 11, "TABLE_HEADER": 11
+    },
+    "by_atom_type_combined": {
+      "TABLE_ROW": 257,
+      "HEADING": 23,
+      "SENTENCE": 28,
+      "LIST_ITEM": 30,
+      "TABLE_HEADER": 17,
+      "CODE_LITERAL": 13,
+      "NOTE": 1,
+      "CROSS_REF": 3
+    }
+  },
+  "failures": 0,
+  "repair_cycles": 3,
+  "repair_cycle_notes": [
+    "Cycle 1 (Option E full sub-batch rerun): 28b dispatched via oh-my-claudecode:writer reported DONE atoms=342 but only saved p.280 (50 atoms) to disk — Write tool overwrite-not-append silent data loss (writer-family NEW motif distinct from wide-TABLE family). Backup: pdf_atoms_batch_28b.jsonl.pre-recovery-OptionE-p276-280.bak (21385 bytes preserving 50 p.280 atoms as evidence). Re-dispatched via oh-my-claudecode:executor with explicit Bash-heredoc append protocol (cat << 'EOF' >> file). Recovery DONE 224 atoms over p.276-280 clean — finding O-P1-89.",
+    "Cycle 2 (Option H mechanical bulk atom_id padding): both 28a + initial 28b used 3-digit page padding (p271 not p0271) per v1.2 prompt text ambiguity ('3位0-pad 页码' vs example showing p0425). Root convention is 4-digit (ig34_p0001). Mechanical sed-equivalent Python regex fix all 28a 148 atoms; 28b recovery wrote 4-digit directly. Backup: pdf_atoms_batch_28a.jsonl.pre-OptionH-atomid-padding.bak. Post-fix: 372/372 atom_ids match `ig34_p\\d{4}_a\\d{3}` — finding O-P1-90.",
+    "Cycle 3 (Option H 1-atom verbatim restore): atom ig34_p0273_a037 (LIST_ITEM Row 4 of PP-Examples Example 2) had 'pre-coordinating' silently corrected from PDF source 'pre-corrdinating' (CDISC PDF typo). R10 strict no-paraphrase violation caught by Rule A reviewer. Backup: pdf_atoms_batch_28a.jsonl.pre-OptionH-atom3-typo-restore.bak. Post-fix: verbatim now matches PDF p.273 ground truth — finding O-P1-88."
+  ],
+  "rule_a": {
+    "reviewer_slot": 37,
+    "reviewer_type": "general-purpose",
+    "reviewer_audit_pivot_index": 18,
+    "reviewer_family": "general-purpose",
+    "reviewer_family_burn_count_post_batch": 1,
+    "reviewer_family_pool_status_post_batch": "INAUGURAL (general-purpose family first burn — NEW family pivot post round 4 EXHAUSTED 3 family pools vercel + plugin-dev + feature-dev)",
+    "audit_mode_pivot_label": "AUDIT for PDF atomization quality, NOT general-purpose research / NOT multi-step task execution / NOT codebase exploration",
+    "tools_adaptation": "full-tool — reviewer wrote verdicts.jsonl + summary.md directly via Write tool (no adaptation needed; vs round 3-4 write-tool-less + Bash heredoc family adaptation). NEW family validates AUDIT-mode pivot recipe family-agnostic — full-tool variant proven viable.",
+    "sample_size": 10,
+    "sample_seed": 20260610,
+    "sample_coverage": "1/page p.271-280 stratified (4 TABLE_ROW + 3 HEADING + 1 LIST_ITEM + 1 TABLE_HEADER + 1 CODE_LITERAL)",
+    "raw_pass": 7,
+    "raw_partial": 1,
+    "raw_fail": 2,
+    "raw_weighted_pct": 87.9,
+    "main_session_adjudication": {
+      "atom_10_F2_reviewer_FALSE_POSITIVE": {
+        "atom_id": "ig34_p0280_a030",
+        "reviewer_claim": "verbatim FAIL + parent_section FAIL (claimed Row 14 = PPSEQ=2 in Example 1 Method D, atom incorrectly says PPSEQ=4 in Example 2)",
+        "main_session_pdf_cross_check_verdict": "atom is CORRECT — PDF p.280 confirms Method D Example 2 Row 14 = PP PPSEQ=4 RELID=1 exactly; reviewer confused this with Example 1 Method D table (which lives on p.278-279). Adjudicated: dim_verbatim=PASS + dim_parent_section=PASS (overriding reviewer FAIL).",
+        "precedent": "Joins G-MS-12 density alarm 3 FALSE POSITIVE round 2-4 pattern (main-session PDF cross-check overrides reviewer-side adjudication when ground truth contradicts).",
+        "general_purpose_family_AUDIT_pivot_first_burn_observation": "NEW family inaugural burn produced 1 reviewer-side FALSE POSITIVE on cross-table-boundary scenario (Example 1 vs Example 2 Method D row attribution). Recipe needs additional cross-Example-boundary anchor reinforcement for AUDIT-mode pivots in PP/PC/relrec multi-Example contexts. NOT a recipe-level failure (general-purpose still scored 7 PASS + 1 valid FAIL F1 + 1 valid PARTIAL F3 across other dimensions)."
+      }
+    },
+    "post_adjudication_pass": 8,
+    "post_adjudication_partial": 1,
+    "post_adjudication_fail": 1,
+    "post_adjudication_weighted_pct": 93.9,
+    "post_adjudication_verdict": "PASS (≥90% threshold)",
+    "tom_anchor_audit_n_cumulative": 180,
+    "tom_anchor_consecutive_batches": 18,
+    "tom_anchor_fp_count": 0,
+    "tom_anchor_inversion_count": 0,
+    "special_checks": {
+      "new6_b_l4_self_parent": "N/A — no L4 HEADING introduced in batch 28 (§6.3.5.9 L4 group container introduced by sister batch 27; batch 28 only sees L5/L6/L7 nested headings)",
+      "new7_l5_chain_under_6_3_5_9": "PASS — §6.3.5.9.2 PP L5 sib=2 + §6.3.5.9.3 Relating PP-PC L5 sib=3 RESTART under §6.3.5.9 group container; both correctly continue from batch 27 §6.3.5.9.1 PC sib=1",
+      "new7_l6_chain_under_6_3_5_9_2_PP": "PASS — PP-Description sib=1, PP-Specification sib=2, PP-Assumptions sib=3, PP-Examples sib=4 RESTART under §6.3.5.9.2 PP",
+      "new7_l6_chain_under_6_3_5_9_3": "PASS — PC-PP Relating Datasets sib=1, PC-PP Relating Records sib=2, Example 1 sib=3, Example 2 sib=4, Example 3 sib=5 RESTART under §6.3.5.9.3",
+      "new7_l7_chain_under_PP_Examples": "PASS — Example 1/2/3 L7 sib=1/2/3 RESTART under §6.3.5.9.2 PP (parent_section uses L5 canonical full-form per round-3 NEW7 L7 precedent)",
+      "new7_l7_chain_under_relating_examples": "PASS — Method A/B/C/D L7 sib=1/2/3/4 RESTART per Example N (Example 1, 2, 3) within §6.3.5.9.3; sib counter RESTARTS per Example, NOT cumulative across Examples",
+      "new7_l4_group_container_precedent_2nd_cross_family_validation": "PASS — round-4 batch 25 §6.3.5.7 Microbiology Domains L4 group container (O-P1-75 INFO precedent) validated 2nd time at round 5 batch 28 §6.3.5.9 Pharmacokinetics Domains L4 group container; family-agnostic deep-nesting pattern confirmed (Microbiology + PK families)"
+    }
+  },
+  "drift_cal": {
+    "triggered": false,
+    "rationale": "per cadence: batch 27 (sister session C) covered mandatory drift cal slot (cumulative atoms post-p.233 ≥600 dual-trigger); batch 28 = SKIP per cadence; next mandatory at batch 30",
+    "next_mandatory": "batch 30"
+  },
+  "density_alarm_check_round_5_G_MS_12": {
+    "applied": true,
+    "lowest_per_page_atoms": "p.272=23 (lowest), all pages ≥15 floor",
+    "highest_per_page_atoms": "p.278=60 (Method B/C/D relrec.xpt dense table cluster)",
+    "sub_batch_28a_total": 148,
+    "sub_batch_28a_above_100_floor": true,
+    "sub_batch_28b_total": 224,
+    "sub_batch_28b_above_100_floor": true,
+    "alarm_triggered": false,
+    "main_session_pdf_cross_check": "NOT required — all 10 pages above 15-atom floor; both sub-batches above 100-atom floor; density distribution healthy across PP-Specification/PP-Examples + §6.3.5.9.3 Relating PP-PC dense relrec multi-Example tables"
+  },
+  "new6_format_sweep": {
+    "applied": true,
+    "violations_found": 0,
+    "post_sweep_compliance": "100% (no L4 introduced in batch 28; all L5/L6/L7 chain transitions verified correct)"
+  },
+  "new7_l4_l7_chain_check": {
+    "applied": true,
+    "summary": "DOUBLE L5 transition under §6.3.5.9 group container (§6.3.5.9.2 PP at p.271 + §6.3.5.9.3 Relating PP-PC at p.275); L7 deep-nesting validated 2nd cross-family (round-3 GF Examples 1a/1b → round-5 PP Method A/B/C/D under each Example)",
+    "round_5_NEW_precedent": "L7 Method A/B/C/D sibling chain RESTART per Example parent (NEW pattern — first observed in batch 28 §6.3.5.9.3); analogous to L7 Example Na/Nb under Example N from round-3 batch 21 GF, but here L7 is Method N under Example N. Documented as O-P1-91 candidate v1.4 codification — 'L7 sub-method under L6 Example N within L5 group-container internal sub-section'."
+  },
+  "r12_transition_check": {
+    "applied": true,
+    "transition_pages": [
+      {
+        "page": 271,
+        "type": "L5 sub-section transition (§6.3.5.9.1 PC tail → §6.3.5.9.2 PP NEW)",
+        "atoms_on_page": 30,
+        "threshold": 8,
+        "compliance": "PASS (30 ≥ 8)",
+        "zone_partition": "PC Example 1 pc.xpt rows 21-32 tail (a001-a012) / §6.3.5.9.2 PP L5 HEADING + PP-Description L6 + PP-Spec L6 + pp.xpt context + PP Spec table head (a013-a030)"
+      },
+      {
+        "page": 275,
+        "type": "L5 sub-section transition (§6.3.5.9.2 PP Examples tail → §6.3.5.9.3 Relating PP-PC NEW)",
+        "atoms_on_page": 29,
+        "threshold": 8,
+        "compliance": "PASS (29 ≥ 8)",
+        "zone_partition": "PP Example 3 pp.xpt rows tail (a001-a011) / §6.3.5.9.3 L5 HEADING + descriptive SENTENCE + PC-PP Relating Datasets L6 + relrec table + PC-PP Relating Records L6 + Method A/B/C bullets head (a012-a029)"
+      }
+    ],
+    "double_transition_compliance": "PASS — both L5 transitions ≥8 atoms with 3-zone partition each; analogous to round-4 batch 25 LB→Microbiology DOUBLE-transition pattern but at L5 level (not L4) since both transitions internal to §6.3.5.9 group container"
+  },
+  "r15_cross_batch_sibling_check": {
+    "applied": true,
+    "intra_batch_28_continuity": "PASS — 28a→28b L5/L6 sib chain continues correctly: §6.3.5.9.3 L5 sib=3 (28a p.275) → 28b reuses §6.3.5.9.3 as parent for all p.276-280 atoms; L6 chain under §6.3.5.9.3 continues from PC-PP Relating Datasets sib=1 (28a) + PC-PP Relating Records sib=2 (28a) → Example 1 sib=3 (28b p.277) + Example 2 sib=4 (28b p.279) + Example 3 sib=5 (28b p.280)",
+    "cross_session_continuity_predicted_batch_27_terminal": "PREDICTED state for sister session C batch 27 (p.261-270): §6.3.5.7.X Microbiology body tail (sib=2+ if MS L5 RESTART in batch 27 scope) + §6.3.5.8 MI L4 sib=8 RESTART under §6.3.5 (p.263) + §6.3.5.8 MI body L5 chain + §6.3.5.9 PK L4 sib=9 RESTART under §6.3.5 (p.267) + §6.3.5.9.1 PC L5 sib=1 RESTART under §6.3.5.9 + PC-Examples L6 sib=4 + Example 1 L7 sib=1 (pc.xpt rows 1-20 on p.270; rows 21-32 spill to batch 28 28a p.271). Reconciler will validate cross-session R15 once sister batches DONE.",
+    "main_session_local_validation": "L4 sibling chain (under §6.3.5): batch 25 ended sib=7 Microbiology Domains; batch 27 expected to add sib=8 MI + sib=9 PK; batch 28 carries sib=9 PK forward without modification. L5 sibling chain under §6.3.5.9: batch 27 expected sib=1 PC; batch 28 contributes sib=2 PP + sib=3 Relating PP-PC."
+  },
+  "findings_added": [
+    {
+      "finding_id": "O-P1-88",
+      "severity": "HIGH",
+      "category": "writer-family R10 strict no-paraphrase EDITORIAL_CORRECTION violation",
+      "title": "EDITORIAL_CORRECTION violation — atom 3 silently fixed PDF typo 'pre-corrdinating' → 'pre-coordinating'",
+      "scope": "ig34_p0273_a037 LIST_ITEM Row 4 of PP-Examples Example 2 narrative",
+      "atom_id_anchor": "ig34_p0273_a037",
+      "rule_violation": "R10 strict no-paraphrase violation; v1.2 spec mandates verbatim per PDF including typos OR explicit EDITORIAL_CORRECTION verdict tagging (per H2' reverse forward-aware rule)",
+      "repair_action": "Option H 1-atom verbatim restore (cycle 3) — restored 'pre-corrdinating' to match PDF p.273 ground truth; Rule B backup pdf_atoms_batch_28a.jsonl.pre-OptionH-atom3-typo-restore.bak preserved; verified post-fix",
+      "v1_3_codification_candidate": "v1.3 cut MUST add explicit EDITORIAL_CORRECTION verdict path: writer encounters PDF typo → writer choice = (a) preserve typo verbatim (R10 strict default) OR (b) flag with field `editorial_correction: true` + extracted_by.notes=`PDF original: pre-corrdinating` + repaired verbatim. Silent correction = R10 violation FAIL.",
+      "writer_family_motif": "Joins R10 strict no-paraphrase violation residual count (separate from wide-TABLE_HEADER family O-P1-23/34/36/37/38/50/63/71); first occurrence in P1 cumulative for SENTENCE/LIST_ITEM verbatim domain (vs prior wide-TABLE column-set domain)"
+    },
+    {
+      "finding_id": "O-P1-89",
+      "severity": "HIGH",
+      "category": "writer-family NEW motif — Write-tool-overwrite silent data loss",
+      "title": "Sub-batch 28b initial dispatch reported atoms=342 but only persisted 50 atoms (p.280 only) to disk — Write tool overwrite-not-append silent data loss",
+      "scope": "Initial 28b dispatch via oh-my-claudecode:writer for p.276-280 (5 pages); 4/5 pages of atoms (p.276-279 ~290 atoms) lost without error signal; p.280 final-page atoms (50) survived as last-write-wins.",
+      "rule_violation": "v1.2 prompt §'工作模式' says 'Write tool 追加 JSONL 到 output_file' but Write tool semantically overwrites file content (not append). Writer subagent followed instruction literally → each per-page Write call replaced prior content → only last page survived. NEW writer-family motif distinct from wide-TABLE_HEADER family.",
+      "repair_action": "Option E full sub-batch rerun (cycle 1) — re-dispatched via oh-my-claudecode:executor with explicit Bash-heredoc append protocol (`cat << 'EOF' >> output_file`) per atom batch, plus `wc -l` verification after each page. Recovery: 224 atoms over p.276-280 clean. Rule B backup pdf_atoms_batch_28b.jsonl.pre-recovery-OptionE-p276-280.bak preserves the 50-atom partial as evidence.",
+      "v1_3_codification_candidate": "v1.3 cut MUST add procedural enforcement: writer/executor agents MUST use Bash-heredoc append (`cat << 'EOF' >> output_file`) for multi-page batches, NOT Write tool (overwrite default). v1.2 §'工作模式' wording '追加' is semantically correct intent but tool does not implement — wording must be made tool-faithful. Companion: post-page `wc -l` verification check.",
+      "writer_family_motif": "NEW writer-family motif (Write-overwrite vs Bash-append) — distinct from existing wide-TABLE_HEADER family (R10 strict paraphrase) and EDITORIAL_CORRECTION family (O-P1-88). Suggests systematic v1.2 spec-vs-tool gap.",
+      "round_5_first_observation": "First multi-session round where Write-overwrite motif manifested in initial 28b dispatch; oh-my-claudecode:writer specifically vulnerable; oh-my-claudecode:executor in 28a + 28b recovery completed correctly using Write tool (single per-batch consolidated Write to fresh file path, OR successive append via lower-level mechanism). Family-specific behavior pattern."
+    },
+    {
+      "finding_id": "O-P1-90",
+      "severity": "LOW",
+      "category": "v1.2 prompt spec ambiguity — atom_id page padding format inconsistency",
+      "title": "v1.2 prompt §'atom_id 命名规范' says '3 位 0-pad 页码' but example shows 4-digit `ig34_p0425_a012` and root pdf_atoms.jsonl uses 4-digit `ig34_p0001_a001` exclusively",
+      "scope": "ALL 148 28a atoms initially used 3-digit padding (p271, p272, p273...) per v1.2 spec text literal interpretation; 28b initial 50-atom write used same; 28b recovery via explicit prompt clarification used 4-digit padding (p0276...) correctly.",
+      "rule_violation": "v1.2 prompt §atom_id-命名规范 self-contradiction: text says '3 位' (3-digit) but example shows 4-digit (`p0425`). Root convention is 4-digit (verified `head -1 pdf_atoms.jsonl` returns `ig34_p0001_a001`).",
+      "repair_action": "Option H mechanical bulk fix (cycle 2) — Python regex `re.sub(r'\"atom_id\":\"ig34_p(\\d{3})_a', r'\"atom_id\":\"ig34_p0\\1_a', content)` applied to all 28a atoms; backup pdf_atoms_batch_28a.jsonl.pre-OptionH-atomid-padding.bak preserved. Post-fix: 372/372 atom_ids match `ig34_p\\d{4}_a\\d{3}`. 0 root collision.",
+      "v1_3_codification_candidate": "v1.3 cut MUST clarify: atom_id format = `<source_short>_p<NNNN>_a<NNN>` where page is **4-digit** zero-padded (NOT 3-digit per v1.2 text); rationale: pages range 1-577 (SDTMIG full doc) requires up to 3 leading zeros for max consistency. Update v1.2 text §atom_id 命名规范 + matching example. v1.3 add explicit regex `^[a-z]+_p\\d{4}_a\\d{3}$`.",
+      "writer_family_motif": "NOT writer-family error — both writer subagents followed v1.2 spec text literally (3-digit). v1.2 spec ambiguity is the root cause."
+    },
+    {
+      "finding_id": "O-P1-91",
+      "severity": "LOW",
+      "category": "NEW7 L6/L7 parent_section shortcut form — 'Example N' bare vs canonical full-form",
+      "title": "Atoms within Example N (L6 or L7) use bare 'Example N' as parent_section instead of canonical full-form '§6.3.5.9.3 Relating PP Records to PC Records — Example N'",
+      "scope": "Affects 28b atoms on p.278/279/280 within §6.3.5.9.3 Examples 1/2/3 — Method A/B/C/D HEADINGs and their relrec.xpt TABLE_ROW children. Rule A reviewer flagged ig34_p0278_a010 (PARTIAL) + ig34_p0279_a037 (just-PASS, parent_section dim PARTIAL).",
+      "rule_violation": "Soft NEW7 codification gap: round-4 codification did not strictly mandate canonical full-form for L6/L7 Example/Method parent_section — consistency precedent comes from round-3 batch 21 GF Examples 1a/1b (parent='§6.3.5.4 Genomics Findings (GF)' L5 canonical) but for L6 sub-method under L6 Example, the chain depth allows shortcut form by convention.",
+      "repair_action": "DEFERRED to reconciler bulk-patch — affects ~30+ atoms in p.278-280 PP-relrec cluster; reconciler may apply mechanical patch (replace `\"parent_section\":\"Example N\"` → `\"parent_section\":\"§6.3.5.9.3 Relating PP Records to PC Records — Example N\"`) post-merge to root.",
+      "v1_4_codification_candidate": "v1.4 patch agenda: NEW7 chain spec parent_section canonicalization rule — 'Any atom whose immediate parent is a sub-Example/sub-Method HEADING (L6/L7 deep-nest) MUST use canonical full-form `§N.N.N — Sub-Heading-Title` not bare title'. Also covers cross-family Example structures (LB-Examples, IS-Examples, PP-Examples).",
+      "writer_family_motif": "Stylistic choice (not corruption); both 28a + 28b made same shortcut convention; no writer-family blame."
+    }
+  ],
+  "finding_id_range_allocated": "O-P1-88..91 (4 IDs reserved per round 5 G-MS-13)",
+  "finding_id_range_used": ["O-P1-88", "O-P1-89", "O-P1-90", "O-P1-91"],
+  "finding_id_self_validation_gate": "PASS — all 4 finding IDs ∈ {88, 89, 90, 91}; 0 findings with ID ≤87 (no collision with batch 26 O-P1-80..83 or batch 27 O-P1-84..87) or ≥92 (no collision with future)",
+  "rule_d_slot_used": 37,
+  "rule_d_audit_pivot_count_post_batch": 18,
+  "rule_d_family_post_batch": "general-purpose family INAUGURAL burn = 1st family pivot post round 4 EXHAUSTED 3 family pools (vercel + plugin-dev + feature-dev). Validates AUDIT-mode pivot recipe family-agnostic at 18th cumulative pivot. NEW family produced 1 reviewer-side FALSE POSITIVE (atom 10 p.280 cross-Example boundary confusion) + 2 valid findings (atom 3 EDITORIAL_CORRECTION + atoms 8/9 parent_section shortcut) — recipe scoring 90% accurate first burn.",
+  "files_written": [
+    "evidence/checkpoints/pdf_atoms_batch_28a.jsonl (148 atoms, p.271-275, post Option H atom_id padding + atom 3 verbatim restore)",
+    "evidence/checkpoints/pdf_atoms_batch_28a.jsonl.pre-OptionH-atomid-padding.bak (Rule B backup pre-cycle-2)",
+    "evidence/checkpoints/pdf_atoms_batch_28a.jsonl.pre-OptionH-atom3-typo-restore.bak (Rule B backup pre-cycle-3)",
+    "evidence/checkpoints/pdf_atoms_batch_28b.jsonl (224 atoms, p.276-280, post recovery via oh-my-claudecode:executor with Bash-append protocol)",
+    "evidence/checkpoints/pdf_atoms_batch_28b.jsonl.pre-recovery-OptionE-p276-280.bak (Rule B backup of initial 50-atom Write-overwrite partial as O-P1-89 evidence)",
+    "evidence/checkpoints/_progress_batch_28.json (this file)",
+    "evidence/checkpoints/P1_batch_28_report.md (full batch report)",
+    "evidence/checkpoints/rule_a_batch_28_sample.jsonl (10-atom sample seed=20260610)",
+    "evidence/checkpoints/rule_a_batch_28_verdicts.jsonl (slot #37 general-purpose verdicts; raw 7 PASS + 1 PARTIAL + 2 FAIL = 87.9%; main-session adjudicated atom_10 FALSE POSITIVE → 8 PASS + 1 PARTIAL + 1 FAIL = 93.9% PASS)",
+    "evidence/checkpoints/rule_a_batch_28_summary.md (Rule A summary with §1-§5)"
+  ],
+  "files_NOT_touched": [
+    "root pdf_atoms.jsonl (6146 atoms unchanged — reconciler scope)",
+    "audit_matrix.md (reconciler scope)",
+    "_progress.json (reconciler scope)",
+    "sister batch files (pdf_atoms_batch_26*, pdf_atoms_batch_27*)",
+    "subagent_prompts/* (v1.3 cut DEFERRED 5th time per Rule D writer/reviewer isolation in this session)",
+    "schema/*.json",
+    "PLAN.md",
+    "plans/*.md",
+    "CLAUDE.md",
+    "MEMORY/*"
+  ],
+  "halt_state": null,
+  "round_5_compliance": {
+    "G_MS_4_halt_fallback": "spec'd (kickoff §0 hard-stop directive); NOT triggered this batch despite 3 repair cycles (none triggered halt thresholds — failure rate 0/372=0% well below 15%, Rule A 93.9% post-adjudication well above 70% raw threshold, ctx well below 80%, reviewer dispatched fine, no shared-file write attempts)",
+    "G_MS_7_finding_id_range_pre_allocation": "compliant — O-P1-88..91 reserved (4 IDs), 4 used (O-P1-88/89/90/91); 0 unused; no over-allocation, no cross-session collision",
+    "G_MS_11_NEW6_dual_form_codified": "applied — 0 violations; no L4 introduced this batch (sister batch 27 territory)",
+    "G_MS_11_b_round_3_extension_codified": "N/A this batch — no L4 sub-domain section-start HEADING in 28 scope; round-3 G-MS-11.b extension validated round 4 (4× proactive EFFECTIVE) and carry-forward via kickoff prepend remains in effect for sister batch 27",
+    "G_MS_12_density_alarm_check_applied": "applied — lowest p.272=23 atoms (well above 15-atom floor); both sub-batches above 100-atom floor; alarm NOT triggered; main-session PDF cross-check NOT required for density",
+    "G_MS_13_finding_id_range_cross_validation_table": "applied — kickoff §0 cross-validation table read pre-dispatch; finding ID self-validation gate at STEP 7 confirmed all 4 IDs ∈ {88,89,90,91}; 0 collision with sister sessions",
+    "round_5_NEW_codification_NEW7_L6_procedural_handoff": "applied — 28a→28b sub-batch handoff prepend mandatory per round 5 spec; 28b recovery prompt explicitly inline-prepended 28a terminal state (§6.3.5.9.3 L6 sib counter starting from 3 = Example 1, continuing the L6 chain established by 28a's PC-PP Relating Datasets sib=1 + PC-PP Relating Records sib=2). 28b output validated correct sib continuation in NEW7 chain check above. NEW7 L6 procedural handoff ZERO recurrence in batch 28 (vs round 3 batch 23 O-P1-68 + round 4 batch 25 O-P1-79 prior recurrences). Procedural enforcement EFFECTIVE first-time on round 5 — validates round-4 retro D-MS-4 codification mandatory decision.",
+    "round_5_NEW_finding_O_P1_89_writer_family_motif": "NEW writer-family motif (Write-tool-overwrite silent data loss) discovered via Option E full sub-batch rerun; v1.3 cut MUST add Bash-heredoc append protocol procedural enforcement",
+    "round_5_NEW_finding_O_P1_90_atom_id_padding_spec_clarification": "v1.2 prompt spec text-vs-example self-contradiction discovered; v1.3 cut MUST clarify 4-digit page zero-padding standard"
+  },
+  "round_5_NEW_precedents_observed": [
+    "L7 sub-method under L6 Example (Method A/B/C/D under Example N within §6.3.5.9.3) — analogous to round-3 batch 21 GF Examples 1a/1b L7 sub-example precedent but at L7 with different parent semantics (Method N is sibling chain of methods, not sub-example numbering); v1.4 codification candidate",
+    "L4 group container precedent 2nd cross-family validation (§6.3.5.9 PK after round-4 §6.3.5.7 Microbiology) — confirms NEW7 L4-group-container branch family-agnostic",
+    "Writer-family Write-tool-overwrite NEW motif (O-P1-89) — distinct from wide-TABLE_HEADER family; first observation in P1 cumulative",
+    "general-purpose family INAUGURAL AUDIT-mode pivot burn (slot #37) — full-tool variant proven viable; recipe family-agnostic validated",
+    "Reviewer-side FALSE POSITIVE on cross-Example boundary (atom 10 p.280) — main-session PDF cross-check adjudication precedent extension (joins G-MS-12 density 3 FP round 2-4)"
+  ],
+  "handoff_to_reconciler": "Session D contributes 372 atoms (148 + 224) over p.271-280 (DOUBLE L5 sub-section transition: §6.3.5.9.2 PP NEW + §6.3.5.9.3 Relating PP-PC NEW within §6.3.5.9 PK group container). Reconciler should: (a) merge pdf_atoms_batch_28a.jsonl + pdf_atoms_batch_28b.jsonl into root pdf_atoms.jsonl post sister batch 26+27 merges; (b) sweep cross-batch sibling continuity for §6.3.5 L4 chain — sib=7 Microbiology (batch 25 round 4) → expected sib=8 MI (sister batch 27) → sib=9 PK (sister batch 27) carried unchanged into batch 28; verify L5 chain under §6.3.5.9 — expected sib=1 PC (sister batch 27) → sib=2 PP (batch 28 28a) → sib=3 Relating PP-PC (batch 28 28a); (c) update root audit_matrix.md with batch 28 row + Rule A 28 row + Rule D roster 36→37 + NEW family pool burn (general-purpose 1×); (d) update root _progress.json (atoms 6146→6518 if batch 26+27 sister merges already done OR cumulative including all 3 round-5 sisters; pages cumulative; batches 25→28; Rule D 36→37; repair_cycles +3; findings +4 [O-P1-88/89/90/91]); (e) v1.3 prompt cut decision — round 5 5th time DEFERRED 5th-time-DEFERRED per Rule D — evidence quintuple-saturated (R10-R15 + O-P1-26 + NEW1-NEW8 + NEW6.b proactive + NEW7 L4-group-container 2nd cross-family + NEW7 L6 procedural enforcement EFFECTIVE first-time round 5 zero recurrence + NEW7 L7 sub-method NEW round-5 + writer-family Write-overwrite NEW motif O-P1-89 + atom_id padding spec ambiguity O-P1-90 + parent_section canonical-form O-P1-91); v1.3 cut session BEFORE batch 30 (next mandatory drift cal) is now ULTRA-CRITICAL ESCALATION 5th-time; (f) reconciler-side bulk-patch O-P1-91 parent_section canonical-form ('Example N' → '§6.3.5.9.3 Relating PP Records to PC Records — Example N') across p.278-280 PP-relrec cluster (~30+ atoms); (g) reconciler-side optional v1.4 patch agenda accumulation (NEW7 L7 sub-method + writer-family Write-overwrite procedural + atom_id padding spec + parent_section canonical-form); (h) multi-session round 5 protocol: write MULTI_SESSION_RETRO_ROUND_5.md (Rule C 三段式 12+ R-MS retain / 6+ G-MS gap / 7+ D-MS decision); cleanup CLAUDE.md round-5 routing rule + delete batch_26/27/28_kickoff.md + reconciler_kickoff_round5.md (one-shot use done)."
+}

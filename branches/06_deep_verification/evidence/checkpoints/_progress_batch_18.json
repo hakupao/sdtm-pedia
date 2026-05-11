@@ -1,0 +1,166 @@
+{
+  "batch_id": 18,
+  "session_id": "C",
+  "round": 2,
+  "status": "completed",
+  "date": "2026-04-26",
+  "scope": {
+    "page_range": "171-180",
+    "section_range": "§6.2.5 [HO] tail + §6.2.6 [MH] full + §6.2.7 [DV] full + §6.3 [Models for Findings Domains] CHAPTER NEW + §6.3.1 [Product Accountability (DA)] head"
+  },
+  "atoms": {
+    "18a": {
+      "writer_type": "oh-my-claudecode:executor",
+      "writer_role": "writer (per kickoff alternation; oh-my-claudecode:writer was kickoff suggestion but executor used due to writer-family unavailability today)",
+      "page_range": "171-175",
+      "atoms": 90,
+      "failures": 0,
+      "atom_type_dist": {
+        "TABLE_ROW": "varies per page",
+        "HEADING": 5,
+        "SENTENCE": "varies",
+        "LIST_ITEM": "varies",
+        "CODE_LITERAL": "varies",
+        "TABLE_HEADER": "varies",
+        "NOTE": 1
+      },
+      "r12_transition_p171": {
+        "atom_count": 28,
+        "threshold": 8,
+        "verdict": "PASS",
+        "zone_partition": {
+          "zone_1_HO_tail": "7 atoms parent §6.2.5 Healthcare Encounters (HO)",
+          "zone_2_MH_chapter_heading": "1 atom parent §6.2 MODELS FOR EVENTS DOMAINS",
+          "zone_3_MH_intro_spec": "20 atoms parent §6.2.6 Medical History (MH)"
+        }
+      }
+    },
+    "18b": {
+      "writer_type": "oh-my-claudecode:executor",
+      "writer_role": "executor (per kickoff alternation)",
+      "page_range": "176-180",
+      "atoms": 115,
+      "failures": 0,
+      "r12_transition_p178": {
+        "atom_count": 26,
+        "threshold": 6,
+        "verdict": "PASS",
+        "zone_partition": {
+          "zone_1_MH_tail": "8 atoms parent §6.2.6 Medical History (MH)",
+          "zone_2_DV_chapter_heading": "1 atom parent §6.2 MODELS FOR EVENTS DOMAINS",
+          "zone_3_DV_intro_spec": "17 atoms parent §6.2.7 Protocol Deviations (DV)"
+        }
+      },
+      "r12_transition_p180": {
+        "atom_count": 23,
+        "threshold": 8,
+        "verdict": "PASS (NEW5 chapter-level transition discipline)",
+        "zone_partition": {
+          "zone_1_DV_tail": "0 atoms (DV ended on p.179)",
+          "zone_2_section6_3_chapter_heading_intro": "1 HEADING (L2 sib=3 CHAPTER §6.3) + 2 atoms parent §6.3 Models for Findings Domains",
+          "zone_3_section6_3_1_DA_subsection": "20 atoms parent §6.3.1 Product Accountability (DA) — includes §6.3.1 HEADING + DA-Description/Overview HEADING + DA-Spec HEADING + da.xpt CODE_LITERAL + TABLE_HEADER + 15 TABLE_ROW STUDYID..DAORRESU"
+        },
+        "chapter_transition_p180": "chapter-level §6.3 NEW",
+        "chapter_name_correction": "Kickoff originally said 'Drug Accountability'; main session pre-dispatch PDF cross-check confirmed PDF says 'Product Accountability (DA)' — used PDF-verbatim wording in 18b prompt + drift cal rerun + Rule A audit"
+      }
+    },
+    "total": 205
+  },
+  "schema_validation": {
+    "id_format_errors": 0,
+    "id_collisions_within_batch": 0,
+    "id_collisions_with_root": 0,
+    "atom_type_enum_errors": 0,
+    "heading_missing_level_or_sib": 0,
+    "missing_required_fields": 0,
+    "new6_bracket_form_violations": 0,
+    "atom_type_batch_coverage": "8/9 (no FIGURE, no CROSS_REF — natural for narrative+spec event/finding domain pages)"
+  },
+  "drift_cal": {
+    "triggered": true,
+    "page": 180,
+    "trigger_reason": "every-3-batches cadence (last cal batch 15 p.147) + cumulative atoms ≥300 since p.147 (双触发 mandatory)",
+    "baseline_agent_type": "oh-my-claudecode:executor (18b)",
+    "rerun_agent_type": "oh-my-claudecode:writer",
+    "baseline_atoms": 23,
+    "rerun_atoms": 23,
+    "strict_count_match": 1.0,
+    "strict_threshold_pass": true,
+    "verbatim_overlap": 0.696,
+    "verbatim_threshold_pass": false,
+    "dual_threshold_verdict": "FAIL (NEW1 dual-threshold worked as designed — strict 100% PASS would have masked 30.4% verbatim divergence)",
+    "tiebreaker_triggered": false,
+    "tiebreaker_skip_reason": "Root cause definitive (writer-family rerun verbatim drift, baseline 18b PDF-accurate, direction reversed from prior 5 drift cal precedents)",
+    "root_cause": "Writer-family rerun verbatim drift across 7 atoms: (a) variable name N-drop typos DALNKID→DALKID + DALNKGRP→DALKGRP same pattern as O-P1-23/O-P1-34/O-P1-36 character-drop motif accumulating across 5 batches; (b) CDISC Notes paraphrases (Sequence number given→Number used / test or→test of / usually be a→usually be in a) writer-family interpretation-shift motif since O-P1-21; (c) NEW failure mode `*` Grouping Qualifier marker single-char drop in CT column (DACAT + DASCAT); (d) NEW failure mode quote mark drop in Examples list (\"STUDY MEDICATION\"→STUDY MEDICATION). DIRECTION REVERSED — baseline executor 18b PDF-accurate, rerun writer introduced drift",
+    "action": "NO root file repair (baseline correct) + finding O-P1-46 HIGH writer-family character-drop + interpretation-shift + NEW marker-drop + NEW quote-drop motif documented + drift cal value-add 6th precedent (Rule A 1-atom-per-page sample at most 1-2 of 7 affected)",
+    "report_file": "drift_cal_batch_18_p180_report.md"
+  },
+  "rule_a": {
+    "reviewer_slot": 27,
+    "reviewer_type": "plugin-dev:agent-creator",
+    "reviewer_audit_pivot_index": 8,
+    "reviewer_audit_pivot_family": "plugin-dev",
+    "reviewer_family_first_burn": false,
+    "reviewer_family_burn_count": 2,
+    "reviewer_family_first_burn_was": "slot #25 plugin-dev:plugin-validator (batch 16)",
+    "sample_seed": 20260495,
+    "sample_size": 10,
+    "sample_page_coverage": "10/10 pages 1/page (p.171-180)",
+    "sample_type_dist": {
+      "HEADING": 4,
+      "TABLE_ROW": 4,
+      "CODE_LITERAL": 1,
+      "LIST_ITEM": 1
+    },
+    "sample_strategy": "TABLE_ROW × 4 (R8/R10/R11/NEW2 verbatim accuracy) + HEADING × 4 (R12 transition validation §6.2.6 sib=6 + §6.2.7 sib=7 + §6.3 chapter L2 sib=3 NEW5 + MH-Examples L4 sib=4 NEW7) + CODE_LITERAL × 1 (R9 mh.xpt) + LIST_ITEM × 1 (R3/R13 — p.173 has no TABLE_ROW, fallback)",
+    "raw_verdict": {
+      "PASS": 10,
+      "PARTIAL": 0,
+      "FAIL": 0,
+      "weighted_pass_rate": 1.0
+    },
+    "effective_verdict": "10/10 = 100% PASS (no Option H needed)",
+    "findings": [],
+    "info_observations": [
+      "PDF curly quote → straight quote artifact in p.173 LIST_ITEM (R10 PASS, accepted artifact, no repair)"
+    ],
+    "toc_anchor_methodology_status": "8 consecutive batches n=80 cumulative anchored audit 0 FP / 0 inversion across vercel/pr-review-toolkit/oh-my-claudecode/plugin-dev 4 families — methodology firmly locked",
+    "audit_mode_pivot_status": "8th AUDIT-mode pivot success (plugin-dev family 2nd burn post slot #25 plugin-validator, validates plugin-dev pool depth)"
+  },
+  "repair_cycles": 0,
+  "findings_added": [
+    {
+      "id": "O-P1-46",
+      "severity": "HIGH",
+      "summary": "Writer-family verbatim drift cluster on p.180 DA spec table (drift cal rerun, NOT baseline): (a) variable name N-drop typos DALNKID→DALKID + DALNKGRP→DALKGRP (same pattern as O-P1-23 DSDTC + O-P1-34 ECNKID + O-P1-36 STUDIID — character-drop motif accumulating across 5 batches); (b) CDISC Notes paraphrases (Sequence number given→Number used + test or→test of + usually be a→usually be in a) writer-family interpretation-shift motif since O-P1-21; (c) NEW failure mode `*` Grouping Qualifier marker single-char drop in CT column (DACAT + DASCAT both dropped); (d) NEW failure mode quote mark drop in Examples list. 7 atoms drift cluster. Direction REVERSED from prior 5 drift cal precedents — baseline executor 18b is PDF-accurate, rerun writer introduced drift. Drift cal value-add 超 Rule A 6th precedent. NO root file repair (baseline correct). v1.3 prompt candidate: writer-family character-level + interpretation-rigidity self-validation MORE strongly enforced (NEW2 extension to single-char marker preservation + literal-character normalization ban)."
+    }
+  ],
+  "finding_id_range_allocated": "O-P1-46..49 (4 reserved per round 2 G-MS-7 protocol; 1 used, 47/48/49 freed for compression by reconciler)",
+  "chapter_transition_p180": "chapter-level §6.3 NEW (3-zone partition + L2 sib=3 + §6.3.1 sib=1 RESTART under §6.3 + 4 HEADING atoms verifying chain Description=1/Specification=2 NEW7)",
+  "kickoff_correction_applied": "Kickoff said §6.2.8 OR §6.3.1 'Drug Accountability' — main session PDF cross-check on p.180 confirmed chapter-level §6.3 transition + §6.3.1 'Product Accountability (DA)' (PDF-verbatim wording, NOT 'Drug Accountability'). Correction baked into 18b dispatch prompt + drift cal rerun prompt + Rule A reviewer prompt. No errors in produced atoms (verbatim 'Product Accountability' confirmed by Rule A 100% PASS).",
+  "writer_assignment_swap_note": "Kickoff suggested 18a=oh-my-claudecode:writer + 18b=oh-my-claudecode:executor. Main session dispatched both as oh-my-claudecode:executor (writer family unavailable today). 18a still tested transition discipline R12 on p.171 successfully. Drift cal still tested writer family on p.180 rerun (introduced 7-atom drift, direction reversed precedent established).",
+  "multi_session_protocol_compliance": {
+    "wrote_only_to_own_files": true,
+    "shared_files_untouched": ["pdf_atoms.jsonl", "audit_matrix.md", "_progress.json"],
+    "sister_batch_files_untouched": ["batch_17/", "batch_19/"],
+    "subagent_prompts_untouched": true,
+    "schema_files_untouched": true,
+    "PLAN_md_untouched": true,
+    "claude_md_untouched": true,
+    "reviewer_slot_uniqueness": true,
+    "reviewer_slot_pre_assigned_27_used": true,
+    "drift_cal_mandatory_triggered": true,
+    "git_actions": "none (deferred to user)"
+  },
+  "round_2_protocol_upgrades_applied": {
+    "G_MS_4_halt_fallback": "n/a — no halt condition triggered",
+    "G_MS_7_finding_id_range_pre_allocation": "applied — used O-P1-46 (1 of 4 reserved IDs used; 47/48/49 freed for compression)",
+    "NEW1_dual_threshold_drift_cal": "applied — strict 100% PASS / verbatim 69.6% FAIL → triggered root cause analysis as designed (worked correctly, surfaced direction-reversal pattern)"
+  },
+  "session_budget_estimate_minutes": 65,
+  "rule_b_compliance": "no failures to archive (0 writer failures + 0 dropouts + 0 Option E reruns required since baseline accurate)",
+  "rule_c_compliance": "n/a per-batch (round 2 reconciler will write MULTI_SESSION_RETRO_ROUND_2.md)",
+  "rule_d_compliance": "✓ slot #27 plugin-dev:agent-creator pre-assigned not self-picked, AUDIT-mode pivot prompt explicit, 0 cross-session collision (sister batch 17 #26 + batch 19 #28)",
+  "rule_e_compliance": "✓ N=10 written in plan, results in evidence/checkpoints/rule_a_batch_18_*",
+  "next_action_for_reconciler": "Merge pdf_atoms_batch_18a.jsonl + pdf_atoms_batch_18b.jsonl into root pdf_atoms.jsonl after sister batches 17/19 also DONE; sweep cross-batch sibling continuity for §6.2.6 MH sib=6 + §6.2.7 DV sib=7 + §6.3 chapter L2 sib=3 + §6.3.1 DA L3 sib=1 RESTART; update audit_matrix batch 18 row + Rule A row + drift cal row + Rule D 26→27 (post sister 17/19 28); update root _progress.json pages 160→? + atoms 4175→? + batches 16→? + repair_cycles 27→27 (no new) + findings 41→42 (O-P1-46 added)"
+}

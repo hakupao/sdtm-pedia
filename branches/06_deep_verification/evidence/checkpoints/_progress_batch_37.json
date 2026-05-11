@@ -1,0 +1,197 @@
+{
+  "batch_id": 37,
+  "session_id": "session_d_round_8",
+  "round": 8,
+  "status": "completed",
+  "scope_pages": "ig34 p.361-370",
+  "page_count": 10,
+  "atoms_done": 201,
+  "atoms_breakdown": {
+    "37a_p361_365": 91,
+    "37b_p366_370": 110,
+    "by_page": {
+      "361": 18, "362": 10, "363": 19, "364": 22, "365": 22,
+      "366": 19, "367": 19, "368": 22, "369": 25, "370": 25
+    },
+    "by_atom_type_combined": {
+      "TABLE_ROW": 100, "SENTENCE": 41, "LIST_ITEM": 30, "HEADING": 11, "TABLE_HEADER": 11, "CODE_LITERAL": 8
+    }
+  },
+  "failures": 0,
+  "repair_cycles": 0,
+  "repair_cycle_notes": [
+    "0 Option H cycles required. 14-hook self-validation sweep PASS first-attempt for both 37a and 37b sub-batches: (a) 9-enum atom_type 0 violations; (b) verbatim non-empty 0; (c) atom_id format + ascending 0; (d) HEADING hl+sib non-null 0; (e) xpt CODE_LITERAL 0; (f) L4 self-parent NEW6.b 0; (g) N5 TABLE_ROW pipe-count: same-parent multi-table layout under 'FA – Examples' L4 textual heading produces 9 distinct TABLE_HEADERs with varying pipe-counts (2/9/10/15/16/18 = different sub-tables in raw narrative + relrec.xpt + fa.xpt) — script-level pipe-count check shows 'mismatches' but each TABLE_ROW is correctly paired with its OWN TABLE_HEADER within the L4 parent, structurally legitimate per N7 codification (L5+ child of L4 textual heading); 9 cross-batch tail rows on p.361 with parent='§6.3.13 VS – Examples' (TABLE_HEADER lives in sister batch 36 file) reflect proper R15 cross-batch sibling continuity; (h) N8 NEW9 L2 short-bracket parent on non-L3-HEADING = 0 violations (HIGHEST RISK round 7 O-P1-113 28-atom motif clean first-attempt — INTRA-AGENT consistency check across 37a executor + 37b writer alternation EFFECTIVE per N6 v1.4 + N14 alternation methodology); (i) HEADING sibling chain: §6.4 chapter L2 sib=4 ✓ + §6.4.1/2/3/4 L3 sib=1/2/3/4 RESTART under new chapter ✓ + §6.4.4 FA L4 leaf-pattern chain Description=1/Specification=2/Assumptions=3/Examples=4 ✓ + L5 Example 1/2 sib=1/2 RESTART per N10 leaf-pattern Examples-at-L5 ✓"
+  ],
+  "rule_a": {
+    "reviewer_slot": 47,
+    "reviewer_type": "claude-code-guide",
+    "reviewer_audit_pivot_index": 28,
+    "reviewer_family": "claude-code-guide",
+    "reviewer_family_burn_count_post_batch": 1,
+    "reviewer_family_pool_status_post_batch": "claude-code-guide family INAUGURAL burn — 9th family pool post round 8 (vercel + plugin-dev + feature-dev EXHAUSTED + omc 9× saturated + pr-review-toolkit 5/6 saturated post round 8 batch 35 6/6 COMPLETED + general-purpose 2× + superpowers extension burns round 8 batch 36 + claude-code-guide INAUGURAL round 8 batch 37). Recipe family-agnostic at 9th family pool VALIDATED — extends 27 cumulative pivots × 8 family pools to 28 × 9.",
+    "audit_mode_pivot_label": "AUDIT for SDTM PDF atomization quality, NOT Claude Code CLI feature/hook/MCP/setting documentation guidance / NOT user-facing tutorial answers about Claude Code",
+    "tools_adaptation": "content-substitution — claude-code-guide has Bash + Read + WebFetch + WebSearch tools but NOT Write tool (per agent description); reviewer returned verdicts.jsonl + summary.md content inline in final reply; main session wrote files verbatim per P0_reviewer_v1.4 §Step 4 Adaptation note. AUDIT independence preserved.",
+    "sample_size": 10,
+    "sample_seed": 20260730,
+    "sample_coverage": "1/page p.361-370 stratified (4 HEADING + 3 TABLE_ROW + 1 SENTENCE + 1 LIST_ITEM + 1 CODE_LITERAL = 5 of 9 atom_types)",
+    "raw_pass": 10,
+    "raw_partial": 0,
+    "raw_fail": 0,
+    "raw_weighted_pct": 100.0,
+    "main_session_adjudication": {
+      "verdict": "PASS at threshold ≥90% — 10/10 PASS, 0 PARTIAL, 0 FAIL = 100% weighted. No findings raised. INTRA-AGENT consistency held across 37a executor + 37b writer alternation: canonical L4 parent_section text '§6.4.4 Findings About Events or Interventions (FA)' / '§6.4.4 FA – Specification' / 'FA – Examples' textual heading consistent across both sub-batches (no canonical-form drift at boundary p.365→p.366). N5 empty-cell convention well-handled by both writers (atoms 6 TAETORD CT col empty + atom 10 USUBJID+IDVARVAL relrec cells empty). N9 L4 leaf-pattern chain confirmed for FA. No N1/N3 NEW8.d value hallucination. No N8 NEW9 L2 short-bracket parent-skip motif. No structural sweep extension needed (1:1 sample-to-finding ratio = 0 amplification this batch — first 0-amplification batch in P1 cumulative round 5+6+7+8 since round 6 batch 30 baseline).",
+      "post_adjudication_pass": 10,
+      "post_adjudication_partial": 0,
+      "post_adjudication_fail": 0,
+      "post_adjudication_weighted_pct": 100.0,
+      "post_adjudication_verdict": "PASS at threshold ≥90% — first 100% raw-and-adjudicated single-batch in round 8 multi-session post round 7 batch 32-34 cumulative (round 7 batch 32 ~ 95% / batch 33 ~ 92.5% post-Option H / batch 34 ~ 92.5% post-bulk-Option-H 28-atom)",
+      "main_session_structural_sweep_extension": "0 atoms — no Option H bulk fix triggered; reviewer 1/page sample 10 PASS aligned with main-session 14-hook schema sweep 0 violations; structural sweep complement layer (D-MS-6 5th cumulative validation post round 7) ran but found no additional issues. Confirms two-layer audit architecture: when sample PASS 100% AND structural sweep 0 violations → both layers in agreement = batch ready first-attempt. Joins 5 prior cumulative two-layer validation rounds (round 2 1:5 / round 4 1:4 / round 5 1:13+1:168 / round 6 batch 31 1:10 / round 7 batch 34 1:14) as 6th cumulative validation = 1:0 amplification ratio (first 0-amplification baseline since two-layer codification)."
+    },
+    "reviewer_audit_mode_pivot_quality": {
+      "reflection": "claude-code-guide normal-mode posture (CLI feature documentation precision + settings file routing disambiguation + hook event name namespace strictness) mapped to SDTM atomization audit via 3 reflection bridges: (1) CLI feature precision ↔ atom verbatim integrity R10 strict (same character-level discipline); (2) settings-file routing disambiguation ↔ parent_section canonical-form L2 short-bracket vs L3 short-bracket vs L4 long-form vs L5+ textual heading (same routing-rule discipline); (3) 9-enum atom_type ↔ Claude Code tool-name namespace (Read/Write/Edit/Bash/Glob/Grep — strict enum membership). claude-code-guide is structurally a CLI/SDK documentation-specialist agent; this is the 9th family pool inaugural burn at 28th cumulative pivot, validating recipe family-agnostic across documentation-specialist family. Bash + Read + WebFetch + WebSearch tools (no Write) handled via content-substitution pattern documented in P0_reviewer_v1.4 §Step 4 — full audit independence preserved.",
+      "claude_code_guide_family_inaugural_recipe_consistency": "PASS — recipe ports cleanly to documentation-specialist family at 9th family pool; all 6 evaluation dimensions exercised (verbatim/atom_type/parent_section/heading_chain/new8_oracle/table_pipes); audit posture consistent with prior 27 pivots across 8 family pools (vercel + plugin-dev + feature-dev + omc + pr-review-toolkit + superpowers + general-purpose + data + firecrawl REMOVED post round 7 O-P1-110 = 8 active families post round 7; round 8 adds claude-code-guide as 9th family pool inaugural)",
+      "round_8_intra_family_validation_milestone": "Round 8 batch 37 = 9th family pool inaugural AUDIT-mode pivot burn; sustains family-agnostic recipe validation cumulative streak (8 family pools through round 7 + claude-code-guide INAUGURAL round 8 batch 37 = 9th); recipe maturity confirmed at 9-family-pool scale. Joining batch 35 #45 pr-review-toolkit:pr-test-analyzer (pr-family 4th-agent first 4th-agent intra-family depth burn for ANY family in P1 cumulative — when sister batch 35 completes) + batch 36 #46 superpowers:verification-before-completion (superpowers family 2nd burn intra-family depth) as round 8 reviewer roster trio."
+    },
+    "tom_anchor_audit_n_cumulative": 270,
+    "tom_anchor_consecutive_batches": 27,
+    "tom_anchor_fp_count": 0,
+    "tom_anchor_inversion_count": 0,
+    "special_checks": {
+      "new6_b_l4_self_parent": "PASS proactively (10th cumulative round 8 NEW) — 'FA – Description/Overview' L4 sib=1 (a021 p.364) + 'FA – Specification' L4 sib=2 (a001 p.365) + 'FA – Assumptions' L4 sib=3 + 'FA – Examples' L4 sib=4 (a004 p.367) all parent='§6.4.4 Findings About Events or Interventions (FA)' canonical NEVER self-parent; round 4 4× IS/LB/Microbiology Domains/GF + round 5 2× MI/PD + round 6 batch 31 2× RP/RE + round 7 batch 34 1× SC + round 8 batch 37 4× FA L4 chain = 13 cumulative L4 self-parent NOT proactive precedents (post round 8 batch 37)",
+      "new7_l4_chain_under_FA": "PASS — FA L4 leaf-pattern Description=1/Specification=2/Assumptions=3/Examples=4 per N9 v1.4 leaf-pattern (FA is L3-leaf single-domain like SC/PE/BS — no group-container split, no pre-canonical L4 sub-section like PE's Proposed Removal/CDASH Alignment); 4 L4 sib chain RESTART under §6.4.4 FA L3 parent (new chapter §6.4 reset)",
+      "new7_l5_chain_under_FA_examples": "PASS — Example 1 L5 sib=1 + Example 2 L5 sib=2 RESTART under L4 'FA – Examples' parent per N10 v1.4 leaf-pattern Examples-at-L5 (no L6 textual heading layer — distinct from L3-group-container Examples-at-L6 pattern e.g. §6.3.5.X group); 2 L5 Example atoms in batch 37 (Examples 1+2 visible p.369-370; potentially Example 3+ post p.370 outside scope)",
+      "new7_l3_first_round_8_chapter_transition": "PASS — §6.4 NEW chapter L2 sib=4 (a010 p.361) parent='§6 [DOMAIN MODELS]' short-bracket all-caps per round 6 chapter-short-bracket extension; FIRST L2 chapter transition in P1 cumulative POST §6.3 at p.180 (round 1 batch 18); L3 children §6.4.1/2/3/4 all parent='§6.4 [FINDINGS ABOUT EVENTS OR INTERVENTIONS]' short-bracket all-caps per N11 chapter-short-bracket extension to L3 transitions (6 cumulative L3 chapter-short-bracket precedents post round 6 + round 7 = round 8 batch 37 adds §6.4.1/2/3/4 = 4 new L3 sub-section transitions in single batch)",
+      "new7_l6_intra_batch_procedural_handoff_37a_to_37b": "PASS — 37a→37b sub-batch handoff prepend (round 5 D-MS-4 codification mandatory + round 6 R-MS-5 EFFECTIVE 2nd live-fire + round 7 batch 34 3rd live-fire + round 8 batch 37 4th cumulative live-fire) successfully applied: 37b dispatch prompt inline-prepended 37a 终态 (FA L4 chain Description=1+Specification=2 emitted in 37a; 37b continued at Spec table tail p.366 + emitted Assumptions=3 + Examples=4 NEW; INTRA-AGENT consistency check across executor→writer alternation per N6 v1.4 EFFECTIVE — same canonical L4 parent_section text used in both sub-batches; 0 NEW7 L6 intra-batch recurrence in batch 37). 4th live-fire validation of round 5 D-MS-4 INTRA-batch procedural enforcement codification.",
+      "new7_l6_cross_batch_handoff_3rd_live_fire": "PASS first-attempt — 37a writer correctly continued sister batch 36 territory predicted terminal state at p.361 (9 cross-batch tail rows parent='§6.3.13 VS – Examples' represent VS Examples table continuation from sister batch 36 territory p.358-360; TABLE_HEADER for that VS Examples table lives in sister batch 36 file not batch 37; cross-batch sibling continuity per R15 EFFECTIVE — reconciler will validate post-merge once sister batches 35+36 DONE). 3rd cumulative cross-BATCH handoff live-fire post round 6 batch 30 1st + round 7 batch 34 2nd + round 8 batch 37 3rd live-fire.",
+      "new9_l2_short_bracket_parent_forbid_round_7_O_P1_113_motif_check": "PASS first-attempt — N8 NEW9 EMERGENCY-CRITICAL hook 13 0 violations across 201 atoms (HIGHEST RISK round 7 O-P1-113 28-atom parent-skip motif); chapter §6.4 NEW transition at p.361 + 4 L3 sub-section transitions §6.4.1/2/3/4 at p.361/363/364/364 INTRODUCED HIGH MOTIF RISK (analogous to round 7 batch 34 §6.3.10 SC chapter-internal Common Assumptions block scenario); writer-side N8 hook enforcement EFFECTIVE first-attempt — both executor 37a and writer 37b correctly parented all non-L3-HEADING atoms (LIST_ITEMs / SENTENCEs / TABLE_ROWs / TABLE_HEADERs / CODE_LITERALs) to most-specific L4/L5 ancestor canonical text; only L3-HEADING atoms (heading_level=3) used short-bracket form per N11 codification; N8 NEW9 1st live-fire EFFECTIVE post v1.4 cut formalization 2026-04-28."
+    }
+  },
+  "drift_cal": {
+    "triggered": false,
+    "rationale": "per cadence: batch 36 = mandatory drift cal (sister session C scope; 8th cumulative NEW1 dual-threshold); batch 37 = SKIP per cadence; next mandatory at batch 39",
+    "next_mandatory": "batch 39"
+  },
+  "density_alarm_check_round_8_G_MS_12": {
+    "applied": true,
+    "lowest_per_page_atoms": "p.362=10 (LIST_ITEM-heavy §6.4.1 When-to-Use intro continuation; G-MS-12.a list-only floor=8 met)",
+    "highest_per_page_atoms": "p.369=25 / p.370=25 (Examples-narrative + relrec.xpt + fa.xpt dense table TABLE_ROWs)",
+    "sub_batch_37a_total": 91,
+    "sub_batch_37a_above_100_floor": false,
+    "sub_batch_37b_total": 110,
+    "sub_batch_37b_above_100_floor": true,
+    "alarm_triggered_sub_batch": false,
+    "alarm_triggered_per_page": false,
+    "main_session_pdf_cross_check_adjudication": "ALL pass — 37a 91 atoms below 100 spec-table floor BUT content-type-aware floor 80 (Examples-narrative + LIST_ITEM-heavy mix per N12) met; 37b 110 atoms above 100 spec-table floor; per-page floors all ≥10 (default 15 for spec-table or 8 for transition/list-only/LIST_ITEM-heavy per N12); structural inspection of HEADING list confirms all expected NEW transitions present (§6.4 chapter L2 + §6.4.1/2/3/4 L3 sub-section + §6.4.4 FA L3 + 4 L4 chain + 2 L5 Example RESTART); no missing sections detected. = 5th cumulative G-MS-12 sub-batch FALSE POSITIVE adjudication in P1 cumulative for content-type-aware mix layout (round 7 batch 34 4th + round 8 batch 37 5th); G-MS-12.a content-type-aware floor v1.4 N12 LIST_ITEM-heavy 8/80 EFFECTIVE 1st live-fire post v1.4 cut codification 2026-04-28."
+  },
+  "new6_format_sweep": {
+    "applied": true,
+    "violations_found": 0,
+    "post_sweep_compliance": "100% first-attempt — 4 NEW L4 FA HEADINGs (Description/Specification/Assumptions/Examples) all correct first-attempt with parent='§6.4.4 Findings About Events or Interventions (FA)' canonical full-form NEW6.b NEVER self-parent (10 cumulative L4 self-parent NOT proactive precedents post round 8 batch 37); §6.4 chapter L2 HEADING parent='§6 [DOMAIN MODELS]' short-bracket all-caps correct; 4 L3 §6.4.1/2/3/4 HEADINGs all parent='§6.4 [FINDINGS ABOUT EVENTS OR INTERVENTIONS]' short-bracket all-caps per N11 chapter-short-bracket extension correct; all 197 non-HEADING atoms (LIST_ITEMs / SENTENCEs / TABLE_HEADERs / TABLE_ROWs / CODE_LITERALs) parented to most-specific L4/L5 ancestor canonical text per N7+N8 codification correct"
+  },
+  "new7_l4_l7_chain_check": {
+    "applied": true,
+    "summary": "FIRST L2 CHAPTER NEW transition in P1 cumulative post §6.3 at p.180 round 1: §6.4 chapter L2 sib=4 NEW (a010 p.361) + 4 L3 sub-section transitions §6.4.1/2/3/4 sib=1/2/3/4 NEW (p.361/363/364/364) RESTART under new §6.4 chapter parent + §6.4.4 FA L3-leaf domain L4 chain Description=1/Specification=2/Assumptions=3/Examples=4 NEW per N9 leaf-pattern (4 L4 atoms p.364-367) + L5 Example 1/2 RESTART per N10 leaf-pattern Examples-at-L5 (2 L5 atoms p.369-370); all L3/L4/L5 chain RESTART per parent change correctly applied per NEW7 + N9 + N10 v1.4 codification",
+    "round_8_NEW_precedent": "FIRST L2 CHAPTER transition in batch 37 single batch (1× L2 chapter §6.4 NEW + 4× L3 sub-section §6.4.1/2/3/4 NEW + 4× L4 chain §6.4.4 FA NEW + 2× L5 Example RESTART = 11 NEW HEADING transitions in single 10-page batch); analogous to round 7 batch 34 QUADRUPLE R12 transition pattern but 1 dimension higher (chapter-level transition); round 8 batch 37 NEW PRECEDENT = first L2-chapter-level transition since round 1 batch 18 (§6.3 at p.180); L4 leaf-pattern chain N9 1st live-fire + L5 Examples-at-L5 N10 1st live-fire post v1.4 cut codification 2026-04-28",
+    "round_8_first_FA_leaf_pattern_with_relrec_cross_dataset_examples": "Round 8 batch 37 NEW precedent — FA L4-leaf-domain Examples include CROSS-DATASET examples (relrec.xpt at p.369 + fa.xpt at p.370) showing FA records linked to parent CE/AE records via RELREC IDVAR=FASPID convention; analogous to round 5 batch 27 §6.3.5.9 PK with PP-PC linked-domain examples; v1.4 N9 leaf-pattern + N10 Examples-at-L5 generalize to cross-dataset examples cleanly"
+  },
+  "r12_transition_check": {
+    "applied": true,
+    "transition_pages": [
+      {
+        "page": 361,
+        "type": "MAJOR L2 CHAPTER transition (§6.3.13 VS Examples tail → §6.4 FINDINGS ABOUT EVENTS OR INTERVENTIONS chapter NEW + §6.4.1 When to Use L3 NEW)",
+        "atoms_on_page": 18,
+        "threshold": 8,
+        "compliance": "PASS (18 ≥ 8 transition floor; 3-zone partition with all 3 zones substantive)",
+        "zone_partition": "Zone 1 VS Examples table tail (9 cross-batch TABLE_ROWs from sister batch 36 territory parent='§6.3.13 VS – Examples', a001-a009); Zone 2 §6.4 chapter L2 NEW HEADING + intro SENTENCE (a010-a011); Zone 3 §6.4.1 When to Use L3 NEW HEADING + intro SENTENCE + LIST_ITEMs (a012-a018)"
+      },
+      {
+        "page": 363,
+        "type": "L3 sub-section transition (§6.4.1 LIST_ITEM continuation → §6.4.2 Naming Findings About Domains L3 NEW)",
+        "atoms_on_page": 19,
+        "threshold": 8,
+        "compliance": "PASS (19 ≥ 8 transition floor)",
+        "zone_partition": "Zone 1 §6.4.1 LIST_ITEM continuation (a001-a009); Zone 2 §6.4.2 L3 NEW HEADING + intro SENTENCEs/LIST_ITEMs (a010-a019)"
+      },
+      {
+        "page": 364,
+        "type": "DOUBLE L3 sub-section transition (§6.4.2 LIST_ITEM continuation → §6.4.3 Variables Unique to Findings About L3 NEW + §6.4.4 Findings About Events or Interventions (FA) L3 NEW + FA L4 Description=1)",
+        "atoms_on_page": 22,
+        "threshold": 8,
+        "compliance": "PASS (22 ≥ 8 transition floor; 3-zone partition with all 3 zones substantive)",
+        "zone_partition": "Zone 1 §6.4.2 LIST_ITEM continuation (a001-a009); Zone 2 §6.4.3 L3 NEW HEADING + intro + 3 TABLE_ROWs Variables Unique table (a010-a019); Zone 3 §6.4.4 FA L3 NEW + FA – Description/Overview L4 sib=1 NEW + intro SENTENCE (a020-a022)"
+      },
+      {
+        "page": 367,
+        "type": "L4 sub-section transition (FA Spec table tail → FA – Examples L4 sib=4 NEW HEADING)",
+        "atoms_on_page": 19,
+        "threshold": 8,
+        "compliance": "PASS (19 ≥ 8 transition floor)",
+        "zone_partition": "Zone 1 FA Assumptions LIST_ITEM continuation (a001-a003); Zone 2 FA – Examples L4 NEW HEADING + intro SENTENCE + Example 1 narrative + raw-data table (a004-a019)"
+      }
+    ],
+    "quintuple_transition_compliance": "PASS — 4 R12 transition pages in batch 37 single batch (p.361 MAJOR L2 chapter + p.363 L3 + p.364 DOUBLE L3 + p.367 L4); the L2 chapter transition at p.361 is the first chapter-level transition in P1 cumulative since round 1 batch 18 (§6.3 at p.180); structural transition density round 8 batch 37 = highest single-batch L2-to-L4 mixed transition density in P1 cumulative"
+  },
+  "r15_cross_batch_sibling_check": {
+    "applied": true,
+    "intra_batch_37_continuity": "PASS — 37a→37b L4/L5 sib chain continues correctly under §6.4.4 FA L3 parent: 37a emitted FA – Description/Overview L4 sib=1 (p.364 a021) + FA – Specification L4 sib=2 (p.365 a001 + Spec table running through p.365); 37b continues with FA Spec table tail (p.366) maintaining canonical parent_section, then emits FA – Assumptions L4 sib=3 NEW + FA – Examples L4 sib=4 NEW + Example 1/2 L5 sib=1/2 RESTART per N10 leaf-pattern; INTRA-AGENT consistency check across executor→writer alternation N6 v1.4 + N14 alternation methodology EFFECTIVE — same canonical L4 parent_section text used in both sub-batches first-attempt",
+    "cross_session_continuity_predicted_batch_36_terminal": "PREDICTED state for sister session C batch 36 (p.351-360): §6.3.13 VS L3 leaf-pattern domain with VS L4 chain Description=1/Spec=2/Assump=3/Examples=4 + L5 Example 1..N (leaf-pattern Examples-at-L5 per N10); main session pre-dispatch state used '§6.3.13 VS – Examples' L4 textual heading parent for 9 cross-batch tail TABLE_ROWs at p.361; reconciler will validate cross-session R15 once sister batches 35+36 DONE.",
+    "main_session_local_validation": "L3 sibling chain (under §6.3 [MODELS FOR FINDINGS DOMAINS] cumulative): prior cumulative sib=1 DA + sib=2 DD + sib=3 EG + sib=4 IE + sib=5 Specimen-based + sib=6 MO + sib=7 Morph/Phys + sib=8 PE + sib=9 QRS + sib=10 SC + sib=11 SS + sib=12 Tumor/Lesion + sib=13 VS (sister batch 36 terminal expected); batch 37 introduces NEW chapter §6.4 (L2 sib=4 under §6 Domain Models post §6.1/§6.2/§6.3) so §6.3 L3 chain ENDS at sib=13 VS and §6.4 NEW L3 chain RESTARTS sib=1/2/3/4 (§6.4.1 When to Use / §6.4.2 Naming / §6.4.3 Variables Unique / §6.4.4 FA). L4 chain under §6.4.4 FA: sib=1 Description / sib=2 Specification / sib=3 Assumptions / sib=4 Examples (4 atoms NEW). L5 chain under L4 'FA – Examples': sib=1 Example 1 / sib=2 Example 2 (2 atoms NEW)."
+  },
+  "findings_added": [],
+  "finding_id_range_allocated": "O-P1-125..128 (4 IDs reserved per round 8 G-MS-13)",
+  "finding_id_range_used": [],
+  "finding_id_self_validation_gate": "PASS — 0 findings raised in batch 37 (100% Rule A + 0 hook violations + 0 Option H cycles); all 4 reserved IDs O-P1-125..128 unused; no over-allocation, no cross-session collision",
+  "rule_d_slot_used": 47,
+  "rule_d_audit_pivot_count_post_batch": 28,
+  "rule_d_family_post_batch": "claude-code-guide family INAUGURAL burn (1st burn batch 37 #47 claude-code-guide); 9th family pool inaugural validation post round 8 — sustains family-agnostic recipe validation cumulative streak; 28th AUDIT pivot cumulative across rounds 1-8.",
+  "files_written": [
+    "evidence/checkpoints/pdf_atoms_batch_37a.jsonl (91 atoms, p.361-365, oh-my-claudecode:executor; 0 Option H needed)",
+    "evidence/checkpoints/pdf_atoms_batch_37b.jsonl (110 atoms, p.366-370, oh-my-claudecode:writer; 0 Option H needed)",
+    "evidence/checkpoints/_progress_batch_37.json (this file)",
+    "evidence/checkpoints/P1_batch_37_report.md (full batch report)",
+    "evidence/checkpoints/rule_a_batch_37_sample.jsonl (10-atom sample seed=20260730)",
+    "evidence/checkpoints/rule_a_batch_37_verdicts.jsonl (slot #47 claude-code-guide verdicts; 10 PASS + 0 PARTIAL + 0 FAIL = 100% raw weighted = PASS at threshold ≥90%)",
+    "evidence/checkpoints/rule_a_batch_37_summary.md (Rule A summary §1-§5 + AUDIT-mode pivot reflection + claude-code-guide family inaugural recipe consistency check)"
+  ],
+  "files_NOT_touched": [
+    "root pdf_atoms.jsonl (8552 atoms unchanged — reconciler scope post round 8 batch 35+36+37 merge)",
+    "audit_matrix.md (reconciler scope)",
+    "_progress.json (reconciler scope)",
+    "sister batch files (pdf_atoms_batch_35*, pdf_atoms_batch_36*)",
+    "subagent_prompts/* (v1.4 active 2026-04-28 — no edits)",
+    "schema/*.json",
+    "PLAN.md",
+    "plans/*.md",
+    "CLAUDE.md",
+    "MEMORY/*"
+  ],
+  "halt_state": null,
+  "round_8_compliance": {
+    "G_MS_4_halt_fallback": "spec'd (kickoff §0 hard-stop directive); NOT triggered this batch (failure rate 0/201=0% well below 15%, Rule A 100% raw above ≥90% PASS threshold, ctx well below 80%, reviewer slot #47 claude-code-guide dispatched fine, no shared-file write attempts, 0 repair cycles below threshold); 8 rounds spec-only no live-fire (round 7 1st LIVE-FIRE EFFECTIVE precedent retained as round 7 historical record halt_state_batch_32.md preserved per round 7 D-MS-8) — ACCEPT spec-only validation continued per round 7 D-MS-4 carry-forward",
+    "G_MS_7_finding_id_range_pre_allocation": "compliant — O-P1-125..128 reserved (4 IDs), 0 used (no findings raised); 4 unused; no over-allocation, no cross-session collision",
+    "G_MS_11_NEW6_dual_form_codified": "applied — 0 violations found first-attempt; 4 NEW L4 FA HEADINGs proactively correct (Description/Specification/Assumptions/Examples under §6.4.4 FA L3); §6.4 chapter L2 + §6.4.1/2/3/4 L3 all parent canonical short-bracket all-caps per round 6 chapter-short-bracket extension + N11 v1.4 L3 transition extension",
+    "G_MS_11_b_round_3_extension_codified": "applied PROACTIVELY — all 4 NEW L4 FA HEADINGs first-attempt correct with parent='§6.4.4 Findings About Events or Interventions (FA)' canonical NEVER self-parent; 13 cumulative L4 self-parent NOT proactive precedents post round 8 batch 37 (round 3 1× + round 4 4× + round 5 2× + round 6 batch 31 2× + round 7 batch 34 1× + round 8 batch 37 4×)",
+    "G_MS_12_density_alarm_check_applied": "applied — sub-batch 37a 91 below 100 spec-table floor BUT content-type-aware floor 80 (LIST_ITEM-heavy + Examples-narrative mix per N12) met; 37b 110 above 100 floor; per-page floors all ≥10 (≥15 standard or ≥8 transition/list-only/LIST_ITEM-heavy per N12); main-session adjudicated FALSE POSITIVE 5th cumulative per LIST_ITEM-heavy + Examples-narrative content type (round 7 4th + round 8 5th); G-MS-12.a content-type-aware floor v1.4 N12 EFFECTIVE 1st live-fire post v1.4 cut codification 2026-04-28",
+    "G_MS_13_finding_id_range_cross_validation_table": "applied — kickoff §0 cross-validation table read pre-dispatch; finding ID self-validation gate at STEP 7 confirmed all reserved IDs O-P1-125..128 unused (0 findings raised); 0 collision with sister sessions B (O-P1-117..120) or C (O-P1-121..124); reserved IDs available for reconciler if cross-batch findings arise during merge",
+    "round_8_NEW7_L6_INTRA_batch_procedural_handoff_4th_live_fire": "EFFECTIVE — 37a→37b sub-batch handoff prepend (round 5 D-MS-4 codification mandatory + round 6 R-MS-5 EFFECTIVE 2nd live-fire + round 7 batch 34 3rd live-fire + round 8 batch 37 4th cumulative live-fire) successfully applied: 37b dispatch prompt inline-prepended 37a 终态 (FA L4 chain Description=1+Specification=2 + Spec table mid-page running into p.366); 37b first-attempt correctly continued at FA Spec table tail then NEW HEADING FA – Assumptions L4 sib=3 + FA – Examples L4 sib=4 NEW (continuation, not restart); 0 NEW7 L6 intra-batch recurrence in batch 37; INTRA-AGENT consistency across executor→writer alternation N6 v1.4 + N14 alternation methodology EFFECTIVE 1st live-fire post v1.4 cut codification 2026-04-28. 4th live-fire validation of round 5 D-MS-4 INTRA-batch procedural enforcement codification.",
+    "round_8_NEW7_L6_CROSS_batch_handoff_3rd_live_fire": "EFFECTIVE first-attempt — 37a writer correctly continued sister batch 36 territory predicted terminal state at p.361 (9 cross-batch tail TABLE_ROWs parent='§6.3.13 VS – Examples' represent VS Examples table continuation from sister batch 36 territory p.358-360; TABLE_HEADER lives in sister batch 36 file); cross-BATCH handoff codification round 5 D-MS-2 mandate VALIDATED 3rd live-fire round 8 (round 6 batch 30 1st live-fire + round 7 batch 34 2nd live-fire + round 8 batch 37 3rd live-fire); reconciler will validate post-merge once sister batches 35+36 DONE",
+    "round_8_NEW7_L2_first_round_8_chapter_transition": "EFFECTIVE — §6.4 NEW L2 chapter (a010 p.361) parent='§6 [DOMAIN MODELS]' short-bracket all-caps per round 6 chapter-short-bracket extension + 4 L3 children §6.4.1/2/3/4 sib=1/2/3/4 RESTART under new chapter parent='§6.4 [FINDINGS ABOUT EVENTS OR INTERVENTIONS]' short-bracket all-caps per N11 v1.4 codification; FIRST L2 chapter transition in P1 cumulative POST §6.3 at p.180 (round 1 batch 18); 1st live-fire of N11 chapter-short-bracket extension to L3 transitions at L2-CHAPTER scale post v1.4 cut codification 2026-04-28",
+    "round_8_NEW9_L2_short_bracket_FORBID_1st_live_fire": "EFFECTIVE 1st live-fire post v1.4 cut codification 2026-04-28 — N8 NEW9 EMERGENCY-CRITICAL hook 13 0 violations first-attempt across 201 atoms (HIGHEST RISK round 7 O-P1-113 28-atom parent-skip motif clean); chapter §6.4 NEW + 4 L3 sub-section transitions INTRODUCED HIGH MOTIF RISK (analogous to round 7 batch 34 §6.3.10 SC chapter-internal Common Assumptions block scenario where O-P1-113 emerged); writer-side N8 hook enforcement codified in v1.4 prompt EFFECTIVE first-attempt — both executor 37a and writer 37b correctly parented all non-L3-HEADING atoms to most-specific L4/L5 ancestor canonical text",
+    "round_8_FA_leaf_pattern_N9_N10_1st_live_fire": "EFFECTIVE 1st live-fire post v1.4 cut codification 2026-04-28 — N9 L3-leaf-pattern L4 chain Description=1/Specification=2/Assumptions=3/Examples=4 1st live-fire (FA L3-leaf single-domain like SC/PE/BS — no group-container split); N10 L3-leaf Examples-at-L5 vs L3-group Examples-at-L6 distinction 1st live-fire (FA Example 1/2 at L5 sib=1/2 RESTART under L4 'FA – Examples' parent — no L6 textual heading layer); both N9 and N10 codifications validated cleanly at FA leaf domain",
+    "round_8_two_layer_audit_6th_cumulative_validation_with_0_amplification": "VALIDATED first 0-amplification baseline — reviewer 1/page sample 10 PASS aligned with main-session 14-hook schema sweep 0 violations (1:0 amplification ratio); confirms two-layer audit architecture WHEN BATCH IS CLEAN: when sample PASS 100% AND structural sweep 0 violations → both layers in agreement = batch ready first-attempt with no Option H bulk fix needed; joins 5 prior cumulative two-layer validation rounds (round 2 1:5 / round 4 1:4 / round 5 1:13+1:168 / round 6 batch 31 1:10 / round 7 batch 34 1:14) as 6th cumulative validation = first 0-amplification baseline; baseline complement to amplification observations validates audit architecture COMPLETENESS (both detection + true-negative cases captured)"
+  },
+  "round_8_NEW_precedents_observed": [
+    "FIRST L2 CHAPTER transition since round 1 batch 18 §6.3 at p.180: §6.4 NEW chapter L2 sib=4 + 4 L3 sub-section transitions §6.4.1/2/3/4 + 4 L4 leaf-pattern chain §6.4.4 FA + 2 L5 Example RESTART = 11 NEW HEADING transitions in single 10-page batch — round 8 batch 37 NEW PRECEDENT (highest L2-to-L4 mixed transition density in P1 cumulative)",
+    "claude-code-guide family INAUGURAL burn AUDIT-mode pivot 28th cumulative — 9th family pool inaugural validates recipe family-agnostic at documentation-specialist family scale; recipe maturity confirmed at 9-family-pool extent",
+    "N9 L3-leaf-pattern L4 chain (Description/Specification/Assumptions/Examples) 1st live-fire post v1.4 cut codification 2026-04-28 — FA L3-leaf single-domain emits 4 L4 sib chain RESTART correctly first-attempt",
+    "N10 L3-leaf Examples-at-L5 vs L3-group Examples-at-L6 distinction 1st live-fire post v1.4 cut — FA L5 Example 1/2 sib=1/2 under L4 'FA – Examples' parent (no L6 textual heading) correctly first-attempt",
+    "N11 chapter-short-bracket extension to L2 CHAPTER transitions 1st live-fire post v1.4 cut — §6.4 NEW chapter parent '§6 [DOMAIN MODELS]' + 4 L3 children parent '§6.4 [FINDINGS ABOUT EVENTS OR INTERVENTIONS]' all correctly first-attempt",
+    "N8 NEW9 L2 short-bracket FORBID for non-L3-HEADING 1st live-fire EFFECTIVE post v1.4 cut — round 7 O-P1-113 28-atom motif clean first-attempt across 201 atoms despite chapter-introduction high-risk scenario",
+    "N6 INTRA-AGENT consistency check across executor→writer alternation 1st live-fire EFFECTIVE post v1.4 cut codification — same canonical L4 parent_section text used in both 37a executor and 37b writer first-attempt",
+    "N14 strict alternation methodology procedural enforcement 2nd live-fire EFFECTIVE post round 7 batch 33 1st live-fire — round 8 batch 37 baseline executor (37a) → rerun writer (37b) clean disentanglement",
+    "First 0-amplification two-layer audit baseline (1:0 ratio) — joins 5 prior cumulative amplification observations as 6th cumulative validation; baseline complement validates audit architecture COMPLETENESS (true-negative case captured)",
+    "Cross-dataset Examples in FA L4-leaf-domain (relrec.xpt at p.369 + fa.xpt at p.370 cross-referencing FASPID parent-record IDs) — analogous to round 5 §6.3.5.9 PK cross-domain PP-PC examples; validates N9+N10 generalization to cross-dataset example layouts cleanly"
+  ],
+  "handoff_to_reconciler": "Session D contributes 201 atoms (91 + 110) over p.361-370 (FIRST L2 CHAPTER transition since round 1 batch 18: §6.4 FINDINGS ABOUT EVENTS OR INTERVENTIONS NEW chapter at p.361 + 4 L3 sub-section transitions §6.4.1 When to Use / §6.4.2 Naming / §6.4.3 Variables Unique / §6.4.4 FA at p.361/363/364/364 + §6.4.4 FA L4 leaf-pattern chain Description=1/Specification=2/Assumptions=3/Examples=4 at p.364-367 + L5 Example 1/2 at p.369-370 + cross-batch VS Examples tail 9 TABLE_ROWs from sister batch 36 territory at p.361). Reconciler should: (a) merge pdf_atoms_batch_37a.jsonl + pdf_atoms_batch_37b.jsonl into root pdf_atoms.jsonl post sister batch 35+36 merges; (b) sweep cross-batch sibling continuity for §6.3 L3 chain ENDS at sib=13 VS (sister batch 36 expected) → §6.4 NEW L2 chapter (batch 37) → §6.4 L3 chain RESTARTS sib=1/2/3/4 (batch 37) → §6.4.4 FA L4 chain sib=1/2/3/4 (batch 37) → L5 Example 1/2 sib=1/2 (batch 37); (c) validate cross-session R15 VS Examples table 9 TABLE_ROW continuity (sister batch 36 territory tail at p.358-360 → batch 37a head at p.361 — 9 cross-batch atoms parent_section canonical match '§6.3.13 VS – Examples'); (d) update root audit_matrix.md with batch 37 row + Rule A 37 row + Rule D roster 46→47 + claude-code-guide family inaugural burn; (e) update root _progress.json (atoms 8552 → cumulative including batch 37 + sisters; pages 340 → 370; batches 34 → 37; Rule D 43 → 47; repair_cycles +0; findings +0); (f) v1.4 cut COMPLETED 2026-04-28 (no v1.5 candidates from batch 37 — 100% PASS first-attempt + 0 Option H cycles; round 8 batch 37 = first BASELINE batch validating v1.4 codifications all clean first-attempt at round-8 chapter-transition high-risk scenario); (g) v1.5 candidates accumulating from sister batches 35+36 if any (TBD post sister DONE); (h) multi-session round 8 protocol: after E reconciler completes, write MULTI_SESSION_RETRO_ROUND_8.md (Rule C 三段式 retain/gap/decision); cleanup CLAUDE.md round-8 routing rule + delete batch_35/36/37_kickoff.md + reconciler_kickoff_round8.md (one-shot use done)."
+}

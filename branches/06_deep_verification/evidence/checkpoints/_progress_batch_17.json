@@ -1,0 +1,68 @@
+{
+  "batch_id": 17,
+  "session_id": "B",
+  "round": 2,
+  "status": "completed",
+  "scope_pages": [161, 162, 163, 164, 165, 166, 167, 168, 169, 170],
+  "atoms_done": 288,
+  "atoms_breakdown": {
+    "17a_executor": 149,
+    "17b_writer_post_OptionE": 139
+  },
+  "failures": 0,
+  "repair_cycles": 1,
+  "repair_cycle_notes": [
+    "Option E full p.166-167 rerun via oh-my-claudecode:executor: writer 17b multi-bug pattern (te.xpt Row 1 column-shift + literal header-text-in-cells / Row 2-3 PAW typo + ABC- spurious dash + 3 weeks vs 4 weeks / ta.xpt header extra cells + ARMCD AS→AB rows 1+6 / ETCD AB→FU swap row 6 / TAETORD w→7 row 10 / completely dropped p.166 SE table + 2 footnote LIST_ITEMs / hallucinated 7-row DS table on p.166 [actually p.167 ds.xpt content] / p.167 ds.xpt header missing DSSCAT column / p.167 ds.xpt rows truncated INFORMED CONSENT vs INFORMED CONSENT OBTAINED / PROTOCOL vs PROTOCOL MILESTONE / STUDY vs STUDY PARTICIPATION + missing TAETORD values / p.167 LIST_ITEM Row 5 truncation drug A→drugs A and B). Option E rerun produced 67 atoms p.166-167 (was 63) with all 10 documented corruption points repaired per executor NEW2 self-validation."
+  ],
+  "rule_a": {
+    "reviewer_slot": 26,
+    "reviewer_type": "vercel:ai-architect",
+    "reviewer_audit_pivot_index": 7,
+    "reviewer_family_first_burn": false,
+    "reviewer_family_name": "vercel",
+    "reviewer_family_burn_index_in_family": 3,
+    "sample_size": 10,
+    "seed": 20260490,
+    "raw_pass": 9,
+    "raw_partial": 0,
+    "raw_fail": 1,
+    "raw_weighted_pct": 90.0,
+    "raw_verdict": "PASS",
+    "effective_post_repair_verdict": "PASS",
+    "effective_post_repair_note": "Sample atom ig34_p0166_a0004 was originally te.xpt Row 3 with 3 char errors (FAIL); post Option E rerun atom_ids re-assigned, original FAIL atom replaced with content-correct executor output verified via NEW2 self-validation + main session PDF cross-check"
+  },
+  "drift_cal": "skipped (per kickoff Step 4; next mandatory batch 18). Note: ad-hoc Option E rerun on p.166-167 effectively functioned as drift cal value-add for writer-family — 6th writer-family batch where main-session high-alert PDF cross-check surfaced corruption beyond what Rule A 10-atom sample caught (matches O-P1-12 batch 03 / O-P1-23 batch 09 / O-P1-34 batch 12 / batch 13 O-P1-37 / batch 14 O-P1-36 / batch 15 O-P1-36+37+38 pattern).",
+  "findings_added": ["O-P1-42", "O-P1-43"],
+  "findings_id_range_allocated": "O-P1-42..45",
+  "findings_id_range_used": "O-P1-42..43 (2 of 4 reserved actually used; 44/45 freed for compression)",
+  "rule_d_slot_used": 26,
+  "rule_d_slot_type": "vercel:ai-architect",
+  "rule_d_audit_pivot_count_post_batch": 7,
+  "files_written": [
+    "evidence/checkpoints/pdf_atoms_batch_17a.jsonl",
+    "evidence/checkpoints/pdf_atoms_batch_17b.jsonl",
+    "evidence/checkpoints/pdf_atoms_batch_17b.jsonl.pre-OptionE-p166-167.bak",
+    "evidence/checkpoints/option_e_rerun_p166_167.jsonl",
+    "evidence/checkpoints/rule_a_batch_17_sample.jsonl",
+    "evidence/checkpoints/rule_a_batch_17_verdicts.jsonl",
+    "evidence/checkpoints/rule_a_batch_17_summary.md",
+    "evidence/checkpoints/_progress_batch_17.json",
+    "evidence/checkpoints/P1_batch_17_report.md"
+  ],
+  "files_NOT_touched": [
+    "pdf_atoms.jsonl (root) — reconciler merges",
+    "audit_matrix.md — reconciler appends batch 17 row",
+    "_progress.json (root) — reconciler updates headline",
+    "subagent_prompts/* — not modified",
+    "schema/*.json — not modified",
+    "PLAN.md — not modified",
+    "plans/*.md — not modified",
+    "CLAUDE.md / project meta — not modified",
+    "sister batch files (16/18/19) — not touched"
+  ],
+  "halt_state": null,
+  "round_2_compliance": {
+    "G_MS_4_halt_fallback": "no halt triggered",
+    "G_MS_7_finding_id_range_pre_allocation": "compliant — used reserved O-P1-42..43, did NOT use round 1 ID reuse pattern"
+  }
+}

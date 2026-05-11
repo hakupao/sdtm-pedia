@@ -17,10 +17,10 @@
 | **Phase 6** 检索优化 | ✅ 完成 (P0-P2) | — | P3 → 已合并到 Phase 7 |
 | **Phase 6.5** AI 平台部署 | 🟢 进行中 | Claude/NotebookLM 完成; ChatGPT/Gemini 双平台锁步 (范本就绪 Phase 0 待启) | 看 `ai_platforms/SYNC_BOARD.md` |
 | **Phase 7** RAG + KG | ⏸ 待启动 | 设计完成 (`docs/DESIGN_RAG_KG.md`) | 实施前 5 步待办 (见 `phase7_handoff.md`) |
-| **06 旁枝** Deep Verification | ✅ 完成 | **P2 B-03c 収官 COMPLETE 2026-05-11 ★★★★** 63/63 domains 141/141 files 10,435 atoms; §2.12 locked; §G-1 v1.9.4 VALIDATED; v1.9.4 1st prod validation round DONE | 详见 `.work/06_deep_verification/_progress.json` |
+| **06 旁枝** Deep Verification | ✅ 完成 | **P2 B-03c 収官 COMPLETE 2026-05-11 ★★★★** 63/63 domains 141/141 files 10,435 atoms; §2.12 locked; §G-1 v1.9.4 VALIDATED; v1.9.4 1st prod validation round DONE | 详见 `branches/06_deep_verification/_progress.json` |
 | **07 旁枝** Website | ✅ 完成 | Phase 6/7/8/9/10/11 全 closed; prod sdtm-pedia.pages.dev | — |
 | **docs/jp** iTMS 納品 | 🟢 进行中 | Phase 1 P0 中間版 v0.5 已提出 2026-04-30 | 残 02/03 + 05/06/99 中文列充填 (Phase 2-3, 2026-05 中下旬) |
-| **refactor v1** 项目重构 | 🟢 进行中 (段 2) | 段 1 closed 2026-05-06; 段 2 进行中 | 段 3 (路径迁移) 待 B-03c cycle 收官 |
+| **refactor v1** 项目重构 | ✅ 完成 | 段 1/2/3 全 closed; branches/ 迁移完成 2026-05-11 ★ | RETROSPECTIVE.md 三段齐备 |
 
 **图例**: ✅ 完成 · 🟢 进行中 · ⏸ 待启动 · 🔴 阻塞
 
@@ -28,6 +28,7 @@
 
 ## 关键 milestone (近 30 天)
 
+- 2026-05-11 — **refactor v1 段 3 CLOSED ★ 项目重构 v1 収官** (branches/ 迁移完成; 06 旁枝→branches/06_deep_verification/ + jp_delivery→branches/jp_delivery/; C-16/17/18 dry-run PASS 0 断链; RETROSPECTIVE.md 三段齐备; 规则 A 抽检 PASS)
 - 2026-05-11 — 06 P2 B-03c **round 13 CLOSED ★★★★ 収官 — P2 B-03c 100% COMPLETE** (12 batches / 529 atoms / 6 domains TR/TS/TU/TV/UR/VS; md_atoms.jsonl **10,435 total**; **63/63 domains 141/141 files 100%**; §G-3 de-figure 0.7700 IN BAND; §2.12 NEW LOCKED TS/ass L53; §G-1 v1.9.4 1st production validation PASS 4/4 TV/ex descriptive-title H3; §2.11 7th case TV/ex; Rule D critic mini-audit PASS 8/8; retro `multi_session/P2_B-03c_RETROSPECTIVE.md`)
 - 2026-05-11 — 06 P2 **v1.9.4 prompt cut COMPLETED ★ 4 NEW G-rules** (§G-1 HIGH §F-1 descriptive-title H3 7th cumulative case 3 distinct pattern types + §G-2 HIGH §2.4 multi-slice 続号 first-class STRONGLY VALIDATED 3rd production + §G-3 STANDARD §F-2 de-figure-naive promote 2-round sustained + §G-4 INFO §2.6 FIGURE-heavy 20-block validated + C-R12-07 build-script defensive; Rule D AUDIT slot #72 oh-my-claudecode:code-reviewer 10/10 100% PASS_WITH_OBSERVATIONS 1 LOW pre-existing; v1.9.3 archived `archive/v1.9.3_final_2026-05-11/`; hooks: writer_md 30→33 / reviewer 35→38 / matcher 30→31)
 - 2026-05-07 — 06 P2 B-03c **round 12 CLOSED ★★★ 跨 90% file coverage 91.49% + 跨 90% domain coverage 90.48% + 跨 90% B-03c progress 94.74% triple milestones — v1.9.3 3rd production validation + §F-1 DUAL trigger 5th + 6th case + §2.4 3-slice TA/ex 3rd production + §2.6 20-block FIGURE single-round NEW peak** (10 batches / 404 atoms / 4 domains TA/TE/TI/TM per Bojiang Option B ack 2026-05-07 "全部ok直接进行" — TA solo §2.4 3-slice batch_123/124/125 + TE/TI/TM glue batch_126-131; cumulative md_atoms 9906, file coverage 129/141 = 91.49% ★, domain coverage 57/63 = 90.48% ★, B-03c progress 108/114 = 94.74% ★; **§F-1 §2.11 Plan B DUAL trigger 单 round 第一次** 5th case TA/ex L694 numberless `## Trial Arms Issues` + 4 H3 children → `§TA.8 [Trial Arms Issues]` + `§TA.8.{1,2,3,4}` H3 sub-sub-namespaces literal byte-exact mirror gold reference (round 07 PC + round 09 RELREC) + **6th case ★ NEW post-grep DISCOVERY** TE/ex L48 numberless `## Trial Elements Issues` + 3 H3 children → `§TE.4 [Trial Elements Issues]` + `§TE.4.{1,2,3}` H3 sub-sub-namespaces (NEW motif: descriptive-title H3 `### Granularity / Distinguishing / Transitions` title-pattern-agnostic vs `### Example N` PC + `### References` RS — reinforces title-agnostic sib_idx-based namespace correctness; 7 cumulative production cases post round 12; v1.9.4 codification candidate); **§2.4 multi-batch slice 3rd cumulative production trigger** TA/ex 710L 3-slice (round 03 inaugural lock + v1.9.3 cut B-02 cumulative validation 2nd + round 12 3rd) — atom_id 续号 file-scope lockstep slice A a001-a113 → slice B a114-a217 NOT reset → slice C a218-a274 NOT reset, sib_idx 1/2/3 → 4/5/6 → 7+8 cumulative within file; **§2.6 FIGURE-in-domains 20-block single-round NEW peak** (round 11=3 → round 12=20 = 6.67× scale-up; slice A 10 + slice B 8 + slice C 2; ~5.8KB total preserved byte-exact incl. opening ` ```mermaid ` + closing ` ``` ` fences); **§F-2 atoms/line ratio band 11th sustained validation via de-figure-naive recipe** — aggregate naive 404/911 = 0.443 OUTSIDE band (expected, 20 FIGURE compression driver); aggregate de-figure-naive 404/(911-365+20) = 404/566 = 0.714 IN BAND mid-zone ★; per-batch deltas all in tolerance; §F-3 aggregate -16% within ±50% threshold; **0 NEW first-time lock 0 halt unresolved 0 post-hoc fix 0 schema regression**; 1 in-session writer-stage repair cycle (batch_124 8 FIGURE atom bodies trailing-newline excess fixed pre-merge via `block()` helper `line.rstrip("\n")` before join — v1.9.4 candidate FIGURE build-script defensive recipe); per-batch Rule A 10/10 PASS (pr-review-toolkit:code-reviewer × 10) + **mini-audit slot 12: plugin-dev:skill-reviewer AUDIT mode ★ 10th cumulative B-03c reviewer family-pivot — plugin-dev family 2nd sub-type intra-depth post round 11 plugin-dev:plugin-validator 9th pivot** (cross-family Rule D distance maximum vs all 9 prior burns); sample 10/10 atoms stratified seed=20260507 covering 2 FIGURE + §F-1 5th + 6th case child + §2.4 cross-slice 续号 + §2.5 numbered H2 + TABLE_HEADER + LIST_ITEM + SENTENCE + H1 — **100% PASS 40/40 dim cells 0 HIGH/MED/LOW findings**; **v1.9.4 cut planning trigger SUSTAINED MET** — round 11 5 actionable + 5 INFO + round 12 7 NEW + sustained = ≥17 candidate stack post round 12 (C-R12-01 §F-1 dual-trigger single-round milestone + C-R12-02 descriptive-title H3 motif + C-R12-03 §F-2 de-figure-naive formula refinement + C-R12-04 §2.4 multi-slice 续号 codification + C-R12-05 §2.6 FIGURE-heavy estimate adjustment + C-R12-06 small-file naive ratio adjustment + C-R12-07 FIGURE build-script defensive recipe); **recommend v1.9.4 cut PRE-round-13** (1 more sustained validation cycle achieved post round 10 1st + round 11 2nd + round 12 3rd = 3 sustained); round 13 trigger = P2 B-03c 收官 round 6 domains × 2 = 12 files (TR/TS/TU/TV/UR/VS) ~600-800L ~12 batches similar to round 06/08/10 体量; near-miss 9906 atoms 0.94% short of 10K mid-estimate, round 13 closes B-03c + crosses 10K)
@@ -63,7 +64,7 @@
 |------|----|----|
 | 知识库 md 文件数 | 293 | `knowledge_base/` |
 | 覆盖 domain 数 | 63 | 同上 |
-| 06 累计 md_atoms | **10,435** ★★ | `.work/06_deep_verification/md_atoms.jsonl` (P2 B-03c 収官 COMPLETE) |
+| 06 累计 md_atoms | **10,435** ★★ | `branches/06_deep_verification/md_atoms.jsonl` (P2 B-03c 収官 COMPLETE) |
 | 06 P2 B-03c 进度 | **143/143 = 100%** ★★ | P2 B-03c CLOSED 2026-05-11 |
 | 06 P2 file coverage | **141/141 = 100%** ★★ | P2 B-03c CLOSED 2026-05-11 |
 | 06 P2 domain coverage | **63/63 = 100%** ★★ | P2 B-03c CLOSED 2026-05-11 |
@@ -71,7 +72,7 @@
 | Phase 6.5 Claude v2.6 | 24/24 A/B PASS, 0 衰减, capacity 77% | `ai_platforms/claude_projects/dev/test_results.md` |
 | Phase 6.5 NotebookLM smoke v4 R1 | 15/17 strict PASS (88.2%) | `ai_platforms/notebooklm/dev/evidence/smoke_v4_results.md` |
 | 07 Website prod | sdtm-pedia.pages.dev | Phase 7 closed |
-| docs/jp 中間版 v0.5 | 6 件 xlsx / 4.6MB | `docs/jp/deliverable/20260430_iTMS_SDTM_進捗版_v0.5.zip` |
+| docs/jp 中間版 v0.5 | 6 件 xlsx / 4.6MB | `branches/jp_delivery/deliverable/20260430_iTMS_SDTM_進捗版_v0.5.zip` |
 
 ---
 
@@ -79,8 +80,8 @@
 
 详细历史进度、reviewer reports、commit 链等见对应 phase 子文件:
 
-- 06 旁枝 → `.work/meta/worklog/phase06_deep_verification.md` + `.work/06_deep_verification/_progress.json`
+- 06 旁枝 → `.work/meta/worklog/phase06_deep_verification.md` + `branches/06_deep_verification/_progress.json`
 - 07 旁枝 → `.work/meta/worklog/phase07_website.md` + `.work/07_website/phase{6,7,8,9}/PLAN.md`
-- docs/jp → `.work/meta/worklog/phase_jp_delivery.md` + `docs/jp/_progress.json`
+- docs/jp → `.work/meta/worklog/phase_jp_delivery.md` + `branches/jp_delivery/_progress.json`
 - Phase 6.5 双平台锁步 → `ai_platforms/SYNC_BOARD.md` + 各平台 `dev/evidence/_progress.json`
 - refactor v1 → `.work/refactor_v1/PLAN.md` + `_progress.json` + `phase_meta_refactor.md`

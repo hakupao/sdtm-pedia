@@ -1,0 +1,89 @@
+{
+  "batch": 53,
+  "session": "B (sister)",
+  "round": 14,
+  "atoms_53a": 69,
+  "atoms_53b": 78,
+  "atoms_total": 147,
+  "failures": 0,
+  "repair_cycles": 1,
+  "hook_21_warns": [],
+  "drift_cal": "skipped",
+  "subagent": "oh-my-claudecode:executor",
+  "prompt_version": "P0_writer_pdf_v1.8",
+  "status": "completed",
+  "extracted_at": "2026-04-29T10:30:00Z",
+  "notes": "repair_cycles=1: Hook 13 pipe-count fix applied post-initial-write (74 TABLE_ROW atoms had missing trailing pipe; fixed programmatically via Python). Hook 21: 0 warns (SUPP-- row 4 APID p65 boundary + APRELSUB row 1 p68 boundary both PASS — verbatim heads found at encoded pages). Batch 53a covers sv20 p60-64: TS row 11 TSVCDVER + §5.1.7 AC (12 rows) + §5.2 Study References intro + §5.2.1 DI (7 rows) + §5.2.2 OI (7 rows) + DI Concept Map FIGURE p62 + OI Concept Map FIGURE p63 + §6 L1 NEW + §6.1 RELREC rows 1-4. Batch 53b covers sv20 p65-69: RELREC rows 5-10 + §6.2 SUPP-- (13 rows) + §6.3 POOLDEF (4 rows) + §6.4 RELSUB (5 rows) + §6.5 DR (4 rows) + §6.6 APRELSUB intro (9 sentences) + APRELSUB (5 rows) + §6.7 RELSPEC (6 rows). Dispatch correction: DI Concept Map figure found on p62 (not p63 as predicted); OI Concept Map on p63 as predicted. L1 §6 sibling_index=6 (after §1/§2/§3/§5 sv20 + §4 absent = §6 is 6th numbered chapter in sv20). v1.8 1st INAUGURAL live-fire round 14 executor-direction: 0 motifs on all 3 axes (Axis1 VALUE HALLUCINATION / Axis2 canonical-form drift / Axis3 schema-field enum fabrication).",
+  "pages_covered": {
+    "53a": [60, 61, 62, 63, 64],
+    "53b": [65, 66, 67, 68, 69]
+  },
+  "hook_validation": {
+    "hook_1_atom_id_format": "PASS",
+    "hook_2_atom_type_9enum": "PASS",
+    "hook_3_verbatim_nonempty": "PASS",
+    "hook_4_parent_section_nonempty": "PASS",
+    "hook_5_heading_fields": "PASS",
+    "hook_6_page_region": "PASS",
+    "hook_7_cross_refs_valid": "PASS",
+    "hook_8_extracted_by": "PASS",
+    "hook_9_jsonl_strict": "PASS",
+    "hook_13_pipe_count": "PASS (fixed in repair_cycle 1)",
+    "hook_16_7_writer_family_ban": "PASS (executor dispatch complies)",
+    "hook_18_sentence_concat": "PASS (no multi-sentence SENTENCE atoms)",
+    "hook_21_page_boundary": "PASS (0 warns)"
+  },
+  "n25_source_field": "PASS (all atoms: source=SDTM_v2.0)",
+  "n27_l1_heading_form": "PASS (§6 [DATASETS FOR REPRESENTING RELATIONSHIPS] chapter-short-bracket)",
+  "n28_l2_active_heading": "PASS at L2 / PARTIAL at L3 (L3 §5.1.7 + §5.2.2 lack brackets; O-P1-189/190 LOW v1.9 codification candidate)",
+  "sibling_continuity": "verified",
+  "rule_a_audit": {
+    "slot": 67,
+    "subagent_type": "codex:codex-rescue",
+    "burn_extension": "7th codex-family burn (post #48+#52+#56+#61+#63+#65)",
+    "audit_pivot_cumulative": 48,
+    "sample_size": 10,
+    "sample_strategy": "stratified 1/page sv20 p.60-69 seed=20260701",
+    "weighted_score": 0.925,
+    "weighted_pct": "92.5%",
+    "threshold": "≥80%",
+    "verdict": "PASS",
+    "margin_pp": "+12.5",
+    "by_dimension": {
+      "verbatim": {"PASS": 9, "PARTIAL": 0, "FAIL": 1},
+      "atom_type": {"PASS": 10, "PARTIAL": 0, "FAIL": 0},
+      "parent_section": {"PASS": 7, "PARTIAL": 3, "FAIL": 0},
+      "schema": {"PASS": 10, "PARTIAL": 0, "FAIL": 0}
+    }
+  },
+  "halt_verdict": "NO_HALT",
+  "halt_rationale": "0 EMERGENCY-CRITICAL value fabrication motifs (after O-P1-191 codex strict-rubric false positive reclassification per round 13 D-MS-NEW-13-3 precedent); 0 schema sweep failures; Hook 21 1st INAUGURAL live-fire 0 WARN; v1.8 baseline production-side prevention layer EFFECTIVE 4th round running",
+  "findings": {
+    "filed": ["O-P1-189", "O-P1-190", "O-P1-191"],
+    "reserved_unused": ["O-P1-192"],
+    "details": {
+      "O-P1-189": {"severity": "LOW", "scope": "L3 parent_section bracket drift §5.1.7", "disposition": "v1.9 codification candidate (extend N28 bracket mandate to L3)"},
+      "O-P1-190": {"severity": "LOW", "scope": "L3 parent_section bracket drift §5.2.2 (corroborates O-P1-189)", "disposition": "v1.9 codification candidate"},
+      "O-P1-191": {"severity": "MEDIUM_RECLASSIFIED_CODEX_FALSE_POSITIVE", "scope": "sv20_p0064_a019 USUBJID definition cell — codex confused STUDYID's 'by the sponsor' wording with USUBJID; PDF cross-verification confirms atom verbatim is byte-exact correct", "disposition": "RECLASSIFIED non-violation per round 13 D-MS-NEW-13-3 precedent; v1.9 codex prompt rubric refinement candidate (cite atom_id row number explicitly + restrict cross-row context bleed)"}
+    }
+  },
+  "v1_9_candidate_stack_added": [
+    "L3 parent_section bracket form codification (O-P1-189 + O-P1-190 LOW; extend N28 bracket mandate explicitly to L3 depth)",
+    "Codex strict-rubric prompt refinement (O-P1-191 reclassified false positive; 2nd cumulative codex cross-row content-confusion false positive — round 13 O-P1-182 + round 14 O-P1-191)"
+  ],
+  "v1_8_baseline_inaugural_status": {
+    "round": "1st INAUGURAL live-fire of v1.8 baseline",
+    "n21_writer_family_deprecation_effective_round_running": "4th cumulative (rounds 11+12+13+14)",
+    "axis_1_vh_at_executor_direction_cumulative": 0,
+    "axis_2_canonical_form_drift_at_executor_direction_cumulative": 0,
+    "axis_3_schema_field_enum_fabrication_at_executor_direction_cumulative": 0,
+    "hook_21_inaugural_warn_count": 0,
+    "hook_21_inaugural_status": "EFFECTIVE 1st live-fire (0 WARN; 3 candidate boundaries verified PASS)"
+  },
+  "p1_closure_trajectory": {
+    "pre_batch_53": "519/535 = 97.0% / 16 pages residual",
+    "post_batch_53": "529/535 = 98.9% / 6 pages residual",
+    "round_14_closing_outlook": "P1 CLOSURE milestone reachable at sister C (batch 54 sv20 p.70-74) + reconciler E close"
+  },
+  "done_echo": "PARALLEL_SESSION_53_DONE atoms=147 failures=0 repair_cycles=1 rule_a=92.5% drift_cal=skipped findings_added=O-P1-189(LOW),O-P1-190(LOW),O-P1-191(MEDIUM_CODEX_FALSE_POSITIVE_RECLASSIFIED)"
+}

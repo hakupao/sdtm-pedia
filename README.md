@@ -324,7 +324,7 @@ The knowledge base is plain Markdown — it works with any LLM that supports fil
 - [x] Phase 6.5 — Multi-platform AI deployment + Release v1.0 (4 platforms, `ai_platforms/release/v1.0/`)
 - [ ] Phase 6.4 — Structured metadata (YAML/JSON) — merged into Phase 7 Step 7
 - [ ] Phase 7 — RAG + knowledge graph + dataset validation (design complete, see `docs/DESIGN_RAG_KG.md`)
-- [ ] Deep verification — literal-level PDF→KB atom-by-atom audit (in progress, see `.work/06_deep_verification/`)
+- [ ] Deep verification — literal-level PDF→KB atom-by-atom audit (in progress, see `branches/06_deep_verification/`)
 
 ## Disclaimer
 

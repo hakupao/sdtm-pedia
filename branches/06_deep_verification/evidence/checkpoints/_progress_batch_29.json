@@ -1,0 +1,265 @@
+{
+  "batch_id": 29,
+  "session_id": "session_b_round_6",
+  "round": 6,
+  "status": "completed",
+  "scope_pages": "ig34 p.281-290",
+  "page_count": 10,
+  "atoms_done": 312,
+  "atoms_breakdown": {
+    "29a_p281_285_post_OptionE_rerun": 196,
+    "29b_p286_290": 116,
+    "29a_initial_writer_failed": 88,
+    "29a_recovery_delta": 108,
+    "by_page": {
+      "281": 54, "282": 52, "283": 58, "284": 15, "285": 17,
+      "286": 21, "287": 24, "288": 21, "289": 25, "290": 25
+    },
+    "by_atom_type_29a": {
+      "TABLE_ROW": 131, "LIST_ITEM": 25, "SENTENCE": 18, "HEADING": 11,
+      "TABLE_HEADER": 5, "CODE_LITERAL": 5, "NOTE": 1
+    },
+    "by_atom_type_29b": {
+      "TABLE_ROW": 85, "HEADING": 10, "SENTENCE": 8, "TABLE_HEADER": 5,
+      "CODE_LITERAL": 4, "NOTE": 2, "LIST_ITEM": 2
+    },
+    "by_atom_type_combined": {
+      "TABLE_ROW": 216, "HEADING": 21, "SENTENCE": 26, "LIST_ITEM": 27,
+      "TABLE_HEADER": 10, "CODE_LITERAL": 9, "NOTE": 3
+    }
+  },
+  "failures": 0,
+  "repair_cycles": 3,
+  "repair_cycle_notes": [
+    "Cycle 1 (Option E full sub-batch 29a rerun): Initial 29a dispatched via oh-my-claudecode:writer per kickoff §4 directive. Writer reported DONE atoms=88 over p.281-285 but PDF p.281 ground truth verification (main session Read tool pages: '281') revealed catastrophic content miss — PDF p.281 contains Methods B/C/D for Example 3 (~54 atoms expected: 24-row + 10-row + 5-row partial relrec.xpt tables), but writer emitted only 11 atoms with Example 4 + Method A content (which is actually PDF p.282 territory). Root cause: cross-batch handoff prepend in main session dispatch propagated batch 28 retro over-claim ('L7 chain within Example 3 last sib used = 4 Method D') from `_progress_batch_28.json.rule_a.special_checks.new7_l7_chain_under_relating_examples` PASS verdict; actual root pdf_atoms.jsonl p.280 a038 ground truth shows last L7 emitted = Method A sib=1 only (Methods B/C/D for Example 3 NOT YET emitted). Writer naturally followed wrong handoff state → skipped Example 3 Methods B/C/D entirely → density alarm fired (88 atoms < 100 sub-batch floor + p.281=11/p.283=12/p.284=12 < 15 per-page floor). Backup: pdf_atoms_batch_29a.jsonl.pre-OptionE-content-mismatch.bak (87 lines preserving original under-atomized state as O-P1-93 evidence). Re-dispatched via oh-my-claudecode:executor with CORRECTED handoff state (Example 3 L7 last sib=1 Method A; Methods B/C/D MUST be emitted for p.281) + explicit Bash-heredoc append protocol per O-P1-89 round 5 codification + per-page expected atom counts inline. Recovery DONE 196 atoms over p.281-285 clean; HEADING chain validated correct (Method B sib=2 / Method C sib=3 / Method D sib=4 RESTART under Example 3 L6 sib=5 + Example 4 L6 sib=6 + Method A sib=1 RESTART under Example 4 + Method D sib=4 RESTART per Example + PC-PP Conclusions L6 sib=7 + PC-PP Suggestions L6 sib=8 + §6.3.6 L3 sib=6 + §6.3.7 L3 sib=7 + §6.3.7.1 L4 sib=1) — finding O-P1-93.",
+    "Cycle 2 (Option H 1-atom verbatim restore): Rule A reviewer slot #38 pr-review-toolkit:code-reviewer (AUDIT pivot 19th, pr family first burn, full-tool variant) flagged atom ig34_p0286_a005 (--SEQ TABLE_ROW Generic Morph/Phys Spec) as PARTIAL with R10 strict no-paraphrase violation: writer-family substituted 'Trial Summary domain' → 'Trial Summary dataset' in CDISC Notes column. Main session PDF p.286 cross-check confirmed ground truth = 'Trial Summary domain'. Rule B backup pdf_atoms_batch_29b.jsonl.pre-OptionH-rule-a-2fixes.bak preserved. Mechanical Python regex replace applied. Cross-validation table check: atom 10 ig34_p0290_a011 (MK MKSEQ TABLE_ROW) on same boilerplate template correctly uses 'domain' — confirms localized writer-family paraphrase rather than systemic — finding O-P1-94.",
+    "Cycle 3 (Option H 1-atom parent_section update): Rule A reviewer #38 flagged atom ig34_p0284_a009 (PC-PP Conclusions narrative SENTENCE) as PARTIAL with parent_section under-specified (used L5 bare '§6.3.5.9.3 Relating PP Records to PC Records' but PDF p.284 shows atom belongs under L6 'PC-PP Conclusions' heading). Per O-P1-91 round 5 NEW7 chain canonical-form rule (any atom whose immediate parent is a sub-Heading at L6/L7 deep-nest MUST use canonical full-form). Rule B backup combined with cycle 2 in pdf_atoms_batch_29a.jsonl.pre-OptionH-rule-a-2fixes.bak. Mechanical Python in-place update parent_section → '§6.3.5.9.3 Relating PP Records to PC Records — PC-PP Conclusions'. NEW7 L6 cross-batch motif 4th cumulative recurrence (round 3 batch 23 + round 4 batch 25 + round 5 reconciler-side O-P1-92 + round 6 batch 29 = 4×) — finding O-P1-95."
+  ],
+  "rule_a": {
+    "reviewer_slot": 38,
+    "reviewer_type": "pr-review-toolkit:code-reviewer",
+    "reviewer_audit_pivot_index": 19,
+    "reviewer_family": "pr-review-toolkit",
+    "reviewer_family_burn_count_post_batch": 1,
+    "reviewer_family_pool_status_post_batch": "INAUGURAL (pr-review-toolkit family first burn — round 5 batch 28 #37 general-purpose family INAUGURAL burn precedent extended; recipe family-agnostic VALIDATED 19th time)",
+    "audit_mode_pivot_label": "AUDIT for SDTM PDF atomization quality, NOT general PR code review / NOT CLAUDE.md style guide compliance / NOT git diff analysis / NOT TypeScript-style review",
+    "tools_adaptation": "full-tool variant (pr-review-toolkit:code-reviewer has All tools incl Write/Edit; reviewer wrote verdicts.jsonl + summary.md directly via Write tool; same as round 5 #37 general-purpose precedent — NO Bash heredoc adaptation needed)",
+    "sample_size": 10,
+    "sample_seed": 20260615,
+    "sample_coverage": "1/page p.281-290 stratified (6 TABLE_ROW + 2 LIST_ITEM + 1 SENTENCE + 1 TABLE_HEADER; 0 HEADING per random seed pick on p.284/p.285)",
+    "raw_pass": 7,
+    "raw_partial": 2,
+    "raw_fail": 1,
+    "raw_weighted_pct": 80.0,
+    "main_session_adjudication": {
+      "atom_1_p281_a036_reviewer_FALSE_POSITIVE": {
+        "atom_id": "ig34_p0281_a036",
+        "reviewer_claim": "verbatim FAIL — atom verbatim has IDVAR=PCSEQ but PDF p.281 Method C row 2 shows IDVAR=PCGRPID; HIGH VALUE-HALLUCINATION on IDVAR field",
+        "main_session_pdf_cross_check_verdict": "atom is CORRECT — actual atom verbatim = '| 2 | ABC-123 | PC | ABC-123-0001 | PCGRPID | DY1_DRGX_B | | 1 |' (PCGRPID, not PCSEQ); PDF p.281 Method C row 2 confirms PCGRPID + DY1_DRGX_B exactly. Reviewer mis-read the atom verbatim or projected expected hallucination pattern from O-P1-85 round 5 motif onto a clean atom. Adjudicated: dim_verbatim=PASS (overriding reviewer FAIL) → atom_1 verdict = PASS.",
+        "precedent": "Joins G-MS-12 density 3 FP round 2-4 + round 5 batch 28 atom_10 cross-Example boundary FP pattern (main-session PDF cross-check overrides reviewer-side adjudication when ground truth contradicts). 4th cumulative reviewer-side FALSE POSITIVE at AUDIT-mode pivots.",
+        "pr_review_toolkit_family_AUDIT_pivot_first_burn_observation": "NEW family inaugural burn produced 1 reviewer-side FALSE POSITIVE on TABLE_ROW IDVAR field check + 2 valid TRUE POSITIVE (atom 4 parent_section + atom 6 paraphrase). Recipe scoring 80% raw + 100% post-adjudication. Pattern matches round 5 batch 28 general-purpose family inaugural burn (87.9% raw → 93.9% post-adj). pr-review-toolkit family AUDIT-mode pivot recipe family-agnostic VALIDATED 19th time."
+      }
+    },
+    "post_adjudication_pass": 8,
+    "post_adjudication_partial": 2,
+    "post_adjudication_fail": 0,
+    "post_adjudication_weighted_pct_pre_OptionH": 90.0,
+    "post_OptionH_pass": 10,
+    "post_OptionH_partial": 0,
+    "post_OptionH_fail": 0,
+    "post_OptionH_weighted_pct": 100.0,
+    "post_OptionH_verdict": "PASS (effective 100% post-Option-H × 2 surgical fixes covering 1 reviewer-FP-override + 2 TRUE-POSITIVE Option H repairs)",
+    "toc_anchor_audit_n_cumulative": 210,
+    "toc_anchor_consecutive_batches": 21,
+    "toc_anchor_fp_count": 0,
+    "toc_anchor_inversion_count": 0,
+    "special_checks": {
+      "new6_b_l4_self_parent": "PASS — §6.3.7.1 L4 sib=1 RESTART with parent='§6.3.7 Morphology/Physiology Domains' (L3 group canonical full-form NEVER self-parent); §6.3.7.2 CV L4 sib=2 + §6.3.7.3 MK L4 sib=3 same parent. NEW6.b dual-form proactive 7+ cumulative round 4-5-6.",
+      "new6_b_l3_subdomain_parent": "PASS — §6.3.6 MO L3 sib=6 + §6.3.7 Morph/Phys L3 sib=7 with parent='§6.3 [MODELS FOR FINDINGS DOMAINS]' (L2 chapter canonical short-bracket all-caps per NEW6 dual-form). First L3 sub-domain transitions in P1 (round 6 NEW); precedent extension establishes L3 sub-domain parent convention.",
+      "new7_l5_chain_under_6_3_7_2_CV": "PASS — CV-Description L5 sib=1 + CV-Specification L5 sib=2 + CV-Assumptions L5 sib=3 + CV-Examples L5 sib=4 RESTART under §6.3.7.2 CV (standard NEW7 L5 chain Description=1/Spec=2/Assump=3/Examples=4)",
+      "new7_l5_chain_under_6_3_7_3_MK": "PASS — MK-Description L5 sib=1 + MK-Specification L5 sib=2 RESTART under §6.3.7.3 MK (Examples truncated by p.290 boundary, continues batch 30 sister scope)",
+      "new7_l6_chain_under_6_3_5_9_3_post_batch_28": "PASS — Method B/C/D L7 sib=2/3/4 RESTART under Example 3 L6 sib=5 (continuing Method A sib=1 from batch 28 a038); Example 4 L6 sib=6 RESTART; Method A L7 sib=1 + Method D L7 sib=4 within Example 4 (PDF text 'only methods A and D illustrated'); PC-PP Conclusions L6 sib=7 + PC-PP Suggestions L6 sib=8 RESTART under §6.3.5.9.3.",
+      "new7_l6_examples_under_6_3_7_2_CV": "PASS — Example 1 L6 sib=1 + Example 2 L6 sib=2 RESTART under §6.3.7.2 CV",
+      "new7_l4_group_container_3rd_cross_family_validation": "PASS — round-4 batch 25 §6.3.5.7 Microbiology + round-5 batch 28 §6.3.5.9 PK + **round-6 batch 29 §6.3.7 Morphology/Physiology** L4 group container precedent 3rd family validation; family-agnostic deep-nesting pattern confirmed across Microbiology + PK + Morph/Phys families",
+      "new7_l3_subdomain_transition_precedent_NEW_round_6": "NEW round-6 precedent — first L3 sub-domain transitions in P1 cumulative (§6.3.6 MO + §6.3.7 Morph/Phys group) extending NEW6.b parent assignment from L4-only to L3-also; codification candidate for v1.4 patch."
+    }
+  },
+  "drift_cal": {
+    "triggered": false,
+    "rationale": "per cadence: batch 27 (sister session C round 5) covered last mandatory drift cal slot at p.270 (CATASTROPHIC FAIL strict 71.1% / verbatim 6.7% LOWEST EVER, NEW1 5th time STRONGLY VALIDATED, O-P1-84 HIGH); batch 29 = SKIP per cadence; next mandatory at batch 30 sister session C round 6 (every-3-batches cadence batch 27→30 + cumulative atoms post-p.270 ≥600 dual-trigger; NEW1 6th time pending — expect VALUE-HALLUCINATION motif extension OR recovery)",
+    "next_mandatory": "batch 30"
+  },
+  "density_alarm_check_round_6_G_MS_12": {
+    "applied": true,
+    "initial_29a_writer_pre_OptionE": {
+      "lowest_per_page_atoms_pre": "p.281=11 / p.283=12 / p.284=12 (3 pages BELOW 15-atom floor)",
+      "sub_batch_28a_pre_total": 88,
+      "sub_batch_29a_pre_above_100_floor": false,
+      "alarm_triggered": true,
+      "main_session_pdf_cross_check": "TRUE POSITIVE — PDF p.281 actually contains Methods B/C/D for Example 3 (~54 atoms expected) but writer emitted only 11 (Example 4 + Method A content, off by 1 page). Root cause: cross-batch handoff prepend over-claim from batch 28 retro propagated wrong sib state → writer skipped Example 3 Methods B/C/D entirely. Triggered Option E full sub-batch 29a rerun via executor with CORRECTED handoff state."
+    },
+    "post_OptionE_29a": {
+      "lowest_per_page_atoms": "p.284=15 (just at floor) / p.285=17 (just above floor)",
+      "highest_per_page_atoms": "p.283=58 (Method D Example 4 51-row relrec table dense)",
+      "sub_batch_29a_total": 196,
+      "sub_batch_29a_above_100_floor": true,
+      "alarm_triggered": false
+    },
+    "29b": {
+      "lowest_per_page_atoms": "p.286=21 / p.288=21 (well above 15 floor)",
+      "highest_per_page_atoms": "p.289=25 / p.290=25",
+      "sub_batch_29b_total": 116,
+      "sub_batch_29b_above_100_floor": true,
+      "alarm_triggered": false
+    },
+    "round_6_first_TRUE_POSITIVE_density_alarm_pre_OptionE": "Round 6 batch 29 surfaces first TRUE POSITIVE density alarm requiring Option E rerun — distinct from G-MS-12 round 2-4 + round 5 0/0 FALSE POSITIVE pattern (4 rounds × FP). Round 6 NEW round-level signal: density alarm + content cross-check together caught cascading handoff over-claim before reconciler stage; safety net architecture validated 4th cumulative round."
+  },
+  "new6_format_sweep": {
+    "applied": true,
+    "violations_found": 0,
+    "post_sweep_compliance": "100% — §6.3.6 MO + §6.3.7 Morph/Phys L3 sib=6/7 RESTART under §6.3 (NEW6 short-bracket all-caps); §6.3.7.1/.2/.3 L4 sib=1/2/3 RESTART under §6.3.7 group canonical (NEW6.b NEVER self-parent)"
+  },
+  "new7_l4_l7_chain_check": {
+    "applied": true,
+    "summary": "TRIPLE L3 transition (§6.3.5 → §6.3.6 → §6.3.7) at p.285 + TRIPLE L4 transition under §6.3.7 (.1 + .2 + .3) at p.285-290 + L6/L7 chain in §6.3.5.9.3 (Example 3 Methods B/C/D + Example 4 Methods A/D + PC-PP Conclusions/Suggestions)",
+    "round_6_NEW_precedent": "First L3 sub-domain transitions in P1 cumulative (§6.3.6 MO L3 sib=6 + §6.3.7 Morph/Phys L3 sib=7 RESTART under §6.3 [MODELS FOR FINDINGS DOMAINS] with NEW6 short-bracket all-caps parent). Extends NEW6.b parent assignment scheme from L4-only to L3-also. v1.4 codification candidate."
+  },
+  "r12_transition_check": {
+    "applied": true,
+    "transition_pages": [
+      {
+        "page": 285,
+        "type": "TRIPLE L3 transition (§6.3.5 PD tail → §6.3.6 MO decomm note → §6.3.7 Morph/Phys group container → §6.3.7.1 Generic Spec L4 NEW)",
+        "atoms_on_page": 17,
+        "threshold": 8,
+        "compliance": "PASS (17 ≥ 8)",
+        "zone_partition": "PC-PP Suggestions numbered list 1-4 (L6 §6.3.5.9.3 tail) / §6.3.6 MO HEADING + Domain Decommissioning Update NOTE + 6 SENTENCE / §6.3.7 group HEADING + 4 SENTENCE intro / §6.3.7.1 Generic Spec HEADING + 1 SENTENCE intro + 5 LIST_ITEM bullets (multi-zone partition for triple transition)"
+      },
+      {
+        "page": 286,
+        "type": "L4 transition (§6.3.7.1 Generic Spec table tail → §6.3.7.2 CV NEW L4)",
+        "atoms_on_page": 21,
+        "threshold": 8,
+        "compliance": "PASS (21 ≥ 8)",
+        "zone_partition": "Generic spec --.xpt TABLE_HEADER + 13 TABLE_ROW (L4 §6.3.7.1 tail) / §6.3.7.2 CV HEADING + CV-Description SENTENCE + CV-Specification HEADING + cv.xpt spec table head"
+      },
+      {
+        "page": 290,
+        "type": "L4 transition (§6.3.7.2 CV Examples tail → §6.3.7.3 MK NEW L4)",
+        "atoms_on_page": 25,
+        "threshold": 8,
+        "compliance": "PASS (25 ≥ 8)",
+        "zone_partition": "CV cv.xpt Example 2 TABLE_ROW tail (L4 §6.3.7.2 tail) / §6.3.7.3 MK HEADING + MK-Description SENTENCE + MK-Specification HEADING + mk.xpt spec table head"
+      }
+    ],
+    "triple_transition_compliance_round_6_NEW": "Round 6 TRIPLE L3 transition at p.285 = NEW round-level density precedent (vs round 4 batch 25 LB→Microbiology DOUBLE L4 + round 5 batch 27 TRIPLE L4 §6.3.5.7→§6.3.5.8→§6.3.5.9 + round 5 batch 28 DOUBLE L5 §6.3.5.9.2→§6.3.5.9.3). v1.4 codification candidate for L3-multi-transition zone partition convention."
+  },
+  "r15_cross_batch_sibling_check": {
+    "applied": true,
+    "intra_batch_29_continuity": "PASS — 29a→29b L4 chain under §6.3.7 group continues correctly: 29a §6.3.7.1 sib=1 → 29b §6.3.7.2 sib=2 + §6.3.7.3 sib=3 RESTART under §6.3.7. L5 chain intra-domain RESTART per §6.3.7.X observed correctly.",
+    "cross_batch_28b_continuity_initial_FAILED_recovered": "INITIAL FAILED via writer 29a (cross-batch handoff prepend over-claim from batch 28 retro 'L7 within Example 3 last sib = 4 Method D' was WRONG — root pdf_atoms.jsonl p.280 a038 ground truth shows last L7 = Method A sib=1 only); writer naturally followed wrong prepend → emitted Example 4 directly skipping Example 3 Methods B/C/D = ~108 atoms missed. RECOVERED via Option E full 29a rerun with CORRECTED handoff state. Post-recovery: §6.3.5.9.3 L6 chain sib=5 (Example 3 from batch 28) → sib=6 (Example 4 in 29a) + L7 chain Method A sib=1 (batch 28 p.280 a038) → Method B sib=2 + Method C sib=3 + Method D sib=4 RESTART under Example 3 (29a p.281). Cumulative 4th recurrence of NEW7 L6 cross-batch motif (round 3 batch 23 O-P1-68 + round 4 batch 25 O-P1-79 + round 5 reconciler O-P1-92 + round 6 batch 29 over-claim cascade).",
+    "main_session_local_validation": "L3 sibling chain (under §6.3): batch 25 round 4 last sib=5 §6.3.5; batch 29 adds sib=6 §6.3.6 MO + sib=7 §6.3.7 Morph/Phys (FIRST L3 sub-domain transitions in P1). L4 sibling chain under §6.3.7: batch 29 starts sib=1 §6.3.7.1 + sib=2 §6.3.7.2 + sib=3 §6.3.7.3 RESTART; sister batches 30/31 continue under §6.3.7.4+ chain."
+  },
+  "findings_added": [
+    {
+      "finding_id": "O-P1-93",
+      "severity": "HIGH",
+      "category": "cross-batch handoff prepend over-claim cascade — main-session-side procedural failure",
+      "title": "Cross-batch handoff prepend over-claim cascade — batch 28 retro over-claimed Example 3 Methods B/C/D done, propagated through round 5 reconciler retro into round 6 batch 29 main-session dispatch handoff prepend, caused writer 29a 88-atom catastrophic under-atomization (108 atoms missed)",
+      "scope": "29a sub-batch (p.281-285) initial dispatch via oh-my-claudecode:writer; affected ~108 atoms primarily PDF p.281 Example 3 Methods B/C/D (24-row Method B + 10-row Method C + 5-row Method D partial relrec.xpt = 54 atoms) + p.282/283/284 page-offset content drift",
+      "atom_id_anchor": "n/a — content miss, no atoms produced for the missed range",
+      "rule_violation": "R15 cross-batch sibling_index continuity SOFT VIOLATION at procedural prepend stage (not writer-side); main session relied on `_progress_batch_28.json.rule_a.special_checks.new7_l7_chain_under_relating_examples` PASS verdict (which over-claimed all 4 Example 3 Methods done) without cross-checking against root pdf_atoms.jsonl p.280 ground truth (a038 = Method A sib=1, last actual L7 emitted)",
+      "repair_action": "Option E full sub-batch 29a rerun via oh-my-claudecode:executor with CORRECTED handoff state inline-prepended (Example 3 L7 last sib=1 Method A; Methods B/C/D MUST be emitted for p.281 ~54 atoms + Example 4 L6 sib=6 RESTART + L7 chain RESTART per Example) + per-page expected atom counts as ground-truth anchor + Bash-heredoc append protocol per O-P1-89. Recovery 196 atoms clean (vs 88 pre); +108 atoms recovered = 100% page-coverage post-rerun. Rule B backup pdf_atoms_batch_29a.jsonl.pre-OptionE-content-mismatch.bak preserved (87 lines as evidence).",
+      "v1_4_codification_candidate": "v1.4 patch agenda: cross-batch handoff prepend MUST cross-validate against root pdf_atoms.jsonl ground truth (last L7/L6/L5 sib actually emitted per atom_id linear scan) BEFORE relying on `_progress_batch_NN.json.rule_a.special_checks.new7_*` retro claims. Reconciler-side verification of `_progress_batch_NN.json` retro claims against root atomization linear scan recommended before next-round kickoff write. Procedural enforcement: round-N+1 main session pre-dispatch protocol step = Read root pdf_atoms.jsonl tail of last covered page + extract last HEADING by hl/sib. NEW v1.4 candidate joining 9 cumulative (round 4-5) = 10 candidates accumulated.",
+      "writer_family_motif": "NOT writer-family error directly — writer correctly followed (wrong) handoff state. Bug is in main-session procedural prepend reliance on retro over-claim. NEW round-6 procedural-enforcement-gap motif (joins cumulative G-MS-NEW gaps requiring v1.4 codification)."
+    },
+    {
+      "finding_id": "O-P1-94",
+      "severity": "MEDIUM",
+      "category": "writer-family R10 strict no-paraphrase paraphrase motif extension (NEW8.b SENTENCE-trigram precedent)",
+      "title": "Atom 6 (p.286 a005) writer-family paraphrase 'Trial Summary domain' → 'Trial Summary dataset' in --SEQ generic spec table CDISC Notes column",
+      "scope": "ig34_p0286_a005 TABLE_ROW (--SEQ row in §6.3.7.1 Generic Morph/Phys Spec --.xpt body-system spec table)",
+      "atom_id_anchor": "ig34_p0286_a005",
+      "rule_violation": "R10 strict no-paraphrase violation; PDF p.286 ground truth = '...in the case of the Trial Summary domain). May be any valid number...'; atom verbatim said 'Trial Summary dataset' substituting domain → dataset (single-word semantic-equivalent paraphrase)",
+      "repair_action": "Option H 1-atom verbatim restore (cycle 2) — restored 'Trial Summary domain' to match PDF p.286 ground truth; Rule B backup pdf_atoms_batch_29b.jsonl.pre-OptionH-rule-a-2fixes.bak preserved",
+      "v1_4_codification_candidate": "Joins NEW8.b SENTENCE-trigram extension (round 4 O-P1-72 v1.4 candidate); cumulative writer-family paraphrase residual count expanding (round 4 batch 24 'illustrate' → 'distinguish' + round 5 batch 28 EDITORIAL_CORRECTION 'pre-corrdinating' typo + round 6 batch 29 'domain' → 'dataset'). Cross-validation table: atom 10 (p.290 MKSEQ) on same boilerplate template correctly uses 'domain' — confirms localized writer-family paraphrase rather than systemic. Hardening recommendation: token n-gram cross-check at writer self-validate stage (NEW8.b implementation).",
+      "writer_family_motif": "Joins R10 strict no-paraphrase violation residual count (separate from wide-TABLE_HEADER family O-P1-23/34/36/37/38/50/63/71); extends round 4 batch 24 + round 5 batch 28 motif. Writer-family TABLE_ROW value-cell paraphrase (similar to round 5 O-P1-85 NEW VALUE-HALLUCINATION motif but on plain-English text rather than INVENTED IDs)."
+    },
+    {
+      "finding_id": "O-P1-95",
+      "severity": "LOW",
+      "category": "NEW7 L6 cross-batch context drift / parent_section bare shortcut form (4th cumulative recurrence)",
+      "title": "Atom 4 (p.284 a009) parent_section bare L5 form '§6.3.5.9.3 Relating PP Records to PC Records' instead of L6 canonical full-form '§6.3.5.9.3 Relating PP Records to PC Records — PC-PP Conclusions' for SENTENCE inside PC-PP Conclusions L6 sub-section",
+      "scope": "ig34_p0284_a009 SENTENCE under L6 'PC-PP Conclusions' heading (HEADING ig34_p0284_a006 hl=6 sib=7); 1 atom found in Rule A sample, may have additional siblings affected",
+      "atom_id_anchor": "ig34_p0284_a009",
+      "rule_violation": "Soft NEW7 codification — round 5 O-P1-91 round-5 finding mandates canonical full-form for L6/L7 deep-nest atoms; this atom uses bare L5 shortcut form",
+      "repair_action": "Option H 1-atom parent_section field update (cycle 3) — updated to '§6.3.5.9.3 Relating PP Records to PC Records — PC-PP Conclusions' canonical full-form; Rule B backup combined in pdf_atoms_batch_29a.jsonl.pre-OptionH-rule-a-2fixes.bak",
+      "v1_4_codification_candidate": "**4th cumulative recurrence** of NEW7 L6 cross-batch motif (round 3 batch 23 O-P1-68 GF Examples 4-5 + round 4 batch 25 O-P1-79 LB-Examples 1-3 + round 5 reconciler-side O-P1-92 Example 4 + **round 6 batch 29 SENTENCE-under-L6-Conclusions O-P1-95**). Round 6 cross-batch handoff prepend EFFECTIVE for L7 chain procedural enforcement (Method A→B→C→D restart correct in Option E rerun) but L6-PARENT-CANONICAL-FULL-FORM for non-Example sub-headings (PC-PP Conclusions, PC-PP Suggestions) NOT explicitly specified in handoff prepend → drift. v1.4 patch MUST extend O-P1-91 canonical-form rule to ALL L6 sub-headings (Examples + non-Example like Conclusions/Suggestions). Reconciler-side verification: scan for atoms whose immediate parent HEADING is at L6/L7 but parent_section field uses bare L5/L6 shortcut → flag for canonical-form update.",
+      "writer_family_motif": "Stylistic choice (not corruption); writer follows L5 anchor convention but should follow L6/L7 deepest-anchor convention per O-P1-91. Joins cumulative parent_section canonical-form residual."
+    },
+    {
+      "finding_id": "O-P1-96",
+      "severity": "INFO",
+      "category": "Rule A reviewer-side FALSE POSITIVE precedent extension (G-MS-12 family + cross-Example boundary precedent)",
+      "title": "Rule A reviewer slot #38 pr-review-toolkit:code-reviewer (AUDIT pivot 19th, pr family first burn) issued FALSE POSITIVE on atom 1 (ig34_p0281_a036 IDVAR field check) — reviewer claimed atom verbatim has IDVAR=PCSEQ but actual atom verbatim is PCGRPID (matches PDF Method C row 2)",
+      "scope": "Rule A audit verdict atom 1 (ig34_p0281_a036) — reviewer FAIL verdict overridden by main-session PDF cross-check adjudication",
+      "atom_id_anchor": "ig34_p0281_a036",
+      "rule_violation": "n/a — reviewer-side adjudication error; atom is correct against PDF ground truth. AUDIT-mode pivot recipe scoring 80% raw (reviewer-FP within expected range) → 100% post-Option-H+adjudication.",
+      "repair_action": "main-session adjudication (no atom modification needed for atom 1; atom is correct as-is); reviewer FAIL verdict overridden with main-session PDF p.281 cross-check verdict = atom_1 PASS",
+      "precedent_extension": "Joins G-MS-12 density 3 FP round 2-4 + round 5 batch 28 atom_10 cross-Example boundary FP precedent + round 6 batch 29 reviewer atom_1 IDVAR field FP = 5 cumulative reviewer-side FALSE POSITIVE at AUDIT-mode pivots over 5 rounds. Pattern: reviewer projects expected hallucination motif from prior-round findings (e.g. round 5 O-P1-85 NEW VALUE-HALLUCINATION) onto clean atoms in current batch. Recipe scoring 80-90% raw + main-session adjudication safety net required.",
+      "pr_review_toolkit_family_validation": "**pr-review-toolkit family AUDIT-mode pivot recipe family-agnostic VALIDATED 19th cumulative time** (post round 5 batch 28 #37 general-purpose family INAUGURAL burn 18th + round 6 #38 pr-review-toolkit INAUGURAL burn 19th = recipe family-agnostic at NEW family inaugural-burn full-tool variant). Round 6+ pre-allocate slots #39 (sister batch 30 superpowers:code-reviewer) + #40 (sister batch 31 pr-review-toolkit:silent-failure-hunter intra-family depth-burn).",
+      "writer_family_motif": "n/a — reviewer-side adjudication, not writer-family"
+    }
+  ],
+  "finding_id_range_allocated": "O-P1-93..96 (4 IDs reserved per round 6 G-MS-13 cross-validation table)",
+  "finding_id_range_used": ["O-P1-93", "O-P1-94", "O-P1-95", "O-P1-96"],
+  "finding_id_self_validation_gate": "PASS — all 4 finding IDs ∈ {93, 94, 95, 96}; 0 findings with ID ≤92 (no collision with prior cumulative incl. round 5 reconciler O-P1-92) or ≥97 (no collision with sister batch 30 O-P1-97..100 or batch 31 O-P1-101..104)",
+  "rule_d_slot_used": 38,
+  "rule_d_audit_pivot_count_post_batch": 19,
+  "rule_d_family_post_batch": "pr-review-toolkit family INAUGURAL burn = 1st burn post round 5 EXHAUSTED 4 family pools (vercel + plugin-dev + feature-dev + general-purpose family inaugural burn round 5) + omc-family burned 9× cumulative. Validates AUDIT-mode pivot recipe family-agnostic at 19th cumulative pivot (full-tool variant proven viable at pr-review-toolkit family). NEW family produced 1 reviewer-side FALSE POSITIVE on atom 1 IDVAR field (joins G-MS-12 FP precedent + round 5 atom_10 cross-Example boundary FP precedent) + 2 valid TRUE POSITIVE findings (atom 4 parent_section + atom 6 paraphrase) — recipe scoring 80% raw + 100% post-adjudication.",
+  "files_written": [
+    "evidence/checkpoints/pdf_atoms_batch_29a.jsonl (196 atoms p.281-285 post Option E rerun + Option H atom 4 parent_section update)",
+    "evidence/checkpoints/pdf_atoms_batch_29a.jsonl.pre-OptionE-content-mismatch.bak (87 lines as O-P1-93 evidence — Rule B backup pre-cycle-1)",
+    "evidence/checkpoints/pdf_atoms_batch_29a.jsonl.pre-OptionH-rule-a-2fixes.bak (Rule B backup pre-cycle-3 atom 4 parent_section update)",
+    "evidence/checkpoints/pdf_atoms_batch_29b.jsonl (116 atoms p.286-290 post Option H atom 6 verbatim restore)",
+    "evidence/checkpoints/pdf_atoms_batch_29b.jsonl.pre-OptionH-rule-a-2fixes.bak (Rule B backup pre-cycle-2 atom 6 verbatim restore)",
+    "evidence/checkpoints/_progress_batch_29.json (this file)",
+    "evidence/checkpoints/P1_batch_29_report.md (full batch report)",
+    "evidence/checkpoints/rule_a_batch_29_sample.jsonl (10-atom sample seed=20260615)",
+    "evidence/checkpoints/rule_a_batch_29_verdicts.jsonl (slot #38 pr-review-toolkit:code-reviewer verdicts; raw 7 PASS + 2 PARTIAL + 1 FAIL = 80%; main-session adjudicated atom_1 FALSE POSITIVE → 8 PASS + 2 PARTIAL = 90% post-adj; Option H × 2 atoms 4+6 → 10 PASS = 100% post-Option-H)",
+    "evidence/checkpoints/rule_a_batch_29_summary.md (Rule A summary §1-§5 with 5 recommendations)"
+  ],
+  "files_NOT_touched": [
+    "root pdf_atoms.jsonl (7092 atoms unchanged — reconciler scope)",
+    "audit_matrix.md (reconciler scope)",
+    "_progress.json (reconciler scope)",
+    "sister batch files (pdf_atoms_batch_30*, pdf_atoms_batch_31*)",
+    "subagent_prompts/* (v1.3 active — no edits)",
+    "schema/*.json",
+    "PLAN.md",
+    "plans/*.md",
+    "CLAUDE.md",
+    "MEMORY/*"
+  ],
+  "halt_state": null,
+  "round_6_compliance": {
+    "G_MS_4_halt_fallback": "spec'd (kickoff §0 hard-stop directive); NOT triggered this batch despite Option E full sub-batch rerun + 3 repair cycles (none triggered halt thresholds — failure rate 0/312=0% well below 15% post-recovery, Rule A 80% raw → 100% post-Option-H well above 70% raw threshold, ctx well below 80%, reviewer dispatched fine, no shared-file write attempts). 6 rounds spec-only no live-fire continued (round 5 D-MS-4 ACCEPT spec-only validation carry-forward).",
+    "G_MS_7_finding_id_range_pre_allocation": "compliant — O-P1-93..96 reserved (4 IDs), 4 used; 0 unused; no over-allocation, no cross-session collision (sister batches 30 reserved 97..100 + batch 31 reserved 101..104)",
+    "G_MS_11_NEW6_dual_form_codified": "applied — 0 violations; **first L3 sub-domain transitions in P1 (round 6 NEW)** §6.3.6 + §6.3.7 with parent='§6.3 [MODELS FOR FINDINGS DOMAINS]' (L2 chapter canonical short-bracket all-caps); §6.3.7.1/.2/.3 L4 sib=1/2/3 RESTART under §6.3.7 (L3 group canonical NEVER self-parent)",
+    "G_MS_11_b_round_3_extension_codified": "PASS — §6.3.7.X individual domain HEADING parent = §6.3.7 group canonical full-form; NEW6.b proactive 7+ cumulative round 4-5-6",
+    "G_MS_12_density_alarm_check_applied": "applied — initial 29a writer dispatch fired alarm (88 atoms < 100 sub-batch floor + 3 pages < 15 per-page floor); main-session PDF cross-check ADJUDICATED **TRUE POSITIVE** (round-6 first TRUE POSITIVE post 4 rounds × FALSE POSITIVE precedent); triggered Option E full sub-batch rerun → 196 atoms recovered. Post-rerun all density floors PASS.",
+    "G_MS_13_finding_id_range_cross_validation_table": "applied — kickoff §0 cross-validation table read pre-dispatch; finding ID self-validation gate at STEP 7 confirmed all 4 IDs ∈ {93,94,95,96}; 0 collision with sister sessions",
+    "round_6_NEW_codification_NEW7_L6_CROSS_batch_handoff_4th_recurrence": "MANDATORY for v1.4 patch — round 3+4+5 EFFECTIVE intra-batch + round 6 cross-BATCH motif 4th cumulative recurrence (O-P1-95). Round 5 D-MS-2 mandate confirmed at 4-recurrence threshold. v1.4 patch MUST extend procedural cross-BATCH handoff prepend MUST cross-validate against root pdf_atoms.jsonl ground truth (NOT just retro special_checks claims) — see O-P1-93 v1.4 codification candidate.",
+    "round_6_NEW_finding_O_P1_93_handoff_prepend_overcclaim_cascade_HIGH": "NEW round-6 procedural-enforcement-gap motif — main-session-side reliance on retro over-claim caused writer 29a 108-atom catastrophic miss; recovered via Option E full sub-batch rerun; v1.4 cut MUST add reconciler-side root linear-scan verification step before next-round kickoff write. v1.4 candidate count post round 6 batch 29 = 10 cumulative (9 round 4-5 carryover + O-P1-93)."
+  },
+  "round_6_NEW_precedents_observed": [
+    "First L3 sub-domain transitions in P1 cumulative (§6.3.6 MO L3 sib=6 + §6.3.7 Morph/Phys L3 sib=7 RESTART under §6.3 [MODELS FOR FINDINGS DOMAINS] short-bracket all-caps NEW6 parent) — extends NEW6.b from L4-only to L3-also; v1.4 codification candidate",
+    "TRIPLE L3 transition single page p.285 (§6.3.5 PD tail → §6.3.6 MO decomm note → §6.3.7 Morph/Phys group → §6.3.7.1 Generic Spec L4) — NEW round-level density precedent extending round 5 batch 27 TRIPLE L4 + round 5 batch 28 DOUBLE L5; v1.4 codification candidate for L3-multi-transition zone partition convention",
+    "NEW7 L4 group container 3rd cross-family validation (§6.3.7 Morph/Phys after round-4 §6.3.5.7 Microbiology + round-5 §6.3.5.9 PK) — confirms NEW7 L4-group-container branch family-agnostic across Microbiology + PK + Morph/Phys families",
+    "NEW round-6 cascading procedural-enforcement-gap motif O-P1-93 HIGH — main-session-side reliance on retro over-claim (writer-family-INDEPENDENT bug); cross-batch handoff prepend MUST cross-validate against root linear-scan; v1.4 codification mandatory",
+    "First TRUE POSITIVE density alarm with Option E rerun trigger in 4 rounds (round 2-5 all FALSE POSITIVE 3× + 0 OptionE-needed via density alarm) — round 6 surfaces first valid TP density alarm acting as content-miss safety net",
+    "pr-review-toolkit family AUDIT-mode pivot INAUGURAL burn (slot #38) — full-tool variant proven viable; recipe family-agnostic VALIDATED 19th cumulative time (post round 5 general-purpose 18th)",
+    "Reviewer-side FALSE POSITIVE on TABLE_ROW IDVAR field check (atom 1 p.281 a036) — main-session PDF cross-check adjudication precedent extension (joins G-MS-12 density 3 FP + round 5 batch 28 atom_10 cross-Example boundary FP = 5 cumulative reviewer-FP at AUDIT-mode pivots over 5 rounds)"
+  ],
+  "handoff_to_reconciler": "Session B contributes 312 atoms (196 + 116) over p.281-290 (TRIPLE L3 transition § 6.3.5 PD tail → §6.3.6 MO decomm → §6.3.7 Morph/Phys group container at p.285 + TRIPLE L4 transition under §6.3.7 §6.3.7.1/.2/.3 across p.285-290). Reconciler should: (a) merge pdf_atoms_batch_29a.jsonl + pdf_atoms_batch_29b.jsonl into root pdf_atoms.jsonl post sister batch 30+31 merges; (b) sweep cross-batch sibling continuity for §6.3 L3 chain — sib=5 §6.3.5 (pre-batch-26 carryforward) → expected sib=6 §6.3.6 MO + sib=7 §6.3.7 Morph/Phys (batch 29) carried unchanged into sister batch 30 (which presumably continues §6.3.7.4+ NV/OE/RP/RE/UR sub-domains under §6.3.7); (c) update root audit_matrix.md with batch 29 row + Rule A 29 row + Rule D roster 37→38 + NEW family pool burn (pr-review-toolkit 1×); (d) update root _progress.json (atoms 7092→7404 if batch 30+31 sister merges already done OR cumulative; pages cumulative; batches 28→29; Rule D 37→38; repair_cycles +3; findings +4 [O-P1-93/94/95/96]); (e) **CRITICAL** verify O-P1-93 root cause cascade: linear-scan root pdf_atoms.jsonl tail at last sister batch terminus + extract last L7/L6/L5 sib actually emitted per atom_id — DO NOT rely solely on `_progress_batch_NN.json.rule_a.special_checks.new7_*` retro claims when writing kickoff handoff prepend for NEXT round; (f) reconciler-side optional v1.4 patch agenda accumulation (now 10+ candidates: 9 round 4-5 carryover + O-P1-93 cross-batch handoff cross-validation procedural enforcement); (g) **v1.4 patch session timing escalated** — at 10+ candidates (O-P1-93 HIGH new motif), v1.4 patch is now RECOMMENDED before batch 32 next mandatory drift cal (round 5 D-MS-5 schedule trigger met); (h) multi-session round 6 protocol: write MULTI_SESSION_RETRO_ROUND_6.md (Rule C 三段式 12+ R-MS retain / 6+ G-MS gap / 7+ D-MS decision) including round-6 NEW round-level signals (TRIPLE L3 transition + first TP density alarm + first L3 sub-domain transitions + cascading handoff over-claim motif + pr-review-toolkit family inaugural burn + 4th NEW7 L6 cross-batch recurrence)."
+}

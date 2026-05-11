@@ -1,0 +1,135 @@
+{
+  "batch_id": 14,
+  "session_id": "C",
+  "session_role": "multi-session-parallel",
+  "status": "completed",
+  "completed_at": "2026-04-25",
+  "scope": {
+    "pages": "p.131-140",
+    "page_count": 10,
+    "sub_section_coverage": [
+      "§6.1.6 [Substance Use (SU)] tail (p.131-132 Assumptions/Examples + p.133 SU Examples table)",
+      "§6.2 [MODELS FOR EVENTS DOMAINS] chapter heading + intro + 7 event-domain bullet list (p.133)",
+      "§6.2.1 [Adverse Events (AE)] heading + Description/Overview + Specification table + Assumptions + Examples (p.133-140)"
+    ],
+    "transition_pages": ["p.133 (3-zone: §6.1.6 SU tail / §6.2 chapter NEW / §6.2.1 AE NEW)"]
+  },
+  "writers": {
+    "14a": {
+      "subagent_type": "oh-my-claudecode:executor",
+      "pages": "p.131-135",
+      "atoms_final": 102,
+      "atoms_per_page": {"131": 17, "132": 20, "133": 21, "134": 25, "135": 19},
+      "r7_done_strict_match": true,
+      "r14_self_validation": "passed",
+      "schema_errors": 0,
+      "frame_tags": 0,
+      "atom_type_coverage": "7/9 (no FIGURE, no CROSS_REF — natural absent in §6.1.6 tail + §6.2 intro + §6.2.1 head)"
+    },
+    "14b": {
+      "subagent_type": "oh-my-claudecode:writer (original) → oh-my-claudecode:executor (Option E full-batch rerun)",
+      "pages": "p.136-140",
+      "atoms_original_writer_14b": 61,
+      "atoms_post_optionE_rerun": 72,
+      "atoms_final_post_optionH": 72,
+      "atoms_per_page_final": {"136": 13, "137": 16, "138": 13, "139": 15, "140": 15},
+      "r7_done_strict_match_rerun": true,
+      "r14_self_validation_rerun": "passed",
+      "schema_errors_post_repair": 0,
+      "frame_tags_post_repair": 0,
+      "atom_type_coverage": "6/9 (no FIGURE, no CROSS_REF, no CODE_LITERAL — AE Examples narrative-dominant)"
+    }
+  },
+  "metrics": {
+    "atoms_final": 174,
+    "atoms_per_page": {"131": 17, "132": 20, "133": 21, "134": 25, "135": 19, "136": 13, "137": 16, "138": 13, "139": 15, "140": 15},
+    "atom_type_distribution": {
+      "HEADING": 12, "SENTENCE": 18, "LIST_ITEM": 65, "TABLE_HEADER": 5, "TABLE_ROW": 71, "CODE_LITERAL": 1, "NOTE": 2, "FIGURE": 0, "CROSS_REF": 0
+    },
+    "atom_type_coverage_combined": "7/9 (no FIGURE, no CROSS_REF; FIGURE/CROSS_REF naturally absent — §6.1.6 SU Examples are narrative+spec table, §6.2 intro is prose+bullet list, §6.2.1 AE has spec table + assumptions list + examples table)",
+    "parent_section_distribution": {
+      "§6 [Domain Models Based on the General Observation Classes]": 1,
+      "§6.1.6 [Substance Use (SU)]": 46,
+      "§6.2 [MODELS FOR EVENTS DOMAINS]": 9,
+      "§6.2.1 [Adverse Events (AE)]": 118
+    },
+    "writer_failures": 0,
+    "atom_id_collisions_within_batch": 0,
+    "atom_id_collisions_vs_root": 0,
+    "schema_errors": 0,
+    "frame_tags": 0,
+    "rule_a_raw_verdict": "PASS @ 95.0% weighted (9 PASS + 1 PARTIAL + 0 FAIL)",
+    "rule_a_threshold": "≥90% PASS",
+    "rule_a_findings": 1,
+    "drift_cal": "skipped (per cadence; cumulative 174 atoms since p.118 cal not yet ≥300 trigger; mandatory next at batch 15)",
+    "repair_cycles": 2,
+    "repair_cycles_detail": [
+      "1. Option E executor full-batch rerun for 14b p.136-140 (replaced 61-atom writer output with 72-atom executor rerun) — addressed writer-family systemic quality cluster on p.136 (4 variable name typos), p.137 (9-atom under-extraction + page-shift), p.138-140 (paraphrase + verbatim drift + 4-5 variable typos)",
+      "2. Option H bulk-fix 91 atoms in 14b post-rerun (24 TABLE_ROW/TABLE_HEADER pipe-wrap inner→outer + 67 non-HEADING null heading_level/sibling_index keys) — addressed Option E rerun convention drift to align 14b within-batch with 14a"
+    ]
+  },
+  "reviewer_slot": 23,
+  "reviewer_type": "oh-my-claudecode:designer",
+  "reviewer_mode": "AUDIT-mode pivot 4th (omc-family extension; post slot #20 pr:code-simplifier / #21 omc:debugger / #22 vercel:performance-optimizer)",
+  "reviewer_quality": {
+    "false_positive_count": 0,
+    "inverted_rationale_count": 0,
+    "spot_check_observations_outside_sample": 6,
+    "ground_truth_anchor_methodology_consistency": "5th consecutive batch of 0 FP / 0 inversion (slot #18+#19+#20+#21+#23 cumulative n=50 sample)"
+  },
+  "findings_added": [
+    {
+      "id": "O-P1-36",
+      "severity": "HIGH",
+      "summary": "Writer 14b systemic quality cluster on p.136-140: (a) p.136 4-5 variable name typos (AEUNANT→AEURANT / AERLPRT→AERPRT / AERLPRC→AERPRC / Trtmnt→Trimet / TAETORD→TAEFORD) — same writer-family hallucination pattern as O-P1-23 batch 09 DSDTC + O-P1-34 batch 12 ec.xpt typos; (b) p.137 9-atom UNDER-EXTRACTION (8 TABLE_ROW spec rows AESTDTC..AEENTPT + 1 footnote NOTE entirely DROPPED — Region 1 of p.137 missed) — same R12 transition discipline failure as O-P1-28 batch 11 p.103; (c) p.137 page-shift bug (AEBODSYS item 2.d should be on p.138 top but writer placed it on p.137 a007) — same pattern as O-P1-35 batch 12 p.118/p.119; (d) p.138-140 verbatim drift cluster (item 4 punctuation `;→:` + item 4.d paraphrase + missing 'For example' SENTENCE on p.139 + item 8 TAEFORD vs PDF TAETORD + item 12 multi-variable name typos AELLT/AELLTCD/AEPTCD/AEHLT/AEHLTCD/AEHLGT/AEHLGTCD vs writer corruption AELLTD/AELHLTCD/AAELHLTD/AELGT/AEHLTGTCD). Caught via main-session pre-Rule-A PDF cross-check on all 5 pages. **Option E executor × p.136-140 full-batch rerun (72 atoms PDF-verified)** wholesale replaces 61-atom writer 14b output (+11 atoms net = +9 p.137 spec tail + +1 p.138 AEBODSYS + +1 p.139 'For example' + 0 net p.136/p.140 with verbatim corrections only). 4th successful Option E full-batch rerun precedent in P1 (after p.60 batch 06 + p.103 batch 11 + p.119 batch 12). Writer-family quality cluster: 14b R7 strict-match was OK (61=61, R14 holding) but R10 verbatim discipline FAIL across all 5 pages — distinct failure mode from R7 over-claim pattern (09b/11a)."
+    },
+    {
+      "id": "O-P1-37",
+      "severity": "MEDIUM",
+      "summary": "Option E executor rerun produces TABLE_ROW + TABLE_HEADER inner-pipe style (`field1 | field2 | ...`) AND omits explicit `heading_level: null` + `sibling_index: null` null keys for non-HEADING atoms — vs standard executor 14a output uses outer-pipe (`| field1 | field2 | ... |`) + explicit null keys. Within-batch inconsistency 14a (52 outer-pipe + 95 null-key) vs 14b post-rerun (24 inner-pipe + 67 omitted-key) caught by Rule A slot #23 designer F-1 MEDIUM + OBS-2. **Option H bulk-fix** applied: 24 atoms outer-pipe wrap + 67 atoms add null keys + canonical key reorder. Within-batch consistency restored. Cross-batch O-P1-26 inconsistency (outer-pipe vs prior batches' mixed style) still deferred to v1.3 reconciler decision. Root cause: Option E rerun prompt did not explicitly enforce outer-pipe convention or null-key requirement; future Option E rerun prompts should include explicit pipe-format + null-key examples in JSONL schema section."
+    }
+  ],
+  "schema_validation_post_repair": {
+    "rows_total": 174,
+    "json_parse_errors": 0,
+    "atom_id_format_errors": 0,
+    "atom_type_9_enum_errors": 0,
+    "frame_tag_count": 0,
+    "missing_heading_fields_on_HEADING": 0,
+    "atom_id_collisions_within_batch": 0,
+    "atom_id_collisions_vs_root_pdf_atoms": 0,
+    "outer_pipe_TABLE_ROW_TABLE_HEADER": "24/24 14b + 52/52 14a = 76/76 (within-batch consistency restored)",
+    "non_HEADING_null_keys_present": "67/67 14b + 95/95 14a = 162/162 (within-batch consistency restored)"
+  },
+  "heading_tree_validation": {
+    "SU_tail_p131": "L4 sib=3 [SU – Assumptions]",
+    "SU_tail_p132": "L4 sib=4 [SU – Examples] / L5 sib=1 [Example 1]",
+    "p133_zone1_su_tail": "all atoms parent §6.1.6 (su.xpt CODE_LITERAL + 1 TABLE_HEADER + 7 TABLE_ROW SU Example data)",
+    "p133_zone2_chapter_transition": "L2 sib=2 [§6.2 MODELS FOR EVENTS DOMAINS] (parent §6) + 1 SENTENCE intro + 7 LIST_ITEM event domains + L3 sib=1 [§6.2.1 Adverse Events] (parent §6.2)",
+    "p133_zone3_AE_start": "L4 sib=1 [AE – Description/Overview] (parent §6.2.1) + 1 SENTENCE",
+    "p134_AE_Specification": "L4 sib=2 [AE – Specification] (parent §6.2.1)",
+    "p137_AE_Assumptions": "L4 sib=3 [AE – Assumptions] (parent §6.2.1)",
+    "p140_AE_Examples": "L4 sib=4 [AE – Examples] / L5 sib=1 [Example 1] / L5 sib=2 [Rows 1-2:] / L5 sib=3 [Row 3:]",
+    "r15_cross_batch_sibling_continuity": "AE Examples sib=1 RESTART per R15 (NOT continuing §6.1.3.3 Examples sib=8 from batch 12). §6.2 sib=2 continuity from §6.1 sib=1 prior. §6.2.1 sib=1 NEW under §6.2."
+  },
+  "files_written": [
+    "evidence/checkpoints/pdf_atoms_batch_14a.jsonl",
+    "evidence/checkpoints/pdf_atoms_batch_14b.jsonl",
+    "evidence/checkpoints/pdf_atoms_batch_14b.jsonl.pre-OptionE-fullbatch.bak (Rule B)",
+    "evidence/checkpoints/pdf_atoms_batch_14b.jsonl.pre-pipefix.bak (Rule B)",
+    "evidence/checkpoints/pdf_atoms_batch_14b_executor_rerun.jsonl (Option E rerun output)",
+    "evidence/checkpoints/rule_a_batch_14_sample.jsonl",
+    "evidence/checkpoints/rule_a_batch_14_verdicts.jsonl",
+    "evidence/checkpoints/rule_a_batch_14_summary.md",
+    "evidence/checkpoints/_progress_batch_14.json (this file)",
+    "evidence/checkpoints/P1_batch_14_report.md"
+  ],
+  "files_NOT_touched_per_multi_session_protocol": [
+    ".work/06_deep_verification/pdf_atoms.jsonl (root, reconciler-only)",
+    ".work/06_deep_verification/audit_matrix.md (reconciler-only)",
+    ".work/06_deep_verification/_progress.json (reconciler-only)",
+    ".work/06_deep_verification/subagent_prompts/v1.3_patch_candidates.md (reconciler-only — but v1.3 cut decision: O-P1-37 candidates Option-E-prompt-explicit-pipe-format + explicit-null-key)",
+    "sister batches: pdf_atoms_batch_13[ab].jsonl + pdf_atoms_batch_15[ab].jsonl + their _progress + report files"
+  ],
+  "next_step_for_reconciler": "session E reconciler 应 (a) merge 14a (102) + 14b (72) into root pdf_atoms.jsonl; (b) cross-batch sibling continuity sweep with batch 13 (SU heading on p.129) and batch 15 (BE start p.143); (c) update audit_matrix row + Rule A slot #23 row + Rule D roster #23 designer; (d) update _progress.json: pages_done 120→150 (cumulative all 3 batches), atoms_done 3200+(13+14+15 totals), batches_done 12→15, findings 35+(13+14+15); (e) consider v1.3 prompt cut formal — O-P1-37 adds 2 new evidence points for Option E rerun prompt enforcement."
+}

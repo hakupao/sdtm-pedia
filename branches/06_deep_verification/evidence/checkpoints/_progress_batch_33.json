@@ -1,0 +1,260 @@
+{
+  "batch_id": 33,
+  "session_id": "session_c_round_7",
+  "round": 7,
+  "status": "completed",
+  "scope_pages": "ig34 p.321-330",
+  "page_count": 10,
+  "atoms_done": 190,
+  "atoms_breakdown": {
+    "33a_p321_325": 93,
+    "33b_p326_330": 97,
+    "by_page": {
+      "321": 18, "322": 15, "323": 19, "324": 21, "325": 20,
+      "326": 19, "327": 15, "328": 22, "329": 24, "330": 17
+    },
+    "by_atom_type_33a": {
+      "LIST_ITEM": 34, "TABLE_ROW": 38, "HEADING": 8, "SENTENCE": 7, "TABLE_HEADER": 3, "CODE_LITERAL": 3, "NOTE": 0
+    },
+    "by_atom_type_33b": {
+      "LIST_ITEM": 36, "TABLE_ROW": 40, "HEADING": 8, "SENTENCE": 6, "TABLE_HEADER": 4, "CODE_LITERAL": 2, "NOTE": 1
+    },
+    "by_atom_type_combined": {
+      "LIST_ITEM": 70, "TABLE_ROW": 78, "HEADING": 16, "SENTENCE": 13, "TABLE_HEADER": 7, "CODE_LITERAL": 5, "NOTE": 1
+    }
+  },
+  "failures": 0,
+  "repair_cycles": 2,
+  "repair_cycle_notes": [
+    "Cycle 1 (Option H targeted parent_section canonical-form fix on 3 HEADING atoms in 33a): main-session structural sweep caught (a) ig34_p0321_a005 QRS Shared Assumptions L6 self-parent (parent ended with own heading text 'QRS Shared Assumptions' instead of L5 chain form 'FT-Assumptions'); (b) ig34_p0323_a009 Example 1 L6 parent missing FT-Examples L5 chain (bare §6.3.9.1 FT instead of §6.3.9.1 FT — FT-Examples); (c) ig34_p0323_a010 6-Minute Walk Test L7 parent missing FT-Examples + Example 1 chain (bare §6.3.9.1 FT instead of §6.3.9.1 FT — FT-Examples — Example 1). Backup: pdf_atoms_batch_33a.jsonl.pre-OptionH-parent-canonical.bak. Per round 5 O-P1-91 / round 6 G-MS-NEW-6-3 canonical L6/L7 chain form rule.",
+    "Cycle 2 (Option H bulk parent_section canonical-form fix on 85 child atoms in 33a — same backup as Cycle 1): walking 33a in atom_id order, tracked active L4/L5/L6/L7 chain and propagated canonical chain form to all child atoms. 85 atoms across p.321-324 had bare §6.3.9.1 FT or partial-chain parent_section (e.g. §6.3.9.1 FT — QRS Shared Assumptions skipping L5 FT-Assumptions); fixed to full L4 → L5 → L6 [→ L7] chain form. CRITICAL: 33b had 0 fixes — perfectly canonical from start. INTRA-AGENT inconsistency between 33a executor and 33b executor (same agent type, sub-batches of same batch) = NEW round-7 motif extension to G-MS-NEW-6-3 5th cumulative recurrence (round 3 batch 23 O-P1-68 + round 4 batch 25 O-P1-79 + round 5 reconciler O-P1-92 + round 6 batch 29 O-P1-95 + round 7 batch 33 33a 88 atoms = 5×). Finding O-P1-111."
+  ],
+  "rule_a": {
+    "reviewer_slot": 42,
+    "reviewer_type": "pr-review-toolkit:comment-analyzer",
+    "reviewer_audit_pivot_index": 22,
+    "reviewer_family": "pr-review-toolkit",
+    "reviewer_family_burn_count_post_batch": 3,
+    "reviewer_family_pool_status_post_batch": "pr-review-toolkit family 3rd-agent depth burn (round 6 #38 code-reviewer + #40 silent-failure-hunter + round 7 #42 comment-analyzer = 3 distinct agents same family — extends intra-family AUDIT recipe consistency validation from 2 agents (round 6) to 3 agents (round 7); recipe holds across 3 different agent personas within pr-review-toolkit family)",
+    "audit_mode_pivot_label": "AUDIT for SDTM PDF atomization quality, NOT analyzing code comments for accuracy/maintainability / NOT comment rot detection / NOT pull request comment review",
+    "tools_adaptation": "full-tool — reviewer wrote verdicts.jsonl + summary.md directly via Write tool (continues round 5 general-purpose precedent + round 6 pr-review-toolkit/superpowers full-tool variant)",
+    "kickoff_substitution_note": "Kickoff §3 STEP 0.2 pre-allocated `firecrawl:skill-gen` for slot #42 but firecrawl:skill-gen is a SKILL not a registered AGENT (Agent tool dispatch failed with 'Agent type not found'). Same problem affects sister batch 32 (allocated `data:debugging-dags` which is also a skill) — finding O-P1-110 INFO documents this kickoff routing pre-allocation error. Main session pivoted to pr-review-toolkit:comment-analyzer (3rd-agent intra-family depth burn within pr-review-toolkit family) as substitute. Decision rationale: (a) preserves batch 34 #43 type-design-analyzer pre-allocation; (b) extends round 6 pr-family 2-burn pattern (#38+#40) to 3-agent depth; (c) zero cross-round Rule D collision maintained (40 unique slots burned cumulative); (d) per D-MS-3 family-agnostic AUDIT recipe — recipe should hold across yet another pr-family agent.",
+    "sample_size": 10,
+    "sample_seed": 20260635,
+    "sample_coverage": "1/page p.321-330 stratified (4 HEADING [L4 NEW6.b ×2 + L6 + L7] + 3 LIST_ITEM + 2 TABLE_ROW + 1 CODE_LITERAL)",
+    "raw_pass": 10,
+    "raw_partial": 0,
+    "raw_fail": 0,
+    "raw_weighted_pct": 100.0,
+    "main_session_adjudication": {
+      "verdict": "100% PASS post Option-H canonical-form fix — reviewer independently verified all 10 sample atoms against PDF p.321-330 ground truth with detailed evidence quotes per atom. NEW6.b L4 self-parent (QS+RS) verified canonical group-container parent. NEW7 L6/L7 chain (QRS Shared Assumptions L6 + SWLS L7) verified RESTART per L4 sub-domain / Example. R8 outer-pipe TABLE_ROW + R10 strict verbatim (incl. double-space in '6.3.9.3  Disease Response' preserved) all confirmed.",
+      "post_adjudication_pass": 10,
+      "post_adjudication_partial": 0,
+      "post_adjudication_fail": 0,
+      "post_adjudication_weighted_pct": 100.0,
+      "post_adjudication_verdict": "PASS at upper-bound (100% raw + 100% post-adjudication = first non-residual perfect score in round 7 first batch; matches round 6 batch 30 superpowers:code-reviewer slot #39 100% precedent)",
+      "main_session_structural_sweep_extension": "Main-session pre-Rule-A structural sweep caught 88-atom Option H bulk fix (3 HEADING canonical L6/L7 chain form + 85 child atoms canonical L4/L5/L6/L7 propagation in 33a only — 33b had 0 fixes). Two-layer audit architecture 5th cumulative round validation: structural sweep BEFORE Rule A reviewer cleaned the systematic intra-agent inconsistency before sample reached reviewer (vs round 6 batch 31 sweep AFTER reviewer caught additional defects; round 7 batch 33 reverses to BEFORE pattern). 1:88 reviewer-to-sweep amplification ratio (10-atom sample post-sweep had 0 violations while 88 atoms required pre-sweep correction; if sample had been pre-sweep, expected ~30% sample-side residual)."
+    },
+    "reviewer_audit_mode_pivot_quality": {
+      "reflection": "comment-analyzer normal mode (analyze code comments for accuracy/maintainability) mapped naturally to SDTM atomization quality audit via 3-axis analogy: 'comment rot ↔ verbatim drift across rounds' (atoms emitted in round N can become stale relative to evolving PDF understanding in round N+M; structural sweep is the equivalent of doc-rot detection); 'comment factual accuracy vs code ↔ verbatim atom vs PDF ground truth fidelity' (NEW8 substring n-gram canonical-variable check is the equivalent of comment-mentions-deprecated-API check); 'comment-code mismatch (comment says X, code does Y) ↔ atom_type vs PDF semantic content mismatch' (e.g. atom_type=HEADING when PDF actually shows LIST_ITEM = analogous to docstring claim mismatch). pr-family 3rd-agent depth burn observation: comment-analyzer brings detail-oriented per-atom verbatim-ground-truth comparison posture which materialized as careful PDF cross-check WITH inline quoted PDF ground truth in every verdict reason field — adjacent to silent-failure-hunter's skeptical-default posture (round 6 #40) but distinct in style (comment-analyzer is annotator-style with detailed verbatim quotes; silent-failure-hunter is auditor-style with terser failure-mode framings).",
+      "pr_family_3rd_agent_depth_burn_recipe_consistency": "PASS — same-family different-agent recipe holds across 3 agents (code-reviewer #38 + silent-failure-hunter #40 + comment-analyzer #42 all produced quality verdicts with appropriate detail; full-tool variant validates round 5 general-purpose precedent extending to pr-review-toolkit family at 3-agent depth)",
+      "ground_truth_two_layer_validation_5th_cumulative": "Structural sweep CAUGHT 88 atoms BEFORE reviewer (vs round 6 batch 31 sweep AFTER reviewer caught additional 9 atoms); both directions valid layers; round 7 = 5th cumulative validation of two-layer architecture (round 2 = 1:5 / round 4 = 1:4 / round 5 = 1:13 + 1:168 / round 6 batch 31 = 1:10 / round 7 batch 33 = 1:88 pre-Rule-A sweep)"
+    },
+    "tom_anchor_audit_n_cumulative": 240,
+    "tom_anchor_consecutive_batches": 24,
+    "tom_anchor_fp_count": 0,
+    "tom_anchor_inversion_count": 0,
+    "special_checks": {
+      "new6_b_l4_self_parent": "PASS proactively (9th cumulative streak post round 7) — both §6.3.9.2 QS HEADING (a005 p.324) + §6.3.9.3 RS HEADING (a004 p.329) parent='§6.3.9 Questionnaires, Ratings, and Scales (QRS) Domains (FT, QS, RS)' L3-group canonical NEVER self-parent; round 4 4× IS/LB/Microbiology Domains/GF + round 5 2× MI/PD + round 6 batch 31 2× RP/RE + round 7 batch 33 2× QS/RE = 10+ cumulative L4 self-parent NOT proactive precedents (depending on counting). Round 6 G-MS-13 first L3 transitions §6.3.6+§6.3.7 already validated NEW6 chapter-short-bracket extension for L3; round 7 batch 33 extends NEW6.b L4 self-parent NEVER to §6.3.9 family (after §6.3.5 + §6.3.7 in rounds 4-6).",
+      "new7_l5_chain_under_FT_Assumptions": "PASS — FT-Assumptions L5 sib=3 RESTART under §6.3.9.1 FT (continuing predicted batch 32b chain Description=1/Specification=2 from sister session B); L6 QRS Shared Assumptions sib=1 RESTART under FT-Assumptions",
+      "new7_l5_chain_under_FT_Examples": "PASS — FT-Examples L5 sib=4 RESTART under §6.3.9.1 FT; L6 Example 1 sib=1 RESTART under FT-Examples; L7 6-Minute Walk Test (SIX MINUTE WALK) sib=1 RESTART under Example 1 named-instrument convention (analogous to round 5 PD/MI Examples L6+L7 precedents)",
+      "new7_l5_chain_under_QS": "PASS — QS-Description L5 sib=1 + QS-Specification L5 sib=2 + QS-Assumptions L5 sib=3 + QS-Examples L5 sib=4 RESTART under §6.3.9.2 QS per NEW7 L5 chain Description=1/Spec=2/Assump=3/Examples=4; L6 QRS Shared Assumptions sib=1 RESTART under QS-Assumptions; L6 Example 1 sib=1 RESTART under QS-Examples; L7 Satisfaction With Life Scale (SWLS) sib=1 RESTART under Example 1",
+      "new7_l5_chain_under_RS": "PASS — RS-Description L5 sib=1 + RS-Specification L5 sib=2 RESTART under §6.3.9.3 RS per NEW7 L5 chain (RS-Assumptions + RS-Examples expected in batch 34 sister session D scope)",
+      "new7_l6_INTRA_batch_procedural_handoff_33a_to_33b": "PASS — 33a ended with §6.3.9.2 QS-Specification L5 sib=2 (parent §6.3.9.2 QS spec table mid-table at p.325 last row QSELTM); 33b started with §6.3.9.2 QS-Specification table TAIL (continuation, parent §6.3.9.2 QS); then NEW HEADING QS-Assumptions L5 sib=3 (continuation of L5 sib chain). Procedural enforcement EFFECTIVE 3rd live-fire — round 5 D-MS-4 INTRA-batch codification mandate VALIDATED 3rd time consecutively (round 5 1st + round 6 2nd + round 7 3rd; zero recurrence).",
+      "new7_l6_CROSS_batch_handoff_round_5_G_MS_NEW_5_1_2nd_live_fire": "PARTIALLY PASS — main-session predicted batch 32b terminal state (FT-Specification L5 sib=2 spec table TAIL at p.320 last row FTRFTDTC + §6.3.9.1 FT L4 sib=1 + §6.3.9 QRS L3 group container sib=9) and inline-prepended into 33a dispatch prompt per round 5 G-MS-NEW-5-1 codification + round 6 1st live-fire EFFECTIVE precedent. 33a writer first-attempt correctly continued FT-Assumptions L5 sib=3 chain at p.321 with parent='§6.3.9.1 Functional Tests (FT)' (NOT restart sibling chain). HOWEVER 33a child atoms used bare-form parent_section (caught by main-session structural sweep + Option H bulk fix on 88 atoms = G-MS-NEW-6-3 5th cumulative recurrence INTRA-AGENT inconsistency NEW round-7 motif). Reconciler post-merge will re-validate cross-session R15 once batch 32 DONE.",
+      "kickoff_routing_substitution_O_P1_110": "Documented — kickoff §3 STEP 0.2 listed `firecrawl:skill-gen` (slot #42) and `data:debugging-dags` (slot #41 sister batch 32) as reviewer agents but BOTH are SKILLS NOT registered AGENTS; Agent tool dispatch fails with 'Agent type not found'. Main session pivoted #42 to pr-review-toolkit:comment-analyzer (pr-family 3rd-agent depth burn) as substitute. Sister batch 32 likely faces same problem and will pivot independently. v1.4 codification candidate: kickoff agent allocation must distinguish skill vs agent (skills cannot be dispatched via Agent tool, only via Skill tool). Reconciler retro round 7 G-MS gap to address."
+    }
+  },
+  "drift_cal": {
+    "triggered": true,
+    "target_page": 325,
+    "trigger_basis": "every-3-batches cadence batch 30→33 + cumulative atoms post-p.293 (batch 31 259 + batch 32 ~250 + batch 33 to-date 190) ≥600 双触发 MANDATORY",
+    "method": "NEW1 dual-threshold strict ≥80% AND verbatim hash overlap ≥80%; STRICT ALTERNATION ENFORCED per round 6 G-MS-NEW-6-2 codification (baseline=executor → rerun=writer per alternation table)",
+    "baseline_subagent": "oh-my-claudecode:executor (33a sub-batch writer)",
+    "baseline_atoms_p325": 20,
+    "rerun_subagent": "oh-my-claudecode:writer (strict alternation)",
+    "rerun_atoms_p325": 21,
+    "strict_count_overlap_pct": 95.2,
+    "verbatim_hash_overlap_pct": 42.9,
+    "per_atom_id_verbatim_match_pct": 0.0,
+    "verdict": "FAIL (verbatim 42.9% < 80% threshold despite strict 95.2% PASS)",
+    "direction": "writer-direction (writer rerun multi-axis HALLUCINATION; baseline executor preserved correctly per PDF)",
+    "motif": "writer-family VALUE HALLUCINATION 3rd cumulative recurrence main-line (round 5 O-P1-85 drift-cal-rerun-only context + round 6 batch 31 O-P1-103 main-line + round 7 batch 33 O-P1-109 drift-cal main-line) + variable name truncation (QSORRES vs QSORRESU adjacent-key-drop motif analogous to round 6 OESEQ→OESEO Q→O Latin-Latin) + paraphrase (Character→Standardized) + Role hallucination (Variable Qualifier→Result Qualifier) + structural phantom TABLE_HEADER addition",
+    "direction_reversed_precedent_count": 11,
+    "strict_alternation_methodology_validation": "1st live-fire of round 6 G-MS-NEW-6-2 codification mandate VALIDATED — clean disentanglement of cross-family writer-vs-executor drift signal from intra-family non-determinism (round 6 batch 30 was intra-family executor-vs-executor non-determinism; round 7 batch 33 strict alternation gives cross-family signal = writer-direction main-line VALUE HALLUCINATION confirmed)",
+    "report_file": "evidence/checkpoints/drift_cal_batch_33_p325_report.md",
+    "rerun_jsonl_file": "evidence/checkpoints/drift_cal_p325_writer_rerun.jsonl",
+    "next_mandatory": "batch 36 (per cadence batch 33→36)",
+    "finding": "O-P1-109 HIGH"
+  },
+  "density_alarm_check_round_7_G_MS_12": {
+    "applied": true,
+    "lowest_per_page_atoms": "p.322=15 + p.327=15 (both list-only continuation pages — at floor 15; per content-type-aware floor G-MS-12.a list-only floor=8 well above)",
+    "highest_per_page_atoms": "p.329=24 (R12 transition QS-Examples tail → §6.3.9.3 RS NEW L4 + RS-Description + RS-Spec head dense)",
+    "sub_batch_33a_total": 93,
+    "sub_batch_33a_above_100_floor_strict": false,
+    "sub_batch_33a_above_content_type_aware_floor": "PASS per G-MS-12.a (33a includes 2 list-only pages p.321+p.322 with floor=8 each; effective floor = 8+8+15+15+15 = 61; actual 93 well above)",
+    "sub_batch_33b_total": 97,
+    "sub_batch_33b_above_100_floor_strict": false,
+    "sub_batch_33b_above_content_type_aware_floor": "PASS per G-MS-12.a (33b includes 1 list-only page p.327 with floor=8; effective floor = 15+8+15+15+15 = 68; actual 97 well above)",
+    "alarm_triggered": false,
+    "main_session_pdf_cross_check": "NOT required for density (alarm did not trigger after content-type-aware adjudication); BUT main-session PDF cross-check WAS required for parent_section canonical-form sweep (caught 88 atoms in 33a) — confirms structural sweep is mandatory complement to statistical 1/page Rule A audit AND density alarm not the only signal."
+  },
+  "new6_format_sweep": {
+    "applied": true,
+    "violations_found": 0,
+    "post_sweep_compliance": "100% — 2 NEW L4 sub-domain HEADINGs (QS + RS) both proactively correct first-attempt with parent='§6.3.9 Questionnaires, Ratings, and Scales (QRS) Domains (FT, QS, RS)' L3-group canonical full-form (NEW6.b NEVER self-parent); 10+ cumulative L4 self-parent NOT proactive precedents post round 7 batch 33 (round 4 4× + round 5 2× + round 6 2× + round 7 batch 33 2× = 10×)"
+  },
+  "new7_l4_l7_chain_check": {
+    "applied": true,
+    "summary": "DOUBLE L4 sub-domain transition under §6.3.9 QRS Domains group container (§6.3.9.2 QS at p.324 + §6.3.9.3 RS at p.329) within single batch — analogous to round 6 batch 31 DOUBLE L4 RP+RE under §6.3.7 + round 4 batch 25 IS+LB+Microbiology Domains TRIPLE; all L5 chain Description=1/Spec=2/Assump=3/Examples=4 RESTART per L4 sub-domain correctly applied per NEW7. L6 chain QRS Shared Assumptions sib=1 + Example 1 sib=1 RESTART per L4 sub-domain. L7 chain named-instrument (6-Minute Walk Test SIX MINUTE WALK + Satisfaction With Life Scale SWLS) sib=1 RESTART per Example.",
+    "round_7_NEW_precedent": "DOUBLE L4 sub-domain transition in single batch under §6.3.9 QRS Domains group container — extends round 6 §6.3.7 + round 4 §6.3.5 family-agnostic L3-group-container codification to §6.3.9 family (3rd cross-family validation post §6.3.5 round 4-5 + §6.3.7 round 6); cross-batch chain QS-Examples L5 sib=4 + Example 1 L6 sib=1 + SWLS L7 sib=1 RESTART semantically equivalent to round 5/6 OE/RP/RE Examples L6+L7 precedents."
+  },
+  "r12_transition_check": {
+    "applied": true,
+    "transition_pages": [
+      {
+        "page": 323,
+        "type": "L5 sub-section transition (FT-Assumptions QRS Shared Assumptions LIST_ITEM tail → FT-Examples L5 sib=4 NEW + Example 1 + 6-Minute Walk Test L7)",
+        "atoms_on_page": 19,
+        "threshold": 8,
+        "compliance": "PASS (19 ≥ 8)",
+        "zone_partition": "Zone 1 QRS Shared Assumptions LIST_ITEMs 8 cont + 9/9.a/9.a.i-ii + 10 (a001-a006); Zone 2 FT-Examples L5 NEW HEADING + descriptor SENTENCE (a007-a008); Zone 3 Example 1 L6 NEW HEADING + 6-Minute Walk Test L7 NEW HEADING + descriptor SENTENCE + ft.xpt CODE_LITERAL + TABLE_HEADER + 6 TABLE_ROWs (a009-a019)"
+      },
+      {
+        "page": 324,
+        "type": "L4 sub-section transition (FT-Examples Example 1 ft.xpt+suppft.xpt tail → §6.3.9.2 QS NEW L4 head)",
+        "atoms_on_page": 21,
+        "threshold": 8,
+        "compliance": "PASS (21 ≥ 8)",
+        "zone_partition": "Zone 1 suppft.xpt SENTENCE + CODE_LITERAL + TABLE_HEADER + 1 TABLE_ROW (a001-a004); Zone 2 §6.3.9.2 QS L4 NEW HEADING + QS-Description L5 sib=1 + descriptor SENTENCE + QS-Specification L5 sib=2 (a005-a008); Zone 3 qs.xpt CODE_LITERAL + spec TABLE_HEADER + first batch of TABLE_ROWs STUDYID through QSORRES (a009-a021)"
+      },
+      {
+        "page": 328,
+        "type": "L5 sub-section transition (QS-Assumptions QRS Shared Assumptions LIST_ITEM tail → QS-Examples L5 sib=4 NEW + Example 1 + Satisfaction With Life Scale L7)",
+        "atoms_on_page": 22,
+        "threshold": 8,
+        "compliance": "PASS (22 ≥ 8)",
+        "zone_partition": "Zone 1 QRS Shared Assumptions LIST_ITEMs 8/8.a + 9/9.a/9.a.i-ii + 10 (a001-a007); Zone 2 QS-Examples L5 NEW HEADING + descriptor SENTENCE (a008-a009); Zone 3 Example 1 L6 NEW HEADING + Satisfaction With Life Scale L7 NEW HEADING + descriptor SENTENCE + qs.xpt CODE_LITERAL + TABLE_HEADER + 8 TABLE_ROWs SWLS01 (a010-a022)"
+      },
+      {
+        "page": 329,
+        "type": "L4 sub-section transition (QS-Examples Example 1 SWLS tail → §6.3.9.3 RS NEW L4 head)",
+        "atoms_on_page": 24,
+        "threshold": 8,
+        "compliance": "PASS (24 ≥ 8)",
+        "zone_partition": "Zone 1 TABLE_HEADER repeat + 2 TABLE_ROWs SWLS01 rows 9-10 (a001-a003); Zone 2 §6.3.9.3 RS L4 NEW HEADING + RS-Description L5 sib=1 + descriptor SENTENCE + 4 LIST_ITEMs (a004-a009); Zone 3 RS-Specification L5 sib=2 + rs.xpt CODE_LITERAL + spec TABLE_HEADER + 7 TABLE_ROWs STUDYID through RSTESTCD (a010-a024)"
+      }
+    ],
+    "double_transition_compliance": "PASS — both L4 transitions (p.324 + p.329) ≥8 atoms; analogous to round 6 batch 31 RP+RE DOUBLE-transition pattern at L4 level under §6.3.7; round 7 batch 33 extends to §6.3.9 QRS Domains family"
+  },
+  "r15_cross_batch_sibling_check": {
+    "applied": true,
+    "intra_batch_33_continuity": "PASS — 33a→33b L5/L6 sib chain continues correctly: §6.3.9.2 QS L4 sib=2 + QS-Description L5 sib=1 + QS-Specification L5 sib=2 (33a p.324) → 33b reuses §6.3.9.2 QS as parent for p.326 QS-Specification table TAIL atoms; then QS-Assumptions L5 sib=3 (33b p.326) + QS-Examples L5 sib=4 (33b p.328) + Example 1 L6 sib=1 (33b p.328) + SWLS L7 sib=1 (33b p.328) RESTART under §6.3.9.2 QS",
+    "cross_session_continuity_predicted_batch_32_terminal": "PREDICTED state for sister session B batch 32 (p.311-320): §6.3.7.X (likely §6.3.7.8 UR L4 sib=8 at p.312) + §6.3.8 PE NEW L3 sib=8 at p.315 + §6.3.9 QRS Domains NEW L3 sib=9 group container at p.318 + §6.3.9.1 FT NEW L4 sib=1 at p.319 + FT-Description L5 sib=1 + FT-Specification L5 sib=2 (ft.xpt + variable spec table starting p.319 spilling tail to p.320 last row FTRFTDTC). Reconciler will validate cross-session R15 once sister batches 32 DONE.",
+    "main_session_local_validation": "L4 sibling chain (under §6.3.9 QRS Domains): batch 32 expected sib=1 FT; batch 33 contributes sib=2 QS + sib=3 RS. L5 sibling chain under §6.3.9.1 FT: batch 32 territory expected sib=1 Description + sib=2 Specification (table tail spans into 33a p.320 territory? no, p.320 is batch 32; so 33a starts at L5 sib=3 Assumptions — predicted state honored); batch 33a contributes sib=3 Assumptions + sib=4 Examples + L6 QRS Shared Assumptions sib=1 + L6 Example 1 sib=1 + L7 6-Minute Walk Test sib=1. L5 sibling chain under §6.3.9.2 QS: 33a contributes sib=1 Description + sib=2 Specification; 33b contributes sib=3 Assumptions + sib=4 Examples + L6 QRS Shared Assumptions sib=1 + L6 Example 1 sib=1 + L7 Satisfaction With Life Scale sib=1. L5 sibling chain under §6.3.9.3 RS: 33b contributes sib=1 Description + sib=2 Specification (Assumptions + Examples expected in batch 34 sister session D scope)."
+  },
+  "findings_added": [
+    {
+      "finding_id": "O-P1-109",
+      "severity": "HIGH",
+      "category": "writer-family stale-template-fillin VALUE HALLUCINATION 3rd cumulative recurrence main-line (drift cal NEW1 7th time FAIL — writer-direction)",
+      "title": "Drift cal NEW1 7th time FAIL on p.325 qs.xpt spec table TAIL: writer rerun multi-axis HALLUCINATION (variable name truncation QSORRES vs QSORRESU + Character→Standardized paraphrase + Variable Qualifier→Result Qualifier role swap + structural phantom TABLE_HEADER addition); strict 95.2% PASS / verbatim 42.9% FAIL; direction=writer-direction; baseline executor preserved correctly per PDF",
+      "scope": "Drift cal probe on §6.3.9.2 QS qs.xpt spec table TAIL p.325 (16 spec rows QSORRESU through QSELTM); baseline = sub-batch 33a oh-my-claudecode:executor 20 atoms; rerun = oh-my-claudecode:writer 21 atoms (added phantom TABLE_HEADER at top); writer rerun 4-axis hallucination: (a) ig34_p0325_a002 'QSORRES' should be 'QSORRESU' (drop trailing U adjacent-key motif analogous to round 6 OESEQ→OESEO Q→O); (b) ig34_p0325_a003 'Standardized Result/Finding' should be 'Character Result/Finding' (paraphrase); (c) ig34_p0325_a005 'QSSTRESU | ... | Result Qualifier' should be 'Variable Qualifier' (role swap); (d) added TABLE_HEADER atom at top (debatable structural choice but causes 1-atom offset cascade through all atom_ids). Per-atom_id verbatim match=0/21=0% (offset distortion). Type distribution: baseline 20 TABLE_ROW vs rerun 1 TABLE_HEADER + 20 TABLE_ROW.",
+      "atom_id_anchor": "ig34_p0325_a001..a020 baseline (33a executor); drift_cal_p325_writer_rerun.jsonl atom_id ig34_p0325_a001..a021 rerun (writer)",
+      "rule_violation": "R10 strict no-paraphrase + variable name truncation + role hallucination — multi-axis writer-family failure. v1.3 NEW8 substring n-gram §H insufficient (QSORRES IS canonical QS variable but wrong context — needs context-aware oracle per round 6 G-MS-NEW-6-5 v1.4 candidate canonical SUPPQUAL/Variable spec column-set check). NEW2 char-level inert (no homoglyph). NEW8.d v1.4 candidate (multi-axis whole-row TABLE_ROW value-cell verbatim integrity — round 6 G-MS-NEW-6-7) would have caught role swap via per-table-context coherence (Variable Qualifier vs Result Qualifier inconsistent with column expectation).",
+      "repair_action": "NO Option H needed for batch 33 root atoms (root unaffected — drift cal probe operates on rerun jsonl, not 33a baseline). Baseline 33a TABLE_ROW values judged CORRECT per PDF ground truth + Rule A reviewer 100% PASS verification on ig34_p0325_a001 sample atom (PDF p.325 'QSORRESU | Original Units | Char | (UNIT) | Variable Qualifier | ...'); rerun writer judged INCORRECT. Drift cal report drift_cal_batch_33_p325_report.md documents full motif analysis. Strict alternation methodology (round 6 G-MS-NEW-6-2 codification) VALIDATED 1st live-fire — clean cross-family signal disentanglement.",
+      "v1_4_codification_candidate": "v1.4 candidates carried forward from round 6: G-MS-NEW-6-5 NEW8 oracle expansion canonical SUPPQUAL/Variable Identifier set per parent domain (catches QSORRES vs QSORRESU adjacent-key motif via context-aware oracle); G-MS-NEW-6-7 NEW8.d multi-axis whole-row TABLE_ROW value-cell verbatim integrity (catches Role hallucination via per-table-context coherence). Round 7 batch 33 reinforces 4 HIGH-severity v1.4 candidates: O-P1-93 (cross-batch handoff procedural enforcement) + O-P1-97 (TABLE_ROW empty-cell pattern non-determinism) + O-P1-101 (NEW8 oracle expansion) + O-P1-103 (NEW8.d multi-axis whole-row). v1.4 patch session priority ESCALATED EMERGENCY-CRITICAL post round 7 — 5 cumulative HIGH-severity items + 3 cumulative writer-direction main-line VALUE HALLUCINATION recurrences.",
+      "writer_family_motif": "3rd cumulative recurrence main-line writer-direction VALUE HALLUCINATION (round 5 O-P1-85 drift-cal-rerun-only context = 1× / round 6 batch 31 O-P1-103 main-line production = 2× / round 7 batch 33 O-P1-109 drift-cal main-line = 3×); cross-rounds pattern = writer-family produces stale-template fillin AND adjacent-key truncation AND paraphrase consistently across drift cal and main-line contexts. Severity HIGH because 3rd recurrence in 3 consecutive rounds = formal v1.4 EMERGENCY-CRITICAL codification mandatory. DIRECTION REVERSED 11th precedent (round 5 9th writer / round 6 10th rerun / round 7 11th writer = strict alternation correctly disentangles)."
+    },
+    {
+      "finding_id": "O-P1-110",
+      "severity": "INFO",
+      "category": "kickoff routing pre-allocation error — skill-as-agent confusion (multi-session protocol gap)",
+      "title": "Round 7 kickoff pre-allocated 2 reviewer slots (#41 data:debugging-dags + #42 firecrawl:skill-gen) that are SKILLS not registered AGENTS — Agent tool dispatch fails 'Agent type not found'",
+      "scope": "Multi-session protocol gap: kickoff §3 STEP 0.2 reviewer slot allocation table listed `firecrawl:skill-gen` (slot #42) and `data:debugging-dags` (slot #41 sister batch 32) as reviewer agents. Both are registered SKILLS (invokable via Skill tool) but NOT registered AGENTS (Agent tool subagent_type). Agent tool dispatch fails with 'Agent type not found' error listing all valid agents (40+ available). Sister batch 32 (data family) likely faces same problem.",
+      "atom_id_anchor": "n/a (procedural gap, not atom-level defect)",
+      "rule_violation": "v1.3 prompt + multi-session protocol kickoff template assumes reviewer slot is dispatchable via Agent tool; gap = no validation of skill-vs-agent distinction at kickoff allocation time. CLAUDE.md routing rule + reconciler retro round 6 D-MS-7 family pool pivot recommendations included skill-only families (data + firecrawl) as agent candidates, conflating skill registration with agent registration.",
+      "repair_action": "Main session pivoted #42 to pr-review-toolkit:comment-analyzer (pr-family 3rd-agent intra-family depth burn) as substitute. Decision rationale: (a) preserves batch 34 #43 type-design-analyzer pre-allocation; (b) extends round 6 pr-family 2-burn pattern (#38+#40) to 3-agent depth = consistent intra-family AUDIT recipe consistency validation; (c) zero cross-round Rule D collision maintained (40 unique slots burned cumulative pre-batch-33; #42 unique post-batch-33 = 41 cumulative; sister batch 32 will independently pivot for #41 substitute likely also pr-remaining or other available agent family); (d) per D-MS-3 family-agnostic AUDIT recipe — recipe holds across 22nd AUDIT pivot at pr-comment-analyzer.",
+      "v1_4_codification_candidate": "v1.4 codification: kickoff agent allocation MUST validate skill-vs-agent distinction at pre-dispatch time; document available agent registry (40+ agents) explicitly in kickoff §3 reviewer pool partition; drop skill-only families (data + firecrawl) from D-MS-7 pivot recommendations. Reconciler retro round 7 G-MS gap to address with explicit available-agents-vs-skills documentation in MULTI_SESSION_PROTOCOL.md.",
+      "writer_family_motif": "n/a (procedural protocol gap, not writer-family motif)"
+    },
+    {
+      "finding_id": "O-P1-111",
+      "severity": "MEDIUM",
+      "category": "writer-family parent_section canonical L6/L7 chain form — 5th cumulative recurrence + INTRA-AGENT inconsistency NEW round-7 motif (G-MS-NEW-6-3 extension)",
+      "title": "Sub-batch 33a (oh-my-claudecode:executor) 88 atoms required Option H bulk parent_section canonical L6/L7 chain form fix (3 HEADING + 85 child atoms); sister sub-batch 33b (same agent type) had 0 fixes (perfectly canonical first-attempt) = INTRA-AGENT inconsistency NEW round-7 motif",
+      "scope": "Sub-batch 33a covers p.321-325 (FT-Assumptions L5 chain + QRS Shared Assumptions L6 + FT-Examples Example 1 6-Minute Walk Test L7 + §6.3.9.2 QS NEW L4 + qs.xpt spec head). 88 Option H fixes total: (a) Cycle 1 = 3 HEADING atoms (p.321 a005 QRS Shared Assumptions L6 self-parent / p.323 a009 Example 1 L6 missing FT-Examples chain / p.323 a010 6-Minute Walk Test L7 missing FT-Examples — Example 1 chain); (b) Cycle 2 = 85 child atoms walking 33a in atom_id order propagating canonical L4 → L5 [→ L6 [→ L7]] chain form (p.321 LIST_ITEMs 1-2 under FT-Assumptions + p.321-323 LIST_ITEMs under QRS Shared Assumptions L6 + p.323-324 ft.xpt+suppft.xpt under FT-Examples Example 1 6-Minute Walk Test L7). Sub-batch 33b covers p.326-330 (QS-Specification tail + QS-Assumptions L5 + QRS Shared Assumptions L6 REPEAT + QS-Examples L5 + Example 1 + SWLS L7 + §6.3.9.3 RS NEW L4 + rs.xpt spec head). 0 Option H fixes — perfectly canonical first-attempt. Same agent type (oh-my-claudecode:executor) produced 88 vs 0 = drastic intra-agent inconsistency.",
+      "atom_id_anchor": "33a 88 atoms (full list in pdf_atoms_batch_33a.jsonl.pre-OptionH-parent-canonical.bak vs current); 33b 0 atoms",
+      "rule_violation": "v1.3 §F NEW6/NEW6.b dual-form parent_section + round 5 O-P1-91 canonical L6/L7 chain form rule + round 6 G-MS-NEW-6-3 extension to non-Example sub-headings. Round 6 batch 29 O-P1-95 was 4th cumulative recurrence (round 3 batch 23 O-P1-68 + round 4 batch 25 O-P1-79 + round 5 reconciler O-P1-92 + round 6 batch 29 O-P1-95); round 7 batch 33 O-P1-111 = 5th cumulative recurrence with NEW INTRA-AGENT inconsistency dimension (same agent type produces drastically inconsistent canonical-form across sub-batches of same batch).",
+      "repair_action": "Option H bulk fix applied (Cycle 1 + Cycle 2 = 88 atoms). Backup pdf_atoms_batch_33a.jsonl.pre-OptionH-parent-canonical.bak preserves pre-fix state per Rule B. Post-fix Rule A reviewer slot #42 100% PASS verification on 10-atom sample with detailed canonical-form evidence quotes per atom. Schema integrity CLEAN post-fix; 190 atoms preserved (93 + 97).",
+      "v1_4_codification_candidate": "v1.4 NEW round-7 codification: (a) writer/executor MUST emit canonical L6/L7 chain form parent_section consistently from start (not bare L4/L5 form); (b) pre-DONE write hook with halt-on-violation OR auto-fix proposal: scan output for atoms whose immediate parent HEADING is at L6/L7 but parent_section field uses bare L5/L6 shortcut; (c) intra-agent consistency check: dispatch prompts should include explicit parent_section examples for each L4/L5/L6/L7 level + reviewer/main-session sweep MUST validate consistency across all sub-batches of same batch (not just within sub-batch). Joins round 6 v1.4 candidate G-MS-NEW-6-3 (cross-batch handoff codification on non-Example sub-headings) extending scope to intra-batch intra-agent consistency.",
+      "writer_family_motif": "5th cumulative recurrence of L6/L7 canonical chain form motif post round 6 (round 3+4+5+6+7 = 5 consecutive rounds with at least 1 occurrence per round); NEW round-7 dimension = INTRA-AGENT inconsistency (same oh-my-claudecode:executor agent type produces 88 violations in 33a vs 0 in 33b within same batch). Severity MEDIUM because (a) defect identified by structural sweep BEFORE Rule A reviewer + Option H cleanly applied + Rule A 100% PASS post-fix; (b) downstream RAG/KB consumer impact is parent_section chain-resolution clarity (less severe than R10 verbatim corruption); (c) v1.4 codification is straightforward (canonical-form prompt examples + intra-batch sweep)."
+    }
+  ],
+  "finding_id_range_allocated": "O-P1-109..112 (4 IDs reserved per round 7 G-MS-13)",
+  "finding_id_range_used": ["O-P1-109", "O-P1-110", "O-P1-111"],
+  "finding_id_self_validation_gate": "PASS — all 3 finding IDs ∈ {109, 110, 111}; 0 findings with ID ≤108 (no collision with sister batch 32 O-P1-105..108) or ≥113 (no collision with sister batch 34 O-P1-113..116); 1 ID unused (O-P1-112 reserved-but-unused, freed for compression cumulative)",
+  "rule_d_slot_used": 42,
+  "rule_d_audit_pivot_count_post_batch": 22,
+  "rule_d_family_post_batch": "pr-review-toolkit family 3rd-agent depth burn (1st burn batch 29 #38 code-reviewer + 2nd burn batch 31 #40 silent-failure-hunter + 3rd burn batch 33 #42 comment-analyzer); validates same-family different-agent AUDIT-mode pivot recipe consistency within pr-review-toolkit family at 3-agent depth (round 6 was 2-agent depth). 22nd AUDIT pivot cumulative across rounds 1-7. Substitute for kickoff-allocated firecrawl:skill-gen (skill not agent — finding O-P1-110).",
+  "files_written": [
+    "evidence/checkpoints/pdf_atoms_batch_33a.jsonl (93 atoms, p.321-325, post Option H bulk parent_section canonical-form fix 88 atoms)",
+    "evidence/checkpoints/pdf_atoms_batch_33a.jsonl.pre-OptionH-parent-canonical.bak (Rule B backup pre-Cycle-1+2, 93 atoms preserving 88-atom non-canonical state as O-P1-111 evidence)",
+    "evidence/checkpoints/pdf_atoms_batch_33b.jsonl (97 atoms, p.326-330, no fixes needed — clean executor output canonical first-attempt)",
+    "evidence/checkpoints/pdf_atoms_batch_33b.jsonl.pre-OptionH-parent-canonical.bak (Rule B backup pre-Cycle-2 verification, 97 atoms identical to current — 0 fix applied)",
+    "evidence/checkpoints/drift_cal_p325_writer_rerun.jsonl (21 atoms — writer rerun output preserved per Rule B for O-P1-109 evidence)",
+    "evidence/checkpoints/drift_cal_batch_33_p325_report.md (NEW1 dual-threshold 7th time FAIL report + DIRECTION analysis writer-direction + writer-family 3rd cumulative VALUE HALLUCINATION motif)",
+    "evidence/checkpoints/_progress_batch_33.json (this file)",
+    "evidence/checkpoints/P1_batch_33_report.md (full batch report)",
+    "evidence/checkpoints/rule_a_batch_33_sample.jsonl (10-atom sample seed=20260635 stratified 4 HEADING + 3 LIST_ITEM + 2 TABLE_ROW + 1 CODE_LITERAL)",
+    "evidence/checkpoints/rule_a_batch_33_verdicts.jsonl (slot #42 pr-review-toolkit:comment-analyzer verdicts; 10 PASS + 0 PARTIAL + 0 FAIL = 100.0% raw weighted = upper-bound PASS post-Option-H-fix)",
+    "evidence/checkpoints/rule_a_batch_33_summary.md (Rule A summary §1-§5 + AUDIT-mode pivot reflection pr-family 3rd-agent depth burn)"
+  ],
+  "files_NOT_touched": [
+    "root pdf_atoms.jsonl (7939 atoms unchanged — reconciler scope)",
+    "audit_matrix.md (reconciler scope)",
+    "_progress.json (reconciler scope)",
+    "sister batch files (pdf_atoms_batch_32*, pdf_atoms_batch_34*)",
+    "subagent_prompts/* (v1.3 active — no edits; v1.4 candidate stack accumulating reconciler-side ESCALATED EMERGENCY-CRITICAL)",
+    "schema/*.json",
+    "PLAN.md",
+    "plans/*.md",
+    "CLAUDE.md (modified by user/linter intentionally per system reminder; NOT touched by session C)",
+    "MEMORY/*"
+  ],
+  "halt_state": null,
+  "round_7_compliance": {
+    "G_MS_4_halt_fallback": "spec'd (kickoff §0 hard-stop directive); NOT triggered this batch (failure rate 0/190=0% well below 15%, Rule A 100.0% post-Option-H-fix at upper-bound, ctx well below 80%, reviewer dispatched fine after substitute pivot, no shared-file write attempts, 2 repair cycles below threshold — sub-batch 33a Cycle 1+2 surgical fixes)",
+    "G_MS_7_finding_id_range_pre_allocation": "compliant — O-P1-109..112 reserved (4 IDs), 3 used (O-P1-109/110/111); 1 unused (O-P1-112 reserved-but-freed); no over-allocation, no cross-session collision",
+    "G_MS_11_NEW6_dual_form_codified": "applied — 0 violations; 2 NEW L4 sub-domain HEADINGs proactively correct (QS + RS)",
+    "G_MS_11_b_round_3_extension_codified": "applied PROACTIVELY — both §6.3.9.2 QS + §6.3.9.3 RS L4 sub-domain HEADINGs first-attempt correct with parent='§6.3.9 Questionnaires, Ratings, and Scales (QRS) Domains (FT, QS, RS)' L3-group canonical NEVER self-parent; 10+ cumulative L4 self-parent NOT proactive precedents post round 7 batch 33; cross-family validation §6.3.5 (round 4-5) + §6.3.7 (round 6) + §6.3.9 (round 7) = 3 family-agnostic L3-group codifications",
+    "G_MS_12_density_alarm_check_applied": "applied — lowest p.322=15 + p.327=15 (both list-only continuation pages at floor 15 nominal; per content-type-aware floor G-MS-12.a list-only floor=8 well above); both sub-batches above content-type-aware effective floor (33a: 93 vs 61 effective / 33b: 97 vs 68 effective); alarm NOT triggered after content-type-aware adjudication; main-session PDF cross-check NOT required for density (BUT was required for parent_section canonical-form sweep — see O-P1-111 88-atom Option H bulk fix)",
+    "G_MS_13_finding_id_range_cross_validation_table": "applied — kickoff §0 cross-validation table read pre-dispatch; finding ID self-validation gate at STEP 8 confirmed all 3 IDs ∈ {109,110,111}; 0 collision with sister sessions B (O-P1-105..108) or D (O-P1-113..116)",
+    "round_7_NEW7_L6_INTRA_batch_procedural_handoff_3rd_live_fire": "EFFECTIVE — 33a→33b sub-batch handoff prepend (round 5 D-MS-4 codification mandatory) successfully applied: 33b dispatch prompt inline-prepended 33a predicted terminal state (QS-Specification L5 sib=2 chain continuation + L6 QRS Shared Assumptions sib=1 + Example 1 sib=1 + SWLS L7 sib=1 conventions); 33b executor first-attempt correctly continued at QS-Specification table TAIL TABLE_ROWs then NEW HEADING QS-Assumptions L5 sib=3 (continuation, not restart); 0 NEW7 L6 intra-batch recurrence in batch 33. 3rd live-fire validation of round 5 D-MS-4 INTRA-batch procedural enforcement codification.",
+    "round_7_NEW7_L6_CROSS_batch_handoff_round_5_G_MS_NEW_5_1_2nd_live_fire": "PARTIALLY DEFERRED to reconciler — main-session predicted batch 32 terminal state (FT-Description L5 sib=1 + FT-Specification L5 sib=2 spec table TAIL spilling into 33a p.320 territory? no, 33a starts at p.321 = FT-Assumptions L5 sib=3 head; predicted batch 32b ends at p.320 last row FTRFTDTC under FT-Specification L5 sib=2) and inline-prepended into 33a dispatch prompt per round 5 G-MS-NEW-5-1 codification. 33a writer first-attempt correctly continued FT-Assumptions L5 sib=3 chain at p.321 with parent='§6.3.9.1 Functional Tests (FT)' (L4 canonical) — HEADING-level chain RESTART correct. HOWEVER 33a child atoms used bare-form parent_section (caught by main-session structural sweep + Option H bulk fix on 88 atoms = G-MS-NEW-6-3 5th cumulative recurrence INTRA-AGENT inconsistency NEW round-7 motif O-P1-111). Reconciler post-merge will re-validate cross-session R15 once batch 32 DONE. Round 5 G-MS-NEW-5-1 codification 2nd cross-batch live-fire test.",
+    "round_7_strict_alternation_methodology_validation_1st_live_fire": "EFFECTIVE — round 6 G-MS-NEW-6-2 codification mandate (drift cal alternation rule baseline=writer→rerun=executor; baseline=executor→rerun=writer) PROCEDURALLY ENFORCED in main session dispatch round 7 batch 33: baseline 33a was oh-my-claudecode:executor → rerun was oh-my-claudecode:writer per alternation table. Result: clean disentanglement of cross-family writer-vs-executor drift signal from intra-family non-determinism (round 6 batch 30 was intra-family executor-vs-executor; round 7 batch 33 strict alternation gives cross-family signal = writer-direction main-line VALUE HALLUCINATION 3rd cumulative recurrence confirmed). 1st live-fire validation of round 6 G-MS-NEW-6-2 codification.",
+    "round_7_kickoff_routing_substitution_O_P1_110": "Kickoff §3 STEP 0.2 pre-allocated 2 reviewer slots (#41 data:debugging-dags + #42 firecrawl:skill-gen) that are SKILLS NOT registered AGENTS. Main session pivoted #42 to pr-review-toolkit:comment-analyzer (pr-family 3rd-agent intra-family depth burn). Sister batch 32 likely faces same problem and will pivot independently. Finding O-P1-110 INFO documents the protocol gap; reconciler retro round 7 G-MS gap to address with explicit available-agents-vs-skills documentation in MULTI_SESSION_PROTOCOL.md.",
+    "round_7_two_layer_audit_5th_cumulative_validation_BEFORE_pattern": "validated (reverse direction): structural sweep BEFORE Rule A reviewer caught 88 atoms in 33a (vs round 2-6 typical AFTER pattern with structural sweep finding additional defects post Rule A); confirms 1:88 reviewer-to-sweep amplification ratio (BEFORE direction); 5th cumulative round of structural-sweep-finds-more-than-sample validation post round 2 + round 4 + round 5 + round 6 batch 31 + round 7 batch 33"
+  },
+  "round_7_NEW_precedents_observed": [
+    "DOUBLE L4 sub-domain transition under §6.3.9 QRS Domains group container (§6.3.9.2 QS + §6.3.9.3 RS) within single batch — round-7 NEW; analogous to round 6 batch 31 RP+RE DOUBLE under §6.3.7 + round 4 batch 25 IS+LB+Microbiology Domains TRIPLE; confirms 2-N L4 transitions per batch is normal protocol cadence at boundary regions across 3 family-agnostic codifications (§6.3.5 + §6.3.7 + §6.3.9)",
+    "L7 named-instrument convention extended to QRS family (6-Minute Walk Test SIX MINUTE WALK + Satisfaction With Life Scale SWLS) — round-7 NEW; analogous to round 5 PD/MI Examples L6+L7 precedents but extends to instrument-naming sub-heading convention",
+    "Strict alternation methodology 1st live-fire EFFECTIVE round 7 batch 33 (round 6 G-MS-NEW-6-2 codification mandate VALIDATED) — clean disentanglement of cross-family vs intra-family drift signal",
+    "pr-review-toolkit family 3rd-agent depth burn (slot #42 comment-analyzer) — same-family different-agent AUDIT recipe consistency validated at 3-agent depth (round 6 was 2-agent depth); recipe maturity validated at intra-family depth across rounds",
+    "INTRA-AGENT inconsistency NEW round-7 motif (G-MS-NEW-6-3 5th cumulative recurrence dimension extension) — same agent type (oh-my-claudecode:executor) produces 88 violations in 33a vs 0 in 33b within same batch; v1.4 codification mandatory for intra-batch consistency check",
+    "Kickoff routing pre-allocation skill-vs-agent confusion (O-P1-110 INFO) — round 7 first occurrence of skill-as-agent error in kickoff allocation; v1.4 codification: explicit available-agents-vs-skills documentation in MULTI_SESSION_PROTOCOL.md + reconciler retro round 7 G-MS gap",
+    "Two-layer audit BEFORE pattern (1:88 amplification) — round 7 batch 33 reverses round 6 AFTER pattern; structural sweep before Rule A reviewer cleans systematic intra-agent inconsistency before sample reaches reviewer; 5th cumulative validation of two-layer architecture (round 2/4/5/6/7) with both BEFORE and AFTER patterns now documented"
+  ],
+  "handoff_to_reconciler": "Session C contributes 190 atoms (93 + 97) over p.321-330 (DOUBLE L4 sub-domain transition: §6.3.9.2 QS NEW + §6.3.9.3 RS NEW within §6.3.9 Questionnaires, Ratings, and Scales (QRS) Domains group container; cross-batch FT chain continuation from sister batch 32). Reconciler should: (a) merge pdf_atoms_batch_33a.jsonl + pdf_atoms_batch_33b.jsonl into root pdf_atoms.jsonl post sister batch 32+34 merges; (b) sweep cross-batch sibling continuity for §6.3.9 L4 chain — sib=1 FT (sister batch 32) → sib=2 QS (batch 33a) → sib=3 RS (batch 33b); (c) validate cross-session R15 FT-Assumptions L5 sib=3 chain (batch 33a) under §6.3.9.1 FT (batch 32 territory) — 2nd cross-batch handoff round 5 G-MS-NEW-5-1 live-fire test; (d) update root audit_matrix.md with batch 33 row + Rule A 33 row + drift cal 33 row + Rule D roster 41→42 + pr-review-toolkit family 3rd-agent depth burn (3/N intra-family) + kickoff substitution note O-P1-110; (e) update root _progress.json (atoms 7939→8129+ if all 3 round-7 sister merges done OR cumulative including batch 33; pages cumulative; batches 31→34; Rule D 40→42 with sister batch 32+34 add 1+1 = 43 cumulative; repair_cycles +2; findings +3 [O-P1-109/110/111] plus sister batch findings); (f) v1.4 patch session decision EMERGENCY-CRITICAL — round 7 batch 33 cumulative v1.4 candidates: round 5 5 + round 6 8 + round 7 batch 33 3 (O-P1-109 NEW8.d multi-axis whole-row + variable name truncation context-aware oracle + O-P1-110 kickoff routing skill-vs-agent + O-P1-111 intra-agent consistency canonical L6/L7 chain) = 16 cumulative round 5+6+7 / 20 cumulative round 4+5+6+7 v1.4 candidates accumulated; v1.4 cut session BEFORE batch 36 (next mandatory drift cal) recommended EMERGENCY-CRITICAL given 3 cumulative writer-direction main-line VALUE HALLUCINATION recurrences + 5 cumulative L6/L7 canonical chain form recurrences; (g) reconciler-side optional bulk-patch validation (verify Option H bulk-patch O-P1-111 88-atom canonical-form fixes preserved across sister batch 32+34 merges); (h) multi-session round 7 protocol: write MULTI_SESSION_RETRO_ROUND_7.md (Rule C 三段式 12+ R-MS retain / 7+ G-MS gap / 8+ D-MS decision); cleanup CLAUDE.md round-7 routing rule + delete batch_32/33/34_kickoff.md + reconciler_kickoff_round7.md (one-shot use done)."
+}

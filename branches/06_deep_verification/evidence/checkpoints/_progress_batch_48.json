@@ -1,0 +1,177 @@
+{
+  "batch": 48,
+  "round": 12,
+  "session": "C",
+  "status": "completed",
+  "completed_at": "2026-04-30",
+  "page_range": "sv20 p.10-19",
+  "page_count": 10,
+  "pdf_source": "SDTM_v2.0",
+  "atoms": {
+    "48a": 92,
+    "48b": 58,
+    "total_production": 150,
+    "drift_cal_writer_rerun_artifact": 11
+  },
+  "atoms_files": [
+    "evidence/checkpoints/pdf_atoms_batch_48a.jsonl",
+    "evidence/checkpoints/pdf_atoms_batch_48b.jsonl"
+  ],
+  "drift_cal_artifact_file": "evidence/checkpoints/drift_cal_sv20_p015_writer_rerun.jsonl",
+  "writer_dispatch": {
+    "subagent_type": "oh-my-claudecode:executor",
+    "pattern": "single-dispatch (round 11 batch 46 NEW PRECEDENT carry-forward; agent ID a6b579a3ab318f1e0)",
+    "v1.7_N21_compliance": "100% executor-only across all 150 production atoms (Hook 16.7 simplified pre-dispatch ban PASS)"
+  },
+  "rule_a_audit": {
+    "slot": 61,
+    "subagent_type": "codex:codex-rescue",
+    "audit_pivot_count": "42nd cumulative",
+    "family_burn_count": "codex-family 4th burn extension after #48 INAUGURAL v1.5 cut + #52 v1.6 cut 2nd burn + #56 v1.7 cut 3rd burn = codex-family 4-burn intra-family depth scale VALIDATED post round 12 batch 48",
+    "sample_size": 10,
+    "sample_strategy": "1/page sv20 p.10-19 stratified seed=20260502",
+    "verdict_strict_pass": 10,
+    "verdict_partial": 0,
+    "verdict_fail": 0,
+    "weighted_pass_rate_pct": 100.0,
+    "threshold_pct": 80.0,
+    "threshold_met": true,
+    "branch_used": "Branch A (codex direct-write via Bash python3 here-doc per round 8 #46/#47 v1.4 cut + v1.5 cut #48 + v1.6 cut #52 + v1.7 cut #56 precedents)",
+    "verdicts_file": "evidence/checkpoints/rule_a_batch_48_verdicts.jsonl",
+    "summary_file": "evidence/checkpoints/rule_a_batch_48_summary.md",
+    "sample_file": "evidence/checkpoints/rule_a_batch_48_sample.jsonl",
+    "pdf_groundtruth_file": "evidence/checkpoints/rule_a_batch_48_pdf_groundtruth.txt"
+  },
+  "drift_cal": {
+    "triggered": true,
+    "cumulative_count": 12,
+    "n14_live_fire_count": 6,
+    "n14_status": "STRONGLY_VALIDATED_sustained_at_6_cumulative_live_fires",
+    "v1.7_n21_baseline_live_fire_count": 2,
+    "first_in_sv20_pdf_source": true,
+    "target_page": "sv20 p.15",
+    "target_content_type": "mixed_structural_transition_chapter_start_plus_12col_spec_table",
+    "baseline_subagent": "oh-my-claudecode:executor (48b production p.15 subset, 15 atoms)",
+    "rerun_subagent": "oh-my-claudecode:writer (drift_cal_sv20_p015_writer_rerun.jsonl, 11 atoms; agent ID ada01604b94988674)",
+    "rerun_atoms_merged_to_root": false,
+    "rerun_atoms_artifact_only": true,
+    "metrics": {
+      "strict_count_overlap_pct": 13.3,
+      "strict_count_overlap_ratio": "2/15",
+      "verbatim_hash_jaccard_pct": 8.3,
+      "verbatim_hash_jaccard_ratio": "2/24",
+      "both_thresholds_pass": false,
+      "both_thresholds_threshold_pct": 80.0
+    },
+    "verdict": "CATASTROPHIC_FAIL_BOTH_NUMERIC_THRESHOLDS_PLUS_MULTI_MOTIF_SIMULTANEOUS",
+    "motif_classification_multi_axis": {
+      "axis_1_value_hallucination": {
+        "motif_type": "VALUE_HALLUCINATION (rounds 5-10 motif type)",
+        "cumulative_recurrence_count_at_writer_direction_artifact_only": 7,
+        "incremented_by_round_12": true,
+        "evidence_rows_affected": "rows 1/2/5/6/8 of 8 spec-table rows (62.5%)",
+        "specific_hallucinations": [
+          "Row 1 --TERM C-code C82571 -> C825/1 (digit deletion + non-alphanumeric character fabrication)",
+          "Row 1 Examples cell RESPONSE*: \"NON-MEDICAL REASON\" FABRICATED (cross-table contamination from row 39 --ADJ Interventions table)",
+          "Row 2 --MODIFY C-code C170998 -> C170908 (mid-string digit fabrication 998->908)",
+          "Row 2 Definition paraphrase: dropped 'A value which represents'",
+          "Row 2 Notes paraphrase: 'placed here' -> 'recorded in this variable'",
+          "Row 2 Examples cell RESPONSE: \"NAUSEA\" FABRICATED (PDF blank)",
+          "Row 5 --DECOD Definition paraphrase: 'dictionary-derived text' -> 'codified name assigned'",
+          "Row 6 --EVDTYP Variable(s) Qualified mangled: '--STDTC; --ENDTC' -> '--STDC; --EVTDC; only' (3 variable-name fabrications + cell-boundary leakage from Usage Restrictions)",
+          "Row 6 Definition completely rewritten with fabricated phrase 'events are grouped' + corrupted MHSTDTC -> MH/MHDTC",
+          "Row 6 Examples format drift: comma-separated -> semicolon-separated",
+          "Row 8 --HLT Definition word substitution + capitalization drift: 'high-level term from' -> 'High Level Term in'"
+        ]
+      },
+      "axis_2_canonical_form_delimiter_granularity": {
+        "motif_type": "CANONICAL_FORM_DELIMITER_GRANULARITY (round 11 NEW class motif type)",
+        "cumulative_recurrence_count": 2,
+        "incremented_by_round_12": true,
+        "evidence": "ALL writer rerun TABLE_HEADER + TABLE_ROW atoms drop leading + trailing pipes vs executor canonical N5 form (| cell | cell |)",
+        "h_b_hypothesis_confirmed": "writer canonical-form drift INDEPENDENT of content type (round 11 contributor table + round 12 12-col spec table both exhibit same drift)"
+      },
+      "axis_3_atom_type_enum_fabrication": {
+        "motif_type": "ATOM_TYPE_ENUM_FABRICATION (NEW round 12 class - 3rd distinct writer-direction motif class)",
+        "cumulative_recurrence_count": 1,
+        "first_observation": true,
+        "evidence": "Writer emitted 2 atoms with atom_type=SECTION_HEADING NOT in atom_schema.v1.2 9-enum (HEADING/SENTENCE/LIST_ITEM/TABLE_HEADER/TABLE_ROW/CODE_LITERAL/CROSS_REF/FIGURE/NOTE)",
+        "atoms_affected": ["sv20_p0015_a001", "sv20_p0015_a002"],
+        "schema_sweep_caught": "2 invalid_atom_type=SECTION_HEADING errors on writer rerun artifact",
+        "production_atoms_unaffected": "schema sweep on 48a + 48b production = 0 errors",
+        "hypothesis_on_mechanism": "writer pulls from training-data templates of generic heading enum vocabularies (CommonMark SECTION_HEADING / HTML semantics) instead of project-frozen 9-enum; structurally identical to round 5-10 TABLE_HEADER column-name training-data-template fabrication motif but at schema-field-level rather than verbatim-content-level"
+      }
+    },
+    "h_a_vs_h_b_hypothesis_discrimination_outcome": {
+      "h_a_content_type_conditional_fabrication": "CONFIRMED on rows 1/2/5/6/8 VALUE HALLUCINATION on mixed_structural_transition + 12-col spec table content type",
+      "h_b_canonical_form_drift_independent_of_content_type": "CONFIRMED on all writer rerun TABLE rows (2nd cumulative recurrence on different content type from round 11 batch 45)",
+      "both_hypotheses_simultaneously_confirmed": true,
+      "h_a_h_b_not_mutually_exclusive": true,
+      "new_round_12_axis_3": "atom_type ENUM FABRICATION as 3rd distinct motif class beyond H_A and H_B"
+    },
+    "halt_analysis": {
+      "drift_cal_both_thresholds_halt_legacy_v1.6_n1": "NUMERIC fail both <80% but disposition: REAL compound multi-motif drift contained to artifact direction; production-side clean",
+      "n3_new8.d_7th_cumulative_recurrence_halt_clause": "TRIGGERED at writer-direction in artifact-only direction (cumulative count goes to 7); under v1.7 N21 design artifact-direction recurrence is BY DESIGN per §派发 drift_cal_alternation_artifact exception; halt NOT triggered for production",
+      "v1.7_n21_new_halt_clause_executor_direction_motif": "NOT triggered (production 48a + 48b executor-clean per Rule A 100.0% + schema 0 errors)",
+      "decision": "NO_HALT_continue_to_STEP_6_7_closure_per_v1.7_n21_design_artifact_direction_recurrence_by_design"
+    },
+    "drift_cal_report_file": "evidence/checkpoints/drift_cal_batch_48_sv20_p015_report.md"
+  },
+  "schema_sweep": {
+    "production_48a_errors": 0,
+    "production_48b_errors": 0,
+    "drift_cal_writer_artifact_errors": 2,
+    "drift_cal_writer_artifact_error_detail": "atom_type=SECTION_HEADING not in 9-enum on sv20_p0015_a001 + sv20_p0015_a002"
+  },
+  "sv20_header_footer_leak_check": {
+    "48a_header_leaks": 0,
+    "48a_footer_line1_leaks": 0,
+    "48a_footer_line2_leaks": 0,
+    "48a_page_n_footer_leaks": 0,
+    "48b_header_leaks": 0,
+    "48b_footer_line1_leaks": 0,
+    "48b_footer_line2_leaks": 0,
+    "48b_page_n_footer_leaks": 0,
+    "writer_artifact_header_leaks": 0,
+    "writer_artifact_footer_leaks": 0,
+    "kickoff_§3.6_compliance": "PASS - all skip-rule patterns absent from atom corpus"
+  },
+  "findings_added": [],
+  "findings_reserved_unused": ["O-P1-169", "O-P1-170", "O-P1-171", "O-P1-172"],
+  "obs_filed_v1_8_candidate_stack": [
+    "OBS-A LOW: 7th cumulative writer-direction VALUE HALLUCINATION recurrence at writer-direction in artifact-only direction (under v1.7 N21 §派发 by-design)",
+    "OBS-B INFORMATIONAL: NEW round 12 atom_type ENUM FABRICATION 3rd distinct writer-direction motif class (v1.8 codification candidate)",
+    "OBS-C INFORMATIONAL: H_A + H_B BOTH simultaneously confirmed indicates writer-direction motifs are MULTI-AXIS not single-axis (v1.8 multi-axis motif taxonomy candidate)",
+    "OBS-D INFORMATIONAL: writer self-Validate hooks 17/20 self-claimed all-pass despite schema-violating atom_type + multi-motif divergence (4th cumulative confirmation writer self-claim trust profile UNRELIABLE)"
+  ],
+  "v1.7_codifications_2nd_cumulative_live_fire_status": {
+    "n21_complete_writer_family_deprecation": "EFFECTIVE 2nd cumulative (production-side prevention layer caught 0 hallucinations across 150 atoms)",
+    "n22_hook_18_warn_mode_sustained": "EFFECTIVE 2nd cumulative (executor-direction motif rate at 0%; Rule A 100% PASS)",
+    "n23_hook_19_rendered_moot_by_n21": "EFFECTIVE 2nd cumulative (executor self-claim trust profile sustained; v1.6 §N20 carry-forward unchanged for defense-in-depth retained)",
+    "hook_16.7_simplified_pre_dispatch_ban": "100% compliance 2nd cumulative (Hook 16.7 ban verified pre-dispatch; writer-family ineligible for ALL production atomization across ALL content types)",
+    "v1.6_n18_input_fields_removed": "EFFECTIVE 2nd cumulative (no n18_url_atoms_count or n18_long_cell_atoms_count residual references)"
+  },
+  "n6_intra_agent_consistency_pattern": "single-dispatch (round 11 batch 46 NEW PRECEDENT carry-forward 2nd cumulative live-fire EFFECTIVE; one Agent call covers both 48a + 48b in same agent context; agent ID a6b579a3ab318f1e0)",
+  "single_agent_family_state_post_round_12": {
+    "codex_family_intra_family_depth_scale_validated_at": "4-burn (after round 12 batch 48 #61 codex:codex-rescue 4th burn extension)",
+    "previous_codex_burns": ["#48 INAUGURAL v1.5 cut", "#52 v1.6 cut 2nd burn", "#56 v1.7 cut 3rd burn", "#61 round 12 batch 48 4th burn"]
+  },
+  "page_index_progress": {
+    "ig34_atoms_post_round_12_batch_47_assumed": "461/461 (full ig34 atomized via round 12 batch 47 if completed)",
+    "sv20_atoms_post_round_12_batch_48": "p.10-19 atomized = 10 of 74 pages = 13.5% (batch 47 may add p.1-9 = 9 more depending on round 12 batch 47 outcome; this batch 48 atomizes p.10-19 only)",
+    "cumulative_p1_post_batch_48": "Round 11 cumulative 460 pages + batch 47 (~10 pages assumed) + batch 48 10 pages = 480 pages assumed pending round 12 reconciler merge",
+    "p1_closure_target_per_claudemd": 535,
+    "remaining_pages_post_round_12_batch_48": "approximately 55 pages = ~5-6 more batches"
+  },
+  "do_not_touch_compliance": {
+    "root_pdf_atoms_jsonl": "untouched_per_kickoff_§8",
+    "audit_matrix_md": "untouched_per_kickoff_§8",
+    "_progress_json_root": "untouched_per_kickoff_§8",
+    "sister_batch_files": "untouched (pdf_atoms_batch_47*, pdf_atoms_batch_49*)",
+    "subagent_prompts": "untouched (v1.7 active)",
+    "schema_files": "untouched",
+    "plan_md_and_plans_dir": "untouched",
+    "claude_md_and_memory": "untouched"
+  },
+  "next_step_for_reconciler": "merge 48a + 48b production atoms (150 atoms) into root pdf_atoms.jsonl per round 12 reconciler protocol; preserve drift_cal_sv20_p015_writer_rerun.jsonl as artifact NOT merged regardless; sweep cross-session canonical-form drift §0.5; update audit_matrix.md + _progress.json + Rule D roster 59 -> 62 (pending #60 #61 #62)"
+}

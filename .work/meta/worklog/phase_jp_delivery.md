@@ -1,12 +1,12 @@
 # Phase JP Delivery (iTMS 様 納品) — 工作日志
 
-> docs/jp/ Chain J 下的提出实绩 entries. PLAN 在 `docs/jp/PLAN.md` + EXECUTION_PLAN 在 `docs/jp/EXECUTION_PLAN.md`.
+> docs/jp/ Chain J 下的提出实绩 entries. PLAN 在 `branches/jp_delivery/PLAN.md` + EXECUTION_PLAN 在 `branches/jp_delivery/EXECUTION_PLAN.md`.
 
 > **新 entry** append 到本文件 (按日期倒序或顺序皆可, 保持 H2 标题 `## YYYY-MM-DD <topic> <verb>` 格式).
 
 ---
 
-## 2026-04-29 docs/jp/ Phase 1 P0 着手順 1「04 要件定義書 v1.0」PASS (post P2 B-02 batch 01 同日)
+## 2026-04-29 branches/jp_delivery/ Phase 1 P0 着手順 1「04 要件定義書 v1.0」PASS (post P2 B-02 batch 01 同日)
 
 - **触発**: 用户「04 要件定義書から始めて」 — Phase 0/0.5/0.7/0.5.8 完了状態から Phase 1 起動
 - **完了の作業**:
@@ -25,13 +25,13 @@
   - **D-r29-12 04 要件定義書 範囲 (PLAN §0.2 整合)**: AI 平台 v1.0 リリース固有数値 (LB Test Code C65047 / 2,536 用語 / QS 系 296) は本納品物全体の根拠章 (= 04) 範囲外. KNOWN_LIMITATIONS.en.md 参照リンクで処理し抽象記述化. 案 A 採用. PLAN §0.2 Out-of-scope と整合
   - **D-r29-13 パイプライン IT 業界標準語**: METHODOLOGY「Construction pipeline」直接訳「パイプライン」を IT 業界標準語として現状維持 (auditor 推奨「処理連鎖」非採用). Phase 3 で 99_用語集.xlsx に正式登録予定 (出典 IPA / JIS X 0160)
 - **Carry-over for next session**:
-  - **NEXT**: docs/jp/ Phase 1 P0 着手順 2「01 基本設計書」 — 04 §3 業務 + §3 機能要件 引用継承
+  - **NEXT**: branches/jp_delivery/ Phase 1 P0 着手順 2「01 基本設計書」 — 04 §3 業務 + §3 機能要件 引用継承
   - **その後**: 02 運用保守 (04 §4 非機能 / §5 制約引用) + 03 試験結果報告書 (04 §6 前提引用, 並列可) → Phase 1 P0 closure
   - **Phase 3 deferred**: パイプライン用語の 99_用語集.xlsx 正式登録
   - **PASS 五条 Open**: I-1 日方ネイティブ確認担当指名 (PLAN §6 補完事項) — 各文書 v1.0 confirmer 欄に明記
 - **下一步**: commit + push (本 session 04 closure milestone)
 
-## 2026-04-29 docs/jp/ Phase 1 P0 着手順 2「01 基本設計書 v1.0」PASS (post 04 closure 同日)
+## 2026-04-29 branches/jp_delivery/ Phase 1 P0 着手順 2「01 基本設計書 v1.0」PASS (post 04 closure 同日)
 
 - **触発**: 用户「01 基本設計書から始めて」 — 04 PASS 直後の連続着手
 - **完了の作業**:
@@ -49,7 +49,7 @@
   - **D-r29-16 revisions 改訂履歴も用語規律対象**: 04 で 1 件 round 既知 false-positive として PASS だったが, 01 では writer round 2 産物の v0.2 revisions 文案に writer / reviewer / round / だいたい が 6 件混入. 主 session で v0.2 + v1.0 revisions を 04 同パターンに書換え blacklist 0 hits まで圧縮. 後段 02 / 03 の writer 派発時にも revisions 文案の用語規律遵守を kickoff prompt で明示要
   - **D-r29-17 mapping consistency 偽陽性は 04 同パターンで documented PASS**: 口語判定エントリ adopted=「文脈依存」設計 (notes に「数値→約 / 範囲→概ね / 内容要約→概略として」明記) では candidates 出現が必然的に inconsistency と検出される. 04 「A-F-5/6/8 既知 false-positive」と同 pattern で documented PASS. term_mapping.yml v0.6 改訂 (口語判定エントリ candidates から「約」削除等) は Phase 3 案件
 - **Carry-over for next session**:
-  - **NEXT**: docs/jp/ Phase 1 P0 着手順 3-4「02 運用保守マニュアル + 03 試験結果報告書」並列起動可 — 04 §4 非機能 / §5 制約 / §6 前提 + 01 §2-§4 設計 を引用継承
+  - **NEXT**: branches/jp_delivery/ Phase 1 P0 着手順 3-4「02 運用保守マニュアル + 03 試験結果報告書」並列起動可 — 04 §4 非機能 / §5 制約 / §6 前提 + 01 §2-§4 設計 を引用継承
   - **その後**: P1 補完 = 05 詳細設計書 単独 → P2 仕上げ = 06 / 07 / 99 + 00_README → Phase 4 Pack & Handoff
   - **Phase 3 deferred** (新規 4 件): build_xlsx.py 改修 (sha256 再現性 = openpyxl 作成日時固定化) / term_mapping.yml v0.6 改訂 (口語判定エントリ「約」削除案 + pipeline 登録 + 新規訳語 5 件 — チャンク / ノード / リレーション / ローカル先行 / 順方向・逆方向) / 99_用語集.xlsx 仕上げ時の新規訳語登録
   - **PASS 五条 Open** (継承): I-1 日方ネイティブ確認担当指名 — 各文書 v1.0 confirmer 欄に明記

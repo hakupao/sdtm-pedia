@@ -1,0 +1,241 @@
+{
+  "batch_id": 30,
+  "session_id": "session_c_round_6",
+  "round": 6,
+  "status": "completed",
+  "scope_pages": "ig34 p.291-300",
+  "page_count": 10,
+  "atoms_done": 276,
+  "atoms_breakdown": {
+    "30a_p291_295": 139,
+    "30b_p296_300": 137,
+    "by_page": {
+      "291": 25, "292": 18, "293": 41, "294": 28, "295": 27,
+      "296": 28, "297": 37, "298": 25, "299": 25, "300": 22
+    },
+    "by_atom_type_30a": {
+      "TABLE_ROW": 94, "SENTENCE": 23, "LIST_ITEM": 8, "HEADING": 7,
+      "TABLE_HEADER": 3, "CODE_LITERAL": 3, "NOTE": 1
+    },
+    "by_atom_type_30b": {
+      "TABLE_ROW": 77, "SENTENCE": 29, "LIST_ITEM": 13, "HEADING": 7,
+      "TABLE_HEADER": 5, "CODE_LITERAL": 5, "NOTE": 1
+    },
+    "by_atom_type_combined": {
+      "TABLE_ROW": 171,
+      "SENTENCE": 52,
+      "LIST_ITEM": 21,
+      "HEADING": 14,
+      "TABLE_HEADER": 8,
+      "CODE_LITERAL": 8,
+      "NOTE": 2
+    }
+  },
+  "failures": 0,
+  "repair_cycles": 0,
+  "repair_cycle_notes": [
+    "Zero repair cycles — schema sweep all PASS first-attempt (0 JSON parse err / 9-enum / 4-digit atom_id / 0 within-batch dup / 0 frame tag / 0 root collision; per-page density floor 15 PASS all 10 pages lowest p.292=18; sub-batch density floor 100 PASS both 30a=139 + 30b=137; NEW6.b L4 self-parent BOTH transitions correct first-attempt NV+OE; NEW7 L5/L6 chain BOTH correct first-attempt; cross-BATCH handoff first live-fire EFFECTIVE)"
+  ],
+  "rule_a": {
+    "reviewer_slot": 39,
+    "reviewer_type": "superpowers:code-reviewer",
+    "reviewer_audit_pivot_index": 20,
+    "reviewer_family": "superpowers",
+    "reviewer_family_burn_count_post_batch": 1,
+    "reviewer_family_pool_status_post_batch": "INAUGURAL (superpowers family first burn — 6th family with AUDIT-mode pivot recipe: vercel + plugin-dev + feature-dev + omc + general-purpose + superpowers; recipe family-agnostic VALIDATED at NEW family inaugural burn full-tool variant 2nd time post round 5 batch 28 #37 general-purpose precedent)",
+    "audit_mode_pivot_label": "AUDIT for SDTM PDF atomization quality, NOT general code review against project plan / NOT spec adherence / NOT step-by-step requirements review / NOT git diff analysis / NOT CLAUDE.md compliance check",
+    "tools_adaptation": "full-tool — reviewer wrote verdicts.jsonl + summary.md directly via Write tool (no adaptation needed; superpowers family is full-tool same as round 5 batch 28 general-purpose family precedent extension)",
+    "sample_size": 10,
+    "sample_seed": 20260620,
+    "sample_coverage": "1/page p.291-300 stratified (6 TABLE_ROW + 2 HEADING [NV L4 transition + OE-Desc L5] + 1 LIST_ITEM + 1 TABLE_HEADER; p.300 fallback to TABLE_ROW since 0 CODE_LITERAL on that page)",
+    "raw_pass": 10,
+    "raw_partial": 0,
+    "raw_fail": 0,
+    "raw_weighted_pct": 100.0,
+    "main_session_adjudication": {
+      "no_adjudication_needed": "Reviewer scored 10/10 PASS first-attempt with full notes including PDF cross-references; main-session spot-check confirmed atom 4 (NV L4 NEW6.b) + atom 8 (OE-Desc L5 cross-BATCH chain) verdicts consistent with PDF ground truth + main-session pre-dispatch preview. Recipe extending family-agnostic to superpowers VALIDATED 100% PASS first burn (vs round 5 batch 28 general-purpose 90% post-adjudication = recipe maturity at 6 families)."
+    },
+    "post_adjudication_pass": 10,
+    "post_adjudication_partial": 0,
+    "post_adjudication_fail": 0,
+    "post_adjudication_weighted_pct": 100.0,
+    "post_adjudication_verdict": "PASS (≥90% threshold ✅)",
+    "tom_anchor_audit_n_cumulative": 210,
+    "tom_anchor_consecutive_batches": 21,
+    "tom_anchor_fp_count": 0,
+    "tom_anchor_inversion_count": 0,
+    "special_checks": {
+      "new6_b_l4_self_parent": "PASS 7th + 8th cumulative streak — atom 4 NV L4 §6.3.7.4 sib=4 parent='§6.3.7 Morphology/Physiology Domains' (L3 group canonical NEVER self-parent) + L5 OE-Description sib=1 parent='§6.3.7.5 Ophthalmic Examinations (OE)' (L4 canonical full-form per NEW6 L5+ atom rule). Round 4-5-6 cumulative L4 self-parent NOT proactive precedents = 9 (round 4 IS p.228 + LB p.241 + Microbiology Domains p.248 + GF p.220 round 3 + round 5 MI p.263 + PD p.267 + round 6 NV p.294 + OE p.298). Codification in v1.3 §F NEVER bullet EFFECTIVE 6 rounds.",
+      "new7_l5_chain": "PASS — MK-Assumptions L5 sib=3 (cross-batch chain continuation from sister batch 29 MK-Description=1 + MK-Specification=2) + MK-Examples L5 sib=4; NV chain Description=1/Specification=2/Assumptions=3/Examples=4 (RESTART under §6.3.7.4 NV); OE chain Description=1/Specification=2 (Assumptions/Examples spill to batch 31). All chains correct first-attempt.",
+      "new7_l6_examples_chain": "PASS — MK Example 1 L6 sib=1 + Example 2 L6 sib=2 RESTART per §6.3.7.3 MK; NV Example 1 L6 sib=1 + Example 2 L6 sib=2 RESTART per §6.3.7.4 NV. All Example HEADINGs hl=6 NEVER SENTENCE per NEW7 (zero round 6 batch 30 NEW7 L6 violation = procedural intra-batch handoff EFFECTIVE 2nd live-fire post round 5 batch 26 1st live-fire).",
+      "cross_batch_handoff_first_live_fire_round_6": "PASS — round 5 D-MS-2 mandate (codify cross-BATCH sister-session predecessor-state handoff) first live-fire round 6 batch 30. Cross-BATCH carry from sister batch 29 (predicted by main-session PDF pre-dispatch preview): §6.3.7 sib=7 group container + §6.3.7.3 MK L4 sib=3 + MK-Spec L5 sib=2 mid-table at p.290 end. 30a started p.291 = MK-Spec TABLE_ROW continuation seamless (atom 1 ig34_p0291_a001 = TABLE_ROW MKSTRESU continuing from MKLOC at p.290 end with parent_section='§6.3.7.3 Musculoskeletal System Findings (MK)' canonical full-form correct). ZERO recurrence of NEW7 L6 cross-BATCH context drift motif (round 3+4+5 cumulative 3× recurrence broken at round 6 = D-MS-2 codification VALIDATED first live-fire). MK-Assumptions L5 sib=3 + MK-Examples L5 sib=4 chain numbered correctly under cross-batch L5 context (Description=1/Specification=2 from batch 29 + Assumptions=3/Examples=4 added by 30a = chain continuation 0 RESTART error)."
+    }
+  },
+  "drift_cal": {
+    "triggered": true,
+    "trigger_basis": "every-3-batches cadence batch 27→30 + cumulative atoms post-p.270 ≥600 dual-trigger MANDATORY (NEW1 dual-threshold 6th time)",
+    "target_page": 293,
+    "target_page_rationale": "p.293 41 atoms densest in 30 scope (mk.xpt 16-row TABLE Example 1 USUBJID DEF-138 + Example 2 narrative SENTENCE Sharp/Genant scoring + 2 LIST_ITEM Rows groups + Sharp/Genant TABLE_HEADER + 6 TABLE_ROW XYZ-002) — closest analog to round 5 catastrophic-fail content motif (PC dense narrative + table mix)",
+    "baseline_subagent": "oh-my-claudecode:executor (sub-batch 30a)",
+    "rerun_subagent": "oh-my-claudecode:executor (drift cal alternation)",
+    "alternation_methodology_note": "Kickoff §6 alternation rule (baseline=writer→rerun=executor; baseline=executor→rerun=writer) bypassed by 主 session dispatch — both 30a + drift cal rerun used `oh-my-claudecode:executor`. Both subagent_types are valid 'writer family' (action-oriented per v1.3 prompt §派发); drift cal effectively became INTRA-FAMILY non-determinism test rather than cross-family alternation test. Result data still meaningful (54% verbatim divergence indicates intra-family non-determinism on dense TABLE_ROW empty-cell parsing) but loses cross-family drift signal. v1.4 candidate G-MS-NEW-6-2 = procedural enforcement of alternation in kickoff §6 dispatch protocol (specify exact subagent_type for rerun).",
+    "metrics": {
+      "baseline_atoms": 41,
+      "rerun_atoms": 41,
+      "strict_count_overlap_pct": 100.0,
+      "verbatim_hash_overlap_pct": 45.0,
+      "per_atom_id_verbatim_match_pct": 46.3,
+      "common_atoms_same_verbatim": 19,
+      "common_atoms_diff_verbatim": 22,
+      "baseline_only_unique_hashes": 22,
+      "rerun_only_unique_hashes": 22,
+      "type_distribution_identical": true
+    },
+    "verdict": "FAIL (strict 100% PASS BUT verbatim 45.0% FAIL — both ≥80% required)",
+    "direction_analysis": "Direction = rerun-side TABLE_ROW empty-cell drop motif (NEW round-6 motif distinct from round 5 writer-VALUE-HALLUCINATION). Sample diffs: writer 30a wrote 'Y | Y | | | |' (correct per PDF mk.xpt MKORRES=Y MKSTRESC=Y both populated for Y rows); rerun executor wrote 'Y | | | | |' (DROPPED MKSTRESC cell consistently across 22 rows = systematic not random). DIRECTION REVERSED 10th precedent (round 5 was 9th writer-direction; round 6 reverses to rerun-direction).",
+    "v1_4_candidates_added": [
+      "G-MS-NEW-6-1: TABLE_ROW empty-cell pattern non-determinism between same-subagent-type runs on dense PDF tables; mitigation = post-write per-page wc -l + cell-count regex validation against TABLE_HEADER column count; reconciler-side bulk validate TABLE_ROW pipe-count == TABLE_HEADER+1 pipe-count for same parent_section",
+      "G-MS-NEW-6-2: drift cal alternation procedural enforcement gap; kickoff §6 alternation rule needs procedural enforcement specifying EXACT subagent_type for rerun based on baseline subagent_type table"
+    ],
+    "next_mandatory": "batch 33 (per cadence every-3-batches batch 30→33)"
+  },
+  "density_alarm_check_round_6_G_MS_12": {
+    "applied": true,
+    "lowest_per_page_atoms": "p.292=18 (lowest, well above 15-atom floor)",
+    "highest_per_page_atoms": "p.293=41 (mk.xpt + Example 2 narrative + Sharp/Genant table dense mixed)",
+    "sub_batch_30a_total": 139,
+    "sub_batch_30a_above_100_floor": true,
+    "sub_batch_30b_total": 137,
+    "sub_batch_30b_above_100_floor": true,
+    "alarm_triggered": false,
+    "main_session_pdf_cross_check": "NOT required — all 10 pages above 15-atom floor; both sub-batches above 100-atom floor; density distribution healthy across MK-Spec/MK-Examples + NV chain + OE-Spec head"
+  },
+  "new6_format_sweep": {
+    "applied": true,
+    "violations_found": 0,
+    "post_sweep_compliance": "100% (2 L4 sub-domain transitions both correct first-attempt — NV §6.3.7.4 sib=4 + OE §6.3.7.5 sib=5 both parent='§6.3.7 Morphology/Physiology Domains' L3 group canonical NEVER self-parent; 7th + 8th cumulative streak)"
+  },
+  "new7_l4_l7_chain_check": {
+    "applied": true,
+    "summary": "Round 6 batch 30 introduces 2 L4 sub-domain transitions (§6.3.7.4 NV at p.294 + §6.3.7.5 OE at p.298) within §6.3.7 Morphology/Physiology Domains group container; first cross-class transition extension since round 5 §6.3.5.9 PD group container; family pattern §6.3.7.X parallel to round-4-5 §6.3.5.X established under §6.3.5 group; both sub-domains follow standard L5 chain Description=1/Spec=2/Assumptions=3/Examples=4 + L6 Examples N hl=6 sib=1..K RESTART per L4 sub-domain.",
+    "round_6_NEW_observation": "First multi-session round operating in §6.3.7 Morphology/Physiology Domains group container post §6.3.5 Specimen-based Findings Domains exhaustion at end of round 5; v1.3 NEW6/NEW6.b dual-form codification with L3-group-parent NEVER self-parent EFFECTIVE 1st live-fire on §6.3.7 family (round 4-5 was §6.3.5 family). Pattern is family-agnostic at L3-group level."
+  },
+  "r12_transition_check": {
+    "applied": true,
+    "transition_pages": [
+      {
+        "page": 294,
+        "type": "L4 sub-domain transition (§6.3.7.3 MK Example 2 mk.xpt tail → §6.3.7.4 NV NEW)",
+        "atoms_on_page": 28,
+        "threshold": 8,
+        "compliance": "PASS (28 ≥ 8)",
+        "zone_partition": "Zone 1 MK Example 2 mk.xpt rows 7-16 (10 TABLE_ROW continuation a001-a010) / Zone 2 §6.3.7.4 NV L4 HEADING + NV-Description L5 + Description SENTENCE + NV-Specification L5 (4 atoms a011-a014 per NEW6.b NEVER self-parent) / Zone 3 nv.xpt TABLE_HEADER + first ~14 NV-Spec TABLE_ROW (a015-a028)"
+      },
+      {
+        "page": 298,
+        "type": "L4 sub-domain transition (§6.3.7.4 NV Example 2 tail → §6.3.7.5 OE NEW)",
+        "atoms_on_page": 25,
+        "threshold": 8,
+        "compliance": "PASS (25 ≥ 8)",
+        "zone_partition": "Zone 1 NV Example 2 narrative continuation + 4 LIST_ITEM Rows groups + nv.xpt TABLE_HEADER + 10 TABLE_ROW + footnote SENTENCE (a001-a022) / Zone 2 §6.3.7.5 OE L4 HEADING + OE-Description L5 + Description SENTENCE (3 atoms a023-a025) / Zone 3 — (OE-Specification spills to p.299)"
+      }
+    ],
+    "double_transition_compliance": "PASS — both L4 sub-domain transitions ≥8 atoms with proper 3-zone partition; analogous to round-5 batch 28 §6.3.5.9.2 PP + §6.3.5.9.3 Relating PP-PC L5-level DOUBLE-transition pattern but at L4 level (parallel sub-domain peer transitions under group container §6.3.7)"
+  },
+  "r15_cross_batch_sibling_check": {
+    "applied": true,
+    "intra_batch_30_continuity": "PASS — 30a→30b L5/L6 sib chain continues correctly: 30a 终态 §6.3.7.4 NV L4 sib=4 + NV-Description L5 sib=1 + NV-Specification L5 sib=2 (chain Assumptions/Examples NOT yet introduced at p.295 end) → 30b extends NV-Assumptions L5 sib=3 + NV-Examples L5 sib=4 + Example 1 L6 sib=1 + Example 2 L6 sib=2 RESTART per §6.3.7.4 NV (chain continuation 0 RESTART error); 30b adds §6.3.7.5 OE L4 sib=5 + OE-Description L5 sib=1 + OE-Specification L5 sib=2 RESTART per L4 OE (chain RESTART correct under NEW L4 sub-domain)",
+    "cross_session_continuity_predicted_batch_29_terminal": "PREDICTED state for sister session B batch 29 (p.281-290): §6.3.5.9.3 PP-PC Relating Examples 3 + Method D L7 chain continuation in 30a-side (p.281-284 batch 29 territory completes §6.3.5.9.3 Relating Examples) + p.285 MAJOR transition (§6.3.6 MO L3 sib=6 single-page + §6.3.7 Morphology/Physiology Domains L3 group container sib=7 intro + §6.3.7.1 Generic Morphology/Physiology Specification L4 sib=1) + §6.3.7.2 CV L4 sib=2 (p.286-289) + §6.3.7.3 MK L4 sib=3 + MK-Description L5 sib=1 + MK-Specification L5 sib=2 + mk.xpt TABLE_HEADER + first ~14 MK-Spec TABLE_ROW (p.290) — all 30a TABLE_ROW continuation atoms (a001-a014 = MKSTRESU through MKRFTDTC) parent='§6.3.7.3 Musculoskeletal System Findings (MK)' canonical full-form. Reconciler will validate cross-session R15 once sister batches DONE (zero recurrence of NEW7 L6 cross-batch context drift expected per round 5 D-MS-2 codification mandate first live-fire).",
+    "main_session_local_validation": "L3 sibling chain (under §6.3 Models for Findings Domains): batch 29 expected to add §6.3.6 MO sib=6 + §6.3.7 Morphology/Physiology Domains sib=7 (group container); batch 30 carries §6.3.7 forward without modification. L4 sibling chain (under §6.3.7): batch 29 expected sib=1 Generic + sib=2 CV + sib=3 MK; batch 30 contributes sib=4 NV + sib=5 OE. L5 sibling chain (under §6.3.7.3 MK): batch 29 sib=1 Description + sib=2 Specification; batch 30 30a adds sib=3 Assumptions + sib=4 Examples (chain completion). L5 sibling chain (under §6.3.7.4 NV): all 4 in 30 (1/2/3/4). L5 sibling chain (under §6.3.7.5 OE): 30 adds 1+2 only (3+4 spill batch 31)."
+  },
+  "findings_added": [
+    {
+      "finding_id": "O-P1-97",
+      "severity": "HIGH",
+      "category": "drift cal NEW1 dual-threshold 6th time FAIL — verbatim 45% / strict 100% / DIRECTION REVERSED 10th + intra-family non-determinism NEW round-6 motif",
+      "title": "NEW1 dual-threshold drift cal p.293 mk.xpt 16-row Example 1 TABLE_ROW empty-cell drop systematic 22/41 (54%) verbatim divergence — rerun-side direction OPPOSITE to round 5 writer-side VALUE HALLUCINATION",
+      "scope": "drift_cal_p293_executor_rerun.jsonl vs pdf_atoms_batch_30a.jsonl filtered p.293 (41 atoms each, type distribution IDENTICAL)",
+      "atom_id_anchor": "ig34_p0293_a003 through ig34_p0293_a008 + Sharp/Genant rows (representative diffs: writer 'Y | Y | | | |' vs rerun 'Y | | | | |' MKSTRESC cell drop)",
+      "rule_violation": "NEW1 dual-threshold spec: BOTH strict count overlap ≥80% AND verbatim hash overlap ≥80% required. Result: strict 100% PASS / verbatim 45.0% FAIL = overall FAIL. Rerun-side R10 strict verbatim violation on TABLE_ROW empty-cell parsing (dropped MKSTRESC value cells systematically — 22 atoms across mk.xpt Example 1 + Example 2 rows)",
+      "repair_action": "NO Option H needed — drift cal probe operates on rerun jsonl not 30a baseline; root unaffected. Baseline 30a TABLE_ROW values judged CORRECT per PDF ground truth (MKORRES + MKSTRESC both Y for Y-rows is CDISC SDTM standard). Rerun executor judged INCORRECT (dropped MKSTRESC consistently). Drift cal probe surfaced systematic intra-family non-determinism that would NOT have been caught by Rule A 1/page sample (sample atom_id 3 = ig34_p0293_a016 single TABLE_ROW PASSED all dims).",
+      "v1_4_codification_candidate": "G-MS-NEW-6-1: TABLE_ROW empty-cell pattern non-determinism between same-subagent-type runs on dense PDF tables. Mitigation: (a) post-write per-page wc -l + cell-count regex validation against TABLE_HEADER column count; (b) writer/executor explicit instruction 'preserve EVERY cell including empty `| |` for column-count fidelity'; (c) reconciler-side bulk validate TABLE_ROW pipe-count == TABLE_HEADER+1 pipe-count for same parent_section.",
+      "writer_family_motif": "NEW round-6 rerun-side cell-drop motif distinct from cumulative R10 violations (round 5 O-P1-85 VALUE HALLUCINATION + O-P1-88 EDITORIAL_CORRECTION + round 4 O-P1-72 SENTENCE paraphrase). 6th NEW1 drift cal failure mode validated (Cyrillic/paraphrase/N-drop/SENTENCE-paraphrase/VALUE-HALLUCINATION/cell-drop = 6 distinct motifs across 5 FAIL drift cals)."
+    },
+    {
+      "finding_id": "O-P1-98",
+      "severity": "INFO",
+      "category": "round 5 D-MS-2 cross-BATCH handoff codification mandate first live-fire EFFECTIVE — zero recurrence of NEW7 L6 cross-batch context drift motif",
+      "title": "Cross-BATCH sister-session predecessor-state handoff first live-fire round 6 batch 30 = EFFECTIVE; round 3+4+5 cumulative 3× NEW7 L6 cross-batch context drift recurrence motif BROKEN at round 6 first live-fire",
+      "scope": "30a sub-batch 起点 p.291 cross-BATCH continuation from sister batch 29 (predicted by main-session PDF pre-dispatch preview) — atom 1 ig34_p0291_a001 = TABLE_ROW MKSTRESU mid MK-Spec table parent='§6.3.7.3 Musculoskeletal System Findings (MK)' canonical full-form correct, MK-Assumptions L5 sib=3 chain continuation correct (NOT RESTART)",
+      "atom_id_anchor": "ig34_p0291_a001 (cross-BATCH handoff first atom) + ig34_p0292_a001 (MK-Assumptions L5 sib=3 chain continuation atom)",
+      "rule_violation": "N/A — POSITIVE finding (cross-BATCH handoff codification spec EFFECTIVE first live-fire)",
+      "repair_action": "NONE needed",
+      "v1_3_codification_validation": "Round 5 D-MS-2 codification mandate (CROSS-batch sister-session predecessor-state handoff procedural enforcement) was issued in round 5 retro post 3× cumulative cross-batch recurrence (round 3 batch 23 O-P1-68 GF Examples 4-5 + round 4 batch 25 O-P1-79 LB Examples block + round 5 reconciler-side O-P1-92 Example 4 cross-BATCH 3rd recurrence). Round 6 batch 30 kickoff §2 included cross-BATCH handoff prepend (predicted batch 29 terminal state); main session pre-dispatch verified PDF p.290 ground truth + pre-dispatch TOC + sister batch 29 territory; 30a writer first-attempt correctly continued MK-Spec mid-table without RESTART. ZERO Option H repair needed for batch 30 = cross-BATCH handoff codification VALIDATED first live-fire.",
+      "writer_family_motif": "NOT applicable — methodology effectiveness validation."
+    },
+    {
+      "finding_id": "O-P1-99",
+      "severity": "LOW",
+      "category": "drift cal alternation methodology procedural gap — main session dispatched same family for both 30a baseline + drift cal rerun, losing cross-family drift signal",
+      "title": "Kickoff §6 alternation rule (baseline=writer→rerun=executor; baseline=executor→rerun=writer) bypassed when 主 session dispatched both 30a + drift cal rerun as `oh-my-claudecode:executor`",
+      "scope": "Drift cal pair design: baseline = sub-batch 30a executor / rerun = drift cal executor (same subagent_type, same family). v1.3 prompt §派发 lists both `oh-my-claudecode:executor` and `oh-my-claudecode:writer` as valid 'writer family' (action-oriented). 主 session 选 executor for both 30a + rerun for consistency, losing cross-family drift signal.",
+      "atom_id_anchor": "n/a (methodology issue, not atom-specific)",
+      "rule_violation": "Soft methodology gap — kickoff §6 alternation rule wording NOT procedurally enforced in main session dispatch; dispatch protocol assumes 主 session reads alternation rule + 选 correct subagent_type, but actual selection was based on family judgment + bypassed alternation in this round.",
+      "repair_action": "Drift cal still produced meaningful data (54% verbatim divergence indicates intra-family non-determinism on dense TABLE_ROW empty-cell parsing — itself valuable signal); no rerun needed for batch 30. Round 7+ kickoff §6 must specify EXACT subagent_type for rerun based on baseline subagent_type table (procedural enforcement).",
+      "v1_4_codification_candidate": "G-MS-NEW-6-2: drift cal alternation procedural enforcement; kickoff §6 alternation rule needs procedural enforcement specifying exact subagent_type for rerun. Suggested table: | Baseline subagent_type | Rerun subagent_type | | --- | --- | | oh-my-claudecode:writer | oh-my-claudecode:executor | | oh-my-claudecode:executor | oh-my-claudecode:writer |. Main session must enforce table at dispatch.",
+      "writer_family_motif": "NOT applicable — methodology issue."
+    }
+  ],
+  "finding_id_range_allocated": "O-P1-97..100 (4 IDs reserved per round 6 G-MS-13)",
+  "finding_id_range_used": ["O-P1-97", "O-P1-98", "O-P1-99"],
+  "finding_id_self_validation_gate": "PASS — all 3 finding IDs ∈ {97, 98, 99}; 0 findings with ID ≤96 (no collision with sister batch 29 O-P1-93..96 OR round 5 reconciler O-P1-92) or ≥101 (no collision with sister batch 31 O-P1-101..104). 1 ID (O-P1-100) unused freed for compression per kickoff §0.",
+  "rule_d_slot_used": 39,
+  "rule_d_audit_pivot_count_post_batch": 20,
+  "rule_d_family_post_batch": "superpowers family INAUGURAL burn = 6th family with AUDIT-mode pivot recipe (vercel + plugin-dev + feature-dev + omc + general-purpose + superpowers); recipe family-agnostic VALIDATED 2nd time at NEW family inaugural burn full-tool variant; round 5 batch 28 #37 general-purpose 90% post-adjudication first burn → round 6 batch 30 #39 superpowers 100% PASS first burn = recipe maturity at 6 families",
+  "files_written": [
+    "evidence/checkpoints/pdf_atoms_batch_30a.jsonl (139 atoms, p.291-295)",
+    "evidence/checkpoints/pdf_atoms_batch_30b.jsonl (137 atoms, p.296-300)",
+    "evidence/checkpoints/_progress_batch_30.json (this file)",
+    "evidence/checkpoints/P1_batch_30_report.md (full batch report)",
+    "evidence/checkpoints/rule_a_batch_30_sample.jsonl (10-atom sample seed=20260620)",
+    "evidence/checkpoints/rule_a_batch_30_verdicts.jsonl (slot #39 superpowers:code-reviewer verdicts; raw 10 PASS = 100%)",
+    "evidence/checkpoints/rule_a_batch_30_summary.md (Rule A summary §1-§5 + special checks NEW6.b/NEW7/cross-batch)",
+    "evidence/checkpoints/drift_cal_p293_executor_rerun.jsonl (drift cal rerun 41 atoms)",
+    "evidence/checkpoints/drift_cal_batch_30_p293_report.md (NEW1 dual-threshold report 6th time FAIL with direction analysis + intra-family non-determinism observation + v1.4 candidates)"
+  ],
+  "files_NOT_touched": [
+    "root pdf_atoms.jsonl (7092 atoms unchanged — reconciler scope)",
+    "audit_matrix.md (reconciler scope)",
+    "_progress.json (reconciler scope)",
+    "sister batch files (pdf_atoms_batch_29*, pdf_atoms_batch_31*)",
+    "subagent_prompts/* (v1.3 active — no edits)",
+    "schema/*.json",
+    "PLAN.md",
+    "plans/*.md",
+    "CLAUDE.md",
+    "MEMORY/*"
+  ],
+  "halt_state": null,
+  "round_6_compliance": {
+    "G_MS_4_halt_fallback": "spec'd (kickoff §0 hard-stop directive); NOT triggered this batch (failure rate 0/276=0% well below 15%, Rule A 100% PASS well above 70%, ctx well below 80%, reviewer dispatched fine, no shared-file write attempts) — 6 rounds spec-only no live-fire",
+    "G_MS_7_finding_id_range_pre_allocation": "compliant — O-P1-97..100 reserved (4 IDs), 3 used (O-P1-97/98/99); 1 unused (O-P1-100) freed for compression; no over-allocation, no cross-session collision",
+    "G_MS_11_NEW6_dual_form_codified": "applied — 0 violations; 2 L4 sub-domain transitions (NV + OE) BOTH first-attempt correct under §6.3.7 group container (NEW family pattern post §6.3.5 round 4-5 family); cumulative L3-group canonical NEVER self-parent streak = 9 (round 4-5-6 cumulative)",
+    "G_MS_11_b_round_3_extension_codified": "applied — 2 L4 sub-domain section-start HEADINGs in 30 scope (NV p.294 + OE p.298) both first-attempt correct (parent='§6.3.7 Morphology/Physiology Domains' L3 group canonical full-form); 7th + 8th cumulative streak post round 3 G-MS-11.b extension codification (round 3 batch 22 GF + round 4 IS p.228 + LB p.241 + Microbiology Domains p.248 + GF p.220 + round 5 MI p.263 + PD p.267 + round 6 NV p.294 + OE p.298)",
+    "G_MS_12_density_alarm_check_applied": "applied — lowest p.292=18 atoms (well above 15-atom floor); both sub-batches above 100-atom floor; alarm NOT triggered; main-session PDF cross-check NOT required for density",
+    "G_MS_13_finding_id_range_cross_validation_table": "applied — kickoff §0 cross-validation table read pre-dispatch; finding ID self-validation gate at STEP 7 confirmed all 3 IDs ∈ {97,98,99}; 0 collision with sister sessions",
+    "round_6_NEW_codification_NEW7_L6_intra_batch_handoff": "applied — 30a→30b sub-batch handoff prepend mandatory per round 5 D-MS-4 spec; 30b dispatch prompt explicitly inline-prepended 30a terminal state (§6.3.7.4 NV L4 sib=4 + NV-Spec L5 sib=2 chain continuation context). 30b output validated correct sib continuation (Assumptions L5 sib=3 + Examples L5 sib=4 + Example 1/2 L6 sib=1/2). NEW7 L6 INTRA-batch procedural handoff ZERO recurrence in batch 30 (vs round 3 batch 23 O-P1-68 + round 4 batch 25 O-P1-79 prior recurrences; round 5 batch 26 first live-fire EFFECTIVE; round 6 batch 30 = 2nd live-fire EFFECTIVE).",
+    "round_6_NEW_codification_NEW7_L6_cross_batch_handoff_first_live_fire": "applied — 30a dispatch prompt explicitly inline-prepended PREDICTED sister batch 29 terminal state (§6.3.7.3 MK L4 sib=3 + MK-Spec L5 sib=2 mid-table at p.290 end). 30a writer first-attempt correctly continued MK-Spec TABLE_ROW from MKSTRESU (next variable after MKLOC at p.290 end) without RESTART; MK-Assumptions L5 sib=3 chain continuation correct. ZERO Option H repair needed = cross-BATCH handoff codification (round 5 D-MS-2 mandate) VALIDATED FIRST LIVE-FIRE round 6 (O-P1-98 INFO).",
+    "round_6_NEW_finding_O_P1_97_drift_cal_NEW1_6th_time_FAIL_NEW_motif": "NEW round-6 drift cal failure mode observed (rerun-side TABLE_ROW empty-cell drop) distinct from round 1-5 cumulative motifs (Cyrillic/paraphrase/N-drop/SENTENCE-paraphrase/VALUE-HALLUCINATION). 6 distinct NEW1 failure modes validated across 5 FAIL drift cals — spec robust at 6 rounds.",
+    "round_6_NEW_finding_O_P1_98_cross_batch_handoff_first_live_fire_EFFECTIVE": "POSITIVE finding — round 5 D-MS-2 mandate (cross-BATCH sister-session predecessor-state handoff procedural enforcement codification) VALIDATED FIRST LIVE-FIRE round 6 batch 30 = round 3+4+5 cumulative 3× cross-batch recurrence motif BROKEN at first live-fire of mitigation",
+    "round_6_NEW_finding_O_P1_99_drift_cal_alternation_procedural_gap": "Methodology gap — main session dispatch protocol bypassed kickoff §6 alternation rule (used same subagent_type for both 30a + rerun); drift cal data still meaningful (intra-family non-determinism observation valuable) but cross-family drift signal lost; v1.4 candidate G-MS-NEW-6-2 procedural enforcement"
+  },
+  "round_6_NEW_precedents_observed": [
+    "First multi-session round operating in §6.3.7 Morphology/Physiology Domains group container post §6.3.5 Specimen-based Findings Domains exhaustion at end of round 5 (NEW family pattern §6.3.7.X parallel to §6.3.5.X)",
+    "v1.3 NEW6/NEW6.b dual-form codification with L3-group-parent NEVER self-parent EFFECTIVE 1st live-fire on §6.3.7 family (round 4-5 was §6.3.5 family) = pattern family-agnostic at L3-group level",
+    "Cross-BATCH handoff codification (round 5 D-MS-2 mandate) FIRST LIVE-FIRE EFFECTIVE round 6 batch 30 — 3-round cumulative cross-batch context drift recurrence motif BROKEN",
+    "superpowers family AUDIT-mode pivot first burn full-tool 100% PASS = recipe family-agnostic VALIDATED 2nd time post round 5 batch 28 #37 general-purpose precedent (recipe maturity at 6 families: vercel + plugin-dev + feature-dev + omc + general-purpose + superpowers)",
+    "NEW1 drift cal 6th distinct failure mode (rerun-side TABLE_ROW empty-cell drop) — 6 cumulative motifs validated across 5 FAIL drift cals",
+    "Drift cal alternation methodology procedural gap (主 session bypassed kickoff §6 rule) — v1.4 candidate G-MS-NEW-6-2 procedural enforcement"
+  ],
+  "handoff_to_reconciler": "Session C contributes 276 atoms (139 + 137) over p.291-300 (DOUBLE L4 sub-domain transition: §6.3.7.4 NV NEW + §6.3.7.5 OE NEW within §6.3.7 Morphology/Physiology Domains group container; cross-BATCH chain continuation from sister batch 29 §6.3.7.3 MK L4 = first cross-BATCH handoff live-fire EFFECTIVE). Reconciler should: (a) merge pdf_atoms_batch_30a.jsonl + pdf_atoms_batch_30b.jsonl into root pdf_atoms.jsonl post sister batches 29 + 31 merges; (b) sweep cross-batch sibling continuity for §6.3 L3 chain (sister batch 29 expected sib=6 §6.3.6 MO single-page + sib=7 §6.3.7 group container; batch 30 carries §6.3.7 forward); §6.3.7 L4 chain (sister batch 29 expected sib=1 Generic + sib=2 CV + sib=3 MK; batch 30 contributes sib=4 NV + sib=5 OE; sister batch 31 expected sib=6 MK or beyond per TOC §6.3.7.6 RP at p.305 starts batch 31 territory); §6.3.7.3 MK L5 chain (batch 29 sib=1 Description + sib=2 Specification; batch 30 30a adds sib=3 Assumptions + sib=4 Examples = chain completion); §6.3.7.4 NV L5 chain (all 4 in batch 30); §6.3.7.5 OE L5 chain (batch 30 adds 1+2 only, 3+4 spill batch 31); (c) update root audit_matrix.md with batch 30 row + Rule A 30 row + drift cal 30 p.293 NEW1 6th time FAIL row + Rule D roster 38→39 + NEW family pool burn (superpowers 1×); (d) update root _progress.json (atoms 7092→7368 if batches 29+31 sister merges already done; pages cumulative; batches 28→30; Rule D 38→39; repair_cycles +0; findings +3 [O-P1-97/98/99]); (e) v1.4 patch session next priority decision — round 6 batch 30 added 2 NEW v1.4 candidates (G-MS-NEW-6-1 TABLE_ROW empty-cell pattern + G-MS-NEW-6-2 drift cal alternation procedural enforcement); cumulative round 4-5-6 v1.4 candidates ≥7 — schedule v1.4 patch session before batch 33 next mandatory drift cal OR at reconciler discretion; (f) NO reconciler-side bulk-patch needed for batch 30 (zero Option H, zero R12/R15 violation, 100% Rule A PASS first-attempt, cross-BATCH handoff EFFECTIVE first live-fire); (g) multi-session round 6 protocol: write MULTI_SESSION_RETRO_ROUND_6.md (Rule C 三段式 ≥10 R-MS retain + ≥3 G-MS gap + ≥5 D-MS decision; round 6 themes: cross-BATCH handoff first live-fire EFFECTIVE + superpowers family AUDIT-mode pivot 100% first burn + NEW1 6th distinct failure mode + drift cal alternation procedural enforcement gap + §6.3.7 group container family-agnostic L3-group-parent codification EFFECTIVE 1st time); cleanup CLAUDE.md round-6 routing rule + delete batch_29/30/31_kickoff.md + reconciler_kickoff_round6.md (one-shot use done)."
+}

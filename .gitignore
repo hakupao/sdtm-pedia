@@ -23,4 +23,4 @@ reports/
 web/dist-bundles/
 
 # docs/jp deliverable パッケージ展開副本 (zip + sha256 のみ追跡; 解凍検証ディレクトリは無視)
-docs/jp/deliverable/*/
+branches/jp_delivery/deliverable/*/

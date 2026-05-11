@@ -1,0 +1,90 @@
+{
+  "_note": "Sidecar progress file written 2026-04-29 post P2 Pilot + B-01 batch 01 closure. Avoids risky surgical edit on main _progress.json (1698 lines). Future session should integrate this sidecar's state into main _progress.json or treat sidecar as authoritative for P2 phase state.",
+  "project": "06_deep_verification",
+  "tier": 3,
+  "current_phase": "P2_bulk_in_progress",
+  "current_phase_started": "2026-04-29",
+  "P2_pilot": {
+    "status": "completed",
+    "completed_at": "2026-04-29T11:00:00Z",
+    "attempts": 2,
+    "attempt_1": {
+      "status": "FAILED",
+      "writers": ["oh-my-claudecode:executor", "oh-my-claudecode:writer"],
+      "atoms": 383,
+      "rule_a_pass_rate": 0.633,
+      "defects_surfaced": ["F-P2P-DEFECT-001 TABLE_HEADER overflow", "F-P2P-DEFECT-002 bold-as-HEADING", "F-P2P-DEFECT-003 LIST_ITEM truncation", "F-P2P-001 slicing 71% coverage"],
+      "rule_b_archive": "evidence/failures/P2_pilot_attempt_1.md"
+    },
+    "attempt_2": {
+      "status": "FUNCTIONAL_PASS",
+      "writers": ["oh-my-claudecode:executor"],
+      "atoms": 397,
+      "rule_a_pass_rate_strict": 0.80,
+      "rule_a_pass_rate_functional": 1.00,
+      "interpretation_note": "6/30 FAIL_VERBATIM all sub-line SENTENCE pattern; main session verified byte-exact substring; reclassified per v1.9 §R-C1",
+      "defects_surfaced": ["F-P2P-DEFECT-004 sub-line SENTENCE codification need", "F-P2P-DEFECT-005 file path inconsistency"]
+    },
+    "v1_9_prompt_cut": {
+      "date": "2026-04-29",
+      "patches": ["C-1 sub-line SENTENCE allowed", "C-2 N21 ban writer-family extended MD-side", "C-3 R-MD-Slice-Hard", "C-4 Hook 22", "C-5 TABLE_HEADER line_end <= line_start+1", "C-6 bold non-HEADING ban", "C-7 LIST_ITEM verbatim prefix + multi-sentence", "C-8 file field full repo-relative path"],
+      "hypothesis_rejected": "H_C content-conditional writer-direction reliability (round 14 D-MS-NEW-14-5)",
+      "files_cut": ["P0_writer_md_v1.9.md", "P0_writer_pdf_v1.9.md", "P0_matcher_v1.9.md", "P0_reviewer_v1.9.md"],
+      "v1_8_archived": "subagent_prompts/archive/v1.8_final_2026-04-29/",
+      "md_side_hooks": "18 -> 22 (Hook 22 + A1 + A2 + A3)"
+    }
+  },
+  "P2_bulk": {
+    "status": "in_progress",
+    "writer_pool": "1-type lock: oh-my-claudecode:executor (N21 MD-side blanket ban)",
+    "drift_cal": "WAIVED (single writer type makes drift cal moot)",
+    "B-01": {
+      "scope": "model/* remaining 4 files (model/02, 03, 05, 06)",
+      "estimated_atoms": "700",
+      "batches": {
+        "batch_01": {
+          "status": "completed",
+          "completed_at": "2026-04-29T11:30:00Z",
+          "file": "knowledge_base/model/06_relationship_datasets.md",
+          "atoms": 109,
+          "writer": "oh-my-claudecode:executor (slot 70)",
+          "reviewer": "oh-my-claudecode:scientist (slot 72)",
+          "rule_a_pass_rate": 1.00,
+          "anti_defect_check": {"C5": true, "C6": true, "C7": true, "C8": true, "C1_sub_line": true},
+          "open_findings": ["LOW md_model06_a029 line_start off-by-one (1/14 HEADING, v1.9.1 candidate)"]
+        },
+        "batch_02": {"status": "pending", "file": "knowledge_base/model/02_observation_classes.md", "lines": 298, "kickoff": "multi_session/P2_B-01_batch_02_kickoff.md"},
+        "batch_03": {"status": "pending", "file": "knowledge_base/model/03_special_purpose_domains.md", "lines": 190},
+        "batch_04": {"status": "pending", "file": "knowledge_base/model/05_study_level_data.md", "lines": 296}
+      }
+    },
+    "remaining_after_B-01": "B-02 chapters/* remaining 5 + ch04 lines 301-1395 5-segment / B-03..B-08 domains/*/assumptions x 62 / B-09..B-14 domains/*/examples x 62 / B-15 top-level x 3"
+  },
+  "md_atoms_jsonl_state": {
+    "path": ".work/06_deep_verification/md_atoms.jsonl",
+    "total_atoms": 506,
+    "atoms_by_file": {
+      "knowledge_base/chapters/ch04_general_assumptions.md": 218,
+      "knowledge_base/domains/CM/assumptions.md": 6,
+      "knowledge_base/domains/CM/examples.md": 77,
+      "knowledge_base/model/01_concepts_and_terms.md": 72,
+      "knowledge_base/model/04_associated_persons.md": 24,
+      "knowledge_base/model/06_relationship_datasets.md": 109
+    },
+    "uniqueness_check": "0 dup (jq atom_id sort uniq -d empty)",
+    "schema_compliance": "100% (all atoms post path-fix have knowledge_base/ prefix; all prompt_version P0_writer_md_v1.X canonical literal; all extracted_by structured)"
+  },
+  "rule_d_slot_usage_post_p2_pilot": {
+    "active_pool": ["oh-my-claudecode:executor (writer)", "oh-my-claudecode:scientist (Rule A)", "oh-my-claudecode:code-reviewer (Rule D)"],
+    "banned_writer_family": ["oh-my-claudecode:writer (P2 attempt 1 evidence)", "Explore", "feature-dev:code-explorer", "oh-my-claudecode:document-specialist (no Write tool)"],
+    "p1_carry_forward_slots_total": 69,
+    "p2_pilot_added_slots": 4,
+    "p2_bulk_b01_b01_added_slots": 0
+  },
+  "v1_9_1_candidate_backlog": [
+    {"id": "v1.9.1-1", "severity": "LOW", "source": "B-01 batch 01 Rule A scientist", "description": "md_model06_a029 line_start off-by-one (atom claims line 43 but heading at line 42); writer prompt explicit reminder needed: HEADING atom line_start = source heading physical line number, do not estimate via Read offset"}
+  ],
+  "recovery_hint": "Next session: read p2_pilot_report.md + this sidecar + multi_session/P2_B-01_batch_02_kickoff.md. Route word 'P2 bulk B-01 batch 02 开始任务' to dispatch executor for model/02. Or 'P2 bulk B-01 batch 03 开始任务' / 'batch 04 开始任务' to skip ahead.",
+  "last_session_end": "2026-04-29T12:00:00Z",
+  "next_session_recommended_action": "dispatch P2 B-01 batch 02 (model/02 ~298 lines / ~210 atoms / single executor dispatch)"
+}

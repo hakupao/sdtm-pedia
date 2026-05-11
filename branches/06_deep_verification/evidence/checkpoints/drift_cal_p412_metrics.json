@@ -1,0 +1,58 @@
+{
+  "batch": 42,
+  "round": 10,
+  "drift_cal_target_page": 412,
+  "drift_cal_carrier_count": 10,
+  "n14_strongly_validated_live_fire_count": 4,
+  "alternation_pattern": "v1.6_NEW_EXECUTOR_VARIANT_per_kickoff_3_3",
+  "baseline": {
+    "subagent_type": "oh-my-claudecode:executor",
+    "atoms_count": 17,
+    "source_file": "evidence/checkpoints/pdf_atoms_batch_42a.jsonl",
+    "page": 412,
+    "pdf_verified": "BYTE-EXACT (main-session cross-verified TABLE_HEADER + 3 TABLE_ROW + URLs + identifiers)"
+  },
+  "rerun": {
+    "subagent_type": "oh-my-claudecode:writer",
+    "atoms_count": 24,
+    "source_file": "evidence/checkpoints/drift_cal_p412_writer_rerun.jsonl",
+    "page": 412,
+    "merged_to_root": false,
+    "rationale": "NOT merged regardless of verdict per kickoff 3.3 v1.6 NEW EXECUTOR-VARIANT alternation pattern (writer-family BANNED for production scope per N18.a Examples-narrative+spec-table; rerun for direction-attribution validation purpose only)"
+  },
+  "metrics": {
+    "verbatim_hash_intersection": 6,
+    "verbatim_hash_union": 35,
+    "strict_count_overlap_pct": 25.0,
+    "strict_count_threshold": 80.0,
+    "strict_count_verdict": "FAIL",
+    "verbatim_hash_jaccard_pct": 17.1,
+    "verbatim_jaccard_threshold": 80.0,
+    "verbatim_jaccard_verdict": "FAIL",
+    "both_thresholds_fail": true,
+    "lowest_verbatim_jaccard_in_p1_cumulative": true
+  },
+  "verdict": "CATASTROPHIC_FAIL_BOTH_THRESHOLDS",
+  "halt_condition": true,
+  "halt_basis": [
+    "drift cal both-thresholds <80% (strict 25.0% + verbatim Jaccard 17.1%)",
+    "N3 NEW8.d 5th cumulative recurrence halt clause (6th cumulative TABLE_ROW + TABLE_HEADER VALUE HALLUCINATION)",
+    "v1.6 N18 6th-recurrence halt threshold (6th cumulative writer-direction VALUE HALLUCINATION on N18-banned examples_narrative_spec_table content type)"
+  ],
+  "writer_direction_value_hallucination_recurrence_count": 6,
+  "writer_direction_value_hallucination_history": [
+    {"round": 5, "batch": 28, "page": 270, "content_type": "examples_narrative_spec_table", "recurrence": 1, "motif": "TABLE_ROW VALUE HALLUCINATION USUBJID/PCREFID/PCTESTCD INVENTED IDs", "finding": "O-P1-85"},
+    {"round": 6, "batch": 31, "page": 293, "content_type": "examples_narrative_spec_table", "recurrence": 2, "motif": "TABLE_ROW VALUE HALLUCINATION", "finding": "O-P1-103"},
+    {"round": 7, "batch": 34, "page": 325, "content_type": "examples_narrative_spec_table", "recurrence": 3, "motif": "TABLE_ROW VALUE HALLUCINATION", "finding": "O-P1-109"},
+    {"round": 8, "batch": 36, "page": 357, "content_type": "examples_narrative_spec_table", "recurrence": 4, "motif": "TABLE_ROW VALUE HALLUCINATION halt+Option-H-bulk-repair", "finding": "round_8_batch_36_user_authorized_RESUME"},
+    {"round": 9, "batch": 39, "page": 382, "content_type": "mixed_structural_transition", "recurrence": 5, "motif": "URL .org->.ch + word clinical deletion + TABLE_ROW Study cell ~26% TRUNCATION+REORDER", "finding": "O-P1-134"},
+    {"round": 10, "batch": 42, "page": 412, "content_type": "examples_narrative_spec_table", "recurrence": 6, "motif": "TABLE_HEADER FABRICATION (TDDESC/TDANCVRF/TDEVALU1-4/STUDYID-duplicate/ARMCD/TDSEQ INVENTED columns) + TABLE_ROW VALUE FABRICATION (P9W->P1W + P11W->P1W + P13W cell DROPPED)", "finding": "O-P1-145"}
+  ],
+  "direction": "REVERSED",
+  "direction_reversed_cumulative_count": 13,
+  "drift_cal_value_add_cumulative_count": 14,
+  "v1_7_trigger_escalation": true,
+  "v1_7_action": "deprecate writer-family entirely from P1 atomization (writer-family becomes INELIGIBLE for ANY production atomization across ALL content types post v1.7 cut)",
+  "halt_state_file": "evidence/checkpoints/halt_state_batch_42.md",
+  "halt_signal": "HALT_BATCH_42 reason=6th_writer_direction_recurrence_v1.7_trigger"
+}
