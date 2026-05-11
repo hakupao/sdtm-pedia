@@ -1160,9 +1160,26 @@
       ]
     },
     "P4a_forward_matching": {
-      "status": "pending",
-      "atoms_total": null,
-      "atoms_done": 0
+      "status": "S1_complete_2026-05-11",
+      "atoms_total": 12487,
+      "atoms_done": 2500,
+      "batches_done": 25,
+      "sessions_done": 1,
+      "sub_plan": "plans/P4a_forward_matching.md",
+      "S1_stats": {
+        "batches": "001-025",
+        "atoms": 2500,
+        "EXACT": 880,
+        "EQUIVALENT": 733,
+        "PARTIAL": 384,
+        "MISSING": 263,
+        "INTENTIONAL_EXCLUDE": 227,
+        "MISPLACED": 10,
+        "ERROR": 3,
+        "coverage_pct": 20.0,
+        "matched_pct": 64.5
+      },
+      "next_step": "S2_batches_026-050"
     },
     "P4b_section_aggregation": {
       "status": "pending"
