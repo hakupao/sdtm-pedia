@@ -33,7 +33,7 @@ title: "既知の制約"
 
 ### Claude Projects (v2.6)
 
-- **L4-Cl1**: 容量は約 77% (1.29M tokens / 19 files)。paid-tier soft cap に近づいています。さらに内容を追加するには、既存の低優先度ファイルを削除する必要があります (UPLOAD_TUTORIAL §8 downgrade path を参照)。
+- **L4-Cl1**: 容量は約 77% (1.29M tokens / 19 files)。paid-tier soft cap に近づいています。さらに内容を追加するには、既存の低優先度ファイルを削除する必要があります (`self_deploy/claude/tutorial.ja.md` §8 upgrade / downgrade path を参照)。
 - **L4-Cl2**: Indexing indicator は信頼性が低いです。UI に "Indexing" と表示されていても、新しい内容にクエリがヒットする場合があります。待たずに smoke questions で直接テストしてください。
 - **L4-Cl3**: 公開共有リンクはありません。Team/Enterprise plan メンバーは同じ Project を共有できますが、Pro plan ユーザーは個別に再デプロイする必要があります。
 
@@ -41,13 +41,13 @@ title: "既知の制約"
 
 - **L4-CG1**: 20-file hard limit。現在のデプロイは 9 files を使用しており、拡張余地があります。ソースファイルは統合済みで、例として 63 domain specs は `04_domain_specs_all.md` に統合されています。
 - **L4-CG2**: File search RAG chunk strategy はユーザー設定できません。長尾 terminology query は、表の中ほどに埋もれている場合 miss chunks になる可能性があります。
-- **L4-CG3**: GPT Store 公開には OpenAI review が必要です。Custom GPT は org/team に review なしで共有できるため、社内利用ではこちらを推奨します。
+- **L4-CG3**: GPT Store 公開には OpenAI review が必要です。Custom GPT は org/team に review なしで共有できるため、まずはこちらの利用を推奨します。
 
 ### Gemini Gems (v7.1 LIVE)
 
 - **L4-GE1**: アップロードファイルは 4 個のみで、最も積極的に統合されています。大きな context window で補えますが、cold session では first-token latency が遅くなる場合があります。
-- **L4-GE2**: 個人アカウントに紐づきます。Gem は標準ではチーム共有できません (Workspace plan では一部共有機能があります)。各同僚が self-deploy します。
-- **L4-GE3**: Claude/NotebookLM と比べ、反ハルシネーション baseline は弱めです。R1→R2 upgrade (v6→v7 system prompt) により 65% から 94% に改善しました。**同僚がデプロイする場合は、v7.1 system prompt を逐語的に使用する必要があります**。
+- **L4-GE2**: 個人アカウントに紐づきます。Gem は標準ではチーム共有できません (Workspace plan では一部共有機能があります)。各ユーザーが self-deploy します。
+- **L4-GE3**: Claude/NotebookLM と比べ、反ハルシネーション baseline は弱めです。R1→R2 upgrade (v6→v7 system prompt) により 65% から 94% に改善しました。**ユーザーがデプロイする場合は、v7.1 system prompt を逐語的に使用する必要があります**。
 
 ### NotebookLM
 
@@ -82,4 +82,4 @@ SMOKE_V4 R1+R2 結果 (2026-04-22 から 2026-04-24) に基づきます:
 3. Bojiang Zhang にメールするか、project tracker issue を作成して上記を添付してください。
 4. expected vs actual を含め、SDTMIG v3.4 spec section または CDISC CT C-code を引用してください。
 
-これらは次の minor release に向けて `./CHANGELOG.md` で追跡します。
+これらは次の minor release に向けて `./CHANGELOG.ja.md` で追跡します。

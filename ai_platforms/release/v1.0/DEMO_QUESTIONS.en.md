@@ -7,13 +7,13 @@ title: "Demo Questions"
 
 # SDTM AI Knowledge Base — 10 Demo Questions
 
-> **Purpose**: Help colleagues with access to the 4 deployed platforms quickly understand the system's capability. Expected time: 5 minutes for 3 questions, or about 30 minutes for all 10.
+> **Purpose**: Help users with access to the 4 deployed platforms quickly understand the system's capability. Expected time: 5 minutes for 3 questions, or about 30 minutes for all 10.
 >
-> **Audience**: Company colleagues testing the deployed Claude Project / ChatGPT GPT / Gemini Gem / NotebookLM after onboarding.
+> **Audience**: Users testing the deployed Claude Project / ChatGPT GPT / Gemini Gem / NotebookLM after onboarding.
 >
 > **Composition**: 1 warm-up, 5 practical reasoning questions, 3 anti-hallucination probes, and 1 cross-domain capstone.
 >
-> **Numbering note**: This file uses D0-D9 demo IDs for colleague-facing testing. The internal full benchmark uses Q1-Q14 across 17 questions and is maintained by Bojiang Zhang. These two ID systems do not map to each other. If a self-deployment tutorial mentions "Q1-Q10", it refers to the internal benchmark, not the D IDs here.
+> **Numbering note**: This file uses D0-D9 demo IDs for user testing. The internal full benchmark uses Q1-Q14 across 17 questions and is maintained by Bojiang Zhang. These two ID systems do not map to each other. If a self-deployment tutorial mentions "Q1-Q10", it refers to the internal benchmark, not the D IDs here.
 
 ## Question Types
 

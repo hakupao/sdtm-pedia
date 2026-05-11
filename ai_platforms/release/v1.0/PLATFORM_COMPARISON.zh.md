@@ -31,10 +31,10 @@ title: "4 平台多维对比"
 
 | 平台 | 共享方式 | 是否需审核 |
 |---|---|---|
-| Claude Projects | Organization / Project 邀请 (Team / Enterprise 套餐共享 Project; Pro 用户需各自重新部署) | 不适用 (内部直接邀请) |
+| Claude Projects | Organization / Project 邀请 (Team / Enterprise 套餐共享 Project; Pro 用户需各自重新部署) | 不适用 (组织邀请) |
 | ChatGPT GPTs | Custom GPT 分享至 organization (免审核) 或发布 GPT Store (走 OpenAI review) | 仅 Store 发布需审核 |
-| Gemini Gems | Workspace 套餐: Bojiang Zhang 直接分享; 个人账号: 同事各自自部署 (粘贴完整 v7.1 system prompt) | 不适用 |
-| NotebookLM | 邮件邀请加入 notebook (Pro / Workspace), 或同事自建 (50-source cap) | 不适用 |
+| Gemini Gems | Workspace 套餐: Bojiang Zhang 直接分享; 个人账号: 用户各自自部署 (粘贴完整 v7.1 system prompt) | 不适用 |
+| NotebookLM | 邮件邀请加入 notebook (Pro / Workspace), 或用户自建 (50-source cap) | 不适用 |
 
 ## 4. 套餐要求
 
@@ -60,7 +60,7 @@ title: "4 平台多维对比"
 |---|:---:|---|
 | Claude Projects | 强 | 多步推理 + system prompt anti-fabrication anchor + Stage 6 Deferred Stub 规则 |
 | ChatGPT GPTs | 中 | system prompt 引导 + post v2.2 GFINHERT 精确变量校验; 长尾 chunk 偶尔 miss |
-| Gemini Gems | 偏强 (post v7.1) | v6→v7 升级带 AHP guardrail, R1→R2 评分从 65% 升至 94%; 同事部署须完整粘贴 v7.1 system prompt |
+| Gemini Gems | 偏强 (post v7.1) | v6→v7 升级带 AHP guardrail, R1→R2 评分从 65% 升至 94%; 用户部署须完整粘贴 v7.1 system prompt |
 | NotebookLM | 最强 | in-KB-only 架构天然反虚构; 不在 42 source 内宁可 PUNT 也不编造; inline citation 反查 |
 
 ## 7. 文件数限制
@@ -77,7 +77,7 @@ title: "4 平台多维对比"
 | 平台 | 最强场景 |
 |---|---|
 | Claude Projects | 精确变量 + 多步推理 (Core + C-code + 跨变量, 例 PCTPT 五件套); 错前提纠错 (SUPPTS); 域边界判定 |
-| ChatGPT GPTs | 全量域查询; 团队共享 / 发布 GPT Store; 组织内分享免审核 |
+| ChatGPT GPTs | 全量域查询; 团队共享 / 发布 GPT Store; 团队共享免审核 |
 | Gemini Gems | 一次性塞大量上下文 / 跨域模式比对; 长会话; 大范围探索; 4 文件深度合并 |
 | NotebookLM | 强反虚构 (审计 / 合规); inline citation 反查; 拒答优于编造; 跨域死亡日级对齐与 v3.4 新域 PASS+ |
 
@@ -87,7 +87,7 @@ title: "4 平台多维对比"
 |---|---|
 | Claude Projects | 实时联网 (FDA / Pinnacle 21 需手动核 cdisc.org); 超大批量域对比; 容量已 77% 接近 Pro 软上限 |
 | ChatGPT GPTs | 多步推理略弱于 Claude; Free 账号找不到入口; 长尾 chunk 表格中段可能 miss |
-| Gemini Gems | 个人账号不能直接团队共享 (要 Workspace); 同事自部署须完整粘贴 v7.1 system prompt 否则丢 AHP guardrail |
+| Gemini Gems | 个人账号不能直接团队共享 (要 Workspace); 用户自部署须完整粘贴 v7.1 system prompt 否则丢 AHP guardrail |
 | NotebookLM | 不在 42 source 内的题 (实时 Pinnacle 21 / breaking news / Dataset-JSON v1.1 / CT version locking + MedDRA) 主动 PUNT — 设计如此, 非 bug |
 
 ---

@@ -7,7 +7,7 @@ title: "更新日志"
 
 # 更新日志 — SDTM AI 知识库发布版
 
-## v1.0 — 2026-04-27 (公司发布版)
+## v1.0 — 2026-04-27 (发布版)
 
 ### 新增
 
@@ -24,7 +24,7 @@ title: "更新日志"
   - `GLOSSARY`
   - `METHODOLOGY`
   - `KNOWN_LIMITATIONS`
-- 发布 10 题 demo set (D0-D9)，供同事快速验收部署质量。
+- 发布 10 题 demo set (D0-D9)，供用户快速验收部署质量。
 - 发布每个平台的 self-deploy tutorial，说明上传文件、配置 prompt 和 smoke test 的步骤。
 
 ### 质量基线 (17 题评测，R1+R2)
@@ -64,4 +64,4 @@ title: "更新日志"
 - 完成知识库构建与验证。
 - 完成 4 个平台部署。
 - 完成 17 题 baseline 测试。
-- 完成 v1.0 release package 与同事 onboarding 文档。
+- 完成 v1.0 release package 与用户 onboarding 文档。

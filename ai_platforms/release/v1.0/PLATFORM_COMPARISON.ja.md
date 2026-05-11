@@ -31,10 +31,10 @@ title: "4 プラットフォーム多次元比較"
 
 | プラットフォーム | 共有方式 | 審査の要否 |
 |---|---|---|
-| Claude Projects | Organization / Project 招待 (Team / Enterprise プランで Project を共有; Pro ユーザーは各自が再デプロイが必要) | 該当なし (内部直接招待) |
+| Claude Projects | Organization / Project 招待 (Team / Enterprise プランで Project を共有; Pro ユーザーは各自が再デプロイが必要) | 該当なし (organization 招待) |
 | ChatGPT GPTs | Custom GPT を organization に共有 (審査不要) または GPT Store 公開 (OpenAI review が必要) | Store 公開のみ審査あり |
-| Gemini Gems | Workspace プラン: Bojiang Zhang が直接共有; 個人アカウント: 同僚が各自でセルフデプロイ (完全な v7.1 system prompt を貼り付け) | 該当なし |
-| NotebookLM | メール招待で notebook に参加 (Pro / Workspace)、または同僚が自己構築 (50-source cap) | 該当なし |
+| Gemini Gems | Workspace プラン: Bojiang Zhang が直接共有; 個人アカウント: ユーザーが各自でセルフデプロイ (完全な v7.1 system prompt を貼り付け) | 該当なし |
+| NotebookLM | メール招待で notebook に参加 (Pro / Workspace)、またはユーザーが自己構築 (50-source cap) | 該当なし |
 
 ## 4. プラン要件
 
@@ -60,7 +60,7 @@ title: "4 プラットフォーム多次元比較"
 |---|:---:|---|
 | Claude Projects | 強い | 多段階推論 + system prompt anti-fabrication anchor + Stage 6 Deferred Stub ルール |
 | ChatGPT GPTs | 中 | system prompt 誘導 + v2.2 適用後の GFINHERT 精確変数検証; 長尾 chunk で miss される場合あり |
-| Gemini Gems | やや強い (v7.1 以降) | v6→v7 アップグレードで AHP guardrail 追加、R1→R2 スコアが 65% から 94% に向上; 同僚デプロイ時は完全な v7.1 system prompt の貼り付けが必要 |
+| Gemini Gems | やや強い (v7.1 以降) | v6→v7 アップグレードで AHP guardrail 追加、R1→R2 スコアが 65% から 94% に向上; ユーザーがデプロイする際は完全な v7.1 system prompt の貼り付けが必要 |
 | NotebookLM | 最強 | in-KB-only アーキテクチャが天然のアンチハルシネーション; 42 source 外の質問は捏造より拒答を優先; inline citation による逆引き確認 |
 
 ## 7. ファイル数制限
@@ -76,8 +76,8 @@ title: "4 プラットフォーム多次元比較"
 
 | プラットフォーム | 最も得意なシナリオ |
 |---|---|
-| Claude Projects | 精確な変数 + 多段階推論 (Core + C-code + クロスドメイン変数、例: PCTPT 5 点セット); 誤った前提の訂正 (SUPPTS); ドメイン境界の判定 |
-| ChatGPT GPTs | 全ドメイン照会; チーム共有 / GPT Store 公開; 組織内共有は審査不要 |
+| Claude Projects | 精確な変数 + 多段階推論 (Core + C-code + 変数間の関連、例: PCTPT 5 点セット); 誤った前提の訂正 (SUPPTS); ドメイン境界の判定 |
+| ChatGPT GPTs | 全ドメイン照会; チーム共有 / GPT Store 公開; チーム共有は審査不要 |
 | Gemini Gems | 大量コンテキストの一括入力 / クロスドメインパターン比較; 長いセッション; 広範囲の探索; 4 ファイルの深度マージ |
 | NotebookLM | 強いアンチハルシネーション (監査 / コンプライアンス); inline citation による逆引き確認; 捏造より拒答を優先; クロスドメイン死亡日レベル整合と v3.4 新ドメイン PASS+ |
 
@@ -87,7 +87,7 @@ title: "4 プラットフォーム多次元比較"
 |---|---|
 | Claude Projects | リアルタイムのインターネット接続 (FDA / Pinnacle 21 は cdisc.org での手動確認が必要); 超大量ドメインの一括比較; 容量が 77% で Pro ソフトリミットに近い |
 | ChatGPT GPTs | 多段階推論は Claude よりやや劣る; Free アカウントでは入口が見つからない; 長尾 chunk のテーブル中段が miss される場合あり |
-| Gemini Gems | 個人アカウントではチームへの直接共有ができない (Workspace が必要); 同僚がセルフデプロイする際は完全な v7.1 system prompt を貼り付けないと AHP guardrail が失われる |
+| Gemini Gems | 個人アカウントではチームへの直接共有ができない (Workspace が必要); ユーザーがセルフデプロイする際は完全な v7.1 system prompt を貼り付けないと AHP guardrail が失われる |
 | NotebookLM | 42 source 外の質問 (リアルタイムの Pinnacle 21 / 最新ニュース / Dataset-JSON v1.1 / CT version locking + MedDRA) は積極的に PUNT — 設計上の仕様であり、バグではありません |
 
 ---

@@ -6,13 +6,13 @@ title: "Demo Questions"
 
 # SDTM AI Knowledge Base — 10 Demo Questions
 
-> **目的 / Purpose / 目的**: 同事拿到 4 平台访问后, 用这 10 题快速感受能力. 5 分钟 (3 题) ~ 30 分钟 (全 10 题). 题面三语 (中/EN/JA), 答案判据保英文 (SDTM 术语原样).
+> **目的 / Purpose / 目的**: 用户获得 4 平台访问后, 用这 10 题快速感受能力. 5 分钟 (3 题) ~ 30 分钟 (全 10 题). 题面三语 (中/EN/JA), 答案判据保英文 (SDTM 术语原样).
 >
-> **Audience**: company colleagues testing the deployed Claude Project / ChatGPT GPT / Gemini Gem / NotebookLM after onboarding.
+> **Audience**: users testing the deployed Claude Project / ChatGPT GPT / Gemini Gem / NotebookLM after onboarding.
 >
 > **构成**: 1 热身基础题 + 5 实战推理题 + 3 反虚构探针 (anti-hallucination probe) + 1 跨域终极题.
 >
-> **编号说明**: 本文件用 D0-D9 (Demo) 编号, 是给同事用的 10 题快速感受包. 项目内部完整测试用 Q1-Q14 编号, 共 17 题 (内部 SMOKE_V4 题库, 由 Bojiang Zhang 保管). 二者编号无对应关系 — 自部署 tutorial 内部测试题如果出现 "Q1-Q10" 等编号是指内部 17 题, 不要找 D-id 对应.
+> **编号说明**: 本文件用 D0-D9 (Demo) 编号, 是面向用户的 10 题快速感受包. 项目内部完整测试用 Q1-Q14 编号, 共 17 题 (内部 SMOKE_V4 题库, 由 Bojiang Zhang 保管). 二者编号无对应关系 — 自部署 tutorial 内部测试题如果出现 "Q1-Q10" 等编号是指内部 17 题, 不要找 D-id 对应.
 
 ## 题型分布
 
@@ -27,7 +27,7 @@ title: "Demo Questions"
 | D6 | 反虚构探针 (变量) | LBCLINSIG 虚构变量识别 | ★★★ |
 | D7 | 反虚构探针 (跨域) | "Trial-Level SAE Aggregate 表" 虚构识别 | ★★★ |
 | D8 | 反虚构探针 (废域) | PF (Pharmacogenomics Findings) v3.4 已废 | ★★★ |
-| D9 | 跨域终极 | AE/MH/CE 同事件多域共记 + DS 死亡日级对齐 | ★★★★ |
+| D9 | 跨域终极 | AE/MH/CE 同一事件多域共记 + DS 死亡日级对齐 | ★★★★ |
 
 ---
 
@@ -185,7 +185,7 @@ For each: (i) domain (ii) why-not-the-other-two (iii) example Topic variable val
 
 ---
 
-## D9 — 跨域终极: AE/MH/CE 同事件多域 + DS 死亡日级对齐
+## D9 — 跨域终极: AE/MH/CE 同一事件多域 + DS 死亡日级对齐
 
 **🇨🇳**: 受试者 Visit 5 突发心梗 (STEMI) 住院, 治疗 3 天出院, Visit 7 因心衰死亡. 请回答 (a) 心梗本身可同时记 AE / CE / MH 哪些域? 各自业务边界是? (b) "死亡" 这个 terminal event 应该记 AE 还是 DS 还是都要? (c) DS 域 DSDECOD vs DSCAT 在死亡场景下值各是什么? (d) 死亡时间 ISO 8601 怎么跨域对齐 (AE.AESTDTC / AE.AEENDTC / DS.DSSTDTC / DM.DTHDTC)?
 

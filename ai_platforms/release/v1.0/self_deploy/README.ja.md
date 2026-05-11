@@ -22,24 +22,24 @@
 
 ## 3. 共通の前提準備
 
-1. 本ディレクトリに移動します (社内クラウドから release パックをダウンロード、または本リポジトリを `git clone` し `ai_platforms/release/v1.0/` に移動)。各プラットフォームのデプロイ資材は `./{claude,chatgpt,gemini,notebooklm}/` 配下に配置済みです (`system_prompt.md` または `instructions.md` + `uploads/` + `tutorial.<lang>.md`)。
+1. 本ディレクトリに移動します (リリース配布チャネルから release パックをダウンロード、または本リポジトリを `git clone` し `ai_platforms/release/v1.0/` に移動)。各プラットフォームのデプロイ資材は `./{claude,chatgpt,gemini,notebooklm}/` 配下に配置済みです (`system_prompt.md` または `instructions.md` + `uploads/` + `tutorial.<lang>.md`)。
 2. §1 の表に従い、アカウントとプランを準備します。
 3. §2 の該当 tutorial を開き、章の順序を**厳守して**実行してください (手順をスキップすると system_prompt のゲートルールが失われます)。
 
 ## 4. デプロイ後の検証 (smoke test)
 
-デプロイ完了後、`../DEMO_QUESTIONS.md` の D0・D1・D5 の 3 問で簡易検収を行います (所要時間 約 5 分):
+デプロイ完了後、`../DEMO_QUESTIONS.ja.md` の D0・D1・D5 の 3 問で簡易検収を行います (所要時間 約 5 分):
 
 - **D0**: AESER 基本クエリ (AE / Exp / C66742 NY) — 基本 RAG の検証。
 - **D1**: GF ドメイン EGFR シナリオ (GFGENSR / GFPVRID / GFGENREF / GFINHERT) — 新ドメイン + 多変数推論の検証。
 - **D5**: SUPPTS 前提誤り訂正 — anti-hallucination ゲートの検証 (能動的に誤りを検出し → TSVAL1-n を返すこと)。
 
-3 問すべて PASS = デプロイ成功。1 問でも PASS しない場合は `../KNOWN_LIMITATIONS.en.md` でトラブルシューティングしてください。優先確認事項: (a) system_prompt.md が完全にペーストされ途中で切れていないか、(b) uploads/ のファイル数とサイズがチュートリアルの一覧と合致しているか。
+3 問すべて PASS = デプロイ成功。1 問でも PASS しない場合は `../KNOWN_LIMITATIONS.ja.md` でトラブルシューティングしてください。優先確認事項: (a) system_prompt.md が完全にペーストされ途中で切れていないか、(b) uploads/ のファイル数とサイズがチュートリアルの一覧と合致しているか。
 
 ## 5. アップグレード / メンテナンス
 
-release パックは今後も更新されます: minor release (`../CHANGELOG.md` に v1.1 / v1.2 と記載) または SDTMIG 新版 (v3.5+) のタイミングで、Bojiang Zhang が社内クラウドから新しい release パックを配布します。再アップロード手順: 新パックを取得 → 対応するプラットフォームのサブディレクトリ (`./{claude,chatgpt,gemini,notebooklm}/`) に移動 → 旧 uploads を削除して再アップロード → **新しい system_prompt.md を完全にコピー&ペースト** (途中で切断すると AHP ゲートルールが失われます。例: Gemini v7.1 CO-1d SUPPQUAL ハードアンカー + ChatGPT v2.2 v3.4 新ドメイン変数名検証)。ロールバック: 過去の release パックは Bojiang Zhang までご連絡ください。
+release パックは今後も更新されます: minor release (`../CHANGELOG.ja.md` に v1.1 / v1.2 と記載) または SDTMIG 新版 (v3.5+) のタイミングで、新しい release パックがリリース配布チャネルから配布されます。再アップロード手順: 新パックを取得 → 対応するプラットフォームのサブディレクトリ (`./{claude,chatgpt,gemini,notebooklm}/`) に移動 → 旧 uploads を削除して再アップロード → **新しい system_prompt.md を完全にコピー&ペースト** (途中で切断すると AHP ゲートルールが失われます。例: Gemini v7.1 CO-1d SUPPQUAL ハードアンカー + ChatGPT v2.2 v3.4 新ドメイン変数名検証)。ロールバック: 過去の release パックを取得し、同じ手順で復元してください。
 
 ## 6. フィードバック
 
-誤りや幻覚を発見した場合: (1) スクリーンショットを撮り、質問の原文と AI の回答を保存します; (2) プラットフォーム + バージョン (例: "ChatGPT GPT v2.2 LIVE 2026-04-24") + 期待される回答 (SDTMIG v3.4 章番号または CDISC CT C-code を引用) + セルフデプロイバージョン番号 + smoke スコアを添付します; (3) メールで Bojiang Zhang に連絡 / issue tracker / 部門グループチャットで @Bojiang Zhang。内容は `../CHANGELOG.md` に集約し、次の minor release で対応します。
+誤りや幻覚を発見した場合: (1) スクリーンショットを撮り、質問の原文と AI の回答を保存します; (2) プラットフォーム + バージョン (例: "ChatGPT GPT v2.2 LIVE 2026-04-24") + 期待される回答 (SDTMIG v3.4 章番号または CDISC CT C-code を引用) + セルフデプロイバージョン番号 + smoke スコアを添付します; (3) GitHub issue またはプロジェクトのフィードバック窓口で報告します。内容は `../CHANGELOG.ja.md` に集約し、次の minor release で対応します。

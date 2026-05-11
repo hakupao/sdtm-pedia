@@ -7,15 +7,15 @@ title: "Changelog"
 
 # CHANGELOG — SDTM AI Knowledge Base Release
 
-## v1.0 — 2026-04-27 (Company Release)
+## v1.0 — 2026-04-27 (Release)
 
-**First public release for company-internal use.**
+**First public release package.**
 
 ### Added
 - 4-platform LIVE deployments: Claude Projects v2.6 / ChatGPT GPTs v2.2 / Gemini Gems v7.1 / NotebookLM (Custom mode instructions 8,925 chars)
-- Trilingual user documentation (zh / en / ja): top README, USER_GUIDE, self_deploy/README, 4 × UPLOAD_TUTORIAL
+- Trilingual user documentation (zh / en / ja): README, USER_GUIDE, PLATFORM_COMPARISON, METHODOLOGY, DEMO_QUESTIONS, GLOSSARY, KNOWN_LIMITATIONS, self_deploy/README, and 4 platform tutorials
 - 10-question DEMO pack with multilingual prompts
-- KNOWN_LIMITATIONS reference (en)
+- KNOWN_LIMITATIONS reference
 - 17-question smoke test framework v4.0 with 3 anti-hallucination probes (AHP)
 - Per-platform decision tree ("which platform for what")
 
@@ -37,7 +37,7 @@ title: "Changelog"
 
 ### Release artifacts
 - `./` (this folder) — self-contained release: public-facing docs + per-platform deploy bundles under `self_deploy/{claude,chatgpt,gemini,notebooklm}/`, each with `system_prompt.md` (or `instructions.md`) + `uploads/` + trilingual `tutorial.{zh,en,ja}.md`
-- git tag: `v1.0-company-release` (created at Phase E end)
+- git tag: `v1.0-release` (created at Phase E end)
 
 ### Known limitations
 See `KNOWN_LIMITATIONS.en.md` for full list (L1-L3 cross-platform + L4 per-platform).

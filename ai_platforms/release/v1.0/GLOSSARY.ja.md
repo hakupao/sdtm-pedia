@@ -13,13 +13,13 @@ title: "用語集"
 
 | 用語 | 日本語 | 説明 |
 |---|---|---|
-| **SDTM** | 臨床試験データ表記モデル | Study Data Tabulation Model。CDISC 標準のひとつで、臨床試験データをどのように表（ドメイン / 変数 / コードリスト）として整理するかを定めています。 |
+| **SDTM** | 臨床試験データ表形式モデル | Study Data Tabulation Model。CDISC 標準のひとつで、臨床試験データをどのように表（ドメイン / 変数 / コードリスト）として整理するかを定めています。 |
 | **SDTMIG v3.4** | SDTM 実装ガイド v3.4 | SDTM Implementation Guide。SDTM モデルを「どのドメインにどの変数があり、それぞれの Core 属性は何か」という形で具体化した仕様書です。本プロジェクトで使用している v3.4 は 2021 年版の主流仕様です。 |
 | **CDISC** | 臨床データ交換標準協会 | Clinical Data Interchange Standards Consortium。SDTM / ADaM / CDASH などの一連の標準を管理しており、FDA への提出には必須の組織です。 |
 | **Domain（ドメイン）** | ドメイン（領域） | SDTM では臨床データをテーマ別に 63 のドメインに分類しています。例：AE（Adverse Events）/ DM（Demographics）/ LB（Lab）/ EX（Exposure）。各ドメインは 1 枚のテーブルに対応します。 |
 | **Variable（変数）** | 変数 | ドメイン内の 1 列を指します。例：AE ドメインには AESER（Serious Event フラグ）/ AETERM（報告原文）/ AEDECOD（MedDRA デコード）などがあります。 |
 | **Core 属性** | Req / Exp / Perm | 各変数の「入力必須レベル」を表します。**Req**（Required、必須）/ **Exp**（Expected、原則記載、欠損時は注記が必要）/ **Perm**（Permissible、任意）。例：USUBJID Core=Req、AESER Core=Exp、AESEV Core=Perm。 |
-| **CT（Controlled Terminology）** | 規制用語 / 制御用語集 | CDISC が定める「その変数に入力できる値の一覧」です。例：AESER には Y/N/U/NA の 4 値のみ使用可能で、"yes" や "はい" は使えません。 |
+| **CT（Controlled Terminology）** | 統制用語 | CDISC が定める「その変数に入力できる値の一覧」です。例：AESER には Y/N/U/NA の 4 値のみ使用可能で、"yes" や "はい" は使えません。 |
 | **C-code** | NCI 用語コード | 各コードリストを一意に識別する NCI EVS の C-code です。例：NY コードリスト = C66742、AESEV コードリスト = C66769。これらの C-code は SDTMIG / NCI EVS Browser / Pinnacle 21 など各所で共通して使われます。 |
 | **Extensible** | 拡張可能 | コードリストにスポンサー独自の値を追加できるかどうかを示すフラグです。**Extensible=Yes**（例：LBNRIND は 4 標準値 + スポンサー追加可）対 **Non-Extensible**（例：NY は Y/N/U/NA の厳格な 4 値のみで追加不可）。 |
 | **Codelist** | コードリスト（コード表） | 名前付きの値セットです。例：LBNRIND コードリストには {HIGH/LOW/NORMAL/ABNORMAL} の 4 標準値があります。「CT」と同義で使われます。 |
@@ -53,8 +53,8 @@ title: "用語集"
 | 用語 | 意味 |
 |---|---|
 | **17 問 / 内部完全問題集** | 各プラットフォームの評価に使用する SDTM 問題セットです。共通問題 14 問 + 幻覚抑止プローブ 3 問で構成されています。`../../SMOKE_V4.md` §2 をご参照ください。 |
-| **D0〜D9 / Demo** | 同僚向けの 10 問クイックデモセットです。本ディレクトリの `./DEMO_QUESTIONS.md` にあります。内部の 17 問とは別物であり、問題番号に対応関係はありません。 |
-| **4 条の品質ルール** | プロジェクト内部の成果物・レビュープロセスに関する規律です（例：「改変率 50% 超は独立サンプリングレビュー必須」「失敗記録は削除しない」「最終稿には必ず振り返りを記載」「レビューは自己審査禁止」）。同僚は詳細まで把握する必要はありません。 |
+| **D0〜D9 / Demo** | ユーザー向けの 10 問クイックデモセットです。本ディレクトリの `./DEMO_QUESTIONS.ja.md` にあります。内部の 17 問とは別物であり、問題番号に対応関係はありません。 |
+| **4 条の品質ルール** | プロジェクト内部の成果物・レビュープロセスに関する規律です（例：「改変率 50% 超は独立サンプリングレビュー必須」「失敗記録は削除しない」「最終稿には必ず振り返りを記載」「レビューは自己審査禁止」）。一般ユーザーは詳細まで把握する必要はありません。 |
 | **LIVE** | プラットフォームのデプロイ完了 + 完全な 17 問実施済み + 品質ゲート通過済み、実際に使用可能な状態です。現在 4 つのプラットフォームすべてが LIVE です。 |
 | **baseline** | プロジェクト内部で公式に測定した「そのプラットフォームでこの問題セットを実施した場合に期待されるスコア」です。自分でデプロイして同じ問題を実施した場合、同様のスコアが再現できるはずです（±2 点の誤差は許容範囲です）。 |
 
@@ -65,7 +65,7 @@ title: "用語集"
 | テーマ | パス |
 |---|---|
 | 完全なテスト問題集 + 各プラットフォームの問題別回答 | `../../SMOKE_V4.md` + 各プラットフォームの `dev/evidence/smoke_v4_answers/` |
-| 完全な制限事項一覧 | [`./KNOWN_LIMITATIONS.en.md`](./KNOWN_LIMITATIONS.en.md) |
+| 完全な制限事項一覧 | [`./KNOWN_LIMITATIONS.ja.md`](./KNOWN_LIMITATIONS.ja.md) |
 | プロジェクト方法論 | `../../claude_projects/docs/RETROSPECTIVE_V2.md`（Claude v2 最終状態の振り返り）+ `../../notebooklm/docs/RETROSPECTIVE.md`（NotebookLM 振り返り） |
 | 4 プラットフォームの横断的振り返り | `../../retrospectives/PHASE5_RETROSPECTIVE.md`（v1.0 FINAL） |
 

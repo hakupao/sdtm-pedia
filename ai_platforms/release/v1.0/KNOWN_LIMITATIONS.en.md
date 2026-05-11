@@ -7,7 +7,7 @@ title: "Known Limitations"
 
 # Known Limitations — SDTM AI Knowledge Base v1.0
 
-> Maintained as a single English file. Each limitation lists: which platform(s) it affects, the evidence/reproduction, and the recommended workaround.
+> This page lists current-version limitations. Each limitation includes affected platform(s), evidence/reproduction notes, and the recommended workaround.
 
 ## Cross-Platform Limitations
 
@@ -33,7 +33,7 @@ title: "Known Limitations"
 
 ### Claude Projects (v2.6)
 
-- **L4-Cl1**: Capacity at ~77% (1.29M tokens / 19 files). Approaching paid-tier soft cap. Adding more content requires removing existing low-priority files (see UPLOAD_TUTORIAL §8 downgrade path).
+- **L4-Cl1**: Capacity at ~77% (1.29M tokens / 19 files). Approaching paid-tier soft cap. Adding more content requires removing existing low-priority files (see `self_deploy/claude/tutorial.en.md` §8 upgrade / downgrade path).
 - **L4-Cl2**: Indexing indicator unreliable. Even when UI shows "Indexing", queries can hit new content. Don't wait — test directly with smoke questions.
 - **L4-Cl3**: No public sharing link. Team/Enterprise plan members share the same Project; Pro plan users must re-deploy individually.
 
@@ -41,13 +41,13 @@ title: "Known Limitations"
 
 - **L4-CG1**: 20-file hard limit. Current deployment uses 9 files (room to grow). Source files are merged (e.g. all 63 domain specs into one `04_domain_specs_all.md`).
 - **L4-CG2**: File search RAG chunk strategy not user-configurable. Some long-tail terminology queries may miss chunks if buried mid-table.
-- **L4-CG3**: GPT Store publication requires OpenAI review. Custom GPT can be shared to org/team without review (recommended for company-internal use).
+- **L4-CG3**: GPT Store publication requires OpenAI review. Custom GPT can be shared to org/team without review, so this path is recommended first.
 
 ### Gemini Gems (v7.1 LIVE)
 
 - **L4-GE1**: Only 4 uploaded files (most aggressive merge). Larger context window compensates but may slow first-token latency on cold sessions.
-- **L4-GE2**: Personal-account binding. Gem cannot be shared to a team out of the box (Workspace plan offers some sharing). Each colleague self-deploys.
-- **L4-GE3**: Lower baseline anti-hallucination strictness vs. Claude/NotebookLM. R1→R2 upgrade (v6→v7 system prompt) brought it from 65% to 94%; **all colleagues deploying must use the v7.1 system prompt verbatim** to inherit the AHP guardrail.
+- **L4-GE2**: Personal-account binding. Gem cannot be shared to a team out of the box (Workspace plan offers some sharing). Each user self-deploys.
+- **L4-GE3**: Lower baseline anti-hallucination strictness vs. Claude/NotebookLM. R1→R2 upgrade (v6→v7 system prompt) brought it from 65% to 94%; **all users deploying must use the v7.1 system prompt verbatim** to inherit the AHP guardrail.
 
 ### NotebookLM
 

@@ -33,7 +33,7 @@ title: "已知限制"
 
 ### Claude Projects (v2.6)
 
-- **L4-Cl1**: 容量约 77% (1.29M tokens / 19 files)，接近 paid-tier soft cap。若要加入更多内容，需要删除现有低优先级文件，见 UPLOAD_TUTORIAL §8 downgrade path。
+- **L4-Cl1**: 容量约 77% (1.29M tokens / 19 files)，接近 paid-tier soft cap。若要加入更多内容，需要删除现有低优先级文件，见 `self_deploy/claude/tutorial.zh.md` §8 upgrade / downgrade path。
 - **L4-Cl2**: Indexing 指示不可靠。即使 UI 显示 "Indexing"，查询也可能已经能命中新内容。不要等待，直接用 smoke questions 测试。
 - **L4-Cl3**: 无公开分享链接。Team/Enterprise plan 成员共享同一个 Project；Pro plan 用户需要各自部署。
 
@@ -41,13 +41,13 @@ title: "已知限制"
 
 - **L4-CG1**: 20-file hard limit。当前部署使用 9 files，仍有增长空间。源文件已合并，例如 63 个 domain specs 合并为 `04_domain_specs_all.md`。
 - **L4-CG2**: File search RAG chunk strategy 不能由用户配置。部分长尾 terminology queries 如果埋在表格中部，可能 miss chunks。
-- **L4-CG3**: GPT Store 发布需要 OpenAI review。Custom GPT 可分享到 org/team 且不需 review，推荐公司内部使用。
+- **L4-CG3**: GPT Store 发布需要 OpenAI review。Custom GPT 可分享到 org/team 且不需 review，推荐优先使用此方式。
 
 ### Gemini Gems (v7.1 LIVE)
 
 - **L4-GE1**: 仅上传 4 个文件，合并最激进。更大的 context window 可以补偿，但冷启动时 first-token latency 可能更慢。
-- **L4-GE2**: 绑定个人账号。Gem 默认不能直接分享到团队，Workspace plan 可能提供部分共享能力。每位同事需要自部署。
-- **L4-GE3**: 反幻觉严格度 baseline 低于 Claude/NotebookLM。R1→R2 升级 (v6→v7 system prompt) 将分数从 65% 提升到 94%；**所有同事部署时必须逐字使用 v7.1 system prompt** 才能继承 AHP guardrail。
+- **L4-GE2**: 绑定个人账号。Gem 默认不能直接分享到团队，Workspace plan 可能提供部分共享能力。每位用户需要自部署。
+- **L4-GE3**: 反幻觉严格度 baseline 低于 Claude/NotebookLM。R1→R2 升级 (v6→v7 system prompt) 将分数从 65% 提升到 94%；**所有用户部署时必须逐字使用 v7.1 system prompt** 才能继承 AHP guardrail。
 
 ### NotebookLM
 
@@ -82,4 +82,4 @@ title: "已知限制"
 3. 邮件联系 Bojiang Zhang，或在项目 tracker 中提交 issue 并附上上述材料。
 4. 包含 expected vs actual，并引用 SDTMIG v3.4 spec section 或 CDISC CT C-code。
 
-我们会在 `./CHANGELOG.md` 中追踪这些问题，供下一个 minor release 使用。
+我们会在 `./CHANGELOG.zh.md` 中追踪这些问题，供下一个 minor release 使用。

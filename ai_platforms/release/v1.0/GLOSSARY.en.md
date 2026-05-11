@@ -53,8 +53,8 @@ title: "Glossary"
 | Term | Explanation |
 |---|---|
 | **17 questions / internal full question set** | The SDTM question set used to evaluate each platform: 14 general questions + 3 Anti-Hallucination Probes. See `../../SMOKE_V4.md` §2. |
-| **D0–D9 / Demo** | A 10-question quick-demo pack for colleagues, located at `./DEMO_QUESTIONS.md`. Not the same as the internal 17-question set — question numbers do not correspond between the two. |
-| **4 quality rules** | Internal process disciplines governing how outputs are produced and reviewed (e.g. "rewrite rate >50% requires independent sampling audit," "failed attempts are archived, never deleted," "every final deliverable requires a retrospective," "self-review is not allowed"). Colleagues don't need to know the details. |
+| **D0–D9 / Demo** | A 10-question quick-demo pack for users, located at `./DEMO_QUESTIONS.en.md`. Not the same as the internal 17-question set — question numbers do not correspond between the two. |
+| **4 quality rules** | Internal process disciplines governing how outputs are produced and reviewed (e.g. "rewrite rate >50% requires independent sampling audit," "failed attempts are archived, never deleted," "every final deliverable requires a retrospective," "self-review is not allowed"). General users do not need the details. |
 | **LIVE** | A platform that has been fully deployed, run through the complete 17-question evaluation, and passed all quality gates — ready for end-user use. All 4 platforms are currently LIVE. |
 | **baseline** | The officially measured score for a given platform on the standard question set. After deploying your own instance, running the same questions should reproduce this score (±2 points tolerance). |
 
