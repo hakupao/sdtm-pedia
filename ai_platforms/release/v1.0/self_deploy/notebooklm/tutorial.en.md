@@ -4,13 +4,13 @@
 > After completing this tutorial: 30–60 minutes to get a working NotebookLM notebook, in-KB-only natural anti-hallucination, complete 17-question test 15/17 PASS (88%) baseline.
 > Source files: project repository `./` (instructions.md + uploads/ × 42).
 >
-> ℹ️ All `../../notebooklm/dev/evidence/...` paths referenced in this document point to internal QA artifacts retained by Bojiang Zhang and are NOT included in this release pack. Contact Bojiang Zhang for access if needed.
+> ℹ️ All `../../../../notebooklm/dev/evidence/...` paths referenced in this document point to internal QA artifacts retained by Bojiang Zhang and are NOT included in this release pack. Contact Bojiang Zhang for access if needed.
 
 ---
 
 ## 0. Prerequisites
 
-- [ ] **Google AI Pro subscription** ([ai.google.com](https://ai.google.com)): this deployment uses 42 sources, well within Pro tier limits (Pro caps far exceed our usage). Free tier 50-source limit fits exactly, also workable but Pro is more stable. For full caps (notebooks / sources / words / chat / audio), see [`../../notebooklm/docs/PLAN.md`](../../notebooklm/docs/PLAN.md) §A
+- [ ] **Google AI Pro subscription** ([ai.google.com](https://ai.google.com)): this deployment uses 42 sources, well within Pro tier limits (Pro caps far exceed our usage). Free tier 50-source limit fits exactly, also workable but Pro is more stable. For full caps (notebooks / sources / words / chat / audio), see [`../../../../notebooklm/docs/PLAN.md`](../../../../notebooklm/docs/PLAN.md) §A
 - [ ] **Google account** (personal Gmail or Workspace): one account manages all notebooks; if you plan to do team sharing in the future, using a Workspace account is recommended
 - [ ] **Web browser access** to [notebooklm.google.com](https://notebooklm.google.com): this tutorial is entirely Web UI operations (NotebookLM has no consumer GA API)
 - [ ] **Local clone of this repository**: you need to upload the **42 source files** under `./uploads/*.md` and paste `./instructions.md` into the Chat Custom mode
@@ -78,7 +78,7 @@ NotebookLM officially acknowledges a very small probability of indexing silent f
 - **All 42 tiles present**: none can be missing. Every tile must show a green "Indexed" status
 - **Open a few sources and preview**: spot-check 5–10 sources (first source_01 + last source_42 + a few random ones) by clicking them and reading the opening paragraph, to guard against "uploaded successfully but content is garbled"
 
-On upload, this release was measured 42/42 indexed with 0 silent fail (upload log: `../../notebooklm/dev/evidence/p3_2_upload_log.md`).
+On upload, this release was measured 42/42 indexed with 0 silent fail (upload log: `../../../../notebooklm/dev/evidence/p3_2_upload_log.md`).
 
 ---
 
@@ -113,7 +113,7 @@ Use 3 basic questions to verify the notebook foundation is stable. If any 1 ques
 
 ### Release v1.0 complete demo
 
-In addition to the 3 sanity questions in this tutorial, release v1.0 provides a 10-question full demo at [../DEMO_QUESTIONS.md](../DEMO_QUESTIONS.md). Note: NotebookLM is an in-KB-only design — supplemental topic questions like Q11/Q12 will result in a PUNT (refusal to answer). This is **correct anti-hallucination behavior, not a bug**; see [../KNOWN_LIMITATIONS.en.md](../KNOWN_LIMITATIONS.en.md) §L4-NB5.
+In addition to the 3 sanity questions in this tutorial, release v1.0 provides a 10-question full demo at [../../DEMO_QUESTIONS.en.md](../../DEMO_QUESTIONS.en.md). Note: NotebookLM is an in-KB-only design — supplemental topic questions like Q11/Q12 will result in a PUNT (refusal to answer). This is **correct anti-hallucination behavior, not a bug**; see [../../KNOWN_LIMITATIONS.en.md](../../KNOWN_LIMITATIONS.en.md) §L4-NB5.
 
 ---
 
@@ -121,9 +121,9 @@ In addition to the 3 sanity questions in this tutorial, release v1.0 provides a 
 
 Complete test of 17-question suite (including 3 anti-hallucination questions): 15/17 PASS (88.2%), all 3 anti-hallucination questions caught — tied for strongest among the 4 platforms (NotebookLM in-KB-only architecture is naturally anti-hallucination). You can re-run these 17 questions to verify your own deployed notebook is equally stable.
 
-- **Question bank**: [`../../../SMOKE_V4.md`](../../../SMOKE_V4.md) §2
-- **Per-question answers + verdicts**: `../../notebooklm/dev/evidence/smoke_v4_answers/*.md`
-- **Summary report**: `../../notebooklm/dev/evidence/smoke_v4_results.md`
+- **Question bank**: [`../../../../SMOKE_V4.md`](../../../../SMOKE_V4.md) §2
+- **Per-question answers + verdicts**: `../../../../notebooklm/dev/evidence/smoke_v4_answers/*.md`
+- **Summary report**: `../../../../notebooklm/dev/evidence/smoke_v4_results.md`
 - **Pass threshold**: ≥12/17 (71%) for R1 first-run tolerance
 
 ### 17-question distribution
@@ -169,14 +169,14 @@ Complete test of 17-question suite (including 3 anti-hallucination questions): 1
 ### Scaling up (42 → N sources)
 
 - Pro cap is 300 sources; current usage is 14%, leaving 8-slot + 258 Pro cap headroom
-- To expand the KB (e.g., adding SDTMIG next version v3.5 / new domains), add bucket 43+ to `../../notebooklm/dev/scripts/bucket_config.json` → run `merge_sources.py` → upload the new source incrementally
+- To expand the KB (e.g., adding SDTMIG next version v3.5 / new domains), add bucket 43+ to `../../../../notebooklm/dev/scripts/bucket_config.json` → run `merge_sources.py` → upload the new source incrementally
 - Note: ≥51 sources will trigger the Free tier viewer 50-cap; re-run Free tier testing
 
 ### Scaling down (42 → Free tier compatible)
 
 - Free tier limits: 50 notebooks × 50 sources × 150K words/source × 50 chats/day × 3 audio/day
 - **This release exceeds the Free tier words cap**: largest bucket 302K > 150K/source Free cap → bucket re-splitting is required (finer granularity, each < 150K)
-- Re-splitting path: write a new config in `../../notebooklm/dev/scripts/`, pack into 80–100 buckets, re-upload
+- Re-splitting path: write a new config in `../../../../notebooklm/dev/scripts/`, pack into 80–100 buckets, re-upload
 - Estimated effort: 1–2 days
 
 ### instructions.md fine-tuning
@@ -189,14 +189,14 @@ Complete test of 17-question suite (including 3 anti-hallucination questions): 1
 
 ## 9. Team Collaboration / Three-Tier Sharing Toggle
 
-NotebookLM supports dynamically switching the same notebook among 3 sharing levels without needing to create multiple notebooks. The share level toggle drill was VERIFIED + deepened on 2026-04-23 (`../../notebooklm/dev/evidence/share_level_toggle_drill.md`).
+NotebookLM supports dynamically switching the same notebook among 3 sharing levels without needing to create multiple notebooks. The share level toggle drill was VERIFIED + deepened on 2026-04-23 (`../../../../notebooklm/dev/evidence/share_level_toggle_drill.md`).
 
 ### Three-tier semantics
 
 | Level | Access rule | Use case | 50-cap rule |
 |-------|-------------|----------|-------------|
 | **Restricted** (default) | Owner only + Google accounts on the invite list | Personal use / small team | **Free tier invitees subject to 50-source cap** (Pro owner not affected) |
-| **Anyone with link** | Any Google-account user who has the link can access | Targeted external sharing / company-wide broadcast | Free tier cap does not apply |
+| **Anyone with link** | Any Google-account user who has the link can access | Targeted distribution / team-wide announcement | Free tier cap does not apply |
 | **Public** | Link can be shared with anyone (Google login still required) | Open knowledge base | Free tier cap does not apply |
 
 ### Toggle steps
@@ -210,7 +210,7 @@ NotebookLM supports dynamically switching the same notebook among 3 sharing leve
 - The Public level means "**any link holder can access without logging in**" — it does NOT auto-list the notebook in the NotebookLM public gallery
 - The NotebookLM public gallery (Featured) is a **curated list**, not auto-listed; setting your notebook to Public does **not automatically expose it**
 - **Privacy-friendlier** than ChatGPT GPT Store "Public = broadcast to the entire internet" semantics
-- Suitable for: small internal team + targeted external sharing combined scenarios
+- Suitable for: small-team sharing + targeted distribution combined scenarios
 
 ### Free tier 50-cap only applies to Restricted + Invite scenario
 
@@ -254,13 +254,13 @@ Trigger condition: you explicitly request "refine the Studio three-piece set lat
 
 | Document | Path | Purpose |
 |----------|------|---------|
-| **RETROSPECTIVE (this platform)** | `../../notebooklm/docs/RETROSPECTIVE.md` | Rule C three-section + pivot case + _template/ patches |
-| **Cross-4-platform Phase 5 retro** | `../../retrospectives/PHASE5_RETROSPECTIVE.md` | v1.0 FINAL 2026-04-24 Bojiang Zhang-acknowledged 4-platform sign-off |
-| **PLAN** | `../../notebooklm/docs/PLAN.md` | 662-line v2.2 (complete plan after architecture pivot) |
-| **Complete 17-Q test results** | `../../notebooklm/dev/evidence/smoke_v4_results.md` + `smoke_v4_answers/` | Per-question verdict for all 17 questions |
-| **share level toggle drill evidence** | `../../notebooklm/dev/evidence/share_level_toggle_drill.md` | v1.0 FINAL 6 sub-steps + Public semantics deep-dive |
-| **v1→v2 architecture pivot record** | `../../notebooklm/archive/v1_3notebook_SUPERSEDED_2026-04-21/ARCHITECTURE_PIVOT_RECORD.md` | Key lesson: writer narrative synthesis pseudo-constraint |
-| **Reviewer report** | `../../notebooklm/dev/evidence/phase5_retrospective_reviewer.md` | v0.2 post-fix independent audit 10 action items |
+| **RETROSPECTIVE (this platform)** | `../../../../notebooklm/docs/RETROSPECTIVE.md` | Rule C three-section + pivot case + _template/ patches |
+| **Cross-4-platform Phase 5 retro** | `../../../../retrospectives/PHASE5_RETROSPECTIVE.md` | v1.0 FINAL 2026-04-24 Bojiang Zhang-acknowledged 4-platform sign-off |
+| **PLAN** | `../../../../notebooklm/docs/PLAN.md` | 662-line v2.2 (complete plan after architecture pivot) |
+| **Complete 17-Q test results** | `../../../../notebooklm/dev/evidence/smoke_v4_results.md` + `smoke_v4_answers/` | Per-question verdict for all 17 questions |
+| **share level toggle drill evidence** | `../../../../notebooklm/dev/evidence/share_level_toggle_drill.md` | v1.0 FINAL 6 sub-steps + Public semantics deep-dive |
+| **v1→v2 architecture pivot record** | `../../../../notebooklm/archive/v1_3notebook_SUPERSEDED_2026-04-21/ARCHITECTURE_PIVOT_RECORD.md` | Key lesson: writer narrative synthesis pseudo-constraint |
+| **Reviewer report** | `../../../../notebooklm/dev/evidence/phase5_retrospective_reviewer.md` | v0.2 post-fix independent audit 10 action items |
 
 ---
 
@@ -279,5 +279,5 @@ After deployment, run through the following checklist:
 
 ---
 
-*v1.0 — 2026-04-27 — Company Release*
-*Platform-specific retro: ../../notebooklm/docs/RETROSPECTIVE.md ; Release v1.0 overview: ../README.en.md*
+*v1.0 — 2026-04-27 — Release*
+*Platform-specific retro: ../../../../notebooklm/docs/RETROSPECTIVE.md ; Release v1.0 overview: ../README.en.md*

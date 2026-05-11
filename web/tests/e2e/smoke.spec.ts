@@ -40,7 +40,7 @@ test('ja landing and demo guide do not expose known Chinese-source strings', asy
 
   await page.goto('/ja/guide/demo-questions/');
   await expect(page.locator('article')).toContainText('SDTM AI ナレッジベース');
-  await expect(page.locator('article')).not.toContainText('同事拿到');
+  await expect(page.locator('article')).not.toContainText('4 平台访问');
   await expect(page.locator('article')).not.toContainText('题型分布');
   await expect(page.locator('article')).not.toContainText('核心事实必中');
   await expect(page.locator('article')).not.toContainText('主动识破');

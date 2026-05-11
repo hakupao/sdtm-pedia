@@ -92,7 +92,7 @@ Click **Preview** in the top-right. Ask each question in a **new chat**:
 
 ## 6. Full Regression (10 Questions, Optional ~30 min)
 
-Open [`../DEMO_QUESTIONS.md`](../DEMO_QUESTIONS.md) and submit questions D0–D9 (10 demo questions) one by one. Use a **new chat per question** to avoid context contamination. Score ≥ 8/10 = equivalent to the baseline release version.
+Open [`../../DEMO_QUESTIONS.en.md`](../../DEMO_QUESTIONS.en.md) and submit questions D0-D9 (10 demo questions) one by one. Use a **new chat per question** to avoid context contamination. Score >= 8/10 = equivalent to the baseline release version.
 
 ---
 
@@ -136,7 +136,7 @@ Minimum retained baseline: `01–05 + 07` (navigation + chapters + model + spec 
 **GPT Store public publishing**:
 - Requires OpenAI review (~1–3 business days)
 - Accessible to anyone on the internet; suitable for an open knowledge base
-- Ensure the Name / Description does not contain sensitive keywords or internal company identifiers
+- Ensure the Name / Description does not contain sensitive keywords or confidential identifiers
 
 ---
 
@@ -162,4 +162,4 @@ All ☑ = deployment successful; you can begin daily use.
 
 ---
 
-*v1.0 — 2026-04-27 — Company Release*
+*v1.0 — 2026-04-27 — Release*

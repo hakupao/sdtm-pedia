@@ -31,10 +31,10 @@ title: "4 Platforms — Multi-dimensional Comparison"
 
 | Platform | Sharing Method | Review Required |
 |---|---|---|
-| Claude Projects | Organization / Project invite (Team / Enterprise plan shares Project; Pro users must each redeploy independently) | N/A (direct internal invite) |
+| Claude Projects | Organization / Project invite (Team / Enterprise plan shares Project; Pro users must each redeploy independently) | N/A (organization invite) |
 | ChatGPT GPTs | Share Custom GPT within organization (no review) or publish to GPT Store (OpenAI review required) | Store publishing only |
-| Gemini Gems | Workspace plan: Bojiang Zhang shares directly; personal account: colleagues self-deploy (paste full v7.1 system prompt) | N/A |
-| NotebookLM | Email-invite to join notebook (Pro / Workspace), or colleagues build their own (50-source cap) | N/A |
+| Gemini Gems | Workspace plan: Bojiang Zhang shares directly; personal account: users self-deploy (paste full v7.1 system prompt) | N/A |
+| NotebookLM | Email-invite to join notebook (Pro / Workspace), or users build their own (50-source cap) | N/A |
 
 ## 4. Subscription Requirements
 
@@ -60,7 +60,7 @@ title: "4 Platforms — Multi-dimensional Comparison"
 |---|:---:|---|
 | Claude Projects | Strong | Multi-step reasoning + system prompt anti-fabrication anchor + Stage 6 Deferred Stub rules |
 | ChatGPT GPTs | Medium | System prompt guidance + post-v2.2 GFINHERT precise variable validation; long-tail chunks occasionally miss |
-| Gemini Gems | Moderately strong (post v7.1) | v6→v7 upgrade added AHP guardrail; R1→R2 score rose from 65% to 94%; colleagues must paste full v7.1 system prompt when self-deploying |
+| Gemini Gems | Moderately strong (post v7.1) | v6→v7 upgrade added AHP guardrail; R1→R2 score rose from 65% to 94%; users must paste full v7.1 system prompt when self-deploying |
 | NotebookLM | Very strong | in-KB-only architecture is inherently anti-hallucination; PUNTs rather than fabricates for anything outside 42 sources; inline citation verification |
 
 ## 7. File Count Limit
@@ -77,7 +77,7 @@ title: "4 Platforms — Multi-dimensional Comparison"
 | Platform | Best-at Scenario |
 |---|---|
 | Claude Projects | Precise variable lookup + multi-step reasoning (Core + C-code + cross-variable, e.g. PCTPT five-item set); wrong-premise correction (SUPPTS); domain boundary determination |
-| ChatGPT GPTs | Full-domain queries; team sharing / GPT Store publishing; organization-internal sharing without review |
+| ChatGPT GPTs | Full-domain queries; team sharing / GPT Store publishing; team sharing without review |
 | Gemini Gems | One-shot large-context ingestion / cross-domain pattern comparison; long sessions; broad exploration; deep 4-file merge |
 | NotebookLM | Strong anti-hallucination (audit / compliance); inline citation verification; refusal preferred over fabrication; cross-domain death-date–level alignment and v3.4 new-domain PASS+ |
 
@@ -87,7 +87,7 @@ title: "4 Platforms — Multi-dimensional Comparison"
 |---|---|
 | Claude Projects | Real-time internet (FDA / Pinnacle 21 requires manual check at cdisc.org); very large-scale domain batch comparison; capacity already at 77% near Pro soft limit |
 | ChatGPT GPTs | Multi-step reasoning slightly weaker than Claude; Free account users cannot find the entry point; long-tail chunk mid-table may miss |
-| Gemini Gems | Personal account cannot share with team directly (requires Workspace); colleagues self-deploying must paste full v7.1 system prompt or AHP guardrail is lost |
+| Gemini Gems | Personal account cannot share with team directly (requires Workspace); users self-deploying must paste full v7.1 system prompt or AHP guardrail is lost |
 | NotebookLM | Questions outside the 42 sources (real-time Pinnacle 21 / breaking news / Dataset-JSON v1.1 / CT version locking + MedDRA) are proactively PUNTed — by design, not a bug |
 
 ---

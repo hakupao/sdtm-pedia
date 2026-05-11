@@ -53,8 +53,8 @@ title: "术语表"
 | 术语 | 含义 |
 |---|---|
 | **17 题 / 内部完整题库** | 项目用来评测每个平台的 SDTM 问题集合, 14 通用题 + 3 道反虚构题. 见 `../../SMOKE_V4.md` §2. |
-| **D0-D9 / Demo** | 给同事用的 10 题快速演示包, 本目录 `./DEMO_QUESTIONS.md`. 不等于内部 17 题, 二者编号无对应关系. |
-| **4 条质量规则** | 项目内部产出 / 审稿流程纪律 (例: "改写率 >50% 必须独立抽样审", "失败归档不删", "终稿必写复盘", "审稿不能自审"). 同事可不必看细节. |
+| **D0-D9 / Demo** | 面向用户的 10 题快速演示包, 本目录 `./DEMO_QUESTIONS.zh.md`. 不等于内部 17 题, 二者编号无对应关系. |
+| **4 条质量规则** | 项目内部产出 / 审稿流程纪律 (例: "改写率 >50% 必须独立抽样审", "失败归档不删", "终稿必写复盘", "审稿不能自审"). 一般用户可不必看细节. |
 | **LIVE** | 平台部署完成 + 跑过完整 17 题 + 通过质量门, 可以给人用. 4 平台目前都是 LIVE. |
 | **baseline** | 项目内部官方测得的"该平台跑这套题应得多少分", 你自己部署后跑同样题应能复现 (允许 ±2 分浮动). |
 
@@ -65,7 +65,7 @@ title: "术语表"
 | 主题 | 路径 |
 |---|---|
 | 完整测试题库 + 各平台逐题答案 | `../../SMOKE_V4.md` + 各平台 `dev/evidence/smoke_v4_answers/` |
-| 完整限制清单 | [`./KNOWN_LIMITATIONS.en.md`](./KNOWN_LIMITATIONS.en.md) |
+| 完整限制清单 | [`./KNOWN_LIMITATIONS.zh.md`](./KNOWN_LIMITATIONS.zh.md) |
 | 项目方法论 | `../../claude_projects/docs/RETROSPECTIVE_V2.md` (Claude v2 终态复盘) + `../../notebooklm/docs/RETROSPECTIVE.md` (NotebookLM 复盘) |
 | 4 平台跨平台复盘 | `../../retrospectives/PHASE5_RETROSPECTIVE.md` (v1.0 FINAL) |
 

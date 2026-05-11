@@ -7,7 +7,7 @@ title: "変更履歴"
 
 # 変更履歴 — SDTM AI ナレッジベース リリース
 
-## v1.0 — 2026-04-27 (社内リリース)
+## v1.0 — 2026-04-27 (リリース)
 
 ### 追加
 
@@ -24,7 +24,7 @@ title: "変更履歴"
   - `GLOSSARY`
   - `METHODOLOGY`
   - `KNOWN_LIMITATIONS`
-- 同僚が短時間でデプロイ品質を確認できる 10 問 demo set (D0-D9) を公開。
+- ユーザーが短時間でデプロイ品質を確認できる 10 問 demo set (D0-D9) を公開。
 - 各プラットフォームの self-deploy tutorial を公開し、ファイルアップロード、prompt 設定、smoke test 手順を整理。
 
 ### 品質ベースライン (17 問評価、R1+R2)
@@ -64,4 +64,4 @@ title: "変更履歴"
 - 知識ベース構築と検証を完了。
 - 4 プラットフォームのデプロイを完了。
 - 17 問 baseline テストを完了。
-- v1.0 release package と同僚向け onboarding 文書を完了。
+- v1.0 release package とユーザー向け onboarding 文書を完了。

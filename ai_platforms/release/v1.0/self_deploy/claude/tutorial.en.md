@@ -145,7 +145,7 @@ If Claude gives Y/N/U/NA but not the C-codes, `11a` was not retrieved by RAG —
 If Claude attempts to list terms or says "I don't know," the Stage 6 Deferred stub rule in the System Prompt has not taken effect — re-verify that the System Prompt includes the v2.6 stage.
 
 ### Release v1.0 full demo
-In addition to T1/T17/T22 above, release v1.0 provides a 10-question full demo (including anti-hallucination probes) at [../DEMO_QUESTIONS.md](../DEMO_QUESTIONS.md). For colleague onboarding, the recommended starting point is D0 + D1 + D6 (3 questions, ~5 minutes).
+In addition to T1/T17/T22 above, release v1.0 provides a 10-question full demo (including anti-hallucination probes) at [../../DEMO_QUESTIONS.en.md](../../DEMO_QUESTIONS.en.md). For user onboarding, the recommended starting point is D0 + D1 + D6 (3 questions, ~5 minutes).
 
 ---
 
@@ -232,5 +232,5 @@ All boxes checked = deployment successful, ready for daily use.
 
 ---
 
-*v1.0 — 2026-04-27 — Company Release*
+*v1.0 — 2026-04-27 — Release*
 *Methodology details: ../../claude_projects/docs/ ; Release v1.0 overview: ../README.en.md*

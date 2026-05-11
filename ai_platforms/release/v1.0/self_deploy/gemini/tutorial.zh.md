@@ -14,7 +14,7 @@
 
 **关于套餐与团队共享**:
 - 个人 Google AI Pro 订阅可建 Gem, **不支持团队共享** (Gem 与个人账号绑定)
-- Workspace 套餐有 Gem 共享能力, 但语义有别于 personal — 同事**各自部署**最稳妥
+- Workspace 套餐有 Gem 共享能力, 但语义有别于 personal — 用户**各自部署**最稳妥
 - Gemini 没有"GPT Store" 式公开画廊, 只能 link share
 
 ---
@@ -79,7 +79,7 @@ ChatGPT 是 RAG 召回, Gemini 是全注入 — 两者底层架构不同, 不要
 
 ## 6. 完整回归 (10 题, ~30 分钟, 可选)
 
-打开 [`../DEMO_QUESTIONS.md`](../DEMO_QUESTIONS.md), 逐题提问 D0-D9 (10 题 demo). **一题一新 chat**. 项目内部完整 17 题 baseline 16/17 (94.1%), 3 道反虚构题全识破; 你部署的 Gem 跑这 10 题 ≥ 8/10 = 等同基线.
+打开 [`../../DEMO_QUESTIONS.zh.md`](../../DEMO_QUESTIONS.zh.md), 逐题提问 D0-D9 (10 题 demo). **一题一新 chat**. 项目内部完整 17 题 baseline 16/17 (94.1%), 3 道反虚构题全识破; 你部署的 Gem 跑这 10 题 >= 8/10 = 等同基线.
 
 ---
 
@@ -115,8 +115,8 @@ ChatGPT 是 RAG 召回, Gemini 是全注入 — 两者底层架构不同, 不要
 ## 9. 团队协作
 
 **Gemini Gem 不支持团队共享** (与 ChatGPT GPT 不同):
-- Gem 与个人 Google 账号绑定, 不能 invite 同事到同一 Gem
-- 同事各自照本教程部署, 各自维护一份
+- Gem 与个人 Google 账号绑定, 不能 invite 多位用户到同一 Gem
+- 用户各自照本教程部署, 各自维护一份
 - Workspace 套餐有 Gem 共享能力, 但实际语义复杂, 推荐**各自部署最稳妥**
 - 不存在"Gemini Gem Store"公开发布路径, 仅 link share
 
@@ -144,4 +144,4 @@ ChatGPT 是 RAG 召回, Gemini 是全注入 — 两者底层架构不同, 不要
 
 ---
 
-*v1.0 — 2026-04-27 — 公司发布版*
+*v1.0 — 2026-04-27 — 发布版*

@@ -14,7 +14,7 @@
 
 **About plans and team sharing**:
 - A personal Google AI Pro subscription can create a Gem, but **does not support team sharing** (Gem is bound to your personal account)
-- Workspace plans have Gem sharing capability, but the semantics differ from personal — having colleagues **each deploy separately is the safest path**
+- Workspace plans have Gem sharing capability, but the semantics differ from personal — having users **each deploy separately is the safest path**
 - Gemini has no publicly browsable gallery like a "GPT Store" — sharing is link-only
 
 ---
@@ -79,7 +79,7 @@ ChatGPT uses RAG retrieval; Gemini uses full injection — the two have fundamen
 
 ## 6. Full Regression (10 Questions, ~30 min, Optional)
 
-Open `../DEMO_QUESTIONS.md` and ask questions D0-D9 (10 demo questions). **One new chat per question**. Internal complete 17-question baseline 16/17 (94.1%), all 3 anti-hallucination questions caught; your Gem scoring ≥ 8/10 on these 10 = equivalent baseline.
+Open `../../DEMO_QUESTIONS.en.md` and ask questions D0-D9 (10 demo questions). **One new chat per question**. Internal complete 17-question baseline 16/17 (94.1%), all 3 anti-hallucination questions caught; your Gem scoring >= 8/10 on these 10 = equivalent baseline.
 
 ---
 
@@ -115,8 +115,8 @@ Minimum retained: `01 + 02` (navigation + spec/assumptions) = 365K tokens.
 ## 9. Team Collaboration
 
 **Gemini Gem does not support team sharing** (unlike ChatGPT GPT):
-- A Gem is bound to the personal Google account and cannot be shared by inviting colleagues to the same Gem
-- Colleagues each follow this tutorial to deploy their own copy and maintain it independently
+- A Gem is bound to the personal Google account and cannot be shared by inviting multiple users to the same Gem
+- Users each follow this tutorial to deploy their own copy and maintain it independently
 - Workspace plans have Gem sharing capability, but the actual semantics are complex — **each person deploying separately is the safest path**
 - There is no "Gemini Gem Store" public publishing path — sharing is link-only
 
@@ -144,4 +144,4 @@ All ☑ = deployment successful, ready for daily use.
 
 ---
 
-*v1.0 — 2026-04-27 — Company Release*
+*v1.0 — 2026-04-27 — Release*

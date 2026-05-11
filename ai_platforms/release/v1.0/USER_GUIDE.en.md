@@ -31,11 +31,11 @@ Highlights: v3.4 new domains (GF / CP / BE / BS), Timing rules, CT Extensible ha
 | What you want to do | Recommended platform | Why |
 |---|---|---|
 | Precise variables + multi-step reasoning (Core + C-code + cross-variable) | **Claude Projects** | 1.29M tokens full coverage, perfect smoke score |
-| Share with your team or department, or publish to GPT Store | **ChatGPT GPTs** | Org-internal sharing requires no review; GPT Store goes through OpenAI review |
+| Share with a team, or publish to GPT Store | **ChatGPT GPTs** | Team sharing requires no review; GPT Store goes through OpenAI review |
 | Large context + one-shot broad exploration / cross-domain pattern queries | **Gemini Gems** | 1M context window, 4-file deep merge |
 | Maximum anti-hallucination (decline to answer rather than fabricate) + strong citation | **NotebookLM** | in-KB-only; if it's not in the 42 sources, it will PUNT rather than guess |
 
-Short version: Not sure which to pick? Start with Claude Projects. Bringing colleagues along? Use ChatGPT GPTs. Worried about hallucinations? Use NotebookLM. For a detailed comparison see the "Four-Platform Roles" table in `../README.md`.
+Short version: Not sure which to pick? Start with Claude Projects. Sharing with a team? Use ChatGPT GPTs. Worried about hallucinations? Use NotebookLM. For a detailed comparison see the "Four-Platform Roles" table in `../README.md`.
 
 ## 4. Access Links for All 4 Platforms
 
@@ -73,17 +73,17 @@ Short version: Not sure which to pick? Start with Claude Projects. Bringing coll
 
 ## 5. 5-Minute Quick Start (3 Warm-Up Questions)
 
-Open your preferred platform (Claude Projects is a good first choice) and ask these 3 questions in order. Compare your answers against the Expected answers in `./DEMO_QUESTIONS.md`:
+Open your preferred platform (Claude Projects is a good first choice) and ask these 3 questions in order. Compare your answers against the Expected answers in `./DEMO_QUESTIONS.en.md`:
 
 1. **D0 (Warm-up)**: "What domain and variable is AESER in SDTMIG v3.4? What is its Core attribute? Which CT C-code does it bind to?" Expected: AE domain / Serious Event / Exp / C66742 NY {Y/N/U/NA}.
-2. **D1 (New domain)**: Copy the D1 question text from DEMO_QUESTIONS.md (EGFR / Exon 19 / dbSNP). Expected: Domain=GF; should return GFGENSR / GFPVRID / GFGENREF / GFINHERT.
+2. **D1 (New domain)**: Copy the D1 question text from DEMO_QUESTIONS.en.md (EGFR / Exon 19 / dbSNP). Expected: Domain=GF; should return GFGENSR / GFPVRID / GFGENREF / GFINHERT.
 3. **D5 (Wrong-premise correction)**: "What is SUPPTS in the SDTM standard? Is QORIG required?" Expected: The model proactively recognizes that "SUPPTS does not exist in SDTMIG v3.4" and redirects to TSVAL1-TSVALn = PASS+.
 
 Grading: All core facts correct (domain / variable / Core / C-code) = PASS. Proactively catches the wrong premise = PASS+. Follows the wrong premise and fabricates = FAIL.
 
 ## 6. Full Demo Package (10 Questions)
 
-The complete 10-question set is in `./DEMO_QUESTIONS.md` (questions in three languages + English grading criteria). 5-minute intro = D0 / D1 / D5; 30-minute full run = D0 through D9 (includes 3 AHP probes: D6 LBCLINSIG / D7 SAE Aggregate / D8 PF deprecated domain + the cross-domain ultimate challenge D9: AE/MH/CE + DS death-date alignment). After running, compare your results against the §2 baselines (17/17 / 16.5/17 / 16/17 / 15/17) to see how your instance performs.
+The complete 10-question set is in `./DEMO_QUESTIONS.en.md` (English questions + English grading criteria). 5-minute intro = D0 / D1 / D5; 30-minute full run = D0 through D9 (includes 3 AHP probes: D6 LBCLINSIG / D7 SAE Aggregate / D8 PF deprecated domain + the cross-domain ultimate challenge D9: AE/MH/CE + DS death-date alignment). After running, compare your results against the §2 baselines (17/17 / 16.5/17 / 16/17 / 15/17) to see how your instance performs.
 
 ## 7. Known Limitations (Frequently Asked Questions)
 
@@ -99,7 +99,7 @@ Full details are in `./KNOWN_LIMITATIONS.en.md`. Summary:
 
 ## 8. Feedback
 
-If you find an error, hallucination, or off-topic answer: (1) Take a screenshot and save the full original question and AI response. (2) Note the platform and version (e.g., "ChatGPT GPT v2.2 LIVE 2026-04-24") and the expected answer (citing the SDTMIG v3.4 section number or CDISC CT C-code). (3) Email Bojiang Zhang, file in the company issue tracker, or @Bojiang Zhang in the department group chat. Issues are consolidated in `./CHANGELOG.md` and addressed in the next minor release.
+If you find an error, hallucination, or off-topic answer: (1) Take a screenshot and save the full original question and AI response. (2) Note the platform and version (e.g., "ChatGPT GPT v2.2 LIVE 2026-04-24") and the expected answer (citing the SDTMIG v3.4 section number or CDISC CT C-code). (3) Report it through GitHub issues or the project feedback channel. Issues are consolidated in `./CHANGELOG.md` and addressed in the next minor release.
 
 ## 9. Road Map
 

@@ -7,13 +7,13 @@ title: "演示问题"
 
 # SDTM AI 知识库 — 10 题演示
 
-> **目的**: 同事拿到 4 平台访问后，用 10 题快速感受能力。用时约 5 分钟 (3 题) 到 30 分钟 (全 10 题)。
+> **目的**: 用户获得 4 平台访问后，用 10 题快速感受能力。用时约 5 分钟 (3 题) 到 30 分钟 (全 10 题)。
 >
-> **对象**: 完成 onboarding 后测试 Claude Project / ChatGPT GPT / Gemini Gem / NotebookLM 的公司同事。
+> **对象**: 完成 onboarding 后测试 Claude Project / ChatGPT GPT / Gemini Gem / NotebookLM 的用户。
 >
 > **构成**: 1 道热身基础题 + 5 道实战推理题 + 3 道反幻觉探针 + 1 道跨域终极题。
 >
-> **编号说明**: 本文件使用 D0-D9 (Demo) 编号，是给同事用的快速感受包。项目内部完整测试使用 Q1-Q14 编号，共 17 题，由 Bojiang Zhang 保管。二者编号无对应关系；自部署 tutorial 内部测试题如果出现 "Q1-Q10" 等编号，指的是内部 17 题，不要寻找 D-id 对应。
+> **编号说明**: 本文件使用 D0-D9 (Demo) 编号，是面向用户的快速感受包。项目内部完整测试使用 Q1-Q14 编号，共 17 题，由 Bojiang Zhang 保管。二者编号无对应关系；自部署 tutorial 内部测试题如果出现 "Q1-Q10" 等编号，指的是内部 17 题，不要寻找 D-id 对应。
 
 ## 题型分布
 
@@ -28,7 +28,7 @@ title: "演示问题"
 | D6 | 反幻觉探针 (变量) | LBCLINSIG 架空变量识别 | ★★★ |
 | D7 | 反幻觉探针 (跨域) | "Trial-Level SAE Aggregate 表" 架空表识别 | ★★★ |
 | D8 | 反幻觉探针 (废弃域) | PF 在 v3.4 已废弃 | ★★★ |
-| D9 | 跨域终极 | AE/MH/CE 同事件多域 + DS 死亡日级对齐 | ★★★★ |
+| D9 | 跨域终极 | AE/MH/CE 同一事件多域 + DS 死亡日级对齐 | ★★★★ |
 
 ---
 
@@ -132,7 +132,7 @@ title: "演示问题"
 
 ---
 
-## D9 — 跨域终极: AE/MH/CE 同事件多域 + DS 死亡日级对齐
+## D9 — 跨域终极: AE/MH/CE 同一事件多域 + DS 死亡日级对齐
 
 **问题**: 受试者 Visit 5 突发心梗 (STEMI) 住院，治疗 3 天出院，Visit 7 因心衰死亡。请回答 (a) 心梗本身可同时记 AE / CE / MH 哪些域？各自业务边界是？(b) “死亡”这个 terminal event 应该记 AE 还是 DS 还是都要？(c) DS 域 DSDECOD vs DSCAT 在死亡场景下值各是什么？(d) 死亡时间 ISO 8601 怎么跨域对齐 (AE.AESTDTC / AE.AEENDTC / DS.DSSTDTC / DM.DTHDTC)？
 

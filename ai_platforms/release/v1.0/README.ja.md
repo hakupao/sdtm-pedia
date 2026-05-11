@@ -5,27 +5,27 @@ order: 0
 title: "README"
 ---
 
-# SDTM AI ナレッジベース v1.0 — 社内公開版
+# SDTM AI ナレッジベース v1.0 — 公開版
 
 > 2026-04-27 / 4 AI プラットフォーム LIVE / ユーザーマニュアル + セルフデプロイチュートリアル完備
 
 ## ドキュメントナビゲーション
 
-- [USER_GUIDE.ja.md](./USER_GUIDE.ja.md) — 利用者向けメインマニュアル (背景 / デシジョンツリー / 入口 / 制限事項 / フィードバック)、初回利用時は必読です
-- [DEMO_QUESTIONS.md](./DEMO_QUESTIONS.md) — デモ用 10 題パック (3 言語の設問 + 英語判定基準)
-- [KNOWN_LIMITATIONS.en.md](./KNOWN_LIMITATIONS.en.md) — 既知の制限事項完全版 (L1-L3 クロスプラットフォーム + L4 各プラットフォーム)
-- [CHANGELOG.md](./CHANGELOG.md) — バージョン履歴 + smoke v4 ベースライン (Claude 17/17 / ChatGPT 16.5/17 / Gemini 16/17 / NotebookLM 15/17)
+- [USER_GUIDE.ja.md](./USER_GUIDE.ja.md) — ユーザー向けメインマニュアル (背景 / デシジョンツリー / 入口 / 制限事項 / フィードバック)、初回利用時は必読です
+- [DEMO_QUESTIONS.ja.md](./DEMO_QUESTIONS.ja.md) — デモ用 10 題パック (日本語の設問 + 英語判定基準)
+- [KNOWN_LIMITATIONS.ja.md](./KNOWN_LIMITATIONS.ja.md) — 既知の制限事項完全版 (L1-L3 クロスプラットフォーム + L4 各プラットフォーム)
+- [CHANGELOG.ja.md](./CHANGELOG.ja.md) — バージョン履歴 + smoke v4 ベースライン (Claude 17/17 / ChatGPT 16.5/17 / Gemini 16/17 / NotebookLM 15/17)
 - [self_deploy/](./self_deploy/) — 4 プラットフォーム個別デプロイチュートリアル
 - 多言語切替の詳細: 下記セクション参照
 
 ## 多言語切替
 
-中国語 (zh) / 英語 (en) / 日本語 (ja) の 3 言語に対応しています。3 言語完備のドキュメント: トップレベル README / USER_GUIDE / self_deploy/README + 4 プラットフォームチュートリアル。英語のみのドキュメント: DEMO_QUESTIONS.md (設問は 3 言語埋め込み、判定基準は英語の SDTM 用語をそのまま使用) / KNOWN_LIMITATIONS.en.md / CHANGELOG.md。ファイル名のサフィックスで言語を識別します: `*.zh.md` / `*.en.md` / `*.ja.md`。
+中国語 (zh) / 英語 (en) / 日本語 (ja) の 3 言語に対応しています。トップレベルの README / USER_GUIDE / PLATFORM_COMPARISON / METHODOLOGY / DEMO_QUESTIONS / GLOSSARY / KNOWN_LIMITATIONS はすべて 3 言語版を提供しています。CHANGELOG は中国語・日本語版と英語の基準ファイル `CHANGELOG.md` があります。セルフデプロイ README と 4 プラットフォームのチュートリアルも 3 言語版を提供しています。ファイル名のサフィックスで言語を識別します: `*.zh.md` / `*.en.md` / `*.ja.md`。
 
 ## クイックスタート (60 秒)
 
 1. [USER_GUIDE.ja.md](./USER_GUIDE.ja.md) §3 のデシジョンツリーでプラットフォームを選択してください (どれを選ぶか迷う場合 → Claude Projects をお勧めします)。
-2. [DEMO_QUESTIONS.md](./DEMO_QUESTIONS.md) から任意の 3 題を試してください (D0 + D1 + D5 を推奨)。
+2. [DEMO_QUESTIONS.ja.md](./DEMO_QUESTIONS.ja.md) から任意の 3 題を試してください (D0 + D1 + D5 を推奨)。
 3. フィードバックを Bojiang Zhang へお送りください。
 
 ## セルフデプロイ
