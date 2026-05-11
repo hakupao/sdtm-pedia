@@ -46,9 +46,9 @@ Then summarize to the user: current status, open issues, and suggested next step
 
 ## 06 Deep Verification (旁枝)
 
-状态 / round 进度 / drift cal 历史 / Rule D roster / 累计 metric / archive 路径 → `branches/06_deep_verification/_progress.json`.
-Multi-session 派发: 当前 round kickoff 文件在 `branches/06_deep_verification/multi_session/batch_NN_kickoff.md` + `reconciler_kickoff_roundN.md`. 路由词 `batch NN 开始任务` / `reconciler 开始任务` 对应当前 round 的 kickoff 文件 (路由名遵 round 内对应 batch 号; 找不到对应 batch_NN_kickoff.md 时停下问).
-Master 协议 `branches/06_deep_verification/multi_session/MULTI_SESSION_PROTOCOL.md`. 入口 PLAN `branches/06_deep_verification/PLAN.md`.
+**当前阶段: P3 索引构建 (待启动)** — P1 pdf_atoms 12,487 ✅ + P2 md_atoms 10,435 ✅; P3-P7 比对未启动.
+下一步入口: `branches/06_deep_verification/plans/P3_index_building.md` (sub-plan 就绪, 直接执行).
+进度 / metric / archive → `branches/06_deep_verification/_progress.json`. 入口 PLAN → `branches/06_deep_verification/PLAN.md`.
 
 ## Change Chains
 
@@ -76,6 +76,7 @@ Full chain definitions are in `.work/MANIFEST.md`.
 | Phase 7 session 记录 | `.work/05_rag_kg/session_2026-04-16_design.md` |
 | 06 Deep Verification 入口 | `branches/06_deep_verification/PLAN.md` (字面级 PDF→KB 深审; 详细见 §06 Deep Verification 段) |
 | 06 Deep Verification schema | `branches/06_deep_verification/schema/{atom,ledger}_schema.json` (frozen JSON Schema 2020-12) |
+| 06 P3 sub-plan (下一步) | `branches/06_deep_verification/plans/P3_index_building.md` (候选索引构建, P3 启动入口) |
 | Phase 6.5 AI 平台部署 | `ai_platforms/` (总览 + 三平台子目录) |
 | Phase 6.5 范本 + 锁步看板 | `ai_platforms/_template/README.md` + `ai_platforms/SYNC_BOARD.md` (双平台锁步 gate) |
 | Phase 6.5 smoke 题库 + retro | `ai_platforms/SMOKE_V4.md` + `ai_platforms/retrospectives/` |
