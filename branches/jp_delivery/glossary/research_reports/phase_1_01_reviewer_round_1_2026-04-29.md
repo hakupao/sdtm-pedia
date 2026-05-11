@@ -87,7 +87,7 @@
   源 `KNOWN_LIMITATIONS.en.md` L4-Cl1 + `PLATFORM_COMPARISON.en.md` は (a) 19 files / 77% capacity / 1.29M tokens / Approaching paid-tier soft cap、および (b) Claude Projects の QS codelist coverage が 55.8% であることを記述するが、**「4 platform 中最大」という相対比較は明示記述なし**。NotebookLM (42 sources) や ChatGPT (9 files) との相対展開率比較は源資料中に直接記載なし。書き手による含意推定が混入している可能性あり。
 - evidence:
   ```
-  ai_platforms/release/v1.0/KNOWN_LIMITATIONS.en.md
+  release/v1.0/KNOWN_LIMITATIONS.en.md
   ### L1 — Questionnaires (QS) codelist coverage incomplete
   Claude Projects covers ~55.8% of QS codelists; the rest fall back to NCI EVS Browser links.
   ...
@@ -224,12 +224,12 @@
 - severity: informational
 - location: yml l.108-112 (2_全体構成 §2.1 状態区分)
 - observation:
-  yml §2.1: 「・検証パイプライン — 現行運用中 (対象範囲 97% 完了、継続中)」。97% は METHODOLOGY.md §2 末尾段落「the audit covers 97% of the in-scope pages」が直接出典。yml §2.1 の文中出典は段落末「METHODOLOGY.md §2 + docs/DESIGN_RAG_KG.md §2 + ai_platforms/release/v1.0/」と複合形式で、97% の根拠が読者に直結しない。同じく §2.3 でも 97% に「METHODOLOGY.md §2 末尾段落」を明示しているので二重記述だが、§2.1 状態区分箇条書き直後への根拠明示が弱い。形式上の問題 (PASS 2 出典明記) として informational。
+  yml §2.1: 「・検証パイプライン — 現行運用中 (対象範囲 97% 完了、継続中)」。97% は METHODOLOGY.md §2 末尾段落「the audit covers 97% of the in-scope pages」が直接出典。yml §2.1 の文中出典は段落末「METHODOLOGY.md §2 + docs/DESIGN_RAG_KG.md §2 + release/v1.0/」と複合形式で、97% の根拠が読者に直結しない。同じく §2.3 でも 97% に「METHODOLOGY.md §2 末尾段落」を明示しているので二重記述だが、§2.1 状態区分箇条書き直後への根拠明示が弱い。形式上の問題 (PASS 2 出典明記) として informational。
 - evidence:
   ```
   METHODOLOGY.md §2 末尾段落
   the audit covers 97% of the in-scope pages and remains active.
-  yml §2.1 出典: METHODOLOGY.md §2 + docs/DESIGN_RAG_KG.md §2 + ai_platforms/release/v1.0/
+  yml §2.1 出典: METHODOLOGY.md §2 + docs/DESIGN_RAG_KG.md §2 + release/v1.0/
   ```
 - recommendation:
   §2.1 文中、97% 値直後に括弧で `(METHODOLOGY.md §2 末尾段落)` を inline 注記すれば改善。
@@ -247,8 +247,8 @@ $ for p in METHODOLOGY.md docs/DESIGN_RAG_KG.md \
     .work/00_planning/restructure_plan.md .work/00_planning/source_relationship.md \
     branches/jp_delivery/04_要件定義書.xlsx branches/jp_delivery/sources/04_要件定義書.yml \
     knowledge_base/INDEX.md knowledge_base/ROUTING.md \
-    ai_platforms/release/v1.0 branches/jp_delivery/PLAN.md \
-    ai_platforms/release/v1.0/KNOWN_LIMITATIONS.en.md DISCLAIMER.md; do
+    release/v1.0 branches/jp_delivery/PLAN.md \
+    release/v1.0/KNOWN_LIMITATIONS.en.md DISCLAIMER.md; do
   if [ -e "$p" ]; then echo "OK: $p"; else echo "MISSING: $p"; fi
 done
 ```
@@ -344,7 +344,7 @@ B14: '4_承認欄' → #4_承認欄!A1
 | 抽-4 | S-4 ledger_schema v1.2 | yml §3.5 (l.222) | forward 9 値 / reverse 5 値 / similarity_score 0.0-1.0 / PARTIAL ≥0.50 | $defs.forward_verdict.enum 完全一致 (EXACT/EQUIVALENT/EDITORIAL_CORRECTION/TABLE_SIMPLIFIED/PARTIAL/MISPLACED/ERROR/MISSING/INTENTIONAL_EXCLUDE); reverse_verdict.enum 完全一致 (SOURCED/EDITORIAL_ADDITION/SYNTHESIZED/UNSOURCED/HALLUCINATED); similarity_score min/max 0.0/1.0 + description に PARTIAL ≥0.50 / SOURCED ≥0.50 明記 | OK |
 | 抽-5 | S-7 04_要件定義書.xlsx | yml §1.4 関連文書 + §D-01 (l.286) | FR-01〜FR-11 / NFR-01〜NFR-06 / C-01〜C-05 全件継承 | 04 yml に FR-01〜FR-11 / NFR-01〜NFR-06 / C-01〜C-05 全件存在 | OK |
 | 抽-6 | S-9 INDEX.md | yml §2.2 (l.118-128) | 63 ドメイン / 1,005 codelist / 37,939 用語 / 293 件 | INDEX.md l.4 と完全一致; 内訳記述に F-5 で LOW 指摘あり | OK (ただし 5 層算術整合 LOW 指摘) |
-| 抽-7 | S-11 ai_platforms/release/v1.0/ | yml §2.4 (l.146-159) + IF-03 | 4 平台数値 (ChatGPT 20 / Gemini 4 / NotebookLM 42 / Claude 19 + 77%) | KNOWN_LIMITATIONS.en.md L4-* + PLATFORM_COMPARISON.en.md と数値完全一致; ただし Claude「最大受控用語展開率」相対比較は源不在 → F-3 MEDIUM 指摘 | PARTIAL |
+| 抽-7 | S-11 release/v1.0/ | yml §2.4 (l.146-159) + IF-03 | 4 平台数値 (ChatGPT 20 / Gemini 4 / NotebookLM 42 / Claude 19 + 77%) | KNOWN_LIMITATIONS.en.md L4-* + PLATFORM_COMPARISON.en.md と数値完全一致; ただし Claude「最大受控用語展開率」相対比較は源不在 → F-3 MEDIUM 指摘 | PARTIAL |
 | 抽-8 | S-14 DISCLAIMER.md | yml §D-04 (l.297-298) | CDISC 著作権 / CC BY 4.0 派生著作物 | DISCLAIMER.md と整合; 04 §5 C-03 とも字面一致 | OK |
 
 抽検 8 件中 **6 件完全一致 / 1 件 LOW 内訳追記要 / 1 件 MEDIUM 相対比較根拠要**。

@@ -154,7 +154,7 @@ yml / xlsx 本体は無修正。round 1 writer report (phase_1_01_writer_2026-04
 - build_xlsx.py: `/Users/bojiangzhang/MyProject/SDTM-compare/branches/jp_delivery/scripts/build_xlsx.py`
 - audit_terms.py: `/Users/bojiangzhang/MyProject/SDTM-compare/branches/jp_delivery/scripts/audit_terms.py`
 - DESIGN_RAG_KG.md: `/Users/bojiangzhang/MyProject/SDTM-compare/docs/DESIGN_RAG_KG.md`
-- KNOWN_LIMITATIONS.en.md: `/Users/bojiangzhang/MyProject/SDTM-compare/ai_platforms/release/v1.0/KNOWN_LIMITATIONS.en.md`
+- KNOWN_LIMITATIONS.en.md: `/Users/bojiangzhang/MyProject/SDTM-compare/release/v1.0/KNOWN_LIMITATIONS.en.md`
 - METHODOLOGY.md: `/Users/bojiangzhang/MyProject/SDTM-compare/METHODOLOGY.md`
 
 ---

@@ -213,8 +213,8 @@ $ for p in METHODOLOGY.md docs/DESIGN_RAG_KG.md \
     .work/00_planning/restructure_plan.md .work/00_planning/source_relationship.md \
     branches/jp_delivery/04_要件定義書.xlsx branches/jp_delivery/sources/04_要件定義書.yml \
     knowledge_base/INDEX.md knowledge_base/ROUTING.md \
-    ai_platforms/release/v1.0 branches/jp_delivery/PLAN.md \
-    ai_platforms/release/v1.0/KNOWN_LIMITATIONS.en.md DISCLAIMER.md; do
+    release/v1.0 branches/jp_delivery/PLAN.md \
+    release/v1.0/KNOWN_LIMITATIONS.en.md DISCLAIMER.md; do
   if [ -e "$p" ]; then echo "OK: $p"; else echo "MISSING: $p"; fi
 done
 ```
@@ -366,7 +366,7 @@ PASS 解釈:
 - 04 reviewer round 2 先例: `/Users/bojiangzhang/MyProject/SDTM-compare/branches/jp_delivery/glossary/research_reports/phase_1_04_reviewer_round_2_2026-04-29.md`
 - METHODOLOGY.md: `/Users/bojiangzhang/MyProject/SDTM-compare/METHODOLOGY.md`
 - DESIGN_RAG_KG.md: `/Users/bojiangzhang/MyProject/SDTM-compare/docs/DESIGN_RAG_KG.md`
-- KNOWN_LIMITATIONS.en.md: `/Users/bojiangzhang/MyProject/SDTM-compare/ai_platforms/release/v1.0/KNOWN_LIMITATIONS.en.md`
+- KNOWN_LIMITATIONS.en.md: `/Users/bojiangzhang/MyProject/SDTM-compare/release/v1.0/KNOWN_LIMITATIONS.en.md`
 - knowledge_base/INDEX.md: `/Users/bojiangzhang/MyProject/SDTM-compare/knowledge_base/INDEX.md`
 - 04 yml: `/Users/bojiangzhang/MyProject/SDTM-compare/branches/jp_delivery/sources/04_要件定義書.yml`
 - atom_schema v1.2: `/Users/bojiangzhang/MyProject/SDTM-compare/.work/06_deep_verification/schema/atom_schema.json`

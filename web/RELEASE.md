@@ -36,7 +36,7 @@ git tag v1.0
 git push origin v1.0
 gh release create v1.0 \
   --title "v1.0" \
-  --notes-file ai_platforms/release/v1.0/CHANGELOG.md \
+  --notes-file release/v1.0/CHANGELOG.md \
   web/dist-bundles/*.zip
 ```
 
@@ -67,7 +67,7 @@ instead of the "release pending" placeholder.
 
 ## Sources
 
-The bundles are built from `ai_platforms/release/v1.0/self_deploy/{claude,chatgpt,gemini,notebooklm}/`.
+The bundles are built from `release/v1.0/self_deploy/{claude,chatgpt,gemini,notebooklm}/`.
 Each platform directory is an independent self-contained deploy bundle —
 system prompt + uploads/ + tutorial × 3 langs. See
-`ai_platforms/release/v1.0/README.{zh,en,ja}.md` for the deployment flow.
+`release/v1.0/README.{zh,en,ja}.md` for the deployment flow.

@@ -16,7 +16,7 @@
 | S-4 | `.work/meta/retrospective.md` | シート 4 (NFR) |
 | S-5 | `branches/jp_delivery/PLAN.md` | シート 1 / 5 (本納品物自身の制約) |
 | S-6 | `DISCLAIMER.md` | シート 5 (著作権) |
-| S-7 | `ai_platforms/release/v1.0/KNOWN_LIMITATIONS.en.md` | シート 5 |
+| S-7 | `release/v1.0/KNOWN_LIMITATIONS.en.md` | シート 5 |
 | S-8 | `.work/03_verification/issues_found.md` | シート 4 補強 (Issue 2 NCR-002 直接出典) |
 
 writer は派発時に各 S-X を `test -f` で実在確認すること.

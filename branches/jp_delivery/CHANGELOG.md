@@ -119,7 +119,7 @@
 - 改訂区分: 新規作成 (中間版 補助文書)
 - 改訂内容: 受信者向け反復実績記録. 全工程 5 系統 (AI 平台 4 種プロンプト整備 / smoke 動作試験 / 知識ベース字面級確認 / 受信者向け文書整備 / 用語整備) の検査・修正・反復実績 (約 50 回次相当) を集約. 8 シート構成 (1 全体サマリ / 2 工程別反復集計 / 3 AI 平台反復履歴 / 4 smoke 試験反復履歴 / 5 深層検証反復履歴 / 6 文書整備反復履歴 / 7 主要マイルストーン / 8 参考資料). 受信者要望「過程の試行錯誤の規模を可視化」対応.
 - 産物: branches/jp_delivery/sources/08_反復実績記録.yml + branches/jp_delivery/08_反復実績記録.xlsx (27,116 bytes / 12 シート / sha256 8b9cc08cbb81fa6d3112f480305d9d683d2c392fe09419e036c4366b03fe0b00).
-- データソース: ai_platforms/release/v1.0/CHANGELOG.md + ai_platforms/retrospectives/ + ai_platforms/SMOKE_V4.md + 4 平台 dev/checkpoints/ + .work/06_deep_verification/_progress.json + branches/jp_delivery/glossary/research_reports/ + branches/jp_delivery/CHANGELOG.md + branches/jp_delivery/WORKLOG.md.
+- データソース: release/v1.0/CHANGELOG.md + ai_platforms/retrospectives/ + ai_platforms/SMOKE_V4.md + 4 平台 dev/checkpoints/ + .work/06_deep_verification/_progress.json + branches/jp_delivery/glossary/research_reports/ + branches/jp_delivery/CHANGELOG.md + branches/jp_delivery/WORKLOG.md.
 - 作成: 主 session (executor + build_xlsx.py).
 - 確認: 機械再検査 (audit_terms.py blacklist hits=0 — 1 cycle 修正後: D-15 行の round 表記再帰引用 1 件除去).
 - 承認: Bojiang Zhang (用户).
@@ -127,6 +127,6 @@
 ## branches/jp_delivery/ 中間版 v0.5 提出 (2026-04-30)
 - 種別: 受信者向け納品 (中間版 集約)
 - 提出産物: branches/jp_delivery/deliverable/20260430_iTMS_SDTM_進捗版_v0.5.zip (4,680,626 bytes / 130 files / sha256 087106953c202d5983f5b99c63c3cab95ce3730707a3c9a3d557eb124eed881e) + .sha256 sidecar.
-- 同梱物: 6 件 xlsx (00 案内 / 01 要件定義 / 02 基本設計 / 07 進捗報告 / 08 反復実績 / 99 用語集骨格) + ai_platforms/release/v1.0/ 公開発布版資料.
+- 同梱物: 6 件 xlsx (00 案内 / 01 要件定義 / 02 基本設計 / 07 進捗報告 / 08 反復実績 / 99 用語集骨格) + release/v1.0/ 公開発布版資料.
 - 経緯: ユーザー判断「P0 4 件中 2 件確定 + 公開発布版で中間版提出」→ 中間版補助文書 3 件 (00 / 07 / 08) 起草 + 全提交ファイル Excel 化 (公司習慣準拠) → audit_terms.py 監査 6/6 PASS → zip 集約 + 解凍テスト + sha256 算出.
 - 用语规律監査: 全 6 xlsx hits=0 (修正サイクル 2 件適用後; 04 改訂履歴 round 表記置換 + 07 出典内部ファイル名抽象化 + 08 D-15 行再帰引用除去).

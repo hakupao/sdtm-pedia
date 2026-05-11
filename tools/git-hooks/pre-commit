@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+# tools/git-hooks/pre-commit — non-blocking warning hook.
+#
+# Checks:
+#   1. Trilingual tutorial lockstep: if a tutorial.{en,ja,zh}.md is changed in
+#      release/<version>/self_deploy/<platform>/, warn if the other languages
+#      were not also changed in the same commit.
+#
+# This is a WARNING only — `exit 0` so the commit always proceeds.
+#
+# Install (one of):
+#   git config core.hooksPath tools/git-hooks
+#   ln -s ../../tools/git-hooks/pre-commit .git/hooks/pre-commit
+
+set -e
+
+STAGED="$(git diff --cached --name-only --diff-filter=ACMR)"
+
+# --- Trilingual tutorial lockstep check ---
+TUTORIAL_LINES="$(printf '%s\n' "$STAGED" | grep -E '^release/v[0-9.]+/self_deploy/[^/]+/tutorial\.(en|ja|zh)\.md$' || true)"
+
+if [ -n "$TUTORIAL_LINES" ]; then
+  # Group by platform path (everything before tutorial.X.md)
+  PLATFORMS="$(printf '%s\n' "$TUTORIAL_LINES" | sed -E 's|/tutorial\.(en|ja|zh)\.md$||' | sort -u)"
+  WARN=0
+  for plat_path in $PLATFORMS; do
+    LANGS_CHANGED="$(printf '%s\n' "$TUTORIAL_LINES" | grep "^${plat_path}/tutorial\." | sed -E 's|.*/tutorial\.([a-z]+)\.md$|\1|' | sort -u | tr '\n' ' ')"
+    LANG_COUNT="$(printf '%s\n' "$LANGS_CHANGED" | tr ' ' '\n' | grep -c . || true)"
+    if [ "$LANG_COUNT" -lt 3 ]; then
+      if [ $WARN -eq 0 ]; then
+        echo "" >&2
+        echo "⚠️  Trilingual tutorial lockstep warning:" >&2
+        WARN=1
+      fi
+      echo "   • ${plat_path}/tutorial.*.md — only [${LANGS_CHANGED}] changed; en/ja/zh should usually be updated together." >&2
+    fi
+  done
+  if [ $WARN -eq 1 ]; then
+    echo "" >&2
+    echo "   (this is a warning only — commit will proceed; pass --no-verify to suppress this script entirely)" >&2
+    echo "" >&2
+  fi
+fi
+
+exit 0

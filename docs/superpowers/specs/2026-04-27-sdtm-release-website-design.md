@@ -3,13 +3,13 @@
 > **Status**: Draft v1.0
 > **Date**: 2026-04-27
 > **Author**: Daisy (with brainstorming via Claude Code superpowers)
-> **Scope**: Public-facing website for `ai_platforms/release/v1.0/` content, deployed on Cloudflare Pages from public GitHub repo (`hakupao/sdtm-pedia`), with downloads served via GitHub Releases.
+> **Scope**: Public-facing website for `release/v1.0/` content, deployed on Cloudflare Pages from public GitHub repo (`hakupao/sdtm-pedia`), with downloads served via GitHub Releases.
 
 ---
 
 ## 1. Goals
 
-Convert the v1.0 internal release (12 top-level docs in zh/en/ja + self-deploy bundle materials, currently at `ai_platforms/release/v1.0/`) into a public-facing website that:
+Convert the v1.0 internal release (12 top-level docs in zh/en/ja + self-deploy bundle materials, currently at `release/v1.0/`) into a public-facing website that:
 
 1. Lets colleagues without markdown readers consume the content comfortably in a browser.
 2. Provides per-platform `.zip` downloads of the deploy bundles.
@@ -48,14 +48,14 @@ Convert the v1.0 internal release (12 top-level docs in zh/en/ja + self-deploy b
 
 ```
 SDTM-compare/
-├── ai_platforms/release/v1.0/   ← existing content (untouched, source of truth)
+├── release/v1.0/   ← existing content (untouched, source of truth)
 │   ├── *.md (13 docs × 3 langs)
 │   ├── PLATFORM_COMPARISON.md   ← NEW (per §6 implementation note)
 │   └── self_deploy/             ← bundle source for zip packaging
 ├── web/                         ← NEW Astro project root
 │   ├── astro.config.mjs
 │   ├── src/
-│   │   ├── content/             ← Astro content collections, pulls from ../ai_platforms/release/v1.0
+│   │   ├── content/             ← Astro content collections, pulls from ../release/v1.0
 │   │   ├── pages/[lang]/...     ← localized routes
 │   │   ├── components/          ← Hero, PlatformCards, DemoCarousel, DownloadGrid, etc.
 │   │   ├── layouts/             ← LandingLayout, DocsLayout
@@ -70,7 +70,7 @@ CF Pages build root = `web/`, build command = `npm run build`, output = `web/dis
 ### 3.3 Build path filtering
 
 Cloudflare Pages build trigger configured to only re-build when changes occur in:
-- `ai_platforms/release/v1.0/**`
+- `release/v1.0/**`
 - `web/**`
 
 Edits to `.work/`, `source/`, etc. do not waste build minutes.
@@ -261,18 +261,18 @@ Pagefind: build-time indexer crawls all rendered HTML, generates static index at
 |---|---|---|
 | Landing copy (Hero / labels / CTAs) | `web/src/content/landing/{lang}.md` | Landing pages |
 | Platform metadata (scores, strengths, capacity) | `web/src/data/platforms.json` | §02, §03, /compare |
-| `PLATFORM_COMPARISON.md` | `ai_platforms/release/v1.0/PLATFORM_COMPARISON.{lang}.md` (NEW, build-time created) | §03 preview, /compare full |
+| `PLATFORM_COMPARISON.md` | `release/v1.0/PLATFORM_COMPARISON.{lang}.md` (NEW, build-time created) | §03 preview, /compare full |
 | Demo questions metadata | `web/src/data/demos.json` | §04, /guide/demo |
 | Downloads metadata (filename, size, count, GH URL) | `web/src/data/downloads.json` | §05 |
-| User guide / Glossary / Limitations / Deploy / Changelog | `ai_platforms/release/v1.0/*.md` | docs reader |
+| User guide / Glossary / Limitations / Deploy / Changelog | `release/v1.0/*.md` | docs reader |
 
 ### 8.2 Astro content collections
 
-`web/src/content/config.ts` registers a `guide` collection pointing at `../../ai_platforms/release/v1.0/` glob. Frontmatter convention: `lang: zh|en|ja`, `slug: user-guide|demo|...`, `order: N`.
+`web/src/content/config.ts` registers a `guide` collection pointing at `../../release/v1.0/` glob. Frontmatter convention: `lang: zh|en|ja`, `slug: user-guide|demo|...`, `order: N`.
 
 ### 8.3 Build flow
 
-1. Developer commits `.md` change in `ai_platforms/release/v1.0/`.
+1. Developer commits `.md` change in `release/v1.0/`.
 2. CF Pages build trigger fires (path filter matches).
 3. `npm install` (cached).
 4. `astro build`:
@@ -283,7 +283,7 @@ Pagefind: build-time indexer crawls all rendered HTML, generates static index at
 
 ### 8.4 Downloads pipeline
 
-- Local script `web/scripts/build-bundles.sh` produces 4 zips from `ai_platforms/release/v1.0/self_deploy/{platform}/`, named `{platform}_bundle_v{version}.zip`.
+- Local script `web/scripts/build-bundles.sh` produces 4 zips from `release/v1.0/self_deploy/{platform}/`, named `{platform}_bundle_v{version}.zip`.
 - On release: `gh release create v1.0 --title "v1.0" --notes-file CHANGELOG.md *.zip`.
 - `web/src/data/downloads.json` references `https://github.com/hakupao/sdtm-pedia/releases/download/v1.0/{filename}` for each zip.
 - Zips are NOT committed to repo; they live only on GH Release.

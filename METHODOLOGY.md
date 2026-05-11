@@ -89,7 +89,7 @@ Closure record: [`.work/03_verification/issues_found.md`](.work/03_verification/
 
 ### Standing limitations
 
-Certain limitations cannot be fully resolved within the current AI-platform deployment form — for example, large codelists stored as stubs, and real-time external lookups not embedded. These are tracked separately and disclosed in the deployment artifact: [`ai_platforms/release/v1.0/KNOWN_LIMITATIONS.en.md`](ai_platforms/release/v1.0/KNOWN_LIMITATIONS.en.md).
+Certain limitations cannot be fully resolved within the current AI-platform deployment form — for example, large codelists stored as stubs, and real-time external lookups not embedded. These are tracked separately and disclosed in the deployment artifact: [`release/v1.0/KNOWN_LIMITATIONS.en.md`](release/v1.0/KNOWN_LIMITATIONS.en.md).
 
 ## 5. Standing verification controls
 

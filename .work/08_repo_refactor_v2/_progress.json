@@ -1,0 +1,33 @@
+{
+  "phase": "08_repo_refactor_v2",
+  "tier": 2,
+  "started": "2026-05-11",
+  "execution_complete": "2026-05-11",
+  "status": "awaiting_user_ack",
+  "design_doc": "docs/REPO_REFACTOR.md",
+  "plan_doc": ".work/08_repo_refactor_v2/PLAN.md",
+  "retro_doc": ".work/08_repo_refactor_v2/RETROSPECTIVE.md",
+  "steps": {
+    "1_git_mv_release": "done",
+    "2_web_content_config": "done",
+    "3_web_build_script": "done",
+    "4_delete_frontmatter_script": "done",
+    "5_delete_upload_tutorial": "done",
+    "6_rename_upload_manifest": "done",
+    "7_build_release_scripts": "done (bash -n PASS, not yet runtime-tested)",
+    "8_grep_replace_refs": "done (28 files, ~80 refs, zero residue)",
+    "9_gitignore_zips": "done (existing .gitignore already covers; no change needed)",
+    "10_precommit_hook": "done (tools/git-hooks/pre-commit + README, not yet installed)"
+  },
+  "pending_smoke_tests": [
+    "tools/build_release.sh v1.0 (verify web bundles + jp zip + BUILD_MANIFEST.json)",
+    "cd web && npm run build (verify Astro picks up new RELEASE_DIR)",
+    "git config core.hooksPath tools/git-hooks (enable pre-commit hook)"
+  ],
+  "decisions": {
+    "A_release_top_level": "approved (a) — done, release/ at top-level",
+    "B_upload_tutorial": "approved (a) — done, 2 files deleted",
+    "C_build_entry": "approved (a) — done, tools/build_release.sh + jp build_zip.sh",
+    "D_trilingual_lockstep": "approved (a) — done, tools/git-hooks/pre-commit (warn-only, requires manual install)"
+  }
+}

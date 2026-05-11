@@ -1,0 +1,14 @@
+{
+  "version": "v1.0",
+  "built_at": "2026-05-11T10:49:46Z",
+  "git_commit": "55bcc4009a31b34e17e4a151624d79e59a2c3d2c",
+  "source_md_count": 119,
+  "artifacts": [
+    {"path": "web/dist-bundles/chatgpt_bundle_v1.0.zip", "size": 1523626, "sha256": "13661d10ac87a1adbf0c745065b42377c4dd2ecc1035607666d65eec7cf55e86"},
+    {"path": "web/dist-bundles/claude_bundle_v1.0.zip", "size": 803708, "sha256": "5e93b0419231091da3f51902500cae9e7a716846caff02fa7a6e210338af39d6"},
+    {"path": "web/dist-bundles/gemini_bundle_v1.0.zip", "size": 508634, "sha256": "d5f8de5bf10cf03f410d6d51502ac1ccf8d36a99be814ec925a512322e845b20"},
+    {"path": "web/dist-bundles/notebooklm_bundle_v1.0.zip", "size": 1621180, "sha256": "96448cdc2ab846e7d44fe7b1edd3b31559956c08741dcadb21a8df3547e1d947"},
+    {"path": "branches/jp_delivery/deliverable/20260430_iTMS_SDTM_進捗版_v0.5.zip", "size": 4680626, "sha256": "087106953c202d5983f5b99c63c3cab95ce3730707a3c9a3d557eb124eed881e"},
+    {"path": "branches/jp_delivery/deliverable/20260511_iTMS_SDTM_進捗版_v1.0.zip", "size": 4711042, "sha256": "318fb4e47762cf0865c400e29f2ff12cfe6b2a7337b15428ce3f720ddc6e1ebc"}
+  ]
+}

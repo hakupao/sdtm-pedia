@@ -272,12 +272,12 @@ sdtm-pedia/
 
 ### Option A — Self-deploy on a hosted AI platform (recommended)
 
-A turn-key release bundle for **4 platforms** (Claude Projects, ChatGPT GPTs, Gemini Gems, NotebookLM) ships at `ai_platforms/release/v1.0/`. Each platform sub-directory is self-contained: system prompt + uploads + step-by-step tutorial in 3 languages (zh/en/ja).
+A turn-key release bundle for **4 platforms** (Claude Projects, ChatGPT GPTs, Gemini Gems, NotebookLM) ships at `release/v1.0/`. Each platform sub-directory is self-contained: system prompt + uploads + step-by-step tutorial in 3 languages (zh/en/ja).
 
 1. **Clone the repo**
    ```bash
    git clone https://github.com/hakupao/sdtm-pedia.git
-   cd sdtm-pedia/ai_platforms/release/v1.0
+   cd sdtm-pedia/release/v1.0
    ```
 
 2. **Pick a platform** — Read `self_deploy/README.en.md` for the decision tree (capacity, sharing, audio overview, etc.)
@@ -321,7 +321,7 @@ The knowledge base is plain Markdown — it works with any LLM that supports fil
 - [x] Phase 6.1 — Query routing index (`knowledge_base/ROUTING.md`)
 - [x] Phase 6.2 — Cross-references between domains (in `spec.md` of each domain)
 - [x] Phase 6.3 — Variable-level reverse index (`knowledge_base/VARIABLE_INDEX.md`, 1,523 variables)
-- [x] Phase 6.5 — Multi-platform AI deployment + Release v1.0 (4 platforms, `ai_platforms/release/v1.0/`)
+- [x] Phase 6.5 — Multi-platform AI deployment + Release v1.0 (4 platforms, `release/v1.0/`)
 - [ ] Phase 6.4 — Structured metadata (YAML/JSON) — merged into Phase 7 Step 7
 - [ ] Phase 7 — RAG + knowledge graph + dataset validation (design complete, see `docs/DESIGN_RAG_KG.md`)
 - [ ] Deep verification — literal-level PDF→KB atom-by-atom audit (in progress, see `branches/06_deep_verification/`)
