@@ -1,9 +1,0 @@
-{"sample_id":"s01","atom_id":"md_dmFA_assn_a001","selection_reason":"boundary: file H1 root (universal precedent — sib_idx must = 1 not null)","atom_type":"HEADING","line_range":"1-1"}
-{"sample_id":"s02","atom_id":"md_dmFA_assn_a002","selection_reason":"boundary: first LIST_ITEM after H1 (sib_idx null lock check)","atom_type":"LIST_ITEM","line_range":"3-3"}
-{"sample_id":"s03","atom_id":"md_dmFA_assn_a003","selection_reason":"stratified: LIST_ITEM with multi cross_refs (Section 6.4.1 + 8.6.3)","atom_type":"LIST_ITEM","line_range":"5-5"}
-{"sample_id":"s04","atom_id":"md_dmFA_assn_a004","selection_reason":"stratified: short LIST_ITEM with single cross_ref (Section 6.4.2)","atom_type":"LIST_ITEM","line_range":"7-7"}
-{"sample_id":"s05","atom_id":"md_dmFA_assn_a005","selection_reason":"stratified: long LIST_ITEM (parent #4) with cross_ref + e.g. inline","atom_type":"LIST_ITEM","line_range":"9-9"}
-{"sample_id":"s06","atom_id":"md_dmFA_assn_a006","selection_reason":"stratified: sub-bullet 4.a with leading 3-space indent (URL preservation)","atom_type":"LIST_ITEM","line_range":"10-10"}
-{"sample_id":"s07","atom_id":"md_dmFA_assn_a007","selection_reason":"stratified: parent LIST_ITEM #5 (RELREC)","atom_type":"LIST_ITEM","line_range":"12-12"}
-{"sample_id":"s08","atom_id":"md_dmFA_assn_a008","selection_reason":"stratified: sub-bullet 5.a with leading 3-space indent","atom_type":"LIST_ITEM","line_range":"13-13"}
-{"sample_id":"s09","atom_id":"md_dmFA_assn_a009","selection_reason":"boundary: final LIST_ITEM #6 (file tail)","atom_type":"LIST_ITEM","line_range":"15-15"}
