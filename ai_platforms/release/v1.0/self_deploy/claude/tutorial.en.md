@@ -1,45 +1,44 @@
-# Claude Project Creation Tutorial — SDTM Knowledge Base Release v1.0
+# Claude Project Creation Tutorial — SDTM Knowledge Base Release v1.1
 
 > Release v1.0 self-deployment tutorial (set up a Claude Project capable of answering CDISC SDTM queries from scratch).
-> After following this tutorial: 30–60 minutes to a complete working Claude Project (including indexing wait time which runs in background). Capacity ~77%, 19 files / 1.29M tokens, complete 24-question test all-pass baseline.
+> After following this tutorial: 30–60 minutes to a complete working Claude Project (including indexing wait time which runs in background). 19 files / 1.29M tokens, complete 24-question test all-pass baseline.
 > Source: project repository `./` (system_prompt.md + uploads/ × 19).
 
 ---
 
 ## 0. Prerequisites
 
-- [ ] **Claude Pro subscription** (or Team/Enterprise): the release build totals 1.29M tokens, exceeding the free-tier limit; Pro and above plans automatically enable RAG sharding for Claude Projects
+- [ ] **Claude Pro ($18/mo) / Max ($100 or $200/mo, 5x/20x usage vs Pro) / Team / Enterprise plan.** Max is a new plan added in 2025, positioned above Pro and below Enterprise. The Free plan allows up to 5 Projects, but loading this KB's 1.29M tokens requires Pro or above.
 - [ ] **Web browser access** to [claude.ai](https://claude.ai): this tutorial is performed entirely through the Web UI
 - [ ] **Local clone of this repository**: you will need the 19 files under `./uploads/` and `./system_prompt.md`
 
 **On "capability vs. capacity"**:
-- The release build occupies approximately **77% capacity** of Claude Projects (as shown in the UI)
-- Headroom remains, but this is already close to the soft ceiling of paid plans; if Anthropic adjusts capacity limits in the future a re-evaluation may be needed
 - Coverage: core codelist 99.3% / supp codelist 100% / questionnaires codelist 55.8% / 63 domain examples 100% / 6 chapters fully expanded
+- The per-file limit is **30 MB** (raised from 1 MB in 2025), so the largest file in this KB, `11b` (~890 KB), fits with room to spare.
 
 ---
 
 ## 1. Create Project
 
 1. Log in to [claude.ai](https://claude.ai)
-2. Click "**Projects**" in the left sidebar → "**Create Project**"
+2. In the left sidebar, click "**Projects**" → "**+ New Project**" (top right) or "**Create Project**" (center).
 3. **Suggested name**: `SDTM Knowledge Base` or `CDISC SDTM Expert`
 4. **Description** (optional): `SDTM (Study Data Tabulation Model) knowledge base from CDISC standards. Answers variable definitions, codelist terms, example datasets, cross-domain references.`
-5. **Access permissions**:
-   - Personal use: **Private**
-   - Team use: select your organization (Team/Enterprise plans only)
-   - Note: Claude Projects currently **does not support generating public share links**; sharing is limited to within an organization
+5. **Access permissions** (the current UI offers 2 choices only):
+   - "**Keep it private**": personal use (default)
+   - "**Share with your broader organization**": available on Team / Enterprise plans; sharing permissions are either "Can use" or "Can edit"
+   - Note: the "Public" option **has been removed from the UI as of 2026**. Individual public share links remain unsupported.
 
 ---
 
-## 2. Configure System Prompt (Custom Instructions)
+## 2. Configure System Prompt (Set project instructions)
 
 The System Prompt is the Project's "role and behavior specification" — it defines how the model routes queries, cites sources, and handles scope boundaries.
 
 ### Steps
 
 1. Open the newly created Project and click "**Edit project**" in the top-right corner
-2. Locate the "**Custom instructions**" or "**Project instructions**" field
+2. Locate the "**Set project instructions**" button (or "**Project instructions**" field). Note: the UI label was changed from "Custom instructions" to "Set project instructions" in 2025.
 3. **Copy the entire contents** of `./system_prompt.md` (do not truncate)
 4. Paste into the field
 5. **Save**
@@ -74,14 +73,12 @@ Order does not matter; upload all of them. The `./uploads/` directory contains a
 **Key concepts**:
 - File name prefixes `00–13c` serve as query-priority signals (the System Prompt references these prefixes for routing)
 - **Do not rename** any file — the file name in Project Knowledge is itself the anchor Claude uses for source citations
-- **Do not split or merge** files — especially `11b` (256K tokens, the largest single file); testing confirmed it does not cause recall degradation, but custom modifications could break RAG chunking
+- **Do not split or merge** files — especially `11b` (~890 KB, the largest single file); at **30 MB per-file limit** it fits with no need to split. The old 1 MB / 256K token concern is no longer applicable.
 
 ### FAQ
 
 **Q: The UI shows "File is too large" for a file**
-A: The per-file limit is ~1 MB (~256K tokens); `11b` is right at 256K and may trigger this. If it does:
-- Check whether your editor has appended a BOM or converted line endings to CRLF
-- As a last resort, split `11b` into `11b-a` / `11b-b`, but A/B testing will need to be re-run
+A: The per-project file limit is **30 MB** (raised significantly from 1 MB in 2025). This KB's largest file, `11b` (~890 KB), fits comfortably — no splitting required. Check whether your editor has appended a BOM or converted line endings to CRLF. File count is unlimited (within the context window).
 
 **Q: I only want to upload a subset to test**
 A: Not recommended. The 24/24 PASS baseline for T1–T22 plus priority validation is the product of **all 19 files**. Uploading fewer will degrade results.
@@ -93,7 +90,7 @@ A: This is typically a network issue. Refresh the page — Claude retains alread
 
 ## 4. Wait for Indexing (Important: you don't actually need to wait)
 
-After upload completes, the UI will show an "**Indexing**" indicator that can run for **30–60 minutes** or longer.
+After upload completes, the UI may show an "**Indexing**" indicator that can run for **30–60 minutes** or longer.
 
 ### Do not actually wait for Indexing to finish
 
@@ -101,6 +98,8 @@ Observed in practice:
 - The Indexing indicator is **unreliable**: even while it shows as still indexing, querying immediately can already retrieve new content
 - Waiting the full cycle means 60+ minutes, and the UI may even report an indexing failure requiring a retry
 - The correct way to verify a deployment is to **ask 1–2 questions directly** (next step) — a successful hit means it's ready
+
+**Whether an Indexing progress indicator appears is not documented in official docs** — as of 2026 the indicator may not appear at all in the current UI. For practical purposes, verifying via the §5 smoke test is more reliable.
 
 So once the upload is complete, go straight to §5 Smoke Test.
 
@@ -142,7 +141,7 @@ If Claude gives Y/N/U/NA but not the C-codes, `11a` was not retrieved by RAG —
 - Source citations: `13a_terminology_tail_core.md` (stub definition) + `../../../knowledge_base/terminology/core/lb_part*.md` (source files) + NCI EVS Browser entry point
 - **Zero hallucination**: no specific term values should be listed (if Claude does list terms, that is a hallucination and must be debugged)
 
-If Claude attempts to list terms or says "I don't know," the Stage 6 Deferred stub rule in the System Prompt has not taken effect — re-verify that the System Prompt includes the v2.6 stage.
+If Claude attempts to list terms or says "I don't know," the Stage 6 Deferred stub rule in the System Prompt has not taken effect — verify that Stage 6 (the Deferred stub rule finalized in internal version v2.6) is included in the System Prompt.
 
 ### Release v1.0 full demo
 In addition to T1/T17/T22 above, release v1.0 provides a 10-question full demo (including anti-hallucination probes) at [../../DEMO_QUESTIONS.en.md](../../DEMO_QUESTIONS.en.md). For user onboarding, the recommended starting point is D0 + D1 + D6 (3 questions, ~5 minutes).
@@ -169,11 +168,11 @@ Recommendations:
 
 | Symptom | Likely cause | Resolution |
 |---------|-------------|------------|
-| All queries answered with "I don't know" | System Prompt not fully pasted | Verify Custom Instructions contains all 6 Stage sections, especially Stage 6 |
+| All queries answered with "I don't know" | System Prompt not fully pasted | Verify Set project instructions contains all 6 Stage sections, especially Stage 6 |
 | Wrong chapter numbers returned (e.g., §4.3.6 when §4.3.7 is correct) | `02_chapters.md` not uploaded or truncated | Re-upload `02_chapters.md`; verify file size > 200 KB |
 | T22 C65047 lists specific term values (hallucination) | Stage 6 Deferred stub rule not active | Check System Prompt Stage 6 section + verify `13a_terminology_tail_core.md` is uploaded |
 | CT code queries return only `08` instead of `11*`/`12*`/`13*` | CT query priority rule missing | Verify System Prompt tail contains `CT query priority 11*>12*>13*>08` |
-| Capacity UI exceeds 85% with a warning | Anthropic policy change | Remove in this priority order: 13c > 12c > 12b > 11c (keep `11a`/`11b`/`09`/`05`/`02` core files) |
+| Capacity warning appears | Anthropic policy change — **there is currently no official documentation for a "X% capacity" UI**; treat any such display as informational only | Remove in this priority order: 13c > 12c > 12b > 11c (keep `11a`/`11b`/`09`/`05`/`02` core files) |
 | Slow responses / frequent rate limiting | Pro plan RAG rate limiting | Wait 30–60 seconds and retry; if persistent, consider upgrading to Team/Enterprise |
 | ~44% of questionnaires (quest) codelist queries unanswered | Release build covers only 55.8% of quest (by design) | Expected behavior; the long-tail 296 quest codelists are deferred to a future Phase 7 RAG pipeline |
 
@@ -181,12 +180,14 @@ Recommendations:
 
 ## 8. Upgrade / Downgrade Path
 
+With the current 30 MB/file limit, this KB requires no downgrade — all 19 files fit comfortably. The priority lists below are provided as a reference for older environments with tighter capacity constraints.
+
 ### To increase coverage (optional, not done by default)
 
-- Push quest coverage from 55.8% to ~80%: requires adding a batch of quest tail extractions (+~180K tokens), estimated capacity ~85%
-- Replacing the 6 giants (MedDRA-scale codelists) from Deferred stub to inline: requires +500K tokens, which would directly hit the hard ceiling — not recommended
+- Push quest coverage from 55.8% to ~80%: requires adding a batch of quest tail extractions (+~180K tokens)
+- Replacing the 6 giants (MedDRA-scale codelists) from Deferred stub to inline: requires +500K tokens — not recommended
 
-### To reduce footprint (when capacity is insufficient)
+### To reduce footprint (for older environments when capacity is insufficient)
 
 Remove in this priority order (retaining the most useful files):
 1. First remove `13c_terminology_tail_supp.md` (43K, supp long-tail)
@@ -195,7 +196,7 @@ Remove in this priority order (retaining the most useful files):
 4. Then remove `12b_terminology_mid_questionnaires.md` (225K)
 5. Then remove `12a_terminology_mid_core.md` (130K)
 
-Minimum viable baseline: `11a/b/c_terminology_high_*` + `09/10_examples_data_*` + `00–08` core structure = ~800K tokens / ~50% capacity.
+Minimum viable baseline: `11a/b/c_terminology_high_*` + `09/10_examples_data_*` + `00–08` core structure = ~800K tokens.
 
 ---
 
@@ -212,7 +213,7 @@ Minimum viable baseline: `11a/b/c_terminology_high_*` + `09/10_examples_data_*` 
 
 - This release build is the **complete final state**; no further capacity expansion is planned in the near term
 - The long-tail 302 codelists (296 quest + 6 giants) are allocated to a future Phase 7 self-hosted RAG pipeline (design document: `../../claude_projects/docs/` in this repository)
-- If Anthropic releases a new plan or larger capacity, re-evaluate whether pushing to 85–90% is worthwhile
+- Claude automatically introduced **RAG (Retrieval-Augmented Generation)** for paid-plan Projects in 2025 — KBs exceeding the 200K context window automatically switch to RAG mode, enabling this KB's 1.29M tokens to be handled. Some Enterprise models offer a 500K context window.
 - If knowledge base content gaps or errors are discovered during use of the release build, report them to the project issue tracker; the release build will be rebuilt after knowledge base updates
 
 ---
@@ -221,16 +222,16 @@ Minimum viable baseline: `11a/b/c_terminology_high_*` + `09/10_examples_data_*` 
 
 - [ ] Claude Pro or higher plan is active
 - [ ] Project created with a clear name
-- [ ] Custom Instructions contain the complete System Prompt (all 6 Stage sections)
+- [ ] Set project instructions contains the complete System Prompt (all 6 Stage sections)
 - [ ] Project Knowledge panel shows 19 files uploaded
 - [ ] T1 AEDECOD Core query PASS (answers Req + cites §4.3.6/§4.3.5)
 - [ ] T17 C66742 term table query PASS (4 terms + 41 related domains)
 - [ ] T22 C65047 giant boundary query PASS (declares stub, zero hallucination)
-- [ ] UI capacity shows ~77% (normal range)
+- [ ] UI capacity shows ~77% (if the indicator is displayed)
 
 All boxes checked = deployment successful, ready for daily use.
 
 ---
 
-*v1.0 — 2026-04-27 — Release*
+*v1.1 — 2026-05-11 — Synced UI terminology to 2026 official spec (Custom instructions → Set project instructions / 30 MB limit / Max plan)*
 *Methodology details: ../../claude_projects/docs/ ; Release v1.0 overview: ../README.en.md*

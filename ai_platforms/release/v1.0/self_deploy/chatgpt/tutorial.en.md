@@ -8,12 +8,12 @@
 
 ## 0. Prerequisites
 
-- [ ] **ChatGPT Plus / Team / Enterprise** subscription (free tier cannot create Custom GPTs)
+- [ ] **ChatGPT Plus ($20/mo) / Pro ($200/mo, higher tier) / Business / Enterprise / Edu** subscription. **The former Team plan was renamed Business in 2025.** Free / Go (budget personal) plans cannot create Custom GPTs.
 - [ ] **Web access** to [chatgpt.com](https://chatgpt.com): this tutorial is entirely Web UI based
 - [ ] **Local clone of this repository**: you need to read `./system_prompt.md` (~8.6 KB) and the 9 .md files under `./uploads/`
 
 **About "team sharing vs. GPT Store public publishing"**:
-- Org/Team subscriptions can invite members directly, **no review required**
+- Business / Enterprise / Edu subscriptions can share directly with members, **no review required**
 - GPT Store public publishing requires OpenAI review (typically 1–3 business days); any ChatGPT user can then access it
 
 ---
@@ -21,11 +21,11 @@
 ## 1. Create Custom GPT
 
 1. Log in to [chatgpt.com](https://chatgpt.com)
-2. Click "**Explore GPTs**" in the bottom-left → click "**+ Create**" in the top-right
+2. Click "**Explore GPTs**" in the bottom-left → click the "**Create**" button in the top-right (or go directly to https://chatgpt.com/create)
 3. Go to the **Configure** tab (not the conversational Create tab)
 4. **Name**: recommended `SDTM Expert` or `CDISC SDTM Knowledge`
 5. **Description** (one English sentence, ~130 characters): `CDISC SDTMIG v3.4 + SDTM v2.0 Expert — Variable definitions, rule reasoning, controlled terminology, cross-domain linking.`
-6. **Capabilities**: disable **Web Search / Code Interpreter / DALL-E** (this GPT is pure knowledge Q&A; enabling these expands the hallucination surface)
+6. **Capabilities**: disable **Web Search / Canvas / Image Generation / Code Interpreter & Data Analysis**. Note: **DALL-E was retired in 2025/12; image generation is now handled by GPT Image 1.5/2 and consolidated into the "Image Generation" toggle**. Canvas (collaborative editing) and Code Interpreter & Data Analysis have been renamed/expanded from their old labels. Web Browsing is now called Web Search.
 
 ---
 
@@ -33,7 +33,7 @@
 
 1. Still on the Configure tab, locate the "**Instructions**" box
 2. **Copy the full contents** of `./system_prompt.md` (v2.2 LIVE, 8,582 chars) and paste them in
-3. **Do not truncate**: the ChatGPT UI character indicator shows an 8,000-char limit, but in practice it accepts 8,582 chars (verified, deployed and running). If your ChatGPT UI rejects it, first try removing the §Conversation Starters section (non-core)
+3. **Do not truncate**: the official hard limit in the ChatGPT UI is **8,000 chars**, but in practice it accepts 8,582 chars in some cases (confirmed with this v2.2 LIVE deployment). If the UI rejects it, remove §Conversation Starters first
 4. **Save**
 
 **v2.2 LIVE key capabilities** (preserve after pasting, do not edit):
@@ -60,7 +60,7 @@
 - `08_terminology_quest_and_supp.md` (~1M) — questionnaires + supplemental
 - `09_terminology_core_mid_tail.md` (~698K) — core mid-to-tail segment
 
-ChatGPT GPT Builder Knowledge has a **20-file hard limit**; current count is 9/20 (11 files headroom).
+ChatGPT GPT Builder Knowledge has a **20-file hard limit**; current count is 9/20 (11 files headroom). Maximum **512 MB** per file. Total storage: 10 GB per user / 100 GB per organization (shared across chats, Projects, and GPT Knowledge).
 
 **Common questions**:
 - "File too large" → check whether your editor accidentally added BOM / CRLF; re-save as UTF-8 LF
@@ -106,7 +106,7 @@ Open [`../../DEMO_QUESTIONS.en.md`](../../DEMO_QUESTIONS.en.md) and submit quest
 | File Search recalls wrong passage | File segmentation failure | Check whether system_prompt §P13 TableAware hint is present; re-upload the problematic file |
 | Answers "AESER Core = Req" | 04_domain_specs_all.md not uploaded / truncated | Re-upload; verify file size ≥ 180 KB |
 | Warning about ≥ 20 files uploaded | GPT Builder hard limit triggered | Remove files following the downgrade path in §8 |
-| Slow first token / frequent rate limiting | Plus subscription RAG rate limiting | Wait 30–60 seconds and retry; if persistent → upgrade to Team/Enterprise |
+| Slow first token / frequent rate limiting | Plus subscription RAG rate limiting | Wait 30–60 seconds and retry; if persistent → upgrade to Business/Enterprise |
 
 ---
 
@@ -128,8 +128,8 @@ Minimum retained baseline: `01–05 + 07` (navigation + chapters + model + spec 
 
 ## 9. Team Collaboration / GPT Store Publishing
 
-**Org/Team sharing**:
-- No review required; invite members directly by email
+**Business / Enterprise / Edu workspace sharing**:
+- No review required; Business / Enterprise / Edu plans can share directly with members
 - All members see **the same GPT**; changes to Instructions take effect for everyone immediately
 - Recommend restricting edit permissions to 1–2 people to prevent accidental edits
 
@@ -150,7 +150,7 @@ Minimum retained baseline: `01–05 + 07` (navigation + chapters + model + spec 
 
 ## Appendix: Verification Checklist
 
-- [ ] ChatGPT Plus / Team / Enterprise subscription is active
+- [ ] ChatGPT Plus / Pro / Business / Enterprise / Edu subscription is active
 - [ ] Custom GPT has been created with a clear name
 - [ ] Instructions contain the complete system_prompt.md (v2.2 LIVE, 8,582 chars)
 - [ ] Knowledge panel shows all 9 files as Ready
@@ -162,4 +162,4 @@ All ☑ = deployment successful; you can begin daily use.
 
 ---
 
-*v1.0 — 2026-04-27 — Release*
+*v1.1 — 2026-05-11 — UI terminology synced to 2026 official spec*
