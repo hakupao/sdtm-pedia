@@ -30,7 +30,7 @@ npm run test:e2e       # playwright (e2e; runs against dev server)
 ## Architecture
 
 - **Routes**: path-based i18n (`prefixDefaultLocale: true`). Every page lives at `/[lang]/...` (no root-level `?lang=` query). Three langs: `zh` (default) / `en` / `ja`.
-- **Content collection**: markdown sources in `../ai_platforms/release/v1.0/*.md` (with optional `.{lang}.md` suffix), picked up by `web/src/content.config.ts`. Catchall route `[lang]/guide/[...slug]/` emits one HTML per `slug:` frontmatter. Slug `changelog` is excluded from the catchall (owned by dedicated `[lang]/changelog.astro`).
+- **Content collection**: markdown sources in `../release/v1.0/*.md` (with optional `.{lang}.md` suffix), picked up by `web/src/content.config.ts`. Catchall route `[lang]/guide/[...slug]/` emits one HTML per `slug:` frontmatter. Slug `changelog` is excluded from the catchall (owned by dedicated `[lang]/changelog.astro`).
 - **Markdown cross-link rewrite**: `remark-md-link-rewrite.mjs` transforms `[X](FOO.zh.md)` → `/zh/guide/foo` for top-level guide-collection refs. Out-of-collection relative paths drop the `<a>` wrapper. Lang-neutral entries with `.md` cross-refs throw at build time (intentional fail-loud).
 - **i18n keys**: single source of truth at `src/i18n/ui.zh.json`; `en` + `ja` mirrors enforced by `helpers.test.ts` key-parity tests.
 - **Layouts**: `BaseLayout.astro` (head + canonical + theme-flash guard) → `LandingLayout.astro` / `DocsLayout.astro`.
@@ -62,7 +62,7 @@ If you need a lang-neutral page to link out, use absolute URLs (`https://...`) o
 
 ### Adding a new doc
 
-1. Drop `MY_DOC.{zh,en,ja}.md` into `ai_platforms/release/v1.0/` (or `MY_DOC.md` for lang-neutral)
+1. Drop `MY_DOC.{zh,en,ja}.md` into `release/v1.0/` (or `MY_DOC.md` for lang-neutral)
 2. Set `slug: my-doc` in frontmatter (lowercase, hyphenated)
 3. Build — `[lang]/guide/my-doc/` is emitted automatically by the catchall route
 4. Cross-link from other docs as `[X](MY_DOC.zh.md)` / `[X](MY_DOC.md)` — the remark plugin rewrites to `/[lang]/guide/my-doc`

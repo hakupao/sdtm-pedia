@@ -4,7 +4,7 @@
 
 **Goal:** Build the public-facing SDTM Knowledge website per `docs/superpowers/specs/2026-04-27-sdtm-release-website-design.md`, ship to Cloudflare Pages, with per-platform zip downloads on GitHub Releases.
 
-**Architecture:** Astro static site with Tailwind v4 CSS variables for theming, content collections pulling trilingual `.md` from `ai_platforms/release/v1.0/`, React islands only for interactive bits (theme toggle, language switcher, count-up, comparison filter, search overlay), Pagefind for static full-text search, GitHub Releases for zip hosting.
+**Architecture:** Astro static site with Tailwind v4 CSS variables for theming, content collections pulling trilingual `.md` from `release/v1.0/`, React islands only for interactive bits (theme toggle, language switcher, count-up, comparison filter, search overlay), Pagefind for static full-text search, GitHub Releases for zip hosting.
 
 **Tech Stack:** Astro 5.x, Tailwind CSS v4, React 18 (islands), TypeScript, Pagefind, Vitest + @testing-library/react, Playwright (e2e), self-hosted fonts via `@fontsource/*`, Cloudflare Pages.
 
@@ -15,7 +15,7 @@
 - **Working directory:** `/Users/bojiangzhang/MyProject/SDTM-compare`
 - **GitHub repo:** `hakupao/sdtm-pedia` (public)
 - **Spec to read first:** `docs/superpowers/specs/2026-04-27-sdtm-release-website-design.md` — this plan executes that spec, do not deviate without flagging.
-- **Existing content (do not touch):** `ai_platforms/release/v1.0/*.md`, `ai_platforms/release/v1.0/self_deploy/**` — these are sources of truth, the website reads from them.
+- **Existing content (do not touch):** `release/v1.0/*.md`, `release/v1.0/self_deploy/**` — these are sources of truth, the website reads from them.
 - **Out of scope for this plan:** anything in `.work/`, `source/`, other `ai_platforms/<platform>/` subdirs.
 
 ### Testing strategy (pragmatic TDD)
@@ -40,7 +40,7 @@ For an Astro static site, strict TDD applies cleanly to **data utilities, intera
 ### Pre-existing (read-only for this plan)
 
 ```
-ai_platforms/release/v1.0/
+release/v1.0/
 ├── README.{zh,en,ja}.md
 ├── USER_GUIDE.{zh,en,ja}.md
 ├── GLOSSARY.{zh,en,ja}.md
@@ -53,7 +53,7 @@ ai_platforms/release/v1.0/
 ### Created by this plan
 
 ```
-ai_platforms/release/v1.0/
+release/v1.0/
 └── PLATFORM_COMPARISON.{zh,en,ja}.md       # Phase 0 content (NEW)
 
 web/                                          # Astro project root (NEW)
@@ -151,7 +151,7 @@ web/                                          # Astro project root (NEW)
 ### Task 0.1: Author `PLATFORM_COMPARISON.zh.md`
 
 **Files:**
-- Create: `ai_platforms/release/v1.0/PLATFORM_COMPARISON.zh.md`
+- Create: `release/v1.0/PLATFORM_COMPARISON.zh.md`
 
 - [ ] **Step 1: Confirm dimensions with user before writing**
 
@@ -225,14 +225,14 @@ Verify every section has all 4 platforms covered. If any cell is N/A, write "不
 - [ ] **Step 4: Commit**
 
 ```bash
-git add ai_platforms/release/v1.0/PLATFORM_COMPARISON.zh.md
+git add release/v1.0/PLATFORM_COMPARISON.zh.md
 git commit -m "07 Release v1.0 PLATFORM_COMPARISON.zh.md (multi-dim 平台对比 zh)"
 ```
 
 ### Task 0.2: Translate `PLATFORM_COMPARISON.zh.md` → `.en.md`
 
 **Files:**
-- Create: `ai_platforms/release/v1.0/PLATFORM_COMPARISON.en.md`
+- Create: `release/v1.0/PLATFORM_COMPARISON.en.md`
 
 - [ ] **Step 1: Translate**
 
@@ -240,19 +240,19 @@ Mirror structure of `.zh.md` exactly. SDTM-specific terms (Domain / Variable / C
 
 - [ ] **Step 2: Verify table cells parity**
 
-Run: `wc -l ai_platforms/release/v1.0/PLATFORM_COMPARISON.{zh,en}.md` — line counts within ±5% of each other.
+Run: `wc -l release/v1.0/PLATFORM_COMPARISON.{zh,en}.md` — line counts within ±5% of each other.
 
 - [ ] **Step 3: Commit**
 
 ```bash
-git add ai_platforms/release/v1.0/PLATFORM_COMPARISON.en.md
+git add release/v1.0/PLATFORM_COMPARISON.en.md
 git commit -m "07 Release v1.0 PLATFORM_COMPARISON.en.md (multi-dim 平台对比 en)"
 ```
 
 ### Task 0.3: Translate `PLATFORM_COMPARISON.zh.md` → `.ja.md`
 
 **Files:**
-- Create: `ai_platforms/release/v1.0/PLATFORM_COMPARISON.ja.md`
+- Create: `release/v1.0/PLATFORM_COMPARISON.ja.md`
 
 - [ ] **Step 1: Translate** — mirror `.zh.md`, SDTM terms English, 敬体 (です/ます) consistent with `README.ja.md`.
 
@@ -261,7 +261,7 @@ git commit -m "07 Release v1.0 PLATFORM_COMPARISON.en.md (multi-dim 平台对比
 - [ ] **Step 3: Commit**
 
 ```bash
-git add ai_platforms/release/v1.0/PLATFORM_COMPARISON.ja.md
+git add release/v1.0/PLATFORM_COMPARISON.ja.md
 git commit -m "07 Release v1.0 PLATFORM_COMPARISON.ja.md (multi-dim 平台对比 ja)"
 ```
 
@@ -942,7 +942,7 @@ git commit -m "07 Website Phase 2.5 — BaseLayout.astro (theme flash guard, og 
 **Files:**
 - Create: `web/src/content/config.ts`
 - Create: `web/scripts/add-frontmatter.mjs`
-- Modify: `ai_platforms/release/v1.0/*.md` (frontmatter prepended where missing)
+- Modify: `release/v1.0/*.md` (frontmatter prepended where missing)
 
 - [ ] **Step 1: Write add-frontmatter.mjs**
 
@@ -953,7 +953,7 @@ import path from 'node:path';
 import url from 'node:url';
 
 const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
-const DIR = path.resolve(__dirname, '../../ai_platforms/release/v1.0');
+const DIR = path.resolve(__dirname, '../../release/v1.0');
 const ORDER = { 'README': 0, 'USER_GUIDE': 10, 'PLATFORM_COMPARISON': 20, 'DEMO_QUESTIONS': 30, 'GLOSSARY': 40, 'KNOWN_LIMITATIONS': 50, 'CHANGELOG': 60 };
 const TITLES = {
   'user-guide':         { zh: '用户手册',       en: 'User Guide',           ja: 'ユーザーガイド' },
@@ -982,7 +982,7 @@ for (const file of fs.readdirSync(DIR)) {
 }
 ```
 
-Run: `cd web && node scripts/add-frontmatter.mjs`. Verify with `head -8 ../ai_platforms/release/v1.0/USER_GUIDE.zh.md`.
+Run: `cd web && node scripts/add-frontmatter.mjs`. Verify with `head -8 ../release/v1.0/USER_GUIDE.zh.md`.
 
 - [ ] **Step 2: Write content/config.ts**
 
@@ -991,7 +991,7 @@ import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 import path from 'node:path';
 
-const RELEASE_DIR = path.resolve('../ai_platforms/release/v1.0');
+const RELEASE_DIR = path.resolve('../release/v1.0');
 
 const guide = defineCollection({
   loader: glob({ pattern: '**/*.md', base: RELEASE_DIR }),
@@ -1013,7 +1013,7 @@ export const collections = { guide };
 - [ ] **Step 4: Commit (separately)**
 
 ```bash
-git add ai_platforms/release/v1.0/*.md
+git add release/v1.0/*.md
 git commit -m "07 Release v1.0 frontmatter — lang+slug+order+title added to top-level docs (web 集成准备)"
 git add web/src/content/config.ts web/scripts/add-frontmatter.mjs
 git commit -m "07 Website Phase 3.1 — content collection schema + add-frontmatter.mjs one-shot"
@@ -2665,7 +2665,7 @@ git commit -m "07 Website Phase 7.2 — SearchOverlay (Cmd+K, Pagefind dynamic i
 set -euo pipefail
 
 VERSION="${1:-v1.0}"
-SRC_ROOT="$(cd "$(dirname "$0")/../.." && pwd)/ai_platforms/release/v1.0/self_deploy"
+SRC_ROOT="$(cd "$(dirname "$0")/../.." && pwd)/release/v1.0/self_deploy"
 OUT_DIR="$(cd "$(dirname "$0")/.." && pwd)/dist-bundles"
 
 mkdir -p "$OUT_DIR"
@@ -2739,7 +2739,7 @@ git commit -m "07 Website Phase 8.1 — build-bundles.sh produces 4 platform zip
    git push origin v1.0
    gh release create v1.0 \
      --title "v1.0" \
-     --notes-file ../ai_platforms/release/v1.0/CHANGELOG.md \
+     --notes-file ../release/v1.0/CHANGELOG.md \
      dist-bundles/*.zip
    ```
 
@@ -2779,7 +2779,7 @@ git tag v1.0
 git push origin v1.0
 gh release create v1.0 \
   --title "v1.0" \
-  --notes-file ai_platforms/release/v1.0/CHANGELOG.md \
+  --notes-file release/v1.0/CHANGELOG.md \
   web/dist-bundles/*.zip
 ```
 
@@ -2832,7 +2832,7 @@ In Cloudflare dashboard → Pages → Create project → Connect to Git → sele
 - [ ] **Step 2: Configure build watch paths**
 
 In CF Pages project → Settings → Builds & deployments → Build watch paths:
-- Include: `web/**`, `ai_platforms/release/v1.0/**`
+- Include: `web/**`, `release/v1.0/**`
 
 (Excludes `.work/`, `source/`, etc.)
 
@@ -2850,7 +2850,7 @@ After CF Pages dashboard shows green check, visit assigned `*.pages.dev` URL. Co
 - Production branch: main
 - Build command: `cd web && npm install && npm run build`
 - Output: `web/dist`
-- Watch paths: `web/**`, `ai_platforms/release/v1.0/**`
+- Watch paths: `web/**`, `release/v1.0/**`
 - Node version: 20
 - Custom domain: not configured (deferred to v1.1, out of scope for this plan)
 ```
@@ -2951,7 +2951,7 @@ Add to `web/qa/cross-browser-2026-04-27.md`. If any fail, fix the smallest offen
 ```markdown
 # SDTM Knowledge Website
 
-Public-facing site for `ai_platforms/release/v1.0/`. Deployed: https://sdtm-pedia.pages.dev (custom domain set in v1.1).
+Public-facing site for `release/v1.0/`. Deployed: https://sdtm-pedia.pages.dev (custom domain set in v1.1).
 
 ## Local dev
 

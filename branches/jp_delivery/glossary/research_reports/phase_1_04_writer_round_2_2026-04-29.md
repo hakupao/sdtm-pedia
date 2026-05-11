@@ -15,7 +15,7 @@
 
 | ID | location (yml 行 / xlsx セル) | before | after | 出典確認 |
 |----|------------------------------|--------|-------|---------|
-| R1-F-1 | yml l.190 (rows 列内) / xlsx 5_制約条件 row 6 = B6 (種別) + C6 (制約内容) + D6 (出典) | **種別**「既知の限界」/ **制約内容**「本知識ベースには既知の限界が存在する。第一に、大規模コードリスト (例: 検査試験コード C65047 の 2,536 用語) は短縮形 (stub) として保持し、全用語列挙を行わない。第二に、外部実時間検索機能 (CDISC.org / FDA.gov / NCI EVS Browser への動的照合) は組込まない。第三に、QS 系 296 のコードリストは容量制約により完全展開していない。詳細は KNOWN_LIMITATIONS.en.md に記載する。」/ **出典**「ai_platforms/release/v1.0/KNOWN_LIMITATIONS.en.md」 | **種別**「機能限界」/ **制約内容**「本知識ベースは、大規模な受控用語コードリストの完全展開および外部実時間検索の組込みを範囲外とする。これら個別事項の詳細は別途配布される技術文書 KNOWN_LIMITATIONS を参照する。」/ **出典**「METHODOLOGY.md §4 Standing limitations + KNOWN_LIMITATIONS.en.md」 | METHODOLOGY.md §4 Standing limitations 段落 (large codelists stored as stubs, real-time external lookups not embedded) で抽象化記述の根拠取得済. AI 平台 v1.0 リリース固有量的数値 (2,536 / 296 / C65047) は 04 要件定義書から完全削除. PLAN §0.2 Out-of-scope (`ai_platforms/` 旁枝独立) と整合 |
+| R1-F-1 | yml l.190 (rows 列内) / xlsx 5_制約条件 row 6 = B6 (種別) + C6 (制約内容) + D6 (出典) | **種別**「既知の限界」/ **制約内容**「本知識ベースには既知の限界が存在する。第一に、大規模コードリスト (例: 検査試験コード C65047 の 2,536 用語) は短縮形 (stub) として保持し、全用語列挙を行わない。第二に、外部実時間検索機能 (CDISC.org / FDA.gov / NCI EVS Browser への動的照合) は組込まない。第三に、QS 系 296 のコードリストは容量制約により完全展開していない。詳細は KNOWN_LIMITATIONS.en.md に記載する。」/ **出典**「release/v1.0/KNOWN_LIMITATIONS.en.md」 | **種別**「機能限界」/ **制約内容**「本知識ベースは、大規模な受控用語コードリストの完全展開および外部実時間検索の組込みを範囲外とする。これら個別事項の詳細は別途配布される技術文書 KNOWN_LIMITATIONS を参照する。」/ **出典**「METHODOLOGY.md §4 Standing limitations + KNOWN_LIMITATIONS.en.md」 | METHODOLOGY.md §4 Standing limitations 段落 (large codelists stored as stubs, real-time external lookups not embedded) で抽象化記述の根拠取得済. AI 平台 v1.0 リリース固有量的数値 (2,536 / 296 / C65047) は 04 要件定義書から完全削除. PLAN §0.2 Out-of-scope (`ai_platforms/` 旁枝独立) と整合 |
 | R1-F-2 | yml l.213 (rows 列内) / xlsx 6_前提条件 row 6 = C6 | 「(例: 性別の C66731)」 | 「(例: C66731)」 | METHODOLOGY.md §3 第 3 段落 原文「for example C66731」のみ. 「性別」属性は METHODOLOGY 原文に未記述のため帰属短縮 |
 | R1-F-3 | yml l.166 (rows 列内) / xlsx 4_非機能要件 row 3 = C3 (NFR-01) | 「行頁比は概ね 15 行から 20 行毎頁を基準とする」 | 「行頁比は概ね 1 頁あたり 15 行から 20 行を基準とする」 | METHODOLOGY.md §5 #1 「lines-per-page ratios」+ retrospective.md §4 規律 1「行数/页数比值合理 (本项目基准: ≈15-20 行/页)」を日本語自然語に書換 |
 | R1-F-4 | yml l.169 (rows 列内) / xlsx 4_非機能要件 row 6 = E6 (NFR-04 出典) | 「METHODOLOGY.md §5 #4 + 規律 4」 | 「METHODOLOGY.md §5 #4 (retrospective.md §4 規律 4 を恒常統制へ格上げ)」 | METHODOLOGY.md §5 全体「The two non-conformances above resulted in four standing controls.」(retrospective 4 規則を standing controls へ昇格) と retrospective.md §4「規則 4: 人工抽样检查点 (强烈建议)」の関係を出典欄で明示化 |
@@ -127,7 +127,7 @@ audit_terms.py は overall verdict を機械的に "FAIL" と返す (mapping_inc
 | 4_非機能要件 | E6 (NFR-04 出典) | 「METHODOLOGY.md §5 #4 + 規律 4」→「METHODOLOGY.md §5 #4 (retrospective.md §4 規律 4 を恒常統制へ格上げ)」(R1-F-4) |
 | 5_制約条件 | B6 (C-04 種別) | 「既知の限界」→「機能限界」(R1-F-1) |
 | 5_制約条件 | C6 (C-04 制約内容) | 量的数値 (2,536 / 296 / C65047) 完全削除, 抽象記述「本知識ベースは、大規模な受控用語コードリストの完全展開および外部実時間検索の組込みを範囲外とする。これら個別事項の詳細は別途配布される技術文書 KNOWN_LIMITATIONS を参照する。」に置換 (R1-F-1) |
-| 5_制約条件 | D6 (C-04 出典) | 「ai_platforms/release/v1.0/KNOWN_LIMITATIONS.en.md」→「METHODOLOGY.md §4 Standing limitations + KNOWN_LIMITATIONS.en.md」(R1-F-1, パス開示を抽象化方向で整理) |
+| 5_制約条件 | D6 (C-04 出典) | 「release/v1.0/KNOWN_LIMITATIONS.en.md」→「METHODOLOGY.md §4 Standing limitations + KNOWN_LIMITATIONS.en.md」(R1-F-1, パス開示を抽象化方向で整理) |
 | 6_前提条件 | C6 (P-04) | 「(例: 性別の C66731)」→「(例: C66731)」(R1-F-2) |
 
 ---
@@ -192,6 +192,6 @@ audit_terms.py は overall verdict を機械的に "FAIL" と返す (mapping_inc
 - audit 機械検査: `/Users/bojiangzhang/MyProject/SDTM-compare/branches/jp_delivery/scripts/audit_terms.py`
 - 引用源 (改修反映元): `/Users/bojiangzhang/MyProject/SDTM-compare/METHODOLOGY.md` §4 Standing limitations / §5 #1-#4 / §3 第 3 段落
 - 引用源 (改修反映元): `/Users/bojiangzhang/MyProject/SDTM-compare/.work/meta/retrospective.md` §4 規律 4
-- 引用源 (改修反映元): `/Users/bojiangzhang/MyProject/SDTM-compare/ai_platforms/release/v1.0/KNOWN_LIMITATIONS.en.md`
+- 引用源 (改修反映元): `/Users/bojiangzhang/MyProject/SDTM-compare/release/v1.0/KNOWN_LIMITATIONS.en.md`
 - v0.2 yml: `/Users/bojiangzhang/MyProject/SDTM-compare/branches/jp_delivery/sources/04_要件定義書.yml` (217 行 / v0.2)
 - v0.2 xlsx: `/Users/bojiangzhang/MyProject/SDTM-compare/branches/jp_delivery/04_要件定義書.xlsx` (23,883 bytes / 10 シート)

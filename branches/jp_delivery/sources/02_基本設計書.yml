@@ -30,7 +30,7 @@ sheets:
 
   # ─────────────────────────────────────────────
   # 1. 概要
-  # 引用源: S-1 (METHODOLOGY.md) + S-7 (01 要件定義書) + S-2 (DESIGN_RAG_KG.md) + S-11 (ai_platforms/release/v1.0/)
+  # 引用源: S-1 (METHODOLOGY.md) + S-7 (01 要件定義書) + S-2 (DESIGN_RAG_KG.md) + S-11 (release/v1.0/)
   # ─────────────────────────────────────────────
   - name: "1_概要"
     type: "text"
@@ -52,7 +52,7 @@ sheets:
 
       (4) Phase 7 RAG+KG — 検索拡張生成 (RAG) および知識グラフ (KG) を組み合わせた二段階インテリジェント検索・確認システムの設計仕様。現状は設計確定・実装未着手。
 
-      出典: METHODOLOGY.md §2 + docs/DESIGN_RAG_KG.md §1.4 + ai_platforms/release/v1.0/。
+      出典: METHODOLOGY.md §2 + docs/DESIGN_RAG_KG.md §1.4 + release/v1.0/。
 
       1.3 想定読者
 
@@ -106,7 +106,7 @@ sheets:
       ・AI 平台展開 — Phase 6.5 完了、現行運用中 (リリース版 v1.0)
       ・Phase 7 RAG+KG — 設計確定、実装未着手
 
-      出典: METHODOLOGY.md §2 + docs/DESIGN_RAG_KG.md §2 + ai_platforms/release/v1.0/。
+      出典: METHODOLOGY.md §2 + docs/DESIGN_RAG_KG.md §2 + release/v1.0/。
 
       2.2 知識ベース本体
 
@@ -151,9 +151,9 @@ sheets:
       ・Google NotebookLM — 42 ソース構成 (上限 50 のうち 42 使用)。知識ベース内のソースのみに限定した高精度参照モデル。
       ・Anthropic Claude Projects (v2.6) — 19 ファイル構成 (容量約 77%、約 1.29M トークン使用)。QS コードリスト展開率 約 55.8% (KNOWN_LIMITATIONS.en.md L1 計測)。
 
-      各平台は容量制約・機能制約に整合させた配布物として再パッケージされており、既知の限界は ai_platforms/release/v1.0/KNOWN_LIMITATIONS.en.md に一覧化されている。
+      各平台は容量制約・機能制約に整合させた配布物として再パッケージされており、既知の限界は release/v1.0/KNOWN_LIMITATIONS.en.md に一覧化されている。
 
-      出典: ai_platforms/release/v1.0/ + METHODOLOGY.md §2 Phase 6.5。
+      出典: release/v1.0/ + METHODOLOGY.md §2 Phase 6.5。
 
       2.5 Phase 7 RAG+KG (設計済・実装未着手)
 
@@ -318,10 +318,10 @@ sheets:
          "knowledge_base/ROUTING.md"]
       - ["Phase 6.5 リリース",
          "AI 平台展開 v1.0 リリース一式",
-         "ai_platforms/release/v1.0/"]
+         "release/v1.0/"]
       - ["Phase 6.5 限界",
          "既知の限界 (KNOWN_LIMITATIONS.en.md)",
-         "ai_platforms/release/v1.0/KNOWN_LIMITATIONS.en.md"]
+         "release/v1.0/KNOWN_LIMITATIONS.en.md"]
       - ["配布許諾",
          "著作権・免責・CC BY 4.0 (派生著作物)",
          "DISCLAIMER.md"]

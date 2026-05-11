@@ -71,7 +71,7 @@ sheets:
        - 02 基本設計書.xlsx (確定版 v1.0)
        - 07 進捗報告書.xlsx (本書, 中間版 v0.5)
        - 99 用語集.xlsx (骨格版 v0.1, 中国語列は仕上げ段階で充填)
-       - 公開発布版資料 (ai_platforms/release/v1.0/) — 方法論・利用案内・既知制限事項を 3 言語で収録した参考資料
+       - 公開発布版資料 (release/v1.0/) — 方法論・利用案内・既知制限事項を 3 言語で収録した参考資料
 
       出典: docs/jp/deliverable/README_今回納品範囲.md。
 
@@ -137,11 +137,11 @@ sheets:
       - label: "99 用語集.xlsx 骨格版 (本中間版 同梱)"
         target: "../99_用語集.xlsx"
       - label: "公開発布版 README (日本語) — 方法論 / 利用案内 / 既知制限事項"
-        target: "../../ai_platforms/release/v1.0/README.ja.md"
+        target: "../../release/v1.0/README.ja.md"
       - label: "公開発布版 方法論 (日本語)"
-        target: "../../ai_platforms/release/v1.0/METHODOLOGY.ja.md"
+        target: "../../release/v1.0/METHODOLOGY.ja.md"
       - label: "公開発布版 利用案内 (日本語)"
-        target: "../../ai_platforms/release/v1.0/USER_GUIDE.ja.md"
+        target: "../../release/v1.0/USER_GUIDE.ja.md"
 
 approval:
   enabled: true

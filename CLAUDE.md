@@ -82,7 +82,7 @@ Full chain definitions are in `.work/MANIFEST.md`.
 | Phase 6.5 smoke 题库 + retro | `ai_platforms/SMOKE_V4.md` + `ai_platforms/retrospectives/` |
 | Phase 6.5 ChatGPT + Gemini | `ai_platforms/{chatgpt_gpt,gemini_gems}/` (current/ + dev/ + docs/) |
 | Phase 6.5 NotebookLM | `ai_platforms/notebooklm/` (current/ + docs/RETROSPECTIVE.md) |
-| Phase 6.5 Claude Projects | `ai_platforms/claude_projects/` (current/UPLOAD_TUTORIAL.md + docs/) |
+| Phase 6.5 Claude Projects | `ai_platforms/claude_projects/` (内部开发; 外部教程见 `release/v1.0/self_deploy/claude/`) |
 | Phase 6.5 Release v1.0 | `release/v1.0/` + `.work/07_release/{PLAN,RETROSPECTIVE}.md` (tag `v1.0-company-release`) |
 | METHODOLOGY 公开声明 | `METHODOLOGY.md` + `release/v1.0/METHODOLOGY.{en,zh,ja}.md` |
 | 07 Website Phases 6-8 (closed) | `.work/07_website/phase{6,7,8}/` + handoffs `.work/meta/website_phase*_handoff_*.md`; prod https://sdtm-pedia.pages.dev/ |

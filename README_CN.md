@@ -272,12 +272,12 @@ sdtm-pedia/
 
 ### 方式 A — 在主流 AI 平台自部署（推荐）
 
-`ai_platforms/release/v1.0/` 提供 **4 个平台**（Claude Projects / ChatGPT GPTs / Gemini Gems / NotebookLM）的开箱即用部署包。每个平台子目录自成一体：system prompt + 上传文件 + 三语教程（zh/en/ja）。
+`release/v1.0/` 提供 **4 个平台**（Claude Projects / ChatGPT GPTs / Gemini Gems / NotebookLM）的开箱即用部署包。每个平台子目录自成一体：system prompt + 上传文件 + 三语教程（zh/en/ja）。
 
 1. **克隆仓库**
    ```bash
    git clone https://github.com/hakupao/sdtm-pedia.git
-   cd sdtm-pedia/ai_platforms/release/v1.0
+   cd sdtm-pedia/release/v1.0
    ```
 
 2. **挑一个平台** — 阅读 `self_deploy/README.zh.md` 中的决策树（容量、分享方式、Audio Overview 等）
@@ -321,7 +321,7 @@ SEX 绑定哪个 codelist？
 - [x] Phase 6.1 — 问题路由索引（`knowledge_base/ROUTING.md`）
 - [x] Phase 6.2 — Domain 交叉引用（写入各 domain 的 `spec.md` 末尾）
 - [x] Phase 6.3 — 变量级反向索引（`knowledge_base/VARIABLE_INDEX.md`，1,523 个变量）
-- [x] Phase 6.5 — 多平台 AI 部署 + Release v1.0（4 平台，`ai_platforms/release/v1.0/`）
+- [x] Phase 6.5 — 多平台 AI 部署 + Release v1.0（4 平台，`release/v1.0/`）
 - [ ] Phase 6.4 — 结构化元数据（YAML/JSON）— 已并入 Phase 7 Step 7
 - [ ] Phase 7 — RAG + 知识图谱 + 数据集校验（设计完成，详见 `docs/DESIGN_RAG_KG.md`）
 - [ ] Deep Verification — PDF→KB 字面级 atom 逐条审计（进行中，详见 `branches/06_deep_verification/`）

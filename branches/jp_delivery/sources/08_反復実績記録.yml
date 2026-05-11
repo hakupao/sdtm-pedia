@@ -195,9 +195,9 @@ sheets:
       - label: "基本設計書 (01, 第 1 段階 第 2 着手 確定版)"
         target: "../02_基本設計書.xlsx"
       - label: "公開発布版 README (日本語)"
-        target: "../../ai_platforms/release/v1.0/README.ja.md"
+        target: "../../release/v1.0/README.ja.md"
       - label: "公開発布版 改訂履歴"
-        target: "../../ai_platforms/release/v1.0/CHANGELOG.md"
+        target: "../../release/v1.0/CHANGELOG.md"
 
 approval:
   enabled: true
