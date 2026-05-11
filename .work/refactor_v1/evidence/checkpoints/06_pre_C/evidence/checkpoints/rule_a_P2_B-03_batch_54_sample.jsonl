@@ -1,8 +1,0 @@
-{"sample_id": "s001", "atom_id": "md_dmHO_assn_a001", "selection_reason": "boundary: H1 file root", "stratum": "boundary_H1"}
-{"sample_id": "s002", "atom_id": "md_dmHO_assn_a002", "selection_reason": "boundary: first LIST_ITEM (top-level item 1) post-H1", "stratum": "boundary_first_list_item"}
-{"sample_id": "s003", "atom_id": "md_dmHO_assn_a003", "selection_reason": "full coverage: top-level LIST_ITEM (item 2) with embedded double quotes verbatim preservation check", "stratum": "list_item_quotes"}
-{"sample_id": "s004", "atom_id": "md_dmHO_assn_a004", "selection_reason": "full coverage: parent LIST_ITEM (item 3) introducing nested sub-bullets a/b", "stratum": "list_item_parent_of_nested"}
-{"sample_id": "s005", "atom_id": "md_dmHO_assn_a005", "selection_reason": "full coverage: nested sub-bullet 'a.' with 3-space indent — leading-whitespace byte-exact preservation", "stratum": "nested_sub_bullet_a"}
-{"sample_id": "s006", "atom_id": "md_dmHO_assn_a006", "selection_reason": "full coverage: nested sub-bullet 'b.' with 3-space indent — leading-whitespace byte-exact preservation", "stratum": "nested_sub_bullet_b"}
-{"sample_id": "s007", "atom_id": "md_dmHO_assn_a007", "selection_reason": "full coverage: top-level LIST_ITEM (item 4) post-nested resumption — sib continuity across nest boundary", "stratum": "list_item_post_nested"}
-{"sample_id": "s008", "atom_id": "md_dmHO_assn_a008", "selection_reason": "boundary: last LIST_ITEM (item 5) — long enumerated qualifier list verbatim preservation (--SER, --ACN, ...)", "stratum": "boundary_last_list_item"}

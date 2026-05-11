@@ -102,10 +102,6 @@ branches/jp_delivery/PLAN.md / EXECUTION_PLAN.md       ← 規範改訂
 
 下流 (J'): `EXECUTION_PLAN.md` 改訂時は `prompts/`, `failures/`, `scripts/` 整合性を確認.
 
-### Chain REFACTOR-v1: 项目重构链 (临时, 段 3 close 后删)
-
-**触发**: `.work/refactor_v1/` 配下修改. 完整链定义见该目录 `PLAN.md` header. 简化指针: `PLAN.md → _progress.json → path_migration.md → MANIFEST.md → meta/worklog/phase_meta_refactor.md → ../CLAUDE.md`.
-
 ---
 
 ## 计划导航 (Plan Map)
