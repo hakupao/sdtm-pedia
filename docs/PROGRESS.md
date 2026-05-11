@@ -17,7 +17,7 @@
 | **Phase 6** 检索优化 | ✅ 完成 (P0-P2) | — | P3 → 已合并到 Phase 7 |
 | **Phase 6.5** AI 平台部署 | 🟢 进行中 | Claude/NotebookLM 完成; ChatGPT/Gemini 双平台锁步 (范本就绪 Phase 0 待启) | 看 `ai_platforms/SYNC_BOARD.md` |
 | **Phase 7** RAG + KG | ⏸ 待启动 | 设计完成 (`docs/DESIGN_RAG_KG.md`) | 实施前 5 步待办 (见 `phase7_handoff.md`) |
-| **06 旁枝** Deep Verification | 🟢 进行中 | **原子化完成**: P1 pdf_atoms 12,487 ✅ + P2 md_atoms 10,435 ✅; **比对未启动**: P3-P7 (coverage_ledger / section_coverage / triage) 待执行; P3 sub-plan 就绪 `plans/P3_index_building.md` | 详见 `branches/06_deep_verification/plans/P3_index_building.md` |
+| **06 旁枝** Deep Verification | 🟢 进行中 | P1 ✅ 12,487 pdf_atoms + P2 ✅ 10,435 md_atoms + **P3 ✅ p3_candidates.jsonl 12,487行 gate ALL PASS**; P4a-P7 待执行 | `branches/06_deep_verification/plans/` |
 | **07 旁枝** Website | ✅ 完成 | Phase 6/7/8/9/10/11 全 closed; prod sdtm-pedia.pages.dev | — |
 | **docs/jp** iTMS 納品 | 🟢 进行中 | Phase 1 P0 中間版 v0.5 已提出 2026-04-30 | 残 02/03 + 05/06/99 中文列充填 (Phase 2-3, 2026-05 中下旬) |
 | **refactor v1** 项目重构 | ✅ 完成 | 段 1/2/3 全 closed; branches/ 迁移完成 2026-05-11 ★ | RETROSPECTIVE.md 三段齐备 |
@@ -28,6 +28,7 @@
 
 ## 关键 milestone (近 30 天)
 
+- 2026-05-11 — **06 P3 COMPLETE ★ p3_candidates.jsonl 12,487 行 gate ALL PASS** (zero_cand 0.0%, avg_cands 5.30, top1_mean 0.702; domain_route 39302 / chapter_route 13890 / global 12800; scripts p3_build_index.py + p3_report.py; evidence/checkpoints/p3_report.md)
 - 2026-05-11 — **refactor v1 段 3 CLOSED ★ 项目重构 v1 収官** (branches/ 迁移完成; 06 旁枝→branches/06_deep_verification/ + jp_delivery→branches/jp_delivery/; C-16/17/18 dry-run PASS 0 断链; RETROSPECTIVE.md 三段齐备; 规则 A 抽检 PASS)
 - 2026-05-11 — 06 P2 B-03c **round 13 CLOSED ★★★★ 収官 — P2 B-03c 100% COMPLETE** (12 batches / 529 atoms / 6 domains TR/TS/TU/TV/UR/VS; md_atoms.jsonl **10,435 total**; **63/63 domains 141/141 files 100%**; §G-3 de-figure 0.7700 IN BAND; §2.12 NEW LOCKED TS/ass L53; §G-1 v1.9.4 1st production validation PASS 4/4 TV/ex descriptive-title H3; §2.11 7th case TV/ex; Rule D critic mini-audit PASS 8/8; retro `multi_session/P2_B-03c_RETROSPECTIVE.md`)
 - 2026-05-11 — 06 P2 **v1.9.4 prompt cut COMPLETED ★ 4 NEW G-rules** (§G-1 HIGH §F-1 descriptive-title H3 7th cumulative case 3 distinct pattern types + §G-2 HIGH §2.4 multi-slice 続号 first-class STRONGLY VALIDATED 3rd production + §G-3 STANDARD §F-2 de-figure-naive promote 2-round sustained + §G-4 INFO §2.6 FIGURE-heavy 20-block validated + C-R12-07 build-script defensive; Rule D AUDIT slot #72 oh-my-claudecode:code-reviewer 10/10 100% PASS_WITH_OBSERVATIONS 1 LOW pre-existing; v1.9.3 archived `archive/v1.9.3_final_2026-05-11/`; hooks: writer_md 30→33 / reviewer 35→38 / matcher 30→31)

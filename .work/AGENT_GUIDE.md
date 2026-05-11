@@ -34,7 +34,7 @@ SDTM 知识库, 从 CDISC PDF + xlsx 抽取, 多旁枝 (字面级深审 / 双 AI
 | 03 Verification | `.work/03_verification/plan.md` | closed (issues_found.md 有 open issues, 走 06 字面级深审回流) |
 | 04 Optimization | `.work/04_optimization/retrieval_optimization.md` | TODO |
 | 05 RAG/KG | `.work/05_rag_kg/session_2026-04-16_design.md` | **搁置** (仅设计 session, 未启动) |
-| 06 Deep Verification | `branches/06_deep_verification/PLAN.md` | closed (P2 B-03c 収官 COMPLETE 2026-05-11) |
+| 06 Deep Verification | `branches/06_deep_verification/PLAN.md` | 🟢 P3 ✅ COMPLETE 2026-05-11; P4a 待启动 |
 | 6.5 AI Platforms | `ai_platforms/SYNC_BOARD.md` | active (双平台锁步) |
 | 7 Release | `.work/07_release/PLAN.md` | closed (v1.0 cut) |
 | 7 Website | `.work/07_website/phase{6,7,8}/` | closed (prod 已发布) |
