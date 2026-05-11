@@ -17,7 +17,7 @@
 | **Phase 6** 检索优化 | ✅ 完成 (P0-P2) | — | P3 → 已合并到 Phase 7 |
 | **Phase 6.5** AI 平台部署 | 🟢 进行中 | Claude/NotebookLM 完成; ChatGPT/Gemini 双平台锁步 (范本就绪 Phase 0 待启) | 看 `ai_platforms/SYNC_BOARD.md` |
 | **Phase 7** RAG + KG | ⏸ 待启动 | 设计完成 (`docs/DESIGN_RAG_KG.md`) | 实施前 5 步待办 (见 `phase7_handoff.md`) |
-| **06 旁枝** Deep Verification | ✅ 完成 | **P2 B-03c 収官 COMPLETE 2026-05-11 ★★★★** 63/63 domains 141/141 files 10,435 atoms; §2.12 locked; §G-1 v1.9.4 VALIDATED; v1.9.4 1st prod validation round DONE | 详见 `branches/06_deep_verification/_progress.json` |
+| **06 旁枝** Deep Verification | 🟢 进行中 | **原子化完成**: P1 pdf_atoms 12,487 ✅ + P2 md_atoms 10,435 ✅; **比对未启动**: P3-P7 (coverage_ledger / section_coverage / triage) 待执行; P3 sub-plan 就绪 `plans/P3_index_building.md` | 详见 `branches/06_deep_verification/plans/P3_index_building.md` |
 | **07 旁枝** Website | ✅ 完成 | Phase 6/7/8/9/10/11 全 closed; prod sdtm-pedia.pages.dev | — |
 | **docs/jp** iTMS 納品 | 🟢 进行中 | Phase 1 P0 中間版 v0.5 已提出 2026-04-30 | 残 02/03 + 05/06/99 中文列充填 (Phase 2-3, 2026-05 中下旬) |
 | **refactor v1** 项目重构 | ✅ 完成 | 段 1/2/3 全 closed; branches/ 迁移完成 2026-05-11 ★ | RETROSPECTIVE.md 三段齐备 |
