@@ -8,21 +8,26 @@
 
 ## 0. 前置要求
 
-- [ ] **Google AI Pro 订阅** (个人版即可) — 免费 Gemini 无 Custom Gem 编辑权
+- [ ] **Google 账号** (13 岁以上)。**Gem 的创建本身自 2025 年起 Free 账号即可使用**。但 **Knowledge 文件上传、共享给他人、大容量 instructions** 需要 **Google AI Plus / Pro / Ultra / Workspace 套餐之一**。本教程全量使用 Knowledge, 推荐 **Pro 及以上**。
+
+  | 套餐 | 创建 Gem | Knowledge | 共享 |
+  |------|----------|-----------|------|
+  | Free | 可 | 受限 | 不可 |
+  | Google AI Plus / Pro / Ultra | 可 | 全功能 | 可 |
+  | Google Workspace (Business Standard 及以上) | 可 | 全功能 (管理员管控) | 可 |
+
 - [ ] 网页访问 [gemini.google.com](https://gemini.google.com)
 - [ ] **本地 clone 本仓库**: 需要读 `./` 下 `system_prompt.md` (约 29.9KB) 和 `uploads/` 下 4 个 .md 文件
 
-**关于套餐与团队共享**:
-- 个人 Google AI Pro 订阅可建 Gem, **不支持团队共享** (Gem 与个人账号绑定)
-- Workspace 套餐有 Gem 共享能力, 但语义有别于 personal — 用户**各自部署**最稳妥
-- Gemini 没有"GPT Store" 式公开画廊, 只能 link share
+**关于套餐与共享**:
+- 个人 Google AI Pro / Ultra 可创建并共享 Gem. **2025 年起 Gem 共享功能开放**, 与 Google Drive 同款 UI 设置 Viewer / Editor 权限 (见 §9).
 
 ---
 
 ## 1. 新建 Custom Gem
 
-1. 登录 [gemini.google.com](https://gemini.google.com) (用 Pro 订阅 Google 账号)
-2. 左侧导航 → "**Gems**" → 右上 "**+ New Gem**" 或 "**Create a new Gem**"
+1. 登录 [gemini.google.com](https://gemini.google.com)
+2. 侧边栏 → "**Gems**" → "**Explore Gems**" → "**New Gem**" 按钮 (无 + 号)
 3. **Name**: 建议 `SDTM Expert` 或 `CDISC SDTM Knowledge`
 4. **Description**: `CDISC SDTMIG v3.4 + SDTM v2.0 Expert — Variable definitions, rule reasoning, business scenario mapping, cross-domain.`
 
@@ -32,7 +37,7 @@
 
 1. 在 Gem Edit 界面找 "**Instructions**" 或 "**Custom Instructions**" 框
 2. **完整复制** `./system_prompt.md` (v7.1 LIVE, 29,919 chars) 粘贴
-3. **强调**: Gemini 接受**远超 8K 字符**的 instructions (实测 30K 接受). 不要因为习惯 ChatGPT 8K 上限而手动截断, 截断会丢 anti-hallucination 锚
+3. **强调**: Gemini Gems 接受较长 Instructions. **官方未明确说明字符上限**, 本 v7.1 LIVE 的 29,919 chars 已实测可用 (2026-04 时点). **有报告指出过长的 Instructions 可能削弱 Knowledge 文件召回**, 建议保持必要最小长度. 不要因为习惯 ChatGPT 8K 上限而手动截断, 截断会丢 anti-hallucination 锚
 
 **v7.1 LIVE 关键 patch (粘贴后必须保留)**:
 - **§CO-1d SUPPQUAL Core + scope 硬锚**: QORIG Core=Req / QEVAL Core=Exp / CT C78735; SUPPQUAL 不适用 Trial Design (TS/TA/TE/TI/TV)
@@ -53,13 +58,17 @@
 
 Gemini Knowledge **10 文件硬限**, 当前 4/10 (6 文件 headroom). 总 ~616K tokens 占 1M 上下文窗口约 62%, 留 ~38% 响应缓冲.
 
+**补充**: **单文件一般上限 100 MB** (视频为 2 GB). **也可直接引用 Google Drive 文件** (始终拉取最新版, 文件更新后无需重新上传替换).
+
 ---
 
-## 4. 等 Indexing
+## 4. 等 Indexing (RAG 处理)
 
-Gemini Gem **无 RAG / 无 chunk 检索** — 上传后**秒级就绪**, 全文始终在上下文. 一般 1-3 分钟内文件状态变 "Ready" 即可 chat.
+**2026 年现在, Gemini Gems 采用 RAG (Retrieval-Augmented Generation, 语义分块检索)**. 上传后 Knowledge 文件会被分块向量化, 每次查询时**仅动态注入语义相似度高的块**. Instructions 每轮全量注入, Knowledge 文件仅在相似度命中时才被调用.
 
-ChatGPT 是 RAG 召回, Gemini 是全注入 — 两者底层架构不同, 不要套用 ChatGPT 的 indexing 等待经验.
+一般 1-3 分钟内文件状态变 "Ready" 即可 chat.
+
+**注意**: RAG 管道稳定性偶有波动 (2026/1 曾有文件引用退行 bug 报告). 如未出现 citation / 期望内容未命中, 请在新 chat 重试或参见 §7 排错.
 
 ---
 
@@ -74,6 +83,8 @@ ChatGPT 是 RAG 召回, Gemini 是全注入 — 两者底层架构不同, 不要
 | T3 | `PF 域 (Pharmacogenomics Findings) 的变量清单?` (PF deprecated) | Gem 应**识破**: PF 在 v3.4 已废弃, 当前用 GF (Genomics Findings) / BE (Biospecimen Events) / BS (Biospecimen Findings) + RELSPEC | AHP3 deprecated 反虚构 (R1→R2 升级核心闭合点) |
 
 **3/3 PASS** = 部署成功; 任一 FAIL → 看 §7 排错.
+
+**为确认 Knowledge 文件已被 RAG 命中, 期望 Gem 在回答中包含 source citation.**
 
 ---
 
@@ -93,7 +104,7 @@ ChatGPT 是 RAG 召回, Gemini 是全注入 — 两者底层架构不同, 不要
 | 答 LBCLINSIG (变量虚构) | §CO-5 AHP-V1 锚失效 | 重检 §CO-5 双核工作流 step 0 + AHP-V1 识破模板 |
 | First-token 慢 (>10 秒) | 冷启动正常现象 | 后续 query 会快; 持续 >30 秒查 Google AI 状态 |
 | 答案没 citation / 源路径 | §CO-3 锚失效 | 重贴 system_prompt §三条硬约束 + §回答规范 |
-| Knowledge 文件状态卡 "Processing" | 文件超 5MB / 编码异常 | 检查 02 文件 (~919KB 最大), 确认 UTF-8 LF 无 BOM |
+| Knowledge 文件状态长期 "Processing" | 文件远大于预期 (本发布最大 ~919 KB) / 编码异常 | 检查 02 文件 (~919 KB, 最大), 确认 UTF-8 LF, 无 BOM |
 
 ---
 
@@ -114,25 +125,27 @@ ChatGPT 是 RAG 召回, Gemini 是全注入 — 两者底层架构不同, 不要
 
 ## 9. 团队协作
 
-**Gemini Gem 不支持团队共享** (与 ChatGPT GPT 不同):
-- Gem 与个人 Google 账号绑定, 不能 invite 多位用户到同一 Gem
-- 用户各自照本教程部署, 各自维护一份
-- Workspace 套餐有 Gem 共享能力, 但实际语义复杂, 推荐**各自部署最稳妥**
-- 不存在"Gemini Gem Store"公开发布路径, 仅 link share
+**Gemini Gem 自 2025 年起支持共享** (原"不支持团队共享"限制已解除).
+
+- **共享方法**: 在 Gem Manager 找到目标 Gem, 点击旁边的 "**Share**" → 与 Google Drive 同款 UI 选择 Viewer / Editor 权限 → 填邮箱地址邀请
+- **Workspace 管理员管控**: Admin Console → Generative AI → Gemini app → Gem sharing 可开关
+- **接收方行为**: 被共享的 Gem 不会自动出现在接收方 Gem Manager 中. 接收方需先打开并使用, 才能添加到 "My Gems"
+- **注意**: Free 账号无法使用共享功能. 发送方与接收方均需 Pro / Ultra / Workspace
+- **公开画廊**: 不存在类似 GPT Store 的公开市场. Google 提供的 "premade Gems" 显示在 Gems Manager 内, 但用户无法将 Gem 发布到公开商店
 
 ---
 
 ## 10. 后续路径
 
 - 本发布版已是**完整终态**, 短期内不会再扩容
-- 长尾 terminology + Studio 三件套 (Audio Overview / Mind Map / Study Guide) 归后续 Phase 7 / NotebookLM 互补
+- 长尾 terminology + Studio 功能 (NotebookLM 的 Audio Overviews / Video Overviews / Mind Maps / Reports) 归后续 Phase 7 / NotebookLM 互补
 - 知识库内容如有错漏, 反馈到项目 issue tracker
 
 ---
 
 ## 附: 验证清单
 
-- [ ] Google AI Pro 订阅已启用
+- [ ] Google AI Pro 及以上套餐已启用
 - [ ] Custom Gem 已建, 命名清晰
 - [ ] Instructions 粘贴了完整 system_prompt.md (v7.1 LIVE, 29,919 chars)
 - [ ] Knowledge 面板显示 4 个文件全 Ready
@@ -144,4 +157,4 @@ ChatGPT 是 RAG 召回, Gemini 是全注入 — 两者底层架构不同, 不要
 
 ---
 
-*v1.0 — 2026-04-27 — 发布版*
+*v1.1 — 2026-05-11 — UI 术语同步至 2026 年官方规格 (RAG 采用 / Gem 共享开放 / Free 账号可创建)*

@@ -10,37 +10,48 @@
 
 ## 0. Prerequisites
 
-- [ ] **Google AI Pro subscription** ([ai.google.com](https://ai.google.com)): this deployment uses 42 sources, well within Pro tier limits (Pro caps far exceed our usage). Free tier 50-source limit fits exactly, also workable but Pro is more stable. For full caps (notebooks / sources / words / chat / audio), see [`../../../../notebooklm/docs/PLAN.md`](../../../../notebooklm/docs/PLAN.md) §A
+- [ ] **Google account and NotebookLM plan** ([notebooklm.google.com](https://notebooklm.google.com)): **NotebookLM plan tiers as of 2026 (Free / Plus / Pro)**:
+
+| Tier | Plan name | Notebooks/user | Sources/notebook | Chats/day |
+|------|-----------|---------------|------------------|-----------|
+| Free (Standard) | (personal Google account) | 100 | **50** | 50 |
+| Plus | Google One AI Premium (personal) | 200 | 100 | 200 |
+| Pro | Workspace Enterprise / Education | 500 | 300 | 500 |
+
+  This release uses **42 sources** — fits within **Free tier** (84% of 50 cap). **Plus / Pro provide ample headroom**.
+  Words/source limit: **500,000 words or 200 MB/file** (same across Free / Plus / Pro).
+  Largest bucket in this release: 302K words < 500K → safe on all plans.
 - [ ] **Google account** (personal Gmail or Workspace): one account manages all notebooks; if you plan to do team sharing in the future, using a Workspace account is recommended
 - [ ] **Web browser access** to [notebooklm.google.com](https://notebooklm.google.com): this tutorial is entirely Web UI operations (NotebookLM has no consumer GA API)
 - [ ] **Local clone of this repository**: you need to upload the **42 source files** under `./uploads/*.md` and paste `./instructions.md` into the Chat Custom mode
 
 **On "capability vs. capacity"**:
-- This release occupies **42/300 = 14%** of the Pro source slots (well below the cap; 8-slot headroom for future expansion)
+- This release uses **42 sources** — Free 50 cap (84%) / Plus 100 cap (42%) / Pro 300 cap (14%). **Accommodated on all plans**; Plus or higher recommended for stability
 - Total words: **1,582,085** (largest bucket 302K < 500K/source cap; 0 over-cap / 0 missing)
-- Chat Custom mode instructions.md: **8,925 Unicode chars / 10,000 char limit = 10.75% headroom**
+- Chat Custom mode instructions.md: **8,925 Unicode chars — confirmed working in practice (as of 2026-04); recommend staying within 10K chars as a safe guideline**
 - **Coverage**: 63/63 domains fully covered / 176/176 Req variables ∅ gap (structural-level + semantic-level dual-anchor closure) / 295 md files fully ingested across 42 concept buckets
 
 ---
 
 ## 1. Create Notebook
 
-1. Log in to [notebooklm.google.com](https://notebooklm.google.com) (use the Google account with your Pro subscription)
-2. Click "**+ New notebook**" or "**Create new**" in the upper-left corner
+1. Log in to [notebooklm.google.com](https://notebooklm.google.com) with your Google account
+2. Click "**Create new notebook**" (current official label)
 3. **Recommended name**: `SDTM Knowledge Base` or `CDISC SDTM Expert`
 4. **Description** (optional, fill in the notebook settings): `SDTM (Study Data Tabulation Model) knowledge base from CDISC standards v3.4 IG. 42 concept-clustered sources covering 63 domains + 176 Req variables + chapters + terminology + examples. Answers variable definitions, Core attributes, codelist terms, cross-domain relationships, SUPPQUAL mechanics.`
-5. **Sharing level** (default Restricted; see §9 for details on three-tier toggle): start with Restricted, switch to a wider level after smoke test passes as needed
+5. **Sharing level** (default Restricted; see §7 for details on two-tier toggle): start with Restricted, switch to a wider level after smoke test passes as needed
 
 ---
 
 ## 2. Configure Custom Mode Instructions
 
-NotebookLM has **no System Prompt** — the only prompt-engineering entry point is the Chat **Custom mode** (10K char limit). This release provides `./instructions.md` (8,925 Unicode chars, 89.25% utilization), which already contains the SDTM expert prompt + 13 behavior rules + anchors.
+NotebookLM has **no System Prompt** — the only prompt-engineering entry point is the Chat **Custom mode**. This release provides `./instructions.md` (8,925 Unicode chars, 89.25% utilization), which already contains the SDTM expert prompt + 13 behavior rules + anchors.
 
 ### Steps
 
 1. Open the notebook you just created
-2. Find "**Configure**" or the gear icon in the upper-right Chat area → select "**Custom**" mode (the default is "Default"; "Learning Guide" is also available)
+2. Click the **gear icon** in the Chat panel → open "**Configure Chat**" menu → select "**Custom**" mode (default is "Default"; "Learning Guide" is also available)
+   > **Note**: As of the 2025/10 update, the Custom mode entry point was unified under "Configure Chat"
 3. **Copy the entire content** of `./instructions.md` (do not truncate)
 4. Paste it into the Custom goals box
 5. Click **Save**
@@ -52,7 +63,7 @@ The release instructions.md contains:
 - **SDTM anchors** (high-frequency error-prone points): AESER Core=Exp (not Req) / LBNRIND 4 values Y/N/U/NA written in full / NY C66742 / ISO 8601 datetime / C-code literal citation / Day 1 with no Day 0 / RELREC+RELSPEC+RELSUB triple set / SUPP-- structure
 - **Authoritative layer priority**: `spec > ch04 > CT > assumptions > examples` (use this priority order to resolve conflicts when the same variable appears in multiple sources)
 
-The **10.75% headroom** is reserved for your future fine-tuning (~1,000 chars can accommodate 3–5 additional anchors you define). Exceeding 10K will cause NotebookLM to truncate the content — do not paste more than that.
+**No official character limit is documented** (the old "10K char limit" has disappeared from official docs). The 8,925 Unicode chars in this instructions.md are confirmed working in practice (as of 2026-04). **Recommend staying within 10K chars** as a safe guideline; the ~1,000 char headroom can accommodate 3–5 additional anchors you define.
 
 ### Custom mode is per-chat switchable, doesn't lock the whole notebook
 
@@ -65,8 +76,8 @@ Each chat session can independently switch between Default / Learning Guide / Cu
 
 ## 3. Upload 42 Sources
 
-1. In the "**Sources**" panel on the left side of the notebook, click "**+ Add**"
-2. Select "**Upload**" (or drag and drop)
+1. In the "**Sources**" panel on the left side of the notebook, click "**Add**" (no + symbol) → choose your upload method from the popup (**Upload files / Google Drive / URL / audio file / paste text**)
+2. Select "**Upload files**" (or drag and drop)
 3. **Batch-select** all **42 files** from `./uploads/*.md` (01–42 numbered buckets; do not include MANIFEST.md — MANIFEST is a source inventory document, not a source itself)
 4. **Wait for the upload to complete**: all 42 files will queue together; the Web UI supports a single batch. In practice this takes roughly 2–5 minutes for all files to finish
 
@@ -88,6 +99,7 @@ On upload, this release was measured 42/42 indexed with 0 silent fail (upload lo
 - In the Sources panel, each file has a status icon:
   - 🟡 Spinning = indexing in progress, chat is not yet available
   - ✅ Green checkmark = indexed, chat is available
+  - **Note**: Official documentation does not specify exact icon appearance (🟡/✅) — the above is based on observed UI behavior and may change with UI updates
 - Proceed to §5 smoke test only after all files show ✅
 - If any file is still yellow after >30 minutes, it likely experienced a silent fail → re-upload per §3
 - **You can do this in parallel**: paste the §2 instructions.md content (foreground operation) while indexing runs in the background
@@ -149,7 +161,40 @@ Complete test of 17-question suite (including 3 anti-hallucination questions): 1
 
 ---
 
-## 7. Troubleshooting Guide
+## 7. Sharing Level Toggle (2 tiers) + Featured Notebooks
+
+NotebookLM supports dynamically switching the same notebook between sharing levels without needing to create multiple notebooks. The share level toggle drill was VERIFIED + deepened on 2026-04-23 (`../../../../notebooklm/dev/evidence/share_level_toggle_drill.md`).
+
+### Two-tier semantics
+
+| Level | Access rule | Use case |
+|-------|-------------|----------|
+| **Restricted** (default) | Owner only + Google accounts on the invite list | Personal use / small team |
+| **Anyone with a link** | Any Google-account user who has the link can access | Targeted distribution / team-wide announcement |
+
+> "Public" is not a user-selectable sharing level in the current UI. The old tutorial's "Public level" entry has been removed.
+
+### Toggle steps
+
+1. Click the "**Share**" button in the upper-right of the notebook → open the share panel
+2. Select the desired level and click "**Copy link**" to generate an access link
+3. Switching back to Restricted **immediately revokes** the previous link (live-tested PASS; no caching residuals)
+
+### Featured Notebooks (public gallery)
+
+- A curated list (researchers / publishers / nonprofits etc.) selected by Google — general users cannot apply
+- **Featured Notebooks is not available on Workspace Enterprise / Education accounts**
+- The old tutorial's "Public level" concept was closest to Featured Notebooks, but it is not a user-switchable option
+
+### Free tier 50-cap only applies to Restricted + Invite scenario
+
+- If the notebook is Restricted and you invite a Free tier Gmail account, that invitee **may only see the first 50 sources**
+- This release has 42 sources ≤ 50, so **no impact**
+- If you later expand to ≥51 sources and need Free tier viewer access, conduct A/B/C interpretation testing (see PLAN §3.3)
+
+---
+
+## 8. Troubleshooting Guide
 
 | Symptom | Diagnosis | Fix |
 |---------|-----------|-----|
@@ -158,13 +203,13 @@ Complete test of 17-question suite (including 3 anti-hallucination questions): 1
 | Answer gets AESER wrong (says Req) | instructions.md was pasted truncated | Original text is 8,925 chars; if character count is significantly lower after pasting → re-paste |
 | 17-Q Q9 FAIL (architecture limit) | **Expected** in-KB-only architectural limitation, safety-correct PUNT | Do not modify instructions.md to add "allow extrapolation" — doing so will degrade the anti-hallucination advantage |
 | AHP1–3 shows fabrication (e.g., answers that LBCLINSIG exists) | instructions.md "boundary honesty" anchor not taking effect | Return to §2 and verify instructions.md is complete; or switch Chat mode away from Custom and switch back to refresh |
-| Pro viewer cannot see all sources under Anyone-with-link | Should not happen; this sharing level does not apply the Free tier cap | Check Google account login state; regenerate the share link |
+| Pro viewer cannot see all sources under **Anyone with a link** | Should not happen; this sharing level does not apply the Free tier cap | Check Google account login state; regenerate the share link |
 | Table rendering drift (single-row misalignment) | F-1-recurring known behavior; does not deduct semantic score | Re-sending the same question usually refreshes it; retry idempotency is not enforced |
 | Citation dropout (on scenario questions) | F-3 systemic weakness (T2 question-type bias) | Answer content is usually correct; citations occasionally drop; does not deduct semantic score |
 
 ---
 
-## 8. Upgrade / Maintenance
+## 9. Upgrade / Maintenance
 
 ### Scaling up (42 → N sources)
 
@@ -172,51 +217,17 @@ Complete test of 17-question suite (including 3 anti-hallucination questions): 1
 - To expand the KB (e.g., adding SDTMIG next version v3.5 / new domains), add bucket 43+ to `../../../../notebooklm/dev/scripts/bucket_config.json` → run `merge_sources.py` → upload the new source incrementally
 - Note: ≥51 sources will trigger the Free tier viewer 50-cap; re-run Free tier testing
 
-### Scaling down (42 → Free tier compatible)
+### Free tier compatibility (no change needed)
 
-- Free tier limits: 50 notebooks × 50 sources × 150K words/source × 50 chats/day × 3 audio/day
-- **This release exceeds the Free tier words cap**: largest bucket 302K > 150K/source Free cap → bucket re-splitting is required (finer granularity, each < 150K)
-- Re-splitting path: write a new config in `../../../../notebooklm/dev/scripts/`, pack into 80–100 buckets, re-upload
-- Estimated effort: 1–2 days
+- Free tier limits: 100 notebooks × 50 sources × 500K words/source × 50 chats/day × 3 audio/day
+- **This release works as-is on Free tier**: 42 sources ≤ 50 cap, largest bucket 302K < 500K/source cap → **no bucket re-splitting required**
+- No re-splitting or re-upload is needed. Deployment steps are identical across Free / Plus / Pro.
 
 ### instructions.md fine-tuning
 
-- 10K char limit; 10.75% headroom (~1,075 chars for 3–5 additional anchors)
+- **No official character limit is documented** (the old "10K char limit" has disappeared from official docs). The 8,925 chars in instructions.md are confirmed working in practice (as of 2026-04). **Recommend staying within 10K chars** as a safe guideline (~1,075 chars headroom = 3–5 additional anchors)
 - When adding anchors, update CLAUDE.md + RETROSPECTIVE.md R-NBL-3 at the same time
-- Exceeding 10K causes truncation; run `wc -m` before pasting to check
-
----
-
-## 9. Team Collaboration / Three-Tier Sharing Toggle
-
-NotebookLM supports dynamically switching the same notebook among 3 sharing levels without needing to create multiple notebooks. The share level toggle drill was VERIFIED + deepened on 2026-04-23 (`../../../../notebooklm/dev/evidence/share_level_toggle_drill.md`).
-
-### Three-tier semantics
-
-| Level | Access rule | Use case | 50-cap rule |
-|-------|-------------|----------|-------------|
-| **Restricted** (default) | Owner only + Google accounts on the invite list | Personal use / small team | **Free tier invitees subject to 50-source cap** (Pro owner not affected) |
-| **Anyone with link** | Any Google-account user who has the link can access | Targeted distribution / team-wide announcement | Free tier cap does not apply |
-| **Public** | Link can be shared with anyone (Google login still required) | Open knowledge base | Free tier cap does not apply |
-
-### Toggle steps
-
-1. Click the "**Share**" button in the upper-right of the notebook → open the share panel
-2. Select the desired level and click "**Copy link**" to generate an access link
-3. Switching back to Restricted **immediately revokes** the previous link (live-tested PASS; no caching residuals)
-
-### Important: Public level ≠ automatic broadcast (new finding)
-
-- The Public level means "**any link holder can access without logging in**" — it does NOT auto-list the notebook in the NotebookLM public gallery
-- The NotebookLM public gallery (Featured) is a **curated list**, not auto-listed; setting your notebook to Public does **not automatically expose it**
-- **Privacy-friendlier** than ChatGPT GPT Store "Public = broadcast to the entire internet" semantics
-- Suitable for: small-team sharing + targeted distribution combined scenarios
-
-### Free tier 50-cap only applies to Restricted + Invite scenario
-
-- If the notebook is Restricted and you invite a Free tier Gmail account, that invitee **may only see the first 50 sources**
-- This release has 42 sources ≤ 50, so **no impact**
-- If you later expand to ≥51 sources and need Free tier viewer access, conduct A/B/C interpretation testing (see PLAN §3.3)
+- Run `wc -m` before pasting to check character count
 
 ---
 
@@ -243,12 +254,13 @@ If you need these, use Claude / ChatGPT / Gemini on any platform as a complement
 
 ### 10.3 ICEBOX (post-project optional)
 
-Studio three-piece set retained in PLAN §10:
-- **Audio Overview** × 3 episodes (SAFETY / EFFICACY / PK Deep Dive podcast, 30–45 min each)
-- **Mind Map**: 63-domain cross-domain relationships + RELREC/SUPPQUAL coverage
-- **Study Guide**: AE / LB / CM Socratic guided learning
+**Studio panel (2025/7 redesign) — 4 tile layout** retained in PLAN §10:
+- **Audio Overviews** × N episodes (SAFETY / EFFICACY / PK Deep Dive podcast, 30–45 min each)
+- **Video Overviews** (new in 2025/7, video version of Audio)
+- **Mind Maps**: 63-domain cross-domain relationships + RELREC/SUPPQUAL coverage
+- **Reports** (old Study Guide is now integrated under this Reports tile): AE / LB / CM Socratic guided learning
 
-Trigger condition: you explicitly request "refine the Studio three-piece set later." Not triggering this does not affect the main retro or the FINAL status of this tutorial.
+Trigger condition: you explicitly request "refine the Studio 4-tile set later." Not triggering this does not affect the main retro or the FINAL status of this tutorial.
 
 ### 10.4 Related documentation
 
@@ -258,7 +270,7 @@ Trigger condition: you explicitly request "refine the Studio three-piece set lat
 | **Cross-4-platform Phase 5 retro** | `../../../../retrospectives/PHASE5_RETROSPECTIVE.md` | v1.0 FINAL 2026-04-24 Bojiang Zhang-acknowledged 4-platform sign-off |
 | **PLAN** | `../../../../notebooklm/docs/PLAN.md` | 662-line v2.2 (complete plan after architecture pivot) |
 | **Complete 17-Q test results** | `../../../../notebooklm/dev/evidence/smoke_v4_results.md` + `smoke_v4_answers/` | Per-question verdict for all 17 questions |
-| **share level toggle drill evidence** | `../../../../notebooklm/dev/evidence/share_level_toggle_drill.md` | v1.0 FINAL 6 sub-steps + Public semantics deep-dive |
+| **Share level toggle evidence (2 tiers)** | `../../../../notebooklm/dev/evidence/share_level_toggle_drill.md` | v1.0 FINAL 6 sub-steps + verification that "Public" is not a user-selectable tier |
 | **v1→v2 architecture pivot record** | `../../../../notebooklm/archive/v1_3notebook_SUPERSEDED_2026-04-21/ARCHITECTURE_PIVOT_RECORD.md` | Key lesson: writer narrative synthesis pseudo-constraint |
 | **Reviewer report** | `../../../../notebooklm/dev/evidence/phase5_retrospective_reviewer.md` | v0.2 post-fix independent audit 10 action items |
 
@@ -273,11 +285,11 @@ After deployment, run through the following checklist:
 - [ ] 42 sources uploaded + all ✅ Indexed
 - [ ] Smoke 3 questions (AESER Core / LBNRIND 4 values / CMINDC scenario) 3/3 PASS
 - [ ] (Optional) complete 17-question test ≥12/17 PASS
-- [ ] Three-tier toggle verified for ≥2 levels (at minimum Restricted and Anyone with link)
-- [ ] Notebook URL noted and shared with team (only under Anyone-with-link / Public level)
+- [ ] Sharing level toggle verified for ≥2 levels (at minimum Restricted and Anyone with a link)
+- [ ] Shared notebook URL with team (when distributing via Anyone with a link)
 - [ ] Read §10.2 Known Limitations; do not push Pinnacle 21 or similar requirements to NotebookLM
 
 ---
 
-*v1.0 — 2026-04-27 — Release*
+*v1.1 — 2026-05-11 — UI terminology synced to 2026 official spec (Create new notebook / Add button / Configure Chat / 2-tier sharing / Studio 4 tiles)*
 *Platform-specific retro: ../../../../notebooklm/docs/RETROSPECTIVE.md ; Release v1.0 overview: ../README.en.md*

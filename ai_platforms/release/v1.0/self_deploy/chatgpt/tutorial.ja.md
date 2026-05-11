@@ -8,12 +8,12 @@
 
 ## 0. 前提要件
 
-- [ ] **ChatGPT Plus / Team / Enterprise** プラン (無料プランでは Custom GPT を作成できません)
+- [ ] **ChatGPT Plus ($20/月) / Pro ($200/月、上位プラン) / Business / Enterprise / Edu** いずれか。**旧 Team プランは 2025 年に Business へ改称**。Free / Go (個人廉価) プランでは Custom GPT を作成できません。
 - [ ] **Web アクセス** [chatgpt.com](https://chatgpt.com): 本チュートリアルはすべて Web UI での操作です
 - [ ] **本リポジトリをローカルに clone**: `./` 配下の `system_prompt.md` (約 8.6KB) および `uploads/` 配下の 9 個の .md ファイルが必要です
 
 **「チーム共有 vs GPT Store 公開」について**:
-- Org/Team プラン内ではメンバーを直接 email で招待でき、**審査なし**で共有できます
+- Business / Enterprise / Edu プラン内ではメンバーに直接共有可能、**審査なし**です
 - GPT Store での公開は OpenAI の審査が必要です (通常 1〜3 営業日)。すべての ChatGPT ユーザーがアクセスできるようになります
 
 ---
@@ -21,11 +21,11 @@
 ## 1. Custom GPT を新規作成
 
 1. [chatgpt.com](https://chatgpt.com) にログインします
-2. 左下の "**Explore GPTs**" をクリック → 右上の "**+ Create**" をクリックします
+2. 左下の "**Explore GPTs**" をクリック → 右上の "**Create**" ボタンをクリックします (または直接 https://chatgpt.com/create にアクセス)
 3. **Configure** タブに移動します (Create タブの会話モードではありません)
 4. **Name**: `SDTM Expert` または `CDISC SDTM Knowledge` を推奨します
 5. **Description** (英語で 1 文、約 130 文字): `CDISC SDTMIG v3.4 + SDTM v2.0 Expert — Variable definitions, rule reasoning, controlled terminology, cross-domain linking.`
-6. **Capabilities**: **Web Search / Code Interpreter / DALL-E** をすべてオフにします (この GPT は純粋な知識検索用であり、これらを有効にするとハルシネーションのリスクが高まります)
+6. **Capabilities**: **Web Search / Canvas / Image Generation / Code Interpreter & Data Analysis** をすべてオフにします。注: **DALL-E は 2025/12 に廃止され、画像生成は GPT Image 1.5/2 に置き換わり "Image Generation" トグルに統合**されました。Canvas (協働編集) と Code Interpreter & Data Analysis は旧名から改称・拡張済み。Web Browsing は Web Search に名称変更。
 
 ---
 
@@ -33,7 +33,7 @@
 
 1. 引き続き Configure タブで、"**Instructions**" フィールドを見つけます
 2. `./system_prompt.md` の全文を**完全にコピー**して貼り付けます (v2.2 LIVE、8,582 chars)
-3. **途中で切断しないでください**: ChatGPT UI の文字数インジケーターは 8000 chars と表示されますが、実測では 8,582 chars まで受け付けます (verified、デプロイ済みで動作中)。ChatGPT UI が受け付けない場合は、§Conversation Starters セクション (非コア部分) を優先的に削除してください
+3. **途中で切断しないでください**: ChatGPT UI のハード上限は公式に **8,000 chars** ですが、実測では 8,582 chars まで受け付けるケースがあります (本 v2.2 LIVE で確認済み)。UI が受け付けない場合は §Conversation Starters を優先削除
 4. **保存**します
 
 **v2.2 LIVE の主要機能** (貼り付け後は変更しないでください):
@@ -60,7 +60,7 @@
 - `08_terminology_quest_and_supp.md` (~1M) — questionnaires + supplemental
 - `09_terminology_core_mid_tail.md` (~698K) — core 中〜低頻度
 
-ChatGPT GPT Builder Knowledge には **20 ファイルのハード制限**があります。現在 9/20 (11 ファイルの空き)。
+ChatGPT GPT Builder Knowledge には **20 ファイルのハード制限**があります。現在 9/20 (11 ファイルの空き)。1 ファイルあたり最大 **512 MB**。ユーザーあたり総ストレージ 10 GB / 組織あたり 100 GB (チャット・Projects・GPT Knowledge 合計)。
 
 **よくある Q**:
 - "File too large" → ファイルがエディタにより BOM / CRLF が追加されていないか確認してください。UTF-8 LF で保存し直してください
@@ -106,7 +106,7 @@ ChatGPT File Search RAG の indexing は通常 **5〜15 分**かかります。U
 | File Search が誤ったセクションを召喚する | ファイルのセグメンテーション失敗 | system_prompt §P13 TableAware プロンプトが含まれているか確認する；問題のファイルを再アップロードする |
 | "AESER Core = Req" と回答する | 04_domain_specs_all.md が未アップロードまたは途中切断 | 再アップロードする；ファイルサイズが ≥ 180KB であることを確認する |
 | 20 ファイル以上のアップロード警告 | GPT Builder のハード制限に達した | ダウングレードパス §8 に従いファイルを削除する |
-| 最初のトークンが遅い / 頻繁にレート制限 | Plus プランの RAG レート制限 | 30〜60 秒待ってから再試行する；継続する場合は Team/Enterprise へ移行する |
+| 最初のトークンが遅い / 頻繁にレート制限 | Plus プランの RAG レート制限 | 30〜60 秒待ってから再試行する；継続する場合は Business/Enterprise へ移行する |
 
 ---
 
@@ -128,8 +128,8 @@ ChatGPT File Search RAG の indexing は通常 **5〜15 分**かかります。U
 
 ## 9. チーム協業 / GPT Store 公開
 
-**Org/Team チーム共有**:
-- 審査なし、email で直接招待できます
+**Business / Enterprise / Edu ワークスペース共有**:
+- 審査なし、Business / Enterprise / Edu プラン内ではメンバーに直接共有可能です
 - メンバーには**同一の GPT** が表示され、Instructions の変更は全員に即時反映されます
 - 誤った変更を防ぐため、編集権限は 1〜2 名に制限することを推奨します
 
@@ -150,7 +150,7 @@ ChatGPT File Search RAG の indexing は通常 **5〜15 分**かかります。U
 
 ## 付録: 検証チェックリスト
 
-- [ ] ChatGPT Plus / Team / Enterprise プランが有効になっている
+- [ ] ChatGPT Plus / Pro / Business / Enterprise / Edu プランが有効になっている
 - [ ] Custom GPT を作成し、名称が明確に設定されている
 - [ ] Instructions に system_prompt.md の全文が貼り付けられている (v2.2 LIVE、8,582 chars)
 - [ ] Knowledge パネルに 9 ファイルすべてが Ready と表示されている
@@ -162,4 +162,4 @@ ChatGPT File Search RAG の indexing は通常 **5〜15 分**かかります。U
 
 ---
 
-*v1.0 — 2026-04-27 — 公開版*
+*v1.1 — 2026-05-11 — UI 用語を 2026 年公式仕様に同期*

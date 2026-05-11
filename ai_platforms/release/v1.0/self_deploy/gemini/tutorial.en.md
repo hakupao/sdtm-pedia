@@ -8,21 +8,26 @@
 
 ## 0. Prerequisites
 
-- [ ] **Google AI Pro subscription** (personal plan is sufficient) — free Gemini has no Custom Gem editing access
+- [ ] **Google account** (age 13+). **Creating a Gem has been available to Free accounts since 2025.** However, **uploading Knowledge files, sharing with others, and using large instructions** require a **Google AI Plus / Pro / Ultra, or Workspace plan**. This tutorial makes full use of Knowledge, so **Pro or above is recommended**.
+
+  | Plan | Create Gem | Knowledge | Sharing |
+  |------|-----------|-----------|---------|
+  | Free | Yes | Limited | No |
+  | Google AI Plus / Pro / Ultra | Yes | Full | Yes |
+  | Google Workspace (Business Standard+) | Yes | Full (admin-controlled) | Yes |
+
 - [ ] Web access to [gemini.google.com](https://gemini.google.com)
 - [ ] **Local clone of this repository**: you need to read `system_prompt.md` (~29.9 KB) and the 4 `.md` files under `uploads/` from `./`
 
-**About plans and team sharing**:
-- A personal Google AI Pro subscription can create a Gem, but **does not support team sharing** (Gem is bound to your personal account)
-- Workspace plans have Gem sharing capability, but the semantics differ from personal — having users **each deploy separately is the safest path**
-- Gemini has no publicly browsable gallery like a "GPT Store" — sharing is link-only
+**About plans and sharing**:
+- A personal Google AI Pro / Ultra account can create and share Gems. **Since 2025, Gem sharing is available**, with the same UI as Google Drive to set Viewer / Editor permissions (see §9).
 
 ---
 
 ## 1. Create a New Custom Gem
 
-1. Sign in to [gemini.google.com](https://gemini.google.com) (using the Google account with your Pro subscription)
-2. Left navigation → "**Gems**" → top right "**+ New Gem**" or "**Create a new Gem**"
+1. Sign in to [gemini.google.com](https://gemini.google.com)
+2. Sidebar → "**Gems**" → "**Explore Gems**" → "**New Gem**" button (no + symbol)
 3. **Name**: recommended `SDTM Expert` or `CDISC SDTM Knowledge`
 4. **Description**: `CDISC SDTMIG v3.4 + SDTM v2.0 Expert — Variable definitions, rule reasoning, business scenario mapping, cross-domain.`
 
@@ -32,7 +37,7 @@
 
 1. In the Gem Edit interface, locate the "**Instructions**" or "**Custom Instructions**" field
 2. **Copy the entire contents** of `./system_prompt.md` (v7.1 LIVE, 29,919 chars) and paste it in
-3. **Important**: Gemini accepts instructions **far exceeding 8K characters** (tested up to 30K accepted). Do not manually truncate out of habit from ChatGPT's 8K limit — truncation will drop the anti-hallucination anchors
+3. **Important**: Gemini Gems accept long Instructions. **There is no officially documented character limit**, but this v7.1 LIVE at 29,919 chars has been verified in practice (as of 2026-04). **Some reports indicate that excessively long Instructions may weaken Knowledge file retrieval**, so keeping Instructions as concise as necessary is recommended. Do not manually truncate out of habit from ChatGPT's 8K limit — truncation will drop the anti-hallucination anchors
 
 **v7.1 LIVE key patches (must be preserved after pasting)**:
 - **§CO-1d SUPPQUAL Core + scope hard anchor**: QORIG Core=Req / QEVAL Core=Exp / CT C78735; SUPPQUAL does not apply to Trial Design (TS/TA/TE/TI/TV)
@@ -53,13 +58,17 @@
 
 Gemini Knowledge has a **10-file hard limit**; the current count is 4/10 (6 files of headroom). Total ~616K tokens occupies approximately 62% of the 1M context window, leaving ~38% response buffer.
 
+**Note**: **100 MB per file is the general limit** (2 GB for video). **Google Drive files can also be referenced directly** (always fetches the latest version, eliminating the need to re-upload on changes).
+
 ---
 
-## 4. Wait for Indexing
+## 4. Wait for Indexing (RAG Processing)
 
-Gemini Gem has **no RAG / no chunk retrieval** — after uploading, files are **ready within seconds**, with the full text always in context. File status generally changes to "Ready" within 1-3 minutes, after which you can start chatting.
+**As of 2026, Gemini Gems uses RAG (Retrieval-Augmented Generation, semantic chunk retrieval)**. After uploading, Knowledge files are chunked and vectorized; for each query, **only semantically relevant chunks** are dynamically injected. Instructions are injected in full every turn, but Knowledge files are only invoked on similarity hits.
 
-ChatGPT uses RAG retrieval; Gemini uses full injection — the two have fundamentally different underlying architectures. Do not apply your ChatGPT indexing wait experience here.
+File status generally changes to "Ready" within 1-3 minutes, after which you can start chatting.
+
+**Note**: RAG pipeline stability can vary (a file-retrieval regression bug was reported in 2026/1). If citations are absent or expected content is not retrieved, retry in a new chat or see §7 Troubleshooting.
 
 ---
 
@@ -74,6 +83,8 @@ ChatGPT uses RAG retrieval; Gemini uses full injection — the two have fundamen
 | T3 | `What is the variable list for the PF domain (Pharmacogenomics Findings)?` (PF is deprecated) | Gem should **detect**: PF was deprecated in v3.4; the current domains are GF (Genomics Findings) / BE (Biospecimen Events) / BS (Biospecimen Findings) + RELSPEC | AHP3 deprecated anti-hallucination (core closure point of R1→R2 upgrade) |
 
 **3/3 PASS** = deployment successful; any FAIL → see §7 Troubleshooting.
+
+**To confirm Knowledge files are being hit by RAG, expect the Gem to include source citations in its answers.**
 
 ---
 
@@ -93,7 +104,7 @@ Open `../../DEMO_QUESTIONS.en.md` and ask questions D0-D9 (10 demo questions). *
 | Answers with LBCLINSIG (hallucinated variable) | §CO-5 AHP-V1 anchor not effective | Re-check §CO-5 dual-core workflow step 0 + AHP-V1 detection template |
 | Slow first token (>10 seconds) | Normal cold-start behavior | Subsequent queries will be faster; if sustained >30 seconds check Google AI status |
 | Answers lack citations / source paths | §CO-3 anchor not effective | Re-paste system_prompt §Three Hard Constraints + §Response Spec |
-| Knowledge file status stuck at "Processing" | File exceeds 5 MB / encoding issue | Check file 02 (~919 KB, largest); confirm UTF-8 LF without BOM |
+| Knowledge file status stuck at "Processing" | File unexpectedly large (this release max ~919 KB) / encoding issue | Check file 02 (~919 KB, largest); ensure UTF-8 LF, no BOM |
 
 ---
 
@@ -114,25 +125,27 @@ Minimum retained: `01 + 02` (navigation + spec/assumptions) = 365K tokens.
 
 ## 9. Team Collaboration
 
-**Gemini Gem does not support team sharing** (unlike ChatGPT GPT):
-- A Gem is bound to the personal Google account and cannot be shared by inviting multiple users to the same Gem
-- Users each follow this tutorial to deploy their own copy and maintain it independently
-- Workspace plans have Gem sharing capability, but the actual semantics are complex — **each person deploying separately is the safest path**
-- There is no "Gemini Gem Store" public publishing path — sharing is link-only
+**Gemini Gem sharing has been available since 2025** (the former "no sharing" restriction has been lifted).
+
+- **How to share**: In Gem Manager, click "**Share**" next to the target Gem → select Viewer / Editor permissions using the same UI as Google Drive → invite by email address
+- **Workspace admin control**: Admin Console → Generative AI → Gemini app → Gem sharing (can be toggled on/off)
+- **Recipient behavior**: A shared Gem is not automatically added to the recipient's Gem Manager. The recipient must open and use it first, then add it to "My Gems"
+- **Note**: Free accounts cannot use the sharing feature. Both sender and recipient must have Pro / Ultra / Workspace
+- **Public gallery**: There is no public marketplace like the GPT Store. Google's "premade Gems" appear in Gems Manager, but users cannot publish Gems to a public store
 
 ---
 
 ## 10. Future Paths
 
 - This release is already a **complete final state** and will not be expanded further in the near term
-- Long-tail terminology + the Studio trio (Audio Overview / Mind Map / Study Guide) are deferred to the subsequent Phase 7 / NotebookLM complementary track
+- Long-tail terminology + Studio features (NotebookLM's Audio Overviews / Video Overviews / Mind Maps / Reports) are deferred to the subsequent Phase 7 / NotebookLM complementary track
 - If there are errors or omissions in the knowledge base content, report them to the project issue tracker
 
 ---
 
 ## Appendix: Verification Checklist
 
-- [ ] Google AI Pro subscription is active
+- [ ] Google AI Pro or above plan is active
 - [ ] Custom Gem created with a clear name
 - [ ] Instructions field contains the full system_prompt.md (v7.1 LIVE, 29,919 chars)
 - [ ] Knowledge panel shows all 4 files as Ready
@@ -144,4 +157,4 @@ All ☑ = deployment successful, ready for daily use.
 
 ---
 
-*v1.0 — 2026-04-27 — Release*
+*v1.1 — 2026-05-11 — UI terminology synced to 2026 official spec (RAG adopted / Gem sharing released / Free accounts can create)*
