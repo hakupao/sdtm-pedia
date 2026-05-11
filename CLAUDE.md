@@ -49,6 +49,7 @@ Then summarize to the user: current status, open issues, and suggested next step
 **当前阶段: P3 索引构建 (待启动)** — P1 pdf_atoms 12,487 ✅ + P2 md_atoms 10,435 ✅; P3-P7 比对未启动.
 下一步入口: `branches/06_deep_verification/plans/P3_index_building.md` (sub-plan 就绪, 直接执行).
 进度 / metric / archive → `branches/06_deep_verification/_progress.json`. 入口 PLAN → `branches/06_deep_verification/PLAN.md`.
+**路由词**: `P3 开始任务` → 读 `plans/P3_index_building.md` §6 启动 checklist, 直接执行.
 
 ## Change Chains
 
