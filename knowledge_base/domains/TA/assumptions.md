@@ -1,5 +1,78 @@
 # TA — Assumptions
 
+## Trial Design Model Overview (§7.1)
+
+### §7.1.1 Purpose of the Trial Design Model
+
+ICH E3, Guidance for Industry, Structure and Content of Clinical Study Reports (available at http://www.ich.org/products/guidelines/), Section 9.1, calls for a brief, clear description of the overall plan and design of the study, and supplies examples of charts and diagrams for this purpose in Annex IIIa and Annex IIIb.
+
+Each Annex corresponds to an example trial, and each shows a diagram describing the study design and a table showing the schedule of assessments.
+
+The Trial Design Model provides a standardized way to describe those aspects of the planned conduct of a clinical trial shown in the study design diagrams of these examples.
+
+The standard Trial Design Datasets will allow reviewers to:
+- Clearly and quickly grasp the design of a clinical trial
+- Compare the designs of different trials
+- Search a data warehouse for clinical trials with certain features
+- Compare planned and actual treatments and visits for subjects in a clinical trial
+
+Modeling a clinical trial in this standardized way requires the explicit statement of certain decision rules that may not be addressed or may be vague or ambiguous in the usual prose protocol document.
+
+Prospective modeling of the design of a clinical trial should lead to a clearer, better protocol.
+
+Retrospective modeling of the design of a clinical trial should ensure a clear description of how the trial protocol was interpreted by the sponsor.
+
+### §7.1.2 Definitions of Trial Design Concepts
+
+A clinical trial is a scientific experiment involving human subjects, intended to address certain scientific questions (i.e., the objectives of the trial).
+
+See the CDISC Glossary (https://www.cdisc.org/standards/glossary) for more complete definitions of clinical trial and objective.
+
+| Concept | Definition |
+|---------|------------|
+| Trial design | The design of a clinical trial is a plan for what will be done to subjects and what data will be collected about them, in the course of the trial, to address the trial's objectives. |
+| Epoch | As part of the design of a trial, the planned period of subjects' participation in the trial is divided into epochs. Each epoch is a period of time that serves a purpose in the trial as a whole. That purpose will be at the level of the primary objectives of the trial. Typically, the purpose of an epoch will be to expose subjects to a treatment or to prepare for such a treatment period (e.g., determine subject eligibility, washout previous treatments), or to gather data on subjects after a treatment has ended. Note that at this high level, a "treatment" is a treatment strategy, which may be simple (e.g., exposure to a single drug at a single dose) or complex. Complex treatment strategies could involve tapering through several doses, titrating dose according to clinical criteria, complex regimens involving multiple drugs, or strategies for adding or dropping drugs according to clinical criteria. |
+| Arm | An arm is a planned path through the trial. This path covers the entire time of the trial. The group of subjects assigned to a planned path is also often colloquially called an "arm." The group of subjects assigned to an arm is also often called a "treatment group"; in this sense, an arm is equivalent to a treatment group. |
+| Study cell | Each planned path through the trial (i.e., each arm) is divided into pieces, 1 for each epoch. Each of these pieces is called a study cell. Thus, there is a study cell for each combination of arm and epoch. Each study cell represents an implementation of the purpose of its associated epoch. For an epoch whose purpose is to expose subjects to treatment, each study cell associated with the epoch has an associated treatment strategy. For example, a 3-arm parallel trial might have a treatment epoch whose purpose is to expose subjects to 1 of 3 study treatments: placebo, investigational product, or active control. There would be 3 study cell associated with the treatment epoch, 1 for each arm. Each of these study cells exposes the subject to 1 of the 3 study treatments. Another example involving more complex treatment strategies would be a trial comparing the effects of cycles of chemotherapy drug A given alone or in combination with drug B, where drug B is given as a pretreatment to each cycle of drug A. |
+| Element | An element is a basic building block in the trial design. It involves administering a planned intervention, which may be treatment or no treatment, during a period of time. Elements for which the planned intervention is "no treatment" would include elements for screening, washout, and follow-up. |
+| Study cells and elements | Many (perhaps most) clinical trials involve a single, simple administration of a planned intervention within a study cell. For some trials, however, the treatment strategy associated with a study cell involves a complex series of administrations of treatment. In such cases it may be important to track the component steps in a treatment strategy operationally; secondary objectives and safety analyses also might require that data be grouped by the treatment step during which it was collected. The steps within a treatment strategy may involve different doses of drug, different drugs, or different kinds of care (e.g., preoperative, operative, and post-operative periods surrounding surgery). When the treatment strategy for a study cell is simple, the study cell will contain a single element, and for many purposes there is little value in distinguishing between the study cell and the element. However, when the treatment strategy for a study cell consists of a complex series of treatments, a study cell can contain multiple elements. There may be a fixed sequence of elements, or a repeating cycle of elements, or some other complex pattern. In these cases, the distinction between a study cell and an element is very useful. |
+| Branch | In a trial with multiple arms, the protocol plans for each subject to be assigned to 1 arm. The time within the trial at which this assignment takes place is the point at which the arm paths of the trial diverge, and so is called a branch point. For many trials, the assignment to an arm happens all at one time, so the trial has 1 branch point. For other trials, there may be 2 or more branches that collectively assign a subject to an arm. The process that makes this assignment may be a randomization, but it need not be. |
+| Treatments | The word "treatment" may be used in connection with epochs, study cells, or elements, but has somewhat different meanings in each context: Because epochs cut across arms, an epoch treatment is at a high level that does not specify anything that differs between arms. For example, in a 3-period crossover study of 3 doses of drug X, each treatment epoch is associated with drug X, but not with a specific dose. A study cell treatment is specific to a particular arm. For example, a parallel trial might have study cell treatments placebo and drug X, without any additional detail (e.g., dose, frequency, route of administration) being specified. A study cell treatment is at a relatively high level, the level at which treatments might be planned in an early conceptual draft of the trial, or in the title or objectives of the trial. An element treatment may be fairly detailed. For example, for an element representing a cycle of chemotherapy, element treatment might specify 5 daily 100 mg doses of drug X. The distinctions between these levels are not rigid, and depend on the objectives of the trial. For example, route is generally a detail of dosing, but in a bioequivalence trial comparing IV and oral administration of drug X, route is clearly part of study cell treatment. |
+| Visit | The notion of a visit—a clinical encounter—derives from trials with outpatients, where subjects interact with the investigator during visits to the investigator's clinical site. However, the term is used in other trials, where a trial visit may not correspond to a physical visit. For example, in a trial with inpatients, time may be subdivided into visits, even though subjects are in hospital throughout the trial. For example, data for a screening visit may be collected over the course of more than 1 physical visit. One of the main purposes of visits is the performance of assessments, but not all assessments need take place at clinic visits; some assessments may be performed by means of telephone contacts, electronic devices, or call-in systems. The protocol should specify what contacts are considered visits and how they are defined. |
+
+### §7.1.3 Current and Future Contents of the Trial Design Model
+
+Datasets currently in the Trial Design Model include:
+- Trial Arms: Describes the sequences of elements in each epoch for each arm, and thus describes the complete sequence of elements in each arm
+- Trial Elements: Describes the elements used in the trial
+- Trial Visits: Describes the planned schedule of visits
+- Trial Disease Assessment: Provides information on the protocol-specified disease assessment schedule, and is used for comparison with the actual occurrence of the efficacy assessments in order to determine whether there was good compliance with the schedule
+- Trial Disease Milestones: Describes observations or activities identified for the trial which are anticipated to occur in the course of the disease under study and which trigger the collection of data
+- Trial Inclusion/Exclusion Criteria: Describes the criteria used to screen subjects
+- Trial Summary: Lists key facts (parameters) about the trial that are likely to appear in a registry of clinical trials
+
+The Trial Inclusion/Exclusion Criteria (TI) dataset is discussed in Section 7.4.1, Trial Inclusion/Exclusion Criteria.
+
+The Inclusion/Exclusion Criteria Not Met (IE) domain described in Section 6.3.4, Inclusion/Exclusion Criteria Not Met, contains the actual exceptions to those criteria for enrolled subjects.
+
+The current Trial Design Model has limitations in representing protocols, which include:
+- Plans for indefinite numbers of repeating elements (e.g., indefinite numbers of chemotherapy cycles)
+- Indefinite numbers of visits (e.g., periodic follow-up visits for survival)
+- Indefinite numbers of epochs
+- Indefinite numbers of arms
+
+The last 2 situations arise in dose-escalation studies where increasing doses are given until stopping criteria are met.
+
+Some dose-escalation studies enroll a new cohort of subjects for each new dose, and so, at the planning stage, have an indefinite number of arms.
+
+Other dose-escalation studies give new doses to a continuing group of subjects, and so are planned with an indefinite number of epochs.
+
+There may also be limitations in representing other patterns of Elements within a Study Cell that are more complex than a simple sequence.
+
+For the purpose of submissions about trials that have already completed, these limitations are not critical, so it is expected that development of the Trial Design Model to address these limitations will have a minimal impact on the SDTM.
+
+## TA-Specific Assumptions
+
 The TA and TE datasets are interrelated, and they provide the building blocks for the development of subject-level treatment information (see Sections 5.2, Demographics (DM), and 5.3, Subject Elements (SE), for the subject's actual study treatment information).
 
 1. TAETORD is an integer. In general, the value of TAETORD is 1 for the first element in each arm, 2 for the second element in each arm, and so on. Occasionally, it may be convenient to skip some values (see Example Trial 6). Although the values of TAETORD need not always be sequential, their order must always be the correct order for the elements in the arm path.

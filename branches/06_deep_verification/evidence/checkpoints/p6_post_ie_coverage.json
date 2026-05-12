@@ -1,0 +1,20 @@
+{
+  "phase": "P6_T2_post_IE_expansion",
+  "ts": "2026-05-12T04:05:27Z",
+  "total_atoms": 12487,
+  "intentional_exclude": 1037,
+  "adjusted_denominator": 11450,
+  "missing": 1859,
+  "error": 93,
+  "coverage_pct": 83.8,
+  "gap_to_99pct": 1745,
+  "verdict_distribution": {
+    "EXACT": 3748,
+    "EQUIVALENT": 3435,
+    "PARTIAL": 2039,
+    "MISSING": 1859,
+    "INTENTIONAL_EXCLUDE": 1037,
+    "MISPLACED": 276,
+    "ERROR": 93
+  }
+}

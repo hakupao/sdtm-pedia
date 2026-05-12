@@ -425,3 +425,662 @@
 | sv20_p0073_a010 | version_change_metadata | user-approved-2026-05-12 | SDTM v2.0 rationale for --LOBXFL deprecation timing — version-diff narrative not |
 | sv20_p0073_a011 | version_change_metadata | user-approved-2026-05-12 | SDTM v2.0 proposed deprecation timeline narrative — version-diff metadata not in |
 | sv20_p0073_a012 | version_change_metadata | user-approved-2026-05-12 | SDTM v2.0 historical rationale for --MODIFY deprecation — version-diff narrative |
+
+## P6 T2 Batch — Approved by user 2026-05-12
+
+> User ack: "T2 批量 IE 扩充通过" (P6 session 2026-05-12)
+> Total atoms added: 643
+
+| Category | Count | Approved |
+|----------|-------|----------|
+| VERSION_MISMATCH | 363 | user-ack-2026-05-12-P6-T2 |
+| REDUNDANT_WITH_SPEC | 228 | user-ack-2026-05-12-P6-T2 |
+| EDITORIAL_META | 52 | user-ack-2026-05-12-P6-T2 |
+
+### Atom registry (P6 T2 additions)
+
+| pdf_atom_id | category | approved_by | exclusion_reason |
+|-------------|----------|-------------|------------------|
+| ig34_p0326_a005 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0342_a022 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0342_a023 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0342_a024 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0342_a025 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0343_a001 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0343_a002 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0343_a003 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0343_a004 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0343_a005 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0343_a006 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0343_a007 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0343_a008 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0343_a009 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0343_a010 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0343_a011 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0343_a012 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0343_a013 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0343_a014 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0343_a015 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0343_a016 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0343_a017 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0343_a018 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0343_a019 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0343_a020 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0343_a021 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0345_a006 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0345_a007 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0345_a008 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0345_a009 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0345_a010 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0345_a011 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0345_a012 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0345_a013 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0345_a014 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0345_a015 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0345_a016 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0345_a017 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0345_a018 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0345_a019 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0345_a020 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0345_a021 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0345_a022 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0345_a023 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0345_a024 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0345_a025 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0346_a001 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0346_a002 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0346_a003 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0346_a004 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0346_a005 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0346_a006 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0346_a007 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0346_a008 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0346_a009 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0346_a010 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0346_a011 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0346_a012 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0346_a013 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0346_a014 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0358_a016 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0358_a017 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0358_a018 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0358_a019 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0358_a020 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0358_a021 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0358_a022 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0358_a023 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0358_a024 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0358_a025 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0358_a026 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0359_a001 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0359_a002 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0359_a003 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0359_a004 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0359_a005 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0359_a006 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0359_a007 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0359_a008 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0359_a009 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0359_a010 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0359_a011 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0359_a012 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0359_a013 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0359_a014 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0359_a015 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0359_a016 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0359_a017 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0359_a018 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0359_a019 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0359_a020 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0359_a021 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0359_a022 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0359_a023 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0359_a024 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0359_a025 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0360_a001 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0360_a002 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0360_a003 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0360_a004 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0360_a005 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0365_a002 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0365_a003 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0365_a004 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0365_a005 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0365_a006 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0365_a007 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0365_a008 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0376_a003 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0376_a004 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0376_a005 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0376_a007 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0376_a008 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0376_a010 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0376_a012 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0376_a014 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0376_a015 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0376_a016 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0376_a017 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0376_a018 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0376_a019 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0376_a020 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0376_a021 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0376_a022 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0376_a023 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0376_a024 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0376_a025 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0376_a026 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0377_a002 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0377_a004 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0377_a005 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0377_a008 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0377_a009 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0377_a013 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0377_a014 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0377_a017 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0377_a018 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0384_a027 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0384_a028 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0384_a029 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0384_a030 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0385_a002 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0385_a003 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0385_a005 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0385_a006 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0385_a007 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0385_a008 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0385_a009 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0403_a013 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0403_a014 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0403_a015 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0403_a016 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0403_a017 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0403_a018 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0403_a019 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0403_a020 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0403_a021 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0403_a022 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0407_a022 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0407_a023 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0407_a024 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0407_a025 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0407_a026 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0407_a027 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0407_a028 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0408_a001 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0408_a002 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0408_a003 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0408_a004 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0408_a005 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0408_a006 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0410_a029 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0410_a030 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0410_a031 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0416_a012 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0416_a013 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0416_a014 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0416_a015 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0416_a016 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0416_a017 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0416_a018 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0416_a019 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0416_a020 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0416_a021 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0416_a022 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0417_a026 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0417_a027 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0417_a028 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0417_a029 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0417_a030 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0417_a031 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0417_a032 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0417_a033 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0417_a034 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0418_a001 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0418_a002 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0418_a003 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0418_a004 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0418_a005 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0429_a021 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0429_a022 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0429_a023 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0429_a024 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0429_a025 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0429_a026 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0429_a027 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0429_a028 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0429_a029 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0429_a030 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0438_a004 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0438_a005 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0438_a006 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0438_a007 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0438_a008 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0438_a009 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0438_a010 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0438_a011 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0439_a030 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0439_a031 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0439_a032 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0439_a033 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0439_a034 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0439_a035 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0439_a036 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0439_a037 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0439_a038 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0439_a039 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0443_a001 | REDUNDANT_WITH_SPEC | user-ack-2026-05-12-P6-T2 | Variable specification table covered by xlsx-derived spec.md — not included in K |
+| ig34_p0444_a022 | EDITORIAL_META | user-ack-2026-05-12-P6-T2 | Editorial/structural content (Appendix A, SDS team, etc.) — not included in KB b |
+| ig34_p0444_a024 | EDITORIAL_META | user-ack-2026-05-12-P6-T2 | Editorial/structural content (Appendix A, SDS team, etc.) — not included in KB b |
+| ig34_p0444_a025 | EDITORIAL_META | user-ack-2026-05-12-P6-T2 | Editorial/structural content (Appendix A, SDS team, etc.) — not included in KB b |
+| ig34_p0444_a026 | EDITORIAL_META | user-ack-2026-05-12-P6-T2 | Editorial/structural content (Appendix A, SDS team, etc.) — not included in KB b |
+| ig34_p0444_a027 | EDITORIAL_META | user-ack-2026-05-12-P6-T2 | Editorial/structural content (Appendix A, SDS team, etc.) — not included in KB b |
+| ig34_p0444_a028 | EDITORIAL_META | user-ack-2026-05-12-P6-T2 | Editorial/structural content (Appendix A, SDS team, etc.) — not included in KB b |
+| ig34_p0444_a029 | EDITORIAL_META | user-ack-2026-05-12-P6-T2 | Editorial/structural content (Appendix A, SDS team, etc.) — not included in KB b |
+| ig34_p0444_a030 | EDITORIAL_META | user-ack-2026-05-12-P6-T2 | Editorial/structural content (Appendix A, SDS team, etc.) — not included in KB b |
+| ig34_p0444_a031 | EDITORIAL_META | user-ack-2026-05-12-P6-T2 | Editorial/structural content (Appendix A, SDS team, etc.) — not included in KB b |
+| ig34_p0444_a032 | EDITORIAL_META | user-ack-2026-05-12-P6-T2 | Editorial/structural content (Appendix A, SDS team, etc.) — not included in KB b |
+| ig34_p0444_a033 | EDITORIAL_META | user-ack-2026-05-12-P6-T2 | Editorial/structural content (Appendix A, SDS team, etc.) — not included in KB b |
+| ig34_p0444_a034 | EDITORIAL_META | user-ack-2026-05-12-P6-T2 | Editorial/structural content (Appendix A, SDS team, etc.) — not included in KB b |
+| ig34_p0444_a035 | EDITORIAL_META | user-ack-2026-05-12-P6-T2 | Editorial/structural content (Appendix A, SDS team, etc.) — not included in KB b |
+| ig34_p0444_a036 | EDITORIAL_META | user-ack-2026-05-12-P6-T2 | Editorial/structural content (Appendix A, SDS team, etc.) — not included in KB b |
+| ig34_p0444_a037 | EDITORIAL_META | user-ack-2026-05-12-P6-T2 | Editorial/structural content (Appendix A, SDS team, etc.) — not included in KB b |
+| ig34_p0444_a038 | EDITORIAL_META | user-ack-2026-05-12-P6-T2 | Editorial/structural content (Appendix A, SDS team, etc.) — not included in KB b |
+| ig34_p0444_a039 | EDITORIAL_META | user-ack-2026-05-12-P6-T2 | Editorial/structural content (Appendix A, SDS team, etc.) — not included in KB b |
+| ig34_p0444_a040 | EDITORIAL_META | user-ack-2026-05-12-P6-T2 | Editorial/structural content (Appendix A, SDS team, etc.) — not included in KB b |
+| ig34_p0444_a041 | EDITORIAL_META | user-ack-2026-05-12-P6-T2 | Editorial/structural content (Appendix A, SDS team, etc.) — not included in KB b |
+| ig34_p0444_a042 | EDITORIAL_META | user-ack-2026-05-12-P6-T2 | Editorial/structural content (Appendix A, SDS team, etc.) — not included in KB b |
+| ig34_p0444_a043 | EDITORIAL_META | user-ack-2026-05-12-P6-T2 | Editorial/structural content (Appendix A, SDS team, etc.) — not included in KB b |
+| ig34_p0444_a044 | EDITORIAL_META | user-ack-2026-05-12-P6-T2 | Editorial/structural content (Appendix A, SDS team, etc.) — not included in KB b |
+| ig34_p0444_a045 | EDITORIAL_META | user-ack-2026-05-12-P6-T2 | Editorial/structural content (Appendix A, SDS team, etc.) — not included in KB b |
+| ig34_p0444_a046 | EDITORIAL_META | user-ack-2026-05-12-P6-T2 | Editorial/structural content (Appendix A, SDS team, etc.) — not included in KB b |
+| ig34_p0444_a047 | EDITORIAL_META | user-ack-2026-05-12-P6-T2 | Editorial/structural content (Appendix A, SDS team, etc.) — not included in KB b |
+| ig34_p0444_a048 | EDITORIAL_META | user-ack-2026-05-12-P6-T2 | Editorial/structural content (Appendix A, SDS team, etc.) — not included in KB b |
+| ig34_p0444_a049 | EDITORIAL_META | user-ack-2026-05-12-P6-T2 | Editorial/structural content (Appendix A, SDS team, etc.) — not included in KB b |
+| ig34_p0444_a050 | EDITORIAL_META | user-ack-2026-05-12-P6-T2 | Editorial/structural content (Appendix A, SDS team, etc.) — not included in KB b |
+| ig34_p0444_a051 | EDITORIAL_META | user-ack-2026-05-12-P6-T2 | Editorial/structural content (Appendix A, SDS team, etc.) — not included in KB b |
+| ig34_p0444_a052 | EDITORIAL_META | user-ack-2026-05-12-P6-T2 | Editorial/structural content (Appendix A, SDS team, etc.) — not included in KB b |
+| ig34_p0444_a053 | EDITORIAL_META | user-ack-2026-05-12-P6-T2 | Editorial/structural content (Appendix A, SDS team, etc.) — not included in KB b |
+| ig34_p0444_a054 | EDITORIAL_META | user-ack-2026-05-12-P6-T2 | Editorial/structural content (Appendix A, SDS team, etc.) — not included in KB b |
+| ig34_p0444_a055 | EDITORIAL_META | user-ack-2026-05-12-P6-T2 | Editorial/structural content (Appendix A, SDS team, etc.) — not included in KB b |
+| ig34_p0444_a056 | EDITORIAL_META | user-ack-2026-05-12-P6-T2 | Editorial/structural content (Appendix A, SDS team, etc.) — not included in KB b |
+| ig34_p0444_a057 | EDITORIAL_META | user-ack-2026-05-12-P6-T2 | Editorial/structural content (Appendix A, SDS team, etc.) — not included in KB b |
+| ig34_p0445_a001 | EDITORIAL_META | user-ack-2026-05-12-P6-T2 | Editorial/structural content (Appendix A, SDS team, etc.) — not included in KB b |
+| ig34_p0445_a002 | EDITORIAL_META | user-ack-2026-05-12-P6-T2 | Editorial/structural content (Appendix A, SDS team, etc.) — not included in KB b |
+| ig34_p0445_a003 | EDITORIAL_META | user-ack-2026-05-12-P6-T2 | Editorial/structural content (Appendix A, SDS team, etc.) — not included in KB b |
+| ig34_p0445_a004 | EDITORIAL_META | user-ack-2026-05-12-P6-T2 | Editorial/structural content (Appendix A, SDS team, etc.) — not included in KB b |
+| ig34_p0445_a005 | EDITORIAL_META | user-ack-2026-05-12-P6-T2 | Editorial/structural content (Appendix A, SDS team, etc.) — not included in KB b |
+| ig34_p0445_a006 | EDITORIAL_META | user-ack-2026-05-12-P6-T2 | Editorial/structural content (Appendix A, SDS team, etc.) — not included in KB b |
+| ig34_p0445_a007 | EDITORIAL_META | user-ack-2026-05-12-P6-T2 | Editorial/structural content (Appendix A, SDS team, etc.) — not included in KB b |
+| ig34_p0445_a008 | EDITORIAL_META | user-ack-2026-05-12-P6-T2 | Editorial/structural content (Appendix A, SDS team, etc.) — not included in KB b |
+| ig34_p0445_a009 | EDITORIAL_META | user-ack-2026-05-12-P6-T2 | Editorial/structural content (Appendix A, SDS team, etc.) — not included in KB b |
+| ig34_p0445_a010 | EDITORIAL_META | user-ack-2026-05-12-P6-T2 | Editorial/structural content (Appendix A, SDS team, etc.) — not included in KB b |
+| ig34_p0445_a011 | EDITORIAL_META | user-ack-2026-05-12-P6-T2 | Editorial/structural content (Appendix A, SDS team, etc.) — not included in KB b |
+| ig34_p0445_a012 | EDITORIAL_META | user-ack-2026-05-12-P6-T2 | Editorial/structural content (Appendix A, SDS team, etc.) — not included in KB b |
+| ig34_p0445_a013 | EDITORIAL_META | user-ack-2026-05-12-P6-T2 | Editorial/structural content (Appendix A, SDS team, etc.) — not included in KB b |
+| ig34_p0445_a014 | EDITORIAL_META | user-ack-2026-05-12-P6-T2 | Editorial/structural content (Appendix A, SDS team, etc.) — not included in KB b |
+| ig34_p0445_a015 | EDITORIAL_META | user-ack-2026-05-12-P6-T2 | Editorial/structural content (Appendix A, SDS team, etc.) — not included in KB b |
+| ig34_p0445_a016 | EDITORIAL_META | user-ack-2026-05-12-P6-T2 | Editorial/structural content (Appendix A, SDS team, etc.) — not included in KB b |
+| ig34_p0445_a017 | EDITORIAL_META | user-ack-2026-05-12-P6-T2 | Editorial/structural content (Appendix A, SDS team, etc.) — not included in KB b |
+| sv20_p0001_a001 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0001_a004 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0001_a005 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0001_a006 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0001_a008 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0002_a001 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0002_a004 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0002_a006 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0002_a010 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0002_a021 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0003_a009 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0003_a010 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0004_a016 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0005_a020 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0005_a025 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0005_a026 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0005_a031 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0006_a013 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0010_a001 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0010_a002 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0010_a004 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0010_a005 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0010_a006 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0010_a007 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0010_a008 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0010_a009 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0010_a011 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0010_a012 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0010_a013 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0010_a014 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0010_a015 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0010_a016 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0011_a001 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0011_a014 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0012_a003 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0012_a004 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0012_a005 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0012_a009 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0012_a013 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0012_a014 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0012_a015 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0012_a016 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0012_a017 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0013_a001 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0013_a002 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0013_a003 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0013_a004 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0013_a005 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0013_a006 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0013_a007 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0013_a008 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0013_a009 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0013_a010 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0013_a011 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0013_a012 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0014_a001 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0014_a002 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0014_a003 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0014_a004 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0014_a005 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0014_a006 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0014_a007 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0014_a008 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0014_a009 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0014_a010 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0014_a011 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0014_a012 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0014_a013 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0014_a014 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0014_a015 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0015_a001 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0015_a002 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0015_a003 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0015_a004 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0015_a005 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0015_a006 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0015_a007 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0015_a008 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0015_a009 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0015_a010 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0015_a011 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0015_a012 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0015_a013 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0015_a014 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0015_a015 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0016_a001 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0016_a002 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0016_a003 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0016_a004 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0016_a005 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0016_a006 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0016_a007 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0016_a008 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0016_a009 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0016_a010 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0016_a011 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0016_a012 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0016_a013 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0017_a001 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0017_a002 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0017_a003 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0017_a004 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0017_a005 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0017_a006 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0017_a007 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0017_a008 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0017_a009 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0017_a010 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0017_a011 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0017_a012 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0017_a013 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0017_a014 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0017_a015 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0018_a001 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0018_a002 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0018_a003 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0018_a004 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0018_a005 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0018_a006 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0018_a007 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0018_a008 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0018_a009 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0018_a010 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0019_a001 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0019_a002 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0019_a003 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0019_a004 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0019_a005 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0020_a001 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0020_a002 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0020_a003 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0020_a004 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0020_a005 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0020_a006 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0020_a007 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0020_a008 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0020_a009 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0021_a001 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0022_a001 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0022_a002 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0024_a001 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0024_a002 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0024_a003 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0024_a004 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0024_a005 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0024_a006 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0024_a007 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0024_a009 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0024_a010 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0025_a001 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0025_a002 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0025_a003 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0025_a004 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0025_a005 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0025_a006 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0025_a007 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0025_a008 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0026_a001 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0026_a002 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0026_a003 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0026_a004 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0026_a005 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0026_a006 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0026_a007 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0027_a001 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0027_a002 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0027_a003 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0027_a004 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0027_a005 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0027_a006 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0027_a007 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0028_a008 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0028_a009 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0028_a010 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0028_a011 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0028_a012 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0028_a013 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0028_a014 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0029_a001 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0029_a002 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0029_a003 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0029_a004 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0029_a005 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0029_a006 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0029_a007 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0029_a008 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0029_a009 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0029_a010 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0029_a011 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0029_a012 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0030_a001 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0030_a002 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0030_a003 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0030_a004 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0030_a005 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0030_a006 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0030_a007 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0030_a008 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0030_a009 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0030_a010 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0031_a001 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0031_a002 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0031_a003 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0031_a004 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0031_a005 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0031_a006 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0031_a007 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0031_a008 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0031_a009 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0032_a001 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0032_a002 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0032_a003 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0032_a004 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0032_a005 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0032_a006 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0032_a007 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0032_a008 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0032_a013 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0032_a014 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0032_a015 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0034_a009 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0040_a002 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0040_a003 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0040_a004 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0040_a006 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0040_a007 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0040_a008 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0040_a009 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0044_a006 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0044_a007 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0045_a009 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0045_a010 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0045_a011 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0045_a016 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0046_a001 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0047_a001 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0047_a017 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0048_a001 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0048_a005 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0048_a006 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0048_a007 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0048_a008 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0048_a009 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0048_a010 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0048_a011 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0048_a012 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0048_a013 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0048_a014 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0048_a015 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0048_a016 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0048_a017 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0048_a018 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0049_a001 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0049_a002 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0049_a003 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0049_a004 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0049_a005 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0049_a006 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0049_a007 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0049_a008 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0049_a009 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0049_a012 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0049_a013 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0049_a014 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0049_a015 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0050_a001 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0050_a002 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0050_a003 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0050_a004 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0050_a005 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0050_a006 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0050_a009 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0050_a010 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0050_a011 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0050_a012 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0050_a013 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0050_a014 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0050_a015 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0050_a016 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0050_a017 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0050_a018 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0050_a019 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0050_a020 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0050_a021 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0051_a020 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0052_a009 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0052_a011 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0053_a002 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0053_a003 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0053_a006 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0053_a007 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0053_a008 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0053_a009 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0053_a010 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0053_a013 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0054_a004 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0054_a005 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0054_a010 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0055_a013 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0055_a015 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0056_a003 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0056_a004 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0056_a005 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0056_a021 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0058_a010 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0065_a009 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0067_a002 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0067_a013 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0067_a017 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0068_a003 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0068_a004 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0068_a006 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0068_a013 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0068_a014 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0068_a015 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0068_a016 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0068_a017 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0068_a018 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0068_a021 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0068_a022 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0069_a006 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0069_a007 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0070_a002 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0070_a003 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0070_a004 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0070_a005 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0070_a006 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0070_a007 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0070_a009 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0070_a011 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0070_a012 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0070_a013 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0070_a014 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0070_a015 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0070_a018 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0070_a019 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0070_a020 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0070_a021 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0070_a022 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0070_a023 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0070_a024 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0070_a025 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0070_a026 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0070_a027 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0070_a029 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0071_a003 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0071_a014 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0071_a016 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0071_a019 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0071_a020 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0071_a023 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0071_a025 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0071_a026 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0071_a030 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0071_a036 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0071_a038 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0073_a014 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0073_a015 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0073_a016 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0073_a017 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0073_a018 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0073_a019 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |
+| sv20_p0073_a020 | VERSION_MISMATCH | user-ack-2026-05-12-P6-T2 | SDTM v2.0 content superseded by SDTMIG v3.4 — not included in KB by design |

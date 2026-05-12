@@ -827,7 +827,21 @@ When an interval of time is an amount of time (duration) measured prior to an ev
 
 where the duration "Pn..." is represented before the solidus [/], the end date/time is represented following the solidus, and the entire representation is known as an "interval."
 
-### 4.4.4 Study Day Variables
+### 4.4.4 Use of the Study Day Variables
+
+The permissible study day variables (i.e., --DY, --STDY, --ENDY) describe the relative day of the observation starting with the subject reference start date.
+
+They are determined by comparing the date portion of the respective date/time variables (--DTC, --STDTC, and --ENDTC) to the subject reference start date (RFSTDTC in the Demographics domain).
+
+The subject reference start date (RFSTDTC) is designated as study day 1.
+
+The study day value is incremented by 1 for each date following RFSTDTC.
+
+Dates prior to RFSTDTC are decreased by 1, with the date preceding RFSTDTC designated as study day -1 (there is no study day 0).
+
+This algorithm for determining Study Day is consistent with how people typically describe sequential days relative to a reference day, and is consistent with the ICH E3 recommendation for the calculation of study day.
+
+**Derivation notes:**
 
 - --DY is calculated as: `--DTC - RFSTDTC` (with no day 0)
 - If --DTC is on or after RFSTDTC: DY = date portion of --DTC − date portion of RFSTDTC + 1
@@ -864,6 +878,8 @@ Sponsor practices for populating visit variables for **unplanned visits** may va
 
 - --XSTDY and --CHSTDY may be used for study designs with multiple reference start dates (e.g., crossover studies)
 - The reference date/time may use Subject Elements (SE) dataset element start date/time
+
+See also: Section 5.3, Subject Elements (for additional study day representation guidance).
 
 ### 4.4.7 Use of Relative Timing Variables
 

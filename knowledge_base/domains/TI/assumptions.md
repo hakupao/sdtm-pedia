@@ -1,5 +1,16 @@
 # TI — Assumptions
 
+## §7.4 Trial Eligibility and Summary (TI, TS) — Introduction
+
+This section contains the Trial Design (TD) datasets that describe:
+
+- Subject eligibility criteria for trial participation (Section 7.4.1, Trial Inclusion/Exclusion Criteria (TI))
+- The characteristics of the trial (Section 7.4.2, Trial Summary (TS))
+
+The TI and TS datasets are tabular synopses of parts of the study protocol.
+
+## TI – Assumptions
+
 The variable TIRL was included in the Trial Inclusion/Exclusion Criteria (TI) domain in anticipation of developing a way to represent eligibility criteria in a computer-executable manner. However, such a method has not been developed, and it is not clear that an SDTM dataset would be the best place to represent such a computer-executable representation.
 
 TI contains all the inclusion and exclusion criteria for the trial, and thus provides information that may not be present in the subject-level data on inclusion and exclusion criteria. The IE domain (described in Section 6.3.4, Inclusion/Exclusion Criteria Not Met) contains records only for inclusion and exclusion criteria that subjects did not meet.

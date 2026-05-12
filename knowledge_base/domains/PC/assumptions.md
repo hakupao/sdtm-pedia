@@ -1,5 +1,11 @@
 # PC — Assumptions
 
+## 6.3.5.9 Pharmacokinetics Domains
+
+This section covers the Pharmacokinetics Concentration (PC) and Pharmacokinetics Parameters (PP) domains.
+
+## PC – Assumptions
+
 1. This domain can be used to represent specimen properties (e.g., volume, pH) in addition to drug and metabolite concentration measurements.
 
 2. CDISC Controlled Terminology Rules for Pharmacokinetics are available at https://www.cdisc.org/standards/terminology/controlled-terminology.
