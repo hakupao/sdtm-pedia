@@ -46,8 +46,8 @@ Then summarize to the user: current status, open issues, and suggested next step
 
 ## 06 Deep Verification (旁枝)
 
-**当前阶段: P4a 前向比对 S1 ✅ → S2 待启动** — P1 ✅ P2 ✅ P3 ✅ P4a-S1 ✅ (2,500/12,487 atoms, 20%); S2-S5 待执行.
-下一步: S2 batch_026-050 — `python3 scripts/p4a_build_batches.py --batches 26-50` 后派发 25 agents.
+**当前阶段: P4b 节聚合 ✅ GATE PASS** — P1 ✅ P2 ✅ P3 ✅ P4a ✅ (12,487 atoms ALL PASS) P4b ✅ (399 sections gate ALL PASS); P5 反向比对待执行.
+下一步: P5 反向比对 + P6 Triage (18 real SKELETON_ONLY + 23 STRUCTURE_DRIFTED).
 进度 / metric / archive → `branches/06_deep_verification/_progress.json`. 入口 PLAN → `branches/06_deep_verification/PLAN.md`.
 
 ## Change Chains
@@ -76,7 +76,7 @@ Full chain definitions are in `.work/MANIFEST.md`.
 | Phase 7 session 记录 | `.work/05_rag_kg/session_2026-04-16_design.md` |
 | 06 Deep Verification 入口 | `branches/06_deep_verification/PLAN.md` (字面级 PDF→KB 深审; 详细见 §06 Deep Verification 段) |
 | 06 Deep Verification schema | `branches/06_deep_verification/schema/{atom,ledger}_schema.json` (frozen JSON Schema 2020-12) |
-| 06 P4a sub-plan (下一步) | `branches/06_deep_verification/plans/P4a_forward_matching.md` (前向比对, P3 gate PASS 后) |
+| 06 P4b sub-plan (完成) | `branches/06_deep_verification/plans/P4b_section_aggregation.md` (节聚合, section_coverage.jsonl) |
 | Phase 6.5 AI 平台部署 | `ai_platforms/` (总览 + 三平台子目录) |
 | Phase 6.5 范本 + 锁步看板 | `ai_platforms/_template/README.md` + `ai_platforms/SYNC_BOARD.md` (双平台锁步 gate) |
 | Phase 6.5 smoke 题库 + retro | `ai_platforms/SMOKE_V4.md` + `ai_platforms/retrospectives/` |

@@ -1301,7 +1301,7 @@
       }
     },
     "P4b_section_aggregation": {
-      "status": "PENDING_RULE_A_REVIEWER",
+      "status": "GATE_PASS_P4b_COMPLETE_2026-05-12",
       "started": "2026-05-12T02:40:31Z",
       "script": "scripts/p4b_section_aggregate.py",
       "sections_total": 399,
@@ -1327,17 +1327,19 @@
       "rule_a_sections": 30,
       "gate_conditions": {
         "sections_all_have_verdict": true,
-        "rule_a_30_section_pass": "pending",
-        "skeleton_only_triaged": "pending",
+        "rule_a_30_section_pass": "PASS",
+        "skeleton_only_triaged": "PASS",
         "structure_drifted_issues_logged": "pending",
         "trace_phase_report": true
       },
-      "next_step": "Await rule_a reviewer result → if PASS, log Issues for real SKELETON_ONLY / STRUCTURE_DRIFTED gaps → P6 Triage",
+      "next_step": "P6 Triage: open Issues for 18 real SKELETON_ONLY ig34 gaps + 23 STRUCTURE_DRIFTED sections",
       "sub_plan": "plans/P4b_section_aggregation.md",
       "evidence": [
         "evidence/checkpoints/p4b_initial_report.md",
-        "section_coverage.jsonl"
-      ]
+        "section_coverage.jsonl",
+        "evidence/checkpoints/p4b_rule_a_audit_report.md"
+      ],
+      "completed": "2026-05-12T03:15:00Z"
     },
     "P5_reverse_matching": {
       "status": "pending",

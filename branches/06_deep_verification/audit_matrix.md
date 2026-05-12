@@ -938,3 +938,32 @@
 |-------|--------|---------|---------------|-------------|
 | P4a final 100-atom stratified | HEADING×20 + SENTENCE×20 + TABLE_ROW×20 + LIST_ITEM×20 + CODE_LITERAL×20 | `oh-my-claudecode:scientist` + `oh-my-claudecode:verifier` | 89% initial → 11 corrections (scientist) → **100% post-correction (verifier PASS 11/11)** | ✅ PASS |
 
+
+---
+
+## P4b Section Aggregation — Rule D Roster & Audit Records
+
+**Phase**: P4b (Section Aggregation PDF→section_coverage.jsonl)
+**Script**: `scripts/p4b_section_aggregate.py`
+**Output**: `section_coverage.jsonl` (399 sections)
+
+### Writer/Reviewer Slots Used in P4b
+
+| Slot | Subagent type | Role | Scope | Notes |
+|------|--------------|------|-------|-------|
+| P4b-W1 | main session | Aggregation script + triage | 399 sections | Script-driven; no LLM writer |
+| P4b-R1 | `oh-my-claudecode:scientist` | Rule A 30-section spot check | Post-script gate | NEW burn (first P4b use) |
+
+**Rule D phase-scoped check**: P4b uses main session (aggregator) + scientist (reviewer) ✅
+
+### Rule A Records
+
+| Audit | Sample | Auditor | Agreement rate | Gate (≥95%) |
+|-------|--------|---------|---------------|-------------|
+| P4b 30-section spot check | Stratified across verdict types | `oh-my-claudecode:scientist` | **100% (30/30 mechanically correct)** | ✅ PASS |
+
+**Notes**: 2 apparent "WRONG" findings from reviewer invalidated — caused by incorrect prompt data construction (not script bugs). Verified directly against `section_coverage.jsonl`: §4.1.7 child was MATCHED (not CONTENT_TRUNCATED as shown in prompt), §4.2 had CONTENT_TRUNCATED+MISSING children (not all MATCHED as shown in prompt). Script output confirmed correct. See `evidence/checkpoints/p4b_rule_a_audit_report.md`.
+
+**Policy recommendations (4 items, not mechanical errors)**:
+- Appendix A: CDISC SDS Team → `INTENTIONAL_EXCLUDE: EDITORIAL_META`
+- RELREC/RELSPEC/RELSUB — Specification → `INTENTIONAL_EXCLUDE: REDUNDANT_WITH_SPEC`

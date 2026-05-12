@@ -1,7 +1,7 @@
 # 进度看板
 
 > **唯一进度状态源**. 历史细节看 `.work/meta/worklog/INDEX.md`. 文件结构看 `.work/MANIFEST.md`. 一页纸入门看 `.work/AGENT_GUIDE.md`.
-> 最后更新: 2026-05-11 (P2 B-03c round 13 収官 COMPLETE ★★★★ — 63/63 domains 141/141 files 10,435 atoms 100%; §2.12 locked; §G-1 v1.9.4 1st prod validated)
+> 最后更新: 2026-05-12 (06 P4b Section Aggregation GATE PASS — 399 sections section_coverage.jsonl; Rule A 100%; P4a ALL PASS 12,487 atoms)
 
 ---
 
@@ -17,7 +17,7 @@
 | **Phase 6** 检索优化 | ✅ 完成 (P0-P2) | — | P3 → 已合并到 Phase 7 |
 | **Phase 6.5** AI 平台部署 | 🟢 进行中 | Claude/NotebookLM 完成; ChatGPT/Gemini 双平台锁步 (范本就绪 Phase 0 待启) | 看 `ai_platforms/SYNC_BOARD.md` |
 | **Phase 7** RAG + KG | ⏸ 待启动 | 设计完成 (`docs/DESIGN_RAG_KG.md`) | 实施前 5 步待办 (见 `phase7_handoff.md`) |
-| **06 旁枝** Deep Verification | 🟢 进行中 | P1 ✅ 12,487 pdf_atoms + P2 ✅ 10,435 md_atoms + **P3 ✅ p3_candidates.jsonl 12,487行 gate ALL PASS**; P4a-P7 待执行 | `branches/06_deep_verification/plans/` |
+| **06 旁枝** Deep Verification | 🟢 进行中 | P1 ✅ P2 ✅ P3 ✅ **P4a ✅ 12,487 atoms ALL PASS** **P4b ✅ 399 sections gate ALL PASS**; P5 反向比对待执行 | `branches/06_deep_verification/plans/` |
 | **07 旁枝** Website | ✅ 完成 | Phase 6/7/8/9/10/11 全 closed; prod sdtm-pedia.pages.dev | — |
 | **docs/jp** iTMS 納品 | 🟢 进行中 | Phase 1 P0 中間版 v0.5 已提出 2026-04-30 | 残 02/03 + 05/06/99 中文列充填 (Phase 2-3, 2026-05 中下旬) |
 | **refactor v1** 项目重构 | ✅ 完成 | 段 1/2/3 全 closed; branches/ 迁移完成 2026-05-11 ★ | RETROSPECTIVE.md 三段齐备 |
@@ -28,6 +28,8 @@
 
 ## 关键 milestone (近 30 天)
 
+- 2026-05-12 — **06 P4b COMPLETE ★ section_coverage.jsonl 399 sections gate ALL PASS** (Rule A 100% 30/30; FULL_COVERAGE 101 / MOSTLY_COMPLETE 42 / CONTENT_TRUNCATED 110 / SIBLING_DROPPED 56 / SKELETON_ONLY 67 / STRUCTURE_DRIFTED 23; P5+P6 next)
+- 2026-05-12 — **06 P4a COMPLETE ★★ coverage_ledger.jsonl 12,487 atoms gate ALL PASS** (EXACT+EQUIV 57.5%; Rule A 100% post-correction; IE whitelist closed; 8/8 gates)
 - 2026-05-11 — **06 P3 COMPLETE ★ p3_candidates.jsonl 12,487 行 gate ALL PASS** (zero_cand 0.0%, avg_cands 5.30, top1_mean 0.702; domain_route 39302 / chapter_route 13890 / global 12800; scripts p3_build_index.py + p3_report.py; evidence/checkpoints/p3_report.md)
 - 2026-05-11 — **refactor v1 段 3 CLOSED ★ 项目重构 v1 収官** (branches/ 迁移完成; 06 旁枝→branches/06_deep_verification/ + jp_delivery→branches/jp_delivery/; C-16/17/18 dry-run PASS 0 断链; RETROSPECTIVE.md 三段齐备; 规则 A 抽检 PASS)
 - 2026-05-11 — 06 P2 B-03c **round 13 CLOSED ★★★★ 収官 — P2 B-03c 100% COMPLETE** (12 batches / 529 atoms / 6 domains TR/TS/TU/TV/UR/VS; md_atoms.jsonl **10,435 total**; **63/63 domains 141/141 files 100%**; §G-3 de-figure 0.7700 IN BAND; §2.12 NEW LOCKED TS/ass L53; §G-1 v1.9.4 1st production validation PASS 4/4 TV/ex descriptive-title H3; §2.11 7th case TV/ex; Rule D critic mini-audit PASS 8/8; retro `multi_session/P2_B-03c_RETROSPECTIVE.md`)
