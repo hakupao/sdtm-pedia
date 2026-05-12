@@ -1160,7 +1160,7 @@
       ]
     },
     "P4a_forward_matching": {
-      "status": "S5_COMPLETE_P4a_DONE_2026-05-12",
+      "status": "GATE_PASS_P4a_COMPLETE_2026-05-12",
       "atoms_total": 12487,
       "atoms_done": 12487,
       "batches_done": 125,
@@ -1179,7 +1179,7 @@
         "coverage_pct": 20.0,
         "matched_pct": 64.5
       },
-      "next_step": "P4b_reviewer_sampling_or_P4a_COMPLETE",
+      "next_step": "P4b_section_aggregation",
       "S2_stats": {
         "batches": "026-050",
         "atoms": 2500,
@@ -1287,6 +1287,17 @@
         "coverage_rate_exact_equiv": 57.5,
         "coverage_rate_with_partial": 73.9,
         "coverage_pct": 100.0
+      },
+      "gate_status": "ALL_PASS_2026-05-12",
+      "gate_results": {
+        "coverage_ledger_12487": true,
+        "verdict_enum_valid": true,
+        "misplaced_discrepancies_md": true,
+        "trace_phase_report": true,
+        "rule_d_reviewer_types": 4,
+        "drift_check_pct": 80,
+        "rule_a_agreement_pct": 100,
+        "ie_whitelist_closed": true
       }
     },
     "P4b_section_aggregation": {
