@@ -3175,6 +3175,30 @@
     "overall_match_rate": 88.0,
     "last_updated": "2026-05-12T00:46:31.061032Z"
   },
-  "last_checkpoint": "evidence/checkpoints/p5_gate_verifier_report.md",
-  "last_trace_entry_ts": "2026-05-12T03:10:19Z"
+  "last_checkpoint": "evidence/checkpoints/p6_t4b_wave2_rule_d.md",
+  "last_trace_entry_ts": "2026-05-12T03:10:19Z",
+  "t4b_status": "Wave1+Wave2 COMPLETE — Wave3 pending (new session)",
+  "t4b_wave1": {
+    "status": "COMPLETE",
+    "completed_at": "2026-05-12",
+    "files_modified": 7,
+    "atoms_added": 506,
+    "rule_d_checkpoint": "evidence/checkpoints/p6_t4b_wave1_rule_d.md",
+    "verdict": "ALL PASS"
+  },
+  "t4b_wave2": {
+    "status": "COMPLETE",
+    "completed_at": "2026-05-12",
+    "files_modified": 12,
+    "atoms_added_approx": 287,
+    "rule_d_checkpoint": "evidence/checkpoints/p6_t4b_wave2_rule_d.md",
+    "verdict": "ALL PASS",
+    "editorial_note_removed": "MB/examples.md italic note (non-verbatim, removed pre-commit)",
+    "commit": "f60111e"
+  },
+  "t4b_wave3": {
+    "status": "PENDING",
+    "scope": "remaining MISSING prose atoms (~200 scattered across smaller sections)",
+    "note": "to be executed in new session"
+  }
 }
