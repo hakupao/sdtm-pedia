@@ -1,0 +1,101 @@
+{"pdf_atom_id": "ig34_p0402_a005", "atom_type": "HEADING", "p4a_verdict": "EQUIVALENT", "audit_result": "AGREE", "auditor_verdict": "EQUIVALENT", "note": null}
+{"pdf_atom_id": "ig34_p0051_a009", "atom_type": "HEADING", "p4a_verdict": "EQUIVALENT", "audit_result": "AGREE", "auditor_verdict": "EQUIVALENT", "note": null}
+{"pdf_atom_id": "ig34_p0017_a019", "atom_type": "HEADING", "p4a_verdict": "EXACT", "audit_result": "AGREE", "auditor_verdict": "EXACT", "note": null}
+{"pdf_atom_id": "ig34_p0443_a002", "atom_type": "HEADING", "p4a_verdict": "EXACT", "audit_result": "AGREE", "auditor_verdict": "EXACT", "note": null}
+{"pdf_atom_id": "ig34_p0148_a010", "atom_type": "HEADING", "p4a_verdict": "INTENTIONAL_EXCLUDE", "audit_result": "AGREE", "auditor_verdict": "INTENTIONAL_EXCLUDE", "note": null}
+{"pdf_atom_id": "ig34_p0124_a006", "atom_type": "HEADING", "p4a_verdict": "EXACT", "audit_result": "AGREE", "auditor_verdict": "EXACT", "note": null}
+{"pdf_atom_id": "ig34_p0112_a006", "atom_type": "HEADING", "p4a_verdict": "EQUIVALENT", "audit_result": "DISAGREE", "auditor_verdict": "MISPLACED", "note": "PDF 'Example 2' is in §6.1.3.3 Exposure/EC context; all three MD candidates are in CM/examples.md — wrong domain. Text matches but parent domain is Exposure not CM."}
+{"pdf_atom_id": "ig34_p0062_a019", "atom_type": "HEADING", "p4a_verdict": "MISSING", "audit_result": "AGREE", "auditor_verdict": "MISSING", "note": null}
+{"pdf_atom_id": "ig34_p0440_a006", "atom_type": "HEADING", "p4a_verdict": "EXACT", "audit_result": "AGREE", "auditor_verdict": "EXACT", "note": null}
+{"pdf_atom_id": "ig34_p0047_a014", "atom_type": "HEADING", "p4a_verdict": "MISSING", "audit_result": "AGREE", "auditor_verdict": "MISSING", "note": null}
+{"pdf_atom_id": "ig34_p0415_a002", "atom_type": "HEADING", "p4a_verdict": "MISSING", "audit_result": "AGREE", "auditor_verdict": "MISSING", "note": null}
+{"pdf_atom_id": "ig34_p0442_a002", "atom_type": "HEADING", "p4a_verdict": "PARTIAL", "audit_result": "AGREE", "auditor_verdict": "PARTIAL", "note": null}
+{"pdf_atom_id": "ig34_p0334_a008", "atom_type": "HEADING", "p4a_verdict": "MISPLACED", "audit_result": "AGREE", "auditor_verdict": "MISPLACED", "note": null}
+{"pdf_atom_id": "ig34_p0040_a021", "atom_type": "HEADING", "p4a_verdict": "EQUIVALENT", "audit_result": "AGREE", "auditor_verdict": "EQUIVALENT", "note": null}
+{"pdf_atom_id": "ig34_p0361_a010", "atom_type": "HEADING", "p4a_verdict": "EQUIVALENT", "audit_result": "DISAGREE", "auditor_verdict": "MISPLACED", "note": "PDF section heading '6.4 Findings About Events or Interventions' belongs in chapter domain content; MD match is VARIABLE_INDEX.md entry '### FA — Findings About Events or Interventions'. Text is similar but parent section context is structurally different (chapter navigation vs variable index)."}
+{"pdf_atom_id": "ig34_p0266_a001", "atom_type": "HEADING", "p4a_verdict": "EXACT", "audit_result": "AGREE", "auditor_verdict": "EXACT", "note": null}
+{"pdf_atom_id": "ig34_p0022_a003", "atom_type": "HEADING", "p4a_verdict": "EXACT", "audit_result": "AGREE", "auditor_verdict": "EXACT", "note": null}
+{"pdf_atom_id": "ig34_p0022_a001", "atom_type": "HEADING", "p4a_verdict": "EQUIVALENT", "audit_result": "AGREE", "auditor_verdict": "EQUIVALENT", "note": null}
+{"pdf_atom_id": "ig34_p0043_a008", "atom_type": "HEADING", "p4a_verdict": "EXACT", "audit_result": "AGREE", "auditor_verdict": "EXACT", "note": null}
+{"pdf_atom_id": "ig34_p0111_a001", "atom_type": "HEADING", "p4a_verdict": "MISPLACED", "audit_result": "AGREE", "auditor_verdict": "MISPLACED", "note": null}
+{"pdf_atom_id": "ig34_p0132_a015", "atom_type": "SENTENCE", "p4a_verdict": "EXACT", "audit_result": "AGREE", "auditor_verdict": "EXACT", "note": null}
+{"pdf_atom_id": "ig34_p0429_a006", "atom_type": "SENTENCE", "p4a_verdict": "EXACT", "audit_result": "AGREE", "auditor_verdict": "EXACT", "note": null}
+{"pdf_atom_id": "sv20_p0068_a013", "atom_type": "SENTENCE", "p4a_verdict": "MISSING", "audit_result": "AGREE", "auditor_verdict": "MISSING", "note": null}
+{"pdf_atom_id": "ig34_p0020_a030", "atom_type": "SENTENCE", "p4a_verdict": "EQUIVALENT", "audit_result": "AGREE", "auditor_verdict": "EQUIVALENT", "note": null}
+{"pdf_atom_id": "sv20_p0004_a016", "atom_type": "SENTENCE", "p4a_verdict": "PARTIAL", "audit_result": "DISAGREE", "auditor_verdict": "MISSING", "note": "MD candidate 'The examples in SDTMIG v3.4 have not been systematically reviewed...' (§1.5 Known Issues) is semantically unrelated to PDF atom 'The following implementation guides have been published by CDISC:'. No coverage of the PDF content in the MD candidate."}
+{"pdf_atom_id": "ig34_p0090_a004", "atom_type": "SENTENCE", "p4a_verdict": "EQUIVALENT", "audit_result": "AGREE", "auditor_verdict": "EQUIVALENT", "note": null}
+{"pdf_atom_id": "ig34_p0441_a010", "atom_type": "SENTENCE", "p4a_verdict": "MISSING", "audit_result": "AGREE", "auditor_verdict": "MISSING", "note": null}
+{"pdf_atom_id": "ig34_p0372_a001", "atom_type": "SENTENCE", "p4a_verdict": "EXACT", "audit_result": "AGREE", "auditor_verdict": "EXACT", "note": null}
+{"pdf_atom_id": "ig34_p0119_a010", "atom_type": "SENTENCE", "p4a_verdict": "EXACT", "audit_result": "AGREE", "auditor_verdict": "EXACT", "note": null}
+{"pdf_atom_id": "ig34_p0400_a005", "atom_type": "SENTENCE", "p4a_verdict": "EXACT", "audit_result": "AGREE", "auditor_verdict": "EXACT", "note": null}
+{"pdf_atom_id": "sv20_p0051_a005", "atom_type": "SENTENCE", "p4a_verdict": "EXACT", "audit_result": "AGREE", "auditor_verdict": "EXACT", "note": null}
+{"pdf_atom_id": "ig34_p0166_a0011", "atom_type": "SENTENCE", "p4a_verdict": "EQUIVALENT", "audit_result": "AGREE", "auditor_verdict": "EQUIVALENT", "note": null}
+{"pdf_atom_id": "ig34_p0010_a022", "atom_type": "SENTENCE", "p4a_verdict": "EQUIVALENT", "audit_result": "AGREE", "auditor_verdict": "EQUIVALENT", "note": null}
+{"pdf_atom_id": "ig34_p0061_a010", "atom_type": "SENTENCE", "p4a_verdict": "MISSING", "audit_result": "AGREE", "auditor_verdict": "MISSING", "note": null}
+{"pdf_atom_id": "ig34_p0375_a003", "atom_type": "SENTENCE", "p4a_verdict": "EXACT", "audit_result": "AGREE", "auditor_verdict": "EXACT", "note": null}
+{"pdf_atom_id": "ig34_p0256_a019", "atom_type": "SENTENCE", "p4a_verdict": "EXACT", "audit_result": "AGREE", "auditor_verdict": "EXACT", "note": null}
+{"pdf_atom_id": "ig34_p0166_a0010", "atom_type": "SENTENCE", "p4a_verdict": "PARTIAL", "audit_result": "DISAGREE", "auditor_verdict": "MISSING", "note": "MD candidate 'Rows 4, 8: Represent the subjects' actual follow-up elements.' is unrelated to PDF 'For the ABC arm, if drug C is dropped, the subject may transition to an AB element or follow-up.' Different subject matter; no coverage of the drug-drop transition rule."}
+{"pdf_atom_id": "ig34_p0059_a014", "atom_type": "SENTENCE", "p4a_verdict": "EXACT", "audit_result": "AGREE", "auditor_verdict": "EXACT", "note": null}
+{"pdf_atom_id": "ig34_p0114_a026", "atom_type": "SENTENCE", "p4a_verdict": "EXACT", "audit_result": "AGREE", "auditor_verdict": "EXACT", "note": null}
+{"pdf_atom_id": "ig34_p0246_a006", "atom_type": "SENTENCE", "p4a_verdict": "EQUIVALENT", "audit_result": "AGREE", "auditor_verdict": "EQUIVALENT", "note": null}
+{"pdf_atom_id": "ig34_p0121_a018", "atom_type": "TABLE_ROW", "p4a_verdict": "PARTIAL", "audit_result": "AGREE", "auditor_verdict": "PARTIAL", "note": null}
+{"pdf_atom_id": "ig34_p0115_a018", "atom_type": "TABLE_ROW", "p4a_verdict": "EQUIVALENT", "audit_result": "AGREE", "auditor_verdict": "EQUIVALENT", "note": null}
+{"pdf_atom_id": "ig34_p0294_a023", "atom_type": "TABLE_ROW", "p4a_verdict": "PARTIAL", "audit_result": "DISAGREE", "auditor_verdict": "MISSING", "note": "MD candidate is an NV domain data example row (row 6 with numeric values), completely unrelated to the NVGRPID variable specification row. No semantic coverage of NVGRPID variable definition."}
+{"pdf_atom_id": "ig34_p0117_a001", "atom_type": "TABLE_ROW", "p4a_verdict": "EQUIVALENT", "audit_result": "DISAGREE", "auditor_verdict": "PARTIAL", "note": "PDF row 23 (BOTTLE, TABLET,CAPSULE) vs MD row 24 (BOTTLE 2, TABLET,COATED): different row numbers and some field values differ. These are distinct rows; at best PARTIAL since structure matches but row identity and some field values differ."}
+{"pdf_atom_id": "ig34_p0283_a038", "atom_type": "TABLE_ROW", "p4a_verdict": "MISSING", "audit_result": "AGREE", "auditor_verdict": "MISSING", "note": null}
+{"pdf_atom_id": "ig34_p0280_a021", "atom_type": "TABLE_ROW", "p4a_verdict": "MISSING", "audit_result": "AGREE", "auditor_verdict": "MISSING", "note": null}
+{"pdf_atom_id": "ig34_p0455_a014", "atom_type": "TABLE_ROW", "p4a_verdict": "PARTIAL", "audit_result": "AGREE", "auditor_verdict": "PARTIAL", "note": null}
+{"pdf_atom_id": "ig34_p0240_a016", "atom_type": "TABLE_ROW", "p4a_verdict": "MISSING", "audit_result": "AGREE", "auditor_verdict": "MISSING", "note": null}
+{"pdf_atom_id": "ig34_p0074_a009", "atom_type": "TABLE_ROW", "p4a_verdict": "EXACT", "audit_result": "AGREE", "auditor_verdict": "EXACT", "note": null}
+{"pdf_atom_id": "ig34_p0348_a014", "atom_type": "TABLE_ROW", "p4a_verdict": "EXACT", "audit_result": "AGREE", "auditor_verdict": "EXACT", "note": null}
+{"pdf_atom_id": "ig34_p0411_a002", "atom_type": "TABLE_ROW", "p4a_verdict": "MISSING", "audit_result": "AGREE", "auditor_verdict": "MISSING", "note": null}
+{"pdf_atom_id": "ig34_p0135_a006", "atom_type": "TABLE_ROW", "p4a_verdict": "PARTIAL", "audit_result": "AGREE", "auditor_verdict": "PARTIAL", "note": null}
+{"pdf_atom_id": "ig34_p0294_a004", "atom_type": "TABLE_ROW", "p4a_verdict": "EXACT", "audit_result": "AGREE", "auditor_verdict": "EXACT", "note": null}
+{"pdf_atom_id": "ig34_p0105_a011", "atom_type": "TABLE_ROW", "p4a_verdict": "EQUIVALENT", "audit_result": "DISAGREE", "auditor_verdict": "MISSING", "note": "MD candidate '| Concentration | 5.5 mg/mL | 4.12 mg/mL | 4.12 mg/mL |' is a concentration data row unrelated to the EXTPT variable specification row. No semantic coverage of the EXTPT timing variable definition."}
+{"pdf_atom_id": "ig34_p0423_a017", "atom_type": "TABLE_ROW", "p4a_verdict": "EQUIVALENT", "audit_result": "AGREE", "auditor_verdict": "EQUIVALENT", "note": null}
+{"pdf_atom_id": "ig34_p0259_a010", "atom_type": "TABLE_ROW", "p4a_verdict": "EQUIVALENT", "audit_result": "AGREE", "auditor_verdict": "EQUIVALENT", "note": null}
+{"pdf_atom_id": "sv20_p0028_a004", "atom_type": "TABLE_ROW", "p4a_verdict": "MISPLACED", "audit_result": "AGREE", "auditor_verdict": "MISPLACED", "note": null}
+{"pdf_atom_id": "sv20_p0017_a006", "atom_type": "TABLE_ROW", "p4a_verdict": "MISSING", "audit_result": "AGREE", "auditor_verdict": "MISSING", "note": null}
+{"pdf_atom_id": "ig34_p0284_a002", "atom_type": "TABLE_ROW", "p4a_verdict": "MISSING", "audit_result": "AGREE", "auditor_verdict": "MISSING", "note": null}
+{"pdf_atom_id": "ig34_p0445_a040", "atom_type": "TABLE_ROW", "p4a_verdict": "INTENTIONAL_EXCLUDE", "audit_result": "AGREE", "auditor_verdict": "INTENTIONAL_EXCLUDE", "note": null}
+{"pdf_atom_id": "ig34_p0071_a028", "atom_type": "LIST_ITEM", "p4a_verdict": "MISSING", "audit_result": "AGREE", "auditor_verdict": "MISSING", "note": null}
+{"pdf_atom_id": "ig34_p0338_a014", "atom_type": "LIST_ITEM", "p4a_verdict": "EXACT", "audit_result": "AGREE", "auditor_verdict": "EXACT", "note": null}
+{"pdf_atom_id": "ig34_p0021_a011", "atom_type": "LIST_ITEM", "p4a_verdict": "EXACT", "audit_result": "AGREE", "auditor_verdict": "EXACT", "note": null}
+{"pdf_atom_id": "ig34_p0014_a005", "atom_type": "LIST_ITEM", "p4a_verdict": "PARTIAL", "audit_result": "AGREE", "auditor_verdict": "PARTIAL", "note": null}
+{"pdf_atom_id": "ig34_p0327_a005", "atom_type": "LIST_ITEM", "p4a_verdict": "EQUIVALENT", "audit_result": "AGREE", "auditor_verdict": "EQUIVALENT", "note": null}
+{"pdf_atom_id": "ig34_p0088_a014", "atom_type": "LIST_ITEM", "p4a_verdict": "EXACT", "audit_result": "AGREE", "auditor_verdict": "EXACT", "note": null}
+{"pdf_atom_id": "ig34_p0385_a011", "atom_type": "LIST_ITEM", "p4a_verdict": "EQUIVALENT", "audit_result": "AGREE", "auditor_verdict": "EQUIVALENT", "note": null}
+{"pdf_atom_id": "ig34_p0117_a010", "atom_type": "LIST_ITEM", "p4a_verdict": "PARTIAL", "audit_result": "AGREE", "auditor_verdict": "PARTIAL", "note": null}
+{"pdf_atom_id": "ig34_p0024_a004", "atom_type": "LIST_ITEM", "p4a_verdict": "EQUIVALENT", "audit_result": "AGREE", "auditor_verdict": "EQUIVALENT", "note": null}
+{"pdf_atom_id": "ig34_p0436_a015", "atom_type": "LIST_ITEM", "p4a_verdict": "EXACT", "audit_result": "AGREE", "auditor_verdict": "EXACT", "note": null}
+{"pdf_atom_id": "ig34_p0089_a024", "atom_type": "LIST_ITEM", "p4a_verdict": "EQUIVALENT", "audit_result": "AGREE", "auditor_verdict": "EQUIVALENT", "note": null}
+{"pdf_atom_id": "ig34_p0443_a005", "atom_type": "LIST_ITEM", "p4a_verdict": "EXACT", "audit_result": "AGREE", "auditor_verdict": "EXACT", "note": null}
+{"pdf_atom_id": "ig34_p0032_a026", "atom_type": "LIST_ITEM", "p4a_verdict": "EXACT", "audit_result": "AGREE", "auditor_verdict": "EXACT", "note": null}
+{"pdf_atom_id": "ig34_p0169_a0015", "atom_type": "LIST_ITEM", "p4a_verdict": "EQUIVALENT", "audit_result": "AGREE", "auditor_verdict": "EQUIVALENT", "note": null}
+{"pdf_atom_id": "ig34_p0110_a001", "atom_type": "LIST_ITEM", "p4a_verdict": "EXACT", "audit_result": "AGREE", "auditor_verdict": "EXACT", "note": null}
+{"pdf_atom_id": "ig34_p0207_a011", "atom_type": "LIST_ITEM", "p4a_verdict": "EXACT", "audit_result": "AGREE", "auditor_verdict": "EXACT", "note": null}
+{"pdf_atom_id": "ig34_p0317_a017", "atom_type": "LIST_ITEM", "p4a_verdict": "EXACT", "audit_result": "AGREE", "auditor_verdict": "EXACT", "note": null}
+{"pdf_atom_id": "ig34_p0426_a003", "atom_type": "LIST_ITEM", "p4a_verdict": "PARTIAL", "audit_result": "AGREE", "auditor_verdict": "PARTIAL", "note": null}
+{"pdf_atom_id": "ig34_p0163_a0017", "atom_type": "LIST_ITEM", "p4a_verdict": "EQUIVALENT", "audit_result": "AGREE", "auditor_verdict": "EQUIVALENT", "note": null}
+{"pdf_atom_id": "ig34_p0057_a011", "atom_type": "LIST_ITEM", "p4a_verdict": "EQUIVALENT", "audit_result": "AGREE", "auditor_verdict": "EQUIVALENT", "note": null}
+{"pdf_atom_id": "ig34_p0253_a024", "atom_type": "CODE_LITERAL", "p4a_verdict": "EQUIVALENT", "audit_result": "AGREE", "auditor_verdict": "EQUIVALENT", "note": null}
+{"pdf_atom_id": "ig34_p0252_a004", "atom_type": "CODE_LITERAL", "p4a_verdict": "PARTIAL", "audit_result": "AGREE", "auditor_verdict": "PARTIAL", "note": null}
+{"pdf_atom_id": "ig34_p0146_a010", "atom_type": "CODE_LITERAL", "p4a_verdict": "EXACT", "audit_result": "AGREE", "auditor_verdict": "EXACT", "note": null}
+{"pdf_atom_id": "ig34_p0194_a011", "atom_type": "CODE_LITERAL", "p4a_verdict": "PARTIAL", "audit_result": "DISAGREE", "auditor_verdict": "EXACT", "note": "MD candidate '**ie.xpt**' is verbatim identical to PDF 'ie.xpt' after markdown bold normalization. The p4a_discrepancy cites score 0.79 below equivalence threshold, but the content is clearly a verbatim match; score threshold should not override obvious text identity for a 6-character literal."}
+{"pdf_atom_id": "ig34_p0027_a010", "atom_type": "CODE_LITERAL", "p4a_verdict": "EQUIVALENT", "audit_result": "AGREE", "auditor_verdict": "EQUIVALENT", "note": null}
+{"pdf_atom_id": "ig34_p0097_a011", "atom_type": "CODE_LITERAL", "p4a_verdict": "EXACT", "audit_result": "AGREE", "auditor_verdict": "EXACT", "note": null}
+{"pdf_atom_id": "ig34_p0372_a002", "atom_type": "CODE_LITERAL", "p4a_verdict": "EXACT", "audit_result": "AGREE", "auditor_verdict": "EXACT", "note": null}
+{"pdf_atom_id": "ig34_p0167_a0022", "atom_type": "CODE_LITERAL", "p4a_verdict": "PARTIAL", "audit_result": "DISAGREE", "auditor_verdict": "MISSING", "note": "PDF 'ho.xpt, Healthcare Encounters — Events. One record per healthcare encounter per subject, Tabulation.' is a dataset descriptor. MD candidate 'In this example, a healthcare encounter CRF collects verbatim descriptions of the encounter.' is unrelated prose. No coverage of the dataset metadata content."}
+{"pdf_atom_id": "ig34_p0089_a028", "atom_type": "CODE_LITERAL", "p4a_verdict": "EQUIVALENT", "audit_result": "AGREE", "auditor_verdict": "EQUIVALENT", "note": null}
+{"pdf_atom_id": "ig34_p0280_a015", "atom_type": "CODE_LITERAL", "p4a_verdict": "MISSING", "audit_result": "AGREE", "auditor_verdict": "MISSING", "note": null}
+{"pdf_atom_id": "ig34_p0254_a006", "atom_type": "CODE_LITERAL", "p4a_verdict": "EQUIVALENT", "audit_result": "AGREE", "auditor_verdict": "EQUIVALENT", "note": null}
+{"pdf_atom_id": "ig34_p0200_a010", "atom_type": "CODE_LITERAL", "p4a_verdict": "MISSING", "audit_result": "AGREE", "auditor_verdict": "MISSING", "note": null}
+{"pdf_atom_id": "ig34_p0405_a012", "atom_type": "CODE_LITERAL", "p4a_verdict": "EQUIVALENT", "audit_result": "AGREE", "auditor_verdict": "EQUIVALENT", "note": null}
+{"pdf_atom_id": "ig34_p0154_a0004", "atom_type": "CODE_LITERAL", "p4a_verdict": "PARTIAL", "audit_result": "DISAGREE", "auditor_verdict": "MISPLACED", "note": "PDF 'suppmh.xpt' in §6.2.3 Clinical Events matches MD 'suppmh.xpt' in §4.5.3.2 (different section). Content is identical CODE_LITERAL; placement differs. MISPLACED is more accurate than PARTIAL for a verbatim match in the wrong section."}
+{"pdf_atom_id": "ig34_p0239_a012", "atom_type": "CODE_LITERAL", "p4a_verdict": "MISSING", "audit_result": "AGREE", "auditor_verdict": "MISSING", "note": null}
+{"pdf_atom_id": "ig34_p0020_a005", "atom_type": "CODE_LITERAL", "p4a_verdict": "EQUIVALENT", "audit_result": "AGREE", "auditor_verdict": "EQUIVALENT", "note": null}
+{"pdf_atom_id": "ig34_p0161_a0005", "atom_type": "CODE_LITERAL", "p4a_verdict": "EQUIVALENT", "audit_result": "AGREE", "auditor_verdict": "EQUIVALENT", "note": null}
+{"pdf_atom_id": "ig34_p0018_a053", "atom_type": "CODE_LITERAL", "p4a_verdict": "PARTIAL", "audit_result": "DISAGREE", "auditor_verdict": "MISSING", "note": "PDF CODE_LITERAL 'ms.xpt' is completely absent from the MD candidate which contains 'tv.xpt'. These are different filenames. No semantic or textual coverage of 'ms.xpt' in the MD candidate."}
+{"pdf_atom_id": "ig34_p0228_a018", "atom_type": "CODE_LITERAL", "p4a_verdict": "EQUIVALENT", "audit_result": "AGREE", "auditor_verdict": "EQUIVALENT", "note": null}
+{"pdf_atom_id": "ig34_p0255_a002", "atom_type": "CODE_LITERAL", "p4a_verdict": "EQUIVALENT", "audit_result": "AGREE", "auditor_verdict": "EQUIVALENT", "note": null}
+{"summary": true, "total": 100, "agree": 89, "disagree": 11, "agreement_rate": 0.89, "gate_pass": false, "threshold": 0.95, "auditor": "oh-my-claudecode:scientist"}
