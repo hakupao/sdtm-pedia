@@ -4,6 +4,21 @@
 
 The following example CRF collects severity and symptoms data at multiple time points about a migraine event, relative to dosing.
 
+| Migraine Symptoms Diary |  |
+|---|---|
+| Migraine Reference Number | xx |
+| When did the migraine start? | DD-MMM-YYYY HH:MM |
+| When was study treatment taken? | DD-MMM-YYYY HH:MM |
+| Answer the following 5 minutes BEFORE dosing |  |
+| Severity of migraine | ○ Mild   ○ Moderate   ○ Severe |
+| Associated symptoms: Sensitivity to light Sensitivity to sound Nausea Aura | ○ No   ○ Yes ○ No   ○ Yes ○ No   ○ Yes ○ No   ○ Yes |
+| Answer the following 30 minutes AFTER dosing |  |
+| Severity of migraine | ○ Mild   ○ Moderate   ○ Severe |
+| Associated symptoms: Sensitivity to light Sensitivity to sound Nausea Aura | ○ No   ○ Yes ○ No   ○ Yes ○ No   ○ Yes ○ No   ○ Yes |
+| Answer the following 90 minutes AFTER dosing |  |
+| Severity of migraine | ○ Mild   ○ Moderate   ○ Severe |
+| Associated symptoms: Sensitivity to light Sensitivity to sound Nausea Aura | ○ No   ○ Yes ○ No   ○ Yes ○ No   ○ Yes ○ No   ○ Yes |
+
 In this example trial, migraines and symptoms associated with migraines were considered clinical events rather than reportable adverse events. The migraine, its sponsor identifier (i.e., the "Migraine Reference Number" on the CRF), and its start date were represented in a CE record.
 
 **ce.xpt**
@@ -58,6 +73,19 @@ A dataset-level relationship in RELREC is based on the sponsor ID (--SPID) value
 
 This CRF collects details about injection site rash events at each visit, until resolved.
 
+| Rash Assessment |  |
+|---|---|
+| Date of assessment | DD-MMM-YYYY |
+| Associated AE reference number | xx |
+| Rash longest diameter | _________   ○ cm   ○ in |
+| Lesion type and count |  |
+| Macules | ○ 0   ○ 1 to 25   ○ 26 to 100   ○ 101 to 200   ○ 201 to 300   ○ >300 |
+| Papules | ○ 0   ○ 1 to 25   ○ 26 to 100   ○ 101 to 200   ○ 201 to 300   ○ >300 |
+| Vesicles | ○ 0   ○ 1 to 25   ○ 26 to 100   ○ 101 to 200   ○ 201 to 300   ○ >300 |
+| Pustules | ○ 0   ○ 1 to 25   ○ 26 to 100   ○ 101 to 200   ○ 201 to 300   ○ >300 |
+| Scabs | ○ 0   ○ 1 to 25   ○ 26 to 100   ○ 101 to 200   ○ 201 to 300   ○ >300 |
+| Scars | ○ 0   ○ 1 to 25   ○ 26 to 100   ○ 101 to 200   ○ 201 to 300   ○ >300 |
+
 In this scenario, the injection site rash event was considered a reportable adverse event; therefore, the rash itself was represented in the AE domain. The rash assessment form collects a reference number for the AE, represented in AESPID. Certain required or expected variables have been omitted from the example dataset in consideration of space and clarity.
 
 Additional data about the rash were collected at visits 3 and 4, which occurred 2 days and 9 days after the start of the rash. These data were represented in an FA dataset because they were not about the event as a whole (see Section 6.4.1, When to Use Findings About Events or Interventions, criterion 1). In addition, the measurement of the rash requires multiple variables (value and unit) for its representation and the numbers of various kinds of lesions within the rash are a set of similar assessments of the event (see Section 6.4.1, When to Use Findings About Events or Interventions, criterion 2).
@@ -100,6 +128,21 @@ The FA records were linked to the parent CE record via the AE reference number, 
 
 This CRF collects information about rheumatoid arthritis. In this scenario, rheumatoid arthritis is a prerequisite for participation in an osteoporosis trial and was not collected as a Medical History (MH) event.
 
+### Rheumatoid Arthritis History
+
+| Date of assessment | DD-MMM-YYYY |
+|---|---|
+| Date of diagnosis | DD-MMM-YYYY |
+| During the past 6 months, how would you rate the following: |  |
+
+| Symptom | Was the symptom present? | If yes, what was the severity? |
+|---|---|---|
+| Joint stiffness | ○ Yes   ○ No | ○ Mild   ○ Moderate   ○ Severe |
+| Joint swelling | ○ Yes   ○ No | ○ Mild   ○ Moderate   ○ Severe |
+| Joint pain (arthralgia) | ○ Yes   ○ No | ○ Mild   ○ Moderate   ○ Severe |
+| Malaise | ○ Yes   ○ No | ○ Mild   ○ Moderate   ○ Severe |
+| Early morning stiffness | ○ Yes   ○ No | If yes, what was its average daily duration? ___Hours ___Minutes |
+
 In this study, data were collected only at baseline. Because the occurrence and severity apply to the symptoms as a whole, they are represented in the MH domain. Note that the average duration of early morning stiffness cannot be represented in MHDUR because MHDUR would be the duration of the entire event, rather than the average of daily durations.
 
 **Row 1:** Because the CRF specifically collected date of diagnosis for rheumatoid arthritis, MHEVDTYP is populated with DIAGNOSIS to indicate that the date in MHSTDTC is the date of diagnosis.
@@ -127,6 +170,17 @@ The average duration of early morning stiffness would be represented in ISO 8601
 ## Example 4
 
 In this example, the occurrence of prespecified adverse events was solicited at every visit and the visit date was used as the date of collection. The data collected meet criterion 3 in Section 6.4.1, When to Use Findings About Events or Interventions; that is, data that indicate the occurrence of prespecified AEs.
+
+### Prespecified Adverse Events of Clinical Interest
+
+| Date of assessment | DD-MMM-YYYY |
+|---|---|
+| Did the following occur? If Yes, enter a complete record in the AE CRF |  |
+| Headache | ○ No   ○ Yes   ○ Not Done |
+| Respiratory infection | ○ No   ○ Yes   ○ Not Done |
+| Nausea | ○ No   ○ Yes   ○ Not Done |
+
+This example shows data for 1 subject at 2 visits. Each response (e.g., No, Yes) to the prespecified terms is represented in the FA domain. The visit date was used to populated FADTC.
 
 **Rows 1, 4:** "Headache" was reported at both visits.
 **Rows 2, 5:** "Respiratory infection" was not present at either visit.
@@ -163,6 +217,13 @@ Note that not all AE expected variables are included in the following example.
 
 In this example, data about prespecified symptoms of the disease under study were collected on a daily basis. Although the date of the assessment was captured in the CRF header (not shown), start and end timing of the prespecified symptoms was not.
 
+| Symptoms |  | Investigator GERD Symptom Measurement (if symptom occurred) |  |  |
+|---|---|---|---|---|
+| | Occurred in last 24 hours? | Volume (mL) | Number of episodes | Maximum severity |
+| Vomiting | ○ Yes   ○ No |  |  | ○ Mild   ○ Moderate   ○ Severe |
+| Diarrhea | ○ Yes   ○ No |  |  | ○ Mild   ○ Moderate   ○ Severe |
+| Nausea | ○ Yes   ○ No |  |  | ○ Mild   ○ Moderate   ○ Severe |
+
 The collected data were represented in FA because they meet criterion 1 in Section 6.4.1, When to Use Findings About Events or Interventions, that is, data that do not describe an event or intervention as a whole. In addition, the volume of vomit data met criterion 2 data ("about" an event or intervention), having qualifiers that can be represented in Findings variables (e.g., units, method).
 
 This SDTM example represents data from 2 visits for 1 subject. FAEVINTX indicates that assessments were for the previous 24 hours.
@@ -198,9 +259,27 @@ This SDTM example represents data from 2 visits for 1 subject. FAEVINTX indicate
 
 In this example, the sponsor's definition of "event" meant that 1 record would be created for each adverse event, covering it from start to finish (see Section 6.2.1, Adverse Events, assumption 6.4). The AE module also collected information about severity at each visit.
 
+A paper CRF to be updated at each visit might look like this:
+
+| AE ID | Adverse Event | Start Date | End Date | At each visit, record the maximum severity of the adverse event since the last visit. |  |
+|---|---|---|---|---|---|
+| | | | | Visit 2 | Visit 3 | Visit 4 | Visit 5 | Visit 6 |
+| | | | | ○ Mild ○ Moderate ○ Severe | ○ Mild ○ Moderate ○ Severe | ○ Mild ○ Moderate ○ Severe | ○ Mild ○ Moderate ○ Severe | ○ Mild ○ Moderate ○ Severe |
+| | | | | ○ Mild ○ Moderate ○ Severe | ○ Mild ○ Moderate ○ Severe | ○ Mild ○ Moderate ○ Severe | ○ Mild ○ Moderate ○ Severe | ○ Mild ○ Moderate ○ Severe |
+| | | | | ○ Mild ○ Moderate ○ Severe | ○ Mild ○ Moderate ○ Severe | ○ Mild ○ Moderate ○ Severe | ○ Mild ○ Moderate ○ Severe | ○ Mild ○ Moderate ○ Severe |
+
 An electronic data collection instrument would probably be constructed as 2 related modules:
 - A module for the adverse event, where a record would be entered for each event
+
+| AE ID | Adverse Event | Start Date | End Date |
+|---|---|---|---|
+| | | | |
+
 - A module for the severity assessment, where a record would be entered for each assessment
+
+| Visit | AE ID | Maximum severity since last visit |
+|---|---|---|
+| | | ○ Mild ○ Moderate ○ Severe |
 
 *Note: The FA Example 6 CRF shows severity assessed at Visits 2-6 for up to 3 concurrent AEs per subject. The data collected about severity at each visit represents snapshots or slices of the AE over time, meeting criterion 1 for When to Use Findings About Events or Interventions.*
 
