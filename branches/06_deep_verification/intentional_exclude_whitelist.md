@@ -1,7 +1,7 @@
 # INTENTIONAL_EXCLUDE Whitelist
 
 > Created: 2026-05-12
-> Total INTENTIONAL_EXCLUDE atoms: 394
+> Total INTENTIONAL_EXCLUDE atoms: 399
 
 ## Pre-approved categories (Appendix D batch approval)
 
@@ -2118,3 +2118,16 @@
 | ig34_p0425_a003 | SPEC_TABLE_ROW | user-ack-2026-05-12-T2-round2 | Domain variable specification table row in §7.4.2.1 Use of Null Flavor — KB covers spec via spec.md; |
 | ig34_p0429_a019 | STRUCTURAL_HEADING_IE | user-ack-2026-05-12-T2-round2 | Non-content structural heading (figure caption / table divider): "RELREC – Specification" in §8.2.1  |
 | ig34_p0458_a001 | SPEC_TABLE_ROW | user-ack-2026-05-12-T2-round2 | Domain variable specification table row in §10.E Appendix E: Revision History — KB covers spec via s |
+
+## P6 T5 — T4b Wave 3 deferred IE candidates (2026-05-12)
+
+> User ack: implicit via T4b Wave 3 Rule D ALL PASS (commit da054e6) + T5 ledger update.
+> 5 atoms deferred from Wave 3 as INTENTIONAL_EXCLUDE candidates.
+
+| pdf_atom_id | category | approved_by | exclusion_reason |
+|-------------|----------|-------------|------------------|
+| ig34_p0070_a027 | RACEC_codelist_placeholder | user_ack_t4b_wave3_deferred | PDF text is '<RACEC codelist>' — cross-reference placeholder, not substantive content; equivalent codelist in spec.md |
+| ig34_p0071_a011 | RACEC_codelist_placeholder | user_ack_t4b_wave3_deferred | PDF text is '<RACEC codelist>' — cross-reference placeholder, not substantive content; equivalent codelist in spec.md |
+| ig34_p0071_a023 | RACEC_codelist_placeholder | user_ack_t4b_wave3_deferred | PDF text is '<RACEC codelist>' — cross-reference placeholder, not substantive content; equivalent codelist in spec.md |
+| ig34_p0071_a032 | RACEC_codelist_placeholder | user_ack_t4b_wave3_deferred | PDF text is '<RACEC codelist>' — cross-reference placeholder, not substantive content; equivalent codelist in spec.md |
+| ig34_p0037_a035 | TRUNCATED_AT_PAGE_BOUNDARY | user_ack_t4b_wave3_deferred | Atom verbatim ends mid-sentence at PDF page boundary; reconstructed text unavailable, cannot map to KB |
