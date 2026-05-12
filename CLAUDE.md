@@ -46,8 +46,8 @@ Then summarize to the user: current status, open issues, and suggested next step
 
 ## 06 Deep Verification (旁枝)
 
-**当前阶段: P5 反向比对 ✅ GATE PASS** — P1 ✅ P2 ✅ P3 ✅ P4a ✅ P4b ✅ P5 ✅ (10,435 atoms 0 HALLUCINATED ALL PASS); P6 Triage 待执行.
-下一步: P6 Triage (18 real SKELETON_ONLY + 23 STRUCTURE_DRIFTED + 926 UNSOURCED_CANDIDATE).
+**当前阶段: P6 Triage+Repair ✅ ALL GATES PASS** — P1 ✅ P2 ✅ P3 ✅ P4a ✅ P4b ✅ P5 ✅ P6 ✅ (coverage 99.02%, Issues 5-16 repaired, G1-G7 ALL PASS); P7 人工抽样 + Retro 待执行.
+下一步: P7 (用户抽 50+ 原子 + RETROSPECTIVE.md).
 进度 / metric / archive → `branches/06_deep_verification/_progress.json`. 入口 PLAN → `branches/06_deep_verification/PLAN.md`.
 
 ## Change Chains
