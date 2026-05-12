@@ -1,7 +1,7 @@
 # INTENTIONAL_EXCLUDE Whitelist
 
 > Created: 2026-05-12
-> Total INTENTIONAL_EXCLUDE atoms: 399
+> Total INTENTIONAL_EXCLUDE atoms: 423
 
 ## Pre-approved categories (Appendix D batch approval)
 
@@ -2131,3 +2131,35 @@
 | ig34_p0071_a023 | RACEC_codelist_placeholder | user_ack_t4b_wave3_deferred | PDF text is '<RACEC codelist>' — cross-reference placeholder, not substantive content; equivalent codelist in spec.md |
 | ig34_p0071_a032 | RACEC_codelist_placeholder | user_ack_t4b_wave3_deferred | PDF text is '<RACEC codelist>' — cross-reference placeholder, not substantive content; equivalent codelist in spec.md |
 | ig34_p0037_a035 | TRUNCATED_AT_PAGE_BOUNDARY | user_ack_t4b_wave3_deferred | Atom verbatim ends mid-sentence at PDF page boundary; reconstructed text unavailable, cannot map to KB |
+
+## P6 T5 — Structural headings + CROSS_REF (2026-05-12)
+
+> 24 atoms: 15 structural chapter headings + 9 CROSS_REF navigation pointers.
+> Auto-classified by T5 non-prose batch script (p6_t5_update_nonprose.py).
+
+| pdf_atom_id | category | approved_by | exclusion_reason |
+|-------------|----------|-------------|------------------|
+| ig34_p0256_a009 | STRUCTURAL_CHAPTER_HEADING | auto_t5_structural_heading | MB examples sub-section heading; content in MB/examples.md |
+| ig34_p0285_a006 | STRUCTURAL_CHAPTER_HEADING | auto_t5_structural_heading | §6.3.7 grouping heading; domains covered individually |
+| ig34_p0353_a005 | STRUCTURAL_CHAPTER_HEADING | auto_t5_structural_heading | TR/TU examples section heading; content in domain files |
+| ig34_p0361_a012 | STRUCTURAL_CHAPTER_HEADING | auto_t5_structural_heading | §6.4.1 intro heading; content in FA/SR domain files |
+| ig34_p0363_a010 | STRUCTURAL_CHAPTER_HEADING | auto_t5_structural_heading | §6.4.2 naming heading; content in FA/SR domain files |
+| ig34_p0364_a010 | STRUCTURAL_CHAPTER_HEADING | auto_t5_structural_heading | §6.4.3 variables heading; content in FA/SR domain files |
+| ig34_p0375_a024 | STRUCTURAL_CHAPTER_HEADING | auto_t5_structural_heading | §6.4.5 SR heading; content in SR/assumptions.md |
+| ig34_p0382_a002 | STRUCTURAL_CHAPTER_HEADING | auto_t5_structural_heading | §7.1 Trial Design intro heading; content in TA/TE/TV/TD/TM/TI/TS |
+| ig34_p0382_a003 | STRUCTURAL_CHAPTER_HEADING | auto_t5_structural_heading | §7.1.1 Purpose heading; in TA/assumptions.md preamble |
+| ig34_p0382_a015 | STRUCTURAL_CHAPTER_HEADING | auto_t5_structural_heading | §7.1.2 Definitions heading; distributed across trial design files |
+| ig34_p0384_a015 | STRUCTURAL_CHAPTER_HEADING | auto_t5_structural_heading | §7.2 Experimental Design grouping heading; in TA/TE files |
+| ig34_p0407_a010 | STRUCTURAL_CHAPTER_HEADING | auto_t5_structural_heading | §7.3 Schedule grouping heading; in TV/TD/TM files |
+| ig34_p0415_a025 | STRUCTURAL_CHAPTER_HEADING | auto_t5_structural_heading | §7.4 Trial Eligibility grouping heading; in TI/TS files |
+| ig34_p0416_a002 | STRUCTURAL_CHAPTER_HEADING | auto_t5_structural_heading | TI Proposed Removal heading; content in TI/assumptions.md |
+| ig34_p0425_a026 | STRUCTURAL_CHAPTER_HEADING | auto_t5_structural_heading | §7.5 How to Model heading; content in TI/assumptions.md steps 1-12 |
+| ig34_p0012_a002 | CROSS_REF_NAVIGATION | auto_t5_cross_ref | "Section 8, Representing Relationships..." — navigation pointer |
+| ig34_p0012_a023 | CROSS_REF_NAVIGATION | auto_t5_cross_ref | "Section 4, Assumptions for Domain Models" — navigation pointer |
+| ig34_p0037_a003 | CROSS_REF_NAVIGATION | auto_t5_cross_ref | "See Section 4.2.4, Text Case..." — navigation pointer |
+| ig34_p0042_a016 | CROSS_REF_NAVIGATION | auto_t5_cross_ref | "see Section 7.3.1, Trial Visits" — navigation pointer |
+| ig34_p0043_a007 | CROSS_REF_NAVIGATION | auto_t5_cross_ref | "Section 5.3, Subject Elements" — navigation pointer |
+| ig34_p0055_a004 | CROSS_REF_NAVIGATION | auto_t5_cross_ref | "See Section 6.3.4..." — navigation pointer |
+| ig34_p0275_a014 | CROSS_REF_NAVIGATION | auto_t5_cross_ref | "Section 8.2" — navigation pointer |
+| ig34_p0275_a015 | CROSS_REF_NAVIGATION | auto_t5_cross_ref | "Section 8.3" — navigation pointer |
+| ig34_p0275_a023 | CROSS_REF_NAVIGATION | auto_t5_cross_ref | "Section 3.2.1.1" — navigation pointer |
