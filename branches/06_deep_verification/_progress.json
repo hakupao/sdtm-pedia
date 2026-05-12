@@ -1162,9 +1162,9 @@
     "P4a_forward_matching": {
       "status": "S3_complete_2026-05-12",
       "atoms_total": 12487,
-      "atoms_done": 7500,
+      "atoms_done": 10000,
       "batches_done": 75,
-      "sessions_done": 3,
+      "sessions_done": 4,
       "sub_plan": "plans/P4a_forward_matching.md",
       "S1_stats": {
         "batches": "001-025",
@@ -1229,6 +1229,35 @@
         "INTENTIONAL_EXCLUDE": 2,
         "coverage_pct": 60.1,
         "matched_pct": 45.5
+      },
+      "coverage_pct": 80.1,
+      "S4": {
+        "completed_at": "2026-05-12",
+        "batches": "batch_076~100",
+        "atoms": 2500,
+        "verdict_distribution": {
+          "EXACT": 812,
+          "EQUIVALENT": 864,
+          "PARTIAL": 283,
+          "MISPLACED": 8,
+          "MISSING": 517,
+          "ERROR": 16,
+          "INTENTIONAL_EXCLUDE": 0
+        },
+        "coverage_rate_exact_equiv": 67.0,
+        "coverage_rate_with_partial": 78.4
+      },
+      "cumulative_S1_S4": {
+        "EXACT": 3061,
+        "EQUIVALENT": 2864,
+        "PARTIAL": 1665,
+        "MISSING": 1877,
+        "MISPLACED": 198,
+        "ERROR": 92,
+        "INTENTIONAL_EXCLUDE": 243,
+        "total": 10000,
+        "coverage_rate_exact_equiv": 59.2,
+        "coverage_rate_with_partial": 75.9
       }
     },
     "P4b_section_aggregation": {
