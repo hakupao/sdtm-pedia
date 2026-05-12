@@ -2,22 +2,57 @@
 import { getCollection } from 'astro:content';
 import type { Lang } from '../../i18n/helpers';
 import { selectGuideEntries } from '../../lib/guideEntries';
+import platforms from '../../data/platforms.json';
 interface Props { lang: Lang; currentSlug: string; }
 const { lang, currentSlug } = Astro.props;
-const all = selectGuideEntries(await getCollection('guide'), lang);
-const idx = all.findIndex((d) => d.entry.data.slug === currentSlug);
-const prev = idx > 0 ? all[idx - 1].entry : null;
-const next = idx < all.length - 1 ? all[idx + 1].entry : null;
+
+// Deploy slugs use the namespaced shape `deploy-<platform>`; route prev/next
+// across the 4-entry platforms.json list so deploy pages get the same
+// continuous navigation footer as guide pages.
+const deployMatch = currentSlug.match(/^deploy-(chatgpt|claude|gemini|notebooklm)$/);
+
+let prevHref: string | null = null;
+let prevLabel: string | null = null;
+let nextHref: string | null = null;
+let nextLabel: string | null = null;
+
+if (deployMatch) {
+  const key = deployMatch[1];
+  const idx = platforms.findIndex((p) => p.key === key);
+  if (idx > 0) {
+    const p = platforms[idx - 1];
+    prevHref = `/${lang}/deploy/${p.key}/`;
+    prevLabel = p.name;
+  }
+  if (idx >= 0 && idx < platforms.length - 1) {
+    const p = platforms[idx + 1];
+    nextHref = `/${lang}/deploy/${p.key}/`;
+    nextLabel = p.name;
+  }
+} else {
+  const all = selectGuideEntries(await getCollection('guide'), lang);
+  const idx = all.findIndex((d) => d.entry.data.slug === currentSlug);
+  if (idx > 0) {
+    const prev = all[idx - 1].entry;
+    prevHref = `/${lang}/guide/${prev.data.slug}`;
+    prevLabel = prev.data.title || prev.data.slug;
+  }
+  if (idx >= 0 && idx < all.length - 1) {
+    const next = all[idx + 1].entry;
+    nextHref = `/${lang}/guide/${next.data.slug}`;
+    nextLabel = next.data.title || next.data.slug;
+  }
+}
 ---
 <nav class="flex justify-between border-t border-rule pt-6 mt-10 font-mono text-[10px] tracking-wider">
   <div>
-    {prev && (
-      <a href={`/${lang}/guide/${prev.data.slug}`} class="hover:text-accent">← {prev.data.title || prev.data.slug}</a>
+    {prevHref && (
+      <a href={prevHref} class="hover:text-accent">← {prevLabel}</a>
     )}
   </div>
   <div>
-    {next && (
-      <a href={`/${lang}/guide/${next.data.slug}`} class="hover:text-accent">{next.data.title || next.data.slug} →</a>
+    {nextHref && (
+      <a href={nextHref} class="hover:text-accent">{nextLabel} →</a>
     )}
   </div>
 </nav>

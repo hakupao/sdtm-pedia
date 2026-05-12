@@ -6,18 +6,18 @@
       "claude": { "zh": "精确变量+推理", "en": "Precise variables + reasoning", "ja": "精密な変数 + 推論" },
       "chatgpt": { "zh": "团队共享", "en": "Team sharing", "ja": "チーム共有" },
       "gemini": { "zh": "长上下文", "en": "Long context", "ja": "長文脈" },
-      "notebooklm": { "zh": "反虚构", "en": "Anti-hallucination", "ja": "ハルシネーション抑止" }
+      "notebooklm": { "zh": "来源边界", "en": "Source boundary", "ja": "出典境界" }
     },
     "winners": ["claude"]
   },
   {
     "key": "capacity",
-    "label": { "zh": "容量上限", "en": "Capacity", "ja": "容量上限" },
+    "label": { "zh": "资料承载", "en": "Content handling", "ja": "資料の扱い" },
     "values": {
-      "claude": { "zh": "1.29M tok", "en": "1.29M tokens", "ja": "129 万 token" },
-      "chatgpt": { "zh": "20 file 硬限", "en": "20-file hard limit", "ja": "20 ファイル上限" },
-      "gemini": { "zh": "1M tok 窗口", "en": "1M-token window", "ja": "100 万 token ウィンドウ" },
-      "notebooklm": { "zh": "50 source/notebook", "en": "50 sources/notebook", "ja": "50 ソース/notebook" }
+      "claude": { "zh": "适合较完整资料", "en": "Good for fuller material", "ja": "まとまった資料に適合" },
+      "chatgpt": { "zh": "适合精简资料包", "en": "Good for compact packages", "ja": "コンパクトな資料に適合" },
+      "gemini": { "zh": "适合较长上下文", "en": "Good for longer context", "ja": "長い文脈に適合" },
+      "notebooklm": { "zh": "适合分组来源", "en": "Good for grouped sources", "ja": "分類済み出典に適合" }
     },
     "winners": ["claude", "gemini"]
   },
@@ -33,24 +33,24 @@
     "winners": ["chatgpt"]
   },
   {
-    "key": "anti-halluc",
-    "label": { "zh": "反虚构强度", "en": "Anti-halluc.", "ja": "ハルシネーション抑止" },
+    "key": "source-boundary",
+    "label": { "zh": "来源边界", "en": "Source boundary", "ja": "出典境界" },
     "values": {
-      "claude": { "zh": "强", "en": "Strong", "ja": "強" },
-      "chatgpt": { "zh": "中", "en": "Medium", "ja": "中" },
-      "gemini": { "zh": "中", "en": "Medium", "ja": "中" },
-      "notebooklm": { "zh": "极强 (in-KB-only)", "en": "Very strong (in-KB-only)", "ja": "非常に強い (in-KB-only)" }
+      "claude": { "zh": "清晰", "en": "Clear", "ja": "明確" },
+      "chatgpt": { "zh": "适中", "en": "Moderate", "ja": "標準" },
+      "gemini": { "zh": "适中", "en": "Moderate", "ja": "標準" },
+      "notebooklm": { "zh": "最严格", "en": "Strictest", "ja": "最も厳格" }
     },
     "winners": ["notebooklm"]
   },
   {
     "key": "score",
-    "label": { "zh": "评测得分", "en": "Score", "ja": "評価スコア" },
+    "label": { "zh": "验证概况", "en": "Validation", "ja": "確認状況" },
     "values": {
-      "claude": { "zh": "17/17", "en": "17/17", "ja": "17/17" },
-      "chatgpt": { "zh": "16.5/17", "en": "16.5/17", "ja": "16.5/17" },
-      "gemini": { "zh": "16/17", "en": "16/17", "ja": "16/17" },
-      "notebooklm": { "zh": "15/17", "en": "15/17", "ja": "15/17" }
+      "claude": { "zh": "已覆盖复杂查询", "en": "Covers complex lookup", "ja": "複雑な照会を確認済み" },
+      "chatgpt": { "zh": "已覆盖日常查询", "en": "Covers daily lookup", "ja": "日常照会を確認済み" },
+      "gemini": { "zh": "已覆盖综合查询", "en": "Covers synthesis", "ja": "総合照会を確認済み" },
+      "notebooklm": { "zh": "已覆盖来源回查", "en": "Covers source review", "ja": "出典確認を確認済み" }
     },
     "winners": ["claude"]
   },
@@ -80,8 +80,8 @@
     "key": "file-limit",
     "label": { "zh": "文件数上限", "en": "File limit", "ja": "ファイル数上限" },
     "values": {
-      "claude": { "zh": "无显式 (按 token)", "en": "No explicit file cap (token-based)", "ja": "明示上限なし (token 基準)" },
-      "chatgpt": { "zh": "20 file 硬限", "en": "20-file hard limit", "ja": "20 ファイル上限" },
+      "claude": { "zh": "按平台规则", "en": "Platform-dependent", "ja": "プラットフォーム依存" },
+      "chatgpt": { "zh": "按平台规则", "en": "Platform-dependent", "ja": "プラットフォーム依存" },
       "gemini": { "zh": "无显式", "en": "No explicit file cap", "ja": "明示上限なし" },
       "notebooklm": { "zh": "50/notebook", "en": "50/notebook", "ja": "50/notebook" }
     },
@@ -92,7 +92,7 @@
     "label": { "zh": "最弱场景", "en": "Worst at", "ja": "最も苦手" },
     "values": {
       "claude": { "zh": "实时联网", "en": "Real-time web access", "ja": "リアルタイム Web アクセス" },
-      "chatgpt": { "zh": "长尾 chunk", "en": "Long-tail chunks", "ja": "長尾 chunk" },
+      "chatgpt": { "zh": "长尾术语", "en": "Long-tail terminology", "ja": "長尾用語" },
       "gemini": { "zh": "团队共享(非Workspace)", "en": "Team sharing outside Workspace", "ja": "Workspace 外のチーム共有" },
       "notebooklm": { "zh": "in-KB 外问题", "en": "Out-of-KB questions", "ja": "KB 外の質問" }
     },

@@ -5,29 +5,32 @@ order: 0
 title: "README"
 ---
 
-# SDTM AI ナレッジベース v1.0 — 公開版
+# SDTM Pedia v1.0
 
-> 2026-04-27 / 4 AI プラットフォーム LIVE / ユーザーマニュアル + セルフデプロイチュートリアル完備
+SDTM Pedia は、臨床研究データ標準のための AI 支援ナレッジベースです。CDISC SDTM の変数、ドメイン、統制用語、クロスドメイン関係をすばやく確認し、回答の根拠を後から確認できるようにすることを目的としています。
 
-## ドキュメントナビゲーション
+SDTM マッピング、標準確認、変数定義の確認、ドメイン境界の判断、統制用語の確認、チーム内トレーニングに利用できます。規制当局提出、正式な標準解釈、組織レベルのデータガバナンスでは、CDISC 公式刊行物、統制用語の公式ソース、および組織内 SOP を優先してください。
 
-- [USER_GUIDE.ja.md](./USER_GUIDE.ja.md) — ユーザー向けメインマニュアル (背景 / デシジョンツリー / 入口 / 制限事項 / フィードバック)、初回利用時は必読です
-- [DEMO_QUESTIONS.ja.md](./DEMO_QUESTIONS.ja.md) — デモ用 10 題パック (日本語の設問 + 英語判定基準)
-- [KNOWN_LIMITATIONS.ja.md](./KNOWN_LIMITATIONS.ja.md) — 既知の制限事項完全版 (L1-L3 クロスプラットフォーム + L4 各プラットフォーム)
-- [CHANGELOG.ja.md](./CHANGELOG.ja.md) — バージョン履歴 + smoke v4 ベースライン (Claude 17/17 / ChatGPT 16.5/17 / Gemini 16/17 / NotebookLM 15/17)
-- [self_deploy/](./self_deploy/) — 4 プラットフォーム個別デプロイチュートリアル
-- 多言語切替の詳細: 下記セクション参照
+## できること
 
-## 多言語切替
+- SDTM ドメイン、変数、Core 属性、統制用語、よくあるクロスドメイン関係を確認する。
+- LB、MB、IS、または AE、MH、CE など、近いドメインの境界を整理する。
+- 標準変数ではない名称、廃止済みドメイン、不適用な補足修飾子パスなど、よくある誤前提を確認する。
+- 人が後から確認できる根拠付きの回答を得る。
 
-中国語 (zh) / 英語 (en) / 日本語 (ja) の 3 言語に対応しています。トップレベルの README / USER_GUIDE / PLATFORM_COMPARISON / METHODOLOGY / DEMO_QUESTIONS / GLOSSARY / KNOWN_LIMITATIONS はすべて 3 言語版を提供しています。CHANGELOG は中国語・日本語版と英語の基準ファイル `CHANGELOG.md` があります。セルフデプロイ README と 4 プラットフォームのチュートリアルも 3 言語版を提供しています。ファイル名のサフィックスで言語を識別します: `*.zh.md` / `*.en.md` / `*.ja.md`。
+## 推奨される読み順
 
-## クイックスタート (60 秒)
+1. [ユーザーガイド](./USER_GUIDE.ja.md): 利用場面、使い方、プラットフォーム選択。
+2. [プラットフォーム選択](./PLATFORM_COMPARISON.ja.md): アクセス、共有、レビュー目的に応じた入口選択。
+3. [例示質問](./DEMO_QUESTIONS.ja.md): 代表的な質問を試す。
+4. [用語集](./GLOSSARY.ja.md): SDTM と臨床データ標準の用語を確認する。
+5. [既知の制約](./KNOWN_LIMITATIONS.ja.md): 公式ソースに戻るべき場面を確認する。
+6. [方法と検証](./METHODOLOGY.ja.md): 出典、検証原則、利用範囲を確認する。
 
-1. [USER_GUIDE.ja.md](./USER_GUIDE.ja.md) §3 のデシジョンツリーでプラットフォームを選択してください (どれを選ぶか迷う場合 → Claude Projects をお勧めします)。
-2. [DEMO_QUESTIONS.ja.md](./DEMO_QUESTIONS.ja.md) から任意の 3 題を試してください (D0 + D1 + D5 を推奨)。
-3. フィードバックを Bojiang Zhang へお送りください。
+## プラットフォーム入口
 
-## セルフデプロイ
+本リリースは Claude Projects、ChatGPT GPTs、Gemini Gems、NotebookLM で利用できます。通常のユーザーは、すでに設定済みのインスタンスにアクセスすれば十分です。自分で設定または保守する管理者は、各プラットフォームの管理者向けガイドを参照してください。
 
-ご自身で環境を構築される場合は [self_deploy/README.ja.md](./self_deploy/README.ja.md) をご参照ください。各プラットフォームの独立したチュートリアルが掲載されています。
+## 重要な境界
+
+SDTM Pedia は参照支援ツールです。CDISC 公式標準そのものではなく、医学的判断、統計プログラミングレビュー、データ管理 SOP、提出前の正式 QC を置き換えるものでもありません。正式成果物に影響する判断は、公式標準と組織内手順で確認してください。

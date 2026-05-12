@@ -5,105 +5,67 @@ order: 10
 title: "用户手册"
 ---
 
-# SDTM AI 知识库 — 用户手册 v1.0
+# 用户手册
 
-## 1. 这是什么 (项目背景)
+## 1. 这是什么
 
-如果你日常需要查 CDISC 临床试验数据制表标准 (SDTM) 的某个变量定义、Core 属性或 codelist, 翻 SDTMIG v3.4 PDF + NCI EVS Browser 常常要十几分钟. 本项目把这些资料整理好, 部署到 4 个 AI 平台 (Claude Projects / ChatGPT GPTs / Gemini Gems / NotebookLM), 你只需用自然语言提问, **1 分钟就能拿到带 spec 引用的答案**.
+SDTM Pedia 是面向 CDISC SDTM 的 AI 辅助知识库。它把 SDTMIG、SDTM Model 和 CDISC Controlled Terminology 中常用的查询入口整理成可问答的形式，帮助用户更快完成标准检索和初步判断。
 
-技术背景: SDTM (Study Data Tabulation Model) 含 63 个域 + 上千变量 + 大量 CT (Controlled Terminology). 我们把 CDISC SDTMIG v3.4 + v2.0 model + CDISC CT 整理成 295 个 Markdown 源, 加上提示词工程喂给 4 个 AI 平台. 不熟悉 RAG / system prompt / Core (Req/Exp/Perm) / Extensible / 反虚构探针 等术语? 见 [术语表](./GLOSSARY.zh.md) (1 页速查).
+你可以把它理解为一份可对话的 SDTM 参考手册。它适合回答“这个变量是什么意思”“这个场景应放在哪个域”“这个受控术语是否适用”“这个字段是否属于标准变量”等问题。
 
-## 2. 工作成果概览 (技术亮点)
+## 2. 适合谁使用
 
-我们用 17 道代表性 SDTM 问题给每个平台做了完整评测, 含 3 道"故意问错"反虚构题 (测 AI 能否识破假前提, 而不是顺着错前提编). 4 平台得分如下:
+- 临床数据管理、统计编程、标准治理和医学数据审阅人员。
+- 需要快速理解 SDTM 域、变量和受控术语的项目成员。
+- 需要对 SDTM 映射方案做初步核对的团队。
+- 需要培训或演示 SDTM 基础查询方式的用户。
 
-| 平台 | 17 题得分 | 版本 | 强项 |
-|---|:---:|:---:|---|
-| Claude Projects | 17/17 (100%) | v2.6 | 精确变量 + 多步推理 |
-| ChatGPT GPTs | 16.5/17 (97%) | v2.2 LIVE | 全量 + 可团队/Store 共享 |
-| Gemini Gems | 16/17 (94%) | v7.1 LIVE | 长上下文 + 大范围探索 |
-| NotebookLM | 15/17 (88%) | Custom mode | in-KB-only 反虚构 |
+如果你完全不熟悉 SDTM，也可以从示例问题开始；如果你已经熟悉 SDTM，可以直接把它当作带引用的查询助手。
 
-亮点: v3.4 新域 (GF / CP / BE / BS) + Timing + CT Extensible + SUPPQUAL scope + 跨域死亡日级对齐 + 3 道反虚构题 (LBCLINSIG / Trial-Level SAE Aggregate / PF 已废域); 每份产出都过 4 条内部质量规则 + 累计 28 个独立 reviewer 验证. 完整 baseline 见 [更新日志](./CHANGELOG.zh.md); 完整题库见 [SMOKE_V4 题库](https://github.com/hakupao/sdtm-pedia/blob/main/ai_platforms/SMOKE_V4.md); 不懂术语见 [术语表](./GLOSSARY.zh.md).
+## 3. 适合哪些问题
 
-## 3. 我该用哪个平台? (决策树)
+| 场景 | 示例 |
+| --- | --- |
+| 变量定义 | `AESER 是什么？Core 属性是什么？` |
+| 域边界 | `LB、MB、IS 分别适合什么检测结果？` |
+| 受控术语 | `LBNRIND 可用哪些 submission values？` |
+| 跨域关系 | `死亡事件在 AE 和 DS 中如何分别表达？` |
+| 前提核对 | `SUPPTS 是 SDTMIG v3.4 中定义的数据集吗？` |
 
-| 想做的事 | 推荐平台 | 理由 |
-|---|---|---|
-| 精确变量 + 多步推理 (Core + C-code + 跨变量) | **Claude Projects** | 1.29M tokens 全量, smoke 满分 |
-| 团队共享, 或发布 GPT Store | **ChatGPT GPTs** | 团队共享免审核, Store 走 review |
-| 长上下文 + 一次性大范围探索 / 跨域模式 | **Gemini Gems** | 1M 窗口, 4 文件深度合并 |
-| 100% 反虚构 (拒答优于编造) + 强 citation | **NotebookLM** | in-KB-only, 不在 42 sources 内宁可 PUNT |
+提问时可以直接使用中文、英文或日文。涉及变量名、域名、C-code、submission value 时，建议保留英文原文，便于与 CDISC 官方资料核对。
 
-简版: 不知道选什么 → Claude Projects. 面向团队共享 → ChatGPT GPTs. 担心幻觉 → NotebookLM. 详细对比见 [平台对比](./PLATFORM_COMPARISON.zh.md).
+## 4. 选择哪个平台
 
-## 4. 4 平台访问入口
+| 需求 | 推荐平台 | 理由 |
+| --- | --- | --- |
+| 复杂标准问题和跨域推理 | Claude Projects | 适合较长上下文和多步解释。 |
+| 团队日常查询和共享 | ChatGPT GPTs | 入口熟悉，适合组织内部使用。 |
+| 长上下文查询和开放式比较 | Gemini Gems | 适合较大范围的资料综合。 |
+| 严格来源边界和引用回查 | NotebookLM | 适合希望回答严格基于已上传来源的场景。 |
 
-### 4.1 Claude Projects (推荐入门)
+如果你只是日常查询，优先使用团队已经配置好的实例。只有在没有现成入口、需要独立维护或需要验证部署一致性时，才需要阅读管理员部署指南。
 
-- **访问**: 等 Bojiang Zhang 加 organization 邀请, 邮件链接加入.
-- **URL**: claude.ai → Projects → "SDTM Knowledge Base" (Bojiang Zhang 单发具体 URL).
-- **套餐**: Claude Pro / Team / Enterprise.
-- **适合**: 精确变量 Core+CT 绑定 / 跨变量推理 (PCTPT 五件套) / 错前提纠错 (SUPPTS).
-- **不适合**: 实时联网 FDA/Pinnacle 21 (手动核 cdisc.org); 超大批量域对比.
+## 5. 如何判断回答是否可用
 
-### 4.2 ChatGPT GPTs
+一个可用于工作参考的回答通常应满足:
 
-- **访问**: Bojiang Zhang 分享 Custom GPT 到 organization, "添加到我的 GPTs".
-- **URL**: chatgpt.com → 顶部下拉 → "SDTM Knowledge Base".
-- **套餐**: ChatGPT Plus / Team / Enterprise (Free 不可).
-- **适合**: 全量域查询 / 团队共享 / 想发布 GPT Store 走 OpenAI review.
-- **不适合**: 多步推理略弱于 Claude; Free 账号找不到入口.
+- 明确指出相关 SDTM 域、变量、受控术语或标准路径。
+- 对不适用或不存在的前提保持谨慎，而不是顺着问题编造。
+- 给出可回查依据，例如 SDTMIG 章节、变量名、C-code 或来源说明。
+- 对超出当前知识库范围的问题说明边界。
 
-### 4.3 Gemini Gems
+如果回答涉及法规提交、关键映射决策或正式数据交付，请把它作为初步参考，再按组织流程回查 CDISC 官方资料和项目文件。
 
-- **访问**: Bojiang Zhang 分享 (Workspace) 或自部署 (个人).
-- **URL**: gemini.google.com → Gems → "SDTM Knowledge Base".
-- **套餐**: Gemini Advanced 个人 / Google Workspace.
-- **适合**: 一次性塞大量上下文 / 跨域模式比对 / 长会话.
-- **不适合**: 个人账号不能直接团队共享 (要 Workspace).
+## 6. 快速试用
 
-### 4.4 NotebookLM
+你可以先尝试以下问题:
 
-- **访问**: Bojiang Zhang 邀请加入 notebook, 或自建 (50-source cap).
-- **URL**: notebooklm.google.com → "SDTM Knowledge Base".
-- **套餐**: NotebookLM Pro / Google Workspace.
-- **适合**: 强反虚构 (审计/合规) / inline citation 反查 / 拒答优于编造.
-- **不适合**: 不在 42 source 内的题 (实时 Pinnacle 21 / breaking news) 它会拒答 — 设计如此, 非 bug.
+1. `AESER 是什么？它的 Core 属性和受控术语是什么？`
+2. `LB、MB、IS 三个域如何区分？微生物培养结果应放在哪个域？`
+3. `SUPPTS 是 SDTMIG v3.4 中定义的数据集吗？如果 TSVAL 太长应如何处理？`
 
-## 5. 5 分钟快速试用 (3 题热身)
+更多示例见 [示例问题](./DEMO_QUESTIONS.zh.md)。
 
-打开常用平台 (建议先 Claude Projects), 依次问 3 题, 答案对照 [演示题答案](./DEMO_QUESTIONS.zh.md) Expected:
+## 7. 使用边界
 
-1. **D0 (热身)**: "AESER 是 SDTMIG v3.4 哪个域什么变量? Core? 绑哪个 CT C-code?" 预期: AE 域 / Serious Event / Exp / C66742 NY {Y/N/U/NA}.
-2. **D1 (新域)**: 复制 [演示题答案](./DEMO_QUESTIONS.zh.md) 的 D1 题面 (EGFR / Exon 19 / dbSNP). 预期 Domain=GF, 答出 GFGENSR / GFPVRID / GFGENREF / GFINHERT.
-3. **D5 (前提纠错)**: "SUPPTS 是 SDTM 标准里什么? QORIG 必填吗?" 预期: 主动识破 "SUPPTS 不在 SDTMIG v3.4" → 走 TSVAL1-TSVALn = PASS+.
-
-判 PASS/FAIL: 核心事实 (域 / 变量 / Core / C-code) 都中 = PASS; 主动识破错前提 = PASS+; 沿错前提编 = FAIL.
-
-## 6. 完整 demo 包 (10 题)
-
-10 题完整版见 [完整 demo 包](./DEMO_QUESTIONS.zh.md) (中文题面 + 英文判据). 5 分钟入门 = D0/D1/D5; 30 分钟全跑 = D0→D9 (含 3 道 AHP D6 LBCLINSIG / D7 SAE Aggregate / D8 PF 已废 + 跨域终极 D9 AE/MH/CE + DS 死亡日级对齐). 跑完对照 §2 baseline (17/17 / 16.5/17 / 16/17 / 15/17) 看实例是否到位.
-
-## 7. 已知限制 (高频问题)
-
-完整版见 [已知限制](./KNOWN_LIMITATIONS.zh.md), 中文摘要:
-
-- **L1 — QS codelist 不全**: 296 个长尾 questionnaire codelist (PROMIS/EORTC) 因容量约束未全展开 (Claude ~55.8%), 其余落 NCI EVS Browser 链接.
-- **L2 — 巨型 codelist 走 stub**: LBTESTCD (2536 term) 等 6 表只存 stub + 指针, 不会编 term.
-- **L3 — 实时联网**: NotebookLM 严格 in-KB-only, breaking news / 最新 Pinnacle 21 不知道 (PUNT). 其他 3 平台可联网需手动开启.
-- **Claude**: 容量 77% 接近 Pro 软上限, 加新文件需先降级低优先.
-- **ChatGPT**: 20-file 硬上限 (当前 9), 长尾 chunk 表格中段可能 miss.
-- **Gemini**: 个人账号不能直接团队共享 (要 Workspace); v7.1 system prompt 必须完整粘贴.
-- **NotebookLM**: 50-source cap (当前 42); Q9/Q11/Q12 三题主动 PUNT 是**正确安全行为**.
-
-## 8. 反馈渠道
-
-发现错误 / 幻觉 / 答非所问: (1) 截图 + 留底完整问题原文 + AI 回答; (2) 附平台 + 版本号 (例 "ChatGPT GPT v2.2 LIVE 2026-04-24") + 期望答案 (引 SDTMIG v3.4 章节号或 CDISC CT C-code); (3) 通过 GitHub issue 或项目反馈渠道报告. 问题会汇总到 [更新日志](./CHANGELOG.zh.md), 并进入下个 minor release.
-
-## 9. 后续路径
-
-短期 (v1.0 维护): 收反馈修 SDTM 错点, 季度 v1.x minor. 中期 (Phase 7 自建 RAG): 摆脱 4 平台容量约束, 295 文件全量 + QS codelist 全展开. 长期: 跟 SDTMIG v3.5+ 同步 + ADaM / Define-XML 扩展.
-
----
-*v1.0 — 2026-04-27 — 维护者: Bojiang Zhang*
+SDTM Pedia 不替代 CDISC 官方出版物、受控术语发布源、医学判断、统计编程复核或组织内部 SOP。对于正式提交和关键质量判断，请始终以官方标准和机构流程为准。

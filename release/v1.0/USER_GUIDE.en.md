@@ -5,105 +5,67 @@ order: 10
 title: "User Guide"
 ---
 
-# SDTM AI Knowledge Base — User Guide v1.0
+# User Guide
 
-## 1. What This Is (Project Background)
+## 1. What This Is
 
-If you need to look up CDISC SDTM variable definitions / Core / codelist, flipping through SDTMIG v3.4 PDF + NCI EVS Browser usually takes 10+ minutes. This project organizes all that material and deploys it to 4 AI platforms (Claude Projects / ChatGPT GPTs / Gemini Gems / NotebookLM). You just ask in natural language and **get answers with spec citations in 1 minute**.
+SDTM Pedia is an AI-assisted knowledge base for CDISC SDTM. It organizes commonly needed material from SDTMIG, the SDTM Model, and CDISC Controlled Terminology into a question-and-answer experience.
 
-Technical background: SDTM (Study Data Tabulation Model) covers 63 domains + thousands of variables + extensive CT (Controlled Terminology). We organized CDISC SDTMIG v3.4 + v2.0 model + CDISC CT into 295 Markdown sources, then fed them to 4 AI platforms with prompt engineering. New to terms like RAG / system prompt / Core (Req/Exp/Perm) / Extensible / anti-hallucination probe? See the [glossary](./GLOSSARY.en.md) (1-page lookup).
+Think of it as a conversational SDTM reference. It is useful for questions such as "What does this variable mean?", "Which domain fits this scenario?", "Is this controlled terminology applicable?", or "Is this a standard SDTM variable?"
 
-## 2. What We Built (Technical Highlights)
+## 2. Who It Is For
 
-We tested each platform with 17 representative SDTM questions, including 3 "deliberately wrong premise" anti-hallucination probes (testing whether the AI catches false premises rather than playing along). The 4-platform scorecard:
+- Clinical data management, statistical programming, standards governance, and medical data review teams.
+- Project members who need to understand SDTM domains, variables, and controlled terminology.
+- Teams doing early review of SDTM mapping decisions.
+- Trainers or users demonstrating common SDTM lookup patterns.
 
-| Platform | 17-Q score | Version | Strengths |
-|---|:---:|:---:|---|
-| Claude Projects | 17/17 (100%) | v2.6 | Precise variables + multi-step reasoning |
-| ChatGPT GPTs | 16.5/17 (97%) | v2.2 LIVE | Full coverage + shareable within teams / GPT Store |
-| Gemini Gems | 16/17 (94%) | v7.1 LIVE | Long context + broad exploratory queries |
-| NotebookLM | 15/17 (88%) | Custom mode | in-KB-only anti-hallucination |
+If you are new to SDTM, start with the example questions. If you already know SDTM, use it as a traceable lookup assistant.
 
-Highlights: v3.4 new domains (GF / CP / BE / BS), Timing rules, CT Extensible handling, SUPPQUAL scope, cross-domain death-date alignment, and 3 anti-hallucination questions (LBCLINSIG / Trial-Level SAE Aggregate / PF deprecated domain). Throughout, quality was enforced with 4 internal quality rules + 28 independent reviewers cumulative. Sources: [changelog](./CHANGELOG.md) and [SMOKE_V4 question bank](https://github.com/hakupao/sdtm-pedia/blob/main/ai_platforms/SMOKE_V4.md). Glossary: [glossary](./GLOSSARY.en.md)
+## 3. Good Questions To Ask
 
-## 3. Which Platform Should I Use? (Decision Tree)
+| Scenario | Example |
+| --- | --- |
+| Variable definition | `What is AESER? What is its Core attribute?` |
+| Domain boundary | `How should LB, MB, and IS be distinguished?` |
+| Controlled terminology | `What submission values are allowed for LBNRIND?` |
+| Cross-domain relationship | `How should death be represented across AE and DS?` |
+| Premise check | `Is SUPPTS defined in SDTMIG v3.4?` |
 
-| What you want to do | Recommended platform | Why |
-|---|---|---|
-| Precise variables + multi-step reasoning (Core + C-code + cross-variable) | **Claude Projects** | 1.29M tokens full coverage, perfect smoke score |
-| Share with a team, or publish to GPT Store | **ChatGPT GPTs** | Team sharing requires no review; GPT Store goes through OpenAI review |
-| Large context + one-shot broad exploration / cross-domain pattern queries | **Gemini Gems** | 1M context window, 4-file deep merge |
-| Maximum anti-hallucination (decline to answer rather than fabricate) + strong citation | **NotebookLM** | in-KB-only; if it's not in the 42 sources, it will PUNT rather than guess |
+You can ask in Chinese, English, or Japanese. For variable names, domain codes, C-codes, and submission values, keep the original English code so the answer can be checked against CDISC sources.
 
-Short version: Not sure which to pick? Start with Claude Projects. Sharing with a team? Use ChatGPT GPTs. Worried about hallucinations? Use NotebookLM. For a detailed comparison see the [platform comparison](./PLATFORM_COMPARISON.en.md).
+## 4. Which Platform To Use
 
-## 4. Access Links for All 4 Platforms
+| Need | Recommended Platform | Why |
+| --- | --- | --- |
+| Complex standards reasoning and cross-domain explanation | Claude Projects | Strong fit for longer explanations and multi-step interpretation. |
+| Team sharing and everyday lookup | ChatGPT GPTs | Familiar entry point for many organizations. |
+| Long-context synthesis and broad comparison | Gemini Gems | Useful for broader source synthesis. |
+| Strict source boundary and citation review | NotebookLM | Best when answers should stay close to uploaded source material. |
 
-### 4.1 Claude Projects (Recommended Starting Point)
+Most users should start with the instance their team already provides. Read the administrator guides only if you need to configure, maintain, or verify an instance.
 
-- **Access**: Wait for Bojiang Zhang to add you to the organization — join via the email invite link.
-- **URL**: claude.ai → Projects → "SDTM Knowledge Base" (Bojiang Zhang will send the specific URL directly).
-- **Subscription required**: Claude Pro / Team / Enterprise.
-- **Best for**: Precise variable Core + CT lookups, cross-variable reasoning (e.g., the PCTPT five-variable set), correcting wrong premises (e.g., SUPPTS).
-- **Not ideal for**: Real-time lookups on FDA / Pinnacle 21 (verify manually at cdisc.org); very large batch domain comparisons.
+## 5. How To Judge an Answer
 
-### 4.2 ChatGPT GPTs
+A work-ready reference answer should usually:
 
-- **Access**: Bojiang Zhang shares the Custom GPT to your organization; click "Add to My GPTs".
-- **URL**: chatgpt.com → top dropdown → "SDTM Knowledge Base".
-- **Subscription required**: ChatGPT Plus / Team / Enterprise (Free tier is not supported).
-- **Best for**: Full domain queries, team sharing, publishing to GPT Store via OpenAI review.
-- **Not ideal for**: Multi-step reasoning (slightly weaker than Claude Projects); Free-tier accounts cannot access the GPT.
+- Identify the relevant SDTM domain, variable, controlled terminology, or standard path.
+- Treat non-applicable or non-existent premises cautiously rather than inventing details.
+- Provide reviewable support, such as an SDTMIG section, variable name, C-code, or source note.
+- State when a question falls outside the current knowledge base.
 
-### 4.3 Gemini Gems
+For regulatory submissions, critical mapping decisions, or formal deliverables, use the answer as a starting point and confirm it through official sources and internal review.
 
-- **Access**: Bojiang Zhang shares via Google Workspace, or you can self-deploy (personal account).
-- **URL**: gemini.google.com → Gems → "SDTM Knowledge Base".
-- **Subscription required**: Gemini Advanced (personal) / Google Workspace.
-- **Best for**: Loading large amounts of context at once, cross-domain pattern comparisons, long sessions.
-- **Not ideal for**: Personal accounts cannot share directly with a team (requires Google Workspace).
+## 6. Quick Start
 
-### 4.4 NotebookLM
+Try these first:
 
-- **Access**: Bojiang Zhang invites you to the notebook, or you can create your own (50-source cap).
-- **URL**: notebooklm.google.com → "SDTM Knowledge Base".
-- **Subscription required**: NotebookLM Pro / Google Workspace.
-- **Best for**: Strong anti-hallucination (audit / compliance use), inline citation lookups, preferring "I don't know" over making something up.
-- **Not ideal for**: Questions outside the 42 sources (real-time Pinnacle 21, breaking news) — it will decline to answer by design, not a bug.
+1. `What is AESER? What are its Core attribute and controlled terminology?`
+2. `How do LB, MB, and IS differ? Which domain fits a microbiology culture result?`
+3. `Is SUPPTS defined in SDTMIG v3.4? If TSVAL is too long, what should be considered?`
 
-## 5. 5-Minute Quick Start (3 Warm-Up Questions)
+More examples are available in [Example Questions](./DEMO_QUESTIONS.en.md).
 
-Open your preferred platform (Claude Projects is a good first choice) and ask these 3 questions in order. Compare your answers against the Expected answers in the [demo questions](./DEMO_QUESTIONS.en.md):
+## 7. Boundary of Use
 
-1. **D0 (Warm-up)**: "What domain and variable is AESER in SDTMIG v3.4? What is its Core attribute? Which CT C-code does it bind to?" Expected: AE domain / Serious Event / Exp / C66742 NY {Y/N/U/NA}.
-2. **D1 (New domain)**: Copy the D1 question text from the [demo questions](./DEMO_QUESTIONS.en.md) (EGFR / Exon 19 / dbSNP). Expected: Domain=GF; should return GFGENSR / GFPVRID / GFGENREF / GFINHERT.
-3. **D5 (Wrong-premise correction)**: "What is SUPPTS in the SDTM standard? Is QORIG required?" Expected: The model proactively recognizes that "SUPPTS does not exist in SDTMIG v3.4" and redirects to TSVAL1-TSVALn = PASS+.
-
-Grading: All core facts correct (domain / variable / Core / C-code) = PASS. Proactively catches the wrong premise = PASS+. Follows the wrong premise and fabricates = FAIL.
-
-## 6. Full Demo Package (10 Questions)
-
-The complete 10-question set is in the [full demo package](./DEMO_QUESTIONS.en.md) (English questions + English grading criteria). 5-minute intro = D0 / D1 / D5; 30-minute full run = D0 through D9 (includes 3 AHP probes: D6 LBCLINSIG / D7 SAE Aggregate / PF deprecated domain + the cross-domain ultimate challenge D9: AE/MH/CE + DS death-date alignment). After running, compare your results against the §2 baselines (17/17 / 16.5/17 / 16/17 / 15/17) to see how your instance performs.
-
-## 7. Known Limitations (Frequently Asked Questions)
-
-Full details are in [known limitations](./KNOWN_LIMITATIONS.en.md). Summary:
-
-- **L1 — Incomplete QS codelist coverage**: 296 long-tail questionnaire codelists (PROMIS / EORTC) are not fully expanded due to capacity constraints (Claude ~55.8%); the remainder links out to NCI EVS Browser.
-- **L2 — Large codelists stored as stubs**: LBTESTCD (2,536 terms) and 5 other large tables are stored as stubs with pointers only — the model will not fabricate individual terms.
-- **L3 — No real-time web access**: NotebookLM is strictly in-KB-only; breaking news and the latest Pinnacle 21 updates are outside its knowledge (it will PUNT). The other 3 platforms can browse the web but require you to enable that manually.
-- **Claude**: Capacity is at 77%, close to the Pro soft ceiling; adding new files requires first downgrading lower-priority content.
-- **ChatGPT**: Hard 20-file limit (currently using 9); long-tail chunk tables may be partially missed mid-section.
-- **Gemini**: Personal accounts cannot share directly with a team (requires Google Workspace); the v7.1 system prompt must be pasted in full.
-- **NotebookLM**: 50-source cap (currently 42); Q9 / Q11 / Q12 proactively PUNT — this is **correct and safe behavior**, not a flaw.
-
-## 8. Feedback
-
-If you find an error, hallucination, or off-topic answer: (1) Take a screenshot and save the full original question and AI response. (2) Note the platform and version (e.g., "ChatGPT GPT v2.2 LIVE 2026-04-24") and the expected answer (citing the SDTMIG v3.4 section number or CDISC CT C-code). (3) Report it through GitHub issues or the project feedback channel. Issues are consolidated in the [changelog](./CHANGELOG.md) and addressed in the next minor release.
-
-## 9. Road Map
-
-**Short term (v1.0 maintenance)**: Collect feedback and fix SDTM content errors; quarterly v1.x minor releases. **Medium term (Phase 7 — self-hosted RAG)**: Break free of the 4-platform capacity constraints, enabling all 295 files at full resolution plus complete QS codelist expansion. **Long term**: Keep pace with SDTMIG v3.5+ and extend coverage to ADaM and Define-XML.
-
----
-*v1.0 — 2026-04-27 — Maintained by Bojiang Zhang*
+SDTM Pedia does not replace CDISC publications, controlled terminology release sources, medical judgment, statistical programming review, or internal SOPs. Formal submission decisions should always be confirmed through official standards and your organization's process.

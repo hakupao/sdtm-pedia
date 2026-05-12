@@ -1,45 +1,31 @@
-# セルフデプロイガイド — SDTM AI ナレッジベース v1.0
+# 管理者向けデプロイガイド索引
 
-> 自分で環境を構築したい方向けです。4 プラットフォームはそれぞれ独立してデプロイでき、30〜60 分で公開できます。
+本ディレクトリは、SDTM Pedia の各プラットフォームインスタンスを設定または保守する管理者向けです。通常のユーザーは、チームが設定済みの Claude Project、ChatGPT GPT、Gemini Gem、NotebookLM notebook にアクセスするだけで十分です。
 
-## 1. どのプラットフォームでデプロイすべきですか?
+## このディレクトリを読む場面
 
-| プラットフォーム | デプロイ時間 | プラン要件 | チーム共有方式 |
-|---|:---:|---|---|
-| **NotebookLM** | ~30 min | Pro / Workspace | notebook 招待 (50-source cap) |
-| **Gemini Gems** | ~30 min | Advanced / Workspace | 個人では直接共有不可、Workspace が必要 |
-| **ChatGPT GPTs** | ~45 min | Plus / Team / Enterprise | organization 内は審査不要、GPT Store は review が必要 |
-| **Claude Projects** | ~60 min | Pro / Team / Enterprise | Team/Enterprise で共有可、Pro は各自で再デプロイ |
+- チームにまだ入口がなく、管理者が新しく作成する必要がある場合。
+- 組織内でアクセス権限、instructions、知識ファイルを一貫して保守する場合。
+- 既存インスタンスを更新または置き換える場合。
+- インスタンスが基本的な SDTM 照会に回答できることを確認する場合。
 
-判断ツリー (USER_GUIDE.ja.md §3 と同一): 最速を求める場合 (~30 min) → NotebookLM または Gemini; 最も深い RAG を求める場合 → Claude Projects; チーム共有を求める場合 → ChatGPT GPTs; 最強の anti-hallucination を求める場合 → NotebookLM.
+## プラットフォームガイド
 
-## 2. 4 プラットフォーム デプロイチュートリアル (独立, 1 つ選んで実行)
+| プラットフォーム | ガイド | 向いている場面 |
+| --- | --- | --- |
+| Claude Projects | [claude/tutorial.ja.md](./claude/tutorial.ja.md) | 複雑な標準説明とクロスドメイン推論。 |
+| ChatGPT GPTs | [chatgpt/tutorial.ja.md](./chatgpt/tutorial.ja.md) | チームの日常検索と使い慣れた ChatGPT 入口。 |
+| Gemini Gems | [gemini/tutorial.ja.md](./gemini/tutorial.ja.md) | 長い文脈の総合と探索的比較。 |
+| NotebookLM | [notebooklm/tutorial.ja.md](./notebooklm/tutorial.ja.md) | 厳格な出典境界と引用確認。 |
 
-- **Claude Projects** → [./claude/tutorial.ja.md](./claude/tutorial.ja.md) (19 ファイル + system_prompt + 24 題 smoke)
-- **ChatGPT GPTs** → [./chatgpt/tutorial.ja.md](./chatgpt/tutorial.ja.md) (Custom GPT + 9 ファイル + v2.2 system prompt + 17 題 smoke)
-- **Gemini Gems** → [./gemini/tutorial.ja.md](./gemini/tutorial.ja.md) (Gem + 4 統合ファイル + v7.1 system prompt + AHP 検収)
-- **NotebookLM** → [./notebooklm/tutorial.ja.md](./notebooklm/tutorial.ja.md) (notebook + 42 sources + Custom mode instructions 8,925 chars + 3 段階共有)
+## 共通原則
 
-## 3. 共通の前提準備
+- 本リリースパッケージ内の対応プラットフォームディレクトリにある instruction ファイルと `uploads/` 内容を使用します。
+- 新バージョンを意図的に保守する場合を除き、instruction 文を改写したり知識ファイル名を変更したりしないでください。
+- 共有前に、組織のデータセキュリティ、患者プライバシー、アクセス権限要件を確認します。
+- 編集権限は少数の保守担当者に限定し、通常ユーザーは利用権限のみとします。
+- 更新後は、変数定義、ドメイン境界、統制用語の照会ができることを少数の標準質問で確認します。
 
-1. 本ディレクトリに移動します (リリース配布チャネルから release パックをダウンロード、または本リポジトリを `git clone` し `release/v1.0/` に移動)。各プラットフォームのデプロイ資材は `./{claude,chatgpt,gemini,notebooklm}/` 配下に配置済みです (`system_prompt.md` または `instructions.md` + `uploads/` + `tutorial.<lang>.md`)。
-2. §1 の表に従い、アカウントとプランを準備します。
-3. §2 の該当 tutorial を開き、章の順序を**厳守して**実行してください (手順をスキップすると system_prompt のゲートルールが失われます)。
+## 利用範囲
 
-## 4. デプロイ後の検証 (smoke test)
-
-デプロイ完了後、`../DEMO_QUESTIONS.ja.md` の D0・D1・D5 の 3 問で簡易検収を行います (所要時間 約 5 分):
-
-- **D0**: AESER 基本クエリ (AE / Exp / C66742 NY) — 基本 RAG の検証。
-- **D1**: GF ドメイン EGFR シナリオ (GFGENSR / GFPVRID / GFGENREF / GFINHERT) — 新ドメイン + 多変数推論の検証。
-- **D5**: SUPPTS 前提誤り訂正 — anti-hallucination ゲートの検証 (能動的に誤りを検出し → TSVAL1-n を返すこと)。
-
-3 問すべて PASS = デプロイ成功。1 問でも PASS しない場合は `../KNOWN_LIMITATIONS.ja.md` でトラブルシューティングしてください。優先確認事項: (a) system_prompt.md が完全にペーストされ途中で切れていないか、(b) uploads/ のファイル数とサイズがチュートリアルの一覧と合致しているか。
-
-## 5. アップグレード / メンテナンス
-
-release パックは今後も更新されます: minor release (`../CHANGELOG.ja.md` に v1.1 / v1.2 と記載) または SDTMIG 新版 (v3.5+) のタイミングで、新しい release パックがリリース配布チャネルから配布されます。再アップロード手順: 新パックを取得 → 対応するプラットフォームのサブディレクトリ (`./{claude,chatgpt,gemini,notebooklm}/`) に移動 → 旧 uploads を削除して再アップロード → **新しい system_prompt.md を完全にコピー&ペースト** (途中で切断すると AHP ゲートルールが失われます。例: Gemini v7.1 CO-1d SUPPQUAL ハードアンカー + ChatGPT v2.2 v3.4 新ドメイン変数名検証)。ロールバック: 過去の release パックを取得し、同じ手順で復元してください。
-
-## 6. フィードバック
-
-誤りや幻覚を発見した場合: (1) スクリーンショットを撮り、質問の原文と AI の回答を保存します; (2) プラットフォーム + バージョン (例: "ChatGPT GPT v2.2 LIVE 2026-04-24") + 期待される回答 (SDTMIG v3.4 章番号または CDISC CT C-code を引用) + セルフデプロイバージョン番号 + smoke スコアを添付します; (3) GitHub issue またはプロジェクトのフィードバック窓口で報告します。内容は `../CHANGELOG.ja.md` に集約し、次の minor release で対応します。
+デプロイ済みインスタンスは SDTM 照会支援ツールです。CDISC 公式刊行物、医学的判断、プロジェクトレベルのマッピングレビュー、内部品質プロセスを置き換えるものではありません。

@@ -5,29 +5,32 @@ order: 0
 title: "README"
 ---
 
-# SDTM AI Knowledge Base v1.0 — Release
+# SDTM Pedia v1.0
 
-> 2026-04-27 / 4 AI platforms LIVE / Full user manual + self-deploy tutorials
+SDTM Pedia is an AI-assisted knowledge base for clinical research data standards. It helps users look up CDISC SDTM variables, domains, controlled terminology, and cross-domain relationships more quickly, while keeping answers traceable to reviewable sources.
 
-## Document Navigation
+It is intended for SDTM mapping, standards lookup, variable-definition checks, domain-boundary questions, terminology review, and team training. For regulatory submissions, formal standards interpretation, and organization-level data governance, CDISC publications, controlled-terminology sources, and internal SOPs remain authoritative.
 
-- [USER_GUIDE.en.md](./USER_GUIDE.en.md) — Main user guide (background / decision tree / entry points / limitations / feedback); required reading for first-time users
-- [DEMO_QUESTIONS.en.md](./DEMO_QUESTIONS.en.md) — 10-question demo pack (English question text + English criteria)
-- [KNOWN_LIMITATIONS.en.md](./KNOWN_LIMITATIONS.en.md) — Full known limitations (L1-L3 cross-platform + L4 per-platform)
-- [CHANGELOG.md](./CHANGELOG.md) — Version history + smoke v4 baseline (Claude 17/17 / ChatGPT 16.5/17 / Gemini 16/17 / NotebookLM 15/17)
-- [self_deploy/](./self_deploy/) — Independent deployment tutorials for all 4 platforms
-- Trilingual switching: see below
+## What You Can Use It For
 
-## Trilingual Switching
+- Look up SDTM domains, variables, Core attributes, controlled terminology, and common cross-domain relationships.
+- Clarify boundaries between similar domains, such as LB, MB, and IS, or AE, MH, and CE.
+- Check common false premises, such as non-standard variables, deprecated domains, or an inapplicable supplemental qualifier path.
+- Ask for traceable support so a responsible person can verify the answer.
 
-Chinese (zh) / English (en) / Japanese (ja). Top-level README / USER_GUIDE / PLATFORM_COMPARISON / METHODOLOGY / DEMO_QUESTIONS / GLOSSARY / KNOWN_LIMITATIONS all have trilingual versions; CHANGELOG has Chinese, Japanese, and the English base file `CHANGELOG.md`. The self-deploy README and all 4 platform tutorials also have trilingual versions. Find files by suffix: `*.zh.md` / `*.en.md` / `*.ja.md`.
+## Recommended Reading Order
 
-## Quick Start (60 seconds)
+1. [User Guide](./USER_GUIDE.en.md): use cases, workflow, and platform choice.
+2. [Platform Selection](./PLATFORM_COMPARISON.en.md): choose an entry point based on access, sharing, and review needs.
+3. [Example Questions](./DEMO_QUESTIONS.en.md): try representative questions.
+4. [Glossary](./GLOSSARY.en.md): review SDTM and clinical data standards terms.
+5. [Known Limitations](./KNOWN_LIMITATIONS.en.md): understand boundaries and when to return to official sources.
+6. [Methodology](./METHODOLOGY.en.md): review source basis, validation principles, and intended use.
 
-1. Read [USER_GUIDE.en.md](./USER_GUIDE.en.md) §3 decision tree to pick a platform (not sure which → Claude Projects).
-2. Try any 3 questions from [DEMO_QUESTIONS.en.md](./DEMO_QUESTIONS.en.md) (recommended: D0 + D1 + D5).
-3. Send feedback to Bojiang Zhang.
+## Platform Entry Points
 
-## Self-Deployment
+This release can be used through Claude Projects, ChatGPT GPTs, Gemini Gems, and NotebookLM. Most users only need access to an already configured instance. Administrators who need to configure or maintain an instance can use the platform-specific administrator guides.
 
-Want to set up your own instance → see [self_deploy/README.en.md](./self_deploy/README.en.md), with a separate tutorial for each platform.
+## Important Boundary
+
+SDTM Pedia is a reference aid. It is not CDISC itself, and it does not replace medical judgment, statistical programming review, data-management SOPs, or formal quality control before submission. Any decision that affects a formal deliverable should be checked against official standards and internal procedures.

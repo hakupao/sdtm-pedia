@@ -1,6 +1,5 @@
 ---
 import SectionLabel from './SectionLabel.astro';
-import { CountUp } from '../react/CountUp';
 import platforms from '../../data/platforms.json';
 import { getUIStrings, type Lang } from '../../i18n/helpers';
 interface Props { lang: Lang; }
@@ -14,15 +13,20 @@ const subhead = t['section.platforms.subhead'];
     <h2 class="font-display text-2xl mb-5 leading-tight">{subhead}</h2>
     <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
       {platforms.map((p) => (
-        <div class="bg-bg p-4 border border-rule">
+        <a
+          href={`/${lang}/deploy/${p.key}/`}
+          class="bg-bg p-4 border border-rule hover:border-accent transition-colors group flex flex-col"
+        >
           <div class="font-mono text-[8px] tracking-[0.15em] text-ink-mute">{p.name}</div>
-          <div class="font-display text-3xl font-bold my-1">
-            <CountUp client:visible end={p.score} decimals={p.score % 1 === 0 ? 0 : 1} />
-            <span class="text-sm text-ink-mute">/17</span>
+          <div class="font-serif text-[13px] text-ink leading-snug mt-3 min-h-[2.5rem]">{p.strength[lang]}</div>
+          <div class="mt-2 font-mono text-[9px] tracking-wider text-ink-mute group-hover:text-accent">
+            {t['nav.deploy']} →
           </div>
-          <div class="font-serif text-[11px] text-ink-mute leading-snug">{p.strength[lang]}</div>
-        </div>
+        </a>
       ))}
     </div>
+    <a href={`/${lang}/deploy/chatgpt/`} class="inline-block mt-4 font-mono text-[9px] tracking-wider text-ink-mute hover:text-accent">
+      {t['section.platforms.cta']}
+    </a>
   </div>
 </section>

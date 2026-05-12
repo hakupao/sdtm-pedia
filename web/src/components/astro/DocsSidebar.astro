@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import { getUIStrings, type Lang } from '../../i18n/helpers';
 import { selectGuideEntries } from '../../lib/guideEntries';
+import platforms from '../../data/platforms.json';
 interface Props { lang: Lang; currentSlug: string; }
 const { lang, currentSlug } = Astro.props;
 const all = selectGuideEntries(await getCollection('guide'), lang);
@@ -25,6 +26,19 @@ const t = getUIStrings(lang);
         <a href={`/${lang}/guide/${doc.data.slug}`}
            class={`block py-1 ${doc.data.slug === currentSlug ? 'text-accent font-bold' : 'hover:text-accent'}`}>
           {doc.data.title || doc.data.slug}
+        </a>
+      </li>
+    ))}
+  </ul>
+  <div class="font-mono text-[9px] tracking-wider text-ink-mute mt-6 mb-2 pt-3 border-t border-rule">
+    {t['deploy.label']} / {lang.toUpperCase()}
+  </div>
+  <ul class="flex flex-col gap-1 font-serif text-[13px]">
+    {platforms.map((p) => (
+      <li>
+        <a href={`/${lang}/deploy/${p.key}/`}
+           class={`block py-1 ${`deploy-${p.key}` === currentSlug ? 'text-accent font-bold' : 'hover:text-accent'}`}>
+          {p.name}
         </a>
       </li>
     ))}
