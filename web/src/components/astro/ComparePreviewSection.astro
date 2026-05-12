@@ -9,7 +9,7 @@ const t = getUIStrings(lang);
 const subhead = t['section.compare.subhead'];
 // The 4 dims surfaced on the landing first-impression strip. Keyed (not sliced)
 // so JSON reorders or front-inserts don't silently swap them out.
-const LANDING_PREVIEW_KEYS = ['best-at', 'capacity', 'sharing', 'anti-halluc'];
+const LANDING_PREVIEW_KEYS = ['best-at', 'capacity', 'sharing', 'source-boundary'];
 const previewDims = LANDING_PREVIEW_KEYS
   .map((k) => dims.find((d) => d.key === k))
   .filter((d): d is (typeof dims)[number] => d !== undefined);

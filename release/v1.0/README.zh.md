@@ -5,29 +5,32 @@ order: 0
 title: "README"
 ---
 
-# SDTM AI 知识库 v1.0 — 发布版
+# SDTM Pedia v1.0
 
-> 2026-04-27 / 4 个 AI 平台 LIVE / 用户手册 + 自部署教程齐全
+SDTM Pedia 是一个面向临床研究数据标准的 AI 辅助知识库，帮助用户更快查询 CDISC SDTM 变量、域、受控术语和跨域关系，并在回答中保留可回查的依据。
 
-## 文档导航
+它适合用于 SDTM 数据映射、标准查询、变量定义确认、域边界判断、受控术语核对和团队培训。对于法规提交、正式标准解释和组织内部数据治理，仍应以 CDISC 官方出版物、受控术语来源和本机构 SOP 为准。
 
-- [USER_GUIDE.zh.md](./USER_GUIDE.zh.md) — 用户主手册 (背景 / 决策树 / 入口 / 限制 / 反馈), 第一次用必读
-- [DEMO_QUESTIONS.zh.md](./DEMO_QUESTIONS.zh.md) — 10 题 demo 包 (中文题面 + 英文判据)
-- [KNOWN_LIMITATIONS.zh.md](./KNOWN_LIMITATIONS.zh.md) — 已知限制完整版 (L1-L3 跨平台 + L4 各平台)
-- [CHANGELOG.zh.md](./CHANGELOG.zh.md) — 版本历程 + smoke v4 baseline (Claude 17/17 / ChatGPT 16.5/17 / Gemini 16/17 / NotebookLM 15/17)
-- [self_deploy/](./self_deploy/) — 4 平台独立部署教程
-- 三语切换说明: 见下
+## 你可以用它做什么
 
-## 三语切换
+- 查询 SDTM 域、变量、Core 属性、受控术语和常见跨域关系。
+- 判断相近域之间的边界，例如 LB、MB、IS，或 AE、MH、CE 的使用差异。
+- 检查常见易错前提，例如并不存在的变量、已弃用的域或不适用的补充限定符路径。
+- 让回答附带可追溯依据，便于后续人工复核。
 
-中 (zh) / 英 (en) / 日 (ja) 三语. 顶层 README / USER_GUIDE / PLATFORM_COMPARISON / METHODOLOGY / DEMO_QUESTIONS / GLOSSARY / KNOWN_LIMITATIONS 均提供三语版本; CHANGELOG 提供中文、日文与英文基准文件 `CHANGELOG.md`. 自部署 README 与 4 个 platform tutorial 也提供三语版本. 按文件名后缀找: `*.zh.md` / `*.en.md` / `*.ja.md`.
+## 推荐阅读顺序
 
-## 快速开始 (60 秒)
+1. [用户手册](./USER_GUIDE.zh.md): 了解适用场景、使用方式和平台选择。
+2. [平台选择](./PLATFORM_COMPARISON.zh.md): 根据你的账号、团队共享方式和使用习惯选择入口。
+3. [示例问题](./DEMO_QUESTIONS.zh.md): 用代表性问题快速熟悉提问方式。
+4. [术语表](./GLOSSARY.zh.md): 查阅 SDTM 与临床数据标准相关术语。
+5. [已知限制](./KNOWN_LIMITATIONS.zh.md): 了解本版本边界和需要回查官方来源的场景。
+6. [方法与验证](./METHODOLOGY.zh.md): 查看知识库来源、验证原则和适用边界。
 
-1. 看 [USER_GUIDE.zh.md](./USER_GUIDE.zh.md) §3 决策树挑平台 (不知道选什么 → Claude Projects).
-2. 试 [DEMO_QUESTIONS.zh.md](./DEMO_QUESTIONS.zh.md) 任意 3 题 (推荐 D0 + D1 + D5).
-3. 反馈给 Bojiang Zhang.
+## 平台入口
 
-## 自部署
+本版本可在 Claude Projects、ChatGPT GPTs、Gemini Gems 和 NotebookLM 四类平台上使用。普通用户通常只需要访问已经配置好的实例；需要自行配置或维护实例的管理员，可查看对应平台的管理员部署指南。
 
-想自己搭一套 → 看 [self_deploy/README.zh.md](./self_deploy/README.zh.md), 每平台独立教程.
+## 重要边界
+
+SDTM Pedia 是辅助查询工具，不是 CDISC 官方标准本身，也不替代医学判断、统计编程复核、数据管理 SOP 或法规提交前的正式质量控制。任何影响正式提交的数据标准判断，都应回到 CDISC 官方出版物和组织内部流程确认。

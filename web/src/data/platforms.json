@@ -1,6 +1,6 @@
 [
-  { "key": "claude",     "name": "CLAUDE",     "score": 17,   "scoreText": "17",   "strength": { "zh": "精确变量 + 多步推理", "en": "Precise vars + multi-step", "ja": "精確変数 + 多段推論" } },
-  { "key": "chatgpt",    "name": "CHATGPT",    "score": 16.5, "scoreText": "16.5", "strength": { "zh": "团队共享 / Store",    "en": "Team / Store sharing",  "ja": "チーム共有 / Store" } },
-  { "key": "gemini",     "name": "GEMINI",     "score": 16,   "scoreText": "16",   "strength": { "zh": "长上下文 / 跨域",     "en": "Long context / cross-domain", "ja": "長文脈 / クロスドメイン" } },
-  { "key": "notebooklm", "name": "NOTEBOOKLM", "score": 15,   "scoreText": "15",   "strength": { "zh": "100% 反虚构",         "en": "100% anti-hallucination",     "ja": "100% アンチハルシネーション" } }
+  { "key": "claude",     "name": "CLAUDE",     "strength": { "zh": "适合变量定义、跨域关系和多步骤解释", "en": "Best for variable definitions, cross-domain relationships, and multi-step explanations", "ja": "変数定義、ドメイン間関係、多段階の説明に適しています" } },
+  { "key": "chatgpt",    "name": "CHATGPT",    "strength": { "zh": "适合团队共享、统一入口和日常问答", "en": "Best for team sharing, a shared access point, and daily Q&A", "ja": "チーム共有、共通入口、日常的な質問対応に適しています" } },
+  { "key": "gemini",     "name": "GEMINI",     "strength": { "zh": "适合一次查看较长资料和跨主题追问", "en": "Best for longer reference material and cross-topic follow-up questions", "ja": "長めの資料確認や複数テーマにまたがる追加質問に適しています" } },
+  { "key": "notebooklm", "name": "NOTEBOOKLM", "strength": { "zh": "适合强调来源边界和基于资料的阅读", "en": "Best for source-bounded reading and evidence-first review", "ja": "出典境界を重視した資料ベースの確認に適しています" } }
 ]

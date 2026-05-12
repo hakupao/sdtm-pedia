@@ -39,7 +39,7 @@ test('ja landing and demo guide do not expose known Chinese-source strings', asy
   await expect(page.locator('main')).not.toContainText('默认开');
 
   await page.goto('/ja/guide/demo-questions/');
-  await expect(page.locator('article')).toContainText('SDTM AI ナレッジベース');
+  await expect(page.locator('article h1')).toContainText('例示質問');
   await expect(page.locator('article')).not.toContainText('4 平台访问');
   await expect(page.locator('article')).not.toContainText('题型分布');
   await expect(page.locator('article')).not.toContainText('核心事实必中');
@@ -48,14 +48,14 @@ test('ja landing and demo guide do not expose known Chinese-source strings', asy
 
 test('guide release docs have first-class zh/en/ja versions instead of fallback banners', async ({ page }) => {
   const routes = [
-    ['/zh/guide/demo-questions/', 'SDTM AI 知识库'],
-    ['/en/guide/demo-questions/', 'SDTM AI Knowledge Base'],
-    ['/ja/guide/demo-questions/', 'SDTM AI ナレッジベース'],
+    ['/zh/guide/demo-questions/', '示例问题'],
+    ['/en/guide/demo-questions/', 'Example Questions'],
+    ['/ja/guide/demo-questions/', '例示質問'],
     ['/zh/guide/known-limitations/', '已知限制'],
     ['/en/guide/known-limitations/', 'Known Limitations'],
     ['/ja/guide/known-limitations/', '既知の制約'],
     ['/zh/changelog/', '更新日志'],
-    ['/en/changelog/', 'CHANGELOG'],
+    ['/en/changelog/', 'Changelog'],
     ['/ja/changelog/', '変更履歴'],
   ] as const;
 

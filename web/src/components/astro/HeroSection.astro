@@ -4,22 +4,22 @@ import platforms from '../../data/platforms.json';
 interface Props { lang: Lang; }
 const { lang } = Astro.props;
 const t = getUIStrings(lang);
-const statusLine = platforms.map((p) => `${p.name} ${p.scoreText}/17`).join(' · ');
+const statusLine = platforms.map((p) => p.name).join(' · ');
 const headline = {
   zh: { main: 'SDTM 知识库,', em: '横跨四个', tail: 'AI 平台.' },
   en: { main: 'SDTM knowledge,', em: 'across four', tail: 'AI platforms.' },
   ja: { main: 'SDTM ナレッジを、', em: '4 つの', tail: 'AI プラットフォームへ。' },
 }[lang];
 const subdeck = {
-  zh: '完整整理的 CDISC SDTMIG v3.4 参考库 — 完成映射、部署与评估. 每题 1 分钟, 一个带引用的回答.',
-  en: 'A curated reference set for CDISC SDTMIG v3.4 — mapped, deployed, and evaluated. One question, one minute, one cited answer.',
-  ja: 'CDISC SDTMIG v3.4 の体系的リファレンス — マッピング・デプロイメント・評価まで完了。1 問、1 分、引用付きの回答 1 つ。',
+  zh: '完整整理的 CDISC SDTMIG v3.4 参考库, 面向学习、检索和日常工作问答. 每个回答都应回到标准来源.',
+  en: 'A curated reference set for CDISC SDTMIG v3.4, built for learning, lookup, and everyday standards questions. Answers should lead back to the source.',
+  ja: 'CDISC SDTMIG v3.4 の体系的リファレンス。学習、検索、日常的な標準確認に利用できます。回答は標準資料に戻れることを前提にしています。',
 }[lang];
 ---
 <section class="enter-fade pt-14 pb-8 border-b border-rule">
   <div class="max-w-screen-xl mx-auto px-5 md:px-7">
     <div class="font-mono text-[10px] tracking-[0.2em] text-accent font-bold mb-6">
-      — 04 INTERNAL RELEASE
+      — V1.0 RELEASE
     </div>
     <h1 class="font-display text-4xl md:text-6xl font-bold leading-[1.05] tracking-[-0.025em] mb-4">
       {headline.main}<br />

@@ -1,165 +1,62 @@
-# ChatGPT GPT 作成チュートリアル — SDTM ナレッジベース公開版
+# ChatGPT GPT 管理者向けデプロイガイド
 
-> ゼロから CDISC SDTM 標準 (63 ドメイン + terminology + chapters) を検索できる Custom GPT を構築します。
-> このチュートリアルを完了すると、SDTM 変数定義 / codelist / examples / クロスドメイン関連を正確に回答でき、よくある虚構前提 (LBCLINSIG / SUPPTS / PF deprecated など) を見破ることができる ChatGPT GPT が得られます。
-> 総所要時間: **30〜60 分** (indexing 待機時間を含む)。
+本ガイドは、SDTM Pedia の ChatGPT インスタンスを自分で設定または保守する管理者向けです。通常のユーザーは、チームが設定済みの GPT にアクセスするだけで十分です。
 
----
+## このガイドを使う場面
 
-## 0. 前提要件
+- チームで共有する SDTM 照会入口が必要な場合。
+- 組織で承認された GPT 設定を 1 つ維持したい場合。
+- SDTM Pedia のナレッジファイルを Custom GPT に追加する場合。
 
-- [ ] **ChatGPT Plus ($20/月) / Pro ($200/月、上位プラン) / Business / Enterprise / Edu** いずれか。**旧 Team プランは 2025 年に Business へ改称**。Free / Go (個人廉価) プランでは Custom GPT を作成できません。
-- [ ] **Web アクセス** [chatgpt.com](https://chatgpt.com): 本チュートリアルはすべて Web UI での操作です
-- [ ] **本リポジトリをローカルに clone**: `./` 配下の `system_prompt.md` (約 8.6KB) および `uploads/` 配下の 9 個の .md ファイルが必要です
+## 前提条件
 
-**「チーム共有 vs GPT Store 公開」について**:
-- Business / Enterprise / Edu プラン内ではメンバーに直接共有可能、**審査なし**です
-- GPT Store での公開は OpenAI の審査が必要です (通常 1〜3 営業日)。すべての ChatGPT ユーザーがアクセスできるようになります
+- Custom GPT を作成できる ChatGPT アカウントまたは組織権限。
+- 本リリースパッケージの `system_prompt.md` と `uploads/` フォルダへのアクセス。
+- 組織の AI ツール、データセキュリティ、共有権限に関する方針の理解。
 
----
+## デプロイ手順
 
-## 1. Custom GPT を新規作成
+1. ChatGPT で新しい Custom GPT を作成します。
+2. `system_prompt.md` の全文を Instructions 領域に貼り付けます。
+3. `uploads/` 内の 9 個の Markdown ファイルを Knowledge 領域に追加します。
+4. GPT を保存し、組織方針に従って名称、説明、アクセス権限を設定します。
+5. 標準的な質問を少数実行し、SDTM 変数、ドメイン境界、統制用語に回答できることを確認します。
 
-1. [chatgpt.com](https://chatgpt.com) にログインします
-2. 左下の "**Explore GPTs**" をクリック → 右上の "**Create**" ボタンをクリックします (または直接 https://chatgpt.com/create にアクセス)
-3. **Configure** タブに移動します (Create タブの会話モードではありません)
-4. **Name**: `SDTM Expert` または `CDISC SDTM Knowledge` を推奨します
-5. **Description** (英語で 1 文、約 130 文字): `CDISC SDTMIG v3.4 + SDTM v2.0 Expert — Variable definitions, rule reasoning, controlled terminology, cross-domain linking.`
-6. **Capabilities**: **Web Search / Canvas / Image Generation / Code Interpreter & Data Analysis** をすべてオフにします。注: **DALL-E は 2025/12 に廃止され、画像生成は GPT Image 1.5/2 に置き換わり "Image Generation" トグルに統合**されました。Canvas (協働編集) と Code Interpreter & Data Analysis は旧名から改称・拡張済み。Web Browsing は Web Search に名称変更。
+## 推奨名称
 
----
+誤解を招かない明確な名称を推奨します。
 
-## 2. Instructions (System Prompt) を設定
+> SDTM Pedia - Internal Reference
 
-1. 引き続き Configure タブで、"**Instructions**" フィールドを見つけます
-2. `./system_prompt.md` の全文を**完全にコピー**して貼り付けます (v2.2 LIVE、8,582 chars)
-3. **途中で切断しないでください**: ChatGPT UI のハード上限は公式に **8,000 chars** ですが、実測では 8,582 chars まで受け付けるケースがあります (本 v2.2 LIVE で確認済み)。UI が受け付けない場合は §Conversation Starters を優先削除
-4. **保存**します
+説明文には、CDISC 公式刊行物や内部 SOP を置き換えるものではなく、SDTM 標準確認を支援するツールであることを明記してください。
 
-**v2.2 LIVE の主要機能** (貼り付け後は変更しないでください):
-- GFINHERT 7 文字の正確なスペル (R1 での GFINHERTG extra-G スペルドリフトを修正)
-- L858R / Exon 19 科学的一貫性の能動的識別 (anti-hallucination ボーナス)
-- 3 つのアンチハルシネーションアンカー (変数レベル / クロスドメインレベル / deprecated レベル)
+## 基本確認
 
----
+デプロイ後、少なくとも以下を確認してください。
 
-## 3. ナレッジベース 9 ファイルをアップロード
+- `AESER` の意味、Core 属性、統制用語を説明できる。
+- `LB`、`MB`、`IS` の適用場面を区別できる。
+- 存在しない、または不適用な前提に対して、根拠なく回答を作らない。
 
-1. Configure タブで "**Knowledge**" パネルを見つけ、"**Upload files**" をクリックするかドラッグ＆ドロップします
-2. `./uploads/` 配下の **9 個の .md ファイルすべて**を選択します。順序は `01 → 02 → 03 → 04 → 05 → 06 → 07 → 08 → 09` です
-3. **ファイル名を変更したり、分割・結合したりしないでください**: ファイル名のプレフィックスは System Prompt のルーティングアンカーです
+回答が明らかに想定と異なる場合は、Instructions が完全か、9 個の知識ファイルがすべてアップロードされているか、共有設定が保存されているかを先に確認してください。
 
-**ファイル一覧 (9 ファイル、合計 ~2.5M tokens)**:
-- `01_navigation.md` (~46K) — ROUTING + INDEX + VARIABLE_INDEX
-- `02_chapters_all.md` (~60K) — SDTMIG ch01/02/03/04/08/10
-- `03_model_all.md` (~17K) — SDTM v2.0 Model 6 セクション
-- `04_domain_specs_all.md` (~185K) — 63 ドメイン spec 全量フラット
-- `05_domain_assumptions_all.md` (~54K) — 63 ドメイン assumptions
-- `06_domain_examples_all.md` (~220K) — 63 ドメイン examples
-- `07_terminology_core_high_freq.md` (~200K) — core 高頻度 15 codelist
-- `08_terminology_quest_and_supp.md` (~1M) — questionnaires + supplemental
-- `09_terminology_core_mid_tail.md` (~698K) — core 中〜低頻度
+## チーム共有
 
-ChatGPT GPT Builder Knowledge には **20 ファイルのハード制限**があります。現在 9/20 (11 ファイルの空き)。1 ファイルあたり最大 **512 MB**。ユーザーあたり総ストレージ 10 GB / 組織あたり 100 GB (チャット・Projects・GPT Knowledge 合計)。
+共有前に以下を確認してください。
 
-**よくある Q**:
-- "File too large" → ファイルがエディタにより BOM / CRLF が追加されていないか確認してください。UTF-8 LF で保存し直してください
-- アップロードが 90% で止まる → ネットワークの問題です。ページを更新してください (アップロード済みのファイルは保持され、残りを続けてアップロードできます)
+- アクセスをチームメンバーに限定するか。
+- GPT 設定を編集できる担当者は誰か。
+- プロジェクト機密、患者レベル情報、未匿名化データの入力を禁止するか。
+- チーム向けに利用境界の説明を追加するか。
 
----
+編集権限は少数の保守担当者に限定し、通常ユーザーは利用権限のみとすることを推奨します。
 
-## 4. Indexing を待つ
+## 保守
 
-ChatGPT File Search RAG の indexing は通常 **5〜15 分**かかります。UI 上で各ファイルのステータスが "Processing..." から "Ready" に変わります。すべてが Ready になってから §5 に進んでください。
+- 更新は管理者用コピーで確認してから正式インスタンスに反映します。
+- 更新日、保守担当者、変更概要を記録します。
+- 標準内容の誤りを見つけた場合は、CDISC 公式ソースを確認してからリリースパッケージを更新します。
 
-実際には「全ファイルの indexing 完了」を示す明確なインジケーターはありません。個別ファイルが Ready になった時点で使用可能と見なします。
+## 利用範囲
 
----
-
-## 5. Smoke Test (3 問、~5 分)
-
-**右上の Preview** から、1 問ずつ新しい chat で質問してください:
-
-| # | 質問 | 期待されるポイント | 検証内容 |
-|---|------|---------|------|
-| T1 | `AESER の Core 属性は何ですか？NY codelist (C66742) のすべての term 値を列挙してください。` | Core = **Exp** (Req ではない)；4 term: **Y / N / U / NA** + C-code | 最高頻度の誤りやすい項目 + 高頻度 codelist の命中 |
-| T2 | `GFINHERT はどのような変数ですか？どのドメインに属しますか？` | GF (Genomics Findings、v3.4 新ドメイン)；INHERT のフルネームは Inherited；7 文字の正確なスペル (GFINHERTG ではない) | v3.4 新ドメイン識別 + v2.2 スペル修正 |
-| T3 | `LBCLINSIG はどの codelist にありますか？` (虚構の変数) | GPT は**見破るべき**: LBCLINSIG は LB ドメイン v3.4 spec に存在しない；LBNRIND / LBSTRESC の使用を推奨 | AHP1 anti-hallucination |
-
-**3/3 PASS** = デプロイ成功。いずれかが FAIL の場合 → §7 トラブルシューティングガイドを参照してください。
-
----
-
-## 6. 完全回帰 (10 問、オプション ~30 分)
-
-[`../../DEMO_QUESTIONS.ja.md`](../../DEMO_QUESTIONS.ja.md) を開き、D0-D9 (10 問の demo) を順番に質問します。**1 問ごとに新しい chat** を使用してコンテキスト汚染を避けてください。スコア >= 8/10 = ベースラインリリース版と同等。
-
----
-
-## 7. トラブルシューティングガイド
-
-| 症状 | 考えられる原因 | 対処方法 |
-|------|---------|------|
-| GFINHERTG (extra G) と回答する | Instructions が v2.2 LIVE でない | system_prompt.md 末尾の "v3.4 新域変量名精確校驗" セクションが含まれているか確認する |
-| PF ドメインの変数リストを回答する (PF deprecated) | AHP3 アンカーが有効でない | system_prompt §CO-5 AHP-V3 + 反ハルシネーションセクションを再確認する |
-| "SUPPTS はデータセット" と回答する | SUPP scope セクションが欠如 | system_prompt §SUPP scope が完全かどうか確認する (SUPPQUAL は Trial Design には非対応) |
-| File Search が誤ったセクションを召喚する | ファイルのセグメンテーション失敗 | system_prompt §P13 TableAware プロンプトが含まれているか確認する；問題のファイルを再アップロードする |
-| "AESER Core = Req" と回答する | 04_domain_specs_all.md が未アップロードまたは途中切断 | 再アップロードする；ファイルサイズが ≥ 180KB であることを確認する |
-| 20 ファイル以上のアップロード警告 | GPT Builder のハード制限に達した | ダウングレードパス §8 に従いファイルを削除する |
-| 最初のトークンが遅い / 頻繁にレート制限 | Plus プランの RAG レート制限 | 30〜60 秒待ってから再試行する；継続する場合は Business/Enterprise へ移行する |
-
----
-
-## 8. アップグレード / ダウングレードパス
-
-**アップグレード (KB 拡張)**:
-- 現在 9/20 ファイル、11 ファイルの空きあり
-- v3.5 SDTMIG 新ドメイン / questionnaires の長尾を追加する場合は、`dev/scripts/` に bucket を追加 → merge → 増分アップロードします
-
-**ダウングレード (容量警告時)**:
-削除の優先順位 (最も有用なものを保持):
-1. まず `09_terminology_core_mid_tail.md` を削除 (中〜低頻度)
-2. 次に `08_terminology_quest_and_supp.md` を削除 (questionnaires 長尾)
-3. 次に `06_domain_examples_all.md` を削除 (examples)
-
-最低限保持するファイル: `01-05 + 07` (ナビゲーション + chapters + model + spec + assumptions + 高頻度 CT) = 6 ファイルのコア。
-
----
-
-## 9. チーム協業 / GPT Store 公開
-
-**Business / Enterprise / Edu ワークスペース共有**:
-- 審査なし、Business / Enterprise / Edu プラン内ではメンバーに直接共有可能です
-- メンバーには**同一の GPT** が表示され、Instructions の変更は全員に即時反映されます
-- 誤った変更を防ぐため、編集権限は 1〜2 名に制限することを推奨します
-
-**GPT Store 公開**:
-- OpenAI の審査が必要です (目安 1〜3 営業日)
-- 全世界からアクセス可能になり、オープンなナレッジベースに適しています
-- 名称 / Description に機密キーワードや機密コードを含めないよう注意してください
-
----
-
-## 10. 今後のパス
-
-- 本リリース版はすでに**完全な最終状態**であり、短期間での容量拡張予定はありません
-- 長尾の questionnaires + 6 つの MedDRA レベルの大規模 codelist は、今後の Phase 7 自作 RAG に委ねます
-- ナレッジベースの内容に誤りや欠落がある場合は、プロジェクトの issue tracker にフィードバックしてください。修正後、リリース版を再ビルドして配布します
-
----
-
-## 付録: 検証チェックリスト
-
-- [ ] ChatGPT Plus / Pro / Business / Enterprise / Edu プランが有効になっている
-- [ ] Custom GPT を作成し、名称が明確に設定されている
-- [ ] Instructions に system_prompt.md の全文が貼り付けられている (v2.2 LIVE、8,582 chars)
-- [ ] Knowledge パネルに 9 ファイルすべてが Ready と表示されている
-- [ ] T1 AESER + C66742 smoke PASS
-- [ ] T2 GFINHERT の正確なスペル PASS (GFINHERTG ではない)
-- [ ] T3 LBCLINSIG 反ハルシネーション識別 PASS
-
-すべて ☑ = デプロイ成功。日常利用を開始できます。
-
----
-
-*v1.1 — 2026-05-11 — UI 用語を 2026 年公式仕様に同期*
+この GPT は SDTM 照会支援ツールです。正式提出、医学コーディング、プロジェクトレベルのマッピング、品質管理は、責任ある担当者が組織内手順に従って確認してください。

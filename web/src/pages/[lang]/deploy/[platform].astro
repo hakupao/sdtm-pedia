@@ -1,0 +1,37 @@
+---
+import { getCollection, render } from 'astro:content';
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+import { supportedLangs, getUIStrings, type Lang, type UIKey } from '../../../i18n/helpers';
+
+export async function getStaticPaths() {
+  // Inlined inside getStaticPaths because Astro hoists this function into its
+  // own module scope — module-level consts above the frontmatter aren't in
+  // scope here (would throw ReferenceError at build/dev time).
+  const PLATFORMS = ['chatgpt', 'claude', 'gemini', 'notebooklm'] as const;
+  const all = await getCollection('deploy');
+  const byId = new Map(all.map((entry) => [entry.id, entry]));
+  return supportedLangs.flatMap((lang) =>
+    PLATFORMS.map((platform) => {
+      const entry = byId.get(`${lang}-${platform}`);
+      if (!entry) {
+        throw new Error(`deploy route: missing tutorial for ${lang}/${platform}`);
+      }
+      return { params: { lang, platform }, props: { entry } };
+    })
+  );
+}
+
+type Platform = 'chatgpt' | 'claude' | 'gemini' | 'notebooklm';
+
+const { entry } = Astro.props;
+const { Content, headings } = await render(entry);
+const lang = Astro.params.lang as Lang;
+const platform = Astro.params.platform as Platform;
+// Use a namespaced slug so DocsSidebar (deploy-<key> highlight) and
+// PrevNextNav (deploy-<key> branch) both line up with the DocsLayout-fed slug.
+const slug = `deploy-${platform}`;
+const title = getUIStrings(lang)[`deploy.platform.${platform}` as UIKey];
+---
+<DocsLayout title={title} lang={lang} slug={slug} headings={headings}>
+  <Content />
+</DocsLayout>

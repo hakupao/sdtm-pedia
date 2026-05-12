@@ -33,4 +33,24 @@ const guide = defineCollection({
   }),
 });
 
-export const collections = { guide };
+// Per-platform deployment tutorials, sourced from
+// release/v1.0/self_deploy/<platform>/tutorial.<lang>.md. These markdown files
+// ship verbatim inside the user-facing release zip and intentionally carry no
+// frontmatter — platform/lang are derived from the file path instead.
+const deploy = defineCollection({
+  loader: glob({
+    pattern: '{chatgpt,claude,gemini,notebooklm}/tutorial.{zh,en,ja}.md',
+    base: path.join(RELEASE_DIR, 'self_deploy'),
+    // Compose id as `${lang}-${platform}` so the page route can look up an
+    // entry by composing the same key from URL params.
+    generateId: ({ entry }) => {
+      const m = entry.match(/^(chatgpt|claude|gemini|notebooklm)\/tutorial\.(zh|en|ja)\.md$/);
+      if (!m) throw new Error(`deploy collection: unexpected entry path "${entry}"`);
+      return `${m[2]}-${m[1]}`;
+    },
+  }),
+  // Tutorials have no frontmatter; passthrough keeps the validator happy.
+  schema: z.object({}).passthrough(),
+});
+
+export const collections = { guide, deploy };

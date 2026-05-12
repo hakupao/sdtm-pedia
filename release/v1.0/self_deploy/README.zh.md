@@ -1,45 +1,31 @@
-# 自部署指引 — SDTM AI 知识库 v1.0
+# 管理员部署指南索引
 
-> 面向需要自行部署的用户. 4 平台均可单独部署, 30-60 分钟即可上线.
+本目录面向需要自行配置或维护 SDTM Pedia 平台实例的管理员。普通用户通常只需要访问团队已经配置好的 Claude Project、ChatGPT GPT、Gemini Gem 或 NotebookLM notebook。
 
-## 1. 我应该选哪个平台部署?
+## 何时需要阅读本目录
 
-| 平台 | 部署时间 | 套餐 | 团队共享 |
-|---|:---:|---|---|
-| **NotebookLM** | ~30 min | Pro / Workspace | notebook 邀请 (50-source cap) |
-| **Gemini Gems** | ~30 min | Advanced / Workspace | 个人不可直接共享, 要 Workspace |
-| **ChatGPT GPTs** | ~45 min | Plus / Team / Enterprise | organization 内免审核, GPT Store 走 review |
-| **Claude Projects** | ~60 min | Pro / Team / Enterprise | Team/Enterprise 共享, Pro 各自重部 |
+- 团队没有现成入口，需要管理员新建实例。
+- 需要在组织内部统一维护访问权限、说明文本和知识文件。
+- 需要更新或替换已有实例。
+- 需要验证实例是否能回答基础 SDTM 查询。
 
-部署视角挑选 (与 USER_GUIDE.zh.md §3 一致): 想最快 (~30 min) → NotebookLM 或 Gemini; 想最深 RAG → Claude Projects; 想团队共享 → ChatGPT GPTs; 想最强反虚构 → NotebookLM.
+## 平台指南
 
-## 2. 4 平台部署教程 (选一个跟着做)
+| 平台 | 指南 | 适合情况 |
+| --- | --- | --- |
+| Claude Projects | [claude/tutorial.zh.md](./claude/tutorial.zh.md) | 复杂标准解释和跨域推理。 |
+| ChatGPT GPTs | [chatgpt/tutorial.zh.md](./chatgpt/tutorial.zh.md) | 团队日常查询和熟悉的 ChatGPT 入口。 |
+| Gemini Gems | [gemini/tutorial.zh.md](./gemini/tutorial.zh.md) | 较长上下文综合和开放式比较。 |
+| NotebookLM | [notebooklm/tutorial.zh.md](./notebooklm/tutorial.zh.md) | 严格来源边界和引用回查。 |
 
-- **Claude Projects** → [./claude/tutorial.zh.md](./claude/tutorial.zh.md) (19 文件 + system_prompt + 24 题 smoke)
-- **ChatGPT GPTs** → [./chatgpt/tutorial.zh.md](./chatgpt/tutorial.zh.md) (Custom GPT + 9 文件 + v2.2 system prompt + 17 题 smoke)
-- **Gemini Gems** → [./gemini/tutorial.zh.md](./gemini/tutorial.zh.md) (Gem + 4 合并文件 + v7.1 system prompt + AHP 验收)
-- **NotebookLM** → [./notebooklm/tutorial.zh.md](./notebooklm/tutorial.zh.md) (notebook + 42 sources + Custom mode instructions 8,925 chars + 三档分享)
+## 共通原则
 
-## 3. 通用前置准备
+- 使用发布包中对应平台目录下的说明文件和 `uploads/` 内容。
+- 不要擅自改写指令文本或重命名知识文件，除非你正在维护一个新版本。
+- 共享前确认组织的数据安全、患者隐私和访问权限要求。
+- 只给少数维护者编辑权限，普通用户保留使用权限。
+- 更新后用少量标准问题确认变量定义、域边界和受控术语查询能正常工作。
 
-1. 进入本目录 (从发布渠道下载 release pack, 或 `git clone` 本仓库后进 `release/v1.0/`). 各平台部署资产已就位在 `./{claude,chatgpt,gemini,notebooklm}/` (`system_prompt.md` 或 `instructions.md` + `uploads/` + `tutorial.<lang>.md`).
-2. 准备账号 + 套餐 (按 §1 表格).
-3. 打开 §2 对应 tutorial, 严格按章节顺序执行 (跳步会丢 system_prompt 守门规则).
+## 使用边界
 
-## 4. 部署后验证 (smoke test)
-
-部署完跑 `../DEMO_QUESTIONS.zh.md` D0 + D1 + D5 三题快速验收 (5 分钟):
-
-- **D0**: AESER 基础查询 (AE / Exp / C66742 NY) — 验基础 RAG.
-- **D1**: GF 域 EGFR 场景 (GFGENSR / GFPVRID / GFGENREF / GFINHERT) — 验新域 + 多变量推理.
-- **D5**: SUPPTS 前提纠错 — 验 anti-hallucination 守门 (主动识破 → TSVAL1-n).
-
-3 题全 PASS = 部署成功. 1 题不 PASS, 看 `../KNOWN_LIMITATIONS.zh.md` 排错: 优先检查 (a) system_prompt.md 是否完整粘贴未截断, (b) uploads/ 文件数和大小是否符合教程清单.
-
-## 5. 升级 / 维护
-
-release 包后续会更新: 每个 minor release (`../CHANGELOG.zh.md` 标 v1.1 / v1.2) 或 SDTMIG 新版 (v3.5+) 时, 通过发布渠道分发新 release pack. 重传步骤: 拿到新 pack → 进对应平台子目录 (`./{claude,chatgpt,gemini,notebooklm}/`) → 删旧 uploads + 重传 → **完整复制粘贴新 system_prompt.md** (绝不能截断, 否则丢 AHP 守门规则, 例 Gemini v7.1 CO-1d SUPPQUAL 硬锚 + ChatGPT v2.2 v3.4 新域变量名校验). 回滚: 获取历史 release pack 后按同样步骤恢复.
-
-## 6. 反馈
-
-发现错误 / 幻觉: (1) 截图 + 留底完整问题原文 + AI 回答; (2) 附平台 + 版本 (例 "ChatGPT GPT v2.2 LIVE 2026-04-24") + 期望答案 (引 SDTMIG v3.4 章节号或 CDISC CT C-code) + 自部署版本号 + smoke 分数; (3) 通过 GitHub issue 或项目反馈渠道报告. 汇总到 `../CHANGELOG.zh.md` 走下个 minor release.
+部署完成的平台实例仍是 SDTM 查询辅助工具，不替代 CDISC 官方出版物、医学判断、项目级映射复核或组织内部质量流程。
