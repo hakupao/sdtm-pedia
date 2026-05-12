@@ -1366,7 +1366,7 @@
       "status": "pending",
       "issues_opened": 0,
       "issues_closed": 0,
-      "t2_status": "COMPLETE",
+      "t2_status": "COMPLETE (round2 2026-05-12: +1021 IE, coverage 91.1%, MISSING 838)",
       "t2_ie_atoms_added": 643,
       "t3_status": "COMPLETE",
       "t3_unsourced_classified": 926,
