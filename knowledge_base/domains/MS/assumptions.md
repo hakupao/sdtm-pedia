@@ -1,5 +1,17 @@
 # MS — Assumptions
 
+## MS – Description/Overview
+
+A findings domain that represents drug susceptibility testing results only. This includes phenotypic testing (where drug is added directly to a culture of organisms) and genotypic tests that provide results in terms of susceptible or resistant. Drug susceptibility testing may occur on a wide variety of non-host organisms, including bacteria, viruses, fungi, protozoa and parasites.
+
+## MS – Specification
+
+ms.xpt, Microbiology Susceptibility — Findings. One record per microbiology susceptibility test (or other organism-related finding) per organism found in MB, Tabulation.
+
+> 1In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
+
+## MS – Assumptions
+
 1. Microbiology Susceptibility testing includes testing of the following types:
    a. Phenotypic drug susceptibility testing (qualitative), which may involve determining susceptibility/resistance (qualitative) at a predefined concentration of drug, or determining a specific dose (quantitative) at which a drug inhibits organism growth or some other process associated with virulence.
       i. For studies using qualitative testing methods, MSAGENT, MSCONC, and MSCONCU are used to represent the predefined drug, concentration, and units, respectively. Results are represented with values such as "SUSCEPTIBLE" or "RESISTANT".

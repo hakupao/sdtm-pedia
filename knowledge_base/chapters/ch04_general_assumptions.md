@@ -1158,6 +1158,43 @@ graph LR
 - A sponsor has 2 options: (1) submit individual records for each test not done, or (2) submit 1 record for a group of tests that were not done
 - A single record can represent a group of tests not done: --TESTCD = "--ALL", --TEST = domain description, --CAT = name of group; for example, if urinalysis tests were not done: LBTESTCD = "LBALL", LBTEST = "Laboratory Test Results", LBCAT = "URINALYSIS", LBORRES = null, LBSTAT = "NOT DONE", LBREASND (if collected) = "Subject could not void"
 
+#### 4.5.1.2 Tests Not Done
+
+If the data on the CRF is missing and "Yes/No" or "Done/Not Done" was not explicitly captured, a record should not be created to indicate that the data was not collected, with the exception of QRS.
+
+Regulatory agencies may require a record for all items on a CRF in QRS datasets (e.g., FT, QS, and clinical classifications in RS).
+
+If a record is created for a test not done, --REASND is populated only if a reason was explicitly collected except for QRS logically skipped items.
+
+When an entire examination (e.g., laboratory draw, ECG, vital signs, physical examination), a group of tests (e.g., hematology, urinalysis), or an individual test (e.g., glucose, PR interval, blood pressure, hearing) is not done, and this information is explicitly captured with a "Yes/No" or "Done/Not Done" question, this information should be represented in the dataset.
+
+The reason for the missing information may or may not have been collected.
+
+A sponsor has the following options:
+
+- Submit individual records for each test not done.
+- Submit 1 record for a group of tests that were not done.
+
+The following example illustrates the single-record approach for representing a group of tests not done.
+
+If a single record is used to represent a group of tests were not done:
+
+- --TESTCD should be --ALL
+- --TEST should be <Domain description>
+- --CAT should be <Name of group of tests>
+- --ORRES should be null
+- --STAT should be "NOT DONE"
+- --REASND, if collected, might be "Specimen lost"
+
+For example, if urinalysis tests were not done, then:
+
+- LBTESTCD would be "LBALL"
+- LBTEST would be "Laboratory Test Results"
+- LBCAT would be "URINALYSIS"
+- LBORRES would be null
+- LBSTAT would be "NOT DONE"
+- LBREASND, if collected, might be "Subject could not void"
+
 #### 4.5.1.3 Examples of Original and Standard Units and Test Not Done
 
 The following examples illustrate the use of Findings results variables and are not meant as comprehensive domain examples. Certain required and expected variables are omitted (e.g., USUBJID), and the samples may represent data from more than 1 subject.

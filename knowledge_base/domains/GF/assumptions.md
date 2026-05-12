@@ -1,5 +1,15 @@
 # GF — Assumptions
 
+## GF - Description/Overview
+
+A findings domain that contains data related to the structure, function, evolution, mapping, and editing of subject and non-host organism genomic material of interest.
+
+This domain includes but is not limited to assessments and results for genetic variation and transcription, and summary measures derived from these assessments.
+
+The GF domain is used for findings from characteristics assessed from nucleic acids and may include subsequent inferences and/or predictions about related proteins/amino acids.
+
+## GF – Assumptions
+
 1. The Genomics Findings domain is used to represent findings related to the structure, function, evolution, mapping, and editing of subject and non-host organism genomic material of interest. This domain includes but is not limited to assessments and results for genetic variation and transcription, and summary measures derived from these assessments. The GF domain is used for findings from characteristics assessed from nucleic acids and may include subsequent inferences and/or predictions about related proteins/amino acids. However, direct assessments of proteins (e.g., assessments of amino acids) are out of scope for this domain.
 
 2. Regarding genetic testing on non-host organisms (including but not limited to bacteria, viruses, and parasites), the following additional assumptions apply:

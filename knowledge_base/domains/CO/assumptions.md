@@ -4,11 +4,17 @@
 
 Special-purpose Domains is an SDTM class in its own right.
 
-## CO – Description/Overview
+## 5.1 Comments (CO)
+
+### CO – Description/Overview
 
 A special-purpose domain that contains comments that may be collected alongside other data.
 
-## CO – Assumptions
+### CO – Specification
+
+co.xpt, Comments — Special Purpose. One record per comment per subject, Tabulation.
+
+### CO – Assumptions
 
 1. The Comments special-purpose domain provides a solution for submitting free-text comments related to data in 1 or more SDTM domains (as described in Section 8.5, Relating Comments to a Parent Domain) or collected on a separate CRF page dedicated to comments. Comments are generally not responses to specific questions; instead, comments usually consist of voluntary free-text or unsolicited observations.
 
