@@ -4,6 +4,10 @@
 
 An interventions domain that contains concomitant and prior medications used by the subject, such as those given on an as needed basis or condition-appropriate medications.
 
+## CM – Specification
+
+cm.xpt, Concomitant/Prior Medications — Interventions. One record per recorded intervention occurrence or constant-dosing interval per subject, Tabulation.
+
 ## CM – Assumptions
 
 1. The structure of the CM domain is 1 record per medication intervention episode, constant-dosing interval, or prespecified medication assessment per subject. It is the sponsor's responsibility to define an intervention episode. This definition may vary based on the sponsor's requirements for review and analysis. The submission dataset structure may differ from the structure used for collection. One common approach is to submit a new record when there is a change in the dosing regimen. Another approach is to collapse all records for a medication to a summary level with either a dose range or the highest dose level. Other approaches may also be reasonable as long as they meet the sponsor's evaluation requirements.

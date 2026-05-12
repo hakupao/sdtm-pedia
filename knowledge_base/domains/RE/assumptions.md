@@ -1,5 +1,11 @@
 # RE — Assumptions
 
+## RE – Specification
+
+re.xpt, Respiratory System Findings — Findings. One record per finding or result per time point per visit per subject, Tabulation.
+
+## RE – Assumptions
+
 1. The Respiratory System Findings domain is used to represent the results/findings of respiratory diagnostic procedures (e.g., spirometry). Information about the conduct of the procedure(s), if collected, should be submitted in the Procedures (PR) domain.
 
 2. Many respiratory assessments require the use of a device. When data about the device used for an assessment or additional information about its use in the assessment are collected, SPDEVID should be included in the record. See the SDTMIG for Medical Devices (SDTMIG-MD, available at https://www.cdisc.org/standards/foundational/medical-devices-sdtmig/) for further information about SPDEVID and the Device domains.

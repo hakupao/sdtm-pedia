@@ -8,6 +8,12 @@ This domain includes but is not limited to assessments and results for genetic v
 
 The GF domain is used for findings from characteristics assessed from nucleic acids and may include subsequent inferences and/or predictions about related proteins/amino acids.
 
+## GF – Specification
+
+gf.xpt, Genomics Findings — Findings. One record per finding per observation per biospecimen per subject, Tabulation.
+
+> ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelists will be available in CDISC Controlled Terminology, available at https://www.cancer.gov/research/resources/terminology/cdisc.
+
 ## GF – Assumptions
 
 1. The Genomics Findings domain is used to represent findings related to the structure, function, evolution, mapping, and editing of subject and non-host organism genomic material of interest. This domain includes but is not limited to assessments and results for genetic variation and transcription, and summary measures derived from these assessments. The GF domain is used for findings from characteristics assessed from nucleic acids and may include subsequent inferences and/or predictions about related proteins/amino acids. However, direct assessments of proteins (e.g., assessments of amino acids) are out of scope for this domain.
@@ -33,3 +39,9 @@ The GF domain is used for findings from characteristics assessed from nucleic ac
 8. GFMETHOD lists wet lab techniques for the execution of genomics or genetic testing. Methods related to specimen processing or reagents are not represented in GFMETHOD.
 
 9. The following variables generally would not be used in GF: --POS, --BODSYS, --ORNRLO, ORNRHI, --STNRLO, --STNRHI, --STNRC, --NRIND, --CHRON, --DISTR, --ANTREG, --LOC, --LAT, --DIR, --PORTOT, --LEAD, --CSTATE, --SPCCND, --FAST, --TOX, --TOXGR, --SEV.
+
+## GF – Example 4 (p227)
+
+This example shows findings from an assessment of microsatellite instability for genetic subregions that are known to be unstable. DNA extracted from tumor tissue is amplified and the resulting amplicons are resolved using wet laboratory methodology capillary electrophoresis.
+
+Note the use of NHOID, which is populated with the name of the organism to which the testing applies. Note: It is important to use this identifier to distinguish between tests that apply to a non-host organism and tests that apply to the study subject/host.

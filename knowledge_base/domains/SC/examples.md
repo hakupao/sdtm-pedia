@@ -1,5 +1,9 @@
 # SC — Examples
 
+## SC – Specification (p340)
+
+sc.xpt, Subject Characteristics — Findings. One record per characteristic per visit per subject., Tabulation.
+
 ## Example 1
 
 This example shows data collected once per subject that does not fit into the Demographics (DM) domain. For this example, national origin and marital status were collected.

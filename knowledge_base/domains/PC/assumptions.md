@@ -4,6 +4,10 @@
 
 This section covers the Pharmacokinetics Concentration (PC) and Pharmacokinetics Parameters (PP) domains.
 
+## PC – Specification
+
+pc.xpt, Pharmacokinetics Concentrations — Findings. One record per sample characteristic or time-point concentration per reference time point or per analyte per subject, Tabulation.
+
 ## PC – Assumptions
 
 1. This domain can be used to represent specimen properties (e.g., volume, pH) in addition to drug and metabolite concentration measurements.

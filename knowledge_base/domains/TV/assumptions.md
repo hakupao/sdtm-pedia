@@ -10,6 +10,10 @@ This section contains the Trial Design (TD) datasets that describe:
 
 The Trial Visits (TV) and TD datasets provide the planned scheduling of assessments to which a subject's actual visits and disease assessments can be compared.
 
+## TV – Description/Overview
+
+Visits are defined as "clinical encounters" and are described using the timing variables VISIT, VISITNUM, and VISITDY.
+
 ## TV – Assumptions
 
 1. Although the general structure of the Trial Visits (TV) dataset is "One Record per Planned Visit per Arm," for many clinical trials—particularly blinded clinical trials—the schedule of visits is the same for all arms, and the structure of the TV dataset will be "One Record per Planned Visit." If the schedule of visits is the same for all arms, ARMCD should be left blank for all records in the TV dataset. For trials with trial visits that are different for different arms (e.g., Example Trial 7 in Section 7.2.1, Trial Arms), ARMCD and ARM should be populated for all records. If some visits are the same for all arms, and some visits differ by arm, then ARMCD and ARM should be populated for all records, to ensure clarity, even though this will mean creating near-duplicate records for visits that are the same for all arms.

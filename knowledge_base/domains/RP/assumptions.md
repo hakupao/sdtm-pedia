@@ -1,5 +1,11 @@
 # RP — Assumptions
 
+## RP – Specification
+
+rp.xpt, Reproductive System Findings — Findings. One record per finding or result per time point per visit per subject, Tabulation.
+
+## RP – Assumptions
+
 1. Reproductive System Findings domain contains information regarding a subject's reproductive ability and reproductive history (e.g., number of previous pregnancies, number of births, pregnant during the study).
 
 2. Information on medications related to reproduction (e.g., contraceptives, fertility treatments) should be included in the Concomitant/Prior Medications (CM) domain; see Section 6.1.2.

@@ -4,6 +4,8 @@
 
 A findings domain for assessments of antigen induced humoral or cell-mediated immune response in the subject.
 
+is.xpt, Immunogenicity Specimen Assessments — Findings. One record per test per visit per subject, Tabulation.
+
 ## IS – Assumptions
 
 1. The Immunogenicity Specimen Assessments (IS) domain holds assessments that describe whether a therapy (e.g., biologic, drug, vaccine) provoked/caused/induced an immune response in a subject. The response can be either positive or negative. For example, a vaccine is expected to induce a beneficial immune response, whereas a cellular therapy (e.g., erythropoiesis-stimulating agents) may cause an adverse immune response.
@@ -31,3 +33,30 @@ A findings domain for assessments of antigen induced humoral or cell-mediated im
    d. For assessments measuring the induced-cellular response, ISSCAT = CELLULAR IMMUNITY.
 
 10. Any Identifier variables, Timing variables, or Findings general observation class qualifiers may be added to the IS domain.
+
+## IS – Examples Notes
+
+### Example 1 (Tiered ADA testing)
+
+- Row 1:     Shows the screening of the presence of ADA to drug AZ-007.
+- Row 2:     Shows the confirmation of the previously detected ADA to drug AZ-007.
+- Row 3:     Shows the measurement of titer of the ADA from the screen and confirmatory steps.
+
+### Examples 8–9 (Microneutralization and OPK)
+
+The next 2 examples show data from microneutralization and opsonophagocytic killing (OPK) assays, which are used to measure vaccine efficacy and immunoprotectivity.
+
+### Example 10 (Sjögren's syndrome autoantibody tests)
+
+Sjögren's syndrome (SS) is a systemic autoimmune disease characterized by dry eyes and dry mouth. Diagnosis of SS is generally based on the detection of antinuclear antibodies (ANAs), that is, anti-Ro (SS-A) and anti-La (SS-B) antibodies.
+
+- Rows 1-5:	Show the screening (row 1) and quantification (rows 2, 4) of ANAs. Rows 2 and 3 are grouped together using ISGRPID="1a"; this means the titer result in row 2 is specifically related to the particular nuclear staining pattern (i.e., speckled) finding in row 3. The speckled pattern of ANA is typically indicative of SS, systemic lupus, and mixed connective tissue disease. Rows 4 and 5 are grouped together using ISGRPID="1b"; this means the titer result in row 4 is specifically related to the nuclear staining pattern (i.e., nucleoar) finding in row 5. Rows 1 to 5 are grouped together using ISGRPID with values starting with the number "1", indicating that these records are related. The antinuclear antibodies test is post-coordinated and represented by both ISTEST="Autoantibody" and ISBDAGNT="NUCLEAR AUTOANTIGENS".
+- Rows 6-11:	Show the screening and quantification of the various SS-specific autoantibodies. SS autoantigens are represented by the ISBDAGNT variable, whereas the ISTEST="Autoantibody".
+
+### Example 11 (Mixed animal allergens test)
+
+- Row 1:	Shows the detection of immunoglobulin E (IgE) antibody against multiple animal allergens. ISBDAGNT is used to house the generic but controlled value "ANIMAL MIX ANTIGENS, MULTIPLE".
+- Rows 2-3:	Show the amount of IgE antibody against dog dander and its RAST classification score.
+- Rows 4-5:	Show the amount of IgE antibody against cat dander and its RAST classification score.
+- Rows 6-7:	Show the amount of IgE antibody against horse dander and its RAST classification score.
+- Rows 8-9:	Show the amount of IgE antibody against cow dander and its RAST classification score.

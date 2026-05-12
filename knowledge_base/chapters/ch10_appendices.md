@@ -61,9 +61,22 @@ The following table lists some of the abbreviations and terms are used in this d
 
 ---
 
+## Section 9: Study References (p441)
+
+There are occasions when it is necessary to establish study-specific terminology that will be used in tabulated data. The following situations have been identified thus far:
+
+- Identifiers for devices
+- Identifiers for non-host organisms
+
+---
+
 ## Appendix C: Controlled Terminology
 
 CDISC Terminology is centrally managed by the CDISC Controlled Terminology Team, supporting the terminology needs of all CDISC foundational standards (SDTM, CDASH, ADaM, SEND) and all disease/therapeutic area standards.
+
+Note that the SDTM terminology was previously provided separately for questionnaires and other domains. However, as of the 2015-12-18 release of CDISC Controlled Terminology, these were merged into a single publication.
+
+Earlier versions of the SDTMIG included several appendices regarding controlled terminology. Starting with SDTMIG 3.2, Appendix C was simplified. Appendix C1 will be considered for expansion in the next version, to contain a complete list of supplemental qualifiers used in the SDTMIG.
 
 ### Key Points
 
@@ -89,11 +102,17 @@ An initial set of standard name codes for use in supplemental qualifiers (SUPP--
 
 The CDISC SDS group has defined a standard list of fragments to use as a guide when naming variables in SUPP-- datasets (as QNAM) or assigning --TESTCD values.
 
+In some cases, more than 1 fragment is used for a given keyword. The general rule is to use the fragment(s) that best convey the meaning within the 8-character limit and within the established naming conventions for the SUPP-- or --TESTCD variable being created.
+
 ### Rules for Using Fragments
 
 - The general rule is to use the fragment(s) that best conveys the meaning within the 8-character limit
 - The longer fragment should be used when space allows
 - If the combination still exceeds 8 characters, drop characters where most appropriate (avoiding naming conflicts)
+
+This is necessary when a shorter fragment must be used for a --TESTCD or QNAM that incorporates several keywords that must be combined while still meeting the 8-character variable naming limit of SAS transport files.
+
+In other cases the same fragment may be used for more than one meaning, but these would not normally overlap for the same variable.
 
 ### Fragment Reference Table
 

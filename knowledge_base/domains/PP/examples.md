@@ -125,3 +125,20 @@ The shared PP dataset contains 12 rows showing PK parameters (TMAX, CMAX, AUCALL
 | 12 | ABC-123 | PP | ABC-123-0001 | 14 | DY8DRGX | DY8DRGX | DY8DRGX | DY8DRGX | CLO | Total CL Obs | DRUG X | 1.75 | L/h | 1.75 | 1.75 | L/h | PLASMA | 8 | 2001-02-08T08:35 |
 
 *See PC examples for the full description of RELREC Methods A through D and their corresponding relrec.xpt tables.*
+
+## RELREC Method Descriptions (Section 6.3.5.9.3, pp 281-282)
+
+### Method B — One to Many, Using PCSEQ and PPGRPID (p281)
+
+- Rows 1-13: The relationship with RELID "1" includes PP records with PCSEQ values "1" through "12" and PP records with PPGRPID = "DY1DRGX_A".
+- Rows 14-24: The relationship with RELID "2" includes PP records with PCSEQ values "1" through "7" and "10" through "12" and PP records with PPGRPID = "DY1DRGX_HALF".
+
+### Method C — Many to One, Using PCGRPID and PPSEQ (p281)
+
+- Rows 1-7: The relationship with RELID "1" includes all PP records with PGRPID values "DY1_DRGX_A" and "DY1_DRGX_B" and PP records with PPSEQ values "1" through "3", "6", and "7".
+
+### Method A — Many to Many, Using PCGRPID and PPGRPID (Example 4, p282)
+
+- Rows 1-4: The relationship with RELID "1" includes PC records with PCGRPID values "DY1DRGX_A", "DY1DRGX_C", and "DY1DRGX_D" and the one PP record with PPGRPID = "TMAX".
+- Rows 5-8: The relationship with RELID "2" includes PC records with PCGRPID values "DY1DRGX_A", "DY1DRGX_B", and "DY1DRGX_D" and the one PP record with PPGRPID = "CMAX".
+- Rows 9-12: The relationship with RELID "3" includes PC records with PCGRPID values "DY1DRGX_A", "DY1DRGX_B", and "DY1DRGX_C" and the one PP record with PPGRPID = "AUC".

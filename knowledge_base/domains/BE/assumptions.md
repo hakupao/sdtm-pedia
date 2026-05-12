@@ -1,5 +1,11 @@
 # BE — Assumptions
 
+## BE – Specification
+
+be.xpt, Biospecimen Events — Events. One record per instance per biospecimen event per biospecimen identifier per subject, Tabulation.
+
+## BE – Assumptions
+
 1. The BE domain contains data about actions taken that affect or may affect a specimen, such as specimen collection, freezing and thawing, aliquoting, and transportation. This domain is intended to be applicable to any specimen tracking data, regardless of the reason for specimen collection.
 
 2. The value in BEREFID identifies the specimen most affected by the event. For aliquoting, this would be the child specimen(s) created by the event, rather than the parent specimen. BEREFID should not contain any identifiers other than specimen IDs.
