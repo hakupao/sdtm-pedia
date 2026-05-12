@@ -1,4 +1,49 @@
-# CP — Assumptions
+# CP
+
+## CP – Description/Overview
+
+A findings domain that contains data related to the characterization of cell phenotype, lineage, and function based on expression of specific markers in single cell or particle suspensions.
+
+The CP domain is modeled for use with disseminated tissue specimens (e.g., blood and other body fluids, bone marrow aspirates) and cell suspensions, and is not currently modeled for evaluations of solid tissue specimens.
+
+The domain is intended to support tests associated with a cell phenotyping component based on the use of markers and is not intended for tests that are not associated with marker-based phenotyping, which are more appropriate to include in another domain (e.g., Immunogenicity Specimen Assessments (IS), Laboratory Test Results (LB), Microscopic Findings (MI)).
+
+The CP domain is not intended to supplant use of the LB domain for routine lab hematology (e.g., blood cell differentials), nor is it intended for findings originating from microscopic assessment of cells, including those employing immunohistochemical (IHC) techniques.
+
+The modeled use cases include measurement of
+
+- cell populations identified, classified, and/or otherwise characterized based on the differential expression of phenotypic and/or cell state/function markers, as determined for both normal and abnormal cell populations;
+- the level of marker expression;
+- substances interacting with (e.g., binding to) a marker which is a target of interest (not limited to a pharmacologic target); and
+- other cell properties based on characterization of expression marker(s) and/or substances that interact with the marker(s).
+
+To provide the flexibility needed to report cell marker expression data, which can range widely in complexity, several new SDTM variables have been created.
+
+Most of the new variables are permissible, and are available as needed to fully define a test and/or to prevent ambiguity that could lead to misunderstanding or difficulty in interpreting the data.
+
+New variables include --SBMRKS (Sublineage Marker String), --CELSTA (Cell State), --CSMRKS (Cell State Marker String), --TSTCND (Test Condition), --CNDAGT (Test Condition Agent), --BNDAGT (Binding Agent), --ABCLID (Antibody Clone Identifier), --MRKSTR (Marker String), --GATE (Gate Name), --GATEDEF (Gate Definition), --SPTSTD (Sponsor Test Description), --TSTPNL (Test Panel), --RESSCL (Result Scale), and --RESTYP (Result Type).
+
+Definitions and appropriate use of these variables are provided in the Specification and Assumptions sections of this guidance and are illustrated in the examples for selected use cases.
+
+Data submitters should work closely with laboratory data providers, analysts, and data receivers/users to determine the appropriate set of permissible variables to include in a dataset (i.e., the variables needed to fully document tests and associated findings for a particular use case).
+
+Sponsors that previously chose to submit cell phenotyping data in the LB domain, where LBTEST was often used to populate cell marker information (e.g., "CD4" to indicate helper T lymphocytes), should note that the new variable --MRKSTR should be used to house the full marker string information used to define the test in terms of markers; the --TEST variable is reserved for the name of the cell population.
+
+Several of the new variables (i.e., --SBMRKS, --CELSTA, --CSMRKS) are used to further subdivide the population reported in --TEST into more granular unnamed subpopulations based on 1 or more additional markers.
+
+This approach provides a more easily understood test name in the --TEST variable and enables development of controlled terminology for --TEST and --TESTCD.
+
+The goal is to standardize, where possible, cell phenotype test names across studies so that it will be easier for users to understand and interpret the data (e.g., when different marker sets are used across labs to define the same cell population).
+
+This approach also enhances the ability to integrate and compare data across studies in a practicable manner that (in addition to being less error-prone) preserves the often subtle differences between tests, which are essential for determining whether tests are truly comparable.
+
+Used in accordance with this guidance, the complete marker sting information provided in the --MRKSTR variable reflects the operational (i.e., laboratory-specific) definition of the test measurement.
+
+Together with the gating information provided in the --GATE and --GATEDEF variables, --MRKSTR values help to ensure that proper groupings and comparisons are made across tests by preserving nuanced details that may affect the interpretation of test results.
+
+To facilitate these objectives and to enable accurate cross-study comparisons and data-mining efforts, it is recommended that --MRKSTR values conform as closely as possible to marker string formatting principles presented in the CP Assumptions section.
+
+## CP – Assumptions
 
 1. The Cell Phenotype domain captures cell phenotyping and related data based on cell expression markers and other indicators (e.g., stains/dyes) in disseminated tissue specimens and cell suspensions.
 

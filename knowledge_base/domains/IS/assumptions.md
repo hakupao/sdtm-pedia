@@ -1,4 +1,10 @@
-# IS — Assumptions
+# IS
+
+## IS – Description/Overview
+
+A findings domain for assessments of antigen induced humoral or cell-mediated immune response in the subject.
+
+## IS – Assumptions
 
 1. The Immunogenicity Specimen Assessments (IS) domain holds assessments that describe whether a therapy (e.g., biologic, drug, vaccine) provoked/caused/induced an immune response in a subject. The response can be either positive or negative. For example, a vaccine is expected to induce a beneficial immune response, whereas a cellular therapy (e.g., erythropoiesis-stimulating agents) may cause an adverse immune response.
 
