@@ -1,0 +1,114 @@
+{
+  "ts": "2026-05-12T00:46:10.717288Z",
+  "phase": "P4a",
+  "slot": "batch_quality_sample",
+  "batch_id": "batch_042",
+  "subagent_type": "oh-my-claudecode:writer",
+  "prompt_version": "P4a_forward_matcher_v1.0",
+  "stats": {
+    "EXACT": 65,
+    "EQUIVALENT": 22,
+    "PARTIAL": 13,
+    "MISPLACED": 0,
+    "MISSING": 0,
+    "ERROR": 0,
+    "INTENTIONAL_EXCLUDE": 0
+  },
+  "samples": [
+    {
+      "pdf_atom_id": "ig34_p0158_a0014",
+      "verdict": "EQUIVALENT",
+      "top1_score": 0.7288
+    },
+    {
+      "pdf_atom_id": "ig34_p0158_a0015",
+      "verdict": "EXACT",
+      "top1_score": 1.0
+    },
+    {
+      "pdf_atom_id": "ig34_p0158_a0016",
+      "verdict": "PARTIAL",
+      "top1_score": 0.6276
+    },
+    {
+      "pdf_atom_id": "ig34_p0158_a0017",
+      "verdict": "PARTIAL",
+      "top1_score": 0.5889
+    },
+    {
+      "pdf_atom_id": "ig34_p0158_a0018",
+      "verdict": "EQUIVALENT",
+      "top1_score": 0.7088
+    },
+    {
+      "pdf_atom_id": "ig34_p0158_a0019",
+      "verdict": "PARTIAL",
+      "top1_score": 0.5254
+    },
+    {
+      "pdf_atom_id": "ig34_p0158_a0020",
+      "verdict": "PARTIAL",
+      "top1_score": 0.5636
+    },
+    {
+      "pdf_atom_id": "ig34_p0158_a0021",
+      "verdict": "EQUIVALENT",
+      "top1_score": 0.7443
+    },
+    {
+      "pdf_atom_id": "ig34_p0158_a0022",
+      "verdict": "PARTIAL",
+      "top1_score": 0.5485
+    },
+    {
+      "pdf_atom_id": "ig34_p0158_a0023",
+      "verdict": "EQUIVALENT",
+      "top1_score": 0.7961
+    },
+    {
+      "pdf_atom_id": "ig34_p0158_a0024",
+      "verdict": "EQUIVALENT",
+      "top1_score": 0.7375
+    },
+    {
+      "pdf_atom_id": "ig34_p0159_a0008",
+      "verdict": "EXACT",
+      "top1_score": 1.0
+    },
+    {
+      "pdf_atom_id": "ig34_p0159_a0018",
+      "verdict": "EXACT",
+      "top1_score": 1.0
+    },
+    {
+      "pdf_atom_id": "ig34_p0159_a0028",
+      "verdict": "EXACT",
+      "top1_score": 1.0
+    },
+    {
+      "pdf_atom_id": "ig34_p0160_a0009",
+      "verdict": "EQUIVALENT",
+      "top1_score": 0.7792
+    },
+    {
+      "pdf_atom_id": "ig34_p0160_a0019",
+      "verdict": "EXACT",
+      "top1_score": 1.0
+    },
+    {
+      "pdf_atom_id": "ig34_p0160_a0029",
+      "verdict": "EQUIVALENT",
+      "top1_score": 0.79
+    },
+    {
+      "pdf_atom_id": "ig34_p0161_a0006",
+      "verdict": "EXACT",
+      "top1_score": 1.0
+    },
+    {
+      "pdf_atom_id": "ig34_p0161_a0016",
+      "verdict": "EXACT",
+      "top1_score": 1.0
+    }
+  ]
+}
