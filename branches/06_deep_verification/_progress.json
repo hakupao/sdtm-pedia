@@ -1160,11 +1160,11 @@
       ]
     },
     "P4a_forward_matching": {
-      "status": "S3_complete_2026-05-12",
+      "status": "S5_COMPLETE_P4a_DONE_2026-05-12",
       "atoms_total": 12487,
-      "atoms_done": 10000,
-      "batches_done": 75,
-      "sessions_done": 4,
+      "atoms_done": 12487,
+      "batches_done": 125,
+      "sessions_done": 5,
       "sub_plan": "plans/P4a_forward_matching.md",
       "S1_stats": {
         "batches": "001-025",
@@ -1179,7 +1179,7 @@
         "coverage_pct": 20.0,
         "matched_pct": 64.5
       },
-      "next_step": "S4_batches_076-100",
+      "next_step": "P4b_reviewer_sampling_or_P4a_COMPLETE",
       "S2_stats": {
         "batches": "026-050",
         "atoms": 2500,
@@ -1230,7 +1230,7 @@
         "coverage_pct": 60.1,
         "matched_pct": 45.5
       },
-      "coverage_pct": 80.1,
+      "coverage_pct": 100.0,
       "S4": {
         "completed_at": "2026-05-12",
         "batches": "batch_076~100",
@@ -1258,6 +1258,35 @@
         "total": 10000,
         "coverage_rate_exact_equiv": 59.2,
         "coverage_rate_with_partial": 75.9
+      },
+      "S5": {
+        "completed_at": "2026-05-12",
+        "batches": "batch_101~125",
+        "atoms": 2487,
+        "verdict_distribution": {
+          "EXACT": 686,
+          "EQUIVALENT": 575,
+          "PARTIAL": 380,
+          "MISPLACED": 75,
+          "MISSING": 619,
+          "ERROR": 1,
+          "INTENTIONAL_EXCLUDE": 151
+        },
+        "coverage_rate_exact_equiv": 50.7,
+        "coverage_rate_with_partial": 66.0
+      },
+      "cumulative_S1_through_S5": {
+        "atoms": 12487,
+        "EXACT": 3747,
+        "EQUIVALENT": 3439,
+        "PARTIAL": 2045,
+        "MISPLACED": 273,
+        "MISSING": 2496,
+        "ERROR": 93,
+        "INTENTIONAL_EXCLUDE": 394,
+        "coverage_rate_exact_equiv": 57.5,
+        "coverage_rate_with_partial": 73.9,
+        "coverage_pct": 100.0
       }
     },
     "P4b_section_aggregation": {
