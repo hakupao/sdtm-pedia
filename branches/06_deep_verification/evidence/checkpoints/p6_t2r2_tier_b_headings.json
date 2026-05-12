@@ -1,0 +1,310 @@
+{
+  "count": 61,
+  "headings": [
+    {
+      "atom_id": "ig34_p0052_a004",
+      "verbatim": "4.5.1.2 Tests Not Done",
+      "section": "§4.5.1.2 [Tests Not Done]"
+    },
+    {
+      "atom_id": "ig34_p0060_a005",
+      "verbatim": "CO – Description/Overview",
+      "section": "§5.1 [Comments (CO)]"
+    },
+    {
+      "atom_id": "ig34_p0062_a015",
+      "verbatim": "DM – Description/Overview",
+      "section": "§5.2 [Demographics (DM)]"
+    },
+    {
+      "atom_id": "ig34_p0079_a002",
+      "verbatim": "SE – Description/Overview",
+      "section": "§5.3 [Subject Elements]"
+    },
+    {
+      "atom_id": "ig34_p0080_a012",
+      "verbatim": "SE – Assumptions",
+      "section": "§5.3 [Subject Elements]"
+    },
+    {
+      "atom_id": "ig34_p0098_a002",
+      "verbatim": "CM – Description/Overview",
+      "section": "§6.1.2 [Concomitant/Prior Medications (CM)]"
+    },
+    {
+      "atom_id": "ig34_p0171_a0008",
+      "verbatim": "6.2.6 Medical History (MH)",
+      "section": "§6.2 [MODELS FOR EVENTS DOMAINS]"
+    },
+    {
+      "atom_id": "ig34_p0178_a0010",
+      "verbatim": "DV – Description/Overview",
+      "section": "§6.2.7 Protocol Deviations (DV)"
+    },
+    {
+      "atom_id": "ig34_p0180_a0004",
+      "verbatim": "DA – Description/Overview",
+      "section": "§6.3.1 Product Accountability (DA)"
+    },
+    {
+      "atom_id": "ig34_p0196_a019",
+      "verbatim": "BS – Description/Overview",
+      "section": "§6.3.5.2 Biospecimen Findings (BS)"
+    },
+    {
+      "atom_id": "ig34_p0199_a008",
+      "verbatim": "CP – Description/Overview",
+      "section": "§6.3.5.3 Cell Phenotype Findings (CP)"
+    },
+    {
+      "atom_id": "ig34_p0228_a023",
+      "verbatim": "IS – Description/Overview",
+      "section": "§6.3.5.5 Immunogenicity Specimen Assessments (IS)"
+    },
+    {
+      "atom_id": "ig34_p0231_a017",
+      "verbatim": "IS – Assumptions",
+      "section": "§6.3.5.5 Immunogenicity Specimen Assessments (IS)"
+    },
+    {
+      "atom_id": "ig34_p0233_a001",
+      "verbatim": "IS – Examples",
+      "section": "§6.3.5.5 Immunogenicity Specimen Assessments (IS)"
+    },
+    {
+      "atom_id": "ig34_p0248_a023",
+      "verbatim": "6.3.5.7  Microbiology Domains",
+      "section": "§6.3.5 Specimen-based Findings Domains"
+    },
+    {
+      "atom_id": "ig34_p0248_a026",
+      "verbatim": "MB – Description/Overview",
+      "section": "§6.3.5.7.1 Microbiology Specimen (MB)"
+    },
+    {
+      "atom_id": "ig34_p0252_a016",
+      "verbatim": "MS – Description/Overview",
+      "section": "§6.3.5.7.2 Microbiology Susceptibility (MS)"
+    },
+    {
+      "atom_id": "ig34_p0255_a022",
+      "verbatim": "MS – Assumptions",
+      "section": "§6.3.5.7.2 Microbiology Susceptibility (MS)"
+    },
+    {
+      "atom_id": "ig34_p0256_a009",
+      "verbatim": "6.3.5.7.3 Microbiology Specimen/Microbiology Susceptibility Examples",
+      "section": "§6.3.5.7 Microbiology Domains"
+    },
+    {
+      "atom_id": "ig34_p0267_a016",
+      "verbatim": "6.3.5.9 Pharmacokinetics Domains",
+      "section": "§6.3.5 Specimen-based Findings Domains"
+    },
+    {
+      "atom_id": "ig34_p0267_a018",
+      "verbatim": "PC – Description/Overview",
+      "section": "§6.3.5.9.1 Pharmacokinetics Concentrations (PC)"
+    },
+    {
+      "atom_id": "ig34_p0285_a006",
+      "verbatim": "6.3.7 Morphology/Physiology Domains",
+      "section": "§6.3 [MODELS FOR FINDINGS DOMAINS]"
+    },
+    {
+      "atom_id": "ig34_p0294_a012",
+      "verbatim": "NV – Description/Overview",
+      "section": "§6.3.7.4 Nervous System Findings (NV)"
+    },
+    {
+      "atom_id": "ig34_p0298_a024",
+      "verbatim": "OE – Description/Overview",
+      "section": "§6.3.7.5 Ophthalmic Examinations (OE)"
+    },
+    {
+      "atom_id": "ig34_p0308_a002",
+      "verbatim": "RE – Description/Overview",
+      "section": "§6.3.7.7 Respiratory System Findings (RE)"
+    },
+    {
+      "atom_id": "ig34_p0315_a015",
+      "verbatim": "6.3.8  Physical Examination (PE)",
+      "section": "§6.3 [MODELS FOR FINDINGS DOMAINS]"
+    },
+    {
+      "atom_id": "ig34_p0315_a016",
+      "verbatim": "PE - Proposed Removal of --MODIFY and --BODSYS",
+      "section": "§6.3.8 Physical Examination (PE)"
+    },
+    {
+      "atom_id": "ig34_p0315_a025",
+      "verbatim": "PE – Description/Overview",
+      "section": "§6.3.8 Physical Examination (PE)"
+    },
+    {
+      "atom_id": "ig34_p0324_a006",
+      "verbatim": "QS – Description/Overview",
+      "section": "§6.3.9.2 Questionnaires (QS)"
+    },
+    {
+      "atom_id": "ig34_p0339_a022",
+      "verbatim": "SC – Description/Overview",
+      "section": "§6.3.10 Subject Characteristics (SC)"
+    },
+    {
+      "atom_id": "ig34_p0342_a019",
+      "verbatim": "SS – Description/Overview",
+      "section": "§6.3.11 Subject Status (SS)"
+    },
+    {
+      "atom_id": "ig34_p0344_a015",
+      "verbatim": "6.3.12 Tumor/Lesion Domains",
+      "section": "§6.3 [MODELS FOR FINDINGS DOMAINS]"
+    },
+    {
+      "atom_id": "ig34_p0344_a018",
+      "verbatim": "TU – Description/Overview",
+      "section": "§6.3.12.1 Tumor/Lesion Identification (TU)"
+    },
+    {
+      "atom_id": "ig34_p0353_a005",
+      "verbatim": "6.3.12.3   Tumor Identification/Tumor Results Examples",
+      "section": "§6.3.12 Tumor/Lesion Domains"
+    },
+    {
+      "atom_id": "ig34_p0358_a013",
+      "verbatim": "VS – Description/Overview",
+      "section": "§6.3.13 Vital Signs (VS)"
+    },
+    {
+      "atom_id": "ig34_p0361_a012",
+      "verbatim": "6.4.1 When to Use Findings About Events or Interventions",
+      "section": "§6.4 [FINDINGS ABOUT EVENTS OR INTERVENTIONS]"
+    },
+    {
+      "atom_id": "ig34_p0363_a010",
+      "verbatim": "6.4.2 Naming Findings About Domains",
+      "section": "§6.4 [FINDINGS ABOUT EVENTS OR INTERVENTIONS]"
+    },
+    {
+      "atom_id": "ig34_p0364_a010",
+      "verbatim": "6.4.3 Variables Unique to Findings About",
+      "section": "§6.4 [FINDINGS ABOUT EVENTS OR INTERVENTIONS]"
+    },
+    {
+      "atom_id": "ig34_p0364_a021",
+      "verbatim": "FA – Description/Overview",
+      "section": "§6.4.4 Findings About Events or Interventions (FA)"
+    },
+    {
+      "atom_id": "ig34_p0375_a024",
+      "verbatim": "6.4.5 Skin Response (SR)",
+      "section": "§6.4 [FINDINGS ABOUT EVENTS OR INTERVENTIONS]"
+    },
+    {
+      "atom_id": "ig34_p0375_a025",
+      "verbatim": "SR – Description/Overview",
+      "section": "§6.4.5 Skin Response (SR)"
+    },
+    {
+      "atom_id": "ig34_p0382_a002",
+      "verbatim": "7.1 Introduction to Trial Design Model Datasets",
+      "section": "§7 [TRIAL DESIGN MODEL DATASETS]"
+    },
+    {
+      "atom_id": "ig34_p0382_a003",
+      "verbatim": "7.1.1 Purpose of the Trial Design Model",
+      "section": "§7.1 Introduction to Trial Design Model Datasets"
+    },
+    {
+      "atom_id": "ig34_p0382_a015",
+      "verbatim": "7.1.2 Definitions of Trial Design Concepts",
+      "section": "§7.1 Introduction to Trial Design Model Datasets"
+    },
+    {
+      "atom_id": "ig34_p0384_a015",
+      "verbatim": "7.2 Experimental Design (TA and TE)",
+      "section": "§7 [TRIAL DESIGN MODEL DATASETS]"
+    },
+    {
+      "atom_id": "ig34_p0384_a019",
+      "verbatim": "TA – Description/Overview",
+      "section": "§7.2.1 Trial Arms (TA)"
+    },
+    {
+      "atom_id": "ig34_p0402_a037",
+      "verbatim": "7.2.2 Trial Elements (TE)",
+      "section": "§7.2 [EXPERIMENTAL DESIGN (TA AND TE)]"
+    },
+    {
+      "atom_id": "ig34_p0402_a038",
+      "verbatim": "TE – Description/Overview",
+      "section": "§7.2.2 Trial Elements (TE)"
+    },
+    {
+      "atom_id": "ig34_p0407_a010",
+      "verbatim": "7.3 Schedule for Assessments (TV, TD, and TM)",
+      "section": "§7 [TRIAL DESIGN MODEL DATASETS]"
+    },
+    {
+      "atom_id": "ig34_p0407_a017",
+      "verbatim": "TV – Description/Overview",
+      "section": "§7.3.1 Trial Visits (TV)"
+    },
+    {
+      "atom_id": "ig34_p0410_a025",
+      "verbatim": "7.3.2 Trial Disease Assessments (TD)",
+      "section": "§7.3 [SCHEDULE FOR ASSESSMENTS (TV, TD, AND TM)]"
+    },
+    {
+      "atom_id": "ig34_p0410_a026",
+      "verbatim": "TD – Description/Overview",
+      "section": "§7.3.2 Trial Disease Assessments (TD)"
+    },
+    {
+      "atom_id": "ig34_p0415_a001",
+      "verbatim": "7.3.3 Trial Disease Milestones (TM)",
+      "section": "§7.3 [SCHEDULE FOR ASSESSMENTS (TV, TD, AND TM)]"
+    },
+    {
+      "atom_id": "ig34_p0415_a002",
+      "verbatim": "TM – Description/Overview",
+      "section": "§7.3.3 Trial Disease Milestones (TM)"
+    },
+    {
+      "atom_id": "ig34_p0415_a025",
+      "verbatim": "7.4 Trial Eligibility and Summary (TI and TS)",
+      "section": "§7 [TRIAL DESIGN MODEL DATASETS]"
+    },
+    {
+      "atom_id": "ig34_p0416_a002",
+      "verbatim": "TI – Proposed Removal of Variable TIRL",
+      "section": "§7.4.1 Trial Inclusion/Exclusion Criteria (TI)"
+    },
+    {
+      "atom_id": "ig34_p0416_a005",
+      "verbatim": "TI – Description/Overview",
+      "section": "§7.4.1 Trial Inclusion/Exclusion Criteria (TI)"
+    },
+    {
+      "atom_id": "ig34_p0417_a016",
+      "verbatim": "7.4.2 Trial Summary (TS)",
+      "section": "§7.4 [TRIAL ELIGIBILITY AND SUMMARY (TI AND TS)]"
+    },
+    {
+      "atom_id": "ig34_p0417_a017",
+      "verbatim": "TS – Description/Overview",
+      "section": "§7.4.2 Trial Summary (TS)"
+    },
+    {
+      "atom_id": "ig34_p0425_a026",
+      "verbatim": "7.5 How to Model the Design of a Clinical Trial",
+      "section": "§7 [TRIAL DESIGN MODEL DATASETS]"
+    },
+    {
+      "atom_id": "ig34_p0429_a017",
+      "verbatim": "RELREC - Description/Overview",
+      "section": "§8.2.1 Related Records (RELREC)"
+    }
+  ]
+}

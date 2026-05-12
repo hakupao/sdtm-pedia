@@ -1,0 +1,23 @@
+{
+  "checkpoint": "p6_t2_round2_post_ie",
+  "date": "2026-05-12",
+  "user_ack": "user confirmed 2026-05-12 after reviewing per-category samples",
+  "ie_added": 1021,
+  "breakdown": {
+    "SPEC_TABLE_ROW": 747,
+    "CODE_LITERAL_IE": 153,
+    "STRUCTURAL_HEADING_IE": 82,
+    "SPEC_TABLE_HEADER": 39
+  },
+  "deferred_to_tier_b": {
+    "EXAMPLE_DATA_ROW": 44,
+    "PP_PC_example_table": 181,
+    "STRUCTURAL_HEADING_meaningful": 61
+  },
+  "coverage_before": "83.0%",
+  "coverage_after": "91.1%",
+  "missing_before": 1859,
+  "missing_after": 838,
+  "total_ie_cumulative": 2058,
+  "denominator_after": 10429
+}
