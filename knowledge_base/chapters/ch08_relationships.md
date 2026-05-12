@@ -286,7 +286,25 @@ Findings general observation class data include measurements, tests, assessments
 
 ### 8.6.2 Guidelines for Forming New Domains
 
-When existing domains do not fit, follow the procedure in Section 2.6 (Creating a New Domain).
+It may not always be clear whether a set of data represents a single topic or more, and thus whether it should be combined into 1 domain or split into 2 or more domains.
+
+This implementation guide shows examples of both.
+
+In some cases, a single data structure works well for a variety of types of data.
+
+For example, all questionnaire data are placed in the QS domain, with particular questionnaires identified by QSCAT (see Section 6.3.9, Questionnaires, Ratings, and Scales (QRS) Domains (FT, QS, RS)).
+
+Although some operational databases may store urinalysis data in a separate dataset, the SDTM places all lab data in the LB domain (see Section 6.3.5.6, Laboratory Test Results (LB)) with urinalysis tests identified using LBSPEC.
+
+In other cases, a particular topic may be very broad and/or require more than 1 data structure (and therefore require more than 1 dataset).
+
+This implementation guide includes examples in microbiology and pharmacokinetics (see Section 6.3.5.7, Microbiology Domains, and Section 6.3.5.9, Pharmacokinetics Domains).
+
+These examples use 2 domain datasets because within these scientific areas there is more than 1 topic, and each topic results in a different data structure.
+
+In the Pharmacokinetics domain example, the topic for PC is plasma (or other specimen) drug concentration as a function of time, and the structure is 1 record per analyte per time point per reference time point (e.g., dosing event) per subject.
+
+PP contains characteristics of the time-concentration curve (e.g., AUC, Cmax, Tmax, half-life) and elimination rate constant; the structure is 1 record per parameter per analyte per reference time point per subject.
 
 ### 8.6.3 Guidelines for Differentiating Between Interventions, Events, Findings, and Findings About Events or Interventions
 

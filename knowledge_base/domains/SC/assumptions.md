@@ -1,5 +1,11 @@
 # SC — Assumptions
 
+## SC – Description/Overview
+
+A findings domain that contains subject-related data not collected in other domains.
+
+## SC – Assumptions
+
 1. The structure of subject characteristics is based on the Findings general observation class and is an extension of the demographics data, including socioeconomic or other broad characteristics. The structure for demographic data is fixed and includes date of birth, age, sex, race, ethnicity, and country. Subject characteristics may be collected periodically over time. Some examples of subject characteristics include education level, marital status, and national origin.
 
 2. Associations between some subject characteristic tests and response codelists are described in the SC Codetable, available at https://www.cdisc.org/standards/terminology/controlled-terminology.

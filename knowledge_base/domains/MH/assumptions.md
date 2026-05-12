@@ -1,5 +1,11 @@
 # MH — Assumptions
 
+## 6.2.6 Medical History (MH)
+
+An events domain that contains data that includes the subject's prior medical history at the start of the trial.
+
+## MH – Assumptions
+
 1. Prior treatments, including prior medications and procedures, should be submitted in an appropriate dataset from the Interventions class (e.g., Concomitant/Prior Medications (CM) or Procedures (PR)).
 
 2. **MH description and coding**

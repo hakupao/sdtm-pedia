@@ -1,5 +1,15 @@
 # MB — Assumptions
 
+## 6.3.5.7 Microbiology Domains
+
+The microbiology domains include Microbiology Specimen (MB) and Microbiology Susceptibility (MS).
+
+## MB – Description/Overview
+
+A findings domain that represents non-host organisms identified including bacteria, viruses, parasites, protozoa and fungi.
+
+## MB – Assumptions
+
 1. Representation of findings in the Microbiology Specimen domain should be handled as follows:
    a. In cases of tests that target an organism, group of organisms, or antigen for identification, MBTEST equals the name of the organism/antigen targeted by the identification assay, and
       i. MBTSTDTL should be "DETECTION".

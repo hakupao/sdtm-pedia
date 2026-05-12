@@ -1,7 +1,7 @@
 # 验证过程中发现的问题
 
 > 创建日期: 2026-04-15
-> 状态: Issue 1 已解决 (2026-04-15), Issue 2 全部已修复 (2026-04-15), Followup M1-M5 已完成 (2026-04-16), Issue 3 已修复 (2026-04-16), **Issue 4 已修复 (2026-04-16)** — ch08 §8.2.1/§8.4.1/§8.4.4 补全+重排，421→439 行
+> 状态: Issue 1-4 已修复 (2026-04-16); **Issue 5-16 开启 2026-05-12** (06 Deep Verification P6 Triage — 32 HIGH sections, 437 MISSING atoms)
 
 ---
 
@@ -139,3 +139,238 @@ ch08_relationships.md 缺失 3 个子节：
 **详细分析**: [issue4_analysis.md](issue4_analysis.md)
 
 **优先级**: 高 — RELREC 和 SUPP-- 是 SDTM 关系表达的两大核心机制，Specification 表的完整性直接影响知识库的参考价值
+
+---
+
+## Issue 5: §6.3.5.9.3 PP-PC Records 关联 — STRUCTURE_DRIFTED（4 子节 215 atoms）
+
+**状态**: **已修复 (结构层)** (2026-05-12) — PC/examples.md: 添加 §6.3.5.9.3 顶层 anchor header + 重命名子节至 PDF verbatim + 修正 "rows 1,3,5,7,9" factual drift + 添加 conclusions 结论段. 注: 143 TABLE_ROW data-value 差异为 Tier-B MEDIUM repair (需单独 Rule A sign-off).
+
+**发现方式**: 06 Deep Verification P4b section_coverage.jsonl; 4 个子节 aggregate_verdict = STRUCTURE_DRIFTED
+
+**问题描述**:
+§6.3.5.9.3 "Relating PP Records to PC Records" 含 4 个示例子节 + 结论节，共 215 MISSING atoms（PDF p275-284）。内容在 KB 中存在但 parent_section 错位（MISPLACED），实际分布在 PC/PP examples.md 中而不对应正确的 PC-PP 关联节。
+
+| 子节 | atoms | 页码 |
+|------|-------|------|
+| §6.3.5.9.3 Relating PP Records to PC Records（主节） | 64 | p275-284 |
+| §6.3.5.9.3 Example 1 | 24 | p277-279 |
+| §6.3.5.9.3 Example 2 | 54 | p279-280 |
+| §6.3.5.9.3 Example 3 | 26 | p280-281 |
+| §6.3.5.9.3 Example 4 | 70 | p282-284 |
+| §6.3.5.9.3 PC-PP Conclusions | 1 | p284 |
+
+**受影响 KB 文件**: `knowledge_base/domains/PC/examples.md`, `knowledge_base/domains/PP/examples.md`
+
+**修复计划**: 重组 PC/PP examples.md 中的 relrec 关联示例，按 §6.3.5.9.3 结构对齐 section heading；添加 MISSING 原子内容
+
+**优先级**: HIGH (STRUCTURE_DRIFTED; 最大单项，215 atoms)
+
+---
+
+## Issue 6: §6.3.10 Subject Characteristics (SC) — SKELETON_ONLY（29 atoms）
+
+**状态**: **已修复** (2026-05-12) — SC/assumptions.md 添加 Description/Overview + Assumptions 分节
+
+**发现方式**: 06 Deep Verification P4b; aggregate_verdict = SKELETON_ONLY, coverage_density = 0.036
+
+**问题描述**:
+SC 域的 Description/Overview 节（PDF p339-341）在 KB 中几乎无内容，29 个 PDF 原子 MISSING。SC – Specification 节已列入 INTENTIONAL_EXCLUDE（xlsx spec.md 覆盖）。
+
+**受影响 KB 文件**: `knowledge_base/domains/SC/assumptions.md`
+
+**修复计划**: 读取 PDF p339-341 原子，按 SC Description/Overview 结构补写 assumptions.md
+
+**优先级**: HIGH
+
+---
+
+## Issue 7: §5.5 Subject Visits (SV) — STRUCTURE_DRIFTED（26 atoms）
+
+**状态**: **已修复** (2026-05-12) — SV/assumptions.md 添加 Description/Overview 5 atoms (p86)
+
+**发现方式**: 06 Deep Verification P4b; aggregate_verdict = STRUCTURE_DRIFTED, density = 0.529（部分覆盖但内容位置错误）
+
+**问题描述**:
+§5.5 SV（PDF p86-87）的 26 个 MISSING atoms 内容实际散落在 SV examples.md 而非 assumptions.md。内容的 derivation 方法说明（"The method for deriving these values should be consistent..."）需要放回正确节。
+
+**受影响 KB 文件**: `knowledge_base/domains/SV/assumptions.md`, `knowledge_base/domains/SV/examples.md`
+
+**修复计划**: 将 SV examples.md 中 MISPLACED 的通用规则内容移至 assumptions.md，补充 26 个 MISSING 原子
+
+**优先级**: HIGH
+
+---
+
+## Issue 8: §6.3.5.7.1 Microbiology Specimen (MB) — SKELETON_ONLY（23 atoms）
+
+**状态**: **已修复** (2026-05-12) — MB/assumptions.md 添加 6.3.5.7 heading + MB Description/Overview
+
+**发现方式**: 06 Deep Verification P4b; aggregate_verdict = SKELETON_ONLY, coverage_density = 0.169
+
+**问题描述**:
+MB 域 Description/Overview（PDF p248-252）23 个 MISSING atoms。MB assumptions.md 存在但内容不完整，缺少 MB-specific rules 和 specimen-based findings 细节。
+
+**受影响 KB 文件**: `knowledge_base/domains/MB/assumptions.md`
+
+**修复计划**: 按 PDF p248-252 原子内容补全 MB assumptions.md
+
+**优先级**: HIGH
+
+---
+
+## Issue 9: §6.4 Findings About Events or Interventions (FA) — SKELETON_ONLY（29 atoms）
+
+**状态**: **已修复** (2026-05-12) — FA/assumptions.md §6.4.1-§6.4.5 全部补全 (executor agent)
+
+**发现方式**: 06 Deep Verification P4b; 3 个相关节均为 SKELETON_ONLY
+
+**问题描述**:
+FA 域相关节共 29 个 MISSING atoms：
+
+| 节 | atoms | 页码 |
+|----|-------|------|
+| §6.4 Findings About Events or Interventions（intro） | 4 | p361-375 |
+| §6.4.1 When to Use Findings About Events or Interventions | 23 | p361-363 |
+| §6.4.4 FA – Description/Overview | 1+1 | p364 |
+
+**受影响 KB 文件**: `knowledge_base/domains/FA/assumptions.md`
+
+**修复计划**: 按 PDF p361-375 补写 FA assumptions.md，重点补全 §6.4.1 "When to Use" 规则（23 atoms）
+
+**优先级**: HIGH
+
+---
+
+## Issue 10: §7.1 Trial Design Model — SKELETON_ONLY（40 atoms）
+
+**状态**: **已修复** (2026-05-12) — TA/assumptions.md §7.1.1+§7.1.2+§7.1.3 补全 (executor agent)
+
+**发现方式**: 06 Deep Verification P4b; 3 个相关节均为 SKELETON_ONLY
+
+**问题描述**:
+Trial Design Model §7.1.x 共 40 个 MISSING atoms（PDF p382-384）：
+
+| 节 | atoms | 页码 |
+|----|-------|------|
+| §7.1.1 Purpose of the Trial Design Model | 11 | p382 |
+| §7.1.2 Definitions of Trial Design Concepts | 10 | p382-383 |
+| §7.1.3 Current and Future Contents of the Trial Design Model | 19 | p383-384 |
+
+KB 中没有专门的 ch07 文件，Trial Design Model 概述内容需要找合适的 KB 文件（可能是 domains/TA/assumptions.md 或新建）。
+
+**受影响 KB 文件**: `knowledge_base/domains/TA/assumptions.md`（或需跨文件协调）
+
+**修复计划**: 确定最合适的 KB 目标文件，补写 §7.1.x 的 Purpose / Definitions / Contents 内容
+
+**优先级**: HIGH
+
+---
+
+## Issue 11: §7.3 + §7.4 Trial Schedule & Eligibility — SKELETON_ONLY（11 atoms）
+
+**状态**: **已修复** (2026-05-12) — TV/assumptions.md §7.3 intro + TI/assumptions.md §7.4 intro 补全
+
+**发现方式**: 06 Deep Verification P4b; SKELETON_ONLY
+
+**问题描述**:
+
+| 节 | atoms | 页码 |
+|----|-------|------|
+| §7.3 Schedule for Assessments (TV, TD, TM)（intro） | 6 | p407-415 |
+| §7.4 Trial Eligibility and Summary (TI, TS)（intro） | 5 | p415-417 |
+
+**受影响 KB 文件**: `knowledge_base/domains/TV/assumptions.md`, `knowledge_base/domains/TI/assumptions.md`（intro 段落）
+
+**优先级**: HIGH
+
+---
+
+## Issue 12: §8.6.2 Guidelines for Forming New Domains — SKELETON_ONLY（11 atoms）
+
+**状态**: **已修复** (2026-05-12) — ch08_relationships.md §8.6.2 verbatim 11 atoms 补全 (executor agent)
+
+**发现方式**: 06 Deep Verification P4b; aggregate_verdict = SKELETON_ONLY, density = 0.000
+
+**问题描述**:
+§8.6.2（PDF p435-436）"Guidelines for Forming New Domains" 11 个 MISSING atoms。内容关于如何判定是否创建新域，属于关键 implementation guidance。
+
+**受影响 KB 文件**: `knowledge_base/chapters/ch08_relationships.md` 或 `ch10_appendices.md`
+
+**优先级**: HIGH
+
+---
+
+## Issue 13: §4.4.4 + §4.4.6 Study Day Variables — SKELETON_ONLY（7 atoms）
+
+**状态**: **已修复** (2026-05-12) — ch04_general_assumptions.md §4.4.4 6 atoms + §4.4.6 1 atom 补全 (executor agent)
+
+**发现方式**: 06 Deep Verification P4b; SKELETON_ONLY
+
+**问题描述**:
+
+| 节 | atoms | 页码 |
+|----|-------|------|
+| §4.4.4 Use of the Study Day Variables | 6 | p41-42 |
+| §4.4.6 Representing Additional Study Days | 1 | p43 |
+
+**受影响 KB 文件**: `knowledge_base/chapters/ch04_general_assumptions.md`
+
+**优先级**: HIGH
+
+---
+
+## Issue 14: §6.3.7.1 Generic Morphology/Physiology — STRUCTURE_DRIFTED（5 atoms）
+
+**状态**: **已修复** (2026-05-12) — NV/assumptions.md §6.3.7 overview + §6.3.7.1 generic spec 添加
+
+**发现方式**: 06 Deep Verification P4b; STRUCTURE_DRIFTED, density = 0.050
+
+**問題描述**:
+§6.3.7.1（PDF p285）Generic Morphology/Physiology Specification 5 个 MISSING atoms，节内容描述 body system domains 的共有属性。
+
+**受影响 KB 文件**: 相关 domain assumptions.md（MO 或类似）
+
+**优先级**: HIGH
+
+---
+
+## Issue 15: §9.1 Device Identifiers (DI) — SKELETON_ONLY（3 atoms）
+
+**状态**: **已修复** (2026-05-12) — 新建 DI/assumptions.md，3 atoms 全部补全
+
+**发现方式**: 06 Deep Verification P4b; aggregate_verdict = SKELETON_ONLY, density = 0.000
+
+**问题描述**:
+§9.1（PDF p441）"Device Identifiers" 3 个 MISSING atoms。DI dataset introduced in SDTMIG for Medical Devices。
+
+**受影响 KB 文件**: `knowledge_base/domains/DI/assumptions.md`（若存在）
+
+**优先级**: HIGH
+
+---
+
+## Issue 16: 散落小节 SKELETON_ONLY/STRUCTURE_DRIFTED（12 atoms，8 节）
+
+**状态**: **已修复** (2026-05-12) — 8 节 atoms 分别添加至 CO/MH/PE/PC/NV/TU/MB 对应文件
+
+**发现方式**: 06 Deep Verification P4b
+
+**问题描述**:
+8 个各含 1-3 atoms 的小节：
+
+| 节 | 类型 | atoms | 页码 |
+|----|------|-------|------|
+| §4.1.6 Additional Guidance on Dataset Naming | STRUCTURE_DRIFTED | 1 | p23 |
+| §5 Models for Special-purpose Domains（intro）| SKELETON_ONLY | 1 | p60 |
+| §6.2 Models for Events Domains（intro） | STRUCTURE_DRIFTED | 1 | p171 |
+| §6.3 Models for Findings Domains（intro） | STRUCTURE_DRIFTED | 3 | p285-344 |
+| §6.3.5 Specimen-based Findings Domains | SKELETON_ONLY | 2 | p248-267 |
+| §6.3.5.9.2 Pharmacokinetics Parameters (PP) | STRUCTURE_DRIFTED | 1 | p273 |
+| §6.3.7 Morphology/Physiology Domains | SKELETON_ONLY | 2 | p285 |
+| §6.3.12 Tumor/Lesion Domains | SKELETON_ONLY | 1 | p353 |
+
+**修复策略**: 各节补充对应 KB 文件中 missing atoms 内容（均为简短 intro/overview 原子）
+
+**优先级**: HIGH（总量小但均为 0-coverage 节）
+

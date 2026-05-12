@@ -302,7 +302,7 @@
     "estimated_overhead_retired_minutes_per_batch": "10-15",
     "estimated_overhead_retired_total_hours_p1_remaining": "5-7"
   },
-  "current_phase": "P6_triage",
+  "current_phase": "P6_t4_tier_a_complete_pending_rule_d",
   "plan_version": "v0.6 (P2 B-03c round 05 closed)",
   "recovery_hint": "P2 B-03c round 05 CLOSED 2026-05-06. 12 batches batch_58..69 PASS 100% per-batch (1 CONDITIONAL_PASS batch_60 post-hoc fixed) + mini-audit PASS 100% (10/10 atoms + 9/9 invariants). md_atoms.jsonl 7791 atoms / 71 files atomized / 50.4% file coverage (★ crossed 50% milestone). Round 05 NO first-time lock (grep 实证 0 mermaid + 0 numberless H2 + max file IS/ex 273L under 300L slice threshold) — cleanest round to date. 1 MED-01 fired and post-hoc resolved (batch_60 LB/assn 9 LIST_ITEM atoms explicit null hl+sib fields added Rule B backup preserved). 0 halt mid-round. Round 06 待用户 ack scope (recommend 5-6 more domains alphabetical ML to onwards = ~10-14 batches; 35 domains × 2 = 70 files remaining post round 05). 入口: multi_session/P2_B-03c_round_05_kickoff.md (§0.5 20/20 grep + §2.8 R-2.8-1/2/3 carry-forward + §8 default Option acked).",
   "created": "2026-04-24",
@@ -1365,7 +1365,30 @@
     "P6_triage_repair": {
       "status": "pending",
       "issues_opened": 0,
-      "issues_closed": 0
+      "issues_closed": 0,
+      "t2_status": "COMPLETE",
+      "t2_ie_atoms_added": 643,
+      "t3_status": "COMPLETE",
+      "t3_unsourced_classified": 926,
+      "t3_hallucinated": 0,
+      "t4_tier_a_status": "COMPLETE",
+      "t4_tier_a_completed_ts": "2026-05-12T04:25:07Z",
+      "t4_tier_a_issues_repaired": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16
+      ],
+      "t4_tier_b_status": "PENDING (user stop gate)",
+      "rule_d_review_status": "PASS (verifier second pass 2026-05-12, 5/5 checks verbatim confirmed; checkpoint: evidence/checkpoints/p6_t4_rule_d_review_pass2.md)"
     },
     "P7_sampling_retro": {
       "status": "pending"
@@ -1549,7 +1572,7 @@
       ]
     }
   ],
-  "last_updated": "2026-05-12",
+  "last_updated": "2026-05-12T04:24:56Z",
   "pages_done": 535,
   "atoms_done": 7114,
   "batches_done": 60,
