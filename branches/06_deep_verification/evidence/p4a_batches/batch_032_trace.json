@@ -1,0 +1,45 @@
+{
+  "ts": "2026-05-12T00:45:38.811999+00:00",
+  "phase": "P4a",
+  "slot": "batch_quality_sample",
+  "batch_id": "batch_032",
+  "subagent_type": "oh-my-claudecode:writer",
+  "prompt_version": "P4a_forward_matcher_v1.0",
+  "stats": {
+    "total": 100,
+    "EXACT": 13,
+    "EQUIVALENT": 59,
+    "PARTIAL": 26,
+    "MISPLACED": 0,
+    "MISSING": 0,
+    "ERROR": 2,
+    "INTENTIONAL_EXCLUDE": 0
+  },
+  "samples": [
+    {
+      "pdf_atom_id": "ig34_p0116_a022",
+      "verdict": "EQUIVALENT",
+      "top1_score": 0.8564
+    },
+    {
+      "pdf_atom_id": "ig34_p0116_a023",
+      "verdict": "EQUIVALENT",
+      "top1_score": 0.825
+    },
+    {
+      "pdf_atom_id": "ig34_p0116_a024",
+      "verdict": "EQUIVALENT",
+      "top1_score": 0.8357
+    },
+    {
+      "pdf_atom_id": "ig34_p0116_a025",
+      "verdict": "EQUIVALENT",
+      "top1_score": 0.825
+    },
+    {
+      "pdf_atom_id": "ig34_p0116_a026",
+      "verdict": "EQUIVALENT",
+      "top1_score": 0.825
+    }
+  ]
+}
