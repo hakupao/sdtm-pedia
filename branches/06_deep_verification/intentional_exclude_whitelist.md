@@ -10,11 +10,10 @@
 | 2026-04-24 | VERSION_MISMATCH | SDTM v2.0 content superseded by v3.4 | pre-approved-plan-AppendixD | 2 |
 | 2026-04-24 | EDITORIAL_META | Cover/TOC/acknowledgements/version pages | pre-approved-plan-AppendixD | 238 |
 
-## Non-standard categories (created during execution — need user batch ack)
+## Non-standard categories — BATCH APPROVED by user 2026-05-12
 
-> These categories were coined by matcher agents during S1-S5 execution.
-> They fall within the spirit of Appendix D pre-approved categories.
-> Requires one-time user acknowledgement.
+> User ack: "通过，判断有效，EDITORIAL_META 确实和内容无关，可以丢失"
+> All 154 non-standard category atoms approved as equivalent to Appendix D pre-approved categories.
 
 | Category | Count | Spirit of | Sample atoms | Recommended action |
 |----------|-------|-----------|--------------|-------------------|
@@ -259,9 +258,9 @@
 | ig34_p0005_a050 | EDITORIAL_META | pre-approved-plan-AppendixD | Table of Contents entry — structural navigation artifact, not substantive conten |
 | ig34_p0006_a001 | EDITORIAL_META | pre-approved-plan-AppendixD | Table of Contents entry — structural navigation artifact, not substantive conten |
 | ig34_p0006_a002 | EDITORIAL_META | pre-approved-plan-AppendixD | Table of Contents entry — structural navigation artifact, not substantive conten |
-| ig34_p0125_a016 | pre-approved-category | PENDING_USER_ACK | EDITORIAL_META |
-| ig34_p0126_a006 | pre-approved-category | PENDING_USER_ACK | EDITORIAL_META |
-| ig34_p0126_a017 | pre-approved-category | PENDING_USER_ACK | EDITORIAL_META |
+| ig34_p0125_a016 | pre-approved-category | user-approved-2026-05-12 | EDITORIAL_META |
+| ig34_p0126_a006 | pre-approved-category | user-approved-2026-05-12 | EDITORIAL_META |
+| ig34_p0126_a017 | pre-approved-category | user-approved-2026-05-12 | EDITORIAL_META |
 | ig34_p0131_a003 | EDITORIAL_META | pre-approved-plan-AppendixD | Footnote/editorial metadata (asterisk notation explanation) |
 | ig34_p0148_a010 | EDITORIAL_META | pre-approved-plan-AppendixD | EDITORIAL_META: "References" section heading is a navigational/structural elemen |
 | ig34_p0148_a014 | EDITORIAL_META | pre-approved-plan-AppendixD | EDITORIAL_META: Section sub-heading "CE – Description/Overview" is structural na |
@@ -275,154 +274,154 @@
 | ig34_p0188_a005 | EDITORIAL_META | pre-approved-plan-AppendixD | Editorial footnote about controlled terminology notation (*); EDITORIAL_META |
 | ig34_p0250_a018 | VERSION_MISMATCH | pre-approved-plan-AppendixD | Version statement (superseded content) |
 | ig34_p0251_a001 | VERSION_MISMATCH | pre-approved-plan-AppendixD | Version statement (superseded content) |
-| ig34_p0420_a035 | copyright_boilerplate | PENDING_USER_ACK | Copyright and publication date boilerplate; pre-approved exclusion category |
-| ig34_p0445_a019 | authorship-metadata | PENDING_USER_ACK | Appendix A contributor listing: team member name/affiliation not SDTM content kn |
-| ig34_p0445_a020 | authorship-metadata | PENDING_USER_ACK | Appendix A contributor listing: team member name/affiliation not SDTM content kn |
-| ig34_p0445_a021 | authorship-metadata | PENDING_USER_ACK | Appendix A contributor listing: team member name/affiliation not SDTM content kn |
-| ig34_p0445_a022 | authorship-metadata | PENDING_USER_ACK | Appendix A contributor listing: team member name/affiliation not SDTM content kn |
-| ig34_p0445_a023 | authorship-metadata | PENDING_USER_ACK | Appendix A contributor listing: team member name/affiliation not SDTM content kn |
-| ig34_p0445_a024 | authorship-metadata | PENDING_USER_ACK | Appendix A contributor listing: team member name/affiliation not SDTM content kn |
-| ig34_p0445_a025 | authorship-metadata | PENDING_USER_ACK | Appendix A contributor listing: team member name/affiliation not SDTM content kn |
-| ig34_p0445_a026 | authorship-metadata | PENDING_USER_ACK | Appendix A contributor listing: team member name/affiliation not SDTM content kn |
-| ig34_p0445_a027 | authorship-metadata | PENDING_USER_ACK | Appendix A contributor listing: team member name/affiliation not SDTM content kn |
-| ig34_p0445_a028 | authorship-metadata | PENDING_USER_ACK | Appendix A contributor listing: team member name/affiliation not SDTM content kn |
-| ig34_p0445_a029 | authorship-metadata | PENDING_USER_ACK | Appendix A contributor listing: team member name/affiliation not SDTM content kn |
-| ig34_p0445_a030 | authorship-metadata | PENDING_USER_ACK | Appendix A contributor listing: team member name/affiliation not SDTM content kn |
-| ig34_p0445_a031 | authorship-metadata | PENDING_USER_ACK | Appendix A contributor listing: team member name/affiliation not SDTM content kn |
-| ig34_p0445_a032 | authorship-metadata | PENDING_USER_ACK | Appendix A contributor listing: team member name/affiliation not SDTM content kn |
-| ig34_p0445_a033 | authorship-metadata | PENDING_USER_ACK | Appendix A contributor listing: team member name/affiliation not SDTM content kn |
-| ig34_p0445_a034 | authorship-metadata | PENDING_USER_ACK | Appendix A contributor listing: team member name/affiliation not SDTM content kn |
-| ig34_p0445_a035 | authorship-metadata | PENDING_USER_ACK | Appendix A contributor listing: team member name/affiliation not SDTM content kn |
-| ig34_p0445_a036 | authorship-metadata | PENDING_USER_ACK | Appendix A contributor listing: team member name/affiliation not SDTM content kn |
-| ig34_p0445_a037 | authorship-metadata | PENDING_USER_ACK | Appendix A contributor listing: team member name/affiliation not SDTM content kn |
-| ig34_p0445_a038 | authorship-metadata | PENDING_USER_ACK | Appendix A contributor listing: team member name/affiliation not SDTM content kn |
-| ig34_p0445_a039 | authorship-metadata | PENDING_USER_ACK | Appendix A contributor listing: team member name/affiliation not SDTM content kn |
-| ig34_p0445_a040 | authorship-metadata | PENDING_USER_ACK | Appendix A contributor listing: team member name/affiliation not SDTM content kn |
-| sv20_p0001_a002 | version-metadata | PENDING_USER_ACK | Version/edition metadata line from superseded SDTM v2.0 cover page |
-| sv20_p0001_a003 | version-metadata | PENDING_USER_ACK | Author attribution line from SDTM v2.0 cover page |
-| sv20_p0001_a010 | version-metadata | PENDING_USER_ACK | Historical version row from SDTM v2.0 revision history table (v1.8) |
-| sv20_p0001_a011 | version-metadata | PENDING_USER_ACK | Historical version row from SDTM v2.0 revision history table (v1.7) |
-| sv20_p0001_a012 | version-metadata | PENDING_USER_ACK | Historical version row from SDTM v2.0 revision history table (v1.6) |
-| sv20_p0001_a013 | version-metadata | PENDING_USER_ACK | Historical version row from SDTM v2.0 revision history table (v1.5) |
-| sv20_p0001_a014 | version-metadata | PENDING_USER_ACK | Historical version row from SDTM v2.0 revision history table (v1.4) |
-| sv20_p0001_a015 | version-metadata | PENDING_USER_ACK | Historical version row from SDTM v2.0 revision history table (v1.3) |
-| sv20_p0001_a016 | version-metadata | PENDING_USER_ACK | Historical version row from SDTM v2.0 revision history table (v1.2) |
-| sv20_p0001_a017 | version-metadata | PENDING_USER_ACK | Historical version row from SDTM v2.0 revision history table (v1.1) |
-| sv20_p0006_a021 | version-changelog | PENDING_USER_ACK | SDTM_v2.0 §1.4 change-log content; superseded by SDTM_v2.0 |
-| sv20_p0006_a022 | version-changelog | PENDING_USER_ACK | SDTM_v2.0 §1.4 change-log content; superseded |
-| sv20_p0006_a023 | version-changelog | PENDING_USER_ACK | SDTM_v2.0 §1.4 change-log content; superseded |
-| sv20_p0006_a024 | version-changelog | PENDING_USER_ACK | SDTM_v2.0 §1.4 change-log content; superseded |
-| sv20_p0006_a025 | version-changelog | PENDING_USER_ACK | SDTM_v2.0 §1.4 change-log content; superseded |
-| sv20_p0006_a026 | version-changelog | PENDING_USER_ACK | SDTM_v2.0 §1.4 change-log content; superseded |
-| sv20_p0006_a027 | version-changelog | PENDING_USER_ACK | SDTM_v2.0 §1.4 change-log content; superseded |
-| sv20_p0006_a028 | version-changelog | PENDING_USER_ACK | SDTM_v2.0 §1.4 change-log content; superseded |
-| sv20_p0007_a001 | version-changelog | PENDING_USER_ACK | SDTM_v2.0 §1.4 change-log content; superseded |
-| sv20_p0032_a009 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 variable table section heading; structural element not expected in SDT |
-| sv20_p0032_a010 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 variable definition table header; version-specific tabular structure n |
-| sv20_p0032_a011 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 variable definition table row (--OBJ); version-specific variable spec  |
-| sv20_p0032_a012 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 section heading; structural element not in SDTMIG v3.4 KB |
-| sv20_p0033_a001 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 variable table section heading; structural element not in KB |
-| sv20_p0033_a002 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 variable definition table header; version-specific tabular structure n |
-| sv20_p0033_a003 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 identifier variable definition table row; version-specific variable sp |
-| sv20_p0033_a004 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 identifier variable definition table row; version-specific variable sp |
-| sv20_p0033_a005 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 identifier variable definition table row; version-specific variable sp |
-| sv20_p0033_a006 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 identifier variable definition table row; version-specific variable sp |
-| sv20_p0033_a007 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 identifier variable definition table row; version-specific variable sp |
-| sv20_p0033_a008 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 identifier variable definition table row; version-specific variable sp |
-| sv20_p0033_a009 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 identifier variable definition table row; version-specific variable sp |
-| sv20_p0033_a010 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 identifier variable definition table row; version-specific variable sp |
-| sv20_p0033_a011 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 identifier variable definition table row; version-specific variable sp |
-| sv20_p0034_a001 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 identifier variable definition table row; version-specific variable sp |
-| sv20_p0034_a002 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 identifier variable definition table row; version-specific variable sp |
-| sv20_p0034_a003 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 identifier variable definition table row; version-specific variable sp |
-| sv20_p0034_a004 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 identifier variable definition table row; version-specific variable sp |
-| sv20_p0034_a005 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 identifier variable definition table row; version-specific variable sp |
-| sv20_p0034_a006 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 identifier variable definition table row; version-specific variable sp |
-| sv20_p0034_a007 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 identifier variable definition table row; version-specific variable sp |
-| sv20_p0034_a008 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 section heading; structural element not in KB |
-| sv20_p0034_a010 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 internal cross-reference with v2.0-specific section numbering; not app |
-| sv20_p0035_a001 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 variable table section heading; structural element not in KB |
-| sv20_p0035_a002 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 timing variable definition table header; version-specific tabular stru |
-| sv20_p0035_a003 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
-| sv20_p0035_a004 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
-| sv20_p0035_a005 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
-| sv20_p0035_a006 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
-| sv20_p0035_a007 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
-| sv20_p0035_a008 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
-| sv20_p0035_a009 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
-| sv20_p0035_a010 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
-| sv20_p0035_a011 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
-| sv20_p0035_a012 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
-| sv20_p0035_a013 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
-| sv20_p0035_a014 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
-| sv20_p0036_a001 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
-| sv20_p0036_a002 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
-| sv20_p0036_a003 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
-| sv20_p0036_a004 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
-| sv20_p0036_a005 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
-| sv20_p0036_a006 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
-| sv20_p0036_a007 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
-| sv20_p0036_a008 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
-| sv20_p0036_a009 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
-| sv20_p0036_a010 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
-| sv20_p0036_a011 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
-| sv20_p0037_a001 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
-| sv20_p0037_a002 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
-| sv20_p0037_a003 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
-| sv20_p0037_a004 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
-| sv20_p0037_a005 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
-| sv20_p0037_a006 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
-| sv20_p0037_a007 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
-| sv20_p0038_a001 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
-| sv20_p0038_a002 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
-| sv20_p0038_a003 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
-| sv20_p0038_a004 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
-| sv20_p0038_a005 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
-| sv20_p0038_a006 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
-| sv20_p0038_a007 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
-| sv20_p0038_a008 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
-| sv20_p0038_a009 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
-| sv20_p0038_a010 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
-| sv20_p0038_a011 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
-| sv20_p0039_a001 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
-| sv20_p0039_a002 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
-| sv20_p0039_a003 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
-| sv20_p0039_a004 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
-| sv20_p0039_a005 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
-| sv20_p0039_a006 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
-| sv20_p0039_a007 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
-| sv20_p0040_a001 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 section heading; structural element not in KB |
-| sv20_p0040_a005 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 section heading; structural element not in KB |
-| sv20_p0040_a010 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 internal cross-reference to implementation guides; not applicable as s |
-| sv20_p0040_a011 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 variable table section heading; structural element not in KB |
-| sv20_p0040_a012 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 Demographics variable definition table header; version-specific tabula |
-| sv20_p0040_a013 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 Demographics variable definition table row; version-specific variable  |
-| sv20_p0040_a014 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 Demographics variable definition table row; version-specific variable  |
-| sv20_p0040_a015 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 Demographics variable definition table row; version-specific variable  |
-| sv20_p0040_a016 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 Demographics variable definition table row; version-specific variable  |
-| sv20_p0040_a017 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 Demographics variable definition table row; version-specific variable  |
-| sv20_p0040_a018 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 Demographics variable definition table row; version-specific variable  |
-| sv20_p0041_a001 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 Demographics variable definition table row; version-specific variable  |
-| sv20_p0041_a002 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 Demographics variable definition table row; version-specific variable  |
-| sv20_p0041_a003 | sdtm_v2_superseded | PENDING_USER_ACK | SDTM_v2.0 Demographics variable definition table row; version-specific variable  |
-| sv20_p0061_a010 | structural | PENDING_USER_ACK | Structural table header row with no domain-specific content |
-| sv20_p0062_a001 | figure | PENDING_USER_ACK | Figure/concept map not represented in KB markdown |
-| sv20_p0062_a006 | structural | PENDING_USER_ACK | Structural table header row with no domain-specific content |
-| sv20_p0063_a001 | figure | PENDING_USER_ACK | Figure/concept map not represented in KB markdown |
-| sv20_p0064_a016 | structural | PENDING_USER_ACK | Structural table header row with no domain-specific content |
-| sv20_p0065_a010 | structural | PENDING_USER_ACK | Structural table header row with no domain-specific content |
-| sv20_p0067_a004 | structural | PENDING_USER_ACK | Structural table header row with no domain-specific content |
-| sv20_p0067_a014 | structural | PENDING_USER_ACK | Structural table header row with no domain-specific content |
-| sv20_p0072_a015 | version_change_metadata | PENDING_USER_ACK | Changelog meta-sentence from SDTM v2.0 §7 (version-diff narrative, no KB equival |
-| sv20_p0073_a001 | version_change_metadata | PENDING_USER_ACK | SDTM v2.0 §8 'Proposed Future Changes' section header — forward-looking version- |
-| sv20_p0073_a002 | version_change_metadata | PENDING_USER_ACK | SDTM v2.0 proposed future changes narrative — not in SDTMIG KB scope |
-| sv20_p0073_a003 | version_change_metadata | PENDING_USER_ACK | SDTM v2.0 proposed future deprecation of --BLFL — forward-looking proposal not i |
-| sv20_p0073_a004 | version_change_metadata | PENDING_USER_ACK | SDTM v2.0 proposed future deprecation of --MODIFY — forward-looking proposal not |
-| sv20_p0073_a005 | version_change_metadata | PENDING_USER_ACK | SDTM v2.0 proposed restriction of --BODSYS — forward-looking proposal not in SDT |
-| sv20_p0073_a006 | version_change_metadata | PENDING_USER_ACK | SDTM v2.0 proposed removal of TIRL — forward-looking proposal not in SDTMIG KB |
-| sv20_p0073_a007 | version_change_metadata | PENDING_USER_ACK | SDTM v2.0 proposed domain-specific restriction of --TSTDTL — forward-looking pro |
-| sv20_p0073_a008 | version_change_metadata | PENDING_USER_ACK | SDTM v2.0 historical rationale for --LOBXFL deprecation proposal — version-diff  |
-| sv20_p0073_a009 | version_change_metadata | PENDING_USER_ACK | SDTM v2.0 rationale for --BLFL deprecation referencing SDTMIG v3.3 — version-dif |
-| sv20_p0073_a010 | version_change_metadata | PENDING_USER_ACK | SDTM v2.0 rationale for --LOBXFL deprecation timing — version-diff narrative not |
-| sv20_p0073_a011 | version_change_metadata | PENDING_USER_ACK | SDTM v2.0 proposed deprecation timeline narrative — version-diff metadata not in |
-| sv20_p0073_a012 | version_change_metadata | PENDING_USER_ACK | SDTM v2.0 historical rationale for --MODIFY deprecation — version-diff narrative |
+| ig34_p0420_a035 | copyright_boilerplate | user-approved-2026-05-12 | Copyright and publication date boilerplate; pre-approved exclusion category |
+| ig34_p0445_a019 | authorship-metadata | user-approved-2026-05-12 | Appendix A contributor listing: team member name/affiliation not SDTM content kn |
+| ig34_p0445_a020 | authorship-metadata | user-approved-2026-05-12 | Appendix A contributor listing: team member name/affiliation not SDTM content kn |
+| ig34_p0445_a021 | authorship-metadata | user-approved-2026-05-12 | Appendix A contributor listing: team member name/affiliation not SDTM content kn |
+| ig34_p0445_a022 | authorship-metadata | user-approved-2026-05-12 | Appendix A contributor listing: team member name/affiliation not SDTM content kn |
+| ig34_p0445_a023 | authorship-metadata | user-approved-2026-05-12 | Appendix A contributor listing: team member name/affiliation not SDTM content kn |
+| ig34_p0445_a024 | authorship-metadata | user-approved-2026-05-12 | Appendix A contributor listing: team member name/affiliation not SDTM content kn |
+| ig34_p0445_a025 | authorship-metadata | user-approved-2026-05-12 | Appendix A contributor listing: team member name/affiliation not SDTM content kn |
+| ig34_p0445_a026 | authorship-metadata | user-approved-2026-05-12 | Appendix A contributor listing: team member name/affiliation not SDTM content kn |
+| ig34_p0445_a027 | authorship-metadata | user-approved-2026-05-12 | Appendix A contributor listing: team member name/affiliation not SDTM content kn |
+| ig34_p0445_a028 | authorship-metadata | user-approved-2026-05-12 | Appendix A contributor listing: team member name/affiliation not SDTM content kn |
+| ig34_p0445_a029 | authorship-metadata | user-approved-2026-05-12 | Appendix A contributor listing: team member name/affiliation not SDTM content kn |
+| ig34_p0445_a030 | authorship-metadata | user-approved-2026-05-12 | Appendix A contributor listing: team member name/affiliation not SDTM content kn |
+| ig34_p0445_a031 | authorship-metadata | user-approved-2026-05-12 | Appendix A contributor listing: team member name/affiliation not SDTM content kn |
+| ig34_p0445_a032 | authorship-metadata | user-approved-2026-05-12 | Appendix A contributor listing: team member name/affiliation not SDTM content kn |
+| ig34_p0445_a033 | authorship-metadata | user-approved-2026-05-12 | Appendix A contributor listing: team member name/affiliation not SDTM content kn |
+| ig34_p0445_a034 | authorship-metadata | user-approved-2026-05-12 | Appendix A contributor listing: team member name/affiliation not SDTM content kn |
+| ig34_p0445_a035 | authorship-metadata | user-approved-2026-05-12 | Appendix A contributor listing: team member name/affiliation not SDTM content kn |
+| ig34_p0445_a036 | authorship-metadata | user-approved-2026-05-12 | Appendix A contributor listing: team member name/affiliation not SDTM content kn |
+| ig34_p0445_a037 | authorship-metadata | user-approved-2026-05-12 | Appendix A contributor listing: team member name/affiliation not SDTM content kn |
+| ig34_p0445_a038 | authorship-metadata | user-approved-2026-05-12 | Appendix A contributor listing: team member name/affiliation not SDTM content kn |
+| ig34_p0445_a039 | authorship-metadata | user-approved-2026-05-12 | Appendix A contributor listing: team member name/affiliation not SDTM content kn |
+| ig34_p0445_a040 | authorship-metadata | user-approved-2026-05-12 | Appendix A contributor listing: team member name/affiliation not SDTM content kn |
+| sv20_p0001_a002 | version-metadata | user-approved-2026-05-12 | Version/edition metadata line from superseded SDTM v2.0 cover page |
+| sv20_p0001_a003 | version-metadata | user-approved-2026-05-12 | Author attribution line from SDTM v2.0 cover page |
+| sv20_p0001_a010 | version-metadata | user-approved-2026-05-12 | Historical version row from SDTM v2.0 revision history table (v1.8) |
+| sv20_p0001_a011 | version-metadata | user-approved-2026-05-12 | Historical version row from SDTM v2.0 revision history table (v1.7) |
+| sv20_p0001_a012 | version-metadata | user-approved-2026-05-12 | Historical version row from SDTM v2.0 revision history table (v1.6) |
+| sv20_p0001_a013 | version-metadata | user-approved-2026-05-12 | Historical version row from SDTM v2.0 revision history table (v1.5) |
+| sv20_p0001_a014 | version-metadata | user-approved-2026-05-12 | Historical version row from SDTM v2.0 revision history table (v1.4) |
+| sv20_p0001_a015 | version-metadata | user-approved-2026-05-12 | Historical version row from SDTM v2.0 revision history table (v1.3) |
+| sv20_p0001_a016 | version-metadata | user-approved-2026-05-12 | Historical version row from SDTM v2.0 revision history table (v1.2) |
+| sv20_p0001_a017 | version-metadata | user-approved-2026-05-12 | Historical version row from SDTM v2.0 revision history table (v1.1) |
+| sv20_p0006_a021 | version-changelog | user-approved-2026-05-12 | SDTM_v2.0 §1.4 change-log content; superseded by SDTM_v2.0 |
+| sv20_p0006_a022 | version-changelog | user-approved-2026-05-12 | SDTM_v2.0 §1.4 change-log content; superseded |
+| sv20_p0006_a023 | version-changelog | user-approved-2026-05-12 | SDTM_v2.0 §1.4 change-log content; superseded |
+| sv20_p0006_a024 | version-changelog | user-approved-2026-05-12 | SDTM_v2.0 §1.4 change-log content; superseded |
+| sv20_p0006_a025 | version-changelog | user-approved-2026-05-12 | SDTM_v2.0 §1.4 change-log content; superseded |
+| sv20_p0006_a026 | version-changelog | user-approved-2026-05-12 | SDTM_v2.0 §1.4 change-log content; superseded |
+| sv20_p0006_a027 | version-changelog | user-approved-2026-05-12 | SDTM_v2.0 §1.4 change-log content; superseded |
+| sv20_p0006_a028 | version-changelog | user-approved-2026-05-12 | SDTM_v2.0 §1.4 change-log content; superseded |
+| sv20_p0007_a001 | version-changelog | user-approved-2026-05-12 | SDTM_v2.0 §1.4 change-log content; superseded |
+| sv20_p0032_a009 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 variable table section heading; structural element not expected in SDT |
+| sv20_p0032_a010 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 variable definition table header; version-specific tabular structure n |
+| sv20_p0032_a011 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 variable definition table row (--OBJ); version-specific variable spec  |
+| sv20_p0032_a012 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 section heading; structural element not in SDTMIG v3.4 KB |
+| sv20_p0033_a001 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 variable table section heading; structural element not in KB |
+| sv20_p0033_a002 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 variable definition table header; version-specific tabular structure n |
+| sv20_p0033_a003 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 identifier variable definition table row; version-specific variable sp |
+| sv20_p0033_a004 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 identifier variable definition table row; version-specific variable sp |
+| sv20_p0033_a005 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 identifier variable definition table row; version-specific variable sp |
+| sv20_p0033_a006 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 identifier variable definition table row; version-specific variable sp |
+| sv20_p0033_a007 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 identifier variable definition table row; version-specific variable sp |
+| sv20_p0033_a008 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 identifier variable definition table row; version-specific variable sp |
+| sv20_p0033_a009 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 identifier variable definition table row; version-specific variable sp |
+| sv20_p0033_a010 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 identifier variable definition table row; version-specific variable sp |
+| sv20_p0033_a011 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 identifier variable definition table row; version-specific variable sp |
+| sv20_p0034_a001 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 identifier variable definition table row; version-specific variable sp |
+| sv20_p0034_a002 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 identifier variable definition table row; version-specific variable sp |
+| sv20_p0034_a003 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 identifier variable definition table row; version-specific variable sp |
+| sv20_p0034_a004 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 identifier variable definition table row; version-specific variable sp |
+| sv20_p0034_a005 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 identifier variable definition table row; version-specific variable sp |
+| sv20_p0034_a006 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 identifier variable definition table row; version-specific variable sp |
+| sv20_p0034_a007 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 identifier variable definition table row; version-specific variable sp |
+| sv20_p0034_a008 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 section heading; structural element not in KB |
+| sv20_p0034_a010 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 internal cross-reference with v2.0-specific section numbering; not app |
+| sv20_p0035_a001 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 variable table section heading; structural element not in KB |
+| sv20_p0035_a002 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 timing variable definition table header; version-specific tabular stru |
+| sv20_p0035_a003 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
+| sv20_p0035_a004 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
+| sv20_p0035_a005 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
+| sv20_p0035_a006 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
+| sv20_p0035_a007 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
+| sv20_p0035_a008 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
+| sv20_p0035_a009 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
+| sv20_p0035_a010 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
+| sv20_p0035_a011 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
+| sv20_p0035_a012 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
+| sv20_p0035_a013 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
+| sv20_p0035_a014 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
+| sv20_p0036_a001 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
+| sv20_p0036_a002 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
+| sv20_p0036_a003 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
+| sv20_p0036_a004 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
+| sv20_p0036_a005 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
+| sv20_p0036_a006 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
+| sv20_p0036_a007 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
+| sv20_p0036_a008 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
+| sv20_p0036_a009 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
+| sv20_p0036_a010 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
+| sv20_p0036_a011 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
+| sv20_p0037_a001 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
+| sv20_p0037_a002 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
+| sv20_p0037_a003 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
+| sv20_p0037_a004 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
+| sv20_p0037_a005 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
+| sv20_p0037_a006 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
+| sv20_p0037_a007 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
+| sv20_p0038_a001 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
+| sv20_p0038_a002 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
+| sv20_p0038_a003 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
+| sv20_p0038_a004 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
+| sv20_p0038_a005 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
+| sv20_p0038_a006 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
+| sv20_p0038_a007 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
+| sv20_p0038_a008 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
+| sv20_p0038_a009 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
+| sv20_p0038_a010 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
+| sv20_p0038_a011 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
+| sv20_p0039_a001 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
+| sv20_p0039_a002 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
+| sv20_p0039_a003 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
+| sv20_p0039_a004 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
+| sv20_p0039_a005 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
+| sv20_p0039_a006 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
+| sv20_p0039_a007 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 timing variable definition table row; version-specific variable spec n |
+| sv20_p0040_a001 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 section heading; structural element not in KB |
+| sv20_p0040_a005 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 section heading; structural element not in KB |
+| sv20_p0040_a010 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 internal cross-reference to implementation guides; not applicable as s |
+| sv20_p0040_a011 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 variable table section heading; structural element not in KB |
+| sv20_p0040_a012 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 Demographics variable definition table header; version-specific tabula |
+| sv20_p0040_a013 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 Demographics variable definition table row; version-specific variable  |
+| sv20_p0040_a014 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 Demographics variable definition table row; version-specific variable  |
+| sv20_p0040_a015 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 Demographics variable definition table row; version-specific variable  |
+| sv20_p0040_a016 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 Demographics variable definition table row; version-specific variable  |
+| sv20_p0040_a017 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 Demographics variable definition table row; version-specific variable  |
+| sv20_p0040_a018 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 Demographics variable definition table row; version-specific variable  |
+| sv20_p0041_a001 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 Demographics variable definition table row; version-specific variable  |
+| sv20_p0041_a002 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 Demographics variable definition table row; version-specific variable  |
+| sv20_p0041_a003 | sdtm_v2_superseded | user-approved-2026-05-12 | SDTM_v2.0 Demographics variable definition table row; version-specific variable  |
+| sv20_p0061_a010 | structural | user-approved-2026-05-12 | Structural table header row with no domain-specific content |
+| sv20_p0062_a001 | figure | user-approved-2026-05-12 | Figure/concept map not represented in KB markdown |
+| sv20_p0062_a006 | structural | user-approved-2026-05-12 | Structural table header row with no domain-specific content |
+| sv20_p0063_a001 | figure | user-approved-2026-05-12 | Figure/concept map not represented in KB markdown |
+| sv20_p0064_a016 | structural | user-approved-2026-05-12 | Structural table header row with no domain-specific content |
+| sv20_p0065_a010 | structural | user-approved-2026-05-12 | Structural table header row with no domain-specific content |
+| sv20_p0067_a004 | structural | user-approved-2026-05-12 | Structural table header row with no domain-specific content |
+| sv20_p0067_a014 | structural | user-approved-2026-05-12 | Structural table header row with no domain-specific content |
+| sv20_p0072_a015 | version_change_metadata | user-approved-2026-05-12 | Changelog meta-sentence from SDTM v2.0 §7 (version-diff narrative, no KB equival |
+| sv20_p0073_a001 | version_change_metadata | user-approved-2026-05-12 | SDTM v2.0 §8 'Proposed Future Changes' section header — forward-looking version- |
+| sv20_p0073_a002 | version_change_metadata | user-approved-2026-05-12 | SDTM v2.0 proposed future changes narrative — not in SDTMIG KB scope |
+| sv20_p0073_a003 | version_change_metadata | user-approved-2026-05-12 | SDTM v2.0 proposed future deprecation of --BLFL — forward-looking proposal not i |
+| sv20_p0073_a004 | version_change_metadata | user-approved-2026-05-12 | SDTM v2.0 proposed future deprecation of --MODIFY — forward-looking proposal not |
+| sv20_p0073_a005 | version_change_metadata | user-approved-2026-05-12 | SDTM v2.0 proposed restriction of --BODSYS — forward-looking proposal not in SDT |
+| sv20_p0073_a006 | version_change_metadata | user-approved-2026-05-12 | SDTM v2.0 proposed removal of TIRL — forward-looking proposal not in SDTMIG KB |
+| sv20_p0073_a007 | version_change_metadata | user-approved-2026-05-12 | SDTM v2.0 proposed domain-specific restriction of --TSTDTL — forward-looking pro |
+| sv20_p0073_a008 | version_change_metadata | user-approved-2026-05-12 | SDTM v2.0 historical rationale for --LOBXFL deprecation proposal — version-diff  |
+| sv20_p0073_a009 | version_change_metadata | user-approved-2026-05-12 | SDTM v2.0 rationale for --BLFL deprecation referencing SDTMIG v3.3 — version-dif |
+| sv20_p0073_a010 | version_change_metadata | user-approved-2026-05-12 | SDTM v2.0 rationale for --LOBXFL deprecation timing — version-diff narrative not |
+| sv20_p0073_a011 | version_change_metadata | user-approved-2026-05-12 | SDTM v2.0 proposed deprecation timeline narrative — version-diff metadata not in |
+| sv20_p0073_a012 | version_change_metadata | user-approved-2026-05-12 | SDTM v2.0 historical rationale for --MODIFY deprecation — version-diff narrative |
