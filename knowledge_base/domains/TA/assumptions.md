@@ -71,6 +71,108 @@ There may also be limitations in representing other patterns of Elements within 
 
 For the purpose of submissions about trials that have already completed, these limitations are not critical, so it is expected that development of the Trial Design Model to address these limitations will have a minimal impact on the SDTM.
 
+## Trial Arms and Trial Elements (§7.2)
+
+### §7.2.1 Trial Arms (TA) – Description/Overview
+
+A trial design domain that contains each planned arm in the trial.
+
+This section contains:
+- The Trial Arms dataset and assumptions
+- A series of example trials, which illustrate the development of the TA dataset
+- Advice on various issues in the development of the TA dataset
+- A recap of the TA dataset and the function of its variables
+
+### §7.2.1 Trial Arms (TA) – Example 2
+
+The following diagram for a crossover trial does not use the crossing slanted lines sometimes used to represent crossover trials, because the order of the blocks is sufficient to represent the design of the trial. Slanted lines are used only to represent the branch point at randomization, when a subject is assigned to a sequence of treatments. As in most crossover trials, the arms are distinguished by the order of treatments, with the same treatments present in each arm. Note that even though all 3 arms of this trial end with the same block (i.e., the block for the follow-up element), the diagram does not show the arms converging into one block. Also note that the same block (the "rest" element) occurs twice within each arm. Elements are conceived of as "reusable" and can appear in more than 1 arm, in more than 1 epoch, and more than once in an arm.
+
+The next diagram for this crossover trial shows the prospective view of the trial; it identifies the epoch and arms of the trial, and gives each a name. As for most crossover studies, the objectives of the trial will be addressed by comparisons between the arms and by within-subject comparisons between treatments. Because the design depends on differentiating the periods during which the subject receives the 3 different treatments, there are 3 different treatment epochs. The fact that the rest periods are identified as separate epochs suggests that these also play an important part in the design of the trial; they are probably designed to allow subjects to return to "baseline," with data collected to show that this occurred. Note that epochs are not considered reusable; each epoch has a different name, even though all the treatment epochs are similar and both the rest epochs are similar. As with the first example trial, there is a one-to-one relationship between the epochs of the trial and the elements in each arm.
+
+The next diagram shows the retrospective view of the trial.
+
+The last diagram for this trial shows the trial from the viewpoint of blinded participants. As in the simple parallel trial in Example Trial 1, blinded participants see only 1 sequence of elements; during the treatment epochs they do not know which of the treatment elements a subject is in.
+
+The following table illustrates the trial design matrix for this crossover example trial. It corresponds closely to the preceding retrospective diagram.
+
+It is straightforward to produce the TA dataset for this crossover trial from the diagram showing arms and epochs, or from the trial design matrix.
+
+### §7.2.1.1 Trial Arms Issues – Distinguishing Between Branches and Transitions
+
+Both the Branch and Transition columns contain rules, but the 2 columns represent 2 different types of rules.
+
+Branch rules represent forks in the trial flowchart, giving rise to separate arms.
+
+The rule underlying a branch in the trial design appears in multiple records, once for each "fork" of the branch.
+
+Within any one record, there is no choice (no "if" clause) in the value of the branch condition.
+
+For example, the value of TABRANCH for a record in arm A is "Randomized to Arm A" because a subject in arm A must have been randomized to arm A.
+
+Transition rules are used for choices within an arm.
+
+The value for TATRANS does contain a choice (an "if" clause).
+
+In Example Trial 4, subjects who receive 1, 2, 3, or 4 cycles of treatment A are all considered to belong to arm A.
+
+In modeling a trial, decisions may have to be made about whether a decision point in the flow chart represents the separation of paths that represent different arms, or paths that represent variations within the same arm, as illustrated in the discussion of Example Trial 7.
+
+This decision will depend on the comparisons of interest in the trial.
+
+Some trials refer to groups of subjects who follow a particular path through the trial as "cohorts," particularly if the groups are formed successively over time.
+
+The term "cohort" is used with different meanings in different protocols and does not always correspond to an arm.
+
+### §7.2.2.1 Trial Elements Issues – Distinguishing Elements, Study Cells, and Epochs
+
+It is easy to confuse elements, which are reusable trial building blocks, with study cells (which contain the elements for a particular epoch and Arm) and with epochs (which are time periods for the trial as a whole).
+
+In part, this is because many trials have epochs for which the same element appears in all arms.
+
+In other words, in the trial design matrix for many trials, there are columns (Epochs) in which all the study cells have the same contents.
+
+It also is natural to use the same name (e.g., screen, follow-up) for both such an epoch and the single element that appears within it.
+
+Confusion can also arise from the fact that in the blinded treatment portions of blinded trials, blinded participants do not know which element a subject is in, but do know what epoch the subject is in.
+
+In describing a trial, one way to avoid confusion between elements and epochs is to include "Element" or "Epoch" in the values of ELEMENT or EPOCH when these values (e.g., screening, follow-up) would otherwise be the same.
+
+It becomes tedious to do this in every case, but can be useful to resolve confusion when it arises or is likely to arise.
+
+The difference between epoch and element is perhaps clearest in crossover trials.
+
+In TA Example Trial 2, as for most crossover trials, the analysis of pharmacokinetic (PK) results would include both treatment and period effects in the model.
+
+“Treatment effect” derives from element (placebo, 5 mg, 10 mg), whereas “period effect” derives from the epoch (first, second, or third treatment epoch).
+
+### §7.2.2.1 Trial Elements Issues – Transitions Between Elements
+
+The transition between one element and the next can be thought of as a 3-step process:
+
+Note that the subject is not "in limbo" during this process.
+
+The subject remains in the current element until step 3, at which point the subject transitions to the new element.
+
+There are no gaps between elements.
+
+As illustrated in the table, executing a transition depends on information that is split between the TE and the TA datasets.
+
+It can be useful, in the process of working out the Trial Design (TD) datasets, to create a dataset that supplements the TA dataset with the TESTRL, TEENRL, and TEDUR variables, so that full information on the transitions is easily accessible.
+
+However, such a working dataset is not an SDTM dataset, and should not be submitted.
+
+The following table shows a fragment of such a table for TA Example Trial 4.
+
+Note that
+- for all records that contain a particular element, all the TE variable values are exactly the same; and
+- when both TABRANCH and TATRANS are blank, the implicit decision in step 2 is that the subject moves to the next element in sequence for the arm.
+
+Note that rows 2 and 4 of this dataset involve the same element (Trt A); thus, TESTRL is the same for both.
+
+The activity that marks a subject's entry into the fourth element in arm A is "First dose of treatment Element, where drug is Treatment A."
+
+This is not the subject's very first dose of treatment A, but it is their first dose in this element.
+
 ## TA-Specific Assumptions
 
 The TA and TE datasets are interrelated, and they provide the building blocks for the development of subject-level treatment information (see Sections 5.2, Demographics (DM), and 5.3, Subject Elements (SE), for the subject's actual study treatment information).

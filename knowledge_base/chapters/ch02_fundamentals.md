@@ -134,6 +134,14 @@ Process for creating a custom domain (must be based on 1 of the 3 GOC):
 
 ## 2.7 SDTM Variables Not Allowed in the SDTMIG
 
+This section identifies those SDTM variables that either (1) should not be used in SDTM-compliant data tabulations of clinical trials data or (2) have not yet been evaluated for use in human clinical trials.
+
+The following SDTM variables, defined for use in nonclinical studies (SEND), must NEVER be used in the submission of SDTM-based data for human clinical trials:
+
+The following variables can be used for nonclinical studies (SEND) but must NEVER be used in the Demographics (DM) domain for human clinical trials, where all subjects are human.
+
+The following identifier variable can be used for nonclinical studies (SEND), and may be used in human clinical trials when appropriate:
+
 ### Must NEVER be used in human clinical trials (SEND-only):
 
 | Variable | Class(es) |
