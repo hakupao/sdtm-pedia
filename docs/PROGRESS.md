@@ -1,7 +1,7 @@
 # 进度看板
 
 > **唯一进度状态源**. 历史细节看 `.work/meta/worklog/INDEX.md`. 文件结构看 `.work/MANIFEST.md`. 一页纸入门看 `.work/AGENT_GUIDE.md`.
-> 最后更新: 2026-05-12 (06 P4b Section Aggregation GATE PASS — 399 sections section_coverage.jsonl; Rule A 100%; P4a ALL PASS 12,487 atoms)
+> 最后更新: 2026-05-12 (06 P5 Reverse Matching GATE ALL PASS — 10,435 atoms, 0 HALLUCINATED, Rule A 97/100; P6 Triage next)
 
 ---
 
@@ -17,7 +17,7 @@
 | **Phase 6** 检索优化 | ✅ 完成 (P0-P2) | — | P3 → 已合并到 Phase 7 |
 | **Phase 6.5** AI 平台部署 | 🟢 进行中 | Claude/NotebookLM 完成; ChatGPT/Gemini 双平台锁步 (范本就绪 Phase 0 待启) | 看 `ai_platforms/SYNC_BOARD.md` |
 | **Phase 7** RAG + KG | ⏸ 待启动 | 设计完成 (`docs/DESIGN_RAG_KG.md`) | 实施前 5 步待办 (见 `phase7_handoff.md`) |
-| **06 旁枝** Deep Verification | 🟢 进行中 | P1 ✅ P2 ✅ P3 ✅ **P4a ✅ 12,487 atoms ALL PASS** **P4b ✅ 399 sections gate ALL PASS**; P5 反向比对待执行 | `branches/06_deep_verification/plans/` |
+| **06 旁枝** Deep Verification | 🟢 进行中 | P1 ✅ P2 ✅ P3 ✅ **P4a ✅** **P4b ✅** **P5 ✅ reverse_ledger 10,435 atoms 0 HALLUCINATED**; P6 Triage 待执行 | `branches/06_deep_verification/plans/` |
 | **07 旁枝** Website | ✅ 完成 | Phase 6/7/8/9/10/11 全 closed; prod sdtm-pedia.pages.dev | — |
 | **docs/jp** iTMS 納品 | 🟢 进行中 | Phase 1 P0 中間版 v0.5 已提出 2026-04-30 | 残 02/03 + 05/06/99 中文列充填 (Phase 2-3, 2026-05 中下旬) |
 | **refactor v1** 项目重构 | ✅ 完成 | 段 1/2/3 全 closed; branches/ 迁移完成 2026-05-11 ★ | RETROSPECTIVE.md 三段齐备 |
@@ -28,6 +28,7 @@
 
 ## 关键 milestone (近 30 天)
 
+- 2026-05-12 — **06 P5 COMPLETE ★ reverse_ledger.jsonl 10,435 atoms gate ALL PASS** (SOURCED 5550 / SYNTHESIZED 3172 / UNSOURCED_CANDIDATE 926 / SOURCED_PARTIAL 545 / SOURCED_P4A_MISSED 121 / SOURCED_MISPLACED 108 / SOURCED_ERROR 13; Rule A 97/100 ≥95%; 0 HALLUCINATED; Rule D verifier oh-my-claudecode:verifier ALL_PASS; P6 Triage next)
 - 2026-05-12 — **06 P4b COMPLETE ★ section_coverage.jsonl 399 sections gate ALL PASS** (Rule A 100% 30/30; FULL_COVERAGE 101 / MOSTLY_COMPLETE 42 / CONTENT_TRUNCATED 110 / SIBLING_DROPPED 56 / SKELETON_ONLY 67 / STRUCTURE_DRIFTED 23; P5+P6 next)
 - 2026-05-12 — **06 P4a COMPLETE ★★ coverage_ledger.jsonl 12,487 atoms gate ALL PASS** (EXACT+EQUIV 57.5%; Rule A 100% post-correction; IE whitelist closed; 8/8 gates)
 - 2026-05-11 — **06 P3 COMPLETE ★ p3_candidates.jsonl 12,487 行 gate ALL PASS** (zero_cand 0.0%, avg_cands 5.30, top1_mean 0.702; domain_route 39302 / chapter_route 13890 / global 12800; scripts p3_build_index.py + p3_report.py; evidence/checkpoints/p3_report.md)

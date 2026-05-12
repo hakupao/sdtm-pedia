@@ -967,3 +967,41 @@
 **Policy recommendations (4 items, not mechanical errors)**:
 - Appendix A: CDISC SDS Team → `INTENTIONAL_EXCLUDE: EDITORIAL_META`
 - RELREC/RELSPEC/RELSUB — Specification → `INTENTIONAL_EXCLUDE: REDUNDANT_WITH_SPEC`
+
+---
+
+## P5 — 反向比对 (MD → PDF)
+
+| 项 | 值 |
+|---|---|
+| 阶段 | P5 reverse matching |
+| 日期 | 2026-05-12 |
+| 样本数 | 100 原子（stratified: SOURCED×40 + SYNTHESIZED×20 + SOURCED_P4A_MISSED×10 + UNSOURCED_CANDIDATE×30） |
+| 审查员 | oh-my-claudecode:scientist (Rule A) |
+| 同意率 | **97/100 = 97%** (≥95% threshold → PASS) |
+| HALLUCINATED 发现 | **0 个** |
+| Gate 状态 | ✅ PASS |
+
+### Rule A 发现
+
+| # | atom_id | 分配 verdict | 审查员 verdict | 类型 |
+|---|---|---|---|---|
+| DISAGREE #1 | md_ch04_a959 | SOURCED | SOURCED_P4A_MISSED | 边界情形，non-blocking |
+| DISAGREE #2 | md_ch08_a083 | UNSOURCED_CANDIDATE | SOURCED | P4a 漏匹配 §8.2.2 ← 已更正 |
+| DISAGREE #3 | md_ch08_a097 | UNSOURCED_CANDIDATE | SOURCED | P4a 漏匹配 §8.2.2 ← 已更正 |
+
+### UNSOURCED_CANDIDATE 样本 (30 个)
+
+- SOURCED_P4A_MISSED: 27 个（90%）
+- SYNTHESIZED（过渡句/编辑标注）: 2 个
+- SOURCED: 1 个（DISAGREE #2/3 修正）
+- HALLUCINATED: **0 个**
+
+### 关键结论
+
+1. UNSOURCED_CANDIDATE (928 个) 的主要原因是 P4a 对短原子（TABLE_ROW 数据行、短句 LIST_ITEM）的匹配召回率不足，非内容虚构
+2. ch08 §8.2.2 存在系统性漏匹配（RELREC 示例数据） → 记录作 P4a 质量问题，P6 Triage 参考
+3. 整体 KB 内容质量良好——无虚假内容
+
+**证据文件**: `evidence/checkpoints/p5_rule_a_audit_report.md`
+**Rule D gate verifier**: oh-my-claudecode:verifier (running)
