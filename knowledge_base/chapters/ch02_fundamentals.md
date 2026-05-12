@@ -2,6 +2,24 @@
 
 Source: SDTMIG v3.4, Section 2 (Pages 13-20)
 
+## Section 1 Context (Reference Material)
+
+The following statements from Section 1 of the SDTMIG provide reference context for the fundamentals presented in this chapter.
+
+### From §1.2 Organization of this Document (p7)
+
+This document is organized into the following sections:
+
+### From §1.4 How to Read this Implementation Guide (p9)
+
+The following guides are available at https://www.cdisc.org/standards/foundational/sdtmig:
+
+### From §1.4.1 How to Read a Domain Specification (pp 9-10)
+
+- Variable Label: A longer name for the variable
+- This may be the same as the label in the SDTM, or it may be customized for the domain.
+- The name of an external code system (e.g., MedDRA) will be listed in plain text.
+
 ## 2.1 Observations and Variables
 
 The SDTMIG for Human Clinical Trials is based on the SDTM's general framework for organizing clinical trial information that is to be submitted to regulatory authorities. The SDTM is built around the concept of **observations** collected about subjects who participated in a clinical study. Each observation can be described by a series of variables, corresponding to a row in a dataset. Each variable can be classified according to its **role**.
@@ -121,7 +139,7 @@ Process for creating a custom domain (must be based on 1 of the 3 GOC):
    - e. Determine the domain code (not in CDISC CT Domain Abbreviations codelist; AD, AX, AP, SQ, SA may not be used)
    - f. Apply the 2-character domain code to variable prefixes
    - g. Set variable order consistent with the SDTM
-   - h. Adjust labels using title case
+   - h. Adjust the labels of the variables only as appropriate to properly convey the meaning in the context of the data being submitted in the newly created domain. Use title case for all labels (title case means to capitalize the first letter of every word except for articles, prepositions, and conjunctions).
    - i. Ensure appropriate standard variables are properly applied
    - j. Describe the dataset in the Define-XML document
    - k. Place non-standard variables in a SUPP-- dataset
@@ -180,3 +198,20 @@ See Section 9.2, Non-host Organism Identifiers, for information about representi
 - POOLID — additionally requires the Pool Definition dataset
 
 Other variables defined in the SDTM are allowed for use as defined in this SDTMIG except when explicitly stated. Custom domains, created following the guidance in Section 2.6, Creating a New Domain, may utilize any appropriate qualifier variables from the selected general observation class.
+
+## Findings About — Naming Findings About Domains (Reference Material)
+
+The following content is reference material from SDTMIG v3.4 §6.4.2 (pp 363-364), Naming Findings About Domains. The Findings About (FA) structure is described here so that the fundamentals of how FA domains are named and split can be understood alongside the general observation classes presented earlier in this chapter.
+
+Findings About domains are defined to store findings about events or interventions. Sponsors may choose to represent FA data collected in the study in a single FA dataset (potentially splitting the FA domain into physically separate datasets following the guidance described in Section 4.1.6, Additional Guidance on Dataset Naming), or separate datasets, assigning unique custom 2-character domain codes (see examples in Section 6.4.5, Skin Response).
+
+For example, if findings about clinical events and findings about medical history are collected in a study, these could be represented as:
+
+1. A single FA domain, perhaps separated with different FACAT and/or FASCAT values
+2. A split FA domain following the guidance in Section 4.1.7, Splitting Domains:
+   - The DOMAIN value would be "FA".
+3. Separate domains where:
+   - All published FA guidance applies, specifically:
+     - The --OBJ variable cannot be added to a standard Findings domain. A domain is either a Findings domain or a Findings About domain, not one or the other depending on the situation.
+     - When the --OBJ variable is included in a domain, this identifies it as an FA domain, and the --OBJ variable must be populated for all records.
+   - All published domain guidance applies, specifically:

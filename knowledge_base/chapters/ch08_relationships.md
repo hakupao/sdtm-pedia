@@ -21,6 +21,8 @@ All relationships make use of the standard domain identifiers STUDYID, DOMAIN, a
 - The reference identifier (--REFID) variable can be used to capture a sponsor-defined or external identifier, such as lab-specimen identifiers and ECG identifiers. --REFID is permissible in all general observation-class domains, but is never required. Values are sponsor-defined.
 - The grouping identifier (--GRPID) variable, used to link related records for a subject within a domain, is explained in Section 8.1.
 
+The specific set of identifiers necessary to properly identify each type of relationship is described in detail in the following sections.
+
 ---
 
 ## 8.1 Relating Groups of Records Within a Domain Using --GRPID
@@ -269,6 +271,8 @@ For additional information collected further describing the comment relationship
 2. Timing variables (e.g., VISITNUM, VISIT) may be added to the CO special-purpose domain. See Section 5.1, Comments, assumption 5 for a complete list of identifier and timing variables that can be added to the CO special-purpose domain.
 
 As with Supplemental Qualifiers (SUPP--) and Related Records (RELREC), --GRPID and other grouping variables can be used as the value in IDVAR to identify comments with relationships to multiple domain records. The limitation of this is that a single comment may only be related to a group of records in 1 domain (RDOMAIN can have only 1 value). If a single comment relates to records in multiple domains, the comment may need to be repeated in the CO special-purpose domain to facilitate the understanding of the relationships.
+
+See examples for CO data in Section 5.1, Comments.
 
 ---
 

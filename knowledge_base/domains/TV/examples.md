@@ -63,17 +63,23 @@ Although the start and end rules in this example reference the starts and ends o
 
 ### Identifying Trial Visits
 
-In general, a trial's visits are defined in its protocol. The term "visit" reflects the fact that data in outpatient studies is usually collected during a physical visit by the subject to a clinic. Sometimes a trial visit defined by the protocol may not correspond to a physical visit. It may span multiple physical visits, as when screening data is collected over several clinic visits but recorded under one TV name (VISIT) and number (VISITNUM). A trial visit may represent only a portion of an extended physical visit, as when a trial of in-patients collects data under multiple trial visits for a single hospital admission.
+In general, a trial's visits are defined in its protocol. The term "visit" reflects the fact that data in outpatient studies is usually collected during a physical visit by the subject to a clinic. Sometimes a trial visit defined by the protocol may not correspond to a physical visit. It may span multiple physical visits, as when screening data is collected over several clinic visits but recorded under one TV name (VISIT) and number (VISITNUM). A trial visit also may represent only a portion of an extended physical visit, as when a trial of in-patients collects data under multiple trial visits for a single hospital admission.
+
+Diary data and other data collected outside a clinic may not fit the usual concept of a trial visit, but the planned times of collection of such data may be described as "visits" in the TV dataset if desired.
 
 ### Trial Visit Rules
 
-Visit start rules are different from element start rules in that they usually describe when a visit should occur; element start rules describe the moment at which an element is considered to start. There are usually gaps between visits, periods of time that do not belong to any visit, so it is usually not necessary to identify the moment when one visit stops and another starts.
+Visit start rules are different from element start rules in that they usually describe when a visit should occur; element start rules describe the moment at which an element is considered to start. There are usually gaps between visits, periods of time that do not belong to any visit, so it is usually not necessary to identify the moment when one visit stops and another starts. However, some trials of hospitalized subjects may divide time into visits in a manner more like that used for elements, and a transition event may need to be defined in such cases.
 
-Visit start rules are usually expressed relative to the start or end of an element or epoch (e.g., "1-2 hours before end of First Wash-out", "8 weeks after end of 2nd Treatment Epoch"). Note that the visit may or may not occur during the element used as the reference for the visit start rule.
+Visit start rules are usually expressed relative to the start or end of an element or epoch (e.g., "1-2 hours before end of First Wash-out", "8 weeks after end of 2nd Treatment Epoch"). Note that the visit may or may not occur during the element used as the reference for the visit start rule. For example, a trial with elements based on treatment of disease episodes might plan a visit 6 months after the start of the first treatment period, regardless of how many disease episodes have occurred.
+
+Visit end rules are similar to element end rules, describing when a visit should end. They may be expressed relative to the start or end of an element or epoch, or relative to the start of the visit.
+
+The timings of visits relative to elements may be expressed in terms that cannot be easily quantified. For instance, a protocol might instruct that at a baseline visit the subject be randomized, given the study drug, and instructed to take the first dose of study drug X at bedtime that night. This baseline visit is thus started and ended before the start of the treatment epoch, but we don't know how long before the start of the treatment epoch the visit will occur. The trial start rule might contain the value "On the day of, but before, the start of the Treatment Epoch".
 
 ### Visit Schedules Expressed with Ranges
 
-Ranges may be used to describe the planned timing of visits (e.g., 12-16 days after the start of 2nd Element), but this is different from the "windows" that may be used in selecting data points to be included in an analysis associated with that visit.
+Ranges may be used to describe the planned timing of visits (e.g., 12-16 days after the start of 2nd Element), but this is different from the "windows" that may be used in selecting data points to be included in an analysis associated with that visit. For example, although visit 2 was planned for 12-16 days after the start of treatment, data collected 10-18 days after the start of treatment might be included in a visit 1 analysis. The 2 ranges serve different purposes.
 
 ### Contingent Visits
 

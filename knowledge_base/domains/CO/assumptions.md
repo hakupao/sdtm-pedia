@@ -14,6 +14,8 @@ A special-purpose domain that contains comments that may be collected alongside 
 
 co.xpt, Comments — Special Purpose. One record per comment per subject, Tabulation.
 
+> ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
+
 ### CO – Assumptions
 
 1. The Comments special-purpose domain provides a solution for submitting free-text comments related to data in 1 or more SDTM domains (as described in Section 8.5, Relating Comments to a Parent Domain) or collected on a separate CRF page dedicated to comments. Comments are generally not responses to specific questions; instead, comments usually consist of voluntary free-text or unsolicited observations.

@@ -3197,8 +3197,35 @@
     "commit": "f60111e"
   },
   "t4b_wave3": {
-    "status": "PENDING",
-    "scope": "remaining MISSING prose atoms (~200 scattered across smaller sections)",
-    "note": "to be executed in new session"
+    "status": "COMPLETE",
+    "date_completed": "2026-05-12",
+    "scope": "All remaining MISSING prose atoms (SENTENCE/LIST_ITEM/NOTE) in coverage_ledger.jsonl",
+    "batches": {
+      "batch1": "6 files, ~100 atoms — TS, TV, TE(x2), IS, TA",
+      "batch2": "20 files, ~77 atoms — ch04, CP, ch02, model/02, GF, ch10, PP, SV, + 13 single-atom fixes",
+      "batch3": "5 files, 5 atoms — ch04 p47, GF p227, ch08 p427, ch10 p448(x2); TA p386 quote fix"
+    },
+    "final_count": {
+      "prose_missing_in_ledger": 534,
+      "now_found_exact": 502,
+      "tab_space_normalization": 16,
+      "md_bold_normalization": 8,
+      "ie_candidates": 5,
+      "genuinely_absent_remaining": 0
+    },
+    "rule_d": {
+      "verdict": "ALL PASS",
+      "reviewer": "oh-my-claudecode:verifier",
+      "atoms_checked": 13,
+      "files_covered": 9,
+      "checkpoint": "evidence/checkpoints/p6_t4b_wave3_rule_d.md"
+    },
+    "ie_deferred": [
+      "ig34_p0070_a027 — <RACEC codelist> placeholder",
+      "ig34_p0071_a011 — <RACEC codelist> placeholder",
+      "ig34_p0071_a023 — <RACEC codelist> placeholder",
+      "ig34_p0071_a032 — <RACEC codelist> placeholder",
+      "ig34_p0037_a035 — TRUNCATED_AT_PAGE_BOUNDARY"
+    ]
   }
 }

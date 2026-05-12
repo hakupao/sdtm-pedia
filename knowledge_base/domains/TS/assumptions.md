@@ -54,9 +54,15 @@ The Trial Summary (TS) dataset allows the sponsor to submit a summary of the tri
 
 The variable TSVALNF is based on the idea of a "null flavor" as embodied in the ISO 21090 standard. A null flavor is an ancillary piece of data that provides additional information when its primary piece of data is null (has a missing value). There is controlled terminology for the null flavor data item which includes such familiar values as "Unknown", "Other", and "Not Applicable" among its 14 terms.
 
+The proposal to include a null flavor variable to supplement the TSVAL variable in the Trial Summary Information (TS) dataset arose from a discussion of how to handle upper and lower age limits for subjects. When the trial summary parameter is AGEMAX, then TSVAL should have a value expressed as an ISO 8601 time duration (e.g., P43Y for 43 years). However, for a study with no maximum age, there is no ISO 8601 representation of "no maximum" for a time duration. Although it would be possible to allow a value such as "NONE" or "UNBOUNDED" to be entered in TSVAL, validation programs would then have to be aware of and allow any value that a sponsor might choose for this purpose. Therefore, the SDS team decided that a separate null flavor variable that uses the ISO 21090 null-flavor terminology would be a better solution.
+
+The SDS Team also decided to specify the use of a null-flavor variable in the TS domain with SDTMIG v3.4 as a way of testing the use of null flavors before extending their use to subject data. As the title of ISO 21090 suggests, that standard was developed for use with healthcare data; it is expected that it will eventually be used more widely. CDISC already uses this data-type standard (see BRIDG; https://www.cdisc.org/standards/). The null flavor, in particular, is a solution to the widespread problem of needing or wanting to convey information that will help a recipient understand why a value is null. Although null flavors could certainly be eventually used for this purpose in other cases (e.g., with subject data), doing so at this time would expand the scope of this activity beyond the available resources. The use of null flavors for the variable TSVAL provides an opportunity for sponsors and reviewers to learn about the null flavors and related controlled terminology.
+
 The controlled terminology for null flavor, which supersedes Appendix C1, Supplemental Qualifiers Name Codes, is included below.
 
 **NullFlavor Enumeration (OID: 2.16.840.1.113883.5.1008)**
+
+> **WARNING — Use of this null flavor does provide information that may be a breach of confidentiality, even though no detailed data are provided. The fact that a maximum age limit has not been specified might indicate that an elderly population is being targeted.**
 
 | Rank | Code | Display Name | Definition |
 |------|------|---|---|
@@ -74,3 +80,27 @@ The controlled terminology for null flavor, which supersedes Appendix C1, Supple
 | 3 | QS | Sufficient quantity | The specific quantity is not known, but is known to be non-zero and is not specified because it makes up the bulk of the material. For example, if directions said, "Add 10 mg of ingredient X, 50 mg of ingredient Y, and sufficient quantity of water to 100 ml", the null flavor "QS" would be used to express the quantity of water. |
 | 3 | TRC | Trace | The content is greater than zero, but too small to be quantified. |
 | 2 | MSK | Masked | There is information on this item available, but it has not been provided by the sender due to security, privacy or other reasons. There may be an alternate mechanism for gaining access to this information. |
+
+The numbers in column 1 of the table describe the hierarchy of these values:
+
+- No information
+    - Invalid
+        - Other
+            - Positive infinity
+            - Negative infinity
+        - Unencoded
+        - Derived
+    - Unknown
+        - Asked but unknown
+            - Temporarily unavailable
+        - Not asked
+        - Quantity sufficient
+        - Trace
+    - Masked
+    - Not applicable
+
+The 1 value at level 1 (No information) is the least informative. It merely confirms that the primary piece of data is null.
+
+The values at level 2 provide a little more information, distinguishing between situations where the primary piece of data is not available for technical reasons (Invalid), situations where the value, while it exists, is not in the permitted value domain (Other), and situations where no information is provided.
+
+The values at levels 3 and 4 provide successively more information about the situation. For example, for the MAXAGE case that provided the impetus for the creation of the TSVALNF variable, the value PINF means that the maximum age is positive infinity, i.e., there is no maximum age. The null flavor PINF provides the most complete information possible in this case (i.e., that the maximum age for the study is unbounded).
