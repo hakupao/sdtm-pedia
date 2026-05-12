@@ -302,7 +302,7 @@
     "estimated_overhead_retired_minutes_per_batch": "10-15",
     "estimated_overhead_retired_total_hours_p1_remaining": "5-7"
   },
-  "current_phase": "P2_B-03c_CLOSED_収官_2026-05-11_63_domains_141_files_10435_atoms_100pct_COMPLETE_v1.9.4_1st_prod_validated_§G-1_§2.12_locked",
+  "current_phase": "P4b_section_aggregation",
   "plan_version": "v0.6 (P2 B-03c round 05 closed)",
   "recovery_hint": "P2 B-03c round 05 CLOSED 2026-05-06. 12 batches batch_58..69 PASS 100% per-batch (1 CONDITIONAL_PASS batch_60 post-hoc fixed) + mini-audit PASS 100% (10/10 atoms + 9/9 invariants). md_atoms.jsonl 7791 atoms / 71 files atomized / 50.4% file coverage (★ crossed 50% milestone). Round 05 NO first-time lock (grep 实证 0 mermaid + 0 numberless H2 + max file IS/ex 273L under 300L slice threshold) — cleanest round to date. 1 MED-01 fired and post-hoc resolved (batch_60 LB/assn 9 LIST_ITEM atoms explicit null hl+sib fields added Rule B backup preserved). 0 halt mid-round. Round 06 待用户 ack scope (recommend 5-6 more domains alphabetical ML to onwards = ~10-14 batches; 35 domains × 2 = 70 files remaining post round 05). 入口: multi_session/P2_B-03c_round_05_kickoff.md (§0.5 20/20 grep + §2.8 R-2.8-1/2/3 carry-forward + §8 default Option acked).",
   "created": "2026-04-24",
@@ -1301,7 +1301,43 @@
       }
     },
     "P4b_section_aggregation": {
-      "status": "pending"
+      "status": "PENDING_RULE_A_REVIEWER",
+      "started": "2026-05-12T02:40:31Z",
+      "script": "scripts/p4b_section_aggregate.py",
+      "sections_total": 399,
+      "verdict_distribution": {
+        "FULL_COVERAGE": 101,
+        "MOSTLY_COMPLETE": 42,
+        "CONTENT_TRUNCATED": 110,
+        "SIBLING_DROPPED": 56,
+        "SKELETON_ONLY": 67,
+        "STRUCTURE_DRIFTED": 23,
+        "HEADING_MISSING": 0
+      },
+      "skeleton_triage": {
+        "sv20_systematic_gap": 20,
+        "editorial_meta": 3,
+        "redundant_with_spec": 20,
+        "small_stubs_le2": 6,
+        "needs_investigation_ig34": 18
+      },
+      "structure_drifted_count": 23,
+      "level1_keyword_sections": 43,
+      "rule_a_reviewer": "oh-my-claudecode:scientist",
+      "rule_a_sections": 30,
+      "gate_conditions": {
+        "sections_all_have_verdict": true,
+        "rule_a_30_section_pass": "pending",
+        "skeleton_only_triaged": "pending",
+        "structure_drifted_issues_logged": "pending",
+        "trace_phase_report": true
+      },
+      "next_step": "Await rule_a reviewer result → if PASS, log Issues for real SKELETON_ONLY / STRUCTURE_DRIFTED gaps → P6 Triage",
+      "sub_plan": "plans/P4b_section_aggregation.md",
+      "evidence": [
+        "evidence/checkpoints/p4b_initial_report.md",
+        "section_coverage.jsonl"
+      ]
     },
     "P5_reverse_matching": {
       "status": "pending",
