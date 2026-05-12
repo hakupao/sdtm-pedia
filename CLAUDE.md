@@ -46,8 +46,7 @@ Then summarize to the user: current status, open issues, and suggested next step
 
 ## 06 Deep Verification (旁枝)
 
-**当前阶段: P6 Triage+Repair ✅ ALL GATES PASS** — P1 ✅ P2 ✅ P3 ✅ P4a ✅ P4b ✅ P5 ✅ P6 ✅ (coverage 99.02%, Issues 5-16 repaired, G1-G7 ALL PASS); P7 人工抽样 + Retro 待执行.
-下一步: P7 (用户抽 50+ 原子 + RETROSPECTIVE.md).
+**当前阶段: P7 COMPLETE ✅ 工程全部收官** — P1-P7 全 PASS (coverage 99.02%, Issues 5-16 repaired, P7 content error 3.3%, RETROSPECTIVE.md 归档, Rule D PASS 2026-05-12).
 进度 / metric / archive → `branches/06_deep_verification/_progress.json`. 入口 PLAN → `branches/06_deep_verification/PLAN.md`.
 
 ## Change Chains
