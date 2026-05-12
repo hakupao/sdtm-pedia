@@ -1,0 +1,100 @@
+{"pdf_atom_id": "ig34_p0402_a005", "atom_type": "HEADING", "verdict": "EQUIVALENT", "similarity_score": 1.0, "discrepancy": null, "md_atom_ids": ["md_dmTA_ex_a252"]}
+{"pdf_atom_id": "ig34_p0051_a009", "atom_type": "HEADING", "verdict": "EQUIVALENT", "similarity_score": 0.9, "discrepancy": null, "md_atom_ids": ["md_ch04_a815"]}
+{"pdf_atom_id": "ig34_p0017_a019", "atom_type": "HEADING", "verdict": "EXACT", "similarity_score": 0.9, "discrepancy": null, "md_atom_ids": ["md_ch03_a021"]}
+{"pdf_atom_id": "ig34_p0443_a002", "atom_type": "HEADING", "verdict": "EXACT", "similarity_score": 1.0, "discrepancy": null, "md_atom_ids": ["md_dmOI_assn_a001"]}
+{"pdf_atom_id": "ig34_p0148_a010", "atom_type": "HEADING", "verdict": "INTENTIONAL_EXCLUDE", "similarity_score": 0.4, "discrepancy": null, "md_atom_ids": []}
+{"pdf_atom_id": "ig34_p0124_a006", "atom_type": "HEADING", "verdict": "EXACT", "similarity_score": 1.0, "discrepancy": null, "md_atom_ids": ["md_dmML_ex_a031"]}
+{"pdf_atom_id": "ig34_p0112_a006", "atom_type": "HEADING", "verdict": "EQUIVALENT", "similarity_score": 0.9, "discrepancy": null, "md_atom_ids": ["md_dmCM_ex_a002", "md_dmCM_ex_a022", "md_dmCM_ex_a029"]}
+{"pdf_atom_id": "ig34_p0062_a019", "atom_type": "HEADING", "verdict": "MISSING", "similarity_score": null, "discrepancy": null, "md_atom_ids": []}
+{"pdf_atom_id": "ig34_p0440_a006", "atom_type": "HEADING", "verdict": "EXACT", "similarity_score": 1.0, "discrepancy": null, "md_atom_ids": ["md_dmRELSPEC_ex_a002"]}
+{"pdf_atom_id": "ig34_p0047_a014", "atom_type": "HEADING", "verdict": "MISSING", "similarity_score": null, "discrepancy": "HEADING 'Option 1' (standalone) not present as a heading in KB; top score 0.4385 in different section", "md_atom_ids": []}
+{"pdf_atom_id": "ig34_p0415_a002", "atom_type": "HEADING", "verdict": "MISSING", "similarity_score": 0.4857, "discrepancy": "No KB candidate contains a 'TM – Description/Overview' heading.", "md_atom_ids": []}
+{"pdf_atom_id": "ig34_p0442_a002", "atom_type": "HEADING", "verdict": "PARTIAL", "similarity_score": 0.4857, "discrepancy": "PDF heading 'OI – Description/Overview' maps to assumptions heading; no dedicated Description/Overview heading in MD", "md_atom_ids": ["md_dmOI_assn_a001"]}
+{"pdf_atom_id": "ig34_p0334_a008", "atom_type": "HEADING", "verdict": "MISPLACED", "similarity_score": 0.9, "discrepancy": "MISPLACED: pdf §6.3.9.3.1 Disease Response Use Case vs md §CM.1 [Example 1]", "md_atom_ids": ["md_dmCM_ex_a002"]}
+{"pdf_atom_id": "ig34_p0040_a021", "atom_type": "HEADING", "verdict": "EQUIVALENT", "similarity_score": 0.9, "discrepancy": null, "md_atom_ids": ["md_ch04_a546"]}
+{"pdf_atom_id": "ig34_p0361_a010", "atom_type": "HEADING", "verdict": "EQUIVALENT", "similarity_score": 0.9, "discrepancy": null, "md_atom_ids": ["md_varindex_a547"]}
+{"pdf_atom_id": "ig34_p0266_a001", "atom_type": "HEADING", "verdict": "EXACT", "similarity_score": 1.0, "discrepancy": null, "md_atom_ids": ["md_dmMI_ex_a001"]}
+{"pdf_atom_id": "ig34_p0022_a003", "atom_type": "HEADING", "verdict": "EXACT", "similarity_score": 0.9, "discrepancy": null, "md_atom_ids": ["md_ch04_a007"]}
+{"pdf_atom_id": "ig34_p0022_a001", "atom_type": "HEADING", "verdict": "EQUIVALENT", "similarity_score": 0.7, "discrepancy": null, "md_atom_ids": ["md_ch04_a001"]}
+{"pdf_atom_id": "ig34_p0043_a008", "atom_type": "HEADING", "verdict": "EXACT", "similarity_score": 0.9, "discrepancy": null, "md_atom_ids": ["md_ch04_a627"]}
+{"pdf_atom_id": "ig34_p0111_a001", "atom_type": "HEADING", "verdict": "MISPLACED", "similarity_score": 0.56, "discrepancy": "MISPLACED: pdf §6.1.3 [Exposure Domains] vs md § 二、领域专属变量（仅 1 个域，共 1499 个），按域分组", "md_atom_ids": ["md_varindex_a434"]}
+{"pdf_atom_id": "ig34_p0132_a015", "atom_type": "SENTENCE", "verdict": "EXACT", "similarity_score": 1.0, "discrepancy": null, "md_atom_ids": ["md_dmSU_ex_a014"]}
+{"pdf_atom_id": "ig34_p0429_a006", "atom_type": "SENTENCE", "verdict": "EXACT", "similarity_score": 0.9, "discrepancy": null, "md_atom_ids": ["md_ch08_a057"]}
+{"pdf_atom_id": "sv20_p0068_a013", "atom_type": "SENTENCE", "verdict": "MISSING", "similarity_score": null, "discrepancy": null, "md_atom_ids": []}
+{"pdf_atom_id": "ig34_p0020_a030", "atom_type": "SENTENCE", "verdict": "EQUIVALENT", "similarity_score": 0.391, "discrepancy": null, "md_atom_ids": ["md_ch03_a101"]}
+{"pdf_atom_id": "sv20_p0004_a016", "atom_type": "SENTENCE", "verdict": "PARTIAL", "similarity_score": 0.4333, "discrepancy": "SDTM v2.0 lists IGs published by CDISC; KB provides list of specific IGs in context of SDTMIG v3.4", "md_atom_ids": ["md_ch01_a087"]}
+{"pdf_atom_id": "ig34_p0090_a004", "atom_type": "SENTENCE", "verdict": "EQUIVALENT", "similarity_score": 0.6656, "discrepancy": null, "md_atom_ids": ["md_dmSV_ex_a034"]}
+{"pdf_atom_id": "ig34_p0441_a010", "atom_type": "SENTENCE", "verdict": "MISSING", "similarity_score": null, "discrepancy": null, "md_atom_ids": []}
+{"pdf_atom_id": "ig34_p0372_a001", "atom_type": "SENTENCE", "verdict": "EXACT", "similarity_score": 1.0, "discrepancy": null, "md_atom_ids": ["md_dmFA_ex_a078"]}
+{"pdf_atom_id": "ig34_p0119_a010", "atom_type": "SENTENCE", "verdict": "EXACT", "similarity_score": 0.9, "discrepancy": null, "md_atom_ids": ["md_dmEX_ex_a241"]}
+{"pdf_atom_id": "ig34_p0400_a005", "atom_type": "SENTENCE", "verdict": "EXACT", "similarity_score": 1.0, "discrepancy": null, "md_atom_ids": ["md_dmTA_ex_a222"]}
+{"pdf_atom_id": "sv20_p0051_a005", "atom_type": "SENTENCE", "verdict": "EXACT", "similarity_score": 0.9, "discrepancy": null, "md_atom_ids": ["md_model05_a007"]}
+{"pdf_atom_id": "ig34_p0166_a0011", "atom_type": "SENTENCE", "verdict": "EQUIVALENT", "similarity_score": 0.7267, "discrepancy": null, "md_atom_ids": ["md_dmDS_ex_a218"]}
+{"pdf_atom_id": "ig34_p0010_a022", "atom_type": "SENTENCE", "verdict": "EQUIVALENT", "similarity_score": 0.8667, "discrepancy": null, "md_atom_ids": ["md_ch01_a083"]}
+{"pdf_atom_id": "ig34_p0061_a010", "atom_type": "SENTENCE", "verdict": "MISSING", "similarity_score": null, "discrepancy": null, "md_atom_ids": []}
+{"pdf_atom_id": "ig34_p0375_a003", "atom_type": "SENTENCE", "verdict": "EXACT", "similarity_score": 1.0, "discrepancy": null, "md_atom_ids": ["md_dmFA_ex_a139"]}
+{"pdf_atom_id": "ig34_p0256_a019", "atom_type": "SENTENCE", "verdict": "EXACT", "similarity_score": 0.9, "discrepancy": null, "md_atom_ids": ["md_dmMB_ex_a009"]}
+{"pdf_atom_id": "ig34_p0166_a0010", "atom_type": "SENTENCE", "verdict": "PARTIAL", "similarity_score": 0.5875, "discrepancy": null, "md_atom_ids": ["md_dmDS_ex_a176"]}
+{"pdf_atom_id": "ig34_p0059_a014", "atom_type": "SENTENCE", "verdict": "EXACT", "similarity_score": 0.9, "discrepancy": null, "md_atom_ids": ["md_ch04_a1021"]}
+{"pdf_atom_id": "ig34_p0114_a026", "atom_type": "SENTENCE", "verdict": "EXACT", "similarity_score": 0.9, "discrepancy": null, "md_atom_ids": ["md_dmEX_ex_a119"]}
+{"pdf_atom_id": "ig34_p0246_a006", "atom_type": "SENTENCE", "verdict": "EQUIVALENT", "similarity_score": 1.0, "discrepancy": null, "md_atom_ids": ["md_dmLB_ex_a003"]}
+{"pdf_atom_id": "ig34_p0121_a012", "atom_type": "TABLE_ROW", "verdict": "PARTIAL", "similarity_score": 0.4392, "discrepancy": "Specification TABLE_ROW for MLSPID represented as prose entry in spec.md (### MLSPID); no direct table-format atom matched", "md_atom_ids": []}
+{"pdf_atom_id": "ig34_p0115_a018", "atom_type": "TABLE_ROW", "verdict": "EQUIVALENT", "similarity_score": 0.9, "discrepancy": null, "md_atom_ids": ["md_dmEX_ex_a137"]}
+{"pdf_atom_id": "ig34_p0294_a023", "atom_type": "TABLE_ROW", "verdict": "PARTIAL", "similarity_score": 0.4264, "discrepancy": "Content partially covered; some conditions or details omitted", "md_atom_ids": ["md_dmNV_ex_a056"]}
+{"pdf_atom_id": "ig34_p0117_a001", "atom_type": "TABLE_ROW", "verdict": "EQUIVALENT", "similarity_score": 0.8564, "discrepancy": null, "md_atom_ids": ["md_dmEX_ex_a188"]}
+{"pdf_atom_id": "ig34_p0283_a038", "atom_type": "TABLE_ROW", "verdict": "MISSING", "similarity_score": null, "discrepancy": null, "md_atom_ids": []}
+{"pdf_atom_id": "ig34_p0280_a021", "atom_type": "TABLE_ROW", "verdict": "MISSING", "similarity_score": null, "discrepancy": null, "md_atom_ids": []}
+{"pdf_atom_id": "ig34_p0455_a014", "atom_type": "TABLE_ROW", "verdict": "PARTIAL", "similarity_score": 0.5294, "discrepancy": null, "md_atom_ids": ["md_ch10_a203"]}
+{"pdf_atom_id": "ig34_p0240_a016", "atom_type": "TABLE_ROW", "verdict": "MISSING", "similarity_score": 1.0, "discrepancy": null, "md_atom_ids": []}
+{"pdf_atom_id": "ig34_p0074_a009", "atom_type": "TABLE_ROW", "verdict": "EXACT", "similarity_score": 1.0, "discrepancy": null, "md_atom_ids": ["md_dmDM_ex_a113"]}
+{"pdf_atom_id": "ig34_p0348_a014", "atom_type": "TABLE_ROW", "verdict": "EXACT", "similarity_score": 1.0, "discrepancy": null, "md_atom_ids": ["md_dmTU_assn_a052"]}
+{"pdf_atom_id": "ig34_p0411_a002", "atom_type": "TABLE_ROW", "verdict": "MISSING", "similarity_score": 0.4, "discrepancy": "TD variable specification row for TDORDER not present in KB.", "md_atom_ids": []}
+{"pdf_atom_id": "ig34_p0135_a006", "atom_type": "TABLE_ROW", "verdict": "PARTIAL", "similarity_score": 0.4785, "discrepancy": null, "md_atom_ids": ["md_dmAE_ex_a033"]}
+{"pdf_atom_id": "ig34_p0294_a004", "atom_type": "TABLE_ROW", "verdict": "EXACT", "similarity_score": 1.0, "discrepancy": null, "md_atom_ids": ["md_dmMK_ex_a058"]}
+{"pdf_atom_id": "ig34_p0105_a011", "atom_type": "TABLE_ROW", "verdict": "EQUIVALENT", "similarity_score": 0.4442, "discrepancy": null, "md_atom_ids": ["md_dmEX_ex_a215"]}
+{"pdf_atom_id": "ig34_p0423_a017", "atom_type": "TABLE_ROW", "verdict": "EQUIVALENT", "similarity_score": 0.95, "discrepancy": "PDF uses 'Row N |' prefix; MD uses '| N |' markdown table format; content identical", "md_atom_ids": ["md_dmTS_ex_a109"]}
+{"pdf_atom_id": "ig34_p0259_a010", "atom_type": "TABLE_ROW", "verdict": "EQUIVALENT", "similarity_score": 0.876, "discrepancy": null, "md_atom_ids": ["md_dmMS_ex_a031"]}
+{"pdf_atom_id": "sv20_p0028_a004", "atom_type": "TABLE_ROW", "verdict": "MISPLACED", "similarity_score": 0.3828, "discrepancy": "MISPLACED: pdf §3.1.3 general Findings variable table vs md domain/GF/spec.md §GFGENSR", "md_atom_ids": ["md_ch03_a086"]}
+{"pdf_atom_id": "sv20_p0017_a006", "atom_type": "TABLE_ROW", "verdict": "MISSING", "similarity_score": null, "discrepancy": null, "md_atom_ids": []}
+{"pdf_atom_id": "ig34_p0284_a002", "atom_type": "TABLE_ROW", "verdict": "MISSING", "similarity_score": null, "discrepancy": null, "md_atom_ids": []}
+{"pdf_atom_id": "ig34_p0445_a040", "atom_type": "TABLE_ROW", "verdict": "INTENTIONAL_EXCLUDE", "similarity_score": null, "discrepancy": null, "md_atom_ids": []}
+{"pdf_atom_id": "ig34_p0071_a028", "atom_type": "LIST_ITEM", "verdict": "MISSING", "similarity_score": 0.4034, "discrepancy": null, "md_atom_ids": []}
+{"pdf_atom_id": "ig34_p0338_a014", "atom_type": "LIST_ITEM", "verdict": "EXACT", "similarity_score": 0.9, "discrepancy": null, "md_atom_ids": ["md_dmFT_assn_a035"]}
+{"pdf_atom_id": "ig34_p0021_a011", "atom_type": "LIST_ITEM", "verdict": "EXACT", "similarity_score": 0.9, "discrepancy": null, "md_atom_ids": ["md_ch03_a114"]}
+{"pdf_atom_id": "ig34_p0014_a005", "atom_type": "LIST_ITEM", "verdict": "PARTIAL", "similarity_score": 0.4574, "discrepancy": "PDF atom is a long rule explaining domain pairs (MB/MS, PC/PP), the role of DOMAIN as identifier, RELREC usage, and why DOMAIN is needed. MD candidate md_ch02_a102 captures only the DOMAIN-as-identifier/RELREC summary. The explanation of RELREC mechanism and the constraint reasoning is omitted.", "md_atom_ids": ["md_ch02_a102"]}
+{"pdf_atom_id": "ig34_p0327_a005", "atom_type": "LIST_ITEM", "verdict": "EQUIVALENT", "similarity_score": 0.5667, "discrepancy": null, "md_atom_ids": ["md_dmQS_assn_a008"]}
+{"pdf_atom_id": "ig34_p0088_a014", "atom_type": "LIST_ITEM", "verdict": "EXACT", "similarity_score": 1.0, "discrepancy": null, "md_atom_ids": ["md_dmSV_assn_a024"]}
+{"pdf_atom_id": "ig34_p0385_a011", "atom_type": "LIST_ITEM", "verdict": "EQUIVALENT", "similarity_score": 1.0, "discrepancy": null, "md_atom_ids": ["md_dmTA_assn_a003"]}
+{"pdf_atom_id": "ig34_p0117_a010", "atom_type": "LIST_ITEM", "verdict": "PARTIAL", "similarity_score": 0.7444, "discrepancy": null, "md_atom_ids": ["md_dmEX_ex_a203"]}
+{"pdf_atom_id": "ig34_p0024_a004", "atom_type": "LIST_ITEM", "verdict": "EQUIVALENT", "similarity_score": 0.9, "discrepancy": null, "md_atom_ids": ["md_ch04_a060"]}
+{"pdf_atom_id": "ig34_p0436_a015", "atom_type": "LIST_ITEM", "verdict": "EXACT", "similarity_score": 0.9, "discrepancy": null, "md_atom_ids": ["md_ch08_a256"]}
+{"pdf_atom_id": "ig34_p0089_a024", "atom_type": "LIST_ITEM", "verdict": "EQUIVALENT", "similarity_score": 0.91, "discrepancy": null, "md_atom_ids": ["md_dmSV_ex_a022"]}
+{"pdf_atom_id": "ig34_p0443_a005", "atom_type": "LIST_ITEM", "verdict": "EXACT", "similarity_score": 1.0, "discrepancy": null, "md_atom_ids": ["md_dmOI_assn_a010"]}
+{"pdf_atom_id": "ig34_p0032_a026", "atom_type": "LIST_ITEM", "verdict": "EXACT", "similarity_score": 0.9, "discrepancy": null, "md_atom_ids": ["md_ch04_a294"]}
+{"pdf_atom_id": "ig34_p0169_a0015", "atom_type": "LIST_ITEM", "verdict": "EQUIVALENT", "similarity_score": 0.91, "discrepancy": "PDF lacks markdown bold formatting (**Rows 1-2:**); content identical", "md_atom_ids": ["md_dmHO_ex_a004"]}
+{"pdf_atom_id": "ig34_p0110_a001", "atom_type": "LIST_ITEM", "verdict": "EXACT", "similarity_score": 1.0, "discrepancy": null, "md_atom_ids": ["md_dmEC_assn_a011"]}
+{"pdf_atom_id": "ig34_p0207_a011", "atom_type": "LIST_ITEM", "verdict": "EXACT", "similarity_score": 1.0, "discrepancy": null, "md_atom_ids": ["md_dmCP_assn_a036"]}
+{"pdf_atom_id": "ig34_p0317_a017", "atom_type": "LIST_ITEM", "verdict": "EXACT", "similarity_score": 1.0, "discrepancy": null, "md_atom_ids": ["md_dmPE_assn_a004"]}
+{"pdf_atom_id": "ig34_p0426_a003", "atom_type": "LIST_ITEM", "verdict": "PARTIAL", "similarity_score": 0.38, "discrepancy": "Step 6 (split/lump element consideration) partially covered by TA assumption but not as modeling guidance", "md_atom_ids": ["md_dmTA_assn_a008"]}
+{"pdf_atom_id": "ig34_p0163_a0017", "atom_type": "LIST_ITEM", "verdict": "EQUIVALENT", "similarity_score": 0.91, "discrepancy": "PDF uses 'Row N:\\t' tab-separated format; MD uses '**Row N:**' bold markdown format", "md_atom_ids": ["md_dmDS_ex_a132"]}
+{"pdf_atom_id": "ig34_p0057_a011", "atom_type": "LIST_ITEM", "verdict": "EQUIVALENT", "similarity_score": 0.9, "discrepancy": null, "md_atom_ids": ["md_ch04_a973"]}
+{"pdf_atom_id": "ig34_p0253_a024", "atom_type": "CODE_LITERAL", "verdict": "EQUIVALENT", "similarity_score": 0.2407, "discrepancy": null, "md_atom_ids": ["md_dmMS_ex_a027"]}
+{"pdf_atom_id": "ig34_p0252_a004", "atom_type": "CODE_LITERAL", "verdict": "PARTIAL", "similarity_score": 0.4018, "discrepancy": "Content only partially matched", "md_atom_ids": ["md_dmMB_assn_a004"]}
+{"pdf_atom_id": "ig34_p0146_a010", "atom_type": "CODE_LITERAL", "verdict": "EXACT", "similarity_score": 0.79, "discrepancy": null, "md_atom_ids": ["md_dmBE_ex_a040"]}
+{"pdf_atom_id": "ig34_p0194_a011", "atom_type": "CODE_LITERAL", "verdict": "PARTIAL", "similarity_score": 0.79, "discrepancy": "Best match score 0.7900 below equivalence threshold", "md_atom_ids": ["md_dmIE_ex_a006"]}
+{"pdf_atom_id": "ig34_p0027_a010", "atom_type": "CODE_LITERAL", "verdict": "EQUIVALENT", "similarity_score": 0.69, "discrepancy": null, "md_atom_ids": ["md_ch04_a153"]}
+{"pdf_atom_id": "ig34_p0097_a011", "atom_type": "CODE_LITERAL", "verdict": "EXACT", "similarity_score": 0.79, "discrepancy": null, "md_atom_ids": ["md_dmAG_ex_a050"]}
+{"pdf_atom_id": "ig34_p0372_a002", "atom_type": "CODE_LITERAL", "verdict": "EXACT", "similarity_score": 0.79, "discrepancy": null, "md_atom_ids": ["md_dmFA_ex_a079"]}
+{"pdf_atom_id": "ig34_p0167_a0022", "atom_type": "CODE_LITERAL", "verdict": "PARTIAL", "similarity_score": 0.3601, "discrepancy": null, "md_atom_ids": ["md_dmHO_ex_a003"]}
+{"pdf_atom_id": "ig34_p0089_a028", "atom_type": "CODE_LITERAL", "verdict": "EQUIVALENT", "similarity_score": 0.79, "discrepancy": null, "md_atom_ids": ["md_dmSV_ex_a026"]}
+{"pdf_atom_id": "ig34_p0280_a015", "atom_type": "CODE_LITERAL", "verdict": "MISSING", "similarity_score": null, "discrepancy": null, "md_atom_ids": []}
+{"pdf_atom_id": "ig34_p0254_a006", "atom_type": "CODE_LITERAL", "verdict": "EQUIVALENT", "similarity_score": 0.222, "discrepancy": null, "md_atom_ids": ["md_dmMS_ex_a043"]}
+{"pdf_atom_id": "ig34_p0200_a010", "atom_type": "CODE_LITERAL", "verdict": "MISSING", "similarity_score": null, "discrepancy": null, "md_atom_ids": []}
+{"pdf_atom_id": "ig34_p0405_a012", "atom_type": "CODE_LITERAL", "verdict": "EQUIVALENT", "similarity_score": 0.79, "discrepancy": null, "md_atom_ids": ["md_dmTE_ex_a007"]}
+{"pdf_atom_id": "ig34_p0154_a0004", "atom_type": "CODE_LITERAL", "verdict": "PARTIAL", "similarity_score": 0.69, "discrepancy": "Partial match (score 0.69); may require editorial review", "md_atom_ids": ["md_ch04_a918"]}
+{"pdf_atom_id": "ig34_p0239_a012", "atom_type": "CODE_LITERAL", "verdict": "MISSING", "similarity_score": 0.79, "discrepancy": null, "md_atom_ids": []}
+{"pdf_atom_id": "ig34_p0020_a005", "atom_type": "CODE_LITERAL", "verdict": "EQUIVALENT", "similarity_score": 0.143, "discrepancy": null, "md_atom_ids": ["md_ch03_a083"]}
+{"pdf_atom_id": "ig34_p0161_a0005", "atom_type": "CODE_LITERAL", "verdict": "EQUIVALENT", "similarity_score": 0.79, "discrepancy": null, "md_atom_ids": ["md_dmDS_ex_a067"]}
+{"pdf_atom_id": "ig34_p0018_a053", "atom_type": "CODE_LITERAL", "verdict": "PARTIAL", "similarity_score": 0.1062, "discrepancy": "CODE_LITERAL mismatch: pdf='ms.xpt' vs md='| TV | Trial Visits | Trial Design | One record per planned Visit per Arm | Tabulation | STUDYID, ARM, VISIT | tv.xpt |'", "md_atom_ids": ["md_ch03_a082"]}
+{"pdf_atom_id": "ig34_p0228_a018", "atom_type": "CODE_LITERAL", "verdict": "EQUIVALENT", "similarity_score": 0.79, "discrepancy": null, "md_atom_ids": ["md_dmGF_ex_a107"]}
+{"pdf_atom_id": "ig34_p0255_a002", "atom_type": "CODE_LITERAL", "verdict": "EQUIVALENT", "similarity_score": 0.2543, "discrepancy": null, "md_atom_ids": ["md_dmMS_assn_a009"]}

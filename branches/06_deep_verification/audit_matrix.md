@@ -905,3 +905,36 @@
 **v1.9.4 cut candidates filed** (5 NEW + carries): §F-2 de-figure-naive ratio formula codification / §F-1 descriptive-title H3 motif title-agnostic codification / §2.4 multi-slice atom_id 续号 first-class sub-codification / §2.6 FIGURE-heavy domain estimate adjustment recipe / C-R12-01 §F-1 dual-trigger single-round stress-test sustained criterion (7 cumulative cases milestone)
 
 **Round 13 trigger**: P2 B-03c 收官 round expected. Remaining 6 domains × 2 = 12 files (TR/TS/TU/TV/UR/VS); 估 12 batches similar to round 06/08/10 体量; pre-allocated mini-audit slot 13 = vercel:performance-optimizer (vercel-family 3rd sub-type) OR superpowers:* AUDIT (NEW family inaugural). v1.9.4 cut PRE-round-13 strongly recommended.
+
+---
+
+## P4a Forward Matching — Rule D Roster & Audit Records
+
+**Phase**: P4a (正向比对 PDF→MD)
+**Period**: 2026-05-11 ~ 2026-05-12
+**Atoms**: 12,487 (batch_001~125, 5 sessions)
+
+### Writer/Reviewer Slots Used in P4a
+
+| Slot | subagent_type | Role | Batches | Notes |
+|------|--------------|------|---------|-------|
+| P4a-W1 | `oh-my-claudecode:executor` | Writer (odd batches) | 001,003,...125 | Primary matcher |
+| P4a-W2 | `oh-my-claudecode:writer` | Writer (even batches) | 002,004,...124 | Alternating matcher |
+| P4a-R1 | `oh-my-claudecode:scientist` | Rule A 100-atom stratified audit | post-S5 gate | **NEW burn (first P4a use)** |
+| P4a-R2 | `oh-my-claudecode:executor` | Drift check type A | post-S5 gate | 10 S5 tail atoms |
+| P4a-R3 | `oh-my-claudecode:writer` | Drift check type B | post-S5 gate | 10 S5 tail atoms |
+
+**Rule D phase-scoped check**: P4a uses ≥3 distinct subagent_types ✅ (executor / writer / scientist)
+
+### Drift Check Records
+
+| Check point | Atoms | Types compared | Status |
+|-------------|-------|---------------|--------|
+| Post-S5 tail (batch_123~125) | 10 | executor / writer / original | ✅ PASS — 3-way 80% (8/10); executor/writer 90% (9/10). Disagreements: a011 executor+writer=EQUIVALENT vs original=PARTIAL (upgrade finding); a012 executor=PARTIAL vs writer=MISSING (borderline, both defensible). |
+
+### Rule A Records
+
+| Audit | Sample | Auditor | Agreement rate | Gate (≥95%) |
+|-------|--------|---------|---------------|-------------|
+| P4a final 100-atom stratified | HEADING×20 + SENTENCE×20 + TABLE_ROW×20 + LIST_ITEM×20 + CODE_LITERAL×20 | `oh-my-claudecode:scientist` + `oh-my-claudecode:verifier` | 89% initial → 11 corrections (scientist) → **100% post-correction (verifier PASS 11/11)** | ✅ PASS |
+
