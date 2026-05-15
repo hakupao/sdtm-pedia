@@ -212,3 +212,34 @@ Phase 3 分 6 个 session node, 每 node 结束即 commit + 可切换 session re
 ---
 
 *来源: Phase 6.5 Claude v2 单平台经验 (claude_projects/) + 2026-04-20 session 共识 (双平台并行锁步方案). 本看板是机械 gate, 不是计划书; 计划在各平台 `docs/PLAN.md`.*
+
+---
+
+## 2026-05-15 — v1.1 rebuild note (跨 4 平台同步, 不算 Phase 6.5 锁步推进)
+
+**触发**: 06 Deep Verification 旁枝 P7 COMPLETE 2026-05-12 → KB 43 文件 +1,405 / -234 行变化 (新加 DI domain + PC §6.3.5.9 RELREC + chapters/assumptions/examples 多处补强) 需回灌到 deploy bundle.
+
+**动作**: 用户 ack 走 v1.1 路线 2026-05-15 AM. 主 session 在锁步 Phase 5 pending 状态下做 **跨平台内容刷新** (非 Phase 推进, 不消 Phase 6.5 gate):
+
+| 平台 | rebuild 脚本 | 文件变化 | 结果 |
+|------|------|------|------|
+| chatgpt_gpt | `merge_for_chatgpt.py --stage all` | 9 文件中 4 changed (02/03/05/06) | PASS (脚本 v1.6 修: 05 expected 63→64, token_cap 69K→85K) |
+| gemini_gems | `merge_for_gemini.py --stage c_refactor` | 3 KB 派生文件全 rebuild (01/02/03) | PASS (脚本自动迭代, 无 hardcoded count) |
+| notebooklm | `merge_sources.py` | 42 buckets 中 12 changed (含新 bucket 25 加 DI) | PASS (bucket_config.json 改: bucket 25 加 DI/assumptions.md) |
+| claude_projects | v1+v2 双 builder, executor subagent 后台跑 | TBD | TBD |
+
+**Build script 改动** (Chain B 同步):
+- `ai_platforms/chatgpt_gpt/dev/scripts/merge_for_chatgpt.py`: 05 MergeEntry expected_segments 63→64, token_cap 69_000→85_000
+- `ai_platforms/notebooklm/dev/scripts/bucket_config.json`: bucket 25 (td_meta_ti_ts_oi) 加 `domains/DI/assumptions.md`, description 加 DI 注
+
+**对锁步 Phase 5 影响**: 无. ChatGPT+Gemini 当前 Phase 5 仍 pending 28th Rule D reviewer (`pr-review-toolkit:code-reviewer` background) + Daisy 终 ack. v1.1 rebuild 是 cross-platform content refresh, 不是 Phase 推进; 锁步 board 显示 Phase 5 状态不变.
+
+**Release 产物**: `release/v1.1/{CHANGELOG.{en,zh,ja}.md, BUILD_MANIFEST.json, self_deploy/{4 平台}/}`. Tag 候选: `v1.1-company-release`.
+
+**Evidence**: `.work/07_release_v1_1/{PLAN,RETROSPECTIVE}.md` + `evidence/{diff_summary.md, rule_d_review.md, *_rebuild.log}` + `backups/` (4 平台 baseline 25MB).
+
+**2026-05-15 PM (post-rebuild update)**:
+- claude_projects executor (sonnet) COMPLETE: 7 文件 rebuilt (02/03/06/07/09/10 改动 + 05 idempotent), 12 unchanged. failures/claude_rebuild_failures.md F1-F4 (Rule B 合规, 4 项 stale 路径修复记录).
+- Rule D reviewer `oh-my-claudecode:verifier` (opus): **ALL_PASS** (5/5 评估; Rule A KB→uploads 5 KB 文件 × 4 平台 × ≥2 strings = 20 命中 zero miss; cross-platform delta oracle 自洽).
+- v1.1 release 包就绪: `release/v1.1/{CHANGELOG.{en,zh,ja}.md, BUILD_MANIFEST.json, self_deploy/{chatgpt,gemini,notebooklm,claude}/uploads/}`.
+- Pending: 主 session commit + push + (用户 ack 后) tag `v1.1-company-release`.

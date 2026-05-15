@@ -359,10 +359,10 @@ MERGE_CONFIGS: list[MergeEntry] = [
     MergeEntry(
         target="05_domain_assumptions_all.md",
         stage="batch2",
-        description="63 域 assumptions.md (辅助推理)",
+        description="64 域 assumptions.md (含 DI SDTMIG-MD, 06 deep verification 新加)",
         source_collector=_collect_domain_assumptions,
-        expected_segments=63,
-        token_cap=69_000,
+        expected_segments=64,
+        token_cap=85_000,
     ),
     MergeEntry(
         target="06_domain_examples_all.md",

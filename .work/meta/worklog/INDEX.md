@@ -13,7 +13,8 @@
 | `_meta.md` | 恢复指引 + 项目参数 + 执行阶段总览 | 206 | (元数据) | 仅在阶段总览变化时改 |
 | `historical_2026_04.md` | Phase 0-4 + Phase 5 + Phase 6.5 + Phase 7 design (frozen) | 1738 | 2026-04-28 | **不要 append**, frozen 历史 |
 | `phase06_deep_verification.md` | 06 字面级 PDF→KB 深审 (P1 close + P2 进行中) | 448 | 2026-05-05 | 06 round/batch close 时 append |
-| `phase07_website.md` | 07 公开发布版站点 + Release | 40 | 2026-04-28 | 07 phase close 时 append (Phase 6/7/8/9 已 closed) |
+| `phase07_website.md` | 07 公开发布版站点 (sdtm-pedia.pages.dev) | 40 | 2026-04-28 | 07 phase close 时 append (Phase 6/7/8/9/10/11 已 closed) |
+| `phase_07_release.md` | 07 Release v1.0 + v1.1 (公司发布版 release/) | (new) | 2026-05-15 | release cut 时 append |
 | `phase_jp_delivery.md` | docs/jp/ iTMS 様 納品 (Chain J) | 98 | 2026-05-04 | 提出 milestone 时 append |
 | `phase_meta_refactor.md` | refactor v1 段 1/2/3 (Chain REFACTOR-v1) | (生成) | 2026-05-06 | 段 close 时 append, 段 3 close 后可归档 |
 
@@ -30,7 +31,8 @@
 | Phase 6.5 (AI 平台部署) | `historical_2026_04.md` | Claude v1/v2 + NotebookLM frozen; ChatGPT/Gemini 待启 |
 | Phase 7 (RAG + KG) | `historical_2026_04.md` | 设计完成, 实施待启 |
 | 06 旁枝 (Deep Verification) | `phase06_deep_verification.md` | **active** — P2 B-03c 进行中 |
-| 07 旁枝 (Website) | `phase07_website.md` | Phase 6/7/8/9 closed |
+| 07 旁枝 (Website) | `phase07_website.md` | Phase 6/7/8/9/10/11 closed |
+| 07 Release (公司发布) | `phase_07_release.md` | v1.0 closed 2026-04-27, v1.1 in flight 2026-05-15 |
 | docs/jp 旁枝 | `phase_jp_delivery.md` | **active** — Phase 1 P0 中間版 v0.5 已提出 |
 | refactor v1 (临时) | `phase_meta_refactor.md` | 段 2 close 2026-05-06 |
 

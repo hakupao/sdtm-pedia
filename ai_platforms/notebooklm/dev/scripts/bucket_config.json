@@ -5,13 +5,15 @@
   "_actual_bucket_count": 42,
   "_headroom_slots": 8,
   "_knowledge_base_root": "knowledge_base",
-
   "buckets": [
     {
       "id": "01",
       "name": "01_navigation_and_routing.md",
       "description": "导航 + 路由提示 + Req 变量速查入口",
-      "files": ["INDEX.md", "ROUTING.md"]
+      "files": [
+        "INDEX.md",
+        "ROUTING.md"
+      ]
     },
     {
       "id": "02",
@@ -26,8 +28,12 @@
       "name": "03_sp_demographics_subject.md",
       "description": "DM (Special-Purpose) + SC (Findings, subject characteristics 归并)",
       "files": [
-        "domains/DM/spec.md", "domains/DM/assumptions.md", "domains/DM/examples.md",
-        "domains/SC/spec.md", "domains/SC/assumptions.md", "domains/SC/examples.md"
+        "domains/DM/spec.md",
+        "domains/DM/assumptions.md",
+        "domains/DM/examples.md",
+        "domains/SC/spec.md",
+        "domains/SC/assumptions.md",
+        "domains/SC/examples.md"
       ]
     },
     {
@@ -35,10 +41,18 @@
       "name": "04_sp_se_sm_sv_co.md",
       "description": "SE + SM + SV + CO (Special-Purpose 剩余 4)",
       "files": [
-        "domains/SE/spec.md", "domains/SE/assumptions.md", "domains/SE/examples.md",
-        "domains/SM/spec.md", "domains/SM/assumptions.md", "domains/SM/examples.md",
-        "domains/SV/spec.md", "domains/SV/assumptions.md", "domains/SV/examples.md",
-        "domains/CO/spec.md", "domains/CO/assumptions.md", "domains/CO/examples.md"
+        "domains/SE/spec.md",
+        "domains/SE/assumptions.md",
+        "domains/SE/examples.md",
+        "domains/SM/spec.md",
+        "domains/SM/assumptions.md",
+        "domains/SM/examples.md",
+        "domains/SV/spec.md",
+        "domains/SV/assumptions.md",
+        "domains/SV/examples.md",
+        "domains/CO/spec.md",
+        "domains/CO/assumptions.md",
+        "domains/CO/examples.md"
       ]
     },
     {
@@ -46,8 +60,12 @@
       "name": "05_int_exposure_ex_ec.md",
       "description": "Interventions: EX + EC (核心 exposure)",
       "files": [
-        "domains/EX/spec.md", "domains/EX/assumptions.md", "domains/EX/examples.md",
-        "domains/EC/spec.md", "domains/EC/assumptions.md", "domains/EC/examples.md"
+        "domains/EX/spec.md",
+        "domains/EX/assumptions.md",
+        "domains/EX/examples.md",
+        "domains/EC/spec.md",
+        "domains/EC/assumptions.md",
+        "domains/EC/examples.md"
       ]
     },
     {
@@ -55,9 +73,15 @@
       "name": "06_int_concomitant_cm_ag_ml.md",
       "description": "Interventions: CM + AG + ML",
       "files": [
-        "domains/CM/spec.md", "domains/CM/assumptions.md", "domains/CM/examples.md",
-        "domains/AG/spec.md", "domains/AG/assumptions.md", "domains/AG/examples.md",
-        "domains/ML/spec.md", "domains/ML/assumptions.md", "domains/ML/examples.md"
+        "domains/CM/spec.md",
+        "domains/CM/assumptions.md",
+        "domains/CM/examples.md",
+        "domains/AG/spec.md",
+        "domains/AG/assumptions.md",
+        "domains/AG/examples.md",
+        "domains/ML/spec.md",
+        "domains/ML/assumptions.md",
+        "domains/ML/examples.md"
       ]
     },
     {
@@ -65,8 +89,12 @@
       "name": "07_int_procedures_pr_su.md",
       "description": "Interventions: PR + SU",
       "files": [
-        "domains/PR/spec.md", "domains/PR/assumptions.md", "domains/PR/examples.md",
-        "domains/SU/spec.md", "domains/SU/assumptions.md", "domains/SU/examples.md"
+        "domains/PR/spec.md",
+        "domains/PR/assumptions.md",
+        "domains/PR/examples.md",
+        "domains/SU/spec.md",
+        "domains/SU/assumptions.md",
+        "domains/SU/examples.md"
       ]
     },
     {
@@ -74,7 +102,9 @@
       "name": "08_ev_adverse_ae.md",
       "description": "Events: AE (单独 — 重要域, 单独 slot 提高精度)",
       "files": [
-        "domains/AE/spec.md", "domains/AE/assumptions.md", "domains/AE/examples.md"
+        "domains/AE/spec.md",
+        "domains/AE/assumptions.md",
+        "domains/AE/examples.md"
       ]
     },
     {
@@ -82,9 +112,15 @@
       "name": "09_ev_disposition_ds_dv_ce.md",
       "description": "Events: DS + DV + CE",
       "files": [
-        "domains/DS/spec.md", "domains/DS/assumptions.md", "domains/DS/examples.md",
-        "domains/DV/spec.md", "domains/DV/assumptions.md", "domains/DV/examples.md",
-        "domains/CE/spec.md", "domains/CE/assumptions.md", "domains/CE/examples.md"
+        "domains/DS/spec.md",
+        "domains/DS/assumptions.md",
+        "domains/DS/examples.md",
+        "domains/DV/spec.md",
+        "domains/DV/assumptions.md",
+        "domains/DV/examples.md",
+        "domains/CE/spec.md",
+        "domains/CE/assumptions.md",
+        "domains/CE/examples.md"
       ]
     },
     {
@@ -92,9 +128,15 @@
       "name": "10_ev_history_mh_ho_be.md",
       "description": "Events: MH + HO + BE",
       "files": [
-        "domains/MH/spec.md", "domains/MH/assumptions.md", "domains/MH/examples.md",
-        "domains/HO/spec.md", "domains/HO/assumptions.md", "domains/HO/examples.md",
-        "domains/BE/spec.md", "domains/BE/assumptions.md", "domains/BE/examples.md"
+        "domains/MH/spec.md",
+        "domains/MH/assumptions.md",
+        "domains/MH/examples.md",
+        "domains/HO/spec.md",
+        "domains/HO/assumptions.md",
+        "domains/HO/examples.md",
+        "domains/BE/spec.md",
+        "domains/BE/assumptions.md",
+        "domains/BE/examples.md"
       ]
     },
     {
@@ -102,7 +144,9 @@
       "name": "11_fnd_lab_lb.md",
       "description": "Findings: LB (lab, 单独 slot)",
       "files": [
-        "domains/LB/spec.md", "domains/LB/assumptions.md", "domains/LB/examples.md"
+        "domains/LB/spec.md",
+        "domains/LB/assumptions.md",
+        "domains/LB/examples.md"
       ]
     },
     {
@@ -110,8 +154,12 @@
       "name": "12_fnd_vitals_vs_eg.md",
       "description": "Findings: VS + EG (生命体征 + ECG)",
       "files": [
-        "domains/VS/spec.md", "domains/VS/assumptions.md", "domains/VS/examples.md",
-        "domains/EG/spec.md", "domains/EG/assumptions.md", "domains/EG/examples.md"
+        "domains/VS/spec.md",
+        "domains/VS/assumptions.md",
+        "domains/VS/examples.md",
+        "domains/EG/spec.md",
+        "domains/EG/assumptions.md",
+        "domains/EG/examples.md"
       ]
     },
     {
@@ -119,7 +167,9 @@
       "name": "13_fnd_physical_exam_pe.md",
       "description": "Findings: PE (physical exam)",
       "files": [
-        "domains/PE/spec.md", "domains/PE/assumptions.md", "domains/PE/examples.md"
+        "domains/PE/spec.md",
+        "domains/PE/assumptions.md",
+        "domains/PE/examples.md"
       ]
     },
     {
@@ -127,8 +177,12 @@
       "name": "14_fnd_questionnaire_qs_ie.md",
       "description": "Findings: QS + IE (questionnaires + inclusion/exclusion)",
       "files": [
-        "domains/QS/spec.md", "domains/QS/assumptions.md", "domains/QS/examples.md",
-        "domains/IE/spec.md", "domains/IE/assumptions.md", "domains/IE/examples.md"
+        "domains/QS/spec.md",
+        "domains/QS/assumptions.md",
+        "domains/QS/examples.md",
+        "domains/IE/spec.md",
+        "domains/IE/assumptions.md",
+        "domains/IE/examples.md"
       ]
     },
     {
@@ -136,10 +190,18 @@
       "name": "15_fnd_biomarkers_mb_mi_ms_mk.md",
       "description": "Findings specialized: MB (microbiology) + MI (microscopic imaging) + MS (mass spec) + MK (biomarker)",
       "files": [
-        "domains/MB/spec.md", "domains/MB/assumptions.md", "domains/MB/examples.md",
-        "domains/MI/spec.md", "domains/MI/assumptions.md", "domains/MI/examples.md",
-        "domains/MS/spec.md", "domains/MS/assumptions.md", "domains/MS/examples.md",
-        "domains/MK/spec.md", "domains/MK/assumptions.md", "domains/MK/examples.md"
+        "domains/MB/spec.md",
+        "domains/MB/assumptions.md",
+        "domains/MB/examples.md",
+        "domains/MI/spec.md",
+        "domains/MI/assumptions.md",
+        "domains/MI/examples.md",
+        "domains/MS/spec.md",
+        "domains/MS/assumptions.md",
+        "domains/MS/examples.md",
+        "domains/MK/spec.md",
+        "domains/MK/assumptions.md",
+        "domains/MK/examples.md"
       ]
     },
     {
@@ -147,8 +209,12 @@
       "name": "16_fnd_pharma_pc_pp.md",
       "description": "Findings: PC + PP (PK concentrations + parameters)",
       "files": [
-        "domains/PC/spec.md", "domains/PC/assumptions.md", "domains/PC/examples.md",
-        "domains/PP/spec.md", "domains/PP/assumptions.md", "domains/PP/examples.md"
+        "domains/PC/spec.md",
+        "domains/PC/assumptions.md",
+        "domains/PC/examples.md",
+        "domains/PP/spec.md",
+        "domains/PP/assumptions.md",
+        "domains/PP/examples.md"
       ]
     },
     {
@@ -156,10 +222,18 @@
       "name": "17_fnd_oncology_tr_tu_rs_oe.md",
       "description": "Findings: TR (tumor response) + TU (tumor ID) + RS (response) + OE (ophtalm exam)",
       "files": [
-        "domains/TR/spec.md", "domains/TR/assumptions.md", "domains/TR/examples.md",
-        "domains/TU/spec.md", "domains/TU/assumptions.md", "domains/TU/examples.md",
-        "domains/RS/spec.md", "domains/RS/assumptions.md", "domains/RS/examples.md",
-        "domains/OE/spec.md", "domains/OE/assumptions.md", "domains/OE/examples.md"
+        "domains/TR/spec.md",
+        "domains/TR/assumptions.md",
+        "domains/TR/examples.md",
+        "domains/TU/spec.md",
+        "domains/TU/assumptions.md",
+        "domains/TU/examples.md",
+        "domains/RS/spec.md",
+        "domains/RS/assumptions.md",
+        "domains/RS/examples.md",
+        "domains/OE/spec.md",
+        "domains/OE/assumptions.md",
+        "domains/OE/examples.md"
       ]
     },
     {
@@ -167,10 +241,18 @@
       "name": "18_fnd_device_da_dd_gf_is.md",
       "description": "Findings: DA (drug accountability) + DD (death details) + GF (genomic findings) + IS (immunogen)",
       "files": [
-        "domains/DA/spec.md", "domains/DA/assumptions.md", "domains/DA/examples.md",
-        "domains/DD/spec.md", "domains/DD/assumptions.md", "domains/DD/examples.md",
-        "domains/GF/spec.md", "domains/GF/assumptions.md", "domains/GF/examples.md",
-        "domains/IS/spec.md", "domains/IS/assumptions.md", "domains/IS/examples.md"
+        "domains/DA/spec.md",
+        "domains/DA/assumptions.md",
+        "domains/DA/examples.md",
+        "domains/DD/spec.md",
+        "domains/DD/assumptions.md",
+        "domains/DD/examples.md",
+        "domains/GF/spec.md",
+        "domains/GF/assumptions.md",
+        "domains/GF/examples.md",
+        "domains/IS/spec.md",
+        "domains/IS/assumptions.md",
+        "domains/IS/examples.md"
       ]
     },
     {
@@ -178,9 +260,15 @@
       "name": "19_fnd_morphology_bs_cp_cv.md",
       "description": "Findings: BS (biospecimens) + CP (clinical endpoint) + CV (cardiovascular)",
       "files": [
-        "domains/BS/spec.md", "domains/BS/assumptions.md", "domains/BS/examples.md",
-        "domains/CP/spec.md", "domains/CP/assumptions.md", "domains/CP/examples.md",
-        "domains/CV/spec.md", "domains/CV/assumptions.md", "domains/CV/examples.md"
+        "domains/BS/spec.md",
+        "domains/BS/assumptions.md",
+        "domains/BS/examples.md",
+        "domains/CP/spec.md",
+        "domains/CP/assumptions.md",
+        "domains/CP/examples.md",
+        "domains/CV/spec.md",
+        "domains/CV/assumptions.md",
+        "domains/CV/examples.md"
       ]
     },
     {
@@ -188,8 +276,12 @@
       "name": "20_fnd_about_fa_sr.md",
       "description": "Findings About: FA + SR (2 domains)",
       "files": [
-        "domains/FA/spec.md", "domains/FA/assumptions.md", "domains/FA/examples.md",
-        "domains/SR/spec.md", "domains/SR/assumptions.md", "domains/SR/examples.md"
+        "domains/FA/spec.md",
+        "domains/FA/assumptions.md",
+        "domains/FA/examples.md",
+        "domains/SR/spec.md",
+        "domains/SR/assumptions.md",
+        "domains/SR/examples.md"
       ]
     },
     {
@@ -197,9 +289,15 @@
       "name": "21_fnd_other_nv_re_rp.md",
       "description": "Findings 其他: NV + RE + RP",
       "files": [
-        "domains/NV/spec.md", "domains/NV/assumptions.md", "domains/NV/examples.md",
-        "domains/RE/spec.md", "domains/RE/assumptions.md", "domains/RE/examples.md",
-        "domains/RP/spec.md", "domains/RP/assumptions.md", "domains/RP/examples.md"
+        "domains/NV/spec.md",
+        "domains/NV/assumptions.md",
+        "domains/NV/examples.md",
+        "domains/RE/spec.md",
+        "domains/RE/assumptions.md",
+        "domains/RE/examples.md",
+        "domains/RP/spec.md",
+        "domains/RP/assumptions.md",
+        "domains/RP/examples.md"
       ]
     },
     {
@@ -207,9 +305,15 @@
       "name": "22_fnd_other_ss_ur_ft.md",
       "description": "Findings 其他: SS + UR + FT",
       "files": [
-        "domains/SS/spec.md", "domains/SS/assumptions.md", "domains/SS/examples.md",
-        "domains/UR/spec.md", "domains/UR/assumptions.md", "domains/UR/examples.md",
-        "domains/FT/spec.md", "domains/FT/assumptions.md", "domains/FT/examples.md"
+        "domains/SS/spec.md",
+        "domains/SS/assumptions.md",
+        "domains/SS/examples.md",
+        "domains/UR/spec.md",
+        "domains/UR/assumptions.md",
+        "domains/UR/examples.md",
+        "domains/FT/spec.md",
+        "domains/FT/assumptions.md",
+        "domains/FT/examples.md"
       ]
     },
     {
@@ -217,8 +321,12 @@
       "name": "23_td_arms_ta_tv.md",
       "description": "Trial Design: TA + TV (arms + visits)",
       "files": [
-        "domains/TA/spec.md", "domains/TA/assumptions.md", "domains/TA/examples.md",
-        "domains/TV/spec.md", "domains/TV/assumptions.md", "domains/TV/examples.md"
+        "domains/TA/spec.md",
+        "domains/TA/assumptions.md",
+        "domains/TA/examples.md",
+        "domains/TV/spec.md",
+        "domains/TV/assumptions.md",
+        "domains/TV/examples.md"
       ]
     },
     {
@@ -226,19 +334,32 @@
       "name": "24_td_elements_te_tm_td.md",
       "description": "Trial Design: TE + TM + TD (elements + milestones + durations)",
       "files": [
-        "domains/TE/spec.md", "domains/TE/assumptions.md", "domains/TE/examples.md",
-        "domains/TM/spec.md", "domains/TM/assumptions.md", "domains/TM/examples.md",
-        "domains/TD/spec.md", "domains/TD/assumptions.md", "domains/TD/examples.md"
+        "domains/TE/spec.md",
+        "domains/TE/assumptions.md",
+        "domains/TE/examples.md",
+        "domains/TM/spec.md",
+        "domains/TM/assumptions.md",
+        "domains/TM/examples.md",
+        "domains/TD/spec.md",
+        "domains/TD/assumptions.md",
+        "domains/TD/examples.md"
       ]
     },
     {
       "id": "25",
       "name": "25_td_meta_ti_ts_oi.md",
-      "description": "Trial Design: TI + TS + OI (inclusion + summary + organism)",
+      "description": "Trial Design + Study Reference: TI + TS + OI + DI (inclusion + summary + organism + device identifiers; DI added 06 P6 T4 2026-05-12)",
       "files": [
-        "domains/TI/spec.md", "domains/TI/assumptions.md", "domains/TI/examples.md",
-        "domains/TS/spec.md", "domains/TS/assumptions.md", "domains/TS/examples.md",
-        "domains/OI/spec.md", "domains/OI/assumptions.md", "domains/OI/examples.md"
+        "domains/TI/spec.md",
+        "domains/TI/assumptions.md",
+        "domains/TI/examples.md",
+        "domains/TS/spec.md",
+        "domains/TS/assumptions.md",
+        "domains/TS/examples.md",
+        "domains/OI/spec.md",
+        "domains/OI/assumptions.md",
+        "domains/OI/examples.md",
+        "domains/DI/assumptions.md"
       ]
     },
     {
@@ -246,9 +367,15 @@
       "name": "26_rel_relrec_relspec_relsub.md",
       "description": "Relationships: RELREC + RELSPEC + RELSUB",
       "files": [
-        "domains/RELREC/spec.md", "domains/RELREC/assumptions.md", "domains/RELREC/examples.md",
-        "domains/RELSPEC/spec.md", "domains/RELSPEC/assumptions.md", "domains/RELSPEC/examples.md",
-        "domains/RELSUB/spec.md", "domains/RELSUB/assumptions.md", "domains/RELSUB/examples.md"
+        "domains/RELREC/spec.md",
+        "domains/RELREC/assumptions.md",
+        "domains/RELREC/examples.md",
+        "domains/RELSPEC/spec.md",
+        "domains/RELSPEC/assumptions.md",
+        "domains/RELSPEC/examples.md",
+        "domains/RELSUB/spec.md",
+        "domains/RELSUB/assumptions.md",
+        "domains/RELSUB/examples.md"
       ]
     },
     {
@@ -256,7 +383,9 @@
       "name": "27_rel_suppqual.md",
       "description": "Supplemental: SUPPQUAL",
       "files": [
-        "domains/SUPPQUAL/spec.md", "domains/SUPPQUAL/assumptions.md", "domains/SUPPQUAL/examples.md"
+        "domains/SUPPQUAL/spec.md",
+        "domains/SUPPQUAL/assumptions.md",
+        "domains/SUPPQUAL/examples.md"
       ]
     },
     {
@@ -457,7 +586,9 @@
       "id": "41",
       "name": "41_variable_index.md",
       "description": "VARIABLE_INDEX.md 全集 (27K words)",
-      "files": ["VARIABLE_INDEX.md"]
+      "files": [
+        "VARIABLE_INDEX.md"
+      ]
     },
     {
       "id": "42",

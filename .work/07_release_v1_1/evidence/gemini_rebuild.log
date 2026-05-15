@@ -1,0 +1,4 @@
+[Stage gemini-c-refactor] 01_navigation_and_quick_reference.md: 127563 tokens (target ~150K)
+[Stage gemini-c-refactor] 02_domains_spec_and_assumptions.md: 258874 tokens (target ~370K)
+[Stage gemini-c-refactor] 03_domains_examples.md: 224159 tokens (target ~250K)
+[Stage gemini-c-refactor] cumulative tokens for 3 stages: 610,596 (target ~820,000, 04 ~50K writer-authored, totals ~820K C 方案)

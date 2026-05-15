@@ -1,0 +1,52 @@
+========================================================================================
+ID   Name                                                     Files  Missing      Words
+----------------------------------------------------------------------------------------
+01   01_navigation_and_routing.md                                 2        0      2,145 
+02   02_common_identifiers_and_timing.md                          0        0      1,080 
+03   03_sp_demographics_subject.md                                6        0     10,698 
+04   04_sp_se_sm_sv_co.md                                        12        0      9,984 
+05   05_int_exposure_ex_ec.md                                     6        0     14,426 
+06   06_int_concomitant_cm_ag_ml.md                               9        0     11,124 
+07   07_int_procedures_pr_su.md                                   6        0      6,168 
+08   08_ev_adverse_ae.md                                          3        0      7,354 
+09   09_ev_disposition_ds_dv_ce.md                                9        0     13,756 
+10   10_ev_history_mh_ho_be.md                                    9        0     11,195 
+11   11_fnd_lab_lb.md                                             3        0      5,887 
+12   12_fnd_vitals_vs_eg.md                                       6        0      9,238 
+13   13_fnd_physical_exam_pe.md                                   3        0      2,333 
+14   14_fnd_questionnaire_qs_ie.md                                6        0      5,033 
+15   15_fnd_biomarkers_mb_mi_ms_mk.md                            12        0     24,071 
+16   16_fnd_pharma_pc_pp.md                                       6        0     16,647 
+17   17_fnd_oncology_tr_tu_rs_oe.md                              12        0     22,817 
+18   18_fnd_device_da_dd_gf_is.md                                12        0     23,262 
+19   19_fnd_morphology_bs_cp_cv.md                                9        0     17,632 
+20   20_fnd_about_fa_sr.md                                        6        0     12,473 
+21   21_fnd_other_nv_re_rp.md                                     9        0     11,080 
+22   22_fnd_other_ss_ur_ft.md                                     9        0      7,866 
+23   23_td_arms_ta_tv.md                                          6        0     13,903 
+24   24_td_elements_te_tm_td.md                                   9        0      6,080 
+25   25_td_meta_ti_ts_oi.md                                       9        0      8,651 
+26   26_rel_relrec_relspec_relsub.md                              9        0      3,627 
+27   27_rel_suppqual.md                                           3        0      1,835 
+28   28_ig_ch01_ch02_ch03.md                                      3        0      7,276 
+29   29_ig_ch04_general_assumptions.md                            1        0     21,279 
+30   30_ig_ch08_ch10.md                                           2        0     13,427 
+31   31_model_obs_classes.md                                      2        0      6,849 
+32   32_model_concepts_study_rel.md                               4        0      5,801 
+33   33_ct_general.md                                             5        0     98,051 
+34   34_ct_lb.md                                                  4        0    129,606 
+35   35_ct_findings_eg_qs_vs_mi_ae_dispo.md                       9        0     83,907 
+36   36_ct_specialized_micro_oncology_pk_is_cp.md                13        0    162,073 
+37   37_ct_misc_int_dm_sp_td_gf_oi_other.md                      11        0     88,232 
+38   38_ct_questionnaires_part1_22.md                            22        0    302,027 
+39   39_ct_questionnaires_part23_43.md                           21        0    291,941 
+40   40_ct_supplementary.md                                       6        0     75,907 
+41   41_variable_index.md                                         1        0     27,758 
+42   42_req_variable_coverage_audit.md                            0        0      4,833 
+----------------------------------------------------------------------------------------
+Total buckets: 42
+Total words: 1,599,332
+Total bytes: 9,792,437 (9.34 MiB)
+Over-cap buckets (>500K words): 0
+Output directory: ai_platforms/notebooklm/current/uploads
+========================================================================================
