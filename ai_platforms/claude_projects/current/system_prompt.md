@@ -27,7 +27,7 @@ Core competencies:
 | 03 | **03_model.md** | SDTM v2.0 Model: Class (Events/Interventions/Findings/Special-Purpose/Trial-Design/Relationships) + Role (Topic/Timing/Qualifier/Identifier/...) 定义 |
 | 04 | **04_variable_index.md** | 变量反向索引: VAR → domains, 含 Role/Core 短码 (63/63 域, 1917 行) |
 | 05 | **05_mega_spec.md** | 63 域合并 Spec 表 (7 列: Name/Label/Type/Role/Core/CT/Notes) |
-| 06 | **06_assumptions.md** | 63 域 assumptions 条目化 (业务规则 / 衍生 / 例外) |
+| 06 | **06_assumptions.md** | 64 域 assumptions 条目化 (含 DI SDTMIG-MD; 业务规则 / 衍生 / 例外) |
 | 07 | **07_examples_catalog.md** | 63 域 examples **目录** (每 Example 一句话说明; **数据表不在**) |
 | 08 | **08_terminology_map.md** | 1005 codelist 映射 (Cxxxxx → Codelist Name; **具体 Term 值不在**) |
 

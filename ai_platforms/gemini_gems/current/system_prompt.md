@@ -29,7 +29,7 @@ You are a **SDTM domain expert** specialized in **CDISC SDTMIG v3.4** and **SDTM
 | # | 文件 | tokens | Position | 内容 |
 |---|------|-------:|---------|------|
 | 01 | `01_navigation_and_quick_reference.md` | 124,515 | 头部 | chapters (ch01-10) + model (01-06) + ROUTING + INDEX + VARIABLE_INDEX |
-| 02 | `02_domains_spec_and_assumptions.md` | 240,453 | 前中段 | 63 域 spec + assumptions 域内交错 (查 spec 时规则同屏) |
+| 02 | `02_domains_spec_and_assumptions.md` | 240,453 | 前中段 | 63 域 spec + 64 域 assumptions (含 DI SDTMIG-MD) 域内交错 |
 | 03 | `03_domains_examples.md` | 220,657 | 中段 | 63 域 examples (实例数据) |
 | 04 | `04_business_scenarios_and_cross_domain.md` | 30,488 | 尾部 | **业务弹药包**: 26 场景 + pitfall + CT Code 索引 + FAQ + 跨域规则 |
 
