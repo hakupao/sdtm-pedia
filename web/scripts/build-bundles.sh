@@ -3,7 +3,7 @@
 set -euo pipefail
 
 VERSION="${1:-v1.0}"
-SRC_ROOT="$(cd "$(dirname "$0")/../.." && pwd)/release/v1.0/self_deploy"
+SRC_ROOT="$(cd "$(dirname "$0")/../.." && pwd)/release/${VERSION}/self_deploy"
 OUT_DIR="$(cd "$(dirname "$0")/.." && pwd)/dist-bundles"
 
 mkdir -p "$OUT_DIR"
