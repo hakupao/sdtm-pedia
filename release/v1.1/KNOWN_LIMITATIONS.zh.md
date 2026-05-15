@@ -17,6 +17,7 @@ v1.1 用包含 06 深度验证修复 (43 KB 文件改, +1,405 / -234 行; 新增
 - Rule A 抽检用 N=5 KB 文件 (非 N=20+); 22 个改动的 NotebookLM bucket 未逐 bucket 语义审计.
 - Gemini `04_business_scenarios_and_cross_domain.md` 是 writer 手写 (非 KB 派生), 未针对新 PC §6.3.5.9 RELREC 内容重审.
 - 06 P5 阶段 437 个 `UNSOURCED_MANUAL` 原子未最终定性 (06 RETROSPECTIVE § 二.4); 不影响部署回答但代表 KB 中来源未验证的内容.
+- 约 **166 个 KB 节 (56 个缺兄弟节点, 110 个内容截断)** 在 06 深度验证中未完整修复. 工程在覆盖率 gate (99.02%) 达标时仅完成 Tier A (HIGH 优先级) 修复; Tier B (MEDIUM 优先级) 推迟. 这些节的回答可能不如其他区域完整. 受影响的节散布在深章节内容中, 没有集中在任何单一域. Tier B 修复计划在未来 KB pass 完成.
 
 ## 1. 不替代官方标准
 

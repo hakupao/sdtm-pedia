@@ -17,6 +17,7 @@ v1.1 rebuilds platform upload bundles from a KB that incorporates the 06 deep ve
 - Rule A spot-check used N=5 KB files (not N=20+); per-bucket semantic audit was not performed on all 22 changed NotebookLM buckets.
 - Gemini's `04_business_scenarios_and_cross_domain.md` is writer-authored (not KB-derived) and was not re-audited against the new PC §6.3.5.9 RELREC content.
 - The 437 `UNSOURCED_MANUAL` atoms from 06 P5 remain unclassified (06 RETROSPECTIVE § 二.4); they do not affect deployed answers but represent KB content whose source-of-truth lineage is unverified.
+- Approximately **166 KB sections (56 with missing sibling nodes, 110 with truncated content)** were not fully repaired in the 06 deep verification pass. The project reached its coverage gate (99.02%) with Tier A (HIGH-priority) repairs only; Tier B (MEDIUM-priority) was deferred. Answers in these sections may be less complete than other areas. The affected sections are scattered across deep-chapter content rather than concentrated in any single domain. Tier B repair is planned for a future KB pass.
 
 ## 1. Not a Replacement for Official Standards
 

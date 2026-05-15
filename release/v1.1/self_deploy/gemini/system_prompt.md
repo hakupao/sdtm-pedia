@@ -138,7 +138,7 @@ AE 域 Core 属性**不规则**, 不得按"AE 多数 Req"推断:
 - ARM/ACTARM 值是 **protocol-specific 自由文本** (如 "Placebo QD", "Drug A 100mg BID"), **无 CDISC CT codelist 约束**
 - 查询时**不引特定 NCI code** (如 `C66735` 是 Route of Administration, 与 ARM 无关, **禁误引**)
 - 用户问 "ARM 的 CT Code" → 答 "**protocol-specific, 无 CT; 示例值见 Protocol**"
-- 相关有 CT 的 DM 变量: ARMNRS (C66770), COUNTRY (ISO 3166) 等, 逐变量核 02 spec
+- 相关有 CT 的 DM 变量: ARMNRS (**C142179** ARM Null Reason, 见 CO-1c — 注: C66770 是 NY response, 不是 ARMNRS), COUNTRY (ISO 3166) 等, 逐变量核 02 spec
 
 ### CO-4: v3.4 新域变量硬锚 (GF / CP / BE / BS — anti-hallucination, v5c 新增 post-N5.3)
 

@@ -22,10 +22,10 @@
 
 ## 当前状态 (每步更新)
 
-- **当前锁步 Phase**: **4 平台 Phase 4 全链 COMPLETE + Phase 5 跨 4 平台 RETROSPECTIVE v1.0 FINAL candidate** (2026-04-23 PM, NotebookLM P3.9 drill PASS 解锁合流). 终态: Claude 17/17 (v2.6 先行) / ChatGPT 16.5/17 (N5.4 + R1 post-#24) / Gemini **R2 16/17 (94.1%)** 双硬 gate PASS ✓✓ (v6-post-A1 + 14th reviewer APPROVE) / NotebookLM 15/17 (Phase 4 3/3 items COMPLETE 含 P3.9 drill 2026-04-23 PASS). PHASE5_RETROSPECTIVE.md v1.0 FINAL candidate (280 行, P3.9 回灌 4 TBD 全填). Rule D chain 27 种 subagent_type cumulative.
-- **允许的下一动作**: (1) 派 **28th Rule D slot reviewer** (候选 `superpowers:code-reviewer` 或 `oh-my-claudecode:critic`) background 独立复核 PHASE5_RETROSPECTIVE.md v1.0 candidate + 可选 v7 draft / v2.2 draft 一并审; (2) reviewer APPROVE → Daisy ack → **Phase 6.5 全 lifecycle sign-off 🎉** (ROADMAP 4 平台 → 已完成, CLAUDE.md Key Paths 已回填); (3) Post-sign-off optional: v7/v2.2 apply + V5C combined regression (不阻塞).
-- **偏离告警**: 无. 4 平台齐进 Phase 5, cross-pollination 红利齐收.
-- **上一次状态更新**: 2026-04-23 PM (P3.9 drill PASS + PHASE5 retro 4 TBD marker 回灌升 v1.0 FINAL candidate + NotebookLM _progress.json Phase 4 COMPLETE + 28th reviewer pending)
+- **当前锁步 Phase**: **Phase 6.5 4 平台 lifecycle FULLY SIGNED OFF (2026-04-24 Daisy ack) + v1.1 content refresh CLOSED (2026-05-15) + post-v1.1 audit pass CLOSED (2026-05-16)**. 终态: Claude 17/17 / ChatGPT 16.5/17 / Gemini R2 16/17 / NotebookLM 15/17 ALL R1/R2 PASS; v7.1 已 LIVE applied to Gemini (含 CO-1d SUPP-- Core 锚点 + CO-1c ARMNRS C142179 5 值 + V5C 15th reviewer APPROVE 2026-04-24); v2.2 已 LIVE applied to ChatGPT; v1.1 rebuild 4 平台 + Rule D verifier ALL_PASS + post-v1.1 audit (system_prompt 63→64 + 23 meta inheritance + ARMNRS C66770 typo @ Gemini line 141 fix) 全 closed; Rule D chain 28 种 subagent_type cumulative.
+- **允许的下一动作**: 全部 closed, 仅 deferred 项留 v1.2+: (a) v1.1 部署到实际 ChatGPT/Gemini/Claude/NotebookLM 实例后跑 SMOKE_V4 R3 (06 修复对 PC RELREC 等问题改善实测; 需用户协作 cowork); (b) Rule A 扩到 N=20+ (本 session 后台 subagent 跑); (c) 22 notebooklm bucket 逐桶 audit (本 session 后台 subagent 跑); (d) gemini 04 writer-authored 与 PC RELREC 交互 audit (本 session 后台 subagent 跑); (e) KNOWN_LIMITATIONS L1-L4 vs 06 RETROSPECTIVE §二缺口 reconciliation (本 session 后台 subagent 跑).
+- **偏离告警**: 无. 锁步 board 作为历史记录保留, 不再 active.
+- **上一次状态更新**: 2026-05-16 AM (post-v1.1 audit pass closed: v7.1 LIVE 确认 + line 141 ARMNRS typo 修 + 2 个 deferred audit subagent 派发) — 见后续 changelog
 
 ---
 

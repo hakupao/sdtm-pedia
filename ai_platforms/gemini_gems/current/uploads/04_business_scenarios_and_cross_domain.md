@@ -950,13 +950,51 @@ RELREC 记录 2 条 (一条指向 AE, 一条指向 CM, 两条用同 RELID 绑定
 **核心变量**:
 - PPTESTCD / PPTEST (如 "AUCIFO" / "CMAX")
 - PPORRES / PPSTRESC / PPSTRESN
-- PPRFTDTC (reference time point date)
+- PPRFTDTC (reference time point date — **同时作为 PC↔PP 软链接**, 见 §1.24b)
+- PPGRPID (Perm — 在 PP 内分组相关参数, 用于 RELREC Method A/C, 见 §1.24b)
 
 **PC vs PP 区别**:
 - PC = 血药浓度 (原始采样数据)
 - PP = PK 参数 (NCA/compartmental 分析结果)
 
-**源路径**: `knowledge_base/domains/PC/spec.md`, `knowledge_base/domains/PP/spec.md`
+**关联义务**: SDTMIG v3.4 §6.3.5.9.3 强制 sponsor 文档化"每个 PP 参数由哪些 PC 浓度计算得出", 详见 §1.24b.
+
+**源路径**: `knowledge_base/domains/PC/spec.md`, `knowledge_base/domains/PP/spec.md`, `knowledge_base/domains/PC/assumptions.md §6.3.5.9.3`
+
+---
+
+### §1.24b PC 浓度与 PP 参数的 RELREC 关联 (§6.3.5.9.3)
+
+**业务场景**: PK 研究提交时, 必须记录每个 PP 参数由哪些 PC 浓度记录计算得出 (regulatory 可追溯性).
+
+**SDTM 规则** (KB `PC/assumptions.md` §6.3.5.9.3):
+> Sponsors must document the concentrations used to calculate each parameter, either via analysis dataset metadata or via RELREC relationships between PC and PP datasets.
+
+**4 种 RELREC 方法** (按 --GRPID 使用情况, 选择取决于浓度↔参数关系基数):
+
+| 方法 | 使用变量 | 适用场景 | 记录数 |
+|------|----------|---------|:----:|
+| **A** (many-to-many) | PCGRPID + PPGRPID | 所有浓度记录共同计算所有参数 (相同 reference time point + analyte 共享一组浓度) | 最少 |
+| **B** (one-to-many) | PCSEQ + PPGRPID | 每条浓度记录单独引用, 每组参数共享 | 中 |
+| **C** (many-to-one) | PCGRPID + PPSEQ | 每组浓度共享, 每条参数单独引用 | 中 |
+| **D** (one-to-one) | PCSEQ + PPSEQ | 每条 PC 对应每条 PP (无 GRPID 需求) | 最多, 但实现最简单 |
+
+**关键变量**:
+- **PCGRPID** / **PPGRPID** (Perm): 分别在 PC 和 PP 内分组相关记录; --GRPID 在同 USUBJID + 同 analyte + 同 reference time point 内共享
+- **RELID** (RELREC.RELID): study 内 unique 标识每个 PC-PP 关系组
+- **PPRFTDTC** (Exp): PP 参数关联的 PC 参考时间点 — 可作软链接但**不是正式 RELREC 替代**
+
+**推荐选择**:
+- 首选 Method A 当所有 PP 参数共用所有 PC 浓度 (最常见 NCA 场景, 记录数最少)
+- Method D 用于实现门槛低 (无 GRPID 编排, 但 relrec.xpt 行数 = PC 浓度数 × 相关 PP 参数数)
+- analysis dataset metadata 是 RELREC 之外的合法替代 (满足 regulatory 文档要求)
+
+**Anti-pattern**:
+- ❌ 只填 PPRFTDTC 不建 RELREC → 不满足 §6.3.5.9.3 文档要求
+- ❌ 跨 USUBJID 共用 PCGRPID/PPGRPID → 违反 --GRPID 同 subject scope
+- ❌ Method A 同时填 PCSEQ + PCGRPID → 应择一 (Method A 用 GRPID, Method D 用 SEQ)
+
+**源路径**: `knowledge_base/domains/PC/assumptions.md` §6.3.5.9 + §6.3.5.9.3 (Methods A-D 表格 + relrec.xpt 样例), `knowledge_base/domains/PP/examples.md` (PPGRPID 共享表格 + Method B/C/A 示例)
 
 ---
 
@@ -1601,7 +1639,7 @@ CT Code C66742 对应 codelist 英文名: **"No Yes Response"** (见 04 §3.1).
 | SS | Subject Status | SSTESTCD / SSTEST | 1 per status per subject |
 | UR | Urinalysis | URTESTCD / URTEST | 1 per urinalysis finding per subject |
 
-### §8.5 Trial Design 域 (7)
+### §8.5 Trial Design / Study Reference 域 (8)
 
 | Domain | Name | Structure |
 |:------:|------|-----------|
@@ -1612,6 +1650,7 @@ CT Code C66742 对应 codelist 英文名: **"No Yes Response"** (见 04 §3.1).
 | TM | Trial Disease Milestones | 1 per milestone |
 | TS | Trial Summary | 1 per summary parameter value |
 | TV | Trial Visits | 1 per visit |
+| **DI** | **Device Identifiers** (SDTMIG-MD, study reference dataset since SDTM v1.7) | 1 per device per study |
 
 ### §8.6 Relationship 域
 
@@ -1691,6 +1730,9 @@ A: ≤8 字符, 同 --TESTCD 规则. QLABEL ≤40 字符.
 
 **Q: RELID 必须唯一吗?**
 A: 同关系的多条 RELREC 记录**共享**同 RELID. 不同关系用不同 RELID. RELID 在 study 内 unique.
+
+**Q: PC 浓度和 PP 参数必须用 RELREC 关联吗?**
+A: **必须文档化** (KB `PC/assumptions.md §6.3.5.9.3`): sponsor 须说明每个 PP 参数由哪些 PC 浓度计算得出. 4 种 RELREC 方法 (A/B/C/D 按 PCGRPID/PCSEQ × PPGRPID/PPSEQ 组合) 详见 §1.24b. 推荐 Method A (PCGRPID+PPGRPID) — 记录数最少. PPRFTDTC 可作软链接但**不是正式 RELREC 替代**. analysis dataset metadata 也是合法替代方式.
 
 ### §9.6 Timing / ISO 8601
 
