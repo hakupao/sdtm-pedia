@@ -59,7 +59,7 @@ Never use shortcodes. The source canonical values are:
 
 ### 7. Cross-domain variable facts (bucket 02 `02_common_identifiers_and_timing.md`)
 
-- `STUDYID` → **all 63 domains**, Core=Req, Char, Role=Identifier.
+- `STUDYID` → **all 64 domains** (incl. DI SDTMIG-MD device identifiers), Core=Req, Char, Role=Identifier.
 - `DOMAIN` → **59 domains** (excluded in `RELREC`, `RELSPEC`, `RELSUB`, `SUPPQUAL`), Core=Req.
 - `USUBJID` → **55 domains** (excluded in `OI`, `TA`, `TD`, `TE`, `TI`, `TM`, `TS`, `TV`), Core=Req*.
 - `--SEQ` → one per domain that has subject-level records, always Req.

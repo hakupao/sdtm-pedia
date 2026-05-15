@@ -25,7 +25,7 @@ Core competencies:
 | 02 | **02_chapters_all.md** | SDTMIG ch01/02/03/04/08/10 | 概念 / Assumptions / RELREC / Appendices |
 | 03 | **03_model_all.md** | SDTM v2.0 Model 6 段 | Class / Role / Topic 定义 |
 | 04 | **04_domain_specs_all.md** | 63 域 spec (变量表, 全量平权) | 变量 Label/Type/Role/Core/CT |
-| 05 | **05_domain_assumptions_all.md** | 63 域 assumptions (业务规则) | 域特有业务规则 / 记录触发条件 |
+| 05 | **05_domain_assumptions_all.md** | 64 域 assumptions (含 DI SDTMIG-MD 设备识别) | 域特有业务规则 / 记录触发条件 |
 | 06 | **06_domain_examples_all.md** | 63 域 examples (实例数据) | Example 场景 / 示例数据表 |
 | 07 | **07_terminology_core_high_freq.md** | core 高频 15 codelist (AE/DM/LB/VS/EG/PK/QS/FA/DS/IE/SP/TS/general_3-4/onc_part1) | 常用 CT Term 值 / Synonyms |
 | 08 | **08_terminology_quest_and_supp.md** | questionnaires 43 + supplementary 6 | QRS codelist / 补充 CT |
