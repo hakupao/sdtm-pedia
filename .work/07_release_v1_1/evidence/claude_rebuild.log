@@ -1,0 +1,113 @@
+# Claude Projects Uploads Rebuild Log
+
+> Date: 2026-05-15
+> Task: Rebuild claude_projects/current/uploads/ to reflect knowledge_base/ state after 06 Deep Verification (P6 T4)
+> Agent: executor subagent
+
+## Step 1 — Path Reconnaissance
+
+### Script path issues discovered
+
+Both v1 and v2 scripts use Path(__file__).resolve().parents[N] to find REPO_ROOT:
+
+- archive/v1/scripts/*.py: parents[3] resolves to ai_platforms/claude_projects/ (WRONG, need parents[4])
+- dev/scripts/rebuild_chapters_full.py: parents[3] resolves to ai_platforms/ (WRONG, need parents[4])
+- dev/scripts/extract_examples_data.py: parents[3] resolves to ai_platforms/ (WRONG, need parents[4])
+
+Workaround: all scripts run via exec() with REPO_ROOT patched to /Users/bojiangzhang/MyProject/sdtm-pedia
+
+### D1/E1 list files found
+
+- ai_platforms/claude_projects/dev/evidence/D1_domain_list.md — 28 high-freq domains
+- ai_platforms/claude_projects/dev/evidence/E1_exclude_list.txt — same 28 as exclude list
+
+### DI domain status
+
+- Added in 06 Deep Verification; has ONLY assumptions.md (no spec.md, no examples.md)
+- merge_specs.py: DI skipped (no spec.md, warning)
+- catalog_examples.py: DI warned+skipped (no examples.md)
+- compress_assumptions.py: DI INCLUDED (assumptions.md exists)
+
+---
+
+## Step 2 — V2 Rebuilds
+
+### 02_chapters.md
+- Script: dev/scripts/rebuild_chapters_full.py
+- Status: SUCCESS
+- Tokens: 63,416 (soft=90K, hard=110K — PASS)
+- Chapters: ch01/ch02/ch03/ch04/ch08/ch10 all present (06-patched chapters confirmed)
+- Baseline: 247,206 bytes -> New: 259,659 bytes (+12,453)
+
+### 09_examples_data_high.md
+- Script: dev/scripts/extract_examples_data.py --tier high
+- Domain list: 28 domains from D1_domain_list.md
+- Status: SOFT-PASS (exit 1 = EXCEED_HARD_CAP, file produced — pre-existing behavior)
+- Tokens: 104,548 (over 50K hard cap, same as original v2.2 build)
+- Domains: 28 included, 0 missing examples.md
+- Baseline: 294,372 bytes -> New: 279,344 bytes (-15,028)
+
+### 10_examples_data_others.md
+- Script: dev/scripts/extract_examples_data.py --tier others
+- Exclude list: E1_exclude_list.txt (28 domains)
+- Status: SUCCESS (exit 0, WARN above soft target — pre-existing)
+- Tokens: 48,930 (above 30K soft target, below 50K hard cap)
+- Domains: 35 included, 0 missing examples.md
+- Baseline: 133,274 bytes -> New: 133,476 bytes (+202)
+
+---
+
+## Step 3 — V1 Rebuilds
+
+### 03_model.md
+- Script: archive/v1/scripts/merge_model.py
+- Status: SUCCESS
+- Model files merged: 6 (01-06)
+- Baseline: 70,534 bytes -> New: 72,009 bytes (+1,475)
+
+### 05_mega_spec.md
+- Script: archive/v1/scripts/merge_specs.py
+- Status: SUCCESS (DI skipped — no spec.md)
+- Domains: 63, Variables: 1,917
+- Baseline: 207,599 bytes -> New: 207,599 bytes (0, idempotent)
+
+### 06_assumptions.md
+- Script: archive/v1/scripts/compress_assumptions.py
+- Status: SUCCESS
+- Domains: 64 (DI INCLUDED — assumptions.md exists)
+- Output: 99,928 chars, 1,357 lines
+- Baseline: 75,919 bytes -> New: 100,074 bytes (+24,155)
+- Note: Large increase = DI added + PC RELREC+118 lines + TA+175 lines from 06
+
+### 07_examples_catalog.md
+- Script: archive/v1/scripts/catalog_examples.py
+- Status: SUCCESS (DI warned+skipped)
+- Domains: 63/64 covered (DI: no examples.md)
+- Total examples: 184 (prose=126, table-headers=56, row-values=0, registry=2)
+- Baseline: 13,337 bytes -> New: 13,333 bytes (-4)
+
+---
+
+## Step 4 — Copy to current/uploads/ Summary
+
+| File                     | Baseline (B) | New (B)  | Delta   | Status    |
+|--------------------------|-------------|----------|---------|-----------|
+| 02_chapters.md           | 247,206     | 259,659  | +12,453 | UPDATED   |
+| 03_model.md              | 70,534      | 72,009   | +1,475  | UPDATED   |
+| 05_mega_spec.md          | 207,599     | 207,599  | 0       | UNCHANGED |
+| 06_assumptions.md        | 75,919      | 100,074  | +24,155 | UPDATED   |
+| 07_examples_catalog.md   | 13,337      | 13,333   | -4      | UPDATED   |
+| 09_examples_data_high.md | 294,372     | 279,344  | -15,028 | UPDATED   |
+| 10_examples_data_others.md | 133,274   | 133,476  | +202    | UPDATED   |
+
+Not rebuilt (KB unchanged): 00, 01, 04, 08, 11a/b/c, 12a/b/c, 13a/c
+
+---
+
+## Token Counts
+
+| File                     | Tokens  |
+|--------------------------|---------|
+| 02_chapters.md           | 63,416  |
+| 09_examples_data_high.md | 104,548 |
+| 10_examples_data_others.md | 48,930 |

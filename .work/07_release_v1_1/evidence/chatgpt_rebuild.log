@@ -1,0 +1,36 @@
+[Stage chatgpt-batch2] 05_domain_assumptions_all.md: FAIL segment count 64 != PLAN-expected 63 (fail-fast, abort write)
+merge_for_chatgpt.py --stage all (9 产物, dry_run=False)
+repo_root: /Users/bojiangzhang/MyProject/sdtm-pedia
+uploads:   ai_platforms/chatgpt_gpt/current/uploads
+
+[Stage chatgpt-batch1] 01_navigation.md: 46,170 tokens (3 sources, target ≤47K)
+  wrote ai_platforms/chatgpt_gpt/current/uploads/01_navigation.md | manifest: appended | segments.json: expected=3 actual=3 dynamic=False
+[Stage chatgpt-batch1] 02_chapters_all.md: 63,307 tokens (6 sources, target ≤72K)
+  wrote ai_platforms/chatgpt_gpt/current/uploads/02_chapters_all.md | manifest: appended | segments.json: expected=6 actual=6 dynamic=False
+[Stage chatgpt-batch1] 03_model_all.md: 18,001 tokens (6 sources, target ≤21K)
+  wrote ai_platforms/chatgpt_gpt/current/uploads/03_model_all.md | manifest: appended | segments.json: expected=6 actual=6 dynamic=False
+[Stage chatgpt-batch1] 04_domain_specs_all.md: 185,704 tokens (63 sources, target ≤193K)
+  wrote ai_platforms/chatgpt_gpt/current/uploads/04_domain_specs_all.md | manifest: appended | segments.json: expected=63 actual=63 dynamic=False
+[Stage chatgpt-batch2] 05_domain_assumptions_all.md: 73,079 tokens (64 sources, target ≤69K)
+[Stage chatgpt-batch2] 06_domain_examples_all.md: 224,077 tokens (63 sources, target ≤254K)
+  wrote ai_platforms/chatgpt_gpt/current/uploads/06_domain_examples_all.md | manifest: appended | segments.json: expected=63 actual=63 dynamic=False
+[Stage chatgpt-batch2] 07_terminology_core_high_freq.md: 200,746 tokens (15 sources, target ≤260K)
+  wrote ai_platforms/chatgpt_gpt/current/uploads/07_terminology_core_high_freq.md | manifest: appended | segments.json: expected=15 actual=15 dynamic=False
+[Stage chatgpt-batch2] 08_terminology_quest_and_supp.md: 1,047,119 tokens (49 sources, target ≤1250K)
+  wrote ai_platforms/chatgpt_gpt/current/uploads/08_terminology_quest_and_supp.md | manifest: appended | segments.json: expected=49 actual=49 dynamic=False
+[Stage chatgpt-batch2] 09_terminology_core_mid_tail.md: 698,081 tokens (27 sources, target ≤820K)
+  wrote ai_platforms/chatgpt_gpt/current/uploads/09_terminology_core_mid_tail.md | manifest: appended | segments.json: expected=27 actual=27 dynamic=False
+merge_for_chatgpt.py --stage batch2 (5 产物, dry_run=False)
+repo_root: /Users/bojiangzhang/MyProject/sdtm-pedia
+uploads:   ai_platforms/chatgpt_gpt/current/uploads
+
+[Stage chatgpt-batch2] 05_domain_assumptions_all.md: 73,079 tokens (64 sources, target ≤85K)
+  wrote ai_platforms/chatgpt_gpt/current/uploads/05_domain_assumptions_all.md | manifest: appended | segments.json: expected=64 actual=64 dynamic=False
+[Stage chatgpt-batch2] 06_domain_examples_all.md: 224,077 tokens (63 sources, target ≤254K)
+  wrote ai_platforms/chatgpt_gpt/current/uploads/06_domain_examples_all.md | manifest: skipped (same) | segments.json: expected=63 actual=63 dynamic=False
+[Stage chatgpt-batch2] 07_terminology_core_high_freq.md: 200,746 tokens (15 sources, target ≤260K)
+  wrote ai_platforms/chatgpt_gpt/current/uploads/07_terminology_core_high_freq.md | manifest: skipped (same) | segments.json: expected=15 actual=15 dynamic=False
+[Stage chatgpt-batch2] 08_terminology_quest_and_supp.md: 1,047,119 tokens (49 sources, target ≤1250K)
+  wrote ai_platforms/chatgpt_gpt/current/uploads/08_terminology_quest_and_supp.md | manifest: skipped (same) | segments.json: expected=49 actual=49 dynamic=False
+[Stage chatgpt-batch2] 09_terminology_core_mid_tail.md: 698,081 tokens (27 sources, target ≤820K)
+  wrote ai_platforms/chatgpt_gpt/current/uploads/09_terminology_core_mid_tail.md | manifest: skipped (same) | segments.json: expected=27 actual=27 dynamic=False

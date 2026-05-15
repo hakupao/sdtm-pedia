@@ -1,8 +1,8 @@
 # 03 Domains Examples (63 domains, implementation examples)
 
-> Generated: 2026-04-21T02:11:47Z
+> Generated: 2026-05-15T08:23:20Z
 > Source files: 63
-> Total tokens (cl100k_base): 220,575
+> Total tokens (cl100k_base): 224,077
 
 > Source order is preserved for traceability. `<!-- source: ... -->` comments mark each segment's origin file (relative to repo root).
 
@@ -2569,6 +2569,21 @@ The EX dataset shows the unmasked treatment for this subject, "DRUG X", and repr
 
 The following example CRF collects severity and symptoms data at multiple time points about a migraine event, relative to dosing.
 
+| Migraine Symptoms Diary |  |
+|---|---|
+| Migraine Reference Number | xx |
+| When did the migraine start? | DD-MMM-YYYY HH:MM |
+| When was study treatment taken? | DD-MMM-YYYY HH:MM |
+| Answer the following 5 minutes BEFORE dosing |  |
+| Severity of migraine | ○ Mild   ○ Moderate   ○ Severe |
+| Associated symptoms: Sensitivity to light Sensitivity to sound Nausea Aura | ○ No   ○ Yes ○ No   ○ Yes ○ No   ○ Yes ○ No   ○ Yes |
+| Answer the following 30 minutes AFTER dosing |  |
+| Severity of migraine | ○ Mild   ○ Moderate   ○ Severe |
+| Associated symptoms: Sensitivity to light Sensitivity to sound Nausea Aura | ○ No   ○ Yes ○ No   ○ Yes ○ No   ○ Yes ○ No   ○ Yes |
+| Answer the following 90 minutes AFTER dosing |  |
+| Severity of migraine | ○ Mild   ○ Moderate   ○ Severe |
+| Associated symptoms: Sensitivity to light Sensitivity to sound Nausea Aura | ○ No   ○ Yes ○ No   ○ Yes ○ No   ○ Yes ○ No   ○ Yes |
+
 In this example trial, migraines and symptoms associated with migraines were considered clinical events rather than reportable adverse events. The migraine, its sponsor identifier (i.e., the "Migraine Reference Number" on the CRF), and its start date were represented in a CE record.
 
 **ce.xpt**
@@ -2623,6 +2638,19 @@ A dataset-level relationship in RELREC is based on the sponsor ID (--SPID) value
 
 This CRF collects details about injection site rash events at each visit, until resolved.
 
+| Rash Assessment |  |
+|---|---|
+| Date of assessment | DD-MMM-YYYY |
+| Associated AE reference number | xx |
+| Rash longest diameter | _________   ○ cm   ○ in |
+| Lesion type and count |  |
+| Macules | ○ 0   ○ 1 to 25   ○ 26 to 100   ○ 101 to 200   ○ 201 to 300   ○ >300 |
+| Papules | ○ 0   ○ 1 to 25   ○ 26 to 100   ○ 101 to 200   ○ 201 to 300   ○ >300 |
+| Vesicles | ○ 0   ○ 1 to 25   ○ 26 to 100   ○ 101 to 200   ○ 201 to 300   ○ >300 |
+| Pustules | ○ 0   ○ 1 to 25   ○ 26 to 100   ○ 101 to 200   ○ 201 to 300   ○ >300 |
+| Scabs | ○ 0   ○ 1 to 25   ○ 26 to 100   ○ 101 to 200   ○ 201 to 300   ○ >300 |
+| Scars | ○ 0   ○ 1 to 25   ○ 26 to 100   ○ 101 to 200   ○ 201 to 300   ○ >300 |
+
 In this scenario, the injection site rash event was considered a reportable adverse event; therefore, the rash itself was represented in the AE domain. The rash assessment form collects a reference number for the AE, represented in AESPID. Certain required or expected variables have been omitted from the example dataset in consideration of space and clarity.
 
 Additional data about the rash were collected at visits 3 and 4, which occurred 2 days and 9 days after the start of the rash. These data were represented in an FA dataset because they were not about the event as a whole (see Section 6.4.1, When to Use Findings About Events or Interventions, criterion 1). In addition, the measurement of the rash requires multiple variables (value and unit) for its representation and the numbers of various kinds of lesions within the rash are a set of similar assessments of the event (see Section 6.4.1, When to Use Findings About Events or Interventions, criterion 2).
@@ -2665,6 +2693,21 @@ The FA records were linked to the parent CE record via the AE reference number, 
 
 This CRF collects information about rheumatoid arthritis. In this scenario, rheumatoid arthritis is a prerequisite for participation in an osteoporosis trial and was not collected as a Medical History (MH) event.
 
+### Rheumatoid Arthritis History
+
+| Date of assessment | DD-MMM-YYYY |
+|---|---|
+| Date of diagnosis | DD-MMM-YYYY |
+| During the past 6 months, how would you rate the following: |  |
+
+| Symptom | Was the symptom present? | If yes, what was the severity? |
+|---|---|---|
+| Joint stiffness | ○ Yes   ○ No | ○ Mild   ○ Moderate   ○ Severe |
+| Joint swelling | ○ Yes   ○ No | ○ Mild   ○ Moderate   ○ Severe |
+| Joint pain (arthralgia) | ○ Yes   ○ No | ○ Mild   ○ Moderate   ○ Severe |
+| Malaise | ○ Yes   ○ No | ○ Mild   ○ Moderate   ○ Severe |
+| Early morning stiffness | ○ Yes   ○ No | If yes, what was its average daily duration? ___Hours ___Minutes |
+
 In this study, data were collected only at baseline. Because the occurrence and severity apply to the symptoms as a whole, they are represented in the MH domain. Note that the average duration of early morning stiffness cannot be represented in MHDUR because MHDUR would be the duration of the entire event, rather than the average of daily durations.
 
 **Row 1:** Because the CRF specifically collected date of diagnosis for rheumatoid arthritis, MHEVDTYP is populated with DIAGNOSIS to indicate that the date in MHSTDTC is the date of diagnosis.
@@ -2692,6 +2735,17 @@ The average duration of early morning stiffness would be represented in ISO 8601
 ## Example 4
 
 In this example, the occurrence of prespecified adverse events was solicited at every visit and the visit date was used as the date of collection. The data collected meet criterion 3 in Section 6.4.1, When to Use Findings About Events or Interventions; that is, data that indicate the occurrence of prespecified AEs.
+
+### Prespecified Adverse Events of Clinical Interest
+
+| Date of assessment | DD-MMM-YYYY |
+|---|---|
+| Did the following occur? If Yes, enter a complete record in the AE CRF |  |
+| Headache | ○ No   ○ Yes   ○ Not Done |
+| Respiratory infection | ○ No   ○ Yes   ○ Not Done |
+| Nausea | ○ No   ○ Yes   ○ Not Done |
+
+This example shows data for 1 subject at 2 visits. Each response (e.g., No, Yes) to the prespecified terms is represented in the FA domain. The visit date was used to populated FADTC.
 
 **Rows 1, 4:** "Headache" was reported at both visits.
 **Rows 2, 5:** "Respiratory infection" was not present at either visit.
@@ -2728,6 +2782,13 @@ Note that not all AE expected variables are included in the following example.
 
 In this example, data about prespecified symptoms of the disease under study were collected on a daily basis. Although the date of the assessment was captured in the CRF header (not shown), start and end timing of the prespecified symptoms was not.
 
+| Symptoms |  | Investigator GERD Symptom Measurement (if symptom occurred) |  |  |
+|---|---|---|---|---|
+| | Occurred in last 24 hours? | Volume (mL) | Number of episodes | Maximum severity |
+| Vomiting | ○ Yes   ○ No |  |  | ○ Mild   ○ Moderate   ○ Severe |
+| Diarrhea | ○ Yes   ○ No |  |  | ○ Mild   ○ Moderate   ○ Severe |
+| Nausea | ○ Yes   ○ No |  |  | ○ Mild   ○ Moderate   ○ Severe |
+
 The collected data were represented in FA because they meet criterion 1 in Section 6.4.1, When to Use Findings About Events or Interventions, that is, data that do not describe an event or intervention as a whole. In addition, the volume of vomit data met criterion 2 data ("about" an event or intervention), having qualifiers that can be represented in Findings variables (e.g., units, method).
 
 This SDTM example represents data from 2 visits for 1 subject. FAEVINTX indicates that assessments were for the previous 24 hours.
@@ -2763,9 +2824,27 @@ This SDTM example represents data from 2 visits for 1 subject. FAEVINTX indicate
 
 In this example, the sponsor's definition of "event" meant that 1 record would be created for each adverse event, covering it from start to finish (see Section 6.2.1, Adverse Events, assumption 6.4). The AE module also collected information about severity at each visit.
 
+A paper CRF to be updated at each visit might look like this:
+
+| AE ID | Adverse Event | Start Date | End Date | At each visit, record the maximum severity of the adverse event since the last visit. |  |
+|---|---|---|---|---|---|
+| | | | | Visit 2 | Visit 3 | Visit 4 | Visit 5 | Visit 6 |
+| | | | | ○ Mild ○ Moderate ○ Severe | ○ Mild ○ Moderate ○ Severe | ○ Mild ○ Moderate ○ Severe | ○ Mild ○ Moderate ○ Severe | ○ Mild ○ Moderate ○ Severe |
+| | | | | ○ Mild ○ Moderate ○ Severe | ○ Mild ○ Moderate ○ Severe | ○ Mild ○ Moderate ○ Severe | ○ Mild ○ Moderate ○ Severe | ○ Mild ○ Moderate ○ Severe |
+| | | | | ○ Mild ○ Moderate ○ Severe | ○ Mild ○ Moderate ○ Severe | ○ Mild ○ Moderate ○ Severe | ○ Mild ○ Moderate ○ Severe | ○ Mild ○ Moderate ○ Severe |
+
 An electronic data collection instrument would probably be constructed as 2 related modules:
 - A module for the adverse event, where a record would be entered for each event
+
+| AE ID | Adverse Event | Start Date | End Date |
+|---|---|---|---|
+| | | | |
+
 - A module for the severity assessment, where a record would be entered for each assessment
+
+| Visit | AE ID | Maximum severity since last visit |
+|---|---|---|
+| | | ○ Mild ○ Moderate ○ Severe |
 
 *Note: The FA Example 6 CRF shows severity assessed at Visits 2-6 for up to 3 concurrent AEs per subject. The data collected about severity at each visit represents snapshots or slices of the AE over time, meeting criterion 1 for When to Use Findings About Events or Interventions.*
 
@@ -3490,8 +3569,6 @@ This example illustrates the use of the LBBDAGNT variable for a single binding a
 <!-- source: knowledge_base/domains/MB/examples.md -->
 # MB — Examples
 
-*Note: MB and MS share a combined examples section (6.3.5.7.3 Microbiology Specimen/Microbiology Susceptibility Examples). MB-specific data tables are shown here; see also MS examples for susceptibility data from the same studies.*
-
 ## Example 1
 
 In this example, both a central and a local lab (MBNAM) independently identified Enterococcus faecalis (MBORRES) in a fluid specimen (MBSPEC) taken from the skin (MBLOC) of a subject at visit 1. The method used by both labs was a solid microbial culture (MBMETHOD). Because the culture was not targeted to encourage the growth of a specific organism, MBTESTCD/MBTEST = "MCORGIDN"/"Microbial Organism Identification" and MBORRES represents the name of the organism identified.
@@ -3659,6 +3736,237 @@ Results from detection tests performed on samples are represented in the MB doma
 | 4 | ABC | MB | ABC-01-101 | MBREFID | 100.3 | MBMEDTYP | Medium Type | MIDDLEBROOK 7H10 AGAR | Collected |
 | 5 | ABC | MB | ABC-01-101 | MBSEQ | 5 | MBDILFCT | Dilution Factor | 10^-2 | Collected |
 | 6 | ABC | MB | ABC-01-101 | MBSEQ | 6 | MBQSCAL | Quantification Scale | Solid Media Result: Centers for Disease Control (CDC) Quantification Scale | Collected |
+
+## §6.3.5.7.3 Microbiology Specimen and Microbiology Susceptibility Examples
+
+### Example 1
+
+In this example, both a central and a local lab (MBNAM) independently identified Enterococcus faecalis (MBORRES) in a fluid specimen (MBSPEC) taken from the skin (MBLOC) of a subject at visit 1.
+
+The method used by both labs was a solid microbial culture (MBMETHOD).
+
+Because the culture was not targeted to encourage the growth of a specific organism, MBTESTCD/MBTEST = "MCORGIDN"/"Microbial Organism Identification" and MBORRES represents the name of the organism identified.
+
+**mb.xpt**
+
+| Row | STUDYID | DOMAIN | USUBJID | MBSEQ | MBREFID | MBLNKID | MBTESTCD | MBTEST | MBORRES | MBSTRESC | MBNAM | MBSPEC | MBLOC | MBMETHOD | VISITNUM | VISIT | MBDTC |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | ABC | MB | ABC-001-002 | 1 | SPEC01 | 1 | MCORGIDN | Microbial Organism Identification | ENTEROCOCCUS FAECALIS | ENTEROCOCCUS FAECALIS | CENTRAL LAB ABC | FLUID | SKIN | MICROBIAL CULTURE, SOLID | 1 | VISIT 1 | 2005-07-21T08:00 |
+| 2 | ABC | MB | ABC-001-002 | 2 | SPEC01 | 2 | MCORGIDN | Microbial Organism Identification | ENTEROCOCCUS FAECALIS | ENTEROCOCCUS FAECALIS | LOCAL LAB XYZ | FLUID | SKIN | MICROBIAL CULTURE, SOLID | 1 | VISIT 1 | 2005-07-21T08:00 |
+
+After E. faecalis was identified in the subject sample, drug susceptibility testing was performed at each of the labs using both the sponsor's investigational drug and amoxicillin.
+
+Because an identified organism is the subject of the test, the NHOID variable is populated with "ENTEROCOCCUS FAECALIS".
+
+Between the 2 labs (MSNAM), a total of 3 susceptibility testing methods were used: epsilometer, disk diffusion, and macro broth dilution (MSMETHOD).
+
+Epsilometer and disk diffusion both use agar diffusion methods, in which an agar plate is inoculated with the microorganism of interest and either a strip (epsilometer) or discs (disk diffusion) containing various concentrations of the drug are placed on the agar plate.
+
+The epsilometer test method provides both a minimum inhibitory concentration (MSTESTCD = "MIC"), the lowest concentration of a drug that inhibits the growth of a microorganism, and a qualitative interpretation (MSTESTCD = "MICROSUS") such as susceptible, intermediate, or resistant.
+
+The disk diffusion test method provides the diameter of the zone of inhibition
+
+(MSTESTCD = "DIAZOINH") and a qualitative interpretation such as susceptible, intermediate, or resistant (MSTESTCD = " MICROSUS" ). The quantitative and qualitative results are grouped together using MSGRPID.
+
+The third method, macro broth dilution, was used to test the specimen at a predefined drug concentration of each of the drugs. When the drug and amount are a predefined part of the test, the variable MSAGENT is populated with the name of the drug being used in the susceptibility test. The variables MSCONC and MSCONCU represent the concentration and units of the drug being used.
+
+- Rows 1-4: Show the minimum inhibitory concentration and the interpretation result reported from Central Lab ABC from a sample that was tested for susceptibility to the sponsor drug and amoxicillin, using an epsilometer test method.
+
+- Rows 5-6: Show that Local Lab XYZ found that the sample was susceptible to the sponsor drug at a concentration of 0.5 ug/dL and resistant to amoxicillin at a concentration of 0.5 ug/dL.
+
+- Rows 7-10: Show the diameter of the zone of inhibition and the interpretation result reported from Local Lab XYZ from a sample that was tested for susceptibility to the sponsor drug and amoxicillin using a disk diffusion test method.
+
+**ms.xpt**
+
+| Row | STUDYID | DOMAIN | USUBJID | NHOID | MSGRPID | MSSEQ | MSREFID | MSLNKGRP | MSTESTCD | MSTEST | MSAGENT | MSCONC | MSCONCU | MSORRES | MSORRESU | MSSTRESC | MSSTRESN | MSSTRESU | MSNAM | MSMETHOD | MSDTC |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | ABC | MS | ABC-001-002 | ENTEROCOCCUS FAECALIS | 1 | 1 | SPEC01 | 1 | MIC | Minimum Inhibitory Concentration | Sponsor Drug | | | 0.25 | ug/dL | 0.25 | 0.25 | ug/dL | CENTRAL LAB ABC | EPSILOMETER | 2005-06-19T08:00 |
+| 2 | ABC | MS | ABC-001-002 | ENTEROCOCCUS FAECALIS | 1 | 2 | SPEC01 | 1 | MICROSUS | Microbial Susceptibility | Sponsor Drug | | | SUSCEPTIBLE | | SUSCEPTIBLE | | | CENTRAL LAB ABC | EPSILOMETER | 2005-06-19T08:00 |
+| 3 | ABC | MS | ABC-001-002 | ENTEROCOCCUS FAECALIS | 2 | 3 | SPEC01 | 1 | MIC | Minimum Inhibitory Concentration | Amoxicillin | | | | ug/dL | | 1 | ug/dL | CENTRAL LAB ABC | EPSILOMETER | 2005-06-19T08:00 |
+| 4 | ABC | MS | ABC-001-002 | ENTEROCOCCUS FAECALIS | 2 | 4 | SPEC01 | 1 | MICROSUS | Microbial Susceptibility | Amoxicillin | | | RESISTANT | | RESISTANT | | | CENTRAL LAB ABC | EPSILOMETER | 2005-06-19T08:00 |
+| 5 | ABC | MS | ABC-001-002 | ENTEROCOCCUS FAECALIS | | 5 | SPEC01 | 2 | MICROSUS | Microbial Susceptibility | Sponsor Drug | 0.5 | ug/dL | SUSCEPTIBLE | | SUSCEPTIBLE | | | LOCAL LAB XYZ | MACRO BROTH DILUTION | 2005-06-19T08:00 |
+| 6 | ABC | MS | ABC-001-002 | ENTEROCOCCUS FAECALIS | | 6 | SPEC01 | 2 | MICROSUS | Microbial Susceptibility | Amoxicillin | 0.5 | ug/dL | RESISTANT | | RESISTANT | | | LOCAL LAB XYZ | MACRO BROTH DILUTION | 2005-06-19T08:00 |
+| 7 | ABC | MS | ABC-001-002 | ENTEROCOCCUS FAECALIS | 3 | 7 | SPEC01 | 2 | DIAZOINH | Diameter of the Zone of Inhibition | Sponsor Drug | | | 23 | mm | 23 | 23 | mm | LOCAL LAB XYZ | DISK DIFFUSION | 2005-06-26T08:00 |
+| 8 | ABC | MS | ABC-001-002 | ENTEROCOCCUS FAECALIS | 3 | 8 | SPEC01 | 2 | MICROSUS | Microbial Susceptibility | Sponsor Drug | | | SUSCEPTIBLE | | SUSCEPTIBLE | | | LOCAL LAB XYZ | DISK DIFFUSION | 2005-06-26T08:00 |
+| 9 | ABC | MS | ABC-001-002 | ENTEROCOCCUS FAECALIS | 4 | 9 | SPEC01 | 2 | DIAZOINH | Diameter of the Zone of Inhibition | Amoxicillin | | | 25 | mm | | 25 | mm | LOCAL LAB XYZ | DISK DIFFUSION | 2005-06-26T08:00 |
+| 10 | ABC | MS | ABC-001-002 | ENTEROCOCCUS FAECALIS | 4 | 10 | SPEC01 | 2 | MICROSUS | Microbial Susceptibility | Amoxicillin | | | RESISTANT | | RESISTANT | | | LOCAL LAB XYZ | DISK DIFFUSION | 2005-06-26T08:00 |
+
+Although not expected, the sponsor decided to connect the identification records in MB to the records in MS using the variables MBLNKID and MSLNKGRP.
+
+**relrec.xpt**
+
+| Row | STUDYID | RDOMAIN | USUBJID | IDVAR | IDVARVAL | RELTYPE | RELID |
+|---|---|---|---|---|---|---|---|
+| 1 | ABC | MB | | MBLNKID | | ONE | A |
+| 2 | ABC | MS | | MSLNKGRP | | MANY | A |
+
+### Example 2
+
+In this example, a sputum sample, collected from the subject at 3 visits over the course of 15 days, was tested for the presence of infectious organisms. The 2 organisms identified were also tested for susceptibility to both penicillin and the sponsor's study drug (MSAGENT). The example shows that the 2 infecting organisms were cleared over the course of the 3 visits.
+
+Specimen collection was represented in the Biospecimen Events (BE) domain.
+
+**be.xpt**
+
+| Row | STUDYID | DOMAIN | USUBJID | BESEQ | BEREFID | BETERM | BEDTC |
+|---|---|---|---|---|---|---|---|
+| 1 | ABC | BE | ABC-001-001 | 1 | SP01 | Collecting | 2005-06-19T08:00 |
+| 2 | ABC | BE | ABC-001-001 | 2 | SP02 | Collecting | 2005-06-26T08:00 |
+| 3 | ABC | BE | ABC-001-001 | 3 | SP03 | Collecting | 2005-07-06T08:00 |
+
+The SUPPBE dataset is used to represent 2 non-standard variables of BE.
+
+- Rows 1-3: Show that all 3 samples (IDVARVAL where IDVAR="BEREFID") were sputum, as indicated by QVAL where QNAM="BESPEC" and QLABEL="Specimen Type".
+
+- Rows 4-6: Show that all 3 sputum samples were collected via expectoration, as indicated by QVAL where QNAM="Specimen Collection Method". QVAL is populated using the CDISC Controlled Terminology codelist, "Specimen Collection Method".
+
+**suppbe.xpt**
+
+| Row | STUDYID | RDOMAIN | USUBJID | IDVAR | IDVARVAL | QNAM | QLABEL | QVAL | QORIG |
+|---|---|---|---|---|---|---|---|---|---|
+| 1 | ABC | BE | ABC-01-101 | BEREFID | SP01 | BESPEC | Specimen Type | SPUTUM | CRF |
+| 2 | ABC | BE | ABC-01-101 | BEREFID | SP02 | BESPEC | Specimen Type | SPUTUM | CRF |
+| 3 | ABC | BE | ABC-01-101 | BEREFID | SP03 | BESPEC | Specimen Type | SPUTUM | CRF |
+| 4 | ABC | BE | ABC-01-101 | BEREFID | SP01 | BECLMETH | Specimen Collection Method | EXPECTORATION | CRF |
+| 5 | ABC | BE | ABC-01-101 | BEREFID | SP02 | BECLMETH | Specimen Collection Method | EXPECTORATION | CRF |
+| 6 | ABC | BE | ABC-01-101 | BEREFID | SP03 | BECLMETH | Specimen Collection Method | EXPECTORATION | CRF |
+
+- Rows 1-2: Show that a gram stain was used on a subject sputum sample to identify the presence of gram negative cocci (row 1) and to quantify the bacteria (row 2). MBORRES in row 2 represents an ordinal result (MBRSLSCL = "Ord"), such as from a published quantification scale. This value decodes to "FEW" as shown in MBSTRESC. The quantification scale used is represented as Supplemental Qualifiers of MB.
+
+- Rows 3-4: Show that the same gram-stained sample was used to identify and quantify the presence of gram negative rods.
+
+- Rows 5-6: Show that microbial culture of the same sample was used at the same visit to identify the presence of two organisms, "STREPTOCOCCUS PNEUMONIAE" and "KLEBSIELLA PNEUMONIAE" (MBORRES).
+
+- Row 7: Shows that microbial culture of a subsequent sample at a later visit indicated only the presence of "KLEBSIELLA PNEUMONIAE" (MBORRES).
+
+- Row 8: Shows that microbial culture of a third subject sample at the third visit indicated "NO GROWTH" (MBORRES) of any organisms.
+
+**mb.xpt**
+
+| Row | STUDYID | DOMAIN | USUBJID | MBSEQ | MBREFID | MBTESTCD | MBTEST | MBTSTDTL | MBORRES | MBRSLSCL | MBSTRESC | MBLOC | MBMETHOD | VISITNUM | VISIT | MBDTC |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | ABC | MB | ABC-001-001 | 1 | SP01 | GMNCOC | Gram Negative Cocci | DETECTION | PRESENT | Ord | PRESENT | LUNG | GRAM STAIN | 1 | VISIT | 2005-06-19T08:00 |
+| 2 | ABC | MB | ABC-001-001 | 2 | SP01 | GMNCOC | Gram Negative Cocci | CELL COUNT | 2+ | Ord | FEW | LUNG | GRAM STAIN | 1 | VISIT | 2005-06-19T08:00 |
+| 3 | ABC | MB | ABC-001-001 | 3 | SP01 | GMNROD | Gram Negative Rods | DETECTION | PRESENT | Ord | PRESENT | LUNG | GRAM STAIN | 1 | VISIT | 2005-06-19T08:00 |
+| 4 | ABC | MB | ABC-001-001 | 4 | SP01 | GMNROD | Gram Negative Rods | CELL COUNT | 2+ | Ord | FEW | LUNG | GRAM STAIN | 1 | VISIT | 2005-06-19T08:00 |
+| 5 | ABC | MB | ABC-001-001 | 5 | SP01 | MCORGIDN | Microbial Organism Identification | | STREPTOCOCCUS PNEUMONIAE | Nom | STREPTOCOCCUS PNEUMONIAE | LUNG | MICROBIAL CULTURE, SOLID | 1 | VISIT | 2005-06-19T08:00 |
+| 6 | ABC | MB | ABC-001-001 | 6 | SP01 | MCORGIDN | Microbial Organism Identification | | KLEBSIELLA PNEUMONIAE | Nom | KLEBSIELLA PNEUMONIAE | LUNG | MICROBIAL CULTURE, SOLID | 1 | VISIT | 2005-06-19T08:00 |
+| 7 | ABC | MB | ABC-001-001 | 7 | SP02 | MCORGIDN | Microbial Organism Identification | | KLEBSIELLA PNEUMONIAE | Nom | KLEBSIELLA PNEUMONIAE | LUNG | MICROBIAL CULTURE, SOLID | 2 | VISIT 2 | 2005-06-26T08:00 |
+| 8 | ABC | MB | ABC-001-001 | 8 | SP03 | MCORGIDN | Microbial Organism Identification | | NO GROWTH | Nom | NO GROWTH | LUNG | MICROBIAL CULTURE, SOLID | 3 | VISIT 3 | 2005-07-06T08:00 |
+
+**suppmb.xpt**
+
+| Row | STUDYID | RDOMAIN | USUBJID | IDVAR | IDVARVAL | QNAM | QLABEL | QVAL | QORIG |
+|---|---|---|---|---|---|---|---|---|---|
+| 1 | ABC | MB | ABC-01-101 | MBTSTDTL | CELL COUNT | MBQSCAL | Quantification Scale | CDC semi-quantitative score for gram staining | CRF |
+
+- Rows 1-2: Show that the sponsor drug (MSAGENT) was tested against "STREPTOCOCCUS PNEUMONIAE" (NHOID) from subject sample SP01 and that the drug has a minimum inhibitory concentration (MSTESTCD/MSTEST) of 0.004 mg/L (row 1). This led to the conclusion that this organism is susceptible to that drug (row 2).
+
+- Rows 3-4: Show that penicillin was tested against the same organism from the same sample and was found to have a minimum inhibitory concentration of 0.023 mg/L (row 3). This led to the conclusion that "STREPTOCOCCUS PNEUMONIAE" is resistant to penicillin (row 4).
+
+- Rows 5-8: Similar to rows 1-4, the sponsor drug (rows 5-6) and penicillin (rows 7-8) were tested against " KLEBSIELLA PNEUMONIAE" from an additional sample from the same subject at a later time point. Results from these tests indicated that the organism was susceptible to sponsor drug, yet had intermediate resistance to penicillin.
+
+- Rows 9-10: A test against "KLEBSIELLA PNEUMONIAE" from an additional sample at a later time point showed little change in the minimum inhibitory concentration of penicillin, and that the organism was still classified as having intermediate resistance to this drug.
+
+**ms.xpt**
+
+| Row | STUDYID | DOMAIN | USUBJID | NHOID | MSSEQ | MSREFID | MSGRPID | MSTESTCD | MSTEST | MSAGENT | MSORRES | MSORRESU | MSSTRESC | MSSTRESN | MSSTRESU | MSMETHOD | MSDTC |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | ABC | MS | ABC-001-001 | STREPTOCOCCUS PNEUMONIAE | 1 | SP01 | 1 | MIC | Minimum Inhibitory Concentration | Sponsor Drug | 0.004 | mg/L | 0.004 | 0.004 | mg/L | EPSILOMETER | 2005-06-19T08:00 |
+| 2 | ABC | MS | ABC-001-001 | STREPTOCOCCUS PNEUMONIAE | 2 | SP01 | 1 | MICROSUS | Microbial Susceptibility | Sponsor Drug | SUSCEPTIBLE | | SUSCEPTIBLE | | | EPSILOMETER | 2005-06-19T08:00 |
+| 3 | ABC | MS | ABC-001-001 | STREPTOCOCCUS PNEUMONIAE | 3 | SP01 | 2 | MIC | Minimum Inhibitory Concentration | Penicillin | 0.023 | mg/L | 0.023 | 0.023 | mg/L | EPSILOMETER | 2005-06-19T08:00 |
+| 4 | ABC | MS | ABC-001-001 | STREPTOCOCCUS PNEUMONIAE | 4 | SP01 | 2 | MICROSUS | Microbial Susceptibility | Penicillin | RESISTANT | | RESISTANT | | | EPSILOMETER | 2005-06-19T08:00 |
+| 5 | ABC | MS | ABC-001-001 | KLEBSIELLA PNEUMONIAE | 5 | SP02 | 3 | MIC | Minimum Inhibitory Concentration | Sponsor Drug | 0.125 | mg/L | 0.125 | 0.125 | mg/L | EPSILOMETER | 2005-06-26T08:00 |
+| 6 | ABC | MS | ABC-001-001 | KLEBSIELLA PNEUMONIAE | 6 | SP02 | 3 | MICROSUS | Microbial Susceptibility | Sponsor Drug | SUSCEPTIBLE | | SUSCEPTIBLE | | | EPSILOMETER | 2005-06-26T08:00 |
+| 7 | ABC | MS | ABC-001-001 | KLEBSIELLA PNEUMONIAE | 7 | SP02 | 4 | MIC | Minimum Inhibitory Concentration | Penicillin | 0.023 | mg/L | 0.023 | 0.023 | mg/L | EPSILOMETER | 2005-06-26T08:00 |
+| 8 | ABC | MS | ABC-001-001 | KLEBSIELLA PNEUMONIAE | 8 | SP02 | 4 | MICROSUS | Microbial Susceptibility | Penicillin | INTERMEDIATE | | INTERMEDIATE | | | EPSILOMETER | 2005-06-26T08:00 |
+| 9 | ABC | MS | ABC-001-001 | KLEBSIELLA PNEUMONIAE | 9 | SP03 | 5 | MIC | Minimum Inhibitory Concentration | Penicillin | 0.026 | mg/L | 0.026 | 0.026 | mg/L | EPSILOMETER | 2005-07-06T08:00 |
+| 10 | ABC | MS | ABC-001-001 | KLEBSIELLA PNEUMONIAE | 10 | SP03 | 5 | MICROSUS | Microbial Susceptibility | Penicillin | INTERMEDIATE | | INTERMEDIATE | | | EPSILOMETER | 2005-07-06T08:00 |
+
+### Example 3
+
+This example shows the microorganisms detected from a gastric aspirate specimen from a child with suspected tuberculosis (TB). In this example, gastric lavage is only performed once. Three records in the MB domain store detection records for 2 levels of detection: acid-fast bacilli, and Mycobacterium tuberculosis (Mtb). Characteristics from a culture on solid media that support the presumptive detection of Mtb are also represented in MB. The susceptibility results from both the nucleic acid amplification test (NAAT) and the solid culture are represented in the MS domain.
+
+Specimen processing events included sample collection, preparation, and culturing; these events are represented in the BE domain. For TB studies, each sample needs a separate identifier to link it to further actions or characteristics of the sample. Therefore, each aliquot is assigned a unique BEREFID value that can be traced to the BEREFID value assigned to the collected "parent" sample. BEREFID is also used to connect the BE and Biospecimen Findings (BS) domains (via BSREFID), as well as any results obtained from the sample that are in the MB or MS domains (via MBREFID and MSREFID). If the same sample is used in many tests, the use of --REFID may result in a potentially undesirable many-to-many merge; users may need to make use of additional linking variables such as --LNKID and --LNKGRP. Information about the BE and BS domains including the specification tables, assumptions, and examples can be found in the Sections 6.2.2 and 6.3.5.2 of this document.
+
+In the BE, BS, MB, and MS domains, --DTC represents the date of sample collection. --LNKID and --LNKGRP are used to link culture start and stop dates (BE) with culture results (MB and MS).
+
+- Row 1: Shows the event of specimen collection. This is the genesis of the sample identified by BEREFID="100"; therefore, BEDTC and BESTDTC are the same. The specimen collection setting, collection method, and specimen type are represented using supplemental qualifiers. Even though the variable Specimen Type is available for use in Findings domains, it is not available for use in Events domains and thus it is represented as supplemental qualifier.
+
+- Rows 2-6: Show that the sample was aliquoted (i.e., smaller subsamples were portioned out from the parent sample) and each separate aliquot assigned a unique BEREFID. In such cases, BEREFID is an incremented decimal value with the original sample's BEREFID (when BECAT="COLLECTION") as the base number. (This is not an explicit requirement, but makes tracking the samples easier.) The definitive link between parent-child samples is defined by the PARENT variable shown in the RELSPEC dataset.
+
+- Rows 7-9: Show that 3 of the aliquots (100.3, 100.4, and 100.5) were cultured for detection (row 7) and tested for drug susceptibility (rows 8 and 9). The inoculation and read dates of a culture should be represented in BESTDTC and BEENDTC, respectively. These dates can be linked to the culture results in MB and MS using BELNKID, MBLNKGRP, and MSLNKID.
+
+- Row 10: Shows that sample 100.1 was concentrated.
+
+**be.xpt**
+
+| Row | STUDYID | DOMAIN | USUBJID | BESEQ | BEREFID | BELNKID | BETERM | BECAT | BEDTC | BESTDTC | BEENDTC |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | ABC | BE | ABC-01-101 | 1 | 100 | | Collecting | COLLECTION | 2011-01-17T06:00 | 2011-01-17T06:00 | |
+| 2 | ABC | BE | ABC-01-101 | 2 | 100.1 | | Aliquoting | PREPARATION | 2011-01-17T06:00 | 2011-01-17T09:00 | |
+| 3 | ABC | BE | ABC-01-101 | 3 | 100.2 | | Aliquoting | PREPARATION | 2011-01-17T06:00 | 2011-01-17T09:00 | |
+| 4 | ABC | BE | ABC-01-101 | 4 | 100 | | Aliquoting | PREPARATION | 2011-01-17T06:00 | 2011-01-17T09:00 | |
+| 5 | ABC | BE | ABC-01-101 | 5 | 100.4 | | Aliquoting | PREPARATION | 2011-01-17T06:00 | 2011-01-17T09:00 | |
+| 6 | ABC | BE | ABC-01-101 | 6 | 100.5 | | Aliquoting | PREPARATION | 2011-01-17T06:00 | 2011-01-17T09:00 | |
+| 7 | ABC | BE | ABC-01-101 | 7 | 100.3 | 1 | Culturing | CULTURE | 2011-01-17T06:00 | 2011-01-17T09:30 | 2011-02-02T09:00 |
+| 8 | ABC | BE | ABC-01-101 | 8 | 100.4 | 2 | Culturing | CULTURE | 2011-01-17T06:00 | 2011-02-02T10:00 | 2011-02-21T09:00 |
+| 9 | ABC | BE | ABC-01-101 | 9 | 100.5 | 3 | Culturing | CULTURE | 2011-01-17T06:00 | 2011-02-02T10:00 | 2011-02-22T09:00 |
+| 10 | ABC | BE | ABC-01-101 | 10 | 100.1 | 3 | Concentrating | PREPARATION | 2011-01-17T06:00 | 2011-01-17T09:15 | |
+
+**suppbe.xpt**
+
+| Row | STUDYID | RDOMAIN | USUBJID | IDVAR | IDVARVAL | QNAM | QLABEL | QVAL | QORIG |
+|---|---|---|---|---|---|---|---|---|---|
+| 1 | ABC | BE | ABC-01-101 | BEREFID | 100 | BECLSET | Specimen Collection Setting | HOSPITAL | CRF |
+| 2 | ABC | BE | ABC-01-101 | BEREFID | 100 | BECLMETH | Specimen Collection Method | GASTRIC LAVAGE | CRF |
+| 3 | ABC | BE | ABC-01-101 | BEREFID | 100 | BESPEC | Specimen Type | LAVAGE FLUID | CRF |
+| 4 | ABC | BE | ABC-01-101 | BEREFID | 100.1 | BESPEC | Specimen Type | LAVAGE FLUID | CRF |
+| 5 | ABC | BE | ABC-01-101 | BEREFID | 100.2 | BESPEC | Specimen Type | LAVAGE FLUID | CRF |
+| 6 | ABC | BE | ABC-01-101 | BEREFID | 100.3 | BESPEC | Specimen Type | LAVAGE FLUID | CRF |
+| 7 | ABC | BE | ABC-01-101 | BEREFID | 100.4 | BESPEC | Specimen Type | LAVAGE FLUID | CRF |
+| 8 | ABC | BE | ABC-01-101 | BEREFID | 100.5 | BESPEC | Specimen Type | LAVAGE FLUID | CRF |
+
+Findings data captured about the specimen during collection, preparation, and handling are represented in the BS domain.
+
+- Row 1: Shows the total volume of lavage fluid collected during the gastric lavage by using the same values for BSREFID and BEREFID. This is the parent (collected) sample from which further aliquots were generated.
+
+- Rows 2-6: Show the volume of each aliquot created.
+
+**bs.xpt**
+
+| Row | STUDYID | DOMAIN | USUBJID | BSSEQ | BSREFID | BSTESTCD | BSTEST | BSORRES | BSORRESU | BSSTRESC | BSSTRESN | BSSTRESU | BSSPEC | BSLOC | BSDTC |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | ABC | BS | ABC-01-101 | 1 | 100 | VOLUME | Volume | 20 | mL | 20 | 20 | mL | LAVAGE FLUID | STOMACH | 2011-01-17T06:00 |
+| 2 | ABC | BS | ABC-01-101 | 2 | 100.1 | VOLUME | Volume | 4 | mL | 4 | 4 | mL | LAVAGE FLUID | STOMACH | 2011-01-17T06:00 |
+| 3 | ABC | BS | ABC-01-101 | 3 | 100.2 | VOLUME | Volume | 4 | mL | 4 | 4 | mL | LAVAGE FLUID | STOMACH | 2011-01-17T06:00 |
+| 4 | ABC | BS | ABC-01-101 | 4 | 100.3 | VOLUME | Volume | 4 | mL | 4 | 4 | mL | LAVAGE FLUID | STOMACH | 2011-01-17T06:00 |
+| 5 | ABC | BS | ABC-01-101 | 5 | 100.4 | VOLUME | Volume | 4 | mL | 4 | 4 | mL | LAVAGE FLUID | STOMACH | 2011-01-17T06:00 |
+| 6 | ABC | BS | ABC-01-101 | 6 | 100.5 | VOLUME | Volume | 4 | mL | 4 | 4 | mL | LAVAGE FLUID | STOMACH | 2011-01-17T06:00 |
+
+### Example 4
+
+When a culture has become contaminated, the sponsor may choose to report results despite the contamination. This example below how to flag results using a supplemental qualifier to indicate that the results are coming from a contaminated culture. This example also illustrates how to use Timing variables to represent an 8-hour pooled overnight sputum sample collection when the start and end times are collected. MBDTC is used to represent the start date/time of the overnight sputum collection and MBENDTC is used to represent the end date/time.
+
+- Row 1: Shows a test targeting the presence or absence of M. tuberculosis from a solid culture that has been contaminated (see SUPPMB).
+
+- Row 2: Shows the number of colony-forming units from the contaminated solid culture (see SUPPMB).
+
+**mb.xpt**
+
+| Row | STUDYID | DOMAIN | USUBJID | MBSEQ | MBREFID | MBGRPID | MBTESTCD | MBTEST | MBTSTDTL | MBORRES | MBORRESU | MBRSLSCL | MBSTRESC | MBTRESN | MBSTRESU | MBSPEC | MBLOC | MBMETHOD | VISITNUM | VISIT | MBDTC | MBENDTC |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | ABC | MB | ABC-01-601 | 1 | 600 | 1 | MTB | Mycobacterium tuberculosis | DETECTION | PRESENT | | Ord | PRESENT | | | SPUTUM | LUNG | MICROBIAL CULTURE, SOLID | 5 | WEEK 1 | 2011-03-01T22:00 | 2011-03-02T06:00 |
+| 2 | ABC | MB | ABC-01-601 | 2 | 600 | 1 | MTB | Mycobacterium tuberculosis | COLONY COUNT | 87 | CFU/mL | Qn | 87 | 87 | CFU/mL | SPUTUM | LUNG | MICROBIAL CULTURE, SOLID | 5 | WEEK 1 | 2011-03-01T22:00 | 2011-03-02T06:00 |
+
+The culture-contamination indicator flag is shown in SUPPMB.
+
+**suppmb.xpt**
+
+| Row | STUDYID | RDOMAIN | USUBJID | IDVAR | IDVARVAL | QNAM | QLABEL | QVAL | QORIG |
+|---|---|---|---|---|---|---|---|---|---|
+| 1 | ABC | MB | ABC-01-601 | MBSEQ | 1 | MBCNMIND | Culture Contamination Indicator | Y | Collected |
+| 2 | ABC | MB | ABC-01-601 | MBSEQ | 2 | MBCNMIND | Culture Contamination Indicator | Y | Collected |
 
 <!-- source: knowledge_base/domains/MH/examples.md -->
 # MH — Examples
@@ -4336,133 +4644,22 @@ This example shows taxonomic identifiers for human immunodeficiency virus (HIV) 
 <!-- source: knowledge_base/domains/PC/examples.md -->
 # PC — Examples
 
-*Note: PC and PP share a combined examples section (6.3.5.9.3 Relating PP Records to PC Records). The PC concentration data table is shown here; see also PP examples for the derived pharmacokinetic parameters and the 4 RELREC methods for relating PC to PP.*
+*Note: PC and PP share a combined examples section (§6.3.5.9.3 Relating PP Records to PC Records). The shared PC/PP datasets, dataset-level RELREC discussion, conclusions, and implementation suggestions are in `PC/assumptions.md`. This file contains the 4 worked Examples (1–4) illustrating the 4 RELREC methods (A/B/C/D) for relating PC to PP records.*
 
 Due to space limitations, not all expected or permissible findings variables are included in the example for this domain.
 
-## Example 1
+## §6.3.5.9.3 Relating PP Records to PC Records — Worked Examples
 
-This example shows concentration data for drug A and a metabolite of drug A from plasma and from urine samples collected pre-dose and after dosing on study days 1 and 11.
-
-PCTPTREF is a text value of the description of a "zero" time (e.g., time of dosing). It should be meaningful. If there are multiple PK profiles being generated, the zero time for each will be different (e.g., a different dose such as first dose, second dose) and, as a result, values for PCTPTREF must be different. In this example, such values for PCTPTREF are required to make values of PCTPTNUM and PCTPT unique (see Section 4.4.10, Representing Time Points).
-
-**Rows 1-2:** Show day 1 pre-dose drug and metabolite concentrations in plasma and urine.
-**Rows 3-4:** Show day 1 pre-dose drug and metabolite concentrations in urine. Urine specimens may be collected over an interval; both PCDTC and PCENDTC have been populated with the same value to indicate that these specimens were collected at a point in time rather than over an interval.
-**Rows 5-6:** Show specimen properties (VOLUME and PH) for the day 1 pre-dose urine specimens. These have a PCCAT value of "SPECIMEN PROPERTY".
-**Rows 7-12:** Show day 1 post-dose drug and metabolite concentrations in plasma.
-**Rows 13-16:** Show day 11 drug and metabolite concentrations in plasma.
-**Rows 17-20:** Show day 11 drug and metabolite concentrations in urine specimens collected over an interval. The elapsed times for urine samples are calculated as the elapsed time (from the reference time point, PCTPTREF) to the end of the specimen collection interval. Elapsed time values that are the same for urine and plasma samples have been assigned the same value for PCTPT. For the urine samples, the value in PCEVLINT describes the planned evaluation (or collection) interval relative to the time point. The actual evaluation interval can be determined by subtracting PCDTC from PCENDTC.
-**Rows 21-30:** Show additional drug and metabolite concentrations and specimen properties related to the day 11 dose.
-
-**pc.xpt**
-
-| Row | STUDYID | DOMAIN | USUBJID | PCSEQ | PCGRPID | PCREFID | PCTESTCD | PCTEST | PCCAT | PCORRES | PCORRESU | PCSTRESC | PCSTRESN | PCSTRESU | PCSPEC | PCBLFL | PCLLOQ | PCSTAT | PCDTC | PCENDTC | PCDY | PCTPT | PCTPTNUM | PCTPTREF | PCRFDTC | PCELTM | PCEVLINT |
-|-----|---------|--------|---------|-------|---------|---------|----------|--------|-------|---------|----------|----------|----------|----------|--------|--------|--------|--------|-------|---------|------|-------|----------|----------|---------|--------|---------|
-| 1 | ABC-123 | PC | 1235154 | 1 | DRUGA_DAY1 | 625154 | DRUGX | Drug A | ANALYTE | 0.10 | ng/mL | 0.10 | 0.10 | ng/mL | PLASMA | Y | 0.10 | | 2001-02-25 | | 1 | Pre-dose | -1 | Day 1 Dose | 2001-02-25T08:00 | PT0M | |
-| 2 | ABC-123 | PC | 1235154 | 2 | DRUGA_DAY1 | 625154 | DRUGXM | Drug A Metabolite | ANALYTE | BLQ | ng/mL | BLQ | | ng/mL | PLASMA | Y | 0.10 | | 2001-02-25 | | 1 | Pre-dose | -1 | Day 1 Dose | 2001-02-25T08:00 | PT0M | |
-| 3 | ABC-123 | PC | 1235154 | 3 | DRUGA_DAY1 | 625154 | DRUGX | Drug A | ANALYTE | 0.10 | ng/mL | 0.10 | 0.10 | ng/mL | URINE | Y | 0.10 | | 2001-02-25 | 2001-02-25 | 1 | Pre-dose | -1 | Day 1 Dose | 2001-02-25T08:00 | PT0M | |
-| 4 | ABC-123 | PC | 1235154 | 4 | DRUGA_DAY1 | 625154 | DRUGXM | Drug A Metabolite | ANALYTE | BLQ | ng/mL | BLQ | | ng/mL | URINE | Y | 0.10 | | 2001-02-25 | 2001-02-25 | 1 | Pre-dose | -1 | Day 1 Dose | 2001-02-25T08:00 | PT0M | |
-| 5 | ABC-123 | PC | 1235154 | 5 | DRUGA_DAY1 | 625154 | VOLUME | Volume | SPECIMEN PROPERTY | 363 | mL | 363 | 363 | mL | URINE | | | | 2001-02-25 | 2001-02-25 | 1 | Pre-dose | -1 | Day 1 Dose | 2001-02-25T08:00 | PT0M | |
-| 6 | ABC-123 | PC | 1235154 | 6 | DRUGA_DAY1 | 625154 | PH | PH | SPECIMEN PROPERTY | | | | | | URINE | | | | 2001-02-25 | 2001-02-25 | 1 | Pre-dose | -1 | Day 1 Dose | 2001-02-25T08:00 | PT0M | |
-| 7 | ABC-123 | PC | 1235154 | 7 | DRUGA_DAY1 | 625154 | DRUGX | Drug A | ANALYTE | 0.74 | ng/mL | 0.74 | 0.74 | ng/mL | PLASMA | | 0.10 | | 2001-02-25 | | 1 | 5 min post | 0.083 | Day 1 Dose | 2001-02-25T08:00 | PT5M | |
-| 8 | ABC-123 | PC | 1235154 | 8 | DRUGA_DAY1 | 625154 | DRUGXM | Drug A Metabolite | ANALYTE | BLQ | ng/mL | BLQ | | ng/mL | PLASMA | | 0.10 | | 2001-02-25 | | 1 | 5 min post | 0.083 | Day 1 Dose | 2001-02-25T08:00 | PT5M | |
-| 9 | ABC-123 | PC | 1235154 | 9 | DRUGA_DAY1 | 625154 | DRUGX | Drug A | ANALYTE | 6.92 | ng/mL | 6.92 | 6.92 | ng/mL | PLASMA | | 0.10 | | 2001-02-25 | | 1 | 25 min post | 0.417 | Day 1 Dose | 2001-02-25T08:00 | PT25M | |
-| 10 | ABC-123 | PC | 1235154 | 10 | DRUGA_DAY1 | 625154 | DRUGXM | Drug A Metabolite | ANALYTE | 1.86 | ng/mL | 1.86 | 1.86 | ng/mL | PLASMA | | 0.10 | | 2001-02-25 | | 1 | 25 min post | 0.417 | Day 1 Dose | 2001-02-25T08:00 | PT25M | |
-| 11 | ABC-123 | PC | 1235154 | 11 | DRUGA_DAY1 | 625154 | DRUGX | Drug A | ANALYTE | 5.19 | ng/mL | 5.19 | 5.19 | ng/mL | PLASMA | | 0.10 | | 2001-02-25 | | 1 | 75 min post | 1.25 | Day 1 Dose | 2001-02-25T08:00 | PT75M | |
-| 12 | ABC-123 | PC | 1235154 | 12 | DRUGA_DAY1 | 625154 | DRUGXM | Drug A Metabolite | ANALYTE | 6.10 | ng/mL | 6.10 | 6.10 | ng/mL | PLASMA | | 0.10 | | 2001-02-25 | | 1 | 75 min post | 1.25 | Day 1 Dose | 2001-02-25T08:00 | PT75M | |
-| 13 | ABC-123 | PC | 1235154 | 13 | DRUGA_DAY11 | 625154 | DRUGX | Drug A | ANALYTE | 1.75 | ng/mL | 1.75 | 1.75 | ng/mL | PLASMA | | 0.10 | | 2001-03-07 | | 11 | 100 min post | 1.667 | Day 11 Dose | 2001-03-07T08:00 | PT100M | |
-| 14 | ABC-123 | PC | 1235154 | 14 | DRUGA_DAY11 | 625154 | DRUGXM | Drug A Metabolite | ANALYTE | 1.18 | ng/mL | 1.18 | 1.18 | ng/mL | PLASMA | | 0.10 | | 2001-03-07 | | 11 | 100 min post | 1.667 | Day 11 Dose | 2001-03-07T08:00 | PT100M | |
-| 15 | ABC-123 | PC | 1235154 | 15 | DRUGA_DAY11 | 625154 | DRUGX | Drug A | ANALYTE | 265 | ng/mL | 265 | 265 | ng/mL | PLASMA | | 0.10 | | 2001-03-07 | | 11 | 2h post | 2 | Day 11 Dose | 2001-03-07T08:00 | PT2H | |
-| 16 | ABC-123 | PC | 1235154 | 16 | DRUGA_DAY11 | 625154 | DRUGXM | Drug A Metabolite | ANALYTE | 7.1 | ng/mL | 7.1 | 7.1 | ng/mL | PLASMA | | 0.10 | | 2001-03-07 | | 11 | 2h post | 2 | Day 11 Dose | 2001-03-07T08:00 | PT2H | |
-| 17 | ABC-123 | PC | 1235154 | 17 | DRUGA_DAY11 | 625154 | DRUGX | Drug A | ANALYTE | 380 | ng/mL | 380 | 380 | ng/mL | URINE | | 0.10 | | 2001-03-07 | 2001-03-07 | 11 | 12h post | 12 | Day 11 Dose | 2001-03-07T08:00 | PT12H | -PT12H |
-| 18 | ABC-123 | PC | 1235154 | 18 | DRUGA_DAY11 | 625154 | DRUGXM | Drug A Metabolite | ANALYTE | 380 | ng/mL | 380 | 380 | ng/mL | URINE | | 0.10 | | 2001-03-07 | 2001-03-07 | 11 | 12h post | 12 | Day 11 Dose | 2001-03-07T08:00 | PT12H | -PT12H |
-| 19 | ABC-123 | PC | 1235154 | 19 | DRUGA_DAY11 | 625154 | VOLUME | Volume | SPECIMEN PROPERTY | 606 | mL | 606 | 606 | mL | URINE | | | | 2001-03-07 | 2001-03-07 | 11 | 12h post | 12 | Day 11 Dose | 2001-03-07T08:00 | PT12H | -PT12H |
-| 20 | ABC-123 | PC | 1235154 | 20 | DRUGA_DAY11 | 625154 | PH | PH | SPECIMEN PROPERTY | 6.1 | | 6.1 | 6.1 | | URINE | | | | 2001-03-07 | 2001-03-07 | 11 | 12h post | 12 | Day 11 Dose | 2001-03-07T08:00 | PT12H | -PT12H |
-| 21 | ABC-123 | PC | 1235154 | 21 | DRUGA_DAY11 | 625154 | DRUGX | Drug A | ANALYTE | 2.4 | ng/mL | 2.4 | 2.4 | ng/mL | URINE | | 0.10 | | 2001-03-07 | 2001-03-18 | 11 | 24h post | 24 | Day 11 Dose | 2001-03-07T08:00 | PT24H | -PT12H |
-| 22 | ABC-123 | PC | 1235154 | 22 | DRUGA_DAY11 | 625154 | DRUGXM | Drug A Metabolite | ANALYTE | 2.4 | ng/mL | 2.4 | 2.4 | ng/mL | URINE | | 0.10 | | 2001-03-07 | 2001-03-18 | 11 | 24h post | 24 | Day 11 Dose | 2001-03-07T08:00 | PT24H | -PT12H |
-| 23 | ABC-123 | PC | 1235154 | 23 | DRUGA_DAY11 | 625154 | VOLUME | Volume | SPECIMEN PROPERTY | 406 | mL | 406 | 406 | mL | URINE | | | | 2001-03-07 | 2001-03-18 | 11 | 24h post | 24 | Day 11 Dose | 2001-03-07T08:00 | PT24H | -PT12H |
-| 24 | ABC-123 | PC | 1235154 | 24 | DRUGA_DAY11 | 625154 | PH | PH | SPECIMEN PROPERTY | | | | | | URINE | | | | 2001-03-07 | 2001-03-18 | 11 | 24h post | 24 | Day 11 Dose | 2001-03-07T08:00 | PT24H | -PT12H |
-| 25 | ABC-123 | PC | 1235154 | 25 | DRUGA_DAY11 | 625154 | DRUGX | Drug A | ANALYTE | 0.73 | ng/mL | 0.73 | 0.73 | ng/mL | PLASMA | | 0.10 | | 2001-03-17 | | 11 | 24h post | 24 | Day 11 Dose | 2001-03-07T08:00 | PT24H | |
-| 26 | ABC-123 | PC | 1235154 | 26 | DRUGA_DAY11 | 625154 | DRUGXM | Drug A Metabolite | ANALYTE | 0.80 | ng/mL | 0.80 | 0.80 | ng/mL | PLASMA | | 0.10 | | 2001-03-17 | | 11 | 24h post | 24 | Day 11 Dose | 2001-03-07T08:00 | PT24H | |
-| 27 | ABC-123 | PC | 1235154 | 27 | DRUGA_DAY11 | 625154 | DRUGX | Drug A | ANALYTE | | ng/mL | | | ng/mL | PLASMA | | 0.10 | NOT DONE | 2001-03-18 | | 11 | 36h post | 36 | Day 11 Dose | 2001-03-07T08:00 | PT36H | |
-| 28 | ABC-123 | PC | 1235154 | 28 | DRUGA_DAY11 | 625154 | DRUGXM | Drug A Metabolite | ANALYTE | | ng/mL | | | ng/mL | PLASMA | | 0.10 | NOT DONE | 2001-03-18 | | 11 | 36h post | 36 | Day 11 Dose | 2001-03-07T08:00 | PT36H | |
-| 29 | ABC-123 | PC | 1235154 | 29 | DRUGA_DAY11 | 625154 | DRUGX | Drug A | ANALYTE | 5.1 | | | | | PLASMA | | | | 2001-03-07 | | 11 | Pre-dose | -1 | Day 11 Dose | 2001-03-07T08:00 | PT0M | |
-| 30 | ABC-123 | PC | 1235154 | 30 | DRUGA_DAY11 | 625154 | DRUGXM | Drug A Metabolite | ANALYTE | | | | | | PLASMA | | | | 2001-03-07 | | 11 | Pre-dose | -1 | Day 11 Dose | 2001-03-07T08:00 | PT0M | |
-| 31 | ABC-123 | PC | 1235154 | 31 | DRUGA_DAY11 | 625154 | DRUGX | Drug A | ANALYTE | 6.28 | ng/mL | 6.28 | 6.28 | ng/mL | PLASMA | | 0.10 | | 2001-03-07 | | 11 | 5 min post | 0.083 | Day 11 Dose | 2001-03-07T08:00 | PT5M | |
-| 32 | ABC-123 | PC | 1235154 | 32 | DRUGA_DAY11 | 625154 | DRUGXM | Drug A Metabolite | ANALYTE | 0.81 | ng/mL | 0.81 | 0.81 | ng/mL | PLASMA | | 0.10 | | 2001-03-07 | | 11 | 5 min post | 0.083 | Day 11 Dose | 2001-03-07T08:00 | PT5M | |
-
-## Relating PC and PP — Overview
-
-Sponsors must document the concentrations used to calculate each parameter. This may be done in analysis dataset metadata or by documenting relationships between records in the Pharmacokinetics Parameters (PP) and Pharmacokinetics Concentrations (PC) datasets in a RELREC dataset (see Section 8.2, Relating Peer Records, and Section 8.3, Relating Datasets).
-
-### PC-PP Relating Datasets
-
-If all time-point concentrations in PC are used to calculate all parameters for all subjects, then the relationship between the 2 datasets can be documented as shown in this table:
-
-**relrec.xpt**
-
-| Row | STUDYID | RDOMAIN | USUBJID | IDVAR | IDVARVAL | RELTYPE | RELID |
-|-----|---------|---------|---------|-------|----------|---------|-------|
-| 1 | ABC-123 | PC | | PCGRPID | | MANY | A |
-| 2 | ABC-123 | PP | | PPGRPID | | MANY | A |
-
-Note that the reference time point and the analyte are part of the natural key (see Section 3.2.1.1, Primary Keys) for both datasets. In this relationship, --GRPID is a surrogate key, and must be populated so that each combination of analyte and reference time point has a separate value of --GRPID.
-
-### PC-PP Relating Records
-
-This section illustrates 4 methods for representing relationships between PC and PP records under 4 different circumstances. All these examples are based on the same PC and PP data for 1 drug (i.e., drug X).
-
-The different methods for representing relationships are based on which linking variables are used in RELREC:
-- **Method A** (many to many, using PCGRPID and PPGRPID)
-- **Method B** (one to many, using PCSEQ and PPGRPID)
-- **Method C** (many to one, using PCGRPID and PPSEQ)
-- **Method D** (one to one, using PCSEQ and PPSEQ)
-
-The different examples illustrate situations in which different subsets of the pharmacokinetic concentration data were used in calculating the pharmacokinetic parameters. As in the example above, --GRPID values must take into account all the combinations of analytes and reference time points; both are part of the natural key for both datasets. For each example, PCGRPID and PPGRPID were used to group related records within each respective dataset. The exclusion of some concentration values from the calculation of some parameters affects the values of PCGRPID and PPGRPID for the different situations. To conserve space, the PC and PP domains appear only once, but with 4 --GRPID columns, 1 for each of the example situations.
-
-Note that a submission dataset would contain only 1 --GRPID column with a set of values such as those shown in 1 of the 4 columns in the PC and PP datasets.
-
-### Shared PC Dataset for All Examples
-
-**pc.xpt**
-
-| Row | STUDYID | DOMAIN | USUBJID | PCSEQ | PCGRPID (Example 1) | PCGRPID (Example 2) | PCGRPID (Example 3) | PCGRPID (Example 4) | PCTESTCD | PCTEST | PCCAT | PCORRES | PCORRESU | PCSTRESC | PCSTRESN | PCSTRESU | PCSPEC | PCBLFL | PCLLOQ | PCSTAT | VISITNUM | VISIT | VISITDY | PCDTC | PCENDTC | PCDY | PCTPT | PCTPTNUM | PCTPTREF | PCRFDTC | PCELTM | PCEVLINT |
-|-----|---------|--------|---------|-------|---------------------|---------------------|---------------------|---------------------|----------|--------|-------|---------|----------|----------|----------|----------|--------|--------|--------|--------|----------|-------|---------|-------|---------|------|-------|----------|----------|---------|--------|---------|
-| 1 | ABC-123 | PC | ABC-123-0001 | 1 | DY1_DRGX | DY1_DRGX | DY1_DRGX_A | DY1DRGX_A | STUDYDRUG | STUDYDRUG | ANALYTE | q | | | | | PLASMA | | 0.10 | | 1 | Day 1 | 1 | 2001-02-01 | | 1 | Pre-dose | -1 | Day 1 Dose | 2001-02-01T08:35 | PT0M | |
-| 2 | ABC-123 | PC | ABC-123-0001 | 2 | DY1_DRGX | DY1_DRGX | DY1_DRGX_A | DY1DRGX_A | STUDYDRUG | STUDYDRUG | ANALYTE | 5 | ng/mL | 5 | 5 | ng/mL | PLASMA | | 0.10 | | 1 | Day 1 | 1 | 2001-02-01 | | 1 | 5 min post | 0.083 | Day 1 Dose | 2001-02-01T08:35 | PT5M | |
-| 3 | ABC-123 | PC | ABC-123-0001 | 3 | DY1_DRGX | DY1_DRGX | DY1_DRGX_A | DY1DRGX_A | STUDYDRUG | STUDYDRUG | ANALYTE | 38 | ng/mL | 38 | 38 | ng/mL | PLASMA | | 0.10 | | 1 | Day 1 | 1 | 2001-02-01 | | 1 | 30 min post | 0.5 | Day 1 Dose | 2001-02-01T08:35 | PT30M | |
-| 4 | ABC-123 | PC | ABC-123-0001 | 4 | DY1_DRGX | DY1_DRGX | DY1_DRGX_A | DY1DRGX_A | STUDYDRUG | STUDYDRUG | ANALYTE | 38 | ng/mL | 38 | 38 | ng/mL | PLASMA | | 0.10 | | 1 | Day 1 | 1 | 2001-02-01 | | 1 | 1h post | 1 | Day 1 Dose | 2001-02-01T08:35 | PT1H | |
-| 5 | ABC-123 | PC | ABC-123-0001 | 5 | DY1_DRGX | DY1_DRGX | DY1_DRGX_A | DY1DRGX_C | STUDYDRUG | STUDYDRUG | ANALYTE | 30 | ng/mL | 30 | 30 | ng/mL | PLASMA | | 0.10 | | 1 | Day 1 | 1 | 2001-02-01 | | 1 | 2h post | 2 | Day 1 Dose | 2001-02-01T08:35 | PT2H | |
-| 6 | ABC-123 | PC | ABC-123-0001 | 6 | DY1_DRGX | DY1_DRGX | DY1_DRGX_A | DY1DRGX_B | STUDYDRUG | STUDYDRUG | ANALYTE | 22 | ng/mL | 22 | 22 | ng/mL | PLASMA | | 0.10 | | 1 | Day 1 | 1 | 2001-02-01 | | 1 | 3h post | 3 | Day 1 Dose | 2001-02-01T08:35 | PT3H | |
-| 7 | ABC-123 | PC | ABC-123-0001 | 7 | DY1_DRGX | DY1_DRGX | DY1_DRGX_A | DY1DRGX_A | STUDYDRUG | STUDYDRUG | ANALYTE | 16 | ng/mL | 16 | 16 | ng/mL | PLASMA | | 0.10 | | 1 | Day 1 | 1 | 2001-02-01 | | 1 | 4h post | 4 | Day 1 Dose | 2001-02-01T08:35 | PT4H | |
-| 8 | ABC-123 | PC | ABC-123-0001 | 8 | DY1_DRGX | EXCLUDE | DY1_DRGX_B | DY1DRGX_A | STUDYDRUG | STUDYDRUG | ANALYTE | 12 | ng/mL | 12 | 12 | ng/mL | PLASMA | | 0.10 | | 1 | Day 1 | 1 | 2001-02-01 | | 1 | 6h post | 6 | Day 1 Dose | 2001-02-01T08:35 | PT6H | |
-| 9 | ABC-123 | PC | ABC-123-0001 | 9 | DY1_DRGX | EXCLUDE | DY1_DRGX_B | DY1DRGX_A | STUDYDRUG | STUDYDRUG | ANALYTE | 9 | ng/mL | 9 | 9 | ng/mL | PLASMA | | 0.10 | | 1 | Day 1 | 1 | 2001-02-01 | | 1 | 8h post | 8 | Day 1 Dose | 2001-02-01T08:35 | PT8H | |
-| 10 | ABC-123 | PC | ABC-123-0001 | 10 | DY1_DRGX | DY1_DRGX | DY1_DRGX_A | DY1DRGX_A | STUDYDRUG | STUDYDRUG | ANALYTE | 6 | ng/mL | 6 | 6 | ng/mL | PLASMA | | 0.10 | | 1 | Day 1 | 1 | 2001-02-01 | | 1 | 10h post | 10 | Day 1 Dose | 2001-02-01T08:35 | PT10H | |
-| 11 | ABC-123 | PC | ABC-123-0001 | 11 | DY1_DRGX | DY1_DRGX | DY1_DRGX_A | DY1DRGX_A | STUDYDRUG | STUDYDRUG | ANALYTE | 4 | ng/mL | 4 | 4 | ng/mL | PLASMA | | 0.10 | | 1 | Day 1 | 1 | 2001-02-01 | | 1 | 12h post | 12 | Day 1 Dose | 2001-02-01T08:35 | PT12H | |
-| 12 | ABC-123 | PC | ABC-123-0001 | 12 | DY1_DRGX | DY1_DRGX | DY1_DRGX_A | DY1DRGX_D | STUDYDRUG | STUDYDRUG | ANALYTE | 3 | ng/mL | 3 | 3 | ng/mL | PLASMA | | 0.10 | | 1 | Day 1 | 1 | 2001-02-01 | | 1 | 15h post | 15 | Day 1 Dose | 2001-02-01T08:35 | PT15H | |
-| 13 | ABC-123 | PC | ABC-123-0001 | 13 | DY8_DRGX | DY8_DRGX | DY8_DRGX | DY8DRGX | STUDYDRUG | STUDYDRUG | ANALYTE | q | | | | | PLASMA | | 0.10 | | 8 | Day 8 | 8 | 2001-02-08 | | 8 | Pre-dose | -1 | Day 8 Dose | 2001-02-08T08:35 | PT0M | |
-| 14 | ABC-123 | PC | ABC-123-0001 | 14 | DY8_DRGX | DY8_DRGX | DY8_DRGX | DY8DRGX | STUDYDRUG | STUDYDRUG | ANALYTE | 6 | ng/mL | 6 | 6 | ng/mL | PLASMA | | 0.10 | | 8 | Day 8 | 8 | 2001-02-08 | | 8 | 5 min post | 0.083 | Day 8 Dose | 2001-02-08T08:35 | PT5M | |
-| 15 | ABC-123 | PC | ABC-123-0001 | 15 | DY8_DRGX | DY8_DRGX | DY8_DRGX | DY8DRGX | STUDYDRUG | STUDYDRUG | ANALYTE | 40 | ng/mL | 40 | 40 | ng/mL | PLASMA | | 0.10 | | 8 | Day 8 | 8 | 2001-02-08 | | 8 | 30 min post | 0.5 | Day 8 Dose | 2001-02-08T08:35 | PT30M | |
-| 16 | ABC-123 | PC | ABC-123-0001 | 16 | DY8_DRGX | DY8_DRGX | DY8_DRGX | DY8DRGX | STUDYDRUG | STUDYDRUG | ANALYTE | 40 | ng/mL | 40 | 40 | ng/mL | PLASMA | | 0.10 | | 8 | Day 8 | 8 | 2001-02-08 | | 8 | 1h post | 1 | Day 8 Dose | 2001-02-08T08:35 | PT1H | |
-| 17 | ABC-123 | PC | ABC-123-0001 | 17 | DY8_DRGX | DY8_DRGX | DY8_DRGX | DY8DRGX | STUDYDRUG | STUDYDRUG | ANALYTE | 32 | ng/mL | 32 | 32 | ng/mL | PLASMA | | 0.10 | | 8 | Day 8 | 8 | 2001-02-08 | | 8 | 2h post | 2 | Day 8 Dose | 2001-02-08T08:35 | PT2H | |
-| 18 | ABC-123 | PC | ABC-123-0001 | 18 | DY8_DRGX | DY8_DRGX | DY8_DRGX | DY8DRGX | STUDYDRUG | STUDYDRUG | ANALYTE | 22 | ng/mL | 22 | 22 | ng/mL | PLASMA | | 0.10 | | 8 | Day 8 | 8 | 2001-02-08 | | 8 | 3h post | 3 | Day 8 Dose | 2001-02-08T08:35 | PT3H | |
-| 19 | ABC-123 | PC | ABC-123-0001 | 19 | DY8_DRGX | DY8_DRGX | DY8_DRGX | DY8DRGX | STUDYDRUG | STUDYDRUG | ANALYTE | 16 | ng/mL | 16 | 16 | ng/mL | PLASMA | | 0.10 | | 8 | Day 8 | 8 | 2001-02-08 | | 8 | 4h post | 4 | Day 8 Dose | 2001-02-08T08:35 | PT4H | |
-| 20 | ABC-123 | PC | ABC-123-0001 | 20 | DY8_DRGX | DY8_DRGX | DY8_DRGX | DY8DRGX | STUDYDRUG | STUDYDRUG | ANALYTE | 12 | ng/mL | 12 | 12 | ng/mL | PLASMA | | 0.10 | | 8 | Day 8 | 8 | 2001-02-08 | | 8 | 6h post | 6 | Day 8 Dose | 2001-02-08T08:35 | PT6H | |
-| 21 | ABC-123 | PC | ABC-123-0001 | 21 | DY8_DRGX | DY8_DRGX | DY8_DRGX | DY8DRGX | STUDYDRUG | STUDYDRUG | ANALYTE | 9 | ng/mL | 9 | 9 | ng/mL | PLASMA | | 0.10 | | 8 | Day 8 | 8 | 2001-02-08 | | 8 | 8h post | 8 | Day 8 Dose | 2001-02-08T08:35 | PT8H | |
-| 22 | ABC-123 | PC | ABC-123-0001 | 22 | DY8_DRGX | DY8_DRGX | DY8_DRGX | DY8DRGX | STUDYDRUG | STUDYDRUG | ANALYTE | 6 | ng/mL | 6 | 6 | ng/mL | PLASMA | | 0.10 | | 8 | Day 8 | 8 | 2001-02-08 | | 8 | 10h post | 10 | Day 8 Dose | 2001-02-08T08:35 | PT10H | |
-| 23 | ABC-123 | PC | ABC-123-0001 | 23 | DY8_DRGX | DY8_DRGX | DY8_DRGX | DY8DRGX | STUDYDRUG | STUDYDRUG | ANALYTE | 4 | ng/mL | 4 | 4 | ng/mL | PLASMA | | 0.10 | | 8 | Day 8 | 8 | 2001-02-08 | | 8 | 12h post | 12 | Day 8 Dose | 2001-02-08T08:35 | PT12H | |
-| 24 | ABC-123 | PC | ABC-123-0001 | 24 | DY8_DRGX | DY8_DRGX | DY8_DRGX | DY8DRGX | STUDYDRUG | STUDYDRUG | ANALYTE | 3 | ng/mL | 3 | 3 | ng/mL | PLASMA | | 0.10 | | 8 | Day 8 | 8 | 2001-02-08 | | 8 | 15h post | 15 | Day 8 Dose | 2001-02-08T08:35 | PT15H | |
-
-### Example 1 (All PC records used)
+### Example 1
 
 All PC records used to calculate all pharmacokinetic parameters.
 
 This example uses --GRPID values in the PCGRPID (Example 1) and PPGRPID (Example 1) columns.
 
-**Method A (Many to Many, Using PCGRPID and PPGRPID)**
+#### Method A (Many to Many, Using PCGRPID and PPGRPID)
 
-**Rows 1-2:** The relationship with RELID "1" includes all PC records with PCGRPID = "DY1_DRGX" and all PP records with PPGRPID = "DY1DRGX".
-**Rows 3-4:** The relationship with RELID "2" includes all PC records with GRPID = "DY8_DRGX" and all PP records with GRPID = "DY8DRGX".
+- Rows 1-2: The relationship with RELID "1" includes all PC records with PCGRPID = "DY1_DRGX" and all PP records with PPGRPID = "DY1DRGX".
+- Rows 3-4: The relationship with RELID "2" includes all PC records with GRPID = "DY8_DRGX" and all PP records with GRPID = "DY8DRGX".
 
 **relrec.xpt**
 
@@ -4470,13 +4667,13 @@ This example uses --GRPID values in the PCGRPID (Example 1) and PPGRPID (Example
 |-----|---------|---------|---------|-------|----------|---------|-------|
 | 1 | ABC-123 | PC | ABC-123-0001 | PCGRPID | DY1_DRGX | | 1 |
 | 2 | ABC-123 | PP | ABC-123-0001 | PPGRPID | DY1DRGX | | 1 |
-| 3 | ABC-123 | PC | ABC-123-0001 | PPGRPID | DY8_DRGX | | 2 |
+| 3 | ABC-123 | PC | ABC-123-0001 | PCGRPID | DY8_DRGX | | 2 |
 | 4 | ABC-123 | PP | ABC-123-0001 | PPGRPID | DY8DRGX | | 2 |
 
-**Method B (One to Many, Using PCSEQ and PPGRPID)**
+#### Method B (One to Many, Using PCSEQ and PPGRPID)
 
-**Rows 1-13:** The relationship with RELID "1" includes the individual PC records with PCSEQ values "1" to "12" and all PP records with PPGRPID = "DY1DRGX".
-**Rows 14-26:** The relationship with RELID "2" includes the individual PC records with PCSEQ values "13" to "24" and all PP records with PPGRPID = "DY8DRGX".
+- Rows 1-13: The relationship with RELID "1" includes the individual PC records with PCSEQ values "1" to "12" and all PP records with PPGRPID = "DY1DRGX".
+- Rows 14-26: The relationship with RELID "2" includes the individual PC records with PCSEQ values "13" to "24" and all PP records with PPGRPID = "DY8DRGX".
 
 **relrec.xpt**
 
@@ -4495,24 +4692,24 @@ This example uses --GRPID values in the PCGRPID (Example 1) and PPGRPID (Example
 | 11 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 11 | | 1 |
 | 12 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 12 | | 1 |
 | 13 | ABC-123 | PP | ABC-123-0001 | PPGRPID | DY1DRGX | | 1 |
-| 14 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 13 | | 2 |
-| 15 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 14 | | 2 |
-| 16 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 15 | | 2 |
-| 17 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 16 | | 2 |
-| 18 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 17 | | 2 |
-| 19 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 18 | | 2 |
-| 20 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 19 | | 2 |
-| 21 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 20 | | 2 |
-| 22 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 21 | | 2 |
-| 23 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 22 | | 2 |
-| 24 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 23 | | 2 |
-| 25 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 24 | | 2 |
-| 26 | ABC-123 | PP | ABC-123-0001 | PPGRPID | DY8DRGX | | 2 |
+| 14 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 13 | | 1 |
+| 15 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 14 | | 1 |
+| 16 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 15 | | 1 |
+| 17 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 16 | | 1 |
+| 18 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 17 | | 1 |
+| 19 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 18 | | 1 |
+| 20 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 19 | | 1 |
+| 21 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 20 | | 1 |
+| 22 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 21 | | 1 |
+| 23 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 22 | | 1 |
+| 24 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 23 | | 1 |
+| 25 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 24 | | 1 |
+| 26 | ABC-123 | PP | ABC-123-0001 | PPGRPID | DY1DRGX | | 1 |
 
-**Method C (Many to One, Using PCGRPID and PPSEQ)**
+#### Method C (Many to One, Using PCGRPID and PPSEQ)
 
-**Rows 1-8:** The relationship with RELID "1" includes all PC records with a PCGRPID = "DY1_DRGX" and PP records with PPSEQ values "1" through "7".
-**Rows 9-16:** The relationship with RELID "2" includes all PC records with a PCGRPID = "DY8_DRGX" and PP records with PPSEQ values "8" through "14".
+- Rows 1-8: The relationship with RELID = "1" includes all PC records with a PCGRPID = "DY1_DRGX" and PP records with PPSEQ values "1" through "7".
+- Rows 9-16: The relationship with RELID = "2" includes all PC records with a PCGRPID = "DY8_DRGX" and PP records with PPSEQ values of "8" through "14".
 
 **relrec.xpt**
 
@@ -4535,10 +4732,10 @@ This example uses --GRPID values in the PCGRPID (Example 1) and PPGRPID (Example
 | 15 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 13 | | 2 |
 | 16 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 14 | | 2 |
 
-**Method D (One to One, Using PCSEQ and PPSEQ)**
+#### Method D (One to One, Using PCSEQ and PPSEQ)
 
-**Rows 1-19:** The relationship with RELID "1" includes individual PC records with PCSEQ values "1" through "12" and PP records with PPSEQ values "1" through "7".
-**Rows 20-38:** The relationship with RELID "2" includes individual PC records with PCSEQ values "13" through "24" and PP records with PPSEQ values "8" through "14".
+- Rows 1-19: The relationship with RELID "1" includes individual PC records with PCSEQ values "1" through "12" and "10" through "12" and individual PP records with PPSEQ values "1 through 7".
+- Rows 20-38: The relationship with RELID "2" includes individual PC records with PCSEQ values "13" through "24" and PP records with PPSEQ values "8" through "14".
 
 **relrec.xpt**
 
@@ -4583,7 +4780,7 @@ This example uses --GRPID values in the PCGRPID (Example 1) and PPGRPID (Example
 | 37 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 13 | | 2 |
 | 38 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 14 | | 2 |
 
-### Example 2 (Some PC records excluded)
+### Example 2
 
 Only some records in PC were used to calculate all pharmacokinetic parameters; time points 8 and 9 on day 1 were not used for any pharmacokinetic parameters.
 
@@ -4591,7 +4788,7 @@ This example uses --GRPID values in the PCGRPID (Example 2) and PPGRPID (Example
 
 All pharmacokinetic concentrations for day 8 were used to calculate all pharmacokinetic parameters. Because day 8 relationships are the same as in Example 1, they are not included here.
 
-**Method A (Many to Many, Using PCGRPID and PPGRPID)**
+#### Method A (Many to Many, Using PCGRPID and PPGRPID)
 
 The relationship with RELID "1" includes PC records with PCGRPID = "DY1_DRGX" and all PP records with PPGRPID = "DY1DRGX". PC records with PCGRPID = "EXCLUDE" are not included in this relationship.
 
@@ -4602,7 +4799,7 @@ The relationship with RELID "1" includes PC records with PCGRPID = "DY1_DRGX" an
 | 1 | ABC-123 | PC | ABC-123-0001 | PCGRPID | DY1_DRGX | | 1 |
 | 2 | ABC-123 | PP | ABC-123-0001 | PPGRPID | DY1DRGX | | 1 |
 
-**Method B (One to Many, Using PCSEQ and PPGRPID)**
+#### Method B (One to Many, Using PCSEQ and PPGRPID)
 
 The relationship with RELID "1" includes individual PC records with PCSEQ values "1" through "7" and "10" through "12", and all the PP records with PPGRPID = "DY1DRGX".
 
@@ -4618,11 +4815,11 @@ The relationship with RELID "1" includes individual PC records with PCSEQ values
 | 6 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 6 | | 1 |
 | 7 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 7 | | 1 |
 | 8 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 10 | | 1 |
-| 9 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 12 | | 1 |
+| 9 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 11 | | 1 |
 | 10 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 12 | | 1 |
 | 11 | ABC-123 | PP | ABC-123-0001 | PPGRPID | DY1DRGX | | 1 |
 
-**Method C (Many to One, Using PCGRPID and PPSEQ)**
+#### Method C (Many to One, Using PCGRPID and PPSEQ)
 
 The relationship with RELID "1" includes all PC records with PCGRPID = "DY1_DRGX" and individual PP records with PPSEQ values "1" through "7".
 
@@ -4639,9 +4836,9 @@ The relationship with RELID "1" includes all PC records with PCGRPID = "DY1_DRGX
 | 7 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 6 | | 1 |
 | 8 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 7 | | 1 |
 
-**Method D (One to One, Using PCSEQ and PPSEQ)**
+#### Method D (One to One, Using PCSEQ and PPSEQ)
 
-The relationship with RELID "1" includes individual PC records with PCSEQ values "1" through "7" and "10" through "12" and individual PP records with PPSEQ values "1" through "7".
+The relationship with RELID "1" includes individual PC records with PCSEQ values "1" through "7" and "10" through "12" and individual PP records with PPSEQ values "1 through 7".
 
 **relrec.xpt**
 
@@ -4665,18 +4862,18 @@ The relationship with RELID "1" includes individual PC records with PCSEQ values
 | 16 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 6 | | 1 |
 | 17 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 7 | | 1 |
 
-### Example 3 (Inconsistent PC usage across parameters)
+### Example 3
 
 Only some records in PC were used to calculate some parameters; time points 8 and 9 on day 1 were not used for half-life calculations, but were used for other parameters.
 
-This example uses --GRPID values in the PCGRPID (Example 3) and PPGRPID (Example 3) columns. Note that the 2 excluded PC records have PCGRPID = "DY1_DRGX_B"; the other PC records have PCGRPID = "DY1_DRGX_A". Note also that the PP records for half-life calculations have PPGRPID = "DY1DRGX_HALF", whereas the other PP records have PPGRPID = "DY1DRGX_A".
+This example uses --GRPID values in the PCGRPID (Example 3) and PPGRPID (Example 3) columns. Note that the 2 excluded PC records have PCGRPID = "DY1_DRGX_B"; the other PC records have PCGRPID = "DY1_DRGX_A". Note also that the PP records for half-life calculations have PPGRPID = "DYDRGX_HALF", whereas the other PP records have PPGRPID = "DY1DRGX_A".
 
 All pharmacokinetic concentrations for day 8 were used to calculate all pharmacokinetic parameters. Because day 8 relationships are the same as in Example 1, they are not included here.
 
-**Method A (Many to Many, Using PCGRPID and PPGRPID)**
+#### Method A (Many to Many, Using PCGRPID and PPGRPID)
 
-**Rows 1-3:** The relationship with RELID "1" includes all PC records with PCGRPID = "DY1_DRGX_A", all PC records with PCGRPID = "DY1_DRGX_B" (which in this case is all the PP records for Day 1) and all PP records with PPGRPID = "DY1DRGX_A".
-**Rows 4-6:** The relationship with RELID "2" includes only PC records with PCGRPID = "DY1_DRGX_A" and all PP records with PPGRPID = "DY1DRGX_HALF".
+- Rows 1-3: The relationship with RELID "1" includes all PC records with PCGRPID = "DY1_DRGX_A", all PC records with PCGRPID = "DY1_DRGX_B" (which in this case is all the PP records for Day 1) and all PP records with PPGRPID = "DYIDRGX_A".
+- Rows 4-6: The relationship with RELID "2" includes only PC records with PCGRPID = "DY1_DRGX_A" and all PP records with PPGRPID = "DYIDRGX_HALF".
 
 **relrec.xpt**
 
@@ -4684,14 +4881,14 @@ All pharmacokinetic concentrations for day 8 were used to calculate all pharmaco
 |-----|---------|---------|---------|-------|----------|---------|-------|
 | 1 | ABC-123 | PC | ABC-123-0001 | PCGRPID | DY1_DRGX_A | | 1 |
 | 2 | ABC-123 | PC | ABC-123-0001 | PCGRPID | DY1_DRGX_B | | 1 |
-| 3 | ABC-123 | PP | ABC-123-0001 | PPGRPID | DY1DRGX_A | | 1 |
+| 3 | ABC-123 | PP | ABC-123-0001 | PPGRPID | DYIDRGX_A | | 1 |
 | 4 | ABC-123 | PC | ABC-123-0001 | PCGRPID | DY1_DRGX_A | | 2 |
 | 5 | ABC-123 | PP | ABC-123-0001 | PPGRPID | DY1DRGX_HALF | | 2 |
 
-**Method B (One to Many, Using PCSEQ and PPGRPID)**
+#### Method B (One to Many, Using PCSEQ and PPGRPID)
 
-**Rows 1-13:** The relationship with RELID "1" includes PP records with PCSEQ values "1" through "12" and PP records with PPGRPID = "DY1DRGX_A".
-**Rows 14-24:** The relationship with RELID "2" includes PC records with PCSEQ values "1" through "7" and "10" through "12" and PP records with PPGRPID = "DY1DRGX_HALF".
+- Rows 1-13: The relationship with RELID "1" includes PP records with PCSEQ values "1" through "12" and PP records with PPGRPID = "DY1DRGX_A".
+- Rows 14-24: The relationship with RELID "2" includes PP records with PCSEQ values "1" through "7" and "10" through "12" and PP records with PPGRPID = "DY1DRGX_HALF".
 
 **relrec.xpt**
 
@@ -4722,10 +4919,10 @@ All pharmacokinetic concentrations for day 8 were used to calculate all pharmaco
 | 23 | ABC-123 | PC | ABC-123-0001 | PCSEQ | 12 | | 2 |
 | 24 | ABC-123 | PP | ABC-123-0001 | PPGRPID | DY1DRGX_HALF | | 2 |
 
-**Method C (Many to One, Using PCGRPID and PPSEQ)**
+#### Method C (Many to One, Using PCGRPID and PPSEQ)
 
-**Rows 1-7:** The relationship with RELID "1" includes all PP records with PPGRPID values "DY1_DRGX_A" and "DY1_DRGX_B" and PP records with PPSEQ values "1" through "3", "6" and "7".
-**Rows 8-10:** The relationship with RELID "2" includes all PP records with PPGRPID value "DY1_DRGX_A" and PP records with PPSEQ values "4" and "5".
+- Rows 1-7: The relationship with RELID "1" includes all PP records with PGRPID values "DY1_DRGX_A" and "DY1_DRGX_B" and PP records with PPSEQ values "1" through "3", "6", and "7".
+- Rows 8-10: The relationship with RELID "2" includes all PP records with PGRPID value "DY1_DRGX_A" and PP records with PPSEQ values "4" and "5".
 
 **relrec.xpt**
 
@@ -4742,10 +4939,10 @@ All pharmacokinetic concentrations for day 8 were used to calculate all pharmaco
 | 9 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 4 | | 2 |
 | 10 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 5 | | 2 |
 
-**Method D (One to One, Using PCSEQ and PPSEQ)**
+#### Method D (One to One, Using PCSEQ and PPSEQ)
 
-**Rows 1-17:** The relationship with RELID "1" includes PC records with PCSEQ values of "1" through "12" and PP records with PPSEQ values "1" through "3", "6" and "7".
-**Rows 18-29:** The relationship with RELID "2" includes PC records with PCSEQ values of "1" through "7" and "10" through "12" and PP records with PPSEQ values "4" and "5".
+- Rows 1-17: The relationship with RELID "1" includes PC records with PCSEQ values of "1" through "12" and PP records with PPSEQ values "1" through "3" and "6" and "7".
+- Rows 18-29: The relationship with RELID "2" includes PC records with PCSEQ values of "1" through "7" and "10" through "12" and PP records with PPSEQ values "4" and "5".
 
 **relrec.xpt**
 
@@ -4781,7 +4978,7 @@ All pharmacokinetic concentrations for day 8 were used to calculate all pharmaco
 | 28 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 4 | | 2 |
 | 29 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 5 | | 2 |
 
-### Example 4 (Complex exclusions)
+### Example 4
 
 Only some records in PC were used to calculate parameters; time point 5 was excluded from Tmax, time point 6 from Cmax, and time points 11 and 12 from AUC.
 
@@ -4789,12 +4986,12 @@ This example uses --GRPID values in the PCGRPID (Example 4) and PPGRPID (Example
 
 Because of the complexity of this example, only methods A and D are illustrated.
 
-**Method A (Many to Many, Using PCGRPID and PPGRPID)**
+#### Method A (Many to Many, Using PCGRPID and PPGRPID)
 
-**Rows 1-4:** The relationship with RELID "1" includes PC records with PCGRPID values "DY1DRGX_A", "DY1DRGX_C", and "DY1DRGX_D" and the one PP record with PPGRPID = "TMAX".
-**Rows 5-8:** The relationship with RELID "2" includes PC records with PCGRPID values "DY1DRGX_A", "DY1DRGX_B", and "DY1DRGX_D" and the one PP record with PPGRPID = "CMAX".
-**Rows 9-12:** The relationship with RELID "3" includes PC records with PCGRPID values "DY1DRGX_A", "DY1DRGX_B", and "DY1DRGX_C" and the one PP record with PPGRPID = "AUC".
-**Rows 13-17:** The relationship with RELID "4" includes all PC records with PCGRPID values "DY1DRGX_A", "DY1DRGX_B", "DY1DRGX_C", and "DY1DRGX_D" (in this case, all PC records) and all PP records with PPGRPID = "OTHER".
+- Rows 1-4: The relationship with RELID "1" includes PC records with PCGRPID values "DY1DRGX_A", "DY1DRGX_C", and "DY1DRGX_D" and the one PP record with PPGRPID = "TMAX".
+- Rows 5-8: The relationship with RELID "2" includes PC records with PCGRPID values "DY1DRGX_A", "DY1DRGX_B", and "DY1DRGX_D" and the one PP record with PPGRPID = "CMAX".
+- Rows 9-12: The relationship with RELID "3" includes PC records with PCGRPID values "DY1DRGX_A", "DY1DRGX_B", and "DY1DRGX_C" and the one PP record with PPGRPID = "AUC".
+- Rows 13-17: The relationship with RELID "4" includes PC records with PCGRPID values "DY1DRGX_A", "DY1DRGX_B", "DY1DRGX_C", and "DY1DRGX_D" (in this case, all PC records) and all PP records with PPGRPID = "OTHER".
 
 **relrec.xpt**
 
@@ -4818,20 +5015,21 @@ Because of the complexity of this example, only methods A and D are illustrated.
 | 16 | ABC-123 | PC | ABC-123-0001 | PCGRPID | DY1DRGX_C | | 4 |
 | 17 | ABC-123 | PC | ABC-123-0001 | PCGRPID | DY1DRGX_D | | 4 |
 
-Note that in the RELREC table for method A, the single records in rows 1, 5, 7, and 9, represented by their PPGRPID values, could have been referenced by their PPSEQ values; both identify the records sufficiently.
+Note that in the RELREC table for method A, the single records in rows 1, 3, 5, 7, and 9, represented by their PPGRPID values, could have been referenced by their PPSEQ values; both identify the records sufficiently.
 
 At least 2 other hybrid approaches would also be acceptable:
+
 - Using PPSEQ values; use PCGRPID values wherever possible
 - Using PPGRPID values wherever possible; use PCSEQ values
 
 Method D uses only PCSEQ and PPSEQ values.
 
-**Method D (One to One, Using PCSEQ and PPSEQ)**
+#### Method D (One to One, Using PCSEQ and PPSEQ)
 
-**Rows 1-12:** The relationship with RELID "1" includes PC records with PCSEQ values "1" through "4" and "6" through "12" and PP records with PPSEQ = "1".
-**Rows 13-24:** The relationship with RELID "2" includes PC records with PCSEQ values "1" through "5" and "7" through "12" and PP records with PPSEQ = "2".
-**Rows 24-35:** The relationship with RELID "3" includes PC records with PCSEQ values "1" through "10" and PP records with PPSEQ = "3".
-**Rows 36-51:** The relationship with RELID "4" includes PC records with PCSEQ values "1" through "12" and PP records with PPSEQ values "4" through "7".
+- Rows 1-12: The relationship with RELID "1" includes PC records with PCSEQ values "1" through "4" and "6" through "12" and PP records with PPSEQ = "1".
+- Rows 13-24: The relationship with RELID "2" includes PC records with PCSEQ values "1" through "5" and "7" through "12" and PP records with PPSEQ = "2".
+- Rows 24-35: The relationship with RELID "3" includes PC records with PCSEQ values "1" through "10" and PP records with PPSEQ = "3".
+- Rows 36-51: The relationship with RELID "4" includes PC records with PCSEQ values "1" through "12" and PP records with PPSEQ values "4" through "7".
 
 **relrec.xpt**
 
@@ -4888,24 +5086,6 @@ Method D uses only PCSEQ and PPSEQ values.
 | 49 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 5 | | 4 |
 | 50 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 6 | | 4 |
 | 51 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 7 | | 4 |
-
-## PC-PP Conclusions
-
-Relating the datasets (as described in Section 8, Representing Relationships and Data) is the simplest method; however, all time-point concentrations in PC must be used to calculate all parameters for all subjects. If datasets cannot be related, then individual subject records must be related. In either case, the values of PCGRPID and PPGRPID must take into account multiple analytes and multiple reference time points, if they exist.
-
-Method A is clearly the most efficient in terms of having the least number of RELREC records, but it does require the assignment of --GRPID values (which are optional) in both the PC and PP datasets. Method D, in contrast, does not require the assignment of --GRPID values, relying instead on the required --SEQ values in both datasets to relate the records. Although Method D results in the largest number of RELREC records compared to the other methods, it may be the easiest to implement consistently across the range of complexities shown in the examples. Two additional methods, methods B and C, are also shown for Examples 1-3. They represent hybrid approaches, using --GRPID values in only 1 dataset (PP and PC, respectively) and --SEQ values for the other. These methods are best suited for sponsors who want to minimize the number of RELREC records while not having to assign --GRPID values in both domains. Methods B and C would not be ideal, however, if one expected complex scenarios as shown in Example 4.
-
-## PC-PP — Suggestions for Implementing RELREC in the Submission of PK Data
-
-Determine which of the scenarios best reflects how PP data are related to PC data. Questions that should be considered include:
-
-1. Do all parameters for each PK profile use all concentrations for all subjects? If so, create a PPGRPID value for all PP records and a PCGRPID value for all PC records for each profile for each subject, analyte, and reference time point. Decide whether to relate datasets or records. If choosing the latter, create records in RELREC for each PCGRPID value and each PPGRPID value (method A). Use RELID to show which PCGRPID and PPGRPID records are related. Consider RELREC methods B, C, and D as applicable.
-
-2. Do all parameters use the same concentrations, although maybe not all of them (Example 2)? If so, create a single PPGRPID value for all PP records, and 2 PCGRPID values for the PC records: a PCGRPID value for ones that were used and a PCGRPID value for those that were not used. Create records in RELREC for each PCGRPID value and each PPGRPID value (method A). Use RELID to show which PCGRPID and PPGRPID records are related. Consider RELREC methods B, C, and D as applicable.
-
-3. Do any parameters use the same concentrations, but not as consistently as shown in Examples 1 and 2? If so, refer to Example 3. Assign a GRPID value to the PP records that use the same concentrations. More than 1 PPGRPID value may be necessary. Assign as many PCGRPID values in the PC domain as needed to group these records. Create records in RELREC for each PCGRPID value and each PPGRPID value (method A). Use RELID to show which PCGRPID and PPGRPID records are related. Consider RELREC methods B, C, and D as applicable.
-
-4. If none of the above applies, or the data become difficult to group, then start with Example 4, and decide which RELREC method would be easiest to implement and represent.
 
 <!-- source: knowledge_base/domains/PE/examples.md -->
 # PE — Examples
@@ -5034,7 +5214,7 @@ This example shows the use of PPSTINT and PPENINT to describe the AUC segments f
 | 15 | ABC-123 | PP | ABC-123-001 | 22 | DRUGA_DAY14 | VZFO | Vz Obs by F | DRUG A PARENT | 283 | L | 283 | 283 | L | PLASMA | 2 | DAY 14 | 2001-02-25 | 2001-02-25T08:00 | | |
 | 16 | ABC-123 | PP | ABC-123-001 | 23 | DRUGA_DAY14 | CLFO | Total CL Obs by F | DRUG A PARENT | 28.1 | L/h | 28.1 | 28.1 | L/h | PLASMA | 2 | DAY 14 | 2001-02-25 | 2001-02-25T08:00 | | |
 
-## Shared PP Dataset for RELREC Examples
+## Pharmacokinetic Parameters (PP) Dataset for All Examples
 
 The shared PP dataset contains 12 rows showing PK parameters (TMAX, CMAX, AUCALL, LAMZHL, VZO, CLO) for Drug X (STUDYDRUG analyte) across Day 1 and Day 8, with 4 PPGRPID columns showing the grouping values for the 4 RELREC method examples described in the PC examples section.
 
@@ -5056,6 +5236,23 @@ The shared PP dataset contains 12 rows showing PK parameters (TMAX, CMAX, AUCALL
 | 12 | ABC-123 | PP | ABC-123-0001 | 14 | DY8DRGX | DY8DRGX | DY8DRGX | DY8DRGX | CLO | Total CL Obs | DRUG X | 1.75 | L/h | 1.75 | 1.75 | L/h | PLASMA | 8 | 2001-02-08T08:35 |
 
 *See PC examples for the full description of RELREC Methods A through D and their corresponding relrec.xpt tables.*
+
+## RELREC Method Descriptions (Section 6.3.5.9.3, pp 281-282)
+
+### Method B — One to Many, Using PCSEQ and PPGRPID (p281)
+
+- Rows 1-13: The relationship with RELID "1" includes PP records with PCSEQ values "1" through "12" and PP records with PPGRPID = "DY1DRGX_A".
+- Rows 14-24: The relationship with RELID "2" includes PP records with PCSEQ values "1" through "7" and "10" through "12" and PP records with PPGRPID = "DY1DRGX_HALF".
+
+### Method C — Many to One, Using PCGRPID and PPSEQ (p281)
+
+- Rows 1-7: The relationship with RELID "1" includes all PP records with PGRPID values "DY1_DRGX_A" and "DY1_DRGX_B" and PP records with PPSEQ values "1" through "3", "6", and "7".
+
+### Method A — Many to Many, Using PCGRPID and PPGRPID (Example 4, p282)
+
+- Rows 1-4: The relationship with RELID "1" includes PC records with PCGRPID values "DY1DRGX_A", "DY1DRGX_C", and "DY1DRGX_D" and the one PP record with PPGRPID = "TMAX".
+- Rows 5-8: The relationship with RELID "2" includes PC records with PCGRPID values "DY1DRGX_A", "DY1DRGX_B", and "DY1DRGX_D" and the one PP record with PPGRPID = "CMAX".
+- Rows 9-12: The relationship with RELID "3" includes PC records with PCGRPID values "DY1DRGX_A", "DY1DRGX_B", and "DY1DRGX_C" and the one PP record with PPGRPID = "AUC".
 
 <!-- source: knowledge_base/domains/PR/examples.md -->
 # PR — Examples
@@ -5511,6 +5708,10 @@ The rs.xpt dataset represents the items from the GCS NINDS VERSION instrument.
 <!-- source: knowledge_base/domains/SC/examples.md -->
 # SC — Examples
 
+## SC – Specification (p340)
+
+sc.xpt, Subject Characteristics — Findings. One record per characteristic per visit per subject., Tabulation.
+
 ## Example 1
 
 This example shows data collected once per subject that does not fit into the Demographics (DM) domain. For this example, national origin and marital status were collected.
@@ -5806,7 +6007,17 @@ Relationships between SR and AG records were shown in RELREC.
 <!-- source: knowledge_base/domains/SS/examples.md -->
 # SS — Examples
 
-No dataset examples are provided for the SS domain in the SDTMIG v3.4.
+##### Example 1
+
+In this example, subjects complete a 10-week treatment regimen and are then contacted by phone every month for 3 months. The phone contact assesses the subject's survival status. If the survival status is "DEAD", additional information is collected in order to complete the subject's final disposition record in DS and to record the date of death in DM (DS and DM records are not shown here).
+
+| Row | STUDYID | DOMAIN | USUBJID | SSSEQ | SSTESTCD | SSTEST | SSORRES | SSSTRESC | VISITNUM | VISIT | SSDTC |
+|-----|---------|--------|---------|-------|----------|--------|---------|----------|----------|-------|-------|
+| 1 | XYZ | SS | XYZ-333-009 | 1 | SURVSTAT | Survival Status | ALIVE | ALIVE | 10 | MONTH 1 | 2010-04-15 |
+| 2 | XYZ | SS | XYZ-333-009 | 2 | SURVSTAT | Survival Status | ALIVE | ALIVE | 20 | MONTH 2 | 2010-05-12 |
+| 3 | XYZ | SS | XYZ-333-009 | 3 | SURVSTAT | Survival Status | ALIVE | ALIVE | 30 | MONTH 3 | 2010-06-15 |
+| 4 | XYZ | SS | XYZ-428-021 | 1 | SURVSTAT | Survival Status | ALIVE | ALIVE | 10 | MONTH 1 | 2010-08-03 |
+| 5 | XYZ | SS | XYZ-428-021 | 2 | SURVSTAT | Survival Status | DEAD | DEAD | 20 | MONTH 2 | 2010-09-06 |
 
 <!-- source: knowledge_base/domains/SU/examples.md -->
 # SU — Examples
@@ -5988,13 +6199,15 @@ The core of the Trial Design Model is the TA dataset. For each arm of the trial,
 
 Although the TA dataset has 1 record for each trial element traversed by subjects assigned to an arm, it is generally more useful to work out the overall design of the trial at the study cell level first, then to work out the elements within each study cell, and finally to develop the definitions of the elements that are contained in the Trial Elements (TE) table.
 
+When working out the design of a trial, it is generally useful to draw diagrams such as those mentioned in ICH E3. The protocol may include a diagram that can serve as a starting point. Such a diagram can then be converted into a trial design matrix that displays the study cells and which in turn can be converted into the TA dataset.
+
 This section uses example trials of increasing complexity to illustrate the concepts of trial design. For each example trial, the process of working out the TA table is illustrated by means of a series of diagrams and tables, including:
 
-- A diagram showing the branching structure of the trial in a "study schema" format
-- A diagram that shows the "prospective" view of the trial (i.e., the view of those participating in the trial), with epochs and elements
-- A diagram that shows the "retrospective" view of the trial (i.e., the view of the analyst reporting on the trial), arm-centered showing elements within each study cell
-- If the trial is blinded, a diagram showing the trial as it appears to a blinded participant
-- A trial design matrix, an alternative format showing arms and epochs with study cells
+- A diagram showing the branching structure of the trial in a "study schema" format such as might appear in a protocol
+- A diagram that shows the “prospective” view of the trial (i.e., the view of those participating in the trial). This is similar to the study schema view in that it usually shows a single pool of subjects at the beginning of the trial, with the pool of subjects being split into separate treatment groups at randomizations and other branches. Such diagrams include the epochs of the trial, and, for each group of subjects and each epoch, the sequence of elements within each epoch for that treatment group. The arms are also indicated on these diagrams.
+- A diagram that shows the “retrospective” view of the trial (i.e., the view of the analyst reporting on the trial). This style of diagram looks more like a matrix; it is also more like the structure of the TA dataset. The retrospective view is arm-centered and shows, for each study cell (epoch/arm combination) the sequence of elements within that study cell. It can be thought of as showing, for each arm, the elements traversed by a subject who completed that arm as intended.
+- If the trial is blinded, a diagram that shows the trial as it appears to a blinded participant
+- A trial design matrix, an alternative format for representing most of the information in the diagram that shows arms and epochs, and which emphasizes the study cells
 - The TA dataset
 
 Example 1 should be reviewed before reading other examples, as it explains the conventions used for all diagrams and tables in the examples.
@@ -6002,6 +6215,14 @@ Example 1 should be reviewed before reading other examples, as it explains the c
 ## Example 1
 
 A simple parallel trial with 3 arms (Placebo, Drug A, Drug B), 3 epochs (Screening, Run-In, Treatment). Each study cell contains exactly 1 element. Randomization occurs at the end of the Run-In element.
+
+Diagrams that represent study schemas generally conceive of time as moving from left to right, using horizontal lines to represent periods of time and slanting lines to represent branches into separate treatments, convergence into a common follow-up, or crossover to a different treatment.
+
+In this type of document, diagrams are drawn using "blocks" corresponding to trial elements rather than horizontal lines. Trial elements are the various treatment and non-treatment time periods of the trial and we want to emphasize the separate trial elements might otherwise be "hidden" in a single horizontal line. See Section 7.2.2, Trial Elements (TE), for more information about defining trial elements. In general, the elements of a trial will be fairly clear. However, in the process of working out a trial design, alternative definitions of trial elements may be considered, in which case diagrams for each alternative may be constructed.
+
+In the study schema diagrams in this example, the only slanting lines used are those that represent branches (i.e., decision points where subjects are divided into separate treatment groups). One advantage of this style of diagram, which does not show convergence of separate paths into a single block, is that the number of arms in the trial can be determined by counting the number of parallel paths at the right end of the diagram.
+
+As illustrated in the study schema diagram for Example Trial 1, this simple parallel trial has 3 arms, corresponding to the 3 possible left-to-right "paths" through the trial. Each path corresponds to 1 of the 3 treatment elements at the right end of the diagram. Randomization is represented by the 3 red arrows leading from the Run-in block.
 
 **Study Schema**
 
@@ -6078,6 +6299,8 @@ graph LR
     end
     S --> RI --> SD
 ```
+
+A trial design matrix is a table with a row for each arm in the trial and a column for each epoch in the trial. It is closely related to the retrospective view of the trial, and many users may find it easier to construct a table than to draw a diagram. The cells in the matrix represent the study cells, which are populated with trial elements. In this trial, each study cell contains exactly 1 element.
 
 **Trial Design Matrix**
 
@@ -6248,6 +6471,8 @@ graph LR
     style R2 fill:#f8d7da,stroke:#333
 ```
 
+The next diagram for this trial is the prospective view. It shows the epochs of the trial and how the initial group of subjects is divided at the point of randomization.
+
 **Prospective View**
 
 ```mermaid
@@ -6279,6 +6504,8 @@ graph LR
 **Retrospective View**
 
 Same epoch structure as Prospective View. 4 arms: A-Open (Screen→Drug A→Open A), A-Rescue (Screen→Drug A→Rescue), B-Open (Screen→Drug B→Open A), B-Rescue (Screen→Drug B→Rescue).
+
+The trial design matrix for this trial can be constructed easily from the diagram showing arms and epochs.
 
 **Blinded View**
 
@@ -6325,6 +6552,8 @@ graph LR
 | 11 | EX3 | TA | BR | B-Rescue | 2 | DBB | Treatment B | Assigned to Rescue on basis of response evaluation | | BLINDED TREATMENT |
 | 12 | EX3 | TA | BR | B-Rescue | 3 | RSC | Rescue | | | OPEN LABEL TREATMENT |
 
+See Section 7.2.1.1 Trial Arms Issues, Distinguishing Between Branches and Transitions, for additional discussion regarding when a decision point in a trial design should be considered to give rise to a new arm.
+
 ## Example 4
 
 A cyclical chemotherapy oncology trial with repeating treatment/rest elements until disease progression. 2 arms (Drug A, Drug B), 3 epochs (Screening, Treatment, Follow-Up). The TATRANS variable represents the "repeat until disease progression" skip-forward rule.
@@ -6342,6 +6571,8 @@ graph LR
     RB -.->|"Repeat until<br/>disease progression"| DB
     style S fill:#fef3cd,stroke:#333
 ```
+
+The next diagram shows the prospective view of this trial. Note that, in spite of the repeating element structure, this is, at its core, a 2-arm parallel study, and thus has 2 arms. In SDTMIG 3.1.1, there was an implicit assumption that each element must be in a separate epoch, and trials with cyclical chemotherapy were difficult to handle. The introduction of the concept of study cells and the dropping of the assumption that elements and epochs have a one-to-one relationship resolved these difficulties. This trial is best treated as having just 3 epochs, since the main objectives of the trial involve comparisons between the 2 treatments and do not require data to be considered cycle by cycle.
 
 **Prospective View**
 
@@ -6414,6 +6645,8 @@ graph LR
     re2 -.->|"If disease progression"| F
     re3 -.->|"If disease progression"| F
 ```
+
+The trial design matrix for this example trial corresponds to the diagram showing the retrospective view, with explicit repeats of elements shown.
 
 **Trial Design Matrix**
 
@@ -6589,9 +6822,13 @@ graph LR
 
 ## Example 7
 
-Example Trial 7, RTOG 93-09, involves treatment of lung cancer with chemotherapy and radiotherapy, with or without surgery. This is a complex 2-arm trial (CR = Chemotherapy and Radiation; CRS = Chemotherapy, Radiation, and Surgery) with 4 epochs (Screening, Induction Treatment, Continuation Treatment, Follow-up) and major "skip forward" arrows for disease progression.
+In open trials, there is no requirement to maintain a blind, and the arms of a trial may be quite different from each other. In such a case, changes in treatment in one arm may differ in number and timing from changes in treatment in another, so that there is no natural grouping of time periods across arms that corresponds to epochs as defined in Section 7.1.2, Definitions of Trial Design Concepts. In such a case, epochs are likely to be defined as broad intervals of time, spanning several elements, and chosen to correspond to the major clinical phases of the trial.
+
+Example Trial 7, RTOG 93-09, involves treatment of lung cancer with chemotherapy and radiotherapy, with or without surgery. The protocol (RTOG-93-09), which was provided by the Radiation Oncology Therapy Group (RTOG), does not include a study schema diagram. All subjects go through the branch point at randomization, when they are assigned to either chemotherapy plus radiotherapy (CR) or radiotherapy only (R). Those randomized to the non-surgery arm are evaluated for disease somewhat earlier, to avoid delays in administering the radiation treatment. Not all subjects randomized to receive surgery who do not have disease progression will necessarily receive surgery. If they are poor candidates for surgery or do not wish to receive surgery, they will not receive surgery, but will receive further evaluation instead. The following diagram is based on the text "schema" in the protocol, with the 5 options it names. The diagram in this form might suggest that the trial has 5 arms.
 
 Both the induction and additional chemotherapy are given in 2 cycles. The second induction cycle is different for the 2 arms, since radiation therapy for those assigned to the non-surgery arm includes a "boost" which those assigned to the surgery arm do not receive.
+
+This diagram also shows more detail within the Induction Chemo + RT and Additional Chemo blocks than the preceding diagram.
 
 **Study Schema (2-arm model)**
 
@@ -6610,6 +6847,8 @@ graph LR
     style S fill:#fef3cd,stroke:#333
     style SURG fill:#f8d7da,stroke:#333
 ```
+
+The protocol conceives of treatment as being divided into 2 parts, induction and continuation, so these have been treated as 2 different epochs. This is also an important point in the trial operationally, the point when subjects are "registered" a second time, and when subjects are evaluated for the possibility of surgery.
 
 **Prospective View**
 
@@ -6644,9 +6883,13 @@ graph LR
 
 > *Disease evaluation earlier, **Disease evaluation later
 
+The next diagram shows the retrospective view of this trial. Those subjects who do receive surgery will in fact spend a longer time completing treatment and moving into follow-up. Although it is tempting to think of the horizontal axis of these diagrams as a timeline, this can sometimes be misleading. The diagrams are not necessarily to scale in the sense that the length of the block representing an element represents its duration.
+
 **Retrospective View**
 
 Same epoch structure as the Prospective View. The elements in the Continuation Treatment Epoch for the CR arm do not fill the space compared to the CRS arm, reflecting different treatment durations between the 2 arms.
+
+The following table shows the trial design matrix for this 2-arm example trial.
 
 **Trial Design Matrix**
 
@@ -6654,6 +6897,8 @@ Same epoch structure as the Prospective View. The elements in the Continuation T
 |---|---|---|---|---|---|---|---|
 | **CR** | Screen | Initial Chemo + RT | Chemo + RT (non-Surgery) | Chemo | Chemo | | Off Treatment Follow-up |
 | **CRS** | Screen | Initial Chemo + RT | Chemo + RT (Surgery) | 3-5 w Rest | Surgery | 4-6 w Rest | Chemo | Chemo | Off Treatment Follow-up |
+
+The TA dataset reflects that this is a 2-arm trial.
 
 **ta.xpt**
 
@@ -6683,11 +6928,11 @@ Both the Branch and Transition columns contain rules, but the 2 columns represen
 
 ### Subjects Not Assigned to an Arm
 
-Some trial subjects may drop out of the study before they reach all of the branch points in the trial design. In the Demographics (DM) domain, the values of ARM and ARMCD must be supplied for such subjects, but the special values used for these subjects should not be included in the Trial Arms (TA) dataset; only complete arm paths should be described in the TA dataset. See DM Example 3 for how to represent ARM and ARMCD values for such trials.
+Some trial subjects may drop out of the study before they reach all of the branch points in the trial design. In the Demographics (DM) domain, the values of ARM and ARMCD must be supplied for such subjects, but the special values used for these subjects should not be included in the Trial Arms (TA) dataset; only complete arm paths should be described in the TA dataset. In Section 5.2, Demographics, assumption 4 describes special ARM and ARMCD values used for subjects who do not reach the first branch point of an adaptive trial design. When a trial design includes 2 or more branches, special values of ARM and ARMCD may be needed for subjects who pass through the first branch point, but drop out before the final branch point. See DM Example 3 for how to represent ARM and ARMCD values for such trials.
 
 ### Defining Epochs
 
-The series of examples for the TA dataset provides a variety of scenarios and guidance about how to assign epoch in those scenarios. In general, assigning epochs for blinded trials is easier than for unblinded trials. The blinded view of the trial will generally make the possible choices clear. For unblinded trials, the comparisons that will be made between arms can guide the definition of epochs.
+The series of examples for the TA dataset provides a variety of scenarios and guidance about how to assign epoch in those scenarios. In general, assigning epochs for blinded trials is easier than for unblinded trials. The blinded view of the trial will generally make the possible choices clear. For unblinded trials, the comparisons that will be made between arms can guide the definition of epochs. For trials that include many variant paths within an arm, comparisons of arms will mean that subjects on a variety of paths will be in the same epoch, and this is likely to lead to definition of broader epochs.
 
 ### Rule Variables
 
@@ -6863,7 +7108,7 @@ For open-ended patterns, the total number of repeats can be identified when the 
 <!-- source: knowledge_base/domains/TE/examples.md -->
 # TE — Examples
 
-Both of the trials in TA Examples 1 and 2 (see Section 7.2.1, Trial Arms) are assumed to have fixed-duration elements. The wording in TESTRL is intended to separate the description of the event that starts the element into the part that would be visible to a blinded participant in the trial (e.g., "First dose of a treatment epoch") from the part that is revealed when the study is unblinded (e.g., "where dose is 5 mg"). Care must be taken in choosing these descriptions to be sure that they are arm- and epoch-neutral.
+Both of the trials in TA Examples 1 and 2 (see Section 7.2.1, Trial Arms) are assumed to have fixed-duration elements. The wording in TESTRL is intended to separate the description of the event that starts the element into the part that would be visible to a blinded participant in the trial (e.g., "First dose of a treatment epoch") from the part that is revealed when the study is unblinded (e.g., "where dose is 5 mg"). Care must be taken in choosing these descriptions to be sure that they are arm- and epoch-neutral. For instance, in a crossover trial such as TA Example Trial 3, where an element may appear in 1 of multiple epochs, the wording must be appropriate for all possible epochs (e.g., "OPEN LABEL TREATMENT"). The SDS Team is considering adding a separate variable to the TE dataset that would hold information on the treatment that is associated with an element. This would make it clearer which elements are "treatment elements" and, therefore, which epochs contain treatment elements and thus are "treatment Epochs."
 
 ## Example 1
 
@@ -6921,11 +7166,19 @@ Deciding how finely to divide trial time when identifying trial elements is a ma
 3. A trial might include a dose titration, with subjects receiving increasing doses on a weekly basis until certain conditions are met. The trial design could be modeled in any of the following ways:
     a. Using several 1-week elements at specific doses, followed by an element of variable length at the chosen dose
     b. As a titration element of variable length followed by a constant dosing element of variable length
-    c. One element with dosing determined by titration
+    c. One element with dosing determined by titration.
+
+The choice of elements used to represent this dose titration will depend on the objectives of the trial and how the data will be analyzed and reported. If it is important to examine side effects or lab values at each individual dose, the first model is appropriate. If it is important only to identify the time to completion of titration, the second model might be appropriate. If the titration process is routine and is of little interest, the third model might be adequate for the purposes of the trial.
 
 ### Distinguishing Elements, Study Cells, and Epochs
 
-It is easy to confuse elements, which are reusable trial building blocks, with study cells (which contain the elements for a particular epoch and Arm) and with epochs (which are time periods for the trial as a whole). In part, this is because many trials have epochs for which the same element appears in all arms, and in the trial design matrix for many trials, there are columns (Epochs) in which all the study cells have the same contents. It is also natural to use the same name (e.g., screen, follow-up) for both such an epoch and the single element that appears within it.
+It is easy to confuse elements, which are reusable trial building blocks, with study cells (which contain the elements for a particular epoch and Arm) and with epochs (which are time periods for the trial as a whole). In part, this is because many trials have epochs for which the same element appears in all arms. In other words, in the trial design matrix for many trials, there are columns (Epochs) in which all the study cells have the same contents. It also is natural to use the same name (e.g., screen, follow-up) for both such an epoch and the single element that appears within it.
+
+Confusion can also arise from the fact that in the blinded treatment portions of blinded trials, blinded participants do not know which element a subject is in, but do know what epoch the subject is in.
+
+In describing a trial, one way to avoid confusion between elements and epochs is to include "Element" or "Epoch" in the values of ELEMENT or EPOCH when these values (e.g., screening, follow-up) would otherwise be the same. It becomes tedious to do this in every case, but can be useful to resolve confusion when it arises or is likely to arise.
+
+The difference between epoch and element is perhaps clearest in crossover trials. In TA Example Trial 2, as for most crossover trials, the analysis of pharmacokinetic (PK) results would include both treatment and period effects in the model. "Treatment effect" derives from element (placebo, 5 mg, 10 mg), whereas "period effect" derives from the epoch (first, second, or third treatment epoch).
 
 ### Transitions Between Elements
 
@@ -7395,17 +7648,23 @@ Although the start and end rules in this example reference the starts and ends o
 
 ### Identifying Trial Visits
 
-In general, a trial's visits are defined in its protocol. The term "visit" reflects the fact that data in outpatient studies is usually collected during a physical visit by the subject to a clinic. Sometimes a trial visit defined by the protocol may not correspond to a physical visit. It may span multiple physical visits, as when screening data is collected over several clinic visits but recorded under one TV name (VISIT) and number (VISITNUM). A trial visit may represent only a portion of an extended physical visit, as when a trial of in-patients collects data under multiple trial visits for a single hospital admission.
+In general, a trial's visits are defined in its protocol. The term "visit" reflects the fact that data in outpatient studies is usually collected during a physical visit by the subject to a clinic. Sometimes a trial visit defined by the protocol may not correspond to a physical visit. It may span multiple physical visits, as when screening data is collected over several clinic visits but recorded under one TV name (VISIT) and number (VISITNUM). A trial visit also may represent only a portion of an extended physical visit, as when a trial of in-patients collects data under multiple trial visits for a single hospital admission.
+
+Diary data and other data collected outside a clinic may not fit the usual concept of a trial visit, but the planned times of collection of such data may be described as "visits" in the TV dataset if desired.
 
 ### Trial Visit Rules
 
-Visit start rules are different from element start rules in that they usually describe when a visit should occur; element start rules describe the moment at which an element is considered to start. There are usually gaps between visits, periods of time that do not belong to any visit, so it is usually not necessary to identify the moment when one visit stops and another starts.
+Visit start rules are different from element start rules in that they usually describe when a visit should occur; element start rules describe the moment at which an element is considered to start. There are usually gaps between visits, periods of time that do not belong to any visit, so it is usually not necessary to identify the moment when one visit stops and another starts. However, some trials of hospitalized subjects may divide time into visits in a manner more like that used for elements, and a transition event may need to be defined in such cases.
 
-Visit start rules are usually expressed relative to the start or end of an element or epoch (e.g., "1-2 hours before end of First Wash-out", "8 weeks after end of 2nd Treatment Epoch"). Note that the visit may or may not occur during the element used as the reference for the visit start rule.
+Visit start rules are usually expressed relative to the start or end of an element or epoch (e.g., "1-2 hours before end of First Wash-out", "8 weeks after end of 2nd Treatment Epoch"). Note that the visit may or may not occur during the element used as the reference for the visit start rule. For example, a trial with elements based on treatment of disease episodes might plan a visit 6 months after the start of the first treatment period, regardless of how many disease episodes have occurred.
+
+Visit end rules are similar to element end rules, describing when a visit should end. They may be expressed relative to the start or end of an element or epoch, or relative to the start of the visit.
+
+The timings of visits relative to elements may be expressed in terms that cannot be easily quantified. For instance, a protocol might instruct that at a baseline visit the subject be randomized, given the study drug, and instructed to take the first dose of study drug X at bedtime that night. This baseline visit is thus started and ended before the start of the treatment epoch, but we don't know how long before the start of the treatment epoch the visit will occur. The trial start rule might contain the value "On the day of, but before, the start of the Treatment Epoch".
 
 ### Visit Schedules Expressed with Ranges
 
-Ranges may be used to describe the planned timing of visits (e.g., 12-16 days after the start of 2nd Element), but this is different from the "windows" that may be used in selecting data points to be included in an analysis associated with that visit.
+Ranges may be used to describe the planned timing of visits (e.g., 12-16 days after the start of 2nd Element), but this is different from the "windows" that may be used in selecting data points to be included in an analysis associated with that visit. For example, although visit 2 was planned for 12-16 days after the start of treatment, data collected 10-18 days after the start of treatment might be included in a visit 1 analysis. The 2 ranges serve different purposes.
 
 ### Contingent Visits
 

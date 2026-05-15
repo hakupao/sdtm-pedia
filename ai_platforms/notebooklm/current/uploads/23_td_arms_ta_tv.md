@@ -5,8 +5,8 @@
 > - **Bucket ID**: `23`
 > - **Concept**: Trial Design: TA + TV (arms + visits)
 > - **Merged files**: 6
-> - **Words**: 9,078
-> - **Chars**: 50,393
+> - **Words**: 13,903
+> - **Chars**: 79,193
 > - **Sources**:
 >   - `domains/TA/spec.md`
 >   - `domains/TA/assumptions.md`
@@ -134,6 +134,181 @@
 
 # TA — Assumptions
 
+## Trial Design Model Overview (§7.1)
+
+### §7.1.1 Purpose of the Trial Design Model
+
+ICH E3, Guidance for Industry, Structure and Content of Clinical Study Reports (available at http://www.ich.org/products/guidelines/), Section 9.1, calls for a brief, clear description of the overall plan and design of the study, and supplies examples of charts and diagrams for this purpose in Annex IIIa and Annex IIIb.
+
+Each Annex corresponds to an example trial, and each shows a diagram describing the study design and a table showing the schedule of assessments.
+
+The Trial Design Model provides a standardized way to describe those aspects of the planned conduct of a clinical trial shown in the study design diagrams of these examples.
+
+The standard Trial Design Datasets will allow reviewers to:
+- Clearly and quickly grasp the design of a clinical trial
+- Compare the designs of different trials
+- Search a data warehouse for clinical trials with certain features
+- Compare planned and actual treatments and visits for subjects in a clinical trial
+
+Modeling a clinical trial in this standardized way requires the explicit statement of certain decision rules that may not be addressed or may be vague or ambiguous in the usual prose protocol document.
+
+Prospective modeling of the design of a clinical trial should lead to a clearer, better protocol.
+
+Retrospective modeling of the design of a clinical trial should ensure a clear description of how the trial protocol was interpreted by the sponsor.
+
+### §7.1.2 Definitions of Trial Design Concepts
+
+A clinical trial is a scientific experiment involving human subjects, intended to address certain scientific questions (i.e., the objectives of the trial).
+
+See the CDISC Glossary (https://www.cdisc.org/standards/glossary) for more complete definitions of clinical trial and objective.
+
+| Concept | Definition |
+|---------|------------|
+| Trial design | The design of a clinical trial is a plan for what will be done to subjects and what data will be collected about them, in the course of the trial, to address the trial's objectives. |
+| Epoch | As part of the design of a trial, the planned period of subjects' participation in the trial is divided into epochs. Each epoch is a period of time that serves a purpose in the trial as a whole. That purpose will be at the level of the primary objectives of the trial. Typically, the purpose of an epoch will be to expose subjects to a treatment or to prepare for such a treatment period (e.g., determine subject eligibility, washout previous treatments), or to gather data on subjects after a treatment has ended. Note that at this high level, a "treatment" is a treatment strategy, which may be simple (e.g., exposure to a single drug at a single dose) or complex. Complex treatment strategies could involve tapering through several doses, titrating dose according to clinical criteria, complex regimens involving multiple drugs, or strategies for adding or dropping drugs according to clinical criteria. |
+| Arm | An arm is a planned path through the trial. This path covers the entire time of the trial. The group of subjects assigned to a planned path is also often colloquially called an "arm." The group of subjects assigned to an arm is also often called a "treatment group"; in this sense, an arm is equivalent to a treatment group. |
+| Study cell | Each planned path through the trial (i.e., each arm) is divided into pieces, 1 for each epoch. Each of these pieces is called a study cell. Thus, there is a study cell for each combination of arm and epoch. Each study cell represents an implementation of the purpose of its associated epoch. For an epoch whose purpose is to expose subjects to treatment, each study cell associated with the epoch has an associated treatment strategy. For example, a 3-arm parallel trial might have a treatment epoch whose purpose is to expose subjects to 1 of 3 study treatments: placebo, investigational product, or active control. There would be 3 study cell associated with the treatment epoch, 1 for each arm. Each of these study cells exposes the subject to 1 of the 3 study treatments. Another example involving more complex treatment strategies would be a trial comparing the effects of cycles of chemotherapy drug A given alone or in combination with drug B, where drug B is given as a pretreatment to each cycle of drug A. |
+| Element | An element is a basic building block in the trial design. It involves administering a planned intervention, which may be treatment or no treatment, during a period of time. Elements for which the planned intervention is "no treatment" would include elements for screening, washout, and follow-up. |
+| Study cells and elements | Many (perhaps most) clinical trials involve a single, simple administration of a planned intervention within a study cell. For some trials, however, the treatment strategy associated with a study cell involves a complex series of administrations of treatment. In such cases it may be important to track the component steps in a treatment strategy operationally; secondary objectives and safety analyses also might require that data be grouped by the treatment step during which it was collected. The steps within a treatment strategy may involve different doses of drug, different drugs, or different kinds of care (e.g., preoperative, operative, and post-operative periods surrounding surgery). When the treatment strategy for a study cell is simple, the study cell will contain a single element, and for many purposes there is little value in distinguishing between the study cell and the element. However, when the treatment strategy for a study cell consists of a complex series of treatments, a study cell can contain multiple elements. There may be a fixed sequence of elements, or a repeating cycle of elements, or some other complex pattern. In these cases, the distinction between a study cell and an element is very useful. |
+| Branch | In a trial with multiple arms, the protocol plans for each subject to be assigned to 1 arm. The time within the trial at which this assignment takes place is the point at which the arm paths of the trial diverge, and so is called a branch point. For many trials, the assignment to an arm happens all at one time, so the trial has 1 branch point. For other trials, there may be 2 or more branches that collectively assign a subject to an arm. The process that makes this assignment may be a randomization, but it need not be. |
+| Treatments | The word "treatment" may be used in connection with epochs, study cells, or elements, but has somewhat different meanings in each context: Because epochs cut across arms, an epoch treatment is at a high level that does not specify anything that differs between arms. For example, in a 3-period crossover study of 3 doses of drug X, each treatment epoch is associated with drug X, but not with a specific dose. A study cell treatment is specific to a particular arm. For example, a parallel trial might have study cell treatments placebo and drug X, without any additional detail (e.g., dose, frequency, route of administration) being specified. A study cell treatment is at a relatively high level, the level at which treatments might be planned in an early conceptual draft of the trial, or in the title or objectives of the trial. An element treatment may be fairly detailed. For example, for an element representing a cycle of chemotherapy, element treatment might specify 5 daily 100 mg doses of drug X. The distinctions between these levels are not rigid, and depend on the objectives of the trial. For example, route is generally a detail of dosing, but in a bioequivalence trial comparing IV and oral administration of drug X, route is clearly part of study cell treatment. |
+| Visit | The notion of a visit—a clinical encounter—derives from trials with outpatients, where subjects interact with the investigator during visits to the investigator's clinical site. However, the term is used in other trials, where a trial visit may not correspond to a physical visit. For example, in a trial with inpatients, time may be subdivided into visits, even though subjects are in hospital throughout the trial. For example, data for a screening visit may be collected over the course of more than 1 physical visit. One of the main purposes of visits is the performance of assessments, but not all assessments need take place at clinic visits; some assessments may be performed by means of telephone contacts, electronic devices, or call-in systems. The protocol should specify what contacts are considered visits and how they are defined. |
+
+### §7.1.3 Current and Future Contents of the Trial Design Model
+
+Datasets currently in the Trial Design Model include:
+- Trial Arms: Describes the sequences of elements in each epoch for each arm, and thus describes the complete sequence of elements in each arm
+- Trial Elements: Describes the elements used in the trial
+- Trial Visits: Describes the planned schedule of visits
+- Trial Disease Assessment: Provides information on the protocol-specified disease assessment schedule, and is used for comparison with the actual occurrence of the efficacy assessments in order to determine whether there was good compliance with the schedule
+- Trial Disease Milestones: Describes observations or activities identified for the trial which are anticipated to occur in the course of the disease under study and which trigger the collection of data
+- Trial Inclusion/Exclusion Criteria: Describes the criteria used to screen subjects
+- Trial Summary: Lists key facts (parameters) about the trial that are likely to appear in a registry of clinical trials
+
+The Trial Inclusion/Exclusion Criteria (TI) dataset is discussed in Section 7.4.1, Trial Inclusion/Exclusion Criteria.
+
+The Inclusion/Exclusion Criteria Not Met (IE) domain described in Section 6.3.4, Inclusion/Exclusion Criteria Not Met, contains the actual exceptions to those criteria for enrolled subjects.
+
+The current Trial Design Model has limitations in representing protocols, which include:
+- Plans for indefinite numbers of repeating elements (e.g., indefinite numbers of chemotherapy cycles)
+- Indefinite numbers of visits (e.g., periodic follow-up visits for survival)
+- Indefinite numbers of epochs
+- Indefinite numbers of arms
+
+The last 2 situations arise in dose-escalation studies where increasing doses are given until stopping criteria are met.
+
+Some dose-escalation studies enroll a new cohort of subjects for each new dose, and so, at the planning stage, have an indefinite number of arms.
+
+Other dose-escalation studies give new doses to a continuing group of subjects, and so are planned with an indefinite number of epochs.
+
+There may also be limitations in representing other patterns of Elements within a Study Cell that are more complex than a simple sequence.
+
+For the purpose of submissions about trials that have already completed, these limitations are not critical, so it is expected that development of the Trial Design Model to address these limitations will have a minimal impact on the SDTM.
+
+## Trial Arms and Trial Elements (§7.2)
+
+### §7.2.1 Trial Arms (TA) – Description/Overview
+
+A trial design domain that contains each planned arm in the trial.
+
+This section contains:
+- The Trial Arms dataset and assumptions
+- A series of example trials, which illustrate the development of the TA dataset
+- Advice on various issues in the development of the TA dataset
+- A recap of the TA dataset and the function of its variables
+
+### §7.2.1 Trial Arms (TA) – Example 2
+
+The following diagram for a crossover trial does not use the crossing slanted lines sometimes used to represent crossover trials, because the order of the blocks is sufficient to represent the design of the trial. Slanted lines are used only to represent the branch point at randomization, when a subject is assigned to a sequence of treatments. As in most crossover trials, the arms are distinguished by the order of treatments, with the same treatments present in each arm. Note that even though all 3 arms of this trial end with the same block (i.e., the block for the follow-up element), the diagram does not show the arms converging into one block. Also note that the same block (the "rest" element) occurs twice within each arm. Elements are conceived of as "reusable" and can appear in more than 1 arm, in more than 1 epoch, and more than once in an arm.
+
+The next diagram for this crossover trial shows the prospective view of the trial; it identifies the epoch and arms of the trial, and gives each a name. As for most crossover studies, the objectives of the trial will be addressed by comparisons between the arms and by within-subject comparisons between treatments. Because the design depends on differentiating the periods during which the subject receives the 3 different treatments, there are 3 different treatment epochs. The fact that the rest periods are identified as separate epochs suggests that these also play an important part in the design of the trial; they are probably designed to allow subjects to return to "baseline," with data collected to show that this occurred. Note that epochs are not considered reusable; each epoch has a different name, even though all the treatment epochs are similar and both the rest epochs are similar. As with the first example trial, there is a one-to-one relationship between the epochs of the trial and the elements in each arm.
+
+The next diagram shows the retrospective view of the trial.
+
+The last diagram for this trial shows the trial from the viewpoint of blinded participants. As in the simple parallel trial in Example Trial 1, blinded participants see only 1 sequence of elements; during the treatment epochs they do not know which of the treatment elements a subject is in.
+
+The following table illustrates the trial design matrix for this crossover example trial. It corresponds closely to the preceding retrospective diagram.
+
+It is straightforward to produce the TA dataset for this crossover trial from the diagram showing arms and epochs, or from the trial design matrix.
+
+### §7.2.1.1 Trial Arms Issues – Distinguishing Between Branches and Transitions
+
+Both the Branch and Transition columns contain rules, but the 2 columns represent 2 different types of rules.
+
+Branch rules represent forks in the trial flowchart, giving rise to separate arms.
+
+The rule underlying a branch in the trial design appears in multiple records, once for each "fork" of the branch.
+
+Within any one record, there is no choice (no "if" clause) in the value of the branch condition.
+
+For example, the value of TABRANCH for a record in arm A is "Randomized to Arm A" because a subject in arm A must have been randomized to arm A.
+
+Transition rules are used for choices within an arm.
+
+The value for TATRANS does contain a choice (an "if" clause).
+
+In Example Trial 4, subjects who receive 1, 2, 3, or 4 cycles of treatment A are all considered to belong to arm A.
+
+In modeling a trial, decisions may have to be made about whether a decision point in the flow chart represents the separation of paths that represent different arms, or paths that represent variations within the same arm, as illustrated in the discussion of Example Trial 7.
+
+This decision will depend on the comparisons of interest in the trial.
+
+Some trials refer to groups of subjects who follow a particular path through the trial as "cohorts," particularly if the groups are formed successively over time.
+
+The term "cohort" is used with different meanings in different protocols and does not always correspond to an arm.
+
+### §7.2.2.1 Trial Elements Issues – Distinguishing Elements, Study Cells, and Epochs
+
+It is easy to confuse elements, which are reusable trial building blocks, with study cells (which contain the elements for a particular epoch and Arm) and with epochs (which are time periods for the trial as a whole).
+
+In part, this is because many trials have epochs for which the same element appears in all arms.
+
+In other words, in the trial design matrix for many trials, there are columns (Epochs) in which all the study cells have the same contents.
+
+It also is natural to use the same name (e.g., screen, follow-up) for both such an epoch and the single element that appears within it.
+
+Confusion can also arise from the fact that in the blinded treatment portions of blinded trials, blinded participants do not know which element a subject is in, but do know what epoch the subject is in.
+
+In describing a trial, one way to avoid confusion between elements and epochs is to include "Element" or "Epoch" in the values of ELEMENT or EPOCH when these values (e.g., screening, follow-up) would otherwise be the same.
+
+It becomes tedious to do this in every case, but can be useful to resolve confusion when it arises or is likely to arise.
+
+The difference between epoch and element is perhaps clearest in crossover trials.
+
+In TA Example Trial 2, as for most crossover trials, the analysis of pharmacokinetic (PK) results would include both treatment and period effects in the model.
+
+“Treatment effect” derives from element (placebo, 5 mg, 10 mg), whereas “period effect” derives from the epoch (first, second, or third treatment epoch).
+
+### §7.2.2.1 Trial Elements Issues – Transitions Between Elements
+
+The transition between one element and the next can be thought of as a 3-step process:
+
+Note that the subject is not "in limbo" during this process.
+
+The subject remains in the current element until step 3, at which point the subject transitions to the new element.
+
+There are no gaps between elements.
+
+As illustrated in the table, executing a transition depends on information that is split between the TE and the TA datasets.
+
+It can be useful, in the process of working out the Trial Design (TD) datasets, to create a dataset that supplements the TA dataset with the TESTRL, TEENRL, and TEDUR variables, so that full information on the transitions is easily accessible.
+
+However, such a working dataset is not an SDTM dataset, and should not be submitted.
+
+The following table shows a fragment of such a table for TA Example Trial 4.
+
+Note that
+- for all records that contain a particular element, all the TE variable values are exactly the same; and
+- when both TABRANCH and TATRANS are blank, the implicit decision in step 2 is that the subject moves to the next element in sequence for the arm.
+
+Note that rows 2 and 4 of this dataset involve the same element (Trt A); thus, TESTRL is the same for both.
+
+The activity that marks a subject's entry into the fourth element in arm A is "First dose of treatment Element, where drug is Treatment A."
+
+This is not the subject's very first dose of treatment A, but it is their first dose in this element.
+
+## TA-Specific Assumptions
+
 The TA and TE datasets are interrelated, and they provide the building blocks for the development of subject-level treatment information (see Sections 5.2, Demographics (DM), and 5.3, Subject Elements (SE), for the subject's actual study treatment information).
 
 1. TAETORD is an integer. In general, the value of TAETORD is 1 for the first element in each arm, 2 for the second element in each arm, and so on. Occasionally, it may be convenient to skip some values (see Example Trial 6). Although the values of TAETORD need not always be sequential, their order must always be the correct order for the elements in the arm path.
@@ -170,13 +345,15 @@ The core of the Trial Design Model is the TA dataset. For each arm of the trial,
 
 Although the TA dataset has 1 record for each trial element traversed by subjects assigned to an arm, it is generally more useful to work out the overall design of the trial at the study cell level first, then to work out the elements within each study cell, and finally to develop the definitions of the elements that are contained in the Trial Elements (TE) table.
 
+When working out the design of a trial, it is generally useful to draw diagrams such as those mentioned in ICH E3. The protocol may include a diagram that can serve as a starting point. Such a diagram can then be converted into a trial design matrix that displays the study cells and which in turn can be converted into the TA dataset.
+
 This section uses example trials of increasing complexity to illustrate the concepts of trial design. For each example trial, the process of working out the TA table is illustrated by means of a series of diagrams and tables, including:
 
-- A diagram showing the branching structure of the trial in a "study schema" format
-- A diagram that shows the "prospective" view of the trial (i.e., the view of those participating in the trial), with epochs and elements
-- A diagram that shows the "retrospective" view of the trial (i.e., the view of the analyst reporting on the trial), arm-centered showing elements within each study cell
-- If the trial is blinded, a diagram showing the trial as it appears to a blinded participant
-- A trial design matrix, an alternative format showing arms and epochs with study cells
+- A diagram showing the branching structure of the trial in a "study schema" format such as might appear in a protocol
+- A diagram that shows the “prospective” view of the trial (i.e., the view of those participating in the trial). This is similar to the study schema view in that it usually shows a single pool of subjects at the beginning of the trial, with the pool of subjects being split into separate treatment groups at randomizations and other branches. Such diagrams include the epochs of the trial, and, for each group of subjects and each epoch, the sequence of elements within each epoch for that treatment group. The arms are also indicated on these diagrams.
+- A diagram that shows the “retrospective” view of the trial (i.e., the view of the analyst reporting on the trial). This style of diagram looks more like a matrix; it is also more like the structure of the TA dataset. The retrospective view is arm-centered and shows, for each study cell (epoch/arm combination) the sequence of elements within that study cell. It can be thought of as showing, for each arm, the elements traversed by a subject who completed that arm as intended.
+- If the trial is blinded, a diagram that shows the trial as it appears to a blinded participant
+- A trial design matrix, an alternative format for representing most of the information in the diagram that shows arms and epochs, and which emphasizes the study cells
 - The TA dataset
 
 Example 1 should be reviewed before reading other examples, as it explains the conventions used for all diagrams and tables in the examples.
@@ -184,6 +361,14 @@ Example 1 should be reviewed before reading other examples, as it explains the c
 ## Example 1
 
 A simple parallel trial with 3 arms (Placebo, Drug A, Drug B), 3 epochs (Screening, Run-In, Treatment). Each study cell contains exactly 1 element. Randomization occurs at the end of the Run-In element.
+
+Diagrams that represent study schemas generally conceive of time as moving from left to right, using horizontal lines to represent periods of time and slanting lines to represent branches into separate treatments, convergence into a common follow-up, or crossover to a different treatment.
+
+In this type of document, diagrams are drawn using "blocks" corresponding to trial elements rather than horizontal lines. Trial elements are the various treatment and non-treatment time periods of the trial and we want to emphasize the separate trial elements might otherwise be "hidden" in a single horizontal line. See Section 7.2.2, Trial Elements (TE), for more information about defining trial elements. In general, the elements of a trial will be fairly clear. However, in the process of working out a trial design, alternative definitions of trial elements may be considered, in which case diagrams for each alternative may be constructed.
+
+In the study schema diagrams in this example, the only slanting lines used are those that represent branches (i.e., decision points where subjects are divided into separate treatment groups). One advantage of this style of diagram, which does not show convergence of separate paths into a single block, is that the number of arms in the trial can be determined by counting the number of parallel paths at the right end of the diagram.
+
+As illustrated in the study schema diagram for Example Trial 1, this simple parallel trial has 3 arms, corresponding to the 3 possible left-to-right "paths" through the trial. Each path corresponds to 1 of the 3 treatment elements at the right end of the diagram. Randomization is represented by the 3 red arrows leading from the Run-in block.
 
 **Study Schema**
 
@@ -260,6 +445,8 @@ graph LR
     end
     S --> RI --> SD
 ```
+
+A trial design matrix is a table with a row for each arm in the trial and a column for each epoch in the trial. It is closely related to the retrospective view of the trial, and many users may find it easier to construct a table than to draw a diagram. The cells in the matrix represent the study cells, which are populated with trial elements. In this trial, each study cell contains exactly 1 element.
 
 **Trial Design Matrix**
 
@@ -430,6 +617,8 @@ graph LR
     style R2 fill:#f8d7da,stroke:#333
 ```
 
+The next diagram for this trial is the prospective view. It shows the epochs of the trial and how the initial group of subjects is divided at the point of randomization.
+
 **Prospective View**
 
 ```mermaid
@@ -461,6 +650,8 @@ graph LR
 **Retrospective View**
 
 Same epoch structure as Prospective View. 4 arms: A-Open (Screen→Drug A→Open A), A-Rescue (Screen→Drug A→Rescue), B-Open (Screen→Drug B→Open A), B-Rescue (Screen→Drug B→Rescue).
+
+The trial design matrix for this trial can be constructed easily from the diagram showing arms and epochs.
 
 **Blinded View**
 
@@ -507,6 +698,8 @@ graph LR
 | 11 | EX3 | TA | BR | B-Rescue | 2 | DBB | Treatment B | Assigned to Rescue on basis of response evaluation | | BLINDED TREATMENT |
 | 12 | EX3 | TA | BR | B-Rescue | 3 | RSC | Rescue | | | OPEN LABEL TREATMENT |
 
+See Section 7.2.1.1 Trial Arms Issues, Distinguishing Between Branches and Transitions, for additional discussion regarding when a decision point in a trial design should be considered to give rise to a new arm.
+
 ## Example 4
 
 A cyclical chemotherapy oncology trial with repeating treatment/rest elements until disease progression. 2 arms (Drug A, Drug B), 3 epochs (Screening, Treatment, Follow-Up). The TATRANS variable represents the "repeat until disease progression" skip-forward rule.
@@ -524,6 +717,8 @@ graph LR
     RB -.->|"Repeat until<br/>disease progression"| DB
     style S fill:#fef3cd,stroke:#333
 ```
+
+The next diagram shows the prospective view of this trial. Note that, in spite of the repeating element structure, this is, at its core, a 2-arm parallel study, and thus has 2 arms. In SDTMIG 3.1.1, there was an implicit assumption that each element must be in a separate epoch, and trials with cyclical chemotherapy were difficult to handle. The introduction of the concept of study cells and the dropping of the assumption that elements and epochs have a one-to-one relationship resolved these difficulties. This trial is best treated as having just 3 epochs, since the main objectives of the trial involve comparisons between the 2 treatments and do not require data to be considered cycle by cycle.
 
 **Prospective View**
 
@@ -596,6 +791,8 @@ graph LR
     re2 -.->|"If disease progression"| F
     re3 -.->|"If disease progression"| F
 ```
+
+The trial design matrix for this example trial corresponds to the diagram showing the retrospective view, with explicit repeats of elements shown.
 
 **Trial Design Matrix**
 
@@ -771,9 +968,13 @@ graph LR
 
 ## Example 7
 
-Example Trial 7, RTOG 93-09, involves treatment of lung cancer with chemotherapy and radiotherapy, with or without surgery. This is a complex 2-arm trial (CR = Chemotherapy and Radiation; CRS = Chemotherapy, Radiation, and Surgery) with 4 epochs (Screening, Induction Treatment, Continuation Treatment, Follow-up) and major "skip forward" arrows for disease progression.
+In open trials, there is no requirement to maintain a blind, and the arms of a trial may be quite different from each other. In such a case, changes in treatment in one arm may differ in number and timing from changes in treatment in another, so that there is no natural grouping of time periods across arms that corresponds to epochs as defined in Section 7.1.2, Definitions of Trial Design Concepts. In such a case, epochs are likely to be defined as broad intervals of time, spanning several elements, and chosen to correspond to the major clinical phases of the trial.
+
+Example Trial 7, RTOG 93-09, involves treatment of lung cancer with chemotherapy and radiotherapy, with or without surgery. The protocol (RTOG-93-09), which was provided by the Radiation Oncology Therapy Group (RTOG), does not include a study schema diagram. All subjects go through the branch point at randomization, when they are assigned to either chemotherapy plus radiotherapy (CR) or radiotherapy only (R). Those randomized to the non-surgery arm are evaluated for disease somewhat earlier, to avoid delays in administering the radiation treatment. Not all subjects randomized to receive surgery who do not have disease progression will necessarily receive surgery. If they are poor candidates for surgery or do not wish to receive surgery, they will not receive surgery, but will receive further evaluation instead. The following diagram is based on the text "schema" in the protocol, with the 5 options it names. The diagram in this form might suggest that the trial has 5 arms.
 
 Both the induction and additional chemotherapy are given in 2 cycles. The second induction cycle is different for the 2 arms, since radiation therapy for those assigned to the non-surgery arm includes a "boost" which those assigned to the surgery arm do not receive.
+
+This diagram also shows more detail within the Induction Chemo + RT and Additional Chemo blocks than the preceding diagram.
 
 **Study Schema (2-arm model)**
 
@@ -792,6 +993,8 @@ graph LR
     style S fill:#fef3cd,stroke:#333
     style SURG fill:#f8d7da,stroke:#333
 ```
+
+The protocol conceives of treatment as being divided into 2 parts, induction and continuation, so these have been treated as 2 different epochs. This is also an important point in the trial operationally, the point when subjects are "registered" a second time, and when subjects are evaluated for the possibility of surgery.
 
 **Prospective View**
 
@@ -826,9 +1029,13 @@ graph LR
 
 > *Disease evaluation earlier, **Disease evaluation later
 
+The next diagram shows the retrospective view of this trial. Those subjects who do receive surgery will in fact spend a longer time completing treatment and moving into follow-up. Although it is tempting to think of the horizontal axis of these diagrams as a timeline, this can sometimes be misleading. The diagrams are not necessarily to scale in the sense that the length of the block representing an element represents its duration.
+
 **Retrospective View**
 
 Same epoch structure as the Prospective View. The elements in the Continuation Treatment Epoch for the CR arm do not fill the space compared to the CRS arm, reflecting different treatment durations between the 2 arms.
+
+The following table shows the trial design matrix for this 2-arm example trial.
 
 **Trial Design Matrix**
 
@@ -836,6 +1043,8 @@ Same epoch structure as the Prospective View. The elements in the Continuation T
 |---|---|---|---|---|---|---|---|
 | **CR** | Screen | Initial Chemo + RT | Chemo + RT (non-Surgery) | Chemo | Chemo | | Off Treatment Follow-up |
 | **CRS** | Screen | Initial Chemo + RT | Chemo + RT (Surgery) | 3-5 w Rest | Surgery | 4-6 w Rest | Chemo | Chemo | Off Treatment Follow-up |
+
+The TA dataset reflects that this is a 2-arm trial.
 
 **ta.xpt**
 
@@ -865,11 +1074,11 @@ Both the Branch and Transition columns contain rules, but the 2 columns represen
 
 ### Subjects Not Assigned to an Arm
 
-Some trial subjects may drop out of the study before they reach all of the branch points in the trial design. In the Demographics (DM) domain, the values of ARM and ARMCD must be supplied for such subjects, but the special values used for these subjects should not be included in the Trial Arms (TA) dataset; only complete arm paths should be described in the TA dataset. See DM Example 3 for how to represent ARM and ARMCD values for such trials.
+Some trial subjects may drop out of the study before they reach all of the branch points in the trial design. In the Demographics (DM) domain, the values of ARM and ARMCD must be supplied for such subjects, but the special values used for these subjects should not be included in the Trial Arms (TA) dataset; only complete arm paths should be described in the TA dataset. In Section 5.2, Demographics, assumption 4 describes special ARM and ARMCD values used for subjects who do not reach the first branch point of an adaptive trial design. When a trial design includes 2 or more branches, special values of ARM and ARMCD may be needed for subjects who pass through the first branch point, but drop out before the final branch point. See DM Example 3 for how to represent ARM and ARMCD values for such trials.
 
 ### Defining Epochs
 
-The series of examples for the TA dataset provides a variety of scenarios and guidance about how to assign epoch in those scenarios. In general, assigning epochs for blinded trials is easier than for unblinded trials. The blinded view of the trial will generally make the possible choices clear. For unblinded trials, the comparisons that will be made between arms can guide the definition of epochs.
+The series of examples for the TA dataset provides a variety of scenarios and guidance about how to assign epoch in those scenarios. In general, assigning epochs for blinded trials is easier than for unblinded trials. The blinded view of the trial will generally make the possible choices clear. For unblinded trials, the comparisons that will be made between arms can guide the definition of epochs. For trials that include many variant paths within an arm, comparisons of arms will mean that subjects on a variety of paths will be in the same epoch, and this is likely to lead to definition of broader epochs.
 
 ### Rule Variables
 
@@ -981,6 +1190,22 @@ The Branch and Transition columns shown in the example tables are variables with
 
 # TV — Assumptions
 
+## §7.3 Schedule for Assessments (TV, TD, TM) — Introduction
+
+This section contains the Trial Design (TD) datasets that describe:
+
+- The protocol-defined planned schedule of subject encounters at the healthcare facility where the study is being conducted (Section 7.3.1, Trial Visits (TV))
+- The planned schedule of efficacy assessments related to the disease under study (Section 7.3.2, Trial Disease Assessments (TD))
+- The things (events, interventions, or findings) which, if and when they happen, are the occasion for assessments planned in the protocol (Section 7.3.3, Trial Disease Milestones (TM))
+
+The Trial Visits (TV) and TD datasets provide the planned scheduling of assessments to which a subject's actual visits and disease assessments can be compared.
+
+## TV – Description/Overview
+
+Visits are defined as "clinical encounters" and are described using the timing variables VISIT, VISITNUM, and VISITDY.
+
+## TV – Assumptions
+
 1. Although the general structure of the Trial Visits (TV) dataset is "One Record per Planned Visit per Arm," for many clinical trials—particularly blinded clinical trials—the schedule of visits is the same for all arms, and the structure of the TV dataset will be "One Record per Planned Visit." If the schedule of visits is the same for all arms, ARMCD should be left blank for all records in the TV dataset. For trials with trial visits that are different for different arms (e.g., Example Trial 7 in Section 7.2.1, Trial Arms), ARMCD and ARM should be populated for all records. If some visits are the same for all arms, and some visits differ by arm, then ARMCD and ARM should be populated for all records, to ensure clarity, even though this will mean creating near-duplicate records for visits that are the same for all arms.
 
 2. A visit may start in one element and end in another. This means that a visit may start in one epoch and end in another. For example, if one of the activities planned for a visit is the administration of the first dose of study drug, the visit might start in the screen epoch and end in a treatment epoch.
@@ -1062,17 +1287,23 @@ Although the start and end rules in this example reference the starts and ends o
 
 ### Identifying Trial Visits
 
-In general, a trial's visits are defined in its protocol. The term "visit" reflects the fact that data in outpatient studies is usually collected during a physical visit by the subject to a clinic. Sometimes a trial visit defined by the protocol may not correspond to a physical visit. It may span multiple physical visits, as when screening data is collected over several clinic visits but recorded under one TV name (VISIT) and number (VISITNUM). A trial visit may represent only a portion of an extended physical visit, as when a trial of in-patients collects data under multiple trial visits for a single hospital admission.
+In general, a trial's visits are defined in its protocol. The term "visit" reflects the fact that data in outpatient studies is usually collected during a physical visit by the subject to a clinic. Sometimes a trial visit defined by the protocol may not correspond to a physical visit. It may span multiple physical visits, as when screening data is collected over several clinic visits but recorded under one TV name (VISIT) and number (VISITNUM). A trial visit also may represent only a portion of an extended physical visit, as when a trial of in-patients collects data under multiple trial visits for a single hospital admission.
+
+Diary data and other data collected outside a clinic may not fit the usual concept of a trial visit, but the planned times of collection of such data may be described as "visits" in the TV dataset if desired.
 
 ### Trial Visit Rules
 
-Visit start rules are different from element start rules in that they usually describe when a visit should occur; element start rules describe the moment at which an element is considered to start. There are usually gaps between visits, periods of time that do not belong to any visit, so it is usually not necessary to identify the moment when one visit stops and another starts.
+Visit start rules are different from element start rules in that they usually describe when a visit should occur; element start rules describe the moment at which an element is considered to start. There are usually gaps between visits, periods of time that do not belong to any visit, so it is usually not necessary to identify the moment when one visit stops and another starts. However, some trials of hospitalized subjects may divide time into visits in a manner more like that used for elements, and a transition event may need to be defined in such cases.
 
-Visit start rules are usually expressed relative to the start or end of an element or epoch (e.g., "1-2 hours before end of First Wash-out", "8 weeks after end of 2nd Treatment Epoch"). Note that the visit may or may not occur during the element used as the reference for the visit start rule.
+Visit start rules are usually expressed relative to the start or end of an element or epoch (e.g., "1-2 hours before end of First Wash-out", "8 weeks after end of 2nd Treatment Epoch"). Note that the visit may or may not occur during the element used as the reference for the visit start rule. For example, a trial with elements based on treatment of disease episodes might plan a visit 6 months after the start of the first treatment period, regardless of how many disease episodes have occurred.
+
+Visit end rules are similar to element end rules, describing when a visit should end. They may be expressed relative to the start or end of an element or epoch, or relative to the start of the visit.
+
+The timings of visits relative to elements may be expressed in terms that cannot be easily quantified. For instance, a protocol might instruct that at a baseline visit the subject be randomized, given the study drug, and instructed to take the first dose of study drug X at bedtime that night. This baseline visit is thus started and ended before the start of the treatment epoch, but we don't know how long before the start of the treatment epoch the visit will occur. The trial start rule might contain the value "On the day of, but before, the start of the Treatment Epoch".
 
 ### Visit Schedules Expressed with Ranges
 
-Ranges may be used to describe the planned timing of visits (e.g., 12-16 days after the start of 2nd Element), but this is different from the "windows" that may be used in selecting data points to be included in an analysis associated with that visit.
+Ranges may be used to describe the planned timing of visits (e.g., 12-16 days after the start of 2nd Element), but this is different from the "windows" that may be used in selecting data points to be included in an analysis associated with that visit. For example, although visit 2 was planned for 12-16 days after the start of treatment, data collected 10-18 days after the start of treatment might be included in a visit 1 analysis. The 2 ranges serve different purposes.
 
 ### Contingent Visits
 

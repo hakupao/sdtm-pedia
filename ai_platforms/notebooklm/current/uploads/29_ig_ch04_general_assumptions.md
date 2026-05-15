@@ -5,8 +5,8 @@
 > - **Bucket ID**: `29`
 > - **Concept**: IG: ch04 general assumptions (20K words 单独 slot, 关键规则源)
 > - **Merged files**: 1
-> - **Words**: 20,315
-> - **Chars**: 124,611
+> - **Words**: 21,279
+> - **Chars**: 130,536
 > - **Sources**:
 >   - `chapters/ch04_general_assumptions.md`
 
@@ -50,6 +50,10 @@ Because EPOCH is a study-design construct, it is not applicable to interventions
 The order of variables in the Define-XML document must reflect the order of variables in the dataset. The order of variables in CDISC domain models has been chosen to facilitate the review of the models and application of the models. Variables for the 3 general observation classes must be ordered with Identifiers variables first, followed by Topic, Qualifier, and Timing variables. Within each role, variables must be ordered as shown in SDTM Sections 3.1.1, The Interventions Observation Class; 3.1.2, The Events Observation Class; 3.1.3, The Findings Observation Class; 3.1.3.1, Findings About Events or Interventions; 3.1.4, Identifiers for All Classes; and 3.1.5, Timing Variables for All Classes.
 
 ### 4.1.5 SDTM Core Designations
+
+Three categories are specified in the Core column in the domain models:
+
+- An **Expected** variable is any variable necessary to make a record useful in the context of a specific domain. Expected variables may contain some null values, but in most cases will not contain null values for every record. When the study does not include the data item for an expected variable, however, a null column must still be included in the dataset, and a comment must be included in the Define-XML document to state that the study does not include the data item.
 
 | Core Value | Meaning | Rule |
 |------------|---------|------|
@@ -538,6 +542,8 @@ When a finding can have multiple results, the key structure for the findings dat
 
 The SDTM permits 1 value for each qualifier variable per record. If multiple values exist (e.g., due to a "Check all that apply" instruction on a CRF), then the value for the qualifier variable should be "MULTIPLE" and SUPP-- should be used to store the individual responses. It is recommended that the SUPP-- QNAM value reference the corresponding standard domain variable with an appended number or letter. In some cases, the standard variable name will be shortened to meet the 8-character variable name requirement, or it may be clearer to append a meaningful character string as shown in the second Adverse Events (AE) example below, where the first 3 characters of the drug name are appended. Likewise, the QLABEL value should be similar to the standard label. The values stored in QVAL should be consistent with the controlled terminology associated with the standard variable. See Section 8.4, Relating Non-standard Variable Values to a Parent Domain, for additional guidance on maintaining appropriately unique QNAM values.
 
+The following example includes selected variables from the ae.xpt and suppae.xpt datasets for a rash with locations on the face, neck, and chest.
+
 **Example 1:** A rash with locations on the face, neck, and chest:
 
 ae.xpt:
@@ -651,10 +657,8 @@ Controlled terminology or human-readable text should be used instead of arbitrar
 
 #### MedDRA Coding (Events)
 
-- For events such as adverse events and medical history, populate **--DECOD** with the dictionary's preferred term and populate **--BODSYS** with the preferred body system name
-- If a dictionary is multi-axial, the value in **--BODSYS** should represent the system organ class (SOC) used for the sponsor's analysis and summary tables, which may not necessarily be the primary SOC; populate **--SOC** with the dictionary-derived primary SOC; in cases where the primary SOC was used for analysis, --BODSYS and --SOC are the same
-- If MedDRA is used to code events, the intermediate levels in the MedDRA hierarchy should also be represented in the dataset; a pair of variables has been defined for each of the levels of the hierarchy other than SOC and Preferred Term (PT): one to represent the text description and the other to represent the code value associated with it
-  - For example, **--LLT** should be used to represent the Lowest Level Term text description and **--LLTCD** should be used to represent the Lowest Level Term code value
+- For events such as adverse events and medical history, populate **--DECOD** with the dictionary's preferred term and populate **--BODSYS** with the preferred body system name. If a dictionary is multi-axial, the value in --BODSYS should represent the system organ class (SOC) used for the sponsor's analysis and summary tables, which may not necessarily be the primary SOC. If a dictionary is multi-axial, the value in --BODSYS should represent the system organ class (SOC) used for the sponsor's analysis. Populate --SOC with the dictionary-derived primary SOC. In cases where the primary SOC was used for analysis, --BODSYS and --SOC are the same.
+- If MedDRA is used to code events, the intermediate levels in the MedDRA hierarchy should also be represented in the dataset. A pair of variables has been defined for each of the levels of the hierarchy other than SOC and Preferred Term (PT): one to represent a code and one to represent a text label. For example, **--LLT** should be used to represent the Lowest Level Term text description and **--LLTCD** should be used to represent the Lowest Level Term code value.
 
 #### WHODrug Coding (Interventions)
 
@@ -666,7 +670,9 @@ The sponsor is expected to provide the dictionary name and version used to map t
 
 ### 4.3.6 Storing Topic Variables for General Domain Models
 
-The topic variable for the Interventions and Events general observation-class models is often stored as verbatim text. For an Events domain, the topic variable is --TERM. For an Interventions domain, the topic variable is --TRT. For a Findings domain, the topic variable --TESTCD should use controlled terminology (e.g., "SYSBP" for systolic blood pressure). If CDISC Controlled Terminology exists, it should be used; otherwise, sponsors should define their own controlled list of terms. If the verbatim topic variable in an Interventions or Event domain is modified to facilitate coding, the modified text is stored in --MODIFY. In most cases — other than Physical Examination (PE) — the dictionary-coded text is derived into --DECOD. Because the PEORRES variable is modified instead of the topic variable for PE, the dictionary-derived text would be placed in PESTRESC.
+The topic variable for the Interventions and Events general observation-class models is often stored as verbatim text. For an Events domain, the topic variable is --TERM. For an Interventions domain, the topic variable is --TRT. For a Findings domain, the topic variable --TESTCD should use controlled terminology (e.g., "SYSBP" for systolic blood pressure). If CDISC Controlled Terminology exists, it should be used; otherwise, sponsors should define their own controlled list of terms. If the verbatim topic variable in an Interventions or Event domain is modified to facilitate coding, the modified text is stored in --MODIFY. In most cases—other than Physical Examination (PE)—the dictionary-coded text is derived into --DECOD. Because the PEORRES variable is modified instead of the topic variable for PE, the dictionary-derived text would be placed in PESTRESC.
+
+The variables used in each of the defined domains are:
 
 | Domain | Original Verbatim | Modified Verbatim | Standardized Value |
 |--------|-------------------|-------------------|--------------------|
@@ -758,7 +764,7 @@ This date and date/time model also provides for imprecise or estimated dates, su
 | 3 | Between the first and the tenth of December, 2003 | 2003-12-01/2003-12-10 |
 | 4 | Sometime in the first half of 2003 | 2003-01-01/2003-06-30 |
 
-Other uncertainty intervals may be represented by the omission of components of the date when these components are unknown or missing. ISO 8601 represents missing intermediate components through the use of a hyphen where the missing component would normally be represented. When components are omitted, the expected delimiters must still be kept in place and only a single hyphen is to be used to indicate an omitted component.
+Other uncertainty intervals may be represented by the omission of components of the date when these components are unknown or missing. As previously mentioned, ISO 8601 represents missing intermediate components through the use of a hyphen where the missing component would normally be represented. This may be used in addition to "appropriate right truncations" for incomplete date/time representations. When components are omitted, the expected delimiters must still be kept in place and only a single hyphen is to be used to indicate an omitted component. Examples of this method of omitted component representation are shown in the following table.
 
 | # | Date and Time as Originally Recorded | Level of Uncertainty | ISO 8601 Date/Time |
 |---|--------------------------------------|---------------------|-------------------|
@@ -842,7 +848,21 @@ When an interval of time is an amount of time (duration) measured prior to an ev
 
 where the duration "Pn..." is represented before the solidus [/], the end date/time is represented following the solidus, and the entire representation is known as an "interval."
 
-### 4.4.4 Study Day Variables
+### 4.4.4 Use of the Study Day Variables
+
+The permissible study day variables (i.e., --DY, --STDY, --ENDY) describe the relative day of the observation starting with the subject reference start date.
+
+They are determined by comparing the date portion of the respective date/time variables (--DTC, --STDTC, and --ENDTC) to the subject reference start date (RFSTDTC in the Demographics domain).
+
+The subject reference start date (RFSTDTC) is designated as study day 1.
+
+The study day value is incremented by 1 for each date following RFSTDTC.
+
+Dates prior to RFSTDTC are decreased by 1, with the date preceding RFSTDTC designated as study day -1 (there is no study day 0).
+
+This algorithm for determining Study Day is consistent with how people typically describe sequential days relative to a reference day, and is consistent with the ICH E3 recommendation for the calculation of study day.
+
+**Derivation notes:**
 
 - --DY is calculated as: `--DTC - RFSTDTC` (with no day 0)
 - If --DTC is on or after RFSTDTC: DY = date portion of --DTC − date portion of RFSTDTC + 1
@@ -879,6 +899,8 @@ Sponsor practices for populating visit variables for **unplanned visits** may va
 
 - --XSTDY and --CHSTDY may be used for study designs with multiple reference start dates (e.g., crossover studies)
 - The reference date/time may use Subject Elements (SE) dataset element start date/time
+
+See also: Section 5.3, Subject Elements (for additional study day representation guidance).
 
 ### 4.4.7 Use of Relative Timing Variables
 
@@ -961,7 +983,7 @@ When the date/time of collection is reported in any domain, the date/time should
 - For **single-point blood collections or spot urine collections**: use **LBDTC** for the date/time of collection
 - For **timed lab collections** (e.g., 24-hour urine collections): use **LBDTC** for the start date/time of the collection and **LBENDTC** for the end date/time of the collection
 
-This approach allows the single-point and interval collections to use the same date/time variables consistently across all datasets for the Findings general observation class.
+This approach allows the single-point and interval collections to use the same date/time variables consistently across all datasets for the Findings general observation class. The following table illustrates the proper use of these variables.
 
 **Collection type and variable usage (--STDTC should not be used in Findings):**
 
@@ -986,7 +1008,7 @@ Again, use extreme caution when storing dates as the results of findings. Rememb
 
 ### 4.4.10 Representing Time Points
 
-Time points can be represented using the time point variables --TPT, --TPTNUM, --ELTM, and the time-point anchors --TPTREF (text description) and --RFTDTC (date/time). Time-point data will usually have an associated --DTC value.
+Time points can be represented using the time point variables --TPT, --TPTNUM, --ELTM, and the time-point anchors --TPTREF (text description) and --RFTDTC (date/time). Note that time-point data will usually have an associated --DTC value. The interrelationship of these variables is shown in the following figure.
 
 | Variable | Purpose |
 |----------|---------|
@@ -996,8 +1018,6 @@ Time points can be represented using the time point variables --TPT, --TPTNUM, -
 | --TPTREF | Time Point Reference description (e.g., "DOSE 1 OF TREATMENT A") |
 | --RFTDTC | Date/Time of Reference Time Point |
 
-**Note:** When time points are represented in SDTMIG domains, both --TPT and --TPTNUM must be used. Time points may or may not have an associated --TPTREF.
-
 ```mermaid
 graph LR
     REF["Reference Time Point (Usually a Dose) --TPTREF (Description) --RFTDTC (Date/Time)"]
@@ -1005,7 +1025,7 @@ graph LR
     REF -->|"Planned Elapsed Time --ELTM (ISO 8601)"| CTP
 ```
 
-**Example: Vital Signs time points (30, 60, 90 minutes post-dose)**
+Values for these variables for vital signs measurements taken at 30, 60, and 90 minutes after dosing would look like the following.
 
 | VSTPTNUM | VSTPT | VSELTM | VSTPTREF | VSRFTDTC | VSDTC |
 |----------|-------|--------|----------|----------|-------|
@@ -1015,7 +1035,7 @@ graph LR
 
 > Note that VSELTM is the planned elapsed time, not the actual elapsed time. The actual elapsed time could be derived in an analysis dataset, if desired, as VSDTC−VSRFTDTC.
 
-**Example: LB timed urine collections (pre-dose, 0-12 hours, 12-24 hours post-dose)**
+Values for these variables for urine collections taken pre-dose, and from 0-12 hours and 12-24 hours after dosing would look like the following.
 
 | LBTPTNUM | LBTPT | LBELTM | LBTPTREF | LBRFTDTC | LBDTC |
 |----------|-------|--------|----------|----------|-------|
@@ -1025,9 +1045,15 @@ graph LR
 
 > Note that the value in LBELTM represents the end of the specimen collection interval.
 
+When time points are represented in SDTMIG domains, both --TPT and --TPTNUM must be used. Time points may or may not have an associated --TPTREF. Sometimes, --TPTNUM may be used as a key for multiple values collected for the same test within a visit, rather than to define time relative to a reference point. In such cases, there is no dependence upon an anchor such as --TPTREF, but there will be a dependency upon VISITNUM. In such cases, VISITNUM will be required to confer uniqueness to values of --TPTNUM.
+
+If the protocol describes the scheduling of a dose using a reference intervention or assessment, then --TPTREF should be populated, even if it does not contribute to uniqueness. The fact that time points are related to a reference time point, and what that reference time point is, are important for interpreting the data collected at the time point.
+
+For trials with many time points, the requirement to provide uniqueness using only VISITNUM, --TPTREF, and --TPTNUM may lead to a scheme where multiple natural keys are combined into the values of one of these variables.
+
 **Scenarios where not all 3 uniqueness variables (VISITNUM, --TPTREF, --TPTNUM) are needed:**
 
-Not all time points will require all 3 variables to provide uniqueness. In some cases a time point may be uniquely identified without the use of VISIT, or without the use of --TPTREF, or without the use of either:
+Not all time points will require all 3 variables to provide uniqueness. In fact, in some cases a time point may be uniquely identified without the use of VISIT, or without the use of --TPTREF, or without the use of either. For instance:
 
 1. A trial might have time points only within 1 visit, so that the contribution of VISITNUM to uniqueness is trivial. (VISITNUM would be populated, but would not contribute to uniqueness.)
 2. A trial might have time points that do not relate to any visit, such as time points relative to a dose of drug self-administered by the subject at home. (Visit variables would not be included, but --TPTREF and other time point variables would be populated.)
@@ -1156,6 +1182,43 @@ graph LR
 - If CRF does not explicitly collect "Done/Not Done", do not create NOT DONE records (exception: QRS datasets)
 - A sponsor has 2 options: (1) submit individual records for each test not done, or (2) submit 1 record for a group of tests that were not done
 - A single record can represent a group of tests not done: --TESTCD = "--ALL", --TEST = domain description, --CAT = name of group; for example, if urinalysis tests were not done: LBTESTCD = "LBALL", LBTEST = "Laboratory Test Results", LBCAT = "URINALYSIS", LBORRES = null, LBSTAT = "NOT DONE", LBREASND (if collected) = "Subject could not void"
+
+#### 4.5.1.2 Tests Not Done
+
+If the data on the CRF is missing and "Yes/No" or "Done/Not Done" was not explicitly captured, a record should not be created to indicate that the data was not collected, with the exception of QRS.
+
+Regulatory agencies may require a record for all items on a CRF in QRS datasets (e.g., FT, QS, and clinical classifications in RS).
+
+If a record is created for a test not done, --REASND is populated only if a reason was explicitly collected except for QRS logically skipped items.
+
+When an entire examination (e.g., laboratory draw, ECG, vital signs, physical examination), a group of tests (e.g., hematology, urinalysis), or an individual test (e.g., glucose, PR interval, blood pressure, hearing) is not done, and this information is explicitly captured with a "Yes/No" or "Done/Not Done" question, this information should be represented in the dataset.
+
+The reason for the missing information may or may not have been collected.
+
+A sponsor has the following options:
+
+- Submit individual records for each test not done.
+- Submit 1 record for a group of tests that were not done.
+
+The following example illustrates the single-record approach for representing a group of tests not done.
+
+If a single record is used to represent a group of tests were not done:
+
+- --TESTCD should be --ALL
+- --TEST should be <Domain description>
+- --CAT should be <Name of group of tests>
+- --ORRES should be null
+- --STAT should be "NOT DONE"
+- --REASND, if collected, might be "Specimen lost"
+
+For example, if urinalysis tests were not done, then:
+
+- LBTESTCD would be "LBALL"
+- LBTEST would be "Laboratory Test Results"
+- LBCAT would be "URINALYSIS"
+- LBORRES would be null
+- LBSTAT would be "NOT DONE"
+- LBREASND, if collected, might be "Subject could not void"
 
 #### 4.5.1.3 Examples of Original and Standard Units and Test Not Done
 
@@ -1408,3 +1471,18 @@ The following table shows a set of similar flag variables and their usage across
 | --BLFL | SDTM Findings | Permissible (formerly Expected in some domains) | A baseline defined by the sponsor (could be derived in the same manner as --LOBXFL or ABLFL, but is not required to be) | Any sponsor-defined baseline use |
 
 As shown in the table, each variable serves a specific need. The SDTM variable --LOBXFL (and/or --BLFL, if used) can be copied to ADaM for traceability and transparency, but only the ADaM variable ABLFL would be used to signify baseline for analysis. The content of --LOBXFL and ABLFL will be exactly the same when the SAP specifies that the baseline used for analysis is the last non-missing value prior to RFXSTDTC.
+
+---
+
+## Appendix: Cross-References to Chapter 6 Examples
+
+The following entries originate in domain-specific examples in Chapter 6 but are recorded here for verbatim atom coverage. They illustrate how General Assumptions apply in practice.
+
+### §6.1.3.3 Exposure/Exposure as Collected Examples (p115)
+
+The following CRFs show data for 2 subjects.
+
+### §6.3.5.7 Microbiology Domains — RELSPEC parent/aliquot relationship (p261)
+
+- Row 1: Shows the original collected (parent) sample. The PARENT variable is left blank to indicate that this is the highest level sample.
+- Rows 2-6: Show the relationship of each aliquot in the BE domain to the parent sample. PARENT is populated with the REFID value of the parent sample, indicating that the sample with REFID="100" is the parent of these samples. LEVEL="2" indicates that these aliquots are subsamples of the original (LEVEL="1") sample.

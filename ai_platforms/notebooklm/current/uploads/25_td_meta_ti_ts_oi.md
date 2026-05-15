@@ -3,10 +3,10 @@
 > **NotebookLM Source Metadata** (由 merge_sources.py 生成, 供 NotebookLM 索引 + citation 反查)
 >
 > - **Bucket ID**: `25`
-> - **Concept**: Trial Design: TI + TS + OI (inclusion + summary + organism)
-> - **Merged files**: 9
-> - **Words**: 7,498
-> - **Chars**: 41,399
+> - **Concept**: Trial Design + Study Reference: TI + TS + OI + DI (inclusion + summary + organism + device identifiers; DI added 06 P6 T4 2026-05-12)
+> - **Merged files**: 10
+> - **Words**: 8,716
+> - **Chars**: 48,958
 > - **Sources**:
 >   - `domains/TI/spec.md`
 >   - `domains/TI/assumptions.md`
@@ -17,6 +17,7 @@
 >   - `domains/OI/spec.md`
 >   - `domains/OI/assumptions.md`
 >   - `domains/OI/examples.md`
+>   - `domains/DI/assumptions.md`
 
 ---
 ## Source: `domains/TI/spec.md`
@@ -117,6 +118,17 @@
 
 # TI — Assumptions
 
+## §7.4 Trial Eligibility and Summary (TI, TS) — Introduction
+
+This section contains the Trial Design (TD) datasets that describe:
+
+- Subject eligibility criteria for trial participation (Section 7.4.1, Trial Inclusion/Exclusion Criteria (TI))
+- The characteristics of the trial (Section 7.4.2, Trial Summary (TS))
+
+The TI and TS datasets are tabular synopses of parts of the study protocol.
+
+## TI – Assumptions
+
 The variable TIRL was included in the Trial Inclusion/Exclusion Criteria (TI) domain in anticipation of developing a way to represent eligibility criteria in a computer-executable manner. However, such a method has not been developed, and it is not clear that an SDTM dataset would be the best place to represent such a computer-executable representation.
 
 TI contains all the inclusion and exclusion criteria for the trial, and thus provides information that may not be present in the subject-level data on inclusion and exclusion criteria. The IE domain (described in Section 6.3.4, Inclusion/Exclusion Criteria Not Met) contains records only for inclusion and exclusion criteria that subjects did not meet.
@@ -130,6 +142,27 @@ TI contains all the inclusion and exclusion criteria for the trial, and thus pro
 4. IETEST contains the text of the inclusion/exclusion criterion. However, because entry criteria are rules, the variable TIRL has been included in anticipation of the development of computer-executable rules.
 
 5. If a criterion text is <200 characters, it goes in IETEST; if the text is >200 characters, put meaningful text in IETEST and describe the full text in the study metadata. See Section 4.5.3.1, Test Name (--TEST) Greater than 40 Characters, for further information.
+
+## §7.5 How to Model the Design of a Clinical Trial
+
+The following steps allow the modeler to move from more-familiar concepts, such as arms, to less-familiar concepts, such as elements and epochs.
+
+The actual process of modeling a trial may depart from these numbered steps.
+
+Some steps will overlap; there may be several iterations; and not all steps are relevant for all studies.
+
+1. Start from the flow chart or schema diagram usually included in the trial protocol. This diagram will show how many arms the trial has, and the branch points or decision points where the arms diverge.
+2. Write down the decision rule for each branching point in the diagram. Does the assignment of a subject to an arm depend on a randomization? On whether the subject responded to treatment? On some other criterion?
+3. If the trial has multiple branching points, check whether all the branches that have been identified really lead to different arms. The arms will relate to the major comparisons the trial is designed to address. For some trials, there may be a group of somewhat different paths through the trial that are all considered to belong to a single arm.
+4. For each arm, identify the major time periods of treatment and non-treatment a subject assigned to that arm will go through. These are the elements, or building blocks, of which the arm is composed.
+5. Define the starting point of each element. Define the rule for how long the element should last. Determine whether the element is of fixed duration.
+6. Re-examine the sequences of elements that make up the various arms and consider alternative element definitions. Would it be better to "split" some elements into smaller pieces or "lump" some elements into larger pieces? Such decisions will depend on the aims of the trial and plans for analysis.
+7. Compare the various arms. In most clinical trials, especially blinded trials, the pattern of elements will be similar for all arms, and it will make sense to define trial epochs. Assign names to these epochs. During the conduct of a blinded trial, it will not be known which arm a subject has been assigned to, or which treatment elements they are experiencing, but the epochs they are passing through will be known.
+8. Identify the visits planned for the trial. Define the planned start timings for each visit, expressed relative to the ordered sequences of elements that make up the arms. Define the rules for when each visit should end.
+9. For oncology trials or other trials with disease assessments that are not necessarily tied to visits, find the planned timing of disease assessments in the protocol and record it in the Trial Disease Assessments (TD) dataset.
+10. If the protocol includes data collection that is triggered by the occurrence of certain events, interventions, or findings, record those triggers in the Trial Disease Milestones (TM) dataset. Note that disease milestones may be pre- (e.g., disease diagnosis) or on-study.
+11. Identify the inclusion and exclusion criteria to be able to populate the Trial Inclusion/Exclusion Criteria (TI) dataset. If inclusion and exclusion criteria were amended so that subjects entered under different versions, populate TIVERS to represent the different versions.
+12. Populate the TS dataset with summary information.
 
 ## Source: `domains/TI/examples.md`
 
@@ -336,9 +369,15 @@ The Trial Summary (TS) dataset allows the sponsor to submit a summary of the tri
 
 The variable TSVALNF is based on the idea of a "null flavor" as embodied in the ISO 21090 standard. A null flavor is an ancillary piece of data that provides additional information when its primary piece of data is null (has a missing value). There is controlled terminology for the null flavor data item which includes such familiar values as "Unknown", "Other", and "Not Applicable" among its 14 terms.
 
+The proposal to include a null flavor variable to supplement the TSVAL variable in the Trial Summary Information (TS) dataset arose from a discussion of how to handle upper and lower age limits for subjects. When the trial summary parameter is AGEMAX, then TSVAL should have a value expressed as an ISO 8601 time duration (e.g., P43Y for 43 years). However, for a study with no maximum age, there is no ISO 8601 representation of "no maximum" for a time duration. Although it would be possible to allow a value such as "NONE" or "UNBOUNDED" to be entered in TSVAL, validation programs would then have to be aware of and allow any value that a sponsor might choose for this purpose. Therefore, the SDS team decided that a separate null flavor variable that uses the ISO 21090 null-flavor terminology would be a better solution.
+
+The SDS Team also decided to specify the use of a null-flavor variable in the TS domain with SDTMIG v3.4 as a way of testing the use of null flavors before extending their use to subject data. As the title of ISO 21090 suggests, that standard was developed for use with healthcare data; it is expected that it will eventually be used more widely. CDISC already uses this data-type standard (see BRIDG; https://www.cdisc.org/standards/). The null flavor, in particular, is a solution to the widespread problem of needing or wanting to convey information that will help a recipient understand why a value is null. Although null flavors could certainly be eventually used for this purpose in other cases (e.g., with subject data), doing so at this time would expand the scope of this activity beyond the available resources. The use of null flavors for the variable TSVAL provides an opportunity for sponsors and reviewers to learn about the null flavors and related controlled terminology.
+
 The controlled terminology for null flavor, which supersedes Appendix C1, Supplemental Qualifiers Name Codes, is included below.
 
 **NullFlavor Enumeration (OID: 2.16.840.1.113883.5.1008)**
+
+> **WARNING — Use of this null flavor does provide information that may be a breach of confidentiality, even though no detailed data are provided. The fact that a maximum age limit has not been specified might indicate that an elderly population is being targeted.**
 
 | Rank | Code | Display Name | Definition |
 |------|------|---|---|
@@ -356,6 +395,30 @@ The controlled terminology for null flavor, which supersedes Appendix C1, Supple
 | 3 | QS | Sufficient quantity | The specific quantity is not known, but is known to be non-zero and is not specified because it makes up the bulk of the material. For example, if directions said, "Add 10 mg of ingredient X, 50 mg of ingredient Y, and sufficient quantity of water to 100 ml", the null flavor "QS" would be used to express the quantity of water. |
 | 3 | TRC | Trace | The content is greater than zero, but too small to be quantified. |
 | 2 | MSK | Masked | There is information on this item available, but it has not been provided by the sender due to security, privacy or other reasons. There may be an alternate mechanism for gaining access to this information. |
+
+The numbers in column 1 of the table describe the hierarchy of these values:
+
+- No information
+    - Invalid
+        - Other
+            - Positive infinity
+            - Negative infinity
+        - Unencoded
+        - Derived
+    - Unknown
+        - Asked but unknown
+            - Temporarily unavailable
+        - Not asked
+        - Quantity sufficient
+        - Trace
+    - Masked
+    - Not applicable
+
+The 1 value at level 1 (No information) is the least informative. It merely confirms that the primary piece of data is null.
+
+The values at level 2 provide a little more information, distinguishing between situations where the primary piece of data is not available for technical reasons (Invalid), situations where the value, while it exists, is not in the permitted value domain (Other), and situations where no information is provided.
+
+The values at levels 3 and 4 provide successively more information about the situation. For example, for the MAXAGE case that provided the impetus for the creation of the TSVALNF variable, the value PINF means that the maximum age is positive infinity, i.e., there is no maximum age. The null flavor PINF provides the most complete information possible in this case (i.e., that the maximum age for the study is unbounded).
 
 ## Source: `domains/TS/examples.md`
 
@@ -653,3 +716,11 @@ This example shows taxonomic identifiers for human immunodeficiency virus (HIV) 
 | 12 | STUDY123 | OI | H77 | 1 | SPCIES | Species | HCV |
 | 13 | STUDY123 | OI | H77 | 2 | GENTYP | Genotype | 1 |
 | 14 | STUDY123 | OI | H77 | 3 | SUBTYP | Subtype | A |
+
+## Source: `domains/DI/assumptions.md`
+
+# DI — Assumptions
+
+## DI – Description/Overview (§9.1)
+
+The DI dataset was introduced as part of the SDTMIG for Medical Devices (SDTMIG-MD). It was originally classified as a special-purpose domain, but since SDTM v1.7 it has been classified as a study reference dataset. The SDTMIG-MD (available at https://www.cdisc.org/standards/foundational/medical-devices-sdtmig/) includes the DI domain specification and assumptions and provides examples of its use.

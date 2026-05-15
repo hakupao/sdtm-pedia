@@ -25,9 +25,9 @@
       "stage": "batch1"
     },
     "05_domain_assumptions_all.md": {
-      "actual": 63,
+      "actual": 64,
       "dynamic": false,
-      "expected": 63,
+      "expected": 64,
       "stage": "batch2"
     },
     "06_domain_examples_all.md": {

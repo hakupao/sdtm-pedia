@@ -5,8 +5,8 @@
 > - **Bucket ID**: `03`
 > - **Concept**: DM (Special-Purpose) + SC (Findings, subject characteristics 归并)
 > - **Merged files**: 6
-> - **Words**: 10,619
-> - **Chars**: 65,235
+> - **Words**: 10,698
+> - **Chars**: 65,771
 > - **Sources**:
 >   - `domains/DM/spec.md`
 >   - `domains/DM/assumptions.md`
@@ -335,6 +335,14 @@
 ## Source: `domains/DM/assumptions.md`
 
 # DM — Assumptions
+
+## DM – Description/Overview
+
+A special-purpose domain that includes a set of essential standard variables that describe each subject in a clinical study.
+
+It is the parent domain for all other observations for human clinical subjects.
+
+## DM – Assumptions
 
 1. Investigator and site identification: Companies use different methods to distinguish sites and investigators. CDISC assumes that SITEID will always be present, with INVID and INVNAM used as necessary. This should be done consistently and the meaning of the variable made clear in the Define-XML document.
 
@@ -1053,6 +1061,12 @@ Additional fields: "What was the other race?" (RACEOTH → SUPPDM.QVAL where SUP
 
 # SC — Assumptions
 
+## SC – Description/Overview
+
+A findings domain that contains subject-related data not collected in other domains.
+
+## SC – Assumptions
+
 1. The structure of subject characteristics is based on the Findings general observation class and is an extension of the demographics data, including socioeconomic or other broad characteristics. The structure for demographic data is fixed and includes date of birth, age, sex, race, ethnicity, and country. Subject characteristics may be collected periodically over time. Some examples of subject characteristics include education level, marital status, and national origin.
 
 2. Associations between some subject characteristic tests and response codelists are described in the SC Codetable, available at https://www.cdisc.org/standards/terminology/controlled-terminology.
@@ -1062,6 +1076,10 @@ Additional fields: "What was the other race?" (RACEOTH → SUPPDM.QVAL where SUP
 ## Source: `domains/SC/examples.md`
 
 # SC — Examples
+
+## SC – Specification (p340)
+
+sc.xpt, Subject Characteristics — Findings. One record per characteristic per visit per subject., Tabulation.
 
 ## Example 1
 

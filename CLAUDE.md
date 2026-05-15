@@ -83,7 +83,8 @@ Full chain definitions are in `.work/MANIFEST.md`.
 | Phase 6.5 NotebookLM | `ai_platforms/notebooklm/` (current/ + docs/RETROSPECTIVE.md) |
 | Phase 6.5 Claude Projects | `ai_platforms/claude_projects/` (内部开发; 外部教程见 `release/v1.0/self_deploy/claude/`) |
 | Phase 6.5 Release v1.0 | `release/v1.0/` + `.work/07_release/{PLAN,RETROSPECTIVE}.md` (tag `v1.0-company-release`) |
-| METHODOLOGY 公开声明 | `METHODOLOGY.md` + `release/v1.0/METHODOLOGY.{en,zh,ja}.md` |
+| Phase 6.5 Release v1.1 | `release/v1.1/` + `.work/07_release_v1_1/{PLAN,RETROSPECTIVE}.md` (含 06 修复回灌) |
+| METHODOLOGY 公开声明 | `METHODOLOGY.md` + `release/v1.{0,1}/METHODOLOGY.{en,zh,ja}.md` |
 | 07 Website Phases 6-8 (closed) | `.work/07_website/phase{6,7,8}/` + handoffs `.work/meta/website_phase*_handoff_*.md`; prod https://sdtm-pedia.pages.dev/ |
 | iTMS 納品旁枝 (branches) | `branches/jp_delivery/PLAN.md` + `EXECUTION_PLAN.md` (Excel 主体, Chain J) |
 

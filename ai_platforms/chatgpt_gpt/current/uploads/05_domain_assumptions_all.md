@@ -88,6 +88,12 @@
 <!-- source: knowledge_base/domains/BE/assumptions.md -->
 # BE — Assumptions
 
+## BE – Specification
+
+be.xpt, Biospecimen Events — Events. One record per instance per biospecimen event per biospecimen identifier per subject, Tabulation.
+
+## BE – Assumptions
+
 1. The BE domain contains data about actions taken that affect or may affect a specimen, such as specimen collection, freezing and thawing, aliquoting, and transportation. This domain is intended to be applicable to any specimen tracking data, regardless of the reason for specimen collection.
 
 2. The value in BEREFID identifies the specimen most affected by the event. For aliquoting, this would be the child specimen(s) created by the event, rather than the parent specimen. BEREFID should not contain any identifiers other than specimen IDs.
@@ -148,6 +154,16 @@
 <!-- source: knowledge_base/domains/CM/assumptions.md -->
 # CM — Assumptions
 
+## CM – Description/Overview
+
+An interventions domain that contains concomitant and prior medications used by the subject, such as those given on an as needed basis or condition-appropriate medications.
+
+## CM – Specification
+
+cm.xpt, Concomitant/Prior Medications — Interventions. One record per recorded intervention occurrence or constant-dosing interval per subject, Tabulation.
+
+## CM – Assumptions
+
 1. The structure of the CM domain is 1 record per medication intervention episode, constant-dosing interval, or prespecified medication assessment per subject. It is the sponsor's responsibility to define an intervention episode. This definition may vary based on the sponsor's requirements for review and analysis. The submission dataset structure may differ from the structure used for collection. One common approach is to submit a new record when there is a change in the dosing regimen. Another approach is to collapse all records for a medication to a summary level with either a dose range or the highest dose level. Other approaches may also be reasonable as long as they meet the sponsor's evaluation requirements.
 
 2. CM description and coding
@@ -169,6 +185,24 @@
 <!-- source: knowledge_base/domains/CO/assumptions.md -->
 # CO — Assumptions
 
+## §5 Models for Special-purpose Domains
+
+Special-purpose Domains is an SDTM class in its own right.
+
+## 5.1 Comments (CO)
+
+### CO – Description/Overview
+
+A special-purpose domain that contains comments that may be collected alongside other data.
+
+### CO – Specification
+
+co.xpt, Comments — Special Purpose. One record per comment per subject, Tabulation.
+
+> ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
+
+### CO – Assumptions
+
 1. The Comments special-purpose domain provides a solution for submitting free-text comments related to data in 1 or more SDTM domains (as described in Section 8.5, Relating Comments to a Parent Domain) or collected on a separate CRF page dedicated to comments. Comments are generally not responses to specific questions; instead, comments usually consist of voluntary free-text or unsolicited observations.
 
 2. Although the structure for the Comments domain in the SDTM is "One record per comment", USUBJID is required in the comments domain for human clinical trials, so the structure of the Comments domain in the SDTMIG is "One record per comment per subject."
@@ -185,7 +219,52 @@
 6. Identifier variables and Timing variables may be added to the CO domain, but the following qualifiers would generally not be used in CO: --GRPID, --REFID, --SPID, TAETORD, --TPT, --TPTNUM, --ELTM, --TPTREF, --RFTDTC.
 
 <!-- source: knowledge_base/domains/CP/assumptions.md -->
-# CP — Assumptions
+# CP
+
+## CP – Description/Overview
+
+A findings domain that contains data related to the characterization of cell phenotype, lineage, and function based on expression of specific markers in single cell or particle suspensions.
+
+The CP domain is modeled for use with disseminated tissue specimens (e.g., blood and other body fluids, bone marrow aspirates) and cell suspensions, and is not currently modeled for evaluations of solid tissue specimens.
+
+The domain is intended to support tests associated with a cell phenotyping component based on the use of markers and is not intended for tests that are not associated with marker-based phenotyping, which are more appropriate to include in another domain (e.g., Immunogenicity Specimen Assessments (IS), Laboratory Test Results (LB), Microscopic Findings (MI)).
+
+The CP domain is not intended to supplant use of the LB domain for routine lab hematology (e.g., blood cell differentials), nor is it intended for findings originating from microscopic assessment of cells, including those employing immunohistochemical (IHC) techniques.
+
+The modeled use cases include measurement of
+
+- cell populations identified, classified, and/or otherwise characterized based on the differential expression of phenotypic and/or cell state/function markers, as determined for both normal and abnormal cell populations;
+- the level of marker expression;
+- substances interacting with (e.g., binding to) a marker which is a target of interest (not limited to a pharmacologic target); and
+- other cell properties based on characterization of expression marker(s) and/or substances that interact with the marker(s).
+
+To provide the flexibility needed to report cell marker expression data, which can range widely in complexity, several new SDTM variables have been created.
+
+Most of the new variables are permissible, and are available as needed to fully define a test and/or to prevent ambiguity that could lead to misunderstanding or difficulty in interpreting the data.
+
+New variables include --SBMRKS (Sublineage Marker String), --CELSTA (Cell State), --CSMRKS (Cell State Marker String), --TSTCND (Test Condition), --CNDAGT (Test Condition Agent), --BNDAGT (Binding Agent), --ABCLID (Antibody Clone Identifier), --MRKSTR (Marker String), --GATE (Gate Name), --GATEDEF (Gate Definition), --SPTSTD (Sponsor Test Description), --TSTPNL (Test Panel), --RESSCL (Result Scale), and --RESTYP (Result Type).
+
+Definitions and appropriate use of these variables are provided in the Specification and Assumptions sections of this guidance and are illustrated in the examples for selected use cases.
+
+Data submitters should work closely with laboratory data providers, analysts, and data receivers/users to determine the appropriate set of permissible variables to include in a dataset (i.e., the variables needed to fully document tests and associated findings for a particular use case).
+
+Sponsors that previously chose to submit cell phenotyping data in the LB domain, where LBTEST was often used to populate cell marker information (e.g., "CD4" to indicate helper T lymphocytes), should note that the new variable --MRKSTR should be used to house the full marker string information used to define the test in terms of markers; the --TEST variable is reserved for the name of the cell population.
+
+Several of the new variables (i.e., --SBMRKS, --CELSTA, --CSMRKS) are used to further subdivide the population reported in --TEST into more granular unnamed subpopulations based on 1 or more additional markers.
+
+This approach provides a more easily understood test name in the --TEST variable and enables development of controlled terminology for --TEST and --TESTCD.
+
+The goal is to standardize, where possible, cell phenotype test names across studies so that it will be easier for users to understand and interpret the data (e.g., when different marker sets are used across labs to define the same cell population).
+
+This approach also enhances the ability to integrate and compare data across studies in a practicable manner that (in addition to being less error-prone) preserves the often subtle differences between tests, which are essential for determining whether tests are truly comparable.
+
+Used in accordance with this guidance, the complete marker sting information provided in the --MRKSTR variable reflects the operational (i.e., laboratory-specific) definition of the test measurement.
+
+Together with the gating information provided in the --GATE and --GATEDEF variables, --MRKSTR values help to ensure that proper groupings and comparisons are made across tests by preserving nuanced details that may affect the interpretation of test results.
+
+To facilitate these objectives and to enable accurate cross-study comparisons and data-mining efforts, it is recommended that --MRKSTR values conform as closely as possible to marker string formatting principles presented in the CP Assumptions section.
+
+## CP – Assumptions
 
 1. The Cell Phenotype domain captures cell phenotyping and related data based on cell expression markers and other indicators (e.g., stains/dyes) in disseminated tissue specimens and cell suspensions.
 
@@ -237,6 +316,40 @@
 
 10. The variable CPORRESU uses the UNIT codelist. This means that sponsors should be submitting a term from the CDISC Submission Value column in the published Controlled Terminology maintained for CDISC by NCI EVS. When sponsors have units that are not in this column, they should first check to see if their unit is mathematically synonymous with an existing unit and submit their lab values using that unit. If this is not the case, then a request for a new term (see https://ncitermform.nci.nih.gov/) should be submitted.
 
+## CP – Example Narrative Atoms (Verbatim from SDTMIG v3.4)
+
+The following verbatim row-description and narrative atoms accompany the CP examples in §6.3.5.3 of SDTMIG v3.4. They are provided here for verification and traceability against the source PDF.
+
+### Example 1a (p209)
+
+**[ig34_p0209_a002] Rows 4-5:** The B-lymphocyte lineage of lymphocytes is determined using a set of lineage-specific markers in addition to the CD45 leukocyte marker, to define the subpopulation both in terms of positive (i.e., CD19+) and negative (i.e., CD3-, CD14-, and CD56-) marker expression. Following a common convention and CP domain guidance for ordering markers in CPMRKSTR, the marker(s) used to define the highest level of the lineage hierarchy are placed first (i.e., CD45+ defining the leukocyte population), followed by marker(s) that define each subsequently lower level of the hierarchy. The example also follows a convention whereby the set of positive and negative markers used to identify the major lineages of leukocytes are ordered by T-cell, B-cell, monocyte, and NK cell. In row 4, B lymphocytes are defined as leukocytes (CD45+), non-T-cell (CD3-), B-cell (CD19+), non-monocyte (CD14-), and non-NK cell (CD56-), resulting in a CPMRKSTR value of "CD45+CD3-CD19+CD14-CD56-". Row 5 shows that CPMRKSTR contains the full set of markers used to define both the numerator and the denominator, separated by a forward slash "/".
+
+### Example 7 (p217)
+
+**[ig34_p0217_a016] Row 2:** Same as row 1 except that the sponsor chose to use CPGATE and CPGATEDEF to report information for the final gate rather than the penultimate gate, as in row 1.
+
+### Example 8 (p218)
+
+**[ig34_p0218_a012]** Although sponsors may elect to only report the final calculated receptor occupancy (proportion of bound/total target occupied) as in Example 7, this example includes the various measured parameters generated in the assay which are then used to make calculations for the final Receptor Occupancy value.
+
+**[ig34_p0218_a013]** Since the example is measuring binding and not a cell population per se, the Sublineage Marker String (CPSBMRKS), Cell State (CPCELSTA), and Cell State Marker String (CPCSMRKS) are not used and are not included.
+
+**[ig34_p0218_a014]** Other variables such as CPMRKSTR, CPGATE, and CPGATEDEF are used to identify the cell population on which the binding of interest was measured.
+
+**[ig34_p0218_a015]** In addition, the Sponsor Test Description (CPSPTSTD) and Test Panel (CPTSTPNL) variables may be helpful for identifying a specific cell population.
+
+### Example 9 (p219-220)
+
+**[ig34_p0219_a018]** In the example showing the full set of tests, data are reported for free and total binding, background (non-specific) binding, and specific binding. CPBDAGNT is used to identify the probe (detection) antibody for each type of test (HA5-PE or 2D4-APC). Specific free binding (Target Free, Delta Free Background) is calculated as the difference in the probe signal (measured as MESF) between an untreated assay tube to a tube treated with unlabeled probe antibody under saturating concentrations (to measure non-specific binding, which is not diminished under saturating conditions). CPTSTCND is used to capture the saturated condition imposed on the assay at runtime. Receptor Occupancy is calculated as the difference between pre- and post-treatment binding of the labeled competitive probe (HA5) normalized to pre-treatment binding.
+
+**[ig34_p0220_a001] Row 1 (cont.):** CPGATEDEF contains the gate definition/gating strategy. Note that in this example the CD99 marker, although it is the target of interest for the test, is not part of the marker string used to identify the named portion of the cell population on which the test was performed.
+
+**[ig34_p0220_a002] Row 1 (cont.):** As a result, the sponsor chose to report the penultimate gate, which does not include the target marker of interest (CD99). Because the target of interest for which occupancy was measured is not part of the test name (CPTEST), it is identified using CPBDAGNT and/or as part of the panel name in CPTSTPNL. The CPCAT and CPSCAT variables are used to indicate that the assay is intended for target engagement and that the assay is measuring receptor occupancy.
+
+**[ig34_p0220_a003] Rows 2-7:** The CD99 marker is identified as the target of interest for measuring occupancy. Because the target of interest for which occupancy was measured is not part of the test name (CPTEST), it is identified using CPBDAGNT and/or CPTSTPNL. The CPTSTCND variable defines the condition imposed on the assay at runtime to for measuring background binding. CPGRPID groups individual measured tests to the calculated test value derived from them. Because final results involve comparing specific binding of free or total receptor for the baseline occupancy to a 24-hour post-treatment set of results (rows 8-14), time point information for specimen collection is included in CPTPT and CPTPTNUM. Rows 2-4 show results for measurement of free target using a labeled competitive antibody probe (HA5) and rows 5-7 show results for measurement of total CD99 on the monocyte cell target population using a labeled non-competitive antibody probe (2D4). The total CD99 measurement is a control to monitor for any difference in CD99 expression that might exist between the pre-dose and post-dose specimens that could bias the relative occupancy. They are not used to calculate occupancy of the CD99 target, as the relative expression of CD99 at the post-dose time point is comparable to the pre-dose expression (7253 vs 7530 MESF).
+
+**[ig34_p0220_a004] Rows 8-14:** Show the same set of tests collected for baseline (rows 2-7) but measured 24 hours after treatment with the therapeutic drug, which binds in situ to CD99. The reported receptor occupancy is for the 24-hour post-treatment time point relative to pre-dose with the therapeutic CD99 binding drug.
+
 <!-- source: knowledge_base/domains/CV/assumptions.md -->
 # CV — Assumptions
 
@@ -271,8 +384,23 @@
 
 5. Any identifiers, timing variables, or findings general observation-class qualifiers may be added to the DD domain, but the following qualifiers would not generally be used: --MODIFY, --POS, --BODSYS, --ORNRLO, --ORNRHI, --STNRLO, --STNRHI, --STNRC, --NRIND, --NAM, --LOINC, --SPEC, --SPCCND, --LOBXFL, --BLFL, --FAST, --DRVFL, --TOX, --TOXGR, --SEV.
 
+<!-- source: knowledge_base/domains/DI/assumptions.md -->
+# DI — Assumptions
+
+## DI – Description/Overview (§9.1)
+
+The DI dataset was introduced as part of the SDTMIG for Medical Devices (SDTMIG-MD). It was originally classified as a special-purpose domain, but since SDTM v1.7 it has been classified as a study reference dataset. The SDTMIG-MD (available at https://www.cdisc.org/standards/foundational/medical-devices-sdtmig/) includes the DI domain specification and assumptions and provides examples of its use.
+
 <!-- source: knowledge_base/domains/DM/assumptions.md -->
 # DM — Assumptions
+
+## DM – Description/Overview
+
+A special-purpose domain that includes a set of essential standard variables that describe each subject in a clinical study.
+
+It is the parent domain for all other observations for human clinical subjects.
+
+## DM – Assumptions
 
 1. Investigator and site identification: Companies use different methods to distinguish sites and investigators. CDISC assumes that SITEID will always be present, with INVID and INVNAM used as necessary. This should be done consistently and the meaning of the variable made clear in the Define-XML document.
 
@@ -355,6 +483,8 @@
    SUPPDS QNAM = "DSDECOD1", SUPPDS QLABEL = "Standardized Disposition Term 1", and SUPPDS QVAL = "WITHDREW CONSENT"
 
 6. Any identifier variables, timing variables, or Events general observation-class qualifiers may be added to the DS domain, but the following Qualifiers would generally not be used: --PRESP, --OCCUR, --STAT, --REASND, --BODSYS, --LOC, --SEV, --SER, --ACN, --ACNOTH, --REL, --RELNST, --PATT, --OUT, --SCAN, --SCONG, --SDISAB, --SDTH, --SHOSP, --SLIFE, --SOD, --SMIE, --CONTRT, --TOXGR.
+
+7. For the ABC arm, if drug C is dropped, the subject may transition to an AB element or follow some other defined protocol.
 
 <!-- source: knowledge_base/domains/DV/assumptions.md -->
 # DV — Assumptions
@@ -479,6 +609,61 @@
 
 6. Any Identifier variables, Timing variables, or Findings general observation-class qualifiers may be added to the FA domain, but the following qualifiers should generally not be used: --BODSYS, --MODIFY, --SEV, --TOXGR.
 
+## §6.4.1 When to Use Findings About Events or Interventions
+
+The Findings About Events or Interventions structure (or "FA structure") is intended, as its name implies, to be used when findings about an event or intervention need to be captured.
+
+**Criterion 1: Data or observations that have different timing from an associated event or intervention as a whole**
+
+Per Section 6.2.1, Adverse Events, assumption 7.e, "It is the sponsor's responsibility to define an event." One common practice is to define an event as the collection of symptoms related to a reported adverse event. Typically, the event (and its AE record) has timing equal to the worst point in time, but symptoms are measured at multiple time points.
+
+A finding that is about part of an event, rather than the event as a whole, meets this criterion for the use of FA. An assessment of the severity of an individual symptom at a specific point in time is a finding about the event.
+
+Repeated assessments of disease or treatment-related symptoms, particularly symptoms that are likely to be intermittent, meet this criterion.
+
+Occasionally, data collection will include questions about the occurrence of prespecified events which are of naturally short duration (e.g., infusion-related reactions, seizures) for which repeated assessments at fixed time points are made after the occurrence of the event.
+
+A finding which is a summary of multiple occurrences of a particular kind of event meets this criterion. For example, the maximum severity of headache during a specified time period after each dose is a summary of all headache events during that period.
+
+For events that have not ended at the time of an assessment, "event as a whole" means the event up to the time of the assessment.
+
+Assessments of parts of events (snapshots or slices) are represented in FA and may or may not have parent records (e.g., individual symptoms of an adverse event may or may not have a parent adverse event record), depending on whether the overall event is also recorded.
+
+This criterion is less likely to apply to interventions records than to events records. Interventions records often represent a single administration of a drug or procedure, and an assessment such as blood pressure taken during the administration would have timing specific to a time within the administration.
+
+**Criterion 2: An observation about an event or intervention which requires more than 1 variable for its representation, preventing its inclusion as a supplemental qualifier**
+
+The need to represent data which require more than 1 variable in a findings about structure, rather than by adding 2 or more supplemental qualifiers to the parent record, is the basis for this criterion.
+
+**Criterion 3: Data or information that indicate the occurrence of pre-specified AEs**
+
+Previous versions of the SDTMIG included the criterion, "Data or observations about an Event or Intervention for which no Event or Intervention record exists." This criterion has been removed from the SDTMIG, as data that were formerly represented by this criterion can now be best represented using only the FA domain.
+
+Previous versions of the SDTMIG included the criterion, "Data or information about an Event or Intervention that indicates the occurrence of a pre-specified AE." This criterion is being replaced with Criterion 3 above.
+
+an event or interventions record. If data do meet criteria to be represented in the findings about structure, FAOBJ will be populated with the name of the event or intervention about which the finding was made.
+
+The term "symptom" is often used loosely to refer to both symptoms (reported by the subject) and signs (observable by others). While SDTM does not specifically differentiate between symptoms and signs, the discussion above refers to findings about an event, where those findings can be symptoms or signs.
+
+**Points to Consider**
+
+The choice between representing a data item as a supplemental qualifier or as a finding about an event or intervention may not always be obvious. Here are some considerations:
+
+- Does the data item have its own timing, separate from the timing of the event or intervention? If the data item represents a specific observation at a specific time, the FA structure may be appropriate.
+- Are there several items which would be clearer if they could be grouped together? If so, the FA structure allows the use of FACAT and FASCAT to group related items.
+- Is the data item alone in a particular study, but related to other data items likely to be collected in other studies? If so, the FA structure may be preferable for consistency.
+- Are there multiple evaluators for a data item that could otherwise be represented as a supplemental qualifier? If so, FA is more appropriate.
+
+## §6.4.2 Naming Findings About Domains
+
+## §6.4.3 Variables Unique to Findings About
+
+## §6.4.4 FA – Description/Overview
+
+A findings domain that contains the findings about an event or intervention that cannot be represented within an events or interventions record.
+
+## §6.4.5 Skin Response (SR)
+
 <!-- source: knowledge_base/domains/FT/assumptions.md -->
 # FT — Assumptions
 
@@ -537,6 +722,22 @@ The following assumptions are common to the FT and QS domains as well as the Cli
 <!-- source: knowledge_base/domains/GF/assumptions.md -->
 # GF — Assumptions
 
+## GF - Description/Overview
+
+A findings domain that contains data related to the structure, function, evolution, mapping, and editing of subject and non-host organism genomic material of interest.
+
+This domain includes but is not limited to assessments and results for genetic variation and transcription, and summary measures derived from these assessments.
+
+The GF domain is used for findings from characteristics assessed from nucleic acids and may include subsequent inferences and/or predictions about related proteins/amino acids.
+
+## GF – Specification
+
+gf.xpt, Genomics Findings — Findings. One record per finding per observation per biospecimen per subject, Tabulation.
+
+> ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelists will be available in CDISC Controlled Terminology, available at https://www.cancer.gov/research/resources/terminology/cdisc.
+
+## GF – Assumptions
+
 1. The Genomics Findings domain is used to represent findings related to the structure, function, evolution, mapping, and editing of subject and non-host organism genomic material of interest. This domain includes but is not limited to assessments and results for genetic variation and transcription, and summary measures derived from these assessments. The GF domain is used for findings from characteristics assessed from nucleic acids and may include subsequent inferences and/or predictions about related proteins/amino acids. However, direct assessments of proteins (e.g., assessments of amino acids) are out of scope for this domain.
 
 2. Regarding genetic testing on non-host organisms (including but not limited to bacteria, viruses, and parasites), the following additional assumptions apply:
@@ -560,6 +761,12 @@ The following assumptions are common to the FT and QS domains as well as the Cli
 8. GFMETHOD lists wet lab techniques for the execution of genomics or genetic testing. Methods related to specimen processing or reagents are not represented in GFMETHOD.
 
 9. The following variables generally would not be used in GF: --POS, --BODSYS, --ORNRLO, ORNRHI, --STNRLO, --STNRHI, --STNRC, --NRIND, --CHRON, --DISTR, --ANTREG, --LOC, --LAT, --DIR, --PORTOT, --LEAD, --CSTATE, --SPCCND, --FAST, --TOX, --TOXGR, --SEV.
+
+## GF – Example 4 (p227)
+
+This example shows findings from an assessment of microsatellite instability for genetic subregions that are known to be unstable. DNA extracted from tumor tissue is amplified and the resulting amplicons are resolved using wet laboratory methodology capillary electrophoresis.
+
+Note the use of NHOID, which is populated with the name of the organism to which the testing applies. Note: It is important to use this identifier to distinguish between tests that apply to a non-host organism and tests that apply to the study subject/host.
 
 <!-- source: knowledge_base/domains/HO/assumptions.md -->
 # HO — Assumptions
@@ -588,7 +795,15 @@ The following assumptions are common to the FT and QS domains as well as the Cli
 4. The following qualifiers would generally not be used in IE: --MODIFY, --POS, --BODSYS, --ORRESU, --ORNRLO, --ORNRHI, --STRESN, --STRESU, --STNRLO, --STNRHI, --STNRC, --NRIND, --RESCAT, --XFN, --NAM, --LOINC, --SPEC, --SPCCND, --LOC, --METHOD, --BLFL, --LOBXFL, --FAST, --DRVFL, --TOX, --TOXGR, --SEV, --STAT.
 
 <!-- source: knowledge_base/domains/IS/assumptions.md -->
-# IS — Assumptions
+# IS
+
+## IS – Description/Overview
+
+A findings domain for assessments of antigen induced humoral or cell-mediated immune response in the subject.
+
+is.xpt, Immunogenicity Specimen Assessments — Findings. One record per test per visit per subject, Tabulation.
+
+## IS – Assumptions
 
 1. The Immunogenicity Specimen Assessments (IS) domain holds assessments that describe whether a therapy (e.g., biologic, drug, vaccine) provoked/caused/induced an immune response in a subject. The response can be either positive or negative. For example, a vaccine is expected to induce a beneficial immune response, whereas a cellular therapy (e.g., erythropoiesis-stimulating agents) may cause an adverse immune response.
 
@@ -616,8 +831,37 @@ The following assumptions are common to the FT and QS domains as well as the Cli
 
 10. Any Identifier variables, Timing variables, or Findings general observation class qualifiers may be added to the IS domain.
 
+## IS – Examples Notes
+
+### Example 1 (Tiered ADA testing)
+
+- Row 1:     Shows the screening of the presence of ADA to drug AZ-007.
+- Row 2:     Shows the confirmation of the previously detected ADA to drug AZ-007.
+- Row 3:     Shows the measurement of titer of the ADA from the screen and confirmatory steps.
+
+### Examples 8–9 (Microneutralization and OPK)
+
+The next 2 examples show data from microneutralization and opsonophagocytic killing (OPK) assays, which are used to measure vaccine efficacy and immunoprotectivity.
+
+### Example 10 (Sjögren's syndrome autoantibody tests)
+
+Sjögren's syndrome (SS) is a systemic autoimmune disease characterized by dry eyes and dry mouth. Diagnosis of SS is generally based on the detection of antinuclear antibodies (ANAs), that is, anti-Ro (SS-A) and anti-La (SS-B) antibodies.
+
+- Rows 1-5:	Show the screening (row 1) and quantification (rows 2, 4) of ANAs. Rows 2 and 3 are grouped together using ISGRPID="1a"; this means the titer result in row 2 is specifically related to the particular nuclear staining pattern (i.e., speckled) finding in row 3. The speckled pattern of ANA is typically indicative of SS, systemic lupus, and mixed connective tissue disease. Rows 4 and 5 are grouped together using ISGRPID="1b"; this means the titer result in row 4 is specifically related to the nuclear staining pattern (i.e., nucleoar) finding in row 5. Rows 1 to 5 are grouped together using ISGRPID with values starting with the number "1", indicating that these records are related. The antinuclear antibodies test is post-coordinated and represented by both ISTEST="Autoantibody" and ISBDAGNT="NUCLEAR AUTOANTIGENS".
+- Rows 6-11:	Show the screening and quantification of the various SS-specific autoantibodies. SS autoantigens are represented by the ISBDAGNT variable, whereas the ISTEST="Autoantibody".
+
+### Example 11 (Mixed animal allergens test)
+
+- Row 1:	Shows the detection of immunoglobulin E (IgE) antibody against multiple animal allergens. ISBDAGNT is used to house the generic but controlled value "ANIMAL MIX ANTIGENS, MULTIPLE".
+- Rows 2-3:	Show the amount of IgE antibody against dog dander and its RAST classification score.
+- Rows 4-5:	Show the amount of IgE antibody against cat dander and its RAST classification score.
+- Rows 6-7:	Show the amount of IgE antibody against horse dander and its RAST classification score.
+- Rows 8-9:	Show the amount of IgE antibody against cow dander and its RAST classification score.
+
 <!-- source: knowledge_base/domains/LB/assumptions.md -->
 # LB — Assumptions
+
+> ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
 
 1. This domain captures laboratory data collected on the CRF or received from a central provider or vendor.
 
@@ -638,6 +882,16 @@ The following assumptions are common to the FT and QS domains as well as the Cli
 
 <!-- source: knowledge_base/domains/MB/assumptions.md -->
 # MB — Assumptions
+
+## 6.3.5.7 Microbiology Domains
+
+The microbiology domains include Microbiology Specimen (MB) and Microbiology Susceptibility (MS).
+
+## MB – Description/Overview
+
+A findings domain that represents non-host organisms identified including bacteria, viruses, parasites, protozoa and fungi.
+
+## MB – Assumptions
 
 1. Representation of findings in the Microbiology Specimen domain should be handled as follows:
    a. In cases of tests that target an organism, group of organisms, or antigen for identification, MBTEST equals the name of the organism/antigen targeted by the identification assay, and
@@ -660,6 +914,12 @@ The following assumptions are common to the FT and QS domains as well as the Cli
 
 <!-- source: knowledge_base/domains/MH/assumptions.md -->
 # MH — Assumptions
+
+## 6.2.6 Medical History (MH)
+
+An events domain that contains data that includes the subject's prior medical history at the start of the trial.
+
+## MH – Assumptions
 
 1. Prior treatments, including prior medications and procedures, should be submitted in an appropriate dataset from the Interventions class (e.g., Concomitant/Prior Medications (CM) or Procedures (PR)).
 
@@ -721,6 +981,8 @@ The following assumptions are common to the FT and QS domains as well as the Cli
 
 3. Any Identifiers, Timing variables, or Findings general observation class qualifiers may be added to the MK domain, but the following qualifiers would generally not be used: --MODIFY, --BODSYS, --LOINC, --TOX, --TOXGR, --FAST, --ORNRLO, --ORNRHI, --STNRLO, --STNRHI, --ORREF, --STREFC, --STREFN.
 
+4. The method used to obtain the image is represented in MKMETHOD = "X-RAY".
+
 <!-- source: knowledge_base/domains/ML/assumptions.md -->
 # ML — Assumptions
 
@@ -740,6 +1002,18 @@ The following assumptions are common to the FT and QS domains as well as the Cli
 
 <!-- source: knowledge_base/domains/MS/assumptions.md -->
 # MS — Assumptions
+
+## MS – Description/Overview
+
+A findings domain that represents drug susceptibility testing results only. This includes phenotypic testing (where drug is added directly to a culture of organisms) and genotypic tests that provide results in terms of susceptible or resistant. Drug susceptibility testing may occur on a wide variety of non-host organisms, including bacteria, viruses, fungi, protozoa and parasites.
+
+## MS – Specification
+
+ms.xpt, Microbiology Susceptibility — Findings. One record per microbiology susceptibility test (or other organism-related finding) per organism found in MB, Tabulation.
+
+> 1In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
+
+## MS – Assumptions
 
 1. Microbiology Susceptibility testing includes testing of the following types:
    a. Phenotypic drug susceptibility testing (qualitative), which may involve determining susceptibility/resistance (qualitative) at a predefined concentration of drug, or determining a specific dose (quantitative) at which a drug inhibits organism growth or some other process associated with virulence.
@@ -761,6 +1035,21 @@ The following assumptions are common to the FT and QS domains as well as the Cli
 
 <!-- source: knowledge_base/domains/NV/assumptions.md -->
 # NV — Assumptions
+
+## §6.3.7 Morphology/Physiology Domains — Overview
+
+Individual domains for morphology and physiology findings about specific body systems are grouped together in this section. This grouping is not meant to imply that there is a single morphology/physiology domain.
+
+## §6.3.7.1 Generic Morphology/Physiology Specification
+
+This section describes properties common to all the body system-based morphology/physiology domains.
+
+- The SDTMIG includes several domains for physiology and morphology findings for different body systems. These differ only in body system, in domain code, and in informative content such as examples.
+- In the partial generic domain specification table, "--" is used as a placeholder. In each individual body system-based morphology/physiology domain specification, this placeholder is replaced by the appropriate domain code.
+- The variables included in the generic morphology/physiology domain specification table are those required or expected in the individual body system-based morphology/physiology domains. Individual morphology/physiology domains may included additional expected variables. All other variables allowed in findings domains are allowed in the body system-based morphology/physiology domains
+- All body system-based physiology/morphology domains share the same structure, provided here. Although time point is not in the structure, it can be included in the structure of a particular domain if time point variables were included in the data represented.
+
+## NV – Assumptions
 
 1. Methods of assessment for nervous system findings may include nerve conduction studies, electroencephalogram (EEG), electromyography (EMG), and imaging.
 
@@ -802,14 +1091,148 @@ The biological classification of a non-host organism typically stops at the taxo
 <!-- source: knowledge_base/domains/PC/assumptions.md -->
 # PC — Assumptions
 
+## 6.3.5.9 Pharmacokinetics Domains
+
+This section covers the Pharmacokinetics Concentration (PC) and Pharmacokinetics Parameters (PP) domains.
+
+## PC – Specification
+
+pc.xpt, Pharmacokinetics Concentrations — Findings. One record per sample characteristic or time-point concentration per reference time point or per analyte per subject, Tabulation.
+
+## PC – Assumptions
+
 1. This domain can be used to represent specimen properties (e.g., volume, pH) in addition to drug and metabolite concentration measurements.
 
 2. CDISC Controlled Terminology Rules for Pharmacokinetics are available at https://www.cdisc.org/standards/terminology/controlled-terminology.
 
 3. Any Identifiers, Timing variables, or Findings general observation class qualifiers may be added to the PC domain, but the following Qualifiers would not generally be used: --BODSYS, --SEV.
 
+## §6.3.5.9.3 Relating PP Records to PC Records
+
+Sponsors must document the concentrations used to calculate each parameter. This may be done in analysis dataset metadata or by documenting relationships between records in the Pharmacokinetics Parameters (PP) and Pharmacokinetics Concentrations (PC) datasets in a RELREC dataset (see Section 8.2, Relating Peer Records, and Section 8.3, Relating Datasets).
+
+### PC-PP – Relating Datasets
+
+If all time-point concentrations in PC are used to calculate all parameters for all subjects, then the relationship between the 2 datasets can be documented as shown in this table:
+
+**relrec.xpt**
+
+| Row | STUDYID | RDOMAIN | USUBJID | IDVAR | IDVARVAL | RELTYPE | RELID |
+|-----|---------|---------|---------|-------|----------|---------|-------|
+| 1 | ABC-123 | PC | | PCGRPID | | MANY | A |
+| 2 | ABC-123 | PP | | PPGRPID | | MANY | A |
+
+Note that the reference time point and the analyte are part of the natural key (see Section 3.2.1.1, Primary Keys) for both datasets. In this relationship, --GRPID is a surrogate key, and must be populated so that each combination of analyte and reference time point has a separate value of --GRPID.
+
+### PC-PP – Relating Records
+
+This section illustrates 4 methods for representing relationships between PC and PP records under 4 different circumstances. All these examples are based on the same PC and PP data for 1 drug (i.e., drug X).
+
+The different methods for representing relationships are based on which linking variables are used in RELREC.
+
+- Method A (many to many, using PCGRPID and PPGRPID)
+- Method B (one to many, using PCSEQ and PPGRPID)
+- Method C (many to one, using PCGRPID and PPSEQ)
+- Method D (one to one, using PCSEQ and PPSEQ)
+
+The different examples illustrate situations in which different subsets of the pharmacokinetic concentration data were used in calculating the pharmacokinetic parameters. As in the example above, --GRPID values must take into account all the combinations of analytes and reference time points; both are part of the natural key for both datasets. For each example, PCGRPID and PPGRPID were used to group related records within each respective dataset. The exclusion of some concentration values from the calculation of some parameters affects the values of PCGRPID and PPGRPID for the different situations. To conserve space, the PC and PP domains appear only once, but with 4 --GRPID columns, 1 for each of the example situations.
+
+Note that a submission dataset would contain only 1 --GRPID column with a set of values such as those shown in 1 of the 4 columns in the PC and PP datasets.
+
+Pharmacokinetic Concentrations (PC) Dataset for All Examples
+
+**pc.xpt**
+
+| Row | STUDYID | DOMAIN | USUBJID | PCSEQ | PCGRPID (Example 1) | PCGRPID (Example 2) | PCGRPID (Example 3) | PCGRPID (Example 4) | PCREFID | PCTESTCD | PCTEST | PCCAT | PCORRES | PCORRESU | PCSTRESC | PCSTRESN | PCSTRESU | PCSPEC | PCBLFL | PCLLOQ | PCDTC | PCDY | PCNOMDY | PCTPT | PCTPTNUM | PCELTM | PCTPTREF | PCRFTDTC |
+|-----|---------|--------|---------|-------|---------------------|---------------------|---------------------|---------------------|---------|----------|--------|-------|---------|----------|----------|----------|----------|--------|--------|--------|-------|------|---------|-------|----------|--------|----------|----------|
+| 1 | ABC-123 | PC | ABC-123-0001 | 1 | DY1_DRGX | DY1_DRGX | DY1_DRGX_A | DY1_DRGX | 123-0001-01 | DRUG X | STUDYDRUG | ANALYTE | 9 | ug/mL | 9 | 9 | ug/mL | PLASMA | | 1.00 | 2001-02-01T08:35 | 1 | 1 | 5 min | 1 | PT5M | Day 1 Dose | 2001-02-01T08:30 |
+| 2 | ABC-123 | PC | ABC-123-0001 | 2 | DY1_DRGX | DY1_DRGX | DY1_DRGX_A | DY1_DRGX | 123-0001-02 | DRUG X | STUDYDRUG | ANALYTE | 20 | ug/mL | 20 | 20 | ug/mL | PLASMA | | 1.00 | 2001-02-01T08:55 | 1 | 1 | 25 min | 2 | PT25M | Day 1 Dose | 2001-02-01T08:30 |
+| 3 | ABC-123 | PC | ABC-123-0001 | 3 | DY1_DRGX | DY1_DRGX | DY1_DRGX_A | DY1_DRGX | 123-0001-03 | DRUG X | STUDYDRUG | ANALYTE | 31 | ug/mL | 31 | 31 | ug/mL | PLASMA | | 1.00 | 2001-02-01T09:00 | 1 | 1 | 50 min | 3 | PT50M | Day 1 Dose | 2001-02-01T08:30 |
+| 4 | ABC-123 | PC | ABC-123-0001 | 4 | DY1_DRGX | DY1_DRGX | DY1_DRGX_A | DY1_DRGX | 123-0001-04 | DRUG X | STUDYDRUG | ANALYTE | 38 | ug/mL | 38 | 38 | ug/mL | PLASMA | | 1.00 | 2001-02-01T09:45 | 1 | 1 | 75 min | 4 | PT1H15M | Day 1 Dose | 2001-02-01T08:30 |
+| 5 | ABC-123 | PC | ABC-123-0001 | 5 | DY1_DRGX | DY1_DRGX | DY1_DRGX_B | DY1_DRGX | 123-0001-05 | DRUG X | STUDYDRUG | ANALYTE | 45 | ug/mL | 45 | 45 | ug/mL | PLASMA | | 1.00 | 2001-02-01T10:10 | 1 | 1 | 100 min | 5 | PT1H40M | Day 1 Dose | 2001-02-01T08:30 |
+| 6 | ABC-123 | PC | ABC-123-0001 | 6 | DY1_DRGX | DY1_DRGX | DY1_DRGX_C | DY1_DRGX | 123-0001-06 | DRUG X | STUDYDRUG | ANALYTE | 48 | ug/mL | 48 | 48 | ug/mL | PLASMA | | 1.00 | 2001-02-01T10:35 | 1 | 1 | 125 min | 6 | PT2H5M | Day 1 Dose | 2001-02-01T08:30 |
+| 7 | ABC-123 | PC | ABC-123-0001 | 7 | DY1_DRGX | DY1_DRGX | DY1_DRGX_A | DY1_DRGX | 123-0001-07 | DRUG X | STUDYDRUG | ANALYTE | 41 | ug/mL | 41 | 41 | ug/mL | PLASMA | | 1.00 | 2001-02-01T11:00 | 1 | 1 | 150 min | 7 | PT2H30M | Day 1 Dose | 2001-02-01T08:30 |
+| 8 | ABC-123 | PC | ABC-123-0001 | 8 | DY1_DRGX | EXCLUDE | DY1_DRGX_B | DY1_DRGX | 123-0001-08 | DRUG X | STUDYDRUG | ANALYTE | 35 | ug/mL | 35 | 35 | ug/mL | PLASMA | | 1.00 | 2001-02-01T11:30 | 1 | 1 | 200 min | 8 | PT3H20M | Day 1 Dose | 2001-02-01T08:30 |
+| 9 | ABC-123 | PC | ABC-123-0001 | 9 | DY1_DRGX | EXCLUDE | DY1_DRGX_B | DY1_DRGX | 123-0001-09 | DRUG X | STUDYDRUG | ANALYTE | 31 | ug/mL | 31 | 31 | ug/mL | PLASMA | | 1.00 | 2001-02-01T11:50 | 1 | 1 | 250 min | 9 | PT4H10M | Day 1 Dose | 2001-02-01T08:30 |
+| 10 | ABC-123 | PC | ABC-123-0001 | 10 | DY1_DRGX | DY1_DRGX | DY1_DRGX_A | DY1_DRGX | 123-0001-10 | DRUG X | STUDYDRUG | ANALYTE | 25 | ug/mL | 25 | 25 | ug/mL | PLASMA | | 1.00 | 2001-02-01T14:45 | 1 | 1 | 375 min | 10 | PT6H15M | Day 1 Dose | 2001-02-01T08:30 |
+| 11 | ABC-123 | PC | ABC-123-0001 | 11 | DY1_DRGX | DY1_DRGX | DY1_DRGX_A | DY1_DRGX | 123-0001-11 | DRUG X | STUDYDRUG | ANALYTE | 18 | ug/mL | 18 | 18 | ug/mL | PLASMA | | 1.00 | 2001-02-01T18:50 | 1 | 1 | 500 min | 11 | PT8H20M | Day 1 Dose | 2001-02-01T08:30 |
+| 12 | ABC-123 | PC | ABC-123-0001 | 12 | DY1_DRGX | DY1_DRGX | DY1_DRGX_D | DY1_DRGX | 123-0001-12 | DRUG X | STUDYDRUG | ANALYTE | 12 | ug/mL | 12 | 12 | ug/mL | PLASMA | | 1.00 | 2001-02-01T18:30 | 1 | 1 | 600 min | 12 | PT10H | Day 1 Dose | 2001-02-01T08:30 |
+| 13 | ABC-123 | PC | ABC-123-0001 | 13 | DY8_DRGX | DY8_DRGX | DY8_DRGX | DY8_DRGX | 123-0002-13 | DRUG X | STUDYDRUG | ANALYTE | 10 | ug/mL | 10 | 10 | ug/mL | PLASMA | | 1.00 | 2001-02-08T08:35 | 8 | 8 | 5 min | 1 | PT5M | Day 8 Dose | 2001-02-08T08:30 |
+| 14 | ABC-123 | PC | ABC-123-0001 | 14 | DY8_DRGX | DY8_DRGX | DY8_DRGX | DY8_DRGX | 123-0002-14 | DRUG X | STUDYDRUG | ANALYTE | 21 | ug/mL | 21 | 21 | ug/mL | PLASMA | | 1.00 | 2001-02-08T08:55 | 8 | 8 | 25 min | 2 | PT25M | Day 8 Dose | 2001-02-08T08:30 |
+| 15 | ABC-123 | PC | ABC-123-0001 | 15 | DY8_DRGX | DY8_DRGX | DY8_DRGX | DY8_DRGX | 123-0002-15 | DRUG X | STUDYDRUG | ANALYTE | 32 | ug/mL | 32 | 32 | ug/mL | PLASMA | | 1.00 | 2001-02-08T09:20 | 8 | 8 | 50 min | 3 | PT50M | Day 8 Dose | 2001-02-08T08:30 |
+| 16 | ABC-123 | PC | ABC-123-0001 | 16 | DY8_DRGX | DY8_DRGX | DY8_DRGX | DY8_DRGX | 123-0002-16 | DRUG X | STUDYDRUG | ANALYTE | 39 | ug/mL | 39 | 39 | ug/mL | PLASMA | | 1.00 | 2001-02-08T09:45 | 8 | 8 | 75 min | 4 | PT1H15M | Day 8 Dose | 2001-02-08T08:30 |
+| 17 | ABC-123 | PC | ABC-123-0001 | 17 | DY8_DRGX | DY8_DRGX | DY8_DRGX | DY8_DRGX | 123-0002-17 | DRUG X | STUDYDRUG | ANALYTE | 46 | ug/mL | 46 | 46 | ug/mL | PLASMA | | 1.00 | 2001-02-08T10:10 | 8 | 8 | 100 min | 5 | PT1H40M | Day 8 Dose | 2001-02-08T08:30 |
+| 18 | ABC-123 | PC | ABC-123-0001 | 18 | DY8_DRGX | DY8_DRGX | DY8_DRGX | DY8_DRGX | 123-0002-18 | DRUG X | STUDYDRUG | ANALYTE | 48 | ug/mL | 48 | 48 | ug/mL | PLASMA | | 1.00 | 2001-02-08T10:10 | 8 | 8 | 100 min | 6 | PT2H5M | Day 8 Dose | 2001-02-08T08:30 |
+| 19 | ABC-123 | PC | ABC-123-0001 | 19 | DY8_DRGX | DY8_DRGX | DY8_DRGX | DY8_DRGX | 123-0002-19 | DRUG X | STUDYDRUG | ANALYTE | 40 | ug/mL | 40 | 40 | ug/mL | PLASMA | | 1.00 | 2001-02-08T11:00 | 8 | 8 | 150 min | 7 | PT2H30M | Day 8 Dose | 2001-02-08T08:30 |
+| 20 | ABC-123 | PC | ABC-123-0001 | 20 | DY8_DRGX | DY8_DRGX | DY8_DRGX | DY8_DRGX | 123-0002-20 | DRUG X | STUDYDRUG | ANALYTE | 35 | ug/mL | 35 | 35 | ug/mL | PLASMA | | 1.00 | 2001-02-08T11:50 | 8 | 8 | 200 min | 8 | PT3H20M | Day 8 Dose | 2001-02-08T08:30 |
+| 21 | ABC-123 | PC | ABC-123-0001 | 21 | DY8_DRGX | DY8_DRGX | DY8_DRGX | DY8_DRGX | 123-0002-21 | DRUG X | STUDYDRUG | ANALYTE | 30 | ug/mL | 30 | 30 | ug/mL | PLASMA | | 1.00 | 2001-02-08T12:40 | 8 | 8 | 250 min | 9 | PT4H10M | Day 8 Dose | 2001-02-08T08:30 |
+| 22 | ABC-123 | PC | ABC-123-0001 | 22 | DY8_DRGX | DY8_DRGX | DY8_DRGX | DY8_DRGX | 123-0002-22 | DRUG X | STUDYDRUG | ANALYTE | 24 | ug/mL | 24 | 24 | ug/mL | PLASMA | | 1.00 | 2001-02-08T14:45 | 8 | 8 | 375 min | 10 | PT6H15M | Day 8 Dose | 2001-02-08T08:30 |
+| 23 | ABC-123 | PC | ABC-123-0001 | 23 | DY8_DRGX | DY8_DRGX | DY8_DRGX | DY8_DRGX | 123-0002-23 | DRUG X | STUDYDRUG | ANALYTE | 17 | ug/mL | 17 | 17 | ug/mL | PLASMA | | 1.00 | 2001-02-08T16:50 | 8 | 8 | 500 min | 11 | PT8H20M | Day 8 Dose | 2001-02-08T08:30 |
+| 24 | ABC-123 | PC | ABC-123-0001 | 24 | DY8_DRGX | DY8_DRGX | DY8_DRGX | DY8_DRGX | 123-0002-24 | DRUG X | STUDYDRUG | ANALYTE | 11 | ug/mL | 11 | 11 | ug/mL | PLASMA | | 1.00 | 2001-02-08T18:30 | 8 | 8 | 600 min | 12 | PT10H | Day 8 Dose | 2001-02-08T08:30 |
+
+Pharmacokinetic Parameters (PP) Dataset for All Examples
+
+**pp.xpt**
+
+| Row | STUDYID | DOMAIN | USUBJID | PPSEQ | PPGRPID (Example 1) | PPGRPID (Example 2) | PPGRPID (Example 3) | PPGRPID (Example 4) | PPTESTCD | PPTEST | PPCAT | PPORRES | PPORRESU | PPSTRESC | PPSTRESN | PPSTRESU | PPSPEC | PPNOMDY | PPRFTDTC |
+|-----|---------|--------|---------|-------|---------------------|---------------------|---------------------|---------------------|----------|--------|-------|---------|----------|----------|----------|----------|--------|---------|----------|
+| 1 | ABC-123 | PP | ABC-123-0001 | 1 | DY1DRGX | DY1DRGX | DY1DRGX_A | DY1DRGX | TMAX | Time of CMAX | DRUG X | 1.87 | h | 1.87 | 1.87 | h | PLASMA | 1 | 2001-02-01T08:35 |
+| 2 | ABC-123 | PP | ABC-123-0001 | 2 | DY1DRGX | DY1DRGX | DY1DRGX_A | DY1DRGX | CMAX | Max Conc | DRUG X | 44.5 | ng/mL | 44.5 | 44.5 | ng/mL | PLASMA | 1 | 2001-02-01T08:35 |
+| 3 | ABC-123 | PP | ABC-123-0001 | 3 | DY1DRGX | DY1DRGX | DY1DRGX_A | DY1DRGX | AUCALL | AUC All | DRUG X | 294.7 | h*ug/mL | 294.7 | 294.7 | h*ug/mL | PLASMA | 1 | 2001-02-01T08:35 |
+| 4 | ABC-123 | PP | ABC-123-0001 | 4 | DY1DRGX | DY1DRGX | DY1DRGX_HALF | DY1DRGX | LAMZHL | Half-Life Lambda z | DRUG X | 4.69 | h | 4.69 | 4.69 | h | PLASMA | 1 | 2001-02-01T08:35 |
+| 5 | ABC-123 | PP | ABC-123-0001 | 5 | DY1DRGX | DY1DRGX | DY1DRGX_A | DY1DRGX | VZO | Vz Obs | DRUG X | 10.9 | L | 10.9 | 10.9 | L | PLASMA | 1 | 2001-02-01T08:35 |
+| 6 | ABC-123 | PP | ABC-123-0001 | 6 | DY1DRGX | DY1DRGX | DY1DRGX_A | DY1DRGX | CLO | Total CL Obs | DRUG X | 1.68 | L/h | 1.68 | 1.68 | L/h | PLASMA | 1 | 2001-02-01T08:35 |
+| 7 | ABC-123 | PP | ABC-123-0001 | 7 | DY8DRGX | DY8DRGX | DY8DRGX | DY8DRGX | TMAX | Time of CMAX | DRUG X | 1.91 | h | 1.91 | 1.91 | h | PLASMA | 8 | 2001-02-08T08:35 |
+| 8 | ABC-123 | PP | ABC-123-0001 | 8 | DY8DRGX | DY8DRGX | DY8DRGX | DY8DRGX | CMAX | Max Conc | DRUG X | 46.0 | ng/mL | 46.0 | 46.0 | ng/mL | PLASMA | 8 | 2001-02-08T08:35 |
+| 9 | ABC-123 | PP | ABC-123-0001 | 9 | DY8DRGX | DY8DRGX | DY8DRGX | DY8DRGX | AUCALL | AUC All | DRUG X | 289.0 | h*ug/mL | 289.0 | 289.0 | h*ug/mL | PLASMA | 8 | 2001-02-08T08:35 |
+| 10 | ABC-123 | PP | ABC-123-0001 | 10 | DY8DRGX | DY8DRGX | DY8DRGX | DY8DRGX | LAMZHL | Half-Life Lambda z | DRUG X | 4.50 | h | 4.50 | 4.50 | h | PLASMA | 8 | 2001-02-08T08:35 |
+| 11 | ABC-123 | PP | ABC-123-0001 | 11 | DY8DRGX | DY8DRGX | DY8DRGX | DY8DRGX | VZO | Vz Obs | DRUG X | 10.7 | L | 10.7 | 10.7 | L | PLASMA | 8 | 2001-02-08T08:35 |
+| 12 | ABC-123 | PP | ABC-123-0001 | 12 | DY8DRGX | DY8DRGX | DY8DRGX | DY8DRGX | CLO | Total CL Obs | DRUG X | 1.75 | L/h | 1.75 | 1.75 | L/h | PLASMA | 8 | 2001-02-08T08:35 |
+
+### PC-PP Conclusions
+
+Relating the datasets (as described in Section 8, Representing Relationships and Data) is the simplest method; however, all time-point concentrations in PC must be used to calculate all parameters for all subjects. If datasets cannot be related, then individual subject records must be related. In either case, the values of PCGRPID and PPGRPID must take into account multiple analytes and multiple reference time points, if they exist.
+
+Method A is clearly the most efficient in terms of having the least number of RELREC records, but it does require the assignment of --GRPID values (which are optional) in both the PC and PP datasets. Method D, in contrast, does not require the assignment of --GRPID values, relying instead on the required --SEQ values in both datasets to relate the records. Although Method D results in the largest number of RELREC records compared to the other methods, it may be the easiest to implement consistently across the range of complexities shown in the examples. Two additional methods, methods B and C, are also shown for Examples 1-3. They represent hybrid approaches, using --GRPID values in only 1 dataset (PP and PC, respectively) and --SEQ values for the other. These methods are best suited for sponsors who want to minimize the number of RELREC records while not having to assign --GRPID values in both domains. Methods B and C would not be ideal, however, if one expected complex scenarios as shown in Example 4.
+
+Note that an attempt has been made to approximate real pharmacokinetic data; however, the example values are not intended to reflect data used for actual analysis. When certain time-point concentrations have been omitted from PP calculations in Examples 2-4, the actual parameter values in the PP dataset have not been recalculated from those in Example 1 to reflect those omissions.
+
+### PC-PP – Suggestions for Implementing RELREC in the Submission of PK Data
+
+Determine which of the scenarios best reflects how PP data are related to PC data. Questions that should be considered include:
+
+1. Do all parameters for each PK profile use all concentrations for all subjects? If so, create a PPGRPID value for all PP records and a PCGRPID value for all PC records for each profile for each subject, analyte, and reference time point. Decide whether to relate datasets or records. If choosing the latter, create records in RELREC for each PCGRPID value and each PPGRPID value (method A). Use RELID to show which PCGRPID and PPGRPID records are related. Consider RELREC methods B, C, and D as applicable.
+
+2. Do all parameters use the same concentrations, although maybe not all of them (Example 2)? If so, create a single PPGRPID value for all PP records, and 2 PCGRPID values for the PC records: a PCGRPID value for ones that were used and a PCGRPID value for those that were not used. Create records in RELREC for each PCGRPID value and each PPGRPID value (method A). Use RELID to show which PCGRPID and PPGRPID records are related. Consider RELREC methods B, C, and D as applicable.
+
+3. Do any parameters use the same concentrations, but not as consistently as shown in Examples 1 and 2? If so, refer to Example 3. Assign a GRPID value to the PP records that use the same concentrations. More than 1 PPGRPID value may be necessary. Assign as many PCGRPID values in the PC domain as needed to group these records. Create records in RELREC for each PCGRPID value and each PPGRPID value (method A). Use RELID to show which PCGRPID and PPGRPID records are related. Consider RELREC methods B, C, and D as applicable.
+
+4. If none of the above applies, or the data become difficult to group, then start with Example 4, and decide which RELREC method would be easiest to implement and represent.
+
 <!-- source: knowledge_base/domains/PE/assumptions.md -->
 # PE — Assumptions
+
+## 6.3.8 Physical Examination (PE)
+
+### PE - Proposed Removal of --MODIFY and --BODSYS
+
+In the version of the SDTM associated with the next version of the SDTMIG, --MODIFY is being considered for deprecation as a qualifier variable for findings class domains and --BODSYS will be considered for restriction to use in nonclinical studies.
+
+### PE - Alignment with CDASH Best Practice
+
+In the CDASH "Best Practice" approach as described in the CDASHIG, which is becoming common in human clinical trials, the PE domain is not used to record the “findings” from a physical exam.
+
+The abnormalities found are recorded in the appropriate events-class domain.
+
+An abnormality is recorded in Medical History (MH) when found to previously exist at a baseline or screening examination.
+
+Abnormalities identified after baseline or screening, or worsening abnormalities, are recorded on the Adverse Events (AE) form (or possibly on a Clinical Events form).
+
+When following this approach, the PE domain is not used in SDTM.
+
+The Procedure (PR) domain is used to document the examination details (e.g., occurrence, date) using a Procedure record for each physical exam.
+
+## PE – Assumptions
 
 1. PE findings reflect the presence or absence of physical signs of disease or abnormality observed during a general physical examination. Multiple body systems are assessed during a physical examination, often starting at the head and ending at the toes, where the body is evaluated by inspection, palpation (feeling with the hands), percussion (tapping with fingers), and auscultation (listening). The examination often includes macro assessments (e.g., normal/abnormal) of appearance, general health, behavior, and body system review from head to toe.
    a. Evaluation of targeted body systems (e.g., cardiovascular, ophthalmic, reproductive) as part of therapeutic specific assessments should be represented in the appropriate body system domain (e.g., CV, OE, RP, respectively).
@@ -907,6 +1330,12 @@ The following assumptions are common to the FT and QS domains as well as the Cli
 <!-- source: knowledge_base/domains/RE/assumptions.md -->
 # RE — Assumptions
 
+## RE – Specification
+
+re.xpt, Respiratory System Findings — Findings. One record per finding or result per time point per visit per subject, Tabulation.
+
+## RE – Assumptions
+
 1. The Respiratory System Findings domain is used to represent the results/findings of respiratory diagnostic procedures (e.g., spirometry). Information about the conduct of the procedure(s), if collected, should be submitted in the Procedures (PR) domain.
 
 2. Many respiratory assessments require the use of a device. When data about the device used for an assessment or additional information about its use in the assessment are collected, SPDEVID should be included in the record. See the SDTMIG for Medical Devices (SDTMIG-MD, available at https://www.cdisc.org/standards/foundational/medical-devices-sdtmig/) for further information about SPDEVID and the Device domains.
@@ -986,6 +1415,12 @@ Some studies include subjects who are related to each other, and in some cases i
 <!-- source: knowledge_base/domains/RP/assumptions.md -->
 # RP — Assumptions
 
+## RP – Specification
+
+rp.xpt, Reproductive System Findings — Findings. One record per finding or result per time point per visit per subject, Tabulation.
+
+## RP – Assumptions
+
 1. Reproductive System Findings domain contains information regarding a subject's reproductive ability and reproductive history (e.g., number of previous pregnancies, number of births, pregnant during the study).
 
 2. Information on medications related to reproduction (e.g., contraceptives, fertility treatments) should be included in the Concomitant/Prior Medications (CM) domain; see Section 6.1.2.
@@ -1058,6 +1493,12 @@ The QRS Shared Assumptions (see FT assumptions) also apply to the Clinical Class
 <!-- source: knowledge_base/domains/SC/assumptions.md -->
 # SC — Assumptions
 
+## SC – Description/Overview
+
+A findings domain that contains subject-related data not collected in other domains.
+
+## SC – Assumptions
+
 1. The structure of subject characteristics is based on the Findings general observation class and is an extension of the demographics data, including socioeconomic or other broad characteristics. The structure for demographic data is fixed and includes date of birth, age, sex, race, ethnicity, and country. Subject characteristics may be collected periodically over time. Some examples of subject characteristics include education level, marital status, and national origin.
 
 2. Associations between some subject characteristic tests and response codelists are described in the SC Codetable, available at https://www.cdisc.org/standards/terminology/controlled-terminology.
@@ -1066,6 +1507,26 @@ The QRS Shared Assumptions (see FT assumptions) also apply to the Clinical Class
 
 <!-- source: knowledge_base/domains/SE/assumptions.md -->
 # SE — Assumptions
+
+## SE – Description/Overview
+
+A special-purpose domain that contains the actual order of elements followed by the subject, together with the start date/time and end date/time for each element.
+
+The Subject Elements dataset consolidates information about the timing of each subject's progress through the study elements of the trial.
+
+For elements that involve study treatments, the identification of which element the subject passed through (e.g., drug X vs. placebo) is likely to derive from data in the Exposure domain or another Interventions domain.
+
+The dates of a subject's transition from one element to the next will be taken from the Interventions domain(s) and from other relevant domains, according to the definitions of ELEMENT values in the Trial Elements (TE) dataset (see Section 7.2.2, Trial Elements).
+
+The SE dataset is particularly useful for studies with multiple treatment periods, such as crossover studies.
+
+The SE dataset contains the date/times at which a subject moved from one element to another, so when this dataset, the Trial Arms (TA; see Section 7.2.1, Trial Arms) dataset, and the Trial Elements (TE; see Section 7.2.2, Trial Elements) dataset are included in a submission, reviewers can relate all observations made about a subject to that subject's progression through the trial.
+
+- Comparison of the – DTC of a finding observation to the element transition dates (values of SESTDTC and SEENDTC) identifies which element the subject was in at the time of the finding. Similarly, one can determine the element during which an event or intervention started or ended.
+- "Day within Element" or "Day within Epoch" can be derived. Such variables can relate an observation to the start of an element or epoch in the same way that study day (–DY) variables relate it to the reference start date (RFSTDTC) for the study as a whole. See Section 4.4.4, Use of the "Study Day" Variables.
+- Having knowledge of SE start and end dates can be helpful in the determination of baseline values.
+
+## SE – Assumptions
 
 Submission of the SE dataset is strongly recommended, as it provides information needed by reviewers to place observations in context within the study. As noted in the SE - Description/Overview, the TE and TA datasets should also be submitted, as these define the design and the terms referenced by the SE dataset.
 
@@ -1187,6 +1648,16 @@ The following are examples of data that should **not** be submitted as supplemen
 <!-- source: knowledge_base/domains/SV/assumptions.md -->
 # SV — Assumptions
 
+## SV – Description/Overview
+
+The method for deriving these values should be consistent with the visit definitions in the Trial Visits (TV) dataset (see Section 7.3.1, Trial Visits). For some studies, a visit may be defined to correspond with a clinic visit that occurs within 1 day, whereas for other studies, a visit may reflect data collection over a multiday period. The SV dataset provides reviewers with a summary of a subject's visits over the course of their participation in a study. Comparison of an individual subject's SV dataset with the TV dataset, which describes the planned visits for the trial, supports the identification of planned but not completed visits. Comparison of the values of SVSTDY and SVENDY to VISIT and/or VISITDY can often highlight departures from the planned timing of visits.
+
+## SV – Specification
+
+sv.xpt, Subject Visits — Special Purpose. One record per actual or planned visit per subject, Tabulation.
+
+## SV – Assumptions
+
 1. The Subject Visits domain allows the submission of data on the timing of the trial visits for a subject, including both those visits they actually passed through in their participation in the trial and those visits that did not occur. Refer to Section 7.3.1, Trial Visits (TV), as the TV dataset defines the planned visits for the trial.
 
 2. Subjects can have 1 and only 1 record per VISITNUM.
@@ -1231,6 +1702,181 @@ The following are examples of data that should **not** be submitted as supplemen
 
 <!-- source: knowledge_base/domains/TA/assumptions.md -->
 # TA — Assumptions
+
+## Trial Design Model Overview (§7.1)
+
+### §7.1.1 Purpose of the Trial Design Model
+
+ICH E3, Guidance for Industry, Structure and Content of Clinical Study Reports (available at http://www.ich.org/products/guidelines/), Section 9.1, calls for a brief, clear description of the overall plan and design of the study, and supplies examples of charts and diagrams for this purpose in Annex IIIa and Annex IIIb.
+
+Each Annex corresponds to an example trial, and each shows a diagram describing the study design and a table showing the schedule of assessments.
+
+The Trial Design Model provides a standardized way to describe those aspects of the planned conduct of a clinical trial shown in the study design diagrams of these examples.
+
+The standard Trial Design Datasets will allow reviewers to:
+- Clearly and quickly grasp the design of a clinical trial
+- Compare the designs of different trials
+- Search a data warehouse for clinical trials with certain features
+- Compare planned and actual treatments and visits for subjects in a clinical trial
+
+Modeling a clinical trial in this standardized way requires the explicit statement of certain decision rules that may not be addressed or may be vague or ambiguous in the usual prose protocol document.
+
+Prospective modeling of the design of a clinical trial should lead to a clearer, better protocol.
+
+Retrospective modeling of the design of a clinical trial should ensure a clear description of how the trial protocol was interpreted by the sponsor.
+
+### §7.1.2 Definitions of Trial Design Concepts
+
+A clinical trial is a scientific experiment involving human subjects, intended to address certain scientific questions (i.e., the objectives of the trial).
+
+See the CDISC Glossary (https://www.cdisc.org/standards/glossary) for more complete definitions of clinical trial and objective.
+
+| Concept | Definition |
+|---------|------------|
+| Trial design | The design of a clinical trial is a plan for what will be done to subjects and what data will be collected about them, in the course of the trial, to address the trial's objectives. |
+| Epoch | As part of the design of a trial, the planned period of subjects' participation in the trial is divided into epochs. Each epoch is a period of time that serves a purpose in the trial as a whole. That purpose will be at the level of the primary objectives of the trial. Typically, the purpose of an epoch will be to expose subjects to a treatment or to prepare for such a treatment period (e.g., determine subject eligibility, washout previous treatments), or to gather data on subjects after a treatment has ended. Note that at this high level, a "treatment" is a treatment strategy, which may be simple (e.g., exposure to a single drug at a single dose) or complex. Complex treatment strategies could involve tapering through several doses, titrating dose according to clinical criteria, complex regimens involving multiple drugs, or strategies for adding or dropping drugs according to clinical criteria. |
+| Arm | An arm is a planned path through the trial. This path covers the entire time of the trial. The group of subjects assigned to a planned path is also often colloquially called an "arm." The group of subjects assigned to an arm is also often called a "treatment group"; in this sense, an arm is equivalent to a treatment group. |
+| Study cell | Each planned path through the trial (i.e., each arm) is divided into pieces, 1 for each epoch. Each of these pieces is called a study cell. Thus, there is a study cell for each combination of arm and epoch. Each study cell represents an implementation of the purpose of its associated epoch. For an epoch whose purpose is to expose subjects to treatment, each study cell associated with the epoch has an associated treatment strategy. For example, a 3-arm parallel trial might have a treatment epoch whose purpose is to expose subjects to 1 of 3 study treatments: placebo, investigational product, or active control. There would be 3 study cell associated with the treatment epoch, 1 for each arm. Each of these study cells exposes the subject to 1 of the 3 study treatments. Another example involving more complex treatment strategies would be a trial comparing the effects of cycles of chemotherapy drug A given alone or in combination with drug B, where drug B is given as a pretreatment to each cycle of drug A. |
+| Element | An element is a basic building block in the trial design. It involves administering a planned intervention, which may be treatment or no treatment, during a period of time. Elements for which the planned intervention is "no treatment" would include elements for screening, washout, and follow-up. |
+| Study cells and elements | Many (perhaps most) clinical trials involve a single, simple administration of a planned intervention within a study cell. For some trials, however, the treatment strategy associated with a study cell involves a complex series of administrations of treatment. In such cases it may be important to track the component steps in a treatment strategy operationally; secondary objectives and safety analyses also might require that data be grouped by the treatment step during which it was collected. The steps within a treatment strategy may involve different doses of drug, different drugs, or different kinds of care (e.g., preoperative, operative, and post-operative periods surrounding surgery). When the treatment strategy for a study cell is simple, the study cell will contain a single element, and for many purposes there is little value in distinguishing between the study cell and the element. However, when the treatment strategy for a study cell consists of a complex series of treatments, a study cell can contain multiple elements. There may be a fixed sequence of elements, or a repeating cycle of elements, or some other complex pattern. In these cases, the distinction between a study cell and an element is very useful. |
+| Branch | In a trial with multiple arms, the protocol plans for each subject to be assigned to 1 arm. The time within the trial at which this assignment takes place is the point at which the arm paths of the trial diverge, and so is called a branch point. For many trials, the assignment to an arm happens all at one time, so the trial has 1 branch point. For other trials, there may be 2 or more branches that collectively assign a subject to an arm. The process that makes this assignment may be a randomization, but it need not be. |
+| Treatments | The word "treatment" may be used in connection with epochs, study cells, or elements, but has somewhat different meanings in each context: Because epochs cut across arms, an epoch treatment is at a high level that does not specify anything that differs between arms. For example, in a 3-period crossover study of 3 doses of drug X, each treatment epoch is associated with drug X, but not with a specific dose. A study cell treatment is specific to a particular arm. For example, a parallel trial might have study cell treatments placebo and drug X, without any additional detail (e.g., dose, frequency, route of administration) being specified. A study cell treatment is at a relatively high level, the level at which treatments might be planned in an early conceptual draft of the trial, or in the title or objectives of the trial. An element treatment may be fairly detailed. For example, for an element representing a cycle of chemotherapy, element treatment might specify 5 daily 100 mg doses of drug X. The distinctions between these levels are not rigid, and depend on the objectives of the trial. For example, route is generally a detail of dosing, but in a bioequivalence trial comparing IV and oral administration of drug X, route is clearly part of study cell treatment. |
+| Visit | The notion of a visit—a clinical encounter—derives from trials with outpatients, where subjects interact with the investigator during visits to the investigator's clinical site. However, the term is used in other trials, where a trial visit may not correspond to a physical visit. For example, in a trial with inpatients, time may be subdivided into visits, even though subjects are in hospital throughout the trial. For example, data for a screening visit may be collected over the course of more than 1 physical visit. One of the main purposes of visits is the performance of assessments, but not all assessments need take place at clinic visits; some assessments may be performed by means of telephone contacts, electronic devices, or call-in systems. The protocol should specify what contacts are considered visits and how they are defined. |
+
+### §7.1.3 Current and Future Contents of the Trial Design Model
+
+Datasets currently in the Trial Design Model include:
+- Trial Arms: Describes the sequences of elements in each epoch for each arm, and thus describes the complete sequence of elements in each arm
+- Trial Elements: Describes the elements used in the trial
+- Trial Visits: Describes the planned schedule of visits
+- Trial Disease Assessment: Provides information on the protocol-specified disease assessment schedule, and is used for comparison with the actual occurrence of the efficacy assessments in order to determine whether there was good compliance with the schedule
+- Trial Disease Milestones: Describes observations or activities identified for the trial which are anticipated to occur in the course of the disease under study and which trigger the collection of data
+- Trial Inclusion/Exclusion Criteria: Describes the criteria used to screen subjects
+- Trial Summary: Lists key facts (parameters) about the trial that are likely to appear in a registry of clinical trials
+
+The Trial Inclusion/Exclusion Criteria (TI) dataset is discussed in Section 7.4.1, Trial Inclusion/Exclusion Criteria.
+
+The Inclusion/Exclusion Criteria Not Met (IE) domain described in Section 6.3.4, Inclusion/Exclusion Criteria Not Met, contains the actual exceptions to those criteria for enrolled subjects.
+
+The current Trial Design Model has limitations in representing protocols, which include:
+- Plans for indefinite numbers of repeating elements (e.g., indefinite numbers of chemotherapy cycles)
+- Indefinite numbers of visits (e.g., periodic follow-up visits for survival)
+- Indefinite numbers of epochs
+- Indefinite numbers of arms
+
+The last 2 situations arise in dose-escalation studies where increasing doses are given until stopping criteria are met.
+
+Some dose-escalation studies enroll a new cohort of subjects for each new dose, and so, at the planning stage, have an indefinite number of arms.
+
+Other dose-escalation studies give new doses to a continuing group of subjects, and so are planned with an indefinite number of epochs.
+
+There may also be limitations in representing other patterns of Elements within a Study Cell that are more complex than a simple sequence.
+
+For the purpose of submissions about trials that have already completed, these limitations are not critical, so it is expected that development of the Trial Design Model to address these limitations will have a minimal impact on the SDTM.
+
+## Trial Arms and Trial Elements (§7.2)
+
+### §7.2.1 Trial Arms (TA) – Description/Overview
+
+A trial design domain that contains each planned arm in the trial.
+
+This section contains:
+- The Trial Arms dataset and assumptions
+- A series of example trials, which illustrate the development of the TA dataset
+- Advice on various issues in the development of the TA dataset
+- A recap of the TA dataset and the function of its variables
+
+### §7.2.1 Trial Arms (TA) – Example 2
+
+The following diagram for a crossover trial does not use the crossing slanted lines sometimes used to represent crossover trials, because the order of the blocks is sufficient to represent the design of the trial. Slanted lines are used only to represent the branch point at randomization, when a subject is assigned to a sequence of treatments. As in most crossover trials, the arms are distinguished by the order of treatments, with the same treatments present in each arm. Note that even though all 3 arms of this trial end with the same block (i.e., the block for the follow-up element), the diagram does not show the arms converging into one block. Also note that the same block (the "rest" element) occurs twice within each arm. Elements are conceived of as "reusable" and can appear in more than 1 arm, in more than 1 epoch, and more than once in an arm.
+
+The next diagram for this crossover trial shows the prospective view of the trial; it identifies the epoch and arms of the trial, and gives each a name. As for most crossover studies, the objectives of the trial will be addressed by comparisons between the arms and by within-subject comparisons between treatments. Because the design depends on differentiating the periods during which the subject receives the 3 different treatments, there are 3 different treatment epochs. The fact that the rest periods are identified as separate epochs suggests that these also play an important part in the design of the trial; they are probably designed to allow subjects to return to "baseline," with data collected to show that this occurred. Note that epochs are not considered reusable; each epoch has a different name, even though all the treatment epochs are similar and both the rest epochs are similar. As with the first example trial, there is a one-to-one relationship between the epochs of the trial and the elements in each arm.
+
+The next diagram shows the retrospective view of the trial.
+
+The last diagram for this trial shows the trial from the viewpoint of blinded participants. As in the simple parallel trial in Example Trial 1, blinded participants see only 1 sequence of elements; during the treatment epochs they do not know which of the treatment elements a subject is in.
+
+The following table illustrates the trial design matrix for this crossover example trial. It corresponds closely to the preceding retrospective diagram.
+
+It is straightforward to produce the TA dataset for this crossover trial from the diagram showing arms and epochs, or from the trial design matrix.
+
+### §7.2.1.1 Trial Arms Issues – Distinguishing Between Branches and Transitions
+
+Both the Branch and Transition columns contain rules, but the 2 columns represent 2 different types of rules.
+
+Branch rules represent forks in the trial flowchart, giving rise to separate arms.
+
+The rule underlying a branch in the trial design appears in multiple records, once for each "fork" of the branch.
+
+Within any one record, there is no choice (no "if" clause) in the value of the branch condition.
+
+For example, the value of TABRANCH for a record in arm A is "Randomized to Arm A" because a subject in arm A must have been randomized to arm A.
+
+Transition rules are used for choices within an arm.
+
+The value for TATRANS does contain a choice (an "if" clause).
+
+In Example Trial 4, subjects who receive 1, 2, 3, or 4 cycles of treatment A are all considered to belong to arm A.
+
+In modeling a trial, decisions may have to be made about whether a decision point in the flow chart represents the separation of paths that represent different arms, or paths that represent variations within the same arm, as illustrated in the discussion of Example Trial 7.
+
+This decision will depend on the comparisons of interest in the trial.
+
+Some trials refer to groups of subjects who follow a particular path through the trial as "cohorts," particularly if the groups are formed successively over time.
+
+The term "cohort" is used with different meanings in different protocols and does not always correspond to an arm.
+
+### §7.2.2.1 Trial Elements Issues – Distinguishing Elements, Study Cells, and Epochs
+
+It is easy to confuse elements, which are reusable trial building blocks, with study cells (which contain the elements for a particular epoch and Arm) and with epochs (which are time periods for the trial as a whole).
+
+In part, this is because many trials have epochs for which the same element appears in all arms.
+
+In other words, in the trial design matrix for many trials, there are columns (Epochs) in which all the study cells have the same contents.
+
+It also is natural to use the same name (e.g., screen, follow-up) for both such an epoch and the single element that appears within it.
+
+Confusion can also arise from the fact that in the blinded treatment portions of blinded trials, blinded participants do not know which element a subject is in, but do know what epoch the subject is in.
+
+In describing a trial, one way to avoid confusion between elements and epochs is to include "Element" or "Epoch" in the values of ELEMENT or EPOCH when these values (e.g., screening, follow-up) would otherwise be the same.
+
+It becomes tedious to do this in every case, but can be useful to resolve confusion when it arises or is likely to arise.
+
+The difference between epoch and element is perhaps clearest in crossover trials.
+
+In TA Example Trial 2, as for most crossover trials, the analysis of pharmacokinetic (PK) results would include both treatment and period effects in the model.
+
+“Treatment effect” derives from element (placebo, 5 mg, 10 mg), whereas “period effect” derives from the epoch (first, second, or third treatment epoch).
+
+### §7.2.2.1 Trial Elements Issues – Transitions Between Elements
+
+The transition between one element and the next can be thought of as a 3-step process:
+
+Note that the subject is not "in limbo" during this process.
+
+The subject remains in the current element until step 3, at which point the subject transitions to the new element.
+
+There are no gaps between elements.
+
+As illustrated in the table, executing a transition depends on information that is split between the TE and the TA datasets.
+
+It can be useful, in the process of working out the Trial Design (TD) datasets, to create a dataset that supplements the TA dataset with the TESTRL, TEENRL, and TEDUR variables, so that full information on the transitions is easily accessible.
+
+However, such a working dataset is not an SDTM dataset, and should not be submitted.
+
+The following table shows a fragment of such a table for TA Example Trial 4.
+
+Note that
+- for all records that contain a particular element, all the TE variable values are exactly the same; and
+- when both TABRANCH and TATRANS are blank, the implicit decision in step 2 is that the subject moves to the next element in sequence for the arm.
+
+Note that rows 2 and 4 of this dataset involve the same element (Trt A); thus, TESTRL is the same for both.
+
+The activity that marks a subject's entry into the fourth element in arm A is "First dose of treatment Element, where drug is Treatment A."
+
+This is not the subject's very first dose of treatment A, but it is their first dose in this element.
+
+## TA-Specific Assumptions
 
 The TA and TE datasets are interrelated, and they provide the building blocks for the development of subject-level treatment information (see Sections 5.2, Demographics (DM), and 5.3, Subject Elements (SE), for the subject's actual study treatment information).
 
@@ -1280,9 +1926,9 @@ The purpose of the Trial Disease Assessments (TD) domain is to provide informati
 
 The Trial Elements (TE) dataset contains the definitions of the elements that appear in the Trial Arms (TA) dataset. An element may appear multiple times in the TA table because it appears either (1) in multiple arms, (2) multiple times within an arm, or (3) both. However, an element will appear only once in the TE table.
 
-Each row in the TE dataset may be thought of as representing a "unique element" in the same sense of "unique" as a CRF template page for a collecting certain type of data referred to as "unique page."
+Each row in the TE dataset may be thought of as representing a "unique element" in the same sense of "unique" as a CRF template page for a collecting certain type of data referred to as "unique page." For instance, a CRF might be described as containing 87 pages, but only 23 unique pages. By analogy, the trial design matrix in Example Trial 1 (see Section 7.2.1, Trial Arms) has 9 study cells, each of which contains 1 element, but the same trial design matrix contains only 5 unique elements, so the TE dataset for that trial has only 5 records.
 
-An element is a building block for creating study cells, and an arm is composed of study cells. Trial elements represent an interval of time that serves a purpose in the trial and are associated with certain activities affecting the subject. "Week 2 to week 4" is not a valid trial element.
+An element is a building block for creating study cells, and an arm is composed of study cells. Or, from another point of view, an arm is composed of elements; that is, the trial design assigns subjects to arms, which comprise a sequence of steps called elements. Trial elements represent an interval of time that serves a purpose in the trial and are associated with certain activities affecting the subject. "Week 2 to week 4" is not a valid trial element.
 
 1. There are no gaps between elements. The instant one element ends, the next element begins. A subject spends no time "between" elements.
 
@@ -1317,6 +1963,17 @@ An element is a building block for creating study cells, and an arm is composed 
 <!-- source: knowledge_base/domains/TI/assumptions.md -->
 # TI — Assumptions
 
+## §7.4 Trial Eligibility and Summary (TI, TS) — Introduction
+
+This section contains the Trial Design (TD) datasets that describe:
+
+- Subject eligibility criteria for trial participation (Section 7.4.1, Trial Inclusion/Exclusion Criteria (TI))
+- The characteristics of the trial (Section 7.4.2, Trial Summary (TS))
+
+The TI and TS datasets are tabular synopses of parts of the study protocol.
+
+## TI – Assumptions
+
 The variable TIRL was included in the Trial Inclusion/Exclusion Criteria (TI) domain in anticipation of developing a way to represent eligibility criteria in a computer-executable manner. However, such a method has not been developed, and it is not clear that an SDTM dataset would be the best place to represent such a computer-executable representation.
 
 TI contains all the inclusion and exclusion criteria for the trial, and thus provides information that may not be present in the subject-level data on inclusion and exclusion criteria. The IE domain (described in Section 6.3.4, Inclusion/Exclusion Criteria Not Met) contains records only for inclusion and exclusion criteria that subjects did not meet.
@@ -1330,6 +1987,27 @@ TI contains all the inclusion and exclusion criteria for the trial, and thus pro
 4. IETEST contains the text of the inclusion/exclusion criterion. However, because entry criteria are rules, the variable TIRL has been included in anticipation of the development of computer-executable rules.
 
 5. If a criterion text is <200 characters, it goes in IETEST; if the text is >200 characters, put meaningful text in IETEST and describe the full text in the study metadata. See Section 4.5.3.1, Test Name (--TEST) Greater than 40 Characters, for further information.
+
+## §7.5 How to Model the Design of a Clinical Trial
+
+The following steps allow the modeler to move from more-familiar concepts, such as arms, to less-familiar concepts, such as elements and epochs.
+
+The actual process of modeling a trial may depart from these numbered steps.
+
+Some steps will overlap; there may be several iterations; and not all steps are relevant for all studies.
+
+1. Start from the flow chart or schema diagram usually included in the trial protocol. This diagram will show how many arms the trial has, and the branch points or decision points where the arms diverge.
+2. Write down the decision rule for each branching point in the diagram. Does the assignment of a subject to an arm depend on a randomization? On whether the subject responded to treatment? On some other criterion?
+3. If the trial has multiple branching points, check whether all the branches that have been identified really lead to different arms. The arms will relate to the major comparisons the trial is designed to address. For some trials, there may be a group of somewhat different paths through the trial that are all considered to belong to a single arm.
+4. For each arm, identify the major time periods of treatment and non-treatment a subject assigned to that arm will go through. These are the elements, or building blocks, of which the arm is composed.
+5. Define the starting point of each element. Define the rule for how long the element should last. Determine whether the element is of fixed duration.
+6. Re-examine the sequences of elements that make up the various arms and consider alternative element definitions. Would it be better to "split" some elements into smaller pieces or "lump" some elements into larger pieces? Such decisions will depend on the aims of the trial and plans for analysis.
+7. Compare the various arms. In most clinical trials, especially blinded trials, the pattern of elements will be similar for all arms, and it will make sense to define trial epochs. Assign names to these epochs. During the conduct of a blinded trial, it will not be known which arm a subject has been assigned to, or which treatment elements they are experiencing, but the epochs they are passing through will be known.
+8. Identify the visits planned for the trial. Define the planned start timings for each visit, expressed relative to the ordered sequences of elements that make up the arms. Define the rules for when each visit should end.
+9. For oncology trials or other trials with disease assessments that are not necessarily tied to visits, find the planned timing of disease assessments in the protocol and record it in the Trial Disease Assessments (TD) dataset.
+10. If the protocol includes data collection that is triggered by the occurrence of certain events, interventions, or findings, record those triggers in the Trial Disease Milestones (TM) dataset. Note that disease milestones may be pre- (e.g., disease diagnosis) or on-study.
+11. Identify the inclusion and exclusion criteria to be able to populate the Trial Inclusion/Exclusion Criteria (TI) dataset. If inclusion and exclusion criteria were amended so that subjects entered under different versions, populate TIVERS to represent the different versions.
+12. Populate the TS dataset with summary information.
 
 <!-- source: knowledge_base/domains/TM/assumptions.md -->
 # TM — Assumptions
@@ -1426,9 +2104,15 @@ The Trial Summary (TS) dataset allows the sponsor to submit a summary of the tri
 
 The variable TSVALNF is based on the idea of a "null flavor" as embodied in the ISO 21090 standard. A null flavor is an ancillary piece of data that provides additional information when its primary piece of data is null (has a missing value). There is controlled terminology for the null flavor data item which includes such familiar values as "Unknown", "Other", and "Not Applicable" among its 14 terms.
 
+The proposal to include a null flavor variable to supplement the TSVAL variable in the Trial Summary Information (TS) dataset arose from a discussion of how to handle upper and lower age limits for subjects. When the trial summary parameter is AGEMAX, then TSVAL should have a value expressed as an ISO 8601 time duration (e.g., P43Y for 43 years). However, for a study with no maximum age, there is no ISO 8601 representation of "no maximum" for a time duration. Although it would be possible to allow a value such as "NONE" or "UNBOUNDED" to be entered in TSVAL, validation programs would then have to be aware of and allow any value that a sponsor might choose for this purpose. Therefore, the SDS team decided that a separate null flavor variable that uses the ISO 21090 null-flavor terminology would be a better solution.
+
+The SDS Team also decided to specify the use of a null-flavor variable in the TS domain with SDTMIG v3.4 as a way of testing the use of null flavors before extending their use to subject data. As the title of ISO 21090 suggests, that standard was developed for use with healthcare data; it is expected that it will eventually be used more widely. CDISC already uses this data-type standard (see BRIDG; https://www.cdisc.org/standards/). The null flavor, in particular, is a solution to the widespread problem of needing or wanting to convey information that will help a recipient understand why a value is null. Although null flavors could certainly be eventually used for this purpose in other cases (e.g., with subject data), doing so at this time would expand the scope of this activity beyond the available resources. The use of null flavors for the variable TSVAL provides an opportunity for sponsors and reviewers to learn about the null flavors and related controlled terminology.
+
 The controlled terminology for null flavor, which supersedes Appendix C1, Supplemental Qualifiers Name Codes, is included below.
 
 **NullFlavor Enumeration (OID: 2.16.840.1.113883.5.1008)**
+
+> **WARNING — Use of this null flavor does provide information that may be a breach of confidentiality, even though no detailed data are provided. The fact that a maximum age limit has not been specified might indicate that an elderly population is being targeted.**
 
 | Rank | Code | Display Name | Definition |
 |------|------|---|---|
@@ -1447,10 +2131,46 @@ The controlled terminology for null flavor, which supersedes Appendix C1, Supple
 | 3 | TRC | Trace | The content is greater than zero, but too small to be quantified. |
 | 2 | MSK | Masked | There is information on this item available, but it has not been provided by the sender due to security, privacy or other reasons. There may be an alternate mechanism for gaining access to this information. |
 
+The numbers in column 1 of the table describe the hierarchy of these values:
+
+- No information
+    - Invalid
+        - Other
+            - Positive infinity
+            - Negative infinity
+        - Unencoded
+        - Derived
+    - Unknown
+        - Asked but unknown
+            - Temporarily unavailable
+        - Not asked
+        - Quantity sufficient
+        - Trace
+    - Masked
+    - Not applicable
+
+The 1 value at level 1 (No information) is the least informative. It merely confirms that the primary piece of data is null.
+
+The values at level 2 provide a little more information, distinguishing between situations where the primary piece of data is not available for technical reasons (Invalid), situations where the value, while it exists, is not in the permitted value domain (Other), and situations where no information is provided.
+
+The values at levels 3 and 4 provide successively more information about the situation. For example, for the MAXAGE case that provided the impetus for the creation of the TSVALNF variable, the value PINF means that the maximum age is positive infinity, i.e., there is no maximum age. The null flavor PINF provides the most complete information possible in this case (i.e., that the maximum age for the study is unbounded).
+
 <!-- source: knowledge_base/domains/TU/assumptions.md -->
 # TU — Assumptions
 
-A findings domain that represents data that uniquely identifies tumors, lesions, or locations of interest under study. The TU domain represents data that uniquely identifies tumors, lesions, or locations of interest (e.g., tumors, cardiovascular culprit lesions, organs, bone marrow, other sites of disease such as lymph nodes). Commonly, tumors/lesions/locations of interest are identified by an investigator and/or independent assessor and classified according to the disease assessment criteria. For example, an oncology study using RECIST criteria would identify target, non-target, and new tumors.
+## 6.3.12 Tumor/Lesion Domains
+
+## TU – Description/Overview
+
+A findings domain that represents data that uniquely identifies tumors, lesions, or locations of interest under study.
+
+The TU domain represents data that uniquely identifies tumors, lesions, or locations of interest (e.g., tumors, cardiovascular culprit lesions, organs, bone marrow, other sites of disease such as lymph nodes). Commonly, tumors/lesions/locations of interest are identified by an investigator and/or independent assessor and classified according to the disease assessment criteria. For example, an oncology study using RECIST criteria would identify target, non-target, and new tumors. A record in the TU domain contains the following information:
+
+- a unique tumor ID value
+- anatomical location of the tumor
+- method used to identify the tumor
+- role of the individual identifying the tumor
+- timing information.
 
 1. The TU domain should contain only 1 record for each unique tumor/lesion/location of interest identified by an assessor (e.g., investigator, independent assessor) per medical evaluator. The initial identification of a tumor/lesion/location of interest is done once, usually at baseline (e.g., identification of target and non-target tumors/lesions) or first appearance of new tumor/lesion. The identification information, including the location description, must not be repeated for every visit. A record is required in TU to identify and create the TULNKID when there are associated records in TR with matching TRLNKID. The following are examples of when post-baseline records might be included in the TU domain:
     a. A new tumor/lesion may emerge at any time during a study; therefore, a new post-baseline record would represent the identification of the new tumor/lesion.
@@ -1545,6 +2265,22 @@ A findings domain that represents data that uniquely identifies tumors, lesions,
 
 <!-- source: knowledge_base/domains/TV/assumptions.md -->
 # TV — Assumptions
+
+## §7.3 Schedule for Assessments (TV, TD, TM) — Introduction
+
+This section contains the Trial Design (TD) datasets that describe:
+
+- The protocol-defined planned schedule of subject encounters at the healthcare facility where the study is being conducted (Section 7.3.1, Trial Visits (TV))
+- The planned schedule of efficacy assessments related to the disease under study (Section 7.3.2, Trial Disease Assessments (TD))
+- The things (events, interventions, or findings) which, if and when they happen, are the occasion for assessments planned in the protocol (Section 7.3.3, Trial Disease Milestones (TM))
+
+The Trial Visits (TV) and TD datasets provide the planned scheduling of assessments to which a subject's actual visits and disease assessments can be compared.
+
+## TV – Description/Overview
+
+Visits are defined as "clinical encounters" and are described using the timing variables VISIT, VISITNUM, and VISITDY.
+
+## TV – Assumptions
 
 1. Although the general structure of the Trial Visits (TV) dataset is "One Record per Planned Visit per Arm," for many clinical trials—particularly blinded clinical trials—the schedule of visits is the same for all arms, and the structure of the TV dataset will be "One Record per Planned Visit." If the schedule of visits is the same for all arms, ARMCD should be left blank for all records in the TV dataset. For trials with trial visits that are different for different arms (e.g., Example Trial 7 in Section 7.2.1, Trial Arms), ARMCD and ARM should be populated for all records. If some visits are the same for all arms, and some visits differ by arm, then ARMCD and ARM should be populated for all records, to ensure clarity, even though this will mean creating near-duplicate records for visits that are the same for all arms.
 

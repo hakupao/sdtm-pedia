@@ -5,8 +5,8 @@
 > - **Bucket ID**: `10`
 > - **Concept**: Events: MH + HO + BE
 > - **Merged files**: 9
-> - **Words**: 11,141
-> - **Chars**: 67,250
+> - **Words**: 11,195
+> - **Chars**: 67,596
 > - **Sources**:
 >   - `domains/MH/spec.md`
 >   - `domains/MH/assumptions.md`
@@ -291,6 +291,12 @@
 ## Source: `domains/MH/assumptions.md`
 
 # MH — Assumptions
+
+## 6.2.6 Medical History (MH)
+
+An events domain that contains data that includes the subject's prior medical history at the start of the trial.
+
+## MH – Assumptions
 
 1. Prior treatments, including prior medications and procedures, should be submitted in an appropriate dataset from the Interventions class (e.g., Concomitant/Prior Medications (CM) or Procedures (PR)).
 
@@ -1078,6 +1084,12 @@ The indication/medical condition for subject ABC123101's repeat hospitalization 
 ## Source: `domains/BE/assumptions.md`
 
 # BE — Assumptions
+
+## BE – Specification
+
+be.xpt, Biospecimen Events — Events. One record per instance per biospecimen event per biospecimen identifier per subject, Tabulation.
+
+## BE – Assumptions
 
 1. The BE domain contains data about actions taken that affect or may affect a specimen, such as specimen collection, freezing and thawing, aliquoting, and transportation. This domain is intended to be applicable to any specimen tracking data, regardless of the reason for specimen collection.
 

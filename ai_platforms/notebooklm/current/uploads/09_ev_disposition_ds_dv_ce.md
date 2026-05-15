@@ -5,8 +5,8 @@
 > - **Bucket ID**: `09`
 > - **Concept**: Events: DS + DV + CE
 > - **Merged files**: 9
-> - **Words**: 13,732
-> - **Chars**: 81,749
+> - **Words**: 13,756
+> - **Chars**: 81,875
 > - **Sources**:
 >   - `domains/DS/spec.md`
 >   - `domains/DS/assumptions.md`
@@ -235,6 +235,8 @@
    SUPPDS QNAM = "DSDECOD1", SUPPDS QLABEL = "Standardized Disposition Term 1", and SUPPDS QVAL = "WITHDREW CONSENT"
 
 6. Any identifier variables, timing variables, or Events general observation-class qualifiers may be added to the DS domain, but the following Qualifiers would generally not be used: --PRESP, --OCCUR, --STAT, --REASND, --BODSYS, --LOC, --SEV, --SER, --ACN, --ACNOTH, --REL, --RELNST, --PATT, --OUT, --SCAN, --SCONG, --SDISAB, --SDTH, --SHOSP, --SLIFE, --SOD, --SMIE, --CONTRT, --TOXGR.
+
+7. For the ABC arm, if drug C is dropped, the subject may transition to an AB element or follow some other defined protocol.
 
 ## Source: `domains/DS/examples.md`
 

@@ -5,8 +5,8 @@
 > - **Bucket ID**: `04`
 > - **Concept**: SE + SM + SV + CO (Special-Purpose 剩余 4)
 > - **Merged files**: 12
-> - **Words**: 9,417
-> - **Chars**: 55,015
+> - **Words**: 9,984
+> - **Chars**: 58,556
 > - **Sources**:
 >   - `domains/SE/spec.md`
 >   - `domains/SE/assumptions.md`
@@ -164,6 +164,26 @@
 ## Source: `domains/SE/assumptions.md`
 
 # SE — Assumptions
+
+## SE – Description/Overview
+
+A special-purpose domain that contains the actual order of elements followed by the subject, together with the start date/time and end date/time for each element.
+
+The Subject Elements dataset consolidates information about the timing of each subject's progress through the study elements of the trial.
+
+For elements that involve study treatments, the identification of which element the subject passed through (e.g., drug X vs. placebo) is likely to derive from data in the Exposure domain or another Interventions domain.
+
+The dates of a subject's transition from one element to the next will be taken from the Interventions domain(s) and from other relevant domains, according to the definitions of ELEMENT values in the Trial Elements (TE) dataset (see Section 7.2.2, Trial Elements).
+
+The SE dataset is particularly useful for studies with multiple treatment periods, such as crossover studies.
+
+The SE dataset contains the date/times at which a subject moved from one element to another, so when this dataset, the Trial Arms (TA; see Section 7.2.1, Trial Arms) dataset, and the Trial Elements (TE; see Section 7.2.2, Trial Elements) dataset are included in a submission, reviewers can relate all observations made about a subject to that subject's progression through the trial.
+
+- Comparison of the – DTC of a finding observation to the element transition dates (values of SESTDTC and SEENDTC) identifies which element the subject was in at the time of the finding. Similarly, one can determine the element during which an event or intervention started or ended.
+- "Day within Element" or "Day within Epoch" can be derived. Such variables can relate an observation to the start of an element or epoch in the same way that study day (–DY) variables relate it to the reference start date (RFSTDTC) for the study as a whole. See Section 4.4.4, Use of the "Study Day" Variables.
+- Having knowledge of SE start and end dates can be helpful in the determination of baseline values.
+
+## SE – Assumptions
 
 Submission of the SE dataset is strongly recommended, as it provides information needed by reviewers to place observations in context within the study. As noted in the SE - Description/Overview, the TE and TA datasets should also be submitted, as these define the design and the terms referenced by the SE dataset.
 
@@ -618,6 +638,16 @@ In this study, information about hypoglycemic events was collected in a separate
 
 # SV — Assumptions
 
+## SV – Description/Overview
+
+The method for deriving these values should be consistent with the visit definitions in the Trial Visits (TV) dataset (see Section 7.3.1, Trial Visits). For some studies, a visit may be defined to correspond with a clinic visit that occurs within 1 day, whereas for other studies, a visit may reflect data collection over a multiday period. The SV dataset provides reviewers with a summary of a subject's visits over the course of their participation in a study. Comparison of an individual subject's SV dataset with the TV dataset, which describes the planned visits for the trial, supports the identification of planned but not completed visits. Comparison of the values of SVSTDY and SVENDY to VISIT and/or VISITDY can often highlight departures from the planned timing of visits.
+
+## SV – Specification
+
+sv.xpt, Subject Visits — Special Purpose. One record per actual or planned visit per subject, Tabulation.
+
+## SV – Assumptions
+
 1. The Subject Visits domain allows the submission of data on the timing of the trial visits for a subject, including both those visits they actually passed through in their participation in the trial and those visits that did not occur. Refer to Section 7.3.1, Trial Visits (TV), as the TV dataset defines the planned visits for the trial.
 
 2. Subjects can have 1 and only 1 record per VISITNUM.
@@ -903,6 +933,24 @@ Because the study in this example was disrupted by an epidemic, the permissible 
 ## Source: `domains/CO/assumptions.md`
 
 # CO — Assumptions
+
+## §5 Models for Special-purpose Domains
+
+Special-purpose Domains is an SDTM class in its own right.
+
+## 5.1 Comments (CO)
+
+### CO – Description/Overview
+
+A special-purpose domain that contains comments that may be collected alongside other data.
+
+### CO – Specification
+
+co.xpt, Comments — Special Purpose. One record per comment per subject, Tabulation.
+
+> ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
+
+### CO – Assumptions
 
 1. The Comments special-purpose domain provides a solution for submitting free-text comments related to data in 1 or more SDTM domains (as described in Section 8.5, Relating Comments to a Parent Domain) or collected on a separate CRF page dedicated to comments. Comments are generally not responses to specific questions; instead, comments usually consist of voluntary free-text or unsolicited observations.
 

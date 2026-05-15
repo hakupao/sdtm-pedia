@@ -5,8 +5,8 @@
 > - **Bucket ID**: `21`
 > - **Concept**: Findings 其他: NV + RE + RP
 > - **Merged files**: 9
-> - **Words**: 10,817
-> - **Chars**: 65,749
+> - **Words**: 11,080
+> - **Chars**: 67,624
 > - **Sources**:
 >   - `domains/NV/spec.md`
 >   - `domains/NV/assumptions.md`
@@ -433,6 +433,21 @@
 ## Source: `domains/NV/assumptions.md`
 
 # NV — Assumptions
+
+## §6.3.7 Morphology/Physiology Domains — Overview
+
+Individual domains for morphology and physiology findings about specific body systems are grouped together in this section. This grouping is not meant to imply that there is a single morphology/physiology domain.
+
+## §6.3.7.1 Generic Morphology/Physiology Specification
+
+This section describes properties common to all the body system-based morphology/physiology domains.
+
+- The SDTMIG includes several domains for physiology and morphology findings for different body systems. These differ only in body system, in domain code, and in informative content such as examples.
+- In the partial generic domain specification table, "--" is used as a placeholder. In each individual body system-based morphology/physiology domain specification, this placeholder is replaced by the appropriate domain code.
+- The variables included in the generic morphology/physiology domain specification table are those required or expected in the individual body system-based morphology/physiology domains. Individual morphology/physiology domains may included additional expected variables. All other variables allowed in findings domains are allowed in the body system-based morphology/physiology domains
+- All body system-based physiology/morphology domains share the same structure, provided here. Although time point is not in the structure, it can be included in the structure of a particular domain if time point variables were included in the data represented.
+
+## NV – Assumptions
 
 1. Methods of assessment for nervous system findings may include nerve conduction studies, electroencephalogram (EEG), electromyography (EMG), and imaging.
 
@@ -989,6 +1004,12 @@ Information about the VEP device is not shown. Identifying information would be 
 
 # RE — Assumptions
 
+## RE – Specification
+
+re.xpt, Respiratory System Findings — Findings. One record per finding or result per time point per visit per subject, Tabulation.
+
+## RE – Assumptions
+
 1. The Respiratory System Findings domain is used to represent the results/findings of respiratory diagnostic procedures (e.g., spirometry). Information about the conduct of the procedure(s), if collected, should be submitted in the Procedures (PR) domain.
 
 2. Many respiratory assessments require the use of a device. When data about the device used for an assessment or additional information about its use in the assessment are collected, SPDEVID should be included in the record. See the SDTMIG for Medical Devices (SDTMIG-MD, available at https://www.cdisc.org/standards/foundational/medical-devices-sdtmig/) for further information about SPDEVID and the Device domains.
@@ -1428,6 +1449,12 @@ DI was used to represent the device type that was used to perform for the pulmon
 ## Source: `domains/RP/assumptions.md`
 
 # RP — Assumptions
+
+## RP – Specification
+
+rp.xpt, Reproductive System Findings — Findings. One record per finding or result per time point per visit per subject, Tabulation.
+
+## RP – Assumptions
 
 1. Reproductive System Findings domain contains information regarding a subject's reproductive ability and reproductive history (e.g., number of previous pregnancies, number of births, pregnant during the study).
 

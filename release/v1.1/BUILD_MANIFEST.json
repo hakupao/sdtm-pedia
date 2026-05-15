@@ -1,0 +1,131 @@
+{
+  "release_tag": "v1.1-company-release",
+  "release_date": "2026-05-15",
+  "previous_tag": "v1.0-company-release",
+  "previous_date": "2026-04-27",
+  "driver": "Rebuild 4 AI platform upload bundles to incorporate 06_deep_verification branch fixes (P1-P7 closed 2026-05-12)",
+  "knowledge_base": {
+    "files_total": 296,
+    "domains_total": 64,
+    "domain_added": "DI (Device Identifiers, SDTMIG-MD)",
+    "lines_changed_during_06": "+1,405 / -234 across 43 files",
+    "coverage_post_06": "99.02% (adjusted denominator)",
+    "hallucinated_atoms": 0
+  },
+  "platforms": {
+    "claude": {
+      "uploads_dir": "self_deploy/claude/uploads/",
+      "files_count": 19,
+      "files_changed_in_v1_1": [
+        "02_chapters.md",
+        "03_model.md",
+        "06_assumptions.md",
+        "07_examples_catalog.md",
+        "09_examples_data_high.md",
+        "10_examples_data_others.md"
+      ],
+      "files_rebuilt_idempotent": [
+        "05_mega_spec.md (rebuilt; 0 byte delta; DI has no spec.md so 63 domains preserved)"
+      ],
+      "files_unchanged": [
+        "00_routing.md",
+        "01_index.md",
+        "04_variable_index.md",
+        "08_terminology_map.md",
+        "11a_terminology_high_core.md",
+        "11b_terminology_high_questionnaires.md",
+        "11c_terminology_high_supp.md",
+        "12a_terminology_mid_core.md",
+        "12b_terminology_mid_questionnaires.md",
+        "12c_terminology_mid_supp.md",
+        "13a_terminology_tail_core.md",
+        "13c_terminology_tail_supp.md"
+      ],
+      "build_notes": "v1 builder paths required workaround (output/ dir recreated); 09 token count 104,548 exceeds 50K soft cap (pre-existing condition, not a regression). DI domain present in 06_assumptions.md (64 domains)."
+    },
+    "chatgpt": {
+      "uploads_dir": "self_deploy/chatgpt/uploads/",
+      "files_count": 9,
+      "files_changed_in_v1_1": [
+        "02_chapters_all.md",
+        "03_model_all.md",
+        "05_domain_assumptions_all.md",
+        "06_domain_examples_all.md"
+      ],
+      "files_unchanged": [
+        "01_navigation.md",
+        "04_domain_specs_all.md",
+        "07_terminology_core_high_freq.md",
+        "08_terminology_quest_and_supp.md",
+        "09_terminology_core_mid_tail.md"
+      ],
+      "build_script_changes": {
+        "merge_for_chatgpt.py": "MergeEntry 05_domain_assumptions_all.md: expected_segments 63→64 (DI assumption added), token_cap 69_000→85_000"
+      }
+    },
+    "gemini": {
+      "uploads_dir": "self_deploy/gemini/uploads/",
+      "files_count": 4,
+      "files_changed_in_v1_1": [
+        "01_navigation_and_quick_reference.md",
+        "02_domains_spec_and_assumptions.md",
+        "03_domains_examples.md"
+      ],
+      "files_unchanged": [
+        "04_business_scenarios_and_cross_domain.md"
+      ],
+      "note": "04 is writer-authored, not derived from knowledge_base"
+    },
+    "notebooklm": {
+      "uploads_dir": "self_deploy/notebooklm/uploads/",
+      "files_count": 42,
+      "buckets_changed_in_v1_1": [
+        "03_sp_demographics_subject.md",
+        "04_sp_se_sm_sv_co.md",
+        "06_int_concomitant_cm_ag_ml.md",
+        "09_ev_disposition_ds_dv_ce.md",
+        "10_ev_history_mh_ho_be.md",
+        "11_fnd_lab_lb.md",
+        "13_fnd_physical_exam_pe.md",
+        "15_fnd_biomarkers_mb_mi_ms_mk.md",
+        "16_fnd_pharma_pc_pp.md (notable: PC §6.3.5.9 RELREC linking added)",
+        "17_fnd_oncology_tr_tu_rs_oe.md",
+        "18_fnd_device_da_dd_gf_is.md (GF/assumptions touched)",
+        "19_fnd_morphology_bs_cp_cv.md (CP/assumptions touched)",
+        "20_fnd_about_fa_sr.md (FA/assumptions + FA/examples touched)",
+        "21_fnd_other_nv_re_rp.md",
+        "22_fnd_other_ss_ur_ft.md (SS/examples touched)",
+        "23_td_arms_ta_tv.md (TA/assumptions +175 lines)",
+        "24_td_elements_te_tm_td.md (TE/assumptions touched)",
+        "25_td_meta_ti_ts_oi.md (DI assumption added)",
+        "28_ig_ch01_ch02_ch03.md (ch02 touched)",
+        "29_ig_ch04_general_assumptions.md (ch04 touched)",
+        "30_ig_ch08_ch10.md (ch08 + ch10 touched)",
+        "31_model_obs_classes.md (model/02_observation_classes touched)"
+      ],
+      "buckets_changed_count": 22,
+      "total_words": 1599397,
+      "total_words_previous": 1599332,
+      "build_script_changes": {
+        "bucket_config.json": "bucket 25 (td_meta_ti_ts_oi): added 'domains/DI/assumptions.md'; description updated to include DI"
+      }
+    }
+  },
+  "verification": {
+    "diff_summary_path": ".work/07_release_v1_1/evidence/diff_summary.md",
+    "rule_d_review_path": ".work/07_release_v1_1/evidence/rule_d_review.md",
+    "retrospective_path": ".work/07_release_v1_1/RETROSPECTIVE.md"
+  },
+  "unchanged_from_v1_0": {
+    "metadata_docs": [
+      "METHODOLOGY.{en,zh,ja}.md",
+      "USER_GUIDE.{en,zh,ja}.md",
+      "KNOWN_LIMITATIONS.{en,zh,ja}.md",
+      "PLATFORM_COMPARISON.{en,zh,ja}.md",
+      "DEMO_QUESTIONS.{en,zh,ja}.md",
+      "GLOSSARY.{en,zh,ja}.md",
+      "README.{en,zh,ja}.md"
+    ],
+    "system_prompts": "All 4 platforms' system_prompt.md / instructions.md preserved from v1.0"
+  }
+}

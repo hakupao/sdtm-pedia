@@ -5,8 +5,8 @@
 > - **Bucket ID**: `18`
 > - **Concept**: Findings: DA (drug accountability) + DD (death details) + GF (genomic findings) + IS (immunogen)
 > - **Merged files**: 12
-> - **Words**: 22,622
-> - **Chars**: 140,100
+> - **Words**: 23,262
+> - **Chars**: 144,350
 > - **Sources**:
 >   - `domains/DA/spec.md`
 >   - `domains/DA/assumptions.md`
@@ -1122,6 +1122,22 @@ The relationship between the DS, AE, and DD records that reflect the subject's d
 
 # GF — Assumptions
 
+## GF - Description/Overview
+
+A findings domain that contains data related to the structure, function, evolution, mapping, and editing of subject and non-host organism genomic material of interest.
+
+This domain includes but is not limited to assessments and results for genetic variation and transcription, and summary measures derived from these assessments.
+
+The GF domain is used for findings from characteristics assessed from nucleic acids and may include subsequent inferences and/or predictions about related proteins/amino acids.
+
+## GF – Specification
+
+gf.xpt, Genomics Findings — Findings. One record per finding per observation per biospecimen per subject, Tabulation.
+
+> ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelists will be available in CDISC Controlled Terminology, available at https://www.cancer.gov/research/resources/terminology/cdisc.
+
+## GF – Assumptions
+
 1. The Genomics Findings domain is used to represent findings related to the structure, function, evolution, mapping, and editing of subject and non-host organism genomic material of interest. This domain includes but is not limited to assessments and results for genetic variation and transcription, and summary measures derived from these assessments. The GF domain is used for findings from characteristics assessed from nucleic acids and may include subsequent inferences and/or predictions about related proteins/amino acids. However, direct assessments of proteins (e.g., assessments of amino acids) are out of scope for this domain.
 
 2. Regarding genetic testing on non-host organisms (including but not limited to bacteria, viruses, and parasites), the following additional assumptions apply:
@@ -1145,6 +1161,12 @@ The relationship between the DS, AE, and DD records that reflect the subject's d
 8. GFMETHOD lists wet lab techniques for the execution of genomics or genetic testing. Methods related to specimen processing or reagents are not represented in GFMETHOD.
 
 9. The following variables generally would not be used in GF: --POS, --BODSYS, --ORNRLO, ORNRHI, --STNRLO, --STNRHI, --STNRC, --NRIND, --CHRON, --DISTR, --ANTREG, --LOC, --LAT, --DIR, --PORTOT, --LEAD, --CSTATE, --SPCCND, --FAST, --TOX, --TOXGR, --SEV.
+
+## GF – Example 4 (p227)
+
+This example shows findings from an assessment of microsatellite instability for genetic subregions that are known to be unstable. DNA extracted from tumor tissue is amplified and the resulting amplicons are resolved using wet laboratory methodology capillary electrophoresis.
+
+Note the use of NHOID, which is populated with the name of the organism to which the testing applies. Note: It is important to use this identifier to distinguish between tests that apply to a non-host organism and tests that apply to the study subject/host.
 
 ## Source: `domains/GF/examples.md`
 
@@ -1857,7 +1879,15 @@ The relrec dataset example shows the relationship between the genetic assessment
 
 ## Source: `domains/IS/assumptions.md`
 
-# IS — Assumptions
+# IS
+
+## IS – Description/Overview
+
+A findings domain for assessments of antigen induced humoral or cell-mediated immune response in the subject.
+
+is.xpt, Immunogenicity Specimen Assessments — Findings. One record per test per visit per subject, Tabulation.
+
+## IS – Assumptions
 
 1. The Immunogenicity Specimen Assessments (IS) domain holds assessments that describe whether a therapy (e.g., biologic, drug, vaccine) provoked/caused/induced an immune response in a subject. The response can be either positive or negative. For example, a vaccine is expected to induce a beneficial immune response, whereas a cellular therapy (e.g., erythropoiesis-stimulating agents) may cause an adverse immune response.
 
@@ -1884,6 +1914,33 @@ The relrec dataset example shows the relationship between the genetic assessment
    d. For assessments measuring the induced-cellular response, ISSCAT = CELLULAR IMMUNITY.
 
 10. Any Identifier variables, Timing variables, or Findings general observation class qualifiers may be added to the IS domain.
+
+## IS – Examples Notes
+
+### Example 1 (Tiered ADA testing)
+
+- Row 1:     Shows the screening of the presence of ADA to drug AZ-007.
+- Row 2:     Shows the confirmation of the previously detected ADA to drug AZ-007.
+- Row 3:     Shows the measurement of titer of the ADA from the screen and confirmatory steps.
+
+### Examples 8–9 (Microneutralization and OPK)
+
+The next 2 examples show data from microneutralization and opsonophagocytic killing (OPK) assays, which are used to measure vaccine efficacy and immunoprotectivity.
+
+### Example 10 (Sjögren's syndrome autoantibody tests)
+
+Sjögren's syndrome (SS) is a systemic autoimmune disease characterized by dry eyes and dry mouth. Diagnosis of SS is generally based on the detection of antinuclear antibodies (ANAs), that is, anti-Ro (SS-A) and anti-La (SS-B) antibodies.
+
+- Rows 1-5:	Show the screening (row 1) and quantification (rows 2, 4) of ANAs. Rows 2 and 3 are grouped together using ISGRPID="1a"; this means the titer result in row 2 is specifically related to the particular nuclear staining pattern (i.e., speckled) finding in row 3. The speckled pattern of ANA is typically indicative of SS, systemic lupus, and mixed connective tissue disease. Rows 4 and 5 are grouped together using ISGRPID="1b"; this means the titer result in row 4 is specifically related to the nuclear staining pattern (i.e., nucleoar) finding in row 5. Rows 1 to 5 are grouped together using ISGRPID with values starting with the number "1", indicating that these records are related. The antinuclear antibodies test is post-coordinated and represented by both ISTEST="Autoantibody" and ISBDAGNT="NUCLEAR AUTOANTIGENS".
+- Rows 6-11:	Show the screening and quantification of the various SS-specific autoantibodies. SS autoantigens are represented by the ISBDAGNT variable, whereas the ISTEST="Autoantibody".
+
+### Example 11 (Mixed animal allergens test)
+
+- Row 1:	Shows the detection of immunoglobulin E (IgE) antibody against multiple animal allergens. ISBDAGNT is used to house the generic but controlled value "ANIMAL MIX ANTIGENS, MULTIPLE".
+- Rows 2-3:	Show the amount of IgE antibody against dog dander and its RAST classification score.
+- Rows 4-5:	Show the amount of IgE antibody against cat dander and its RAST classification score.
+- Rows 6-7:	Show the amount of IgE antibody against horse dander and its RAST classification score.
+- Rows 8-9:	Show the amount of IgE antibody against cow dander and its RAST classification score.
 
 ## Source: `domains/IS/examples.md`
 

@@ -5,8 +5,8 @@
 > - **Bucket ID**: `11`
 > - **Concept**: Findings: LB (lab, 单独 slot)
 > - **Merged files**: 3
-> - **Words**: 5,863
-> - **Chars**: 37,852
+> - **Words**: 5,887
+> - **Chars**: 38,013
 > - **Sources**:
 >   - `domains/LB/spec.md`
 >   - `domains/LB/assumptions.md`
@@ -615,6 +615,8 @@
 ## Source: `domains/LB/assumptions.md`
 
 # LB — Assumptions
+
+> ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
 
 1. This domain captures laboratory data collected on the CRF or received from a central provider or vendor.
 

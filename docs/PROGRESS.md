@@ -1,7 +1,7 @@
 # 进度看板
 
 > **唯一进度状态源**. 历史细节看 `.work/meta/worklog/INDEX.md`. 文件结构看 `.work/MANIFEST.md`. 一页纸入门看 `.work/AGENT_GUIDE.md`.
-> 最后更新: 2026-05-12 (06 P7 COMPLETE ★★ — 人工抽样 2/60=3.3% content error rate PASS, RETROSPECTIVE.md 完成, Rule D PASS; 06 Deep Verification 工程全部收官)
+> 最后更新: 2026-05-15 (Release v1.1 cut ★ — 06 deep verification 修复回灌 4 平台 deploy bundle; Rule D verifier ALL_PASS; tag `v1.1-company-release` 候选; 详见 `.work/07_release_v1_1/RETROSPECTIVE.md`)
 
 ---
 
@@ -28,6 +28,7 @@
 
 ## 关键 milestone (近 30 天)
 
+- 2026-05-15 — **Release v1.1 cut ★ 06 修复回灌 4 平台 deploy bundle** (4 平台 rebuild: chatgpt 9 文件中 4 改 / gemini 3 改 / notebooklm 12 buckets 改 + 新 bucket 25 含 DI / claude 7 文件改 + 1 idempotent; 跨平台 delta oracle 自洽 chatgpt 05 ≡ gemini 02 = +74,178 bytes; build 脚本改动 2 处: merge_for_chatgpt.py 05 expected 63→64 + notebooklm bucket_config bucket 25 加 DI; Rule D `oh-my-claudecode:verifier` ALL_PASS 5/5 评估 + Rule A 5×4=20 KB→uploads 抽检 zero miss; release/v1.1/{CHANGELOG.{en,zh,ja}.md + BUILD_MANIFEST.json + self_deploy/} 26MB; tag 候选 `v1.1-company-release`)
 - 2026-05-12 — **06 P7 COMPLETE ★★★ 工程全部收官** (人工抽样 60 原子; Option C 内容误判率 2/60=3.3% < 5% P7-G1 PASS; RETROSPECTIVE.md 三段齐备 P7-G2 PASS; Rule D oh-my-claudecode:verifier PASS P7-G3 PASS; 累计 Issues 5-16 全修复; 覆盖率 99.02%; HALLUCINATED=0; 工程 2026-04-24→2026-05-12)
 - 2026-05-12 — **06 P6 COMPLETE ★★ Triage+Repair ALL GATES PASS** (coverage 99.02%, MISSING+ERROR=102 ≤ 120; T2 IE +1,664; T3 926 classified 0 HALLUCINATED; T4 Tier A Issues 5-16 all repaired; G1-G7 ✅; Rule D critic PASS; P7 next)
 - 2026-05-12 — **06 P5 COMPLETE ★ reverse_ledger.jsonl 10,435 atoms gate ALL PASS** (SOURCED 5550 / SYNTHESIZED 3172 / UNSOURCED_CANDIDATE 926 / SOURCED_PARTIAL 545 / SOURCED_P4A_MISSED 121 / SOURCED_MISPLACED 108 / SOURCED_ERROR 13; Rule A 97/100 ≥95%; 0 HALLUCINATED; Rule D verifier oh-my-claudecode:verifier ALL_PASS; P6 Triage next)
