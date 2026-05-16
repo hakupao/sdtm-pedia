@@ -226,7 +226,7 @@
   ],
   "v1_baseline": "ai_platforms/claude_projects/output_v1_baseline/",
   "started_at": "2026-04-18T00:00:00Z",
-  "last_updated": "2026-04-20T02:29:06Z",
+  "last_updated": "2026-05-16T00:00:00Z",
   "completed_tasks": [
     "A1",
     "A2",
@@ -921,5 +921,22 @@
     "hard_checkpoints_acked": 5,
     "cross_batch_positive_activations": 1,
     "knowledge_base_contamination": 0
+  },
+  "phase_5_sign_off": {
+    "date": "2026-04-24",
+    "status": "SIGNED_OFF (single-platform, first; not part of SYNC_BOARD)",
+    "evidence": "PHASE5_RETROSPECTIVE.md + smoke v4 R1 17/17 (100%)"
+  },
+  "v1_1_rebuild": {
+    "date": "2026-05-15",
+    "status": "COMPLETE",
+    "rebuild_summary": "7 files rebuilt (02_chapters/03_model/06_assumptions/07_examples_catalog/09/10) + 05_mega_spec idempotent (DI no spec) + 12 unchanged (terminology + routing)",
+    "evidence": ".work/07_release_v1_1/evidence/claude_rebuild.log + failures/claude_rebuild_failures.md"
+  },
+  "v1_1_audit_pass": {
+    "date": "2026-05-16",
+    "status": "COMPLETE",
+    "fixes": "system_prompt.md 06_assumptions row: 63→64 (DI included)",
+    "rule_a_n20": "4 verbatim near-miss in Claude bundle (TA TATRANS / DI classification / FA Points to Consider / DS SUPPDS examples) — by design compressed mega_spec/assumptions, KB content present but not verbatim. Not a hard miss."
   }
 }

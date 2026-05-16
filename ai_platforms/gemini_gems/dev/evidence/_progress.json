@@ -15,9 +15,9 @@
     "rerun_planned": "smoke v4 R1 baseline cross-platform (Claude/ChatGPT/Gemini/NotebookLM), threshold 9/13 (70%)"
   },
   "created_at": "2026-04-20",
-  "last_updated": "2026-04-22",
-  "current_phase": 4,
-  "overall_status": "phase_4_n5_3_COMPLETE_rule_d_subagent_23_code_architect_BORDERLINE_PASS_CONFIRMED_88_percent_gate_OPEN_7_of_10_strict_at_threshold_confirmed_no_rescoring_3_FAIL_pattern_B_primary_plus_A_secondary_C_ruled_out_v5c_co4_new_domain_anchor_draft_parallel_recommendation_before_phase5_apply_user_ack_D1_option_A_bank_v3_2_D2_v5c_parallel_D3_phase4_gate_OPEN_c5_3b_commit_ready",
+  "last_updated": "2026-05-16",
+  "current_phase": "5_signed_off_post_v1_1_audit_closed",
+  "overall_status": "Phase 5 SIGNED OFF 2026-04-24 (post 28th Rule D reviewer PASS + Daisy verbal ack) + v1.1 rebuild 2026-05-15 COMPLETE (incorporates 06 deep verification fixes; Rule D verifier ALL_PASS) + v1.1 audit pass 2026-05-16 CLOSED (system_prompt 63→64 + 23 meta inheritance + Tier B disclosed + gemini line 141 ARMNRS typo + 04 PC-PP RELREC §1.24b; Rule A N=20 PASS 100%). Lifecycle complete; v1.2 deferred items in release/v1.1/KNOWN_LIMITATIONS § 0.",
   "sync_locked_with": "chatgpt_gpt",
   "sync_board_path": "ai_platforms/SYNC_BOARD.md",
   "notes": "Phase 定义对齐 ROADMAP.md 六段制. Phase 2 双边 CONDITIONAL_PASS, 等用户 ack 进 Phase 3. Gemini Tier 1-2 最轻量平台.",
@@ -212,10 +212,34 @@
             "ai_platforms/gemini_gems/current/upload_manifest.md"
           ],
           "product_stats": {
-            "01_core_reference.md": {"tokens": 124512, "target": 120000, "deviation_pct": 3.76, "sources": 15},
-            "02_domain_specs.md": {"tokens": 185785, "target": 168000, "deviation_pct": 10.59, "sources": 63},
-            "03_domain_knowledge.md": {"tokens": 275318, "target": 225000, "deviation_pct": 22.36, "sources": 126, "warn": "Node 3 转办, 用户 Q3=接受"},
-            "04_terminology_core.md": {"tokens": 299303, "target": 200000, "deviation_pct": 49.65, "sources": 5, "warn": "Node 3 转办 (新)", "v6_tail_markers": 3, "tail_start": 777919}
+            "01_core_reference.md": {
+              "tokens": 124512,
+              "target": 120000,
+              "deviation_pct": 3.76,
+              "sources": 15
+            },
+            "02_domain_specs.md": {
+              "tokens": 185785,
+              "target": 168000,
+              "deviation_pct": 10.59,
+              "sources": 63
+            },
+            "03_domain_knowledge.md": {
+              "tokens": 275318,
+              "target": 225000,
+              "deviation_pct": 22.36,
+              "sources": 126,
+              "warn": "Node 3 转办, 用户 Q3=接受"
+            },
+            "04_terminology_core.md": {
+              "tokens": 299303,
+              "target": 200000,
+              "deviation_pct": 49.65,
+              "sources": 5,
+              "warn": "Node 3 转办 (新)",
+              "v6_tail_markers": 3,
+              "tail_start": 777919
+            }
           },
           "total_tokens_v3_margin": {
             "total": 884918,
@@ -370,10 +394,32 @@
           "reviewer_evidence": "ai_platforms/gemini_gems/dev/evidence/phase3_node4_reviewer.md (主 session 代写, architect read-only)",
           "reviewer_lane_pass": true,
           "product_stats_c_refactor": {
-            "01_navigation_and_quick_reference.md": {"tokens": 124515, "target": 150000, "sources": 15, "utilization_pct": 83.0},
-            "02_domains_spec_and_assumptions.md": {"tokens": 240453, "target": 400000, "sources": 126, "utilization_pct": 60.1, "composition": "63 spec 后紧跟 63 assumptions 域内字母序交错"},
-            "03_domains_examples.md": {"tokens": 220657, "target": 280000, "sources": 63, "utilization_pct": 78.8},
-            "04_business_scenarios_and_cross_domain.md": {"tokens": 30488, "target": 60000, "sources": 0, "utilization_pct": 50.8, "note": "Reviewer 标 MEDIUM 扩容风险 (MED-1 smoke 前预防性扩 15-25K 建议)"}
+            "01_navigation_and_quick_reference.md": {
+              "tokens": 124515,
+              "target": 150000,
+              "sources": 15,
+              "utilization_pct": 83.0
+            },
+            "02_domains_spec_and_assumptions.md": {
+              "tokens": 240453,
+              "target": 400000,
+              "sources": 126,
+              "utilization_pct": 60.1,
+              "composition": "63 spec 后紧跟 63 assumptions 域内字母序交错"
+            },
+            "03_domains_examples.md": {
+              "tokens": 220657,
+              "target": 280000,
+              "sources": 63,
+              "utilization_pct": 78.8
+            },
+            "04_business_scenarios_and_cross_domain.md": {
+              "tokens": 30488,
+              "target": 60000,
+              "sources": 0,
+              "utilization_pct": 50.8,
+              "note": "Reviewer 标 MEDIUM 扩容风险 (MED-1 smoke 前预防性扩 15-25K 建议)"
+            }
           },
           "total_tokens_margin": {
             "total": 616113,
@@ -693,8 +739,20 @@
       "smoke_v3_score": "7/10 strict PASS = 70% borderline-at-threshold",
       "gate_decision": "PASS at threshold (可进 Phase 4 Node 5.4 跨平台对比)",
       "pass_breakdown": {
-        "PASS": ["Q4 IS/MB", "Q5 FA/QS/CE (FA→MH)", "Q6 PK Timing PT4H", "Q7 partial date ISO 8601 + SDTM/ADaM", "Q8 CT Ext/NonExt", "Q9 Pinnacle 21", "Q10 SUPP-- 家族"],
-        "FAIL": ["Q1 GF (GFGENSR/GFPVRID/GFGENREF/GFINHERT 全臆造为 GFLOC/GFREFID/GFREFVER/GFSTYPE)", "Q2 CP (CPSBMRKS/CPCELSTA/CPCSMRKS 3 v3.4 新变量漏, 说'没有独立 --MARKER/--SUBSET')", "Q3 BE/BS 命名倒置 (BS 当 Events, 臆造 BM 当 Findings)"]
+        "PASS": [
+          "Q4 IS/MB",
+          "Q5 FA/QS/CE (FA→MH)",
+          "Q6 PK Timing PT4H",
+          "Q7 partial date ISO 8601 + SDTM/ADaM",
+          "Q8 CT Ext/NonExt",
+          "Q9 Pinnacle 21",
+          "Q10 SUPP-- 家族"
+        ],
+        "FAIL": [
+          "Q1 GF (GFGENSR/GFPVRID/GFGENREF/GFINHERT 全臆造为 GFLOC/GFREFID/GFREFVER/GFSTYPE)",
+          "Q2 CP (CPSBMRKS/CPCELSTA/CPCSMRKS 3 v3.4 新变量漏, 说'没有独立 --MARKER/--SUBSET')",
+          "Q3 BE/BS 命名倒置 (BS 当 Events, 臆造 BM 当 Findings)"
+        ]
       },
       "fail_pattern_analysis": {
         "root_cause": "v3.4 新域 (GF/CP/BE/BS) 变量层 generalization 失败. pre-train 语料的 '--XX 通用模式' (--LOC/--REFID/--REFVER/--STYPE) 压过 v3.4 KB 实际 spec.md. 架构级 domain/variable 都是 v3.4 后引入, Gemini 1M 窗口 + semantic retrieve 深度不足以 pull up 专属 spec 片段.",
@@ -795,20 +853,35 @@
         "F3_writer_checklist_gap_template_pattern": "STRONG for checklist gap; template 具体内容待 Phase 5 fleshed out"
       },
       "rule_d_cumulative_chain_count_synced_side": 25,
-      "rule_d_24_25_new_subagent_types_added": ["oh-my-claudecode:code-reviewer", "feature-dev:code-explorer"]
+      "rule_d_24_25_new_subagent_types_added": [
+        "oh-my-claudecode:code-reviewer",
+        "feature-dev:code-explorer"
+      ]
     },
     "smoke_v4_r1_and_r2_v6_draft_2026_04_22_to_23": {
       "r1_baseline_executed": "2026-04-22 evening cowork via Chrome MCP, 17 questions (Q1-Q14 + AHP1-3), results at dev/evidence/smoke_v4_results.md",
       "r1_gemini_score": "12.0/17 strict (70.6%) post 13th reviewer A3 Q13 re-score PASS→PARTIAL; 原 R1 填 12.5/17 (73.5%); 主 gate 8.5/13 = 65.4% FAIL (AHP × 3 全 FAIL 拖分)",
       "r1_failure_pattern": "3 AHP fabrication 模式: AHP1 LBCLINSIG 编 C66742 + Core=Perm + 编 LBNRIND C78419 错; AHP2 编完整 RELREC 跨层 IDVAR=TSPARMCD + USUBJID=NULL; AHP3 编 PF 6 Req + 4 Exp + C114119 + 把 GF 变量改名加 PF 前缀",
       "r2_v6_draft_produced": "dev/v6_draft/system_prompt_v6.md 2026-04-23 AM (349 行 / 18,716 chars post 13th reviewer A1 dual-grep 插入; 原 draft 17,883 chars)",
-      "r2_v6_main_additions": ["CO-5 ANTI-HALLUCINATION GUARDRAIL (AHP-V1 变量级 + AHP-V2 跨域层级 + AHP-V3 Deprecated concept + 6 共同执行规则)", "CO-2e 子条款 (C66742 NY 4值 Y/N/U/NA + C66767 Non-Ext, Q8 R1 修)", "回答规范 多场景题逐场景显式答 (Q4 R1 修)", "回答规范 SDTM vs ADaM 边界 --DTF ADaM-only (Q7 R1 修)", "路由规则 1/3/4/7 插 CO-5 check hook + 新增 Route 7 Deprecated", "边界处理模板 ⑥⑦⑧ 对应 AHP-V1/V2/V3", "工作流程 Step 0 前提核 + Step 9 多场景 + Step 10 sanity 自检"],
+      "r2_v6_main_additions": [
+        "CO-5 ANTI-HALLUCINATION GUARDRAIL (AHP-V1 变量级 + AHP-V2 跨域层级 + AHP-V3 Deprecated concept + 6 共同执行规则)",
+        "CO-2e 子条款 (C66742 NY 4值 Y/N/U/NA + C66767 Non-Ext, Q8 R1 修)",
+        "回答规范 多场景题逐场景显式答 (Q4 R1 修)",
+        "回答规范 SDTM vs ADaM 边界 --DTF ADaM-only (Q7 R1 修)",
+        "路由规则 1/3/4/7 插 CO-5 check hook + 新增 Route 7 Deprecated",
+        "边界处理模板 ⑥⑦⑧ 对应 AHP-V1/V2/V3",
+        "工作流程 Step 0 前提核 + Step 9 多场景 + Step 10 sanity 自检"
+      ],
       "rule_d_26_13th_slot_reviewer_completed": {
         "subagent_type": "pr-review-toolkit:code-reviewer",
         "slot_numbering": "26th cumulative (ChatGPT+Gemini+NotebookLM combined lane, 25+1) = '13th slot' NEXT_STEPS shorthand (R2 line 1-based count from NotebookLM chain side)",
         "date": "2026-04-23",
         "verdict_overall": "CONDITIONAL_PASS",
-        "conditional_on": ["A1 HIGH: insert dual-grep-confirmation clause in CO-5 AHP-V1 (applied 2026-04-23)", "A2 HIGH: verify v6 char count against Gemini Gems UI actual limit before R2 paste (pending cowork step)", "A3 MEDIUM: re-score Gemini Q13 PASS → PARTIAL (applied 2026-04-23 across smoke_v4_results.md + SMOKE_V4.md §3 + R1_RETROSPECTIVE.md)"],
+        "conditional_on": [
+          "A1 HIGH: insert dual-grep-confirmation clause in CO-5 AHP-V1 (applied 2026-04-23)",
+          "A2 HIGH: verify v6 char count against Gemini Gems UI actual limit before R2 paste (pending cowork step)",
+          "A3 MEDIUM: re-score Gemini Q13 PASS → PARTIAL (applied 2026-04-23 across smoke_v4_results.md + SMOKE_V4.md §3 + R1_RETROSPECTIVE.md)"
+        ],
         "task_1a_scoring": {
           "arithmetic_verified": "main gate 8.5/13 = 65.4% arithmetic correct",
           "ahp_x3_fail_defensible": "confidence 95 — no disagreement, FAIL verdicts correct",
@@ -874,9 +947,16 @@
           "AHP-V1 false-negative 边界 (low risk, R2 未触发)"
         ],
         "v7_priority_items": {
-          "HIGH_x_2": ["Q1 GF Exp 正向清单 (正向比负向更有效)", "Q13 ARMCD-null + ARMNRS 全称 + C142179 锚"],
-          "MEDIUM_x_2": ["未具体列 — 见 r2_14th_reviewer.md"],
-          "LOW_x_1": ["AHP-V1 文案精化降低假阴性风险"]
+          "HIGH_x_2": [
+            "Q1 GF Exp 正向清单 (正向比负向更有效)",
+            "Q13 ARMCD-null + ARMNRS 全称 + C142179 锚"
+          ],
+          "MEDIUM_x_2": [
+            "未具体列 — 见 r2_14th_reviewer.md"
+          ],
+          "LOW_x_1": [
+            "AHP-V1 文案精化降低假阴性风险"
+          ]
         },
         "report_path": "dev/evidence/r2_14th_reviewer.md"
       }
@@ -904,5 +984,27 @@
       "files_per_gem": 10,
       "mb_per_file": 100
     }
+  },
+  "phase_5_sign_off": {
+    "date": "2026-04-24",
+    "status": "SIGNED_OFF",
+    "evidence": "ai_platforms/retrospectives/PHASE5_RETROSPECTIVE.md v1.0 FINAL (post 28th Rule D reviewer oh-my-claudecode:critic CONDITIONAL_PASS 82 + 5 blocking fix applied)",
+    "daisy_ack": "2026-04-24 verbal"
+  },
+  "v1_1_rebuild": {
+    "date": "2026-05-15",
+    "status": "COMPLETE",
+    "trigger": "06 deep verification branch fixes (43 KB files +1,405/-234 lines, DI domain added)",
+    "evidence": ".work/07_release_v1_1/{PLAN,RETROSPECTIVE}.md + evidence/{diff_summary,rule_d_review}.md",
+    "release_tag": "v1.1 + v1.1-company-release",
+    "rule_d_verdict": "oh-my-claudecode:verifier ALL_PASS 5/5 (Rule A 20 grep hits zero miss + cross-platform delta oracle consistent)"
+  },
+  "v1_1_audit_pass": {
+    "date": "2026-05-16",
+    "status": "COMPLETE",
+    "trigger": "User push-back (1st: 'all 4 platform prompts + resources deeply reviewed?'; 2nd: 'any leftover tests?')",
+    "evidence": ".work/07_release_v1_1/evidence/{rule_a_n20_audit,gemini_04_audit,known_limitations_reconcile}.md",
+    "fixes_applied": "system_prompt 63→64 + 23 meta inheritance + KNOWN_LIMITATIONS §0 Tier B + line 141 ARMNRS C66770→C142179 typo (Gemini) + gemini 04 PC-PP RELREC §1.24b + DI in §8.5 + §9.5 FAQ + SYNC_BOARD stale header",
+    "rule_a_extended": "100% PASS (124/124 grep probes, N=20 KB × 4 platforms + 22 bucket × 2 samples)"
   }
 }
