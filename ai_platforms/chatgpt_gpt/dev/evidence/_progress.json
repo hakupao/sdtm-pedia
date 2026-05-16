@@ -15,9 +15,9 @@
     "rerun_planned": "smoke v4 R1 baseline cross-platform (Claude/ChatGPT/Gemini/NotebookLM), threshold 12/17 (71%)"
   },
   "created_at": "2026-04-20",
-  "last_updated": "2026-04-22",
-  "current_phase": 4,
-  "overall_status": "phase_4_n5_3_COMPLETE_rule_d_subagent_22_type_design_analyzer_CONDITIONAL_PASS_70_percent_gate_HOLD_then_F_R1_resolved_via_bank_v3_1_to_v3_2_substitution_documented_real_score_12_of_14_against_v3_1_bank_plus_2_of_14_substituted_all_PASS_still_far_above_10_of_14_threshold_phase4_gate_OPEN_confirmed_user_ack_D1_option_A_D2_v5c_draft_parallel_D3_gate_open_c5_3b_commit_ready",
+  "last_updated": "2026-05-16",
+  "current_phase": "5_signed_off_post_v1_1_audit_closed",
+  "overall_status": "Phase 5 SIGNED OFF 2026-04-24 (post 28th Rule D reviewer PASS + Daisy verbal ack) + v1.1 rebuild 2026-05-15 COMPLETE (incorporates 06 deep verification fixes; Rule D verifier ALL_PASS) + v1.1 audit pass 2026-05-16 CLOSED (system_prompt 63→64 + 23 meta inheritance + Tier B disclosed + no platform-specific items; Rule A N=20 PASS 100%). Lifecycle complete; v1.2 deferred items in release/v1.1/KNOWN_LIMITATIONS § 0.",
   "sync_locked_with": "gemini_gems",
   "sync_board_path": "ai_platforms/SYNC_BOARD.md",
   "notes": "Phase 定义对齐 ROADMAP.md 六段制. Phase 2 双边 CONDITIONAL_PASS, 等用户 ack 进 Phase 3.",
@@ -211,10 +211,27 @@
             "ai_platforms/chatgpt_gpt/current/manifest_segments.json"
           ],
           "product_stats": {
-            "01_navigation.md": {"tokens": 46170, "cap": 47000, "buffer_pct": 1.77, "sources": 3},
-            "02_chapters_all.md": {"tokens": 60607, "cap": 72000, "sources": 6},
-            "03_model_all.md": {"tokens": 17653, "cap": 21000, "sources": 6},
-            "04_domain_specs_all.md": {"tokens": 185704, "cap": 193000, "sources": 63}
+            "01_navigation.md": {
+              "tokens": 46170,
+              "cap": 47000,
+              "buffer_pct": 1.77,
+              "sources": 3
+            },
+            "02_chapters_all.md": {
+              "tokens": 60607,
+              "cap": 72000,
+              "sources": 6
+            },
+            "03_model_all.md": {
+              "tokens": 17653,
+              "cap": 21000,
+              "sources": 6
+            },
+            "04_domain_specs_all.md": {
+              "tokens": 185704,
+              "cap": 193000,
+              "sources": 63
+            }
           },
           "low_carry_over_to_node3": [
             "LOW-F1 (AB reviewer): ChatGPT 01 cap 47K buffer 仅 1.77%, 建议 Node 3 升到 48-50K 防未来 KB 膨胀",
@@ -339,11 +356,40 @@
           "reviewer_evidence": "ai_platforms/chatgpt_gpt/dev/evidence/phase3_node4_reviewer.md (主 session 代写, superpowers:code-reviewer read-only)",
           "reviewer_lane_pass": true,
           "product_stats_batch2": {
-            "05_domain_assumptions_all.md": {"tokens": 54658, "cap": 69000, "sources": 63, "utilization_pct": 79.2},
-            "06_domain_examples_all.md": {"tokens": 220575, "cap": 254000, "sources": 63, "utilization_pct": 86.8, "cap_bump_attempt_1": "190K→254K"},
-            "07_terminology_core_high_freq.md": {"tokens": 200746, "cap": 260000, "sources": 15, "utilization_pct": 77.2, "selection": "HIGH_FREQ_CORE_HINTS 15 (ae/dm/disposition/eg_part1/findings_about/general_part3/general_part4/interventions/lb_part1/oncology_part1/pk_part1/qs_part1/special_purpose/trial_design/vs)"},
-            "08_terminology_quest_and_supp.md": {"tokens": 1047119, "cap": 1250000, "sources": 49, "utilization_pct": 83.8, "composition": "sorted(questionnaires 43) + sorted(supplementary 6)"},
-            "09_terminology_core_mid_tail.md": {"tokens": 698081, "cap": 820000, "sources": 27, "utilization_pct": 85.1, "selection": "sorted(core/*.md) 减 HIGH_FREQ_CORE_HINTS, 27 文件"}
+            "05_domain_assumptions_all.md": {
+              "tokens": 54658,
+              "cap": 69000,
+              "sources": 63,
+              "utilization_pct": 79.2
+            },
+            "06_domain_examples_all.md": {
+              "tokens": 220575,
+              "cap": 254000,
+              "sources": 63,
+              "utilization_pct": 86.8,
+              "cap_bump_attempt_1": "190K→254K"
+            },
+            "07_terminology_core_high_freq.md": {
+              "tokens": 200746,
+              "cap": 260000,
+              "sources": 15,
+              "utilization_pct": 77.2,
+              "selection": "HIGH_FREQ_CORE_HINTS 15 (ae/dm/disposition/eg_part1/findings_about/general_part3/general_part4/interventions/lb_part1/oncology_part1/pk_part1/qs_part1/special_purpose/trial_design/vs)"
+            },
+            "08_terminology_quest_and_supp.md": {
+              "tokens": 1047119,
+              "cap": 1250000,
+              "sources": 49,
+              "utilization_pct": 83.8,
+              "composition": "sorted(questionnaires 43) + sorted(supplementary 6)"
+            },
+            "09_terminology_core_mid_tail.md": {
+              "tokens": 698081,
+              "cap": 820000,
+              "sources": 27,
+              "utilization_pct": 85.1,
+              "selection": "sorted(core/*.md) 减 HIGH_FREQ_CORE_HINTS, 27 文件"
+            }
           },
           "batch_2_total_tokens": 2221179,
           "batch_1_plus_2_total_tokens": 2531313,
@@ -685,7 +731,10 @@
         "F3_writer_checklist_gap_template_pattern": "STRONG for checklist gap; template 具体内容待 Phase 5 fleshed out"
       },
       "rule_d_cumulative_chain_count_synced_side": 25,
-      "rule_d_24_25_new_subagent_types_added": ["oh-my-claudecode:code-reviewer", "feature-dev:code-explorer"]
+      "rule_d_24_25_new_subagent_types_added": [
+        "oh-my-claudecode:code-reviewer",
+        "feature-dev:code-explorer"
+      ]
     },
     "next_action": "Phase 4 N5.4 + Rule D 24/25 COMPLETE; ChatGPT+Gemini 冻结进 'Phase 5 pending' 状态 (等 NotebookLM 拉齐 P3.8 reviewer + P3.9 + Phase 4 跨 4 平台) → 跨 4 平台统一启 Phase 5 RETROSPECTIVE + _template/ 补丁合并 + cross-pollination 不分拆"
   },
@@ -707,5 +756,27 @@
       "storage_limit_per_org_gb": 100,
       "conversation_starters_max": 4
     }
+  },
+  "phase_5_sign_off": {
+    "date": "2026-04-24",
+    "status": "SIGNED_OFF",
+    "evidence": "ai_platforms/retrospectives/PHASE5_RETROSPECTIVE.md v1.0 FINAL (post 28th Rule D reviewer oh-my-claudecode:critic CONDITIONAL_PASS 82 + 5 blocking fix applied)",
+    "daisy_ack": "2026-04-24 verbal"
+  },
+  "v1_1_rebuild": {
+    "date": "2026-05-15",
+    "status": "COMPLETE",
+    "trigger": "06 deep verification branch fixes (43 KB files +1,405/-234 lines, DI domain added)",
+    "evidence": ".work/07_release_v1_1/{PLAN,RETROSPECTIVE}.md + evidence/{diff_summary,rule_d_review}.md",
+    "release_tag": "v1.1 + v1.1-company-release",
+    "rule_d_verdict": "oh-my-claudecode:verifier ALL_PASS 5/5 (Rule A 20 grep hits zero miss + cross-platform delta oracle consistent)"
+  },
+  "v1_1_audit_pass": {
+    "date": "2026-05-16",
+    "status": "COMPLETE",
+    "trigger": "User push-back (1st: 'all 4 platform prompts + resources deeply reviewed?'; 2nd: 'any leftover tests?')",
+    "evidence": ".work/07_release_v1_1/evidence/{rule_a_n20_audit,gemini_04_audit,known_limitations_reconcile}.md",
+    "fixes_applied": "system_prompt 63→64 + 23 meta inheritance + KNOWN_LIMITATIONS §0 Tier B + line 141 ARMNRS C66770→C142179 typo (Gemini) + gemini 04 PC-PP RELREC §1.24b + DI in §8.5 + §9.5 FAQ + SYNC_BOARD stale header",
+    "rule_a_extended": "100% PASS (124/124 grep probes, N=20 KB × 4 platforms + 22 bucket × 2 samples)"
   }
 }

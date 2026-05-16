@@ -16,9 +16,9 @@
   "mode": "async",
   "sync_board_participation": false,
   "start_date": "2026-04-21",
-  "last_update": "2026-04-22_p3.8_executed_9_10_pass_main_session_review_surfaced_q10_judge_bug_ready_for_smoke_v4_audit_session",
-  "status": "in_progress",
-  "current_phase": "3_execute_p3.8_done_pending_independent_reviewer_and_smoke_v3_1_audit_for_v4",
+  "last_update": "2026-05-16",
+  "status": "signed_off_2026_04_23_post_v1_1_audit_closed_2026_05_16",
+  "current_phase": "phase_5_signed_off_post_v1_1_audit_closed",
   "architecture_version": "v2_single_notebook_2026-04-21",
   "phase_states": {
     "0_bootstrap": {
@@ -50,8 +50,17 @@
         "q7_duplicate_source_section_cleanup": "done 2026-04-21 (L4 fix)",
         "writer2_log_mode_ab_deprecation_notice": "done 2026-04-21 (L5 fix)"
       },
-      "rule_d_chain_subagent_types": ["general-purpose", "oh-my-claudecode:verifier", "oh-my-claudecode:executor", "oh-my-claudecode:critic"],
-      "evidence_paths": ["docs/research.md", "archive/v1_3notebook_SUPERSEDED_2026-04-21/dev/evidence/phase1_reviewer.md", "archive/v1_3notebook_SUPERSEDED_2026-04-21/dev/evidence/phase1_reviewer2.md"],
+      "rule_d_chain_subagent_types": [
+        "general-purpose",
+        "oh-my-claudecode:verifier",
+        "oh-my-claudecode:executor",
+        "oh-my-claudecode:critic"
+      ],
+      "evidence_paths": [
+        "docs/research.md",
+        "archive/v1_3notebook_SUPERSEDED_2026-04-21/dev/evidence/phase1_reviewer.md",
+        "archive/v1_3notebook_SUPERSEDED_2026-04-21/dev/evidence/phase1_reviewer2.md"
+      ],
       "final_verdict": "PASS (post trivial fixes + post-pivot Q7/§11 v2 rewrite + L4/L5 cleanup)",
       "carry_over_to_phase2_v2": [
         "Inherit R1: SDTM pre-upload audit (wc -w top 5) / Chat mode Custom selector / personal Gmail + share-level toggle strategy (3 档 UI)",
@@ -67,7 +76,12 @@
       "status": "done",
       "v1_status": "SUPERSEDED_archived_2026-04-21",
       "v1_archive_path": "archive/v1_3notebook_SUPERSEDED_2026-04-21/",
-      "v1_rule_d_chain_subagent_types": ["oh-my-claudecode:planner", "oh-my-claudecode:analyst", "feature-dev:code-architect", "pr-review-toolkit:code-reviewer"],
+      "v1_rule_d_chain_subagent_types": [
+        "oh-my-claudecode:planner",
+        "oh-my-claudecode:analyst",
+        "feature-dev:code-architect",
+        "pr-review-toolkit:code-reviewer"
+      ],
       "v1_final_verdict_before_archive": "PASS 91% — but architecture deemed over-engineered post user review",
       "v2_trigger_date": "2026-04-21",
       "v2_trigger_reason": "user review identified that (a) NotebookLM sharing is 3-level toggle on same notebook, not 2 independent models requiring 2 notebooks; (b) 293 source upload is excessive vs ≤50 with multiple independent justifications; (c) Phase 3 not started, sunk cost = 1 day writing only, within reversible window",
@@ -88,7 +102,9 @@
         "plan_v2_reviewer_9th_subagent_type": "done 2026-04-21 (oh-my-claudecode:architect, CONDITIONAL_PASS 84%)",
         "plan_v2_reviewer_findings_applied": "done 2026-04-21 (3 HIGH + 5 MEDIUM + 5 LOW all closed, 5 SUGGESTION integrated, 3 Q-REV auto-acked by main session default)"
       },
-      "v2_rule_d_chain_subagent_types_extension": ["oh-my-claudecode:architect"],
+      "v2_rule_d_chain_subagent_types_extension": [
+        "oh-my-claudecode:architect"
+      ],
       "cumulative_rule_d_chain_subagent_types_phase_0_to_2": [
         "general-purpose",
         "oh-my-claudecode:verifier",
@@ -348,7 +364,18 @@
         "prompt_log": "dev/evidence/p3_4_5_prompt_log.md",
         "sampling_log": "dev/evidence/p3_4_5_sampling_log.md",
         "handoff_doc": "dev/checkpoints/CHECKPOINT_P3.4.5_HANDOFF.md",
-        "sampled_variables": ["BSSEQ", "SRTESTCD", "CPTEST", "QSTEST", "FATESTCD", "SESTDTC", "SEX", "REFID", "TSPARM", "BETERM"],
+        "sampled_variables": [
+          "BSSEQ",
+          "SRTESTCD",
+          "CPTEST",
+          "QSTEST",
+          "FATESTCD",
+          "SESTDTC",
+          "SEX",
+          "REFID",
+          "TSPARM",
+          "BETERM"
+        ],
         "sampling_seed_base": 20260422,
         "sub_steps": {
           "step_1_sampling": "PASS — 分层 seed, 5 约束全达成 (non-core 5/≥3, QS/FA 2/≥2, IG ch04 2/≥1, SP 2/≥1, 无 P3.4 重复)",
@@ -435,12 +462,23 @@
       "p3_5_6_7_icebox_decision": {
         "decision_date": "2026-04-22",
         "decided_by": "user (方案 A+保留)",
-        "scope": ["P3.5_Audio_Overview_x3", "P3.6_Mind_Map", "P3.7_Study_Guide_x3", "A/B_5_independent_questions_U1_to_U5"],
+        "scope": [
+          "P3.5_Audio_Overview_x3",
+          "P3.6_Mind_Map",
+          "P3.7_Study_Guide_x3",
+          "A/B_5_independent_questions_U1_to_U5"
+        ],
         "status": "ICEBOX_post_project_optional",
         "non_gating": true,
         "not_counted_in_phase_3_closure": true,
         "not_counted_in_phase_4_cross_platform": true,
-        "original_definitions_preserved_at": ["docs/PLAN.md §3.5", "docs/PLAN.md §4 table (ICEBOX marked)", "docs/PLAN.md §6 P3.5/P3.6/P3.7", "docs/PLAN.md §7 5 独有 (ICEBOX marked)", "docs/PLAN.md §10 Post-project ICEBOX subsection (trigger + reopen flow)"],
+        "original_definitions_preserved_at": [
+          "docs/PLAN.md §3.5",
+          "docs/PLAN.md §4 table (ICEBOX marked)",
+          "docs/PLAN.md §6 P3.5/P3.6/P3.7",
+          "docs/PLAN.md §7 5 独有 (ICEBOX marked)",
+          "docs/PLAN.md §10 Post-project ICEBOX subsection (trigger + reopen flow)"
+        ],
         "rationale": "Studio 独有产出 (Audio/Mind Map/Study Guide) 无跨 4 平台对比价值 (Claude/ChatGPT/Gemini 均无等价功能). 问答维度 (P3.4 indexing smoke + P3.4.5 Req 语义 + P3.8 10 SMOKE v2) 才是跨平台核心比较基线. 用户全项目完成后小概率回头精雕.",
         "phase_3_time_savings": "~2.5h (P3.5/6/7 原估) + ~1h (A/B 5 独有) = ~3.5h",
         "reopen_trigger": "user proactively proposes 'return to Studio 三件套' or 'do P3.5/P3.6/P3.7 now' post Phase 5 closure",
@@ -596,7 +634,12 @@
     },
     "5_closure": {
       "status": "PENDING_PHASE_5_FINAL_AND_CROSS_PLATFORM_SIGN_OFF",
-      "gate_criteria": ["PHASE5_RETROSPECTIVE.md v1.0 FINAL", "28th Rule D slot reviewer APPROVE", "Daisy ack", "ROADMAP 4 platforms 状态更新 已完成"],
+      "gate_criteria": [
+        "PHASE5_RETROSPECTIVE.md v1.0 FINAL",
+        "28th Rule D slot reviewer APPROVE",
+        "Daisy ack",
+        "ROADMAP 4 platforms 状态更新 已完成"
+      ],
       "unlock_trigger_target": "cross_4_platform_phase_5_retro_finalization"
     }
   },
@@ -742,7 +785,11 @@
   "rule_E_user_priority": {
     "status": "acked",
     "ack_date": "2026-04-21",
-    "selected_modes": ["A_personal_learning", "B_external_sharing", "C_audio_complement"],
+    "selected_modes": [
+      "A_personal_learning",
+      "B_external_sharing",
+      "C_audio_complement"
+    ],
     "scope": "ABC 三向全覆盖",
     "plan_tier": "Pro (via Google AI Pro 订阅; 500 notebooks / 300 sources / 500 chat / 20 audio per day)",
     "api_usage": false,
@@ -782,5 +829,29 @@
       "extract_req_vars.py + cluster_req_variables.py design intent (target slot adjusted to ≤50)"
     ],
     "v2_architectural_findings_closed_by_9th_reviewer": "see phase_states.2_plan.v2_findings_closure (HIGH×3 + MEDIUM×5 + LOW×5 + SUGGESTION×5 + Q-REV×3)"
+  },
+  "phase_5_sign_off": {
+    "date": "2026-04-23",
+    "status": "SIGNED_OFF",
+    "evidence": "PHASE5_RETROSPECTIVE.md + P3.9 drill PASS + 12th Rule D reviewer feature-dev:code-reviewer",
+    "daisy_ack": "2026-04-24 verbal"
+  },
+  "v1_1_rebuild": {
+    "date": "2026-05-15",
+    "status": "COMPLETE",
+    "trigger": "06 deep verification branch fixes (43 KB files +1,405/-234 lines, DI domain added)",
+    "evidence": ".work/07_release_v1_1/{PLAN,RETROSPECTIVE}.md + evidence/{diff_summary,rule_d_review}.md",
+    "release_tag": "v1.1 + v1.1-company-release",
+    "rule_d_verdict": "oh-my-claudecode:verifier ALL_PASS 5/5 (Rule A 20 grep hits zero miss + cross-platform delta oracle consistent)",
+    "platform_specific": "bucket_config.json bucket 25 (td_meta_ti_ts_oi) added domains/DI/assumptions.md; 22 of 42 buckets changed"
+  },
+  "v1_1_audit_pass": {
+    "date": "2026-05-16",
+    "status": "COMPLETE",
+    "trigger": "User push-back (1st: 'all 4 platform prompts + resources deeply reviewed?'; 2nd: 'any leftover tests?')",
+    "evidence": ".work/07_release_v1_1/evidence/{rule_a_n20_audit,gemini_04_audit,known_limitations_reconcile}.md",
+    "fixes_applied": "system_prompt 63→64 + 23 meta inheritance + KNOWN_LIMITATIONS §0 Tier B + line 141 ARMNRS C66770→C142179 typo (Gemini) + gemini 04 PC-PP RELREC §1.24b + DI in §8.5 + §9.5 FAQ + SYNC_BOARD stale header",
+    "rule_a_extended": "100% PASS (124/124 grep probes, N=20 KB × 4 platforms + 22 bucket × 2 samples)",
+    "platform_specific": "instructions.md STUDYID line 62: all 63 domains → all 64 domains (incl. DI SDTMIG-MD); KNOWN_LIMITATIONS § 0 added Tier B disclosure"
   }
 }
