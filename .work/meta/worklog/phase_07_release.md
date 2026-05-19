@@ -57,3 +57,42 @@
 - `ai_platforms/notebooklm/dev/scripts/bucket_config.json` — bucket 25 加 `domains/DI/assumptions.md` + description 加 DI 注
 
 **Tag 候选**: `v1.1-company-release` (待用户 ack push 后创建).
+
+### 2026-05-19 — Chrome MCP dry-run + R3 SMOKE_V4 并行执行 scaffold
+
+**触发**: 用户接管 Chrome (`--remote-debugging-port=9222` + 旁路 `~/ChromeDev` profile, 因 Chrome 136+ 静默忽略默认 profile 的 debug 端口) 探"Chrome MCP 全自动并行 4 平台 R3 retest" 可行性. 与 `.work/07_release_v1_1/r3/r3_kickoff.md` (4 月预设的串行 cowork) 互补, 不替换.
+
+**Dry-run (无 AI 答题, 仅 a11y snapshot + screenshot + selector probe)**:
+- 4 平台接管 OK (chrome-devtools-mcp 自动挂 9222, 无需配 `--browser-url`)
+- 关键发现:
+  - NotebookLM `textarea[aria-label="Query box"]` 与顶部 notebook 标题改名框完全可区分 (a11y 严格匹配 — 用户预先警告的"搜索框"陷阱避开)
+  - Grammarly 扩展可见按钮 disable 后 DOM 残留 `grammarly-desktop-integration` 是空壳 (bbox 0×0, 不监听输入框)
+- Evidence 4 份 + 4 screenshot: `ai_platforms/{platform}/dev/dry_run_2026-05-19/{feasibility.md, NN_<platform>.png}`
+
+**Round 1 校准 (4 平台并行触发 "什么是 SDTM?", 验 done 信号 + 时序)**:
+- 4 平台 fire-and-forget script 同时跑, 总墙钟 ~107s (派 12s + 等 90s + 收 5s)
+- Done 信号锁定:
+  - Gemini: send 按钮**消失** during gen → 重新出现 + `!disabled` 即 done (~41s, 含 Pro mode 切换)
+  - ChatGPT: `[data-testid="stop-button"]` 消失 (~21s, 最快)
+  - NotebookLM: `button[aria-label="Submit"]` 重出现 + `disabled=true` (~41s, 含 ~30s RAG 检索)
+  - Claude: `Send message` 按钮重出现 (stop-response 消失) (~48s, 最慢)
+- Pro mode 实测 label: `"Pro Advanced math and code with 3.1 Pro"` (3.1 Pro 模型)
+
+**Round 2 校准 (响应抽取 selector 细化 + NotebookLM 删 chat history 路径)**:
+- NotebookLM 响应: `mat-card-content.message-content .message-text-content` (Angular Material), 简化 `.message-text-content`
+- Claude 响应: `div.standard-markdown` (Claude markdown 渲染专用 class)
+- NotebookLM "Chat options" menu 实测含 menuitem `"Delete chat history Chat history is private to you."` ✓ (confirm dialog 结构待 R3 第 1 题校准)
+
+**R3 scaffold 落档** (`.work/07_release_v1_1/r3/`):
+- `r3_orchestration_parallel.md` — Phase A-D 流程 + selector 引用表 + Rule D reviewer 规则 + Rule B failure 归档
+- `scripts/{gemini,chatgpt,notebooklm,claude}_runner.js` — fire-and-forget runner, `__QUESTION_PLACEHOLDER__` 待 sed 替换
+- `scripts/reset_{gemini,notebooklm}.js` — await-able 重置 (Gemini 新 chat + Pro mode; NotebookLM 删 chat history + confirm dialog 兜底)
+- `scripts/reviewer_prompt_template.md` — Rule D 隔离 reviewer subagent prompt (推荐 `oh-my-claudecode:scientist`)
+- 原 `r3_kickoff.md` 串行流程加 4 行注脚指向并行方法 (保留作 fallback)
+
+**预估**: R3 实跑 17 题总墙钟 ~20 min (vs 串行 ~50 min, 2.5× 提速)
+
+**遗留 (R3 实跑第 1 题校准)**:
+1. NotebookLM "Delete chat history" confirm dialog 结构 (`reset_notebooklm.js` best-effort 兜底, 不命中则主 session 介入)
+2. Claude multi-segment `.standard-markdown` (简单题单段; SMOKE_V4 含 mapping 表 / artifact 题需扩到外层包裹容器)
+3. 4 平台 dry-run 测试 conversation 留有 1 道 "什么是 SDTM?" Q&A (Gemini/ChatGPT/Claude 新 chat / NotebookLM 共用 chat), R3 跑前 reset 流程自动清

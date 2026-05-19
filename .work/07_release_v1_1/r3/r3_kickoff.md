@@ -25,6 +25,10 @@
 
 ## 每题 cowork 流程 (Chrome MCP driver 模式)
 
+> **2026-05-19 新增: 并行方法已 dry-run 验证可用**, 见 `r3_orchestration_parallel.md` (4 平台 fire-and-forget + 并行等待, ~2.5× 提速).
+> 下面的串行流程保留作 **fallback** (并行失败 / Chrome tab 严重 throttle 时降级用).
+
+
 1. 主 session (我) 从 SMOKE_V4 §2 取下一题文本
 2. `mcp__chrome-devtools__select_page` 切到对应平台标签
 3. `mcp__chrome-devtools__take_snapshot` 拿当前 DOM, 找输入框 uid
