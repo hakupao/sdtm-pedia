@@ -214,7 +214,7 @@ reviewer findings (4 项 LOW/MEDIUM, 0 HIGH):
 - Rule D #15 (`oh-my-claudecode:scientist`) — R3 17 题 × 4 平台 verdict 审 ✅
 - Rule D #16 (`pr-review-toolkit:code-reviewer`) — v8.0 → v8.1 reconcile 审 ✅
 - Rule D #17 (`oh-my-claudecode:verifier`) — v8.1 dry-run 4 题 verdict 审 ✅
-- Rule D #18 (`oh-my-claudecode:critic`) — v1.2 cut artifacts 审 background dispatched 2026-05-19 17:30 PM, `.work/07_release_v1_2/v1_2_cut_audit.md` 待回
+- Rule D #18 (`oh-my-claudecode:critic`) — v1.2 cut artifacts 审 ✅ 2026-05-19 17:38 PM verdict **PASS_WITH_OBSERVATIONS** — Cut tag APPROVED. 4-corner Rule D 覆盖完整 (#15 scientist / #16 code-reviewer / #17 verifier / #18 critic, no overlap). 0 HIGH + 3 LOW/MEDIUM observation 全 NON-blocking: OBS-1 PASS+ 标签 (CHANGELOG + BUILD_MANIFEST 已用 plain PASS, 无需 action); OBS-2 BECAT EXTRACTION KB-prompt 分叉 (3 artifacts 已 disclose, v1.3 解决); OBS-3 web CHANGELOG entry depths 不对称 (3/4/8 subsections, 可选 trim post-cut). Reviewer self-audit: "no CRITICAL or MAJOR findings to pressure-test". Audit 完整 evidence: `.work/07_release_v1_2/v1_2_cut_audit.md`.
 
 **Artifacts (此 commit 范围)**:
 - `release/v1.2/` 完整 cut artifacts (28 files: 19 inherit + 9 modified)

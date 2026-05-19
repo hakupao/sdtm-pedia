@@ -32,9 +32,9 @@
   - **关键 finding**: Gemini AHP probe **4/5 caught** (Q10 SUPPTS / Q13 NS / AHP2 SAE Aggregate / AHP3 PF) ✓; AHP1 LBCLINSIG ✗ (无 reflection prompt 时锚失效)
   - Rule D #15 unique reviewer slot: `oh-my-claudecode:scientist` (background, 待 reviewer 完成)
   - 详细 evidence: `.work/07_release_v1_1/r3/{r3_matrix,R3_RETROSPECTIVE}.md` + `evidence/q01-q14_combined.md` + `evidence/ahp1-3_combined.md`
-- **允许的下一动作**: **Plan A + Plan B 完成 ★★★ (2026-05-19 17:30 PM)** — Plan A: Gemini v8.1 PROMOTED LIVE (`current/system_prompt.md` 替换 v7.1, 用户 Gemini Gem deployed 一致); Plan B: Release v1.2 cut `release/v1.2/` 28 files (19 byte-identical inherit v1.1 + 9 modified: Gemini system_prompt + CHANGELOG ×4 + KNOWN_LIMITATIONS ×3 + BUILD_MANIFEST). v1.0/v1.1 完整保留 tag 不可变. Rule D #18 `oh-my-claudecode:critic` audit dispatched background, `.work/07_release_v1_2/v1_2_cut_audit.md` 待回. 等用户 ack 后加 tag `v1.2-company-release` + push. **Plan C (R4 17 全题回归)** deferred post-cut (Pro quota constraint).
+- **允许的下一动作**: **Plan A + Plan B + Rule D #18 APPROVE 完成 ★★★★ (2026-05-19 17:38 PM)** — v8.1 PROMOTED LIVE + Release v1.2 cut `release/v1.2/` 28 files + Rule D #18 `oh-my-claudecode:critic` verdict **PASS_WITH_OBSERVATIONS - cut tag APPROVED** (0 HIGH, 3 LOW/MEDIUM observation 全 NON-blocking; 4-corner Rule D #15/#16/#17/#18 unique slot 覆盖完整). 等用户 ack 后加 tag `v1.2-company-release b0b6804` + push. **Plan C (R4 17 全题回归)** deferred post-cut. v1.3 KB pass 待 plan (BECAT EXTRACTION KB-prompt 分叉 + 166 Tier B + 437 UNSOURCED_MANUAL).
 - **偏离告警**: 无. R3 维护期完成. 锁步 board 历史保留.
-- **上一次状态更新**: 2026-05-19 17:30 PM (Plan A + B 完成; Rule D #18 reviewer 在 background 审 v1.2 cut artifacts; 待用户 ack tag)
+- **上一次状态更新**: 2026-05-19 17:38 PM (Rule D #18 APPROVE, audit 完整, 待用户 ack tag `v1.2-company-release`)
 
 ---
 

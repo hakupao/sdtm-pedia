@@ -15,7 +15,7 @@
 | **Phase 3-4** PDF 提取 | ✅ 完成 | 293 md / 63 域 | — |
 | **Phase 5** 全量验证 | ✅ 完成 | Step 0-4 全过 | — |
 | **Phase 6** 检索优化 | ✅ 完成 (P0-P2) | — | P3 → 已合并到 Phase 7 |
-| **Phase 6.5** AI 平台部署 | 🟢 进行中 | Plan A (v8.1 promote LIVE) + Plan B (v1.2 cut release/v1.2/ 28 files) 完成 17:30 PM. Rule D #18 audit dispatched | 用户 ack → `git tag v1.2-company-release` + push tag; R4 17 全题回归 post-cut |
+| **Phase 6.5** AI 平台部署 | 🟢 进行中 | Plan A (v8.1 promote LIVE) + Plan B (v1.2 cut) + Rule D #18 APPROVE 完成. Audit `.work/07_release_v1_2/v1_2_cut_audit.md` | 用户 ack → `git tag v1.2-company-release b0b6804 + push tag`; R4 17 全题回归 post-cut |
 | **Phase 7** RAG + KG | ⏸ 待启动 | 设计完成 (`docs/DESIGN_RAG_KG.md`) | 实施前 5 步待办 (见 `phase7_handoff.md`) |
 | **06 旁枝** Deep Verification | ✅ 完成 | P1-P7 全 PASS ★★ (coverage 99.02%, Issues 5-16 repaired, P7 content error 3.3%, RETROSPECTIVE.md 归档) | `branches/06_deep_verification/RETROSPECTIVE.md` |
 | **07 旁枝** Website | ✅ 完成 | Phase 6/7/8/9/10/11 全 closed; prod sdtm-pedia.pages.dev | — |
