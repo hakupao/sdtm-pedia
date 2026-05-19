@@ -1,7 +1,7 @@
 # 进度看板
 
 > **唯一进度状态源**. 历史细节看 `.work/meta/worklog/INDEX.md`. 文件结构看 `.work/MANIFEST.md`. 一页纸入门看 `.work/AGENT_GUIDE.md`.
-> 最后更新: 2026-05-19 (SMOKE_V4 R3 完成 ★ — v1.1 部署后 4 平台回归测 17 题 × 4 = 68 cells, Chrome MCP 并行 ~50min; Claude/ChatGPT 17/17 PASS, NotebookLM 15.5/17 (RAG 限制可预期), Gemini 13/17 (4 跑题/答错, AHP probe 4/5 caught); 详见 `.work/07_release_v1_1/r3/R3_RETROSPECTIVE.md`)
+> 最后更新: 2026-05-19 PM (Gemini v8.1 prompt draft ★ — R3 4 FAIL (Q3/Q4-A/Q11/AHP1) → 4-prong fix (CO-4 entry guard + CO-2f file format + CO-1e IS scope shift + CO-5 default reflection) + reviewer Rule D #16 PASS_WITH_OBSERVATIONS 6 项 reconcile (H1 HIV→MB, H2 CO-2f 优先, M1 regex 否定清单, M2 候选数限制, L1 Assumption 8, L2 BECAT 注). v8.1 525 行 (v7.1 423 + 102 = +24%). dry-run 4 题待用户部署 Gemini Gem 后 dispatch.)
 
 ---
 
@@ -15,7 +15,7 @@
 | **Phase 3-4** PDF 提取 | ✅ 完成 | 293 md / 63 域 | — |
 | **Phase 5** 全量验证 | ✅ 完成 | Step 0-4 全过 | — |
 | **Phase 6** 检索优化 | ✅ 完成 (P0-P2) | — | P3 → 已合并到 Phase 7 |
-| **Phase 6.5** AI 平台部署 | 🟢 进行中 | 4 平台 FULLY SIGNED OFF (2026-04-24) + v1.1 cut (2026-05-15) + R3 v1.1 部署后回归 (2026-05-19); Claude/Cgt 17/17, N 15.5/17, G 13/17 | v1.2 prep: Gemini v8 prompt 改 anti-hallucination 锚为 default reflection (R3 4 fail signal) |
+| **Phase 6.5** AI 平台部署 | 🟢 进行中 | 4 平台 FULLY SIGNED OFF + v1.1 cut + R3 完成; Gemini v8.1 prompt draft 完成 (4-prong + reviewer reconcile, 525 行), WRITER_RECONCILED_DRY_RUN_PENDING_USER_ACK | 用户部署 v8.1 到 Gemini Gem → dry-run 4 题 (Q3/Q4-A/Q11/AHP1) → Rule D #17 reviewer → v1.2 cut |
 | **Phase 7** RAG + KG | ⏸ 待启动 | 设计完成 (`docs/DESIGN_RAG_KG.md`) | 实施前 5 步待办 (见 `phase7_handoff.md`) |
 | **06 旁枝** Deep Verification | ✅ 完成 | P1-P7 全 PASS ★★ (coverage 99.02%, Issues 5-16 repaired, P7 content error 3.3%, RETROSPECTIVE.md 归档) | `branches/06_deep_verification/RETROSPECTIVE.md` |
 | **07 旁枝** Website | ✅ 完成 | Phase 6/7/8/9/10/11 全 closed; prod sdtm-pedia.pages.dev | — |
@@ -28,6 +28,7 @@
 
 ## 关键 milestone (近 30 天)
 
+- 2026-05-19 PM — **Gemini v8.1 prompt draft 完成 ★ R3 4 FAIL → 4-prong fix + reviewer reconcile** (4 prong: CO-4 入口守门 biospecimen 关键词锚 BE/BS/RELSPEC / CO-2f 文件格式题 ground CDISC spec / CO-1e IS scope shift v3.3→v3.4 sticky anchor / CO-5 default reflection regex `^[A-Z]{2,5}[A-Z0-9]{0,12}$` 触发 KB 双核 不依赖题文 scaffold; writer claude-opus-4-7 主 session; Rule D #16 `pr-review-toolkit:code-reviewer` background PASS_WITH_OBSERVATIONS, 6 项 reconcile 全 apply: H1 HIV→MB per KB IS Assumption 5 / H2 CO-2f 优先 gate / M1 regex 否定清单 (FDA/CDISC/XPT/JSON 等) / M2 候选数 ≥ 5 限制 / L1 ISTSTOPO Assumption 7a→8 / L2 BECAT EXTRACTION sponsor-extensible 注; v8.1 system_prompt 525 行 +24%; artifacts `ai_platforms/gemini_gems/dev/v8_draft/{system_prompt_v8,v8_design_rationale,dry_run_plan}.md + evidence/v8_reviewer_audit.md`; status WRITER_RECONCILED_DRY_RUN_PENDING_USER_ACK)
 - 2026-05-19 — **SMOKE_V4 R3 完成 ★ v1.1 部署后 4 平台回归测** (Chrome MCP 并行 fire-and-forget 架构, 17 题 × 4 平台 = 68 cells, ~50 min 主跑; Claude v2.6 17/17 PASS 11 PASS+, ChatGPT v2.2 17/17 PASS+ 13 PASS+, NotebookLM v2 15.5/17 (RAG 限制 Q9 PUNT/Q11 PARTIAL), Gemini v7.1 13/17 ⚠️ 4 fail: Q3 BE/BS 跑题 / Q4-A → LB / Q11 Dataset-JSON 跑题 / AHP1 LBCLINSIG 跑题; Gemini AHP 4/5 caught Q10/Q13/AHP2/AHP3 — R2 v7.1 anti-hallucination 锚仅在含 reflection prompt 题有效; Rule D #15 reviewer slot `oh-my-claudecode:scientist` background; evidence: `.work/07_release_v1_1/r3/{R3_RETROSPECTIVE,r3_matrix}.md` + 17 evidence 文件; v1.2 prep: Gemini v8 prompt 改 default reflection)
 - 2026-05-15 — **Release v1.1 cut ★ 06 修复回灌 4 平台 deploy bundle** (4 平台 rebuild: chatgpt 9 文件中 4 改 / gemini 3 改 / notebooklm 12 buckets 改 + 新 bucket 25 含 DI / claude 7 文件改 + 1 idempotent; 跨平台 delta oracle 自洽 chatgpt 05 ≡ gemini 02 = +74,178 bytes; build 脚本改动 2 处: merge_for_chatgpt.py 05 expected 63→64 + notebooklm bucket_config bucket 25 加 DI; Rule D `oh-my-claudecode:verifier` ALL_PASS 5/5 评估 + Rule A 5×4=20 KB→uploads 抽检 zero miss; release/v1.1/{CHANGELOG.{en,zh,ja}.md + BUILD_MANIFEST.json + self_deploy/} 26MB; tag 候选 `v1.1-company-release`)
 - 2026-05-12 — **06 P7 COMPLETE ★★★ 工程全部收官** (人工抽样 60 原子; Option C 内容误判率 2/60=3.3% < 5% P7-G1 PASS; RETROSPECTIVE.md 三段齐备 P7-G2 PASS; Rule D oh-my-claudecode:verifier PASS P7-G3 PASS; 累计 Issues 5-16 全修复; 覆盖率 99.02%; HALLUCINATED=0; 工程 2026-04-24→2026-05-12)

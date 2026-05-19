@@ -32,9 +32,9 @@
   - **关键 finding**: Gemini AHP probe **4/5 caught** (Q10 SUPPTS / Q13 NS / AHP2 SAE Aggregate / AHP3 PF) ✓; AHP1 LBCLINSIG ✗ (无 reflection prompt 时锚失效)
   - Rule D #15 unique reviewer slot: `oh-my-claudecode:scientist` (background, 待 reviewer 完成)
   - 详细 evidence: `.work/07_release_v1_1/r3/{r3_matrix,R3_RETROSPECTIVE}.md` + `evidence/q01-q14_combined.md` + `evidence/ahp1-3_combined.md`
-- **允许的下一动作**: R3 closed, 数据 feed v1.2 决策池. 主要 follow-up: (a) Gemini v8 prompt 改 anti-hallucination 锚为 default reflection (R3 4 fail → v8 改进 signal); (b) Claude project URL navigate + done-signal runner V2 改 (R4 prep); (c) NotebookLM 评分规则修订给 PUNT-correct = 0.5 分 (v1.2 spec).
+- **允许的下一动作**: **Gemini v8 prompt draft IN FLIGHT (2026-05-19 PM)** — `ai_platforms/gemini_gems/dev/v8_draft/` 已起 (writer claude-opus-4-7 主 session 写 v8 system_prompt 516 行 + design_rationale + dry_run_plan; 4-prong fix: CO-4 入口守门 / CO-2f 文件格式 / CO-1e IS scope shift / CO-5 default reflection). Rule D #16 unique reviewer `pr-review-toolkit:code-reviewer` background dispatched, evidence/v8_reviewer_audit.md 待回. 后续 follow-up: (a) Gemini reviewer 返回后 reconcile → dry-run 4 fail 题 (Q3/Q4-A/Q11/AHP1); (b) Claude project URL navigate + done-signal runner V2 改 (R4 prep, 未启动); (c) NotebookLM 评分规则修订给 PUNT-correct = 0.5 分 (v1.2 spec, 未启动).
 - **偏离告警**: 无. R3 维护期完成. 锁步 board 历史保留.
-- **上一次状态更新**: 2026-05-19 (SMOKE_V4 R3 完成, 17 题 × 4 平台 Chrome MCP 并行, ~50min 主跑 + ~15min retro)
+- **上一次状态更新**: 2026-05-19 PM (Gemini v8 prompt draft 主 session writer done, Rule D #16 reviewer dispatched background; dry-run 待 reviewer 返回 + 用户 ack)
 
 ---
 

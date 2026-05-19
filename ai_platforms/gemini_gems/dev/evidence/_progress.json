@@ -15,7 +15,7 @@
     "rerun_planned": "smoke v4 R1 baseline cross-platform (Claude/ChatGPT/Gemini/NotebookLM), threshold 9/13 (70%)"
   },
   "created_at": "2026-04-20",
-  "last_updated": "2026-05-16",
+  "last_updated": "2026-05-19",
   "current_phase": "5_signed_off_post_v1_1_audit_closed",
   "overall_status": "Phase 5 SIGNED OFF 2026-04-24 (post 28th Rule D reviewer PASS + Daisy verbal ack) + v1.1 rebuild 2026-05-15 COMPLETE (incorporates 06 deep verification fixes; Rule D verifier ALL_PASS) + v1.1 audit pass 2026-05-16 CLOSED (system_prompt 63→64 + 23 meta inheritance + Tier B disclosed + gemini line 141 ARMNRS typo + 04 PC-PP RELREC §1.24b; Rule A N=20 PASS 100%). Lifecycle complete; v1.2 deferred items in release/v1.1/KNOWN_LIMITATIONS § 0.",
   "sync_locked_with": "chatgpt_gpt",
@@ -1006,5 +1006,51 @@
     "evidence": ".work/07_release_v1_1/evidence/{rule_a_n20_audit,gemini_04_audit,known_limitations_reconcile}.md",
     "fixes_applied": "system_prompt 63→64 + 23 meta inheritance + KNOWN_LIMITATIONS §0 Tier B + line 141 ARMNRS C66770→C142179 typo (Gemini) + gemini 04 PC-PP RELREC §1.24b + DI in §8.5 + §9.5 FAQ + SYNC_BOARD stale header",
     "rule_a_extended": "100% PASS (124/124 grep probes, N=20 KB × 4 platforms + 22 bucket × 2 samples)"
+  },
+  "r3_test": {
+    "date": "2026-05-19",
+    "status": "COMPLETE",
+    "scope": "SMOKE_V4 R3 v1.1 部署后 4 平台回归测 (17 题 × 4 平台 = 68 cells, Chrome MCP 并行 ~50min)",
+    "gemini_score": "13/17 (5 PASS+, 4 FAIL: Q3 BE/BS 跑题 / Q4-A 退回 LB / Q11 Dataset-JSON 跑题 / AHP1 LBCLINSIG 跑题)",
+    "gemini_delta_vs_r1": "↓ -3 (R1 16/17 → R3 13/17 regression)",
+    "gemini_ahp_caught": "4/5 (Q10 SUPPTS / Q13 NS / AHP2 SAE Aggregate / AHP3 PF caught; AHP1 LBCLINSIG missed)",
+    "gemini_root_cause": "v7.1 anti-hallucination 锚仅在题文含 reflection scaffold ('如果你听说过 X') 时触发; plain factual + 邻域 keyword (biospecimen / file-format / IS-scope-shift) 时 fallback 走 AE/CM 兜底",
+    "other_platforms": "Claude v2.6 17/17 (11 PASS+) / ChatGPT v2.2 17/17 (13 PASS+) / NotebookLM v2 15.5/17 (1 PARTIAL + 1 PUNT 架构限制)",
+    "rule_d_reviewer": "oh-my-claudecode:scientist (Rule D #15, independent lane); 68/68 cells concordance + 4 v8 prompt 建议 (HIGH/HIGH/HIGH/MEDIUM)",
+    "evidence": ".work/07_release_v1_1/r3/{r3_matrix,R3_RETROSPECTIVE}.md + evidence/{q01-q14,ahp1-3}_combined.md + evidence/_reviews/r3_review.md (190 lines)",
+    "feed_to": "v1.2 决策池 / v8_draft (Gemini prompt 改造)"
+  },
+  "v8_draft": {
+    "started_at": "2026-05-19",
+    "status": "WRITER_DONE_REVIEWER_PENDING",
+    "trigger": "R3 4 FAIL → reviewer §5 4-prong recommendations (HIGH/HIGH/HIGH/MEDIUM)",
+    "scope": "Gemini system_prompt v7.1 → v8 fork; 4-prong fix; KB uploads 不动 (仍 v1.1)",
+    "prongs": {
+      "prong_1_co4_entry_guard": "CO-4 顶部加 biospecimen 关键词守门, 锚 BE/BS/RELSPEC, 禁 AE/CM fallback (R3 Q3 修)",
+      "prong_2_co2f_file_format": "CO-2e 后加 CO-2f, XPT/Dataset-JSON/Define-XML 题 → ground CDISC 格式 spec, 禁替换 SDTM domain (R3 Q11 修)",
+      "prong_3_co1e_is_scope_shift": "CO-1d 后加 CO-1e, v3.4 IS assumption 2 anti-microbial antibody → IS 不论 timing, sticky anchor 防 R2 fix decay (R3 Q4-A 修)",
+      "prong_4_co5_default_reflection": "CO-5 共同执行规则 #1 + 工作流程 Step 1 + AHP-V1 触发条件 三处协同改, 任何 SDTM-shaped identifier (regex `^[A-Z]{2,5}[A-Z0-9]{0,12}$`) 即触发 KB 双核, 不依赖题文 reflection scaffold (R3 AHP1 修)"
+    },
+    "writer": "claude-opus-4-7 (main session)",
+    "writer_artifacts": [
+      "ai_platforms/gemini_gems/dev/v8_draft/system_prompt_v8.md (516 lines, base v7.1 423 + 4-prong +93 lines = +22%)",
+      "ai_platforms/gemini_gems/dev/v8_draft/v8_design_rationale.md (R3 4 FAIL → 4 prong mapping + reviewer §5 alignment + 改动量估算 + 预期 dry-run outcome + 风险与未尽事项)",
+      "ai_platforms/gemini_gems/dev/v8_draft/dry_run_plan.md (4 题 dispatch + verdict criteria + Phase A/B/C/D + 风险 contingency)"
+    ],
+    "reviewer_dispatched": "pr-review-toolkit:code-reviewer (Rule D #16 unique slot, background, dispatched 2026-05-19 14:XX, evidence/v8_reviewer_audit.md 完成 149 lines)",
+    "reviewer_verdict": "PASS_WITH_OBSERVATIONS (架构对 + R3 FAIL→prong 一一覆盖; 2 HIGH + 2 MEDIUM + 2 LOW finding)",
+    "reviewer_findings_applied": {
+      "H1_factual_HIV_to_MB": "v8 L138-148 + rationale 例外段 + trap 表: HIV Ag/Ab combo 域名 LB → MB (per KB IS Assumption 5 - 4th gen HIV combo is detection assay, not host immune characterization)",
+      "H2_arch_co2f_priority": "CO-5 共同执行规则 #1 (L362) + 工作流程 Step 1 (L505): 加 CO-2f 优先级 gate, 文件格式题命中 XPT/Dataset-JSON/Define-XML 时不走 AHP-V1 路径, 避免 'JSON' 4-char regex 误判变量幻觉",
+      "M1_regex_negation_list": "CO-5 共同执行规则 #1 (L361) + 工作流程 Step 1 (L504): regex 后加否定清单 (FDA/USA/NCI/EVS/CDISC/ADaM/SDTM/XPT/XML/JSON/SAS/EDC/CRF/RWD/ADAE/ADSL/ADTTE) 跳过双核; SDTM 域缩写 (AE/CM/DM/LB/IS/MB/BE/BS/PC/PP/TS) 也跳过",
+      "M2_candidate_cap": "工作流程 Step 1 (L506): 候选 ≥ 5 时只扫题文显式提及 3-5 个疑似变量名, 其余在 response inline 时核",
+      "L1_assumption_number_8": "system_prompt L142, L148, L160: ISTSTOPO Assumption 7a → 8 (per KB IS/assumptions.md)",
+      "L2_becat_extension": "CO-4 入口守门 (L223): BECAT EXTRACTION 注 'sponsor-extensible, 非 CT 锁定' (KB BE/spec L111 只 inline COLLECTION/PREPARATION/TRANSPORT)"
+    },
+    "status_after_reconcile": "WRITER_RECONCILED_DRY_RUN_PENDING_USER_ACK",
+    "v8_1_line_count": "525 (v8 516 + 9 reviewer reconcile)",
+    "v8_1_dry_run_gate": "H1+H2 不阻塞 dry-run (Q4-A 是麻疹非 HIV; Q11 CO-2f 优先实测验证). dry-run PASS 后即可 cut v1.2",
+    "next_step": "用户 ack → 主 session 引导用户部署 v8.1 system_prompt 到 Gemini Gem instructions → Chrome MCP dispatch 4 fail 题 (Q3/Q4-A/Q11/AHP1) → 写 evidence/dry_run_2026-05-19/ + verdict → 若 4/4 PASS 派 Rule D #17 reviewer cross-check → 用户 ack → v8.1 promote 到 current/system_prompt.md + cut v1.2",
+    "not_in_scope": "其他 3 平台 prompt 修 / KB rebuild / 17 全题回归 / v1.2 release cut (单独议题)"
   }
 }
