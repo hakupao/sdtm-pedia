@@ -96,3 +96,51 @@
 1. NotebookLM "Delete chat history" confirm dialog 结构 (`reset_notebooklm.js` best-effort 兜底, 不命中则主 session 介入)
 2. Claude multi-segment `.standard-markdown` (简单题单段; SMOKE_V4 含 mapping 表 / artifact 题需扩到外层包裹容器)
 3. 4 平台 dry-run 测试 conversation 留有 1 道 "什么是 SDTM?" Q&A (Gemini/ChatGPT/Claude 新 chat / NotebookLM 共用 chat), R3 跑前 reset 流程自动清
+
+### 2026-05-19 PM — SMOKE_V4 R3 实跑 + 4-prong Gemini v8.1 prompt draft (v1.2 prep)
+
+**R3 实跑 (commit `080eb88`)**: 4 平台 × 17 题 = 68 cells, Chrome MCP 并行 fire-and-forget ~50 min 主跑 (墙钟超估算 20 min, 因 Claude project URL navigate 不稳定 + done-signal 高密度题误判, AHP3 manual fallback ~3 min):
+
+| 平台 | R3 总分 | PASS+ | vs R1 | Gate |
+|---|:--:|:--:|:--:|:--:|
+| Claude v2.6 | 17/17 | 11 | = (11 题升级 PASS+) | ✅ |
+| ChatGPT v2.2 | 17/17 | 13 | ↑ +0.5 | ✅ |
+| NotebookLM v2 | 15.5/17 | 11 | = (1 PARTIAL + 1 PUNT 架构限制) | ✅ |
+| Gemini v7.1 | 13/17 | 5 | ↓ -3 ⚠️ | ⚠️ regression |
+
+Gemini 4 FAIL: Q3 BE/BS/RELSPEC 跑题答 AE (1541 chars off-topic) / Q4-A 麻疹 IgG 退回 LB (R2 修过的退回) / Q11 Dataset-JSON 跑题答 AE/CM / AHP1 LBCLINSIG 跑题答 CM/MH. AHP probe **4/5 caught** (Q10/Q13/AHP2/AHP3 ✓, AHP1 ✗) — v7.1 anti-hallucination 锚仅在题文含 reflection scaffold ("如果你听说过 X") 时触发, plain factual + 邻域关键词时 fallback 兜底.
+
+R3 reviewer: `oh-my-claudecode:scientist` (Rule D #15 unique slot, background) 68/68 cells concordance, 给出 4 v8 prompt 改进 finding (HIGH/HIGH/HIGH/MEDIUM). Evidence: `.work/07_release_v1_1/r3/{r3_matrix,R3_RETROSPECTIVE}.md` + `evidence/q01-q14_combined.md` + `ahp1-3_combined.md` + `_reviews/r3_review.md` (190 lines).
+
+**Gemini v8.1 prompt draft (本次 commit)**: 主 session 起 `ai_platforms/gemini_gems/dev/v8_draft/` workspace, 实现 R3 reviewer §5 4-finding 一对一 4-prong fix + 后续 v8 reviewer reconcile 6 项:
+
+| Prong | 位置 | 修复 R3 FAIL |
+|---|---|---|
+| **CO-4 入口守门** (NEW v8) | system_prompt L217-228 | Q3 BE/BS/RELSPEC: biospecimen 关键词 (中英 13 项) → BE/BS/RELSPEC, 禁 AE/CM fallback |
+| **CO-2f 文件格式 ground rule** (NEW v8) | system_prompt L182-206 | Q11 Dataset-JSON: XPT/Dataset-JSON/Define-XML → ground CDISC 格式 spec, 禁替换 SDTM domain + 跑题守门 |
+| **CO-1e IS scope shift** (NEW v8) | system_prompt L119-160 | Q4-A 麻疹 IgG: v3.4 IS Assumption 2 anti-microbial antibody → IS 不论 timing; HIV Ag/Ab combo → MB (Assumption 5 exemption); ISTSTOPO Assumption 8; sticky anchor 防 R2 fix decay |
+| **CO-5 default reflection** (MOD v8) | system_prompt L295-364 + L499-508 + L301-303 三处协同改 | AHP1 LBCLINSIG: regex `^[A-Z]{2,5}[A-Z0-9]{0,12}$` 触发 KB 双核, 不依赖题文 reflection scaffold |
+
+**v8 → v8.1 reviewer reconcile**: `pr-review-toolkit:code-reviewer` (Rule D #16 unique slot, background) verdict **PASS_WITH_OBSERVATIONS**, 6 项全 apply (2 HIGH + 2 MEDIUM + 2 LOW):
+- **H1 (factual)**: HIV Ag/Ab combo → MB (不是 LB), per KB IS Assumption 5 (v8 初稿误写 LB, 已修)
+- **H2 (architecture)**: CO-2f 优先级 gate, 文件格式题不走 AHP-V1 regex 路径 (防 "Dataset-JSON" 题误判变量幻觉)
+- **M1 (regex)**: 否定清单 (FDA/USA/NCI/EVS/CDISC/ADaM/SDTM/XPT/XML/JSON/SAS/EDC/CRF/RWD/ADAE/ADSL/ADTTE + 域缩写 AE/CM/DM/LB/IS/MB/BE/BS) 跳过双核
+- **M2 (verbose)**: 候选 ≥ 5 时只扫题文显式提及 3-5 个
+- **L1 (numbering)**: ISTSTOPO Assumption 7a → 8 (per KB, 3 处)
+- **L2 (CT note)**: BECAT EXTRACTION 注 "sponsor-extensible, 非 CT 锁定" (KB BE/spec L111 只 inline COLLECTION/PREPARATION/TRANSPORT)
+
+**Artifacts (本次 commit 范围)**:
+- `ai_platforms/gemini_gems/dev/v8_draft/system_prompt_v8.md` (525 lines, v7.1 423 + 102 = +24%)
+- `ai_platforms/gemini_gems/dev/v8_draft/v8_design_rationale.md` (R3 4 FAIL → 4 prong mapping + reviewer §5 alignment + 改动量估算 + 预期 dry-run outcome + 附录 v8→v8.1 reconcile 表)
+- `ai_platforms/gemini_gems/dev/v8_draft/dry_run_plan.md` (Phase A-D + 4 题 verdict 标准 + 风险 contingency 5 条)
+- `ai_platforms/gemini_gems/dev/v8_draft/evidence/v8_reviewer_audit.md` (149 lines, Rule D #16 audit)
+- `ai_platforms/gemini_gems/dev/evidence/_progress.json` (r3_test COMPLETE + v8_draft WRITER_RECONCILED_DRY_RUN_PENDING_USER_ACK 两 top-level 条目)
+- `ai_platforms/SYNC_BOARD.md` (允许的下一动作段更新, 反映 v8.1 draft 待 dry-run)
+
+**遗留 (下一动作 = 用户部署 + dry-run)**:
+1. 用户部署 v8.1 system_prompt 到 Gemini Gem instructions field (UI 操作只能用户做)
+2. 部署后主 session dispatch Chrome MCP 跑 4 fail 题 (Q3 / Q4-A / Q11 / AHP1) ~10 min
+3. evidence 落到 `dev/v8_draft/dry_run_2026-05-XX/q<NN>_combined.md`
+4. 派 Rule D #17 unique reviewer cross-check 4 题 verdict
+5. 若 4/4 PASS → v8.1 promote → `current/system_prompt.md` + cut v1.2 release tag
+6. v1.2 cut 不在本次 commit scope (待 dry-run PASS 后单独议题)
