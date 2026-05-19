@@ -1,7 +1,7 @@
 # 进度看板
 
 > **唯一进度状态源**. 历史细节看 `.work/meta/worklog/INDEX.md`. 文件结构看 `.work/MANIFEST.md`. 一页纸入门看 `.work/AGENT_GUIDE.md`.
-> 最后更新: 2026-05-19 16:55 PM (Gemini v8.1 **PROMOTED LIVE** ★★★ — `current/system_prompt.md` 替换 v7.1 LIVE; 525 行 4-prong + 6 reviewer fix; 用户 16:30 PM 部署 Gem instructions, current/ ↔ deployed 一致; dry-run 4/4 PASS + Rule D #17 APPROVE 0 blocker; 下一: Plan C R4 17 全题回归 + Plan B v1.2 release cut)
+> 最后更新: 2026-05-19 17:30 PM (Plan B v1.2 release cut **完成** ★★★★ — `release/v1.2/` 28 files (19 inherit v1.1 + 9 modified: Gemini system_prompt v7.1 → v8.1 LIVE + 4 CHANGELOG + 3 KNOWN_LIMITATIONS §0 reconcile + BUILD_MANIFEST); Rule D #18 `oh-my-claudecode:critic` audit dispatched background. 不自动 cut tag, 等用户 ack 后加 `v1.2-company-release` tag; R4 17 全题回归 deferred post-cut)
 
 ---
 
@@ -15,7 +15,7 @@
 | **Phase 3-4** PDF 提取 | ✅ 完成 | 293 md / 63 域 | — |
 | **Phase 5** 全量验证 | ✅ 完成 | Step 0-4 全过 | — |
 | **Phase 6** 检索优化 | ✅ 完成 (P0-P2) | — | P3 → 已合并到 Phase 7 |
-| **Phase 6.5** AI 平台部署 | 🟢 进行中 | Gemini v8.1 PROMOTED LIVE 16:55 PM (`current/system_prompt.md` 替换 v7.1, 用户 Gem instructions 已部署). Dry-run 4/4 PASS + Rule D #17 APPROVE 0 blocker | Plan C R4 17 全题回归 (Pro quota check) + Plan B v1.2 release cut (release/v1.2/ + tag) |
+| **Phase 6.5** AI 平台部署 | 🟢 进行中 | Plan A (v8.1 promote LIVE) + Plan B (v1.2 cut release/v1.2/ 28 files) 完成 17:30 PM. Rule D #18 audit dispatched | 用户 ack → `git tag v1.2-company-release` + push tag; R4 17 全题回归 post-cut |
 | **Phase 7** RAG + KG | ⏸ 待启动 | 设计完成 (`docs/DESIGN_RAG_KG.md`) | 实施前 5 步待办 (见 `phase7_handoff.md`) |
 | **06 旁枝** Deep Verification | ✅ 完成 | P1-P7 全 PASS ★★ (coverage 99.02%, Issues 5-16 repaired, P7 content error 3.3%, RETROSPECTIVE.md 归档) | `branches/06_deep_verification/RETROSPECTIVE.md` |
 | **07 旁枝** Website | ✅ 完成 | Phase 6/7/8/9/10/11 全 closed; prod sdtm-pedia.pages.dev | — |
@@ -28,6 +28,7 @@
 
 ## 关键 milestone (近 30 天)
 
+- 2026-05-19 17:30 PM — **Release v1.2 cut 完成 ★★★★** (`release/v1.2/` 28 文件: 19 byte-identical inherit v1.1 + 9 modified — Gemini system_prompt v7.1→v8.1 LIVE 525 行 / CHANGELOG.{en,zh,ja,md} 4 文件 v1.2 entry / KNOWN_LIMITATIONS.{en,zh,ja} §0 reconcile [R3 已跑+v8.1 dry-run verified+Rule A N=20+ 升级, deferred: R4 17 全题+M2 候选数限+BECAT EXTRACTION KB 注释] / BUILD_MANIFEST.json v1.2 metadata; v1.0 + v1.1 完整保留 不动 [tag 不可变原则]; KB / Claude / ChatGPT / NotebookLM uploads + system prompts 全 byte-identical 继承 v1.1; Rule D #18 `oh-my-claudecode:critic` audit dispatched background `.work/07_release_v1_2/v1_2_cut_audit.md`; tag `v1.2-company-release` 不自动加, 待用户 ack 后由主 session 或用户加; R4 17 全题回归 deferred v1.2 post-cut [Pro quota constraint 4 题/window × 5 cycle ≈ 16-20h, 用户 Pro 已耗光今天])
 - 2026-05-19 16:55 PM — **Gemini v8.1 PROMOTED LIVE ★★★** (`ai_platforms/gemini_gems/current/system_prompt.md` 替换 v7.1 LIVE; 525 行 v8.1 包含 4-prong [CO-4 入口守门 / CO-2f 文件格式 / CO-1e IS scope shift / CO-5 default reflection] + 6 reviewer fix [H1 HIV→MB / H2 CO-2f 优先 / M1 regex 否定清单 / M2 候选数限 / L1 Assumption 8 / L2 BECAT sponsor-ext]; 用户 16:30 PM 已 paste 到 Gemini Gem instructions field, current/ ↔ deployed Gem 完全一致; header DRAFT → LIVE 标识更新; dry-run 4/4 PASS + Rule D #17 APPROVE 0 blocker; 下一动作 Plan C R4 17 全题回归 anti-cheating long-tail + Plan B v1.2 release cut)
 - 2026-05-19 16:50 PM — **Gemini v8.1 dry-run 4/4 PASS ★★ Rule D #17 APPROVE 0 blocker** (Pro quota reset 16:34 后实跑; Chrome MCP Gemini 3.1 Pro 串行 4 R3 FAIL 题 ~5.5 min; Q3 PASS+ 1439c/47.6s [BE/BS/RELSPEC + 禁臆造 BM + sponsor-ext 注], Q4 PASS+ 1763c/52.7s [A=IS + ISBDAGNT=MEASLES + HIV→MB exemption + Assumption 2/5/8 cited], Q11 PASS+ 3768c/30.6s [5 痛点 + Define-XML ASCII 图], AHP1 PASS+ 694c/46.6s [textbook AHP-V1 7/7 元素 fire]; 10 项 Prong+Fix 验证 9 强 evidence + 1 弱 [M2 候选数限 Q4 候选<5 隐式]; Rule D #17 `oh-my-claudecode:verifier` 独立 KB grep 确认 4/4 PASS, 4 findings LOW/MEDIUM: PASS+ 标签 §1.2 strict 应 "AHP 专属" [caveat 已 apply], BECAT EXTRACTION KB-prompt 分叉 [v1.2 post-cut 加注释], M2 隐式未独立验证 [R4 Q1/Q14 多变量题测], 17 全题在 v8.1 未测 [R4 v1.2 post-cut 必跑 anti-cheating long-tail]; verdict: APPROVE — v8.1 promote 待用户 ack)
 - 2026-05-19 PM — **Gemini v8.1 prompt draft 完成 ★ R3 4 FAIL → 4-prong fix + reviewer reconcile** (4 prong: CO-4 入口守门 biospecimen 关键词锚 BE/BS/RELSPEC / CO-2f 文件格式题 ground CDISC spec / CO-1e IS scope shift v3.3→v3.4 sticky anchor / CO-5 default reflection regex `^[A-Z]{2,5}[A-Z0-9]{0,12}$` 触发 KB 双核 不依赖题文 scaffold; writer claude-opus-4-7 主 session; Rule D #16 `pr-review-toolkit:code-reviewer` background PASS_WITH_OBSERVATIONS, 6 项 reconcile 全 apply: H1 HIV→MB per KB IS Assumption 5 / H2 CO-2f 优先 gate / M1 regex 否定清单 (FDA/CDISC/XPT/JSON 等) / M2 候选数 ≥ 5 限制 / L1 ISTSTOPO Assumption 7a→8 / L2 BECAT EXTRACTION sponsor-extensible 注; v8.1 system_prompt 525 行 +24%; artifacts `ai_platforms/gemini_gems/dev/v8_draft/{system_prompt_v8,v8_design_rationale,dry_run_plan}.md + evidence/v8_reviewer_audit.md`; status WRITER_RECONCILED_DRY_RUN_PENDING_USER_ACK)

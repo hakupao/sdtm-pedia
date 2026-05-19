@@ -183,6 +183,50 @@ reviewer findings (4 项 LOW/MEDIUM, 0 HIGH):
 3. cut `release/v1.2/` + v1.2 release tag (单独 packaging cycle)
 4. R4 17 题 full 回归测建议 v1.2 post-cut
 
+### 2026-05-19 17:30 PM — Plan B: v1.2 Release Cut (release/v1.2/ + CHANGELOG en/zh/ja + KNOWN_LIMITATIONS reconcile)
+
+**触发**: 用户 Plan A 完成后选 "跳 R4, 先走 Plan B v1.2 cut" (Pro quota 在 4 题 dry-run 后又耗尽, 21:34 PM 重置但 17 题 R4 需 4-5 cycle ≈ 16-20h, 不实际). Per Rule D #17 reviewer 明示 R4 是 MEDIUM risk 可 post-cut.
+
+**Cut 策略** (类比 v1.1 cut sprint):
+1. `cp -r release/v1.1 release/v1.2` (26MB base, 28 文件 inherit)
+2. Surgical edit 9 文件:
+   - `BUILD_MANIFEST.json` 重写 (release_tag v1.2 + previous v1.1 + gemini system_prompt 改 + 其他 3 平台 byte-identical 标识)
+   - `self_deploy/gemini/system_prompt.md` 替换为 v8.1 LIVE (cp ai_platforms/gemini_gems/current/system_prompt.md, 525 lines)
+   - `CHANGELOG.{en,zh,ja}.md` 三语写 v1.2 详细 entry (driver R3 4 FAIL → 4 prong + 6 reviewer fix 详述 + dry-run 4/4 PASS evidence + Rule D #16/#17 verdict + caveat 3 项 deferred)
+   - `CHANGELOG.md` (web changelog with frontmatter) 加 v1.2 entry + 补回 v1.1 entry (v1.1 cut 时漏更 web 版); v1.0 entry 保留
+   - `KNOWN_LIMITATIONS.{en,zh,ja}.md` §0 reconcile: 移除 "SMOKE_V4 未跑" (R3 已跑) + "Rule A N=5" (升 N=20+) + "Gemini 04 未审" (2026-05-16 audit 已覆盖); 加 v1.2 verified 项 (R3 + dry-run + Rule A N=20+) + v1.2 post-cut deferred 项 (R4 17 全题 / M2 候选数限 / BECAT EXTRACTION KB-prompt 注释). §1-§6 unchanged (durable disclaimers).
+3. 其余 19 个 release 顶级文件 + 4 平台 uploads + 3 平台 system_prompt + tutorials byte-identical 继承 v1.1
+
+**v1.2 cut 范围** (核 diff -r):
+| 维度 | v1.1 | v1.2 | 不变? |
+|---|---|---|:--:|
+| KB 文件 | 296 文件 64 domains | 同 | ✅ |
+| Claude self_deploy | 19 files + system_prompt | 同 | ✅ |
+| ChatGPT self_deploy | 9 files + system_prompt | 同 | ✅ |
+| Gemini self_deploy | 4 files + system_prompt | uploads 4 同 + **system_prompt 替换 v7.1 → v8.1** | uploads ✅ / prompt ❌ |
+| NotebookLM self_deploy | 42 files + instructions | 同 | ✅ |
+| 元文档 (METHODOLOGY/USER_GUIDE/PLATFORM_COMPARISON/DEMO_QUESTIONS/GLOSSARY/README × 3 语) | byte-identical 继承 | 同 | ✅ |
+| KNOWN_LIMITATIONS × 3 语 | v1.1 §0 | **§0 reconcile** | ❌ |
+| CHANGELOG × 4 (en/zh/ja/md) | v1.1 cut | **v1.2 entry** | ❌ |
+| BUILD_MANIFEST.json | v1.1 metadata | **v1.2 metadata** | ❌ |
+
+**Rule D reviewer 链 (Phase 6.5 v1.2 cut cycle 累计 unique subagent_type)**:
+- Rule D #15 (`oh-my-claudecode:scientist`) — R3 17 题 × 4 平台 verdict 审 ✅
+- Rule D #16 (`pr-review-toolkit:code-reviewer`) — v8.0 → v8.1 reconcile 审 ✅
+- Rule D #17 (`oh-my-claudecode:verifier`) — v8.1 dry-run 4 题 verdict 审 ✅
+- Rule D #18 (`oh-my-claudecode:critic`) — v1.2 cut artifacts 审 background dispatched 2026-05-19 17:30 PM, `.work/07_release_v1_2/v1_2_cut_audit.md` 待回
+
+**Artifacts (此 commit 范围)**:
+- `release/v1.2/` 完整 cut artifacts (28 files: 19 inherit + 9 modified)
+- `.work/meta/worklog/phase_07_release.md` 本 entry
+- `docs/PROGRESS.md` 状态 + milestone (v1.2 cut)
+- `ai_platforms/SYNC_BOARD.md` 允许下一动作
+
+**不在 scope** (待用户 ack 后单独执行):
+- `git tag v1.2-company-release` (不可变 tag, 不自动加; 等用户 ack 后用户或主 session 加)
+- R4 17 全题回归 (Pro quota 多 cycle, 留 v1.2 post-cut)
+- M2 候选数限 + BECAT EXTRACTION KB-prompt 注释 (v1.2 post-cut KNOWN_LIMITATIONS §0 deferred 已记)
+
 ### 2026-05-19 16:55 PM — Gemini v8.1 PROMOTED LIVE (用户 ack Plan A → C → B)
 
 **用户决策**: 选 Plan A (promote 立刻) → Plan C (R4 17 全题回归) → Plan B (v1.2 release cut).
