@@ -32,9 +32,9 @@
   - **关键 finding**: Gemini AHP probe **4/5 caught** (Q10 SUPPTS / Q13 NS / AHP2 SAE Aggregate / AHP3 PF) ✓; AHP1 LBCLINSIG ✗ (无 reflection prompt 时锚失效)
   - Rule D #15 unique reviewer slot: `oh-my-claudecode:scientist` (background, 待 reviewer 完成)
   - 详细 evidence: `.work/07_release_v1_1/r3/{r3_matrix,R3_RETROSPECTIVE}.md` + `evidence/q01-q14_combined.md` + `evidence/ahp1-3_combined.md`
-- **允许的下一动作**: **Gemini v8.1 dry-run COMPLETE 4/4 PASS+ ★ (2026-05-19 16:35-16:40 PM)** — `dev/v8_draft/dry_run_2026-05-19/` evidence 全, Chrome MCP Gemini 3.1 Pro 实测 4 R3 FAIL 题 (Q3/Q4/Q11/AHP1) 全 PASS+; 4 prong + 6 reviewer fix 全验证 fire. Rule D #17 unique reviewer `oh-my-claudecode:verifier` background dispatched, evidence/v8_1_dry_run_audit.md 待回. 后续: (a) reviewer 返回后 reconcile → 用户 ack → v8.1 promote `current/system_prompt.md` 替换 v7.1 LIVE → cut v1.2 release tag; (b) R4 17 题 full 回归测建议 v1.2 post-cut (anti-cheating long-tail probe); (c) Claude project URL navigate + done-signal runner V2 改 (R4 prep); (d) NotebookLM 评分规则修订 PUNT-correct=0.5 (v1.2 spec).
+- **允许的下一动作**: **Gemini v8.1 PROMOTED LIVE ★★ (2026-05-19 16:55 PM)** — `current/system_prompt.md` 替换 v7.1 LIVE (525 lines, 4-prong + 6 reviewer fix). 用户 16:30 PM 部署到 Gemini Gem instructions, current/ ↔ deployed 现一致. Rule D #17 audit APPROVE 0 blocker. 后续 plan: **Plan C (R4 17 全题回归)** anti-cheating long-tail probe, 待 Gemini Pro quota check (今日已用 17+4=21 题, 可能近上限) — 若 Pro 不够则 schedule wakeup 明日 16:34 PM Pro reset 后; **Plan B (v1.2 release cut)** release/v1.2/ + CHANGELOG en/zh/ja + tag v1.2-company-release (类比 v1.1 sprint); 其他历史 follow-up: Claude runner V2 + NotebookLM PUNT 评分修订留 v1.2 post-cut.
 - **偏离告警**: 无. R3 维护期完成. 锁步 board 历史保留.
-- **上一次状态更新**: 2026-05-19 PM (v8.1 dry-run 4 题全 PASS+, Rule D #17 reviewer dispatched background; v8.1 prompt 等用户 ack 后 promote LIVE + cut v1.2)
+- **上一次状态更新**: 2026-05-19 16:55 PM (Gemini v8.1 PROMOTED LIVE, current/ ↔ Gemini Gem deployed 一致; Plan C R4 17 全题回归 next; Plan B v1.2 cut after R4)
 
 ---
 

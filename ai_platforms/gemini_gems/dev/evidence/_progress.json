@@ -1083,6 +1083,13 @@
       "R4_full_17_required": "Risk MEDIUM: 17 道原 PASS 题在 v8.1 下未测, v1.2 post-cut 立即安排 R4 全量回归, 重点验证 CO-5 regex default 对多变量题无 regression"
     },
     "rule_d_17_recommendation": "APPROVE — 0 blocker. Pre-promote 必修 1 项: dry_run_verdict.md PASS+ 标签 caveat (已 apply). 可 promote v8.1 → current/system_prompt.md + cut v1.2 release tag; R4 17 全题回归留 post-cut.",
+    "promoted_to_current": {
+      "date": "2026-05-19 16:55 PM",
+      "action": "cp ai_platforms/gemini_gems/dev/v8_draft/system_prompt_v8.md → ai_platforms/gemini_gems/current/system_prompt.md (replaces v7.1 LIVE, 423 lines → 525 lines)",
+      "header_update": "v8.1 DRAFT → v8.1 LIVE (post-promote 2026-05-19)",
+      "deployed_at_gemini_gem": "User deployed v8.1 to Gemini Gem instructions at ~16:30 PM (before dry-run). current/ LIVE 与 deployed Gem 现一致",
+      "next_step": "Plan C: R4 17 全题回归测 (待 Pro quota check); Plan B: cut v1.2 release tag (release/v1.2/ + CHANGELOG en/zh/ja + tag v1.2-company-release)"
+    },
     "caveats_recorded": [
       "Dry-run 只测 4 fail 题, 不测 13 PASS 题 — 风险低 (v8.1 改动是 anchor 扩展不改 PASS 题域 rule), 但 R4 full 17 题回归可 confirm",
       "R3 vs dry-run 时间错位 ~4-5 小时 (R3 上午 / dry-run 下午); model state 后台变化 uncontrolled, 但 model 名 '3.1 Pro' 一致",

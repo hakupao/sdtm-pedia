@@ -182,3 +182,27 @@ reviewer findings (4 项 LOW/MEDIUM, 0 HIGH):
 2. 用户 Gemini Gem 已部署 v8.1 (16:35 PM 之前完成), `current/` LIVE 与 deployed 即匹配
 3. cut `release/v1.2/` + v1.2 release tag (单独 packaging cycle)
 4. R4 17 题 full 回归测建议 v1.2 post-cut
+
+### 2026-05-19 16:55 PM — Gemini v8.1 PROMOTED LIVE (用户 ack Plan A → C → B)
+
+**用户决策**: 选 Plan A (promote 立刻) → Plan C (R4 17 全题回归) → Plan B (v1.2 release cut).
+
+**Plan A 执行**:
+1. `cp ai_platforms/gemini_gems/dev/v8_draft/system_prompt_v8.md → ai_platforms/gemini_gems/current/system_prompt.md` (Bash 内置 cp, 525 行 → 525 行 identical 验证)
+2. Header L1 `v8.1 DRAFT post-R3 reviewer reconcile` → `v8.1 LIVE post-R3 promote 2026-05-19`; L3 cut signal 描述更新 "Promoted from dev/v8_draft/ after dry-run 4/4 PASS + Rule D #17 APPROVE 0 blocker. Replaces v7.1 LIVE"
+3. 用户 16:30 PM 之前已 paste v8.1 内容到 Gemini Gem instructions field (UI 操作), `current/system_prompt.md` ↔ deployed Gem instructions 现完全一致
+4. `_progress.json` v8_1_dry_run 加 `promoted_to_current` 子段记录 promote 时间 + 动作
+5. `SYNC_BOARD.md` 允许下一动作 → Plan C (R4 17 全题) + Plan B (v1.2 cut)
+6. `docs/PROGRESS.md` 加 16:55 PM PROMOTED LIVE milestone (★★★ — 替换 v7.1 LIVE 是 Phase 6.5 重大状态变更)
+
+**v7.1 → v8.1 关键改动 (LIVE diff)**:
+- +CO-1e (IS scope shift v3.3→v3.4): anti-microbial antibody → IS regardless of timing; HIV Ag/Ab combo → MB (Assumption 5 exemption); ISTSTOPO Assumption 8
+- +CO-2f (文件格式 ground rule): XPT/Dataset-JSON/Define-XML → ground CDISC published spec, 禁替换 SDTM domain content + 跑题守门
+- +CO-4 入口守门 (biospecimen 关键词 13 项中英 → BE/BS/RELSPEC, 禁 AE/CM fallback)
+- CO-5 共同执行规则 #1 + 工作流程 Step 1 + AHP-V1 触发条件 (3 处协同) 改 default: SDTM-shaped identifier regex `^[A-Z]{2,5}[A-Z0-9]{0,12}$` 触发 KB 双核 (不依赖题文 reflection scaffold), 加否定清单 (FDA/CDISC/XPT/JSON 等) + CO-2f 优先 gate + 候选数 ≥ 5 限制
+- +CO-5 #7 跑题守门 (答完扫主体 domain vs 题文 domain 不一致即重答)
+- v8.1 vs v7.1: 525 行 vs 423 行 (+102 行 +24%)
+
+**Next plan (待执行)**:
+- **Plan C (R4 17 全题回归测)**: Pro quota check — 今日已用 R3 17 + dry-run 4 = 21 题, 16:34 PM reset 后剩余可能不够 17 题. 若不够: ScheduleWakeup 明日 16:34 PM Pro reset 后跑. R4 测目的: anti-cheating long-tail probe — 验证 v8.1 改动没让 13 道 R3 PASS 题 regression (尤其 CO-5 regex default + 候选数限制是否影响多变量题 response).
+- **Plan B (v1.2 release cut)**: 类比 release/v1.1/ packaging — 4 平台 KB rebuild (v8.1 only 改 Gemini prompt, 其他 3 平台不变 → 仅 Gemini bundle rebuild), CHANGELOG.{en,zh,ja}.md, KNOWN_LIMITATIONS reconcile (v1.1 §0 Tier B 已记 R3 Gemini regression), self_deploy/ 4 平台教程更新, release/v1.2/ 目录, tag `v1.2-company-release`. 工程 ~半天 sprint.
