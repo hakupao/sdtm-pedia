@@ -1050,7 +1050,46 @@
     "status_after_reconcile": "WRITER_RECONCILED_DRY_RUN_PENDING_USER_ACK",
     "v8_1_line_count": "525 (v8 516 + 9 reviewer reconcile)",
     "v8_1_dry_run_gate": "H1+H2 不阻塞 dry-run (Q4-A 是麻疹非 HIV; Q11 CO-2f 优先实测验证). dry-run PASS 后即可 cut v1.2",
-    "next_step": "用户 ack → 主 session 引导用户部署 v8.1 system_prompt 到 Gemini Gem instructions → Chrome MCP dispatch 4 fail 题 (Q3/Q4-A/Q11/AHP1) → 写 evidence/dry_run_2026-05-19/ + verdict → 若 4/4 PASS 派 Rule D #17 reviewer cross-check → 用户 ack → v8.1 promote 到 current/system_prompt.md + cut v1.2",
     "not_in_scope": "其他 3 平台 prompt 修 / KB rebuild / 17 全题回归 / v1.2 release cut (单独议题)"
+  },
+  "v8_1_dry_run": {
+    "date": "2026-05-19 16:35-16:40 PM",
+    "status": "ALL_PASS_PLUS_REVIEWER_DISPATCHED",
+    "scope": "4 题串行 (Q3/Q4/Q11/AHP1) — R3 FAIL 题在 Gemini 3.1 Pro + v8.1 prompt 下重测, fair comparison with R3 v7.1 baseline (same model)",
+    "trigger": "Pro quota reset at 16:34 PM (today); user ack 'v8.1 已部署' + '可以跑一下' immediately after",
+    "wakeup_used": "ScheduleWakeup 3540s to wait Pro quota reset (clean fair-comparison path vs Flash-Lite fallback)",
+    "results": {
+      "Q3_BE_BS_RELSPEC": "PASS+ (1439 chars, 47.6s) — BE/BECAT/BS/BSTESTCD/RELSPEC complete; 禁臆造 BM + sponsor-extensible 注 (L2 fix verified); RELREC vs RELSPEC 明确区分; vs R3 v7.1 FAIL 跑题→AE 完全修复",
+      "Q4_LB_MB_IS": "PASS+ (1763 chars, 52.7s) — A=IS + ISBDAGNT=MEASLES VIRUS + ISORRES=1:128 + ISCAT=NON-STUDY-RELATED IMMUNOGENICITY + Assumption 2/5/8 cited; B=IS + ISTSTOPO=SCREEN/QUANTIFY; C=MB + MCORGIDN; HIV exemption→MB (H1 fix verified); vs R3 v7.1 FAIL A=LB 完全修复 + sticky anchor 起效",
+      "Q11_Dataset_JSON": "PASS+ (3768 chars, 30.6s) — 5 XPT 痛点全列 (8-char/200-char/Unicode/blank padding/metadata integration); FDA NDA/BLA 仍 required + Pre-NDA Type C 可豁免; dev/archive/submit 三段实操; Define-XML 互补 ASCII 图 + OID 引用; H2 优先 gate 让 'JSON' 不误触 AHP-V1; vs R3 v7.1 FAIL 跑题→AE/CM 完全修复",
+      "AHP1_LBCLINSIG": "PASS+ (694 chars, 46.6s) — textbook AHP-V1 模板触发 7/7: 识破 'LB spec 未列 LBCLINSIG' + 经过 KB 双次独立扫描 + typo 建议 (LBCLSIG) + SUPPLB NSV 路径 + 不生成 C-code + LBCLSIG 真变量 mention + LBNRIND C78736 区分 + 拒绝下游编造; M1 否定清单让 'LB/CT/CDISC' 不误触, 只 LBCLINSIG/LBNRIND 触发; vs R3 v7.1 FAIL 跑题→CM/MH 完全修复"
+    },
+    "summary": {
+      "score": "4/4 PASS+ (100%)",
+      "prong_verified": "4 prong 全 fire (Prong 1 Q3 / Prong 2 Q11 / Prong 3 Q4 / Prong 4 AHP1)",
+      "reviewer_fix_verified": "6/6 fix 全 fire (H1 Q4 HIV→MB / H2 Q11 优先 gate / M1 AHP1+Q4 否定清单 / M2 Q4 候选数限隐式 / L1 Q4 Assumption 8 / L2 Q3 BECAT sponsor-ext)",
+      "engineering_time": "实跑 ~5.5 min (177.5s 4 题 Chrome MCP + ~30s navigate/extract); 与 dry_run_plan.md §Phase B 估算 10 min 比快 4-5 min",
+      "comparison_with_r3": "Same Gemini 3.1 Pro model; same KB v1.1; 唯一变量 prompt v7.1→v8.1; 4 fail 题 4/4 修复 — prompt-level 改动直接证明有效"
+    },
+    "evidence": "ai_platforms/gemini_gems/dev/v8_draft/dry_run_2026-05-19/{q03,q04,q11,ahp1}_v8_evidence.md + dry_run_verdict.md",
+    "rule_d_reviewer_17": "oh-my-claudecode:verifier (Rule D #17 unique slot, background completed 2026-05-19 ~16:46 PM, evidence/v8_1_dry_run_audit.md)",
+    "rule_d_reviewer_17_verdict": "PASS_WITH_OBSERVATIONS — APPROVE with record correction (no blocker to v1.2 promote)",
+    "rule_d_reviewer_17_findings": {
+      "PASS_4_of_4_verified": "KB grep 独立确认: Q3 BE/spec L111 BECAT examples + BS/spec L84 BSTESTCD VOLUME/RIN; Q4 IS/assumptions §2/§5/§8 exact match; Q11 5痛点vs FDA timeline 准确; AHP1 LBCLINSIG absent + LBCLSIG L410 C66742 + LBNRIND C78736 confirmed",
+      "Prong_Fix_9_of_10_strong": "Prong 1/2/3/4 + H1/H2/M1/L1/L2 all confirmed evidence-strong; M2 隐式 (Q4 候选数<5, threshold 没真触发) Risk LOW",
+      "PASS_plus_label_correction": "SMOKE_V4 §1.2 L170 明文 'PASS+ (AHP 专属)'; Q3/Q4/Q11 严格应只 PASS, AHP1 才能 PASS+; dry_run_verdict.md TL;DR + caveat 已加 reviewer reconcile note (informal bonus marker 与 R3 历史惯例一致, 正式 score 4/4 PASS, AHP1 PASS+)",
+      "BECAT_EXTRACTION_KB_drift": "v8.1 prompt L272 添 EXTRACTION 不在 KB BE/spec L111 (KB 只 inline COLLECTION/PREPARATION/TRANSPORT); response 用 'sponsor-extensible' 注释 acceptable; Risk LOW; 建议 v1.2 post-cut 加来源注释防 prompt-KB 分叉",
+      "M2_threshold_uncovered": "Q4 候选数 < 5, M2 candidate cap 没真触发; 建议 R4 用 Q1 (GF 多变量) / Q14 (跨域多变量) 独立验证",
+      "R4_full_17_required": "Risk MEDIUM: 17 道原 PASS 题在 v8.1 下未测, v1.2 post-cut 立即安排 R4 全量回归, 重点验证 CO-5 regex default 对多变量题无 regression"
+    },
+    "rule_d_17_recommendation": "APPROVE — 0 blocker. Pre-promote 必修 1 项: dry_run_verdict.md PASS+ 标签 caveat (已 apply). 可 promote v8.1 → current/system_prompt.md + cut v1.2 release tag; R4 17 全题回归留 post-cut.",
+    "caveats_recorded": [
+      "Dry-run 只测 4 fail 题, 不测 13 PASS 题 — 风险低 (v8.1 改动是 anchor 扩展不改 PASS 题域 rule), 但 R4 full 17 题回归可 confirm",
+      "R3 vs dry-run 时间错位 ~4-5 小时 (R3 上午 / dry-run 下午); model state 后台变化 uncontrolled, 但 model 名 '3.1 Pro' 一致",
+      "Dry-run 单平台 (Gemini), 其他 3 平台 R3 全 PASS 或 KB 限制不需 prompt 修",
+      "主 session 自评 verdict 待 Rule D #17 reviewer cross-check, 若 disagree 主 session reconcile",
+      "17 全题回归测建议 v1.2 cut 后跑 R4 (anti-cheating long-tail probe — 4 fail 修复必要不充分, 17 全题才充分)"
+    ],
+    "next_step": "Rule D #17 reviewer 返回 → 主 session reconcile (若有 disagreement) → 用户 ack → v8.1 promote `current/system_prompt.md` 替换 v7.1 LIVE → cut v1.2 release tag → R4 17 题 full 回归测建议 v1.2 post-cut"
   }
 }

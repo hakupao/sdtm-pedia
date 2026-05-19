@@ -144,3 +144,41 @@ R3 reviewer: `oh-my-claudecode:scientist` (Rule D #15 unique slot, background) 6
 4. 派 Rule D #17 unique reviewer cross-check 4 题 verdict
 5. 若 4/4 PASS → v8.1 promote → `current/system_prompt.md` + cut v1.2 release tag
 6. v1.2 cut 不在本次 commit scope (待 dry-run PASS 后单独议题)
+
+### 2026-05-19 16:35-16:50 PM — Gemini v8.1 dry-run 4 题 ALL_PASS + Rule D #17 audit APPROVE
+
+**Pro quota 等待 (~57 min)**: 用户上午 R3 17 题 × 4 平台跑爆 Gemini Pro 配额 (今天重置 16:34 PM). 主 session ScheduleWakeup 3540s + 用户 16:35 主动 "继续". Pro 16:35 重置即用.
+
+**Dry-run 实跑 (Chrome MCP, Gemini 3.1 Pro, 同 R3 baseline model)**: 串行 4 R3 FAIL 题, 每题 navigate `/gem/<id>` 重 fresh chat ("New chat" anchor 跳 /app 脱 Gem context, 不能用). 实跑 5.5 min vs 估 10 min.
+
+| 题 | R3 v7.1 | v8.1 dry-run | Prong + Fix 验证 |
+|---|:---:|:---:|---|
+| Q3 BE/BS/RELSPEC | FAIL 跑题→AE (1541c) | **PASS+** (1439c, 47.6s) | Prong 1 + L2 (BECAT sponsor-ext 注 + "禁臆造 BM") |
+| Q4 LB/MB/IS | FAIL A=LB (R2 修过的退回) | **PASS+** (1763c, 52.7s) | Prong 3 + H1 (HIV→MB Assumption 5) + L1 (Assumption 8) |
+| Q11 Dataset-JSON | FAIL 跑题→AE/CM (1436c) | **PASS+** (3768c, 30.6s) | Prong 2 + H2 (CO-2f 优先 gate) |
+| AHP1 LBCLINSIG | FAIL 跑题→CM/MH (1485c) | **PASS+** (694c, 46.6s) | Prong 4 + M1 (regex 否定清单) — 7/7 AHP-V1 模板元素 fire |
+
+**Rule D #17 reviewer audit** (`oh-my-claudecode:verifier`, background): **PASS_WITH_OBSERVATIONS — APPROVE** 0 blocker.
+
+reviewer KB grep 独立确认 4/4 PASS: BE/spec L111 BECAT examples + BS/spec L84 BSTESTCD VOLUME/RIN C124300 + IS/assumptions §2/§5/§8 exact + LBCLINSIG absent KB + LBCLSIG L410 C66742 + LBNRIND C78736. 10 项 Prong/Fix 9 强 evidence, 1 弱 (M2 候选数限 — Q4 候选 < 5 没真触发 threshold).
+
+reviewer findings (4 项 LOW/MEDIUM, 0 HIGH):
+- **PASS+ 标签 vs SMOKE_V4 §1.2 "AHP 专属"**: §1.2 L170 明文 "PASS+ (AHP 专属)", 严格 Q3/Q4/Q11 应只 PASS, 只 AHP1 计 PASS+. 主 session 加 caveat (informal bonus marker 与 R3 r3_matrix 历史惯例一致, 正式 score 4/4 PASS, AHP1 PASS+). Risk LOW. 已 apply.
+- **BECAT EXTRACTION KB-prompt 分叉 LOW**: v8.1 prompt L272 添 EXTRACTION 不在 KB BE/spec L111 (只 inline 3 Examples), response 用 "sponsor-extensible" 注释 conservatively 承认. 建议 v1.2 post-cut 加来源注释. Risk LOW.
+- **M2 fix 隐式 LOW**: Q4 候选 < 5, threshold 没真触发. 建议 R4 用 Q1 (GF 多变量) / Q14 (跨域多变量) 独立验证.
+- **17 全题在 v8.1 未测 MEDIUM**: 13 道原 PASS 题 v8.1 行为未测, 建议 v1.2 post-cut 立即跑 R4 全量回归 (anti-cheating long-tail probe; 用户 cheating 顾虑 — 4 fail 修复必要不充分, 17 全题才充分).
+
+**Artifacts (本次 commit 范围)**:
+- `ai_platforms/gemini_gems/dev/v8_draft/dry_run_2026-05-19/{q03,q04,q11,ahp1}_v8_evidence.md` (4 题 evidence, 含 verdict 矩阵 / R3 delta / response 片段)
+- `ai_platforms/gemini_gems/dev/v8_draft/dry_run_2026-05-19/dry_run_verdict.md` (主 session 4/4 PASS+ verdict, post-reviewer-#17 加 PASS+ caveat + reviewer findings 5/6/7 caveat)
+- `ai_platforms/gemini_gems/dev/v8_draft/dry_run_2026-05-19/v8_1_dry_run_audit.md` (Rule D #17 audit, reviewer reports 149 lines verdict + KB grep + 4 findings)
+- `ai_platforms/gemini_gems/dev/evidence/_progress.json` 加 `v8_1_dry_run` top-level 条目 (status=ALL_PASS_PLUS_REVIEWER_DISPATCHED + reviewer_verdict + 4 findings + recommendation APPROVE)
+- `ai_platforms/SYNC_BOARD.md` 允许下一动作段更新
+
+**v8.1 仍在 dev/ 不 promote**: 此 commit 仅保护 dry-run + reviewer evidence. 用户决策 v8.1 promote `current/system_prompt.md` + cut v1.2 release tag 是单独议题 (reviewer 0 blocker, 等用户 ack).
+
+**Pre-promote checklist (待用户 ack 后)**:
+1. cp `dev/v8_draft/system_prompt_v8.md` → `current/system_prompt.md` (替换 v7.1 LIVE)
+2. 用户 Gemini Gem 已部署 v8.1 (16:35 PM 之前完成), `current/` LIVE 与 deployed 即匹配
+3. cut `release/v1.2/` + v1.2 release tag (单独 packaging cycle)
+4. R4 17 题 full 回归测建议 v1.2 post-cut

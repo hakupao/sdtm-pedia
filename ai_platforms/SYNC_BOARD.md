@@ -32,9 +32,9 @@
   - **关键 finding**: Gemini AHP probe **4/5 caught** (Q10 SUPPTS / Q13 NS / AHP2 SAE Aggregate / AHP3 PF) ✓; AHP1 LBCLINSIG ✗ (无 reflection prompt 时锚失效)
   - Rule D #15 unique reviewer slot: `oh-my-claudecode:scientist` (background, 待 reviewer 完成)
   - 详细 evidence: `.work/07_release_v1_1/r3/{r3_matrix,R3_RETROSPECTIVE}.md` + `evidence/q01-q14_combined.md` + `evidence/ahp1-3_combined.md`
-- **允许的下一动作**: **Gemini v8 prompt draft IN FLIGHT (2026-05-19 PM)** — `ai_platforms/gemini_gems/dev/v8_draft/` 已起 (writer claude-opus-4-7 主 session 写 v8 system_prompt 516 行 + design_rationale + dry_run_plan; 4-prong fix: CO-4 入口守门 / CO-2f 文件格式 / CO-1e IS scope shift / CO-5 default reflection). Rule D #16 unique reviewer `pr-review-toolkit:code-reviewer` background dispatched, evidence/v8_reviewer_audit.md 待回. 后续 follow-up: (a) Gemini reviewer 返回后 reconcile → dry-run 4 fail 题 (Q3/Q4-A/Q11/AHP1); (b) Claude project URL navigate + done-signal runner V2 改 (R4 prep, 未启动); (c) NotebookLM 评分规则修订给 PUNT-correct = 0.5 分 (v1.2 spec, 未启动).
+- **允许的下一动作**: **Gemini v8.1 dry-run COMPLETE 4/4 PASS+ ★ (2026-05-19 16:35-16:40 PM)** — `dev/v8_draft/dry_run_2026-05-19/` evidence 全, Chrome MCP Gemini 3.1 Pro 实测 4 R3 FAIL 题 (Q3/Q4/Q11/AHP1) 全 PASS+; 4 prong + 6 reviewer fix 全验证 fire. Rule D #17 unique reviewer `oh-my-claudecode:verifier` background dispatched, evidence/v8_1_dry_run_audit.md 待回. 后续: (a) reviewer 返回后 reconcile → 用户 ack → v8.1 promote `current/system_prompt.md` 替换 v7.1 LIVE → cut v1.2 release tag; (b) R4 17 题 full 回归测建议 v1.2 post-cut (anti-cheating long-tail probe); (c) Claude project URL navigate + done-signal runner V2 改 (R4 prep); (d) NotebookLM 评分规则修订 PUNT-correct=0.5 (v1.2 spec).
 - **偏离告警**: 无. R3 维护期完成. 锁步 board 历史保留.
-- **上一次状态更新**: 2026-05-19 PM (Gemini v8 prompt draft 主 session writer done, Rule D #16 reviewer dispatched background; dry-run 待 reviewer 返回 + 用户 ack)
+- **上一次状态更新**: 2026-05-19 PM (v8.1 dry-run 4 题全 PASS+, Rule D #17 reviewer dispatched background; v8.1 prompt 等用户 ack 后 promote LIVE + cut v1.2)
 
 ---
 
