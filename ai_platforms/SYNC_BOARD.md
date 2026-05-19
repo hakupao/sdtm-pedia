@@ -1,7 +1,9 @@
 # AI 平台双平台并行部署 — 锁步看板 (SYNC_BOARD)
 
-> **目的**: ChatGPT GPTs + Gemini Gems 在 Phase 0-5 上严格锁步, 不靠人脑记, 由主 session 机械 gate.
-> **覆盖平台**: `ai_platforms/chatgpt_gpt/` + `ai_platforms/gemini_gems/` (Claude Projects 已完成, 不参与本看板)
+> **⚠️ 状态降级 (2026-05-19)**: 4 平台 lifecycle FULLY SIGNED OFF (2026-04-24) + Release v1.1 + audit pass (2026-05-16) 全部 closed 后, **Phase 0-5 锁步 Gate 失效**. 本看板降级为 **R3+ 维护期 QA 横向同步看板**: 不再强制 hold (谁先跑完先记录), 但 R3+ 回归测试仍要求 4 平台**同题集 / 同 Strict 判据 / 同一张横向对比表**, 用于 cross-pollination (一平台的弱项反哺另一平台 prompt). R3 测试计划见 `.work/07_release_v1_1/r3/r3_kickoff.md` + `r3_matrix.md` (2026-05-16 已就绪). 原 Phase Gate 规则 (PASS 四条 / 偏离告警) 仅作历史保留.
+>
+> **目的 (原始, 历史保留)**: ChatGPT GPTs + Gemini Gems 在 Phase 0-5 上严格锁步, 不靠人脑记, 由主 session 机械 gate.
+> **覆盖平台 (R3+ 扩到 4 平台横向)**: `ai_platforms/{chatgpt_gpt,gemini_gems,claude_projects,notebooklm}/` (R3+ QA 表 4 平台一起列, 但不锁 hold; 历史 Phase 0-5 锁步仅 chatgpt_gpt + gemini_gems)
 > **建立日期**: 2026-04-20
 > **最后更新**: 2026-04-23 AM (**smoke v4 R1 baseline 4 平台完成 + P3.8 reviewer 澄清 DONE + Gemini R2 v6 draft + 13th reviewer 派发** — 2026-04-22 晚 cowork 跑完 smoke v4.0 17 × 4 = 68 answers (Claude 17/17 / ChatGPT 16.5/17 / NotebookLM 15/17 / Gemini 12.5/17 主 gate **FAIL** 65.4% < 70% AHP × 3 全 FAIL); R1 retrospective 落档; SMOKE_V4.md §3 跨 4 平台矩阵全填 — **Phase 4 cross-platform matrix 此项消掉**; 2026-04-23 session 澄清 NotebookLM P3.8 reviewer 早于 2026-04-22 PM 12th slot `feature-dev:code-reviewer` 已完成 (9/10 PASS 维持), 非 NEXT_STEPS v1.0 误判"11th slot 未派"; Gemini R2 v6 draft 2026-04-23 主 session 写就 (`gemini_gems/dev/v6_draft/system_prompt_v6.md` 338 行 / 17,883 chars, CO-5 ANTI-HALLUCINATION GUARDRAIL 节 + AHP-V1/V2/V3 + Q4/Q7/Q8 R1 微修); Rule D **第 26 种** 独立 subagent_type `pr-review-toolkit:code-reviewer` 派 background 复判 R1 评分 + v6 adequacy (待回); **NotebookLM Phase 4 唯一剩余 = P3.9 三档分享切换演练**; ChatGPT+Gemini Phase 5 pending 保持; 历史 2026-04-22 PM 更新见下方变更日志)
 
@@ -22,10 +24,17 @@
 
 ## 当前状态 (每步更新)
 
-- **当前锁步 Phase**: **Phase 6.5 4 平台 lifecycle FULLY SIGNED OFF (2026-04-24 Daisy ack) + v1.1 content refresh CLOSED (2026-05-15) + post-v1.1 audit pass CLOSED (2026-05-16)**. 终态: Claude 17/17 / ChatGPT 16.5/17 / Gemini R2 16/17 / NotebookLM 15/17 ALL R1/R2 PASS; v7.1 已 LIVE applied to Gemini (含 CO-1d SUPP-- Core 锚点 + CO-1c ARMNRS C142179 5 值 + V5C 15th reviewer APPROVE 2026-04-24); v2.2 已 LIVE applied to ChatGPT; v1.1 rebuild 4 平台 + Rule D verifier ALL_PASS + post-v1.1 audit (system_prompt 63→64 + 23 meta inheritance + ARMNRS C66770 typo @ Gemini line 141 fix) 全 closed; Rule D chain 28 种 subagent_type cumulative.
-- **允许的下一动作**: 全部 closed, 仅 deferred 项留 v1.2+: (a) v1.1 部署到实际 ChatGPT/Gemini/Claude/NotebookLM 实例后跑 SMOKE_V4 R3 (06 修复对 PC RELREC 等问题改善实测; 需用户协作 cowork); (b) Rule A 扩到 N=20+ (本 session 后台 subagent 跑); (c) 22 notebooklm bucket 逐桶 audit (本 session 后台 subagent 跑); (d) gemini 04 writer-authored 与 PC RELREC 交互 audit (本 session 后台 subagent 跑); (e) KNOWN_LIMITATIONS L1-L4 vs 06 RETROSPECTIVE §二缺口 reconciliation (本 session 后台 subagent 跑).
-- **偏离告警**: 无. 锁步 board 作为历史记录保留, 不再 active.
-- **上一次状态更新**: 2026-05-16 AM (post-v1.1 audit pass closed: v7.1 LIVE 确认 + line 141 ARMNRS typo 修 + 2 个 deferred audit subagent 派发) — 见后续 changelog
+- **当前锁步 Phase**: **Phase 6.5 4 平台 lifecycle FULLY SIGNED OFF (2026-04-24) + v1.1 CLOSED (2026-05-15) + post-v1.1 audit (2026-05-16) + SMOKE_V4 R3 完成 (2026-05-19)**. R3 终态 (Chrome MCP 并行, 17 题 × 4 平台 = 68 cells):
+  - Claude v2.6: **17/17 PASS (11 PASS+ upgrade)** — sustained
+  - ChatGPT v2.2: **17/17 PASS+ (13 PASS+)** — ↑ +0.5 vs R1
+  - NotebookLM v2: **15.5/17 (11 PASS+, 1 PARTIAL Q11, 1 PUNT Q9)** — RAG 限制可预期, ≥ R1 baseline
+  - Gemini v7.1: **13/17 PASS (5 PASS+, 4 FAIL: Q3跑题 / Q4-A→LB / Q11跑题 / AHP1跑题)** — ⚠️ regression vs R1 16/17
+  - **关键 finding**: Gemini AHP probe **4/5 caught** (Q10 SUPPTS / Q13 NS / AHP2 SAE Aggregate / AHP3 PF) ✓; AHP1 LBCLINSIG ✗ (无 reflection prompt 时锚失效)
+  - Rule D #15 unique reviewer slot: `oh-my-claudecode:scientist` (background, 待 reviewer 完成)
+  - 详细 evidence: `.work/07_release_v1_1/r3/{r3_matrix,R3_RETROSPECTIVE}.md` + `evidence/q01-q14_combined.md` + `evidence/ahp1-3_combined.md`
+- **允许的下一动作**: R3 closed, 数据 feed v1.2 决策池. 主要 follow-up: (a) Gemini v8 prompt 改 anti-hallucination 锚为 default reflection (R3 4 fail → v8 改进 signal); (b) Claude project URL navigate + done-signal runner V2 改 (R4 prep); (c) NotebookLM 评分规则修订给 PUNT-correct = 0.5 分 (v1.2 spec).
+- **偏离告警**: 无. R3 维护期完成. 锁步 board 历史保留.
+- **上一次状态更新**: 2026-05-19 (SMOKE_V4 R3 完成, 17 题 × 4 平台 Chrome MCP 并行, ~50min 主跑 + ~15min retro)
 
 ---
 
