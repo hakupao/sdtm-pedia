@@ -65,7 +65,7 @@
       "bucket_25_rename": "25_td_meta_ti_ts_oi.md → 25_td_meta_ti_ts_oi_di.md",
       "files_count": 43,
       "size_approx": "9.4 MB",
-      "deploy_note": "Self-deploying users must delete old 25_td_meta_ti_ts_oi.md after uploading new file. Target source count: 42."
+      "deploy_note": "Upgrading from v1.0-v1.2 NotebookLM deployments: delete old 25_td_meta_ti_ts_oi.md source after uploading the new 25_td_meta_ti_ts_oi_di.md. Fresh v1.3 self-deployers find only the new file in self_deploy/notebooklm/uploads/. Target source count: 42."
     }
   },
   "total_uploads_size_approx": "25.5 MB",

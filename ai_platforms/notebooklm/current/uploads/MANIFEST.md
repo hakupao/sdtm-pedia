@@ -36,7 +36,7 @@
 | 22 | `22_fnd_other_ss_ur_ft.md` | 9 | 7,649 | Findings 其他: SS + UR + FT |
 | 23 | `23_td_arms_ta_tv.md` | 6 | 9,078 | Trial Design: TA + TV (arms + visits) |
 | 24 | `24_td_elements_te_tm_td.md` | 9 | 5,656 | Trial Design: TE + TM + TD (elements + milestones + durations) |
-| 25 | `25_td_meta_ti_ts_oi.md` | 9 | 7,498 | Trial Design: TI + TS + OI (inclusion + summary + organism) |
+| 25 | `25_td_meta_ti_ts_oi_di.md` | 10 | 8,820 | Trial Design: TI + TS + OI + DI (inclusion + summary + organism + device identifiers) |
 | 26 | `26_rel_relrec_relspec_relsub.md` | 9 | 3,627 | Relationships: RELREC + RELSPEC + RELSUB |
 | 27 | `27_rel_suppqual.md` | 3 | 1,835 | Supplemental: SUPPQUAL |
 | 28 | `28_ig_ch01_ch02_ch03.md` | 3 | 6,751 | IG: ch01 intro + ch02 fundamentals + ch03 submitting data |
