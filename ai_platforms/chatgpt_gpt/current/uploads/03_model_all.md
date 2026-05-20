@@ -292,6 +292,8 @@ The Findings About observation class is a subtype of Findings used to record fin
 
 ### §6.4.3 Variables Unique to Findings About (Reference Material, SDTMIG v3.4 p364)
 
+The variable --OBJ is unique to Findings About. In conjunction with FATESTCD, it describes what the topic of the observation is; therefore, both are required to be populated for every record. FATESTCD describes the measurement/evaluation and FAOBJ describes the event or intervention that the measurement/evaluation is about.
+
 When collected data fit a qualifier variable (see SDTM Sections 3.1.1, 3.1.2, and 3.1.3) and are represented in the FA domain, the name of the variable should be used as the value of FATESTCD. For example,
 
 | FATESTCD | FATEST |
@@ -695,7 +697,7 @@ Describes the basic building blocks of a trial design — discrete periods of ti
 
 **Structure:** One record per planned Element per Arm
 
-Describes each planned arm in a trial. An arm is an ordered sequence of elements; the same element may occur more than once in a given arm. This dataset allows for rules for branching and transitions.
+Describes each planned arm in a trial. An arm is an ordered sequence of elements; the same element may occur more than once in a given arm. In order to accommodate complex trial designs, this dataset allows for rules for branching from one element to another when a choice is available, and a rule for transitions to allow a subject to skip ahead to another element rather than proceed linearly.
 
 | # | Variable | Label | Type | Role |
 |---|----------|-------|------|------|

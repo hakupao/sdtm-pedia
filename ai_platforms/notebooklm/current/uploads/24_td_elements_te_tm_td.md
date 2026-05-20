@@ -5,8 +5,8 @@
 > - **Bucket ID**: `24`
 > - **Concept**: Trial Design: TE + TM + TD (elements + milestones + durations)
 > - **Merged files**: 9
-> - **Words**: 6,080
-> - **Chars**: 37,036
+> - **Words**: 6,129
+> - **Chars**: 37,363
 > - **Sources**:
 >   - `domains/TE/spec.md`
 >   - `domains/TE/assumptions.md`
@@ -105,6 +105,10 @@
 ## Source: `domains/TE/assumptions.md`
 
 # TE — Assumptions
+
+## TE — Description/Overview
+
+A trial design domain that contains the element code that is unique for each element, the element description, and the rules for starting and ending an element.
 
 The Trial Elements (TE) dataset contains the definitions of the elements that appear in the Trial Arms (TA) dataset. An element may appear multiple times in the TA table because it appears either (1) in multiple arms, (2) multiple times within an arm, or (3) both. However, an element will appear only once in the TE table.
 
@@ -301,7 +305,11 @@ Note that the subject is not "in limbo" during this process. The subject remains
 
 # TM — Assumptions
 
+## TM — Description/Overview
+
 A trial design domain that is used to describe disease milestones, which are observations or activities anticipated to occur in the course of the disease under study, and which trigger the collection of data.
+
+**tm.xpt, Trial Disease Milestones — Trial Design. One record per Disease Milestone type, Tabulation.**
 
 1. Disease milestones may be things that would be expected to happen before the study, or things that are anticipated to happen during the study. The occurrence of disease milestones for particular subjects are represented in the Subject Disease Milestones (SM) dataset.
 

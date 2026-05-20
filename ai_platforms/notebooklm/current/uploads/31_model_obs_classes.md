@@ -5,8 +5,8 @@
 > - **Bucket ID**: `31`
 > - **Concept**: Model: observation classes + special purpose domains
 > - **Merged files**: 2
-> - **Words**: 6,849
-> - **Chars**: 36,974
+> - **Words**: 6,896
+> - **Chars**: 37,301
 > - **Sources**:
 >   - `model/02_observation_classes.md`
 >   - `model/03_special_purpose_domains.md`
@@ -202,6 +202,8 @@ The Findings About observation class is a subtype of Findings used to record fin
 | --OBJ | Object of the Observation | Char | Record Qualifier | Used in domains modeled as Findings About Events or Findings About Interventions. Describes the event or intervention whose property is being measured in --TESTCD/--TEST. |
 
 ### §6.4.3 Variables Unique to Findings About (Reference Material, SDTMIG v3.4 p364)
+
+The variable --OBJ is unique to Findings About. In conjunction with FATESTCD, it describes what the topic of the observation is; therefore, both are required to be populated for every record. FATESTCD describes the measurement/evaluation and FAOBJ describes the event or intervention that the measurement/evaluation is about.
 
 When collected data fit a qualifier variable (see SDTM Sections 3.1.1, 3.1.2, and 3.1.3) and are represented in the FA domain, the name of the variable should be used as the value of FATESTCD. For example,
 

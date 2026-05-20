@@ -1,6 +1,10 @@
 # TM — Assumptions
 
+## TM — Description/Overview
+
 A trial design domain that is used to describe disease milestones, which are observations or activities anticipated to occur in the course of the disease under study, and which trigger the collection of data.
+
+**tm.xpt, Trial Disease Milestones — Trial Design. One record per Disease Milestone type, Tabulation.**
 
 1. Disease milestones may be things that would be expected to happen before the study, or things that are anticipated to happen during the study. The occurrence of disease milestones for particular subjects are represented in the Subject Disease Milestones (SM) dataset.
 

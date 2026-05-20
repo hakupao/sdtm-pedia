@@ -1,8 +1,8 @@
 # 02 Domains Spec & Assumptions (63 domains, spec+assumptions interleaved)
 
-> Generated: 2026-05-15T08:23:20Z
+> Generated: 2026-05-20T04:31:36Z
 > Source files: 127
-> Total tokens (cl100k_base): 258,783
+> Total tokens (cl100k_base): 258,911
 
 > Source order is preserved for traceability. `<!-- source: ... -->` comments mark each segment's origin file (relative to repo root).
 
@@ -1174,7 +1174,7 @@
 - **Controlled Terms:** 
 - **Role:** Grouping Qualifier
 - **Core:** Perm
-- **CDISC Notes:** Used to define a category of topic-variable values. Example: COLLECTION, PREPARATION, TRANSPORT.
+- **CDISC Notes:** Used to define a category of topic-variable values. Example: COLLECTION, PREPARATION, TRANSPORT (CDISC canonical examples per SDTMIG v3.4). BECAT is sponsor-extensible; additional category values such as EXTRACTION (e.g., for DNA / molecular-biology specimen processing) are routinely used in practice, provided they follow the same single-token, controlled-vocabulary convention.
 
 ### BESCAT
 - **Order:** 13
@@ -19159,6 +19159,10 @@ The purpose of the Trial Disease Assessments (TD) domain is to provide informati
 <!-- source: knowledge_base/domains/TE/assumptions.md -->
 # TE — Assumptions
 
+## TE — Description/Overview
+
+A trial design domain that contains the element code that is unique for each element, the element description, and the rules for starting and ending an element.
+
 The Trial Elements (TE) dataset contains the definitions of the elements that appear in the Trial Arms (TA) dataset. An element may appear multiple times in the TA table because it appears either (1) in multiple arms, (2) multiple times within an arm, or (3) both. However, an element will appear only once in the TE table.
 
 Each row in the TE dataset may be thought of as representing a "unique element" in the same sense of "unique" as a CRF template page for a collecting certain type of data referred to as "unique page." For instance, a CRF might be described as containing 87 pages, but only 23 unique pages. By analogy, the trial design matrix in Example Trial 1 (see Section 7.2.1, Trial Arms) has 9 study cells, each of which contains 1 element, but the same trial design matrix contains only 5 unique elements, so the TE dataset for that trial has only 5 records.
@@ -19406,7 +19410,11 @@ Some steps will overlap; there may be several iterations; and not all steps are 
 <!-- source: knowledge_base/domains/TM/assumptions.md -->
 # TM — Assumptions
 
+## TM — Description/Overview
+
 A trial design domain that is used to describe disease milestones, which are observations or activities anticipated to occur in the course of the disease under study, and which trigger the collection of data.
+
+**tm.xpt, Trial Disease Milestones — Trial Design. One record per Disease Milestone type, Tabulation.**
 
 1. Disease milestones may be things that would be expected to happen before the study, or things that are anticipated to happen during the study. The occurrence of disease milestones for particular subjects are represented in the Subject Disease Milestones (SM) dataset.
 
@@ -19748,7 +19756,7 @@ Clinically accepted evaluation criteria expect that a tumor/lesion/location of i
 
 4. In order to support data value standardization it is sometimes appropriate to standardize an original result value in TRORRES to a standardized result value in TRSTRESC and TRSTRESN. For example, in the published RECIST criteria, a standardized value of 5 mm is used in the calculation to determine response when a tumor is "too small to measure." The original or collected value "TOO SMALL TO MEASURE" should be represented in the TRORRES variable and the standardized value should be represented in the TRSTRESC and TRSTRESN variables. The information should be represented on a single row of data showing the standardization between the original result, TRORRES, and the standard results, TRSTRESC/TRSTRESN, as follows:
 
-    | TRLNKID | TRTESTCD | TRTEST | TRORRES | TRORRESU | TRSTRESC | TRSTRESN | TRSTRESN |
+    | TRLNKID | TRTESTCD | TRTEST | TRORRES | TRORRESU | TRSTRESC | TRSTRESN | TRSTRESU |
     |---------|----------|--------|---------|----------|----------|----------|----------|
     | T01 | DIAMETER | Diameter | TOO SMALL TO MEASURE | mm | 5 | 5 | mm |
 

@@ -1,8 +1,8 @@
 # 03 Domains Examples (63 domains, implementation examples)
 
-> Generated: 2026-05-15T08:23:20Z
+> Generated: 2026-05-20T04:31:36Z
 > Source files: 63
-> Total tokens (cl100k_base): 224,077
+> Total tokens (cl100k_base): 225,451
 
 > Source order is preserved for traceability. `<!-- source: ... -->` comments mark each segment's origin file (relative to repo root).
 
@@ -5237,22 +5237,59 @@ The shared PP dataset contains 12 rows showing PK parameters (TMAX, CMAX, AUCALL
 
 *See PC examples for the full description of RELREC Methods A through D and their corresponding relrec.xpt tables.*
 
-## RELREC Method Descriptions (Section 6.3.5.9.3, pp 281-282)
+## §6.3.5.9.3 RELREC Method Quick Reference (PP-side view)
 
-### Method B — One to Many, Using PCSEQ and PPGRPID (p281)
+The full 4 worked Examples (1-4) with complete `relrec.xpt` tables for all 4 Methods (A/B/C/D) appear in `PC/examples.md` (the shared §6.3.5.9.3 host). This section gives a PP-domain-focused quick reference of how each Method appears on the PP side, plus one abbreviated `relrec.xpt` showing the actual PP rows for Method C (the most common pattern when individual PP parameters need to be linked to a group of PC concentration records).
 
-- Rows 1-13: The relationship with RELID "1" includes PP records with PCSEQ values "1" through "12" and PP records with PPGRPID = "DY1DRGX_A".
-- Rows 14-24: The relationship with RELID "2" includes PP records with PCSEQ values "1" through "7" and "10" through "12" and PP records with PPGRPID = "DY1DRGX_HALF".
+### Method A — Many to Many, Using PCGRPID and PPGRPID (p277)
 
-### Method C — Many to One, Using PCGRPID and PPSEQ (p281)
+PP-side row form: `IDVAR = PPGRPID`, `IDVARVAL = <ppgrpid-value>` (e.g., `DY1DRGX`).
 
-- Rows 1-7: The relationship with RELID "1" includes all PP records with PGRPID values "DY1_DRGX_A" and "DY1_DRGX_B" and PP records with PPSEQ values "1" through "3", "6", and "7".
+- Rows 1-2: The relationship with RELID "1" includes all PC records with PCGRPID = "DY1_DRGX" and all PP records with PPGRPID = "DY1DRGX".
+- Rows 3-4: The relationship with RELID "2" includes all PC records with PCGRPID = "DY8_DRGX" and all PP records with PPGRPID = "DY8DRGX".
 
-### Method A — Many to Many, Using PCGRPID and PPGRPID (Example 4, p282)
+### Method B — One to Many, Using PCSEQ and PPGRPID (pp 277-278)
 
-- Rows 1-4: The relationship with RELID "1" includes PC records with PCGRPID values "DY1DRGX_A", "DY1DRGX_C", and "DY1DRGX_D" and the one PP record with PPGRPID = "TMAX".
-- Rows 5-8: The relationship with RELID "2" includes PC records with PCGRPID values "DY1DRGX_A", "DY1DRGX_B", and "DY1DRGX_D" and the one PP record with PPGRPID = "CMAX".
-- Rows 9-12: The relationship with RELID "3" includes PC records with PCGRPID values "DY1DRGX_A", "DY1DRGX_B", and "DY1DRGX_C" and the one PP record with PPGRPID = "AUC".
+PP-side row form: `IDVAR = PPGRPID` (one PP-side row collects an entire PP group per RELID).
+
+- Rows 1-13: The relationship with RELID "1" includes individual PC records with PCSEQ values "1" to "12" and all PP records with PPGRPID = "DY1DRGX".
+- Rows 14-26: The relationship with RELID "2" includes individual PC records with PCSEQ values "13" to "24" and all PP records with PPGRPID = "DY8DRGX".
+
+### Method C — Many to One, Using PCGRPID and PPSEQ (p278)
+
+PP-side row form: `IDVAR = PPSEQ`, `IDVARVAL = <ppseq>` (one PP-side row per individual PP record).
+
+- Rows 1-8: The relationship with RELID "1" includes all PC records with PCGRPID = "DY1_DRGX" and PP records with PPSEQ values "1" through "7".
+- Rows 9-16: The relationship with RELID "2" includes all PC records with PCGRPID = "DY8_DRGX" and PP records with PPSEQ values "8" through "14".
+
+**relrec.xpt (Method C, abbreviated to show PP-side rows for RELID = "1"; full table in `PC/examples.md`)**
+
+| Row | STUDYID | RDOMAIN | USUBJID | IDVAR | IDVARVAL | RELTYPE | RELID |
+|-----|---------|---------|---------|-------|----------|---------|-------|
+| 1 | ABC-123 | PC | ABC-123-0001 | PCGRPID | DY1_DRGX | | 1 |
+| 2 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 1 | | 1 |
+| 3 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 2 | | 1 |
+| 4 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 3 | | 1 |
+| 5 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 4 | | 1 |
+| 6 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 5 | | 1 |
+| 7 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 6 | | 1 |
+| 8 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 7 | | 1 |
+
+Reading the PP-side rows: each individual PP record (PPSEQ 1 through 7) carries its own row in `relrec.xpt`, pointing back to the same `RELID = "1"` as the PC group `PCGRPID = "DY1_DRGX"`. This is what "Many to One" means here — many distinct PP records linked to one PC group.
+
+### Method D — One to One, Using PCSEQ and PPSEQ (pp 278-280)
+
+PP-side row form: `IDVAR = PPSEQ`, one PP-side row per PP record, paired with one PC-side row per PC record (the most verbose form).
+
+- The relationship with RELID "1" includes individual PC records with PCSEQ values "1" through "12" and individual PP records with PPSEQ values "1" through "7".
+- The relationship with RELID "2" includes individual PC records with PCSEQ values "13" through "24" and individual PP records with PPSEQ values "8" through "14".
+
+### Cross-domain summary (Examples 2-4 on pp 281-284)
+
+`PC/examples.md` Examples 2-4 illustrate variants in which:
+- Example 2 (p281): PCGRPID has the value "EXCLUDE" for PC records that should not participate in the relationship — RELREC silently filters them.
+- Example 3 (p283): Uses PCSEQ on PC side + PPGRPID on PP side (mirror of Method B).
+- Example 4 (p284): Uses PCGRPID on PC side + PPSEQ on PP side, with a single PP test (TMAX, CMAX, AUC) per RELID — useful when each PP parameter has its own scientific provenance.
 
 <!-- source: knowledge_base/domains/PR/examples.md -->
 # PR — Examples
@@ -6451,7 +6488,7 @@ graph LR
 
 ## Example 3
 
-A trial with multiple branches: randomization at screening plus response evaluation after blinded treatment. This results in 4 arms (A-Open A, A-Rescue, B-Open A, B-Rescue). TABRANCH is populated for 2 records in each arm reflecting the 2 branch points.
+A trial with multiple branches: randomization at screening plus response evaluation after blinded treatment. This results in 4 arms (A-Open A, A-Rescue, B-Open A, B-Rescue). TABRANCH is populated for 2 records in each arm reflecting the 2 branch points. Note also that the values of ARMCD, like the values of ARM, reflect the 2 separate processes that result in a subject's assignment to an arm.
 
 **Study Schema**
 
@@ -6558,6 +6595,8 @@ See Section 7.2.1.1 Trial Arms Issues, Distinguishing Between Branches and Trans
 
 A cyclical chemotherapy oncology trial with repeating treatment/rest elements until disease progression. 2 arms (Drug A, Drug B), 3 epochs (Screening, Treatment, Follow-Up). The TATRANS variable represents the "repeat until disease progression" skip-forward rule.
 
+The following diagram uses a new symbol, a large curved arrow representing the fact that the chemotherapy treatment (A or B) and the rest period that follows it are to be repeated. In this trial, the chemotherapy cycles are to be repeated until disease progression. Although some chemotherapy trials specify a maximum number of cycles, protocols that allow an indefinite number of repeats are not uncommon.
+
 Maximum of 4 cycles assumed in this example.
 
 **Study Schema**
@@ -6598,6 +6637,8 @@ graph LR
 
 Same epoch structure as the Prospective View: 2 arms (Drug A, Drug B), each cycling through Treatment Epoch until disease progression, then entering Follow-up.
 
+For the purpose of developing a TA dataset for this oncology trial, the diagram must be redrawn to explicitly represent multiple treatment and rest elements. If a maximum number of cycles is not given by the protocol, then—for the purposes of constructing an SDTM TA dataset for submission, which can only take place after the trial is complete—the number of repeats included in the TA dataset should be the maximum number of repeats that occurred in the trial. The next diagram assumes that the maximum number of cycles that occurred in this trial was 4. Some subjects will not have received all 4 cycles, because their disease progressed. The rule that directed that they receive no further cycles of chemotherapy is represented by a set of green arrows, 1 at the end of each rest epoch, that shows that a subject "skips forward" if their disease progresses. In the TA dataset, each skip-forward instruction is a transition rule, recorded in the TATRANS variable; when TATRANS is not populated, the rule is to transition to the next element in sequence.
+
 **Retrospective View with Explicit Repeats**
 
 ```mermaid
@@ -6626,6 +6667,8 @@ graph LR
     r7 -.->|"If disease progression"| f2
 ```
 
+The logistics of dosing mean that few oncology trials are blinded; the next diagram, however, shows the trial from the viewpoint of blinded participants if this trial is blinded.
+
 **Blinded View**
 
 ```mermaid
@@ -6645,6 +6688,8 @@ graph LR
     re2 -.->|"If disease progression"| F
     re3 -.->|"If disease progression"| F
 ```
+
+The TA dataset for this example trial requires the use of the TATRANS variable to represent the "repeat until disease progression" feature (the green "skip forward" arrow represents this rule in the diagrams). In the TA dataset, TATRANS is populated for each element with a green arrow in the diagram. In other words, if there is a possibility that a subject will, at the end of this element, skip forward to a later part of the arm, then TATRANS is populated with the rule describing the conditions under which a subject will go to a later element. If the subject always goes to the next element in the arm (see Example Trials 1-3), then TATRANS is null. The TA dataset presented below corresponds to the trial design matrix.
 
 The trial design matrix for this example trial corresponds to the diagram showing the retrospective view, with explicit repeats of elements shown.
 
@@ -6924,7 +6969,7 @@ The TA dataset reflects that this is a 2-arm trial.
 
 ### Distinguishing Between Branches and Transitions
 
-Both the Branch and Transition columns contain rules, but the 2 columns represent 2 different types of rules. **Branch rules** represent forks in the trial flowchart, giving rise to separate arms. The rule underlying a branch appears in multiple records, once for each "fork" of the branch. **Transition rules** are used for choices within an arm. The value for TATRANS does contain a choice (an "if" clause). In Example Trial 4, subjects who receive 1, 2, 3, or 4 cycles of treatment A are all considered to belong to arm A.
+Both the Branch and Transition columns contain rules, but the 2 columns represent 2 different types of rules. **Branch rules** represent forks in the trial flowchart, giving rise to separate arms. The rule underlying a branch appears in multiple records, once for each "fork" of the branch. Within any one record, there is no choice (no "if" clause) in the value of the branch condition. For example, the value of TABRANCH for a record in arm A is "Randomized to Arm A" because a subject in arm A must have been randomized to arm A. **Transition rules** are used for choices within an arm. The value for TATRANS does contain a choice (an "if" clause). In Example Trial 4, subjects who receive 1, 2, 3, or 4 cycles of treatment A are all considered to belong to arm A.
 
 ### Subjects Not Assigned to an Arm
 
@@ -7668,7 +7713,7 @@ Ranges may be used to describe the planned timing of visits (e.g., 12-16 days af
 
 ### Contingent Visits
 
-Some data collection is contingent on the occurrence of a "trigger" event or disease milestone (see Section 7.3.3, Trial Disease Milestones (TM)). When such planned data collection involves an additional clinic visit, a "contingent" visit may be included in the TV table, with a rule that describes the circumstances under which it will take place. Because values of VISITNUM must be assigned to all records in the TV dataset, a contingent visit included in the TV dataset must have a VISITNUM, but the VISITNUM value might not be a "chronological" value. If contingent visits are not included in the TV dataset, then they would be treated as unplanned visits in the Subject Visits (SV) domain (see Section 6.2.8, Subject Visits).
+Some data collection is contingent on the occurrence of a "trigger" event or disease milestone (see Section 7.3.3, Trial Disease Milestones (TM)). When such planned data collection involves an additional clinic visit, a "contingent" visit may be included in the TV table, with a rule that describes the circumstances under which it will take place. Because values of VISITNUM must be assigned to all records in the TV dataset, a contingent visit included in the TV dataset must have a VISITNUM, but the VISITNUM value might not be a "chronological" value, due to the uncertain timing of a contingent visit. If contingent visits are not included in the TV dataset, then they would be treated as unplanned visits in the Subject Visits (SV) domain (see Section 6.2.8, Subject Visits).
 
 <!-- source: knowledge_base/domains/UR/examples.md -->
 # UR — Examples

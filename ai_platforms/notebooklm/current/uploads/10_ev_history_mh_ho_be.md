@@ -5,8 +5,8 @@
 > - **Bucket ID**: `10`
 > - **Concept**: Events: MH + HO + BE
 > - **Merged files**: 9
-> - **Words**: 11,195
-> - **Chars**: 67,596
+> - **Words**: 11,230
+> - **Chars**: 67,880
 > - **Sources**:
 >   - `domains/MH/spec.md`
 >   - `domains/MH/assumptions.md`
@@ -944,7 +944,7 @@ The indication/medical condition for subject ABC123101's repeat hospitalization 
 - **Controlled Terms:** 
 - **Role:** Grouping Qualifier
 - **Core:** Perm
-- **CDISC Notes:** Used to define a category of topic-variable values. Example: COLLECTION, PREPARATION, TRANSPORT.
+- **CDISC Notes:** Used to define a category of topic-variable values. Example: COLLECTION, PREPARATION, TRANSPORT (CDISC canonical examples per SDTMIG v3.4). BECAT is sponsor-extensible; additional category values such as EXTRACTION (e.g., for DNA / molecular-biology specimen processing) are routinely used in practice, provided they follow the same single-token, controlled-vocabulary convention.
 
 ### BESCAT
 - **Order:** 13

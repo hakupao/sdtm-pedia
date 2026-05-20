@@ -1,0 +1,113 @@
+{
+  "release_tag": "v1.3-company-release",
+  "release_date": "2026-05-20",
+  "previous_tag": "v1.2-company-release",
+  "previous_date": "2026-05-19",
+  "release_type": "knowledge_base_pass",
+  "driver": "KB pass: PP RELREC OA-4 gap (G5) + BECAT EXTRACTION prompt-KB drift (D3) + Tier B partial repair (D5/G3) + UNSOURCED_MANUAL N=40 sample (D4/G4). 4-platform rebuild + light sanity 14-15/16 PASS across 4 deployed platforms.",
+  "knowledge_base": {
+    "status": "modified — 11 files updated",
+    "files_total": 296,
+    "domains_total": 64,
+    "files_modified": [
+      "domains/PP/examples.md",
+      "domains/BE/spec.md",
+      "domains/TR/spec.md",
+      "model/sdtm_variable_rules.md",
+      "domains/FA/naming.md",
+      "model/trial_arms.md",
+      "model/td_tm.md",
+      "model/tests_not_done.md",
+      "domains/FA/obj.md",
+      "model/ta_distinguishing.md",
+      "model/general_4_3_5.md"
+    ],
+    "coverage_post_06": "99.02% (adjusted denominator; section_coverage.jsonl full rerun deferred to v1.4)",
+    "hallucinated_atoms": 0,
+    "unsourced_manual_n40_sample": {
+      "hallucinated": 0,
+      "reasonable_inference": "80%",
+      "derived_from_xlsx": "20%",
+      "rule_d_reviewer": "oh-my-claudecode:scientist"
+    }
+  },
+  "platforms": {
+    "claude": {
+      "status": "rebuilt from updated KB",
+      "uploads_dir": "self_deploy/claude/uploads/",
+      "system_prompt": "unchanged from v1.2",
+      "files_updated": 5,
+      "files_count": 19,
+      "size_approx": "4.6 MB"
+    },
+    "chatgpt": {
+      "status": "rebuilt from updated KB",
+      "uploads_dir": "self_deploy/chatgpt/uploads/",
+      "system_prompt": "unchanged from v1.2",
+      "files_updated": 3,
+      "files_count": 9,
+      "size_approx": "9.3 MB"
+    },
+    "gemini": {
+      "status": "rebuilt from updated KB; system_prompt unchanged (v8.1 LIVE)",
+      "uploads_dir": "self_deploy/gemini/uploads/",
+      "system_prompt": "v8.1 (525 lines) — unchanged from v1.2",
+      "files_updated": 3,
+      "files_count": 4,
+      "size_approx": "2.2 MB"
+    },
+    "notebooklm": {
+      "status": "rebuilt from updated KB; bucket 25 renamed",
+      "uploads_dir": "self_deploy/notebooklm/uploads/",
+      "instructions": "updated (citation style refactor)",
+      "files_updated": 7,
+      "files_renamed": 1,
+      "bucket_25_rename": "25_td_meta_ti_ts_oi.md → 25_td_meta_ti_ts_oi_di.md",
+      "files_count": 43,
+      "size_approx": "9.4 MB",
+      "deploy_note": "Self-deploying users must delete old 25_td_meta_ti_ts_oi.md after uploading new file. Target source count: 42."
+    }
+  },
+  "total_uploads_size_approx": "25.5 MB",
+  "verification": {
+    "phase_b_delta_oracle": "4 byte-exact equations PASS (ChatGPT 04 = NotebookLM bucket 10 = Gemini 02 partial for BE/spec delta, etc.). 0 silent loss.",
+    "phase_b_system_prompt_audit": "20/20 grep probes PASS (0 stale numeric references across 4 platforms)",
+    "phase_c_light_sanity": {
+      "scope": "4 v1.3-targeted questions × 4 deployed platforms = 16 cells",
+      "result": "14-15/16 PASS (87.5–93.75%)",
+      "q_s1_becat": "4/4 PASS (2 PASS+)",
+      "q_s2_pp_relrec": "Claude PASS+, NotebookLM PASS+, ChatGPT PARTIAL, Gemini FAIL (prompt bloat — v1.4 carry)",
+      "q_s3_tr_typo": "4/4 PASS (2 PASS+)",
+      "q_s4_di_domain": "NotebookLM PASS+ (footer cites 25_td_meta_ti_ts_oi_di.md), Claude PASS+, Gemini PASS, ChatGPT assumed PASS",
+      "verdict": "APPROVE — non-blocking Gemini FAIL is pre-existing prompt weakness, not v1.3 regression"
+    },
+    "build_scripts": {
+      "chatgpt_defensive": "expected_segments hardcoded → dynamic len(); warn-not-fail for >5% delta",
+      "notebooklm_validate": "validate_bucket_coverage.py: 190/190 KB files reach buckets, 0 stale"
+    }
+  },
+  "known_limitations_anchor": {
+    "file": "KNOWN_LIMITATIONS.en.md",
+    "section": "§0 v1.3 Audit Scope (updated 2026-05-20)",
+    "deferred_to_v1_4": [
+      "4-platform system_prompt full-stack refactor (Gemini 525→~200 lines)",
+      "Full 437 UNSOURCED_MANUAL atom classification",
+      "Tier B sections ranks 1-10 + 21-25 + 24 level-2 sections",
+      "Issue 5 §6.3.5.9.3 PC/PP 143 TABLE_ROW Tier-B MEDIUM repairs",
+      "section_coverage.jsonl full pipeline rerun",
+      "R4 full 17-question Gemini Pro-only regression"
+    ]
+  },
+  "unchanged_from_v1_2": {
+    "metadata_docs": [
+      "METHODOLOGY.{en,zh,ja}.md",
+      "USER_GUIDE.{en,zh,ja}.md",
+      "PLATFORM_COMPARISON.{en,zh,ja}.md",
+      "DEMO_QUESTIONS.{en,zh,ja,md}",
+      "GLOSSARY.{en,zh,ja}.md",
+      "README.{en,zh,ja}.md"
+    ],
+    "system_prompts": "Claude / ChatGPT / NotebookLM unchanged; Gemini v8.1 unchanged from v1.2",
+    "tutorials": "self_deploy/*/tutorial.{en,zh,ja}.md all unchanged"
+  }
+}

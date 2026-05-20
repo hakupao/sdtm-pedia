@@ -351,25 +351,25 @@ MERGE_CONFIGS: list[MergeEntry] = [
     MergeEntry(
         target="04_domain_specs_all.md",
         stage="batch1",
-        description="63 域 spec.md (变量定义骨架)",
+        description="N 域 spec.md (变量定义骨架; N=运行时 = len(domains/*/spec.md))",
         source_collector=_collect_domain_specs,
-        expected_segments=63,
+        expected_segments=0,  # v1.3 M4: dynamic — was hardcoded 63, breaks when KB adds domain (e.g. DI in 06 → 64)
         token_cap=193_000,
     ),
     MergeEntry(
         target="05_domain_assumptions_all.md",
         stage="batch2",
-        description="64 域 assumptions.md (含 DI SDTMIG-MD, 06 deep verification 新加)",
+        description="N 域 assumptions.md (含 DI SDTMIG-MD; N=运行时 = len(domains/*/assumptions.md))",
         source_collector=_collect_domain_assumptions,
-        expected_segments=64,
+        expected_segments=0,  # v1.3 M4: dynamic — was hardcoded 64, breaks on next domain addition
         token_cap=85_000,
     ),
     MergeEntry(
         target="06_domain_examples_all.md",
         stage="batch2",
-        description="63 域 examples.md (示例场景)",
+        description="N 域 examples.md (示例场景; N=运行时 = len(domains/*/examples.md))",
         source_collector=_collect_domain_examples,
-        expected_segments=63,
+        expected_segments=0,  # v1.3 M4: dynamic
         token_cap=254_000,  # v1.5: 190→254 (attempt_1 实测 220,575 × 1.15)
     ),
     MergeEntry(
