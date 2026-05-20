@@ -32,9 +32,9 @@
   - **关键 finding**: Gemini AHP probe **4/5 caught** (Q10 SUPPTS / Q13 NS / AHP2 SAE Aggregate / AHP3 PF) ✓; AHP1 LBCLINSIG ✗ (无 reflection prompt 时锚失效)
   - Rule D #15 unique reviewer slot: `oh-my-claudecode:scientist` (background, 待 reviewer 完成)
   - 详细 evidence: `.work/07_release_v1_1/r3/{r3_matrix,R3_RETROSPECTIVE}.md` + `evidence/q01-q14_combined.md` + `evidence/ahp1-3_combined.md`
-- **允许的下一动作**: **v1.2 CLOSED ★★★★ (2026-05-19 evening)** — v8.1 PROMOTED LIVE + Release v1.2 cut `release/v1.2/` 28 files + Rule D #18 `oh-my-claudecode:critic` PASS_WITH_OBSERVATIONS (0 HIGH, 3 LOW/MEDIUM 全 NON-blocking; 4-corner Rule D #15/#16/#17/#18 unique slot 覆盖完整) + **tag `v1.2-company-release` 已加 verified** (annotated 9b42b566 → b0b68043, local + remote PASS). **Plan C (R4 17 全题回归)** Pro quota 恢复后跑 (建议先 5 题 sanity Q1/Q2/Q5/Q6/Q14). v1.3 KB pass 待 plan (BECAT EXTRACTION KB-prompt 分叉 + 166 Tier B + 437 UNSOURCED_MANUAL).
+- **允许的下一动作**: **v1.2 CLOSED + R4 sanity 5/5 PASS ★★★ v8.1 APPROVE (2026-05-20 morning)** — Sanity 跑 5 题 (3 Pro Q1/Q2/Q5 + 2 Flash-Lite Q6/Q14 due to Pro quota); 0 regression, 2 题升级 PASS+; 4 Watch finding [M2 候选数限/PASS+ §1.2 strict/CO-5 reflection/CO-2f gate] 全 LOW; 决策树命中 5/5 → **不需跑全 17 题**. evidence `.work/07_release_v1_2/r4_sanity/`. **下一步二选一**: v1.3 KB pass 待 plan (BECAT EXTRACTION KB-prompt 分叉 + 166 Tier B + 437 UNSOURCED_MANUAL) 或 Phase 7 RAG + KG 启动 (design `docs/DESIGN_RAG_KG.md` 已完成).
 - **偏离告警**: 无. R3 维护期完成. 锁步 board 历史保留.
-- **上一次状态更新**: 2026-05-19 evening (v1.2 CLOSED, tag `v1.2-company-release` 已加 verified: annotated 9b42b566 → b0b68043, local + remote PASS)
+- **上一次状态更新**: 2026-05-20 morning (R4 sanity 5/5 PASS, v8.1 APPROVE, 0 regression, 不需跑全 17 题)
 
 ---
 
