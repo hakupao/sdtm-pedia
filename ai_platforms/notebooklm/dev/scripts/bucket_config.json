@@ -347,8 +347,8 @@
     },
     {
       "id": "25",
-      "name": "25_td_meta_ti_ts_oi.md",
-      "description": "Trial Design + Study Reference: TI + TS + OI + DI (inclusion + summary + organism + device identifiers; DI added 06 P6 T4 2026-05-12)",
+      "name": "25_td_meta_ti_ts_oi_di.md",
+      "description": "Trial Design + Study Reference: TI + TS + OI + DI (inclusion + summary + organism + device identifiers; DI added 06 P6 T4 2026-05-12; renamed v1.3 B5/M3 to include _di slug)",
       "files": [
         "domains/TI/spec.md",
         "domains/TI/assumptions.md",

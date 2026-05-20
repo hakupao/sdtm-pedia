@@ -108,7 +108,7 @@
 - **Controlled Terms:** 
 - **Role:** Grouping Qualifier
 - **Core:** Perm
-- **CDISC Notes:** Used to define a category of topic-variable values. Example: COLLECTION, PREPARATION, TRANSPORT.
+- **CDISC Notes:** Used to define a category of topic-variable values. Example: COLLECTION, PREPARATION, TRANSPORT (CDISC canonical examples per SDTMIG v3.4). BECAT is sponsor-extensible; additional category values such as EXTRACTION (e.g., for DNA / molecular-biology specimen processing) are routinely used in practice, provided they follow the same single-token, controlled-vocabulary convention.
 
 ### BESCAT
 - **Order:** 13

@@ -142,7 +142,7 @@ Process for creating a custom domain (must be based on 1 of the 3 GOC):
    - h. Adjust the labels of the variables only as appropriate to properly convey the meaning in the context of the data being submitted in the newly created domain. Use title case for all labels (title case means to capitalize the first letter of every word except for articles, prepositions, and conjunctions).
    - i. Ensure appropriate standard variables are properly applied
    - j. Describe the dataset in the Define-XML document
-   - k. Place non-standard variables in a SUPP-- dataset
+   - k. Place any non-standard (SDTM) variables in a Supplemental Qualifier dataset. Mechanisms for representing additional non-standard qualifier variables not described in the general observation classes and for defining relationships between separate datasets or records are described in Section 8.4, Relating Non-standard Variable Values to a Parent Domain.
 
 **Key rules for custom domains:**
 - Do not create separate domains based on time (represent both prior and current in one domain; AE and MH are exceptions)
@@ -175,16 +175,24 @@ The following identifier variable can be used for nonclinical studies (SEND), an
 | --REASEX | Findings |
 | FETUSID | Identifiers |
 | RPHASE | Timing Variables |
-| RPPLDY, RPPLSTDY, RPPLENDY | Timing Variables |
-| --NOMDY, --NOMLBL | Timing Variables |
-| --RPDY, --RPSTDY, --RPENDY | Timing Variables |
+| RPPLDY | Timing Variables |
+| RPPLSTDY | Timing Variables |
+| RPPLENDY | Timing Variables |
+| --NOMDY | Timing Variables |
+| --NOMLBL | Timing Variables |
+| --RPDY | Timing Variables |
+| --RPSTDY | Timing Variables |
+| --RPENDY | Timing Variables |
 | --DETECT | Timing Variables |
 
 ### Must NEVER be used in DM domain (SEND nonclinical only):
 
 See Section 9.2, Non-host Organism Identifiers, for information about representing taxonomic information for non-host organisms such as bacteria and viruses.
 
-- SPECIES, STRAIN, SBSTRAIN, RPATHCD
+- SPECIES (Demographics)
+- STRAIN (Demographics)
+- SBSTRAIN (Demographics)
+- RPATHCD (Demographics)
 
 ### Use with extreme caution (not fully evaluated for human clinical trials):
 
@@ -210,8 +218,24 @@ For example, if findings about clinical events and findings about medical histor
 1. A single FA domain, perhaps separated with different FACAT and/or FASCAT values
 2. A split FA domain following the guidance in Section 4.1.7, Splitting Domains:
    - The DOMAIN value would be "FA".
+   - Variables that require a prefix would use "FA".
+   - The dataset names would be the domain name plus up to 2 additional characters indicating the parent domain (e.g., FACE for Findings About Clinical Events, FAMH for Findings About Medical History). This naming convention may be used for an FA domain that has a parent domain even when the study has only 1 FA dataset that is not being split.
+   - FASEQ must be unique within USUBJID for all records across the split datasets.
+   - Supplemental qualifier datasets would need to be managed at the split-file level (e.g., suppface.xpt, suppfamh.xpt). Within each supplemental qualifier dataset, RDOMAIN would be "FA".
+   - If a dataset-level RELREC is defined (e.g., between the CE and FACE datasets), then RDOMAIN may contain up to 4 characters to effectively describe the relationship between the CE parent records and the FACE child records.
 3. Separate domains where:
+   - The DOMAIN value is sponsor-defined and does not begin with FA, following examples in Section 6.4.5, Skin Response, which has a domain code of SR.
    - All published FA guidance applies, specifically:
      - The --OBJ variable cannot be added to a standard Findings domain. A domain is either a Findings domain or a Findings About domain, not one or the other depending on the situation.
      - When the --OBJ variable is included in a domain, this identifies it as an FA domain, and the --OBJ variable must be populated for all records.
    - All published domain guidance applies, specifically:
+     - Variables that require a prefix would use the 2-character domain code chosen.
+
+For the naming of datasets with findings about events or interventions for associated persons, refer to the SDTMIG: Associated Persons (available at https://www.cdisc.org/standards/foundational/sdtm).
+
+### Points to Consider
+
+The choice between representing a data item as a supplemental qualifier or as a finding about an event or intervention may not be clear-cut. The following questions may help in making a decision.
+
+- Does the data item have its own timing, separate from the timing of the event or intervention? If the data item represents some action during or after the event or intervention, it may be considered to have its own timing, and meet Criterion 1.
+  - If the event or intervention is a disease milestone, then RELMIDS is not included in this event or intervention record. Is the relationship of a data item to the disease milestone (RELMIDS) needed? If so, it can be represented in FA, but not as a supplemental qualifier to the parent record.

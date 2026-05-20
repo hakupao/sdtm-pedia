@@ -1,0 +1,402 @@
+[
+  {
+    "strat": "HIGH",
+    "atom_id": "md_ch04_a035",
+    "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+    "section": "§4.1.5 [SDTM Core Designations]",
+    "type": "TABLE_ROW",
+    "verbatim": "| **Exp** (Expected) | Must be included in the dataset | Value should be populated when available; n",
+    "category": "DERIVED_FROM_XLSX",
+    "rationale": "Core designation row from CDISC variable spec metadata"
+  },
+  {
+    "strat": "HIGH",
+    "atom_id": "md_ch01_a077",
+    "file": "knowledge_base/chapters/ch01_introduction.md",
+    "section": "§1.4.1 [How to Read a Domain Specification]",
+    "type": "TABLE_ROW",
+    "verbatim": "| **Core** | \"Req\" (Required), \"Exp\" (Expected), or \"Perm\" (Permissible) |",
+    "category": "DERIVED_FROM_XLSX",
+    "rationale": "Core designation row from CDISC variable spec metadata"
+  },
+  {
+    "strat": "HIGH",
+    "atom_id": "md_ch08_a286",
+    "file": "knowledge_base/chapters/ch08_relationships.md",
+    "section": "§8.7 [Related Subjects (RELSUB)]",
+    "type": "LIST_ITEM",
+    "verbatim": "3. If POOLID is submitted, then in any record, 1 and only 1 of USUBJID and POOLID must be populated.",
+    "category": "REASONABLE_INFERENCE",
+    "rationale": "RELSUB rule from PDF §8.7 p439, paraphrased atom-level not matched"
+  },
+  {
+    "strat": "HIGH",
+    "atom_id": "md_ch08_a288",
+    "file": "knowledge_base/chapters/ch08_relationships.md",
+    "section": "§8.7 [Related Subjects (RELSUB)]",
+    "type": "LIST_ITEM",
+    "verbatim": "5. RSUBJID must be a USUBJID value present in the Demographics (DM) domain. RSUBJID must be populate",
+    "category": "REASONABLE_INFERENCE",
+    "rationale": "RELSUB rule from PDF §8.7 p439, paraphrased atom-level not matched"
+  },
+  {
+    "strat": "HIGH",
+    "atom_id": "md_ch08_a294",
+    "file": "knowledge_base/chapters/ch08_relationships.md",
+    "section": "§8.7 [Related Subjects (RELSUB)]",
+    "type": "SENTENCE",
+    "verbatim": "Some expected and required variables not needed to illustrate the example are not shown.",
+    "category": "REASONABLE_INFERENCE",
+    "rationale": "ch08 relationship narrative, paraphrase"
+  },
+  {
+    "strat": "HIGH",
+    "atom_id": "md_dmDM_assn_a018",
+    "file": "knowledge_base/domains/DM/assumptions.md",
+    "section": "§DM [DM — Assumptions]",
+    "type": "LIST_ITEM",
+    "verbatim": "5. Study population flags should not be included in SDTM data. The standard supplemental qualifiers ",
+    "category": "REASONABLE_INFERENCE",
+    "rationale": "DM Assumptions list item, from CDISC DM assumption text"
+  },
+  {
+    "strat": "HIGH",
+    "atom_id": "md_dmPC_ex_a049",
+    "file": "knowledge_base/domains/PC/examples.md",
+    "section": "§PC.2 [Relating PC and PP — Overview]",
+    "type": "SENTENCE",
+    "verbatim": "Sponsors must document the concentrations used to calculate each parameter. This may be done in anal",
+    "category": "REASONABLE_INFERENCE",
+    "rationale": "PC RELREC sponsor-guidance from PDF §6.3.5.9.3"
+  },
+  {
+    "strat": "HIGH",
+    "atom_id": "md_dmSUPPQUAL_assn_a007",
+    "file": "knowledge_base/domains/SUPPQUAL/assumptions.md",
+    "section": "§SUPPQUAL [SUPPQUAL — Assumptions]",
+    "type": "SENTENCE",
+    "verbatim": "All records in the SUPP-- datasets must have a value for QVAL. Transposing source variables with mis",
+    "category": "DERIVED_FROM_XLSX",
+    "rationale": "SUPPQUAL spec / assumption from CDISC SUPP- definition"
+  },
+  {
+    "strat": "HIGH",
+    "atom_id": "md_dmTR_assn_a018",
+    "file": "knowledge_base/domains/TR/assumptions.md",
+    "section": "§TR [TR — Assumptions]",
+    "type": "NOTE",
+    "verbatim": "**Note:** TREVAL must also be populated when TREVALID is populated.",
+    "category": "DERIVED_FROM_XLSX",
+    "rationale": "Spec-level CDISC Notes / structure entry"
+  },
+  {
+    "strat": "HIGH",
+    "atom_id": "md_dmTU_assn_a046",
+    "file": "knowledge_base/domains/TU/assumptions.md",
+    "section": "§TU [TU — Assumptions]",
+    "type": "NOTE",
+    "verbatim": "**Note:** TUEVAL must also be populated when TUEVALID is populated.",
+    "category": "DERIVED_FROM_XLSX",
+    "rationale": "Spec-level CDISC Notes / structure entry"
+  },
+  {
+    "strat": "LOW",
+    "atom_id": "md_dmAE_ex_a010",
+    "file": "knowledge_base/domains/AE/examples.md",
+    "section": "§AE.1 [Example 1]",
+    "type": "SENTENCE",
+    "verbatim": "Note that for the event in row 2, AESTDY = \"1\".",
+    "category": "REASONABLE_INFERENCE",
+    "rationale": "Example table row annotation, paraphrase of CDISC example"
+  },
+  {
+    "strat": "LOW",
+    "atom_id": "md_model01_a052",
+    "file": "knowledge_base/model/01_concepts_and_terms.md",
+    "section": "§2.1 [Model Concepts and Terms — Variables]",
+    "type": "SENTENCE",
+    "verbatim": "The Comments special-purpose domain includes the variable RDOMAIN, but other special-purpose domains",
+    "category": "REASONABLE_INFERENCE",
+    "rationale": "Model concepts paraphrase / cross-ref"
+  },
+  {
+    "strat": "LOW",
+    "atom_id": "md_dmMI_ex_a016",
+    "file": "knowledge_base/domains/MI/examples.md",
+    "section": "§MI.2 [Example 2]",
+    "type": "SENTENCE",
+    "verbatim": "The proportion positive score was assessed as the percentage of tumor cells that stained positive on",
+    "category": "REASONABLE_INFERENCE",
+    "rationale": "Example annotation sentence, paraphrase of CDISC example narrative"
+  },
+  {
+    "strat": "LOW",
+    "atom_id": "md_dmDM_ex_a017",
+    "file": "knowledge_base/domains/DM/examples.md",
+    "section": "§DM.2 [Example 2]",
+    "type": "SENTENCE",
+    "verbatim": "**Row 5:** Subject 005 was randomized but dropped out before being treated. Thus, the actual arm var",
+    "category": "REASONABLE_INFERENCE",
+    "rationale": "Example table row annotation, paraphrase of CDISC example"
+  },
+  {
+    "strat": "LOW",
+    "atom_id": "md_dmDM_ex_a136",
+    "file": "knowledge_base/domains/DM/examples.md",
+    "section": "§DM.6 [Example 6]",
+    "type": "SENTENCE",
+    "verbatim": "The CRF in this example is annotated to show the CDASH variable name and the target SDTMIG variable.",
+    "category": "REASONABLE_INFERENCE",
+    "rationale": "Example annotation sentence, paraphrase of CDISC example narrative"
+  },
+  {
+    "strat": "LOW",
+    "atom_id": "md_model03_a061",
+    "file": "knowledge_base/model/03_special_purpose_domains.md",
+    "section": "§ Demographics (DM) > Key Reference Date Variables",
+    "type": "TABLE_ROW",
+    "verbatim": "| RFICDTC | Date/Time of Informed Consent | Consent date |",
+    "category": "REASONABLE_INFERENCE",
+    "rationale": "Model concepts paraphrase / cross-ref"
+  },
+  {
+    "strat": "LOW",
+    "atom_id": "md_ch04_a304",
+    "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+    "section": "§4.2.7.2 [\"Specify\" Values for Result Qualifier Variables]",
+    "type": "TABLE_ROW",
+    "verbatim": "|           | [ ] Other, specify: _________ |",
+    "category": "NEEDS_HUMAN_REVIEW",
+    "rationale": "Heuristic did not classify; needs PDF deep-look"
+  },
+  {
+    "strat": "LOW",
+    "atom_id": "md_dmMH_ex_a032",
+    "file": "knowledge_base/domains/MH/examples.md",
+    "section": "§MH.2 [Example 2]",
+    "type": "SENTENCE",
+    "verbatim": "MHSCAT displays the body systems specified on the CRF.",
+    "category": "REASONABLE_INFERENCE",
+    "rationale": "Example annotation sentence, paraphrase of CDISC example narrative"
+  },
+  {
+    "strat": "LOW",
+    "atom_id": "md_dmCE_ex_a039",
+    "file": "knowledge_base/domains/CE/examples.md",
+    "section": "§CE.2 [Example 2]",
+    "type": "SENTENCE",
+    "verbatim": "Because there was no event, severity and start and end dates are null.",
+    "category": "REASONABLE_INFERENCE",
+    "rationale": "Example table row annotation, paraphrase of CDISC example"
+  },
+  {
+    "strat": "LOW",
+    "atom_id": "md_model01_a017",
+    "file": "knowledge_base/model/01_concepts_and_terms.md",
+    "section": "§2.1 [Model Concepts and Terms — Variables]",
+    "type": "SENTENCE",
+    "verbatim": "Metadata are described in the CDISC Define-XML specification.",
+    "category": "REASONABLE_INFERENCE",
+    "rationale": "Model concepts paraphrase / cross-ref"
+  },
+  {
+    "strat": "LOW",
+    "atom_id": "md_model01_a025",
+    "file": "knowledge_base/model/01_concepts_and_terms.md",
+    "section": "§2.1 [Model Concepts and Terms — Variables]",
+    "type": "SENTENCE",
+    "verbatim": "For example, --MODIFY qualifies --TRT in interventions, --TERM in events, and --ORRES in findings.",
+    "category": "REASONABLE_INFERENCE",
+    "rationale": "Model concepts paraphrase / cross-ref"
+  },
+  {
+    "strat": "LOW",
+    "atom_id": "md_dmMB_ex_a049",
+    "file": "knowledge_base/domains/MB/examples.md",
+    "section": "§MB.2 [Example 2]",
+    "type": "SENTENCE",
+    "verbatim": "**Rows 3-4:** Show that the same gram-stained sample was used to identify and quantify the presence ",
+    "category": "REASONABLE_INFERENCE",
+    "rationale": "Example table row annotation, paraphrase of CDISC example"
+  },
+  {
+    "strat": "LOW",
+    "atom_id": "md_dmPC_ex_a380",
+    "file": "knowledge_base/domains/PC/examples.md",
+    "section": "§PC.2.7 [Example 4 (Complex exclusions)]",
+    "type": "LIST_ITEM",
+    "verbatim": "- Using PPSEQ values; use PCGRPID values wherever possible",
+    "category": "NEEDS_HUMAN_REVIEW",
+    "rationale": "Heuristic did not classify; needs PDF deep-look"
+  },
+  {
+    "strat": "LOW",
+    "atom_id": "md_model05_a057",
+    "file": "knowledge_base/model/05_study_level_data.md",
+    "section": "§ Trial Reproductive Stages (TT)",
+    "type": "NOTE",
+    "verbatim": "**Structure:** One record per Planned Repro Stage",
+    "category": "DERIVED_FROM_XLSX",
+    "rationale": "Spec-level CDISC Notes / structure entry"
+  },
+  {
+    "strat": "LOW",
+    "atom_id": "md_dmDM_ex_a184",
+    "file": "knowledge_base/domains/DM/examples.md",
+    "section": "§DM.7 [Example 7]",
+    "type": "SENTENCE",
+    "verbatim": "Additional fields: \"What was the other race?\" (RACEOTH → SUPPDM.QVAL where SUPPDM.QNAM = \"RACEOTH\") ",
+    "category": "REASONABLE_INFERENCE",
+    "rationale": "Example annotation sentence, paraphrase of CDISC example narrative"
+  },
+  {
+    "strat": "LOW",
+    "atom_id": "md_ch08_a120",
+    "file": "knowledge_base/chapters/ch08_relationships.md",
+    "section": "§8.3.1 [RELREC Dataset Relationship Example]",
+    "type": "SENTENCE",
+    "verbatim": "In the sponsor's operational database, these datasets may have existed as either separate datasets t",
+    "category": "REASONABLE_INFERENCE",
+    "rationale": "ch08 relationship narrative, paraphrase"
+  },
+  {
+    "strat": "LOW",
+    "atom_id": "md_model05_a069",
+    "file": "knowledge_base/model/05_study_level_data.md",
+    "section": "§ Trial Reproductive Paths (TP)",
+    "type": "NOTE",
+    "verbatim": "**Structure:** One record per Planned Repro Stage per Repro Path",
+    "category": "DERIVED_FROM_XLSX",
+    "rationale": "Spec-level CDISC Notes / structure entry"
+  },
+  {
+    "strat": "LOW",
+    "atom_id": "md_dmAG_ex_a021",
+    "file": "knowledge_base/domains/AG/examples.md",
+    "section": "§AG.2 [Example 2]",
+    "type": "SENTENCE",
+    "verbatim": "An identifier was assigned to the reversibility test and this identifier was used to be link data ac",
+    "category": "REASONABLE_INFERENCE",
+    "rationale": "Example annotation sentence, paraphrase of CDISC example narrative"
+  },
+  {
+    "strat": "LOW",
+    "atom_id": "md_dmDM_assn_a023",
+    "file": "knowledge_base/domains/DM/assumptions.md",
+    "section": "§DM [DM — Assumptions]",
+    "type": "LIST_ITEM",
+    "verbatim": "   a. Only the following timing variables are permissible and may be added as appropriate: VISITNUM,",
+    "category": "REASONABLE_INFERENCE",
+    "rationale": "DM Assumptions list item, from CDISC DM assumption text"
+  },
+  {
+    "strat": "LOW",
+    "atom_id": "md_dmSUPPQUAL_assn_a003",
+    "file": "knowledge_base/domains/SUPPQUAL/assumptions.md",
+    "section": "§SUPPQUAL [SUPPQUAL — Assumptions]",
+    "type": "SENTENCE",
+    "verbatim": "SUPP-- represents the metadata and data for each NSV/value combination. As the name suggests, this d",
+    "category": "DERIVED_FROM_XLSX",
+    "rationale": "SUPPQUAL spec / assumption from CDISC SUPP- definition"
+  },
+  {
+    "strat": "LOW",
+    "atom_id": "md_dmCE_ex_a068",
+    "file": "knowledge_base/domains/CE/examples.md",
+    "section": "§CE.3 [Example 3]",
+    "type": "SENTENCE",
+    "verbatim": "The collected data do not meet criteria for representation in FA.",
+    "category": "REASONABLE_INFERENCE",
+    "rationale": "Example annotation sentence, paraphrase of CDISC example narrative"
+  },
+  {
+    "strat": "LOW",
+    "atom_id": "md_dmBS_ex_a009",
+    "file": "knowledge_base/domains/BS/examples.md",
+    "section": "§BS.1 [Example 1]",
+    "type": "SENTENCE",
+    "verbatim": "Because values in --TESTCD cannot begin with a number, the test code has been prefixed with an \"I\" f",
+    "category": "REASONABLE_INFERENCE",
+    "rationale": "Example annotation sentence, paraphrase of CDISC example narrative"
+  },
+  {
+    "strat": "LOW",
+    "atom_id": "md_dmTR_ex_a007",
+    "file": "knowledge_base/domains/TR/examples.md",
+    "section": "§TR.1 [Example 2 (continued from TU)]",
+    "type": "SENTENCE",
+    "verbatim": "A lymph node state of \"NON-PATHOLOGICAL\" means that all target lymph node lesions have a short axis ",
+    "category": "REASONABLE_INFERENCE",
+    "rationale": "Example annotation sentence, paraphrase of CDISC example narrative"
+  },
+  {
+    "strat": "LOW",
+    "atom_id": "md_dmTA_ex_a042",
+    "file": "knowledge_base/domains/TA/examples.md",
+    "section": "§TA.2 [Example 2]",
+    "type": "SENTENCE",
+    "verbatim": "A crossover trial comparing 3 treatments (Placebo, 5 mg, 10 mg) with 7 epochs: Screening, 3 Treatmen",
+    "category": "REASONABLE_INFERENCE",
+    "rationale": "Example annotation sentence, paraphrase of CDISC example narrative"
+  },
+  {
+    "strat": "LOW",
+    "atom_id": "md_dmAG_ex_a008",
+    "file": "knowledge_base/domains/AG/examples.md",
+    "section": "§AG.1 [Example 1]",
+    "type": "SENTENCE",
+    "verbatim": "The results of the screening BAC are not shown, but would be represented in the Respiratory System F",
+    "category": "REASONABLE_INFERENCE",
+    "rationale": "Example annotation sentence, paraphrase of CDISC example narrative"
+  },
+  {
+    "strat": "LOW",
+    "atom_id": "md_model02_a013",
+    "file": "knowledge_base/model/02_observation_classes.md",
+    "section": "§3.1.1 The Interventions Observation Class",
+    "type": "SENTENCE",
+    "verbatim": "This includes treatments specified by the study protocol (i.e., \"exposure\").",
+    "category": "REASONABLE_INFERENCE",
+    "rationale": "Model concepts paraphrase / cross-ref"
+  },
+  {
+    "strat": "LOW",
+    "atom_id": "md_dmTU_ex_a007",
+    "file": "knowledge_base/domains/TU/examples.md",
+    "section": "§TU.1 [Example 1]",
+    "type": "SENTENCE",
+    "verbatim": "During the same PVI procedure, the subject also had a target graft lesion (L01-G) identified in the ",
+    "category": "REASONABLE_INFERENCE",
+    "rationale": "Example annotation sentence, paraphrase of CDISC example narrative"
+  },
+  {
+    "strat": "LOW",
+    "atom_id": "md_dmCE_ex_a077",
+    "file": "knowledge_base/domains/CE/examples.md",
+    "section": "§CE.3 [Example 3]",
+    "type": "SENTENCE",
+    "verbatim": "No separate start date for this complication was collected, so MHSTDTC is blank.",
+    "category": "REASONABLE_INFERENCE",
+    "rationale": "Example annotation sentence, paraphrase of CDISC example narrative"
+  },
+  {
+    "strat": "LOW",
+    "atom_id": "md_dmAE_ex_a067",
+    "file": "knowledge_base/domains/AE/examples.md",
+    "section": "§AE.5 [Example 5]",
+    "type": "SENTENCE",
+    "verbatim": "A few days later, she developed an infection in the hip bone adjacent to the implant.",
+    "category": "REASONABLE_INFERENCE",
+    "rationale": "Example annotation sentence, paraphrase of CDISC example narrative"
+  },
+  {
+    "strat": "LOW",
+    "atom_id": "md_dmAE_ex_a071",
+    "file": "knowledge_base/domains/AE/examples.md",
+    "section": "§AE.5 [Example 5]",
+    "type": "SENTENCE",
+    "verbatim": "These are used to determine if the AE was an unanticipated serious device event, a designation requi",
+    "category": "REASONABLE_INFERENCE",
+    "rationale": "Example annotation sentence, paraphrase of CDISC example narrative"
+  }
+]

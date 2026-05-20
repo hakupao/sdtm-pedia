@@ -126,19 +126,56 @@ The shared PP dataset contains 12 rows showing PK parameters (TMAX, CMAX, AUCALL
 
 *See PC examples for the full description of RELREC Methods A through D and their corresponding relrec.xpt tables.*
 
-## RELREC Method Descriptions (Section 6.3.5.9.3, pp 281-282)
+## §6.3.5.9.3 RELREC Method Quick Reference (PP-side view)
 
-### Method B — One to Many, Using PCSEQ and PPGRPID (p281)
+The full 4 worked Examples (1-4) with complete `relrec.xpt` tables for all 4 Methods (A/B/C/D) appear in `PC/examples.md` (the shared §6.3.5.9.3 host). This section gives a PP-domain-focused quick reference of how each Method appears on the PP side, plus one abbreviated `relrec.xpt` showing the actual PP rows for Method C (the most common pattern when individual PP parameters need to be linked to a group of PC concentration records).
 
-- Rows 1-13: The relationship with RELID "1" includes PP records with PCSEQ values "1" through "12" and PP records with PPGRPID = "DY1DRGX_A".
-- Rows 14-24: The relationship with RELID "2" includes PP records with PCSEQ values "1" through "7" and "10" through "12" and PP records with PPGRPID = "DY1DRGX_HALF".
+### Method A — Many to Many, Using PCGRPID and PPGRPID (p277)
 
-### Method C — Many to One, Using PCGRPID and PPSEQ (p281)
+PP-side row form: `IDVAR = PPGRPID`, `IDVARVAL = <ppgrpid-value>` (e.g., `DY1DRGX`).
 
-- Rows 1-7: The relationship with RELID "1" includes all PP records with PGRPID values "DY1_DRGX_A" and "DY1_DRGX_B" and PP records with PPSEQ values "1" through "3", "6", and "7".
+- Rows 1-2: The relationship with RELID "1" includes all PC records with PCGRPID = "DY1_DRGX" and all PP records with PPGRPID = "DY1DRGX".
+- Rows 3-4: The relationship with RELID "2" includes all PC records with PCGRPID = "DY8_DRGX" and all PP records with PPGRPID = "DY8DRGX".
 
-### Method A — Many to Many, Using PCGRPID and PPGRPID (Example 4, p282)
+### Method B — One to Many, Using PCSEQ and PPGRPID (pp 277-278)
 
-- Rows 1-4: The relationship with RELID "1" includes PC records with PCGRPID values "DY1DRGX_A", "DY1DRGX_C", and "DY1DRGX_D" and the one PP record with PPGRPID = "TMAX".
-- Rows 5-8: The relationship with RELID "2" includes PC records with PCGRPID values "DY1DRGX_A", "DY1DRGX_B", and "DY1DRGX_D" and the one PP record with PPGRPID = "CMAX".
-- Rows 9-12: The relationship with RELID "3" includes PC records with PCGRPID values "DY1DRGX_A", "DY1DRGX_B", and "DY1DRGX_C" and the one PP record with PPGRPID = "AUC".
+PP-side row form: `IDVAR = PPGRPID` (one PP-side row collects an entire PP group per RELID).
+
+- Rows 1-13: The relationship with RELID "1" includes individual PC records with PCSEQ values "1" to "12" and all PP records with PPGRPID = "DY1DRGX".
+- Rows 14-26: The relationship with RELID "2" includes individual PC records with PCSEQ values "13" to "24" and all PP records with PPGRPID = "DY8DRGX".
+
+### Method C — Many to One, Using PCGRPID and PPSEQ (p278)
+
+PP-side row form: `IDVAR = PPSEQ`, `IDVARVAL = <ppseq>` (one PP-side row per individual PP record).
+
+- Rows 1-8: The relationship with RELID "1" includes all PC records with PCGRPID = "DY1_DRGX" and PP records with PPSEQ values "1" through "7".
+- Rows 9-16: The relationship with RELID "2" includes all PC records with PCGRPID = "DY8_DRGX" and PP records with PPSEQ values "8" through "14".
+
+**relrec.xpt (Method C, abbreviated to show PP-side rows for RELID = "1"; full table in `PC/examples.md`)**
+
+| Row | STUDYID | RDOMAIN | USUBJID | IDVAR | IDVARVAL | RELTYPE | RELID |
+|-----|---------|---------|---------|-------|----------|---------|-------|
+| 1 | ABC-123 | PC | ABC-123-0001 | PCGRPID | DY1_DRGX | | 1 |
+| 2 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 1 | | 1 |
+| 3 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 2 | | 1 |
+| 4 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 3 | | 1 |
+| 5 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 4 | | 1 |
+| 6 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 5 | | 1 |
+| 7 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 6 | | 1 |
+| 8 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 7 | | 1 |
+
+Reading the PP-side rows: each individual PP record (PPSEQ 1 through 7) carries its own row in `relrec.xpt`, pointing back to the same `RELID = "1"` as the PC group `PCGRPID = "DY1_DRGX"`. This is what "Many to One" means here — many distinct PP records linked to one PC group.
+
+### Method D — One to One, Using PCSEQ and PPSEQ (pp 278-280)
+
+PP-side row form: `IDVAR = PPSEQ`, one PP-side row per PP record, paired with one PC-side row per PC record (the most verbose form).
+
+- The relationship with RELID "1" includes individual PC records with PCSEQ values "1" through "12" and individual PP records with PPSEQ values "1" through "7".
+- The relationship with RELID "2" includes individual PC records with PCSEQ values "13" through "24" and individual PP records with PPSEQ values "8" through "14".
+
+### Cross-domain summary (Examples 2-4 on pp 281-284)
+
+`PC/examples.md` Examples 2-4 illustrate variants in which:
+- Example 2 (p281): PCGRPID has the value "EXCLUDE" for PC records that should not participate in the relationship — RELREC silently filters them.
+- Example 3 (p283): Uses PCSEQ on PC side + PPGRPID on PP side (mirror of Method B).
+- Example 4 (p284): Uses PCGRPID on PC side + PPSEQ on PP side, with a single PP test (TMAX, CMAX, AUC) per RELID — useful when each PP parameter has its own scientific provenance.

@@ -1,0 +1,143 @@
+[
+  {
+    "section_id": "ig34_§2.7",
+    "section_title": "§2.7 SDTM Variables Not Allowed in the SDTMIG",
+    "pdf_page_range": [
+      15,
+      16
+    ],
+    "missing": 4,
+    "partial": 14,
+    "keyword_example": "MUST",
+    "md_target_files": [
+      "knowledge_base/chapters/ch02_fundamentals.md"
+    ]
+  },
+  {
+    "section_id": "ig34_§6.4.2",
+    "section_title": "§6.4.2 Naming Findings About Domains",
+    "pdf_page_range": [
+      363,
+      364
+    ],
+    "missing": 9,
+    "partial": 2,
+    "keyword_example": "MUST",
+    "md_target_files": [
+      "knowledge_base/chapters/ch02_fundamentals.md",
+      "knowledge_base/chapters/ch04_general_assumptions.md"
+    ]
+  },
+  {
+    "section_id": "ig34_§7.2.1",
+    "section_title": "§7.2.1 Trial Arms (TA) – Example 4",
+    "pdf_page_range": [
+      394,
+      396
+    ],
+    "missing": 4,
+    "partial": 7,
+    "keyword_example": "MUST",
+    "md_target_files": [
+      "knowledge_base/domains/TA/examples.md"
+    ]
+  },
+  {
+    "section_id": "ig34_§7.3.2",
+    "section_title": "§7.3.2 Trial Disease Assessments (TD)",
+    "pdf_page_range": [
+      410,
+      412
+    ],
+    "missing": 9,
+    "partial": 0,
+    "keyword_example": "MUST",
+    "md_target_files": [
+      "knowledge_base/domains/TD/assumptions.md"
+    ]
+  },
+  {
+    "section_id": "ig34_§7.3.3",
+    "section_title": "§7.3.3 Trial Disease Milestones (TM)",
+    "pdf_page_range": [
+      415,
+      415
+    ],
+    "missing": 7,
+    "partial": 1,
+    "keyword_example": "MUST",
+    "md_target_files": [
+      "knowledge_base/domains/TM/assumptions.md"
+    ]
+  },
+  {
+    "section_id": "ig34_§4.5.1.2",
+    "section_title": "Tests Not Done",
+    "pdf_page_range": [
+      52,
+      52
+    ],
+    "missing": 7,
+    "partial": 0,
+    "keyword_example": "may not",
+    "md_target_files": [
+      "knowledge_base/chapters/ch04_general_assumptions.md"
+    ]
+  },
+  {
+    "section_id": "ig34_§6.3.12.2",
+    "section_title": "§6.3.12.2 Tumor/Lesion Results (TR)",
+    "pdf_page_range": [
+      350,
+      352
+    ],
+    "missing": 6,
+    "partial": 0,
+    "keyword_example": "MUST",
+    "md_target_files": [
+      "knowledge_base/domains/TR/examples.md"
+    ]
+  },
+  {
+    "section_id": "ig34_§6.4.3",
+    "section_title": "§6.4.3 Variables Unique to Findings About",
+    "pdf_page_range": [
+      364,
+      364
+    ],
+    "missing": 5,
+    "partial": 1,
+    "keyword_example": "MUST",
+    "md_target_files": [
+      "knowledge_base/model/02_observation_classes.md"
+    ]
+  },
+  {
+    "section_id": "ig34_§7.2.1.1",
+    "section_title": "§7.2.1.1 Trial Arms Issues – Distinguishing Between Branches and Transitions",
+    "pdf_page_range": [
+      402,
+      402
+    ],
+    "missing": 5,
+    "partial": 1,
+    "keyword_example": "MUST",
+    "md_target_files": [
+      "knowledge_base/domains/TA/examples.md"
+    ]
+  },
+  {
+    "section_id": "ig34_§4.3.5",
+    "section_title": "§4.3.5 Storing Controlled Terminology for Synonym Qualifier Variables",
+    "pdf_page_range": [
+      37,
+      37
+    ],
+    "missing": 5,
+    "partial": 0,
+    "keyword_example": "may not",
+    "md_target_files": [
+      "knowledge_base/chapters/ch04_general_assumptions.md"
+    ]
+  }
+]

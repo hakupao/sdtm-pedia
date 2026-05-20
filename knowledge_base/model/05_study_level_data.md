@@ -42,7 +42,7 @@ Describes the basic building blocks of a trial design — discrete periods of ti
 
 **Structure:** One record per planned Element per Arm
 
-Describes each planned arm in a trial. An arm is an ordered sequence of elements; the same element may occur more than once in a given arm. This dataset allows for rules for branching and transitions.
+Describes each planned arm in a trial. An arm is an ordered sequence of elements; the same element may occur more than once in a given arm. In order to accommodate complex trial designs, this dataset allows for rules for branching from one element to another when a choice is available, and a rule for transitions to allow a subject to skip ahead to another element rather than proceed linearly.
 
 | # | Variable | Label | Type | Role |
 |---|----------|-------|------|------|

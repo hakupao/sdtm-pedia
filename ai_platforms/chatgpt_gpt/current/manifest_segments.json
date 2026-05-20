@@ -20,19 +20,19 @@
     },
     "04_domain_specs_all.md": {
       "actual": 63,
-      "dynamic": false,
+      "dynamic": true,
       "expected": 63,
       "stage": "batch1"
     },
     "05_domain_assumptions_all.md": {
       "actual": 64,
-      "dynamic": false,
+      "dynamic": true,
       "expected": 64,
       "stage": "batch2"
     },
     "06_domain_examples_all.md": {
       "actual": 63,
-      "dynamic": false,
+      "dynamic": true,
       "expected": 63,
       "stage": "batch2"
     },

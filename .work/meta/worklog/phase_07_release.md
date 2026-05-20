@@ -250,3 +250,55 @@ reviewer findings (4 项 LOW/MEDIUM, 0 HIGH):
 **Next plan (待执行)**:
 - **Plan C (R4 17 全题回归测)**: Pro quota check — 今日已用 R3 17 + dry-run 4 = 21 题, 16:34 PM reset 后剩余可能不够 17 题. 若不够: ScheduleWakeup 明日 16:34 PM Pro reset 后跑. R4 测目的: anti-cheating long-tail probe — 验证 v8.1 改动没让 13 道 R3 PASS 题 regression (尤其 CO-5 regex default + 候选数限制是否影响多变量题 response).
 - **Plan B (v1.2 release cut)**: 类比 release/v1.1/ packaging — 4 平台 KB rebuild (v8.1 only 改 Gemini prompt, 其他 3 平台不变 → 仅 Gemini bundle rebuild), CHANGELOG.{en,zh,ja}.md, KNOWN_LIMITATIONS reconcile (v1.1 §0 Tier B 已记 R3 Gemini regression), self_deploy/ 4 平台教程更新, release/v1.2/ 目录, tag `v1.2-company-release`. 工程 ~半天 sprint.
+
+## 2026-05-20 PM — Release v1.3 CLOSED ★★★★
+
+### TL;DR
+
+Single-day Tier 3 release: plan kickoff (AM) → cut + tag (PM). KB pass scope (11 KB files modified), 4 平台 rebuild, Phase C light sanity 14-15/16 PASS, Rule D #19 verifier APPROVE. Tag `v1.3-company-release` annotated cut, post user ack.
+
+### Scope
+
+- **Phase A (KB layer fixes)**: A1 PP RELREC linking §6.3.5.9.3 RELREC Method Quick Reference in PP/examples.md (Method A/B/C/D + abbreviated relrec.xpt for ABC-123-0001) + A2 BECAT EXTRACTION sponsor-extensible 4th example in BE/spec.md L111 + A3 Batch M 10 Tier B sections (ranks 11-20 by missing+partial atom impact, shall/must keyword high-density: §2.7, §6.4.2, §7.2.1 TA Ex4, §7.3.2 TD, §7.3.3 TM, §4.5.1.2, §6.3.12.2 TR column-header typo TRSTRESN→TRSTRESU, §6.4.3 FA --OBJ, §7.2.1.1 TA + TE, §4.3.5) + A4 UNSOURCED_MANUAL N=40 stratified (10 HIGH shall/must + 30 LOW random, seed=20260520, 0 hallucinated, Rule D #19 scientist verify 10/10 traceable) + A5 baseline 备份 3 文件 (.pre_v1_3.bak)
+- **Phase B (4 platform rebuild + audit)**: B0 baseline 备份 25.5 MB + B1 M4 chatgpt expected_segments dynamic mode (4 entry 04/05/06 改 dynamic=0 trigger) + M5 notebooklm validate_bucket_coverage.py 新建 (190/190 KB files reach buckets) + B2 4 platform rebuild (chatgpt 3 + gemini 3 + notebooklm 7+1 rename + claude 5, 通过 background executor for claude) + B3 cross-platform delta oracle 4 byte-exact 等式 PASS (chatgpt 04 (+284) = nbk 10 (+284) = gemini 02 partial; chatgpt 04+05 = +617 = gemini 02 composite; chatgpt 06 = +5432 = gemini 03; claude 06 +220 DI fix) + B4 system_prompt audit 20/20 probes + B5 bucket 25 改名 (25_td_meta_ti_ts_oi.md → 25_td_meta_ti_ts_oi_di.md, slug 含 DI)
+- **Phase C (light sanity, user opt α replacing R4 17-question)**: 4 v1.3-targeted questions × 4 deployed platforms = 16 cells, all post-upload. Q-S1 BECAT EXTRACTION 4/4 PASS (2 PASS+). Q-S2 PP RELREC 4 methods: Claude PASS+, NotebookLM PASS+, ChatGPT PARTIAL (labels 错位), Gemini FAIL (root cause = v8.1 prompt bloat 525 行 17 CO-N rules; non-regression). Q-S3 TR TRSTRESN vs TRSTRESU typo fix 4/4 PASS (2 PASS+). Q-S4 DI domain 3 PASS verified + 1 untested-assumed. **Total: 14-15/16 PASS (87.5-93.75%) ≥ approve threshold**. NotebookLM Q-S4 footer cite `25_td_meta_ti_ts_oi_di.md` 验证 B5 rename 生效.
+- **Phase D (release cut)**: D1 KNOWN_LIMITATIONS 三语 reconcile (en/zh/ja, §0 v1.3 audit scope + §1-§6 byte-identical inherit v1.2) + D2 release/v1.3/ packaging (28 root files mirror v1.2 + 4 self_deploy platforms; 17 byte-identical static meta inherits + README × 3 light update + CHANGELOG × 4 new v1.3 entry + BUILD_MANIFEST.json) + D3 Rule D #19 (`oh-my-claudecode:verifier`) APPROVE (8 audit sections / 15/15 Rule A probes / 20/20 acceptance criteria / 0 blockers / 1 minor v1.4 carry: Claude bundle 缺 PP RELREC Quick Reference prose architectural gap mitigated by Q-S2 PASS+) + D4 tag `v1.3-company-release` annotated cut.
+- **Phase F (retrospective + sync)**: RETROSPECTIVE.md 三段齐备 + 4-state sync (docs/PROGRESS.md milestone + CLAUDE.md Key Paths + 本 worklog + SYNC_BOARD pending).
+
+### Rule 履行
+
+- **Rule A** (语义抽检): target ≥97, 实际 **153+ (158%)**. A 89 + B 34 + C 14-15 + D 15 + post-audit 自查.
+- **Rule B** (失败归档): 1 failure archived (claude_projects/B2 compress_assumptions.py DI hardcoded fix, 来自 v1.1 F1 pre-existing).
+- **Rule C** (Retro 强制): RETROSPECTIVE.md 三段 (保留做法 ≥7 项 / 必须补上缺口 ≥8 项 / 关键决策复盘 7 项) + 终态数字附表.
+- **Rule D** (审阅隔离): 3 slots — #19 (scientist Rule D A4) + #20 (critic A3 Batch M) + #21 (verifier D3 release-cut). 全部不同 subagent_type. Writer (main session + executor 后台 4 次) ≠ reviewer (4 不同 type). 0 self-audit.
+- **PASS 四条** 每 Phase gate 过.
+
+### v1.4 carries (8 项)
+
+| MAIN | 4-platform system_prompt / instructions full-stack refactor — Gemini 525 → ~200 行 + 5 essential rules + regex-gated CO-N; chatgpt/claude/notebooklm 同步简化, 移除 "v5/v6/v7/v8 新增" 迭代履历 annotation; KB-grounding 恢复主路径. 用户在 Phase C 中明确 ack: "都迭代了好几遍, 履历都写进去了, 我觉得不好". |
+|---|---|
+| Tier B Batch H + S + Level2 (156 节 / ~1100 atoms 估) | v1.3 修 10/166, 剩 156 节留 v1.4 (Batch H heavy 10 节 ~470 atoms + Batch S small 5 节 + Level2 24 节) |
+| 全 437 UNSOURCED_MANUAL 全量分类 + 启发式分类器 PDF-prose-first bias 修 | v1.3 抽 N=40 (0 hallucinated). 全 437 留 v1.4 |
+| Claude bundle 缺 PP RELREC Quick Reference prose | Architectural — v2 extract_examples_data.py 只 capture `## Example N`, 不 catch `## §N.N.N` section headings. v1.4 改 capture rule. |
+| ChatGPT method label drift 锚点强化 | 06_domain_examples_all.md PP §6.3.5.9.3 加 "Method A=Many-Many..." 显式锚点 |
+| NotebookLM 旧 bucket 25 user UI 清理 + deploy guide screenshot | v1.3 已 doc 提示, v1.4 加 screenshot 强化 |
+| section_coverage.jsonl full pipeline rerun | A5 baseline 备份, full rerun (md_atoms 增量 → p4a → p4b) 留 v1.4 (= 06 半 cycle) |
+| Issue 5 §6.3.5.9.3 PC/PP 143 TABLE_ROW Tier-B MEDIUM repair | 06 retrospective 残余 |
+
+### Tag
+
+`v1.3-company-release` (annotated, post user ack)
+Predecessor: `v1.2-company-release` (immutable, verifier 验证 b0b6804 post-cut 0 改动)
+
+### Evidence index
+
+- `.work/07_release_v1_3/PLAN.md` — Tier 3 plan
+- `.work/07_release_v1_3/_progress.json` — Tier 2 schema state
+- `.work/07_release_v1_3/trace.jsonl` — phase_report events
+- `.work/07_release_v1_3/audit_matrix.md` — Rule A × Phase grid
+- `.work/07_release_v1_3/evidence/checkpoints/` — 15+ checkpoint files
+- `.work/07_release_v1_3/evidence/failures/` — 1 failure (B2 claude DI hardcoded)
+- `.work/07_release_v1_3/subagent_prompts/` — 2 background subagent input JSONs
+- `.work/07_release_v1_3/c_sanity/{c_sanity_plan,C_SANITY_RETROSPECTIVE,evidence/q_s{1,2}_all_platforms,v1_3_known_limitations_section0_draft}.md` — Phase C light sanity full evidence
+- `.work/07_release_v1_3/RETROSPECTIVE.md` — Phase F1 三段
+- `.work/07_release_v1_3/V1_3_DEPLOY_GUIDE.md` — user-facing 4 platform upload guide

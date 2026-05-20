@@ -1,0 +1,165 @@
+{
+  "version": "v1.3",
+  "tier": 3,
+  "schema_version": "tier2-v1",
+  "title": "Release v1.3 — KB pass + prompt-KB reconcile + 4-platform rebuild + R4 full regression",
+  "created": "2026-05-20",
+  "predecessor_tag": "v1.0-company-release, v1.1-company-release, v1.2-company-release",
+  "target_tag": "v1.3-company-release",
+  "phase": "D",
+  "step": "D1+D2",
+  "status": "phase_c_complete_phase_d_executor_in_flight",
+  "phase_a_closed": {"date": "2026-05-20", "user_ack": "Option α (accept 10 nodes, defer Batch H/S/Level2 to v1.4)", "gate_verdict": "PASS_WITH_OBSERVATIONS"},
+  "phase_b_closed": {"date": "2026-05-20", "gate_verdict": "PASS", "rule_a_phase_b": 34, "rule_a_cumulative": 123, "silent_loss_check": "0 (cross-platform oracle 4 byte-exact 等式 PASS)"},
+  "phase_c_closed": {"date": "2026-05-20", "gate_verdict": "PASS_14_OF_16", "scope": "user option α light sanity 4 题 × 4 平台 deployed-post-upload", "main_finding": "Q-S2 Gemini PP RELREC FAIL → root cause Gemini system_prompt 525 行 v8.1 prompt bloat (17 CO-N rules FAIL fossil layer); non-regression vs R3; trigger v1.4 main carry 4-platform prompt full-stack refactor"},
+  "active_subagents": [
+    {"id": "aff57fb4", "task": "D1 KNOWN_LIMITATIONS 三语 reconcile + D2 release/v1.3/ packaging (28 files)", "type": "executor", "role": "writer", "status": "running"}
+  ],
+  "completed_subagents": [
+    {"id": "a39bbc21", "task": "B2 claude_projects rebuild (v1+v2 dual builder)", "type": "executor", "role": "writer", "verdict": "PASS", "completed": "2026-05-20", "note": "5 files updated + 2 idempotent + 12 unchanged. Rule A 3 probes PASS. Rule B 1 failure archived (DI hardcoded, pre-existing v1.1 F1)."},
+    {"id": "aee326fa", "task": "A4 Rule D N=10 HIGH-stratum audit", "type": "scientist", "role": "reviewer", "verdict": "PASS", "completed": "2026-05-20", "note": "0 HALLUCINATED confirmed; 5 cat disagree DERIVED_FROM_XLSX→REASONABLE_INFERENCE (main 启发式 bias, non-blocking)"},
+    {"id": "aa1b2c8c", "task": "A3 Batch M (ranks 11-20) Tier B repair", "type": "executor", "role": "writer", "verdict": "PASS", "completed": "2026-05-20", "note": "10/10 sections / 37 atoms / Rule A 22/22 PASS. 0 failures, 0 escalations."},
+    {"id": "a35331bf", "task": "A3 Batch M Rule D reviewer audit", "type": "critic", "role": "reviewer", "verdict": "PASS_WITH_OBSERVATIONS", "completed": "2026-05-20", "note": "22/37 spot-checks (60%); 0 hallucination; 0 silent deletion; §6.3.12.2 TR typo fix verified; 4 OBS all v1.4 carry non-blocking"}
+  ],
+  "phases": {
+    "A": {
+      "title": "KB layer fixes",
+      "steps": ["A0", "A1", "A2", "A3", "A4", "A5"],
+      "status": "completed",
+      "started": "2026-05-20",
+      "completed": "2026-05-20",
+      "gate_verdict": "PASS_WITH_OBSERVATIONS",
+      "user_ack": "Option α 2026-05-20",
+      "rule_a_cumulative": 89,
+      "rule_d_slots": 2,
+      "deferred_to_v1_4": ["A3 Batch H (ranks 1-10, 470 atoms)", "A3 Batch S (ranks 21-25, ~10 atoms)", "A3 Level2 24 sections", "A4 全 437 UNSOURCED_MANUAL classify", "A5 完整 pipeline rerun (md_atoms 增量+p4a+p4b)"]
+    },
+    "B": {
+      "title": "4-platform rebuild + system_prompt audit",
+      "steps": ["B0", "B1", "B2", "B3", "B4", "B5"],
+      "status": "completed",
+      "started": "2026-05-20",
+      "completed": "2026-05-20",
+      "gate_verdict": "PASS",
+      "rule_a_phase_b": 34
+    },
+    "C": {
+      "title": "Light sanity 4 题 × 4 平台 (user opt α, replaced R4 full)",
+      "steps": ["plan", "Q-S1", "Q-S2", "Q-S3", "Q-S4", "retro"],
+      "status": "completed",
+      "started": "2026-05-20",
+      "completed": "2026-05-20",
+      "gate_verdict": "PASS_14_OF_16 (87.5-93.75%)",
+      "main_carry_to_v1_4": "4-platform system_prompt/instructions full-stack refactor (Gemini 525 → ~200 lines, 17 CO-N → 5 essential rules)"
+    },
+    "D": {
+      "title": "Cut release/v1.3/ + KNOWN_LIMITATIONS reconcile",
+      "steps": ["D1", "D2", "D3", "D4"],
+      "status": "pending"
+    },
+    "E": {
+      "title": "Post-audit pass (anti-v1.1 mode)",
+      "steps": ["E1", "E2"],
+      "status": "pending"
+    },
+    "F": {
+      "title": "RETROSPECTIVE + Sync state + Commit",
+      "steps": ["F1", "F2", "F3"],
+      "status": "pending"
+    }
+  },
+  "rules": {
+    "A": {
+      "target_total": 97,
+      "applied": [
+        {"phase": "A", "step": "A1", "probes": 3, "passed": 3, "failed": 0, "atoms": ["ig34_p0278_a035", "ig34_p0278_a040", "ig34_p0278_a041"]},
+        {"phase": "A", "step": "A2", "probes_a_layer": 4, "probes_b_layer_deferred": 2, "passed": 4, "failed": 0, "note": "BE/spec.md L111 EXTRACTION sponsor-extensible 加; 4 平台 uploads grep 留 Phase B"},
+        {"phase": "A", "step": "A4-writer-initial", "probes_classified": 40, "hallucinated": 0, "needs_review_post_escalation": 0, "passed": 40, "failed": 0, "note": "N=40 stratified (HIGH=10 全 + LOW=30 random, seed=20260520) main session 初判 0 HALLUCINATED; 2 NEEDS_HUMAN_REVIEW init 复核归 REASONABLE_INFERENCE"},
+        {"phase": "A", "step": "A4-reviewer", "probes_reviewed": 10, "agree": 5, "disagree_cat_only": 5, "hallucinated_flagged": 0, "passed": 10, "failed": 0, "verdict": "PASS", "reviewer": "oh-my-claudecode:scientist", "note": "0 HALLUCINATED confirmed; 5 cat disagree DERIVED_FROM_XLSX→REASONABLE_INFERENCE (PDF prose, not xlsx) — main 启发式分类器 bias, non-blocking"},
+        {"phase": "A", "step": "A3-writer", "probes_subagent": 22, "passed": 22, "failed": 0, "writer": "oh-my-claudecode:executor", "note": "Batch M 10 sections × 22 spot-checks Rule A PASS — per writer's evidence/checkpoints/a3_batch_m_summary.md."},
+        {"phase": "A", "step": "A3-reviewer", "probes_independent_re_verify": 10, "passed": 10, "failed": 0, "verdict": "PASS_WITH_OBSERVATIONS", "reviewer": "oh-my-claudecode:critic", "note": "22/37 spot-check (60% > Rule D #18 baseline 30%); independent Rule A re-verify 10/10 PASS; 0 hallucination; 0 silent deletion; 4 OBS all v1.4 carry"},
+        {"phase": "B", "step": "B2-rule-a-3-platforms", "probes": 9, "passed": 9, "failed": 0, "note": "Rule A 3 probes (PP RELREC + BECAT EXTRACTION + TRSTRESU) × 3 platforms (chatgpt/gemini/notebooklm); claude 留 exec final-confirm"},
+        {"phase": "B", "step": "B4-system-prompt-audit", "probes": 20, "passed": 20, "failed": 0, "verdict": "PASS", "note": "M1 4 平台 system_prompt 数字引用 grep audit; chatgpt 6 + gemini 6 + claude 6 + notebooklm 2 = 20"},
+        {"phase": "B", "step": "B3-delta-oracle", "probes": 5, "passed": 5, "failed": 0, "verdict": "PASS", "note": "4 byte-exact 等式: chatgpt 04 (+284)=nbk 10 (+284); chatgpt 04+05 (+617)=gemini 02 (+617); chatgpt 06 (+5432)=gemini 03 (+5432); claude 06 (+220 DI). 0 silent loss across 4 平台."}
+      ],
+      "passed": 123,
+      "failed": 0
+    },
+    "B": {
+      "failures": []
+    },
+    "C": {
+      "retro_phases": {
+        "C": null,
+        "F": null
+      }
+    },
+    "D": {
+      "audit_slots": [
+        {"slot": "A4-rule-d-19", "phase": "A", "step": "A4", "subagent_type": "oh-my-claudecode:scientist", "date": "2026-05-20", "verdict": "PASS", "note": "N=10 HIGH-stratum UNSOURCED_MANUAL independent audit; 0 HALLUCINATED confirmed; 5 cat disagree (xlsx→PDF) non-blocking"},
+        {"slot": "A3-rule-d-20", "phase": "A", "step": "A3", "subagent_type": "oh-my-claudecode:critic", "date": "2026-05-20", "verdict": "PASS_WITH_OBSERVATIONS", "note": "Batch M 22/37 (60%) spot-check; 0 hallucination; 0 silent deletion; §6.3.12.2 TR typo fix verified; 4 OBS v1.4 carry"}
+      ],
+      "candidate_subagent_types": [
+        "oh-my-claudecode:verifier",
+        "oh-my-claudecode:critic",
+        "pr-review-toolkit:code-reviewer",
+        "oh-my-claudecode:scientist"
+      ]
+    }
+  },
+  "checkpoints": [
+    {"phase": "A", "step": "A1", "file": "evidence/checkpoints/a1_pp_relrec_complete.md", "date": "2026-05-20", "status": "PASS", "carry": "06 retro OA-4 RESOLVED"},
+    {"phase": "A", "step": "A2", "file": "evidence/checkpoints/a2_becat_extraction.md", "date": "2026-05-20", "status": "PASS_KB_LAYER", "carry": "v1.2 KNOWN_LIMITATIONS §0 D3 RESOLVED at KB layer; Phase B uploads grep deferred"},
+    {"phase": "A", "step": "A3", "file": "evidence/checkpoints/a3_candidates.md", "date": "2026-05-20", "status": "QUEUE_SAVED_BATCH_M_DISPATCHED", "carry": "Batch M 10 sections (ranks 11-20) executor running; Batch H (1-10) defer v1.4; Batch S (21-25) pending decision"},
+    {"phase": "A", "step": "A4-writer", "file": "evidence/checkpoints/a4_unsourced_manual_n40.md", "date": "2026-05-20", "status": "PASS_WRITER_LAYER", "carry": "v1.2 KNOWN_LIMITATIONS §0 D4 PARTIALLY_RESOLVED (N=40 sample), 0 HALLUCINATED gate PASS; Rule D N=10 reviewer subagent pending"},
+    {"phase": "A", "step": "A4-reviewer", "file": "evidence/checkpoints/a4_rule_d_reviewer_audit.md", "date": "2026-05-20", "status": "PASS", "reviewer": "oh-my-claudecode:scientist", "carry": "0 HALLUCINATED confirmed (10/10); A4 complete; v1.4 finding: main 启发式分类器 PDF-prose vs xlsx bias 需修"},
+    {"phase": "A", "step": "A3-writer", "file": "evidence/checkpoints/a3_batch_m_summary.md", "date": "2026-05-20", "status": "PASS", "writer": "oh-my-claudecode:executor", "carry": "Batch M 10/10 sections / 37 atoms / Rule A 22/22 PASS. Per-section evidence a3_section_01-10.md."},
+    {"phase": "A", "step": "A5", "file": "evidence/checkpoints/a5_section_coverage_rerun.md", "date": "2026-05-20", "status": "PARTIAL", "carry": "baseline 备份 3 文件 (.pre_v1_3.bak) + stale state 文档化; 完整 pipeline rerun (md_atoms 增量+p4a+p4b) 留 v1.4. KNOWN_LIMITATIONS §0 加 entry."},
+    {"phase": "A", "step": "A3-reviewer", "file": "evidence/checkpoints/a3_batch_m_rule_d_review.md", "date": "2026-05-20", "status": "PASS_WITH_OBSERVATIONS", "reviewer": "oh-my-claudecode:critic", "carry": "22 spot-checks PASS; 0 hallucination; 0 silent deletion; 4 OBS all v1.4 carry (section_coverage stale §7.3.2 entry + RULES.md verified-acceptable format + KNOWN_LIMITATIONS §7.3.2 + cross-batch git status hint)"},
+    {"phase": "A", "step": "close", "file": "evidence/checkpoints/phase_a_close.md", "date": "2026-05-20", "status": "PASS_WITH_OBSERVATIONS", "user_ack": "Option α", "carry": "Phase A 全 step 完成, 6 v1.4 deferred items 记录"},
+    {"phase": "B", "step": "B0", "file": "evidence/checkpoints/b0_baseline_backup.md", "date": "2026-05-20", "status": "PASS", "carry": "4 平台 25.5 MB baseline 备份 → .work/07_release_v1_3/backups/"},
+    {"phase": "B", "step": "B1+B5", "file": "evidence/checkpoints/b1_b5_build_scripts_defensive.md", "date": "2026-05-20", "status": "PASS", "carry": "M4 chatgpt dynamic mode + M5 notebooklm validate_bucket_coverage.py + M3 bucket 25 改名 _di"},
+    {"phase": "B", "step": "B4", "file": "evidence/checkpoints/b4_system_prompt_audit.md", "date": "2026-05-20", "status": "PASS", "carry": "M1 4 平台 system_prompt 数字引用 audit 20/20 probes PASS"}
+  ],
+  "failures": [],
+  "decisions": [
+    {
+      "id": "P0-PLAN-LOC",
+      "date": "2026-05-20",
+      "topic": "v1.3 plan file location",
+      "decision": "draft at .work/v1_3_plan.md, mv to .work/07_release_v1_3/PLAN.md at A0",
+      "outcome": "done"
+    },
+    {
+      "id": "P0-TIER",
+      "date": "2026-05-20",
+      "topic": "workflow tier",
+      "decision": "Tier 3 (>15 step, multi-day, KB+prompt+4 bundle+R4+audit cross-cutting)",
+      "outcome": "applied"
+    },
+    {
+      "id": "A2-DIR",
+      "date": "2026-05-20",
+      "topic": "BECAT EXTRACTION fork direction",
+      "decision": "α (改 KB) — BE/spec.md L111 加 EXTRACTION 作为 sponsor-extensible 第 4 例, 注 CDISC canonical 仅 3 例",
+      "outcome": "applied",
+      "rationale": "工程量极小 (1 句), 行业事实 (DNA molecular-biology specimen processing 常用), KB rebuild 自动同步 4 平台, 不引入隐性 hallucination (explicit 标 sponsor-extensible)"
+    },
+    {
+      "id": "B-NBK-INSTRUCTIONS",
+      "date": "2026-05-20",
+      "topic": "notebooklm instructions.md citation-style refactor inclusion in v1.3",
+      "decision": "INCLUDE — accept pre-session unstaged change (inline [bucket.md] → footer 'Sources:' list) into v1.3 release",
+      "outcome": "applied",
+      "rationale": "用户 ack 2026-05-20; citation style 是 prompt 风格升级, 与 v1.3 KB pass 一起 ship 合理; 不破坏现有内容, 仅 UX 调整 (避免重复 NotebookLM 原生 source-chip sidebar)"
+    }
+  ],
+  "deferred_to_v1_4": [
+    "Tier B 全 166 节 (本 release 只做 shall/must 高密度 20-30)",
+    "437 UNSOURCED_MANUAL 全量分类 (本 release N=40 抽样)",
+    "P4a IE 分类不彻底 + TABLE_ROW matcher (verdict 标签层, 不影响 deploy)",
+    "Issue 5 §6.3.5.9.3 PC/PP 143 TABLE_ROW data-value Tier-B MEDIUM",
+    "Phase 7 RAG + KG",
+    "**MAIN**: 4 平台 system_prompt / instructions 全栈 refactor (clean rewrite, 不带迭代履历) — 用户 Phase C 中 ack 2026-05-20: gemini 525 行 v8.1 含 17 CO-N rules + 'v5/v6/v7/v7.1/v8 新增' 注释 = FAIL 化石层; chatgpt/claude/notebooklm 同样多次迭代痕迹. v1.4 拟: gemini v9 (~200 行, 5 essential rules) + chatgpt 简化 + claude 简化 + notebooklm 简化, 不带历史 'v5 新增' annotation, KB-grounding 优先, anchor 仅留 high-risk regex-gated"
+  ]
+}
