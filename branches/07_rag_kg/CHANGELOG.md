@@ -188,5 +188,38 @@
 - 確認: PASS 五条 #3 reviewer + #4 規則 A 抽検 deferred 至 1A.4 (test-engineer 写测试 + code-reviewer 异 type 审; Rule D 真審 触发点)
 - 承認: pending Bojiang ack
 - next: 1A.4 chunker_tests (test-engineer dispatch 写测试套件; corner cases per _batch_X_done.md TODOs; estimate 0.7 d per PLAN §5)
+- commit: d15afe2 "07 RAG+KG Phase 1A.3 chunker_impl FULL — 8 modules + smoke 10/10 PASS + L-1..L-5 verified"
+
+## Phase 1A.4 Chunker Tests CLOSURE (2026-05-22, 205 passed + 2 xfailed + 0 failed)
+- 区分: Phase 1A.4 着手 → 闭環 (test-engineer subagent a17a162d2becfb2e2, ~8 min wallclock)
+- 触発: 用户 2026-05-22 "可以 ack" + main dispatch test-engineer
+- Rule D 严格隔离: writer=executor (1A.3) + tester=test-engineer (1A.4, 異 type) + 后续 reviewer=code-reviewer (异 type, Phase 1A 收口前触发)
+- pytest 8.4.2 装上 host Py 3.9.6
+- **9 test files** (~64KB total):
+  - test_base.py (27 tests, Chunk schema + helpers + L-1/L-2/L-3 helpers)
+  - test_spec.py (12 tests, AE 64 H3 + DM/LB multi-domain)
+  - test_assumptions.py (15 tests, AE overview + items, DI 仅 assumptions)
+  - test_model.py (33 tests, 6 files)
+  - test_examples.py (19 tests, TA mermaid 0 split-violation + PC 14 chunks + IS/DS flat)
+  - test_chapters.py (20 tests, **L-4: ch01 whole / ch04 47 ### max <8000 tokens (HARD assert) / ch08 19 ### / ch10 ## tier**)
+  - test_terminology.py (24 tests, **L-5: lb_part1 part / lb_part4 codelist 2 chunks (H2>1 critical edge) / questionnaires_part1 66 codelist**)
+  - test_variable_index.py (14 tests, 65 chunks + §二 63 domain set)
+  - test_integration.py (38 tests, CHUNKER_REGISTRY dispatch idempotence + 全 chunker 18 metadata keys + tiktoken count)
+- **pytest 结果**: **205 passed, 2 xfailed (strict=False), 0 failed in 1.00s** (deterministic + fast)
+- 2 xfailed (known findings 提前标 + 不阻塞 suite):
+  - test_terminology.py::test_lb_part2_token_overflow (378KB part mode 1 chunk, tokens >> 8191)
+  - test_terminology.py::test_lb_part3_token_overflow (417KB same)
+  - 这是 1A.3 deferred finding, 1A.5/1A.6 实现 N=100 row table fallback (PLAN §6.4 spec 已写未实)
+- L-1..L-5 5 lock 全有 dedicated tests (覆盖矩阵在 evidence §4)
+- No chunker production code modified (test-engineer 不允许 fix chunker bug; 仅记录 + propose fix)
+- ファイル変更 (10 files commit-ready):
+  - sdtm-rag/scripts/tests/test_{base,spec,assumptions,model,examples,chapters,terminology,variable_index,integration}.py (9 NEW)
+  - evidence/checkpoints/phase_1a_4_chunker_tests.md (NEW ~10KB, 含 coverage matrix + 2 findings + 1A.5 readiness HIGH)
+  - _progress.json (modified: 1a_4_chunker_tests=completed + current_phase 1A.4 closed)
+- 1A.5 ingest readiness assessment: **HIGH** (test-engineer 评估)
+- 作成: test-engineer subagent a17a162d2becfb2e2 sonnet
+- 確認: PASS 五条 #3 code-reviewer 审 deferred 至 Phase 1A 收口 (1A.5 + 1A.6 后 一起做)
+- 承認: pending Bojiang ack
+- next: 1A.5 ingest_full (ingest.py 全 KB run + Chroma persistence + ingested_at_commit.txt R-18 + 抽 10 个查询 verify retrieval; estimate 0.5 d per PLAN §5)
 
 ---
