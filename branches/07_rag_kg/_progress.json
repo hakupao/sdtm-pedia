@@ -4,14 +4,14 @@
   "tier": 2,
   "tier_note": "borderline Tier 2-3, 走 Tier 2 + evidence 全留; Phase 2 KG 启动时再评估升 Tier 3",
   "created": "2026-05-22",
-  "updated": "2026-05-22 (critic Rule D PASS 1 + v0.2 修订完成)",
+  "updated": "2026-05-22 (Phase 1A.0 sanity verify 完成, 6 项 R-13 全 verify, chunker config lock)",
   "upstream_design": "docs/DESIGN_RAG_KG.md (Approved 2026-04-16)",
-  "current_phase": "phase_0_research 0.6 完成 (critic CONDITIONAL_PASS + v0.2 修订), 0.7 用户 ack 待",
+  "current_phase": "phase_1a_ingest 1A.0 sanity 完成 (R-13 6 项 verify), 用户 ack 待 → 1A.1 仓库脚手架",
   "phases": {
     "phase_0_research": {
-      "status": "in_progress (0.1-0.6 完成, 0.7 用户 ack 待, 0.8 commit 待)",
+      "status": "completed",
       "started_at": "2026-05-22",
-      "pass_at": null,
+      "pass_at": "2026-05-22",
       "subtasks": {
         "0_1_chunker_feasibility": {"status": "completed", "evidence": "research/chunker_feasibility_2026-05-22.md (v0.2 含 F-2 4 处事实修正)", "owner": "main", "pass_at": "2026-05-22"},
         "0_2_llm_providers": {"status": "completed", "evidence": "research/llm_providers_2026-05-22.md", "owner": "document-specialist (background)", "pass_at": "2026-05-22"},
@@ -21,10 +21,43 @@
         "0_5_5_v0_2_revision": {"status": "completed", "scope": "F-1/F-2/F-3 HIGH 全修 + F-6/F-7/F-8/F-9/F-10/F-11/F-14/F-19/F-20/F-21/F-22/F-23/F-24/F-25/F-27 MED 全修 + F-32 INFO 修", "edits": "chunker_feasibility 10 处 + PLAN 12 处 + EXECUTION_PLAN 9 处 = 31 处", "pass_at": "2026-05-22"},
         "0_5_6_low_finalization": {"status": "completed", "scope": "5 LOW 全修 — F-12 文件 100MB 上限 (PLAN §5 1C.1 已含) / F-13 单用户/单租户明示 (PLAN §0.2 Out-of-scope) / F-15 metadata schema null vs omit 约定 (PLAN §7) / F-16 pyreadstat fallback (EXECUTION_PLAN 1A.1.d 已含) / F-17 Streamlit timeout UX (PLAN R-21 已含)", "pass_at": "2026-05-22"},
         "0_6_user_ack": {"status": "completed", "verdict": "ack PLAN v0.2 + critic review + decision log D-2~D-8 + LOW 当场修 + commit OK", "pass_at": "2026-05-22"},
-        "0_7_commit_push": {"status": "in_progress", "depends_on": ["0_6"]}
+        "0_7_commit_push": {"status": "completed", "commit": "0644b6c '07 RAG+KG Phase 0 Research closed — PLAN v0.2 + critic Rule D PASS 1 + 用户 ack'", "pass_at": "2026-05-22"}
       }
     },
-    "phase_1a_ingest": {"status": "pending", "blocked_by": ["phase_0_research"]},
+    "phase_1a_ingest": {
+      "status": "in_progress (1A.0 sanity 完成, 用户 ack 待)",
+      "started_at": "2026-05-22",
+      "subtasks": {
+        "1a_0_sanity": {
+          "status": "completed",
+          "evidence": "evidence/checkpoints/phase_1a_0_sanity.md + scripts/sanity_tiktoken.py",
+          "owner": "main",
+          "verify_summary": {
+            "R-13_item_1_supplementary_part_H2": "188 (6 files, codelist 模式)",
+            "R-13_item_2_core_part_H2": "104 (31 files, mixed; 13 part 模式 + 18 codelist 模式)",
+            "R-13_item_3_questionnaires_H2": "670 (43 files, codelist 模式)",
+            "R-13_item_4_mermaid_nest": "29 mermaid / 58 fence 全 balanced, 0 嵌套 → 状态机实现",
+            "R-13_item_5_table_variants": "0 HTML rowspan/colspan/<table> → GFM pipe-table 简单 regex",
+            "R-13_item_6_tiktoken_實測": "C3 ch04 §4.4 = 9598 cl100k > 8191 (OVER 8K embedding ★ HIGH) + char/4 max 偏差 23.6%"
+          },
+          "chunker_config_locks": [
+            "L-1 mermaid 状态机 (0 嵌套, 不用 stack)",
+            "L-2 GFM pipe-table 简单 regex (0 HTML)",
+            "L-3 tiktoken cl100k_base 实测强制 (char/4 偏差 23.6% > 20%)",
+            "L-4 chapters/ >50KB 强制 ### 切 (ch04 §4.4 > 8K embedding limit)",
+            "L-5 terminology core part 文件 H2=1 判断 part 模式 (13/31 case)"
+          ],
+          "chunk_total_revised": "~4304 (chunker_feasibility v0.2 估 ~4368, 修正 -1.5% 在容许 ±5% 内)",
+          "pass_at": "2026-05-22"
+        },
+        "1a_1_repo_scaffold": {"status": "pending", "depends_on": ["1a_0_sanity user ack"]},
+        "1a_2_litellm_sanity": {"status": "pending"},
+        "1a_3_chunker_impl": {"status": "pending"},
+        "1a_4_chunker_tests": {"status": "pending"},
+        "1a_5_ingest_full": {"status": "pending"},
+        "1a_6_rule_a_alignment": {"status": "pending"}
+      }
+    },
     "phase_1b_qa_service": {"status": "pending"},
     "phase_1b5_sanity_eval": {"status": "pending"},
     "phase_1c_dataset_validation": {"status": "pending"},

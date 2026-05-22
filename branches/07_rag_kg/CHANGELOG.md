@@ -50,5 +50,31 @@
 - 作成: main session
 - 確認: critic Rule D PASS 1 (2026-05-22)
 - 承認: Bojiang Zhang (2026-05-22 全 ack)
+- commit: 0644b6c "07 RAG+KG Phase 0 Research closed — PLAN v0.2 + critic Rule D PASS 1 + 用户 ack"
+
+## Phase 1A.0 Sanity Re-grep Verify (2026-05-22, R-13 6 项全 verify + chunker config lock)
+- 区分: Phase 1A.0 着手 → 完了 (单 session 内)
+- 触発: PLAN §5 Phase 1A.0 sanity 強制 + 用户「启动 Phase 1A.0 sanity」(2026-05-22)
+- 主 session 直接執行 (Bash + Python tiktoken, 0.3 d 估 → 単 session 完了)
+- R-13 6 項 verify 結果:
+  - **項 1** supplementary_part 6 files = 188 H2 codelist (全 codelist 模式, 0 part 兜底)
+  - **項 2** core/ part 31 files = 104 H2 (mixed: 13 part 模式 H2=1 占整 file / 18 codelist 模式 H2>1); core/ 単 file codelist 11 files = 42 H2
+  - **項 3** questionnaires 43 files = 670 H2 codelist (codelist 級切分, 非 instrument 級)
+  - **項 4** mermaid 嵌套: 29 mermaid / 58 fence 全 balanced, 0 嵌套 → 状态机実装
+  - **項 5** 表格变体: 0 HTML rowspan/colspan/<table> → GFM pipe-table 簡単 regex 即可
+  - **項 6** tiktoken 実測 5 chunk: ★ **HIGH C3 ch04 §4.4 = 9598 cl100k > 8191 embedding limit** + char/4 最大偏差 +23.6% (MB dense table)
+- chunker config 5 項 lock (1A.3 writer 必準拠):
+  - L-1 mermaid 状态机 (0 嵌套, 不用 stack)
+  - L-2 GFM pipe-table 簡単 regex (0 HTML)
+  - L-3 tiktoken cl100k_base 実測強制 (char/4 偏差 23.6% > 20% 容許帯)
+  - L-4 chapters/ ≥ 50KB 強制 ^### 切 (ch04 §4.4 > 8K embedding limit)
+  - L-5 terminology core part 文件 H2=1 → part 模式 / H2>1 → codelist 模式
+- 総 chunk 数估算微調: chunker_feasibility v0.2 估 ~4368 → 実測 ~4304 (-1.5%, ±5% 容許内, 不修 v0.2 文档)
+- 落档 evidence: `evidence/checkpoints/phase_1a_0_sanity.md` (17 KB) + `scripts/sanity_tiktoken.py` (4.9 KB, tiktoken 0.12.0)
+- terminology H2 累計 (1A.0.a 全 grep): core/ 42 + core/part 104 + supplementary 188 + questionnaires 670 = **1004** (chunker_feasibility 估 1005, near-exact)
+- 作成: main session
+- 確認: PASS 五条 #3 reviewer deferred (本 step EXECUTION_PLAN §1A.0 不強制, Rule D 真審在 1A.3 chunker writer → code-reviewer 那步触发)
+- 承認: Bojiang Zhang (2026-05-22 ack)
+- next: 1A.1 (sdtm-rag/ 仓库脚手架 + R-17 .env hygiene + R-20 pyreadstat sanity)
 
 ---
