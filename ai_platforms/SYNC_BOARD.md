@@ -1,5 +1,7 @@
 # AI 平台双平台并行部署 — 锁步看板 (SYNC_BOARD)
 
+> **⚠️ 状态再次更新 (2026-05-22)**: v1.2 (2026-05-19) + v1.3 (2026-05-20) + v1.4 (2026-05-22) 全部 closed; **Gemini 平台自 v1.4 起切到 MAINTAINED_NO_SANITY_TEST** (per 用户 2026-05-22 clarification: 测试停 [sanity / R4 / B2 全 abandon], 优化继续 [KB delta + prompt 修], 用户自验). 本看板进一步降级为 **3-platform R3+ 维护期看板** (ChatGPT/Claude/NotebookLM); Gemini 不再纳入 sanity 题集. 详情见 `release/v1.4/KNOWN_LIMITATIONS.{en,zh,ja}.md` §0.A.
+
 > **⚠️ 状态降级 (2026-05-19)**: 4 平台 lifecycle FULLY SIGNED OFF (2026-04-24) + Release v1.1 + audit pass (2026-05-16) 全部 closed 后, **Phase 0-5 锁步 Gate 失效**. 本看板降级为 **R3+ 维护期 QA 横向同步看板**: 不再强制 hold (谁先跑完先记录), 但 R3+ 回归测试仍要求 4 平台**同题集 / 同 Strict 判据 / 同一张横向对比表**, 用于 cross-pollination (一平台的弱项反哺另一平台 prompt). R3 测试计划见 `.work/07_release_v1_1/r3/r3_kickoff.md` + `r3_matrix.md` (2026-05-16 已就绪). 原 Phase Gate 规则 (PASS 四条 / 偏离告警) 仅作历史保留.
 >
 > **目的 (原始, 历史保留)**: ChatGPT GPTs + Gemini Gems 在 Phase 0-5 上严格锁步, 不靠人脑记, 由主 session 机械 gate.
