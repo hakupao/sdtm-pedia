@@ -4,9 +4,9 @@
   "tier": 2,
   "tier_note": "borderline Tier 2-3, 走 Tier 2 + evidence 全留; Phase 2 KG 启动时再评估升 Tier 3",
   "created": "2026-05-22",
-  "updated": "2026-05-22 (Phase 1A.1 scaffold 完成, sdtm-rag/ 16 files + R-17 .env + R-20 pyreadstat 实测 VERIFIED)",
+  "updated": "2026-05-22 (Phase 1A.2 prep — D-4 v2 mini-revision: bge-m3 主 + V4-Flash → V4-Pro 非思考)",
   "upstream_design": "docs/DESIGN_RAG_KG.md (Approved 2026-04-16)",
-  "current_phase": "phase_1a_ingest 1A.1 完成, 用户 ack 待 → 1A.2 LiteLLM sanity",
+  "current_phase": "phase_1a_ingest 1A.0+1A.1 closed + D-4 v2 修订完成, 待用户 API key 配置 → 1A.2 LiteLLM+bge-m3 sanity",
   "phases": {
     "phase_0_research": {
       "status": "completed",
@@ -62,7 +62,20 @@
           },
           "pass_at": "2026-05-22"
         },
-        "1a_2_litellm_sanity": {"status": "pending"},
+        "1a_2_prep_d4_v2_revision": {
+          "status": "completed",
+          "evidence": "evidence/checkpoints/phase_1a_2_prep_d4_v2_revision.md",
+          "owner": "main",
+          "summary": "D-4 v1 → v2 (bge-m3 主 + OpenAI 留接口); D-2 微调 (V4-Flash → V4-Pro 非思考); R-8 MED → HIGH; R-22 新加; 1A.2 加 1A.2.f bge-m3 sanity (0.3 → 0.5 d); Phase 1 总 13-17 → 13.5-17.5 d",
+          "user_ack": "Bojiang 2026-05-22 (1. yes bge-m3 / 2. 保留 Anthropic)",
+          "files_modified": ["PLAN.md (8 edits)", "EXECUTION_PLAN.md (1 edit)", "sdtm-rag/pyproject.toml", "sdtm-rag/.env.example", "sdtm-rag/README.md", "CHANGELOG.md"],
+          "pass_at": "2026-05-22"
+        },
+        "1a_2_litellm_sanity": {
+          "status": "pending",
+          "depends_on": ["user 在 .env 填 ANTHROPIC_API_KEY + DEEPSEEK_API_KEY"],
+          "sub_after_d4_v2": ["1A.2.a V4-Pro 非思考 2 轮 + V4-Pro 思考 1 轮", "1A.2.b 记录", "1A.2.c R-8 决策", "1A.2.d Router fallback chain", "1A.2.e Haiku context window", "1A.2.f bge-m3 sanity (R-22)"]
+        },
         "1a_3_chunker_impl": {"status": "pending"},
         "1a_4_chunker_tests": {"status": "pending"},
         "1a_5_ingest_full": {"status": "pending"},

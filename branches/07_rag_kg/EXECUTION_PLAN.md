@@ -121,11 +121,12 @@
 
 | Sub | 内容 | agent |
 |-----|------|-------|
-| 1A.2.a | `pip install litellm==1.85.1`, 跑 `scripts/sanity_litellm.py` (DeepSeek V4 Pro 2 轮思考模式 + Sonnet 2 轮 + DeepSeek V4 Flash 2 轮非思考) | `executor` (sonnet) |
+| 1A.2.a (D-4 v2 修订) | `pip install litellm==1.85.1`, 跑 `scripts/sanity_litellm.py` (DeepSeek **V4-Pro 非思考模式** 2 轮 [用户主用] + Sonnet 2 轮 + V4-Pro 思考模式 1 轮 [验 Issue #26395 R-8 复现, 仅 single-turn]) | `executor` (sonnet) |
 | 1A.2.b | 记录结果到 `evidence/litellm_sanity_2026-MM-DD.md` | 同上 |
-| 1A.2.c | 如果 V4 Pro bug 仍在: 标 `R-8 confirmed`, RAG multi-turn 改用 V4 Flash 非思考模式 | main (决策) |
-| **1A.2.d** (v0.2, F-8/R-19) | LiteLLM Router fallback chain 2 轮对话 (Sonnet 主 → V4-Flash fallback 触发); 验 v1.84.0 breaking changes 在单机 SDK 模式不影响 | `executor` |
+| 1A.2.c | 如果 V4-Pro 思考 bug 仍在: 标 `R-8 confirmed`, RAG multi-turn 全用 V4-Pro **非思考** | main (决策) |
+| **1A.2.d** (v0.2, F-8/R-19) | LiteLLM Router fallback chain 2 轮对话 (Sonnet 主 → **V4-Pro 非思考** fallback 触发); 验 v1.84.0 breaking changes 在单机 SDK 模式不影响 | `executor` |
 | **1A.2.e** (v0.2, F-7/R-14) | Haiku 4.5 context window 实测 (查 platform.claude.com docs + 实跑长 prompt 测) | `document-specialist` |
+| **1A.2.f** (D-4 v2 新增, R-22) | `pip install sentence-transformers torch`, 下载 bge-m3 (~2.5GB), 5 sample text embedding 跑通, 验 dim=1024 + Mac MPS 速度 (期望 < 100ms/chunk); Chroma client 接 bge-m3 embedding function sanity (不全量 ingest, 仅接口验) | `executor` (sonnet) |
 | 💾 | _progress.json | — |
 
 #### Step 1A.3 — Chunker 实现 (1.5 d) 🔀 3 并行机会

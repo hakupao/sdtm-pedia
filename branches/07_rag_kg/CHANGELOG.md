@@ -96,5 +96,26 @@
 - 確認: PASS 五条 #3 reviewer deferred (EXECUTION_PLAN §1A.1 不強制, 真審 1A.3 chunker writer 触発)
 - 承認: pending Bojiang ack
 - next: 1A.2 LiteLLM sanity (DeepSeek V4 Pro 2 ターン思考 + Sonnet 2 ターン + V4-Flash 非思考 + Router fallback + Haiku context window 実測)
+- commit: 3900b9e "07 RAG+KG Phase 1A.1 scaffold — sdtm-rag/ 16 files + R-17 .env + R-20 VERIFIED"
+
+## Phase 1A.2 Prep — D-4 v2 mini-revision (2026-05-22, bge-m3 主 + V4-Flash → V4-Pro 非思考)
+- 区分: PLAN/EXECUTION_PLAN minor revision (decision log + table 更新, 大版本不変 v0.2)
+- 触発: ユーザー意思決定 2026-05-22 「OpenAI 留接口暂不使用, 只使用 DeepSeek V4 Pro; embedding bge-m3 yes; Anthropic 保留」
+- 上流: 元 D-3 (ChatGPT Plus 代理不接入) + 元 D-4 v1 (OpenAI text-embedding-3-small 主 + bge-m3 fallback)
+- 改訂内容:
+  - **D-4 v1 superseded → D-4 v2** ★: bge-m3 (1024d, local sentence-transformers) **主**, OpenAI text-embedding-3-small fallback (留接口暂不調)
+  - **D-2 微調**: 複検モデル V4-Flash → **V4-Pro 非思考** (ユーザー V4-Pro key 持有); 主答 Sonnet + 難題 Opus + 軽分類 Haiku 不変
+  - **R-8 重大性 MED → HIGH**: LiteLLM Issue #26395 ユーザー主用 V4-Pro 後影響升级; 全程 RAG 複検/fallback 強制非思考 (`extra_body={"thinking": {"type": "disabled"}}`)
+  - **R-22 新規**: bge-m3 本地 model 首次 ~2.5GB 下載 + Mac M-series MPS 推理速度未実測 + Docker torch CPU image ~800MB; 1A.2.f 实测
+- PLAN.md 8 edits: §4.1 (embedding 表 bge-m3 主) + §4.2 (LLM 表 3 处 V4-Flash → V4-Pro) + §4.2 (OpenAI 决策 block 改名 D-3+D-4 联合) + §4.4 (R-8 升级 + R-22 加 + 边注) + §5 (1A.2 加 1A.2.f bge-m3 + 0.3 → 0.5 d) + §10 (Phase 1A 3-4 d → 3.5-4.5 d, Phase 1 TOTAL 13-17 → 13.5-17.5 d) + §11 (D-2 微调 + D-3 ack + D-4 v1 superseded + D-4 v2 加 + D-5/6/7/8 ack date 更新)
+- EXECUTION_PLAN.md 1 edit: §1A.2 表加 1A.2.f bge-m3 + V4 Pro 思考 → 非思考 全行
+- sdtm-rag/pyproject.toml: 加 sentence-transformers>=3.0 + torch>=2.4
+- sdtm-rag/.env.example: OPENAI_API_KEY 注釈化 (暂不用) + DEEPSEEK_API_KEY ★必 + FALLBACK_MODEL V4-Flash→V4-Pro + EMBEDDING_MODEL OpenAI→BAAI/bge-m3 + EMBEDDING_DIM 1536→1024 + EMBEDDING_DEVICE=mps 加 + HUGGINGFACE_HUB_TOKEN 占位
+- sdtm-rag/README.md: Environment Variables 表更新 (OPENAI 暂不用 / DEEPSEEK ★必 / EMBEDDING_* 3 行加)
+- 落档 evidence: `evidence/checkpoints/phase_1a_2_prep_d4_v2_revision.md` (~6KB, 含 R-8 重評価 + R-22 + 工期影响 + PASS 五条)
+- 作成: main session
+- 確認: PASS 五条 #3 reviewer deferred (decision log update, writer=main 圧縮率 0); 必要なら critic 二審
+- 承認: Bojiang Zhang 2026-05-22 二回 ack ("1. yes [bge-m3], 2. 保留 [Anthropic]")
+- next: ユーザー DeepSeek V4-Pro API key + ANTHROPIC API key を `branches/07_rag_kg/sdtm-rag/.env` に書込后 1A.2 起動 (`executor` subagent)
 
 ---

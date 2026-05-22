@@ -172,24 +172,25 @@ branches/07_rag_kg/
 | 项 | 选择 | 理由 |
 |----|------|------|
 | Vector DB | **Chroma** (本地, `pip install chromadb`) | 设计 §3.4, 3-5K chunks 远低于上限, 零运维 |
-| Embedding | **OpenAI `text-embedding-3-small`** (1536d) | $0.02/1M token, 9.8MB 全 KB embedding < $0.01; chunk max token < 3K 远低于 8191 上限 |
-| Embedding fallback | bge-m3 (1024d, local) | API 故障时本地兜底 (本地 GPU 可选) |
-| Embedding 不选 | text-embedding-3-large | 仅当 eval 显示 small 召回 < 80% 才升级 |
+| Embedding (D-4 **v2** 2026-05-22) | **bge-m3 (1024d, local sentence-transformers)** ★ | 用户决策不开 OpenAI API account; Mac M-series MPS 推理 ~ms 级 (1A.2.f 实测); $0 API 成本; 首次 ~2.5GB 下载 |
+| Embedding fallback (留接口暂不调) | OpenAI `text-embedding-3-small` (1536d) | `llm_config.py` 留 `openai/` base_url 配置化接口 (D-3); 用户后续若开 OpenAI API account 或决定切回, 一行 `.env` (`SDTM_RAG_EMBEDDING_MODEL=openai/...`) 切换 |
+| Embedding 不选 | text-embedding-3-large / Cohere v3 | 仅当 1B5 eval 显示 bge-m3 召回 < 80% 才考虑 (Cohere 需另开账户) |
 
 ### 4.2 LLM 层 (引用 research/llm_providers_2026-05-22.md)
 
 | 场景 | 主模型 | Fallback | 单位成本 |
 |------|--------|----------|---------|
-| RAG 主答 | `anthropic/claude-sonnet-4-6` (1M ctx) | `deepseek/deepseek-v4-flash` | $3/$15 → $0.14/$0.28 |
+| RAG 主答 | `anthropic/claude-sonnet-4-6` (1M ctx) | `deepseek/deepseek-v4-pro` **非思考** (D-4 v2) | $3/$15 → DeepSeek V4-Pro 非思考 (用户持 V4-Pro API key) |
 | 难题语义评审 / dataset reviewer.py | `anthropic/claude-opus-4-7` (1M ctx) | `anthropic/claude-sonnet-4-6` | $5/$25 → $3/$15 |
-| 轻量分类 / intent 路由 | `anthropic/claude-haiku-4-5` | `deepseek/deepseek-v4-flash` | $1/$5 |
-| 复检 / cross-check | `deepseek/deepseek-v4-flash` (非思考模式, 绕开 LiteLLM Issue #26395) | — | $0.14/$0.28 |
+| 轻量分类 / intent 路由 | `anthropic/claude-haiku-4-5` | `deepseek/deepseek-v4-pro` **非思考** (D-4 v2) | $1/$5 |
+| 复检 / cross-check | `deepseek/deepseek-v4-pro` **非思考模式** (D-4 v2; 绕开 LiteLLM Issue #26395 multi-turn bug) | — | per DeepSeek pricing |
 | 批量 eval | `anthropic/claude-sonnet-4-6` Batch API | — | $1.50/$7.50 (50% 折扣) |
-| OpenAI ChatGPT (用户 Plus plan) | ❌ **不接入生产** — 详见 llm_providers §3 | — | — |
+| OpenAI API + ChatGPT Plus | ❌ **不接入生产** (D-3 + D-4 v2 联合) — Plus 代理 ToS+稳定性 risk (llm_providers §3) + OpenAI API account 用户暂不开; embedding 主路径改 bge-m3 local (§4.1); 留 `openai/` base_url 接口预留 | — | — |
 
-**ChatGPT Plus 代理决策**:
-- ❌ 不纳入 LiteLLM Router default fallback chain — 违反 OpenAI ToS, 极低稳定性, 数据安全风险高
-- ✅ 在 `llm_config.py` 留 `openai/` provider 接口 (base_url 配置化), 用户后续若开独立 OpenAI API 账户可直接接入
+**OpenAI 决策 (D-3 + D-4 v2 联合, 2026-05-22 用户 ack)**:
+- ❌ **ChatGPT Plus 代理**: 不纳入 LiteLLM Router default fallback chain — 违反 OpenAI ToS, 极低稳定性, 数据安全风险高
+- ❌ **OpenAI API account**: 用户暂不开通; **embedding 主路径改为 bge-m3 local** (§4.1 D-4 v2) — bge-m3 1024d sentence-transformers, Mac MPS, $0 API, ~2.5GB 下载
+- ✅ 在 `llm_config.py` 留 `openai/` provider 接口 (base_url 配置化), 用户后续若开 OpenAI API account **或决定切回 OpenAI embedding**, 一行 `.env` (`SDTM_RAG_EMBEDDING_MODEL=openai/text-embedding-3-small` + `OPENAI_API_KEY=...`) 切换
 - ✅ daily prototype / 人工测试 → 用户直接在 chatgpt.com 网页用 Plus 配额, 不强行 API 化
 - ✅ 详细折中建议在 `llm_providers_2026-05-22.md §3.折中建议`
 
@@ -243,7 +244,7 @@ branches/07_rag_kg/
 |------|------|------|----------|
 | **1A.0** (v0.2 新增) | Phase 1A.0 sanity: re-grep verify R-13 6 项 (supplementary_part / qs_part / questionnaires / mermaid 嵌套 / table 变体 / tiktoken 实测) | 0.3 d | 6 项数字落实到 chunker config, 1A.3 不带未验证假设进 |
 | 1A.1 | `sdtm-rag/` 仓库脚手架 (pyproject + Docker Compose + 目录树 + .env/.env.example/.gitignore R-17) | 0.3 d | structure OK + chromadb 起 + .env 不入库 |
-| 1A.2 | LiteLLM v1.85.1 sanity: (a) DeepSeek V4 Pro 2 轮思考模式 (验 Issue #26395), (b) Sonnet 2 轮, (c) V4-Flash 非思考 2 轮, (d) Router fallback chain 2 轮 (R-19), (e) Haiku context window 实测 (R-14) | 0.3 d | 都跑通, bug 复现/规避确认 |
+| 1A.2 (D-4 v2 修订) | LiteLLM v1.85.1 sanity: (a) DeepSeek **V4-Pro 非思考模式** 2 轮 [用户主用] + V4-Pro 思考 1 轮 [verify Issue #26395 R-8 single-turn], (b) Sonnet 2 轮, (c) Router fallback chain 2 轮 Sonnet → V4-Pro 非思考 (R-19), (d) Haiku context window 实测 (R-14), (e) **bge-m3 sentence-transformers 安装 + ~2.5GB 下载 + 5 sample text embedding + Mac MPS 速度 < 100ms/chunk (R-22)** | **0.5 d** | 都跑通, bug 规避确认 (V4-Pro 非思考 ok); bge-m3 dim 1024 + MPS 速度达标 |
 | 1A.3 | chunker base + 6 类实现 (spec/assumptions/examples/chapters/model/terminology) + variable_index | 1.5 d | 单元测试覆盖 (见 §6) |
 | 1A.4 | chunker 测试套件 (TA/PC/IS/DS examples + LB part1-4 + ch04 + supplementary_part) | 0.7 d | 100% PASS + 边界 byte-exact + 含失败回归 |
 | 1A.5 | ingest.py 全量跑 + Chroma persistence + backup ckpt (R-16) + ingested_at_commit.txt (R-18) | 0.5 d | ~4368 chunks 全入库, sample 10 个查询验证 retrieval 召回 |
@@ -448,7 +449,7 @@ class TerminologyChunker:
 | R-5 | VARIABLE_INDEX 与 spec.md 召回重复 | 跨变量查询 | 待 eval 验 | LOW-MED | Phase 1B5 实测后决定 boost 或剔除 | 1B5 |
 | R-6 | 06 P5 reverse_ledger 与 chunk 边界对齐 | chunker 正确性校验 | 待验 | LOW | 1A.6 抽 N=10 atom 对齐验 | 1A.6 |
 | R-7 | KB 后续微调 (07 website / jp_delivery 反向影响) | reingest 频率 | 低 | LOW | chunk metadata 含 `kb_commit_sha` + KB 变更触发 reingest | runtime |
-| R-8 | LiteLLM Issue #26395 DeepSeek V4 Pro multi-turn 思考模式 bug | RAG multi-turn 用 V4 Pro 会断 | 100% (Open) | MED | 主用 Sonnet, 复检用 V4-Flash 非思考模式 | 1A.2 |
+| R-8 | LiteLLM Issue #26395 DeepSeek V4 Pro multi-turn 思考模式 bug | RAG multi-turn 用 V4-Pro 思考模式会断 | 100% (Open) | **MED→HIGH (D-4 v2 用户主用 V4-Pro)** | 主用 Sonnet, **复检 + fallback 用 V4-Pro 非思考模式** (D-4 v2); 1A.2.a 跑 V4-Pro 非思考 2 轮 + V4-Pro 思考 1 轮 sanity (verify bug single-turn 复现); LiteLLM Router config 明示 `extra_body={"thinking": {"type": "disabled"}}` 防回归 | 1A.2 |
 | R-9 | DeepSeek V4-Pro 75% 折扣 2026-05-31 到期 | 成本上涨 | 100% | LOW | 2026-06-01 复查 pricing | runtime |
 | R-10 | examples.md 单 chunk 最大 ~2.7K token (MB) | embedding 限 8K, 仍安全 | 0% | 0 | (验证完成, 不需缓解) | done |
 | R-11 | Phase 2 KG 价值未验 — 可能 RAG 就够 | Phase 2 投入产出 | 待 1D eval | MED | 1D eval 决策点 gate | 1D |
@@ -462,8 +463,9 @@ class TerminologyChunker:
 | **R-19** (v0.2) | LiteLLM v1.84.0 breaking changes (proxy multi-pod) 单机 SDK 是否影响未 verify | Router fallback chain 可能断 | 待 verify | LOW-MED | 1A.2.d: LiteLLM Router 2 轮对话 + fallback chain 端到端测 | 1A.2 |
 | **R-20** (v0.2) | pyreadstat (Phase 1C XPT/SAS7BDAT 解析) 在 Apple Silicon Py 3.11+ build 可能失败 | 1C.1 dataset parser | 中 | LOW | 1A.1 加 sanity `pip install pyreadstat && python -c 'import pyreadstat'`; fallback `sas7bdat` 库 | 1A.1 |
 | **R-21** (v0.2) | Streamlit 用户上传 + RAG + LLM 超时 UX 无反馈 | 用户体验差 | 中 | LOW | 1C.5 加 `st.status()` + `st.progress()` + 60s warning timeout | 1C.5 |
+| **R-22** (D-4 v2) | bge-m3 本地 model 首次 ~2.5GB 下载 + Mac M-series MPS 推理速度未实测 + Docker torch CPU image ~800MB | Phase 1A.2 sanity 时间 + Docker build + ingest 耗时 | 100% | LOW-MED | 1A.2.f bge-m3 sanity 实测 5 sample text MPS 速度 (期望 < 100ms/chunk); Docker build multi-stage defer (1A.5 后看 image 大小决定); HuggingFace mirror 候选 (中国大陆 access slow 时) | 1A.2 / 1A.5 |
 
-**R-1/R-2/R-4/R-8 必须 Phase 1A 前测试套件覆盖**, 不能上来就 ingest。**R-13 + R-17 必须 Phase 1A.0 sanity 完成才可进 1A.3 chunker writer**。
+**R-1/R-2/R-4/R-8 必须 Phase 1A 前测试套件覆盖**, 不能上来就 ingest。**R-13 + R-17 必须 Phase 1A.0 sanity 完成才可进 1A.3 chunker writer**。**R-22 (bge-m3) 在 Phase 1A.2.f sanity 验证**。
 
 ---
 
@@ -490,13 +492,13 @@ class TerminologyChunker:
 | Phase | 工期 v0.1 | **工期 v0.2** | 状态 | 调整理由 |
 |-------|----------|--------------|------|---------|
 | Phase 0 Research | 1 d | 1 d | 🟢 in_progress | — |
-| **Phase 1A Ingest** (加 1A.0 sanity) | 2.5-3 d | **3-4 d** | pending | F-19: examples.md domain-aware chunker 单 batch 0.6-0.8 d, terminology LB part 模式 0.6 d, 测试套件 0.7 d 含失败回归; 加 1A.0 sanity 0.3 d |
+| **Phase 1A Ingest** (加 1A.0 sanity + 1A.2.f bge-m3, D-4 v2) | 2.5-3 d | **3.5-4.5 d** | in_progress (1A.0/1A.1 closed 2026-05-22) | F-19 + 1A.0 sanity 0.3 d + 1A.2.f bge-m3 sanity 0.2 d (Mac MPS) |
 | Phase 1B Q&A | 2 d | 2 d | pending | — |
 | Phase 1B5 Sanity Eval | 0.7-1.5 d | 1-1.5 d | pending | — |
 | **Phase 1C Dataset Validation** | 3.5-4 d | **5-6 d** | pending | F-20: 1C.2 规则引擎边界 case ≥1.5 d, 1C.3 RAG 评审 + 假错误集 ≥1.5 d, 1C.5 UI > 0.3 d |
 | Phase 1D Full Eval | 2 d | 2 d | pending | — |
 | Phase 1 收口 | 1 d | 1 d | pending | — |
-| **Phase 1 TOTAL** | 10-13 d | **13-17 d** | — | F-21: Tier 2 仪式 + Rule D 反复 + 失败回归 30-50% overhead |
+| **Phase 1 TOTAL** | 10-13 d | **13.5-17.5 d** | — | F-21 + D-4 v2 (bge-m3 +0.2 d on 1A.2.f + marginally slower ingest/Docker build) |
 | Phase 2 KG (defer, gated) | +6-8 d | +6-8 d | deferred | — |
 
 ---
@@ -506,13 +508,14 @@ class TerminologyChunker:
 | # | 决定 | Decision | Date |
 |---|------|---------|------|
 | D-1 | 仓库布局 | `branches/07_rag_kg/sdtm-rag/` (跟 SDTM-pedia 一起 git) | 2026-05-22 (Bojiang ack) |
-| D-2 | LLM 主力 | Anthropic Claude Sonnet 4.6 主答 + DeepSeek V4 Flash 复检 + Opus 4.7 难题 | pending PLAN ack |
-| D-3 | ChatGPT Plus 代理 | 不接入生产, 仅 prototype 用网页 + 留 OpenAI base_url 接口 | pending PLAN ack |
-| D-4 | Embedding | OpenAI text-embedding-3-small 主 + bge-m3 fallback | pending PLAN ack |
-| D-5 | Phase 2 KG | defer, Phase 1D RELATION 召回 < 50% 才启动 | pending PLAN ack |
-| D-6 | chunker | domain-aware (examples) + size-aware (chapters) + part 模式 (LB) | pending PLAN ack |
-| D-7 | INDEX.md 整体注入 system prompt | 加入 base prompt (~6K token w/ ROUTING) | pending PLAN ack |
-| D-8 | Eval 提前 | 20 题 sanity 在 ingest 后立刻跑, 50 题完整 eval 留 1D | pending PLAN ack |
+| D-2 (D-4 v2 修订) | LLM 主力 | Anthropic Claude Sonnet 4.6 主答 + **DeepSeek V4 Pro 非思考 复检/fallback** (D-4 v2; ex-V4-Flash) + Opus 4.7 难题 + Haiku 4.5 轻分类 | 2026-05-22 (Bojiang ack v1 + v2 修订) |
+| D-3 | ChatGPT Plus 代理 | 不接入生产 (ToS + 稳定性), 仅 prototype 用网页 + 留 OpenAI base_url 接口 (`llm_config.py`) | 2026-05-22 (Bojiang ack) |
+| D-4 v1 (superseded) | Embedding (原方案) | OpenAI text-embedding-3-small 主 (1536d) + bge-m3 fallback | superseded 2026-05-22 by D-4 v2 |
+| **D-4 v2** ★ | Embedding (v2 修订) | **bge-m3 (1024d, local sentence-transformers)** 主 + OpenAI text-embedding-3-small fallback (留接口暂不调) | 2026-05-22 (Bojiang ack); 理由: 用户暂不开 OpenAI API account, Anthropic chat 链保留 |
+| D-5 | Phase 2 KG | defer, Phase 1D RELATION 召回 < 50% 才启动 | 2026-05-22 (Bojiang ack) |
+| D-6 | chunker | domain-aware (examples) + size-aware (chapters) + part 模式 (LB) | 2026-05-22 (Bojiang ack) |
+| D-7 | INDEX.md 整体注入 system prompt | 加入 base prompt (~6K token w/ ROUTING) | 2026-05-22 (Bojiang ack) |
+| D-8 | Eval 提前 | 20 题 sanity 在 ingest 后立刻跑, 50 题完整 eval 留 1D | 2026-05-22 (Bojiang ack) |
 
 ---
 

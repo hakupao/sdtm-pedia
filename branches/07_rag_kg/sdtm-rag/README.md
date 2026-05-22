@@ -107,10 +107,14 @@ Knowledge base 通过只读 volume `../../../knowledge_base:/app/knowledge_base:
 | Var | 必需? | 说明 |
 |-----|-------|------|
 | `ANTHROPIC_API_KEY` | ★ 必 | LiteLLM 主答 (Sonnet 4.6) + 难题 (Opus 4.7) + 轻分类 (Haiku 4.5) |
-| `OPENAI_API_KEY` | ★ 必 | Embedding (text-embedding-3-small) |
-| `DEEPSEEK_API_KEY` | 可选 | Cross-check / fallback (V4-Flash 非思考模式; **不**用 V4-Pro Reasoner 因 LiteLLM Issue #26395) |
+| `DEEPSEEK_API_KEY` | ★ 必 | 复检 / fallback (**V4-Pro 非思考模式**; D-4 v2 2026-05-22 用户主用 V4-Pro; **不**用 V4-Pro Reasoner 思考因 LiteLLM Issue #26395 multi-turn bug) |
+| `OPENAI_API_KEY` | — 暂不用 | 留接口预留 (D-3 + D-4 v2); embedding 默认 bge-m3 local, 不需要; 切回 OpenAI embedding 时填 |
 | `COHERE_API_KEY` | 可选 | Phase 1B.2 Top-K 重排 (按需) |
 | `SDTM_RAG_DEFAULT_MODEL` | 默 sonnet | LiteLLM identifier |
+| `SDTM_RAG_FALLBACK_MODEL` | 默 v4-pro 非思考 | D-4 v2 |
+| `SDTM_RAG_EMBEDDING_MODEL` | 默 BAAI/bge-m3 | D-4 v2 local; ~2.5GB 首下载; Mac MPS / Linux CPU/CUDA |
+| `SDTM_RAG_EMBEDDING_DIM` | 默 1024 | bge-m3 native; 切 OpenAI 时改 1536 |
+| `SDTM_RAG_EMBEDDING_DEVICE` | 默 mps | Mac M-series; Linux Docker 用 cpu/cuda |
 | `SDTM_RAG_MAX_UPLOAD_MB` | 默 100 | 数据集上传上限 (Phase 1C.1) |
 
 **.env hygiene (R-17)**:

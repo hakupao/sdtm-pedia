@@ -31,6 +31,9 @@ dependencies = [
     # Dataset parsing
     "pandas>=2.2",
     "pyreadstat>=1.2",
+    # Embedding (D-4 v2: bge-m3 local main, OpenAI fallback via base_url)
+    "sentence-transformers>=3.0",
+    "torch>=2.4",
     # Config
     "pyyaml>=6.0",
     "python-dotenv>=1.0",
