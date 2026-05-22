@@ -27,7 +27,7 @@
   "section.downloads.label": "DOWNLOADS",
   "section.downloads.subhead": "Self-host a deployment.",
   "section.downloads.cta": "→ ALL RELEASE ASSETS",
-  "section.downloads.pending": "v1.0 release bundles are being prepared. Track progress on the GitHub releases page:",
+  "section.downloads.pending": "v1.4 release bundles are being prepared. Track progress on the GitHub releases page:",
   "downloads.files": "files",
   "footer.maintainer": "Maintained by Bojiang Zhang · Internal release",
   "docs.sidebar.label": "DOCS",

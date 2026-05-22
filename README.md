@@ -135,7 +135,7 @@ sdtm-pedia/
 │   ├── chatgpt_gpt/             # ChatGPT GPTs bundle (9 uploads)
 │   ├── gemini_gems/             # Gemini Gems bundle (4 uploads)
 │   ├── notebooklm/              # NotebookLM bundle (42 uploads)
-│   └── release/v1.0/            # Self-contained company release (26M, 4 platforms)
+│   └── release/v1.{0,1,3,4}/    # Self-contained company releases (latest: v1.4, 2026-05-22)
 │
 ├── .work/                       # Build workspace
 │   ├── 00_planning/             # Design documents
@@ -145,7 +145,7 @@ sdtm-pedia/
 │   ├── 04_optimization/         # Phase 6 retrieval optimization
 │   ├── 05_rag_kg/               # Phase 7 RAG + knowledge graph design
 │   ├── 06_deep_verification/    # PDF→KB literal-level deep verification (in progress)
-│   ├── 07_release/              # Release v1.0 plan + retrospective
+│   ├── 07_release{,_v1_1,_v1_2,_v1_3,_v1_4}/  # Release v1.0-v1.4 plans + retrospectives
 │   ├── meta/                    # Work log, mappings, findings
 │   └── MANIFEST.md              # File index & change chains
 │
@@ -272,12 +272,12 @@ sdtm-pedia/
 
 ### Option A — Self-deploy on a hosted AI platform (recommended)
 
-A turn-key release bundle for **4 platforms** (Claude Projects, ChatGPT GPTs, Gemini Gems, NotebookLM) ships at `release/v1.0/`. Each platform sub-directory is self-contained: system prompt + uploads + step-by-step tutorial in 3 languages (zh/en/ja).
+A turn-key release bundle for **4 platforms** (Claude Projects, ChatGPT GPTs, Gemini Gems, NotebookLM) ships at `release/v1.4/` (latest, 2026-05-22). Each platform sub-directory is self-contained: system prompt + uploads + step-by-step tutorial in 3 languages (zh/en/ja). Earlier releases (`release/v1.{0,1,3}/`) remain immutable for reference. Note: **Gemini is MAINTAINED_NO_SANITY_TEST from v1.4 onwards** — bundle still ships, but sanity testing was discontinued; users self-verify.
 
 1. **Clone the repo**
    ```bash
    git clone https://github.com/hakupao/sdtm-pedia.git
-   cd sdtm-pedia/release/v1.0
+   cd sdtm-pedia/release/v1.4
    ```
 
 2. **Pick a platform** — Read `self_deploy/README.en.md` for the decision tree (capacity, sharing, audio overview, etc.)
@@ -321,7 +321,7 @@ The knowledge base is plain Markdown — it works with any LLM that supports fil
 - [x] Phase 6.1 — Query routing index (`knowledge_base/ROUTING.md`)
 - [x] Phase 6.2 — Cross-references between domains (in `spec.md` of each domain)
 - [x] Phase 6.3 — Variable-level reverse index (`knowledge_base/VARIABLE_INDEX.md`, 1,523 variables)
-- [x] Phase 6.5 — Multi-platform AI deployment + Release v1.0 (4 platforms, `release/v1.0/`)
+- [x] Phase 6.5 — Multi-platform AI deployment + Releases v1.0 → v1.4 (4 platforms, latest at `release/v1.4/`; Gemini MAINTAINED_NO_SANITY_TEST from v1.4)
 - [ ] Phase 6.4 — Structured metadata (YAML/JSON) — merged into Phase 7 Step 7
 - [ ] Phase 7 — RAG + knowledge graph + dataset validation (design complete, see `docs/DESIGN_RAG_KG.md`)
 - [ ] Deep verification — literal-level PDF→KB atom-by-atom audit (in progress, see `branches/06_deep_verification/`)
