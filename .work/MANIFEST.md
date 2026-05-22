@@ -85,6 +85,25 @@ meta/worklog/phase00_planning.md     ← 记录决策变更
 ../README.md / ../README_CN.md       ← 如影响项目描述则更新
 ```
 
+### Chain 07_RAG: Phase 7 RAG+KG 旁枝 (branches/07_rag_kg/)
+
+**触发**: `branches/07_rag_kg/` 配下任何文件修改
+
+```
+branches/07_rag_kg/PLAN.md / EXECUTION_PLAN.md         ← 規範改訂
+  ↓ branches/07_rag_kg/_progress.json (Tier 2 schema)
+  ↓ branches/07_rag_kg/CHANGELOG.md
+  ↓ branches/07_rag_kg/research/*.md                    (调研 evidence)
+  ↓ branches/07_rag_kg/evidence/checkpoints/            (Phase PASS 时归档)
+  ↓ branches/07_rag_kg/evidence/failures/               (规则 B 失败归档)
+  ↓ .work/MANIFEST.md                                   (入口登録)
+  ↓ .work/meta/worklog/phase_07_rag_kg.md               (作業記録)
+  ↓ docs/PROGRESS.md                                    (Phase 7 状态)
+  ↓ ../CLAUDE.md Key Paths                              (新規 Key Path のみ)
+```
+
+下流: `sdtm-rag/` 实际代码仓 (Phase 1A 起建立) 在 `branches/07_rag_kg/sdtm-rag/`, 跟随同一 chain.
+
 ### Chain J: 日本同事交付链 (branches/jp_delivery/, iTMS 様 納品)
 
 **触发**: `branches/jp_delivery/` 配下任何文件修改
@@ -124,6 +143,10 @@ branches/jp_delivery/PLAN.md / EXECUTION_PLAN.md       ← 規範改訂
 
 ../branches/06_deep_verification/PLAN.md ── 字面级 PDF→KB 深审 (旁枝)
      P2 B-03c 収官 COMPLETE 2026-05-11. multi_session/ 含 batch/round kickoff.
+
+../branches/07_rag_kg/PLAN.md ── RAG + Knowledge Graph 落地实施 (旁枝)
+     Phase 0 Research closed 2026-05-22 (critic Rule D PASS 1 + v0.2 final).
+     上游设计 docs/DESIGN_RAG_KG.md; 实际代码仓 branches/07_rag_kg/sdtm-rag/ (Phase 1A 起).
 
 07_website/phase{6,7,8}/PLAN.md ── 公开站点 (closed)
      prod sdtm-pedia.pages.dev. handoffs 在 meta/website_phase*_handoff_*.md.
@@ -198,4 +221,5 @@ branches/jp_delivery/ ── iTMS 納品旁枝 (Chain J)
 | Phase 7 设计 | `../docs/DESIGN_RAG_KG.md` |
 | 07 Website 入口 | `07_website/phase{6,7,8}/PLAN.md` |
 | branches/jp_delivery/ 入口 | `../branches/jp_delivery/PLAN.md` + `EXECUTION_PLAN.md` |
+| branches/07_rag_kg/ 入口 | `../branches/07_rag_kg/PLAN.md` + `EXECUTION_PLAN.md` (上游 `../docs/DESIGN_RAG_KG.md`) |
 | 重构 v1 | `refactor_v1/PLAN.md` |

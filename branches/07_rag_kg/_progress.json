@@ -1,0 +1,61 @@
+{
+  "$schema_note": "Tier 2 progress schema for branches/07_rag_kg/ (RAG + KG, 设计→实施旁枝)",
+  "branch": "07_rag_kg",
+  "tier": 2,
+  "tier_note": "borderline Tier 2-3, 走 Tier 2 + evidence 全留; Phase 2 KG 启动时再评估升 Tier 3",
+  "created": "2026-05-22",
+  "updated": "2026-05-22 (critic Rule D PASS 1 + v0.2 修订完成)",
+  "upstream_design": "docs/DESIGN_RAG_KG.md (Approved 2026-04-16)",
+  "current_phase": "phase_0_research 0.6 完成 (critic CONDITIONAL_PASS + v0.2 修订), 0.7 用户 ack 待",
+  "phases": {
+    "phase_0_research": {
+      "status": "in_progress (0.1-0.6 完成, 0.7 用户 ack 待, 0.8 commit 待)",
+      "started_at": "2026-05-22",
+      "pass_at": null,
+      "subtasks": {
+        "0_1_chunker_feasibility": {"status": "completed", "evidence": "research/chunker_feasibility_2026-05-22.md (v0.2 含 F-2 4 处事实修正)", "owner": "main", "pass_at": "2026-05-22"},
+        "0_2_llm_providers": {"status": "completed", "evidence": "research/llm_providers_2026-05-22.md", "owner": "document-specialist (background)", "pass_at": "2026-05-22"},
+        "0_3_plan_draft": {"status": "completed", "evidence": "PLAN.md v0.2", "depends_on": ["0_1", "0_2"], "pass_at": "2026-05-22"},
+        "0_4_execution_plan_draft": {"status": "completed", "evidence": "EXECUTION_PLAN.md v0.2", "depends_on": ["0_3"], "pass_at": "2026-05-22"},
+        "0_5_independent_review": {"status": "completed", "rule_d_isolation": "writer=main session, reviewer=critic (异 subagent_type)", "evidence": "evidence/review_pass_1.md", "verdict": "CONDITIONAL_PASS (32 findings: 3 HIGH/7 MED/6 LOW/4 INFO)", "pass_at": "2026-05-22"},
+        "0_5_5_v0_2_revision": {"status": "completed", "scope": "F-1/F-2/F-3 HIGH 全修 + F-6/F-7/F-8/F-9/F-10/F-11/F-14/F-19/F-20/F-21/F-22/F-23/F-24/F-25/F-27 MED 全修 + F-32 INFO 修", "edits": "chunker_feasibility 10 处 + PLAN 12 处 + EXECUTION_PLAN 9 处 = 31 处", "pass_at": "2026-05-22"},
+        "0_5_6_low_finalization": {"status": "completed", "scope": "5 LOW 全修 — F-12 文件 100MB 上限 (PLAN §5 1C.1 已含) / F-13 单用户/单租户明示 (PLAN §0.2 Out-of-scope) / F-15 metadata schema null vs omit 约定 (PLAN §7) / F-16 pyreadstat fallback (EXECUTION_PLAN 1A.1.d 已含) / F-17 Streamlit timeout UX (PLAN R-21 已含)", "pass_at": "2026-05-22"},
+        "0_6_user_ack": {"status": "completed", "verdict": "ack PLAN v0.2 + critic review + decision log D-2~D-8 + LOW 当场修 + commit OK", "pass_at": "2026-05-22"},
+        "0_7_commit_push": {"status": "in_progress", "depends_on": ["0_6"]}
+      }
+    },
+    "phase_1a_ingest": {"status": "pending", "blocked_by": ["phase_0_research"]},
+    "phase_1b_qa_service": {"status": "pending"},
+    "phase_1b5_sanity_eval": {"status": "pending"},
+    "phase_1c_dataset_validation": {"status": "pending"},
+    "phase_1d_full_eval": {"status": "pending"},
+    "phase_1_closure": {"status": "pending"},
+    "phase_2_kg": {"status": "deferred", "decision_point": "Phase 1D eval 完后评估 RELATION 类召回 < 50% 才启动"}
+  },
+  "constraints": {
+    "hard": [
+      "H-1: knowledge_base/ read-only, 不修改源数据",
+      "H-2: 本地优先 Docker Compose, 云部署 defer",
+      "H-3: 通过 LiteLLM 抽象层支持多 LLM provider (DeepSeek + OpenAI/代理 + Anthropic)",
+      "H-4: 数据集校验是 Phase 1 一等公民 (设计 §4, 用户 brainstorm 追加)"
+    ],
+    "soft": [
+      "S-1: chunker 写测试套件, 表格+mermaid 不被切",
+      "S-2: eval 提前到 Step 2 后, 不放最后",
+      "S-3: 规则 D writer/reviewer 严格隔离"
+    ]
+  },
+  "open_issues": [
+    "I-1: ChatGPT Plus 代理合规风险 (等 0_2 调研结论)",
+    "I-2: DeepSeek V4 Pro 模型 ID 确认 (用户原话, 等 0_2 verify)",
+    "I-3: Phase 2 KG 是否启动 (Phase 1D eval 后决策)"
+  ],
+  "references": {
+    "design_spec": "docs/DESIGN_RAG_KG.md",
+    "brainstorming_session": ".work/05_rag_kg/session_2026-04-16_design.md",
+    "kb_root": "knowledge_base/",
+    "claude_md": "CLAUDE.md Key Paths",
+    "manifest": ".work/MANIFEST.md"
+  },
+  "failures_archive": []
+}
