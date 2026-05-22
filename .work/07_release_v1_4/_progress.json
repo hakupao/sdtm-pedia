@@ -1,0 +1,332 @@
+{
+  "version": "v1.4",
+  "tier": 3,
+  "schema_version": "tier2-v1",
+  "title": "Release v1.4 — 4-platform prompt full-stack refactor + 7 minor v1.3 carries",
+  "created": "2026-05-20",
+  "predecessor_tag": "v1.0-company-release, v1.1-company-release, v1.2-company-release, v1.3-company-release",
+  "target_tag": "v1.4-company-release",
+  "phase": "C",
+  "step": "Phase B closed + Phase C: C4 KB anchor done, C1 done (with v1.5 carry), C3 deploy guide skeleton done, Gemini optimization (Method label anchor) added per user 2026-05-22 clarification; C2 in flight",
+  "status": "phase_c_kickoff_3_platform_only_gemini_platform_abandoned",
+  "phase_a_closed": {
+    "date": "2026-05-20",
+    "gate_verdict": "PASS_WITH_OBSERVATIONS",
+    "user_ack": "current/ promote completed (4 file modified in git)",
+    "user_ui_deploy_required": [
+      "promote dev/v9_draft/system_prompt_v9.md → current/ + Gemini Gem instructions field",
+      "promote dev/v3_draft/system_prompt_v3.md → current/ + ChatGPT GPT custom instructions",
+      "promote dev/v3_draft/system_prompt_v3.md → current/ + Claude Project system_prompt",
+      "promote dev/v3_draft/instructions_v3.md → current/ + NotebookLM custom instructions"
+    ]
+  },
+  "phase_b_b1_closed": {
+    "date": "2026-05-20",
+    "paper_level": {
+      "method": "Layer 1 prompt fidelity + Layer 2 KB reach grep, deterministic",
+      "cells_total": 16,
+      "pass_strict": 13,
+      "partial": 3,
+      "fail": 0,
+      "verdict_initial": "APPROVE_WITH_KNOWN_KB_GAP",
+      "partial_cells": [
+        "Q-S1 Claude",
+        "Q-S2 Claude",
+        "Q-S4 Claude"
+      ]
+    },
+    "ui_level": {
+      "method": "Chrome MCP fire to user-deployed 4 platforms, new conversation per cell, fire-and-forget then collect",
+      "cells_total": 16,
+      "pass_plus": 11,
+      "pass": 4,
+      "partial": 0,
+      "fail": 1,
+      "fail_cell": "Q-S2 Gemini Method label drift (A=PCSEQ/PPSEQ B=PCGRPID/PPGRPID C=PCREFID D=PCSPID 全错; KB §6.3.5.9.3 truth: A=Many-Many PCGRPID/PPGRPID, B=One-Many PCSEQ/PPGRPID, C=Many-One PCGRPID/PPSEQ, D=One-One PCSEQ/PPSEQ)",
+      "fail_root_cause": "Gemini v9 prompt cross-platform parity gap — ChatGPT v3 L78 has Method label anchor (v1.4 #4 fix), Gemini v9 simplification (525→279L) 漏掉同步加 Method label anchor",
+      "paper_partial_to_ui_pass_plus": [
+        "Q-S1 Claude (R5 premise correction + Example 2 reasoning bridge)",
+        "Q-S2 Claude (v1.4 A3.1 §N.N.N capture pipeline 实战命中 ★★)",
+        "Q-S4 Claude (§9.1+§2.4 dual cite, Study Reference 独立第 5 类 binding)"
+      ],
+      "verdict_final": "APPROVE"
+    },
+    "verdict": "APPROVE (UI 15/16 ≥ 14/16 threshold)",
+    "v1_5_carry": "Gemini v9 prompt Method label anchor sync (line 78-style: A=Many-Many PCGRPID/PPGRPID, B=One-Many PCSEQ/PPGRPID, C=Many-One PCGRPID/PPSEQ, D=One-One PCSEQ/PPSEQ)",
+    "evidence_root": ".work/07_release_v1_4/b1_sanity/",
+    "evidence_files_paper": [
+      "b1_aggregate.md",
+      "b1_sanity_plan.md",
+      "evidence/q_s1_claude_PARTIAL.md",
+      "evidence/q_s2_claude_PARTIAL.md",
+      "evidence/q_s4_claude_PARTIAL.md"
+    ],
+    "evidence_files_ui": [
+      "b1_UI_aggregate.md",
+      "evidence/q_s1_UI_all_platforms.md",
+      "evidence/q_s2_UI_all_platforms.md",
+      "evidence/q_s3_UI_all_platforms.md",
+      "evidence/q_s4_UI_all_platforms.md"
+    ]
+  },
+  "main_carry": "4-platform prompt full-stack refactor (Gemini v8.1 525 → v9 ~200 lines, ChatGPT/Claude/NotebookLM 同步 clean rewrite, 5 essential rules, regex-gated CO-N, KB-grounding 优先 default)",
+  "carries_in_scope": [
+    "RETRO §二.2 MAIN: ChatGPT v3 / Claude v3 / NotebookLM v3 clean rewrite (Gemini v9 part ABANDONED 2026-05-22)",
+    "RETRO §二.3 #3: Claude bundle pipeline fix (capture ## §N.N.N section headings) — Phase A.A3.1 DONE",
+    "RETRO §二.4 #4: ChatGPT method label drift fix (KB + prompt 双层 anchor) — prompt level DONE in A2, KB level in C4",
+    "RETRO §二.5 #5 partial: UNSOURCED 启发式 bias fix + N=80 expansion (全 437 defer v1.5)",
+    "RETRO §二.7 #7: NotebookLM bucket 25 UX 教程 + screenshot",
+    "RETRO §二.8 #8: section_coverage.jsonl 完整 pipeline rerun",
+    "Gemini v9 Method label anchor sync (post user clarification 2026-05-22: 优化继续, 仅 sanity 停)"
+  ],
+  "carries_deferred_v1_5": [
+    "RETRO §二.6 #6: Tier B 156 节 (Batch H 470 + Batch S 10 + Level2 600 atoms; 工程量 ~5-7 工作日 单独 KB pass)",
+    "RETRO §二.5 #5 全量: 全 437 UNSOURCED_MANUAL 全量分类 (v1.4 仅启发式 fix + N=80)"
+  ],
+  "active_subagents": [],
+  "completed_subagents": [
+    {
+      "task": "A1 Gemini v9 clean rewrite (525→282L, -46%)",
+      "type": "oh-my-claudecode:executor",
+      "role": "writer",
+      "completed": "2026-05-20T16:30+09:00",
+      "verdict": "WRITER_PASS_REVIEWER_PENDING (4/5 strict + Probe 5 BORDERLINE 282L vs 240L upper band, writer 解释 regex table + v3.4 anchor + 8 templates essential floor; reviewer A5.1 评估接受度)",
+      "output": "ai_platforms/gemini_gems/dev/v9_draft/system_prompt_v9.md + v9_design_rationale.md"
+    },
+    {
+      "task": "A2 ChatGPT v3 clean rewrite (120→119L + Method label anchor 4 mappings)",
+      "type": "oh-my-claudecode:executor",
+      "role": "writer",
+      "completed": "2026-05-20T16:30+09:00",
+      "verdict": "WRITER_PASS_REVIEWER_PENDING 5/5 strict",
+      "output": "ai_platforms/chatgpt_gpt/dev/v3_draft/system_prompt_v3.md + v3_design_rationale.md"
+    },
+    {
+      "task": "A3 Claude v3 clean rewrite (125→120L)",
+      "type": "oh-my-claudecode:executor",
+      "role": "writer",
+      "completed": "2026-05-20T16:30+09:00",
+      "verdict": "WRITER_PASS_REVIEWER_PENDING 5/5 strict",
+      "output": "ai_platforms/claude_projects/dev/v3_draft/system_prompt_v3.md + v3_design_rationale.md"
+    },
+    {
+      "task": "A4 NotebookLM v3 clean rewrite (157→156L, footer Sources citation preserved)",
+      "type": "oh-my-claudecode:executor",
+      "role": "writer",
+      "completed": "2026-05-20T16:30+09:00",
+      "verdict": "WRITER_PASS_REVIEWER_PENDING 5/5 strict",
+      "output": "ai_platforms/notebooklm/dev/v3_draft/instructions_v3.md + v3_design_rationale.md"
+    },
+    {
+      "task": "A3.1 Claude pipeline fix (extract_examples_data.py SECTION_HDR_RE capture)",
+      "type": "main_session",
+      "role": "writer",
+      "completed": "2026-05-20T16:30+09:00",
+      "verdict": "PASS 3/3 smoke (PP/PC/MB §N.N.N captured)",
+      "output": "ai_platforms/claude_projects/dev/scripts/extract_examples_data.py + evidence/checkpoints/a3_1_claude_pipeline_fix.md"
+    },
+    {
+      "task": "A5.1 Gemini v9 reviewer audit",
+      "type": "pr-review-toolkit:code-reviewer",
+      "role": "reviewer",
+      "slot": 22,
+      "completed": "2026-05-20T16:45+09:00",
+      "verdict": "PASS_WITH_OBSERVATIONS (4 LOW + 1 MED F3 KB-grounding defer Phase C, no HIGH, 0 blocker, promote OK)",
+      "output": "evidence/checkpoints/a5_1_gemini_reviewer_audit.md"
+    },
+    {
+      "task": "A5.2 ChatGPT v3 reviewer audit (Method label scientific verify)",
+      "type": "oh-my-claudecode:scientist",
+      "role": "reviewer",
+      "slot": 23,
+      "completed": "2026-05-20T16:45+09:00",
+      "verdict": "PASS_WITH_OBSERVATIONS (0 HIGH/MED + 2 LOW; Method label BYTE-ALIGNED KB Method A=Many-Many ↔ v3 A=Many-Many, v1.3 Q-S2 drift CORRECTED)",
+      "output": "evidence/checkpoints/a5_2_chatgpt_reviewer_audit.md"
+    },
+    {
+      "task": "A5.3 Claude v3 reviewer audit attempt 1",
+      "type": "oh-my-claudecode:critic",
+      "role": "reviewer",
+      "slot": 24,
+      "completed": "2026-05-20T16:50+09:00",
+      "verdict": "NEEDS_REVISION (3 CRITICAL + 3 MAJOR; writer truncated 19→7 file table) + A3.1 pipeline APPROVE with reservations (separate)",
+      "output": "inline (critic constraint, no Write)"
+    },
+    {
+      "task": "A3 Claude v3 attempt 2 main session writer (surgical fix per critic findings)",
+      "type": "main_session",
+      "role": "writer",
+      "completed": "2026-05-20T16:55+09:00",
+      "verdict": "PASS (Write system_prompt_v3.md 120→133L + rationale rewrite + Rule B archive attempt_1)",
+      "output": "ai_platforms/claude_projects/dev/v3_draft/{system_prompt_v3.md, v3_design_rationale.md} + evidence/failures/a3_claude_attempt_1.md"
+    },
+    {
+      "task": "A5.3 Claude v3 reviewer audit attempt 2 re-audit",
+      "type": "oh-my-claudecode:critic",
+      "role": "reviewer",
+      "slot": "24 attempt 2",
+      "completed": "2026-05-20T17:00+09:00",
+      "verdict": "PASS_WITH_OBSERVATIONS (all 6 attempt 1 findings addressed byte-exact + 5/5 regression check PASS; 3 LOW informational, promote OK)",
+      "output": "evidence/checkpoints/a5_3_claude_reviewer_audit_attempt_2.md"
+    },
+    {
+      "task": "A5.4 NotebookLM v3 reviewer audit (footer citation byte-byte verify)",
+      "type": "oh-my-claudecode:verifier",
+      "role": "reviewer",
+      "slot": 25,
+      "completed": "2026-05-20T16:45+09:00",
+      "verdict": "PASS_WITH_OBSERVATIONS (footer Sources SEMANTIC EQUIVALENT not byte-byte; behavior preserved; 6 LOW/MED observations all accept, 0 blocker)",
+      "output": "evidence/checkpoints/a5_4_notebooklm_reviewer_audit.md"
+    }
+  ],
+  "phases": {
+    "A": {
+      "title": "4-platform prompt clean rewrite + Rule D reviewer pass",
+      "steps": [
+        "A0",
+        "A1",
+        "A2",
+        "A3",
+        "A4",
+        "A5"
+      ],
+      "status": "kickoff_pending_user_ack",
+      "estimate_days": "1.5-2",
+      "parallel_writers": 4,
+      "rule_d_slots_reserved": [
+        22,
+        23,
+        24,
+        25
+      ]
+    },
+    "B": {
+      "title": "Sanity validation (4 题 × 4 平台 + R4 Gemini Pro full regression)",
+      "steps": [
+        "B0",
+        "B1",
+        "B2",
+        "B3"
+      ],
+      "status": "closed_b1_pass_3_platform_b2_abandoned_gemini_dropped",
+      "estimate_days": "0.5-2 (含 Pro quota 跨 cycle)",
+      "b1_closed_date": "2026-05-20",
+      "b1_verdict": "APPROVE_WITH_KNOWN_KB_GAP (paper-level 13/16 strict + 3 PARTIAL Claude bundle 已知 gap; v9 prompts 0 regression)",
+      "b1_ui_level_optional": "User UI deploy 完成后 optionally Chrome MCP fire-and-forget 4×4 sanity, 验 reasoning-bridge PARTIAL → PASS upgrade (non-blocking)",
+      "b2_decision": "ABANDONED 2026-05-22 (Gemini platform dropped per user; original α/β decision N/A)",
+      "b_closed_date": "2026-05-22"
+    },
+    "C": {
+      "title": "Minor carries (并行小修)",
+      "steps": [
+        "C1",
+        "C2",
+        "C3",
+        "C4",
+        "C5"
+      ],
+      "status": "kickoff",
+      "estimate_days": "1-1.5"
+    },
+    "D": {
+      "title": "KNOWN_LIMITATIONS reconcile + Release cut release/v1.4/ + tag",
+      "steps": [
+        "D1",
+        "D2",
+        "D3",
+        "D4"
+      ],
+      "status": "pending",
+      "estimate_days": "0.5",
+      "rule_d_slots_reserved": [
+        26
+      ]
+    },
+    "E": {
+      "title": "Post-audit pass (反 v1.1/v1.3 mode)",
+      "steps": [
+        "E1",
+        "E2"
+      ],
+      "status": "pending",
+      "estimate_hours": "1-2"
+    },
+    "F": {
+      "title": "RETROSPECTIVE + Sync state + Commit + Tag push",
+      "steps": [
+        "F1",
+        "F2",
+        "F3"
+      ],
+      "status": "pending",
+      "estimate_days": "0.5"
+    }
+  },
+  "rules": {
+    "A": {
+      "target_total": 97,
+      "v1_3_baseline_actual": 153,
+      "applied": [
+        {
+          "phase": "A",
+          "step": "A1-A5",
+          "probes": "see audit_matrix.md per-step rows",
+          "completed": "2026-05-20T17:00+09:00"
+        },
+        {
+          "phase": "B",
+          "step": "B1",
+          "probes": 16,
+          "pass_strict": 13,
+          "partial": 3,
+          "fail": 0,
+          "completed": "2026-05-20T17:25+09:00",
+          "notes": "16 cells paper-level grep; 3 PARTIAL Claude bundle, 0 FAIL"
+        }
+      ]
+    },
+    "B": {
+      "failures_archived": []
+    },
+    "C": {
+      "retrospective_required": true,
+      "tier": 3
+    },
+    "D": {
+      "writer_reviewer_isolation": true,
+      "slots_planned": [
+        22,
+        23,
+        24,
+        25,
+        26
+      ],
+      "slots_used": []
+    }
+  },
+  "kickoff_decisions_pending": [
+    "C 阶段四项 carry 并行/顺序派发 (C1 pipeline rerun + C2 UNSOURCED + C3 NotebookLM UX + C4 ChatGPT KB anchor)",
+    "Gemini current/ system_prompt.md 处理: revert to v1.3 v8.1 / 标 DEPRECATED in-place / 整 dir 移到 archive/"
+  ],
+  "gemini_platform_status": {
+    "status": "MAINTAINED_NO_SANITY_TEST",
+    "date": "2026-05-22",
+    "decision_by": "user (Bojiang) verbal",
+    "reason": "User clarification 2026-05-22: Gemini 测试不继续 (no sanity / R4 / B2), 但优化继续 (KB delta 流入 + prompt 修正). v1.4 main carry Gemini v8.1→v9 refactor 完成 (Phase A 已 ack); v9 Method label anchor 缺失 → v1.4 in-scope fix (移除原 ABANDONED 框架).",
+    "last_known_good": "v1.3 v8.1 LIVE (release/v1.3/ self_deploy/gemini/ 保留, tag v1.3-company-release immutable)",
+    "carries_dropped_from_v1_5": [],
+    "future_maintenance": "Gemini 平台继续接收 KB delta 优化 (今后 release 含 Gemini bundle 改动). 但不纳入 sanity 题集 / SYNC_BOARD 锁步看板 (R3+ 维护期看板已降级). 用户自验.",
+    "v1_4_in_scope_post_clarification": [
+      "Method label anchor 加入 system_prompt_v9.md (parity with ChatGPT v3 L77-80)",
+      "v1.4 C4 KB delta (PP/examples §6.3.5.9.3 mapping table) 自动通过 KB grounding 到达 Gemini gem"
+    ]
+  },
+  "phase_b_b2_abandoned": {
+    "date": "2026-05-22",
+    "original_scope": "R4 17-question full regression on Gemini v9 (v1.3 D1 deferred)",
+    "decision": "ABANDONED (was pending α/β, now N/A)",
+    "reason": "Gemini platform dropped from v1.4+; B2 was Gemini-only scope",
+    "impact": "Phase B 收尾态: B1 三家 12/12 PASS (Gemini cell excluded); B2 N/A. Phase B → C gate satisfied via B1 alone for 3-platform scope."
+  },
+  "last_updated_session": "2026-05-22"
+}

@@ -302,3 +302,69 @@ Predecessor: `v1.2-company-release` (immutable, verifier 验证 b0b6804 post-cut
 - `.work/07_release_v1_3/c_sanity/{c_sanity_plan,C_SANITY_RETROSPECTIVE,evidence/q_s{1,2}_all_platforms,v1_3_known_limitations_section0_draft}.md` — Phase C light sanity full evidence
 - `.work/07_release_v1_3/RETROSPECTIVE.md` — Phase F1 三段
 - `.work/07_release_v1_3/V1_3_DEPLOY_GUIDE.md` — user-facing 4 platform upload guide
+
+---
+
+## 2026-05-22 — Release v1.4 CLOSED ★★★★ tag cut (prompt-pass)
+
+### Type
+Prompt-pass-level release + 4 minor v1.3 carries (C1 section_coverage / C2 UNSOURCED N=80 / C3 NotebookLM UX / C4 Method label KB+prompt anchor)
+
+### Main carries
+- **4 平台 prompt full-stack refactor** (4 平台 v3/v9 clean rewrite, fossil layers 移除, KB-grounding 默认主路径)
+  - ChatGPT v3: 120→119 行 + Method label anchor L77-80
+  - Claude v3: 125→133 行 + Method label anchor 段 (Phase E hotfix 2026-05-22)
+  - NotebookLM v3: 157→156 行 (footer Sources citation 语义等价)
+  - Gemini v9: 525→292 行 + Method label anchor 段 (2026-05-22 增补 per 用户 clarification)
+- **C4 KB Method label anchor**: `domains/PP/examples.md §6.3.5.9.3` 加 Method A=Many-Many (PCGRPID/PPGRPID) etc 4 行 mapping table
+- **3-platform bundle rebuild**: ChatGPT `06_domain_examples_all.md` + Claude `09_examples_data_high.md` (2922→3268 行, A3.1 §N.N.N capture 首次成功) + NotebookLM bucket 16
+
+### Critical bug fix (uncovered during C5 rebuild)
+- `ai_platforms/claude_projects/dev/scripts/extract_examples_data.py`: `REPO_ROOT = parents[3]` → `parents[4]` 修复 (Phase 6.5 reorg-A regression, script 从 `scripts_v2/` 移到 `dev/scripts/` 时 parents 未更新, 致全 28 高频域 flagged "missing examples.md", 写 706 token 空 bundle)
+- A3.1 smoke test 漏掉这个 bug (smoke 用 3 文件 PP/PC/MB 太少, 没覆盖 path-resolution)
+
+### Key decision: Gemini MAINTAINED_NO_SANITY_TEST
+- 用户 2026-05-22 决定: Gemini 平台**测试停 (sanity / R4 / B2 全 abandon), 优化继续 (KB delta + prompt 修)**, 用户自验
+- 此前 v1.3 Phase C Q-S2 FAIL + Pro quota 长期阻碍 R4 17 题, 综合决策切到维护态
+- v1.4 仍交付 Gemini v9 prompt + Method label anchor + KB delta 流入, **但 release/v1.4/KNOWN_LIMITATIONS §0.A 显式标 self-verify caveat**
+- 写入未来: 平台维护态可独立 "测试态 / 优化态" 切换, 不要么"全做"要么"abandon"
+
+### Validation
+- **B1 light sanity**: 12/12 PASS on 3 maintained 平台 (10 PASS+ + 2 PASS); Gemini 4 cells excluded per drop
+- **C2 N=80 UNSOURCED**: 75 RI + 0 XLSX + 0 HALLUCINATED + 5 NEEDS_HUMAN_REVIEW; classifier 启发式 PDF-first 修, bias-fix 在 LOW stratum 也成立; Rule A 10/10 PASS
+- **C1 section_coverage**: COMPLETE_WITH_CAVEAT (p4b deterministic rerun, 意外 settle P6 T5 ledger 5h46m stale; FULL_COVERAGE 101→137); full LLM P2+P4a pipeline defer v1.5 C1-bis
+- **Phase D release cut**: 5/5 Rule A probes PASS
+- **Phase E post-audit**: APPROVE (0 HIGH + 1 MED Claude anchor hotfix + 2 LOW); Rule D #26 oh-my-claudecode:verifier
+
+### Rule A 累计
+56+ probes 本 release (B1 16 + C1 5 + C2 10 + D 5 + E 10 + Phase A per-step)
+
+### Rule D 累计 #22-#26 (writer ≠ reviewer 严格保持)
+- #22 pr-review-toolkit:code-reviewer (A.A5.1 Gemini)
+- #23 oh-my-claudecode:scientist (A.A5.2 ChatGPT)
+- #24 oh-my-claudecode:critic (A.A5.3 Claude, attempt 2 PASS)
+- #25 oh-my-claudecode:verifier (A.A5.4 NotebookLM)
+- #26 oh-my-claudecode:verifier (E post-audit)
+
+### Tag
+`v1.4-company-release` (annotated)
+Predecessor: `v1.3-company-release` (immutable)
+
+### v1.5 carries (defer)
+- C1-bis: full LLM-driven pipeline rerun (P2 increment + P4a forward match + P4b)
+- C1-ter: post-P6 Makefile gate (避免 ledger 改后 p4b 不自动 rerun)
+- C2 KB_INTERNAL_CROSSREF: 新分类 (2 atoms 是 KB 内 cross-ref navigation 元数据)
+- C2 3 deep paraphrase atoms: NEEDS_HUMAN_REVIEW 手工分类
+- C3 NotebookLM screenshot: Chrome MCP 协作截图
+- Tier B 156 节 + 全 437 UNSOURCED + Phase 7 RAG+KG (v1.3 carry, 仍 defer)
+- ai_platforms/ 其他 Python 脚本 `parents[N]` audit (避免类似 reorg-A path bug 漏)
+
+### Evidence index
+- `.work/07_release_v1_4/PLAN.md` — Tier 3 plan
+- `.work/07_release_v1_4/_progress.json` — phase state
+- `.work/07_release_v1_4/trace.jsonl` — phase 事件
+- `.work/07_release_v1_4/evidence/checkpoints/` (7 文件): c0_gemini_drop_ack + c1_section_coverage_rerun + c2_unsourced_classifier_n80 + c3_notebooklm_bucket_25_ux_guide + c4_chatgpt_method_label_kb_anchor + c5_3_platform_rebuild_post_c4 + d_release_cut + e_post_audit_pass
+- `.work/07_release_v1_4/RETROSPECTIVE.md` — 规则 C 三段齐备
+- `.work/07_release_v1_4/V1_4_DEPLOY_GUIDE.md` — user-facing 4 平台 deploy guide
+- `.work/07_release_v1_4/c2_classifier/` — N=80 classifier helper + sample + classified output + v1.3 N=40 regression
+- `.work/07_release_v1_4/known_limitations_drafts/` — §0 reconcile zh DRAFT

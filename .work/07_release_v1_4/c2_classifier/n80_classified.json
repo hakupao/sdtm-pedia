@@ -1,0 +1,2579 @@
+{
+  "_meta": {
+    "phase": "v1.4 Phase C C2 N=80 expansion",
+    "N_total": 80,
+    "partitions": {
+      "v1_3_n40": {
+        "count": 40,
+        "high": 10,
+        "low": 30,
+        "seed": 20260520
+      },
+      "v1_4_new40": {
+        "count": 40,
+        "high": 0,
+        "low": 40,
+        "seed": 20260522
+      }
+    },
+    "high_pool_total": 10,
+    "high_pool_exhausted_in_v1_3": true,
+    "low_pool_total": 427,
+    "low_remaining_after_v1_3": 397,
+    "sampling_strategy": "HIGH stratum fully consumed in v1.3 (10/10); v1.4 +40 all sampled from LOW remaining (397 atoms). v1.3 HIGH=10 carried into N=80 as regression baseline. HIGH stratum total in N=80 = 10 (unchanged from v1.3); LOW stratum total = 70 (30 v1.3 + 40 v1.4 new).",
+    "note": "Sampling per v1.4 PLAN.md §C2 \"HIGH stratum +20 + LOW stratum +20\" relaxed because HIGH pool size = 10 < 20 (full pool already drawn in v1.3 A4). N=40 new partition therefore concentrated on LOW (40) to preserve total N=80 size. seed=20260522 (different from v1.3 seed=20260520 ensures non-overlapping random subset of LOW)."
+  },
+  "distribution": {
+    "REASONABLE_INFERENCE": 75,
+    "NEEDS_HUMAN_REVIEW": 5
+  },
+  "atoms": [
+    {
+      "atom_id": "md_ch04_a035",
+      "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+      "atom_type": "TABLE_ROW",
+      "parent_section": "§4.1.5 [SDTM Core Designations]",
+      "verbatim": "| **Exp** (Expected) | Must be included in the dataset | Value should be populated when available; null values allowed when data not collected/applicable; must still include the column and add a comment in the Define-XML document to state that the study does not include the data item |",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "ig34_p0023_a002",
+            "pdf_page": 23,
+            "pdf_section": "§4.1.5 [SDTM Core Designations]",
+            "jaccard": 0.41,
+            "kb_token_coverage": 0.667,
+            "shared_tokens": [
+              "column",
+              "comment",
+              "data",
+              "dataset",
+              "define",
+              "document",
+              "expected",
+              "include",
+              "included",
+              "item"
+            ],
+            "match_kind": "content_overlap_kbcov"
+          }
+        ]
+      },
+      "reasoning": "PDF Jaccard token-overlap match (last-resort): ≥0.55 against 1 PDF atom(s); KB synthesized text shares ≥55% unique 3+char tokens with PDF prose.",
+      "strat": "HIGH",
+      "partition": "v1_3_n40"
+    },
+    {
+      "atom_id": "md_ch01_a077",
+      "file": "knowledge_base/chapters/ch01_introduction.md",
+      "atom_type": "TABLE_ROW",
+      "parent_section": "§1.4.1 [How to Read a Domain Specification]",
+      "verbatim": "| **Core** | \"Req\" (Required), \"Exp\" (Expected), or \"Perm\" (Permissible) |",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "ig34_p0010_a016",
+            "pdf_page": 10,
+            "pdf_section": "§1.4.1 [How to Read a Domain Specification]",
+            "jaccard": 0.333,
+            "kb_token_coverage": 0.571,
+            "shared_tokens": [
+              "core",
+              "exp",
+              "perm",
+              "req"
+            ],
+            "match_kind": "content_overlap_kbcov"
+          },
+          {
+            "pdf_atom_id": "ig34_p0252_a027",
+            "pdf_page": 252,
+            "pdf_section": "§6.3.5.7.2 Microbiology Susceptibility (MS)",
+            "jaccard": 0.167,
+            "kb_token_coverage": 0.571,
+            "shared_tokens": [
+              "core",
+              "expected",
+              "perm",
+              "permissible"
+            ],
+            "match_kind": "content_overlap_kbcov"
+          },
+          {
+            "pdf_atom_id": "ig34_p0253_a029",
+            "pdf_page": 253,
+            "pdf_section": "§6.3.5.7.2 Microbiology Susceptibility (MS)",
+            "jaccard": 0.108,
+            "kb_token_coverage": 0.571,
+            "shared_tokens": [
+              "core",
+              "expected",
+              "perm",
+              "permissible"
+            ],
+            "match_kind": "content_overlap_kbcov"
+          },
+          {
+            "pdf_atom_id": "ig34_p0457_a001",
+            "pdf_page": 457,
+            "pdf_section": "§10.E Appendix E: Revision History",
+            "jaccard": 0.067,
+            "kb_token_coverage": 0.571,
+            "shared_tokens": [
+              "core",
+              "exp",
+              "perm",
+              "permissible"
+            ],
+            "match_kind": "content_overlap_kbcov"
+          },
+          {
+            "pdf_atom_id": "ig34_p0457_a005",
+            "pdf_page": 457,
+            "pdf_section": "§10.E Appendix E: Revision History",
+            "jaccard": 0.035,
+            "kb_token_coverage": 0.571,
+            "shared_tokens": [
+              "core",
+              "exp",
+              "expected",
+              "perm"
+            ],
+            "match_kind": "content_overlap_kbcov"
+          }
+        ]
+      },
+      "reasoning": "PDF Jaccard token-overlap match (last-resort): ≥0.55 against 5 PDF atom(s); KB synthesized text shares ≥55% unique 3+char tokens with PDF prose.",
+      "strat": "HIGH",
+      "partition": "v1_3_n40"
+    },
+    {
+      "atom_id": "md_ch08_a286",
+      "file": "knowledge_base/chapters/ch08_relationships.md",
+      "atom_type": "LIST_ITEM",
+      "parent_section": "§8.7 [Related Subjects (RELSUB)]",
+      "verbatim": "3. If POOLID is submitted, then in any record, 1 and only 1 of USUBJID and POOLID must be populated.",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "ig34_p0438_a015",
+            "pdf_page": 438,
+            "pdf_section": "RELSUB – Assumptions",
+            "matched_phrase": "3. if poolid is submitted, then in any record, 1 and only 1 of usubjid and pooli",
+            "match_kind": "substring"
+          }
+        ]
+      },
+      "reasoning": "PDF substring match: 1 hit(s) with phrase ≥15 chars verbatim in pdf_atoms.jsonl.",
+      "strat": "HIGH",
+      "partition": "v1_3_n40"
+    },
+    {
+      "atom_id": "md_ch08_a288",
+      "file": "knowledge_base/chapters/ch08_relationships.md",
+      "atom_type": "LIST_ITEM",
+      "parent_section": "§8.7 [Related Subjects (RELSUB)]",
+      "verbatim": "5. RSUBJID must be a USUBJID value present in the Demographics (DM) domain. RSUBJID must be populated in every record.",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "ig34_p0438_a017",
+            "pdf_page": 438,
+            "pdf_section": "RELSUB – Assumptions",
+            "matched_phrase": "5. rsubjid must be a usubjid value present in the demographics dm domain. rsubji",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "ig34_p0016_a007",
+            "pdf_page": 16,
+            "pdf_section": "§2.7 SDTM Variables Not Allowed in the SDTMIG",
+            "matched_phrase": "in the demographics dm domain",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "ig34_p0022_a020",
+            "pdf_page": 22,
+            "pdf_section": "§4.1.3.1 [EPOCH Variable Guidance]",
+            "matched_phrase": "in the demographics dm domain",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "ig34_p0060_a023",
+            "pdf_page": 60,
+            "pdf_section": "§5.1 [Comments (CO)]",
+            "matched_phrase": "in the demographics dm domain",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "ig34_p0183_a019",
+            "pdf_page": 183,
+            "pdf_section": "§6.3.2 Death Details (DD)",
+            "matched_phrase": "in the demographics dm domain",
+            "match_kind": "substring"
+          }
+        ]
+      },
+      "reasoning": "PDF substring match: 5 hit(s) with phrase ≥15 chars verbatim in pdf_atoms.jsonl.",
+      "strat": "HIGH",
+      "partition": "v1_3_n40"
+    },
+    {
+      "atom_id": "md_ch08_a294",
+      "file": "knowledge_base/chapters/ch08_relationships.md",
+      "atom_type": "SENTENCE",
+      "parent_section": "§8.7 [Related Subjects (RELSUB)]",
+      "verbatim": "Some expected and required variables not needed to illustrate the example are not shown.",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "ig34_p0439_a004",
+            "pdf_page": 439,
+            "pdf_section": "RELSUB – Examples",
+            "matched_phrase": "some expected and required variables not needed to illustrate the example are no",
+            "match_kind": "substring"
+          }
+        ]
+      },
+      "reasoning": "PDF substring match: 1 hit(s) with phrase ≥15 chars verbatim in pdf_atoms.jsonl.",
+      "strat": "HIGH",
+      "partition": "v1_3_n40"
+    },
+    {
+      "atom_id": "md_dmDM_assn_a018",
+      "file": "knowledge_base/domains/DM/assumptions.md",
+      "atom_type": "LIST_ITEM",
+      "parent_section": "§DM [DM — Assumptions]",
+      "verbatim": "5. Study population flags should not be included in SDTM data. The standard supplemental qualifiers included in previous versions of the SDTMIG (COMPLT, FULLSET, ITT, PPROT, SAFETY) should not be used. Note: The ADaM Subject-level Analysis Dataset (ADSL) specifies standard variable names for the most common populations and requires the inclusion of these flags when necessary for analysis; consult the ADaMIG for more information about these variables.",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "ig34_p0362_a009",
+            "pdf_page": 362,
+            "pdf_section": "§6.4.1 When to Use Findings About Events or Interventions",
+            "matched_phrase": "previous versions of the sdtmig",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "ig34_p0362_a010",
+            "pdf_page": 362,
+            "pdf_section": "§6.4.1 When to Use Findings About Events or Interventions",
+            "matched_phrase": "previous versions of the sdtmig",
+            "match_kind": "substring"
+          }
+        ]
+      },
+      "reasoning": "PDF substring match: 2 hit(s) with phrase ≥15 chars verbatim in pdf_atoms.jsonl.",
+      "strat": "HIGH",
+      "partition": "v1_3_n40"
+    },
+    {
+      "atom_id": "md_dmPC_ex_a049",
+      "file": "knowledge_base/domains/PC/examples.md",
+      "atom_type": "SENTENCE",
+      "parent_section": "§PC.2 [Relating PC and PP — Overview]",
+      "verbatim": "Sponsors must document the concentrations used to calculate each parameter. This may be done in analysis dataset metadata or by documenting relationships between records in the Pharmacokinetics Parameters (PP) and Pharmacokinetics Concentrations (PC) datasets in a RELREC dataset (see Section 8.2, Relating Peer Records, and Section 8.3, Relating Datasets).",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "ig34_p0275_a013",
+            "pdf_page": 275,
+            "pdf_section": "§6.3.5.9.3 Relating PP Records to PC Records",
+            "matched_phrase": "sponsors must document the concentrations used to calculate each parameter. this",
+            "match_kind": "substring"
+          }
+        ]
+      },
+      "reasoning": "PDF substring match: 1 hit(s) with phrase ≥15 chars verbatim in pdf_atoms.jsonl.",
+      "strat": "HIGH",
+      "partition": "v1_3_n40"
+    },
+    {
+      "atom_id": "md_dmSUPPQUAL_assn_a007",
+      "file": "knowledge_base/domains/SUPPQUAL/assumptions.md",
+      "atom_type": "SENTENCE",
+      "parent_section": "§SUPPQUAL [SUPPQUAL — Assumptions]",
+      "verbatim": "All records in the SUPP-- datasets must have a value for QVAL. Transposing source variables with missing/null values may generate SUPP-- records with null values for QVAL, causing the SUPP-- datasets to be extremely large. When this happens, the sponsor must delete the records where QVAL is null prior to submission.",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "ig34_p0433_a004",
+            "pdf_page": 433,
+            "pdf_section": "§8.4.1 Supplemental Qualifiers (SUPP--)",
+            "matched_phrase": "transposing source variables with missing/null values may generate supp-- record",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "ig34_p0433_a005",
+            "pdf_page": 433,
+            "pdf_section": "§8.4.1 Supplemental Qualifiers (SUPP--)",
+            "matched_phrase": "when this happens, the sponsor must delete the records where qval is null prior ",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "ig34_p0433_a003",
+            "pdf_page": 433,
+            "pdf_section": "§8.4.1 Supplemental Qualifiers (SUPP--)",
+            "matched_phrase": "all records in the supp-- datasets must have a value for qval",
+            "match_kind": "substring"
+          }
+        ]
+      },
+      "reasoning": "PDF substring match: 3 hit(s) with phrase ≥15 chars verbatim in pdf_atoms.jsonl.",
+      "strat": "HIGH",
+      "partition": "v1_3_n40"
+    },
+    {
+      "atom_id": "md_dmTR_assn_a018",
+      "file": "knowledge_base/domains/TR/assumptions.md",
+      "atom_type": "NOTE",
+      "parent_section": "§TR [TR — Assumptions]",
+      "verbatim": "**Note:** TREVAL must also be populated when TREVALID is populated.",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "ig34_p0353_a002",
+            "pdf_page": 353,
+            "pdf_section": "TR – Assumptions",
+            "matched_phrase": "note: treval must also be populated when trevalid is populated",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "ig34_p0348_a009",
+            "pdf_page": 348,
+            "pdf_section": "TU – Assumptions",
+            "matched_phrase": "must also be populated when",
+            "match_kind": "substring"
+          }
+        ]
+      },
+      "reasoning": "PDF substring match: 2 hit(s) with phrase ≥15 chars verbatim in pdf_atoms.jsonl.",
+      "strat": "HIGH",
+      "partition": "v1_3_n40"
+    },
+    {
+      "atom_id": "md_dmTU_assn_a046",
+      "file": "knowledge_base/domains/TU/assumptions.md",
+      "atom_type": "NOTE",
+      "parent_section": "§TU [TU — Assumptions]",
+      "verbatim": "**Note:** TUEVAL must also be populated when TUEVALID is populated.",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "ig34_p0348_a009",
+            "pdf_page": 348,
+            "pdf_section": "TU – Assumptions",
+            "matched_phrase": "note: tueval must also be populated when tuevalid is populated",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "ig34_p0353_a002",
+            "pdf_page": 353,
+            "pdf_section": "TR – Assumptions",
+            "matched_phrase": "must also be populated when",
+            "match_kind": "substring"
+          }
+        ]
+      },
+      "reasoning": "PDF substring match: 2 hit(s) with phrase ≥15 chars verbatim in pdf_atoms.jsonl.",
+      "strat": "HIGH",
+      "partition": "v1_3_n40"
+    },
+    {
+      "atom_id": "md_dmAE_ex_a010",
+      "file": "knowledge_base/domains/AE/examples.md",
+      "atom_type": "SENTENCE",
+      "parent_section": "§AE.1 [Example 1]",
+      "verbatim": "Note that for the event in row 2, AESTDY = \"1\".",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "ig34_p0140_a013",
+            "pdf_page": 140,
+            "pdf_section": "§6.2.1 [Adverse Events (AE)]",
+            "matched_phrase": "note that for the event in row 2, aestdy = \"1",
+            "match_kind": "substring"
+          }
+        ]
+      },
+      "reasoning": "PDF substring match: 1 hit(s) with phrase ≥15 chars verbatim in pdf_atoms.jsonl.",
+      "strat": "LOW",
+      "partition": "v1_3_n40"
+    },
+    {
+      "atom_id": "md_model01_a052",
+      "file": "knowledge_base/model/01_concepts_and_terms.md",
+      "atom_type": "SENTENCE",
+      "parent_section": "§2.1 [Model Concepts and Terms — Variables]",
+      "verbatim": "The Comments special-purpose domain includes the variable RDOMAIN, but other special-purpose domains do not.",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "sv20_p0009_a020",
+            "pdf_page": 9,
+            "pdf_section": "§2 [MODEL CONCEPTS AND TERMS – ORGANIZATION OF THE SDTM]",
+            "matched_phrase": "the comments special-purpose domain includes the variable rdomain, but other spe",
+            "match_kind": "substring"
+          }
+        ]
+      },
+      "reasoning": "PDF substring match: 1 hit(s) with phrase ≥15 chars verbatim in pdf_atoms.jsonl.",
+      "strat": "LOW",
+      "partition": "v1_3_n40"
+    },
+    {
+      "atom_id": "md_dmMI_ex_a016",
+      "file": "knowledge_base/domains/MI/examples.md",
+      "atom_type": "SENTENCE",
+      "parent_section": "§MI.2 [Example 2]",
+      "verbatim": "The proportion positive score was assessed as the percentage of tumor cells that stained positive on a scale from 0 to 5.",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "ig34_p0266_a011",
+            "pdf_page": 266,
+            "pdf_section": "§6.3.5.8 Microscopic Findings (MI)",
+            "matched_phrase": "the proportion positive score was assessed as the percentage of tumor cells that",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "ig34_p0267_a002",
+            "pdf_page": 267,
+            "pdf_section": "§6.3.5.8 Microscopic Findings (MI)",
+            "matched_phrase": "the percentage of tumor cells",
+            "match_kind": "substring"
+          }
+        ]
+      },
+      "reasoning": "PDF substring match: 2 hit(s) with phrase ≥15 chars verbatim in pdf_atoms.jsonl.",
+      "strat": "LOW",
+      "partition": "v1_3_n40"
+    },
+    {
+      "atom_id": "md_dmDM_ex_a017",
+      "file": "knowledge_base/domains/DM/examples.md",
+      "atom_type": "SENTENCE",
+      "parent_section": "§DM.2 [Example 2]",
+      "verbatim": "**Row 5:** Subject 005 was randomized but dropped out before being treated. Thus, the actual arm variables are not populated and ARMNRS=\"ASSIGNED, NOT TREATED\".",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "ig34_p0082_a023",
+            "pdf_page": 82,
+            "pdf_section": "§5.3 [Subject Elements (SE)]",
+            "matched_phrase": "the actual arm variables are",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "sv20_p0043_a006",
+            "pdf_page": 43,
+            "pdf_section": "§3.2.1 [Demographics]",
+            "matched_phrase": "the actual arm variables are",
+            "match_kind": "substring"
+          }
+        ]
+      },
+      "reasoning": "PDF substring match: 2 hit(s) with phrase ≥15 chars verbatim in pdf_atoms.jsonl.",
+      "strat": "LOW",
+      "partition": "v1_3_n40"
+    },
+    {
+      "atom_id": "md_dmDM_ex_a136",
+      "file": "knowledge_base/domains/DM/examples.md",
+      "atom_type": "SENTENCE",
+      "parent_section": "§DM.6 [Example 6]",
+      "verbatim": "The CRF in this example is annotated to show the CDASH variable name and the target SDTMIG variable. Data that are collected using the same variable name as defined in the SDTMIG are in RED. If the CDASHIG variable differs from the one defined in the SDTMIG, the CDASHIG variable is in GREY.",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "ig34_p0070_a002",
+            "pdf_page": 70,
+            "pdf_section": "§5.2 [DM – Examples]",
+            "matched_phrase": "the crf in this example is annotated to show the cdash variable name and the tar",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "ig34_p0074_a031",
+            "pdf_page": 74,
+            "pdf_section": "§5.2 [Demographics (DM)]",
+            "matched_phrase": "the crf in this example is annotated to show the cdash variable name and the tar",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "ig34_p0070_a004",
+            "pdf_page": 70,
+            "pdf_section": "§5.2 [DM – Examples]",
+            "matched_phrase": "if the cdashig variable differs from the one defined in the sdtmig, the cdashig ",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "ig34_p0074_a033",
+            "pdf_page": 74,
+            "pdf_section": "§5.2 [Demographics (DM)]",
+            "matched_phrase": "if the cdashig variable differs from the one defined in the sdtmig, the cdashig ",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "ig34_p0070_a003",
+            "pdf_page": 70,
+            "pdf_section": "§5.2 [DM – Examples]",
+            "matched_phrase": "data that are collected using the same variable name as defined in the sdtmig ar",
+            "match_kind": "substring"
+          }
+        ]
+      },
+      "reasoning": "PDF substring match: 5 hit(s) with phrase ≥15 chars verbatim in pdf_atoms.jsonl.",
+      "strat": "LOW",
+      "partition": "v1_3_n40"
+    },
+    {
+      "atom_id": "md_model03_a061",
+      "file": "knowledge_base/model/03_special_purpose_domains.md",
+      "atom_type": "TABLE_ROW",
+      "parent_section": "§ Demographics (DM) > Key Reference Date Variables",
+      "verbatim": "| RFICDTC | Date/Time of Informed Consent | Consent date |",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "ig34_p0063_a007",
+            "pdf_page": 63,
+            "pdf_section": "§5.2 [Demographics (DM)]",
+            "matched_phrase": "rficdtc date/time of informed consent",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "sv20_p0041_a005",
+            "pdf_page": 41,
+            "pdf_section": "§3.2.1 [Demographics]",
+            "matched_phrase": "rficdtc date/time of informed consent",
+            "match_kind": "substring"
+          }
+        ]
+      },
+      "reasoning": "PDF substring match: 2 hit(s) with phrase ≥15 chars verbatim in pdf_atoms.jsonl.",
+      "strat": "LOW",
+      "partition": "v1_3_n40"
+    },
+    {
+      "atom_id": "md_ch04_a304",
+      "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+      "atom_type": "TABLE_ROW",
+      "parent_section": "§4.2.7.2 [\"Specify\" Values for Result Qualifier Variables]",
+      "verbatim": "|           | [ ] Other, specify: _________ |",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "ig34_p0032_a014",
+            "pdf_page": 32,
+            "pdf_section": "§4.2.7.1 \"Specify\" Values for Non-result Qualifier Variables",
+            "matched_phrase": "other, specify: _",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "ig34_p0033_a004",
+            "pdf_page": 33,
+            "pdf_section": "§4.2.7.2 \"Specify\" Values for Result Qualifier Variables",
+            "matched_phrase": "other, specify: _",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "ig34_p0033_a021",
+            "pdf_page": 33,
+            "pdf_section": "§4.2.7.3 \"Specify\" Values for Topic Variables",
+            "matched_phrase": "other, specify: _",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "ig34_p0152_a0013",
+            "pdf_page": 152,
+            "pdf_section": "§6.2.3 [Clinical Events]",
+            "matched_phrase": "other, specify: _",
+            "match_kind": "substring"
+          }
+        ]
+      },
+      "reasoning": "PDF substring match: 4 hit(s) with phrase ≥15 chars verbatim in pdf_atoms.jsonl.",
+      "strat": "LOW",
+      "partition": "v1_3_n40"
+    },
+    {
+      "atom_id": "md_dmMH_ex_a032",
+      "file": "knowledge_base/domains/MH/examples.md",
+      "atom_type": "SENTENCE",
+      "parent_section": "§MH.2 [Example 2]",
+      "verbatim": "MHSCAT displays the body systems specified on the CRF.",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "ig34_p0176_a0001",
+            "pdf_page": 176,
+            "pdf_section": "§6.2.6 Medical History (MH)",
+            "matched_phrase": "mhscat displays the body systems specified on the crf",
+            "match_kind": "substring"
+          }
+        ]
+      },
+      "reasoning": "PDF substring match: 1 hit(s) with phrase ≥15 chars verbatim in pdf_atoms.jsonl.",
+      "strat": "LOW",
+      "partition": "v1_3_n40"
+    },
+    {
+      "atom_id": "md_dmCE_ex_a039",
+      "file": "knowledge_base/domains/CE/examples.md",
+      "atom_type": "SENTENCE",
+      "parent_section": "§CE.2 [Example 2]",
+      "verbatim": "Because there was no event, severity and start and end dates are null.",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "ig34_p0152_a0017",
+            "pdf_page": 152,
+            "pdf_section": "§6.2.3 [Clinical Events]",
+            "matched_phrase": "because there was no event, severity and start and end dates are null",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "ig34_p0151_a0021",
+            "pdf_page": 151,
+            "pdf_section": "§6.2.3 [Clinical Events]",
+            "matched_phrase": "because there was no event",
+            "match_kind": "substring"
+          }
+        ]
+      },
+      "reasoning": "PDF substring match: 2 hit(s) with phrase ≥15 chars verbatim in pdf_atoms.jsonl.",
+      "strat": "LOW",
+      "partition": "v1_3_n40"
+    },
+    {
+      "atom_id": "md_model01_a017",
+      "file": "knowledge_base/model/01_concepts_and_terms.md",
+      "atom_type": "SENTENCE",
+      "parent_section": "§2.1 [Model Concepts and Terms — Variables]",
+      "verbatim": "Metadata are described in the CDISC Define-XML specification.",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "sv20_p0009_a003",
+            "pdf_page": 9,
+            "pdf_section": "§2 [MODEL CONCEPTS AND TERMS – ORGANIZATION OF THE SDTM]",
+            "matched_phrase": "metadata are described in the cdisc define-xml specification",
+            "match_kind": "substring"
+          }
+        ]
+      },
+      "reasoning": "PDF substring match: 1 hit(s) with phrase ≥15 chars verbatim in pdf_atoms.jsonl.",
+      "strat": "LOW",
+      "partition": "v1_3_n40"
+    },
+    {
+      "atom_id": "md_model01_a025",
+      "file": "knowledge_base/model/01_concepts_and_terms.md",
+      "atom_type": "SENTENCE",
+      "parent_section": "§2.1 [Model Concepts and Terms — Variables]",
+      "verbatim": "For example, --MODIFY qualifies --TRT in interventions, --TERM in events, and --ORRES in findings.",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "sv20_p0009_a006",
+            "pdf_page": 9,
+            "pdf_section": "§2 [MODEL CONCEPTS AND TERMS – ORGANIZATION OF THE SDTM]",
+            "matched_phrase": "for example, --modify qualifies --trt in interventions, --term in events, and --",
+            "match_kind": "substring"
+          }
+        ]
+      },
+      "reasoning": "PDF substring match: 1 hit(s) with phrase ≥15 chars verbatim in pdf_atoms.jsonl.",
+      "strat": "LOW",
+      "partition": "v1_3_n40"
+    },
+    {
+      "atom_id": "md_dmMB_ex_a049",
+      "file": "knowledge_base/domains/MB/examples.md",
+      "atom_type": "SENTENCE",
+      "parent_section": "§MB.2 [Example 2]",
+      "verbatim": "**Rows 3-4:** Show that the same gram-stained sample was used to identify and quantify the presence of gram negative rods.",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "ig34_p0258_a013",
+            "pdf_page": 258,
+            "pdf_section": "§6.3.5.7.3 Microbiology Specimen/Microbiology Susceptibility Examples",
+            "matched_phrase": "rows 3-4: show that the same gram-stained sample was used to identify and quanti",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "ig34_p0258_a012",
+            "pdf_page": 258,
+            "pdf_section": "§6.3.5.7.3 Microbiology Specimen/Microbiology Susceptibility Examples",
+            "matched_phrase": "the presence of gram negative",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "ig34_p0248_a002",
+            "pdf_page": 248,
+            "pdf_section": "§6.3.5.6 Laboratory Test Results (LB)",
+            "matched_phrase": "and quantify the presence of",
+            "match_kind": "substring"
+          }
+        ]
+      },
+      "reasoning": "PDF substring match: 3 hit(s) with phrase ≥15 chars verbatim in pdf_atoms.jsonl.",
+      "strat": "LOW",
+      "partition": "v1_3_n40"
+    },
+    {
+      "atom_id": "md_dmPC_ex_a380",
+      "file": "knowledge_base/domains/PC/examples.md",
+      "atom_type": "LIST_ITEM",
+      "parent_section": "§PC.2.7 [Example 4 (Complex exclusions)]",
+      "verbatim": "- Using PPSEQ values; use PCGRPID values wherever possible",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "ig34_p0283_a003",
+            "pdf_page": 283,
+            "pdf_section": "§6.3.5.9.3 Relating PP Records to PC Records — Example 4",
+            "matched_phrase": "using ppseq values; use pcgrpid values wherever possible",
+            "match_kind": "substring"
+          }
+        ]
+      },
+      "reasoning": "PDF substring match: 1 hit(s) with phrase ≥15 chars verbatim in pdf_atoms.jsonl.",
+      "strat": "LOW",
+      "partition": "v1_3_n40"
+    },
+    {
+      "atom_id": "md_model05_a057",
+      "file": "knowledge_base/model/05_study_level_data.md",
+      "atom_type": "NOTE",
+      "parent_section": "§ Trial Reproductive Stages (TT)",
+      "verbatim": "**Structure:** One record per Planned Repro Stage",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "sv20_p0054_a009",
+            "pdf_page": 54,
+            "pdf_section": "§5.1.3.1 Trial Repro Stages",
+            "matched_phrase": "one record per planned repro stage",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "sv20_p0055_a001",
+            "pdf_page": 55,
+            "pdf_section": "§5.1.3.2 Trial Repro Paths",
+            "matched_phrase": "one record per planned repro stage",
+            "match_kind": "substring"
+          }
+        ]
+      },
+      "reasoning": "PDF substring match: 2 hit(s) with phrase ≥15 chars verbatim in pdf_atoms.jsonl.",
+      "strat": "LOW",
+      "partition": "v1_3_n40"
+    },
+    {
+      "atom_id": "md_dmDM_ex_a184",
+      "file": "knowledge_base/domains/DM/examples.md",
+      "atom_type": "SENTENCE",
+      "parent_section": "§DM.7 [Example 7]",
+      "verbatim": "Additional fields: \"What was the other race?\" (RACEOTH → SUPPDM.QVAL where SUPPDM.QNAM = \"RACEOTH\") and \"If Unknown, please specify:\" (RACEREAS → SUPPDM.QVAL where SUPPDM.QNAM = \"RACEREAS\").",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "ig34_p0078_a013",
+            "pdf_page": 78,
+            "pdf_section": "§5.2 [Demographics (DM)]",
+            "jaccard": 0.205,
+            "kb_token_coverage": 0.818,
+            "shared_tokens": [
+              "fields",
+              "please",
+              "qnam",
+              "race",
+              "raceoth",
+              "racereas",
+              "specify",
+              "suppdm",
+              "unknown"
+            ],
+            "match_kind": "content_overlap_kbcov"
+          }
+        ]
+      },
+      "reasoning": "PDF Jaccard token-overlap match (last-resort): ≥0.55 against 1 PDF atom(s); KB synthesized text shares ≥55% unique 3+char tokens with PDF prose.",
+      "strat": "LOW",
+      "partition": "v1_3_n40"
+    },
+    {
+      "atom_id": "md_ch08_a120",
+      "file": "knowledge_base/chapters/ch08_relationships.md",
+      "atom_type": "SENTENCE",
+      "parent_section": "§8.3.1 [RELREC Dataset Relationship Example]",
+      "verbatim": "In the sponsor's operational database, these datasets may have existed as either separate datasets that were merged for analysis, or a single dataset that may have included observations from more than 1 general observation class (e.g., Events and Findings).",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "ig34_p0431_a009",
+            "pdf_page": 431,
+            "pdf_section": "§8.3.1 RELREC Dataset Relationship Example",
+            "matched_phrase": "in the sponsor's operational database, these datasets may have existed as either",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "ig34_p0092_a016",
+            "pdf_page": 92,
+            "pdf_section": "§6.1.1 [Procedure Agents (AG)]",
+            "matched_phrase": "in the sponsor's operational database",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "ig34_p0098_a012",
+            "pdf_page": 98,
+            "pdf_section": "§6.1.2 [Concomitant/Prior Medications (CM)]",
+            "matched_phrase": "in the sponsor's operational database",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "ig34_p0104_a014",
+            "pdf_page": 104,
+            "pdf_section": "§6.1.3.1 [Exposure (EX)]",
+            "matched_phrase": "in the sponsor's operational database",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "ig34_p0107_a021",
+            "pdf_page": 107,
+            "pdf_section": "§6.1.3.2 [Exposure as Collected (EC)]",
+            "matched_phrase": "in the sponsor's operational database",
+            "match_kind": "substring"
+          }
+        ]
+      },
+      "reasoning": "PDF substring match: 5 hit(s) with phrase ≥15 chars verbatim in pdf_atoms.jsonl.",
+      "strat": "LOW",
+      "partition": "v1_3_n40"
+    },
+    {
+      "atom_id": "md_model05_a069",
+      "file": "knowledge_base/model/05_study_level_data.md",
+      "atom_type": "NOTE",
+      "parent_section": "§ Trial Reproductive Paths (TP)",
+      "verbatim": "**Structure:** One record per Planned Repro Stage per Repro Path",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "sv20_p0055_a001",
+            "pdf_page": 55,
+            "pdf_section": "§5.1.3.2 Trial Repro Paths",
+            "matched_phrase": "one record per planned repro stage per repro path",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "sv20_p0054_a009",
+            "pdf_page": 54,
+            "pdf_section": "§5.1.3.1 Trial Repro Stages",
+            "matched_phrase": "record per planned repro stage",
+            "match_kind": "substring"
+          }
+        ]
+      },
+      "reasoning": "PDF substring match: 2 hit(s) with phrase ≥15 chars verbatim in pdf_atoms.jsonl.",
+      "strat": "LOW",
+      "partition": "v1_3_n40"
+    },
+    {
+      "atom_id": "md_dmAG_ex_a021",
+      "file": "knowledge_base/domains/AG/examples.md",
+      "atom_type": "SENTENCE",
+      "parent_section": "§AG.2 [Example 2]",
+      "verbatim": "An identifier was assigned to the reversibility test and this identifier was used to be link data across the multiple SDTM domains in which the data are represented.",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "ig34_p0096_a008",
+            "pdf_page": 96,
+            "pdf_section": "§6.1.1 [Procedure Agents (AG)]",
+            "matched_phrase": "an identifier was assigned to the reversibility test and this identifier was use",
+            "match_kind": "substring"
+          }
+        ]
+      },
+      "reasoning": "PDF substring match: 1 hit(s) with phrase ≥15 chars verbatim in pdf_atoms.jsonl.",
+      "strat": "LOW",
+      "partition": "v1_3_n40"
+    },
+    {
+      "atom_id": "md_dmDM_assn_a023",
+      "file": "knowledge_base/domains/DM/assumptions.md",
+      "atom_type": "LIST_ITEM",
+      "parent_section": "§DM [DM — Assumptions]",
+      "verbatim": "   a. Only the following timing variables are permissible and may be added as appropriate: VISITNUM, VISIT, VISITDY. The record qualifier DMXFN (External File Name) is the only additional qualifier variable that may be added, which is adopted from the Findings general observation class, may also be used to refer to an external file, such as a patient narrative.",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "ig34_p0081_a007",
+            "pdf_page": 81,
+            "pdf_section": "§5.3 [Subject Elements (SE)]",
+            "matched_phrase": "variables are permissible and may be added as appropriate",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "ig34_p0088_a009",
+            "pdf_page": 88,
+            "pdf_section": "§5.5 [Subject Visits (SV)]",
+            "matched_phrase": "variables are permissible and may be added as appropriate",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "sv20_p0034_a009",
+            "pdf_page": 34,
+            "pdf_section": "§3.1.5 Timing Variables for All Classes",
+            "matched_phrase": "the following timing variables are",
+            "match_kind": "substring"
+          }
+        ]
+      },
+      "reasoning": "PDF substring match: 3 hit(s) with phrase ≥15 chars verbatim in pdf_atoms.jsonl.",
+      "strat": "LOW",
+      "partition": "v1_3_n40"
+    },
+    {
+      "atom_id": "md_dmSUPPQUAL_assn_a003",
+      "file": "knowledge_base/domains/SUPPQUAL/assumptions.md",
+      "atom_type": "SENTENCE",
+      "parent_section": "§SUPPQUAL [SUPPQUAL — Assumptions]",
+      "verbatim": "SUPP-- represents the metadata and data for each NSV/value combination. As the name suggests, this dataset is intended to capture additional qualifiers for an observation. Data that represent separate observations should be treated as separate observations. The Supplemental Qualifiers dataset is structured similarly to the RELREC dataset, in that it uses the same set of keys to identify parent records. Each SUPP-- record also includes the name of the qualifier variable being added (QNAM), the label for the variable (QLABEL), the actual value for each instance or record (QVAL), the origin (QORIG) of the value (see Section 4.1.8, Origin Metadata), and the evaluator (QEVAL) to specify the role of the individual who assigned the value (e.g., \"ADJUDICATION COMMITTEE\", \"SPONSOR\"). Controlled terminology for certain expected values for QNAM and QLABEL is included in Appendix C1, Supplemental Qualifiers Name Codes.",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "ig34_p0431_a031",
+            "pdf_page": 431,
+            "pdf_section": "§8.4 [RELATING NON-STANDARD VARIABLE VALUES TO A PARENT DOMAIN]",
+            "matched_phrase": "each supp-- record also includes the name of the qualifier variable being added ",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "ig34_p0431_a030",
+            "pdf_page": 431,
+            "pdf_section": "§8.4 [RELATING NON-STANDARD VARIABLE VALUES TO A PARENT DOMAIN]",
+            "matched_phrase": "the supplemental qualifiers dataset is structured similarly to the relrec datase",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "ig34_p0431_a032",
+            "pdf_page": 431,
+            "pdf_section": "§8.4 [RELATING NON-STANDARD VARIABLE VALUES TO A PARENT DOMAIN]",
+            "matched_phrase": "controlled terminology for certain expected values for qnam and qlabel is includ",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "ig34_p0431_a028",
+            "pdf_page": 431,
+            "pdf_section": "§8.4 [RELATING NON-STANDARD VARIABLE VALUES TO A PARENT DOMAIN]",
+            "matched_phrase": "as the name suggests, this dataset is intended to capture additional qualifiers ",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "ig34_p0431_a029",
+            "pdf_page": 431,
+            "pdf_section": "§8.4 [RELATING NON-STANDARD VARIABLE VALUES TO A PARENT DOMAIN]",
+            "matched_phrase": "data that represent separate observations should be treated as separate observat",
+            "match_kind": "substring"
+          }
+        ]
+      },
+      "reasoning": "PDF substring match: 5 hit(s) with phrase ≥15 chars verbatim in pdf_atoms.jsonl.",
+      "strat": "LOW",
+      "partition": "v1_3_n40"
+    },
+    {
+      "atom_id": "md_dmCE_ex_a068",
+      "file": "knowledge_base/domains/CE/examples.md",
+      "atom_type": "SENTENCE",
+      "parent_section": "§CE.3 [Example 3]",
+      "verbatim": "The collected data do not meet criteria for representation in FA.",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "ig34_p0153_a0026",
+            "pdf_page": 153,
+            "pdf_section": "§6.2.3 [Clinical Events]",
+            "matched_phrase": "the collected data do not meet criteria for representation in fa",
+            "match_kind": "substring"
+          }
+        ]
+      },
+      "reasoning": "PDF substring match: 1 hit(s) with phrase ≥15 chars verbatim in pdf_atoms.jsonl.",
+      "strat": "LOW",
+      "partition": "v1_3_n40"
+    },
+    {
+      "atom_id": "md_dmBS_ex_a009",
+      "file": "knowledge_base/domains/BS/examples.md",
+      "atom_type": "SENTENCE",
+      "parent_section": "§BS.1 [Example 1]",
+      "verbatim": "Because values in --TESTCD cannot begin with a number, the test code has been prefixed with an \"I\" for integrity.",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "ig34_p0198_a021",
+            "pdf_page": 198,
+            "pdf_section": "§6.3.5.2 Biospecimen Findings (BS)",
+            "matched_phrase": "because values in --testcd cannot begin with a number, the test code has been pr",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "ig34_p0180_a0018",
+            "pdf_page": 180,
+            "pdf_section": "§6.3.1 Product Accountability (DA)",
+            "matched_phrase": "cannot begin with a number",
+            "match_kind": "substring"
+          }
+        ]
+      },
+      "reasoning": "PDF substring match: 2 hit(s) with phrase ≥15 chars verbatim in pdf_atoms.jsonl.",
+      "strat": "LOW",
+      "partition": "v1_3_n40"
+    },
+    {
+      "atom_id": "md_dmTR_ex_a007",
+      "file": "knowledge_base/domains/TR/examples.md",
+      "atom_type": "SENTENCE",
+      "parent_section": "§TR.1 [Example 2 (continued from TU)]",
+      "verbatim": "A lymph node state of \"NON-PATHOLOGICAL\" means that all target lymph node lesions have a short axis less than 10mm.",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "ig34_p0354_a032",
+            "pdf_page": 354,
+            "pdf_section": "§6.3.12.3 Tumor Identification/Tumor Results Examples",
+            "matched_phrase": "a lymph node state of \"non-pathological\" means that all target lymph node lesion",
+            "match_kind": "substring"
+          }
+        ]
+      },
+      "reasoning": "PDF substring match: 1 hit(s) with phrase ≥15 chars verbatim in pdf_atoms.jsonl.",
+      "strat": "LOW",
+      "partition": "v1_3_n40"
+    },
+    {
+      "atom_id": "md_dmTA_ex_a042",
+      "file": "knowledge_base/domains/TA/examples.md",
+      "atom_type": "SENTENCE",
+      "parent_section": "§TA.2 [Example 2]",
+      "verbatim": "A crossover trial comparing 3 treatments (Placebo, 5 mg, 10 mg) with 7 epochs: Screening, 3 Treatment Epochs with 3 Rest (washout) Epochs between them, and a Follow-up Epoch.",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "ig34_p0390_a002",
+            "pdf_page": 390,
+            "pdf_section": "§7.2.1 Trial Arms (TA) – Example 2",
+            "jaccard": 0.258,
+            "kb_token_coverage": 0.667,
+            "shared_tokens": [
+              "crossover",
+              "epoch",
+              "follow",
+              "placebo",
+              "rest",
+              "screening",
+              "treatment",
+              "trial"
+            ],
+            "match_kind": "content_overlap_kbcov"
+          },
+          {
+            "pdf_atom_id": "ig34_p0390_a004",
+            "pdf_page": 390,
+            "pdf_section": "§7.2.1 Trial Arms (TA) – Example 2",
+            "jaccard": 0.258,
+            "kb_token_coverage": 0.667,
+            "shared_tokens": [
+              "crossover",
+              "epoch",
+              "follow",
+              "placebo",
+              "rest",
+              "screening",
+              "treatment",
+              "trial"
+            ],
+            "match_kind": "content_overlap_kbcov"
+          },
+          {
+            "pdf_atom_id": "ig34_p0391_a001",
+            "pdf_page": 391,
+            "pdf_section": "§7.2.1 Trial Arms (TA) – Example 2",
+            "jaccard": 0.25,
+            "kb_token_coverage": 0.583,
+            "shared_tokens": [
+              "crossover",
+              "epoch",
+              "follow",
+              "rest",
+              "screening",
+              "treatment",
+              "trial"
+            ],
+            "match_kind": "content_overlap_kbcov"
+          },
+          {
+            "pdf_atom_id": "ig34_p0405_a035",
+            "pdf_page": 405,
+            "pdf_section": "§7.2.2.1 Trial Elements Issues – Granularity of Trial Elements",
+            "jaccard": 0.25,
+            "kb_token_coverage": 0.583,
+            "shared_tokens": [
+              "epoch",
+              "epochs",
+              "follow",
+              "rest",
+              "treatment",
+              "trial",
+              "washout"
+            ],
+            "match_kind": "content_overlap_kbcov"
+          },
+          {
+            "pdf_atom_id": "ig34_p0395_a003",
+            "pdf_page": 395,
+            "pdf_section": "§7.2.1 Trial Arms (TA) – Example 4",
+            "jaccard": 0.24,
+            "kb_token_coverage": 0.5,
+            "shared_tokens": [
+              "epoch",
+              "follow",
+              "rest",
+              "screening",
+              "treatment",
+              "trial"
+            ],
+            "match_kind": "content_overlap_kbcov"
+          }
+        ]
+      },
+      "reasoning": "PDF Jaccard token-overlap match (last-resort): ≥0.55 against 5 PDF atom(s); KB synthesized text shares ≥55% unique 3+char tokens with PDF prose.",
+      "strat": "LOW",
+      "partition": "v1_3_n40"
+    },
+    {
+      "atom_id": "md_dmAG_ex_a008",
+      "file": "knowledge_base/domains/AG/examples.md",
+      "atom_type": "SENTENCE",
+      "parent_section": "§AG.1 [Example 1]",
+      "verbatim": "The results of the screening BAC are not shown, but would be represented in the Respiratory System Findings (RE) domain.",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "ig34_p0095_a015",
+            "pdf_page": 95,
+            "pdf_section": "§6.1.1 [Procedure Agents (AG)]",
+            "matched_phrase": "the results of the screening bac are not shown, but would be represented in the ",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "ig34_p0158_a0020",
+            "pdf_page": 158,
+            "pdf_section": "§6.2.4 Disposition (DS)",
+            "matched_phrase": "would be represented in the",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "ig34_p0245_a011",
+            "pdf_page": 245,
+            "pdf_section": "§6.3.5.6 Laboratory Test Results (LB)",
+            "matched_phrase": "would be represented in the",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "ig34_p0298_a021",
+            "pdf_page": 298,
+            "pdf_section": "§6.3.7.4 Nervous System Findings (NV)",
+            "matched_phrase": "would be represented in the",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "ig34_p0341_a024",
+            "pdf_page": 341,
+            "pdf_section": "SC – Examples",
+            "matched_phrase": "would be represented in the",
+            "match_kind": "substring"
+          }
+        ]
+      },
+      "reasoning": "PDF substring match: 5 hit(s) with phrase ≥15 chars verbatim in pdf_atoms.jsonl.",
+      "strat": "LOW",
+      "partition": "v1_3_n40"
+    },
+    {
+      "atom_id": "md_model02_a013",
+      "file": "knowledge_base/model/02_observation_classes.md",
+      "atom_type": "SENTENCE",
+      "parent_section": "§3.1.1 The Interventions Observation Class",
+      "verbatim": "This includes treatments specified by the study protocol (i.e., \"exposure\").",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "sv20_p0011_a016",
+            "pdf_page": 11,
+            "pdf_section": "§3.1 The General Observation Classes",
+            "matched_phrase": "this includes treatments specified by the study protocol i.e., \"exposure",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "ig34_p0012_a015",
+            "pdf_page": 12,
+            "pdf_section": "§2.3 The General Observation Classes",
+            "matched_phrase": "specified by the study protocol",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "ig34_p0384_a016",
+            "pdf_page": 384,
+            "pdf_section": "§7.2 Experimental Design (TA and TE)",
+            "matched_phrase": "specified by the study protocol",
+            "match_kind": "substring"
+          }
+        ]
+      },
+      "reasoning": "PDF substring match: 3 hit(s) with phrase ≥15 chars verbatim in pdf_atoms.jsonl.",
+      "strat": "LOW",
+      "partition": "v1_3_n40"
+    },
+    {
+      "atom_id": "md_dmTU_ex_a007",
+      "file": "knowledge_base/domains/TU/examples.md",
+      "atom_type": "SENTENCE",
+      "parent_section": "§TU.1 [Example 1]",
+      "verbatim": "During the same PVI procedure, the subject also had a target graft lesion (L01-G) identified in the left femoro-popliteal graft (L01-G1).",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "ig34_p0353_a008",
+            "pdf_page": 353,
+            "pdf_section": "§6.3.12.3 Tumor Identification/Tumor Results Examples",
+            "matched_phrase": "during the same pvi procedure, the subject also had a target graft lesion l01-g ",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "ig34_p0353_a011",
+            "pdf_page": 353,
+            "pdf_section": "§6.3.12.3 Tumor Identification/Tumor Results Examples",
+            "matched_phrase": "in the left femoro-popliteal graft",
+            "match_kind": "substring"
+          }
+        ]
+      },
+      "reasoning": "PDF substring match: 2 hit(s) with phrase ≥15 chars verbatim in pdf_atoms.jsonl.",
+      "strat": "LOW",
+      "partition": "v1_3_n40"
+    },
+    {
+      "atom_id": "md_dmCE_ex_a077",
+      "file": "knowledge_base/domains/CE/examples.md",
+      "atom_type": "SENTENCE",
+      "parent_section": "§CE.3 [Example 3]",
+      "verbatim": "No separate start date for this complication was collected, so MHSTDTC is blank.",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "ig34_p0153_a0031",
+            "pdf_page": 153,
+            "pdf_section": "§6.2.3 [Clinical Events]",
+            "matched_phrase": "no separate start date for this complication was collected, so mhstdtc is blank",
+            "match_kind": "substring"
+          }
+        ]
+      },
+      "reasoning": "PDF substring match: 1 hit(s) with phrase ≥15 chars verbatim in pdf_atoms.jsonl.",
+      "strat": "LOW",
+      "partition": "v1_3_n40"
+    },
+    {
+      "atom_id": "md_dmAE_ex_a067",
+      "file": "knowledge_base/domains/AE/examples.md",
+      "atom_type": "SENTENCE",
+      "parent_section": "§AE.5 [Example 5]",
+      "verbatim": "A few days later, she developed an infection in the hip bone adjacent to the implant.",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "ig34_p0142_a010",
+            "pdf_page": 142,
+            "pdf_section": "§6.2.1 [Adverse Events (AE)]",
+            "matched_phrase": "a few days later, she developed an infection in the hip bone adjacent to the imp",
+            "match_kind": "substring"
+          }
+        ]
+      },
+      "reasoning": "PDF substring match: 1 hit(s) with phrase ≥15 chars verbatim in pdf_atoms.jsonl.",
+      "strat": "LOW",
+      "partition": "v1_3_n40"
+    },
+    {
+      "atom_id": "md_dmAE_ex_a071",
+      "file": "knowledge_base/domains/AE/examples.md",
+      "atom_type": "SENTENCE",
+      "parent_section": "§AE.5 [Example 5]",
+      "verbatim": "These are used to determine if the AE was an unanticipated serious device event, a designation required by some regulatory authorities.",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "ig34_p0142_a010",
+            "pdf_page": 142,
+            "pdf_section": "§6.2.1 [Adverse Events (AE)]",
+            "matched_phrase": "these are used to determine if the ae was an unanticipated serious device event,",
+            "match_kind": "substring"
+          }
+        ]
+      },
+      "reasoning": "PDF substring match: 1 hit(s) with phrase ≥15 chars verbatim in pdf_atoms.jsonl.",
+      "strat": "LOW",
+      "partition": "v1_3_n40"
+    },
+    {
+      "atom_id": "md_ch04_a326",
+      "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+      "atom_type": "TABLE_ROW",
+      "parent_section": "§4.2.7.3 [\"Specify\" Values for Topic Variables]",
+      "verbatim": "|                                                                                                    | [ ] Other, specify: _________ |",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "ig34_p0032_a014",
+            "pdf_page": 32,
+            "pdf_section": "§4.2.7.1 \"Specify\" Values for Non-result Qualifier Variables",
+            "matched_phrase": "other, specify: _",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "ig34_p0033_a004",
+            "pdf_page": 33,
+            "pdf_section": "§4.2.7.2 \"Specify\" Values for Result Qualifier Variables",
+            "matched_phrase": "other, specify: _",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "ig34_p0033_a021",
+            "pdf_page": 33,
+            "pdf_section": "§4.2.7.3 \"Specify\" Values for Topic Variables",
+            "matched_phrase": "other, specify: _",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "ig34_p0152_a0013",
+            "pdf_page": 152,
+            "pdf_section": "§6.2.3 [Clinical Events]",
+            "matched_phrase": "other, specify: _",
+            "match_kind": "substring"
+          }
+        ]
+      },
+      "reasoning": "PDF substring match: 4 hit(s) with phrase ≥15 chars verbatim in pdf_atoms.jsonl.",
+      "strat": "LOW",
+      "partition": "v1_4_new40"
+    },
+    {
+      "atom_id": "md_model03_a058",
+      "file": "knowledge_base/model/03_special_purpose_domains.md",
+      "atom_type": "TABLE_ROW",
+      "parent_section": "§ Demographics (DM) > Key Reference Date Variables",
+      "verbatim": "| RFXENDTC | Date/Time of Last Study Treatment | Last exposure to study treatment |",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "ig34_p0063_a004",
+            "pdf_page": 63,
+            "pdf_section": "§5.2 [Demographics (DM)]",
+            "matched_phrase": "date/time of last study treatment",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "sv20_p0041_a002",
+            "pdf_page": 41,
+            "pdf_section": "§3.2.1 [Demographics]",
+            "matched_phrase": "date/time of last study treatment",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "ig34_p0063_a002",
+            "pdf_page": 63,
+            "pdf_section": "§5.2 [Demographics (DM)]",
+            "matched_phrase": "last exposure to study treatment",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "sv20_p0040_a018",
+            "pdf_page": 40,
+            "pdf_section": "§3.2.1 [Demographics]",
+            "matched_phrase": "last exposure to study treatment",
+            "match_kind": "substring"
+          }
+        ]
+      },
+      "reasoning": "PDF substring match: 4 hit(s) with phrase ≥15 chars verbatim in pdf_atoms.jsonl.",
+      "strat": "LOW",
+      "partition": "v1_4_new40"
+    },
+    {
+      "atom_id": "md_dmBE_ex_a077",
+      "file": "knowledge_base/domains/BE/examples.md",
+      "atom_type": "SENTENCE",
+      "parent_section": "§BE.2 [Example 2]",
+      "verbatim": "\"RNA\" is one of the terms in the GENSMP codelist.",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "ig34_p0147_a008",
+            "pdf_page": 147,
+            "pdf_section": "§6.2.2 [Biospecimen Events (BE)]",
+            "matched_phrase": "rna\" is one of the terms in the gensmp codelist",
+            "match_kind": "substring"
+          }
+        ]
+      },
+      "reasoning": "PDF substring match: 1 hit(s) with phrase ≥15 chars verbatim in pdf_atoms.jsonl.",
+      "strat": "LOW",
+      "partition": "v1_4_new40"
+    },
+    {
+      "atom_id": "md_dmMB_ex_a017",
+      "file": "knowledge_base/domains/MB/examples.md",
+      "atom_type": "SENTENCE",
+      "parent_section": "§MB.1 [Example 1]",
+      "verbatim": "The variables MSCONC and MSCONCU represent the concentration and units of the drug being used.",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "ig34_p0257_a002",
+            "pdf_page": 257,
+            "pdf_section": "§6.3.5.7.3 Microbiology Specimen/Microbiology Susceptibility Examples",
+            "matched_phrase": "the variables msconc and msconcu represent the concentration and units of the dr",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "ig34_p0262_a019",
+            "pdf_page": 262,
+            "pdf_section": "§6.3.5.7 Microbiology Domains",
+            "matched_phrase": "the variables msconc and msconcu represent the concentration and units of the dr",
+            "match_kind": "substring"
+          }
+        ]
+      },
+      "reasoning": "PDF substring match: 2 hit(s) with phrase ≥15 chars verbatim in pdf_atoms.jsonl.",
+      "strat": "LOW",
+      "partition": "v1_4_new40"
+    },
+    {
+      "atom_id": "md_dmPC_ex_a261",
+      "file": "knowledge_base/domains/PC/examples.md",
+      "atom_type": "SENTENCE",
+      "parent_section": "§PC.2.6 [Example 3 (Inconsistent PC usage across parameters)]",
+      "verbatim": "All pharmacokinetic concentrations for day 8 were used to calculate all pharmacokinetic parameters. Because day 8 relationships are the same as in Example 1, they are not included here.",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "ig34_p0279_a036",
+            "pdf_page": 279,
+            "pdf_section": "§6.3.5.9.3 Relating PP Records to PC Records",
+            "matched_phrase": "all pharmacokinetic concentrations for day 8 were used to calculate all pharmaco",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "ig34_p0280_a037",
+            "pdf_page": 280,
+            "pdf_section": "§6.3.5.9.3 Relating PP Records to PC Records",
+            "matched_phrase": "all pharmacokinetic concentrations for day 8 were used to calculate all pharmaco",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "ig34_p0279_a034",
+            "pdf_page": 279,
+            "pdf_section": "§6.3.5.9.3 Relating PP Records to PC Records",
+            "matched_phrase": "were used to calculate all pharmacokinetic parameters",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "ig34_p0277_a017",
+            "pdf_page": 277,
+            "pdf_section": "§6.3.5.9.3 Relating PP Records to PC Records",
+            "matched_phrase": "to calculate all pharmacokinetic parameters",
+            "match_kind": "substring"
+          }
+        ]
+      },
+      "reasoning": "PDF substring match: 4 hit(s) with phrase ≥15 chars verbatim in pdf_atoms.jsonl.",
+      "strat": "LOW",
+      "partition": "v1_4_new40"
+    },
+    {
+      "atom_id": "md_dmBE_ex_a052",
+      "file": "knowledge_base/domains/BE/examples.md",
+      "atom_type": "SENTENCE",
+      "parent_section": "§BE.2 [Example 2]",
+      "verbatim": "BESPDEVID holds the identifier for the container into which the plasma is placed.",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "ig34_p0146_a019",
+            "pdf_page": 146,
+            "pdf_section": "§6.2.2 [Biospecimen Events (BE)]",
+            "matched_phrase": "bespdevid holds the identifier for the container into which the plasma is placed",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "ig34_p0146_a021",
+            "pdf_page": 146,
+            "pdf_section": "§6.2.2 [Biospecimen Events (BE)]",
+            "matched_phrase": "bespdevid holds the identifier for",
+            "match_kind": "substring"
+          }
+        ]
+      },
+      "reasoning": "PDF substring match: 2 hit(s) with phrase ≥15 chars verbatim in pdf_atoms.jsonl.",
+      "strat": "LOW",
+      "partition": "v1_4_new40"
+    },
+    {
+      "atom_id": "md_dmMB_ex_a037",
+      "file": "knowledge_base/domains/MB/examples.md",
+      "atom_type": "SENTENCE",
+      "parent_section": "§MB.2 [Example 2]",
+      "verbatim": "The SUPPBE table is used to represent 2 non-standard variables of BE.",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "ig34_p0258_a001",
+            "pdf_page": 258,
+            "pdf_section": "§6.3.5.7.3 Microbiology Specimen/Microbiology Susceptibility Examples",
+            "matched_phrase": "is used to represent 2 non-standard variables of be",
+            "match_kind": "substring"
+          }
+        ]
+      },
+      "reasoning": "PDF substring match: 1 hit(s) with phrase ≥15 chars verbatim in pdf_atoms.jsonl.",
+      "strat": "LOW",
+      "partition": "v1_4_new40"
+    },
+    {
+      "atom_id": "md_dmEX_ex_a231",
+      "file": "knowledge_base/domains/EX/examples.md",
+      "atom_type": "SENTENCE",
+      "parent_section": "§EX.7 [Example 7]",
+      "verbatim": "**Row 2:** Shows the subject's second dose. The collected explanation for the adjusted dose amount administered at visit 2 is in EXADJ.",
+      "category": "NEEDS_HUMAN_REVIEW",
+      "evidence": {
+        "pdf_evidence": [],
+        "xlsx_evidence": ""
+      },
+      "reasoning": "Neither PDF prose nor xlsx heuristic fired confidently; needs human PDF deep-look.",
+      "strat": "LOW",
+      "partition": "v1_4_new40"
+    },
+    {
+      "atom_id": "md_dmTR_ex_a008",
+      "file": "knowledge_base/domains/TR/examples.md",
+      "atom_type": "SENTENCE",
+      "parent_section": "§TR.1 [Example 2 (continued from TU)]",
+      "verbatim": "A lymph node state of \"PATHOLOGICAL\" means that at least 1 target lymph node lesion has a short axis greater than or equal to 10mm.",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "ig34_p0354_a032",
+            "pdf_page": 354,
+            "pdf_section": "§6.3.12.3 Tumor Identification/Tumor Results Examples",
+            "matched_phrase": "a lymph node state of \"pathological\" means that at least 1 target lymph node les",
+            "match_kind": "substring"
+          }
+        ]
+      },
+      "reasoning": "PDF substring match: 1 hit(s) with phrase ≥15 chars verbatim in pdf_atoms.jsonl.",
+      "strat": "LOW",
+      "partition": "v1_4_new40"
+    },
+    {
+      "atom_id": "md_dmTU_ex_a008",
+      "file": "knowledge_base/domains/TU/examples.md",
+      "atom_type": "SENTENCE",
+      "parent_section": "§TU.1 [Example 1]",
+      "verbatim": "The lesion location was noted within the graft anastomosis proximal, the type was a synthetic graft composed of Gore-Tex, and the anastomosis was in the left popliteal artery.",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "ig34_p0353_a008",
+            "pdf_page": 353,
+            "pdf_section": "§6.3.12.3 Tumor Identification/Tumor Results Examples",
+            "matched_phrase": "the lesion location was noted within the graft anastomosis proximal, the type wa",
+            "match_kind": "substring"
+          }
+        ]
+      },
+      "reasoning": "PDF substring match: 1 hit(s) with phrase ≥15 chars verbatim in pdf_atoms.jsonl.",
+      "strat": "LOW",
+      "partition": "v1_4_new40"
+    },
+    {
+      "atom_id": "md_dmRELREC_assn_a007",
+      "file": "knowledge_base/domains/RELREC/assumptions.md",
+      "atom_type": "LIST_ITEM",
+      "parent_section": "§RELREC [RELREC — Assumptions]",
+      "verbatim": "- explicit relationships, such as concomitant medications taken as a result of an adverse event; or",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "ig34_p0429_a014",
+            "pdf_page": 429,
+            "pdf_section": "§8.2 [RELATING PEER RECORDS]",
+            "matched_phrase": "explicit relationships, such as concomitant medications taken as a result of an ",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "ig34_p0135_a009",
+            "pdf_page": 135,
+            "pdf_section": "§6.2.1 [Adverse Events (AE)]",
+            "matched_phrase": "taken as a result of",
+            "match_kind": "substring"
+          }
+        ]
+      },
+      "reasoning": "PDF substring match: 2 hit(s) with phrase ≥15 chars verbatim in pdf_atoms.jsonl.",
+      "strat": "LOW",
+      "partition": "v1_4_new40"
+    },
+    {
+      "atom_id": "md_model02_a153",
+      "file": "knowledge_base/model/02_observation_classes.md",
+      "atom_type": "SENTENCE",
+      "parent_section": "§3.1.3 > Topic and Qualifier Variables (100 variables)",
+      "verbatim": "**Additional Findings-specific Variables** include --LOINC, --METHOD, --ANMETH, --BLFL, --DRVFL, --LOBXFL, --FAST, --TOX, --TOXGR, --SEV, --CLSIG, --XFN, --NAM, --EVAL, --EVALID, --ACPTFL, --LNKID, --LNKGRP, and many domain-specific variables.",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "ig34_p0341_a009",
+            "pdf_page": 341,
+            "pdf_section": "SC – Assumptions",
+            "jaccard": 0.277,
+            "kb_token_coverage": 0.52,
+            "shared_tokens": [
+              "blfl",
+              "domain",
+              "drvfl",
+              "fast",
+              "findings",
+              "lobxfl",
+              "loinc",
+              "nam",
+              "sev",
+              "tox"
+            ],
+            "match_kind": "content_overlap_kbcov"
+          },
+          {
+            "pdf_atom_id": "ig34_p0344_a004",
+            "pdf_page": 344,
+            "pdf_section": "SS – Assumptions",
+            "jaccard": 0.255,
+            "kb_token_coverage": 0.52,
+            "shared_tokens": [
+              "blfl",
+              "domain",
+              "drvfl",
+              "fast",
+              "findings",
+              "loinc",
+              "method",
+              "nam",
+              "sev",
+              "tox"
+            ],
+            "match_kind": "content_overlap_kbcov"
+          }
+        ]
+      },
+      "reasoning": "PDF Jaccard token-overlap match (last-resort): ≥0.55 against 2 PDF atom(s); KB synthesized text shares ≥55% unique 3+char tokens with PDF prose.",
+      "strat": "LOW",
+      "partition": "v1_4_new40"
+    },
+    {
+      "atom_id": "md_model01_a045",
+      "file": "knowledge_base/model/01_concepts_and_terms.md",
+      "atom_type": "LIST_ITEM",
+      "parent_section": "§2.1 [Model Concepts and Terms — Variables]",
+      "verbatim": "- In the RDOMAIN variable in relationship tables",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "ig34_p0012_a001",
+            "pdf_page": 12,
+            "pdf_section": "§2.2 Datasets and Domains",
+            "matched_phrase": "in the rdomain variable in relationship tables",
+            "match_kind": "substring"
+          }
+        ]
+      },
+      "reasoning": "PDF substring match: 1 hit(s) with phrase ≥15 chars verbatim in pdf_atoms.jsonl.",
+      "strat": "LOW",
+      "partition": "v1_4_new40"
+    },
+    {
+      "atom_id": "md_dmSUPPQUAL_assn_a013",
+      "file": "knowledge_base/domains/SUPPQUAL/assumptions.md",
+      "atom_type": "LIST_ITEM",
+      "parent_section": "§SUPPQUAL [SUPPQUAL — Assumptions]",
+      "verbatim": "- Findings interpretations that should be added as an additional test code and result. An example of this would be a record for electrocardiogram interpretation where EGTESTCD = \"INTP\", and the same EGGRPID or EGREFID value would be assigned for all records associated with that ECG (see Section 4.5.5, Clinical Significance for Findings Observation Class Data).",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "ig34_p0434_a011",
+            "pdf_page": 434,
+            "pdf_section": "§8.4.4 When Not to Use Supplemental Qualifiers",
+            "matched_phrase": "findings interpretations that should be added as an additional test code and res",
+            "match_kind": "substring"
+          }
+        ]
+      },
+      "reasoning": "PDF substring match: 1 hit(s) with phrase ≥15 chars verbatim in pdf_atoms.jsonl.",
+      "strat": "LOW",
+      "partition": "v1_4_new40"
+    },
+    {
+      "atom_id": "md_dmCP_ex_a056",
+      "file": "knowledge_base/domains/CP/examples.md",
+      "atom_type": "SENTENCE",
+      "parent_section": "§CP.3 [Example 3]",
+      "verbatim": "**Row 6:** Shows the ratio of the proliferating monocyte subpopulation to the non-proliferating monocyte subpopulation.",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "ig34_p0213_a001",
+            "pdf_page": 213,
+            "pdf_section": "§6.3.5.3 Cell Phenotype Findings (CP)",
+            "matched_phrase": "row 6: shows the ratio of the proliferating monocyte subpopulation to the non-pr",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "ig34_p0225_a001",
+            "pdf_page": 225,
+            "pdf_section": "§6.3.5.4 Genomics Findings (GF)",
+            "matched_phrase": "shows the ratio of the",
+            "match_kind": "substring"
+          }
+        ]
+      },
+      "reasoning": "PDF substring match: 2 hit(s) with phrase ≥15 chars verbatim in pdf_atoms.jsonl.",
+      "strat": "LOW",
+      "partition": "v1_4_new40"
+    },
+    {
+      "atom_id": "md_model02_a144",
+      "file": "knowledge_base/model/02_observation_classes.md",
+      "atom_type": "TABLE_ROW",
+      "parent_section": "§3.1.3 > Topic and Qualifier Variables (100 variables)",
+      "verbatim": "| --STNRLO | Reference Range Lower Limit-Std Units | Standard units |",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "ig34_p0203_a003",
+            "pdf_page": 203,
+            "pdf_section": "§6.3.5.3 Cell Phenotype Findings (CP)",
+            "matched_phrase": "stnrlo reference range lower limit-std",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "ig34_p0230_a009",
+            "pdf_page": 230,
+            "pdf_section": "§6.3.5.5 Immunogenicity Specimen Assessments (IS)",
+            "matched_phrase": "stnrlo reference range lower limit-std",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "ig34_p0243_a008",
+            "pdf_page": 243,
+            "pdf_section": "§6.3.5.6 Laboratory Test Results (LB)",
+            "matched_phrase": "stnrlo reference range lower limit-std",
+            "match_kind": "substring"
+          }
+        ]
+      },
+      "reasoning": "PDF substring match: 3 hit(s) with phrase ≥15 chars verbatim in pdf_atoms.jsonl.",
+      "strat": "LOW",
+      "partition": "v1_4_new40"
+    },
+    {
+      "atom_id": "md_ch02_a031",
+      "file": "knowledge_base/chapters/ch02_fundamentals.md",
+      "atom_type": "LIST_ITEM",
+      "parent_section": "§2.2 [Datasets and Domains]",
+      "verbatim": "2. As the value of the DOMAIN variable in that dataset",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "ig34_p0012_a001",
+            "pdf_page": 12,
+            "pdf_section": "§2.2 Datasets and Domains",
+            "matched_phrase": "as the value of the domain variable in that dataset",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "sv20_p0011_a012",
+            "pdf_page": 11,
+            "pdf_section": "§3 [STUDY SUBJECT DATA]",
+            "matched_phrase": "as the value of the domain variable in that dataset",
+            "match_kind": "substring"
+          }
+        ]
+      },
+      "reasoning": "PDF substring match: 2 hit(s) with phrase ≥15 chars verbatim in pdf_atoms.jsonl.",
+      "strat": "LOW",
+      "partition": "v1_4_new40"
+    },
+    {
+      "atom_id": "md_ch08_a126",
+      "file": "knowledge_base/chapters/ch08_relationships.md",
+      "atom_type": "SENTENCE",
+      "parent_section": "§8.3.1 [RELREC Dataset Relationship Example]",
+      "verbatim": "The allowable values are ONE and MANY (controlled terminology is expected).",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "ig34_p0431_a015",
+            "pdf_page": 431,
+            "pdf_section": "§8.3.1 RELREC Dataset Relationship Example",
+            "matched_phrase": "the allowable values are one and many controlled terminology is expected",
+            "match_kind": "substring"
+          }
+        ]
+      },
+      "reasoning": "PDF substring match: 1 hit(s) with phrase ≥15 chars verbatim in pdf_atoms.jsonl.",
+      "strat": "LOW",
+      "partition": "v1_4_new40"
+    },
+    {
+      "atom_id": "md_ch04_a652",
+      "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+      "atom_type": "LIST_ITEM",
+      "parent_section": "§4.4.7 [Use of Relative Timing Variables]",
+      "verbatim": "- **Concomitant Medications (--STRF/--ENRF):** --STRF = \"BEFORE\", --ENRF = \"DURING\"",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "ig34_p0088_a015",
+            "pdf_page": 88,
+            "pdf_section": "§5.5 [Subject Visits (SV)]",
+            "jaccard": 0.211,
+            "kb_token_coverage": 0.667,
+            "shared_tokens": [
+              "before",
+              "during",
+              "enrf",
+              "strf"
+            ],
+            "match_kind": "content_overlap_kbcov"
+          },
+          {
+            "pdf_atom_id": "ig34_p0176_a0001",
+            "pdf_page": 176,
+            "pdf_section": "§6.2.6 Medical History (MH)",
+            "jaccard": 0.103,
+            "kb_token_coverage": 0.667,
+            "shared_tokens": [
+              "before",
+              "during",
+              "enrf",
+              "strf"
+            ],
+            "match_kind": "content_overlap_kbcov"
+          }
+        ]
+      },
+      "reasoning": "PDF Jaccard token-overlap match (last-resort): ≥0.55 against 2 PDF atom(s); KB synthesized text shares ≥55% unique 3+char tokens with PDF prose.",
+      "strat": "LOW",
+      "partition": "v1_4_new40"
+    },
+    {
+      "atom_id": "md_model05_a046",
+      "file": "knowledge_base/model/05_study_level_data.md",
+      "atom_type": "SENTENCE",
+      "parent_section": "§ Trial Sets (TX)",
+      "verbatim": "Describes sets of subjects that share common characteristics (e.g., treatment groups, pooled analysis groups).",
+      "category": "NEEDS_HUMAN_REVIEW",
+      "evidence": {
+        "pdf_evidence": [],
+        "xlsx_evidence": ""
+      },
+      "reasoning": "Neither PDF prose nor xlsx heuristic fired confidently; needs human PDF deep-look.",
+      "strat": "LOW",
+      "partition": "v1_4_new40"
+    },
+    {
+      "atom_id": "md_dmMB_ex_a076",
+      "file": "knowledge_base/domains/MB/examples.md",
+      "atom_type": "SENTENCE",
+      "parent_section": "§MB.3 [Example 3]",
+      "verbatim": "If the same sample is used in many domains, the use of --REFID may result in a potentially undesirable many-to-many merge; users may need to make use of additional linking variables such as --LNKID and --LNKGRP.",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "ig34_p0259_a019",
+            "pdf_page": 259,
+            "pdf_section": "§6.3.5.7.3 Microbiology Specimen/Microbiology Susceptibility Examples",
+            "matched_phrase": "users may need to make use of additional linking variables such as --lnkid and -",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "ig34_p0252_a013",
+            "pdf_page": 252,
+            "pdf_section": "§6.3.5.7.1 Microbiology Specimen (MB)",
+            "matched_phrase": "users may need to make use of additional linking",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "ig34_p0256_a006",
+            "pdf_page": 256,
+            "pdf_section": "§6.3.5.7.2 Microbiology Susceptibility (MS)",
+            "matched_phrase": "users may need to make use of additional linking",
+            "match_kind": "substring"
+          }
+        ]
+      },
+      "reasoning": "PDF substring match: 3 hit(s) with phrase ≥15 chars verbatim in pdf_atoms.jsonl.",
+      "strat": "LOW",
+      "partition": "v1_4_new40"
+    },
+    {
+      "atom_id": "md_dmTR_ex_a002",
+      "file": "knowledge_base/domains/TR/examples.md",
+      "atom_type": "NOTE",
+      "parent_section": "§TR [TR — Examples]",
+      "verbatim": "Note: TU and TR share examples. See also [TU Examples](../TU/examples.md).",
+      "category": "NEEDS_HUMAN_REVIEW",
+      "evidence": {
+        "pdf_evidence": [],
+        "xlsx_evidence": ""
+      },
+      "reasoning": "Neither PDF prose nor xlsx heuristic fired confidently; needs human PDF deep-look.",
+      "strat": "LOW",
+      "partition": "v1_4_new40"
+    },
+    {
+      "atom_id": "md_model06_a036",
+      "file": "knowledge_base/model/06_relationship_datasets.md",
+      "atom_type": "NOTE",
+      "parent_section": "§6.2 Supplemental Qualifiers (SUPP--)",
+      "verbatim": "**Structure:** One record per supplemental qualifier per related parent domain record(s)",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "ig34_p0020_a010",
+            "pdf_page": 20,
+            "pdf_section": "§3.2.1 Dataset-level Metadata",
+            "matched_phrase": "one record per supplemental qualifier per related parent domain record s",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "ig34_p0432_a014",
+            "pdf_page": 432,
+            "pdf_section": "§8.4.1 Supplemental Qualifiers (SUPP--)",
+            "matched_phrase": "one record per supplemental qualifier per related parent domain record s",
+            "match_kind": "substring"
+          }
+        ]
+      },
+      "reasoning": "PDF substring match: 2 hit(s) with phrase ≥15 chars verbatim in pdf_atoms.jsonl.",
+      "strat": "LOW",
+      "partition": "v1_4_new40"
+    },
+    {
+      "atom_id": "md_dmTV_ex_a010",
+      "file": "knowledge_base/domains/TV/examples.md",
+      "atom_type": "NOTE",
+      "parent_section": "§TV.1 [Example 1]",
+      "verbatim": "> Visit 2 spans the Screen → Run-In epoch transition (confirmation of eligibility). Visit 3 spans the Run-In → Treatment epoch transition (first dose of study drug). Below the timeline, 3 arms (Placebo, Drug A, Drug B) share the same visit schedule.",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "ig34_p0409_a006",
+            "pdf_page": 409,
+            "pdf_section": "§7.3.1 Trial Visits (TV) – Example 1",
+            "jaccard": 0.423,
+            "kb_token_coverage": 0.55,
+            "shared_tokens": [
+              "confirmation",
+              "dose",
+              "drug",
+              "eligibility",
+              "epoch",
+              "first",
+              "run",
+              "study",
+              "transition",
+              "treatment"
+            ],
+            "match_kind": "content_overlap_kbcov"
+          }
+        ]
+      },
+      "reasoning": "PDF Jaccard token-overlap match (last-resort): ≥0.55 against 1 PDF atom(s); KB synthesized text shares ≥55% unique 3+char tokens with PDF prose.",
+      "strat": "LOW",
+      "partition": "v1_4_new40"
+    },
+    {
+      "atom_id": "md_dmLB_ex_a017",
+      "file": "knowledge_base/domains/LB/examples.md",
+      "atom_type": "SENTENCE",
+      "parent_section": "§LB.1 [Example 1]",
+      "verbatim": "*Note: The LB Example 1 table contains 18 rows and over 30 columns including STUDYID, DOMAIN, USUBJID, LBSEQ, LBGRPID, LBTESTCD, LBTEST, LBCAT, LBSCAT, LBORRES, LBORRESU, LBORNRLO, LBORNRHI, LBSTRESC, LBSTRESN, LBSTRESU, LBSTNRLO, LBSTNRHI, LBSTNRC, LBNRIND, LBSTAT, LBREASND, LBNAM, LBLOINC, LBSPEC, LBMETHOD, LBBLFL, LBFAST, LBDRVFL, LBTOX, LBTOXGR, LBCLSIG, LBRESSCL, LBRESTYP, LBCOLSRT, LBLLOD, LBTMTHSN, LBTSTCND, LBPTFL, LBPDUR, VISITNUM, VISIT, LBDTC, LBENDTC. Representative test types include Albumin, Alkaline Phosphatase (with derived mean/max), C-Reactive Protein (high sensitivity), Cryoglobulin, Prostate Specific Antigen, Protein (24h urine), Platelet Aggregation, WBC, Lymphocytes, Monocytes, Neutrophils, Cholesterol, and Urine Protein.*",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "ig34_p0247_a011",
+            "pdf_page": 247,
+            "pdf_section": "§6.3.5.6 Laboratory Test Results (LB)",
+            "matched_phrase": "lbornrlo lbornrhi lbstresc lbstresn lbstresu",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "ig34_p0247_a020",
+            "pdf_page": 247,
+            "pdf_section": "§6.3.5.6 Laboratory Test Results (LB)",
+            "matched_phrase": "lbornrlo lbornrhi lbstresc lbstresn lbstresu",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "ig34_p0247_a005",
+            "pdf_page": 247,
+            "pdf_section": "§6.3.5.6 Laboratory Test Results (LB)",
+            "matched_phrase": "lbtestcd lbtest lbcat lbscat lborres",
+            "match_kind": "substring"
+          }
+        ]
+      },
+      "reasoning": "PDF substring match: 3 hit(s) with phrase ≥15 chars verbatim in pdf_atoms.jsonl.",
+      "strat": "LOW",
+      "partition": "v1_4_new40"
+    },
+    {
+      "atom_id": "md_ch08_a332",
+      "file": "knowledge_base/chapters/ch08_relationships.md",
+      "atom_type": "SENTENCE",
+      "parent_section": "§8.8 [Related Specimens (RELSPEC)]",
+      "verbatim": "Example 1: This example uses the sample specimen lineage illustrated below.",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "ig34_p0440_a007",
+            "pdf_page": 440,
+            "pdf_section": "RELSPEC – Examples",
+            "matched_phrase": "this example uses the sample specimen lineage illustrated below",
+            "match_kind": "substring"
+          }
+        ]
+      },
+      "reasoning": "PDF substring match: 1 hit(s) with phrase ≥15 chars verbatim in pdf_atoms.jsonl.",
+      "strat": "LOW",
+      "partition": "v1_4_new40"
+    },
+    {
+      "atom_id": "md_ch04_a004",
+      "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+      "atom_type": "SENTENCE",
+      "parent_section": "§4.0 [Overview]",
+      "verbatim": "This section describes basic concepts, business rules, and assumptions that should be taken into consideration before applying the domain models.",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "ig34_p0007_a014",
+            "pdf_page": 7,
+            "pdf_section": "§1.2 [Organization of this Document]",
+            "matched_phrase": "assumptions that should be taken into consideration before applying",
+            "match_kind": "substring"
+          }
+        ]
+      },
+      "reasoning": "PDF substring match: 1 hit(s) with phrase ≥15 chars verbatim in pdf_atoms.jsonl.",
+      "strat": "LOW",
+      "partition": "v1_4_new40"
+    },
+    {
+      "atom_id": "md_ch04_a819",
+      "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+      "atom_type": "LIST_ITEM",
+      "parent_section": "§4.5.1 [Original and Standardized Results]",
+      "verbatim": "- --ORRES: always the originally collected/reported value",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "sv20_p0026_a002",
+            "pdf_page": 26,
+            "pdf_section": "§3.1.3 The Findings Observation Class",
+            "jaccard": 0.174,
+            "kb_token_coverage": 0.667,
+            "shared_tokens": [
+              "collected",
+              "originally",
+              "orres",
+              "value"
+            ],
+            "match_kind": "content_overlap_kbcov"
+          },
+          {
+            "pdf_atom_id": "sv20_p0025_a008",
+            "pdf_page": 25,
+            "pdf_section": "§3.1.3 The Findings Observation Class",
+            "jaccard": 0.167,
+            "kb_token_coverage": 0.667,
+            "shared_tokens": [
+              "collected",
+              "originally",
+              "orres",
+              "value"
+            ],
+            "match_kind": "content_overlap_kbcov"
+          },
+          {
+            "pdf_atom_id": "sv20_p0026_a001",
+            "pdf_page": 26,
+            "pdf_section": "§3.1.3 The Findings Observation Class",
+            "jaccard": 0.167,
+            "kb_token_coverage": 0.667,
+            "shared_tokens": [
+              "collected",
+              "originally",
+              "orres",
+              "value"
+            ],
+            "match_kind": "content_overlap_kbcov"
+          }
+        ]
+      },
+      "reasoning": "PDF Jaccard token-overlap match (last-resort): ≥0.55 against 3 PDF atom(s); KB synthesized text shares ≥55% unique 3+char tokens with PDF prose.",
+      "strat": "LOW",
+      "partition": "v1_4_new40"
+    },
+    {
+      "atom_id": "md_dmMS_ex_a006",
+      "file": "knowledge_base/domains/MS/examples.md",
+      "atom_type": "SENTENCE",
+      "parent_section": "§MS.1 [Example 1]",
+      "verbatim": "**Rows 5-6:** Show that Local Lab XYZ found that the sample was susceptible to the sponsor drug at a concentration of 0.5 ug/dL and resistant to amoxicillin at a concentration of 0.5 ug/dL.",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "ig34_p0257_a004",
+            "pdf_page": 257,
+            "pdf_section": "§6.3.5.7.3 Microbiology Specimen/Microbiology Susceptibility Examples",
+            "matched_phrase": "rows 5-6: show that local lab xyz found that the sample was susceptible to the s",
+            "match_kind": "substring"
+          }
+        ]
+      },
+      "reasoning": "PDF substring match: 1 hit(s) with phrase ≥15 chars verbatim in pdf_atoms.jsonl.",
+      "strat": "LOW",
+      "partition": "v1_4_new40"
+    },
+    {
+      "atom_id": "md_ch04_a564",
+      "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+      "atom_type": "LIST_ITEM",
+      "parent_section": "§4.4.3.1 [Intervals of Time and Use of Duration]",
+      "verbatim": "- [D] is used as day designator.",
+      "category": "NEEDS_HUMAN_REVIEW",
+      "evidence": {
+        "pdf_evidence": [],
+        "xlsx_evidence": ""
+      },
+      "reasoning": "Neither PDF prose nor xlsx heuristic fired confidently; needs human PDF deep-look.",
+      "strat": "LOW",
+      "partition": "v1_4_new40"
+    },
+    {
+      "atom_id": "md_ch04_a005",
+      "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+      "atom_type": "SENTENCE",
+      "parent_section": "§4.0 [Overview]",
+      "verbatim": "It covers general domain assumptions, general variable assumptions, coding and controlled terminology assumptions, actual and relative time assumptions, and other assumptions.",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "ig34_p0003_a007",
+            "pdf_page": 3,
+            "pdf_section": "§0 [Table of Contents]",
+            "matched_phrase": "coding and controlled terminology assumptions",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "ig34_p0008_a020",
+            "pdf_page": 8,
+            "pdf_section": "§1.3 [Relationship to Prior CDISC Documents]",
+            "matched_phrase": "coding and controlled terminology assumptions",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "ig34_p0036_a027",
+            "pdf_page": 36,
+            "pdf_section": "§4.3 Coding and Controlled Terminology Assumptions",
+            "matched_phrase": "coding and controlled terminology assumptions",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "ig34_p0003_a015",
+            "pdf_page": 3,
+            "pdf_section": "§0 [Table of Contents]",
+            "matched_phrase": "actual and relative time assumptions",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "ig34_p0038_a017",
+            "pdf_page": 38,
+            "pdf_section": "§4.4 Actual and Relative Time Assumptions",
+            "matched_phrase": "actual and relative time assumptions",
+            "match_kind": "substring"
+          }
+        ]
+      },
+      "reasoning": "PDF substring match: 5 hit(s) with phrase ≥15 chars verbatim in pdf_atoms.jsonl.",
+      "strat": "LOW",
+      "partition": "v1_4_new40"
+    },
+    {
+      "atom_id": "md_dmEC_ex_a002",
+      "file": "knowledge_base/domains/EC/examples.md",
+      "atom_type": "SENTENCE",
+      "parent_section": "§EC [EC — Examples]",
+      "verbatim": "Note: Examples for EX and EC are shared in Section 6.1.3.3 of the SDTMIG. See also [EX Examples](../EX/examples.md).",
+      "category": "NEEDS_HUMAN_REVIEW",
+      "evidence": {
+        "pdf_evidence": [],
+        "xlsx_evidence": ""
+      },
+      "reasoning": "Neither PDF prose nor xlsx heuristic fired confidently; needs human PDF deep-look.",
+      "strat": "LOW",
+      "partition": "v1_4_new40"
+    },
+    {
+      "atom_id": "md_dmSUPPQUAL_ex_a010",
+      "file": "knowledge_base/domains/SUPPQUAL/examples.md",
+      "atom_type": "SENTENCE",
+      "parent_section": "§SUPPQUAL.2 [Example 2]",
+      "verbatim": "This example illustrates how the language used for a questionnaire might be represented. The parent domain (RDOMAIN) is QS, and IDVAR is QSCAT. QNAM holds the name of the supplemental qualifier variable being defined (QSLANG). The language recorded in QVAL applies to all of the subject's records, where IDVAR (QSCAT) equals the value specified in IDVARVAL. In this case, IDVARVAL has values for 2 questionnaires—Brief Pain Inventory (BPI) and Alzheimer's Disease Assessment Scale-Cognitive Subscale (ADAS-COG)—for 2 separate subjects. QVAL identifies the questionnaire language version (French or German) for each subject.",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "ig34_p0433_a030",
+            "pdf_page": 433,
+            "pdf_section": "§8.4.3 SUPP-- Examples",
+            "matched_phrase": "this example illustrates how the language used for a questionnaire might be repr",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "ig34_p0433_a035",
+            "pdf_page": 433,
+            "pdf_section": "§8.4.3 SUPP-- Examples",
+            "matched_phrase": "qval identifies the questionnaire language version french or german for each sub",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "ig34_p0433_a032",
+            "pdf_page": 433,
+            "pdf_section": "§8.4.3 SUPP-- Examples",
+            "matched_phrase": "qnam holds the name of the supplemental qualifier variable being defined qslang",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "ig34_p0433_a034",
+            "pdf_page": 433,
+            "pdf_section": "§8.4.3 SUPP-- Examples",
+            "matched_phrase": "in this case, idvarval has values for 2 questionnaires",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "ig34_p0433_a031",
+            "pdf_page": 433,
+            "pdf_section": "§8.4.3 SUPP-- Examples",
+            "matched_phrase": "the parent domain rdomain is qs, and idvar is qscat",
+            "match_kind": "substring"
+          }
+        ]
+      },
+      "reasoning": "PDF substring match: 5 hit(s) with phrase ≥15 chars verbatim in pdf_atoms.jsonl.",
+      "strat": "LOW",
+      "partition": "v1_4_new40"
+    },
+    {
+      "atom_id": "md_dmAE_ex_a042",
+      "file": "knowledge_base/domains/AE/examples.md",
+      "atom_type": "SENTENCE",
+      "parent_section": "§AE.3 [Example 3]",
+      "verbatim": "RELREC may be used to relate AE records and FA records.",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "ig34_p0141_a007",
+            "pdf_page": 141,
+            "pdf_section": "§6.2.1 [Adverse Events (AE)]",
+            "matched_phrase": "relrec may be used to relate ae records and fa records",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "ig34_p0141_a016",
+            "pdf_page": 141,
+            "pdf_section": "§6.2.1 [Adverse Events (AE)]",
+            "matched_phrase": "relrec may be used to relate ae records and fa records",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "ig34_p0344_a001",
+            "pdf_page": 344,
+            "pdf_section": "SS – Assumptions",
+            "matched_phrase": "relrec may be used to",
+            "match_kind": "substring"
+          }
+        ]
+      },
+      "reasoning": "PDF substring match: 3 hit(s) with phrase ≥15 chars verbatim in pdf_atoms.jsonl.",
+      "strat": "LOW",
+      "partition": "v1_4_new40"
+    },
+    {
+      "atom_id": "md_dmAE_ex_a069",
+      "file": "knowledge_base/domains/AE/examples.md",
+      "atom_type": "SENTENCE",
+      "parent_section": "§AE.5 [Example 5]",
+      "verbatim": "She never regained full use of her hip, and was left with a limp.",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "ig34_p0142_a010",
+            "pdf_page": 142,
+            "pdf_section": "§6.2.1 [Adverse Events (AE)]",
+            "matched_phrase": "she never regained full use of her hip, and was left with a limp",
+            "match_kind": "substring"
+          }
+        ]
+      },
+      "reasoning": "PDF substring match: 1 hit(s) with phrase ≥15 chars verbatim in pdf_atoms.jsonl.",
+      "strat": "LOW",
+      "partition": "v1_4_new40"
+    },
+    {
+      "atom_id": "md_model03_a057",
+      "file": "knowledge_base/model/03_special_purpose_domains.md",
+      "atom_type": "TABLE_ROW",
+      "parent_section": "§ Demographics (DM) > Key Reference Date Variables",
+      "verbatim": "| RFXSTDTC | Date/Time of First Study Treatment | First exposure to study treatment |",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "ig34_p0063_a003",
+            "pdf_page": 63,
+            "pdf_section": "§5.2 [Demographics (DM)]",
+            "matched_phrase": "date/time of first study treatment",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "sv20_p0041_a001",
+            "pdf_page": 41,
+            "pdf_section": "§3.2.1 [Demographics]",
+            "matched_phrase": "date/time of first study treatment",
+            "match_kind": "substring"
+          }
+        ]
+      },
+      "reasoning": "PDF substring match: 2 hit(s) with phrase ≥15 chars verbatim in pdf_atoms.jsonl.",
+      "strat": "LOW",
+      "partition": "v1_4_new40"
+    },
+    {
+      "atom_id": "md_ch04_a709",
+      "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+      "atom_type": "TABLE_ROW",
+      "parent_section": "§4.4.10 [Representing Time Points]",
+      "verbatim": "| --TPTNUM | Planned Time Point Number (for sorting) |",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "ig34_p0105_a012",
+            "pdf_page": 105,
+            "pdf_section": "§6.1.3.1 [Exposure (EX)]",
+            "matched_phrase": "tptnum planned time point number",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "ig34_p0109_a006",
+            "pdf_page": 109,
+            "pdf_section": "§6.1.3.2 [Exposure as Collected (EC)]",
+            "matched_phrase": "tptnum planned time point number",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "ig34_p0122_a008",
+            "pdf_page": 122,
+            "pdf_section": "§6.1.4 [Meal Data (ML)]",
+            "matched_phrase": "tptnum planned time point number",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "ig34_p0126_a017",
+            "pdf_page": 126,
+            "pdf_section": "§6.1.5 [Procedures (PR)]",
+            "matched_phrase": "tptnum planned time point number",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "ig34_p0187_a021",
+            "pdf_page": 187,
+            "pdf_section": "§6.3.3 ECG Test Results (EG)",
+            "matched_phrase": "tptnum planned time point number",
+            "match_kind": "substring"
+          }
+        ]
+      },
+      "reasoning": "PDF substring match: 5 hit(s) with phrase ≥15 chars verbatim in pdf_atoms.jsonl.",
+      "strat": "LOW",
+      "partition": "v1_4_new40"
+    },
+    {
+      "atom_id": "md_dmTA_ex_a015",
+      "file": "knowledge_base/domains/TA/examples.md",
+      "atom_type": "SENTENCE",
+      "parent_section": "§TA.1 [Example 1]",
+      "verbatim": "Each study cell contains exactly 1 element.",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "ig34_p0389_a001",
+            "pdf_page": 389,
+            "pdf_section": "§7.2.1 Trial Arms (TA) – Example 1",
+            "matched_phrase": "each study cell contains exactly 1 element",
+            "match_kind": "substring"
+          }
+        ]
+      },
+      "reasoning": "PDF substring match: 1 hit(s) with phrase ≥15 chars verbatim in pdf_atoms.jsonl.",
+      "strat": "LOW",
+      "partition": "v1_4_new40"
+    },
+    {
+      "atom_id": "md_dmCE_ex_a108",
+      "file": "knowledge_base/domains/CE/examples.md",
+      "atom_type": "SENTENCE",
+      "parent_section": "§CE.3 [Example 3]",
+      "verbatim": "PRDTC is populated with the date on which medical history was collected, which also appeared in MHDTC.",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "ig34_p0154_a0025",
+            "pdf_page": 154,
+            "pdf_section": "§6.2.3 [Clinical Events]",
+            "matched_phrase": "prdtc is populated with the date on which medical history was collected, which a",
+            "match_kind": "substring"
+          },
+          {
+            "pdf_atom_id": "ig34_p0049_a017",
+            "pdf_page": 49,
+            "pdf_section": "§4.4.11 [Disease Milestones and Disease Milestone Timing Variables]",
+            "matched_phrase": "is populated with the date",
+            "match_kind": "substring"
+          }
+        ]
+      },
+      "reasoning": "PDF substring match: 2 hit(s) with phrase ≥15 chars verbatim in pdf_atoms.jsonl.",
+      "strat": "LOW",
+      "partition": "v1_4_new40"
+    },
+    {
+      "atom_id": "md_ch08_a291",
+      "file": "knowledge_base/chapters/ch08_relationships.md",
+      "atom_type": "LIST_ITEM",
+      "parent_section": "§8.7 [Related Subjects (RELSUB)]",
+      "verbatim": "8. All collected relationships between subjects should be recorded in RELSUB. In some cases, 2 subjects may have more than 1 relationship. For instance, a woman might be both maternal aunt and wet nurse to an infant. When there are multiple relationships between 2 subjects, each relationship will be represented by 2 records in RELSUB.",
+      "category": "REASONABLE_INFERENCE",
+      "evidence": {
+        "pdf_evidence": [
+          {
+            "pdf_atom_id": "ig34_p0438_a020",
+            "pdf_page": 438,
+            "pdf_section": "RELSUB – Assumptions",
+            "matched_phrase": "8. all collected relationships between subjects should be recorded in relsub. in",
+            "match_kind": "substring"
+          }
+        ]
+      },
+      "reasoning": "PDF substring match: 1 hit(s) with phrase ≥15 chars verbatim in pdf_atoms.jsonl.",
+      "strat": "LOW",
+      "partition": "v1_4_new40"
+    }
+  ]
+}

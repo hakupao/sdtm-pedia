@@ -7,6 +7,8 @@ variant that keeps:
 
 - Domain-level title (renormalized to level-3: ``### <X> — Examples``)
 - Each Example heading (``## Example N`` -> ``#### Example N``)
+- Each ``## §N.N.N`` section heading (e.g. cross-domain Quick Reference or
+  Worked Examples sections) -> ``#### §N.N.N`` (v1.4 A3.1 pipeline fix)
 - The **first** description paragraph for each Example, capped at 2 lines
 - Bold XPT/dataset filename markers (``**ae.xpt**``, ``**suppae.xpt**`` ...)
 - Every markdown data table (pipe-tables with ``|---|`` separator rows)
@@ -64,7 +66,7 @@ import tiktoken
 
 # --- Paths ------------------------------------------------------------------
 
-REPO_ROOT = Path(__file__).resolve().parents[3]
+REPO_ROOT = Path(__file__).resolve().parents[4]
 KB_DOMAINS = REPO_ROOT / "knowledge_base" / "domains"
 OUTPUT_DIR = REPO_ROOT / "ai_platforms" / "claude_projects" / "output_v2"
 
@@ -94,6 +96,8 @@ FILENAME_BOLD_RE = re.compile(r"^\*\*[a-z][a-z0-9_]*\.(xpt|csv|sas7bdat)\*\*\s*$
 ROW_EXPLAIN_RE = re.compile(r"^\*\*Rows?\s+[\d,\- ]+:\*\*")
 # Regex: the ``## Example N`` heading.
 EXAMPLE_HDR_RE = re.compile(r"^##\s+Example\b")
+# Regex: ``## §N.N.N`` style section headings (v1.4 A3.1 pipeline fix).
+SECTION_HDR_RE = re.compile(r"^##\s+§\d+(\.\d+)+\b")
 # Regex: any H3 subheading (``### ...``).
 SUB_HDR_RE = re.compile(r"^###\s+")
 # Regex: italic note line ``*...shared with...*`` or ``*...see also...*``.
@@ -255,7 +259,7 @@ def extract_domain(domain: str, text: str) -> str:
     if i < n and lines[i].startswith("# "):
         i += 1
     preamble_notes: list[str] = []
-    while i < n and not EXAMPLE_HDR_RE.match(lines[i]):
+    while i < n and not EXAMPLE_HDR_RE.match(lines[i]) and not SECTION_HDR_RE.match(lines[i]):
         ln = lines[i]
         if CROSSREF_NOTE_RE.match(ln.strip()):
             preamble_notes.append(ln.strip())
@@ -309,6 +313,30 @@ def extract_domain(domain: str, text: str) -> str:
             pending_sub_header = None
             i += 1
             # Try to consume the first description for this example.
+            desc, new_i = _first_description(lines, i)
+            if desc:
+                _emit_example_header_if_needed()
+                for d in desc:
+                    out.append(d)
+                out.append("")
+                first_desc_consumed_for_current_example = True
+                i = new_i
+            continue
+
+        # Section header (## §N.N.N ...): flush state, start a new section
+        # scope (v1.4 A3.1 pipeline fix — captures Quick Reference / Worked
+        # Examples sections that v1 catalog_examples.py and the original v2
+        # walker silently dropped).
+        if SECTION_HDR_RE.match(ln):
+            _strip_trailing_blank(out)
+            out.append("")
+            # Remap "## §N.N.N ..." -> "#### §N.N.N ..."
+            current_example_header = "#### " + ln[len("## "):].strip()
+            example_header_emitted = False
+            first_desc_consumed_for_current_example = False
+            pending_sub_header = None
+            i += 1
+            # Try to consume the first description for this section.
             desc, new_i = _first_description(lines, i)
             if desc:
                 _emit_example_header_if_needed()
