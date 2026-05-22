@@ -36,7 +36,7 @@ SDTM 知识库, 从 CDISC PDF + xlsx 抽取, 多旁枝 (字面级深审 / 双 AI
 | 05 RAG/KG | `.work/05_rag_kg/session_2026-04-16_design.md` | **搁置** (仅设计 session, 未启动) |
 | 06 Deep Verification | `branches/06_deep_verification/PLAN.md` | 🟢 P3 ✅ COMPLETE 2026-05-11; P4a 待启动 |
 | 6.5 AI Platforms | `ai_platforms/SYNC_BOARD.md` | active (双平台锁步) |
-| 7 Release | `.work/07_release/PLAN.md` | closed (v1.0 cut) |
+| 7 Release | `.work/07_release_v1_4/PLAN.md` (latest) + `.work/07_release{,_v1_1,_v1_2,_v1_3,_v1_4}/` | latest v1.4 cut 2026-05-22 (tag `v1.4-company-release`); v1.0/v1.1/v1.2/v1.3 closed |
 | 7 Website | `.work/07_website/phase{6,7,8}/` | closed (prod 已发布) |
 | iTMS 日本納品旁枝 | `branches/jp_delivery/PLAN.md` | active |
 | **本次重构 v1** | `.work/refactor_v1/PLAN.md` | ✅ 全 closed 2026-05-11 (branches/ 迁移完成) |
