@@ -148,5 +148,45 @@
 - 確認: PASS 五条 #3 reviewer deferred (sanity 规模, 1A.3 chunker writer 触发 Rule D 真审); 必要时可加 critic 复审
 - 承認: Bojiang 2026-05-22 ack ("我填好了" + key 验证 + executor 全跑通); commit pending
 - next: 1A.3 chunker_impl (8 chunker 实现 + 测试套件, 3 batch 并行 dispatch executor; estimate 1.5 d per PLAN §5)
+- commit: ac0b64b "07 RAG+KG Phase 1A.2 sanity FULL CLOSURE — 6/6 sub PASS (R-22+R-8+R-19+R-14 verify)"
+
+## Phase 1A.3 Chunker Implementation CLOSURE (2026-05-22, 8 modules + smoke 10/10 PASS + L-1..L-5 verified)
+- 区分: Phase 1A.3 着手 → 全闭環 (main + 3 executor 並列, EXECUTION_PLAN §1A.3 並列 0.9 d 估算 → 実際 < 15 min)
+- 触発: 用户 2026-05-22 "commit and start 1A.3"
+- 並列 dispatch: 3 executor (Batch A sonnet + Batch B opus + Batch C opus) 同時 background, main 在等待中先写 base.py
+- main session: `branches/07_rag_kg/sdtm-rag/scripts/chunkers/base.py` (190 LOC, 6.7KB) — Chunk dataclass + BaseChunker ABC + helpers (count_tokens via tiktoken cl100k_base / find_mermaid_blocks 状态机 / find_table_blocks GFM regex / heading_positions / kb_commit_sha R-7/R-18); smoke PASS (TA 20 mermaid + 8 H2 + Chunk metadata 18 keys 验证)
+- Batch A (executor sonnet a3fb9d415548679a5, 2 min wallclock):
+  - spec.py 1.5KB / assumptions.py 2.9KB / model.py 2.2KB
+  - Smoke: AE/spec.md=64 chunks (PLAN 估 ~50, H3 含 non-variable meta), AE/assumptions.md=13 (overview+12 items), model/01=2 chunks; type / metadata / token 全 PASS
+- Batch B (executor opus affb90466ee2f2ac5, 3.7 min wallclock):
+  - examples.py 7.8KB / 210 LOC — domain-aware: H2 flat (TA/IS/DS) or H4 nested (PC); L-1 mermaid 状态机 + L-2 GFM pipe-table 保护
+  - Smoke: TA=8 PC=14 IS=11 DS=11; L-1 + L-2 protection verified 0 split-point violations across 4 samples; PC critical edge 14 chunks (Example 4 只有 Method A+D, total 14 not 16)
+- Batch C (executor opus a8a49aea2b8111253, 4.2 min wallclock):
+  - chapters.py 3.8KB (L-4 size-aware) / terminology.py 4.5KB (L-5 part vs codelist) / variable_index.py 6.5KB
+  - Smoke 26/26 PASS: ch01 (11KB)=1 whole / ch04 (130KB)=47 ### chunks max 3852 tokens < 8K (L-4 holds) / ch08=19; ae.md=4 lb_part1=1 part lb_part4=2 codelist (H2>1 wins) questionnaires_part1=66; VARIABLE_INDEX=65 (§一 1 + §二 63 H3 + §三 1 single chunk no sub-headings)
+- main integration smoke (10/10 PASS): 全 8 chunker + 10 samples + 18 metadata keys + token via tiktoken
+- chunkers/__init__.py update: CHUNKER_REGISTRY {file_type: class} dict (7 entries 验证) for 1A.5 ingest dispatch
+- chunker config 5 lock 全在真实代码中 verified:
+  - L-1 mermaid 状态机 (base.py find_mermaid_blocks): TA 20 mermaid blocks found
+  - L-2 GFM pipe-table regex (base.py find_table_blocks): 0 HTML handling needed
+  - L-3 tiktoken cl100k_base (base.py count_tokens): all chunks tokens via tiktoken
+  - L-4 chapters size-aware (chapters.py): ch04 47 ### chunks max 3852 < 8K (solves §4.4 9598 over-limit)
+  - L-5 terminology part vs codelist (terminology.py): lb_part4 H2=2 → codelist mode correctly (NOT part mode)
+- ★ Anomaly / finding (1A.5 ingest preview):
+  - Chunk count revision: PLAN §3 估 ~4304 实测推算偏低 ~15-40% (AE spec H3=64 含 non-variable, assumptions overestimate, examples slight over); 1A.5 ingest 实测后修订
+  - VARIABLE_INDEX §三 1 chunk (no sub-headings detected; PLAN §6.5 expected ~5 chunks) — 1A.4 评估 byte-size 切分
+  - ct_extensible 默认 None (无可靠 signal source) — 1A.4 评估
+  - lb_part2/3 巨型 part (378KB/417KB) 当前按 part 模式 1 整 chunk, 可能超 8K token — 1A.4/1A.5 实现 fallback table-row 切分 (PLAN §6.4 已 spec)
+- ファイル変更 (16 files commit-ready):
+  - sdtm-rag/scripts/chunkers/{base,spec,assumptions,model,examples,chapters,terminology,variable_index}.py (8 NEW)
+  - sdtm-rag/scripts/chunkers/{_smoke_batch_a,_smoke_batch_b,_smoke_batch_c}.py (3 NEW)
+  - sdtm-rag/scripts/chunkers/{_batch_a_done,_batch_b_done,_batch_c_done}.md (3 NEW)
+  - sdtm-rag/scripts/chunkers/__init__.py (modified: CHUNKER_REGISTRY 加 + 7 chunker class export)
+  - evidence/checkpoints/phase_1a_3_chunker_impl.md (NEW, ~12KB)
+  - _progress.json + CHANGELOG.md (modified)
+- 作成: main + 3 executor subagents 並列
+- 確認: PASS 五条 #3 reviewer + #4 規則 A 抽検 deferred 至 1A.4 (test-engineer 写测试 + code-reviewer 异 type 审; Rule D 真審 触发点)
+- 承認: pending Bojiang ack
+- next: 1A.4 chunker_tests (test-engineer dispatch 写测试套件; corner cases per _batch_X_done.md TODOs; estimate 0.7 d per PLAN §5)
 
 ---
