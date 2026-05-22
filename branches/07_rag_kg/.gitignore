@@ -1,0 +1,18 @@
+# branches/07_rag_kg/ — branch-level gitignore
+# (sdtm-rag/.gitignore controls only paths inside sdtm-rag/)
+
+# Sanity venvs (e.g. .venv-sanity created by 1A.2 executor — Py 3.12 via uv,
+# system Python 3.9.6 maxes litellm at 1.83.9). Not for commit; user re-creates if needed.
+.venv*/
+venv*/
+env*/
+
+# Python caches
+__pycache__/
+*.py[cod]
+.cache/
+
+# Test caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/

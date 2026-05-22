@@ -117,5 +117,36 @@
 - 確認: PASS 五条 #3 reviewer deferred (decision log update, writer=main 圧縮率 0); 必要なら critic 二審
 - 承認: Bojiang Zhang 2026-05-22 二回 ack ("1. yes [bge-m3], 2. 保留 [Anthropic]")
 - next: ユーザー DeepSeek V4-Pro API key + ANTHROPIC API key を `branches/07_rag_kg/sdtm-rag/.env` に書込后 1A.2 起動 (`executor` subagent)
+- commit: fe1c3fd "07 RAG+KG Phase 1A.2 prep — D-4 v2 mini-revision (bge-m3 主 + V4-Pro 非思考)"
+
+## Phase 1A.2 Sanity FULL CLOSURE (2026-05-22, R-22+R-8+R-19+R-14 全 verify; 6/6 sub PASS)
+- 区分: Phase 1A.2 着手 → 全闭環 (2 executor subagents af995be32d11ce7f4 + a8fc8fe132b31c2fd + main recover)
+- 触発: 用户 2026-05-22 "key 填好了 [ANTHROPIC + DEEPSEEK], 启动 1A.2" — Path A1 (原 PLAN D-2) 确定
+- **1A.2.f bge-m3 sanity (R-22)**: torch 2.8.0 + sentence-transformers 5.1.2 on host Py 3.9.6 + MPS available; cold single batch=5 = 583ms FAIL (JIT cold + 测试缺陷) → **warm batch=64 = 11.32ms/chunk PASS** 9x 超出 <100ms target; 全 4304 chunks ingest ~48s; dim=1024 confirmed. **R-22 VERIFIED + MITIGATED**
+- **1A.2.a-e LiteLLM sanity** (litellm 1.85.1 + python-dotenv 1.2.2 + tiktoken 0.13.0 in uv venv Py 3.12.13; ★ system Py 3.9.6 pip 上限 litellm 1.83.9):
+  - Test 1 anthropic/claude-sonnet-4-6 2-turn: PASS 6606ms (T1=3473 T2=3132 multi-turn 流畅)
+  - Test 2 deepseek/deepseek-chat 2-turn: PASS 4124ms (V4-Pro 非思考 multi-turn OK, R-8 mitigation 验证)
+  - Test 3 deepseek/deepseek-reasoner 1-turn: PASS 6243ms (content 254 + reasoning_content 1405, ★ self-reports as `deepseek-v4-flash` LiteLLM naming quirk)
+  - Test 4 litellm.Router fallback (Sonnet→DeepSeek): PASS 1559ms (R-19 v1.84.0 breaking changes SDK mode 不受影响 verified)
+  - Test 5 anthropic/claude-haiku-4-5 context 9921 cl100k tokens: PASS 1827ms (R-14 Haiku context window ≥9921 实测; PLAN §4.4 [UNVERIFIED] 解除候补)
+  - Attempt 1 Test 3 FAIL (max_tokens=300 不够 reasoner CoT); Attempt 2 max_tokens=600 + Haiku 30→80 repeats = ALL PASS
+- **R-8 verdict**: DeepSeek reasoner single-turn SAFE with max_tokens≥500; multi-turn 仍然 AVOID (LiteLLM Issue #26395 Open); 生产 RAG 全程强制非思考 + `extra_body={"thinking": {"type": "disabled"}}` (PLAN §4.4 既述)
+- **R-19 verdict**: LiteLLM Router SDK mode 不受 v1.84.0 breaking changes 影响 (Test 4 verified)
+- **R-14 verdict**: Haiku 4.5 context ≥ 9921 tokens 实测; research/llm_providers §4 [UNVERIFIED] 标签 PLAN doc 下次 revision 一并解除 (defer, 避免本 commit churn)
+- ★ Anomaly handling:
+  - System Py 3.9.6 pip cannot install litellm≥1.85.1 (TypeAlias 类问题) → executor 用 uv venv Py 3.12.13; 1A.3+ writer 需要 venv 或 Docker; `.venv-sanity/` 141MB → 加入新建 `branches/07_rag_kg/.gitignore` (branch-level, .venv*/__pycache__/caches)
+  - DeepSeek reasoner self-reports model as deepseek-v4-flash (naming quirk, functional OK)
+  - botocore warnings 已 suppress via `litellm.suppress_debug_info = True`
+- ファイル変更 (6 files commit-ready):
+  - `branches/07_rag_kg/scripts/sanity_bge_m3.py` (NEW, executor af995be, 3.4KB)
+  - `branches/07_rag_kg/scripts/sanity_bge_m3_warm.py` (NEW, main warm follow-up)
+  - `branches/07_rag_kg/scripts/sanity_litellm.py` (NEW, executor a8fc8fe, 12.4KB; uses dotenv+suppress_debug+record 模式)
+  - `branches/07_rag_kg/evidence/checkpoints/phase_1a_2_litellm_sanity.md` (NEW FULL, 含 1A.2.f §2 + 1A.2.a-e §3 + R-8/R-19/R-14 verdict §5-7)
+  - `branches/07_rag_kg/.gitignore` (NEW branch-level, .venv*/ __pycache__/ caches)
+  - `branches/07_rag_kg/_progress.json` (modified: 6 sub entries + status=completed + current_phase=1A.0+1A.1+1A.2 closed → 1A.3 chunker_impl)
+- 作成: main session + 2 executor subagents (af995be32d11ce7f4 partial bge-m3 first run + a8fc8fe132b31c2fd LiteLLM full)
+- 確認: PASS 五条 #3 reviewer deferred (sanity 规模, 1A.3 chunker writer 触发 Rule D 真审); 必要时可加 critic 复审
+- 承認: Bojiang 2026-05-22 ack ("我填好了" + key 验证 + executor 全跑通); commit pending
+- next: 1A.3 chunker_impl (8 chunker 实现 + 测试套件, 3 batch 并行 dispatch executor; estimate 1.5 d per PLAN §5)
 
 ---

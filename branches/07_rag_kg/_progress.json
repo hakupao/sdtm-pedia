@@ -4,9 +4,9 @@
   "tier": 2,
   "tier_note": "borderline Tier 2-3, 走 Tier 2 + evidence 全留; Phase 2 KG 启动时再评估升 Tier 3",
   "created": "2026-05-22",
-  "updated": "2026-05-22 (Phase 1A.2 prep — D-4 v2 mini-revision: bge-m3 主 + V4-Flash → V4-Pro 非思考)",
+  "updated": "2026-05-22 (Phase 1A.2 sanity completed — litellm 1.85.1 ALL PASS: Sonnet 2-turn + DeepSeek chat 2-turn + reasoner 1-turn + Router + Haiku 10K context)",
   "upstream_design": "docs/DESIGN_RAG_KG.md (Approved 2026-04-16)",
-  "current_phase": "phase_1a_ingest 1A.0+1A.1 closed + D-4 v2 修订完成, 待用户 API key 配置 → 1A.2 LiteLLM+bge-m3 sanity",
+  "current_phase": "phase_1a_ingest 1A.0+1A.1+1A.2 closed → next: 1A.3 chunker_impl",
   "phases": {
     "phase_0_research": {
       "status": "completed",
@@ -72,9 +72,87 @@
           "pass_at": "2026-05-22"
         },
         "1a_2_litellm_sanity": {
-          "status": "pending",
-          "depends_on": ["user 在 .env 填 ANTHROPIC_API_KEY + DEEPSEEK_API_KEY"],
-          "sub_after_d4_v2": ["1A.2.a V4-Pro 非思考 2 轮 + V4-Pro 思考 1 轮", "1A.2.b 记录", "1A.2.c R-8 决策", "1A.2.d Router fallback chain", "1A.2.e Haiku context window", "1A.2.f bge-m3 sanity (R-22)"]
+          "status": "completed",
+          "pass_at": "2026-05-22",
+          "evidence": "evidence/checkpoints/phase_1a_2_litellm_sanity.md (FULL)",
+          "litellm_version": "1.85.1",
+          "python_version": "3.12.13 (uv venv .venv-sanity)",
+          "python_dotenv_version": "1.2.2",
+          "tiktoken_version": "0.13.0",
+          "overall_verdict": "ALL PASS (5/5 tests)",
+          "sub_f_bge_m3_R_22": {
+            "status": "completed",
+            "evidence": "evidence/checkpoints/phase_1a_2_litellm_sanity.md §2",
+            "device": "mps",
+            "mps_available": true,
+            "torch_version": "2.8.0",
+            "sentence_transformers_version": "5.1.2",
+            "chromadb_version": "1.5.9",
+            "dim_verified": 1024,
+            "cold_start_ms_per_chunk_batch5": 583.97,
+            "warm_single_ms_avg": 29.94,
+            "warm_batch_64_ms_per_chunk": 11.32,
+            "full_ingest_estimate_4304_chunks_sec": 48,
+            "r_22_verdict": "VERIFIED + MITIGATED (warm batch=64 well below 100ms target)",
+            "pass_at": "2026-05-22"
+          },
+          "sub_a_anthropic_sonnet_2turn": {
+            "status": "completed",
+            "model": "anthropic/claude-sonnet-4-6",
+            "turns": 2,
+            "latency_ms": 6606,
+            "turn1_ms": 3473,
+            "turn2_ms": 3132,
+            "evidence": "evidence/checkpoints/phase_1a_2_litellm_sanity.md §3.2 Test 1",
+            "pass_at": "2026-05-22"
+          },
+          "sub_a_deepseek_chat_2turn": {
+            "status": "completed",
+            "model": "deepseek/deepseek-chat",
+            "turns": 2,
+            "latency_ms": 4124,
+            "turn1_ms": 2234,
+            "turn2_ms": 1889,
+            "evidence": "evidence/checkpoints/phase_1a_2_litellm_sanity.md §3.2 Test 2",
+            "pass_at": "2026-05-22"
+          },
+          "sub_a_deepseek_reasoner_1turn": {
+            "status": "completed",
+            "model": "deepseek/deepseek-reasoner",
+            "turns": 1,
+            "latency_ms": 6243,
+            "content_len": 254,
+            "reasoning_content_len": 1405,
+            "self_reported_model": "deepseek-v4-flash",
+            "r_8_verdict": "SINGLE-TURN SAFE (max_tokens>=500 required); MULTI-TURN AVOID (LiteLLM Issue #26395)",
+            "note": "max_tokens=300 too small on first attempt; fixed to 600",
+            "evidence": "evidence/checkpoints/phase_1a_2_litellm_sanity.md §3.2 Test 3 + §5",
+            "pass_at": "2026-05-22"
+          },
+          "sub_d_router_fallback": {
+            "status": "completed",
+            "model": "Router(anthropic/claude-sonnet-4-6 -> deepseek/deepseek-chat)",
+            "latency_ms": 1559,
+            "r_19_verdict": "PASS — LiteLLM v1.84.0 breaking changes do NOT affect single-machine SDK Router mode",
+            "evidence": "evidence/checkpoints/phase_1a_2_litellm_sanity.md §3.2 Test 4 + §6",
+            "pass_at": "2026-05-22"
+          },
+          "sub_e_haiku_context_window": {
+            "status": "completed",
+            "model": "anthropic/claude-haiku-4-5",
+            "tokens_tested": 9921,
+            "encoding": "cl100k_base (gpt-4 / tiktoken)",
+            "latency_ms": 1827,
+            "response_len": 394,
+            "under_30s": true,
+            "r_14_verdict": "context_window >= 9921 tokens CONFIRMED; PLAN §4 [UNVERIFIED] tag can be removed",
+            "evidence": "evidence/checkpoints/phase_1a_2_litellm_sanity.md §3.2 Test 5 + §7",
+            "pass_at": "2026-05-22"
+          },
+          "executor_subagent_log": {
+            "agent_1_af995be32d11ce7f4": "partial (bge-m3 deps + script, early exit before evidence/progress)",
+            "agent_2_a8fc8fe132b31c2fd": "full (litellm a-e tests, evidence FULL, _progress update)"
+          }
         },
         "1a_3_chunker_impl": {"status": "pending"},
         "1a_4_chunker_tests": {"status": "pending"},
