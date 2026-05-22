@@ -130,6 +130,17 @@ The shared PP dataset contains 12 rows showing PK parameters (TMAX, CMAX, AUCALL
 
 The full 4 worked Examples (1-4) with complete `relrec.xpt` tables for all 4 Methods (A/B/C/D) appear in `PC/examples.md` (the shared §6.3.5.9.3 host). This section gives a PP-domain-focused quick reference of how each Method appears on the PP side, plus one abbreviated `relrec.xpt` showing the actual PP rows for Method C (the most common pattern when individual PP parameters need to be linked to a group of PC concentration records).
 
+### Method label mapping (anti-drift anchor)
+
+| Method | Cardinality | PC-side IDVAR | PP-side IDVAR |
+|--------|-------------|---------------|---------------|
+| **A** | Many-to-Many | `PCGRPID` | `PPGRPID` |
+| **B** | One-to-Many | `PCSEQ` | `PPGRPID` |
+| **C** | Many-to-One | `PCGRPID` | `PPSEQ` |
+| **D** | One-to-One | `PCSEQ` | `PPSEQ` |
+
+These four pairs are the canonical mappings from SDTMIG v3.4 §6.3.5.9.3. When answering Method-label questions, cite this table directly — do not infer labels from cardinality alone.
+
 ### Method A — Many to Many, Using PCGRPID and PPGRPID (p277)
 
 PP-side row form: `IDVAR = PPGRPID`, `IDVARVAL = <ppgrpid-value>` (e.g., `DY1DRGX`).

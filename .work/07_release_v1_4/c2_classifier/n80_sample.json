@@ -1,0 +1,748 @@
+{
+  "_meta": {
+    "phase": "v1.4 Phase C C2 N=80 expansion",
+    "N_total": 80,
+    "partitions": {
+      "v1_3_n40": {
+        "count": 40,
+        "high": 10,
+        "low": 30,
+        "seed": 20260520
+      },
+      "v1_4_new40": {
+        "count": 40,
+        "high": 0,
+        "low": 40,
+        "seed": 20260522
+      }
+    },
+    "high_pool_total": 10,
+    "high_pool_exhausted_in_v1_3": true,
+    "low_pool_total": 427,
+    "low_remaining_after_v1_3": 397,
+    "sampling_strategy": "HIGH stratum fully consumed in v1.3 (10/10); v1.4 +40 all sampled from LOW remaining (397 atoms). v1.3 HIGH=10 carried into N=80 as regression baseline. HIGH stratum total in N=80 = 10 (unchanged from v1.3); LOW stratum total = 70 (30 v1.3 + 40 v1.4 new).",
+    "note": "Sampling per v1.4 PLAN.md §C2 \"HIGH stratum +20 + LOW stratum +20\" relaxed because HIGH pool size = 10 < 20 (full pool already drawn in v1.3 A4). N=40 new partition therefore concentrated on LOW (40) to preserve total N=80 size. seed=20260522 (different from v1.3 seed=20260520 ensures non-overlapping random subset of LOW)."
+  },
+  "atoms": [
+    {
+      "partition": "v1_3_n40",
+      "strat": "HIGH",
+      "atom_id": "md_ch04_a035",
+      "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+      "section": "§4.1.5 [SDTM Core Designations]",
+      "type": "TABLE_ROW",
+      "verbatim": "| **Exp** (Expected) | Must be included in the dataset | Value should be populated when available; null values allowed when data not collected/applicable; must still include the column and add a comment in the Define-XML document to state that the study does not include the data item |"
+    },
+    {
+      "partition": "v1_3_n40",
+      "strat": "HIGH",
+      "atom_id": "md_ch01_a077",
+      "file": "knowledge_base/chapters/ch01_introduction.md",
+      "section": "§1.4.1 [How to Read a Domain Specification]",
+      "type": "TABLE_ROW",
+      "verbatim": "| **Core** | \"Req\" (Required), \"Exp\" (Expected), or \"Perm\" (Permissible) |"
+    },
+    {
+      "partition": "v1_3_n40",
+      "strat": "HIGH",
+      "atom_id": "md_ch08_a286",
+      "file": "knowledge_base/chapters/ch08_relationships.md",
+      "section": "§8.7 [Related Subjects (RELSUB)]",
+      "type": "LIST_ITEM",
+      "verbatim": "3. If POOLID is submitted, then in any record, 1 and only 1 of USUBJID and POOLID must be populated."
+    },
+    {
+      "partition": "v1_3_n40",
+      "strat": "HIGH",
+      "atom_id": "md_ch08_a288",
+      "file": "knowledge_base/chapters/ch08_relationships.md",
+      "section": "§8.7 [Related Subjects (RELSUB)]",
+      "type": "LIST_ITEM",
+      "verbatim": "5. RSUBJID must be a USUBJID value present in the Demographics (DM) domain. RSUBJID must be populated in every record."
+    },
+    {
+      "partition": "v1_3_n40",
+      "strat": "HIGH",
+      "atom_id": "md_ch08_a294",
+      "file": "knowledge_base/chapters/ch08_relationships.md",
+      "section": "§8.7 [Related Subjects (RELSUB)]",
+      "type": "SENTENCE",
+      "verbatim": "Some expected and required variables not needed to illustrate the example are not shown."
+    },
+    {
+      "partition": "v1_3_n40",
+      "strat": "HIGH",
+      "atom_id": "md_dmDM_assn_a018",
+      "file": "knowledge_base/domains/DM/assumptions.md",
+      "section": "§DM [DM — Assumptions]",
+      "type": "LIST_ITEM",
+      "verbatim": "5. Study population flags should not be included in SDTM data. The standard supplemental qualifiers included in previous versions of the SDTMIG (COMPLT, FULLSET, ITT, PPROT, SAFETY) should not be used. Note: The ADaM Subject-level Analysis Dataset (ADSL) specifies standard variable names for the most common populations and requires the inclusion of these flags when necessary for analysis; consult the ADaMIG for more information about these variables."
+    },
+    {
+      "partition": "v1_3_n40",
+      "strat": "HIGH",
+      "atom_id": "md_dmPC_ex_a049",
+      "file": "knowledge_base/domains/PC/examples.md",
+      "section": "§PC.2 [Relating PC and PP — Overview]",
+      "type": "SENTENCE",
+      "verbatim": "Sponsors must document the concentrations used to calculate each parameter. This may be done in analysis dataset metadata or by documenting relationships between records in the Pharmacokinetics Parameters (PP) and Pharmacokinetics Concentrations (PC) datasets in a RELREC dataset (see Section 8.2, Relating Peer Records, and Section 8.3, Relating Datasets)."
+    },
+    {
+      "partition": "v1_3_n40",
+      "strat": "HIGH",
+      "atom_id": "md_dmSUPPQUAL_assn_a007",
+      "file": "knowledge_base/domains/SUPPQUAL/assumptions.md",
+      "section": "§SUPPQUAL [SUPPQUAL — Assumptions]",
+      "type": "SENTENCE",
+      "verbatim": "All records in the SUPP-- datasets must have a value for QVAL. Transposing source variables with missing/null values may generate SUPP-- records with null values for QVAL, causing the SUPP-- datasets to be extremely large. When this happens, the sponsor must delete the records where QVAL is null prior to submission."
+    },
+    {
+      "partition": "v1_3_n40",
+      "strat": "HIGH",
+      "atom_id": "md_dmTR_assn_a018",
+      "file": "knowledge_base/domains/TR/assumptions.md",
+      "section": "§TR [TR — Assumptions]",
+      "type": "NOTE",
+      "verbatim": "**Note:** TREVAL must also be populated when TREVALID is populated."
+    },
+    {
+      "partition": "v1_3_n40",
+      "strat": "HIGH",
+      "atom_id": "md_dmTU_assn_a046",
+      "file": "knowledge_base/domains/TU/assumptions.md",
+      "section": "§TU [TU — Assumptions]",
+      "type": "NOTE",
+      "verbatim": "**Note:** TUEVAL must also be populated when TUEVALID is populated."
+    },
+    {
+      "partition": "v1_3_n40",
+      "strat": "LOW",
+      "atom_id": "md_dmAE_ex_a010",
+      "file": "knowledge_base/domains/AE/examples.md",
+      "section": "§AE.1 [Example 1]",
+      "type": "SENTENCE",
+      "verbatim": "Note that for the event in row 2, AESTDY = \"1\"."
+    },
+    {
+      "partition": "v1_3_n40",
+      "strat": "LOW",
+      "atom_id": "md_model01_a052",
+      "file": "knowledge_base/model/01_concepts_and_terms.md",
+      "section": "§2.1 [Model Concepts and Terms — Variables]",
+      "type": "SENTENCE",
+      "verbatim": "The Comments special-purpose domain includes the variable RDOMAIN, but other special-purpose domains do not."
+    },
+    {
+      "partition": "v1_3_n40",
+      "strat": "LOW",
+      "atom_id": "md_dmMI_ex_a016",
+      "file": "knowledge_base/domains/MI/examples.md",
+      "section": "§MI.2 [Example 2]",
+      "type": "SENTENCE",
+      "verbatim": "The proportion positive score was assessed as the percentage of tumor cells that stained positive on a scale from 0 to 5."
+    },
+    {
+      "partition": "v1_3_n40",
+      "strat": "LOW",
+      "atom_id": "md_dmDM_ex_a017",
+      "file": "knowledge_base/domains/DM/examples.md",
+      "section": "§DM.2 [Example 2]",
+      "type": "SENTENCE",
+      "verbatim": "**Row 5:** Subject 005 was randomized but dropped out before being treated. Thus, the actual arm variables are not populated and ARMNRS=\"ASSIGNED, NOT TREATED\"."
+    },
+    {
+      "partition": "v1_3_n40",
+      "strat": "LOW",
+      "atom_id": "md_dmDM_ex_a136",
+      "file": "knowledge_base/domains/DM/examples.md",
+      "section": "§DM.6 [Example 6]",
+      "type": "SENTENCE",
+      "verbatim": "The CRF in this example is annotated to show the CDASH variable name and the target SDTMIG variable. Data that are collected using the same variable name as defined in the SDTMIG are in RED. If the CDASHIG variable differs from the one defined in the SDTMIG, the CDASHIG variable is in GREY."
+    },
+    {
+      "partition": "v1_3_n40",
+      "strat": "LOW",
+      "atom_id": "md_model03_a061",
+      "file": "knowledge_base/model/03_special_purpose_domains.md",
+      "section": "§ Demographics (DM) > Key Reference Date Variables",
+      "type": "TABLE_ROW",
+      "verbatim": "| RFICDTC | Date/Time of Informed Consent | Consent date |"
+    },
+    {
+      "partition": "v1_3_n40",
+      "strat": "LOW",
+      "atom_id": "md_ch04_a304",
+      "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+      "section": "§4.2.7.2 [\"Specify\" Values for Result Qualifier Variables]",
+      "type": "TABLE_ROW",
+      "verbatim": "|           | [ ] Other, specify: _________ |"
+    },
+    {
+      "partition": "v1_3_n40",
+      "strat": "LOW",
+      "atom_id": "md_dmMH_ex_a032",
+      "file": "knowledge_base/domains/MH/examples.md",
+      "section": "§MH.2 [Example 2]",
+      "type": "SENTENCE",
+      "verbatim": "MHSCAT displays the body systems specified on the CRF."
+    },
+    {
+      "partition": "v1_3_n40",
+      "strat": "LOW",
+      "atom_id": "md_dmCE_ex_a039",
+      "file": "knowledge_base/domains/CE/examples.md",
+      "section": "§CE.2 [Example 2]",
+      "type": "SENTENCE",
+      "verbatim": "Because there was no event, severity and start and end dates are null."
+    },
+    {
+      "partition": "v1_3_n40",
+      "strat": "LOW",
+      "atom_id": "md_model01_a017",
+      "file": "knowledge_base/model/01_concepts_and_terms.md",
+      "section": "§2.1 [Model Concepts and Terms — Variables]",
+      "type": "SENTENCE",
+      "verbatim": "Metadata are described in the CDISC Define-XML specification."
+    },
+    {
+      "partition": "v1_3_n40",
+      "strat": "LOW",
+      "atom_id": "md_model01_a025",
+      "file": "knowledge_base/model/01_concepts_and_terms.md",
+      "section": "§2.1 [Model Concepts and Terms — Variables]",
+      "type": "SENTENCE",
+      "verbatim": "For example, --MODIFY qualifies --TRT in interventions, --TERM in events, and --ORRES in findings."
+    },
+    {
+      "partition": "v1_3_n40",
+      "strat": "LOW",
+      "atom_id": "md_dmMB_ex_a049",
+      "file": "knowledge_base/domains/MB/examples.md",
+      "section": "§MB.2 [Example 2]",
+      "type": "SENTENCE",
+      "verbatim": "**Rows 3-4:** Show that the same gram-stained sample was used to identify and quantify the presence of gram negative rods."
+    },
+    {
+      "partition": "v1_3_n40",
+      "strat": "LOW",
+      "atom_id": "md_dmPC_ex_a380",
+      "file": "knowledge_base/domains/PC/examples.md",
+      "section": "§PC.2.7 [Example 4 (Complex exclusions)]",
+      "type": "LIST_ITEM",
+      "verbatim": "- Using PPSEQ values; use PCGRPID values wherever possible"
+    },
+    {
+      "partition": "v1_3_n40",
+      "strat": "LOW",
+      "atom_id": "md_model05_a057",
+      "file": "knowledge_base/model/05_study_level_data.md",
+      "section": "§ Trial Reproductive Stages (TT)",
+      "type": "NOTE",
+      "verbatim": "**Structure:** One record per Planned Repro Stage"
+    },
+    {
+      "partition": "v1_3_n40",
+      "strat": "LOW",
+      "atom_id": "md_dmDM_ex_a184",
+      "file": "knowledge_base/domains/DM/examples.md",
+      "section": "§DM.7 [Example 7]",
+      "type": "SENTENCE",
+      "verbatim": "Additional fields: \"What was the other race?\" (RACEOTH → SUPPDM.QVAL where SUPPDM.QNAM = \"RACEOTH\") and \"If Unknown, please specify:\" (RACEREAS → SUPPDM.QVAL where SUPPDM.QNAM = \"RACEREAS\")."
+    },
+    {
+      "partition": "v1_3_n40",
+      "strat": "LOW",
+      "atom_id": "md_ch08_a120",
+      "file": "knowledge_base/chapters/ch08_relationships.md",
+      "section": "§8.3.1 [RELREC Dataset Relationship Example]",
+      "type": "SENTENCE",
+      "verbatim": "In the sponsor's operational database, these datasets may have existed as either separate datasets that were merged for analysis, or a single dataset that may have included observations from more than 1 general observation class (e.g., Events and Findings)."
+    },
+    {
+      "partition": "v1_3_n40",
+      "strat": "LOW",
+      "atom_id": "md_model05_a069",
+      "file": "knowledge_base/model/05_study_level_data.md",
+      "section": "§ Trial Reproductive Paths (TP)",
+      "type": "NOTE",
+      "verbatim": "**Structure:** One record per Planned Repro Stage per Repro Path"
+    },
+    {
+      "partition": "v1_3_n40",
+      "strat": "LOW",
+      "atom_id": "md_dmAG_ex_a021",
+      "file": "knowledge_base/domains/AG/examples.md",
+      "section": "§AG.2 [Example 2]",
+      "type": "SENTENCE",
+      "verbatim": "An identifier was assigned to the reversibility test and this identifier was used to be link data across the multiple SDTM domains in which the data are represented."
+    },
+    {
+      "partition": "v1_3_n40",
+      "strat": "LOW",
+      "atom_id": "md_dmDM_assn_a023",
+      "file": "knowledge_base/domains/DM/assumptions.md",
+      "section": "§DM [DM — Assumptions]",
+      "type": "LIST_ITEM",
+      "verbatim": "   a. Only the following timing variables are permissible and may be added as appropriate: VISITNUM, VISIT, VISITDY. The record qualifier DMXFN (External File Name) is the only additional qualifier variable that may be added, which is adopted from the Findings general observation class, may also be used to refer to an external file, such as a patient narrative."
+    },
+    {
+      "partition": "v1_3_n40",
+      "strat": "LOW",
+      "atom_id": "md_dmSUPPQUAL_assn_a003",
+      "file": "knowledge_base/domains/SUPPQUAL/assumptions.md",
+      "section": "§SUPPQUAL [SUPPQUAL — Assumptions]",
+      "type": "SENTENCE",
+      "verbatim": "SUPP-- represents the metadata and data for each NSV/value combination. As the name suggests, this dataset is intended to capture additional qualifiers for an observation. Data that represent separate observations should be treated as separate observations. The Supplemental Qualifiers dataset is structured similarly to the RELREC dataset, in that it uses the same set of keys to identify parent records. Each SUPP-- record also includes the name of the qualifier variable being added (QNAM), the label for the variable (QLABEL), the actual value for each instance or record (QVAL), the origin (QORIG) of the value (see Section 4.1.8, Origin Metadata), and the evaluator (QEVAL) to specify the role of the individual who assigned the value (e.g., \"ADJUDICATION COMMITTEE\", \"SPONSOR\"). Controlled terminology for certain expected values for QNAM and QLABEL is included in Appendix C1, Supplemental Qualifiers Name Codes."
+    },
+    {
+      "partition": "v1_3_n40",
+      "strat": "LOW",
+      "atom_id": "md_dmCE_ex_a068",
+      "file": "knowledge_base/domains/CE/examples.md",
+      "section": "§CE.3 [Example 3]",
+      "type": "SENTENCE",
+      "verbatim": "The collected data do not meet criteria for representation in FA."
+    },
+    {
+      "partition": "v1_3_n40",
+      "strat": "LOW",
+      "atom_id": "md_dmBS_ex_a009",
+      "file": "knowledge_base/domains/BS/examples.md",
+      "section": "§BS.1 [Example 1]",
+      "type": "SENTENCE",
+      "verbatim": "Because values in --TESTCD cannot begin with a number, the test code has been prefixed with an \"I\" for integrity."
+    },
+    {
+      "partition": "v1_3_n40",
+      "strat": "LOW",
+      "atom_id": "md_dmTR_ex_a007",
+      "file": "knowledge_base/domains/TR/examples.md",
+      "section": "§TR.1 [Example 2 (continued from TU)]",
+      "type": "SENTENCE",
+      "verbatim": "A lymph node state of \"NON-PATHOLOGICAL\" means that all target lymph node lesions have a short axis less than 10mm."
+    },
+    {
+      "partition": "v1_3_n40",
+      "strat": "LOW",
+      "atom_id": "md_dmTA_ex_a042",
+      "file": "knowledge_base/domains/TA/examples.md",
+      "section": "§TA.2 [Example 2]",
+      "type": "SENTENCE",
+      "verbatim": "A crossover trial comparing 3 treatments (Placebo, 5 mg, 10 mg) with 7 epochs: Screening, 3 Treatment Epochs with 3 Rest (washout) Epochs between them, and a Follow-up Epoch."
+    },
+    {
+      "partition": "v1_3_n40",
+      "strat": "LOW",
+      "atom_id": "md_dmAG_ex_a008",
+      "file": "knowledge_base/domains/AG/examples.md",
+      "section": "§AG.1 [Example 1]",
+      "type": "SENTENCE",
+      "verbatim": "The results of the screening BAC are not shown, but would be represented in the Respiratory System Findings (RE) domain."
+    },
+    {
+      "partition": "v1_3_n40",
+      "strat": "LOW",
+      "atom_id": "md_model02_a013",
+      "file": "knowledge_base/model/02_observation_classes.md",
+      "section": "§3.1.1 The Interventions Observation Class",
+      "type": "SENTENCE",
+      "verbatim": "This includes treatments specified by the study protocol (i.e., \"exposure\")."
+    },
+    {
+      "partition": "v1_3_n40",
+      "strat": "LOW",
+      "atom_id": "md_dmTU_ex_a007",
+      "file": "knowledge_base/domains/TU/examples.md",
+      "section": "§TU.1 [Example 1]",
+      "type": "SENTENCE",
+      "verbatim": "During the same PVI procedure, the subject also had a target graft lesion (L01-G) identified in the left femoro-popliteal graft (L01-G1)."
+    },
+    {
+      "partition": "v1_3_n40",
+      "strat": "LOW",
+      "atom_id": "md_dmCE_ex_a077",
+      "file": "knowledge_base/domains/CE/examples.md",
+      "section": "§CE.3 [Example 3]",
+      "type": "SENTENCE",
+      "verbatim": "No separate start date for this complication was collected, so MHSTDTC is blank."
+    },
+    {
+      "partition": "v1_3_n40",
+      "strat": "LOW",
+      "atom_id": "md_dmAE_ex_a067",
+      "file": "knowledge_base/domains/AE/examples.md",
+      "section": "§AE.5 [Example 5]",
+      "type": "SENTENCE",
+      "verbatim": "A few days later, she developed an infection in the hip bone adjacent to the implant."
+    },
+    {
+      "partition": "v1_3_n40",
+      "strat": "LOW",
+      "atom_id": "md_dmAE_ex_a071",
+      "file": "knowledge_base/domains/AE/examples.md",
+      "section": "§AE.5 [Example 5]",
+      "type": "SENTENCE",
+      "verbatim": "These are used to determine if the AE was an unanticipated serious device event, a designation required by some regulatory authorities."
+    },
+    {
+      "partition": "v1_4_new40",
+      "strat": "LOW",
+      "atom_id": "md_ch04_a326",
+      "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+      "section": "§4.2.7.3 [\"Specify\" Values for Topic Variables]",
+      "type": "TABLE_ROW",
+      "verbatim": "|                                                                                                    | [ ] Other, specify: _________ |"
+    },
+    {
+      "partition": "v1_4_new40",
+      "strat": "LOW",
+      "atom_id": "md_model03_a058",
+      "file": "knowledge_base/model/03_special_purpose_domains.md",
+      "section": "§ Demographics (DM) > Key Reference Date Variables",
+      "type": "TABLE_ROW",
+      "verbatim": "| RFXENDTC | Date/Time of Last Study Treatment | Last exposure to study treatment |"
+    },
+    {
+      "partition": "v1_4_new40",
+      "strat": "LOW",
+      "atom_id": "md_dmBE_ex_a077",
+      "file": "knowledge_base/domains/BE/examples.md",
+      "section": "§BE.2 [Example 2]",
+      "type": "SENTENCE",
+      "verbatim": "\"RNA\" is one of the terms in the GENSMP codelist."
+    },
+    {
+      "partition": "v1_4_new40",
+      "strat": "LOW",
+      "atom_id": "md_dmMB_ex_a017",
+      "file": "knowledge_base/domains/MB/examples.md",
+      "section": "§MB.1 [Example 1]",
+      "type": "SENTENCE",
+      "verbatim": "The variables MSCONC and MSCONCU represent the concentration and units of the drug being used."
+    },
+    {
+      "partition": "v1_4_new40",
+      "strat": "LOW",
+      "atom_id": "md_dmPC_ex_a261",
+      "file": "knowledge_base/domains/PC/examples.md",
+      "section": "§PC.2.6 [Example 3 (Inconsistent PC usage across parameters)]",
+      "type": "SENTENCE",
+      "verbatim": "All pharmacokinetic concentrations for day 8 were used to calculate all pharmacokinetic parameters. Because day 8 relationships are the same as in Example 1, they are not included here."
+    },
+    {
+      "partition": "v1_4_new40",
+      "strat": "LOW",
+      "atom_id": "md_dmBE_ex_a052",
+      "file": "knowledge_base/domains/BE/examples.md",
+      "section": "§BE.2 [Example 2]",
+      "type": "SENTENCE",
+      "verbatim": "BESPDEVID holds the identifier for the container into which the plasma is placed."
+    },
+    {
+      "partition": "v1_4_new40",
+      "strat": "LOW",
+      "atom_id": "md_dmMB_ex_a037",
+      "file": "knowledge_base/domains/MB/examples.md",
+      "section": "§MB.2 [Example 2]",
+      "type": "SENTENCE",
+      "verbatim": "The SUPPBE table is used to represent 2 non-standard variables of BE."
+    },
+    {
+      "partition": "v1_4_new40",
+      "strat": "LOW",
+      "atom_id": "md_dmEX_ex_a231",
+      "file": "knowledge_base/domains/EX/examples.md",
+      "section": "§EX.7 [Example 7]",
+      "type": "SENTENCE",
+      "verbatim": "**Row 2:** Shows the subject's second dose. The collected explanation for the adjusted dose amount administered at visit 2 is in EXADJ."
+    },
+    {
+      "partition": "v1_4_new40",
+      "strat": "LOW",
+      "atom_id": "md_dmTR_ex_a008",
+      "file": "knowledge_base/domains/TR/examples.md",
+      "section": "§TR.1 [Example 2 (continued from TU)]",
+      "type": "SENTENCE",
+      "verbatim": "A lymph node state of \"PATHOLOGICAL\" means that at least 1 target lymph node lesion has a short axis greater than or equal to 10mm."
+    },
+    {
+      "partition": "v1_4_new40",
+      "strat": "LOW",
+      "atom_id": "md_dmTU_ex_a008",
+      "file": "knowledge_base/domains/TU/examples.md",
+      "section": "§TU.1 [Example 1]",
+      "type": "SENTENCE",
+      "verbatim": "The lesion location was noted within the graft anastomosis proximal, the type was a synthetic graft composed of Gore-Tex, and the anastomosis was in the left popliteal artery."
+    },
+    {
+      "partition": "v1_4_new40",
+      "strat": "LOW",
+      "atom_id": "md_dmRELREC_assn_a007",
+      "file": "knowledge_base/domains/RELREC/assumptions.md",
+      "section": "§RELREC [RELREC — Assumptions]",
+      "type": "LIST_ITEM",
+      "verbatim": "- explicit relationships, such as concomitant medications taken as a result of an adverse event; or"
+    },
+    {
+      "partition": "v1_4_new40",
+      "strat": "LOW",
+      "atom_id": "md_model02_a153",
+      "file": "knowledge_base/model/02_observation_classes.md",
+      "section": "§3.1.3 > Topic and Qualifier Variables (100 variables)",
+      "type": "SENTENCE",
+      "verbatim": "**Additional Findings-specific Variables** include --LOINC, --METHOD, --ANMETH, --BLFL, --DRVFL, --LOBXFL, --FAST, --TOX, --TOXGR, --SEV, --CLSIG, --XFN, --NAM, --EVAL, --EVALID, --ACPTFL, --LNKID, --LNKGRP, and many domain-specific variables."
+    },
+    {
+      "partition": "v1_4_new40",
+      "strat": "LOW",
+      "atom_id": "md_model01_a045",
+      "file": "knowledge_base/model/01_concepts_and_terms.md",
+      "section": "§2.1 [Model Concepts and Terms — Variables]",
+      "type": "LIST_ITEM",
+      "verbatim": "- In the RDOMAIN variable in relationship tables"
+    },
+    {
+      "partition": "v1_4_new40",
+      "strat": "LOW",
+      "atom_id": "md_dmSUPPQUAL_assn_a013",
+      "file": "knowledge_base/domains/SUPPQUAL/assumptions.md",
+      "section": "§SUPPQUAL [SUPPQUAL — Assumptions]",
+      "type": "LIST_ITEM",
+      "verbatim": "- Findings interpretations that should be added as an additional test code and result. An example of this would be a record for electrocardiogram interpretation where EGTESTCD = \"INTP\", and the same EGGRPID or EGREFID value would be assigned for all records associated with that ECG (see Section 4.5.5, Clinical Significance for Findings Observation Class Data)."
+    },
+    {
+      "partition": "v1_4_new40",
+      "strat": "LOW",
+      "atom_id": "md_dmCP_ex_a056",
+      "file": "knowledge_base/domains/CP/examples.md",
+      "section": "§CP.3 [Example 3]",
+      "type": "SENTENCE",
+      "verbatim": "**Row 6:** Shows the ratio of the proliferating monocyte subpopulation to the non-proliferating monocyte subpopulation."
+    },
+    {
+      "partition": "v1_4_new40",
+      "strat": "LOW",
+      "atom_id": "md_model02_a144",
+      "file": "knowledge_base/model/02_observation_classes.md",
+      "section": "§3.1.3 > Topic and Qualifier Variables (100 variables)",
+      "type": "TABLE_ROW",
+      "verbatim": "| --STNRLO | Reference Range Lower Limit-Std Units | Standard units |"
+    },
+    {
+      "partition": "v1_4_new40",
+      "strat": "LOW",
+      "atom_id": "md_ch02_a031",
+      "file": "knowledge_base/chapters/ch02_fundamentals.md",
+      "section": "§2.2 [Datasets and Domains]",
+      "type": "LIST_ITEM",
+      "verbatim": "2. As the value of the DOMAIN variable in that dataset"
+    },
+    {
+      "partition": "v1_4_new40",
+      "strat": "LOW",
+      "atom_id": "md_ch08_a126",
+      "file": "knowledge_base/chapters/ch08_relationships.md",
+      "section": "§8.3.1 [RELREC Dataset Relationship Example]",
+      "type": "SENTENCE",
+      "verbatim": "The allowable values are ONE and MANY (controlled terminology is expected)."
+    },
+    {
+      "partition": "v1_4_new40",
+      "strat": "LOW",
+      "atom_id": "md_ch04_a652",
+      "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+      "section": "§4.4.7 [Use of Relative Timing Variables]",
+      "type": "LIST_ITEM",
+      "verbatim": "- **Concomitant Medications (--STRF/--ENRF):** --STRF = \"BEFORE\", --ENRF = \"DURING\""
+    },
+    {
+      "partition": "v1_4_new40",
+      "strat": "LOW",
+      "atom_id": "md_model05_a046",
+      "file": "knowledge_base/model/05_study_level_data.md",
+      "section": "§ Trial Sets (TX)",
+      "type": "SENTENCE",
+      "verbatim": "Describes sets of subjects that share common characteristics (e.g., treatment groups, pooled analysis groups)."
+    },
+    {
+      "partition": "v1_4_new40",
+      "strat": "LOW",
+      "atom_id": "md_dmMB_ex_a076",
+      "file": "knowledge_base/domains/MB/examples.md",
+      "section": "§MB.3 [Example 3]",
+      "type": "SENTENCE",
+      "verbatim": "If the same sample is used in many domains, the use of --REFID may result in a potentially undesirable many-to-many merge; users may need to make use of additional linking variables such as --LNKID and --LNKGRP."
+    },
+    {
+      "partition": "v1_4_new40",
+      "strat": "LOW",
+      "atom_id": "md_dmTR_ex_a002",
+      "file": "knowledge_base/domains/TR/examples.md",
+      "section": "§TR [TR — Examples]",
+      "type": "NOTE",
+      "verbatim": "Note: TU and TR share examples. See also [TU Examples](../TU/examples.md)."
+    },
+    {
+      "partition": "v1_4_new40",
+      "strat": "LOW",
+      "atom_id": "md_model06_a036",
+      "file": "knowledge_base/model/06_relationship_datasets.md",
+      "section": "§6.2 Supplemental Qualifiers (SUPP--)",
+      "type": "NOTE",
+      "verbatim": "**Structure:** One record per supplemental qualifier per related parent domain record(s)"
+    },
+    {
+      "partition": "v1_4_new40",
+      "strat": "LOW",
+      "atom_id": "md_dmTV_ex_a010",
+      "file": "knowledge_base/domains/TV/examples.md",
+      "section": "§TV.1 [Example 1]",
+      "type": "NOTE",
+      "verbatim": "> Visit 2 spans the Screen → Run-In epoch transition (confirmation of eligibility). Visit 3 spans the Run-In → Treatment epoch transition (first dose of study drug). Below the timeline, 3 arms (Placebo, Drug A, Drug B) share the same visit schedule."
+    },
+    {
+      "partition": "v1_4_new40",
+      "strat": "LOW",
+      "atom_id": "md_dmLB_ex_a017",
+      "file": "knowledge_base/domains/LB/examples.md",
+      "section": "§LB.1 [Example 1]",
+      "type": "SENTENCE",
+      "verbatim": "*Note: The LB Example 1 table contains 18 rows and over 30 columns including STUDYID, DOMAIN, USUBJID, LBSEQ, LBGRPID, LBTESTCD, LBTEST, LBCAT, LBSCAT, LBORRES, LBORRESU, LBORNRLO, LBORNRHI, LBSTRESC, LBSTRESN, LBSTRESU, LBSTNRLO, LBSTNRHI, LBSTNRC, LBNRIND, LBSTAT, LBREASND, LBNAM, LBLOINC, LBSPEC, LBMETHOD, LBBLFL, LBFAST, LBDRVFL, LBTOX, LBTOXGR, LBCLSIG, LBRESSCL, LBRESTYP, LBCOLSRT, LBLLOD, LBTMTHSN, LBTSTCND, LBPTFL, LBPDUR, VISITNUM, VISIT, LBDTC, LBENDTC. Representative test types include Albumin, Alkaline Phosphatase (with derived mean/max), C-Reactive Protein (high sensitivity), Cryoglobulin, Prostate Specific Antigen, Protein (24h urine), Platelet Aggregation, WBC, Lymphocytes, Monocytes, Neutrophils, Cholesterol, and Urine Protein.*"
+    },
+    {
+      "partition": "v1_4_new40",
+      "strat": "LOW",
+      "atom_id": "md_ch08_a332",
+      "file": "knowledge_base/chapters/ch08_relationships.md",
+      "section": "§8.8 [Related Specimens (RELSPEC)]",
+      "type": "SENTENCE",
+      "verbatim": "Example 1: This example uses the sample specimen lineage illustrated below."
+    },
+    {
+      "partition": "v1_4_new40",
+      "strat": "LOW",
+      "atom_id": "md_ch04_a004",
+      "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+      "section": "§4.0 [Overview]",
+      "type": "SENTENCE",
+      "verbatim": "This section describes basic concepts, business rules, and assumptions that should be taken into consideration before applying the domain models."
+    },
+    {
+      "partition": "v1_4_new40",
+      "strat": "LOW",
+      "atom_id": "md_ch04_a819",
+      "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+      "section": "§4.5.1 [Original and Standardized Results]",
+      "type": "LIST_ITEM",
+      "verbatim": "- --ORRES: always the originally collected/reported value"
+    },
+    {
+      "partition": "v1_4_new40",
+      "strat": "LOW",
+      "atom_id": "md_dmMS_ex_a006",
+      "file": "knowledge_base/domains/MS/examples.md",
+      "section": "§MS.1 [Example 1]",
+      "type": "SENTENCE",
+      "verbatim": "**Rows 5-6:** Show that Local Lab XYZ found that the sample was susceptible to the sponsor drug at a concentration of 0.5 ug/dL and resistant to amoxicillin at a concentration of 0.5 ug/dL."
+    },
+    {
+      "partition": "v1_4_new40",
+      "strat": "LOW",
+      "atom_id": "md_ch04_a564",
+      "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+      "section": "§4.4.3.1 [Intervals of Time and Use of Duration]",
+      "type": "LIST_ITEM",
+      "verbatim": "- [D] is used as day designator."
+    },
+    {
+      "partition": "v1_4_new40",
+      "strat": "LOW",
+      "atom_id": "md_ch04_a005",
+      "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+      "section": "§4.0 [Overview]",
+      "type": "SENTENCE",
+      "verbatim": "It covers general domain assumptions, general variable assumptions, coding and controlled terminology assumptions, actual and relative time assumptions, and other assumptions."
+    },
+    {
+      "partition": "v1_4_new40",
+      "strat": "LOW",
+      "atom_id": "md_dmEC_ex_a002",
+      "file": "knowledge_base/domains/EC/examples.md",
+      "section": "§EC [EC — Examples]",
+      "type": "SENTENCE",
+      "verbatim": "Note: Examples for EX and EC are shared in Section 6.1.3.3 of the SDTMIG. See also [EX Examples](../EX/examples.md)."
+    },
+    {
+      "partition": "v1_4_new40",
+      "strat": "LOW",
+      "atom_id": "md_dmSUPPQUAL_ex_a010",
+      "file": "knowledge_base/domains/SUPPQUAL/examples.md",
+      "section": "§SUPPQUAL.2 [Example 2]",
+      "type": "SENTENCE",
+      "verbatim": "This example illustrates how the language used for a questionnaire might be represented. The parent domain (RDOMAIN) is QS, and IDVAR is QSCAT. QNAM holds the name of the supplemental qualifier variable being defined (QSLANG). The language recorded in QVAL applies to all of the subject's records, where IDVAR (QSCAT) equals the value specified in IDVARVAL. In this case, IDVARVAL has values for 2 questionnaires—Brief Pain Inventory (BPI) and Alzheimer's Disease Assessment Scale-Cognitive Subscale (ADAS-COG)—for 2 separate subjects. QVAL identifies the questionnaire language version (French or German) for each subject."
+    },
+    {
+      "partition": "v1_4_new40",
+      "strat": "LOW",
+      "atom_id": "md_dmAE_ex_a042",
+      "file": "knowledge_base/domains/AE/examples.md",
+      "section": "§AE.3 [Example 3]",
+      "type": "SENTENCE",
+      "verbatim": "RELREC may be used to relate AE records and FA records."
+    },
+    {
+      "partition": "v1_4_new40",
+      "strat": "LOW",
+      "atom_id": "md_dmAE_ex_a069",
+      "file": "knowledge_base/domains/AE/examples.md",
+      "section": "§AE.5 [Example 5]",
+      "type": "SENTENCE",
+      "verbatim": "She never regained full use of her hip, and was left with a limp."
+    },
+    {
+      "partition": "v1_4_new40",
+      "strat": "LOW",
+      "atom_id": "md_model03_a057",
+      "file": "knowledge_base/model/03_special_purpose_domains.md",
+      "section": "§ Demographics (DM) > Key Reference Date Variables",
+      "type": "TABLE_ROW",
+      "verbatim": "| RFXSTDTC | Date/Time of First Study Treatment | First exposure to study treatment |"
+    },
+    {
+      "partition": "v1_4_new40",
+      "strat": "LOW",
+      "atom_id": "md_ch04_a709",
+      "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+      "section": "§4.4.10 [Representing Time Points]",
+      "type": "TABLE_ROW",
+      "verbatim": "| --TPTNUM | Planned Time Point Number (for sorting) |"
+    },
+    {
+      "partition": "v1_4_new40",
+      "strat": "LOW",
+      "atom_id": "md_dmTA_ex_a015",
+      "file": "knowledge_base/domains/TA/examples.md",
+      "section": "§TA.1 [Example 1]",
+      "type": "SENTENCE",
+      "verbatim": "Each study cell contains exactly 1 element."
+    },
+    {
+      "partition": "v1_4_new40",
+      "strat": "LOW",
+      "atom_id": "md_dmCE_ex_a108",
+      "file": "knowledge_base/domains/CE/examples.md",
+      "section": "§CE.3 [Example 3]",
+      "type": "SENTENCE",
+      "verbatim": "PRDTC is populated with the date on which medical history was collected, which also appeared in MHDTC."
+    },
+    {
+      "partition": "v1_4_new40",
+      "strat": "LOW",
+      "atom_id": "md_ch08_a291",
+      "file": "knowledge_base/chapters/ch08_relationships.md",
+      "section": "§8.7 [Related Subjects (RELSUB)]",
+      "type": "LIST_ITEM",
+      "verbatim": "8. All collected relationships between subjects should be recorded in RELSUB. In some cases, 2 subjects may have more than 1 relationship. For instance, a woman might be both maternal aunt and wet nurse to an infant. When there are multiple relationships between 2 subjects, each relationship will be represented by 2 records in RELSUB."
+    }
+  ]
+}

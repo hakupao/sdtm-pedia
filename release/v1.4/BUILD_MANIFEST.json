@@ -1,0 +1,152 @@
+{
+  "release_tag": "v1.4-company-release",
+  "release_date": "2026-05-22",
+  "previous_tag": "v1.3-company-release",
+  "previous_date": "2026-05-20",
+  "release_type": "prompt_pass",
+  "driver": "Prompt full-stack refactor (4 platforms v3/v9 clean rewrite, fossil layers removed, KB-grounding default) + 4 minor v1.3 carries (C1 section_coverage, C2 UNSOURCED N=80, C3 NotebookLM UX, C4 Method label KB+prompt anchor). Gemini MAINTAINED_NO_SANITY_TEST per user 2026-05-22 decision.",
+  "knowledge_base": {
+    "status": "modified — 1 file updated (PP/examples.md, Method label mapping table in §6.3.5.9.3)",
+    "files_total": 296,
+    "domains_total": 64,
+    "files_modified": [
+      "domains/PP/examples.md"
+    ],
+    "coverage_post_06": "99.02% (adjusted denominator; section_coverage.jsonl P4b deterministic rerun done in C1, full LLM pipeline rerun deferred to v1.5 as C1-bis)",
+    "hallucinated_atoms": 0,
+    "unsourced_manual_n40_sample": {
+      "hallucinated": 0,
+      "reasonable_inference": "80%",
+      "derived_from_xlsx": "20%",
+      "rule_d_reviewer": "oh-my-claudecode:scientist (v1.3 baseline retained)"
+    },
+    "unsourced_manual_n80_sample": {
+      "scope": "cumulative N=80 (v1.3 N=40 HIGH stratum + v1.4 +40 LOW stratum, HIGH pool exhausted in v1.3)",
+      "hallucinated": 0,
+      "reasonable_inference": 75,
+      "derived_from_xlsx": 0,
+      "needs_human_review": 5,
+      "rule_a_probes": "10/10 PASS",
+      "rule_d_reviewer": "internal classifier (DERIVED_FROM_XLSX→REASONABLE_INFERENCE bias fix from v1.3 Rule D scientist now extended from HIGH to LOW stratum) + 10/10 Rule A probes"
+    }
+  },
+  "platforms": {
+    "claude": {
+      "status": "rebuilt from v3 clean rewrite + updated KB; 09_examples_data_high.md bundle regen post pipeline fix",
+      "uploads_dir": "self_deploy/claude/uploads/",
+      "system_prompt": "v3 clean rewrite (125→133 lines; 5 essential rules + regex-gated CO-N + Files A-S 19-file table preserved)",
+      "files_updated": 1,
+      "files_count": 19,
+      "size_approx": "4.6 MB"
+    },
+    "chatgpt": {
+      "status": "rebuilt from v3 clean rewrite + updated KB; 06_domain_examples_all.md bundle regen",
+      "uploads_dir": "self_deploy/chatgpt/uploads/",
+      "system_prompt": "v3 clean rewrite (120→119 lines + Method label anchor 4-line mapping L77-80)",
+      "files_updated": 1,
+      "files_count": 9,
+      "size_approx": "9.3 MB"
+    },
+    "gemini": {
+      "status": "v9 clean rewrite + Method label anchor (MAINTAINED_NO_SANITY_TEST per user 2026-05-22 decision)",
+      "uploads_dir": "self_deploy/gemini/uploads/",
+      "system_prompt": "v9 clean rewrite + Method label anchor (525→292 lines incl. 2026-05-22 increment)",
+      "files_updated": 0,
+      "files_count": 4,
+      "size_approx": "2.2 MB",
+      "sanity_status": "MAINTAINED_NO_SANITY_TEST — optimization continues (KB delta + critical prompt fixes), testing stops (avoid Pro quota waste). User self-verify."
+    },
+    "notebooklm": {
+      "status": "rebuilt from v3 clean rewrite + updated KB; bucket 16 regen (Method label table)",
+      "uploads_dir": "self_deploy/notebooklm/uploads/",
+      "instructions": "v3 clean rewrite (157→156 lines; footer Sources citation semantically equivalent; v1.0-v1.3 iteration fossils removed)",
+      "files_updated": 1,
+      "files_renamed": 0,
+      "bucket_25_rename": "inherited from v1.3 (25_td_meta_ti_ts_oi.md → 25_td_meta_ti_ts_oi_di.md)",
+      "files_count": 43,
+      "size_approx": "9.4 MB",
+      "deploy_note": "v1.3 carry: existing v1.0-v1.3 NotebookLM deployments should delete the old 25_td_meta_ti_ts_oi.md source after uploading the new 25_td_meta_ti_ts_oi_di.md. Target source count: 42. v1.4 DEPLOY_GUIDE adds prominent reminder (Chrome MCP screenshot tutorial deferred to v1.5)."
+    }
+  },
+  "total_uploads_size_approx": "25.5 MB",
+  "sanity_coverage": {
+    "platforms_covered": ["chatgpt", "claude", "notebooklm"],
+    "platforms_excluded": ["gemini"],
+    "rationale": "User 2026-05-22 decision: Gemini 测试停 (testing stops), 优化继续 (optimization continues), 用户自验 (user self-verify). Triggers: v1.4 B1 Gemini v9 PP RELREC Method 4/4 hallucinate + Pro quota constraint (~4 q / 5h rolling window) long-term blocks 17-question R4 regression."
+  },
+  "phase_c_carries": [
+    {
+      "id": "C1",
+      "name": "section_coverage.jsonl pipeline rerun",
+      "verdict": "COMPLETE_WITH_CAVEAT",
+      "summary": "P4b deterministic rerun done (FULL_COVERAGE 101→137, SKELETON 67→46). Full LLM pipeline rerun (P2 increment + P4a forward matcher) deferred to v1.5 as C1-bis."
+    },
+    {
+      "id": "C2",
+      "name": "UNSOURCED classifier fix + N=80 expansion",
+      "verdict": "COMPLETE_WITH_FINDING",
+      "summary": "Heuristic DERIVED_FROM_XLSX→REASONABLE_INFERENCE bias fix extends from HIGH to LOW stratum. N=80 cumulative: 75 RI + 0 XLSX + 0 HALLUCINATED + 5 NEEDS_HUMAN_REVIEW. Rule A 10/10 PASS. KB_INTERNAL_CROSSREF new category + 3 deep-paraphrase atoms manual review deferred to v1.5."
+    },
+    {
+      "id": "C3",
+      "name": "NotebookLM bucket 25 UX guide + screenshot",
+      "verdict": "PARTIAL",
+      "summary": "DEPLOY_GUIDE skeleton with prominent text reminder added to `.work/07_release_v1_4/V1_4_DEPLOY_GUIDE.md`. Chrome MCP screenshot tutorial deferred to v1.5."
+    },
+    {
+      "id": "C4",
+      "name": "ChatGPT Method label KB anchor",
+      "verdict": "COMPLETE",
+      "summary": "KB `PP/examples.md §6.3.5.9.3` Method label mapping table (13 lines) added; 3-platform bundle rebuild (ChatGPT 06_domain_examples_all + Claude 09_examples_data_high + NotebookLM bucket 16); Gemini v9 system_prompt Method label anchor sync (post 2026-05-22 user clarification). Dual-layer (KB + prompt) anchor resolving v1.3 Q-S2 PARTIAL label drift."
+    }
+  ],
+  "pipeline_bugs_fixed": [
+    {
+      "file": "ai_platforms/claude_projects/dev/scripts/extract_examples_data.py",
+      "bug": "parents[3]→parents[4] path bug from Phase 6.5 reorg-A regression (script moved one level deeper, parents[] index not updated)",
+      "impact": "All 28 domains were flagged missing; A3.1 smoke test missed due to different working config (smoke ran from dev/, production path differed). Triggered in real combat during C4 rebuild → fix → 3 bundles rebuilt + Claude 09_examples_data_high.md 2922→3268 lines (§N.N.N capture working for the first time post Phase 6.5 reorg-A path bug fix)"
+    }
+  ],
+  "verification": {
+    "phase_b1_ui_sanity": {
+      "scope": "4 v1.3/v1.4-targeted questions × 3 maintained platforms = 12 cells (Gemini 4 cells excluded per Gemini MAINTAINED_NO_SANITY_TEST)",
+      "result": "10 PASS+ + 2 PASS + 0 PARTIAL + 0 FAIL = 12/12 PASS = 100%",
+      "method": "Chrome MCP fire-and-forget",
+      "q_s1_becat": "3/3 PASS",
+      "q_s2_pp_relrec_method": "3/3 PASS+ (Claude paper PARTIAL → UI PASS+ post A3.1 pipeline fix; v1.3→v1.4 main refactor trigger)",
+      "q_s3_tr_typo": "3/3 PASS",
+      "q_s4_di_domain": "3/3 PASS",
+      "verdict": "APPROVE — 100% PASS on 3 maintained platforms; Gemini cells excluded per user decision"
+    },
+    "phase_b2_r4_17q_full_regression": "N/A — Gemini sanity testing stopped per user 2026-05-22 decision (was Gemini-only scope)",
+    "phase_q_s2_post_rebuild_recheck": "SKIPPED per user (grep-level content verification deemed sufficient)",
+    "phase_c2_unsourced_n80": "75 RI + 0 XLSX + 0 HALLUCINATED + 5 NEEDS_HUMAN_REVIEW (cumulative N=80, Rule A 10/10 PASS)",
+    "phase_c1_section_coverage": "P4b deterministic rerun done — FULL_COVERAGE 101→137, SKELETON 67→46; md_atoms still pre-v1.3 state (LLM pipeline rerun deferred to v1.5 as C1-bis)"
+  },
+  "known_limitations_anchor": {
+    "file": "KNOWN_LIMITATIONS.en.md",
+    "section": "§0 v1.4 Audit Scope (updated 2026-05-22)",
+    "deferred_to_v1_5": [
+      "Tier B 156 sections (Batch H ranks 1-10 ~470 atoms + Batch S 21-25 ~10 atoms + 24 level-2 sections ~600 atoms)",
+      "Full 437 UNSOURCED_MANUAL per-atom classification",
+      "Phase 7 RAG + KG kickoff (design complete in docs/DESIGN_RAG_KG.md)",
+      "C1-bis full LLM pipeline rerun (P2 increment + P4a forward matcher)",
+      "C1-ter post-P6 Makefile gate (section_coverage stability gate)",
+      "C2 KB_INTERNAL_CROSSREF new classification category",
+      "C2 3 deep-paraphrase atoms manual review",
+      "C3 NotebookLM screenshot tutorial (Chrome MCP)"
+    ]
+  },
+  "unchanged_from_v1_3": {
+    "metadata_docs": [
+      "METHODOLOGY.{en,zh,ja}.md",
+      "USER_GUIDE.{en,zh,ja}.md",
+      "PLATFORM_COMPARISON.{en,zh,ja}.md",
+      "DEMO_QUESTIONS.{en,zh,ja,md}",
+      "GLOSSARY.{en,zh,ja}.md",
+      "README.{en,zh,ja}.md",
+      "KNOWN_LIMITATIONS.{en,zh,ja}.md §1-§6 (only §0 updated)"
+    ],
+    "tutorials": "self_deploy/*/tutorial.{en,zh,ja}.md all unchanged"
+  }
+}

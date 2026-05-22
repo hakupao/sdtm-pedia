@@ -65,7 +65,7 @@
 | MS | `15_fnd_biomarkers_mb_mi_ms_mk.md` | 6 |
 | NV | `21_fnd_other_nv_re_rp.md` | 6 |
 | OE | `17_fnd_oncology_tr_tu_rs_oe.md` | 6 |
-| OI | `25_td_meta_ti_ts_oi_di.md` | 6 |
+| OI | `25_td_meta_ti_ts_oi.md` | 6 |
 | PC | `16_fnd_pharma_pc_pp.md` | 6 |
 | PE | `13_fnd_physical_exam_pe.md` | 6 |
 | PP | `16_fnd_pharma_pc_pp.md` | 6 |
@@ -88,10 +88,10 @@
 | TA | `23_td_arms_ta_tv.md` | 3 |
 | TD | `24_td_elements_te_tm_td.md` | 9 |
 | TE | `24_td_elements_te_tm_td.md` | 4 |
-| TI | `25_td_meta_ti_ts_oi_di.md` | 5 |
+| TI | `25_td_meta_ti_ts_oi.md` | 5 |
 | TM | `24_td_elements_te_tm_td.md` | 5 |
 | TR | `17_fnd_oncology_tr_tu_rs_oe.md` | 6 |
-| TS | `25_td_meta_ti_ts_oi_di.md` | 5 |
+| TS | `25_td_meta_ti_ts_oi.md` | 5 |
 | TU | `17_fnd_oncology_tr_tu_rs_oe.md` | 6 |
 | TV | `23_td_arms_ta_tv.md` | 3 |
 | UR | `22_fnd_other_ss_ur_ft.md` | 6 |
