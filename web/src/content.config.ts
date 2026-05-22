@@ -2,7 +2,7 @@ import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 import path from 'node:path';
 
-const RELEASE_DIR = path.resolve('../release/v1.0');
+const RELEASE_DIR = path.resolve('../release/v1.4');
 
 const guide = defineCollection({
   loader: glob({
@@ -34,7 +34,7 @@ const guide = defineCollection({
 });
 
 // Per-platform deployment tutorials, sourced from
-// release/v1.0/self_deploy/<platform>/tutorial.<lang>.md. These markdown files
+// release/v1.4/self_deploy/<platform>/tutorial.<lang>.md. These markdown files
 // ship verbatim inside the user-facing release zip and intentionally carry no
 // frontmatter — platform/lang are derived from the file path instead.
 const deploy = defineCollection({
