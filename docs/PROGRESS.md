@@ -1,7 +1,7 @@
 # 进度看板
 
 > **唯一进度状态源**. 历史细节看 `.work/meta/worklog/INDEX.md`. 文件结构看 `.work/MANIFEST.md`. 一页纸入门看 `.work/AGENT_GUIDE.md`.
-> 最后更新: 2026-05-22 PM (**Release v1.4 CLOSED ★★★★ tag cut** — Prompt-pass: 4 平台 v3/v9 clean rewrite + Method label anchor (KB §6.3.5.9.3 + 4 prompts) + Claude bundle pipeline architectural fix (parents[3]→[4] regression caught + A3.1 §N.N.N capture 首次成功) + C2 N=80 UNSOURCED 0-hallucinated + Rule D #26 verifier APPROVE; **Gemini MAINTAINED_NO_SANITY_TEST** per user 2026-05-22 (测试停, 优化继续, 用户自验); B1 12/12 PASS on 3 maintained 平台)
+> 最后更新: 2026-05-22 PM (**Phase 7 RAG+KG Phase 1A.0 sanity 完成** — R-13 6 项 verify + 5 chunker config lock + Bojiang ack; 总 chunk 估算 ~4304 微调; evidence/checkpoints/phase_1a_0_sanity.md + scripts/sanity_tiktoken.py 落档; **Release v1.4 CLOSED ★★★★ tag cut** — Prompt-pass: 4 平台 v3/v9 clean rewrite + Method label anchor (KB §6.3.5.9.3 + 4 prompts) + Claude bundle pipeline architectural fix (parents[3]→[4] regression caught + A3.1 §N.N.N capture 首次成功) + C2 N=80 UNSOURCED 0-hallucinated + Rule D #26 verifier APPROVE; **Gemini MAINTAINED_NO_SANITY_TEST** per user 2026-05-22 (测试停, 优化继续, 用户自验); B1 12/12 PASS on 3 maintained 平台)
 
 ---
 
@@ -16,7 +16,7 @@
 | **Phase 5** 全量验证 | ✅ 完成 | Step 0-4 全过 | — |
 | **Phase 6** 检索优化 | ✅ 完成 (P0-P2) | — | P3 → 已合并到 Phase 7 |
 | **Phase 6.5** AI 平台部署 | 🟢 进行中 | **v1.4 CLOSED ★★★★ tag cut 2026-05-22 PM** (Prompt-pass: 4 平台 v3/v9 clean rewrite + Method label anchor KB+4 prompts + Claude bundle pipeline fix + C2 N=80 0-hallucinated; Gemini MAINTAINED_NO_SANITY_TEST) | v1.5 候选: (A) Tier B 156 节 + C1-bis full pipeline rerun, (B) Phase 7 RAG+KG 启动, (C) 维护期 micro-release |
-| **Phase 7** RAG + KG | 🟢 Phase 0 完成 | `branches/07_rag_kg/` 旁枝建立 (PLAN v0.2 + EXECUTION_PLAN + 2 research + critic Rule D PASS 1) | Phase 1A.0 sanity → 1A.1 仓库脚手架 |
+| **Phase 7** RAG + KG | 🟢 Phase 1A 进行中 (1A.0 完成) | Phase 0 closed + **1A.0 sanity R-13 6 项全 verify** (terminology H2=1004 实测 / mermaid 0 嵌套 / 0 HTML / tiktoken C3 ch04 §4.4 = 9598 > 8K embedding limit ★) + chunker config 5 lock | 1A.1 仓库脚手架 (sdtm-rag/) + R-17 .env hygiene + R-20 pyreadstat sanity |
 | **06 旁枝** Deep Verification | ✅ 完成 | P1-P7 全 PASS ★★ (coverage 99.02%, Issues 5-16 repaired, P7 content error 3.3%, RETROSPECTIVE.md 归档) | `branches/06_deep_verification/RETROSPECTIVE.md` |
 | **07 旁枝** Website | ✅ 完成 | Phase 6/7/8/9/10/11 全 closed; prod sdtm-pedia.pages.dev | — |
 | **docs/jp** iTMS 納品 | 🟢 进行中 | Phase 1 P0 中間版 v0.5 已提出 2026-04-30 | 残 02/03 + 05/06/99 中文列充填 (Phase 2-3, 2026-05 中下旬) |
