@@ -1,0 +1,40 @@
+# sdtm-rag Phase 1 local dev stack
+# Phase 2 KG: append `neo4j` service (deferred per PLAN §5 gate)
+# Phase 1 单用户/单租户, uvicorn --workers 1 (per PLAN §0.2 Out-of-scope F-13)
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: sdtm-rag:0.1.0a0
+    container_name: sdtm-rag-api
+    env_file:
+      - .env
+    environment:
+      - SDTM_RAG_DATA_DIR=/app/data
+      - SDTM_RAG_CHROMA_DIR=/app/data/chroma
+    volumes:
+      - ./data:/app/data
+      # Mount KB read-only (H-1: knowledge_base/ read-only)
+      - ../../../knowledge_base:/app/knowledge_base:ro
+    ports:
+      - "8000:8000"
+    command: uvicorn server.main:app --host 0.0.0.0 --port 8000 --workers 1
+    restart: unless-stopped
+
+  ui:
+    image: sdtm-rag:0.1.0a0
+    depends_on:
+      - api
+    container_name: sdtm-rag-ui
+    env_file:
+      - .env
+    environment:
+      - SDTM_RAG_API_URL=http://api:8000
+    volumes:
+      - ./data:/app/data
+    ports:
+      - "8501:8501"
+    command: streamlit run ui/streamlit_app.py --server.address 0.0.0.0 --server.port 8501
+    restart: unless-stopped

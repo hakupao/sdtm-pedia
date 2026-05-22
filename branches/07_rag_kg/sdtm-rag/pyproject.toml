@@ -1,0 +1,80 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sdtm-rag"
+version = "0.1.0a0"
+description = "SDTM Knowledge Base RAG + Dataset Validation Service (Phase 7)"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "Proprietary — internal" }
+authors = [{ name = "Bojiang Zhang" }]
+keywords = ["sdtm", "rag", "chroma", "litellm", "validation"]
+
+dependencies = [
+    # Vector store
+    "chromadb>=0.5.0",
+    # LLM abstraction
+    "litellm>=1.85.1",
+    "openai>=1.50",
+    "anthropic>=0.40",
+    # Tokenization
+    "tiktoken>=0.7",
+    # Web layer
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.32",
+    "pydantic>=2.7",
+    "pydantic-settings>=2.5",
+    # UI
+    "streamlit>=1.40",
+    # Dataset parsing
+    "pandas>=2.2",
+    "pyreadstat>=1.2",
+    # Config
+    "pyyaml>=6.0",
+    "python-dotenv>=1.0",
+    # Logging
+    "structlog>=24.1",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pytest-asyncio>=0.24",
+    "ruff>=0.6",
+    "mypy>=1.11",
+    "types-pyyaml>=6.0",
+]
+fallback = [
+    # pyreadstat fallback if Apple Silicon build fails (R-20)
+    "sas7bdat>=2.2",
+]
+
+[tool.setuptools]
+packages = [
+    "scripts",
+    "scripts.chunkers",
+    "scripts.shared",
+    "server",
+    "ui",
+    "eval",
+]
+package-dir = { "" = "." }
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "N", "RET", "SIM"]
+ignore = ["E501"]  # ruff format handles line length
+
+[tool.mypy]
+python_version = "3.11"
+strict = false
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["scripts/tests"]
+addopts = "-ra -q"

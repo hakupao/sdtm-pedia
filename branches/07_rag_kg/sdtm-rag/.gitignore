@@ -1,0 +1,42 @@
+# Phase 1A.1.c — .env hygiene (R-17)
+.env
+.env.local
+.env.*.local
+
+# Chroma persistent store + uploaded datasets (R-16 backup convention)
+data/chroma/
+data/chroma_backup_*/
+data/uploads/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.eggs/
+build/
+dist/
+
+# Virtualenvs
+.venv/
+venv/
+env/
+
+# Type-checker / test cache
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+.cache/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Streamlit
+.streamlit/secrets.toml

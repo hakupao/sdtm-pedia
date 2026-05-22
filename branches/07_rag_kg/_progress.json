@@ -4,9 +4,9 @@
   "tier": 2,
   "tier_note": "borderline Tier 2-3, 走 Tier 2 + evidence 全留; Phase 2 KG 启动时再评估升 Tier 3",
   "created": "2026-05-22",
-  "updated": "2026-05-22 (Phase 1A.0 sanity verify 完成, 6 项 R-13 全 verify, chunker config lock)",
+  "updated": "2026-05-22 (Phase 1A.1 scaffold 完成, sdtm-rag/ 16 files + R-17 .env + R-20 pyreadstat 实测 VERIFIED)",
   "upstream_design": "docs/DESIGN_RAG_KG.md (Approved 2026-04-16)",
-  "current_phase": "phase_1a_ingest 1A.0 sanity 完成 (R-13 6 项 verify), 用户 ack 待 → 1A.1 仓库脚手架",
+  "current_phase": "phase_1a_ingest 1A.1 完成, 用户 ack 待 → 1A.2 LiteLLM sanity",
   "phases": {
     "phase_0_research": {
       "status": "completed",
@@ -50,7 +50,18 @@
           "chunk_total_revised": "~4304 (chunker_feasibility v0.2 估 ~4368, 修正 -1.5% 在容许 ±5% 内)",
           "pass_at": "2026-05-22"
         },
-        "1a_1_repo_scaffold": {"status": "pending", "depends_on": ["1a_0_sanity user ack"]},
+        "1a_1_repo_scaffold": {
+          "status": "completed",
+          "evidence": "evidence/checkpoints/phase_1a_1_scaffold.md + sdtm-rag/ (16 files)",
+          "owner": "main",
+          "sub": {
+            "1a_1_a_dir_tree": "16 files, PLAN §2.2 一致",
+            "1a_1_b_gitignore_readme": ".gitignore + README (5KB, 7 段, Quick Start 双 path)",
+            "1a_1_c_env_hygiene_R_17": ".env.example (3 LLM key + 8 app config) + .gitignore 三層 + README Env Vars 段 + rotate 手順",
+            "1a_1_d_pyreadstat_sanity_R_20": "pyreadstat 1.3.5 fail Py 3.9 (TypeAlias), 1.2.9 backport host XPT round-trip PASS; sas7bdat fallback OK; pyproject `pyreadstat>=1.2` Py 自動解決; R-20 VERIFIED + MITIGATED"
+          },
+          "pass_at": "2026-05-22"
+        },
         "1a_2_litellm_sanity": {"status": "pending"},
         "1a_3_chunker_impl": {"status": "pending"},
         "1a_4_chunker_tests": {"status": "pending"},

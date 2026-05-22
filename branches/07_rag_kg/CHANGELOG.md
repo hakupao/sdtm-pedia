@@ -76,5 +76,25 @@
 - 確認: PASS 五条 #3 reviewer deferred (本 step EXECUTION_PLAN §1A.0 不強制, Rule D 真審在 1A.3 chunker writer → code-reviewer 那步触发)
 - 承認: Bojiang Zhang (2026-05-22 ack)
 - next: 1A.1 (sdtm-rag/ 仓库脚手架 + R-17 .env hygiene + R-20 pyreadstat sanity)
+- commit: 5c9bf38 "07 RAG+KG Phase 1A.0 sanity 完成 — R-13 6 项 verify + 5 chunker config lock"
+
+## Phase 1A.1 sdtm-rag/ Scaffold (2026-05-22, 16 files + R-17 完備 + R-20 VERIFIED)
+- 区分: Phase 1A.1 着手 → 完了 (単 session 内)
+- 触発: ユーザー「commit + 1A.1 起動」(2026-05-22, 1A.0 commit 5c9bf38 后)
+- 主 session 直接 Write + Bash (脚手架テンプレ作業, EXECUTION_PLAN §1A.1 owner)
+- 1A.1.a 目录樹: PLAN §2.2 と一致 — `branches/07_rag_kg/sdtm-rag/{scripts/{chunkers,tests,shared},server,ui,eval,data/chroma}` + pyproject.toml (16 deps + 5 dev + 1 fallback) + Dockerfile (python:3.11-slim, gcc/g++/libxml2-dev/libssl-dev apt) + docker-compose.yml (api + ui services, KB read-only volume mount)
+- 1A.1.b .gitignore + README: data/chroma + .env 三層 + python/IDE caches; README 7 段 (Architecture / Quick Start 2 path / Env Vars / PASS 五条 / chunker config L-1..L-5 ref)
+- 1A.1.c R-17 .env hygiene: .env.example (3 LLM key + 1 Cohere optional + 8 app config 占位) + .gitignore 三層 (.env / .env.local / .env.*.local) + README Env Vars 段 + 漏洩時 rotate 手順
+- 1A.1.d R-20 pyreadstat sanity (★ host 実測):
+  - ❌ pyreadstat 1.3.5 (current) は Python ≥ 3.10 必要 (TypeAlias PEP 613); host Py 3.9.6 import fail
+  - ✅ pyreadstat 1.2.9 (Py 3.9 backport) host XPT round-trip PASS (USUBJID+AETERM 2 行 byte-exact)
+  - ✅ sas7bdat fallback import + class introspection OK (read-only, .xpt 非対応)
+  - 結論: `pyproject.toml` `pyreadstat>=1.2` (lower-bound) で pip が Py バージョン自動解決. Docker Py 3.11 → 1.3.5, host Py 3.9 → 1.2.9. R-20 **VERIFIED + MITIGATED**.
+- 16 files: pyproject.toml / Dockerfile / docker-compose.yml / .gitignore / .env.example / README.md / 7×__init__.py / scripts/tests/conftest.py / data/.gitkeep ×2
+- 落档 evidence: `evidence/checkpoints/phase_1a_1_scaffold.md` (~9 KB, R-20 実測マトリックス含む)
+- 作成: main session
+- 確認: PASS 五条 #3 reviewer deferred (EXECUTION_PLAN §1A.1 不強制, 真審 1A.3 chunker writer 触発)
+- 承認: pending Bojiang ack
+- next: 1A.2 LiteLLM sanity (DeepSeek V4 Pro 2 ターン思考 + Sonnet 2 ターン + V4-Flash 非思考 + Router fallback + Haiku context window 実測)
 
 ---
