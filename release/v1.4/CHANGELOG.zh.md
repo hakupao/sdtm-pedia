@@ -1,3 +1,10 @@
+---
+lang: zh
+slug: changelog
+order: 60
+title: "更新日志"
+---
+
 # SDTM 知识库 — Release v1.4 变更说明 (中文)
 
 > Tag: `v1.4-company-release` (发布: 2026-05-22)

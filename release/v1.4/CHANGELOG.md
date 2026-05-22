@@ -1,3 +1,9 @@
+---
+slug: changelog
+order: 60
+title: "Changelog"
+---
+
 # SDTM Knowledge Base — Release v1.4 Changelog (EN)
 
 > Tag: `v1.4-company-release` (cut 2026-05-22)

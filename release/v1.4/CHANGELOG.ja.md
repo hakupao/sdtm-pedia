@@ -1,3 +1,10 @@
+---
+lang: ja
+slug: changelog
+order: 60
+title: "変更履歴"
+---
+
 # SDTM ナレッジベース — Release v1.4 変更履歴 (日本語)
 
 > タグ: `v1.4-company-release` (リリース: 2026-05-22)
