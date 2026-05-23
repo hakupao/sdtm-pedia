@@ -120,62 +120,73 @@ def test_lb_part1_ct_code_is_none(lb_part1_chunks):
 
 
 # ---------------------------------------------------------------------------
-# lb_part2.md: part mode, 1 chunk — document if chunk_size_tokens > 8191 (known finding)
+# lb_part2.md: 1A.5 fallback — N=100 row table-chunk slicing
+# (was: 1 part-mode chunk with > 8191 tokens; xfail 已撤)
 # ---------------------------------------------------------------------------
 
-def test_lb_part2_produces_1_chunk(chunker):
-    """lb_part2.md (H2=1 + _part2, 378KB) produces exactly 1 chunk in part mode."""
+def test_lb_part2_produces_multiple_chunks(chunker):
+    """lb_part2.md (378KB) is sliced into multiple chunks via PLAN §6.4 fallback (>1)."""
     chunks = chunker.chunk(CORE_DIR / "lb_part2.md")
-    assert len(chunks) == 1
+    assert len(chunks) > 1, (
+        f"lb_part2 expected >1 chunk after N=100 row slicing, got {len(chunks)}"
+    )
 
 
-def test_lb_part2_part_index_is_2(chunker):
-    """lb_part2.md chunk has part_index == 2."""
+def test_lb_part2_all_part_index_2(chunker):
+    """All lb_part2 chunks keep part_index == 2 (cross-chunk reassembly metadata)."""
     chunks = chunker.chunk(CORE_DIR / "lb_part2.md")
-    assert chunks[0].part_index == 2
+    for chunk in chunks:
+        assert chunk.part_index == 2
 
 
-@pytest.mark.xfail(
-    reason=(
-        "Known finding (1A.3 Batch C / 1A.4): lb_part2 (378KB) is a single part-mode chunk. "
-        "chunk_size_tokens likely >> 8191 embedding limit. "
-        "Fix deferred to 1A.5: N=100 row table-chunk slicing + table_chunk_idx metadata."
-    ),
-    strict=False,
-)
+def test_lb_part2_table_chunk_idx_sequential(chunker):
+    """lb_part2 chunks carry sequential table_chunk_idx 0,1,2,..."""
+    chunks = chunker.chunk(CORE_DIR / "lb_part2.md")
+    for i, chunk in enumerate(chunks):
+        assert chunk.table_chunk_idx == i, (
+            f"lb_part2 chunk {i} table_chunk_idx={chunk.table_chunk_idx} expected {i}"
+        )
+
+
 def test_lb_part2_chunk_size_tokens_under_8192(chunker):
-    """lb_part2.md single chunk should be under 8192 tokens (expected to FAIL — known finding)."""
+    """All lb_part2 chunks have chunk_size_tokens <= 8191 (embedding limit)."""
     chunks = chunker.chunk(CORE_DIR / "lb_part2.md")
-    assert chunks[0].chunk_size_tokens <= 8191
+    for chunk in chunks:
+        assert chunk.chunk_size_tokens <= 8191, (
+            f"lb_part2 chunk {chunk.chunk_index} tokens={chunk.chunk_size_tokens} "
+            f"exceeds 8191 embedding limit"
+        )
 
 
 # ---------------------------------------------------------------------------
-# lb_part3.md: part mode, 1 chunk, similar to lb_part2
+# lb_part3.md: 1A.5 fallback — N=100 row table-chunk slicing
 # ---------------------------------------------------------------------------
 
-def test_lb_part3_produces_1_chunk(chunker):
-    """lb_part3.md (H2=1 + _part3, 417KB) produces exactly 1 chunk in part mode."""
+def test_lb_part3_produces_multiple_chunks(chunker):
+    """lb_part3.md (417KB) is sliced into multiple chunks via PLAN §6.4 fallback (>1)."""
     chunks = chunker.chunk(CORE_DIR / "lb_part3.md")
-    assert len(chunks) == 1
+    assert len(chunks) > 1
 
 
-def test_lb_part3_part_index_is_3(chunker):
-    """lb_part3.md chunk has part_index == 3."""
+def test_lb_part3_all_part_index_3(chunker):
+    """All lb_part3 chunks keep part_index == 3."""
     chunks = chunker.chunk(CORE_DIR / "lb_part3.md")
-    assert chunks[0].part_index == 3
+    for chunk in chunks:
+        assert chunk.part_index == 3
 
 
-@pytest.mark.xfail(
-    reason=(
-        "Known finding: lb_part3 (417KB) single chunk likely >> 8191 token limit. "
-        "Fix deferred to 1A.5."
-    ),
-    strict=False,
-)
+def test_lb_part3_table_chunk_idx_sequential(chunker):
+    """lb_part3 chunks carry sequential table_chunk_idx 0,1,2,..."""
+    chunks = chunker.chunk(CORE_DIR / "lb_part3.md")
+    for i, chunk in enumerate(chunks):
+        assert chunk.table_chunk_idx == i
+
+
 def test_lb_part3_chunk_size_tokens_under_8192(chunker):
-    """lb_part3.md single chunk should be under 8192 tokens (expected to FAIL — known finding)."""
+    """All lb_part3 chunks have chunk_size_tokens <= 8191."""
     chunks = chunker.chunk(CORE_DIR / "lb_part3.md")
-    assert chunks[0].chunk_size_tokens <= 8191
+    for chunk in chunks:
+        assert chunk.chunk_size_tokens <= 8191
 
 
 # ---------------------------------------------------------------------------

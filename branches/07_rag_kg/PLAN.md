@@ -172,9 +172,8 @@ branches/07_rag_kg/
 | 项 | 选择 | 理由 |
 |----|------|------|
 | Vector DB | **Chroma** (本地, `pip install chromadb`) | 设计 §3.4, 3-5K chunks 远低于上限, 零运维 |
-| Embedding (D-4 **v2** 2026-05-22) | **bge-m3 (1024d, local sentence-transformers)** ★ | 用户决策不开 OpenAI API account; Mac M-series MPS 推理 ~ms 级 (1A.2.f 实测); $0 API 成本; 首次 ~2.5GB 下载 |
-| Embedding fallback (留接口暂不调) | OpenAI `text-embedding-3-small` (1536d) | `llm_config.py` 留 `openai/` base_url 配置化接口 (D-3); 用户后续若开 OpenAI API account 或决定切回, 一行 `.env` (`SDTM_RAG_EMBEDDING_MODEL=openai/...`) 切换 |
-| Embedding 不选 | text-embedding-3-large / Cohere v3 | 仅当 1B5 eval 显示 bge-m3 召回 < 80% 才考虑 (Cohere 需另开账户) |
+| Embedding (D-4 **v3** 2026-05-23) | **OpenAI text-embedding-3-small (1536d, cloud API)** ★ | D-4 v2 bge-m3 local 两次崩溃放弃; 用户开 OpenAI API account; $0.02/1M tok; 4146 chunks 全量 ingest 82s |
+| Embedding 不选 | bge-m3 local / text-embedding-3-large / Cohere v3 | bge-m3: 本地模型崩溃放弃; large/Cohere: 仅当 1B5 eval 召回 < 80% 才考虑 |
 
 ### 4.2 LLM 层 (引用 research/llm_providers_2026-05-22.md)
 
@@ -185,12 +184,12 @@ branches/07_rag_kg/
 | 轻量分类 / intent 路由 | `anthropic/claude-haiku-4-5` | `deepseek/deepseek-v4-pro` **非思考** (D-4 v2) | $1/$5 |
 | 复检 / cross-check | `deepseek/deepseek-v4-pro` **非思考模式** (D-4 v2; 绕开 LiteLLM Issue #26395 multi-turn bug) | — | per DeepSeek pricing |
 | 批量 eval | `anthropic/claude-sonnet-4-6` Batch API | — | $1.50/$7.50 (50% 折扣) |
-| OpenAI API + ChatGPT Plus | ❌ **不接入生产** (D-3 + D-4 v2 联合) — Plus 代理 ToS+稳定性 risk (llm_providers §3) + OpenAI API account 用户暂不开; embedding 主路径改 bge-m3 local (§4.1); 留 `openai/` base_url 接口预留 | — | — |
+| OpenAI API + ChatGPT Plus | ✅ **OpenAI API account 已开** (D-4 v3) — embedding 用 text-embedding-3-small; Plus 代理仍 ❌ 不接入生产 (ToS+稳定性 risk) | — | — |
 
-**OpenAI 决策 (D-3 + D-4 v2 联合, 2026-05-22 用户 ack)**:
+**OpenAI 决策 (D-3 + D-4 v3 联合, 2026-05-23 用户 ack)**:
 - ❌ **ChatGPT Plus 代理**: 不纳入 LiteLLM Router default fallback chain — 违反 OpenAI ToS, 极低稳定性, 数据安全风险高
-- ❌ **OpenAI API account**: 用户暂不开通; **embedding 主路径改为 bge-m3 local** (§4.1 D-4 v2) — bge-m3 1024d sentence-transformers, Mac MPS, $0 API, ~2.5GB 下载
-- ✅ 在 `llm_config.py` 留 `openai/` provider 接口 (base_url 配置化), 用户后续若开 OpenAI API account **或决定切回 OpenAI embedding**, 一行 `.env` (`SDTM_RAG_EMBEDDING_MODEL=openai/text-embedding-3-small` + `OPENAI_API_KEY=...`) 切换
+- ✅ **OpenAI API account**: 用户已开通 (D-4 v3 2026-05-23); **embedding 主路径 = OpenAI text-embedding-3-small** (1536d, $0.02/1M tok)
+- ❌ **bge-m3 本地模型**: D-4 v2 方案放弃 — 两次运行崩溃, 用户决策不再使用本地模型
 - ✅ daily prototype / 人工测试 → 用户直接在 chatgpt.com 网页用 Plus 配额, 不强行 API 化
 - ✅ 详细折中建议在 `llm_providers_2026-05-22.md §3.折中建议`
 
@@ -463,7 +462,7 @@ class TerminologyChunker:
 | **R-19** (v0.2) | LiteLLM v1.84.0 breaking changes (proxy multi-pod) 单机 SDK 是否影响未 verify | Router fallback chain 可能断 | 待 verify | LOW-MED | 1A.2.d: LiteLLM Router 2 轮对话 + fallback chain 端到端测 | 1A.2 |
 | **R-20** (v0.2) | pyreadstat (Phase 1C XPT/SAS7BDAT 解析) 在 Apple Silicon Py 3.11+ build 可能失败 | 1C.1 dataset parser | 中 | LOW | 1A.1 加 sanity `pip install pyreadstat && python -c 'import pyreadstat'`; fallback `sas7bdat` 库 | 1A.1 |
 | **R-21** (v0.2) | Streamlit 用户上传 + RAG + LLM 超时 UX 无反馈 | 用户体验差 | 中 | LOW | 1C.5 加 `st.status()` + `st.progress()` + 60s warning timeout | 1C.5 |
-| **R-22** (D-4 v2) | bge-m3 本地 model 首次 ~2.5GB 下载 + Mac M-series MPS 推理速度未实测 + Docker torch CPU image ~800MB | Phase 1A.2 sanity 时间 + Docker build + ingest 耗时 | 100% | LOW-MED | 1A.2.f bge-m3 sanity 实测 5 sample text MPS 速度 (期望 < 100ms/chunk); Docker build multi-stage defer (1A.5 后看 image 大小决定); HuggingFace mirror 候选 (中国大陆 access slow 时) | 1A.2 / 1A.5 |
+| **R-22** (D-4 v3) | ~~bge-m3 本地~~ → **CLOSED**: D-4 v3 改用 OpenAI cloud embedding, 无本地模型依赖 | 0% | 0 | 风险消除: 无本地 model 下载 / 无 MPS OOM / 无 Docker torch image 膨胀; 19.8 ms/chunk 云端延迟可接受 | done (D-4 v3) |
 
 **R-1/R-2/R-4/R-8 必须 Phase 1A 前测试套件覆盖**, 不能上来就 ingest。**R-13 + R-17 必须 Phase 1A.0 sanity 完成才可进 1A.3 chunker writer**。**R-22 (bge-m3) 在 Phase 1A.2.f sanity 验证**。
 
@@ -511,7 +510,8 @@ class TerminologyChunker:
 | D-2 (D-4 v2 修订) | LLM 主力 | Anthropic Claude Sonnet 4.6 主答 + **DeepSeek V4 Pro 非思考 复检/fallback** (D-4 v2; ex-V4-Flash) + Opus 4.7 难题 + Haiku 4.5 轻分类 | 2026-05-22 (Bojiang ack v1 + v2 修订) |
 | D-3 | ChatGPT Plus 代理 | 不接入生产 (ToS + 稳定性), 仅 prototype 用网页 + 留 OpenAI base_url 接口 (`llm_config.py`) | 2026-05-22 (Bojiang ack) |
 | D-4 v1 (superseded) | Embedding (原方案) | OpenAI text-embedding-3-small 主 (1536d) + bge-m3 fallback | superseded 2026-05-22 by D-4 v2 |
-| **D-4 v2** ★ | Embedding (v2 修订) | **bge-m3 (1024d, local sentence-transformers)** 主 + OpenAI text-embedding-3-small fallback (留接口暂不调) | 2026-05-22 (Bojiang ack); 理由: 用户暂不开 OpenAI API account, Anthropic chat 链保留 |
+| D-4 v2 (superseded) | Embedding (v2 修订) | bge-m3 (1024d, local sentence-transformers) 主 + OpenAI fallback | superseded 2026-05-23 by D-4 v3; 本地模型崩溃放弃 |
+| **D-4 v3** ★ | Embedding (v3 修订) | **OpenAI text-embedding-3-small (1536d, cloud API)** 主; 无 fallback | 2026-05-23 (Bojiang ack); 理由: bge-m3 local 两次崩溃, 不再跑本地模型; 4146 chunks ingest 82s PASS |
 | D-5 | Phase 2 KG | defer, Phase 1D RELATION 召回 < 50% 才启动 | 2026-05-22 (Bojiang ack) |
 | D-6 | chunker | domain-aware (examples) + size-aware (chapters) + part 模式 (LB) | 2026-05-22 (Bojiang ack) |
 | D-7 | INDEX.md 整体注入 system prompt | 加入 base prompt (~6K token w/ ROUTING) | 2026-05-22 (Bojiang ack) |

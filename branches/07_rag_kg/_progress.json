@@ -4,9 +4,9 @@
   "tier": 2,
   "tier_note": "borderline Tier 2-3, 走 Tier 2 + evidence 全留; Phase 2 KG 启动时再评估升 Tier 3",
   "created": "2026-05-22",
-  "updated": "2026-05-22 (Phase 1A.4 chunker_tests completed — 205 passed, 2 xfailed (lb_part2/3 token overflow known), 0 failed; L-1..L-5 locks all verified by tests)",
+  "updated": "2026-05-23 (Phase 1A.5 ingest_full completed — D-4 v3 pivot bge-m3→OpenAI; 4146 chunks / 82s / 93.2 MB Chroma / 18 truncated / sanity 5/10 baseline)",
   "upstream_design": "docs/DESIGN_RAG_KG.md (Approved 2026-04-16)",
-  "current_phase": "phase_1a_ingest 1A.0+1A.1+1A.2+1A.3+1A.4 closed → next: 1A.5 ingest_full (full KB ingest run)",
+  "current_phase": "phase_1a_ingest 1A.0-1A.6 ALL CLOSED → next: Phase 1B Q&A 服务 (FastAPI + Chroma retrieval + LiteLLM)",
   "phases": {
     "phase_0_research": {
       "status": "completed",
@@ -256,8 +256,51 @@
           ],
           "rule_d_status": "writer=test-engineer, next reviewer=code-reviewer (third subagent_type) — deferred to main session dispatch"
         },
-        "1a_5_ingest_full": {"status": "pending"},
-        "1a_6_rule_a_alignment": {"status": "pending"}
+        "1a_5_ingest_full": {
+          "status": "completed",
+          "pass_at": "2026-05-23",
+          "owner": "main session",
+          "d4_v3_pivot": "bge-m3 local → OpenAI text-embedding-3-small (1536d cloud); 本地模型崩溃放弃",
+          "results": {
+            "total_chunks": 4146,
+            "total_files": 294,
+            "total_tokens": 2543220,
+            "avg_tokens_per_chunk": 613,
+            "embed_wallclock_sec": 82.2,
+            "embed_ms_per_chunk": 19.8,
+            "chroma_size_mb": 93.2,
+            "kb_commit_sha": "453df45a4d863ba5de647f4b7bf79ea0ae436f2d",
+            "truncated_chunks": 18,
+            "truncated_note": "terminology large chunks > 8191 tok; full text stored in Chroma document, only embedding signal truncated",
+            "retrieval_sanity_10q": "5/10 expected-domain top-1 (baseline; proper eval in 1B5)"
+          },
+          "per_type_chunks": {
+            "assumptions": 476,
+            "chapter": 76,
+            "examples": 209,
+            "model": 28,
+            "spec": 2164,
+            "terminology": 1128,
+            "variable_index": 65
+          },
+          "code_changes": [
+            "ingest.py: bge-m3/sentence-transformers/torch → litellm.embedding(text-embedding-3-small); token-aware batching (250K/batch); _truncate_for_embedding(8191 tok)",
+            "pyproject.toml: removed sentence-transformers>=3.0 + torch>=2.4",
+            ".env.example: OPENAI_API_KEY required; EMBEDDING_MODEL=text-embedding-3-small; removed EMBEDDING_DEVICE",
+            "README.md: updated env vars table"
+          ]
+        },
+        "1a_6_rule_a_alignment": {
+          "status": "completed",
+          "pass_at": "2026-05-23",
+          "owner": "scientist subagent (Rule D isolation from main/executor writers)",
+          "seed": 20260522,
+          "sample_n": 10,
+          "sourced_pool": 5550,
+          "result": "10/10 PASS (≥9/10 threshold met)",
+          "section_meta_match": "7/10 full match, 3/10 benign naming mismatch (whole_file/item_4/Example 1 vs ledger notation)",
+          "evidence": "evidence/checkpoints/rule_A_chunk_atom_alignment.md"
+        }
       }
     },
     "phase_1b_qa_service": {"status": "pending"},
