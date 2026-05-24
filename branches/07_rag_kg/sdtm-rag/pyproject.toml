@@ -26,6 +26,7 @@ dependencies = [
     "uvicorn[standard]>=0.32",
     "pydantic>=2.7",
     "pydantic-settings>=2.5",
+    "python-multipart>=0.0.9",
     # UI
     "streamlit>=1.40",
     # Dataset parsing

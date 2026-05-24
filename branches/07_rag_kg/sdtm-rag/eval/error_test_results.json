@@ -1,0 +1,162 @@
+{
+  "total_expected_errors": 19,
+  "true_positives": 18,
+  "false_negatives": 1,
+  "detection_rate_pct": 94.7,
+  "total_validator_findings": 62,
+  "pass": true,
+  "details": [
+    {
+      "error_id": "E01",
+      "rule": "REQ",
+      "severity": "ERROR",
+      "variable": "AETERM",
+      "description": "AETERM empty at row 2",
+      "detected": true
+    },
+    {
+      "error_id": "E02",
+      "rule": "CT",
+      "severity": "ERROR",
+      "variable": "AESEV",
+      "description": "AESEV='INVALID' not in C66769",
+      "detected": true
+    },
+    {
+      "error_id": "E03",
+      "rule": "CT",
+      "severity": "ERROR",
+      "variable": "AESEV",
+      "description": "AESEV='VERY_SEVERE' not in C66769",
+      "detected": true
+    },
+    {
+      "error_id": "E04",
+      "rule": "CT",
+      "severity": "ERROR",
+      "variable": "AEOUT",
+      "description": "AEOUT='CURED' not in C66768",
+      "detected": true
+    },
+    {
+      "error_id": "E05",
+      "rule": "TYPE",
+      "severity": "ERROR",
+      "variable": "AESTDY",
+      "description": "AESTDY='DAY5' non-numeric in Num field",
+      "detected": true
+    },
+    {
+      "error_id": "E06",
+      "rule": "VAR",
+      "severity": "WARN",
+      "variable": "CUSTOM_VAR",
+      "description": "CUSTOM_VAR unknown variable",
+      "detected": true
+    },
+    {
+      "error_id": "E07",
+      "rule": "VAR",
+      "severity": "WARN",
+      "variable": "XTRA_FIELD",
+      "description": "XTRA_FIELD unknown variable",
+      "detected": true
+    },
+    {
+      "error_id": "E08",
+      "rule": "PK",
+      "severity": "ERROR",
+      "variable": "STUDYID+USUBJID+AESEQ",
+      "description": "SUB01 AESEQ=1 PK duplicate",
+      "detected": true
+    },
+    {
+      "error_id": "E09",
+      "rule": "SUBJ",
+      "severity": "ERROR",
+      "variable": "USUBJID",
+      "description": "SUB08 not in DM",
+      "detected": true
+    },
+    {
+      "error_id": "E17",
+      "rule": "EXP",
+      "severity": "WARN",
+      "variable": "AELLT",
+      "description": "AE missing AELLT (Expected)",
+      "detected": true
+    },
+    {
+      "error_id": "E18",
+      "rule": "EXP",
+      "severity": "WARN",
+      "variable": "AESER",
+      "description": "AE missing AESER (Expected)",
+      "detected": true
+    },
+    {
+      "error_id": "E19",
+      "rule": "EXP",
+      "severity": "WARN",
+      "variable": "AEACN",
+      "description": "AE missing AEACN (Expected)",
+      "detected": true
+    },
+    {
+      "error_id": "E20",
+      "rule": "EXP",
+      "severity": "WARN",
+      "variable": "AEREL",
+      "description": "AE missing AEREL (Expected)",
+      "detected": true
+    },
+    {
+      "error_id": "E11",
+      "rule": "TYPE",
+      "severity": "ERROR",
+      "variable": "LBSTRESN",
+      "description": "LBSTRESN='HIGH' non-numeric",
+      "detected": true
+    },
+    {
+      "error_id": "E12",
+      "rule": "VAR",
+      "severity": "WARN",
+      "variable": "FAKE_VAR",
+      "description": "DM FAKE_VAR unknown",
+      "detected": true
+    },
+    {
+      "error_id": "E13",
+      "rule": "PK",
+      "severity": "ERROR",
+      "variable": "STUDYID+USUBJID+DMSEQ",
+      "description": "DM SUB03 duplicate PK (if SEQ present) or duplicate row",
+      "detected": false
+    },
+    {
+      "error_id": "E14",
+      "rule": "CT",
+      "severity": "ERROR",
+      "variable": "SEX",
+      "description": "SEX='X' not in C66731",
+      "detected": true
+    },
+    {
+      "error_id": "E15",
+      "rule": "REQ",
+      "severity": "ERROR",
+      "variable": "COUNTRY",
+      "description": "COUNTRY empty at row 2",
+      "detected": true
+    },
+    {
+      "error_id": "E16",
+      "rule": "TYPE",
+      "severity": "ERROR",
+      "variable": "AGE",
+      "description": "AGE='THIRTY' non-numeric",
+      "detected": true
+    }
+  ]
+}

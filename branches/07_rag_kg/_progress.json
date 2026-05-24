@@ -6,7 +6,7 @@
   "created": "2026-05-22",
   "updated": "2026-05-23 (Phase 1B Q&A service completed — FastAPI + Chroma retrieval + LiteLLM Router + Streamlit UI; 6 files 608 lines; 3/3 e2e tests PASS)",
   "upstream_design": "docs/DESIGN_RAG_KG.md (Approved 2026-04-16)",
-  "current_phase": "phase_1b5_sanity_eval COMPLETED (92.5% PASS) → next: Phase 1C Dataset Validation",
+  "current_phase": "phase_1c_dataset_validation PASS 4/5 (implementation + Rule D + Rule A done, user ack pending) → next: Phase 1D Full Eval",
   "phases": {
     "phase_0_research": {
       "status": "completed",
@@ -353,7 +353,72 @@
       "rule_d_status": "writer=main+scientist, verifier pending",
       "decision_1b5_3": "no adjustment needed (92.5% >= 80%)"
     },
-    "phase_1c_dataset_validation": {"status": "pending"},
+    "phase_1c_dataset_validation": {
+      "status": "in_progress (implementation complete, Rule D review pending)",
+      "started_at": "2026-05-24",
+      "evidence": "evidence/checkpoints/phase_1c_dataset_validation.md",
+      "owner": "main session",
+      "subtasks": {
+        "1c_1_parse_dataset": {
+          "status": "completed",
+          "file": "scripts/parse_dataset.py (~120 lines)",
+          "features": "CSV/XPT/SAS7BDAT + domain auto-detect + parse_bytes for uploads + 100MB limit",
+          "smoke": "4/4 tests PASS (CSV domain-col, CSV filename, bytes, errors)"
+        },
+        "1c_2_spec_loader": {
+          "status": "completed",
+          "file": "scripts/spec_loader.py (~190 lines)",
+          "features": "63 domains + 1005 codelists loaded from KB; VariableSpec/DomainSpec/Codelist dataclasses",
+          "smoke": "AE 64 vars / DM 36 vars / C66769 MILD/MODERATE/SEVERE verified"
+        },
+        "1c_2_validator": {
+          "status": "completed",
+          "file": "server/validator.py (~270 lines)",
+          "rules": "7 types: REQ/EXP/CT/TYPE/PK/SUBJ/VAR",
+          "smoke": "synthetic AE 5-row: all 7 rules fire correctly (2 ERROR + 17 WARN + 1 INFO)",
+          "e2e_api": "POST /api/validate rule-only → correct JSON (2 ERROR + 14 WARN + 3 INFO)"
+        },
+        "1c_3_reviewer": {
+          "status": "completed",
+          "file": "server/reviewer.py (~180 lines)",
+          "features": "RAG retrieval + LLM semantic review (5 check types) + JSON parse + error handling",
+          "smoke": "import OK; LLM e2e deferred to manual test"
+        },
+        "1c_4_report": {
+          "status": "completed",
+          "file": "server/report.py (~130 lines)",
+          "features": "FullReport → Markdown + JSON with verdict/completeness%/ERROR-WARN-INFO",
+          "smoke": "Markdown render + JSON structure verified"
+        },
+        "1c_5_api_ui": {
+          "status": "completed",
+          "files": ["server/router.py (+60 lines)", "server/main.py (+3 lines)", "ui/streamlit_app.py (rewrite ~230 lines)", "pyproject.toml (+1 dep)"],
+          "features": "POST /api/validate multipart + Streamlit tabs (Q&A + Validation) + file upload + report render + JSON download",
+          "smoke": "API e2e PASS (rule-only mode < 1s); UI structure verified"
+        }
+      },
+      "total_new_lines": 890,
+      "rule_d_review": {
+        "code_reviewer": "opus code-reviewer: 3 HIGH + 5 MED → all fixed + verified",
+        "security_reviewer": "opus security-reviewer: 2 HIGH (1 deferred auth) + 3 MED → all actionable fixed"
+      },
+      "rule_a_error_test": {
+        "total_errors": 19,
+        "true_positives": 18,
+        "detection_rate_pct": 94.7,
+        "pass": true,
+        "miss_analysis": "E13 test expectation mismatch (DM has no DMSEQ), not validator defect"
+      },
+      "rule_a_verifier": {
+        "subagent": "oh-my-claudecode:verifier (opus)",
+        "n": 5,
+        "agreements": 5,
+        "errors_verified": ["E01 REQ", "E04 CT", "E08 PK", "E11 TYPE", "E14 CT"],
+        "verdict": "5/5 AGREE PASS"
+      },
+      "semantic_review_e2e": "PASS — Opus 3860 tokens, 4 findings (date error + missing AETERM + AEBODSYS completeness + RELREC cross-domain)",
+      "deferred": ["User Bojiang ack"]
+    },
     "phase_1d_full_eval": {"status": "pending"},
     "phase_1_closure": {"status": "pending"},
     "phase_2_kg": {"status": "deferred", "decision_point": "Phase 1D eval 完后评估 RELATION 类召回 < 50% 才启动"}

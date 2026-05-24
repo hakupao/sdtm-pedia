@@ -16,6 +16,7 @@ from server.config import settings
 from server.llm_config import create_router
 from server.rag import RAGEngine
 from server.router import api_router
+from scripts.spec_loader import SpecLoader
 
 structlog.configure(
     wrapper_class=structlog.make_filtering_bound_logger(
@@ -42,6 +43,9 @@ async def lifespan(app: FastAPI):
     )
     app.state.llm_router = create_router(settings)
     app.state.settings = settings
+    app.state.spec_loader = SpecLoader(settings.kb_root)
+    log.info("spec_loader", domains=len(app.state.spec_loader.domains),
+             codelists=len(app.state.spec_loader.codelists))
     count = app.state.rag.collection.count()
     log.info("ready", collection=settings.collection_name, chunks=count)
     yield

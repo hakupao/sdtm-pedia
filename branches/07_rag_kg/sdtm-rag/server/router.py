@@ -1,4 +1,4 @@
-"""API routes for SDTM RAG Q&A service (Phase 1B)."""
+"""API routes for SDTM RAG Q&A + Dataset Validation (Phase 1B + 1C)."""
 from __future__ import annotations
 
 import time
@@ -6,7 +6,7 @@ from typing import Literal
 
 import structlog
 from pydantic import BaseModel, Field
-from fastapi import APIRouter, Request, HTTPException
+from fastapi import APIRouter, Request, HTTPException, UploadFile, File, Form
 
 log = structlog.get_logger()
 api_router = APIRouter(prefix="/api")
@@ -100,8 +100,8 @@ def ask(body: AskRequest, request: Request):
             top_k=body.top_k,
         )
     except Exception as e:
-        log.error("retrieve_failed", error=str(e))
-        raise HTTPException(status_code=502, detail=f"Embedding/retrieval error: {e}")
+        log.error("retrieve_failed", error=str(e), exc_info=True)
+        raise HTTPException(status_code=502, detail="Retrieval service temporarily unavailable.")
 
     context = rag.format_context(chunks)
     history_dicts = [{"role": m.role, "content": m.content} for m in body.history]
@@ -110,8 +110,8 @@ def ask(body: AskRequest, request: Request):
     try:
         response = llm_router.completion(model=body.model, messages=messages)
     except Exception as e:
-        log.error("llm_failed", error=str(e), model=body.model)
-        raise HTTPException(status_code=502, detail=f"LLM completion error: {e}")
+        log.error("llm_failed", error=str(e), model=body.model, exc_info=True)
+        raise HTTPException(status_code=502, detail="LLM service temporarily unavailable.")
 
     answer = response.choices[0].message.content or ""
     model_used = getattr(response, "model", None) or body.model
@@ -151,3 +151,89 @@ def ask(body: AskRequest, request: Request):
         model_used=model_used,
         usage=usage,
     )
+
+
+# ── Dataset Validation (Phase 1C) ─────────────────────────────────────
+
+
+@api_router.post("/validate")
+async def validate_dataset(
+    request: Request,
+    file: UploadFile = File(...),
+    domain: str | None = Form(None),
+    dm_file: UploadFile | None = File(None),
+    semantic_review: str = Form("true"),
+):
+    """Validate an SDTM dataset against KB specs + optional RAG semantic review."""
+    from scripts.parse_dataset import parse_bytes, ParseError
+    from server.validator import validate
+    from server.reviewer import review
+    from server.report import FullReport, generate_json
+
+    spec_loader = request.app.state.spec_loader
+    t0 = time.perf_counter()
+
+    data = await file.read()
+    filename = file.filename or "upload.csv"
+    log.info("validate_start", filename=filename, size=len(data), domain=domain)
+
+    try:
+        df, meta = parse_bytes(data, filename)
+    except ParseError as e:
+        raise HTTPException(status_code=422, detail=str(e))
+
+    effective_domain = domain or meta.domain
+    if not effective_domain:
+        raise HTTPException(
+            status_code=422,
+            detail="Cannot detect domain. Provide 'domain' parameter or include DOMAIN column.",
+        )
+
+    dm_df = None
+    if dm_file:
+        dm_data = await dm_file.read()
+        dm_filename = dm_file.filename or "dm.csv"
+        try:
+            dm_df, _ = parse_bytes(dm_data, dm_filename)
+        except ParseError as e:
+            raise HTTPException(status_code=422, detail=f"DM file error: {e}")
+
+    val_result = validate(df, effective_domain, spec_loader, dm_df=dm_df)
+
+    run_semantic = semantic_review.lower() in ("true", "1", "yes")
+    review_result = None
+    if run_semantic:
+        try:
+            rag = request.app.state.rag
+            llm_router = request.app.state.llm_router
+            review_result = review(
+                df, effective_domain, meta.variables, rag,
+                model="hard", llm_router=llm_router,
+            )
+        except Exception as e:
+            log.error("semantic_review_failed", error=str(e))
+            from server.reviewer import ReviewResult, SemanticFinding
+            review_result = ReviewResult(
+                domain=effective_domain,
+                findings=[SemanticFinding(
+                    "WARN", "business_rule",
+                    "Semantic review failed",
+                    "The LLM-based review could not be completed. Rule-based results are still valid.",
+                )],
+            )
+
+    full = FullReport(
+        domain=effective_domain,
+        file_path=filename,
+        row_count=meta.row_count,
+        col_count=meta.col_count,
+        completeness_pct=val_result.completeness_pct,
+        validation=val_result,
+        review=review_result,
+    )
+
+    elapsed = time.perf_counter() - t0
+    log.info("validate_done", domain=effective_domain, errors=full.total_errors,
+             warnings=full.total_warnings, elapsed_s=round(elapsed, 2))
+
+    return generate_json(full)
