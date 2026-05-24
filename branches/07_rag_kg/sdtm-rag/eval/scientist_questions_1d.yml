@@ -1,0 +1,73 @@
+# Scientist-authored questions for Rule A 4.c independence check
+# Written WITHOUT seeing the main test set
+# Author: Scientist agent (independent)
+# Date: 2026-05-24
+
+- id: s01
+  category: single_domain
+  question: "In the DM domain, what is the controlled terminology codelist code for the SEX variable, and what are its four permitted submission values?"
+  expected_facts:
+    - "C66731"
+    - "F"
+    - "M"
+    - "U"
+    - "UNDIFFERENTIATED"
+  expected_sources:
+    - "terminology/core/dm.md"
+    - "domains/DM/spec.md"
+
+- id: s02
+  category: concept
+  question: "What is the SUPPQUAL variable QNAM and what character constraints apply to it? What is the maximum length and what characters are allowed?"
+  expected_facts:
+    - "QNAM"
+    - "8 characters"
+    - "letters, numbers, or underscores"
+    - "cannot start with a number"
+    - "Qualifier Variable Name"
+  expected_sources:
+    - "domains/SUPPQUAL/spec.md"
+    - "model/06_relationship_datasets.md"
+
+- id: s03
+  category: cross_domain
+  question: "The DM variable RFXSTDTC is defined as equal to the earliest value of which variable in the EX domain? Similarly, RFXENDTC is equal to the latest value of which EX variable (or which fallback variable if that is not collected)?"
+  expected_facts:
+    - "EXSTDTC"
+    - "RFXSTDTC"
+    - "EXENDTC"
+    - "RFXENDTC"
+    - "earliest"
+    - "latest"
+  expected_sources:
+    - "domains/DM/spec.md"
+    - "domains/EX/spec.md"
+
+- id: s04
+  category: mixed
+  question: "In the AE domain, what is the controlled terminology codelist code for the AEACN (Action Taken with Study Treatment) variable, and what ICH E2B example values does the CDISC Notes field list for this variable?"
+  expected_facts:
+    - "C66767"
+    - "DRUG WITHDRAWN"
+    - "DOSE REDUCED"
+    - "DOSE INCREASED"
+    - "DOSE NOT CHANGED"
+    - "UNKNOWN"
+    - "NOT APPLICABLE"
+  expected_sources:
+    - "domains/AE/spec.md"
+    - "terminology/core/ae.md"
+
+- id: s05
+  category: single_domain
+  question: "In the VS domain, what is the controlled terminology codelist code for the VSTESTCD variable? Name the codelist, state whether it is extensible, and give three example TESTCD values listed for blood pressure and heart rate."
+  expected_facts:
+    - "C66741"
+    - "Vital Signs Test Code"
+    - "Extensible: Yes"
+    - "SYSBP"
+    - "DIABP"
+    - "HR"
+  expected_sources:
+    - "domains/VS/spec.md"
+    - "terminology/core/vs.md"

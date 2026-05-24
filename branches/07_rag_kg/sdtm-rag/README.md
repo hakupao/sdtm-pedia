@@ -1,7 +1,7 @@
 # sdtm-rag — SDTM Knowledge Base RAG + Dataset Validation
 
 > Phase 7 RAG+KG 旁枝实际代码仓 (Phase 1A 起开始建).
-> Status: **Phase 1A.1 scaffold** (脚手架已建, chunker 实现在 1A.3).
+> Status: **Phase 1 Complete** — RAG Q&A + Dataset Validation + 53-question eval PASS (88.5%).
 > 上游 PLAN/EXECUTION_PLAN: [`../PLAN.md`](../PLAN.md), [`../EXECUTION_PLAN.md`](../EXECUTION_PLAN.md).
 > 单用户/单租户 (PLAN §0.2 Out-of-scope), uvicorn `--workers 1`.
 
@@ -67,38 +67,67 @@ sdtm-rag/
     └── run_eval.py
 ```
 
-## Quick Start (本地 dev)
-
-### 1. 准备 `.env`
+## Quick Start — Local (venv)
 
 ```bash
-cp .env.example .env
-# 编辑 .env, 填入 ANTHROPIC_API_KEY / OPENAI_API_KEY (必), DEEPSEEK_API_KEY / COHERE_API_KEY (可选)
-```
-
-### 2a. 直接 Python (推荐 dev, Python ≥ 3.11)
-
-```bash
-python -m venv .venv
+# 1. Create venv + install deps
+cd branches/07_rag_kg/sdtm-rag
+python3 -m venv .venv
 source .venv/bin/activate
-pip install -e ".[dev]"
-# 跑 ingest (Phase 1A.5 实现后)
+pip install -e .
+
+# 2. Set up environment
+cp .env.example .env
+# Edit .env: fill ANTHROPIC_API_KEY, DEEPSEEK_API_KEY, OPENAI_API_KEY
+
+# 3. Ingest knowledge base (one-time, ~82 seconds)
 python scripts/ingest.py
-# 起 server
-uvicorn server.main:app --reload --port 8000
-# 另一终端起 UI
-streamlit run ui/streamlit_app.py --server.port 8501
+
+# 4. Start API server
+uvicorn server.main:app --host 0.0.0.0 --port 8000
+
+# 5. Start Streamlit UI (separate terminal)
+streamlit run ui/streamlit_app.py
+# Open http://localhost:8501
 ```
 
-### 2b. Docker Compose (推荐 demo / 公司机器)
+## Quick Start — Docker Compose
 
 ```bash
-docker compose up --build
-# api  → http://localhost:8000  (FastAPI)
-# ui   → http://localhost:8501  (Streamlit)
+# 1. Set up environment
+cp .env.example .env
+# Edit .env with API keys
+
+# 2. Build + start
+docker compose up --build -d
+
+# 3. Ingest (first time only)
+docker compose exec api python scripts/ingest.py
+
+# API: http://localhost:8000/docs
+# UI:  http://localhost:8501
 ```
 
 Knowledge base 通过只读 volume `../../../knowledge_base:/app/knowledge_base:ro` 挂入 (H-1 read-only 硬约束).
+
+## API Endpoints
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/api/health` | GET | Health check |
+| `/api/info` | GET | System info (chunks, model) |
+| `/api/ask` | POST | RAG Q&A (JSON: `{"question": "..."}`) |
+| `/api/validate` | POST | Dataset validation (multipart file upload) |
+
+## Eval
+
+```bash
+# Retrieval-only (free, no LLM)
+python eval/run_eval.py eval/test_set_v1.yml --retrieval-only
+
+# Full eval with specific model
+python eval/run_eval.py eval/test_set_v1.yml --model deepseek/deepseek-chat --output eval/report.json
+```
 
 ## Environment Variables
 

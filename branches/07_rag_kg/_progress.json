@@ -4,9 +4,9 @@
   "tier": 2,
   "tier_note": "borderline Tier 2-3, 走 Tier 2 + evidence 全留; Phase 2 KG 启动时再评估升 Tier 3",
   "created": "2026-05-22",
-  "updated": "2026-05-23 (Phase 1B Q&A service completed — FastAPI + Chroma retrieval + LiteLLM Router + Streamlit UI; 6 files 608 lines; 3/3 e2e tests PASS)",
+  "updated": "2026-05-24 (Phase 1D Full Eval PASS 88.5% ≥ 85% — 53 questions DeepSeek, Anthropic API credits exhausted; cross_domain 61.5% > 50% Phase 2 KG NOT triggered; 5/5 validation scenarios PASS; Rule A 4.c 100% overlap PASS)",
   "upstream_design": "docs/DESIGN_RAG_KG.md (Approved 2026-04-16)",
-  "current_phase": "phase_1c_dataset_validation PASS 4/5 (implementation + Rule D + Rule A done, user ack pending) → next: Phase 1D Full Eval",
+  "current_phase": "phase_1d_full_eval PASS 4/5 (88.5% ≥ 85%, DeepSeek; Anthropic credits exhausted; user ack pending) → next: Phase 1 收口",
   "phases": {
     "phase_0_research": {
       "status": "completed",
@@ -419,9 +419,41 @@
       "semantic_review_e2e": "PASS — Opus 3860 tokens, 4 findings (date error + missing AETERM + AEBODSYS completeness + RELREC cross-domain)",
       "deferred": ["User Bojiang ack"]
     },
-    "phase_1d_full_eval": {"status": "pending"},
+    "phase_1d_full_eval": {
+      "status": "completed (PASS 4/5, user ack pending)",
+      "started_at": "2026-05-24",
+      "pass_at": "2026-05-24",
+      "evidence": "evidence/checkpoints/phase_1d_full_eval.md",
+      "owner": "main session (48q) + scientist subagent (5q Rule A 4.c)",
+      "results": {
+        "n_questions": 53,
+        "source_recall_avg": 0.821,
+        "fact_recall_avg": 0.948,
+        "overall": 0.885,
+        "threshold": 0.85,
+        "verdict": "PASS",
+        "total_tokens": 676011,
+        "model": "deepseek/deepseek-chat"
+      },
+      "by_category": {
+        "single_domain": {"src": 0.964, "fact": 0.940, "n": 14},
+        "mixed": {"src": 0.923, "fact": 0.962, "n": 13},
+        "concept": {"src": 0.769, "fact": 0.931, "n": 13},
+        "cross_domain": {"src": 0.615, "fact": 0.962, "n": 13}
+      },
+      "cross_model": {
+        "deepseek": "PASS 88.5%",
+        "sonnet": "BLOCKED — Anthropic API credits exhausted",
+        "opus": "BLOCKED — Anthropic API credits exhausted"
+      },
+      "validation_scenarios": "5/5 PASS",
+      "phase_2_kg_decision": "cross_domain src recall 61.5% > 50% → Phase 2 KG NOT triggered",
+      "rule_a_4c": "scientist 5q, topic overlap 100% ≥ 50%, PASS",
+      "rule_d_status": "writer=main+scientist, verifier pending",
+      "deferred": ["User Bojiang ack", "Sonnet/Opus cross-model when Anthropic credits available"]
+    },
     "phase_1_closure": {"status": "pending"},
-    "phase_2_kg": {"status": "deferred", "decision_point": "Phase 1D eval 完后评估 RELATION 类召回 < 50% 才启动"}
+    "phase_2_kg": {"status": "deferred — NOT triggered", "decision_point": "Phase 1D cross_domain src recall 61.5% > 50% threshold; Phase 2 KG deferred until post-deployment user feedback"}
   },
   "constraints": {
     "hard": [

@@ -1,13 +1,21 @@
-"""Phase 1B5 Sanity Evaluation runner.
+"""Phase 1D Full Evaluation runner.
 
 Modes:
   --retrieval-only   Score source recall only (no LLM calls, fast+free)
   (default)          Full: retrieval + LLM answer + fact recall
 
+Flags:
+  --model MODEL      Override LLM model string (bypasses Router, uses litellm directly)
+                     e.g. anthropic/claude-sonnet-4-6, deepseek/deepseek-chat
+  --threshold FLOAT  Override pass/fail threshold (default 0.85)
+  --tag TAG          Label added to output JSON for cross-model comparison
+
 Run from sdtm-rag/:
   python eval/run_eval.py eval/test_set_v0.yml --retrieval-only
   python eval/run_eval.py eval/test_set_v0.yml
   python eval/run_eval.py eval/test_set_v0.yml --output eval/baseline_report.json
+  python eval/run_eval.py eval/test_set_v1.yml --model anthropic/claude-sonnet-4-6 --tag sonnet --output eval/report_sonnet.json
+  python eval/run_eval.py eval/test_set_v1.yml --model deepseek/deepseek-chat --tag deepseek --threshold 0.80 --output eval/report_deepseek.json
 """
 from __future__ import annotations
 
@@ -17,6 +25,7 @@ import sys
 import time
 from pathlib import Path
 
+import litellm
 import yaml
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
@@ -70,6 +79,7 @@ def run_evaluation(
     rag: RAGEngine,
     router=None,
     retrieval_only: bool = False,
+    direct_model: str | None = None,
 ) -> list[dict]:
     results: list[dict] = []
     for q in test_set:
@@ -95,10 +105,25 @@ def run_evaluation(
             "top5_similarities": [c.similarity for c in chunks[:5]],
         }
 
-        if not retrieval_only and router is not None:
+        if not retrieval_only and (router is not None or direct_model is not None):
             context = rag.format_context(chunks)
             messages = rag.build_messages(q["question"], context)
-            response = router.completion(model="default", messages=messages)
+
+            for _attempt in range(5):
+                try:
+                    if direct_model is not None:
+                        response = litellm.completion(model=direct_model, messages=messages)
+                    else:
+                        response = router.completion(model="default", messages=messages)
+                    break
+                except Exception as exc:
+                    if "rate_limit" in str(exc).lower() or "429" in str(exc):
+                        wait = 30 * (2 ** _attempt)
+                        print(f"\n  [RATE LIMIT] waiting {wait}s...", end=" ", flush=True)
+                        time.sleep(wait)
+                    else:
+                        raise
+
             answer = response.choices[0].message.content or ""
             usage = {}
             if response.usage:
@@ -117,7 +142,7 @@ def run_evaluation(
                 "fact_misses": fact_misses,
                 "answer_preview": answer[:300],
                 "usage": usage,
-                "model": getattr(response, "model", "unknown"),
+                "model": direct_model if direct_model is not None else getattr(response, "model", "unknown"),
             })
 
         elapsed = time.perf_counter() - t0
@@ -132,26 +157,36 @@ def run_evaluation(
     return results
 
 
-def print_summary(results: list[dict], retrieval_only: bool = False) -> dict:
+def print_summary(
+    results: list[dict],
+    retrieval_only: bool = False,
+    threshold: float = 0.85,
+    model: str | None = None,
+) -> dict:
     n = len(results)
     avg_src = sum(r["source_recall"] for r in results) / n
-    by_cat: dict[str, list[float]] = {}
+    src_by_cat: dict[str, list[float]] = {}
     for r in results:
-        by_cat.setdefault(r["category"], []).append(r["source_recall"])
+        src_by_cat.setdefault(r["category"], []).append(r["source_recall"])
 
     print("\n" + "=" * 60)
-    print("SANITY EVAL SUMMARY")
+    print("EVAL SUMMARY")
     print("=" * 60)
     print(f"Questions: {n}")
+    if model:
+        print(f"Model:     {model}")
+    print(f"Threshold: {threshold:.0%}")
     print(f"Source recall (avg): {avg_src:.1%}")
-    for cat, vals in sorted(by_cat.items()):
+    for cat, vals in sorted(src_by_cat.items()):
         print(f"  {cat}: {sum(vals)/len(vals):.1%} ({len(vals)} q)")
 
     summary: dict = {
         "n_questions": n,
+        "model": model,
+        "threshold": threshold,
         "source_recall_avg": round(avg_src, 4),
         "source_recall_by_category": {
-            cat: round(sum(vals) / len(vals), 4) for cat, vals in sorted(by_cat.items())
+            cat: round(sum(vals) / len(vals), 4) for cat, vals in sorted(src_by_cat.items())
         },
     }
 
@@ -169,21 +204,21 @@ def print_summary(results: list[dict], retrieval_only: bool = False) -> dict:
 
         overall = (avg_src + avg_fact) / 2
         print(f"\nOverall (src+fact avg): {overall:.1%}")
-        threshold = 0.80
         verdict = "PASS" if overall >= threshold else "FAIL"
         print(f"Threshold: {threshold:.0%}  ->  {verdict}")
         summary.update({
             "fact_recall_avg": round(avg_fact, 4),
+            "fact_recall_by_category": {
+                cat: round(sum(vals) / len(vals), 4) for cat, vals in sorted(fact_by_cat.items())
+            },
             "overall": round(overall, 4),
             "total_tokens": total_tokens,
-            "threshold": threshold,
             "verdict": verdict,
         })
     else:
-        threshold = 0.80
         verdict = "PASS" if avg_src >= threshold else "FAIL"
         print(f"\nThreshold: {threshold:.0%}  ->  {verdict} (retrieval-only)")
-        summary.update({"threshold": threshold, "verdict": verdict})
+        summary.update({"verdict": verdict})
 
     failures = [r for r in results if r["source_recall"] < 1.0]
     if failures:
@@ -195,10 +230,27 @@ def print_summary(results: list[dict], retrieval_only: bool = False) -> dict:
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description="Phase 1B5 Sanity Evaluation")
+    parser = argparse.ArgumentParser(description="Phase 1D Full Evaluation")
     parser.add_argument("test_set", help="Path to test_set YAML file")
     parser.add_argument("--retrieval-only", action="store_true")
     parser.add_argument("--output", help="Save results JSON to file")
+    parser.add_argument(
+        "--model",
+        default=None,
+        help="Override LLM model string (bypasses Router, uses litellm directly). "
+             "E.g. anthropic/claude-sonnet-4-6, deepseek/deepseek-chat",
+    )
+    parser.add_argument(
+        "--threshold",
+        type=float,
+        default=0.85,
+        help="Pass/fail threshold (default 0.85)",
+    )
+    parser.add_argument(
+        "--tag",
+        default=None,
+        help="Optional label added to output JSON for cross-model comparison",
+    )
     args = parser.parse_args(argv)
 
     test_set = load_test_set(args.test_set)
@@ -215,15 +267,27 @@ def main(argv: list[str] | None = None) -> int:
 
     router = None
     if not args.retrieval_only:
-        router = create_router(settings)
-        print(f"LLM router: {len(router.model_list)} models")
+        if args.model:
+            print(f"LLM mode: direct litellm, model={args.model}")
+        else:
+            router = create_router(settings)
+            print(f"LLM router: {len(router.model_list)} models")
 
     print()
-    results = run_evaluation(test_set, rag, router, args.retrieval_only)
-    summary = print_summary(results, args.retrieval_only)
+    results = run_evaluation(
+        test_set, rag, router, args.retrieval_only, direct_model=args.model
+    )
+    summary = print_summary(
+        results,
+        retrieval_only=args.retrieval_only,
+        threshold=args.threshold,
+        model=args.model,
+    )
 
     if args.output:
-        out = {"summary": summary, "results": results}
+        out: dict = {"summary": summary, "results": results}
+        if args.tag:
+            out["tag"] = args.tag
         Path(args.output).write_text(
             json.dumps(out, indent=2, ensure_ascii=False), encoding="utf-8"
         )

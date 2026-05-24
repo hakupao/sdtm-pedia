@@ -1,0 +1,583 @@
+# Phase 1D Full Eval — 48 questions (main-authored)
+# Format: id / category / question / expected_facts (substring match) / expected_sources (partial path match)
+# Categories: single_domain (12) / cross_domain (12) / concept (12) / mixed (12)
+# PLAN §5 Phase 1D: overall ≥ 85%, RELATION (cross_domain) recall → Phase 2 KG gate
+# Scientist-authored questions (s01-s05) merged separately for Rule A 4.c
+
+# ════════════════════════════════════════════════════════════════════════
+# Single Domain (12) — specific variable/domain lookups
+# ════════════════════════════════════════════════════════════════════════
+
+- id: q01
+  category: single_domain
+  question: "What is AETERM and what are its variable attributes in the AE domain?"
+  expected_facts:
+    - "Topic"
+    - "Char"
+    - "Req"
+    - "Verbatim"
+  expected_sources:
+    - "domains/AE/spec.md"
+
+- id: q02
+  category: single_domain
+  question: "What are the required (Core=Req) variables in the DM domain?"
+  expected_facts:
+    - "STUDYID"
+    - "USUBJID"
+    - "RFSTDTC"
+    - "AGE"
+    - "SEX"
+    - "ARM"
+  expected_sources:
+    - "domains/DM/spec.md"
+
+- id: q03
+  category: single_domain
+  question: "What are the key assumptions for adverse event data collection and coding?"
+  expected_facts:
+    - "AETERM"
+    - "MedDRA"
+    - "AEDECOD"
+  expected_sources:
+    - "domains/AE/assumptions.md"
+
+- id: q04
+  category: single_domain
+  question: "What is the purpose of the TV (Trial Visits) domain and what variables does it contain?"
+  expected_facts:
+    - "VISITNUM"
+    - "VISIT"
+  expected_sources:
+    - "domains/TV/spec.md"
+
+- id: q05
+  category: single_domain
+  question: "In the PE (Physical Examination) domain, what is the structure of the dataset, what is the role of the PETESTCD variable, and what value should PETESTCD have when the results of the entire physical examination are represented in one record?"
+  expected_facts:
+    - "PETESTCD"
+    - "Topic"
+    - "PHYSEXAM"
+  expected_sources:
+    - "domains/PE/spec.md"
+
+- id: q21
+  category: single_domain
+  question: "What is the LBTESTCD variable in the LB (Laboratory Test Results) domain? Describe its role, controlled terminology codelist code, and naming constraints."
+  expected_facts:
+    - "Topic"
+    - "C65047"
+    - "8 characters"
+  expected_sources:
+    - "domains/LB/spec.md"
+
+- id: q22
+  category: single_domain
+  question: "What is the VS (Vital Signs) domain and what are some examples of VSTESTCD values? Include the codelist code."
+  expected_facts:
+    - "Findings"
+    - "VSTESTCD"
+    - "C66741"
+  expected_sources:
+    - "domains/VS/spec.md"
+
+- id: q23
+  category: single_domain
+  question: "In the CM (Concomitant Medications) domain, what is the CMTRT variable and what observation class does CM belong to?"
+  expected_facts:
+    - "CMTRT"
+    - "Interventions"
+    - "Topic"
+    - "Req"
+  expected_sources:
+    - "domains/CM/spec.md"
+
+- id: q24
+  category: single_domain
+  question: "What is the EX (Exposure) domain used for and what is the Topic variable EXTRT?"
+  expected_facts:
+    - "EXTRT"
+    - "Interventions"
+    - "protocol-specified"
+  expected_sources:
+    - "domains/EX/spec.md"
+
+- id: q25
+  category: single_domain
+  question: "In the MH (Medical History) domain, what is the role of MHTERM and what assumptions guide medical history data collection?"
+  expected_facts:
+    - "MHTERM"
+    - "Topic"
+    - "Verbatim"
+  expected_sources:
+    - "domains/MH/assumptions.md"
+
+- id: q26
+  category: single_domain
+  question: "Describe the EG (ECG Test Results) domain structure and the EGTESTCD variable, including its controlled terminology codelist codes."
+  expected_facts:
+    - "EGTESTCD"
+    - "Findings"
+    - "C71153"
+  expected_sources:
+    - "domains/EG/spec.md"
+
+- id: q27
+  category: single_domain
+  question: "What is the IE (Inclusion/Exclusion) domain and what is the role and maximum length of the IETEST variable?"
+  expected_facts:
+    - "IETEST"
+    - "200"
+    - "Synonym Qualifier"
+  expected_sources:
+    - "domains/IE/spec.md"
+
+# ════════════════════════════════════════════════════════════════════════
+# Cross Domain (12) — relationships across domains (Phase 2 KG decision gate)
+# ════════════════════════════════════════════════════════════════════════
+
+- id: q06
+  category: cross_domain
+  question: "What is SUPPQUAL and when should supplemental qualifiers be used instead of adding variables to a domain?"
+  expected_facts:
+    - "QNAM"
+    - "QVAL"
+    - "non-standard"
+  expected_sources:
+    - "domains/SUPPQUAL/spec.md"
+
+- id: q07
+  category: cross_domain
+  question: "Which SDTM domains use the EPOCH variable and what is its purpose?"
+  expected_facts:
+    - "EPOCH"
+    - "Timing"
+  expected_sources:
+    - "VARIABLE_INDEX.md"
+
+- id: q08
+  category: cross_domain
+  question: "How does USUBJID serve as a linking key across SDTM domains?"
+  expected_facts:
+    - "USUBJID"
+    - "Identifier"
+    - "unique"
+  expected_sources:
+    - "domains/DM/spec.md"
+
+- id: q09
+  category: cross_domain
+  question: "How are adverse events linked to concomitant medications using RELREC?"
+  expected_facts:
+    - "RELREC"
+    - "IDVAR"
+    - "IDVARVAL"
+  expected_sources:
+    - "domains/RELREC/spec.md"
+
+- id: q10
+  category: cross_domain
+  question: "In oncology studies, how are the TR (Tumor/Lesion Results) domain and RS (Disease Response) domain linked together, and which specific identifier variables are used for each linkage direction?"
+  expected_facts:
+    - "TRLNKID"
+    - "TRLNKGRP"
+  expected_sources:
+    - "domains/TR/assumptions.md"
+    - "domains/TR/spec.md"
+
+- id: q28
+  category: cross_domain
+  question: "What is the FA (Findings About Events or Interventions) domain and how does it link to parent domains like AE or CM using FAOBJ?"
+  expected_facts:
+    - "Findings About"
+    - "FAOBJ"
+    - "FATESTCD"
+  expected_sources:
+    - "domains/FA/spec.md"
+
+- id: q29
+  category: cross_domain
+  question: "How do the four Trial Design domains TA (Trial Arms), TE (Trial Elements), TV (Trial Visits), and TI (Trial Inclusion/Exclusion) work together to define a study design?"
+  expected_facts:
+    - "TA"
+    - "TE"
+    - "TV"
+    - "TI"
+  expected_sources:
+    - "domains/TA/assumptions.md"
+    - "domains/TE/assumptions.md"
+
+- id: q30
+  category: cross_domain
+  question: "What is the CO (Comments) domain and how does it reference records in other SDTM domains? Describe the RDOMAIN and IDVAR mechanism."
+  expected_facts:
+    - "COVAL"
+    - "RDOMAIN"
+    - "IDVAR"
+  expected_sources:
+    - "domains/CO/spec.md"
+    - "domains/CO/assumptions.md"
+
+- id: q31
+  category: cross_domain
+  question: "How are the EC (Exposure as Collected) and EX (Exposure) domains different in purpose, and when should each be used?"
+  expected_facts:
+    - "collected"
+    - "EX"
+    - "EC"
+  expected_sources:
+    - "domains/EC/assumptions.md"
+
+- id: q32
+  category: cross_domain
+  question: "How is VISIT and VISITNUM used consistently across observation-class domains, and what role does the SV (Subject Visits) domain play in tracking actual visit dates?"
+  expected_facts:
+    - "VISIT"
+    - "VISITNUM"
+    - "SV"
+  expected_sources:
+    - "domains/SV/spec.md"
+    - "domains/SV/assumptions.md"
+
+- id: q33
+  category: cross_domain
+  question: "What is the RELSPEC domain and how does it define relationships between datasets at the study level, as opposed to RELREC which links individual records?"
+  expected_facts:
+    - "RELSPEC"
+    - "RELREC"
+  expected_sources:
+    - "domains/RELSPEC/spec.md"
+
+- id: q34
+  category: cross_domain
+  question: "Which SDTM domains share the controlled terminology codelist for NY (No Yes Response, C66742), and what variable typically uses this codelist in those domains?"
+  expected_facts:
+    - "C66742"
+    - "NY"
+  expected_sources:
+    - "VARIABLE_INDEX.md"
+
+# ════════════════════════════════════════════════════════════════════════
+# Concept (12) — SDTM model concepts, rules, and structural patterns
+# ════════════════════════════════════════════════════════════════════════
+
+- id: q11
+  category: concept
+  question: "What are the three observation classes in the SDTM model?"
+  expected_facts:
+    - "Interventions"
+    - "Events"
+    - "Findings"
+  expected_sources:
+    - "model/02_observation_classes.md"
+
+- id: q12
+  category: concept
+  question: "What do the Core designations Req, Exp, and Perm mean in SDTM?"
+  expected_facts:
+    - "Required"
+    - "Expected"
+    - "Permissible"
+  expected_sources:
+    - "chapters/ch04"
+
+- id: q13
+  category: concept
+  question: "What is the difference between Topic, Qualifier, and Identifier variable roles?"
+  expected_facts:
+    - "Topic"
+    - "Qualifier"
+    - "Identifier"
+  expected_sources:
+    - "model/01_concepts_and_terms.md"
+
+- id: q14
+  category: concept
+  question: "How should a sponsor create a new custom domain in SDTM?"
+  expected_facts:
+    - "observation class"
+  expected_sources:
+    - "chapters/ch02"
+
+- id: q15
+  category: concept
+  question: "What are the three SDTM Core designation categories for variables, and what are the rules for handling a Permissible variable when a study did not collect the corresponding data item?"
+  expected_facts:
+    - "Req"
+    - "Exp"
+    - "Perm"
+  expected_sources:
+    - "chapters/ch04_general_assumptions.md"
+
+- id: q35
+  category: concept
+  question: "What is Controlled Terminology (CT) in SDTM and how does it constrain the values that variables can contain?"
+  expected_facts:
+    - "codelist"
+    - "Controlled Terms"
+  expected_sources:
+    - "chapters/ch04"
+
+- id: q36
+  category: concept
+  question: "What are the timing variables in SDTM (such as --DTC, --STDTC, --ENDTC) and how are they structured across domains?"
+  expected_facts:
+    - "DTC"
+    - "STDTC"
+    - "ENDTC"
+    - "Timing"
+  expected_sources:
+    - "chapters/ch04"
+
+- id: q37
+  category: concept
+  question: "What are the Special-Purpose datasets in SDTM and which domains fall into this category?"
+  expected_facts:
+    - "Special-Purpose"
+    - "DM"
+    - "CO"
+    - "SUPPQUAL"
+  expected_sources:
+    - "model/04_special_purpose.md"
+
+- id: q38
+  category: concept
+  question: "How are SDTM domain abbreviation codes assigned? What are the rules for the two-character domain code?"
+  expected_facts:
+    - "two-character"
+    - "DOMAIN"
+  expected_sources:
+    - "chapters/ch02"
+
+- id: q39
+  category: concept
+  question: "What is the Findings About observation class and how does it differ from the standard Findings class?"
+  expected_facts:
+    - "Findings About"
+    - "FAOBJ"
+  expected_sources:
+    - "model/02_observation_classes.md"
+
+- id: q40
+  category: concept
+  question: "What is the difference between collected data and derived data in SDTM, and how is the origin of a variable value indicated?"
+  expected_facts:
+    - "Collected"
+    - "Derived"
+    - "Origin"
+  expected_sources:
+    - "chapters/ch04"
+
+- id: q41
+  category: concept
+  question: "What are the Trial Design Model datasets in SDTM and what kind of study-level information do they capture?"
+  expected_facts:
+    - "Trial Design"
+    - "TA"
+    - "TE"
+    - "TV"
+  expected_sources:
+    - "model/05_study_level_data.md"
+
+# ════════════════════════════════════════════════════════════════════════
+# Mixed (12) — combining domain facts + terminology/concepts
+# ════════════════════════════════════════════════════════════════════════
+
+- id: q16
+  category: mixed
+  question: "What values are allowed for AESEV and what is its codelist code?"
+  expected_facts:
+    - "C66769"
+    - "MILD"
+    - "MODERATE"
+    - "SEVERE"
+  expected_sources:
+    - "domains/AE/spec.md"
+    - "terminology/core/ae.md"
+
+- id: q17
+  category: mixed
+  question: "How are date and time variables formatted in SDTM and what suffix do they use?"
+  expected_facts:
+    - "ISO 8601"
+    - "DTC"
+  expected_sources:
+    - "chapters/ch04"
+
+- id: q18
+  category: mixed
+  question: "Explain the MedDRA coding chain for adverse events from verbatim term to dictionary term."
+  expected_facts:
+    - "AETERM"
+    - "AEMODIFY"
+    - "AEDECOD"
+    - "Preferred Term"
+  expected_sources:
+    - "domains/AE/spec.md"
+    - "domains/AE/assumptions.md"
+
+- id: q19
+  category: mixed
+  question: "What controlled terminology codelist is used for DSDECOD when DSCAT equals 'DISPOSITION EVENT', and list specific CDISC Submission Values from that codelist for reasons of non-completion."
+  expected_facts:
+    - "NCOMPLT"
+    - "C66727"
+  expected_sources:
+    - "domains/DS/assumptions.md"
+    - "terminology/core/disposition.md"
+
+- id: q20
+  category: mixed
+  question: "In the DM domain, what is the difference between the RFSTDTC/RFENDTC reference period pair and the RFXSTDTC/RFXENDTC pair, and under what circumstances will RFSTDTC be null?"
+  expected_facts:
+    - "sponsor-defined"
+    - "screen failure"
+  expected_sources:
+    - "domains/DM/assumptions.md"
+    - "domains/DM/spec.md"
+
+- id: q42
+  category: mixed
+  question: "In the LB domain, how are normal ranges represented using LBORNRLO and LBORNRHI, and what is the LBNRIND variable used for?"
+  expected_facts:
+    - "LBORNRLO"
+    - "LBORNRHI"
+    - "LBNRIND"
+  expected_sources:
+    - "domains/LB/spec.md"
+    - "domains/LB/assumptions.md"
+
+- id: q43
+  category: mixed
+  question: "What is the controlled terminology codelist for the SEX variable in the DM domain? Provide the codelist code and describe the Core designation."
+  expected_facts:
+    - "SEX"
+    - "C66731"
+    - "Req"
+  expected_sources:
+    - "domains/DM/spec.md"
+
+- id: q44
+  category: mixed
+  question: "In the VS domain, what is the controlled terminology codelist code for VSTESTCD, and give examples of standard vital signs test codes like systolic and diastolic blood pressure."
+  expected_facts:
+    - "C66741"
+    - "SYSBP"
+    - "DIABP"
+  expected_sources:
+    - "domains/VS/spec.md"
+
+- id: q45
+  category: mixed
+  question: "What is the RACE variable in the DM domain, what codelist does it use, and what is its Core designation?"
+  expected_facts:
+    - "RACE"
+    - "C74457"
+    - "Exp"
+  expected_sources:
+    - "domains/DM/spec.md"
+
+- id: q46
+  category: mixed
+  question: "What is the AEOUT (Outcome of Adverse Event) variable in the AE domain and what controlled terminology codelist code does it use?"
+  expected_facts:
+    - "AEOUT"
+    - "C66768"
+    - "Perm"
+  expected_sources:
+    - "domains/AE/spec.md"
+
+- id: q47
+  category: mixed
+  question: "How do QS (Questionnaires) domains handle instrument-specific variables using QSCAT, and what role does QSTESTCD play in organizing question-level data?"
+  expected_facts:
+    - "QSTESTCD"
+    - "QSCAT"
+    - "Topic"
+  expected_sources:
+    - "domains/QS/spec.md"
+    - "domains/QS/assumptions.md"
+
+- id: q48
+  category: mixed
+  question: "What is the FATESTCD variable's controlled terminology codelist code in the FA domain, and give examples of standard FA test codes?"
+  expected_facts:
+    - "FATESTCD"
+    - "C101832"
+  expected_sources:
+    - "domains/FA/spec.md"
+
+# ════════════════════════════════════════════════════════════════════════
+# Scientist-authored (5) — Rule A 4.c independence check
+# Written by scientist subagent WITHOUT seeing main's 48 questions above
+# Topic overlap: 5/5 = 100% ≥ 50% threshold → PASS
+# ════════════════════════════════════════════════════════════════════════
+
+- id: s01
+  category: single_domain
+  question: "In the DM domain, what is the controlled terminology codelist code for the SEX variable, and what are its four permitted submission values?"
+  expected_facts:
+    - "C66731"
+    - "F"
+    - "M"
+    - "U"
+    - "UNDIFFERENTIATED"
+  expected_sources:
+    - "terminology/core/dm.md"
+    - "domains/DM/spec.md"
+
+- id: s02
+  category: concept
+  question: "What is the SUPPQUAL variable QNAM and what character constraints apply to it? What is the maximum length and what characters are allowed?"
+  expected_facts:
+    - "QNAM"
+    - "8 characters"
+    - "letters, numbers, or underscores"
+    - "cannot start with a number"
+    - "Qualifier Variable Name"
+  expected_sources:
+    - "domains/SUPPQUAL/spec.md"
+    - "model/06_relationship_datasets.md"
+
+- id: s03
+  category: cross_domain
+  question: "The DM variable RFXSTDTC is defined as equal to the earliest value of which variable in the EX domain? Similarly, RFXENDTC is equal to the latest value of which EX variable (or which fallback variable if that is not collected)?"
+  expected_facts:
+    - "EXSTDTC"
+    - "RFXSTDTC"
+    - "EXENDTC"
+    - "RFXENDTC"
+    - "earliest"
+    - "latest"
+  expected_sources:
+    - "domains/DM/spec.md"
+    - "domains/EX/spec.md"
+
+- id: s04
+  category: mixed
+  question: "In the AE domain, what is the controlled terminology codelist code for the AEACN (Action Taken with Study Treatment) variable, and what ICH E2B example values does the CDISC Notes field list for this variable?"
+  expected_facts:
+    - "C66767"
+    - "DRUG WITHDRAWN"
+    - "DOSE REDUCED"
+    - "DOSE INCREASED"
+    - "DOSE NOT CHANGED"
+    - "UNKNOWN"
+    - "NOT APPLICABLE"
+  expected_sources:
+    - "domains/AE/spec.md"
+    - "terminology/core/ae.md"
+
+- id: s05
+  category: single_domain
+  question: "In the VS domain, what is the controlled terminology codelist code for the VSTESTCD variable? Name the codelist, state whether it is extensible, and give three example TESTCD values listed for blood pressure and heart rate."
+  expected_facts:
+    - "C66741"
+    - "Vital Signs Test Code"
+    - "Extensible: Yes"
+    - "SYSBP"
+    - "DIABP"
+    - "HR"
+  expected_sources:
+    - "domains/VS/spec.md"
+    - "terminology/core/vs.md"
