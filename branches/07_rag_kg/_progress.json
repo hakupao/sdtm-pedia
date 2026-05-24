@@ -6,7 +6,7 @@
   "created": "2026-05-22",
   "updated": "2026-05-24 (Phase 1D Full Eval PASS 88.5% ≥ 85% — 53 questions DeepSeek, Anthropic API credits exhausted; cross_domain 61.5% > 50% Phase 2 KG NOT triggered; 5/5 validation scenarios PASS; Rule A 4.c 100% overlap PASS)",
   "upstream_design": "docs/DESIGN_RAG_KG.md (Approved 2026-04-16)",
-  "current_phase": "phase_1d_full_eval PASS 4/5 (88.5% ≥ 85%, DeepSeek; Anthropic credits exhausted; user ack pending) → next: Phase 1 收口",
+  "current_phase": "phase_1_closed PASS 5/5 (user ack 2026-05-24) → Phase 2 KG deferred",
   "phases": {
     "phase_0_research": {
       "status": "completed",
@@ -420,7 +420,7 @@
       "deferred": ["User Bojiang ack"]
     },
     "phase_1d_full_eval": {
-      "status": "completed (PASS 4/5, user ack pending)",
+      "status": "completed PASS 5/5",
       "started_at": "2026-05-24",
       "pass_at": "2026-05-24",
       "evidence": "evidence/checkpoints/phase_1d_full_eval.md",
@@ -450,7 +450,8 @@
       "phase_2_kg_decision": "cross_domain src recall 61.5% > 50% → Phase 2 KG NOT triggered",
       "rule_a_4c": "scientist 5q, topic overlap 100% ≥ 50%, PASS",
       "rule_d_status": "writer=main+scientist, verifier pending",
-      "deferred": ["User Bojiang ack", "Sonnet/Opus cross-model when Anthropic credits available"]
+      "deferred": ["Sonnet/Opus cross-model when Anthropic credits available"],
+      "user_ack": "2026-05-24 Bojiang ack Phase 1D + Phase 1 closure"
     },
     "phase_1_closure": {"status": "pending"},
     "phase_2_kg": {"status": "deferred — NOT triggered", "decision_point": "Phase 1D cross_domain src recall 61.5% > 50% threshold; Phase 2 KG deferred until post-deployment user feedback"}
