@@ -4,9 +4,9 @@
   "tier": 2,
   "tier_note": "borderline Tier 2-3, 走 Tier 2 + evidence 全留; Phase 2 KG 启动时再评估升 Tier 3",
   "created": "2026-05-22",
-  "updated": "2026-05-23 (Phase 1A.5 ingest_full completed — D-4 v3 pivot bge-m3→OpenAI; 4146 chunks / 82s / 93.2 MB Chroma / 18 truncated / sanity 5/10 baseline)",
+  "updated": "2026-05-23 (Phase 1B Q&A service completed — FastAPI + Chroma retrieval + LiteLLM Router + Streamlit UI; 6 files 608 lines; 3/3 e2e tests PASS)",
   "upstream_design": "docs/DESIGN_RAG_KG.md (Approved 2026-04-16)",
-  "current_phase": "phase_1a_ingest 1A.0-1A.6 ALL CLOSED → next: Phase 1B Q&A 服务 (FastAPI + Chroma retrieval + LiteLLM)",
+  "current_phase": "phase_1b5_sanity_eval COMPLETED (92.5% PASS) → next: Phase 1C Dataset Validation",
   "phases": {
     "phase_0_research": {
       "status": "completed",
@@ -303,8 +303,56 @@
         }
       }
     },
-    "phase_1b_qa_service": {"status": "pending"},
-    "phase_1b5_sanity_eval": {"status": "pending"},
+    "phase_1b_qa_service": {
+      "status": "completed",
+      "started_at": "2026-05-23",
+      "pass_at": "2026-05-23",
+      "owner": "main session",
+      "evidence": "evidence/checkpoints/phase_1b_qa_service.md",
+      "files_created": {
+        "server/config.py": "51 lines — pydantic-settings, .env loading",
+        "server/llm_config.py": "39 lines — LiteLLM Router (default/fallback/hard/light)",
+        "server/rag.py": "165 lines — RAGEngine: Chroma retrieval + context + system prompt",
+        "server/router.py": "126 lines — /api/health + /api/info + /api/ask",
+        "server/main.py": "68 lines — FastAPI app with lifespan",
+        "ui/streamlit_app.py": "158 lines — Streamlit chat UI"
+      },
+      "total_lines": 608,
+      "e2e_tests": {
+        "test_1_aeterm": "PASS — correct answer, sources from AE/spec+assumptions, 10724 tokens",
+        "test_2_dm_domain_filter": "PASS — all sources from DM domain, filter working",
+        "test_3_aesev_terminology": "PASS — C66769 codelist, cross-file (spec+terminology)"
+      },
+      "system_prompt_chars": 22453,
+      "env_fix": ".env EMBEDDING_MODEL BAAI/bge-m3→text-embedding-3-small + DIM 1024→1536 (D-4 v2→v3)",
+      "rule_d_status": "writer=main, reviewer=code-reviewer pending"
+    },
+    "phase_1b5_sanity_eval": {
+      "status": "completed",
+      "started_at": "2026-05-24",
+      "pass_at": "2026-05-24",
+      "evidence": "evidence/checkpoints/phase_1b5_sanity_eval.md",
+      "owner": "main (15q) + scientist subagent (5q Rule A 4.b)",
+      "results": {
+        "n_questions": 20,
+        "source_recall_avg": 0.85,
+        "fact_recall_avg": 1.0,
+        "overall": 0.925,
+        "verdict": "PASS",
+        "total_tokens": 318022,
+        "model": "claude-sonnet-4-6"
+      },
+      "by_category": {
+        "single_domain": {"src": 1.0, "fact": 1.0, "n": 5},
+        "concept": {"src": 1.0, "fact": 1.0, "n": 5},
+        "mixed": {"src": 0.9, "fact": 1.0, "n": 5},
+        "cross_domain": {"src": 0.5, "fact": 1.0, "n": 5}
+      },
+      "source_misses": ["q07 VARIABLE_INDEX.md", "q09 RELREC/spec.md", "q10 TR/spec.md", "q16 terminology/core/ae.md"],
+      "rule_a_4b": "scientist 5q, 60% topic overlap >= 50% threshold, PASS",
+      "rule_d_status": "writer=main+scientist, verifier pending",
+      "decision_1b5_3": "no adjustment needed (92.5% >= 80%)"
+    },
     "phase_1c_dataset_validation": {"status": "pending"},
     "phase_1d_full_eval": {"status": "pending"},
     "phase_1_closure": {"status": "pending"},

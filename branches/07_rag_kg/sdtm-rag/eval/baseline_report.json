@@ -1,0 +1,608 @@
+{
+  "summary": {
+    "n_questions": 15,
+    "source_recall_avg": 0.8333,
+    "source_recall_by_category": {
+      "concept": 1.0,
+      "cross_domain": 0.5,
+      "mixed": 0.8333,
+      "single_domain": 1.0
+    },
+    "fact_recall_avg": 1.0,
+    "overall": 0.9167,
+    "total_tokens": 234874,
+    "threshold": 0.8,
+    "verdict": "PASS"
+  },
+  "results": [
+    {
+      "id": "q01",
+      "category": "single_domain",
+      "question": "What is AETERM and what are its variable attributes in the AE domain?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/AE/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/AE/assumptions.md",
+        "domains/AE/assumptions.md",
+        "domains/AE/spec.md",
+        "domains/AE/assumptions.md",
+        "domains/AE/spec.md"
+      ],
+      "top5_similarities": [
+        0.6641,
+        0.6105,
+        0.5884,
+        0.579,
+        0.5778
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "Topic",
+        "Char",
+        "Req",
+        "Verbatim"
+      ],
+      "fact_misses": [],
+      "answer_preview": "# AETERM — Variable Definition in the AE Domain\n\n## Variable Attributes\n\n| Attribute | Value |\n|-----------|-------|\n| **Label** | Reported Term for the Adverse Event |\n| **Order** | 9 |\n| **Type** | Char |\n| **Role** | Topic |\n| **Core** | Req (Required) |\n| **Controlled Terms** | *(none — free tex",
+      "usage": {
+        "prompt_tokens": 12265,
+        "completion_tokens": 663,
+        "total_tokens": 12928
+      },
+      "model": "claude-sonnet-4-6",
+      "elapsed_s": 13.61
+    },
+    {
+      "id": "q02",
+      "category": "single_domain",
+      "question": "What are the required (Core=Req) variables in the DM domain?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/DM/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/DM/assumptions.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch04_general_assumptions.md",
+        "model/01_concepts_and_terms.md",
+        "domains/TM/spec.md"
+      ],
+      "top5_similarities": [
+        0.6081,
+        0.5671,
+        0.5064,
+        0.5049,
+        0.4935
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "STUDYID",
+        "USUBJID",
+        "RFSTDTC",
+        "AGE",
+        "SEX",
+        "ARM"
+      ],
+      "fact_misses": [],
+      "answer_preview": "# Required (Core=Req) Variables in the DM Domain\n\nBased on the DM domain specification, the following variables have **Core = Req**:\n\n**[Source: domains/DM/spec.md]**\n\n| Order | Variable | Label | Type | Role |\n|-------|----------|-------|------|------|\n| 1 | **STUDYID** | Study Identifier | Char | ",
+      "usage": {
+        "prompt_tokens": 12755,
+        "completion_tokens": 754,
+        "total_tokens": 13509
+      },
+      "model": "claude-sonnet-4-6",
+      "elapsed_s": 14.98
+    },
+    {
+      "id": "q03",
+      "category": "single_domain",
+      "question": "What are the key assumptions for adverse event data collection and coding?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/AE/assumptions.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/AE/assumptions.md",
+        "domains/AE/assumptions.md",
+        "domains/AE/assumptions.md",
+        "domains/AE/assumptions.md",
+        "domains/CE/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.5919,
+        0.5755,
+        0.5716,
+        0.5608,
+        0.5364
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "AETERM",
+        "MedDRA",
+        "AEDECOD"
+      ],
+      "fact_misses": [],
+      "answer_preview": "# Key Assumptions for Adverse Event Data Collection and Coding\n\n## 1. Scope of AE Collection\n\nThe AE dataset includes any untoward medical occurrence in a patient or clinical investigation subject administered a pharmaceutical product, regardless of causal relationship (ICH E2A definition). Sponsors",
+      "usage": {
+        "prompt_tokens": 19335,
+        "completion_tokens": 1409,
+        "total_tokens": 20744
+      },
+      "model": "claude-sonnet-4-6",
+      "elapsed_s": 32.64
+    },
+    {
+      "id": "q04",
+      "category": "single_domain",
+      "question": "What is the purpose of the TV (Trial Visits) domain and what variables does it contain?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/TV/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/SV/assumptions.md",
+        "VARIABLE_INDEX.md",
+        "domains/TV/examples.md",
+        "domains/TV/assumptions.md",
+        "domains/TA/spec.md"
+      ],
+      "top5_similarities": [
+        0.6873,
+        0.6708,
+        0.6648,
+        0.6384,
+        0.6357
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "VISITNUM",
+        "VISIT"
+      ],
+      "fact_misses": [],
+      "answer_preview": "# TV (Trial Visits) Domain\n\n## Purpose\n\nThe Trial Visits (TV) domain is a **Trial Design dataset** that defines the **protocol-specified planned visit schedule** for a clinical trial. It serves as the reference for all planned visits across the study.\n\n**[Source: domains/TV/assumptions.md — overview",
+      "usage": {
+        "prompt_tokens": 13403,
+        "completion_tokens": 896,
+        "total_tokens": 14299
+      },
+      "model": "claude-sonnet-4-6",
+      "elapsed_s": 21.9
+    },
+    {
+      "id": "q06",
+      "category": "cross_domain",
+      "question": "What is SUPPQUAL and when should supplemental qualifiers be used instead of adding variables to a domain?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/SUPPQUAL/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "chapters/ch08_relationships.md",
+        "domains/SUPPQUAL/assumptions.md",
+        "chapters/ch08_relationships.md",
+        "model/06_relationship_datasets.md",
+        "chapters/ch08_relationships.md"
+      ],
+      "top5_similarities": [
+        0.7411,
+        0.7409,
+        0.7302,
+        0.7295,
+        0.6782
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "QNAM",
+        "QVAL",
+        "non-standard"
+      ],
+      "fact_misses": [],
+      "answer_preview": "# SUPPQUAL — Supplemental Qualifiers: Purpose and Usage Rules\n\n## What Is SUPPQUAL?\n\nSUPPQUAL (Supplemental Qualifiers) is a special-purpose dataset mechanism used to capture **non-standard variables (NSVs)** that cannot be added directly to standard SDTM domain datasets.\n\n> \"The SDTM does not allow",
+      "usage": {
+        "prompt_tokens": 18191,
+        "completion_tokens": 1361,
+        "total_tokens": 19552
+      },
+      "model": "claude-sonnet-4-6",
+      "elapsed_s": 28.06
+    },
+    {
+      "id": "q07",
+      "category": "cross_domain",
+      "question": "Which SDTM domains use the EPOCH variable and what is its purpose?",
+      "source_recall": 0.0,
+      "source_hits": [],
+      "source_misses": [
+        "VARIABLE_INDEX.md"
+      ],
+      "top5_sources": [
+        "chapters/ch04_general_assumptions.md",
+        "domains/SR/spec.md",
+        "domains/TA/assumptions.md",
+        "domains/CP/spec.md",
+        "domains/FA/spec.md"
+      ],
+      "top5_similarities": [
+        0.7004,
+        0.6837,
+        0.6827,
+        0.6778,
+        0.6772
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "EPOCH",
+        "Timing"
+      ],
+      "fact_misses": [],
+      "answer_preview": "# EPOCH Variable in SDTM\n\n## Variable Definition\n\nEPOCH is a **Timing** variable used across SDTM domains with the following properties:\n\n| Attribute | Value |\n|-----------|-------|\n| **Label** | Epoch |\n| **Type** | Char |\n| **Role** | Timing |\n| **Core** | Perm (Permissible) |\n| **Controlled Terms",
+      "usage": {
+        "prompt_tokens": 11230,
+        "completion_tokens": 1042,
+        "total_tokens": 12272
+      },
+      "model": "claude-sonnet-4-6",
+      "elapsed_s": 17.08
+    },
+    {
+      "id": "q08",
+      "category": "cross_domain",
+      "question": "How does USUBJID serve as a linking key across SDTM domains?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/DM/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/SUPPQUAL/spec.md",
+        "domains/DM/spec.md",
+        "domains/PP/spec.md",
+        "domains/RELSPEC/spec.md",
+        "domains/RELSUB/spec.md"
+      ],
+      "top5_similarities": [
+        0.7075,
+        0.6923,
+        0.6855,
+        0.6845,
+        0.6825
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "USUBJID",
+        "Identifier",
+        "unique"
+      ],
+      "fact_misses": [],
+      "answer_preview": "# USUBJID as a Cross-Domain Linking Key in SDTM\n\n## Core Definition\n\n**USUBJID** (Unique Subject Identifier) is a universal linking key that appears as a **Required (Req) Identifier variable** in virtually every SDTM domain.\n\n| Attribute | Value |\n|-----------|-------|\n| **Label** | Unique Subject I",
+      "usage": {
+        "prompt_tokens": 10942,
+        "completion_tokens": 1155,
+        "total_tokens": 12097
+      },
+      "model": "claude-sonnet-4-6",
+      "elapsed_s": 22.34
+    },
+    {
+      "id": "q09",
+      "category": "cross_domain",
+      "question": "How are adverse events linked to concomitant medications using RELREC?",
+      "source_recall": 0.0,
+      "source_hits": [],
+      "source_misses": [
+        "domains/RELREC/spec.md"
+      ],
+      "top5_sources": [
+        "chapters/ch08_relationships.md",
+        "domains/RELREC/examples.md",
+        "chapters/ch08_relationships.md",
+        "domains/RELREC/assumptions.md",
+        "domains/CM/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.6173,
+        0.583,
+        0.5828,
+        0.5376,
+        0.537
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "RELREC",
+        "IDVAR",
+        "IDVARVAL"
+      ],
+      "fact_misses": [],
+      "answer_preview": "# Linking Adverse Events to Concomitant Medications Using RELREC\n\n## Mechanism Overview\n\nThe **RELREC** (Related Records) special-purpose dataset is used to establish collected relationships between AE records and CM records. These relationships must be *collected* — i.e., explicitly referenced on t",
+      "usage": {
+        "prompt_tokens": 19482,
+        "completion_tokens": 1629,
+        "total_tokens": 21111
+      },
+      "model": "claude-sonnet-4-6",
+      "elapsed_s": 30.62
+    },
+    {
+      "id": "q11",
+      "category": "concept",
+      "question": "What are the three observation classes in the SDTM model?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "model/02_observation_classes.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "model/02_observation_classes.md",
+        "model/01_concepts_and_terms.md",
+        "terminology/supplementary/supplementary_part5.md",
+        "chapters/ch04_general_assumptions.md",
+        "model/05_study_level_data.md"
+      ],
+      "top5_similarities": [
+        0.7205,
+        0.5632,
+        0.5473,
+        0.5452,
+        0.5433
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "Interventions",
+        "Events",
+        "Findings"
+      ],
+      "fact_misses": [],
+      "answer_preview": "# The Three SDTM General Observation Classes\n\nThe SDTM model defines **three general observation classes** that cover the majority of data collected during a study:\n\n## 1. Interventions\n> Represents investigational, therapeutic, and other treatments that are administered to or used by a subject (wit",
+      "usage": {
+        "prompt_tokens": 14156,
+        "completion_tokens": 525,
+        "total_tokens": 14681
+      },
+      "model": "claude-sonnet-4-6",
+      "elapsed_s": 13.11
+    },
+    {
+      "id": "q12",
+      "category": "concept",
+      "question": "What do the Core designations Req, Exp, and Perm mean in SDTM?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "chapters/ch04"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "chapters/ch04_general_assumptions.md",
+        "domains/SUPPQUAL/spec.md",
+        "domains/CO/spec.md",
+        "terminology/supplementary/supplementary_part5.md",
+        "domains/RELSPEC/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.6571,
+        0.6055,
+        0.5926,
+        0.5856,
+        0.5605
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "Required",
+        "Expected",
+        "Permissible"
+      ],
+      "fact_misses": [],
+      "answer_preview": "# SDTM Core Designations: Req, Exp, and Perm\n\nThe **Core** column in SDTM domain specification tables uses three designations that define whether a variable must be included in a dataset and whether it may contain null values.\n\n**[Source: chapters/ch04_general_assumptions.md §4.1.5]**\n\n---\n\n## Summa",
+      "usage": {
+        "prompt_tokens": 14746,
+        "completion_tokens": 680,
+        "total_tokens": 15426
+      },
+      "model": "claude-sonnet-4-6",
+      "elapsed_s": 41.57
+    },
+    {
+      "id": "q13",
+      "category": "concept",
+      "question": "What is the difference between Topic, Qualifier, and Identifier variable roles?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "model/01_concepts_and_terms.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "chapters/ch04_general_assumptions.md",
+        "domains/ML/assumptions.md",
+        "VARIABLE_INDEX.md",
+        "domains/RELREC/spec.md",
+        "domains/DS/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.526,
+        0.5227,
+        0.5211,
+        0.5129,
+        0.5124
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "Topic",
+        "Qualifier",
+        "Identifier"
+      ],
+      "fact_misses": [],
+      "answer_preview": "# SDTM Variable Roles: Topic, Qualifier, and Identifier\n\n## Overview\n\nSDTM variables are classified into 5 major roles. The three you asked about are defined as follows:\n\n**[Source: model/01_concepts_and_terms.md]**\n\n---\n\n## 1. Identifier Variables\n\n> *\"Identify the study, subject, domain, and seque",
+      "usage": {
+        "prompt_tokens": 12551,
+        "completion_tokens": 1066,
+        "total_tokens": 13617
+      },
+      "model": "claude-sonnet-4-6",
+      "elapsed_s": 21.3
+    },
+    {
+      "id": "q14",
+      "category": "concept",
+      "question": "How should a sponsor create a new custom domain in SDTM?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "chapters/ch02"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "chapters/ch04_general_assumptions.md",
+        "model/01_concepts_and_terms.md",
+        "domains/CO/assumptions.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch03_submitting_data.md"
+      ],
+      "top5_similarities": [
+        0.6011,
+        0.5033,
+        0.5002,
+        0.4946,
+        0.4894
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "observation class"
+      ],
+      "fact_misses": [],
+      "answer_preview": "# Creating a Custom Domain in SDTM\n\nBased on the SDTMIG v3.4, here is the authoritative guidance for creating a custom (sponsor-defined) domain.\n\n---\n\n## 1. Naming the Custom Domain\n\n### Domain Code Selection\nCustom domains use a **2-character domain code** following the same character restrictions ",
+      "usage": {
+        "prompt_tokens": 16031,
+        "completion_tokens": 986,
+        "total_tokens": 17017
+      },
+      "model": "claude-sonnet-4-6",
+      "elapsed_s": 40.96
+    },
+    {
+      "id": "q16",
+      "category": "mixed",
+      "question": "What values are allowed for AESEV and what is its codelist code?",
+      "source_recall": 0.5,
+      "source_hits": [
+        "domains/AE/spec.md"
+      ],
+      "source_misses": [
+        "terminology/core/ae.md"
+      ],
+      "top5_sources": [
+        "domains/AE/assumptions.md",
+        "domains/AE/spec.md",
+        "domains/AE/assumptions.md",
+        "domains/AE/spec.md",
+        "terminology/supplementary/supplementary_part1.md"
+      ],
+      "top5_similarities": [
+        0.6134,
+        0.602,
+        0.54,
+        0.532,
+        0.5192
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "C66769",
+        "MILD",
+        "MODERATE",
+        "SEVERE"
+      ],
+      "fact_misses": [],
+      "answer_preview": "## AESEV — Severity/Intensity of Adverse Event\n\n### Variable Definition\n\n**AESEV** is defined in the AE domain as:\n\n| Attribute | Value |\n|-----------|-------|\n| **Label** | Severity/Intensity |\n| **Type** | Char |\n| **Role** | Record Qualifier |\n| **Core** | Perm |\n| **Controlled Terms** | **C66769",
+      "usage": {
+        "prompt_tokens": 11569,
+        "completion_tokens": 414,
+        "total_tokens": 11983
+      },
+      "model": "claude-sonnet-4-6",
+      "elapsed_s": 9.73
+    },
+    {
+      "id": "q17",
+      "category": "mixed",
+      "question": "How are date and time variables formatted in SDTM and what suffix do they use?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "chapters/ch04"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "chapters/ch04_general_assumptions.md",
+        "domains/VS/spec.md",
+        "chapters/ch04_general_assumptions.md",
+        "model/01_concepts_and_terms.md",
+        "model/01_concepts_and_terms.md"
+      ],
+      "top5_similarities": [
+        0.763,
+        0.6402,
+        0.6209,
+        0.6154,
+        0.6139
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "ISO 8601",
+        "DTC"
+      ],
+      "fact_misses": [],
+      "answer_preview": "## SDTM Date/Time Variable Formatting\n\n### Variable Naming Convention\n\nDate/time character variables in SDTM use the fragment **`DTC`** as their suffix.\n\n**[Source: chapters/ch04_general_assumptions.md §4.4.1]**\n\nExamples from standard domains:\n- `--DTC` (Date/Time of Collection) — primary date/time",
+      "usage": {
+        "prompt_tokens": 16191,
+        "completion_tokens": 1017,
+        "total_tokens": 17208
+      },
+      "model": "claude-sonnet-4-6",
+      "elapsed_s": 43.13
+    },
+    {
+      "id": "q18",
+      "category": "mixed",
+      "question": "Explain the MedDRA coding chain for adverse events from verbatim term to dictionary term.",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/AE/spec.md",
+        "domains/AE/assumptions.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "chapters/ch04_general_assumptions.md",
+        "domains/MH/assumptions.md",
+        "domains/AE/assumptions.md",
+        "terminology/core/trial_design.md",
+        "domains/AE/spec.md"
+      ],
+      "top5_similarities": [
+        0.6726,
+        0.6303,
+        0.6289,
+        0.6197,
+        0.6135
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "AETERM",
+        "AEMODIFY",
+        "AEDECOD",
+        "Preferred Term"
+      ],
+      "fact_misses": [],
+      "answer_preview": "# MedDRA Coding Chain for Adverse Events\n\n## Overview of the Variable Chain\n\nThe SDTM AE domain implements the full MedDRA hierarchy, mapping from the raw verbatim collected term through to the highest level of classification. The chain flows as follows:\n\n```\nAETERM (verbatim)\n    ↓ [optional modifi",
+      "usage": {
+        "prompt_tokens": 16510,
+        "completion_tokens": 1920,
+        "total_tokens": 18430
+      },
+      "model": "claude-sonnet-4-6",
+      "elapsed_s": 31.72
+    }
+  ]
+}

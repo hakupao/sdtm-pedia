@@ -1,0 +1,215 @@
+# Phase 1B5 Sanity Eval — 20 questions (15 main + 5 scientist Rule A)
+# Format: id / category / question / expected_facts (substring match) / expected_sources (partial path match)
+# Categories: single_domain (5) / cross_domain (5) / concept (5) / mixed (5)
+# PLAN §5 Phase 1B5: 召回 ≥ 80% baseline
+
+# ── Single Domain (5) ────────────────────────────────────────────────────
+
+- id: q01
+  category: single_domain
+  question: "What is AETERM and what are its variable attributes in the AE domain?"
+  expected_facts:
+    - "Topic"
+    - "Char"
+    - "Req"
+    - "Verbatim"
+  expected_sources:
+    - "domains/AE/spec.md"
+
+- id: q02
+  category: single_domain
+  question: "What are the required (Core=Req) variables in the DM domain?"
+  expected_facts:
+    - "STUDYID"
+    - "USUBJID"
+    - "RFSTDTC"
+    - "AGE"
+    - "SEX"
+    - "ARM"
+  expected_sources:
+    - "domains/DM/spec.md"
+
+- id: q03
+  category: single_domain
+  question: "What are the key assumptions for adverse event data collection and coding?"
+  expected_facts:
+    - "AETERM"
+    - "MedDRA"
+    - "AEDECOD"
+  expected_sources:
+    - "domains/AE/assumptions.md"
+
+- id: q04
+  category: single_domain
+  question: "What is the purpose of the TV (Trial Visits) domain and what variables does it contain?"
+  expected_facts:
+    - "VISITNUM"
+    - "VISIT"
+  expected_sources:
+    - "domains/TV/spec.md"
+
+- id: q05
+  category: single_domain
+  question: "In the PE (Physical Examination) domain, what is the structure of the dataset, what is the role of the PETESTCD variable, and what value should PETESTCD have when the results of the entire physical examination are represented in one record?"
+  expected_facts:
+    - "PETESTCD"
+    - "Topic"
+    - "PHYSEXAM"
+  expected_sources:
+    - "domains/PE/spec.md"
+
+# ── Cross Domain (5) ─────────────────────────────────────────────────────
+
+- id: q06
+  category: cross_domain
+  question: "What is SUPPQUAL and when should supplemental qualifiers be used instead of adding variables to a domain?"
+  expected_facts:
+    - "QNAM"
+    - "QVAL"
+    - "non-standard"
+  expected_sources:
+    - "domains/SUPPQUAL/spec.md"
+
+- id: q07
+  category: cross_domain
+  question: "Which SDTM domains use the EPOCH variable and what is its purpose?"
+  expected_facts:
+    - "EPOCH"
+    - "Timing"
+  expected_sources:
+    - "VARIABLE_INDEX.md"
+
+- id: q08
+  category: cross_domain
+  question: "How does USUBJID serve as a linking key across SDTM domains?"
+  expected_facts:
+    - "USUBJID"
+    - "Identifier"
+    - "unique"
+  expected_sources:
+    - "domains/DM/spec.md"
+
+- id: q09
+  category: cross_domain
+  question: "How are adverse events linked to concomitant medications using RELREC?"
+  expected_facts:
+    - "RELREC"
+    - "IDVAR"
+    - "IDVARVAL"
+  expected_sources:
+    - "domains/RELREC/spec.md"
+
+- id: q10
+  category: cross_domain
+  question: "In oncology studies, how are the TR (Tumor/Lesion Results) domain and RS (Disease Response) domain linked together, and which specific identifier variables are used for each linkage direction?"
+  expected_facts:
+    - "TRLNKID"
+    - "TRLNKGRP"
+  expected_sources:
+    - "domains/TR/assumptions.md"
+    - "domains/TR/spec.md"
+
+# ── Concept (5) ──────────────────────────────────────────────────────────
+
+- id: q11
+  category: concept
+  question: "What are the three observation classes in the SDTM model?"
+  expected_facts:
+    - "Interventions"
+    - "Events"
+    - "Findings"
+  expected_sources:
+    - "model/02_observation_classes.md"
+
+- id: q12
+  category: concept
+  question: "What do the Core designations Req, Exp, and Perm mean in SDTM?"
+  expected_facts:
+    - "Required"
+    - "Expected"
+    - "Permissible"
+  expected_sources:
+    - "chapters/ch04"
+
+- id: q13
+  category: concept
+  question: "What is the difference between Topic, Qualifier, and Identifier variable roles?"
+  expected_facts:
+    - "Topic"
+    - "Qualifier"
+    - "Identifier"
+  expected_sources:
+    - "model/01_concepts_and_terms.md"
+
+- id: q14
+  category: concept
+  question: "How should a sponsor create a new custom domain in SDTM?"
+  expected_facts:
+    - "observation class"
+  expected_sources:
+    - "chapters/ch02"
+
+- id: q15
+  category: concept
+  question: "What are the three SDTM Core designation categories for variables, and what are the rules for handling a Permissible variable when a study did not collect the corresponding data item?"
+  expected_facts:
+    - "Req"
+    - "Exp"
+    - "Perm"
+  expected_sources:
+    - "chapters/ch04_general_assumptions.md"
+
+# ── Mixed (5) ────────────────────────────────────────────────────────────
+
+- id: q16
+  category: mixed
+  question: "What values are allowed for AESEV and what is its codelist code?"
+  expected_facts:
+    - "C66769"
+    - "MILD"
+    - "MODERATE"
+    - "SEVERE"
+  expected_sources:
+    - "domains/AE/spec.md"
+    - "terminology/core/ae.md"
+
+- id: q17
+  category: mixed
+  question: "How are date and time variables formatted in SDTM and what suffix do they use?"
+  expected_facts:
+    - "ISO 8601"
+    - "DTC"
+  expected_sources:
+    - "chapters/ch04"
+
+- id: q18
+  category: mixed
+  question: "Explain the MedDRA coding chain for adverse events from verbatim term to dictionary term."
+  expected_facts:
+    - "AETERM"
+    - "AEMODIFY"
+    - "AEDECOD"
+    - "Preferred Term"
+  expected_sources:
+    - "domains/AE/spec.md"
+    - "domains/AE/assumptions.md"
+
+- id: q19
+  category: mixed
+  question: "What controlled terminology codelist is used for DSDECOD when DSCAT equals 'DISPOSITION EVENT', and list specific CDISC Submission Values from that codelist for reasons of non-completion."
+  expected_facts:
+    - "NCOMPLT"
+    - "C66727"
+  expected_sources:
+    - "domains/DS/assumptions.md"
+    - "terminology/core/disposition.md"
+
+- id: q20
+  category: mixed
+  question: "In the DM domain, what is the difference between the RFSTDTC/RFENDTC reference period pair and the RFXSTDTC/RFXENDTC pair, and under what circumstances will RFSTDTC be null?"
+  expected_facts:
+    - "sponsor-defined"
+    - "screen failure"
+  expected_sources:
+    - "domains/DM/assumptions.md"
+    - "domains/DM/spec.md"
