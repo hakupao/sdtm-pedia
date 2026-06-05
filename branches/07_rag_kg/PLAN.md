@@ -12,7 +12,7 @@
 # branches/07_rag_kg/ — RAG + Knowledge Graph 落地实施計画
 
 > 创建: 2026-05-22
-> 状态: **DRAFT v0.2** — Phase 0 Research 完成 (chunker feasibility + LLM providers) + critic Rule D PASS 1 CONDITIONAL_PASS 32 findings 主要 HIGH/MED 已修, 用户 ack 待
+> 状态: **Phase 1 CLOSED 2026-05-24** — Phase 0→1D 全 PASS (RAG Q&A + 数据集校验 + 53q eval 88.5%); Phase 2 KG deferred (cross_domain 61.5% > 50% gate). 下一步检索优化 backlog → [`TODO_retrieval_quality.md`](TODO_retrieval_quality.md) (src recall → >95%). 进度真源 `_progress.json`; 下方 PLAN 设计本体 (§1-§14, v0.2) 保留不变, §5 Phase 表 + §13 Next Actions 为 Phase 0 起草时点快照.
 > v0.1 → v0.2 修订 (2026-05-22): F-1 PASS 术语对齐 / F-2 chunker 事实错误同步 (4 处) + domains 数 63→64 / F-3 加 R-13~R-19 / F-6 V4-Pro Reasoner / F-7 Haiku context / F-9-F-11 运维 risk / F-14 reingest trigger / F-19-F-21 工期调整 / F-23-F-24 PASS 按 Phase + 规则 A 抽检 N 明示 / F-27 1C reviewer.py / F-32 06 P7 表述歧义
 > 上游设计 (WHAT/WHY): [`docs/DESIGN_RAG_KG.md`](../../docs/DESIGN_RAG_KG.md) (Approved 2026-04-16)
 > 本文件职责 (HOW 简版 + 落地化调整): 把设计文档对齐本项目当前 KB 真实状态 + 落到可执行的 Phase 拆分

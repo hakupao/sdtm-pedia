@@ -9,7 +9,7 @@
 
 ## What
 
-为 SDTM 知识库 (`../../../knowledge_base/`, 296 md / 9.8MB / 4304 chunks 估) 提供:
+为 SDTM 知识库 (`../../../knowledge_base/`, 294 md / 4146 chunks 实测 ingest) 提供:
 
 1. **语义问答 RAG** — 自然语言查询, 带溯源
 2. **数据集校验** — 上传 SDTM 映射 (CSV/XPT/SAS7BDAT), 出完整性 + 规则合规报告
@@ -28,7 +28,7 @@
                                     ▼
                             ┌──────────────────┐
                             │ Sonnet (主答)    │
-                            │ V4-Flash (复检)  │
+                            │ V4-Pro (复检)    │
                             │ Opus (难题)      │
                             │ Haiku (轻分类)   │
                             └──────────────────┘
@@ -181,12 +181,12 @@ mypy server/ scripts/
 
 | Phase | Step | Status |
 |-------|------|--------|
-| 1A | 0 sanity / 1 scaffold / 2 LiteLLM sanity / 3 chunker / 4 tests / 5 ingest / 6 Rule A | 0 ✅ / 1 🟢 / 2-6 ⏳ |
-| 1B | Q&A 服务 + UI | ⏳ |
-| 1B5 | Sanity eval 20 题 | ⏳ |
-| 1C | Dataset validation | ⏳ |
-| 1D | Full eval 50 题 | ⏳ |
-| 2 KG | Neo4j + graph reasoning | deferred (gate: 1D RELATION 召回 < 50%) |
+| 1A | 0 sanity / 1 scaffold / 2 LiteLLM sanity / 3 chunker / 4 tests / 5 ingest / 6 Rule A | ✅ ALL (4146 chunks / pytest 205+2xfail / Rule A 10/10) |
+| 1B + 1B5 | Q&A 服务 + UI + sanity eval 20 题 | ✅ (sanity 92.5%) |
+| 1C | Dataset validation (7 规则 + RAG 语义评审) | ✅ (Rule A 错误检出 94.7%) |
+| 1D | Full eval 53 题 | ✅ **PASS 88.5%** (DeepSeek; src 82.1% + fact 94.8%) |
+| 2 KG | Neo4j + graph reasoning | deferred (cross_domain 召回 61.5% > 50% gate; **95% bar 下待重评**) |
+| 次 | 检索质量优化 (src recall → >95%) | BACKLOG — 见 [`../TODO_retrieval_quality.md`](../TODO_retrieval_quality.md) |
 
 ## License
 

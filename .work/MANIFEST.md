@@ -142,11 +142,11 @@ branches/jp_delivery/PLAN.md / EXECUTION_PLAN.md       ← 規範改訂
      设计在 docs/DESIGN_RAG_KG.md, session 记录在 05_rag_kg/
 
 ../branches/06_deep_verification/PLAN.md ── 字面级 PDF→KB 深审 (旁枝)
-     P2 B-03c 収官 COMPLETE 2026-05-11. multi_session/ 含 batch/round kickoff.
+     P1-P7 全 COMPLETE 2026-05-12 (coverage 99.02%, Issues 5-16 修复). multi_session/ 含 batch/round kickoff.
 
 ../branches/07_rag_kg/PLAN.md ── RAG + Knowledge Graph 落地实施 (旁枝)
-     Phase 0 Research closed 2026-05-22 (critic Rule D PASS 1 + v0.2 final).
-     上游设计 docs/DESIGN_RAG_KG.md; 实际代码仓 branches/07_rag_kg/sdtm-rag/ (Phase 1A 起).
+     Phase 1 CLOSED 2026-05-24 (RAG Q&A + dataset validation; 53q eval 88.5%). Phase 2 KG deferred.
+     上游设计 docs/DESIGN_RAG_KG.md; 代码仓 branches/07_rag_kg/sdtm-rag/. 检索优化 backlog: TODO_retrieval_quality.md.
 
 07_website/phase{6,7,8}/PLAN.md ── 公开站点 (closed)
      prod sdtm-pedia.pages.dev. handoffs 在 meta/website_phase*_handoff_*.md.

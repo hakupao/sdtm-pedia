@@ -143,11 +143,15 @@ sdtm-pedia/
 │   ├── 02_indexing/             # PDF 页码索引
 │   ├── 03_verification/         # 验证结果与报告
 │   ├── 04_optimization/         # Phase 6 检索优化
-│   ├── 05_rag_kg/               # Phase 7 RAG + 知识图谱设计
-│   ├── 06_deep_verification/    # PDF→KB 字面级深审（进行中）
+│   ├── 05_rag_kg/               # Phase 7 RAG + 知识图谱设计（实现在 branches/07_rag_kg/）
 │   ├── 07_release{,_v1_1,_v1_2,_v1_3,_v1_4}/  # Release v1.0-v1.4 计划与复盘
 │   ├── meta/                    # 工作日志、映射、质量记录
 │   └── MANIFEST.md              # 文件清单与变更链
+│
+├── branches/                    # 独立旁枝（refactor v1 迁移，2026-05）
+│   ├── 06_deep_verification/    # PDF→KB 字面级深审 — 已完成（P1-P7，覆盖率 99.02%）
+│   ├── 07_rag_kg/               # RAG + 数据集校验 — Phase 1 已完成（sdtm-rag/；53 题 eval 88.5%）
+│   └── jp_delivery/             # iTMS（日本）納品文档 — 进行中（Excel 交付物）
 │
 ├── docs/                        # 项目文档
 │   ├── PROGRESS.md              # 构建进度看板
@@ -322,9 +326,11 @@ SEX 绑定哪个 codelist？
 - [x] Phase 6.2 — Domain 交叉引用（写入各 domain 的 `spec.md` 末尾）
 - [x] Phase 6.3 — 变量级反向索引（`knowledge_base/VARIABLE_INDEX.md`，1,523 个变量）
 - [x] Phase 6.5 — 多平台 AI 部署 + Release v1.0 → v1.4（4 平台，最新 `release/v1.4/`；v1.4 起 Gemini 转 MAINTAINED_NO_SANITY_TEST）
-- [ ] Phase 6.4 — 结构化元数据（YAML/JSON）— 已并入 Phase 7 Step 7
-- [ ] Phase 7 — RAG + 知识图谱 + 数据集校验（设计完成，详见 `docs/DESIGN_RAG_KG.md`）
-- [ ] Deep Verification — PDF→KB 字面级 atom 逐条审计（进行中，详见 `branches/06_deep_verification/`）
+- [x] Deep Verification — PDF→KB 字面级 atom 逐条审计（已完成：P1–P7，覆盖率 99.02%，详见 `branches/06_deep_verification/`）
+- [x] Phase 7 / Phase 1 — RAG 问答 + 数据集校验（本地 Chroma + LiteLLM + FastAPI/Streamlit；53 题 eval 88.5% PASS，详见 `branches/07_rag_kg/`）
+- [ ] 检索质量优化 — 把 eval source recall 拉到 >95%（rerank / 多查询 / 重评 KG，详见 `branches/07_rag_kg/TODO_retrieval_quality.md`）
+- [ ] Phase 6.4 — 结构化元数据（YAML/JSON）— 已并入 Phase 7 / Phase 2 KG（暂缓）
+- [ ] Phase 7 / Phase 2 — 知识图谱（Neo4j）— 暂缓；在 >95% 检索标准下重新评估
 
 ## 免责声明
 
