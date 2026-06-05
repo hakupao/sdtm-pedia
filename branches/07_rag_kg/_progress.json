@@ -4,7 +4,7 @@
   "tier": 2,
   "tier_note": "borderline Tier 2-3, 走 Tier 2 + evidence 全留; Phase 2 KG 启动时再评估升 Tier 3",
   "created": "2026-05-22",
-  "updated": "2026-05-24 (Phase 1D Full Eval PASS 88.5% ≥ 85% — 53 questions DeepSeek, Anthropic API credits exhausted; cross_domain 61.5% > 50% Phase 2 KG NOT triggered; 5/5 validation scenarios PASS; Rule A 4.c 100% overlap PASS)",
+  "updated": "2026-06-05 (back-fill: 1C status in_progress→completed + phase_1_closure pending→completed, 反映 2026-05-24 用户 ack [commit 9f397ab]; 内容無変更, 状態字段回写のみ. + I-4: 用户上调 eval 目标至全类别 src+fact > 95%). 前: 2026-05-24 Phase 1D Full Eval PASS 88.5% ≥ 85% (53q DeepSeek; Anthropic credits exhausted; cross_domain 61.5% > 50% KG NOT triggered)",
   "upstream_design": "docs/DESIGN_RAG_KG.md (Approved 2026-04-16)",
   "current_phase": "phase_1_closed PASS 5/5 (user ack 2026-05-24) → Phase 2 KG deferred",
   "phases": {
@@ -354,7 +354,7 @@
       "decision_1b5_3": "no adjustment needed (92.5% >= 80%)"
     },
     "phase_1c_dataset_validation": {
-      "status": "in_progress (implementation complete, Rule D review pending)",
+      "status": "completed (user ack 2026-05-24 via Phase 1 closure, commit 9f397ab; impl + Rule D code/security review + Rule A 94.7% + verifier 5/5 done)",
       "started_at": "2026-05-24",
       "evidence": "evidence/checkpoints/phase_1c_dataset_validation.md",
       "owner": "main session",
@@ -417,7 +417,8 @@
         "verdict": "5/5 AGREE PASS"
       },
       "semantic_review_e2e": "PASS — Opus 3860 tokens, 4 findings (date error + missing AETERM + AEBODSYS completeness + RELREC cross-domain)",
-      "deferred": ["User Bojiang ack"]
+      "deferred": [],
+      "user_ack": "2026-05-24 (Phase 1 closure, commit 9f397ab)"
     },
     "phase_1d_full_eval": {
       "status": "completed PASS 5/5",
@@ -453,7 +454,7 @@
       "deferred": ["Sonnet/Opus cross-model when Anthropic credits available"],
       "user_ack": "2026-05-24 Bojiang ack Phase 1D + Phase 1 closure"
     },
-    "phase_1_closure": {"status": "pending"},
+    "phase_1_closure": {"status": "completed", "pass_at": "2026-05-24", "user_ack": "2026-05-24 Bojiang ack Phase 1 PASS 5/5 (commit 9f397ab)", "retrospective": "RETROSPECTIVE.md 三段齐备", "backfill_note": "1C/closure status 字段 2026-06-05 回写, 内容無変更"},
     "phase_2_kg": {"status": "deferred — NOT triggered", "decision_point": "Phase 1D cross_domain src recall 61.5% > 50% threshold; Phase 2 KG deferred until post-deployment user feedback"}
   },
   "constraints": {
@@ -472,7 +473,8 @@
   "open_issues": [
     "I-1: ChatGPT Plus 代理合规风险 (等 0_2 调研结论)",
     "I-2: DeepSeek V4 Pro 模型 ID 确认 (用户原话, 等 0_2 verify)",
-    "I-3: Phase 2 KG 是否启动 (Phase 1D eval 后决策)"
+    "I-3: Phase 2 KG 是否启动 (Phase 1D eval 后决策)",
+    "I-4 (2026-06-05 用户提出): eval 目标上调 — 全 4 类别 src+fact recall 均 > 95% (现状最弱 cross_domain src 61.5% / concept src 76.9%). 关键: src recall = 检索质量问题 (chunking/embedding/top-K/rerank/query-expansion), 与答主 LLM 无关; fact recall 已 93-96% 接近目标. 达 95% src 需检索改进, 并重评 Phase 2 KG — 95% bar 下 cross_domain 召回远未达, KG gate 逻辑改变 (不再是 50% 阈值). 属 Phase 1 closed 之后的新检索优化范围, 待用户决定是否启动."
   ],
   "references": {
     "design_spec": "docs/DESIGN_RAG_KG.md",
