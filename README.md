@@ -205,7 +205,7 @@ sdtm-pedia/
 </details>
 
 <details>
-<summary><b>Findings Domains (31)</b></summary>
+<summary><b>Findings Domains (32)</b></summary>
 
 | Domain | Name |
 |--------|------|
