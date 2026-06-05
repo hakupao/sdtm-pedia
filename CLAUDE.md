@@ -89,7 +89,8 @@ Full chain definitions are in `.work/MANIFEST.md`.
 | METHODOLOGY 公开声明 | `METHODOLOGY.md` + `release/v1.{0,1}/METHODOLOGY.{en,zh,ja}.md` |
 | 07 Website Phases 6-8 (closed) | `.work/07_website/phase{6,7,8}/` + handoffs `.work/meta/website_phase*_handoff_*.md`; prod https://sdtm-pedia.pages.dev/ |
 | iTMS 納品旁枝 (branches) | `branches/jp_delivery/PLAN.md` + `EXECUTION_PLAN.md` (Excel 主体, Chain J) |
-| Phase 7 RAG+KG 旁枝 | `branches/07_rag_kg/PLAN.md` (Phase 0 closed; sdtm-rag/ Phase 1A 起, Chain 07_RAG) |
+| Phase 7 RAG+KG 旁枝 | `branches/07_rag_kg/PLAN.md` (Phase 1 CLOSED 53q 88.5%; sdtm-rag/ 代码仓, Chain 07_RAG) |
+| Phase 7 检索优化 TODO | `branches/07_rag_kg/TODO_retrieval_quality.md` (src recall → >95% backlog) |
 
 ## AI 平台双平台并行部署 (锁步规则)
 

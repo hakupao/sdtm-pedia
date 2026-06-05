@@ -143,11 +143,15 @@ sdtm-pedia/
 │   ├── 02_indexing/             # PDF page index for extraction
 │   ├── 03_verification/         # Verification results & reports
 │   ├── 04_optimization/         # Phase 6 retrieval optimization
-│   ├── 05_rag_kg/               # Phase 7 RAG + knowledge graph design
-│   ├── 06_deep_verification/    # PDF→KB literal-level deep verification (in progress)
+│   ├── 05_rag_kg/               # Phase 7 RAG + knowledge graph design (impl lives in branches/07_rag_kg/)
 │   ├── 07_release{,_v1_1,_v1_2,_v1_3,_v1_4}/  # Release v1.0-v1.4 plans + retrospectives
 │   ├── meta/                    # Work log, mappings, findings
 │   └── MANIFEST.md              # File index & change chains
+│
+├── branches/                    # Self-contained side-projects (refactor v1, 2026-05)
+│   ├── 06_deep_verification/    # PDF→KB literal-level deep audit — COMPLETE (P1-P7, coverage 99.02%)
+│   ├── 07_rag_kg/               # RAG + dataset validation — Phase 1 COMPLETE (sdtm-rag/; 53q eval 88.5%)
+│   └── jp_delivery/             # iTMS (Japan) delivery docs — in progress (Excel deliverables)
 │
 ├── docs/                        # Project documentation
 │   ├── PROGRESS.md              # Build progress dashboard
@@ -322,9 +326,11 @@ The knowledge base is plain Markdown — it works with any LLM that supports fil
 - [x] Phase 6.2 — Cross-references between domains (in `spec.md` of each domain)
 - [x] Phase 6.3 — Variable-level reverse index (`knowledge_base/VARIABLE_INDEX.md`, 1,523 variables)
 - [x] Phase 6.5 — Multi-platform AI deployment + Releases v1.0 → v1.4 (4 platforms, latest at `release/v1.4/`; Gemini MAINTAINED_NO_SANITY_TEST from v1.4)
-- [ ] Phase 6.4 — Structured metadata (YAML/JSON) — merged into Phase 7 Step 7
-- [ ] Phase 7 — RAG + knowledge graph + dataset validation (design complete, see `docs/DESIGN_RAG_KG.md`)
-- [ ] Deep verification — literal-level PDF→KB atom-by-atom audit (in progress, see `branches/06_deep_verification/`)
+- [x] Deep verification — literal-level PDF→KB atom-by-atom audit (COMPLETE: P1–P7, coverage 99.02%, see `branches/06_deep_verification/`)
+- [x] Phase 7 / Phase 1 — RAG Q&A + dataset validation (local Chroma + LiteLLM + FastAPI/Streamlit; 53-question eval 88.5% PASS, see `branches/07_rag_kg/`)
+- [ ] Retrieval quality tuning — raise eval source recall to >95% (rerank / multi-query / re-evaluate KG; see `branches/07_rag_kg/TODO_retrieval_quality.md`)
+- [ ] Phase 6.4 — Structured metadata (YAML/JSON) — merged into Phase 7 / Phase 2 KG (deferred)
+- [ ] Phase 7 / Phase 2 — Knowledge graph (Neo4j) — deferred; to be re-evaluated under the >95% retrieval bar
 
 ## Disclaimer
 
