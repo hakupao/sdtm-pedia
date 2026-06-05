@@ -115,3 +115,17 @@
 - **関鍵決定**: 読者視点原則を確立 — 「制作者しか分からない内容 (出典行、内部パス、内部用語、ツール名) は xlsx に一切出力しない」. build_xlsx.py で系統的に担保.
 - **下一步 route word**: `docs/jp 用語集修正` → 次 session で 99_用語集 完全書き直し + §3.4/§3.5 粒度議論.
 
+---
+
+## 2026-06-05 01_要件定義書 v1.1-draft 構造再整理 収尾コミット (in-flight 改動の確定)
+
+- **触発**: 用户「査看項目現状 + 未提交改動を収尾並提交」 — working tree に 2026-05-13 起草の 01 v1.1-draft が未コミット状態で残存していた (yml 151+/123- + xlsx 22,541→25,175 bytes 再 build 済).
+- **改動の性質 (確認済)**: 意図的な構造変更. v1.0 (6 節) → IPA「要件定義書」標準準拠 9 構成 (1 背景 / 2 業務上の課題 / 3 目標利用者 / 4 業務要件 / 5 機能要件 / 6 非機能要件 / 7 採用原則 / 8 制約条件 / 9 前提条件). 実装レベル記述を 02 基本設計書 + 04 テスト結果報告書へ移行. 日本語表記を CDISC 業界用法 (規格 / コントロールド・ターミノロジー 等) に統一. output パス docs/jp/ → branches/jp_delivery/ (refactor v1 リポジトリ再構成同期).
+- **収尾時の機械検証 (主 session, writer ではない)**:
+  - yaml.safe_load PASS — version v1.1-draft / 9 sheets / 構成名整合.
+  - xlsx ↔ yml 整合 — 同一 mtime (2026-05-13 17:46) 確認, xlsx は yml から再 build 済.
+  - `audit_terms.py --blacklist` — **hits=0 PASS** (33 禁止語 / 4 カテゴリ; deliverable に内部 jargon 漏れ無し).
+- **明示した limitation**: 本コミットは **DRAFT 確定** であり v1.1 正式版 PASS ではない. PASS 五条のうち 第2条 (形式) + 第4条 (用語監査) のみ達成; **第3条 独立 reviewer round + 第5条 用户 ack は未実施**. v1.1 正式版化は別途 reviewer (異 subagent_type) round + 用户口頭承認が必要 — 用户が「只看现状不开工」を選択したため本 session では着手せず.
+- **Chain J 双写**: `CHANGELOG.md` (ITMS-SDTM-01 v1.1-draft entry 追加) + `_progress.json` (01 document に v1_1_draft フィールド追加 + top updated + phase_1 status 更新). `docs/PROGRESS.md` jp 行の stale 記述 (「残 02/03」← 02 は v1.0 完了済) を「残 03 運用保守 + 04 テスト結果報告」に訂正.
+- **未処理 (用户判断待ち)**: ① 01 v1.1-draft → 正式 v1.1 化 (reviewer round + ack). ② Phase 1 P0 残 03 + 04 起動. ③ jp 旁枝の中文列充填 (99 用語集 等, Phase 3).
+
