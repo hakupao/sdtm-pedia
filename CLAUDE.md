@@ -87,9 +87,7 @@ Full chain definitions are in `.work/MANIFEST.md`.
 | Phase 6.5 Release v1.3 | `release/v1.3/` + `.work/07_release_v1_3/{PLAN,RETROSPECTIVE}.md` (KB pass + 4 平台 rebuild; tag `v1.3-company-release`) |
 | Phase 6.5 Release v1.4 | `release/v1.4/` + `.work/07_release_v1_4/{PLAN,RETROSPECTIVE}.md` (prompt-pass + Gemini MAINTAINED_NO_SANITY; tag `v1.4-company-release`) |
 | METHODOLOGY 公开声明 | `METHODOLOGY.md` + `release/v1.{0,1}/METHODOLOGY.{en,zh,ja}.md` |
-| 07 Website Phases 6-8 (closed) | `.work/07_website/phase{6,7,8}/` + handoffs `.work/meta/website_phase*_handoff_*.md`; prod https://sdtm-pedia.pages.dev/ |
-| iTMS 納品旁枝 (branches) | `branches/jp_delivery/PLAN.md` + `EXECUTION_PLAN.md` (Excel 主体, Chain J) |
-| Phase 7 RAG+KG 旁枝 | `branches/07_rag_kg/PLAN.md` (Phase 1 CLOSED 53q 88.5%; sdtm-rag/ 代码仓, Chain 07_RAG) |
+| 07 Website Phases 6-8 (closed) | `.work/07_website/phase{6,7,8}/` + handoffs `.work/meta/website_phase*_handoff_*.md`; prod https://sdtm-pedia.pages.dev/ || Phase 7 RAG+KG 旁枝 | `branches/07_rag_kg/PLAN.md` (Phase 1 CLOSED 53q 88.5%; sdtm-rag/ 代码仓, Chain 07_RAG) |
 | Phase 7 检索优化 TODO | `branches/07_rag_kg/TODO_retrieval_quality.md` (src recall → >95% backlog) |
 
 ## AI 平台双平台并行部署 (锁步规则)
@@ -124,7 +122,7 @@ When the user says **"收尾"**, **"wrap up"**, or **"提交收尾"**, execute t
    - `.work/MANIFEST.md` — 仅当目录结构 / chain 改了, 才动 (一般不需)
    - `CLAUDE.md` Key Paths — 仅当新 key path 创建, 才加一行 (≤ 80 字符)
 3. **Prune CLAUDE.md** — 按"CLAUDE.md 写作规则"扫一遍: 该阶段已关闭的 round/batch/version 进度状态, 删除或迁移到 worklog; 总行数应稳定在 150 行以内
-4. **Check Change Chains** — knowledge_base/ 改了 → Chain D; plans 改了 → Chain E; branches/jp_delivery/ 改了 → Chain J; .work/refactor_v1/ 改了 → Chain REFACTOR-v1
+4. **Check Change Chains** — knowledge_base/ 改了 → Chain D; plans 改了 → Chain E; .work/refactor_v1/ 改了 → Chain REFACTOR-v1
 5. **Commit + push** — single commit with descriptive message, push to main
 6. **Report** — one-line summary of what was committed
 

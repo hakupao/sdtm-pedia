@@ -1,7 +1,7 @@
 # Repo 重构设计 — Single Source of Truth (SSoT)
 
 > 起草: 2026-05-11
-> 触发: `ai_platforms/` + `branches/jp_delivery/` + `web/` 三方耦合糊, 同一份 `release/v1.0/` 被复制 3 处 (源 + web zip + jp zip), 版本号脱节, 改一处易漏
+> 触发: `ai_platforms/` + `branches/delivery/` + `web/` 三方耦合糊, 同一份 `release/v1.0/` 被复制 3 处 (源 + web zip + delivery zip), 版本号脱节, 改一处易漏
 > 原则: **一个文件只保留一个出处, 只维护一个文件**
 
 ---
@@ -26,7 +26,7 @@
                         │                               │
                         ▼ (read + 反向写 frontmatter)    ▼ (copy 嵌入)
               ┌──────────────────────┐         ┌────────────────────────┐
-              │  web/                │         │ branches/jp_delivery/  │
+              │  web/                │         │ branches/delivery/     │
               │  Astro glob          │         │  scripts/build_xlsx.py │
               │   release/v1.0/*.md  │         │   → 6 xlsx             │
               │  build-bundles.sh    │         │  (手工) zip            │
@@ -45,7 +45,7 @@
 | 3 | `claude_projects/current/UPLOAD_TUTORIAL.md` + `notebooklm/current/UPLOAD_TUTORIAL.md` 与 `self_deploy/<p>/tutorial.zh.md` 同源 diverge | 同一教程 2 份, 不知道改哪份 |
 | 4 | `chatgpt_gpt/current/upload_manifest.md` + `gemini_gems/current/upload_manifest.md` 与 self_deploy/ 同主题但内容不同 | 命名误导 (像 tutorial 实则内部工程文档) |
 | 5 | release tutorial 内引用 `../../../../notebooklm/dev/evidence/...` 在外部 zip 内全断链 | 现在靠"内部 QA 证据不在 release 包内"免责声明 patch |
-| 6 | jp_delivery 没 build_zip 脚本, 全手工打包 | 改源永远滞后 |
+| 6 | delivery 旁枝没 build_zip 脚本, 全手工打包 | 改源永远滞后 |
 
 ---
 
@@ -84,7 +84,7 @@ sdtm-pedia/
 │   └── dist-bundles/       (产物, .gitignore)
 │
 └── branches/
-    └── jp_delivery/        (派生消费者 2, 只读 release/)
+    └── delivery/           (派生消费者 2, 只读 release/)
         ├── scripts/build_zip.sh   (★ 新增, 被 tools/build_release.sh 调)
         ├── deliverable/           (产物, .gitignore zip)
         └── (xlsx + 工作日志, 不变)
@@ -108,13 +108,13 @@ sdtm-pedia/
 4. **执行一次 `web/scripts/add-frontmatter.mjs`** 把 frontmatter 写进 release md, 然后**删除该脚本**
 5. **删除 `claude_projects/current/UPLOAD_TUTORIAL.md` + `notebooklm/current/UPLOAD_TUTORIAL.md`** (已被 self_deploy/ tutorial 取代)
 6. **改名** `chatgpt_gpt/current/upload_manifest.md` + `gemini_gems/current/upload_manifest.md` → `dev_manifest.md`
-7. **新建 `tools/build_release.sh`** + `branches/jp_delivery/scripts/build_zip.sh`, 串起来
+7. **新建 `tools/build_release.sh`** + `branches/delivery/scripts/build_zip.sh`, 串起来
 8. **更新引用** (一次性 grep 替换):
    - `ai_platforms/release/v1.0/` → `release/v1.0/` (全仓)
    - CLAUDE.md Key Paths
-   - jp_delivery PLAN/WORKLOG/CHANGELOG/sources/00_納品範囲.yml
+   - delivery 旁枝 PLAN/WORKLOG/CHANGELOG/sources/*.yml
    - `.work/MANIFEST.md`, `docs/PROGRESS.md`
-9. **加 `.gitignore`**: `web/dist-bundles/*.zip`, `branches/jp_delivery/deliverable/*.zip` (可选保留 latest)
+9. **加 `.gitignore`**: `web/dist-bundles/*.zip`, `branches/delivery/deliverable/*.zip` (可选保留 latest)
 10. **(可选)** pre-commit hook 检查三语 tutorial.{en,ja,zh}.md mtime 偏差
 
 ---
@@ -144,6 +144,6 @@ sdtm-pedia/
 - `branches/06_deep_verification/` (本身就是独立旁枝)
 - `knowledge_base/` (KB 内容, 由 Phase 1-5 维护)
 - `.work/07_website/phase{6,7,8}/` (web 历史归档, closed)
-- `branches/jp_delivery/glossary/research_reports/` (Phase 1 调研报告, 已完成)
+- `branches/delivery/glossary/research_reports/` (Phase 1 调研报告, 已完成)
 
 *重构是结构层面, 不动产物内容.*
