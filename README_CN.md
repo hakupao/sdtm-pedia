@@ -205,7 +205,7 @@ sdtm-pedia/
 </details>
 
 <details>
-<summary><b>发现域（31 个）</b></summary>
+<summary><b>发现域（32 个）</b></summary>
 
 | Domain | 名称 |
 |--------|------|
