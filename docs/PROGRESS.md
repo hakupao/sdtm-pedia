@@ -1,7 +1,7 @@
 # 进度看板
 
 > **唯一进度状态源**. 历史细节看 `.work/meta/worklog/INDEX.md`. 文件结构看 `.work/MANIFEST.md`. 一页纸入门看 `.work/AGENT_GUIDE.md`.
-> 最后更新: 2026-05-24 (**Phase 7 RAG+KG Phase 1 CLOSED ★★★** — 53q eval 88.5% PASS + RETROSPECTIVE 三段 + Phase 2 KG deferred; 用户 ack 2026-05-24)
+> 最后更新: 2026-06-05 (jp_delivery 01 要件定義書 **v1.1-draft** 構造再整理 [IPA 9 構成] 収尾コミット — DRAFT, reviewer/ack 未). 前次: 2026-05-24 **Phase 7 RAG+KG Phase 1 CLOSED ★★★** (53q eval 88.5% PASS + RETROSPECTIVE 三段 + Phase 2 KG deferred)
 
 ---
 
@@ -19,7 +19,7 @@
 | **Phase 7** RAG + KG | ✅ **Phase 1 CLOSED ★★★** | Phase 0-1D 全 PASS; 53q eval 88.5% (DeepSeek); 5/5 validation; Phase 2 KG NOT triggered (cross_domain 61.5% > 50%); RETROSPECTIVE 三段 + critic Rule D PASS | Phase 2 KG deferred; Sonnet/Opus eval deferred (Anthropic credits) |
 | **06 旁枝** Deep Verification | ✅ 完成 | P1-P7 全 PASS ★★ (coverage 99.02%, Issues 5-16 repaired, P7 content error 3.3%, RETROSPECTIVE.md 归档) | `branches/06_deep_verification/RETROSPECTIVE.md` |
 | **07 旁枝** Website | ✅ 完成 | Phase 6/7/8/9/10/11 全 closed; prod sdtm-pedia.pages.dev | — |
-| **docs/jp** iTMS 納品 | 🟢 进行中 | Phase 1 P0 中間版 v0.5 已提出 2026-04-30 | 残 02/03 + 05/06/99 中文列充填 (Phase 2-3, 2026-05 中下旬) |
+| **docs/jp** iTMS 納品 | 🟢 进行中 | P0 2/4 v1.0 (01+02) + 中間版 v0.5 提出; **01 v1.1-draft** 構造再整理 in-flight (DRAFT) | 残 03 運用保守 + 04 テスト結果報告 (P0); 01 v1.1 reviewer/ack 未 |
 | **refactor v1** 项目重构 | ✅ 完成 | 段 1/2/3 全 closed; branches/ 迁移完成 2026-05-11 ★ | RETROSPECTIVE.md 三段齐备 |
 
 **图例**: ✅ 完成 · 🟢 进行中 · ⏸ 待启动 · 🔴 阻塞

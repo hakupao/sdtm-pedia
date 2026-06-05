@@ -130,3 +130,13 @@
 - 同梱物: 6 件 xlsx (00 案内 / 01 要件定義 / 02 基本設計 / 07 進捗報告 / 08 反復実績 / 99 用語集骨格) + release/v1.0/ 公開発布版資料.
 - 経緯: ユーザー判断「P0 4 件中 2 件確定 + 公開発布版で中間版提出」→ 中間版補助文書 3 件 (00 / 07 / 08) 起草 + 全提交ファイル Excel 化 (公司習慣準拠) → audit_terms.py 監査 6/6 PASS → zip 集約 + 解凍テスト + sha256 算出.
 - 用语规律監査: 全 6 xlsx hits=0 (修正サイクル 2 件適用後; 04 改訂履歴 round 表記置換 + 07 出典内部ファイル名抽象化 + 08 D-15 行再帰引用除去).
+
+## ITMS-SDTM-01 v1.1-draft (2026-05-13)
+- 改訂区分: 構造変更 (業界標準準拠の全面再構成)
+- 改訂内容: v1.0 (背景目的 / 業務要件 / 機能要件 / 非機能要件 / 制約条件 / 前提条件) を IPA「要件定義書」標準準拠の 9 構成 (1 背景 / 2 業務上の課題 / 3 目標利用者 / 4 業務要件 / 5 機能要件 / 6 非機能要件 / 7 採用原則 / 8 制約条件 / 9 前提条件) に再整理. 実装レベル記述は 02 基本設計書および 04 テスト結果報告書へ移行. 日本語表記を CDISC 業界用法 (規格 / コントロールド・ターミノロジー 等) に統一. 文書番号 v1.0 → v1.1-draft, output パス docs/jp/ → branches/jp_delivery/ (リポジトリ再構成同期).
+- 産物: branches/jp_delivery/sources/01_要件定義書.yml + branches/jp_delivery/01_要件定義書.xlsx (9 シート / 25,175 bytes).
+- 用語規律監査: audit_terms.py blacklist hits=0 (PASS, 33 禁止語).
+- **状態: DRAFT** — PASS 五条のうち 第2条 (形式約定) + 第4条 (用語監査) のみ達成. 独立確認担当 (reviewer) round + 用户口頭承認 は**未実施**. v1.1 正式版化には別途 reviewer round + ack 工程が必要.
+- 作成: 張　泊江 (2026-05-13 起草). 2026-06-05 主 session が収尾コミット — 機械検証のみ実施 (yaml parse OK + xlsx↔yml mtime 一致 + audit_terms blacklist PASS).
+- 確認: pending (reviewer round 未実施)
+- 承認: pending (用户 ack 未実施)
