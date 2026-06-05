@@ -150,8 +150,7 @@ sdtm-pedia/
 │
 ├── branches/                    # 独立旁枝（refactor v1 迁移，2026-05）
 │   ├── 06_deep_verification/    # PDF→KB 字面级深审 — 已完成（P1-P7，覆盖率 99.02%）
-│   ├── 07_rag_kg/               # RAG + 数据集校验 — Phase 1 已完成（sdtm-rag/；53 题 eval 88.5%）
-│   └── jp_delivery/             # iTMS（日本）納品文档 — 进行中（Excel 交付物）
+│   └── 07_rag_kg/               # RAG + 数据集校验 — Phase 1 已完成（sdtm-rag/；53 题 eval 88.5%）
 │
 ├── docs/                        # 项目文档
 │   ├── PROGRESS.md              # 构建进度看板

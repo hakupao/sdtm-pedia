@@ -150,8 +150,7 @@ sdtm-pedia/
 │
 ├── branches/                    # Self-contained side-projects (refactor v1, 2026-05)
 │   ├── 06_deep_verification/    # PDF→KB literal-level deep audit — COMPLETE (P1-P7, coverage 99.02%)
-│   ├── 07_rag_kg/               # RAG + dataset validation — Phase 1 COMPLETE (sdtm-rag/; 53q eval 88.5%)
-│   └── jp_delivery/             # iTMS (Japan) delivery docs — in progress (Excel deliverables)
+│   └── 07_rag_kg/               # RAG + dataset validation — Phase 1 COMPLETE (sdtm-rag/; 53q eval 88.5%)
 │
 ├── docs/                        # Project documentation
 │   ├── PROGRESS.md              # Build progress dashboard
