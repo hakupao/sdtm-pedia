@@ -95,6 +95,21 @@ def test_ae_terminology_ct_extensible_is_none(ae_chunks):
         assert chunk.ct_extensible is None
 
 
+def test_ae_terminology_c66769_enriched_with_variable_usage(ae_chunks):
+    """ae.md C66769 codelist chunk is enriched with its referencing variable (AESEV).
+
+    The "Used by variable(s): ..." line is built generically from VARIABLE_INDEX.md
+    §三 cross-reference table (C66769 → AE.AESEV).
+    """
+    c66769 = [c for c in ae_chunks if c.ct_code == "C66769"]
+    assert len(c66769) == 1, f"Expected exactly 1 C66769 chunk, got {len(c66769)}"
+    text = c66769[0].text
+    assert "AESEV" in text, f"C66769 chunk not enriched with AESEV usage: {text[:120]!r}"
+    assert text.startswith("Used by variable(s):"), (
+        f"C66769 chunk should be prefixed with usage line: {text[:60]!r}"
+    )
+
+
 # ---------------------------------------------------------------------------
 # lb_part1.md (1 H2 + _part1 name): 1 chunk, part mode, part_index == 1
 # ---------------------------------------------------------------------------

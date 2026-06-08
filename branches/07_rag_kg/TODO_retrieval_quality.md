@@ -31,12 +31,18 @@
 ## 2. TODO (按性价比 / 先后排)
 
 ### 最小先手 (不碰答题模型, 不部署, 先验证天花板)
-- [ ] **T1 检索消融实验** — rerank / Top-K 调大 / 多查询 三项分别 + 组合, 跑 53q (或先 20q sanity) eval, 看 cross_domain + concept src recall 能拉到多少. 产物 `eval/ablation_retrieval_<date>.md`. 不改 answering model, 不部署.
+- [x] **T1 检索消融实验 (Top-K 扫描)** — ✅ 完成 2026-06-08. 产物 `sdtm-rag/eval/ablation_retrieval_2026-06-08.md` + Rule D 复核 `ablation_t1/review_T1.md`.
+  - **诊断: cross_domain/concept 主要是排序问题** (K=15→100 单调回升: cross 61.5%→92.3%, concept 84.6%→100%; 7/12 失败题 K=100 救回) → **rerank (T2) 对症, 候选池需 ~100**.
+  - **天花板: 纯 dense retrieval K=100 = overall 95.3% 已达标**; 但逐类别 cross_domain/mixed 仍 92.3% < 95% (卡 4 硬核).
+  - **副产物: 修复 q37 测试集 gold-label bug** (`04_special_purpose.md` 不存在 → `03_special_purpose_domains.md`; 全量审计仅此一处).
+  - **4 硬核 (rerank 救不了, 不在 top-100)**: q34=VARIABLE_INDEX 表示缺口; q16/s04/s05=ae.md/vs.md **语义距离** (变量名↔CT code, 非截断) → 对症 **T4 HyDE/查询改写** 或 terminology 重切分.
 
 ### 检索杠杆 (按优先级)
-- [ ] **T2 Reranker** (PLAN §5 1B.2 本留 Cohere Rerank 可选) — Top-K 15→30/50 召回 → rerank 压回 Top-5/8. 对跨域/概念最直接.
-- [ ] **T3 Top-K 调大** — 现 15, 跨域题 chunk 分散, 先简单加大做基线对照.
-- [ ] **T4 多查询 / Query 改写 (multi-query / HyDE)** — 跨域题单 query 命不全多个域 → 拆多 query 分别检索合并. **cross_domain 61.5% 对症点.**
+- [x] **T2 Reranker (Cohere rerank-v3.5)** — ❌ **失败 2026-06-08**. 实测全 pool (30/50/100) → top-15 均 80.2% overall, **劣于 cosine baseline 84.0%**. 机制 (rank-tracing 证实): 通用 reranker 系统性降级简洁 spec.md 变量表 (q08 DM/spec cosine#2→rerank#17), 偏好散文章节, 破坏 cosine 对结构化内容的强排序. 详 `sdtm-rag/eval/ablation_retrieval_2026-06-08.md` §8-10. 代码保留 (rag.py 默认 off, 规则 B). **结论: rerank 非本 KB 对的工具.**
+- [x] **T3 Top-K 调大** — 已被 T1 覆盖 (Top-K 扫描即 T3). 单纯调大 K 撑大 context+引噪声, 不单独上.
+- [x] **T4 多查询 / Query 改写 (multi-query / HyDE)** — 测毕 2026-06-08 (DeepSeek 扩展). 结果: **multiquery 失败** (76.4% < 84.0% baseline, 4列表 RRF 稀释单域); **plain HyDE 迄今最佳** (87.7% +3.7pt, mixed 100%, concept/cross 升, single 回退仅1题); **hyde_rrf 融合反更差** (83.0%, 稀释回 baseline). 统一规律: 变换 query 帮难类伤易类. **距全类 95% 仍差** (HyDE cross 仅 69.2%). 详 `ablation_retrieval_2026-06-08.md` §12-14. 代码全留 (rag.py 默认 none).
+  - **未决战略选项 (§14)**: (A) 接受 HyDE 温和增益 / (B) 重切分 4 硬核 VARIABLE_INDEX+terminology / (C) T5 embedding-large / (D) T6 KG / (E) 接受现状 (受信者自查够用).
+- [ ] **T2b RRF 分数融合 (备选)** — 若仍想保 rerank 信号: reciprocal-rank-fusion 融合 cosine+rerank 排名 (非纯替换), 保住 cosine 的 spec.md 优势. 但 rerank 主动降级正确答案, 至多折中.
 - [ ] **T5 embedding 升级评估** — `text-embedding-3-small` → `-large` (3072d). 全量重 ingest 成本 vs 召回收益权衡; PLAN 原写 "召回<80% 才考虑", 现 bar 提到 95% 纳入候选.
 
 ### 结构性 (前几项不够再上)

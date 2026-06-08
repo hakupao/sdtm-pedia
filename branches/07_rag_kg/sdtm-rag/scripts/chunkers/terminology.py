@@ -33,6 +33,12 @@ _CODELIST_HEADING_RE = re.compile(r"^(.*?)\s*\((C\d+)\)\s*$")
 # Match `_partN` suffix in filename stem to extract N.
 _PART_SUFFIX_RE = re.compile(r"_part(\d+)$")
 
+# GFM table separator row like `|---|---|` (also matches `:--:` alignment).
+_GFM_SEP_RE = re.compile(r"^\|[\s\-:|]+\|?\s*$")
+
+# A CT-code cell in VARIABLE_INDEX.md §三 (e.g. C66769).
+_CT_CODE_RE = re.compile(r"^C\d+$")
+
 # PLAN §6.4 巨型 part 兜底门限 (cl100k tokens). 触发后按 N 行表切片.
 _GIANT_PART_TOKEN_THRESHOLD = 6000
 # 表切片每段行数 (PLAN §6.4 N=100).
@@ -107,6 +113,57 @@ class TerminologyChunker(BaseChunker):
     """Chunk a terminology/**/*.md file: part mode or codelist mode (L-5)."""
 
     file_type = "terminology"
+
+    def __init__(self, kb_root: Path) -> None:
+        super().__init__(kb_root)
+        # Lazy ct_code → "域.变量名, ..." map built from VARIABLE_INDEX.md §三.
+        self._ct_usage: dict[str, str] | None = None
+
+    @property
+    def ct_usage_map(self) -> dict[str, str]:
+        """ct_code → referencing-variable string, parsed from VARIABLE_INDEX.md §三.
+
+        Built once and cached. Returns {} if VARIABLE_INDEX.md is missing.
+        """
+        if self._ct_usage is None:
+            self._ct_usage = self._build_ct_usage_map()
+        return self._ct_usage
+
+    def _build_ct_usage_map(self) -> dict[str, str]:
+        """Parse the §三 GFM table (CT Code | 引用数 | 引用此 CT 的变量) into a map."""
+        var_index = self.kb_root / "VARIABLE_INDEX.md"
+        if not var_index.exists():
+            return {}
+        text = var_index.read_text(encoding="utf-8")
+        # Rule-D HIGH fix: scope the parse to §三 only, so §一/§二 rows can never
+        # leak into the map even if a future schema change makes a variable name
+        # match C\d+. Bail gracefully if §三 is absent.
+        san = re.search(r"^##\s+三、", text, re.MULTILINE)
+        if not san:
+            return {}
+        text = text[san.start():]
+        usage: dict[str, str] = {}
+        seen_separator = False
+        for raw in text.splitlines():
+            line = raw.strip()
+            if not line.startswith("|"):
+                continue
+            if _GFM_SEP_RE.match(line):
+                seen_separator = True
+                continue
+            if not seen_separator:
+                continue  # header row(s) before any separator
+            cells = [c.strip() for c in line.split("|")]
+            if cells and cells[0] == "":
+                cells = cells[1:]
+            if cells and cells[-1] == "":
+                cells = cells[:-1]
+            if len(cells) < 3:
+                continue
+            ct_code, _ref_count, ref_vars = cells[0], cells[1], cells[2]
+            if _CT_CODE_RE.match(ct_code) and ref_vars:
+                usage[ct_code] = ref_vars
+        return usage
 
     def chunk(self, file_path: Path) -> list[Chunk]:
         text = file_path.read_text(encoding="utf-8")
@@ -196,6 +253,11 @@ class TerminologyChunker(BaseChunker):
             end = h2s[i + 1][0] if i + 1 < len(h2s) else len(text)
             chunk_text = text[start:end]
             name, ct_code = _parse_codelist_heading(heading)
+            # Enrich with which variable(s) use this codelist (generic, via §三 map).
+            if ct_code is not None:
+                used_by = self.ct_usage_map.get(ct_code)
+                if used_by:
+                    chunk_text = f"Used by variable(s): {used_by}.\n\n" + chunk_text
             chunks.append(
                 self._new_chunk(
                     source=str(file_path),

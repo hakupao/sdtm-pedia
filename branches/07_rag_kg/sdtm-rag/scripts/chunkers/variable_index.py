@@ -1,18 +1,25 @@
 """VariableIndexChunker — single-file chunker for knowledge_base/VARIABLE_INDEX.md.
 
-Phase 1A.3 Batch C.
+Phase 1A.3 Batch C; re-chunking fix (per-row §一/§三 splitting).
 
-Structure (1A.0 verified):
-  §一 通用变量 (## 一、...)                 → 1 chunk
+Structure:
+  §一 通用变量 (## 一、...)                 → 1 chunk PER common-variable row
+       GFM table `变量名|域数|出现的域|Label|Type|Role|Core` (24 data rows)
+       → 24 chunks, each a natural-language rendering of one variable.
   §二 领域专属变量 (## 二、..., 63 H3 sections)
        Each H3 like "### AE — Adverse Events (Events)" → 1 chunk per domain
-                                                       → 63 chunks
-  §三 CDISC CT 交叉引用 (## 三、...)        → 1 chunk (no sub-headings; single big table)
+                                                       → 63 chunks (UNCHANGED)
+  §三 CDISC CT 交叉引用 (## 三、...)        → 1 chunk PER CT-code row
+       GFM table `CT Code|引用数|引用此 CT 的变量` (135 data rows)
+       → 135 chunks, each naming a codelist + its referencing variables.
 
-Total chunks: 1 + 63 + 1 = 65.
+Total chunks: 24 + 63 + 135 = 222.
 
 Per-H3 domain code parsed from text before " — ", cdisc_class from "(...)"
 parenthetical (e.g. "AE" + "Events").
+
+Rationale: the original single §一/§三 chunks were GIANT tables whose embeddings
+were diluted; per-row chunks put the right content into top-15 retrieval.
 """
 
 from __future__ import annotations
@@ -25,9 +32,15 @@ from .base import BaseChunker, Chunk, heading_positions
 # Detect §一 / §二 / §三 H2 boundaries (CJK numerals).
 _SECTION_H2_RE = re.compile(r"^##\s+(一|二|三)、(.+?)\s*$", re.MULTILINE)
 
+# Validate a §三 CT Code cell (e.g. C66742); rejects header leaks / malformed rows.
+_CT_CODE_RE = re.compile(r"^C\d+$")
+
 # Parse H3 like "AE — Adverse Events (Events)".
 # Groups: 1=domain code, 2=label, 3=class (in parens, optional).
 _DOMAIN_H3_RE = re.compile(r"^\s*([A-Z][A-Z0-9]+)\s+—\s+(.+?)(?:\s+\(([^)]+)\))?\s*$")
+
+# GFM table separator row like `|---|---|` (also matches `:--:` alignment).
+_GFM_SEP_RE = re.compile(r"^\|[\s\-:|]+\|?\s*$")
 
 
 def _parse_domain_h3(heading: str) -> tuple[str | None, str | None]:
@@ -41,8 +54,37 @@ def _parse_domain_h3(heading: str) -> tuple[str | None, str | None]:
     return None, None
 
 
+def _parse_gfm_data_rows(section_text: str) -> list[list[str]]:
+    """Return data rows (each a list of stripped cell strings) from a GFM table.
+
+    Skips the header row and the `|---|` separator row. A data row is any line
+    starting with `|` that follows the separator. Robust to trailing pipes and
+    surrounding whitespace.
+    """
+    rows: list[list[str]] = []
+    seen_separator = False
+    for raw in section_text.splitlines():
+        line = raw.strip()
+        if not line.startswith("|"):
+            continue
+        if _GFM_SEP_RE.match(line):
+            seen_separator = True
+            continue
+        if not seen_separator:
+            # This is the header row (first pipe line before the separator).
+            continue
+        # Split on `|`, drop the empty leading/trailing cells from outer pipes.
+        cells = [c.strip() for c in line.split("|")]
+        if cells and cells[0] == "":
+            cells = cells[1:]
+        if cells and cells[-1] == "":
+            cells = cells[:-1]
+        rows.append(cells)
+    return rows
+
+
 class VariableIndexChunker(BaseChunker):
-    """Chunk VARIABLE_INDEX.md into §一 (1) + §二 (63 by domain) + §三 (1)."""
+    """Chunk VARIABLE_INDEX.md into §一 (24 per-variable) + §二 (63 by domain) + §三 (135 per-CT-code)."""
 
     file_type = "variable_index"
 
@@ -85,30 +127,39 @@ class VariableIndexChunker(BaseChunker):
         er_start = section_marks.get("二", (None, ""))[0]
         san_start = section_marks.get("三", (None, ""))[0]
 
-        # ── §一 chunk: from §一 start to §二 start (or §三/EOF if no §二) ─────
+        # ── §一 chunks: one per common-variable row ──────────────────────────
+        # GFM columns: 变量名 | 域数 | 出现的域 | Label | Type | Role | Core
         if yi_start is not None:
             yi_end = er_start if er_start is not None else (san_start if san_start is not None else len(text))
             yi_text = text[yi_start:yi_end]
-            chunks.append(
-                self._new_chunk(
-                    source=str(file_path),
-                    text=yi_text,
-                    chunk_index=chunk_idx,
-                    domain=None,
-                    section="§一 通用变量",
-                    cdisc_class=None,
-                    cdisc_section_id=None,
-                    example_index=None,
-                    sub_label=None,
-                    has_mermaid=None,
-                    has_table=None,
-                    ct_code=None,
-                    ct_extensible=None,
-                    part_index=None,
-                    table_chunk_idx=None,
+            for cells in _parse_gfm_data_rows(yi_text):
+                if len(cells) < 7:
+                    continue  # malformed row; skip defensively
+                var_name, dom_count, domains, label, vtype, role, core = cells[:7]
+                row_text = (
+                    f"{var_name} ({label}) — {role} variable, type {vtype}, "
+                    f"Core {core}. Appears in {dom_count} SDTM domains: {domains}."
                 )
-            )
-            chunk_idx += 1
+                chunks.append(
+                    self._new_chunk(
+                        source=str(file_path),
+                        text=row_text,
+                        chunk_index=chunk_idx,
+                        domain=None,
+                        section=f"§一 通用变量: {var_name}",
+                        cdisc_class=None,
+                        cdisc_section_id=None,
+                        example_index=None,
+                        sub_label=None,
+                        has_mermaid=None,
+                        has_table=None,
+                        ct_code=None,
+                        ct_extensible=None,
+                        part_index=None,
+                        table_chunk_idx=None,
+                    )
+                )
+                chunk_idx += 1
 
         # ── §二 chunks: one per H3 domain section ────────────────────────────
         if er_start is not None:
@@ -143,28 +194,39 @@ class VariableIndexChunker(BaseChunker):
                 )
                 chunk_idx += 1
 
-        # ── §三 chunk: single chunk (table has no internal headings) ─────────
+        # ── §三 chunks: one per CT-code row ──────────────────────────────────
+        # GFM columns: CT Code | 引用数 | 引用此 CT 的变量 (域.变量名)
         if san_start is not None:
             san_text = text[san_start:]
-            chunks.append(
-                self._new_chunk(
-                    source=str(file_path),
-                    text=san_text,
-                    chunk_index=chunk_idx,
-                    domain=None,
-                    section="§三 CT 交叉引用",
-                    cdisc_class=None,
-                    cdisc_section_id=None,
-                    example_index=None,
-                    sub_label=None,
-                    has_mermaid=None,
-                    has_table=None,
-                    ct_code=None,
-                    ct_extensible=None,
-                    part_index=None,
-                    table_chunk_idx=None,
+            for cells in _parse_gfm_data_rows(san_text):
+                if len(cells) < 3:
+                    continue  # malformed row; skip defensively
+                ct_code, ref_count, ref_vars = cells[:3]
+                if not _CT_CODE_RE.match(ct_code):
+                    continue  # skip header leak / malformed rows (Rule-D MED)
+                row_text = (
+                    f"CT Code {ct_code} — controlled terminology codelist "
+                    f"referenced by {ref_count} variable(s): {ref_vars}."
                 )
-            )
-            chunk_idx += 1
+                chunks.append(
+                    self._new_chunk(
+                        source=str(file_path),
+                        text=row_text,
+                        chunk_index=chunk_idx,
+                        domain=None,
+                        section=f"§三 CT 交叉引用: {ct_code}",
+                        cdisc_class=None,
+                        cdisc_section_id=None,
+                        example_index=None,
+                        sub_label=None,
+                        has_mermaid=None,
+                        has_table=None,
+                        ct_code=ct_code,
+                        ct_extensible=None,
+                        part_index=None,
+                        table_chunk_idx=None,
+                    )
+                )
+                chunk_idx += 1
 
         return chunks

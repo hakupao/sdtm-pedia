@@ -1,0 +1,87 @@
+[92m18:48:06 - LiteLLM:WARNING[0m: common_utils.py:979 - litellm: could not pre-load bedrock-runtime response stream shape — Bedrock event-stream decoding will be unavailable. Error: No module named 'botocore'
+[92m18:48:06 - LiteLLM:WARNING[0m: common_utils.py:24 - litellm: could not pre-load sagemaker-runtime response stream shape — SageMaker event-stream decoding will be unavailable. Error: No module named 'botocore'
+Loaded 53 questions from eval/test_set_v1.yml
+RAG engine: 4146 chunks, model=anthropic/claude-sonnet-4-6, top_k=15, rerank=rerank-v3.5 pool=100
+
+[q01] What is AETERM and what are its variable attributes in the A... [SRC] src=100% fact=n/a 0.8s
+[q02] What are the required (Core=Req) variables in the DM domain?... [SRC] src=0% fact=n/a 0.5s
+[q03] What are the key assumptions for adverse event data collecti... [SRC] src=100% fact=n/a 0.8s
+[q04] What is the purpose of the TV (Trial Visits) domain and what... [SRC] src=0% fact=n/a 0.7s
+[q05] In the PE (Physical Examination) domain, what is the structu... [SRC] src=100% fact=n/a 1.1s
+[q21] What is the LBTESTCD variable in the LB (Laboratory Test Res... [SRC] src=100% fact=n/a 0.6s
+[q22] What is the VS (Vital Signs) domain and what are some exampl... [SRC] src=100% fact=n/a 1.0s
+[q23] In the CM (Concomitant Medications) domain, what is the CMTR... [SRC] src=100% fact=n/a 0.6s
+[q24] What is the EX (Exposure) domain used for and what is the To... [SRC] src=100% fact=n/a 0.7s
+[q25] In the MH (Medical History) domain, what is the role of MHTE... [SRC] src=100% fact=n/a 40.5s
+[q26] Describe the EG (ECG Test Results) domain structure and the ... [SRC] src=100% fact=n/a 14.6s
+[q27] What is the IE (Inclusion/Exclusion) domain and what is the ... [SRC] src=100% fact=n/a 0.6s
+[q06] What is SUPPQUAL and when should supplemental qualifiers be ... [SRC] src=0% fact=n/a 0.7s
+[q07] Which SDTM domains use the EPOCH variable and what is its pu... [SRC] src=0% fact=n/a 0.6s
+[q08] How does USUBJID serve as a linking key across SDTM domains?... [SRC] src=0% fact=n/a 0.6s
+[q09] How are adverse events linked to concomitant medications usi... [SRC] src=0% fact=n/a 0.9s
+[q10] In oncology studies, how are the TR (Tumor/Lesion Results) d... [SRC] src=100% fact=n/a 0.8s
+[q28] What is the FA (Findings About Events or Interventions) doma... [SRC] src=100% fact=n/a 0.7s
+[q29] How do the four Trial Design domains TA (Trial Arms), TE (Tr... [SRC] src=100% fact=n/a 0.8s
+[q30] What is the CO (Comments) domain and how does it reference r... [SRC] src=100% fact=n/a 38.0s
+[q31] How are the EC (Exposure as Collected) and EX (Exposure) dom... [SRC] src=100% fact=n/a 16.2s
+[q32] How is VISIT and VISITNUM used consistently across observati... [SRC] src=0% fact=n/a 0.6s
+[q33] What is the RELSPEC domain and how does it define relationsh... [SRC] src=0% fact=n/a 0.9s
+[q34] Which SDTM domains share the controlled terminology codelist... [SRC] src=0% fact=n/a 0.7s
+[q11] What are the three observation classes in the SDTM model?... [SRC] src=100% fact=n/a 0.9s
+[q12] What do the Core designations Req, Exp, and Perm mean in SDT... [SRC] src=100% fact=n/a 0.6s
+[q13] What is the difference between Topic, Qualifier, and Identif... [SRC] src=100% fact=n/a 0.6s
+[q14] How should a sponsor create a new custom domain in SDTM?... [SRC] src=100% fact=n/a 0.7s
+[q15] What are the three SDTM Core designation categories for vari... [SRC] src=100% fact=n/a 1.7s
+[q35] What is Controlled Terminology (CT) in SDTM and how does it ... [SRC] src=100% fact=n/a 38.1s
+[q36] What are the timing variables in SDTM (such as --DTC, --STDT... [SRC] src=100% fact=n/a 15.4s
+[q37] What are the Special-Purpose datasets in SDTM and which doma... [SRC] src=100% fact=n/a 1.4s
+[q38] How are SDTM domain abbreviation codes assigned? What are th... [SRC] src=100% fact=n/a 0.9s
+[q39] What is the Findings About observation class and how does it... [SRC] src=100% fact=n/a 0.6s
+[q40] What is the difference between collected data and derived da... [SRC] src=100% fact=n/a 0.9s
+[q41] What are the Trial Design Model datasets in SDTM and what ki... [SRC] src=100% fact=n/a 1.4s
+[q16] What values are allowed for AESEV and what is its codelist c... [SRC] src=50% fact=n/a 0.4s
+[q17] How are date and time variables formatted in SDTM and what s... [SRC] src=100% fact=n/a 0.5s
+[q18] Explain the MedDRA coding chain for adverse events from verb... [SRC] src=100% fact=n/a 0.8s
+[q19] What controlled terminology codelist is used for DSDECOD whe... [SRC] src=100% fact=n/a 39.3s
+[q20] In the DM domain, what is the difference between the RFSTDTC... [SRC] src=100% fact=n/a 14.3s
+[q42] In the LB domain, how are normal ranges represented using LB... [SRC] src=100% fact=n/a 0.9s
+[q43] What is the controlled terminology codelist for the SEX vari... [SRC] src=100% fact=n/a 0.4s
+[q44] In the VS domain, what is the controlled terminology codelis... [SRC] src=100% fact=n/a 1.8s
+[q45] What is the RACE variable in the DM domain, what codelist do... [SRC] src=100% fact=n/a 0.6s
+[q46] What is the AEOUT (Outcome of Adverse Event) variable in the... [SRC] src=100% fact=n/a 0.6s
+[q47] How do QS (Questionnaires) domains handle instrument-specifi... [SRC] src=100% fact=n/a 1.1s
+[q48] What is the FATESTCD variable's controlled terminology codel... [SRC] src=100% fact=n/a 0.5s
+[s01] In the DM domain, what is the controlled terminology codelis... [SRC] src=100% fact=n/a 1.9s
+[s02] What is the SUPPQUAL variable QNAM and what character constr... [SRC] src=100% fact=n/a 38.6s
+[s03] The DM variable RFXSTDTC is defined as equal to the earliest... [SRC] src=100% fact=n/a 15.2s
+[s04] In the AE domain, what is the controlled terminology codelis... [SRC] src=50% fact=n/a 0.6s
+[s05] In the VS domain, what is the controlled terminology codelis... [SRC] src=50% fact=n/a 0.5s
+
+============================================================
+EVAL SUMMARY
+============================================================
+Questions: 53
+Threshold: 85%
+Source recall (avg): 80.2%
+  concept: 100.0% (13 q)
+  cross_domain: 46.2% (13 q)
+  mixed: 92.3% (13 q)
+  single_domain: 82.1% (14 q)
+
+Threshold: 85%  ->  FAIL (retrieval-only)
+
+Questions with source misses (12):
+  q02: src=0% miss=['domains/DM/spec.md']
+  q04: src=0% miss=['domains/TV/spec.md']
+  q06: src=0% miss=['domains/SUPPQUAL/spec.md']
+  q07: src=0% miss=['VARIABLE_INDEX.md']
+  q08: src=0% miss=['domains/DM/spec.md']
+  q09: src=0% miss=['domains/RELREC/spec.md']
+  q32: src=0% miss=['domains/SV/spec.md', 'domains/SV/assumptions.md']
+  q33: src=0% miss=['domains/RELSPEC/spec.md']
+  q34: src=0% miss=['VARIABLE_INDEX.md']
+  q16: src=50% miss=['terminology/core/ae.md']
+  s04: src=50% miss=['terminology/core/ae.md']
+  s05: src=50% miss=['terminology/core/vs.md']
+
+Results saved to eval/ablation_t1/rerank_k15.json

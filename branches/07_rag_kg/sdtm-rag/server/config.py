@@ -32,6 +32,22 @@ class Settings(BaseSettings):
     top_k: int = 15
     collection_name: str = "sdtm_kb_v1"
 
+    # Rerank (T2, PLAN §5 1B.2): wide retrieve -> Cohere rerank -> top_k.
+    # COHERE_API_KEY read from env (LiteLLM-style provider key, no SDTM_RAG_ prefix).
+    # NOTE: T2 ablation (2026-06-08) found rerank degrades source recall on this KB
+    # (demotes structured spec.md). Kept off by default; see eval/ablation_retrieval_2026-06-08.md.
+    rerank_enabled: bool = False
+    rerank_model: str = "rerank-v3.5"
+    rerank_candidates: int = 100  # candidate pool size before rerank (T1: ~100 needed)
+
+    # Query expansion (T4): improve cosine recall by rewriting the query, NOT by
+    # reordering results. "multiquery" = LLM decomposes -> per-subquery search -> RRF
+    # fuse. "hyde" = LLM writes a hypothetical answer, embed that. Generic prompts
+    # (not tuned to any eval set). expansion_model uses an existing cloud key.
+    query_expansion: str = "none"  # none | multiquery | hyde
+    expansion_model: str = "deepseek/deepseek-chat"
+    expansion_n_queries: int = 4  # multiquery: original + (n-1) generated sub-queries
+
     # Server
     log_level: str = "INFO"
     host: str = "0.0.0.0"

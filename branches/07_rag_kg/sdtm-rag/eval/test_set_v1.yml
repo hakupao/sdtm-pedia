@@ -338,7 +338,9 @@
     - "CO"
     - "SUPPQUAL"
   expected_sources:
-    - "model/04_special_purpose.md"
+    # fixed 2026-06-08 (T1 gold-label audit): "model/04_special_purpose.md" does not
+    # exist in KB; correct file is model/03_special_purpose_domains.md. See eval/ablation_t1/review_T1.md
+    - "model/03_special_purpose_domains.md"
 
 - id: q38
   category: concept

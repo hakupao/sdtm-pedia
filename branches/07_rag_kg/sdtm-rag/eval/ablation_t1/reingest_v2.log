@@ -1,0 +1,128 @@
+[92m19:47:24 - LiteLLM:WARNING[0m: common_utils.py:979 - litellm: could not pre-load bedrock-runtime response stream shape — Bedrock event-stream decoding will be unavailable. Error: No module named 'botocore'
+[92m19:47:24 - LiteLLM:WARNING[0m: common_utils.py:24 - litellm: could not pre-load sagemaker-runtime response stream shape — SageMaker event-stream decoding will be unavailable. Error: No module named 'botocore'
+[setup] sdtm-rag root  = /Users/bojiangzhang/MyProject/sdtm-pedia/branches/07_rag_kg/sdtm-rag
+[setup] KB root        = /Users/bojiangzhang/MyProject/sdtm-pedia/knowledge_base
+[setup] Chroma dir     = /Users/bojiangzhang/MyProject/sdtm-pedia/branches/07_rag_kg/sdtm-rag/data/chroma
+[setup] embedding      = text-embedding-3-small dim=1536 (cloud API)
+[R-16] backed up existing Chroma → /Users/bojiangzhang/MyProject/sdtm-pedia/branches/07_rag_kg/sdtm-rag/data/chroma_backup_20260608T104724Z
+[scan] 296 .md files under /Users/bojiangzhang/MyProject/sdtm-pedia/knowledge_base
+[scan] system-prompt skipped: ['INDEX.md', 'ROUTING.md']
+[chunks] per-type counts:
+      assumptions:   476 chunks from  64 files
+          chapter:    76 chunks from   6 files
+         examples:   209 chunks from  63 files
+            model:    28 chunks from   6 files
+             spec:  2164 chunks from  63 files
+      terminology:  1128 chunks from  91 files
+   variable_index:   222 chunks from   1 files
+            TOTAL:  4303 chunks from 294 files
+[chunks] total tokens = 2,546,782 (avg 591 tokens/chunk)
+[chunks] kb_commit_sha = ad3df0b060afe351f0bccb4c842b5e95fb616eaa
+[embed] calling text-embedding-3-small API (batch_size=100) ...
+[embed] 100/4303 chunks embedded (100 in batch, 35,487 tok)
+[embed] 200/4303 chunks embedded (100 in batch, 2,983 tok)
+[embed] 300/4303 chunks embedded (100 in batch, 63,796 tok)
+[embed] 400/4303 chunks embedded (100 in batch, 15,696 tok)
+[embed] 500/4303 chunks embedded (100 in batch, 12,693 tok)
+[embed] 600/4303 chunks embedded (100 in batch, 14,560 tok)
+[embed] 700/4303 chunks embedded (100 in batch, 21,910 tok)
+[embed] 800/4303 chunks embedded (100 in batch, 11,053 tok)
+[embed] 900/4303 chunks embedded (100 in batch, 19,655 tok)
+[embed] 1000/4303 chunks embedded (100 in batch, 23,047 tok)
+[embed] 1100/4303 chunks embedded (100 in batch, 14,736 tok)
+[embed] 1200/4303 chunks embedded (100 in batch, 30,074 tok)
+[embed] 1300/4303 chunks embedded (100 in batch, 17,161 tok)
+[embed] 1400/4303 chunks embedded (100 in batch, 9,896 tok)
+[embed] 1500/4303 chunks embedded (100 in batch, 25,493 tok)
+[embed] 1600/4303 chunks embedded (100 in batch, 24,134 tok)
+[embed] 1700/4303 chunks embedded (100 in batch, 14,121 tok)
+[embed] 1800/4303 chunks embedded (100 in batch, 12,939 tok)
+[embed] 1900/4303 chunks embedded (100 in batch, 15,793 tok)
+[embed] 2000/4303 chunks embedded (100 in batch, 13,073 tok)
+[embed] 2100/4303 chunks embedded (100 in batch, 24,017 tok)
+[embed] 2200/4303 chunks embedded (100 in batch, 17,281 tok)
+[embed] 2300/4303 chunks embedded (100 in batch, 11,972 tok)
+[embed] 2400/4303 chunks embedded (100 in batch, 11,526 tok)
+[embed] 2500/4303 chunks embedded (100 in batch, 14,311 tok)
+[embed] 2600/4303 chunks embedded (100 in batch, 14,825 tok)
+[embed] 2700/4303 chunks embedded (100 in batch, 9,435 tok)
+[embed] 2800/4303 chunks embedded (100 in batch, 26,470 tok)
+[embed] 2900/4303 chunks embedded (100 in batch, 14,331 tok)
+[embed] 3000/4303 chunks embedded (100 in batch, 21,033 tok)
+[embed] 3100/4303 chunks embedded (100 in batch, 11,225 tok)
+[embed] 3200/4303 chunks embedded (100 in batch, 80,005 tok)
+[embed] 3281/4303 chunks embedded (81 in batch, 249,045 tok)
+[embed] 3343/4303 chunks embedded (62 in batch, 247,817 tok)
+[embed] 3424/4303 chunks embedded (81 in batch, 247,490 tok)
+[embed] 3524/4303 chunks embedded (100 in batch, 86,034 tok)
+[embed] 3624/4303 chunks embedded (100 in batch, 210,958 tok)
+[embed] 3724/4303 chunks embedded (100 in batch, 72,661 tok)
+[embed] 3824/4303 chunks embedded (100 in batch, 165,284 tok)
+[embed] 3924/4303 chunks embedded (100 in batch, 133,503 tok)
+[embed] 4024/4303 chunks embedded (100 in batch, 136,197 tok)
+[embed] 4124/4303 chunks embedded (100 in batch, 155,675 tok)
+[embed] 4224/4303 chunks embedded (100 in batch, 61,488 tok)
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+Traceback (most recent call last):
+  File "/Users/bojiangzhang/MyProject/sdtm-pedia/branches/07_rag_kg/sdtm-rag/.venv/lib/python3.12/site-packages/litellm/llms/openai/openai.py", line 1364, in embedding
+    headers, sync_embedding_response = self.make_sync_openai_embedding_request(
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/bojiangzhang/MyProject/sdtm-pedia/branches/07_rag_kg/sdtm-rag/.venv/lib/python3.12/site-packages/litellm/litellm_core_utils/logging_utils.py", line 344, in sync_wrapper
+    result = func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/bojiangzhang/MyProject/sdtm-pedia/branches/07_rag_kg/sdtm-rag/.venv/lib/python3.12/site-packages/litellm/llms/openai/openai.py", line 1237, in make_sync_openai_embedding_request
+    raise e
+  File "/Users/bojiangzhang/MyProject/sdtm-pedia/branches/07_rag_kg/sdtm-rag/.venv/lib/python3.12/site-packages/litellm/llms/openai/openai.py", line 1229, in make_sync_openai_embedding_request
+    raw_response = openai_client.embeddings.with_raw_response.create(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/bojiangzhang/MyProject/sdtm-pedia/branches/07_rag_kg/sdtm-rag/.venv/lib/python3.12/site-packages/openai/_legacy_response.py", line 367, in wrapped
+    return cast(LegacyAPIResponse[R], func(*args, **kwargs))
+                                      ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/bojiangzhang/MyProject/sdtm-pedia/branches/07_rag_kg/sdtm-rag/.venv/lib/python3.12/site-packages/openai/resources/embeddings.py", line 136, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File "/Users/bojiangzhang/MyProject/sdtm-pedia/branches/07_rag_kg/sdtm-rag/.venv/lib/python3.12/site-packages/openai/_base_client.py", line 1332, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/bojiangzhang/MyProject/sdtm-pedia/branches/07_rag_kg/sdtm-rag/.venv/lib/python3.12/site-packages/openai/_base_client.py", line 1105, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for text-embedding-3-small in organization org-su5qO59GnJpNeGcU8B4wzDFS on tokens per min (TPM): Limit 1000000, Used 962460, Requested 45562. Please try again in 481ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/bojiangzhang/MyProject/sdtm-pedia/branches/07_rag_kg/sdtm-rag/.venv/lib/python3.12/site-packages/litellm/main.py", line 5023, in embedding
+    response = openai_chat_completions.embedding(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/bojiangzhang/MyProject/sdtm-pedia/branches/07_rag_kg/sdtm-rag/.venv/lib/python3.12/site-packages/litellm/llms/openai/openai.py", line 1395, in embedding
+    raise OpenAIError(
+litellm.llms.openai.common_utils.OpenAIError: Error code: 429 - {'error': {'message': 'Rate limit reached for text-embedding-3-small in organization org-su5qO59GnJpNeGcU8B4wzDFS on tokens per min (TPM): Limit 1000000, Used 962460, Requested 45562. Please try again in 481ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/bojiangzhang/MyProject/sdtm-pedia/branches/07_rag_kg/sdtm-rag/scripts/ingest.py", line 460, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/Users/bojiangzhang/MyProject/sdtm-pedia/branches/07_rag_kg/sdtm-rag/scripts/ingest.py", line 427, in main
+    embeddings = embed_chunks(chunks)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/bojiangzhang/MyProject/sdtm-pedia/branches/07_rag_kg/sdtm-rag/scripts/ingest.py", line 260, in embed_chunks
+    response = litellm.embedding(model=EMBED_MODEL_NAME, input=batch_texts)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/bojiangzhang/MyProject/sdtm-pedia/branches/07_rag_kg/sdtm-rag/.venv/lib/python3.12/site-packages/litellm/utils.py", line 1774, in wrapper
+    raise e
+  File "/Users/bojiangzhang/MyProject/sdtm-pedia/branches/07_rag_kg/sdtm-rag/.venv/lib/python3.12/site-packages/litellm/utils.py", line 1595, in wrapper
+    result = original_function(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/bojiangzhang/MyProject/sdtm-pedia/branches/07_rag_kg/sdtm-rag/.venv/lib/python3.12/site-packages/litellm/main.py", line 5894, in embedding
+    raise exception_type(
+          ^^^^^^^^^^^^^^^
+  File "/Users/bojiangzhang/MyProject/sdtm-pedia/branches/07_rag_kg/sdtm-rag/.venv/lib/python3.12/site-packages/litellm/litellm_core_utils/exception_mapping_utils.py", line 2466, in exception_type
+    raise e
+  File "/Users/bojiangzhang/MyProject/sdtm-pedia/branches/07_rag_kg/sdtm-rag/.venv/lib/python3.12/site-packages/litellm/litellm_core_utils/exception_mapping_utils.py", line 401, in exception_type
+    raise RateLimitError(
+litellm.exceptions.RateLimitError: litellm.RateLimitError: RateLimitError: OpenAIException - Error code: 429 - {'error': {'message': 'Rate limit reached for text-embedding-3-small in organization org-su5qO59GnJpNeGcU8B4wzDFS on tokens per min (TPM): Limit 1000000, Used 962460, Requested 45562. Please try again in 481ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}

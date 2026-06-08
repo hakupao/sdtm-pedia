@@ -257,7 +257,21 @@ def embed_chunks(chunks: list[Chunk]) -> list[list[float]]:
             batch_texts.append(text)
             batch_tokens += tok
             i += 1
-        response = litellm.embedding(model=EMBED_MODEL_NAME, input=batch_texts)
+        # Retry on OpenAI TPM rate limit (429): the limit is per-minute rolling,
+        # so back off and retry the same batch rather than aborting the whole ingest
+        # mid-way (reset_chroma_dir already ran, so a crash here leaves an empty DB).
+        for _attempt in range(6):
+            try:
+                response = litellm.embedding(model=EMBED_MODEL_NAME, input=batch_texts)
+                break
+            except Exception as exc:
+                msg = str(exc).lower()
+                if ("rate" in msg or "429" in msg or "too many" in msg) and _attempt < 5:
+                    wait = min(60, 15 * (2 ** _attempt))
+                    print(f"[embed] rate limit at {i}/{n}; waiting {wait}s (attempt {_attempt+1})...")
+                    time.sleep(wait)
+                else:
+                    raise
         for item in response.data:
             result_embs[batch_start + item["index"]] = item["embedding"]
         print(f"[embed] {i}/{n} chunks embedded ({len(batch_texts)} in batch, {batch_tokens:,} tok)")

@@ -80,6 +80,7 @@ def run_evaluation(
     router=None,
     retrieval_only: bool = False,
     direct_model: str | None = None,
+    top_k: int = TOP_K,
 ) -> list[dict]:
     results: list[dict] = []
     for q in test_set:
@@ -87,7 +88,7 @@ def run_evaluation(
         print(f"[{qid}] {q['question'][:60]}...", end=" ", flush=True)
         t0 = time.perf_counter()
 
-        chunks = rag.retrieve(q["question"], top_k=TOP_K)
+        chunks = rag.retrieve(q["question"], top_k=top_k)
         retrieved_sources = [c.source for c in chunks]
 
         src_recall, src_hits, src_misses = check_source_recall(
@@ -247,6 +248,30 @@ def main(argv: list[str] | None = None) -> int:
         help="Pass/fail threshold (default 0.85)",
     )
     parser.add_argument(
+        "--top-k",
+        type=int,
+        default=TOP_K,
+        help=f"Chunks retrieved per query (default {TOP_K}); T1 ablation lever",
+    )
+    parser.add_argument(
+        "--rerank",
+        action="store_true",
+        help="T2: enable Cohere rerank (wide pool -> rerank -> top_k). Needs COHERE_API_KEY",
+    )
+    parser.add_argument(
+        "--rerank-candidates",
+        type=int,
+        default=None,
+        help="T2 candidate pool size before rerank (default settings.rerank_candidates=100)",
+    )
+    parser.add_argument(
+        "--query-expansion",
+        choices=["none", "multiquery", "hyde", "hyde_rrf"],
+        default=None,
+        help="T4: rewrite query before search. multiquery=decompose+RRF, hyde=hypothetical doc, "
+             "hyde_rrf=fuse original+hyde (augment, not replace)",
+    )
+    parser.add_argument(
         "--tag",
         default=None,
         help="Optional label added to output JSON for cross-model comparison",
@@ -261,9 +286,26 @@ def main(argv: list[str] | None = None) -> int:
         kb_root=settings.kb_root,
         collection_name=settings.collection_name,
         embedding_model=settings.embedding_model,
-        top_k=TOP_K,
+        top_k=args.top_k,
+        rerank_enabled=args.rerank,
+        rerank_model=settings.rerank_model,
+        rerank_candidates=(
+            args.rerank_candidates
+            if args.rerank_candidates is not None
+            else settings.rerank_candidates
+        ),
+        query_expansion=args.query_expansion or settings.query_expansion,
+        expansion_model=settings.expansion_model,
+        expansion_n_queries=settings.expansion_n_queries,
     )
-    print(f"RAG engine: {rag.collection.count()} chunks, model={settings.default_model}")
+    rerank_info = (
+        f", rerank={rag.rerank_model} pool={rag.rerank_candidates}" if args.rerank else ""
+    )
+    expand_info = (
+        f", expansion={rag.query_expansion}({rag.expansion_model})"
+        if rag.query_expansion != "none" else ""
+    )
+    print(f"RAG engine: {rag.collection.count()} chunks, model={settings.default_model}, top_k={args.top_k}{rerank_info}{expand_info}")
 
     router = None
     if not args.retrieval_only:
@@ -275,7 +317,8 @@ def main(argv: list[str] | None = None) -> int:
 
     print()
     results = run_evaluation(
-        test_set, rag, router, args.retrieval_only, direct_model=args.model
+        test_set, rag, router, args.retrieval_only, direct_model=args.model,
+        top_k=args.top_k,
     )
     summary = print_summary(
         results,
@@ -283,6 +326,18 @@ def main(argv: list[str] | None = None) -> int:
         threshold=args.threshold,
         model=args.model,
     )
+    summary["top_k"] = args.top_k
+    if args.rerank:
+        summary["rerank"] = {
+            "model": rag.rerank_model,
+            "candidates": rag.rerank_candidates,
+        }
+    if rag.query_expansion != "none":
+        summary["query_expansion"] = {
+            "mode": rag.query_expansion,
+            "model": rag.expansion_model,
+            "n_queries": rag.expansion_n_queries,
+        }
 
     if args.output:
         out: dict = {"summary": summary, "results": results}
