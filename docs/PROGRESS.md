@@ -1,7 +1,7 @@
 # 进度看板
 
 > **唯一进度状态源**. 历史细节看 `.work/meta/worklog/INDEX.md`. 文件结构看 `.work/MANIFEST.md`. 一页纸入门看 `.work/AGENT_GUIDE.md`.
-> 最后更新: 2026-06-05 (README/CLAUDE/PROGRESS 公开文档维护). 前次: 2026-05-24 **Phase 7 RAG+KG Phase 1 CLOSED ★★★** (53q eval 88.5% PASS + RETROSPECTIVE 三段 + Phase 2 KG deferred)
+> 最后更新: 2026-06-08 (**Phase 7 检索优化 round 完成** — T1/T2/T4/re-chunk 单杠杆全测, 接受 baseline). 前次: 2026-06-05 检索质量 TODO 立项
 
 ---
 
@@ -16,7 +16,7 @@
 | **Phase 5** 全量验证 | ✅ 完成 | Step 0-4 全过 | — |
 | **Phase 6** 检索优化 | ✅ 完成 (P0-P2) | — | P3 → 已合并到 Phase 7 |
 | **Phase 6.5** AI 平台部署 | 🟢 进行中 | **v1.4 CLOSED ★★★★ tag cut 2026-05-22 PM** (Prompt-pass: 4 平台 v3/v9 clean rewrite + Method label anchor KB+4 prompts + Claude bundle pipeline fix + C2 N=80 0-hallucinated; Gemini MAINTAINED_NO_SANITY_TEST) | v1.5 候选: (A) Tier B 156 节 + C1-bis full pipeline rerun, (B) Phase 7 RAG+KG 启动, (C) 维护期 micro-release |
-| **Phase 7** RAG + KG | ✅ **Phase 1 CLOSED ★★★** | Phase 0-1D 全 PASS; 53q eval 88.5% (DeepSeek); 5/5 validation; Phase 2 KG NOT triggered (cross_domain 61.5% > 50%); RETROSPECTIVE 三段 + critic Rule D PASS | **检索质量优化 backlog** (src recall → >95%, `branches/07_rag_kg/TODO_retrieval_quality.md`); Phase 2 KG deferred; Sonnet/Opus eval deferred (Anthropic credits) |
+| **Phase 7** RAG + KG | ✅ **Phase 1 CLOSED ★★★** + **1.5 检索优化 round 完成** | Phase 0-1D 全 PASS 88.5%; **Phase 1.5 (2026-06-08)**: T1/T2/T4/re-chunk 单杠杆全测, 结论 cosine baseline 84.0% 强局部最优, 全类 95% @ top-15 单杠杆做不到 (已证), 用户接受 baseline | 检索代码全留默认 off; 未来追 95% → **P1 查询条件路由** (新 backlog); Phase 2 KG deferred |
 | **06 旁枝** Deep Verification | ✅ 完成 | P1-P7 全 PASS ★★ (coverage 99.02%, Issues 5-16 repaired, P7 content error 3.3%, RETROSPECTIVE.md 归档) | `branches/06_deep_verification/RETROSPECTIVE.md` |
 | **07 旁枝** Website | ✅ 完成 | Phase 6/7/8/9/10/11 全 closed; prod sdtm-pedia.pages.dev | — || **refactor v1** 项目重构 | ✅ 完成 | 段 1/2/3 全 closed; branches/ 迁移完成 2026-05-11 ★ | RETROSPECTIVE.md 三段齐备 |
 
@@ -26,6 +26,7 @@
 
 ## 关键 milestone (近 30 天)
 
+- 2026-06-08 — **Phase 7 检索优化 round 完成 — 单杠杆全测, 接受 baseline ★** (I-4 全 4 类别 src recall > 95% 目标的系统调查; 6 次实验 retrieval-only eval 全归档 `branches/07_rag_kg/sdtm-rag/eval/ablation_retrieval_2026-06-08.md`: **T1 Top-K 诊断** [cross 排序问题, K=100 天花板 95.3%, 副产物修复 q37 测试 gold-label bug] / **T2 Cohere rerank ❌** [80.2% < 84.0% baseline, 降级 spec.md] / **T4 multiquery ❌** [76.4%] / **T4 HyDE 最佳 +3.7pt** [87.7%, 但 cross 仅 69.2%] / **T4 hyde_rrf ❌** [83.0%] / **re-chunk 4 硬核** [§一/§三 大表拆 per-entry, 修好 q07/q34 cross 61.5→76.9%, 但 222 索引 chunk 挤占 spec.md 净 -1.9pt]; **铁律: 每个单杠杆都帮某类伤另类, cosine top-15 84.0% 是强局部最优, 全类 95% @ top-15 单杠杆做不到**; 用户接受 baseline, live collection 恢复 v1; 全代码保留默认 off 供未来 P1 查询条件路由; Rule D verifier/code-reviewer 异 type 独立审 [抓到 2 处 main 事实/归因错误]; ingest.py 修 429 重试 bug)
 - 2026-06-05 — **检索质量 TODO 立项 + 全项目文档刷新** (用户判定: 模型选型非重点, 索引 + RAG 检索质量才是重点; eval 目标上调至全 4 类别 src+fact recall > 95%, 现最弱 cross_domain src 61.5% / concept src 76.9% = **检索召回问题, 与答主 LLM 无关**; backlog `branches/07_rag_kg/TODO_retrieval_quality.md` [T1 检索消融 / T2 rerank / T3 top-K / T4 多查询 / T5 embedding-large / T6 重评 Phase 2 KG]; 同步刷新 README/README_CN/AGENT_GUIDE/CLAUDE.md/MANIFEST/PLAN/sdtm-rag README 活文档状态到 Phase 1 CLOSED + branches/ 入树; jp 01 要件定義書 v1.1-draft [IPA 9 構成] 收尾提交)
 - 2026-05-24 — **Phase 7 RAG+KG Phase 1 CLOSED ★★★** (Phase 0→1D 全 PASS 3 工作日完成; 1D Full Eval 53q DeepSeek 88.5% ≥ 85% PASS [src 82.1% + fact 94.8%]; Sonnet/Opus blocked Anthropic API credits exhausted; cross_domain 61.5% > 50% → Phase 2 KG NOT triggered; 5/5 validation scenarios PASS; Rule A 4.c scientist 5q 100% overlap PASS; Rule D critic CONDITIONAL_PASS→fix; RETROSPECTIVE 三段 + README deploy docs; `branches/07_rag_kg/RETROSPECTIVE.md`; 用户 ack 2026-05-24)
 - 2026-05-22 — **Phase 7 RAG+KG Phase 0 Research CLOSED ★** (`branches/07_rag_kg/` 旁枝创建; PLAN v0.2 + EXECUTION_PLAN v0.2 + research/chunker_feasibility (10 处事实) + research/llm_providers (DeepSeek V4 Pro + Anthropic 2026 模型 + ChatGPT Plus 代理 ToS 评估) + critic subagent Rule D PASS 1 CONDITIONAL_PASS 32 findings 全修 (3 HIGH + 7 MED + 6 LOW + 4 INFO); 决策: Sonnet 4.6 主答 + V4-Flash 复检 + Opus 4.7 难题 + Haiku 4.5 轻分类 + ChatGPT Plus 代理不入生产; chunker 三策略 (examples domain-aware + chapters size-aware + LB part 模式); 仓库布局 `branches/07_rag_kg/sdtm-rag/`; Phase 2 KG defer gate = 1D RELATION 召回 < 50%; Phase 1 工期 13-17 d; 用户 Bojiang 全 ack 2026-05-22)
