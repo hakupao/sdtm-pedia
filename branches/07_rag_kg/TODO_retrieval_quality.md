@@ -8,8 +8,8 @@
 # 検索品質 TODO — Phase 1.5 Retrieval Tuning (RAG src recall → >95%)
 
 > 创建: 2026-06-05 (用户 Bojiang 指示: **模型配置非重点, 优化索引 + RAG 检索质量是重点**)
-> 状态: **BACKLOG** — 今后有时间/精力时**优先执行**. Phase 1 已 CLOSED, 本表是 closed 之后的新一轮检索优化 (可视为 Phase 1.5).
-> 目标: eval 4 类别 **src + fact recall 均 > 95%** (现状最弱 cross_domain src 61.5% / concept src 76.9%)
+> 状态: **Phase 1.5 单杠杆 round 完成 (2026-06-08)** — T1/T2/T4/re-chunk 全测, 证明单杠杆 @ top-15 达不到全类 95% (cosine baseline 84.0% 强局部最优). **下一方向已商定 (用户 2026-06-09): P1 查询条件路由, 追全类逼近 100%, 方案下个 session 讨论 (见 §5).**
+> 目标: eval 4 类别 **src + fact recall 均 → 接近 100%** (用户 2026-06-09 上调; 现状最弱 cross_domain src 61.5% / concept src 76.9%; HyDE 最佳也仅 cross 69.2%)
 
 ## 0. 核心判断 (为什么是检索, 不是模型)
 
@@ -59,3 +59,28 @@
 
 - ❌ 不纠结 answering model 选型 (Sonnet / Opus / DeepSeek 已够, fact recall 达标).
 - ❌ 暂不部署 (Docker Compose 上线 defer).
+
+## 5. ★ NEXT DIRECTION — P1 查询条件路由 (用户 2026-06-09 决定, 下个 session 讨论方案)
+
+> **目标**: 全 4 类别 src recall 逼近 100% (用户愿意投入功夫). **入口**: 本节即下个 session 起点.
+
+**为什么是 P1 (Phase 1.5 单杠杆 round 的核心揭露)**: 6 次实验 (T1/T2/T4/re-chunk) 证明 —
+**每个单一检索杠杆都"帮某类、伤另类"**, cosine top-15 baseline (84.0%, single/mixed 92-96%) 是强局部最优,
+任何全局性的"替换排序 / 改写查询 / 增加 chunk"都会扰动它 → 全类 95% @ top-15 单杠杆做不到 (已证)。
+∴ 唯一出路 = **不做全局切换, 而是按查询类型路由**, 让每个杠杆只对它已被证明擅长的类生效, 避开 collateral。
+
+**P1 核心思路 (用户认可)**:
+- 分布/跨域查询 ("哪些域用变量 X" / "codelist Y 被谁用") → 用 **re-chunk 的 VARIABLE_INDEX 条目 chunk** (T1 已证 §一/§三 per-entry 切分对 q07/q34 有效, cross 61.5→76.9%)
+- 术语/语义距离查询 ("变量 X 的 codelist") → 用 **HyDE** (T4 已证 mixed 100% / concept 92.3%, 对"变量名↔CT code"语义距离对症)
+- 域内/spec 查询 ("DM 域的必填变量") → **纯 cosine** (baseline 已 96.4%, 别动它)
+
+**下个 session 要讨论/决定的点 (尚未设计)**:
+1. **query classifier 怎么做**: router.py 已有骨架 (intent 分类) 但未接检索; 用 LLM 分类 (haiku/deepseek 轻量) 还是规则/embedding 分类? 误分类的代价与兜底?
+2. **多 collection 还是单 collection + 条件检索**: re-chunk 的索引条目 chunk 会污染域内查询 (已证 q02/q13/q43 回归) → 是否需要 per-route 用不同 chunk 子集 / metadata filter, 而非全塞一个 collection?
+3. **terminology 注入的强化**: re-chunk 里 "Used by AE.AESEV" 太简短没修好 q16/s04/s05, HyDE 路由能否覆盖这几题?
+4. **评测口径**: 追"逼近 100%"是否仍用 53q test_set? n=13/类 每题 7.7pt, 样本量是否够支撑 95%+ 的判定 (Rule A 抽检 + 可能扩题集)?
+5. **工作量 vs 收益**: P1 是架构件 (classifier + 路由层 + 可能多 collection), 比单杠杆重; 先做 PoC (3 路硬编码路由跑 53q) 验证天花板, 再决定是否产品化。
+
+**现成可复用资产 (Phase 1.5 全保留, 默认 off)**: `rag.py` 的 `query_expansion=hyde/hyde_rrf/multiquery` + `rerank` + chunker §一/§三 per-entry 拆分 (Rule D 通过, pytest 216 PASS); `run_eval.py --query-expansion/--rerank/--top-k` flags; baseline collection 已恢复 v1 (re-chunk v2 在 `data/chroma_backup_*` 可重建)。
+
+**约束沿用**: 不碰答题模型选型; 规则 A/B/D; retrieval-only 先验证 src recall (免费) 再上 full eval。

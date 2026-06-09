@@ -6,7 +6,7 @@
   "created": "2026-05-22",
   "updated": "2026-06-08 (Phase 1.5 检索优化 round 完成 — T1 Top-K 诊断 + T2 rerank + T4 multiquery/HyDE/hyde_rrf + re-chunk 全测; 结论: 单杠杆均不能达全类 95%, cosine baseline 84.0% 强局部最优, 用户接受 baseline; 详见 phase_1_5_retrieval_tuning + sdtm-rag/eval/ablation_retrieval_2026-06-08.md). 前: 2026-06-05 I-4 立项; 2026-05-24 Phase 1D PASS 88.5%",
   "upstream_design": "docs/DESIGN_RAG_KG.md (Approved 2026-04-16)",
-  "current_phase": "phase_1_closed PASS 5/5 (user ack 2026-05-24) → Phase 2 KG deferred",
+  "current_phase": "phase_1_5 retrieval round 完成 (2026-06-08, baseline 接受为 interim) → NEXT: P1 查询条件路由 (用户 2026-06-09 决定追全类逼近 100%, 方案下个 session 讨论, 入口 TODO_retrieval_quality.md §5)",
   "phases": {
     "phase_0_research": {
       "status": "completed",
@@ -472,7 +472,8 @@
         "rechunk_v2": {"verdict": "partial, net -1.9pt", "finding": "§一/§三 大表→per-entry chunk 修好 q07/q34 (cross 61.5→76.9%) + terminology 注入变量名; 但 222 新索引 chunk 在域内查询挤占 spec.md (q02/q13/q43 回归); terminology 注入太简短未修 q16/s04/s05", "chunk_count": "VARIABLE_INDEX 65→222, KB 4146→4303", "code": "variable_index.py + terminology.py (Rule D CONDITIONAL PASS, 4 必修全应用); pytest 216 PASS", "ingest_bug_fixed": "ingest.py embed 加 429 重试 (重 ingest 撞 OpenAI TPM 限速)"}
       },
       "conclusion": "贯穿 6 次实验铁律: 每个单一检索杠杆都帮某类伤另类; cosine top-15 baseline (84.0%, single/mixed 92-96%) 是强局部最优; 全类 95% @ top-15 单杠杆做不到 (已证). 唯一未来路径 = P1 查询条件路由 (各杠杆只对其擅长类生效, 需 query classifier) 或接受 baseline.",
-      "decision_2026_06_08": "用户接受 baseline; live collection 恢复 v1 (4146 chunks, chroma_backup_20260608T104724Z); 全部实验代码保留 (rerank/HyDE 默认 off; chunker 改动 Rule D 通过) 供未来 P1 复用; raw eval + log + failure 全留 (规则 B)",
+      "decision_2026_06_08": "接受 baseline 为 interim; live collection 恢复 v1 (4146 chunks, chroma_backup_20260608T104724Z); 全部实验代码保留 (rerank/HyDE 默认 off; chunker 改动 Rule D 通过) 供 P1 复用; raw eval + log + failure 全留 (规则 B)",
+      "next_direction_2026_06_09": "用户决定追全类 src recall 逼近 100% (愿投入), 方向 = P1 查询条件路由 (按查询类型路由: 分布查询→VARIABLE_INDEX 条目 chunk / 术语查询→HyDE / 域内→纯 cosine, 各杠杆只对其擅长类生效避开 collateral). 方案下个 session 讨论. 入口 + 5 个待决点见 TODO_retrieval_quality.md §5.",
       "rule_d": "T1 verifier (oh-my-claudecode:verifier) + rechunk code-reviewer (异 subagent_type) 均独立 PASS/CONDITIONAL PASS"
     }
   },
