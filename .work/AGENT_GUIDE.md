@@ -51,6 +51,7 @@ SDTM 知识库, 从 CDISC PDF + xlsx 抽取, 多旁枝 (字面级深审 / 双 AI
 - **"P2 bulk B-03c round NN 自治连跑"** → `branches/06_deep_verification/multi_session/P2_B-03c_round_NN_kickoff.md`
 - **"收尾"/"wrap up"/"提交收尾"** → 见 CLAUDE.md "Session Wrap-up" 段
 - **"refactor v1 执行段 N"** → `.work/refactor_v1/PLAN.md` § 段 N 详细步骤
+- **"RAG 答题护栏 开始任务"** → `branches/07_rag_kg/KICKOFF_answering_guardrail.md` (P1 接入生产的后续: 答题侧 C-code 幻觉 + 分类护栏, 仅动系统提示词 + eval gold 修正, 不碰检索层)
 
 ## 不要做的
 
