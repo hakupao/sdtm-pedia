@@ -1,7 +1,7 @@
 # 进度看板
 
 > **唯一进度状态源**. 历史细节看 `.work/meta/worklog/INDEX.md`. 文件结构看 `.work/MANIFEST.md`. 一页纸入门看 `.work/AGENT_GUIDE.md`.
-> 最后更新: 2026-06-08 (**Phase 7 检索优化 round 完成** — T1/T2/T4/re-chunk 单杠杆全测, 接受 baseline). 前次: 2026-06-05 检索质量 TODO 立项
+> 最后更新: 2026-06-09 (**Phase 7 下一方向商定: P1 查询条件路由** 追全类逼近 100%, 方案下个 session 讨论). 前次: 2026-06-08 检索优化单杠杆 round 完成
 
 ---
 
@@ -16,7 +16,7 @@
 | **Phase 5** 全量验证 | ✅ 完成 | Step 0-4 全过 | — |
 | **Phase 6** 检索优化 | ✅ 完成 (P0-P2) | — | P3 → 已合并到 Phase 7 |
 | **Phase 6.5** AI 平台部署 | 🟢 进行中 | **v1.4 CLOSED ★★★★ tag cut 2026-05-22 PM** (Prompt-pass: 4 平台 v3/v9 clean rewrite + Method label anchor KB+4 prompts + Claude bundle pipeline fix + C2 N=80 0-hallucinated; Gemini MAINTAINED_NO_SANITY_TEST) | v1.5 候选: (A) Tier B 156 节 + C1-bis full pipeline rerun, (B) Phase 7 RAG+KG 启动, (C) 维护期 micro-release |
-| **Phase 7** RAG + KG | ✅ **Phase 1 CLOSED ★★★** + **1.5 检索优化 round 完成** | Phase 0-1D 全 PASS 88.5%; **Phase 1.5 (2026-06-08)**: T1/T2/T4/re-chunk 单杠杆全测, 结论 cosine baseline 84.0% 强局部最优, 全类 95% @ top-15 单杠杆做不到 (已证), 用户接受 baseline | 检索代码全留默认 off; 未来追 95% → **P1 查询条件路由** (新 backlog); Phase 2 KG deferred |
+| **Phase 7** RAG + KG | ✅ **Phase 1 CLOSED ★★★** + **1.5 检索优化 round 完成** | Phase 0-1D 全 PASS 88.5%; **Phase 1.5 (2026-06-08)**: T1/T2/T4/re-chunk 单杠杆全测, 结论 cosine baseline 84.0% 强局部最优, 全类 95% @ top-15 单杠杆做不到 (已证), 用户接受 baseline | ★ **NEXT (用户 2026-06-09): P1 查询条件路由** 追全类逼近 100% (按查询类型路由各杠杆), 方案下个 session 讨论, 入口 `TODO_retrieval_quality.md §5`; 检索代码全留默认 off; Phase 2 KG deferred |
 | **06 旁枝** Deep Verification | ✅ 完成 | P1-P7 全 PASS ★★ (coverage 99.02%, Issues 5-16 repaired, P7 content error 3.3%, RETROSPECTIVE.md 归档) | `branches/06_deep_verification/RETROSPECTIVE.md` |
 | **07 旁枝** Website | ✅ 完成 | Phase 6/7/8/9/10/11 全 closed; prod sdtm-pedia.pages.dev | — || **refactor v1** 项目重构 | ✅ 完成 | 段 1/2/3 全 closed; branches/ 迁移完成 2026-05-11 ★ | RETROSPECTIVE.md 三段齐备 |
 
