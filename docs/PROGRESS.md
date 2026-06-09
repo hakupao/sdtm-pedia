@@ -1,7 +1,7 @@
 # 进度看板
 
 > **唯一进度状态源**. 历史细节看 `.work/meta/worklog/INDEX.md`. 文件结构看 `.work/MANIFEST.md`. 一页纸入门看 `.work/AGENT_GUIDE.md`.
-> 最后更新: 2026-06-09 (**Phase 7 下一方向商定: P1 查询条件路由** 追全类逼近 100%, 方案下个 session 讨论). 前次: 2026-06-08 检索优化单杠杆 round 完成
+> 最后更新: 2026-06-09 (**Phase 7 P1 查询条件路由 DONE — 全类 src recall ≥95% 达成**: single 100/cross 96/concept 100/mixed 100/overall 99.0%, retrieval-only v2 102q). 前次: 2026-06-08 检索优化单杠杆 round 完成
 
 ---
 
@@ -16,7 +16,7 @@
 | **Phase 5** 全量验证 | ✅ 完成 | Step 0-4 全过 | — |
 | **Phase 6** 检索优化 | ✅ 完成 (P0-P2) | — | P3 → 已合并到 Phase 7 |
 | **Phase 6.5** AI 平台部署 | 🟢 进行中 | **v1.4 CLOSED ★★★★ tag cut 2026-05-22 PM** (Prompt-pass: 4 平台 v3/v9 clean rewrite + Method label anchor KB+4 prompts + Claude bundle pipeline fix + C2 N=80 0-hallucinated; Gemini MAINTAINED_NO_SANITY_TEST) | v1.5 候选: (A) Tier B 156 节 + C1-bis full pipeline rerun, (B) Phase 7 RAG+KG 启动, (C) 维护期 micro-release |
-| **Phase 7** RAG + KG | ✅ **Phase 1 CLOSED ★★★** + **1.5 检索优化 round 完成** | Phase 0-1D 全 PASS 88.5%; **Phase 1.5 (2026-06-08)**: T1/T2/T4/re-chunk 单杠杆全测, 结论 cosine baseline 84.0% 强局部最优, 全类 95% @ top-15 单杠杆做不到 (已证), 用户接受 baseline | ★ **NEXT (用户 2026-06-09): P1 查询条件路由** 追全类逼近 100% (按查询类型路由各杠杆), 方案下个 session 讨论, 入口 `TODO_retrieval_quality.md §5`; 检索代码全留默认 off; Phase 2 KG deferred |
+| **Phase 7** RAG + KG | ✅ **Phase 1 CLOSED ★★★** + **P1 查询条件路由 DONE ★★** | Phase 0-1D 全 PASS 88.5%; **P1 (2026-06-09): 全类 src recall ≥95% 达成** (single 100/cross 96/concept 100/mixed 100/overall 99.0%, retrieval-only v2 102q) via 4 杠杆: 确定性查表 + 分布意图泛化 + Hybrid BM25 + 路由隔离; Rule D 复核 PASS | follow-up: q73 残留 (cross 24/25) / 接入生产 /ask + full eval / 扩题集增 margin (见 `RETROSPECTIVE_P1_retrieval95.md` §2); Phase 2 KG deferred |
 | **06 旁枝** Deep Verification | ✅ 完成 | P1-P7 全 PASS ★★ (coverage 99.02%, Issues 5-16 repaired, P7 content error 3.3%, RETROSPECTIVE.md 归档) | `branches/06_deep_verification/RETROSPECTIVE.md` |
 | **07 旁枝** Website | ✅ 完成 | Phase 6/7/8/9/10/11 全 closed; prod sdtm-pedia.pages.dev | — || **refactor v1** 项目重构 | ✅ 完成 | 段 1/2/3 全 closed; branches/ 迁移完成 2026-05-11 ★ | RETROSPECTIVE.md 三段齐备 |
 
@@ -26,6 +26,7 @@
 
 ## 关键 milestone (近 30 天)
 
+- 2026-06-09 — **Phase 7 P1 查询条件路由 DONE — 全类 src recall ≥95% 达成 ★★** (用户 2026-06-09 上调目标至"4 类别最低分也 ≥95%"; 隔日反转前一日"接受 baseline 84.0%"结论 — 答案不是更好的单杠杆, 是**多个路由杠杆**; 先 9 方法族 multi-agent 调研 `research/retrieval_methods_survey_2026-06-09.md` 排出头号性价比=**确定性查表**; **达成 retrieval-only v2 102q: single 100 / cross 96 / concept 100 / mixed 100 / overall 99.0% ✅** via 4 杠杆 [**S1 确定性查表** 变量→CT码→术语文件两跳精确 join, 非向量通道, 救 single+mixed 到 100 / **分布意图泛化** cross 76→96 / **Hybrid BM25** 关键词索引+RRF 加法融合 concept 92→100 / **路由隔离+长名映射** hybrid 单独砸 single 96→83 组合稳 100]; 全在检索逻辑层, 未碰源/向量索引/提示词; 题集扩至 102q [每类~25, mixed 升级真双源, 对杠杆设计盲防过拟合]; Rule D 异 type 独立复核 PASS [反过拟合: 8 测试集外变量泛化探针 + 救回 6 道全新题]; 唯一残留 q73 [cross 24/25, gold model/06]; 全代码默认 off flag; 复盘 `branches/07_rag_kg/RETROSPECTIVE_P1_retrieval95.md`)
 - 2026-06-08 — **Phase 7 检索优化 round 完成 — 单杠杆全测, 接受 baseline ★** (I-4 全 4 类别 src recall > 95% 目标的系统调查; 6 次实验 retrieval-only eval 全归档 `branches/07_rag_kg/sdtm-rag/eval/ablation_retrieval_2026-06-08.md`: **T1 Top-K 诊断** [cross 排序问题, K=100 天花板 95.3%, 副产物修复 q37 测试 gold-label bug] / **T2 Cohere rerank ❌** [80.2% < 84.0% baseline, 降级 spec.md] / **T4 multiquery ❌** [76.4%] / **T4 HyDE 最佳 +3.7pt** [87.7%, 但 cross 仅 69.2%] / **T4 hyde_rrf ❌** [83.0%] / **re-chunk 4 硬核** [§一/§三 大表拆 per-entry, 修好 q07/q34 cross 61.5→76.9%, 但 222 索引 chunk 挤占 spec.md 净 -1.9pt]; **铁律: 每个单杠杆都帮某类伤另类, cosine top-15 84.0% 是强局部最优, 全类 95% @ top-15 单杠杆做不到**; 用户接受 baseline, live collection 恢复 v1; 全代码保留默认 off 供未来 P1 查询条件路由; Rule D verifier/code-reviewer 异 type 独立审 [抓到 2 处 main 事实/归因错误]; ingest.py 修 429 重试 bug)
 - 2026-06-05 — **检索质量 TODO 立项 + 全项目文档刷新** (用户判定: 模型选型非重点, 索引 + RAG 检索质量才是重点; eval 目标上调至全 4 类别 src+fact recall > 95%, 现最弱 cross_domain src 61.5% / concept src 76.9% = **检索召回问题, 与答主 LLM 无关**; backlog `branches/07_rag_kg/TODO_retrieval_quality.md` [T1 检索消融 / T2 rerank / T3 top-K / T4 多查询 / T5 embedding-large / T6 重评 Phase 2 KG]; 同步刷新 README/README_CN/AGENT_GUIDE/CLAUDE.md/MANIFEST/PLAN/sdtm-rag README 活文档状态到 Phase 1 CLOSED + branches/ 入树; jp 01 要件定義書 v1.1-draft [IPA 9 構成] 收尾提交)
 - 2026-05-24 — **Phase 7 RAG+KG Phase 1 CLOSED ★★★** (Phase 0→1D 全 PASS 3 工作日完成; 1D Full Eval 53q DeepSeek 88.5% ≥ 85% PASS [src 82.1% + fact 94.8%]; Sonnet/Opus blocked Anthropic API credits exhausted; cross_domain 61.5% > 50% → Phase 2 KG NOT triggered; 5/5 validation scenarios PASS; Rule A 4.c scientist 5q 100% overlap PASS; Rule D critic CONDITIONAL_PASS→fix; RETROSPECTIVE 三段 + README deploy docs; `branches/07_rag_kg/RETROSPECTIVE.md`; 用户 ack 2026-05-24)
