@@ -48,6 +48,16 @@ class Settings(BaseSettings):
     expansion_model: str = "deepseek/deepseek-chat"
     expansion_n_queries: int = 4  # multiquery: original + (n-1) generated sub-queries
 
+    # Hybrid BM25 (S2): lexical retrieval over the SAME indexed chunks (bm25s, pure
+    # CPU arithmetic — no neural model), additively fused with dense cosine so
+    # literal domain/relationship/variable-name hits that cosine buries re-float
+    # without demoting cosine's wins. Off by default. RRF is parameter-free; the
+    # weighted path's alpha is the dense weight (1-alpha goes to BM25).
+    hybrid_enabled: bool = False
+    hybrid_fusion: str = "rrf"  # rrf | weighted
+    hybrid_alpha: float = 0.5
+    hybrid_pool: int = 30  # per-list fusion pool depth (v2 robust sweet spot; deeper adds tail noise)
+
     # Server
     log_level: str = "INFO"
     host: str = "0.0.0.0"

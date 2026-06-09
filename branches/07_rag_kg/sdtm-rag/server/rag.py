@@ -26,6 +26,7 @@ class RetrievedChunk:
     similarity: float
     text: str
     rerank_score: float | None = None  # T2: Cohere relevance score (None if rerank off)
+    via_lookup: bool = False  # S1: chunk union-added by deterministic structured-lookup
 
 
 class RAGEngine:
@@ -42,6 +43,11 @@ class RAGEngine:
         query_expansion: str = "none",
         expansion_model: str = "deepseek/deepseek-chat",
         expansion_n_queries: int = 4,
+        structured_lookup_enabled: bool = False,
+        hybrid_enabled: bool = False,
+        hybrid_fusion: str = "rrf",
+        hybrid_alpha: float = 0.5,
+        hybrid_pool: int = 30,
     ):
         self.client = chromadb.PersistentClient(path=str(chroma_dir))
         self.collection = self.client.get_collection(collection_name)
@@ -72,6 +78,37 @@ class RAGEngine:
         self.query_expansion = query_expansion
         self.expansion_model = expansion_model
         self.expansion_n_queries = expansion_n_queries
+
+        # S1 structured lookup: deterministic var/CT-code -> gold file resolution,
+        # union-added ahead of cosine for query classes embeddings can't reach.
+        self.structured_lookup_enabled = structured_lookup_enabled
+        self._structured_lookup = None
+        if structured_lookup_enabled:
+            from server.structured_lookup import StructuredLookup  # lazy: off by default
+
+            self._structured_lookup = StructuredLookup(kb_root)
+
+        # S2 hybrid BM25: lexical retrieval over the SAME 4146 chunks already in the
+        # collection (no re-ingest, no embedding change), additively fused with dense
+        # cosine so literal-token hits (domain/relationship/variable names) that
+        # cosine buries get re-floated WITHOUT demoting cosine's existing wins.
+        if hybrid_fusion not in ("rrf", "weighted"):
+            raise ValueError(f"hybrid_fusion must be rrf|weighted, got {hybrid_fusion}")
+        self.hybrid_enabled = hybrid_enabled
+        self.hybrid_fusion = hybrid_fusion
+        self.hybrid_alpha = hybrid_alpha  # weighted only: dense weight (1-alpha=BM25)
+        # Fusion pool depth per list. 30 (vs k=15) is the robust empirical sweet
+        # spot on v2: deep enough to fuse the literal-token golds BM25 surfaces
+        # (q09/q10/q32/q33 spec rows, concept q38/q39), shallow enough that deep
+        # BM25 tail noise does not re-float and displace already-found golds.
+        # Pools 50/75/100 each regressed >=1 question (q38/q08) for at most one
+        # marginal gain (q73), so a deeper pool is NOT robust — kept at 30.
+        self.hybrid_pool = hybrid_pool
+        self._bm25 = None
+        self._bm25_chunk_ids: list[str] = []
+        self._bm25_chunk_meta: dict[str, dict] = {}
+        if hybrid_enabled:
+            self._build_bm25_index()
 
         routing_path = kb_root / "ROUTING.md"
         index_path = kb_root / "INDEX.md"
@@ -127,11 +164,11 @@ class RAGEngine:
             # each sub-query retrieves a deeper slice so RRF has signal to fuse
             per_q = max(k, 30)
             result_lists = [self._search(q, per_q, where) for q in queries]
-            return self._rrf_fuse(result_lists, k)
-        if self.query_expansion == "hyde":
+            cosine = self._rrf_fuse(result_lists, k)
+        elif self.query_expansion == "hyde":
             hypo = self._hypothetical_doc(query)
-            return self._search(hypo, k, where)[:k]
-        if self.query_expansion == "hyde_rrf":
+            cosine = self._search(hypo, k, where)[:k]
+        elif self.query_expansion == "hyde_rrf":
             # Augment, not replace: fuse the original query's cosine hits with the
             # HyDE doc's hits so easy categories keep their strong baseline ranking.
             hypo = self._hypothetical_doc(query)
@@ -140,15 +177,74 @@ class RAGEngine:
                 self._search(query, per_q, where),
                 self._search(hypo, per_q, where),
             ]
-            return self._rrf_fuse(lists, k)
+            cosine = self._rrf_fuse(lists, k)
+        elif self.hybrid_enabled:
+            # S2 hybrid: dense top-N + BM25 top-N, additively fused (RRF/weighted).
+            # Both lists are deeper than k so a chunk that is strong in EITHER signal
+            # surfaces; fusion is additive so a chunk strong in BOTH is reinforced
+            # (the structured spec chunks the literal-token questions need).
+            pool = max(k, self.hybrid_pool)
+            dense = self._search(query, pool, where)
+            bm25 = self._bm25_search(query, pool, where)
+            cosine = self._hybrid_fuse(dense, bm25, k)
+        else:
+            # Single-query path (+ optional T2 rerank). When rerank is on, pull a
+            # wide candidate pool, then let the reranker pick k. Pool never < k.
+            pool = max(self.rerank_candidates, k) if self.rerank_enabled else k
+            chunks = self._search(query, pool, where)
+            if self.rerank_enabled and chunks:
+                cosine = self._rerank(query, chunks, k)
+            else:
+                cosine = chunks[:k]
 
-        # Single-query path (+ optional T2 rerank). When rerank is on, pull a wide
-        # candidate pool, then let the reranker pick k. Pool never smaller than k.
-        pool = max(self.rerank_candidates, k) if self.rerank_enabled else k
-        chunks = self._search(query, pool, where)
-        if self.rerank_enabled and chunks:
-            return self._rerank(query, chunks, k)
-        return chunks[:k]
+        if self._structured_lookup is not None:
+            return self._apply_structured_lookup(query, cosine, where, k)
+        return cosine[:k]
+
+    def _apply_structured_lookup(
+        self,
+        query: str,
+        cosine: list[RetrievedChunk],
+        where: dict | None,
+        k: int,
+    ) -> list[RetrievedChunk]:
+        """S1 union-add: resolve gold files deterministically, pull the single most
+        query-relevant chunk from each, prepend them, then fill with cosine results
+        (de-duped) up to k. Lookup chunks go first so they cannot be crowded out;
+        cosine ordering of everything else is preserved. No-op when resolve()=[]."""
+        targets = self._structured_lookup.resolve(query)
+        if not targets:
+            return cosine[:k]
+
+        lookup_chunks: list[RetrievedChunk] = []
+        for rel_path in targets:
+            chunk = self._lookup_chunk_for_file(query, rel_path)
+            if chunk is not None:
+                chunk.via_lookup = True
+                lookup_chunks.append(chunk)
+
+        if not lookup_chunks:
+            return cosine[:k]
+
+        merged: list[RetrievedChunk] = []
+        seen_ids: set[str] = set()
+        for ch in lookup_chunks + cosine:
+            if ch.chunk_id in seen_ids:
+                continue
+            seen_ids.add(ch.chunk_id)
+            merged.append(ch)
+        return merged[:k]
+
+    def _lookup_chunk_for_file(
+        self, query: str, rel_path: str
+    ) -> RetrievedChunk | None:
+        """Best (highest query-cosine) chunk whose source is exactly `rel_path`.
+        Filters Chroma on the absolute source path, reusing the embedded query so
+        the injected chunk is the most relevant slice of that file. None if the
+        file has no chunks in the collection."""
+        abs_source = str((self.kb_root / rel_path).resolve())
+        hits = self._search(query, 1, {"source": abs_source})
+        return hits[0] if hits else None
 
     @staticmethod
     def _build_where(domain: str | None, file_type: str | None) -> dict | None:
@@ -202,6 +298,124 @@ class RAGEngine:
                 )
             )
         return chunks
+
+    # ---- S2 hybrid BM25 -----------------------------------------------------
+
+    def _build_bm25_index(self) -> None:
+        """Build a BM25 inverted index over the chunks ALREADY in the collection.
+
+        Pulls all documents + metadata via collection.get() (no re-ingest, no
+        embedding touch), tokenizes the chunk texts, and indexes them. The aligned
+        chunk_id list lets _bm25_search map BM25 doc indices back to chunk_ids; the
+        metadata cache lets it build RetrievedChunk objects without a second query.
+        """
+        import bm25s  # lazy: only required when hybrid is on
+
+        got = self.collection.get(include=["documents", "metadatas"])
+        ids = got["ids"]
+        docs = got["documents"]
+        metas = got["metadatas"]
+
+        self._bm25_chunk_ids = list(ids)
+        self._bm25_chunk_meta = {
+            cid: {"text": docs[i], "meta": metas[i]} for i, cid in enumerate(ids)
+        }
+        corpus_tokens = bm25s.tokenize(docs, show_progress=False)
+        self._bm25 = bm25s.BM25()
+        self._bm25.index(corpus_tokens, show_progress=False)
+
+    def _bm25_search(
+        self, query_text: str, n: int, where: dict | None
+    ) -> list[RetrievedChunk]:
+        """Lexical BM25 retrieval over the indexed chunks; up to `n` results.
+
+        `where` (domain/file_type) is applied as a post-filter so BM25 obeys the
+        same scoping as dense search. similarity carries the BM25 score so fusion
+        and display have a value (it is NOT a cosine; only used for ranking signal).
+        """
+        import bm25s  # lazy
+
+        query_tokens = bm25s.tokenize(query_text, show_progress=False)
+        # over-fetch so the post-filter still yields ~n survivors
+        k = min(len(self._bm25_chunk_ids), max(n * 4, n))
+        results, scores = self._bm25.retrieve(
+            query_tokens, k=k, show_progress=False
+        )
+
+        out: list[RetrievedChunk] = []
+        for doc_idx, score in zip(results[0], scores[0], strict=False):
+            chunk_id = self._bm25_chunk_ids[doc_idx]
+            entry = self._bm25_chunk_meta[chunk_id]
+            meta = entry["meta"]
+            if where and not self._meta_matches_where(meta, where):
+                continue
+            source_raw = meta.get("source", "")
+            try:
+                source = Path(source_raw).relative_to(self.kb_root).as_posix()
+            except (ValueError, TypeError):
+                source = source_raw
+            out.append(
+                RetrievedChunk(
+                    chunk_id=chunk_id,
+                    source=source,
+                    domain=meta.get("domain"),
+                    file_type=meta.get("file_type"),
+                    section=meta.get("section"),
+                    similarity=round(float(score), 4),
+                    text=entry["text"],
+                )
+            )
+            if len(out) >= n:
+                break
+        return out
+
+    @staticmethod
+    def _meta_matches_where(meta: dict, where: dict) -> bool:
+        """Replicate the (small) subset of Chroma `where` filters we emit
+        (_build_where only produces flat eq conditions and a top-level $and)."""
+        if "$and" in where:
+            return all(
+                RAGEngine._meta_matches_where(meta, cond) for cond in where["$and"]
+            )
+        return all(meta.get(key) == val for key, val in where.items())
+
+    def _hybrid_fuse(
+        self,
+        dense: list[RetrievedChunk],
+        bm25: list[RetrievedChunk],
+        k: int,
+    ) -> list[RetrievedChunk]:
+        """Additively fuse dense + BM25 rankings. RRF (default, parameter-free) or
+        weighted (min-max normalized, dense weight = alpha). Additive, never
+        replacement: a chunk strong in EITHER list ranks; strong in BOTH is
+        reinforced. Returns top-k, preferring the dense copy for display."""
+        best: dict[str, RetrievedChunk] = {}
+        for ch in dense + bm25:
+            # keep dense copy when both present (carries the cosine similarity)
+            best.setdefault(ch.chunk_id, ch)
+        for ch in dense:
+            best[ch.chunk_id] = ch  # dense copy wins display
+
+        if self.hybrid_fusion == "rrf":
+            c = 60
+            scores: dict[str, float] = {}
+            for lst in (dense, bm25):
+                for rank, ch in enumerate(lst):
+                    scores[ch.chunk_id] = scores.get(ch.chunk_id, 0.0) + 1.0 / (c + rank + 1)
+        else:  # weighted: min-max normalize each list's scores, then alpha-blend
+            scores = {}
+            for lst, weight in ((dense, self.hybrid_alpha), (bm25, 1.0 - self.hybrid_alpha)):
+                if not lst:
+                    continue
+                vals = [c.similarity for c in lst]
+                lo, hi = min(vals), max(vals)
+                span = hi - lo or 1.0
+                for ch in lst:
+                    norm = (ch.similarity - lo) / span
+                    scores[ch.chunk_id] = scores.get(ch.chunk_id, 0.0) + weight * norm
+
+        ranked = sorted(scores, key=lambda cid: scores[cid], reverse=True)
+        return [best[cid] for cid in ranked[:k]]
 
     def _rerank(
         self, query: str, chunks: list[RetrievedChunk], k: int

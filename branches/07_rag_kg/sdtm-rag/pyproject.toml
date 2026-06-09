@@ -15,6 +15,8 @@ keywords = ["sdtm", "rag", "chroma", "litellm", "validation"]
 dependencies = [
     # Vector store
     "chromadb>=0.5.0",
+    # Lexical retrieval (S2 hybrid BM25; pure-CPU arithmetic, no neural model)
+    "bm25s>=0.3.9",
     # LLM abstraction
     "litellm>=1.85.1",
     "openai>=1.50",

@@ -272,6 +272,36 @@ def main(argv: list[str] | None = None) -> int:
              "hyde_rrf=fuse original+hyde (augment, not replace)",
     )
     parser.add_argument(
+        "--structured-lookup",
+        action="store_true",
+        help="S1: deterministic structured-lookup union-add (var/CT-code -> gold "
+             "file via spec.md xref + VARIABLE_INDEX). Off by default.",
+    )
+    parser.add_argument(
+        "--hybrid",
+        action="store_true",
+        help="S2: hybrid BM25 (bm25s) over indexed chunks, additively fused with "
+             "dense cosine (RRF default). Re-floats literal-token hits. Off by default.",
+    )
+    parser.add_argument(
+        "--hybrid-fusion",
+        choices=["rrf", "weighted"],
+        default=None,
+        help="S2 fusion method (default settings.hybrid_fusion=rrf). weighted uses --hybrid-alpha.",
+    )
+    parser.add_argument(
+        "--hybrid-alpha",
+        type=float,
+        default=None,
+        help="S2 weighted-fusion dense weight (1-alpha=BM25; default settings.hybrid_alpha=0.5)",
+    )
+    parser.add_argument(
+        "--hybrid-pool",
+        type=int,
+        default=None,
+        help="S2 per-list fusion pool depth (default settings.hybrid_pool=100)",
+    )
+    parser.add_argument(
         "--tag",
         default=None,
         help="Optional label added to output JSON for cross-model comparison",
@@ -297,6 +327,15 @@ def main(argv: list[str] | None = None) -> int:
         query_expansion=args.query_expansion or settings.query_expansion,
         expansion_model=settings.expansion_model,
         expansion_n_queries=settings.expansion_n_queries,
+        structured_lookup_enabled=args.structured_lookup,
+        hybrid_enabled=args.hybrid,
+        hybrid_fusion=args.hybrid_fusion or settings.hybrid_fusion,
+        hybrid_alpha=(
+            args.hybrid_alpha if args.hybrid_alpha is not None else settings.hybrid_alpha
+        ),
+        hybrid_pool=(
+            args.hybrid_pool if args.hybrid_pool is not None else settings.hybrid_pool
+        ),
     )
     rerank_info = (
         f", rerank={rag.rerank_model} pool={rag.rerank_candidates}" if args.rerank else ""
@@ -305,7 +344,13 @@ def main(argv: list[str] | None = None) -> int:
         f", expansion={rag.query_expansion}({rag.expansion_model})"
         if rag.query_expansion != "none" else ""
     )
-    print(f"RAG engine: {rag.collection.count()} chunks, model={settings.default_model}, top_k={args.top_k}{rerank_info}{expand_info}")
+    lookup_info = ", structured_lookup=ON" if args.structured_lookup else ""
+    hybrid_info = (
+        f", hybrid={rag.hybrid_fusion}"
+        + (f"(alpha={rag.hybrid_alpha})" if rag.hybrid_fusion == "weighted" else "")
+        if args.hybrid else ""
+    )
+    print(f"RAG engine: {rag.collection.count()} chunks, model={settings.default_model}, top_k={args.top_k}{rerank_info}{expand_info}{lookup_info}{hybrid_info}")
 
     router = None
     if not args.retrieval_only:
@@ -337,6 +382,13 @@ def main(argv: list[str] | None = None) -> int:
             "mode": rag.query_expansion,
             "model": rag.expansion_model,
             "n_queries": rag.expansion_n_queries,
+        }
+    if args.structured_lookup:
+        summary["structured_lookup"] = True
+    if args.hybrid:
+        summary["hybrid"] = {
+            "fusion": rag.hybrid_fusion,
+            "alpha": rag.hybrid_alpha if rag.hybrid_fusion == "weighted" else None,
         }
 
     if args.output:

@@ -8,7 +8,7 @@
 # 検索品質 TODO — Phase 1.5 Retrieval Tuning (RAG src recall → >95%)
 
 > 创建: 2026-06-05 (用户 Bojiang 指示: **模型配置非重点, 优化索引 + RAG 检索质量是重点**)
-> 状态: **Phase 1.5 单杠杆 round 完成 (2026-06-08)** — T1/T2/T4/re-chunk 全测, 证明单杠杆 @ top-15 达不到全类 95% (cosine baseline 84.0% 强局部最优). **下一方向已商定 (用户 2026-06-09): P1 查询条件路由, 追全类逼近 100%, 方案下个 session 讨论 (见 §5).**
+> 状态: **✅ P1 查询条件路由 DONE (2026-06-09) — 全类 src recall ≥95% 达成** (retrieval-only, v2 102q: single 100 / cross 96 / concept 100 / mixed 100 / overall 99.0%). 见 §5 + `RETROSPECTIVE_P1_retrieval95.md`. 前: Phase 1.5 单杠杆 round (2026-06-08) 证明单杠杆 @ top-15 达不到全类 95%.
 > 目标: eval 4 类别 **src + fact recall 均 → 接近 100%** (用户 2026-06-09 上调; 现状最弱 cross_domain src 61.5% / concept src 76.9%; HyDE 最佳也仅 cross 69.2%)
 
 ## 0. 核心判断 (为什么是检索, 不是模型)
@@ -60,9 +60,20 @@
 - ❌ 不纠结 answering model 选型 (Sonnet / Opus / DeepSeek 已够, fact recall 达标).
 - ❌ 暂不部署 (Docker Compose 上线 defer).
 
-## 5. ★ NEXT DIRECTION — P1 查询条件路由 (用户 2026-06-09 决定, 下个 session 讨论方案)
+## 5. ★ P1 查询条件路由 — ✅ DONE (2026-06-09, 全类 ≥95% 达成)
 
-> **目标**: 全 4 类别 src recall 逼近 100% (用户愿意投入功夫). **入口**: 本节即下个 session 起点.
+> **结果**: retrieval-only, v2 (102q, 每类~25, mixed 全真双源): **single 100 / cross 96 / concept 100 / mixed 100 / overall 99.0%, 全类 ≥95% ✅**. 唯一残留 q73 (cross, gold model/06). 独立复跑 + Rule D 复核验证.
+> **方法调研**: `research/retrieval_methods_survey_2026-06-09.md` (9 方法族). **复盘**: `RETROSPECTIVE_P1_retrieval95.md`.
+>
+> **达成 = 4 杠杆组合 (全在检索逻辑层, 未碰源/向量索引/提示词)**:
+> 1. **S1 确定性查表** (非向量通道: 变量→CT码→术语文件两跳 join + 分布→VARIABLE_INDEX) → single+mixed 100%
+> 2. **分布意图泛化** (变量名+domains+用法动词, 通用 pattern) → cross 76→96%
+> 3. **Hybrid BM25** (新增关键词索引 + RRF 加法融合) → concept 92→100% + 字面 token cross
+> 4. **路由隔离 + 长名映射** (hybrid 单独砸 single 96→83, 组合稳 100) → kill-switch 守住 single
+>
+> **代码**: `server/structured_lookup.py` (新) + `server/rag.py` hybrid + `--structured-lookup --hybrid` flags (默认 off, eval 用). **未决 follow-up**: q73 残留 / 扩题集增 margin / 接入生产 /ask + full eval (见 RETROSPECTIVE §2).
+
+### (历史) P1 立项时的 5 个待决点 — 已在实施中回答
 
 **为什么是 P1 (Phase 1.5 单杠杆 round 的核心揭露)**: 6 次实验 (T1/T2/T4/re-chunk) 证明 —
 **每个单一检索杠杆都"帮某类、伤另类"**, cosine top-15 baseline (84.0%, single/mixed 92-96%) 是强局部最优,

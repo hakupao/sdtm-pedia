@@ -223,3 +223,19 @@
 - next: 1A.5 ingest_full (ingest.py 全 KB run + Chroma persistence + ingested_at_commit.txt R-18 + 抽 10 个查询 verify retrieval; estimate 0.5 d per PLAN §5)
 
 ---
+
+> 注: 本 CHANGELOG 在 1A.4 后未逐 phase 续记 (1A.5→1D→Phase 1.5 详见 `_progress.json` 真源); 下方直接补 P1 收官条目.
+
+## P1 查询条件路由 — 全类 src recall ≥95% 达成 (2026-06-09)
+- 区分: 新規実装 + 検索ロジック層最適化 (源/向量索引/提示詞 未触)
+- 触発: 用户 2026-06-09 目标上调 "4 类别**最低分**也 ≥95%" (反転前日 "接受 baseline 84.0%")
+- 結果: **retrieval-only v2 102q: single 100 / cross 96 / concept 100 / mixed 100 / overall 99.0%, 全类 ≥95% ✅** (唯一残留 q73, cross 24/25)
+- 達成手段 (4 杠杆): **S1 確定性査表** (変数→CT码→術語ファイル 2-hop 精確 join + 分布→VARIABLE_INDEX, 非向量通道) / **分布意図汎化** (cross 76→96) / **Hybrid BM25** (bm25s 関键词索引 + RRF 加法融合, concept 92→100) / **路由隔離+長名映射** (hybrid 単独 single 96→83, 組合稳 100)
+- 上流調研: `research/retrieval_methods_survey_2026-06-09.md` (9 方法族 multi-agent 調研)
+- 産出物: `server/structured_lookup.py` (新) + `server/rag.py` (hybrid) + `--structured-lookup --hybrid` flags (default off) + `eval/test_set_v2.yml` (53→102q) + evidence/checkpoints/s{1,2,3}_*.md + s{1,2}_rule_d_review.md + RETROSPECTIVE_P1_retrieval95.md
+- Rule D: writer (executor) ≠ reviewer (code-reviewer) 異 type; 反過拟合実証 (8 集外変数探针 + 救 6 全新題); Rule B 失敗帰档 evidence/failures/s2_attempt_1.md; Rule A 題集 verifier 独立審計
+- 作成: main session (orchestrator) + 多 subagent
+- 承認: pending Bojiang ack + commit
+- next: 接入生産 /ask + full eval (end-to-end fact recall) / q73 残留 / 扩題集增 margin
+
+---

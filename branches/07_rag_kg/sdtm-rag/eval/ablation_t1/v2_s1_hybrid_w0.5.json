@@ -1,0 +1,2601 @@
+{
+  "summary": {
+    "n_questions": 102,
+    "model": null,
+    "threshold": 0.85,
+    "source_recall_avg": 0.9804,
+    "source_recall_by_category": {
+      "concept": 0.96,
+      "cross_domain": 0.96,
+      "mixed": 1.0,
+      "single_domain": 1.0
+    },
+    "verdict": "PASS",
+    "top_k": 15,
+    "structured_lookup": true,
+    "hybrid": {
+      "fusion": "weighted",
+      "alpha": 0.5
+    }
+  },
+  "results": [
+    {
+      "id": "q01",
+      "category": "single_domain",
+      "question": "What is AETERM and what are its variable attributes in the AE domain?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/AE/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/AE/spec.md",
+        "domains/AE/assumptions.md",
+        "domains/DV/assumptions.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch04_general_assumptions.md"
+      ],
+      "top5_similarities": [
+        0.5884,
+        0.6641,
+        8.4204,
+        8.3527,
+        8.0251
+      ],
+      "elapsed_s": 0.37
+    },
+    {
+      "id": "q02",
+      "category": "single_domain",
+      "question": "What are the required (Core=Req) variables in the DM domain?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/DM/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/DM/spec.md",
+        "domains/DM/assumptions.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch04_general_assumptions.md",
+        "domains/RELSUB/examples.md"
+      ],
+      "top5_similarities": [
+        0.4813,
+        0.6081,
+        0.5671,
+        0.5064,
+        7.5461
+      ],
+      "elapsed_s": 0.27
+    },
+    {
+      "id": "q03",
+      "category": "single_domain",
+      "question": "What are the key assumptions for adverse event data collection and coding?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/AE/assumptions.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/AE/assumptions.md",
+        "domains/FA/examples.md",
+        "domains/AE/assumptions.md",
+        "domains/AE/assumptions.md",
+        "domains/AE/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.5919,
+        0.5041,
+        0.5755,
+        0.5716,
+        0.5608
+      ],
+      "elapsed_s": 0.11
+    },
+    {
+      "id": "q04",
+      "category": "single_domain",
+      "question": "What is the purpose of the TV (Trial Visits) domain and what variables does it contain?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/TV/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/TV/spec.md",
+        "domains/SV/assumptions.md",
+        "domains/TV/examples.md",
+        "domains/TV/assumptions.md",
+        "domains/TV/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.5894,
+        0.6873,
+        0.6648,
+        0.6384,
+        0.6176
+      ],
+      "elapsed_s": 0.23
+    },
+    {
+      "id": "q05",
+      "category": "single_domain",
+      "question": "In the PE (Physical Examination) domain, what is the structure of the dataset, what is the role of the PETESTCD variable, and what value should PETESTCD have when the results of the entire physical examination are represented in one record?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/PE/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/PE/spec.md",
+        "domains/PE/spec.md",
+        "VARIABLE_INDEX.md",
+        "domains/PE/examples.md",
+        "domains/PE/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.731,
+        0.7026,
+        0.6909,
+        0.6542,
+        0.6232
+      ],
+      "elapsed_s": 0.24
+    },
+    {
+      "id": "q21",
+      "category": "single_domain",
+      "question": "What is the LBTESTCD variable in the LB (Laboratory Test Results) domain? Describe its role, controlled terminology codelist code, and naming constraints.",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/LB/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/LB/spec.md",
+        "terminology/core/lb_part2.md",
+        "domains/LB/assumptions.md",
+        "domains/LB/spec.md",
+        "chapters/ch01_introduction.md"
+      ],
+      "top5_similarities": [
+        0.7837,
+        0.5222,
+        0.7499,
+        0.7118,
+        11.6753
+      ],
+      "elapsed_s": 0.34
+    },
+    {
+      "id": "q22",
+      "category": "single_domain",
+      "question": "What is the VS (Vital Signs) domain and what are some examples of VSTESTCD values? Include the codelist code.",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/VS/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/VS/spec.md",
+        "terminology/core/vs.md",
+        "domains/VS/spec.md",
+        "VARIABLE_INDEX.md",
+        "domains/VS/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.7384,
+        0.5465,
+        0.6467,
+        0.6305,
+        0.6914
+      ],
+      "elapsed_s": 0.36
+    },
+    {
+      "id": "q23",
+      "category": "single_domain",
+      "question": "In the CM (Concomitant Medications) domain, what is the CMTRT variable and what observation class does CM belong to?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/CM/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/CM/spec.md",
+        "domains/CM/assumptions.md",
+        "domains/CM/assumptions.md",
+        "VARIABLE_INDEX.md",
+        "chapters/ch08_relationships.md"
+      ],
+      "top5_similarities": [
+        0.6736,
+        0.6595,
+        0.6281,
+        0.5988,
+        16.2723
+      ],
+      "elapsed_s": 0.22
+    },
+    {
+      "id": "q24",
+      "category": "single_domain",
+      "question": "What is the EX (Exposure) domain used for and what is the Topic variable EXTRT?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/EX/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/EX/spec.md",
+        "domains/EX/assumptions.md",
+        "domains/EX/assumptions.md",
+        "domains/EX/assumptions.md",
+        "domains/EX/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.5483,
+        0.6559,
+        0.6116,
+        0.6203,
+        0.5522
+      ],
+      "elapsed_s": 0.22
+    },
+    {
+      "id": "q25",
+      "category": "single_domain",
+      "question": "In the MH (Medical History) domain, what is the role of MHTERM and what assumptions guide medical history data collection?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/MH/assumptions.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/MH/spec.md",
+        "domains/MH/assumptions.md",
+        "VARIABLE_INDEX.md",
+        "domains/MH/assumptions.md",
+        "domains/MH/examples.md"
+      ],
+      "top5_similarities": [
+        0.6764,
+        0.7369,
+        0.6858,
+        0.6768,
+        0.6213
+      ],
+      "elapsed_s": 0.24
+    },
+    {
+      "id": "q26",
+      "category": "single_domain",
+      "question": "Describe the EG (ECG Test Results) domain structure and the EGTESTCD variable, including its controlled terminology codelist codes.",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/EG/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/EG/spec.md",
+        "terminology/core/eg_part3.md",
+        "terminology/core/eg_part2.md",
+        "domains/EG/spec.md",
+        "domains/EG/examples.md"
+      ],
+      "top5_similarities": [
+        0.7263,
+        0.5879,
+        0.5242,
+        0.7253,
+        0.6063
+      ],
+      "elapsed_s": 0.5
+    },
+    {
+      "id": "q27",
+      "category": "single_domain",
+      "question": "What is the IE (Inclusion/Exclusion) domain and what is the role and maximum length of the IETEST variable?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/IE/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/IE/spec.md",
+        "domains/TI/spec.md",
+        "domains/TI/assumptions.md",
+        "domains/IE/assumptions.md",
+        "domains/IE/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.6769,
+        0.7161,
+        0.6678,
+        0.6552,
+        0.6364
+      ],
+      "elapsed_s": 0.21
+    },
+    {
+      "id": "q06",
+      "category": "cross_domain",
+      "question": "What is SUPPQUAL and when should supplemental qualifiers be used instead of adding variables to a domain?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/SUPPQUAL/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/SUPPQUAL/spec.md",
+        "domains/SUPPQUAL/assumptions.md",
+        "chapters/ch08_relationships.md",
+        "model/06_relationship_datasets.md",
+        "chapters/ch08_relationships.md"
+      ],
+      "top5_similarities": [
+        0.5533,
+        0.7409,
+        0.7302,
+        0.7295,
+        0.6569
+      ],
+      "elapsed_s": 0.22
+    },
+    {
+      "id": "q07",
+      "category": "cross_domain",
+      "question": "Which SDTM domains use the EPOCH variable and what is its purpose?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "VARIABLE_INDEX.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "VARIABLE_INDEX.md",
+        "chapters/ch04_general_assumptions.md",
+        "model/01_concepts_and_terms.md",
+        "chapters/ch02_fundamentals.md",
+        "domains/CO/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.5124,
+        0.7004,
+        11.8134,
+        11.0386,
+        10.6929
+      ],
+      "elapsed_s": 0.23
+    },
+    {
+      "id": "q08",
+      "category": "cross_domain",
+      "question": "How does USUBJID serve as a linking key across SDTM domains?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/DM/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "VARIABLE_INDEX.md",
+        "domains/SUPPQUAL/spec.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch03_submitting_data.md",
+        "model/04_associated_persons.md"
+      ],
+      "top5_similarities": [
+        0.4878,
+        0.7075,
+        10.4468,
+        9.9812,
+        9.6007
+      ],
+      "elapsed_s": 0.22
+    },
+    {
+      "id": "q09",
+      "category": "cross_domain",
+      "question": "How are adverse events linked to concomitant medications using RELREC?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/RELREC/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/RELREC/spec.md",
+        "chapters/ch08_relationships.md",
+        "domains/RELREC/examples.md",
+        "chapters/ch08_relationships.md",
+        "domains/RELREC/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.4612,
+        0.6173,
+        0.583,
+        0.5828,
+        0.5376
+      ],
+      "elapsed_s": 0.24
+    },
+    {
+      "id": "q10",
+      "category": "cross_domain",
+      "question": "In oncology studies, how are the TR (Tumor/Lesion Results) domain and RS (Disease Response) domain linked together, and which specific identifier variables are used for each linkage direction?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/TR/assumptions.md",
+        "domains/TR/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/TR/spec.md",
+        "domains/RS/spec.md",
+        "domains/RS/assumptions.md",
+        "domains/TR/assumptions.md",
+        "domains/TR/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.6207,
+        0.6214,
+        0.713,
+        0.7055,
+        0.6926
+      ],
+      "elapsed_s": 0.36
+    },
+    {
+      "id": "q28",
+      "category": "cross_domain",
+      "question": "What is the FA (Findings About Events or Interventions) domain and how does it link to parent domains like AE or CM using FAOBJ?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/FA/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "VARIABLE_INDEX.md",
+        "domains/FA/spec.md",
+        "domains/AE/spec.md",
+        "domains/CM/spec.md",
+        "domains/FA/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.5985,
+        0.5917,
+        0.6388,
+        0.4692,
+        0.6937
+      ],
+      "elapsed_s": 0.62
+    },
+    {
+      "id": "q29",
+      "category": "cross_domain",
+      "question": "How do the four Trial Design domains TA (Trial Arms), TE (Trial Elements), TV (Trial Visits), and TI (Trial Inclusion/Exclusion) work together to define a study design?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/TA/assumptions.md",
+        "domains/TE/assumptions.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/TA/spec.md",
+        "domains/TE/spec.md",
+        "domains/TV/spec.md",
+        "domains/TA/assumptions.md",
+        "domains/TE/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.7568,
+        0.7352,
+        0.7534,
+        0.7245,
+        0.7359
+      ],
+      "elapsed_s": 0.45
+    },
+    {
+      "id": "q30",
+      "category": "cross_domain",
+      "question": "What is the CO (Comments) domain and how does it reference records in other SDTM domains? Describe the RDOMAIN and IDVAR mechanism.",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/CO/spec.md",
+        "domains/CO/assumptions.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "VARIABLE_INDEX.md",
+        "domains/CO/spec.md",
+        "chapters/ch08_relationships.md",
+        "domains/CO/assumptions.md",
+        "domains/CO/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.569,
+        0.6492,
+        0.6728,
+        0.7154,
+        0.6876
+      ],
+      "elapsed_s": 0.35
+    },
+    {
+      "id": "q31",
+      "category": "cross_domain",
+      "question": "How are the EC (Exposure as Collected) and EX (Exposure) domains different in purpose, and when should each be used?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/EC/assumptions.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/EC/spec.md",
+        "domains/EX/spec.md",
+        "domains/EC/assumptions.md",
+        "domains/EX/assumptions.md",
+        "domains/EX/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.5814,
+        0.5962,
+        0.7317,
+        0.7328,
+        0.5907
+      ],
+      "elapsed_s": 0.32
+    },
+    {
+      "id": "q32",
+      "category": "cross_domain",
+      "question": "How is VISIT and VISITNUM used consistently across observation-class domains, and what role does the SV (Subject Visits) domain play in tracking actual visit dates?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/SV/spec.md",
+        "domains/SV/assumptions.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "VARIABLE_INDEX.md",
+        "domains/SV/spec.md",
+        "model/03_special_purpose_domains.md",
+        "chapters/ch04_general_assumptions.md",
+        "domains/TV/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.6554,
+        0.6543,
+        0.7044,
+        0.6665,
+        0.6997
+      ],
+      "elapsed_s": 0.35
+    },
+    {
+      "id": "q33",
+      "category": "cross_domain",
+      "question": "What is the RELSPEC domain and how does it define relationships between datasets at the study level, as opposed to RELREC which links individual records?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/RELSPEC/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/RELSPEC/spec.md",
+        "domains/RELREC/spec.md",
+        "domains/RELREC/assumptions.md",
+        "chapters/ch08_relationships.md",
+        "model/06_relationship_datasets.md"
+      ],
+      "top5_similarities": [
+        0.5814,
+        0.6533,
+        0.7707,
+        0.7621,
+        0.6774
+      ],
+      "elapsed_s": 0.37
+    },
+    {
+      "id": "q34",
+      "category": "cross_domain",
+      "question": "Which SDTM domains share the controlled terminology codelist for NY (No Yes Response, C66742), and what variable typically uses this codelist in those domains?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "VARIABLE_INDEX.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "VARIABLE_INDEX.md",
+        "terminology/core/general_part4.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch01_introduction.md"
+      ],
+      "top5_similarities": [
+        0.4516,
+        0.5903,
+        0.6351,
+        0.6157,
+        17.4861
+      ],
+      "elapsed_s": 0.34
+    },
+    {
+      "id": "q11",
+      "category": "concept",
+      "question": "What are the three observation classes in the SDTM model?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "model/02_observation_classes.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "model/02_observation_classes.md",
+        "model/01_concepts_and_terms.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch02_fundamentals.md"
+      ],
+      "top5_similarities": [
+        0.7205,
+        0.5632,
+        0.5352,
+        0.5452,
+        8.9859
+      ],
+      "elapsed_s": 0.11
+    },
+    {
+      "id": "q12",
+      "category": "concept",
+      "question": "What do the Core designations Req, Exp, and Perm mean in SDTM?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "chapters/ch04"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "chapters/ch04_general_assumptions.md",
+        "domains/SUPPQUAL/spec.md",
+        "domains/CO/spec.md",
+        "terminology/supplementary/supplementary_part5.md",
+        "VARIABLE_INDEX.md"
+      ],
+      "top5_similarities": [
+        0.6571,
+        0.6055,
+        0.5926,
+        0.5856,
+        0.5558
+      ],
+      "elapsed_s": 0.11
+    },
+    {
+      "id": "q13",
+      "category": "concept",
+      "question": "What is the difference between Topic, Qualifier, and Identifier variable roles?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "model/01_concepts_and_terms.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "model/01_concepts_and_terms.md",
+        "chapters/ch04_general_assumptions.md",
+        "domains/ML/assumptions.md",
+        "VARIABLE_INDEX.md",
+        "domains/RELREC/spec.md"
+      ],
+      "top5_similarities": [
+        0.4934,
+        0.526,
+        0.5227,
+        0.5211,
+        0.5129
+      ],
+      "elapsed_s": 0.11
+    },
+    {
+      "id": "q14",
+      "category": "concept",
+      "question": "How should a sponsor create a new custom domain in SDTM?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "chapters/ch02"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch02_fundamentals.md",
+        "chapters/ch01_introduction.md",
+        "chapters/ch04_general_assumptions.md",
+        "model/01_concepts_and_terms.md"
+      ],
+      "top5_similarities": [
+        0.6011,
+        0.4731,
+        0.4777,
+        0.4946,
+        0.5033
+      ],
+      "elapsed_s": 0.11
+    },
+    {
+      "id": "q15",
+      "category": "concept",
+      "question": "What are the three SDTM Core designation categories for variables, and what are the rules for handling a Permissible variable when a study did not collect the corresponding data item?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "chapters/ch04_general_assumptions.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "chapters/ch04_general_assumptions.md",
+        "model/01_concepts_and_terms.md",
+        "chapters/ch02_fundamentals.md",
+        "chapters/ch01_introduction.md",
+        "model/01_concepts_and_terms.md"
+      ],
+      "top5_similarities": [
+        0.7806,
+        0.6896,
+        0.5914,
+        0.6228,
+        0.6426
+      ],
+      "elapsed_s": 0.11
+    },
+    {
+      "id": "q35",
+      "category": "concept",
+      "question": "What is Controlled Terminology (CT) in SDTM and how does it constrain the values that variables can contain?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "chapters/ch04"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch01_introduction.md",
+        "chapters/ch04_general_assumptions.md"
+      ],
+      "top5_similarities": [
+        0.6771,
+        0.607,
+        0.6884,
+        10.6989,
+        10.6729
+      ],
+      "elapsed_s": 0.11
+    },
+    {
+      "id": "q36",
+      "category": "concept",
+      "question": "What are the timing variables in SDTM (such as --DTC, --STDTC, --ENDTC) and how are they structured across domains?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "chapters/ch04"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "chapters/ch04_general_assumptions.md",
+        "model/01_concepts_and_terms.md",
+        "chapters/ch04_general_assumptions.md",
+        "domains/DS/assumptions.md",
+        "model/02_observation_classes.md"
+      ],
+      "top5_similarities": [
+        0.6533,
+        0.7001,
+        0.6573,
+        0.7121,
+        0.6517
+      ],
+      "elapsed_s": 0.11
+    },
+    {
+      "id": "q37",
+      "category": "concept",
+      "question": "What are the Special-Purpose datasets in SDTM and which domains fall into this category?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "model/03_special_purpose_domains.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "model/01_concepts_and_terms.md",
+        "model/02_observation_classes.md",
+        "model/03_special_purpose_domains.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch04_general_assumptions.md"
+      ],
+      "top5_similarities": [
+        0.666,
+        0.6624,
+        0.657,
+        0.5978,
+        0.6636
+      ],
+      "elapsed_s": 0.12
+    },
+    {
+      "id": "q38",
+      "category": "concept",
+      "question": "How are SDTM domain abbreviation codes assigned? What are the rules for the two-character domain code?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "chapters/ch02"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch04_general_assumptions.md",
+        "domains/TM/spec.md",
+        "chapters/ch02_fundamentals.md",
+        "domains/SV/spec.md"
+      ],
+      "top5_similarities": [
+        0.6759,
+        0.6971,
+        0.6852,
+        10.4517,
+        0.6703
+      ],
+      "elapsed_s": 0.11
+    },
+    {
+      "id": "q39",
+      "category": "concept",
+      "question": "What is the Findings About observation class and how does it differ from the standard Findings class?",
+      "source_recall": 0.0,
+      "source_hits": [],
+      "source_misses": [
+        "model/02_observation_classes.md"
+      ],
+      "top5_sources": [
+        "domains/BS/spec.md",
+        "domains/CP/spec.md",
+        "domains/CV/spec.md",
+        "domains/DA/spec.md",
+        "domains/DD/spec.md"
+      ],
+      "top5_similarities": [
+        0.7123,
+        0.7123,
+        0.7123,
+        0.7123,
+        0.7123
+      ],
+      "elapsed_s": 0.11
+    },
+    {
+      "id": "q40",
+      "category": "concept",
+      "question": "What is the difference between collected data and derived data in SDTM, and how is the origin of a variable value indicated?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "chapters/ch04"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "chapters/ch04_general_assumptions.md",
+        "model/01_concepts_and_terms.md",
+        "domains/LB/assumptions.md",
+        "chapters/ch01_introduction.md",
+        "model/01_concepts_and_terms.md"
+      ],
+      "top5_similarities": [
+        0.641,
+        0.6331,
+        0.6417,
+        0.5626,
+        0.6181
+      ],
+      "elapsed_s": 0.11
+    },
+    {
+      "id": "q41",
+      "category": "concept",
+      "question": "What are the Trial Design Model datasets in SDTM and what kind of study-level information do they capture?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "model/05_study_level_data.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "model/01_concepts_and_terms.md",
+        "model/05_study_level_data.md",
+        "domains/TA/assumptions.md",
+        "chapters/ch04_general_assumptions.md",
+        "domains/TI/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.6589,
+        0.8164,
+        0.6195,
+        0.66,
+        0.6483
+      ],
+      "elapsed_s": 0.11
+    },
+    {
+      "id": "q16",
+      "category": "mixed",
+      "question": "What values are allowed for AESEV and what is its codelist code?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/AE/spec.md",
+        "terminology/core/ae.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "terminology/core/ae.md",
+        "domains/AE/assumptions.md",
+        "domains/DM/examples.md",
+        "domains/AE/spec.md",
+        "chapters/ch04_general_assumptions.md"
+      ],
+      "top5_similarities": [
+        0.3821,
+        0.6134,
+        8.5566,
+        0.602,
+        7.5799
+      ],
+      "elapsed_s": 0.24
+    },
+    {
+      "id": "q17",
+      "category": "mixed",
+      "question": "How are date and time variables formatted in SDTM and what suffix do they use?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "chapters/ch04"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch01_introduction.md",
+        "model/01_concepts_and_terms.md",
+        "chapters/ch02_fundamentals.md",
+        "chapters/ch04_general_assumptions.md"
+      ],
+      "top5_similarities": [
+        0.763,
+        9.6467,
+        0.6154,
+        9.4282,
+        0.5795
+      ],
+      "elapsed_s": 0.11
+    },
+    {
+      "id": "q18",
+      "category": "mixed",
+      "question": "Explain the MedDRA coding chain for adverse events from verbatim term to dictionary term.",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/AE/spec.md",
+        "domains/AE/assumptions.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "chapters/ch04_general_assumptions.md",
+        "domains/AE/assumptions.md",
+        "domains/MH/assumptions.md",
+        "terminology/core/trial_design.md",
+        "domains/CM/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.6726,
+        0.6289,
+        0.6303,
+        0.6197,
+        0.5839
+      ],
+      "elapsed_s": 0.11
+    },
+    {
+      "id": "q19",
+      "category": "mixed",
+      "question": "What controlled terminology codelist is used for DSDECOD when DSCAT equals 'DISPOSITION EVENT', and list specific CDISC Submission Values from that codelist for reasons of non-completion.",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/DS/assumptions.md",
+        "terminology/core/disposition.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "terminology/core/disposition.md",
+        "domains/DS/assumptions.md",
+        "domains/DS/spec.md",
+        "domains/DS/assumptions.md",
+        "domains/DS/spec.md"
+      ],
+      "top5_similarities": [
+        0.634,
+        0.7554,
+        0.8036,
+        0.7186,
+        0.7248
+      ],
+      "elapsed_s": 0.24
+    },
+    {
+      "id": "q20",
+      "category": "mixed",
+      "question": "In the DM domain, what is the difference between the RFSTDTC/RFENDTC reference period pair and the RFXSTDTC/RFXENDTC pair, and under what circumstances will RFSTDTC be null?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/DM/assumptions.md",
+        "domains/DM/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/DM/spec.md",
+        "domains/DM/assumptions.md",
+        "domains/DM/assumptions.md",
+        "domains/DM/spec.md",
+        "domains/DM/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.624,
+        0.6585,
+        0.6645,
+        0.5839,
+        0.5808
+      ],
+      "elapsed_s": 0.22
+    },
+    {
+      "id": "q42",
+      "category": "mixed",
+      "question": "In the LB domain, how are normal ranges represented using LBORNRLO and LBORNRHI, and what is the LBNRIND variable used for?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/LB/spec.md",
+        "domains/LB/assumptions.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/LB/spec.md",
+        "domains/LB/assumptions.md",
+        "domains/LB/assumptions.md",
+        "domains/LB/examples.md",
+        "domains/LB/spec.md"
+      ],
+      "top5_similarities": [
+        0.7713,
+        0.764,
+        0.7123,
+        0.6051,
+        0.6935
+      ],
+      "elapsed_s": 0.24
+    },
+    {
+      "id": "q43",
+      "category": "mixed",
+      "question": "What is the controlled terminology codelist for the SEX variable in the DM domain? Provide the codelist code and describe the Core designation.",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/DM/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/DM/spec.md",
+        "terminology/core/dm.md",
+        "chapters/ch04_general_assumptions.md",
+        "domains/DM/spec.md",
+        "domains/DS/spec.md"
+      ],
+      "top5_similarities": [
+        0.6578,
+        0.5551,
+        0.633,
+        0.6311,
+        0.6522
+      ],
+      "elapsed_s": 0.34
+    },
+    {
+      "id": "q44",
+      "category": "mixed",
+      "question": "In the VS domain, what is the controlled terminology codelist code for VSTESTCD, and give examples of standard vital signs test codes like systolic and diastolic blood pressure.",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/VS/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/VS/spec.md",
+        "terminology/core/vs.md",
+        "domains/VS/spec.md",
+        "domains/VS/examples.md",
+        "domains/VS/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.7284,
+        0.4981,
+        0.6737,
+        20.1568,
+        0.687
+      ],
+      "elapsed_s": 0.34
+    },
+    {
+      "id": "q45",
+      "category": "mixed",
+      "question": "What is the RACE variable in the DM domain, what codelist does it use, and what is its Core designation?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/DM/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/DM/spec.md",
+        "terminology/core/dm.md",
+        "domains/DM/assumptions.md",
+        "domains/DM/examples.md",
+        "domains/DM/examples.md"
+      ],
+      "top5_similarities": [
+        0.6135,
+        0.469,
+        0.6038,
+        0.5065,
+        0.5662
+      ],
+      "elapsed_s": 0.35
+    },
+    {
+      "id": "q46",
+      "category": "mixed",
+      "question": "What is the AEOUT (Outcome of Adverse Event) variable in the AE domain and what controlled terminology codelist code does it use?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/AE/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/AE/spec.md",
+        "terminology/core/ae.md",
+        "domains/AE/spec.md",
+        "domains/DD/assumptions.md",
+        "domains/AE/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.7992,
+        0.5705,
+        0.6582,
+        15.4212,
+        0.7025
+      ],
+      "elapsed_s": 0.35
+    },
+    {
+      "id": "q47",
+      "category": "mixed",
+      "question": "How do QS (Questionnaires) domains handle instrument-specific variables using QSCAT, and what role does QSTESTCD play in organizing question-level data?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/QS/spec.md",
+        "domains/QS/assumptions.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "VARIABLE_INDEX.md",
+        "domains/QS/spec.md",
+        "chapters/ch04_general_assumptions.md",
+        "domains/SUPPQUAL/examples.md",
+        "chapters/ch08_relationships.md"
+      ],
+      "top5_similarities": [
+        0.6339,
+        0.6923,
+        0.6635,
+        0.6612,
+        0.5798
+      ],
+      "elapsed_s": 0.34
+    },
+    {
+      "id": "q48",
+      "category": "mixed",
+      "question": "What is the FATESTCD variable's controlled terminology codelist code in the FA domain, and give examples of standard FA test codes?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/FA/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/FA/spec.md",
+        "terminology/core/findings_about.md",
+        "domains/FA/spec.md",
+        "domains/FA/assumptions.md",
+        "model/02_observation_classes.md"
+      ],
+      "top5_similarities": [
+        0.678,
+        0.4042,
+        0.6766,
+        0.6327,
+        18.6187
+      ],
+      "elapsed_s": 0.35
+    },
+    {
+      "id": "s01",
+      "category": "single_domain",
+      "question": "In the DM domain, what is the controlled terminology codelist code for the SEX variable, and what are its four permitted submission values?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "terminology/core/dm.md",
+        "domains/DM/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/DM/spec.md",
+        "terminology/core/dm.md",
+        "domains/DM/assumptions.md",
+        "domains/DM/spec.md",
+        "chapters/ch04_general_assumptions.md"
+      ],
+      "top5_similarities": [
+        0.6528,
+        0.5864,
+        0.556,
+        0.5862,
+        0.5688
+      ],
+      "elapsed_s": 0.33
+    },
+    {
+      "id": "s02",
+      "category": "concept",
+      "question": "What is the SUPPQUAL variable QNAM and what character constraints apply to it? What is the maximum length and what characters are allowed?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/SUPPQUAL/spec.md",
+        "model/06_relationship_datasets.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/SUPPQUAL/spec.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch08_relationships.md",
+        "chapters/ch08_relationships.md"
+      ],
+      "top5_similarities": [
+        0.6726,
+        0.5437,
+        0.5102,
+        0.6731,
+        0.6558
+      ],
+      "elapsed_s": 0.24
+    },
+    {
+      "id": "s03",
+      "category": "cross_domain",
+      "question": "The DM variable RFXSTDTC is defined as equal to the earliest value of which variable in the EX domain? Similarly, RFXENDTC is equal to the latest value of which EX variable (or which fallback variable if that is not collected)?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/DM/spec.md",
+        "domains/EX/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/DM/spec.md",
+        "domains/EX/spec.md",
+        "domains/DM/assumptions.md",
+        "domains/DM/spec.md",
+        "domains/DM/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.6568,
+        0.5803,
+        0.6371,
+        0.6269,
+        0.6708
+      ],
+      "elapsed_s": 0.32
+    },
+    {
+      "id": "s04",
+      "category": "mixed",
+      "question": "In the AE domain, what is the controlled terminology codelist code for the AEACN (Action Taken with Study Treatment) variable, and what ICH E2B example values does the CDISC Notes field list for this variable?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/AE/spec.md",
+        "terminology/core/ae.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/AE/spec.md",
+        "terminology/core/ae.md",
+        "domains/AE/spec.md",
+        "domains/AE/assumptions.md",
+        "chapters/ch04_general_assumptions.md"
+      ],
+      "top5_similarities": [
+        0.7623,
+        0.5455,
+        0.681,
+        0.676,
+        20.4564
+      ],
+      "elapsed_s": 0.56
+    },
+    {
+      "id": "s05",
+      "category": "single_domain",
+      "question": "In the VS domain, what is the controlled terminology codelist code for the VSTESTCD variable? Name the codelist, state whether it is extensible, and give three example TESTCD values listed for blood pressure and heart rate.",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/VS/spec.md",
+        "terminology/core/vs.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/VS/spec.md",
+        "terminology/core/vs.md",
+        "chapters/ch04_general_assumptions.md",
+        "domains/VS/assumptions.md",
+        "domains/VS/spec.md"
+      ],
+      "top5_similarities": [
+        0.6639,
+        0.4761,
+        0.5578,
+        0.6774,
+        0.6597
+      ],
+      "elapsed_s": 0.33
+    },
+    {
+      "id": "q54",
+      "category": "single_domain",
+      "question": "In the DV (Protocol Deviations) domain, which observation class does it belong to and what is the Topic variable DVTERM?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/DV/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/DV/spec.md",
+        "domains/DV/assumptions.md",
+        "VARIABLE_INDEX.md",
+        "domains/DV/examples.md",
+        "domains/DV/spec.md"
+      ],
+      "top5_similarities": [
+        0.7536,
+        0.7551,
+        0.6742,
+        0.6157,
+        0.664
+      ],
+      "elapsed_s": 0.22
+    },
+    {
+      "id": "q55",
+      "category": "single_domain",
+      "question": "What is the structure and observation class of the DS (Disposition) domain, and what is the role of the DSTERM variable?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/DS/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/DS/spec.md",
+        "domains/DS/assumptions.md",
+        "VARIABLE_INDEX.md",
+        "domains/DS/assumptions.md",
+        "domains/DS/examples.md"
+      ],
+      "top5_similarities": [
+        0.6292,
+        0.5828,
+        0.6233,
+        0.5973,
+        12.0014
+      ],
+      "elapsed_s": 0.24
+    },
+    {
+      "id": "q56",
+      "category": "single_domain",
+      "question": "In the SU (Substance Use) domain, what observation class is it and what is the SUTRT variable?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/SU/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/SU/spec.md",
+        "VARIABLE_INDEX.md",
+        "domains/SU/assumptions.md",
+        "domains/SU/examples.md",
+        "domains/SU/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.6606,
+        0.6706,
+        0.6671,
+        0.5999,
+        0.6106
+      ],
+      "elapsed_s": 0.24
+    },
+    {
+      "id": "q57",
+      "category": "single_domain",
+      "question": "What is the PR (Procedures) domain used for, and what is the PRTRT topic variable along with its Core designation?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/PR/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/PR/spec.md",
+        "domains/PR/examples.md",
+        "domains/CE/examples.md",
+        "VARIABLE_INDEX.md",
+        "domains/DV/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.7274,
+        0.5826,
+        12.8031,
+        0.6309,
+        10.3662
+      ],
+      "elapsed_s": 0.21
+    },
+    {
+      "id": "q58",
+      "category": "single_domain",
+      "question": "Describe the TS (Trial Summary) domain structure and the TSPARMCD variable, including its controlled terminology codelist code and length limit.",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/TS/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/TS/spec.md",
+        "terminology/core/trial_design.md",
+        "VARIABLE_INDEX.md",
+        "model/05_study_level_data.md",
+        "domains/TS/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.7561,
+        0.5199,
+        0.715,
+        0.5921,
+        0.6527
+      ],
+      "elapsed_s": 0.34
+    },
+    {
+      "id": "q59",
+      "category": "single_domain",
+      "question": "In the DD (Death Details) domain, what is the DDTESTCD variable and its controlled terminology codelist code?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/DD/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/DD/spec.md",
+        "terminology/core/other_part4.md",
+        "domains/DD/spec.md",
+        "domains/DD/spec.md",
+        "VARIABLE_INDEX.md"
+      ],
+      "top5_similarities": [
+        0.766,
+        0.6055,
+        0.7584,
+        0.7599,
+        0.6406
+      ],
+      "elapsed_s": 0.34
+    },
+    {
+      "id": "q60",
+      "category": "single_domain",
+      "question": "What is the CE (Clinical Events) domain, which observation class does it belong to, and what is the CETERM variable?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/CE/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/CE/spec.md",
+        "VARIABLE_INDEX.md",
+        "domains/CE/assumptions.md",
+        "chapters/ch08_relationships.md",
+        "domains/CE/examples.md"
+      ],
+      "top5_similarities": [
+        0.6749,
+        0.6815,
+        0.6588,
+        13.9522,
+        0.5964
+      ],
+      "elapsed_s": 0.22
+    },
+    {
+      "id": "q61",
+      "category": "single_domain",
+      "question": "In the MB (Microbiology Specimen) domain, what is the MBTESTCD variable, what observation class is MB, and what is the codelist code for MBTESTCD?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/MB/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/MB/spec.md",
+        "terminology/core/microbiology_part2.md",
+        "domains/MB/assumptions.md",
+        "domains/MB/examples.md",
+        "domains/MB/spec.md"
+      ],
+      "top5_similarities": [
+        0.7379,
+        0.5274,
+        0.7557,
+        0.6599,
+        0.7117
+      ],
+      "elapsed_s": 0.36
+    },
+    {
+      "id": "q62",
+      "category": "single_domain",
+      "question": "What is the SS (Subject Status) domain, what is the SSTESTCD variable, and what controlled terminology codelist does it use?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/SS/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/SS/spec.md",
+        "terminology/core/other_part5.md",
+        "chapters/ch01_introduction.md",
+        "VARIABLE_INDEX.md",
+        "domains/IS/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.7493,
+        0.5547,
+        11.0422,
+        0.664,
+        10.8046
+      ],
+      "elapsed_s": 0.34
+    },
+    {
+      "id": "q63",
+      "category": "single_domain",
+      "question": "In the SC (Subject Characteristics) domain, what observation class is it and what is its dataset structure?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/SC/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/SC/spec.md",
+        "domains/SC/assumptions.md",
+        "domains/SC/examples.md",
+        "domains/SC/examples.md",
+        "domains/SUPPQUAL/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.6075,
+        0.625,
+        0.612,
+        11.4292,
+        11.3707
+      ],
+      "elapsed_s": 0.23
+    },
+    {
+      "id": "q64",
+      "category": "single_domain",
+      "question": "What is the PC (Pharmacokinetics Concentrations) domain used for and what is the structure of one record in this dataset?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/PC/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/PC/spec.md",
+        "domains/PC/assumptions.md",
+        "chapters/ch08_relationships.md",
+        "domains/PC/assumptions.md",
+        "domains/PP/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.5528,
+        0.7165,
+        0.5937,
+        0.5979,
+        0.5663
+      ],
+      "elapsed_s": 0.22
+    },
+    {
+      "id": "q65",
+      "category": "single_domain",
+      "question": "In the DA (Product Accountability) domain, what observation class does it belong to and what is the structure of the dataset?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/DA/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/DA/spec.md",
+        "VARIABLE_INDEX.md",
+        "model/02_observation_classes.md",
+        "domains/EC/assumptions.md",
+        "model/03_special_purpose_domains.md"
+      ],
+      "top5_similarities": [
+        0.5267,
+        0.552,
+        0.5583,
+        11.763,
+        0.5483
+      ],
+      "elapsed_s": 0.23
+    },
+    {
+      "id": "q66",
+      "category": "cross_domain",
+      "question": "Which SDTM domains include the VISITNUM timing variable?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "VARIABLE_INDEX.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "VARIABLE_INDEX.md",
+        "domains/EX/assumptions.md",
+        "chapters/ch04_general_assumptions.md",
+        "domains/SU/assumptions.md",
+        "model/01_concepts_and_terms.md"
+      ],
+      "top5_similarities": [
+        0.5448,
+        0.6769,
+        0.6828,
+        0.685,
+        11.1925
+      ],
+      "elapsed_s": 0.22
+    },
+    {
+      "id": "q67",
+      "category": "cross_domain",
+      "question": "Many SDTM variables use the No Yes Response codelist C66742. How many variables reference it and give some examples of AE seriousness variables that use it.",
+      "source_recall": 1.0,
+      "source_hits": [
+        "VARIABLE_INDEX.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "VARIABLE_INDEX.md",
+        "domains/AE/spec.md",
+        "terminology/core/general_part4.md",
+        "domains/AE/examples.md",
+        "chapters/ch04_general_assumptions.md"
+      ],
+      "top5_similarities": [
+        0.4669,
+        0.5381,
+        0.6495,
+        0.5542,
+        0.5827
+      ],
+      "elapsed_s": 0.44
+    },
+    {
+      "id": "q68",
+      "category": "cross_domain",
+      "question": "Which domains use the Completion Status codelist (C66789) for their --STAT variable, and what does --STAT indicate?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "VARIABLE_INDEX.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "VARIABLE_INDEX.md",
+        "terminology/core/general_part4.md",
+        "domains/SS/spec.md",
+        "domains/SC/spec.md",
+        "domains/CM/spec.md"
+      ],
+      "top5_similarities": [
+        0.5065,
+        0.4661,
+        0.685,
+        0.6915,
+        0.6921
+      ],
+      "elapsed_s": 0.33
+    },
+    {
+      "id": "q69",
+      "category": "cross_domain",
+      "question": "The dose units codelist C71620 is shared across many Intervention and Findings domains. Which variables such as EXDOSU and CMDOSU reference it?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "VARIABLE_INDEX.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "VARIABLE_INDEX.md",
+        "terminology/core/general_part5.md",
+        "domains/CM/spec.md",
+        "domains/EX/spec.md",
+        "model/02_observation_classes.md"
+      ],
+      "top5_similarities": [
+        0.5647,
+        0.4805,
+        0.7093,
+        0.6827,
+        13.2856
+      ],
+      "elapsed_s": 0.58
+    },
+    {
+      "id": "q70",
+      "category": "cross_domain",
+      "question": "How is the RELSUB (Related Subjects) dataset used to represent relationships between two subjects, and what does the RSUBJID variable hold?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/RELSUB/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/RELSUB/spec.md",
+        "chapters/ch08_relationships.md",
+        "domains/RELSUB/assumptions.md",
+        "domains/RELSUB/assumptions.md",
+        "model/06_relationship_datasets.md"
+      ],
+      "top5_similarities": [
+        0.7436,
+        0.7848,
+        0.7269,
+        0.7476,
+        0.7336
+      ],
+      "elapsed_s": 0.22
+    },
+    {
+      "id": "q71",
+      "category": "cross_domain",
+      "question": "What is the EVAL (Evaluator) codelist C78735 and which domains' --EVAL variables share it?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "VARIABLE_INDEX.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "VARIABLE_INDEX.md",
+        "terminology/core/general_part2.md",
+        "domains/CO/spec.md",
+        "domains/TU/spec.md",
+        "domains/CO/spec.md"
+      ],
+      "top5_similarities": [
+        0.448,
+        0.4083,
+        0.6115,
+        0.581,
+        0.6168
+      ],
+      "elapsed_s": 0.33
+    },
+    {
+      "id": "q72",
+      "category": "cross_domain",
+      "question": "How do the PC (Pharmacokinetics Concentrations) and PP (Pharmacokinetic Parameters) domains relate to each other, and why are they kept as two separate domains?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "chapters/ch08_relationships.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/PC/spec.md",
+        "domains/PP/spec.md",
+        "domains/PC/assumptions.md",
+        "domains/PC/assumptions.md",
+        "domains/PC/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.5578,
+        0.5491,
+        0.733,
+        0.6403,
+        0.5665
+      ],
+      "elapsed_s": 0.36
+    },
+    {
+      "id": "q73",
+      "category": "cross_domain",
+      "question": "Which special-purpose and relationship domains carry the RDOMAIN variable, and what does RDOMAIN identify?",
+      "source_recall": 0.0,
+      "source_hits": [],
+      "source_misses": [
+        "model/06_relationship_datasets.md"
+      ],
+      "top5_sources": [
+        "VARIABLE_INDEX.md",
+        "domains/RELREC/spec.md",
+        "chapters/ch08_relationships.md",
+        "domains/SUPPQUAL/spec.md",
+        "domains/RELREC/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.4962,
+        0.7528,
+        17.7327,
+        0.7491,
+        16.2389
+      ],
+      "elapsed_s": 0.22
+    },
+    {
+      "id": "q74",
+      "category": "cross_domain",
+      "question": "How are Supplemental Qualifier datasets named per parent domain (for example for AE and CM), and what variable ties each SUPP-- record back to its parent domain?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "model/06_relationship_datasets.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/AE/spec.md",
+        "domains/CM/spec.md",
+        "model/06_relationship_datasets.md",
+        "domains/SUPPQUAL/assumptions.md",
+        "chapters/ch08_relationships.md"
+      ],
+      "top5_similarities": [
+        0.4955,
+        0.4615,
+        0.8137,
+        0.7436,
+        0.7403
+      ],
+      "elapsed_s": 0.34
+    },
+    {
+      "id": "q75",
+      "category": "cross_domain",
+      "question": "In SDTM, which identifier variables besides USUBJID can identify the source of a record across the general observation classes (for example for pooled or device data)?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "model/02_observation_classes.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "model/02_observation_classes.md",
+        "domains/SUPPQUAL/spec.md",
+        "model/01_concepts_and_terms.md",
+        "domains/RELSUB/spec.md",
+        "model/04_associated_persons.md"
+      ],
+      "top5_similarities": [
+        0.6708,
+        0.6786,
+        21.0629,
+        0.6767,
+        19.6944
+      ],
+      "elapsed_s": 0.11
+    },
+    {
+      "id": "q76",
+      "category": "cross_domain",
+      "question": "How do the AP (Associated Persons) domains link non-subject persons back to study subjects, and what role do RSUBJID and SREL play?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "model/04_associated_persons.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "VARIABLE_INDEX.md",
+        "model/04_associated_persons.md",
+        "model/06_relationship_datasets.md",
+        "chapters/ch08_relationships.md",
+        "domains/RELSUB/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.5794,
+        0.6695,
+        0.7014,
+        0.6671,
+        0.6962
+      ],
+      "elapsed_s": 0.22
+    },
+    {
+      "id": "q77",
+      "category": "cross_domain",
+      "question": "The EPOCH timing variable appears in many domains. List several domains where EPOCH is used and state what kind of variable it is.",
+      "source_recall": 1.0,
+      "source_hits": [
+        "VARIABLE_INDEX.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "VARIABLE_INDEX.md",
+        "domains/TA/assumptions.md",
+        "chapters/ch04_general_assumptions.md",
+        "domains/TE/examples.md",
+        "domains/DS/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.4727,
+        0.7118,
+        0.6476,
+        13.9737,
+        13.1193
+      ],
+      "elapsed_s": 0.24
+    },
+    {
+      "id": "q78",
+      "category": "concept",
+      "question": "What are the rules for values of --TESTCD variables in SDTM? Describe the maximum length and which characters are allowed.",
+      "source_recall": 1.0,
+      "source_hits": [
+        "chapters/ch04_general_assumptions.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch04_general_assumptions.md",
+        "domains/DM/spec.md",
+        "domains/DM/spec.md"
+      ],
+      "top5_similarities": [
+        0.6937,
+        0.6892,
+        0.615,
+        14.8734,
+        14.1562
+      ],
+      "elapsed_s": 0.12
+    },
+    {
+      "id": "q79",
+      "category": "concept",
+      "question": "How does SDTM represent a missing value, and what should be done when a test is not performed?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "chapters/ch04_general_assumptions.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch04_general_assumptions.md",
+        "terminology/core/other_part4.md",
+        "terminology/supplementary/supplementary_part5.md"
+      ],
+      "top5_similarities": [
+        0.6134,
+        0.5115,
+        0.5564,
+        0.5714,
+        0.5688
+      ],
+      "elapsed_s": 0.11
+    },
+    {
+      "id": "q80",
+      "category": "concept",
+      "question": "What is the convention for using 'Yes' and 'No' values in SDTM variables, and when is it acceptable to populate only one value?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "chapters/ch04_general_assumptions.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "chapters/ch04_general_assumptions.md",
+        "terminology/core/general_part4.md",
+        "terminology/supplementary/supplementary_part5.md",
+        "chapters/ch04_general_assumptions.md",
+        "domains/AE/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.6584,
+        0.6048,
+        0.5932,
+        0.5395,
+        12.0603
+      ],
+      "elapsed_s": 0.12
+    },
+    {
+      "id": "q81",
+      "category": "concept",
+      "question": "What rules govern the two-character DOMAIN code in SDTM? What characters are allowed for the first and second characters?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "chapters/ch04_general_assumptions.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch04_general_assumptions.md",
+        "domains/CO/assumptions.md",
+        "chapters/ch02_fundamentals.md"
+      ],
+      "top5_similarities": [
+        0.7129,
+        14.2372,
+        12.8348,
+        11.4738,
+        10.3839
+      ],
+      "elapsed_s": 0.11
+    },
+    {
+      "id": "q82",
+      "category": "concept",
+      "question": "Which identifier variables are required in all domains based on the three general observation classes, and which subject-level identifier must each include?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "model/02_observation_classes.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "model/02_observation_classes.md",
+        "chapters/ch04_general_assumptions.md",
+        "model/02_observation_classes.md",
+        "model/01_concepts_and_terms.md",
+        "chapters/ch02_fundamentals.md"
+      ],
+      "top5_similarities": [
+        0.7071,
+        0.6441,
+        0.6224,
+        24.16,
+        23.4023
+      ],
+      "elapsed_s": 0.11
+    },
+    {
+      "id": "q83",
+      "category": "concept",
+      "question": "What is RELREC and how is it used to relate records or datasets to one another in SDTM? What does the RDOMAIN variable do in RELREC?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "model/06_relationship_datasets.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/RELREC/spec.md",
+        "domains/RELREC/assumptions.md",
+        "chapters/ch08_relationships.md",
+        "chapters/ch08_relationships.md",
+        "model/06_relationship_datasets.md"
+      ],
+      "top5_similarities": [
+        0.6849,
+        0.7576,
+        0.7543,
+        0.7786,
+        0.6968
+      ],
+      "elapsed_s": 0.23
+    },
+    {
+      "id": "q84",
+      "category": "concept",
+      "question": "When deciding whether data belong to the Events, Interventions, or Findings observation class, what is the definition of an intervention versus an event?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "chapters/ch08_relationships.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "chapters/ch08_relationships.md",
+        "chapters/ch08_relationships.md",
+        "domains/FA/assumptions.md",
+        "domains/AG/spec.md",
+        "domains/CM/spec.md"
+      ],
+      "top5_similarities": [
+        0.6892,
+        0.6095,
+        0.6076,
+        0.6352,
+        0.6352
+      ],
+      "elapsed_s": 0.11
+    },
+    {
+      "id": "q85",
+      "category": "concept",
+      "question": "What are Associated Persons in SDTM, and how are AP domains named relative to the standard domain codes?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "model/04_associated_persons.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "model/04_associated_persons.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch01_introduction.md",
+        "chapters/ch02_fundamentals.md",
+        "model/01_concepts_and_terms.md"
+      ],
+      "top5_similarities": [
+        0.7784,
+        0.5731,
+        0.5322,
+        0.5432,
+        0.5676
+      ],
+      "elapsed_s": 0.12
+    },
+    {
+      "id": "q86",
+      "category": "concept",
+      "question": "What is an Expected (Exp) Core variable in SDTM, and what must be done in the Define-XML when a study does not collect the data item for an Expected variable?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "chapters/ch04_general_assumptions.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch04_general_assumptions.md",
+        "model/01_concepts_and_terms.md",
+        "chapters/ch02_fundamentals.md",
+        "domains/CM/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.7307,
+        0.5805,
+        0.5625,
+        19.1009,
+        17.853
+      ],
+      "elapsed_s": 0.11
+    },
+    {
+      "id": "q87",
+      "category": "concept",
+      "question": "How does SDTM decide whether assessments of an event should be stored as Supplemental Qualifiers versus in the Findings About (FA) domain?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "chapters/ch08_relationships.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/FA/spec.md",
+        "chapters/ch08_relationships.md",
+        "domains/FA/assumptions.md",
+        "chapters/ch02_fundamentals.md",
+        "model/02_observation_classes.md"
+      ],
+      "top5_similarities": [
+        0.5036,
+        0.6814,
+        0.7222,
+        0.6963,
+        0.643
+      ],
+      "elapsed_s": 0.23
+    },
+    {
+      "id": "q88",
+      "category": "concept",
+      "question": "What distinguishes ETCD, TSPARMCD, and ARMCD from --TESTCD with respect to character restrictions and maximum lengths in SDTM?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "chapters/ch04_general_assumptions.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "chapters/ch04_general_assumptions.md",
+        "domains/DM/spec.md",
+        "domains/TS/spec.md",
+        "domains/TA/spec.md",
+        "domains/TV/spec.md"
+      ],
+      "top5_similarities": [
+        0.6025,
+        0.6434,
+        0.6624,
+        0.6254,
+        0.623
+      ],
+      "elapsed_s": 0.11
+    },
+    {
+      "id": "q89",
+      "category": "concept",
+      "question": "What are the timing variables grouped under Relative Timing in SDTM (such as --STRF, --ENRF, --STRTPT, --ENRTPT) and what kinds of values do they take?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "model/02_observation_classes.md",
+        "chapters/ch04_general_assumptions.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "chapters/ch04_general_assumptions.md",
+        "domains/SV/assumptions.md",
+        "model/02_observation_classes.md",
+        "domains/CE/assumptions.md",
+        "domains/MH/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.713,
+        0.6002,
+        0.638,
+        0.6762,
+        0.6605
+      ],
+      "elapsed_s": 0.11
+    },
+    {
+      "id": "q90",
+      "category": "mixed",
+      "question": "In the EX (Exposure) domain, what is the EXROUTE variable and its controlled terminology codelist code, and list some parenteral route-of-administration values from that codelist (for example routes administered under the skin or into a muscle).",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/EX/spec.md",
+        "terminology/core/interventions.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/EX/spec.md",
+        "terminology/core/interventions.md",
+        "chapters/ch04_general_assumptions.md",
+        "domains/LB/assumptions.md",
+        "domains/EX/examples.md"
+      ],
+      "top5_similarities": [
+        0.6862,
+        0.4971,
+        16.6535,
+        16.6512,
+        0.5685
+      ],
+      "elapsed_s": 0.35
+    },
+    {
+      "id": "q91",
+      "category": "mixed",
+      "question": "In the DS (Disposition) domain, which codelist does DSDECOD use for disposition events, and what are some reason-for-non-completion values from that codelist (for example a subject-initiated withdrawal or a physician's decision)?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/DS/spec.md",
+        "terminology/core/disposition.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/DS/spec.md",
+        "terminology/core/disposition.md",
+        "domains/DS/assumptions.md",
+        "domains/DS/spec.md",
+        "domains/DS/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.7472,
+        0.6083,
+        0.7319,
+        0.6825,
+        0.6143
+      ],
+      "elapsed_s": 0.34
+    },
+    {
+      "id": "q92",
+      "category": "mixed",
+      "question": "What is the ETHNIC variable in the DM domain, what controlled terminology codelist code does it use, and what are its permitted values?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/DM/spec.md",
+        "terminology/core/dm.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/DM/spec.md",
+        "terminology/core/dm.md",
+        "domains/DM/examples.md",
+        "domains/TS/assumptions.md",
+        "domains/DM/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.6371,
+        0.522,
+        13.5914,
+        13.4357,
+        0.5724
+      ],
+      "elapsed_s": 0.32
+    },
+    {
+      "id": "q93",
+      "category": "mixed",
+      "question": "In the EX domain, what is the EXDOSFRM (Dose Form) variable and its controlled terminology codelist code, and give some dose-form values from that codelist (for example a solid oral shell form or a sterile parenteral form)?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/EX/spec.md",
+        "terminology/core/interventions.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/EX/spec.md",
+        "terminology/core/interventions.md",
+        "domains/EC/spec.md",
+        "domains/CM/spec.md",
+        "domains/EX/spec.md"
+      ],
+      "top5_similarities": [
+        0.7833,
+        0.4203,
+        0.7138,
+        0.6844,
+        0.7154
+      ],
+      "elapsed_s": 0.35
+    },
+    {
+      "id": "q94",
+      "category": "mixed",
+      "question": "How does the LB domain distinguish the original result LBORRES from the standardized result LBSTRESC, what codelist does LBSTRESC reference, and what are some of the standard result values in that codelist (for example for positive/negative findings)?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/LB/spec.md",
+        "terminology/core/lb_part4.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/LB/spec.md",
+        "terminology/core/lb_part4.md",
+        "domains/LB/examples.md",
+        "chapters/ch04_general_assumptions.md",
+        "domains/LB/spec.md"
+      ],
+      "top5_similarities": [
+        0.7761,
+        0.569,
+        0.6411,
+        27.0524,
+        0.6766
+      ],
+      "elapsed_s": 0.32
+    },
+    {
+      "id": "q95",
+      "category": "mixed",
+      "question": "In the DD (Death Details) domain, what is the DDTEST variable and its controlled terminology codelist code, and what are some of the test names defined in that codelist (for example relating to cause of death or age at death)?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/DD/spec.md",
+        "terminology/core/other_part4.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/DD/spec.md",
+        "terminology/core/other_part4.md",
+        "domains/DD/spec.md",
+        "terminology/core/other_part4.md",
+        "VARIABLE_INDEX.md"
+      ],
+      "top5_similarities": [
+        0.7643,
+        0.6729,
+        0.7509,
+        0.6619,
+        0.6722
+      ],
+      "elapsed_s": 0.33
+    },
+    {
+      "id": "q96",
+      "category": "mixed",
+      "question": "In the FA (Findings About) domain, what is the FATEST variable and its controlled terminology codelist code, and give some example test names from that codelist (such as Diameter or Cumulative Exposure)?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/FA/spec.md",
+        "terminology/core/findings_about.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/FA/spec.md",
+        "terminology/core/findings_about.md",
+        "domains/FA/assumptions.md",
+        "model/02_observation_classes.md",
+        "domains/FA/spec.md"
+      ],
+      "top5_similarities": [
+        0.7232,
+        0.487,
+        0.7102,
+        0.5997,
+        0.6545
+      ],
+      "elapsed_s": 0.34
+    },
+    {
+      "id": "q97",
+      "category": "mixed",
+      "question": "In the SS (Subject Status) domain, what is the SSSTRESC variable, what controlled terminology codelist does it use, and what are the standard subject-status result values in that codelist (such as for a living versus deceased subject)?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/SS/spec.md",
+        "terminology/core/other_part5.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/SS/spec.md",
+        "terminology/core/other_part5.md",
+        "VARIABLE_INDEX.md",
+        "chapters/ch01_introduction.md",
+        "terminology/core/other_part5.md"
+      ],
+      "top5_similarities": [
+        0.7309,
+        0.5847,
+        0.6764,
+        18.8239,
+        0.5747
+      ],
+      "elapsed_s": 0.35
+    },
+    {
+      "id": "q98",
+      "category": "mixed",
+      "question": "In the CM (Concomitant Medications) domain, what is the CMDOSU (Dose Units) variable, what controlled terminology codelist does it use, and give some unit values from that codelist (for example an international unit or a milliequivalent)?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/CM/spec.md",
+        "terminology/core/general_part5.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/CM/spec.md",
+        "terminology/core/general_part5.md",
+        "domains/CM/assumptions.md",
+        "domains/LB/assumptions.md",
+        "domains/CM/spec.md"
+      ],
+      "top5_similarities": [
+        0.7977,
+        0.5497,
+        0.6795,
+        21.1024,
+        0.7219
+      ],
+      "elapsed_s": 0.33
+    },
+    {
+      "id": "q99",
+      "category": "mixed",
+      "question": "In the QS (Questionnaires) domain, what is the QSCAT variable used for, what controlled terminology codelist does it reference, and give some example questionnaire short names from that codelist.",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/QS/spec.md",
+        "terminology/core/qs_part1.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/QS/spec.md",
+        "terminology/core/qs_part1.md",
+        "domains/SUPPQUAL/examples.md",
+        "domains/FT/assumptions.md",
+        "domains/QS/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.785,
+        0.5381,
+        0.6848,
+        0.701,
+        0.701
+      ],
+      "elapsed_s": 0.35
+    },
+    {
+      "id": "q100",
+      "category": "single_domain",
+      "question": "In the TA (Trial Arms) domain, what is the ARMCD variable's role and Core designation, and what is the ETCD variable used for?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/TA/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/TA/spec.md",
+        "domains/DM/assumptions.md",
+        "domains/TA/examples.md",
+        "domains/DM/examples.md",
+        "domains/DM/spec.md"
+      ],
+      "top5_similarities": [
+        0.6516,
+        0.6754,
+        0.6209,
+        0.6491,
+        0.6861
+      ],
+      "elapsed_s": 0.22
+    },
+    {
+      "id": "q101",
+      "category": "mixed",
+      "question": "What is the TSPARM variable in the TS domain, what is its controlled terminology codelist code, and give some example trial summary parameter names defined in that codelist.",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/TS/spec.md",
+        "terminology/core/trial_design.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/TS/spec.md",
+        "terminology/core/trial_design.md",
+        "VARIABLE_INDEX.md",
+        "domains/TS/assumptions.md",
+        "domains/TS/spec.md"
+      ],
+      "top5_similarities": [
+        0.7454,
+        0.464,
+        0.6342,
+        0.6272,
+        0.6961
+      ],
+      "elapsed_s": 0.34
+    },
+    {
+      "id": "q102",
+      "category": "mixed",
+      "question": "In the VS (Vital Signs) domain, what is the VSPOS variable, what controlled terminology codelist does it use, and list some subject-position values from that codelist (for example a face-down position or a semi-sitting bed position)?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/VS/spec.md",
+        "terminology/core/interventions.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/VS/spec.md",
+        "terminology/core/interventions.md",
+        "domains/VS/spec.md",
+        "VARIABLE_INDEX.md",
+        "domains/CV/spec.md"
+      ],
+      "top5_similarities": [
+        0.756,
+        0.5398,
+        0.6601,
+        0.5644,
+        0.6317
+      ],
+      "elapsed_s": 0.33
+    }
+  ]
+}

@@ -4,9 +4,9 @@
   "tier": 2,
   "tier_note": "borderline Tier 2-3, 走 Tier 2 + evidence 全留; Phase 2 KG 启动时再评估升 Tier 3",
   "created": "2026-05-22",
-  "updated": "2026-06-08 (Phase 1.5 检索优化 round 完成 — T1 Top-K 诊断 + T2 rerank + T4 multiquery/HyDE/hyde_rrf + re-chunk 全测; 结论: 单杠杆均不能达全类 95%, cosine baseline 84.0% 强局部最优, 用户接受 baseline; 详见 phase_1_5_retrieval_tuning + sdtm-rag/eval/ablation_retrieval_2026-06-08.md). 前: 2026-06-05 I-4 立项; 2026-05-24 Phase 1D PASS 88.5%",
+  "updated": "2026-06-09 (★ P1 查询条件路由 DONE — 全类 src recall ≥95% 达成: retrieval-only v2 102q single 100/cross 96/concept 100/mixed 100/overall 99.0%; 4 杠杆 [确定性查表+分布意图泛化+Hybrid BM25+路由隔离]; Rule D 复核 PASS; 详见 phase_p1_query_routing + RETROSPECTIVE_P1_retrieval95.md). 前: 2026-06-08 单杠杆 round (接受 baseline); 2026-05-24 Phase 1D PASS 88.5%",
   "upstream_design": "docs/DESIGN_RAG_KG.md (Approved 2026-04-16)",
-  "current_phase": "phase_1_5 retrieval round 完成 (2026-06-08, baseline 接受为 interim) → NEXT: P1 查询条件路由 (用户 2026-06-09 决定追全类逼近 100%, 方案下个 session 讨论, 入口 TODO_retrieval_quality.md §5)",
+  "current_phase": "phase_p1_query_routing DONE (2026-06-09, 全类 src recall ≥95% 达成, 待 user ack + commit) → NEXT: 接入生产 /ask + full eval (end-to-end fact recall) / q73 残留 / 扩题集; Phase 2 KG 仍 deferred",
   "phases": {
     "phase_0_research": {
       "status": "completed",
@@ -475,6 +475,37 @@
       "decision_2026_06_08": "接受 baseline 为 interim; live collection 恢复 v1 (4146 chunks, chroma_backup_20260608T104724Z); 全部实验代码保留 (rerank/HyDE 默认 off; chunker 改动 Rule D 通过) 供 P1 复用; raw eval + log + failure 全留 (规则 B)",
       "next_direction_2026_06_09": "用户决定追全类 src recall 逼近 100% (愿投入), 方向 = P1 查询条件路由 (按查询类型路由: 分布查询→VARIABLE_INDEX 条目 chunk / 术语查询→HyDE / 域内→纯 cosine, 各杠杆只对其擅长类生效避开 collateral). 方案下个 session 讨论. 入口 + 5 个待决点见 TODO_retrieval_quality.md §5.",
       "rule_d": "T1 verifier (oh-my-claudecode:verifier) + rechunk code-reviewer (异 subagent_type) 均独立 PASS/CONDITIONAL PASS"
+    },
+    "phase_p1_query_routing": {
+      "status": "completed — 全类 src recall ≥95% 达成 (待 user ack + commit)",
+      "started_at": "2026-06-09",
+      "pass_at": "2026-06-09",
+      "owner": "main session (orchestrator) + workflow 调研 (9 方法族) + executor×3 (S1/S2/S3) + code-reviewer×2 (Rule D) + general-purpose (题集扩充) + verifier (题集审计)",
+      "goal": "I-4 重启: eval 4 类别**最低分**也 ≥95% src recall (上调自 2026-06-08 '接受 baseline 84.0%')",
+      "result": {
+        "eval": "retrieval-only, test_set_v2.yml 102q (每类~25, mixed 全真双源)",
+        "single_domain": 1.0,
+        "cross_domain": 0.96,
+        "concept": 1.0,
+        "mixed": 1.0,
+        "overall": 0.99,
+        "all_categories_ge_95": true,
+        "residual_miss": "q73 (cross 24/25, gold model/06_relationship_datasets.md)"
+      },
+      "levers": {
+        "S1_structured_lookup": "非向量通道: 变量→CT码→术语文件两跳精确 join + 分布→VARIABLE_INDEX; single+mixed→100; Rule D PASS (反过拟合: 8 集外变量探针 + 救 6 全新题)",
+        "dist_intent_generalization": "变量名+domains+用法动词 通用 pattern; cross 76→96",
+        "hybrid_bm25": "bm25s 从现有 4146 chunk 文本建关键词索引 (不重 ingest) + RRF 加法融合; concept 92→100; hybrid 单独砸 single 96→83 (前沿警告实测), 组合稳",
+        "routing_isolation_longname": "union-add+prepend 路由隔离守 single; s3 域长名→码映射堵长名 single 脆弱边界 (零回归)"
+      },
+      "method_research": "research/retrieval_methods_survey_2026-06-09.md",
+      "code": "server/structured_lookup.py (新) + server/rag.py (hybrid RRF) + server/config.py + eval/run_eval.py (--structured-lookup --hybrid; 默认 off)",
+      "testset": "eval/test_set_v2.yml (53→102q; 48 新题对杠杆设计盲防过拟合; verifier 审计 ablation_t1/testset_v2_audit.md; mixed 升级真双源)",
+      "evidence": "evidence/checkpoints/s{1,2,3}_*.md + s{1,2}_rule_d_review.md + eval/ablation_t1/v2_*.json",
+      "rule_b_failures": "evidence/failures/s2_attempt_1.md",
+      "retrospective": "RETROSPECTIVE_P1_retrieval95.md (Rule C 三段齐备)",
+      "followup": ["q73 残留 (变量→model 定义文件通道, 注意 example-patching)", "扩题集增 cross margin (现 24/25)", "接入生产 /ask + full eval (end-to-end fact recall) + 延迟实测", "s3 长名映射在 v2 未被实测 (补长名 single 题)"],
+      "user_ack": "pending (2026-06-09)"
     }
   },
   "constraints": {
@@ -494,7 +525,7 @@
     "I-1: ChatGPT Plus 代理合规风险 (等 0_2 调研结论)",
     "I-2: DeepSeek V4 Pro 模型 ID 确认 (用户原话, 等 0_2 verify)",
     "I-3: Phase 2 KG 是否启动 (Phase 1D eval 后决策)",
-    "I-4 (2026-06-05 提出 → 2026-06-08 调查完成, 接受 baseline): eval 目标上调全 4 类别 src recall > 95%. Phase 1.5 全面调查 (T1/T2/T4/re-chunk, 见 phase_1_5_retrieval_tuning): 单杠杆均不能达全类 95% (已证); cosine baseline 84.0% 强局部最优; 用户接受 baseline. 未达 95% 不是没找对方法, 是单杠杆固有 precision/recall 前沿. 未来若仍追 95% → P1 查询条件路由 (新 backlog item, 需 query classifier)."
+    "I-4 (2026-06-05 提出 → 2026-06-08 调查完成, 接受 baseline): eval 目标上调全 4 类别 src recall > 95%. Phase 1.5 全面调查 (T1/T2/T4/re-chunk, 见 phase_1_5_retrieval_tuning): 单杠杆均不能达全类 95% (已证); cosine baseline 84.0% 强局部最优; 用户接受 baseline. 未达 95% 不是没找对方法, 是单杠杆固有 precision/recall 前沿. 未来若仍追 95% → P1 查询条件路由. → 2026-06-09 ★ ACHIEVED: P1 实施完成, 全类 ≥95% (single 100/cross 96/concept 100/mixed 100, retrieval-only v2 102q), 见 phase_p1_query_routing. 结论印证: 不是更好的单杠杆, 是多个路由杠杆 + 一条非向量确定性查表通道."
   ],
   "references": {
     "design_spec": "docs/DESIGN_RAG_KG.md",
