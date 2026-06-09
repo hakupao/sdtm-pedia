@@ -12,6 +12,8 @@
   "section.platforms.label": "4 プラットフォーム",
   "section.platforms.subhead": "4 つのデプロイメント、それぞれ異なる強み。",
   "section.platforms.cta": "→ デプロイ手順を見る",
+  "section.platforms.tryLive": "オンラインで試す",
+  "section.platforms.noLive": "リンク共有不可",
   "deploy.label": "デプロイ手順",
   "deploy.intro": "完全な手順を 3 言語で併記。手順に従えば、各プラットフォーム上にこの知識ベースを再現できます。",
   "deploy.platform.chatgpt": "ChatGPT GPT — デプロイ手順",

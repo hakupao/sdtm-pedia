@@ -273,6 +273,18 @@ sdtm-pedia/
 
 ## Quick Start
 
+### Use the hosted instances (no setup)
+
+Pre-built instances you can open and use right away — no install, no API key. Sign-in to the host platform may be required.
+
+| Platform | Direct link |
+|----------|-------------|
+| **ChatGPT GPT** | [Open ↗](https://chatgpt.com/g/g-69e635b99e848191a2818cd8e8e7e9cc-sdtm-knowledge-base) |
+| **Gemini Gem** | [Open ↗](https://gemini.google.com/gem/10HcbqLoT3UxTj0O63M8qgPHpMxGNkHay?usp=sharing) |
+| **NotebookLM** | [Open ↗](https://notebooklm.google.com/notebook/2cebc5cb-1466-4788-9474-bdf2d75d2060) |
+
+> Claude Projects cannot be shared by link — to use it, deploy your own via Option A below.
+
 ### Option A — Self-deploy on a hosted AI platform (recommended)
 
 A turn-key release bundle for **4 platforms** (Claude Projects, ChatGPT GPTs, Gemini Gems, NotebookLM) ships at `release/v1.4/` (latest, 2026-05-22). Each platform sub-directory is self-contained: system prompt + uploads + step-by-step tutorial in 3 languages (zh/en/ja). Earlier releases (`release/v1.{0,1,3}/`) remain immutable for reference. Note: **Gemini is MAINTAINED_NO_SANITY_TEST from v1.4 onwards** — bundle still ships, but sanity testing was discontinued; users self-verify.

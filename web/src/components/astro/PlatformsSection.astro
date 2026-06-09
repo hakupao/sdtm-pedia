@@ -11,18 +11,49 @@ const subhead = t['section.platforms.subhead'];
   <div class="max-w-screen-xl mx-auto px-5 md:px-7">
     <SectionLabel number="02" label={t['section.platforms.label']} />
     <h2 class="font-display text-2xl mb-5 leading-tight">{subhead}</h2>
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
       {platforms.map((p) => (
-        <a
-          href={`/${lang}/deploy/${p.key}/`}
-          class="bg-bg p-4 border border-rule hover:border-accent transition-colors group flex flex-col"
-        >
-          <div class="font-mono text-[8px] tracking-[0.15em] text-ink-mute">{p.name}</div>
-          <div class="font-serif text-[13px] text-ink leading-snug mt-3 min-h-[2.5rem]">{p.strength[lang]}</div>
-          <div class="mt-2 font-mono text-[9px] tracking-wider text-ink-mute group-hover:text-accent">
-            {t['nav.deploy']} →
+        <div class="group bg-bg p-4 md:p-5 border border-rule hover:border-accent transition-colors flex flex-col">
+          <div class="font-mono text-base font-bold tracking-[0.02em] whitespace-nowrap text-ink group-hover:text-accent transition-colors">{p.name}</div>
+          <div class="h-px bg-accent w-6 mt-2 opacity-50 group-hover:w-full transition-[width] duration-300 ease-out"></div>
+          <div class="font-serif text-[13px] text-ink-mute leading-snug mt-3 min-h-[3rem]">{p.strength[lang]}</div>
+          <div class="mt-auto pt-4 flex flex-col gap-2.5">
+            {p.shareUrl ? (
+              <Fragment>
+                <a
+                  href={`/${lang}/deploy/${p.key}/`}
+                  class="font-mono text-[9px] tracking-wider text-ink-mute hover:text-accent transition-colors"
+                >
+                  {t['nav.deploy']} →
+                </a>
+                <a
+                  href={p.shareUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${t['section.platforms.tryLive']} — ${p.name}`}
+                  class="platform-bar bg-ink text-bg hover:bg-accent -mx-4 md:-mx-5 -mb-4 md:-mb-5 px-4 md:px-5 py-2.5"
+                >
+                  <span>{t['section.platforms.tryLive']}</span>
+                  <span class="platform-bar-arrow" aria-hidden="true">↗</span>
+                </a>
+              </Fragment>
+            ) : (
+              <Fragment>
+                <span class="font-mono text-[9px] tracking-wider text-ink-faint">
+                  {t['section.platforms.noLive']}
+                </span>
+                <a
+                  href={`/${lang}/deploy/${p.key}/`}
+                  aria-label={`${t['nav.deploy']} — ${p.name}`}
+                  class="platform-bar bg-ink text-bg hover:bg-accent -mx-4 md:-mx-5 -mb-4 md:-mb-5 px-4 md:px-5 py-2.5"
+                >
+                  <span>{t['nav.deploy']}</span>
+                  <span class="platform-bar-arrow" aria-hidden="true">→</span>
+                </a>
+              </Fragment>
+            )}
           </div>
-        </a>
+        </div>
       ))}
     </div>
     <a href={`/${lang}/deploy/chatgpt/`} class="inline-block mt-4 font-mono text-[9px] tracking-wider text-ink-mute hover:text-accent">
@@ -30,3 +61,39 @@ const subhead = t['section.platforms.subhead'];
     </a>
   </div>
 </section>
+
+<style>
+  /* Full-bleed footer bar. The card pads its content by p-4 / md:p-5; the bar
+     cancels that with -mx-* / -mb-* to reach the card border, then re-adds the
+     SAME inset via px-* so the bar's label left-edge lands exactly on the
+     card's content column — i.e. flush-left with the name, strength and the
+     deploy link above it. The arrow stays pinned right (justify-between).
+     Font-size mirrors the global --ui-font-bump formula so the size adjuster
+     still scales it (a scoped class can't reuse the global .text-[11px] rule). */
+  .platform-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: calc(11px * var(--ui-font-scale) + var(--ui-font-bump));
+    letter-spacing: 0.1em;
+    font-weight: 700;
+    line-height: 1.2;
+    transition: background-color 200ms ease, color 200ms ease;
+  }
+  /* global.css `:where(span)` forces 600 on bare spans; re-assert 700 here so
+     the bar label keeps the intended button weight. */
+  .platform-bar span {
+    font-weight: 700;
+  }
+  .platform-bar-arrow {
+    transition: transform 200ms ease;
+  }
+  .platform-bar:hover .platform-bar-arrow {
+    transform: translateX(2px);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .platform-bar, .platform-bar-arrow { transition: none; }
+  }
+</style>

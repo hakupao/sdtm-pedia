@@ -273,6 +273,18 @@ sdtm-pedia/
 
 ## 快速开始
 
+### 直接使用在线实例（无需部署）
+
+已经建好的在线实例，打开即用——无需安装、无需 API key（可能需要登录对应平台账号）。
+
+| 平台 | 直达链接 |
+|------|---------|
+| **ChatGPT GPT** | [打开 ↗](https://chatgpt.com/g/g-69e635b99e848191a2818cd8e8e7e9cc-sdtm-knowledge-base) |
+| **Gemini Gem** | [打开 ↗](https://gemini.google.com/gem/10HcbqLoT3UxTj0O63M8qgPHpMxGNkHay?usp=sharing) |
+| **NotebookLM** | [打开 ↗](https://notebooklm.google.com/notebook/2cebc5cb-1466-4788-9474-bdf2d75d2060) |
+
+> Claude Projects 无法通过链接分享——如需使用，请用下方"方式 A"自行部署。
+
 ### 方式 A — 在主流 AI 平台自部署（推荐）
 
 `release/v1.4/`（最新版, 2026-05-22）提供 **4 个平台**（Claude Projects / ChatGPT GPTs / Gemini Gems / NotebookLM）的开箱即用部署包。每个平台子目录自成一体：system prompt + 上传文件 + 三语教程（zh/en/ja）。早期 release（`release/v1.{0,1,3}/`）作为不可变历史保留。注意: **v1.4 起 Gemini 切换到 MAINTAINED_NO_SANITY_TEST 模式** — 仍交付 bundle, 但停 sanity 测试, 用户自验。
