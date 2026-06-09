@@ -1,6 +1,6 @@
 [
-  { "key": "claude",     "name": "CLAUDE",     "strength": { "zh": "适合变量定义、跨域关系和多步骤解释", "en": "Best for variable definitions, cross-domain relationships, and multi-step explanations", "ja": "変数定義、ドメイン間関係、多段階の説明に適しています" } },
-  { "key": "chatgpt",    "name": "CHATGPT",    "strength": { "zh": "适合团队共享、统一入口和日常问答", "en": "Best for team sharing, a shared access point, and daily Q&A", "ja": "チーム共有、共通入口、日常的な質問対応に適しています" } },
-  { "key": "gemini",     "name": "GEMINI",     "strength": { "zh": "适合一次查看较长资料和跨主题追问", "en": "Best for longer reference material and cross-topic follow-up questions", "ja": "長めの資料確認や複数テーマにまたがる追加質問に適しています" } },
-  { "key": "notebooklm", "name": "NOTEBOOKLM", "strength": { "zh": "适合强调来源边界和基于资料的阅读", "en": "Best for source-bounded reading and evidence-first review", "ja": "出典境界を重視した資料ベースの確認に適しています" } }
+  { "key": "claude",     "name": "CLAUDE",     "shareUrl": null, "strength": { "zh": "适合变量定义、跨域关系和多步骤解释", "en": "Best for variable definitions, cross-domain relationships, and multi-step explanations", "ja": "変数定義、ドメイン間関係、多段階の説明に適しています" } },
+  { "key": "chatgpt",    "name": "CHATGPT",    "shareUrl": "https://chatgpt.com/g/g-69e635b99e848191a2818cd8e8e7e9cc-sdtm-knowledge-base", "strength": { "zh": "适合团队共享、统一入口和日常问答", "en": "Best for team sharing, a shared access point, and daily Q&A", "ja": "チーム共有、共通入口、日常的な質問対応に適しています" } },
+  { "key": "gemini",     "name": "GEMINI",     "shareUrl": "https://gemini.google.com/gem/10HcbqLoT3UxTj0O63M8qgPHpMxGNkHay?usp=sharing", "strength": { "zh": "适合一次查看较长资料和跨主题追问", "en": "Best for longer reference material and cross-topic follow-up questions", "ja": "長めの資料確認や複数テーマにまたがる追加質問に適しています" } },
+  { "key": "notebooklm", "name": "NOTEBOOKLM", "shareUrl": "https://notebooklm.google.com/notebook/2cebc5cb-1466-4788-9474-bdf2d75d2060", "strength": { "zh": "适合强调来源边界和基于资料的阅读", "en": "Best for source-bounded reading and evidence-first review", "ja": "出典境界を重視した資料ベースの確認に適しています" } }
 ]

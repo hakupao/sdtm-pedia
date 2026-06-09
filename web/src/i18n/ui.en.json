@@ -12,6 +12,8 @@
   "section.platforms.label": "FOUR PLATFORMS",
   "section.platforms.subhead": "Four deployments, each with its own focus.",
   "section.platforms.cta": "→ DEPLOYMENT GUIDES",
+  "section.platforms.tryLive": "Try it live",
+  "section.platforms.noLive": "No shareable link",
   "deploy.label": "Deployment guide",
   "deploy.intro": "Full tutorial, three languages side by side. Follow the steps to reproduce this knowledge base on each platform.",
   "deploy.platform.chatgpt": "ChatGPT GPT — Deployment Guide",

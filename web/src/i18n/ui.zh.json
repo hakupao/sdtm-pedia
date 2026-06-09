@@ -12,6 +12,8 @@
   "section.platforms.label": "四个平台",
   "section.platforms.subhead": "四种部署方案, 各有侧重.",
   "section.platforms.cta": "→ 查看部署教程",
+  "section.platforms.tryLive": "在线试用",
+  "section.platforms.noLive": "不支持在线分享",
   "deploy.label": "部署教程",
   "deploy.intro": "完整教程, 三语并列. 可按步骤将这个知识库部署到对应平台.",
   "deploy.platform.chatgpt": "ChatGPT GPT 部署教程",
