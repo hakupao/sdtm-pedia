@@ -1,0 +1,4088 @@
+{
+  "summary": {
+    "n_questions": 102,
+    "model": "deepseek/deepseek-chat",
+    "threshold": 0.85,
+    "source_recall_avg": 0.9902,
+    "source_recall_by_category": {
+      "concept": 1.0,
+      "cross_domain": 0.96,
+      "mixed": 1.0,
+      "single_domain": 1.0
+    },
+    "fact_recall_avg": 0.9534,
+    "fact_recall_by_category": {
+      "concept": 0.9867,
+      "cross_domain": 0.9267,
+      "mixed": 0.95,
+      "single_domain": 0.9506
+    },
+    "overall": 0.9718,
+    "total_tokens": 1524720,
+    "verdict": "PASS",
+    "top_k": 15,
+    "structured_lookup": true,
+    "hybrid": {
+      "fusion": "rrf",
+      "alpha": null
+    }
+  },
+  "results": [
+    {
+      "id": "q01",
+      "category": "single_domain",
+      "question": "What is AETERM and what are its variable attributes in the AE domain?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/AE/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/AE/spec.md",
+        "domains/AE/assumptions.md",
+        "domains/AE/examples.md",
+        "domains/FA/examples.md",
+        "domains/AE/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.5884,
+        0.6641,
+        0.5284,
+        0.494,
+        0.6105
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "Topic",
+        "Char",
+        "Req",
+        "Verbatim"
+      ],
+      "fact_misses": [],
+      "answer_preview": "Based on the retrieved context, here are the variable attributes for **AETERM** in the AE domain:\n\n- **Label:** Reported Term for the Adverse Event\n- **Type:** Char\n- **Controlled Terms:** (none specified)\n- **Role:** Topic\n- **Core:** Req\n- **CDISC Notes:** Verbatim name of the event.\n\n**[Source: domains/AE/spec.md -- AETERM]**\n\nAdditionally, the AE domain assumptions clarify that AETERM captures the verbatim term collected for the event and is the topic variable for the AE dataset. It is a required variable and must have a value. If the verbatim term is modified to facilitate coding, the mod",
+      "usage": {
+        "prompt_tokens": 14037,
+        "completion_tokens": 191,
+        "total_tokens": 14228
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 2.58
+    },
+    {
+      "id": "q02",
+      "category": "single_domain",
+      "question": "What are the required (Core=Req) variables in the DM domain?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/DM/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/DM/spec.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch04_general_assumptions.md",
+        "domains/DM/assumptions.md",
+        "model/01_concepts_and_terms.md"
+      ],
+      "top5_similarities": [
+        0.4813,
+        0.5064,
+        0.5671,
+        0.6081,
+        0.5049
+      ],
+      "fact_recall": 0.3333,
+      "fact_hits": [
+        "STUDYID",
+        "USUBJID"
+      ],
+      "fact_misses": [
+        "RFSTDTC",
+        "AGE",
+        "SEX",
+        "ARM"
+      ],
+      "answer_preview": "Based on the SDTMIG v3.4 knowledge base, the Demographics (DM) domain is a special-purpose domain that serves as the parent domain for all other observations for human clinical subjects **[Source: domains/DM/assumptions.md]**.\n\nThe DM domain specification table (spec.md) lists the following variable with Core=Req:\n\n- **DOMAIN** — Domain Abbreviation (Char, Identifier, Req) — Two-character abbreviation for the domain **[Source: domains/DM/spec.md]**\n\nHowever, the DM domain contains additional Required variables that are defined in the SDTM model rather than in the DM spec.md alone. According to",
+      "usage": {
+        "prompt_tokens": 14324,
+        "completion_tokens": 490,
+        "total_tokens": 14814
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 4.9
+    },
+    {
+      "id": "q03",
+      "category": "single_domain",
+      "question": "What are the key assumptions for adverse event data collection and coding?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/AE/assumptions.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/AE/assumptions.md",
+        "domains/FA/examples.md",
+        "domains/AE/assumptions.md",
+        "domains/AE/assumptions.md",
+        "domains/AE/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.5919,
+        0.5041,
+        0.5608,
+        0.5755,
+        0.5716
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "AETERM",
+        "MedDRA",
+        "AEDECOD"
+      ],
+      "fact_misses": [],
+      "answer_preview": "# Key Assumptions for Adverse Event Data Collection and Coding\n\nBased on the SDTMIG v3.4 knowledge base, here are the key assumptions for adverse event (AE) data collection and coding:\n\n## 1. AE Definition and Scope\n\nThe AE dataset includes clinical data describing \"any untoward medical occurrence in a patient or clinical investigation subject administered a pharmaceutical product and which does not necessarily have to have a causal relationship with this treatment\" (ICH E2A). Sponsors may extend or limit the scope of AE collection in consultation with regulatory authorities (e.g., collecting ",
+      "usage": {
+        "prompt_tokens": 15979,
+        "completion_tokens": 1228,
+        "total_tokens": 17207
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 8.85
+    },
+    {
+      "id": "q04",
+      "category": "single_domain",
+      "question": "What is the purpose of the TV (Trial Visits) domain and what variables does it contain?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/TV/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/TV/spec.md",
+        "domains/SV/assumptions.md",
+        "domains/TV/assumptions.md",
+        "domains/TV/examples.md",
+        "domains/TV/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.5894,
+        0.6873,
+        0.6384,
+        0.6648,
+        0.6176
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "VISITNUM",
+        "VISIT"
+      ],
+      "fact_misses": [],
+      "answer_preview": "## TV (Trial Visits) Domain — Purpose and Variables\n\n### Purpose\n\nThe TV (Trial Visits) domain is part of the **Trial Design Model** and describes the **protocol-defined planned schedule of subject encounters** at the healthcare facility where the study is being conducted. **[Source: domains/TV/assumptions.md — overview]**\n\nIts key purposes include:\n\n1. **Defining planned visits** — The TV dataset defines the planned visits for the trial, against which actual subject visits (in the SV domain) can be compared. **[Source: domains/SV/assumptions.md — item_1]**\n2. **Providing planned timing** — Vi",
+      "usage": {
+        "prompt_tokens": 14973,
+        "completion_tokens": 726,
+        "total_tokens": 15699
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 5.95
+    },
+    {
+      "id": "q05",
+      "category": "single_domain",
+      "question": "In the PE (Physical Examination) domain, what is the structure of the dataset, what is the role of the PETESTCD variable, and what value should PETESTCD have when the results of the entire physical examination are represented in one record?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/PE/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/PE/spec.md",
+        "domains/PE/spec.md",
+        "VARIABLE_INDEX.md",
+        "domains/PE/assumptions.md",
+        "domains/PE/examples.md"
+      ],
+      "top5_similarities": [
+        0.731,
+        0.7026,
+        0.6909,
+        0.6232,
+        0.6542
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "PETESTCD",
+        "Topic",
+        "PHYSEXAM"
+      ],
+      "fact_misses": [],
+      "answer_preview": "Based on the SDTMIG v3.4 knowledge base, here are the details for the PE (Physical Examination) domain:\n\n**1. Dataset Structure**\n\nThe PE domain is a Findings class domain. The dataset structure is \"One record per body system examined per subject per visit or time point\" (implied by the variables and examples). Each record represents the finding for a specific body system (e.g., Head, Skin, Heart) assessed during a physical examination. **[Source: domains/PE/examples.md]**\n\n**2. Role of PETESTCD**\n\n- **Label:** Body System Examined Short Name\n- **Type:** Char\n- **Role:** Topic\n- **Core:** Req ",
+      "usage": {
+        "prompt_tokens": 16457,
+        "completion_tokens": 316,
+        "total_tokens": 16773
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 3.58
+    },
+    {
+      "id": "q21",
+      "category": "single_domain",
+      "question": "What is the LBTESTCD variable in the LB (Laboratory Test Results) domain? Describe its role, controlled terminology codelist code, and naming constraints.",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/LB/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/LB/spec.md",
+        "terminology/core/lb_part2.md",
+        "domains/LB/spec.md",
+        "domains/LB/assumptions.md",
+        "domains/LB/examples.md"
+      ],
+      "top5_similarities": [
+        0.7837,
+        0.5222,
+        0.7118,
+        0.7499,
+        0.6639
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "Topic",
+        "C65047",
+        "8 characters"
+      ],
+      "fact_misses": [],
+      "answer_preview": "## LBTESTCD — Lab Test or Examination Short Name\n\nBased on the SDTMIG v3.4 knowledge base, here is the complete specification for LBTESTCD in the LB domain:\n\n### Variable Definition\n\n| Attribute | Value |\n|-----------|-------|\n| **Label** | Lab Test or Examination Short Name |\n| **Type** | Char |\n| **Role** | Topic |\n| **Core** | Required |\n| **Controlled Terms** | C65047 (Laboratory Test Code) |\n\n**[Source: domains/LB/spec.md — LBTESTCD]**\n\n### Naming Constraints\n\nPer the CDISC Notes in the specification:\n\n1. **Maximum length**: 8 characters\n2. **First character**: Cannot start with a number ",
+      "usage": {
+        "prompt_tokens": 15443,
+        "completion_tokens": 721,
+        "total_tokens": 16164
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 6.94
+    },
+    {
+      "id": "q22",
+      "category": "single_domain",
+      "question": "What is the VS (Vital Signs) domain and what are some examples of VSTESTCD values? Include the codelist code.",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/VS/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/VS/spec.md",
+        "terminology/core/vs.md",
+        "domains/VS/spec.md",
+        "VARIABLE_INDEX.md",
+        "domains/VS/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.7384,
+        0.5465,
+        0.6467,
+        0.6305,
+        0.6914
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "Findings",
+        "VSTESTCD",
+        "C66741"
+      ],
+      "fact_misses": [],
+      "answer_preview": "## VS (Vital Signs) Domain\n\nThe **VS** domain is a **Findings** class domain used to represent vital signs measurements collected during a clinical trial. It contains one record per vital sign measurement per subject per time point.\n\n**Key characteristics:**\n- **Class:** Findings\n- **Structure:** One record per vital sign measurement per subject per time point\n- **Purpose:** Tabulation\n- **Keys:** STUDYID, USUBJID, VSTESTCD, VSDTC\n\n*[Source: chapters/ch03_submitting_data.md]*\n\n---\n\n## VSTESTCD — Vital Signs Test Short Name\n\n| Attribute | Value |\n|-----------|-------|\n| **Label** | Vital Signs ",
+      "usage": {
+        "prompt_tokens": 13722,
+        "completion_tokens": 907,
+        "total_tokens": 14629
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 6.92
+    },
+    {
+      "id": "q23",
+      "category": "single_domain",
+      "question": "In the CM (Concomitant Medications) domain, what is the CMTRT variable and what observation class does CM belong to?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/CM/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/CM/spec.md",
+        "domains/CM/assumptions.md",
+        "domains/CM/assumptions.md",
+        "VARIABLE_INDEX.md",
+        "domains/CM/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.6736,
+        0.6595,
+        0.6281,
+        0.5988,
+        0.5731
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "CMTRT",
+        "Interventions",
+        "Topic",
+        "Req"
+      ],
+      "fact_misses": [],
+      "answer_preview": "Based on the retrieved context, here is the answer to your question:\n\n### CMTRT Variable Definition\n\n**CMTRT** (Reported Name of Drug, Med, or Therapy) is the **Topic** variable for the CM domain. It is a **Required** character field that captures the verbatim name of the concomitant medication or therapy as collected on the CRF. It must contain only the medication/therapy name and must not include dosage, formulation, or other qualifying information (e.g., \"ASPIRIN 100MG TABLET\" is invalid; it should be recorded as CMTRT=\"ASPIRIN\" with separate variables for dose and form). **[Source: domains",
+      "usage": {
+        "prompt_tokens": 14133,
+        "completion_tokens": 268,
+        "total_tokens": 14401
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 3.19
+    },
+    {
+      "id": "q24",
+      "category": "single_domain",
+      "question": "What is the EX (Exposure) domain used for and what is the Topic variable EXTRT?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/EX/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/EX/spec.md",
+        "domains/EX/assumptions.md",
+        "domains/EX/assumptions.md",
+        "domains/EX/assumptions.md",
+        "domains/EX/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.5483,
+        0.6559,
+        0.6116,
+        0.5522,
+        0.6203
+      ],
+      "fact_recall": 0.6667,
+      "fact_hits": [
+        "EXTRT",
+        "protocol-specified"
+      ],
+      "fact_misses": [
+        "Interventions"
+      ],
+      "answer_preview": "Based on the provided context, the EX (Exposure) domain is used to represent protocol-specified study treatment administrations, typically as a derived dataset reflecting the actual exposure of a subject to the study treatment.\n\nThe Topic variable for the EX domain is **EXTRT** (Name of Treatment).\n\nHere are the details:\n\n*   **Domain Purpose:** The EX domain represents protocol-specified study treatments (e.g., placebo, active comparators, investigational products). It is recognized in most cases as a derived dataset where `EXDOSU` reflects the protocol-specified unit per study treatment. Col",
+      "usage": {
+        "prompt_tokens": 15956,
+        "completion_tokens": 498,
+        "total_tokens": 16454
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 4.35
+    },
+    {
+      "id": "q25",
+      "category": "single_domain",
+      "question": "In the MH (Medical History) domain, what is the role of MHTERM and what assumptions guide medical history data collection?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/MH/assumptions.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/MH/spec.md",
+        "domains/MH/assumptions.md",
+        "VARIABLE_INDEX.md",
+        "domains/MH/assumptions.md",
+        "domains/MH/examples.md"
+      ],
+      "top5_similarities": [
+        0.6764,
+        0.7369,
+        0.6858,
+        0.6768,
+        0.6213
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "MHTERM",
+        "Topic",
+        "Verbatim"
+      ],
+      "fact_misses": [],
+      "answer_preview": "Based on the retrieved context, here is the role of MHTERM and the assumptions guiding medical history data collection in the MH domain.\n\n### Role of MHTERM\n\n- **Label:** Reported Term for the Medical History\n- **Type:** Char\n- **Role:** Topic\n- **Core:** Req\n- **CDISC Notes:** Verbatim or preprinted CRF term for the medical condition or event. **[Source: domains/MH/spec.md]**\n\nMHTERM is the **Topic variable** for the MH domain and is a **Required** field. It captures the verbatim term collected for the condition or event, or the prespecified term used to collect information about the occurren",
+      "usage": {
+        "prompt_tokens": 14014,
+        "completion_tokens": 930,
+        "total_tokens": 14944
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 6.52
+    },
+    {
+      "id": "q26",
+      "category": "single_domain",
+      "question": "Describe the EG (ECG Test Results) domain structure and the EGTESTCD variable, including its controlled terminology codelist codes.",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/EG/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/EG/spec.md",
+        "terminology/core/eg_part3.md",
+        "terminology/core/eg_part2.md",
+        "domains/EG/spec.md",
+        "VARIABLE_INDEX.md"
+      ],
+      "top5_similarities": [
+        0.7263,
+        0.5879,
+        0.5242,
+        0.7253,
+        0.6737
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "EGTESTCD",
+        "Findings",
+        "C71153"
+      ],
+      "fact_misses": [],
+      "answer_preview": "## EG (ECG Test Results) Domain Structure\n\nThe EG domain is a **Findings** class domain representing electrocardiogram test results, measurements, and interpretations collected from subjects during clinical trials.\n\n### Domain Overview\n\nBased on the specification and examples, the EG domain contains the following variable categories:\n\n**Identifier Variables:** EGSEQ (Req), EGGRPID (Perm), EGREFID (Perm), EGSPID (Perm), EGBEATNO (Perm) **[Source: VARIABLE_INDEX.md — EG]**\n\n**Topic Variables:** EGTESTCD (Req), EGTEST (Req) **[Source: VARIABLE_INDEX.md — EG]**\n\n**Grouping Qualifiers:** EGCAT (Per",
+      "usage": {
+        "prompt_tokens": 15940,
+        "completion_tokens": 1471,
+        "total_tokens": 17411
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 10.21
+    },
+    {
+      "id": "q27",
+      "category": "single_domain",
+      "question": "What is the IE (Inclusion/Exclusion) domain and what is the role and maximum length of the IETEST variable?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/IE/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/IE/spec.md",
+        "domains/TI/spec.md",
+        "domains/TI/assumptions.md",
+        "domains/IE/assumptions.md",
+        "domains/IE/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.6769,
+        0.7161,
+        0.6678,
+        0.6364,
+        0.6552
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "IETEST",
+        "200",
+        "Synonym Qualifier"
+      ],
+      "fact_misses": [],
+      "answer_preview": "Based on the retrieved context, the IE (Inclusion/Exclusion Criteria Not Met) domain is a Findings class domain used to collect responses to only those inclusion/exclusion criteria that a subject **did not meet**, rather than responses to all criteria. For the complete list of all criteria, the TI (Trial Inclusion/Exclusion Criteria) domain should be referenced **[Source: domains/IE/assumptions.md -- item_1]**.\n\nThe **IETEST** variable has the following attributes:\n\n- **Label:** Inclusion/Exclusion Criterion\n- **Type:** Char\n- **Role:** Synonym Qualifier\n- **Core:** Req\n- **Maximum Length:** 2",
+      "usage": {
+        "prompt_tokens": 9394,
+        "completion_tokens": 198,
+        "total_tokens": 9592
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 2.68
+    },
+    {
+      "id": "q06",
+      "category": "cross_domain",
+      "question": "What is SUPPQUAL and when should supplemental qualifiers be used instead of adding variables to a domain?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/SUPPQUAL/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/SUPPQUAL/spec.md",
+        "domains/SUPPQUAL/assumptions.md",
+        "chapters/ch08_relationships.md",
+        "chapters/ch08_relationships.md",
+        "chapters/ch08_relationships.md"
+      ],
+      "top5_similarities": [
+        0.5533,
+        0.7409,
+        0.7302,
+        0.6569,
+        0.5621
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "QNAM",
+        "QVAL",
+        "non-standard"
+      ],
+      "fact_misses": [],
+      "answer_preview": "## SUPPQUAL — Supplemental Qualifiers Dataset\n\n**SUPPQUAL** (Supplemental Qualifiers for [domain name]) is a special-purpose relationship dataset model used to capture **non-standard variables (NSVs)** — sponsor-defined variables that cannot be accommodated in the standard SDTM domain datasets. **[Source: model/06_relationship_datasets.md §6.2]**\n\n### Structure\n\n- **One record per supplemental qualifier per related parent domain record(s)**\n- Submitted as separate datasets named `SUPP--.xpt` (e.g., `suppae.xpt`, `suppcm.xpt`), where \"--\" represents the parent domain abbreviation **[Source: cha",
+      "usage": {
+        "prompt_tokens": 16401,
+        "completion_tokens": 1222,
+        "total_tokens": 17623
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 9.39
+    },
+    {
+      "id": "q07",
+      "category": "cross_domain",
+      "question": "Which SDTM domains use the EPOCH variable and what is its purpose?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "VARIABLE_INDEX.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "VARIABLE_INDEX.md",
+        "chapters/ch04_general_assumptions.md",
+        "model/01_concepts_and_terms.md",
+        "domains/SR/spec.md",
+        "chapters/ch02_fundamentals.md"
+      ],
+      "top5_similarities": [
+        0.5124,
+        0.7004,
+        11.8134,
+        0.6837,
+        11.0386
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "EPOCH",
+        "Timing"
+      ],
+      "fact_misses": [],
+      "answer_preview": "## EPOCH Variable: Usage Across SDTM Domains\n\n### Purpose of EPOCH\n\nEPOCH is a **Timing variable** (Role: Timing, Type: Char, Core: Permissible) that identifies the study epoch associated with an observation. It is controlled by terminology codelist **C99079** (Epoch). **[Source: domains/SR/spec.md]**\n\nEPOCH represents a study-design construct that categorizes observations into predefined periods of a clinical study (e.g., \"SCREENING\", \"TREATMENT\", \"FOLLOW-UP\"). **[Source: domains/SR/spec.md]**\n\n### Domains Using EPOCH\n\nEPOCH is used across **all three general observation classes** (Interventi",
+      "usage": {
+        "prompt_tokens": 14154,
+        "completion_tokens": 1130,
+        "total_tokens": 15284
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 9.21
+    },
+    {
+      "id": "q08",
+      "category": "cross_domain",
+      "question": "How does USUBJID serve as a linking key across SDTM domains?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/DM/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "VARIABLE_INDEX.md",
+        "domains/SUPPQUAL/spec.md",
+        "chapters/ch04_general_assumptions.md",
+        "domains/DM/spec.md",
+        "chapters/ch03_submitting_data.md"
+      ],
+      "top5_similarities": [
+        0.4878,
+        0.7075,
+        10.4468,
+        0.6923,
+        9.9812
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "USUBJID",
+        "Identifier",
+        "unique"
+      ],
+      "fact_misses": [],
+      "answer_preview": "Based on the provided context, **USUBJID (Unique Subject Identifier)** serves as the primary linking key across SDTM domains by uniquely identifying a subject within a study, enabling the association of all records belonging to that subject across different datasets.\n\nHere is a detailed breakdown of its role as a linking key:\n\n1.  **Universal Identifier Across All Domains:** USUBJID is a required (Req) Identifier variable in virtually all SDTM domains. It is defined as an \"Identifier used to uniquely identify a subject across all studies for all applications or submissions involving the produc",
+      "usage": {
+        "prompt_tokens": 13649,
+        "completion_tokens": 715,
+        "total_tokens": 14364
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 7.45
+    },
+    {
+      "id": "q09",
+      "category": "cross_domain",
+      "question": "How are adverse events linked to concomitant medications using RELREC?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/RELREC/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/RELREC/spec.md",
+        "domains/AE/spec.md",
+        "chapters/ch08_relationships.md",
+        "domains/RELREC/examples.md",
+        "domains/RELREC/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.4612,
+        0.5185,
+        0.6173,
+        0.583,
+        0.5376
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "RELREC",
+        "IDVAR",
+        "IDVARVAL"
+      ],
+      "fact_misses": [],
+      "answer_preview": "## Linking Adverse Events to Concomitant Medications via RELREC\n\nAdverse events (AE) are linked to concomitant medications (CM) using the **Related Records (RELREC)** special-purpose dataset. This mechanism is used when a non-study treatment was given because of the occurrence of an adverse event.\n\n### Mechanism\n\nThe relationship is established by:\n\n1. **Adding records to RELREC** — one record for each related record (AE or CM), all sharing the same `RELID` value within a `USUBJID` **[Source: domains/RELREC/assumptions.md]**\n\n2. **Using key variables** to identify the related records:\n   - `ST",
+      "usage": {
+        "prompt_tokens": 16000,
+        "completion_tokens": 884,
+        "total_tokens": 16884
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 7.11
+    },
+    {
+      "id": "q10",
+      "category": "cross_domain",
+      "question": "In oncology studies, how are the TR (Tumor/Lesion Results) domain and RS (Disease Response) domain linked together, and which specific identifier variables are used for each linkage direction?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/TR/assumptions.md",
+        "domains/TR/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/TR/spec.md",
+        "domains/RS/spec.md",
+        "domains/RS/assumptions.md",
+        "domains/TR/assumptions.md",
+        "domains/TR/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.6207,
+        0.6214,
+        0.713,
+        0.7055,
+        0.6926
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "TRLNKID",
+        "TRLNKGRP"
+      ],
+      "fact_misses": [],
+      "answer_preview": "## TR–RS Linkage in Oncology Studies\n\nThe TR (Tumor/Lesion Results) and RS (Disease Response) domains are linked using **RELREC relationship records**, with the **`--LNKGRP`** variable serving as the linking identifier on both sides.\n\n### Linkage Mechanism\n\nThe relationship is established through a **dataset-to-dataset RELREC relationship**, using the `--LNKGRP` variable (not `--LNKID`, which is reserved for TU–TR linkage). This is explicitly stated in both domain assumptions:\n\n> \"TRLNKGRP is used to relate records in the TR domain to a response assessment record in the RS domain. The organiza",
+      "usage": {
+        "prompt_tokens": 14741,
+        "completion_tokens": 1012,
+        "total_tokens": 15753
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 8.35
+    },
+    {
+      "id": "q28",
+      "category": "cross_domain",
+      "question": "What is the FA (Findings About Events or Interventions) domain and how does it link to parent domains like AE or CM using FAOBJ?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/FA/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "VARIABLE_INDEX.md",
+        "domains/FA/spec.md",
+        "domains/AE/spec.md",
+        "domains/CM/spec.md",
+        "domains/FA/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.5985,
+        0.5917,
+        0.6388,
+        0.4692,
+        0.6937
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "Findings About",
+        "FAOBJ",
+        "FATESTCD"
+      ],
+      "fact_misses": [],
+      "answer_preview": "## FA (Findings About Events or Interventions) Domain\n\nThe **FA domain** is a subtype of the Findings observation class used to record findings *about* observations in the Interventions or Events classes. It captures data that describe properties or assessments of events or interventions, rather than the events/interventions themselves **[Source: model/02_observation_classes.md]**.\n\n### Key Characteristics\n\n- **Structure:** One record per finding\n- **Class:** Findings About (subtype of Findings)\n- **Unique variable:** `--OBJ` (in FA domain: `FAOBJ`) — describes the event or intervention whose ",
+      "usage": {
+        "prompt_tokens": 16370,
+        "completion_tokens": 1332,
+        "total_tokens": 17702
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 10.99
+    },
+    {
+      "id": "q29",
+      "category": "cross_domain",
+      "question": "How do the four Trial Design domains TA (Trial Arms), TE (Trial Elements), TV (Trial Visits), and TI (Trial Inclusion/Exclusion) work together to define a study design?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/TA/assumptions.md",
+        "domains/TE/assumptions.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/TA/spec.md",
+        "domains/TE/spec.md",
+        "domains/TV/spec.md",
+        "domains/TE/assumptions.md",
+        "domains/TA/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.7568,
+        0.7352,
+        0.7534,
+        0.7359,
+        0.7245
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "TA",
+        "TE",
+        "TV",
+        "TI"
+      ],
+      "fact_misses": [],
+      "answer_preview": "# How TA, TE, TV, and TI Work Together to Define a Study Design\n\nThe four Trial Design domains form a **hierarchical, interconnected model** that describes a clinical trial's planned conduct from multiple perspectives. Here's how they relate:\n\n## 1. TE (Trial Elements) — The Building Blocks\n\nTE defines the **fundamental time intervals** (elements) that serve a purpose in the trial. Each element appears **once** in TE, even if used multiple times across arms.\n\n**Key variables:** ETCD (Element Code), ELEMENT, TESTRL (Start Rule), TEENRL (End Rule), TEDUR (Duration)\n\n> *\"An element is a building ",
+      "usage": {
+        "prompt_tokens": 14191,
+        "completion_tokens": 1004,
+        "total_tokens": 15195
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 9.29
+    },
+    {
+      "id": "q30",
+      "category": "cross_domain",
+      "question": "What is the CO (Comments) domain and how does it reference records in other SDTM domains? Describe the RDOMAIN and IDVAR mechanism.",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/CO/spec.md",
+        "domains/CO/assumptions.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "VARIABLE_INDEX.md",
+        "domains/CO/spec.md",
+        "chapters/ch08_relationships.md",
+        "domains/CO/assumptions.md",
+        "domains/CO/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.569,
+        0.6492,
+        0.6728,
+        0.6876,
+        0.7154
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "COVAL",
+        "RDOMAIN",
+        "IDVAR"
+      ],
+      "fact_misses": [],
+      "answer_preview": "## CO (Comments) Domain — Overview and Relationship Mechanism\n\n### Domain Description\n\nThe Comments (CO) domain is a **special-purpose domain** used to capture unstructured free-text comments that are not part of normal domain data. Comments are normally supplied by a principal investigator but may also be collected from other sources such as central reviewers. **[Source: model/03_special_purpose_domains.md]**\n\n**Structure:** One record per comment per subject (or per study) **[Source: model/03_special_purpose_domains.md]**\n\n### Key Variables\n\n| Variable | Label | Type | Role | Core |\n|-------",
+      "usage": {
+        "prompt_tokens": 14752,
+        "completion_tokens": 1196,
+        "total_tokens": 15948
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 8.65
+    },
+    {
+      "id": "q31",
+      "category": "cross_domain",
+      "question": "How are the EC (Exposure as Collected) and EX (Exposure) domains different in purpose, and when should each be used?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/EC/assumptions.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/EC/spec.md",
+        "domains/EX/spec.md",
+        "domains/EX/assumptions.md",
+        "domains/EC/assumptions.md",
+        "domains/EX/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.5814,
+        0.5962,
+        0.7328,
+        0.7317,
+        0.5907
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "collected",
+        "EX",
+        "EC"
+      ],
+      "fact_misses": [],
+      "answer_preview": "## EC vs EX: Purpose and Usage\n\n### Core Distinction\n\n**EC (Exposure as Collected)** represents protocol-specified study treatment administrations **as they were actually collected** (e.g., tablets, mL), while **EX (Exposure)** represents the **derived** exposure in the **protocol-specified unit** (e.g., mg, mg/kg). **[Source: domains/EC/assumptions.md -- item_1]**\n\n### When to Use Each Domain\n\n#### EC Domain — Use When:\n1. **Collected data cannot be directly represented in EX** — e.g., administrations collected in tablets when the protocol-specified unit is mg, or in mL when the unit is mg/kg",
+      "usage": {
+        "prompt_tokens": 13859,
+        "completion_tokens": 946,
+        "total_tokens": 14805
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 7.84
+    },
+    {
+      "id": "q32",
+      "category": "cross_domain",
+      "question": "How is VISIT and VISITNUM used consistently across observation-class domains, and what role does the SV (Subject Visits) domain play in tracking actual visit dates?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/SV/spec.md",
+        "domains/SV/assumptions.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "VARIABLE_INDEX.md",
+        "domains/SV/spec.md",
+        "model/03_special_purpose_domains.md",
+        "chapters/ch04_general_assumptions.md",
+        "domains/SV/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.6554,
+        0.6543,
+        0.7044,
+        0.6665,
+        0.6646
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "VISIT",
+        "VISITNUM",
+        "SV"
+      ],
+      "fact_misses": [],
+      "answer_preview": "Based on the provided context, here is how VISIT and VISITNUM are used consistently across observation-class domains and the role of the SV domain.\n\n### Consistency of VISIT and VISITNUM Across Domains\n\nVISITNUM and VISIT are standard timing variables used across all three general observation classes (Interventions, Events, and Findings) to link subject-level data to a specific clinical encounter.\n\n- **VISITNUM (Visit Number):** This is a **Num** variable with a **Timing** role. It is defined as the \"Clinical encounter number\" and a \"Numeric version of VISIT, used for sorting.\" Its core is typ",
+      "usage": {
+        "prompt_tokens": 13966,
+        "completion_tokens": 1045,
+        "total_tokens": 15011
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 8.46
+    },
+    {
+      "id": "q33",
+      "category": "cross_domain",
+      "question": "What is the RELSPEC domain and how does it define relationships between datasets at the study level, as opposed to RELREC which links individual records?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/RELSPEC/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/RELSPEC/spec.md",
+        "domains/RELREC/spec.md",
+        "domains/RELREC/assumptions.md",
+        "chapters/ch08_relationships.md",
+        "chapters/ch08_relationships.md"
+      ],
+      "top5_similarities": [
+        0.5814,
+        0.6533,
+        0.7707,
+        0.7621,
+        0.7252
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "RELSPEC",
+        "RELREC"
+      ],
+      "fact_misses": [],
+      "answer_preview": "# RELSPEC Domain vs RELREC Domain\n\n## RELSPEC (Related Specimens)\n\n**Purpose:** The RELSPEC special-purpose dataset is used to describe relationships **between specimens**, enabling representation of specimen lineage (e.g., parent specimen to derived aliquots or processed specimens). **[Source: model/06_relationship_datasets.md §6.7]**\n\n**Key characteristics:**\n- **Structure:** One record per specimen identifier per subject **[Source: model/06_relationship_datasets.md §6.7]**\n- **Scope:** Specimen-to-specimen relationships only — it is **not** used to manage relationships between any other dat",
+      "usage": {
+        "prompt_tokens": 15174,
+        "completion_tokens": 1157,
+        "total_tokens": 16331
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 8.93
+    },
+    {
+      "id": "q34",
+      "category": "cross_domain",
+      "question": "Which SDTM domains share the controlled terminology codelist for NY (No Yes Response, C66742), and what variable typically uses this codelist in those domains?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "VARIABLE_INDEX.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "VARIABLE_INDEX.md",
+        "terminology/core/general_part4.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch04_general_assumptions.md",
+        "model/01_concepts_and_terms.md"
+      ],
+      "top5_similarities": [
+        0.4516,
+        0.5903,
+        0.6157,
+        0.6351,
+        0.5697
+      ],
+      "fact_recall": 0.5,
+      "fact_hits": [
+        "C66742"
+      ],
+      "fact_misses": [
+        "NY"
+      ],
+      "answer_preview": "Based on the retrieved context, the **No Yes Response (C66742)** codelist is referenced in the following SDTM domains:\n\n| Domain | Variable(s) Using C66742 | Source |\n|--------|--------------------------|--------|\n| **SV** (Subject Visits) | `SVPRESP`, `SVOCCUR`, `SVEPCHGI` | [domains/SV/spec.md] |\n| **TM** (Trial Disease Milestones) | `TMRPT` | [domains/TM/spec.md] |\n\nThe **No Yes Response (C66742)** codelist contains the following permissible values:\n\n| Code | Submission Value | Definition |\n|------|------------------|------------|\n| C49487 | N | No |\n| C48660 | NA | Not Applicable |\n| C1799",
+      "usage": {
+        "prompt_tokens": 12524,
+        "completion_tokens": 254,
+        "total_tokens": 12778
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 2.84
+    },
+    {
+      "id": "q11",
+      "category": "concept",
+      "question": "What are the three observation classes in the SDTM model?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "model/02_observation_classes.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "model/01_concepts_and_terms.md",
+        "model/02_observation_classes.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch04_general_assumptions.md",
+        "terminology/supplementary/supplementary_part5.md"
+      ],
+      "top5_similarities": [
+        0.5632,
+        0.7205,
+        0.5452,
+        0.5352,
+        0.5473
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "Interventions",
+        "Events",
+        "Findings"
+      ],
+      "fact_misses": [],
+      "answer_preview": "Based on the SDTM knowledge base, the three general observation classes are **Interventions**, **Events**, and **Findings**.\n\nThese are defined in the SDTM model as the primary categories for organizing the majority of observations collected during a study. Datasets representing subject data are of two types: general observation class datasets (based on these three classes) and special-purpose datasets **[Source: model/02_observation_classes.md]**.\n\n- **Interventions**: Represents investigational, therapeutic, and other treatments administered to or used by a subject, with some actual or expec",
+      "usage": {
+        "prompt_tokens": 14455,
+        "completion_tokens": 224,
+        "total_tokens": 14679
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 2.76
+    },
+    {
+      "id": "q12",
+      "category": "concept",
+      "question": "What do the Core designations Req, Exp, and Perm mean in SDTM?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "chapters/ch04"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "chapters/ch04_general_assumptions.md",
+        "VARIABLE_INDEX.md",
+        "domains/SUPPQUAL/spec.md",
+        "chapters/ch04_general_assumptions.md",
+        "domains/CO/spec.md"
+      ],
+      "top5_similarities": [
+        0.6571,
+        0.5558,
+        0.6055,
+        5.7202,
+        0.5926
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "Required",
+        "Expected",
+        "Permissible"
+      ],
+      "fact_misses": [],
+      "answer_preview": "## SDTM Core Designations: Req, Exp, and Perm\n\nThe **Core** column in SDTM domain models specifies whether a variable is Required, Expected, or Permissible. These designations determine whether a variable must be included in a dataset and whether null values are allowed.\n\n---\n\n### Req (Required)\n\n| Attribute | Value |\n|-----------|-------|\n| **Meaning** | A Required variable is basic to the identification of a data record (i.e., essential key variables and a topic variable) or is necessary to make the record meaningful. |\n| **Rule** | Must always be included in the dataset and **cannot be null",
+      "usage": {
+        "prompt_tokens": 13241,
+        "completion_tokens": 704,
+        "total_tokens": 13945
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 5.57
+    },
+    {
+      "id": "q13",
+      "category": "concept",
+      "question": "What is the difference between Topic, Qualifier, and Identifier variable roles?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "model/01_concepts_and_terms.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "model/01_concepts_and_terms.md",
+        "model/06_relationship_datasets.md",
+        "chapters/ch08_relationships.md",
+        "chapters/ch04_general_assumptions.md",
+        "domains/ML/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.4934,
+        0.4564,
+        0.4718,
+        0.526,
+        0.5227
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "Topic",
+        "Qualifier",
+        "Identifier"
+      ],
+      "fact_misses": [],
+      "answer_preview": "## Difference Between Topic, Qualifier, and Identifier Variable Roles\n\nThe SDTM defines **5 major variable roles**, of which Identifier, Topic, and Qualifier are three. Each role describes the type of information conveyed by the variable about each distinct observation and how it can be used. **[Source: model/01_concepts_and_terms.md]**\n\n### 1. Identifier Variables\n\n**Purpose:** Identify the study, subject, domain, and sequence number of the record.\n\n**Characteristics:**\n- Provide the keys for linking records across datasets\n- Always appear first in the variable ordering within a domain\n- Core",
+      "usage": {
+        "prompt_tokens": 14997,
+        "completion_tokens": 1186,
+        "total_tokens": 16183
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 9.76
+    },
+    {
+      "id": "q14",
+      "category": "concept",
+      "question": "How should a sponsor create a new custom domain in SDTM?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "chapters/ch02"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch02_fundamentals.md",
+        "chapters/ch01_introduction.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch03_submitting_data.md"
+      ],
+      "top5_similarities": [
+        0.6011,
+        0.4731,
+        0.4777,
+        0.4946,
+        0.4894
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "observation class"
+      ],
+      "fact_misses": [],
+      "answer_preview": "Based on the provided context, a sponsor should follow these rules when creating a new custom domain in SDTM:\n\n1. **Reserved Prefixes**: To avoid conflicts with future CDISC-defined domain codes, domain codes beginning with the letters **X, Y, or Z** have been reserved for the creation of custom domains. Any letter or number may be used in the second position. Note that using codes beginning with X, Y, or Z is optional and not required. **[Source: chapters/ch04_general_assumptions.md -- 4.1.6]**\n\n2. **Naming Convention**: The 2-character domain code is limited to **A-Z for the first character*",
+      "usage": {
+        "prompt_tokens": 15350,
+        "completion_tokens": 408,
+        "total_tokens": 15758
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 4.17
+    },
+    {
+      "id": "q15",
+      "category": "concept",
+      "question": "What are the three SDTM Core designation categories for variables, and what are the rules for handling a Permissible variable when a study did not collect the corresponding data item?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "chapters/ch04_general_assumptions.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch01_introduction.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch04_general_assumptions.md",
+        "model/01_concepts_and_terms.md"
+      ],
+      "top5_similarities": [
+        0.7806,
+        0.6228,
+        0.5995,
+        0.5964,
+        0.6896
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "Req",
+        "Exp",
+        "Perm"
+      ],
+      "fact_misses": [],
+      "answer_preview": "## SDTM Core Designations and Permissible Variable Rules\n\n### Three Core Designation Categories\n\nThe SDTM specifies three categories in the Core column of domain models:\n\n| Core Value | Meaning | Rule |\n|------------|---------|------|\n| **Req** (Required) | Basic to identification of a data record or necessary to make the record meaningful | Must always be included in the dataset and **cannot be null** for any record |\n| **Exp** (Expected) | Necessary to make a record useful in the context of a specific domain | Must be included in the dataset; null values allowed when data not collected/appli",
+      "usage": {
+        "prompt_tokens": 15673,
+        "completion_tokens": 451,
+        "total_tokens": 16124
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 4.14
+    },
+    {
+      "id": "q35",
+      "category": "concept",
+      "question": "What is Controlled Terminology (CT) in SDTM and how does it constrain the values that variables can contain?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "chapters/ch04"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch04_general_assumptions.md",
+        "model/01_concepts_and_terms.md",
+        "model/01_concepts_and_terms.md",
+        "chapters/ch10_appendices.md"
+      ],
+      "top5_similarities": [
+        0.607,
+        0.6771,
+        0.6231,
+        0.5926,
+        0.6137
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "codelist",
+        "Controlled Terms"
+      ],
+      "fact_misses": [],
+      "answer_preview": "## Controlled Terminology (CT) in SDTM\n\n**Controlled Terminology** in SDTM refers to standardized, centrally managed sets of permissible values for specific variables, maintained by the CDISC Controlled Terminology Team through the NCI Enterprise Vocabulary Services (NCI-EVS). CT constrains variable values by defining the exact set of allowed terms that can be used for a given variable, ensuring consistency across studies and submissions.\n\n---\n\n### How CT is Represented in Domain Specifications\n\nIn SDTMIG v3.4 domain specification tables, the \"Controlled Terms, Codelist or Format\" column indic",
+      "usage": {
+        "prompt_tokens": 15145,
+        "completion_tokens": 1315,
+        "total_tokens": 16460
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 11.43
+    },
+    {
+      "id": "q36",
+      "category": "concept",
+      "question": "What are the timing variables in SDTM (such as --DTC, --STDTC, --ENDTC) and how are they structured across domains?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "chapters/ch04"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "chapters/ch04_general_assumptions.md",
+        "model/01_concepts_and_terms.md",
+        "chapters/ch04_general_assumptions.md",
+        "model/02_observation_classes.md",
+        "domains/BE/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.6533,
+        0.7001,
+        0.6573,
+        0.6517,
+        0.6647
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "DTC",
+        "STDTC",
+        "ENDTC",
+        "Timing"
+      ],
+      "fact_misses": [],
+      "answer_preview": "# SDTM Timing Variables: Structure and Usage Across Domains\n\n## Overview\n\nTiming variables are an essential component of all SDTM subject-level domain datasets. In general, all domains based on the 3 general observation classes should have at least 1 timing variable. **[Source: chapters/ch04_general_assumptions.md §4.4]**\n\n## Core Date/Time Variables\n\nThe SDTM model defines three primary date/time timing variables available across all general observation classes:\n\n| Variable | Label | Type | Format | Notes |\n|----------|-------|------|--------|-------|\n| **--DTC** | Date/Time of Collection | C",
+      "usage": {
+        "prompt_tokens": 15111,
+        "completion_tokens": 1471,
+        "total_tokens": 16582
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 10.56
+    },
+    {
+      "id": "q37",
+      "category": "concept",
+      "question": "What are the Special-Purpose datasets in SDTM and which domains fall into this category?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "model/03_special_purpose_domains.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "model/01_concepts_and_terms.md",
+        "model/02_observation_classes.md",
+        "model/03_special_purpose_domains.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch04_general_assumptions.md"
+      ],
+      "top5_similarities": [
+        0.666,
+        0.6624,
+        0.657,
+        0.5978,
+        0.6636
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "Special-Purpose",
+        "DM",
+        "CO",
+        "SUPPQUAL"
+      ],
+      "fact_misses": [],
+      "answer_preview": "Based on the SDTMIG v3.4 knowledge base, the **Special-Purpose datasets** are a category of standardized datasets used in SDTM submissions, distinct from the three General Observation Classes (Interventions, Events, Findings). They are designed to represent additional important information that does not fit neatly into the general observation class structure.\n\nThe following domains fall into the Special-Purpose category:\n\n1.  **Demographics (DM)** — Contains essential standard variables that describe each subject in a clinical study. It is the parent domain for all other observations for human",
+      "usage": {
+        "prompt_tokens": 16055,
+        "completion_tokens": 429,
+        "total_tokens": 16484
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 3.77
+    },
+    {
+      "id": "q38",
+      "category": "concept",
+      "question": "How are SDTM domain abbreviation codes assigned? What are the rules for the two-character domain code?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "chapters/ch02"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "chapters/ch04_general_assumptions.md",
+        "domains/SV/spec.md",
+        "domains/FT/spec.md",
+        "domains/EX/spec.md",
+        "domains/IE/spec.md"
+      ],
+      "top5_similarities": [
+        0.6759,
+        0.6703,
+        0.6691,
+        0.6691,
+        0.6689
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "two-character",
+        "DOMAIN"
+      ],
+      "fact_misses": [],
+      "answer_preview": "Based on the SDTMIG v3.4 knowledge base, SDTM domain abbreviation codes are assigned according to the following rules:\n\n## Assignment Rules\n\n1. **Standard Domain Codes**: SDTM datasets are normally named to be consistent with the domain code (e.g., the Demographics dataset is named `dm.xpt`). Standard domain codes are defined in the **SDTM Domain Abbreviation codelist (C66734)** in CDISC Controlled Terminology. **[Source: chapters/ch04_general_assumptions.md §4.1.6]**\n\n2. **Two-Character Code Structure**: The domain code is a **2-character abbreviation** that serves as:\n   - The dataset name\n ",
+      "usage": {
+        "prompt_tokens": 10362,
+        "completion_tokens": 596,
+        "total_tokens": 10958
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 4.57
+    },
+    {
+      "id": "q39",
+      "category": "concept",
+      "question": "What is the Findings About observation class and how does it differ from the standard Findings class?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "model/02_observation_classes.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/BS/spec.md",
+        "chapters/ch08_relationships.md",
+        "domains/CP/spec.md",
+        "model/02_observation_classes.md",
+        "domains/CV/spec.md"
+      ],
+      "top5_similarities": [
+        0.7123,
+        16.7017,
+        0.7123,
+        15.7114,
+        0.7123
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "Findings About",
+        "FAOBJ"
+      ],
+      "fact_misses": [],
+      "answer_preview": "## Findings About Observation Class\n\nThe **Findings About** observation class is a **subtype** of the Findings general observation class, designed specifically to record findings about events or interventions, rather than direct observations about a subject. **[Source: model/02_observation_classes.md]**\n\n### Key Differences from Standard Findings\n\n| Aspect | Standard Findings | Findings About |\n|--------|-------------------|----------------|\n| **Purpose** | Observations resulting from planned evaluations (lab tests, ECGs, questionnaires) | Findings about events or interventions |\n| **Topic** |",
+      "usage": {
+        "prompt_tokens": 13339,
+        "completion_tokens": 651,
+        "total_tokens": 13990
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 5.9
+    },
+    {
+      "id": "q40",
+      "category": "concept",
+      "question": "What is the difference between collected data and derived data in SDTM, and how is the origin of a variable value indicated?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "chapters/ch04"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "chapters/ch04_general_assumptions.md",
+        "model/01_concepts_and_terms.md",
+        "chapters/ch01_introduction.md",
+        "model/06_relationship_datasets.md",
+        "chapters/ch04_general_assumptions.md"
+      ],
+      "top5_similarities": [
+        0.641,
+        0.6331,
+        0.5626,
+        0.5606,
+        0.5626
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "Collected",
+        "Derived",
+        "Origin"
+      ],
+      "fact_misses": [],
+      "answer_preview": "## Difference Between Collected Data and Derived Data in SDTM\n\n### Conceptual Distinction\n\n**Collected data** are values that originate directly from a source without transformation — typically from a CRF, a vendor, or a device. **Derived data** are values that result from a computational or logical transformation applied to one or more collected values.\n\nThe key distinction is whether a human or system performed a calculation or transformation to produce the value. For example:\n\n- A lab value received from a central lab according to its procedures is considered **collected** rather than deriv",
+      "usage": {
+        "prompt_tokens": 16863,
+        "completion_tokens": 794,
+        "total_tokens": 17657
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 7.29
+    },
+    {
+      "id": "q41",
+      "category": "concept",
+      "question": "What are the Trial Design Model datasets in SDTM and what kind of study-level information do they capture?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "model/05_study_level_data.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "model/01_concepts_and_terms.md",
+        "chapters/ch04_general_assumptions.md",
+        "model/05_study_level_data.md",
+        "domains/TA/assumptions.md",
+        "domains/TI/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.6589,
+        0.66,
+        0.8164,
+        0.6195,
+        0.6483
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "Trial Design",
+        "TA",
+        "TE",
+        "TV"
+      ],
+      "fact_misses": [],
+      "answer_preview": "## Trial Design Model Datasets in SDTM\n\nThe SDTM includes **two types of study-level data**: trial design data and study reference data **[Source: model/05_study_level_data.md]**.\n\nThe **Trial Design Model (TDM)** provides a standardized way to describe the planned conduct of a clinical trial, as shown in study design diagrams and schedule of assessments tables (per ICH E3, Section 9.1) **[Source: domains/TA/assumptions.md]**. The TDM datasets allow reviewers to clearly and quickly grasp the design of a clinical trial, compare designs across trials, search data warehouses for trials with certa",
+      "usage": {
+        "prompt_tokens": 15940,
+        "completion_tokens": 774,
+        "total_tokens": 16714
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 6.91
+    },
+    {
+      "id": "q16",
+      "category": "mixed",
+      "question": "What values are allowed for AESEV and what is its codelist code?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/AE/spec.md",
+        "terminology/core/ae.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "terminology/core/ae.md",
+        "domains/AE/assumptions.md",
+        "domains/DM/examples.md",
+        "domains/AE/spec.md",
+        "chapters/ch04_general_assumptions.md"
+      ],
+      "top5_similarities": [
+        0.3821,
+        0.6134,
+        8.5566,
+        0.602,
+        7.5799
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "C66769",
+        "MILD",
+        "MODERATE",
+        "SEVERE"
+      ],
+      "fact_misses": [],
+      "answer_preview": "Based on the retrieved context, the variable **AESEV** (Severity/Intensity) in the Adverse Events (AE) domain allows the following values, defined by codelist **C66769**:\n\n| CDISC Submission Value | CDISC Synonym(s) | CDISC Definition |\n|------------------------|-------------------|------------------|\n| MILD | 1; Grade 1 | A type of adverse event that is usually transient and may require only minimal treatment or therapeutic intervention. The event does not generally interfere with usual activities of daily living. |\n| MODERATE | 2; Grade 2 | A type of adverse event that is usually alleviated ",
+      "usage": {
+        "prompt_tokens": 14827,
+        "completion_tokens": 304,
+        "total_tokens": 15131
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 2.72
+    },
+    {
+      "id": "q17",
+      "category": "mixed",
+      "question": "How are date and time variables formatted in SDTM and what suffix do they use?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "chapters/ch04"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "chapters/ch04_general_assumptions.md",
+        "model/01_concepts_and_terms.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch01_introduction.md"
+      ],
+      "top5_similarities": [
+        0.763,
+        0.6154,
+        0.6041,
+        0.5795,
+        9.6467
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "ISO 8601",
+        "DTC"
+      ],
+      "fact_misses": [],
+      "answer_preview": "## Date/Time Variable Format in SDTM\n\n### Format Standard\n\nDate and time variables in SDTM are formatted according to the **ISO 8601 extended format**, represented as character (text) data. The format pattern is:\n\n```\nYYYY-MM-DDThh:mm:ss(.n+)?(((+|-)hh:mm)|Z)?\n```\n\nWhere:\n- **YYYY** = four-digit year\n- **MM** = two-digit month (01-12)\n- **DD** = two-digit day (01-31)\n- **T** = time designator (indicates time follows)\n- **hh** = two-digit hour (00-23, 24-hour clock only — am/pm NOT allowed)\n- **mm** = two-digit minute (00-59)\n- **ss** = two-digit second (00-59)\n- **(.n+)?** = optional fractiona",
+      "usage": {
+        "prompt_tokens": 16523,
+        "completion_tokens": 618,
+        "total_tokens": 17141
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 5.46
+    },
+    {
+      "id": "q18",
+      "category": "mixed",
+      "question": "Explain the MedDRA coding chain for adverse events from verbatim term to dictionary term.",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/AE/spec.md",
+        "domains/AE/assumptions.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/AE/spec.md",
+        "chapters/ch04_general_assumptions.md",
+        "domains/AE/assumptions.md",
+        "domains/MH/assumptions.md",
+        "terminology/core/trial_design.md"
+      ],
+      "top5_similarities": [
+        0.6135,
+        0.6726,
+        0.6289,
+        0.6303,
+        0.6197
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "AETERM",
+        "AEMODIFY",
+        "AEDECOD",
+        "Preferred Term"
+      ],
+      "fact_misses": [],
+      "answer_preview": "## MedDRA Coding Chain for Adverse Events\n\nThe MedDRA coding chain for adverse events in SDTM traces the transformation from the raw verbatim term collected on the CRF through progressively standardized dictionary levels, ultimately producing the coded terms used for analysis and reporting.\n\n### 1. Verbatim Term (AETERM)\n\n**AETERM** captures the exact text as reported by the investigator or collected on the CRF. It is the **Topic** variable for the AE domain, **Required**, and must always have a value.\n\n- **Label:** Reported Term for the Adverse Event\n- **Type:** Char\n- **Role:** Topic\n- **Cor",
+      "usage": {
+        "prompt_tokens": 13936,
+        "completion_tokens": 1636,
+        "total_tokens": 15572
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 10.9
+    },
+    {
+      "id": "q19",
+      "category": "mixed",
+      "question": "What controlled terminology codelist is used for DSDECOD when DSCAT equals 'DISPOSITION EVENT', and list specific CDISC Submission Values from that codelist for reasons of non-completion.",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/DS/assumptions.md",
+        "terminology/core/disposition.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/DS/spec.md",
+        "terminology/core/disposition.md",
+        "domains/DS/assumptions.md",
+        "domains/DS/assumptions.md",
+        "domains/DS/spec.md"
+      ],
+      "top5_similarities": [
+        0.8036,
+        0.634,
+        0.7554,
+        0.7186,
+        0.7248
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "NCOMPLT",
+        "C66727"
+      ],
+      "fact_misses": [],
+      "answer_preview": "Based on the retrieved context, when `DSCAT` equals `\"DISPOSITION EVENT\"`, the controlled terminology codelist used for `DSDECOD` is **C66727 (Completion/Reason for Non-Completion)**.\n\nThe context does not provide the full list of CDISC Submission Values from the C66727 codelist. However, it does specify the following rules and examples for reasons of non-completion:\n\n- When a subject completes the event, `DSDECOD` is the term **\"COMPLETED\"** from the NCOMPLT codelist (C66727). **[Source: domains/DS/assumptions.md item_3.b.i]**\n- When a subject does not complete, `DSDECOD` uses an extensible t",
+      "usage": {
+        "prompt_tokens": 11106,
+        "completion_tokens": 379,
+        "total_tokens": 11485
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 3.83
+    },
+    {
+      "id": "q20",
+      "category": "mixed",
+      "question": "In the DM domain, what is the difference between the RFSTDTC/RFENDTC reference period pair and the RFXSTDTC/RFXENDTC pair, and under what circumstances will RFSTDTC be null?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/DM/assumptions.md",
+        "domains/DM/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/DM/spec.md",
+        "domains/DM/assumptions.md",
+        "domains/DM/assumptions.md",
+        "domains/MH/spec.md",
+        "domains/CE/spec.md"
+      ],
+      "top5_similarities": [
+        0.624,
+        0.6645,
+        0.6585,
+        0.5575,
+        0.5342
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "sponsor-defined",
+        "screen failure"
+      ],
+      "fact_misses": [],
+      "answer_preview": "## Difference Between RFSTDTC/RFENDTC and RFXSTDTC/RFXENDTC\n\n### RFSTDTC/RFENDTC (Sponsor-Defined Reference Period)\n\n- **RFSTDTC**: Subject Reference Start Date/Time — usually represents the date/time of first study exposure, but is **sponsor-defined** and open to customization **[Source: domains/DM/assumptions.md — item_10a]**\n- **RFENDTC**: Subject Reference End Date/Time — usually represents the date/time of last study exposure **[Source: domains/DM/spec.md — RFENDTC]**\n- **Role**: Record Qualifier (both) **[Source: domains/DM/spec.md — RFSTDTC, RFENDTC]**\n- **Core**: Exp (Expected) for bot",
+      "usage": {
+        "prompt_tokens": 12976,
+        "completion_tokens": 958,
+        "total_tokens": 13934
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 6.89
+    },
+    {
+      "id": "q42",
+      "category": "mixed",
+      "question": "In the LB domain, how are normal ranges represented using LBORNRLO and LBORNRHI, and what is the LBNRIND variable used for?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/LB/spec.md",
+        "domains/LB/assumptions.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/LB/spec.md",
+        "domains/LB/assumptions.md",
+        "domains/LB/assumptions.md",
+        "domains/LB/examples.md",
+        "domains/IS/spec.md"
+      ],
+      "top5_similarities": [
+        0.7713,
+        0.764,
+        0.7123,
+        0.6051,
+        0.6217
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "LBORNRLO",
+        "LBORNRHI",
+        "LBNRIND"
+      ],
+      "fact_misses": [],
+      "answer_preview": "## Normal Range Representation in LB Domain\n\n### LBORNRLO and LBORNRHI\n\n**LBORNRLO** (Reference Range Lower Limit in Orig Unit) and **LBORNRHI** (Reference Range Upper Limit in Orig Unit) are used to represent the normal reference range for continuous laboratory measurements in **original units**.\n\n| Variable | Label | Type | Role | Core |\n|----------|-------|------|------|------|\n| LBORNRLO | Reference Range Lower Limit in Orig Unit | Char | Variable Qualifier | Exp |\n| LBORNRHI | Reference Range Upper Limit in Orig Unit | Char | Variable Qualifier | Exp |\n\n**[Source: domains/LB/spec.md — LBO",
+      "usage": {
+        "prompt_tokens": 12527,
+        "completion_tokens": 718,
+        "total_tokens": 13245
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 6.19
+    },
+    {
+      "id": "q43",
+      "category": "mixed",
+      "question": "What is the controlled terminology codelist for the SEX variable in the DM domain? Provide the codelist code and describe the Core designation.",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/DM/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/DM/spec.md",
+        "terminology/core/dm.md",
+        "chapters/ch04_general_assumptions.md",
+        "domains/DM/spec.md",
+        "chapters/ch04_general_assumptions.md"
+      ],
+      "top5_similarities": [
+        0.6578,
+        0.5551,
+        0.633,
+        0.6311,
+        0.5852
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "SEX",
+        "C66731",
+        "Req"
+      ],
+      "fact_misses": [],
+      "answer_preview": "Based on the retrieved context, the controlled terminology codelist for the **SEX** variable in the **DM** domain is **C66731**.\n\n### Details\n\n- **Codelist Code:** C66731\n- **Codelist Name:** Sex\n- **Extensible:** No (meaning only the values listed in the codelist are permitted)\n- **Permitted Values:**\n  - **F** (Female)\n  - **M** (Male)\n  - **U** (Unknown)\n  - **UNDIFFERENTIATED**\n\n### Core Designation\n\nThe **Core** designation for the SEX variable is **Req** (Required). This means that the variable must be populated for every record in the DM domain. **[Source: domains/DM/spec.md]**\n\n### Sou",
+      "usage": {
+        "prompt_tokens": 11798,
+        "completion_tokens": 242,
+        "total_tokens": 12040
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 3.05
+    },
+    {
+      "id": "q44",
+      "category": "mixed",
+      "question": "In the VS domain, what is the controlled terminology codelist code for VSTESTCD, and give examples of standard vital signs test codes like systolic and diastolic blood pressure.",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/VS/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/VS/spec.md",
+        "terminology/core/vs.md",
+        "domains/VS/spec.md",
+        "domains/VS/spec.md",
+        "VARIABLE_INDEX.md"
+      ],
+      "top5_similarities": [
+        0.7284,
+        0.4981,
+        0.6737,
+        0.6183,
+        0.5512
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "C66741",
+        "SYSBP",
+        "DIABP"
+      ],
+      "fact_misses": [],
+      "answer_preview": "Based on the SDTMIG v3.4 knowledge base:\n\n## VSTESTCD Controlled Terminology\n\nThe controlled terminology codelist code for **VSTESTCD** (Vital Signs Test Short Name) is **C66741** (Vital Signs Test Code). This codelist is **Extensible: Yes**, meaning additional test codes can be added beyond the standard set. **[Source: domains/VS/spec.md — VSTESTCD]**\n\n## Standard Vital Signs Test Code Examples\n\nFrom the Vital Signs Test Code (C66741) terminology file, here are examples of standard test codes including systolic and diastolic blood pressure:\n\n| CDISC Submission Value | CDISC Synonym(s) | Defin",
+      "usage": {
+        "prompt_tokens": 14381,
+        "completion_tokens": 598,
+        "total_tokens": 14979
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 5.01
+    },
+    {
+      "id": "q45",
+      "category": "mixed",
+      "question": "What is the RACE variable in the DM domain, what codelist does it use, and what is its Core designation?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/DM/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/DM/spec.md",
+        "terminology/core/dm.md",
+        "domains/DM/examples.md",
+        "domains/DM/examples.md",
+        "domains/DM/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.6135,
+        0.469,
+        0.5662,
+        0.5707,
+        0.6038
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "RACE",
+        "C74457",
+        "Exp"
+      ],
+      "fact_misses": [],
+      "answer_preview": "Based on the retrieved context, here is the definition of the RACE variable in the DM domain:\n\n**Variable Definition:**\n- **Label:** Race\n- **Type:** Char\n- **Role:** Record Qualifier\n- **Core:** Exp (Expected)\n- **Controlled Terms:** C74457\n\n**Codelist (C74457):**\nThe codelist is named **Race (C74457)** and is **not extensible**. The permitted values are:\n- AMERICAN INDIAN OR ALASKA NATIVE\n- ASIAN\n- BLACK OR AFRICAN AMERICAN\n- NATIVE HAWAIIAN OR OTHER PACIFIC ISLANDER\n- NOT REPORTED\n- OTHER\n- UNKNOWN\n- WHITE\n\n**Core Designation:**\nThe Core is **Exp (Expected)**.\n\n**Additional Notes:**\n- If mu",
+      "usage": {
+        "prompt_tokens": 15906,
+        "completion_tokens": 340,
+        "total_tokens": 16246
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 3.42
+    },
+    {
+      "id": "q46",
+      "category": "mixed",
+      "question": "What is the AEOUT (Outcome of Adverse Event) variable in the AE domain and what controlled terminology codelist code does it use?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/AE/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/AE/spec.md",
+        "terminology/core/ae.md",
+        "domains/AE/spec.md",
+        "VARIABLE_INDEX.md",
+        "domains/AE/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.7992,
+        0.5705,
+        0.6582,
+        0.6157,
+        0.7025
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "AEOUT",
+        "C66768",
+        "Perm"
+      ],
+      "fact_misses": [],
+      "answer_preview": "## AEOUT — Outcome of Adverse Event\n\n**AEOUT** is a variable in the AE (Adverse Events) domain with the following specification:\n\n| Attribute | Value |\n|-----------|-------|\n| **Label** | Outcome of Adverse Event |\n| **Type** | Char |\n| **Role** | Record Qualifier |\n| **Core** | Perm (Permissible) |\n| **Controlled Terms** | C66768 |\n| **CDISC Notes** | Description of the outcome of an event. |\n\n**[Source: domains/AE/spec.md — AEOUT]**\n\n---\n\n## Controlled Terminology: C66768 (Outcome of Event)\n\nThe codelist **C66768** is **non-extensible** and contains the following permitted values:\n\n| Code | ",
+      "usage": {
+        "prompt_tokens": 14579,
+        "completion_tokens": 574,
+        "total_tokens": 15153
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 4.97
+    },
+    {
+      "id": "q47",
+      "category": "mixed",
+      "question": "How do QS (Questionnaires) domains handle instrument-specific variables using QSCAT, and what role does QSTESTCD play in organizing question-level data?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/QS/spec.md",
+        "domains/QS/assumptions.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "VARIABLE_INDEX.md",
+        "domains/QS/spec.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch08_relationships.md",
+        "domains/SUPPQUAL/examples.md"
+      ],
+      "top5_similarities": [
+        0.6339,
+        0.6923,
+        0.6635,
+        0.5798,
+        0.6612
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "QSTESTCD",
+        "QSCAT",
+        "Topic"
+      ],
+      "fact_misses": [],
+      "answer_preview": "Based on the SDTMIG v3.4 knowledge base, the QS (Questionnaires) domain uses **QSCAT** and **QSTESTCD** as complementary mechanisms to organize instrument-level and question-level data, respectively.\n\n## QSCAT: Instrument-Level Organization\n\n**QSCAT** (Category of Question) serves as the **Grouping Qualifier** that identifies the specific questionnaire instrument. Its key characteristics are:\n\n- **Label:** Category of Question\n- **Type:** Char\n- **Role:** Grouping Qualifier\n- **Core:** Req\n- **Controlled Terms:** C100129\n\n**[Source: domains/QS/spec.md]**\n\n**CDISC Notes:** QSCAT is used to spec",
+      "usage": {
+        "prompt_tokens": 16191,
+        "completion_tokens": 1005,
+        "total_tokens": 17196
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 8.06
+    },
+    {
+      "id": "q48",
+      "category": "mixed",
+      "question": "What is the FATESTCD variable's controlled terminology codelist code in the FA domain, and give examples of standard FA test codes?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/FA/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/FA/spec.md",
+        "terminology/core/findings_about.md",
+        "domains/FA/assumptions.md",
+        "domains/FA/spec.md",
+        "chapters/ch04_general_assumptions.md"
+      ],
+      "top5_similarities": [
+        0.678,
+        0.4042,
+        0.6327,
+        0.6766,
+        0.5692
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "FATESTCD",
+        "C101832"
+      ],
+      "fact_misses": [],
+      "answer_preview": "Based on the retrieved context, the FATESTCD variable in the FA domain uses the controlled terminology codelist code **C101832** (Findings About Test Code). This codelist is extensible, meaning additional values can be added as needed.\n\n**Standard examples of FA test codes** include:\n\n| FATESTCD | FATEST (Label) |\n|----------|----------------|\n| OCCUR | Occurrence Indicator |\n| SEV | Severity/Intensity |\n| TOXGR | Toxicity Grade |\n\nThese examples are derived from the variable names in the Events and Interventions observation classes (e.g., `--OCCUR`, `--SEV`, `--TOXGR`) and are used when FA re",
+      "usage": {
+        "prompt_tokens": 15382,
+        "completion_tokens": 286,
+        "total_tokens": 15668
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 3.0
+    },
+    {
+      "id": "s01",
+      "category": "single_domain",
+      "question": "In the DM domain, what is the controlled terminology codelist code for the SEX variable, and what are its four permitted submission values?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "terminology/core/dm.md",
+        "domains/DM/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/DM/spec.md",
+        "terminology/core/dm.md",
+        "domains/DM/assumptions.md",
+        "domains/DM/spec.md",
+        "chapters/ch04_general_assumptions.md"
+      ],
+      "top5_similarities": [
+        0.6528,
+        0.5864,
+        0.556,
+        0.5862,
+        0.5688
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "C66731",
+        "F",
+        "M",
+        "U",
+        "UNDIFFERENTIATED"
+      ],
+      "fact_misses": [],
+      "answer_preview": "Based on the retrieved context, the controlled terminology codelist code for the **SEX** variable in the DM domain is **C66731**, and its four permitted submission values are **F**, **M**, **U**, and **UNDIFFERENTIATED**.\n\n**Details:**\n\n- **Codelist Code:** C66731 (Sex) [Source: domains/DM/spec.md]\n- **Extensible:** No [Source: terminology/core/dm.md]\n- **Permitted Submission Values:**\n  - **F** (Female) — A person who belongs to the sex that normally produces ova. [Source: terminology/core/dm.md]\n  - **M** (Male) — A person who belongs to the sex that normally produces sperm. [Source: termino",
+      "usage": {
+        "prompt_tokens": 13616,
+        "completion_tokens": 233,
+        "total_tokens": 13849
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 2.24
+    },
+    {
+      "id": "s02",
+      "category": "concept",
+      "question": "What is the SUPPQUAL variable QNAM and what character constraints apply to it? What is the maximum length and what characters are allowed?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/SUPPQUAL/spec.md",
+        "model/06_relationship_datasets.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/SUPPQUAL/spec.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch08_relationships.md",
+        "chapters/ch04_general_assumptions.md"
+      ],
+      "top5_similarities": [
+        0.6726,
+        0.5437,
+        0.5102,
+        0.6731,
+        0.5625
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "QNAM",
+        "8 characters",
+        "letters, numbers, or underscores",
+        "cannot start with a number",
+        "Qualifier Variable Name"
+      ],
+      "fact_misses": [],
+      "answer_preview": "## QNAM Variable Definition\n\n**QNAM** (Qualifier Variable Name) is a required Topic variable in the SUPPQUAL (Supplemental Qualifiers) dataset.\n\n### Variable Attributes\n\n| Attribute | Value |\n|-----------|-------|\n| **Label** | Qualifier Variable Name |\n| **Type** | Char |\n| **Role** | Topic |\n| **Core** | Req |\n| **Controlled Terms** | None (but may be subject to controlled terminology per CDISC/NCI codelists) |\n\n**[Source: domains/SUPPQUAL/spec.md]**\n\n### Character Constraints\n\nQNAM is subject to the following restrictions:\n\n1. **Maximum length: 8 characters** — The value in QNAM cannot be l",
+      "usage": {
+        "prompt_tokens": 16092,
+        "completion_tokens": 508,
+        "total_tokens": 16600
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 4.33
+    },
+    {
+      "id": "s03",
+      "category": "cross_domain",
+      "question": "The DM variable RFXSTDTC is defined as equal to the earliest value of which variable in the EX domain? Similarly, RFXENDTC is equal to the latest value of which EX variable (or which fallback variable if that is not collected)?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/DM/spec.md",
+        "domains/EX/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/DM/spec.md",
+        "domains/EX/spec.md",
+        "domains/DM/assumptions.md",
+        "domains/DM/spec.md",
+        "domains/DM/spec.md"
+      ],
+      "top5_similarities": [
+        0.6568,
+        0.5803,
+        0.6371,
+        0.6269,
+        0.5537
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "EXSTDTC",
+        "RFXSTDTC",
+        "EXENDTC",
+        "RFXENDTC",
+        "earliest",
+        "latest"
+      ],
+      "fact_misses": [],
+      "answer_preview": "Based on the retrieved context, the answer is as follows:\n\n**RFXSTDTC** is defined as equal to the earliest value of **EXSTDTC** in the EX domain. **[Source: domains/DM/spec.md -- RFXSTDTC]**\n\n**RFXENDTC** is defined as equal to the latest value of **EXENDTC** in the EX domain. If EXENDTC was not collected or is missing, the fallback is the latest value of **EXSTDTC**. **[Source: domains/DM/spec.md -- RFXENDTC]**",
+      "usage": {
+        "prompt_tokens": 14142,
+        "completion_tokens": 121,
+        "total_tokens": 14263
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 1.69
+    },
+    {
+      "id": "s04",
+      "category": "mixed",
+      "question": "In the AE domain, what is the controlled terminology codelist code for the AEACN (Action Taken with Study Treatment) variable, and what ICH E2B example values does the CDISC Notes field list for this variable?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/AE/spec.md",
+        "terminology/core/ae.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/AE/spec.md",
+        "terminology/core/ae.md",
+        "domains/AE/spec.md",
+        "domains/AE/assumptions.md",
+        "domains/AE/spec.md"
+      ],
+      "top5_similarities": [
+        0.7623,
+        0.5455,
+        0.681,
+        0.676,
+        0.6262
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "C66767",
+        "DRUG WITHDRAWN",
+        "DOSE REDUCED",
+        "DOSE INCREASED",
+        "DOSE NOT CHANGED",
+        "UNKNOWN",
+        "NOT APPLICABLE"
+      ],
+      "fact_misses": [],
+      "answer_preview": "Based on the retrieved context, the controlled terminology codelist code for the AEACN (Action Taken with Study Treatment) variable is **C66767**.\n\nThe CDISC Notes field lists the following ICH E2B example values for AEACN:\n- \"DRUG WITHDRAWN\"\n- \"DOSE REDUCED\"\n- \"DOSE INCREASED\"\n- \"DOSE NOT CHANGED\"\n- \"UNKNOWN\"\n- \"NOT APPLICABLE\"\n\n**[Source: domains/AE/spec.md — AEACN]**",
+      "usage": {
+        "prompt_tokens": 13624,
+        "completion_tokens": 113,
+        "total_tokens": 13737
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 1.69
+    },
+    {
+      "id": "s05",
+      "category": "single_domain",
+      "question": "In the VS domain, what is the controlled terminology codelist code for the VSTESTCD variable? Name the codelist, state whether it is extensible, and give three example TESTCD values listed for blood pressure and heart rate.",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/VS/spec.md",
+        "terminology/core/vs.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/VS/spec.md",
+        "terminology/core/vs.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch04_general_assumptions.md",
+        "domains/IS/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.6639,
+        0.4761,
+        0.5932,
+        0.5578,
+        0.5883
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "C66741",
+        "Vital Signs Test Code",
+        "Extensible: Yes",
+        "SYSBP",
+        "DIABP",
+        "HR"
+      ],
+      "fact_misses": [],
+      "answer_preview": "Based on the retrieved context, the controlled terminology codelist for the VSTESTCD variable in the VS domain is **C66741**.\n\n- **Codelist Name:** Vital Signs Test Code\n- **Extensible:** The context does not explicitly state whether C66741 is extensible. However, the related codelist for units (C66770) is explicitly marked as \"Extensible: Yes\" **[Source: terminology/core/vs.md]**. The spec for VSTESTCD does not include an extensibility flag, so this cannot be confirmed from the provided context.\n- **Three example TESTCD values for blood pressure and heart rate:**\n  - **SYSBP** (Systolic Blood",
+      "usage": {
+        "prompt_tokens": 13501,
+        "completion_tokens": 219,
+        "total_tokens": 13720
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 2.84
+    },
+    {
+      "id": "q54",
+      "category": "single_domain",
+      "question": "In the DV (Protocol Deviations) domain, which observation class does it belong to and what is the Topic variable DVTERM?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/DV/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/DV/spec.md",
+        "domains/DV/assumptions.md",
+        "VARIABLE_INDEX.md",
+        "domains/DV/examples.md",
+        "domains/DV/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.7536,
+        0.7551,
+        0.6742,
+        0.6157,
+        0.5634
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "Events",
+        "DVTERM",
+        "Protocol Deviation Term",
+        "Topic"
+      ],
+      "fact_misses": [],
+      "answer_preview": "Based on the retrieved context, the DV (Protocol Deviations) domain belongs to the **Events** observation class, and the Topic variable **DVTERM** is defined as follows:\n\n- **Observation Class:** Events. The DV domain is explicitly described as \"an Events model for collected protocol deviations\" **[Source: domains/DV/assumptions.md — item_1]**.\n\n- **DVTERM (Protocol Deviation Term):**\n  - **Label:** Protocol Deviation Term\n  - **Type:** Char\n  - **Controlled Terms:** (none specified)\n  - **Role:** Topic\n  - **Core:** Req\n  - **CDISC Notes:** Verbatim name of the protocol deviation criterion. E",
+      "usage": {
+        "prompt_tokens": 12967,
+        "completion_tokens": 204,
+        "total_tokens": 13171
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 2.48
+    },
+    {
+      "id": "q55",
+      "category": "single_domain",
+      "question": "What is the structure and observation class of the DS (Disposition) domain, and what is the role of the DSTERM variable?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/DS/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/DS/spec.md",
+        "domains/DS/assumptions.md",
+        "VARIABLE_INDEX.md",
+        "domains/DS/assumptions.md",
+        "domains/DS/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.6292,
+        0.5828,
+        0.6232,
+        0.5974,
+        0.5387
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "Events",
+        "DSTERM",
+        "Topic",
+        "disposition"
+      ],
+      "fact_misses": [],
+      "answer_preview": "Based on the retrieved context, the DS (Disposition) domain is an **Events** general observation class domain, and **DSTERM** serves as the **Topic** variable for that domain.\n\n### DS Domain Structure and Observation Class\n\n- **Observation Class:** Events. The DS domain is listed under the Events domains in the knowledge base index. **[Source: INDEX.md — Domains (63 domains) > Events Domains]**\n- **Domain Type:** General Observation Class. The SDTM model includes three general observation classes (Interventions, Events, and Findings), and DS is a domain within the Events class. **[Source: mode",
+      "usage": {
+        "prompt_tokens": 14388,
+        "completion_tokens": 459,
+        "total_tokens": 14847
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 4.51
+    },
+    {
+      "id": "q56",
+      "category": "single_domain",
+      "question": "In the SU (Substance Use) domain, what observation class is it and what is the SUTRT variable?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/SU/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/SU/spec.md",
+        "VARIABLE_INDEX.md",
+        "domains/SU/assumptions.md",
+        "domains/SU/assumptions.md",
+        "domains/SU/examples.md"
+      ],
+      "top5_similarities": [
+        0.6606,
+        0.6706,
+        0.6671,
+        0.6106,
+        0.5999
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "Interventions",
+        "SUTRT",
+        "Reported Name of Substance",
+        "Topic"
+      ],
+      "fact_misses": [],
+      "answer_preview": "Based on the provided context, the SU (Substance Use) domain belongs to the **Interventions** observation class, and the **SUTRT** variable is defined as follows:\n\n- **Observation Class:** Interventions. The SU domain is listed under \"Interventions Domains\" in the knowledge base index. **[Source: INDEX.md]**\n\n- **SUTRT (Reported Name of Substance):**\n  - **Label:** Reported Name of Substance\n  - **Type:** Char\n  - **Role:** Topic\n  - **Core:** Req\n  - **Controlled Terms:** None\n  - **CDISC Notes:** Substance name. Examples: \"CIGARETTES\", \"COFFEE\". **[Source: domains/SU/spec.md]**\n\nAdditionally",
+      "usage": {
+        "prompt_tokens": 12169,
+        "completion_tokens": 213,
+        "total_tokens": 12382
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 2.14
+    },
+    {
+      "id": "q57",
+      "category": "single_domain",
+      "question": "What is the PR (Procedures) domain used for, and what is the PRTRT topic variable along with its Core designation?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/PR/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/PR/spec.md",
+        "domains/PR/examples.md",
+        "VARIABLE_INDEX.md",
+        "domains/PR/assumptions.md",
+        "domains/PR/examples.md"
+      ],
+      "top5_similarities": [
+        0.7274,
+        0.5826,
+        0.6309,
+        0.6075,
+        0.5466
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "Interventions",
+        "PRTRT",
+        "Reported Name of Procedure",
+        "Req"
+      ],
+      "fact_misses": [],
+      "answer_preview": "Based on the retrieved context, the PR (Procedures) domain is used to represent all collected procedures performed on a subject, regardless of the extent of physiological effect or whether it is collected in the study. The domain is based on the Interventions observation class. Measurements obtained from procedures are represented in their respective Findings domains (e.g., biopsy details in PR, histopathology findings in MI). **[Source: domains/PR/assumptions.md]**\n\nThe PRTRT variable is defined as follows:\n\n- **Label:** Reported Name of Procedure\n- **Type:** Char\n- **Role:** Topic\n- **Core:*",
+      "usage": {
+        "prompt_tokens": 14173,
+        "completion_tokens": 169,
+        "total_tokens": 14342
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 2.06
+    },
+    {
+      "id": "q58",
+      "category": "single_domain",
+      "question": "Describe the TS (Trial Summary) domain structure and the TSPARMCD variable, including its controlled terminology codelist code and length limit.",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/TS/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/TS/spec.md",
+        "terminology/core/trial_design.md",
+        "VARIABLE_INDEX.md",
+        "model/05_study_level_data.md",
+        "domains/TS/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.7561,
+        0.5199,
+        0.715,
+        0.5921,
+        0.6527
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "Trial Summary",
+        "TSPARMCD",
+        "C66738",
+        "8 characters"
+      ],
+      "fact_misses": [],
+      "answer_preview": "## TS (Trial Summary) Domain Structure\n\nThe Trial Summary (TS) dataset allows the sponsor to submit a summary of the trial in a structured format. Each record contains the value of a parameter — a characteristic of the trial — such as trial phase, protocol title, and trial objectives. TS contains information about both planned and actual trial characteristics. **[Source: domains/TS/assumptions.md — overview]**\n\nTS does **not** contain subject-level data, so there is no restriction analogous to subject-level datasets that blocks bound by TSGRPID are within a subject. TSGRPID can be used to tie ",
+      "usage": {
+        "prompt_tokens": 12248,
+        "completion_tokens": 1180,
+        "total_tokens": 13428
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 8.04
+    },
+    {
+      "id": "q59",
+      "category": "single_domain",
+      "question": "In the DD (Death Details) domain, what is the DDTESTCD variable and its controlled terminology codelist code?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/DD/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/DD/spec.md",
+        "terminology/core/other_part4.md",
+        "domains/DD/spec.md",
+        "VARIABLE_INDEX.md",
+        "domains/DD/spec.md"
+      ],
+      "top5_similarities": [
+        0.766,
+        0.6055,
+        0.7584,
+        0.6406,
+        0.7599
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "DDTESTCD",
+        "C116108",
+        "Topic"
+      ],
+      "fact_misses": [],
+      "answer_preview": "Based on the retrieved context, the **DDTESTCD** variable in the DD (Death Details) domain is defined as follows:\n\n- **Label:** Death Detail Assessment Short Name\n- **Type:** Char\n- **Role:** Topic\n- **Core:** Req (Required)\n- **Controlled Terms:** C116108\n- **CDISC Notes:** Short name of the measurement, test, or examination described in DDTEST. It can be used as a column name when converting a dataset from a vertical to a horizontal format. The value in DDTESTCD cannot be longer than 8 characters, nor can it start with a number (e.g., \"1TEST\" is not valid). DDTESTCD cannot contain characters",
+      "usage": {
+        "prompt_tokens": 11880,
+        "completion_tokens": 432,
+        "total_tokens": 12312
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 3.51
+    },
+    {
+      "id": "q60",
+      "category": "single_domain",
+      "question": "What is the CE (Clinical Events) domain, which observation class does it belong to, and what is the CETERM variable?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/CE/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/CE/spec.md",
+        "VARIABLE_INDEX.md",
+        "domains/CE/assumptions.md",
+        "domains/CE/assumptions.md",
+        "domains/CE/examples.md"
+      ],
+      "top5_similarities": [
+        0.6749,
+        0.6815,
+        0.6588,
+        0.6277,
+        0.5964
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "Events",
+        "CETERM",
+        "Topic",
+        "Clinical Event"
+      ],
+      "fact_misses": [],
+      "answer_preview": "## CE (Clinical Events) Domain\n\n### Observation Class\n\nThe CE (Clinical Events) domain belongs to the **Events** general observation class. The Events class represents \"planned protocol milestones such as randomization and study completion, and occurrences, conditions, or incidents independent of planned study evaluations occurring during the study (e.g., adverse events) or prior to the study (e.g., medical history).\" **[Source: model/02_observation_classes.md]**\n\nThe Events class has a structure of **One Record per Event** and includes 56 topic and qualifier variables. **[Source: model/02_obs",
+      "usage": {
+        "prompt_tokens": 16770,
+        "completion_tokens": 910,
+        "total_tokens": 17680
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 6.93
+    },
+    {
+      "id": "q61",
+      "category": "single_domain",
+      "question": "In the MB (Microbiology Specimen) domain, what is the MBTESTCD variable, what observation class is MB, and what is the codelist code for MBTESTCD?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/MB/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/MB/spec.md",
+        "terminology/core/microbiology_part2.md",
+        "domains/MB/assumptions.md",
+        "domains/MB/examples.md",
+        "VARIABLE_INDEX.md"
+      ],
+      "top5_similarities": [
+        0.7379,
+        0.5274,
+        0.7557,
+        0.6599,
+        0.6529
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "Findings",
+        "MBTESTCD",
+        "C120527",
+        "Topic"
+      ],
+      "fact_misses": [],
+      "answer_preview": "Based on the retrieved context, here is the information for the MB domain:\n\n**1. MBTESTCD Variable Definition**\n\n- **Label:** Microbiology Test or Finding Short Name\n- **Type:** Char\n- **Role:** Topic\n- **Core:** Req\n- **Controlled Terms:** C120527\n- **CDISC Notes:** Short name of the measurement, test, or finding described in MBTEST. It can be used as a column name when converting a dataset from a vertical to a horizontal format. The value in MBTESTCD cannot be longer than 8 characters, nor can it start with a number (e.g., \"1TEST\" is not valid). MBTESTCD cannot contain characters other than ",
+      "usage": {
+        "prompt_tokens": 15914,
+        "completion_tokens": 272,
+        "total_tokens": 16186
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 2.59
+    },
+    {
+      "id": "q62",
+      "category": "single_domain",
+      "question": "What is the SS (Subject Status) domain, what is the SSTESTCD variable, and what controlled terminology codelist does it use?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/SS/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/SS/spec.md",
+        "terminology/core/other_part5.md",
+        "VARIABLE_INDEX.md",
+        "domains/SS/spec.md",
+        "domains/SS/spec.md"
+      ],
+      "top5_similarities": [
+        0.7493,
+        0.5547,
+        0.664,
+        0.6925,
+        0.6959
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "SSTESTCD",
+        "C124305",
+        "Findings",
+        "Topic"
+      ],
+      "fact_misses": [],
+      "answer_preview": "## SS (Subject Status) Domain\n\nThe **SS (Subject Status)** domain is a **Findings** class domain used to represent subject-level status assessments, such as survival status or follow-up availability status. It captures the state or condition of a subject at a given point in time.\n\n**[Source: VARIABLE_INDEX.md — SS — Subject Status (Findings)]**\n\n---\n\n## SSTESTCD Variable\n\n| Attribute | Value |\n|-----------|-------|\n| **Label** | Status Short Name |\n| **Type** | Char |\n| **Role** | Topic |\n| **Core** | Req |\n| **Controlled Terms** | C124305 |\n| **CDISC Notes** | Short name of the status assessm",
+      "usage": {
+        "prompt_tokens": 13679,
+        "completion_tokens": 530,
+        "total_tokens": 14209
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 4.43
+    },
+    {
+      "id": "q63",
+      "category": "single_domain",
+      "question": "In the SC (Subject Characteristics) domain, what observation class is it and what is its dataset structure?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/SC/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/SC/spec.md",
+        "domains/SC/assumptions.md",
+        "domains/SC/examples.md",
+        "domains/SC/assumptions.md",
+        "chapters/ch08_relationships.md"
+      ],
+      "top5_similarities": [
+        0.6075,
+        0.625,
+        0.612,
+        0.522,
+        0.4999
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "Findings",
+        "one record per characteristic",
+        "Subject Characteristics"
+      ],
+      "fact_misses": [],
+      "answer_preview": "Based on the retrieved context, the SC (Subject Characteristics) domain belongs to the **Findings** general observation class and has a dataset structure of **one record per characteristic per visit per subject**.\n\n**Details:**\n\n- **Observation Class:** Findings. The SC domain is explicitly described as being \"based on the Findings general observation class\" and is \"an extension of the demographics data\" **[Source: domains/SC/assumptions.md — item_1]**.\n- **Dataset Structure:** The structure is \"One record per characteristic per visit per subject\" **[Source: domains/SC/examples.md — SC – Speci",
+      "usage": {
+        "prompt_tokens": 15259,
+        "completion_tokens": 300,
+        "total_tokens": 15559
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 3.17
+    },
+    {
+      "id": "q64",
+      "category": "single_domain",
+      "question": "What is the PC (Pharmacokinetics Concentrations) domain used for and what is the structure of one record in this dataset?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/PC/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/PC/spec.md",
+        "domains/PC/assumptions.md",
+        "chapters/ch08_relationships.md",
+        "domains/PC/assumptions.md",
+        "domains/PP/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.5528,
+        0.7165,
+        0.5937,
+        0.5979,
+        0.5663
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "Findings",
+        "concentration",
+        "analyte"
+      ],
+      "fact_misses": [],
+      "answer_preview": "## PC Domain — Purpose and Record Structure\n\n### Purpose\n\nThe Pharmacokinetics Concentrations (PC) domain is a **Findings** class domain used to represent **plasma (or other specimen) drug concentration as a function of time**. It contains the measured concentration data collected at various time points following drug administration.\n\n**[Source: chapters/ch08_relationships.md §8.6.2]**\n\n### Record Structure\n\nThe structure of the PC domain is **one record per analyte per time point per reference time point (e.g., dosing event) per subject**.\n\n**[Source: chapters/ch08_relationships.md §8.6.2]**\n",
+      "usage": {
+        "prompt_tokens": 17142,
+        "completion_tokens": 623,
+        "total_tokens": 17765
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 5.31
+    },
+    {
+      "id": "q65",
+      "category": "single_domain",
+      "question": "In the DA (Product Accountability) domain, what observation class does it belong to and what is the structure of the dataset?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/DA/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/DA/spec.md",
+        "VARIABLE_INDEX.md",
+        "chapters/ch08_relationships.md",
+        "model/02_observation_classes.md",
+        "domains/EC/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.5267,
+        0.552,
+        0.4883,
+        0.5583,
+        11.763
+      ],
+      "fact_recall": 0.6667,
+      "fact_hits": [
+        "Findings",
+        "Product Accountability"
+      ],
+      "fact_misses": [
+        "per subject"
+      ],
+      "answer_preview": "Based on the retrieved context, the DA (Product Accountability) domain belongs to the **Findings** observation class and has a structure of **One Record per Finding**.\n\n**Evidence:**\n- The VARIABLE_INDEX.md entry for DA explicitly labels it as \"DA — Product Accountability (Findings)\" **[Source: VARIABLE_INDEX.md]**\n- The Findings Observation Class is defined as having a structure of \"One Record per Finding\" **[Source: model/02_observation_classes.md]**\n\n**Additional details:**\n- As a Findings domain, DA uses the standard Findings topic variables (DATESTCD/DATEST) and result variables (DAORRES,",
+      "usage": {
+        "prompt_tokens": 14571,
+        "completion_tokens": 232,
+        "total_tokens": 14803
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 2.85
+    },
+    {
+      "id": "q66",
+      "category": "cross_domain",
+      "question": "Which SDTM domains include the VISITNUM timing variable?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "VARIABLE_INDEX.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "VARIABLE_INDEX.md",
+        "domains/EX/assumptions.md",
+        "chapters/ch04_general_assumptions.md",
+        "domains/SU/assumptions.md",
+        "model/01_concepts_and_terms.md"
+      ],
+      "top5_similarities": [
+        0.5448,
+        0.6769,
+        0.6828,
+        0.685,
+        11.1925
+      ],
+      "fact_recall": 0.25,
+      "fact_hits": [
+        "VISITNUM"
+      ],
+      "fact_misses": [
+        "Visit Number",
+        "LB",
+        "VS"
+      ],
+      "answer_preview": "Based on the provided context, I can identify that **VISITNUM** is a timing variable that appears in multiple SDTM domains, but the context does not provide a complete list of all domains that include it.\n\nFrom the retrieved context, I can confirm the following:\n\n1. **VISITNUM** is explicitly mentioned as a permissible timing variable in the **EX (Exposure)** domain, where it may be added if the subject is only exposed to study medication within a clinical encounter **[Source: domains/EX/assumptions.md, item 4a]**.\n\n2. **VISITNUM** is explicitly mentioned as a permissible timing variable in th",
+      "usage": {
+        "prompt_tokens": 13996,
+        "completion_tokens": 532,
+        "total_tokens": 14528
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 4.93
+    },
+    {
+      "id": "q67",
+      "category": "cross_domain",
+      "question": "Many SDTM variables use the No Yes Response codelist C66742. How many variables reference it and give some examples of AE seriousness variables that use it.",
+      "source_recall": 1.0,
+      "source_hits": [
+        "VARIABLE_INDEX.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "VARIABLE_INDEX.md",
+        "domains/AE/spec.md",
+        "terminology/core/general_part4.md",
+        "domains/AE/examples.md",
+        "chapters/ch04_general_assumptions.md"
+      ],
+      "top5_similarities": [
+        0.4669,
+        0.5381,
+        0.6495,
+        0.5542,
+        0.5827
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "C66742",
+        "AESER",
+        "AESDTH"
+      ],
+      "fact_misses": [],
+      "answer_preview": "Based on the provided context, the **No Yes Response** codelist (C66742) is referenced by many variables across multiple domains. The exact total number of variables is not provided in the retrieved context, but examples are given.\n\nThe AE seriousness variables that use C66742 include:\n- **AESER** (Serious Event)\n- **AESCAN** (Involves Cancer)\n- **AESCONG** (Congenital Anomaly/Birth Defect)\n- **AESDISAB** (Persistent or Significant Disability/Incapacity)\n- **AESDTH** (Resulted in Death)\n- **AESHOSP** (Required or Prolonged Hospitalization)\n- **AESLIFE** (Life Threatening)\n- **AESMIE** (Other M",
+      "usage": {
+        "prompt_tokens": 15246,
+        "completion_tokens": 378,
+        "total_tokens": 15624
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 3.64
+    },
+    {
+      "id": "q68",
+      "category": "cross_domain",
+      "question": "Which domains use the Completion Status codelist (C66789) for their --STAT variable, and what does --STAT indicate?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "VARIABLE_INDEX.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "VARIABLE_INDEX.md",
+        "terminology/core/general_part4.md",
+        "domains/SS/spec.md",
+        "domains/SC/spec.md",
+        "domains/IS/spec.md"
+      ],
+      "top5_similarities": [
+        0.5065,
+        0.4661,
+        0.685,
+        0.6915,
+        0.6622
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "C66789",
+        "STAT",
+        "Completion Status"
+      ],
+      "fact_misses": [],
+      "answer_preview": "Based on the retrieved context, the Completion Status codelist (C66789) is used by the following domains for their `--STAT` variable:\n\n1. **SS (Subject Status)** — `SSSTAT`: Indicates a status assessment was not done. Should be null if a result exists in SSORRES. **[Source: domains/SS/spec.md]**\n\n2. **SC (Subject Characteristics)** — `SCSTAT`: Indicates that the measurement was not done. Should be null if a result exists in SCORRES. **[Source: domains/SC/spec.md]**\n\n3. **IS (Immunogenicity Specimen Assessments)** — `ISSTAT`: Indicates a test was not done. Should be null if a result exists in I",
+      "usage": {
+        "prompt_tokens": 9495,
+        "completion_tokens": 818,
+        "total_tokens": 10313
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 5.66
+    },
+    {
+      "id": "q69",
+      "category": "cross_domain",
+      "question": "The dose units codelist C71620 is shared across many Intervention and Findings domains. Which variables such as EXDOSU and CMDOSU reference it?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "VARIABLE_INDEX.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "VARIABLE_INDEX.md",
+        "terminology/core/general_part5.md",
+        "domains/CM/spec.md",
+        "domains/EX/spec.md",
+        "domains/CM/spec.md"
+      ],
+      "top5_similarities": [
+        0.5647,
+        0.4805,
+        0.7093,
+        0.6827,
+        0.6319
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "C71620",
+        "EXDOSU",
+        "CMDOSU"
+      ],
+      "fact_misses": [],
+      "answer_preview": "Based on the retrieved context, the dose units codelist **C71620** is referenced by the following variables across multiple Intervention domains:\n\n1. **EC** — **ECDOSU** (Dose Units) in the Exposure as Collected domain **[Source: domains/EC/spec.md -- ECDOSU]**\n2. **CM** — **CMDOSU** (Dose Units) in the Concomitant/Prior Medications domain **[Source: domains/CM/spec.md -- CMDOSU]**\n3. **EX** — **EXDOSU** (Dose Units) in the Exposure domain **[Source: domains/EX/spec.md -- EXDOSU]**\n4. **ML** — **MLDOSU** (Dose Units) in the Meal Data domain **[Source: domains/ML/spec.md -- MLDOSU]**\n\nAll four ",
+      "usage": {
+        "prompt_tokens": 15091,
+        "completion_tokens": 366,
+        "total_tokens": 15457
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 3.84
+    },
+    {
+      "id": "q70",
+      "category": "cross_domain",
+      "question": "How is the RELSUB (Related Subjects) dataset used to represent relationships between two subjects, and what does the RSUBJID variable hold?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/RELSUB/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/RELSUB/spec.md",
+        "chapters/ch08_relationships.md",
+        "domains/RELSUB/assumptions.md",
+        "model/06_relationship_datasets.md",
+        "domains/RELSUB/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.7436,
+        0.7848,
+        0.7269,
+        0.7336,
+        0.7736
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "RSUBJID",
+        "USUBJID",
+        "SREL"
+      ],
+      "fact_misses": [],
+      "answer_preview": "## RELSUB (Related Subjects) Dataset — Usage and RSUBJID Variable\n\n### Purpose of RELSUB\n\nThe RELSUB dataset is used to represent **relationships between study subjects** (e.g., family relationships in genetic studies, mother-child pairs in clinical trials). It is structured as **one record per relationship per subject**. **[Source: model/06_relationship_datasets.md]**\n\nKey constraints:\n- RELSUB is used **only** for relationships between persons who are **both study subjects**. A relationship between a study subject and a person who is not a study subject may not be represented in RELSUB; this",
+      "usage": {
+        "prompt_tokens": 14045,
+        "completion_tokens": 969,
+        "total_tokens": 15014
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 6.88
+    },
+    {
+      "id": "q71",
+      "category": "cross_domain",
+      "question": "What is the EVAL (Evaluator) codelist C78735 and which domains' --EVAL variables share it?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "VARIABLE_INDEX.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "VARIABLE_INDEX.md",
+        "terminology/core/general_part2.md",
+        "domains/CO/spec.md",
+        "domains/TU/spec.md",
+        "domains/CO/spec.md"
+      ],
+      "top5_similarities": [
+        0.448,
+        0.4083,
+        0.6115,
+        0.581,
+        0.6168
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "C78735",
+        "EVAL",
+        "PE"
+      ],
+      "fact_misses": [],
+      "answer_preview": "## C78735 — Evaluator Codelist\n\n**C78735** is the CDISC controlled terminology codelist for **Evaluator**, used by the `--EVAL` variable across multiple SDTM domains. It is defined as **non-extensible** and contains the following values:\n\n| Code | CDISC Submission Value | CDISC Definition |\n|------|----------------------|------------------|\n| C51824 | ADJUDICATION COMMITTEE | A committee of experts that reviews and evaluates data or documents to determine outcomes or classifications. |\n| C51955 | INDEPENDENT ASSESSOR | An assessor who is independent of the study team and evaluates data without",
+      "usage": {
+        "prompt_tokens": 10054,
+        "completion_tokens": 939,
+        "total_tokens": 10993
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 7.64
+    },
+    {
+      "id": "q72",
+      "category": "cross_domain",
+      "question": "How do the PC (Pharmacokinetics Concentrations) and PP (Pharmacokinetic Parameters) domains relate to each other, and why are they kept as two separate domains?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "chapters/ch08_relationships.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/PC/spec.md",
+        "domains/PP/spec.md",
+        "domains/PC/assumptions.md",
+        "domains/PC/assumptions.md",
+        "domains/PC/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.5578,
+        0.5491,
+        0.733,
+        0.6403,
+        0.5665
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "PC",
+        "PP",
+        "parameter"
+      ],
+      "fact_misses": [],
+      "answer_preview": "# PC and PP Domain Relationship\n\n## Why Two Separate Domains\n\nPC and PP are kept as separate domains because they represent **different topics with different data structures**, as described in the SDTMIG:\n\n> \"These examples use 2 domain datasets because within these scientific areas there is more than 1 topic, and each topic results in a different data structure.\"\n> **[Source: chapters/ch08_relationships.md §8.6.2]**\n\nSpecifically:\n- **PC (Pharmacokinetics Concentrations)**: Topic is plasma (or other specimen) drug concentration as a function of time. Structure is **1 record per analyte per ti",
+      "usage": {
+        "prompt_tokens": 16051,
+        "completion_tokens": 1217,
+        "total_tokens": 17268
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 8.94
+    },
+    {
+      "id": "q73",
+      "category": "cross_domain",
+      "question": "Which special-purpose and relationship domains carry the RDOMAIN variable, and what does RDOMAIN identify?",
+      "source_recall": 0.0,
+      "source_hits": [],
+      "source_misses": [
+        "model/06_relationship_datasets.md"
+      ],
+      "top5_sources": [
+        "VARIABLE_INDEX.md",
+        "domains/RELREC/spec.md",
+        "chapters/ch08_relationships.md",
+        "domains/SUPPQUAL/spec.md",
+        "domains/RELREC/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.4962,
+        0.7528,
+        17.7327,
+        0.7491,
+        16.2389
+      ],
+      "fact_recall": 0.6667,
+      "fact_hits": [
+        "RDOMAIN",
+        "parent"
+      ],
+      "fact_misses": [
+        "2-character"
+      ],
+      "answer_preview": "Based on the provided context, the **RDOMAIN** variable appears in the following special-purpose and relationship domains:\n\n1.  **RELREC (Related Records)** — Role: Identifier, Core: Req\n2.  **SUPPQUAL (Supplemental Qualifiers)** — Role: Identifier, Core: Req\n3.  **CO (Comments)** — Role: Record Qualifier, Core: Perm\n\n**[Source: domains/RELREC/spec.md, domains/SUPPQUAL/spec.md, domains/CO/spec.md]**\n\n**What RDOMAIN identifies:**\n\nIn all three domains, **RDOMAIN** identifies the **parent domain** to which a record is related. It contains the two-character abbreviation (domain code) for the doma",
+      "usage": {
+        "prompt_tokens": 14150,
+        "completion_tokens": 371,
+        "total_tokens": 14521
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 4.04
+    },
+    {
+      "id": "q74",
+      "category": "cross_domain",
+      "question": "How are Supplemental Qualifier datasets named per parent domain (for example for AE and CM), and what variable ties each SUPP-- record back to its parent domain?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "model/06_relationship_datasets.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/AE/spec.md",
+        "domains/CM/spec.md",
+        "model/06_relationship_datasets.md",
+        "domains/SUPPQUAL/assumptions.md",
+        "chapters/ch08_relationships.md"
+      ],
+      "top5_similarities": [
+        0.4955,
+        0.4615,
+        0.8137,
+        0.7436,
+        0.7453
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "suppae",
+        "RDOMAIN",
+        "supp--"
+      ],
+      "fact_misses": [],
+      "answer_preview": "## Supplemental Qualifier Dataset Naming and Parent Linkage\n\n### Dataset Naming Convention\n\nSupplemental Qualifier datasets are named using the pattern **SUPP--**, where \"--\" is replaced by the 2-character domain code of the parent domain. This creates a one-to-one correspondence between a domain dataset and its Supplemental Qualifier dataset **[Source: chapters/ch08_relationships.md §8.4.2]**.\n\nExamples:\n- For **AE** (Adverse Events): `suppae.xpt`\n- For **CM** (Concomitant/Prior Medications): `suppcm.xpt`\n\nThis naming convention applies to all general-observation class domains (Events, Findin",
+      "usage": {
+        "prompt_tokens": 17655,
+        "completion_tokens": 789,
+        "total_tokens": 18444
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 6.48
+    },
+    {
+      "id": "q75",
+      "category": "cross_domain",
+      "question": "In SDTM, which identifier variables besides USUBJID can identify the source of a record across the general observation classes (for example for pooled or device data)?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "model/02_observation_classes.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "model/02_observation_classes.md",
+        "model/02_observation_classes.md",
+        "domains/SUPPQUAL/spec.md",
+        "model/01_concepts_and_terms.md",
+        "domains/RELSUB/spec.md"
+      ],
+      "top5_similarities": [
+        0.6708,
+        0.6648,
+        0.6786,
+        21.0629,
+        0.6767
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "USUBJID",
+        "POOLID",
+        "SPDEVID"
+      ],
+      "fact_misses": [],
+      "answer_preview": "Based on the SDTM knowledge base, the identifier variables besides USUBJID that can identify the source of a record across the general observation classes are **POOLID** and **SPDEVID**.\n\n## Details\n\n### Required Subject Identifier Rule\nEach general observation class domain must include at least one of the following subject identifiers: **USUBJID**, **SPDEVID**, or **POOLID**. **[Source: model/02_observation_classes.md — 3.1.4 Identifiers for All Classes]**\n\n### Variable Definitions\n\n| Variable | Label | Type | Role | Core | Notes |\n|----------|-------|------|------|------|-------|\n| **POOLID*",
+      "usage": {
+        "prompt_tokens": 14542,
+        "completion_tokens": 682,
+        "total_tokens": 15224
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 5.85
+    },
+    {
+      "id": "q76",
+      "category": "cross_domain",
+      "question": "How do the AP (Associated Persons) domains link non-subject persons back to study subjects, and what role do RSUBJID and SREL play?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "model/04_associated_persons.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "VARIABLE_INDEX.md",
+        "model/06_relationship_datasets.md",
+        "model/04_associated_persons.md",
+        "chapters/ch08_relationships.md",
+        "domains/RELSUB/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.5794,
+        0.7014,
+        0.6695,
+        0.6671,
+        0.6962
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "APID",
+        "RSUBJID",
+        "SREL"
+      ],
+      "fact_misses": [],
+      "answer_preview": "## AP Domains: Linking Non-Subject Persons to Study Subjects\n\nAP (Associated Persons) domains link non-subject persons back to study subjects through a dedicated set of linking variables: **APID**, **RSUBJID**, **RDEVID**, and **SREL**. These variables are defined in the SDTM v2.0 model for Associated Persons Data.\n\n### The Linking Mechanism\n\nAP domains use **APID** as the identifier for associated persons (instead of USUBJID for subjects). The linkage back to study subjects is accomplished through three variables:\n\n| Variable | Label | Type | Role | Core | Controlled Terms |\n|----------|-----",
+      "usage": {
+        "prompt_tokens": 12509,
+        "completion_tokens": 884,
+        "total_tokens": 13393
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 7.22
+    },
+    {
+      "id": "q77",
+      "category": "cross_domain",
+      "question": "The EPOCH timing variable appears in many domains. List several domains where EPOCH is used and state what kind of variable it is.",
+      "source_recall": 1.0,
+      "source_hits": [
+        "VARIABLE_INDEX.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "VARIABLE_INDEX.md",
+        "domains/TA/assumptions.md",
+        "chapters/ch04_general_assumptions.md",
+        "domains/SR/spec.md",
+        "domains/TE/examples.md"
+      ],
+      "top5_similarities": [
+        0.4727,
+        0.7118,
+        0.6476,
+        0.6753,
+        13.9737
+      ],
+      "fact_recall": 0.75,
+      "fact_hits": [
+        "EPOCH",
+        "Timing",
+        "EX"
+      ],
+      "fact_misses": [
+        "AE"
+      ],
+      "answer_preview": "Based on the retrieved context, the EPOCH variable is used in many domains across all three general observation classes. It is a **Timing** variable of type **Char**, with controlled terms from codelist **C99079**, and a **Permissible** core.\n\nHere are several domains where EPOCH is used:\n\n1.  **EC (Exposure as Collected)** — Interventions class **[Source: VARIABLE_INDEX.md]**\n2.  **SR (Skin Response)** — Findings class **[Source: domains/SR/spec.md]**\n3.  **UR (Urinary System Findings)** — Findings class **[Source: domains/UR/spec.md]**\n4.  **DS (Disposition)** — Events class **[Source: domai",
+      "usage": {
+        "prompt_tokens": 14210,
+        "completion_tokens": 310,
+        "total_tokens": 14520
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 3.33
+    },
+    {
+      "id": "q78",
+      "category": "concept",
+      "question": "What are the rules for values of --TESTCD variables in SDTM? Describe the maximum length and which characters are allowed.",
+      "source_recall": 1.0,
+      "source_hits": [
+        "chapters/ch04_general_assumptions.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch04_general_assumptions.md",
+        "domains/QS/assumptions.md",
+        "domains/FT/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.6937,
+        0.6892,
+        0.615,
+        0.5933,
+        0.5933
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "8 characters",
+        "cannot start with a number",
+        "letters, numbers, or underscores"
+      ],
+      "fact_misses": [],
+      "answer_preview": "## Rules for --TESTCD Variables in SDTM\n\n### Maximum Length\nValues of **--TESTCD** must be limited to **8 characters**. This restriction is explicitly stated in the variable-naming conventions and is consistently applied across all Findings domains. **[Source: chapters/ch04_general_assumptions.md §4.2.1]**\n\n### Allowed Characters\nValues of --TESTCD **cannot start with a number** (e.g., \"1TEST\" is not valid) and **cannot contain characters other than letters, numbers, or underscores**. **[Source: chapters/ch04_general_assumptions.md §4.2.1]**\n\nThis restriction is documented consistently across ",
+      "usage": {
+        "prompt_tokens": 11883,
+        "completion_tokens": 955,
+        "total_tokens": 12838
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 7.1
+    },
+    {
+      "id": "q79",
+      "category": "concept",
+      "question": "How does SDTM represent a missing value, and what should be done when a test is not performed?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "chapters/ch04_general_assumptions.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch04_general_assumptions.md",
+        "terminology/core/other_part4.md",
+        "terminology/supplementary/supplementary_part5.md"
+      ],
+      "top5_similarities": [
+        0.6134,
+        0.5564,
+        0.5115,
+        0.5714,
+        0.5688
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "null",
+        "NOT DONE",
+        "STAT",
+        "REASND"
+      ],
+      "fact_misses": [],
+      "answer_preview": "Based on the retrieved context, SDTM represents missing values and tests not performed as follows:\n\n## Missing Values\n\nMissing values are represented as **null** in SDTM datasets. **[Source: chapters/ch04_general_assumptions.md -- 4.2.5 Convention for Missing Values]**\n\n## Tests Not Performed\n\nWhen a test is not performed, the following rules apply:\n\n### Required Variables\n- **--STAT** must be populated with the value `\"NOT DONE\"` **[Source: chapters/ch04_general_assumptions.md -- 4.5.1 Original and Standardized Results]**\n- **--REASND** should be populated with the reason (if explicitly colle",
+      "usage": {
+        "prompt_tokens": 14487,
+        "completion_tokens": 626,
+        "total_tokens": 15113
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 4.72
+    },
+    {
+      "id": "q80",
+      "category": "concept",
+      "question": "What is the convention for using 'Yes' and 'No' values in SDTM variables, and when is it acceptable to populate only one value?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "chapters/ch04_general_assumptions.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch03_submitting_data.md"
+      ],
+      "top5_similarities": [
+        0.6584,
+        0.5395,
+        0.5168,
+        0.4937,
+        0.5223
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "Yes",
+        "No",
+        "single checkbox"
+      ],
+      "fact_misses": [],
+      "answer_preview": "## Convention for Using \"Yes\" and \"No\" Values in SDTM Variables\n\n### General Rule\n\nVariables where the response is \"Yes\" or \"No\" (\"Y\" or \"N\") should **normally be populated for both \"Y\" and \"N\" responses**. This eliminates confusion regarding whether a blank response indicates \"N\" or is a missing value. **[Source: chapters/ch04_general_assumptions.md — 4.3.7 Use of \"Yes\" and \"No\" Values]**\n\n### Exception — Populating Only One Value\n\nIt is **permissible to populate only one value** (\"Y\" or \"N\") and leave the alternate value blank when the variable is collected or derived in a manner that allows",
+      "usage": {
+        "prompt_tokens": 17132,
+        "completion_tokens": 823,
+        "total_tokens": 17955
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 6.53
+    },
+    {
+      "id": "q81",
+      "category": "concept",
+      "question": "What rules govern the two-character DOMAIN code in SDTM? What characters are allowed for the first and second characters?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "chapters/ch04_general_assumptions.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "chapters/ch04_general_assumptions.md",
+        "domains/TM/spec.md",
+        "chapters/ch04_general_assumptions.md",
+        "domains/DA/spec.md",
+        "chapters/ch04_general_assumptions.md"
+      ],
+      "top5_similarities": [
+        0.7129,
+        0.6583,
+        14.2372,
+        0.6435,
+        12.8348
+      ],
+      "fact_recall": 0.6667,
+      "fact_hits": [
+        "A-Z",
+        "0-9"
+      ],
+      "fact_misses": [
+        "2-character"
+      ],
+      "answer_preview": "Based on the retrieved context, the rules governing the two-character DOMAIN code in SDTM are as follows:\n\nThe two-character domain code is used as a prefix for most variable names in a domain dataset to minimize the risk of difficulty when merging or joining domains for reporting purposes. The code is limited to **A-Z for the first character**, and **A-Z or 0-9 for the second character**. No other characters are allowed. This restriction is for compatibility with SAS v5 transport files and with file naming requirements as part of the Electronic Common Technical Document (eCTD).\n\n**[Source: ch",
+      "usage": {
+        "prompt_tokens": 12946,
+        "completion_tokens": 140,
+        "total_tokens": 13086
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 2.22
+    },
+    {
+      "id": "q82",
+      "category": "concept",
+      "question": "Which identifier variables are required in all domains based on the three general observation classes, and which subject-level identifier must each include?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "model/02_observation_classes.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "model/02_observation_classes.md",
+        "chapters/ch04_general_assumptions.md",
+        "model/02_observation_classes.md",
+        "chapters/ch04_general_assumptions.md",
+        "domains/DM/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.7071,
+        0.6441,
+        0.6224,
+        0.5653,
+        0.5557
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "STUDYID",
+        "DOMAIN",
+        "SEQ",
+        "USUBJID"
+      ],
+      "fact_misses": [],
+      "answer_preview": "Based on the provided context, the identifier variables required in all domains based on the three general observation classes are **STUDYID, DOMAIN, and --SEQ**. Each domain must also include at least one of the following subject-level identifiers: **USUBJID, SPDEVID, or POOLID**.\n\n**[Source: model/02_observation_classes.md — 3.1.4 Identifiers for All Classes]**\n\n### Detailed Variable Definitions\n\n| Variable | Label | Type | Role | Core (Implied) |\n|----------|-------|------|------|----------------|\n| STUDYID | Study Identifier | Char | Identifier | Required |\n| DOMAIN | Domain Abbreviation |",
+      "usage": {
+        "prompt_tokens": 13733,
+        "completion_tokens": 657,
+        "total_tokens": 14390
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 4.96
+    },
+    {
+      "id": "q83",
+      "category": "concept",
+      "question": "What is RELREC and how is it used to relate records or datasets to one another in SDTM? What does the RDOMAIN variable do in RELREC?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "model/06_relationship_datasets.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/RELREC/spec.md",
+        "domains/RELREC/assumptions.md",
+        "chapters/ch08_relationships.md",
+        "chapters/ch08_relationships.md",
+        "model/06_relationship_datasets.md"
+      ],
+      "top5_similarities": [
+        0.6849,
+        0.7576,
+        0.7786,
+        0.7543,
+        0.6968
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "RELREC",
+        "RDOMAIN",
+        "Identifier"
+      ],
+      "fact_misses": [],
+      "answer_preview": "# RELREC — Related Records Dataset\n\n## What is RELREC?\n\nRELREC is a **special-purpose dataset** used to describe relationships between records for a subject (relating peer records) and relationships between datasets (relating datasets). It is defined in the SDTMIG v3.4 as a relationship dataset that captures collected relationships — either by explicit references or checkboxes on the CRF, or by design of the CRF (e.g., vital signs captured during an exercise stress test). **[Source: domains/RELREC/assumptions.md]**\n\nThe structure is **one record per related record, group of records, or dataset",
+      "usage": {
+        "prompt_tokens": 15889,
+        "completion_tokens": 1621,
+        "total_tokens": 17510
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 11.53
+    },
+    {
+      "id": "q84",
+      "category": "concept",
+      "question": "When deciding whether data belong to the Events, Interventions, or Findings observation class, what is the definition of an intervention versus an event?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "chapters/ch08_relationships.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "chapters/ch08_relationships.md",
+        "chapters/ch08_relationships.md",
+        "chapters/ch04_general_assumptions.md",
+        "domains/FA/assumptions.md",
+        "domains/FA/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.6892,
+        0.6095,
+        0.5137,
+        0.6076,
+        0.5521
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "intervention",
+        "event",
+        "physiological effect"
+      ],
+      "fact_misses": [],
+      "answer_preview": "Based on the SDTMIG v3.4 knowledge base, the definitions of an intervention versus an event are as follows:\n\n**Intervention**: An intervention is something that is done to a subject (possibly by the subject) that is expected to have a physiological effect. This concept of intended effect makes interventions relatively easy to recognize, although there are gray areas around some testing procedures. For example, exercise stress tests are designed to produce and then measure certain physiological effects. The measurements from such a testing procedure are findings, although some aspects of the pr",
+      "usage": {
+        "prompt_tokens": 14302,
+        "completion_tokens": 280,
+        "total_tokens": 14582
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 2.8
+    },
+    {
+      "id": "q85",
+      "category": "concept",
+      "question": "What are Associated Persons in SDTM, and how are AP domains named relative to the standard domain codes?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "model/04_associated_persons.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "model/04_associated_persons.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch01_introduction.md",
+        "model/01_concepts_and_terms.md",
+        "chapters/ch02_fundamentals.md"
+      ],
+      "top5_similarities": [
+        0.7784,
+        0.5731,
+        0.5322,
+        0.5676,
+        0.5432
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "Associated Persons",
+        "AP",
+        "APDM"
+      ],
+      "fact_misses": [],
+      "answer_preview": "## Associated Persons in SDTM\n\n**Associated Persons** are individuals other than study subjects who can be associated with a study, a particular study subject, or a device used in the study. Their data structures are based on the same general observation class models (Interventions, Events, Findings) or special-purpose domain structures used for study subjects, with the application of specific AP rules. **[Source: model/04_associated_persons.md]**\n\n### AP Domain Naming Convention\n\nAP domains use the domain code prefix `AP` followed by the relevant domain code. For example, associated persons d",
+      "usage": {
+        "prompt_tokens": 14998,
+        "completion_tokens": 668,
+        "total_tokens": 15666
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 5.86
+    },
+    {
+      "id": "q86",
+      "category": "concept",
+      "question": "What is an Expected (Exp) Core variable in SDTM, and what must be done in the Define-XML when a study does not collect the data item for an Expected variable?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "chapters/ch04_general_assumptions.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch04_general_assumptions.md",
+        "model/01_concepts_and_terms.md",
+        "chapters/ch03_submitting_data.md",
+        "domains/AE/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.7307,
+        0.5805,
+        0.5625,
+        0.5376,
+        0.492
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "Expected",
+        "null",
+        "Define-XML"
+      ],
+      "fact_misses": [],
+      "answer_preview": "## Expected (Exp) Core Variable in SDTM\n\nAn **Expected (Exp)** variable is defined as \"any variable necessary to make a record useful in the context of a specific domain.\" It must always be included in the dataset, but null values are permitted when the data item was not collected or is not applicable for a particular record. **[Source: chapters/ch04_general_assumptions.md -- 4.1.5 SDTM Core Designations]**\n\n### Key Rules for Expected Variables\n\n| Aspect | Rule |\n|--------|------|\n| **Inclusion in dataset** | Must always be included as a column |\n| **Null values** | Allowed when data not colle",
+      "usage": {
+        "prompt_tokens": 15747,
+        "completion_tokens": 521,
+        "total_tokens": 16268
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 5.03
+    },
+    {
+      "id": "q87",
+      "category": "concept",
+      "question": "How does SDTM decide whether assessments of an event should be stored as Supplemental Qualifiers versus in the Findings About (FA) domain?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "chapters/ch08_relationships.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/FA/spec.md",
+        "domains/FA/assumptions.md",
+        "chapters/ch08_relationships.md",
+        "chapters/ch02_fundamentals.md",
+        "model/02_observation_classes.md"
+      ],
+      "top5_similarities": [
+        0.5036,
+        0.7222,
+        0.6814,
+        0.6963,
+        0.643
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "Findings About",
+        "supplemental qualifier",
+        "event"
+      ],
+      "fact_misses": [],
+      "answer_preview": "## Decision Criteria: Supplemental Qualifiers vs. Findings About (FA) Domain\n\nThe SDTMIG provides specific criteria for determining whether assessments of an event should be stored as Supplemental Qualifiers (SUPP--) or in the Findings About (FA) domain. The key distinction is based on **data complexity and structure**.\n\n### When to Use Supplemental Qualifiers (SUPP--)\n\nSupplemental Qualifiers are appropriate when:\n- The assessment can be represented using **a single variable** (one name-value pair per observation)\n- The data represent **additional qualifiers** for an existing observation, not",
+      "usage": {
+        "prompt_tokens": 18251,
+        "completion_tokens": 665,
+        "total_tokens": 18916
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 7.06
+    },
+    {
+      "id": "q88",
+      "category": "concept",
+      "question": "What distinguishes ETCD, TSPARMCD, and ARMCD from --TESTCD with respect to character restrictions and maximum lengths in SDTM?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "chapters/ch04_general_assumptions.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/DM/spec.md",
+        "chapters/ch04_general_assumptions.md",
+        "domains/TA/spec.md",
+        "domains/TS/spec.md",
+        "domains/DM/spec.md"
+      ],
+      "top5_similarities": [
+        0.6434,
+        0.6025,
+        0.6254,
+        0.6624,
+        0.6089
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "ETCD",
+        "TSPARMCD",
+        "ARMCD",
+        "20 characters"
+      ],
+      "fact_misses": [],
+      "answer_preview": "Based on the SDTMIG v3.4 knowledge base, the key distinction between **ETCD**, **TSPARMCD**, and **ARMCD** versus **--TESTCD** lies in their character restrictions and maximum lengths:\n\n### 1. Character Restrictions\n\n- **--TESTCD** (Findings): Values are subject to strict character restrictions. They **cannot start with a number**, and **cannot contain characters other than letters, numbers, or underscores**. This is to ensure compatibility with SAS v5 transport files, as --TESTCD values may need to serve as variable names. **[Source: chapters/ch04_general_assumptions.md §4.2.1]**\n\n- **ETCD, T",
+      "usage": {
+        "prompt_tokens": 11366,
+        "completion_tokens": 570,
+        "total_tokens": 11936
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 5.06
+    },
+    {
+      "id": "q89",
+      "category": "concept",
+      "question": "What are the timing variables grouped under Relative Timing in SDTM (such as --STRF, --ENRF, --STRTPT, --ENRTPT) and what kinds of values do they take?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "model/02_observation_classes.md",
+        "chapters/ch04_general_assumptions.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "chapters/ch04_general_assumptions.md",
+        "model/02_observation_classes.md",
+        "domains/SV/assumptions.md",
+        "chapters/ch04_general_assumptions.md",
+        "domains/SU/spec.md"
+      ],
+      "top5_similarities": [
+        0.713,
+        0.638,
+        0.6002,
+        0.6249,
+        0.5948
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "STRF",
+        "ENRF",
+        "STRTPT",
+        "BEFORE"
+      ],
+      "fact_misses": [],
+      "answer_preview": "Based on the SDTMIG v3.4 knowledge base, the Relative Timing variables are a group of timing variables that describe the temporal relationship of an observation relative to a reference period or a reference time point. They are defined in the model's Timing Variables for All Classes and detailed in Section 4.4.7 of the implementation guide.\n\n### Variables and Their Values\n\nThere are two distinct subgroups within Relative Timing:\n\n#### 1. Relative to a Reference Period (--STRF and --ENRF)\n\nThese variables describe timing relative to the **sponsor-defined study reference period** (the continuous",
+      "usage": {
+        "prompt_tokens": 13834,
+        "completion_tokens": 1295,
+        "total_tokens": 15129
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 9.4
+    },
+    {
+      "id": "q90",
+      "category": "mixed",
+      "question": "In the EX (Exposure) domain, what is the EXROUTE variable and its controlled terminology codelist code, and list some parenteral route-of-administration values from that codelist (for example routes administered under the skin or into a muscle).",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/EX/spec.md",
+        "terminology/core/interventions.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/EX/spec.md",
+        "terminology/core/interventions.md",
+        "domains/EX/examples.md",
+        "domains/EX/assumptions.md",
+        "domains/EX/spec.md"
+      ],
+      "top5_similarities": [
+        0.6862,
+        0.4971,
+        0.5685,
+        0.5878,
+        0.631
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "EXROUTE",
+        "C66729",
+        "SUBCUTANEOUS",
+        "INTRAMUSCULAR"
+      ],
+      "fact_misses": [],
+      "answer_preview": "Based on the retrieved context, here is the definition of the EXROUTE variable and its associated controlled terminology.\n\n### EXROUTE Variable Definition\n\n- **Label:** Route of Administration\n- **Type:** Char\n- **Role:** Variable Qualifier\n- **Core:** Perm\n- **Controlled Terms Codelist Code:** C66729\n- **CDISC Notes:** Route of administration for the intervention. Examples: \"ORAL\", \"INTRAVENOUS\".\n\n**[Source: domains/EX/spec.md]**\n\n### Controlled Terminology (C66729) — Parenteral Route Examples\n\nThe codelist **Route of Administration Response (C66729)** is extensible and includes the following",
+      "usage": {
+        "prompt_tokens": 13903,
+        "completion_tokens": 261,
+        "total_tokens": 14164
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 3.53
+    },
+    {
+      "id": "q91",
+      "category": "mixed",
+      "question": "In the DS (Disposition) domain, which codelist does DSDECOD use for disposition events, and what are some reason-for-non-completion values from that codelist (for example a subject-initiated withdrawal or a physician's decision)?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/DS/spec.md",
+        "terminology/core/disposition.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/DS/spec.md",
+        "terminology/core/disposition.md",
+        "domains/DS/assumptions.md",
+        "domains/DS/assumptions.md",
+        "domains/DS/spec.md"
+      ],
+      "top5_similarities": [
+        0.7472,
+        0.6083,
+        0.7319,
+        0.6143,
+        0.6825
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "DSDECOD",
+        "C66727",
+        "WITHDRAWAL BY SUBJECT",
+        "PHYSICIAN DECISION"
+      ],
+      "fact_misses": [],
+      "answer_preview": "Based on the SDTMIG v3.4 knowledge base, for disposition events (where `DSCAT = \"DISPOSITION EVENT\"`), `DSDECOD` uses the **Completion/Reason for Non-Completion** codelist (C66727).\n\n## Codelist Details\n\n- **Codelist Code:** C66727\n- **CDISC Submission Value:** Completion/Reason for Non-Completion\n- **Extensible:** Yes (sponsors can add terms)\n- **Source:** [terminology/core/disposition.md]\n\n## Reason-for-Non-Completion Values\n\nKey values from this codelist include:\n\n| CDISC Submission Value | CDISC Definition |\n|------------------------|------------------|\n| WITHDRAWAL BY SUBJECT | The subjec",
+      "usage": {
+        "prompt_tokens": 14562,
+        "completion_tokens": 505,
+        "total_tokens": 15067
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 4.97
+    },
+    {
+      "id": "q92",
+      "category": "mixed",
+      "question": "What is the ETHNIC variable in the DM domain, what controlled terminology codelist code does it use, and what are its permitted values?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/DM/spec.md",
+        "terminology/core/dm.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/DM/spec.md",
+        "terminology/core/dm.md",
+        "domains/DM/spec.md",
+        "domains/DM/assumptions.md",
+        "chapters/ch04_general_assumptions.md"
+      ],
+      "top5_similarities": [
+        0.6371,
+        0.522,
+        0.5401,
+        0.5725,
+        0.5587
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "ETHNIC",
+        "C66790",
+        "HISPANIC OR LATINO"
+      ],
+      "fact_misses": [],
+      "answer_preview": "## ETHNIC Variable in DM Domain\n\n### Variable Definition\n\n| Attribute | Value |\n|-----------|-------|\n| **Label** | Ethnicity |\n| **Type** | Char |\n| **Role** | Record Qualifier |\n| **Core** | Perm |\n| **Controlled Terms** | C66790 |\n\n**[Source: domains/DM/spec.md — ETHNIC]**\n\n### CDISC Notes\n\nThe ethnicity of the subject. Sponsors should refer to the FDA guidance regarding the collection of ethnicity.\n\n**[Source: domains/DM/spec.md — ETHNIC]**\n\n### Controlled Terminology (C66790 — Ethnic Group)\n\nThe codelist is **not extensible** and permits exactly four values:\n\n| Code | CDISC Submission Val",
+      "usage": {
+        "prompt_tokens": 15580,
+        "completion_tokens": 526,
+        "total_tokens": 16106
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 4.85
+    },
+    {
+      "id": "q93",
+      "category": "mixed",
+      "question": "In the EX domain, what is the EXDOSFRM (Dose Form) variable and its controlled terminology codelist code, and give some dose-form values from that codelist (for example a solid oral shell form or a sterile parenteral form)?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/EX/spec.md",
+        "terminology/core/interventions.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/EX/spec.md",
+        "terminology/core/interventions.md",
+        "domains/EC/spec.md",
+        "domains/CM/spec.md",
+        "domains/ML/spec.md"
+      ],
+      "top5_similarities": [
+        0.7833,
+        0.4203,
+        0.7138,
+        0.6844,
+        0.6295
+      ],
+      "fact_recall": 0.75,
+      "fact_hits": [
+        "EXDOSFRM",
+        "C66726",
+        "CAPSULE"
+      ],
+      "fact_misses": [
+        "INJECTION"
+      ],
+      "answer_preview": "Based on the retrieved context, here is the definition of the EXDOSFRM variable and its associated controlled terminology:\n\n### EXDOSFRM Variable Definition\n\n- **Label:** Dose Form\n- **Type:** Char\n- **Role:** Variable Qualifier\n- **Core:** Expected (Exp)\n- **Controlled Terms:** C66726 (Pharmaceutical Dosage Form)\n- **CDISC Notes:** Dose form for EXTRT. Examples: \"TABLET\", \"LOTION\".\n\n**[Source: domains/EX/spec.md]**\n\n### Controlled Terminology (C66726)\n\nThe codelist code is **C66726**, which corresponds to the \"Pharmaceutical Dosage Form\" codelist. This codelist is extensible. **[Source: termi",
+      "usage": {
+        "prompt_tokens": 11334,
+        "completion_tokens": 371,
+        "total_tokens": 11705
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 3.88
+    },
+    {
+      "id": "q94",
+      "category": "mixed",
+      "question": "How does the LB domain distinguish the original result LBORRES from the standardized result LBSTRESC, what codelist does LBSTRESC reference, and what are some of the standard result values in that codelist (for example for positive/negative findings)?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/LB/spec.md",
+        "terminology/core/lb_part4.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/LB/spec.md",
+        "terminology/core/lb_part4.md",
+        "domains/LB/examples.md",
+        "domains/LB/spec.md",
+        "domains/LB/examples.md"
+      ],
+      "top5_similarities": [
+        0.7761,
+        0.569,
+        0.6411,
+        0.6766,
+        0.6406
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "LBORRES",
+        "LBSTRESC",
+        "C102580",
+        "NEGATIVE",
+        "POSITIVE"
+      ],
+      "fact_misses": [],
+      "answer_preview": "## LBORRES vs LBSTRESC Distinction\n\nThe LB domain uses a **3-level result framework** to distinguish original from standardized results:\n\n### LBORRES (Original Result)\n- **Label:** Result or Finding in Original Units\n- **Type:** Char\n- **Role:** Result Qualifier\n- **Core:** Exp\n- **Controlled Terms:** None\n- **Purpose:** Stores the **originally collected/reported value** exactly as captured from the source (e.g., \"-\", \"NEG\", \"NEGATIVE\", \"none\") **[Source: domains/LB/spec.md — LBORRES]**\n\n### LBSTRESC (Standardized Character Result)\n- **Label:** Character Result/Finding in Std Format\n- **Type:*",
+      "usage": {
+        "prompt_tokens": 14685,
+        "completion_tokens": 814,
+        "total_tokens": 15499
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 7.17
+    },
+    {
+      "id": "q95",
+      "category": "mixed",
+      "question": "In the DD (Death Details) domain, what is the DDTEST variable and its controlled terminology codelist code, and what are some of the test names defined in that codelist (for example relating to cause of death or age at death)?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/DD/spec.md",
+        "terminology/core/other_part4.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/DD/spec.md",
+        "terminology/core/other_part4.md",
+        "domains/DD/spec.md",
+        "terminology/core/other_part4.md",
+        "VARIABLE_INDEX.md"
+      ],
+      "top5_similarities": [
+        0.7643,
+        0.6729,
+        0.7509,
+        0.6619,
+        0.6722
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "DDTEST",
+        "C116107",
+        "Primary Cause of Death",
+        "Age at Death"
+      ],
+      "fact_misses": [],
+      "answer_preview": "Based on the SDTM knowledge base, here is the information for the DDTEST variable in the DD (Death Details) domain:\n\n## DDTEST Variable Definition\n\n- **Label:** Death Detail Assessment Name\n- **Type:** Char\n- **Role:** Synonym Qualifier\n- **Core:** Req\n- **Controlled Terms:** C116107\n- **CDISC Notes:** Long name for DDTESTCD. The value in DDTEST cannot be longer than 40 characters. Examples: \"Primary Cause of Death\", \"Secondary Cause of Death\".\n\n**[Source: domains/DD/spec.md]**\n\n## Controlled Terminology Codelist (C116107)\n\nThe codelist is named **\"SDTM Death Diagnosis and Details Test Name\"**",
+      "usage": {
+        "prompt_tokens": 11807,
+        "completion_tokens": 585,
+        "total_tokens": 12392
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 4.96
+    },
+    {
+      "id": "q96",
+      "category": "mixed",
+      "question": "In the FA (Findings About) domain, what is the FATEST variable and its controlled terminology codelist code, and give some example test names from that codelist (such as Diameter or Cumulative Exposure)?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/FA/spec.md",
+        "terminology/core/findings_about.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/FA/spec.md",
+        "terminology/core/findings_about.md",
+        "domains/FA/assumptions.md",
+        "model/02_observation_classes.md",
+        "domains/FA/spec.md"
+      ],
+      "top5_similarities": [
+        0.7232,
+        0.487,
+        0.7102,
+        0.5997,
+        0.6545
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "FATEST",
+        "C101833",
+        "Diameter",
+        "Cumulative Exposure"
+      ],
+      "fact_misses": [],
+      "answer_preview": "Based on the retrieved context, here is the definition and controlled terminology for the **FATEST** variable in the FA domain.\n\n### FATEST Variable Definition\n\n- **Label:** Findings About Test Name\n- **Type:** Char\n- **Role:** Synonym Qualifier\n- **Core:** Req\n- **Controlled Terms:** C101833\n- **CDISC Notes:** Verbatim name of the test or examination used to obtain the measurement or finding. The value in FATEST cannot be longer than 40 characters. Examples: \"Severity/Intensity\", \"Occurrence\". Note that controlled terminology is in a FATEST general codelist and in several therapeutic area-spe",
+      "usage": {
+        "prompt_tokens": 17521,
+        "completion_tokens": 475,
+        "total_tokens": 17996
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 4.55
+    },
+    {
+      "id": "q97",
+      "category": "mixed",
+      "question": "In the SS (Subject Status) domain, what is the SSSTRESC variable, what controlled terminology codelist does it use, and what are the standard subject-status result values in that codelist (such as for a living versus deceased subject)?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/SS/spec.md",
+        "terminology/core/other_part5.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/SS/spec.md",
+        "terminology/core/other_part5.md",
+        "VARIABLE_INDEX.md",
+        "terminology/core/other_part5.md",
+        "domains/SS/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.7309,
+        0.5847,
+        0.6764,
+        0.5747,
+        0.5833
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "SSSTRESC",
+        "C124304",
+        "ALIVE",
+        "DEAD"
+      ],
+      "fact_misses": [],
+      "answer_preview": "Based on the retrieved context, here is the information about the SSSTRESC variable in the SS (Subject Status) domain:\n\n## SSSTRESC Variable Definition\n\n- **Label:** Character Result/Finding in Std Format\n- **Type:** Char\n- **Role:** Result Qualifier\n- **Core:** Exp (Expected)\n- **Controlled Terms:** C124304\n- **CDISC Notes:** Contains the result value for all findings copied or derived from SSORRES, in a standard format. **[Source: domains/SS/spec.md]**\n\n## Controlled Terminology Codelist (C124304)\n\nThe codelist **Subject Status Response (C124304)** is used for SSSTRESC. It is **extensible** ",
+      "usage": {
+        "prompt_tokens": 12350,
+        "completion_tokens": 423,
+        "total_tokens": 12773
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 4.66
+    },
+    {
+      "id": "q98",
+      "category": "mixed",
+      "question": "In the CM (Concomitant Medications) domain, what is the CMDOSU (Dose Units) variable, what controlled terminology codelist does it use, and give some unit values from that codelist (for example an international unit or a milliequivalent)?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/CM/spec.md",
+        "terminology/core/general_part5.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/CM/spec.md",
+        "terminology/core/general_part5.md",
+        "domains/CM/assumptions.md",
+        "VARIABLE_INDEX.md",
+        "domains/LB/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.7977,
+        0.5497,
+        0.6795,
+        0.6301,
+        21.1024
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "CMDOSU",
+        "C71620",
+        "IU",
+        "mEq"
+      ],
+      "fact_misses": [],
+      "answer_preview": "Based on the retrieved context, here is the definition and controlled terminology for the CMDOSU variable in the CM domain:\n\n**CMDOSU (Dose Units)**\n- **Label:** Dose Units\n- **Type:** Char\n- **Role:** Variable Qualifier\n- **Core:** Perm (Permissible)\n- **Controlled Terminology Codelist:** C71620 (Unit)\n- **CDISC Notes:** Units for CMDOSE, CMDOSTOT, or CMDOSTXT. Examples: \"ng\", \"mg\", \"mg/kg\". **[Source: domains/CM/spec.md -- CMDOSU]**\n\nThe codelist C71620 (Unit) is an extensible codelist containing many standard units of measure. From the retrieved terminology file, here are some example value",
+      "usage": {
+        "prompt_tokens": 13128,
+        "completion_tokens": 362,
+        "total_tokens": 13490
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 3.88
+    },
+    {
+      "id": "q99",
+      "category": "mixed",
+      "question": "In the QS (Questionnaires) domain, what is the QSCAT variable used for, what controlled terminology codelist does it reference, and give some example questionnaire short names from that codelist.",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/QS/spec.md",
+        "terminology/core/qs_part1.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/QS/spec.md",
+        "terminology/core/qs_part1.md",
+        "domains/SUPPQUAL/examples.md",
+        "domains/FT/assumptions.md",
+        "domains/QS/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.785,
+        0.5381,
+        0.6848,
+        0.701,
+        0.701
+      ],
+      "fact_recall": 0.5,
+      "fact_hits": [
+        "QSCAT",
+        "C100129"
+      ],
+      "fact_misses": [
+        "ACQ",
+        "ACT"
+      ],
+      "answer_preview": "Based on the SDTMIG v3.4 knowledge base:\n\n## QSCAT Variable Definition\n\n**QSCAT** (Category of Question) is used to specify the questionnaire in which the question identified by QSTEST and QSTESTCD was included. **[Source: domains/QS/spec.md — QSCAT]**\n\n| Attribute | Value |\n|-----------|-------|\n| **Label** | Category of Question |\n| **Type** | Char |\n| **Role** | Grouping Qualifier |\n| **Core** | Req |\n| **Controlled Terms** | C100129 |\n\n## Controlled Terminology\n\nQSCAT references the **Category of Questionnaire** codelist (C100129). **[Source: domains/QS/spec.md — Controlled Terminology]**\n",
+      "usage": {
+        "prompt_tokens": 13827,
+        "completion_tokens": 456,
+        "total_tokens": 14283
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 4.35
+    },
+    {
+      "id": "q100",
+      "category": "single_domain",
+      "question": "In the TA (Trial Arms) domain, what is the ARMCD variable's role and Core designation, and what is the ETCD variable used for?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/TA/spec.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/TA/spec.md",
+        "domains/DM/assumptions.md",
+        "domains/TA/examples.md",
+        "domains/DM/examples.md",
+        "domains/DM/spec.md"
+      ],
+      "top5_similarities": [
+        0.6516,
+        0.6754,
+        0.6209,
+        0.6491,
+        0.6861
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "ARMCD",
+        "Topic",
+        "ETCD",
+        "Element Code"
+      ],
+      "fact_misses": [],
+      "answer_preview": "Based on the provided context, here are the details for the ARMCD and ETCD variables in the Trial Arms (TA) domain:\n\n### ARMCD (Planned Arm Code)\n\n- **Role:** Topic **[Source: domains/TA/spec.md]**\n- **Core:** Req (Required) **[Source: domains/TA/spec.md]**\n- **Type:** Char\n- **Label:** Planned Arm Code\n- **Controlled Terms:** (None specified)\n- **CDISC Notes:** ARMCD is limited to 20 characters and does not have special character restrictions. The maximum length is longer than for other \"short\" variables to accommodate values needed for crossover trials (e.g., 2-character abbreviations for ea",
+      "usage": {
+        "prompt_tokens": 16770,
+        "completion_tokens": 400,
+        "total_tokens": 17170
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 4.79
+    },
+    {
+      "id": "q101",
+      "category": "mixed",
+      "question": "What is the TSPARM variable in the TS domain, what is its controlled terminology codelist code, and give some example trial summary parameter names defined in that codelist.",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/TS/spec.md",
+        "terminology/core/trial_design.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/TS/spec.md",
+        "terminology/core/trial_design.md",
+        "domains/TS/assumptions.md",
+        "VARIABLE_INDEX.md",
+        "domains/TS/spec.md"
+      ],
+      "top5_similarities": [
+        0.7454,
+        0.464,
+        0.6272,
+        0.6342,
+        0.6961
+      ],
+      "fact_recall": 0.5,
+      "fact_hits": [
+        "TSPARM",
+        "C67152"
+      ],
+      "fact_misses": [
+        "Actual Number of Subjects",
+        "Clinical Study Sponsor"
+      ],
+      "answer_preview": "Based on the retrieved context, here is the definition of the **TSPARM** variable in the TS domain:\n\n### Variable Definition: TSPARM\n\n- **Label:** Trial Summary Parameter\n- **Type:** Char\n- **Role:** Synonym Qualifier\n- **Core:** Req\n- **Controlled Terms:** C67152\n- **CDISC Notes:** Term for the trial summary parameter. The value in TSPARM cannot be longer than 40 characters. Examples: \"Planned Minimum Age of Subjects\", \"Planned Maximum Age of Subjects\". **[Source: domains/TS/spec.md]**\n\n### Controlled Terminology Codelist Code\n\nThe controlled terminology codelist code for TSPARM is **C67152**",
+      "usage": {
+        "prompt_tokens": 11137,
+        "completion_tokens": 416,
+        "total_tokens": 11553
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 3.73
+    },
+    {
+      "id": "q102",
+      "category": "mixed",
+      "question": "In the VS (Vital Signs) domain, what is the VSPOS variable, what controlled terminology codelist does it use, and list some subject-position values from that codelist (for example a face-down position or a semi-sitting bed position)?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/VS/spec.md",
+        "terminology/core/interventions.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/VS/spec.md",
+        "terminology/core/interventions.md",
+        "domains/VS/spec.md",
+        "VARIABLE_INDEX.md",
+        "domains/CV/spec.md"
+      ],
+      "top5_similarities": [
+        0.756,
+        0.5398,
+        0.6601,
+        0.5644,
+        0.6317
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "VSPOS",
+        "C71148",
+        "PRONE",
+        "FOWLERS"
+      ],
+      "fact_misses": [],
+      "answer_preview": "Based on the retrieved context, here is the detailed information about the VSPOS variable in the VS (Vital Signs) domain:\n\n## VSPOS Variable Definition\n\n- **Label:** Vital Signs Position of Subject\n- **Type:** Char\n- **Role:** Record Qualifier\n- **Core:** Perm (Permissible)\n- **Controlled Terms:** C71148\n- **CDISC Notes:** Position of the subject during a measurement or examination. Examples: \"SUPINE\", \"STANDING\", \"SITTING\".\n\n**[Source: domains/VS/spec.md]**\n\n## Controlled Terminology Codelist\n\nVSPOS uses the **Position (C71148)** codelist, which is **Extensible: Yes**.\n\n**[Source: terminology",
+      "usage": {
+        "prompt_tokens": 11003,
+        "completion_tokens": 660,
+        "total_tokens": 11663
+      },
+      "model": "deepseek/deepseek-chat",
+      "elapsed_s": 5.5
+    }
+  ],
+  "tag": "full_on_t0"
+}

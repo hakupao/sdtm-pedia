@@ -53,6 +53,9 @@ class InfoResponse(BaseModel):
     default_model: str
     fallback_model: str
     top_k: int
+    structured_lookup: bool
+    hybrid: bool
+    hybrid_fusion: str | None = None
 
 
 # ── Endpoints ────────────────────────────────────────────────────────────
@@ -72,6 +75,9 @@ def info(request: Request):
         default_model=s.default_model,
         fallback_model=s.fallback_model,
         top_k=s.top_k,
+        structured_lookup=rag.structured_lookup_enabled,
+        hybrid=rag.hybrid_enabled,
+        hybrid_fusion=rag.hybrid_fusion if rag.hybrid_enabled else None,
     )
 
 

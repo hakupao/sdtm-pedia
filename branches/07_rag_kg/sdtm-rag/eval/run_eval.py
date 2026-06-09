@@ -81,6 +81,7 @@ def run_evaluation(
     retrieval_only: bool = False,
     direct_model: str | None = None,
     top_k: int = TOP_K,
+    temperature: float | None = None,
 ) -> list[dict]:
     results: list[dict] = []
     for q in test_set:
@@ -110,12 +111,15 @@ def run_evaluation(
             context = rag.format_context(chunks)
             messages = rag.build_messages(q["question"], context)
 
+            comp_kwargs: dict = {"messages": messages}
+            if temperature is not None:
+                comp_kwargs["temperature"] = temperature  # 0.0 => deterministic paired runs
             for _attempt in range(5):
                 try:
                     if direct_model is not None:
-                        response = litellm.completion(model=direct_model, messages=messages)
+                        response = litellm.completion(model=direct_model, **comp_kwargs)
                     else:
-                        response = router.completion(model="default", messages=messages)
+                        response = router.completion(model="default", **comp_kwargs)
                     break
                 except Exception as exc:
                     if "rate_limit" in str(exc).lower() or "429" in str(exc):
@@ -141,7 +145,7 @@ def run_evaluation(
                 "fact_recall": round(fact_recall, 4),
                 "fact_hits": fact_hits,
                 "fact_misses": fact_misses,
-                "answer_preview": answer[:300],
+                "answer_preview": answer[:600],
                 "usage": usage,
                 "model": direct_model if direct_model is not None else getattr(response, "model", "unknown"),
             })
@@ -302,6 +306,13 @@ def main(argv: list[str] | None = None) -> int:
         help="S2 per-list fusion pool depth (default settings.hybrid_pool=100)",
     )
     parser.add_argument(
+        "--temperature",
+        type=float,
+        default=None,
+        help="Answer-model sampling temperature. Default None = provider default "
+             "(non-deterministic). Set 0.0 for deterministic paired off/on comparisons.",
+    )
+    parser.add_argument(
         "--tag",
         default=None,
         help="Optional label added to output JSON for cross-model comparison",
@@ -363,7 +374,7 @@ def main(argv: list[str] | None = None) -> int:
     print()
     results = run_evaluation(
         test_set, rag, router, args.retrieval_only, direct_model=args.model,
-        top_k=args.top_k,
+        top_k=args.top_k, temperature=args.temperature,
     )
     summary = print_summary(
         results,

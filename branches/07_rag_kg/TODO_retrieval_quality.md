@@ -71,7 +71,9 @@
 > 3. **Hybrid BM25** (新增关键词索引 + RRF 加法融合) → concept 92→100% + 字面 token cross
 > 4. **路由隔离 + 长名映射** (hybrid 单独砸 single 96→83, 组合稳 100) → kill-switch 守住 single
 >
-> **代码**: `server/structured_lookup.py` (新) + `server/rag.py` hybrid + `--structured-lookup --hybrid` flags (默认 off, eval 用). **未决 follow-up**: q73 残留 / 扩题集增 margin / 接入生产 /ask + full eval (见 RETROSPECTIVE §2).
+> **代码**: `server/structured_lookup.py` (新) + `server/rag.py` hybrid + `--structured-lookup --hybrid` flags.
+> **✅ 接入生产 + full eval 完成 (2026-06-09)**: 两杠杆 `/ask` **默认开** (config, env 可关) + embed-once 重构 + q02 修复; DeepSeek temp=0 配对 full eval src 80.9→99.0% / fact 95.2% (噪声带内持平); 延迟 +14ms/查询. Rule D 代码审 + Rule A 语义裁判过. 详 `sdtm-rag/evidence/checkpoints/prod_wirein_summary.md`.
+> **未决 follow-up**: q73 残留 / 扩题集增 margin / 残留 known limitations (q100/q37/q93/C-code 幻觉, 答题侧, 见 summary §残留).
 
 ### (历史) P1 立项时的 5 个待决点 — 已在实施中回答
 

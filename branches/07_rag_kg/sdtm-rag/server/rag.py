@@ -30,6 +30,13 @@ class RetrievedChunk:
 
 
 class RAGEngine:
+    # When structured-lookup resolves to EXACTLY ONE domain spec.md (a pure
+    # single-domain query, e.g. "the required variables in DM"), inject this many of
+    # that file's chunks instead of just the single best one, so the answering model
+    # has enough variable rows to ENUMERATE rather than punt. See
+    # _apply_structured_lookup for the rationale and the narrow trigger condition.
+    _SINGLE_DOMAIN_SPEC_CHUNKS = 4
+
     def __init__(
         self,
         chroma_dir: Path,
@@ -158,12 +165,24 @@ class RAGEngine:
         k = top_k or self.top_k
         where = self._build_where(domain, file_type)
 
+        # Embed the ORIGINAL query at most once and reuse the vector across the
+        # dense search and every S1 lookup search (each previously re-embedded the
+        # identical query text — up to ~6 redundant OpenAI round-trips per call).
+        # Skipped only on the pure-hyde path with no S1, where the original query is
+        # never searched (hyde embeds the hypothetical doc instead).
+        need_q_emb = self._structured_lookup is not None or self.query_expansion != "hyde"
+        q_emb = self._embed_query(query) if need_q_emb else None
+
         # T4 query expansion: rewrite the query, keep cosine ordering.
         if self.query_expansion == "multiquery":
             queries = self._expand_queries(query)
-            # each sub-query retrieves a deeper slice so RRF has signal to fuse
+            # each sub-query retrieves a deeper slice so RRF has signal to fuse;
+            # the original query (queries[0]) reuses the precomputed embedding.
             per_q = max(k, 30)
-            result_lists = [self._search(q, per_q, where) for q in queries]
+            result_lists = [
+                self._search(q, per_q, where, query_embedding=(q_emb if q == query else None))
+                for q in queries
+            ]
             cosine = self._rrf_fuse(result_lists, k)
         elif self.query_expansion == "hyde":
             hypo = self._hypothetical_doc(query)
@@ -174,7 +193,7 @@ class RAGEngine:
             hypo = self._hypothetical_doc(query)
             per_q = max(k, 30)
             lists = [
-                self._search(query, per_q, where),
+                self._search(query, per_q, where, query_embedding=q_emb),
                 self._search(hypo, per_q, where),
             ]
             cosine = self._rrf_fuse(lists, k)
@@ -184,21 +203,21 @@ class RAGEngine:
             # surfaces; fusion is additive so a chunk strong in BOTH is reinforced
             # (the structured spec chunks the literal-token questions need).
             pool = max(k, self.hybrid_pool)
-            dense = self._search(query, pool, where)
+            dense = self._search(query, pool, where, query_embedding=q_emb)
             bm25 = self._bm25_search(query, pool, where)
             cosine = self._hybrid_fuse(dense, bm25, k)
         else:
             # Single-query path (+ optional T2 rerank). When rerank is on, pull a
             # wide candidate pool, then let the reranker pick k. Pool never < k.
             pool = max(self.rerank_candidates, k) if self.rerank_enabled else k
-            chunks = self._search(query, pool, where)
+            chunks = self._search(query, pool, where, query_embedding=q_emb)
             if self.rerank_enabled and chunks:
                 cosine = self._rerank(query, chunks, k)
             else:
                 cosine = chunks[:k]
 
         if self._structured_lookup is not None:
-            return self._apply_structured_lookup(query, cosine, where, k)
+            return self._apply_structured_lookup(query, cosine, where, k, query_embedding=q_emb)
         return cosine[:k]
 
     def _apply_structured_lookup(
@@ -207,19 +226,34 @@ class RAGEngine:
         cosine: list[RetrievedChunk],
         where: dict | None,
         k: int,
+        query_embedding: list[float] | None = None,
     ) -> list[RetrievedChunk]:
         """S1 union-add: resolve gold files deterministically, pull the single most
         query-relevant chunk from each, prepend them, then fill with cosine results
         (de-duped) up to k. Lookup chunks go first so they cannot be crowded out;
-        cosine ordering of everything else is preserved. No-op when resolve()=[]."""
+        cosine ordering of everything else is preserved. No-op when resolve()=[].
+        `query_embedding` (the precomputed original-query vector) is reused for every
+        per-file lookup search so S1 adds no extra embedding round-trips."""
         targets = self._structured_lookup.resolve(query)
         if not targets:
             return cosine[:k]
 
+        # Single-domain enrichment: when resolve() returns exactly ONE target and it
+        # is a domain's spec.md, this is a pure single-domain ask ("required variables
+        # in DM"). Injecting only the single best spec chunk lets hybrid/relationship
+        # chunks crowd the remaining per-variable spec rows out of top-k, so the model
+        # can't enumerate and punts (observed q02 regression). Inject several chunks
+        # from that one file instead. Multi-target queries keep 1 chunk per file so
+        # they never flood. Source recall is unchanged (the gold file is found either
+        # way) — this only enriches composition for the answering model.
+        single_spec = len(targets) == 1 and self._is_domain_spec(targets[0])
+
         lookup_chunks: list[RetrievedChunk] = []
         for rel_path in targets:
-            chunk = self._lookup_chunk_for_file(query, rel_path)
-            if chunk is not None:
+            n = self._SINGLE_DOMAIN_SPEC_CHUNKS if single_spec else 1
+            for chunk in self._lookup_chunks_for_file(
+                query, rel_path, n, query_embedding=query_embedding
+            ):
                 chunk.via_lookup = True
                 lookup_chunks.append(chunk)
 
@@ -235,16 +269,21 @@ class RAGEngine:
             merged.append(ch)
         return merged[:k]
 
-    def _lookup_chunk_for_file(
-        self, query: str, rel_path: str
-    ) -> RetrievedChunk | None:
-        """Best (highest query-cosine) chunk whose source is exactly `rel_path`.
-        Filters Chroma on the absolute source path, reusing the embedded query so
-        the injected chunk is the most relevant slice of that file. None if the
-        file has no chunks in the collection."""
+    @staticmethod
+    def _is_domain_spec(rel_path: str) -> bool:
+        """True for a domains/<CODE>/spec.md path (the per-variable spec file)."""
+        return rel_path.startswith("domains/") and rel_path.endswith("/spec.md")
+
+    def _lookup_chunks_for_file(
+        self, query: str, rel_path: str, n: int,
+        query_embedding: list[float] | None = None,
+    ) -> list[RetrievedChunk]:
+        """Up to `n` best (highest query-cosine) chunks whose source is exactly
+        `rel_path`. Filters Chroma on the absolute source path, reusing the precomputed
+        query embedding (no fresh embedding call) so the injected chunks are the most
+        relevant slices of that file. Empty list if the file has no chunks."""
         abs_source = str((self.kb_root / rel_path).resolve())
-        hits = self._search(query, 1, {"source": abs_source})
-        return hits[0] if hits else None
+        return self._search(query, n, {"source": abs_source}, query_embedding=query_embedding)
 
     @staticmethod
     def _build_where(domain: str | None, file_type: str | None) -> dict | None:
@@ -259,12 +298,39 @@ class RAGEngine:
             return {"$and": conditions}
         return None
 
+    def _embed_query(self, text: str) -> list[float]:
+        """Embed `text` via the configured embedding model. Factored out so the
+        original query's vector can be computed once per retrieve() call and reused
+        by the dense search and every S1 lookup (which otherwise each re-embed the
+        identical query). Deterministic for a given input, so reuse is exact.
+
+        This is now the single chokepoint for all query-embedding traffic, so it
+        carries the same 429 backoff as _llm/_rerank: rate-limit errors retry with
+        exponential backoff, other errors re-raise immediately (the /ask handler
+        turns the propagated failure into a visible 502, never a silent degrade)."""
+        for attempt in range(5):
+            try:
+                resp = litellm.embedding(model=self.embedding_model, input=[text])
+                return resp.data[0]["embedding"]
+            except Exception as exc:
+                msg = str(exc).lower()
+                if ("rate" in msg or "429" in msg or "too many" in msg) and attempt < 4:
+                    time.sleep(min(60, 10 * (2 ** attempt)))
+                    continue
+                raise
+
     def _search(
-        self, query_text: str, n: int, where: dict | None
+        self,
+        query_text: str,
+        n: int,
+        where: dict | None,
+        query_embedding: list[float] | None = None,
     ) -> list[RetrievedChunk]:
-        """Embed `query_text`, cosine-search Chroma, return up to `n` chunks."""
-        resp = litellm.embedding(model=self.embedding_model, input=[query_text])
-        query_emb = resp.data[0]["embedding"]
+        """Cosine-search Chroma for up to `n` chunks. Embeds `query_text` unless a
+        precomputed `query_embedding` is supplied (reused to avoid redundant calls)."""
+        query_emb = (
+            query_embedding if query_embedding is not None else self._embed_query(query_text)
+        )
 
         result = self.collection.query(
             query_embeddings=[query_emb],

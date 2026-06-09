@@ -1,0 +1,16 @@
+================================================================
+STEP 3 LATENCY — retrieval only (LLM answer time excluded)
+================================================================
+
+startup init (OFF, no BM25): 28ms
+startup init (ON, builds BM25 over 4146 chunks): 557ms
+  ^ one-time, at server boot
+
+per-query retrieve():
+  OFF (plain cosine)       : n=102 p50=101ms p95=117ms max=128ms mean=102ms
+  ON  (all queries)        : n=102 p50=115ms p95=139ms max=578ms mean=122ms
+  ON  (S1 fired)           : n=77 p50=116ms p95=139ms max=198ms mean=119ms
+  ON  (S1 not fired)       : n=25 p50=105ms p95=320ms max=578ms mean=131ms
+
+  median overhead ON vs OFF: +14ms
+================================================================

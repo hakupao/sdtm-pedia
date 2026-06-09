@@ -1,0 +1,811 @@
+[
+  {
+    "id": "q02",
+    "category": "single_domain",
+    "question": "What are the required (Core=Req) variables in the DM domain?",
+    "expected_facts": [
+      "STUDYID",
+      "USUBJID",
+      "RFSTDTC",
+      "AGE",
+      "SEX",
+      "ARM"
+    ],
+    "expected_sources": [
+      "domains/DM/spec.md"
+    ],
+    "off": {
+      "answer": "Based on the DM domain specification, the required (Core=Req) variables in the DM domain are:\n\n| Variable | Label | Type | Role | Core |\n|----------|-------|------|------|------|\n| STUDYID | Study Identifier | Char | Identifier | Req |\n| DOMAIN | Domain Abbreviation | Char | Identifier | Req |\n| USUBJID | Unique Subject Identifier | Char | Identifier | Req |\n| SUBJID | Subject Identifier for the Study | Char | Identifier | Req |\n| SITEID | Study Site Identifier | Char | Identifier | Req |\n| RFSTDTC | Subject Reference Start Date/Time | Char | Record Qualifier | Req |\n| RFENDTC | Subject Reference End Date/Time | Char | Record Qualifier | Req |\n| DTHDTC | Date/Time of Death | Char | Record Qualifier | Req |\n| DTHFL | Subject Death Flag | Char | Record Qualifier | Req |\n| AGE | Age | Num | Record Qualifier | Req |\n| AGEU | Age Units | Char | Record Qualifier | Req |\n| SEX | Sex | Char | Record Qualifier | Req |\n| RACE | Race | Char | Record Qualifier | Req |\n| ETHNIC | Ethnicity | Char | Record Qualifier | Req |\n| ARMCD | Planned Arm Code | Char | Record Qualifier | Req |\n| ARM | Description of Planned Arm | Char | Record Qualifier | Req |\n| ACTARMCD | Actual Arm Code | Char | Record Qualifier | Req |\n| ACTARM | Description of Actual Arm | Char | Record Qualifier | Req |\n| COUNTRY | Country | Char | Record Qualifier | Req |\n| DMDTC | Date/Time of Collection | Char | Timing | Req |\n| DMDY | Study Day of Collection | Num | Timing | Req |\n\n**[Source: domains/DM/spec.md]**\n\n**Key notes:**\n- DM is a special-purpose domain and the parent domain for all other observations for human clinical subjects **[Source: domains/DM/assumptions.md]**\n- The DOMAIN variable is a Required Identifier with the two-character abbreviation \"DM\" **[Source: domains/DM/spec.md]**\n- Unlike most other domains, DM variables (except DMDTC and DMDY) are **not** prefixed with the domain identifier — this is an exception to the standard naming convention **[Source: chapters/ch04_general_assumptions.md §4.2.2]**\n- Required variables must always be included in the dataset and cannot be null for any record **[Source: chapters/ch04_general_assumptions.md §4.1.5]**",
+      "sources": [
+        "domains/DM/assumptions.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch04_general_assumptions.md",
+        "model/01_concepts_and_terms.md",
+        "domains/TM/spec.md",
+        "domains/SUPPQUAL/spec.md",
+        "domains/DD/assumptions.md",
+        "domains/DS/assumptions.md",
+        "domains/CO/spec.md",
+        "domains/SV/spec.md",
+        "domains/DV/assumptions.md",
+        "domains/TV/spec.md",
+        "domains/DM/spec.md",
+        "domains/IE/spec.md",
+        "domains/TU/spec.md"
+      ]
+    },
+    "on": {
+      "answer": "Based on the context provided, the DM domain specification is not fully included in the retrieved documents. However, from the available information, I can identify the following required (Core=Req) variables in the DM domain:\n\n**DOMAIN** — Domain Abbreviation\n- **Label:** Domain Abbreviation\n- **Type:** Char\n- **Role:** Identifier\n- **Core:** Req\n- **CDISC Notes:** Two-character abbreviation for the domain.\n- **[Source: domains/DM/spec.md]**\n\nThe DM domain is described as \"a special-purpose domain that includes a set of essential standard variables that describe each subject in a clinical study\" and is \"the parent domain for all other observations for human clinical subjects\" **[Source: domains/DM/assumptions.md]**.\n\nThe context also notes that \"All Demographics (DM) domain variables other than DMDTC and DMDY\" are exceptions to the domain identifier prefix rule **[Source: chapters/ch04_general_assumptions.md §4.2.2]**, but the full list of DM required variables is not provided in the retrieved documents.\n\n**Limitation:** The retrieved context does not contain the complete DM domain specification table. To provide the full list of required (Core=Req) variables in DM, I would need to read the complete `domains/DM/spec.md` file, which is referenced but not fully included in the retrieved excerpts.",
+      "sources": [
+        "domains/DM/spec.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch04_general_assumptions.md",
+        "domains/DM/assumptions.md",
+        "model/01_concepts_and_terms.md",
+        "domains/SV/spec.md",
+        "domains/RELSUB/examples.md",
+        "chapters/ch08_relationships.md",
+        "domains/TM/spec.md",
+        "domains/DM/examples.md",
+        "domains/SUPPQUAL/spec.md",
+        "domains/RELREC/assumptions.md",
+        "domains/DD/assumptions.md",
+        "domains/DS/assumptions.md",
+        "domains/DM/examples.md"
+      ]
+    }
+  },
+  {
+    "id": "q24",
+    "category": "single_domain",
+    "question": "What is the EX (Exposure) domain used for and what is the Topic variable EXTRT?",
+    "expected_facts": [
+      "EXTRT",
+      "Interventions",
+      "protocol-specified"
+    ],
+    "expected_sources": [
+      "domains/EX/spec.md"
+    ],
+    "off": {
+      "answer": "Based on the retrieved context, the EX (Exposure) domain is used to represent **protocol-specified study treatment** administrations, and the Topic variable **EXTRT** captures the name of that treatment.\n\n### EX Domain Purpose\n\nThe EX domain is used to represent exposure to protocol-specified study treatments, including placebo, active comparators, and investigational products. It is recognized in most cases as a **derived dataset**, where records are derived from collected data points (e.g., number of tablets, total volume infused) along with additional inputs (e.g., randomization file, concentration, dosage strength, product accountability). The EX domain is **required for all studies that include protocol-specified study treatment**. Treatments that are not protocol-specified should be represented in the Concomitant/Prior Medications (CM) or another Interventions domain as appropriate. **[Source: domains/EX/assumptions.md -- item_1]**\n\n### EXTRT Variable Definition\n\n| Attribute | Value |\n|-----------|-------|\n| **Label** | Name of Treatment |\n| **Type** | Char |\n| **Role** | Topic |\n| **Core** | Req |\n| **Controlled Terms** | — (not specified) |\n\n**CDISC Notes:** EXTRT captures the name of the protocol-specified study treatment and is the topic variable. It is a required variable and must have a value. EXTRT must include only the treatment name and must not include dosage, formulation, or other qualifying information. For example, \"ASPIRIN 100MG TABLET\" is not a valid value for EXTRT. This example should be expressed as EXTRT = \"ASPIRIN\", EXDOSE = \"100\", EXDOSU = \"mg\", and EXDOSFRM = \"TABLET\". Doses of placebo should be represented by EXTRT = \"PLACEBO\" and EXDOSE = \"0\" (indicating 0 mg of active ingredient was taken or administered). **[Source: domains/EX/assumptions.md -- item_2]**",
+      "sources": [
+        "domains/EX/assumptions.md",
+        "domains/EX/assumptions.md",
+        "domains/EX/assumptions.md",
+        "domains/EC/spec.md",
+        "domains/EX/assumptions.md",
+        "VARIABLE_INDEX.md",
+        "domains/EX/assumptions.md",
+        "chapters/ch04_general_assumptions.md",
+        "domains/EX/spec.md",
+        "domains/EX/spec.md",
+        "domains/EX/spec.md",
+        "domains/EX/spec.md",
+        "domains/EC/assumptions.md",
+        "domains/EX/spec.md",
+        "domains/EX/examples.md"
+      ]
+    },
+    "on": {
+      "answer": "Based on the retrieved context, the EX (Exposure) domain is used to represent **protocol-specified study treatment** that was actually administered to a subject. It is a derived dataset that reflects the exposure in the protocol-specified unit (e.g., mg), as opposed to the raw collected data (e.g., number of tablets), which is represented in the Exposure as Collected (EC) domain.\n\nThe Topic variable for the EX domain is **EXTRT** (Name of Treatment).\n\n### EXTRT Variable Definition\n\n- **Label:** Name of Treatment\n- **Type:** Char\n- **Role:** Topic\n- **Core:** Req (Required)\n- **Controlled Terms:** (None specified; free text)\n- **CDISC Notes:** EXTRT captures the name of the protocol-specified study treatment. It must include only the treatment name and must not include dosage, formulation, or other qualifying information. For example, \"ASPIRIN 100MG TABLET\" is not a valid value; this should be expressed as EXTRT = \"ASPIRIN\", EXDOSE = \"100\", EXDOSU = \"mg\", and EXDOSFRM = \"TABLET\". Doses of placebo should be represented by EXTRT = \"PLACEBO\". **[Source: domains/EX/assumptions.md -- item_2]**\n\n### Key Characteristics of the EX Domain\n\n1.  **Scope:** Represents protocol-specified treatments (placebo, active comparators, investigational products). Non-protocol-specified treatments go in CM or other Interventions domains. **[Source: domains/EX/assumptions.md -- item_1]**\n2.  **Derivation:** EX is typically a derived dataset. Collected data (e.g., number of tablets) from the EC domain, along with other inputs (e.g., randomization file, concentration), are used to derive the EX records in the protocol-specified unit. **[Source: domains/EX/assumptions.md -- item_1, item_5]**\n3.  **Record Structure:** Contains 1 record per constant-dosing interval per subject. A constant-dosing interval is any period described by a known treatment at a consistent dose and frequency. **[Source: domains/EX/assumptions.md -- item_1]**\n4.  **Relationship to EC:** When both EC and EX are used, the relationship between the collected (EC) and derived (EX) records is typically described using the RELREC domain, often via the `--LNKID` variable. **[Source: domains/EX/examples.md -- Example 1, Example 2]**\n5.  **Non-occurrence:** EX includes only treatments received. Non-occurrence of study treatment (e.g., a missed dose) is represented in the EC domain (with `ECOCCUR = \"N\"`) but is not represented as a record in EX; instead, it is reflected by a gap in the timing of EX records. **[Source: domains/EX/examples.md -- Example 1]**",
+      "sources": [
+        "domains/EX/spec.md",
+        "domains/EX/assumptions.md",
+        "domains/EX/assumptions.md",
+        "domains/EX/assumptions.md",
+        "domains/EX/assumptions.md",
+        "VARIABLE_INDEX.md",
+        "domains/EC/assumptions.md",
+        "domains/EC/spec.md",
+        "domains/EX/assumptions.md",
+        "chapters/ch04_general_assumptions.md",
+        "domains/EX/examples.md",
+        "domains/SR/examples.md",
+        "domains/EX/examples.md",
+        "domains/EX/examples.md",
+        "domains/DV/assumptions.md"
+      ]
+    }
+  },
+  {
+    "id": "q34",
+    "category": "cross_domain",
+    "question": "Which SDTM domains share the controlled terminology codelist for NY (No Yes Response, C66742), and what variable typically uses this codelist in those domains?",
+    "expected_facts": [
+      "C66742",
+      "NY"
+    ],
+    "expected_sources": [
+      "VARIABLE_INDEX.md"
+    ],
+    "off": {
+      "answer": "Based on the retrieved context, the **No Yes Response (C66742)** codelist is shared across the following SDTM domains and variables:\n\n| Domain | Variable(s) Using C66742 | Source |\n|--------|--------------------------|--------|\n| **SV** (Subject Visits) | `SVPRESP`, `SVOCCUR`, `SVEPCHGI` | [Source: domains/SV/spec.md] |\n| **TM** (Trial Disease Milestones) | `TMRPT` | [Source: domains/TM/spec.md] |\n| **DM** (Demographics) | `DTHFL` | [Source: domains/DM/spec.md] |\n| **IE** (Inclusion/Exclusion Criteria Not Met) | `IEORRES`, `IESTRESC` | [Source: domains/IE/spec.md] |\n| **PC** (Pharmacokinetics Concentrations) | `PCFAST`, `PCDRVFL` | [Source: domains/PC/spec.md] |\n\n### Codelist Details (C66742 — No Yes Response)\n\n- **Extensible**: No\n- **Permitted Values**:\n  - `N` — No\n  - `NA` — Not Applicable\n  - `U` — Unknown\n  - `Y` — Yes\n\n[Source: terminology/core/general_part4.md]\n\n### Typical Usage Pattern\n\nThe **NY** codelist is used for variables that require a binary or trinary response (Yes/No/Unknown/Not Applicable). In the domains listed above, it is most commonly applied to:\n\n- **Indicator flags** (e.g., `DTHFL` = Death Flag, `PCFAST` = Fasting Flag, `PCDRVFL` = Derived Flag)\n- **Response/occurrence variables** (e.g., `IEORRES` = Inclusion/Exclusion Original Result, `SVOCCUR` = Subject Visit Occurrence)\n- **Report/presence indicators** (e.g., `TMRPT` = Milestone Reported, `SVPRESP` = Visit Response, `SVEPCHGI` = Epoch Change Indicator)\n\nNo other domains in the retrieved context reference C66742, though the codelist is widely used across SDTM for any variable requiring a Yes/No/NA/Unknown response.",
+      "sources": [
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch04_general_assumptions.md",
+        "domains/RELREC/spec.md",
+        "domains/SV/spec.md",
+        "domains/TM/spec.md",
+        "domains/SUPPQUAL/spec.md",
+        "terminology/core/general_part4.md",
+        "domains/CO/spec.md",
+        "domains/DD/assumptions.md",
+        "terminology/supplementary/supplementary_part5.md",
+        "model/01_concepts_and_terms.md",
+        "domains/SC/assumptions.md",
+        "domains/DM/spec.md",
+        "domains/IE/spec.md",
+        "domains/PC/spec.md"
+      ]
+    },
+    "on": {
+      "answer": "Based on the retrieved context, the **No Yes Response (C66742)** codelist is shared across the following SDTM domains, typically used in variables that require a Yes/No/NA/Unknown response:\n\n| Domain | Variable(s) Using C66742 | Source |\n|--------|--------------------------|--------|\n| **SV** (Subject Visits) | `SVPRESP`, `SVOCCUR`, `SVEPCHGI` | [Source: domains/SV/spec.md] |\n| **TM** (Trial Disease Milestones) | `TMRPT` | [Source: domains/TM/spec.md] |\n\nAdditionally, the codelist is referenced in the **general terminology** section for **No Yes Response (C66742)** itself, which defines the four permissible values: `Y` (Yes), `N` (No), `U` (Unknown), and `NA` (Not Applicable) [Source: terminology/core/general_part4.md].\n\n**Note:** The NY codelist (C66742) is a general-purpose codelist that may be used by other domains beyond SV and TM, but the retrieved context only explicitly identifies these two domains. For a complete list of all domains using C66742, you would need to consult the **VARIABLE_INDEX.md §三 (CT 交叉引用)** section, which was not fully retrieved in this context.",
+      "sources": [
+        "VARIABLE_INDEX.md",
+        "terminology/core/general_part4.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch04_general_assumptions.md",
+        "model/01_concepts_and_terms.md",
+        "chapters/ch04_general_assumptions.md",
+        "domains/RS/assumptions.md",
+        "chapters/ch10_appendices.md",
+        "domains/RS/assumptions.md",
+        "chapters/ch01_introduction.md",
+        "domains/RELREC/spec.md",
+        "domains/SV/spec.md",
+        "domains/CO/assumptions.md",
+        "domains/TM/spec.md",
+        "domains/SUPPQUAL/spec.md"
+      ]
+    }
+  },
+  {
+    "id": "q66",
+    "category": "cross_domain",
+    "question": "Which SDTM domains include the VISITNUM timing variable?",
+    "expected_facts": [
+      "VISITNUM",
+      "Visit Number",
+      "LB",
+      "VS"
+    ],
+    "expected_sources": [
+      "VARIABLE_INDEX.md"
+    ],
+    "off": {
+      "answer": "Based on the retrieved context, I can confirm that **VISITNUM** is a timing variable that appears in many SDTM domains, but the provided context does not contain a comprehensive list of all domains that include it.\n\nFrom the context, I can identify the following domains where VISITNUM is explicitly mentioned as a permissible or expected timing variable:\n\n1. **SU (Substance Use)** — VISITNUM may be added if substance use information is collected more than once within the CRF (visit-based data). VISITDY and VISIT would then also be permissible. **[Source: domains/SU/assumptions.md — item_4b]**\n\n2. **EX (Exposure)** — VISITNUM may be added if exposure occurs within a clinical encounter (e.g., injection at clinic). However, if the dosing interval is not confined to a clinical encounter (e.g., pills taken at home), VISITNUM should not be included. **[Source: domains/EX/assumptions.md — item_4a]**\n\n3. **LB (Laboratory Test Results)** — The example in the general assumptions shows VISITNUM populated for lab data, including unplanned visits (e.g., VISITNUM = 3.1 for \"Week 2 Unscheduled\"). **[Source: chapters/ch04_general_assumptions.md — §4.4.5 Example]**\n\nAdditionally, the context provides the **VISIT** variable definition for many domains (AG, FA, IE, CV, MI, NV, LB, SR, RE, PC, VS, PE), and the CDISC Notes for VISIT state: \"May be used in addition to VISITNUM and/or VISITDY.\" This implies that VISITNUM is also present in these domains, but the context does not explicitly list VISITNUM's specification for each.\n\n**Limitation:** The retrieved context does not include a complete inventory of all SDTM domains that contain VISITNUM. To get a full list, you would need to consult the **VARIABLE_INDEX.md** file, which indexes all variables across domains, or check each domain's **spec.md** file for the VISITNUM variable definition.",
+      "sources": [
+        "domains/SU/assumptions.md",
+        "chapters/ch04_general_assumptions.md",
+        "domains/EX/assumptions.md",
+        "domains/AG/spec.md",
+        "domains/FA/spec.md",
+        "domains/IE/spec.md",
+        "domains/CV/spec.md",
+        "domains/MI/spec.md",
+        "domains/NV/spec.md",
+        "domains/LB/spec.md",
+        "domains/SR/spec.md",
+        "domains/RE/spec.md",
+        "domains/PC/spec.md",
+        "domains/VS/spec.md",
+        "domains/PE/spec.md"
+      ]
+    },
+    "on": {
+      "answer": "Based on the provided context, I can identify the following SDTM domains that include the **VISITNUM** timing variable:\n\n1. **EX (Exposure)** — VISITNUM may be added as an additional timing variable if the subject is only exposed to study medication within a clinical encounter. **[Source: domains/EX/assumptions.md — item_4a]**\n\n2. **SU (Substance Use)** — VISITNUM would be added to the domain as an additional timing variable if substance use information is collected more than once within the CRF (indicating visit-based data). **[Source: domains/SU/assumptions.md — item_4b]**\n\n3. **LB (Laboratory Test Results)** — The example in the general assumptions shows VISITNUM being used in the LB domain (e.g., values 2, 3, 3.1). **[Source: chapters/ch04_general_assumptions.md — §4.4.5 Example]**\n\nAdditionally, the general assumption states that **all domains based on the 3 general observation classes** (Interventions, Events, Findings) should have at least 1 timing variable, and for Findings domains where data are usually collected at multiple visits, at least 1 timing variable must be used. **[Source: chapters/ch04_general_assumptions.md — §4.4.5]**\n\n**Note:** The context does not provide a comprehensive list of all domains that include VISITNUM. The specific domains mentioned above are those explicitly referenced in the retrieved context. For a complete list, you would need to consult the individual domain specification files (spec.md) for each domain, as VISITNUM is a commonly used timing variable across many domains.",
+      "sources": [
+        "VARIABLE_INDEX.md",
+        "domains/EX/assumptions.md",
+        "chapters/ch04_general_assumptions.md",
+        "domains/SU/assumptions.md",
+        "model/01_concepts_and_terms.md",
+        "chapters/ch02_fundamentals.md",
+        "domains/AG/spec.md",
+        "chapters/ch04_general_assumptions.md",
+        "domains/FA/spec.md",
+        "chapters/ch03_submitting_data.md",
+        "domains/IE/spec.md",
+        "chapters/ch01_introduction.md",
+        "domains/CV/spec.md",
+        "chapters/ch04_general_assumptions.md",
+        "domains/MI/spec.md"
+      ]
+    }
+  },
+  {
+    "id": "q93",
+    "category": "mixed",
+    "question": "In the EX domain, what is the EXDOSFRM (Dose Form) variable and its controlled terminology codelist code, and give some dose-form values from that codelist (for example a solid oral shell form or a sterile parenteral form)?",
+    "expected_facts": [
+      "EXDOSFRM",
+      "C66726",
+      "CAPSULE",
+      "INJECTION"
+    ],
+    "expected_sources": [
+      "domains/EX/spec.md",
+      "terminology/core/interventions.md"
+    ],
+    "off": {
+      "answer": "Based on the retrieved context, here is the definition and controlled terminology for the EXDOSFRM variable in the EX domain:\n\n### EXDOSFRM (Dose Form)\n\n- **Label:** Dose Form\n- **Type:** Char\n- **Role:** Variable Qualifier\n- **Core:** Expected (Exp)\n- **Controlled Terms:** C66726 (Pharmaceutical Dosage Form)\n- **CDISC Notes:** Dose form for EXTRT. Examples: \"TABLET\", \"LOTION\".\n\n**[Source: domains/EX/spec.md -- EXDOSFRM]**\n\n### Controlled Terminology (C66726)\n\nThe controlled terminology codelist code is **C66726** (Pharmaceutical Dosage Form). This codelist is referenced in the interventions terminology file.\n\n**[Source: domains/EX/spec.md -- Controlled Terminology]**\n\n### Example Values from C66726\n\nBased on the CDISC Notes and common pharmaceutical forms, the codelist C66726 includes values such as:\n\n- **Solid oral shell form:** \"CAPSULE\" (a solid dosage form in which the drug is enclosed within a hard or soft soluble shell).\n- **Sterile parenteral form:** \"INJECTION\" (a sterile preparation intended for parenteral use, e.g., \"SOLUTION FOR INJECTION\" or \"POWDER FOR SOLUTION FOR INJECTION\").\n\n**[Source: domains/EX/spec.md -- EXDOSFRM]**",
+      "sources": [
+        "domains/EX/spec.md",
+        "domains/EX/spec.md",
+        "domains/EC/spec.md",
+        "domains/EX/spec.md",
+        "domains/EX/spec.md",
+        "domains/EX/spec.md",
+        "domains/CM/spec.md",
+        "domains/EX/spec.md",
+        "domains/EC/spec.md",
+        "domains/ML/spec.md",
+        "domains/CM/spec.md",
+        "domains/EC/spec.md",
+        "domains/EX/spec.md",
+        "domains/ML/spec.md",
+        "domains/EC/spec.md"
+      ]
+    },
+    "on": {
+      "answer": "Based on the retrieved context, here is the definition of the EXDOSFRM variable and its associated controlled terminology:\n\n### EXDOSFRM Variable Definition\n\n- **Label:** Dose Form\n- **Type:** Char\n- **Controlled Terms:** C66726\n- **Role:** Variable Qualifier\n- **Core:** Expected (Exp)\n- **CDISC Notes:** Dose form for EXTRT. Examples: \"TABLET\", \"LOTION\".\n\n**[Source: domains/EX/spec.md]**\n\n### Controlled Terminology (C66726)\n\nThe controlled terminology codelist for EXDOSFRM is **Pharmaceutical Dosage Form (C66726)**. This codelist is extensible. **[Source: terminology/core/interventions.md]**\n\nExamples of dose-form values from this codelist include:\n\n- **Solid oral shell form:** \"CAPSULE\" (C25158) — *A solid pharmaceutical dosage form that contains medicinal agent within either a hard or soft soluble container or shell, usually used for the oral administration of medicine.*\n- **Sterile parenteral form:** \"INJECTABLE\" (C42899) — *A sterile preparation intended for parenteral use.* (Note: While not shown in the truncated excerpt, \"INJECTABLE\" is a standard term in this codelist, as referenced in the SU domain spec for SUDOSFRM).\n\n**[Source: terminology/core/interventions.md]**",
+      "sources": [
+        "domains/EX/spec.md",
+        "terminology/core/interventions.md",
+        "domains/EC/spec.md",
+        "domains/CM/spec.md",
+        "domains/ML/spec.md",
+        "domains/PR/spec.md",
+        "domains/EX/spec.md",
+        "domains/AG/spec.md",
+        "domains/SU/spec.md",
+        "domains/TS/assumptions.md",
+        "domains/EX/spec.md",
+        "domains/IS/assumptions.md",
+        "domains/EX/spec.md",
+        "domains/EX/examples.md",
+        "domains/EX/spec.md"
+      ]
+    }
+  },
+  {
+    "id": "q37",
+    "category": "concept",
+    "question": "What are the Special-Purpose datasets in SDTM and which domains fall into this category?",
+    "expected_facts": [
+      "Special-Purpose",
+      "DM",
+      "CO",
+      "SUPPQUAL"
+    ],
+    "expected_sources": [
+      "model/03_special_purpose_domains.md"
+    ],
+    "off": {
+      "answer": "Based on the SDTM knowledge base, **Special-Purpose Domains** are a category of standardized datasets that exist alongside the three General Observation Classes (Interventions, Events, Findings). They are used to represent additional important information that does not fit the structure of the general observation classes.\n\n## Definition\n\nSpecial-Purpose Domains are datasets of specific standardized structures included in a submission to represent additional important information beyond the three general observation classes. A Demographics special-purpose domain is included with human and animal studies, and other special-purpose domains may be included. **[Source: model/03_special_purpose_domains.md]**\n\n## Domains in the Special-Purpose Category\n\nBased on the SDTMIG v3.4 knowledge base, the following domains fall into the Special-Purpose category:\n\n| Domain Code | Domain Name | Description |\n|-------------|-------------|-------------|\n| **CO** | Comments | Contains comments that may be collected alongside other data. Structure: One record per comment per subject. **[Source: chapters/ch03_submitting_data.md]** |\n| **DM** | Demographics | Includes a set of essential standard variables that describe each subject in a clinical study. It is the parent domain for all other observations for human clinical subjects. Structure: One record per subject. **[Source: chapters/ch03_submitting_data.md; terminology/core/general_part4.md]** |\n| **SE** | Subject Elements | Contains data on actual elements per subject. Structure: One record per actual Element per subject. **[Source: chapters/ch03_submitting_data.md]** |\n| **SM** | Subject Disease Milestones | Contains data on disease milestones per subject. Structure: One record per Disease Milestone per subject. **[Source: chapters/ch03_submitting_data.md]** |\n| **SV** | Subject Visits | Contains data on actual or planned visits per subject. Structure: One record per actual or planned visit per subject. **[Source: chapters/ch03_submitting_data.md]** |\n\n## Key Characteristics\n\n1. **Distinct from General Observation Classes**: Special-purpose domains are separate from the Interventions, Events, and Findings classes. **[Source: model/03_special_purpose_domains.md]**\n\n2. **Extensible**: The set of special-purpose domains is extensible, meaning new special-purpose domains can be created as needed. **[Source: model/01_concepts_and_terms.md]**\n\n3. **Standardized Structures**: Each special-purpose domain has a specific standardized structure defined in the SDTMIG. **[Source: model/03_special_purpose_domains.md]**\n\n4. **DM as Parent Domain**: The Demographics (DM) domain serves as the parent domain for all other observations for human clinical subjects. **[Source: terminology/core/general_part4.md]**\n\n**Note**: The DI (Device Identifiers) domain was originally classified as a special-purpose domain but has since been reclassified as a study reference dataset since SDTM v1.7. **[Source: domains/DI/assumptions.md]**",
+      "sources": [
+        "model/01_concepts_and_terms.md",
+        "chapters/ch04_general_assumptions.md",
+        "model/02_observation_classes.md",
+        "model/03_special_purpose_domains.md",
+        "model/06_relationship_datasets.md",
+        "domains/RELSPEC/assumptions.md",
+        "domains/DI/assumptions.md",
+        "domains/DM/assumptions.md",
+        "chapters/ch01_introduction.md",
+        "chapters/ch10_appendices.md",
+        "chapters/ch08_relationships.md",
+        "chapters/ch03_submitting_data.md",
+        "chapters/ch04_general_assumptions.md",
+        "terminology/core/general_part4.md",
+        "model/05_study_level_data.md"
+      ]
+    },
+    "on": {
+      "answer": "Based on the SDTMIG v3.4 knowledge base, the **Special-Purpose datasets** are a category of standardized datasets used in SDTM submissions, distinct from the three General Observation Classes (Interventions, Events, Findings). They are used to represent additional important information that does not fit into the general observation class structure.\n\nThe following domains fall into the Special-Purpose category:\n\n1.  **Demographics (DM)** — Contains essential standard variables that describe each subject in a clinical study. It is the parent domain for all other observations for human clinical subjects. **[Source: terminology/core/general_part4.md]**\n2.  **Comments (CO)** — Contains free-text comments that may be collected alongside other data. **[Source: terminology/core/general_part4.md]**\n3.  **Subject Elements (SE)** — Contains one record per actual Element per subject. **[Source: chapters/ch03_submitting_data.md]**\n4.  **Subject Visits (SV)** — Contains one record per actual or planned visit per subject. **[Source: chapters/ch03_submitting_data.md]**\n5.  **Subject Disease Milestones (SM)** — Contains one record per Disease Milestone per subject. **[Source: chapters/ch03_submitting_data.md]**\n6.  **Related Records (RELREC)** — Used to describe relationships between records for a subject (relating peer records) and relationships between datasets. **[Source: domains/RELREC/assumptions.md]**\n7.  **Supplemental Qualifiers (SUPPQUAL)** — Used to capture non-standard variables (NSVs) and their association to parent records in general-observation class datasets, Demographics (DM), and Subject Visits (SV). **[Source: domains/SUPPQUAL/assumptions.md]**\n8.  **Related Subjects (RELSUB)** — Used to represent relationships between subjects (e.g., pooled subjects). **[Source: model/06_relationship_datasets.md]**\n9.  **Related Specimens (RELSPEC)** — Used to represent specimen hierarchy relationships. **[Source: model/06_relationship_datasets.md]**\n\n**Note:** The DI (Device Identifiers) domain was originally classified as a special-purpose domain but has been reclassified as a study reference dataset since SDTM v1.7. **[Source: domains/DI/assumptions.md]**",
+      "sources": [
+        "model/01_concepts_and_terms.md",
+        "model/02_observation_classes.md",
+        "model/03_special_purpose_domains.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch01_introduction.md",
+        "chapters/ch03_submitting_data.md",
+        "chapters/ch02_fundamentals.md",
+        "chapters/ch04_general_assumptions.md",
+        "domains/DI/assumptions.md",
+        "domains/CO/assumptions.md",
+        "domains/SUPPQUAL/assumptions.md",
+        "terminology/core/general_part4.md",
+        "chapters/ch10_appendices.md",
+        "domains/RELREC/assumptions.md"
+      ]
+    }
+  },
+  {
+    "id": "s05",
+    "category": "single_domain",
+    "question": "In the VS domain, what is the controlled terminology codelist code for the VSTESTCD variable? Name the codelist, state whether it is extensible, and give three example TESTCD values listed for blood pressure and heart rate.",
+    "expected_facts": [
+      "C66741",
+      "Vital Signs Test Code",
+      "Extensible: Yes",
+      "SYSBP",
+      "DIABP",
+      "HR"
+    ],
+    "expected_sources": [
+      "domains/VS/spec.md",
+      "terminology/core/vs.md"
+    ],
+    "off": {
+      "answer": "Based on the SDTMIG v3.4 knowledge base:\n\n**Codelist Code:** C66741\n\n**Codelist Name:** Vital Signs Test Code\n\n**Extensibility:** The SDTMIG v3.4 specification does not explicitly state whether this codelist is extensible or non-extensible in the VS domain spec. However, per the general assumption in **Chapter 4.3.1**, when a CDISC codelist name is provided (as a hyperlink), it represents the standard controlled terminology. For Vital Signs, the codelist is published by CDISC and is typically **non-extensible** (i.e., sponsors should use only the terms defined in the CDISC codelist). **[Source: chapters/ch04_general_assumptions.md §4.3.1]**\n\n**Three example TESTCD values for blood pressure and heart rate** (from the CDISC Notes for VSTESTCD):\n- **SYSBP** — Systolic Blood Pressure\n- **DIABP** — Diastolic Blood Pressure\n- **HR** — Heart Rate\n\n**[Source: domains/VS/spec.md — VSTESTCD]**",
+      "sources": [
+        "domains/VS/assumptions.md",
+        "domains/VS/spec.md",
+        "domains/VS/spec.md",
+        "domains/VS/spec.md",
+        "domains/CV/spec.md",
+        "domains/QS/spec.md",
+        "domains/TS/spec.md",
+        "domains/RS/spec.md",
+        "chapters/ch04_general_assumptions.md",
+        "domains/IS/assumptions.md",
+        "domains/RELSPEC/assumptions.md",
+        "domains/CP/spec.md",
+        "domains/CV/spec.md",
+        "domains/CV/spec.md",
+        "domains/CV/spec.md"
+      ]
+    },
+    "on": {
+      "answer": "Based on the retrieved context, the controlled terminology codelist for the VSTESTCD variable is **C66741**.\n\n- **Codelist Name:** Vital Signs Test Code\n- **Extensible:** The context does not explicitly state whether C66741 is extensible. However, the Units for Vital Signs Results codelist (C66770) is explicitly marked as \"Extensible: Yes\" in the terminology file. For C66741, the spec file only lists the code without an extensibility note, so this information is not available in the provided context.\n- **Example TESTCD values for blood pressure and heart rate:**\n    - **SYSBP** (Systolic Blood Pressure) — shown in the VS examples\n    - **DIABP** (Diastolic Blood Pressure) — shown in the VS examples\n    - **PULSE** (Pulse Rate) — shown in the VS examples\n\n**Sources:**\n- **[Source: domains/VS/spec.md]** — VSTESTCD is defined with Controlled Terms: C66741 (Vital Signs Test Code)\n- **[Source: domains/VS/examples.md]** — Example 1 shows SYSBP, DIABP, and PULSE as VSTESTCD values\n- **[Source: terminology/core/vs.md]** — C66770 (Units for Vital Signs Results) is explicitly marked as Extensible: Yes",
+      "sources": [
+        "domains/VS/spec.md",
+        "terminology/core/vs.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch04_general_assumptions.md",
+        "domains/IS/assumptions.md",
+        "domains/FT/assumptions.md",
+        "domains/QS/assumptions.md",
+        "domains/VS/assumptions.md",
+        "domains/VS/examples.md",
+        "domains/VS/spec.md",
+        "domains/VS/spec.md",
+        "domains/CV/spec.md",
+        "chapters/ch01_introduction.md",
+        "domains/QS/spec.md",
+        "domains/IS/assumptions.md"
+      ]
+    }
+  },
+  {
+    "id": "q64",
+    "category": "single_domain",
+    "question": "What is the PC (Pharmacokinetics Concentrations) domain used for and what is the structure of one record in this dataset?",
+    "expected_facts": [
+      "Findings",
+      "concentration",
+      "analyte"
+    ],
+    "expected_sources": [
+      "domains/PC/spec.md"
+    ],
+    "off": {
+      "answer": "Based on the retrieved context, the PC (Pharmacokinetics Concentrations) domain is used to represent **plasma (or other specimen) drug concentration as a function of time**, as well as specimen properties (e.g., volume, pH) in addition to drug and metabolite concentration measurements. **[Source: domains/PC/assumptions.md -- item_1]**\n\nThe structure of one record in the PC dataset is **one record per sample characteristic or time-point concentration per reference time point or per analyte per subject**. **[Source: domains/PC/assumptions.md -- overview]**\n\nMore specifically, the topic for PC is plasma (or other specimen) drug concentration as a function of time, and the structure is **1 record per analyte per time point per reference time point (e.g., dosing event) per subject**. **[Source: chapters/ch08_relationships.md -- 8.6.2 Guidelines for Forming New Domains]**",
+      "sources": [
+        "domains/PC/assumptions.md",
+        "domains/PC/examples.md",
+        "VARIABLE_INDEX.md",
+        "domains/PC/assumptions.md",
+        "chapters/ch08_relationships.md",
+        "domains/PC/examples.md",
+        "domains/PP/examples.md",
+        "domains/PP/spec.md",
+        "domains/PP/examples.md",
+        "domains/PP/assumptions.md",
+        "domains/PC/assumptions.md",
+        "domains/PC/spec.md",
+        "domains/CM/assumptions.md",
+        "domains/PC/spec.md",
+        "domains/PC/assumptions.md"
+      ]
+    },
+    "on": {
+      "answer": "## PC Domain — Purpose and Record Structure\n\n### Purpose\n\nThe Pharmacokinetics Concentrations (PC) domain is a **Findings** class domain used to represent **plasma (or other specimen) drug concentration as a function of time**. It contains one record per analyte per time point per reference time point (e.g., dosing event) per subject. **[Source: chapters/ch08_relationships.md]**\n\nThe PC domain is paired with the Pharmacokinetics Parameters (PP) domain, which contains derived characteristics of the time-concentration curve (e.g., AUC, Cmax, Tmax, half-life). The relationship between PC and PP records is documented using the RELREC dataset. **[Source: chapters/ch08_relationships.md]**\n\n### Record Structure\n\nThe structure of the PC domain is:\n\n**One record per sample characteristic or time-point concentration per reference time point per analyte per subject.** **[Source: domains/PC/assumptions.md]**\n\n### Key Variables\n\n| Variable | Label | Type | Role | Core |\n|----------|-------|------|------|------|\n| STUDYID | Study Identifier | Char | Identifier | Req |\n| DOMAIN | Domain Abbreviation | Char | Identifier | Req |\n| USUBJID | Unique Subject Identifier | Char | Identifier | Req |\n| PCSEQ | Sequence Number | Num | Identifier | Req |\n| PCGRPID | Group ID | Char | Identifier | Perm |\n| PCREFID | Reference ID | Char | Identifier | Perm |\n| PCTESTCD | Pharmacokinetic Test Short Name | Char | Topic | Req |\n| PCTEST | Pharmacokinetic Test Name | Char | Synonym Qualifier | Req |\n| PCCAT | Test Category | Char | Grouping Qualifier | Perm |\n| PCORRES | Result or Finding in Original Units | Char | Result Qualifier | Exp |\n| PCORRESU | Original Units | Char | Variable Qualifier | Exp |\n| PCSTRESC | Character Result/Finding in Std Format | Char | Result Qualifier | Exp |\n| PCSTRESN | Numeric Result/Finding in Standard Units | Num | Result Qualifier | Exp |\n| PCSTRESU | Standard Units | Char | Variable Qualifier | Exp |\n| PCSTAT | Completion Status | Char | Record Qualifier | Perm |\n| PCSPEC | Specimen Material Type | Char | Record Qualifier | Exp |\n| PCDTC | Date/Time of Specimen Collection | Char | Timing | Exp |\n| PCTPT | Planned Time Point Name | Char | Timing | Perm |\n| PCTPTNUM | Planned Time Point Number | Num | Timing | Perm |\n| PCELTM | Planned Elapsed Time from Time Point Ref | Char | Timing | Perm |\n| PCTPTREF | Time Point Reference | Char | Timing | Perm |\n| PCRFTDTC | Date/Time of Reference Point | Char | Timing | Perm |\n\n**[Source: VARIABLE_INDEX.md — PC section]**\n\n### Natural Key\n\nThe natural key for PC is composed of: **STUDYID, USUBJID, PCTESTCD, PCRFTDTC, and PCTPT** (or equivalent timing variables). **[Source: chapters/ch03_submitting_data.md]**\n\n### Additional Notes\n\n- The PC domain uses controlled terminology for **PCORRESU** and **PCSTRESU** (C85494 — Units of Measure Codelist). **[Source: domains/PC/spec.md]**\n- Identifiers, Timing variables, and Findings general observation class qualifiers may be added, but **--BODSYS** and **--SEV** would not generally be used. **[Source: domains/PC/assumptions.md]**\n- The PC domain is a **Findings** class domain, sharing the same class as PP, LB, VS, and other findings domains. **[Source: domains/PP/spec.md]**",
+      "sources": [
+        "domains/PC/spec.md",
+        "domains/PC/assumptions.md",
+        "chapters/ch08_relationships.md",
+        "domains/PC/assumptions.md",
+        "domains/PP/assumptions.md",
+        "domains/CM/assumptions.md",
+        "domains/PC/examples.md",
+        "domains/PP/spec.md",
+        "domains/RELREC/examples.md",
+        "domains/PC/assumptions.md",
+        "domains/PC/examples.md",
+        "VARIABLE_INDEX.md",
+        "chapters/ch03_submitting_data.md",
+        "chapters/ch08_relationships.md",
+        "domains/PP/examples.md"
+      ]
+    }
+  },
+  {
+    "id": "q91",
+    "category": "mixed",
+    "question": "In the DS (Disposition) domain, which codelist does DSDECOD use for disposition events, and what are some reason-for-non-completion values from that codelist (for example a subject-initiated withdrawal or a physician's decision)?",
+    "expected_facts": [
+      "DSDECOD",
+      "C66727",
+      "WITHDRAWAL BY SUBJECT",
+      "PHYSICIAN DECISION"
+    ],
+    "expected_sources": [
+      "domains/DS/spec.md",
+      "terminology/core/disposition.md"
+    ],
+    "off": {
+      "answer": "Based on the SDTMIG v3.4 knowledge base, for disposition events (when `DSCAT = \"DISPOSITION EVENT\"`), `DSDECOD` uses the **NCOMPLT** codelist (C66727), titled \"Completion/Reason for Non-Completion\" **[Source: domains/DS/spec.md — DSDECOD]**.\n\nThe context provided does not include the full list of terms from the NCOMPLT codelist. However, the assumptions and examples indicate that for non-completion, `DSDECOD` is populated with a standardized term from this extensible codelist that corresponds to the verbatim reason in `DSTERM **[Source: domains/DS/assumptions.md — item_3]**.\n\nBased on the examples provided, the following reason-for-non-completion values from the NCOMPLT codelist are demonstrated:\n\n- **LOST TO FOLLOW-UP**: Used when a subject discontinues and the verbatim reason is something like \"Subject moved\" **[Source: domains/DS/examples.md — Example 1, Row 11]**.\n- **PROTOCOL VIOLATION**: Used when a subject is a screen failure due to a protocol-specified reason (e.g., \"SUBJECT DENIED MRI PROCEDURE\") **[Source: domains/DS/examples.md — Example 1, Row 7]**.\n\nThe context does not explicitly list \"WITHDRAWAL BY SUBJECT\" or \"PHYSICIAN DECISION\" as values from the NCOMPLT codelist, though the assumptions mention that a primary reason like \"WITHDREW CONSENT\" could appear in a supplemental qualifier dataset **[Source: domains/DS/assumptions.md — item_5]**. For a complete list of all terms in the NCOMPLT codelist, you would need to consult the CDISC Controlled Terminology for that specific codelist (C66727).",
+      "sources": [
+        "domains/DS/spec.md",
+        "domains/DS/assumptions.md",
+        "domains/DS/spec.md",
+        "VARIABLE_INDEX.md",
+        "domains/DS/assumptions.md",
+        "domains/DS/assumptions.md",
+        "domains/DS/assumptions.md",
+        "terminology/core/disposition.md",
+        "domains/DS/assumptions.md",
+        "domains/DS/spec.md",
+        "domains/DS/spec.md",
+        "terminology/core/disposition.md",
+        "domains/DS/examples.md",
+        "terminology/core/disposition.md",
+        "domains/DS/spec.md"
+      ]
+    },
+    "on": {
+      "answer": "Based on the SDTMIG v3.4 knowledge base, here is the answer to your question:\n\nFor disposition events (where `DSCAT` = \"DISPOSITION EVENT\"), `DSDECOD` uses the **Completion/Reason for Non-Completion** codelist (C66727). This codelist is extensible. **[Source: domains/DS/spec.md]**\n\nThe following are some reason-for-non-completion values from this codelist:\n\n- **WITHDRAWAL BY SUBJECT** (C49634) — The subject-initiated act of discontinuing participation in the study as a whole or one or more aspects of the study. **[Source: terminology/core/disposition.md]**\n- **PHYSICIAN DECISION** (C48250) — A position, opinion or judgment reached after consideration by a physician with reference to subject. **[Source: terminology/core/disposition.md]**\n- **WITHDRAWAL OF CONSENT** (C176342) — An indication that the consent to participate in the study, or one or more components of the study, has been revoked. **[Source: terminology/core/disposition.md]**\n- **PROTOCOL VIOLATION** (C142185) — A significant departure from processes or procedures that were required by the protocol. **[Source: terminology/core/disposition.md]**\n- **ADVERSE EVENT** (C41338) — Any untoward medical occurrence in a patient or clinical investigation subject administered a pharmaceutical product and which does not necessarily have a causal relationship with this treatment. **[Source: terminology/core/disposition.md]**\n- **LOST TO FOLLOW-UP** (C49630) — An indication that the subject did not return for follow-up and/or the subject's whereabouts are unknown. **[Source: terminology/core/disposition.md]**\n- **DEATH** (C28554) — The cessation of life. **[Source: terminology/core/disposition.md]**\n\n**Note:** The choice of codelist for `DSDECOD` depends on the value of `DSCAT`. When `DSCAT` = \"PROTOCOL MILESTONE\", the **Protocol Milestone** codelist (C114118) is used. When `DSCAT` = \"OTHER EVENT\", sponsor terminology is used. **[Source: domains/DS/assumptions.md]**",
+      "sources": [
+        "domains/DS/spec.md",
+        "terminology/core/disposition.md",
+        "domains/DS/assumptions.md",
+        "domains/DS/assumptions.md",
+        "domains/DS/spec.md",
+        "domains/DS/assumptions.md",
+        "domains/DS/assumptions.md",
+        "domains/DS/examples.md",
+        "domains/DS/assumptions.md",
+        "VARIABLE_INDEX.md",
+        "domains/DD/examples.md",
+        "domains/DS/examples.md",
+        "domains/DS/examples.md",
+        "domains/DS/examples.md",
+        "terminology/core/disposition.md"
+      ]
+    }
+  },
+  {
+    "id": "q100",
+    "category": "single_domain",
+    "question": "In the TA (Trial Arms) domain, what is the ARMCD variable's role and Core designation, and what is the ETCD variable used for?",
+    "expected_facts": [
+      "ARMCD",
+      "Topic",
+      "ETCD",
+      "Element Code"
+    ],
+    "expected_sources": [
+      "domains/TA/spec.md"
+    ],
+    "off": {
+      "answer": "Based on the provided context, here are the answers to your questions:\n\n### ARMCD in the TA Domain\n\nIn the TA (Trial Arms) domain, the **ARMCD** variable has the following attributes:\n- **Role:** Topic\n- **Core:** Req (Required)\n\n**[Source: domains/TA/spec.md -- ARMCD]**\n\nThe CDISC Notes for ARMCD in the TA domain state that it is limited to 20 characters and does not have special character restrictions. The maximum length is longer than for other \"short\" variables to accommodate values needed for crossover trials (e.g., a 7-period crossover using 2-character abbreviations and hyphens).\n\n**[Source: domains/TA/spec.md -- ARMCD]**\n\n### ETCD Variable\n\nThe provided context does not contain any information about the **ETCD** variable. Therefore, I cannot answer what the ETCD variable is used for based on the given knowledge base.",
+      "sources": [
+        "domains/DM/spec.md",
+        "domains/DM/spec.md",
+        "domains/TV/spec.md",
+        "domains/DM/assumptions.md",
+        "domains/TA/spec.md",
+        "domains/DM/examples.md",
+        "domains/TA/assumptions.md",
+        "domains/DM/spec.md",
+        "domains/DM/spec.md",
+        "domains/TA/examples.md",
+        "domains/TS/spec.md",
+        "domains/TV/spec.md",
+        "domains/TA/assumptions.md",
+        "domains/TA/assumptions.md",
+        "domains/TA/spec.md"
+      ]
+    },
+    "on": {
+      "answer": "Based on the provided context, here are the details for the ARMCD and ETCD variables in the TA (Trial Arms) domain:\n\n### ARMCD (Planned Arm Code)\n\n- **Role:** Topic **[Source: domains/TA/spec.md]**\n- **Core:** Req (Required) **[Source: domains/TA/spec.md]**\n- **Type:** Char\n- **Controlled Terms:** (None specified)\n- **CDISC Notes:** ARMCD is limited to 20 characters and does not have special character restrictions. The maximum length is longer than for other \"short\" variables to accommodate values needed for crossover trials (e.g., 2-character abbreviations with hyphens for a 7-period crossover). **[Source: domains/TA/spec.md]**\n\n### ETCD (Element Code)\n\n- **Role:** Record Qualifier **[Source: model/05_study_level_data.md]**\n- **Purpose:** ETCD is the unique code for each element in the trial design. It is used to link the TA dataset to the Trial Elements (TE) dataset, where the element's definition and rules are stored. **[Source: model/05_study_level_data.md]**\n- **CDISC Notes:** ETCD is limited to 8 characters and does not have the character restrictions that apply to `--TESTCD`. These values should be short for ease of use in programming. **[Source: chapters/ch04_general_assumptions.md]**",
+      "sources": [
+        "domains/TA/spec.md",
+        "domains/DM/assumptions.md",
+        "domains/TA/examples.md",
+        "domains/DM/examples.md",
+        "domains/DM/spec.md",
+        "domains/TA/assumptions.md",
+        "domains/TE/assumptions.md",
+        "chapters/ch04_general_assumptions.md",
+        "domains/TV/spec.md",
+        "domains/DM/spec.md",
+        "domains/TV/spec.md",
+        "domains/TA/examples.md",
+        "model/05_study_level_data.md",
+        "domains/TE/examples.md",
+        "domains/TA/examples.md"
+      ]
+    }
+  },
+  {
+    "id": "q01",
+    "category": "single_domain",
+    "question": "What is AETERM and what are its variable attributes in the AE domain?",
+    "expected_facts": [
+      "Topic",
+      "Char",
+      "Req",
+      "Verbatim"
+    ],
+    "expected_sources": [
+      "domains/AE/spec.md"
+    ],
+    "off": {
+      "answer": "Based on the provided context, AETERM is the Reported Term for the Adverse Event in the AE domain.\n\n**Variable Attributes:**\n- **Label:** Reported Term for the Adverse Event\n- **Type:** Char\n- **Controlled Terms:** (none)\n- **Role:** Topic\n- **Core:** Req\n- **CDISC Notes:** Verbatim name of the event.\n\n**[Source: domains/AE/spec.md -- AETERM]**\n\nAETERM captures the verbatim term collected for the event and is the topic variable for the AE dataset. It is a required variable and must have a value. **[Source: domains/AE/assumptions.md -- item_2a]**",
+      "sources": [
+        "domains/AE/assumptions.md",
+        "domains/AE/assumptions.md",
+        "domains/AE/spec.md",
+        "domains/AE/assumptions.md",
+        "domains/AE/spec.md",
+        "domains/AE/spec.md",
+        "domains/AE/assumptions.md",
+        "domains/AE/spec.md",
+        "domains/AE/assumptions.md",
+        "domains/AE/spec.md",
+        "domains/AE/spec.md",
+        "domains/AE/spec.md",
+        "domains/AE/assumptions.md",
+        "domains/AE/spec.md",
+        "domains/AE/examples.md"
+      ]
+    },
+    "on": {
+      "answer": "Based on the retrieved context, here are the variable attributes for **AETERM** in the AE domain:\n\n- **Label:** Reported Term for the Adverse Event\n- **Type:** Char\n- **Controlled Terms:** (none specified)\n- **Role:** Topic\n- **Core:** Req\n- **CDISC Notes:** Verbatim name of the event.\n\n**[Source: domains/AE/spec.md -- AETERM]**\n\nAdditionally, the AE domain assumptions clarify that AETERM captures the verbatim term collected for the event and is the topic variable for the AE dataset. It is a required variable and must have a value. If the verbatim term is modified to facilitate coding, the modified text is stored in AEMODIFY, and the dictionary-derived term is stored in AEDECOD. **[Source: domains/AE/assumptions.md -- item_2]**",
+      "sources": [
+        "domains/AE/spec.md",
+        "domains/AE/assumptions.md",
+        "domains/AE/examples.md",
+        "domains/FA/examples.md",
+        "domains/AE/assumptions.md",
+        "domains/DV/assumptions.md",
+        "chapters/ch04_general_assumptions.md",
+        "domains/AE/assumptions.md",
+        "chapters/ch04_general_assumptions.md",
+        "domains/AE/spec.md",
+        "chapters/ch04_general_assumptions.md",
+        "domains/AE/spec.md",
+        "domains/AE/examples.md",
+        "domains/AE/assumptions.md",
+        "domains/AE/examples.md"
+      ]
+    }
+  },
+  {
+    "id": "q38",
+    "category": "concept",
+    "question": "How are SDTM domain abbreviation codes assigned? What are the rules for the two-character domain code?",
+    "expected_facts": [
+      "two-character",
+      "DOMAIN"
+    ],
+    "expected_sources": [
+      "chapters/ch02"
+    ],
+    "off": {
+      "answer": "Based on the retrieved context, SDTM domain abbreviation codes are assigned as follows:\n\n## Rules for the Two-Character Domain Code\n\n1. **Format**: The domain code is a two-character abbreviation that serves as the value for the DOMAIN variable in each dataset. **[Source: domains/TM/spec.md]**\n\n2. **Character Restrictions**: The first character is limited to A-Z, and the second character is limited to A-Z or 0-9. No other characters are allowed. This restriction ensures compatibility with SAS v5 transport files and eCTD file naming requirements. **[Source: chapters/ch04_general_assumptions.md §4.2.2]**\n\n3. **Prefix Usage**: The two-character domain identifier is used as a prefix in most variable names within the domain (replacing the \"--\" placeholder in SDTM variable templates). This minimizes risk when merging/joining domains for reporting purposes. **[Source: chapters/ch04_general_assumptions.md §4.2.2]**\n\n4. **Exceptions to Prefix Rule**: The following variables are **not** prefixed with the domain identifier:\n   - Required Identifiers: STUDYID, DOMAIN, USUBJID\n   - Commonly used grouping/merge keys: VISIT, VISITNUM, VISITDY\n   - All Demographics (DM) domain variables except DMDTC and DMDY\n   - All variables in RELREC and SUPPQUAL, and some variables in Comments and Trial Design datasets **[Source: chapters/ch04_general_assumptions.md §4.2.2]**\n\n5. **Standard Codes**: Standard domain codes are defined in the CDISC Controlled Terminology codelist C66734 (SDTM Domain Abbreviation). **[Source: chapters/ch04_general_assumptions.md §4.1.6]**\n\n6. **Custom Domains**: Domain codes beginning with the letters X, Y, or Z are reserved for creation of custom domains to avoid conflicts with future CDISC-defined codes. Any letter or number may be used in the second position. Note that using X/Y/Z prefixes is optional, not required. **[Source: chapters/ch04_general_assumptions.md §4.1.6]**\n\n7. **Dataset Naming**: SDTM datasets are normally named to be consistent with the domain code (e.g., dm.xpt for Demographics), with exceptions for split domains and relationship datasets (RELREC, SUPP--). **[Source: chapters/ch04_general_assumptions.md §4.1.6]**\n\n## Variable Definition Summary\n\n| Attribute | Value |\n|-----------|-------|\n| **Label** | Domain Abbreviation |\n| **Type** | Char |\n| **Role** | Identifier |\n| **Core** | Required |\n| **Controlled Terms** | CDISC Codelist C66734 (SDTM Domain Abbreviation) |\n| **CDISC Notes** | Two-character abbreviation for the domain, used as a prefix for variables to ensure uniqueness when datasets are merged. **[Source: domains/SV/spec.md]** |",
+      "sources": [
+        "chapters/ch04_general_assumptions.md",
+        "domains/TM/spec.md",
+        "chapters/ch04_general_assumptions.md",
+        "domains/SV/spec.md",
+        "domains/DA/spec.md",
+        "domains/DD/spec.md",
+        "domains/EX/spec.md",
+        "domains/FT/spec.md",
+        "domains/EC/spec.md",
+        "domains/MH/spec.md",
+        "domains/MI/spec.md",
+        "domains/ML/spec.md",
+        "domains/PR/spec.md",
+        "domains/SC/spec.md",
+        "domains/TA/spec.md"
+      ]
+    },
+    "on": {
+      "answer": "Based on the SDTMIG v3.4 knowledge base, SDTM domain abbreviation codes are assigned according to the following rules:\n\n## Assignment Rules for Two-Character Domain Codes\n\n### 1. Standard Domain Codes\nSDTM datasets are normally named to be consistent with the domain code (e.g., the Demographics dataset is named `dm.xpt`). Standard domain codes are defined in the **SDTM Domain Abbreviation codelist (C66734)** in CDISC Controlled Terminology. **[Source: chapters/ch04_general_assumptions.md §4.1.6]**\n\n### 2. Character Restrictions\nThe two-character domain code is limited to:\n- **First character:** A–Z only\n- **Second character:** A–Z or 0–9 only\n- **No other characters are allowed**\n\nThis restriction is for compatibility with SAS v5 transport files and with file naming requirements as part of the Electronic Common Technical Document (eCTD). **[Source: chapters/ch04_general_assumptions.md §4.2.2]**\n\n### 3. Reserved Codes for Custom Domains\nTo prevent conflicts with future CDISC-defined domain codes:\n- **Domain codes beginning with X, Y, or Z** are reserved for the creation of custom domains\n- Any letter or number may be used in the second position\n- Note: use of codes beginning with X, Y, or Z is **optional**, not required for custom domains **[Source: chapters/ch04_general_assumptions.md §4.1.6]**\n\n### 4. Usage of the Domain Code\nThe 2-character domain code (DOMAIN) is used in four ways:\n1. As the **dataset name**\n2. As the **value of the DOMAIN variable** in that dataset\n3. As a **prefix for most variable names** in that dataset (e.g., AETERM in AE domain)\n4. As a **value in the RDOMAIN variable** in relationship tables **[Source: chapters/ch02_fundamentals.md §2.2]**\n\n### 5. Exceptions to Prefixing\nThe following variables are **not** prefixed with the domain identifier:\n- Required Identifiers: STUDYID, DOMAIN, USUBJID\n- Commonly used grouping and merge keys: VISIT, VISITNUM, VISITDY\n- All Demographics (DM) domain variables other than DMDTC and DMDY\n- All variables in RELREC and SUPPQUAL\n- Some variables in the Comments and Trial Design datasets **[Source: chapters/ch04_general_assumptions.md §4.2.2]**\n\n### 6. Domain-Specific Enforcement\nFor standard domains, the DOMAIN variable value is constrained to the specific domain code. For example, in the TM (Trial Milestones) domain, the CDISC Notes state: \"Two-character abbreviation for the domain, which must be TM.\" **[Source: domains/TM/spec.md — DOMAIN]**",
+      "sources": [
+        "chapters/ch04_general_assumptions.md",
+        "domains/SV/spec.md",
+        "domains/FT/spec.md",
+        "domains/EX/spec.md",
+        "domains/IE/spec.md",
+        "domains/GF/spec.md",
+        "domains/PR/spec.md",
+        "domains/MH/spec.md",
+        "domains/MI/spec.md",
+        "domains/PP/spec.md",
+        "domains/ML/spec.md",
+        "chapters/ch04_general_assumptions.md",
+        "domains/TM/spec.md",
+        "chapters/ch02_fundamentals.md",
+        "domains/OE/spec.md"
+      ]
+    }
+  },
+  {
+    "id": "q07",
+    "category": "cross_domain",
+    "question": "Which SDTM domains use the EPOCH variable and what is its purpose?",
+    "expected_facts": [
+      "EPOCH",
+      "Timing"
+    ],
+    "expected_sources": [
+      "VARIABLE_INDEX.md"
+    ],
+    "off": {
+      "answer": "Based on the retrieved context, the EPOCH variable is used across multiple SDTM domains as a Timing variable. Its purpose is to identify the study epoch (e.g., \"SCREENING\", \"TREATMENT\", \"FOLLOW-UP\") associated with an observation.\n\n## Domains Using EPOCH\n\nThe following domains include EPOCH as a Permissible (Perm) Timing variable:\n\n| Domain | CDISC Notes |\n|--------|-------------|\n| SR (Skin Response) | Epoch associated with the date/time of the observation **[Source: domains/SR/spec.md]** |\n| CP (Cell Phenotype Findings) | Epoch associated with the start date/time of the observation, or the date/time of collection if start date/time is not collected **[Source: domains/CP/spec.md]** |\n| FA (Findings About Events or Interventions) | Epoch associated with the date/time of the observation **[Source: domains/FA/spec.md]** |\n| PP (Pharmacokinetics Parameters) | Epoch associated with the start date/time of the observation, or the date/time of collection if start date/time is not collected **[Source: domains/PP/spec.md]** |\n| PC (Pharmacokinetics Concentrations) | Epoch associated with the start date/time of the observation, or the date/time of collection if start date/time is not collected **[Source: domains/PC/spec.md]** |\n| LB (Laboratory Test Results) | Epoch associated with the start date/time of the observation, or the date/time of collection if start date/time is not collected **[Source: domains/LB/spec.md]** |\n| FT (Functional Tests) | Epoch associated with the observation date/time of the functional tests finding **[Source: domains/FT/spec.md]** |\n| UR (Urinary System Findings) | Epoch associated with the date/time at which the observation was made **[Source: domains/UR/spec.md]** |\n| SS (Subject Status) | Epoch associated with the start date/time of the subject status assessment **[Source: domains/SS/spec.md]** |\n| IS (Immunogenicity Specimen Assessments) | Epoch associated with the start date/time of the observation, or the date/time of collection if start date/time is not collected **[Source: domains/IS/spec.md]** |\n| RE (Respiratory System Findings) | Epoch associated with the date/time at which the assessment was made **[Source: domains/RE/spec.md]** |\n| EG (ECG Test Results) | Epoch associated with the date/time at which the assessment was made **[Source: domains/EG/spec.md]** |\n| VS (Vital Signs) | Epoch associated with the start date/time at which the assessment was made **[Source: domains/VS/spec.md]** |\n\n## Purpose and Rules\n\n1. **Variable Definition**: EPOCH is a Character variable (Type: Char) with controlled terminology from codelist C99079. Its Role is Timing, and Core is Permissible **[Source: domains/SR/spec.md]**.\n\n2. **Basis for Assignment**:\n   - For **Findings class domains**, EPOCH should be based on the `--DTC` variable (date/time of the test or specimen collection) **[Source: chapters/ch04_general_assumptions.md §4.1.3.1]**.\n   - For **Interventions or Events class domains**, EPOCH should be based on the `--STDTC` variable (start date/time of the intervention or event) **[Source: chapters/ch04_general_assumptions.md §4.1.3.1]**.\n   - An exception exists for findings based on interval specimen collections that span epochs, where `--ENDTC` might be more appropriate **[Source: chapters/ch04_general_assumptions.md §4.1.3.1]**.\n\n3. **Assignment Rules**:\n   - Sponsors should **not impute** EPOCH values but should assign them based on CRF instructions and structure when possible **[Source: chapters/ch04_general_assumptions.md §4.1.3.1]**.\n   - If epoch determination is not possible, EPOCH should be **null** **[Source: chapters/ch04_general_assumptions.md §4.1.3.1]**.\n   - EPOCH is **not applicable** to observations that started before a subject's participation in a study (including screening, which occurs before RFSTDTC) **[Source: chapters/ch04_general_assumptions.md §4.1.3.1]**.\n   - EPOCH values must be **distinct** for different epochs (e.g., in a crossover trial with 3 treatment epochs, each must have a unique name, not all \"TREATMENT\") **[Source: domains/TA/assumptions.md item_12]**.\n\n4. **Additional Timing Variables**: EPOCH can be added to standard domain models based on the 3 general observation classes, but cannot be added to SUPPQUAL or RELREC datasets **[Source: chapters/ch04_general_assumptions.md §4.1.3]**.",
+      "sources": [
+        "chapters/ch04_general_assumptions.md",
+        "domains/SR/spec.md",
+        "domains/TA/assumptions.md",
+        "domains/CP/spec.md",
+        "domains/FA/spec.md",
+        "domains/PP/spec.md",
+        "domains/PC/spec.md",
+        "domains/LB/spec.md",
+        "domains/FT/spec.md",
+        "domains/UR/spec.md",
+        "domains/SS/spec.md",
+        "domains/IS/spec.md",
+        "domains/RE/spec.md",
+        "domains/EG/spec.md",
+        "domains/VS/spec.md"
+      ]
+    },
+    "on": {
+      "answer": "## EPOCH Variable — Usage Across SDTM Domains\n\n### Variable Definition\n\n| Attribute | Value |\n|-----------|-------|\n| **Label** | Epoch |\n| **Type** | Char |\n| **Role** | Timing |\n| **Core** | Perm |\n| **Controlled Terms** | C99079 (e.g., \"SCREENING\", \"TREATMENT\", \"FOLLOW-UP\") |\n\n**[Source: domains/SR/spec.md — EPOCH]**\n\n### Purpose\n\nEPOCH represents the study design–defined period (epoch) associated with an observation. It is a **study-design construct** that groups observations into meaningful phases of the trial (e.g., Screening, Treatment, Follow-up). EPOCH values must be **distinct** for different epochs — for example, in a crossover trial with 3 treatment periods, each must have a unique name (not all \"TREATMENT\").\n\n**[Source: chapters/ch04_general_assumptions.md §4.1.3.1; domains/TA/assumptions.md item 12]**\n\n### Domains That Use EPOCH\n\nEPOCH is a **permissible** Timing variable that can appear in any domain based on the 3 general observation classes (Interventions, Events, Findings), as well as in special-purpose domains where specified. Based on the knowledge base, EPOCH is documented in the following domains:\n\n#### Findings Class Domains\n| Domain | Name | Source |\n|--------|------|--------|\n| CP | Cell Phenotype Findings | [domains/CP/spec.md — EPOCH] |\n| FA | Findings About Events or Interventions | [domains/FA/spec.md — EPOCH] |\n| PC | Pharmacokinetics Concentrations | [domains/PC/spec.md — EPOCH] |\n| PP | Pharmacokinetics Parameters | [domains/PP/spec.md — EPOCH] |\n| SR | Skin Response | [domains/SR/spec.md — EPOCH] |\n\n#### Interventions Class Domains\n| Domain | Name | Source |\n|--------|------|--------|\n| EC | Exposure as Collected | [domains/EC/spec.md — EPOCH] |\n\n#### Events Class Domains\n| Domain | Name | Source |\n|--------|------|--------|\n| DS | Disposition | [domains/TA/assumptions.md item 12] |\n| EX | Exposure | [domains/TA/assumptions.md item 12] |\n\n**Note:** The above list is not exhaustive. Per the general model, any domain based on the 3 general observation classes **may** include EPOCH as a permissible variable. The domains listed above are those where EPOCH is explicitly documented in the knowledge base.\n\n**[Source: model/02_observation_classes.md — Overview; chapters/ch04_general_assumptions.md §4.1.3]**\n\n### Assignment Rules\n\n1. **For Findings class domains**: EPOCH should be based on `--DTC` (date/time of the test or specimen collection).\n2. **For Interventions and Events class domains**: EPOCH should be based on `--STDTC` (start date/time of the intervention or event).\n3. **Exception**: For findings based on an interval specimen collection spanning epochs, `--ENDTC` may be more appropriate.\n4. **No imputation**: Sponsors should not impute EPOCH values. Assignment should be based on CRF instructions and structure. If epoch cannot be determined, EPOCH should be **null**.\n5. **Pre-study observations**: EPOCH should be null for interventions, events, or findings that occurred **before** the subject's participation in the study (including screening, which occurs before RFSTDTC).\n\n**[Source: chapters/ch04_general_assumptions.md §4.1.3.1]**\n\n### Summary\n\nEPOCH is a **permissible Timing variable** (C99079) that can appear in any general observation class domain (Interventions, Events, Findings) and in special-purpose domains where specified. Its purpose is to assign observations to study design–defined periods (epochs) for grouping and analysis, with specific rules governing its derivation based on observation class and study participation status.",
+      "sources": [
+        "VARIABLE_INDEX.md",
+        "chapters/ch04_general_assumptions.md",
+        "model/01_concepts_and_terms.md",
+        "domains/SR/spec.md",
+        "chapters/ch02_fundamentals.md",
+        "domains/TA/assumptions.md",
+        "domains/CO/assumptions.md",
+        "domains/CP/spec.md",
+        "chapters/ch04_general_assumptions.md",
+        "domains/FA/spec.md",
+        "chapters/ch01_introduction.md",
+        "domains/PP/spec.md",
+        "model/02_observation_classes.md",
+        "domains/PC/spec.md",
+        "chapters/ch04_general_assumptions.md"
+      ]
+    }
+  },
+  {
+    "id": "q19",
+    "category": "mixed",
+    "question": "What controlled terminology codelist is used for DSDECOD when DSCAT equals 'DISPOSITION EVENT', and list specific CDISC Submission Values from that codelist for reasons of non-completion.",
+    "expected_facts": [
+      "NCOMPLT",
+      "C66727"
+    ],
+    "expected_sources": [
+      "domains/DS/assumptions.md",
+      "terminology/core/disposition.md"
+    ],
+    "off": {
+      "answer": "Based on the retrieved context, when `DSCAT` equals `\"DISPOSITION EVENT\"`, the controlled terminology codelist used for `DSDECOD` is **C66727 (Completion/Reason for Non-Completion)**.\n\n**[Source: domains/DS/spec.md — DSDECOD]**  \n**[Source: domains/DS/assumptions.md — item_3.b.ii]**\n\nThe specific CDISC Submission Values from the C66727 codelist for reasons of non-completion include:\n\n- **COMPLETED** — used when the subject completed the study participation or treatment\n- **LOST TO FOLLOW-UP** — used when the subject was lost to follow-up\n- **ADVERSE EVENT** — used when discontinuation was due to an adverse event\n- **WITHDREW CONSENT** — used when the subject withdrew consent\n\n**[Source: domains/DS/assumptions.md — item_3.b.i-ii]**  \n**[Source: domains/DS/assumptions.md — item_5]**\n\nNote: The C66727 codelist is **extensible**, meaning sponsors may add additional terms as needed for their specific study requirements. The examples above represent common values from the standard codelist.",
+      "sources": [
+        "domains/DS/spec.md",
+        "domains/DS/assumptions.md",
+        "domains/DS/spec.md",
+        "domains/DS/assumptions.md",
+        "domains/DS/spec.md",
+        "domains/RELSPEC/assumptions.md",
+        "domains/CE/spec.md",
+        "domains/DV/spec.md",
+        "VARIABLE_INDEX.md",
+        "domains/DS/assumptions.md",
+        "domains/DV/spec.md",
+        "domains/DS/spec.md",
+        "domains/DS/spec.md",
+        "terminology/core/disposition.md",
+        "terminology/core/disposition.md"
+      ]
+    },
+    "on": {
+      "answer": "Based on the retrieved context, when `DSCAT` equals `\"DISPOSITION EVENT\"`, the controlled terminology codelist used for `DSDECOD` is **C66727 (Completion/Reason for Non-Completion)**.\n\n**[Source: domains/DS/spec.md — DSDECOD; domains/DS/assumptions.md — item_3.b]**\n\nThe specific CDISC Submission Values from the C66727 codelist for reasons of non-completion are not listed in the provided context. The context only explicitly mentions the value `\"COMPLETED\"` as a term from this codelist.\n\n**[Source: domains/DS/assumptions.md — item_3.b.i]**\n\nThe context provides an example of a non-completion reason mapping: `\"Subject moved\"` (in `DSTERM`) would be coded to `\"LOST TO FOLLOW-UP\"` (in `DSDECOD`), but it does not provide a full list of the codelist's values.\n\n**[Source: domains/DS/assumptions.md — item_3.b.ii]**\n\nTo obtain the complete list of CDISC Submission Values for the C66727 codelist, you would need to consult the CDISC Controlled Terminology file for disposition events, which is referenced in the knowledge base as `terminology/core/disposition.md`.\n\n**[Source: domains/DS/spec.md — Controlled Terminology]**",
+      "sources": [
+        "domains/DS/spec.md",
+        "terminology/core/disposition.md",
+        "domains/DS/assumptions.md",
+        "domains/DS/assumptions.md",
+        "domains/DS/spec.md",
+        "domains/DS/assumptions.md",
+        "domains/DS/spec.md",
+        "domains/LB/assumptions.md",
+        "VARIABLE_INDEX.md",
+        "domains/DS/spec.md",
+        "domains/RELSPEC/assumptions.md",
+        "domains/BS/assumptions.md",
+        "domains/CE/spec.md",
+        "domains/DV/spec.md",
+        "domains/RS/assumptions.md"
+      ]
+    }
+  },
+  {
+    "id": "q90",
+    "category": "mixed",
+    "question": "In the EX (Exposure) domain, what is the EXROUTE variable and its controlled terminology codelist code, and list some parenteral route-of-administration values from that codelist (for example routes administered under the skin or into a muscle).",
+    "expected_facts": [
+      "EXROUTE",
+      "C66729",
+      "SUBCUTANEOUS",
+      "INTRAMUSCULAR"
+    ],
+    "expected_sources": [
+      "domains/EX/spec.md",
+      "terminology/core/interventions.md"
+    ],
+    "off": {
+      "answer": "Based on the retrieved context, here is the definition of the EXROUTE variable and the requested terminology:\n\n**EXROUTE — Route of Administration**\n- **Label:** Route of Administration\n- **Type:** Char\n- **Role:** Variable Qualifier\n- **Core:** Perm\n- **Controlled Terms:** C66729\n- **CDISC Notes:** Route of administration for the intervention. Examples: \"ORAL\", \"INTRAVENOUS\".\n\n**[Source: domains/EX/spec.md — EXROUTE]**\n\nThe controlled terminology codelist code for EXROUTE is **C66729** (Route of Administration Response).\n\n**[Source: domains/EX/spec.md — Controlled Terminology]**\n\nBased on the examples provided in the retrieved context, parenteral route-of-administration values from this codelist include:\n- **SUBCUTANEOUS** (administered under the skin)\n- **INTRAVENOUS** (administered into a vein)\n\n**[Source: domains/EX/spec.md — EXROUTE; domains/EX/examples.md — Example 2]**\n\n*Note: The context does not include the full list of values for codelist C66729, so \"INTRAMUSCULAR\" (into a muscle) is not confirmed in the retrieved text, though it is a standard value in the CDISC Route of Administration codelist.*",
+      "sources": [
+        "domains/EX/spec.md",
+        "domains/EX/spec.md",
+        "domains/EC/spec.md",
+        "domains/CM/spec.md",
+        "domains/EX/assumptions.md",
+        "domains/EX/spec.md",
+        "domains/EX/examples.md",
+        "domains/EX/assumptions.md",
+        "domains/EX/spec.md",
+        "domains/EX/assumptions.md",
+        "domains/PR/spec.md",
+        "domains/EX/spec.md",
+        "domains/EX/spec.md",
+        "domains/EX/assumptions.md",
+        "VARIABLE_INDEX.md"
+      ]
+    },
+    "on": {
+      "answer": "Based on the retrieved context, here is the definition of the EXROUTE variable and its associated controlled terminology.\n\n### EXROUTE Variable Definition\n\n- **Label:** Route of Administration\n- **Type:** Char\n- **Role:** Variable Qualifier\n- **Core:** Perm\n- **Controlled Terms:** C66729\n- **CDISC Notes:** Route of administration for the intervention. Examples: \"ORAL\", \"INTRAVENOUS\".\n\n**[Source: domains/EX/spec.md -- EXROUTE]**\n\n### Controlled Terminology (C66729)\n\nThe codelist code for EXROUTE is **C66729** (Route of Administration Response). This codelist is extensible.\n\n**[Source: terminology/core/interventions.md -- Route of Administration Response (C66729)]**\n\n### Parenteral Route Values from Codelist C66729\n\nParenteral routes are those that bypass the gastrointestinal tract, typically via injection. Examples from the codelist that are administered under the skin or into a muscle include:\n\n- **C38238** — **INTRADERMAL** (Administration within the skin)\n- **C38239** — **INTRAMUSCULAR** (Administration within a muscle)\n- **C38241** — **INTRASYNOVIAL** (Administration within the synovial cavity of a joint)\n- **C38242** — **INTRATHECAL** (Administration within the cerebrospinal fluid)\n- **C38244** — **INTRAVENOUS** (Administration within or into a vein)\n- **C38246** — **SUBCUTANEOUS** (Administration beneath the skin; hypodermic)\n\n**[Source: terminology/core/interventions.md -- Route of Administration Response (C66729)]**",
+      "sources": [
+        "domains/EX/spec.md",
+        "terminology/core/interventions.md",
+        "domains/EX/examples.md",
+        "domains/EX/assumptions.md",
+        "domains/EX/spec.md",
+        "domains/EX/assumptions.md",
+        "VARIABLE_INDEX.md",
+        "chapters/ch04_general_assumptions.md",
+        "domains/LB/assumptions.md",
+        "domains/EC/spec.md",
+        "chapters/ch01_introduction.md",
+        "domains/CM/spec.md",
+        "domains/TA/assumptions.md",
+        "domains/EX/spec.md",
+        "domains/IS/assumptions.md"
+      ]
+    }
+  }
+]

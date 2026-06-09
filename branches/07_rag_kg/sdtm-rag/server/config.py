@@ -48,12 +48,26 @@ class Settings(BaseSettings):
     expansion_model: str = "deepseek/deepseek-chat"
     expansion_n_queries: int = 4  # multiquery: original + (n-1) generated sub-queries
 
+    # ── P1 retrieval levers (validated combination, default ON in production) ──
+    # S1 + S2 are the validated P1 query-condition-routing combination (retrieval-
+    # only v2 102q: single 100 / cross 96 / concept 100 / mixed 100 / overall 99.0%,
+    # 2026-06-09). They MUST ship together: hybrid alone demotes single_domain
+    # (96→83); only S1's deterministic prepend + routing keeps the combination
+    # stable. Each is env-overridable (SDTM_RAG_STRUCTURED_LOOKUP_ENABLED=false /
+    # SDTM_RAG_HYBRID_ENABLED=false) for an instant rollback to plain cosine.
+
+    # Structured lookup (S1): deterministic var/CT-code -> gold-file resolution on a
+    # non-vector channel (spec.md xref + VARIABLE_INDEX), union-added ahead of cosine
+    # for terminology/distribution queries embeddings can't reach. Zero side effect
+    # (union-add, capped at top_k), so safe to default on.
+    structured_lookup_enabled: bool = True
+
     # Hybrid BM25 (S2): lexical retrieval over the SAME indexed chunks (bm25s, pure
     # CPU arithmetic — no neural model), additively fused with dense cosine so
     # literal domain/relationship/variable-name hits that cosine buries re-float
-    # without demoting cosine's wins. Off by default. RRF is parameter-free; the
-    # weighted path's alpha is the dense weight (1-alpha goes to BM25).
-    hybrid_enabled: bool = False
+    # without demoting cosine's wins. RRF is parameter-free; the weighted path's
+    # alpha is the dense weight (1-alpha goes to BM25).
+    hybrid_enabled: bool = True
     hybrid_fusion: str = "rrf"  # rrf | weighted
     hybrid_alpha: float = 0.5
     hybrid_pool: int = 30  # per-list fusion pool depth (v2 robust sweet spot; deeper adds tail noise)

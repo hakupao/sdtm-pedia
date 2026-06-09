@@ -30,9 +30,10 @@
 1. **q73 残留** (cross 24/25): RDOMAIN 分布题 gold 是定义它的 `model/06`, 分布路由注入了 VARIABLE_INDEX、hybrid 没把 model 章节顶进 top-15。通用补法 = "变量→定义它的 model 文件"通道, 但有 example-patching 风险, 留作已知残留 (cross 仍 96% 达标)。
 2. **n=25 余量**: cross 96% = 24/25 是 1 题 margin。即使 n=25, "≥95%"也等于"最多漏 1 题"。要 bulletproof 需再扩题集。
 3. **s3 长名边界在 v2 上未被实测**: v2 single 题全用域码, 长名映射是防御 (6 探针验证) 但 no-op on v2。应补几道长名 single 题真正 exercise 它。
-4. **仅 retrieval-only (source recall)**: 未在 v2 上重跑带答题模型的 full eval。答题准确率本就 93-96%, 但路由后应复测 end-to-end fact recall 再部署。
-5. **未接入生产 /ask**: structured_lookup/hybrid 是 flag (eval 用), FastAPI `ask()` 路径尚未默认启用; 部署前需 wire-in + 实测延迟 (BM25 建索引 + 查表的启动/查询开销)。
-6. **代码未 commit**: 在 main 工作树 validated, 待用户 review 后入库。
+4. ✅ **full eval 已跑 (2026-06-09)**: DeepSeek temp=0 配对 OFF/ON v2 102q — src 80.9→99.0%, fact 96.3→95.2% (噪声带内持平, 全类 ≥95% 除 cross 92.7%=substring 假阴)。Rule A 语义裁判 KB 核验: 净中性偏正, 但抓到 3 例真稀释 (q02/q37/q93)。详 `sdtm-rag/evidence/checkpoints/prod_wirein_summary.md`。
+5. ✅ **已接入生产 /ask (2026-06-09)**: `config.py` 两杠杆默认开 (env 可关) + `main.py` 转发 + embed-once 重构 (S1 多次 query 嵌入→1) + q02 修复 (单域 spec 注入 4 chunk)。延迟 +14ms/查询 + 0.5s 一次性启动。Rule D 代码审 APPROVE_WITH_NITS。
+6. **代码未 commit**: 在 main 工作树 validated + 全闸过, 待用户"收尾"入库。
+7. **新残留 (full eval 暴露, 已 ack 不修)**: q100 (多变量具体单域问广度) / q37+q93 (答题侧, 提示护栏 declined) / C-code 幻觉 (off+on 通病)。详 prod_wirein_summary.md §残留。
 
 ## §3 关键决策复盘
 

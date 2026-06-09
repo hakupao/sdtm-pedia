@@ -4,9 +4,9 @@
   "tier": 2,
   "tier_note": "borderline Tier 2-3, 走 Tier 2 + evidence 全留; Phase 2 KG 启动时再评估升 Tier 3",
   "created": "2026-05-22",
-  "updated": "2026-06-09 (★ P1 查询条件路由 DONE — 全类 src recall ≥95% 达成: retrieval-only v2 102q single 100/cross 96/concept 100/mixed 100/overall 99.0%; 4 杠杆 [确定性查表+分布意图泛化+Hybrid BM25+路由隔离]; Rule D 复核 PASS; 详见 phase_p1_query_routing + RETROSPECTIVE_P1_retrieval95.md). 前: 2026-06-08 单杠杆 round (接受 baseline); 2026-05-24 Phase 1D PASS 88.5%",
+  "updated": "2026-06-09 (★★ P1 杠杆接入生产 + 端到端验证 DONE — structured_lookup+hybrid /ask 默认开 [config env 可关] + embed-once 重构 + q02 修复; full eval DeepSeek temp=0 配对 src 80.9→99.0% / fact 96.3→95.2% 噪声带内持平; 延迟 +14ms/查询 + 0.5s 启动; Rule D 代码审 APPROVE_WITH_NITS + Rule A 语义裁判 [4 better/6 equal/2 artifact/3 real-worse, q02 已修余记残留]; 详见 prod_wirein_summary.md). 前: 同日 P1 查询条件路由 DONE (retrieval-only ≥95%); 2026-06-08 单杠杆 round; 2026-05-24 Phase 1D PASS 88.5%",
   "upstream_design": "docs/DESIGN_RAG_KG.md (Approved 2026-04-16)",
-  "current_phase": "phase_p1_query_routing DONE (2026-06-09, 全类 src recall ≥95% 达成, 待 user ack + commit) → NEXT: 接入生产 /ask + full eval (end-to-end fact recall) / q73 残留 / 扩题集; Phase 2 KG 仍 deferred",
+  "current_phase": "P1 接入生产 + 端到端验证 DONE (2026-06-09, 用户 ① 第一优先): 杠杆 /ask 默认开 + full eval fact 噪声带内持平 + 延迟 +14ms; q02 修复保留 + 残留 known limitations (q100/q37/q93/C-code, 答题侧) → NEXT: 扩题集增 margin / q73 残留 / (可选) 答题侧提示护栏; Phase 2 KG 仍 deferred",
   "phases": {
     "phase_0_research": {
       "status": "completed",

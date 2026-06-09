@@ -7,6 +7,7 @@ Run:
 from __future__ import annotations
 
 import logging
+import time
 from contextlib import asynccontextmanager
 
 import structlog
@@ -34,20 +35,47 @@ async def lifespan(app: FastAPI):
         kb=str(settings.kb_root),
         model=settings.default_model,
     )
+    t_rag = time.perf_counter()
     app.state.rag = RAGEngine(
         chroma_dir=settings.chroma_dir,
         kb_root=settings.kb_root,
         collection_name=settings.collection_name,
         embedding_model=settings.embedding_model,
         top_k=settings.top_k,
+        # P1 retrieval levers (validated combination, default on; see config.py).
+        structured_lookup_enabled=settings.structured_lookup_enabled,
+        hybrid_enabled=settings.hybrid_enabled,
+        hybrid_fusion=settings.hybrid_fusion,
+        hybrid_alpha=settings.hybrid_alpha,
+        hybrid_pool=settings.hybrid_pool,
     )
+    rag_init_s = round(time.perf_counter() - t_rag, 2)  # incl. BM25 index build when hybrid on
     app.state.llm_router = create_router(settings)
     app.state.settings = settings
     app.state.spec_loader = SpecLoader(settings.kb_root)
     log.info("spec_loader", domains=len(app.state.spec_loader.domains),
              codelists=len(app.state.spec_loader.codelists))
     count = app.state.rag.collection.count()
-    log.info("ready", collection=settings.collection_name, chunks=count)
+    # Guard the one documented foot-gun: hybrid-on with structured_lookup-off is the
+    # known-bad config (P1 measured single_domain 96->83). A half-applied env rollback
+    # (disable S1 only, leave hybrid on) would silently land here, so warn loudly. This
+    # lives in the production boot path only — eval ablations legitimately test hybrid
+    # alone via run_eval flags and must stay unconstrained.
+    if settings.hybrid_enabled and not settings.structured_lookup_enabled:
+        log.warning(
+            "hybrid_without_structured_lookup",
+            note="known single_domain regression (96->83); enable structured_lookup, "
+                 "or disable BOTH levers for plain cosine",
+        )
+    log.info(
+        "ready",
+        collection=settings.collection_name,
+        chunks=count,
+        structured_lookup=settings.structured_lookup_enabled,
+        hybrid=settings.hybrid_enabled,
+        hybrid_fusion=settings.hybrid_fusion,
+        rag_init_s=rag_init_s,
+    )
     yield
     log.info("shutdown")
 
