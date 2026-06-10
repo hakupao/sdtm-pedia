@@ -89,6 +89,7 @@ Full chain definitions are in `.work/MANIFEST.md`.
 | METHODOLOGY 公开声明 | `METHODOLOGY.md` + `release/v1.{0,1}/METHODOLOGY.{en,zh,ja}.md` |
 | 07 Website Phases 6-8 (closed) | `.work/07_website/phase{6,7,8}/` + handoffs `.work/meta/website_phase*_handoff_*.md`; prod https://sdtm-pedia.pages.dev/ || Phase 7 RAG+KG 旁枝 | `branches/07_rag_kg/PLAN.md` (Phase 1 CLOSED 53q 88.5%; sdtm-rag/ 代码仓, Chain 07_RAG) |
 | Phase 7 检索优化 (P1 DONE) | `branches/07_rag_kg/TODO_retrieval_quality.md` §5 — 全类 src recall ≥95% 达成; 复盘 `RETROSPECTIVE_P1_retrieval95.md` |
+| Phase 7 答题侧护栏 (DONE) | `branches/07_rag_kg/sdtm-rag/evidence/checkpoints/guardrail_v2_summary.md`; 确定性码闸 `eval/prod_wirein/check_code_grounding.py` |
 
 ## AI 平台双平台并行部署 (锁步规则)
 
