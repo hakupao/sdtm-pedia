@@ -55,6 +55,7 @@ class RAGEngine:
         hybrid_fusion: str = "rrf",
         hybrid_alpha: float = 0.5,
         hybrid_pool: int = 30,
+        prompt_guardrail_enabled: bool = False,
     ):
         self.client = chromadb.PersistentClient(path=str(chroma_dir))
         self.collection = self.client.get_collection(collection_name)
@@ -117,6 +118,11 @@ class RAGEngine:
         if hybrid_enabled:
             self._build_bm25_index()
 
+        # Answer-side trust guardrail: two grounding rules appended to the system
+        # prompt (CT-code grounding + classification grounding). Orthogonal to
+        # retrieval; when off the prompt is byte-identical to the pre-guardrail one.
+        self.prompt_guardrail_enabled = prompt_guardrail_enabled
+
         routing_path = kb_root / "ROUTING.md"
         index_path = kb_root / "INDEX.md"
         if not routing_path.exists():
@@ -133,9 +139,7 @@ class RAGEngine:
         return self._system_prompt
 
     def _build_system_prompt(self) -> str:
-        return (
-            "You are an SDTM (Study Data Tabulation Model) knowledge base assistant.\n"
-            "Answer questions based on the CDISC SDTMIG v3.4 knowledge base.\n\n"
+        rules = (
             "## Rules\n"
             "1. Answer based on the provided context. "
             "If context is insufficient, say so explicitly.\n"
@@ -145,7 +149,14 @@ class RAGEngine:
             "and Controlled Terms.\n"
             "5. For terminology questions, reference the codelist code "
             "(e.g., C66742).\n"
-            "6. When multiple sources are relevant, synthesize across them.\n\n"
+            "6. When multiple sources are relevant, synthesize across them.\n"
+        )
+        if self.prompt_guardrail_enabled:
+            rules += self._GUARDRAIL_RULES
+        return (
+            "You are an SDTM (Study Data Tabulation Model) knowledge base assistant.\n"
+            "Answer questions based on the CDISC SDTMIG v3.4 knowledge base.\n\n"
+            f"{rules}\n"
             "---\n\n"
             "## Routing Guide\n\n"
             f"{self._routing_md}\n\n"
@@ -153,6 +164,46 @@ class RAGEngine:
             "## Knowledge Base Index\n\n"
             f"{self._index_md}"
         )
+
+    # Answer-side trust guardrail (appended to ## Rules only when enabled). Two GENERAL
+    # grounding rules — deliberately pattern-level, not keyed to any test question
+    # (anti-overfitting). v2 (2026-06-09): v1 fixed mass-fabrication (q90/q91) but leaked
+    # on small/familiar codelists (model confidently increment-guessed per-value codes)
+    # and was rubber-stamped by loose KB prose on classification. v2 closes both:
+    #   rule 7 — individual codelist values are NAME-ONLY by default; a per-value code is
+    #     allowed ONLY by copying that value's own row; confidence/increment/"present but
+    #     not shown" are explicitly disallowed (the proven-safe q90/q91 behavior, extended).
+    #   rule 8 — class membership must come from an AUTHORITATIVE class designation (a Class
+    #     field / explicit "the following domains are <category>" list), not incidental
+    #     prose; relationship datasets (Class = Relationship) are not Special-Purpose.
+    _GUARDRAIL_RULES = (
+        "7. **Controlled-terminology codes must be grounded; individual codelist values "
+        "are name-only by default.** You may cite a codelist's OWN code (e.g. C66742) "
+        "when that code appears in the context. But when you list the individual VALUES "
+        "inside a codelist (routes, dose forms, reasons, test codes, etc.), give the "
+        "value NAMES only and do NOT attach a per-value NCI \"C\" code to any single "
+        "value UNLESS that value's exact row -- the value name and its code together -- "
+        "is literally visible in the retrieved context for you to copy. Your memory of a "
+        "code is NOT acceptable evidence, however confident you are; do NOT derive a "
+        "value's code by incrementing, analogizing, or guessing from a nearby code; and "
+        "do NOT claim a value or code is \"present in the source but not shown\" -- if "
+        "you did not read that value's own row, the value is name-only and you state its "
+        "code must be confirmed in the terminology file. A wrong clinical code is a "
+        "serious defect; omitting a code is always safe. This refines rule 5.\n"
+        "8. **Class/category membership must come from an authoritative class "
+        "designation.** Assign a domain to an SDTM class or category (Special-Purpose, "
+        "Relationship, Findings, Events, Interventions, ...) only when the context gives "
+        "an authoritative designation for THAT domain -- a Class field/column value, or "
+        "an explicit \"the following domains are <category>\" enumeration. A loose or "
+        "incidental mention of a category name in a domain's own assumptions/overview "
+        "prose is NOT a class assignment, and a domain does not become category X merely "
+        "because its chunk was retrieved alongside category-X domains. Note the SDTM "
+        "model treats relationship datasets (those whose Class is \"Relationship\", e.g. "
+        "defined in the relationship-datasets model section) as distinct from "
+        "Special-Purpose domains; do not list a relationship dataset as Special-Purpose. "
+        "If the context does not authoritatively place a domain in the asked-about "
+        "category, do not list it there.\n"
+    )
 
     def retrieve(
         self,

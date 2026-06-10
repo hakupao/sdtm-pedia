@@ -56,6 +56,7 @@ class InfoResponse(BaseModel):
     structured_lookup: bool
     hybrid: bool
     hybrid_fusion: str | None = None
+    prompt_guardrail: bool
 
 
 # ── Endpoints ────────────────────────────────────────────────────────────
@@ -78,6 +79,7 @@ def info(request: Request):
         structured_lookup=rag.structured_lookup_enabled,
         hybrid=rag.hybrid_enabled,
         hybrid_fusion=rag.hybrid_fusion if rag.hybrid_enabled else None,
+        prompt_guardrail=rag.prompt_guardrail_enabled,
     )
 
 

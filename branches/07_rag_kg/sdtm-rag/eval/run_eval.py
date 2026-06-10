@@ -82,6 +82,7 @@ def run_evaluation(
     direct_model: str | None = None,
     top_k: int = TOP_K,
     temperature: float | None = None,
+    full_answers: bool = False,
 ) -> list[dict]:
     results: list[dict] = []
     for q in test_set:
@@ -149,6 +150,8 @@ def run_evaluation(
                 "usage": usage,
                 "model": direct_model if direct_model is not None else getattr(response, "model", "unknown"),
             })
+            if full_answers:
+                result["answer"] = answer  # untruncated (for code-grounding / semantic judge)
 
         elapsed = time.perf_counter() - t0
         result["elapsed_s"] = round(elapsed, 2)
@@ -313,6 +316,19 @@ def main(argv: list[str] | None = None) -> int:
              "(non-deterministic). Set 0.0 for deterministic paired off/on comparisons.",
     )
     parser.add_argument(
+        "--guardrail",
+        action="store_true",
+        help="Answer-side trust guardrail: append CT-code + classification grounding "
+             "rules to the system prompt. Off by default (prompt byte-identical to "
+             "pre-guardrail prod); pass for the guardrail-ON arm of a paired eval.",
+    )
+    parser.add_argument(
+        "--full-answers",
+        action="store_true",
+        help="Store the untruncated answer per question (field 'answer') in addition to "
+             "the 600-char preview. Needed for code-grounding / semantic-judge passes.",
+    )
+    parser.add_argument(
         "--tag",
         default=None,
         help="Optional label added to output JSON for cross-model comparison",
@@ -347,6 +363,7 @@ def main(argv: list[str] | None = None) -> int:
         hybrid_pool=(
             args.hybrid_pool if args.hybrid_pool is not None else settings.hybrid_pool
         ),
+        prompt_guardrail_enabled=args.guardrail,
     )
     rerank_info = (
         f", rerank={rag.rerank_model} pool={rag.rerank_candidates}" if args.rerank else ""
@@ -361,7 +378,8 @@ def main(argv: list[str] | None = None) -> int:
         + (f"(alpha={rag.hybrid_alpha})" if rag.hybrid_fusion == "weighted" else "")
         if args.hybrid else ""
     )
-    print(f"RAG engine: {rag.collection.count()} chunks, model={settings.default_model}, top_k={args.top_k}{rerank_info}{expand_info}{lookup_info}{hybrid_info}")
+    guardrail_info = ", guardrail=ON" if args.guardrail else ""
+    print(f"RAG engine: {rag.collection.count()} chunks, model={settings.default_model}, top_k={args.top_k}{rerank_info}{expand_info}{lookup_info}{hybrid_info}{guardrail_info}")
 
     router = None
     if not args.retrieval_only:
@@ -374,7 +392,7 @@ def main(argv: list[str] | None = None) -> int:
     print()
     results = run_evaluation(
         test_set, rag, router, args.retrieval_only, direct_model=args.model,
-        top_k=args.top_k, temperature=args.temperature,
+        top_k=args.top_k, temperature=args.temperature, full_answers=args.full_answers,
     )
     summary = print_summary(
         results,
@@ -401,6 +419,7 @@ def main(argv: list[str] | None = None) -> int:
             "fusion": rag.hybrid_fusion,
             "alpha": rag.hybrid_alpha if rag.hybrid_fusion == "weighted" else None,
         }
+    summary["prompt_guardrail"] = args.guardrail
 
     if args.output:
         out: dict = {"summary": summary, "results": results}

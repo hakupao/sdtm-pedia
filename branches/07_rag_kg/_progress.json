@@ -534,5 +534,7 @@
     "claude_md": "CLAUDE.md Key Paths",
     "manifest": ".work/MANIFEST.md"
   },
-  "failures_archive": []
+  "failures_archive": [
+    "guardrail v1 attempt 1 (2026-06-09): 答題護栏 v1 wording FAIL — 4-lens 対抗式 scientist 裁判 gate FAIL (q90/q91 真修但 q93/q44 漏穿 per-value C-code, q37 分類変糟; 根因=規則查 presence-of-string 非 authoritativeness; substring 指標全盲). v2 重写過闸. → sdtm-rag/evidence/failures/guardrail_v1_attempt_1.md (規則 B 不删)"
+  ]
 }

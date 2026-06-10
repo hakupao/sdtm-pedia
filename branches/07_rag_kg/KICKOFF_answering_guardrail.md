@@ -3,9 +3,12 @@
 # KICKOFF — 答题侧可信度护栏 (P1 接入生产的后续 ①)
 
 > 创建: 2026-06-09 (P1 接入生产收尾时立项, 供下个 session 路由进入)
+> **状态: ✅ DONE (2026-06-09) — 护栏 v2 PASS, SHIP_DEFAULT_ON; 收口 `sdtm-rag/evidence/checkpoints/guardrail_v2_summary.md`**
 > 路由词: **"RAG 答题护栏 开始任务"**
 > Tier: 1-2 (单 session, 仅动系统提示词 + eval gold 修正; 不碰已验证的检索层)
 > 前置已完成: P1 杠杆已接入生产默认开 (commit 0a16a5b); 配对 full-eval + 语义裁判 harness 现成
+
+> **收口结论 (2026-06-09)**: v1 wording FAIL (对抗式裁判抓 q93/q44 漏穿 + q37 变糟, Rule B 归档) → v2 重写 (per-value 默认 name-only + 权威 Class 列分类) PASS。**码 fabrication 确定性消除 (全 102 答案 147 码 0 ungrounded; v1=10) + q37 分类修复 + 零过度拒答 + fact 噪声带内**。新增确定性闸 `check_code_grounding.py` 补 substring 指标盲区。残留 q93 值名/q96 = 检索覆盖 (护栏范围外, 已记)。下方 §1-§7 为立项时计划, 实施见 checkpoint。
 
 ## 0. 一句话
 

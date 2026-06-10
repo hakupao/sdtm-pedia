@@ -48,6 +48,8 @@ async def lifespan(app: FastAPI):
         hybrid_fusion=settings.hybrid_fusion,
         hybrid_alpha=settings.hybrid_alpha,
         hybrid_pool=settings.hybrid_pool,
+        # Answer-side trust guardrail (system-prompt grounding rules; default on).
+        prompt_guardrail_enabled=settings.prompt_guardrail_enabled,
     )
     rag_init_s = round(time.perf_counter() - t_rag, 2)  # incl. BM25 index build when hybrid on
     app.state.llm_router = create_router(settings)
@@ -74,6 +76,7 @@ async def lifespan(app: FastAPI):
         structured_lookup=settings.structured_lookup_enabled,
         hybrid=settings.hybrid_enabled,
         hybrid_fusion=settings.hybrid_fusion,
+        prompt_guardrail=settings.prompt_guardrail_enabled,
         rag_init_s=rag_init_s,
     )
     yield

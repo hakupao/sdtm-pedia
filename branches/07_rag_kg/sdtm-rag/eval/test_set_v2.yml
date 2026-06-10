@@ -26,13 +26,18 @@
 - id: q02
   category: single_domain
   question: "What are the required (Core=Req) variables in the DM domain?"
+  # fixed 2026-06-09 (answering-guardrail gold audit): question asks for Core=Req only.
+  # Per domains/DM/spec.md the 7 Req variables are exactly those below; RFSTDTC/AGE/ARM
+  # (old gold) are Core=Exp, not Req, and DOMAIN/SUBJID/SITEID/COUNTRY were missing.
+  # Scientist-verified against KB. See KICKOFF_answering_guardrail.md §3.
   expected_facts:
     - "STUDYID"
+    - "DOMAIN"
     - "USUBJID"
-    - "RFSTDTC"
-    - "AGE"
+    - "SUBJID"
+    - "SITEID"
     - "SEX"
-    - "ARM"
+    - "COUNTRY"
   expected_sources:
     - "domains/DM/spec.md"
 
@@ -336,11 +341,15 @@
 - id: q37
   category: concept
   question: "What are the Special-Purpose datasets in SDTM and which domains fall into this category?"
+  # fixed 2026-06-09 (answering-guardrail gold audit): SUPPQUAL (old gold) is NOT a
+  # special-purpose domain -- it is a relationship dataset (model/06_relationship_datasets.md
+  # §6.2), absent from model/03_special_purpose_domains.md. Replaced with SE, a true
+  # special-purpose member (DM/CO/SE/SV/SM per model/03). Scientist-verified against KB.
   expected_facts:
     - "Special-Purpose"
     - "DM"
     - "CO"
-    - "SUPPQUAL"
+    - "SE"
   expected_sources:
     # fixed 2026-06-08 (T1 gold-label audit): "model/04_special_purpose.md" does not
     # exist in KB; correct file is model/03_special_purpose_domains.md. See eval/ablation_t1/review_T1.md

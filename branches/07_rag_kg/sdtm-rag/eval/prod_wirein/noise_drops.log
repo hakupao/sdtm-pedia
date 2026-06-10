@@ -1,0 +1,31 @@
+[19:26:59] START noise+drops
+[19:26:59] === noise-floor: OFF re-run #2 ===
+  mixed: 100.0% (25 q)
+  single_domain: 100.0% (27 q)
+Fact recall (avg):   95.7%
+Total tokens used:   1,549,067
+  concept: 96.0%
+  cross_domain: 92.0%
+  mixed: 97.0%
+  single_domain: 97.8%
+
+Overall (src+fact avg): 97.4%
+Threshold: 85%  ->  PASS
+
+Questions with source misses (1):
+  q73: src=0% miss=['model/06_relationship_datasets.md']
+
+Results saved to eval/prod_wirein/g_off2_t0.json
+[20:02:03] === drops forensic (10 drop questions) ===
+[q02] done
+[q24] done
+[q06] done
+[q28] done
+[q35] done
+[q39] done
+[q17] done
+[q20] done
+[q67] done
+[q81] done
+wrote 10 pairs -> /Users/bojiangzhang/MyProject/sdtm-pedia/branches/07_rag_kg/sdtm-rag/eval/prod_wirein/forensic_drops.json
+[20:04:22] DONE noise+drops

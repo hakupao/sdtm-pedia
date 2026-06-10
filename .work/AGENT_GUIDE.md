@@ -36,7 +36,7 @@ SDTM 知识库, 从 CDISC PDF + xlsx 抽取, 多旁枝 (字面级深审 / 双 AI
 | 05 RAG/KG 设计 | `docs/DESIGN_RAG_KG.md` | 设计 closed; 实现见 07 旁枝 |
 | 06 Deep Verification | `branches/06_deep_verification/PLAN.md` | ✅ COMPLETE (P1-P7, coverage 99.02%, 2026-05-12) |
 | 6.5 AI Platforms | `ai_platforms/SYNC_BOARD.md` | active 维护期 (v1.4 cut 2026-05-22; Gemini MAINTAINED_NO_SANITY) |
-| 7 RAG+KG 实现 | `branches/07_rag_kg/PLAN.md` | ✅ **Phase 1 CLOSED** (53q eval 88.5%); 下一步检索优化 → `TODO_retrieval_quality.md` |
+| 7 RAG+KG 实现 | `branches/07_rag_kg/PLAN.md` | ✅ **Phase 1 CLOSED** + P1 路由/接入生产 DONE + **答题侧护栏 DONE** (2026-06-09, 码/分类 grounding 护栏默认开); 检索优化 → `TODO_retrieval_quality.md` |
 | 7 Release | `.work/07_release_v1_4/PLAN.md` (latest) + `.work/07_release{,_v1_1,_v1_2,_v1_3,_v1_4}/` | latest v1.4 cut 2026-05-22 (tag `v1.4-company-release`); v1.0-v1.3 closed |
 | 7 Website | `.work/07_website/phase{6,7,8}/` | closed (prod 已发布) |
 | iTMS 日本納品旁枝 | `branches/jp_delivery/PLAN.md` | active (P0 2/4 v1.0; 01 v1.1-draft in-flight) |
@@ -51,7 +51,7 @@ SDTM 知识库, 从 CDISC PDF + xlsx 抽取, 多旁枝 (字面级深审 / 双 AI
 - **"P2 bulk B-03c round NN 自治连跑"** → `branches/06_deep_verification/multi_session/P2_B-03c_round_NN_kickoff.md`
 - **"收尾"/"wrap up"/"提交收尾"** → 见 CLAUDE.md "Session Wrap-up" 段
 - **"refactor v1 执行段 N"** → `.work/refactor_v1/PLAN.md` § 段 N 详细步骤
-- **"RAG 答题护栏 开始任务"** → `branches/07_rag_kg/KICKOFF_answering_guardrail.md` (P1 接入生产的后续: 答题侧 C-code 幻觉 + 分类护栏, 仅动系统提示词 + eval gold 修正, 不碰检索层)
+- ~~**"RAG 答题护栏 开始任务"**~~ → ✅ **DONE 2026-06-09** (护栏 v2 SHIP_DEFAULT_ON; 码 fabrication 确定性消除 + q37 分类修复 + 0 过度拒答; 收口 `branches/07_rag_kg/sdtm-rag/evidence/checkpoints/guardrail_v2_summary.md`)
 
 ## 不要做的
 

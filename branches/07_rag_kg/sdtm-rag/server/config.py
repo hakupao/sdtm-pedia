@@ -72,6 +72,20 @@ class Settings(BaseSettings):
     hybrid_alpha: float = 0.5
     hybrid_pool: int = 30  # per-list fusion pool depth (v2 robust sweet spot; deeper adds tail noise)
 
+    # ── Answer-side trust guardrail (system-prompt only; orthogonal to retrieval) ──
+    # Two grounding rules appended to the system prompt that forbid the answering
+    # model from emitting content the retrieved context does not contain:
+    #   (1) never output a controlled-terminology code (Cxxxxx) not present verbatim
+    #       in context — fixes per-value CT-code fabrication (q90/q91/q93, where the
+    #       model copied one code then guessed the rest by incrementing);
+    #   (2) never assert a domain's SDTM class/category unless context states it —
+    #       fixes special-purpose misclassification of relationship datasets (q37).
+    # These are answer-side defects present OFF and ON the retrieval levers, surfaced
+    # by the P1 wire-in Rule A semantic judge; substring fact-recall is blind to them.
+    # Env-overridable (SDTM_RAG_PROMPT_GUARDRAIL_ENABLED=false) for an A/B rollback;
+    # when off, the system prompt is byte-identical to the pre-guardrail production one.
+    prompt_guardrail_enabled: bool = True
+
     # Server
     log_level: str = "INFO"
     host: str = "0.0.0.0"

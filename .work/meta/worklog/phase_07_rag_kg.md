@@ -85,3 +85,19 @@
 - **下一步**: commit + push (单 commit, 限定 P1 wire-in 文件, 不碰无关 README/web 改动)
 
 ---
+
+## 2026-06-09 答题侧可信度护栏 DONE (P1 接入生产后续 ①)
+
+- **触発**: 路由词「RAG 答题护栏 开始任务」→ `KICKOFF_answering_guardrail.md`。修 P1 Rule A 裁判挖出的两类答题侧硬伤: (1) **per-value C-code 幻觉** (q90/q91/q93 给对取值名配错/编 NCI 码), (2) **关系类误判 special-purpose** (q37 把 RELREC/SUPPQUAL 当 special-purpose)。约束: 仅动系统提示词 + eval gold, **不碰已验证检索层** (用户明确)。
+- **方法**: 先修 gold (writer=main, scientist 独立核验) → 写护栏 (writer=main) → 客观闸 + code-reviewer → 配对 full-eval + **对抗式多-lens scientist 语义裁判** → v1 FAIL Rule B 归档 → v2 重写 → 重验重判 → 用户 ack SHIP。Rule D 全程异 type 隔离。
+- **先修 eval gold** (`test_set_v2.yml`): q02 expected_facts → 真 7 Req (STUDYID/DOMAIN/USUBJID/SUBJID/SITEID/SEX/COUNTRY; 原含 RFSTDTC/AGE/ARM 全是 Exp); q37 移误判 SUPPQUAL (实为 model/06 关系类) → SE。`oh-my-claudecode:scientist` 独立 KB 枚举核验 **PASS** (规则 A 4.c)。
+- **护栏 v1 (FAIL)**: rule 7 "码 verbatim 出现才输出" + rule 8 "context 陈述才断言分类"。**4-lens 对抗式 scientist 裁判 (KB 逐一核验) 判 gate FAIL**: q90/q91 真修 (mass-fabrication 类 codelist 巨大模型放弃→name-only), **但 q93/q44 漏穿** — q44 (过度拒答探针) ON **反而新增 6 个错 VSTESTCD 码 + 递增猜, C49672/C49675 全 KB 不存在**, OFF 本是 name-only 安全; q37 把 RELREC/SUPPQUAL 从 OFF 对冲表并进 ON "确定属于"表=**变糟**。根因: 两规则查 **presence-of-string 非 authoritativeness**; small/familiar codelist 模型自信顶穿; KB IG 松散 prose "RELREC special-purpose dataset" 橡皮图章。**substring 指标对两类缺陷全盲** (q37 100/100, 编码不罚)。Rule B 归档 `evidence/failures/guardrail_v1_attempt_1.md`。
+- **护栏 v2 (PASS)** (`rag.py` `_GUARDRAIL_RULES`): **rule 7** 个体 codelist 值**默认 name-only**, 仅当该值整行 (值名+码同现) 字面在 context 才附码; 禁凭记忆/自信、递增/类比、"present but not shown" 合理化 (扩 q90/q91 已证 name-only 安全行为)。**rule 8** 分类据**权威 Class 列** (或明确 "the following domains are X" 枚举), 非 domain 自身 assumptions 松散 prose; relationship dataset (Class=Relationship) ≠ Special-Purpose。通用 pattern (无缺陷靶题号/RELREC/VSTESTCD 泄漏, C66742 沿用 rule 5 中性示例); OFF **逐字节一致** (22453 chars)。
+- **新增确定性闸** `eval/prod_wirein/check_code_grounding.py`: 抽答案所有 Cxxxxx 对**重检索 context** + 全 KB (23402 distinct codes) 核 grounded / ungrounded(mis-cited) / nonexistent(fabricated)。补 substring 盲区, v1/v2 before-after 可比。
+- **v2 验证 (全闸过)**: pytest **214**; OFF 字节一致; retrieval-only 99.0% 未动; **确定性码闸 全 102 ON-v2 答案: 147 码 grounded 147 / ungrounded 0 / nonexistent 0 → PASS** (v1 16q 子集已 10 违规); **3-lens scientist 裁判 (over-refusal 决定性 + 分类 + ship)**: gate_pass=TRUE, code_fabrication=eliminated, q37=fixed (抵 SUPPQUAL prose 诱饵用 ch03 Class 列), **over_refusal=0** (9 drop = 4 子串假阴 [codepoint 级查实 U+202F narrow-space/U+2011 nbhyphen/U+2013 en-dash/word-number] + 5 正确弃答 [gold 事实确实不在检索 context, OFF 仅靠未 grounded 记忆"赢"]), real_regressions=[]; fact 94.8→93.4 (-1.4pt) 噪声带内 (OFF-vs-OFF 噪声底实测 +0.9avg/±3pt cat/per-q 100→33); **SHIP_DEFAULT_ON** + 用户 ack。
+- **Rule D 隔离**: writer=main(opus) / gold 核验=`scientist` / 代码审=`code-reviewer` APPROVE_WITH_NITS / 语义裁判=`scientist`×2 轮 (v1 4-lens + v2 3-lens, 全 opus, agentType 经 Workflow)。
+- **残留 known limitations (护栏两规则范围外)**: q93 INJECTION-vs-INJECTABLE (值名; INJECTION/C42946 不在检索 context, 模型用 SU spec prose "INJECTABLE") + q96 Diameter (标准值未检索) = 检索覆盖 artifact, 非码/类缺陷; per-value 右归属仅 bundle spot-check (确定性 checker 覆盖全 102 码 presence)。
+- **方法论收获**: (1) substring 指标对码 fabrication + 误分类**结构性盲** → 必须确定性码闸 + 语义裁判双补; (2) 对抗式异-type 裁判抓到主 session 眼检漏掉的 v1 漏穿 (q44 过度拒答探针反而新增编码) = Rule D 真闸; (3) 提示护栏对 small/familiar codelist 的强模型先验需 forceful 反自信措辞才压得住; (4) "证据优先" — OFF 重跑测噪声底把 fact "回归" 证为噪声。
+- **收口**: `evidence/checkpoints/guardrail_v2_summary.md` (规则 C retro)。新资产: `check_code_grounding.py` / `forensic_guardrail.py` / `judge_workflow{,_v2}.js`。
+
+---

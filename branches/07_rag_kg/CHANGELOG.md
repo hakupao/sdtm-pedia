@@ -239,3 +239,14 @@
 - next: 接入生産 /ask + full eval (end-to-end fact recall) / q73 残留 / 扩題集增 margin
 
 ---
+
+## 答題側可信度護欄 (2026-06-09)
+- 区分: 新規機能 (system-prompt only) + eval gold 修正 + 新規確定性闸
+- 触発: 用户「RAG 答題護栏 開始任務」(`KICKOFF_answering_guardrail.md`); 修 P1 Rule A 裁判挖出的答題側 per-value C-code 幻覚 + 関係類誤判 special-purpose
+- 産出物: `server/rag.py` (`_GUARDRAIL_RULES` v2 + `prompt_guardrail_enabled` + 条件化 `_build_system_prompt`, OFF 逐字節一致) + `config.py`/`main.py`/`router.py` 接線 + `eval/run_eval.py` (`--guardrail` `--full-answers`) + `eval/test_set_v2.yml` gold 修正 (q02/q37) + **`eval/prod_wirein/check_code_grounding.py`** (確定性碼-grounding 闸, 補 substring 盲区) + `forensic_guardrail.py` + `judge_workflow{,_v2}.js` (対抗式語義裁判 workflow)
+- v1 FAIL → v2 PASS: 4-lens 対抗式 scientist 裁判抓 v1 漏穿 (q93/q44 + q37 変糟); Rule B 帰档 `evidence/failures/guardrail_v1_attempt_1.md`; v2 重写 (per-value 默认 name-only + 権威 Class 列分類) **確定性碼闸全 102 答案 147 碼 0 ungrounded** + q37 修復 + 0 過度拒答 + 3-lens 裁判 **SHIP_DEFAULT_ON**
+- Rule D: writer=main / gold核験=scientist / 代碼審=code-reviewer / 語義裁判=scientist×2 (異 type 全程隔離)
+- 収口: `evidence/checkpoints/guardrail_v2_summary.md`
+- 承認: Bojiang ack SHIP_DEFAULT_ON (2026-06-09) + commit
+
+---
