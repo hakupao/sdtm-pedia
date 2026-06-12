@@ -1,0 +1,223 @@
+[
+  {
+    "id": "q128",
+    "category": "single_domain",
+    "code_token_domains": [],
+    "longname_domains": [
+      "VS"
+    ],
+    "named_variables": [],
+    "dist_intent": false,
+    "resolve_targets": [
+      "domains/VS/spec.md"
+    ],
+    "s3_attributable": true,
+    "expected_sources": [
+      "domains/VS/spec.md"
+    ]
+  },
+  {
+    "id": "q129",
+    "category": "single_domain",
+    "code_token_domains": [],
+    "longname_domains": [
+      "MH"
+    ],
+    "named_variables": [],
+    "dist_intent": false,
+    "resolve_targets": [
+      "domains/MH/spec.md"
+    ],
+    "s3_attributable": true,
+    "expected_sources": [
+      "domains/MH/spec.md"
+    ]
+  },
+  {
+    "id": "q130",
+    "category": "single_domain",
+    "code_token_domains": [],
+    "longname_domains": [
+      "LB"
+    ],
+    "named_variables": [],
+    "dist_intent": false,
+    "resolve_targets": [
+      "domains/LB/spec.md"
+    ],
+    "s3_attributable": true,
+    "expected_sources": [
+      "domains/LB/spec.md"
+    ]
+  },
+  {
+    "id": "q131",
+    "category": "single_domain",
+    "code_token_domains": [],
+    "longname_domains": [
+      "CE"
+    ],
+    "named_variables": [],
+    "dist_intent": false,
+    "resolve_targets": [
+      "domains/CE/spec.md"
+    ],
+    "s3_attributable": true,
+    "expected_sources": [
+      "domains/CE/spec.md"
+    ]
+  },
+  {
+    "id": "q132",
+    "category": "single_domain",
+    "code_token_domains": [],
+    "longname_domains": [
+      "HO"
+    ],
+    "named_variables": [],
+    "dist_intent": false,
+    "resolve_targets": [
+      "domains/HO/spec.md"
+    ],
+    "s3_attributable": true,
+    "expected_sources": [
+      "domains/HO/spec.md"
+    ]
+  },
+  {
+    "id": "q133",
+    "category": "single_domain",
+    "code_token_domains": [],
+    "longname_domains": [
+      "TU"
+    ],
+    "named_variables": [],
+    "dist_intent": false,
+    "resolve_targets": [
+      "domains/TU/spec.md"
+    ],
+    "s3_attributable": true,
+    "expected_sources": [
+      "domains/TU/spec.md"
+    ]
+  },
+  {
+    "id": "q134",
+    "category": "single_domain",
+    "code_token_domains": [],
+    "longname_domains": [
+      "CM"
+    ],
+    "named_variables": [],
+    "dist_intent": false,
+    "resolve_targets": [
+      "domains/CM/spec.md"
+    ],
+    "s3_attributable": true,
+    "expected_sources": [
+      "domains/CM/spec.md"
+    ]
+  },
+  {
+    "id": "q135",
+    "category": "single_domain",
+    "code_token_domains": [],
+    "longname_domains": [
+      "DM"
+    ],
+    "named_variables": [],
+    "dist_intent": false,
+    "resolve_targets": [
+      "domains/DM/spec.md"
+    ],
+    "s3_attributable": true,
+    "expected_sources": [
+      "domains/DM/spec.md"
+    ]
+  },
+  {
+    "id": "q136",
+    "category": "single_domain",
+    "code_token_domains": [],
+    "longname_domains": [
+      "DS"
+    ],
+    "named_variables": [],
+    "dist_intent": false,
+    "resolve_targets": [
+      "domains/DS/spec.md"
+    ],
+    "s3_attributable": true,
+    "expected_sources": [
+      "domains/DS/spec.md"
+    ]
+  },
+  {
+    "id": "q137",
+    "category": "single_domain",
+    "code_token_domains": [],
+    "longname_domains": [
+      "PR"
+    ],
+    "named_variables": [],
+    "dist_intent": false,
+    "resolve_targets": [
+      "domains/PR/spec.md"
+    ],
+    "s3_attributable": true,
+    "expected_sources": [
+      "domains/PR/spec.md"
+    ]
+  },
+  {
+    "id": "q138",
+    "category": "single_domain",
+    "code_token_domains": [],
+    "longname_domains": [
+      "QS"
+    ],
+    "named_variables": [],
+    "dist_intent": false,
+    "resolve_targets": [
+      "domains/QS/spec.md"
+    ],
+    "s3_attributable": true,
+    "expected_sources": [
+      "domains/QS/spec.md"
+    ]
+  },
+  {
+    "id": "q139",
+    "category": "single_domain",
+    "code_token_domains": [],
+    "longname_domains": [
+      "EX"
+    ],
+    "named_variables": [],
+    "dist_intent": false,
+    "resolve_targets": [
+      "domains/EX/spec.md"
+    ],
+    "s3_attributable": true,
+    "expected_sources": [
+      "domains/EX/spec.md"
+    ]
+  },
+  {
+    "id": "q140",
+    "category": "single_domain",
+    "code_token_domains": [],
+    "longname_domains": [
+      "CO"
+    ],
+    "named_variables": [],
+    "dist_intent": false,
+    "resolve_targets": [
+      "domains/CO/spec.md"
+    ],
+    "s3_attributable": true,
+    "expected_sources": [
+      "domains/CO/spec.md"
+    ]
+  }
+]

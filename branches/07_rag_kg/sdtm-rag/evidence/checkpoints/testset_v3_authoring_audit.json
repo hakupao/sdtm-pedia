@@ -1,0 +1,762 @@
+[
+ {
+  "key": "cross-vardist",
+  "kind": "cross",
+  "questions": [
+   {
+    "question": "Several of our event and intervention datasets carry TAETORD. According to the variable index, how many SDTM domains include TAETORD, and what is this variable's label?",
+    "category": "cross_domain",
+    "expected_facts": [
+     "43",
+     "Planned Order of Element within Arm"
+    ],
+    "expected_sources": [
+     "VARIABLE_INDEX.md"
+    ],
+    "evidence": "VARIABLE_INDEX.md line 24 (§一 general-variable table): '| TAETORD | 43 | AE, AG, CE, CM, ... TA, TR, TU, UR, VS | Planned Order of Element within Arm | Num | Timing | Perm* |' — both the count '43' and the label 'Planned Order of Element within Arm' verified verbatim in this row."
+   },
+   {
+    "question": "Beyond VISIT and VISITNUM, our schedule-of-activities mapping also populates VISITDY. How many domains carry VISITDY, and what does its label say it represents?",
+    "category": "cross_domain",
+    "expected_facts": [
+     "36",
+     "Planned Study Day of Visit"
+    ],
+    "expected_sources": [
+     "VARIABLE_INDEX.md"
+    ],
+    "evidence": "VARIABLE_INDEX.md line 26 (§一 general-variable table): '| VISITDY | 36 | AG, BE, BS, CP, CV, DA, EG, FA, FT, GF, IE, IS, LB, MB, ... UR, VS | Planned Study Day of Visit | Num | Timing | Perm |' — count '36' and label 'Planned Study Day of Visit' verified verbatim in this row."
+   },
+   {
+    "question": "I noticed the NHOID identifier variable in one of our microbiology datasets. Which SDTM domains include NHOID, and what is its label?",
+    "category": "cross_domain",
+    "expected_facts": [
+     "Non-Host Organism Identifier",
+     "GF, IS, MS, OI"
+    ],
+    "expected_sources": [
+     "VARIABLE_INDEX.md"
+    ],
+    "evidence": "VARIABLE_INDEX.md line 29 (§一 general-variable table): '| NHOID | 4 | GF, IS, MS, OI | Non-Host Organism Identifier | Char | Identifier | Perm* |' — the domain list 'GF, IS, MS, OI' and label 'Non-Host Organism Identifier' verified verbatim in this row."
+   },
+   {
+    "question": "A reviewer asked about the FOCID variable in our ophthalmology data. Which domains is FOCID defined in, and what does the variable capture?",
+    "category": "cross_domain",
+    "expected_facts": [
+     "Focus of Study-Specific Interest",
+     "MB, NV, OE"
+    ],
+    "expected_sources": [
+     "VARIABLE_INDEX.md"
+    ],
+    "evidence": "VARIABLE_INDEX.md line 34 (§一 general-variable table): '| FOCID | 3 | MB, NV, OE | Focus of Study-Specific Interest | Char | Identifier | Perm |' — the domain list 'MB, NV, OE' and label 'Focus of Study-Specific Interest' verified verbatim in this row."
+   },
+   {
+    "question": "Which SDTM datasets carry both the ARM and ARMCD variables, and what are the labels of these two variables?",
+    "category": "cross_domain",
+    "expected_facts": [
+     "DM, TA, TV",
+     "Description of Planned Arm",
+     "Planned Arm Code"
+    ],
+    "expected_sources": [
+     "VARIABLE_INDEX.md"
+    ],
+    "evidence": "VARIABLE_INDEX.md lines 30-31 (§一 general-variable table): '| ARM | 3 | DM, TA, TV | Description of Planned Arm | Char | Synonym Qualifier | Exp* |' and '| ARMCD | 3 | DM, TA, TV | Planned Arm Code | Char | Record Qualifier* | Exp* |' — the shared domain list 'DM, TA, TV' and both labels verified verbatim in these rows."
+   }
+  ],
+  "audits": [
+   {
+    "index": 0,
+    "verdict": "PASS",
+    "issues": "Verified VARIABLE_INDEX.md line 24: '| TAETORD | 43 | AE, AG, CE, ... VS | Planned Order of Element within Arm | Num | Timing | Perm* |'. Both expected_facts match verbatim (case-insensitive): '43' as the domain count, 'Planned Order of Element within Arm' as the label. Source path VARIABLE_INDEX.md exists and is the sole file needed. Category cross_domain is correct — the question asks for a cross-domain count from the variable index. No answer leakage (variable name disclosure is permitted for cross_domain). Not a near-duplicate of any excluded question (closest excluded are q07/q77 about EPOCH, q66 about VISITNUM — all different variables)."
+   },
+   {
+    "index": 1,
+    "verdict": "PASS",
+    "issues": "Verified VARIABLE_INDEX.md line 26: '| VISITDY | 36 | AG, BE, BS, CP, CV, DA, EG, FA, FT, GF, IE, IS, LB, MB, MI, MK, ML, MS, NV, OE, PC, PE, PR, QS, RE, RP, RS, SC, SR, SS, SV, TR, TU, TV, UR, VS | Planned Study Day of Visit | Num | Timing | Perm |'. Both expected_facts match verbatim: '36' as domain count, 'Planned Study Day of Visit' as label. Note: VISIT and VISITNUM also cover 36 domains (identical set per lines 25 and 27), so the count '36' is correct and specific to VISITDY — no ambiguity in the gold answer given the question explicitly names VISITDY. Source is minimal and correct. Category cross_domain correct. Not a duplicate of q32 (VISIT+VISITNUM+SV role) or q66 (VISITNUM) — different variable, different label."
+   },
+   {
+    "index": 2,
+    "verdict": "PASS",
+    "issues": "Verified VARIABLE_INDEX.md line 29: '| NHOID | 4 | GF, IS, MS, OI | Non-Host Organism Identifier | Char | Identifier | Perm* |'. Both expected_facts match verbatim: 'Non-Host Organism Identifier' as label, 'GF, IS, MS, OI' as domain list. Source path is correct and minimal. Category cross_domain correct. No near-duplicate found in exclusion list."
+   },
+   {
+    "index": 3,
+    "verdict": "PASS",
+    "issues": "Verified VARIABLE_INDEX.md line 34: '| FOCID | 3 | MB, NV, OE | Focus of Study-Specific Interest | Char | Identifier | Perm |'. Both expected_facts match verbatim: 'Focus of Study-Specific Interest' as label, 'MB, NV, OE' as domain list. Source path is correct and minimal. Category cross_domain correct. No near-duplicate found in exclusion list."
+   },
+   {
+    "index": 4,
+    "verdict": "PASS",
+    "issues": "Verified VARIABLE_INDEX.md lines 30–31: ARM row '| ARM | 3 | DM, TA, TV | Description of Planned Arm | Char | Synonym Qualifier | Exp* |' and ARMCD row '| ARMCD | 3 | DM, TA, TV | Planned Arm Code | Char | Record Qualifier* | Exp* |'. All three expected_facts match verbatim: 'DM, TA, TV' as the shared domain list, 'Description of Planned Arm' as ARM's label, 'Planned Arm Code' as ARMCD's label. Source path is correct and minimal. Category cross_domain correct — requires knowing both variables appear together across the same three domains. Not a near-duplicate of any excluded question."
+   }
+  ]
+ },
+ {
+  "key": "cross-codelist-share",
+  "kind": "cross",
+  "questions": [
+   {
+    "question": "A site recorded route of administration for both concomitant meds and the study treatment. Which SDTM variables are governed by the Route of Administration codelist C66729?",
+    "category": "cross_domain",
+    "expected_facts": [
+     "C66729",
+     "CM.CMROUTE",
+     "EX.EXROUTE",
+     "SU.SUROUTE"
+    ],
+    "expected_sources": [
+     "VARIABLE_INDEX.md"
+    ],
+    "evidence": "VARIABLE_INDEX.md §三 (CDISC Controlled Terminology 交叉引用), line 1951: '| C66729 | 6 | AG.AGROUTE, CM.CMROUTE, EC.ECROUTE, EX.EXROUTE, PR.PRROUTE, SU.SUROUTE |' — all four fact tokens verbatim in this row. Purpose name 'Route of Administration Response (C66729)' confirmed in domains/CM/spec.md line 380 and domains/EX/spec.md line 343 (used only to ground the question wording, not needed as gold)."
+   },
+   {
+    "question": "We need to report left/right/bilateral consistently wherever anatomical side is collected. Which domain variables reference the Laterality codelist C99073?",
+    "category": "cross_domain",
+    "expected_facts": [
+     "C99073",
+     "TU.TULAT",
+     "FA.FALAT",
+     "PE.PELAT"
+    ],
+    "expected_sources": [
+     "VARIABLE_INDEX.md"
+    ],
+    "evidence": "VARIABLE_INDEX.md §三, line 2002: '| C99073 | 17 | CV.CVLAT, EC.ECLAT, EX.EXLAT, FA.FALAT, MB.MBLAT, MI.MILAT, MK.MKLAT, MS.MSLAT, NV.NVLAT, OE.OELAT, PE.PELAT, PR.PRLAT, RE.RELAT, SR.SRLAT, TU.TULAT ... (共 17 个)' — C99073, TU.TULAT, FA.FALAT, PE.PELAT all verbatim. Purpose name 'Laterality (C99073)' confirmed in domains/TU/spec.md line 296 and domains/PR/spec.md line 422."
+   },
+   {
+    "question": "Several datasets record what kind of specimen was collected and tested. Which variables across the SDTM model draw their values from the Specimen Type codelist C78734?",
+    "category": "cross_domain",
+    "expected_facts": [
+     "C78734",
+     "RELSPEC.SPEC",
+     "LB.LBSPEC",
+     "PC.PCSPEC"
+    ],
+    "expected_sources": [
+     "VARIABLE_INDEX.md"
+    ],
+    "evidence": "VARIABLE_INDEX.md §三, line 1983: '| C78734 | 11 | BS.BSSPEC, CP.CPSPEC, IS.ISSPEC, LB.LBSPEC, MB.MBSPEC, MI.MISPEC, MS.MSSPEC, PC.PCSPEC, PP.PPSPEC, RELSPEC.SPEC, SR.SRSPEC |' — all four fact tokens verbatim (RELSPEC.SPEC is the discriminating relationship-dataset token). Purpose name 'Specimen Type (C78734)' confirmed in domains/LB/spec.md line 581 and domains/RELSPEC/spec.md line 64."
+   },
+   {
+    "question": "Our CRFs capture the subject's body position (e.g., supine vs standing) at the time of measurement. Which domains include a position variable controlled by codelist C71148?",
+    "category": "cross_domain",
+    "expected_facts": [
+     "C71148",
+     "VS.VSPOS",
+     "EG.EGPOS",
+     "CV.CVPOS"
+    ],
+    "expected_sources": [
+     "VARIABLE_INDEX.md"
+    ],
+    "evidence": "VARIABLE_INDEX.md §三, line 1970: '| C71148 | 6 | CV.CVPOS, EG.EGPOS, FT.FTPOS, MK.MKPOS, RE.REPOS, VS.VSPOS |' — all four fact tokens verbatim. Purpose name 'Position (C71148)' confirmed in domains/VS/spec.md line 356 and domains/EG/spec.md line 411."
+   },
+   {
+    "question": "When a result needs to be flagged relative to its normal range, which variables in which domains are mapped to the Reference Range Indicator codelist C78736?",
+    "category": "cross_domain",
+    "expected_facts": [
+     "C78736",
+     "LB.LBNRIND",
+     "IS.ISNRIND",
+     "OE.OENRIND"
+    ],
+    "expected_sources": [
+     "VARIABLE_INDEX.md"
+    ],
+    "evidence": "VARIABLE_INDEX.md §三, line 1985: '| C78736 | 5 | CP.CPNRIND, IS.ISNRIND, LB.LBNRIND, MS.MSNRIND, OE.OENRIND |' — all four fact tokens verbatim. Purpose name 'Reference Range Indicator (C78736)' confirmed in domains/LB/spec.md line 582 and domains/OE/spec.md line 485."
+   }
+  ],
+  "audits": [
+   {
+    "index": 0,
+    "verdict": "PASS",
+    "issues": "VARIABLE_INDEX.md line 1951 verbatim: '| C66729 | 6 | AG.AGROUTE, CM.CMROUTE, EC.ECROUTE, EX.EXROUTE, PR.PRROUTE, SU.SUROUTE |'. All four expected_facts (C66729, CM.CMROUTE, EX.EXROUTE, SU.SUROUTE) are present as substrings. File VARIABLE_INDEX.md exists. Source set is minimal and sufficient — the single VARIABLE_INDEX.md §三 codelist summary row fully answers which variables use C66729. Category cross_domain is correct: answer spans 6 domains (AG, CM, EC, EX, PR, SU). No overlap with existing questions (C66729 not covered by q34/q67/q69/q71 or any other listed question). Question wording provides the codelist code as lookup key without leaking specific variable names."
+   },
+   {
+    "index": 1,
+    "verdict": "PASS",
+    "issues": "VARIABLE_INDEX.md line 2002 verbatim: '| C99073 | 17 | CV.CVLAT, EC.ECLAT, EX.EXLAT, FA.FALAT, MB.MBLAT, MI.MILAT, MK.MKLAT, MS.MSLAT, NV.NVLAT, OE.OELAT, PE.PELAT, PR.PRLAT, RE.RELAT, SR.SRLAT, TU.TULAT ... (共 17 个) |'. All four expected_facts (C99073, TU.TULAT, FA.FALAT, PE.PELAT) appear verbatim in that row. Per-variable section independently confirms 17 distinct C99073 entries (CVLAT through VSLAT). File VARIABLE_INDEX.md exists; source set is minimal. Category cross_domain is correct: 17 variables across 17 domains. No duplicate among existing questions."
+   },
+   {
+    "index": 2,
+    "verdict": "PASS",
+    "issues": "VARIABLE_INDEX.md line 1983 verbatim: '| C78734 | 11 | BS.BSSPEC, CP.CPSPEC, IS.ISSPEC, LB.LBSPEC, MB.MBSPEC, MI.MISPEC, MS.MSSPEC, PC.PCSPEC, PP.PPSPEC, RELSPEC.SPEC, SR.SRSPEC |'. All four expected_facts (C78734, RELSPEC.SPEC, LB.LBSPEC, PC.PCSPEC) appear verbatim. RELSPEC domain directory confirmed to exist; per-variable row at line 1424 shows 'C78734; C111114' confirming dual membership. RELSPEC.SPEC is the discriminating relationship-dataset token that distinguishes this codelist's reach. File VARIABLE_INDEX.md exists; source is minimal. Category cross_domain is correct: spans 11 variables across measurement, PK, microbiology, and relationship domains. No duplicate among existing questions."
+   },
+   {
+    "index": 3,
+    "verdict": "PASS",
+    "issues": "VARIABLE_INDEX.md line 1970 verbatim: '| C71148 | 6 | CV.CVPOS, EG.EGPOS, FT.FTPOS, MK.MKPOS, RE.REPOS, VS.VSPOS |'. All four expected_facts (C71148, VS.VSPOS, EG.EGPOS, CV.CVPOS) appear verbatim. File VARIABLE_INDEX.md exists; source set is minimal. Category cross_domain is correct: spans 6 domains (CV, EG, FT, MK, RE, VS). No duplicate among existing questions."
+   },
+   {
+    "index": 4,
+    "verdict": "PASS",
+    "issues": "VARIABLE_INDEX.md line 1985 verbatim: '| C78736 | 5 | CP.CPNRIND, IS.ISNRIND, LB.LBNRIND, MS.MSNRIND, OE.OENRIND |'. All four expected_facts (C78736, LB.LBNRIND, IS.ISNRIND, OE.OENRIND) appear verbatim. File VARIABLE_INDEX.md exists; source set is minimal. Category cross_domain is correct: spans 5 domains (CP, IS, LB, MS, OE). No duplicate among existing questions."
+   }
+  ]
+ },
+ {
+  "key": "cross-relationship",
+  "kind": "cross",
+  "questions": [
+   {
+    "question": "When I build a supplemental qualifier dataset for the Demographics domain, what do I put in the IDVAR and IDVARVAL columns to point each record back to its parent, and why is that handled differently from other domains?",
+    "category": "cross_domain",
+    "expected_facts": [
+     "both IDVAR and IDVARVAL will be null",
+     "DM has 1 record per USUBJID",
+     "suppdm.xpt"
+    ],
+    "expected_sources": [
+     "chapters/ch08_relationships.md"
+    ],
+    "evidence": "ch08_relationships.md §8.4 Key Rules (line ~210): 'SUPP-- dataset records that are related to Demographics (DM) records, where both IDVAR and IDVARVAL will be null because STUDYID, RDOMAIN, and USUBJID are sufficient to identify the unique parent record in DM (DM has 1 record per USUBJID)'. §8.4.2 (line ~217): 'Demographics (DM) qualifiers would be submitted in suppdm.xpt'."
+   },
+   {
+    "question": "If I use RELREC to relate two entire datasets rather than individual records, how should I populate RELTYPE, what happens to USUBJID and IDVARVAL, and is it acceptable to use --SEQ as the join key?",
+    "category": "cross_domain",
+    "expected_facts": [
+     "USUBJID and IDVARVAL are null",
+     "ONE and MANY",
+     "--SEQ cannot be used"
+    ],
+    "expected_sources": [
+     "chapters/ch08_relationships.md"
+    ],
+    "evidence": "ch08_relationships.md §8.3.1 Example (line ~154): 'because this is a dataset-to-dataset relationship, USUBJID and IDVARVAL are null'. Line ~165: 'The allowable values are ONE and MANY (controlled terminology is expected)'. Line ~173: 'Because IDVAR identifies the keys that can be used to merge/join records between the datasets, --SEQ cannot be used. --SEQ only has meaning within a subject within a dataset, not across datasets.'"
+   },
+   {
+    "question": "Within a SUPP-- dataset, what is the purpose of the QORIG column versus the QEVAL column, and when should QEVAL be left blank?",
+    "category": "cross_domain",
+    "expected_facts": [
+     "QORIG is used to indicate the origin of this data",
+     "Should be null for records that contain objectively collected or derived data",
+     "ADJUDICATION COMMITTEE"
+    ],
+    "expected_sources": [
+     "domains/SUPPQUAL/spec.md"
+    ],
+    "evidence": "SUPPQUAL/spec.md QORIG CDISC Notes (line ~84): 'QORIG is used to indicate the origin of this data. Examples: \"CRF\", \"Assigned\", \"Derived\".' QEVAL CDISC Notes (line ~93): 'Used only for results that are subjective ... Should be null for records that contain objectively collected or derived data. Examples: \"ADJUDICATION COMMITTEE\", \"STATISTICIAN\" ...'."
+   },
+   {
+    "question": "In the Related Specimens dataset, how can I tell which row is the originally collected specimen versus a derived aliquot using the PARENT and LEVEL fields, and what does the LEVEL number actually represent?",
+    "category": "cross_domain",
+    "expected_facts": [
+     "LEVEL value of \"1\" and a blank value for PARENT indicates a collected sample",
+     "All other values represent a derived sample",
+     "generation number of the sample where the collected sample is considered the first generation"
+    ],
+    "expected_sources": [
+     "domains/RELSPEC/spec.md",
+     "domains/RELSPEC/examples.md"
+    ],
+    "evidence": "RELSPEC/examples.md (line ~36): 'A specimen with a LEVEL value of \"1\" and a blank value for PARENT indicates a collected sample. All other values represent a derived sample.' RELSPEC/spec.md LEVEL CDISC Notes (line ~57): 'Identifies the generation number of the sample where the collected sample is considered the first generation.'"
+   },
+   {
+    "question": "Both the investigator and an independent adjudicator each decide whether the same adverse event is treatment-emergent. How do I store both of their determinations in SUPPAE without one overwriting or losing the other?",
+    "category": "cross_domain",
+    "expected_facts": [
+     "separate QNAM values should be used",
+     "AETRTEMI",
+     "AETRTEMA",
+     "first 6 columns (STUDYID...QNAM) should be unique"
+    ],
+    "expected_sources": [
+     "chapters/ch08_relationships.md"
+    ],
+    "evidence": "ch08_relationships.md §8.4 (line ~185): 'The combined set of values for the first 6 columns (STUDYID...QNAM) should be unique for every record. That is, there should not be multiple records in a SUPP-- dataset for the same QNAM value ... if 2 individuals (e.g., the investigator and an independent adjudicator) provide a determination regarding whether an adverse event is treatment-emergent, then separate QNAM values should be used for each set of information (e.g., \"AETRTEMI\", \"AETRTEMA\").'"
+   }
+  ],
+  "audits": [
+   {
+    "index": 0,
+    "verdict": "PASS",
+    "issues": "All three facts verified verbatim in chapters/ch08_relationships.md. (1) 'both IDVAR and IDVARVAL will be null' — §Key Rules line 210: '...where both IDVAR and IDVARVAL will be null because STUDYID, RDOMAIN, and USUBJID are sufficient to identify the unique parent record in DM (DM has 1 record per USUBJID)'. (2) 'DM has 1 record per USUBJID' — same sentence. (3) 'suppdm.xpt' — §8.4.2: 'Demographics (DM) qualifiers would be submitted in suppdm.xpt'. Source path exists and is sufficient alone. Category cross_domain correct: the question is explicitly about how DM's SUPP-- handling differs from all other domains, which is the cross-domain contrast the question tests. No duplicate: q06 covers when to use SUPPQUAL vs adding variables — different focus. No domain-code token leakage in question text ('Demographics domain' is used, not the code 'DM' as a standalone token); rule (6) is single_domain-only regardless."
+   },
+   {
+    "index": 1,
+    "verdict": "PASS",
+    "issues": "All three facts verified verbatim in chapters/ch08_relationships.md. (1) 'USUBJID and IDVARVAL are null' — §8.3.1 line 154: 'Note that because this is a dataset-to-dataset relationship, USUBJID and IDVARVAL are null.' (2) 'ONE and MANY' — line 165: 'The allowable values are ONE and MANY (controlled terminology is expected).' (3) '--SEQ cannot be used' — line 173: 'Because IDVAR identifies the keys that can be used to merge/join records between the datasets, --SEQ cannot be used.' Source path exists and is the sole sufficient source. Category cross_domain correct: RELREC is named explicitly in the relationship-machinery list. Not a duplicate of q09 (q09 covers record-level RELREC linking AE to CM; this question targets dataset-to-dataset relationship population of RELTYPE, null USUBJID/IDVARVAL, and the --SEQ prohibition — a distinct aspect)."
+   },
+   {
+    "index": 2,
+    "verdict": "PASS",
+    "issues": "All three facts verified verbatim in domains/SUPPQUAL/spec.md. (1) 'QORIG is used to indicate the origin of this data' — QORIG CDISC Notes line 84: 'QORIG is used to indicate the origin of this data. Examples: \"CRF\", \"Assigned\", \"Derived\".' (2) 'Should be null for records that contain objectively collected or derived data' — QEVAL CDISC Notes line 93: 'Should be null for records that contain objectively collected or derived data.' (3) 'ADJUDICATION COMMITTEE' — same QEVAL note. Note: chapters/ch08_relationships.md §8.4.1 contains identical text but is not required; SUPPQUAL/spec.md alone is sufficient, so the source list is minimal. Category cross_domain correct: SUPP-- is explicitly named in the relationship-machinery list in the category definitions. Not a duplicate of q06 (q06 = when to use SUPPQUAL vs adding variables; q2 = the distinct QORIG/QEVAL variable semantics and when QEVAL is left blank)."
+   },
+   {
+    "index": 3,
+    "verdict": "PASS",
+    "issues": "All three facts verified across the two listed sources. Facts 1+2 in domains/RELSPEC/examples.md line 36: 'A specimen with a LEVEL value of \"1\" and a blank value for PARENT indicates a collected sample. All other values represent a derived sample.' Fact 3 in domains/RELSPEC/spec.md LEVEL CDISC Notes line 57: 'Identifies the generation number of the sample where the collected sample is considered the first generation.' Both source files exist. Source set is minimal: examples.md is required for the collected-vs-derived distinction (facts 1+2), and spec.md is required for the LEVEL definition (fact 3). Category cross_domain correct: RELSPEC is explicitly named in the relationship-machinery list in the category definitions. Not a duplicate of q33 ('RELSPEC study-level dataset relationships' covers what RELSPEC is/does at a higher level; this question targets specific PARENT/LEVEL variable semantics for genealogy interpretation)."
+   },
+   {
+    "index": 4,
+    "verdict": "PASS",
+    "issues": "All four facts verified verbatim in chapters/ch08_relationships.md §8.4. (1) 'separate QNAM values should be used' — line 185: '...then separate QNAM values should be used for each set of information'. (2) 'AETRTEMI' — same sentence: '(e.g., \"AETRTEMI\", \"AETRTEMA\")'. (3) 'AETRTEMA' — same sentence. (4) 'first 6 columns (STUDYID...QNAM) should be unique' — same paragraph: 'The combined set of values for the first 6 columns (STUDYID...QNAM) should be unique for every record.' Source path exists and is the sole sufficient source. Category cross_domain correct: SUPP-- is explicitly in the relationship-machinery list. 'SUPPAE' appears in the question text but is not a domain-directory code (no domains/SUPPAE/ directory exists); it is a dataset filename, not a domain code, so it does not violate any rule; furthermore rule (6) applies only to single_domain questions. Not a duplicate of any listed existing question."
+   }
+  ]
+ },
+ {
+  "key": "cross-model-concepts",
+  "kind": "cross",
+  "questions": [
+   {
+    "question": "I'm deriving EPOCH for my subject-level datasets. Which date/time variable should the EPOCH assignment be based on for Findings class domains versus Interventions and Events class domains, and what should I do when an observation's epoch cannot be determined?",
+    "category": "cross_domain",
+    "expected_facts": [
+     "When EPOCH is included in a Findings class domain, it should be based on the --DTC variable",
+     "For observations in Interventions or Events class domains, EPOCH should be based on the --STDTC variable",
+     "Sponsors should not impute EPOCH values",
+     "If it is not possible to determine the epoch of an observation, then EPOCH should be null"
+    ],
+    "expected_sources": [
+     "chapters/ch04_general_assumptions.md"
+    ],
+    "evidence": "chapters/ch04_general_assumptions.md, section 4.1.3.1 'EPOCH Variable Guidance': facts 1 and 2 both verbatim on line 27 (--DTC for Findings; --STDTC for Interventions/Events); facts 3 and 4 both verbatim on line 29 (no imputation; EPOCH null when not determinable). Verified with fixed-string grep."
+   },
+   {
+    "question": "We need a dataset-to-dataset link between our tumor identification records and tumor results records. What exactly is the difference between the --LNKID and --LNKGRP variables, and how do they typically come into play in RELREC?",
+    "category": "cross_domain",
+    "expected_facts": [
+     "--LNKID is a grouping identifier used to identify a record in one domain that is related to records in another domain, often forming a one-to-many relationship",
+     "--LNKGRP is a grouping identifier used to identify a group of records in one domain that is related to a record in another domain, often forming a many-to-one relationship",
+     "often used in IDVAR in a RELREC relationship when there is a dataset-to-dataset relationship"
+    ],
+    "expected_sources": [
+     "chapters/ch04_general_assumptions.md"
+    ],
+    "evidence": "chapters/ch04_general_assumptions.md, section 4.2.6 'Grouping Variables and Categorization': fact 1 verbatim on line 350, fact 2 verbatim on line 351, fact 3 verbatim on line 348 ('--LNKID and --LNKGRP express values that are used to link records in separate domains. As such, these variables are often used in IDVAR in a RELREC relationship...'). Verified with fixed-string grep."
+   },
+   {
+    "question": "In our study, some assessments were performed on a group of associated persons collectively rather than on each individual. How should that group be identified in the AP dataset, and where do we document which persons belong to the group?",
+    "category": "cross_domain",
+    "expected_facts": [
+     "Identifier for a single associated person, a group of associated persons, or a pool of associated persons",
+     "If APID identifies a pool, POOLDEF records must exist for each associated person",
+     "One record per pooled subject per pool",
+     "Defines which subjects belong to each pool"
+    ],
+    "expected_sources": [
+     "model/04_associated_persons.md",
+     "model/06_relationship_datasets.md"
+    ],
+    "evidence": "model/04_associated_persons.md line 33 (APID row of the AP variables table) contains both fact 1 and fact 2 verbatim. model/06_relationship_datasets.md section 6.3 'Pool Definition (POOLDEF)': fact 3 verbatim on line 85 (Structure), fact 4 verbatim on line 87; the POOLDEF variable table (lines 89-94) includes APID. Both files genuinely required: model/04 gives the APID-pool rule, model/06 gives the POOLDEF structure documenting membership. Verified with fixed-string grep."
+   },
+   {
+    "question": "One of our subjects re-consented partway through the study, so we have two informed consent dates on file. How should RFICDTC in DM be populated in that case, and what period do RFICDTC and RFPENDTC together represent?",
+    "category": "cross_domain",
+    "expected_facts": [
+     "from providing informed consent through the last participation event or activity",
+     "RFICDTC should correspond to the date of the informed consent protocol milestone in Disposition (DS)",
+     "In the event that there are multiple informed consents, this will be the date of the first",
+     "RFPENDTC will be the last date of participation for a subject for data included in a submission"
+    ],
+    "expected_sources": [
+     "domains/DM/assumptions.md"
+    ],
+    "evidence": "domains/DM/assumptions.md, assumption 10d (line 48): all four facts verbatim on that line — the RFICDTC-RFPENDTC pair 'represent the entire period of a subject's involvement in a study, from providing informed consent through the last participation event or activity'; RFICDTC corresponds to the DS informed consent protocol milestone; multiple consents take the date of the first; RFPENDTC is the last date of participation for data in the submission. Cross-domain via the documented DM-DS interplay. Verified with fixed-string grep."
+   },
+   {
+    "question": "Our oncology study switches to monthly telephone contacts after the treatment phase, during which we collect the subject's survival status and any medications taken. Which domains should those collected data be stored in, and what has to happen in Demographics if a subject is reported as dead?",
+    "category": "cross_domain",
+    "expected_facts": [
+     "The subject's survival status should be stored in the Subject Status (SS) domain",
+     "Concomitant medications reported during the contact should be stored in the CM domain",
+     "the Demographics (DM) variables DTHDTC and DTHFL must be appropriately populated"
+    ],
+    "expected_sources": [
+     "chapters/ch04_general_assumptions.md"
+    ],
+    "evidence": "chapters/ch04_general_assumptions.md, section 4.5.8 'Accounting for Long-term Follow-up': fact 2 verbatim on line 1439 (item 1: CM domain), fact 1 verbatim on line 1440 (item 2: SS domain), fact 3 verbatim on line 1442 (item 4: 'If the subject's survival status is \"dead\", the Demographics (DM) variables DTHDTC and DTHFL must be appropriately populated'). Single file encoding cross-domain distribution (SS/CM/DM/DS). Verified with fixed-string grep."
+   }
+  ],
+  "audits": [
+   {
+    "index": 0,
+    "verdict": "PASS",
+    "issues": "All 4 facts verified verbatim in chapters/ch04_general_assumptions.md. Line 27: 'When EPOCH is included in a Findings class domain, it should be based on the --DTC variable' (fact 1) and 'For observations in Interventions or Events class domains, EPOCH should be based on the --STDTC variable' (fact 2). Line 29: 'Sponsors should not impute EPOCH values' (fact 3) and 'If it is not possible to determine the epoch of an observation, then EPOCH should be null' (fact 4). Source list is minimal and complete — one file suffices. Category cross_domain is correct: the question spans three observation classes (Findings, Interventions, Events). Not a duplicate of q07 (q07 asks which domains USE EPOCH; this asks HOW to assign it based on --DTC vs --STDTC). Question text is natural, contains no domain-code tokens, and does not leak its own answer."
+   },
+   {
+    "index": 1,
+    "verdict": "PASS",
+    "issues": "All 3 facts verified verbatim in chapters/ch04_general_assumptions.md section 4.2.6. Line 350: '--LNKID is a grouping identifier used to identify a record in one domain that is related to records in another domain, often forming a one-to-many relationship.' Line 351: '--LNKGRP is a grouping identifier used to identify a group of records in one domain that is related to a record in another domain, often forming a many-to-one relationship.' Line 348: '--LNKID and --LNKGRP express values that are used to link records in separate domains. As such, these variables are often used in IDVAR in a RELREC relationship when there is a dataset-to-dataset relationship.' Source is minimal and complete. Category cross_domain is correct: --LNKID/--LNKGRP are cross-domain linking variables tied to RELREC machinery. Not a duplicate of any listed question. Question is natural and unambiguous."
+   },
+   {
+    "index": 2,
+    "verdict": "PASS",
+    "issues": "All 4 facts verified across both expected sources. model/04_associated_persons.md line 33 (APID table row): 'Identifier for a single associated person, a group of associated persons, or a pool of associated persons' (fact 1) and 'If APID identifies a pool, POOLDEF records must exist for each associated person' (fact 2). model/06_relationship_datasets.md line 85: 'One record per pooled subject per pool' (fact 3, Structure field). Line 87: 'Defines which subjects belong to each pool' (fact 4). Both sources are genuinely required: model/04 provides the APID-pool rule, model/06 provides the POOLDEF structure. Category cross_domain is correct: requires AP domain model plus the POOLDEF relationship dataset. Not a duplicate of q75 (which is about POOLID/SPDEVID identifiers) or q76. Question is natural and unambiguous."
+   },
+   {
+    "index": 3,
+    "verdict": "PASS",
+    "issues": "All 4 facts verified verbatim in domains/DM/assumptions.md line 48, assumption 10d. Fact 1: 'from providing informed consent through the last participation event or activity' — present as 'They represent the entire period of a subject's involvement in a study, from providing informed consent through the last participation event or activity.' Fact 2: 'RFICDTC should correspond to the date of the informed consent protocol milestone in Disposition (DS)' — verbatim on line 48. Fact 3: 'In the event that there are multiple informed consents, this will be the date of the first' — verbatim on line 48. Fact 4: 'RFPENDTC will be the last date of participation for a subject for data included in a submission' — verbatim on line 48. Source is minimal and complete. Category cross_domain is correct: the assumption explicitly references the DM-DS interplay ('RFICDTC should correspond to the date of the informed consent protocol milestone in Disposition (DS)'). Not a duplicate of s03 (which concerns RFXSTDTC equaling earliest EX). Question is natural, unambiguous, and does not leak its answer."
+   },
+   {
+    "index": 4,
+    "verdict": "PASS",
+    "issues": "All 3 facts verified verbatim in chapters/ch04_general_assumptions.md section 4.5.8 'Accounting for Long-term Follow-up'. Line 1439 (item 1): 'Concomitant medications reported during the contact should be stored in the CM domain.' Line 1440 (item 2): 'The subject's survival status should be stored in the Subject Status (SS) domain.' Line 1442 (item 4): 'If the subject\\'s survival status is \"dead\", the Demographics (DM) variables DTHDTC and DTHFL must be appropriately populated.' Source is minimal and complete — single file encodes cross-domain distribution across SS, CM, DM, DS. Category cross_domain is correct. Not a duplicate of any listed question. Question scenario (monthly telephone contacts, oncology, survival status + medications) is natural and unambiguous, and does not leak domain names in the question stem itself."
+   }
+  ]
+ },
+ {
+  "key": "cross-domain-pairs",
+  "kind": "cross",
+  "questions": [
+   {
+    "question": "In an oncology RECIST study we capture both which tumors exist and their measurements over time. How should the work be divided between the TU and TR datasets, and what keeps the anatomical location from being stored twice?",
+    "category": "cross_domain",
+    "expected_facts": [
+     "only 1 record for each unique tumor/lesion/location of interest",
+     "does not include anatomical location information",
+     "TRLNKID"
+    ],
+    "expected_sources": [
+     "domains/TU/assumptions.md",
+     "domains/TR/assumptions.md"
+    ],
+    "evidence": "TU/assumptions.md assumption 1: 'The TU domain should contain only 1 record for each unique tumor/lesion/location of interest identified by an assessor'. TR/assumptions.md overview para 2: 'The TR domain does not include anatomical location information on each measurement/assessment record, because this would duplicate information represented in TU.' TRLNKID is the linking variable named in both TU assumption 2 and TR assumption 1."
+   },
+   {
+    "question": "When a subject dies during a trial, where do we record the cause-of-death details versus the disposition event, and how do we avoid re-collating the death flag that already lives in AE?",
+    "category": "cross_domain",
+    "expected_facts": [
+     "more than 1 cause of death",
+     "AESDTH",
+     "DS.DSTERM",
+     "RELREC"
+    ],
+    "expected_sources": [
+     "domains/DD/assumptions.md"
+    ],
+    "evidence": "DD/assumptions.md assumption 1: 'There may be more than 1 cause of death.' Assumption 2: 'The DD domain is not intended to collate data that are collected in standard variables in other domains, such as AE.AEOUT (Outcome of Adverse Event), AE.AESDTH (Results in Death) or DS.DSTERM (Reported Term for the Disposition Event). Data from other domains that relates to the death can be linked to DD using RELREC.'"
+   },
+   {
+    "question": "Our protocol treats certain disease signs and symptoms (like migraine episodes) as efficacy events rather than safety events. How do we decide whether such occurrences belong in CE versus AE?",
+    "category": "cross_domain",
+    "expected_facts": [
+     "not considered AEs should be reflected as CEs",
+     "migraine headaches may not be considered to be adverse events per protocol",
+     "all adverse events are recorded in the AE domain"
+    ],
+    "expected_sources": [
+     "domains/CE/assumptions.md"
+    ],
+    "evidence": "CE/assumptions.md assumption 1: 'Events of clinical interest as defined by the protocol that are not considered AEs should be reflected as CEs.' Assumption 1a migraine example: 'migraine headaches may not be considered to be adverse events per protocol'. Assumption 3: 'Sponsors must ensure that all adverse events are recorded in the AE domain.'"
+   },
+   {
+    "question": "A subject's actual progression through study elements deviated from the assigned arm. Which dataset captures the planned elements versus the elements the subject really experienced, and how is an off-plan period represented?",
+    "category": "cross_domain",
+    "expected_facts": [
+     "actually passed through",
+     "UNPLAN",
+     "SEUPDES",
+     "One record per planned Element"
+    ],
+    "expected_sources": [
+     "domains/SE/assumptions.md",
+     "domains/TE/spec.md"
+    ],
+    "evidence": "SE/assumptions.md overview: 'The SE domain allows the submission of data on the timing of the trial elements a subject actually passed through'. SE assumption 4: 'The value of ETCD for an unplanned element is \"UNPLAN\" and SEUPDES should be populated with a description of the unplanned element.' TE/spec.md header structure: 'One record per planned Element'."
+   },
+   {
+    "question": "We track biospecimens from collection through aliquoting plus the physical characteristics of each sample. Which biospecimen domain holds the handling actions versus the sample characteristics like type and size?",
+    "category": "cross_domain",
+    "expected_facts": [
+     "freezing and thawing, aliquoting, and transportation",
+     "actions taken that affect or may affect a specimen",
+     "findings related to specimen handling and specimen characteristics",
+     "type, amount, or size"
+    ],
+    "expected_sources": [
+     "domains/BE/assumptions.md",
+     "domains/BS/assumptions.md"
+    ],
+    "evidence": "BE/assumptions.md assumption 1: 'The BE domain contains data about actions taken that affect or may affect a specimen, such as specimen collection, freezing and thawing, aliquoting, and transportation.' BS/assumptions.md assumption 1: 'The BS domain is used to store findings related to specimen handling and specimen characteristics such as type, amount, or size.'"
+   }
+  ],
+  "audits": [
+   {
+    "index": 0,
+    "verdict": "PASS",
+    "issues": "All checks pass. (1) Both source files exist: domains/TU/assumptions.md and domains/TR/assumptions.md. Source set is minimal and complete — TU is needed for the 'only 1 record' fact and TR is needed for the 'does not include anatomical location' fact; neither is superfluous. (2) Fact verification: 'only 1 record for each unique tumor/lesion/location of interest' found verbatim in TU/assumptions.md line 17 ('The TU domain should contain only 1 record for each unique tumor/lesion/location of interest identified by an assessor'); 'does not include anatomical location information' found verbatim in TR/assumptions.md line 5 ('The TR domain does not include anatomical location information on each measurement/assessment record, because this would duplicate information represented in TU'); 'TRLNKID' found in both files (TU assumption 2: 'TRLNKID is used to relate an identification record in the TU domain to assessment records in the Tumor/Lesion Results (TR) domain'; TR assumption 1: 'TRLNKID is used to relate records in the TR domain to an identification record in TU domain'). (3) Category cross_domain is correct — requires understanding how two distinct domains divide responsibility and avoid duplication. (4) Question is natural and unambiguous; does not leak its own answer. (5) Not a duplicate of any listed question. (6) Rule 6 not applicable (cross_domain question)."
+   },
+   {
+    "index": 1,
+    "verdict": "PASS",
+    "issues": "All checks pass. (1) Source file domains/DD/assumptions.md exists. Source set is minimal and complete — all four expected facts are fully answered from this single file; DS and AE are mentioned as domains whose data DD should NOT collate, so their files are not needed. (2) Fact verification: 'more than 1 cause of death' found verbatim in DD/assumptions.md line 3 ('There may be more than 1 cause of death.'); 'AESDTH' found in line 5 ('AE.AESDTH (Results in Death)'); 'DS.DSTERM' found in line 5 ('DS.DSTERM (Reported Term for the Disposition Event)'); 'RELREC' found in line 5 ('Data from other domains that relates to the death can be linked to DD using RELREC.'). (3) Category cross_domain is correct — the question explicitly involves AE (AESDTH), DS (DSTERM), RELREC cross-domain linkage, and the separation logic between DD and other domains. (4) Question is natural and unambiguous. (5) Not a duplicate of any listed question. (6) Rule 6 not applicable (cross_domain question)."
+   },
+   {
+    "index": 2,
+    "verdict": "PASS",
+    "issues": "All checks pass. (1) Source file domains/CE/assumptions.md exists. Source set is minimal and complete — all three expected facts come from CE/assumptions.md alone; no AE file is needed because the AE-related fact ('all adverse events are recorded in the AE domain') is stated directly in CE/assumptions.md assumption 3. (2) Fact verification: 'not considered AEs should be reflected as CEs' found verbatim in CE/assumptions.md line 3 ('Events of clinical interest as defined by the protocol that are not considered AEs should be reflected as CEs.'); 'migraine headaches may not be considered to be adverse events per protocol' found verbatim in line 4; 'all adverse events are recorded in the AE domain' found verbatim in line 17 ('Sponsors must ensure that all adverse events are recorded in the AE domain.'). (3) Category cross_domain is correct — the question requires understanding the documented contrast between CE and AE domains. (4) Question is natural and unambiguous; the migraine example adds specificity without leaking the answer. (5) Not a duplicate of any listed question. (6) Rule 6 not applicable (cross_domain question)."
+   },
+   {
+    "index": 3,
+    "verdict": "PASS",
+    "issues": "All checks pass. (1) Both source files exist: domains/SE/assumptions.md and domains/TE/spec.md. Source set is minimal and complete — SE/assumptions.md provides the 'actually passed through', 'UNPLAN', and 'SEUPDES' facts; TE/spec.md provides the 'One record per planned Element' fact; neither is superfluous. (2) Fact verification: 'actually passed through' found verbatim in SE/assumptions.md line 25 ('The SE domain allows the submission of data on the timing of the trial elements a subject actually passed through'); 'UNPLAN' found verbatim in line 33 ('The value of ETCD for an unplanned element is \"UNPLAN\"'); 'SEUPDES' found verbatim in line 33 ('SEUPDES should be populated with a description of the unplanned element.'); 'One record per planned Element' found verbatim in TE/spec.md line 3 ('Structure: One record per planned Element'). (3) Category cross_domain is correct — requires understanding the complementary roles of SE (actual) and TE (planned) across two trial-design domains. (4) Question is natural, unambiguous, and well-framed; does not leak its own answer. (5) Not a duplicate of any listed question, including q29 (which covers TA/TE/TV/TI, not SE/TE pair + unplanned logic). (6) Rule 6 not applicable (cross_domain question)."
+   },
+   {
+    "index": 4,
+    "verdict": "PASS",
+    "issues": "All checks pass. (1) Both source files exist: domains/BE/assumptions.md and domains/BS/assumptions.md. Source set is minimal and complete — BE/assumptions.md provides the 'actions taken' and 'freezing and thawing, aliquoting, and transportation' facts; BS/assumptions.md provides the 'findings related to specimen handling and specimen characteristics' and 'type, amount, or size' facts; neither is superfluous. (2) Fact verification: 'actions taken that affect or may affect a specimen' found verbatim in BE/assumptions.md line 9 ('data about actions taken that affect or may affect a specimen'); 'freezing and thawing, aliquoting, and transportation' found verbatim in line 9 ('such as specimen collection, freezing and thawing, aliquoting, and transportation'); 'findings related to specimen handling and specimen characteristics' found verbatim in BS/assumptions.md line 3 ('The BS domain is used to store findings related to specimen handling and specimen characteristics'); 'type, amount, or size' found verbatim in line 3 ('such as type, amount, or size'). (3) Category cross_domain is correct — requires understanding the division of responsibility between two distinct biospecimen domains. (4) Question is natural and unambiguous; 'collection through aliquoting' and 'physical characteristics' are legitimate paraphrases that do not leak the answer. (5) Not a duplicate of any listed question. (6) Rule 6 not applicable (cross_domain question)."
+   }
+  ]
+ },
+ {
+  "key": "single-longname-multi",
+  "kind": "single",
+  "questions": [
+   {
+    "question": "We're standing up the Vital Signs dataset for a new study. What does a single record in this dataset represent, and which of the result-related variables carry an Expected core designation rather than Required?",
+    "category": "single_domain",
+    "expected_facts": [
+     "One record per vital sign measurement per time point per visit per subject",
+     "VSORRES",
+     "VSSTRESN"
+    ],
+    "expected_sources": [
+     "domains/VS/spec.md"
+    ],
+    "evidence": "domains/VS/spec.md line 3 ('> Class: Findings | Structure: One record per vital sign measurement per time point per visit per subject'); VSORRES section line 104 with 'Core: Exp' at line 110; VSSTRESN section line 131 with 'Core: Exp' at line 137."
+   },
+   {
+    "question": "Which observation class does the Medical History dataset belong to, what does each record correspond to, and which sequence-number identifier is Required in it?",
+    "category": "single_domain",
+    "expected_facts": [
+     "Class: Events",
+     "One record per medical history event per subject",
+     "MHSEQ"
+    ],
+    "expected_sources": [
+     "domains/MH/spec.md"
+    ],
+    "evidence": "domains/MH/spec.md line 3 ('> Class: Events | Structure: One record per medical history event per subject'); MHSEQ section starts line 32 with 'Role: Identifier' line 37 and 'Core: Req' line 38."
+   },
+   {
+    "question": "In the Laboratory Test Results dataset, how is one record defined, and which two variables hold the lower and upper ends of the reference range in original units?",
+    "category": "single_domain",
+    "expected_facts": [
+     "One record per lab test per time point per visit per subject",
+     "LBORNRLO",
+     "LBORNRHI"
+    ],
+    "expected_sources": [
+     "domains/LB/spec.md"
+    ],
+    "evidence": "domains/LB/spec.md line 3 ('Structure: One record per lab test per time point per visit per subject'); LBORNRLO section line 176, label 'Reference Range Lower Limit in Orig Unit' line 178, Core Exp line 182; LBORNRHI section line 185, label 'Reference Range Upper Limit in Orig Unit' line 187, Core Exp line 191."
+   },
+   {
+    "question": "When collecting data for the Clinical Events dataset, an event may be prespecified on the CRF or reported spontaneously. Which variable flags that the event was prespecified, which one records whether a solicited event actually happened, and what does one record in this dataset correspond to?",
+    "category": "single_domain",
+    "expected_facts": [
+     "CEPRESP",
+     "CEOCCUR",
+     "One record per event per subject"
+    ],
+    "expected_sources": [
+     "domains/CE/spec.md"
+    ],
+    "evidence": "domains/CE/spec.md line 3 ('Structure: One record per event per subject'); CEPRESP section line 104 ('Used to indicate whether the event in CETERM was prespecified', line 111); CEOCCUR section line 113 ('Used when the occurrence of specific events is solicited', line 120)."
+   },
+   {
+    "question": "For the Healthcare Encounters dataset: what does each record represent, what kind of content goes into its topic variable, and which date variable is the only one in the dataset designated Expected?",
+    "category": "single_domain",
+    "expected_facts": [
+     "One record per healthcare encounter per subject",
+     "HOTERM",
+     "Verbatim or preprinted CRF term for the healthcare encounter",
+     "HOSTDTC"
+    ],
+    "expected_sources": [
+     "domains/HO/spec.md"
+    ],
+    "evidence": "domains/HO/spec.md line 3 ('Structure: One record per healthcare encounter per subject'); HOTERM section line 68, Role Topic line 73, CDISC Notes 'Verbatim or preprinted CRF term for the healthcare encounter' line 75; HOSTDTC section line 167 with 'Core: Exp' line 173 (verified it is the only Exp variable in the file via the Role/Core scan)."
+   },
+   {
+    "question": "Our oncology study uses the Tumor/Lesion Identification dataset. How granular is each record in it, which variable serves as the topic, and what example value does the spec give for that variable?",
+    "category": "single_domain",
+    "expected_facts": [
+     "One record per identified tumor per subject per assessor",
+     "TUTESTCD",
+     "TUMIDENT"
+    ],
+    "expected_sources": [
+     "domains/TU/spec.md"
+    ],
+    "evidence": "domains/TU/spec.md line 3 ('Structure: One record per identified tumor per subject per assessor'); TUTESTCD section line 86 with 'Role: Topic' line 91; example value 'TUMIDENT' in TUTESTCD CDISC Notes line 93."
+   },
+   {
+    "question": "In the Concomitant Medications dataset, does each row correspond to one medication overall, or to something finer-grained? And aside from the study, domain, and subject identifiers, which other identifier variable is Required, and what is it for?",
+    "category": "single_domain",
+    "expected_facts": [
+     "One record per recorded intervention occurrence or constant-dosing interval per subject",
+     "CMSEQ",
+     "ensure uniqueness of subject records within a domain"
+    ],
+    "expected_sources": [
+     "domains/CM/spec.md"
+    ],
+    "evidence": "domains/CM/spec.md line 3 ('Structure: One record per recorded intervention occurrence or constant-dosing interval per subject'); CMSEQ section line 32 with 'Core: Req' line 38 and CDISC Notes 'Sequence number to ensure uniqueness of subject records within a domain.' line 39."
+   }
+  ],
+  "audits": [
+   {
+    "index": 0,
+    "verdict": "FIX",
+    "issues": "Expected_facts are incomplete. The question asks 'which of the result-related variables carry an Expected core designation rather than Required?' Three variables in VS/spec.md carry Role: Result Qualifier with Core: Exp — VSORRES (line 110), VSSTRESC (line 128), and VSSTRESN (line 137). The current gold lists only VSORRES and VSSTRESN and omits VSSTRESC. Under substring-match recall, a system that correctly names all three would still pass (VSORRES and VSSTRESN are present), but a system that names VSSTRESC instead of one of the other two would silently fail even though VSSTRESC is fully correct. VSORRESU and VSSTRESU are Variable Qualifiers (unit variables), not Result Qualifiers, so they are reasonably excluded by 'result-related'. No domain-code or variable-name leakage in the question text. Source file exists and is the correct single source. Category single_domain is correct. No duplicate overlap detected.",
+    "fixed_facts": [
+     "One record per vital sign measurement per time point per visit per subject",
+     "VSORRES",
+     "VSSTRESC",
+     "VSSTRESN"
+    ],
+    "fixed_sources": [
+     "domains/VS/spec.md"
+    ]
+   },
+   {
+    "index": 1,
+    "verdict": "PASS",
+    "issues": "All facts verified verbatim in domains/MH/spec.md. Line 3: 'Class: Events | Structure: One record per medical history event per subject' confirms both the class and structure facts. MHSEQ section at line 32, Core: Req at line 38, confirming the Required sequence-number identifier fact. Source file exists and is the sole necessary file. Category single_domain is correct — all information is self-contained in the MH domain file. No domain-code or variable-name leakage in question text. No duplicate overlap with existing questions (q25 covers MHTERM role and MH assumptions; this question covers class, structure, and MHSEQ)."
+   },
+   {
+    "index": 2,
+    "verdict": "PASS",
+    "issues": "All facts verified in domains/LB/spec.md. Line 3: 'Structure: One record per lab test per time point per visit per subject' confirmed. LBORNRLO at line 176, Label 'Reference Range Lower Limit in Orig Unit', Core: Exp at line 182 — confirmed. LBORNRHI at line 185, Label 'Reference Range Upper Limit in Orig Unit', Core: Exp at line 191 — confirmed. Source file exists and is the sole necessary file. Category single_domain correct. No domain-code or variable-name leakage in question text. No duplicate overlap."
+   },
+   {
+    "index": 3,
+    "verdict": "PASS",
+    "issues": "All facts verified in domains/CE/spec.md. Line 3: 'Structure: One record per event per subject' confirmed. CEPRESP at line 104, CDISC Notes line 111: 'Used to indicate whether the event in CETERM was prespecified.' confirms the 'flags prespecified' role. CEOCCUR at line 113, CDISC Notes line 120: 'Used when the occurrence of specific events is solicited, to indicate whether or not a clinical event occurred.' confirms the solicited-occurrence role. Source file exists and is the sole necessary file. Category single_domain correct. No domain-code or variable-name leakage in question text. No duplicate overlap with q60 (which covers CE class and CETERM topic variable only)."
+   },
+   {
+    "index": 4,
+    "verdict": "PASS",
+    "issues": "All facts verified in domains/HO/spec.md. Line 3: 'Structure: One record per healthcare encounter per subject' confirmed. HOTERM at line 68, Role: Topic at line 73, CDISC Notes at line 75: 'Verbatim or preprinted CRF term for the healthcare encounter' — exact substring confirmed. HOSTDTC at line 167, Core: Exp at line 173 — confirmed as the only Core: Exp variable in the entire file (all other 24 Core entries are either Req or Perm). Source file exists and is the sole necessary file. Category single_domain correct. No domain-code or variable-name leakage. No duplicate overlap."
+   },
+   {
+    "index": 5,
+    "verdict": "PASS",
+    "issues": "All facts verified in domains/TU/spec.md. Line 3: 'Structure: One record per identified tumor per subject per assessor' confirmed. TUTESTCD at line 86, Role: Topic at line 91, CDISC Notes at line 93: 'Example: \"TUMIDENT\"' — example value confirmed as substring. Source file exists and is the sole necessary file. Category single_domain correct. No domain-code (TU) or variable-name (TUTESTCD) tokens present in question text. No duplicate overlap."
+   },
+   {
+    "index": 6,
+    "verdict": "PASS",
+    "issues": "All facts verified in domains/CM/spec.md. Line 3: 'Structure: One record per recorded intervention occurrence or constant-dosing interval per subject' confirmed. CMSEQ at line 32, Core: Req at line 38, CDISC Notes at line 39: 'Sequence number to ensure uniqueness of subject records within a domain.' — the substring 'ensure uniqueness of subject records within a domain' confirmed verbatim. Source file exists and is the sole necessary file. Category single_domain correct. No domain-code or variable-name leakage in question text. No duplicate overlap with q23 (which covers CMTRT topic variable and CM observation class, not CMSEQ or structure granularity)."
+   }
+  ]
+ },
+ {
+  "key": "single-longname-word",
+  "kind": "single",
+  "questions": [
+   {
+    "question": "How is the Demographics dataset structured, which class does it belong to, and which variable carries the Topic role in it?",
+    "category": "single_domain",
+    "expected_facts": [
+     "One record per subject",
+     "Special-Purpose",
+     "SUBJID"
+    ],
+    "expected_sources": [
+     "domains/DM/spec.md"
+    ],
+    "evidence": "domains/DM/spec.md line 3: '> Class: Special-Purpose | Structure: One record per subject' covers facts 1-2; lines 32-38: '### SUBJID' with '- **Role:** Topic' covers fact 3."
+   },
+   {
+    "question": "In the Disposition dataset, the standardized term for each record is drawn from different controlled terminology codelists depending on whether the record is a disposition event, a protocol milestone, or some other kind of event. Which codelist names apply in each of these three cases?",
+    "category": "single_domain",
+    "expected_facts": [
+     "NCOMPLT",
+     "PROTMLST",
+     "OTHEVENT"
+    ],
+    "expected_sources": [
+     "domains/DS/spec.md"
+    ],
+    "evidence": "domains/DS/spec.md line 84 (DSDECOD CDISC Notes): 'Codelist \"NCOMPLT\" is used for disposition events, codelist \"PROTMLST\" is used for protocol milestones, and codelist \"OTHEVENT\" is used for other events.' — all three facts verbatim on this line."
+   },
+   {
+    "question": "A site has logged several surgeries for one participant — when building the Procedures dataset, what does a single record represent, and under which general observation class does this dataset fall?",
+    "category": "single_domain",
+    "expected_facts": [
+     "One record per recorded procedure per occurrence per subject",
+     "Interventions"
+    ],
+    "expected_sources": [
+     "domains/PR/spec.md"
+    ],
+    "evidence": "domains/PR/spec.md line 3: '> Class: Interventions | Structure: One record per recorded procedure per occurrence per subject' — both facts verbatim."
+   },
+   {
+    "question": "At what level of granularity should records be created in the Questionnaires dataset, and which observation class does it use?",
+    "category": "single_domain",
+    "expected_facts": [
+     "One record per questionnaire per question per time point per visit per subject",
+     "Findings"
+    ],
+    "expected_sources": [
+     "domains/QS/spec.md"
+    ],
+    "evidence": "domains/QS/spec.md line 3: '> Class: Findings | Structure: One record per questionnaire per question per time point per visit per subject' — both facts verbatim."
+   },
+   {
+    "question": "When dosing data goes into the Exposure dataset, what does a single record cover, and which observation class does the dataset belong to?",
+    "category": "single_domain",
+    "expected_facts": [
+     "One record per protocol-specified study treatment, constant-dosing interval, per subject",
+     "Interventions"
+    ],
+    "expected_sources": [
+     "domains/EX/spec.md"
+    ],
+    "evidence": "domains/EX/spec.md line 3: '> Class: Interventions | Structure: One record per protocol-specified study treatment, constant-dosing interval, per subject' — both facts verbatim."
+   },
+   {
+    "question": "In the Comments dataset, what does each record correspond to, what class is it assigned to, and how is free text longer than 200 characters accommodated?",
+    "category": "single_domain",
+    "expected_facts": [
+     "One record per comment per subject",
+     "Special-Purpose",
+     "COVAL1-COVALn"
+    ],
+    "expected_sources": [
+     "domains/CO/spec.md"
+    ],
+    "evidence": "domains/CO/spec.md line 3: '> Class: Special-Purpose | Structure: One record per comment per subject' covers facts 1-2; line 84 (COVAL CDISC Notes): 'Text over 200 characters can be added to additional columns COVAL1-COVALn' covers fact 3."
+   }
+  ],
+  "audits": [
+   {
+    "index": 0,
+    "verdict": "PASS",
+    "issues": "Verified domains/DM/spec.md line 3: '> Class: Special-Purpose | Structure: One record per subject' — confirms facts 'Special-Purpose' and 'One record per subject' verbatim. Line 32-38: '### SUBJID' with '- **Role:** Topic' — confirms 'SUBJID' as Topic variable verbatim. Source path exists and is the sole file needed. Category single_domain correct (all facts in one file). Question uses long name 'Demographics dataset' — no domain code (DM) or variable names in question text. No duplicate overlap with existing questions: q02 asks about required variables in DM, not structure/class/Topic variable."
+   },
+   {
+    "index": 1,
+    "verdict": "PASS",
+    "issues": "Verified domains/DS/spec.md line 84 (DSDECOD CDISC Notes): 'Codelist \"NCOMPLT\" is used for disposition events, codelist \"PROTMLST\" is used for protocol milestones, and codelist \"OTHEVENT\" is used for other events.' — all three expected facts (NCOMPLT, PROTMLST, OTHEVENT) found verbatim in a single sentence. Source path exists and is minimal. Category single_domain correct. Question uses long name 'Disposition dataset' — no domain code (DS) or variable names in question text ('standardized term' is a label description, not a variable token). Not a duplicate of q55 (which covers DS structure/class/DSTERM topic variable) — this question targets DSDECOD codelist selection logic, a distinct aspect."
+   },
+   {
+    "index": 2,
+    "verdict": "PASS",
+    "issues": "Verified domains/PR/spec.md line 3: '> Class: Interventions | Structure: One record per recorded procedure per occurrence per subject' — confirms both facts 'One record per recorded procedure per occurrence per subject' and 'Interventions' verbatim. Source path exists and is the sole file needed. Category single_domain correct. Question uses long name 'Procedures dataset' — no domain code (PR) or variable names in question text. Not a duplicate of q57 (which covers PRTRT Core status in PR, not structure/class)."
+   },
+   {
+    "index": 3,
+    "verdict": "PASS",
+    "issues": "Verified domains/QS/spec.md line 3: '> Class: Findings | Structure: One record per questionnaire per question per time point per visit per subject' — confirms both facts 'One record per questionnaire per question per time point per visit per subject' and 'Findings' verbatim. Source path exists and is the sole file needed. Category single_domain correct. Question uses long name 'Questionnaires dataset' — no domain code (QS) or variable names in question text. No near-duplicate in the existing question list."
+   },
+   {
+    "index": 4,
+    "verdict": "PASS",
+    "issues": "Verified domains/EX/spec.md line 3: '> Class: Interventions | Structure: One record per protocol-specified study treatment, constant-dosing interval, per subject' — confirms both facts 'One record per protocol-specified study treatment, constant-dosing interval, per subject' and 'Interventions' verbatim. Source path exists and is the sole file needed. Category single_domain correct. Question uses long name 'Exposure dataset' — no domain code (EX) or variable names in question text. Not a duplicate of q24 (which covers EXTRT topic variable in EX, not granularity/class)."
+   },
+   {
+    "index": 5,
+    "verdict": "PASS",
+    "issues": "Verified domains/CO/spec.md line 3: '> Class: Special-Purpose | Structure: One record per comment per subject' — confirms facts 'One record per comment per subject' and 'Special-Purpose' verbatim. Line 84 (COVAL CDISC Notes): 'Text over 200 characters can be added to additional columns COVAL1-COVALn' — confirms fact 'COVAL1-COVALn' verbatim. Source path exists and is the sole file needed. Category single_domain correct. Question uses long name 'Comments dataset' — no domain code (CO) or variable names in question text (COVAL1-COVALn appears only in expected_facts, not the question). No near-duplicate in the existing question list."
+   }
+  ]
+ }
+]

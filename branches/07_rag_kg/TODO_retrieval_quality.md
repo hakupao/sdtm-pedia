@@ -8,7 +8,7 @@
 # 検索品質 TODO — Phase 1.5 Retrieval Tuning (RAG src recall → >95%)
 
 > 创建: 2026-06-05 (用户 Bojiang 指示: **模型配置非重点, 优化索引 + RAG 检索质量是重点**)
-> 状态: **✅ P1 查询条件路由 DONE (2026-06-09) — 全类 src recall ≥95% 达成** (retrieval-only, v2 102q: single 100 / cross 96 / concept 100 / mixed 100 / overall 99.0%). 见 §5 + `RETROSPECTIVE_P1_retrieval95.md`. 前: Phase 1.5 单杠杆 round (2026-06-08) 证明单杠杆 @ top-15 达不到全类 95%.
+> 状态: **✅ P1 查询条件路由 DONE (2026-06-09)** (v2 102q overall 99.0%) → **✅ 题集 v3 + S4 三修 DONE (2026-06-12) — 全类 ≥95% 在扩充集 (140q) 上恢复** (single 100 / cross 95.0 / concept 100 / mixed 100; v3 曾暴露 gate FAIL, 根因+修复见 `sdtm-rag/evidence/checkpoints/{testset_v3_expansion_summary,s4_longname_dist_fixes_result}.md`). 下一杠杆 → **§6 (d) 概念定义→chapters/model 通道**. 前史: Phase 1.5 单杠杆 round (2026-06-08) 证明单杠杆 @ top-15 达不到全类 95%.
 > 目标: eval 4 类别 **src + fact recall 均 → 接近 100%** (用户 2026-06-09 上调; 现状最弱 cross_domain src 61.5% / concept src 76.9%; HyDE 最佳也仅 cross 69.2%)
 
 ## 0. 核心判断 (为什么是检索, 不是模型)
@@ -73,7 +73,19 @@
 >
 > **代码**: `server/structured_lookup.py` (新) + `server/rag.py` hybrid + `--structured-lookup --hybrid` flags.
 > **✅ 接入生产 + full eval 完成 (2026-06-09)**: 两杠杆 `/ask` **默认开** (config, env 可关) + embed-once 重构 + q02 修复; DeepSeek temp=0 配对 full eval src 80.9→99.0% / fact 95.2% (噪声带内持平); 延迟 +14ms/查询. Rule D 代码审 + Rule A 语义裁判过. 详 `sdtm-rag/evidence/checkpoints/prod_wirein_summary.md`.
-> **未决 follow-up**: q73 残留 / 扩题集增 margin / 残留 known limitations (q100/q37/q93/C-code 幻觉, 答题侧, 见 summary §残留).
+> **follow-up 进展 (2026-06-12)**: ✅ 扩题集增 margin (v3 140q, cross 25→50) + ✅ s3 长名实测 (探针 13/13) + ✅ S4 三修 (q107/q134/q139/q140 救回, 零回归, Rule D APPROVE_WITH_NITS); **未决**: §6 (d) 通道 (q73/q119/q126) / (可选) v3 full eval 答题侧配对 / 残留 known limitations (q93 值名/q96=检索覆盖, 答题侧).
+
+## 6. ★ 下一杠杆 — (d) 概念定义→chapters/model 通道 (未启动)
+
+> **动机**: v3 修后 cross 卡 95.0% **零 margin**; 残留 q73/q119/q126 同根因 — **概念/定义型 gold
+> 在 chapters/ 或 model/ 文件, 题面不点名任何域** (q73 RDOMAIN 载体清单→model/06; q119
+> --LNKID/--LNKGRP 定义→ch04; q126 SE-TE 对比→TE/spec 排 >15)。现有 S1/s3 通道全部以
+> "域/变量/CT 码 → domain spec 或 VARIABLE_INDEX" 为锚, 没有 "通用变量/概念 → 定义文件" 通道。
+> **方向 (未设计, 立项时先调研)**: 通用 (--前缀) 变量名/概念关键词 → ch04/model 定义节的确定性映射
+> (数据源候选: model/02-06 标题结构 + ch04 §4.x 节标题 + VARIABLE_INDEX §一 Role 列);
+> 注意 q126 类 (域对比题面无任何实体锚) 可能确定性通道也够不到, 立项时先分诊三题各自可达性。
+> **性质**: 架构件, 独立 attempt + Rule D + 零回归 gate (v3 140q); 入口 evidence:
+> `sdtm-rag/evidence/checkpoints/s4_longname_dist_fixes_result.md` §残留.
 
 ### (历史) P1 立项时的 5 个待决点 — 已在实施中回答
 

@@ -101,3 +101,16 @@
 - **收口**: `evidence/checkpoints/guardrail_v2_summary.md` (规则 C retro)。新资产: `check_code_grounding.py` / `forensic_guardrail.py` / `judge_workflow{,_v2}.js`。
 
 ---
+
+## 2026-06-12 题集 v3 扩充 + s3 端到端验证 + S4 三修 DONE (P1 后续 ②③)
+
+- **触发**: 用户选 follow-up「扩题集增 margin + 补长名 single 题 (顺手验 s3)」; v3 暴露 gate FAIL 后用户 ack「可以继续」→ S4 修复 attempt。
+- **题集 v3** (`eval/test_set_v3.yml`, 140q = v2 102q 逐字节保留 + 38 新题): cross 25→50 (5 主题×5: 变量分布/codelist 共享/关系机制/模型概念/域对比) + 13 道纯长名 single (题面零域码零变量名; 10 道 s3 可匹配 + 3 道故意边界探针)。**防过拟合流程沿用 v2**: 7 writer 盲对检索实现 (Workflow, 只读 KB) → 7 独立 scientist 审计逐题开 gold 核验 (37 PASS + 1 FIX [q128 补 VSSTRESC] + 0 REJECT) → 程序化防漏检 0 问题 → `verifier` 异 type 抽检 N=8 **8/8 PASS** (Rule D 三 type 隔离)。审计 trail `evidence/checkpoints/testset_v3_authoring_audit.json`。
+- **s3 端到端验证 ✅**: 新探针脚本 `eval/probe_s3_longname.py` (resolve() 通道级归因, 零码 token 时长名通道是唯一可能路径); 10/10 可匹配长名题 fire + eval 100%; q135 (Demographics) OFF 0%→ON 100% = s3 净救回。**s3 (06-09 实现) 首次被真实 eval 题穿透验证。**
+- **v3 暴露 per-category gate FAIL (扩 margin 的目的达成)**: ON overall 95.4% 但 cross 93.0/single 92.5 <95; **核心新发现 q139/q140 (Exposure/Comments 边界探针) OFF 100%→ON 0% 真回归** — s3 短词守卫排除→无注入保护, hybrid BM25 把 rank 10/12 的 spec 挤出 top-15 (四配置微型消融钉死: hybrid-only=MISS 元凶, s1-only 无害); P1 零回归 gate 没抓到因 v2 无此类题。其余: q134 自然措辞≠KB 斜杠名 (四配置全 MISS) / q107 dist 锚缺 "datasets" / q119 q126 q73 同根因=概念定义型 gold 在 chapters/model 题面不点名域。环境零漂移 sanity: v2 复跑 99.0% 逐题一致 + v3 中 v2 子集 diff=0。
+- **S4 三修** (`server/structured_lookup.py`, 全 pattern 级): (a) `_DIST_DOMAINS_RE` 加 `datasets` 同义词 [已知变量+动词双锚不放宽] (b) 斜杠复合长名按备选展开变体 [KB 数据驱动, 自动覆盖 CM/IE/TI/TU/TR 5 名 10 变体] (c) 短词长名 (<10 字符) 由跳过改锚定匹配 `<name> dataset|domain` ["data" 故意不作锚; q96 "Cumulative Exposure)" 实测不撞] + 附带排序键修复 (pattern 串长→长名长度)。
+- **验证 (五层全过)**: pytest **236 passed** (新增本模块首个单测 22 用例, 含集外泛化探针+负例); s3 探针 **13/13**; **零回归 gate**: v3 ON 逐题 diff 救回恰好预测 4 题 (q107/q134/q139/q140 全 0%→100%) 回归 0; **修后 v3: single 100 / cross 95.0 / concept 100 / mixed 100, overall 98.2%, 全类 ≥95% 恢复**; OFF 臂构造上不变。
+- **Rule D** (代码审 `oh-my-claudecode:code-reviewer` 异 type): **APPROVE_WITH_NITS** (0 C/H, 2 MED 当场采纳为测试加固 [多斜杠守卫断言 + union-add 保序探针], 4 LOW 记录); 审查员独立复跑 pytest + git stash 对照 + grep 确认 logic 零 eval 题面 token ("genuinely pattern-level, not example-tuned"); 抓到**存量** known boundary ("Procedures"/"Disposition" ≥10 字符裸匹配误触面, 本修未引入未恶化, 按建议记录不反应式修)。
+- **Rule A/B**: 出题=高改写率→独立审计全量 38/38 (超抽检) + verifier 二道 N=8; 本轮无失败 attempt (gate FAIL 是题集揭示的系统缺口, S4 一次过闸)。
+- **收口**: `evidence/checkpoints/testset_v3_expansion_summary.md` + `s4_longname_dist_fixes_result.md` + `s4_rule_d_review.md`。
+- **残留 (下一杠杆)**: q73/q119/q126 同类 = **(d) 概念定义→chapters/model 通道** (--LNKID/--LNKGRP 定义 / SE-TE 对比 / RDOMAIN 载体); cross 95.0% 零 margin, 拉开必须做 (d), 架构件单独立项。可选: v3 full eval (答题侧 DeepSeek temp=0 配对) 确认 fact recall 不稀释 (S4 改了生产检索行为, retrieval-only 已零回归, full eval 是惯例闸)。

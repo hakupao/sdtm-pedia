@@ -76,7 +76,10 @@ _TERM_INTENT_KW = (
 #
 #   (A) variable-distribution — "in which domains does variable X appear":
 #         (a) the query names a known SDTM variable, AND
-#         (b) it mentions plural `domains`, AND
+#         (b) it mentions plural `domains` (or its everyday synonym `datasets` —
+#             users phrase distribution queries over "datasets" as often as
+#             "domains"; the variable + verb double-anchor keeps the synonym
+#             from widening the trigger beyond variable-distribution), AND
 #         (c) it carries a cross-domain-membership verb/qualifier (_DIST_VERB_KW:
 #             use/include/appear/across/carry/share/which/where/list/...).
 #       Any "variable X across domains" phrasing is caught; requiring a named
@@ -87,7 +90,7 @@ _TERM_INTENT_KW = (
 #       membership verb/qualifier fires. Gold is still VARIABLE_INDEX.md §三.
 #
 # This is a generalized pattern, NOT hardcoded question forms or variable names.
-_DIST_DOMAINS_RE = re.compile(r"\bdomains\b", re.IGNORECASE)
+_DIST_DOMAINS_RE = re.compile(r"\b(?:domains|datasets)\b", re.IGNORECASE)
 _DIST_VERB_KW = (
     "use",
     "used",
@@ -246,16 +249,24 @@ class StructuredLookup:
         "the Demographics dataset", no "DM" token) still resolves the spec.md.
 
         Data-driven: the map is parsed from the read-only KB, no hardcoded names.
-        Conservative guard — a long name is only registered as a matcher when:
+        Conservative guards — a long name is only registered as a matcher when:
           * its code has a real domains/<CODE>/spec.md (skips placeholder rows like
             SUPPQUAL "Supplemental Qualifiers for [domain name]"), AND
-          * the long name has no '[' placeholder, AND
-          * it is multi-word OR a single word of >=10 chars. Multi-word names
-            ("Adverse Events", "Vital Signs") and long single words ("Demographics",
-            "Questionnaires") are specific enough to anchor a domain; short generic
-            single words ("Exposure"=EX, "Comments"=CO — both 8 chars) are excluded
-            so they cannot spuriously inject a spec from unrelated prose (e.g. the
-            "Cumulative Exposure" test-name example in a Findings-About query).
+          * the long name has no '[' placeholder.
+        Matcher form depends on specificity:
+          * multi-word names ("Adverse Events") and long single words >=10 chars
+            ("Demographics") match bare, word-boundary;
+          * short generic single words ("Exposure"=EX, "Comments"=CO — both 8
+            chars) match ONLY when followed by an explicit dataset reference
+            ("Exposure dataset", "Comments domain") so they cannot spuriously
+            inject a spec from unrelated prose (e.g. the "Cumulative Exposure"
+            test-name example in a Findings-About query — not followed by
+            dataset/domain, no fire). "data" is deliberately NOT an anchor
+            (too loose: "exposure data" occurs in generic prose).
+        Slash-compound KB names ("Concomitant/Prior Medications") additionally
+        register one variant per slash alternative ("Concomitant Medications",
+        "Prior Medications") — the slash is KB notation, not user phrasing.
+        Generic transformation over the KB-derived map; no hardcoded names.
         """
         vidx_path = self.kb_root / _VARIABLE_INDEX
         if not vidx_path.exists():
@@ -273,16 +284,39 @@ class StructuredLookup:
             # first heading wins per long name (headings are unique anyway)
             self.domain_longname_to_code.setdefault(key, code)
 
+        # slash-compound variants: for each name token containing "/", register
+        # one variant per alternative (one slash token at a time; original full
+        # names keep priority via setdefault)
+        for longname, code in list(self.domain_longname_to_code.items()):
+            if "/" not in longname:
+                continue
+            words = longname.split()
+            for i, w in enumerate(words):
+                if "/" not in w:
+                    continue
+                for alt in w.split("/"):
+                    if not alt:
+                        continue
+                    variant = " ".join(words[:i] + [alt] + words[i + 1:])
+                    self.domain_longname_to_code.setdefault(variant, code)
+
+        matchers: list[tuple[str, re.Pattern[str], str]] = []
         for longname, code in self.domain_longname_to_code.items():
             words = longname.split()
             if len(words) < 2 and len(longname) < 10:
-                continue  # too-generic single short word -> skip (collision guard)
-            pattern = re.compile(r"\b" + re.escape(longname) + r"\b", re.IGNORECASE)
-            self._longname_matchers.append((pattern, code))
+                # too-generic single short word -> anchored match only
+                pattern = re.compile(
+                    r"\b" + re.escape(longname) + r"\s+(?:dataset|domain)s?\b",
+                    re.IGNORECASE,
+                )
+            else:
+                pattern = re.compile(
+                    r"\b" + re.escape(longname) + r"\b", re.IGNORECASE
+                )
+            matchers.append((longname, pattern, code))
         # longest long name first so "exposure as collected" beats "exposure"
-        self._longname_matchers.sort(
-            key=lambda pc: len(pc[0].pattern), reverse=True
-        )
+        matchers.sort(key=lambda m: len(m[0]), reverse=True)
+        self._longname_matchers = [(p, c) for (_n, p, c) in matchers]
 
     def _cross_check_vars(self) -> None:
         """Back-fill var->termfile from each variable's own CT code when the
@@ -327,8 +361,8 @@ class StructuredLookup:
         """Domain codes whose *full long name* appears in the query (word-boundary,
         case-insensitive), longest name first, de-duped. Catches queries that name
         a domain only by its long name ("the Demographics dataset") with no
-        2-letter code token. Conservative: matchers exclude generic short single
-        words (see `_build_domain_longname_index`)."""
+        2-letter code token. Conservative: generic short single-word names only
+        match with a dataset/domain anchor (see `_build_domain_longname_index`)."""
         out: list[str] = []
         for pattern, code in self._longname_matchers:
             if code not in out and pattern.search(query):

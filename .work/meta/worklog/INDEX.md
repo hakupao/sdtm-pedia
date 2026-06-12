@@ -16,7 +16,7 @@
 | `phase07_website.md` | 07 公开发布版站点 (sdtm-pedia.pages.dev) | 40 | 2026-04-28 | 07 phase close 时 append (Phase 6/7/8/9/10/11 已 closed) |
 | `phase_07_release.md` | 07 Release v1.0 + v1.1 (公司发布版 release/) | (new) | 2026-05-15 | release cut 时 append |
 | `phase_jp_delivery.md` | docs/jp/ iTMS 様 納品 (Chain J) | 98 | 2026-05-04 | 提出 milestone 时 append |
-| `phase_07_rag_kg.md` | Phase 7 RAG+KG 旁枝 (branches/07_rag_kg/, Chain 07_RAG) | (新生成 2026-05-22) | 2026-05-22 | Phase close 时 append |
+| `phase_07_rag_kg.md` | Phase 7 RAG+KG 旁枝 (branches/07_rag_kg/, Chain 07_RAG) | (新生成 2026-05-22) | 2026-06-12 | Phase close 时 append |
 | `phase_meta_refactor.md` | refactor v1 段 1/2/3 (Chain REFACTOR-v1) | (生成) | 2026-05-06 | 段 close 时 append, 段 3 close 后可归档 |
 
 ## 按 Phase 反向查找
