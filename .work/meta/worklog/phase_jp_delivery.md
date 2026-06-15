@@ -129,3 +129,17 @@
 - **Chain J 双写**: `CHANGELOG.md` (ITMS-SDTM-01 v1.1-draft entry 追加) + `_progress.json` (01 document に v1_1_draft フィールド追加 + top updated + phase_1 status 更新). `docs/PROGRESS.md` jp 行の stale 記述 (「残 02/03」← 02 は v1.0 完了済) を「残 03 運用保守 + 04 テスト結果報告」に訂正.
 - **未処理 (用户判断待ち)**: ① 01 v1.1-draft → 正式 v1.1 化 (reviewer round + ack). ② Phase 1 P0 残 03 + 04 起動. ③ jp 旁枝の中文列充填 (99 用語集 等, Phase 3).
 
+---
+
+## 2026-06-15 jp_delivery 旁枝 CLOSED 冻结 (用户决策线收口)
+
+- **触发**: 用户「关于日语提交产物的输出, close, 以后不再更新」 — 全项目三条未收口线之一, 决定永久冻结, 仅留 RAG 前进方向.
+- **冻结时最终状态** (= 本线不再推进的快照):
+  - Phase 0 setup: completed. Phase 1 P0 四点セット: **2/4 v1.0 PASS** (01 要件定義書 + 02 基本設計書, 2026-04-29) + **中間版 v0.5 提出済** (2026-04-30, `deliverable/` zip).
+  - **01 v1.1-draft** (IPA 9 構成 再整理, 2026-05-13 起草 / 2026-06-05 収尾コミット): **DRAFT 止** — PASS 五条のうち 第2条(形式) + 第4条(用語監査) のみ機械達成; 第3条 独立 reviewer round + 第5条 用户 ack **未実施**, 不再补.
+  - **未着手/不再做**: P0 残 03 運用保守マニュアル + 04 テスト結果報告書; Phase 2 (05 詳細設計書); Phase 3 仕上げ (06 トレーサビリティ / 07 v1.0 化 / 99 用語集 中文列充填); Phase 4 Pack & Handoff (正式版 zip + RETROSPECTIVE.md).
+  - **Open issue 不再处理**: I-1 日方ネイティブ reviewer 未指名 (人手 gate).
+- **规则 C note**: 本线无独立 RETROSPECTIVE.md (规则 C 未满足). 因系用户主动放弃 (非完成), 以本关闭记录 + `_progress.json` CLOSED_FROZEN 标记为最终归档; 各文書の逐 round 決策 (D-r29-* / D-r30-* / D-r504-*) は上方の歴史 entry に完全保存済, 将来再起動時の復盤材料として利用可.
+- **收口动作**: PLAN.md / 00_README.md / `_progress.json` 加 CLOSED 横幅; `.work/AGENT_GUIDE.md` (phase 表 + 找东西去哪 + 不要做的) / `.work/MANIFEST.md` (Chain J 停用 + Plan Map + Quick Ref) / `.work/meta/worklog/INDEX.md` 全部去 active 化; `docs/PROGRESS.md` 加收口 milestone.
+- **重启方式** (若将来需要): 解冻本 entry + `_progress.json` current_phase, 从 P0 残 03/04 续起; 重启前先补 RETROSPECTIVE (规则 C).
+

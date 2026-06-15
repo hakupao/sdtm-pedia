@@ -76,33 +76,16 @@ Full chain definitions are in `.work/MANIFEST.md`.
 | 06 Deep Verification 入口 | `branches/06_deep_verification/PLAN.md` (字面级 PDF→KB 深审; 详细见 §06 Deep Verification 段) |
 | 06 Deep Verification schema | `branches/06_deep_verification/schema/{atom,ledger}_schema.json` (frozen JSON Schema 2020-12) |
 | 06 P4b sub-plan (完成) | `branches/06_deep_verification/plans/P4b_section_aggregation.md` (节聚合, section_coverage.jsonl) |
-| Phase 6.5 AI 平台部署 | `ai_platforms/` (总览 + 三平台子目录) |
-| Phase 6.5 范本 + 锁步看板 | `ai_platforms/_template/README.md` + `ai_platforms/SYNC_BOARD.md` (双平台锁步 gate) |
-| Phase 6.5 smoke 题库 + retro | `ai_platforms/SMOKE_V4.md` + `ai_platforms/retrospectives/` |
-| Phase 6.5 ChatGPT + Gemini | `ai_platforms/{chatgpt_gpt,gemini_gems}/` (current/ + dev/ + docs/) |
-| Phase 6.5 NotebookLM | `ai_platforms/notebooklm/` (current/ + docs/RETROSPECTIVE.md) |
-| Phase 6.5 Claude Projects | `ai_platforms/claude_projects/` (内部开发; 外部教程见 `release/v1.0/self_deploy/claude/`) |
-| Phase 6.5 Release v1.0 | `release/v1.0/` + `.work/07_release/{PLAN,RETROSPECTIVE}.md` (tag `v1.0-company-release`) |
-| Phase 6.5 Release v1.1 | `release/v1.1/` + `.work/07_release_v1_1/{PLAN,RETROSPECTIVE}.md` (含 06 修复回灌) |
-| Phase 6.5 Release v1.3 | `release/v1.3/` + `.work/07_release_v1_3/{PLAN,RETROSPECTIVE}.md` (KB pass + 4 平台 rebuild; tag `v1.3-company-release`) |
-| Phase 6.5 Release v1.4 | `release/v1.4/` + `.work/07_release_v1_4/{PLAN,RETROSPECTIVE}.md` (prompt-pass + Gemini MAINTAINED_NO_SANITY; tag `v1.4-company-release`) |
+| Phase 6.5 多平台部署 (CLOSED 冻结) | `ai_platforms/` (4 平台 current/+dev/; SYNC_BOARD.md + retrospectives/ 只读) — 线收口不再更新 |
+| Phase 6.5 Release v1.0-v1.4 (CLOSED) | `release/v1.{0-4}/` + `.work/07_release{,_v1_1,_v1_3,_v1_4}/` (终态 tag `v1.4-company-release`) |
 | METHODOLOGY 公开声明 | `METHODOLOGY.md` + `release/v1.{0,1}/METHODOLOGY.{en,zh,ja}.md` |
 | 07 Website Phases 6-8 (closed) | `.work/07_website/phase{6,7,8}/` + handoffs `.work/meta/website_phase*_handoff_*.md`; prod https://sdtm-pedia.pages.dev/ || Phase 7 RAG+KG 旁枝 | `branches/07_rag_kg/PLAN.md` (Phase 1 CLOSED 53q 88.5%; sdtm-rag/ 代码仓, Chain 07_RAG) |
 | Phase 7 检索质量 (检索 99% + (d) 通道) | `branches/07_rag_kg/TODO_retrieval_quality.md` §5/§6; 收口 `sdtm-rag/evidence/checkpoints/{s4_full_eval_closure,d_channel_concept_definition}.md` (q126 永久 known limit) |
 | Phase 7 答题侧护栏 (DONE) | `branches/07_rag_kg/sdtm-rag/evidence/checkpoints/guardrail_v2_summary.md`; 确定性码闸 `eval/prod_wirein/check_code_grounding.py` |
 
-## AI 平台双平台并行部署 (锁步规则)
+## AI 平台多平台部署 (CLOSED 冻结 2026-06-15)
 
-涉及 **ChatGPT GPTs** (`ai_platforms/chatgpt_gpt/`) 或 **Gemini Gems** (`ai_platforms/gemini_gems/`) 任一方时, 遵守锁步规则:
-
-1. **Session 启动自动动作**: 若用户首次提到两平台任一方, 主 session 必须先读 `ai_platforms/SYNC_BOARD.md` + 两份 `dev/evidence/_progress.json`, 报告当前锁步 Phase + 允许的下一动作, **再开工**.
-2. **Gate 机制**: Phase 0-5 (启动/调研/PLAN/落地/审查/收束), 任一 Phase N 两边未都 PASS, **两边都不能进 Phase N+1**. 主 session 派发 Phase N+1 subagent 前强制校验.
-3. **PASS 四条** (规则 D 强制): evidence 存在 / writer 产物合规 / 独立 reviewer subagent PASS (不同 subagent_type) / 用户口头 ack.
-4. **偏离处理**: 若两平台 Phase 偏离 >1 格, 先同步慢的那边, 再推快的. **严禁跑通一边再补另一边** (会丢失 cross-pollination).
-5. **并行派发模式**: 每 Phase 内用 2 个 subagent 并行 (各平台一个), 主 session 做 cross-review + 更新 `_template/` 缺陷.
-6. **状态写回**: 每步操作完, 双写更新两处: 对应平台 `_progress.json` + `SYNC_BOARD.md` Phase 矩阵格.
-
-Claude Projects 已完成, **不**参与本锁步 — 仅作为方法论参考 (`ai_platforms/claude_projects/docs/RETROSPECTIVE_V2.md`).
+多平台部署线 (`ai_platforms/`: ChatGPT / Gemini / NotebookLM / Claude Projects + 双平台锁步 + Release v1.x) **已收口冻结, 以后不再更新** (用户决策 2026-06-15). 终态: 4 平台 signed-off + Release 截至 `v1.4-company-release` (Gemini MAINTAINED_NO_SANITY_TEST); v1.5 候选全部放弃. 原锁步 gate / session 启动自动动作规则**作废**, 不再强制任何 session 动作. 历史只读: `ai_platforms/SYNC_BOARD.md` + `ai_platforms/retrospectives/` + `release/v1.{0-4}/`.
 
 ## Session Wrap-up (收尾)
 
