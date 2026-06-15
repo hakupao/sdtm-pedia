@@ -1,0 +1,27 @@
+# Keep the Docker build context small. data/ + knowledge_base/ are bind-mounted at
+# runtime (see docker-compose.yml), never baked into the image.
+.venv
+.venv-*
+__pycache__
+*.pyc
+*.pyo
+.pytest_cache
+.mypy_cache
+.ruff_cache
+sdtm_rag.egg-info
+.git
+.gitignore
+
+# Runtime/persisted data (mounted as a volume, not baked in)
+data/
+
+# Offline eval artifacts + evidence (not needed by the running service)
+evidence/
+eval/ablation_t1/
+eval/prod_wirein/
+eval/*.json
+eval/*.log
+*.log
+
+# Local env (secrets are injected via env_file at runtime, never baked in)
+.env

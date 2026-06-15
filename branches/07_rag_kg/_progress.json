@@ -6,7 +6,7 @@
   "created": "2026-05-22",
   "updated": "2026-06-15 (★★ v3 full eval 收 S4 尾账 CLEAN_CLOSE + (d) 概念定义双通道 SHIP — Task1: S4 三修 v3 140q full eval 配对 [DeepSeek temp=0, guardrail-off 隔离] src 76.4→97.5 / fact 净 −0.2 带内, 11 掉分独立 scientist 裁判 7 假阴+3 非确定+1 已知前沿 q57 = CLEAN_CLOSE; guardrail-ON+S4 码 grounding 99.65%. Task2: q73+q119 双通道 pattern 级 SHIP, retrieval-only cross 95.0→99.0, 0 回归, pytest 250, Rule D APPROVE; q126 永久 known limitation 架构阻断. 详 phase_d_concept_channel). 前: 2026-06-12 题集 v3+S4 三修; 2026-06-09 答题侧护栏 + P1 接入生产; 2026-05-24 Phase 1D PASS 88.5%",
   "upstream_design": "docs/DESIGN_RAG_KG.md (Approved 2026-04-16)",
-  "current_phase": "(d) 概念定义双通道 SHIP + S4 尾账 CLEAN_CLOSE (2026-06-15): retrieval-only v3 140q single 100/cross 99.0/concept 100/mixed 100, full eval 端到端 src 76.4→97.5 fact 净持平. 残留 q126 永久 known limitation (架构阻断: domain_to_spec 只映 spec.md, 需 sub-file 判别器). 答题侧护栏 DONE (2026-06-09); Phase 2 KG 仍 deferred",
+  "current_phase": "检索线收口 (2026-06-15 PM): retrieval-only v3 single 100/cross 99/concept 100/mixed 100; 语义 LLM-judge fact recall 93.9% (替代 substring 82.6%); ① 本地 Docker Compose 部署修复/加固+实服 e2e 证 (容器构建待 Docker 主机); ② Phase 2 KG 正式关闭 + 总 retro. 检索目标达成. 残留非阻塞: q126 (架构受限, 需 domain sub-file 判别器) / 语义 judge 固化进 run_eval / 跨模型 eval (Anthropic credits)",
   "phases": {
     "phase_0_research": {
       "status": "completed",
@@ -455,7 +455,7 @@
       "user_ack": "2026-05-24 Bojiang ack Phase 1D + Phase 1 closure"
     },
     "phase_1_closure": {"status": "completed", "pass_at": "2026-05-24", "user_ack": "2026-05-24 Bojiang ack Phase 1 PASS 5/5 (commit 9f397ab)", "retrospective": "RETROSPECTIVE.md 三段齐备", "backfill_note": "1C/closure status 字段 2026-06-05 回写, 内容無変更"},
-    "phase_2_kg": {"status": "deferred — NOT triggered", "decision_point": "Phase 1D cross_domain src recall 61.5% > 50% threshold; Phase 2 KG deferred until post-deployment user feedback"},
+    "phase_2_kg": {"status": "closed — NOT needed as a retrieval lever (2026-06-15)", "decision_point": "gate = RELATION/cross-domain recall < 50% 才启动. Phase 1D 61.5% → deferred; 2026-06-15 检索路由通道 (P1 + (d)) 把 retrieval-only cross 拉到 99% (远超 50% gate) → 纯向量+路由已解决跨域召回, KG 作为检索质量杠杆不再有理由, 正式关闭. KG 作为独立产品特性 (交互式关系/CT 影响图遍历) 仍是可选未来增强, 但非检索质量需求; 重启需新立项 (前置 P3 meta.yaml)."},
     "phase_1_5_retrieval_tuning": {
       "status": "completed — baseline accepted (用户 2026-06-08)",
       "started_at": "2026-06-08",
@@ -548,6 +548,29 @@
         "evidence": "evidence/checkpoints/d_channel_concept_definition.md + eval/ablation_t1/v3_on_dchannel{,2}.{json,log}"
       },
       "next": "q126 若将来要做需先给 structured_lookup 加 domain sub-file 判别能力 (架构件); Phase 2 KG 仍 deferred"
+    },
+    "phase_deploy_consolidate": {
+      "status": "completed (容器构建待 Docker 主机)",
+      "started_at": "2026-06-15",
+      "pass_at": "2026-06-15",
+      "owner": "main + 7-shard Workflow (语义 judge, sonnet) + Rule A 抽验",
+      "goal": "用户「先①再②一起做」: ① 本地部署 + ② 收口固化 (KG 关闭 + 语义 fact eval + 总 retro)",
+      "task1_deploy": {
+        "finding": "Dockerfile+compose Phase 1A 脚手架但从未构建/跑过; 本机无 docker",
+        "fixes": "Dockerfile 构建 bug 修 (pip install 前先 COPY 源码包) + .dockerignore (data/KB bind-mount 不烘镜像) + compose healthcheck + ui depends_on service_healthy",
+        "e2e_proof": "实服 uvicorn (非 TestClient): 三杠杆默认开 init 0.72s; /ask 'RDOMAIN identify' 真实准确答案 sources 含 model/06 ((d) 通道实服命中); model_used=deepseek-v4-pro (Anthropic credits 耗尽 Router 回退实证)",
+        "static_validation": "compose YAML valid / Dockerfile COPY 6/6 路径在 / 包 import 解析",
+        "docs": "README Docker 段重写 (data 复用 vs ingest / env 必需性校正 / fallback 说明)",
+        "pending_user": "Docker 主机跑 docker compose up --build -d",
+        "evidence": "evidence/checkpoints/deploy_local_compose.md"
+      },
+      "task2_consolidate": {
+        "kg_closed": "Phase 2 KG 正式关闭 (gate cross<50% 因 cross 99% 决定性不满足; KG 作检索杠杆不再有理由)",
+        "semantic_fact_eval": "7-shard Workflow (sonnet) 语义判 140q/466 facts: overall 93.9% (concept 100/cross 93.5/mixed 92.0/single 91.7), 替代 substring 82.6%; Rule A 抽验校准 (q104 fr=0/q02 fr=0.43 判对); 121/140 全覆盖; 缺口 = 语义 judge 未固化进 run_eval",
+        "retro": "RETROSPECTIVE_retrieval_arc.md (Rule C 三段 + 6 决策复盘)",
+        "evidence": "evidence/checkpoints/llm_judge_fact_recall.md + eval/prod_wirein/judge_{input,result}_v3.json"
+      },
+      "next_candidates_non_blocking": ["语义 judge 固化进 run_eval.py (--judge 模式)", "跨模型 eval (Sonnet/Opus, 待 Anthropic credits)", "q126 (需 domain sub-file 判别架构件)", "容器构建实测 (Docker 主机)"]
     }
   },
   "constraints": {

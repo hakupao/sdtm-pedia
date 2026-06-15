@@ -139,3 +139,23 @@
 - **抗过拟合** (用户敏感点): 全代码零引用 q73/q83/q119/--LNKID 等; held-out 探针证明两通道 pattern 级泛化。
 - **收口**: `evidence/checkpoints/d_channel_concept_definition.md`。产物 `eval/ablation_t1/v3_on_dchannel{,2}.{json,log}`。
 - **结果**: cross 95.0% 零 margin → **99.0%**; 剩余 cross 缺口主要是 q126 (defer)。
+
+---
+
+## 2026-06-15 (续) 检索线收口 — ① 本地部署修复/加固 + ② KG 关闭 + 语义 fact eval + 总 retro
+
+> 用户「先①再②一起做」(检索质量已打满 99%, 进入边际收益递减区)。
+
+### ① 本地 Docker Compose 部署 (修复+加固+实服 e2e 证)
+- 现状: Dockerfile + docker-compose.yml Phase 1A 脚手架但从未构建/跑过 (H-2 defer)。本机**无 docker** → 修+加固+实服 e2e 证内容, 容器构建交用户 Docker 主机。
+- **修 Dockerfile 构建 bug**: `pip install .` 前先 COPY 源码包 (原顺序只有 pyproject 时构建必失败) + 新增 `.dockerignore` 瘦身 (data/KB 运行时 bind-mount 不烘镜像) + compose 加 healthcheck + ui `depends_on: service_healthy`。
+- **实服 e2e (核心)**: `.venv` uvicorn 起真服务 (非 TestClient): startup 三杠杆默认全开 (structured_lookup/hybrid/prompt_guardrail) init 0.72s; /health ok; /info 杠杆 true; /ask "RDOMAIN identify" 真实准确答案 **sources 含 model/06 ((d) 通道实服命中)**, `model_used=deepseek-v4-pro` (Anthropic credits 耗尽 Router 自动回退实证)。**首次以实服验全栈端到端。**
+- 静态校验: compose YAML valid / Dockerfile COPY 6/6 路径在 / 包 import 解析。README Docker 段重写 (data 复用 vs ingest / env 必需性校正 [OPENAI 硬必需无 fallback / DeepSeek 实际主答 / Anthropic 实务可选] / fallback 说明)。收口 `evidence/checkpoints/deploy_local_compose.md`。**待用户**: Docker 主机跑 `docker compose up --build -d`。
+
+### ② 收口固化
+- **Phase 2 KG 正式关闭**: gate = RELATION/cross 召回 <50% 才启; Phase 1D 61.5% defer; 现检索路由 (P1+(d)) 把 retrieval-only cross 拉到 **99%** (远超 gate) → 纯向量+路由已解决跨域召回, **KG 作为检索杠杆不再有理由, 正式关闭** (作为独立产品特性[关系/CT 影响图遍历]仍可选未来增强, 重启需新立项+P3 meta.yaml)。`_progress.json` phase_2_kg + TODO T6 更新。
+- **语义 LLM-judge fact recall**: substring 82.6% 是假象 → 7-shard Workflow (sonnet) 逐 gold fact 语义判 140q/466 facts: **overall 93.9%** (concept 100/cross 93.5/mixed 92.0/single 91.7), 落在 93-96% band。**主 session Rule A 抽验校准** (q104 fr=0 / q02 fr=0.43 实查均判对, judge 未过松); 121/140 全覆盖, 残留 miss (q104 VISITDY label / q133 TU topic / q02 枚举) 均真 miss 答题侧。缺口: 语义 judge 未固化进 run_eval (建议加 `--judge`)。收口 `evidence/checkpoints/llm_judge_fact_recall.md` + `eval/prod_wirein/judge_{input,result}_v3.json`。
+- **总 retro**: `RETROSPECTIVE_retrieval_arc.md` (检索弧线 Phase 1.5→P1→S4→(d)→KG 关闭; Rule C 三段 + 6 关键决策复盘 D1-D6)。
+
+### 净结果
+检索质量目标达成 (cross 61.5→99%, 全类 ≥99%, 语义 fact 93.9%); 部署 artifacts 就绪; KG 关闭; 残留 = q126 (架构受限) + 语义 judge 固化 + 跨模型 eval (credits) = 下迭代候选, 非阻塞。

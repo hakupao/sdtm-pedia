@@ -14,13 +14,18 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         gcc g++ libxml2-dev libssl-dev curl ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 
-# Install package
-COPY pyproject.toml ./
-RUN pip install --upgrade pip setuptools wheel
-# Install with editable mode disabled in image; source mounted via compose volume in dev
-RUN pip install . || (pip install .[fallback] && echo "WARN: pyreadstat fallback to sas7bdat applied")
-
-COPY . /app
+# Install package. Copy pyproject + the declared source packages BEFORE `pip install .`
+# (setuptools needs the package dirs present to build the wheel — installing with only
+# pyproject.toml present fails). data/ and knowledge_base/ are NOT copied: they are bind
+# volumes at runtime (see docker-compose.yml), keeping the image lean.
+COPY pyproject.toml README.md ./
+COPY server ./server
+COPY scripts ./scripts
+COPY ui ./ui
+COPY eval ./eval
+RUN pip install --upgrade pip setuptools wheel \
+    && (pip install . \
+        || (pip install '.[fallback]' && echo "WARN: pyreadstat fallback to sas7bdat applied"))
 
 # data/ is a mounted volume (chroma persist + uploaded datasets)
 VOLUME ["/app/data"]

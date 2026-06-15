@@ -91,24 +91,34 @@ streamlit run ui/streamlit_app.py
 # Open http://localhost:8501
 ```
 
-## Quick Start — Docker Compose
+## Quick Start — Docker Compose (local self-host)
+
+> Prereq: Docker + Docker Compose v2. 单用户/单租户本地部署 (云部署 defer per H-2).
+> Run from this dir (`branches/07_rag_kg/sdtm-rag/`).
 
 ```bash
-# 1. Set up environment
-cp .env.example .env
-# Edit .env with API keys
+# 1. Environment — OPENAI_API_KEY 是硬性必需 (embedding, 无 fallback);
+#    DEEPSEEK_API_KEY 当前是实际主答 (Anthropic credits 耗尽 → Router 回退 DeepSeek).
+cp .env.example .env        # 然后填入 key (见下方 Environment Variables 表)
 
-# 2. Build + start
+# 2. Build + start (api :8000, ui :8501; api healthcheck 通过后 ui 才起)
 docker compose up --build -d
 
-# 3. Ingest (first time only)
+# 3. 向量库 chroma:
+#    (a) 复用已 ingest 的 ./data/chroma (4146 chunks, 通过 volume 挂入) → 无需重 ingest, 直接可用; 或
+#    (b) 全新 ingest (需 OPENAI_API_KEY, ~80s):
 docker compose exec api python scripts/ingest.py
 
-# API: http://localhost:8000/docs
-# UI:  http://localhost:8501
+# 4. 验证
+curl -fsS http://localhost:8000/api/health          # {"status":"ok"}
+curl -s   http://localhost:8000/api/info            # 应见 structured_lookup/hybrid/prompt_guardrail = true
+# API docs: http://localhost:8000/docs   |   UI: http://localhost:8501
 ```
 
-Knowledge base 通过只读 volume `../../../knowledge_base:/app/knowledge_base:ro` 挂入 (H-1 read-only 硬约束).
+- **检索/答题杠杆默认全开** (structured_lookup + hybrid + 答题侧 grounding 护栏); `SDTM_RAG_*` env 可单独关。
+- Knowledge base 通过只读 volume `../../../knowledge_base:/app/knowledge_base:ro` 挂入 (H-1 read-only 硬约束)。
+- `data/` (chroma 持久化 + 上传数据集) 是 bind volume, 不烘进镜像 (见 `.dockerignore`); secrets 经 `env_file` 运行时注入, 永不入镜像。
+- **Anthropic credits 耗尽时**: 默认 model = Sonnet 4.6, 但 Router 自动回退 `deepseek/deepseek-v4-pro` (实测 `model_used=deepseek-v4-pro`); 补足 credits 后自动走 Sonnet, 无需改配置。
 
 ## API Endpoints
 
@@ -135,9 +145,9 @@ python eval/run_eval.py eval/test_set_v1.yml --model deepseek/deepseek-chat --ou
 
 | Var | 必需? | 说明 |
 |-----|-------|------|
-| `ANTHROPIC_API_KEY` | ★ 必 | LiteLLM 主答 (Sonnet 4.6) + 难题 (Opus 4.7) + 轻分类 (Haiku 4.5) |
-| `DEEPSEEK_API_KEY` | ★ 必 | 复检 / fallback (**V4-Pro 非思考模式**; D-4 v2 2026-05-22 用户主用 V4-Pro; **不**用 V4-Pro Reasoner 思考因 LiteLLM Issue #26395 multi-turn bug) |
-| `OPENAI_API_KEY` | ★ 必 | Embedding: text-embedding-3-small (D-4 v3) |
+| `OPENAI_API_KEY` | ★★ 硬必需 | Embedding: text-embedding-3-small (D-4 v3); **无 fallback**, ingest+query 都靠它, 缺则服务不可用 |
+| `DEEPSEEK_API_KEY` | ★ 必 | **当前实际主答** (Anthropic credits 耗尽时 Router 回退到此; V4-Pro 非思考模式; **不**用 Reasoner 因 LiteLLM Issue #26395 multi-turn bug) |
+| `ANTHROPIC_API_KEY` | 可选 (实务) | 默认 model (Sonnet 4.6) + 难题 (Opus 4.7) + 轻分类 (Haiku 4.5); credits 耗尽时自动回退 DeepSeek, 故实务上可选 |
 | `COHERE_API_KEY` | 可选 | Phase 1B.2 Top-K 重排 (按需) |
 | `SDTM_RAG_DEFAULT_MODEL` | 默 sonnet | LiteLLM identifier |
 | `SDTM_RAG_FALLBACK_MODEL` | 默 v4-pro 非思考 | D-4 v2 |

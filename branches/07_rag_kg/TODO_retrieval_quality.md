@@ -46,7 +46,7 @@
 - [ ] **T5 embedding 升级评估** — `text-embedding-3-small` → `-large` (3072d). 全量重 ingest 成本 vs 召回收益权衡; PLAN 原写 "召回<80% 才考虑", 现 bar 提到 95% 纳入候选.
 
 ### 结构性 (前几项不够再上)
-- [ ] **T6 ⭐ 重评 Phase 2 KG** — 原 gate "cross_domain < 50% 才上 KG", 61.5% > 50% 故 defer. **但 95% bar 下 cross_domain 离 95% 差 33 点, 纯向量难补 → 关系型检索 (KG) 重新成认真候选**, 尤其针对 cross_domain. 决策见 [PLAN.md §5](PLAN.md). 前置: P3 meta.yaml 生成 (spec.md + Cross References 派生 64 域; 也是 jp_delivery 02 §3.4/§3.5 同源数据).
+- [x] **T6 ⭐ 重评 Phase 2 KG — ✅ CLOSED 2026-06-15 (NOT needed as retrieval lever)**. 原 gate "cross_domain < 50% 才上 KG". 一度因 95% bar 重列为候选, 但 **检索路由通道 (P1 4 杠杆 + (d) 概念定义双通道) 已把 retrieval-only cross 拉到 99%** (远超 50% gate, 纯向量+路由解决了跨域召回) → KG 作为检索质量杠杆**不再有理由**. KG 作为独立产品特性 (交互式关系/CT 影响图遍历) 仍是可选未来增强, 非检索需求; 重启需新立项 (前置 P3 meta.yaml). 见 `_progress.json` phase_2_kg.
 
 ## 3. 验证 / 规则 (沿用 PASS 五条)
 
