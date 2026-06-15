@@ -132,12 +132,22 @@ curl -s   http://localhost:8000/api/info            # 应见 structured_lookup/h
 ## Eval
 
 ```bash
-# Retrieval-only (free, no LLM)
-python eval/run_eval.py eval/test_set_v1.yml --retrieval-only
+# Retrieval-only (free, no LLM) — source recall
+python eval/run_eval.py eval/test_set_v3.yml --retrieval-only --structured-lookup --hybrid
 
-# Full eval with specific model
-python eval/run_eval.py eval/test_set_v1.yml --model deepseek/deepseek-chat --output eval/report.json
+# Full eval (substring fact recall — under-counts ~11pt, kept as secondary metric)
+python eval/run_eval.py eval/test_set_v3.yml --model deepseek/deepseek-chat --output eval/report.json
+
+# Full eval with SEMANTIC fact recall (--judge): the trustworthy number; drives the
+# verdict, substring shown as secondary. Adds 1 judge LLM call/question (--judge-model
+# default deepseek). Use temp=0 + levers for a production-faithful run.
+python eval/run_eval.py eval/test_set_v3.yml --model deepseek/deepseek-chat --temperature 0 \
+    --structured-lookup --hybrid --judge --output eval/report.json
 ```
+
+> 语义 judge fact recall ≈ **93.9%** on v3 140q (vs substring 82.6%); see
+> `evidence/checkpoints/llm_judge_fact_recall.md`. Always prefer `--judge` for reported
+> fact-recall numbers; the substring metric is for fast/free sanity only.
 
 ## Environment Variables
 

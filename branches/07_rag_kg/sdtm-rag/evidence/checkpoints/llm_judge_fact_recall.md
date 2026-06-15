@@ -44,10 +44,16 @@ S4 full eval 的 substring fact recall = 82.6%, 但已知 substring 对 paraphra
 q104 (VISITDY label) / q133 (TU topic 变量误判, scientist 早判 NONDETERMINISM) / q02 (Req 枚举不全) /
 q97 q99 q101 (mixed 具体枚举值漏) / s05 (Extensible 标志) 等 —— 均答题侧 / 检索覆盖个例, 非检索通道缺陷。
 
-## 缺口 (下一迭代)
+## 缺口 — ✅ 已固化 (2026-06-15)
 
-语义 judge **未固化进 `run_eval.py`** (本步是一次性 Workflow)。建议加 `--judge` 模式让 fact 数字日常可信,
-否则下次又只剩 substring 误导值。
+语义 judge 已**固化进 `run_eval.py --judge`** (不再是一次性 Workflow): 逐 gold fact LLM 判
+(`check_fact_recall_judge` + 纯解析器 `_parse_covered`), `--judge-model` 默认 deepseek 与答题模型
+独立; 报告 substring (次) + judge (主), verdict 用 judge; 解析失败逐题回退 substring 且
+`judge_parse_ok=False` 计数上报 (不静默)。Rule D code-reviewer 抓到并修了 HIGH (非 bool 列表元素
+`bool(x)` 会把 array-of-objects/字符串裁决静默膨胀为全 covered → 类型守卫拒绝→计数回退) + 2 MED
+(backoff 末次空睡/封顶 + judge_fact_hits 对称) + LOW (zip strict)。pytest 260 (新 `test_run_eval_judge`
+含 HIGH 回归用例); 5q 集成 smoke 实证 (q119 substring 0→judge 100, parse_fail 0)。
+单测 `scripts/tests/test_run_eval_judge.py`。**下次报 fact recall 一律用 `--judge`。**
 
 ## 改动文件
 - `eval/prod_wirein/judge_input_v3.json` (judge 输入) + `judge_result_v3.json` (全判) ; 无源码改动

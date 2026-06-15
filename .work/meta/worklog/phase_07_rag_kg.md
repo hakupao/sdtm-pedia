@@ -159,3 +159,14 @@
 
 ### 净结果
 检索质量目标达成 (cross 61.5→99%, 全类 ≥99%, 语义 fact 93.9%); 部署 artifacts 就绪; KG 关闭; 残留 = q126 (架构受限) + 语义 judge 固化 + 跨模型 eval (credits) = 下迭代候选, 非阻塞。
+
+---
+
+## 2026-06-15 (续 2) 语义 fact judge 固化进 run_eval (--judge)
+
+> 用户「把 --judge 固化进 run_eval」(收口缺口: 否则下次 fact 数字又只剩误导性 substring)。
+
+- **实现** (`eval/run_eval.py`): `_parse_covered` (纯 JSON 解析器, 容忍 ```json fence/散文, 长度不符→None) + `check_fact_recall_judge` (单 litellm 判, 429 backoff 同答题, 空 gold 不调 LLM 直接 1.0) + `run_evaluation(judge, judge_model)` 逐题判 (解析失败回退 substring 且 `judge_parse_ok=False` 计数) + `print_summary` 报 substring(次)+judge(主) 分类别 + `judge_parse_failures` 计数, **verdict 用 judge** (overall=(src+judge)/2); flags `--judge` + `--judge-model` (默认 deepseek, 与 --model 独立); summary 存 judge_model/overall_metric。judge 收**整答案** (非 600 char preview)。默认 (无 --judge) 路径字节等价 (仅加 overall_metric 键)。
+- **Rule D** (`oh-my-claudecode:code-reviewer` 异 type): **REQUEST_CHANGES → 修后 clean**。抓到 **HIGH**: `[bool(x) for x in raw]` 对非 bool 元素 (array-of-objects / 字符串裁决 "no") 会 truthy 膨胀为**全 covered 且 judge_parse_ok=True 静默** = 正是本功能要防的信任违背 (审查员实证复现) → 加类型守卫 `all(isinstance(x,(bool,int)))` 拒绝→计数回退; + 2 MED (backoff 末次空睡跳过+封顶 120s / judge_fact_hits 对称) + LOW (zip strict) 全采纳。审查员独立复跑 pytest + 审 analyze_paired 消费键 (source_recall/fact_recall 未动, 无 backward-compat 破坏)。
+- **验证**: pytest **260** (新 `test_run_eval_judge.py` 含 HIGH 回归: array-of-objects/字符串裁决→None, 0/1 int 仍接受); ruff clean; **5q 集成 smoke** (DeepSeek temp=0 + 杠杆 + --judge): 真 judge 响应解析 0 fail, judge 97.1% vs substring 70.5%, **q119 substring 0%→judge 100%** (gold 是长句从不 substring 命中) / q73 67→100, verdict PASS on judge。
+- **收口**: `evidence/checkpoints/llm_judge_fact_recall.md` (缺口段更新为已固化); README Eval 段 + retro §2 #2 更新。**约定: 下次报 fact recall 一律 --judge。**

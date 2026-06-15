@@ -6,7 +6,7 @@
   "created": "2026-05-22",
   "updated": "2026-06-15 (★★ v3 full eval 收 S4 尾账 CLEAN_CLOSE + (d) 概念定义双通道 SHIP — Task1: S4 三修 v3 140q full eval 配对 [DeepSeek temp=0, guardrail-off 隔离] src 76.4→97.5 / fact 净 −0.2 带内, 11 掉分独立 scientist 裁判 7 假阴+3 非确定+1 已知前沿 q57 = CLEAN_CLOSE; guardrail-ON+S4 码 grounding 99.65%. Task2: q73+q119 双通道 pattern 级 SHIP, retrieval-only cross 95.0→99.0, 0 回归, pytest 250, Rule D APPROVE; q126 永久 known limitation 架构阻断. 详 phase_d_concept_channel). 前: 2026-06-12 题集 v3+S4 三修; 2026-06-09 答题侧护栏 + P1 接入生产; 2026-05-24 Phase 1D PASS 88.5%",
   "upstream_design": "docs/DESIGN_RAG_KG.md (Approved 2026-04-16)",
-  "current_phase": "检索线收口 (2026-06-15 PM): retrieval-only v3 single 100/cross 99/concept 100/mixed 100; 语义 LLM-judge fact recall 93.9% (替代 substring 82.6%); ① 本地 Docker Compose 部署修复/加固+实服 e2e 证 (容器构建待 Docker 主机); ② Phase 2 KG 正式关闭 + 总 retro. 检索目标达成. 残留非阻塞: q126 (架构受限, 需 domain sub-file 判别器) / 语义 judge 固化进 run_eval / 跨模型 eval (Anthropic credits)",
+  "current_phase": "检索线收口 (2026-06-15 PM): retrieval-only v3 single 100/cross 99/concept 100/mixed 100; 语义 LLM-judge fact recall 93.9% (替代 substring 82.6%) — **已固化进 run_eval --judge**; ① 本地 Docker Compose 部署修复/加固+实服 e2e 证 (容器构建待 Docker 主机); ② Phase 2 KG 正式关闭 + 总 retro. 检索目标达成. 残留非阻塞: q126 (架构受限) / 跨模型 eval (Anthropic credits) / 容器构建实测 (Docker 主机)",
   "phases": {
     "phase_0_research": {
       "status": "completed",
@@ -570,7 +570,14 @@
         "retro": "RETROSPECTIVE_retrieval_arc.md (Rule C 三段 + 6 决策复盘)",
         "evidence": "evidence/checkpoints/llm_judge_fact_recall.md + eval/prod_wirein/judge_{input,result}_v3.json"
       },
-      "next_candidates_non_blocking": ["语义 judge 固化进 run_eval.py (--judge 模式)", "跨模型 eval (Sonnet/Opus, 待 Anthropic credits)", "q126 (需 domain sub-file 判别架构件)", "容器构建实测 (Docker 主机)"]
+      "next_candidates_non_blocking": ["✅ DONE 语义 judge 固化进 run_eval.py (--judge, 2026-06-15, Rule D 抓修 HIGH 静默膨胀 bug, pytest 260)", "跨模型 eval (Sonnet/Opus, 待 Anthropic credits)", "q126 (需 domain sub-file 判别架构件)", "容器构建实测 (Docker 主机)"],
+      "task3_judge_wirein": {
+        "what": "语义 fact judge 固化进 run_eval.py --judge (替代 substring 误导值, verdict 用 judge)",
+        "impl": "_parse_covered (纯解析器) + check_fact_recall_judge + run_evaluation(judge,judge_model) + print_summary 双报+parse_fail 计数; --judge/--judge-model (默认 deepseek 独立于 --model); 默认路径字节等价",
+        "rule_d": "code-reviewer REQUEST_CHANGES→修后 clean: HIGH (非 bool 元素 bool() 静默膨胀→类型守卫拒绝计数回退) + 2 MED (backoff/judge_fact_hits) + LOW (zip strict) 全采纳",
+        "verify": "pytest 260 (新 test_run_eval_judge 含 HIGH 回归) + ruff clean + 5q 集成 smoke (q119 substring 0→judge 100, parse_fail 0)",
+        "evidence": "evidence/checkpoints/llm_judge_fact_recall.md + scripts/tests/test_run_eval_judge.py"
+      }
     }
   },
   "constraints": {

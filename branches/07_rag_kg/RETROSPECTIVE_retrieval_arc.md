@@ -36,7 +36,7 @@
 ## 2. 必须补上的缺口 (本线未做完 / 已知限制)
 
 1. **q126 (无实体锚概念对比)**: 永久 known limitation。两重独立阻断 — 题面零实体锚 (区分性短语 140q 中恰命中自己=例级作弊) + **架构阻断** `domain_to_spec` 只映 spec.md, 但 q126 SE gold=assumptions.md。**要做先给 structured_lookup 加 domain sub-file (assumptions/examples/spec) 判别能力** (架构件), 再谈概念→sub-file 路由。
-2. **fact recall 评测口径**: substring 法对 paraphrase/同义/数字异形/码 fabrication **结构性盲** (82.6% 是假象)。本轮补了一次性 LLM-judge (见上表), 但**没把语义 judge 固化进 `run_eval.py`** —— 下个迭代应做 `--judge` 模式, 让 fact 数字日常可信。
+2. **fact recall 评测口径**: substring 法对 paraphrase/同义/数字异形/码 fabrication **结构性盲** (82.6% 是假象)。✅ **已补**: 语义 judge 固化进 `run_eval.py --judge` (2026-06-15, Rule D code-reviewer 抓修 HIGH 静默膨胀 bug); 报 substring(次)+judge(主), verdict 用 judge, 解析失败计数回退。下次报 fact recall 一律用 `--judge`。收口 `evidence/checkpoints/llm_judge_fact_recall.md`。
 3. **跨模型 eval**: Sonnet/Opus 自 Phase 1D 起被 Anthropic credits 耗尽 block; 全线只在 DeepSeek 上验。credits 补足后应补跑确认结论稳健。
 4. **答题侧残留**: q93 (值名 INJECTION vs INJECTABLE) / q96 (标准值未检索) = 检索覆盖 artifact; per-value C-code 右归属只 bundle spot-check。属护栏范围外的答题侧个例。
 5. **容器实测**: Docker 本机不可用, 容器构建 (`docker compose up --build`) 未在本环境跑过 (artifacts 已修+静态校验+实服 e2e 证内容)。需在 Docker 主机首次实跑确认。

@@ -2,13 +2,19 @@
 
 Modes:
   --retrieval-only   Score source recall only (no LLM calls, fast+free)
-  (default)          Full: retrieval + LLM answer + fact recall
+  (default)          Full: retrieval + LLM answer + (substring) fact recall
 
 Flags:
   --model MODEL      Override LLM model string (bypasses Router, uses litellm directly)
                      e.g. anthropic/claude-sonnet-4-6, deepseek/deepseek-chat
+  --judge            Add SEMANTIC fact recall via an LLM judge (fixes the substring
+                     metric's ~11pt under-count); drives the verdict, substring kept
+                     as a secondary metric. --judge-model sets the judge (default deepseek).
   --threshold FLOAT  Override pass/fail threshold (default 0.85)
   --tag TAG          Label added to output JSON for cross-model comparison
+
+  python eval/run_eval.py eval/test_set_v3.yml --model deepseek/deepseek-chat \
+      --temperature 0 --structured-lookup --hybrid --judge --output eval/report.json
 
 Run from sdtm-rag/:
   python eval/run_eval.py eval/test_set_v0.yml --retrieval-only
@@ -74,6 +80,104 @@ def check_fact_recall(
     return recall, hits, misses
 
 
+# ---- semantic fact recall (LLM judge) ---------------------------------------
+#
+# The substring check_fact_recall above is structurally blind to paraphrase /
+# synonym / spelled-out-vs-numeric / value-shown-in-a-table, so it systematically
+# UNDER-counts (measured ~11pt low on v3). --judge replaces it with a semantic
+# verdict: per gold fact, does the answer convey it by meaning? Both metrics are
+# reported; with --judge the PASS/FAIL verdict uses the judge number.
+
+DEFAULT_JUDGE_MODEL = "deepseek/deepseek-chat"
+
+_JUDGE_SYS = (
+    "You are a STRICT but SEMANTIC fact-recall judge for an SDTM knowledge-base QA "
+    "system. For each GOLD fact, decide whether the ANSWER conveys that fact by MEANING "
+    "— any surface form counts as covered: paraphrase, synonym, spelled-out vs numeric "
+    "(\"two-character\" == \"2-character\"), a value shown in a table, equivalent phrasing. "
+    "Mark covered=false ONLY if the answer omits the fact, contradicts it, or is merely "
+    "topically adjacent without stating it. Do not reward topical-but-absent; do not "
+    "punish correct-but-reworded. Output ONLY a JSON object "
+    "{\"covered\": [true, false, ...]} with EXACTLY one boolean per gold fact, in order."
+)
+
+
+def _parse_covered(content: str, n_facts: int) -> list[bool] | None:
+    """Extract the aligned boolean list from a judge response. Returns a list of
+    exactly n_facts bools, or None if the response can't be parsed / length mismatches
+    (caller then falls back to the substring metric for that question, never crashes)."""
+    if not content:
+        return None
+    text = content.strip()
+    # tolerate ```json fences and surrounding prose: grab the outermost {...} or [...]
+    for opener, closer in (("{", "}"), ("[", "]")):
+        i, j = text.find(opener), text.rfind(closer)
+        if i != -1 and j != -1 and j > i:
+            try:
+                obj = json.loads(text[i : j + 1])
+            except (json.JSONDecodeError, ValueError):
+                continue
+            raw = obj.get("covered") if isinstance(obj, dict) else obj
+            # Accept ONLY a list of bool/int (0/1). Reject lists of dicts/strings:
+            # `bool(x)` would coerce a non-empty dict or "no" to True and silently
+            # INFLATE recall with judge_parse_ok=True — the exact trust violation this
+            # metric exists to prevent. A non-bool list -> None -> counted substring fallback.
+            if (
+                isinstance(raw, list)
+                and len(raw) == n_facts
+                and all(isinstance(x, (bool, int)) for x in raw)
+            ):
+                return [bool(x) for x in raw]
+    return None
+
+
+def check_fact_recall_judge(
+    question: str,
+    answer: str,
+    expected_facts: list[str],
+    judge_model: str,
+    temperature: float = 0.0,
+) -> tuple[float, list[str], list[str]] | None:
+    """Semantic fact recall via an LLM judge. Returns (recall, hits, misses) or None
+    when the judge response is unparseable (caller falls back to substring)."""
+    if not expected_facts:
+        return 1.0, [], []
+    facts_block = "\n".join(f"{i + 1}. {f}" for i, f in enumerate(expected_facts))
+    user = (
+        f"QUESTION:\n{question}\n\nANSWER:\n{answer}\n\n"
+        f"GOLD FACTS ({len(expected_facts)}):\n{facts_block}\n\n"
+        f'Return JSON {{"covered": [...]}} with exactly {len(expected_facts)} booleans, in order.'
+    )
+    messages = [
+        {"role": "system", "content": _JUDGE_SYS},
+        {"role": "user", "content": user},
+    ]
+    content = ""
+    for _attempt in range(5):
+        try:
+            resp = litellm.completion(
+                model=judge_model, messages=messages, temperature=temperature
+            )
+            content = resp.choices[0].message.content or ""
+            break
+        except Exception as exc:  # noqa: BLE001 — match the answer-call retry policy
+            is_rate = "rate_limit" in str(exc).lower() or "429" in str(exc)
+            if is_rate and _attempt < 4:  # don't sleep after the final attempt
+                wait = min(30 * (2 ** _attempt), 120)  # cap to avoid multi-min dead sleeps
+                print(f"\n  [JUDGE RATE LIMIT] waiting {wait}s...", end=" ", flush=True)
+                time.sleep(wait)
+            elif is_rate:
+                break  # exhausted -> content="" -> None -> counted substring fallback
+            else:
+                raise
+    covered = _parse_covered(content, len(expected_facts))
+    if covered is None:
+        return None
+    hits = [f for f, c in zip(expected_facts, covered, strict=True) if c]
+    misses = [f for f, c in zip(expected_facts, covered, strict=True) if not c]
+    return len(hits) / len(expected_facts), hits, misses
+
+
 def run_evaluation(
     test_set: list[dict],
     rag: RAGEngine,
@@ -83,6 +187,8 @@ def run_evaluation(
     top_k: int = TOP_K,
     temperature: float | None = None,
     full_answers: bool = False,
+    judge: bool = False,
+    judge_model: str = DEFAULT_JUDGE_MODEL,
 ) -> list[dict]:
     results: list[dict] = []
     for q in test_set:
@@ -153,13 +259,41 @@ def run_evaluation(
             if full_answers:
                 result["answer"] = answer  # untruncated (for code-grounding / semantic judge)
 
+            if judge:
+                verdict = check_fact_recall_judge(
+                    q["question"], answer, q.get("expected_facts", []),
+                    judge_model=judge_model,
+                    temperature=temperature if temperature is not None else 0.0,
+                )
+                if verdict is not None:
+                    j_recall, j_hits, j_misses = verdict
+                    result.update({
+                        "judge_fact_recall": round(j_recall, 4),
+                        "judge_fact_hits": j_hits,
+                        "judge_fact_misses": j_misses,
+                        "judge_parse_ok": True,
+                    })
+                else:
+                    # unparseable judge response -> fall back to substring, flag it
+                    result.update({
+                        "judge_fact_recall": round(fact_recall, 4),
+                        "judge_fact_hits": fact_hits,
+                        "judge_fact_misses": fact_misses,
+                        "judge_parse_ok": False,
+                    })
+
         elapsed = time.perf_counter() - t0
         result["elapsed_s"] = round(elapsed, 2)
 
         tag = "SRC" if retrieval_only else "FULL"
         src_pct = f"{src_recall:.0%}"
         fact_pct = f"{result.get('fact_recall', 0):.0%}" if not retrieval_only else "n/a"
-        print(f"[{tag}] src={src_pct} fact={fact_pct} {elapsed:.1f}s")
+        judge_pct = (
+            f" judge={result['judge_fact_recall']:.0%}"
+            + ("" if result.get("judge_parse_ok", True) else "(parse-fail->substr)")
+            if judge and not retrieval_only else ""
+        )
+        print(f"[{tag}] src={src_pct} fact={fact_pct}{judge_pct} {elapsed:.1f}s")
         results.append(result)
 
     return results
@@ -170,6 +304,7 @@ def print_summary(
     retrieval_only: bool = False,
     threshold: float = 0.85,
     model: str | None = None,
+    judge: bool = False,
 ) -> dict:
     n = len(results)
     avg_src = sum(r["source_recall"] for r in results) / n
@@ -201,7 +336,7 @@ def print_summary(
     if not retrieval_only:
         avg_fact = sum(r.get("fact_recall", 0) for r in results) / n
         total_tokens = sum(r.get("usage", {}).get("total_tokens", 0) for r in results)
-        print(f"Fact recall (avg):   {avg_fact:.1%}")
+        print(f"Fact recall (substring, avg): {avg_fact:.1%}")
         print(f"Total tokens used:   {total_tokens:,}")
 
         fact_by_cat: dict[str, list[float]] = {}
@@ -209,18 +344,44 @@ def print_summary(
             fact_by_cat.setdefault(r["category"], []).append(r.get("fact_recall", 0))
         for cat, vals in sorted(fact_by_cat.items()):
             print(f"  {cat}: {sum(vals)/len(vals):.1%}")
-
-        overall = (avg_src + avg_fact) / 2
-        print(f"\nOverall (src+fact avg): {overall:.1%}")
-        verdict = "PASS" if overall >= threshold else "FAIL"
-        print(f"Threshold: {threshold:.0%}  ->  {verdict}")
         summary.update({
             "fact_recall_avg": round(avg_fact, 4),
             "fact_recall_by_category": {
                 cat: round(sum(vals) / len(vals), 4) for cat, vals in sorted(fact_by_cat.items())
             },
-            "overall": round(overall, 4),
             "total_tokens": total_tokens,
+        })
+
+        # Judge (semantic) fact recall: the trustworthy metric — drives the verdict
+        # when --judge is on; substring stays reported as a (low-biased) secondary.
+        gate_fact, gate_label = avg_fact, "substring"
+        if judge:
+            avg_judge = sum(r.get("judge_fact_recall", 0) for r in results) / n
+            parse_fail = sum(1 for r in results if r.get("judge_parse_ok") is False)
+            judge_by_cat: dict[str, list[float]] = {}
+            for r in results:
+                judge_by_cat.setdefault(r["category"], []).append(r.get("judge_fact_recall", 0))
+            print(f"\nFact recall (judge/semantic, avg): {avg_judge:.1%}")
+            for cat, vals in sorted(judge_by_cat.items()):
+                print(f"  {cat}: {sum(vals)/len(vals):.1%}")
+            if parse_fail:
+                print(f"  ⚠ judge parse-fail (fell back to substring): {parse_fail}/{n} questions")
+            summary.update({
+                "judge_fact_recall_avg": round(avg_judge, 4),
+                "judge_fact_recall_by_category": {
+                    cat: round(sum(vals) / len(vals), 4) for cat, vals in sorted(judge_by_cat.items())
+                },
+                "judge_parse_failures": parse_fail,
+            })
+            gate_fact, gate_label = avg_judge, "judge"
+
+        overall = (avg_src + gate_fact) / 2
+        print(f"\nOverall (src + {gate_label} fact, avg): {overall:.1%}")
+        verdict = "PASS" if overall >= threshold else "FAIL"
+        print(f"Threshold: {threshold:.0%}  ->  {verdict}")
+        summary.update({
+            "overall": round(overall, 4),
+            "overall_metric": gate_label,
             "verdict": verdict,
         })
     else:
@@ -329,6 +490,20 @@ def main(argv: list[str] | None = None) -> int:
              "the 600-char preview. Needed for code-grounding / semantic-judge passes.",
     )
     parser.add_argument(
+        "--judge",
+        action="store_true",
+        help="Semantic fact recall: an LLM judge decides per gold fact whether the answer "
+             "conveys it by meaning (fixes the substring metric's ~11pt under-count). Adds "
+             "one judge LLM call per question; reports judge_fact_recall and drives the "
+             "PASS/FAIL verdict (substring kept as a secondary metric).",
+    )
+    parser.add_argument(
+        "--judge-model",
+        default=DEFAULT_JUDGE_MODEL,
+        help=f"Model for --judge (default {DEFAULT_JUDGE_MODEL}; temp=0). Kept separate "
+             f"from --model so the judge is independent of the answerer.",
+    )
+    parser.add_argument(
         "--tag",
         default=None,
         help="Optional label added to output JSON for cross-model comparison",
@@ -390,15 +565,19 @@ def main(argv: list[str] | None = None) -> int:
             print(f"LLM router: {len(router.model_list)} models")
 
     print()
+    if args.judge and not args.retrieval_only:
+        print(f"Judge mode: ON, judge_model={args.judge_model} (temp=0)")
     results = run_evaluation(
         test_set, rag, router, args.retrieval_only, direct_model=args.model,
         top_k=args.top_k, temperature=args.temperature, full_answers=args.full_answers,
+        judge=args.judge, judge_model=args.judge_model,
     )
     summary = print_summary(
         results,
         retrieval_only=args.retrieval_only,
         threshold=args.threshold,
         model=args.model,
+        judge=args.judge,
     )
     summary["top_k"] = args.top_k
     if args.rerank:
@@ -420,6 +599,8 @@ def main(argv: list[str] | None = None) -> int:
             "alpha": rag.hybrid_alpha if rag.hybrid_fusion == "weighted" else None,
         }
     summary["prompt_guardrail"] = args.guardrail
+    if args.judge:
+        summary["judge_model"] = args.judge_model
 
     if args.output:
         out: dict = {"summary": summary, "results": results}
