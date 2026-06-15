@@ -104,9 +104,11 @@ branches/07_rag_kg/PLAN.md / EXECUTION_PLAN.md         ← 規範改訂
 
 下流: `sdtm-rag/` 实际代码仓 (Phase 1A 起建立) 在 `branches/07_rag_kg/sdtm-rag/`, 跟随同一 chain.
 
-### Chain J: 日本同事交付链 (branches/jp_delivery/, iTMS 様 納品)
+### Chain J: 日本同事交付链 (branches/jp_delivery/, iTMS 様 納品) — ⏸ CLOSED 冻结 2026-06-15
 
-**触发**: `branches/jp_delivery/` 配下任何文件修改
+> **本链已停用**: jp_delivery (日语提交产物) 线收口冻结 (用户决策, 以后不再更新), 故本链不再触发. 以下定义仅历史保留.
+
+**触发** (历史): `branches/jp_delivery/` 配下任何文件修改
 
 ```
 branches/jp_delivery/PLAN.md / EXECUTION_PLAN.md       ← 規範改訂
@@ -151,11 +153,11 @@ branches/jp_delivery/PLAN.md / EXECUTION_PLAN.md       ← 規範改訂
 07_website/phase{6,7,8}/PLAN.md ── 公开站点 (closed)
      prod sdtm-pedia.pages.dev. handoffs 在 meta/website_phase*_handoff_*.md.
 
-ai_platforms/ ── Phase 6.5 AI 平台部署 (旁枝, 双平台锁步)
-     总览 ai_platforms/README.md; 锁步 SYNC_BOARD.md; 范本 _template/.
+ai_platforms/ ── Phase 6.5 AI 平台部署 (旁枝) — ⏸ CLOSED 冻结 2026-06-15
+     线收口不再更新; 终态 Release v1.4. 历史只读 README.md / SYNC_BOARD.md / retrospectives/.
 
-branches/jp_delivery/ ── iTMS 納品旁枝 (Chain J)
-     入口 branches/jp_delivery/PLAN.md + EXECUTION_PLAN.md (Excel 主体)
+branches/jp_delivery/ ── iTMS 納品旁枝 (Chain J) — ⏸ CLOSED 冻结 2026-06-15
+     线收口不再更新; 停于 P0 2/4 + 01 v1.1-draft. 历史只读 PLAN.md + EXECUTION_PLAN.md.
 ```
 
 ---
@@ -194,7 +196,7 @@ branches/jp_delivery/ ── iTMS 納品旁枝 (Chain J)
 | *(无 .work/ 目录)* | Phase 3-4 | PDF 提取, 直接写 knowledge_base/ |
 | `03_verification/` | Phase 5 | 全量验证 |
 | `04_optimization/` | Phase 6 | 检索精度优化 (P0-P2 完成) |
-| *(根 `ai_platforms/`)* | Phase 6.5 | AI 平台部署 (双平台锁步进行中) |
+| *(根 `ai_platforms/`)* | Phase 6.5 | AI 平台部署 (⏸ CLOSED 冻结 2026-06-15, 终态 v1.4) |
 | `05_rag_kg/` | Phase 7 | RAG + KG + 数据集校验 (设计完成) |
 | `(→ branches/06_deep_verification/)` | 06 (旁枝) | 字面级 PDF→KB 深审 (P2 进行中) |
 | `07_website/` | 07 Website | sdtm-pedia 公司发布版静态网站 (closed) |
@@ -216,10 +218,10 @@ branches/jp_delivery/ ── iTMS 納品旁枝 (Chain J)
 | 质量问题 | `meta/findings.md` |
 | AI 工作四条规则 | `meta/retrospective.md` ⚑ 必读 |
 | 06 Deep Verification | `../branches/06_deep_verification/PLAN.md` + `multi_session/` |
-| Phase 6.5 总览 | `../ai_platforms/README.md` + `SYNC_BOARD.md` |
-| Phase 6.5 范本 | `../ai_platforms/_template/README.md` |
+| Phase 6.5 总览 (CLOSED 冻结) | `../ai_platforms/README.md` + `SYNC_BOARD.md` (只读) |
+| Phase 6.5 范本 (CLOSED) | `../ai_platforms/_template/README.md` |
 | Phase 7 设计 | `../docs/DESIGN_RAG_KG.md` |
 | 07 Website 入口 | `07_website/phase{6,7,8}/PLAN.md` |
-| branches/jp_delivery/ 入口 | `../branches/jp_delivery/PLAN.md` + `EXECUTION_PLAN.md` |
+| branches/jp_delivery/ 入口 (CLOSED 冻结) | `../branches/jp_delivery/PLAN.md` + `EXECUTION_PLAN.md` (只读) |
 | branches/07_rag_kg/ 入口 | `../branches/07_rag_kg/PLAN.md` + `EXECUTION_PLAN.md` (上游 `../docs/DESIGN_RAG_KG.md`) |
 | 重构 v1 | `refactor_v1/PLAN.md` |

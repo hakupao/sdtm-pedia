@@ -368,3 +368,17 @@ Predecessor: `v1.3-company-release` (immutable)
 - `.work/07_release_v1_4/V1_4_DEPLOY_GUIDE.md` — user-facing 4 平台 deploy guide
 - `.work/07_release_v1_4/c2_classifier/` — N=80 classifier helper + sample + classified output + v1.3 N=40 regression
 - `.work/07_release_v1_4/known_limitations_drafts/` — §0 reconcile zh DRAFT
+
+---
+
+## 2026-06-15 — AI 平台部署线 (多平台部署) CLOSED 冻结 (用户决策线收口)
+
+- **触发**: 用户「多平台部署, 可以 close, 以后不再更新」 — 全项目三条未收口线之一, 决定永久冻结, 仅留 RAG 前进方向.
+- **冻结时最终状态**:
+  - **4 平台 lifecycle**: 全 signed-off (ChatGPT / Claude / NotebookLM / Gemini). 双平台锁步 (SYNC_BOARD) 早已降级为维护看板, 现正式停用.
+  - **Release**: v1.0 → v1.4 全 closed, 终态 tag **`v1.4-company-release`** (annotated). v1.4 为最后一个 release.
+  - **Gemini**: MAINTAINED_NO_SANITY_TEST (v1.4 起, 用户自验) — 此态随线一并冻结.
+- **放弃的 v1.5 carries** (上方 v1.4 §"v1.5 carries (defer)" 列表全部不再做): C1-bis full LLM pipeline rerun / C1-ter Makefile gate / C2 KB_INTERNAL_CROSSREF + 3 deep-paraphrase atoms / C3 NotebookLM screenshot / Tier B 156 节 + 全 437 UNSOURCED / ai_platforms Python 脚本 parents[N] audit. **例外**: 该列表中的 "Phase 7 RAG+KG" **不属本线** — RAG 是独立活跃前进方向, 继续推进 (见 `branches/07_rag_kg/`).
+- **规则 C note**: 本线 retrospective 充分 — `ai_platforms/retrospectives/` (R1 / R2 / Phase5 等) + 各 release `.work/07_release{,_v1_1,_v1_2,_v1_3,_v1_4}/RETROSPECTIVE.md` 全保留只读, 无需补 retro.
+- **收口动作**: `ai_platforms/SYNC_BOARD.md` + `ai_platforms/README.md` + `.work/07_release_v1_4/_progress.json` 加 CLOSED_FROZEN 横幅/标记; `CLAUDE.md` "AI 平台双平台并行部署 (锁步规则)" 整段删除替换为 CLOSED 说明 + Key Paths 10 行压成 2 行; `docs/PROGRESS.md` Phase 6.5 行 🟢→⏸ CLOSED + 去 v1.5 候选; `.work/AGENT_GUIDE.md` / `.work/MANIFEST.md` / `.work/meta/worklog/INDEX.md` 全部去 active 化.
+- **重启方式** (若将来需要): 解冻本 entry + SYNC_BOARD + 对应 `_progress.json`, 从 v1.5 carries 选项续起.

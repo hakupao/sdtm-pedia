@@ -1,6 +1,7 @@
 # AI 平台部署 — Phase 6.5
 
-> **状态**: 4 平台部署中 + smoke v4 评测框架完成 (2026-04-22 PM)
+> **状态**: ⏸ **CLOSED 冻结 (2026-06-15)** — 多平台部署线收口, 以后不再更新 (用户决策). 终态 = 4 平台 signed-off + Release v1.4 (`v1.4-company-release`); Gemini MAINTAINED_NO_SANITY_TEST. 历史只读 (下方为冻结时快照, 不再维护).
+> **历史状态 (frozen)**: 4 平台部署中 + smoke v4 评测框架完成 (2026-04-22 PM)
 > - Claude Projects: v2.6 完成 (1.29M tokens, 77%, 24/24 smoke v2 PASS)
 > - ChatGPT GPTs: N5.3 bank v3.2 已跑 (14/14 或 12+2subst)
 > - Gemini Gems: N5.3 已跑 (7/10)

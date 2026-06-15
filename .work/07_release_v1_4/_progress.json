@@ -8,7 +8,7 @@
   "target_tag": "v1.4-company-release",
   "phase": "C",
   "step": "Phase B closed + Phase C: C4 KB anchor done, C1 done (with v1.5 carry), C3 deploy guide skeleton done, Gemini optimization (Method label anchor) added per user 2026-05-22 clarification; C2 in flight",
-  "status": "phase_c_kickoff_3_platform_only_gemini_platform_abandoned",
+  "status": "CLOSED_FROZEN_2026-06-15 (多平台部署线收口, 以后不再更新; v1.4 为终态 release, C2/v1.5 carries 全部放弃) — 前: phase_c_kickoff_3_platform_only_gemini_platform_abandoned",
   "phase_a_closed": {
     "date": "2026-05-20",
     "gate_verdict": "PASS_WITH_OBSERVATIONS",
