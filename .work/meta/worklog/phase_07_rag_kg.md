@@ -170,3 +170,25 @@
 - **Rule D** (`oh-my-claudecode:code-reviewer` 异 type): **REQUEST_CHANGES → 修后 clean**。抓到 **HIGH**: `[bool(x) for x in raw]` 对非 bool 元素 (array-of-objects / 字符串裁决 "no") 会 truthy 膨胀为**全 covered 且 judge_parse_ok=True 静默** = 正是本功能要防的信任违背 (审查员实证复现) → 加类型守卫 `all(isinstance(x,(bool,int)))` 拒绝→计数回退; + 2 MED (backoff 末次空睡跳过+封顶 120s / judge_fact_hits 对称) + LOW (zip strict) 全采纳。审查员独立复跑 pytest + 审 analyze_paired 消费键 (source_recall/fact_recall 未动, 无 backward-compat 破坏)。
 - **验证**: pytest **260** (新 `test_run_eval_judge.py` 含 HIGH 回归: array-of-objects/字符串裁决→None, 0/1 int 仍接受); ruff clean; **5q 集成 smoke** (DeepSeek temp=0 + 杠杆 + --judge): 真 judge 响应解析 0 fail, judge 97.1% vs substring 70.5%, **q119 substring 0%→judge 100%** (gold 是长句从不 substring 命中) / q73 67→100, verdict PASS on judge。
 - **收口**: `evidence/checkpoints/llm_judge_fact_recall.md` (缺口段更新为已固化); README Eval 段 + retro §2 #2 更新。**约定: 下次报 fact recall 一律 --judge。**
+
+---
+
+## 2026-06-15 (续 3) 本地部署 + 多模型对比/裁判 — 规划立项
+
+> 用户决定把 RAG 在本机 (Mac mini M4 基础款 / 16GB / 公司网) 24/7 部署, **先 localhost 自用调优 → 再共享同事**; 并新增「一题跑多模型对比 + 第 4 模型裁判」功能。本 session **纯规划, 未改代码、未跑 eval**。
+
+### 关键讨论结论
+- **硬件评估**: Mac mini M4 基础款 10C CPU/10C GPU/**16GB 统一内存**/95GB 盘。**本地大模型推理不可行** (16GB 天花板, 用户两次崩溃已验证; 7-8B Q4 ~6-7.5GB 叠 macOS ~5-7GB 底盘+服务即崩溃区; 14B swap; 32B OOM); **服务本地 + ML 云端 = 场景 A, 绰绰有余** (服务常驻 ~0.5-0.9GB, CPU 亚毫秒, GPU 不用)。
+- **成本** (完全云端): = 固定托管 + per-query API。实测每题 ~15k in / 0.5k out (top_k=15 + 整文件 system prompt 注入); prod 配置 rerank/expansion 关 → 只算嵌入(可忽略)+生成。DeepSeek V4 Pro $0.435/$0.87/1M → **~0.7¢/题**; ~300 题/月 **API ~$2/月**, 主成本是托管 ($5-15/月)。Sonnet ~5.3¢/Opus ~8.8¢/Haiku ~1.8¢ 每题。
+- **决定不租云主机, 用本机 launchd 24/7** (电费 ~$1-2/月, 比云主机还省); 部署方案选 **原生 launchd (非容器)** — 16GB 紧, 容器 VM 白吃内存; 探讨过 Apple `container` (macOS 26 够格但 v1.0.0 太新+不直接吃 compose) / OrbStack (商用授权) / Docker Desktop (锁 4GB)。
+- **前端无需做**: `ui/streamlit_app.py` 现成 (Q&A 聊天 + Dataset Validation 双标签 + sidebar 设置), launchd 起的就是它。
+- **多模型对比设计** (folded 进阶段 2): 检索跑一次 → 3 模型**并行扇出同一 context** → 三栏并排 + 延迟/token/成本 badge; **第 4 模型匿名 (A/B/C) 裁判** → 排名+点评+最佳; **每个模型槽可自定义** (FR7, `.env` 默认 + UI sidebar 覆盖, 本期不固定型号)。`/api/ask_compare` 复用 retrieve/format/build, 仅生成步骤改并行 (asyncio.gather)。
+
+### 产出
+- **`branches/07_rag_kg/sdtm-rag/DEPLOY_PLAN.md`** (草案 v1, 9 段): 背景/目标 · 全局锁定设计 · 多模型对比+裁判需求(FR/NFR/API契约/裁判/UI) · **四阶段执行稿**(0 冒烟 → 1 launchd 本机 → 2 对比开发+定模型 → 3 共享) · 实现拆解 T1-T8 · 验收 · 路线图 · 待确认 · 风险 · 价格表。
+- 全局设计锁定: 服务目录 `~/sdtm-rag-service/` (阶段 3 启用, 与 repo 隔离), kb 复制进去自包含, 索引复用不重建, LaunchAgent, 端口 8000/8501 阶段 0-2 绑 127.0.0.1, deploy.sh 发版。
+
+### 下一步 / 残留
+- 阶段 0 冒烟测试 (不依赖任何开放问题, 全程 localhost 零风险): 查 .env/uv sync/起服务/health check/问一题。
+- 开放问题 (非阻塞, 走到再定): 各模型槽默认值 (全可自定义) / kb 路径 config 变量名 / 阶段 3 登录门 + 自动登录 vs LaunchDaemon。
+- 用户将开**新 session 继续** (路由词: 「读 DEPLOY_PLAN.md 继续本地部署」或「RAG 本地部署 阶段0」)。
