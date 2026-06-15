@@ -37,7 +37,7 @@
 | 密钥 | 服务目录内 `.env`,`chmod 600`,不进 git | 权限最小 |
 | 启动方式 | **LaunchAgent**(阶段 3 加自动登录) | 全程用户空间,不碰 root,最省心 |
 | 端口/绑定 | API `8000` / UI `8501`;**阶段 0–2 绑 `127.0.0.1`**,阶段 3 才 `0.0.0.0` | 调优期 = 私人沙盒,零暴露 |
-| 主力模型 | **默认先 Sonnet;阶段 2 用 eval + 对比定夺** | 近满分标准,数据说话不拍脑袋 |
+| 主力模型 | **默认 DeepSeek V4 Pro**(Anthropic credits 耗尽;用户 2026-06-15 定先用 DeepSeek);阶段 2 用 eval+对比再定是否充值上 Sonnet | 近满分标准,数据说话不拍脑袋 |
 | Python 环境 | 服务目录内独立 `.venv`(`uv sync`) | 与 repo 互不干扰 |
 | 发版动作 | `deploy.sh`(rsync repo→服务目录) | 有意识发版,不边改边漏 |
 
@@ -118,19 +118,21 @@ question
 
 ### 阶段 0 — 冒烟测试(repo 原地 · 手动 · localhost)
 目标:先证明端到端能跑,最便宜地挖坑。
-- [ ] 我:查 `.env`(OpenAI key + 生成 key 齐否,不打印密钥)
-- [ ] 我:`uv sync`;确认 `data/chroma` 索引在(4146 chunks)
-- [ ] 我:手动起 api(`uvicorn … --host 127.0.0.1 --port 8000`)+ ui(`streamlit … --server.address 127.0.0.1`)
-- [ ] 我:`curl /api/health`、`/api/info`
-- [ ] 你:补缺的 API key;开 `localhost:8501` 问一题 + 试一次 Validation
-- **验收**:health OK、info 显示 4146 chunks、问答有合理答案+引用。**坏了在这修。**
+- [x] 我:查 `.env`(4 key 全 SET:ANTHROPIC/DEEPSEEK/OPENAI/COHERE,值未打印)— 2026-06-15
+- [x] 我:`uv sync` 完成;`data/chroma` 索引确认 **4146 chunks**(ingested marker `total_chunks=4146`, `text-embedding-3-small`, 1536d)
+- [x] 我:手动起 api(`uv run uvicorn server.main:app --host 127.0.0.1 --port 8000`)+ ui(`streamlit … --server.address 127.0.0.1 --server.port 8501 --server.headless true`);日志落 `logs/api_smoke.log` / `logs/ui_smoke.log`
+- [x] 我:`curl /api/health` = `{"status":"ok"}`;`/api/info` = 4146 chunks + structured_lookup/hybrid(rrf)/guardrail 全 ON
+- [x] 我(代跑端到端冒烟):`POST /api/ask`「AE/AETERM」答案接地正确(15 sources, AE/spec.md + assumptions.md),`model_used=deepseek-v4-pro` — **实测 Anthropic credits 耗尽→DeepSeek 自动回退**生效
+- [ ] 你:开 `localhost:8501` 在浏览器问一题 + 试一次 Validation(key 已全齐,无需补)
+- **验收**:health OK ✅、info 显示 4146 chunks ✅、问答有合理答案+引用 ✅(API 侧已证;UI 侧待你浏览器确认)。**坏了在这修。**
 
 ### 阶段 1 — 本机常驻(launchd · 仍 localhost)
 目标:不用手动开;崩了自起、开机自启;仍只你能访问。
-- [ ] 我:写 2 个 LaunchAgent plist(`com.sdtmrag.api/ui`,绑 127.0.0.1,RunAtLoad+KeepAlive,日志落 `logs/`,WorkingDirectory 让 `.env` 自动加载,绝对 `uv` 路径)
-- [ ] 我:`launchctl` 加载
-- [ ] 你:按提示确认;(可选)重启电脑验证自恢复
-- **验收**:kill 掉某进程→自起;(可选)重启→自恢复;`localhost:8501` 正常。
+- [x] 我:写 2 个 LaunchAgent plist(`~/Library/LaunchAgents/com.sdtmrag.{api,ui}.plist`,绑 127.0.0.1,RunAtLoad+KeepAlive+ThrottleInterval 10,日志落 `logs/{api,ui}.launchd.log`,WorkingDirectory=sdtm-rag)— **直连 `.venv/bin/{uvicorn,streamlit}`,不走 `uv run`**:uv run 是父(uv)+子(server)两进程,launchd 只盯父进程,子进程崩了不会重启;直连后 launchd 直接盯真服务(PPID=1),崩溃即自起 — 2026-06-15
+- [x] 我:`launchctl bootstrap gui/$(id -u)` 加载(坑:bootout 异步,需轮询确认卸载完 + 重试 bootstrap,否则 `Bootstrap failed: 5: I/O error`)
+- [x] 我:默认模型切 DeepSeek(`.env` `SDTM_RAG_DEFAULT_MODEL=deepseek/deepseek-v4-pro`,主力+自重试 fallback)
+- [ ] 你:(可选)重启电脑或重新登录验证自恢复(LaunchAgent = **登录时**自起;无人值守的开机自启属阶段 3 自动登录)
+- **验收**:health OK ✅、`/api/info` default=deepseek + 4146 chunks ✅、kill 监听进程→launchd 自起(70991→71267 实证)✅、`localhost:8501` ok ✅。
 
 ### 阶段 2 — 调优 + 多模型对比/裁判开发(仍 localhost)★核心
 目标:私有状态下打磨到满意,并**用数据定主力模型**。

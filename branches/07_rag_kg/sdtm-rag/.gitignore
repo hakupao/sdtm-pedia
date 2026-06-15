@@ -8,6 +8,9 @@ data/chroma/
 data/chroma_backup_*/
 data/uploads/
 
+# Runtime logs (manual smoke + launchd stdout/stderr)
+logs/
+
 # Python
 __pycache__/
 *.py[cod]

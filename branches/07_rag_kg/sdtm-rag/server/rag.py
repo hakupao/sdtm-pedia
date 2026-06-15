@@ -156,6 +156,13 @@ class RAGEngine:
         return (
             "You are an SDTM (Study Data Tabulation Model) knowledge base assistant.\n"
             "Answer questions based on the CDISC SDTMIG v3.4 knowledge base.\n\n"
+            "**Respond in the same language as the user's question** (a Chinese "
+            "question gets a Chinese answer; an English question gets an English "
+            "answer). Regardless of the response language, ALWAYS keep SDTM "
+            "identifiers verbatim in their original English source form and never "
+            "translate them: domain codes, variable names (e.g. AETERM), codelist "
+            "codes (e.g. C66742), controlled-terminology values, and Type/Role/Core "
+            "field values. Keep citations **[Source: path]** verbatim.\n\n"
             f"{rules}\n"
             "---\n\n"
             "## Routing Guide\n\n"

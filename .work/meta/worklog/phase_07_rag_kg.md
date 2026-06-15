@@ -192,3 +192,39 @@
 - 阶段 0 冒烟测试 (不依赖任何开放问题, 全程 localhost 零风险): 查 .env/uv sync/起服务/health check/问一题。
 - 开放问题 (非阻塞, 走到再定): 各模型槽默认值 (全可自定义) / kb 路径 config 变量名 / 阶段 3 登录门 + 自动登录 vs LaunchDaemon。
 - 用户将开**新 session 继续** (路由词: 「读 DEPLOY_PLAN.md 继续本地部署」或「RAG 本地部署 阶段0」)。
+
+---
+
+## 2026-06-15 (续 4) 本地部署 阶段0 冒烟 + 阶段1 launchd 常驻 + 主力切 DeepSeek + 中文回答 + KG 路径定
+
+> 用户:「先做 kg 还是先部署」→ 调研后定「先部署冒烟, 再建 meta.yaml」;「先用 DeepSeek 当主力, 进阶段1」。本 session 执行 DEPLOY_PLAN 阶段 0+1, **未跑 eval**。
+
+### KG 决策 (4-agent 证据调研)
+- 用户问「当年为什么关 KG, 开 KG 不是能增加检索精度吗」。4-agent Workflow (关闭理由/测试集覆盖/KG 能力/反方论证):
+  - **当年只关「KG 当检索杠杆」**: gate = cross 召回 <50% 才建; 路由把 cross 拉到 99% → gate 永不满足 → 关。**从没建过/测过** (纯推理推导; T1 证 cross 是排名问题非关系缺失)。
+  - **开 KG 不提检索精度**: 检索已 99%; `knowledge_base/VARIABLE_INDEX.md` 已把图遍历 (哪些域含变量 X / codelist 分组) 预 materialize 成平铺文本。
+  - **KG 真价值在评测从没测的地方**: 多跳/计数/穷举 (q103「43」q104「36」今天答错) + 影响/级联分析 + 替换 `structured_lookup.py` 脆弱正则「影子 KG」(故意丢多归属变量 USUBJID/POOLID)。fact 仍 93.9% 非 ~100%, 部分残留是结构化层可补的枚举型。closure 自己写明 KG 产品价值仍开口。
+- **选定路径** (用户定): deploy → **meta.yaml 结构化层** (便宜/立刻修计数穷举/q126/Neo4j 硬前置) → 可选 Neo4j。memory `project_kg_decision.md`。
+
+### 阶段 0 冒烟 (PASS)
+- 4 API key 齐 (ANTHROPIC/DEEPSEEK/OPENAI/COHERE, 值未打印); `uv sync` 完成 (补 bm25s 进 lock); chroma **4146 chunks** 确认。
+- 端到端 `/api/ask`「AE/AETERM」答案接地正确 (15 sources, AE/spec.md+assumptions.md), `/info` = 4146 + structured_lookup/hybrid/guardrail 全 ON; `model_used=deepseek-v4-pro` = Anthropic credits 耗尽 DeepSeek 回退实证。
+
+### 中文回答修复
+- 根因: `server/rag.py` `_build_system_prompt` 整段英文 + 无语言规则 + 英文 context → 默认英文 (非 bug)。
+- 修: 系统提示头部加「**回答跟随提问语言**; SDTM 标识符 (域码/变量名/码/CT 值/Type·Role·Core) + `[Source:]` 引用一律保留英文原文」(用户选「匹配提问语言」)。无测试断言系统提示内容。
+- 实测: 中文问「DM/USUBJID」→ 中文答 + USUBJID/Char/Req 英文标识符保留 + 引用保留。
+
+### 主力模型切 DeepSeek
+- 用户「先用 DeepSeek 当主力」(Anthropic credits 耗尽; 原 default=Sonnet 每次先失败再回退 = 浪费一跳)。`.env` `SDTM_RAG_DEFAULT_MODEL=deepseek/deepseek-v4-pro` (fallback 也 deepseek = 主力+自重试); /info 确认。**API 走 Anthropic/DeepSeek 官方 API 按量付费, 接不到 Claude Code 订阅 plan**。DEPLOY_PLAN §1 主力模型行更新; 阶段 2 用 eval+对比再定是否充值上 Sonnet。
+
+### 阶段 1 launchd 常驻 (验收全过)
+- 2 个 LaunchAgent `~/Library/LaunchAgents/com.sdtmrag.{api,ui}.plist`: 绑 127.0.0.1, RunAtLoad+KeepAlive+ThrottleInterval 10, WorkingDirectory=sdtm-rag, 日志 `logs/{api,ui}.launchd.log`。
+- **关键修正: 直连 `.venv/bin/{uvicorn,streamlit}` 不走 `uv run`**。uv run 时杀 uvicorn worker 子进程 ~30s 才恢复 (uv 父+server 子两进程, launchd 只盯父进程, 子崩父不退); 改直连后 launchd 直接盯真服务 (PPID=1), 杀监听进程即重启。venv 二进制 shebang 指 venv python + 包 editable 装 (`import server.main` ok, 不依赖 cwd)。
+- **坑**: `launchctl bootout` 异步, 紧接 bootstrap → `Bootstrap failed: 5: I/O error`; 解 = bootout 后轮询确认卸载完 + bootstrap 带重试。
+- **验收**: health ok / `/api/info` default=deepseek + 4146 chunks / **KeepAlive 实测 kill 监听进程 70991→自起 71267** / UI `_stcore/health` ok / 两端口 127.0.0.1 监听。LaunchAgent = **登录时**自起 (无人值守开机自启属阶段 3 自动登录/LaunchDaemon)。
+
+### 产物 / 残留
+- 改: `server/rag.py` (+语言规则) / `.env` (default→deepseek, gitignored) / `DEPLOY_PLAN.md` (阶段0+1 勾 + §1) / `uv.lock` (+bm25s) / `~/Library/LaunchAgents/*.plist` (repo 外) / `logs/` gitignore。
+- 下一步 = **阶段 2** (核心): `/api/ask_compare` 一题 3 模型并行 + 第 4 模型匿名裁判 + Streamlit 三栏 UI + eval 跑 DeepSeek vs Sonnet 定主力 (T1-T7, 按 Tier 2 开发/审阅分离)。
+- 可选: 用户重启/重登录验 launchd 自恢复; plist 另存模板进 repo (阶段 3 deploy.sh)。
