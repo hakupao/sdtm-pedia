@@ -1,0 +1,279 @@
+{
+  "q02": {
+    "category": "single_domain",
+    "question": "What are the required (Core=Req) variables in the DM domain?",
+    "fact_off": 0.8571,
+    "fact_on": 0.5714,
+    "newly_missed": [
+      "SITEID",
+      "COUNTRY"
+    ],
+    "off_top5_sources": [
+      "domains/DM/assumptions.md",
+      "chapters/ch04_general_assumptions.md",
+      "chapters/ch04_general_assumptions.md",
+      "model/01_concepts_and_terms.md",
+      "domains/TM/spec.md"
+    ],
+    "on_top5_sources": [
+      "domains/DM/spec.md",
+      "domains/DM/spec.md",
+      "domains/DM/spec.md",
+      "domains/DM/spec.md",
+      "chapters/ch04_general_assumptions.md"
+    ],
+    "off_answer": "Based on the DM domain specification, the required (Core=Req) variables in the DM domain are:\n\n| Variable | Label | Type | Role |\n|----------|-------|------|------|\n| STUDYID | Study Identifier | Char | Identifier |\n| DOMAIN | Domain Abbreviation | Char | Identifier |\n| USUBJID | Unique Subject Identifier | Char | Identifier |\n| SUBJID | Subject Identifier for the Study | Char | Topic |\n| SITEID | Study Site Identifier | Char | Record Qualifier |\n| RFSTDTC | Subject Reference Start Date/Time | Char | Timing |\n| RFENDTC | Subject Reference End Date/Time | Char | Timing |\n| ARMCD | Planned Arm Code | Char | Record Qualifier |\n| ARM | Description of Planned Arm | Char | Synonym Qualifier |\n| ACTARMCD | Actual Arm Code | Char | Record Qualifier |\n| ACTARM | Description of Actual Arm | Char | Synonym Qualifier |\n| COUNTRY | Country | Char | Record Qualifier |\n| DMDTC | Date/Time of Collection | Char | Timing |\n| DMDY | Study Day of Collection | Num | Timing |\n\n**[Source: domains/DM/spec.md]**\n\n**Key notes:**\n- Required variables must always be included in the dataset and cannot be null for any record **[Source: chapters/ch04_general_assumptions.md §4.1.5]**\n- The DOMAIN variable is a two-character abbreviation for the domain, which must be \"DM\" **[Source: domains/DM/spec.md — DOMAIN]**\n- DM is a special-purpose domain that serves as the parent domain for all other observations for human clinical subjects **[Source: domains/DM/assumptions.md — overview]**\n- Unlike most other domains, DM variables (other than DMDTC and DMDY) are not prefixed with the domain identifier **[Source: chapters/ch04_general_assumptions.md §4.2.2]**",
+    "on_answer": "Based on the DM domain specification, the required (Core=Req) variables in the DM domain are:\n\nFrom the DM spec.md file, the following variables are identified as Required:\n\n1. **STUDYID** - Study Identifier (Identifier, Req)\n2. **DOMAIN** - Domain Abbreviation (Identifier, Req) — Two-character abbreviation for the domain [Source: domains/DM/spec.md]\n3. **USUBJID** - Unique Subject Identifier (Identifier, Req)\n\nThese three Required Identifiers are explicitly noted as exceptions to the domain-prefix naming convention, as they are \"usually used as keys when merging/joining observations\" [Source: chapters/ch04_general_assumptions.md §4.2.2].\n\nThe DM domain is described as \"a special-purpose domain that includes a set of essential standard variables that describe each subject in a clinical study\" and serves as \"the parent domain for all other observations for human clinical subjects\" [Source: domains/DM/assumptions.md].\n\n**Note:** The DM domain specification table itself (spec.md) lists all variables with their Core designations. The Required variables (STUDYID, DOMAIN, USUBJID) must always be included in the dataset and cannot be null for any record, per the Core designation rules [Source: chapters/ch04_general_assumptions.md §4.1.5]."
+  },
+  "q57": {
+    "category": "single_domain",
+    "question": "What is the PR (Procedures) domain used for, and what is the PRTRT topic variable along with its Core designation?",
+    "fact_off": 1.0,
+    "fact_on": 0.75,
+    "newly_missed": [
+      "Interventions"
+    ],
+    "off_top5_sources": [
+      "domains/PR/spec.md",
+      "VARIABLE_INDEX.md",
+      "domains/PR/spec.md",
+      "domains/PR/spec.md",
+      "domains/PR/assumptions.md"
+    ],
+    "on_top5_sources": [
+      "domains/PR/spec.md",
+      "domains/PR/spec.md",
+      "domains/PR/spec.md",
+      "domains/PR/spec.md",
+      "domains/PR/examples.md"
+    ],
+    "off_answer": "## PR (Procedures) Domain — Purpose and PRTRT Variable\n\n### Domain Purpose\n\nThe PR (Procedures) domain is used to represent **all collected procedures** performed on a subject during a study, regardless of the extent of physiological effect or whether the effect is observable or microscopic. It is based on the **Interventions observation class**.\n\nExamples of procedures include:\n- Disease screening (e.g., mammogram, pap smear)\n- Endoscopic examinations (e.g., arthroscopy, colonoscopy, laparoscopy)\n- Diagnostic tests (e.g., biopsy, catheterization, CT scan, MRI, pulmonary function test)\n- Therapeutic procedures (e.g., ablation therapy, mechanical ventilation, radiation therapy)\n- Surgical procedures (e.g., curative surgery, resection, stenting, implantation)\n\n**[Source: domains/PR/assumptions.md — item_1]**\n\n> **Important note:** Measurements obtained from procedures are represented in their respective **Findings** domains, not in PR. For example, a biopsy procedure is recorded in PR, while the histopathology findings from that biopsy are recorded in the Microscopic Findings (MI) domain. Relationships between PR and other domain records can be documented using RELREC.\n\n**[Source: domains/PR/assumptions.md — item_1]**\n\n---\n\n### PRTRT — Reported Name of Procedure\n\n| Attribute | Value |\n|-----------|-------|\n| **Label** | Reported Name of Procedure |\n| **Type** | Char |\n| **Role** | Topic |\n| **Core** | **Req** (Required) |\n| **Controlled Terms** | (None — free text) |\n| **CDISC Notes** | Name of procedure performed, either preprinted or collected on a CRF. |\n\n**[Source: domains/PR/spec.md — PRTRT]**\n\n**Key points about PRTRT:**\n- It is the **Topic variable** for the PR domain, meaning it identifies the fundamental concept being recorded (the procedure itself).\n- It has a **Core of \"Req\"** (Required), meaning it must always be populated for every record in the PR domain.\n- It accepts **free text** (verbatim values as collected on the CRF), with no controlled terminology codelist applied.\n- The standardized/dictionary-derived version of the procedure name is stored in **PRDECOD** (Core: Perm), which references codelist C101858 (PROCEDUR).\n\n**[Source: domains/PR/spec.md — PRTRT; domains/PR/spec.md — PRDECOD]**",
+    "on_answer": "Based on the retrieved context, the PR (Procedures) domain is used to represent all collected procedures performed on a subject, regardless of the extent of physiological effect or whether the effect is observable or microscopic. This includes disease screening, endoscopic examinations, diagnostic tests, therapeutic procedures, and surgical procedures. Measurements obtained from procedures are represented in their respective Findings domains (e.g., biopsy details in PR, histopathology findings in MI) **[Source: domains/PR/assumptions.md — item_1]**.\n\nThe PRTRT variable is defined as follows:\n\n- **Label:** Reported Name of Procedure\n- **Type:** Char\n- **Controlled Terms:** (none)\n- **Role:** Topic\n- **Core:** Req\n- **CDISC Notes:** Name of procedure performed, either preprinted or collected on a CRF.\n\n**[Source: domains/PR/spec.md — PRTRT]**"
+  },
+  "q66": {
+    "category": "cross_domain",
+    "question": "Which SDTM domains include the VISITNUM timing variable?",
+    "fact_off": 0.75,
+    "fact_on": 0.5,
+    "newly_missed": [
+      "VS"
+    ],
+    "off_top5_sources": [
+      "domains/SU/assumptions.md",
+      "chapters/ch04_general_assumptions.md",
+      "domains/EX/assumptions.md",
+      "domains/AG/spec.md",
+      "domains/FA/spec.md"
+    ],
+    "on_top5_sources": [
+      "VARIABLE_INDEX.md",
+      "domains/EX/assumptions.md",
+      "chapters/ch04_general_assumptions.md",
+      "domains/SU/assumptions.md",
+      "model/01_concepts_and_terms.md"
+    ],
+    "off_answer": "Based on the provided context, I can confirm that **VISITNUM** is a timing variable that can be included in SDTM domains, but the context does not provide a comprehensive list of all domains that include it.\n\nThe context shows that **VISITNUM** is referenced in the following domain-specific assumptions:\n\n1. **SU (Substance Use)** — \"If substance use information is collected more than once within the CRF (indicating that the data are visit-based) then VISITNUM would be added to the domain as an additional timing variable.\" **[Source: domains/SU/assumptions.md]**\n\n2. **EX (Exposure)** — \"If the subject is only exposed to study medication within a clinical encounter (e.g., if an injection is administered at the clinic), VISITNUM may be added to the domain as an additional timing variable.\" **[Source: domains/EX/assumptions.md]**\n\nAdditionally, the general assumptions in **Chapter 4** state that for planned visits, \"values of VISIT, VISITNUM, and VISITDY must be those defined in the Trial Visits (TV) dataset\" and that \"VISITNUM should generally be populated, even for unplanned visits, as it is expected in many Findings domains.\" **[Source: chapters/ch04_general_assumptions.md]**\n\n**Limitation:** The retrieved context only includes the **VISIT** variable specifications (not VISITNUM) for several domains (AG, FA, IE, CV, MI, NV, LB, SR, RE, PC, VS, PE). To determine which specific domains include VISITNUM in their variable specification tables, you would need to consult the individual domain spec.md files for VISITNUM directly, or refer to the VARIABLE_INDEX.md for a complete cross-reference.",
+    "on_answer": "Based on the knowledge base, the VISITNUM variable is not explicitly listed in the domain specification tables for most domains. However, the following information is available:\n\n**VISITNUM is a commonly used timing variable** that appears in many SDTM domains, but it is not always listed in the domain specification tables because it is a **commonly used grouping and merge key** that is an exception to the domain-prefix naming convention.\n\nFrom the general assumptions:\n\n> \"Commonly used grouping and merge keys (e.g., VISIT, VISITNUM, VISITDY)\" are exceptions to the domain-prefix philosophy. **[Source: chapters/ch04_general_assumptions.md §4.2.2]**\n\n**Domains where VISITNUM is explicitly mentioned as permissible or expected:**\n\n1. **EX (Exposure)** — VISITNUM may be added if exposure occurs within a clinical encounter (e.g., injection at clinic), but not for home dosing. **[Source: domains/EX/assumptions.md §4a]**\n\n2. **SU (Substance Use)** — VISITNUM would be added if substance use information is collected more than once within the CRF (visit-based data). **[Source: domains/SU/assumptions.md §4b]**\n\n3. **LB (Laboratory Test Results)** — Example shows VISITNUM used with values like 2, 3, 3.1. **[Source: chapters/ch04_general_assumptions.md §4.4.5]**\n\n**General rule for all Findings domains:**\n> \"In the Findings observation class, where data are usually collected at multiple visits, at least 1 timing variable must be used.\" **[Source: chapters/ch04_general_assumptions.md §4.4.5]**\n\n**For planned visits:**\n> \"VISITNUM: numeric, used for sorting; values should wherever possible match the planned chronological order of visits.\" **[Source: chapters/ch04_general_assumptions.md §4.4.5]**\n\n**For unplanned visits:**\n> \"VISITNUM should generally be populated, even for unplanned visits, as it is expected in many Findings domains.\" **[Source: chapters/ch04_general_assumptions.md §4.4.5]**\n\n**Conclusion:** VISITNUM is expected in **most Findings domains** and is permissible in **Events and Interventions domains** when data are visit-based. The knowledge base does not provide an exhaustive list of every domain that includes VISITNUM, but based on the general assumptions, it would be appropriate in virtually all domains that collect data at clinical encounters (planned or unplanned visits)."
+  },
+  "q78": {
+    "category": "concept",
+    "question": "What are the rules for values of --TESTCD variables in SDTM? Describe the maximum length and which characters are allowed.",
+    "fact_off": 1.0,
+    "fact_on": 0.6667,
+    "newly_missed": [
+      "letters, numbers, or underscores"
+    ],
+    "off_top5_sources": [
+      "chapters/ch04_general_assumptions.md",
+      "chapters/ch04_general_assumptions.md",
+      "domains/SR/spec.md",
+      "domains/CV/spec.md",
+      "domains/DD/spec.md"
+    ],
+    "on_top5_sources": [
+      "chapters/ch04_general_assumptions.md",
+      "chapters/ch04_general_assumptions.md",
+      "chapters/ch04_general_assumptions.md",
+      "domains/QS/assumptions.md",
+      "domains/FT/assumptions.md"
+    ],
+    "off_answer": "Based on the SDTMIG v3.4 knowledge base, the rules for `--TESTCD` variables are as follows:\n\n**Maximum Length:** Values of `--TESTCD` must be limited to **8 characters**. **[Source: chapters/ch04_general_assumptions.md §4.2.1]**\n\n**Allowed Characters:** Values cannot start with a number, nor can they contain characters other than **letters, numbers, or underscores**. **[Source: chapters/ch04_general_assumptions.md §4.2.1]**\n\nThis restriction is to avoid possible incompatibility with SAS v5 transport files, where `--TESTCD` values may be used as column names when converting a dataset from a vertical to a horizontal format. **[Source: chapters/ch04_general_assumptions.md §4.2.1; domains/SR/spec.md §SRTESTCD]**\n\nThese rules are consistently applied across all Findings domains. For example:\n- `VSTESTCD` (Vital Signs) has a controlled terms codelist C66741 with examples like \"SYSBP\", \"DIABP\" **[Source: domains/VS/spec.md §VSTESTCD]**\n- `SRTESTCD` (Skin Response) has controlled terms codelist C112024 **[Source: domains/SR/spec.md §SRTESTCD]**\n- `CVTESTCD` (Cardiovascular) has controlled terms codelist C101847 **[Source: domains/CV/spec.md §CVTESTCD]**\n\n**Note:** Other \"CD\" variables (e.g., `ETCD`, `TSPARMCD`, `ARMCD`, `ACTARMCD`) are **not** subject to the same character restrictions as `--TESTCD`, though they may have their own length limitations. **[Source: chapters/ch04_general_assumptions.md §4.2.1]**",
+    "on_answer": "Based on the SDTMIG v3.4 knowledge base, the rules for `--TESTCD` variables are as follows:\n\n**Maximum Length:** 8 characters.\n\n**Allowed Characters:** Only letters, numbers, and underscores. The value cannot start with a number.\n\n**Source:** [chapters/ch04_general_assumptions.md -- 4.2.1 Variable-Naming Conventions]\n\nThis restriction is explicitly stated in the CDISC Notes for multiple domain-specific `--TESTCD` variables, including:\n- `SRTESTCD` (Skin Response) [domains/SR/spec.md]\n- `CVTESTCD` (Cardiovascular) [domains/CV/spec.md]\n- `DDTESTCD` (Death Details) [domains/DD/spec.md]\n- `MSTESTCD` (Microbiology Susceptibility) [domains/MS/spec.md]\n- `FTTESTCD` (Functional Tests) [domains/FT/spec.md]\n- `SCTESTCD` (Subject Characteristics) [domains/SC/spec.md]\n\nThe purpose of these restrictions is to ensure compatibility with SAS v5 transport files, where `--TESTCD` values may be used as column names when converting a dataset from a vertical to a horizontal format. [chapters/ch04_general_assumptions.md -- 4.2.1 Variable-Naming Conventions]\n\n**Note:** These restrictions apply specifically to `--TESTCD` variables. Other \"CD\" variables (e.g., `ARMCD`, `ACTARMCD`, `ETCD`, `TSPARMCD`) are **not** subject to the same character restrictions, though they may have different length limits (e.g., `ARMCD` is limited to 20 characters). [chapters/ch04_general_assumptions.md -- 4.2.1 Variable-Naming Conventions]"
+  },
+  "q81": {
+    "category": "concept",
+    "question": "What rules govern the two-character DOMAIN code in SDTM? What characters are allowed for the first and second characters?",
+    "fact_off": 1.0,
+    "fact_on": 0.6667,
+    "newly_missed": [
+      "2-character"
+    ],
+    "off_top5_sources": [
+      "chapters/ch04_general_assumptions.md",
+      "domains/TM/spec.md",
+      "domains/DA/spec.md",
+      "domains/DD/spec.md",
+      "domains/EX/spec.md"
+    ],
+    "on_top5_sources": [
+      "chapters/ch04_general_assumptions.md",
+      "domains/TM/spec.md",
+      "chapters/ch04_general_assumptions.md",
+      "domains/DA/spec.md",
+      "chapters/ch04_general_assumptions.md"
+    ],
+    "off_answer": "Based on the retrieved context, the rules governing the two-character DOMAIN code in SDTM are as follows:\n\nThe two-character domain identifier (DOMAIN) is used as a prefix in most variable names to minimize risk when merging/joining domains for reporting purposes. When adding variables from the SDTM to standard domains or creating custom domains based on the general observation classes, sponsors must replace the \"--\" prefix in the SDTM tables of General Observation Class, Timing, and Identifier variables with the 2-character domain identifier value for that domain/dataset. **[Source: chapters/ch04_general_assumptions.md]**\n\n**Allowed characters:**\n- **First character:** Limited to A-Z (letters only)\n- **Second character:** Limited to A-Z or 0-9 (letters or digits)\n\nNo other characters are allowed. This restriction is for compatibility with SAS v5 transport files and with file naming requirements as part of the Electronic Common Technical Document (eCTD). **[Source: chapters/ch04_general_assumptions.md]**\n\n**Exceptions to the prefix rule:**\nThe following variables are exceptions to the philosophy that all variable names are prefixed with the domain identifier:\n- Required Identifiers (STUDYID, DOMAIN, USUBJID)\n- Commonly used grouping and merge keys (e.g., VISIT, VISITNUM, VISITDY)\n- All Demographics (DM) domain variables other than DMDTC and DMDY\n- All variables in RELREC and SUPPQUAL, and some variables in the Comments and Trial Design datasets\n\nRequired identifiers are not prefixed because they are usually used as keys when merging/joining observations. The --SEQ and the optional Identifiers --GRPID and --REFID are prefixed because they may be used as keys when relating observations across domains. **[Source: chapters/ch04_general_assumptions.md]**\n\n**DOMAIN variable definition:**\n- **Label:** Domain Abbreviation\n- **Type:** Char\n- **Role:** Identifier\n- **Core:** Req\n- **CDISC Notes:** Two-character abbreviation for the domain. **[Source: domains/TM/spec.md, domains/DA/spec.md, domains/DD/spec.md, domains/EX/spec.md, domains/FT/spec.md, domains/DV/spec.md, domains/EC/spec.md, domains/MI/spec.md, domains/OI/spec.md, domains/PP/spec.md, domains/RS/spec.md, domains/SC/spec.md, domains/SR/spec.md, domains/TA/spec.md]**",
+    "on_answer": "Based on the retrieved context, the rules governing the two-character DOMAIN code in SDTM are as follows:\n\nThe two-character domain code is used as a prefix for most variable names in a domain dataset to minimize the risk of difficulty when merging/joining domains for reporting purposes. The DOMAIN variable itself is a required Identifier variable in every domain dataset.\n\n**Allowed characters:**\n- **First character:** Limited to A-Z (letters only)\n- **Second character:** Limited to A-Z or 0-9 (letters or digits)\n\nNo other characters are allowed. This restriction is for compatibility with SAS v5 transport files and with file naming requirements as part of the Electronic Common Technical Document (eCTD).\n\n**Exceptions to the prefix rule:** The following variables are **not** prefixed with the domain identifier:\n- Required Identifiers (STUDYID, DOMAIN, USUBJID)\n- Commonly used grouping and merge keys (e.g., VISIT, VISITNUM, VISITDY)\n- All Demographics (DM) domain variables other than DMDTC and DMDY\n- All variables in RELREC and SUPPQUAL, and some variables in the Comments and Trial Design datasets\n\n**[Source: chapters/ch04_general_assumptions.md -- 4.2.2 Two-character Domain Identifier]**"
+  },
+  "q93": {
+    "category": "mixed",
+    "question": "In the EX domain, what is the EXDOSFRM (Dose Form) variable and its controlled terminology codelist code, and give some dose-form values from that codelist (for example a solid oral shell form or a sterile parenteral form)?",
+    "fact_off": 1.0,
+    "fact_on": 0.75,
+    "newly_missed": [
+      "INJECTION"
+    ],
+    "off_top5_sources": [
+      "domains/EX/spec.md",
+      "domains/EX/spec.md",
+      "domains/EC/spec.md",
+      "domains/EX/spec.md",
+      "domains/EX/spec.md"
+    ],
+    "on_top5_sources": [
+      "domains/EX/spec.md",
+      "terminology/core/interventions.md",
+      "domains/EC/spec.md",
+      "domains/CM/spec.md",
+      "domains/ML/spec.md"
+    ],
+    "off_answer": "Based on the retrieved context, here is the definition and controlled terminology for the EXDOSFRM variable in the EX domain:\n\n**EXDOSFRM (Dose Form)**\n- **Label:** Dose Form\n- **Type:** Char\n- **Controlled Terms:** C66726\n- **Role:** Variable Qualifier\n- **Core:** Exp (Expected)\n- **CDISC Notes:** Dose form for EXTRT. Examples: \"TABLET\", \"LOTION\". **[Source: domains/EX/spec.md -- EXDOSFRM]**\n\nThe controlled terminology codelist code is **C66726** (Pharmaceutical Dosage Form). **[Source: domains/EX/spec.md -- Controlled Terminology]**\n\nThe context does not provide the full list of values for codelist C66726. However, based on the CDISC Notes and standard pharmaceutical dosage forms, examples of values from this codelist would include:\n- **Solid oral shell form:** \"CAPSULE\" or \"TABLET\"\n- **Sterile parenteral form:** \"INJECTION\" or \"SOLUTION\"",
+    "on_answer": "Based on the retrieved context, here is the definition and controlled terminology for the EXDOSFRM variable in the EX domain:\n\n**Variable Definition:**\n- **Label:** Dose Form\n- **Type:** Char\n- **Controlled Terms:** C66726\n- **Role:** Variable Qualifier\n- **Core:** Exp (Expected)\n- **CDISC Notes:** Dose form for EXTRT. Examples: \"TABLET\", \"LOTION\".\n\n**[Source: domains/EX/spec.md -- EXDOSFRM]**\n\n**Controlled Terminology (C66726):**\nThe codelist is named **Pharmaceutical Dosage Form** and is extensible (Yes). **[Source: terminology/core/interventions.md -- Pharmaceutical Dosage Form (C66726)]**\n\nFrom this codelist, examples of dose-form values include:\n\n- **Solid oral shell form:** `CAPSULE` (CDISC Submission Value) — \"A solid pharmaceutical dosage form that contains medicinal agent within either a hard or soft soluble container or shell, usually used for the oral administration of medicine.\" (Code C25158) **[Source: terminology/core/interventions.md]**\n- **Sterile parenteral form:** `INJECTABLE` (CDISC Submission Value) — While not explicitly listed in the truncated excerpt, the SU domain spec notes `\"INJECTABLE\"` as an example for SUDOSFRM which uses the same codelist (C66726). **[Source: domains/SU/spec.md -- SUDOSFRM]**\n- **Other examples from the codelist include:** `AEROSOL`, `CAPLET`, `TABLET`, `POWDER`, `LIQUID`. **[Source: terminology/core/interventions.md]**"
+  },
+  "q114": {
+    "category": "cross_domain",
+    "question": "If I use RELREC to relate two entire datasets rather than individual records, how should I populate RELTYPE, what happens to USUBJID and IDVARVAL, and is it acceptable to use --SEQ as the join key?",
+    "fact_off": 1.0,
+    "fact_on": 0.3333,
+    "newly_missed": [
+      "USUBJID and IDVARVAL are null",
+      "--SEQ cannot be used"
+    ],
+    "off_top5_sources": [
+      "domains/RELREC/assumptions.md",
+      "domains/RELREC/examples.md",
+      "chapters/ch08_relationships.md",
+      "model/06_relationship_datasets.md",
+      "chapters/ch08_relationships.md"
+    ],
+    "on_top5_sources": [
+      "VARIABLE_INDEX.md",
+      "domains/RELREC/spec.md",
+      "domains/RELREC/assumptions.md",
+      "domains/RELREC/examples.md",
+      "chapters/ch08_relationships.md"
+    ],
+    "off_answer": "Based on the SDTMIG v3.4 knowledge base, here is how to populate RELREC when relating two entire datasets:\n\n## RELTYPE\n\nWhen relating datasets, RELTYPE identifies the hierarchical relationship type. The allowable values are **ONE** and **MANY** (controlled terminology codelist C78737). The possible combinations are:\n\n1. **ONE and ONE** — No hierarchical relationship; only 1 record from each dataset will potentially have the same IDVAR value within USUBJID.\n2. **ONE and MANY** — A hierarchical (parent-child) relationship exists. One record in the \"ONE\" dataset may relate to many records in the \"MANY\" dataset.\n3. **MANY and MANY** — Unusual and challenging to manage in a merge/join; may represent a relationship not intended to convey a usable merge/join.\n\n**[Source: chapters/ch08_relationships.md §8.3.1]**\n\n## USUBJID and IDVARVAL\n\nFor dataset-to-dataset relationships, **USUBJID and IDVARVAL must be null (empty)**. This is explicitly stated in the examples:\n\n> \"Note that because this is a dataset-to-dataset relationship, USUBJID and IDVARVAL are null.\"\n\n**[Source: domains/RELREC/examples.md — Dataset Relationship Example; chapters/ch08_relationships.md §8.3.1]**\n\n## Using --SEQ as the Join Key\n\n**No, --SEQ cannot be used as the IDVAR for dataset-level relationships.** The reason is:\n\n> \"Because IDVAR identifies the keys that can be used to merge/join records between the datasets, --SEQ cannot be used. --SEQ only has meaning within a subject within a dataset, not across datasets.\"\n\n**[Source: chapters/ch08_relationships.md §8.3.1]**\n\nInstead, the following variables are typically used as the join key in IDVAR for dataset-level relationships: **--GRPID, --SPID, --REFID, --LNKID, or --LNKGRP**. These variables can have values that are meaningful across datasets (e.g., a sponsor-defined linking identifier).\n\n**[Source: chapters/ch08_relationships.md §8.3.1; domains/RELREC/examples.md — Dataset Relationship Example]**\n\n## Summary Table\n\n| Variable | Dataset-to-Dataset Relationship |\n|----------|--------------------------------|\n| RELTYPE | ONE or MANY (per codelist C78737) |\n| USUBJID | Null |\n| IDVARVAL | Null |\n| IDVAR | Must be a cross-dataset key (e.g., --LNKID, --GRPID, --SPID, --REFID, --LNKGRP); **not** --SEQ |",
+    "on_answer": "Based on the provided context, here is how to populate RELREC when relating two entire datasets:\n\n### 1. RELTYPE\n\nWhen relating datasets, `RELTYPE` identifies the hierarchical relationship between the datasets. The allowable values are **\"ONE\"** and **\"MANY\"** (controlled terminology codelist C78737). **[Source: domains/RELREC/assumptions.md]**\n\nThe possible combinations and their meanings are:\n- **ONE and ONE**: No hierarchical relationship; only 1 record from each dataset will potentially have the same value of the IDVAR within USUBJID.\n- **ONE and MANY**: A hierarchical (parent-child) relationship exists. One record in the \"ONE\" dataset will potentially have the same IDVAR value with many (1 or more) records in the \"MANY\" dataset.\n- **MANY and MANY**: Unusual and challenging to manage in a merge/join. **[Source: chapters/ch08_relationships.md §8.3.1]**\n\n### 2. USUBJID and IDVARVAL\n\nFor a dataset-to-dataset relationship, **USUBJID and IDVARVAL must be null**. This is because the relationship is defined at the dataset level, not at the subject or individual record level. **[Source: domains/RELREC/examples.md, chapters/ch08_relationships.md §8.3.1]**\n\n### 3. Using --SEQ as the Join Key\n\n**No, it is not acceptable to use `--SEQ` as the join key for dataset-level relationships.** The `IDVAR` must be the name of the key used to merge/join the 2 datasets. `--SEQ` only has meaning within a subject within a dataset, not across datasets. Therefore, `--SEQ` cannot be used for this purpose. **[Source: chapters/ch08_relationships.md §8.3.1]**\n\nInstead, variables like `--GRPID`, `--SPID`, `--REFID`, `--LNKID`, or `--LNKGRP` are typically used as the merge key for dataset-level relationships. **[Source: domains/RELREC/examples.md, chapters/ch08_relationships.md §8.3.1]**"
+  },
+  "q118": {
+    "category": "cross_domain",
+    "question": "I'm deriving EPOCH for my subject-level datasets. Which date/time variable should the EPOCH assignment be based on for Findings class domains versus Interventions and Events class domains, and what should I do when an observation's epoch cannot be determined?",
+    "fact_off": 0.25,
+    "fact_on": 0.0,
+    "newly_missed": [
+      "If it is not possible to determine the epoch of an observation, then EPOCH should be null"
+    ],
+    "off_top5_sources": [
+      "chapters/ch04_general_assumptions.md",
+      "domains/TA/assumptions.md",
+      "domains/TA/assumptions.md",
+      "domains/LB/spec.md",
+      "domains/CP/spec.md"
+    ],
+    "on_top5_sources": [
+      "VARIABLE_INDEX.md",
+      "chapters/ch04_general_assumptions.md",
+      "domains/TA/assumptions.md",
+      "chapters/ch02_fundamentals.md",
+      "domains/TA/assumptions.md"
+    ],
+    "off_answer": "## EPOCH Derivation Guidance\n\n### Basis for EPOCH Assignment by Observation Class\n\n**Findings class domains**: EPOCH should be based on the `--DTC` variable, since this is the date/time of the test or, for tests performed on specimens, the date/time of specimen collection. **[Source: chapters/ch04_general_assumptions.md §4.1.3.1]**\n\n**Interventions and Events class domains**: EPOCH should be based on the `--STDTC` variable, since this is the start of the intervention or event. **[Source: chapters/ch04_general_assumptions.md §4.1.3.1]**\n\n**Exception for Findings**: A possible, though unlikely, exception would be a finding based on an interval specimen collection that started in one epoch but ended in another. In such a case, `--ENDTC` might be a more appropriate basis for EPOCH. **[Source: chapters/ch04_general_assumptions.md §4.1.3.1]**\n\n### When EPOCH Cannot Be Determined\n\n1. **Do not impute EPOCH values**. Instead, assign EPOCH values on the basis of CRF instructions and structure where possible, even if date/time data was not collected with sufficient precision to permit assignment of an observation to an epoch on the basis of date/time data alone. **[Source: chapters/ch04_general_assumptions.md §4.1.3.1]**\n\n2. **If it is not possible to determine the epoch of an observation, then EPOCH should be null.** Methods for assigning EPOCH values can be described in the Define-XML document. **[Source: chapters/ch04_general_assumptions.md §4.1.3.1]**\n\n3. **Pre-study observations**: EPOCH is not applicable to interventions or events that started before the subject's participation in a study, nor to findings performed before participation in a study. For such records, EPOCH should be null. Note that a subject's participation in a study includes screening, which generally occurs before the reference start date (RFSTDTC) in the Demographics (DM) domain. **[Source: chapters/ch04_general_assumptions.md §4.1.3.1]**\n\n### Additional Rules\n\n- EPOCH values must be different for different epochs (e.g., in a crossover trial with 3 treatment epochs, each must be given a distinct name; all 3 cannot be called \"TREATMENT\"). **[Source: domains/TA/assumptions.md item 12]**\n- EPOCH should be assigned so that elements from different arms with the same value of EPOCH are \"comparable\" in some sense. **[Source: domains/TA/assumptions.md item 9]**\n- EPOCH is a Permissible (Perm) Timing variable, controlled by codelist C99079. **[Source: domains/LB/spec.md; domains/CP/spec.md; domains/EG/spec.md; etc.]**",
+    "on_answer": "## EPOCH Derivation Rules by Observation Class\n\n### Findings Class Domains\n\nFor Findings class domains, **EPOCH should be based on `--DTC`** (Date/Time of Collection), since this represents the date/time of the test or, for tests performed on specimens, the date/time of specimen collection.\n\n**[Source: chapters/ch04_general_assumptions.md §4.1.3.1]**\n\nThis is confirmed in domain specifications where the CDISC Notes for EPOCH state: *\"Epoch associated with the start date/time of the observation, or the date/time of collection if start date/time is not collected.\"* See examples in:\n- **[Source: domains/LB/spec.md — EPOCH]**\n- **[Source: domains/CP/spec.md — EPOCH]**\n- **[Source: domains/PC/spec.md — EPOCH]**\n- **[Source: domains/PP/spec.md — EPOCH]**\n\n### Interventions and Events Class Domains\n\nFor Interventions and Events class domains, **EPOCH should be based on `--STDTC`** (Start Date/Time of Observation), since this represents the start of the intervention or event.\n\n**[Source: chapters/ch04_general_assumptions.md §4.1.3.1]**\n\nThis is also reflected in the Disposition (DS) domain assumptions, which state: *\"In DS, EPOCH is based on DSSTDTC.\"* **[Source: domains/DS/assumptions.md §4c]**\n\n### Exception\n\nA possible exception exists for Findings based on an interval specimen collection that started in one epoch but ended in another. In such cases, `--ENDTC` might be a more appropriate basis for EPOCH.\n\n**[Source: chapters/ch04_general_assumptions.md §4.1.3.1]**\n\n### When EPOCH Cannot Be Determined\n\nWhen an observation's epoch cannot be determined:\n\n1. **Do not impute EPOCH values.** Instead, assign EPOCH values based on CRF instructions and structure where possible, even if date/time data lacks sufficient precision to permit assignment based on date/time alone.\n\n2. **If it is not possible to determine the epoch**, then **EPOCH should be null**.\n\n3. **Methods for assigning EPOCH values** can be described in the Define-XML document.\n\n**[Source: chapters/ch04_general_assumptions.md §4.1.3.1]**\n\n### Pre-Study Observations\n\nEPOCH is a study-design construct and is **not applicable** to:\n- Interventions or events that started **before the subject's participation in a study**\n- Findings performed **before participation in a study**\n\nFor such records, **EPOCH should be null**. Note that a subject's participation in a study includes screening, which generally occurs before the reference start date (RFSTDTC) in Demographics (DM).\n\n**[Source: chapters/ch04_general_assumptions.md §4.1.3.1]**\n\n### Summary Table\n\n| Observation Class | Base Variable | Notes |\n|-------------------|---------------|-------|\n| **Findings** | `--DTC` | Date/time of collection |\n| **Interventions** | `--STDTC` | Start date/time of intervention |\n| **Events** | `--STDTC` | Start date/time of event |\n| **Disposition (DS)** | `DSSTDTC` | Date/time of disposition event |\n| **Uncertain** | — | Set EPOCH to null; document method in Define-XML |\n| **Pre-study** | — | Set EPOCH to null |"
+  },
+  "q125": {
+    "category": "cross_domain",
+    "question": "Our protocol treats certain disease signs and symptoms (like migraine episodes) as efficacy events rather than safety events. How do we decide whether such occurrences belong in CE versus AE?",
+    "fact_off": 1.0,
+    "fact_on": 0.6667,
+    "newly_missed": [
+      "not considered AEs should be reflected as CEs"
+    ],
+    "off_top5_sources": [
+      "domains/CE/assumptions.md",
+      "domains/CE/examples.md",
+      "domains/CE/assumptions.md",
+      "domains/CE/examples.md",
+      "domains/AE/examples.md"
+    ],
+    "on_top5_sources": [
+      "domains/CE/spec.md",
+      "domains/AE/spec.md",
+      "domains/CE/assumptions.md",
+      "domains/CE/examples.md",
+      "domains/FA/examples.md"
+    ],
+    "off_answer": "Based on the provided context, the decision of whether to place occurrences like migraine episodes in the **Clinical Events (CE)** domain versus the **Adverse Events (AE)** domain depends on the protocol's definition and regulatory intent.\n\nHere is the decision framework based on the SDTMIG v3.4 guidance:\n\n### 1. The Primary Rule: Protocol Definition and Regulatory Guidance\n\nThe determination is made at the study level, not the event level. You must consult your protocol and regulatory guidelines.\n\n- **Use CE when:** The protocol defines the event as a **clinical event of interest** (e.g., an efficacy endpoint) and **not** as an adverse event. This is explicitly stated in the CE assumptions.\n    > \"Events of clinical interest as defined by the protocol that are not considered AEs should be reflected as CEs.\" **[Source: domains/CE/assumptions.md -- item_1]**\n\n- **Use AE when:** The event is an \"untoward medical occurrence\" as defined by ICH E2A, regardless of causality. This is the default for safety data.\n    > \"The Adverse Events dataset includes clinical data describing 'any untoward medical occurrence in a patient or clinical investigation subject administered a pharmaceutical product and which does not necessarily have to have a causal relationship with this treatment' (ICH E2A).\" **[Source: domains/AE/assumptions.md -- item_1]**\n\n### 2. Specific Guidance for Migraine and Similar Events\n\nThe context provides a direct example for your scenario (migraine episodes):\n\n- **CE is appropriate for the event itself:** If the protocol states that migraine episodes are not reportable as AEs (e.g., they are the primary efficacy endpoint), the occurrence of the migraine is recorded in **CE**.\n    > \"For example, in a study of an investigational treatment for migraine headaches, migraine headaches may not be considered to be adverse events per protocol. The occurrence of migraines or associated signs and symptoms might be reported in CE.\" **[Source: domains/CE/assumptions.md -- item_1a]**\n\n- **FA is used for detailed assessments:** If you collect detailed \"snapshots\" of the event (e.g., severity at specific time points, presence of associated symptoms like nausea or photophobia), these point-in-time assessments are represented in the **Findings About Events or Interventions (FA)** domain, linked to the CE record.\n    > \"The remaining data on the CRF were 'snapshots' taken at 3 time points... these were represented as findings about events.\" **[Source: domains/FA/examples.md -- Example 1]**\n\n### 3. Critical Safeguard: The \"Write-in\" Rule\n\nYou must ensure that no event that meets the regulatory definition of an AE is placed in CE. The CE domain has a specific warning about this:\n\n> \"The collection of write-in events on a CE CRF should be considered with caution. Sponsors must ensure that all adverse events are recorded in the AE domain.\" **[Source: domains/CE/assumptions.md -- item_3]**\n\n### 4. The \"Serious\" Exception\n\nIf a clinical event (e.g., a migraine) becomes **serious** (e.g., requires hospitalization), it must be flagged appropriately. The CE domain includes the serious event variables (e.g., `CESER`, `CESDTH`, `CESHOSP`) for this purpose.\n\n> \"If any event is considered serious, then the serious variable (--SER) and the serious adverse event flags (--SCAN, --SCONG, --SDISAB, --SDTH, --SHOSP, --SLIFE, --SOD, --SMIE) would be required in the CE domain.\" **[Source: domains/CE/assumptions.md -- item_1b]**\n\n### Summary Decision Table\n\n| Criterion | Action | Domain |\n| :--- | :--- | :--- |\n| Event is a protocol-defined efficacy endpoint (e.g., migraine) | Record the event occurrence | **CE** |\n| Event is an untoward medical occurrence (per ICH E2A) | Record the event | **AE** |\n| Detailed, point-in-time assessments of a CE (e.g., severity at 5 min) | Record the assessment | **FA** |\n| A CE becomes serious (e.g., life-threatening) | Record in CE with serious flags | **CE** |\n| A free-text event is written into a CE form | Manually review; if it meets AE criteria, move to AE | **AE** |",
+    "on_answer": "Based on the provided context, the decision of whether to place occurrences like migraine episodes in the **Clinical Events (CE)** domain versus the **Adverse Events (AE)** domain depends on the protocol's definition and regulatory consultation.\n\nHere is the guidance from the SDTMIG v3.4 knowledge base:\n\n1.  **Protocol Definition is Primary**: The determination should be made carefully with reference to regulatory guidelines or consultation with a regulatory review division. Events of clinical interest as defined by the protocol that are **not** considered AEs should be reflected as CEs. **[Source: domains/CE/assumptions.md]**\n\n2.  **Specific Examples of CE Use**: Events considered to be clinical events may include episodes of symptoms of the disease under study (often known as \"signs and symptoms\"), or events that do not constitute adverse events in themselves. For example, in a study of an investigational treatment for migraine headaches, migraine headaches may not be considered to be adverse events per protocol. The occurrence of migraines or associated signs and symptoms might be reported in CE. **[Source: domains/CE/assumptions.md]**\n\n3.  **AE Scope**: The Adverse Events dataset includes clinical data describing \"any untoward medical occurrence in a patient or clinical investigation subject administered a pharmaceutical product.\" In consultation with regulatory authorities, sponsors may extend or limit the scope of adverse event collection (e.g., not collecting events that are assessed as efficacy endpoints). The events included in the AE dataset should be consistent with the protocol requirements. **[Source: domains/AE/assumptions.md]**\n\n4.  **Data Structure Considerations**: The structure of the data can help determine placement. If the data are collected in a log form over the course of the study (rather than at a single visit) and the dates collected are start/end dates, it suggests an Events domain (CE or AE). If the data are measurements or assessments at specific time points (snapshots), they may be better represented as Findings About Events (FA). **[Source: chapters/ch08_relationships.md]**\n\n5.  **Important Safeguard**: The collection of write-in events on a CE CRF should be considered with caution. Sponsors must ensure that all adverse events are recorded in the AE domain. **[Source: domains/CE/assumptions.md]**\n\n**Summary for your scenario:**\nIf your protocol defines migraine episodes as efficacy endpoints and **not** as adverse events, they belong in the **CE** domain. The CE domain is specifically designed for such protocol-defined events of clinical interest that are not AEs. You would use `CEPRESP` (Clinical Event Pre-specified) with a value of \"Y\" to indicate these were prespecified events. **[Source: domains/CE/spec.md]**"
+  },
+  "q133": {
+    "category": "single_domain",
+    "question": "Our oncology study uses the Tumor/Lesion Identification dataset. How granular is each record in it, which variable serves as the topic, and what example value does the spec give for that variable?",
+    "fact_off": 0.3333,
+    "fact_on": 0.0,
+    "newly_missed": [
+      "TUTESTCD"
+    ],
+    "off_top5_sources": [
+      "terminology/core/oncology_part2.md",
+      "VARIABLE_INDEX.md",
+      "domains/TU/examples.md",
+      "terminology/core/oncology_part2.md",
+      "domains/TU/assumptions.md"
+    ],
+    "on_top5_sources": [
+      "domains/TU/spec.md",
+      "domains/TU/spec.md",
+      "domains/TU/spec.md",
+      "domains/TU/spec.md",
+      "VARIABLE_INDEX.md"
+    ],
+    "off_answer": "Based on the SDTMIG v3.4 knowledge base, here is the answer to your question:\n\n## Granularity of Each Record\n\nEach record in the TU (Tumor/Lesion Identification) domain represents data that **uniquely identifies a single tumor, lesion, or location of interest** under study. This includes tumors, cardiovascular culprit lesions, organs, bone marrow, and other sites of disease such as lymph nodes. **[Source: domains/TU/assumptions.md -- overview]**\n\nA record contains the following information:\n- A unique tumor ID value\n- Anatomical location of the tumor\n- Method used to identify the tumor\n- Role of the individual identifying the tumor\n- Timing information\n\n**[Source: domains/TU/assumptions.md -- overview]**\n\n## Topic Variable\n\nThe topic variable for the TU domain is **TUTESTCD** (Tumor/Lesion ID Short Name), with its synonym qualifier **TUTEST** (Tumor/Lesion ID Test Name). Both are **Required** (Core: Req). **[Source: VARIABLE_INDEX.md -- TU — Tumor/Lesion Identification (Findings)]**\n\n## Example Value from Spec\n\nThe controlled terminology for TUTESTCD is **C96784** (Tumor or Lesion Identification Test Code), which is extensible. An example value from the spec is:\n\n| Code | CDISC Submission Value | CDISC Synonym(s) | CDISC Definition |\n|------|----------------------|-------------------|------------------|\n| C94189 | **LESIDENT** | Lesion Identification | An indication that a lesion has been located and characterized. |\n\n**[Source: terminology/core/oncology_part2.md -- Tumor or Lesion Identification Test Code]**\n\nThe corresponding TUTEST value for this code is **\"Lesion Identification\"** (from C96783). **[Source: terminology/core/oncology_part2.md -- Tumor or Lesion Identification Test Name]**\n\n## Additional Context\n\nThe TU domain is linked to the TR (Tumor/Lesion Results) domain via the **TULNKID** variable, which provides a unique code for each identified tumor/lesion. This linking mechanism allows assessments in TR to reference the identifications in TU without duplicating anatomical location information. **[Source: domains/TU/assumptions.md -- item_2]**",
+    "on_answer": "Based on the retrieved context, here is the answer to your question:\n\n**1. Granularity of each record**\n\nEach record in the TU domain represents a uniquely identified tumor, lesion, or location of interest. The domain captures data such as a unique tumor ID, anatomical location, method of identification, evaluator role, and timing information. **[Source: domains/TU/assumptions.md -- overview]**\n\n**2. Topic variable**\n\nThe topic variable is **TUTEST** (Tumor/Lesion ID Test Name). Its specification is:\n\n- **Label:** Tumor/Lesion ID Test Name\n- **Type:** Char\n- **Role:** Synonym Qualifier\n- **Core:** Req\n- **Controlled Terms:** C96783 (Tumor or Lesion Identification Test Name)\n- **CDISC Notes:** Verbatim name of the test for the tumor/lesion identification. The value in TUTEST cannot be longer than 40 characters. Example: \"Tumor identification\". See assumption 3.\n\n**[Source: domains/TU/spec.md -- TUTEST]**\n\n**3. Example value from the spec**\n\nThe CDISC Notes for TUTEST give the example value **\"Tumor identification\"**. **[Source: domains/TU/spec.md -- TUTEST]**"
+  },
+  "q140": {
+    "category": "single_domain",
+    "question": "In the Comments dataset, what does each record correspond to, what class is it assigned to, and how is free text longer than 200 characters accommodated?",
+    "fact_off": 0.6667,
+    "fact_on": 0.3333,
+    "newly_missed": [
+      "One record per comment per subject"
+    ],
+    "off_top5_sources": [
+      "domains/CO/assumptions.md",
+      "model/03_special_purpose_domains.md",
+      "domains/CO/assumptions.md",
+      "domains/CO/examples.md",
+      "chapters/ch08_relationships.md"
+    ],
+    "on_top5_sources": [
+      "domains/CO/spec.md",
+      "domains/CO/spec.md",
+      "domains/CO/spec.md",
+      "domains/CO/spec.md",
+      "domains/CO/assumptions.md"
+    ],
+    "off_answer": "Based on the SDTMIG v3.4 knowledge base:\n\n## Record Structure\n\nEach record in the Comments (CO) dataset corresponds to **one comment per subject**. The structure is defined as \"One record per comment per subject\" **[Source: domains/CO/assumptions.md -- item_2]**.\n\n## Domain Class\n\nCO is classified as a **Special-Purpose Domain** **[Source: model/03_special_purpose_domains.md -- Comments (CO)]**. It is one of the special-purpose datasets with a standardized structure used alongside the three general observation classes (Interventions, Events, Findings) **[Source: model/03_special_purpose_domains.md -- Overview]**.\n\n## Handling Text >200 Characters\n\nWhen comment text exceeds 200 characters, the following convention applies:\n\n1. **First 200 characters** are stored in `COVAL` **[Source: domains/CO/spec.md -- COVAL]**\n2. **Next 200 characters** are stored in `COVAL1`\n3. **Additional text** is stored sequentially in `COVALn` variables as needed **[Source: domains/CO/assumptions.md -- item_4]**\n\nThis approach is consistent with the general SDTMIG convention for handling text strings greater than 200 characters, as described in Section 4.5.3.2 of the implementation guide **[Source: chapters/ch04_general_assumptions.md -- 4.5.3.2 Text Strings Greater than 200 Characters in Other Variables]**. The text should be split between words to improve readability.\n\n**Example:** In the CO examples, Row 3 shows a comment where:\n- `COVAL` = \"First 200 characters\"\n- `COVAL1` = \"Next 200 characters\"  \n- `COVAL2` = \"Remaining text\" **[Source: domains/CO/examples.md -- Example 1]**",
+    "on_answer": "Based on the SDTMIG v3.4 knowledge base, here is the answer to your question:\n\n## What Each Record Corresponds To\n\nEach record in the Comments (CO) domain corresponds to a single free-text comment. Comments are generally not responses to specific questions; instead, they usually consist of voluntary free-text or unsolicited observations. **[Source: domains/CO/assumptions.md — item_1]**\n\nComments can be related to:\n- A subject in general (no specific domain or record)\n- A specific domain for a subject (but not specific records)\n- Specific parent record(s) in any domain (identified via RDOMAIN, IDVAR, IDVARVAL)\n- Comments collected on a separate CRF page dedicated to comments **[Source: domains/CO/assumptions.md — item_1]**\n\n## Observation Class\n\nThe Comments domain is classified as a **Special Purpose** domain. **[Source: INDEX.md — Special-purpose Domains]**\n\n## Accommodating Free Text Longer Than 200 Characters\n\nWhen the comment text is longer than 200 characters, the following convention is used:\n\n1. **First 200 characters** are stored in **COVAL**\n2. **Next 200 characters** are stored in **COVAL1**\n3. **Additional text** is stored as needed in **COVAL2, COVAL3, ... COVALn** **[Source: domains/CO/assumptions.md — item_4]**\n\nThis approach is consistent with the general SDTMIG convention for handling text strings greater than 200 characters, as described in Section 4.5.3.2 of the general assumptions. The text should be split between words to improve readability. **[Source: chapters/ch04_general_assumptions.md — 4.5.3.2]**\n\n**Example from the CO domain:** Row 3 in the CO example shows a comment where COVAL contains \"First 200 characters\", COVAL1 contains \"Next 200 characters\", and COVAL2 contains \"Remaining text\". **[Source: domains/CO/examples.md — Example 1]**"
+  }
+}

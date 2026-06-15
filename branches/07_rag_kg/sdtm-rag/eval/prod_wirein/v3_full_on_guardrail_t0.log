@@ -1,0 +1,170 @@
+Loaded 140 questions from eval/test_set_v3.yml
+RAG engine: 4146 chunks, model=anthropic/claude-sonnet-4-6, top_k=15, structured_lookup=ON, hybrid=rrf, guardrail=ON
+LLM mode: direct litellm, model=deepseek/deepseek-chat
+
+[q01] What is AETERM and what are its variable attributes in the A... [FULL] src=100% fact=100% 4.4s
+[q02] What are the required (Core=Req) variables in the DM domain?... [FULL] src=100% fact=57% 6.2s
+[q03] What are the key assumptions for adverse event data collecti... [FULL] src=100% fact=100% 14.7s
+[q04] What is the purpose of the TV (Trial Visits) domain and what... [FULL] src=100% fact=100% 9.3s
+[q05] In the PE (Physical Examination) domain, what is the structu... [FULL] src=100% fact=100% 4.6s
+[q21] What is the LBTESTCD variable in the LB (Laboratory Test Res... [FULL] src=100% fact=100% 7.3s
+[q22] What is the VS (Vital Signs) domain and what are some exampl... [FULL] src=100% fact=100% 6.9s
+[q23] In the CM (Concomitant Medications) domain, what is the CMTR... [FULL] src=100% fact=100% 3.9s
+[q24] What is the EX (Exposure) domain used for and what is the To... [FULL] src=100% fact=100% 8.0s
+[q25] In the MH (Medical History) domain, what is the role of MHTE... [FULL] src=100% fact=100% 9.7s
+[q26] Describe the EG (ECG Test Results) domain structure and the ... [FULL] src=100% fact=100% 12.9s
+[q27] What is the IE (Inclusion/Exclusion) domain and what is the ... [FULL] src=100% fact=100% 5.7s
+[q06] What is SUPPQUAL and when should supplemental qualifiers be ... [FULL] src=100% fact=100% 11.8s
+[q07] Which SDTM domains use the EPOCH variable and what is its pu... [FULL] src=100% fact=100% 8.2s
+[q08] How does USUBJID serve as a linking key across SDTM domains?... [FULL] src=100% fact=100% 11.1s
+[q09] How are adverse events linked to concomitant medications usi... [FULL] src=100% fact=100% 10.3s
+[q10] In oncology studies, how are the TR (Tumor/Lesion Results) d... [FULL] src=100% fact=100% 11.7s
+[q28] What is the FA (Findings About Events or Interventions) doma... [FULL] src=100% fact=100% 14.5s
+[q29] How do the four Trial Design domains TA (Trial Arms), TE (Tr... [FULL] src=100% fact=100% 13.7s
+[q30] What is the CO (Comments) domain and how does it reference r... [FULL] src=100% fact=100% 12.2s
+[q31] How are the EC (Exposure as Collected) and EX (Exposure) dom... [FULL] src=100% fact=100% 11.2s
+[q32] How is VISIT and VISITNUM used consistently across observati... [FULL] src=100% fact=100% 15.4s
+[q33] What is the RELSPEC domain and how does it define relationsh... [FULL] src=100% fact=100% 11.5s
+[q34] Which SDTM domains share the controlled terminology codelist... [FULL] src=100% fact=100% 4.2s
+[q11] What are the three observation classes in the SDTM model?... [FULL] src=100% fact=100% 2.7s
+[q12] What do the Core designations Req, Exp, and Perm mean in SDT... [FULL] src=100% fact=100% 6.8s
+[q13] What is the difference between Topic, Qualifier, and Identif... [FULL] src=100% fact=100% 11.8s
+[q14] How should a sponsor create a new custom domain in SDTM?... [FULL] src=100% fact=100% 6.4s
+[q15] What are the three SDTM Core designation categories for vari... [FULL] src=100% fact=100% 5.7s
+[q35] What is Controlled Terminology (CT) in SDTM and how does it ... [FULL] src=100% fact=100% 12.6s
+[q36] What are the timing variables in SDTM (such as --DTC, --STDT... [FULL] src=100% fact=100% 15.9s
+[q37] What are the Special-Purpose datasets in SDTM and which doma... [FULL] src=100% fact=100% 5.7s
+[q38] How are SDTM domain abbreviation codes assigned? What are th... [FULL] src=100% fact=100% 7.5s
+[q39] What is the Findings About observation class and how does it... [FULL] src=100% fact=50% 9.3s
+[q40] What is the difference between collected data and derived da... [FULL] src=100% fact=100% 9.5s
+[q41] What are the Trial Design Model datasets in SDTM and what ki... [FULL] src=100% fact=100% 9.5s
+[q16] What values are allowed for AESEV and what is its codelist c... [FULL] src=100% fact=100% 3.4s
+[q17] How are date and time variables formatted in SDTM and what s... [FULL] src=100% fact=100% 7.8s
+[q18] Explain the MedDRA coding chain for adverse events from verb... [FULL] src=100% fact=100% 15.0s
+[q19] What controlled terminology codelist is used for DSDECOD whe... [FULL] src=100% fact=100% 4.6s
+[q20] In the DM domain, what is the difference between the RFSTDTC... [FULL] src=100% fact=100% 7.3s
+[q42] In the LB domain, how are normal ranges represented using LB... [FULL] src=100% fact=100% 5.5s
+[q43] What is the controlled terminology codelist for the SEX vari... [FULL] src=100% fact=100% 2.9s
+[q44] In the VS domain, what is the controlled terminology codelis... [FULL] src=100% fact=100% 3.9s
+[q45] What is the RACE variable in the DM domain, what codelist do... [FULL] src=100% fact=100% 4.3s
+[q46] What is the AEOUT (Outcome of Adverse Event) variable in the... [FULL] src=100% fact=100% 5.7s
+[q47] How do QS (Questionnaires) domains handle instrument-specifi... [FULL] src=100% fact=100% 12.0s
+[q48] What is the FATESTCD variable's controlled terminology codel... [FULL] src=100% fact=100% 6.5s
+[s01] In the DM domain, what is the controlled terminology codelis... [FULL] src=100% fact=100% 3.6s
+[s02] What is the SUPPQUAL variable QNAM and what character constr... [FULL] src=100% fact=100% 6.3s
+[s03] The DM variable RFXSTDTC is defined as equal to the earliest... [FULL] src=100% fact=100% 3.3s
+[s04] In the AE domain, what is the controlled terminology codelis... [FULL] src=100% fact=100% 2.5s
+[s05] In the VS domain, what is the controlled terminology codelis... [FULL] src=100% fact=100% 4.0s
+[q54] In the DV (Protocol Deviations) domain, which observation cl... [FULL] src=100% fact=100% 5.5s
+[q55] What is the structure and observation class of the DS (Dispo... [FULL] src=100% fact=100% 9.8s
+[q56] In the SU (Substance Use) domain, what observation class is ... [FULL] src=100% fact=100% 3.1s
+[q57] What is the PR (Procedures) domain used for, and what is the... [FULL] src=100% fact=100% 6.1s
+[q58] Describe the TS (Trial Summary) domain structure and the TSP... [FULL] src=100% fact=100% 10.7s
+[q59] In the DD (Death Details) domain, what is the DDTESTCD varia... [FULL] src=100% fact=100% 4.2s
+[q60] What is the CE (Clinical Events) domain, which observation c... [FULL] src=100% fact=100% 6.8s
+[q61] In the MB (Microbiology Specimen) domain, what is the MBTEST... [FULL] src=100% fact=100% 3.9s
+[q62] What is the SS (Subject Status) domain, what is the SSTESTCD... [FULL] src=100% fact=100% 5.1s
+[q63] In the SC (Subject Characteristics) domain, what observation... [FULL] src=100% fact=100% 5.6s
+[q64] What is the PC (Pharmacokinetics Concentrations) domain used... [FULL] src=100% fact=100% 10.6s
+[q65] In the DA (Product Accountability) domain, what observation ... [FULL] src=100% fact=67% 3.0s
+[q66] Which SDTM domains include the VISITNUM timing variable?... [FULL] src=100% fact=25% 5.3s
+[q67] Many SDTM variables use the No Yes Response codelist C66742.... [FULL] src=100% fact=100% 5.7s
+[q68] Which domains use the Completion Status codelist (C66789) fo... [FULL] src=100% fact=100% 6.4s
+[q69] The dose units codelist C71620 is shared across many Interve... [FULL] src=100% fact=100% 4.2s
+[q70] How is the RELSUB (Related Subjects) dataset used to represe... [FULL] src=100% fact=100% 6.7s
+[q71] What is the EVAL (Evaluator) codelist C78735 and which domai... [FULL] src=100% fact=100% 9.5s
+[q72] How do the PC (Pharmacokinetics Concentrations) and PP (Phar... [FULL] src=100% fact=100% 11.3s
+[q73] Which special-purpose and relationship domains carry the RDO... [FULL] src=100% fact=67% 6.0s
+[q74] How are Supplemental Qualifier datasets named per parent dom... [FULL] src=100% fact=100% 7.5s
+[q75] In SDTM, which identifier variables besides USUBJID can iden... [FULL] src=100% fact=100% 7.2s
+[q76] How do the AP (Associated Persons) domains link non-subject ... [FULL] src=100% fact=100% 9.3s
+[q77] The EPOCH timing variable appears in many domains. List seve... [FULL] src=100% fact=75% 5.5s
+[q78] What are the rules for values of --TESTCD variables in SDTM?... [FULL] src=100% fact=100% 4.8s
+[q79] How does SDTM represent a missing value, and what should be ... [FULL] src=100% fact=100% 6.2s
+[q80] What is the convention for using 'Yes' and 'No' values in SD... [FULL] src=100% fact=100% 6.7s
+[q81] What rules govern the two-character DOMAIN code in SDTM? Wha... [FULL] src=100% fact=33% 6.4s
+[q82] Which identifier variables are required in all domains based... [FULL] src=100% fact=100% 6.4s
+[q83] What is RELREC and how is it used to relate records or datas... [FULL] src=100% fact=100% 14.3s
+[q84] When deciding whether data belong to the Events, Interventio... [FULL] src=100% fact=100% 5.1s
+[q85] What are Associated Persons in SDTM, and how are AP domains ... [FULL] src=100% fact=100% 6.4s
+[q86] What is an Expected (Exp) Core variable in SDTM, and what mu... [FULL] src=100% fact=100% 6.7s
+[q87] How does SDTM decide whether assessments of an event should ... [FULL] src=100% fact=100% 16.4s
+[q88] What distinguishes ETCD, TSPARMCD, and ARMCD from --TESTCD w... [FULL] src=100% fact=100% 7.8s
+[q89] What are the timing variables grouped under Relative Timing ... [FULL] src=100% fact=100% 13.5s
+[q90] In the EX (Exposure) domain, what is the EXROUTE variable an... [FULL] src=100% fact=100% 4.3s
+[q91] In the DS (Disposition) domain, which codelist does DSDECOD ... [FULL] src=100% fact=100% 4.4s
+[q92] What is the ETHNIC variable in the DM domain, what controlle... [FULL] src=100% fact=100% 5.7s
+[q93] In the EX domain, what is the EXDOSFRM (Dose Form) variable ... [FULL] src=100% fact=75% 3.9s
+[q94] How does the LB domain distinguish the original result LBORR... [FULL] src=100% fact=100% 7.2s
+[q95] In the DD (Death Details) domain, what is the DDTEST variabl... [FULL] src=100% fact=100% 4.7s
+[q96] In the FA (Findings About) domain, what is the FATEST variab... [FULL] src=100% fact=75% 7.1s
+[q97] In the SS (Subject Status) domain, what is the SSSTRESC vari... [FULL] src=100% fact=100% 5.7s
+[q98] In the CM (Concomitant Medications) domain, what is the CMDO... [FULL] src=100% fact=100% 8.6s
+[q99] In the QS (Questionnaires) domain, what is the QSCAT variabl... [FULL] src=100% fact=50% 3.4s
+[q100] In the TA (Trial Arms) domain, what is the ARMCD variable's ... [FULL] src=100% fact=75% 4.9s
+[q101] What is the TSPARM variable in the TS domain, what is its co... [FULL] src=100% fact=75% 4.7s
+[q102] In the VS (Vital Signs) domain, what is the VSPOS variable, ... [FULL] src=100% fact=100% 4.5s
+[q103] Several of our event and intervention datasets carry TAETORD... [FULL] src=100% fact=50% 5.6s
+[q104] Beyond VISIT and VISITNUM, our schedule-of-activities mappin... [FULL] src=100% fact=0% 4.8s
+[q105] I noticed the NHOID identifier variable in one of our microb... [FULL] src=100% fact=50% 5.3s
+[q106] A reviewer asked about the FOCID variable in our ophthalmolo... [FULL] src=100% fact=50% 8.2s
+[q107] Which SDTM datasets carry both the ARM and ARMCD variables, ... [FULL] src=100% fact=67% 3.3s
+[q108] A site recorded route of administration for both concomitant... [FULL] src=100% fact=25% 3.8s
+[q109] We need to report left/right/bilateral consistently wherever... [FULL] src=100% fact=25% 5.1s
+[q110] Several datasets record what kind of specimen was collected ... [FULL] src=100% fact=25% 4.2s
+[q111] Our CRFs capture the subject's body position (e.g., supine v... [FULL] src=100% fact=25% 4.1s
+[q112] When a result needs to be flagged relative to its normal ran... [FULL] src=100% fact=25% 6.3s
+[q113] When I build a supplemental qualifier dataset for the Demogr... [FULL] src=100% fact=100% 7.4s
+[q114] If I use RELREC to relate two entire datasets rather than in... [FULL] src=100% fact=100% 5.3s
+[q115] Within a SUPP-- dataset, what is the purpose of the QORIG co... [FULL] src=100% fact=33% 8.0s
+[q116] In the Related Specimens dataset, how can I tell which row i... [FULL] src=100% fact=67% 6.7s
+[q117] Both the investigator and an independent adjudicator each de... [FULL] src=100% fact=75% 9.2s
+[q118] I'm deriving EPOCH for my subject-level datasets. Which date... [FULL] src=100% fact=0% 8.4s
+[q119] We need a dataset-to-dataset link between our tumor identifi... [FULL] src=100% fact=0% 11.4s
+[q120] In our study, some assessments were performed on a group of ... [FULL] src=100% fact=25% 7.2s
+[q121] One of our subjects re-consented partway through the study, ... [FULL] src=100% fact=50% 4.8s
+[q122] Our oncology study switches to monthly telephone contacts af... [FULL] src=100% fact=0% 5.8s
+[q123] In an oncology RECIST study we capture both which tumors exi... [FULL] src=100% fact=67% 13.3s
+[q124] When a subject dies during a trial, where do we record the c... [FULL] src=100% fact=75% 12.4s
+[q125] Our protocol treats certain disease signs and symptoms (like... [FULL] src=100% fact=67% 10.1s
+[q126] A subject's actual progression through study elements deviat... [FULL] src=50% fact=50% 9.4s
+[q127] We track biospecimens from collection through aliquoting plu... [FULL] src=100% fact=100% 12.3s
+[q128] We're standing up the Vital Signs dataset for a new study. W... [FULL] src=100% fact=75% 6.6s
+[q129] Which observation class does the Medical History dataset bel... [FULL] src=100% fact=33% 3.7s
+[q130] In the Laboratory Test Results dataset, how is one record de... [FULL] src=100% fact=67% 3.4s
+[q131] When collecting data for the Clinical Events dataset, an eve... [FULL] src=100% fact=67% 6.0s
+[q132] For the Healthcare Encounters dataset: what does each record... [FULL] src=100% fact=50% 3.2s
+[q133] Our oncology study uses the Tumor/Lesion Identification data... [FULL] src=100% fact=0% 5.5s
+[q134] In the Concomitant Medications dataset, does each row corres... [FULL] src=100% fact=33% 7.0s
+[q135] How is the Demographics dataset structured, which class does... [FULL] src=100% fact=100% 6.3s
+[q136] In the Disposition dataset, the standardized term for each r... [FULL] src=100% fact=100% 4.9s
+[q137] A site has logged several surgeries for one participant — wh... [FULL] src=100% fact=50% 3.1s
+[q138] At what level of granularity should records be created in th... [FULL] src=100% fact=50% 4.4s
+[q139] When dosing data goes into the Exposure dataset, what does a... [FULL] src=100% fact=50% 4.4s
+[q140] In the Comments dataset, what does each record correspond to... [FULL] src=100% fact=33% 5.1s
+
+============================================================
+EVAL SUMMARY
+============================================================
+Questions: 140
+Model:     deepseek/deepseek-chat
+Threshold: 85%
+Source recall (avg): 99.6%
+  concept: 100.0% (25 q)
+  cross_domain: 99.0% (50 q)
+  mixed: 100.0% (25 q)
+  single_domain: 100.0% (40 q)
+Fact recall (avg):   82.7%
+Total tokens used:   2,145,136
+  concept: 95.3%
+  cross_domain: 70.3%
+  mixed: 95.0%
+  single_domain: 82.7%
+
+Overall (src+fact avg): 91.2%
+Threshold: 85%  ->  PASS
+
+Questions with source misses (1):
+  q126: src=50% miss=['domains/TE/spec.md']
+
+Results saved to eval/prod_wirein/v3_full_on_guardrail_t0.json

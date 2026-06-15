@@ -114,3 +114,28 @@
 - **Rule A/B**: 出题=高改写率→独立审计全量 38/38 (超抽检) + verifier 二道 N=8; 本轮无失败 attempt (gate FAIL 是题集揭示的系统缺口, S4 一次过闸)。
 - **收口**: `evidence/checkpoints/testset_v3_expansion_summary.md` + `s4_longname_dist_fixes_result.md` + `s4_rule_d_review.md`。
 - **残留 (下一杠杆)**: q73/q119/q126 同类 = **(d) 概念定义→chapters/model 通道** (--LNKID/--LNKGRP 定义 / SE-TE 对比 / RDOMAIN 载体); cross 95.0% 零 margin, 拉开必须做 (d), 架构件单独立项。可选: v3 full eval (答题侧 DeepSeek temp=0 配对) 确认 fact recall 不稀释 (S4 改了生产检索行为, retrieval-only 已零回归, full eval 是惯例闸)。
+
+---
+
+## 2026-06-15 v3 full eval 收 S4 尾账 (CLEAN_CLOSE) + (d) 概念定义双通道 SHIP
+
+- **触发**: 用户「先 v3 full eval 配对收 S4 尾账, 然后开 (d) 概念定义通道」(入口 TODO §6); 后续选「现在就做 q119 + 补跑 guardrail 确认 + 做完再收尾」。
+
+### Task 1 — S4 三修 v3 full eval 配对收尾账 (CLEAN_CLOSE)
+- **为什么**: S4 retrieval-only (src) 已过, 但 S4 是 union-add 注入, prod_wirein 立规矩=union-add 可能稀释答案 (注入 spec.md 挤掉 assumptions.md 叙述事实); 必须带答题模型的配对 full eval 测 fact recall。
+- **配对** (DeepSeek temp=0, v3 140q, 两臂 guardrail OFF 隔离 S4 检索变量): **src OFF 76.4→ON 97.5 (+21.1pt)** 全类跳 (cross 53→95/mixed 80→100/single 93.8→100/concept 92→96); **fact OFF 82.8→ON 82.6 (净 −0.2pt, 噪声带内)** = 无系统性稀释。8 gain 抵 11 drop。
+- **11 掉分独立语义裁判** (`oh-my-claudecode:scientist`, Rule D 非 S4 writer, 逐题 KB 核验 OFF/ON 答案+源构成): **7 FALSE_NEGATIVE / 3 NONDETERMINISM / 1 REAL_DILUTION (q57 PR/spec×4 挤掉 PR/assumptions 的 "Interventions class" 标签) / 0 PREEXISTING → VERDICT CLEAN_CLOSE**。主 session 抽验头号嫌疑 q114 (实测 ON 答案确含两 fact = substring 假阴, 裁判正确非走过场)。q133/q140 (新 S4 长名单域题) 判 NONDETERMINISM (对的 spec×4 在场, 模型误读 role 列/改写结构句, 非文件被挤)。
+- **code-grounding 旁证**: guardrail OFF (隔离用) → ON 引更多码更多 ungrounded (54) = 无护栏基线, 正交。
+- **belt-and-suspenders 补跑** (用户选): `--guardrail` ON + S4 终态码 (q73+q119) code-grounding: **287 码 / 286 grounded / 1 mis-cited (q35 C66742, KB 真实存在) / 0 fabricated = 99.65%**。护栏在 S4 浮出更多码后仍把 ungrounded 54→1、fabricated 3→0 → 护栏与 S4 正交且组合后码 grounding ~100% 坐实。
+- **收口**: `evidence/checkpoints/s4_full_eval_closure.md`。新产物 `eval/prod_wirein/v3_full_{off,on,on_guardrail}_t0.{json,log}` + `v3_full_paired_t0.log` + `v3_drops_forensic.json`。
+
+### Task 2 — (d) 概念定义→chapters/model 通道 (q73+q119 双通道 SHIP, q126 永久 defer)
+- **研究法**: 6-agent Workflow (3 题并行分诊 + 数据源清单 + 对抗式 over-fire + 综合, 只读) + 主 session 独立复核 + Rule D。
+- **q73 (3a, BUILT)**: `var → 单一 model 文件` def-home 映射 (解析 model/*.md **6 列定义表**, 6 列形状是载重判别器隔离 5 列 usage 表; 59 vars, RDOMAIN→model/06) + 严格定义动词锚 `_DEFVERB_RE`。**恰触发 q73+q83 (均 gold model/06)**, q73 (cross) 0→100 载重, q83 冗余无害。
+- **q119 (3b, BUILT)**: workflow 综合曾判 DEFER (称 q119 与 q114 锚不可分); **主 session 独立复核推翻** — 两题意图可分 (q119 "difference between --LNKID/--LNKGRP variables"=比较意图 / q114 "use --SEQ as join key"=用法 / q68/q71 "which domains use"=分布)。通道: 通用 `--` 前缀变量定义/比较 → ch04 General Assumptions; `_query_generic_var_definition` = ch04存在 AND 非dist AND 有`--`token AND (("difference between"+≥2 不同`--`token) OR `_DASH_DEFVERB_RE`); ch04 glob 发现; dist 抑制守 q68/q71。regex 修 `(?<![A-Za-z-])--[A-Z]{2,8}(?![A-Za-z-])` (`\b--` 匹配空 + 防畸形 token)。
+- **q126 (永久 DEFER)**: 双重独立阻断 — (1) 每个区分性短语 140q 中恰命中 q126 自己 = 例级作弊 (放宽到单词喷 8+ 题); (2) **架构阻断** `domain_to_spec` 只映 spec.md 但 q126 SE gold=SE/assumptions.md, 需新 sub-file 判别器。记为 §6 预警的"无实体锚概念对比边界案"。
+- **验证**: retrieval-only v3 cross **95.0→99.0** (q73 +2 / q119 +2), single/concept/mixed 100%, **0 回归** (逐题 diff 仅 q73+q119 改善); pytest **250** (+`TestConceptDefinitionChannel` 8 + `TestGenericVarDefinitionChannel` 6, 含 2 canary + 集外泛化 + must-not-fire battery)。
+- **Rule D** (`oh-my-claudecode:code-reviewer` 异 type, 两轮): **q73 APPROVE_WITH_NITS** (MED doc 正确性 [真载重判别器是 6 列形状非 Notes 单元, 放宽 `!=6` 会 un-fix q73] + LOW EPOCH canary, 已采纳) + **q119 APPROVE** (clean; 决定性 pattern 级证明 = 集外电池 8/8 应触发 + 10/10 应静默, 用非题集变量/措辞, 区别于 q126 退化单例; 1 LOW 畸形 token 正则加固已采纳)。
+- **抗过拟合** (用户敏感点): 全代码零引用 q73/q83/q119/--LNKID 等; held-out 探针证明两通道 pattern 级泛化。
+- **收口**: `evidence/checkpoints/d_channel_concept_definition.md`。产物 `eval/ablation_t1/v3_on_dchannel{,2}.{json,log}`。
+- **结果**: cross 95.0% 零 margin → **99.0%**; 剩余 cross 缺口主要是 q126 (defer)。

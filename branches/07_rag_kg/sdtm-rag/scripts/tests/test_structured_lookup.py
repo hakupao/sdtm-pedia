@@ -191,3 +191,137 @@ class TestLongnameMapHygiene:
                 for alt in w.split("/"):
                     variant = " ".join(words[:i] + [alt] + words[i + 1:])
                     assert lookup.domain_longname_to_code.get(variant) == code
+
+
+# ---- (d) concept-definition -> model channel (2026-06-15) --------------------
+
+class TestConceptDefinitionChannel:
+    """Variable asked about with a strict definitional-verb shape routes to its
+    model/*.md definition-home file. Pattern-level (59-var def-home map), gated so
+    it never fires on distribution/attribute/terminology asks naming the same var."""
+
+    def test_defhome_canary_rdomain(self, lookup):
+        # Canary (risk note): if a KB rebuild breaks the 6-col table parse, the map
+        # goes empty and this fails loudly rather than silently regressing q73/q83.
+        assert lookup.var_to_model_defhome.get("RDOMAIN") == \
+            "model/06_relationship_datasets.md"
+
+    def test_defhome_canary_epoch_six_col_isolation(self, lookup):
+        # Second canary (Rule D LOW): EPOCH, like RDOMAIN, has a 6-col definition row
+        # (model/03) AND a competing 5-col usage row elsewhere; it stays single-home
+        # ONLY because the len==6 filter excludes the usage table. Guards the 6-col
+        # isolation invariant beyond RDOMAIN alone.
+        assert lookup.var_to_model_defhome.get("EPOCH") == \
+            "model/03_special_purpose_domains.md"
+
+    def test_defhome_map_hygiene(self, lookup):
+        m = lookup.var_to_model_defhome
+        assert len(m) >= 50, "def-home map unexpectedly small (KB parse drift?)"
+        # every value is a model/*.md file
+        assert all(v.startswith("model/") and v.endswith(".md") for v in m.values())
+        # conservative guards: no generic '--' vars; cross-file ambiguous vars dropped
+        assert not any(k.startswith("--") for k in m)
+        for ambiguous in ("DOMAIN", "USUBJID", "POOLID"):
+            assert ambiguous not in m, f"{ambiguous} has Notes in >1 model file -> must be dropped"
+
+    def test_q73_union_adds_model_defhome(self, lookup):
+        # q73 also trips the distribution anchor (-> VARIABLE_INDEX); the new channel
+        # must UNION-ADD model/06, not replace.
+        out = lookup.resolve(
+            "Which special-purpose and relationship domains carry the RDOMAIN "
+            "variable, and what does RDOMAIN identify?"
+        )
+        assert "model/06_relationship_datasets.md" in out
+        assert "VARIABLE_INDEX.md" in out  # pre-existing distribution route preserved
+
+    def test_fires_on_definitional_verbs(self, lookup):
+        # held-out generalization (NOT in the test set): different vars, different
+        # verb stems, all resolve to the correct model definition home.
+        assert lookup._query_concept_definition(
+            "What does RELTYPE identify in a RELREC relationship?"
+        ) == ["model/06_relationship_datasets.md"]
+        assert lookup._query_concept_definition(
+            "What does the QNAM variable represent?"
+        ) == ["model/06_relationship_datasets.md"]
+        assert lookup._query_concept_definition(
+            "What does ETCD identify in trial design?"
+        ) == ["model/03_special_purpose_domains.md"]
+
+    def test_silent_on_distribution_attribute_terminology(self, lookup):
+        # must-NOT-fire: the strict verb gate keeps the channel off questions that
+        # name a def-home variable but ask a non-definition question.
+        for q in (
+            "Which SDTM domains carry the ARMCD variable and what are their labels?",  # distribution
+            "In the DM domain what is the RACE variable Core designation?",            # attribute
+            "What controlled terminology codelist does the SEX variable use?",         # terminology ('use' not a def verb)
+            "What is the difference between RFSTDTC and RFENDTC?",                      # comparison
+            "What is EPOCH used for across domains?",                                  # 'used for' not a def verb
+        ):
+            assert lookup._query_concept_definition(q) == [], f"should not fire: {q}"
+
+    def test_bare_mention_does_not_fire(self, lookup):
+        # mere variable mention without the definitional-verb shape -> no fire
+        assert lookup._query_concept_definition(
+            "RDOMAIN appears in supplemental qualifier datasets."
+        ) == []
+
+    def test_lowercase_var_token_not_captured(self, lookup):
+        # the <VAR> group is case-sensitive (uppercase only), so a lowercase common
+        # word inside the verb frame cannot be captured as a variable.
+        assert lookup._query_concept_definition(
+            "what does the system mean for a sponsor?"
+        ) == []
+
+
+# ---- (d) generic '--' var definition -> ch04 channel (2026-06-15) ------------
+
+class TestGenericVarDefinitionChannel:
+    """A definition/comparison ask about a generic '--'-prefix variable routes to
+    ch04 General Assumptions (the SDTM home of cross-domain variable conventions).
+    Pattern-level (keys on the '--' convention + def/comparison intent), gated off
+    distribution ('which domains use --STAT') and usage ('use --SEQ as join key')."""
+
+    def _gd(self, lookup, q):
+        return lookup._query_generic_var_definition(
+            q, lookup._is_distribution_intent(q, q.lower())
+        )
+
+    def test_ch04_discovered(self, lookup):
+        assert lookup.general_assumptions_file == "chapters/ch04_general_assumptions.md"
+
+    def test_q119_union_adds_ch04(self, lookup):
+        # q119 already trips named-domain (RELREC/TU/TR); ch04 must union-add, not replace.
+        out = lookup.resolve(
+            "We need a dataset-to-dataset link between our tumor identification records "
+            "and tumor results records. What exactly is the difference between the "
+            "--LNKID and --LNKGRP variables, and how do they typically come into play "
+            "in RELREC?"
+        )
+        assert "chapters/ch04_general_assumptions.md" in out
+
+    def test_comparison_of_two_dash_vars_fires(self, lookup):
+        # held-out generalization: any two-generic-var comparison -> ch04
+        assert self._gd(
+            lookup, "What is the difference between the --STDTC and --ENDTC variables?"
+        ) == ["chapters/ch04_general_assumptions.md"]
+
+    def test_single_dash_var_definitional_verb_fires(self, lookup):
+        # held-out generalization: single-var definitional ask -> ch04
+        assert self._gd(lookup, "What does the --DUR variable represent?") == \
+            ["chapters/ch04_general_assumptions.md"]
+
+    def test_silent_on_distribution_usage_and_non_dash(self, lookup):
+        for q in (
+            "Which domains use the --STAT variable?",                  # distribution -> VARIABLE_INDEX
+            "Is it acceptable to use --SEQ as the join key in RELREC?",  # usage -> ch08
+            "What is the difference between the AE and CE domains?",     # comparison but no '--' token
+            "How should I populate --DTC for partial dates?",           # usage, no def/comparison verb
+        ):
+            assert self._gd(lookup, q) == [], f"should not fire: {q}"
+
+    def test_compare_needs_two_dash_tokens(self, lookup):
+        # 'difference between' with only ONE '--' token does not fire the compare
+        # branch (avoids "difference between --SEQ and the visit number" type asks).
+        assert self._gd(
+            lookup, "What is the difference between --SEQ and the record sequence?"
+        ) == []

@@ -4,9 +4,9 @@
   "tier": 2,
   "tier_note": "borderline Tier 2-3, 走 Tier 2 + evidence 全留; Phase 2 KG 启动时再评估升 Tier 3",
   "created": "2026-05-22",
-  "updated": "2026-06-12 (★★ 题集 v3 + s3 验证 + S4 三修 DONE — eval 扩 140q [cross 25→50 + 13 纯长名 single]; s3 通道 13/13 首次实测; v3 曾暴露 gate FAIL [cross 93.0/single 92.5, q139/q140 hybrid collateral 真回归] → S4 三修 [dist datasets 同义词/斜杠长名变体/短词锚定] 后 single 100/cross 95.0/concept 100/mixed 100 全类 ≥95% 恢复; pytest 236 + 零回归 + Rule D APPROVE_WITH_NITS; 详见 phase_v3_testset_s4_fixes). 前: 2026-06-09 答题侧护栏 + P1 接入生产 DONE; 2026-06-08 单杠杆 round; 2026-05-24 Phase 1D PASS 88.5%",
+  "updated": "2026-06-15 (★★ v3 full eval 收 S4 尾账 CLEAN_CLOSE + (d) 概念定义双通道 SHIP — Task1: S4 三修 v3 140q full eval 配对 [DeepSeek temp=0, guardrail-off 隔离] src 76.4→97.5 / fact 净 −0.2 带内, 11 掉分独立 scientist 裁判 7 假阴+3 非确定+1 已知前沿 q57 = CLEAN_CLOSE; guardrail-ON+S4 码 grounding 99.65%. Task2: q73+q119 双通道 pattern 级 SHIP, retrieval-only cross 95.0→99.0, 0 回归, pytest 250, Rule D APPROVE; q126 永久 known limitation 架构阻断. 详 phase_d_concept_channel). 前: 2026-06-12 题集 v3+S4 三修; 2026-06-09 答题侧护栏 + P1 接入生产; 2026-05-24 Phase 1D PASS 88.5%",
   "upstream_design": "docs/DESIGN_RAG_KG.md (Approved 2026-04-16)",
-  "current_phase": "题集 v3 + S4 三修 DONE (2026-06-12): 全类 ≥95% 在扩充集 (140q) 恢复, cross 95.0 零 margin → NEXT: (d) 概念定义→chapters/model 通道 (q73/q119/q126, 入口 TODO_retrieval_quality.md §6) / (可选) v3 full eval 答题侧配对; 答题侧护栏 DONE (2026-06-09); Phase 2 KG 仍 deferred",
+  "current_phase": "(d) 概念定义双通道 SHIP + S4 尾账 CLEAN_CLOSE (2026-06-15): retrieval-only v3 140q single 100/cross 99.0/concept 100/mixed 100, full eval 端到端 src 76.4→97.5 fact 净持平. 残留 q126 永久 known limitation (架构阻断: domain_to_spec 只映 spec.md, 需 sub-file 判别器). 答题侧护栏 DONE (2026-06-09); Phase 2 KG 仍 deferred",
   "phases": {
     "phase_0_research": {
       "status": "completed",
@@ -520,7 +520,34 @@
       "result": {"single_domain": 1.0, "cross_domain": 0.95, "concept": 1.0, "mixed": 1.0, "overall": 0.982, "all_categories_ge_95": true},
       "verification": "pytest 236 (本模块首个单测 22 用例) / s3 探针 13/13 / 零回归逐题 diff (救回恰好预测 4 题, 0 回归) / Rule D code-reviewer APPROVE_WITH_NITS (2 MED 当场采纳, 存量 Procedures/Disposition 裸匹配 known boundary 记录)",
       "evidence": "sdtm-rag/evidence/checkpoints/{testset_v3_expansion_summary,s4_longname_dist_fixes_result,s4_rule_d_review}.md + testset_v3_authoring_audit.json",
-      "next": "(d) 概念定义→chapters/model 通道 (TODO_retrieval_quality.md §6); (可选) v3 full eval 答题侧 DeepSeek temp=0 配对"
+      "next": "DONE → phase_d_concept_channel (S4 full eval 收尾账 + (d) 双通道)"
+    },
+    "phase_d_concept_channel": {
+      "status": "completed",
+      "started_at": "2026-06-15",
+      "pass_at": "2026-06-15",
+      "owner": "main (编排/S4 full-eval/q73+q119 writer) + 6-agent Workflow (分诊/数据源/over-fire/综合) + scientist (11 掉分语义裁判, Rule D) + code-reviewer (q73+q119 Rule D 两轮) — 异 type 隔离",
+      "goal": "用户: 先 v3 full eval 配对收 S4 尾账, 然后开 (d) 概念定义通道 (TODO §6)",
+      "task1_s4_full_eval": {
+        "method": "DeepSeek temp=0, v3 140q, OFF (纯 cosine) vs ON (structured_lookup S4 + hybrid), 两臂 guardrail OFF 隔离 S4 检索变量; analyze_paired.py 配对",
+        "source_recall": "OFF 76.4 → ON 97.5 (+21.1pt); cross 53→95 / mixed 80→100 / single 93.8→100 / concept 92→96",
+        "fact_recall": "OFF 82.8 → ON 82.6 (净 −0.2pt, 噪声带内, 无系统性稀释); 8 gain 抵 11 drop",
+        "drop_adjudication": "scientist (Rule D 非 writer) 逐题 KB 核验: 7 FALSE_NEGATIVE / 3 NONDETERMINISM (q02/q133/q140 对的文件在场模型误读) / 1 REAL_DILUTION (q57 PR/spec×4 挤掉 PR/assumptions class 标签) / 0 PREEXISTING",
+        "verdict": "CLEAN_CLOSE",
+        "code_grounding_belt_and_suspenders": "guardrail-ON + S4 终态码: 287 码 / 286 grounded / 1 mis-cited (q35 C66742 真实存在) / 0 fabricated = 99.65%; 护栏与 S4 正交且组合后码 grounding ~100%",
+        "evidence": "evidence/checkpoints/s4_full_eval_closure.md + eval/prod_wirein/v3_full_{off,on,on_guardrail}_t0.{json,log}"
+      },
+      "task2_d_channel": {
+        "q73_3a": "BUILT — var→单一 model 定义文件 def-home 映射 (model/*.md 6 列定义表, 6 列形状=载重判别器; 59 vars RDOMAIN→model/06) + _DEFVERB_RE 严格定义动词锚; 恰触发 q73+q83 (gold model/06)",
+        "q119_3b": "BUILT — 通用 --前缀变量定义/比较意图→ch04 General Assumptions; _query_generic_var_definition (ch04存在+非dist+--token+(差异比较≥2token OR --定义动词)); 推翻 workflow 综合的 defer (q119 比较意图 vs q114 用法意图可分)",
+        "q126": "永久 known limitation — 双重独立阻断: (1) 题面零实体锚区分性短语 140q 中恰命中自己=例级作弊; (2) 架构阻断 domain_to_spec 只映 spec.md 但 SE gold=SE/assumptions.md 需 sub-file 判别器",
+        "result": "retrieval-only v3 140q: single 100 / cross 95.0→99.0 (q73 +2 / q119 +2) / concept 100 / mixed 100; 0 回归",
+        "pattern_level": "全代码零引用 q73/q83/q119/--LNKID; held-out 探针 q73 (3 fire/5 silent) + q119 (8 fire/10 silent) 证泛化, 区别于 q126 退化单例",
+        "rule_d": "code-reviewer 异 type 两轮: q73 APPROVE_WITH_NITS (MED 真载重判别器=6 列形状非 Notes 单元 + LOW EPOCH canary, 已采纳) + q119 APPROVE (clean, 1 LOW 畸形 token 正则加固已采纳)",
+        "code": "server/structured_lookup.py (3a: _DEFVERB_RE/var_to_model_defhome/_build_model_defhome_index/_query_concept_definition; 3b: _DASHVAR_RE/_COMPARE_RE/_DASH_DEFVERB_RE/general_assumptions_file/_query_generic_var_definition; resolve union-add) + scripts/tests/test_structured_lookup.py (+14 用例, 共 pytest 250)",
+        "evidence": "evidence/checkpoints/d_channel_concept_definition.md + eval/ablation_t1/v3_on_dchannel{,2}.{json,log}"
+      },
+      "next": "q126 若将来要做需先给 structured_lookup 加 domain sub-file 判别能力 (架构件); Phase 2 KG 仍 deferred"
     }
   },
   "constraints": {

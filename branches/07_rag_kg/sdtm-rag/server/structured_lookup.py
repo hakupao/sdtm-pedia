@@ -1,6 +1,6 @@
 """S1: deterministic structured-lookup retrieval lever.
 
-Two query classes that cosine + BM25 both miss, but whose answer lives in the KB
+Three query classes that cosine + BM25 both miss, but whose answer lives in the KB
 as structured data:
 
   (1) terminology / CT-code queries (e.g. "values allowed for AESEV", "codelist
@@ -11,6 +11,20 @@ as structured data:
 
   (2) distribution / relationship queries ("which domains use EPOCH", "which
       domains share codelist C66742"). The gold is VARIABLE_INDEX.md.
+
+  (3) concept-definition queries about a variable whose *definition home* is a
+      chapters/ or model/*.md file, not a domain spec. Two sub-cases:
+        (3a) a concrete variable defined in a model/*.md chapter ("what does RDOMAIN
+             identify", "what does RELTYPE mean") -> the model file that introduces
+             it with a real definition (RDOMAIN -> model/06_relationship_datasets.md).
+        (3b) a generic '--'-prefix variable ("what does --DUR represent", "difference
+             between --LNKID and --LNKGRP") -> ch04 General Assumptions, the SDTM home
+             of cross-domain variable conventions.
+      cosine routes these to whatever domain spec mentions the variable, and the
+      distribution channel routes "which domains carry RDOMAIN" to VARIABLE_INDEX —
+      both miss the definition file. Both sub-cases key on a strict definitional-verb
+      (or comparison) shape, so they fire only on genuine definition asks, never on
+      distribution / usage / attribute questions that merely name the same variable.
 
 `StructuredLookup` parses the read-only KB once at engine init and exposes
 `resolve(query)` returning the *gold file paths* (relative to KB root) that should
@@ -24,6 +38,11 @@ Data sources (all already verified to exist in the KB):
   - VARIABLE_INDEX.md §一/§二/§三       -> general vars, domain vars, CT->vars
   - VARIABLE_INDEX.md §二 headings      -> domain long name -> code (long-name-only
                                            queries reach domains/<CODE>/spec.md)
+  - model/*.md variable-def tables      -> var -> model definition-home file (rows
+                                           with a non-empty Notes cell; single-file
+                                           vars only) for the concept-definition channel (3a)
+  - chapters/ch04*.md                    -> ch04 General Assumptions, the definition
+                                           home for generic '--'-prefix variables (3b)
 """
 from __future__ import annotations
 
@@ -115,6 +134,54 @@ _DIST_VERB_KW = (
     "contains",
 )
 
+# Concept-definition intent (gold = a model/*.md definition-home file).
+#
+# Fires ONLY on a strict definitional-verb shape: "what does/is [the] <VAR>
+# [variable] <def-verb>", where <def-verb> is identify/define/mean/represent/
+# capture/do. This is the load-bearing discriminator that separates a genuine
+# definition ask ("what does RDOMAIN identify") from a distribution ask ("which
+# domains carry RDOMAIN", routed to VARIABLE_INDEX) or an attribute ask ("what is
+# RACE's Core designation in DM", routed to a domain spec) that names the same
+# variable. The <VAR> group is case-sensitive (uppercase, like _QUERY_VAR_TOKEN_RE)
+# so the surrounding case-insensitive prose cannot capture a lowercase common word;
+# the captured token must still hit the model def-home map, so a non-variable
+# capture resolves to nothing and the channel stays silent.
+#
+# Deliberately NOT matched: "used"/"role"/"core"/bare mention — broadening the verb
+# set would spray model files (the def-home map holds high-frequency vars like
+# RACE/SEX/EPOCH -> model/03) into distribution/terminology/attribute questions.
+_DEFVERB_RE = re.compile(
+    r"(?i:\bwhat\s+(?:does|is)\s+(?:the\s+)?)"
+    r"([A-Z][A-Z0-9]+)"
+    r"(?i:(?:\s+variable)?\s+(?:do|does|identif\w*|defin\w*|mean\w*|represent\w*|capture\w*))"
+)
+
+# Generic-variable concept-definition intent (gold = the general-assumptions chapter
+# ch04). Generic '--'-prefix variables (--LNKID, --DUR, --STDTC, ...) are the SDTM
+# convention for cross-domain variable patterns; their authoritative definitions live
+# in ch04 General Assumptions, not in any single domain spec — so neither cosine (which
+# routes to whatever domain spec mentions them) nor the domain/distribution channels
+# reach ch04. This channel fires on a definition/comparison ask about a '--' token:
+#   * comparison: "difference between <--X> and <--Y>" (>= 2 '--' tokens), OR
+#   * single-var definition: the q73-style verb shape on one '--' token
+#     ("what does --DUR represent").
+# It is suppressed when distribution intent already routed (so "which domains use
+# --STAT" stays on VARIABLE_INDEX), and stays silent on usage asks ("is it acceptable
+# to use --SEQ as the join key" -> ch08, no def/comparison verb). Pattern-level: keys
+# on the '--' convention + definition intent, not on any specific variable.
+#
+# _DASHVAR_RE uses a negative lookbehind (not \b) because \b is NOT a boundary between
+# a space and a hyphen, so r"\b--[A-Z]" matches nothing. The trailing negative
+# lookahead (also excluding '-') rejects glued/typo'd compounds ("--SEQ--ENDTC",
+# "--SE-Q") that could otherwise mis-satisfy the >=2-token compare count.
+_DASHVAR_RE = re.compile(r"(?<![A-Za-z-])--[A-Z]{2,8}(?![A-Za-z-])")
+_COMPARE_RE = re.compile(r"\bdifference(?:s)?\s+between\b", re.IGNORECASE)
+_DASH_DEFVERB_RE = re.compile(
+    r"(?i:\bwhat\s+(?:does|is)\s+(?:the\s+)?)"
+    r"--[A-Z]{2,8}"
+    r"(?i:(?:\s+variable)?\s+(?:do|does|identif\w*|defin\w*|mean\w*|represent\w*|capture\w*))"
+)
+
 _VARIABLE_INDEX = "VARIABLE_INDEX.md"
 
 
@@ -147,12 +214,20 @@ class StructuredLookup:
         # compiled longname matchers, longest name first (so "Exposure as
         # Collected" wins over "Exposure"); built after the maps are populated.
         self._longname_matchers: list[tuple[re.Pattern[str], str]] = []
+        # var -> model/<file>.md whose variable-def table introduces it with a real
+        # definition (non-empty Notes cell, single model file). The concept-definition
+        # channel's gold map; see _build_model_defhome_index.
+        self.var_to_model_defhome: dict[str, str] = {}
+        # the general-assumptions chapter (ch04), home of generic '--'-prefix variable
+        # definitions; None if absent. Used by the generic-var definition channel.
+        self.general_assumptions_file: str | None = None
 
         self._build_domain_index()
         self._build_terminology_index()
         self._build_spec_index()
         self._build_variable_index()
         self._build_domain_longname_index()
+        self._build_model_defhome_index()
         self._cross_check_vars()
 
     # ---- build phases -------------------------------------------------------
@@ -318,6 +393,74 @@ class StructuredLookup:
         matchers.sort(key=lambda m: len(m[0]), reverse=True)
         self._longname_matchers = [(p, c) for (_n, p, c) in matchers]
 
+    def _build_model_defhome_index(self) -> None:
+        """Map each variable to its model/*.md DEFINITION HOME for the
+        concept-definition channel.
+
+        The KB has TWO variable-table shapes: the 6-column canonical *definition*
+        table `| # | VAR | Label | Type | Role | Notes |` and a 5-column *usage*
+        table `| # | VAR | Label | Type | Role |` (no Notes column). The
+        `len(inner) == 6` filter is the LOAD-BEARING discriminator: it isolates the
+        definition table from the usage tables. This matters because in a 5-column
+        row the last cell is Role, not Notes — admitting 5-column rows would read
+        "Record Qualifier" as a non-empty "Notes" and push a single-home variable to
+        multiple files. Example: RDOMAIN has a 6-col definition row in model/06 AND a
+        5-col usage row in model/03; keeping only 6-col rows leaves it single-home
+        (model/06). The non-empty-Notes check is a secondary filter (skip the rare
+        6-col row with a blank Notes cell = a bare entry, not a definition).
+        Do NOT relax `len(inner) == 6` on the assumption it is arbitrary — doing so
+        would re-admit the usage tables and silently drop RDOMAIN/EPOCH/ETCD/... to
+        multi-file, un-fixing the channel.
+
+        Conservative guards (keep the map a clean single-home, no ambiguity):
+          * keep a variable only when its Notes-bearing 6-col rows are in EXACTLY ONE
+            model file (drops cross-file vars like DOMAIN/USUBJID/POOLID);
+          * exclude generic '--'-prefix vars (their home is the general-assumptions
+            layer, not a single concept chapter — out of this channel's scope).
+        Data-driven: parsed from the read-only KB, no hardcoded variable names. If a
+        future KB rebuild changes the table layout the map goes empty and the channel
+        degrades to [] (safe); pytest canaries assert RDOMAIN/EPOCH -> their files.
+
+        Also discovers the general-assumptions chapter (ch04) here — it is the
+        generic '--'-prefix variable definition channel's gold file (a sibling
+        concept-definition source).
+        """
+        # generic '--' var definition home: ch04 General Assumptions (glob, not a
+        # hardcoded filename, so a KB rename degrades gracefully to no-channel).
+        chapters_dir = self.kb_root / "chapters"
+        if chapters_dir.exists():
+            for f in sorted(chapters_dir.glob("ch04*.md")):
+                self.general_assumptions_file = f.relative_to(self.kb_root).as_posix()
+                break
+
+        model_dir = self.kb_root / "model"
+        if not model_dir.exists():
+            return
+        tmp: dict[str, set[str]] = defaultdict(set)
+        for f in sorted(model_dir.glob("*.md")):
+            rel = f.relative_to(self.kb_root).as_posix()
+            for raw in f.read_text(encoding="utf-8").splitlines():
+                if "|" not in raw:
+                    continue
+                cells = [c.strip() for c in raw.split("|")]
+                inner = cells[1:-1]  # drop the row's leading/trailing empty cells
+                if len(inner) != 6:
+                    continue  # load-bearing: isolates the 6-col definition table
+                              # from the 5-col usage table (whose last cell is Role)
+                num, var, _label, _type, _role, notes = inner
+                if not num.isdigit():
+                    continue
+                if not re.fullmatch(r"(?:--)?[A-Z][A-Z0-9]*", var):
+                    continue
+                if not notes:  # no definition text -> bare usage row, skip
+                    continue
+                tmp[var].add(rel)
+        self.var_to_model_defhome = {
+            var: next(iter(files))
+            for var, files in tmp.items()
+            if len(files) == 1 and not var.startswith("--")
+        }
+
     def _cross_check_vars(self) -> None:
         """Back-fill var->termfile from each variable's own CT code when the
         cross-reference block missed it (e.g. truncated "... (13 total)" tail).
@@ -383,6 +526,38 @@ class StructuredLookup:
                 out.append(code)
         return out
 
+    def _query_concept_definition(self, query: str) -> list[str]:
+        """Model definition-home file(s) for a variable asked about with a strict
+        definitional-verb shape (_DEFVERB_RE). Returns [] unless the query matches
+        that shape AND the captured variable is in the model def-home map — so a
+        distribution/attribute ask that merely names the variable never fires."""
+        out: list[str] = []
+        for m in _DEFVERB_RE.finditer(query):
+            var = m.group(1).upper()
+            f = self.var_to_model_defhome.get(var)
+            if f and f not in out:
+                out.append(f)
+        return out
+
+    def _query_generic_var_definition(self, query: str, dist_intent: bool) -> list[str]:
+        """The general-assumptions chapter (ch04) for a definition/comparison ask
+        about a generic '--'-prefix variable. Returns [] unless: ch04 exists, the
+        query is NOT a distribution ask (those route to VARIABLE_INDEX), and the query
+        either compares >= 2 '--' tokens ("difference between --X and --Y") or asks the
+        definitional-verb shape on a '--' token ("what does --DUR represent"). Keys on
+        the '--' convention, not on any specific variable."""
+        if not self.general_assumptions_file or dist_intent:
+            return []
+        dashvars = _DASHVAR_RE.findall(query)
+        if not dashvars:
+            return []
+        # compare branch counts DISTINCT generic vars (so a repeated token can't
+        # satisfy ">= 2 vars being compared")
+        two_var_compare = _COMPARE_RE.search(query) and len(set(dashvars)) >= 2
+        if two_var_compare or _DASH_DEFVERB_RE.search(query):
+            return [self.general_assumptions_file]
+        return []
+
     def resolve(self, query: str) -> list[str]:
         """Return KB-relative gold file paths to union-add, or [] when no intent
         keyword fires (conservative: fall back to plain cosine, never guess)."""
@@ -390,7 +565,10 @@ class StructuredLookup:
         term_intent = any(kw in ql for kw in _TERM_INTENT_KW)
         dist_intent = self._is_distribution_intent(query, ql)
         named_domains = self._query_domains(query)
-        if not term_intent and not dist_intent and not named_domains:
+        concept_defs = self._query_concept_definition(query)
+        generic_defs = self._query_generic_var_definition(query, dist_intent)
+        if (not term_intent and not dist_intent and not named_domains
+                and not concept_defs and not generic_defs):
             return []
 
         targets: list[str] = []
@@ -418,6 +596,14 @@ class StructuredLookup:
                 termfile = self.ctcode_to_termfile.get(code)
                 if termfile:
                     targets.append(termfile)
+
+        # Concept-definition intent -> the variable's model definition-home file.
+        # Union-added last (recall-additive tail); strict _DEFVERB_RE gate keeps it
+        # off distribution/attribute questions that name the same variable.
+        targets.extend(concept_defs)
+
+        # Generic '--' var definition/comparison intent -> ch04 general assumptions.
+        targets.extend(generic_defs)
 
         # de-dupe, preserve order
         seen: set[str] = set()
