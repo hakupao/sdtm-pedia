@@ -38,3 +38,26 @@ def test_parse_label_unit():
     assert _parse_label("# AE — Adverse Events") == "Adverse Events"
     assert _parse_label("# LB — Laboratory Test Results") == "Laboratory Test Results"
     assert _parse_label("no title here") == ""
+
+
+# ── Task 2: variables + ct_codes/ct_dict split ────────────────────────────
+
+def test_split_ct_unit():
+    assert _split_ct("C66742") == (["C66742"], [])
+    assert _split_ct("C85494; C128684; C128683") == (["C85494", "C128684", "C128683"], [])
+    assert _split_ct("MedDRA") == ([], ["MedDRA"])
+    assert _split_ct("ISO 8601 datetime or interval") == ([], ["ISO 8601 datetime or interval"])
+    assert _split_ct("") == ([], [])
+
+def test_variables_present_and_ct(meta):
+    ae = next(d for d in meta["domains"] if d["domain"] == "AE")
+    by_name = {v["name"]: v for v in ae["variables"]}
+    aeser = by_name["AESER"]
+    assert aeser["role"] == "Record Qualifier"
+    assert aeser["type"] == "Char"
+    assert aeser["core"] == "Exp"
+    assert aeser["label"] == "Serious Event"
+    assert aeser["ct_codes"] == ["C66742"]
+    assert aeser["ct_dict"] == []
+    # STUDYID has no controlled terms
+    assert by_name["STUDYID"]["ct_codes"] == []

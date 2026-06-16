@@ -43,7 +43,34 @@ _CT_CODE_RE = re.compile(r"^C\d+$")
 
 
 def _split_ct(controlled_terms: str) -> tuple[list[str], list[str]]:
-    raise NotImplementedError
+    """Split a spec.md 'Controlled Terms' field into (C-codes, dict-tokens).
+    Values are '; '-separated: a token is a CDISC C-code (^C\\d+$) or an
+    external-dictionary/format token (MedDRA, LOINC, ISO 8601 ..., etc.)."""
+    ct_codes: list[str] = []
+    ct_dict: list[str] = []
+    for tok in (t.strip() for t in controlled_terms.split(";")):
+        if not tok:
+            continue
+        (ct_codes if _CT_CODE_RE.match(tok) else ct_dict).append(tok)
+    return ct_codes, ct_dict
+
+
+def _variables(ds) -> list[dict]:
+    out: list[dict] = []
+    for v in ds.variables:
+        ct_codes, ct_dict = _split_ct(v.controlled_terms)
+        out.append(
+            {
+                "name": v.name,
+                "label": v.label,
+                "role": v.role,
+                "type": v.var_type,
+                "core": v.core,
+                "ct_codes": ct_codes,
+                "ct_dict": ct_dict,
+            }
+        )
+    return out
 
 
 def _same_class_map(domains_out: list[dict]) -> dict[str, list[str]]:
@@ -81,6 +108,7 @@ def build_meta(kb_root: Path) -> dict:
                 "structure": ds.structure if ds else "",
                 "is_special": name in _SPECIAL_DOMAINS,
                 "counts_toward_63": name not in _SPECIAL_DOMAINS,
+                "variables": _variables(ds) if ds else [],
             }
         )
     return {
