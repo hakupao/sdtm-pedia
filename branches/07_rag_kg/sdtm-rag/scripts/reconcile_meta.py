@@ -1,16 +1,31 @@
 """Independent-anchor reconciliation for data/meta/meta.yaml.
 
 Does NOT reuse spec_loader / build_meta parsing — re-derives authoritative
-totals from VARIABLE_INDEX.md / INDEX.md text + a third raw Order-line count,
-to break the tautology trap. Exit 1 on any mismatch.
+totals from VARIABLE_INDEX.md / INDEX.md text plus a raw spec `- **Order:**`
+grep, to break the tautology trap. The grep is a SECOND independent anchor for
+the entry total: it cross-checks the VARIABLE_INDEX header count from a second
+place (raw spec text vs the published header). Both are independent of the
+generator, but they measure the SAME number (the per-domain entry total, 1917)
+— it is not a distinct third quantity. Exit 1 on any mismatch.
 """
 from __future__ import annotations
 
 import re
 import sys
 from pathlib import Path
+from re import Match
 
 import yaml
+
+
+def _require(m: Match[str] | None, what: str, path: Path) -> Match[str]:
+    """Make anchor-parse drift fail LOUD (named anchor + source file), so the
+    gate's own parsing never dies with a bare NoneType AttributeError."""
+    if m is None:
+        raise ValueError(
+            f"reconcile anchor parse failed: {what} not found in {path} (format drift?)"
+        )
+    return m
 
 
 def _meta_derived(meta: dict) -> dict:
@@ -36,23 +51,39 @@ def _meta_derived(meta: dict) -> dict:
 
 
 def _anchors(kb_root: Path) -> dict:
-    vidx = (kb_root / "VARIABLE_INDEX.md").read_text(encoding="utf-8")
-    index = (kb_root / "INDEX.md").read_text(encoding="utf-8")
+    vidx_path = kb_root / "VARIABLE_INDEX.md"
+    index_path = kb_root / "INDEX.md"
+    vidx = vidx_path.read_text(encoding="utf-8")
+    index = index_path.read_text(encoding="utf-8")
 
-    hdr = re.search(
-        r"唯一变量数:\s*(\d+)\s*\|\s*条目总数:\s*(\d+)\s*\|\s*覆盖域:\s*(\d+)", vidx
+    hdr = _require(
+        re.search(
+            r"唯一变量数:\s*(\d+)\s*\|\s*条目总数:\s*(\d+)\s*\|\s*覆盖域:\s*(\d+)", vidx
+        ),
+        "VARIABLE_INDEX header (唯一变量数/条目总数/覆盖域)",
+        vidx_path,
     )
     uniq, entries, _cov = (int(hdr.group(i)) for i in (1, 2, 3))
 
     def _domain_count(var: str) -> int:
-        m = re.search(rf"^\|\s*{var}\s*\|\s*(\d+)\s*\|", vidx, re.MULTILINE)
+        m = _require(
+            re.search(rf"^\|\s*{re.escape(var)}\s*\|\s*(\d+)\s*\|", vidx, re.MULTILINE),
+            f"VARIABLE_INDEX row for {var}",
+            vidx_path,
+        )
         return int(m.group(1))
 
-    cl = re.search(r"\(([\d,]+)\s*codelists,\s*([\d,]+)\s*terms\)", index)
+    cl = _require(
+        re.search(r"\(([\d,]+)\s*codelists,\s*([\d,]+)\s*terms\)", index),
+        "INDEX codelists/terms aggregate",
+        index_path,
+    )
     codelists = int(cl.group(1).replace(",", ""))
     terms = int(cl.group(2).replace(",", ""))
 
-    # 第三独立源：裸数 spec.md 的 '- **Order:**' 行
+    # Second independent anchor for the entry total: raw spec '- **Order:**'
+    # grep cross-checks the VARIABLE_INDEX header count from a second place
+    # (raw spec text vs published header). Same quantity (1917), not a third one.
     order_re = re.compile(r"^- \*\*Order:\*\*", re.MULTILINE)
     raw_order = sum(
         len(order_re.findall(p.read_text(encoding="utf-8")))
@@ -63,6 +94,10 @@ def _anchors(kb_root: Path) -> dict:
         "variable_entries_total": entries,
         "unique_variable_names": uniq,
         "codelists_total": codelists,
+        # terms_total is the WEAKEST of the 8 anchors: equality holds only if
+        # INDEX's published term aggregate and meta's sum(term_count) both count
+        # raw terms with no cross-codelist dedup. Both likely trace to the same
+        # source xlsx, so this is a consistency check, not an independent one.
         "terms_total": terms,
         "TAETORD_domain_count": _domain_count("TAETORD"),
         "VISITDY_domain_count": _domain_count("VISITDY"),
@@ -74,8 +109,9 @@ def reconcile(meta_path: Path, kb_root: Path) -> list[dict]:
     meta = yaml.safe_load(meta_path.read_text(encoding="utf-8"))
     derived = _meta_derived(meta)
     anchors = _anchors(kb_root)
-    # raw_order is the third independent source; it counts the same quantity as
-    # variable_entries_total (one - **Order:** line per variable per domain).
+    # raw_order_line_count is a second independent anchor for the entry total:
+    # it measures the SAME quantity as variable_entries_total (one - **Order:**
+    # line per variable per domain), so meta's number is compared against it too.
     derived["raw_order_line_count"] = derived["variable_entries_total"]
     report: list[dict] = []
     for check, expected in anchors.items():

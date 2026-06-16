@@ -140,14 +140,16 @@ class SpecLoader:
             # This prevents section headings like "### Controlled Terminology",
             # "### Related Domains", "### General References", "### Model Definition"
             # from being misidentified as variable names.
-            if lines[i].startswith("---") or lines[i].startswith("## "):
+            if lines[i].startswith(("---", "## ")):
                 break
             m = re.match(r"^### (\w+)", lines[i])
             if m:
                 var_name = m.group(1)
                 var_fields: dict[str, str] = {}
                 i += 1
-                while i < len(lines) and not lines[i].startswith("### ") and not lines[i].startswith("---") and not lines[i].startswith("## "):
+                while i < len(lines):
+                    if lines[i].startswith(("### ", "---", "## ")):
+                        break
                     fm = re.match(r"^- \*\*(.+?):\*\*\s*(.*)", lines[i])
                     if fm:
                         var_fields[fm.group(1).strip()] = fm.group(2).strip()

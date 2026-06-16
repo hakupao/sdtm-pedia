@@ -176,4 +176,6 @@ def test_reconcile_all_pass(kb_root, tmp_path):
     assert checks["terms_total"]["expected"] == 37939
     assert checks["TAETORD_domain_count"]["expected"] == 43
     assert checks["VISITDY_domain_count"]["expected"] == 36
-    assert checks["raw_order_line_count"]["expected"] == 1917  # 第三独立源
+    # 第二独立锚: 裸 spec '- **Order:**' grep 从第二处复核 entry 总数 (=1917),
+    # 与 VARIABLE_INDEX header 计的是同一个量, 都独立于生成器, 但非第三个独立量。
+    assert checks["raw_order_line_count"]["expected"] == 1917
