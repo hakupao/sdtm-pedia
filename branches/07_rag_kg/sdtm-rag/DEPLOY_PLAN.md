@@ -147,14 +147,18 @@ question
 - **验收**:对比三栏正确 ✅、失败隔离生效 ✅、裁判输出可解析 ✅、eval 达标(DeepSeek 96.6% / Sonnet 97.8% 均 PASS)+ 主力已拍板 ✅ → **阶段 2 核心收口**;阶段 3 共享前补 SEC MED(错误串 sanitize)+ host/限流(见 model_comparison 同目录 compare_judge §4 延后项)。
 
 ### 阶段 3 — 共享(部署专用目录 + 对外 + 加锁)
+> **状态: DEFERRED (用户 2026-06-16 选「先本地试用 chat UI」)** — 待用户在 `localhost:8000` 试用满意 + 谈完 IT 再开。
+> **已定决策**: ① 对外面 = **8000 的 ChatGPT 风格 chat UI**(已建成上线 localhost,见 `PLAN_chat_ui.md`);8501 Streamlit Compare/Judge **保持 localhost** 当开发者工具,不对外。② 登录门 = **FastAPI 共享口令**(登录表单 + 签名 session cookie 中间件,最轻、公司网内即可、无需额外服务/IT)。
+
 目标:同事稳定访问,且安全合规。
 - [ ] 我:写 `deploy.sh`(rsync app+data+kb→`~/sdtm-rag-service/`,在那 `uv sync`)
-- [ ] 我:launchd 改指服务目录、绑 `0.0.0.0`;配自动登录(无人值守重启可起)
-- [ ] 我:加登录门(方案见 §7)
+- [ ] 我:launchd 改指服务目录、**仅 chat UI 服务绑 `0.0.0.0`**(8501 仍 127.0.0.1);配自动登录(无人值守重启可起)
+- [ ] 我:加登录门 = **FastAPI 共享口令**(登录表单 + 签名 session cookie 中间件;覆盖 `GET /` + `/api/*`)
+- [ ] 我:安全硬化(共享前):错误串 sanitize、限流、asyncio 外层超时、pip-audit;+ 延后的 chat UI 项(Stop/Abort+重试 UX、topbar 读 `/api/info` default_model、CSP + `X-Content-Type-Options` 头)
 - [ ] 我:`pmset` 禁睡眠+断电自启;macOS 防火墙放行
-- [ ] 你:找 IT 要**固定内网 IP/主机名** + **IT/安全签字**(公司网跑服务 + 数据出境)
+- [ ] 你:找 IT 要**固定内网 IP/主机名** + **IT/安全签字**(公司网跑服务 + 数据出境)— **go-live 硬阻塞**
 - [ ] 你:把地址发同事
-- **验收**:同事访问 `http://<主机名>:8501`、登录、能用;重启自恢复。
+- **验收**:同事访问 `http://<主机名>:8000`(chat UI)、登录、能用;重启自恢复。
 
 ---
 
@@ -201,7 +205,7 @@ question
 ## 7. 待确认 / 开放问题
 - [ ] **各模型槽的默认值**(对比 3 路 + 裁判)填什么 —— **全部可在 `.env`/UI 自定义,本期不决定、不阻塞开发**(先留参考默认占位即可)。
 - [ ] **knowledge_base 路径**的确切 config 变量名(搭建阶段 0 时确认)。
-- [ ] **登录门方案**(阶段 3 再定:Streamlit 内置口令 / 反代 + 公司 SSO / Cloudflare Access)。
+- [x] **登录门方案** → **已定 (用户 2026-06-16): FastAPI 共享口令**(登录表单 + 签名 session cookie 中间件,加在 8000 chat UI;最轻、公司网内即可、无需 IT)。备选(反代 + SSO / Cloudflare Access)留待若 IT 有更高要求时再评。
 - [ ] **自动登录 vs LaunchDaemon**(阶段 3;若公司禁自动登录则用 LaunchDaemon)。
 
 ---
