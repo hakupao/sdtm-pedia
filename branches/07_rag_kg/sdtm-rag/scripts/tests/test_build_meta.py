@@ -91,3 +91,14 @@ def test_relations_curated(meta):
     assert all(r["fidelity"] == "curated_prose" for r in ae["relations_curated"])
     # "Same class" bullet（无链接）不应混进来
     assert "BE" not in rels
+
+
+# ── Task 5: model_defhome ─────────────────────────────────────────────────
+
+def test_model_defhome(meta):
+    mdh = meta["model_defhome"]
+    assert mdh["RDOMAIN"] == "model/06_relationship_datasets.md"
+    assert "EPOCH" in mdh                       # 单 home 变量在
+    assert "DOMAIN" not in mdh                  # 跨多文件 -> 丢弃
+    assert "USUBJID" not in mdh
+    assert not any(k.startswith("--") for k in mdh)  # 排除 -- 前缀

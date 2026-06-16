@@ -131,7 +131,36 @@ def _relations_curated(kb_root: Path, domain: str) -> list[dict]:
 
 
 def _model_defhome(kb_root: Path) -> dict[str, str]:
-    raise NotImplementedError
+    """var -> model/*.md definition home. The 6-col definition table
+    `| # | VAR | Label | Type | Role | Notes |` is isolated by len(inner)==6
+    (the 5-col usage table's last cell is Role, not Notes). Keep only vars whose
+    Notes-bearing 6-col rows live in EXACTLY ONE file; drop generic '--' vars."""
+    model_dir = kb_root / "model"
+    if not model_dir.exists():
+        return {}
+    tmp: dict[str, set[str]] = defaultdict(set)
+    for f in sorted(model_dir.glob("*.md")):
+        rel = f.relative_to(kb_root).as_posix()
+        for raw in f.read_text(encoding="utf-8").splitlines():
+            if "|" not in raw:
+                continue
+            cells = [c.strip() for c in raw.split("|")]
+            inner = cells[1:-1]
+            if len(inner) != 6:
+                continue  # load-bearing discriminator (do NOT relax)
+            num, var, _label, _type, _role, notes = inner
+            if not num.isdigit():
+                continue
+            if not re.fullmatch(r"(?:--)?[A-Z][A-Z0-9]*", var):
+                continue
+            if not notes:
+                continue
+            tmp[var].add(rel)
+    return {
+        var: next(iter(files))
+        for var, files in sorted(tmp.items())
+        if len(files) == 1 and not var.startswith("--")
+    }
 
 
 def _codelists(kb_root: Path) -> list[dict]:
@@ -169,4 +198,5 @@ def build_meta(kb_root: Path) -> dict:
         "meta_version": 1,
         "generated_from": "knowledge_base/",
         "domains": domains_out,
+        "model_defhome": _model_defhome(kb_root),
     }
