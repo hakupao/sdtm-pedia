@@ -1,12 +1,14 @@
 """API routes for SDTM RAG Q&A + Dataset Validation (Phase 1B + 1C)."""
 from __future__ import annotations
 
+import json
 import time
 from typing import Literal
 
 import structlog
 from pydantic import BaseModel, Field
 from fastapi import APIRouter, Request, HTTPException, UploadFile, File, Form
+from fastapi.responses import StreamingResponse
 
 log = structlog.get_logger()
 api_router = APIRouter(prefix="/api")
@@ -163,6 +165,80 @@ def ask(body: AskRequest, request: Request):
         sources=sources,
         model_used=model_used,
         usage=usage,
+    )
+
+
+# ── Streaming single-model Q&A (chat UI; DESIGN_chat_ui.md §3) ─────────
+
+
+class AskStreamRequest(BaseModel):
+    question: str = Field(max_length=10000)
+    history: list[MessageItem] = Field(default_factory=list)
+    top_k: int | None = Field(None, ge=1, le=100)
+    domain: str | None = None
+    file_type: str | None = None
+
+
+@api_router.post("/ask_stream")
+async def ask_stream(body: AskStreamRequest, request: Request):
+    """SSE 流式单模型问答 (DeepSeek V4 Pro via Router 'default'). 检索一次 (FR1),
+    然后流式生成。检索失败在开流前返 502; 流中途失败发 error 事件。"""
+    rag = request.app.state.rag
+    llm_router = request.app.state.llm_router
+
+    if not body.question.strip():
+        raise HTTPException(status_code=422, detail="question must not be empty")
+
+    try:
+        chunks = rag.retrieve(
+            body.question, domain=body.domain, file_type=body.file_type, top_k=body.top_k
+        )
+    except Exception as e:
+        log.error("stream_retrieve_failed", error=str(e), exc_info=True)
+        raise HTTPException(status_code=502, detail="Retrieval service temporarily unavailable.")
+
+    context = rag.format_context(chunks)
+    history_dicts = [{"role": m.role, "content": m.content} for m in body.history]
+    messages = rag.build_messages(body.question, context, history_dicts or None)
+    sources = [
+        {"chunk_id": c.chunk_id, "source": c.source, "domain": c.domain,
+         "file_type": c.file_type, "section": c.section,
+         "similarity": c.similarity, "text_preview": c.text[:300]}
+        for c in chunks
+    ]
+
+    def sse(event: str, data: dict) -> str:
+        return f"event: {event}\ndata: {json.dumps(data, ensure_ascii=False)}\n\n"
+
+    async def gen():
+        yield sse("sources", {"sources": sources})
+        model_used = None
+        usage = None
+        try:
+            resp = await llm_router.acompletion(
+                model="default", messages=messages, stream=True,
+                stream_options={"include_usage": True},
+            )
+            async for chunk in resp:
+                choices = getattr(chunk, "choices", None)
+                if choices:
+                    text = getattr(choices[0].delta, "content", None)
+                    if text:
+                        yield sse("token", {"text": text})
+                    model_used = getattr(chunk, "model", None) or model_used
+                cu = getattr(chunk, "usage", None)
+                if cu:
+                    usage = {"prompt_tokens": cu.prompt_tokens,
+                             "completion_tokens": cu.completion_tokens,
+                             "total_tokens": cu.total_tokens}
+            yield sse("done", {"model_used": model_used or "default", "usage": usage})
+        except Exception as e:  # noqa: BLE001 — stream already open, surface as event
+            log.error("stream_failed", error=str(e), exc_info=True)
+            yield sse("error", {"message": "LLM stream failed"})
+
+    return StreamingResponse(
+        gen(), media_type="text/event-stream",
+        headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"},
     )
 
 
