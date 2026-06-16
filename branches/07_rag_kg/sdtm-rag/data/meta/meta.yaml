@@ -5510,34 +5510,6 @@ domains:
     name: AEENTPT
     role: Timing
     type: Char
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Controlled
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Related
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: General
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Model
-    role: ''
-    type: ''
 - class: Interventions
   counts_toward_63: true
   domain: AG
@@ -5855,34 +5827,6 @@ domains:
     name: AGENTPT
     role: Timing
     type: Char
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Controlled
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Related
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: General
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Model
-    role: ''
-    type: ''
 - class: Events
   counts_toward_63: true
   domain: BE
@@ -6084,34 +6028,6 @@ domains:
     name: BEDUR
     role: Timing
     type: Char
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Controlled
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Related
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: General
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Model
-    role: ''
-    type: ''
 - class: Findings
   counts_toward_63: true
   domain: BS
@@ -6418,34 +6334,6 @@ domains:
     name: BSRFTDTC
     role: Timing
     type: Char
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Controlled
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Related
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: General
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Model
-    role: ''
-    type: ''
 - class: Events
   counts_toward_63: true
   domain: CE
@@ -6697,34 +6585,6 @@ domains:
     name: CEENTPT
     role: Timing
     type: Char
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Controlled
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Related
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: General
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Model
-    role: ''
-    type: ''
 - class: Interventions
   counts_toward_63: true
   domain: CM
@@ -7052,34 +6912,6 @@ domains:
     name: CMENTPT
     role: Timing
     type: Char
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Controlled
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Related
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: General
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Model
-    role: ''
-    type: ''
 - class: Special-Purpose
   counts_toward_63: true
   domain: CO
@@ -7188,34 +7020,6 @@ domains:
     name: CODY
     role: Timing
     type: Num
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Controlled
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Related
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: General
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Model
-    role: ''
-    type: ''
 - class: Findings
   counts_toward_63: true
   domain: CP
@@ -7717,34 +7521,6 @@ domains:
     name: CPRFTDTC
     role: Timing
     type: Char
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Controlled
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Related
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: General
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Model
-    role: ''
-    type: ''
 - class: Findings
   counts_toward_63: true
   domain: CV
@@ -8096,34 +7872,6 @@ domains:
     name: CVRFTDTC
     role: Timing
     type: Char
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Controlled
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Related
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: General
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Model
-    role: ''
-    type: ''
 - class: Findings
   counts_toward_63: true
   domain: DA
@@ -8358,34 +8106,6 @@ domains:
     name: DADY
     role: Timing
     type: Num
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Controlled
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Related
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: General
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Model
-    role: ''
-    type: ''
 - class: Findings
   counts_toward_63: true
   domain: DD
@@ -8512,34 +8232,6 @@ domains:
     name: DDDY
     role: Timing
     type: Num
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Controlled
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Related
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: General
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Model
-    role: ''
-    type: ''
 - class: ''
   counts_toward_63: false
   domain: DI
@@ -8803,34 +8495,6 @@ domains:
     name: DMDY
     role: Timing
     type: Num
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Controlled
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Related
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: General
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Model
-    role: ''
-    type: ''
 - class: Events
   counts_toward_63: true
   domain: DS
@@ -8971,34 +8635,6 @@ domains:
     name: DSSTDY
     role: Timing
     type: Num
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Controlled
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Related
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: General
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Model
-    role: ''
-    type: ''
 - class: Events
   counts_toward_63: true
   domain: DV
@@ -9129,34 +8765,6 @@ domains:
     name: DVENDY
     role: Timing
     type: Num
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Controlled
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Related
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: General
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Model
-    role: ''
-    type: ''
 - class: Interventions
   counts_toward_63: true
   domain: EC
@@ -9511,34 +9119,6 @@ domains:
     name: ECRFTDTC
     role: Timing
     type: Char
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Controlled
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Related
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: General
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Model
-    role: ''
-    type: ''
 - class: Findings
   counts_toward_63: true
   domain: EG
@@ -9913,34 +9493,6 @@ domains:
     name: EGRFTDTC
     role: Timing
     type: Char
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Controlled
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Related
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: General
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Model
-    role: ''
-    type: ''
 - class: Interventions
   counts_toward_63: true
   domain: EX
@@ -10234,34 +9786,6 @@ domains:
     name: EXRFTDTC
     role: Timing
     type: Char
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Controlled
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Related
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: General
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Model
-    role: ''
-    type: ''
 - class: Findings About
   counts_toward_63: true
   domain: FA
@@ -10529,34 +10053,6 @@ domains:
     name: FADY
     role: Timing
     type: Num
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Controlled
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Related
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: General
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Model
-    role: ''
-    type: ''
 - class: Findings
   counts_toward_63: true
   domain: FT
@@ -10874,34 +10370,6 @@ domains:
     name: FTRFTDTC
     role: Timing
     type: Char
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Controlled
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Related
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: General
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Model
-    role: ''
-    type: ''
 - class: Findings
   counts_toward_63: true
   domain: GF
@@ -11360,34 +10828,6 @@ domains:
     name: GFRFTDTC
     role: Timing
     type: Char
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Controlled
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Related
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: General
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Model
-    role: ''
-    type: ''
 - class: Events
   counts_toward_63: true
   domain: HO
@@ -11615,34 +11055,6 @@ domains:
     name: HOENTPT
     role: Timing
     type: Char
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Controlled
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Related
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: General
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Model
-    role: ''
-    type: ''
 - class: Findings
   counts_toward_63: true
   domain: IE
@@ -11812,34 +11224,6 @@ domains:
     name: IEDY
     role: Timing
     type: Num
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Controlled
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Related
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: General
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Model
-    role: ''
-    type: ''
 - class: Findings
   counts_toward_63: true
   domain: IS
@@ -12288,34 +11672,6 @@ domains:
     name: ISRFTDTC
     role: Timing
     type: Char
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Controlled
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Related
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: General
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Model
-    role: ''
-    type: ''
 - class: Findings
   counts_toward_63: true
   domain: LB
@@ -12829,34 +12185,6 @@ domains:
     name: LBPDUR
     role: Timing
     type: Char
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Controlled
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Related
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: General
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Model
-    role: ''
-    type: ''
 - class: Findings
   counts_toward_63: true
   domain: MB
@@ -13264,34 +12592,6 @@ domains:
     name: MBRFTDTC
     role: Timing
     type: Char
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Controlled
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Related
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: General
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Model
-    role: ''
-    type: ''
 - class: Events
   counts_toward_63: true
   domain: MH
@@ -13506,34 +12806,6 @@ domains:
     name: MHENTPT
     role: Timing
     type: Char
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Controlled
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Related
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: General
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Model
-    role: ''
-    type: ''
 - class: Findings
   counts_toward_63: true
   domain: MI
@@ -13853,34 +13125,6 @@ domains:
     name: MIDY
     role: Timing
     type: Num
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Controlled
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Related
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: General
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Model
-    role: ''
-    type: ''
 - class: Findings
   counts_toward_63: true
   domain: MK
@@ -14232,34 +13476,6 @@ domains:
     name: MKRFTDTC
     role: Timing
     type: Char
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Controlled
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Related
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: General
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Model
-    role: ''
-    type: ''
 - class: Interventions
   counts_toward_63: true
   domain: ML
@@ -14547,34 +13763,6 @@ domains:
     name: MIDSDTC
     role: Timing
     type: Char
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Controlled
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Related
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: General
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Model
-    role: ''
-    type: ''
 - class: Findings
   counts_toward_63: true
   domain: MS
@@ -15082,34 +14270,6 @@ domains:
     name: MSEVINTX
     role: Timing
     type: Char
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Controlled
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Related
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: General
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Model
-    role: ''
-    type: ''
 - class: Findings
   counts_toward_63: true
   domain: NV
@@ -15460,34 +14620,6 @@ domains:
     name: NVRFTDTC
     role: Timing
     type: Char
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Controlled
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Related
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: General
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Model
-    role: ''
-    type: ''
 - class: Findings
   counts_toward_63: true
   domain: OE
@@ -15912,34 +15044,6 @@ domains:
     name: OERFTDTC
     role: Timing
     type: Char
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Controlled
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Related
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: General
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Model
-    role: ''
-    type: ''
 - class: Study Reference
   counts_toward_63: true
   domain: OI
@@ -16000,27 +15104,6 @@ domains:
     name: OIVAL
     role: Result Qualifier
     type: Char
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Controlled
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: General
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Model
-    role: ''
-    type: ''
 - class: Findings
   counts_toward_63: true
   domain: PC
@@ -16365,34 +15448,6 @@ domains:
     name: PCEVLINT
     role: Timing
     type: Char
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Controlled
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Related
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: General
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Model
-    role: ''
-    type: ''
 - class: Findings
   counts_toward_63: true
   domain: PE
@@ -16651,34 +15706,6 @@ domains:
     name: PEDY
     role: Timing
     type: Num
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Controlled
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Related
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: General
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Model
-    role: ''
-    type: ''
 - class: Findings
   counts_toward_63: true
   domain: PP
@@ -16924,34 +15951,6 @@ domains:
     name: PPENINT
     role: Timing
     type: Char
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Controlled
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Related
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: General
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Model
-    role: ''
-    type: ''
 - class: Interventions
   counts_toward_63: true
   domain: PR
@@ -17301,34 +16300,6 @@ domains:
     name: PRENTPT
     role: Timing
     type: Char
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Controlled
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Related
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: General
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Model
-    role: ''
-    type: ''
 - class: Findings
   counts_toward_63: true
   domain: QS
@@ -17630,34 +16601,6 @@ domains:
     name: QSEVINTX
     role: Timing
     type: Char
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Controlled
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Related
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: General
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Model
-    role: ''
-    type: ''
 - class: Findings
   counts_toward_63: true
   domain: RE
@@ -18044,34 +16987,6 @@ domains:
     name: RERFTDTC
     role: Timing
     type: Char
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Controlled
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Related
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: General
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Model
-    role: ''
-    type: ''
 - class: Relationship
   counts_toward_63: true
   domain: RELREC
@@ -18135,34 +17050,6 @@ domains:
     name: RELID
     role: Record Qualifier
     type: Char
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Controlled
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Related
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: General
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Model
-    role: ''
-    type: ''
 - class: Relationship
   counts_toward_63: true
   domain: RELSPEC
@@ -18219,34 +17106,6 @@ domains:
     name: LEVEL
     role: Variable Qualifier
     type: Num
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Controlled
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Related
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: General
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Model
-    role: ''
-    type: ''
 - class: Relationship
   counts_toward_63: true
   domain: RELSUB
@@ -18295,34 +17154,6 @@ domains:
     name: SREL
     role: Record Qualifier
     type: Char
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Controlled
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Related
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: General
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Model
-    role: ''
-    type: ''
 - class: Findings
   counts_toward_63: true
   domain: RP
@@ -18626,34 +17457,6 @@ domains:
     name: RPRFTDTC
     role: Timing
     type: Char
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Controlled
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Related
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: General
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Model
-    role: ''
-    type: ''
 - class: Findings
   counts_toward_63: true
   domain: RS
@@ -19046,34 +17849,6 @@ domains:
     name: RSENTPT
     role: Timing
     type: Char
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Controlled
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Related
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: General
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Model
-    role: ''
-    type: ''
 - class: Findings
   counts_toward_63: true
   domain: SC
@@ -19287,34 +18062,6 @@ domains:
     name: SCDY
     role: Timing
     type: Num
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Controlled
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Related
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: General
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Model
-    role: ''
-    type: ''
 - class: Special-Purpose
   counts_toward_63: true
   domain: SE
@@ -19422,34 +18169,6 @@ domains:
     name: SEUPDES
     role: Synonym Qualifier
     type: Char
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Controlled
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Related
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: General
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Model
-    role: ''
-    type: ''
 - class: Special-Purpose
   counts_toward_63: true
   domain: SM
@@ -19535,27 +18254,6 @@ domains:
     name: SMENDY
     role: Timing
     type: Num
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Related
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: General
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Model
-    role: ''
-    type: ''
 - class: Findings About
   counts_toward_63: true
   domain: SR
@@ -19870,34 +18568,6 @@ domains:
     name: SRRFTDTC
     role: Timing
     type: Char
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Controlled
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Related
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: General
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Model
-    role: ''
-    type: ''
 - class: Findings
   counts_toward_63: true
   domain: SS
@@ -20102,34 +18772,6 @@ domains:
     name: SSDY
     role: Timing
     type: Num
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Controlled
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Related
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: General
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Model
-    role: ''
-    type: ''
 - class: Interventions
   counts_toward_63: true
   domain: SU
@@ -20419,34 +19061,6 @@ domains:
     name: SUENTPT
     role: Timing
     type: Char
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Controlled
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Related
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: General
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Model
-    role: ''
-    type: ''
 - class: Relationship
   counts_toward_63: true
   domain: SUPPQUAL
@@ -20531,34 +19145,6 @@ domains:
     name: QEVAL
     role: Record Qualifier
     type: Char
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Controlled
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Related
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: General
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Model
-    role: ''
-    type: ''
 - class: Special-Purpose
   counts_toward_63: true
   domain: SV
@@ -20690,34 +19276,6 @@ domains:
     name: SVUPDES
     role: Record Qualifier
     type: Char
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Controlled
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Related
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: General
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Model
-    role: ''
-    type: ''
 - class: Trial Design
   counts_toward_63: true
   domain: TA
@@ -20814,34 +19372,6 @@ domains:
     name: EPOCH
     role: Timing
     type: Char
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Controlled
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Related
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: General
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Model
-    role: ''
-    type: ''
 - class: Trial Design
   counts_toward_63: true
   domain: TD
@@ -20924,27 +19454,6 @@ domains:
     name: TDNUMRPT
     role: Record Qualifier
     type: Num
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Related
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: General
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Model
-    role: ''
-    type: ''
 - class: Trial Design
   counts_toward_63: true
   domain: TE
@@ -21015,27 +19524,6 @@ domains:
     name: TEDUR
     role: Timing
     type: Char
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Related
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: General
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Model
-    role: ''
-    type: ''
 - class: Trial Design
   counts_toward_63: true
   domain: TI
@@ -21108,34 +19596,6 @@ domains:
     name: TIVERS
     role: Record Qualifier
     type: Char
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Controlled
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Related
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: General
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Model
-    role: ''
-    type: ''
 - class: Trial Design
   counts_toward_63: true
   domain: TM
@@ -21187,34 +19647,6 @@ domains:
     name: TMRPT
     role: Record Qualifier
     type: Char
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Controlled
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Related
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: General
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Model
-    role: ''
-    type: ''
 - class: Findings
   counts_toward_63: true
   domain: TR
@@ -21501,34 +19933,6 @@ domains:
     name: TRDY
     role: Timing
     type: Num
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Controlled
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Related
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: General
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Model
-    role: ''
-    type: ''
 - class: Trial Design
   counts_toward_63: true
   domain: TS
@@ -21625,34 +20029,6 @@ domains:
     name: TSVCDVER
     role: Result Qualifier
     type: Char
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Controlled
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Related
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: General
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Model
-    role: ''
-    type: ''
 - class: Findings
   counts_toward_63: true
   domain: TU
@@ -21933,34 +20309,6 @@ domains:
     name: TUDY
     role: Timing
     type: Num
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Controlled
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Related
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: General
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Model
-    role: ''
-    type: ''
 - class: Trial Design
   counts_toward_63: true
   domain: TV
@@ -22049,27 +20397,6 @@ domains:
     name: TVENRL
     role: Rule
     type: Char
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Related
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: General
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Model
-    role: ''
-    type: ''
 - class: Findings
   counts_toward_63: true
   domain: UR
@@ -22427,34 +20754,6 @@ domains:
     name: URRFTDTC
     role: Timing
     type: Char
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Controlled
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Related
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: General
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Model
-    role: ''
-    type: ''
 - class: Findings
   counts_toward_63: true
   domain: VS
@@ -22775,34 +21074,6 @@ domains:
     name: VSRFTDTC
     role: Timing
     type: Char
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Controlled
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Related
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: General
-    role: ''
-    type: ''
-  - core: ''
-    ct_codes: []
-    ct_dict: []
-    label: ''
-    name: Model
-    role: ''
-    type: ''
 generated_from: knowledge_base/
 meta_version: 1
 model_defhome:

@@ -155,3 +155,25 @@ def test_model_defhome(meta):
     assert "DOMAIN" not in mdh                  # 跨多文件 -> 丢弃
     assert "USUBJID" not in mdh
     assert not any(k.startswith("--") for k in mdh)  # 排除 -- 前缀
+
+
+# ── Task 8: reconcile_meta — 独立锚对账 ───────────────────────────────────
+
+def test_reconcile_all_pass(kb_root, tmp_path):
+    from scripts.build_meta import dump_meta
+    from scripts.reconcile_meta import reconcile
+    m = build_meta(kb_root)
+    p = tmp_path / "meta.yaml"
+    dump_meta(m, p)
+    report = reconcile(p, kb_root)
+    failed = [c for c in report if not c["ok"]]
+    assert failed == [], f"reconcile mismatches: {failed}"
+    checks = {c["check"]: c for c in report}
+    assert checks["domains_counts_toward_63"]["expected"] == 63
+    assert checks["variable_entries_total"]["expected"] == 1917
+    assert checks["unique_variable_names"]["expected"] == 1523
+    assert checks["codelists_total"]["expected"] == 1005
+    assert checks["terms_total"]["expected"] == 37939
+    assert checks["TAETORD_domain_count"]["expected"] == 43
+    assert checks["VISITDY_domain_count"]["expected"] == 36
+    assert checks["raw_order_line_count"]["expected"] == 1917  # 第三独立源
