@@ -14,7 +14,19 @@ function load() {
   } catch (_) {}
   return { conversations: [], currentId: null };
 }
-function save() { localStorage.setItem(LS_KEY, JSON.stringify(store)); }
+function save() {
+  try {
+    localStorage.setItem(LS_KEY, JSON.stringify(store));
+  } catch (_) {
+    // QuotaExceededError: store is newest-first (unshift), so evict the oldest conversations
+    // until it fits — never let a storage failure throw into a stream callback (would lose the
+    // just-generated answer and, before the try/finally below, brick the send button).
+    while (store.conversations.length > 1) {
+      store.conversations.pop();
+      try { localStorage.setItem(LS_KEY, JSON.stringify(store)); return; } catch (_) {}
+    }
+  }
+}
 
 function current() {
   let c = store.conversations.find((x) => x.id === store.currentId);
@@ -122,7 +134,7 @@ function parseSSE(raw) {
   try { return { event, data: JSON.parse(data) }; } catch (_) { return null; }
 }
 
-async function streamAsk(question, history, { onSources, onToken, onDone, onError }) {
+async function streamAsk(question, history, { onSources, onToken, onDone, onError, onClose }) {
   let resp;
   try {
     resp = await fetch("/api/ask_stream", {
@@ -134,21 +146,30 @@ async function streamAsk(question, history, { onSources, onToken, onDone, onErro
   const reader = resp.body.getReader();
   const dec = new TextDecoder();
   let buf = "";
+  let terminal = false; // saw a done/error frame
+  const dispatch = (ev) => {
+    if (!ev) return;
+    if (ev.event === "sources") onSources(ev.data.sources || []);
+    else if (ev.event === "token") onToken(ev.data.text || "");
+    else if (ev.event === "done") { terminal = true; onDone(ev.data || {}); }
+    else if (ev.event === "error") { terminal = true; onError(ev.data.message || "生成失败"); }
+  };
   while (true) {
     const { value, done } = await reader.read();
     if (done) break;
     buf += dec.decode(value, { stream: true });
     let i;
     while ((i = buf.indexOf("\n\n")) !== -1) {
-      const ev = parseSSE(buf.slice(0, i));
+      dispatch(parseSSE(buf.slice(0, i)));
       buf = buf.slice(i + 2);
-      if (!ev) continue;
-      if (ev.event === "sources") onSources(ev.data.sources || []);
-      else if (ev.event === "token") onToken(ev.data.text || "");
-      else if (ev.event === "done") onDone(ev.data || {});
-      else if (ev.event === "error") onError(ev.data.message || "生成失败");
     }
   }
+  // A terminal frame cut exactly at EOF (no trailing \n\n) would otherwise be lost.
+  if (!terminal && buf.trim()) dispatch(parseSSE(buf));
+  // Clean TCP close with NO done/error frame (worker killed mid-stream, reverse-proxy
+  // idle-timeout in 阶段3, generator died before the done yield): neither onDone nor onError
+  // fired — without this the streamed answer is on screen but never persisted (lost on reload).
+  if (!terminal && onClose) onClose();
 }
 
 // ── 发送 ──
@@ -175,20 +196,33 @@ async function send(text) {
 
   let acc = "";
   let gotSources = null;
-  await streamAsk(text, history, {
-    onSources: (s) => { gotSources = s; if (s.length) holder.appendChild(sourcesEl(s)); },
-    onToken: (t) => { acc += t; bubble.innerHTML = mdToSafeHTML(acc); highlightIn(bubble); box.scrollTop = box.scrollHeight; },
-    onDone: () => {
-      c.messages.push({ role: "assistant", content: acc, sources: gotSources || [] });
-      save(); renderSidebar();
-    },
-    onError: (msg) => {
-      const e = document.createElement("div"); e.className = "err"; e.textContent = "⚠ " + msg;
-      bubble.appendChild(e);
-      if (acc) { c.messages.push({ role: "assistant", content: acc, sources: gotSources || [] }); save(); }
-    },
-  });
-  busy = false; $("send").disabled = false;
+  let saved = false;
+  const renderFinal = (content) => { bubble.innerHTML = mdToSafeHTML(content); highlightIn(bubble); };
+  const persist = (content) => {
+    if (saved) return;
+    saved = true;
+    c.messages.push({ role: "assistant", content, sources: gotSources || [] });
+    save(); renderSidebar();
+  };
+  const appendErr = (msg) => {
+    const e = document.createElement("div"); e.className = "err"; e.textContent = "⚠ " + msg;
+    bubble.appendChild(e);
+  };
+
+  try {
+    await streamAsk(text, history, {
+      onSources: (s) => { gotSources = s; if (s.length) holder.appendChild(sourcesEl(s)); },
+      // 流中只追加纯文本 (DESIGN §4: 避免每 token 重解析 markdown/重高亮, O(n^2) jank)。
+      onToken: (t) => { acc += t; bubble.textContent = acc; box.scrollTop = box.scrollHeight; },
+      // done 后整体渲染 markdown 一次; 空回答用占位 (DESIGN §6)。
+      onDone: () => { const content = acc.trim() ? acc : "(无内容)"; renderFinal(content); persist(content); },
+      onError: (msg) => { if (acc) { renderFinal(acc); persist(acc); } appendErr(msg); },
+      // 干净 EOF 但无 done/error: 内容已在屏上, 落盘防刷新丢失 (规则 D HIGH 修复)。
+      onClose: () => { if (acc) { renderFinal(acc); persist(acc); appendErr("连接中断（已保留已生成内容）"); } else appendErr("连接中断"); },
+    });
+  } finally {
+    busy = false; $("send").disabled = false;
+  }
 }
 
 // ── 事件绑定 ──

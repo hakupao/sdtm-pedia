@@ -210,15 +210,27 @@ async def ask_stream(body: AskStreamRequest, request: Request):
     def sse(event: str, data: dict) -> str:
         return f"event: {event}\ndata: {json.dumps(data, ensure_ascii=False)}\n\n"
 
+    async def _open_stream():
+        # include_usage lets the `done` event report token counts. Some providers reject
+        # the stream_options kwarg; if the open fails, retry once WITHOUT it so the answer
+        # is preserved (usage then reported as null — never fabricated). DeepSeek (current
+        # default) supports it; this guards a future provider swap. Iteration-time failures
+        # are NOT retried (would risk double generation) — they fall to the except below.
+        try:
+            return await llm_router.acompletion(
+                model="default", messages=messages, stream=True,
+                stream_options={"include_usage": True},
+            )
+        except Exception:  # noqa: BLE001 — narrow retry: drop stream_options, keep the answer
+            log.warning("stream_options_unsupported_retry_without", exc_info=True)
+            return await llm_router.acompletion(model="default", messages=messages, stream=True)
+
     async def gen():
         yield sse("sources", {"sources": sources})
         model_used = None
         usage = None
         try:
-            resp = await llm_router.acompletion(
-                model="default", messages=messages, stream=True,
-                stream_options={"include_usage": True},
-            )
+            resp = await _open_stream()
             async for chunk in resp:
                 choices = getattr(chunk, "choices", None)
                 if choices:
