@@ -107,6 +107,33 @@ def test_codelists(meta):
     assert c["termfile"] == "terminology/core/general_part4.md"
 
 
+# ── Task 7: dump_meta + idempotent + keys ────────────────────────────────
+
+def test_idempotent_and_keys(meta, kb_root):
+    again = build_meta(kb_root)
+    assert meta == again                         # 同输入同输出
+    assert set(meta.keys()) == {
+        "meta_version", "generated_from", "domains", "model_defhome", "codelists",
+    }
+    d0 = meta["domains"][0]
+    assert set(d0.keys()) == {
+        "domain", "class", "label", "structure", "is_special",
+        "counts_toward_63", "variables", "same_class", "relations_curated",
+    }
+
+def test_yaml_roundtrip_stable(tmp_path, kb_root):
+    import yaml
+    from scripts.build_meta import dump_meta
+    m = build_meta(kb_root)
+    p = tmp_path / "meta.yaml"
+    dump_meta(m, p)
+    a = p.read_bytes()
+    dump_meta(m, p)
+    b = p.read_bytes()
+    assert a == b                                # 落盘字节稳定
+    assert yaml.safe_load(p.read_text()) == m    # 可往返
+
+
 # ── Task 5: model_defhome ─────────────────────────────────────────────────
 
 def test_model_defhome(meta):

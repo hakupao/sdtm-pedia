@@ -232,3 +232,25 @@ def build_meta(kb_root: Path) -> dict:
         "model_defhome": _model_defhome(kb_root),
         "codelists": _codelists(kb_root),
     }
+
+
+def dump_meta(meta: dict, out_path: Path) -> None:
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    out_path.write_text(
+        yaml.safe_dump(meta, sort_keys=True, allow_unicode=True, width=1000),
+        encoding="utf-8",
+    )
+
+
+def main() -> None:
+    # scripts -> sdtm-rag -> 07_rag_kg -> branches -> sdtm-pedia
+    kb_root = Path(__file__).resolve().parents[4] / "knowledge_base"
+    out = Path(__file__).resolve().parents[1] / "data" / "meta" / "meta.yaml"
+    meta = build_meta(kb_root)
+    dump_meta(meta, out)
+    print(f"wrote {out} ({len(meta['domains'])} domains, "
+          f"{len(meta['codelists'])} codelists)")
+
+
+if __name__ == "__main__":
+    main()
