@@ -1,0 +1,205 @@
+// SDTM chat UI — 单模型 (DeepSeek V4 Pro) 流式聊天, 多对话存 localStorage。
+const LS_KEY = "sdtm_chat_v1";
+const HISTORY_TURNS = 10; // 控 token: 发给后端的最近消息条数
+
+// uid 不用 crypto.randomUUID (LAN http 非安全上下文不可用, 阶段 3 会踩坑)
+const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+
+let store = load();
+
+function load() {
+  try {
+    const s = JSON.parse(localStorage.getItem(LS_KEY));
+    if (s && Array.isArray(s.conversations)) return s;
+  } catch (_) {}
+  return { conversations: [], currentId: null };
+}
+function save() { localStorage.setItem(LS_KEY, JSON.stringify(store)); }
+
+function current() {
+  let c = store.conversations.find((x) => x.id === store.currentId);
+  if (!c) { c = newConversation(); }
+  return c;
+}
+function newConversation() {
+  const c = { id: uid(), title: "新对话", createdAt: Date.now(), messages: [] };
+  store.conversations.unshift(c);
+  store.currentId = c.id;
+  save();
+  return c;
+}
+function deleteConversation(id) {
+  store.conversations = store.conversations.filter((x) => x.id !== id);
+  if (store.currentId === id) store.currentId = store.conversations[0]?.id ?? null;
+  save();
+  renderSidebar();
+  renderMessages();
+}
+
+// ── 渲染 ──
+const $ = (id) => document.getElementById(id);
+
+function renderSidebar() {
+  const ul = $("conv-list");
+  ul.innerHTML = "";
+  for (const c of store.conversations) {
+    const li = document.createElement("li");
+    if (c.id === store.currentId) li.className = "active";
+    const t = document.createElement("span");
+    t.className = "title";
+    t.textContent = c.title || "新对话";
+    t.onclick = () => { store.currentId = c.id; save(); renderSidebar(); renderMessages(); };
+    const del = document.createElement("button");
+    del.className = "del"; del.textContent = "✕";
+    del.onclick = (e) => { e.stopPropagation(); deleteConversation(c.id); };
+    li.append(t, del);
+    ul.appendChild(li);
+  }
+}
+
+function mdToSafeHTML(md) {
+  return DOMPurify.sanitize(marked.parse(md || ""));
+}
+function highlightIn(el) {
+  el.querySelectorAll("pre code").forEach((b) => hljs.highlightElement(b));
+}
+
+function renderMessages() {
+  const box = $("messages");
+  box.innerHTML = "";
+  const c = store.conversations.find((x) => x.id === store.currentId);
+  if (!c) return;
+  for (const m of c.messages) {
+    box.appendChild(messageEl(m.role, m.content, m.sources));
+  }
+  box.scrollTop = box.scrollHeight;
+}
+
+function messageEl(role, content, sources) {
+  const wrap = document.createElement("div");
+  const msg = document.createElement("div");
+  msg.className = "msg " + role;
+  const r = document.createElement("div");
+  r.className = "role"; r.textContent = role === "user" ? "你" : "AI";
+  const b = document.createElement("div");
+  b.className = "bubble";
+  if (role === "assistant") { b.innerHTML = mdToSafeHTML(content); highlightIn(b); }
+  else { b.textContent = content; }
+  msg.append(r, b);
+  wrap.appendChild(msg);
+  if (sources && sources.length) wrap.appendChild(sourcesEl(sources));
+  return wrap;
+}
+
+function sourcesEl(sources) {
+  const d = document.createElement("details");
+  d.className = "sources";
+  const s = document.createElement("summary");
+  s.textContent = `来源 (${sources.length})`;
+  d.appendChild(s);
+  for (const src of sources) {
+    const div = document.createElement("div");
+    div.className = "src";
+    div.innerHTML = `<b></b> <span></span>`;
+    div.querySelector("b").textContent = src.source + (src.section ? ` — ${src.section}` : "");
+    div.querySelector("span").textContent = ` (sim ${(src.similarity ?? 0).toFixed(3)})`;
+    const p = document.createElement("div");
+    p.textContent = src.text_preview || "";
+    div.appendChild(p);
+    d.appendChild(div);
+  }
+  return d;
+}
+
+// ── SSE 流式 ──
+function parseSSE(raw) {
+  let event = "message", data = "";
+  for (const line of raw.split("\n")) {
+    if (line.startsWith("event:")) event = line.slice(6).trim();
+    else if (line.startsWith("data:")) data += line.slice(5).trim();
+  }
+  if (!data) return null;
+  try { return { event, data: JSON.parse(data) }; } catch (_) { return null; }
+}
+
+async function streamAsk(question, history, { onSources, onToken, onDone, onError }) {
+  let resp;
+  try {
+    resp = await fetch("/api/ask_stream", {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ question, history }),
+    });
+  } catch (e) { onError("无法连接服务"); return; }
+  if (!resp.ok) { onError(`服务错误 ${resp.status}`); return; }
+  const reader = resp.body.getReader();
+  const dec = new TextDecoder();
+  let buf = "";
+  while (true) {
+    const { value, done } = await reader.read();
+    if (done) break;
+    buf += dec.decode(value, { stream: true });
+    let i;
+    while ((i = buf.indexOf("\n\n")) !== -1) {
+      const ev = parseSSE(buf.slice(0, i));
+      buf = buf.slice(i + 2);
+      if (!ev) continue;
+      if (ev.event === "sources") onSources(ev.data.sources || []);
+      else if (ev.event === "token") onToken(ev.data.text || "");
+      else if (ev.event === "done") onDone(ev.data || {});
+      else if (ev.event === "error") onError(ev.data.message || "生成失败");
+    }
+  }
+}
+
+// ── 发送 ──
+let busy = false;
+
+async function send(text) {
+  if (busy || !text.trim()) return;
+  busy = true; $("send").disabled = true;
+  const c = current();
+  c.messages.push({ role: "user", content: text });
+  if (c.messages.length === 1) c.title = text.slice(0, 30);
+  save(); renderSidebar(); renderMessages();
+
+  // 助手占位气泡 (流式写入)
+  const box = $("messages");
+  const holder = messageEl("assistant", "", null);
+  box.appendChild(holder); box.scrollTop = box.scrollHeight;
+  const bubble = holder.querySelector(".bubble");
+
+  const history = c.messages.slice(0, -1)
+    .filter((m) => m.role === "user" || m.role === "assistant")
+    .slice(-HISTORY_TURNS)
+    .map((m) => ({ role: m.role, content: m.content }));
+
+  let acc = "";
+  let gotSources = null;
+  await streamAsk(text, history, {
+    onSources: (s) => { gotSources = s; if (s.length) holder.appendChild(sourcesEl(s)); },
+    onToken: (t) => { acc += t; bubble.innerHTML = mdToSafeHTML(acc); highlightIn(bubble); box.scrollTop = box.scrollHeight; },
+    onDone: () => {
+      c.messages.push({ role: "assistant", content: acc, sources: gotSources || [] });
+      save(); renderSidebar();
+    },
+    onError: (msg) => {
+      const e = document.createElement("div"); e.className = "err"; e.textContent = "⚠ " + msg;
+      bubble.appendChild(e);
+      if (acc) { c.messages.push({ role: "assistant", content: acc, sources: gotSources || [] }); save(); }
+    },
+  });
+  busy = false; $("send").disabled = false;
+}
+
+// ── 事件绑定 ──
+$("new-chat").onclick = () => { newConversation(); renderSidebar(); renderMessages(); $("input").focus(); };
+$("composer").onsubmit = (e) => { e.preventDefault(); const v = $("input").value; $("input").value = ""; $("input").style.height = "auto"; send(v); };
+$("input").addEventListener("keydown", (e) => {
+  if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); $("composer").requestSubmit(); }
+});
+$("input").addEventListener("input", (e) => { e.target.style.height = "auto"; e.target.style.height = e.target.scrollHeight + "px"; });
+
+// ── 启动 ──
+if (!store.conversations.length) newConversation();
+renderSidebar();
+renderMessages();
