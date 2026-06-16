@@ -13,9 +13,10 @@ import yaml
 
 from scripts.spec_loader import SpecLoader
 
-# SUPPQUAL is a supplemental-qualifier structure, not one of the 63 standard
-# domains (knowledge_base/INDEX.md counts 63, excluding SUPPQUAL).
-_SPECIAL_DOMAINS = {"SUPPQUAL"}
+# A domain "counts toward the 63" iff it has a spec.md (the authoritative
+# 63 in knowledge_base/INDEX.md are exactly the dirs WITH spec.md — this
+# includes SUPPQUAL, which has a full spec). DI has only assumptions.md
+# (no variables), so it is a stub: is_special=True, counts_toward_63=False.
 
 _LABEL_RE = re.compile(r"^#\s+\w+\s*—\s*(.+?)\s*$")
 
@@ -209,14 +210,15 @@ def build_meta(kb_root: Path) -> dict:
             continue
         name = domain_dir.name.upper()
         ds = loader.get_domain(name)
+        has_spec = (domain_dir / "spec.md").exists()
         domains_out.append(
             {
                 "domain": name,
                 "class": ds.domain_class if ds else "",
                 "label": _domain_label(kb_root, name),
                 "structure": ds.structure if ds else "",
-                "is_special": name in _SPECIAL_DOMAINS,
-                "counts_toward_63": name not in _SPECIAL_DOMAINS,
+                "is_special": not has_spec,
+                "counts_toward_63": has_spec,
                 "variables": _variables(ds) if ds else [],
                 "relations_curated": _relations_curated(kb_root, name),
             }

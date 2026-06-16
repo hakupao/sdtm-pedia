@@ -8541,9 +8541,9 @@ domains:
     role: ''
     type: ''
 - class: ''
-  counts_toward_63: true
+  counts_toward_63: false
   domain: DI
-  is_special: false
+  is_special: true
   label: ''
   relations_curated: []
   same_class: []
@@ -20448,9 +20448,9 @@ domains:
     role: ''
     type: ''
 - class: Relationship
-  counts_toward_63: false
+  counts_toward_63: true
   domain: SUPPQUAL
-  is_special: true
+  is_special: false
   label: Supplemental Qualifiers for [domain name]
   relations_curated: []
   same_class:

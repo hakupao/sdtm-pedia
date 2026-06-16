@@ -17,15 +17,17 @@ def meta(kb_root):
     return build_meta(kb_root)
 
 
-# ── Task 1: domain scalars + SUPPQUAL flag ────────────────────────────────
+# ── Task 1: domain scalars + spec.md (DI stub) flag ───────────────────────
 
 def test_domain_count_and_special_flag(meta):
     domains = {d["domain"]: d for d in meta["domains"]}
-    # 64 个目录（含 SUPPQUAL），但只 63 个计入标准域
+    # 64 个目录，但只 63 个有 spec.md（计入标准域）；DI 仅有 assumptions.md
     assert len(domains) == 64
     assert sum(1 for d in meta["domains"] if d["counts_toward_63"]) == 63
-    assert domains["SUPPQUAL"]["is_special"] is True
-    assert domains["SUPPQUAL"]["counts_toward_63"] is False
+    assert domains["DI"]["is_special"] is True
+    assert domains["DI"]["counts_toward_63"] is False
+    assert domains["SUPPQUAL"]["is_special"] is False
+    assert domains["SUPPQUAL"]["counts_toward_63"] is True
     assert domains["AE"]["counts_toward_63"] is True
 
 def test_domain_scalars(meta):
