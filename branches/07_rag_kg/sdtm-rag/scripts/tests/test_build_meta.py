@@ -73,3 +73,21 @@ def test_same_class(meta):
     assert "AE" not in ae_sib                      # 不含自己
     assert all(by_name[s]["class"] == "Events" for s in ae_sib)  # 同类
     assert "AE" in by_name["BE"]["same_class"]     # 对称
+
+
+# ── Task 4: relations_curated ─────────────────────────────────────────────
+
+def test_relations_curated(meta):
+    ae = next(d for d in meta["domains"] if d["domain"] == "AE")
+    rels = {r["target"]: r for r in ae["relations_curated"]}
+    # CM/PR 字面写了 "via RELREC"
+    assert rels["CM"]["category"] == "Treatment"
+    assert rels["CM"]["mechanism"] == "RELREC"
+    assert rels["PR"]["mechanism"] == "RELREC"
+    # FA 无机制词 -> null（None）
+    assert rels["FA"]["category"] == "Findings About"
+    assert rels["FA"]["mechanism"] is None
+    # 全部标记来源
+    assert all(r["fidelity"] == "curated_prose" for r in ae["relations_curated"])
+    # "Same class" bullet（无链接）不应混进来
+    assert "BE" not in rels

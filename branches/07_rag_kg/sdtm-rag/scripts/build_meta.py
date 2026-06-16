@@ -87,8 +87,47 @@ def _same_class_map(domains_out: list[dict]) -> dict[str, list[str]]:
     return result
 
 
+
+# 跨类策划边: "- **Treatment:** [CM](../CM/) — concomitant ... via RELREC"
+# 必须有 [link]，从而排除无链接的 "**Same class (X):**" bullet。
+_REL_RE = re.compile(
+    r"^- \*\*(?P<cat>[^:]+):\*\*\s*\[(?P<tgt>[A-Z0-9]+)\]\([^)]*\)\s*[—-]\s*(?P<note>.*)$"
+)
+# 机制只在散文字面出现时才填，否则 None。
+_MECH_RE = re.compile(r"\b(RELREC|RELSPEC|RELSUB|SUPPQUAL|SUPP)\b")
+
+
 def _relations_curated(kb_root: Path, domain: str) -> list[dict]:
-    raise NotImplementedError
+    spec = kb_root / "domains" / domain / "spec.md"
+    if not spec.exists():
+        return []
+    lines = spec.read_text(encoding="utf-8").split("\n")
+    # 只在 "### Related Domains" 小节内扫
+    out: list[dict] = []
+    in_section = False
+    for line in lines:
+        if line.startswith("### Related Domains"):
+            in_section = True
+            continue
+        if in_section and line.startswith("### "):
+            break
+        if not in_section:
+            continue
+        m = _REL_RE.match(line)
+        if not m:
+            continue
+        note = m.group("note").strip()
+        mech = _MECH_RE.search(note)
+        out.append(
+            {
+                "target": m.group("tgt"),
+                "category": m.group("cat").strip(),
+                "mechanism": mech.group(1) if mech else None,
+                "note": note,
+                "fidelity": "curated_prose",
+            }
+        )
+    return out
 
 
 def _model_defhome(kb_root: Path) -> dict[str, str]:
@@ -119,6 +158,7 @@ def build_meta(kb_root: Path) -> dict:
                 "is_special": name in _SPECIAL_DOMAINS,
                 "counts_toward_63": name not in _SPECIAL_DOMAINS,
                 "variables": _variables(ds) if ds else [],
+                "relations_curated": _relations_curated(kb_root, name),
             }
         )
     sc = _same_class_map(domains_out)
