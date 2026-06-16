@@ -82,7 +82,8 @@ Full chain definitions are in `.work/MANIFEST.md`.
 | 07 Website Phases 6-8 (closed) | `.work/07_website/phase{6,7,8}/` + handoffs `.work/meta/website_phase*_handoff_*.md`; prod https://sdtm-pedia.pages.dev/ || Phase 7 RAG+KG 旁枝 | `branches/07_rag_kg/PLAN.md` (Phase 1 CLOSED 53q 88.5%; sdtm-rag/ 代码仓, Chain 07_RAG) |
 | Phase 7 检索质量 (检索 99% + (d) 通道) | `branches/07_rag_kg/TODO_retrieval_quality.md` §5/§6; 收口 `sdtm-rag/evidence/checkpoints/{s4_full_eval_closure,d_channel_concept_definition}.md` (q126 永久 known limit) |
 | Phase 7 答题侧护栏 (DONE) | `branches/07_rag_kg/sdtm-rag/evidence/checkpoints/guardrail_v2_summary.md`; 确定性码闸 `eval/prod_wirein/check_code_grounding.py` |
-| Phase 7 本地部署+多模型对比 规划 | `branches/07_rag_kg/sdtm-rag/DEPLOY_PLAN.md` — 本机 launchd 部署 + 1题3模型对比+裁判 需求/计划/落地 |
+| Phase 7 本地部署+多模型对比 规划 | `branches/07_rag_kg/sdtm-rag/DEPLOY_PLAN.md` — 本机 launchd 部署 + 1题3模型对比+裁判 需求/计划/落地 (§3 阶段3 共享 DEFERRED) |
+| Phase 7 Chat UI (单模型流式前端) | `branches/07_rag_kg/sdtm-rag/webchat/` + `PLAN_chat_ui.md`; prod localhost:8000 (launchd) |
 
 ## AI 平台多平台部署 (CLOSED 冻结 2026-06-15)
 
