@@ -1,6 +1,7 @@
 """API routes for SDTM RAG Q&A + Dataset Validation (Phase 1B + 1C)."""
 from __future__ import annotations
 
+import asyncio
 import json
 import time
 from typing import Literal
@@ -185,6 +186,7 @@ async def ask_stream(body: AskStreamRequest, request: Request):
     然后流式生成。检索失败在开流前返 502; 流中途失败发 error 事件。"""
     rag = request.app.state.rag
     llm_router = request.app.state.llm_router
+    s = request.app.state.settings
 
     if not body.question.strip():
         raise HTTPException(status_code=422, detail="question must not be empty")
@@ -230,7 +232,11 @@ async def ask_stream(body: AskStreamRequest, request: Request):
         model_used = None
         usage = None
         try:
-            resp = await _open_stream()
+            # Outer ceiling on opening the stream (REV MED-b): if the provider hangs on
+            # connect without honoring its own timeout, fail to an error event rather than
+            # holding the SSE connection open forever. Mid-stream is NOT wrapped — a single
+            # deadline there would truncate a long, healthy answer.
+            resp = await asyncio.wait_for(_open_stream(), timeout=s.request_timeout_s)
             async for chunk in resp:
                 choices = getattr(chunk, "choices", None)
                 if choices:
@@ -310,6 +316,7 @@ async def ask_compare(body: AskCompareRequest, request: Request):
     with an optional anonymized judge. Reuses retrieve/format/build (FR1: retrieval runs
     ONCE), then fans generation out in parallel (FR2) with per-model failure isolation
     (NFR2). See server/compare.py."""
+    from server.auth import sanitize_compare_errors
     from server.compare import run_compare, run_judge
 
     rag = request.app.state.rag
@@ -355,18 +362,35 @@ async def ask_compare(body: AskCompareRequest, request: Request):
     history_dicts = [{"role": m.role, "content": m.content} for m in body.history]
     messages = rag.build_messages(body.question, context, history_dicts or None)
 
-    answers = await run_compare(
-        models, messages,
-        timeout_s=s.compare_timeout_s, num_retries=s.compare_num_retries,
-    )
+    # Outer ceiling over the whole parallel fan-out (REV MED-b): per-model timeout is
+    # compare_timeout_s; this guards the request from exceeding request_timeout_s even if a
+    # provider ignores its own timeout. wait_for cancels the pending gather on expiry.
+    try:
+        answers = await asyncio.wait_for(
+            run_compare(
+                models, messages,
+                timeout_s=s.compare_timeout_s, num_retries=s.compare_num_retries,
+            ),
+            timeout=s.request_timeout_s,
+        )
+    except TimeoutError:
+        log.error("ask_compare_timeout", request_timeout_s=s.request_timeout_s, models=models)
+        raise HTTPException(status_code=504, detail="Compare request timed out.")
 
     judge_result = None
     if body.judge.enabled:
         judge_model = body.judge.model or s.judge_model
-        judge_raw = await run_judge(
-            body.question, context, answers, judge_model,
-            timeout_s=s.compare_timeout_s, num_retries=s.compare_num_retries,
-        )
+        try:
+            judge_raw = await asyncio.wait_for(
+                run_judge(
+                    body.question, context, answers, judge_model,
+                    timeout_s=s.compare_timeout_s, num_retries=s.compare_num_retries,
+                ),
+                timeout=s.request_timeout_s,
+            )
+        except TimeoutError:
+            log.warning("judge_timeout", request_timeout_s=s.request_timeout_s)
+            judge_raw = None
         if judge_raw:
             judge_result = JudgeResult(
                 ranking=[JudgeRankItem(**r) for r in judge_raw["ranking"]],
@@ -396,6 +420,10 @@ async def ask_compare(body: AskCompareRequest, request: Request):
         judged=judge_result is not None,
         elapsed_s=round(elapsed, 2),
     )
+
+    # Sanitize client-facing per-model error strings when sharing (SEC MED). Done AFTER the
+    # judge + the n_errors log so neither loses the real upstream detail (still in the log).
+    answers = sanitize_compare_errors(answers, s.sanitize_errors)
 
     return AskCompareResponse(
         sources=sources,

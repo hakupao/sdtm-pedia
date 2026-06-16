@@ -3,6 +3,7 @@ from types import SimpleNamespace
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
 
+from server.config import Settings
 from server.router import api_router
 
 
@@ -34,6 +35,7 @@ def _client():
     app.include_router(api_router)
     app.state.rag = _FakeRAG()
     app.state.llm_router = _FakeRouter()
+    app.state.settings = Settings()
     return TestClient(app)
 
 
@@ -77,6 +79,7 @@ def test_ask_stream_falls_back_without_stream_options():
     app = FastAPI()
     app.include_router(api_router)
     app.state.rag = _FakeRAG()
+    app.state.settings = Settings()
     router = _NoStreamOptsRouter()
     app.state.llm_router = router
     r = TestClient(app).post("/api/ask_stream", json={"question": "hi", "history": []})

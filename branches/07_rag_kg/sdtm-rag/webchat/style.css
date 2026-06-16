@@ -31,3 +31,7 @@ html, body { margin: 0; height: 100%; font-family: -apple-system, "Segoe UI", "P
 #input { flex: 1; resize: none; max-height: 200px; padding: 12px; border: 1px solid #d0d0d0; border-radius: 12px; font-size: 15px; font-family: inherit; }
 #send { padding: 0 18px; border: none; border-radius: 12px; background: #19c37d; color: #fff; cursor: pointer; font-size: 15px; }
 #send:disabled { background: #b8b8b8; cursor: default; }
+#send.stop { background: #e0533d; }
+#send.stop:hover { background: #c8442f; }
+.retry { margin: 4px auto 0; display: block; max-width: 760px; padding: 4px 12px; border: 1px solid #d0d0d0; border-radius: 8px; background: #fff; color: #444; cursor: pointer; font-size: 13px; }
+.retry:hover { background: #ececf1; }

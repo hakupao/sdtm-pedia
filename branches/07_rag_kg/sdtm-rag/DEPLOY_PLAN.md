@@ -147,15 +147,16 @@ question
 - **验收**:对比三栏正确 ✅、失败隔离生效 ✅、裁判输出可解析 ✅、eval 达标(DeepSeek 96.6% / Sonnet 97.8% 均 PASS)+ 主力已拍板 ✅ → **阶段 2 核心收口**;阶段 3 共享前补 SEC MED(错误串 sanitize)+ host/限流(见 model_comparison 同目录 compare_judge §4 延后项)。
 
 ### 阶段 3 — 共享(部署专用目录 + 对外 + 加锁)
-> **状态: DEFERRED (用户 2026-06-16 选「先本地试用 chat UI」)** — 待用户在 `localhost:8000` 试用满意 + 谈完 IT 再开。
+> **状态: 工程件 DONE + 规则 D 三审 (2026-06-16, localhost)**;**go-live 仍待 IT 内网 IP/主机名 + 安全签字**。
 > **已定决策**: ① 对外面 = **8000 的 ChatGPT 风格 chat UI**(已建成上线 localhost,见 `PLAN_chat_ui.md`);8501 Streamlit Compare/Judge **保持 localhost** 当开发者工具,不对外。② 登录门 = **FastAPI 共享口令**(登录表单 + 签名 session cookie 中间件,最轻、公司网内即可、无需额外服务/IT)。
+> **本期工程件 (localhost 可测+审, 全开关默认 OFF)**: 登录门(`server/auth.py`)+ per-IP 限流 + 登录暴力锁(`LoginThrottle`)+ 错误脱敏 + 外层 asyncio 超时 + 安全头(CSP/nosniff/frame)+ chat UI Stop·重试·topbar 读 `/api/info` + `deploy/`(deploy.sh + 0.0.0.0 plist 模板 + env 模板 + runbook,**写好不激活**)+ `scripts/gen_password_hash.py` + pip-audit(**修 starlette CVE**,pin `starlette>=1.3.1`;chromadb CVE 无修待监控)。中间件全为**纯 ASGI**(不破 SSE,621 token 帧活体实证)。实现 `PLAN_phase3_share.md`,证据 `evidence/checkpoints/phase3_share_hardening.md`,retro `RETROSPECTIVE_phase3_share.md`。**go-live 系统动作(翻 0.0.0.0 / pmset / 防火墙 / 装服务目录 plist)未做**。
 
 目标:同事稳定访问,且安全合规。
-- [ ] 我:写 `deploy.sh`(rsync app+data+kb→`~/sdtm-rag-service/`,在那 `uv sync`)
-- [ ] 我:launchd 改指服务目录、**仅 chat UI 服务绑 `0.0.0.0`**(8501 仍 127.0.0.1);配自动登录(无人值守重启可起)
-- [ ] 我:加登录门 = **FastAPI 共享口令**(登录表单 + 签名 session cookie 中间件;覆盖 `GET /` + `/api/*`)
-- [ ] 我:安全硬化(共享前):错误串 sanitize、限流、asyncio 外层超时、pip-audit;+ 延后的 chat UI 项(Stop/Abort+重试 UX、topbar 读 `/api/info` default_model、CSP + `X-Content-Type-Options` 头)
-- [ ] 我:`pmset` 禁睡眠+断电自启;macOS 防火墙放行
+- [x] 我:写 `deploy.sh`(rsync app+data/chroma+kb→`~/sdtm-rag-service/`,`uv sync`)— DONE,`--dry-run` 验证;**未激活**
+- [x] 我:go-live launchd 模板(`deploy/com.sdtmrag.api.service.plist.template`,指服务目录、**chat UI 绑 `0.0.0.0`**,8501 仍 127.0.0.1)— **模板写好,未安装**;实际安装+自动登录 = go-live(runbook)
+- [x] 我:登录门 = **FastAPI 共享口令**(`server/auth.py`:Starlette SessionMiddleware + scrypt 哈希;覆盖 `GET /` + `/api/*`,health/login 豁免)— DONE,活体实测通过
+- [x] 我:安全硬化:错误串 sanitize、per-IP 限流、asyncio 外层超时、pip-audit(修 starlette CVE);+ 延后 chat UI 项(Stop/Abort+重试、topbar 读 `/api/info`、CSP + `X-Content-Type-Options`)— DONE;**加固**:登录暴力锁 + session TTL 12h(规则 D)
+- [ ] 我:`pmset` 禁睡眠+断电自启;macOS 防火墙放行 — **go-live 系统动作**,步骤已写进 `deploy/README.md`,未执行
 - [ ] 你:找 IT 要**固定内网 IP/主机名** + **IT/安全签字**(公司网跑服务 + 数据出境)— **go-live 硬阻塞**
 - [ ] 你:把地址发同事
 - **验收**:同事访问 `http://<主机名>:8000`(chat UI)、登录、能用;重启自恢复。

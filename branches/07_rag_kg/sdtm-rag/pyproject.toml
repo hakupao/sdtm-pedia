@@ -25,6 +25,10 @@ dependencies = [
     "tiktoken>=0.7",
     # Web layer
     "fastapi>=0.115",
+    # Security floor for the starlette transitive dep (FastAPI re-exports it; the phase-3
+    # login gate rides on starlette SessionMiddleware + ASGI). pip-audit 2026-06-16 flagged
+    # CVE-2026-54282 (fix 1.3.0) + CVE-2026-54283 (fix 1.3.1) in 1.2.1.
+    "starlette>=1.3.1",
     "uvicorn[standard]>=0.32",
     "pydantic>=2.7",
     "pydantic-settings>=2.5",

@@ -119,15 +119,75 @@ class Settings(BaseSettings):
     host: str = "127.0.0.1"
     port: int = 8000
 
+    # ── Phase 3 sharing: login gate + hardening (DEPLOY_PLAN §3) ──
+    # Every knob below defaults OFF/permissive so the current localhost dev + launchd
+    # service are byte-unchanged. They are flipped ON together at go-live (after IT
+    # signoff) via the service-dir .env (see deploy/). Building + testing them here
+    # touches no live behavior. SECURITY HEADERS are the one exception — default ON
+    # (harmless on localhost, good practice everywhere).
+
+    # Shared-password login gate. When auth_enabled, requests to GET / and /api/* (except
+    # /api/health and the /login,/logout routes) require a signed session cookie obtained
+    # by POSTing the shared password to /login. The password is stored ONLY as a scrypt
+    # hash (server/auth.hash_password -> "salt_hex$hash_hex"); generate via
+    # `python -m scripts.gen_password_hash`. session_secret signs the cookie (itsdangerous
+    # via Starlette SessionMiddleware) — set to >=32 random bytes hex. Both MUST be set
+    # when auth_enabled or the app refuses to start (fail-loud, never silent allow-all).
+    auth_enabled: bool = False
+    shared_password_hash: str = ""
+    session_secret: str = ""
+    # 12h. The itsdangerous-signed cookie's max_age is the SERVER-enforced absolute session
+    # cap (Starlette rejects an older signed session — the client cannot extend it). A short
+    # window limits replay of a sniffed cookie (plain-HTTP-on-LAN residual risk). Rotating
+    # SDTM_RAG_SESSION_SECRET is the only revocation lever and is global (logs everyone out).
+    session_max_age_s: int = 43200
+    session_cookie_name: str = "sdtm_session"
+
+    # Error-string sanitization (SEC MED, deferred from phase 2). On localhost the upstream
+    # error text ("credit balance too low") is USEFUL to the single operator, so default
+    # OFF. At go-live (shared) set true: /api/ask_compare per-model errors collapse to a
+    # generic string for the client; the full detail stays in the server log.
+    sanitize_errors: bool = False
+
+    # Per-IP rate limit (hand-rolled in-memory token bucket; no new dep). Applies to all
+    # HTTP except /api/health. burst = bucket capacity (max instantaneous), per_min = refill
+    # rate. Generous for humans, throttles brute-force / runaway scripts. Single-process /
+    # single Mac mini scope (§1); a multi-worker move (§6) would need shared state.
+    rate_limit_enabled: bool = False
+    rate_limit_per_min: int = 30
+    rate_limit_burst: int = 10
+    # Trust X-Forwarded-For for the client IP. FALSE by default: §1 serves 8000 directly
+    # (no reverse proxy), so the socket peer IS the client and a spoofed XFF must be ignored.
+    # Set true ONLY behind a trusted reverse proxy that overwrites the header (§6).
+    rate_limit_trust_forwarded: bool = False
+
+    # Security response headers (CSP / X-Content-Type-Options / frame-ancestors etc.).
+    # Default ON — the chat UI loads only same-origin assets (vendored marked/dompurify/
+    # highlight + app.js), so a strict CSP is defense-in-depth atop DOMPurify.
+    security_headers_enabled: bool = True
+
+    # Outer ceiling (s) on a single async /api request's generation phase, on top of
+    # litellm's per-call timeout. Guards an unbounded wait if a provider hangs without
+    # honoring its own timeout (REV MED-b). Applied to /api/ask_compare's fan-out and the
+    # /api/ask_stream open step.
+    request_timeout_s: float = 180.0
+
+    # Self-contained service dir overrides (DEPLOY_PLAN §1 + §7 open item): deploy.sh
+    # copies knowledge_base/ and data/chroma into ~/sdtm-rag-service/ so the service no
+    # longer depends on the repo tree. Set SDTM_RAG_KB_ROOT / SDTM_RAG_CHROMA_DIR there.
+    # Empty (default) = use the repo-relative paths below (dev / current localhost).
+    kb_root_override: str = ""
+    chroma_dir_override: str = ""
+
     model_config = {"env_prefix": "SDTM_RAG_", "extra": "ignore"}
 
     @property
     def chroma_dir(self) -> Path:
-        return _SDTM_RAG_ROOT / "data" / "chroma"
+        return Path(self.chroma_dir_override) if self.chroma_dir_override else _SDTM_RAG_ROOT / "data" / "chroma"
 
     @property
     def kb_root(self) -> Path:
-        return _REPO_ROOT / "knowledge_base"
+        return Path(self.kb_root_override) if self.kb_root_override else _REPO_ROOT / "knowledge_base"
 
 
 settings = Settings()

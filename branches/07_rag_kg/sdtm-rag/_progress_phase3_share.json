@@ -1,0 +1,41 @@
+{
+  "phase": "DEPLOY_PLAN §3 — 阶段3 共享 (工程件)",
+  "tier": 2,
+  "scope": "build-to-localhost + 审阅; 不翻对外 (go-live 硬阻塞=IT 内网 IP+安全签字)",
+  "status": "ENGINEERING_DONE_REVIEWED",
+  "date": "2026-06-16",
+  "plan": "PLAN_phase3_share.md",
+  "evidence": [
+    "evidence/checkpoints/phase3_share_hardening.md",
+    "evidence/checkpoints/phase3_share_pip_audit.txt",
+    "RETROSPECTIVE_phase3_share.md"
+  ],
+  "decisions": {
+    "login_gate": "Starlette SessionMiddleware + scrypt-hashed shared password (no new dep)",
+    "rate_limit": "hand-rolled in-memory per-IP token bucket + failure-based LoginThrottle",
+    "scope": "localhost-testable + reviewed; go-live deferred to IT signoff",
+    "main_model": "DeepSeek V4 Pro (unchanged from phase 2)"
+  },
+  "deliverables_done": [
+    "server/auth.py (gate + rate-limit + LoginThrottle + security headers + login routes + install_security + sanitize)",
+    "server/config.py (phase-3 knobs, all default OFF; kb/chroma overrides resolve §7)",
+    "server/main.py (create_app factory, single config source)",
+    "server/router.py (compare error sanitize + outer asyncio timeouts)",
+    "webchat/app.js+style.css (Stop/Abort + retry + topbar reads /api/info)",
+    "deploy/{deploy.sh,.env.service.template,com.sdtmrag.api.service.plist.template,README.md} (written, NOT activated)",
+    "scripts/gen_password_hash.py",
+    "scripts/tests/test_phase3_security.py (new)"
+  ],
+  "verification": {
+    "pytest": "全量绿 (含 phase3 安全测 + chat UI stream 测)",
+    "ruff": "新文件全清; router.py 新增行 0 UP041",
+    "pip_audit": "starlette CVE-2026-54282/54283 FIXED (pin>=1.3.1); chromadb CVE-2026-45829 ACCEPTED/MONITORED (no fix)",
+    "live_smoke": "127.0.0.1:8033 (auth+SSE 621 frames) + 8034 (create_app boot + login + LoginThrottle 401x5->429); launchd:8000 unaffected",
+    "rule_d": "3-lens Workflow (security/code/critic, 异 subagent_type) FIX_RECOMMENDED 0 BLOCKER/HIGH; all 8 findings fixed"
+  },
+  "go_live_pending_user": [
+    "IT: 固定内网 IP/主机名 + 安全签字 (硬阻塞)",
+    "翻 0.0.0.0 + 安装服务目录 plist + pmset 禁睡 + 防火墙 (deploy/README.md runbook)",
+    "发地址给同事"
+  ]
+}

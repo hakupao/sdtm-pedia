@@ -1,0 +1,20 @@
+# Phase 3 sharing — pip-audit (DEPLOY_PLAN §3 hardening)
+# Generated 2026-06-16 via: uv run --with pip-audit pip-audit
+#
+# BEFORE (starlette 1.2.1): 3 vulns — chromadb CVE-2026-45829; starlette CVE-2026-54282 (fix 1.3.0) + CVE-2026-54283 (fix 1.3.1).
+# ACTION: pinned starlette>=1.3.1 in pyproject.toml; uv lock -> starlette 1.2.1->1.3.1 (fastapi resolved to 0.136.3); full suite re-passed.
+# AFTER (current):
+
+Found 1 known vulnerability in 1 package
+Name     Version ID             Fix Versions
+-------- ------- -------------- ------------
+chromadb 1.5.9   CVE-2026-45829
+
+Name     Skip Reason
+-------- -------------------------------------------------------------------------
+sdtm-rag Dependency not found on PyPI and could not be audited: sdtm-rag (0.1.0a0)
+
+# REMAINING: chromadb 1.5.9 CVE-2026-45829 — no fix version published yet.
+# Triage: ACCEPTED/MONITORED. At go-live chromadb is read-only, in-process, behind the
+# login gate on an internal LAN (not internet-exposed). Re-audit on each deploy; upgrade
+# chromadb when a fixed release ships.

@@ -289,3 +289,30 @@ DEPLOY_PLAN §3 阶段 2 (★核心) 收口。retro `branches/07_rag_kg/RETROSPE
 
 ### 阶段 3 决策 (用户 2026-06-16) → DEFERRED
 - 用户「先本地试用 chat UI」→ **阶段 3 共享 DEFERRED** (待试用满意 + 谈完 IT)。已定: **对外面=8000 chat UI** (8501 留 localhost 当开发者工具); **登录门=FastAPI 共享口令** (登录表单+签名 session cookie 中间件, 最轻无需 IT)。**go-live 硬阻塞 (用户动作)** = 找 IT 要固定内网 IP + 安全签字 (数据出境)。记 `DEPLOY_PLAN.md` §3/§7 + memory `project_local_deploy_plan`。
+
+## 2026-06-16 (续 2) 阶段 3 共享 工程件 DONE + 规则 D 三审 + pip-audit 修 starlette CVE
+
+### 触发
+- 用户「RAG 阶段3 共享 开始任务」(路由词 → DEPLOY_PLAN §3)。开工前 3 决策 (AskUserQuestion, 用户确认推荐项): 范围=**build-to-localhost + 审, 不翻对外** (go-live 硬阻塞 IT 内网 IP+签字); 登录门=**Starlette SessionMiddleware + 口令哈希**; 限流=**手写内存 per-IP 令牌桶**。计划 `PLAN_phase3_share.md` (Tier 2)。
+
+### 完了の作業 (全 localhost 可测+审; 全开关默认 OFF; 现役 launchd:8000 不受扰)
+- **登录门** `server/auth.py` (新): scrypt 哈希共享口令 + Starlette `SessionMiddleware` (itsdangerous 签名 cookie, 无新依赖) + **纯 ASGI 中间件** (非 BaseHTTPMiddleware → 不破 SSE 流式) 覆盖 `GET /`+`/api/*`, health/login/logout 豁免; 未登录 /api→401 / HTML→302 `/login`; open-redirect 守卫 `_safe_next`; `install_security` fail-loud (auth on 缺 secret/hash 即抛)。
+- **硬化**: `TokenBucketLimiter`+`RateLimitMiddleware` (per-IP, Retry-After, health 豁免, XFF 默认不信) + `SecurityHeadersMiddleware` (CSP/nosniff/X-Frame-Options/Referrer, 默认 ON) + 错误串脱敏 `sanitize_compare_errors` (`/api/ask_compare`) + `asyncio.wait_for` 外层超时 (compare fan-out + stream open)。
+- **chat UI 延后项** `webchat/app.js`+`style.css`: AbortController Stop/中止 + 重试 (`runGeneration` 抽取, 不复发用户消息) + topbar 读 `/api/info` 显真实 default_model。
+- **config** `server/config.py`: phase-3 开关全默认 OFF + `kb_root`/`chroma_dir` env 覆盖 (解 §7 开放项, 服务目录自包含)。**main** `server/main.py`: `create_app(app_settings)` 工厂 (单配置源)。
+- **deploy/** (写好**不激活**): `deploy.sh` (rsync→`~/sdtm-rag-service/`+uv sync; additive 不碰 .env/.venv; --delete 限子目录) + `com.sdtmrag.api.service.plist.template` (`0.0.0.0`, 指服务目录) + `.env.service.template` + `README.md` go-live runbook; `scripts/gen_password_hash.py` (口令哈希 CLI)。
+- **TDD**: `scripts/tests/test_phase3_security.py` (新); 修 `test_ask_stream.py` (fake app 补 `app.state.settings`)。
+
+### 验证
+- **287 pytest 全绿**; 新代码 ruff 全清 (router 新增 0 UP041); `deploy.sh` 语法 OK + `--dry-run` 通过。
+- **活体 smoke** (临时实例 127.0.0.1:8033/8034, **不碰 8000**): 真 DeepSeek **SSE 621 token 帧穿全中间件 0 error** (纯 ASGI 不破流式实证); 登录流/401/302/`next`/错口令/登出全过; v2 boot health=ok (证 create_app+lifespan 修); **暴力锁 401×5→429** + 锁定中对口令仍 429。两次 smoke 后 8000 healthy。
+- **pip-audit**: 发现并**修 starlette CVE-2026-54282/54283** (pin `starlette>=1.3.1` → 1.2.1→1.3.1, fastapi→0.136.3, 全量重测过); chromadb CVE-2026-45829 无修 → **ACCEPTED/MONITORED** (只读·进程内·登录门后·内网)。
+
+### 规则 D 三 lens Workflow (security/code/critic, 异 subagent_type, fresh context) — 0 BLOCKER/HIGH
+- 三 verdict 均 FIX_RECOMMENDED; security lens 对抗式探 path-trick/open-redirect 变体/暴力/XFF 伪造, 确认无可利用绕过 + CSP 不破前端资产。
+- **8 finding (4 MED+4 LOW) 全修复验**: MED 登录无暴力锁 → 加 `LoginThrottle` (失败计数+指数退避); MED session 7d 无短上限 + `ts` 死字段 → TTL 12h (itsdangerous 服务端强制) + 删 ts; MED `create_app` 配置分裂 → 单配置源 (`state.settings=app_settings` + lifespan 读 it); LOW `_safe_next` 控制符/空白可过 → 收紧; LOW 2 处 `except asyncio.TimeoutError` UP041 → `except TimeoutError`; LOW deploy 模板硬编码路径 → `__SERVICE_DIR__` 占位 + deploy.sh seed 时 sed; LOW dry-run 无 -v → 加 `-v --itemize-changes`。
+
+### 证据 / 决策 / 未做
+- 证据 `evidence/checkpoints/phase3_share_hardening.md` + `phase3_share_pip_audit.txt`; retro `RETROSPECTIVE_phase3_share.md` (Rule C 三段); 进度 `_progress_phase3_share.json`; 计划 `PLAN_phase3_share.md`。
+- **残余风险** (显式承认): 纯 HTTP over LAN, 口令/cookie 明文可嗅探 → 短 TTL + 暴力锁 + 强口令闸 (CLI <8 拒/<16 警) 缓解; TLS/VPN/Cloudflare Tunnel 路线 §6。
+- **未做** (go-live 系统动作, 待用户侧 IT): 翻 `0.0.0.0` / `pmset` 禁睡 / macOS 防火墙 / 装服务目录 plist — 步骤已写进 `deploy/README.md` runbook。go-live 硬阻塞 = IT 内网 IP/主机名 + 安全签字。

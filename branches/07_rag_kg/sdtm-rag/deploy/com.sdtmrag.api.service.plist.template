@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Go-live LaunchAgent TEMPLATE for the SERVICE-DIR api (chat UI on 0.0.0.0:8000).
+  DEPLOY_PLAN.md §3. NOT installed by this branch — copy to
+  ~/Library/LaunchAgents/com.sdtmrag.api.plist ONLY at go-live (after IT signoff), then:
+      launchctl bootout  gui/$(id -u)/com.sdtmrag.api   # if an old one is loaded
+      launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.sdtmrag.api.plist
+
+  Differences vs the current localhost plist:
+    - venv + WorkingDirectory point at ~/sdtm-rag-service (deploy.sh target), not the repo.
+    - --host 0.0.0.0 (the login gate + rate limit + sanitize in the service .env make this
+      safe to expose on the company LAN). The 8501 Streamlit Compare/Judge plist stays
+      bound to 127.0.0.1 (developer-only; do NOT move it to 0.0.0.0).
+    - The service .env (chmod 600) carries auth/secrets; launchd loads cwd-relative .env.
+-->
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.sdtmrag.api</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/Users/bojiangzhang/sdtm-rag-service/.venv/bin/uvicorn</string>
+    <string>server.main:app</string>
+    <string>--host</string>
+    <string>0.0.0.0</string>
+    <string>--port</string>
+    <string>8000</string>
+  </array>
+  <key>WorkingDirectory</key>
+  <string>/Users/bojiangzhang/sdtm-rag-service</string>
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>HOME</key>
+    <string>/Users/bojiangzhang</string>
+    <key>PATH</key>
+    <string>/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+  </dict>
+  <key>RunAtLoad</key>
+  <true/>
+  <key>KeepAlive</key>
+  <true/>
+  <key>ThrottleInterval</key>
+  <integer>10</integer>
+  <key>StandardOutPath</key>
+  <string>/Users/bojiangzhang/sdtm-rag-service/logs/api.launchd.log</string>
+  <key>StandardErrorPath</key>
+  <string>/Users/bojiangzhang/sdtm-rag-service/logs/api.launchd.log</string>
+</dict>
+</plist>
