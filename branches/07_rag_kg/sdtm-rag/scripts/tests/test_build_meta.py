@@ -61,3 +61,15 @@ def test_variables_present_and_ct(meta):
     assert aeser["ct_dict"] == []
     # STUDYID has no controlled terms
     assert by_name["STUDYID"]["ct_codes"] == []
+
+
+# ── Task 3: same_class ───────────────────────────────────────────────────
+
+def test_same_class(meta):
+    by_name = {d["domain"]: d for d in meta["domains"]}
+    ae_sib = set(by_name["AE"]["same_class"])
+    # 策划 bullet 列的 Events 兄弟必须都在（group-by 是完整真源）
+    assert {"BE", "CE", "DS", "DV", "HO", "MH"} <= ae_sib
+    assert "AE" not in ae_sib                      # 不含自己
+    assert all(by_name[s]["class"] == "Events" for s in ae_sib)  # 同类
+    assert "AE" in by_name["BE"]["same_class"]     # 对称

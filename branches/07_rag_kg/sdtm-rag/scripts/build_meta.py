@@ -74,7 +74,17 @@ def _variables(ds) -> list[dict]:
 
 
 def _same_class_map(domains_out: list[dict]) -> dict[str, list[str]]:
-    raise NotImplementedError
+    """Group domains by class; same_class[d] = sorted siblings (excl. self).
+    Deterministic and COMPLETE (the curated 'Same class' prose may omit some)."""
+    by_class: dict[str, list[str]] = defaultdict(list)
+    for d in domains_out:
+        if d["class"]:
+            by_class[d["class"]].append(d["domain"])
+    result: dict[str, list[str]] = {}
+    for d in domains_out:
+        sibs = [x for x in by_class.get(d["class"], []) if x != d["domain"]]
+        result[d["domain"]] = sorted(sibs)
+    return result
 
 
 def _relations_curated(kb_root: Path, domain: str) -> list[dict]:
@@ -111,6 +121,10 @@ def build_meta(kb_root: Path) -> dict:
                 "variables": _variables(ds) if ds else [],
             }
         )
+    sc = _same_class_map(domains_out)
+    for d in domains_out:
+        d["same_class"] = sc[d["domain"]]
+
     return {
         "meta_version": 1,
         "generated_from": "knowledge_base/",
