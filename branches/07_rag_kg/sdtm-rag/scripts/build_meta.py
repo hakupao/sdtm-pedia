@@ -182,8 +182,7 @@ def _codelist_files(kb_root: Path) -> dict[str, str]:
     return out
 
 
-def _codelists(kb_root: Path) -> list[dict]:
-    loader = SpecLoader(kb_root)
+def _codelists(kb_root: Path, loader: SpecLoader) -> list[dict]:
     files = _codelist_files(kb_root)
     out: list[dict] = []
     for code, cl in sorted(loader.codelists.items()):
@@ -232,7 +231,7 @@ def build_meta(kb_root: Path) -> dict:
         "generated_from": "knowledge_base/",
         "domains": domains_out,
         "model_defhome": _model_defhome(kb_root),
-        "codelists": _codelists(kb_root),
+        "codelists": _codelists(kb_root, loader),
     }
 
 

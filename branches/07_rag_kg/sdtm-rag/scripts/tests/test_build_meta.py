@@ -1,10 +1,10 @@
 from __future__ import annotations
+
 from pathlib import Path
+
 import pytest
-from scripts.build_meta import (
-    build_meta, _split_ct, _parse_label, _same_class_map,
-    _relations_curated, _model_defhome, _codelists,
-)
+
+from scripts.build_meta import _parse_label, _split_ct, build_meta
 
 KB_ROOT = Path(__file__).resolve().parents[5] / "knowledge_base"
 
@@ -29,6 +29,15 @@ def test_domain_count_and_special_flag(meta):
     assert domains["SUPPQUAL"]["is_special"] is False
     assert domains["SUPPQUAL"]["counts_toward_63"] is True
     assert domains["AE"]["counts_toward_63"] is True
+    # DI is a stub (no spec.md) -> no variables, no curated relations
+    assert domains["DI"]["variables"] == []
+    assert domains["DI"]["relations_curated"] == []
+
+def test_multi_code_variable_end_to_end(meta):
+    # DS.DSDECOD has 3 C-codes in the real KB (C66727; C114118; C150811)
+    ds = next(d for d in meta["domains"] if d["domain"] == "DS")
+    by_name = {v["name"]: v for v in ds["variables"]}
+    assert len(by_name["DSDECOD"]["ct_codes"]) == 3
 
 def test_domain_scalars(meta):
     ae = next(d for d in meta["domains"] if d["domain"] == "AE")
@@ -125,6 +134,7 @@ def test_idempotent_and_keys(meta, kb_root):
 
 def test_yaml_roundtrip_stable(tmp_path, kb_root):
     import yaml
+
     from scripts.build_meta import dump_meta
     m = build_meta(kb_root)
     p = tmp_path / "meta.yaml"
