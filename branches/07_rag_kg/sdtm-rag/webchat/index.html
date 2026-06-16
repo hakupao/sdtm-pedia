@@ -1,1 +1,30 @@
-<!doctype html><title>ok</title>chat-shell
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SDTM 知识库助手</title>
+  <link rel="stylesheet" href="/static/vendor/highlight.github.min.css" />
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <div id="app">
+    <aside id="sidebar">
+      <button id="new-chat">+ 新对话</button>
+      <ul id="conv-list"></ul>
+    </aside>
+    <main id="main">
+      <header id="topbar">SDTM 知识库助手 · DeepSeek V4 Pro</header>
+      <div id="messages"></div>
+      <form id="composer">
+        <textarea id="input" rows="1" placeholder="问点关于 SDTM 的……（Enter 发送，Shift+Enter 换行）"></textarea>
+        <button id="send" type="submit">发送</button>
+      </form>
+    </main>
+  </div>
+  <script src="/static/vendor/marked.min.js"></script>
+  <script src="/static/vendor/purify.min.js"></script>
+  <script src="/static/vendor/highlight.min.js"></script>
+  <script src="/static/app.js"></script>
+</body>
+</html>
