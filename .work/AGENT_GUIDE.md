@@ -51,6 +51,7 @@ SDTM 知识库, 从 CDISC PDF + xlsx 抽取. 旁枝多已收口 (字面级深审
 - **"P2 bulk B-03c round NN 自治连跑"** → `branches/06_deep_verification/multi_session/P2_B-03c_round_NN_kickoff.md`
 - **"收尾"/"wrap up"/"提交收尾"** → 见 CLAUDE.md "Session Wrap-up" 段
 - **"refactor v1 执行段 N"** → `.work/refactor_v1/PLAN.md` § 段 N 详细步骤
+- **"RAG 阶段3 共享 开始任务"** → `branches/07_rag_kg/sdtm-rag/DEPLOY_PLAN.md` §3 阶段 3 (Chat UI 已 DONE 上 localhost:8000; **已定**: 登录门=FastAPI 共享口令 / 对外面=8000 / 8501 留 localhost; **可做** deploy.sh+共享口令+绑 0.0.0.0+硬化[错误串 sanitize/限流/超时/pip-audit]+延后 UI 项[Stop·重试/topbar 读 /info/CSP]; **go-live 硬阻塞=用户找 IT 要内网 IP+安全签字**)
 - ~~**"RAG 答题护栏 开始任务"**~~ → ✅ **DONE 2026-06-09** (护栏 v2 SHIP_DEFAULT_ON; 码 fabrication 确定性消除 + q37 分类修复 + 0 过度拒答; 收口 `branches/07_rag_kg/sdtm-rag/evidence/checkpoints/guardrail_v2_summary.md`)
 
 ## 不要做的
