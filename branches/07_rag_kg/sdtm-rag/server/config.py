@@ -86,9 +86,37 @@ class Settings(BaseSettings):
     # when off, the system prompt is byte-identical to the pre-guardrail production one.
     prompt_guardrail_enabled: bool = True
 
+    # ── Multi-model compare + judge (Phase 2; DEPLOY_PLAN §2.5–2.7) ──
+    # One question → these N models answer over the SAME retrieved context (FR1),
+    # shown side-by-side; an optional judge scores the anonymized answers (FR5).
+    # FR7: every slot is env/UI-overridable and accepts ANY litellm model string.
+    # These are REFERENCE PLACEHOLDERS — DEPLOY_PLAN §7 marks slot defaults as
+    # explicitly non-binding (one Anthropic + one OpenAI + one DeepSeek for vendor
+    # diversity). Override via .env using JSON list syntax, e.g.
+    #   SDTM_RAG_COMPARE_MODELS=["deepseek/deepseek-v4-pro","openai/gpt-4o"]
+    # (pydantic-settings parses complex fields as JSON); the UI sidebar exposes a
+    # friendly per-slot text box that does not require touching .env.
+    compare_models: list[str] = [
+        "deepseek/deepseek-v4-pro",
+        "openai/gpt-4o",
+        "anthropic/claude-sonnet-4-6",
+    ]
+    # Judge model (DEPLOY_PLAN §2.6). Default = deepseek/deepseek-chat so the judge
+    # is runnable TODAY (Anthropic credits exhausted, 2026-06-15). §2.6 prefers Opus
+    # for judge quality once credits return — set SDTM_RAG_JUDGE_MODEL then.
+    judge_model: str = "deepseek/deepseek-chat"
+    # Per-model generation timeout (s): one slow/hung vendor must not stall the whole
+    # parallel request beyond this (NFR2/NFR4). Each model also gets one retry.
+    compare_timeout_s: float = 120.0
+    compare_num_retries: int = 1
+
     # Server
     log_level: str = "INFO"
-    host: str = "0.0.0.0"
+    # Loopback by default (DEPLOY_PLAN §1: 阶段 0–2 绑 127.0.0.1, zero exposure). The
+    # launchd plists already pass --host 127.0.0.1 explicitly; this default makes a bare
+    # `python -m server.main` safe too. Set SDTM_RAG_HOST=0.0.0.0 explicitly for the
+    # phase-3 shared/container binding (which also adds the §7 login gate).
+    host: str = "127.0.0.1"
     port: int = 8000
 
     model_config = {"env_prefix": "SDTM_RAG_", "extra": "ignore"}

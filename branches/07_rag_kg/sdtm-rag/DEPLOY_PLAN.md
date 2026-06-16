@@ -136,13 +136,15 @@ question
 
 ### 阶段 2 — 调优 + 多模型对比/裁判开发(仍 localhost)★核心
 目标:私有状态下打磨到满意,并**用数据定主力模型**。
-- [ ] 我:实现 `/api/ask_compare`(§2.5)+ 并行三模型 + 裁判(§2.6)
-- [ ] 我:Streamlit 加 Single/Compare/Judge UI(§2.7)
-- [ ] 我:切 DeepSeek V4 Pro,重跑 `eval/run_eval.py --judge`,出 **DeepSeek vs Sonnet 质量%+成本对比**
-- [ ] 你:用 Compare 在真实问题上肉眼对比;拿真数据集试 Validation
-- [ ] 你+我:**结合 eval 分数 + Compare 观感,拍板主力模型**(产出留 `evidence/`)
-- [ ] 我:改掉过时 UI 文案
-- **验收**:对比三栏正确、失败隔离生效、裁判输出可解析;eval 达标 + 抽查满意 → 给共享开绿灯。
+实现 + 验证 + 双独立审阅(规则 D)证据 → `evidence/checkpoints/phase2_compare_judge.md`。
+- [x] 我:实现 `/api/ask_compare`(§2.5)+ 并行三模型 + 裁判(§2.6)— `server/compare.py`+`cost.py`+`router.py`; 端到端实测 FR1/FR2/NFR2/FR3/FR5 全 PASS(2026-06-16)
+- [x] 我:Streamlit 加 Single/Compare/Judge UI(§2.7)— `ui/streamlit_app.py`(模式开关 + 三栏 badge + 共用 Sources + 裁判区)
+- [x] 我:改掉过时 UI 文案("default=Sonnet" → 真实映射 + /api/info 预填)
+- [x] 我:双独立审阅(code-reviewer 并发/正确性 + security-reviewer 匿名/注入)均 SHIP, 8 项加固已落
+- [x] 我:DeepSeek vs Sonnet `--judge` 全量对比(140 题, 同条件配对)— Sonnet 96.0% vs DeepSeek 93.6%(判官均值), Sonnet 9.7x 成本(绝对值小), 强在枚举题; 证据 `evidence/checkpoints/phase2_model_comparison.md`
+- [x] 你+我:拍板主力模型 — **维持 DeepSeek-v4-pro 默认**(2026-06-16, 基于 140 题 eval + 抽检; Sonnet 留 hard 档/Compare 手动)。产出 `evidence/checkpoints/phase2_model_comparison.md`
+- [ ] 你:(可选)用 Compare 在真实问题上肉眼对比;拿真数据集试 Validation
+- **验收**:对比三栏正确 ✅、失败隔离生效 ✅、裁判输出可解析 ✅、eval 达标(DeepSeek 96.6% / Sonnet 97.8% 均 PASS)+ 主力已拍板 ✅ → **阶段 2 核心收口**;阶段 3 共享前补 SEC MED(错误串 sanitize)+ host/限流(见 model_comparison 同目录 compare_judge §4 延后项)。
 
 ### 阶段 3 — 共享(部署专用目录 + 对外 + 加锁)
 目标:同事稳定访问,且安全合规。

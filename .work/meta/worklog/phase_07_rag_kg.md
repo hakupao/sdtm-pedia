@@ -228,3 +228,31 @@
 - 改: `server/rag.py` (+语言规则) / `.env` (default→deepseek, gitignored) / `DEPLOY_PLAN.md` (阶段0+1 勾 + §1) / `uv.lock` (+bm25s) / `~/Library/LaunchAgents/*.plist` (repo 外) / `logs/` gitignore。
 - 下一步 = **阶段 2** (核心): `/api/ask_compare` 一题 3 模型并行 + 第 4 模型匿名裁判 + Streamlit 三栏 UI + eval 跑 DeepSeek vs Sonnet 定主力 (T1-T7, 按 Tier 2 开发/审阅分离)。
 - 可选: 用户重启/重登录验 launchd 自恢复; plist 另存模板进 repo (阶段 3 deploy.sh)。
+
+## 2026-06-16 阶段 2 多模型对比+裁判 实现 + 四方 eval + 主力拍板 DONE
+
+DEPLOY_PLAN §3 阶段 2 (★核心) 收口。retro `branches/07_rag_kg/RETROSPECTIVE_phase2_compare.md`; 证据 `evidence/checkpoints/phase2_{compare_judge,model_comparison}.md`。
+
+### 实现 (T1-T6)
+- `server/compare.py` (新): `run_compare` asyncio.gather 并行 `litellm.acompletion`, 每模型独立 try → 失败隔离 (NFR2), 返回 ModelAnswer(model/answer/usage/latency_ms/cost_usd/error)。`run_judge`: 答案匿名 A/B/C 喂裁判 → `_parse_judge` 容错 JSON → 映射回真名; <2 有效答案返回 None + judge_skipped 日志。
+- `server/cost.py` (新): §9 价格表 (前缀锚定+最长键优先) + `litellm.cost_per_token` 兜底; 未知模型 → None → UI "—" (绝不编造数字)。
+- `server/router.py`: `POST /api/ask_compare` (async, 复用 retrieve/format/build → FR1 检索仅一次) + Pydantic 契约 + 模型去重; `/api/info` 加 compare_models/judge_model 供 UI 预填。
+- `server/config.py`: compare_models (3 参考占位, env JSON 覆盖) / judge_model (默认 deepseek-chat 可跑, §2.6 Opus 待 credits) / compare_timeout_s / compare_num_retries; host 默认 0.0.0.0→127.0.0.1 (对齐 §1)。
+- `ui/streamlit_app.py`: sidebar Single/Compare 模式 + 3 模型槽 (预填 /api/info) + Enable Judge; `_render_compare` 三栏 badge + 共用 Sources + 裁判区; 修过时 "default=Sonnet" 文案; `_get_info` 不缓存失败。
+- 设计: compare/judge **绕过命名 Router** 直接 acompletion(任意串) → 满足 FR7。无新依赖 (litellm 1.88.1 含 acompletion+cost_per_token)。
+
+### 验证 + 审阅
+- 端到端实测 (临时实例 127.0.0.1:8011, 不碰 launchd:8000): FR1 检索一次 / FR2 并行 8.9s≈最慢家 / NFR2 失败隔离 (Anthropic credits 耗尽单栏报错另两家正常 + HTTP 200) / FR3 badge / FR5 裁判匿名+映射 **真抓出 gpt-4o 编造 cited source 未含的 verbatim term**。
+- 验证抓修真 bug: cost.py 用错 `completion_cost(prompt_tokens=)` (1.88.1 不支持) → 改 `cost_per_token`; 裁判偶发 None 定位 provider 空返回 (非 bug) → 加 judge_skipped 观测日志。
+- **规则 D 双独立审阅** (code-reviewer 并发/正确性 + security-reviewer 匿名/注入, 异 subagent_type) 均 SHIP, 0 BLOCKER/HIGH; 8 项加固落 (去重/注入加固/best 直接索引/cost 锚定/host 收环回/_get_info/观测日志/注释)。三承重信任点 PASS: 失败隔离 textbook-correct / _parse_judge 抗 8 类畸形 / 裁判匿名代码层零泄漏 + label→model 映射含部分失败子集也正确。
+
+### 四方 eval (140 题 v3, 同条件配对: top_k=15/temp=0/检索杠杆全 ON/同判官 deepseek-chat)
+- **判官 fact-recall (per-q 均值)**: Sonnet 96.0 > DeepSeek 93.6 > GPT-4o 90.4 ≈ GPT-5.4-mini 90.2。source recall 全 ~100% (与模型无关)。
+- **每题成本**: DeepSeek $0.0075 < GPT-5.4-mini $0.0123 < GPT-4o $0.0391 < Sonnet $0.0721。延迟: mini 4.1s 最快 (Sonnet/4o 被限速灌水)。
+- 抽检 (规则 A): "枚举弱"是便宜模型共性 (q02 DM 全部 Req 变量 DeepSeek 14%/mini 43% 弃答, Sonnet/4o 100% 完整枚举); GPT-5.4-mini 失分=不完整非编造 (grounding 正常)。gpt-5.4-mini=2026-03 发布晚于知识截止, 经 OpenAI /models 查实 + 冒烟 temp=0 才跑。
+- **GPT-5.4-mini 完胜 GPT-4o** (同质量/1-3 成本/7x 速度); DeepSeek 比两 OpenAI 都准且最便宜。
+
+### 决策 + 部署
+- **主力维持 DeepSeek-v4-pro** (用户 2026-06-16, 四方数据支撑; Sonnet 留 hard 档/Compare 手动)。无需改 .env (默认已是)。
+- launchd kickstart -k 重载 api+ui → `localhost:8000` 上线新代码 (/api/info 含 compare_models), UI Compare 模式可用。Sonnet 充值生效 (用户 2026-06-16)。
+- 残留 (阶段 3 共享前 gate, 非阻塞): 错误串 sanitize (SEC MED) / 限流 / asyncio 外层超时 / pip-audit; Compare 多轮追问 (后端 history 已预留, 用户当期选 Single 追问)。
