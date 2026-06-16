@@ -256,3 +256,36 @@ DEPLOY_PLAN §3 阶段 2 (★核心) 收口。retro `branches/07_rag_kg/RETROSPE
 - **主力维持 DeepSeek-v4-pro** (用户 2026-06-16, 四方数据支撑; Sonnet 留 hard 档/Compare 手动)。无需改 .env (默认已是)。
 - launchd kickstart -k 重载 api+ui → `localhost:8000` 上线新代码 (/api/info 含 compare_models), UI Compare 模式可用。Sonnet 充值生效 (用户 2026-06-16)。
 - 残留 (阶段 3 共享前 gate, 非阻塞): 错误串 sanitize (SEC MED) / 限流 / asyncio 外层超时 / pip-audit; Compare 多轮追问 (后端 history 已预留, 用户当期选 Single 追问)。
+
+---
+
+## 2026-06-16 (续) ChatGPT 风格单模型流式聊天前端 DONE + 规则 D 修复 + IME 回车修复
+
+### 触发
+- 用户「RAG 阶段3 共享 + ChatGPT 式聊天 UI 开始任务」。计划就绪 `branches/07_rag_kg/sdtm-rag/PLAN_chat_ui.md` (6 task TDD) + 设计 `DESIGN_chat_ui.md` (brainstorming 批准 2026-06-16)。执行用 `superpowers:executing-plans` (异 subagent 审阅段用 Workflow)。
+
+### 完了の作業 (6 task, 全 TDD + 逐 task commit)
+- **Task 1 后端 SSE** (TDD 先红后绿): `server/router.py` 加 `AskStreamRequest` + `POST /api/ask_stream` (走 Router `default`=deepseek, 复用 retrieve/format/build; `sources→token*→done/error`; 检索失败开流前 502; 中途失败 error 事件; usage 拿不到 null 不编造)。`scripts/tests/test_ask_stream.py`。
+- **Task 2 静态托管**: `server/main.py` 挂 `/static`→`webchat/` + `GET /`→index.html (exists 守卫; 与 `/api/*` 不冲突)。
+- **Task 3 vendor**: marked@12.0.2 / dompurify@3.1.6 / highlight.js@11.9.0(+github.css) 进 `webchat/vendor/` (**修计划包名笔误** `@highlight.js`→`@highlightjs`); 运行时全本地 serve 无外网 CDN。
+- **Task 4 骨架+样式**: `webchat/index.html` + `style.css` (ChatGPT 式两栏侧栏+气泡+粘底输入)。
+- **Task 5 app.js**: localStorage 多对话 + 侧栏 + SSE 手动分帧解析 + marked→DOMPurify 净化 + highlight + 来源默认折叠 + history 截断 (近 10 轮) + 错误不白屏。
+- **Task 6 集成核验**: 真模型 e2e — curl SSE `1 sources→42 token→1 done` (usage 真实, DeepSeek 接受 `stream_options.include_usage`) + Playwright 浏览器 (中文流式/多轮 history「它」=AETERM 解析/侧栏新建·切换/刷新持久/删除/断网气泡)。证据 `evidence/checkpoints/chat_ui_smoke.md` + `chat_ui_smoke_{main,error}.png`。
+
+### 规则 D 独立审阅 (Workflow `chat-ui-rule-d-review`, 3 lens 异 subagent_type, 218k tok)
+- **security-reviewer = SHIP** (全 DOM sink 经 `mdToSafeHTML=DOMPurify.sanitize(marked.parse())` 或 textContent; sourcesEl 只 innerHTML 静态字面量; DOMPurify 3.1.6 默认拦 `<img onerror>`/`javascript:`/`data:`; 后端 error 发服务端常量不回显)。code-reviewer + critic 各报 1 HIGH。
+- **2 HIGH + 4 MED 全修并验证**:
+  - HIGH 干净 EOF 无 done/error 帧 → 答案在屏但不落盘, 刷新丢失 → `streamAsk` terminal 追踪 + 尾 buf flush + `onClose` 落盘 (stub fetch 实证「Partial answer」落盘 + 「连接中断」提示)。
+  - HIGH 每 token 重解析 markdown+重高亮 (违 DESIGN §4, O(n²) jank + hljs 重高亮刷屏) → 流中纯文本追加, done 后整体渲染一次 (终态 DOM `<ul><li><strong>` + console **0 warning**)。
+  - MED 空回答占位「(无内容)」(DESIGN §6, stub done 零 token 实证); MED busy 复位入 try/finally (回调抛异常不再永久锁 send); MED `save()` try/catch 配额保护 + 淘汰最旧对话; MED `stream_options` 不支持 → `_open_stream` 去 kwarg 重试一次 (usage→null, +单测 `test_ask_stream_falls_back_without_stream_options`)。
+- **延后阶段 3** (记 DEPLOY_PLAN §3): Stop/Abort+重试 UX (DESIGN §2/§6) / topbar 读 `/api/info` default_model / CSP+`X-Content-Type-Options` 头 / 请求超时。
+
+### IME 回车修复 (用户报 bug)
+- 中文输入法**组字中**按回车 (本意=上屏字母/确认候选) 被误当发送。`webchat/app.js` keydown 加 `!e.isComposing && e.keyCode!==229` 守卫。浏览器 dispatch 实测: 组字回车**不发送/不清空**, 普通回车照发, Shift+回车照换行。
+
+### 验证 + 上线
+- **263 pytest 全绿** (含 SSE 序列/422/stream_options 回退); Streamlit 8501 Compare/Judge **不回归**; launchd `com.sdtmrag.api` kickstart 重载 → chat UI 上 **`localhost:8000`** (仍 127.0.0.1; StaticFiles 按需读盘, 改前端无需重启)。
+- 环境差异: 测试用 `uv run --extra dev pytest` (部署期 `uv sync` 剪掉 dev extras, `.venv/bin/pytest` 不存在); 仅增 dev 工具不动 runtime, 不扰 launchd。
+
+### 阶段 3 决策 (用户 2026-06-16) → DEFERRED
+- 用户「先本地试用 chat UI」→ **阶段 3 共享 DEFERRED** (待试用满意 + 谈完 IT)。已定: **对外面=8000 chat UI** (8501 留 localhost 当开发者工具); **登录门=FastAPI 共享口令** (登录表单+签名 session cookie 中间件, 最轻无需 IT)。**go-live 硬阻塞 (用户动作)** = 找 IT 要固定内网 IP + 安全签字 (数据出境)。记 `DEPLOY_PLAN.md` §3/§7 + memory `project_local_deploy_plan`。
