@@ -9,9 +9,12 @@ from __future__ import annotations
 import logging
 import time
 from contextlib import asynccontextmanager
+from pathlib import Path
 
 import structlog
 from fastapi import FastAPI
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 
 from server.config import settings
 from server.llm_config import create_router
@@ -90,6 +93,18 @@ app = FastAPI(
     lifespan=lifespan,
 )
 app.include_router(api_router)
+
+# Static hosting for the ChatGPT-style chat UI (DESIGN_chat_ui.md §1). `/static` and
+# `GET /` do not collide with the api_router's `/api/*` prefix. The webchat/ dir may not
+# exist yet during incremental build-out, so guard with exists() — files added later
+# (Tasks 3-5) light this up automatically with no further code change.
+_WEBCHAT_DIR = Path(__file__).resolve().parent.parent / "webchat"
+if _WEBCHAT_DIR.exists():
+    app.mount("/static", StaticFiles(directory=str(_WEBCHAT_DIR)), name="static")
+
+    @app.get("/")
+    def chat_index():
+        return FileResponse(str(_WEBCHAT_DIR / "index.html"))
 
 
 if __name__ == "__main__":
