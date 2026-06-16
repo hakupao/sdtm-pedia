@@ -163,8 +163,39 @@ def _model_defhome(kb_root: Path) -> dict[str, str]:
     }
 
 
+_CL_HEADING_RE = re.compile(r"^##\s+(.+?)\s*\(([Cc]\d+)\)")
+
+
+def _codelist_files(kb_root: Path) -> dict[str, str]:
+    """ct_code -> kb-relative termfile path (first file whose heading defines it)."""
+    out: dict[str, str] = {}
+    term_dir = kb_root / "terminology"
+    if not term_dir.exists():
+        return out
+    for f in sorted(term_dir.rglob("*.md")):
+        rel = f.relative_to(kb_root).as_posix()
+        for line in f.read_text(encoding="utf-8").splitlines():
+            m = _CL_HEADING_RE.match(line)
+            if m:
+                out.setdefault(m.group(2).upper(), rel)
+    return out
+
+
 def _codelists(kb_root: Path) -> list[dict]:
-    raise NotImplementedError
+    loader = SpecLoader(kb_root)
+    files = _codelist_files(kb_root)
+    out: list[dict] = []
+    for code, cl in sorted(loader.codelists.items()):
+        out.append(
+            {
+                "ct_code": code,
+                "name": cl.name,
+                "extensible": cl.extensible,
+                "term_count": len(cl.submission_values),
+                "termfile": files.get(code, ""),
+            }
+        )
+    return out
 
 
 # ── Main builder ──────────────────────────────────────────────────────────
@@ -199,4 +230,5 @@ def build_meta(kb_root: Path) -> dict:
         "generated_from": "knowledge_base/",
         "domains": domains_out,
         "model_defhome": _model_defhome(kb_root),
+        "codelists": _codelists(kb_root),
     }

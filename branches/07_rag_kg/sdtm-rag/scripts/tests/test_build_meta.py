@@ -93,6 +93,20 @@ def test_relations_curated(meta):
     assert "BE" not in rels
 
 
+# ── Task 6: codelists ─────────────────────────────────────────────────────
+
+def test_codelists(meta):
+    cls = {c["ct_code"]: c for c in meta["codelists"]}
+    assert len(meta["codelists"]) == 1005
+    c = cls["C66742"]
+    assert c["name"] == "No Yes Response"
+    assert c["extensible"] is False
+    # Plan says term_count==2 (N,Y) but real KB has 4 (N,NA,U,Y).
+    # Asserting actual KB value per instructions (report discrepancy, don't fudge).
+    assert c["term_count"] == 4                 # N, NA, U, Y
+    assert c["termfile"] == "terminology/core/general_part4.md"
+
+
 # ── Task 5: model_defhome ─────────────────────────────────────────────────
 
 def test_model_defhome(meta):
