@@ -4,9 +4,9 @@
   "tier": 2,
   "tier_note": "borderline Tier 2-3, 走 Tier 2 + evidence 全留; Phase 2 KG 启动时再评估升 Tier 3",
   "created": "2026-05-22",
-  "updated": "2026-06-16 (★ 阶段 2 多模型对比+裁判 DONE — server/compare.py+cost.py 并行三模型+失败隔离 (NFR2)+匿名 A/B/C 裁判; /api/ask_compare async 复用检索 (FR1); Streamlit Single/Compare/Judge UI; 验证抓修 cost.py litellm API bug + judge_skipped 观测; 规则 D 双独立审阅 [code-reviewer+security-reviewer 异 type] 均 SHIP 0 BLOCKER/HIGH + 8 加固; 四方 eval 140q 同条件配对 [判官均值 Sonnet 96.0 > DeepSeek 93.6 > GPT-4o 90.4 ≈ GPT-5.4-mini 90.2, 每题成本 DeepSeek $0.0075 最低; gpt-5.4-mini 经 /models 查实+冒烟 temp=0; 抽检枚举弱=便宜模型共性 q02]; 主力维持 DeepSeek-v4-pro [用户拍板, Sonnet 留 hard 档/Compare 手动]; launchd kickstart 重载上线. retro RETROSPECTIVE_phase2_compare.md; 证据 phase2_{compare_judge,model_comparison}). 前: 2026-06-15 (★★ v3 full eval 收 S4 尾账 CLEAN_CLOSE + (d) 概念定义双通道 SHIP — Task1: S4 三修 v3 140q full eval 配对 [DeepSeek temp=0, guardrail-off 隔离] src 76.4→97.5 / fact 净 −0.2 带内, 11 掉分独立 scientist 裁判 7 假阴+3 非确定+1 已知前沿 q57 = CLEAN_CLOSE; guardrail-ON+S4 码 grounding 99.65%. Task2: q73+q119 双通道 pattern 级 SHIP, retrieval-only cross 95.0→99.0, 0 回归, pytest 250, Rule D APPROVE; q126 永久 known limitation 架构阻断. 详 phase_d_concept_channel). 前: 2026-06-12 题集 v3+S4 三修; 2026-06-09 答题侧护栏 + P1 接入生产; 2026-05-24 Phase 1D PASS 88.5%",
+  "updated": "2026-06-17 (★ KG 重启 SP1 meta.yaml 元数据层 DONE — 纯数据层 build_meta.py 生成 data/meta/meta.yaml 64 域 + reconcile_meta.py 独立锚对账; reconcile gate 抓出并修 spec_loader 系统性 bug 247 幻变量; DI 才是桩域非 SUPPQUAL 已纠; Gate1 8/8 + Rule D 异type APPROVE (mypy0/ruff清/300测试) + Rule A N=8 PASS; 设计/计划/证据齐; 路由词「KG 重启 开始任务」现→SP2). 前: 2026-06-16 (★ 阶段 2 多模型对比+裁判 DONE — server/compare.py+cost.py 并行三模型+失败隔离 (NFR2)+匿名 A/B/C 裁判; /api/ask_compare async 复用检索 (FR1); Streamlit Single/Compare/Judge UI; 验证抓修 cost.py litellm API bug + judge_skipped 观测; 规则 D 双独立审阅 [code-reviewer+security-reviewer 异 type] 均 SHIP 0 BLOCKER/HIGH + 8 加固; 四方 eval 140q 同条件配对 [判官均值 Sonnet 96.0 > DeepSeek 93.6 > GPT-4o 90.4 ≈ GPT-5.4-mini 90.2, 每题成本 DeepSeek $0.0075 最低; gpt-5.4-mini 经 /models 查实+冒烟 temp=0; 抽检枚举弱=便宜模型共性 q02]; 主力维持 DeepSeek-v4-pro [用户拍板, Sonnet 留 hard 档/Compare 手动]; launchd kickstart 重载上线. retro RETROSPECTIVE_phase2_compare.md; 证据 phase2_{compare_judge,model_comparison}). 前: 2026-06-15 (★★ v3 full eval 收 S4 尾账 CLEAN_CLOSE + (d) 概念定义双通道 SHIP — Task1: S4 三修 v3 140q full eval 配对 [DeepSeek temp=0, guardrail-off 隔离] src 76.4→97.5 / fact 净 −0.2 带内, 11 掉分独立 scientist 裁判 7 假阴+3 非确定+1 已知前沿 q57 = CLEAN_CLOSE; guardrail-ON+S4 码 grounding 99.65%. Task2: q73+q119 双通道 pattern 级 SHIP, retrieval-only cross 95.0→99.0, 0 回归, pytest 250, Rule D APPROVE; q126 永久 known limitation 架构阻断. 详 phase_d_concept_channel). 前: 2026-06-12 题集 v3+S4 三修; 2026-06-09 答题侧护栏 + P1 接入生产; 2026-05-24 Phase 1D PASS 88.5%",
   "upstream_design": "docs/DESIGN_RAG_KG.md (Approved 2026-04-16)",
-  "current_phase": "阶段 2 多模型对比+裁判 核心收口 (2026-06-16): /api/ask_compare 并行三模型+失败隔离+匿名裁判 + Streamlit Compare/Judge UI + 四方 eval 定主力 (维持 DeepSeek-v4-pro); 双独立审阅 SHIP; launchd 重载上线. 阶段 3 共享前 gate (非阻塞): 错误串 sanitize (SEC MED) / 限流 / asyncio 外层超时 / pip-audit / Compare 多轮追问 (history 已预留). 前: 检索线收口 (2026-06-15 PM): retrieval-only v3 single 100/cross 99/concept 100/mixed 100; 语义 LLM-judge fact recall 93.9% (替代 substring 82.6%) — **已固化进 run_eval --judge**; ① 本地 Docker Compose 部署修复/加固+实服 e2e 证 (容器构建待 Docker 主机); ② Phase 2 KG 正式关闭 + 总 retro. 检索目标达成. 残留非阻塞: q126 (架构受限) / 跨模型 eval (Anthropic credits) / 容器构建实测 (Docker 主机)",
+  "current_phase": "KG 重启 SP1 (meta.yaml 数据层) DONE (2026-06-17): 路由词「KG 重启 开始任务」, SP1-5 第一个硬前置; 纯数据层 build_meta.py→data/meta/meta.yaml (64 域=63 真域+DI 桩) + reconcile_meta.py 独立锚对账 (抓修 spec_loader 247 幻变量 bug, DI 才是桩域); Gate1 8/8 + Rule D 异type APPROVE + Rule A N=8 PASS; 下一个 SP2 (确定性答题通道, q103/q104 翻绿 + 退役 structured_lookup 正则). 前: 阶段 2 多模型对比+裁判 核心收口 (2026-06-16): /api/ask_compare 并行三模型+失败隔离+匿名裁判 + Streamlit Compare/Judge UI + 四方 eval 定主力 (维持 DeepSeek-v4-pro); 双独立审阅 SHIP; launchd 重载上线. 阶段 3 共享前 gate (非阻塞): 错误串 sanitize (SEC MED) / 限流 / asyncio 外层超时 / pip-audit / Compare 多轮追问 (history 已预留). 前: 检索线收口 (2026-06-15 PM): retrieval-only v3 single 100/cross 99/concept 100/mixed 100; 语义 LLM-judge fact recall 93.9% (替代 substring 82.6%) — **已固化进 run_eval --judge**; ① 本地 Docker Compose 部署修复/加固+实服 e2e 证 (容器构建待 Docker 主机); ② Phase 2 KG 正式关闭 + 总 retro. 检索目标达成. 残留非阻塞: q126 (架构受限) / 跨模型 eval (Anthropic credits) / 容器构建实测 (Docker 主机)",
   "phases": {
     "phase_0_research": {
       "status": "completed",
@@ -455,7 +455,7 @@
       "user_ack": "2026-05-24 Bojiang ack Phase 1D + Phase 1 closure"
     },
     "phase_1_closure": {"status": "completed", "pass_at": "2026-05-24", "user_ack": "2026-05-24 Bojiang ack Phase 1 PASS 5/5 (commit 9f397ab)", "retrospective": "RETROSPECTIVE.md 三段齐备", "backfill_note": "1C/closure status 字段 2026-06-05 回写, 内容無変更"},
-    "phase_2_kg": {"status": "closed — NOT needed as a retrieval lever (2026-06-15)", "decision_point": "gate = RELATION/cross-domain recall < 50% 才启动. Phase 1D 61.5% → deferred; 2026-06-15 检索路由通道 (P1 + (d)) 把 retrieval-only cross 拉到 99% (远超 50% gate) → 纯向量+路由已解决跨域召回, KG 作为检索质量杠杆不再有理由, 正式关闭. KG 作为独立产品特性 (交互式关系/CT 影响图遍历) 仍是可选未来增强, 但非检索质量需求; 重启需新立项 (前置 P3 meta.yaml)."},
+    "phase_2_kg": {"status": "closed — NOT needed as a retrieval lever (2026-06-15)", "decision_point": "gate = RELATION/cross-domain recall < 50% 才启动. Phase 1D 61.5% → deferred; 2026-06-15 检索路由通道 (P1 + (d)) 把 retrieval-only cross 拉到 99% (远超 50% gate) → 纯向量+路由已解决跨域召回, KG 作为检索质量杠杆不再有理由, 正式关闭. KG 作为独立产品特性 (交互式关系/CT 影响图遍历) 仍是可选未来增强, 但非检索质量需求; 重启需新立项 (前置 P3 meta.yaml). 2026-06-16 用户决定重启 KG 作产品能力 (非检索杠杆), 拆 SP1-5; SP1 (meta.yaml 数据层) 2026-06-17 DONE → 见 phase_kg_sp1_meta."},
     "phase_1_5_retrieval_tuning": {
       "status": "completed — baseline accepted (用户 2026-06-08)",
       "started_at": "2026-06-08",
@@ -578,6 +578,23 @@
         "verify": "pytest 260 (新 test_run_eval_judge 含 HIGH 回归) + ruff clean + 5q 集成 smoke (q119 substring 0→judge 100, parse_fail 0)",
         "evidence": "evidence/checkpoints/llm_judge_fact_recall.md + scripts/tests/test_run_eval_judge.py"
       }
+    },
+    "phase_kg_sp1_meta": {
+      "status": "completed",
+      "started_at": "2026-06-16",
+      "pass_at": "2026-06-17",
+      "owner": "main (编排/brainstorm/spec/plan/收尾) + recon Workflow 5 路 + implementer×2 (build_meta T1-7 / reconcile T8, sonnet) + spec-reviewer×2 + code-reviewer×2 (opus 异 type, Rule D) + Rule A 审 (opus 独立 N=8)",
+      "routing_word": "「KG 重启 开始任务」→ KG_ROADMAP.md (SP1-5 第一个, 硬前置)",
+      "scope": "纯数据层 meta.yaml. 不答题/不翻 eval/不碰 structured_lookup (退役是 SP2)/不碰 knowledge_base (只读)",
+      "design_decisions": "粒度=纯数据层 (q103/q104 翻绿留 SP2); schema=标量+变量(name/role/type/core/ct_codes/ct_dict)+same_class(按 Class group-by)+relations_curated(机制仅字面,低保真)+model_defhome+codelists(只存 term_count); relations=确定性 core+策划边; 验收=独立锚对账+N=8 Rule A; 输出 data/meta/",
+      "deliverables": "scripts/build_meta.py (确定性生成器,无 LLM,幂等)→data/meta/meta.yaml (64 域=63 真域+DI 桩); scripts/reconcile_meta.py (独立锚对账,不复用 spec_loader); scripts/tests/test_build_meta.py (13 单测); SP1_meta_yaml_design.md + PLAN_sp1_meta_yaml.md + evidence/checkpoints/sp1_meta_audit.md",
+      "major_finding": "reconcile gate 抓出 spec_loader._parse_spec 系统性 bug: ### 变量块扫描不停在 '## Cross References'/'---' → 4 子节标题(Controlled Terminology/Related Domains/General References/Model Definition)误当变量, 全 63 域 247 幻变量 (2164 vs 真实 1917). 独立锚揪出 (自我对账永远发现不了 = 反套套逻辑价值). 手术式修 (startswith 守卫), 全量 300 测试不受扰 (validation/chunkers 消费者全过)",
+      "correction": "纠正 recon: 缺 spec.md 的桩域是 DI 非 SUPPQUAL; counts_toward_63 = spec.md 存在 (含 SUPPQUAL=63, DI=stub variables=[])",
+      "gate_1_reconcile": "8/8 OK: domains_counts_toward_63=63 / variable_entries_total=1917 / unique_variable_names=1523 / codelists=1005 / terms=37939 / TAETORD→43 / VISITDY→36 / raw_order_line_count=1917; anchor 正则 drift loud-fail (HIGH 修, _require helper 命名 ValueError)",
+      "rule_d": "opus code-reviewer 异 type 两段式 (spec 合规→代码质量): build_meta APPROVE (6 LOW 收 3); reconcile REQUEST_CHANGES (1 HIGH anchor loud-fail + 2 MED 措辞/terms 假设 + 3 LOW)→修→复审 APPROVE; mypy 0 / ruff clean / 300 pytest",
+      "rule_a": "独立 opus N=8 分层语义抽检 (TE/TD/VS/LB/DM/RELREC/DI-SUPPQUAL 边界/多码+关系): PASS, 零 invented 机制/零错码/零漏数据; 全局不变量 same_class 无自引 + 无悬挂 relation target + 零孤儿 ct + mechanism 分布 {null:50,RELREC:2} 与设计吻合; 证据 evidence/checkpoints/sp1_meta_audit.md",
+      "commits": "d0e0bb5..7b453ca (main, TDD 每 Task 一 commit + 修复/polish/hardening/audit, 12 commits)",
+      "next": "SP2 (确定性结构化答题通道: meta.yaml 载内存 → /api/ask 计数/穷举/精确查找走确定数据, q103/q104 翻绿 + 退役 structured_lookup 正则影子 KG, 含 model_defhome 替换 len==6 解析). 路由词「KG 重启 开始任务」现→SP2"
     }
   },
   "constraints": {

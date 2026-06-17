@@ -316,3 +316,29 @@ DEPLOY_PLAN §3 阶段 2 (★核心) 收口。retro `branches/07_rag_kg/RETROSPE
 - 证据 `evidence/checkpoints/phase3_share_hardening.md` + `phase3_share_pip_audit.txt`; retro `RETROSPECTIVE_phase3_share.md` (Rule C 三段); 进度 `_progress_phase3_share.json`; 计划 `PLAN_phase3_share.md`。
 - **残余风险** (显式承认): 纯 HTTP over LAN, 口令/cookie 明文可嗅探 → 短 TTL + 暴力锁 + 强口令闸 (CLI <8 拒/<16 警) 缓解; TLS/VPN/Cloudflare Tunnel 路线 §6。
 - **未做** (go-live 系统动作, 待用户侧 IT): 翻 `0.0.0.0` / `pmset` 禁睡 / macOS 防火墙 / 装服务目录 plist — 步骤已写进 `deploy/README.md` runbook。go-live 硬阻塞 = IT 内网 IP/主机名 + 安全签字。
+
+## 2026-06-17 KG 重启 SP1 — meta.yaml 元数据层 DONE (brainstorm→spec→plan→TDD→Rule A/D)
+
+### 触发 / 范围
+- 路由词「KG 重启 开始任务」→ `KG_ROADMAP.md` (SP1-5 拆分已 ack)。本 session 完成 **SP1 (meta.yaml 元数据层)** = SP1-5 第一个、硬前置。
+- 范围 = **纯数据层** (确定性生成 + 验证)。不答题 / 不翻 eval / 不碰 `structured_lookup` (退役是 SP2) / 不碰 `knowledge_base` (只读)。设计 `SP1_meta_yaml_design.md` + 计划 `PLAN_sp1_meta_yaml.md` (用户批准)。
+
+### brainstorming (5 设计决策, 接地 recon workflow 5 路并行侦察)
+- 粒度 = 纯数据层 (q103/q104 翻绿留 SP2); schema = 标量 + 变量(name/role/type/core/`ct_codes`/`ct_dict`) + `same_class`(按 Class group-by) + `relations_curated`(机制**仅字面**, 标低保真) + `model_defhome` + `codelists`(只存 term_count); relations = 确定性 core + 策划边; 验收 = 两门 (独立锚对账 + N=8 分层 Rule A); 输出 `data/meta/`。
+
+### 产出 (9 Task TDD, subagent 驱动 + 两段式审)
+- `scripts/build_meta.py` — 确定性生成器 (无 LLM, 幂等) → `data/meta/meta.yaml` (64 域 = 63 真域 + DI 桩)。
+- `scripts/reconcile_meta.py` — 独立锚对账 (**不复用** spec_loader; VARIABLE_INDEX/INDEX 文本 + 裸 `Order:` grep; anchor drift loud-fail)。
+- `scripts/tests/test_build_meta.py` (13 单测) + 证据 `evidence/checkpoints/sp1_meta_audit.md`。
+
+### 重大发现 — reconcile gate 抓到 spec_loader 系统性 bug
+- `spec_loader._parse_spec` 的 `### (\w+)` 变量扫描**不在 `## Cross References` / `---` 处停** → 4 个子节标题 (Controlled Terminology/Related Domains/General References/Model Definition) 误当变量, 全 63 域产生 **247 幻变量** (2164 vs 真实 1917)。**独立锚对账揪出** (spec_loader 自我对账永远发现不了 = 反套套逻辑的价值)。手术式修 (startswith 守卫), **全量 300 测试不受扰** (validation/chunkers 等消费者全过)。
+- 纠正 recon 错误: 缺 spec.md 的桩域是 **DI** 非 SUPPQUAL; `counts_toward_63 = spec.md 存在` (含 SUPPQUAL → 63)。
+
+### 三门验证
+- **Gate 1 reconcile 8/8**: 63 / 1917 / 1523 / 1005 / 37939 / TAETORD→43 / VISITDY→36 / 裸 Order 1917。
+- **Rule D** opus 异 type 代码审: build_meta APPROVE (6 LOW 收 3); reconcile REQUEST_CHANGES (1 HIGH anchor loud-fail + 2 MED + 3 LOW) → 修 → 复审 APPROVE; mypy 0 / ruff clean / 300 pytest。
+- **Rule A** 独立 opus N=8 分层语义抽检: **PASS** (零 invented 机制 / 零错码 / 零漏数据; mechanism 分布 {null:50, RELREC:2} 与设计 §6 吻合)。
+
+### next
+- **SP2** (确定性结构化答题通道: meta.yaml 载内存 → /api/ask 计数/穷举/精确查找走确定数据, q103/q104 翻绿 + 退役 structured_lookup 正则影子 KG)。路由词「KG 重启 开始任务」现指向 SP2 (走同样 brainstorm→spec→plan→impl 流程)。
