@@ -211,7 +211,14 @@ async def ask_stream(body: AskStreamRequest, request: Request):
         log.error("stream_retrieve_failed", error=str(e), exc_info=True)
         raise HTTPException(status_code=502, detail="Retrieval service temporarily unavailable.")
 
+    answerer = getattr(request.app.state, "answerer", None)
+    facts = answerer.resolve(body.question) if answerer is not None else None
+
     context = rag.format_context(chunks)
+    if facts is not None:
+        from server.structured_answer import augment_context
+        context = augment_context(facts, context)
+
     history_dicts = [{"role": m.role, "content": m.content} for m in body.history]
     messages = rag.build_messages(body.question, context, history_dicts or None)
     sources = [
@@ -243,6 +250,7 @@ async def ask_stream(body: AskStreamRequest, request: Request):
         yield sse("sources", {"sources": sources})
         model_used = None
         usage = None
+        parts: list[str] = []
         try:
             # Outer ceiling on opening the stream (REV MED-b): if the provider hangs on
             # connect without honoring its own timeout, fail to an error event rather than
@@ -254,6 +262,7 @@ async def ask_stream(body: AskStreamRequest, request: Request):
                 if choices:
                     text = getattr(choices[0].delta, "content", None)
                     if text:
+                        parts.append(text)
                         yield sse("token", {"text": text})
                     model_used = getattr(chunk, "model", None) or model_used
                 cu = getattr(chunk, "usage", None)
@@ -261,6 +270,15 @@ async def ask_stream(body: AskStreamRequest, request: Request):
                     usage = {"prompt_tokens": cu.prompt_tokens,
                              "completion_tokens": cu.completion_tokens,
                              "total_tokens": cu.total_tokens}
+            # counting gate: if the assembled answer contradicts a checkable count,
+            # emit the correction suffix as an extra token event before done
+            if facts is not None:
+                from server.grounding import apply_counting_gate
+                full = "".join(parts)
+                corrected, violations = apply_counting_gate(full, facts)
+                if violations:
+                    log.warning("structured_count_violation_stream", violations=violations)
+                    yield sse("token", {"text": corrected[len(full):]})
             yield sse("done", {"model_used": model_used or "default", "usage": usage})
         except Exception as e:  # noqa: BLE001 — stream already open, surface as event
             log.error("stream_failed", error=str(e), exc_info=True)

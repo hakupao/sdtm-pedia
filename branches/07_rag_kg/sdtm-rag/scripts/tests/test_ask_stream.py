@@ -91,3 +91,52 @@ def test_ask_stream_falls_back_without_stream_options():
     # First attempt carried stream_options (rejected); retry dropped it.
     assert any("stream_options" in c for c in router.calls)
     assert any("stream_options" not in c for c in router.calls)
+
+
+# ── Task 10: ask_stream structured-answer injection + gate ────────────────
+
+def test_stream_injects_facts_and_appends_correction():
+    from pathlib import Path
+    from types import SimpleNamespace
+
+    from fastapi import FastAPI
+    from fastapi.testclient import TestClient
+
+    from server.config import Settings
+    from server.meta_store import MetaStore
+    from server.router import api_router
+    from server.structured_answer import StructuredAnswerer
+
+    class _CtxRAG:
+        def retrieve(self, q, *, domain=None, file_type=None, top_k=None):
+            return [SimpleNamespace(chunk_id="c1", source="s", domain="AE", file_type="spec",
+                                    section="§1", similarity=0.9, text="ctx")]
+        def format_context(self, chunks):
+            return "RETRIEVED_CTX"
+        def build_messages(self, q, ctx, history=None):
+            # Propagate ctx so the test can assert the facts block reached the LLM
+            return [{"role": "system", "content": "sys"}, {"role": "user", "content": ctx}]
+
+    class _StreamRouter:
+        async def acompletion(self, model, messages, stream=False, **kw):
+            saw = "Structured Facts (authoritative" in messages[-1]["content"]
+            async def agen():
+                yield SimpleNamespace(model="stub", usage=None,
+                    choices=[SimpleNamespace(delta=SimpleNamespace(
+                        content=f"[saw={saw}] TAETORD appears in 41 domains."))])
+            return agen()
+
+    app = FastAPI()
+    app.include_router(api_router)
+    app.state.rag = _CtxRAG()
+    app.state.llm_router = _StreamRouter()
+    app.state.settings = Settings()
+    app.state.answerer = StructuredAnswerer(
+        MetaStore(Path(__file__).resolve().parents[2] / "data" / "meta" / "meta.yaml"))
+
+    body = TestClient(app).post(
+        "/api/ask_stream", json={"question": "How many domains include TAETORD?", "history": []}
+    ).text
+    assert "[saw=True]" in body
+    assert "Authoritative correction" in body  # correction emitted as token(s) before done
+    assert "43" in body
