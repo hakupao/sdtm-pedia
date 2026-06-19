@@ -49,7 +49,7 @@ class StructuredFacts:
     checkable_counts: list[CheckableCount] = field(default_factory=list)
 
 
-_VAR_TOKEN_RE = re.compile(r"\b(?:--)?[A-Z][A-Z0-9]{1,7}\b")
+_VAR_TOKEN_RE = re.compile(r"\b[A-Z][A-Z0-9]{1,7}\b")
 _CT_TOKEN_RE = re.compile(r"\bC\d{4,6}\b")
 
 
@@ -65,6 +65,13 @@ class StructuredAnswerer:
         return [c for c in _CT_TOKEN_RE.findall(query) if c in self.store.known_ctcodes]
 
     def _anchored_domains(self, query: str) -> list[str]:
+        # Gate: only anchor 2-letter domain codes when the query carries an SDTM/domain context
+        # signal. Without this, common English abbreviations (PR, DM, CO, IS, …) collide with
+        # SDTM domain codes and cause false anchoring on off-topic queries.
+        # Variable anchoring (long tokens) and codelist anchoring (Cxxxx) are unaffected.
+        ql = query.lower()
+        if "domain" not in ql and "sdtm" not in ql:
+            return []
         return [t for t in _VAR_TOKEN_RE.findall(query) if t in self.store.known_domains]
 
     def resolve(self, query: str) -> StructuredFacts | None:
@@ -73,29 +80,27 @@ class StructuredAnswerer:
             return None  # must-not-fire: entity without capability intent
         variables = self._anchored_variables(query)
         codelists = self._anchored_codelists(query)
-        if not variables and not codelists:
-            # check domain anchoring and corpus-total before returning None
-            domains = self._anchored_domains(query)
-            if not domains:
-                # corpus-total fallback: explicit SDTM-wide count, no specific entity anchored
-                ql = query.lower()
-                corpus = any(p in ql for p in ("sdtm", "in total", "altogether", "the model"))
-                if corpus and ("count" in intents or "enumerate" in intents):
-                    lines: list[str] = []
-                    if "domain" in ql:
-                        lines.append(
-                            f"- SDTM defines exactly **{self.store.n_domains}** domains."
-                        )
-                    if "variable" in ql:
-                        lines.append(
-                            f"- SDTM defines **{self.store.n_unique_variables}** unique variables "
-                            f"({self.store.n_variable_entries} variable entries across all domains)."
-                        )
-                    if lines:
-                        return StructuredFacts(
-                            text_block="\n".join(lines), checkable_counts=[]
-                        )
-                return None  # must-not-fire: no anchored entity and no corpus phrase
+        domains = self._anchored_domains(query)
+        if not variables and not codelists and not domains:
+            # corpus-total fallback: explicit SDTM-wide count, no specific entity anchored
+            ql = query.lower()
+            corpus = any(p in ql for p in ("sdtm", "in total", "altogether", "the model"))
+            if corpus and ("count" in intents or "enumerate" in intents):
+                lines: list[str] = []
+                if "domain" in ql:
+                    lines.append(
+                        f"- SDTM defines exactly **{self.store.n_domains}** domains."
+                    )
+                if "variable" in ql:
+                    lines.append(
+                        f"- SDTM defines **{self.store.n_unique_variables}** unique variables "
+                        f"({self.store.n_variable_entries} variable entries across all domains)."
+                    )
+                if lines:
+                    return StructuredFacts(
+                        text_block="\n".join(lines), checkable_counts=[]
+                    )
+            return None  # must-not-fire: no anchored entity and no corpus phrase
 
         lines_: list[str] = []
         counts: list[CheckableCount] = []
@@ -134,7 +139,7 @@ class StructuredAnswerer:
                 )
             counts.append(CheckableCount(code, "domains", len(doms)))
 
-        for dom in dict.fromkeys(self._anchored_domains(query)):
+        for dom in dict.fromkeys(domains):
             info = self.store.domain_info(dom)
             if info is None:
                 continue

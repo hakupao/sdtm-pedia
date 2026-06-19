@@ -112,3 +112,15 @@ def test_augment_context_prepends_block():
 
 def test_augment_context_none_is_passthrough():
     assert augment_context(None, "ctx") == "ctx"
+
+
+# ── Task 4b hardening: 2-letter domain code must-not-fire (no SDTM context) ──
+
+def test_must_not_fire_pr_no_sdtm_context(answerer: StructuredAnswerer):
+    # "PR" is a valid SDTM domain code, but this query has no "domain"/"sdtm" signal
+    assert answerer.resolve("Could you do a PR review of this changeset?") is None
+
+
+def test_must_not_fire_dm_message(answerer: StructuredAnswerer):
+    # "DM" is a valid SDTM domain code, but this query is about messaging, not SDTM
+    assert answerer.resolve("What does a DM message contain?") is None
