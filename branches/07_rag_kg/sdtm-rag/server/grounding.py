@@ -12,10 +12,14 @@ Design points
   eval scripts identically.
 - Conservative scoping: _stated_numbers_near() only inspects sentences that
   CONTAIN the subject (case-insensitive).  An unrelated number in a different
-  sentence never triggers a false positive.
+  sentence never triggers a false violation.
+- Subject matching uses whole-token boundary (\\b) so short subjects like ARM,
+  AGE, SEX, AE never match as substrings of longer words (alarm, usage, sexual).
 - Numbers-as-words (e.g. "forty-three") are intentionally NOT matched — the gate
   only catches explicit digit strings, which is the common failure mode (LLM
   writes a wrong digit count).
+- Decimal fragments (e.g. "3.5") and CT codes (e.g. "C66742") are NOT matched
+  as standalone integers, preventing stray-digit false positives.
 """
 from __future__ import annotations
 
@@ -23,11 +27,16 @@ import re
 
 from server.structured_answer import StructuredFacts
 
-# Split into sentences on ". ", "! ", "? " or end-of-string, keeping the delimiter.
-_SENT_RE = re.compile(r"(?<=[.!?])\s+")
+# Split on ". ", "! ", "? " (sentence-ending punctuation + whitespace) OR on
+# one-or-more newlines so that line-per-fact layouts are split correctly.
+_SENT_RE = re.compile(r"(?<=[.!?])\s+|\n+")
 
-# Extract integers (digit sequences) from a string.
-_INT_RE = re.compile(r"\b(\d+)\b")
+# Match a standalone integer that is NOT:
+#   - preceded by a word-char or dot  (rules out "C66742" → 66742, "3.5" → 3 or 5)
+#   - followed by a word-char or dot  (rules out "43rd" → 43)
+# This pattern intentionally avoids \b because \b treats "." as a boundary
+# and would still extract the stray digit from "3.5".
+_INT_RE = re.compile(r"(?<![\w.])\d+(?![\w.])")
 
 _CORRECTION_HEADER = "**Authoritative correction (SDTM metadata):**"
 
@@ -38,17 +47,37 @@ def _sentences(text: str) -> list[str]:
 
 
 def _stated_numbers_near(answer: str, subject: str) -> list[int]:
-    """Return all integers found in sentences that mention *subject* (case-insensitive).
+    """Return all integers found in sentences that mention *subject* (whole-token).
 
-    Only sentences containing the subject are examined, so an unrelated number
-    elsewhere in the answer never triggers a false violation.
+    Uses whole-token boundary matching so that a short subject like "ARM" does
+    not match inside "alarm", "AGE" inside "usage"/"Page", etc.  Only sentences
+    containing the subject as a distinct token are examined.
     """
-    subject_lower = subject.lower()
+    subject_pattern = re.compile(
+        rf"\b{re.escape(subject)}\b", re.IGNORECASE
+    )
     numbers: list[int] = []
     for sent in _sentences(answer):
-        if subject_lower in sent.lower():
+        if subject_pattern.search(sent):
             numbers.extend(int(m) for m in _INT_RE.findall(sent))
     return numbers
+
+
+def _correction_line(v: dict) -> str:
+    """Render a single correction line with kind-aware wording.
+
+    kind == "domains"   → "<subject> appears in exactly <n> SDTM domains."
+    kind == "variables" → "<subject> contains exactly <n> variables."
+    anything else       → generic "<subject> has exactly <n> <kind>."
+    """
+    subject = v["subject"]
+    kind = v["kind"]
+    n = v["expected"]
+    if kind == "domains":
+        return f"- {subject} appears in exactly {n} SDTM domains."
+    if kind == "variables":
+        return f"- {subject} contains exactly {n} variables."
+    return f"- {subject} has exactly {n} {kind}."
 
 
 def apply_counting_gate(
@@ -98,10 +127,7 @@ def apply_counting_gate(
         return answer, []
 
     # Build one correction block for ALL violations (non-destructive append).
-    correction_lines = [
-        f"- {v['subject']} appears in exactly {v['expected']} {v['kind']}."
-        for v in violations
-    ]
+    correction_lines = [_correction_line(v) for v in violations]
     correction_block = (
         "\n\n---\n\n"
         + _CORRECTION_HEADER
