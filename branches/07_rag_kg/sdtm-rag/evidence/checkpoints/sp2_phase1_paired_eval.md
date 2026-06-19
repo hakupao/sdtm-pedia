@@ -1,6 +1,6 @@
 # SP2 Phase 1 — OFF-vs-ON Paired Eval (Task 13)
 
-> 状态: **DONE_WITH_CONCERNS** (2026-06-20) — 三靶子全部达标 (q103/q104 翻绿, 全类零真实回归, 计数闸生产行为非破坏性), 但 Step 5 字面 `violations==0` 断言**不成立** (36 个 flag, 全部为闸的整句整数扫描误报, 已逐条核证). 详见下方 §计数闸.
+> 状态: **PASS** (2026-06-20) — 三准则全达标。初始 DONE_WITH_CONCERNS (闸 v1 36 误报) 已由**闸 v2 重建**消解 (36→0)；Rule A 抽检揪出的 q67 codelist 变量计数缺陷已修。Rule D APPROVE + Rule A PASS。flag 翻默认 ON。**完整解决见文末 §最终解决 (闸 v2 + q67 + Rule D/A)**。下方 §计数闸 段记录的是闸 v1 历史状态 (已被 v2 取代)。
 
 ## 方法论 (与既有 v3 paired eval 对齐)
 
@@ -83,4 +83,35 @@ Step 5 driver 独立复跑闸 → 报 **36 个 violation** (非 0). **逐条核�
 
 ## 总判定
 
-**DONE_WITH_CONCERNS** — 答题通道的业务目标全部达成 (q103/q104 翻绿, 零真实回归, 计数从不被模型矛盾). 唯一 concern 是 Step 5 字面 `violations==0` 断言因接地闸扫描过宽而不成立 (36 误报); 该 concern 不影响答案正确性 (闸非破坏性), 属闸 precision 的后续优化项, 建议记入 SP2 收尾 backlog.
+**DONE_WITH_CONCERNS** — (闸 v1 历史判定, 已被下方 §最终解决 取代)。答题通道的业务目标全部达成; 唯一 concern 是闸 v1 的 36 误报, 已由闸 v2 消解。
+
+---
+
+## 最终解决 (闸 v2 + q67 + Rule D/A) — Task 13/14 收口 2026-06-20
+
+### 闸 v2 — 高精度重建 (commit 5263236): 36 误报 → 0
+闸 v1 的 `_stated_numbers_near` 按主语整句扫所有整数 → 36 误报 (字符限值/术语数/章节号/另一变量计数; 逐条核证全部为模型其实答对、闸抓错旁边数字)。**关键数据: 36/36 误报里正确值都在答案中出现**。v2 改为:
+1. **缺席前提**: 正确值以独立整数出现在答案任意处 → 模型已答对 → 跳过, 不报。(单这一条消除全部 36 误报)
+2. **错误计数检测** (仅正确值缺席时): 数字须 (a) 双语 kind 词邻近 (domains→`domains?`/`域`; variables→`variables?`/`变量`), (b) 数量合理 (≤200/≤300), (c) 主语同句。
+- **验收 oracle**: 闸 v2 重跑 140 saved ON 答案 → **0 violation** (独立复核确认)。回归网: 36 误报案例 + must-fire (含双语) 写进 `test_grounding.py` (27 测试)。
+- **校准原则**: MISS (漏纠真错) 可接受; FALSE POSITIVE (给对的答案追加错更正) 是要消除的 bug。
+
+### q67 修复 (commit 24055fe): codelist 变量计数纳入 gate (Rule A 缺陷)
+Rule A N=8 抽检揪出: codelist 只发 domain 计数 CheckableCount, **无变量计数** → "C66742 被多少变量引用?" 模型答 41 (混淆域数) / 106 (幻觉), 真值 123, 未被纠。修复: codelist 分支注入显式 "Used by 123 variables" 计数行 + 发 `CheckableCount(code,"codelist_variables",123)`; 闸加该 kind (variable 词组 + "is used by exactly N variables" 措辞)。oracle 复跑: q67 现**真实命中** (`expected 123 stated 41`) → 生产追加 "...used by exactly 123 variables." 更正; 零新增误报。
+
+### Rule D — 独立代码审 (critic, 异 subagent_type): **APPROVE (safe to ship default-ON)**
+零 CRITICAL。2 MAJOR 均**非破坏性、设计内**, 转 backlog: (1) 词典词变量 (RACE/SEX/AGE/ARM) off-topic 锚定 = recall-additive 真事实非错答; (2) FP2 残余 spurious-but-true 更正 (140 题中 35 次 gate-fire 前提下 0 次自然发生, 且只追加真事实)。Minor: enumerate corpus 路径只出计数不出列表; first-seen 属性跨域分歧 (→SP3)。验证: flag-OFF 逐字节相同、gate 全路径非破坏、反过拟合零硬编、0-violation oracle 独立复现。
+
+### Rule A — N=8 分层语义抽检 (独立 opus auditor): **PASS** (q67 修复后)
+4 能力类各 2: COUNT q103/q104, ENUMERATE q34/q107, CT q43/s05, ATTRIBUTE q05/q01。逐元素对账 meta.yaml (2 题另对账原始 KB: VARIABLE_INDEX.md / DM spec.md+dm.md)。初判 7 PASS/1 PARTIAL (s05 codelist 元数据 recall 缺口, 安全非答非错答→backlog) + q67 抽样外缺陷 (已修)。q67 修复后唯一真实错答关闭 → Rule A PASS。**自动 fact_recall 对 q67/s05 均 1.0 (子串假阳) — 印证独立语义核验补住自动指标盲区 (规则 A 价值)**。
+
+### 三准则最终判定
+| 准则 | 判定 |
+|------|------|
+| (a) q103/q104 翻绿 | **PASS** |
+| (b) 全类零真实回归 (src +0; fact 负 delta 全为噪声/翻译伪降) | **PASS** |
+| (c) ON 臂 0 计数闸 violation (闸 v2) | **PASS** (oracle 0) |
+| Rule D 异 type 独立审 | **APPROVE** |
+| Rule A N=8 语义抽检 | **PASS** |
+
+→ **Phase 1 PASS**; `structured_answer_enabled` 默认翻 **ON** (env 可即时回滚)。backlog (转 RETROSPECTIVE/SP2 收尾): 词典词变量锚定 relevance gate、s05 codelist 元数据注入、enumerate corpus 列表、FP2 是否改 eval-log-only。

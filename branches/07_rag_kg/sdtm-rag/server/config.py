@@ -89,10 +89,11 @@ class Settings(BaseSettings):
     # ── Structured answer channel (SP2): deterministic count/enumerate/attribute/CT
     # answers from data/meta/meta.yaml, injected as an authoritative context block +
     # a counting grounding gate. Orthogonal to retrieval (Phase 1 never touches
-    # retrieve()). Env-overridable (SDTM_RAG_STRUCTURED_ANSWER_ENABLED=true). Ships
-    # OFF until the OFF-vs-ON paired eval (v3 140q) validates q103/q104 green + zero
-    # regression + 0 gate violations; then default flips to True.
-    structured_answer_enabled: bool = False
+    # retrieve()). Default ON: validated by the OFF-vs-ON paired eval (v3 140q,
+    # 2026-06-20) — q103/q104 green, zero retrieval regression, 0 gate violations
+    # (gate v2) + Rule D APPROVE + Rule A PASS. Env-overridable for instant rollback
+    # (SDTM_RAG_STRUCTURED_ANSWER_ENABLED=false).
+    structured_answer_enabled: bool = True
 
     # ── Multi-model compare + judge (Phase 2; DEPLOY_PLAN §2.5–2.7) ──
     # One question → these N models answer over the SAME retrieved context (FR1),

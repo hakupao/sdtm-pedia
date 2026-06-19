@@ -157,6 +157,7 @@ def test_settings_meta_path_exists():
     assert settings.meta_path.name == "meta.yaml"
 
 
-def test_structured_answer_flag_default_off():
+def test_structured_answer_flag_default_on():
     from server.config import Settings
-    assert Settings().structured_answer_enabled is False  # build-time OFF until paired-eval validated
+    # Default ON after Phase-1 validation (paired eval + Rule D/A); env-overridable to false.
+    assert Settings().structured_answer_enabled is True
