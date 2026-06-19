@@ -342,3 +342,21 @@ DEPLOY_PLAN §3 阶段 2 (★核心) 收口。retro `branches/07_rag_kg/RETROSPE
 
 ### next
 - **SP2** (确定性结构化答题通道: meta.yaml 载内存 → /api/ask 计数/穷举/精确查找走确定数据, q103/q104 翻绿 + 退役 structured_lookup 正则影子 KG)。路由词「KG 重启 开始任务」现指向 SP2 (走同样 brainstorm→spec→plan→impl 流程)。
+
+---
+
+## 2026-06-20 KG 重启 SP2 Phase 1 (确定性答题通道) DONE 默认 ON (brainstorm→spec→plan→subagent-driven 14 task)
+
+- **触发**: 用户「KG 重启 开始任务」(2026-06-19 续 2026-06-20)。续 SP2 brainstorming 断点 (5 决策已锁) → 走查全设计 → 定稿 spec → writing-plans → subagent-driven 执行。
+- **流程**: brainstorming (接断点确认架构两块, 锁 Q1-Q5 + 2 参数: Rule A N=8 / 闸只硬校验计数) → spec `docs/superpowers/specs/2026-06-19-sp2-structured-answer-design.md` (自审消歧 grounding 位置 + 用户审过) → plan `docs/superpowers/plans/2026-06-19-sp2-structured-answer.md` (18 task TDD; 写前 4 路 Explore 并行侦察代码锚点; self-review 闭 Q4 缺口/修 lifespan 测试范式/pin run_evaluation) → subagent-driven (每组 implementer + spec审 + 质量审 + fix loop, 异 subagent_type)。
+- **产出 (Phase 1, 14 task)**: `server/meta_store.py` (MetaStore 载 meta.yaml + 内存反向索引 + 确定性查询 API) + `server/structured_answer.py` (StructuredAnswerer 实体锚定+意图检测+事实装配 + augment_context) + `server/grounding.py` (apply_counting_gate 高精度 v2) + `config.py` flag (默认 ON) + `main.py` (maybe_build_answerer + lifespan) + `router.py` (ask/ask_stream 注入+闸) + `eval/run_eval.py --structured-answer` + `eval/prod_wirein/heldout_probes.py`。370 pytest / ruff 清 / mypy 0。
+- **验收 (Task 13/14)**: 140q OFF-vs-ON paired eval (deepseek-chat temp0): **q103 TAETORD→43 / q104 VISITDY→36 翻绿** (fr 0.5→1.0); 检索零回归 (src 99.6%→99.6%; fact 负 delta 逐题核证全为 temp0 噪声/翻译伪降); **0 闸 violation** (闸 v2 oracle)。**Rule D** (critic 异 subagent_type) **APPROVE「safe default-ON」** (0 CRITICAL, 2 MAJOR 非破坏性转 backlog)。**Rule A** 独立 opus **N=8 分层语义抽检 PASS** (4 能力类各 2, 2 题对账原始 KB)。
+- **评测暴露并修两缺陷 (规则 A/D 价值实证, 程序门漏)**:
+  - **接地闸 v1 36 全假阳** → 整句扫数字把术语数/字符限值/章节号误判为域计数。重建 **v2 高精度** (缺席前提: 正确值在答案出现就跳过 + 双语 kind 词邻近 + 合理性), **36→0** (oracle 复跑 saved 140 答案); 36 案例写进回归测试。Rule B 归档 `evidence/failures/step_13_attempt_1.md`。
+  - **q67 codelist 变量计数幻觉** (Rule A 抽检揪出): 答「106 变量」真值 123, 而 fact_recall 子串假阳给 1.0。根因 codelist 只发 domain 计数 CheckableCount 无变量计数 → 补 `codelist_variables` 闸 + 注入显式计数行。
+- **决策复盘**: Q5「闸追加更正」方向对但实现 heuristic 欠设计 (两轮返工); 用户被请来基于新证据复议 Q5 → 选「高精度闸 + 保留生产追加」。两阶段 (Phase 1 上线 / Phase 2 缓做) 验证为好决策。复盘 `RETROSPECTIVE_sp2_phase1.md` (规则 C)。
+- **backlog (转复盘 §2)**: 词典词变量 (RACE/SEX) 锚定 relevance gate / s05 codelist 元数据注入 / enumerate corpus 列表 / FP2 是否改 eval-log-only / first-seen 属性跨域分歧 (→SP3)。
+- **教训**: subagent 多次中途截断 (长评测 / fix 没 commit / eval 仍在跑) — 每次独立核验状态抓到, 长付费评测改用可追踪后台任务自驱。
+
+### next
+- **SP2 Phase 2** (退役 structured_lookup 正则影子 KG → 读 meta.yaml, 含 load-bearing `len==6`): 入口 plan §Phase 2 (Tasks 15-18), 已有 spec+plan **直接接 plan 无需 brainstorm**; 零回归门 = 既有 `test_structured_lookup.py` 全套 + retrieval-only paired eval ≥99% + Rule D 一轮。之后 **SP3** (内存图遍历, 关系/影响查询) = 新设计单元需 brainstorm。
