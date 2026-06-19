@@ -12,6 +12,16 @@ import yaml
 class MetaStore:
     def __init__(self, meta_path: Path):
         data = yaml.safe_load(Path(meta_path).read_text(encoding="utf-8"))
+        if not isinstance(data, dict):
+            raise ValueError(
+                f"meta.yaml must be a YAML mapping; got {type(data).__name__}"
+            )
+        _required = {"meta_version", "domains", "codelists", "model_defhome"}
+        _missing = _required - data.keys()
+        if _missing:
+            raise ValueError(
+                f"meta.yaml is missing required top-level keys: {sorted(_missing)}"
+            )
         self.meta_version: int = data["meta_version"]
         self._domains: list[dict] = data["domains"]
         self._codelists: list[dict] = data["codelists"]
@@ -24,8 +34,12 @@ class MetaStore:
         # var name -> sorted list of domain codes (counts_toward_63 domains only,
         # matching VARIABLE_INDEX coverage that reconcile verified TAETORD->43)
         self._var_to_domains: dict[str, list[str]] = {}
-        # var name -> attribute dict (first occurrence; standard vars share a label
-        # across domains, so first-seen is canonical for label/role/type/core)
+        # var name -> attribute dict (first occurrence only).
+        # NOTE: role and core can legitimately differ across domains (~9 and ~13
+        # variables respectively; e.g. USUBJID is Req in some domains and Exp in
+        # others; TAETORD is Perm in most but Req in a few).  label diverges for ~2.
+        # This dict stores the FIRST-SEEN value; domain-specific attributes are out
+        # of scope for Phase 1 and deferred to SP3.
         self._var_attrs: dict[str, dict] = {}
         # domain code -> ordered list of variable names
         self._domain_to_vars: dict[str, list[str]] = {}
@@ -57,7 +71,11 @@ class MetaStore:
 
     def variable_attributes(self, var: str) -> dict | None:
         a = self._var_attrs.get(var.upper())
-        return dict(a) if a is not None else None
+        if a is None:
+            return None
+        # Return a shallow copy with ct_codes re-listed so callers cannot mutate
+        # the internal index by appending to the returned list.
+        return {**a, "ct_codes": list(a["ct_codes"])}
 
     def variables_in_domain(self, dom: str) -> list[str]:
         return list(self._domain_to_vars.get(dom.upper(), []))
