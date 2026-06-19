@@ -127,6 +127,14 @@ def test_loud_fail_missing_keys():
         tmp_path.unlink(missing_ok=True)
 
 
+def test_domain_info(store: MetaStore):
+    info = store.domain_info("AE")
+    assert info["class"] == "Events"
+    assert info["label"] == "Adverse Events"
+    assert info["n_variables"] == len(store.variables_in_domain("AE"))
+    assert store.domain_info("ZZ") is None
+
+
 def test_loud_fail_not_a_mapping():
     # A meta.yaml that is a list (not a dict) must raise ValueError.
     with tempfile.NamedTemporaryFile(

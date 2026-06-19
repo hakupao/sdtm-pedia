@@ -71,3 +71,30 @@ def test_must_not_fire_usage_question(answerer: StructuredAnswerer):
 def test_must_not_fire_bare_mention(answerer: StructuredAnswerer):
     # bare mention, no capability cue
     assert answerer.resolve("Tell me about the AE domain.") is None
+
+
+# ── Task 4b: domain-entity + corpus-total + codelist->variables ───────────────
+
+def test_domain_entity_variable_count(answerer: StructuredAnswerer):
+    facts = answerer.resolve("How many variables does the AE domain contain?")
+    assert facts is not None
+    nv = len(answerer.store.variables_in_domain("AE"))
+    assert CheckableCount("AE", "variables", nv) in facts.checkable_counts
+    assert str(nv) in facts.text_block
+
+
+def test_domain_enumerate_variables(answerer: StructuredAnswerer):
+    facts = answerer.resolve("Which variables are in the DM domain?")
+    assert facts is not None
+    assert "USUBJID" in facts.text_block  # a known DM variable, enumerated
+
+
+def test_total_domain_count(answerer: StructuredAnswerer):
+    facts = answerer.resolve("How many domains are defined in SDTM in total?")
+    assert facts is not None
+    assert "63" in facts.text_block
+
+
+def test_total_count_requires_corpus_phrase(answerer: StructuredAnswerer):
+    # count intent + "domains" but no entity and no corpus phrase -> None (conservative)
+    assert answerer.resolve("How many domains do you recommend for a small study?") is None

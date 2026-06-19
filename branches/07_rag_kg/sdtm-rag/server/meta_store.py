@@ -59,6 +59,8 @@ class MetaStore:
                 for code in v["ct_codes"]:
                     self._ctcode_to_locations.setdefault(code, []).append((dom, name))
         self._var_to_domains = {k: sorted(v) for k, v in tmp_var_domains.items()}
+        # domain code -> domain dict (real domains only)
+        self._domain_by_code: dict[str, dict] = {d["domain"]: d for d in self._real_domains}
         # codelist code -> codelist dict
         self._codelist_by_code: dict[str, dict] = {c["ct_code"]: c for c in self._codelists}
         self.known_variables: frozenset[str] = frozenset(self._var_to_domains)
@@ -92,6 +94,18 @@ class MetaStore:
 
     def variables_for_codelist(self, ct_code: str) -> list[str]:
         return sorted({var for _, var in self.locations_for_codelist(ct_code)})
+
+    def domain_info(self, dom: str) -> dict | None:
+        d = self._domain_by_code.get(dom.upper())
+        if d is None:
+            return None
+        return {
+            "domain": d["domain"],
+            "class": d["class"],
+            "label": d["label"],
+            "structure": d["structure"],
+            "n_variables": len(d["variables"]),
+        }
 
     def model_defhome(self, var: str) -> str | None:
         return self._model_defhome.get(var.upper())
