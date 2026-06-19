@@ -85,7 +85,7 @@ Full chain definitions are in `.work/MANIFEST.md`.
 | Phase 7 本地部署+多模型对比 规划 | `branches/07_rag_kg/sdtm-rag/DEPLOY_PLAN.md` — launchd 部署 + 对比/裁判 (§3 阶段3 工程件 DONE+审; go-live 待 IT) |
 | Phase 7 阶段3 共享 (工程件+go-live runbook) | `branches/07_rag_kg/sdtm-rag/deploy/` (deploy.sh + 0.0.0.0 plist 模板 + README runbook); 登录门 `server/auth.py`; 证据 `evidence/checkpoints/phase3_share_hardening.md` |
 | Phase 7 Chat UI (单模型流式前端) | `branches/07_rag_kg/sdtm-rag/webchat/` + `PLAN_chat_ui.md`; prod localhost:8000 (launchd) |
-| Phase 7 KG 重启 (SP1 DONE, next SP2) | `branches/07_rag_kg/sdtm-rag/KG_ROADMAP.md` + `data/meta/meta.yaml` (SP1-5; SP1 数据层 done) |
+| Phase 7 KG 重启 (SP2 Phase1 DONE, next Phase2) | `branches/07_rag_kg/sdtm-rag/KG_ROADMAP.md` (SP1+SP2-P1 done; 答题通道默认 ON) |
 
 ## AI 平台多平台部署 (CLOSED 冻结 2026-06-15)
 
