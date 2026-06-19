@@ -20,8 +20,63 @@ class MetaStore:
         self._real_domains: list[dict] = [d for d in self._domains if d["counts_toward_63"]]
         self._build_indices()
 
-    def _build_indices(self) -> None:  # filled in Task 2
-        pass
+    def _build_indices(self) -> None:
+        # var name -> sorted list of domain codes (counts_toward_63 domains only,
+        # matching VARIABLE_INDEX coverage that reconcile verified TAETORD->43)
+        self._var_to_domains: dict[str, list[str]] = {}
+        # var name -> attribute dict (first occurrence; standard vars share a label
+        # across domains, so first-seen is canonical for label/role/type/core)
+        self._var_attrs: dict[str, dict] = {}
+        # domain code -> ordered list of variable names
+        self._domain_to_vars: dict[str, list[str]] = {}
+        # ct_code -> list of (domain, var) where it is referenced
+        self._ctcode_to_locations: dict[str, list[tuple[str, str]]] = {}
+        tmp_var_domains: dict[str, set[str]] = {}
+        for d in self._real_domains:
+            dom = d["domain"]
+            self._domain_to_vars[dom] = [v["name"] for v in d["variables"]]
+            for v in d["variables"]:
+                name = v["name"]
+                tmp_var_domains.setdefault(name, set()).add(dom)
+                self._var_attrs.setdefault(name, {
+                    "label": v["label"], "role": v["role"], "type": v["type"],
+                    "core": v["core"], "ct_codes": list(v["ct_codes"]),
+                })
+                for code in v["ct_codes"]:
+                    self._ctcode_to_locations.setdefault(code, []).append((dom, name))
+        self._var_to_domains = {k: sorted(v) for k, v in tmp_var_domains.items()}
+        # codelist code -> codelist dict
+        self._codelist_by_code: dict[str, dict] = {c["ct_code"]: c for c in self._codelists}
+        self.known_variables: frozenset[str] = frozenset(self._var_to_domains)
+        self.known_domains: frozenset[str] = frozenset(self._domain_to_vars)
+        self.known_ctcodes: frozenset[str] = frozenset(self._codelist_by_code)
+
+    # ── deterministic query API (Phase 1) ──
+    def domains_for_variable(self, var: str) -> list[str]:
+        return list(self._var_to_domains.get(var.upper(), []))
+
+    def variable_attributes(self, var: str) -> dict | None:
+        a = self._var_attrs.get(var.upper())
+        return dict(a) if a is not None else None
+
+    def variables_in_domain(self, dom: str) -> list[str]:
+        return list(self._domain_to_vars.get(dom.upper(), []))
+
+    def codelist(self, ct_code: str) -> dict | None:
+        c = self._codelist_by_code.get(ct_code.upper())
+        return dict(c) if c is not None else None
+
+    def locations_for_codelist(self, ct_code: str) -> list[tuple[str, str]]:
+        return list(self._ctcode_to_locations.get(ct_code.upper(), []))
+
+    def domains_for_codelist(self, ct_code: str) -> list[str]:
+        return sorted({dom for dom, _ in self.locations_for_codelist(ct_code)})
+
+    def variables_for_codelist(self, ct_code: str) -> list[str]:
+        return sorted({var for _, var in self.locations_for_codelist(ct_code)})
+
+    def model_defhome(self, var: str) -> str | None:
+        return self._model_defhome.get(var.upper())
 
     @property
     def n_domains(self) -> int:
