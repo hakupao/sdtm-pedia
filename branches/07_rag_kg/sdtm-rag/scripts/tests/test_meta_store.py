@@ -4,12 +4,13 @@ from pathlib import Path
 
 import pytest
 
+from server.config import settings
 from server.meta_store import MetaStore
 
 
 @pytest.fixture(scope="module")
 def store() -> MetaStore:
-    return MetaStore(Path(__file__).resolve().parents[2] / "data" / "meta" / "meta.yaml")
+    return MetaStore(settings.meta_path)
 
 
 def test_loads_and_counts(store: MetaStore):
@@ -147,3 +148,15 @@ def test_loud_fail_not_a_mapping():
             MetaStore(tmp_path)
     finally:
         tmp_path.unlink(missing_ok=True)
+
+
+# ── Task 7: settings.meta_path + structured_answer_enabled flag ───────────────
+
+def test_settings_meta_path_exists():
+    assert settings.meta_path.exists()
+    assert settings.meta_path.name == "meta.yaml"
+
+
+def test_structured_answer_flag_default_off():
+    from server.config import Settings
+    assert Settings().structured_answer_enabled is False  # build-time OFF until paired-eval validated

@@ -86,6 +86,14 @@ class Settings(BaseSettings):
     # when off, the system prompt is byte-identical to the pre-guardrail production one.
     prompt_guardrail_enabled: bool = True
 
+    # ── Structured answer channel (SP2): deterministic count/enumerate/attribute/CT
+    # answers from data/meta/meta.yaml, injected as an authoritative context block +
+    # a counting grounding gate. Orthogonal to retrieval (Phase 1 never touches
+    # retrieve()). Env-overridable (SDTM_RAG_STRUCTURED_ANSWER_ENABLED=true). Ships
+    # OFF until the OFF-vs-ON paired eval (v3 140q) validates q103/q104 green + zero
+    # regression + 0 gate violations; then default flips to True.
+    structured_answer_enabled: bool = False
+
     # ── Multi-model compare + judge (Phase 2; DEPLOY_PLAN §2.5–2.7) ──
     # One question → these N models answer over the SAME retrieved context (FR1),
     # shown side-by-side; an optional judge scores the anonymized answers (FR5).
@@ -188,6 +196,10 @@ class Settings(BaseSettings):
     @property
     def kb_root(self) -> Path:
         return Path(self.kb_root_override) if self.kb_root_override else _REPO_ROOT / "knowledge_base"
+
+    @property
+    def meta_path(self) -> Path:
+        return _SDTM_RAG_ROOT / "data" / "meta" / "meta.yaml"
 
 
 settings = Settings()
