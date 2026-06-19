@@ -34,7 +34,7 @@ from pathlib import Path
 import pytest
 
 from server.meta_store import MetaStore
-from server.structured_answer import StructuredAnswerer, CheckableCount
+from server.structured_answer import StructuredAnswerer, CheckableCount, StructuredFacts, augment_context
 
 
 @pytest.fixture(scope="module")
@@ -98,3 +98,17 @@ def test_total_domain_count(answerer: StructuredAnswerer):
 def test_total_count_requires_corpus_phrase(answerer: StructuredAnswerer):
     # count intent + "domains" but no entity and no corpus phrase -> None (conservative)
     assert answerer.resolve("How many domains do you recommend for a small study?") is None
+
+
+# ── Task 5: augment_context — authoritative-block prepend helper ──────────────
+
+def test_augment_context_prepends_block():
+    facts = StructuredFacts(text_block="- **X** — fact.", checkable_counts=[])
+    out = augment_context(facts, "### [1] some_chunk\n\nbody")
+    assert out.startswith("## Structured Facts (authoritative, exhaustive, from SDTM metadata)")
+    assert "- **X** — fact." in out
+    assert "### [1] some_chunk" in out  # original context preserved after the block
+
+
+def test_augment_context_none_is_passthrough():
+    assert augment_context(None, "ctx") == "ctx"
