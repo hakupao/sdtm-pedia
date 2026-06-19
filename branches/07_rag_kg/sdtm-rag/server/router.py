@@ -119,7 +119,14 @@ def ask(body: AskRequest, request: Request):
         log.error("retrieve_failed", error=str(e), exc_info=True)
         raise HTTPException(status_code=502, detail="Retrieval service temporarily unavailable.")
 
+    answerer = getattr(request.app.state, "answerer", None)
+    facts = answerer.resolve(body.question) if answerer is not None else None
+
     context = rag.format_context(chunks)
+    if facts is not None:
+        from server.structured_answer import augment_context
+        context = augment_context(facts, context)
+
     history_dicts = [{"role": m.role, "content": m.content} for m in body.history]
     messages = rag.build_messages(body.question, context, history_dicts or None)
 
@@ -130,6 +137,11 @@ def ask(body: AskRequest, request: Request):
         raise HTTPException(status_code=502, detail="LLM service temporarily unavailable.")
 
     answer = response.choices[0].message.content or ""
+    if facts is not None:
+        from server.grounding import apply_counting_gate
+        answer, violations = apply_counting_gate(answer, facts)
+        if violations:
+            log.warning("structured_count_violation", violations=violations)
     model_used = getattr(response, "model", None) or body.model
     usage = None
     if response.usage:
