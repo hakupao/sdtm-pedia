@@ -20,6 +20,20 @@ Cases:
  15. decimal "3.5" near subject must not cause false violation
  16. correction wording: kind=variables → "contains exactly N variables."
  17. correction wording: kind=domains  → "appears in exactly N SDTM domains."
+
+High-precision v2 regression net (must-NOT-fire — the 36 eval false-positives):
+ 18. correct value present via pronoun / next-sentence (C66742 / 41 domains)
+ 19. char-limit "8 characters" near subject must not fire when correct value absent
+     ... actually correct value IS present via kind-word path → no violation
+ 20. char-limit "200 characters" near IE — correct value (18) present → no fire
+ 21. implausible number + kind-word absent — correct value present → no fire
+ 22. bilingual correct: "36 个 SDTM 域" present → no fire
+ 23. table-row index near subject — correct value present elsewhere → no fire
+
+Must-FIRE (genuine contradiction — wrong count + kind-word adjacent + correct absent):
+ 24. English: wrong domain count stated, correct absent
+ 25. Bilingual: wrong domain count in Chinese, correct absent
+ 26. Variables: wrong variable count stated, correct absent
 """
 from __future__ import annotations
 
@@ -287,3 +301,175 @@ def test_correction_wording_domains():
     assert "appears in exactly 43 SDTM domains" in out_answer, (
         f"Expected 'appears in exactly 43 SDTM domains' in correction block, got:\n{out_answer}"
     )
+
+
+# ===========================================================================
+# High-precision v2 regression net — must-NOT-fire (the 36 eval false-positives)
+# ===========================================================================
+
+# ---------------------------------------------------------------------------
+# case 18: correct value present via pronoun / next-sentence reference
+# Real failure shape from q34: "包含 4 个值...被 41 个 SDTM 域使用"
+# The gate must see 41 (correct) is present → no violation, even though 4
+# is also present in the same answer near the subject.
+# ---------------------------------------------------------------------------
+
+def test_correct_value_in_next_sentence_pronoun_no_violation():
+    """C66742 answer: term-count 4 in one sentence, correct domain-count 41 elsewhere."""
+    answer = (
+        "No Yes Response (C66742) 包含 4 个值：N、NA、U、Y。"
+        "该 codelist 被 41 个 SDTM 域使用。"
+    )
+    facts = _facts("C66742", "domains", 41)
+    out_answer, violations = apply_counting_gate(answer, facts)
+    assert violations == [], (
+        f"False positive: correct value 41 is present, gate must not fire. "
+        f"Got violations: {violations}\nAnswer: {answer}"
+    )
+    assert out_answer == answer
+
+
+# ---------------------------------------------------------------------------
+# case 19: char-limit "8 characters" near TESTCD subject — correct value is 1
+# Real failure shape from q21/q22/q26/q61/q62: "不超过 8 个字符"
+# Correct value (1) is present as the domain-count for LBTESTCD.
+# ---------------------------------------------------------------------------
+
+def test_char_limit_near_testcd_no_violation():
+    """LBTESTCD appears in 1 domain; '8 characters' limit must not trigger gate."""
+    answer = (
+        "LBTESTCD 是 LB 域的主题变量。"
+        "LBTESTCD 的值不能超过 8 个字符，也不能以数字开头。"
+        "LBTESTCD 出现在 1 个 SDTM 域中：LB。"
+    )
+    facts = _facts("LBTESTCD", "domains", 1)
+    out_answer, violations = apply_counting_gate(answer, facts)
+    assert violations == [], (
+        f"False positive on char-limit: got {violations}\nAnswer: {answer}"
+    )
+    assert out_answer == answer
+
+
+# ---------------------------------------------------------------------------
+# case 20: char-limit "200 characters" near IE/IETEST — correct values present
+# Real failure shape from q27.
+# ---------------------------------------------------------------------------
+
+def test_char_limit_200_near_ie_no_violation():
+    """IE domain has 18 variables; '200 characters' limit must not trigger gate."""
+    answer = (
+        "IE 域共包含 18 个变量。"
+        "IETEST 不能超过 200 个字符。如果文本超过 200 个字符，应在 IETEST 中放入有意义的文本。"
+    )
+    facts_ie = _facts("IE", "variables", 18)
+    out_answer, violations = apply_counting_gate(answer, facts_ie)
+    assert violations == [], (
+        f"False positive on 200-char-limit for IE: got {violations}"
+    )
+    assert out_answer == answer
+
+
+# ---------------------------------------------------------------------------
+# case 21: implausible number (>300) near subject, correct value absent —
+# must NOT fire because 830 > _SDTM_MAX_VARIABLES plausibility bound.
+# ---------------------------------------------------------------------------
+
+def test_implausible_number_no_violation():
+    """830 is implausible for domain-count (>63) → no violation even if correct absent."""
+    answer = "C71620 contains 830 terms in the codelist."
+    # correct value 32 is NOT present, but 830 is implausible for domains
+    facts = _facts("C71620", "domains", 32)
+    out_answer, violations = apply_counting_gate(answer, facts)
+    # 830 > 63 (max domains), plus "terms" is not a kind-word → no fire
+    assert violations == [], (
+        f"Implausible number should not fire: got {violations}"
+    )
+    assert out_answer == answer
+
+
+# ---------------------------------------------------------------------------
+# case 22: bilingual correct count present → no violation
+# Real pattern: "VISITDY 出现在 36 个 SDTM 域中"
+# ---------------------------------------------------------------------------
+
+def test_bilingual_correct_count_no_violation():
+    """Correct count stated in Chinese → absence check sees 36 → no violation."""
+    answer = "VISITDY 出现在 36 个 SDTM 域中，包括 LB、VS、EG 等。"
+    facts = _facts("VISITDY", "domains", 36)
+    out_answer, violations = apply_counting_gate(answer, facts)
+    assert violations == [], (
+        f"Bilingual correct answer must not fire: got {violations}"
+    )
+    assert out_answer == answer
+
+
+# ---------------------------------------------------------------------------
+# case 23: table-row index near subject — correct value present elsewhere
+# Real failure shape from q32/q58: "| 4 | VISIT |" or "| 5 | TSPARMCD |"
+# ---------------------------------------------------------------------------
+
+def test_table_row_index_near_subject_no_violation():
+    """Row index '4' in a markdown table must not trigger when correct value 36 is present."""
+    answer = (
+        "| 4 | VISIT | Visit Name | Char | Timing | Perm |\n"
+        "VISIT 出现在 36 个 SDTM 域中。"
+    )
+    facts = _facts("VISIT", "domains", 36)
+    out_answer, violations = apply_counting_gate(answer, facts)
+    assert violations == [], (
+        f"Table-row index must not fire when correct value present: got {violations}"
+    )
+    assert out_answer == answer
+
+
+# ===========================================================================
+# Must-FIRE cases — genuine contradiction (correct value absent, wrong count
+# stated WITH kind-word adjacent, plausible, subject-scoped)
+# ===========================================================================
+
+# ---------------------------------------------------------------------------
+# case 24: English — wrong domain count stated, correct value absent
+# ---------------------------------------------------------------------------
+
+def test_genuine_wrong_domain_count_english_fires():
+    """TAETORD in 41 domains stated, correct is 43 and absent → violation fires."""
+    answer = "TAETORD appears in 41 domains."
+    facts = _facts("TAETORD", "domains", 43)
+    out_answer, violations = apply_counting_gate(answer, facts)
+    assert len(violations) == 1, f"Expected 1 violation, got {violations}"
+    assert violations[0]["subject"] == "TAETORD"
+    assert violations[0]["expected"] == 43
+    assert violations[0]["stated"] == 41
+    assert "appears in exactly 43 SDTM domains" in out_answer
+    assert out_answer.startswith(answer)
+
+
+# ---------------------------------------------------------------------------
+# case 25: Bilingual — wrong domain count in Chinese, correct absent
+# ---------------------------------------------------------------------------
+
+def test_genuine_wrong_domain_count_bilingual_fires():
+    """TAETORD 出现在 41 个域 — 41 stated in Chinese, correct 43 absent → fires."""
+    answer = "TAETORD 出现在 41 个域。"
+    facts = _facts("TAETORD", "domains", 43)
+    out_answer, violations = apply_counting_gate(answer, facts)
+    assert len(violations) == 1, f"Expected 1 violation, got {violations}"
+    assert violations[0]["expected"] == 43
+    assert violations[0]["stated"] == 41
+    assert "43" in out_answer
+
+
+# ---------------------------------------------------------------------------
+# case 26: Variables — wrong variable count stated, correct absent
+# ---------------------------------------------------------------------------
+
+def test_genuine_wrong_variable_count_fires():
+    """AE contains 55 variables stated, correct is 60 and absent → violation fires."""
+    answer = "The AE domain contains 55 variables."
+    facts = _facts("AE", "variables", 60)
+    out_answer, violations = apply_counting_gate(answer, facts)
+    assert len(violations) == 1, f"Expected 1 violation, got {violations}"
+    assert violations[0]["subject"] == "AE"
+    assert violations[0]["expected"] == 60
+    assert violations[0]["stated"] == 55
+    assert "contains exactly 60 variables" in out_answer
