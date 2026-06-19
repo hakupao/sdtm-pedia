@@ -50,3 +50,24 @@ class TestJudgeNoFacts:
     def test_empty_gold_is_full_recall_no_llm_call(self):
         # no gold facts -> 1.0 without touching the LLM
         assert check_fact_recall_judge("q?", "any answer", [], judge_model="unused") == (1.0, [], [])
+
+
+def test_eval_answer_path_injects_facts(monkeypatch, tmp_path):
+    """Parity guard: eval uses the same augment_context + apply_counting_gate helpers as prod.
+
+    Builds the answerer the same way run_eval.main() does (MetaStore + StructuredAnswerer),
+    calls augment_context, and asserts the facts block is prepended identically.
+    No API calls needed — purely tests the shared helper contract.
+    """
+    from pathlib import Path
+
+    from server.meta_store import MetaStore
+    from server.structured_answer import StructuredAnswerer, augment_context
+
+    store = MetaStore(Path(__file__).resolve().parents[2] / "data" / "meta" / "meta.yaml")
+    answerer = StructuredAnswerer(store)
+    facts = answerer.resolve("How many domains include TAETORD?")
+    assert facts is not None, "resolve() must fire for TAETORD count query"
+    ctx = augment_context(facts, "### [1] chunk\n\nbody")
+    assert "Structured Facts (authoritative" in ctx
+    assert "43" in ctx

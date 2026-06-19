@@ -189,6 +189,7 @@ def run_evaluation(
     full_answers: bool = False,
     judge: bool = False,
     judge_model: str = DEFAULT_JUDGE_MODEL,
+    answerer=None,
 ) -> list[dict]:
     results: list[dict] = []
     for q in test_set:
@@ -216,6 +217,10 @@ def run_evaluation(
 
         if not retrieval_only and (router is not None or direct_model is not None):
             context = rag.format_context(chunks)
+            facts = answerer.resolve(q["question"]) if answerer is not None else None
+            if facts is not None:
+                from server.structured_answer import augment_context
+                context = augment_context(facts, context)
             messages = rag.build_messages(q["question"], context)
 
             comp_kwargs: dict = {"messages": messages}
@@ -237,6 +242,9 @@ def run_evaluation(
                         raise
 
             answer = response.choices[0].message.content or ""
+            if facts is not None:
+                from server.grounding import apply_counting_gate
+                answer, _viol = apply_counting_gate(answer, facts)
             usage = {}
             if response.usage:
                 usage = {
@@ -504,6 +512,12 @@ def main(argv: list[str] | None = None) -> int:
              f"from --model so the judge is independent of the answerer.",
     )
     parser.add_argument(
+        "--structured-answer",
+        action="store_true",
+        help="SP2: inject meta.yaml authoritative facts + counting gate (eval/prod parity "
+             "via shared augment_context + apply_counting_gate helpers).",
+    )
+    parser.add_argument(
         "--tag",
         default=None,
         help="Optional label added to output JSON for cross-model comparison",
@@ -564,13 +578,20 @@ def main(argv: list[str] | None = None) -> int:
             router = create_router(settings)
             print(f"LLM router: {len(router.model_list)} models")
 
+    answerer = None
+    if args.structured_answer:
+        from server.meta_store import MetaStore
+        from server.structured_answer import StructuredAnswerer
+        answerer = StructuredAnswerer(MetaStore(settings.meta_path))
+        print("Structured-answer channel: ON (meta.yaml facts + counting gate)")
+
     print()
     if args.judge and not args.retrieval_only:
         print(f"Judge mode: ON, judge_model={args.judge_model} (temp=0)")
     results = run_evaluation(
         test_set, rag, router, args.retrieval_only, direct_model=args.model,
         top_k=args.top_k, temperature=args.temperature, full_answers=args.full_answers,
-        judge=args.judge, judge_model=args.judge_model,
+        judge=args.judge, judge_model=args.judge_model, answerer=answerer,
     )
     summary = print_summary(
         results,
@@ -599,6 +620,7 @@ def main(argv: list[str] | None = None) -> int:
             "alpha": rag.hybrid_alpha if rag.hybrid_fusion == "weighted" else None,
         }
     summary["prompt_guardrail"] = args.guardrail
+    summary["structured_answer"] = args.structured_answer
     if args.judge:
         summary["judge_model"] = args.judge_model
 
