@@ -120,7 +120,11 @@ def ask(body: AskRequest, request: Request):
         raise HTTPException(status_code=502, detail="Retrieval service temporarily unavailable.")
 
     answerer = getattr(request.app.state, "answerer", None)
-    facts = answerer.resolve(body.question) if answerer is not None else None
+    try:
+        facts = answerer.resolve(body.question) if answerer else None
+    except Exception:
+        log.warning("structured_answer_resolve_failed", exc_info=True)
+        facts = None
 
     context = rag.format_context(chunks)
     if facts is not None:
@@ -212,7 +216,11 @@ async def ask_stream(body: AskStreamRequest, request: Request):
         raise HTTPException(status_code=502, detail="Retrieval service temporarily unavailable.")
 
     answerer = getattr(request.app.state, "answerer", None)
-    facts = answerer.resolve(body.question) if answerer is not None else None
+    try:
+        facts = answerer.resolve(body.question) if answerer else None
+    except Exception:
+        log.warning("structured_answer_resolve_failed", exc_info=True)
+        facts = None
 
     context = rag.format_context(chunks)
     if facts is not None:

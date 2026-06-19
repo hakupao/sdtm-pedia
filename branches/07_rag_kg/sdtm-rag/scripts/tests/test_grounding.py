@@ -473,3 +473,73 @@ def test_genuine_wrong_variable_count_fires():
     assert violations[0]["expected"] == 60
     assert violations[0]["stated"] == 55
     assert "contains exactly 60 variables" in out_answer
+
+
+# ===========================================================================
+# codelist_variables kind — must-FIRE and must-NOT-fire
+# ===========================================================================
+
+# ---------------------------------------------------------------------------
+# case 27: codelist variable-count contradiction → gate FIRES
+# This is the q67 hallucination shape: model says 106, truth is 123.
+# ---------------------------------------------------------------------------
+
+def test_codelist_variable_count_wrong_fires():
+    """C66742 used by 123 variables; model states 106 → gate fires, appends correction."""
+    answer = "C66742 is used by 106 variables across SDTM domains."
+    facts = StructuredFacts(
+        text_block="- **C66742** — codelist. Used by 123 variables across 41 domains.",
+        checkable_counts=[
+            CheckableCount(subject="C66742", kind="codelist_variables", value=123),
+        ],
+    )
+    out_answer, violations = apply_counting_gate(answer, facts)
+    assert len(violations) == 1, f"Expected 1 violation, got {violations}"
+    v = violations[0]
+    assert v["subject"] == "C66742"
+    assert v["kind"] == "codelist_variables"
+    assert v["expected"] == 123
+    assert v["stated"] == 106
+    # Correction uses "used by" wording (not "contains")
+    assert "used by exactly 123 variables" in out_answer, (
+        f"Expected 'used by exactly 123 variables' in correction, got:\n{out_answer}"
+    )
+    assert out_answer.startswith(answer)
+
+
+# ---------------------------------------------------------------------------
+# case 28: correct variable count present → must NOT fire
+# ---------------------------------------------------------------------------
+
+def test_codelist_variable_count_correct_no_fire():
+    """C66742 answer states 123 variables (correct) → no violation."""
+    answer = "C66742 is used by 123 variables across SDTM."
+    facts = StructuredFacts(
+        text_block="- **C66742** — codelist. Used by 123 variables across 41 domains.",
+        checkable_counts=[
+            CheckableCount(subject="C66742", kind="codelist_variables", value=123),
+        ],
+    )
+    out_answer, violations = apply_counting_gate(answer, facts)
+    assert violations == [], f"Correct count present; must not fire. Got: {violations}"
+    assert out_answer == answer
+
+
+# ---------------------------------------------------------------------------
+# case 29: correction wording for codelist_variables uses "used by" (not "contains")
+# ---------------------------------------------------------------------------
+
+def test_correction_wording_codelist_variables():
+    """kind=codelist_variables correction must say 'used by exactly N variables.'"""
+    answer = "C99999 is used by 5 variables."
+    facts = StructuredFacts(
+        text_block="- C99999 used by 50 variables.",
+        checkable_counts=[CheckableCount(subject="C99999", kind="codelist_variables", value=50)],
+    )
+    out_answer, violations = apply_counting_gate(answer, facts)
+    assert len(violations) == 1
+    assert "used by exactly 50 variables" in out_answer, (
+        f"Expected 'used by exactly 50 variables' in:\n{out_answer}"
+    )
+    # Must NOT use "contains" wording (that's for domain→variable counts)
+    assert "contains exactly 50" not in out_answer

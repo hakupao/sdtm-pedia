@@ -127,17 +127,19 @@ class StructuredAnswerer:
             if cl is None:
                 continue
             doms = self.store.domains_for_codelist(code)
+            vars_ = self.store.variables_for_codelist(code)
             lines_.append(
                 f"- **{code}** — codelist \"{cl['name']}\" "
                 f"(extensible: {cl['extensible']}; {cl['term_count']} terms; "
                 f"file {cl['termfile']}). "
-                f"Used in {len(doms)} domains: {', '.join(doms)}."
+                f"Used by {len(vars_)} variables across {len(doms)} domains: {', '.join(doms)}."
             )
             if "enumerate" in intents:
                 lines_.append(
-                    f"  Variables using it: {', '.join(self.store.variables_for_codelist(code))}."
+                    f"  Variables using it: {', '.join(vars_)}."
                 )
             counts.append(CheckableCount(code, "domains", len(doms)))
+            counts.append(CheckableCount(code, "codelist_variables", len(vars_)))
 
         for dom in dict.fromkeys(domains):
             info = self.store.domain_info(dom)

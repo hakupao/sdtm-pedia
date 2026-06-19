@@ -135,3 +135,28 @@ def test_maybe_build_answerer_gated():
     a = maybe_build_answerer(Settings(structured_answer_enabled=True))
     assert a is not None
     assert a.resolve("How many domains include TAETORD?") is not None
+
+
+# ── SP2 Fix 1: codelist variable-count CheckableCount + text_block injection ──
+
+def test_codelist_variable_count_in_checkable_counts(answerer: StructuredAnswerer):
+    """resolve() for a codelist+count query must emit BOTH a domains count AND a
+    codelist_variables count, and the text_block must state that variable count."""
+    facts = answerer.resolve("How many variables use codelist C66742?")
+    assert facts is not None, "resolve() must fire on a codelist+count query"
+
+    expected_var_count = len(answerer.store.variables_for_codelist("C66742"))
+    expected_dom_count = len(answerer.store.domains_for_codelist("C66742"))
+
+    # Both CheckableCounts must be present
+    assert CheckableCount("C66742", "domains", expected_dom_count) in facts.checkable_counts, (
+        f"domains CheckableCount missing; counts={facts.checkable_counts}"
+    )
+    assert CheckableCount("C66742", "codelist_variables", expected_var_count) in facts.checkable_counts, (
+        f"codelist_variables CheckableCount missing; counts={facts.checkable_counts}"
+    )
+
+    # text_block must state the variable count as a plain integer
+    assert str(expected_var_count) in facts.text_block, (
+        f"Variable count {expected_var_count} not found in text_block:\n{facts.text_block}"
+    )

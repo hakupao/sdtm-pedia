@@ -23,13 +23,18 @@ For each CheckableCount(subject, kind, value):
    Within sentences that mention the subject (whole-token, case-insensitive),
    look for a number N that satisfies ALL three guards:
      a. kind-word adjacent (bilingual, ±15 chars):
-          domains   → ``domains?`` OR ``域``
-          variables → ``variables?`` OR ``变量``
+          domains            → ``domains?`` OR ``域``
+          variables          → ``variables?`` OR ``变量``
+          codelist_variables → same kind-words as variables (``variables?`` OR ``变量``)
         So "41 domains" / "41 个 SDTM 域" match; "8 characters" / "top 8
         examples" / "§4.4.5" do NOT.
      b. plausible for the kind:
-          domains   → 1 ≤ N ≤ 63  (SDTM v3.4 defines exactly 63 domains)
-          variables → 1 ≤ N ≤ 300  (generous upper bound)
+          domains            → 1 ≤ N ≤ 200  (bounds obvious non-counts; absence-check +
+                               kind-word adjacency are the precision drivers; SDTM v3.4
+                               defines exactly 63 domains but the looser ceiling still
+                               catches impossible "99 domains" wrong-counts)
+          variables          → 1 ≤ N ≤ 300  (generous upper bound)
+          codelist_variables → 1 ≤ N ≤ 300  (same as variables)
         Numbers outside the plausible range (e.g. 200 chars, 830) are skipped.
      c. N ≠ value  → genuine violation → record + append correction.
 
@@ -70,6 +75,8 @@ _INT_RE = re.compile(r"(?<![\w.])\d+(?![\w.])")
 _KIND_WORDS: dict[str, re.Pattern[str]] = {
     "domains": re.compile(r"domains?|域", re.IGNORECASE),
     "variables": re.compile(r"variables?|变量", re.IGNORECASE),
+    # codelist_variables: a codelist is USED BY variables, so same kind-words as variables.
+    "codelist_variables": re.compile(r"variables?|变量", re.IGNORECASE),
 }
 _KIND_WINDOW: int = 15  # chars on each side of the number to search for a kind-word
 
@@ -77,6 +84,7 @@ _KIND_WINDOW: int = 15  # chars on each side of the number to search for a kind-
 _KIND_PLAUSIBLE: dict[str, tuple[int, int]] = {
     "domains": (1, _SDTM_MAX_DOMAINS),
     "variables": (1, _SDTM_MAX_VARIABLES),
+    "codelist_variables": (1, _SDTM_MAX_VARIABLES),
 }
 
 _CORRECTION_HEADER = "**Authoritative correction (SDTM metadata):**"
@@ -158,6 +166,8 @@ def _correction_line(v: dict) -> str:
         return f"- {subject} appears in exactly {n} SDTM domains."
     if kind == "variables":
         return f"- {subject} contains exactly {n} variables."
+    if kind == "codelist_variables":
+        return f"- codelist {subject} is used by exactly {n} variables."
     return f"- {subject} has exactly {n} {kind}."
 
 
