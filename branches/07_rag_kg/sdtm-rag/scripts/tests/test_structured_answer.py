@@ -124,3 +124,14 @@ def test_must_not_fire_pr_no_sdtm_context(answerer: StructuredAnswerer):
 def test_must_not_fire_dm_message(answerer: StructuredAnswerer):
     # "DM" is a valid SDTM domain code, but this query is about messaging, not SDTM
     assert answerer.resolve("What does a DM message contain?") is None
+
+
+# ── Task 8: maybe_build_answerer helper gated on structured_answer_enabled ────
+
+def test_maybe_build_answerer_gated():
+    from server.config import Settings
+    from server.main import maybe_build_answerer
+    assert maybe_build_answerer(Settings(structured_answer_enabled=False)) is None
+    a = maybe_build_answerer(Settings(structured_answer_enabled=True))
+    assert a is not None
+    assert a.resolve("How many domains include TAETORD?") is not None

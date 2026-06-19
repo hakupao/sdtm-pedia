@@ -31,6 +31,16 @@ structlog.configure(
 log = structlog.get_logger()
 
 
+def maybe_build_answerer(s):
+    """Build the structured-answer channel when enabled, else None. Kept tiny and
+    pure so it unit-tests without spinning up FastAPI/RAGEngine (lifespan is heavy)."""
+    if not s.structured_answer_enabled:
+        return None
+    from server.meta_store import MetaStore
+    from server.structured_answer import StructuredAnswerer
+    return StructuredAnswerer(MetaStore(s.meta_path))
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Read the ONE settings object the factory installed on app.state (create_app sets it
@@ -62,6 +72,9 @@ async def lifespan(app: FastAPI):
     )
     rag_init_s = round(time.perf_counter() - t_rag, 2)  # incl. BM25 index build when hybrid on
     app.state.llm_router = create_router(s)
+    app.state.answerer = maybe_build_answerer(s)
+    if app.state.answerer is not None:
+        log.info("structured_answer_enabled")
     app.state.spec_loader = SpecLoader(s.kb_root)
     log.info("spec_loader", domains=len(app.state.spec_loader.domains),
              codelists=len(app.state.spec_loader.codelists))
