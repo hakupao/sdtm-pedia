@@ -104,7 +104,8 @@ class GraphAnswerer:
         if "impact" in intents:
             for code in dict.fromkeys(self._codelists(query)):
                 imp = self.engine.impact_of_codelist(code)
-                if imp:
+                # Skip codelists not attached to any counts_toward_63 variable/domain.
+                if imp and (imp["n_domains"] > 0 or imp["n_variables"] > 0):
                     lines.append(
                         f"- Changing codelist **{code}** ({imp['name']}) affects "
                         f"**{imp['n_variables']}** variables across **{imp['n_domains']}** "
@@ -113,7 +114,7 @@ class GraphAnswerer:
                     counts.append(CheckableCount(code, "impacted_variables", imp["n_variables"]))
             for var in dict.fromkeys(self._vars(query)):
                 imp = self.engine.impact_of_variable(var)
-                if imp:
+                if imp and imp["n_domains"] > 0:
                     lines.append(
                         f"- Changing variable **{var}** affects **{imp['n_domains']}** "
                         f"domains: {', '.join(imp['domains'])}.")
@@ -136,10 +137,18 @@ class GraphAnswerer:
             m = re.search(r"\b(\d{1,3})\b", query)
             if m and ("variable" in query.lower()) and ("domain" in query.lower()):
                 n = int(m.group(1))
-                res = self.engine.variables_in_min_domains(n)
+                ql = query.lower()
+                # Strict "more than N" / "greater than N" / "over N" → threshold = n+1.
+                # Inclusive "at least N" / "≥ N" / "N or more" → threshold = n.
+                strict = "more than" in ql or "greater than" in ql or "over " in ql
+                threshold = n + 1 if strict else n
+                wording = f">{n}" if strict else f"≥{n}"
+                res = self.engine.variables_in_min_domains(threshold)
                 if res:
                     listed = ", ".join(f"{v} ({c})" for v, c in res[:50])
-                    lines.append(f"- **{len(res)}** variables appear in ≥ {n} domains: {listed}.")
+                    lines.append(
+                        f"- **{len(res)}** variables appear in {wording} domains: {listed}."
+                    )
             if "most shared" in query.lower() or "most common" in query.lower():
                 top = self.engine.most_shared_codelists(5)
                 listed = ", ".join(

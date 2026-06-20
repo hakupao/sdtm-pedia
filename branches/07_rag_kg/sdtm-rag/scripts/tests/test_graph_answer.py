@@ -67,9 +67,34 @@ def test_relationship_fires_advisory_only(ga):
 
 
 def test_aggregate_min_domains_fires(ga):
+    # "more than 40" is strict (>40): TAETORD=43 qualifies, a var with exactly 40 does not
     facts = ga.resolve("Which variables appear in more than 40 domains?")
     assert facts is not None
     assert "TAETORD" in facts.text_block or "VISITDY" in facts.text_block
+    # strict "more than 40" → threshold 41; a variable with exactly 40 domains must NOT appear
+    vars_exact_40 = [v for v, c in ga.engine.variables_in_min_domains(40)
+                     if c == 40]
+    for v in vars_exact_40:
+        assert v not in facts.text_block, f"{v} (exactly 40 domains) should be excluded by 'more than 40'"
+
+
+def test_aggregate_at_least_includes_exact(ga):
+    # "at least 40" is inclusive (>=40): a variable with exactly 40 domains IS included
+    facts = ga.resolve("Which variables appear in at least 40 domains?")
+    assert facts is not None
+    vars_exact_40 = [v for v, c in ga.engine.variables_in_min_domains(40) if c == 40]
+    if vars_exact_40:
+        assert any(v in facts.text_block for v in vars_exact_40), (
+            f"at-least-40 should include vars with exactly 40 domains: {vars_exact_40[:3]}"
+        )
+
+
+def test_impact_degenerate_codelist_skipped(ga):
+    # C100134 has 0 impacted domains/variables — must not inject "affects 0" line
+    facts = ga.resolve("What is affected if codelist C100134 changes?")
+    assert facts is None or "C100134" not in facts.text_block
+    if facts is not None:
+        assert not any(cc.subject == "C100134" for cc in facts.checkable_counts)
 
 
 def test_must_not_fire_no_anchor(ga):
