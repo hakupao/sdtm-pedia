@@ -94,6 +94,20 @@ def test_domains_in_class_and_sizes(engine, store):
     sizes = engine.class_sizes()
     assert sum(sizes.values()) == 63
     assert sizes["Events"] == len(events)
+    # case-insensitive entry (spec §4)
+    assert engine.domains_in_class("events") == engine.domains_in_class("Events")
+    assert engine.domains_in_class("events")  # non-empty
+    assert engine.domains_in_class("nosuchclass") == []
+    # 8 classes incl. "Findings About" summing to 63
+    assert len(sizes) == 8
+
+
+def test_backend_edge_primitives_unused_by_engine(backend):
+    # Guard the 3 backend edge types not yet used in GraphEngine public methods
+    # so a future backend swap cannot silently break them.
+    assert "AETERM" in backend.out_neighbors("AE", "HAS_VARIABLE")
+    assert backend.out_neighbors("AE", "BELONGS_TO") == ["Events"]
+    assert backend.out_neighbors("RDOMAIN", "DEFHOME") == ["model/06_relationship_datasets.md"]
 
 
 def test_most_shared_codelists(engine, store):

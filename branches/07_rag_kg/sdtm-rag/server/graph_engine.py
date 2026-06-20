@@ -132,7 +132,10 @@ class GraphEngine:
         return out
 
     def domains_in_class(self, cls: str) -> list[str]:
-        return sorted(self.backend.out_neighbors(cls, CLASS_HAS))
+        canon = {c.casefold(): c for c in self.backend.nodes_of_type("Class")}.get(cls.casefold())
+        if canon is None:
+            return []
+        return sorted(self.backend.out_neighbors(canon, CLASS_HAS))
 
     def class_sizes(self) -> dict[str, int]:
         return {c: len(self.backend.out_neighbors(c, CLASS_HAS))
