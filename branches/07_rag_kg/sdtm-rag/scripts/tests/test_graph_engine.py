@@ -1,11 +1,12 @@
 # scripts/tests/test_graph_engine.py
-from pathlib import Path
+from collections import defaultdict
 
 import pytest
+import yaml as _yaml
 
 from server.config import settings
+from server.graph_engine import DictBackend, GraphEngine
 from server.meta_store import MetaStore
-from server.graph_engine import DictBackend
 
 
 @pytest.fixture(scope="module")
@@ -18,6 +19,12 @@ def backend(store) -> DictBackend:
     return DictBackend(store)
 
 
+@pytest.fixture(scope="module")
+def engine(store) -> GraphEngine:
+    return GraphEngine(store)
+
+
+# ── Task 2: DictBackend primitives ───────────────────────────────────────────
 def test_nodes_of_type(backend, store):
     assert len(backend.nodes_of_type("Domain")) == 63
     assert len(backend.nodes_of_type("Variable")) == 1523
@@ -52,14 +59,6 @@ def test_out_neighbors_edges(backend, store):
 
 
 # ── Task 3: GraphEngine high-level queries ────────────────────────────────────
-from server.graph_engine import GraphEngine
-
-
-@pytest.fixture(scope="module")
-def engine(store) -> GraphEngine:
-    return GraphEngine(store)
-
-
 def test_impact_of_codelist(engine, store):
     imp = engine.impact_of_codelist("C66742")
     assert imp["name"] == store.codelist("C66742")["name"]
@@ -127,17 +126,13 @@ def test_domain_relations(engine, store):
 
 
 # ── Task 5: exhaustive engine vs raw meta.yaml reconciliation (anti-tautology) ─
-import yaml as _yaml
-from collections import defaultdict
-
-
 def _raw_meta():
     return _yaml.safe_load(settings.meta_path.read_text(encoding="utf-8"))
 
 
 def test_exhaustive_impact_of_variable_vs_raw(engine):
     raw = _raw_meta()
-    truth = defaultdict(set)
+    truth: dict[str, set[str]] = defaultdict(set)
     for d in raw["domains"]:
         if not d["counts_toward_63"]:
             continue
@@ -151,7 +146,8 @@ def test_exhaustive_impact_of_variable_vs_raw(engine):
 
 def test_exhaustive_impact_of_codelist_vs_raw(engine):
     raw = _raw_meta()
-    dom_truth, var_truth = defaultdict(set), defaultdict(set)
+    dom_truth: dict[str, set[str]] = defaultdict(set)
+    var_truth: dict[str, set[str]] = defaultdict(set)
     for d in raw["domains"]:
         if not d["counts_toward_63"]:
             continue
@@ -168,7 +164,7 @@ def test_exhaustive_impact_of_codelist_vs_raw(engine):
 
 def test_exhaustive_class_sizes_vs_raw(engine):
     raw = _raw_meta()
-    truth = defaultdict(int)
+    truth: dict[str, int] = defaultdict(int)
     for d in raw["domains"]:
         if d["counts_toward_63"]:
             truth[d["class"]] += 1

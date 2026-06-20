@@ -37,10 +37,15 @@ class DictBackend:
 
     def __init__(self, store: MetaStore):
         self.store = store
-        self._classes = sorted({store.domain_info(d)["class"] for d in store.known_domains})
+        self._classes = sorted(
+            {info["class"] for d in store.known_domains
+             if (info := store.domain_info(d)) is not None}
+        )
         self._class_to_domains: dict[str, list[str]] = {}
         for d in sorted(store.known_domains):
-            self._class_to_domains.setdefault(store.domain_info(d)["class"], []).append(d)
+            info = store.domain_info(d)
+            assert info is not None, f"known domain {d!r} missing domain_info"
+            self._class_to_domains.setdefault(info["class"], []).append(d)
 
     def nodes_of_type(self, ntype: str) -> list[str]:
         if ntype == "Domain":
@@ -118,7 +123,7 @@ class GraphEngine:
 
     # ── cross-domain aggregates ──
     def variables_in_min_domains(self, n: int) -> list[tuple[str, int]]:
-        out = []
+        out: list[tuple[str, int]] = []
         for v in self.backend.nodes_of_type("Variable"):
             cnt = len(self.backend.out_neighbors(v, IN_DOMAIN))
             if cnt >= n:
@@ -134,14 +139,14 @@ class GraphEngine:
                 for c in self.backend.nodes_of_type("Class")}
 
     def most_shared_codelists(self, k: int = 10) -> list[dict]:
-        rows = []
+        rows: list[dict[str, int | str]] = []
         for c in self.backend.nodes_of_type("Codelist"):
             nv = len(self.backend.out_neighbors(c, CT_USED_BY))
             nd = len(self.backend.out_neighbors(c, CT_IN_DOMAIN))
             cl = self.store.codelist(c)
             rows.append({"code": c, "name": cl["name"] if cl else c,
                          "n_variables": nv, "n_domains": nd})
-        rows.sort(key=lambda r: (-r["n_variables"], r["code"]))
+        rows.sort(key=lambda r: (-int(r["n_variables"]), str(r["code"])))
         return rows[:k]
 
     # ── structural neighborhood / co-usage ──
