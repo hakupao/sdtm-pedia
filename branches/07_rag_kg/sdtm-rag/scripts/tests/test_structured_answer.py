@@ -1,5 +1,16 @@
 # scripts/tests/test_structured_answer.py
-from server.structured_answer import detect_intents
+from pathlib import Path
+
+import pytest
+
+from server.meta_store import MetaStore
+from server.structured_answer import (
+    CheckableCount,
+    StructuredAnswerer,
+    StructuredFacts,
+    augment_context,
+    detect_intents,
+)
 
 
 def test_count_intent():
@@ -29,12 +40,6 @@ def test_usage_question_has_no_capability_intent():
 
 
 # ── Task 4: StructuredAnswerer must-fire / must-not-fire battery ──────────────
-from pathlib import Path
-
-import pytest
-
-from server.meta_store import MetaStore
-from server.structured_answer import StructuredAnswerer, CheckableCount, StructuredFacts, augment_context
 
 
 @pytest.fixture(scope="module")
@@ -160,3 +165,25 @@ def test_codelist_variable_count_in_checkable_counts(answerer: StructuredAnswere
     assert str(expected_var_count) in facts.text_block, (
         f"Variable count {expected_var_count} not found in text_block:\n{facts.text_block}"
     )
+
+
+# ── Task 6: StructuredFacts.advisory_block + augment_context advisory header ──
+
+
+def test_advisory_block_default_empty_is_sp2_identical():
+    f = StructuredFacts(text_block="- **X** — fact.")
+    out = augment_context(f, "CTX")
+    assert out.startswith("## Structured Facts (authoritative, exhaustive")
+    assert "non-exhaustive" not in out   # no advisory header when advisory_block empty
+    assert out.endswith("CTX")
+
+
+def test_advisory_block_renders_under_separate_header():
+    f = StructuredFacts(text_block="- **C66742** — used by 41 vars.",
+                        advisory_block="- AE is related to CM (RELREC).")
+    out = augment_context(f, "CTX")
+    assert "## Structured Facts (authoritative, exhaustive" in out
+    assert "curated, non-exhaustive" in out          # advisory header present
+    assert "AE is related to CM" in out
+    # advisory content appears AFTER the authoritative block, not under its header
+    assert out.index("authoritative, exhaustive") < out.index("curated, non-exhaustive")

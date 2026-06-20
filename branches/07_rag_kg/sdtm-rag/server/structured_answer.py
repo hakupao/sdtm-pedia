@@ -47,6 +47,7 @@ class CheckableCount:
 class StructuredFacts:
     text_block: str
     checkable_counts: list[CheckableCount] = field(default_factory=list)
+    advisory_block: str = ""  # SP3: non-authoritative, non-exhaustive (curated relations)
 
 
 _VAR_TOKEN_RE = re.compile(r"\b[A-Z][A-Z0-9]{1,7}\b")
@@ -164,10 +165,16 @@ class StructuredAnswerer:
 
 _FACTS_HEADER = "## Structured Facts (authoritative, exhaustive, from SDTM metadata)"
 
+_ADVISORY_HEADER = ("## Related context (curated, non-exhaustive — derived from prose, "
+                    "may be incomplete; do not claim this list is complete)")
+
 
 def augment_context(facts: StructuredFacts | None, context: str) -> str:
-    """Prepend the authoritative facts block ahead of the retrieved context.
-    Shared by router.py (prod) and run_eval.py (eval) for identical wire-in."""
+    """Prepend the authoritative facts block (+ optional advisory block) ahead of the
+    retrieved context. Shared by router.py (prod) and run_eval.py (eval)."""
     if facts is None:
         return context
-    return f"{_FACTS_HEADER}\n\n{facts.text_block}\n\n---\n\n{context}"
+    out = f"{_FACTS_HEADER}\n\n{facts.text_block}"
+    if facts.advisory_block:
+        out += f"\n\n{_ADVISORY_HEADER}\n\n{facts.advisory_block}"
+    return f"{out}\n\n---\n\n{context}"
