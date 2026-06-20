@@ -394,3 +394,31 @@ DEPLOY_PLAN §3 阶段 2 (★核心) 收口。retro `branches/07_rag_kg/RETROSPE
 
 ### next
 - **SP3** (关系/影响查询, meta.yaml 之上内存图遍历 networkx/纯 Python) = **新设计单元, 必须先 `superpowers:brainstorming`** (HARD-GATE, 无现成 spec/plan)。SP4 (可选 Neo4j) / SP5 (可选 图增强校验)。路由词「KG 重启 开始任务」现 → 读 KG_ROADMAP + memory `project_kg_decision` → 接 SP3 brainstorm。
+
+## 2026-06-20 KG 重启 SP3 (关系/影响图查询) DONE — 内存图引擎 + NL 答题 默认 ON
+
+全流程 brainstorm(Q1-Q5)→spec→plan(16 task)→subagent-driven(per-phase impl + per-phase 异type 独立审 + 最终全量 Rule D)→Rule A N=8。
+
+### 做了什么
+- **图引擎 (数据层)** `server/graph_engine.py`: `GraphBackend` Protocol + `DictBackend` (over MetaStore 反向索引, 3 原语: nodes_of_type/out_neighbors/edge_data) + `GraphEngine` (impact_of_codelist/variable · variables_in_min_domains · most_shared_codelists · same_class_domains · codelist_co_users · domain_relations · domains_in_class/class_sizes)。拓扑经 backend (可换 networkx/Neo4j), 节点元数据经 MetaStore。MetaStore 加 `same_class`/`relations_curated` 访问器。
+- **NL 图答题** `server/graph_answer.py`: `detect_graph_intents` + `GraphAnswerer.resolve()→StructuredFacts|None`。NL 暴露 4 意图: impact (codelist/variable→域/变量集合 + 基数接地闸) · relationship-discovery (单域→same_class 权威块 + curated relations advisory 块非穷尽) · aggregate (variables_in_min_domains[domain-guarded] + most_shared_codelists)。
+- **集成** `structured_answer.py`: `StructuredFacts.advisory_block` (低保真单独 header) + `merge_facts` (去重) + `CompositeAnswerer` (合并 SP2+SP3 resolve) → `maybe_build_answerer` 组合; **router/ask_stream/run_eval 调用点零改** (composite 透明)。`grounding.py` 加 impacted_domains/impacted_variables kinds (rare-subject 安全)。config `graph_answer_enabled` 默认 ON。run_eval `--graph-answer`。
+- **engine-only 未接 NL** (deliberate): domains_in_class/class_sizes (class 名常用词→NL 检测脆弱) + codelist_co_users + model_defhome 邻接 (留 SP4/API)。
+
+### review 揪出并修的真缺陷 (印证写审隔离 + at-scale 独立扫)
+- **HIGH (Phase2 独立审, 我 4 样本 smoke 漏)**: 140q 零污染门破 5/140 (class-roster 意图 + relationship narrative 撞散文)。修: **从 NL 去掉 class-roster** (class 名常用词固有脆弱; 用户决策非 whack-a-mole; 引擎保留) + relationship 加单域+definition-verb 守卫。
+- **MED**: class_domains 接地闸 reintroduce SP2 36→0 假阳 (common-word subject collision) → ungate, 闸只锚 rare-subject (var/C 码); degenerate 0-impact codelist (858 个) 注入误导 → 跳过; "more than N" off-by-one → strict n+1。
+- 意图振荡 (修 5 题撞 5 题) 时**停 subagent、自己诊断根因 (class 名常用词)、把 scope 岔路交用户** (反 example-tuning)。
+
+### 验收 (三门 PASS)
+- **程序门**: 引擎 vs raw meta.yaml 穷举对账 (反套套) + 意图 must-fire/not-fire 电池 + **140q 零污染 0/140 (composite ON==OFF byte-identical, reviewer 独立重跑)** + 接地闸单测 + 盲写 10 题 NL 端到端 (基数对账 meta.yaml) + 全套 **414 passed** + mypy/ruff (SP3 文件) clean + held-out 探针。
+- **Rule D**: 三轮异 subagent_type APPROVE (Phase1 / Phase2[REQUEST_CHANGES→修→APPROVE] / 最终全量), 0 BLOCKER/HIGH; reviewer 自建 from-scratch `RawBackend` 证 seam byte-identical。证据 `evidence/checkpoints/sp3_ruleD_review.md`。
+- **Rule A**: 独立 scientist N=8 分层 (4 能力族×2) vs meta.yaml+KB 双源核验 PASS (含 degenerate 抑制 / advisory 隔离 / held-out 泛化)。证据 `evidence/checkpoints/sp3_ruleA_audit.md`。
+
+### 产出
+- 代码: `server/{graph_engine,graph_answer}.py` (新) + `structured_answer.py`/`grounding.py`/`meta_store.py`/`config.py`/`main.py`/`run_eval.py` (扩展)。
+- 测试/工具: `test_graph_engine.py`/`test_graph_answer.py` + `eval/prod_wirein/sp3_graph_probes.py` (held-out + 140q 零污染) + `eval/test_set_sp3_graph.yml` (盲写 10 题)。
+- 文档: spec/plan `docs/superpowers/{specs,plans}/2026-06-20-sp3-graph-queries*.md` + `RETROSPECTIVE_sp3.md` + 证据 2 份。
+
+### next
+- **SP4 (可选)** Neo4j+Cypher+可视化 / **SP5 (可选)** 图增强校验器 = 新设计单元需 brainstorm。可选小补: codelist_co_users NL 接入 (Q2 选过, 干净可加) / mechanism:null back-fill / SP2 同源 degenerate 0-impact 修。**SP1-3 已交付 KG 全部「能力」**; 若不要可视化/校验器, KG 主线收口。路由词「KG 重启 开始任务」→ SP4/SP5 brainstorm。

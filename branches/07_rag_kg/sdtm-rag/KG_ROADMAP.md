@@ -2,9 +2,10 @@
 
 > 2026-06-17 · **SP1 (meta.yaml 元数据层) DONE ✅** (brainstorm→spec→plan→9 Task TDD→Rule A/D 全过)。
 > 2026-06-20 · **SP2 DONE ✅** — Phase 1 (答题通道, 默认 ON) + **Phase 2 (退役正则影子 KG) DONE** (structured_lookup 索引改读 meta.yaml; 严格行为等价 9891+4177 查询 0 divergence; Rule D APPROVE)。详见下方「SP2 Phase 1/2 DONE」段。
-> 用户决策: **SP1-5 全做**, 按依赖顺序逐个 (每个子项目走 设计→spec→plan→实现 循环)。
-> 恢复方式: 新 session 说 **「KG 重启 开始任务」** → 读本文件 + memory `project_kg_decision` → 接 **SP3 (关系/影响查询, 内存图遍历)** = **新设计单元, 必须先 re-invoke `superpowers:brainstorming`** (无现成 spec/plan)。
-> ⚠️ **HARD-GATE (每个新设计单元)**: 先把设计问完 + 出 spec + 用户批准, 再 `writing-plans`/写码。**别跳过设计直接实现**。(SP3 是新单元, 必须走 brainstorm。)
+> 2026-06-20 · **SP3 (关系/影响查询) DONE ✅ 默认 ON** — 内存图引擎 (`GraphEngine` + 可换 `GraphBackend`) + NL 图答题 (`GraphAnswerer` 经 `CompositeAnswerer` 并入 SP2 通道)。能力: 影响/级联 · 跨域聚合 (variables_in_min_domains + most_shared) · 结构 (same_class via relationship) · 域间关系发现 (advisory)。**140q 零污染 0/140 (composite ON==OFF byte-identical)**, Rule D 三轮 APPROVE, Rule A N=8 PASS。详见下方「SP3 DONE」段。
+> 用户决策: **SP1-5 全做**, 按依赖顺序逐个 (每个子项目走 设计→spec→plan→实现 循环)。**SP1-3 全 DONE; SP4/SP5 均可选。**
+> 恢复方式: 新 session 说 **「KG 重启 开始任务」** → 读本文件 + memory `project_kg_decision` → 接 **SP4 (可选 Neo4j+Cypher+可视化) 或 SP5 (可选 图增强校验器)** = 新设计单元, 必须先 re-invoke `superpowers:brainstorming` (均可选; 若不要可视化/校验器则 KG 主线已收口)。
+> ⚠️ **HARD-GATE (每个新设计单元)**: 先把设计问完 + 出 spec + 用户批准, 再 `writing-plans`/写码。**别跳过设计直接实现**。(SP4/SP5 是新单元, 必须走 brainstorm。)
 
 ## 已 settled (别再 re-litigate)
 
@@ -17,7 +18,7 @@
 
 - **SP1 — `meta.yaml` 元数据层** ✅ **DONE 2026-06-17** (基础, 硬前置): `scripts/build_meta.py` 确定性生成 `data/meta/meta.yaml` (64 域=63 真域+DI 桩; 变量 name/role/type/core/`ct_codes`/`ct_dict` + `same_class` + `relations_curated`[机制仅字面] + `model_defhome` + `codelists`) + `scripts/reconcile_meta.py` 独立锚对账。reconcile gate 抓修 `spec_loader` 247 幻变量 bug; 桩域是 DI 非 SUPPQUAL。Gate1 8/8 + Rule D APPROVE + Rule A N=8 PASS。详见下方「SP1 DONE」段。
 - **SP2 — 确定性结构化答题通道** ✅ **DONE**: **Phase 1 (答题通道) DONE 默认 ON** (meta.yaml 载内存 → `/api/ask` 计数/穷举/属性/CT 走确定数据, q103/q104 翻绿); **Phase 2 (退役 structured_lookup 正则) DONE** (索引全改读 meta.yaml/MetaStore, 退役 load-bearing `len==6` + spec.md xref + VARIABLE_INDEX 解析 + `_cross_check_vars`; 严格行为等价, 净删 ~185 行)。详见下方「SP2 Phase 2 DONE」段。
-- **SP3 — 关系/影响查询**: meta.yaml 之上**内存图遍历** (networkx / 纯 Python): "改 C66742 影响哪些域/变量"、"哪些变量跨 >N 域"、关系发现; 接入 chat/API。
+- **SP3 — 关系/影响查询** ✅ **DONE**: meta.yaml 之上**纯 Python 内存图引擎** (`GraphEngine` + 可换 `GraphBackend` seam) + NL 答题 (`GraphAnswerer`)。"改 C66742 影响哪些域/变量"、"哪些变量跨 >N 域"、域间关系发现 (advisory)。class-roster + codelist_co_users 保留 engine-only (NL 未接, 见下方「SP3 DONE」段)。详见下方「SP3 DONE」段。
 - **SP4 (可选) — Neo4j + Cypher + 混合路由**: 仅当要可视化图浏览器 / 临时 Cypher 探索界面作产品界面才上 (DESIGN §5.4/§5.5)。
 - **SP5 (可选) — 图增强校验**: 影响/级联检查接进 Validator (impact analysis / cross-domain completeness / CT cascade, DESIGN §5.6)。
 
@@ -45,9 +46,17 @@
 - **缺口 (LOW, 已缓解)**: meta/KB 漂移自愈丢失 (旧码实时重解析自愈) → 加 `TestMetaKBDriftGuard` 域级闸; var/CT 级仍需手动 `reconcile_meta.py`。
 - 复盘 `RETROSPECTIVE_sp2_phase2.md` / 证据 `evidence/checkpoints/sp2_phase2_{paired_eval,ruleD_review}.md`。
 
-## 下一步 — SP3 (关系/影响查询, 内存图遍历)
+## SP3 DONE (2026-06-20) — 交付与发现
 
-- **= 新设计单元, 必须先 `superpowers:brainstorming`** (无现成 spec/plan; HARD-GATE)。
-- **做什么**: meta.yaml 之上**内存图遍历** (networkx / 纯 Python): "改 C66742 影响哪些域/变量"、"哪些变量跨 >N 域"、关系发现; 接入 chat/API。
-- 注意 (来自 SP1 reviewer): `relations_curated.mechanism: null` 表示「散文未声明」非「无机制」; target 本身是 RELREC/RELSPEC/RELSUB 时机制结构上确定, 可在 SP3 做确定性 back-fill (非臆造)。
-- 之后: SP4 (可选 Neo4j+Cypher) / SP5 (可选 图增强校验)。
+- **产出**: `server/graph_engine.py` (`GraphBackend` Protocol + `DictBackend` + `GraphEngine`: impact_of_codelist/variable, variables_in_min_domains, most_shared_codelists, same_class_domains, codelist_co_users, domain_relations, domains_in_class/class_sizes) + `server/graph_answer.py` (`detect_graph_intents` + `GraphAnswerer`) + `structured_answer.py` (`advisory_block`/`merge_facts`/`CompositeAnswerer`) + `grounding.py` (impacted_* kinds) + config/main/run_eval 接线 + `eval/prod_wirein/sp3_graph_probes.py` + `eval/test_set_sp3_graph.yml` (盲写 10 题)。spec/plan `docs/superpowers/{specs,plans}/2026-06-20-sp3-graph-queries*.md`; 复盘 `RETROSPECTIVE_sp3.md`; 证据 `evidence/checkpoints/sp3_rule{D,A}_*.md`。
+- **NL 暴露 4 意图**: impact (codelist/variable→域/变量 + 接地闸校验基数) · relationship-discovery (单域→same_class 权威 + curated advisory) · aggregate (variables_in_min_domains + most_shared)。**engine-only (NL 未接)**: domains_in_class/class_sizes (class 名常用词→NL 脆弱) + codelist_co_users + model_defhome 邻接 (留 SP4/API)。
+- **重大发现 (review 揪出)**: ① 140q 零污染门: class-roster 意图 (class 名常用词撞散文) 破门 → **从 NL 去掉 class-roster** (用户决策, 引擎保留); ② class_domains 接地闸 reintroduce SP2 假阳 (common-word subject) → ungate, 闸只锚 rare-subject (var/C 码); ③ degenerate 0-impact codelist (858 个) 注入误导 → 跳过。
+- **三门**: 程序门 (引擎 vs raw meta.yaml 穷举对账 + 140q 零污染 0/140 composite path + 盲写 10 题基数对账 + 414 passed + mypy/ruff) + Rule D 三轮异 type APPROVE + Rule A N=8 PASS (独立 scientist vs meta.yaml+KB)。
+- 注意 (来自 SP1 reviewer, 仍 defer): `relations_curated.mechanism: null` = 「散文未声明」非「无机制」; target 本身是 RELREC/RELSPEC/RELSUB 时机制结构上确定, 可做确定性 back-fill (非臆造)。
+
+## 下一步 — SP4 / SP5 (均可选)
+
+- **SP4 (可选)** Neo4j + Cypher + 可视化图浏览器 / 临时探索界面 (DESIGN §5.4/§5.5)。
+- **SP5 (可选)** 图增强校验器: impact / 跨域完整性 / CT 级联一致性 接进 Validator (DESIGN §5.6)。
+- **可选小补 (SP4 或独立)**: codelist_co_users NL 接入 (Q2 选过, 干净可加) / mechanism:null back-fill / 更广 relationship-aggregate NL 覆盖 / SP2 同源 degenerate 0-impact codelist 修。
+- 均为**新设计单元**: 必须先 `superpowers:brainstorming` → spec → 用户批准 → plan。若用户不要可视化/校验器, KG 主线 (能力交付) 已于 SP3 收口。
