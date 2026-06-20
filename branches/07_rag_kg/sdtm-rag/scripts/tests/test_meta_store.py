@@ -182,3 +182,21 @@ def test_model_defhome_map(store: MetaStore):
     # returns a copy: mutating it must not corrupt the store
     m["RDOMAIN"] = "tampered"
     assert store.model_defhome("RDOMAIN") == "model/06_relationship_datasets.md"
+
+
+def test_same_class_accessor(store: MetaStore):
+    sc = store.same_class("AE")
+    assert "MH" in sc and "CE" in sc          # AE (Events) shares class with MH/CE
+    assert "AE" not in sc                       # never includes self
+    assert store.same_class("ZZ") == []         # unknown -> empty, no raise
+    assert store.same_class("ae") == sc          # case-insensitive
+
+def test_relations_curated_accessor(store: MetaStore):
+    rels = store.relations_curated("AE")
+    assert isinstance(rels, list) and rels
+    r = rels[0]
+    assert {"target", "mechanism", "category", "note"} <= set(r)
+    # returns a COPY: mutating must not corrupt the store
+    rels.append({"x": 1})
+    assert len(store.relations_curated("AE")) == len(rels) - 1
+    assert store.relations_curated("ZZ") == []

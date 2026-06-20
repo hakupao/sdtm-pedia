@@ -116,6 +116,19 @@ class MetaStore:
     def model_defhome(self, var: str) -> str | None:
         return self._model_defhome.get(var.upper())
 
+    def same_class(self, dom: str) -> list[str]:
+        """Domains in the same observation class as `dom` (excludes self), from
+        meta.yaml `same_class`. Unknown domain -> []."""
+        d = self._domain_by_code.get(dom.upper())
+        return list(d["same_class"]) if d else []
+
+    def relations_curated(self, dom: str) -> list[dict]:
+        """Curated (LOW-fidelity, curated_prose) inter-domain relations for `dom`:
+        list of {target, mechanism, category, note, fidelity}. Returns deep-ish copies
+        so callers cannot mutate the store. Unknown domain -> []."""
+        d = self._domain_by_code.get(dom.upper())
+        return [dict(r) for r in d["relations_curated"]] if d else []
+
     def ct_codes_for_variable(self, var: str) -> list[str]:
         """Union of CT codes attached to this variable across ALL domains it appears in
         (sorted). Differs from variable_attributes()['ct_codes'] (first-seen only) for the
