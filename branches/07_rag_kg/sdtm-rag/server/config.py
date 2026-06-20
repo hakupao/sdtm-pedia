@@ -96,8 +96,10 @@ class Settings(BaseSettings):
     structured_answer_enabled: bool = True
 
     # SP3: deterministic relationship/impact/aggregate graph answers from meta.yaml,
-    # merged into the structured-answer injection. Ships OFF until validated; then -> True.
-    graph_answer_enabled: bool = False
+    # merged into the structured-answer injection. Default ON after validation
+    # (140q zero-pollution=0 + composite ON==OFF byte-identical + Rule D APPROVE);
+    # env-overridable (SDTM_RAG_GRAPH_ANSWER_ENABLED=false) for rollback.
+    graph_answer_enabled: bool = True
 
     # ── Multi-model compare + judge (Phase 2; DEPLOY_PLAN §2.5–2.7) ──
     # One question → these N models answer over the SAME retrieved context (FR1),

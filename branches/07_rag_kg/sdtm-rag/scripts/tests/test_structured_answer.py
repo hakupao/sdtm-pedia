@@ -137,8 +137,11 @@ def test_must_not_fire_dm_message(answerer: StructuredAnswerer):
 def test_maybe_build_answerer_gated():
     from server.config import Settings
     from server.main import maybe_build_answerer
-    assert maybe_build_answerer(Settings(structured_answer_enabled=False)) is None
-    a = maybe_build_answerer(Settings(structured_answer_enabled=True))
+    # None only when BOTH channels are off (graph_answer defaults ON since SP3).
+    assert maybe_build_answerer(
+        Settings(structured_answer_enabled=False, graph_answer_enabled=False)
+    ) is None
+    a = maybe_build_answerer(Settings(structured_answer_enabled=True, graph_answer_enabled=False))
     assert a is not None
     assert a.resolve("How many domains include TAETORD?") is not None
 
@@ -216,9 +219,10 @@ def test_merge_dedups_lines_counts_and_advisory():
 
 # ── Task 11: config flag + CompositeAnswerer + maybe_build_answerer ───────────
 
-def test_graph_answer_flag_default_off():
+def test_graph_answer_flag_default_on():
     from server.config import Settings
-    assert Settings().graph_answer_enabled is False
+    # Default ON after SP3 validation (140q zero-pollution=0 + Rule D APPROVE); env-overridable.
+    assert Settings().graph_answer_enabled is True
 
 
 def test_composite_answerer_merges():
