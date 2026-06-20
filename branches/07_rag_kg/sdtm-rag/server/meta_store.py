@@ -45,6 +45,11 @@ class MetaStore:
         self._domain_to_vars: dict[str, list[str]] = {}
         # ct_code -> list of (domain, var) where it is referenced
         self._ctcode_to_locations: dict[str, list[tuple[str, str]]] = {}
+        # var name -> UNION of ct_codes across ALL domains it appears in (vs _var_attrs
+        # which is first-seen only). A handful of variables carry domain-specific CT that
+        # the first domain lacks (e.g. FOCID -> C119013 only in OE); the union is the
+        # complete var->CT mapping (used by structured_lookup's terminology channel).
+        self._var_to_ctcodes: dict[str, set[str]] = {}
         tmp_var_domains: dict[str, set[str]] = {}
         for d in self._real_domains:
             dom = d["domain"]
@@ -56,6 +61,7 @@ class MetaStore:
                     "label": v["label"], "role": v["role"], "type": v["type"],
                     "core": v["core"], "ct_codes": list(v["ct_codes"]),
                 })
+                self._var_to_ctcodes.setdefault(name, set()).update(v["ct_codes"])
                 for code in v["ct_codes"]:
                     self._ctcode_to_locations.setdefault(code, []).append((dom, name))
         self._var_to_domains = {k: sorted(v) for k, v in tmp_var_domains.items()}
@@ -109,6 +115,17 @@ class MetaStore:
 
     def model_defhome(self, var: str) -> str | None:
         return self._model_defhome.get(var.upper())
+
+    def ct_codes_for_variable(self, var: str) -> list[str]:
+        """Union of CT codes attached to this variable across ALL domains it appears in
+        (sorted). Differs from variable_attributes()['ct_codes'] (first-seen only) for the
+        few variables whose CT is domain-specific (e.g. FOCID -> C119013 only in OE)."""
+        return sorted(self._var_to_ctcodes.get(var.upper(), set()))
+
+    @property
+    def model_defhome_map(self) -> dict[str, str]:
+        """Copy of the full variable -> model/*.md definition-home map."""
+        return dict(self._model_defhome)
 
     @property
     def n_domains(self) -> int:

@@ -28,8 +28,11 @@ import yaml
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from server.config import settings  # noqa: E402
-from server.structured_lookup import StructuredLookup  # noqa: E402
-from server.structured_lookup import _QUERY_VAR_TOKEN_RE  # noqa: E402
+from server.meta_store import MetaStore  # noqa: E402
+from server.structured_lookup import (
+    _QUERY_VAR_TOKEN_RE,  # noqa: E402
+    StructuredLookup,  # noqa: E402
+)
 
 
 def parse_ids(spec: str) -> set[str]:
@@ -60,7 +63,7 @@ def main() -> int:
         wanted = parse_ids(args.ids)
         questions = [q for q in questions if q["id"] in wanted]
 
-    lookup = StructuredLookup(Path(settings.kb_root))
+    lookup = StructuredLookup(Path(settings.kb_root), MetaStore(settings.meta_path))
     rows: list[dict] = []
     for q in questions:
         query = q["question"]

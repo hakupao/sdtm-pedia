@@ -360,3 +360,37 @@ DEPLOY_PLAN §3 阶段 2 (★核心) 收口。retro `branches/07_rag_kg/RETROSPE
 
 ### next
 - **SP2 Phase 2** (退役 structured_lookup 正则影子 KG → 读 meta.yaml, 含 load-bearing `len==6`): 入口 plan §Phase 2 (Tasks 15-18), 已有 spec+plan **直接接 plan 无需 brainstorm**; 零回归门 = 既有 `test_structured_lookup.py` 全套 + retrieval-only paired eval ≥99% + Rule D 一轮。之后 **SP3** (内存图遍历, 关系/影响查询) = 新设计单元需 brainstorm。
+
+## 2026-06-20 KG 重启 SP2 Phase 2 (退役 structured_lookup 正则影子 KG) DONE — 严格行为等价
+
+接 plan §Phase 2 (Tasks 15-18), 无需 brainstorm。把 `server/structured_lookup.py` 的 7 个索引数据源从「init 时正则解析 KB markdown」换成 `data/meta/meta.yaml` (MetaStore)。
+
+### 做了什么
+- **重写 `server/structured_lookup.py`** (净 −185 行): `known_variables`/`domain_to_spec`/`domain_longname_to_code`/`var_to_model_defhome`/`ctcode_to_termfile`/`var_to_termfiles` 全改读 MetaStore; 退役 load-bearing **`len(inner)==6` model 表解析** + spec.md Cross-References 正则 + terminology `## Name (Cxxxxx)` 解析 + VARIABLE_INDEX §一/§二/§三 解析 + `_cross_check_vars` 截断回填 + 死代码 `ctcode_to_vars`。**意图检测 / 实体锚定 / `resolve()` / 长名匹配 (含 `[`-guard + slash 变体 + 长短名锚定) 逐字保留**, 只换数据源。唯一仍读 KB 文件的是 ch04 general-assumptions glob (meta 不覆盖 chapters/)。
+- **`server/meta_store.py`** 加 2 个纯加法 API: `ct_codes_for_variable(var)` (跨域 union, 区别于 first-seen `variable_attributes`) + `model_defhome_map` property。Phase 1 first-seen 路径未动。
+- **`server/rag.py`**: structured_lookup 块懒构造 `MetaStore(settings.meta_path)` 注入 StructuredLookup; **RAGEngine 签名不变** → 另 5 个 RAGEngine 调用点零改动。
+- 构造点 3 改: rag.py / `eval/probe_s3_longname.py` / 测试 fixture (新签名 `StructuredLookup(kb_root, store)`)。
+
+### 零回归门 (穷举快照等价, 比 retrieval eval 更强)
+- 新工具 `eval/prod_wirein/sp2p2_equiv_snapshot.py`: 同一脚本跑旧码/新码, dump 7 个 map + `resolve()` 在**穷举语料** (140 v3 题 + 全量 1523 变量/1005 CT/63 域扫描 = 9891 查询) 上的输出, 逐字节 diff → **8/8 maps + 9891/9891 resolve() identical**。理由: structured_lookup 只经 union-add 影响检索, cosine/hybrid 未碰 → resolve 同 ⇒ 检索确定性同 (∴ 不跑带 embedding 非确定的 live retrieval eval, 快照是 superset)。
+- **迁移前预分析 4 风险点** (锁定唯一 divergence FOCID): var_to_termfiles 必须**跨域 union** 才与旧 524 逐项同 (FOCID 的 C119013 只在 OE 域, first-seen 丢) → 加 `ct_codes_for_variable`; model_defhome meta 与旧 `len==6` 图 **59=59 逐项同** → 退役安全; domain_longname 62/63 同 (SUPPQUAL `[`-guard 排除); ctcode_to_termfile 1005=1005 同。
+- 完整套 **375 passed** (test_structured_lookup 39 [36 + 3 新漂移闸] + test_meta_store 20 [+2 新]) + held-out 探针 4/4 + ruff/mypy (改动文件) clean + 运行时 smoke (真 `RAGEngine(structured_lookup_enabled=True)` 构出 meta-backed lookup) + 端到端 union-add 实证 (`retrieve` union-add terminology/core/ae.md)。
+
+### Rule D (Task 17) — APPROVE
+异 subagent_type (oh-my-claudecode:code-reviewer, opus) 对抗式独立审 **APPROVE 0 BLOCKER/HIGH/MEDIUM** (1 LOW + 2 NIT)。reviewer 真独立: 从 git HEAD 重建旧码同进程对跑 + 从零重生 golden (逐字节同证非伪造) + **自建 4177 查询对抗语料专门绕开 writer 语料 → 0 divergence**。
+- NIT (tuple name-slot 旧/新不同但只 termfile 可观测) → 加 docstring 注记。
+- LOW (meta/KB 漂移自愈丢失: 旧码实时重解析 KB 自愈, 新码读 meta 会静默漂移) → 加 `TestMetaKBDriftGuard` 域级闸 (spec 路径在盘 + 域数对账 + ch04 存在); var/CT 级仍需手动 `scripts/reconcile_meta.py` (KB 重建后跑) — 列入 backlog。
+
+### 产出
+- 代码: `server/{structured_lookup,meta_store,rag}.py` + `eval/probe_s3_longname.py` + 测试 `scripts/tests/test_{structured_lookup,meta_store}.py`。
+- 工具: `eval/prod_wirein/sp2p2_equiv_snapshot.py` (等价 harness, 可复用)。
+- 文档: `RETROSPECTIVE_sp2_phase2.md` (规则 C 三段) + `evidence/checkpoints/sp2_phase2_{paired_eval,ruleD_review}.md`。
+
+### 决策复盘
+- D1 用穷举快照等价证明替代 live retrieval eval (确定性 superset, 无 embedding 非确定噪声) = evidence over assumptions。
+- D2 var_to_termfiles 用跨域 union 而非 first-seen (FOCID 暴露同一实体「first-seen 属性」≠「全域聚合」)。
+- D3 保留 ch04 glob (meta 未覆盖 chapters/, 不为「全 meta 化」硬塞)。
+- D4 rag.py 懒加载不改 RAGEngine 签名 (low-churn, 不碰 Phase 1 answerer 的 MetaStore)。
+
+### next
+- **SP3** (关系/影响查询, meta.yaml 之上内存图遍历 networkx/纯 Python) = **新设计单元, 必须先 `superpowers:brainstorming`** (HARD-GATE, 无现成 spec/plan)。SP4 (可选 Neo4j) / SP5 (可选 图增强校验)。路由词「KG 重启 开始任务」现 → 读 KG_ROADMAP + memory `project_kg_decision` → 接 SP3 brainstorm。

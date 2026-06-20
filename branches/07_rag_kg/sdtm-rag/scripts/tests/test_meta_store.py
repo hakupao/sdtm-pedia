@@ -161,3 +161,24 @@ def test_structured_answer_flag_default_on():
     from server.config import Settings
     # Default ON after Phase-1 validation (paired eval + Rule D/A); env-overridable to false.
     assert Settings().structured_answer_enabled is True
+
+
+# ── SP2 Phase 2: union-CT accessor + defhome map (structured_lookup data source) ──
+
+def test_ct_codes_for_variable_union_across_domains(store: MetaStore):
+    # FOCID carries CT only in OE (C119013), not in its first domain (MB) -> the union
+    # accessor must surface it even though variable_attributes() (first-seen) does not.
+    assert store.ct_codes_for_variable("FOCID") == ["C119013"]
+    assert store.variable_attributes("FOCID")["ct_codes"] == []  # first-seen has none
+    # case-insensitive; unknown var -> empty, never raises
+    assert store.ct_codes_for_variable("focid") == ["C119013"]
+    assert store.ct_codes_for_variable("NOTAVAR") == []
+
+
+def test_model_defhome_map(store: MetaStore):
+    m = store.model_defhome_map
+    assert m["RDOMAIN"] == "model/06_relationship_datasets.md"
+    assert m["EPOCH"] == "model/03_special_purpose_domains.md"
+    # returns a copy: mutating it must not corrupt the store
+    m["RDOMAIN"] = "tampered"
+    assert store.model_defhome("RDOMAIN") == "model/06_relationship_datasets.md"

@@ -92,9 +92,15 @@ class RAGEngine:
         self.structured_lookup_enabled = structured_lookup_enabled
         self._structured_lookup = None
         if structured_lookup_enabled:
-            from server.structured_lookup import StructuredLookup  # lazy: off by default
+            # lazy: only when the lever is on. Data source is the SP1 meta.yaml layer
+            # (SP2 Phase 2); StructuredLookup builds its resolution maps from it.
+            from server.config import settings
+            from server.meta_store import MetaStore
+            from server.structured_lookup import StructuredLookup
 
-            self._structured_lookup = StructuredLookup(kb_root)
+            self._structured_lookup = StructuredLookup(
+                kb_root, MetaStore(settings.meta_path)
+            )
 
         # S2 hybrid BM25: lexical retrieval over the SAME 4146 chunks already in the
         # collection (no re-ingest, no embedding change), additively fused with dense

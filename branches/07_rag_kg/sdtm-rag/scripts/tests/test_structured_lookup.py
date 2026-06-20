@@ -12,6 +12,8 @@ from pathlib import Path
 
 import pytest
 
+from server.config import settings
+from server.meta_store import MetaStore
 from server.structured_lookup import StructuredLookup
 
 KB_ROOT = Path(__file__).resolve().parents[5] / "knowledge_base"
@@ -19,7 +21,7 @@ KB_ROOT = Path(__file__).resolve().parents[5] / "knowledge_base"
 
 @pytest.fixture(scope="module")
 def lookup() -> StructuredLookup:
-    return StructuredLookup(KB_ROOT)
+    return StructuredLookup(KB_ROOT, MetaStore(settings.meta_path))
 
 
 # ---- pre-existing behaviors (locked) ----------------------------------------
@@ -325,3 +327,30 @@ class TestGenericVarDefinitionChannel:
         assert self._gd(
             lookup, "What is the difference between --SEQ and the record sequence?"
         ) == []
+
+
+# ---- meta.yaml <-> KB drift guard (SP2 Phase 2, Rule-D LOW) -------------------
+
+class TestMetaKBDriftGuard:
+    """The meta.yaml-backed lookup no longer self-heals from KB edits (the old regex code
+    re-parsed KB markdown live). Guard against SILENT meta.yaml<->KB drift: a KB rebuild
+    that adds/removes a domain without regenerating meta.yaml must fail HERE, not silently
+    degrade retrieval. Full var/CT reconciliation lives in scripts/reconcile_meta.py — run
+    it after any KB rebuild; this is the cheap always-on canary."""
+
+    def test_domain_specs_exist_on_disk(self, lookup):
+        for code, rel in lookup.domain_to_spec.items():
+            assert (KB_ROOT / rel).exists(), f"{code} -> {rel} missing on disk (meta/KB drift)"
+
+    def test_domain_count_matches_kb(self, lookup):
+        on_disk = sum(
+            1 for d in (KB_ROOT / "domains").iterdir() if (d / "spec.md").exists()
+        )
+        assert len(lookup.domain_to_spec) == on_disk, (
+            "meta.yaml domain count != domains/*/spec.md on disk — regenerate meta.yaml "
+            "(scripts/build_meta.py) then scripts/reconcile_meta.py"
+        )
+
+    def test_general_assumptions_file_exists(self, lookup):
+        assert lookup.general_assumptions_file is not None
+        assert (KB_ROOT / lookup.general_assumptions_file).exists()

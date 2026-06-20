@@ -1,10 +1,10 @@
 # KG 重启 — 子项目路线图 + 设计状态 (handoff)
 
 > 2026-06-17 · **SP1 (meta.yaml 元数据层) DONE ✅** (brainstorm→spec→plan→9 Task TDD→Rule A/D 全过)。
-> 2026-06-20 · **SP2 Phase 1 (答题通道) DONE ✅ 默认 ON** (brainstorm→spec→plan→subagent-driven 14 task; q103/q104 翻绿, 检索零回归, 0 闸 violation, Rule D APPROVE + Rule A PASS)。**SP2 Phase 2 (退役正则) 待做**。详见下方「SP2 Phase 1 DONE」段。
+> 2026-06-20 · **SP2 DONE ✅** — Phase 1 (答题通道, 默认 ON) + **Phase 2 (退役正则影子 KG) DONE** (structured_lookup 索引改读 meta.yaml; 严格行为等价 9891+4177 查询 0 divergence; Rule D APPROVE)。详见下方「SP2 Phase 1/2 DONE」段。
 > 用户决策: **SP1-5 全做**, 按依赖顺序逐个 (每个子项目走 设计→spec→plan→实现 循环)。
-> 恢复方式: 新 session 说 **「KG 重启 开始任务」** → 读本文件 + memory `project_kg_decision` → 接 **SP2 Phase 2** (plan §Phase 2, Tasks 15-18) 或 backlog。下一个新设计单元 (SP3 关系查询) 才需 re-invoke `superpowers:brainstorming`。
-> ⚠️ **HARD-GATE (每个新设计单元)**: 先把设计问完 + 出 spec + 用户批准, 再 `writing-plans`/写码。**别跳过设计直接实现**。(SP2 Phase 2 已有 spec+plan, 直接接 plan 即可。)
+> 恢复方式: 新 session 说 **「KG 重启 开始任务」** → 读本文件 + memory `project_kg_decision` → 接 **SP3 (关系/影响查询, 内存图遍历)** = **新设计单元, 必须先 re-invoke `superpowers:brainstorming`** (无现成 spec/plan)。
+> ⚠️ **HARD-GATE (每个新设计单元)**: 先把设计问完 + 出 spec + 用户批准, 再 `writing-plans`/写码。**别跳过设计直接实现**。(SP3 是新单元, 必须走 brainstorm。)
 
 ## 已 settled (别再 re-litigate)
 
@@ -16,7 +16,7 @@
 ## 子项目 (依赖顺序; 用户要全做)
 
 - **SP1 — `meta.yaml` 元数据层** ✅ **DONE 2026-06-17** (基础, 硬前置): `scripts/build_meta.py` 确定性生成 `data/meta/meta.yaml` (64 域=63 真域+DI 桩; 变量 name/role/type/core/`ct_codes`/`ct_dict` + `same_class` + `relations_curated`[机制仅字面] + `model_defhome` + `codelists`) + `scripts/reconcile_meta.py` 独立锚对账。reconcile gate 抓修 `spec_loader` 247 幻变量 bug; 桩域是 DI 非 SUPPQUAL。Gate1 8/8 + Rule D APPROVE + Rule A N=8 PASS。详见下方「SP1 DONE」段。
-- **SP2 — 确定性结构化答题通道**: **Phase 1 (答题通道) DONE ✅ 默认 ON** (meta.yaml 载内存 → `/api/ask` 计数/穷举/属性/CT 走确定数据, q103/q104 翻绿); **Phase 2 (退役 structured_lookup 正则) 待做** (plan §Phase 2)。
+- **SP2 — 确定性结构化答题通道** ✅ **DONE**: **Phase 1 (答题通道) DONE 默认 ON** (meta.yaml 载内存 → `/api/ask` 计数/穷举/属性/CT 走确定数据, q103/q104 翻绿); **Phase 2 (退役 structured_lookup 正则) DONE** (索引全改读 meta.yaml/MetaStore, 退役 load-bearing `len==6` + spec.md xref + VARIABLE_INDEX 解析 + `_cross_check_vars`; 严格行为等价, 净删 ~185 行)。详见下方「SP2 Phase 2 DONE」段。
 - **SP3 — 关系/影响查询**: meta.yaml 之上**内存图遍历** (networkx / 纯 Python): "改 C66742 影响哪些域/变量"、"哪些变量跨 >N 域"、关系发现; 接入 chat/API。
 - **SP4 (可选) — Neo4j + Cypher + 混合路由**: 仅当要可视化图浏览器 / 临时 Cypher 探索界面作产品界面才上 (DESIGN §5.4/§5.5)。
 - **SP5 (可选) — 图增强校验**: 影响/级联检查接进 Validator (impact analysis / cross-domain completeness / CT cascade, DESIGN §5.6)。
@@ -36,10 +36,18 @@
 - **验收**: q103 TAETORD→43 / q104 VISITDY→36 翻绿 (fr 0.5→1.0); 检索零回归 (src 99.6%→99.6%); 0 计数闸 violation (闸 v2 oracle); Rule D (critic 异 type) APPROVE「safe default-ON」; Rule A N=8 PASS。
 - **backlog (转复盘 §2)**: 词典词变量 (RACE/SEX) 锚定 relevance gate / s05 codelist 元数据注入 / enumerate corpus 列表 / FP2 是否改 eval-log-only / first-seen 属性跨域分歧 (→SP3)。
 
-## 下一步 — SP2 Phase 2 (退役 structured_lookup 正则影子 KG)
+## SP2 Phase 2 DONE (2026-06-20) — 交付与发现
 
-- **入口**: plan `docs/superpowers/plans/2026-06-19-sp2-structured-answer.md` §Phase 2 (Tasks 15-18)。已有 spec+plan, **直接接 plan, 无需再 brainstorm**。
-- **做什么**: 把 `server/structured_lookup.py` 的索引从「正则解析 KB markdown」改为读 MetaStore/meta.yaml (含用 `model_defhome` 替换脆弱的 load-bearing `len==6` 解析); 意图/锚定/resolve 逻辑不变。
-- **零回归门**: 既有 `scripts/tests/test_structured_lookup.py` 全套 (canary RDOMAIN→model/06, EPOCH→model/03) + retrieval-only paired eval ≥99% 零回归 + Rule D 一轮独立审。
-- 注意 (来自 SP1 reviewer): `relations_curated.mechanism: null` 表示「散文未声明」非「无机制」; target 本身是 RELREC/RELSPEC/RELSUB 时机制结构上确定, 可在 **SP3** 做确定性 back-fill (非臆造)。
-- 之后: SP3 (内存图遍历, 关系/影响查询) = 新设计单元, 需 re-invoke brainstorming; SP4/SP5 可选。
+- **产出**: `server/structured_lookup.py` 重写 (净 −185 行) — 7 个索引全改读 MetaStore/meta.yaml, 退役 load-bearing `len(inner)==6` model 解析 + spec.md Cross-References 正则 + terminology 标题解析 + VARIABLE_INDEX 解析 + `_cross_check_vars` 截断回填 + 死代码 `ctcode_to_vars`; **意图/锚定/resolve()/长名匹配逻辑逐字保留**, 只换数据源。唯一仍读 KB 文件的是 ch04 glob (meta 不覆盖 chapters/)。`MetaStore` 加 2 纯加法 API (`ct_codes_for_variable` 跨域 union + `model_defhome_map`)。`rag.py` 懒构造 MetaStore (RAGEngine 签名不变, 另 5 调用点零改)。
+- **零回归证明 (比 retrieval eval 更强)**: 穷举快照 harness `eval/prod_wirein/sp2p2_equiv_snapshot.py` — 同脚本跑旧/新码, 7 map + `resolve()` 在 9891 查询 (140 题 + 全量变量/CT/域扫描) 上**逐字节 diff** = `8/8 maps + 9891/9891 identical`。理由: structured_lookup 只经 union-add 影响检索, cosine/hybrid 未碰 → resolve 同 ⇒ 检索确定性同。
+- **关键发现**: `var_to_termfiles` 必须用**跨域 union** 才与旧码 524 逐项相同 (FOCID 的 C119013 只在 OE 域, first-seen 会丢) → 加 `ct_codes_for_variable`。`model_defhome` meta 与旧 `len==6` 图逐项相同 (59=59) → 退役安全。
+- **三门**: 程序门 (快照等价 + 375 passed + held-out 4/4 + ruff/mypy clean + 运行时 smoke) + Rule D 异type APPROVE (reviewer 重建旧码同进程对跑 + 自建 4177 对抗语料 0 divergence) + Rule A N/A (纯检索侧等价, 无新答题语义)。
+- **缺口 (LOW, 已缓解)**: meta/KB 漂移自愈丢失 (旧码实时重解析自愈) → 加 `TestMetaKBDriftGuard` 域级闸; var/CT 级仍需手动 `reconcile_meta.py`。
+- 复盘 `RETROSPECTIVE_sp2_phase2.md` / 证据 `evidence/checkpoints/sp2_phase2_{paired_eval,ruleD_review}.md`。
+
+## 下一步 — SP3 (关系/影响查询, 内存图遍历)
+
+- **= 新设计单元, 必须先 `superpowers:brainstorming`** (无现成 spec/plan; HARD-GATE)。
+- **做什么**: meta.yaml 之上**内存图遍历** (networkx / 纯 Python): "改 C66742 影响哪些域/变量"、"哪些变量跨 >N 域"、关系发现; 接入 chat/API。
+- 注意 (来自 SP1 reviewer): `relations_curated.mechanism: null` 表示「散文未声明」非「无机制」; target 本身是 RELREC/RELSPEC/RELSUB 时机制结构上确定, 可在 SP3 做确定性 back-fill (非臆造)。
+- 之后: SP4 (可选 Neo4j+Cypher) / SP5 (可选 图增强校验)。

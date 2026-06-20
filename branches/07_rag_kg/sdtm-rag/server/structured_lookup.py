@@ -1,4 +1,4 @@
-"""S1: deterministic structured-lookup retrieval lever.
+"""S1: deterministic structured-lookup retrieval lever (meta.yaml-backed).
 
 Three query classes that cosine + BM25 both miss, but whose answer lives in the KB
 as structured data:
@@ -6,8 +6,8 @@ as structured data:
   (1) terminology / CT-code queries (e.g. "values allowed for AESEV", "codelist
       code for VSTESTCD"). The gold is a terminology file whose heading is the CT
       *code* (e.g. "C66769"); the variable name never appears in it, so embeddings
-      and lexical search both fail. KB still encodes the mapping deterministically:
-      variable -> (codelist name, CT code, terminology file).
+      and lexical search both fail. The variable -> (codelist name, CT code,
+      terminology file) mapping is deterministic.
 
   (2) distribution / relationship queries ("which domains use EPOCH", "which
       domains share codelist C66742"). The gold is VARIABLE_INDEX.md.
@@ -26,23 +26,25 @@ as structured data:
       (or comparison) shape, so they fire only on genuine definition asks, never on
       distribution / usage / attribute questions that merely name the same variable.
 
-`StructuredLookup` parses the read-only KB once at engine init and exposes
-`resolve(query)` returning the *gold file paths* (relative to KB root) that should
-be union-added into the retrieval result. It is conservative: when no intent
-keyword matches, it returns `[]` and the caller falls back to plain cosine.
+`StructuredLookup` builds its indices ONCE at engine init and exposes `resolve(query)`
+returning the *gold file paths* (relative to KB root) that should be union-added into
+the retrieval result. It is conservative: when no intent keyword matches, it returns
+`[]` and the caller falls back to plain cosine.
 
-Data sources (all already verified to exist in the KB):
-  - spec.md "Cross References" block  -> var -> (codelist, CT code, term file)
-  - spec.md "### VAR" entries          -> known-variable vocabulary + CT cross-check
-  - terminology "## Name (Cxxxxx)"      -> CT code -> term file
-  - VARIABLE_INDEX.md §一/§二/§三       -> general vars, domain vars, CT->vars
-  - VARIABLE_INDEX.md §二 headings      -> domain long name -> code (long-name-only
-                                           queries reach domains/<CODE>/spec.md)
-  - model/*.md variable-def tables      -> var -> model definition-home file (rows
-                                           with a non-empty Notes cell; single-file
-                                           vars only) for the concept-definition channel (3a)
-  - chapters/ch04*.md                    -> ch04 General Assumptions, the definition
-                                           home for generic '--'-prefix variables (3b)
+DATA SOURCE (SP2 Phase 2): all of the resolution maps are derived from
+`data/meta/meta.yaml` via the injected `MetaStore` — the deterministic SP1 metadata
+layer that was independently reconciled against the KB. This RETIRES the previous
+regex "shadow KG" that re-parsed KB markdown at init (the load-bearing `len(inner)==6`
+model-table parse, the spec.md "Cross References" parse, the terminology-header parse,
+the VARIABLE_INDEX parse, and the truncation back-fill). The query-parsing regex
+(intent cues, variable/CT tokens, definitional-verb shapes) and the resolve()/longname
+matcher logic are UNCHANGED — only where the maps come from changed. The ONLY index
+still read from KB files is the ch04 general-assumptions glob (3b), which meta.yaml
+does not cover.
+
+Migration is behaviour-equivalent: every map reproduces the old regex output exactly
+(verified by eval/prod_wirein/sp2p2_equiv_snapshot.py — 8 maps + 9891 resolve() outputs
+byte-identical) and the full test_structured_lookup.py suite stays green.
 """
 from __future__ import annotations
 
@@ -50,26 +52,8 @@ import re
 from collections import defaultdict
 from pathlib import Path
 
-# spec.md cross-reference line, e.g.:
-#   - [Severity/Intensity Scale for Adverse Events (C66769)](../../terminology/core/ae.md) — AESEV
-# The variable tail may be truncated ("AEPRESP, AESER ... (13 total)"); we keep
-# whatever explicit tokens are present (the truncation is harmless: the same vars
-# get their CT code from their own "### VAR" entry too).
-_XREF_RE = re.compile(
-    r"^- \[(.+?)\s*\((C\d{4,6})\)\]\(([^)]+)\)\s*[—-]+\s*(.+)$"
-)
-# spec.md single-variable header: "### AESEV"
-_VAR_HEADER_RE = re.compile(r"^###\s+([A-Z][A-Z0-9]+)\s*$")
-# "- **Controlled Terms:** C66769"
-_CT_FIELD_RE = re.compile(r"^- \*\*Controlled Terms:\*\*\s*(C\d{4,6})\s*$")
-# terminology heading: "## Severity/Intensity Scale for Adverse Events (C66769)"
-_TERM_HEADER_RE = re.compile(r"^##\s+.*\((C\d{4,6})\)\s*$")
-# VARIABLE_INDEX §一 / §三 table rows
-_GEN_VAR_ROW_RE = re.compile(r"^\|\s*([A-Z][A-Z0-9]+)\s*\|\s*\d+\s*\|")
-_SEC3_ROW_RE = re.compile(r"^\|\s*(C\d{4,6})\s*\|\s*\d+\s*\|\s*(.+?)\s*\|")
-# VARIABLE_INDEX §二 domain heading: "### AE — Adverse Events (Events)"
-# Captures code + long name; the trailing "(Class)" parenthetical is dropped.
-_DOMAIN_HEADER_RE = re.compile(r"^###\s+([A-Z][A-Z0-9]+)\s+[—-]+\s+(.+?)\s+\([^)]+\)\s*$")
+from server.meta_store import MetaStore
+
 # uppercase token candidates in a query (>=2 chars so "AE"/"VS" qualify)
 _QUERY_VAR_TOKEN_RE = re.compile(r"\b([A-Z][A-Z0-9]{1,})\b")
 _QUERY_CT_RE = re.compile(r"\bC\d{4,6}\b")
@@ -186,28 +170,27 @@ _VARIABLE_INDEX = "VARIABLE_INDEX.md"
 
 
 class StructuredLookup:
-    """Parse the KB once, then resolve queries to gold file paths to union-add."""
+    """Build resolution maps from the MetaStore once, then resolve queries to gold
+    file paths to union-add."""
 
     # Cap on domain spec.md files union-added from one query, so a multi-domain
     # question (e.g. 4 domain codes) can't flood the merge and crowd out the
     # cosine hits that hold its other gold files.
     _MAX_DOMAIN_SPECS = 3
 
-    def __init__(self, kb_root: Path):
+    def __init__(self, kb_root: Path, store: MetaStore):
         self.kb_root = kb_root
+        self.store = store
+
         # var -> [(codelist_name, ct_code, termfile_rel), ...]
         self.var_to_termfiles: dict[str, list[tuple[str, str, str]]] = defaultdict(list)
         # ct_code -> termfile_rel
         self.ctcode_to_termfile: dict[str, str] = {}
-        # ct_code -> [domain.var, ...]  (from VARIABLE_INDEX §三)
-        self.ctcode_to_vars: dict[str, list[str]] = {}
-        # all variable names seen (for extracting query tokens)
-        self.known_variables: set[str] = set()
-        # var -> ct_code from each variable's own "### VAR" entry (cross-check source)
-        self._var_to_ctcode: dict[str, str] = {}
-        # domain code -> domains/<CODE>/spec.md (KB dir structure, data-driven)
+        # all variable names (for extracting query tokens)
+        self.known_variables: set[str] = set(store.known_variables)
+        # domain code -> domains/<CODE>/spec.md (every counts_toward_63 domain has one)
         self.domain_to_spec: dict[str, str] = {}
-        # lowercased domain long name -> code (from VARIABLE_INDEX §二 headings).
+        # lowercased domain long name -> code (from meta.yaml labels).
         # Lets a query that names a domain only by its long name ("Demographics
         # dataset") reach domains/<CODE>/spec.md, which the 2-letter-code path misses.
         self.domain_longname_to_code: dict[str, str] = {}
@@ -215,119 +198,63 @@ class StructuredLookup:
         # Collected" wins over "Exposure"); built after the maps are populated.
         self._longname_matchers: list[tuple[re.Pattern[str], str]] = []
         # var -> model/<file>.md whose variable-def table introduces it with a real
-        # definition (non-empty Notes cell, single model file). The concept-definition
-        # channel's gold map; see _build_model_defhome_index.
-        self.var_to_model_defhome: dict[str, str] = {}
+        # definition (single model file). The concept-definition channel's gold map.
+        self.var_to_model_defhome: dict[str, str] = dict(store.model_defhome_map)
         # the general-assumptions chapter (ch04), home of generic '--'-prefix variable
         # definitions; None if absent. Used by the generic-var definition channel.
         self.general_assumptions_file: str | None = None
 
         self._build_domain_index()
         self._build_terminology_index()
-        self._build_spec_index()
-        self._build_variable_index()
+        self._build_var_termfile_index()
         self._build_domain_longname_index()
-        self._build_model_defhome_index()
-        self._cross_check_vars()
+        self._discover_general_assumptions()
 
-    # ---- build phases -------------------------------------------------------
+    # ---- build phases (all meta.yaml-backed except the ch04 glob) ------------
 
     def _build_domain_index(self) -> None:
-        """Map every SDTM domain code to its spec.md from the KB directory layout
-        (data-driven: any domains/<CODE>/spec.md, no hardcoded code list)."""
-        domains_dir = self.kb_root / "domains"
-        if not domains_dir.exists():
-            return
-        for d in sorted(domains_dir.iterdir()):
-            spec = d / "spec.md"
-            if d.is_dir() and spec.exists():
-                self.domain_to_spec[d.name] = spec.relative_to(self.kb_root).as_posix()
+        """Map every counts_toward_63 domain code to its spec.md. Each such domain
+        has a domains/<CODE>/spec.md by construction (SP1: counts_toward_63 == spec.md
+        exists), so the path is deterministic from the code — no directory scan."""
+        for dom in sorted(self.store.known_domains):
+            self.domain_to_spec[dom] = f"domains/{dom}/spec.md"
 
     def _build_terminology_index(self) -> None:
-        term_dir = self.kb_root / "terminology"
-        if not term_dir.exists():
-            return
-        for f in sorted(term_dir.rglob("*.md")):
-            rel = f.relative_to(self.kb_root).as_posix()
-            for line in f.read_text(encoding="utf-8").splitlines():
-                m = _TERM_HEADER_RE.match(line.strip())
-                if m:
-                    # first file wins; a CT code maps to one terminology file
-                    self.ctcode_to_termfile.setdefault(m.group(1), rel)
+        """ct_code -> terminology file, straight from the codelist records."""
+        for code in self.store.known_ctcodes:
+            cl = self.store.codelist(code)
+            if cl and cl.get("termfile"):
+                self.ctcode_to_termfile[code] = cl["termfile"]
 
-    def _build_spec_index(self) -> None:
-        domains_dir = self.kb_root / "domains"
-        if not domains_dir.exists():
-            return
-        for f in sorted(domains_dir.rglob("spec.md")):
-            text = f.read_text(encoding="utf-8")
-            for raw in text.splitlines():
-                line = raw.strip()
-                # cross-reference block: var -> term file
-                xm = _XREF_RE.match(line)
-                if xm:
-                    name, code, relpath, var_tail = xm.groups()
-                    target = (f.parent / relpath).resolve()
-                    try:
-                        target_rel = target.relative_to(self.kb_root).as_posix()
-                    except ValueError:
-                        target_rel = None
-                    if target_rel:
-                        for tok in _QUERY_VAR_TOKEN_RE.findall(var_tail):
-                            self.var_to_termfiles[tok].append(
-                                (name.strip(), code, target_rel)
-                            )
-                    continue
-                # known-variable vocabulary + its own CT code
-                hm = _VAR_HEADER_RE.match(line)
-                if hm:
-                    self._current_var = hm.group(1)
-                    self.known_variables.add(self._current_var)
-                    continue
-                cm = _CT_FIELD_RE.match(line)
-                if cm and getattr(self, "_current_var", None):
-                    self._var_to_ctcode[self._current_var] = cm.group(1)
-            self._current_var = None
+    def _build_var_termfile_index(self) -> None:
+        """var -> [(codelist_name, ct_code, termfile), ...] from the UNION of each
+        variable's CT codes across all domains (MetaStore.ct_codes_for_variable) joined
+        to the codelist termfile. The union (not first-seen) is required for the few
+        variables whose CT is domain-specific (e.g. FOCID -> C119013 only in OE) —
+        matching the old spec.md cross-reference + back-fill behaviour exactly.
 
-    def _build_variable_index(self) -> None:
-        vidx_path = self.kb_root / _VARIABLE_INDEX
-        if not vidx_path.exists():
-            return
-        section = 0  # 1=§一 general vars, 3=§三 CT cross-ref
-        for raw in vidx_path.read_text(encoding="utf-8").splitlines():
-            line = raw.rstrip()
-            if line.startswith("## 一"):
-                section = 1
-                continue
-            if line.startswith("## 二"):
-                section = 2
-                continue
-            if line.startswith("## 三"):
-                section = 3
-                continue
-            if section == 1:
-                m = _GEN_VAR_ROW_RE.match(line)
-                if m:
-                    self.known_variables.add(m.group(1))
-            elif section == 3:
-                m = _SEC3_ROW_RE.match(line)
-                if m:
-                    code, vars_raw = m.groups()
-                    self.ctcode_to_vars[code] = [
-                        v.strip() for v in vars_raw.split(",") if v.strip()
-                    ]
+        NOTE: only the termfile (3rd) element is observable downstream — resolve() reads
+        only termfile. The name/code fields are kept for parity/debuggability and are NOT
+        equivalence-load-bearing (the old back-fill path put the code in the name slot)."""
+        for var in self.store.known_variables:
+            for code in self.store.ct_codes_for_variable(var):
+                cl = self.store.codelist(code)
+                if cl and cl.get("termfile"):
+                    self.var_to_termfiles[var].append((cl["name"], code, cl["termfile"]))
 
     def _build_domain_longname_index(self) -> None:
-        """Map each domain long name -> code from VARIABLE_INDEX §二 headings
-        ("### AE — Adverse Events (Events)"), then compile word-boundary matchers
-        sorted longest-name-first so a query phrased only with the long name (e.g.
-        "the Demographics dataset", no "DM" token) still resolves the spec.md.
+        """Map each domain long name -> code from meta.yaml labels, then compile
+        word-boundary matchers sorted longest-name-first so a query phrased only with
+        the long name (e.g. "the Demographics dataset", no "DM" token) still resolves
+        the spec.md.
 
-        Data-driven: the map is parsed from the read-only KB, no hardcoded names.
+        Data-driven from meta.yaml (SP1, independently reconciled); the transformation
+        is identical to the previous VARIABLE_INDEX-heading parse, only the source of
+        the (code, longname) pairs changed.
         Conservative guards — a long name is only registered as a matcher when:
-          * its code has a real domains/<CODE>/spec.md (skips placeholder rows like
-            SUPPQUAL "Supplemental Qualifiers for [domain name]"), AND
-          * the long name has no '[' placeholder.
+          * its code has a real domains/<CODE>/spec.md (always true for the 63), AND
+          * the long name has no '[' placeholder (skips SUPPQUAL's
+            "Supplemental Qualifiers for [domain name]").
         Matcher form depends on specificity:
           * multi-word names ("Adverse Events") and long single words >=10 chars
             ("Demographics") match bare, word-boundary;
@@ -341,23 +268,20 @@ class StructuredLookup:
         Slash-compound KB names ("Concomitant/Prior Medications") additionally
         register one variant per slash alternative ("Concomitant Medications",
         "Prior Medications") — the slash is KB notation, not user phrasing.
-        Generic transformation over the KB-derived map; no hardcoded names.
+        Generic transformation over the meta-derived map; no hardcoded names.
         """
-        vidx_path = self.kb_root / _VARIABLE_INDEX
-        if not vidx_path.exists():
-            return
-        for raw in vidx_path.read_text(encoding="utf-8").splitlines():
-            m = _DOMAIN_HEADER_RE.match(raw.strip())
-            if not m:
+        for dom in sorted(self.store.known_domains):
+            info = self.store.domain_info(dom)
+            if info is None:
                 continue
-            code, longname = m.group(1), m.group(2).strip()
-            if code not in self.domain_to_spec:
+            longname = info["label"]
+            if dom not in self.domain_to_spec:
                 continue
             if "[" in longname:
                 continue
             key = longname.lower()
-            # first heading wins per long name (headings are unique anyway)
-            self.domain_longname_to_code.setdefault(key, code)
+            # first registration wins per long name (labels are unique anyway)
+            self.domain_longname_to_code.setdefault(key, dom)
 
         # slash-compound variants: for each name token containing "/", register
         # one variant per alternative (one slash token at a time; original full
@@ -393,85 +317,16 @@ class StructuredLookup:
         matchers.sort(key=lambda m: len(m[0]), reverse=True)
         self._longname_matchers = [(p, c) for (_n, p, c) in matchers]
 
-    def _build_model_defhome_index(self) -> None:
-        """Map each variable to its model/*.md DEFINITION HOME for the
-        concept-definition channel.
-
-        The KB has TWO variable-table shapes: the 6-column canonical *definition*
-        table `| # | VAR | Label | Type | Role | Notes |` and a 5-column *usage*
-        table `| # | VAR | Label | Type | Role |` (no Notes column). The
-        `len(inner) == 6` filter is the LOAD-BEARING discriminator: it isolates the
-        definition table from the usage tables. This matters because in a 5-column
-        row the last cell is Role, not Notes — admitting 5-column rows would read
-        "Record Qualifier" as a non-empty "Notes" and push a single-home variable to
-        multiple files. Example: RDOMAIN has a 6-col definition row in model/06 AND a
-        5-col usage row in model/03; keeping only 6-col rows leaves it single-home
-        (model/06). The non-empty-Notes check is a secondary filter (skip the rare
-        6-col row with a blank Notes cell = a bare entry, not a definition).
-        Do NOT relax `len(inner) == 6` on the assumption it is arbitrary — doing so
-        would re-admit the usage tables and silently drop RDOMAIN/EPOCH/ETCD/... to
-        multi-file, un-fixing the channel.
-
-        Conservative guards (keep the map a clean single-home, no ambiguity):
-          * keep a variable only when its Notes-bearing 6-col rows are in EXACTLY ONE
-            model file (drops cross-file vars like DOMAIN/USUBJID/POOLID);
-          * exclude generic '--'-prefix vars (their home is the general-assumptions
-            layer, not a single concept chapter — out of this channel's scope).
-        Data-driven: parsed from the read-only KB, no hardcoded variable names. If a
-        future KB rebuild changes the table layout the map goes empty and the channel
-        degrades to [] (safe); pytest canaries assert RDOMAIN/EPOCH -> their files.
-
-        Also discovers the general-assumptions chapter (ch04) here — it is the
-        generic '--'-prefix variable definition channel's gold file (a sibling
-        concept-definition source).
-        """
-        # generic '--' var definition home: ch04 General Assumptions (glob, not a
-        # hardcoded filename, so a KB rename degrades gracefully to no-channel).
+    def _discover_general_assumptions(self) -> None:
+        """Discover the ch04 general-assumptions chapter — the generic '--'-prefix
+        variable definition channel's gold file (3b). This is the ONLY index still read
+        from KB files: meta.yaml does not cover chapters/, so the ch04 glob is retained
+        (a KB rename degrades gracefully to no-channel)."""
         chapters_dir = self.kb_root / "chapters"
         if chapters_dir.exists():
             for f in sorted(chapters_dir.glob("ch04*.md")):
                 self.general_assumptions_file = f.relative_to(self.kb_root).as_posix()
                 break
-
-        model_dir = self.kb_root / "model"
-        if not model_dir.exists():
-            return
-        tmp: dict[str, set[str]] = defaultdict(set)
-        for f in sorted(model_dir.glob("*.md")):
-            rel = f.relative_to(self.kb_root).as_posix()
-            for raw in f.read_text(encoding="utf-8").splitlines():
-                if "|" not in raw:
-                    continue
-                cells = [c.strip() for c in raw.split("|")]
-                inner = cells[1:-1]  # drop the row's leading/trailing empty cells
-                if len(inner) != 6:
-                    continue  # load-bearing: isolates the 6-col definition table
-                              # from the 5-col usage table (whose last cell is Role)
-                num, var, _label, _type, _role, notes = inner
-                if not num.isdigit():
-                    continue
-                if not re.fullmatch(r"(?:--)?[A-Z][A-Z0-9]*", var):
-                    continue
-                if not notes:  # no definition text -> bare usage row, skip
-                    continue
-                tmp[var].add(rel)
-        self.var_to_model_defhome = {
-            var: next(iter(files))
-            for var, files in tmp.items()
-            if len(files) == 1 and not var.startswith("--")
-        }
-
-    def _cross_check_vars(self) -> None:
-        """Back-fill var->termfile from each variable's own CT code when the
-        cross-reference block missed it (e.g. truncated "... (13 total)" tail).
-        Uses _var_to_ctcode (from "### VAR" entries) + ctcode_to_termfile."""
-        for var, code in self._var_to_ctcode.items():
-            termfile = self.ctcode_to_termfile.get(code)
-            if not termfile:
-                continue
-            existing = {(c, f) for (_n, c, f) in self.var_to_termfiles.get(var, [])}
-            if (code, termfile) not in existing:
-                self.var_to_termfiles[var].append((code, code, termfile))
 
     # ---- resolve ------------------------------------------------------------
 
@@ -514,9 +369,9 @@ class StructuredLookup:
 
     def _query_domains(self, query: str) -> list[str]:
         """Known SDTM domain codes referenced by the query, de-duped. Code tokens
-        first (`RELSPEC`, `TR`, `SV`, ... — KB-derived, not hardcoded), then any
+        first (`RELSPEC`, `TR`, `SV`, ... — meta-derived, not hardcoded), then any
         domain named only by its long name (union-add, code-token matches win on
-        order). All KB-derived, no hardcoded names."""
+        order). All meta-derived, no hardcoded names."""
         out: list[str] = []
         for tok in _QUERY_VAR_TOKEN_RE.findall(query):
             if tok in self.domain_to_spec and tok not in out:
@@ -581,9 +436,9 @@ class StructuredLookup:
 
         # Named-domain intent -> that domain's spec.md. The domain *code* (e.g.
         # RELSPEC) frequently does not appear in its own spec chunks (they are
-        # per-variable rows), so neither cosine nor BM25 can reach it; the KB dir
-        # structure maps it deterministically. Capped at _MAX_DOMAIN_SPECS so a
-        # 4-domain query can't flood the union-add and crowd real cosine hits.
+        # per-variable rows), so neither cosine nor BM25 can reach it; meta.yaml
+        # maps it deterministically. Capped at _MAX_DOMAIN_SPECS so a 4-domain
+        # query can't flood the union-add and crowd real cosine hits.
         for dom in named_domains[: self._MAX_DOMAIN_SPECS]:
             targets.append(self.domain_to_spec[dom])
 
@@ -593,9 +448,9 @@ class StructuredLookup:
                 for (_name, _code, termfile) in self.var_to_termfiles.get(var, []):
                     targets.append(termfile)
             for code in _QUERY_CT_RE.findall(query):
-                termfile = self.ctcode_to_termfile.get(code)
-                if termfile:
-                    targets.append(termfile)
+                ct_termfile = self.ctcode_to_termfile.get(code)
+                if ct_termfile:
+                    targets.append(ct_termfile)
 
         # Concept-definition intent -> the variable's model definition-home file.
         # Union-added last (recall-additive tail); strict _DEFVERB_RE gate keeps it
