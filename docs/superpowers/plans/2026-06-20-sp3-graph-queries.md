@@ -1386,9 +1386,11 @@ git commit -m "SP3 Task13: held-out probes + 140q zero-pollution gate"
   expect_min_domains: 40
 - id: g04
   category: aggregate
-  question: "How many domains make up the Events observation class?"
-  expect_subject: Events
-  expect_kind: class_domains
+  question: "Which controlled-terminology codelists are reused across the most variables in SDTM?"
+  # most_shared_codelists — fire-check only (no single checkable cardinality).
+  # NOTE: class-roster ("domains in the Events class") is intentionally NOT an NL probe —
+  # it was dropped from the NL surface (Phase 2 review): class names are common words that
+  # collide with prose. domains_in_class/class_sizes remain GraphEngine-only (SP4/API).
 - id: g05
   category: structural
   question: "Beyond Adverse Events itself, which domains sit in the same observation class as AE?"
@@ -1418,8 +1420,6 @@ def truth(subj, kind):
     if kind == "impacted_domains":
         return len(store.domains_for_codelist(subj) if subj.startswith("C")
                    else store.domains_for_variable(subj))
-    if kind == "class_domains":
-        return sum(1 for d in store.known_domains if store.domain_info(d)["class"] == subj)
     raise AssertionError(kind)
 
 for q in yaml.safe_load(open("eval/test_set_sp3_graph.yml")):
@@ -1491,7 +1491,7 @@ git commit -m "SP3 Task15: flag default ON (validated) + Rule D APPROVE"
 
 - [ ] **Step 1: Rule A — N=8 分层语义抽检 (独立 session/agent)**
 
-8 槽 (4 能力族各 2): ①影响 (codelist C66742 / 变量 TAETORD: impacted 域集合 + 基数 vs meta.yaml + KB) ②聚合 (variables_in_min_domains(40) / class_sizes vs 原始扫描) ③结构 (same_class AE / codelist_co_users AESER vs meta.yaml) ④关系 (domain_relations AE: advisory 是否如实标注、未声称穷尽)。每槽打开 GraphAnswerer 整段输出 ↔ meta.yaml + KB 逐字段手核。记 `sp3_ruleA_audit.md`。**独立执行 (非 writer 自证)**。
+8 槽 (4 能力族各 2): ①影响 (codelist C66742 / 变量 TAETORD: impacted 域集合 + 基数 vs meta.yaml + KB) ②聚合 (variables_in_min_domains(40) / most_shared_codelists vs 原始扫描 — **NL 暴露的两个聚合**; class_sizes 是 engine-only 不在 NL Rule A 范围) ③结构 (same_class AE / codelist_co_users AESER vs meta.yaml) ④关系 (domain_relations AE: advisory 是否如实标注、未声称穷尽)。每槽打开 GraphAnswerer 整段输出 ↔ meta.yaml + KB 逐字段手核。记 `sp3_ruleA_audit.md`。**独立执行 (非 writer 自证)**。
 
 - [ ] **Step 2: 写 `RETROSPECTIVE_sp3.md` (规则 C 三段)**
 

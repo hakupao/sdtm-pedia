@@ -91,8 +91,8 @@ impact_of_variable(var)  -> {"var","domains":[...],"n_domains"} | None
 
 # 跨域聚合
 variables_in_min_domains(n) -> [(var, count), ...]   # count>=n, 降序
-domains_in_class(cls)        -> [dom, ...]
-class_sizes()               -> {cls: count}
+domains_in_class(cls)        -> [dom, ...]            # engine-only (见下 §5.1 注)
+class_sizes()               -> {cls: count}          # engine-only (见下 §5.1 注)
 most_shared_codelists(k=10) -> [{"code","name","n_variables","n_domains"}, ...]
 
 # 结构邻接 / 共用
@@ -117,7 +117,8 @@ domain_relations(dom) -> {"structural": {"same_class": [...]},
 ### 5.1 意图检测 (通用语言形状, 零硬编实体)
 - **impact** 意图: `affect/affects/impact/impacted/change/changing/depend/depends/cascade/downstream` + 锚定实体 (codelist Cxxxx 或 known variable)。
 - **relationship** 意图: `related to / relationship / linked / connected / association` + 锚定 domain。
-- **aggregate** 意图: 复用/扩展 SP2 的 count/enumerate 形状 (e.g. `which variables ... more than N domains`, `most shared codelist`, `how many domains in the Events class`)。
+- **aggregate** 意图 (NL 仅 variables_in_min_domains + most_shared): 复用/扩展 SP2 的 count/enumerate 形状 (e.g. `which variables ... more than N domains`, `most shared codelist`)。
+  > **修订 (Phase 2 review, 2026-06-20)**: **class-roster (`domains_in_class`/`class_sizes`) 不经 NL 暴露** — class 名 (Events/Findings/Interventions…) 是常用词, 在散文中频繁出现 ("disposition events"/"positive findings"/"Intervention and Findings domains"), NL 检测"某 class 有哪些域"无法不误触发 (140q 零污染门实测会被这些常用词撞破)。**能力保留在 GraphEngine** (programmatic, 留给 SP4 API / 校验器), 只是答题侧不接。用户决策选「从 NL 去掉 class-roster」而非脆弱框架/硬编。
 - **must-not-fire 守卫**: 无能力意图, 或有意图但无锚定 meta.yaml 实体 → `resolve()` 返回 None (回退普通 RAG, 绝不臆造)。
 - 实体锚定: 复用 SP2 的 token 锚定 (uppercase var token ∈ known_variables;Cxxxx ∈ known_ctcodes;domain code ∈ known_domains, 带 SP2 的 domain/sdtm 上下文守卫防 PR/DM 误锚)。
 
