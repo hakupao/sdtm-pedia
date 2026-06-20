@@ -71,3 +71,21 @@ def test_eval_answer_path_injects_facts(monkeypatch, tmp_path):
     ctx = augment_context(facts, "### [1] chunk\n\nbody")
     assert "Structured Facts (authoritative" in ctx
     assert "43" in ctx
+
+
+def test_eval_graph_answer_composite_parity():
+    from server.config import settings
+    from server.graph_answer import GraphAnswerer
+    from server.graph_engine import GraphEngine
+    from server.meta_store import MetaStore
+    from server.structured_answer import (
+        CompositeAnswerer,
+        StructuredAnswerer,
+        augment_context,
+    )
+    store = MetaStore(settings.meta_path)
+    comp = CompositeAnswerer([StructuredAnswerer(store), GraphAnswerer(GraphEngine(store))])
+    facts = comp.resolve("What is affected if C66742 changes?")
+    ctx = augment_context(facts, "### [1] chunk\n\nbody")
+    assert "affected if" not in ctx  # sanity: it's the answer-side, not echoing the question
+    assert "Structured Facts (authoritative" in ctx

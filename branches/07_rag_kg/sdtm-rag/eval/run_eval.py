@@ -518,6 +518,11 @@ def main(argv: list[str] | None = None) -> int:
              "via shared augment_context + apply_counting_gate helpers).",
     )
     parser.add_argument(
+        "--graph-answer",
+        action="store_true",
+        help="SP3: add deterministic graph (relationship/impact/aggregate) facts",
+    )
+    parser.add_argument(
         "--tag",
         default=None,
         help="Optional label added to output JSON for cross-model comparison",
@@ -579,11 +584,24 @@ def main(argv: list[str] | None = None) -> int:
             print(f"LLM router: {len(router.model_list)} models")
 
     answerer = None
-    if args.structured_answer:
+    if args.structured_answer or args.graph_answer:
         from server.meta_store import MetaStore
-        from server.structured_answer import StructuredAnswerer
-        answerer = StructuredAnswerer(MetaStore(settings.meta_path))
-        print("Structured-answer channel: ON (meta.yaml facts + counting gate)")
+        store = MetaStore(settings.meta_path)
+        parts = []
+        if args.structured_answer:
+            from server.structured_answer import StructuredAnswerer
+            parts.append(StructuredAnswerer(store))
+        if args.graph_answer:
+            from server.graph_answer import GraphAnswerer
+            from server.graph_engine import GraphEngine
+            parts.append(GraphAnswerer(GraphEngine(store)))
+        if len(parts) == 1:
+            answerer = parts[0]
+        else:
+            from server.structured_answer import CompositeAnswerer
+            answerer = CompositeAnswerer(parts)
+        print("Structured-answer channel: ON (meta.yaml facts + counting gate)"
+              + (", graph-answer: ON" if args.graph_answer else ""))
 
     print()
     if args.judge and not args.retrieval_only:
@@ -621,6 +639,7 @@ def main(argv: list[str] | None = None) -> int:
         }
     summary["prompt_guardrail"] = args.guardrail
     summary["structured_answer"] = args.structured_answer
+    summary["graph_answer"] = args.graph_answer
     if args.judge:
         summary["judge_model"] = args.judge_model
 
