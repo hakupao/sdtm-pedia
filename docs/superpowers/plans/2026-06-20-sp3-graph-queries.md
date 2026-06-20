@@ -836,7 +836,7 @@ def detect_graph_intents(query: str) -> set[str]:
     return intents
 ```
 
-> NOTE for implementer: the `_AGG_CUES` "class" handling is the trickiest over/under-fire surface. Make the must-fire/must-not-fire battery (Task 9) the contract and tune `_AGG_CUES` (e.g. require a class name token, or `how many domains ... class`) until it passes WITHOUT hardcoding question strings. Prefer a generic shape (class name ∈ the 7 classes) over enumerated phrases if the enumerated list feels brittle.
+> NOTE for implementer: the `_AGG_CUES` "class" handling is the trickiest over/under-fire surface. Make the must-fire/must-not-fire battery (Task 9) the contract and tune `_AGG_CUES` (e.g. require a class name token, or `how many domains ... class`) until it passes WITHOUT hardcoding question strings. Prefer a generic shape (class name ∈ the 8 classes from `class_sizes()`, case-folded) over enumerated phrases if the enumerated list feels brittle.
 
 - [ ] **Step 4: 跑测试确认通过**
 
@@ -1521,4 +1521,4 @@ git add -A && git commit -m "SP3 DONE 收尾: RETROSPECTIVE + Rule A N=8 + 索�
 | 规则 D | 异 type 独立审 APPROVE 0 BLOCKER/HIGH (Task15) |
 | 规则 A | N=8 分层语义抽检 4 能力族各 2 (Task16) |
 
-**反过拟合硬纪律 (贯穿)**: 零 q-id / 特定变量硬编 (代码只有通用语言形状 + 类名∈7 类); 实体词表 = 全量 meta.yaml; must-not-fire 电池 + held-out 探针 + 140q 零污染; Rule A 独立样本核验。
+**反过拟合硬纪律 (贯穿)**: 零 q-id / 特定变量硬编 (代码只有通用语言形状 + 类名∈8 类); 实体词表 = 全量 meta.yaml; must-not-fire 电池 + held-out 探针 + 140q 零污染; Rule A 独立样本核验。

@@ -60,7 +60,7 @@ meta.yaml ──(SP1)──> MetaStore ──(SP2 反向索引)
 | Domain | 63 | MetaStore.known_domains |
 | Variable | 1523 | MetaStore.known_variables |
 | Codelist | 1005 | MetaStore.known_ctcodes |
-| Class | 7 | meta domains 的 `class` 去重 |
+| Class | 8 | meta domains 的 `class` 去重 (含 "Findings About"; 8 类合计 63 域) |
 
 **边** (类型 / 方向 / 保真 / 来源):
 
