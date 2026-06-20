@@ -1,9 +1,24 @@
 """SP3 graph answer channel: detect relationship/impact/aggregate intent + assemble
-authoritative graph facts (and an advisory block for curated relations) for injection.
-Conservative by construction: zero hardcoded q-ids/variables; misfire is at worst recall-
-additive true facts; correctness of cardinalities is back-stopped by the grounding gate.
-Intent vocab is deliberately DISJOINT from SP2's distribution/count vocab (use/include/
-which-domains) so plain SP2 queries never trip the graph channel (spec §5.4)."""
+graph facts for injection into the LLM context.
+
+Conservative by construction: zero hardcoded q-ids/variables; misfire is at worst
+recall-additive true facts; correctness of cardinalities is back-stopped by the
+grounding gate. Intent vocab is deliberately DISJOINT from SP2's distribution/count
+vocab (use/include/which-domains) so plain SP2 queries never trip the graph channel.
+
+NL surface covers three intent families:
+  impact       — codelist/variable cascade ("affected if X changes", "downstream of X")
+  relationship — single-domain discovery ("how is AE related to other domains?")
+  aggregate    — graph-wide ("variables in >N domains", "most shared codelist")
+
+Class-roster queries ("how many domains in Events class?") are NOT exposed at the NL
+layer: class names are common words ("Findings", "Events") → NL anchoring is inherently
+fragile. The GraphEngine keeps domains_in_class/class_sizes for programmatic / SP4 use.
+
+Relationship answers emit an authoritative same_class line (HIGH-fidelity structural
+fact) plus an advisory block for curated (LOW-fidelity, prose-derived) relations.
+Only the curated relations are marked advisory; same-class membership is authoritative.
+"""
 from __future__ import annotations
 
 import re
@@ -18,25 +33,38 @@ _CT_TOKEN_RE = re.compile(r"\bC\d{4,6}\b")
 _IMPACT_CUES = ("affect", "affects", "affected", "impact", "impacts", "impacted",
                 "change", "changes", "changing", "depend", "depends", "depending",
                 "cascade", "downstream", "knock-on", "ripple")
-# Relationship discovery.
+
+# Relationship discovery. Guards in resolve() further restrict to single-domain frames
+# (no definition verb, not a specific-pair mechanism question with 2+ domains).
 _REL_CUES = ("related to", "relationship", "relationships", "linked", "connected",
              "connection", "associated with", "association")
-# Cross-domain aggregate (graph-wide, not SP2 per-entity counts).
-_AGG_CUES = ("more than", "at least", "most shared", "most common", "most widely used",
-             "in the events class", "in the findings class", "in the interventions class",
-             "in the special-purpose class", "in the trial design class",
-             "in the relationship class", " class?", " class ")
+
+# Definition verbs — suppress relationship intent (definition = SP2/RAG territory).
+_DEFINITION_VERBS = re.compile(
+    r"\b(what\s+is|define|definition|describe|explains?)\b", re.IGNORECASE
+)
 
 
 def detect_graph_intents(query: str) -> set[str]:
     ql = query.lower()
     intents: set[str] = set()
+
+    # Impact: any impact/cascade cue present
     if any(c in ql for c in _IMPACT_CUES):
         intents.add("impact")
-    if any(c in ql for c in _REL_CUES):
+
+    # Relationship: rel-discovery cue AND no definition verb
+    if any(c in ql for c in _REL_CUES) and not _DEFINITION_VERBS.search(query):
         intents.add("relationship")
-    if any(c in ql for c in _AGG_CUES):
+
+    # Aggregate — two safe sub-intents only (class roster removed from NL surface):
+    # (a) variables-in-min-domains: threshold framing + "variable(s)"
+    if ("more than" in ql or "at least" in ql) and "variable" in ql:
         intents.add("aggregate")
+    # (b) most-shared codelist: explicit superlative phrases
+    if "most shared" in ql or "most common" in ql or "most widely used" in ql:
+        intents.add("aggregate")
+
     return intents
 
 
@@ -53,18 +81,22 @@ class GraphAnswerer:
 
     def _domains(self, q: str) -> list[str]:
         ql = q.lower()
-        if "domain" not in ql and "sdtm" not in ql:   # SP2-style context guard vs PR/DM collisions
+        if "domain" not in ql and "sdtm" not in ql:
             return []
         return [t for t in _VAR_TOKEN_RE.findall(q) if t in self.store.known_domains]
 
-    def _classes(self, q: str) -> list[str]:
-        ql = q.lower()
-        return [c for c in self.engine.class_sizes() if c.lower() in ql]
-
     def resolve(self, query: str) -> StructuredFacts | None:
         intents = detect_graph_intents(query)
+
+        # Relationship guard: fire only for single-domain discovery (≤1 anchored domain).
+        # Specific-pair mechanism questions ("how are TR and RS linked") have 2+ domains
+        # and belong to SP2/RAG territory, not graph-discovery.
+        if "relationship" in intents and len(self._domains(query)) >= 2:
+            intents.discard("relationship")
+
         if not intents:
             return None
+
         lines: list[str] = []
         adv: list[str] = []
         counts: list[CheckableCount] = []
@@ -108,13 +140,10 @@ class GraphAnswerer:
                 if res:
                     listed = ", ".join(f"{v} ({c})" for v, c in res[:50])
                     lines.append(f"- **{len(res)}** variables appear in ≥ {n} domains: {listed}.")
-            for cls in dict.fromkeys(self._classes(query)):
-                doms = self.engine.domains_in_class(cls)
-                lines.append(f"- The **{cls}** class has **{len(doms)}** domains: {', '.join(doms)}.")
-                counts.append(CheckableCount(cls, "class_domains", len(doms)))
             if "most shared" in query.lower() or "most common" in query.lower():
                 top = self.engine.most_shared_codelists(5)
-                listed = ", ".join(f"{t['code']} ({t['name']}, {t['n_variables']} vars)" for t in top)
+                listed = ", ".join(
+                    f"{t['code']} ({t['name']}, {t['n_variables']} vars)" for t in top)
                 lines.append(f"- Most-shared codelists: {listed}.")
 
         if not lines and not adv:

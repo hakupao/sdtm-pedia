@@ -178,7 +178,9 @@ def merge_facts(*facts: StructuredFacts | None) -> StructuredFacts | None:
         out: list[str] = []
         for block in blocks:
             for ln in block.split("\n"):
-                if ln not in seen:
+                if not ln.strip():
+                    out.append(ln)  # blank/whitespace lines always pass through
+                elif ln not in seen:
                     seen.add(ln)
                     out.append(ln)
         return "\n".join(out)

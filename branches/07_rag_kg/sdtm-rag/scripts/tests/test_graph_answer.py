@@ -22,7 +22,8 @@ def test_relationship_intent():
 def test_aggregate_intent():
     assert "aggregate" in detect_graph_intents("which variables appear in more than 30 domains?")
     assert "aggregate" in detect_graph_intents("what is the most shared codelist?")
-    assert "aggregate" in detect_graph_intents("how many domains are in the Events class?")
+    # class-roster removed from NL surface — must NOT produce aggregate intent
+    assert "aggregate" not in detect_graph_intents("how many domains are in the Events class?")
 
 
 def test_must_not_fire_sp2_and_plain():
@@ -80,3 +81,9 @@ def test_must_not_fire_sp2_query(ga):
     # SP2 territory, no graph intent -> None (no double injection)
     assert ga.resolve("How many domains include TAETORD?") is None
     assert ga.resolve("Which domains use VISITNUM?") is None
+
+
+def test_must_not_fire_class_roster(ga):
+    # class-roster questions removed from NL surface (class names = common words, fragile)
+    assert ga.resolve("how many domains are in the Events class?") is None
+    assert ga.resolve("What are the Special-Purpose datasets in SDTM and which domains fall into this category?") is None
