@@ -1,0 +1,70 @@
+# eval/test_set_sp3_graph.yml — SP3 graph capability NL probes (gold derived from meta.yaml)
+# Blind-authored: natural phrasings, not verbatim GraphAnswerer cue words.
+# expect_subject/expect_kind: assert at runtime == meta.yaml ground truth cardinality.
+# expect_same_class/expect_advisory: assert structural / advisory block non-empty.
+# Fire-only probes (no expect_subject): just assert resolve() is not None.
+
+- id: g01
+  category: impact
+  question: "If controlled terminology C66742 is updated, which domains and variables are affected?"
+  expect_subject: C66742
+  expect_kind: impacted_domains
+  # truth: len(store.domains_for_codelist('C66742')) == 41
+
+- id: g02
+  category: impact
+  question: "Changing the TAETORD timing variable would ripple into how many domains?"
+  expect_subject: TAETORD
+  expect_kind: impacted_domains
+  # truth: len(store.domains_for_variable('TAETORD')) == 43
+
+- id: g03
+  category: aggregate
+  question: "Which SDTM variables are the most widespread — showing up in at least 40 different domains?"
+  expect_min_domains: 40
+  # fire-only: assert text_block contains known wide-spread variables (EPOCH, TAETORD)
+
+- id: g04
+  category: aggregate
+  question: "What is the most commonly shared codelist across SDTM variables?"
+  # most_shared_codelists — fire-check only (no single checkable cardinality).
+  # NOTE: class-roster ("domains in the Events class") is intentionally NOT an NL probe —
+  # it was dropped from the NL surface (Phase 2 review): class names are common words that
+  # collide with prose. domains_in_class/class_sizes remain GraphEngine-only (SP4/API).
+
+- id: g05
+  category: structural
+  question: "What domains are linked to AE by sharing the same observation class?"
+  expect_same_class: AE
+  # truth: store.same_class('AE') == ['BE', 'CE', 'DS', 'DV', 'HO', 'MH']
+
+- id: g06
+  category: relationship
+  question: "What other domains does the AE domain have noted relationships with?"
+  expect_advisory: AE
+  # advisory block non-empty; curated relations are not gated (no checkable_counts)
+
+- id: g07
+  category: impact
+  question: "If the EPOCH variable were to change, across how many SDTM domains would the impact be felt?"
+  expect_subject: EPOCH
+  expect_kind: impacted_domains
+  # truth: len(store.domains_for_variable('EPOCH')) == 44
+
+- id: g08
+  category: aggregate
+  question: "What is the most commonly reused codelist in the SDTM standard?"
+  # fire-only: most_shared_codelists returns C66742 as top entry
+
+- id: g09
+  category: structural
+  question: "Which variables share the same controlled terminology with AESER and could be impacted by changes to that codelist?"
+  expect_subject: AESER
+  expect_kind: impacted_domains
+  # truth: AESER appears in 1 domain (AE); impact fires via codelist anchor path
+
+- id: g10
+  category: relationship
+  question: "What are the relationships between the CM domain and other SDTM domains?"
+  expect_advisory: CM
+  # advisory block non-empty (CM → AE, CM → EC curated relations)
