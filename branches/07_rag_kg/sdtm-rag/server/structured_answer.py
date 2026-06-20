@@ -200,6 +200,18 @@ def merge_facts(*facts: StructuredFacts | None) -> StructuredFacts | None:
     )
 
 
+class CompositeAnswerer:
+    """Merge several answerers' resolve() outputs (SP2 StructuredAnswerer + SP3
+    GraphAnswerer) so app.state.answerer.resolve() returns one merged StructuredFacts —
+    router/eval call sites are unchanged."""
+
+    def __init__(self, answerers: list):
+        self._answerers = answerers
+
+    def resolve(self, query: str) -> StructuredFacts | None:
+        return merge_facts(*[a.resolve(query) for a in self._answerers])
+
+
 _FACTS_HEADER = "## Structured Facts (authoritative, exhaustive, from SDTM metadata)"
 
 _ADVISORY_HEADER = ("## Related context (curated, non-exhaustive — derived from prose, "

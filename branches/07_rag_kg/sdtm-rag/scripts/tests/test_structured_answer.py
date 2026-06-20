@@ -212,3 +212,36 @@ def test_merge_dedups_lines_counts_and_advisory():
     assert m.checkable_counts == [CheckableCount("C66742", "domains", 41),
                                   CheckableCount("AE", "variables", 30)]       # count de-dup
     assert m.advisory_block.split("\n") == ["- adv-a", "- adv-b"]
+
+
+# ── Task 11: config flag + CompositeAnswerer + maybe_build_answerer ───────────
+
+def test_graph_answer_flag_default_off():
+    from server.config import Settings
+    assert Settings().graph_answer_enabled is False
+
+
+def test_composite_answerer_merges():
+    from server.config import settings
+    from server.graph_answer import GraphAnswerer
+    from server.graph_engine import GraphEngine
+    from server.meta_store import MetaStore
+    from server.structured_answer import CompositeAnswerer, StructuredAnswerer
+    store = MetaStore(settings.meta_path)
+    comp = CompositeAnswerer([StructuredAnswerer(store), GraphAnswerer(GraphEngine(store))])
+    # SP2 count query still answered
+    assert comp.resolve("How many domains include TAETORD?") is not None
+    # SP3 impact query answered
+    assert comp.resolve("What is affected if C66742 changes?") is not None
+    # neither -> None
+    assert comp.resolve("How should missing values be represented?") is None
+
+
+def test_maybe_build_answerer_graph_gated():
+    from server.config import Settings
+    from server.main import maybe_build_answerer
+    a = maybe_build_answerer(Settings(structured_answer_enabled=True, graph_answer_enabled=True))
+    assert a.resolve("What is affected if C66742 changes?") is not None
+    b = maybe_build_answerer(Settings(structured_answer_enabled=True, graph_answer_enabled=False))
+    assert b.resolve("What is affected if C66742 changes?") is None   # graph off
+    assert b.resolve("How many domains include TAETORD?") is not None  # SP2 on

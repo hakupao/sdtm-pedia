@@ -32,13 +32,26 @@ log = structlog.get_logger()
 
 
 def maybe_build_answerer(s):
-    """Build the structured-answer channel when enabled, else None. Kept tiny and
-    pure so it unit-tests without spinning up FastAPI/RAGEngine (lifespan is heavy)."""
-    if not s.structured_answer_enabled:
+    """Build the SP2 structured answerer and (if enabled) the SP3 graph answerer, composed
+    so resolve() returns merged facts. Returns None if both are off. Kept tiny/pure so it
+    unit-tests without spinning up FastAPI/RAGEngine."""
+    answerers = []
+    if s.structured_answer_enabled or s.graph_answer_enabled:
+        from server.meta_store import MetaStore
+        store = MetaStore(s.meta_path)
+        if s.structured_answer_enabled:
+            from server.structured_answer import StructuredAnswerer
+            answerers.append(StructuredAnswerer(store))
+        if s.graph_answer_enabled:
+            from server.graph_answer import GraphAnswerer
+            from server.graph_engine import GraphEngine
+            answerers.append(GraphAnswerer(GraphEngine(store)))
+    if not answerers:
         return None
-    from server.meta_store import MetaStore
-    from server.structured_answer import StructuredAnswerer
-    return StructuredAnswerer(MetaStore(s.meta_path))
+    if len(answerers) == 1:
+        return answerers[0]
+    from server.structured_answer import CompositeAnswerer
+    return CompositeAnswerer(answerers)
 
 
 @asynccontextmanager
