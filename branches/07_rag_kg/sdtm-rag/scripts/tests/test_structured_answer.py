@@ -10,6 +10,7 @@ from server.structured_answer import (
     StructuredFacts,
     augment_context,
     detect_intents,
+    merge_facts,
 )
 
 
@@ -187,3 +188,27 @@ def test_advisory_block_renders_under_separate_header():
     assert "AE is related to CM" in out
     # advisory content appears AFTER the authoritative block, not under its header
     assert out.index("authoritative, exhaustive") < out.index("curated, non-exhaustive")
+
+
+# ── Task 7: merge_facts ───────────────────────────────────────────────────────
+
+
+def test_merge_none_and_single():
+    assert merge_facts(None, None) is None
+    f = StructuredFacts(text_block="- a")
+    assert merge_facts(f, None) is f          # single present -> returned as-is
+
+
+def test_merge_dedups_lines_counts_and_advisory():
+    a = StructuredFacts(text_block="- shared\n- only-a",
+                        checkable_counts=[CheckableCount("C66742", "domains", 41)],
+                        advisory_block="- adv-a")
+    b = StructuredFacts(text_block="- shared\n- only-b",
+                        checkable_counts=[CheckableCount("C66742", "domains", 41),  # dup
+                                          CheckableCount("AE", "variables", 30)],
+                        advisory_block="- adv-b")
+    m = merge_facts(a, b)
+    assert m.text_block.split("\n") == ["- shared", "- only-a", "- only-b"]   # line de-dup
+    assert m.checkable_counts == [CheckableCount("C66742", "domains", 41),
+                                  CheckableCount("AE", "variables", 30)]       # count de-dup
+    assert m.advisory_block.split("\n") == ["- adv-a", "- adv-b"]

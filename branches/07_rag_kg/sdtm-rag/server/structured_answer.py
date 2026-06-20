@@ -163,6 +163,41 @@ class StructuredAnswerer:
         return StructuredFacts(text_block="\n".join(lines_), checkable_counts=counts)
 
 
+def merge_facts(*facts: StructuredFacts | None) -> StructuredFacts | None:
+    """Merge several StructuredFacts (SP2 + SP3) into one, de-duping text lines (exact),
+    checkable_counts (by subject/kind/value), and advisory lines. Order = first-seen.
+    Returns None if all None; returns the single object unchanged if only one present."""
+    present = [f for f in facts if f is not None]
+    if not present:
+        return None
+    if len(present) == 1:
+        return present[0]
+
+    def _dedup_lines(blocks: list[str]) -> str:
+        seen: set[str] = set()
+        out: list[str] = []
+        for block in blocks:
+            for ln in block.split("\n"):
+                if ln not in seen:
+                    seen.add(ln)
+                    out.append(ln)
+        return "\n".join(out)
+
+    counts: list[CheckableCount] = []
+    seen_c: set[tuple] = set()
+    for f in present:
+        for c in f.checkable_counts:
+            key = (c.subject, c.kind, c.value)
+            if key not in seen_c:
+                seen_c.add(key)
+                counts.append(c)
+    return StructuredFacts(
+        text_block=_dedup_lines([f.text_block for f in present]),
+        checkable_counts=counts,
+        advisory_block=_dedup_lines([f.advisory_block for f in present if f.advisory_block]),
+    )
+
+
 _FACTS_HEADER = "## Structured Facts (authoritative, exhaustive, from SDTM metadata)"
 
 _ADVISORY_HEADER = ("## Related context (curated, non-exhaustive — derived from prose, "
