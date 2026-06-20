@@ -124,3 +124,52 @@ def test_domain_relations(engine, store):
     # every curated edge is tagged LOW-fidelity for the answerer to mark advisory
     assert all(c.get("fidelity") for c in curated) or all("mechanism" in c for c in curated)
     assert engine.domain_relations("ZZ") is None
+
+
+# ── Task 5: exhaustive engine vs raw meta.yaml reconciliation (anti-tautology) ─
+import yaml as _yaml
+from collections import defaultdict
+
+
+def _raw_meta():
+    return _yaml.safe_load(settings.meta_path.read_text(encoding="utf-8"))
+
+
+def test_exhaustive_impact_of_variable_vs_raw(engine):
+    raw = _raw_meta()
+    truth = defaultdict(set)
+    for d in raw["domains"]:
+        if not d["counts_toward_63"]:
+            continue
+        for v in d["variables"]:
+            truth[v["name"]].add(d["domain"])
+    for var, doms in truth.items():
+        imp = engine.impact_of_variable(var)
+        assert imp is not None and imp["n_domains"] == len(doms), var
+        assert set(imp["domains"]) == doms, var
+
+
+def test_exhaustive_impact_of_codelist_vs_raw(engine):
+    raw = _raw_meta()
+    dom_truth, var_truth = defaultdict(set), defaultdict(set)
+    for d in raw["domains"]:
+        if not d["counts_toward_63"]:
+            continue
+        for v in d["variables"]:
+            for code in v["ct_codes"]:
+                dom_truth[code].add(d["domain"])
+                var_truth[code].add(v["name"])
+    for code in {c["ct_code"] for c in raw["codelists"]}:
+        imp = engine.impact_of_codelist(code)
+        assert imp is not None, code
+        assert set(imp["domains"]) == dom_truth.get(code, set()), code
+        assert set(imp["variables"]) == var_truth.get(code, set()), code
+
+
+def test_exhaustive_class_sizes_vs_raw(engine):
+    raw = _raw_meta()
+    truth = defaultdict(int)
+    for d in raw["domains"]:
+        if d["counts_toward_63"]:
+            truth[d["class"]] += 1
+    assert engine.class_sizes() == dict(truth)
