@@ -113,3 +113,14 @@ def test_same_class_and_co_users(engine, store):
     for code, info in co.items():
         assert "AESER" not in info["others"]
         assert set(info["others"]) == set(store.variables_for_codelist(code)) - {"AESER"}
+
+
+# ── Task 4: domain_relations (structural HIGH + curated advisory) ─────────────
+def test_domain_relations(engine, store):
+    rel = engine.domain_relations("AE")
+    assert rel["structural"]["same_class"] == store.same_class("AE")
+    curated = rel["curated"]
+    assert curated == store.relations_curated("AE")  # advisory edges passed through verbatim
+    # every curated edge is tagged LOW-fidelity for the answerer to mark advisory
+    assert all(c.get("fidelity") for c in curated) or all("mechanism" in c for c in curated)
+    assert engine.domain_relations("ZZ") is None
