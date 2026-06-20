@@ -77,6 +77,11 @@ _KIND_WORDS: dict[str, re.Pattern[str]] = {
     "variables": re.compile(r"variables?|变量", re.IGNORECASE),
     # codelist_variables: a codelist is USED BY variables, so same kind-words as variables.
     "codelist_variables": re.compile(r"variables?|变量", re.IGNORECASE),
+    # SP3 impact cardinalities: same kind-words as base kinds (domain/variable counts).
+    "impacted_domains": re.compile(r"domains?|域", re.IGNORECASE),
+    "impacted_variables": re.compile(r"variables?|变量", re.IGNORECASE),
+    # SP3 aggregate: class domain counts.
+    "class_domains": re.compile(r"domains?|域", re.IGNORECASE),
 }
 _KIND_WINDOW: int = 15  # chars on each side of the number to search for a kind-word
 
@@ -85,6 +90,10 @@ _KIND_PLAUSIBLE: dict[str, tuple[int, int]] = {
     "domains": (1, _SDTM_MAX_DOMAINS),
     "variables": (1, _SDTM_MAX_VARIABLES),
     "codelist_variables": (1, _SDTM_MAX_VARIABLES),
+    # SP3 impact/aggregate kinds share the same plausible ranges as their base kinds.
+    "impacted_domains": (1, _SDTM_MAX_DOMAINS),
+    "impacted_variables": (1, _SDTM_MAX_VARIABLES),
+    "class_domains": (1, _SDTM_MAX_DOMAINS),
 }
 
 _CORRECTION_HEADER = "**Authoritative correction (SDTM metadata):**"
@@ -168,6 +177,12 @@ def _correction_line(v: dict) -> str:
         return f"- {subject} contains exactly {n} variables."
     if kind == "codelist_variables":
         return f"- codelist {subject} is used by exactly {n} variables."
+    if kind == "impacted_domains":
+        return f"- Changing {subject} affects exactly {n} SDTM domains."
+    if kind == "impacted_variables":
+        return f"- Changing {subject} affects exactly {n} variables."
+    if kind == "class_domains":
+        return f"- The {subject} class contains exactly {n} domains."
     return f"- {subject} has exactly {n} {kind}."
 
 

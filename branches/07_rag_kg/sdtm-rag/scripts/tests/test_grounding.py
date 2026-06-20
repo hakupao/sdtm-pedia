@@ -543,3 +543,24 @@ def test_correction_wording_codelist_variables():
     )
     # Must NOT use "contains" wording (that's for domain→variable counts)
     assert "contains exactly 50" not in out_answer
+
+
+# ===========================================================================
+# Task 10: impact/aggregate cardinalities from SP3 GraphAnswerer are gated
+# ===========================================================================
+
+
+def test_impact_count_violation_corrected():
+    facts = StructuredFacts(text_block="(facts)",
+                            checkable_counts=[CheckableCount("C66742", "impacted_domains", 41)])
+    out, viol = apply_counting_gate("Changing C66742 affects 12 domains.", facts)
+    assert "Authoritative correction" in out and "41" in out
+    assert viol and viol[0]["subject"] == "C66742" and viol[0]["expected"] == 41
+
+
+def test_advisory_relations_not_gated():
+    # advisory content carries no checkable_counts -> gate is a no-op
+    facts = StructuredFacts(text_block="(facts)", checkable_counts=[],
+                            advisory_block="- AE → CM via RELREC")
+    out, viol = apply_counting_gate("AE relates to many domains.", facts)
+    assert out == "AE relates to many domains." and viol == []
