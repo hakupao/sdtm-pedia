@@ -83,6 +83,11 @@ def test_must_not_fire_sp2_query(ga):
     assert ga.resolve("Which domains use VISITNUM?") is None
 
 
+def test_must_not_fire_min_domains_without_domain_context(ga):
+    # "more than" + "variable" + number but NO "domain" → no min-domains injection
+    assert ga.resolve("How many variables are in more than 5 records?") is None
+
+
 def test_must_not_fire_class_roster(ga):
     # class-roster questions removed from NL surface (class names = common words, fragile)
     assert ga.resolve("how many domains are in the Events class?") is None

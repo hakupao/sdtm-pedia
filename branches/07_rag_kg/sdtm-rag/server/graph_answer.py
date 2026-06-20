@@ -134,7 +134,7 @@ class GraphAnswerer:
 
         if "aggregate" in intents:
             m = re.search(r"\b(\d{1,3})\b", query)
-            if m and ("variable" in query.lower()):
+            if m and ("variable" in query.lower()) and ("domain" in query.lower()):
                 n = int(m.group(1))
                 res = self.engine.variables_in_min_domains(n)
                 if res:
