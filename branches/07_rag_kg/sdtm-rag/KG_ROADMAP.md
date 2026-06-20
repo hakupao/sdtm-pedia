@@ -54,8 +54,9 @@
 - **三门**: 程序门 (引擎 vs raw meta.yaml 穷举对账 + 140q 零污染 0/140 composite path + 盲写 10 题基数对账 + 414 passed + mypy/ruff) + Rule D 三轮异 type APPROVE + Rule A N=8 PASS (独立 scientist vs meta.yaml+KB)。
 - 注意 (来自 SP1 reviewer, 仍 defer): `relations_curated.mechanism: null` = 「散文未声明」非「无机制」; target 本身是 RELREC/RELSPEC/RELSUB 时机制结构上确定, 可做确定性 back-fill (非臆造)。
 
-## 下一步 — SP4 / SP5 (均可选)
+## 下一步 — 先验价值, 再决定 SP4/SP5
 
+- **推荐先做 (路由词「KG 价值 eval 开始任务」→ `KG_VALUE_EVAL_KICKOFF.md`)**: SP3 三门是**确定性**的 (引擎 vs meta.yaml + 140q 零污染), **没测过端到端 LLM 答案是否真变好**。先 OFF-vs-ON 真模型+judge 跑盲写图能力题集, 证 KG 价值证实/证伪 — **结果决定 SP4/SP5 值不值得投** (便宜, ~一个 session)。
 - **SP4 (可选)** Neo4j + Cypher + 可视化图浏览器 / 临时探索界面 (DESIGN §5.4/§5.5)。
 - **SP5 (可选)** 图增强校验器: impact / 跨域完整性 / CT 级联一致性 接进 Validator (DESIGN §5.6)。
 - **可选小补 (SP4 或独立)**: codelist_co_users NL 接入 (Q2 选过, 干净可加) / mechanism:null back-fill / 更广 relationship-aggregate NL 覆盖 / SP2 同源 degenerate 0-impact codelist 修。
