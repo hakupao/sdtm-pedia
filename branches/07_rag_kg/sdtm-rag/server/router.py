@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import asyncio
+import datetime
 import json
 import time
 from typing import Literal
@@ -296,6 +297,50 @@ async def ask_stream(body: AskStreamRequest, request: Request):
         gen(), media_type="text/event-stream",
         headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"},
     )
+
+
+# ── Dogfood failure capture (⚑ in chat UI -> append to backlog file) ──
+
+
+class FlagRequest(BaseModel):
+    question: str = Field("", max_length=10000)
+    answer: str = Field("", max_length=50000)
+    note: str = Field("", max_length=2000)
+    model: str | None = Field(None, max_length=120)
+
+
+@api_router.post("/flag")
+def flag(body: FlagRequest, request: Request):
+    """Append a flagged Q/A + note to the dogfood backlog (settings.dogfood_log_path).
+    Single-user localhost tool: turns weak answers into a durable, prioritisable list
+    instead of forgotten frustration. The file is a personal local log (not rendered to
+    other users), so raw markdown in the fields is acceptable; the answer is wrapped in a
+    <details> block so it can't bleed into the heading structure."""
+    s = request.app.state.settings
+    path = s.dogfood_log_path
+    ts = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
+    note = body.note.strip() or "(no note)"
+    entry = (
+        f"\n## {ts}" + (f" · {body.model}" if body.model else "") + "\n\n"
+        f"**Q:** {body.question.strip()}\n\n"
+        f"**Note:** {note}\n\n"
+        f"<details><summary>answer</summary>\n\n{body.answer.strip()}\n\n</details>\n\n---\n"
+    )
+    try:
+        new = not path.exists()
+        with path.open("a", encoding="utf-8") as f:
+            if new:
+                f.write(
+                    "# Dogfood failure log\n\n"
+                    "> chat UI 里 ⚑ 标记的答错/答弱例 + 期望, 作优先级 backlog "
+                    "(append-only, 规则 B 失败不删)。\n"
+                )
+            f.write(entry)
+    except OSError as e:
+        log.error("flag_write_failed", error=str(e), path=str(path))
+        raise HTTPException(status_code=500, detail="Could not write the flag log.") from e
+    log.info("flag", question=body.question[:100], note=note[:120], path=str(path))
+    return {"ok": True}
 
 
 # ── Multi-model compare + judge (Phase 2; DEPLOY_PLAN §2.5) ───────────

@@ -193,6 +193,7 @@ class Settings(BaseSettings):
     # Empty (default) = use the repo-relative paths below (dev / current localhost).
     kb_root_override: str = ""
     chroma_dir_override: str = ""
+    dogfood_log_override: str = ""
 
     model_config = {"env_prefix": "SDTM_RAG_", "extra": "ignore"}
 
@@ -207,6 +208,15 @@ class Settings(BaseSettings):
     @property
     def meta_path(self) -> Path:
         return _SDTM_RAG_ROOT / "data" / "meta" / "meta.yaml"
+
+    @property
+    def dogfood_log_path(self) -> Path:
+        # Append-only backlog of chat answers flagged as wrong/weak (⚑ in the chat UI).
+        return (
+            Path(self.dogfood_log_override)
+            if self.dogfood_log_override
+            else _SDTM_RAG_ROOT / "dogfood_failures.md"
+        )
 
 
 settings = Settings()

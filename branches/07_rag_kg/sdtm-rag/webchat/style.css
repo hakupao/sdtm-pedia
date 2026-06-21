@@ -35,3 +35,14 @@ html, body { margin: 0; height: 100%; font-family: -apple-system, "Segoe UI", "P
 #send.stop:hover { background: #c8442f; }
 .retry { margin: 4px auto 0; display: block; max-width: 760px; padding: 4px 12px; border: 1px solid #d0d0d0; border-radius: 8px; background: #fff; color: #444; cursor: pointer; font-size: 13px; }
 .retry:hover { background: #ececf1; }
+/* ⚑ dogfood failure capture */
+.msg-actions { max-width: 760px; margin: -10px auto 16px; padding: 0 20px 0 52px; }
+.flag-btn { border: none; background: none; color: #aaa; cursor: pointer; font-size: 12px; padding: 2px 4px; }
+.flag-btn:hover { color: #e0533d; }
+.flag-btn.done { color: #19c37d; cursor: default; }
+.flag-box { display: flex; gap: 6px; align-items: flex-start; margin-top: 4px; }
+.flag-box textarea { flex: 1; resize: vertical; min-height: 38px; padding: 6px 8px; border: 1px solid #d0d0d0; border-radius: 8px; font-size: 13px; font-family: inherit; }
+.flag-send, .flag-cancel { padding: 4px 12px; border: 1px solid #d0d0d0; border-radius: 8px; background: #fff; color: #444; cursor: pointer; font-size: 13px; }
+.flag-send { background: #19c37d; color: #fff; border-color: #19c37d; }
+.flag-send:disabled { background: #b8b8b8; border-color: #b8b8b8; cursor: default; }
+.flag-cancel:hover { background: #ececf1; }

@@ -1,0 +1,21 @@
+- generic [ref=e2]:
+  - complementary [ref=e3]:
+    - button "+ 新对话" [ref=e4] [cursor=pointer]
+    - list [ref=e5]:
+      - listitem [ref=e6] [cursor=pointer]:
+        - generic [ref=e7]: flag test
+        - button "✕" [ref=e8]
+  - main [ref=e9]:
+    - generic [ref=e10]: SDTM 知识库助手 · deepseek-v4-pro
+    - generic [ref=e11]:
+      - generic [ref=e13]:
+        - generic [ref=e14]: 你
+        - generic [ref=e15]: Which domains use codelist C99079?
+      - generic [ref=e16]:
+        - generic [ref=e17]:
+          - generic [ref=e18]: AI
+          - paragraph [ref=e20]: It appears in 44 domains.
+        - button "⚑ 标记" [ref=e22] [cursor=pointer]
+    - generic [ref=e23]:
+      - textbox "问点关于 SDTM 的……（Enter 发送，Shift+Enter 换行）" [ref=e24]
+      - button "发送" [ref=e25] [cursor=pointer]

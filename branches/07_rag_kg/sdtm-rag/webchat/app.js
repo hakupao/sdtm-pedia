@@ -81,8 +81,12 @@ function renderMessages() {
   box.innerHTML = "";
   const c = store.conversations.find((x) => x.id === store.currentId);
   if (!c) return;
+  let lastUserQ = "";
   for (const m of c.messages) {
-    box.appendChild(messageEl(m.role, m.content, m.sources));
+    const el = messageEl(m.role, m.content, m.sources);
+    if (m.role === "user") lastUserQ = m.content;
+    else if (m.role === "assistant") attachFlag(el, lastUserQ, m);
+    box.appendChild(el);
   }
   box.scrollTop = box.scrollHeight;
 }
@@ -121,6 +125,61 @@ function sourcesEl(sources) {
     d.appendChild(div);
   }
   return d;
+}
+
+// ── 失败捕获 (⚑ 标记答错/答弱 → POST /api/flag → dogfood_failures.md) ──
+function attachFlag(wrap, question, msgObj) {
+  const bar = document.createElement("div");
+  bar.className = "msg-actions";
+  const btn = document.createElement("button");
+  btn.className = "flag-btn";
+  if (msgObj && msgObj.flagged) {
+    btn.textContent = "✓ 已记录"; btn.disabled = true; btn.classList.add("done");
+  } else {
+    btn.textContent = "⚑ 标记"; btn.onclick = () => openFlag(bar, btn, question, msgObj);
+  }
+  bar.appendChild(btn);
+  wrap.appendChild(bar);
+}
+
+function openFlag(bar, btn, question, msgObj) {
+  if (bar.querySelector(".flag-box")) return; // already open
+  btn.style.display = "none";
+  const box = document.createElement("div");
+  box.className = "flag-box";
+  const ta = document.createElement("textarea");
+  ta.placeholder = "哪里答错/答弱? 期望是什么? (可留空)"; ta.rows = 2;
+  const send = document.createElement("button"); send.textContent = "记录"; send.className = "flag-send";
+  const cancel = document.createElement("button"); cancel.textContent = "取消"; cancel.className = "flag-cancel";
+  cancel.onclick = () => { box.remove(); btn.style.display = ""; };
+  send.onclick = async () => {
+    send.disabled = true; cancel.disabled = true; send.textContent = "...";
+    const ok = await postFlag(question, msgObj ? msgObj.content : "", ta.value);
+    if (ok) {
+      if (msgObj) { msgObj.flagged = true; save(); }
+      box.remove();
+      btn.textContent = "✓ 已记录"; btn.disabled = true; btn.classList.add("done"); btn.style.display = "";
+    } else {
+      send.disabled = false; cancel.disabled = false; send.textContent = "记录";
+      if (!box.querySelector(".err")) {
+        const e = document.createElement("span"); e.className = "err"; e.textContent = " 记录失败"; box.appendChild(e);
+      }
+    }
+  };
+  box.append(ta, send, cancel);
+  bar.appendChild(box);
+  ta.focus();
+}
+
+async function postFlag(question, answer, note) {
+  const model = ($("topbar").textContent.split("·").pop() || "").trim() || null;
+  try {
+    const r = await fetch("/api/flag", {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ question, answer, note, model }),
+    });
+    return r.ok;
+  } catch (_) { return false; }
 }
 
 // ── SSE 流式 ──
@@ -233,11 +292,13 @@ async function runGeneration(c) {
   let acc = "";
   let gotSources = null;
   let saved = false;
+  let savedMsg = null;
   const renderFinal = (content) => { bubble.innerHTML = mdToSafeHTML(content); highlightIn(bubble); };
   const persist = (content) => {
     if (saved) return;
     saved = true;
-    c.messages.push({ role: "assistant", content, sources: gotSources || [] });
+    savedMsg = { role: "assistant", content, sources: gotSources || [] };
+    c.messages.push(savedMsg);
     save(); renderSidebar();
   };
   const appendErr = (msg) => {
@@ -269,6 +330,8 @@ async function runGeneration(c) {
     });
   } finally {
     busy = false; setSending(false); currentAbort = null;
+    // attach the ⚑ flag affordance once the answer is final + persisted (skip if nothing saved)
+    if (savedMsg) attachFlag(holder, text, savedMsg);
   }
 }
 
