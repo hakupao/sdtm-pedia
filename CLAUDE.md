@@ -84,7 +84,7 @@ Full chain definitions are in `.work/MANIFEST.md`.
 | Phase 7 答题侧护栏 (DONE) | `branches/07_rag_kg/sdtm-rag/evidence/checkpoints/guardrail_v2_summary.md`; 确定性码闸 `eval/prod_wirein/check_code_grounding.py` |
 | Phase 7 本地部署+多模型对比 规划 | `branches/07_rag_kg/sdtm-rag/DEPLOY_PLAN.md` — launchd 部署 + 对比/裁判 (§3 阶段3 工程件 DONE+审; go-live 待 IT) |
 | Phase 7 阶段3 共享 (工程件+go-live runbook) | `branches/07_rag_kg/sdtm-rag/deploy/` (deploy.sh + 0.0.0.0 plist 模板 + README runbook); 登录门 `server/auth.py`; 证据 `evidence/checkpoints/phase3_share_hardening.md` |
-| Phase 7 Chat UI (单模型流式前端) | `branches/07_rag_kg/sdtm-rag/webchat/` + `PLAN_chat_ui.md`; prod localhost:8000 (launchd) |
+| Phase 7 Chat UI (单模型流式前端) | `branches/07_rag_kg/sdtm-rag/webchat/` + `PLAN_chat_ui.md`; prod localhost:8000 (launchd); ⚑ dogfood 失败捕获 (`POST /api/flag` → `dogfood_failures.md`, 优先级 backlog) |
 | Phase 7 KG 重启 (SP1-3 DONE; 价值 eval: SP2 是价值/SP3≈0) | `branches/07_rag_kg/sdtm-rag/KG_ROADMAP.md` (SP1-3 全 done 默认 ON; **价值 eval 2026-06-21: SP4/SP5 不靠精度证明, 仅产品 UX 才值** → `evidence/checkpoints/kg_value_eval.md`) |
 
 ## AI 平台多平台部署 (CLOSED 冻结 2026-06-15)

@@ -1,0 +1,15 @@
+- generic [ref=e2]:
+  - complementary [ref=e3]:
+    - button "+ 新对话" [ref=e4] [cursor=pointer]
+    - list [ref=e5]:
+      - listitem [ref=e6] [cursor=pointer]:
+        - generic [ref=e7]: world
+        - button "✕" [ref=e8]
+  - main [ref=e9]:
+    - generic [ref=e10]: SDTM 知识库助手 · DeepSeek V4 Pro
+    - generic [ref=e13]:
+      - generic [ref=e14]: 你
+      - generic [ref=e15]: world
+    - generic [ref=e16]:
+      - textbox "问点关于 SDTM 的……（Enter 发送，Shift+Enter 换行）" [ref=e17]
+      - button "发送" [ref=e18] [cursor=pointer]
