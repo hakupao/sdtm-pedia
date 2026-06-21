@@ -1,0 +1,12 @@
+[
+  {"ref":"rl01","question":"Which other SDTM domains fall under the same observation class as the Biospecimen Events (BE) domain?"},
+  {"ref":"rl02","question":"What domains does the Microbiology Specimen (MB) domain typically have relationships or links with in an SDTM submission?"},
+  {"ref":"rl03","question":"Which other SDTM domains share the same observation class as the Findings About Events or Interventions (FA) domain?"},
+  {"ref":"rl04","question":"In SDTM, which other domains are related to the Exposure as Collected (EC) domain, and which ones belong to the same observation class as it?"},
+  {"ref":"rl05","question":"What domains does the Related Records (RELREC) domain connect to or interact with across an SDTM dataset?"},
+  {"ref":"rl06","question":"Which other SDTM domains is the Comments (CO) domain associated with or linked to?"},
+  {"ref":"rl07","question":"What other SDTM domains is the Trial Arms (TA) domain related to, for example through its trial design class or noted cross-references?"},
+  {"ref":"rl08","question":"Which other domains belong to the same observation class as the Disposition (DS) domain in SDTM?"},
+  {"ref":"rl09","question":"What other SDTM domains share an observation class with the Microbiology Susceptibility (MS) domain, and which ones does it have relationships with?"},
+  {"ref":"rl10","question":"Which other SDTM domains are in the same observation class as the Skin Response (SR) domain?"}
+]

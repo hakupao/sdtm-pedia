@@ -3,7 +3,8 @@
 > 2026-06-17 · **SP1 (meta.yaml 元数据层) DONE ✅** (brainstorm→spec→plan→9 Task TDD→Rule A/D 全过)。
 > 2026-06-20 · **SP2 DONE ✅** — Phase 1 (答题通道, 默认 ON) + **Phase 2 (退役正则影子 KG) DONE** (structured_lookup 索引改读 meta.yaml; 严格行为等价 9891+4177 查询 0 divergence; Rule D APPROVE)。详见下方「SP2 Phase 1/2 DONE」段。
 > 2026-06-20 · **SP3 (关系/影响查询) DONE ✅ 默认 ON** — 内存图引擎 (`GraphEngine` + 可换 `GraphBackend`) + NL 图答题 (`GraphAnswerer` 经 `CompositeAnswerer` 并入 SP2 通道)。能力: 影响/级联 · 跨域聚合 (variables_in_min_domains + most_shared) · 结构 (same_class via relationship) · 域间关系发现 (advisory)。**140q 零污染 0/140 (composite ON==OFF byte-identical)**, Rule D 三轮 APPROVE, Rule A N=8 PASS。详见下方「SP3 DONE」段。
-> 用户决策: **SP1-5 全做**, 按依赖顺序逐个 (每个子项目走 设计→spec→plan→实现 循环)。**SP1-3 全 DONE; SP4/SP5 均可选。**
+> 2026-06-21 · **KG 价值 eval DONE ✅ — verdict: SP2 是 KG 价值, SP3 图层端到端≈0** (3-臂 × 3 模型, ΔSP2 +14~16pp 三模型一致 / ΔSP3≈0; SP3 唯一正向=aggregate 聚合但 NL 仅 45% 触发 + impact 与 SP2 byte-identical 冗余; Rule A ACCEPT-WITH-RESERVATIONS)。**结论: SP4/SP5 不靠答案质量证明** — 仅当要交互式图浏览 UX 才值。证据 `evidence/checkpoints/kg_value_eval.md` + `evidence/RETROSPECTIVE_kgval.md`。详见下方「KG 价值 eval DONE」段。
+> 用户决策: **SP1-5 全做**, 按依赖顺序逐个 (每个子项目走 设计→spec→plan→实现 循环)。**SP1-3 全 DONE; SP4/SP5 均可选 (价值 eval 后: 仅产品 UX 理由, 非精度)。**
 > 恢复方式: 新 session 说 **「KG 重启 开始任务」** → 读本文件 + memory `project_kg_decision` → 接 **SP4 (可选 Neo4j+Cypher+可视化) 或 SP5 (可选 图增强校验器)** = 新设计单元, 必须先 re-invoke `superpowers:brainstorming` (均可选; 若不要可视化/校验器则 KG 主线已收口)。
 > ⚠️ **HARD-GATE (每个新设计单元)**: 先把设计问完 + 出 spec + 用户批准, 再 `writing-plans`/写码。**别跳过设计直接实现**。(SP4/SP5 是新单元, 必须走 brainstorm。)
 
@@ -54,9 +55,18 @@
 - **三门**: 程序门 (引擎 vs raw meta.yaml 穷举对账 + 140q 零污染 0/140 composite path + 盲写 10 题基数对账 + 414 passed + mypy/ruff) + Rule D 三轮异 type APPROVE + Rule A N=8 PASS (独立 scientist vs meta.yaml+KB)。
 - 注意 (来自 SP1 reviewer, 仍 defer): `relations_curated.mechanism: null` = 「散文未声明」非「无机制」; target 本身是 RELREC/RELSPEC/RELSUB 时机制结构上确定, 可做确定性 back-fill (非臆造)。
 
-## 下一步 — 先验价值, 再决定 SP4/SP5
+## KG 价值 eval DONE (2026-06-21) — verdict 与证据
 
-- **推荐先做 (路由词「KG 价值 eval 开始任务」→ `KG_VALUE_EVAL_KICKOFF.md`)**: SP3 三门是**确定性**的 (引擎 vs meta.yaml + 140q 零污染), **没测过端到端 LLM 答案是否真变好**。先 OFF-vs-ON 真模型+judge 跑盲写图能力题集, 证 KG 价值证实/证伪 — **结果决定 SP4/SP5 值不值得投** (便宜, ~一个 session)。
+- **路由词「KG 价值 eval 开始任务」已执行完毕** (`KG_VALUE_EVAL_KICKOFF.md` 立项 → `KG_VALUE_EVAL_PLAN.md` 执行)。
+- **设计**: 3-臂 (arm0 检索 / arm1 +SP2 / arm2 +SP2+SP3=生产) × 3 模型 (ds deepseek-chat / gpt4o / gpt54 真前沿); 40 盲写题 4 family; gold meta.yaml 程序导 + 独立 reconcile (raw-yaml 40/40) + 独立 reviewer (Rule D); 指标 = 确定性 set_recall (主) + cardinality + judge (佐证); **fire-rate 仪表**。
+- **verdict**: **KG 通道整体大赢 (judge +14~16pp) 但价值几乎全来自 SP2** (计数/穷举/CT, 三模型一致); **SP3 图层端到端 ΔSP3≈0** (set_recall +2~4pp)。SP3 唯一正向=**aggregate 聚合** (+11~17pp, SP2 不做) + 6 题 SP3-unique; 被稀释到 0 因: NL **仅 45% 触发** + impact 上与 SP2 **byte-identical 冗余** + relationship ΔSP3=0。
+- **Rule A 对抗审计**: ACCEPT-WITH-RESERVATIONS; **推翻初版「relationship 注入反伤」误判** (实为 rl05 SP3 未触发的解码变异) + 抓 judge iv01 对纯基数答案判松 (set_recall 免疫)。
+- **对 SP4/SP5 的含义**: **不靠答案质量证明继续投资**。SP4 (Neo4j/可视化) / SP5 (图校验器) **仅当要交互式图浏览 UX 作产品功能才值** — 非精度决策。榨取 SP3 已有价值性价比最高的是: ① 拓宽 SP3 NL 触发面 (45%→更高, 当前最大瓶颈) ② 把 aggregate 聚合并入 SP2。
+- 证据: `evidence/checkpoints/kg_value_eval.md` + `evidence/RETROSPECTIVE_kgval.md` + `evidence/failures/kgval_gpt54_arm2_quota.md`; 资产 `eval/{gen_kgval_goldset,reconcile_kgval_gold,assemble_kgval_testset}.py` + `eval/test_set_kg_value.yml` + `eval/prod_wirein/{kgval_fire_probe,analyze_kgval}.py`。
+
+## 下一步 — SP4/SP5 仅产品 UX 理由 (非精度)
+
+- **价值 eval 后**: SP3 图能力端到端不改善答案质量 → SP4/SP5 只在用户明确要「交互式图浏览 / 图增强校验工具」时才上, 必须先 `superpowers:brainstorming`。
 - **SP4 (可选)** Neo4j + Cypher + 可视化图浏览器 / 临时探索界面 (DESIGN §5.4/§5.5)。
 - **SP5 (可选)** 图增强校验器: impact / 跨域完整性 / CT 级联一致性 接进 Validator (DESIGN §5.6)。
 - **可选小补 (SP4 或独立)**: codelist_co_users NL 接入 (Q2 选过, 干净可加) / mechanism:null back-fill / 更广 relationship-aggregate NL 覆盖 / SP2 同源 degenerate 0-impact codelist 修。

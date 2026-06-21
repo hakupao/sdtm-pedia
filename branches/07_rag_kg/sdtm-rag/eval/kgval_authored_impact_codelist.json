@@ -1,0 +1,12 @@
+[
+  {"ref":"ic01","question":"If the Epoch codelist (C99079) gets revised in an upcoming CDISC release, which SDTM domains and variables would be affected by that change?"},
+  {"ref":"ic02","question":"We're anticipating an update to the Anatomical Location codelist (C74456). Which SDTM domains and variables draw their values from it and would therefore need to be reviewed?"},
+  {"ref":"ic03","question":"Which variables across the SDTM domains reference the Laterality codelist (C99073), so that I can scope the impact if it's modified?"},
+  {"ref":"ic04","question":"Suppose the Specimen Type codelist (C78734) is updated. What downstream SDTM domains and variables would be impacted by that revision?"},
+  {"ref":"ic05","question":"If a new term is added to the Route of Administration Response codelist (C66729), which SDTM variables and domains would I need to check for impact?"},
+  {"ref":"ic06","question":"Which SDTM domains and variables are controlled by the Position codelist (C71148) and would be affected if that codelist were revised?"},
+  {"ref":"ic07","question":"I need to assess the blast radius of a change to the Genetic Sample Type codelist (C111114). Which SDTM domains and variables use it?"},
+  {"ref":"ic08","question":"If the SDTM Domain Abbreviation codelist (C66734) is updated, what SDTM variables and domains would be impacted downstream?"},
+  {"ref":"ic09","question":"When the Result Type Response codelist (C179588) is revised, which SDTM domains and variables that rely on it would need to be reassessed?"},
+  {"ref":"ic10","question":"Which SDTM domains and variables reference the PK Units of Measure codelist (C85494), so I can understand what's affected if it changes?"}
+]

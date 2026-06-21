@@ -1,0 +1,257 @@
+=== ARM0 (retrieval) gpt54 ===
+Loaded 40 questions from eval/test_set_kg_value.yml
+RAG engine: 4146 chunks, model=deepseek/deepseek-v4-pro, top_k=15, structured_lookup=ON, hybrid=rrf
+LLM mode: direct litellm, model=openai/gpt-5.4
+
+Judge mode: ON, judge_model=deepseek/deepseek-chat (temp=0)
+[ic01] If the Epoch codelist (C99079) gets revised in an upcoming C... [FULL] src=100% fact=61% judge=9% 9.0s
+[ic02] We're anticipating an update to the Anatomical Location code... [FULL] src=100% fact=63% judge=16% 6.4s
+[ic03] Which variables across the SDTM domains reference the Latera... [FULL] src=100% fact=59% judge=18% 7.4s
+[ic04] Suppose the Specimen Type codelist (C78734) is updated. What... [FULL] src=100% fact=82% judge=18% 10.2s
+[ic05] If a new term is added to the Route of Administration Respon... [FULL] src=100% fact=100% judge=100% 5.5s
+[ic06] Which SDTM domains and variables are controlled by the Posit... [FULL] src=100% fact=50% judge=0% 5.9s
+[ic07] I need to assess the blast radius of a change to the Genetic... [FULL] src=100% fact=100% judge=100% 4.6s
+[ic08] If the SDTM Domain Abbreviation codelist (C66734) is updated... [FULL] src=100% fact=100% judge=100% 13.1s
+[ic09] When the Result Type Response codelist (C179588) is revised,... [FULL] src=100% fact=0% judge=0% 7.5s
+[ic10] Which SDTM domains and variables reference the PK Units of M... [FULL] src=100% fact=100% judge=100% 5.7s
+[iv01] Across the SDTM model, in how many domains does the VISIT (V... [FULL] src=100% fact=56% judge=22% 5.9s
+[iv02] If we changed the definition of VISITNUM (Visit Number), whi... [FULL] src=100% fact=56% judge=22% 8.2s
+[iv03] Which SDTM domains include the SPDEVID (Sponsor Device Ident... [FULL] src=100% fact=100% judge=100% 4.8s
+[iv04] In how many SDTM domains is the NHOID (Non-Host Organism Ide... [FULL] src=100% fact=100% judge=100% 3.4s
+[iv05] What is the cross-domain footprint of the ARM (Description o... [FULL] src=100% fact=100% judge=100% 4.0s
+[iv06] If the ARMCD (Planned Arm Code) variable were revised, how m... [FULL] src=0% fact=100% judge=100% 4.1s
+[iv07] Which SDTM domains is the ELEMENT (Description of Element) v... [FULL] src=100% fact=100% judge=100% 4.3s
+[iv08] How many SDTM domains does the ETCD (Element Code) variable ... [FULL] src=100% fact=100% judge=100% 3.4s
+[iv09] In which SDTM domains can I find the FOCID (Focus of Study-S... [FULL] src=100% fact=100% judge=100% 5.5s
+[iv10] If a change were made to the IDVAR (Identifying Variable) va... [FULL] src=100% fact=100% judge=100% 5.1s
+[ag01] Which SDTM variables are used across 3 or more different dom... [FULL] src=0% fact=33% judge=33% 7.2s
+[ag02] Can you list the SDTM variables that appear in at least 4 se... [FULL] src=0% fact=60% judge=60% 11.3s
+[ag03] Which variables show up in 5 or more domains throughout the ... [FULL] src=0% fact=67% judge=67% 9.0s
+[ag04] I'm looking for the SDTM variables that are reused across 10... [FULL] src=0% fact=75% judge=75% 14.8s
+[ag05] Which SDTM variables are so common that they appear in 40+ d... [FULL] src=0% fact=60% judge=60% 7.9s
+[ms01] Across all of SDTM, which controlled terminology codelist is... [FULL] src=0% fact=100% judge=100% 8.3s
+[ms02] Which single codelist is referenced by the greatest number o... [FULL] src=0% fact=0% judge=0% 5.2s
+[ms03] What is the most widely shared codelist across SDTM domains?... [FULL] src=0% fact=0% judge=0% 4.4s
+[ms04] What are the three most frequently reused controlled termino... [FULL] src=0% fact=0% judge=0% 6.0s
+[ms05] Could you name several of the most commonly shared codelists... [FULL] src=0% fact=0% judge=0% 6.2s
+[rl01] Which other SDTM domains fall under the same observation cla... [FULL] src=100% fact=100% judge=86% 3.0s
+[rl02] What domains does the Microbiology Specimen (MB) domain typi... [FULL] src=100% fact=43% judge=13% 5.4s
+[rl03] Which other SDTM domains share the same observation class as... [FULL] src=100% fact=50% judge=12% 3.2s
+[rl04] In SDTM, which other domains are related to the Exposure as ... [FULL] src=100% fact=100% judge=100% 4.8s
+[rl05] What domains does the Related Records (RELREC) domain connec... [FULL] src=100% fact=100% judge=100% 8.4s
+[rl06] Which other SDTM domains is the Comments (CO) domain associa... [FULL] src=100% fact=50% judge=25% 6.4s
+[rl07] What other SDTM domains is the Trial Arms (TA) domain relate... [FULL] src=100% fact=100% judge=100% 3.8s
+[rl08] Which other domains belong to the same observation class as ... [FULL] src=100% fact=86% judge=86% 2.9s
+[rl09] What other SDTM domains share an observation class with the ... [FULL] src=100% fact=100% judge=100% 4.3s
+[rl10] Which other SDTM domains are in the same observation class a... [FULL] src=100% fact=50% judge=25% 3.5s
+
+============================================================
+EVAL SUMMARY
+============================================================
+Questions: 40
+Model:     openai/gpt-5.4
+Threshold: 85%
+Source recall (avg): 72.5%
+  aggregate: 0.0% (10 q)
+  impact_codelist: 100.0% (10 q)
+  impact_variable: 90.0% (10 q)
+  relationship: 100.0% (10 q)
+Fact recall (substring, avg): 70.0%
+Total tokens used:   603,960
+  aggregate: 39.5%
+  impact_codelist: 71.5%
+  impact_variable: 91.1%
+  relationship: 77.9%
+
+Fact recall (judge/semantic, avg): 58.7%
+  aggregate: 39.5%
+  impact_codelist: 46.1%
+  impact_variable: 84.4%
+  relationship: 64.7%
+
+Overall (src + judge fact, avg): 65.6%
+Threshold: 85%  ->  FAIL
+
+Questions with source misses (11):
+  iv06: src=0% miss=['VARIABLE_INDEX.md']
+  ag01: src=0% miss=['VARIABLE_INDEX.md']
+  ag02: src=0% miss=['VARIABLE_INDEX.md']
+  ag03: src=0% miss=['VARIABLE_INDEX.md']
+  ag04: src=0% miss=['VARIABLE_INDEX.md']
+  ag05: src=0% miss=['VARIABLE_INDEX.md']
+  ms01: src=0% miss=['VARIABLE_INDEX.md']
+  ms02: src=0% miss=['VARIABLE_INDEX.md']
+  ms03: src=0% miss=['VARIABLE_INDEX.md']
+  ms04: src=0% miss=['VARIABLE_INDEX.md']
+  ms05: src=0% miss=['VARIABLE_INDEX.md']
+
+Results saved to eval/prod_wirein/kgval_arm0_gpt54.json
+=== ARM1 (+SP2) gpt54 ===
+Loaded 40 questions from eval/test_set_kg_value.yml
+RAG engine: 4146 chunks, model=deepseek/deepseek-v4-pro, top_k=15, structured_lookup=ON, hybrid=rrf
+LLM mode: direct litellm, model=openai/gpt-5.4
+Structured-answer channel: ON (meta.yaml facts + counting gate)
+
+Judge mode: ON, judge_model=deepseek/deepseek-chat (temp=0)
+[ic01] If the Epoch codelist (C99079) gets revised in an upcoming C... [FULL] src=100% fact=100% judge=100% 6.2s
+[ic02] We're anticipating an update to the Anatomical Location code... [FULL] src=100% fact=100% judge=100% 5.7s
+[ic03] Which variables across the SDTM domains reference the Latera... [FULL] src=100% fact=100% judge=100% 4.5s
+[ic04] Suppose the Specimen Type codelist (C78734) is updated. What... [FULL] src=100% fact=100% judge=100% 6.2s
+[ic05] If a new term is added to the Route of Administration Respon... [FULL] src=100% fact=100% judge=100% 4.7s
+[ic06] Which SDTM domains and variables are controlled by the Posit... [FULL] src=100% fact=100% judge=100% 4.1s
+[ic07] I need to assess the blast radius of a change to the Genetic... [FULL] src=100% fact=100% judge=100% 4.1s
+[ic08] If the SDTM Domain Abbreviation codelist (C66734) is updated... [FULL] src=100% fact=100% judge=100% 6.8s
+[ic09] When the Result Type Response codelist (C179588) is revised,... [FULL] src=100% fact=100% judge=100% 3.6s
+[ic10] Which SDTM domains and variables reference the PK Units of M... [FULL] src=100% fact=100% judge=100% 6.0s
+[iv01] Across the SDTM model, in how many domains does the VISIT (V... [FULL] src=100% fact=100% judge=100% 3.5s
+[iv02] If we changed the definition of VISITNUM (Visit Number), whi... [FULL] src=100% fact=100% judge=100% 5.9s
+[iv03] Which SDTM domains include the SPDEVID (Sponsor Device Ident... [FULL] src=100% fact=100% judge=100% 4.7s
+[iv04] In how many SDTM domains is the NHOID (Non-Host Organism Ide... [FULL] src=100% fact=100% judge=100% 3.3s
+[iv05] What is the cross-domain footprint of the ARM (Description o... [FULL] src=100% fact=100% judge=100% 3.7s
+[iv06] If the ARMCD (Planned Arm Code) variable were revised, how m... [FULL] src=0% fact=100% judge=100% 3.5s
+[iv07] Which SDTM domains is the ELEMENT (Description of Element) v... [FULL] src=100% fact=100% judge=100% 4.1s
+[iv08] How many SDTM domains does the ETCD (Element Code) variable ... [FULL] src=100% fact=100% judge=100% 2.7s
+[iv09] In which SDTM domains can I find the FOCID (Focus of Study-S... [FULL] src=100% fact=100% judge=100% 6.8s
+[iv10] If a change were made to the IDVAR (Identifying Variable) va... [FULL] src=100% fact=100% judge=100% 4.4s
+[ag01] Which SDTM variables are used across 3 or more different dom... [FULL] src=0% fact=39% judge=28% 10.4s
+[ag02] Can you list the SDTM variables that appear in at least 4 se... [FULL] src=0% fact=60% judge=60% 7.5s
+[ag03] Which variables show up in 5 or more domains throughout the ... [FULL] src=0% fact=67% judge=67% 10.7s
+[ag04] I'm looking for the SDTM variables that are reused across 10... [FULL] src=0% fact=38% judge=38% 10.1s
+[ag05] Which SDTM variables are so common that they appear in 40+ d... [FULL] src=0% fact=60% judge=60% 7.6s
+[ms01] Across all of SDTM, which controlled terminology codelist is... [FULL] src=0% fact=100% judge=0% 6.0s
+[ms02] Which single codelist is referenced by the greatest number o... [FULL] src=0% fact=0% judge=0% 5.1s
+[ms03] What is the most widely shared codelist across SDTM domains?... [FULL] src=0% fact=0% judge=0% 5.7s
+[ms04] What are the three most frequently reused controlled termino... [FULL] src=0% fact=0% judge=0% 4.8s
+[ms05] Could you name several of the most commonly shared codelists... [FULL] src=0% fact=0% judge=0% 6.5s
+[rl01] Which other SDTM domains fall under the same observation cla... [FULL] src=100% fact=100% judge=86% 3.0s
+[rl02] What domains does the Microbiology Specimen (MB) domain typi... [FULL] src=100% fact=50% judge=13% 6.9s
+[rl03] Which other SDTM domains share the same observation class as... [FULL] src=100% fact=38% judge=12% 2.9s
+[rl04] In SDTM, which other domains are related to the Exposure as ... [FULL] src=100% fact=100% judge=100% 5.6s
+[rl05] What domains does the Related Records (RELREC) domain connec... [FULL] src=100% fact=100% judge=100% 6.9s
+[rl06] Which other SDTM domains is the Comments (CO) domain associa... [FULL] src=100% fact=50% judge=25% 5.5s
+[rl07] What other SDTM domains is the Trial Arms (TA) domain relate... [FULL] src=100% fact=100% judge=100% 4.3s
+[rl08] Which other domains belong to the same observation class as ... [FULL] src=100% fact=86% judge=86% 3.0s
+[rl09] What other SDTM domains share an observation class with the ... [FULL] src=100% fact=100% judge=100% 5.2s
+[rl10] Which other SDTM domains are in the same observation class a... [FULL] src=100% fact=50% judge=25% 4.2s
+
+============================================================
+EVAL SUMMARY
+============================================================
+Questions: 40
+Model:     openai/gpt-5.4
+Threshold: 85%
+Source recall (avg): 72.5%
+  aggregate: 0.0% (10 q)
+  impact_codelist: 100.0% (10 q)
+  impact_variable: 90.0% (10 q)
+  relationship: 100.0% (10 q)
+Fact recall (substring, avg): 78.4%
+Total tokens used:   601,491
+  aggregate: 36.3%
+  impact_codelist: 100.0%
+  impact_variable: 100.0%
+  relationship: 77.3%
+
+Fact recall (judge/semantic, avg): 72.5%
+  aggregate: 25.2%
+  impact_codelist: 100.0%
+  impact_variable: 100.0%
+  relationship: 64.7%
+
+Overall (src + judge fact, avg): 72.5%
+Threshold: 85%  ->  FAIL
+
+Questions with source misses (11):
+  iv06: src=0% miss=['VARIABLE_INDEX.md']
+  ag01: src=0% miss=['VARIABLE_INDEX.md']
+  ag02: src=0% miss=['VARIABLE_INDEX.md']
+  ag03: src=0% miss=['VARIABLE_INDEX.md']
+  ag04: src=0% miss=['VARIABLE_INDEX.md']
+  ag05: src=0% miss=['VARIABLE_INDEX.md']
+  ms01: src=0% miss=['VARIABLE_INDEX.md']
+  ms02: src=0% miss=['VARIABLE_INDEX.md']
+  ms03: src=0% miss=['VARIABLE_INDEX.md']
+  ms04: src=0% miss=['VARIABLE_INDEX.md']
+  ms05: src=0% miss=['VARIABLE_INDEX.md']
+
+Results saved to eval/prod_wirein/kgval_arm1_gpt54.json
+=== ARM2 (+SP2+SP3) gpt54 ===
+Loaded 40 questions from eval/test_set_kg_value.yml
+RAG engine: 4146 chunks, model=deepseek/deepseek-v4-pro, top_k=15, structured_lookup=ON, hybrid=rrf
+LLM mode: direct litellm, model=openai/gpt-5.4
+Structured-answer channel: ON (meta.yaml facts + counting gate), graph-answer: ON
+
+Judge mode: ON, judge_model=deepseek/deepseek-chat (temp=0)
+[ic01] If the Epoch codelist (C99079) gets revised in an upcoming C... [FULL] src=100% fact=100% judge=100% 6.3s
+[ic02] We're anticipating an update to the Anatomical Location code... 
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+Traceback (most recent call last):
+  File "/Users/bojiangzhang/MyProject/sdtm-pedia/branches/07_rag_kg/sdtm-rag/.venv/lib/python3.12/site-packages/litellm/llms/openai/openai.py", line 852, in completion
+    raise e
+  File "/Users/bojiangzhang/MyProject/sdtm-pedia/branches/07_rag_kg/sdtm-rag/.venv/lib/python3.12/site-packages/litellm/llms/openai/openai.py", line 780, in completion
+    ) = self.make_sync_openai_chat_completion_request(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/bojiangzhang/MyProject/sdtm-pedia/branches/07_rag_kg/sdtm-rag/.venv/lib/python3.12/site-packages/litellm/litellm_core_utils/logging_utils.py", line 344, in sync_wrapper
+    result = func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/bojiangzhang/MyProject/sdtm-pedia/branches/07_rag_kg/sdtm-rag/.venv/lib/python3.12/site-packages/litellm/llms/openai/openai.py", line 503, in make_sync_openai_chat_completion_request
+    raise e
+  File "/Users/bojiangzhang/MyProject/sdtm-pedia/branches/07_rag_kg/sdtm-rag/.venv/lib/python3.12/site-packages/litellm/llms/openai/openai.py", line 478, in make_sync_openai_chat_completion_request
+    raw_response = openai_client.chat.completions.with_raw_response.create(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/bojiangzhang/MyProject/sdtm-pedia/branches/07_rag_kg/sdtm-rag/.venv/lib/python3.12/site-packages/openai/_legacy_response.py", line 367, in wrapped
+    return cast(LegacyAPIResponse[R], func(*args, **kwargs))
+                                      ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/bojiangzhang/MyProject/sdtm-pedia/branches/07_rag_kg/sdtm-rag/.venv/lib/python3.12/site-packages/openai/_utils/_utils.py", line 298, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/bojiangzhang/MyProject/sdtm-pedia/branches/07_rag_kg/sdtm-rag/.venv/lib/python3.12/site-packages/openai/resources/chat/completions/completions.py", line 1251, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File "/Users/bojiangzhang/MyProject/sdtm-pedia/branches/07_rag_kg/sdtm-rag/.venv/lib/python3.12/site-packages/openai/_base_client.py", line 1332, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/bojiangzhang/MyProject/sdtm-pedia/branches/07_rag_kg/sdtm-rag/.venv/lib/python3.12/site-packages/openai/_base_client.py", line 1105, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.RateLimitError: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/bojiangzhang/MyProject/sdtm-pedia/branches/07_rag_kg/sdtm-rag/.venv/lib/python3.12/site-packages/litellm/main.py", line 2774, in completion
+    raise e
+  File "/Users/bojiangzhang/MyProject/sdtm-pedia/branches/07_rag_kg/sdtm-rag/.venv/lib/python3.12/site-packages/litellm/main.py", line 2746, in completion
+    response = openai_chat_completions.completion(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/bojiangzhang/MyProject/sdtm-pedia/branches/07_rag_kg/sdtm-rag/.venv/lib/python3.12/site-packages/litellm/llms/openai/openai.py", line 863, in completion
+    raise OpenAIError(
+litellm.llms.openai.common_utils.OpenAIError: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/bojiangzhang/MyProject/sdtm-pedia/branches/07_rag_kg/sdtm-rag/eval/run_eval.py", line 659, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/Users/bojiangzhang/MyProject/sdtm-pedia/branches/07_rag_kg/sdtm-rag/eval/run_eval.py", line 609, in main
+    results = run_evaluation(
+              ^^^^^^^^^^^^^^^
+  File "/Users/bojiangzhang/MyProject/sdtm-pedia/branches/07_rag_kg/sdtm-rag/eval/run_eval.py", line 232, in run_evaluation
+    response = litellm.completion(model=direct_model, **comp_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/bojiangzhang/MyProject/sdtm-pedia/branches/07_rag_kg/sdtm-rag/.venv/lib/python3.12/site-packages/litellm/utils.py", line 1775, in wrapper
+    raise e
+  File "/Users/bojiangzhang/MyProject/sdtm-pedia/branches/07_rag_kg/sdtm-rag/.venv/lib/python3.12/site-packages/litellm/utils.py", line 1596, in wrapper
+    result = original_function(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/bojiangzhang/MyProject/sdtm-pedia/branches/07_rag_kg/sdtm-rag/.venv/lib/python3.12/site-packages/litellm/main.py", line 4513, in completion
+    raise exception_type(
+          ^^^^^^^^^^^^^^^
+  File "/Users/bojiangzhang/MyProject/sdtm-pedia/branches/07_rag_kg/sdtm-rag/.venv/lib/python3.12/site-packages/litellm/litellm_core_utils/exception_mapping_utils.py", line 2466, in exception_type
+    raise e
+  File "/Users/bojiangzhang/MyProject/sdtm-pedia/branches/07_rag_kg/sdtm-rag/.venv/lib/python3.12/site-packages/litellm/litellm_core_utils/exception_mapping_utils.py", line 401, in exception_type
+    raise RateLimitError(
+litellm.exceptions.RateLimitError: litellm.RateLimitError: RateLimitError: OpenAIException - You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.
+=== ALL GPT54 ARMS DONE ===

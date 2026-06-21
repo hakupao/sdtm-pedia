@@ -1,0 +1,12 @@
+[
+  {"ref":"ag01","question":"Which SDTM variables are used across 3 or more different domains?"},
+  {"ref":"ag02","question":"Can you list the SDTM variables that appear in at least 4 separate domains?"},
+  {"ref":"ag03","question":"Which variables show up in 5 or more domains throughout the SDTM model?"},
+  {"ref":"ag04","question":"I'm looking for the SDTM variables that are reused across 10 or more domains — which ones are they?"},
+  {"ref":"ag05","question":"Which SDTM variables are so common that they appear in 40+ domains?"},
+  {"ref":"ms01","question":"Across all of SDTM, which controlled terminology codelist is the most reused?"},
+  {"ref":"ms02","question":"Which single codelist is referenced by the greatest number of variables in SDTM?"},
+  {"ref":"ms03","question":"What is the most widely shared codelist across SDTM domains?"},
+  {"ref":"ms04","question":"What are the three most frequently reused controlled terminology codelists in SDTM?"},
+  {"ref":"ms05","question":"Could you name several of the most commonly shared codelists used throughout the SDTM domains?"}
+]

@@ -1,0 +1,2510 @@
+{
+  "summary": {
+    "n_questions": 40,
+    "model": "deepseek/deepseek-chat",
+    "threshold": 0.85,
+    "source_recall_avg": 0.725,
+    "source_recall_by_category": {
+      "aggregate": 0.0,
+      "impact_codelist": 1.0,
+      "impact_variable": 0.9,
+      "relationship": 1.0
+    },
+    "fact_recall_avg": 0.8268,
+    "fact_recall_by_category": {
+      "aggregate": 0.4842,
+      "impact_codelist": 1.0,
+      "impact_variable": 1.0,
+      "relationship": 0.8232
+    },
+    "total_tokens": 618998,
+    "judge_fact_recall_avg": 0.8045,
+    "judge_fact_recall_by_category": {
+      "aggregate": 0.4842,
+      "impact_codelist": 1.0,
+      "impact_variable": 1.0,
+      "relationship": 0.7339
+    },
+    "judge_parse_failures": 0,
+    "overall": 0.7648,
+    "overall_metric": "judge",
+    "verdict": "FAIL",
+    "top_k": 15,
+    "structured_lookup": true,
+    "hybrid": {
+      "fusion": "rrf",
+      "alpha": null
+    },
+    "prompt_guardrail": false,
+    "structured_answer": true,
+    "graph_answer": false,
+    "judge_model": "deepseek/deepseek-chat"
+  },
+  "results": [
+    {
+      "id": "ic01",
+      "category": "impact_codelist",
+      "question": "If the Epoch codelist (C99079) gets revised in an upcoming CDISC release, which SDTM domains and variables would be affected by that change?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "terminology/core/general_part2.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "VARIABLE_INDEX.md",
+        "terminology/core/general_part2.md",
+        "chapters/ch01_introduction.md",
+        "chapters/ch10_appendices.md",
+        "model/01_concepts_and_terms.md"
+      ],
+      "top5_similarities": [
+        0.4628,
+        0.5486,
+        0.6048,
+        0.5878,
+        0.571
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "AE",
+        "AG",
+        "CE",
+        "CM",
+        "CP",
+        "CV",
+        "DA",
+        "DS",
+        "DV",
+        "EC",
+        "EG",
+        "EX",
+        "FA",
+        "FT",
+        "HO",
+        "IE",
+        "IS",
+        "LB",
+        "MB",
+        "MH",
+        "MI",
+        "MK",
+        "ML",
+        "MS",
+        "NV",
+        "OE",
+        "PC",
+        "PE",
+        "PP",
+        "PR",
+        "QS",
+        "RE",
+        "RP",
+        "RS",
+        "SC",
+        "SE",
+        "SR",
+        "SS",
+        "SU",
+        "TA",
+        "TR",
+        "TU",
+        "UR",
+        "VS"
+      ],
+      "fact_misses": [],
+      "answer_preview": "根据 SDTMIG v3.4 知识库，如果 Epoch 编码表（C99079）在未来的 CDISC 发布中修订，将影响以下内容：\n\n## 受影响的域和变量\n\n**变量：EPOCH**（唯一使用 C99079 的变量）\n\n**受影响的域（共 44 个）：**\n\n| 观察类 | 域 |\n|--------|-----|\n| **Events** | AE, CE, DS, DV, HO, MH |\n| **Interventions** | AG, CM, EC, EX, ML, PR, SU |\n| **Findings** | CP, CV, DA, EG, FA, FT, IE, IS, LB, MB, MI, MK, MS, NV, OE, PC, PE, PP, QS, RE, RP, RS, SC, SR, SS, TR, TU, UR, VS |\n| **Special Purpose** | SE |\n| **Trial Design** | TA |\n\n**[Source: Structured Facts — C99079]**\n\n## EPOCH 变量的属性\n\n- **Label:** Epoch\n- **Type:** Char\n- **Role:** Timing\n- **Core:** Perm（可选的）\n- **Controlled Terms:** C9",
+      "usage": {
+        "prompt_tokens": 14547,
+        "completion_tokens": 607,
+        "total_tokens": 15154
+      },
+      "model": "deepseek/deepseek-chat",
+      "answer": "根据 SDTMIG v3.4 知识库，如果 Epoch 编码表（C99079）在未来的 CDISC 发布中修订，将影响以下内容：\n\n## 受影响的域和变量\n\n**变量：EPOCH**（唯一使用 C99079 的变量）\n\n**受影响的域（共 44 个）：**\n\n| 观察类 | 域 |\n|--------|-----|\n| **Events** | AE, CE, DS, DV, HO, MH |\n| **Interventions** | AG, CM, EC, EX, ML, PR, SU |\n| **Findings** | CP, CV, DA, EG, FA, FT, IE, IS, LB, MB, MI, MK, MS, NV, OE, PC, PE, PP, QS, RE, RP, RS, SC, SR, SS, TR, TU, UR, VS |\n| **Special Purpose** | SE |\n| **Trial Design** | TA |\n\n**[Source: Structured Facts — C99079]**\n\n## EPOCH 变量的属性\n\n- **Label:** Epoch\n- **Type:** Char\n- **Role:** Timing\n- **Core:** Perm（可选的）\n- **Controlled Terms:** C99079\n\n**[Source: domains/RP/spec.md — EPOCH]**\n\n## 关键注意事项\n\n1. **EPOCH 是可选的**（Core: Perm），因此修订不会强制要求任何域必须包含该变量。\n\n2. **EPOCH 的赋值规则**（来自通用假设）：\n   - Findings 类域：基于 `--DTC`（检测日期/时间）\n   - Interventions/Events 类域：基于 `--STDTC`（开始日期/时间）\n   - 不应插补 EPOCH 值，应基于 CRF 指令和结构分配\n   - 如果无法确定 epoch，EPOCH 应为空\n   - 对于研究参与前开始的干预/事件/检测，EPOCH 应为空\n\n   **[Source: chapters/ch04_general_assumptions.md — 4.1.3.1 EPOCH Variable Guidance]**\n\n3. **C99079 是可扩展的**（Extensible: Yes），当前包含 12 个标准术语（如 SCREENING, TREATMENT, FOLLOW-UP 等）。修订可能添加、修改或弃用其中的术语。\n\n   **[Source: terminology/core/general_part2.md — Epoch (C99079)]**\n\n## 总结\n\n修订 C99079 将影响 **44 个域**中 **EPOCH 变量**的允许值。由于 EPOCH 是 Perm（可选）角色，现有数据不会因修订而失效，但新提交的数据需要遵循更新后的编码表。建议在修订发布后更新 Define-XML 中 EPOCH 变量的受控术语引用。",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "AE",
+        "AG",
+        "CE",
+        "CM",
+        "CP",
+        "CV",
+        "DA",
+        "DS",
+        "DV",
+        "EC",
+        "EG",
+        "EX",
+        "FA",
+        "FT",
+        "HO",
+        "IE",
+        "IS",
+        "LB",
+        "MB",
+        "MH",
+        "MI",
+        "MK",
+        "ML",
+        "MS",
+        "NV",
+        "OE",
+        "PC",
+        "PE",
+        "PP",
+        "PR",
+        "QS",
+        "RE",
+        "RP",
+        "RS",
+        "SC",
+        "SE",
+        "SR",
+        "SS",
+        "SU",
+        "TA",
+        "TR",
+        "TU",
+        "UR",
+        "VS"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 8.23
+    },
+    {
+      "id": "ic02",
+      "category": "impact_codelist",
+      "question": "We're anticipating an update to the Anatomical Location codelist (C74456). Which SDTM domains and variables draw their values from it and would therefore need to be reviewed?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "terminology/core/general_part1.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "VARIABLE_INDEX.md",
+        "terminology/core/general_part1.md",
+        "chapters/ch01_introduction.md",
+        "domains/TU/assumptions.md",
+        "model/01_concepts_and_terms.md"
+      ],
+      "top5_similarities": [
+        0.4637,
+        0.3518,
+        0.5889,
+        0.5959,
+        0.5548
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "AE",
+        "BE",
+        "CV",
+        "EC",
+        "EX",
+        "FA",
+        "MB",
+        "MI",
+        "MK",
+        "MS",
+        "NV",
+        "OE",
+        "PE",
+        "PR",
+        "RE",
+        "SR",
+        "TU",
+        "UR",
+        "VS"
+      ],
+      "fact_misses": [],
+      "answer_preview": "根据知识库信息，受控术语集 **Anatomical Location (C74456)** 被以下 **19 个域** 中的 **19 个变量** 引用。如果该术语集更新，这些变量均需审查：\n\n| 域 (Domain) | 变量 (Variable) |\n|-------------|-----------------|\n| AE | AELOC |\n| BE | BELOC |\n| CV | CVLOC |\n| EC | ECLOC |\n| EX | EXLOC |\n| FA | FALOC |\n| MB | MBLOC |\n| MI | MILOC |\n| MK | MKLOC |\n| MS | MSLOC |\n| NV | NVLOC |\n| OE | OELOC |\n| PE | PELOC |\n| PR | PRLOC |\n| RE | RELOC |\n| SR | SRLOC |\n| TU | TULOC |\n| UR | URLOC |\n| VS | VSLOC |\n\n**来源：**\n- C74456 的元数据记录显示其被 19 个域使用，变量列表如上 **[Source: Structured Facts — C74456]**。\n- 各域 spec.md 中的 Controlled Terms 字段均标注为 C74456，例如 BELOC 的 Controlle",
+      "usage": {
+        "prompt_tokens": 16745,
+        "completion_tokens": 380,
+        "total_tokens": 17125
+      },
+      "model": "deepseek/deepseek-chat",
+      "answer": "根据知识库信息，受控术语集 **Anatomical Location (C74456)** 被以下 **19 个域** 中的 **19 个变量** 引用。如果该术语集更新，这些变量均需审查：\n\n| 域 (Domain) | 变量 (Variable) |\n|-------------|-----------------|\n| AE | AELOC |\n| BE | BELOC |\n| CV | CVLOC |\n| EC | ECLOC |\n| EX | EXLOC |\n| FA | FALOC |\n| MB | MBLOC |\n| MI | MILOC |\n| MK | MKLOC |\n| MS | MSLOC |\n| NV | NVLOC |\n| OE | OELOC |\n| PE | PELOC |\n| PR | PRLOC |\n| RE | RELOC |\n| SR | SRLOC |\n| TU | TULOC |\n| UR | URLOC |\n| VS | VSLOC |\n\n**来源：**\n- C74456 的元数据记录显示其被 19 个域使用，变量列表如上 **[Source: Structured Facts — C74456]**。\n- 各域 spec.md 中的 Controlled Terms 字段均标注为 C74456，例如 BELOC 的 Controlled Terms 为 C74456 **[Source: domains/BE/spec.md — BELOC]**，MILOC 的 Controlled Terms 为 C74456 **[Source: domains/MI/spec.md — Controlled Terminology]**。\n\n**补充说明：**\n- C74456 是一个 **可扩展 (extensible)** 的术语集，包含 1326 个术语 **[Source: Structured Facts — C74456]**。\n- 这些变量在各自域中的 Role 均为 **Record Qualifier**，Core 为 **Expected** 或 **Permissible**（具体见各域 spec.md）。",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "AE",
+        "BE",
+        "CV",
+        "EC",
+        "EX",
+        "FA",
+        "MB",
+        "MI",
+        "MK",
+        "MS",
+        "NV",
+        "OE",
+        "PE",
+        "PR",
+        "RE",
+        "SR",
+        "TU",
+        "UR",
+        "VS"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 5.01
+    },
+    {
+      "id": "ic03",
+      "category": "impact_codelist",
+      "question": "Which variables across the SDTM domains reference the Laterality codelist (C99073), so that I can scope the impact if it's modified?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "terminology/core/general_part2.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "VARIABLE_INDEX.md",
+        "terminology/core/general_part2.md",
+        "chapters/ch01_introduction.md",
+        "model/01_concepts_and_terms.md",
+        "chapters/ch04_general_assumptions.md"
+      ],
+      "top5_similarities": [
+        0.5032,
+        0.6577,
+        0.6018,
+        0.5887,
+        0.5618
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "CV",
+        "EC",
+        "EX",
+        "FA",
+        "MB",
+        "MI",
+        "MK",
+        "MS",
+        "NV",
+        "OE",
+        "PE",
+        "PR",
+        "RE",
+        "SR",
+        "TU",
+        "UR",
+        "VS"
+      ],
+      "fact_misses": [],
+      "answer_preview": "根据知识库，**Laterality (C99073)** 是一个可扩展（extensible）的受控术语 codelist，包含 7 个标准值（BILATERAL, CONTRALATERAL, IPSILATERAL, LATERAL, LEFT, RIGHT, UNILATERAL）。它被 **17 个变量** 在 **17 个域** 中引用。\n\n以下是完整的变量列表，按域分组：\n\n| 域 (Domain) | 变量名 | Role | Core |\n|-------------|--------|------|------|\n| CV (Cardiovascular System Findings) | CVLAT | Variable Qualifier | Perm |\n| EC (Exposure as Collected) | ECLAT | Variable Qualifier | Perm |\n| EX (Exposure) | EXLAT | Variable Qualifier | Perm |\n| FA (Findings About Events or Interventions) | FALAT | Variable Qualifier | Perm |\n| MB (Microbiology Specimen) | MBLAT | Variable Q",
+      "usage": {
+        "prompt_tokens": 15537,
+        "completion_tokens": 625,
+        "total_tokens": 16162
+      },
+      "model": "deepseek/deepseek-chat",
+      "answer": "根据知识库，**Laterality (C99073)** 是一个可扩展（extensible）的受控术语 codelist，包含 7 个标准值（BILATERAL, CONTRALATERAL, IPSILATERAL, LATERAL, LEFT, RIGHT, UNILATERAL）。它被 **17 个变量** 在 **17 个域** 中引用。\n\n以下是完整的变量列表，按域分组：\n\n| 域 (Domain) | 变量名 | Role | Core |\n|-------------|--------|------|------|\n| CV (Cardiovascular System Findings) | CVLAT | Variable Qualifier | Perm |\n| EC (Exposure as Collected) | ECLAT | Variable Qualifier | Perm |\n| EX (Exposure) | EXLAT | Variable Qualifier | Perm |\n| FA (Findings About Events or Interventions) | FALAT | Variable Qualifier | Perm |\n| MB (Microbiology Specimen) | MBLAT | Variable Qualifier | Perm |\n| MI (Microscopic Findings) | MILAT | Variable Qualifier | Perm |\n| MK (Musculoskeletal System Findings) | MKLAT | Variable Qualifier | Perm |\n| MS (Microbiology Susceptibility) | MSLAT | Variable Qualifier | Perm |\n| NV (Nervous System Findings) | NVLAT | Variable Qualifier | Perm |\n| OE (Ophthalmic Examinations) | OELAT | Variable Qualifier | Perm |\n| PE (Physical Examination) | PELAT | Variable Qualifier | Perm |\n| PR (Procedures) | PRLAT | Variable Qualifier | Perm |\n| RE (Respiratory System Findings) | RELAT | Variable Qualifier | Perm |\n| SR (Skin Response) | SRLAT | Variable Qualifier | Perm |\n| TU (Tumor/Lesion Identification) | TULAT | Variable Qualifier | Perm |\n| UR (Urinary System Findings) | URLAT | Variable Qualifier | Perm |\n| VS (Vital Signs) | VSLAT | Variable Qualifier | Perm |\n\n**关键要点：**\n- 所有 17 个变量的 Role 均为 **Variable Qualifier**，Core 均为 **Permissible**（可选）。\n- 该 codelist 的 CDISC 定义见 [terminology/core/general_part2.md](terminology/core/general_part2.md)（C99073）。\n- 如果修改 C99073，上述 17 个域中所有使用该 codelist 的变量都会受到影响。由于所有变量都是 Permissible Core，修改不会导致任何域变为非合规，但需要更新所有相关域的 Controlled Terminology 引用和 Define-XML 元数据。\n\n**[Source: Structured Facts (C99073)]**  \n**[Source: domains/RE/spec.md — RELAT]**  \n**[Source: domains/SR/spec.md — SRLAT]**  \n**[Source: domains/MI/spec.md — Controlled Terminology]**",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "CV",
+        "EC",
+        "EX",
+        "FA",
+        "MB",
+        "MI",
+        "MK",
+        "MS",
+        "NV",
+        "OE",
+        "PE",
+        "PR",
+        "RE",
+        "SR",
+        "TU",
+        "UR",
+        "VS"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 7.0
+    },
+    {
+      "id": "ic04",
+      "category": "impact_codelist",
+      "question": "Suppose the Specimen Type codelist (C78734) is updated. What downstream SDTM domains and variables would be impacted by that revision?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "terminology/core/general_part4.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "VARIABLE_INDEX.md",
+        "terminology/core/general_part4.md",
+        "chapters/ch01_introduction.md",
+        "chapters/ch10_appendices.md",
+        "domains/RELSPEC/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.5167,
+        0.5419,
+        0.6162,
+        0.6133,
+        0.5999
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "BS",
+        "CP",
+        "IS",
+        "LB",
+        "MB",
+        "MI",
+        "MS",
+        "PC",
+        "PP",
+        "RELSPEC",
+        "SR"
+      ],
+      "fact_misses": [],
+      "answer_preview": "根据检索到的信息，**Specimen Type 受控术语集（C78734）** 的更新将影响以下 **11 个域** 中的 **11 个变量**：\n\n| 域 (Domain) | 变量 (Variable) |\n|-------------|-----------------|\n| BS (Biospecimen Findings) | BSSPEC |\n| CP (Cell Phenotype Findings) | CPSPEC |\n| IS (Immunogenicity Specimen Assessments) | ISSPEC |\n| LB (Laboratory Test Results) | LBSPEC |\n| MB (Microbiology Specimen) | MBSPEC |\n| MI (Microscopic Findings) | MISPEC |\n| MS (Microbiology Susceptibility) | MSSPEC |\n| PC (Pharmacokinetics Concentrations) | PCSPEC |\n| PP (Pharmacokinetics Parameters) | PPSPEC |\n| RELSPEC (Related Specimens) | SPEC |\n| SR (Skin Response) |",
+      "usage": {
+        "prompt_tokens": 15383,
+        "completion_tokens": 492,
+        "total_tokens": 15875
+      },
+      "model": "deepseek/deepseek-chat",
+      "answer": "根据检索到的信息，**Specimen Type 受控术语集（C78734）** 的更新将影响以下 **11 个域** 中的 **11 个变量**：\n\n| 域 (Domain) | 变量 (Variable) |\n|-------------|-----------------|\n| BS (Biospecimen Findings) | BSSPEC |\n| CP (Cell Phenotype Findings) | CPSPEC |\n| IS (Immunogenicity Specimen Assessments) | ISSPEC |\n| LB (Laboratory Test Results) | LBSPEC |\n| MB (Microbiology Specimen) | MBSPEC |\n| MI (Microscopic Findings) | MISPEC |\n| MS (Microbiology Susceptibility) | MSSPEC |\n| PC (Pharmacokinetics Concentrations) | PCSPEC |\n| PP (Pharmacokinetics Parameters) | PPSPEC |\n| RELSPEC (Related Specimens) | SPEC |\n| SR (Skin Response) | SRSPEC |\n\n**来源：**\n- Structured Facts 中明确列出 C78734 被 11 个变量使用 **[Source: Structured Facts]**\n- BS 域规范中 BSSPEC 的 Controlled Terms 字段标注为 `C78734; C111114` **[Source: VARIABLE_INDEX.md — BS]**\n- RELSPEC 假设中说明 SPEC 变量可能使用 SPECTYPE (C78734) 等三个 codelist **[Source: domains/RELSPEC/assumptions.md — item_3]**\n\n**补充说明：**\n- C78734 是一个 **extensible（可扩展）** 的 codelist，包含 121 个术语 **[Source: Structured Facts]**\n- 在 BS 域中，SDTMIG 建议使用 SPECTYPE (C78734) 作为 BSSPEC 的受控术语 **[Source: domains/BS/assumptions.md — item_4]**\n- RELSPEC 域明确指出，赞助商需自行确定最适合其提交的 codelist（C77529、C78734 或 C111114） **[Source: chapters/ch08_relationships.md — Assumptions, item 3]**\n\n因此，如果 C78734 被更新，所有上述 11 个域中引用该 codelist 的变量都需要同步更新其受控术语值列表，以确保数据提交时术语的一致性。",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "BS",
+        "CP",
+        "IS",
+        "LB",
+        "MB",
+        "MI",
+        "MS",
+        "PC",
+        "PP",
+        "RELSPEC",
+        "SR"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 6.7
+    },
+    {
+      "id": "ic05",
+      "category": "impact_codelist",
+      "question": "If a new term is added to the Route of Administration Response codelist (C66729), which SDTM variables and domains would I need to check for impact?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "terminology/core/interventions.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "VARIABLE_INDEX.md",
+        "terminology/core/interventions.md",
+        "chapters/ch01_introduction.md",
+        "model/01_concepts_and_terms.md",
+        "domains/CM/spec.md"
+      ],
+      "top5_similarities": [
+        0.4767,
+        0.4228,
+        0.5785,
+        0.5901,
+        0.5744
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "AG",
+        "CM",
+        "EC",
+        "EX",
+        "PR",
+        "SU"
+      ],
+      "fact_misses": [],
+      "answer_preview": "根据您的问题，如果向 **Route of Administration Response (C66729)** 受控术语列表添加新术语，需要检查以下 **6 个变量** 和 **6 个域** 的影响：\n\n| 域 | 变量 | 变量角色 | Core |\n|----|------|---------|------|\n| **AG** (Procedure Agents) | **AGROUTE** | Variable Qualifier | Perm |\n| **CM** (Concomitant/Prior Medications) | **CMROUTE** | Variable Qualifier | Perm |\n| **EC** (Exposure as Collected) | **ECROUTE** | Variable Qualifier | Perm |\n| **EX** (Exposure) | **EXROUTE** | Variable Qualifier | Perm |\n| **PR** (Procedures) | **PRROUTE** | Variable Qualifier | Perm |\n| **SU** (Substance Use) | **SUROUTE** | Variable Qualifier | Perm |\n\n**关键信息：",
+      "usage": {
+        "prompt_tokens": 14369,
+        "completion_tokens": 587,
+        "total_tokens": 14956
+      },
+      "model": "deepseek/deepseek-chat",
+      "answer": "根据您的问题，如果向 **Route of Administration Response (C66729)** 受控术语列表添加新术语，需要检查以下 **6 个变量** 和 **6 个域** 的影响：\n\n| 域 | 变量 | 变量角色 | Core |\n|----|------|---------|------|\n| **AG** (Procedure Agents) | **AGROUTE** | Variable Qualifier | Perm |\n| **CM** (Concomitant/Prior Medications) | **CMROUTE** | Variable Qualifier | Perm |\n| **EC** (Exposure as Collected) | **ECROUTE** | Variable Qualifier | Perm |\n| **EX** (Exposure) | **EXROUTE** | Variable Qualifier | Perm |\n| **PR** (Procedures) | **PRROUTE** | Variable Qualifier | Perm |\n| **SU** (Substance Use) | **SUROUTE** | Variable Qualifier | Perm |\n\n**关键信息：**\n\n- **C66729** 是一个 **Extensible**（可扩展）的 codelist，意味着允许添加新术语 **[Source: terminology/core/interventions.md]**。\n- 所有 6 个变量均为 **Perm**（Permissible，可选）Core，且角色均为 **Variable Qualifier**（变量限定符）**[Source: domains/CM/spec.md — CMROUTE; domains/AG/spec.md; domains/EC/spec.md; domains/EX/spec.md; domains/PR/spec.md; domains/SU/spec.md]**。\n- 每个域的 spec.md 文件末尾的 **Controlled Terminology** 部分均明确引用了 C66729 作为对应变量的受控术语来源 **[Source: domains/CM/spec.md — Controlled Terminology; domains/AG/spec.md — Controlled Terminology; domains/EC/spec.md — Controlled Terminology; domains/EX/spec.md — Controlled Terminology; domains/PR/spec.md — Controlled Terminology; domains/SU/spec.md — Controlled Terminology]**。\n\n**建议检查步骤：**\n1. 确认新术语的 **CDISC Submission Value** 和 **CDISC Definition** 符合 C66729 的格式规范（参考现有术语如 \"ORAL\", \"INTRAVENOUS\" 等）。\n2. 更新 **terminology/core/interventions.md** 文件中 C66729 的术语列表。\n3. 检查所有 6 个域中是否有任何 **assumptions.md** 或 **examples.md** 引用了特定给药途径值，确保新术语不会与现有业务规则冲突。\n4. 如果新术语涉及特定解剖部位或给药方式，还需检查相关域的 **Anatomical Location (C74456)** 或 **Laterality (C99073)** 等关联 codelist 是否需要同步更新。",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "AG",
+        "CM",
+        "EC",
+        "EX",
+        "PR",
+        "SU"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 6.74
+    },
+    {
+      "id": "ic06",
+      "category": "impact_codelist",
+      "question": "Which SDTM domains and variables are controlled by the Position codelist (C71148) and would be affected if that codelist were revised?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "terminology/core/interventions.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "VARIABLE_INDEX.md",
+        "terminology/core/interventions.md",
+        "chapters/ch01_introduction.md",
+        "model/01_concepts_and_terms.md",
+        "chapters/ch04_general_assumptions.md"
+      ],
+      "top5_similarities": [
+        0.441,
+        0.4516,
+        0.5898,
+        0.6034,
+        0.5736
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "CV",
+        "EG",
+        "FT",
+        "MK",
+        "RE",
+        "VS"
+      ],
+      "fact_misses": [],
+      "answer_preview": "根据检索结果，受控术语集 **Position (C71148)** 被以下 **6 个域** 中的 **6 个变量** 使用：\n\n| 域 (Domain) | 变量名 | 变量 Label |\n|-------------|--------|------------|\n| CV (Cardiovascular System Findings) | **CVPOS** | Position of Subject During Collection |\n| EG (ECG Test Results) | **EGPOS** | Position of Subject During Collection |\n| FT (Functional Tests) | **FTPOS** | Position of Subject During Collection |\n| MK (Musculoskeletal System Findings) | **MKPOS** | Position of Subject During Collection |\n| RE (Respiratory System Findings) | **REPOS** | Position of Subject During Collection |\n| VS (Vital Signs) | **VSPOS** | P",
+      "usage": {
+        "prompt_tokens": 15300,
+        "completion_tokens": 321,
+        "total_tokens": 15621
+      },
+      "model": "deepseek/deepseek-chat",
+      "answer": "根据检索结果，受控术语集 **Position (C71148)** 被以下 **6 个域** 中的 **6 个变量** 使用：\n\n| 域 (Domain) | 变量名 | 变量 Label |\n|-------------|--------|------------|\n| CV (Cardiovascular System Findings) | **CVPOS** | Position of Subject During Collection |\n| EG (ECG Test Results) | **EGPOS** | Position of Subject During Collection |\n| FT (Functional Tests) | **FTPOS** | Position of Subject During Collection |\n| MK (Musculoskeletal System Findings) | **MKPOS** | Position of Subject During Collection |\n| RE (Respiratory System Findings) | **REPOS** | Position of Subject During Collection |\n| VS (Vital Signs) | **VSPOS** | Position of Subject During Collection |\n\n**来源：**\n- Structured Facts（C71148 的交叉引用表）\n- [terminology/core/interventions.md](terminology/core/interventions.md) — Position codelist 定义\n\n**影响分析：**\n如果修订 C71148（例如增加、删除或修改某个体位值），上述 6 个域中所有使用对应变量的记录都可能受到影响。由于该 codelist 是 **Extensible（可扩展）** 的，新增值不会破坏现有数据，但删除或重命名现有值（如 `SUPINE`、`SITTING`、`STANDING` 等）将需要更新所有已提交数据集中对应的编码值。",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "CV",
+        "EG",
+        "FT",
+        "MK",
+        "RE",
+        "VS"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 5.04
+    },
+    {
+      "id": "ic07",
+      "category": "impact_codelist",
+      "question": "I need to assess the blast radius of a change to the Genetic Sample Type codelist (C111114). Which SDTM domains and variables use it?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "terminology/core/general_part2.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "VARIABLE_INDEX.md",
+        "terminology/core/general_part2.md",
+        "domains/RELSPEC/spec.md",
+        "model/01_concepts_and_terms.md",
+        "domains/GF/spec.md"
+      ],
+      "top5_similarities": [
+        0.4706,
+        0.4831,
+        0.5632,
+        0.5547,
+        0.5758
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "BS",
+        "GF",
+        "RELSPEC"
+      ],
+      "fact_misses": [],
+      "answer_preview": "根据知识库，受控术语集 **Genetic Sample Type (C111114)** 被以下 **3 个域** 中的 **3 个变量** 使用：\n\n| 域 (Domain) | 变量 (Variable) | 来源 |\n|-------------|----------------|------|\n| **BS** (Biospecimen Findings) | **BSSPEC** | [domains/BS/spec.md — Controlled Terminology] |\n| **GF** (Genomics Findings) | **GFSPEC** | [domains/GF/spec.md — Controlled Terminology] |\n| **RELSPEC** (Related Specimens) | **SPEC** | [domains/RELSPEC/spec.md — Controlled Terminology] |\n\n**补充说明：**\n- RELSPEC 域的 assumptions 明确指出，SPEC 变量可能适用的受控术语集有三个（C77529、C78734、C111114），由申办方根据提交需求选择最合适的 **[Source: domains/RELSPEC/assumptions.md — item_3]**。\n- 该",
+      "usage": {
+        "prompt_tokens": 15474,
+        "completion_tokens": 303,
+        "total_tokens": 15777
+      },
+      "model": "deepseek/deepseek-chat",
+      "answer": "根据知识库，受控术语集 **Genetic Sample Type (C111114)** 被以下 **3 个域** 中的 **3 个变量** 使用：\n\n| 域 (Domain) | 变量 (Variable) | 来源 |\n|-------------|----------------|------|\n| **BS** (Biospecimen Findings) | **BSSPEC** | [domains/BS/spec.md — Controlled Terminology] |\n| **GF** (Genomics Findings) | **GFSPEC** | [domains/GF/spec.md — Controlled Terminology] |\n| **RELSPEC** (Related Specimens) | **SPEC** | [domains/RELSPEC/spec.md — Controlled Terminology] |\n\n**补充说明：**\n- RELSPEC 域的 assumptions 明确指出，SPEC 变量可能适用的受控术语集有三个（C77529、C78734、C111114），由申办方根据提交需求选择最合适的 **[Source: domains/RELSPEC/assumptions.md — item_3]**。\n- 该 codelist 是 **可扩展 (Extensible)** 的，包含 32 个术语（如 DNA、RNA、cfDNA、ctDNA 等）**[Source: terminology/core/general_part2.md — Genetic Sample Type (C111114)]**。\n\n**影响范围总结：** 修改 C111114 将直接影响 BS、GF、RELSPEC 三个域中对应变量的受控术语验证。",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "BS",
+        "GF",
+        "RELSPEC"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 4.51
+    },
+    {
+      "id": "ic08",
+      "category": "impact_codelist",
+      "question": "If the SDTM Domain Abbreviation codelist (C66734) is updated, what SDTM variables and domains would be impacted downstream?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "terminology/core/general_part4.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "VARIABLE_INDEX.md",
+        "terminology/core/general_part4.md",
+        "domains/SUPPQUAL/spec.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch01_introduction.md"
+      ],
+      "top5_similarities": [
+        0.4771,
+        0.5409,
+        0.6587,
+        0.6313,
+        0.6252
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "CO",
+        "RELREC",
+        "SUPPQUAL"
+      ],
+      "fact_misses": [],
+      "answer_preview": "根据检索到的信息，**SDTM Domain Abbreviation (C66734)** 是一个可扩展（Extensible）的受控术语列表，包含75个标准域缩写代码。如果该codelist被更新，以下变量和域会受到影响：\n\n## 受影响的变量\n\n**RDOMAIN** — 这是唯一直接引用 C66734 的变量。RDOMAIN 出现在以下3个域中：\n\n| 域 | 变量 | Role | Core |\n|----|------|------|------|\n| CO (Comments) | RDOMAIN | Record Qualifier | Req |\n| RELREC (Related Records) | RDOMAIN | Record Qualifier | Req |\n| SUPPQUAL (Supplemental Qualifiers) | RDOMAIN | Record Qualifier | Req |\n\n**[Source: VARIABLE_INDEX.md §一 通用变量]**  \n**[Source: domains/CO/spec.md — Controlled Terminology]**  \n**[Source: domains/RELREC/spec.md — Controlled Terminology]**  \n**[Source",
+      "usage": {
+        "prompt_tokens": 16988,
+        "completion_tokens": 607,
+        "total_tokens": 17595
+      },
+      "model": "deepseek/deepseek-chat",
+      "answer": "根据检索到的信息，**SDTM Domain Abbreviation (C66734)** 是一个可扩展（Extensible）的受控术语列表，包含75个标准域缩写代码。如果该codelist被更新，以下变量和域会受到影响：\n\n## 受影响的变量\n\n**RDOMAIN** — 这是唯一直接引用 C66734 的变量。RDOMAIN 出现在以下3个域中：\n\n| 域 | 变量 | Role | Core |\n|----|------|------|------|\n| CO (Comments) | RDOMAIN | Record Qualifier | Req |\n| RELREC (Related Records) | RDOMAIN | Record Qualifier | Req |\n| SUPPQUAL (Supplemental Qualifiers) | RDOMAIN | Record Qualifier | Req |\n\n**[Source: VARIABLE_INDEX.md §一 通用变量]**  \n**[Source: domains/CO/spec.md — Controlled Terminology]**  \n**[Source: domains/RELREC/spec.md — Controlled Terminology]**  \n**[Source: domains/SUPPQUAL/spec.md — Controlled Terminology]**\n\n## 受影响的域（间接影响）\n\n虽然 C66734 直接只被 RDOMAIN 引用，但该codelist定义了所有标准域的2字符代码。因此，更新会间接影响：\n\n1. **所有59个使用 DOMAIN 变量的域** — DOMAIN 变量的允许值来自 C66734\n2. **所有63个使用 STUDYID 的域** — 域代码作为数据集命名和标识的基础\n3. **数据集命名规则** — 根据章节4.1.6，SDTM数据集通常以域代码命名（如 dm.xpt），域代码来自 C66734\n4. **自定义域命名** — 章节4.1.6指出，以 X、Y、Z 开头的代码保留给自定义域，以避免与未来CDISC定义的域代码冲突\n\n**[Source: chapters/ch04_general_assumptions.md §4.1.6 Additional Guidance on Dataset Naming]**  \n**[Source: chapters/ch04_general_assumptions.md §4.2.2 Two-character Domain Identifier]**\n\n## 影响范围总结\n\n| 影响层级 | 具体内容 |\n|---------|---------|\n| **直接** | RDOMAIN 变量（3个域：CO, RELREC, SUPPQUAL） |\n| **间接** | DOMAIN 变量（59个域） |\n| **间接** | 数据集命名（所有63个域的数据集文件名） |\n| **间接** | 变量名前缀规则（2字符域代码作为变量名前缀） |\n| **间接** | 关系数据集中的 RDOMAIN 值（用于跨域关联） |\n\n如果C66734新增、删除或修改了某个域代码，所有使用该代码的DOMAIN值、RDOMAIN值、数据集文件名、以及变量名前缀都需要相应更新。",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "CO",
+        "RELREC",
+        "SUPPQUAL"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 7.73
+    },
+    {
+      "id": "ic09",
+      "category": "impact_codelist",
+      "question": "When the Result Type Response codelist (C179588) is revised, which SDTM domains and variables that rely on it would need to be reassessed?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "terminology/core/general_part4.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "VARIABLE_INDEX.md",
+        "terminology/core/general_part4.md",
+        "domains/RS/assumptions.md",
+        "chapters/ch01_introduction.md",
+        "model/01_concepts_and_terms.md"
+      ],
+      "top5_similarities": [
+        0.4886,
+        0.5321,
+        0.6326,
+        0.5959,
+        0.5813
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "CP",
+        "LB"
+      ],
+      "fact_misses": [],
+      "answer_preview": "根据检索到的信息，当 **Result Type Response** codelist (C179588) 被修订时，需要重新评估以下 **2 个域** 中的 **2 个变量**：\n\n| 域 (Domain) | 变量 (Variable) |\n|-------------|-----------------|\n| **CP** (Cell Phenotype Findings) | **CPRESTYP** |\n| **LB** (Laboratory Test Results) | **LBRESTYP** |\n\n**[Source: Structured Facts — C179588]**\n\n---\n\n### 补充说明\n\n- **C179588** 是一个可扩展 (extensible) 的 codelist，包含 52 个术语，文件位于 `terminology/core/general_part4.md`。\n- 该 codelist 用于标识结果类型（如 NARRATIVE、NOMINAL、ORDINAL、QUANTITATIVE 等），属于 Findings 类域中的结果限定词 (Result Qualifier)。\n- 当该 codelist 被修订时，**CP** 和 **LB** 两个域中对应的 `--RESTYP` 变量的受控术语值需要同步更新，以确保数据提",
+      "usage": {
+        "prompt_tokens": 15178,
+        "completion_tokens": 255,
+        "total_tokens": 15433
+      },
+      "model": "deepseek/deepseek-chat",
+      "answer": "根据检索到的信息，当 **Result Type Response** codelist (C179588) 被修订时，需要重新评估以下 **2 个域** 中的 **2 个变量**：\n\n| 域 (Domain) | 变量 (Variable) |\n|-------------|-----------------|\n| **CP** (Cell Phenotype Findings) | **CPRESTYP** |\n| **LB** (Laboratory Test Results) | **LBRESTYP** |\n\n**[Source: Structured Facts — C179588]**\n\n---\n\n### 补充说明\n\n- **C179588** 是一个可扩展 (extensible) 的 codelist，包含 52 个术语，文件位于 `terminology/core/general_part4.md`。\n- 该 codelist 用于标识结果类型（如 NARRATIVE、NOMINAL、ORDINAL、QUANTITATIVE 等），属于 Findings 类域中的结果限定词 (Result Qualifier)。\n- 当该 codelist 被修订时，**CP** 和 **LB** 两个域中对应的 `--RESTYP` 变量的受控术语值需要同步更新，以确保数据提交时符合最新的 CDISC 受控术语要求。",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "CP",
+        "LB"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 4.52
+    },
+    {
+      "id": "ic10",
+      "category": "impact_codelist",
+      "question": "Which SDTM domains and variables reference the PK Units of Measure codelist (C85494), so I can understand what's affected if it changes?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "terminology/core/other_part3.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "VARIABLE_INDEX.md",
+        "terminology/core/other_part3.md",
+        "domains/PP/spec.md",
+        "model/01_concepts_and_terms.md",
+        "chapters/ch01_introduction.md"
+      ],
+      "top5_similarities": [
+        0.4813,
+        0.4063,
+        0.6041,
+        0.5703,
+        0.5593
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "PC",
+        "PP"
+      ],
+      "fact_misses": [],
+      "answer_preview": "根据知识库，**PK Units of Measure (C85494)** 是一个可扩展（Extensible）的受控术语列表，共包含 592 个术语。它被以下 **2 个域** 和 **4 个变量** 引用：\n\n### 受影响的域和变量\n\n| 域 (Domain) | 变量 (Variable) | 变量标签 (Label) | 角色 (Role) | Core |\n|-------------|----------------|------------------|-------------|------|\n| **PC** (Pharmacokinetics Concentrations) | **PCORRESU** | Original Units | Variable Qualifier | Perm |\n| **PC** (Pharmacokinetics Concentrations) | **PCSTRESU** | Standard Units | Variable Qualifier | Perm |\n| **PP** (Pharmacokinetics Parameters) | **PPORRESU** | Original Units | Variable Qualifier | Perm |\n| **PP** (Pharmacokinetics Pa",
+      "usage": {
+        "prompt_tokens": 17074,
+        "completion_tokens": 494,
+        "total_tokens": 17568
+      },
+      "model": "deepseek/deepseek-chat",
+      "answer": "根据知识库，**PK Units of Measure (C85494)** 是一个可扩展（Extensible）的受控术语列表，共包含 592 个术语。它被以下 **2 个域** 和 **4 个变量** 引用：\n\n### 受影响的域和变量\n\n| 域 (Domain) | 变量 (Variable) | 变量标签 (Label) | 角色 (Role) | Core |\n|-------------|----------------|------------------|-------------|------|\n| **PC** (Pharmacokinetics Concentrations) | **PCORRESU** | Original Units | Variable Qualifier | Perm |\n| **PC** (Pharmacokinetics Concentrations) | **PCSTRESU** | Standard Units | Variable Qualifier | Perm |\n| **PP** (Pharmacokinetics Parameters) | **PPORRESU** | Original Units | Variable Qualifier | Perm |\n| **PP** (Pharmacokinetics Parameters) | **PPSTRESU** | Standard Units | Variable Qualifier | Perm |\n\n### 详细说明\n\n- **C85494** 的定义为 \"PK Units of Measure\"，存储在 `terminology/core/other_part3.md` 文件中。\n- 在 **PC** 域中，该 codelist 用于 `PCORRESU` 和 `PCSTRESU` 两个变量 [Source: domains/PC/spec.md — Controlled Terminology]。\n- 在 **PP** 域中，该 codelist 用于 `PPORRESU` 和 `PPSTRESU` 两个变量 [Source: domains/PP/spec.md — Controlled Terminology]。\n- 此外，PP 域还引用了几个 PK Units of Measure 的子集 codelist（如 C128683、C128684、C128685、C128686），这些子集也属于 PK 单位体系的一部分 [Source: domains/PP/spec.md — Controlled Terminology]。\n\n### 总结\n\n如果 **C85494** 发生变化（例如新增、修改或删除某个单位术语），将直接影响：\n- **PC 域** 的原始单位（PCORRESU）和标准单位（PCSTRESU）\n- **PP 域** 的原始单位（PPORRESU）和标准单位（PPSTRESU）\n\n共涉及 **2 个域、4 个变量**。",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "PC",
+        "PP"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 5.87
+    },
+    {
+      "id": "iv01",
+      "category": "impact_variable",
+      "question": "Across the SDTM model, in how many domains does the VISIT (Visit Name) variable appear?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "VARIABLE_INDEX.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "VARIABLE_INDEX.md",
+        "model/03_special_purpose_domains.md",
+        "domains/FA/spec.md",
+        "chapters/ch04_general_assumptions.md",
+        "domains/CV/spec.md"
+      ],
+      "top5_similarities": [
+        0.5076,
+        0.6379,
+        0.6652,
+        13.0183,
+        0.6629
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "AG",
+        "BE",
+        "BS",
+        "CP",
+        "CV",
+        "DA",
+        "EG",
+        "FA",
+        "FT",
+        "GF",
+        "IE",
+        "IS",
+        "LB",
+        "MB",
+        "MI",
+        "MK",
+        "ML",
+        "MS",
+        "NV",
+        "OE",
+        "PC",
+        "PE",
+        "PR",
+        "QS",
+        "RE",
+        "RP",
+        "RS",
+        "SC",
+        "SR",
+        "SS",
+        "SV",
+        "TR",
+        "TU",
+        "TV",
+        "UR",
+        "VS"
+      ],
+      "fact_misses": [],
+      "answer_preview": "根据 SDTM 知识库，**VISIT（Visit Name）变量出现在 36 个域中**。\n\n具体域列表如下：AG, BE, BS, CP, CV, DA, EG, FA, FT, GF, IE, IS, LB, MB, MI, MK, ML, MS, NV, OE, PC, PE, PR, QS, RE, RP, RS, SC, SR, SS, SV, TR, TU, TV, UR, VS。\n\n**[Source: Structured Facts from VARIABLE_INDEX.md]**",
+      "usage": {
+        "prompt_tokens": 14032,
+        "completion_tokens": 114,
+        "total_tokens": 14146
+      },
+      "model": "deepseek/deepseek-chat",
+      "answer": "根据 SDTM 知识库，**VISIT（Visit Name）变量出现在 36 个域中**。\n\n具体域列表如下：AG, BE, BS, CP, CV, DA, EG, FA, FT, GF, IE, IS, LB, MB, MI, MK, ML, MS, NV, OE, PC, PE, PR, QS, RE, RP, RS, SC, SR, SS, SV, TR, TU, TV, UR, VS。\n\n**[Source: Structured Facts from VARIABLE_INDEX.md]**",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "AG",
+        "BE",
+        "BS",
+        "CP",
+        "CV",
+        "DA",
+        "EG",
+        "FA",
+        "FT",
+        "GF",
+        "IE",
+        "IS",
+        "LB",
+        "MB",
+        "MI",
+        "MK",
+        "ML",
+        "MS",
+        "NV",
+        "OE",
+        "PC",
+        "PE",
+        "PR",
+        "QS",
+        "RE",
+        "RP",
+        "RS",
+        "SC",
+        "SR",
+        "SS",
+        "SV",
+        "TR",
+        "TU",
+        "TV",
+        "UR",
+        "VS"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 3.39
+    },
+    {
+      "id": "iv02",
+      "category": "impact_variable",
+      "question": "If we changed the definition of VISITNUM (Visit Number), which SDTM domains would be affected?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "VARIABLE_INDEX.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "VARIABLE_INDEX.md",
+        "domains/AG/spec.md",
+        "chapters/ch04_general_assumptions.md",
+        "domains/FA/spec.md",
+        "chapters/ch03_submitting_data.md"
+      ],
+      "top5_similarities": [
+        0.5269,
+        0.6607,
+        9.7267,
+        0.6603,
+        8.6435
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "AG",
+        "BE",
+        "BS",
+        "CP",
+        "CV",
+        "DA",
+        "EG",
+        "FA",
+        "FT",
+        "GF",
+        "IE",
+        "IS",
+        "LB",
+        "MB",
+        "MI",
+        "MK",
+        "ML",
+        "MS",
+        "NV",
+        "OE",
+        "PC",
+        "PE",
+        "PR",
+        "QS",
+        "RE",
+        "RP",
+        "RS",
+        "SC",
+        "SR",
+        "SS",
+        "SV",
+        "TR",
+        "TU",
+        "TV",
+        "UR",
+        "VS"
+      ],
+      "fact_misses": [],
+      "answer_preview": "根据 SDTMIG v3.4 的定义，**VISITNUM**（Visit Number）是一个 **Timing** 角色变量，出现在以下 **36 个 SDTM 域**中：\n\nAG, BE, BS, CP, CV, DA, EG, FA, FT, GF, IE, IS, LB, MB, MI, MK, ML, MS, NV, OE, PC, PE, PR, QS, RE, RP, RS, SC, SR, SS, SV, TR, TU, TV, UR, VS\n\n**[Source: Structured Facts (from VARIABLE_INDEX.md)]**\n\n---\n\n### 关键说明\n\n1. **Role 差异**：在大多数域中，VISITNUM 的 Role 为 **Timing**（Core: Exp），但在 **TV**（Trial Visits）和 **SV**（Subject Visits）这两个特殊用途域中，其 Role 为 **Topic**（Core: Req）——因为在这两个域中，访视编号本身就是记录的主题标识符。  \n   **[Source: domains/TV/spec.md]**  \n   **[Source: domains/SV/spec.md]**\n\n2. **EX 域的特殊性**：EX（Exposure）域中 VISITNUM ",
+      "usage": {
+        "prompt_tokens": 13572,
+        "completion_tokens": 551,
+        "total_tokens": 14123
+      },
+      "model": "deepseek/deepseek-chat",
+      "answer": "根据 SDTMIG v3.4 的定义，**VISITNUM**（Visit Number）是一个 **Timing** 角色变量，出现在以下 **36 个 SDTM 域**中：\n\nAG, BE, BS, CP, CV, DA, EG, FA, FT, GF, IE, IS, LB, MB, MI, MK, ML, MS, NV, OE, PC, PE, PR, QS, RE, RP, RS, SC, SR, SS, SV, TR, TU, TV, UR, VS\n\n**[Source: Structured Facts (from VARIABLE_INDEX.md)]**\n\n---\n\n### 关键说明\n\n1. **Role 差异**：在大多数域中，VISITNUM 的 Role 为 **Timing**（Core: Exp），但在 **TV**（Trial Visits）和 **SV**（Subject Visits）这两个特殊用途域中，其 Role 为 **Topic**（Core: Req）——因为在这两个域中，访视编号本身就是记录的主题标识符。  \n   **[Source: domains/TV/spec.md]**  \n   **[Source: domains/SV/spec.md]**\n\n2. **EX 域的特殊性**：EX（Exposure）域中 VISITNUM 是 **Permissible**（可选）的，且仅在给药发生在临床访视内（如注射）时才可使用；如果给药发生在访视之外（如居家服药），则不应使用 VISITNUM。  \n   **[Source: domains/EX/assumptions.md, item 4a]**\n\n3. **SC 域**：SC（Subject Characteristics）域也包含 VISITNUM，用于标识特征收集的访视。  \n   **[Source: domains/SC/examples.md, Example 2]**\n\n4. **通用规则**：对于计划访视，VISITNUM 的值必须与 TV 域中定义的值一致；对于非计划访视，VISITNUM 应被填充（通常使用统一值如 99），但 VISITDY 不得用于非计划访视。  \n   **[Source: chapters/ch04_general_assumptions.md, §4.4.5]**\n\n---\n\n### 总结\n\n如果修改 VISITNUM 的定义，**所有 36 个包含该变量的域**都会受到影响，但影响程度不同：\n- **TV 和 SV**：影响最大（Role 为 Topic，Core 为 Req）\n- **EX**：影响最小（Permissible，且使用条件受限）\n- **其余 33 个域**：Role 为 Timing，Core 为 Exp，均需同步更新",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "AG",
+        "BE",
+        "BS",
+        "CP",
+        "CV",
+        "DA",
+        "EG",
+        "FA",
+        "FT",
+        "GF",
+        "IE",
+        "IS",
+        "LB",
+        "MB",
+        "MI",
+        "MK",
+        "ML",
+        "MS",
+        "NV",
+        "OE",
+        "PC",
+        "PE",
+        "PR",
+        "QS",
+        "RE",
+        "RP",
+        "RS",
+        "SC",
+        "SR",
+        "SS",
+        "SV",
+        "TR",
+        "TU",
+        "TV",
+        "UR",
+        "VS"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 6.84
+    },
+    {
+      "id": "iv03",
+      "category": "impact_variable",
+      "question": "Which SDTM domains include the SPDEVID (Sponsor Device Identifier) variable?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "VARIABLE_INDEX.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "VARIABLE_INDEX.md",
+        "domains/GF/assumptions.md",
+        "domains/AE/spec.md",
+        "model/01_concepts_and_terms.md",
+        "domains/EG/spec.md"
+      ],
+      "top5_similarities": [
+        0.444,
+        0.7305,
+        0.7539,
+        0.6081,
+        0.7168
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "AE",
+        "BE",
+        "BS",
+        "EG",
+        "GF",
+        "RE"
+      ],
+      "fact_misses": [],
+      "answer_preview": "根据 SDTMIG v3.4 知识库，**SPDEVID（Sponsor Device Identifier）** 变量出现在以下域中：\n\n| 域 | 域名称 | 观察类 | 来源 |\n|----|--------|--------|------|\n| **AE** | Adverse Events | Events | [domains/AE/spec.md] |\n| **BE** | Biospecimen Events | Events | [domains/BE/spec.md] |\n| **BS** | Biospecimen Findings | Findings | [domains/BS/spec.md] |\n| **EG** | ECG Test Results | Findings | [domains/EG/spec.md] |\n| **GF** | Genomics Findings | Findings | [domains/GF/spec.md] |\n| **RE** | Respiratory System Findings | Findings | [domains/RE/spec.md] |\n\n**SPDEVID** 的通用定义如下：\n- **Label:** Sponsor Device Identifier\n- **Type:** Char\n-",
+      "usage": {
+        "prompt_tokens": 13408,
+        "completion_tokens": 477,
+        "total_tokens": 13885
+      },
+      "model": "deepseek/deepseek-chat",
+      "answer": "根据 SDTMIG v3.4 知识库，**SPDEVID（Sponsor Device Identifier）** 变量出现在以下域中：\n\n| 域 | 域名称 | 观察类 | 来源 |\n|----|--------|--------|------|\n| **AE** | Adverse Events | Events | [domains/AE/spec.md] |\n| **BE** | Biospecimen Events | Events | [domains/BE/spec.md] |\n| **BS** | Biospecimen Findings | Findings | [domains/BS/spec.md] |\n| **EG** | ECG Test Results | Findings | [domains/EG/spec.md] |\n| **GF** | Genomics Findings | Findings | [domains/GF/spec.md] |\n| **RE** | Respiratory System Findings | Findings | [domains/RE/spec.md] |\n\n**SPDEVID** 的通用定义如下：\n- **Label:** Sponsor Device Identifier\n- **Type:** Char\n- **Role:** Identifier\n- **Core:** Perm\n- **CDISC Notes:** Sponsor-defined identifier for a device.\n\n在 **AE** 域中，CDISC Notes 进一步说明：*\"Used to represent a device associated in some way with the adverse event. SPDEVID values are defined in the Device Identifiers (DI) domain.\"* [domains/AE/spec.md]\n\n在 **RE** 域的假设中特别指出：*\"When data about the device used for an assessment or additional information about its use in the assessment are collected, SPDEVID should be included in the record.\"* [domains/RE/assumptions.md]\n\n此外，SPDEVID 还用于 **Associated Persons (AP)** 域中，通过变量 **RDEVID**（Related Device Identifier）进行关联，RDEVID 应填充为相关设备的 SPDEVID 值 [model/04_associated_persons.md]。\n\n**注意：** 以上列表基于知识库中明确包含 SPDEVID 变量定义的域。其他域（如 DV、CM、LB 等）的 spec.md 中未列出 SPDEVID，因此不包含该变量。SPDEVID 的具体值应在 **Device Identifiers (DI)** 域中定义 [domains/RE/examples.md]。",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "AE",
+        "BE",
+        "BS",
+        "EG",
+        "GF",
+        "RE"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 5.39
+    },
+    {
+      "id": "iv04",
+      "category": "impact_variable",
+      "question": "In how many SDTM domains is the NHOID (Non-Host Organism Identifier) variable used?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "VARIABLE_INDEX.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "VARIABLE_INDEX.md",
+        "domains/GF/spec.md",
+        "domains/IS/spec.md",
+        "domains/OI/spec.md",
+        "domains/MS/spec.md"
+      ],
+      "top5_similarities": [
+        0.5403,
+        0.715,
+        0.7074,
+        0.7106,
+        0.7074
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "GF",
+        "IS",
+        "MS",
+        "OI"
+      ],
+      "fact_misses": [],
+      "answer_preview": "根据 SDTM 知识库，**NHOID（Non-Host Organism Identifier）** 变量出现在 **4 个 SDTM 域**中：\n\n1. **GF** — Genomics Findings  \n2. **IS** — Immunogenicity Specimen Assessments  \n3. **MS** — Microbiology Susceptibility  \n4. **OI** — Non-host Organism Identifiers（Study Reference）\n\n**[Source: Structured Facts from VARIABLE_INDEX.md]**\n\n在这些域中，NHOID 的角色均为 **Identifier**，类型为 **Char**。在 GF、IS、MS 中 Core 为 **Perm**（可选的），在 OI 中 Core 为 **Req**（必需的），因为 OI 是专门用于定义非宿主生物体标识的域。",
+      "usage": {
+        "prompt_tokens": 13688,
+        "completion_tokens": 163,
+        "total_tokens": 13851
+      },
+      "model": "deepseek/deepseek-chat",
+      "answer": "根据 SDTM 知识库，**NHOID（Non-Host Organism Identifier）** 变量出现在 **4 个 SDTM 域**中：\n\n1. **GF** — Genomics Findings  \n2. **IS** — Immunogenicity Specimen Assessments  \n3. **MS** — Microbiology Susceptibility  \n4. **OI** — Non-host Organism Identifiers（Study Reference）\n\n**[Source: Structured Facts from VARIABLE_INDEX.md]**\n\n在这些域中，NHOID 的角色均为 **Identifier**，类型为 **Char**。在 GF、IS、MS 中 Core 为 **Perm**（可选的），在 OI 中 Core 为 **Req**（必需的），因为 OI 是专门用于定义非宿主生物体标识的域。",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "GF",
+        "IS",
+        "MS",
+        "OI"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 3.45
+    },
+    {
+      "id": "iv05",
+      "category": "impact_variable",
+      "question": "What is the cross-domain footprint of the ARM (Description of Planned Arm) variable — which SDTM domains contain it?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "VARIABLE_INDEX.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "VARIABLE_INDEX.md",
+        "domains/DM/spec.md",
+        "chapters/ch04_general_assumptions.md",
+        "domains/TV/spec.md",
+        "model/01_concepts_and_terms.md"
+      ],
+      "top5_similarities": [
+        0.4304,
+        0.5135,
+        0.4857,
+        0.5067,
+        0.5342
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "DM",
+        "TA",
+        "TV"
+      ],
+      "fact_misses": [],
+      "answer_preview": "根据知识库检索，**ARM（Description of Planned Arm）** 变量出现在以下 **3 个 SDTM 域**中：\n\n| 域 | 变量 Label | Type | Role | Core | 来源 |\n|---|-----------|------|------|------|------|\n| **DM** (Demographics) | Description of Planned Arm | Char | Synonym Qualifier | Exp | [domains/DM/spec.md] |\n| **TA** (Trial Arms) | Description of Planned Arm | Char | Synonym Qualifier | Req | [domains/TA/spec.md] |\n| **TV** (Trial Visits) | Description of Planned Arm | Char | Synonym Qualifier | Perm | [domains/TV/spec.md] |\n\n**补充说明：**\n- 在 **DM** 中，ARM 是 **Expected**（条件必填），描述受试者被分配的计划臂名称；若未分配臂，则 ARM 为空且需填充 ARMNRS [domains/DM/spec.md",
+      "usage": {
+        "prompt_tokens": 16211,
+        "completion_tokens": 343,
+        "total_tokens": 16554
+      },
+      "model": "deepseek/deepseek-chat",
+      "answer": "根据知识库检索，**ARM（Description of Planned Arm）** 变量出现在以下 **3 个 SDTM 域**中：\n\n| 域 | 变量 Label | Type | Role | Core | 来源 |\n|---|-----------|------|------|------|------|\n| **DM** (Demographics) | Description of Planned Arm | Char | Synonym Qualifier | Exp | [domains/DM/spec.md] |\n| **TA** (Trial Arms) | Description of Planned Arm | Char | Synonym Qualifier | Req | [domains/TA/spec.md] |\n| **TV** (Trial Visits) | Description of Planned Arm | Char | Synonym Qualifier | Perm | [domains/TV/spec.md] |\n\n**补充说明：**\n- 在 **DM** 中，ARM 是 **Expected**（条件必填），描述受试者被分配的计划臂名称；若未分配臂，则 ARM 为空且需填充 ARMNRS [domains/DM/spec.md]。\n- 在 **TA** 中，ARM 是 **Required**（必填），作为计划臂的描述性名称 [domains/TA/spec.md]。\n- 在 **TV** 中，ARM 是 **Permissible**（可选），若访视时间安排不依赖于臂，则 ARM 可留空 [domains/TV/spec.md]。\n\n**跨域角色一致性：** 在三个域中，ARM 的角色均为 **Synonym Qualifier**（同义词限定词），用于提供计划臂的描述性名称 [VARIABLE_INDEX.md §一]。",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "DM",
+        "TA",
+        "TV"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 4.85
+    },
+    {
+      "id": "iv06",
+      "category": "impact_variable",
+      "question": "If the ARMCD (Planned Arm Code) variable were revised, how many SDTM domains would be impacted?",
+      "source_recall": 0.0,
+      "source_hits": [],
+      "source_misses": [
+        "VARIABLE_INDEX.md"
+      ],
+      "top5_sources": [
+        "domains/TV/spec.md",
+        "domains/DM/spec.md",
+        "domains/TA/spec.md",
+        "domains/DM/assumptions.md",
+        "domains/DM/spec.md"
+      ],
+      "top5_similarities": [
+        0.6548,
+        0.6484,
+        0.6521,
+        0.5571,
+        0.5997
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "DM",
+        "TA",
+        "TV"
+      ],
+      "fact_misses": [],
+      "answer_preview": "根据 SDTM 知识库，ARMCD（Planned Arm Code）变量出现在 **3 个 SDTM 域**中：\n\n1. **DM**（Demographics）— Role: Record Qualifier, Core: Exp  \n2. **TA**（Trial Arms）— Role: Topic, Core: Req  \n3. **TV**（Trial Visits）— Role: Record Qualifier, Core: Exp  \n\n因此，如果 ARMCD 变量被修订，将影响 **3 个 SDTM 域**。\n\n**[Source:** Structured Facts (authoritative, exhaustive, from SDTM metadata)**]**  \n**[Source:** domains/DM/spec.md — ARMCD]**  \n**[Source:** domains/TA/spec.md — ARMCD]**  \n**[Source:** domains/TV/spec.md — ARMCD]**",
+      "usage": {
+        "prompt_tokens": 16278,
+        "completion_tokens": 171,
+        "total_tokens": 16449
+      },
+      "model": "deepseek/deepseek-chat",
+      "answer": "根据 SDTM 知识库，ARMCD（Planned Arm Code）变量出现在 **3 个 SDTM 域**中：\n\n1. **DM**（Demographics）— Role: Record Qualifier, Core: Exp  \n2. **TA**（Trial Arms）— Role: Topic, Core: Req  \n3. **TV**（Trial Visits）— Role: Record Qualifier, Core: Exp  \n\n因此，如果 ARMCD 变量被修订，将影响 **3 个 SDTM 域**。\n\n**[Source:** Structured Facts (authoritative, exhaustive, from SDTM metadata)**]**  \n**[Source:** domains/DM/spec.md — ARMCD]**  \n**[Source:** domains/TA/spec.md — ARMCD]**  \n**[Source:** domains/TV/spec.md — ARMCD]**",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "DM",
+        "TA",
+        "TV"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 3.11
+    },
+    {
+      "id": "iv07",
+      "category": "impact_variable",
+      "question": "Which SDTM domains is the ELEMENT (Description of Element) variable defined in?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "VARIABLE_INDEX.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "VARIABLE_INDEX.md",
+        "model/03_special_purpose_domains.md",
+        "domains/TE/assumptions.md",
+        "model/01_concepts_and_terms.md",
+        "domains/SE/spec.md"
+      ],
+      "top5_similarities": [
+        0.5185,
+        0.6031,
+        0.6005,
+        0.6308,
+        0.6409
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "SE",
+        "TA",
+        "TE"
+      ],
+      "fact_misses": [],
+      "answer_preview": "根据知识库检索，**ELEMENT**（Description of Element）变量定义在以下 SDTM 域中：\n\n| 域 | 域名称 | 类 | Core | 来源 |\n|----|--------|-----|------|------|\n| **TE** | Trial Elements | Trial Design | **Req** | [domains/TE/spec.md](domains/TE/spec.md) |\n| **TA** | Trial Arms | Trial Design | **Perm** | [domains/TA/spec.md](domains/TA/spec.md) |\n| **SE** | Subject Elements | Special Purpose | **Perm** | [domains/SE/spec.md](domains/SE/spec.md) |\n\n**详细说明：**\n\n1. **TE（Trial Elements）** — ELEMENT 的 Core 为 **Req**（必需），因为 TE 域定义了试验中每个元素的描述，是试验设计的基础构建块。  \n   **[Source: domains/TE/spec.md]**\n\n2. **TA（Trial Arms）** — ELEMENT 的 Core 为 *",
+      "usage": {
+        "prompt_tokens": 15452,
+        "completion_tokens": 434,
+        "total_tokens": 15886
+      },
+      "model": "deepseek/deepseek-chat",
+      "answer": "根据知识库检索，**ELEMENT**（Description of Element）变量定义在以下 SDTM 域中：\n\n| 域 | 域名称 | 类 | Core | 来源 |\n|----|--------|-----|------|------|\n| **TE** | Trial Elements | Trial Design | **Req** | [domains/TE/spec.md](domains/TE/spec.md) |\n| **TA** | Trial Arms | Trial Design | **Perm** | [domains/TA/spec.md](domains/TA/spec.md) |\n| **SE** | Subject Elements | Special Purpose | **Perm** | [domains/SE/spec.md](domains/SE/spec.md) |\n\n**详细说明：**\n\n1. **TE（Trial Elements）** — ELEMENT 的 Core 为 **Req**（必需），因为 TE 域定义了试验中每个元素的描述，是试验设计的基础构建块。  \n   **[Source: domains/TE/spec.md]**\n\n2. **TA（Trial Arms）** — ELEMENT 的 Core 为 **Perm**（允许），用于描述每个试验组中元素的顺序。同一个元素可能在同一个组中出现多次。  \n   **[Source: domains/TA/spec.md]**\n\n3. **SE（Subject Elements）** — ELEMENT 的 Core 为 **Perm**（允许），用于描述受试者实际经历的元素。当 ETCD 为 \"UNPLAN\" 时，ELEMENT 应为空。  \n   **[Source: domains/SE/spec.md]**\n\n**变量属性（通用）：**\n- **Label:** Description of Element\n- **Type:** Char\n- **Role:** Synonym Qualifier\n- **Controlled Terms:** 无（自由文本）\n\n**注意：** ELEMENT 在 TE 中是必需变量，在 TA 和 SE 中是允许变量。TE 中的 ELEMENT 描述的是计划中的元素，而 SE 中的 ELEMENT 描述的是受试者实际经历的元素。  \n**[Source: model/05_study_level_data.md]**",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "SE",
+        "TA",
+        "TE"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 5.26
+    },
+    {
+      "id": "iv08",
+      "category": "impact_variable",
+      "question": "How many SDTM domains does the ETCD (Element Code) variable appear in?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "VARIABLE_INDEX.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "VARIABLE_INDEX.md",
+        "domains/TE/spec.md",
+        "domains/SE/spec.md",
+        "domains/TA/spec.md",
+        "model/01_concepts_and_terms.md"
+      ],
+      "top5_similarities": [
+        0.5136,
+        0.6828,
+        0.6816,
+        0.6763,
+        0.6016
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "SE",
+        "TA",
+        "TE"
+      ],
+      "fact_misses": [],
+      "answer_preview": "根据知识库信息，**ETCD（Element Code）变量出现在 3 个 SDTM 域中**，分别是：**SE**（Subject Elements）、**TA**（Trial Arms）和 **TE**（Trial Elements）。\n\n**[Source: VARIABLE_INDEX.md — §一 通用变量]**",
+      "usage": {
+        "prompt_tokens": 15651,
+        "completion_tokens": 66,
+        "total_tokens": 15717
+      },
+      "model": "deepseek/deepseek-chat",
+      "answer": "根据知识库信息，**ETCD（Element Code）变量出现在 3 个 SDTM 域中**，分别是：**SE**（Subject Elements）、**TA**（Trial Arms）和 **TE**（Trial Elements）。\n\n**[Source: VARIABLE_INDEX.md — §一 通用变量]**",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "SE",
+        "TA",
+        "TE"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 2.77
+    },
+    {
+      "id": "iv09",
+      "category": "impact_variable",
+      "question": "In which SDTM domains can I find the FOCID (Focus of Study-Specific Interest) variable?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "VARIABLE_INDEX.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "VARIABLE_INDEX.md",
+        "domains/MB/spec.md",
+        "domains/NV/spec.md",
+        "domains/OE/spec.md",
+        "domains/OE/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.4557,
+        0.7499,
+        0.7483,
+        0.7226,
+        0.6447
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "MB",
+        "NV",
+        "OE"
+      ],
+      "fact_misses": [],
+      "answer_preview": "根据知识库中的信息，变量 **FOCID**（Focus of Study-Specific Interest）出现在以下 SDTM 域中：\n\n1. **MB** (Microbiology Specimen) — 角色为 Identifier，Core 为 Perm [Source: domains/MB/spec.md]\n2. **NV** (Nervous System Findings) — 角色为 Identifier，Core 为 Perm [Source: domains/NV/spec.md]\n3. **OE** (Ophthalmic Examinations) — 角色为 Identifier，Core 为 Perm，受控术语为 C119013 [Source: domains/OE/spec.md]\n\n此外，根据 SDTM v2.0 模型，FOCID 被定义为所有通用观察类（Interventions、Events、Findings）的通用标识符变量之一，因此理论上它可以在任何基于这三个观察类的域中使用 [Source: model/02_observation_classes.md]。例如，在眼科研究中，FOCID 可用于任何与眼睛相关的受试者级域（如 Adverse Events）[Source: domains/OE/assumptions.md]。\n\n",
+      "usage": {
+        "prompt_tokens": 14140,
+        "completion_tokens": 279,
+        "total_tokens": 14419
+      },
+      "model": "deepseek/deepseek-chat",
+      "answer": "根据知识库中的信息，变量 **FOCID**（Focus of Study-Specific Interest）出现在以下 SDTM 域中：\n\n1. **MB** (Microbiology Specimen) — 角色为 Identifier，Core 为 Perm [Source: domains/MB/spec.md]\n2. **NV** (Nervous System Findings) — 角色为 Identifier，Core 为 Perm [Source: domains/NV/spec.md]\n3. **OE** (Ophthalmic Examinations) — 角色为 Identifier，Core 为 Perm，受控术语为 C119013 [Source: domains/OE/spec.md]\n\n此外，根据 SDTM v2.0 模型，FOCID 被定义为所有通用观察类（Interventions、Events、Findings）的通用标识符变量之一，因此理论上它可以在任何基于这三个观察类的域中使用 [Source: model/02_observation_classes.md]。例如，在眼科研究中，FOCID 可用于任何与眼睛相关的受试者级域（如 Adverse Events）[Source: domains/OE/assumptions.md]。\n\n**总结**：FOCID 明确出现在 MB、NV 和 OE 域中，但根据模型定义，它也可用于其他通用观察类域（如 AE、CM 等），具体使用取决于研究方案是否需要标识特定关注焦点。",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "MB",
+        "NV",
+        "OE"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 4.65
+    },
+    {
+      "id": "iv10",
+      "category": "impact_variable",
+      "question": "If a change were made to the IDVAR (Identifying Variable) variable, what SDTM domains would be affected by it?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "VARIABLE_INDEX.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "VARIABLE_INDEX.md",
+        "chapters/ch01_introduction.md",
+        "domains/RELREC/spec.md",
+        "domains/RELREC/spec.md",
+        "domains/SUPPQUAL/spec.md"
+      ],
+      "top5_similarities": [
+        0.5055,
+        0.6232,
+        0.5929,
+        0.609,
+        0.6062
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "CO",
+        "RELREC",
+        "SUPPQUAL"
+      ],
+      "fact_misses": [],
+      "answer_preview": "根据 SDTMIG v3.4 知识库，`IDVAR` 变量出现在以下 3 个域中：\n\n- **CO** (Comments) — Role: Record Qualifier, Core: Perm  \n- **RELREC** (Related Records) — Role: Identifier, Core: Req  \n- **SUPPQUAL** (Supplemental Qualifiers) — Role: Identifier, Core: Exp  \n\n因此，如果对 `IDVAR` 变量进行变更，将影响 **CO、RELREC 和 SUPPQUAL** 这三个域。\n\n**来源：**\n- [VARIABLE_INDEX.md — §一 通用变量] — 列出 IDVAR 出现在 CO、RELREC、SUPPQUAL 三个域\n- [domains/CO/spec.md — IDVAR] — CO 域中 IDVAR 的定义\n- [domains/RELREC/spec.md — IDVAR] — RELREC 域中 IDVAR 的定义\n- [domains/SUPPQUAL/spec.md — IDVAR] — SUPPQUAL 域中 IDVAR 的定义",
+      "usage": {
+        "prompt_tokens": 16040,
+        "completion_tokens": 231,
+        "total_tokens": 16271
+      },
+      "model": "deepseek/deepseek-chat",
+      "answer": "根据 SDTMIG v3.4 知识库，`IDVAR` 变量出现在以下 3 个域中：\n\n- **CO** (Comments) — Role: Record Qualifier, Core: Perm  \n- **RELREC** (Related Records) — Role: Identifier, Core: Req  \n- **SUPPQUAL** (Supplemental Qualifiers) — Role: Identifier, Core: Exp  \n\n因此，如果对 `IDVAR` 变量进行变更，将影响 **CO、RELREC 和 SUPPQUAL** 这三个域。\n\n**来源：**\n- [VARIABLE_INDEX.md — §一 通用变量] — 列出 IDVAR 出现在 CO、RELREC、SUPPQUAL 三个域\n- [domains/CO/spec.md — IDVAR] — CO 域中 IDVAR 的定义\n- [domains/RELREC/spec.md — IDVAR] — RELREC 域中 IDVAR 的定义\n- [domains/SUPPQUAL/spec.md — IDVAR] — SUPPQUAL 域中 IDVAR 的定义",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "CO",
+        "RELREC",
+        "SUPPQUAL"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 4.03
+    },
+    {
+      "id": "ag01",
+      "category": "aggregate",
+      "question": "Which SDTM variables are used across 3 or more different domains?",
+      "source_recall": 0.0,
+      "source_hits": [],
+      "source_misses": [
+        "VARIABLE_INDEX.md"
+      ],
+      "top5_sources": [
+        "model/01_concepts_and_terms.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch01_introduction.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch02_fundamentals.md"
+      ],
+      "top5_similarities": [
+        0.6951,
+        0.6463,
+        0.6215,
+        0.5667,
+        0.5665
+      ],
+      "fact_recall": 0.3889,
+      "fact_hits": [
+        "DOMAIN",
+        "EPOCH",
+        "STUDYID",
+        "USUBJID",
+        "VISIT",
+        "VISITDY",
+        "VISITNUM"
+      ],
+      "fact_misses": [
+        "ARM",
+        "ARMCD",
+        "ELEMENT",
+        "ETCD",
+        "FOCID",
+        "IDVAR",
+        "IDVARVAL",
+        "NHOID",
+        "RDOMAIN",
+        "SPDEVID",
+        "TAETORD"
+      ],
+      "answer_preview": "根据 SDTMIG v3.4 和 SDTM v2.0 模型，以下变量在 **3 个或更多不同域** 中使用。这些变量主要分为 **通用标识符（Identifier）** 和 **通用时间（Timing）** 变量，以及部分跨域使用的分组/限定符变量。\n\n---\n\n## 一、通用标识符变量（Identifier Variables）\n\n这些变量在 **所有基于通用观察类（Interventions, Events, Findings）的域** 以及 **特殊用途域** 中均被使用。\n\n| 变量名 | 角色 | 说明 | 出现域数 |\n|--------|------|------|----------|\n| **STUDYID** | Identifier | 研究标识符 | 所有域（63+） |\n| **DOMAIN** | Identifier | 域代码（2字符） | 所有域（63+） |\n| **USUBJID** | Identifier | 唯一受试者标识符 | 所有域（63+） |\n| **--SEQ** | Identifier | 记录序列号 | 所有通用观察类域（~50+） |\n\n**来源**: [model/01_concepts_and_terms.md] — Identifier variables identify the study, subject, ",
+      "usage": {
+        "prompt_tokens": 16364,
+        "completion_tokens": 1606,
+        "total_tokens": 17970
+      },
+      "model": "deepseek/deepseek-chat",
+      "answer": "根据 SDTMIG v3.4 和 SDTM v2.0 模型，以下变量在 **3 个或更多不同域** 中使用。这些变量主要分为 **通用标识符（Identifier）** 和 **通用时间（Timing）** 变量，以及部分跨域使用的分组/限定符变量。\n\n---\n\n## 一、通用标识符变量（Identifier Variables）\n\n这些变量在 **所有基于通用观察类（Interventions, Events, Findings）的域** 以及 **特殊用途域** 中均被使用。\n\n| 变量名 | 角色 | 说明 | 出现域数 |\n|--------|------|------|----------|\n| **STUDYID** | Identifier | 研究标识符 | 所有域（63+） |\n| **DOMAIN** | Identifier | 域代码（2字符） | 所有域（63+） |\n| **USUBJID** | Identifier | 唯一受试者标识符 | 所有域（63+） |\n| **--SEQ** | Identifier | 记录序列号 | 所有通用观察类域（~50+） |\n\n**来源**: [model/01_concepts_and_terms.md] — Identifier variables identify the study, subject, domain, and sequence number of the record.\n\n---\n\n## 二、通用时间变量（Timing Variables）\n\n这些变量在 **所有通用观察类域** 中均可使用，且在许多特殊用途域中也出现。\n\n| 变量名 | 角色 | 说明 | 出现域数 |\n|--------|------|------|----------|\n| **--DTC** | Timing | 日期/时间（起始） | 几乎所有域（~60+） |\n| **--STDTC** | Timing | 开始日期/时间 | Interventions/Events 域（~15+） |\n| **--ENDTC** | Timing | 结束日期/时间 | Interventions/Events 域（~15+） |\n| **--DY** | Timing | 研究日 | 几乎所有域（~60+） |\n| **--STDY** | Timing | 开始研究日 | Interventions/Events 域（~15+） |\n| **--ENDY** | Timing | 结束研究日 | Interventions/Events 域（~15+） |\n| **VISITNUM** | Timing | 访视编号 | 几乎所有域（~60+） |\n| **VISIT** | Timing | 访视名称 | 几乎所有域（~60+） |\n| **VISITDY** | Timing | 访视日 | 几乎所有域（~60+） |\n| **EPOCH** | Timing | 时期 | 几乎所有域（~60+） |\n| **--TPT** | Timing | 计划时间点 | Findings 域（~30+） |\n| **--TPTNUM** | Timing | 计划时间点编号 | Findings 域（~30+） |\n| **--ELTM** | Timing | 经过时间 | Findings 域（~30+） |\n\n**来源**: [model/02_observation_classes.md] — \"Any valid identifier or timing variable is permissible for use in any dataset based on a general observation class.\"\n\n---\n\n## 三、跨域分组/限定符变量\n\n这些变量在多个域中出现，但并非所有域。\n\n| 变量名 | 角色 | 说明 | 出现域数 |\n|--------|------|------|----------|\n| **--CAT** | Grouping Qualifier | 类别 | 几乎所有 Findings 域 + 部分 Events/Interventions 域（~40+） |\n| **--SCAT** | Grouping Qualifier | 子类别 | 同上（~30+） |\n| **--GRPID** | Identifier | 组内分组标识符 | 所有通用观察类域（~50+） |\n| **--REFID** | Identifier | 参考标识符 | 所有通用观察类域（~50+） |\n| **--SPID** | Identifier | 赞助商定义的标识符 | 所有通用观察类域（~50+） |\n| **--MODIFY** | Synonym Qualifier | 标准化术语 | 所有通用观察类域（~50+） |\n| **--DECOD** | Synonym Qualifier | 字典解码 | AE, MH, CE, CM, SU, PR 等（~10+） |\n| **--BODSYS** | Record Qualifier | 身体系统/系统器官分类 | AE, MH, CE 等（~5+） |\n| **--SEV** | Record Qualifier | 严重程度 | AE, CE, MH, DV 等（~5+） |\n| **--REASND** | Record Qualifier | 原因 | 多个域（~10+） |\n| **--LOBXFL** | Record Qualifier | 基线标志（最后观察前） | 所有 Findings 域（~30+） |\n| **--BLFL** | Record Qualifier | 基线标志（赞助商定义） | 所有 Findings 域（~30+） |\n\n**来源**: [chapters/ch04_general_assumptions.md §4.2.6] — \"Grouping variables are Identifiers and Qualifiers variables — such as the --CAT (Category) and --SCAT (Subcategory) — that group records in the SDTM domains/datasets.\"\n\n---\n\n## 四、特殊跨域变量\n\n| 变量名 | 出现域 | 说明 |\n|--------|--------|------|\n| **AETERM / MHTERM / CETERM** | AE, MH, CE | 事件术语（不同域前缀不同，但结构相同） |\n| **CMTRT / EXTRT / SUTRT / AGTRT** | CM, EX, SU, AG | 干预物名称（不同域前缀不同） |\n| **LBTESTCD / VSTESTCD / EGTESTCD** | LB, VS, EG, 及其他 Findings 域 | 测试代码（不同域前缀不同） |\n\n**注意**: 这些变量虽然在不同域中前缀不同（如 AETERM vs MHTERM），但它们在 **结构上相同**，属于同一类变量在不同域中的实例化。\n\n---\n\n## 五、总结：最广泛使用的变量\n\n| 排名 | 变量 | 出现域数（估计） | 角色 |\n|------|------|------------------|------|\n| 1 | **STUDYID** | 所有域（63+） | Identifier |\n| 2 | **DOMAIN** | 所有域（63+） | Identifier |\n| 3 | **USUBJID** | 所有域（63+） | Identifier |\n| 4 | **--SEQ** | 所有通用观察类域（~50+） | Identifier |\n| 5 | **--DTC** | 几乎所有域（~60+） | Timing |\n| 6 | **VISITNUM** | 几乎所有域（~60+） | Timing |\n| 7 | **VISIT** | 几乎所有域（~60+） | Timing |\n| 8 | **EPOCH** | 几乎所有域（~60+） | Timing |\n| 9 | **--DY** | 几乎所有域（~60+） | Timing |\n| 10 | **--CAT** | ~40+ 域 | Grouping Qualifier |\n\n**来源**: [model/02_observation_classes.md] — 通用标识符和时间变量列表；[chapters/ch04_general_assumptions.md] — 分组变量规则。",
+      "judge_fact_recall": 0.3889,
+      "judge_fact_hits": [
+        "DOMAIN",
+        "EPOCH",
+        "STUDYID",
+        "USUBJID",
+        "VISIT",
+        "VISITDY",
+        "VISITNUM"
+      ],
+      "judge_fact_misses": [
+        "ARM",
+        "ARMCD",
+        "ELEMENT",
+        "ETCD",
+        "FOCID",
+        "IDVAR",
+        "IDVARVAL",
+        "NHOID",
+        "RDOMAIN",
+        "SPDEVID",
+        "TAETORD"
+      ],
+      "judge_parse_ok": true,
+      "elapsed_s": 14.13
+    },
+    {
+      "id": "ag02",
+      "category": "aggregate",
+      "question": "Can you list the SDTM variables that appear in at least 4 separate domains?",
+      "source_recall": 0.0,
+      "source_hits": [],
+      "source_misses": [
+        "VARIABLE_INDEX.md"
+      ],
+      "top5_sources": [
+        "model/01_concepts_and_terms.md",
+        "chapters/ch01_introduction.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch02_fundamentals.md"
+      ],
+      "top5_similarities": [
+        0.6861,
+        0.6084,
+        0.6395,
+        0.6378,
+        0.5606
+      ],
+      "fact_recall": 0.8,
+      "fact_hits": [
+        "DOMAIN",
+        "EPOCH",
+        "STUDYID",
+        "TAETORD",
+        "USUBJID",
+        "VISIT",
+        "VISITDY",
+        "VISITNUM"
+      ],
+      "fact_misses": [
+        "NHOID",
+        "SPDEVID"
+      ],
+      "answer_preview": "# SDTM 变量跨域出现情况分析\n\n根据 SDTM 知识库，SDTM 定义了 **1523 个唯一变量**（共 1917 个变量条目分布在所有域中）。以下是在 **至少 4 个独立域** 中出现的变量：\n\n## 一、通用标识符变量（出现在所有域中）\n\n这些变量是 SDTM 的**必需标识符**，出现在所有 63 个域中：\n\n| 变量名 | Label | Role | Core | 出现域数 |\n|--------|-------|------|------|---------|\n| **STUDYID** | Study Identifier | Identifier | Req | **63** |\n| **DOMAIN** | Domain Abbreviation | Identifier | Req | **63** |\n| **USUBJID** | Unique Subject Identifier | Identifier | Req | **63** |\n| **--SEQ** | Sequence Number | Identifier | Req | **63**（每个域以域代码前缀命名，如 AESEQ） |\n\n**[Source: model/01_concepts_and_terms.md §2.1; chapters/ch04_general_assu",
+      "usage": {
+        "prompt_tokens": 17129,
+        "completion_tokens": 2062,
+        "total_tokens": 19191
+      },
+      "model": "deepseek/deepseek-chat",
+      "answer": "# SDTM 变量跨域出现情况分析\n\n根据 SDTM 知识库，SDTM 定义了 **1523 个唯一变量**（共 1917 个变量条目分布在所有域中）。以下是在 **至少 4 个独立域** 中出现的变量：\n\n## 一、通用标识符变量（出现在所有域中）\n\n这些变量是 SDTM 的**必需标识符**，出现在所有 63 个域中：\n\n| 变量名 | Label | Role | Core | 出现域数 |\n|--------|-------|------|------|---------|\n| **STUDYID** | Study Identifier | Identifier | Req | **63** |\n| **DOMAIN** | Domain Abbreviation | Identifier | Req | **63** |\n| **USUBJID** | Unique Subject Identifier | Identifier | Req | **63** |\n| **--SEQ** | Sequence Number | Identifier | Req | **63**（每个域以域代码前缀命名，如 AESEQ） |\n\n**[Source: model/01_concepts_and_terms.md §2.1; chapters/ch04_general_assumptions.md §4.2.2]**\n\n## 二、通用时序变量（出现在大多数域中）\n\n以下 Timing 变量出现在几乎所有基于 General Observation Class 的域中：\n\n| 变量名 | Label | Role | Core | 出现域数 |\n|--------|-------|------|------|---------|\n| **--DTC** | Date/Time of Collection | Timing | Exp | **~60**（所有 GOC 域 + 部分特殊用途域） |\n| **--DY** | Study Day of Collection | Timing | Perm | **~60** |\n| **--STDTC** | Start Date/Time | Timing | Exp | **~30**（Events 和 Interventions 域） |\n| **--ENDTC** | End Date/Time | Timing | Perm | **~30** |\n| **--STDY** | Study Day of Start | Timing | Perm | **~30** |\n| **--ENDY** | Study Day of End | Timing | Perm | **~30** |\n| **EPOCH** | Epoch | Timing | Perm | **~50** |\n| **VISITNUM** | Visit Number | Timing | Exp | **~50** |\n| **VISIT** | Visit Name | Timing | Exp | **~50** |\n| **VISITDY** | Planned Study Day of Visit | Timing | Perm | **~50** |\n| **TAETORD** | Order of Element within Arm | Timing | Perm | **~50** |\n| **ELTM** | Elapsed Time | Timing | Perm | **~40** |\n\n**[Source: model/02_observation_classes.md §3.1.5; chapters/ch04_general_assumptions.md §4.4]**\n\n## 三、通用分组变量（出现在多个域中）\n\n| 变量名 | Label | Role | Core | 出现域数 |\n|--------|-------|------|------|---------|\n| **--CAT** | Category for -- | Grouping Qualifier | Perm | **~30** |\n| **--SCAT** | Subcategory for -- | Grouping Qualifier | Perm | **~20** |\n| **--GRPID** | Group ID | Identifier | Perm | **~40** |\n| **--REFID** | Reference ID | Identifier | Perm | **~30** |\n| **--SPID** | Sponsor-Defined Identifier | Identifier | Perm | **~30** |\n\n**[Source: chapters/ch04_general_assumptions.md §4.1.7; model/01_concepts_and_terms.md §2.1]**\n\n## 四、特定角色变量（跨域出现）\n\n### 4.1 Record Qualifier 变量\n\n| 变量名 | Label | Role | Core | 出现域数 |\n|--------|-------|------|------|---------|\n| **--STAT** | Completion Status | Record Qualifier | Perm | **~25** |\n| **--REASND** | Reason Not Done | Record Qualifier | Perm | **~20** |\n| **--LOBXFL** | Last Observation Before Exposure Flag | Record Qualifier | Perm | **~15** |\n| **--BLFL** | Baseline Flag | Record Qualifier | Perm | **~15** |\n| **--BODSYS** | Body System or Organ Class | Record Qualifier | Perm | **~10** |\n| **--SEV** | Severity/Intensity | Record Qualifier | Perm | **~8** |\n\n### 4.2 结果限定符变量（Findings 域）\n\n| 变量名 | Label | Role | Core | 出现域数 |\n|--------|-------|------|------|---------|\n| **--ORRES** | Original Result | Result Qualifier | Exp | **~25**（所有 Findings 域） |\n| **--ORRESU** | Original Result Units | Variable Qualifier | Perm | **~25** |\n| **--STRESC** | Standardized Result (Character) | Result Qualifier | Exp | **~25** |\n| **--STRESN** | Standardized Result (Numeric) | Result Qualifier | Perm | **~25** |\n| **--STRESU** | Standardized Result Units | Variable Qualifier | Perm | **~25** |\n| **--STNRLO** | Standardized Normal Range Lower Limit | Variable Qualifier | Perm | **~20** |\n| **--STNRHI** | Standardized Normal Range Upper Limit | Variable Qualifier | Perm | **~20** |\n| **--NRIND** | Normal Range Indicator | Variable Qualifier | Perm | **~20** |\n| **--LLOQ** | Lower Limit of Quantitation | Variable Qualifier | Perm | **~10** |\n| **--ULOQ** | Upper Limit of Quantitation | Variable Qualifier | Perm | **~10** |\n\n### 4.3 同义词限定符变量\n\n| 变量名 | Label | Role | Core | 出现域数 |\n|--------|-------|------|------|---------|\n| **--MODIFY** | Modified Term | Synonym Qualifier | Perm | **~15** |\n| **--DECOD** | Standardized Dictionary Term | Synonym Qualifier | Perm | **~10** |\n\n**[Source: model/02_observation_classes.md; chapters/ch04_general_assumptions.md §4.3]**\n\n## 五、特殊用途域中的跨域变量\n\n| 变量名 | Label | Role | Core | 出现域数 |\n|--------|-------|------|------|---------|\n| **RACE** | Race | Record Qualifier | Exp | **~5**（DM + 部分 Findings 域） |\n| **SEX** | Sex | Record Qualifier | Exp | **~5** |\n| **AGE** | Age | Record Qualifier | Exp | **~5** |\n| **ARMCD** | Planned Arm Code | Record Qualifier | Exp | **~5** |\n| **ARM** | Description of Planned Arm | Record Qualifier | Exp | **~5** |\n| **ACTARMCD** | Actual Arm Code | Record Qualifier | Perm | **~5** |\n| **ACTARM** | Description of Actual Arm | Record Qualifier | Perm | **~5** |\n| **COUNTRY** | Country | Record Qualifier | Perm | **~5** |\n\n**[Source: model/03_special_purpose_domains.md; domains/DM/spec.md]**\n\n## 六、总结：跨域出现最多的变量\n\n| 排名 | 变量 | 出现域数 | 角色 |\n|------|------|---------|------|\n| 1 | **STUDYID** | 63 | Identifier |\n| 2 | **DOMAIN** | 63 | Identifier |\n| 3 | **USUBJID** | 63 | Identifier |\n| 4 | **--SEQ** | 63 | Identifier |\n| 5 | **--DTC** | ~60 | Timing |\n| 6 | **--DY** | ~60 | Timing |\n| 7 | **VISITNUM** | ~50 | Timing |\n| 8 | **VISIT** | ~50 | Timing |\n| 9 | **VISITDY** | ~50 | Timing |\n| 10 | **EPOCH** | ~50 | Timing |\n| 11 | **--GRPID** | ~40 | Identifier |\n| 12 | **ELTM** | ~40 | Timing |\n| 13 | **--CAT** | ~30 | Grouping Qualifier |\n| 14 | **--REFID** | ~30 | Identifier |\n| 15 | **--SPID** | ~30 | Identifier |\n| 16 | **--ORRES** | ~25 | Result Qualifier |\n| 17 | **--STRESC** | ~25 | Result Qualifier |\n| 18 | **--STRESN** | ~25 | Result Qualifier |\n| 19 | **--ORRESU** | ~25 | Variable Qualifier |\n| 20 | **--STRESU** | ~25 | Variable Qualifier |\n\n**[Source: VARIABLE_INDEX.md §一（通用变量区）; model/02_observation_classes.md]**\n\n---\n\n**注意**：以上数据基于 SDTM v2.0 / SDTMIG v3.4 的 63 个域。精确的跨域计数需要遍历所有 63 个域的 spec.md 文件进行逐变量统计。上述数字为基于模型结构和通用规则的估算值，实际精确计数可能略有差异。如需某个特定变量的精确跨域计数，请提供变量名以便进一步查询。",
+      "judge_fact_recall": 0.8,
+      "judge_fact_hits": [
+        "DOMAIN",
+        "EPOCH",
+        "STUDYID",
+        "TAETORD",
+        "USUBJID",
+        "VISIT",
+        "VISITDY",
+        "VISITNUM"
+      ],
+      "judge_fact_misses": [
+        "NHOID",
+        "SPDEVID"
+      ],
+      "judge_parse_ok": true,
+      "elapsed_s": 17.62
+    },
+    {
+      "id": "ag03",
+      "category": "aggregate",
+      "question": "Which variables show up in 5 or more domains throughout the SDTM model?",
+      "source_recall": 0.0,
+      "source_hits": [],
+      "source_misses": [
+        "VARIABLE_INDEX.md"
+      ],
+      "top5_sources": [
+        "model/01_concepts_and_terms.md",
+        "chapters/ch01_introduction.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch02_fundamentals.md",
+        "chapters/ch03_submitting_data.md"
+      ],
+      "top5_similarities": [
+        0.6829,
+        0.5863,
+        0.6111,
+        0.5646,
+        0.5808
+      ],
+      "fact_recall": 0.7778,
+      "fact_hits": [
+        "DOMAIN",
+        "EPOCH",
+        "STUDYID",
+        "USUBJID",
+        "VISIT",
+        "VISITDY",
+        "VISITNUM"
+      ],
+      "fact_misses": [
+        "SPDEVID",
+        "TAETORD"
+      ],
+      "answer_preview": "根据 SDTM 知识库，以下变量出现在 **5 个或更多域**中。这些变量主要属于 **Identifier（标识符）** 和 **Timing（时间）** 角色，是跨域通用的核心变量。\n\n---\n\n### 出现在 5 个及以上域的变量列表\n\n| 变量名 | 角色 | 出现域数（示例） | 说明 |\n|--------|------|------------------|------|\n| **STUDYID** | Identifier | 所有域（63个） | 研究标识符，Required |\n| **DOMAIN** | Identifier | 所有域（63个） | 域代码，Required |\n| **USUBJID** | Identifier | 所有域（63个） | 受试者唯一标识符，Required |\n| **--SEQ** | Identifier | 所有 GOC 域（约50+） | 记录序列号，Expected |\n| **--DTC** | Timing | 几乎所有域（约50+） | 日期/时间，Expected 或 Perm |\n| **--DY** | Timing | 几乎所有域（约50+） | 研究日，Perm |\n| **--STDTC** | Timing | 约30+域 | 开始日期/时间，Expected |\n| **--ENDTC**",
+      "usage": {
+        "prompt_tokens": 15470,
+        "completion_tokens": 1048,
+        "total_tokens": 16518
+      },
+      "model": "deepseek/deepseek-chat",
+      "answer": "根据 SDTM 知识库，以下变量出现在 **5 个或更多域**中。这些变量主要属于 **Identifier（标识符）** 和 **Timing（时间）** 角色，是跨域通用的核心变量。\n\n---\n\n### 出现在 5 个及以上域的变量列表\n\n| 变量名 | 角色 | 出现域数（示例） | 说明 |\n|--------|------|------------------|------|\n| **STUDYID** | Identifier | 所有域（63个） | 研究标识符，Required |\n| **DOMAIN** | Identifier | 所有域（63个） | 域代码，Required |\n| **USUBJID** | Identifier | 所有域（63个） | 受试者唯一标识符，Required |\n| **--SEQ** | Identifier | 所有 GOC 域（约50+） | 记录序列号，Expected |\n| **--DTC** | Timing | 几乎所有域（约50+） | 日期/时间，Expected 或 Perm |\n| **--DY** | Timing | 几乎所有域（约50+） | 研究日，Perm |\n| **--STDTC** | Timing | 约30+域 | 开始日期/时间，Expected |\n| **--ENDTC** | Timing | 约30+域 | 结束日期/时间，Expected |\n| **--STDY** | Timing | 约30+域 | 开始研究日，Perm |\n| **--ENDY** | Timing | 约30+域 | 结束研究日，Perm |\n| **EPOCH** | Timing | 约30+域 | 时期，Perm |\n| **--CAT** | Qualifier (Grouping) | 约20+域 | 类别，Perm |\n| **--SCAT** | Qualifier (Grouping) | 约15+域 | 子类别，Perm |\n| **VISITNUM** | Timing | 约30+域 | 访视编号，Expected |\n| **VISIT** | Timing | 约30+域 | 访视名称，Expected |\n| **VISITDY** | Timing | 约30+域 | 访视日，Perm |\n| **--TPT** | Timing | 约15+域 | 计划时间点，Perm |\n| **--TPTNUM** | Timing | 约15+域 | 计划时间点编号，Perm |\n| **--ELTM** | Timing | 约15+域 | 经过时间，Perm |\n| **--GRPID** | Identifier | 约10+域 | 组标识符，Perm |\n| **--REFID** | Identifier | 约10+域 | 参考标识符，Perm |\n| **--SPID** | Identifier | 约10+域 | 赞助商定义的标识符，Perm |\n| **--BODSYS** | Qualifier (Record) | 约5+域 | 身体系统/器官分类，Perm |\n| **--DECOD** | Qualifier (Synonym) | 约5+域 | 标准编码术语，Perm |\n| **--MODIFY** | Qualifier (Synonym) | 约5+域 | 标准化术语，Perm |\n\n---\n\n### 关键说明\n\n1. **STUDYID、DOMAIN、USUBJID** 是所有 63 个域的 Required 变量，是数据集的主键组成部分 **[Source: chapters/ch03_submitting_data.md]**。\n\n2. **--SEQ** 出现在所有基于 General Observation Class（GOC）的域中（约50+域），是每个域内的记录唯一标识符 **[Source: model/02_observation_classes.md]**。\n\n3. **--DTC、--DY、--STDTC、--ENDTC、--STDY、--ENDY、EPOCH、VISITNUM、VISIT、VISITDY** 等 Timing 变量出现在几乎所有域中，因为时间信息是观察记录的核心组成部分 **[Source: model/02_observation_classes.md]**。\n\n4. **--CAT、--SCAT** 等 Grouping Qualifier 变量出现在大多数域中，用于对记录进行分类 **[Source: chapters/ch04_general_assumptions.md §4.2.6]**。\n\n5. **--BODSYS、--DECOD、--MODIFY** 等变量出现在 Events 类域（如 AE、MH、CE）和部分 Findings 域中，用于编码和分类 **[Source: model/02_observation_classes.md]**。\n\n---\n\n### 精确计数说明\n\n由于 SDTM 知识库包含 63 个域，每个域的变量定义分散在各自的 spec.md 文件中，**精确统计每个变量出现在多少个域中**需要遍历所有 63 个 spec.md 文件。上述列表基于 SDTM 模型结构和通用规则推断，提供了最常出现的变量。如需精确计数，建议通过 VARIABLE_INDEX.md 进行反向索引查询。",
+      "judge_fact_recall": 0.7778,
+      "judge_fact_hits": [
+        "DOMAIN",
+        "EPOCH",
+        "STUDYID",
+        "USUBJID",
+        "VISIT",
+        "VISITDY",
+        "VISITNUM"
+      ],
+      "judge_fact_misses": [
+        "SPDEVID",
+        "TAETORD"
+      ],
+      "judge_parse_ok": true,
+      "elapsed_s": 10.68
+    },
+    {
+      "id": "ag04",
+      "category": "aggregate",
+      "question": "I'm looking for the SDTM variables that are reused across 10 or more domains — which ones are they?",
+      "source_recall": 0.0,
+      "source_hits": [],
+      "source_misses": [
+        "VARIABLE_INDEX.md"
+      ],
+      "top5_sources": [
+        "model/01_concepts_and_terms.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch01_introduction.md",
+        "chapters/ch04_general_assumptions.md",
+        "model/02_observation_classes.md"
+      ],
+      "top5_similarities": [
+        0.6619,
+        0.6221,
+        0.5736,
+        0.5301,
+        0.5768
+      ],
+      "fact_recall": 0.875,
+      "fact_hits": [
+        "DOMAIN",
+        "EPOCH",
+        "STUDYID",
+        "USUBJID",
+        "VISIT",
+        "VISITDY",
+        "VISITNUM"
+      ],
+      "fact_misses": [
+        "TAETORD"
+      ],
+      "answer_preview": "根据知识库中的信息，以下是在多个域中重复使用的 SDTM 变量（出现在 10 个或更多域中）：\n\n## 通用标识符变量（出现在所有基于 GOC 的域中）\n\n根据 SDTM 模型，以下变量是所有通用观察类（Interventions、Events、Findings）共用的：\n\n| 变量 | 角色 | 说明 |\n|------|------|------|\n| **STUDYID** | Identifier | 研究标识符，出现在所有域中 |\n| **DOMAIN** | Identifier | 域代码，出现在所有域中 |\n| **USUBJID** | Identifier | 受试者唯一标识符，出现在所有域中 |\n| **--SEQ** | Identifier | 记录序列号，出现在所有域中 |\n\n**[Source: model/02_observation_classes.md — Overview]**\n\n## 通用 Timing 变量（出现在所有基于 GOC 的域中）\n\n以下 Timing 变量在所有通用观察类域中均可使用：\n\n| 变量 | 角色 | 说明 |\n|------|------|------|\n| **--DTC** | Timing | 日期/时间变量（如 AESTDTC、LBORRESDTC） |\n| **--DY** | Timing | 研究日变量",
+      "usage": {
+        "prompt_tokens": 17575,
+        "completion_tokens": 678,
+        "total_tokens": 18253
+      },
+      "model": "deepseek/deepseek-chat",
+      "answer": "根据知识库中的信息，以下是在多个域中重复使用的 SDTM 变量（出现在 10 个或更多域中）：\n\n## 通用标识符变量（出现在所有基于 GOC 的域中）\n\n根据 SDTM 模型，以下变量是所有通用观察类（Interventions、Events、Findings）共用的：\n\n| 变量 | 角色 | 说明 |\n|------|------|------|\n| **STUDYID** | Identifier | 研究标识符，出现在所有域中 |\n| **DOMAIN** | Identifier | 域代码，出现在所有域中 |\n| **USUBJID** | Identifier | 受试者唯一标识符，出现在所有域中 |\n| **--SEQ** | Identifier | 记录序列号，出现在所有域中 |\n\n**[Source: model/02_observation_classes.md — Overview]**\n\n## 通用 Timing 变量（出现在所有基于 GOC 的域中）\n\n以下 Timing 变量在所有通用观察类域中均可使用：\n\n| 变量 | 角色 | 说明 |\n|------|------|------|\n| **--DTC** | Timing | 日期/时间变量（如 AESTDTC、LBORRESDTC） |\n| **--DY** | Timing | 研究日变量 |\n| **--STDTC** | Timing | 开始日期/时间 |\n| **--ENDTC** | Timing | 结束日期/时间 |\n| **--STDY** | Timing | 开始研究日 |\n| **--ENDY** | Timing | 结束研究日 |\n| **--DUR** | Timing | 持续时间 |\n| **VISITNUM** | Timing | 访视编号 |\n| **VISIT** | Timing | 访视名称 |\n| **VISITDY** | Timing | 访视日 |\n| **EPOCH** | Timing | 时期 |\n| **--TPT** | Timing | 计划时间点 |\n| **--TPTNUM** | Timing | 计划时间点编号 |\n| **--ELTM** | Timing | 经过时间 |\n\n**[Source: model/02_observation_classes.md — Overview]**\n\n## 特殊例外变量\n\n以下变量**不**使用域前缀，因此出现在所有域中：\n\n- **STUDYID** — 必需标识符\n- **DOMAIN** — 必需标识符\n- **USUBJID** — 必需标识符\n- **VISIT** — 常用分组/合并键\n- **VISITNUM** — 常用分组/合并键\n- **VISITDY** — 常用分组/合并键\n\n**[Source: chapters/ch04_general_assumptions.md — 4.2.2 Two-character Domain Identifier]**\n\n## 总结\n\n严格来说，**STUDYID、DOMAIN、USUBJID** 和 **--SEQ** 是出现在**所有**域中的变量。而 Timing 变量（如 --DTC、VISITNUM、EPOCH 等）出现在所有基于通用观察类的域中（约 50+ 个域）。如果您需要精确统计每个变量出现在多少个域中，建议查阅 [VARIABLE_INDEX.md](VARIABLE_INDEX.md) 中的完整反向索引。",
+      "judge_fact_recall": 0.875,
+      "judge_fact_hits": [
+        "DOMAIN",
+        "EPOCH",
+        "STUDYID",
+        "USUBJID",
+        "VISIT",
+        "VISITDY",
+        "VISITNUM"
+      ],
+      "judge_fact_misses": [
+        "TAETORD"
+      ],
+      "judge_parse_ok": true,
+      "elapsed_s": 7.92
+    },
+    {
+      "id": "ag05",
+      "category": "aggregate",
+      "question": "Which SDTM variables are so common that they appear in 40+ domains?",
+      "source_recall": 0.0,
+      "source_hits": [],
+      "source_misses": [
+        "VARIABLE_INDEX.md"
+      ],
+      "top5_sources": [
+        "model/01_concepts_and_terms.md",
+        "chapters/ch04_general_assumptions.md",
+        "model/02_observation_classes.md",
+        "chapters/ch01_introduction.md",
+        "chapters/ch03_submitting_data.md"
+      ],
+      "top5_similarities": [
+        0.6461,
+        0.5829,
+        0.568,
+        0.5573,
+        0.5597
+      ],
+      "fact_recall": 0.8,
+      "fact_hits": [
+        "DOMAIN",
+        "EPOCH",
+        "STUDYID",
+        "USUBJID"
+      ],
+      "fact_misses": [
+        "TAETORD"
+      ],
+      "answer_preview": "根据 SDTM 知识库，以下变量因其通用性而出现在 40 多个域中：\n\n## 通用标识符变量（出现在几乎所有域中）\n\n| 变量名 | 标签 | 角色 | 核心属性 | 出现域数 |\n|--------|------|------|----------|----------|\n| **STUDYID** | Study Identifier | Identifier | Req | 所有域 |\n| **DOMAIN** | Domain Abbreviation | Identifier | Req | 所有域 |\n| **USUBJID** | Unique Subject Identifier | Identifier | Req | 所有域 |\n| **--SEQ** | Sequence Number | Identifier | Req | 所有域 |\n\n**[Source: model/01_concepts_and_terms.md §2.1]**\n\n## 通用访视变量（出现在 40+ 域中）\n\n| 变量名 | 标签 | 角色 | 核心属性 |\n|--------|------|------|----------|\n| **VISITNUM** | Visit Number | Timing | Exp |\n| **VISIT** | Visit Name | Timi",
+      "usage": {
+        "prompt_tokens": 16816,
+        "completion_tokens": 718,
+        "total_tokens": 17534
+      },
+      "model": "deepseek/deepseek-chat",
+      "answer": "根据 SDTM 知识库，以下变量因其通用性而出现在 40 多个域中：\n\n## 通用标识符变量（出现在几乎所有域中）\n\n| 变量名 | 标签 | 角色 | 核心属性 | 出现域数 |\n|--------|------|------|----------|----------|\n| **STUDYID** | Study Identifier | Identifier | Req | 所有域 |\n| **DOMAIN** | Domain Abbreviation | Identifier | Req | 所有域 |\n| **USUBJID** | Unique Subject Identifier | Identifier | Req | 所有域 |\n| **--SEQ** | Sequence Number | Identifier | Req | 所有域 |\n\n**[Source: model/01_concepts_and_terms.md §2.1]**\n\n## 通用访视变量（出现在 40+ 域中）\n\n| 变量名 | 标签 | 角色 | 核心属性 |\n|--------|------|------|----------|\n| **VISITNUM** | Visit Number | Timing | Exp |\n| **VISIT** | Visit Name | Timing | Exp |\n| **VISITDY** | Planned Study Day of Visit | Timing | Exp |\n\n**[Source: chapters/ch04_general_assumptions.md §4.2.2]**\n\n## 通用时间变量（出现在 40+ 域中）\n\n| 变量名 | 标签 | 角色 | 核心属性 |\n|--------|------|------|----------|\n| **--DTC** | Date/Time of Collection | Timing | Exp |\n| **--STDTC** | Start Date/Time | Timing | Exp |\n| **--ENDTC** | End Date/Time | Timing | Perm |\n| **--DY** | Study Day of Collection | Timing | Perm |\n| **--STDY** | Study Day of Start | Timing | Perm |\n| **--ENDY** | Study Day of End | Timing | Perm |\n| **EPOCH** | Epoch | Timing | Perm |\n\n**[Source: model/02_observation_classes.md §3.1.5]**\n\n## 为什么这些变量如此普遍？\n\n根据 SDTM 模型设计原则：\n\n1. **标识符变量**（STUDYID, DOMAIN, USUBJID, --SEQ）是所有域的基础，用于唯一标识每条记录并支持跨域关联。它们是 Required 变量，必须出现在每个域中。\n\n2. **访视变量**（VISITNUM, VISIT, VISITDY）是常用的分组和合并键，因此不被域代码前缀化，而是以通用形式出现在所有域中。\n\n3. **时间变量**（--DTC, --STDTC, --ENDTC 等）是三大通用观察类（Interventions、Events、Findings）共有的时序变量，适用于所有基于通用观察类的域。\n\n**[Source: chapters/ch04_general_assumptions.md §4.2.2; model/02_observation_classes.md §Overview]**\n\n## 例外说明\n\n以下变量虽然常见，但**不**使用域代码前缀：\n- STUDYID, DOMAIN, USUBJID（必需标识符）\n- VISIT, VISITNUM, VISITDY（通用分组/合并键）\n- DM 域中除 DMDTC 和 DMDY 外的所有变量\n- RELREC 和 SUPPQUAL 中的所有变量\n\n**[Source: chapters/ch04_general_assumptions.md §4.2.2]**",
+      "judge_fact_recall": 0.8,
+      "judge_fact_hits": [
+        "DOMAIN",
+        "EPOCH",
+        "STUDYID",
+        "USUBJID"
+      ],
+      "judge_fact_misses": [
+        "TAETORD"
+      ],
+      "judge_parse_ok": true,
+      "elapsed_s": 8.75
+    },
+    {
+      "id": "ms01",
+      "category": "aggregate",
+      "question": "Across all of SDTM, which controlled terminology codelist is the most reused?",
+      "source_recall": 0.0,
+      "source_hits": [],
+      "source_misses": [
+        "VARIABLE_INDEX.md"
+      ],
+      "top5_sources": [
+        "domains/RELSPEC/assumptions.md",
+        "chapters/ch10_appendices.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch04_general_assumptions.md"
+      ],
+      "top5_similarities": [
+        0.623,
+        0.6077,
+        0.6334,
+        0.5557,
+        0.6105
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "C66742",
+        "No Yes Response"
+      ],
+      "fact_misses": [],
+      "answer_preview": "根据 SDTM 知识库中的受控术语交叉引用数据，**最常被复用的受控术语 codelist 是 C66742（No Yes Response）**。\n\n**证据**：在 VARIABLE_INDEX.md 的 §三（CT 交叉引用）中，C66742 被以下变量引用：\n\n- AESPID (AE)\n- CEPRESP (CE)\n- CEEVAL (CE)\n- CEEVALID (CE)\n- DSDECOD (DS)\n- DVEPISOD (DV)\n- DVPRESP (DV)\n- DVTERM (DV)\n- ECEVAL (EC)\n- ECEVALID (EC)\n- EPOCH (通用 Timing 变量)\n- FAORRES (FA)\n- FATESTCD (FA)\n- FATEST (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (",
+      "usage": {
+        "prompt_tokens": 13060,
+        "completion_tokens": 8192,
+        "total_tokens": 21252
+      },
+      "model": "deepseek/deepseek-chat",
+      "answer": "根据 SDTM 知识库中的受控术语交叉引用数据，**最常被复用的受控术语 codelist 是 C66742（No Yes Response）**。\n\n**证据**：在 VARIABLE_INDEX.md 的 §三（CT 交叉引用）中，C66742 被以下变量引用：\n\n- AESPID (AE)\n- CEPRESP (CE)\n- CEEVAL (CE)\n- CEEVALID (CE)\n- DSDECOD (DS)\n- DVEPISOD (DV)\n- DVPRESP (DV)\n- DVTERM (DV)\n- ECEVAL (EC)\n- ECEVALID (EC)\n- EPOCH (通用 Timing 变量)\n- FAORRES (FA)\n- FATESTCD (FA)\n- FATEST (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (FA)\n- FASCAT (",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "C66742",
+        "No Yes Response"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 45.54
+    },
+    {
+      "id": "ms02",
+      "category": "aggregate",
+      "question": "Which single codelist is referenced by the greatest number of variables in SDTM?",
+      "source_recall": 0.0,
+      "source_hits": [],
+      "source_misses": [
+        "VARIABLE_INDEX.md"
+      ],
+      "top5_sources": [
+        "model/01_concepts_and_terms.md",
+        "chapters/ch04_general_assumptions.md",
+        "model/01_concepts_and_terms.md",
+        "chapters/ch10_appendices.md",
+        "chapters/ch01_introduction.md"
+      ],
+      "top5_similarities": [
+        0.5932,
+        0.5857,
+        0.5612,
+        0.5747,
+        0.5463
+      ],
+      "fact_recall": 0.0,
+      "fact_hits": [],
+      "fact_misses": [
+        "C66742",
+        "No Yes Response"
+      ],
+      "answer_preview": "根据检索到的知识库内容，**无法确定哪个单一 codelist 被最多变量引用**。\n\n知识库中提供了变量索引（VARIABLE_INDEX.md）和受控术语文件，但未包含对\"每个 codelist 被多少变量引用\"的统计或汇总信息。要回答这个问题，需要对 VARIABLE_INDEX.md 中所有变量的 Controlled Terms 字段进行系统性计数，而当前上下文未提供此类聚合数据。\n\n**建议**：如需获取此信息，可对 VARIABLE_INDEX.md 中每个变量的 Controlled Terms 字段进行解析和计数，或查阅 CDISC 官方发布的受控术语使用统计报告。",
+      "usage": {
+        "prompt_tokens": 14352,
+        "completion_tokens": 137,
+        "total_tokens": 14489
+      },
+      "model": "deepseek/deepseek-chat",
+      "answer": "根据检索到的知识库内容，**无法确定哪个单一 codelist 被最多变量引用**。\n\n知识库中提供了变量索引（VARIABLE_INDEX.md）和受控术语文件，但未包含对\"每个 codelist 被多少变量引用\"的统计或汇总信息。要回答这个问题，需要对 VARIABLE_INDEX.md 中所有变量的 Controlled Terms 字段进行系统性计数，而当前上下文未提供此类聚合数据。\n\n**建议**：如需获取此信息，可对 VARIABLE_INDEX.md 中每个变量的 Controlled Terms 字段进行解析和计数，或查阅 CDISC 官方发布的受控术语使用统计报告。",
+      "judge_fact_recall": 0.0,
+      "judge_fact_hits": [],
+      "judge_fact_misses": [
+        "C66742",
+        "No Yes Response"
+      ],
+      "judge_parse_ok": true,
+      "elapsed_s": 4.17
+    },
+    {
+      "id": "ms03",
+      "category": "aggregate",
+      "question": "What is the most widely shared codelist across SDTM domains?",
+      "source_recall": 0.0,
+      "source_hits": [],
+      "source_misses": [
+        "VARIABLE_INDEX.md"
+      ],
+      "top5_sources": [
+        "model/01_concepts_and_terms.md",
+        "chapters/ch01_introduction.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch04_general_assumptions.md",
+        "terminology/supplementary/supplementary_part5.md"
+      ],
+      "top5_similarities": [
+        0.5614,
+        0.5415,
+        0.5468,
+        0.5262,
+        0.5882
+      ],
+      "fact_recall": 0.0,
+      "fact_hits": [],
+      "fact_misses": [
+        "C66742",
+        "No Yes Response"
+      ],
+      "answer_preview": "根据检索到的知识库信息，**SDTM Domain Abbreviation (C66734)** 是最广泛跨域共享的编码列表。\n\n**依据：**\n- C66734 被用于多个域的 `RDOMAIN` 变量，包括 RELREC 域和 CO 域。\n  - RELREC spec.md 中明确引用：`[SDTM Domain Abbreviation (C66734)](../../terminology/core/general_part4.md) — RDOMAIN` **[Source: domains/RELREC/spec.md]**\n  - CO spec.md 中同样引用：`[SDTM Domain Abbreviation (C66734)](../../terminology/core/general_part4.md) — RDOMAIN` **[Source: domains/CO/spec.md]**\n- 此外，该编码列表在章节 4.1.6 中被描述为“标准域代码”的来源，用于所有 SDTM 数据集的命名 **[Source: chapters/ch04_general_assumptions.md]**。\n\n**结论：** C66734（SDTM Domain Abbreviation）是 SDTM 中最广泛共享的编码列表，因为它定义了所有标准域代码（如 DM",
+      "usage": {
+        "prompt_tokens": 13235,
+        "completion_tokens": 256,
+        "total_tokens": 13491
+      },
+      "model": "deepseek/deepseek-chat",
+      "answer": "根据检索到的知识库信息，**SDTM Domain Abbreviation (C66734)** 是最广泛跨域共享的编码列表。\n\n**依据：**\n- C66734 被用于多个域的 `RDOMAIN` 变量，包括 RELREC 域和 CO 域。\n  - RELREC spec.md 中明确引用：`[SDTM Domain Abbreviation (C66734)](../../terminology/core/general_part4.md) — RDOMAIN` **[Source: domains/RELREC/spec.md]**\n  - CO spec.md 中同样引用：`[SDTM Domain Abbreviation (C66734)](../../terminology/core/general_part4.md) — RDOMAIN` **[Source: domains/CO/spec.md]**\n- 此外，该编码列表在章节 4.1.6 中被描述为“标准域代码”的来源，用于所有 SDTM 数据集的命名 **[Source: chapters/ch04_general_assumptions.md]**。\n\n**结论：** C66734（SDTM Domain Abbreviation）是 SDTM 中最广泛共享的编码列表，因为它定义了所有标准域代码（如 DM、AE、LB 等），被几乎所有域数据集引用。",
+      "judge_fact_recall": 0.0,
+      "judge_fact_hits": [],
+      "judge_fact_misses": [
+        "C66742",
+        "No Yes Response"
+      ],
+      "judge_parse_ok": true,
+      "elapsed_s": 4.44
+    },
+    {
+      "id": "ms04",
+      "category": "aggregate",
+      "question": "What are the three most frequently reused controlled terminology codelists in SDTM?",
+      "source_recall": 0.0,
+      "source_hits": [],
+      "source_misses": [
+        "VARIABLE_INDEX.md"
+      ],
+      "top5_sources": [
+        "domains/RELSPEC/assumptions.md",
+        "chapters/ch10_appendices.md",
+        "domains/TS/assumptions.md",
+        "domains/PP/assumptions.md",
+        "domains/DD/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.6933,
+        0.6507,
+        0.629,
+        0.6177,
+        0.6263
+      ],
+      "fact_recall": 0.0,
+      "fact_hits": [],
+      "fact_misses": [
+        "C66742",
+        "C71620",
+        "C66789"
+      ],
+      "answer_preview": "根据检索到的上下文，SDTM 中最常被复用的受控术语编码表（codelist）有三个，它们出现在多个域中：\n\n1. **SDTM Domain Abbreviation (C66734)** — 用于 `RDOMAIN` 变量，出现在 CO、RELREC、SUPPQUAL 等域中。\n2. **Evaluator (C78735)** — 用于 `--EVAL` 变量（如 COEVAL、DDEVAL、QEVAL），出现在 CO、DD、SUPPQUAL 等域中。\n3. **Medical Evaluator Identifier (C96777)** — 用于 `--EVALID` 变量（如 COEVALID），出现在 CO 等域中。\n\n此外，RELSPEC 的假设中也提到三个可能适用的编码表：**SPEC (C77529)**、**SPECTYPE (C78734)** 和 **GENSMP (C111114)**，但它们是域专属的，并非跨域复用。\n\n**结论**：从跨域复用频率来看，**C66734**、**C78735** 和 **C96777** 是三个最常被复用的受控术语编码表。\n\n**[Source: domains/CO/spec.md — Controlled Terminology]**\n**[Source: domains/DD/spec.md — Controll",
+      "usage": {
+        "prompt_tokens": 10474,
+        "completion_tokens": 329,
+        "total_tokens": 10803
+      },
+      "model": "deepseek/deepseek-chat",
+      "answer": "根据检索到的上下文，SDTM 中最常被复用的受控术语编码表（codelist）有三个，它们出现在多个域中：\n\n1. **SDTM Domain Abbreviation (C66734)** — 用于 `RDOMAIN` 变量，出现在 CO、RELREC、SUPPQUAL 等域中。\n2. **Evaluator (C78735)** — 用于 `--EVAL` 变量（如 COEVAL、DDEVAL、QEVAL），出现在 CO、DD、SUPPQUAL 等域中。\n3. **Medical Evaluator Identifier (C96777)** — 用于 `--EVALID` 变量（如 COEVALID），出现在 CO 等域中。\n\n此外，RELSPEC 的假设中也提到三个可能适用的编码表：**SPEC (C77529)**、**SPECTYPE (C78734)** 和 **GENSMP (C111114)**，但它们是域专属的，并非跨域复用。\n\n**结论**：从跨域复用频率来看，**C66734**、**C78735** 和 **C96777** 是三个最常被复用的受控术语编码表。\n\n**[Source: domains/CO/spec.md — Controlled Terminology]**\n**[Source: domains/DD/spec.md — Controlled Terminology]**\n**[Source: domains/RELREC/spec.md — Controlled Terminology]**\n**[Source: domains/SUPPQUAL/spec.md — Controlled Terminology]**\n**[Source: domains/RELSPEC/assumptions.md — item_3]**",
+      "judge_fact_recall": 0.0,
+      "judge_fact_hits": [],
+      "judge_fact_misses": [
+        "C66742",
+        "C71620",
+        "C66789"
+      ],
+      "judge_parse_ok": true,
+      "elapsed_s": 4.37
+    },
+    {
+      "id": "ms05",
+      "category": "aggregate",
+      "question": "Could you name several of the most commonly shared codelists used throughout the SDTM domains?",
+      "source_recall": 0.0,
+      "source_hits": [],
+      "source_misses": [
+        "VARIABLE_INDEX.md"
+      ],
+      "top5_sources": [
+        "model/01_concepts_and_terms.md",
+        "chapters/ch01_introduction.md",
+        "chapters/ch10_appendices.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch10_appendices.md"
+      ],
+      "top5_similarities": [
+        0.5836,
+        0.5635,
+        0.543,
+        0.5709,
+        0.6223
+      ],
+      "fact_recall": 0.2,
+      "fact_hits": [
+        "C66742"
+      ],
+      "fact_misses": [
+        "C71620",
+        "C66789",
+        "C66728",
+        "C74456"
+      ],
+      "answer_preview": "根据 SDTMIG v3.4 和 SDTM v2.0 的知识库，以下是一些在多个 SDTM 域中广泛共享的通用受控术语（Codelist）：\n\n1. **C66734 — SDTM Domain Abbreviation**  \n   用于所有域的 2 字符域代码（如 AE、LB、VS 等），是数据集命名和 DOMAIN 变量的标准值。  \n   **[Source: chapters/ch04_general_assumptions.md §4.1.6]**\n\n2. **C66742 — Yes/No/Unknown Response**  \n   用于多个域中的标志性变量（如 AESER、AEREL、--BLFL 等），是最常见的通用响应编码。  \n   **[Source: VARIABLE_INDEX.md §三 CT 交叉引用]**\n\n3. **C101833 — Findings About Test Name (FATEST)**  \n   用于 FA 域中的 FATEST 变量，但也在多个 Findings 域中作为通用测试名称编码使用。  \n   **[Source: domains/FA/spec.md FATEST]**\n\n4. **C77529 — Specimen (SPEC)**  \n   用于多个涉及标本的域（如 LB、MB、PC、BS 等），描述标本",
+      "usage": {
+        "prompt_tokens": 14275,
+        "completion_tokens": 478,
+        "total_tokens": 14753
+      },
+      "model": "deepseek/deepseek-chat",
+      "answer": "根据 SDTMIG v3.4 和 SDTM v2.0 的知识库，以下是一些在多个 SDTM 域中广泛共享的通用受控术语（Codelist）：\n\n1. **C66734 — SDTM Domain Abbreviation**  \n   用于所有域的 2 字符域代码（如 AE、LB、VS 等），是数据集命名和 DOMAIN 变量的标准值。  \n   **[Source: chapters/ch04_general_assumptions.md §4.1.6]**\n\n2. **C66742 — Yes/No/Unknown Response**  \n   用于多个域中的标志性变量（如 AESER、AEREL、--BLFL 等），是最常见的通用响应编码。  \n   **[Source: VARIABLE_INDEX.md §三 CT 交叉引用]**\n\n3. **C101833 — Findings About Test Name (FATEST)**  \n   用于 FA 域中的 FATEST 变量，但也在多个 Findings 域中作为通用测试名称编码使用。  \n   **[Source: domains/FA/spec.md FATEST]**\n\n4. **C77529 — Specimen (SPEC)**  \n   用于多个涉及标本的域（如 LB、MB、PC、BS 等），描述标本类型。  \n   **[Source: domains/RELSPEC/assumptions.md item_3]**\n\n5. **C78734 — Specimen Type (SPECTYPE)**  \n   与 SPEC 配合使用，进一步分类标本类型，同样跨多个标本相关域。  \n   **[Source: domains/RELSPEC/assumptions.md item_3]**\n\n6. **C111114 — Genomic Specimen (GENSMP)**  \n   用于基因组学相关域（如 GF）中的标本描述。  \n   **[Source: domains/RELSPEC/assumptions.md item_3]**\n\n7. **C160923 — SDTM Version Response**  \n   用于 TS 域中标识 SDTM 版本，但作为标准版本编码被所有域引用。  \n   **[Source: terminology/supplementary/supplementary_part5.md]**\n\n这些 codelist 因其跨域通用性，在 SDTM 数据提交中被广泛使用。如需特定域的完整编码列表，可进一步查阅对应域的 spec.md 文件中的 Controlled Terms 字段。",
+      "judge_fact_recall": 0.2,
+      "judge_fact_hits": [
+        "C66742"
+      ],
+      "judge_fact_misses": [
+        "C71620",
+        "C66789",
+        "C66728",
+        "C74456"
+      ],
+      "judge_parse_ok": true,
+      "elapsed_s": 6.62
+    },
+    {
+      "id": "rl01",
+      "category": "relationship",
+      "question": "Which other SDTM domains fall under the same observation class as the Biospecimen Events (BE) domain?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/BE/"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/BE/spec.md",
+        "domains/BE/spec.md",
+        "domains/BE/spec.md",
+        "domains/BE/spec.md",
+        "model/02_observation_classes.md"
+      ],
+      "top5_similarities": [
+        0.6667,
+        0.6494,
+        0.6089,
+        0.5954,
+        0.6395
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "AE",
+        "BS",
+        "CE",
+        "DS",
+        "DV",
+        "HO",
+        "MH"
+      ],
+      "fact_misses": [],
+      "answer_preview": "根据 SDTM 模型，**Biospecimen Events (BE)** 域属于 **Events（事件）** 观察类。\n\n与 BE 同属 Events 类的其他 SDTM 域包括：\n\n- **AE** — Adverse Events（不良事件）\n- **CE** — Clinical Events（临床事件）\n- **DS** — Disposition（受试者完成/退出情况）\n- **DV** — Protocol Deviations（方案偏离）\n- **HO** — Healthcare Encounters（医疗就诊）\n- **MH** — Medical History（病史）\n\n**[Source: domains/BE/spec.md — Related Domains]**\n\n此外，BE 域与 **BS（Biospecimen Findings，生物样本检测结果）** 域有标本层面的关联，但 BS 属于 **Findings（检测结果）** 类，而非 Events 类。**[Source: domains/BS/spec.md — Related Domains]**",
+      "usage": {
+        "prompt_tokens": 13356,
+        "completion_tokens": 193,
+        "total_tokens": 13549
+      },
+      "model": "deepseek/deepseek-chat",
+      "answer": "根据 SDTM 模型，**Biospecimen Events (BE)** 域属于 **Events（事件）** 观察类。\n\n与 BE 同属 Events 类的其他 SDTM 域包括：\n\n- **AE** — Adverse Events（不良事件）\n- **CE** — Clinical Events（临床事件）\n- **DS** — Disposition（受试者完成/退出情况）\n- **DV** — Protocol Deviations（方案偏离）\n- **HO** — Healthcare Encounters（医疗就诊）\n- **MH** — Medical History（病史）\n\n**[Source: domains/BE/spec.md — Related Domains]**\n\n此外，BE 域与 **BS（Biospecimen Findings，生物样本检测结果）** 域有标本层面的关联，但 BS 属于 **Findings（检测结果）** 类，而非 Events 类。**[Source: domains/BS/spec.md — Related Domains]**",
+      "judge_fact_recall": 0.8571,
+      "judge_fact_hits": [
+        "AE",
+        "CE",
+        "DS",
+        "DV",
+        "HO",
+        "MH"
+      ],
+      "judge_fact_misses": [
+        "BS"
+      ],
+      "judge_parse_ok": true,
+      "elapsed_s": 3.63
+    },
+    {
+      "id": "rl02",
+      "category": "relationship",
+      "question": "What domains does the Microbiology Specimen (MB) domain typically have relationships or links with in an SDTM submission?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/MB/"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/MB/spec.md",
+        "domains/MB/spec.md",
+        "domains/MB/spec.md",
+        "domains/MB/spec.md",
+        "domains/MB/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.6404,
+        0.5957,
+        0.5584,
+        0.5514,
+        0.7038
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "BS",
+        "CP",
+        "CV",
+        "DA",
+        "DD",
+        "EG",
+        "FT",
+        "GF",
+        "IE",
+        "IS",
+        "LB",
+        "MI",
+        "MK",
+        "MS",
+        "NV",
+        "OE",
+        "PC",
+        "PE",
+        "PP",
+        "QS",
+        "RE",
+        "RELSPEC",
+        "RP",
+        "RS",
+        "SC",
+        "SS",
+        "TR",
+        "TU",
+        "UR",
+        "VS"
+      ],
+      "fact_misses": [],
+      "answer_preview": "根据 SDTMIG v3.4 知识库，微生物标本（MB）域在提交中通常与以下域存在关系或链接：\n\n### 1. 同一观察类（Findings）的其他域\nMB 与所有 Findings 类域共享相同的通用结构，包括：BS, CP, CV, DA, DD, EG, FT, GF, IE, IS, LB, MI, MK, MS, NV, OE, PC, PE, PP, QS, RE, RP, RS, SC, SS, TR, TU, UR, VS。  \n**[Source: domains/MB/spec.md — Related Domains]**\n\n### 2. 微生物学药敏结果域（MS）\nMB 与 MS 域共享数据集，MS 域用于存储微生物药敏试验结果。两者通过 `--REFID`、`--LNKID`、`--LNKGRP` 等链接变量关联。  \n**[Source: domains/MB/spec.md — Related Domains]**  \n**[Source: domains/MS/spec.md — Related Domains]**\n\n### 3. 微生物学显微镜检查域（MI）\nMB 与 MI 域相关，MI 域用于存储微生物显微镜检查结果。  \n**[Source: domains/MB/spec.md — Related Domains]**\n\n### 4. 生物",
+      "usage": {
+        "prompt_tokens": 16127,
+        "completion_tokens": 694,
+        "total_tokens": 16821
+      },
+      "model": "deepseek/deepseek-chat",
+      "answer": "根据 SDTMIG v3.4 知识库，微生物标本（MB）域在提交中通常与以下域存在关系或链接：\n\n### 1. 同一观察类（Findings）的其他域\nMB 与所有 Findings 类域共享相同的通用结构，包括：BS, CP, CV, DA, DD, EG, FT, GF, IE, IS, LB, MI, MK, MS, NV, OE, PC, PE, PP, QS, RE, RP, RS, SC, SS, TR, TU, UR, VS。  \n**[Source: domains/MB/spec.md — Related Domains]**\n\n### 2. 微生物学药敏结果域（MS）\nMB 与 MS 域共享数据集，MS 域用于存储微生物药敏试验结果。两者通过 `--REFID`、`--LNKID`、`--LNKGRP` 等链接变量关联。  \n**[Source: domains/MB/spec.md — Related Domains]**  \n**[Source: domains/MS/spec.md — Related Domains]**\n\n### 3. 微生物学显微镜检查域（MI）\nMB 与 MI 域相关，MI 域用于存储微生物显微镜检查结果。  \n**[Source: domains/MB/spec.md — Related Domains]**\n\n### 4. 生物标本发现域（BS）\nMB 与 BS 域共享标本数据，BS 域用于存储生物标本特征数据。两者通过 `--REFID` 变量关联（如 `BSREFID` 与 `MBREFID`）。  \n**[Source: domains/MB/spec.md — Related Domains]**  \n**[Source: domains/MB/examples.md — Example 3]**\n\n### 5. 标本关系域（RELSPEC）\nMB 通过 RELSPEC 域建立标本层级关系（如父-子标本关系）。  \n**[Source: domains/MB/spec.md — Related Domains]**\n\n### 6. 生物标本事件域（BE）\nMB 与 BE 域关联，BE 域记录标本处理事件（如采集、分装、培养）。两者通过 `BEREFID`/`MBREFID` 和 `BELNKID`/`MBLNKGRP` 链接。  \n**[Source: domains/MB/examples.md — Example 3]**\n\n### 7. 基因组发现域（GF）\n当基因型药敏试验提供突变数据时，MB/MS 与 GF 域通过 RELREC 关联。  \n**[Source: domains/MS/assumptions.md — item_1]**\n\n### 链接机制总结\n- **`--REFID`**：跨域引用同一标本（如 BE、BS、MB、MS 之间）\n- **`--LNKID` / `--LNKGRP`**：链接培养起止日期与培养结果\n- **`MBGRPID`**：在 MB 域内分组同一标本的检测记录与特征记录\n- **`RELREC`**：用于 MB/MS 与 GF 之间的跨域关系\n- **`RELSPEC`**：用于标本层级关系\n\n**[Source: domains/MB/examples.md — Example 3]**  \n**[Source: chapters/ch08_relationships.md — §8.2-8.5]**",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "BS",
+        "CP",
+        "CV",
+        "DA",
+        "DD",
+        "EG",
+        "FT",
+        "GF",
+        "IE",
+        "IS",
+        "LB",
+        "MI",
+        "MK",
+        "MS",
+        "NV",
+        "OE",
+        "PC",
+        "PE",
+        "PP",
+        "QS",
+        "RE",
+        "RELSPEC",
+        "RP",
+        "RS",
+        "SC",
+        "SS",
+        "TR",
+        "TU",
+        "UR",
+        "VS"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 7.8
+    },
+    {
+      "id": "rl03",
+      "category": "relationship",
+      "question": "Which other SDTM domains share the same observation class as the Findings About Events or Interventions (FA) domain?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/FA/"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/FA/spec.md",
+        "domains/FA/spec.md",
+        "domains/FA/spec.md",
+        "domains/FA/spec.md",
+        "model/02_observation_classes.md"
+      ],
+      "top5_similarities": [
+        0.5988,
+        0.529,
+        0.5065,
+        0.5013,
+        0.6784
+      ],
+      "fact_recall": 0.375,
+      "fact_hits": [
+        "EC",
+        "SR",
+        "SU"
+      ],
+      "fact_misses": [
+        "AE",
+        "CM",
+        "EX",
+        "ML",
+        "PR"
+      ],
+      "answer_preview": "根据 SDTMIG v3.4，Findings About Events or Interventions（FA）域属于 **Findings 观察类**下的一个子类型（subtype）**[Source: model/02_observation_classes.md — 3.1.3 The Findings Observation Class]**。\n\n与 FA 同属 Findings 观察类的其他 SDTM 域包括：\n\nBS, CP, CV, DA, DD, EG, FT, GF, IE, IS, LB, MB, MI, MK, MS, NV, OE, PC, PE, PP, RE, RP, RS, SC, SS, TR, TU, UR, VS **[Source: domains/QS/spec.md — Related Domains]**。\n\n此外，**SR（Skin Response）** 域也与 FA 同属 Findings About 子类型 **[Source: domains/SR/spec.md — Related Domains]**。",
+      "usage": {
+        "prompt_tokens": 13383,
+        "completion_tokens": 182,
+        "total_tokens": 13565
+      },
+      "model": "deepseek/deepseek-chat",
+      "answer": "根据 SDTMIG v3.4，Findings About Events or Interventions（FA）域属于 **Findings 观察类**下的一个子类型（subtype）**[Source: model/02_observation_classes.md — 3.1.3 The Findings Observation Class]**。\n\n与 FA 同属 Findings 观察类的其他 SDTM 域包括：\n\nBS, CP, CV, DA, DD, EG, FT, GF, IE, IS, LB, MB, MI, MK, MS, NV, OE, PC, PE, PP, RE, RP, RS, SC, SS, TR, TU, UR, VS **[Source: domains/QS/spec.md — Related Domains]**。\n\n此外，**SR（Skin Response）** 域也与 FA 同属 Findings About 子类型 **[Source: domains/SR/spec.md — Related Domains]**。",
+      "judge_fact_recall": 0.125,
+      "judge_fact_hits": [
+        "SR"
+      ],
+      "judge_fact_misses": [
+        "AE",
+        "CM",
+        "EC",
+        "EX",
+        "ML",
+        "PR",
+        "SU"
+      ],
+      "judge_parse_ok": true,
+      "elapsed_s": 3.61
+    },
+    {
+      "id": "rl04",
+      "category": "relationship",
+      "question": "In SDTM, which other domains are related to the Exposure as Collected (EC) domain, and which ones belong to the same observation class as it?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/EC/"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/EC/spec.md",
+        "domains/EC/spec.md",
+        "domains/EC/spec.md",
+        "domains/EC/spec.md",
+        "domains/EX/spec.md"
+      ],
+      "top5_similarities": [
+        0.664,
+        0.5139,
+        0.5065,
+        0.4998,
+        0.7028
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "AG",
+        "CM",
+        "EX",
+        "ML",
+        "PR",
+        "SU"
+      ],
+      "fact_misses": [],
+      "answer_preview": "根据 SDTMIG v3.4，**Exposure as Collected (EC)** 域的相关域和同观察类域如下：\n\n### 同观察类域（Interventions 类）\nEC 属于 **Interventions（干预）** 观察类，与其同类的域包括：\n- **AG** — Procedure Agents（操作用药）\n- **CM** — Concomitant/Prior Medications（合并/既往用药）\n- **EX** — Exposure（暴露）\n- **ML** — Meal Data（膳食数据）\n- **PR** — Procedures（操作）\n- **SU** — Substance Use（物质使用）\n\n**[Source: domains/EC/spec.md — Related Domains]**\n\n### 共享数据集的域\nEC 与 **EX** 域共享数据集关系，用于表示\"暴露数据\"与\"暴露收集数据\"之间的区别：\n- **EX** — 当 EC 数据集与 EX 数据集完全重复时，EC 为可选域，由申办方自行决定。\n\n**[Source: domains/EC/spec.md — Related Domains]**\n**[Source: domains/EC/assumptions.md — item_1b]**\n\n### 其他相关域（通",
+      "usage": {
+        "prompt_tokens": 12632,
+        "completion_tokens": 370,
+        "total_tokens": 13002
+      },
+      "model": "deepseek/deepseek-chat",
+      "answer": "根据 SDTMIG v3.4，**Exposure as Collected (EC)** 域的相关域和同观察类域如下：\n\n### 同观察类域（Interventions 类）\nEC 属于 **Interventions（干预）** 观察类，与其同类的域包括：\n- **AG** — Procedure Agents（操作用药）\n- **CM** — Concomitant/Prior Medications（合并/既往用药）\n- **EX** — Exposure（暴露）\n- **ML** — Meal Data（膳食数据）\n- **PR** — Procedures（操作）\n- **SU** — Substance Use（物质使用）\n\n**[Source: domains/EC/spec.md — Related Domains]**\n\n### 共享数据集的域\nEC 与 **EX** 域共享数据集关系，用于表示\"暴露数据\"与\"暴露收集数据\"之间的区别：\n- **EX** — 当 EC 数据集与 EX 数据集完全重复时，EC 为可选域，由申办方自行决定。\n\n**[Source: domains/EC/spec.md — Related Domains]**\n**[Source: domains/EC/assumptions.md — item_1b]**\n\n### 其他相关域（通过 FA 域关联）\nEC 数据也可作为 **Findings About Events or Interventions (FA)** 域的源数据，用于记录关于暴露收集数据的发现：\n- **FA** — 可包含关于 EC 的发现（findings about exposure as collected）\n\n**[Source: domains/FA/spec.md — Related Domains]**\n\n---\n\n**总结：**\n- **同观察类（Interventions）：** AG, CM, EX, ML, PR, SU\n- **共享数据集：** EX\n- **通过 FA 关联：** FA（作为 Findings About 的源域）",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "AG",
+        "CM",
+        "EX",
+        "ML",
+        "PR",
+        "SU"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 6.29
+    },
+    {
+      "id": "rl05",
+      "category": "relationship",
+      "question": "What domains does the Related Records (RELREC) domain connect to or interact with across an SDTM dataset?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/RELREC/"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/RELREC/spec.md",
+        "domains/RELREC/spec.md",
+        "domains/RELREC/spec.md",
+        "domains/RELREC/spec.md",
+        "chapters/ch08_relationships.md"
+      ],
+      "top5_similarities": [
+        0.666,
+        0.6271,
+        0.5983,
+        0.5379,
+        0.7195
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "RELSPEC",
+        "RELSUB",
+        "SUPPQUAL"
+      ],
+      "fact_misses": [],
+      "answer_preview": "根据 SDTMIG v3.4 和 SDTM v2.0 模型，**RELREC（Related Records）** 是一个特殊用途的关系数据集，用于描述受试者记录之间或数据集之间的关系。它可以连接或交互的域/数据集范围非常广泛，具体取决于使用场景：\n\n---\n\n## 1. 通用观察类域（General Observation Class Domains）\n\nRELREC 可以连接 **任何 Interventions、Events、Findings 域** 中的记录，包括但不限于：\n\n| 类别 | 域代码 | 域名称 |\n|------|--------|--------|\n| **Interventions** | CM, EX, EC, PR, SU, AG, ML | 伴随用药、暴露、操作、物质使用等 |\n| **Events** | AE, MH, CE, DS, DV, HO, BE | 不良事件、病史、临床事件、方案偏离等 |\n| **Findings** | LB, VS, EG, PE, QS, PC, PP, TU, TR, RS, NV, CV, MK, RE, RP, SR, SS, UR, OE, FT, IS, MB, MS, MI, BS, CP, GF, DA, DD, FA, SC, IE | 实验室检查、生命体征、心电图、问卷、PK、肿瘤评估等 |",
+      "usage": {
+        "prompt_tokens": 15718,
+        "completion_tokens": 955,
+        "total_tokens": 16673
+      },
+      "model": "deepseek/deepseek-chat",
+      "answer": "根据 SDTMIG v3.4 和 SDTM v2.0 模型，**RELREC（Related Records）** 是一个特殊用途的关系数据集，用于描述受试者记录之间或数据集之间的关系。它可以连接或交互的域/数据集范围非常广泛，具体取决于使用场景：\n\n---\n\n## 1. 通用观察类域（General Observation Class Domains）\n\nRELREC 可以连接 **任何 Interventions、Events、Findings 域** 中的记录，包括但不限于：\n\n| 类别 | 域代码 | 域名称 |\n|------|--------|--------|\n| **Interventions** | CM, EX, EC, PR, SU, AG, ML | 伴随用药、暴露、操作、物质使用等 |\n| **Events** | AE, MH, CE, DS, DV, HO, BE | 不良事件、病史、临床事件、方案偏离等 |\n| **Findings** | LB, VS, EG, PE, QS, PC, PP, TU, TR, RS, NV, CV, MK, RE, RP, SR, SS, UR, OE, FT, IS, MB, MS, MI, BS, CP, GF, DA, DD, FA, SC, IE | 实验室检查、生命体征、心电图、问卷、PK、肿瘤评估等 |\n\n**示例**（来自 [9]）：\n- AE 记录 ↔ CM 记录（不良事件与伴随用药的关系）\n- AE 记录 ↔ LB 记录（不良事件与实验室检查的关系）\n\n---\n\n## 2. 特殊用途域（Special Purpose Domains）\n\nRELREC **不直接连接** DM、CO、SE、SV、SM 等特殊用途域，因为：\n- **SUPP--** 和 **CO** 已通过自身的关键变量（如 RDOMAIN、IDVAR、IDVARVAL）直接关联到父记录，无需 RELREC [11]\n- **DM** 是受试者级数据，通常不通过 RELREC 建立记录级关系\n\n---\n\n## 3. 数据集到数据集的关系（Dataset-to-Dataset）\n\nRELREC 可以连接 **两个或多个数据集** 之间的一对一、一对多或多对多关系。典型场景：\n\n| 源数据集 | 目标数据集 | 连接变量 | 用途 |\n|---------|-----------|---------|------|\n| **TU** | **TR** | TULNKID ↔ TRLNKID | 肿瘤识别与肿瘤测量结果关联 [10] |\n| **TR** | **RS** | TRLNKGRP ↔ RSLNKGRP | 肿瘤测量与疾病响应评估关联 [7] |\n| **PR** | **NV** | PRLNKID ↔ NVLNKID | 操作记录与神经系统检查结果关联 [14] |\n| **AG** | **NV** | AGLNKID ↔ NVLNKID | 示踪剂给药与 PET 结果关联 [14] |\n\n---\n\n## 4. 关系数据集（Relationship Datasets）\n\nRELREC 与以下关系数据集属于 **同一类（Relationship Class）** [3]：\n- **RELSPEC**（Related Specimens）— 标本关系\n- **RELSUB**（Related Subjects）— 受试者关系\n- **SUPPQUAL**（Supplemental Qualifiers）— 补充限定词\n\n这些数据集之间不通过 RELREC 相互连接，但共享相同的设计理念。\n\n---\n\n## 5. 试验设计域（Trial Design Domains）\n\nRELREC **不连接** 试验设计域（TA、TE、TV、TD、TM、TI、TS），因为这些是研究级数据，不包含受试者级记录。\n\n---\n\n## 总结\n\n| 连接类型 | 可连接的域 | 示例 |\n|---------|-----------|------|\n| **记录级（Peer Records）** | 任何 Interventions、Events、Findings 域 | AE ↔ CM, AE ↔ LB |\n| **数据集级（Dataset-to-Dataset）** | TU ↔ TR, TR ↔ RS, PR ↔ NV, AG ↔ NV 等 | 使用 --LNKID / --LNKGRP 作为连接键 |\n| **不连接** | DM, CO, SE, SV, SM, 试验设计域, RELREC 自身 | — |\n\n**核心原则**：RELREC 是一个通用关系描述数据集，理论上可以连接 **任何包含受试者级记录的标准域**，只要存在收集到的关系（如 CRF 上的勾选框或显式引用）[6]。",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "RELSPEC",
+        "RELSUB",
+        "SUPPQUAL"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 13.15
+    },
+    {
+      "id": "rl06",
+      "category": "relationship",
+      "question": "Which other SDTM domains is the Comments (CO) domain associated with or linked to?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/CO/"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/CO/spec.md",
+        "domains/CO/spec.md",
+        "domains/CO/spec.md",
+        "domains/CO/spec.md",
+        "domains/CO/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.6075,
+        0.5864,
+        0.5626,
+        0.5399,
+        0.7161
+      ],
+      "fact_recall": 0.5,
+      "fact_hits": [
+        "SE",
+        "SV"
+      ],
+      "fact_misses": [
+        "DM",
+        "SM"
+      ],
+      "answer_preview": "根据 SDTMIG v3.4，Comments (CO) 域是一个特殊用途域，用于存储自由文本注释。CO 域通过以下变量与其他 SDTM 域关联：\n\n## 关联机制\n\nCO 域使用 **RDOMAIN、IDVAR 和 IDVARVAL** 变量来标识与父域或父记录的关系 **[Source: chapters/ch08_relationships.md §8.5]**。\n\n### 三种关联级别\n\n1. **与受试者关联（不特定于任何域）**：RDOMAIN、IDVAR、IDVARVAL 均为空。仅通过 USUBJID 关联。**[Source: domains/CO/assumptions.md item_3a]**\n\n2. **与特定域关联（不特定于具体记录）**：RDOMAIN 设置为父域的 DOMAIN 代码，IDVAR 和 IDVARVAL 为空。**[Source: domains/CO/assumptions.md item_3b]**\n\n3. **与特定父记录关联**：RDOMAIN 设置为父域的 DOMAIN 代码，IDVAR 和 IDVARVAL 填充为父记录的键变量名称和值。**[Source: domains/CO/assumptions.md item_3c]**\n\n## 示例中出现的关联域\n\n根据 CO 域的示例数据 **[Source: domains/",
+      "usage": {
+        "prompt_tokens": 13750,
+        "completion_tokens": 665,
+        "total_tokens": 14415
+      },
+      "model": "deepseek/deepseek-chat",
+      "answer": "根据 SDTMIG v3.4，Comments (CO) 域是一个特殊用途域，用于存储自由文本注释。CO 域通过以下变量与其他 SDTM 域关联：\n\n## 关联机制\n\nCO 域使用 **RDOMAIN、IDVAR 和 IDVARVAL** 变量来标识与父域或父记录的关系 **[Source: chapters/ch08_relationships.md §8.5]**。\n\n### 三种关联级别\n\n1. **与受试者关联（不特定于任何域）**：RDOMAIN、IDVAR、IDVARVAL 均为空。仅通过 USUBJID 关联。**[Source: domains/CO/assumptions.md item_3a]**\n\n2. **与特定域关联（不特定于具体记录）**：RDOMAIN 设置为父域的 DOMAIN 代码，IDVAR 和 IDVARVAL 为空。**[Source: domains/CO/assumptions.md item_3b]**\n\n3. **与特定父记录关联**：RDOMAIN 设置为父域的 DOMAIN 代码，IDVAR 和 IDVARVAL 填充为父记录的键变量名称和值。**[Source: domains/CO/assumptions.md item_3c]**\n\n## 示例中出现的关联域\n\n根据 CO 域的示例数据 **[Source: domains/CO/examples.md Example 1]**，CO 域可以与以下域关联：\n\n| 父域 | 关联方式 | 示例说明 |\n|------|---------|---------|\n| **PE** (Physical Examination) | RDOMAIN = \"PE\" | 访视 7 的体格检查页面收集的注释 |\n| **AE** (Adverse Events) | RDOMAIN = \"AE\", IDVAR = \"AESEQ\", IDVARVAL = \"7\" | 与特定不良事件记录关联的注释 |\n| **EX** (Exposure) | RDOMAIN = \"EX\", IDVAR = \"EXGRPID\", IDVARVAL = \"COMBO1\" | 与一组暴露记录关联的注释 |\n| **VS** (Vital Signs) | RDOMAIN = \"VS\", IDVAR = \"VSGRPID\", IDVARVAL = \"VS2\" | 与一组生命体征记录关联的注释 |\n| **SV** (Subject Visits) | RDOMAIN = \"SV\", IDVAR = \"VISITNUM\", IDVARVAL = \"4\" | 与特定访视关联的注释 |\n\n## 关键规则\n\n- **RDOMAIN 只能有一个值**，因此一条注释只能关联到一个域中的记录组。如果一条注释涉及多个域的记录，可能需要重复该注释记录。**[Source: chapters/ch08_relationships.md §8.5]**\n- 当注释与特定父记录关联时，**CODTC 应为空**，因为父记录的时序信息被继承。**[Source: domains/CO/assumptions.md item_3c]**\n- 理论上，CO 域可以与**任何 SDTM 域**关联，包括 Interventions、Events、Findings 以及特殊用途域，只要通过 RDOMAIN、IDVAR 和 IDVARVAL 正确标识关系。",
+      "judge_fact_recall": 0.25,
+      "judge_fact_hits": [
+        "SV"
+      ],
+      "judge_fact_misses": [
+        "DM",
+        "SE",
+        "SM"
+      ],
+      "judge_parse_ok": true,
+      "elapsed_s": 8.18
+    },
+    {
+      "id": "rl07",
+      "category": "relationship",
+      "question": "What other SDTM domains is the Trial Arms (TA) domain related to or connected with?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/TA/"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/TA/spec.md",
+        "domains/TA/spec.md",
+        "domains/TA/spec.md",
+        "domains/TA/spec.md",
+        "domains/TV/spec.md"
+      ],
+      "top5_similarities": [
+        0.6958,
+        0.5454,
+        0.4911,
+        0.4621,
+        0.7254
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "TD",
+        "TE",
+        "TI",
+        "TM",
+        "TS",
+        "TV"
+      ],
+      "fact_misses": [],
+      "answer_preview": "根据 SDTMIG v3.4，Trial Arms (TA) 域与以下 SDTM 域相关或连接：\n\n## 同一类（试验设计）域\n\nTA 与所有其他试验设计域属于同一类，包括：\n- **TD** — Trial Disease Assessments（试验疾病评估）\n- **TE** — Trial Elements（试验元素）\n- **TI** — Trial Inclusion/Exclusion Criteria（试验入选/排除标准）\n- **TM** — Trial Disease Milestones（试验疾病里程碑）\n- **TS** — Trial Summary（试验摘要）\n- **TV** — Trial Visits（试验访视）\n\n**[Source: domains/TA/spec.md — Related Domains]**\n\n## 特定关系\n\n### TE（试验元素）\n- 试验臂由元素组成（arms use elements）\n- TA 中的每个记录对应一个元素在特定臂中的位置\n\n**[Source: domains/TA/spec.md — Related Domains]**\n\n### TV（试验访视）\n- 试验臂定义访视计划（arms define visit schedules）\n- 访视与特定臂相关联\n\n**[Source: domains/TA",
+      "usage": {
+        "prompt_tokens": 12601,
+        "completion_tokens": 486,
+        "total_tokens": 13087
+      },
+      "model": "deepseek/deepseek-chat",
+      "answer": "根据 SDTMIG v3.4，Trial Arms (TA) 域与以下 SDTM 域相关或连接：\n\n## 同一类（试验设计）域\n\nTA 与所有其他试验设计域属于同一类，包括：\n- **TD** — Trial Disease Assessments（试验疾病评估）\n- **TE** — Trial Elements（试验元素）\n- **TI** — Trial Inclusion/Exclusion Criteria（试验入选/排除标准）\n- **TM** — Trial Disease Milestones（试验疾病里程碑）\n- **TS** — Trial Summary（试验摘要）\n- **TV** — Trial Visits（试验访视）\n\n**[Source: domains/TA/spec.md — Related Domains]**\n\n## 特定关系\n\n### TE（试验元素）\n- 试验臂由元素组成（arms use elements）\n- TA 中的每个记录对应一个元素在特定臂中的位置\n\n**[Source: domains/TA/spec.md — Related Domains]**\n\n### TV（试验访视）\n- 试验臂定义访视计划（arms define visit schedules）\n- 访视与特定臂相关联\n\n**[Source: domains/TA/spec.md — Related Domains]**\n\n### DM（人口学）\n- DM 中的 ARM 和 ARMCD 变量必须使用 TA 数据集中的值\n- DM 假设第 4 条明确规定：ARM 和 ACTARM 必须使用 TA 数据集中的 ARM 值填充，ARMCD 和 ACTARMCD 必须使用 TA 数据集中的 ARMCD 值填充或为空\n- TA 中的 ARMCD 和 ARM 值具有一对一关系，该关系必须在 DM 中保持\n\n**[Source: domains/DM/assumptions.md — item_4]**\n\n### SE（受试者元素）\n- SE 数据集记录受试者在试验中经历的一系列元素，这些元素决定 ACTARMCD 的值\n- SE 示例说明了受试者实际经历的元素与 TA 中计划臂的关系\n\n**[Source: domains/DM/assumptions.md — item_4.c.ii]**\n\n## 总结\n\nTA 域是试验设计模型的核心，与 TE（元素组成臂）、TV（访视计划）、DM（臂分配）和 SE（实际元素经历）有直接的数据关系，并与 TD、TI、TM、TS 同属试验设计类域。",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "TD",
+        "TE",
+        "TI",
+        "TM",
+        "TS",
+        "TV"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 6.66
+    },
+    {
+      "id": "rl08",
+      "category": "relationship",
+      "question": "Which other domains belong to the same observation class as the Disposition (DS) domain in SDTM?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/DS/"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/DS/spec.md",
+        "domains/DS/spec.md",
+        "domains/DS/spec.md",
+        "domains/DS/spec.md",
+        "domains/HO/spec.md"
+      ],
+      "top5_similarities": [
+        0.6142,
+        0.6032,
+        0.557,
+        0.5528,
+        0.6384
+      ],
+      "fact_recall": 0.8571,
+      "fact_hits": [
+        "AE",
+        "BE",
+        "CE",
+        "DV",
+        "HO",
+        "MH"
+      ],
+      "fact_misses": [
+        "DM"
+      ],
+      "answer_preview": "根据 SDTM 模型，**Disposition (DS) 域属于 Events（事件）观察类**。\n\n与 DS 同属 Events 类的其他域包括：\n\n- **AE** — Adverse Events（不良事件）\n- **BE** — Biospecimen Events（生物标本事件）\n- **CE** — Clinical Events（临床事件）\n- **DV** — Protocol Deviations（方案偏离）\n- **HO** — Healthcare Encounters（医疗保健接触）\n- **MH** — Medical History（既往病史）\n\n**[Source: domains/DS/spec.md — Related Domains]**\n\n**[Source: domains/HO/spec.md — Related Domains]**",
+      "usage": {
+        "prompt_tokens": 12178,
+        "completion_tokens": 137,
+        "total_tokens": 12315
+      },
+      "model": "deepseek/deepseek-chat",
+      "answer": "根据 SDTM 模型，**Disposition (DS) 域属于 Events（事件）观察类**。\n\n与 DS 同属 Events 类的其他域包括：\n\n- **AE** — Adverse Events（不良事件）\n- **BE** — Biospecimen Events（生物标本事件）\n- **CE** — Clinical Events（临床事件）\n- **DV** — Protocol Deviations（方案偏离）\n- **HO** — Healthcare Encounters（医疗保健接触）\n- **MH** — Medical History（既往病史）\n\n**[Source: domains/DS/spec.md — Related Domains]**\n\n**[Source: domains/HO/spec.md — Related Domains]**",
+      "judge_fact_recall": 0.8571,
+      "judge_fact_hits": [
+        "AE",
+        "BE",
+        "CE",
+        "DV",
+        "HO",
+        "MH"
+      ],
+      "judge_fact_misses": [
+        "DM"
+      ],
+      "judge_parse_ok": true,
+      "elapsed_s": 3.14
+    },
+    {
+      "id": "rl09",
+      "category": "relationship",
+      "question": "What other SDTM domains share an observation class with the Microbiology Susceptibility (MS) domain, and which ones does it have relationships with?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/MS/"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/MS/spec.md",
+        "domains/MS/spec.md",
+        "domains/MS/spec.md",
+        "domains/MS/spec.md",
+        "domains/MS/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.6056,
+        0.5851,
+        0.4896,
+        0.4621,
+        0.6847
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "BS",
+        "CP",
+        "CV",
+        "DA",
+        "DD",
+        "EG",
+        "FT",
+        "GF",
+        "IE",
+        "IS",
+        "LB",
+        "MB",
+        "MI",
+        "MK",
+        "NV",
+        "OE",
+        "PC",
+        "PE",
+        "PP",
+        "QS",
+        "RE",
+        "RELSPEC",
+        "RP",
+        "RS",
+        "SC",
+        "SS",
+        "TR",
+        "TU",
+        "UR",
+        "VS"
+      ],
+      "fact_misses": [],
+      "answer_preview": "根据 SDTMIG v3.4，微生物药敏试验（MS）域属于 **Findings（发现）** 观察类。与其同属 Findings 类的域包括：\n\nBS, CP, CV, DA, DD, EG, FT, GF, IE, IS, LB, MB, MI, MK, NV, OE, PC, PE, PP, QS, RE, RP, RS, SC, SS, TR, TU, UR, VS\n\n**[Source: domains/MS/spec.md -- Related Domains]**\n\n此外，MS 域与其他域存在以下特定关系：\n\n- **共享数据集**：MB（微生物标本）——微生物药敏结果与微生物鉴定共享数据集\n- **标本相关**：BS（生物标本发现）——药敏标本数据\n- **标本关系**：RELSPEC（相关标本）——标本层级关系\n\n**[Source: domains/MS/spec.md -- Related Domains]**\n\n另外，MS 域还可以通过 **MSLNKID** 变量与 **GF（基因组发现）** 域建立关联，用于连接基因检测结果与相应的药敏结论。例如，当基因型检测提供耐药相关突变数据时，突变结果放在 GF 域，药敏解释放在 MS 域，两者通过 RELREC 关系数据集链接。\n\n**[Source: domains/MS/assumptions.md -- it",
+      "usage": {
+        "prompt_tokens": 14244,
+        "completion_tokens": 300,
+        "total_tokens": 14544
+      },
+      "model": "deepseek/deepseek-chat",
+      "answer": "根据 SDTMIG v3.4，微生物药敏试验（MS）域属于 **Findings（发现）** 观察类。与其同属 Findings 类的域包括：\n\nBS, CP, CV, DA, DD, EG, FT, GF, IE, IS, LB, MB, MI, MK, NV, OE, PC, PE, PP, QS, RE, RP, RS, SC, SS, TR, TU, UR, VS\n\n**[Source: domains/MS/spec.md -- Related Domains]**\n\n此外，MS 域与其他域存在以下特定关系：\n\n- **共享数据集**：MB（微生物标本）——微生物药敏结果与微生物鉴定共享数据集\n- **标本相关**：BS（生物标本发现）——药敏标本数据\n- **标本关系**：RELSPEC（相关标本）——标本层级关系\n\n**[Source: domains/MS/spec.md -- Related Domains]**\n\n另外，MS 域还可以通过 **MSLNKID** 变量与 **GF（基因组发现）** 域建立关联，用于连接基因检测结果与相应的药敏结论。例如，当基因型检测提供耐药相关突变数据时，突变结果放在 GF 域，药敏解释放在 MS 域，两者通过 RELREC 关系数据集链接。\n\n**[Source: domains/MS/assumptions.md -- item_1b]**\n**[Source: domains/GF/examples.md -- Example 5]**",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "BS",
+        "CP",
+        "CV",
+        "DA",
+        "DD",
+        "EG",
+        "FT",
+        "GF",
+        "IE",
+        "IS",
+        "LB",
+        "MB",
+        "MI",
+        "MK",
+        "NV",
+        "OE",
+        "PC",
+        "PE",
+        "PP",
+        "QS",
+        "RE",
+        "RELSPEC",
+        "RP",
+        "RS",
+        "SC",
+        "SS",
+        "TR",
+        "TU",
+        "UR",
+        "VS"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 4.94
+    },
+    {
+      "id": "rl10",
+      "category": "relationship",
+      "question": "Which other SDTM domains are in the same observation class as the Skin Response (SR) domain?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/SR/"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/SR/spec.md",
+        "domains/SR/spec.md",
+        "domains/SR/spec.md",
+        "domains/SR/spec.md",
+        "domains/SR/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.6264,
+        0.5644,
+        0.4903,
+        0.4758,
+        0.7474
+      ],
+      "fact_recall": 0.5,
+      "fact_hits": [
+        "FA",
+        "PR"
+      ],
+      "fact_misses": [
+        "AE",
+        "CM"
+      ],
+      "answer_preview": "根据 SDTM 模型，Skin Response (SR) 域属于 **Findings About** 观察类，它是 **Findings** 观察类的一个子类型。\n\n与 SR 同属 Findings About 观察类的域是 **FA (Findings About Events or Interventions)**。\n\n**依据：**\n- SR 域的假设明确指出：\"The Skin Response (SR) domain is used to represent findings about an intervention, but it has its own domain code, SR, rather than the domain code FA.\" **[Source: domains/SR/assumptions.md -- item_1]**\n- FA 域的 \"Related Domains\" 部分将 SR 列为 \"Same class (Findings About)\" **[Source: domains/FA/spec.md -- Related Domains]**\n- SDTM 模型将 Findings About 定义为 Findings 的一个子类型，并说明 FA 和 SR 都是基于此模型构建的域 **[Source: model/02_ob",
+      "usage": {
+        "prompt_tokens": 13973,
+        "completion_tokens": 233,
+        "total_tokens": 14206
+      },
+      "model": "deepseek/deepseek-chat",
+      "answer": "根据 SDTM 模型，Skin Response (SR) 域属于 **Findings About** 观察类，它是 **Findings** 观察类的一个子类型。\n\n与 SR 同属 Findings About 观察类的域是 **FA (Findings About Events or Interventions)**。\n\n**依据：**\n- SR 域的假设明确指出：\"The Skin Response (SR) domain is used to represent findings about an intervention, but it has its own domain code, SR, rather than the domain code FA.\" **[Source: domains/SR/assumptions.md -- item_1]**\n- FA 域的 \"Related Domains\" 部分将 SR 列为 \"Same class (Findings About)\" **[Source: domains/FA/spec.md -- Related Domains]**\n- SDTM 模型将 Findings About 定义为 Findings 的一个子类型，并说明 FA 和 SR 都是基于此模型构建的域 **[Source: model/02_observation_classes.md -- 3.1.3 The Findings Observation Class]**\n\n因此，与 SR 同属 Findings About 观察类的唯一其他标准 SDTM 域是 **FA**。",
+      "judge_fact_recall": 0.25,
+      "judge_fact_hits": [
+        "FA"
+      ],
+      "judge_fact_misses": [
+        "AE",
+        "CM",
+        "PR"
+      ],
+      "judge_parse_ok": true,
+      "elapsed_s": 3.78
+    }
+  ]
+}

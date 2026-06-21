@@ -1,0 +1,1852 @@
+{
+  "n": 40,
+  "candidates": [
+    {
+      "ref": "ic01",
+      "family": "impact_codelist",
+      "subject": "C99079",
+      "subject_name": "Epoch",
+      "expect_count": 44,
+      "expect_kind": "impacted_domains",
+      "gold_domains": [
+        "AE",
+        "AG",
+        "CE",
+        "CM",
+        "CP",
+        "CV",
+        "DA",
+        "DS",
+        "DV",
+        "EC",
+        "EG",
+        "EX",
+        "FA",
+        "FT",
+        "HO",
+        "IE",
+        "IS",
+        "LB",
+        "MB",
+        "MH",
+        "MI",
+        "MK",
+        "ML",
+        "MS",
+        "NV",
+        "OE",
+        "PC",
+        "PE",
+        "PP",
+        "PR",
+        "QS",
+        "RE",
+        "RP",
+        "RS",
+        "SC",
+        "SE",
+        "SR",
+        "SS",
+        "SU",
+        "TA",
+        "TR",
+        "TU",
+        "UR",
+        "VS"
+      ],
+      "gold_variables": [
+        "EPOCH"
+      ],
+      "n_variables": 1,
+      "expected_facts": [
+        "AE",
+        "AG",
+        "CE",
+        "CM",
+        "CP",
+        "CV",
+        "DA",
+        "DS",
+        "DV",
+        "EC",
+        "EG",
+        "EX",
+        "FA",
+        "FT",
+        "HO",
+        "IE",
+        "IS",
+        "LB",
+        "MB",
+        "MH",
+        "MI",
+        "MK",
+        "ML",
+        "MS",
+        "NV",
+        "OE",
+        "PC",
+        "PE",
+        "PP",
+        "PR",
+        "QS",
+        "RE",
+        "RP",
+        "RS",
+        "SC",
+        "SE",
+        "SR",
+        "SS",
+        "SU",
+        "TA",
+        "TR",
+        "TU",
+        "UR",
+        "VS"
+      ],
+      "expected_sources": [
+        "terminology/core/general_part2.md"
+      ]
+    },
+    {
+      "ref": "ic02",
+      "family": "impact_codelist",
+      "subject": "C74456",
+      "subject_name": "Anatomical Location",
+      "expect_count": 19,
+      "expect_kind": "impacted_domains",
+      "gold_domains": [
+        "AE",
+        "BE",
+        "CV",
+        "EC",
+        "EX",
+        "FA",
+        "MB",
+        "MI",
+        "MK",
+        "MS",
+        "NV",
+        "OE",
+        "PE",
+        "PR",
+        "RE",
+        "SR",
+        "TU",
+        "UR",
+        "VS"
+      ],
+      "gold_variables": [
+        "AELOC",
+        "BELOC",
+        "CVLOC",
+        "ECLOC",
+        "EXLOC",
+        "FALOC",
+        "MBLOC",
+        "MILOC",
+        "MKLOC",
+        "MSLOC",
+        "NVLOC",
+        "OELOC",
+        "PELOC",
+        "PRLOC",
+        "RELOC",
+        "SRLOC",
+        "TULOC",
+        "URLOC",
+        "VSLOC"
+      ],
+      "n_variables": 19,
+      "expected_facts": [
+        "AE",
+        "BE",
+        "CV",
+        "EC",
+        "EX",
+        "FA",
+        "MB",
+        "MI",
+        "MK",
+        "MS",
+        "NV",
+        "OE",
+        "PE",
+        "PR",
+        "RE",
+        "SR",
+        "TU",
+        "UR",
+        "VS"
+      ],
+      "expected_sources": [
+        "terminology/core/general_part1.md"
+      ]
+    },
+    {
+      "ref": "ic03",
+      "family": "impact_codelist",
+      "subject": "C99073",
+      "subject_name": "Laterality",
+      "expect_count": 17,
+      "expect_kind": "impacted_domains",
+      "gold_domains": [
+        "CV",
+        "EC",
+        "EX",
+        "FA",
+        "MB",
+        "MI",
+        "MK",
+        "MS",
+        "NV",
+        "OE",
+        "PE",
+        "PR",
+        "RE",
+        "SR",
+        "TU",
+        "UR",
+        "VS"
+      ],
+      "gold_variables": [
+        "CVLAT",
+        "ECLAT",
+        "EXLAT",
+        "FALAT",
+        "MBLAT",
+        "MILAT",
+        "MKLAT",
+        "MSLAT",
+        "NVLAT",
+        "OELAT",
+        "PELAT",
+        "PRLAT",
+        "RELAT",
+        "SRLAT",
+        "TULAT",
+        "URLAT",
+        "VSLAT"
+      ],
+      "n_variables": 17,
+      "expected_facts": [
+        "CV",
+        "EC",
+        "EX",
+        "FA",
+        "MB",
+        "MI",
+        "MK",
+        "MS",
+        "NV",
+        "OE",
+        "PE",
+        "PR",
+        "RE",
+        "SR",
+        "TU",
+        "UR",
+        "VS"
+      ],
+      "expected_sources": [
+        "terminology/core/general_part2.md"
+      ]
+    },
+    {
+      "ref": "ic04",
+      "family": "impact_codelist",
+      "subject": "C78734",
+      "subject_name": "Specimen Type",
+      "expect_count": 11,
+      "expect_kind": "impacted_domains",
+      "gold_domains": [
+        "BS",
+        "CP",
+        "IS",
+        "LB",
+        "MB",
+        "MI",
+        "MS",
+        "PC",
+        "PP",
+        "RELSPEC",
+        "SR"
+      ],
+      "gold_variables": [
+        "BSSPEC",
+        "CPSPEC",
+        "ISSPEC",
+        "LBSPEC",
+        "MBSPEC",
+        "MISPEC",
+        "MSSPEC",
+        "PCSPEC",
+        "PPSPEC",
+        "SPEC",
+        "SRSPEC"
+      ],
+      "n_variables": 11,
+      "expected_facts": [
+        "BS",
+        "CP",
+        "IS",
+        "LB",
+        "MB",
+        "MI",
+        "MS",
+        "PC",
+        "PP",
+        "RELSPEC",
+        "SR"
+      ],
+      "expected_sources": [
+        "terminology/core/general_part4.md"
+      ]
+    },
+    {
+      "ref": "ic05",
+      "family": "impact_codelist",
+      "subject": "C66729",
+      "subject_name": "Route of Administration Response",
+      "expect_count": 6,
+      "expect_kind": "impacted_domains",
+      "gold_domains": [
+        "AG",
+        "CM",
+        "EC",
+        "EX",
+        "PR",
+        "SU"
+      ],
+      "gold_variables": [
+        "AGROUTE",
+        "CMROUTE",
+        "ECROUTE",
+        "EXROUTE",
+        "PRROUTE",
+        "SUROUTE"
+      ],
+      "n_variables": 6,
+      "expected_facts": [
+        "AG",
+        "CM",
+        "EC",
+        "EX",
+        "PR",
+        "SU"
+      ],
+      "expected_sources": [
+        "terminology/core/interventions.md"
+      ]
+    },
+    {
+      "ref": "ic06",
+      "family": "impact_codelist",
+      "subject": "C71148",
+      "subject_name": "Position",
+      "expect_count": 6,
+      "expect_kind": "impacted_domains",
+      "gold_domains": [
+        "CV",
+        "EG",
+        "FT",
+        "MK",
+        "RE",
+        "VS"
+      ],
+      "gold_variables": [
+        "CVPOS",
+        "EGPOS",
+        "FTPOS",
+        "MKPOS",
+        "REPOS",
+        "VSPOS"
+      ],
+      "n_variables": 6,
+      "expected_facts": [
+        "CV",
+        "EG",
+        "FT",
+        "MK",
+        "RE",
+        "VS"
+      ],
+      "expected_sources": [
+        "terminology/core/interventions.md"
+      ]
+    },
+    {
+      "ref": "ic07",
+      "family": "impact_codelist",
+      "subject": "C111114",
+      "subject_name": "Genetic Sample Type",
+      "expect_count": 3,
+      "expect_kind": "impacted_domains",
+      "gold_domains": [
+        "BS",
+        "GF",
+        "RELSPEC"
+      ],
+      "gold_variables": [
+        "BSSPEC",
+        "GFSPEC",
+        "SPEC"
+      ],
+      "n_variables": 3,
+      "expected_facts": [
+        "BS",
+        "GF",
+        "RELSPEC"
+      ],
+      "expected_sources": [
+        "terminology/core/general_part2.md"
+      ]
+    },
+    {
+      "ref": "ic08",
+      "family": "impact_codelist",
+      "subject": "C66734",
+      "subject_name": "SDTM Domain Abbreviation",
+      "expect_count": 3,
+      "expect_kind": "impacted_domains",
+      "gold_domains": [
+        "CO",
+        "RELREC",
+        "SUPPQUAL"
+      ],
+      "gold_variables": [
+        "RDOMAIN"
+      ],
+      "n_variables": 1,
+      "expected_facts": [
+        "CO",
+        "RELREC",
+        "SUPPQUAL"
+      ],
+      "expected_sources": [
+        "terminology/core/general_part4.md"
+      ]
+    },
+    {
+      "ref": "ic09",
+      "family": "impact_codelist",
+      "subject": "C179588",
+      "subject_name": "Result Type Response",
+      "expect_count": 2,
+      "expect_kind": "impacted_domains",
+      "gold_domains": [
+        "CP",
+        "LB"
+      ],
+      "gold_variables": [
+        "CPRESTYP",
+        "LBRESTYP"
+      ],
+      "n_variables": 2,
+      "expected_facts": [
+        "CP",
+        "LB"
+      ],
+      "expected_sources": [
+        "terminology/core/general_part4.md"
+      ]
+    },
+    {
+      "ref": "ic10",
+      "family": "impact_codelist",
+      "subject": "C85494",
+      "subject_name": "PK Units of Measure",
+      "expect_count": 2,
+      "expect_kind": "impacted_domains",
+      "gold_domains": [
+        "PC",
+        "PP"
+      ],
+      "gold_variables": [
+        "PCORRESU",
+        "PCSTRESU",
+        "PPORRESU",
+        "PPSTRESU"
+      ],
+      "n_variables": 4,
+      "expected_facts": [
+        "PC",
+        "PP"
+      ],
+      "expected_sources": [
+        "terminology/core/other_part3.md"
+      ]
+    },
+    {
+      "ref": "iv01",
+      "family": "impact_variable",
+      "subject": "VISIT",
+      "subject_name": "Visit Name",
+      "expect_count": 36,
+      "expect_kind": "impacted_domains",
+      "gold_domains": [
+        "AG",
+        "BE",
+        "BS",
+        "CP",
+        "CV",
+        "DA",
+        "EG",
+        "FA",
+        "FT",
+        "GF",
+        "IE",
+        "IS",
+        "LB",
+        "MB",
+        "MI",
+        "MK",
+        "ML",
+        "MS",
+        "NV",
+        "OE",
+        "PC",
+        "PE",
+        "PR",
+        "QS",
+        "RE",
+        "RP",
+        "RS",
+        "SC",
+        "SR",
+        "SS",
+        "SV",
+        "TR",
+        "TU",
+        "TV",
+        "UR",
+        "VS"
+      ],
+      "expected_facts": [
+        "AG",
+        "BE",
+        "BS",
+        "CP",
+        "CV",
+        "DA",
+        "EG",
+        "FA",
+        "FT",
+        "GF",
+        "IE",
+        "IS",
+        "LB",
+        "MB",
+        "MI",
+        "MK",
+        "ML",
+        "MS",
+        "NV",
+        "OE",
+        "PC",
+        "PE",
+        "PR",
+        "QS",
+        "RE",
+        "RP",
+        "RS",
+        "SC",
+        "SR",
+        "SS",
+        "SV",
+        "TR",
+        "TU",
+        "TV",
+        "UR",
+        "VS"
+      ],
+      "expected_sources": [
+        "VARIABLE_INDEX.md"
+      ]
+    },
+    {
+      "ref": "iv02",
+      "family": "impact_variable",
+      "subject": "VISITNUM",
+      "subject_name": "Visit Number",
+      "expect_count": 36,
+      "expect_kind": "impacted_domains",
+      "gold_domains": [
+        "AG",
+        "BE",
+        "BS",
+        "CP",
+        "CV",
+        "DA",
+        "EG",
+        "FA",
+        "FT",
+        "GF",
+        "IE",
+        "IS",
+        "LB",
+        "MB",
+        "MI",
+        "MK",
+        "ML",
+        "MS",
+        "NV",
+        "OE",
+        "PC",
+        "PE",
+        "PR",
+        "QS",
+        "RE",
+        "RP",
+        "RS",
+        "SC",
+        "SR",
+        "SS",
+        "SV",
+        "TR",
+        "TU",
+        "TV",
+        "UR",
+        "VS"
+      ],
+      "expected_facts": [
+        "AG",
+        "BE",
+        "BS",
+        "CP",
+        "CV",
+        "DA",
+        "EG",
+        "FA",
+        "FT",
+        "GF",
+        "IE",
+        "IS",
+        "LB",
+        "MB",
+        "MI",
+        "MK",
+        "ML",
+        "MS",
+        "NV",
+        "OE",
+        "PC",
+        "PE",
+        "PR",
+        "QS",
+        "RE",
+        "RP",
+        "RS",
+        "SC",
+        "SR",
+        "SS",
+        "SV",
+        "TR",
+        "TU",
+        "TV",
+        "UR",
+        "VS"
+      ],
+      "expected_sources": [
+        "VARIABLE_INDEX.md"
+      ]
+    },
+    {
+      "ref": "iv03",
+      "family": "impact_variable",
+      "subject": "SPDEVID",
+      "subject_name": "Sponsor Device Identifier",
+      "expect_count": 6,
+      "expect_kind": "impacted_domains",
+      "gold_domains": [
+        "AE",
+        "BE",
+        "BS",
+        "EG",
+        "GF",
+        "RE"
+      ],
+      "expected_facts": [
+        "AE",
+        "BE",
+        "BS",
+        "EG",
+        "GF",
+        "RE"
+      ],
+      "expected_sources": [
+        "VARIABLE_INDEX.md"
+      ]
+    },
+    {
+      "ref": "iv04",
+      "family": "impact_variable",
+      "subject": "NHOID",
+      "subject_name": "Non-Host Organism Identifier",
+      "expect_count": 4,
+      "expect_kind": "impacted_domains",
+      "gold_domains": [
+        "GF",
+        "IS",
+        "MS",
+        "OI"
+      ],
+      "expected_facts": [
+        "GF",
+        "IS",
+        "MS",
+        "OI"
+      ],
+      "expected_sources": [
+        "VARIABLE_INDEX.md"
+      ]
+    },
+    {
+      "ref": "iv05",
+      "family": "impact_variable",
+      "subject": "ARM",
+      "subject_name": "Description of Planned Arm",
+      "expect_count": 3,
+      "expect_kind": "impacted_domains",
+      "gold_domains": [
+        "DM",
+        "TA",
+        "TV"
+      ],
+      "expected_facts": [
+        "DM",
+        "TA",
+        "TV"
+      ],
+      "expected_sources": [
+        "VARIABLE_INDEX.md"
+      ]
+    },
+    {
+      "ref": "iv06",
+      "family": "impact_variable",
+      "subject": "ARMCD",
+      "subject_name": "Planned Arm Code",
+      "expect_count": 3,
+      "expect_kind": "impacted_domains",
+      "gold_domains": [
+        "DM",
+        "TA",
+        "TV"
+      ],
+      "expected_facts": [
+        "DM",
+        "TA",
+        "TV"
+      ],
+      "expected_sources": [
+        "VARIABLE_INDEX.md"
+      ]
+    },
+    {
+      "ref": "iv07",
+      "family": "impact_variable",
+      "subject": "ELEMENT",
+      "subject_name": "Description of Element",
+      "expect_count": 3,
+      "expect_kind": "impacted_domains",
+      "gold_domains": [
+        "SE",
+        "TA",
+        "TE"
+      ],
+      "expected_facts": [
+        "SE",
+        "TA",
+        "TE"
+      ],
+      "expected_sources": [
+        "VARIABLE_INDEX.md"
+      ]
+    },
+    {
+      "ref": "iv08",
+      "family": "impact_variable",
+      "subject": "ETCD",
+      "subject_name": "Element Code",
+      "expect_count": 3,
+      "expect_kind": "impacted_domains",
+      "gold_domains": [
+        "SE",
+        "TA",
+        "TE"
+      ],
+      "expected_facts": [
+        "SE",
+        "TA",
+        "TE"
+      ],
+      "expected_sources": [
+        "VARIABLE_INDEX.md"
+      ]
+    },
+    {
+      "ref": "iv09",
+      "family": "impact_variable",
+      "subject": "FOCID",
+      "subject_name": "Focus of Study-Specific Interest",
+      "expect_count": 3,
+      "expect_kind": "impacted_domains",
+      "gold_domains": [
+        "MB",
+        "NV",
+        "OE"
+      ],
+      "expected_facts": [
+        "MB",
+        "NV",
+        "OE"
+      ],
+      "expected_sources": [
+        "VARIABLE_INDEX.md"
+      ]
+    },
+    {
+      "ref": "iv10",
+      "family": "impact_variable",
+      "subject": "IDVAR",
+      "subject_name": "Identifying Variable",
+      "expect_count": 3,
+      "expect_kind": "impacted_domains",
+      "gold_domains": [
+        "CO",
+        "RELREC",
+        "SUPPQUAL"
+      ],
+      "expected_facts": [
+        "CO",
+        "RELREC",
+        "SUPPQUAL"
+      ],
+      "expected_sources": [
+        "VARIABLE_INDEX.md"
+      ]
+    },
+    {
+      "ref": "ag01",
+      "family": "aggregate",
+      "subtype": "threshold",
+      "subject": ">=3",
+      "subject_name": "variables appearing in 3 or more domains",
+      "threshold": 3,
+      "expect_count": 18,
+      "expect_kind": "variables_in_min_domains",
+      "gold_variables_inclusive": [
+        "STUDYID",
+        "DOMAIN",
+        "USUBJID",
+        "EPOCH",
+        "TAETORD",
+        "VISIT",
+        "VISITDY",
+        "VISITNUM",
+        "SPDEVID",
+        "NHOID",
+        "ARM",
+        "ARMCD",
+        "ELEMENT",
+        "ETCD",
+        "FOCID",
+        "IDVAR",
+        "IDVARVAL",
+        "RDOMAIN"
+      ],
+      "gold_variables_strict": [
+        "STUDYID",
+        "DOMAIN",
+        "USUBJID",
+        "EPOCH",
+        "TAETORD",
+        "VISIT",
+        "VISITDY",
+        "VISITNUM",
+        "SPDEVID",
+        "NHOID"
+      ],
+      "expected_facts": [
+        "STUDYID",
+        "DOMAIN",
+        "USUBJID",
+        "EPOCH",
+        "TAETORD",
+        "VISIT",
+        "VISITDY",
+        "VISITNUM",
+        "SPDEVID",
+        "NHOID",
+        "ARM",
+        "ARMCD",
+        "ELEMENT",
+        "ETCD",
+        "FOCID",
+        "IDVAR",
+        "IDVARVAL",
+        "RDOMAIN"
+      ],
+      "expected_sources": [
+        "VARIABLE_INDEX.md"
+      ]
+    },
+    {
+      "ref": "ag02",
+      "family": "aggregate",
+      "subtype": "threshold",
+      "subject": ">=4",
+      "subject_name": "variables appearing in 4 or more domains",
+      "threshold": 4,
+      "expect_count": 10,
+      "expect_kind": "variables_in_min_domains",
+      "gold_variables_inclusive": [
+        "STUDYID",
+        "DOMAIN",
+        "USUBJID",
+        "EPOCH",
+        "TAETORD",
+        "VISIT",
+        "VISITDY",
+        "VISITNUM",
+        "SPDEVID",
+        "NHOID"
+      ],
+      "gold_variables_strict": [
+        "STUDYID",
+        "DOMAIN",
+        "USUBJID",
+        "EPOCH",
+        "TAETORD",
+        "VISIT",
+        "VISITDY",
+        "VISITNUM",
+        "SPDEVID"
+      ],
+      "expected_facts": [
+        "STUDYID",
+        "DOMAIN",
+        "USUBJID",
+        "EPOCH",
+        "TAETORD",
+        "VISIT",
+        "VISITDY",
+        "VISITNUM",
+        "SPDEVID",
+        "NHOID"
+      ],
+      "expected_sources": [
+        "VARIABLE_INDEX.md"
+      ]
+    },
+    {
+      "ref": "ag03",
+      "family": "aggregate",
+      "subtype": "threshold",
+      "subject": ">=5",
+      "subject_name": "variables appearing in 5 or more domains",
+      "threshold": 5,
+      "expect_count": 9,
+      "expect_kind": "variables_in_min_domains",
+      "gold_variables_inclusive": [
+        "STUDYID",
+        "DOMAIN",
+        "USUBJID",
+        "EPOCH",
+        "TAETORD",
+        "VISIT",
+        "VISITDY",
+        "VISITNUM",
+        "SPDEVID"
+      ],
+      "gold_variables_strict": [
+        "STUDYID",
+        "DOMAIN",
+        "USUBJID",
+        "EPOCH",
+        "TAETORD",
+        "VISIT",
+        "VISITDY",
+        "VISITNUM",
+        "SPDEVID"
+      ],
+      "expected_facts": [
+        "STUDYID",
+        "DOMAIN",
+        "USUBJID",
+        "EPOCH",
+        "TAETORD",
+        "VISIT",
+        "VISITDY",
+        "VISITNUM",
+        "SPDEVID"
+      ],
+      "expected_sources": [
+        "VARIABLE_INDEX.md"
+      ]
+    },
+    {
+      "ref": "ag04",
+      "family": "aggregate",
+      "subtype": "threshold",
+      "subject": ">=10",
+      "subject_name": "variables appearing in 10 or more domains",
+      "threshold": 10,
+      "expect_count": 8,
+      "expect_kind": "variables_in_min_domains",
+      "gold_variables_inclusive": [
+        "STUDYID",
+        "DOMAIN",
+        "USUBJID",
+        "EPOCH",
+        "TAETORD",
+        "VISIT",
+        "VISITDY",
+        "VISITNUM"
+      ],
+      "gold_variables_strict": [
+        "STUDYID",
+        "DOMAIN",
+        "USUBJID",
+        "EPOCH",
+        "TAETORD",
+        "VISIT",
+        "VISITDY",
+        "VISITNUM"
+      ],
+      "expected_facts": [
+        "STUDYID",
+        "DOMAIN",
+        "USUBJID",
+        "EPOCH",
+        "TAETORD",
+        "VISIT",
+        "VISITDY",
+        "VISITNUM"
+      ],
+      "expected_sources": [
+        "VARIABLE_INDEX.md"
+      ]
+    },
+    {
+      "ref": "ag05",
+      "family": "aggregate",
+      "subtype": "threshold",
+      "subject": ">=40",
+      "subject_name": "variables appearing in 40 or more domains",
+      "threshold": 40,
+      "expect_count": 5,
+      "expect_kind": "variables_in_min_domains",
+      "gold_variables_inclusive": [
+        "STUDYID",
+        "DOMAIN",
+        "USUBJID",
+        "EPOCH",
+        "TAETORD"
+      ],
+      "gold_variables_strict": [
+        "STUDYID",
+        "DOMAIN",
+        "USUBJID",
+        "EPOCH",
+        "TAETORD"
+      ],
+      "expected_facts": [
+        "STUDYID",
+        "DOMAIN",
+        "USUBJID",
+        "EPOCH",
+        "TAETORD"
+      ],
+      "expected_sources": [
+        "VARIABLE_INDEX.md"
+      ]
+    },
+    {
+      "ref": "ms01",
+      "family": "aggregate",
+      "subtype": "most_shared",
+      "subject": "most reused codelist overall",
+      "subject_name": "most reused codelist overall",
+      "expect_count": null,
+      "expect_kind": "most_shared_single",
+      "gold_answer_code": "C66742",
+      "gold_answer_name": "No Yes Response",
+      "gold_n_variables": 123,
+      "gold_n_domains": 41,
+      "expected_facts": [
+        "C66742",
+        "No Yes Response"
+      ],
+      "expected_sources": [
+        "VARIABLE_INDEX.md"
+      ]
+    },
+    {
+      "ref": "ms02",
+      "family": "aggregate",
+      "subtype": "most_shared",
+      "subject": "controlled-terminology codelist used by the most variables",
+      "subject_name": "controlled-terminology codelist used by the most variables",
+      "expect_count": null,
+      "expect_kind": "most_shared_single",
+      "gold_answer_code": "C66742",
+      "gold_answer_name": "No Yes Response",
+      "gold_n_variables": 123,
+      "gold_n_domains": 41,
+      "expected_facts": [
+        "C66742",
+        "No Yes Response"
+      ],
+      "expected_sources": [
+        "VARIABLE_INDEX.md"
+      ]
+    },
+    {
+      "ref": "ms03",
+      "family": "aggregate",
+      "subtype": "most_shared",
+      "subject": "single most widely shared codelist across SDTM domains",
+      "subject_name": "single most widely shared codelist across SDTM domains",
+      "expect_count": null,
+      "expect_kind": "most_shared_single",
+      "gold_answer_code": "C66742",
+      "gold_answer_name": "No Yes Response",
+      "gold_n_variables": 123,
+      "gold_n_domains": 41,
+      "expected_facts": [
+        "C66742",
+        "No Yes Response"
+      ],
+      "expected_sources": [
+        "VARIABLE_INDEX.md"
+      ]
+    },
+    {
+      "ref": "ms04",
+      "family": "aggregate",
+      "subtype": "most_shared_list",
+      "subject": "the three most frequently reused codelists",
+      "subject_name": "the three most frequently reused codelists",
+      "top_k": 3,
+      "expect_count": 3,
+      "expect_kind": "most_shared_list",
+      "gold_codes": [
+        "C66742",
+        "C71620",
+        "C66789"
+      ],
+      "gold_names": [
+        "No Yes Response",
+        "Unit",
+        "Not Done"
+      ],
+      "expected_facts": [
+        "C66742",
+        "C71620",
+        "C66789"
+      ],
+      "expected_sources": [
+        "VARIABLE_INDEX.md"
+      ]
+    },
+    {
+      "ref": "ms05",
+      "family": "aggregate",
+      "subtype": "most_shared_list",
+      "subject": "several of the most commonly shared codelists",
+      "subject_name": "several of the most commonly shared codelists",
+      "top_k": 5,
+      "expect_count": 5,
+      "expect_kind": "most_shared_list",
+      "gold_codes": [
+        "C66742",
+        "C71620",
+        "C66789",
+        "C66728",
+        "C74456"
+      ],
+      "gold_names": [
+        "No Yes Response",
+        "Unit",
+        "Not Done",
+        "Relation to Reference Period",
+        "Anatomical Location"
+      ],
+      "expected_facts": [
+        "C66742",
+        "C71620",
+        "C66789",
+        "C66728",
+        "C74456"
+      ],
+      "expected_sources": [
+        "VARIABLE_INDEX.md"
+      ]
+    },
+    {
+      "ref": "rl01",
+      "family": "relationship",
+      "subject": "BE",
+      "subject_name": "Biospecimen Events",
+      "domain_class": "Events",
+      "expect_count": 6,
+      "expect_kind": "same_class_domains",
+      "gold_same_class": [
+        "AE",
+        "CE",
+        "DS",
+        "DV",
+        "HO",
+        "MH"
+      ],
+      "gold_curated_targets": [
+        "BS"
+      ],
+      "expected_facts": [
+        "AE",
+        "BS",
+        "CE",
+        "DS",
+        "DV",
+        "HO",
+        "MH"
+      ],
+      "expected_sources": [
+        "domains/BE/"
+      ]
+    },
+    {
+      "ref": "rl02",
+      "family": "relationship",
+      "subject": "MB",
+      "subject_name": "Microbiology Specimen",
+      "domain_class": "Findings",
+      "expect_count": 29,
+      "expect_kind": "same_class_domains",
+      "gold_same_class": [
+        "BS",
+        "CP",
+        "CV",
+        "DA",
+        "DD",
+        "EG",
+        "FT",
+        "GF",
+        "IE",
+        "IS",
+        "LB",
+        "MI",
+        "MK",
+        "MS",
+        "NV",
+        "OE",
+        "PC",
+        "PE",
+        "PP",
+        "QS",
+        "RE",
+        "RP",
+        "RS",
+        "SC",
+        "SS",
+        "TR",
+        "TU",
+        "UR",
+        "VS"
+      ],
+      "gold_curated_targets": [
+        "MS",
+        "MI",
+        "BS",
+        "RELSPEC"
+      ],
+      "expected_facts": [
+        "BS",
+        "CP",
+        "CV",
+        "DA",
+        "DD",
+        "EG",
+        "FT",
+        "GF",
+        "IE",
+        "IS",
+        "LB",
+        "MI",
+        "MK",
+        "MS",
+        "NV",
+        "OE",
+        "PC",
+        "PE",
+        "PP",
+        "QS",
+        "RE",
+        "RELSPEC",
+        "RP",
+        "RS",
+        "SC",
+        "SS",
+        "TR",
+        "TU",
+        "UR",
+        "VS"
+      ],
+      "expected_sources": [
+        "domains/MB/"
+      ]
+    },
+    {
+      "ref": "rl03",
+      "family": "relationship",
+      "subject": "FA",
+      "subject_name": "Findings About Events or Interventions",
+      "domain_class": "Findings About",
+      "expect_count": 1,
+      "expect_kind": "same_class_domains",
+      "gold_same_class": [
+        "SR"
+      ],
+      "gold_curated_targets": [
+        "AE",
+        "CM",
+        "PR",
+        "EX",
+        "EC",
+        "ML",
+        "SU"
+      ],
+      "expected_facts": [
+        "AE",
+        "CM",
+        "EC",
+        "EX",
+        "ML",
+        "PR",
+        "SR",
+        "SU"
+      ],
+      "expected_sources": [
+        "domains/FA/"
+      ]
+    },
+    {
+      "ref": "rl04",
+      "family": "relationship",
+      "subject": "EC",
+      "subject_name": "Exposure as Collected",
+      "domain_class": "Interventions",
+      "expect_count": 6,
+      "expect_kind": "same_class_domains",
+      "gold_same_class": [
+        "AG",
+        "CM",
+        "EX",
+        "ML",
+        "PR",
+        "SU"
+      ],
+      "gold_curated_targets": [
+        "EX"
+      ],
+      "expected_facts": [
+        "AG",
+        "CM",
+        "EX",
+        "ML",
+        "PR",
+        "SU"
+      ],
+      "expected_sources": [
+        "domains/EC/"
+      ]
+    },
+    {
+      "ref": "rl05",
+      "family": "relationship",
+      "subject": "RELREC",
+      "subject_name": "Related Records",
+      "domain_class": "Relationship",
+      "expect_count": 3,
+      "expect_kind": "same_class_domains",
+      "gold_same_class": [
+        "RELSPEC",
+        "RELSUB",
+        "SUPPQUAL"
+      ],
+      "gold_curated_targets": [],
+      "expected_facts": [
+        "RELSPEC",
+        "RELSUB",
+        "SUPPQUAL"
+      ],
+      "expected_sources": [
+        "domains/RELREC/"
+      ]
+    },
+    {
+      "ref": "rl06",
+      "family": "relationship",
+      "subject": "CO",
+      "subject_name": "Comments",
+      "domain_class": "Special-Purpose",
+      "expect_count": 4,
+      "expect_kind": "same_class_domains",
+      "gold_same_class": [
+        "DM",
+        "SE",
+        "SM",
+        "SV"
+      ],
+      "gold_curated_targets": [],
+      "expected_facts": [
+        "DM",
+        "SE",
+        "SM",
+        "SV"
+      ],
+      "expected_sources": [
+        "domains/CO/"
+      ]
+    },
+    {
+      "ref": "rl07",
+      "family": "relationship",
+      "subject": "TA",
+      "subject_name": "Trial Arms",
+      "domain_class": "Trial Design",
+      "expect_count": 6,
+      "expect_kind": "same_class_domains",
+      "gold_same_class": [
+        "TD",
+        "TE",
+        "TI",
+        "TM",
+        "TS",
+        "TV"
+      ],
+      "gold_curated_targets": [
+        "TE",
+        "TV"
+      ],
+      "expected_facts": [
+        "TD",
+        "TE",
+        "TI",
+        "TM",
+        "TS",
+        "TV"
+      ],
+      "expected_sources": [
+        "domains/TA/"
+      ]
+    },
+    {
+      "ref": "rl08",
+      "family": "relationship",
+      "subject": "DS",
+      "subject_name": "Disposition",
+      "domain_class": "Events",
+      "expect_count": 6,
+      "expect_kind": "same_class_domains",
+      "gold_same_class": [
+        "AE",
+        "BE",
+        "CE",
+        "DV",
+        "HO",
+        "MH"
+      ],
+      "gold_curated_targets": [
+        "DM"
+      ],
+      "expected_facts": [
+        "AE",
+        "BE",
+        "CE",
+        "DM",
+        "DV",
+        "HO",
+        "MH"
+      ],
+      "expected_sources": [
+        "domains/DS/"
+      ]
+    },
+    {
+      "ref": "rl09",
+      "family": "relationship",
+      "subject": "MS",
+      "subject_name": "Microbiology Susceptibility",
+      "domain_class": "Findings",
+      "expect_count": 29,
+      "expect_kind": "same_class_domains",
+      "gold_same_class": [
+        "BS",
+        "CP",
+        "CV",
+        "DA",
+        "DD",
+        "EG",
+        "FT",
+        "GF",
+        "IE",
+        "IS",
+        "LB",
+        "MB",
+        "MI",
+        "MK",
+        "NV",
+        "OE",
+        "PC",
+        "PE",
+        "PP",
+        "QS",
+        "RE",
+        "RP",
+        "RS",
+        "SC",
+        "SS",
+        "TR",
+        "TU",
+        "UR",
+        "VS"
+      ],
+      "gold_curated_targets": [
+        "MB",
+        "BS",
+        "RELSPEC"
+      ],
+      "expected_facts": [
+        "BS",
+        "CP",
+        "CV",
+        "DA",
+        "DD",
+        "EG",
+        "FT",
+        "GF",
+        "IE",
+        "IS",
+        "LB",
+        "MB",
+        "MI",
+        "MK",
+        "NV",
+        "OE",
+        "PC",
+        "PE",
+        "PP",
+        "QS",
+        "RE",
+        "RELSPEC",
+        "RP",
+        "RS",
+        "SC",
+        "SS",
+        "TR",
+        "TU",
+        "UR",
+        "VS"
+      ],
+      "expected_sources": [
+        "domains/MS/"
+      ]
+    },
+    {
+      "ref": "rl10",
+      "family": "relationship",
+      "subject": "SR",
+      "subject_name": "Skin Response",
+      "domain_class": "Findings About",
+      "expect_count": 1,
+      "expect_kind": "same_class_domains",
+      "gold_same_class": [
+        "FA"
+      ],
+      "gold_curated_targets": [
+        "AE",
+        "CM",
+        "PR"
+      ],
+      "expected_facts": [
+        "AE",
+        "CM",
+        "FA",
+        "PR"
+      ],
+      "expected_sources": [
+        "domains/SR/"
+      ]
+    }
+  ],
+  "writer_view": [
+    {
+      "ref": "ic01",
+      "family": "impact_codelist",
+      "subject": "C99079",
+      "subject_name": "Epoch"
+    },
+    {
+      "ref": "ic02",
+      "family": "impact_codelist",
+      "subject": "C74456",
+      "subject_name": "Anatomical Location"
+    },
+    {
+      "ref": "ic03",
+      "family": "impact_codelist",
+      "subject": "C99073",
+      "subject_name": "Laterality"
+    },
+    {
+      "ref": "ic04",
+      "family": "impact_codelist",
+      "subject": "C78734",
+      "subject_name": "Specimen Type"
+    },
+    {
+      "ref": "ic05",
+      "family": "impact_codelist",
+      "subject": "C66729",
+      "subject_name": "Route of Administration Response"
+    },
+    {
+      "ref": "ic06",
+      "family": "impact_codelist",
+      "subject": "C71148",
+      "subject_name": "Position"
+    },
+    {
+      "ref": "ic07",
+      "family": "impact_codelist",
+      "subject": "C111114",
+      "subject_name": "Genetic Sample Type"
+    },
+    {
+      "ref": "ic08",
+      "family": "impact_codelist",
+      "subject": "C66734",
+      "subject_name": "SDTM Domain Abbreviation"
+    },
+    {
+      "ref": "ic09",
+      "family": "impact_codelist",
+      "subject": "C179588",
+      "subject_name": "Result Type Response"
+    },
+    {
+      "ref": "ic10",
+      "family": "impact_codelist",
+      "subject": "C85494",
+      "subject_name": "PK Units of Measure"
+    },
+    {
+      "ref": "iv01",
+      "family": "impact_variable",
+      "subject": "VISIT",
+      "subject_name": "Visit Name"
+    },
+    {
+      "ref": "iv02",
+      "family": "impact_variable",
+      "subject": "VISITNUM",
+      "subject_name": "Visit Number"
+    },
+    {
+      "ref": "iv03",
+      "family": "impact_variable",
+      "subject": "SPDEVID",
+      "subject_name": "Sponsor Device Identifier"
+    },
+    {
+      "ref": "iv04",
+      "family": "impact_variable",
+      "subject": "NHOID",
+      "subject_name": "Non-Host Organism Identifier"
+    },
+    {
+      "ref": "iv05",
+      "family": "impact_variable",
+      "subject": "ARM",
+      "subject_name": "Description of Planned Arm"
+    },
+    {
+      "ref": "iv06",
+      "family": "impact_variable",
+      "subject": "ARMCD",
+      "subject_name": "Planned Arm Code"
+    },
+    {
+      "ref": "iv07",
+      "family": "impact_variable",
+      "subject": "ELEMENT",
+      "subject_name": "Description of Element"
+    },
+    {
+      "ref": "iv08",
+      "family": "impact_variable",
+      "subject": "ETCD",
+      "subject_name": "Element Code"
+    },
+    {
+      "ref": "iv09",
+      "family": "impact_variable",
+      "subject": "FOCID",
+      "subject_name": "Focus of Study-Specific Interest"
+    },
+    {
+      "ref": "iv10",
+      "family": "impact_variable",
+      "subject": "IDVAR",
+      "subject_name": "Identifying Variable"
+    },
+    {
+      "ref": "ag01",
+      "family": "aggregate",
+      "subject": ">=3",
+      "subject_name": "variables appearing in 3 or more domains",
+      "subtype": "threshold",
+      "threshold": 3
+    },
+    {
+      "ref": "ag02",
+      "family": "aggregate",
+      "subject": ">=4",
+      "subject_name": "variables appearing in 4 or more domains",
+      "subtype": "threshold",
+      "threshold": 4
+    },
+    {
+      "ref": "ag03",
+      "family": "aggregate",
+      "subject": ">=5",
+      "subject_name": "variables appearing in 5 or more domains",
+      "subtype": "threshold",
+      "threshold": 5
+    },
+    {
+      "ref": "ag04",
+      "family": "aggregate",
+      "subject": ">=10",
+      "subject_name": "variables appearing in 10 or more domains",
+      "subtype": "threshold",
+      "threshold": 10
+    },
+    {
+      "ref": "ag05",
+      "family": "aggregate",
+      "subject": ">=40",
+      "subject_name": "variables appearing in 40 or more domains",
+      "subtype": "threshold",
+      "threshold": 40
+    },
+    {
+      "ref": "ms01",
+      "family": "aggregate",
+      "subject": "most reused codelist overall",
+      "subject_name": "most reused codelist overall",
+      "subtype": "most_shared"
+    },
+    {
+      "ref": "ms02",
+      "family": "aggregate",
+      "subject": "controlled-terminology codelist used by the most variables",
+      "subject_name": "controlled-terminology codelist used by the most variables",
+      "subtype": "most_shared"
+    },
+    {
+      "ref": "ms03",
+      "family": "aggregate",
+      "subject": "single most widely shared codelist across SDTM domains",
+      "subject_name": "single most widely shared codelist across SDTM domains",
+      "subtype": "most_shared"
+    },
+    {
+      "ref": "ms04",
+      "family": "aggregate",
+      "subject": "the three most frequently reused codelists",
+      "subject_name": "the three most frequently reused codelists",
+      "subtype": "most_shared_list"
+    },
+    {
+      "ref": "ms05",
+      "family": "aggregate",
+      "subject": "several of the most commonly shared codelists",
+      "subject_name": "several of the most commonly shared codelists",
+      "subtype": "most_shared_list"
+    },
+    {
+      "ref": "rl01",
+      "family": "relationship",
+      "subject": "BE",
+      "subject_name": "Biospecimen Events",
+      "domain_class": "Events"
+    },
+    {
+      "ref": "rl02",
+      "family": "relationship",
+      "subject": "MB",
+      "subject_name": "Microbiology Specimen",
+      "domain_class": "Findings"
+    },
+    {
+      "ref": "rl03",
+      "family": "relationship",
+      "subject": "FA",
+      "subject_name": "Findings About Events or Interventions",
+      "domain_class": "Findings About"
+    },
+    {
+      "ref": "rl04",
+      "family": "relationship",
+      "subject": "EC",
+      "subject_name": "Exposure as Collected",
+      "domain_class": "Interventions"
+    },
+    {
+      "ref": "rl05",
+      "family": "relationship",
+      "subject": "RELREC",
+      "subject_name": "Related Records",
+      "domain_class": "Relationship"
+    },
+    {
+      "ref": "rl06",
+      "family": "relationship",
+      "subject": "CO",
+      "subject_name": "Comments",
+      "domain_class": "Special-Purpose"
+    },
+    {
+      "ref": "rl07",
+      "family": "relationship",
+      "subject": "TA",
+      "subject_name": "Trial Arms",
+      "domain_class": "Trial Design"
+    },
+    {
+      "ref": "rl08",
+      "family": "relationship",
+      "subject": "DS",
+      "subject_name": "Disposition",
+      "domain_class": "Events"
+    },
+    {
+      "ref": "rl09",
+      "family": "relationship",
+      "subject": "MS",
+      "subject_name": "Microbiology Susceptibility",
+      "domain_class": "Findings"
+    },
+    {
+      "ref": "rl10",
+      "family": "relationship",
+      "subject": "SR",
+      "subject_name": "Skin Response",
+      "domain_class": "Findings About"
+    }
+  ]
+}

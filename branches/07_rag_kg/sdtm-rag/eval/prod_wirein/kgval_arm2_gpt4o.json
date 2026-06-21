@@ -1,0 +1,2504 @@
+{
+  "summary": {
+    "n_questions": 40,
+    "model": "openai/gpt-4o",
+    "threshold": 0.85,
+    "source_recall_avg": 0.725,
+    "source_recall_by_category": {
+      "aggregate": 0.0,
+      "impact_codelist": 1.0,
+      "impact_variable": 0.9,
+      "relationship": 1.0
+    },
+    "fact_recall_avg": 0.7672,
+    "fact_recall_by_category": {
+      "aggregate": 0.4253,
+      "impact_codelist": 1.0,
+      "impact_variable": 0.9111,
+      "relationship": 0.7324
+    },
+    "total_tokens": 591405,
+    "judge_fact_recall_avg": 0.7747,
+    "judge_fact_recall_by_category": {
+      "aggregate": 0.4142,
+      "impact_codelist": 1.0,
+      "impact_variable": 1.0,
+      "relationship": 0.6847
+    },
+    "judge_parse_failures": 0,
+    "overall": 0.7499,
+    "overall_metric": "judge",
+    "verdict": "FAIL",
+    "top_k": 15,
+    "structured_lookup": true,
+    "hybrid": {
+      "fusion": "rrf",
+      "alpha": null
+    },
+    "prompt_guardrail": false,
+    "structured_answer": true,
+    "graph_answer": true,
+    "judge_model": "deepseek/deepseek-chat"
+  },
+  "results": [
+    {
+      "id": "ic01",
+      "category": "impact_codelist",
+      "question": "If the Epoch codelist (C99079) gets revised in an upcoming CDISC release, which SDTM domains and variables would be affected by that change?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "terminology/core/general_part2.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "VARIABLE_INDEX.md",
+        "terminology/core/general_part2.md",
+        "chapters/ch01_introduction.md",
+        "chapters/ch10_appendices.md",
+        "model/01_concepts_and_terms.md"
+      ],
+      "top5_similarities": [
+        0.4628,
+        0.5486,
+        0.6048,
+        0.5878,
+        0.571
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "AE",
+        "AG",
+        "CE",
+        "CM",
+        "CP",
+        "CV",
+        "DA",
+        "DS",
+        "DV",
+        "EC",
+        "EG",
+        "EX",
+        "FA",
+        "FT",
+        "HO",
+        "IE",
+        "IS",
+        "LB",
+        "MB",
+        "MH",
+        "MI",
+        "MK",
+        "ML",
+        "MS",
+        "NV",
+        "OE",
+        "PC",
+        "PE",
+        "PP",
+        "PR",
+        "QS",
+        "RE",
+        "RP",
+        "RS",
+        "SC",
+        "SE",
+        "SR",
+        "SS",
+        "SU",
+        "TA",
+        "TR",
+        "TU",
+        "UR",
+        "VS"
+      ],
+      "fact_misses": [],
+      "answer_preview": "If the Epoch codelist (C99079) is revised in an upcoming CDISC release, the change would affect the EPOCH variable across 44 SDTM domains. The domains that would be impacted include:\n\n- AE (Adverse Events)\n- AG (Procedure Agents)\n- CE (Clinical Events)\n- CM (Concomitant/Prior Medications)\n- CP (Cell Phenotype Findings)\n- CV (Cardiovascular System Findings)\n- DA (Product Accountability)\n- DS (Disposition)\n- DV (Protocol Deviations)\n- EC (Exposure as Collected)\n- EG (ECG Test Results)\n- EX (Exposure)\n- FA (Findings About Events or Interventions)\n- FT (Functional Tests)\n- HO (Healthcare Encounter",
+      "usage": {
+        "prompt_tokens": 14401,
+        "completion_tokens": 435,
+        "total_tokens": 14836
+      },
+      "model": "openai/gpt-4o",
+      "answer": "If the Epoch codelist (C99079) is revised in an upcoming CDISC release, the change would affect the EPOCH variable across 44 SDTM domains. The domains that would be impacted include:\n\n- AE (Adverse Events)\n- AG (Procedure Agents)\n- CE (Clinical Events)\n- CM (Concomitant/Prior Medications)\n- CP (Cell Phenotype Findings)\n- CV (Cardiovascular System Findings)\n- DA (Product Accountability)\n- DS (Disposition)\n- DV (Protocol Deviations)\n- EC (Exposure as Collected)\n- EG (ECG Test Results)\n- EX (Exposure)\n- FA (Findings About Events or Interventions)\n- FT (Functional Tests)\n- HO (Healthcare Encounters)\n- IE (Inclusion/Exclusion Criteria Not Met)\n- IS (Immunogenicity Specimen Assessments)\n- LB (Laboratory Test Results)\n- MB (Microbiology Specimen)\n- MH (Medical History)\n- MI (Microscopic Findings)\n- MK (Musculoskeletal System Findings)\n- ML (Meal Data)\n- MS (Microbiology Susceptibility)\n- NV (Nervous System Findings)\n- OE (Ophthalmic Examinations)\n- PC (Pharmacokinetics Concentrations)\n- PE (Physical Examination)\n- PP (Pharmacokinetics Parameters)\n- PR (Procedures)\n- QS (Questionnaires)\n- RE (Respiratory System Findings)\n- RP (Reproductive System Findings)\n- RS (Disease Response and Clin Classification)\n- SC (Subject Characteristics)\n- SE (Subject Elements)\n- SR (Skin Response)\n- SS (Subject Status)\n- SU (Substance Use)\n- TA (Trial Arms)\n- TR (Tumor/Lesion Results)\n- TU (Tumor/Lesion Identification)\n- UR (Urinary System Findings)\n- VS (Vital Signs)\n\nThe EPOCH variable is used as a Timing variable in these domains, and any changes to the codelist would affect how the EPOCH is defined and used within these datasets. [Source: VARIABLE_INDEX.md, terminology/core/general_part2.md]",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "AE",
+        "AG",
+        "CE",
+        "CM",
+        "CP",
+        "CV",
+        "DA",
+        "DS",
+        "DV",
+        "EC",
+        "EG",
+        "EX",
+        "FA",
+        "FT",
+        "HO",
+        "IE",
+        "IS",
+        "LB",
+        "MB",
+        "MH",
+        "MI",
+        "MK",
+        "ML",
+        "MS",
+        "NV",
+        "OE",
+        "PC",
+        "PE",
+        "PP",
+        "PR",
+        "QS",
+        "RE",
+        "RP",
+        "RS",
+        "SC",
+        "SE",
+        "SR",
+        "SS",
+        "SU",
+        "TA",
+        "TR",
+        "TU",
+        "UR",
+        "VS"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 29.55
+    },
+    {
+      "id": "ic02",
+      "category": "impact_codelist",
+      "question": "We're anticipating an update to the Anatomical Location codelist (C74456). Which SDTM domains and variables draw their values from it and would therefore need to be reviewed?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "terminology/core/general_part1.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "VARIABLE_INDEX.md",
+        "terminology/core/general_part1.md",
+        "chapters/ch01_introduction.md",
+        "domains/TU/assumptions.md",
+        "model/01_concepts_and_terms.md"
+      ],
+      "top5_similarities": [
+        0.4636,
+        0.3518,
+        0.5889,
+        0.5959,
+        0.5549
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "AE",
+        "BE",
+        "CV",
+        "EC",
+        "EX",
+        "FA",
+        "MB",
+        "MI",
+        "MK",
+        "MS",
+        "NV",
+        "OE",
+        "PE",
+        "PR",
+        "RE",
+        "SR",
+        "TU",
+        "UR",
+        "VS"
+      ],
+      "fact_misses": [],
+      "answer_preview": "The Anatomical Location codelist (C74456) is used by the following SDTM domains and variables:\n\n1. **AE (Adverse Events)**: AELOC\n2. **BE (Biospecimen Events)**: BELOC\n3. **CV (Cardiovascular System Findings)**: CVLOC\n4. **EC (Exposure as Collected)**: ECLOC\n5. **EX (Exposure)**: EXLOC\n6. **FA (Findings About Events or Interventions)**: FALOC\n7. **MB (Microbiology Specimen)**: MBLOC\n8. **MI (Microscopic Findings)**: MILOC\n9. **MK (Musculoskeletal System Findings)**: MKLOC\n10. **MS (Microbiology Susceptibility)**: MSLOC\n11. **NV (Nervous System Findings)**: NVLOC\n12. **OE (Ophthalmic Examinatio",
+      "usage": {
+        "prompt_tokens": 16517,
+        "completion_tokens": 321,
+        "total_tokens": 16838
+      },
+      "model": "openai/gpt-4o",
+      "answer": "The Anatomical Location codelist (C74456) is used by the following SDTM domains and variables:\n\n1. **AE (Adverse Events)**: AELOC\n2. **BE (Biospecimen Events)**: BELOC\n3. **CV (Cardiovascular System Findings)**: CVLOC\n4. **EC (Exposure as Collected)**: ECLOC\n5. **EX (Exposure)**: EXLOC\n6. **FA (Findings About Events or Interventions)**: FALOC\n7. **MB (Microbiology Specimen)**: MBLOC\n8. **MI (Microscopic Findings)**: MILOC\n9. **MK (Musculoskeletal System Findings)**: MKLOC\n10. **MS (Microbiology Susceptibility)**: MSLOC\n11. **NV (Nervous System Findings)**: NVLOC\n12. **OE (Ophthalmic Examinations)**: OELOC\n13. **PE (Physical Examination)**: PELOC\n14. **PR (Procedures)**: PRLOC\n15. **RE (Respiratory System Findings)**: RELOC\n16. **SR (Skin Response)**: SRLOC\n17. **TU (Tumor/Lesion Identification)**: TULOC\n18. **UR (Urinary System Findings)**: URLOC\n19. **VS (Vital Signs)**: VSLOC\n\nThese domains and variables would need to be reviewed in anticipation of an update to the Anatomical Location codelist. [Source: VARIABLE_INDEX.md]",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "AE",
+        "BE",
+        "CV",
+        "EC",
+        "EX",
+        "FA",
+        "MB",
+        "MI",
+        "MK",
+        "MS",
+        "NV",
+        "OE",
+        "PE",
+        "PR",
+        "RE",
+        "SR",
+        "TU",
+        "UR",
+        "VS"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 32.24
+    },
+    {
+      "id": "ic03",
+      "category": "impact_codelist",
+      "question": "Which variables across the SDTM domains reference the Laterality codelist (C99073), so that I can scope the impact if it's modified?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "terminology/core/general_part2.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "VARIABLE_INDEX.md",
+        "terminology/core/general_part2.md",
+        "chapters/ch01_introduction.md",
+        "model/01_concepts_and_terms.md",
+        "chapters/ch04_general_assumptions.md"
+      ],
+      "top5_similarities": [
+        0.5032,
+        0.6577,
+        0.6018,
+        0.5887,
+        0.5618
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "CV",
+        "EC",
+        "EX",
+        "FA",
+        "MB",
+        "MI",
+        "MK",
+        "MS",
+        "NV",
+        "OE",
+        "PE",
+        "PR",
+        "RE",
+        "SR",
+        "TU",
+        "UR",
+        "VS"
+      ],
+      "fact_misses": [],
+      "answer_preview": "The Laterality codelist (C99073) is referenced by the following variables across various SDTM domains:\n\n1. **CVLAT** in the CV domain\n2. **ECLAT** in the EC domain\n3. **EXLAT** in the EX domain\n4. **FALAT** in the FA domain\n5. **MBLAT** in the MB domain\n6. **MILAT** in the MI domain\n7. **MKLAT** in the MK domain\n8. **MSLAT** in the MS domain\n9. **NVLAT** in the NV domain\n10. **OELAT** in the OE domain\n11. **PELAT** in the PE domain\n12. **PRLAT** in the PR domain\n13. **RELAT** in the RE domain\n14. **SRLAT** in the SR domain\n15. **TULAT** in the TU domain\n16. **URLAT** in the UR domain\n17. **VSL",
+      "usage": {
+        "prompt_tokens": 15358,
+        "completion_tokens": 289,
+        "total_tokens": 15647
+      },
+      "model": "openai/gpt-4o",
+      "answer": "The Laterality codelist (C99073) is referenced by the following variables across various SDTM domains:\n\n1. **CVLAT** in the CV domain\n2. **ECLAT** in the EC domain\n3. **EXLAT** in the EX domain\n4. **FALAT** in the FA domain\n5. **MBLAT** in the MB domain\n6. **MILAT** in the MI domain\n7. **MKLAT** in the MK domain\n8. **MSLAT** in the MS domain\n9. **NVLAT** in the NV domain\n10. **OELAT** in the OE domain\n11. **PELAT** in the PE domain\n12. **PRLAT** in the PR domain\n13. **RELAT** in the RE domain\n14. **SRLAT** in the SR domain\n15. **TULAT** in the TU domain\n16. **URLAT** in the UR domain\n17. **VSLAT** in the VS domain\n\nThese variables are used across 17 domains: CV, EC, EX, FA, MB, MI, MK, MS, NV, OE, PE, PR, RE, SR, TU, UR, and VS. Modifying the Laterality codelist would impact all these variables and domains. [Source: VARIABLE_INDEX.md, terminology/core/general_part2.md]",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "CV",
+        "EC",
+        "EX",
+        "FA",
+        "MB",
+        "MI",
+        "MK",
+        "MS",
+        "NV",
+        "OE",
+        "PE",
+        "PR",
+        "RE",
+        "SR",
+        "TU",
+        "UR",
+        "VS"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 32.19
+    },
+    {
+      "id": "ic04",
+      "category": "impact_codelist",
+      "question": "Suppose the Specimen Type codelist (C78734) is updated. What downstream SDTM domains and variables would be impacted by that revision?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "terminology/core/general_part4.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "VARIABLE_INDEX.md",
+        "terminology/core/general_part4.md",
+        "chapters/ch01_introduction.md",
+        "chapters/ch10_appendices.md",
+        "domains/RELSPEC/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.5167,
+        0.5418,
+        0.6162,
+        0.6133,
+        0.5999
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "BS",
+        "CP",
+        "IS",
+        "LB",
+        "MB",
+        "MI",
+        "MS",
+        "PC",
+        "PP",
+        "RELSPEC",
+        "SR"
+      ],
+      "fact_misses": [],
+      "answer_preview": "If the Specimen Type codelist (C78734) is updated, it would impact the following SDTM domains and variables:\n\n### Domains Affected:\n1. BS (Biospecimen Findings)\n2. CP (Cell Phenotype Findings)\n3. IS (Immunogenicity Specimen Assessments)\n4. LB (Laboratory Test Results)\n5. MB (Microbiology Specimen)\n6. MI (Microscopic Findings)\n7. MS (Microbiology Susceptibility)\n8. PC (Pharmacokinetics Concentrations)\n9. PP (Pharmacokinetics Parameters)\n10. RELSPEC (Related Specimens)\n11. SR (Skin Response)\n\n### Variables Affected:\n- BSSPEC (in BS domain)\n- CPSPEC (in CP domain)\n- ISSPEC (in IS domain)\n- LBSPEC",
+      "usage": {
+        "prompt_tokens": 15215,
+        "completion_tokens": 280,
+        "total_tokens": 15495
+      },
+      "model": "openai/gpt-4o",
+      "answer": "If the Specimen Type codelist (C78734) is updated, it would impact the following SDTM domains and variables:\n\n### Domains Affected:\n1. BS (Biospecimen Findings)\n2. CP (Cell Phenotype Findings)\n3. IS (Immunogenicity Specimen Assessments)\n4. LB (Laboratory Test Results)\n5. MB (Microbiology Specimen)\n6. MI (Microscopic Findings)\n7. MS (Microbiology Susceptibility)\n8. PC (Pharmacokinetics Concentrations)\n9. PP (Pharmacokinetics Parameters)\n10. RELSPEC (Related Specimens)\n11. SR (Skin Response)\n\n### Variables Affected:\n- BSSPEC (in BS domain)\n- CPSPEC (in CP domain)\n- ISSPEC (in IS domain)\n- LBSPEC (in LB domain)\n- MBSPEC (in MB domain)\n- MISPEC (in MI domain)\n- MSSPEC (in MS domain)\n- PCSPEC (in PC domain)\n- PPSPEC (in PP domain)\n- SPEC (in RELSPEC domain)\n- SRSPEC (in SR domain)\n\nThese variables use the Specimen Type codelist (C78734), so any changes to this codelist would affect how these variables are populated and interpreted across the mentioned domains. [Source: VARIABLE_INDEX.md]",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "BS",
+        "CP",
+        "IS",
+        "LB",
+        "MB",
+        "MI",
+        "MS",
+        "PC",
+        "PP",
+        "RELSPEC",
+        "SR"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 29.9
+    },
+    {
+      "id": "ic05",
+      "category": "impact_codelist",
+      "question": "If a new term is added to the Route of Administration Response codelist (C66729), which SDTM variables and domains would I need to check for impact?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "terminology/core/interventions.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "VARIABLE_INDEX.md",
+        "terminology/core/interventions.md",
+        "chapters/ch01_introduction.md",
+        "model/01_concepts_and_terms.md",
+        "domains/CM/spec.md"
+      ],
+      "top5_similarities": [
+        0.4767,
+        0.4228,
+        0.5785,
+        0.5901,
+        0.5744
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "AG",
+        "CM",
+        "EC",
+        "EX",
+        "PR",
+        "SU"
+      ],
+      "fact_misses": [],
+      "answer_preview": "If a new term is added to the Route of Administration Response codelist (C66729), you would need to check the following SDTM variables and domains for impact:\n\n### Variables:\n- **AGROUTE** in the AG domain\n- **CMROUTE** in the CM domain\n- **ECROUTE** in the EC domain\n- **EXROUTE** in the EX domain\n- **PRROUTE** in the PR domain\n- **SUROUTE** in the SU domain\n\n### Domains:\n- **AG** (Procedure Agents)\n- **CM** (Concomitant/Prior Medications)\n- **EC** (Exposure as Collected)\n- **EX** (Exposure)\n- **PR** (Procedures)\n- **SU** (Substance Use)\n\nThese variables across these domains use the Route of A",
+      "usage": {
+        "prompt_tokens": 14189,
+        "completion_tokens": 210,
+        "total_tokens": 14399
+      },
+      "model": "openai/gpt-4o",
+      "answer": "If a new term is added to the Route of Administration Response codelist (C66729), you would need to check the following SDTM variables and domains for impact:\n\n### Variables:\n- **AGROUTE** in the AG domain\n- **CMROUTE** in the CM domain\n- **ECROUTE** in the EC domain\n- **EXROUTE** in the EX domain\n- **PRROUTE** in the PR domain\n- **SUROUTE** in the SU domain\n\n### Domains:\n- **AG** (Procedure Agents)\n- **CM** (Concomitant/Prior Medications)\n- **EC** (Exposure as Collected)\n- **EX** (Exposure)\n- **PR** (Procedures)\n- **SU** (Substance Use)\n\nThese variables across these domains use the Route of Administration Response codelist, so any changes to the codelist could affect how data is represented or interpreted in these contexts. [Source: VARIABLE_INDEX.md, terminology/core/interventions.md]",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "AG",
+        "CM",
+        "EC",
+        "EX",
+        "PR",
+        "SU"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 28.45
+    },
+    {
+      "id": "ic06",
+      "category": "impact_codelist",
+      "question": "Which SDTM domains and variables are controlled by the Position codelist (C71148) and would be affected if that codelist were revised?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "terminology/core/interventions.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "VARIABLE_INDEX.md",
+        "terminology/core/interventions.md",
+        "chapters/ch01_introduction.md",
+        "model/01_concepts_and_terms.md",
+        "chapters/ch04_general_assumptions.md"
+      ],
+      "top5_similarities": [
+        0.441,
+        0.4516,
+        0.5899,
+        0.6034,
+        0.5736
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "CV",
+        "EG",
+        "FT",
+        "MK",
+        "RE",
+        "VS"
+      ],
+      "fact_misses": [],
+      "answer_preview": "The Position codelist (C71148) is used by variables across six SDTM domains. The domains and their respective variables that would be affected if the Position codelist were revised are:\n\n1. **CV (Cardiovascular System Findings)**\n   - Variable: CVPOS\n\n2. **EG (ECG Test Results)**\n   - Variable: EGPOS\n\n3. **FT (Functional Tests)**\n   - Variable: FTPOS\n\n4. **MK (Musculoskeletal System Findings)**\n   - Variable: MKPOS\n\n5. **RE (Respiratory System Findings)**\n   - Variable: REPOS\n\n6. **VS (Vital Signs)**\n   - Variable: VSPOS\n\nThese variables are associated with the Position codelist, and any chang",
+      "usage": {
+        "prompt_tokens": 15108,
+        "completion_tokens": 194,
+        "total_tokens": 15302
+      },
+      "model": "openai/gpt-4o",
+      "answer": "The Position codelist (C71148) is used by variables across six SDTM domains. The domains and their respective variables that would be affected if the Position codelist were revised are:\n\n1. **CV (Cardiovascular System Findings)**\n   - Variable: CVPOS\n\n2. **EG (ECG Test Results)**\n   - Variable: EGPOS\n\n3. **FT (Functional Tests)**\n   - Variable: FTPOS\n\n4. **MK (Musculoskeletal System Findings)**\n   - Variable: MKPOS\n\n5. **RE (Respiratory System Findings)**\n   - Variable: REPOS\n\n6. **VS (Vital Signs)**\n   - Variable: VSPOS\n\nThese variables are associated with the Position codelist, and any changes to this codelist would impact how these variables are populated and interpreted across the mentioned domains. [Source: VARIABLE_INDEX.md, terminology/core/interventions.md]",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "CV",
+        "EG",
+        "FT",
+        "MK",
+        "RE",
+        "VS"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 32.05
+    },
+    {
+      "id": "ic07",
+      "category": "impact_codelist",
+      "question": "I need to assess the blast radius of a change to the Genetic Sample Type codelist (C111114). Which SDTM domains and variables use it?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "terminology/core/general_part2.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "VARIABLE_INDEX.md",
+        "terminology/core/general_part2.md",
+        "domains/RELSPEC/spec.md",
+        "model/01_concepts_and_terms.md",
+        "domains/GF/spec.md"
+      ],
+      "top5_similarities": [
+        0.4705,
+        0.4831,
+        0.5632,
+        0.5547,
+        0.5758
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "BS",
+        "GF",
+        "RELSPEC"
+      ],
+      "fact_misses": [],
+      "answer_preview": "The \"Genetic Sample Type\" codelist (C111114) is used by three variables across three SDTM domains:\n\n1. **BS (Biospecimen Findings) Domain**:\n   - Variable: BSSPEC\n\n2. **GF (Genomics Findings) Domain**:\n   - Variable: GFSPEC\n\n3. **RELSPEC (Related Specimens) Domain**:\n   - Variable: SPEC\n\nThese variables utilize the \"Genetic Sample Type\" codelist, so any changes to this codelist would affect these variables in the respective domains. [Source: VARIABLE_INDEX.md, terminology/core/general_part2.md]",
+      "usage": {
+        "prompt_tokens": 15387,
+        "completion_tokens": 133,
+        "total_tokens": 15520
+      },
+      "model": "openai/gpt-4o",
+      "answer": "The \"Genetic Sample Type\" codelist (C111114) is used by three variables across three SDTM domains:\n\n1. **BS (Biospecimen Findings) Domain**:\n   - Variable: BSSPEC\n\n2. **GF (Genomics Findings) Domain**:\n   - Variable: GFSPEC\n\n3. **RELSPEC (Related Specimens) Domain**:\n   - Variable: SPEC\n\nThese variables utilize the \"Genetic Sample Type\" codelist, so any changes to this codelist would affect these variables in the respective domains. [Source: VARIABLE_INDEX.md, terminology/core/general_part2.md]",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "BS",
+        "GF",
+        "RELSPEC"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 29.88
+    },
+    {
+      "id": "ic08",
+      "category": "impact_codelist",
+      "question": "If the SDTM Domain Abbreviation codelist (C66734) is updated, what SDTM variables and domains would be impacted downstream?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "terminology/core/general_part4.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "VARIABLE_INDEX.md",
+        "terminology/core/general_part4.md",
+        "domains/SUPPQUAL/spec.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch01_introduction.md"
+      ],
+      "top5_similarities": [
+        0.4771,
+        0.5409,
+        0.6588,
+        0.6313,
+        0.6251
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "CO",
+        "RELREC",
+        "SUPPQUAL"
+      ],
+      "fact_misses": [],
+      "answer_preview": "If the SDTM Domain Abbreviation codelist (C66734) is updated, the following SDTM variables and domains would be impacted:\n\n- **Variable Impacted**: RDOMAIN\n- **Domains Impacted**: CO (Comments), RELREC (Related Records), SUPPQUAL (Supplemental Qualifiers)\n\nThe RDOMAIN variable in these domains uses the SDTM Domain Abbreviation codelist (C66734) to specify related domain abbreviations. Therefore, any changes to this codelist would affect how RDOMAIN is populated in these domains. [Source: VARIABLE_INDEX.md, terminology/core/general_part4.md]",
+      "usage": {
+        "prompt_tokens": 16791,
+        "completion_tokens": 128,
+        "total_tokens": 16919
+      },
+      "model": "openai/gpt-4o",
+      "answer": "If the SDTM Domain Abbreviation codelist (C66734) is updated, the following SDTM variables and domains would be impacted:\n\n- **Variable Impacted**: RDOMAIN\n- **Domains Impacted**: CO (Comments), RELREC (Related Records), SUPPQUAL (Supplemental Qualifiers)\n\nThe RDOMAIN variable in these domains uses the SDTM Domain Abbreviation codelist (C66734) to specify related domain abbreviations. Therefore, any changes to this codelist would affect how RDOMAIN is populated in these domains. [Source: VARIABLE_INDEX.md, terminology/core/general_part4.md]",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "CO",
+        "RELREC",
+        "SUPPQUAL"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 35.19
+    },
+    {
+      "id": "ic09",
+      "category": "impact_codelist",
+      "question": "When the Result Type Response codelist (C179588) is revised, which SDTM domains and variables that rely on it would need to be reassessed?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "terminology/core/general_part4.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "VARIABLE_INDEX.md",
+        "terminology/core/general_part4.md",
+        "domains/RS/assumptions.md",
+        "chapters/ch01_introduction.md",
+        "model/01_concepts_and_terms.md"
+      ],
+      "top5_similarities": [
+        0.4886,
+        0.5321,
+        0.6326,
+        0.5959,
+        0.5813
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "CP",
+        "LB"
+      ],
+      "fact_misses": [],
+      "answer_preview": "The Result Type Response codelist (C179588) is used by two variables across two SDTM domains. Specifically, the domains and variables that rely on this codelist are:\n\n1. **CP Domain**: The variable **CPRESTYP** uses the Result Type Response codelist.\n2. **LB Domain**: The variable **LBRESTYP** uses the Result Type Response codelist.\n\nWhen the Result Type Response codelist is revised, both the CP and LB domains, along with their respective variables CPRESTYP and LBRESTYP, would need to be reassessed to ensure they align with the updated codelist. [Source: VARIABLE_INDEX.md]",
+      "usage": {
+        "prompt_tokens": 14962,
+        "completion_tokens": 140,
+        "total_tokens": 15102
+      },
+      "model": "openai/gpt-4o",
+      "answer": "The Result Type Response codelist (C179588) is used by two variables across two SDTM domains. Specifically, the domains and variables that rely on this codelist are:\n\n1. **CP Domain**: The variable **CPRESTYP** uses the Result Type Response codelist.\n2. **LB Domain**: The variable **LBRESTYP** uses the Result Type Response codelist.\n\nWhen the Result Type Response codelist is revised, both the CP and LB domains, along with their respective variables CPRESTYP and LBRESTYP, would need to be reassessed to ensure they align with the updated codelist. [Source: VARIABLE_INDEX.md]",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "CP",
+        "LB"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 28.78
+    },
+    {
+      "id": "ic10",
+      "category": "impact_codelist",
+      "question": "Which SDTM domains and variables reference the PK Units of Measure codelist (C85494), so I can understand what's affected if it changes?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "terminology/core/other_part3.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "VARIABLE_INDEX.md",
+        "terminology/core/other_part3.md",
+        "domains/PP/spec.md",
+        "model/01_concepts_and_terms.md",
+        "chapters/ch01_introduction.md"
+      ],
+      "top5_similarities": [
+        0.4813,
+        0.4063,
+        0.6041,
+        0.5703,
+        0.5593
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "PC",
+        "PP"
+      ],
+      "fact_misses": [],
+      "answer_preview": "The PK Units of Measure codelist (C85494) is referenced by variables in the following SDTM domains:\n\n1. **PC (Pharmacokinetics Concentrations) Domain**:\n   - Variables: PCORRESU, PCSTRESU\n\n2. **PP (Pharmacokinetics Parameters) Domain**:\n   - Variables: PPORRESU, PPSTRESU\n\nThese variables use the PK Units of Measure codelist to standardize the units of measure for pharmacokinetic data. Any changes to this codelist would affect these variables across the PC and PP domains. [Source: VARIABLE_INDEX.md, terminology/core/other_part3.md, domains/PC/spec.md, domains/PP/spec.md]",
+      "usage": {
+        "prompt_tokens": 16989,
+        "completion_tokens": 152,
+        "total_tokens": 17141
+      },
+      "model": "openai/gpt-4o",
+      "answer": "The PK Units of Measure codelist (C85494) is referenced by variables in the following SDTM domains:\n\n1. **PC (Pharmacokinetics Concentrations) Domain**:\n   - Variables: PCORRESU, PCSTRESU\n\n2. **PP (Pharmacokinetics Parameters) Domain**:\n   - Variables: PPORRESU, PPSTRESU\n\nThese variables use the PK Units of Measure codelist to standardize the units of measure for pharmacokinetic data. Any changes to this codelist would affect these variables across the PC and PP domains. [Source: VARIABLE_INDEX.md, terminology/core/other_part3.md, domains/PC/spec.md, domains/PP/spec.md]",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "PC",
+        "PP"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 34.92
+    },
+    {
+      "id": "iv01",
+      "category": "impact_variable",
+      "question": "Across the SDTM model, in how many domains does the VISIT (Visit Name) variable appear?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "VARIABLE_INDEX.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "VARIABLE_INDEX.md",
+        "model/03_special_purpose_domains.md",
+        "domains/FA/spec.md",
+        "chapters/ch04_general_assumptions.md",
+        "domains/CV/spec.md"
+      ],
+      "top5_similarities": [
+        0.5076,
+        0.6379,
+        0.6652,
+        13.0183,
+        0.6629
+      ],
+      "fact_recall": 0.1111,
+      "fact_hits": [
+        "IS",
+        "PE",
+        "RS",
+        "UR"
+      ],
+      "fact_misses": [
+        "AG",
+        "BE",
+        "BS",
+        "CP",
+        "CV",
+        "DA",
+        "EG",
+        "FA",
+        "FT",
+        "GF",
+        "IE",
+        "LB",
+        "MB",
+        "MI",
+        "MK",
+        "ML",
+        "MS",
+        "NV",
+        "OE",
+        "PC",
+        "PR",
+        "QS",
+        "RE",
+        "RP",
+        "SC",
+        "SR",
+        "SS",
+        "SV",
+        "TR",
+        "TU",
+        "TV",
+        "VS"
+      ],
+      "answer_preview": "The VISIT (Visit Name) variable appears in exactly 36 SDTM domains. [Source: VARIABLE_INDEX.md]",
+      "usage": {
+        "prompt_tokens": 13798,
+        "completion_tokens": 24,
+        "total_tokens": 13822
+      },
+      "model": "openai/gpt-4o",
+      "answer": "The VISIT (Visit Name) variable appears in exactly 36 SDTM domains. [Source: VARIABLE_INDEX.md]",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "AG",
+        "BE",
+        "BS",
+        "CP",
+        "CV",
+        "DA",
+        "EG",
+        "FA",
+        "FT",
+        "GF",
+        "IE",
+        "IS",
+        "LB",
+        "MB",
+        "MI",
+        "MK",
+        "ML",
+        "MS",
+        "NV",
+        "OE",
+        "PC",
+        "PE",
+        "PR",
+        "QS",
+        "RE",
+        "RP",
+        "RS",
+        "SC",
+        "SR",
+        "SS",
+        "SV",
+        "TR",
+        "TU",
+        "TV",
+        "UR",
+        "VS"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 26.71
+    },
+    {
+      "id": "iv02",
+      "category": "impact_variable",
+      "question": "If we changed the definition of VISITNUM (Visit Number), which SDTM domains would be affected?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "VARIABLE_INDEX.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "VARIABLE_INDEX.md",
+        "domains/AG/spec.md",
+        "chapters/ch04_general_assumptions.md",
+        "domains/FA/spec.md",
+        "chapters/ch03_submitting_data.md"
+      ],
+      "top5_similarities": [
+        0.5269,
+        0.6607,
+        9.7267,
+        0.6603,
+        8.6435
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "AG",
+        "BE",
+        "BS",
+        "CP",
+        "CV",
+        "DA",
+        "EG",
+        "FA",
+        "FT",
+        "GF",
+        "IE",
+        "IS",
+        "LB",
+        "MB",
+        "MI",
+        "MK",
+        "ML",
+        "MS",
+        "NV",
+        "OE",
+        "PC",
+        "PE",
+        "PR",
+        "QS",
+        "RE",
+        "RP",
+        "RS",
+        "SC",
+        "SR",
+        "SS",
+        "SV",
+        "TR",
+        "TU",
+        "TV",
+        "UR",
+        "VS"
+      ],
+      "fact_misses": [],
+      "answer_preview": "Changing the definition of the variable **VISITNUM** would affect the following 36 SDTM domains:\n\n1. AG (Procedure Agents)\n2. BE (Biospecimen Events)\n3. BS (Biospecimen Findings)\n4. CP (Cell Phenotype Findings)\n5. CV (Cardiovascular System Findings)\n6. DA (Product Accountability)\n7. EG (ECG Test Results)\n8. FA (Findings About Events or Interventions)\n9. FT (Functional Tests)\n10. GF (Genomics Findings)\n11. IE (Inclusion/Exclusion Criteria Not Met)\n12. IS (Immunogenicity Specimen Assessments)\n13. LB (Laboratory Test Results)\n14. MB (Microbiology Specimen)\n15. MI (Microscopic Findings)\n16. MK (Mu",
+      "usage": {
+        "prompt_tokens": 13432,
+        "completion_tokens": 382,
+        "total_tokens": 13814
+      },
+      "model": "openai/gpt-4o",
+      "answer": "Changing the definition of the variable **VISITNUM** would affect the following 36 SDTM domains:\n\n1. AG (Procedure Agents)\n2. BE (Biospecimen Events)\n3. BS (Biospecimen Findings)\n4. CP (Cell Phenotype Findings)\n5. CV (Cardiovascular System Findings)\n6. DA (Product Accountability)\n7. EG (ECG Test Results)\n8. FA (Findings About Events or Interventions)\n9. FT (Functional Tests)\n10. GF (Genomics Findings)\n11. IE (Inclusion/Exclusion Criteria Not Met)\n12. IS (Immunogenicity Specimen Assessments)\n13. LB (Laboratory Test Results)\n14. MB (Microbiology Specimen)\n15. MI (Microscopic Findings)\n16. MK (Musculoskeletal System Findings)\n17. ML (Meal Data)\n18. MS (Microbiology Susceptibility)\n19. NV (Nervous System Findings)\n20. OE (Ophthalmic Examinations)\n21. PC (Pharmacokinetics Concentrations)\n22. PE (Physical Examination)\n23. PR (Procedures)\n24. QS (Questionnaires)\n25. RE (Respiratory System Findings)\n26. RP (Reproductive System Findings)\n27. RS (Disease Response and Clin Classification)\n28. SC (Subject Characteristics)\n29. SR (Skin Response)\n30. SS (Subject Status)\n31. SV (Subject Visits)\n32. TR (Tumor/Lesion Results)\n33. TU (Tumor/Lesion Identification)\n34. TV (Trial Visits)\n35. UR (Urinary System Findings)\n36. VS (Vital Signs)\n\nThese domains utilize VISITNUM as a timing variable, and any changes to its definition would impact how visit numbers are represented and sorted within these datasets. [Source: VARIABLE_INDEX.md]",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "AG",
+        "BE",
+        "BS",
+        "CP",
+        "CV",
+        "DA",
+        "EG",
+        "FA",
+        "FT",
+        "GF",
+        "IE",
+        "IS",
+        "LB",
+        "MB",
+        "MI",
+        "MK",
+        "ML",
+        "MS",
+        "NV",
+        "OE",
+        "PC",
+        "PE",
+        "PR",
+        "QS",
+        "RE",
+        "RP",
+        "RS",
+        "SC",
+        "SR",
+        "SS",
+        "SV",
+        "TR",
+        "TU",
+        "TV",
+        "UR",
+        "VS"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 30.43
+    },
+    {
+      "id": "iv03",
+      "category": "impact_variable",
+      "question": "Which SDTM domains include the SPDEVID (Sponsor Device Identifier) variable?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "VARIABLE_INDEX.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "VARIABLE_INDEX.md",
+        "domains/GF/assumptions.md",
+        "domains/AE/spec.md",
+        "model/01_concepts_and_terms.md",
+        "domains/EG/spec.md"
+      ],
+      "top5_similarities": [
+        0.4441,
+        0.7305,
+        0.7539,
+        0.6082,
+        0.7167
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "AE",
+        "BE",
+        "BS",
+        "EG",
+        "GF",
+        "RE"
+      ],
+      "fact_misses": [],
+      "answer_preview": "The SPDEVID (Sponsor Device Identifier) variable is included in the following SDTM domains:\n\n1. Adverse Events (AE) [Source: domains/AE/spec.md]\n2. Biospecimen Events (BE) [Source: domains/BE/spec.md]\n3. Biospecimen Findings (BS) [Source: domains/BS/spec.md]\n4. Cardiovascular System Findings (CV) [Source: domains/CV/spec.md]\n5. ECG Test Results (EG) [Source: domains/EG/spec.md]\n6. Genomics Findings (GF) [Source: domains/GF/spec.md]\n7. Respiratory System Findings (RE) [Source: domains/RE/spec.md]\n\nThese domains utilize SPDEVID as an identifier for devices associated with the observations record",
+      "usage": {
+        "prompt_tokens": 13178,
+        "completion_tokens": 162,
+        "total_tokens": 13340
+      },
+      "model": "openai/gpt-4o",
+      "answer": "The SPDEVID (Sponsor Device Identifier) variable is included in the following SDTM domains:\n\n1. Adverse Events (AE) [Source: domains/AE/spec.md]\n2. Biospecimen Events (BE) [Source: domains/BE/spec.md]\n3. Biospecimen Findings (BS) [Source: domains/BS/spec.md]\n4. Cardiovascular System Findings (CV) [Source: domains/CV/spec.md]\n5. ECG Test Results (EG) [Source: domains/EG/spec.md]\n6. Genomics Findings (GF) [Source: domains/GF/spec.md]\n7. Respiratory System Findings (RE) [Source: domains/RE/spec.md]\n\nThese domains utilize SPDEVID as an identifier for devices associated with the observations recorded in each domain.",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "AE",
+        "BE",
+        "BS",
+        "EG",
+        "GF",
+        "RE"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 24.16
+    },
+    {
+      "id": "iv04",
+      "category": "impact_variable",
+      "question": "In how many SDTM domains is the NHOID (Non-Host Organism Identifier) variable used?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "VARIABLE_INDEX.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "VARIABLE_INDEX.md",
+        "domains/GF/spec.md",
+        "domains/IS/spec.md",
+        "domains/OI/spec.md",
+        "domains/MS/spec.md"
+      ],
+      "top5_similarities": [
+        0.5403,
+        0.715,
+        0.7074,
+        0.7106,
+        0.7074
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "GF",
+        "IS",
+        "MS",
+        "OI"
+      ],
+      "fact_misses": [],
+      "answer_preview": "The NHOID (Non-Host Organism Identifier) variable is used in exactly four SDTM domains: GF, IS, MS, and OI. [Source: VARIABLE_INDEX.md]",
+      "usage": {
+        "prompt_tokens": 13505,
+        "completion_tokens": 39,
+        "total_tokens": 13544
+      },
+      "model": "openai/gpt-4o",
+      "answer": "The NHOID (Non-Host Organism Identifier) variable is used in exactly four SDTM domains: GF, IS, MS, and OI. [Source: VARIABLE_INDEX.md]",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "GF",
+        "IS",
+        "MS",
+        "OI"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 25.56
+    },
+    {
+      "id": "iv05",
+      "category": "impact_variable",
+      "question": "What is the cross-domain footprint of the ARM (Description of Planned Arm) variable — which SDTM domains contain it?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "VARIABLE_INDEX.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "VARIABLE_INDEX.md",
+        "domains/DM/spec.md",
+        "chapters/ch04_general_assumptions.md",
+        "domains/TV/spec.md",
+        "model/01_concepts_and_terms.md"
+      ],
+      "top5_similarities": [
+        0.4304,
+        0.5135,
+        0.4857,
+        0.5067,
+        0.5342
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "DM",
+        "TA",
+        "TV"
+      ],
+      "fact_misses": [],
+      "answer_preview": "The variable ARM (Description of Planned Arm) appears in the following SDTM domains:\n\n1. **Demographics (DM)**\n   - **Label:** Description of Planned Arm\n   - **Type:** Char\n   - **Role:** Synonym Qualifier\n   - **Core:** Exp\n   - **CDISC Notes:** Name of the arm to which the subject was assigned. If the subject was not assigned to an arm, ARM is null and ARMNRS is populated. With the exception of studies which use multistage arm assignments, must be a value of ARM in the Trial Arms dataset. [Source: domains/DM/spec.md]\n\n2. **Trial Arms (TA)**\n   - **Label:** Description of Planned Arm\n   - **",
+      "usage": {
+        "prompt_tokens": 15971,
+        "completion_tokens": 316,
+        "total_tokens": 16287
+      },
+      "model": "openai/gpt-4o",
+      "answer": "The variable ARM (Description of Planned Arm) appears in the following SDTM domains:\n\n1. **Demographics (DM)**\n   - **Label:** Description of Planned Arm\n   - **Type:** Char\n   - **Role:** Synonym Qualifier\n   - **Core:** Exp\n   - **CDISC Notes:** Name of the arm to which the subject was assigned. If the subject was not assigned to an arm, ARM is null and ARMNRS is populated. With the exception of studies which use multistage arm assignments, must be a value of ARM in the Trial Arms dataset. [Source: domains/DM/spec.md]\n\n2. **Trial Arms (TA)**\n   - **Label:** Description of Planned Arm\n   - **Type:** Char\n   - **Role:** Synonym Qualifier\n   - **Core:** Req\n   - **CDISC Notes:** Name given to an arm or treatment group. [Source: domains/TA/spec.md]\n\n3. **Trial Visits (TV)**\n   - **Label:** Description of Planned Arm\n   - **Type:** Char\n   - **Role:** Synonym Qualifier\n   - **Core:** Perm\n   - **CDISC Notes:** Name given to an arm or treatment group. If the timing of visits for a trial does not depend on which arm a subject is in, then Arm should be left blank. [Source: domains/TV/spec.md]\n\nThese domains utilize the ARM variable to describe the planned arm or treatment group within the context of the study design.",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "DM",
+        "TA",
+        "TV"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 34.33
+    },
+    {
+      "id": "iv06",
+      "category": "impact_variable",
+      "question": "If the ARMCD (Planned Arm Code) variable were revised, how many SDTM domains would be impacted?",
+      "source_recall": 0.0,
+      "source_hits": [],
+      "source_misses": [
+        "VARIABLE_INDEX.md"
+      ],
+      "top5_sources": [
+        "domains/TV/spec.md",
+        "domains/DM/spec.md",
+        "domains/TA/spec.md",
+        "domains/DM/assumptions.md",
+        "domains/DM/spec.md"
+      ],
+      "top5_similarities": [
+        0.6548,
+        0.6485,
+        0.6521,
+        0.5572,
+        0.5997
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "DM",
+        "TA",
+        "TV"
+      ],
+      "fact_misses": [],
+      "answer_preview": "If the ARMCD (Planned Arm Code) variable were revised, it would impact exactly three SDTM domains: DM (Demographics), TA (Trial Arms), and TV (Trial Visits) [Source: Structured Facts].",
+      "usage": {
+        "prompt_tokens": 16066,
+        "completion_tokens": 45,
+        "total_tokens": 16111
+      },
+      "model": "openai/gpt-4o",
+      "answer": "If the ARMCD (Planned Arm Code) variable were revised, it would impact exactly three SDTM domains: DM (Demographics), TA (Trial Arms), and TV (Trial Visits) [Source: Structured Facts].",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "DM",
+        "TA",
+        "TV"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 31.34
+    },
+    {
+      "id": "iv07",
+      "category": "impact_variable",
+      "question": "Which SDTM domains is the ELEMENT (Description of Element) variable defined in?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "VARIABLE_INDEX.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "VARIABLE_INDEX.md",
+        "model/03_special_purpose_domains.md",
+        "domains/TE/assumptions.md",
+        "model/01_concepts_and_terms.md",
+        "domains/SE/spec.md"
+      ],
+      "top5_similarities": [
+        0.5196,
+        0.6036,
+        0.6032,
+        0.6298,
+        0.6435
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "SE",
+        "TA",
+        "TE"
+      ],
+      "fact_misses": [],
+      "answer_preview": "The ELEMENT (Description of Element) variable is defined in the following SDTM domains:\n\n1. **Subject Elements (SE)**\n   - **Label:** Description of Element\n   - **Type:** Char\n   - **Role:** Synonym Qualifier\n   - **Core:** Perm\n   - **CDISC Notes:** The name of the element. If ETCD has a value of \"UNPLAN\", then ELEMENT should be null.\n   [Source: domains/SE/spec.md]\n\n2. **Trial Elements (TE)**\n   - **Label:** Description of Element\n   - **Type:** Char\n   - **Role:** Synonym Qualifier\n   - **Core:** Req\n   - **CDISC Notes:** The name of the element.\n   [Source: domains/TE/spec.md]\n\n3. **Trial",
+      "usage": {
+        "prompt_tokens": 15222,
+        "completion_tokens": 241,
+        "total_tokens": 15463
+      },
+      "model": "openai/gpt-4o",
+      "answer": "The ELEMENT (Description of Element) variable is defined in the following SDTM domains:\n\n1. **Subject Elements (SE)**\n   - **Label:** Description of Element\n   - **Type:** Char\n   - **Role:** Synonym Qualifier\n   - **Core:** Perm\n   - **CDISC Notes:** The name of the element. If ETCD has a value of \"UNPLAN\", then ELEMENT should be null.\n   [Source: domains/SE/spec.md]\n\n2. **Trial Elements (TE)**\n   - **Label:** Description of Element\n   - **Type:** Char\n   - **Role:** Synonym Qualifier\n   - **Core:** Req\n   - **CDISC Notes:** The name of the element.\n   [Source: domains/TE/spec.md]\n\n3. **Trial Arms (TA)**\n   - **Label:** Description of Element\n   - **Type:** Char\n   - **Role:** Synonym Qualifier\n   - **Core:** Perm\n   - **CDISC Notes:** The name of the element. The same element may occur more than once within an arm.\n   [Source: domains/TA/spec.md]",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "SE",
+        "TA",
+        "TE"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 32.58
+    },
+    {
+      "id": "iv08",
+      "category": "impact_variable",
+      "question": "How many SDTM domains does the ETCD (Element Code) variable appear in?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "VARIABLE_INDEX.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "VARIABLE_INDEX.md",
+        "domains/TE/spec.md",
+        "domains/SE/spec.md",
+        "domains/TA/spec.md",
+        "model/01_concepts_and_terms.md"
+      ],
+      "top5_similarities": [
+        0.5136,
+        0.6828,
+        0.6816,
+        0.6763,
+        0.6016
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "SE",
+        "TA",
+        "TE"
+      ],
+      "fact_misses": [],
+      "answer_preview": "The ETCD (Element Code) variable appears in exactly 3 SDTM domains: SE, TA, and TE. [Source: VARIABLE_INDEX.md]",
+      "usage": {
+        "prompt_tokens": 15394,
+        "completion_tokens": 31,
+        "total_tokens": 15425
+      },
+      "model": "openai/gpt-4o",
+      "answer": "The ETCD (Element Code) variable appears in exactly 3 SDTM domains: SE, TA, and TE. [Source: VARIABLE_INDEX.md]",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "SE",
+        "TA",
+        "TE"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 29.2
+    },
+    {
+      "id": "iv09",
+      "category": "impact_variable",
+      "question": "In which SDTM domains can I find the FOCID (Focus of Study-Specific Interest) variable?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "VARIABLE_INDEX.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "VARIABLE_INDEX.md",
+        "domains/MB/spec.md",
+        "domains/NV/spec.md",
+        "domains/OE/spec.md",
+        "domains/OE/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.4557,
+        0.7499,
+        0.7483,
+        0.7226,
+        0.6447
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "MB",
+        "NV",
+        "OE"
+      ],
+      "fact_misses": [],
+      "answer_preview": "The FOCID (Focus of Study-Specific Interest) variable can be found in the following SDTM domains:\n\n1. MB (Microbiology Specimen) [Source: domains/MB/spec.md]\n2. NV (Nervous System Findings) [Source: domains/NV/spec.md]\n3. OE (Ophthalmic Examinations) [Source: domains/OE/spec.md]\n\nThese domains utilize FOCID as an Identifier variable to specify a focus of study-specific interest on or within a subject or specimen as called out in the protocol.",
+      "usage": {
+        "prompt_tokens": 13907,
+        "completion_tokens": 113,
+        "total_tokens": 14020
+      },
+      "model": "openai/gpt-4o",
+      "answer": "The FOCID (Focus of Study-Specific Interest) variable can be found in the following SDTM domains:\n\n1. MB (Microbiology Specimen) [Source: domains/MB/spec.md]\n2. NV (Nervous System Findings) [Source: domains/NV/spec.md]\n3. OE (Ophthalmic Examinations) [Source: domains/OE/spec.md]\n\nThese domains utilize FOCID as an Identifier variable to specify a focus of study-specific interest on or within a subject or specimen as called out in the protocol.",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "MB",
+        "NV",
+        "OE"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 29.62
+    },
+    {
+      "id": "iv10",
+      "category": "impact_variable",
+      "question": "If a change were made to the IDVAR (Identifying Variable) variable, what SDTM domains would be affected by it?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "VARIABLE_INDEX.md"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "VARIABLE_INDEX.md",
+        "chapters/ch01_introduction.md",
+        "domains/RELREC/spec.md",
+        "domains/RELREC/spec.md",
+        "domains/SUPPQUAL/spec.md"
+      ],
+      "top5_similarities": [
+        0.5054,
+        0.6232,
+        0.5929,
+        0.6089,
+        0.6061
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "CO",
+        "RELREC",
+        "SUPPQUAL"
+      ],
+      "fact_misses": [],
+      "answer_preview": "A change to the IDVAR (Identifying Variable) variable would affect the following SDTM domains: CO (Comments), RELREC (Related Records), and SUPPQUAL (Supplemental Qualifiers) [Source: VARIABLE_INDEX.md].",
+      "usage": {
+        "prompt_tokens": 15818,
+        "completion_tokens": 47,
+        "total_tokens": 15865
+      },
+      "model": "openai/gpt-4o",
+      "answer": "A change to the IDVAR (Identifying Variable) variable would affect the following SDTM domains: CO (Comments), RELREC (Related Records), and SUPPQUAL (Supplemental Qualifiers) [Source: VARIABLE_INDEX.md].",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "CO",
+        "RELREC",
+        "SUPPQUAL"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 31.11
+    },
+    {
+      "id": "ag01",
+      "category": "aggregate",
+      "question": "Which SDTM variables are used across 3 or more different domains?",
+      "source_recall": 0.0,
+      "source_hits": [],
+      "source_misses": [
+        "VARIABLE_INDEX.md"
+      ],
+      "top5_sources": [
+        "model/01_concepts_and_terms.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch01_introduction.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch02_fundamentals.md"
+      ],
+      "top5_similarities": [
+        0.6951,
+        0.6463,
+        0.6215,
+        0.5667,
+        0.5665
+      ],
+      "fact_recall": 0.1667,
+      "fact_hits": [
+        "DOMAIN",
+        "STUDYID",
+        "USUBJID"
+      ],
+      "fact_misses": [
+        "ARM",
+        "ARMCD",
+        "ELEMENT",
+        "EPOCH",
+        "ETCD",
+        "FOCID",
+        "IDVAR",
+        "IDVARVAL",
+        "NHOID",
+        "RDOMAIN",
+        "SPDEVID",
+        "TAETORD",
+        "VISIT",
+        "VISITDY",
+        "VISITNUM"
+      ],
+      "answer_preview": "To determine which SDTM variables are used across three or more different domains, we need to refer to the SDTM variable index, which lists variables and their occurrences across domains. However, the specific list of such variables is not directly provided in the retrieved context. \n\nIn general, common variables like `STUDYID`, `DOMAIN`, `USUBJID`, and timing variables such as `--DTC` (Date/Time of Collection) are typically used across multiple domains. These variables are part of the identifier and timing variable sets that are permissible for use in any dataset based on a general observatio",
+      "usage": {
+        "prompt_tokens": 16163,
+        "completion_tokens": 199,
+        "total_tokens": 16362
+      },
+      "model": "openai/gpt-4o",
+      "answer": "To determine which SDTM variables are used across three or more different domains, we need to refer to the SDTM variable index, which lists variables and their occurrences across domains. However, the specific list of such variables is not directly provided in the retrieved context. \n\nIn general, common variables like `STUDYID`, `DOMAIN`, `USUBJID`, and timing variables such as `--DTC` (Date/Time of Collection) are typically used across multiple domains. These variables are part of the identifier and timing variable sets that are permissible for use in any dataset based on a general observation class [Source: model/02_observation_classes.md].\n\nFor a precise list, you would need to consult the SDTM variable index or the domain specification tables, which detail the variables used in each domain. If you have access to the SDTMIG documentation, you can look up the VARIABLE_INDEX.md file, which provides a comprehensive cross-reference of variables and their usage across domains.",
+      "judge_fact_recall": 0.1667,
+      "judge_fact_hits": [
+        "DOMAIN",
+        "STUDYID",
+        "USUBJID"
+      ],
+      "judge_fact_misses": [
+        "ARM",
+        "ARMCD",
+        "ELEMENT",
+        "EPOCH",
+        "ETCD",
+        "FOCID",
+        "IDVAR",
+        "IDVARVAL",
+        "NHOID",
+        "RDOMAIN",
+        "SPDEVID",
+        "TAETORD",
+        "VISIT",
+        "VISITDY",
+        "VISITNUM"
+      ],
+      "judge_parse_ok": true,
+      "elapsed_s": 34.54
+    },
+    {
+      "id": "ag02",
+      "category": "aggregate",
+      "question": "Can you list the SDTM variables that appear in at least 4 separate domains?",
+      "source_recall": 0.0,
+      "source_hits": [],
+      "source_misses": [
+        "VARIABLE_INDEX.md"
+      ],
+      "top5_sources": [
+        "model/01_concepts_and_terms.md",
+        "chapters/ch01_introduction.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch02_fundamentals.md"
+      ],
+      "top5_similarities": [
+        0.6861,
+        0.6084,
+        0.6395,
+        0.6378,
+        0.5606
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "DOMAIN",
+        "EPOCH",
+        "NHOID",
+        "SPDEVID",
+        "STUDYID",
+        "TAETORD",
+        "USUBJID",
+        "VISIT",
+        "VISITDY",
+        "VISITNUM"
+      ],
+      "fact_misses": [],
+      "answer_preview": "Yes, the SDTM variables that appear in at least 4 separate domains are:\n\n1. **STUDYID** - Appears in 63 domains\n2. **DOMAIN** - Appears in 59 domains\n3. **USUBJID** - Appears in 55 domains\n4. **EPOCH** - Appears in 44 domains\n5. **TAETORD** - Appears in 43 domains\n6. **VISIT** - Appears in 36 domains\n7. **VISITDY** - Appears in 36 domains\n8. **VISITNUM** - Appears in 36 domains\n9. **SPDEVID** - Appears in 6 domains\n10. **NHOID** - Appears in 4 domains\n\nThese variables are commonly used across multiple domains due to their roles in identifying study data, timing, and other key aspects of clinic",
+      "usage": {
+        "prompt_tokens": 16963,
+        "completion_tokens": 200,
+        "total_tokens": 17163
+      },
+      "model": "openai/gpt-4o",
+      "answer": "Yes, the SDTM variables that appear in at least 4 separate domains are:\n\n1. **STUDYID** - Appears in 63 domains\n2. **DOMAIN** - Appears in 59 domains\n3. **USUBJID** - Appears in 55 domains\n4. **EPOCH** - Appears in 44 domains\n5. **TAETORD** - Appears in 43 domains\n6. **VISIT** - Appears in 36 domains\n7. **VISITDY** - Appears in 36 domains\n8. **VISITNUM** - Appears in 36 domains\n9. **SPDEVID** - Appears in 6 domains\n10. **NHOID** - Appears in 4 domains\n\nThese variables are commonly used across multiple domains due to their roles in identifying study data, timing, and other key aspects of clinical trial data management. [Source: Structured Facts]",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "DOMAIN",
+        "EPOCH",
+        "NHOID",
+        "SPDEVID",
+        "STUDYID",
+        "TAETORD",
+        "USUBJID",
+        "VISIT",
+        "VISITDY",
+        "VISITNUM"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 34.37
+    },
+    {
+      "id": "ag03",
+      "category": "aggregate",
+      "question": "Which variables show up in 5 or more domains throughout the SDTM model?",
+      "source_recall": 0.0,
+      "source_hits": [],
+      "source_misses": [
+        "VARIABLE_INDEX.md"
+      ],
+      "top5_sources": [
+        "model/01_concepts_and_terms.md",
+        "chapters/ch01_introduction.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch02_fundamentals.md",
+        "chapters/ch03_submitting_data.md"
+      ],
+      "top5_similarities": [
+        0.6829,
+        0.5863,
+        0.6111,
+        0.5646,
+        0.5808
+      ],
+      "fact_recall": 0.1111,
+      "fact_hits": [
+        "DOMAIN"
+      ],
+      "fact_misses": [
+        "EPOCH",
+        "SPDEVID",
+        "STUDYID",
+        "TAETORD",
+        "USUBJID",
+        "VISIT",
+        "VISITDY",
+        "VISITNUM"
+      ],
+      "answer_preview": "To determine which variables appear in 5 or more domains throughout the SDTM model, we would need to consult the comprehensive variable index that lists all variables and their occurrences across domains. However, the provided context does not include a detailed list of variables and their domain occurrences.\n\nFor a precise answer, you would typically refer to a document like **VARIABLE_INDEX.md**, which would provide a cross-reference of variables and the domains they appear in. Unfortunately, without access to that specific document or a similar detailed index, I cannot provide a definitive ",
+      "usage": {
+        "prompt_tokens": 15257,
+        "completion_tokens": 171,
+        "total_tokens": 15428
+      },
+      "model": "openai/gpt-4o",
+      "answer": "To determine which variables appear in 5 or more domains throughout the SDTM model, we would need to consult the comprehensive variable index that lists all variables and their occurrences across domains. However, the provided context does not include a detailed list of variables and their domain occurrences.\n\nFor a precise answer, you would typically refer to a document like **VARIABLE_INDEX.md**, which would provide a cross-reference of variables and the domains they appear in. Unfortunately, without access to that specific document or a similar detailed index, I cannot provide a definitive list of such variables.\n\nIf you have access to the **VARIABLE_INDEX.md** or a similar resource, you can look for variables that are listed in multiple domains and identify those that appear in 5 or more domains. Alternatively, if you can provide more specific information or access to the relevant index, I can assist further.",
+      "judge_fact_recall": 0.0,
+      "judge_fact_hits": [],
+      "judge_fact_misses": [
+        "DOMAIN",
+        "EPOCH",
+        "SPDEVID",
+        "STUDYID",
+        "TAETORD",
+        "USUBJID",
+        "VISIT",
+        "VISITDY",
+        "VISITNUM"
+      ],
+      "judge_parse_ok": true,
+      "elapsed_s": 30.52
+    },
+    {
+      "id": "ag04",
+      "category": "aggregate",
+      "question": "I'm looking for the SDTM variables that are reused across 10 or more domains — which ones are they?",
+      "source_recall": 0.0,
+      "source_hits": [],
+      "source_misses": [
+        "VARIABLE_INDEX.md"
+      ],
+      "top5_sources": [
+        "model/01_concepts_and_terms.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch01_introduction.md",
+        "chapters/ch04_general_assumptions.md",
+        "model/02_observation_classes.md"
+      ],
+      "top5_similarities": [
+        0.6619,
+        0.6221,
+        0.5736,
+        0.5301,
+        0.5768
+      ],
+      "fact_recall": 0.375,
+      "fact_hits": [
+        "DOMAIN",
+        "STUDYID",
+        "USUBJID"
+      ],
+      "fact_misses": [
+        "EPOCH",
+        "TAETORD",
+        "VISIT",
+        "VISITDY",
+        "VISITNUM"
+      ],
+      "answer_preview": "To identify SDTM variables reused across 10 or more domains, we need to refer to the SDTM Implementation Guide and the variable index. However, the provided context does not include a comprehensive list of such variables. Typically, common variables like `STUDYID`, `USUBJID`, `DOMAIN`, and `--SEQ` are reused across many domains as they are essential for identifying and organizing data. These variables are part of the standard metadata structure for datasets and are used to ensure consistency and traceability across different datasets.\n\nFor a precise list, you would need to consult the SDTM var",
+      "usage": {
+        "prompt_tokens": 17346,
+        "completion_tokens": 186,
+        "total_tokens": 17532
+      },
+      "model": "openai/gpt-4o",
+      "answer": "To identify SDTM variables reused across 10 or more domains, we need to refer to the SDTM Implementation Guide and the variable index. However, the provided context does not include a comprehensive list of such variables. Typically, common variables like `STUDYID`, `USUBJID`, `DOMAIN`, and `--SEQ` are reused across many domains as they are essential for identifying and organizing data. These variables are part of the standard metadata structure for datasets and are used to ensure consistency and traceability across different datasets.\n\nFor a precise list, you would need to consult the SDTM variable index or the domain specifications in the SDTMIG, which detail the variables used in each domain. If you have access to the SDTMIG documentation or the VARIABLE_INDEX.md file, you can find the exact count of domains using each variable. If you need further assistance, please provide access to the specific index or list.",
+      "judge_fact_recall": 0.375,
+      "judge_fact_hits": [
+        "DOMAIN",
+        "STUDYID",
+        "USUBJID"
+      ],
+      "judge_fact_misses": [
+        "EPOCH",
+        "TAETORD",
+        "VISIT",
+        "VISITDY",
+        "VISITNUM"
+      ],
+      "judge_parse_ok": true,
+      "elapsed_s": 35.66
+    },
+    {
+      "id": "ag05",
+      "category": "aggregate",
+      "question": "Which SDTM variables are so common that they appear in 40+ domains?",
+      "source_recall": 0.0,
+      "source_hits": [],
+      "source_misses": [
+        "VARIABLE_INDEX.md"
+      ],
+      "top5_sources": [
+        "model/01_concepts_and_terms.md",
+        "chapters/ch04_general_assumptions.md",
+        "model/02_observation_classes.md",
+        "chapters/ch01_introduction.md",
+        "chapters/ch03_submitting_data.md"
+      ],
+      "top5_similarities": [
+        0.6461,
+        0.5829,
+        0.568,
+        0.5573,
+        0.5597
+      ],
+      "fact_recall": 0.6,
+      "fact_hits": [
+        "DOMAIN",
+        "STUDYID",
+        "USUBJID"
+      ],
+      "fact_misses": [
+        "EPOCH",
+        "TAETORD"
+      ],
+      "answer_preview": "To determine which SDTM variables are so common that they appear in 40 or more domains, we need to refer to the SDTMIG documentation that lists variables and their occurrences across domains. However, based on the general structure and common practices in SDTM, some variables are known to be widely used across many domains due to their fundamental role in identifying and timing observations. These typically include:\n\n1. **STUDYID** - Identifies the study.\n2. **DOMAIN** - Identifies the domain.\n3. **USUBJID** - Uniquely identifies a subject across all studies.\n4. **--SEQ** - Sequence number to ",
+      "usage": {
+        "prompt_tokens": 16589,
+        "completion_tokens": 228,
+        "total_tokens": 16817
+      },
+      "model": "openai/gpt-4o",
+      "answer": "To determine which SDTM variables are so common that they appear in 40 or more domains, we need to refer to the SDTMIG documentation that lists variables and their occurrences across domains. However, based on the general structure and common practices in SDTM, some variables are known to be widely used across many domains due to their fundamental role in identifying and timing observations. These typically include:\n\n1. **STUDYID** - Identifies the study.\n2. **DOMAIN** - Identifies the domain.\n3. **USUBJID** - Uniquely identifies a subject across all studies.\n4. **--SEQ** - Sequence number to ensure uniqueness of records within a domain for a subject.\n5. **--DTC** - Date/time of the observation.\n\nThese variables are part of the core identifiers and timing variables that are essential for the structure of SDTM datasets and are likely to appear in a large number of domains. For a precise list, you would need to consult the SDTMIG documentation or a comprehensive index like the VARIABLE_INDEX.md, which would provide the exact count of domains each variable appears in.",
+      "judge_fact_recall": 0.6,
+      "judge_fact_hits": [
+        "DOMAIN",
+        "STUDYID",
+        "USUBJID"
+      ],
+      "judge_fact_misses": [
+        "EPOCH",
+        "TAETORD"
+      ],
+      "judge_parse_ok": true,
+      "elapsed_s": 34.55
+    },
+    {
+      "id": "ms01",
+      "category": "aggregate",
+      "question": "Across all of SDTM, which controlled terminology codelist is the most reused?",
+      "source_recall": 0.0,
+      "source_hits": [],
+      "source_misses": [
+        "VARIABLE_INDEX.md"
+      ],
+      "top5_sources": [
+        "domains/RELSPEC/assumptions.md",
+        "chapters/ch10_appendices.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch04_general_assumptions.md"
+      ],
+      "top5_similarities": [
+        0.623,
+        0.6077,
+        0.6334,
+        0.5557,
+        0.6105
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "C66742",
+        "No Yes Response"
+      ],
+      "fact_misses": [],
+      "answer_preview": "The SDTM documentation does not explicitly state which controlled terminology codelist is the most reused across all domains. However, some codelists are commonly referenced in multiple domains, such as the \"No Yes Response\" codelist (C66742), which is used in various contexts to capture binary responses. To determine the most reused codelist, one would need to analyze the frequency of codelist references across all domain specifications and controlled terminology files. This information is not directly available in the provided context. For a comprehensive analysis, you would need to review t",
+      "usage": {
+        "prompt_tokens": 12879,
+        "completion_tokens": 131,
+        "total_tokens": 13010
+      },
+      "model": "openai/gpt-4o",
+      "answer": "The SDTM documentation does not explicitly state which controlled terminology codelist is the most reused across all domains. However, some codelists are commonly referenced in multiple domains, such as the \"No Yes Response\" codelist (C66742), which is used in various contexts to capture binary responses. To determine the most reused codelist, one would need to analyze the frequency of codelist references across all domain specifications and controlled terminology files. This information is not directly available in the provided context. For a comprehensive analysis, you would need to review the VARIABLE_INDEX.md and the terminology files to count occurrences of each codelist reference.",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "C66742",
+        "No Yes Response"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 22.69
+    },
+    {
+      "id": "ms02",
+      "category": "aggregate",
+      "question": "Which single codelist is referenced by the greatest number of variables in SDTM?",
+      "source_recall": 0.0,
+      "source_hits": [],
+      "source_misses": [
+        "VARIABLE_INDEX.md"
+      ],
+      "top5_sources": [
+        "model/01_concepts_and_terms.md",
+        "chapters/ch04_general_assumptions.md",
+        "model/01_concepts_and_terms.md",
+        "chapters/ch10_appendices.md",
+        "chapters/ch01_introduction.md"
+      ],
+      "top5_similarities": [
+        0.5932,
+        0.5857,
+        0.5612,
+        0.5747,
+        0.5463
+      ],
+      "fact_recall": 0.0,
+      "fact_hits": [],
+      "fact_misses": [
+        "C66742",
+        "No Yes Response"
+      ],
+      "answer_preview": "To determine which single codelist is referenced by the greatest number of variables in SDTM, we would need to examine the cross-references of variables to codelists. This information is typically found in the SDTM documentation, specifically in the controlled terminology sections or a comprehensive index of variables and their associated codelists.\n\nHowever, based on the provided context, there is no direct information indicating which codelist is referenced by the greatest number of variables. To find this information, you would typically look at a detailed index or cross-reference table tha",
+      "usage": {
+        "prompt_tokens": 14143,
+        "completion_tokens": 197,
+        "total_tokens": 14340
+      },
+      "model": "openai/gpt-4o",
+      "answer": "To determine which single codelist is referenced by the greatest number of variables in SDTM, we would need to examine the cross-references of variables to codelists. This information is typically found in the SDTM documentation, specifically in the controlled terminology sections or a comprehensive index of variables and their associated codelists.\n\nHowever, based on the provided context, there is no direct information indicating which codelist is referenced by the greatest number of variables. To find this information, you would typically look at a detailed index or cross-reference table that lists all variables and their associated codelists, such as the VARIABLE_INDEX.md or a similar resource.\n\nIf you have access to the VARIABLE_INDEX.md or a similar cross-reference document, you can identify the codelist with the most references by counting the occurrences of each codelist across all variables. If such a document is not available, you may need to manually review the domain specifications and controlled terminology files to compile this information.",
+      "judge_fact_recall": 0.0,
+      "judge_fact_hits": [],
+      "judge_fact_misses": [
+        "C66742",
+        "No Yes Response"
+      ],
+      "judge_parse_ok": true,
+      "elapsed_s": 29.25
+    },
+    {
+      "id": "ms03",
+      "category": "aggregate",
+      "question": "What is the most widely shared codelist across SDTM domains?",
+      "source_recall": 0.0,
+      "source_hits": [],
+      "source_misses": [
+        "VARIABLE_INDEX.md"
+      ],
+      "top5_sources": [
+        "model/01_concepts_and_terms.md",
+        "chapters/ch01_introduction.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch04_general_assumptions.md",
+        "terminology/supplementary/supplementary_part5.md"
+      ],
+      "top5_similarities": [
+        0.5614,
+        0.5415,
+        0.5468,
+        0.5262,
+        0.5882
+      ],
+      "fact_recall": 0.0,
+      "fact_hits": [],
+      "fact_misses": [
+        "C66742",
+        "No Yes Response"
+      ],
+      "answer_preview": "The most widely shared codelist across SDTM domains is the \"SDTM Domain Abbreviation\" codelist, identified by the code C66734. This codelist is used to standardize the domain abbreviations across various datasets within the SDTM framework. It is referenced in multiple domains, such as RELREC and CO, as indicated in their respective controlled terminology sections. [Source: domains/RELREC/spec.md, domains/CO/spec.md]",
+      "usage": {
+        "prompt_tokens": 13027,
+        "completion_tokens": 93,
+        "total_tokens": 13120
+      },
+      "model": "openai/gpt-4o",
+      "answer": "The most widely shared codelist across SDTM domains is the \"SDTM Domain Abbreviation\" codelist, identified by the code C66734. This codelist is used to standardize the domain abbreviations across various datasets within the SDTM framework. It is referenced in multiple domains, such as RELREC and CO, as indicated in their respective controlled terminology sections. [Source: domains/RELREC/spec.md, domains/CO/spec.md]",
+      "judge_fact_recall": 0.0,
+      "judge_fact_hits": [],
+      "judge_fact_misses": [
+        "C66742",
+        "No Yes Response"
+      ],
+      "judge_parse_ok": true,
+      "elapsed_s": 25.71
+    },
+    {
+      "id": "ms04",
+      "category": "aggregate",
+      "question": "What are the three most frequently reused controlled terminology codelists in SDTM?",
+      "source_recall": 0.0,
+      "source_hits": [],
+      "source_misses": [
+        "VARIABLE_INDEX.md"
+      ],
+      "top5_sources": [
+        "domains/RELSPEC/assumptions.md",
+        "chapters/ch10_appendices.md",
+        "domains/TS/assumptions.md",
+        "domains/PP/assumptions.md",
+        "domains/DD/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.6933,
+        0.6507,
+        0.629,
+        0.6177,
+        0.6263
+      ],
+      "fact_recall": 0.0,
+      "fact_hits": [],
+      "fact_misses": [
+        "C66742",
+        "C71620",
+        "C66789"
+      ],
+      "answer_preview": "The three most frequently reused controlled terminology codelists in SDTM are:\n\n1. **SPEC (C77529)**: This codelist is applicable to the SPEC variable and is used to specify specimen types. It is mentioned in the context of the RELSPEC domain, where it is one of the codelists that may be applicable to SPEC [Source: domains/RELSPEC/assumptions.md].\n\n2. **SPECTYPE (C78734)**: This codelist is also applicable to the SPEC variable and is used to specify specimen types. It is mentioned alongside SPEC and GENSMP as a codelist that may be applicable to SPEC in the RELSPEC domain [Source: domains/RELS",
+      "usage": {
+        "prompt_tokens": 10299,
+        "completion_tokens": 227,
+        "total_tokens": 10526
+      },
+      "model": "openai/gpt-4o",
+      "answer": "The three most frequently reused controlled terminology codelists in SDTM are:\n\n1. **SPEC (C77529)**: This codelist is applicable to the SPEC variable and is used to specify specimen types. It is mentioned in the context of the RELSPEC domain, where it is one of the codelists that may be applicable to SPEC [Source: domains/RELSPEC/assumptions.md].\n\n2. **SPECTYPE (C78734)**: This codelist is also applicable to the SPEC variable and is used to specify specimen types. It is mentioned alongside SPEC and GENSMP as a codelist that may be applicable to SPEC in the RELSPEC domain [Source: domains/RELSPEC/assumptions.md].\n\n3. **GENSMP (C111114)**: This codelist is used for general specimen types and is mentioned as one of the codelists that may be applicable to SPEC in the RELSPEC domain [Source: domains/RELSPEC/assumptions.md].\n\nThese codelists are frequently reused across different domains where specimen information is relevant.",
+      "judge_fact_recall": 0.0,
+      "judge_fact_hits": [],
+      "judge_fact_misses": [
+        "C66742",
+        "C71620",
+        "C66789"
+      ],
+      "judge_parse_ok": true,
+      "elapsed_s": 21.11
+    },
+    {
+      "id": "ms05",
+      "category": "aggregate",
+      "question": "Could you name several of the most commonly shared codelists used throughout the SDTM domains?",
+      "source_recall": 0.0,
+      "source_hits": [],
+      "source_misses": [
+        "VARIABLE_INDEX.md"
+      ],
+      "top5_sources": [
+        "model/01_concepts_and_terms.md",
+        "chapters/ch01_introduction.md",
+        "chapters/ch10_appendices.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch10_appendices.md"
+      ],
+      "top5_similarities": [
+        0.5835,
+        0.5635,
+        0.5429,
+        0.5709,
+        0.6223
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "C66742",
+        "C71620",
+        "C66789",
+        "C66728",
+        "C74456"
+      ],
+      "fact_misses": [],
+      "answer_preview": "Several of the most commonly shared codelists used throughout the SDTM domains include:\n\n1. **C66742 (No Yes Response)** - Used in 123 variables.\n2. **C71620 (Unit)** - Used in 58 variables.\n3. **C66789 (Not Done)** - Used in 36 variables.\n4. **C66728 (Relation to Reference Period)** - Used in 26 variables.\n5. **C74456 (Anatomical Location)** - Used in 19 variables.\n\nThese codelists are frequently utilized across various domains to standardize responses and ensure consistency in data representation. [Source: Structured Facts]",
+      "usage": {
+        "prompt_tokens": 14148,
+        "completion_tokens": 133,
+        "total_tokens": 14281
+      },
+      "model": "openai/gpt-4o",
+      "answer": "Several of the most commonly shared codelists used throughout the SDTM domains include:\n\n1. **C66742 (No Yes Response)** - Used in 123 variables.\n2. **C71620 (Unit)** - Used in 58 variables.\n3. **C66789 (Not Done)** - Used in 36 variables.\n4. **C66728 (Relation to Reference Period)** - Used in 26 variables.\n5. **C74456 (Anatomical Location)** - Used in 19 variables.\n\nThese codelists are frequently utilized across various domains to standardize responses and ensure consistency in data representation. [Source: Structured Facts]",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "C66742",
+        "C71620",
+        "C66789",
+        "C66728",
+        "C74456"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 29.06
+    },
+    {
+      "id": "rl01",
+      "category": "relationship",
+      "question": "Which other SDTM domains fall under the same observation class as the Biospecimen Events (BE) domain?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/BE/"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/BE/spec.md",
+        "domains/BE/spec.md",
+        "domains/BE/spec.md",
+        "domains/BE/spec.md",
+        "model/02_observation_classes.md"
+      ],
+      "top5_similarities": [
+        0.6667,
+        0.6494,
+        0.6089,
+        0.5954,
+        0.6394
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "AE",
+        "BS",
+        "CE",
+        "DS",
+        "DV",
+        "HO",
+        "MH"
+      ],
+      "fact_misses": [],
+      "answer_preview": "The Biospecimen Events (BE) domain falls under the \"Events\" observation class. Other SDTM domains that fall under the same \"Events\" class include:\n\n- Adverse Events (AE)\n- Clinical Events (CE)\n- Disposition (DS)\n- Protocol Deviations (DV)\n- Healthcare Encounters (HO)\n- Medical History (MH)\n\nThese domains are all categorized under the \"Events\" observation class, which is used to document occurrences or incidents that happen to subjects during a study [Source: domains/BE/spec.md].",
+      "usage": {
+        "prompt_tokens": 13126,
+        "completion_tokens": 109,
+        "total_tokens": 13235
+      },
+      "model": "openai/gpt-4o",
+      "answer": "The Biospecimen Events (BE) domain falls under the \"Events\" observation class. Other SDTM domains that fall under the same \"Events\" class include:\n\n- Adverse Events (AE)\n- Clinical Events (CE)\n- Disposition (DS)\n- Protocol Deviations (DV)\n- Healthcare Encounters (HO)\n- Medical History (MH)\n\nThese domains are all categorized under the \"Events\" observation class, which is used to document occurrences or incidents that happen to subjects during a study [Source: domains/BE/spec.md].",
+      "judge_fact_recall": 0.8571,
+      "judge_fact_hits": [
+        "AE",
+        "CE",
+        "DS",
+        "DV",
+        "HO",
+        "MH"
+      ],
+      "judge_fact_misses": [
+        "BS"
+      ],
+      "judge_parse_ok": true,
+      "elapsed_s": 26.11
+    },
+    {
+      "id": "rl02",
+      "category": "relationship",
+      "question": "What domains does the Microbiology Specimen (MB) domain typically have relationships or links with in an SDTM submission?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/MB/"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/MB/spec.md",
+        "domains/MB/spec.md",
+        "domains/MB/spec.md",
+        "domains/MB/spec.md",
+        "domains/MB/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.6404,
+        0.5957,
+        0.5584,
+        0.5514,
+        0.7038
+      ],
+      "fact_recall": 0.4667,
+      "fact_hits": [
+        "BS",
+        "DA",
+        "EG",
+        "IE",
+        "IS",
+        "MI",
+        "MS",
+        "PE",
+        "RE",
+        "RELSPEC",
+        "SC",
+        "SS",
+        "TU",
+        "UR"
+      ],
+      "fact_misses": [
+        "CP",
+        "CV",
+        "DD",
+        "FT",
+        "GF",
+        "LB",
+        "MK",
+        "NV",
+        "OE",
+        "PC",
+        "PP",
+        "QS",
+        "RP",
+        "RS",
+        "TR",
+        "VS"
+      ],
+      "answer_preview": "The Microbiology Specimen (MB) domain typically has relationships or links with the following domains in an SDTM submission:\n\n1. **Microbiology Susceptibility (MS):** The MB domain shares a dataset with the MS domain, which contains microbiology susceptibility results. This relationship is important for linking organism identification in MB with susceptibility testing results in MS [Source: domains/MB/spec.md].\n\n2. **Microbiology Microscopic Findings (MI):** The MB domain is related to the MI domain, which contains microbiology microscopic findings. This relationship helps in providing a compr",
+      "usage": {
+        "prompt_tokens": 16154,
+        "completion_tokens": 259,
+        "total_tokens": 16413
+      },
+      "model": "openai/gpt-4o",
+      "answer": "The Microbiology Specimen (MB) domain typically has relationships or links with the following domains in an SDTM submission:\n\n1. **Microbiology Susceptibility (MS):** The MB domain shares a dataset with the MS domain, which contains microbiology susceptibility results. This relationship is important for linking organism identification in MB with susceptibility testing results in MS [Source: domains/MB/spec.md].\n\n2. **Microbiology Microscopic Findings (MI):** The MB domain is related to the MI domain, which contains microbiology microscopic findings. This relationship helps in providing a comprehensive view of microbiological data [Source: domains/MB/spec.md].\n\n3. **Biospecimen Findings (BS):** The MB domain is related to the BS domain, which contains data related to biospecimen characteristics. This relationship is crucial for linking specimen data with microbiological findings [Source: domains/MB/spec.md].\n\n4. **Related Specimens (RELSPEC):** The MB domain is linked with the RELSPEC domain, which deals with specimen hierarchy. This relationship is used to manage and represent the hierarchy and relationships between different specimens [Source: domains/MB/spec.md].\n\nThese relationships help in providing a complete and integrated view of microbiological data within a study, facilitating comprehensive analysis and reporting.",
+      "judge_fact_recall": 0.1333,
+      "judge_fact_hits": [
+        "BS",
+        "MI",
+        "MS",
+        "RELSPEC"
+      ],
+      "judge_fact_misses": [
+        "CP",
+        "CV",
+        "DA",
+        "DD",
+        "EG",
+        "FT",
+        "GF",
+        "IE",
+        "IS",
+        "LB",
+        "MK",
+        "NV",
+        "OE",
+        "PC",
+        "PE",
+        "PP",
+        "QS",
+        "RE",
+        "RP",
+        "RS",
+        "SC",
+        "SS",
+        "TR",
+        "TU",
+        "UR",
+        "VS"
+      ],
+      "judge_parse_ok": true,
+      "elapsed_s": 33.28
+    },
+    {
+      "id": "rl03",
+      "category": "relationship",
+      "question": "Which other SDTM domains share the same observation class as the Findings About Events or Interventions (FA) domain?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/FA/"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/FA/spec.md",
+        "domains/FA/spec.md",
+        "domains/FA/spec.md",
+        "domains/FA/spec.md",
+        "model/02_observation_classes.md"
+      ],
+      "top5_similarities": [
+        0.5988,
+        0.529,
+        0.5065,
+        0.5013,
+        0.6784
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "AE",
+        "CM",
+        "EC",
+        "EX",
+        "ML",
+        "PR",
+        "SR",
+        "SU"
+      ],
+      "fact_misses": [],
+      "answer_preview": "The Findings About Events or Interventions (FA) domain shares the same observation class, \"Findings About,\" with the Skin Response (SR) domain. Additionally, the FA domain is related to several source domains from which it derives findings, including Adverse Events (AE), Concomitant Medications (CM), Procedures (PR), Exposure (EX), Exposure as Collected (EC), Meals (ML), and Substance Use (SU) [Source: domains/FA/spec.md].",
+      "usage": {
+        "prompt_tokens": 13174,
+        "completion_tokens": 97,
+        "total_tokens": 13271
+      },
+      "model": "openai/gpt-4o",
+      "answer": "The Findings About Events or Interventions (FA) domain shares the same observation class, \"Findings About,\" with the Skin Response (SR) domain. Additionally, the FA domain is related to several source domains from which it derives findings, including Adverse Events (AE), Concomitant Medications (CM), Procedures (PR), Exposure (EX), Exposure as Collected (EC), Meals (ML), and Substance Use (SU) [Source: domains/FA/spec.md].",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "AE",
+        "CM",
+        "EC",
+        "EX",
+        "ML",
+        "PR",
+        "SR",
+        "SU"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 26.89
+    },
+    {
+      "id": "rl04",
+      "category": "relationship",
+      "question": "In SDTM, which other domains are related to the Exposure as Collected (EC) domain, and which ones belong to the same observation class as it?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/EC/"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/EC/spec.md",
+        "domains/EC/spec.md",
+        "domains/EC/spec.md",
+        "domains/EC/spec.md",
+        "domains/EX/spec.md"
+      ],
+      "top5_similarities": [
+        0.664,
+        0.5139,
+        0.5065,
+        0.4998,
+        0.7028
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "AG",
+        "CM",
+        "EX",
+        "ML",
+        "PR",
+        "SU"
+      ],
+      "fact_misses": [],
+      "answer_preview": "In SDTM, the Exposure as Collected (EC) domain is related to the following domains:\n\n1. **Same Observation Class (Interventions):** \n   - AG (Procedure Agents)\n   - CM (Concomitant/Prior Medications)\n   - EX (Exposure)\n   - ML (Meal Data)\n   - PR (Procedures)\n   - SU (Substance Use)\n\n2. **Shared Dataset:**\n   - EX (Exposure) — The EC domain is used for exposure as collected, while EX is used for exposure as specified in the protocol. [Source: domains/EC/spec.md]\n\nThese domains are all part of the Interventions observation class, which groups domains that involve interventions administered to s",
+      "usage": {
+        "prompt_tokens": 12498,
+        "completion_tokens": 161,
+        "total_tokens": 12659
+      },
+      "model": "openai/gpt-4o",
+      "answer": "In SDTM, the Exposure as Collected (EC) domain is related to the following domains:\n\n1. **Same Observation Class (Interventions):** \n   - AG (Procedure Agents)\n   - CM (Concomitant/Prior Medications)\n   - EX (Exposure)\n   - ML (Meal Data)\n   - PR (Procedures)\n   - SU (Substance Use)\n\n2. **Shared Dataset:**\n   - EX (Exposure) — The EC domain is used for exposure as collected, while EX is used for exposure as specified in the protocol. [Source: domains/EC/spec.md]\n\nThese domains are all part of the Interventions observation class, which groups domains that involve interventions administered to subjects. [Source: domains/EC/spec.md, domains/EX/spec.md]",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "AG",
+        "CM",
+        "EX",
+        "ML",
+        "PR",
+        "SU"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 24.58
+    },
+    {
+      "id": "rl05",
+      "category": "relationship",
+      "question": "What domains does the Related Records (RELREC) domain connect to or interact with across an SDTM dataset?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/RELREC/"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/RELREC/spec.md",
+        "domains/RELREC/spec.md",
+        "domains/RELREC/spec.md",
+        "domains/RELREC/spec.md",
+        "chapters/ch08_relationships.md"
+      ],
+      "top5_similarities": [
+        0.666,
+        0.6271,
+        0.5983,
+        0.5379,
+        0.7195
+      ],
+      "fact_recall": 0.0,
+      "fact_hits": [],
+      "fact_misses": [
+        "RELSPEC",
+        "RELSUB",
+        "SUPPQUAL"
+      ],
+      "answer_preview": "The Related Records (RELREC) domain is designed to describe relationships between records within a domain, between records across domains, or between entire datasets. It can connect to or interact with various domains across an SDTM dataset. Specifically, RELREC can be used to:\n\n1. Relate records within the same domain or across different domains for a subject. For example, it can relate an Adverse Event (AE) record to Concomitant Medications (CM) or Laboratory Findings (LB) records [Source: domains/RELREC/assumptions.md].\n\n2. Establish relationships between datasets, such as a one-to-many or ",
+      "usage": {
+        "prompt_tokens": 15436,
+        "completion_tokens": 266,
+        "total_tokens": 15702
+      },
+      "model": "openai/gpt-4o",
+      "answer": "The Related Records (RELREC) domain is designed to describe relationships between records within a domain, between records across domains, or between entire datasets. It can connect to or interact with various domains across an SDTM dataset. Specifically, RELREC can be used to:\n\n1. Relate records within the same domain or across different domains for a subject. For example, it can relate an Adverse Event (AE) record to Concomitant Medications (CM) or Laboratory Findings (LB) records [Source: domains/RELREC/assumptions.md].\n\n2. Establish relationships between datasets, such as a one-to-many or parent-child relationship. This is useful when information is split between datasets that need to be examined together for analysis or interpretation [Source: chapters/ch08_relationships.md].\n\n3. Connect to domains like Tumor/Lesion Identification (TU) and Tumor/Lesion Results (TR) using dataset-to-dataset links [Source: domains/TR/assumptions.md].\n\n4. Interact with domains that use grouping identifiers like --GRPID, --REFID, or --LNKID to efficiently represent relationships [Source: chapters/ch08_relationships.md].\n\nOverall, RELREC is a versatile domain that can interact with any domain where relationships between records or datasets need to be explicitly defined.",
+      "judge_fact_recall": 0.0,
+      "judge_fact_hits": [],
+      "judge_fact_misses": [
+        "RELSPEC",
+        "RELSUB",
+        "SUPPQUAL"
+      ],
+      "judge_parse_ok": true,
+      "elapsed_s": 30.85
+    },
+    {
+      "id": "rl06",
+      "category": "relationship",
+      "question": "Which other SDTM domains is the Comments (CO) domain associated with or linked to?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/CO/"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/CO/spec.md",
+        "domains/CO/spec.md",
+        "domains/CO/spec.md",
+        "domains/CO/spec.md",
+        "domains/CO/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.6075,
+        0.5864,
+        0.5626,
+        0.5399,
+        0.7161
+      ],
+      "fact_recall": 0.25,
+      "fact_hits": [
+        "SE"
+      ],
+      "fact_misses": [
+        "DM",
+        "SM",
+        "SV"
+      ],
+      "answer_preview": "The Comments (CO) domain can be associated with or linked to any SDTM domain as it is used to capture free-text comments related to data in one or more SDTM domains. The CO domain is structured to allow comments to be related to a specific domain or specific records within a domain. This is achieved using the variables RDOMAIN, IDVAR, and IDVARVAL to identify the related records. For example, comments can be linked to domains such as Adverse Events (AE), Exposure (EX), Vital Signs (VS), and others, depending on the context of the comment. The CO domain is designed to be flexible and can relate",
+      "usage": {
+        "prompt_tokens": 13543,
+        "completion_tokens": 156,
+        "total_tokens": 13699
+      },
+      "model": "openai/gpt-4o",
+      "answer": "The Comments (CO) domain can be associated with or linked to any SDTM domain as it is used to capture free-text comments related to data in one or more SDTM domains. The CO domain is structured to allow comments to be related to a specific domain or specific records within a domain. This is achieved using the variables RDOMAIN, IDVAR, and IDVARVAL to identify the related records. For example, comments can be linked to domains such as Adverse Events (AE), Exposure (EX), Vital Signs (VS), and others, depending on the context of the comment. The CO domain is designed to be flexible and can relate to any domain where comments are applicable. [Source: domains/CO/assumptions.md, chapters/ch08_relationships.md]",
+      "judge_fact_recall": 0.0,
+      "judge_fact_hits": [],
+      "judge_fact_misses": [
+        "DM",
+        "SE",
+        "SM",
+        "SV"
+      ],
+      "judge_parse_ok": true,
+      "elapsed_s": 27.57
+    },
+    {
+      "id": "rl07",
+      "category": "relationship",
+      "question": "What other SDTM domains is the Trial Arms (TA) domain related to or connected with?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/TA/"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/TA/spec.md",
+        "domains/TA/spec.md",
+        "domains/TA/spec.md",
+        "domains/TA/spec.md",
+        "domains/TV/spec.md"
+      ],
+      "top5_similarities": [
+        0.6957,
+        0.5454,
+        0.4912,
+        0.462,
+        0.7254
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "TD",
+        "TE",
+        "TI",
+        "TM",
+        "TS",
+        "TV"
+      ],
+      "fact_misses": [],
+      "answer_preview": "The Trial Arms (TA) domain is related to several other SDTM domains, particularly within the Trial Design class. These related domains include:\n\n1. **Trial Elements (TE)**: The TA domain is connected to TE as arms use elements. Each arm in the TA domain is composed of elements defined in the TE domain [Source: domains/TE/spec.md].\n\n2. **Trial Visits (TV)**: The TA domain is related to TV as arms define visit schedules. Visits in the TV domain reference the arms defined in the TA domain [Source: domains/TV/spec.md].\n\n3. **Subject Elements (SE)**: Although not directly mentioned in the context p",
+      "usage": {
+        "prompt_tokens": 12431,
+        "completion_tokens": 269,
+        "total_tokens": 12700
+      },
+      "model": "openai/gpt-4o",
+      "answer": "The Trial Arms (TA) domain is related to several other SDTM domains, particularly within the Trial Design class. These related domains include:\n\n1. **Trial Elements (TE)**: The TA domain is connected to TE as arms use elements. Each arm in the TA domain is composed of elements defined in the TE domain [Source: domains/TE/spec.md].\n\n2. **Trial Visits (TV)**: The TA domain is related to TV as arms define visit schedules. Visits in the TV domain reference the arms defined in the TA domain [Source: domains/TV/spec.md].\n\n3. **Subject Elements (SE)**: Although not directly mentioned in the context provided, SE is often related to TA in terms of planned visits versus actual subject elements, as SE records the series of elements a subject passes through in the course of a trial [Source: domains/TV/spec.md].\n\n4. **Other Trial Design Domains**: TA is in the same class as other Trial Design domains, including TD (Trial Disease Assessments), TI (Trial Inclusion/Exclusion Criteria), TM (Trial Disease Milestones), and TS (Trial Summary) [Source: domains/TA/spec.md].\n\nThese connections highlight how the TA domain interacts with other domains to provide a comprehensive view of the trial design, including the structure of arms, elements, and visits.",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "TD",
+        "TE",
+        "TI",
+        "TM",
+        "TS",
+        "TV"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 26.47
+    },
+    {
+      "id": "rl08",
+      "category": "relationship",
+      "question": "Which other domains belong to the same observation class as the Disposition (DS) domain in SDTM?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/DS/"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/DS/spec.md",
+        "domains/DS/spec.md",
+        "domains/DS/spec.md",
+        "domains/DS/spec.md",
+        "domains/HO/spec.md"
+      ],
+      "top5_similarities": [
+        0.6142,
+        0.6031,
+        0.5568,
+        0.5527,
+        0.6384
+      ],
+      "fact_recall": 0.8571,
+      "fact_hits": [
+        "AE",
+        "BE",
+        "CE",
+        "DV",
+        "HO",
+        "MH"
+      ],
+      "fact_misses": [
+        "DM"
+      ],
+      "answer_preview": "The Disposition (DS) domain belongs to the \"Events\" observation class in SDTM. Other domains that belong to the same \"Events\" class include:\n\n- Adverse Events (AE)\n- Biospecimen Events (BE)\n- Clinical Events (CE)\n- Protocol Deviations (DV)\n- Healthcare Encounters (HO)\n- Medical History (MH)\n\nThese domains share the same observation class as DS, which is focused on capturing events that occur during a study. [Source: domains/DS/spec.md, domains/HO/spec.md]",
+      "usage": {
+        "prompt_tokens": 11933,
+        "completion_tokens": 110,
+        "total_tokens": 12043
+      },
+      "model": "openai/gpt-4o",
+      "answer": "The Disposition (DS) domain belongs to the \"Events\" observation class in SDTM. Other domains that belong to the same \"Events\" class include:\n\n- Adverse Events (AE)\n- Biospecimen Events (BE)\n- Clinical Events (CE)\n- Protocol Deviations (DV)\n- Healthcare Encounters (HO)\n- Medical History (MH)\n\nThese domains share the same observation class as DS, which is focused on capturing events that occur during a study. [Source: domains/DS/spec.md, domains/HO/spec.md]",
+      "judge_fact_recall": 0.8571,
+      "judge_fact_hits": [
+        "AE",
+        "BE",
+        "CE",
+        "DV",
+        "HO",
+        "MH"
+      ],
+      "judge_fact_misses": [
+        "DM"
+      ],
+      "judge_parse_ok": true,
+      "elapsed_s": 22.21
+    },
+    {
+      "id": "rl09",
+      "category": "relationship",
+      "question": "What other SDTM domains share an observation class with the Microbiology Susceptibility (MS) domain, and which ones does it have relationships with?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/MS/"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/MS/spec.md",
+        "domains/MS/spec.md",
+        "domains/MS/spec.md",
+        "domains/MS/spec.md",
+        "domains/MS/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.6056,
+        0.5851,
+        0.4896,
+        0.4621,
+        0.6847
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "BS",
+        "CP",
+        "CV",
+        "DA",
+        "DD",
+        "EG",
+        "FT",
+        "GF",
+        "IE",
+        "IS",
+        "LB",
+        "MB",
+        "MI",
+        "MK",
+        "NV",
+        "OE",
+        "PC",
+        "PE",
+        "PP",
+        "QS",
+        "RE",
+        "RELSPEC",
+        "RP",
+        "RS",
+        "SC",
+        "SS",
+        "TR",
+        "TU",
+        "UR",
+        "VS"
+      ],
+      "fact_misses": [],
+      "answer_preview": "The Microbiology Susceptibility (MS) domain shares its observation class, Findings, with the following SDTM domains: BS, CP, CV, DA, DD, EG, FT, GF, IE, IS, LB, MB, MI, MK, NV, OE, PC, PE, PP, QS, RE, RP, RS, SC, SS, TR, TU, UR, and VS [Source: domains/MS/spec.md].\n\nIn terms of relationships, the MS domain has specific relationships with the following domains:\n- **MB (Microbiology Specimen):** MS shares a dataset with MB for microbiology organism identification.\n- **BS (Biospecimen Findings):** MS is related to BS for susceptibility specimen data.\n- **RELSPEC (Related Specimens):** MS is relat",
+      "usage": {
+        "prompt_tokens": 14203,
+        "completion_tokens": 177,
+        "total_tokens": 14380
+      },
+      "model": "openai/gpt-4o",
+      "answer": "The Microbiology Susceptibility (MS) domain shares its observation class, Findings, with the following SDTM domains: BS, CP, CV, DA, DD, EG, FT, GF, IE, IS, LB, MB, MI, MK, NV, OE, PC, PE, PP, QS, RE, RP, RS, SC, SS, TR, TU, UR, and VS [Source: domains/MS/spec.md].\n\nIn terms of relationships, the MS domain has specific relationships with the following domains:\n- **MB (Microbiology Specimen):** MS shares a dataset with MB for microbiology organism identification.\n- **BS (Biospecimen Findings):** MS is related to BS for susceptibility specimen data.\n- **RELSPEC (Related Specimens):** MS is related to RELSPEC for specimen hierarchy [Source: domains/MS/spec.md].",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "BS",
+        "CP",
+        "CV",
+        "DA",
+        "DD",
+        "EG",
+        "FT",
+        "GF",
+        "IE",
+        "IS",
+        "LB",
+        "MB",
+        "MI",
+        "MK",
+        "NV",
+        "OE",
+        "PC",
+        "PE",
+        "PP",
+        "QS",
+        "RE",
+        "RELSPEC",
+        "RP",
+        "RS",
+        "SC",
+        "SS",
+        "TR",
+        "TU",
+        "UR",
+        "VS"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 29.63
+    },
+    {
+      "id": "rl10",
+      "category": "relationship",
+      "question": "Which other SDTM domains are in the same observation class as the Skin Response (SR) domain?",
+      "source_recall": 1.0,
+      "source_hits": [
+        "domains/SR/"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/SR/spec.md",
+        "domains/SR/spec.md",
+        "domains/SR/spec.md",
+        "domains/SR/spec.md",
+        "domains/SR/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.6264,
+        0.5644,
+        0.4903,
+        0.4758,
+        0.7474
+      ],
+      "fact_recall": 0.75,
+      "fact_hits": [
+        "CM",
+        "FA",
+        "PR"
+      ],
+      "fact_misses": [
+        "AE"
+      ],
+      "answer_preview": "The Skin Response (SR) domain is part of the \"Findings About\" observation class. Other SDTM domains in the same \"Findings About\" class include:\n\n- Findings About Adverse Events (FA)\n- Findings About Concomitant Medications (CM)\n- Findings About Procedures (PR)\n- Findings About Exposure (EX)\n- Findings About Exposure as Collected (EC)\n- Findings About Meals (ML)\n- Findings About Substance Use (SU)\n\nThese domains are used to record findings related to observations in the Interventions or Events classes. [Source: domains/FA/spec.md]",
+      "usage": {
+        "prompt_tokens": 13714,
+        "completion_tokens": 120,
+        "total_tokens": 13834
+      },
+      "model": "openai/gpt-4o",
+      "answer": "The Skin Response (SR) domain is part of the \"Findings About\" observation class. Other SDTM domains in the same \"Findings About\" class include:\n\n- Findings About Adverse Events (FA)\n- Findings About Concomitant Medications (CM)\n- Findings About Procedures (PR)\n- Findings About Exposure (EX)\n- Findings About Exposure as Collected (EC)\n- Findings About Meals (ML)\n- Findings About Substance Use (SU)\n\nThese domains are used to record findings related to observations in the Interventions or Events classes. [Source: domains/FA/spec.md]",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "AE",
+        "CM",
+        "FA",
+        "PR"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 26.06
+    }
+  ]
+}

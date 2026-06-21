@@ -1,0 +1,267 @@
+=== ARM0 (retrieval) ds ===
+Loaded 40 questions from eval/test_set_kg_value.yml
+RAG engine: 4146 chunks, model=deepseek/deepseek-v4-pro, top_k=15, structured_lookup=ON, hybrid=rrf
+LLM mode: direct litellm, model=deepseek/deepseek-chat
+
+Judge mode: ON, judge_model=deepseek/deepseek-chat (temp=0)
+[ic01] If the Epoch codelist (C99079) gets revised in an upcoming C... [FULL] src=100% fact=52% judge=9% 12.1s
+[ic02] We're anticipating an update to the Anatomical Location code... [FULL] src=100% fact=79% judge=16% 7.7s
+[ic03] Which variables across the SDTM domains reference the Latera... [FULL] src=100% fact=35% judge=18% 5.1s
+[ic04] Suppose the Specimen Type codelist (C78734) is updated. What... [FULL] src=100% fact=73% judge=64% 8.7s
+[ic05] If a new term is added to the Route of Administration Respon... [FULL] src=100% fact=100% judge=100% 6.2s
+[ic06] Which SDTM domains and variables are controlled by the Posit... [FULL] src=100% fact=100% judge=100% 11.8s
+[ic07] I need to assess the blast radius of a change to the Genetic... [FULL] src=100% fact=100% judge=100% 5.1s
+[ic08] If the SDTM Domain Abbreviation codelist (C66734) is updated... [FULL] src=100% fact=100% judge=100% 8.1s
+[ic09] When the Result Type Response codelist (C179588) is revised,... [FULL] src=100% fact=0% judge=0% 6.9s
+[ic10] Which SDTM domains and variables reference the PK Units of M... [FULL] src=100% fact=100% judge=100% 5.7s
+[iv01] Across the SDTM model, in how many domains does the VISIT (V... [FULL] src=100% fact=50% judge=28% 6.1s
+[iv02] If we changed the definition of VISITNUM (Visit Number), whi... [FULL] src=100% fact=61% judge=19% 8.3s
+[iv03] Which SDTM domains include the SPDEVID (Sponsor Device Ident... [FULL] src=100% fact=100% judge=100% 5.4s
+[iv04] In how many SDTM domains is the NHOID (Non-Host Organism Ide... [FULL] src=100% fact=100% judge=100% 4.7s
+[iv05] What is the cross-domain footprint of the ARM (Description o... [FULL] src=100% fact=100% judge=100% 4.5s
+[iv06] If the ARMCD (Planned Arm Code) variable were revised, how m... [FULL] src=0% fact=100% judge=100% 4.1s
+[iv07] Which SDTM domains is the ELEMENT (Description of Element) v... [FULL] src=100% fact=100% judge=100% 5.1s
+[iv08] How many SDTM domains does the ETCD (Element Code) variable ... [FULL] src=100% fact=100% judge=100% 3.8s
+[iv09] In which SDTM domains can I find the FOCID (Focus of Study-S... [FULL] src=100% fact=100% judge=100% 4.7s
+[iv10] If a change were made to the IDVAR (Identifying Variable) va... [FULL] src=100% fact=100% judge=100% 5.1s
+[ag01] Which SDTM variables are used across 3 or more different dom... [FULL] src=0% fact=67% judge=67% 16.5s
+[ag02] Can you list the SDTM variables that appear in at least 4 se... [FULL] src=0% fact=60% judge=60% 8.7s
+[ag03] Which variables show up in 5 or more domains throughout the ... [FULL] src=0% fact=78% judge=78% 8.6s
+[ag04] I'm looking for the SDTM variables that are reused across 10... [FULL] src=0% fact=88% judge=88% 7.5s
+[ag05] Which SDTM variables are so common that they appear in 40+ d... [FULL] src=0% fact=80% judge=60% 8.6s
+[ms01] Across all of SDTM, which controlled terminology codelist is... [FULL] src=0% fact=100% judge=100% 4.9s
+[ms02] Which single codelist is referenced by the greatest number o... [FULL] src=0% fact=0% judge=0% 5.3s
+[ms03] What is the most widely shared codelist across SDTM domains?... [FULL] src=0% fact=0% judge=0% 4.9s
+[ms04] What are the three most frequently reused controlled termino... [FULL] src=0% fact=0% judge=0% 5.8s
+[ms05] Could you name several of the most commonly shared codelists... [FULL] src=0% fact=20% judge=20% 8.0s
+[rl01] Which other SDTM domains fall under the same observation cla... [FULL] src=100% fact=100% judge=86% 3.8s
+[rl02] What domains does the Microbiology Specimen (MB) domain typi... [FULL] src=100% fact=33% judge=13% 9.6s
+[rl03] Which other SDTM domains share the same observation class as... [FULL] src=100% fact=62% judge=12% 5.1s
+[rl04] In SDTM, which other domains are related to the Exposure as ... [FULL] src=100% fact=100% judge=100% 5.2s
+[rl05] What domains does the Related Records (RELREC) domain connec... [FULL] src=100% fact=100% judge=100% 12.3s
+[rl06] Which other SDTM domains is the Comments (CO) domain associa... [FULL] src=100% fact=50% judge=25% 7.8s
+[rl07] What other SDTM domains is the Trial Arms (TA) domain relate... [FULL] src=100% fact=100% judge=100% 6.4s
+[rl08] Which other domains belong to the same observation class as ... [FULL] src=100% fact=86% judge=86% 2.9s
+[rl09] What other SDTM domains share an observation class with the ... [FULL] src=100% fact=100% judge=100% 5.0s
+[rl10] Which other SDTM domains are in the same observation class a... [FULL] src=100% fact=25% judge=25% 4.0s
+
+============================================================
+EVAL SUMMARY
+============================================================
+Questions: 40
+Model:     deepseek/deepseek-chat
+Threshold: 85%
+Source recall (avg): 72.5%
+  aggregate: 0.0% (10 q)
+  impact_codelist: 100.0% (10 q)
+  impact_variable: 90.0% (10 q)
+  relationship: 100.0% (10 q)
+Fact recall (substring, avg): 72.5%
+Total tokens used:   611,204
+  aggregate: 49.2%
+  impact_codelist: 73.9%
+  impact_variable: 91.1%
+  relationship: 75.7%
+
+Fact recall (judge/semantic, avg): 64.3%
+  aggregate: 47.2%
+  impact_codelist: 60.6%
+  impact_variable: 84.7%
+  relationship: 64.7%
+
+Overall (src + judge fact, avg): 68.4%
+Threshold: 85%  ->  FAIL
+
+Questions with source misses (11):
+  iv06: src=0% miss=['VARIABLE_INDEX.md']
+  ag01: src=0% miss=['VARIABLE_INDEX.md']
+  ag02: src=0% miss=['VARIABLE_INDEX.md']
+  ag03: src=0% miss=['VARIABLE_INDEX.md']
+  ag04: src=0% miss=['VARIABLE_INDEX.md']
+  ag05: src=0% miss=['VARIABLE_INDEX.md']
+  ms01: src=0% miss=['VARIABLE_INDEX.md']
+  ms02: src=0% miss=['VARIABLE_INDEX.md']
+  ms03: src=0% miss=['VARIABLE_INDEX.md']
+  ms04: src=0% miss=['VARIABLE_INDEX.md']
+  ms05: src=0% miss=['VARIABLE_INDEX.md']
+
+Results saved to eval/prod_wirein/kgval_arm0_ds.json
+=== ARM1 (+SP2) ds ===
+Loaded 40 questions from eval/test_set_kg_value.yml
+RAG engine: 4146 chunks, model=deepseek/deepseek-v4-pro, top_k=15, structured_lookup=ON, hybrid=rrf
+LLM mode: direct litellm, model=deepseek/deepseek-chat
+Structured-answer channel: ON (meta.yaml facts + counting gate)
+
+Judge mode: ON, judge_model=deepseek/deepseek-chat (temp=0)
+[ic01] If the Epoch codelist (C99079) gets revised in an upcoming C... [FULL] src=100% fact=100% judge=100% 8.2s
+[ic02] We're anticipating an update to the Anatomical Location code... [FULL] src=100% fact=100% judge=100% 5.0s
+[ic03] Which variables across the SDTM domains reference the Latera... [FULL] src=100% fact=100% judge=100% 7.0s
+[ic04] Suppose the Specimen Type codelist (C78734) is updated. What... [FULL] src=100% fact=100% judge=100% 6.7s
+[ic05] If a new term is added to the Route of Administration Respon... [FULL] src=100% fact=100% judge=100% 6.7s
+[ic06] Which SDTM domains and variables are controlled by the Posit... [FULL] src=100% fact=100% judge=100% 5.0s
+[ic07] I need to assess the blast radius of a change to the Genetic... [FULL] src=100% fact=100% judge=100% 4.5s
+[ic08] If the SDTM Domain Abbreviation codelist (C66734) is updated... [FULL] src=100% fact=100% judge=100% 7.7s
+[ic09] When the Result Type Response codelist (C179588) is revised,... [FULL] src=100% fact=100% judge=100% 4.5s
+[ic10] Which SDTM domains and variables reference the PK Units of M... [FULL] src=100% fact=100% judge=100% 5.9s
+[iv01] Across the SDTM model, in how many domains does the VISIT (V... [FULL] src=100% fact=100% judge=100% 3.4s
+[iv02] If we changed the definition of VISITNUM (Visit Number), whi... [FULL] src=100% fact=100% judge=100% 6.8s
+[iv03] Which SDTM domains include the SPDEVID (Sponsor Device Ident... [FULL] src=100% fact=100% judge=100% 5.4s
+[iv04] In how many SDTM domains is the NHOID (Non-Host Organism Ide... [FULL] src=100% fact=100% judge=100% 3.4s
+[iv05] What is the cross-domain footprint of the ARM (Description o... [FULL] src=100% fact=100% judge=100% 4.9s
+[iv06] If the ARMCD (Planned Arm Code) variable were revised, how m... [FULL] src=0% fact=100% judge=100% 3.1s
+[iv07] Which SDTM domains is the ELEMENT (Description of Element) v... [FULL] src=100% fact=100% judge=100% 5.3s
+[iv08] How many SDTM domains does the ETCD (Element Code) variable ... [FULL] src=100% fact=100% judge=100% 2.8s
+[iv09] In which SDTM domains can I find the FOCID (Focus of Study-S... [FULL] src=100% fact=100% judge=100% 4.6s
+[iv10] If a change were made to the IDVAR (Identifying Variable) va... [FULL] src=100% fact=100% judge=100% 4.0s
+[ag01] Which SDTM variables are used across 3 or more different dom... [FULL] src=0% fact=39% judge=39% 14.1s
+[ag02] Can you list the SDTM variables that appear in at least 4 se... [FULL] src=0% fact=80% judge=80% 17.6s
+[ag03] Which variables show up in 5 or more domains throughout the ... [FULL] src=0% fact=78% judge=78% 10.7s
+[ag04] I'm looking for the SDTM variables that are reused across 10... [FULL] src=0% fact=88% judge=88% 7.9s
+[ag05] Which SDTM variables are so common that they appear in 40+ d... [FULL] src=0% fact=80% judge=80% 8.7s
+[ms01] Across all of SDTM, which controlled terminology codelist is... [FULL] src=0% fact=100% judge=100% 45.5s
+[ms02] Which single codelist is referenced by the greatest number o... [FULL] src=0% fact=0% judge=0% 4.2s
+[ms03] What is the most widely shared codelist across SDTM domains?... [FULL] src=0% fact=0% judge=0% 4.4s
+[ms04] What are the three most frequently reused controlled termino... [FULL] src=0% fact=0% judge=0% 4.4s
+[ms05] Could you name several of the most commonly shared codelists... [FULL] src=0% fact=20% judge=20% 6.6s
+[rl01] Which other SDTM domains fall under the same observation cla... [FULL] src=100% fact=100% judge=86% 3.6s
+[rl02] What domains does the Microbiology Specimen (MB) domain typi... [FULL] src=100% fact=100% judge=100% 7.8s
+[rl03] Which other SDTM domains share the same observation class as... [FULL] src=100% fact=38% judge=12% 3.6s
+[rl04] In SDTM, which other domains are related to the Exposure as ... [FULL] src=100% fact=100% judge=100% 6.3s
+[rl05] What domains does the Related Records (RELREC) domain connec... [FULL] src=100% fact=100% judge=100% 13.1s
+[rl06] Which other SDTM domains is the Comments (CO) domain associa... [FULL] src=100% fact=50% judge=25% 8.2s
+[rl07] What other SDTM domains is the Trial Arms (TA) domain relate... [FULL] src=100% fact=100% judge=100% 6.7s
+[rl08] Which other domains belong to the same observation class as ... [FULL] src=100% fact=86% judge=86% 3.1s
+[rl09] What other SDTM domains share an observation class with the ... [FULL] src=100% fact=100% judge=100% 4.9s
+[rl10] Which other SDTM domains are in the same observation class a... [FULL] src=100% fact=50% judge=25% 3.8s
+
+============================================================
+EVAL SUMMARY
+============================================================
+Questions: 40
+Model:     deepseek/deepseek-chat
+Threshold: 85%
+Source recall (avg): 72.5%
+  aggregate: 0.0% (10 q)
+  impact_codelist: 100.0% (10 q)
+  impact_variable: 90.0% (10 q)
+  relationship: 100.0% (10 q)
+Fact recall (substring, avg): 82.7%
+Total tokens used:   618,998
+  aggregate: 48.4%
+  impact_codelist: 100.0%
+  impact_variable: 100.0%
+  relationship: 82.3%
+
+Fact recall (judge/semantic, avg): 80.5%
+  aggregate: 48.4%
+  impact_codelist: 100.0%
+  impact_variable: 100.0%
+  relationship: 73.4%
+
+Overall (src + judge fact, avg): 76.5%
+Threshold: 85%  ->  FAIL
+
+Questions with source misses (11):
+  iv06: src=0% miss=['VARIABLE_INDEX.md']
+  ag01: src=0% miss=['VARIABLE_INDEX.md']
+  ag02: src=0% miss=['VARIABLE_INDEX.md']
+  ag03: src=0% miss=['VARIABLE_INDEX.md']
+  ag04: src=0% miss=['VARIABLE_INDEX.md']
+  ag05: src=0% miss=['VARIABLE_INDEX.md']
+  ms01: src=0% miss=['VARIABLE_INDEX.md']
+  ms02: src=0% miss=['VARIABLE_INDEX.md']
+  ms03: src=0% miss=['VARIABLE_INDEX.md']
+  ms04: src=0% miss=['VARIABLE_INDEX.md']
+  ms05: src=0% miss=['VARIABLE_INDEX.md']
+
+Results saved to eval/prod_wirein/kgval_arm1_ds.json
+=== ARM2 (+SP2+SP3) ds ===
+Loaded 40 questions from eval/test_set_kg_value.yml
+RAG engine: 4146 chunks, model=deepseek/deepseek-v4-pro, top_k=15, structured_lookup=ON, hybrid=rrf
+LLM mode: direct litellm, model=deepseek/deepseek-chat
+Structured-answer channel: ON (meta.yaml facts + counting gate), graph-answer: ON
+
+Judge mode: ON, judge_model=deepseek/deepseek-chat (temp=0)
+[ic01] If the Epoch codelist (C99079) gets revised in an upcoming C... [FULL] src=100% fact=100% judge=100% 7.6s
+[ic02] We're anticipating an update to the Anatomical Location code... [FULL] src=100% fact=100% judge=100% 5.5s
+[ic03] Which variables across the SDTM domains reference the Latera... [FULL] src=100% fact=100% judge=100% 7.4s
+[ic04] Suppose the Specimen Type codelist (C78734) is updated. What... [FULL] src=100% fact=100% judge=100% 4.7s
+[ic05] If a new term is added to the Route of Administration Respon... [FULL] src=100% fact=100% judge=100% 6.8s
+[ic06] Which SDTM domains and variables are controlled by the Posit... [FULL] src=100% fact=100% judge=100% 7.1s
+[ic07] I need to assess the blast radius of a change to the Genetic... [FULL] src=100% fact=100% judge=100% 4.7s
+[ic08] If the SDTM Domain Abbreviation codelist (C66734) is updated... [FULL] src=100% fact=100% judge=100% 7.4s
+[ic09] When the Result Type Response codelist (C179588) is revised,... [FULL] src=100% fact=100% judge=100% 4.2s
+[ic10] Which SDTM domains and variables reference the PK Units of M... [FULL] src=100% fact=100% judge=100% 5.5s
+[iv01] Across the SDTM model, in how many domains does the VISIT (V... [FULL] src=100% fact=100% judge=100% 4.1s
+[iv02] If we changed the definition of VISITNUM (Visit Number), whi... [FULL] src=100% fact=100% judge=100% 7.4s
+[iv03] Which SDTM domains include the SPDEVID (Sponsor Device Ident... [FULL] src=100% fact=100% judge=100% 5.5s
+[iv04] In how many SDTM domains is the NHOID (Non-Host Organism Ide... [FULL] src=100% fact=100% judge=100% 2.6s
+[iv05] What is the cross-domain footprint of the ARM (Description o... [FULL] src=100% fact=100% judge=100% 5.2s
+[iv06] If the ARMCD (Planned Arm Code) variable were revised, how m... [FULL] src=0% fact=100% judge=100% 2.6s
+[iv07] Which SDTM domains is the ELEMENT (Description of Element) v... [FULL] src=100% fact=100% judge=100% 3.6s
+[iv08] How many SDTM domains does the ETCD (Element Code) variable ... [FULL] src=100% fact=100% judge=100% 2.2s
+[iv09] In which SDTM domains can I find the FOCID (Focus of Study-S... [FULL] src=100% fact=100% judge=100% 4.3s
+[iv10] If a change were made to the IDVAR (Identifying Variable) va... [FULL] src=100% fact=100% judge=100% 3.1s
+[ag01] Which SDTM variables are used across 3 or more different dom... [FULL] src=0% fact=44% judge=44% 18.0s
+[ag02] Can you list the SDTM variables that appear in at least 4 se... [FULL] src=0% fact=100% judge=100% 3.4s
+[ag03] Which variables show up in 5 or more domains throughout the ... [FULL] src=0% fact=78% judge=78% 11.5s
+[ag04] I'm looking for the SDTM variables that are reused across 10... [FULL] src=0% fact=88% judge=88% 8.1s
+[ag05] Which SDTM variables are so common that they appear in 40+ d... [FULL] src=0% fact=80% judge=80% 8.4s
+[ms01] Across all of SDTM, which controlled terminology codelist is... [FULL] src=0% fact=100% judge=100% 5.1s
+[ms02] Which single codelist is referenced by the greatest number o... [FULL] src=0% fact=0% judge=0% 4.3s
+[ms03] What is the most widely shared codelist across SDTM domains?... [FULL] src=0% fact=0% judge=0% 4.4s
+[ms04] What are the three most frequently reused controlled termino... [FULL] src=0% fact=0% judge=0% 4.8s
+[ms05] Could you name several of the most commonly shared codelists... [FULL] src=0% fact=100% judge=100% 3.1s
+[rl01] Which other SDTM domains fall under the same observation cla... [FULL] src=100% fact=86% judge=86% 3.4s
+[rl02] What domains does the Microbiology Specimen (MB) domain typi... [FULL] src=100% fact=100% judge=100% 6.7s
+[rl03] Which other SDTM domains share the same observation class as... [FULL] src=100% fact=38% judge=12% 3.7s
+[rl04] In SDTM, which other domains are related to the Exposure as ... [FULL] src=100% fact=100% judge=100% 5.3s
+[rl05] What domains does the Related Records (RELREC) domain connec... [FULL] src=100% fact=100% judge=0% 11.3s
+[rl06] Which other SDTM domains is the Comments (CO) domain associa... [FULL] src=100% fact=50% judge=25% 9.3s
+[rl07] What other SDTM domains is the Trial Arms (TA) domain relate... [FULL] src=100% fact=100% judge=100% 5.6s
+[rl08] Which other domains belong to the same observation class as ... [FULL] src=100% fact=86% judge=86% 3.3s
+[rl09] What other SDTM domains share an observation class with the ... [FULL] src=100% fact=100% judge=100% 5.1s
+[rl10] Which other SDTM domains are in the same observation class a... [FULL] src=100% fact=25% judge=25% 3.8s
+
+============================================================
+EVAL SUMMARY
+============================================================
+Questions: 40
+Model:     deepseek/deepseek-chat
+Threshold: 85%
+Source recall (avg): 72.5%
+  aggregate: 0.0% (10 q)
+  impact_codelist: 100.0% (10 q)
+  impact_variable: 90.0% (10 q)
+  relationship: 100.0% (10 q)
+Fact recall (substring, avg): 84.3%
+Total tokens used:   609,191
+  aggregate: 59.0%
+  impact_codelist: 100.0%
+  impact_variable: 100.0%
+  relationship: 78.4%
+
+Fact recall (judge/semantic, avg): 80.6%
+  aggregate: 59.0%
+  impact_codelist: 100.0%
+  impact_variable: 100.0%
+  relationship: 63.4%
+
+Overall (src + judge fact, avg): 76.5%
+Threshold: 85%  ->  FAIL
+
+Questions with source misses (11):
+  iv06: src=0% miss=['VARIABLE_INDEX.md']
+  ag01: src=0% miss=['VARIABLE_INDEX.md']
+  ag02: src=0% miss=['VARIABLE_INDEX.md']
+  ag03: src=0% miss=['VARIABLE_INDEX.md']
+  ag04: src=0% miss=['VARIABLE_INDEX.md']
+  ag05: src=0% miss=['VARIABLE_INDEX.md']
+  ms01: src=0% miss=['VARIABLE_INDEX.md']
+  ms02: src=0% miss=['VARIABLE_INDEX.md']
+  ms03: src=0% miss=['VARIABLE_INDEX.md']
+  ms04: src=0% miss=['VARIABLE_INDEX.md']
+  ms05: src=0% miss=['VARIABLE_INDEX.md']
+
+Results saved to eval/prod_wirein/kgval_arm2_ds.json
+=== ALL DS ARMS DONE ===

@@ -1,0 +1,242 @@
+[
+  {
+    "id": "ic01",
+    "family": "impact_codelist",
+    "fired_sp2": true,
+    "fired_sp3": true
+  },
+  {
+    "id": "ic02",
+    "family": "impact_codelist",
+    "fired_sp2": true,
+    "fired_sp3": false
+  },
+  {
+    "id": "ic03",
+    "family": "impact_codelist",
+    "fired_sp2": true,
+    "fired_sp3": true
+  },
+  {
+    "id": "ic04",
+    "family": "impact_codelist",
+    "fired_sp2": true,
+    "fired_sp3": true
+  },
+  {
+    "id": "ic05",
+    "family": "impact_codelist",
+    "fired_sp2": true,
+    "fired_sp3": true
+  },
+  {
+    "id": "ic06",
+    "family": "impact_codelist",
+    "fired_sp2": true,
+    "fired_sp3": true
+  },
+  {
+    "id": "ic07",
+    "family": "impact_codelist",
+    "fired_sp2": true,
+    "fired_sp3": true
+  },
+  {
+    "id": "ic08",
+    "family": "impact_codelist",
+    "fired_sp2": true,
+    "fired_sp3": true
+  },
+  {
+    "id": "ic09",
+    "family": "impact_codelist",
+    "fired_sp2": true,
+    "fired_sp3": false
+  },
+  {
+    "id": "ic10",
+    "family": "impact_codelist",
+    "fired_sp2": true,
+    "fired_sp3": true
+  },
+  {
+    "id": "iv01",
+    "family": "impact_variable",
+    "fired_sp2": true,
+    "fired_sp3": false
+  },
+  {
+    "id": "iv02",
+    "family": "impact_variable",
+    "fired_sp2": true,
+    "fired_sp3": true
+  },
+  {
+    "id": "iv03",
+    "family": "impact_variable",
+    "fired_sp2": false,
+    "fired_sp3": false
+  },
+  {
+    "id": "iv04",
+    "family": "impact_variable",
+    "fired_sp2": true,
+    "fired_sp3": false
+  },
+  {
+    "id": "iv05",
+    "family": "impact_variable",
+    "fired_sp2": false,
+    "fired_sp3": false
+  },
+  {
+    "id": "iv06",
+    "family": "impact_variable",
+    "fired_sp2": true,
+    "fired_sp3": true
+  },
+  {
+    "id": "iv07",
+    "family": "impact_variable",
+    "fired_sp2": false,
+    "fired_sp3": false
+  },
+  {
+    "id": "iv08",
+    "family": "impact_variable",
+    "fired_sp2": true,
+    "fired_sp3": false
+  },
+  {
+    "id": "iv09",
+    "family": "impact_variable",
+    "fired_sp2": false,
+    "fired_sp3": false
+  },
+  {
+    "id": "iv10",
+    "family": "impact_variable",
+    "fired_sp2": false,
+    "fired_sp3": true
+  },
+  {
+    "id": "ag01",
+    "family": "aggregate",
+    "fired_sp2": false,
+    "fired_sp3": false
+  },
+  {
+    "id": "ag02",
+    "family": "aggregate",
+    "fired_sp2": true,
+    "fired_sp3": true
+  },
+  {
+    "id": "ag03",
+    "family": "aggregate",
+    "fired_sp2": true,
+    "fired_sp3": false
+  },
+  {
+    "id": "ag04",
+    "family": "aggregate",
+    "fired_sp2": false,
+    "fired_sp3": false
+  },
+  {
+    "id": "ag05",
+    "family": "aggregate",
+    "fired_sp2": false,
+    "fired_sp3": false
+  },
+  {
+    "id": "ms01",
+    "family": "aggregate",
+    "fired_sp2": false,
+    "fired_sp3": false
+  },
+  {
+    "id": "ms02",
+    "family": "aggregate",
+    "fired_sp2": true,
+    "fired_sp3": false
+  },
+  {
+    "id": "ms03",
+    "family": "aggregate",
+    "fired_sp2": true,
+    "fired_sp3": false
+  },
+  {
+    "id": "ms04",
+    "family": "aggregate",
+    "fired_sp2": false,
+    "fired_sp3": false
+  },
+  {
+    "id": "ms05",
+    "family": "aggregate",
+    "fired_sp2": false,
+    "fired_sp3": true
+  },
+  {
+    "id": "rl01",
+    "family": "relationship",
+    "fired_sp2": false,
+    "fired_sp3": false
+  },
+  {
+    "id": "rl02",
+    "family": "relationship",
+    "fired_sp2": true,
+    "fired_sp3": true
+  },
+  {
+    "id": "rl03",
+    "family": "relationship",
+    "fired_sp2": false,
+    "fired_sp3": false
+  },
+  {
+    "id": "rl04",
+    "family": "relationship",
+    "fired_sp2": false,
+    "fired_sp3": true
+  },
+  {
+    "id": "rl05",
+    "family": "relationship",
+    "fired_sp2": true,
+    "fired_sp3": false
+  },
+  {
+    "id": "rl06",
+    "family": "relationship",
+    "fired_sp2": false,
+    "fired_sp3": true
+  },
+  {
+    "id": "rl07",
+    "family": "relationship",
+    "fired_sp2": false,
+    "fired_sp3": true
+  },
+  {
+    "id": "rl08",
+    "family": "relationship",
+    "fired_sp2": false,
+    "fired_sp3": false
+  },
+  {
+    "id": "rl09",
+    "family": "relationship",
+    "fired_sp2": false,
+    "fired_sp3": true
+  },
+  {
+    "id": "rl10",
+    "family": "relationship",
+    "fired_sp2": false,
+    "fired_sp3": false
+  }
+]

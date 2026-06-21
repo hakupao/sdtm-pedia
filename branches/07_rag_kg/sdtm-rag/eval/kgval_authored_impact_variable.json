@@ -1,0 +1,12 @@
+[
+  {"ref":"iv01","question":"Across the SDTM model, in how many domains does the VISIT (Visit Name) variable appear?"},
+  {"ref":"iv02","question":"If we changed the definition of VISITNUM (Visit Number), which SDTM domains would be affected?"},
+  {"ref":"iv03","question":"Which SDTM domains include the SPDEVID (Sponsor Device Identifier) variable?"},
+  {"ref":"iv04","question":"In how many SDTM domains is the NHOID (Non-Host Organism Identifier) variable used?"},
+  {"ref":"iv05","question":"What is the cross-domain footprint of the ARM (Description of Planned Arm) variable — which SDTM domains contain it?"},
+  {"ref":"iv06","question":"If the ARMCD (Planned Arm Code) variable were revised, how many SDTM domains would be impacted?"},
+  {"ref":"iv07","question":"Which SDTM domains is the ELEMENT (Description of Element) variable defined in?"},
+  {"ref":"iv08","question":"How many SDTM domains does the ETCD (Element Code) variable appear in?"},
+  {"ref":"iv09","question":"In which SDTM domains can I find the FOCID (Focus of Study-Specific Interest) variable?"},
+  {"ref":"iv10","question":"If a change were made to the IDVAR (Identifying Variable) variable, what SDTM domains would be affected by it?"}
+]
