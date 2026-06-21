@@ -24,3 +24,6 @@ web/dist-bundles/
 
 # docs/jp deliverable パッケージ展開副本 (zip + sha256 のみ追跡; 解凍検証ディレクトリは無視)
 branches/jp_delivery/
+
+# Playwright MCP scratch (browser verification artifacts)
+.playwright-mcp/
