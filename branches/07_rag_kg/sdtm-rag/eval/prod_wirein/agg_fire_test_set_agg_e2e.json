@@ -1,0 +1,184 @@
+[
+  {
+    "id": "ah01",
+    "category": "aggregate_threshold",
+    "fired_sp2": false,
+    "fired_agg": true,
+    "fired_sp3": false
+  },
+  {
+    "id": "ah02",
+    "category": "aggregate_threshold",
+    "fired_sp2": false,
+    "fired_agg": true,
+    "fired_sp3": false
+  },
+  {
+    "id": "ah03",
+    "category": "aggregate_threshold",
+    "fired_sp2": true,
+    "fired_agg": true,
+    "fired_sp3": false
+  },
+  {
+    "id": "ah04",
+    "category": "aggregate_threshold",
+    "fired_sp2": true,
+    "fired_agg": true,
+    "fired_sp3": false
+  },
+  {
+    "id": "ah05",
+    "category": "aggregate_threshold",
+    "fired_sp2": false,
+    "fired_agg": true,
+    "fired_sp3": false
+  },
+  {
+    "id": "ah06",
+    "category": "aggregate_threshold",
+    "fired_sp2": true,
+    "fired_agg": true,
+    "fired_sp3": false
+  },
+  {
+    "id": "ah07",
+    "category": "aggregate_threshold",
+    "fired_sp2": true,
+    "fired_agg": true,
+    "fired_sp3": false
+  },
+  {
+    "id": "ah08",
+    "category": "aggregate_threshold",
+    "fired_sp2": false,
+    "fired_agg": true,
+    "fired_sp3": false
+  },
+  {
+    "id": "as01",
+    "category": "aggregate_superlative",
+    "fired_sp2": false,
+    "fired_agg": true,
+    "fired_sp3": false
+  },
+  {
+    "id": "as02",
+    "category": "aggregate_superlative",
+    "fired_sp2": true,
+    "fired_agg": true,
+    "fired_sp3": false
+  },
+  {
+    "id": "as03",
+    "category": "aggregate_superlative",
+    "fired_sp2": false,
+    "fired_agg": false,
+    "fired_sp3": false
+  },
+  {
+    "id": "as04",
+    "category": "aggregate_superlative",
+    "fired_sp2": false,
+    "fired_agg": true,
+    "fired_sp3": false
+  },
+  {
+    "id": "as05",
+    "category": "aggregate_superlative",
+    "fired_sp2": false,
+    "fired_agg": true,
+    "fired_sp3": false
+  },
+  {
+    "id": "as06",
+    "category": "aggregate_superlative",
+    "fired_sp2": false,
+    "fired_agg": true,
+    "fired_sp3": false
+  },
+  {
+    "id": "as07",
+    "category": "aggregate_superlative",
+    "fired_sp2": false,
+    "fired_agg": true,
+    "fired_sp3": false
+  },
+  {
+    "id": "as08",
+    "category": "aggregate_superlative",
+    "fired_sp2": false,
+    "fired_agg": true,
+    "fired_sp3": false
+  },
+  {
+    "id": "ag01",
+    "category": "aggregate",
+    "fired_sp2": false,
+    "fired_agg": true,
+    "fired_sp3": false
+  },
+  {
+    "id": "ag02",
+    "category": "aggregate",
+    "fired_sp2": true,
+    "fired_agg": true,
+    "fired_sp3": false
+  },
+  {
+    "id": "ag03",
+    "category": "aggregate",
+    "fired_sp2": true,
+    "fired_agg": true,
+    "fired_sp3": false
+  },
+  {
+    "id": "ag04",
+    "category": "aggregate",
+    "fired_sp2": false,
+    "fired_agg": true,
+    "fired_sp3": false
+  },
+  {
+    "id": "ag05",
+    "category": "aggregate",
+    "fired_sp2": false,
+    "fired_agg": true,
+    "fired_sp3": false
+  },
+  {
+    "id": "ms01",
+    "category": "aggregate",
+    "fired_sp2": false,
+    "fired_agg": true,
+    "fired_sp3": false
+  },
+  {
+    "id": "ms02",
+    "category": "aggregate",
+    "fired_sp2": true,
+    "fired_agg": true,
+    "fired_sp3": false
+  },
+  {
+    "id": "ms03",
+    "category": "aggregate",
+    "fired_sp2": true,
+    "fired_agg": true,
+    "fired_sp3": false
+  },
+  {
+    "id": "ms04",
+    "category": "aggregate",
+    "fired_sp2": false,
+    "fired_agg": true,
+    "fired_sp3": false
+  },
+  {
+    "id": "ms05",
+    "category": "aggregate",
+    "fired_sp2": false,
+    "fired_agg": true,
+    "fired_sp3": false
+  }
+]

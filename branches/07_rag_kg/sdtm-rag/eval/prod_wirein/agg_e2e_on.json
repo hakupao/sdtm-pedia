@@ -1,0 +1,1422 @@
+{
+  "summary": {
+    "n_questions": 26,
+    "model": "deepseek/deepseek-chat",
+    "threshold": 0.85,
+    "source_recall_avg": 0.6154,
+    "source_recall_by_category": {
+      "aggregate": 0.0,
+      "aggregate_superlative": 1.0,
+      "aggregate_threshold": 1.0
+    },
+    "fact_recall_avg": 1.0,
+    "fact_recall_by_category": {
+      "aggregate": 1.0,
+      "aggregate_superlative": 1.0,
+      "aggregate_threshold": 1.0
+    },
+    "total_tokens": 411610,
+    "judge_fact_recall_avg": 1.0,
+    "judge_fact_recall_by_category": {
+      "aggregate": 1.0,
+      "aggregate_superlative": 1.0,
+      "aggregate_threshold": 1.0
+    },
+    "judge_parse_failures": 0,
+    "overall": 0.8077,
+    "overall_metric": "judge",
+    "verdict": "FAIL",
+    "top_k": 15,
+    "structured_lookup": true,
+    "hybrid": {
+      "fusion": "rrf",
+      "alpha": null
+    },
+    "prompt_guardrail": true,
+    "structured_answer": true,
+    "graph_answer": true,
+    "aggregate_answer": true,
+    "judge_model": "deepseek/deepseek-chat"
+  },
+  "results": [
+    {
+      "id": "ah01",
+      "category": "aggregate_threshold",
+      "question": "Which SDTM variables show up in two or more different domains?",
+      "source_recall": 1.0,
+      "source_hits": [],
+      "source_misses": [],
+      "top5_sources": [
+        "model/01_concepts_and_terms.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch01_introduction.md",
+        "chapters/ch02_fundamentals.md",
+        "chapters/ch03_submitting_data.md"
+      ],
+      "top5_similarities": [
+        0.6734,
+        0.6437,
+        0.5836,
+        0.5641,
+        0.5775
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "STUDYID",
+        "DOMAIN",
+        "USUBJID",
+        "EPOCH",
+        "TAETORD",
+        "VISIT",
+        "VISITDY",
+        "VISITNUM",
+        "SPDEVID",
+        "NHOID",
+        "ARM",
+        "ARMCD",
+        "ELEMENT",
+        "ETCD",
+        "FOCID",
+        "IDVAR",
+        "IDVARVAL",
+        "RDOMAIN",
+        "IECAT",
+        "IESCAT",
+        "IETEST",
+        "IETESTCD",
+        "MIDS",
+        "MIDSTYPE"
+      ],
+      "fact_misses": [],
+      "answer_preview": "根据检索到的结构化事实，以下 **24 个变量**出现在 **2 个或更多域**中：\n\n| 变量名 | 出现次数 |\n|--------|---------|\n| STUDYID | 63 |\n| DOMAIN | 59 |\n| USUBJID | 55 |\n| EPOCH | 44 |\n| TAETORD | 43 |\n| VISIT | 36 |\n| VISITDY | 36 |\n| VISITNUM | 36 |\n| SPDEVID | 6 |\n| NHOID | 4 |\n| ARM | 3 |\n| ARMCD | 3 |\n| ELEMENT | 3 |\n| ETCD | 3 |\n| FOCID | 3 |\n| IDVAR | 3 |\n| IDVARVAL | 3 |\n| RDOMAIN | 3 |\n| IECAT | 2 |\n| IESCAT | 2 |\n| IETEST | 2 |\n| IETESTCD | 2 |\n| MIDS | 2 |\n| MIDSTYPE | 2 |\n\n**[Source: Structured Facts — 24 variables appear in ≥2 domains]**\n\n这些变量中，**STUDYID、DOMAIN、USUBJID** 是必需的标识符变量，出现在几乎所有域中。**VISIT、VISITNUM、VISITDY、EPOC",
+      "usage": {
+        "prompt_tokens": 17544,
+        "completion_tokens": 455,
+        "total_tokens": 17999
+      },
+      "model": "deepseek/deepseek-chat",
+      "answer": "根据检索到的结构化事实，以下 **24 个变量**出现在 **2 个或更多域**中：\n\n| 变量名 | 出现次数 |\n|--------|---------|\n| STUDYID | 63 |\n| DOMAIN | 59 |\n| USUBJID | 55 |\n| EPOCH | 44 |\n| TAETORD | 43 |\n| VISIT | 36 |\n| VISITDY | 36 |\n| VISITNUM | 36 |\n| SPDEVID | 6 |\n| NHOID | 4 |\n| ARM | 3 |\n| ARMCD | 3 |\n| ELEMENT | 3 |\n| ETCD | 3 |\n| FOCID | 3 |\n| IDVAR | 3 |\n| IDVARVAL | 3 |\n| RDOMAIN | 3 |\n| IECAT | 2 |\n| IESCAT | 2 |\n| IETEST | 2 |\n| IETESTCD | 2 |\n| MIDS | 2 |\n| MIDSTYPE | 2 |\n\n**[Source: Structured Facts — 24 variables appear in ≥2 domains]**\n\n这些变量中，**STUDYID、DOMAIN、USUBJID** 是必需的标识符变量，出现在几乎所有域中。**VISIT、VISITNUM、VISITDY、EPOCH** 是常用的时序/访视变量，跨域使用。**ARM、ARMCD、ELEMENT、ETCD** 等是试验设计相关变量，出现在 DM、TA、TE 等域中。**IDVAR、IDVARVAL、RDOMAIN** 是关系数据集（RELREC、SUPPQUAL）中的变量。**IECAT、IESCAT、IETEST、IETESTCD** 出现在 IE 域中（可能跨域引用）。**MIDS、MIDSTYPE** 出现在 SM 域中。**SPDEVID** 出现在多个涉及设备数据的域中。**FOCID** 出现在多个域中作为焦点标识符。**NHOID** 出现在非宿主生物体相关域中。**TAETORD** 出现在试验设计域中。",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "STUDYID",
+        "DOMAIN",
+        "USUBJID",
+        "EPOCH",
+        "TAETORD",
+        "VISIT",
+        "VISITDY",
+        "VISITNUM",
+        "SPDEVID",
+        "NHOID",
+        "ARM",
+        "ARMCD",
+        "ELEMENT",
+        "ETCD",
+        "FOCID",
+        "IDVAR",
+        "IDVARVAL",
+        "RDOMAIN",
+        "IECAT",
+        "IESCAT",
+        "IETEST",
+        "IETESTCD",
+        "MIDS",
+        "MIDSTYPE"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 6.73
+    },
+    {
+      "id": "ah02",
+      "category": "aggregate_threshold",
+      "question": "Are there any SDTM variables that appear in at least six separate domains?",
+      "source_recall": 1.0,
+      "source_hits": [],
+      "source_misses": [],
+      "top5_sources": [
+        "model/01_concepts_and_terms.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch02_fundamentals.md",
+        "chapters/ch01_introduction.md",
+        "model/02_observation_classes.md"
+      ],
+      "top5_similarities": [
+        0.6527,
+        0.6261,
+        0.5553,
+        0.5877,
+        0.5644
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "STUDYID",
+        "DOMAIN",
+        "USUBJID",
+        "EPOCH",
+        "TAETORD",
+        "VISIT",
+        "VISITDY",
+        "VISITNUM",
+        "SPDEVID"
+      ],
+      "fact_misses": [],
+      "answer_preview": "是的，根据 SDTM 元数据，有 **9 个变量**出现在至少 6 个不同的域中。具体如下：\n\n| 变量 | 出现域数 |\n|------|---------|\n| STUDYID | 63 |\n| DOMAIN | 59 |\n| USUBJID | 55 |\n| EPOCH | 44 |\n| TAETORD | 43 |\n| VISIT | 36 |\n| VISITDY | 36 |\n| VISITNUM | 36 |\n| SPDEVID | 6 |\n\n**[Source: Structured Facts (authoritative, exhaustive, from SDTM metadata)]**",
+      "usage": {
+        "prompt_tokens": 17382,
+        "completion_tokens": 130,
+        "total_tokens": 17512
+      },
+      "model": "deepseek/deepseek-chat",
+      "answer": "是的，根据 SDTM 元数据，有 **9 个变量**出现在至少 6 个不同的域中。具体如下：\n\n| 变量 | 出现域数 |\n|------|---------|\n| STUDYID | 63 |\n| DOMAIN | 59 |\n| USUBJID | 55 |\n| EPOCH | 44 |\n| TAETORD | 43 |\n| VISIT | 36 |\n| VISITDY | 36 |\n| VISITNUM | 36 |\n| SPDEVID | 6 |\n\n**[Source: Structured Facts (authoritative, exhaustive, from SDTM metadata)]**",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "STUDYID",
+        "DOMAIN",
+        "USUBJID",
+        "EPOCH",
+        "TAETORD",
+        "VISIT",
+        "VISITDY",
+        "VISITNUM",
+        "SPDEVID"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 3.63
+    },
+    {
+      "id": "ah03",
+      "category": "aggregate_threshold",
+      "question": "Which variables are shared across nine or more SDTM domains?",
+      "source_recall": 1.0,
+      "source_hits": [],
+      "source_misses": [],
+      "top5_sources": [
+        "model/01_concepts_and_terms.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch01_introduction.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch02_fundamentals.md"
+      ],
+      "top5_similarities": [
+        0.6652,
+        0.62,
+        0.5886,
+        0.5363,
+        0.5357
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "STUDYID",
+        "DOMAIN",
+        "USUBJID",
+        "EPOCH",
+        "TAETORD",
+        "VISIT",
+        "VISITDY",
+        "VISITNUM"
+      ],
+      "fact_misses": [],
+      "answer_preview": "根据 SDTM 知识库的结构化事实，以下 **8 个变量** 出现在 **9 个或更多 SDTM 域**中：\n\n| 变量名 | 出现域数 |\n|--------|---------|\n| STUDYID | 63 |\n| DOMAIN | 59 |\n| USUBJID | 55 |\n| EPOCH | 44 |\n| TAETORD | 43 |\n| VISIT | 36 |\n| VISITDY | 36 |\n| VISITNUM | 36 |\n\n**[Source: Structured Facts (authoritative, exhaustive, from SDTM metadata)]**",
+      "usage": {
+        "prompt_tokens": 17362,
+        "completion_tokens": 126,
+        "total_tokens": 17488
+      },
+      "model": "deepseek/deepseek-chat",
+      "answer": "根据 SDTM 知识库的结构化事实，以下 **8 个变量** 出现在 **9 个或更多 SDTM 域**中：\n\n| 变量名 | 出现域数 |\n|--------|---------|\n| STUDYID | 63 |\n| DOMAIN | 59 |\n| USUBJID | 55 |\n| EPOCH | 44 |\n| TAETORD | 43 |\n| VISIT | 36 |\n| VISITDY | 36 |\n| VISITNUM | 36 |\n\n**[Source: Structured Facts (authoritative, exhaustive, from SDTM metadata)]**",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "STUDYID",
+        "DOMAIN",
+        "USUBJID",
+        "EPOCH",
+        "TAETORD",
+        "VISIT",
+        "VISITDY",
+        "VISITNUM"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 3.72
+    },
+    {
+      "id": "ah04",
+      "category": "aggregate_threshold",
+      "question": "Can you list the SDTM variables that turn up in a dozen or more domains?",
+      "source_recall": 1.0,
+      "source_hits": [],
+      "source_misses": [],
+      "top5_sources": [
+        "model/01_concepts_and_terms.md",
+        "chapters/ch01_introduction.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch04_general_assumptions.md",
+        "model/02_observation_classes.md"
+      ],
+      "top5_similarities": [
+        0.7082,
+        0.5976,
+        0.6344,
+        0.62,
+        0.5907
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "STUDYID",
+        "DOMAIN",
+        "USUBJID",
+        "EPOCH",
+        "TAETORD",
+        "VISIT",
+        "VISITDY",
+        "VISITNUM"
+      ],
+      "fact_misses": [],
+      "answer_preview": "根据 SDTM 元数据，共有 **8 个变量**出现在 **12 个或更多域**中。以下是完整列表：\n\n| 变量名 | 出现域数 |\n|--------|---------|\n| **STUDYID** | 63 |\n| **DOMAIN** | 59 |\n| **USUBJID** | 55 |\n| **EPOCH** | 44 |\n| **TAETORD** | 43 |\n| **VISIT** | 36 |\n| **VISITDY** | 36 |\n| **VISITNUM** | 36 |\n\n**[Source: Structured Facts (authoritative, exhaustive, from SDTM metadata)]**\n\n这些变量中：\n- **STUDYID**、**DOMAIN**、**USUBJID** 是 Required Identifiers，作为合并/连接数据集时的键变量，因此不带有域前缀 **[Source: chapters/ch04_general_assumptions.md §4.2.2]**。\n- **VISIT**、**VISITNUM**、**VISITDY** 是常用的分组和合并键变量，同样不带有域前缀 **[Source: chapters/ch04_general_assumptions.md §4.2.2]**",
+      "usage": {
+        "prompt_tokens": 17019,
+        "completion_tokens": 283,
+        "total_tokens": 17302
+      },
+      "model": "deepseek/deepseek-chat",
+      "answer": "根据 SDTM 元数据，共有 **8 个变量**出现在 **12 个或更多域**中。以下是完整列表：\n\n| 变量名 | 出现域数 |\n|--------|---------|\n| **STUDYID** | 63 |\n| **DOMAIN** | 59 |\n| **USUBJID** | 55 |\n| **EPOCH** | 44 |\n| **TAETORD** | 43 |\n| **VISIT** | 36 |\n| **VISITDY** | 36 |\n| **VISITNUM** | 36 |\n\n**[Source: Structured Facts (authoritative, exhaustive, from SDTM metadata)]**\n\n这些变量中：\n- **STUDYID**、**DOMAIN**、**USUBJID** 是 Required Identifiers，作为合并/连接数据集时的键变量，因此不带有域前缀 **[Source: chapters/ch04_general_assumptions.md §4.2.2]**。\n- **VISIT**、**VISITNUM**、**VISITDY** 是常用的分组和合并键变量，同样不带有域前缀 **[Source: chapters/ch04_general_assumptions.md §4.2.2]**。\n- **EPOCH** 和 **TAETORD** 是 Timing 变量，出现在大多数基于 General Observation Class 的域中。",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "STUDYID",
+        "DOMAIN",
+        "USUBJID",
+        "EPOCH",
+        "TAETORD",
+        "VISIT",
+        "VISITDY",
+        "VISITNUM"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 3.91
+    },
+    {
+      "id": "ah05",
+      "category": "aggregate_threshold",
+      "question": "Which SDTM variables show up in at least 18 different domains?",
+      "source_recall": 1.0,
+      "source_hits": [],
+      "source_misses": [],
+      "top5_sources": [
+        "model/01_concepts_and_terms.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch01_introduction.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch03_submitting_data.md"
+      ],
+      "top5_similarities": [
+        0.6493,
+        0.5824,
+        0.5645,
+        0.5538,
+        0.5757
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "STUDYID",
+        "DOMAIN",
+        "USUBJID",
+        "EPOCH",
+        "TAETORD",
+        "VISIT",
+        "VISITDY",
+        "VISITNUM"
+      ],
+      "fact_misses": [],
+      "answer_preview": "根据检索到的结构化事实，以下 **8 个变量** 出现在至少 18 个不同的域中：\n\n- **STUDYID** (63 个域)\n- **DOMAIN** (59 个域)\n- **USUBJID** (55 个域)\n- **EPOCH** (44 个域)\n- **TAETORD** (43 个域)\n- **VISIT** (36 个域)\n- **VISITDY** (36 个域)\n- **VISITNUM** (36 个域)\n\n**[Source: Structured Facts (authoritative, exhaustive, from SDTM metadata)]**",
+      "usage": {
+        "prompt_tokens": 16756,
+        "completion_tokens": 137,
+        "total_tokens": 16893
+      },
+      "model": "deepseek/deepseek-chat",
+      "answer": "根据检索到的结构化事实，以下 **8 个变量** 出现在至少 18 个不同的域中：\n\n- **STUDYID** (63 个域)\n- **DOMAIN** (59 个域)\n- **USUBJID** (55 个域)\n- **EPOCH** (44 个域)\n- **TAETORD** (43 个域)\n- **VISIT** (36 个域)\n- **VISITDY** (36 个域)\n- **VISITNUM** (36 个域)\n\n**[Source: Structured Facts (authoritative, exhaustive, from SDTM metadata)]**",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "STUDYID",
+        "DOMAIN",
+        "USUBJID",
+        "EPOCH",
+        "TAETORD",
+        "VISIT",
+        "VISITDY",
+        "VISITNUM"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 3.14
+    },
+    {
+      "id": "ah06",
+      "category": "aggregate_threshold",
+      "question": "Can you list the SDTM variables that appear across 25 or more domains?",
+      "source_recall": 1.0,
+      "source_hits": [],
+      "source_misses": [],
+      "top5_sources": [
+        "model/01_concepts_and_terms.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch01_introduction.md",
+        "chapters/ch10_appendices.md",
+        "chapters/ch04_general_assumptions.md"
+      ],
+      "top5_similarities": [
+        0.6794,
+        0.6147,
+        0.5795,
+        0.543,
+        0.5967
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "STUDYID",
+        "DOMAIN",
+        "USUBJID",
+        "EPOCH",
+        "TAETORD",
+        "VISIT",
+        "VISITDY",
+        "VISITNUM"
+      ],
+      "fact_misses": [],
+      "answer_preview": "根据 SDTM 元数据，以下 **8 个变量** 出现在 **25 个或更多域**中：\n\n| 变量名 | 出现域数 |\n|--------|---------|\n| STUDYID | 63 |\n| DOMAIN | 59 |\n| USUBJID | 55 |\n| EPOCH | 44 |\n| TAETORD | 43 |\n| VISIT | 36 |\n| VISITDY | 36 |\n| VISITNUM | 36 |\n\n**[Source: Structured Facts (authoritative, exhaustive, from SDTM metadata)]**",
+      "usage": {
+        "prompt_tokens": 17492,
+        "completion_tokens": 120,
+        "total_tokens": 17612
+      },
+      "model": "deepseek/deepseek-chat",
+      "answer": "根据 SDTM 元数据，以下 **8 个变量** 出现在 **25 个或更多域**中：\n\n| 变量名 | 出现域数 |\n|--------|---------|\n| STUDYID | 63 |\n| DOMAIN | 59 |\n| USUBJID | 55 |\n| EPOCH | 44 |\n| TAETORD | 43 |\n| VISIT | 36 |\n| VISITDY | 36 |\n| VISITNUM | 36 |\n\n**[Source: Structured Facts (authoritative, exhaustive, from SDTM metadata)]**",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "STUDYID",
+        "DOMAIN",
+        "USUBJID",
+        "EPOCH",
+        "TAETORD",
+        "VISIT",
+        "VISITDY",
+        "VISITNUM"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 3.0
+    },
+    {
+      "id": "ah07",
+      "category": "aggregate_threshold",
+      "question": "Which variables are used in a minimum of 30 domains throughout the SDTM standard?",
+      "source_recall": 1.0,
+      "source_hits": [],
+      "source_misses": [],
+      "top5_sources": [
+        "model/01_concepts_and_terms.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch01_introduction.md",
+        "chapters/ch02_fundamentals.md",
+        "domains/DM/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.6825,
+        0.6392,
+        0.6258,
+        0.5748,
+        0.6258
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "STUDYID",
+        "DOMAIN",
+        "USUBJID",
+        "EPOCH",
+        "TAETORD",
+        "VISIT",
+        "VISITDY",
+        "VISITNUM"
+      ],
+      "fact_misses": [],
+      "answer_preview": "根据 SDTM 知识库的结构化事实，以下 **8 个变量** 出现在至少 30 个域中：\n\n| 变量名 | 出现域数 |\n|--------|---------|\n| STUDYID | 63 |\n| DOMAIN | 59 |\n| USUBJID | 55 |\n| EPOCH | 44 |\n| TAETORD | 43 |\n| VISIT | 36 |\n| VISITDY | 36 |\n| VISITNUM | 36 |\n\n**[Source: Structured Facts (authoritative, exhaustive, from SDTM metadata)]**",
+      "usage": {
+        "prompt_tokens": 16748,
+        "completion_tokens": 121,
+        "total_tokens": 16869
+      },
+      "model": "deepseek/deepseek-chat",
+      "answer": "根据 SDTM 知识库的结构化事实，以下 **8 个变量** 出现在至少 30 个域中：\n\n| 变量名 | 出现域数 |\n|--------|---------|\n| STUDYID | 63 |\n| DOMAIN | 59 |\n| USUBJID | 55 |\n| EPOCH | 44 |\n| TAETORD | 43 |\n| VISIT | 36 |\n| VISITDY | 36 |\n| VISITNUM | 36 |\n\n**[Source: Structured Facts (authoritative, exhaustive, from SDTM metadata)]**",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "STUDYID",
+        "DOMAIN",
+        "USUBJID",
+        "EPOCH",
+        "TAETORD",
+        "VISIT",
+        "VISITDY",
+        "VISITNUM"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 3.39
+    },
+    {
+      "id": "ah08",
+      "category": "aggregate_threshold",
+      "question": "Are there any SDTM variables that span 38 or more domains, and if so which ones?",
+      "source_recall": 1.0,
+      "source_hits": [],
+      "source_misses": [],
+      "top5_sources": [
+        "model/01_concepts_and_terms.md",
+        "chapters/ch01_introduction.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch02_fundamentals.md",
+        "model/02_observation_classes.md"
+      ],
+      "top5_similarities": [
+        0.6387,
+        0.5781,
+        0.5877,
+        0.5324,
+        0.5388
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "STUDYID",
+        "DOMAIN",
+        "USUBJID",
+        "EPOCH",
+        "TAETORD"
+      ],
+      "fact_misses": [],
+      "answer_preview": "根据检索到的结构化事实，**有 5 个变量出现在 38 个或更多域中**，具体如下：\n\n| 变量名 | 出现域数 |\n|--------|---------|\n| STUDYID | 63 |\n| DOMAIN | 59 |\n| USUBJID | 55 |\n| EPOCH | 44 |\n| TAETORD | 43 |\n\n**[Source: Structured Facts (authoritative, exhaustive, from SDTM metadata)]**\n\n这些变量中，STUDYID、DOMAIN 和 USUBJID 是必需的标识符变量（Identifier variables），出现在几乎所有域中。EPOCH 是时序变量（Timing variable），TAETORD 是试验设计相关的排序变量。",
+      "usage": {
+        "prompt_tokens": 16756,
+        "completion_tokens": 153,
+        "total_tokens": 16909
+      },
+      "model": "deepseek/deepseek-chat",
+      "answer": "根据检索到的结构化事实，**有 5 个变量出现在 38 个或更多域中**，具体如下：\n\n| 变量名 | 出现域数 |\n|--------|---------|\n| STUDYID | 63 |\n| DOMAIN | 59 |\n| USUBJID | 55 |\n| EPOCH | 44 |\n| TAETORD | 43 |\n\n**[Source: Structured Facts (authoritative, exhaustive, from SDTM metadata)]**\n\n这些变量中，STUDYID、DOMAIN 和 USUBJID 是必需的标识符变量（Identifier variables），出现在几乎所有域中。EPOCH 是时序变量（Timing variable），TAETORD 是试验设计相关的排序变量。",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "STUDYID",
+        "DOMAIN",
+        "USUBJID",
+        "EPOCH",
+        "TAETORD"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 3.32
+    },
+    {
+      "id": "as01",
+      "category": "aggregate_superlative",
+      "question": "Which single codelist gets attached to the greatest number of variables?",
+      "source_recall": 1.0,
+      "source_hits": [],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/BE/assumptions.md",
+        "chapters/ch04_general_assumptions.md",
+        "domains/CO/assumptions.md",
+        "terminology/supplementary/supplementary_part6.md",
+        "VARIABLE_INDEX.md"
+      ],
+      "top5_similarities": [
+        0.4602,
+        6.9661,
+        0.4428,
+        5.9758,
+        0.4312
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "C66742"
+      ],
+      "fact_misses": [],
+      "answer_preview": "根据检索到的结构化事实，**C66742 (No Yes Response)** 是被最多变量引用的受控术语列表，共被 **123 个变量** 使用。\n\n**[Source: Structured Facts (most-shared codelists)]**",
+      "usage": {
+        "prompt_tokens": 15195,
+        "completion_tokens": 51,
+        "total_tokens": 15246
+      },
+      "model": "deepseek/deepseek-chat",
+      "answer": "根据检索到的结构化事实，**C66742 (No Yes Response)** 是被最多变量引用的受控术语列表，共被 **123 个变量** 使用。\n\n**[Source: Structured Facts (most-shared codelists)]**",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "C66742"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 2.66
+    },
+    {
+      "id": "as02",
+      "category": "aggregate_superlative",
+      "question": "Which codelist is reused across the widest range of SDTM domains?",
+      "source_recall": 1.0,
+      "source_hits": [],
+      "source_misses": [],
+      "top5_sources": [
+        "chapters/ch04_general_assumptions.md",
+        "model/01_concepts_and_terms.md",
+        "chapters/ch01_introduction.md",
+        "chapters/ch04_general_assumptions.md",
+        "domains/CO/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.5727,
+        0.5634,
+        0.5559,
+        0.5583,
+        0.5383
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "C66742"
+      ],
+      "fact_misses": [],
+      "answer_preview": "根据检索到的结构化事实，**C66742 (No Yes Response)** 是跨 SDTM 域范围最广的受控术语列表，被 **123 个变量** 引用。\n\n**[Source: Structured Facts (from SDTM metadata)]**",
+      "usage": {
+        "prompt_tokens": 14214,
+        "completion_tokens": 53,
+        "total_tokens": 14267
+      },
+      "model": "deepseek/deepseek-chat",
+      "answer": "根据检索到的结构化事实，**C66742 (No Yes Response)** 是跨 SDTM 域范围最广的受控术语列表，被 **123 个变量** 引用。\n\n**[Source: Structured Facts (from SDTM metadata)]**",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "C66742"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 2.93
+    },
+    {
+      "id": "as03",
+      "category": "aggregate_superlative",
+      "question": "Which controlled terminology set gets shared between variables most often?",
+      "source_recall": 1.0,
+      "source_hits": [],
+      "source_misses": [],
+      "top5_sources": [
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch04_general_assumptions.md",
+        "domains/TS/assumptions.md",
+        "chapters/ch10_appendices.md"
+      ],
+      "top5_similarities": [
+        0.5471,
+        0.5106,
+        0.504,
+        0.4885,
+        0.4815
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "C66742"
+      ],
+      "fact_misses": [],
+      "answer_preview": "根据检索到的上下文，**\"No Yes Response (C66742)\"** 是被最多变量共享的受控术语集。\n\n具体来说，在 `domains/IE/spec.md` 中明确记载：\n- **C66742** 被用于 `IEORRES` 和 `IESTRESC` 两个变量 **[Source: domains/IE/spec.md — Controlled Terminology]**。\n\n此外，在 `chapters/ch04_general_assumptions.md` 的 4.3.3 节中提到，`--PRESP` 变量关联的是 **NY** 编码表（也是 Yes/No 响应类型），但仅允许值 \"Y\" **[Source: chapters/ch04_general_assumptions.md — 4.3.3 Controlled Terminology Values]**。\n\n虽然检索到的上下文没有穷举所有域中所有变量的 CT 引用，但根据现有证据，**C66742 (No Yes Response)** 是明确被多个变量（IEORRES, IESTRESC）共享的受控术语集。其他如 `C66797 (Category of Inclusion/Exclusion)` 也被 `IE` 和 `TI` 域引用，但共享变量数较少。",
+      "usage": {
+        "prompt_tokens": 12427,
+        "completion_tokens": 251,
+        "total_tokens": 12678
+      },
+      "model": "deepseek/deepseek-chat",
+      "answer": "根据检索到的上下文，**\"No Yes Response (C66742)\"** 是被最多变量共享的受控术语集。\n\n具体来说，在 `domains/IE/spec.md` 中明确记载：\n- **C66742** 被用于 `IEORRES` 和 `IESTRESC` 两个变量 **[Source: domains/IE/spec.md — Controlled Terminology]**。\n\n此外，在 `chapters/ch04_general_assumptions.md` 的 4.3.3 节中提到，`--PRESP` 变量关联的是 **NY** 编码表（也是 Yes/No 响应类型），但仅允许值 \"Y\" **[Source: chapters/ch04_general_assumptions.md — 4.3.3 Controlled Terminology Values]**。\n\n虽然检索到的上下文没有穷举所有域中所有变量的 CT 引用，但根据现有证据，**C66742 (No Yes Response)** 是明确被多个变量（IEORRES, IESTRESC）共享的受控术语集。其他如 `C66797 (Category of Inclusion/Exclusion)` 也被 `IE` 和 `TI` 域引用，但共享变量数较少。",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "C66742"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 4.73
+    },
+    {
+      "id": "as04",
+      "category": "aggregate_superlative",
+      "question": "What are the top few codelists when you rank them by how many variables reference each one?",
+      "source_recall": 1.0,
+      "source_hits": [],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/PP/assumptions.md",
+        "domains/EG/assumptions.md",
+        "domains/SC/assumptions.md",
+        "terminology/questionnaires/questionnaires_part32.md",
+        "domains/IE/spec.md"
+      ],
+      "top5_similarities": [
+        0.5265,
+        11.6478,
+        0.5005,
+        11.2232,
+        0.497
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "C66742",
+        "C71620",
+        "C66789",
+        "C66728",
+        "C74456"
+      ],
+      "fact_misses": [],
+      "answer_preview": "根据检索到的结构化事实，按被引用变量数量排序，排名靠前的几个受控术语集（codelist）如下：\n\n| 排名 | Codelist Code | 名称 | 被引用变量数 |\n|------|---------------|------|-------------|\n| 1 | C66742 | No Yes Response | 123 个变量 |\n| 2 | C71620 | Unit | 58 个变量 |\n| 3 | C66789 | Not Done | 36 个变量 |\n| 4 | C66728 | Relation to Reference Period | 26 个变量 |\n| 5 | C74456 | Anatomical Location | 19 个变量 |\n\n**[Source: Structured Facts — \"Most-shared codelists\"]**",
+      "usage": {
+        "prompt_tokens": 15096,
+        "completion_tokens": 158,
+        "total_tokens": 15254
+      },
+      "model": "deepseek/deepseek-chat",
+      "answer": "根据检索到的结构化事实，按被引用变量数量排序，排名靠前的几个受控术语集（codelist）如下：\n\n| 排名 | Codelist Code | 名称 | 被引用变量数 |\n|------|---------------|------|-------------|\n| 1 | C66742 | No Yes Response | 123 个变量 |\n| 2 | C71620 | Unit | 58 个变量 |\n| 3 | C66789 | Not Done | 36 个变量 |\n| 4 | C66728 | Relation to Reference Period | 26 个变量 |\n| 5 | C74456 | Anatomical Location | 19 个变量 |\n\n**[Source: Structured Facts — \"Most-shared codelists\"]**",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "C66742",
+        "C71620",
+        "C66789",
+        "C66728",
+        "C74456"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 3.36
+    },
+    {
+      "id": "as05",
+      "category": "aggregate_superlative",
+      "question": "What are the top three codelists in terms of how many variables point to them?",
+      "source_recall": 1.0,
+      "source_hits": [],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/RELSPEC/assumptions.md",
+        "domains/PP/assumptions.md",
+        "chapters/ch08_relationships.md",
+        "domains/SC/assumptions.md",
+        "terminology/supplementary/supplementary_part4.md"
+      ],
+      "top5_similarities": [
+        0.502,
+        0.5339,
+        6.9708,
+        0.5077,
+        6.7032
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "C66742",
+        "C71620",
+        "C66789"
+      ],
+      "fact_misses": [],
+      "answer_preview": "根据检索到的结构化事实，按变量引用数量排名前三的受控术语 codelist 如下：\n\n1. **C66742** (No Yes Response) — 被 123 个变量引用\n2. **C71620** (Unit) — 被 58 个变量引用\n3. **C66789** (Not Done) — 被 36 个变量引用\n\n**[Source: Structured Facts (authoritative, exhaustive, from SDTM metadata)]**",
+      "usage": {
+        "prompt_tokens": 14288,
+        "completion_tokens": 102,
+        "total_tokens": 14390
+      },
+      "model": "deepseek/deepseek-chat",
+      "answer": "根据检索到的结构化事实，按变量引用数量排名前三的受控术语 codelist 如下：\n\n1. **C66742** (No Yes Response) — 被 123 个变量引用\n2. **C71620** (Unit) — 被 58 个变量引用\n3. **C66789** (Not Done) — 被 36 个变量引用\n\n**[Source: Structured Facts (authoritative, exhaustive, from SDTM metadata)]**",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "C66742",
+        "C71620",
+        "C66789"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 3.18
+    },
+    {
+      "id": "as06",
+      "category": "aggregate_superlative",
+      "question": "Which four codelists get reused by the largest number of variables?",
+      "source_recall": 1.0,
+      "source_hits": [],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/PP/assumptions.md",
+        "terminology/supplementary/supplementary_part3.md",
+        "domains/DD/assumptions.md",
+        "terminology/questionnaires/questionnaires_part21.md",
+        "domains/BE/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.5434,
+        6.239,
+        0.4987,
+        5.7973,
+        0.489
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "C66742",
+        "C71620",
+        "C66789",
+        "C66728"
+      ],
+      "fact_misses": [],
+      "answer_preview": "根据检索到的结构化事实，被最多变量复用的四个 codelist 是：\n\n1. **C66742** (No Yes Response) — 123 个变量\n2. **C71620** (Unit) — 58 个变量\n3. **C66789** (Not Done) — 36 个变量\n4. **C66728** (Relation to Reference Period) — 26 个变量\n\n**[Source: Structured Facts (authoritative, exhaustive, from SDTM metadata)]**",
+      "usage": {
+        "prompt_tokens": 13131,
+        "completion_tokens": 109,
+        "total_tokens": 13240
+      },
+      "model": "deepseek/deepseek-chat",
+      "answer": "根据检索到的结构化事实，被最多变量复用的四个 codelist 是：\n\n1. **C66742** (No Yes Response) — 123 个变量\n2. **C71620** (Unit) — 58 个变量\n3. **C66789** (Not Done) — 36 个变量\n4. **C66728** (Relation to Reference Period) — 26 个变量\n\n**[Source: Structured Facts (authoritative, exhaustive, from SDTM metadata)]**",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "C66742",
+        "C71620",
+        "C66789",
+        "C66728"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 3.73
+    },
+    {
+      "id": "as07",
+      "category": "aggregate_superlative",
+      "question": "Which codelist would you call the workhorse of the standard—the one tied to more variables than any other?",
+      "source_recall": 1.0,
+      "source_hits": [],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/PP/assumptions.md",
+        "terminology/questionnaires/questionnaires_part35.md",
+        "domains/SC/assumptions.md",
+        "terminology/questionnaires/questionnaires_part35.md",
+        "domains/RP/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.4962,
+        11.0501,
+        0.4814,
+        10.7866,
+        0.4698
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "C66742"
+      ],
+      "fact_misses": [],
+      "answer_preview": "根据检索到的上下文，SDTM 标准中使用最广泛的受控术语（codelist）是 **C66742 (No Yes Response)**，它被 **123 个变量**引用，是所有 codelist 中引用数量最多的。\n\n**[Source: VARIABLE_INDEX.md §三 CT 交叉引用]**",
+      "usage": {
+        "prompt_tokens": 18920,
+        "completion_tokens": 66,
+        "total_tokens": 18986
+      },
+      "model": "deepseek/deepseek-chat",
+      "answer": "根据检索到的上下文，SDTM 标准中使用最广泛的受控术语（codelist）是 **C66742 (No Yes Response)**，它被 **123 个变量**引用，是所有 codelist 中引用数量最多的。\n\n**[Source: VARIABLE_INDEX.md §三 CT 交叉引用]**",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "C66742"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 3.1
+    },
+    {
+      "id": "as08",
+      "category": "aggregate_superlative",
+      "question": "What's the single most-used codelist across all the variables, the real champion in terms of adoption?",
+      "source_recall": 1.0,
+      "source_hits": [],
+      "source_misses": [],
+      "top5_sources": [
+        "domains/BE/assumptions.md",
+        "chapters/ch01_introduction.md",
+        "domains/IE/spec.md",
+        "domains/AE/assumptions.md",
+        "domains/MB/spec.md"
+      ],
+      "top5_similarities": [
+        0.4673,
+        8.4335,
+        0.458,
+        8.4279,
+        0.458
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "C66742"
+      ],
+      "fact_misses": [],
+      "answer_preview": "根据检索到的结构化事实，**C66742 (No Yes Response)** 是使用最广泛的受控术语列表，被 **123 个变量**引用。\n\n**[Source: Structured Facts]**",
+      "usage": {
+        "prompt_tokens": 13906,
+        "completion_tokens": 40,
+        "total_tokens": 13946
+      },
+      "model": "deepseek/deepseek-chat",
+      "answer": "根据检索到的结构化事实，**C66742 (No Yes Response)** 是使用最广泛的受控术语列表，被 **123 个变量**引用。\n\n**[Source: Structured Facts]**",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "C66742"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 2.32
+    },
+    {
+      "id": "ag01",
+      "category": "aggregate",
+      "question": "Which SDTM variables are used across 3 or more different domains?",
+      "source_recall": 0.0,
+      "source_hits": [],
+      "source_misses": [
+        "VARIABLE_INDEX.md"
+      ],
+      "top5_sources": [
+        "model/01_concepts_and_terms.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch01_introduction.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch02_fundamentals.md"
+      ],
+      "top5_similarities": [
+        0.6951,
+        0.6463,
+        0.6215,
+        0.5667,
+        0.5665
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "ARM",
+        "ARMCD",
+        "DOMAIN",
+        "ELEMENT",
+        "EPOCH",
+        "ETCD",
+        "FOCID",
+        "IDVAR",
+        "IDVARVAL",
+        "NHOID",
+        "RDOMAIN",
+        "SPDEVID",
+        "STUDYID",
+        "TAETORD",
+        "USUBJID",
+        "VISIT",
+        "VISITDY",
+        "VISITNUM"
+      ],
+      "fact_misses": [],
+      "answer_preview": "根据 SDTM 元数据，以下 **18 个变量** 出现在 **3 个或更多不同域** 中：\n\n| 变量名 | 出现域数 |\n|--------|---------|\n| STUDYID | 63 |\n| DOMAIN | 59 |\n| USUBJID | 55 |\n| EPOCH | 44 |\n| TAETORD | 43 |\n| VISIT | 36 |\n| VISITDY | 36 |\n| VISITNUM | 36 |\n| SPDEVID | 6 |\n| NHOID | 4 |\n| ARM | 3 |\n| ARMCD | 3 |\n| ELEMENT | 3 |\n| ETCD | 3 |\n| FOCID | 3 |\n| IDVAR | 3 |\n| IDVARVAL | 3 |\n| RDOMAIN | 3 |\n\n**[Source: Structured Facts (authoritative, exhaustive, from SDTM metadata)]**",
+      "usage": {
+        "prompt_tokens": 16910,
+        "completion_tokens": 196,
+        "total_tokens": 17106
+      },
+      "model": "deepseek/deepseek-chat",
+      "answer": "根据 SDTM 元数据，以下 **18 个变量** 出现在 **3 个或更多不同域** 中：\n\n| 变量名 | 出现域数 |\n|--------|---------|\n| STUDYID | 63 |\n| DOMAIN | 59 |\n| USUBJID | 55 |\n| EPOCH | 44 |\n| TAETORD | 43 |\n| VISIT | 36 |\n| VISITDY | 36 |\n| VISITNUM | 36 |\n| SPDEVID | 6 |\n| NHOID | 4 |\n| ARM | 3 |\n| ARMCD | 3 |\n| ELEMENT | 3 |\n| ETCD | 3 |\n| FOCID | 3 |\n| IDVAR | 3 |\n| IDVARVAL | 3 |\n| RDOMAIN | 3 |\n\n**[Source: Structured Facts (authoritative, exhaustive, from SDTM metadata)]**",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "ARM",
+        "ARMCD",
+        "DOMAIN",
+        "ELEMENT",
+        "EPOCH",
+        "ETCD",
+        "FOCID",
+        "IDVAR",
+        "IDVARVAL",
+        "NHOID",
+        "RDOMAIN",
+        "SPDEVID",
+        "STUDYID",
+        "TAETORD",
+        "USUBJID",
+        "VISIT",
+        "VISITDY",
+        "VISITNUM"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 3.16
+    },
+    {
+      "id": "ag02",
+      "category": "aggregate",
+      "question": "Can you list the SDTM variables that appear in at least 4 separate domains?",
+      "source_recall": 0.0,
+      "source_hits": [],
+      "source_misses": [
+        "VARIABLE_INDEX.md"
+      ],
+      "top5_sources": [
+        "model/01_concepts_and_terms.md",
+        "chapters/ch01_introduction.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch02_fundamentals.md"
+      ],
+      "top5_similarities": [
+        0.686,
+        0.6085,
+        0.6394,
+        0.6377,
+        0.5606
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "DOMAIN",
+        "EPOCH",
+        "NHOID",
+        "SPDEVID",
+        "STUDYID",
+        "TAETORD",
+        "USUBJID",
+        "VISIT",
+        "VISITDY",
+        "VISITNUM"
+      ],
+      "fact_misses": [],
+      "answer_preview": "根据 SDTM 知识库的结构化事实，以下变量出现在至少 4 个不同的域中：\n\n| 变量名 | 出现域数 |\n|--------|---------|\n| STUDYID | 63 |\n| DOMAIN | 59 |\n| USUBJID | 55 |\n| EPOCH | 44 |\n| TAETORD | 43 |\n| VISIT | 36 |\n| VISITDY | 36 |\n| VISITNUM | 36 |\n| SPDEVID | 6 |\n| NHOID | 4 |\n\n**[Source: Structured Facts (from SDTM metadata)]**",
+      "usage": {
+        "prompt_tokens": 17618,
+        "completion_tokens": 127,
+        "total_tokens": 17745
+      },
+      "model": "deepseek/deepseek-chat",
+      "answer": "根据 SDTM 知识库的结构化事实，以下变量出现在至少 4 个不同的域中：\n\n| 变量名 | 出现域数 |\n|--------|---------|\n| STUDYID | 63 |\n| DOMAIN | 59 |\n| USUBJID | 55 |\n| EPOCH | 44 |\n| TAETORD | 43 |\n| VISIT | 36 |\n| VISITDY | 36 |\n| VISITNUM | 36 |\n| SPDEVID | 6 |\n| NHOID | 4 |\n\n**[Source: Structured Facts (from SDTM metadata)]**",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "DOMAIN",
+        "EPOCH",
+        "NHOID",
+        "SPDEVID",
+        "STUDYID",
+        "TAETORD",
+        "USUBJID",
+        "VISIT",
+        "VISITDY",
+        "VISITNUM"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 2.78
+    },
+    {
+      "id": "ag03",
+      "category": "aggregate",
+      "question": "Which variables show up in 5 or more domains throughout the SDTM model?",
+      "source_recall": 0.0,
+      "source_hits": [],
+      "source_misses": [
+        "VARIABLE_INDEX.md"
+      ],
+      "top5_sources": [
+        "model/01_concepts_and_terms.md",
+        "chapters/ch01_introduction.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch02_fundamentals.md",
+        "chapters/ch03_submitting_data.md"
+      ],
+      "top5_similarities": [
+        0.6829,
+        0.5863,
+        0.6111,
+        0.5646,
+        0.5808
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "DOMAIN",
+        "EPOCH",
+        "SPDEVID",
+        "STUDYID",
+        "TAETORD",
+        "USUBJID",
+        "VISIT",
+        "VISITDY",
+        "VISITNUM"
+      ],
+      "fact_misses": [],
+      "answer_preview": "根据 SDTM 元数据，以下 **9 个变量** 出现在 **5 个或更多域** 中：\n\n| 变量名 | 出现域数 |\n|--------|----------|\n| STUDYID | 63 |\n| DOMAIN | 59 |\n| USUBJID | 55 |\n| EPOCH | 44 |\n| TAETORD | 43 |\n| VISIT | 36 |\n| VISITDY | 36 |\n| VISITNUM | 36 |\n| SPDEVID | 6 |\n\n**[Source: Structured Facts (authoritative, exhaustive, from SDTM metadata)]**",
+      "usage": {
+        "prompt_tokens": 15953,
+        "completion_tokens": 129,
+        "total_tokens": 16082
+      },
+      "model": "deepseek/deepseek-chat",
+      "answer": "根据 SDTM 元数据，以下 **9 个变量** 出现在 **5 个或更多域** 中：\n\n| 变量名 | 出现域数 |\n|--------|----------|\n| STUDYID | 63 |\n| DOMAIN | 59 |\n| USUBJID | 55 |\n| EPOCH | 44 |\n| TAETORD | 43 |\n| VISIT | 36 |\n| VISITDY | 36 |\n| VISITNUM | 36 |\n| SPDEVID | 6 |\n\n**[Source: Structured Facts (authoritative, exhaustive, from SDTM metadata)]**",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "DOMAIN",
+        "EPOCH",
+        "SPDEVID",
+        "STUDYID",
+        "TAETORD",
+        "USUBJID",
+        "VISIT",
+        "VISITDY",
+        "VISITNUM"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 3.1
+    },
+    {
+      "id": "ag04",
+      "category": "aggregate",
+      "question": "I'm looking for the SDTM variables that are reused across 10 or more domains — which ones are they?",
+      "source_recall": 0.0,
+      "source_hits": [],
+      "source_misses": [
+        "VARIABLE_INDEX.md"
+      ],
+      "top5_sources": [
+        "model/01_concepts_and_terms.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch01_introduction.md",
+        "chapters/ch04_general_assumptions.md",
+        "model/02_observation_classes.md"
+      ],
+      "top5_similarities": [
+        0.6619,
+        0.6221,
+        0.5736,
+        0.5301,
+        0.5768
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "DOMAIN",
+        "EPOCH",
+        "STUDYID",
+        "TAETORD",
+        "USUBJID",
+        "VISIT",
+        "VISITDY",
+        "VISITNUM"
+      ],
+      "fact_misses": [],
+      "answer_preview": "根据 SDTM 元数据，以下 **8 个变量** 出现在 **10 个或更多域** 中：\n\n| 变量名 | 出现域数 |\n|--------|---------|\n| STUDYID | 63 |\n| DOMAIN | 59 |\n| USUBJID | 55 |\n| EPOCH | 44 |\n| TAETORD | 43 |\n| VISIT | 36 |\n| VISITDY | 36 |\n| VISITNUM | 36 |\n\n**[Source: Structured Facts (authoritative, exhaustive, from SDTM metadata)]**\n\n这些变量中，STUDYID、DOMAIN、USUBJID 是必需的标识符变量（Required Identifiers），在所有域中作为合并/连接键使用。VISIT、VISITNUM、VISITDY 是常用的分组和合并键。EPOCH 和 TAETORD 是时序变量，在大多数基于通用观察类（General Observation Classes）的域中出现。",
+      "usage": {
+        "prompt_tokens": 18067,
+        "completion_tokens": 204,
+        "total_tokens": 18271
+      },
+      "model": "deepseek/deepseek-chat",
+      "answer": "根据 SDTM 元数据，以下 **8 个变量** 出现在 **10 个或更多域** 中：\n\n| 变量名 | 出现域数 |\n|--------|---------|\n| STUDYID | 63 |\n| DOMAIN | 59 |\n| USUBJID | 55 |\n| EPOCH | 44 |\n| TAETORD | 43 |\n| VISIT | 36 |\n| VISITDY | 36 |\n| VISITNUM | 36 |\n\n**[Source: Structured Facts (authoritative, exhaustive, from SDTM metadata)]**\n\n这些变量中，STUDYID、DOMAIN、USUBJID 是必需的标识符变量（Required Identifiers），在所有域中作为合并/连接键使用。VISIT、VISITNUM、VISITDY 是常用的分组和合并键。EPOCH 和 TAETORD 是时序变量，在大多数基于通用观察类（General Observation Classes）的域中出现。",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "DOMAIN",
+        "EPOCH",
+        "STUDYID",
+        "TAETORD",
+        "USUBJID",
+        "VISIT",
+        "VISITDY",
+        "VISITNUM"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 3.54
+    },
+    {
+      "id": "ag05",
+      "category": "aggregate",
+      "question": "Which SDTM variables are so common that they appear in 40+ domains?",
+      "source_recall": 0.0,
+      "source_hits": [],
+      "source_misses": [
+        "VARIABLE_INDEX.md"
+      ],
+      "top5_sources": [
+        "model/01_concepts_and_terms.md",
+        "chapters/ch04_general_assumptions.md",
+        "model/02_observation_classes.md",
+        "chapters/ch01_introduction.md",
+        "chapters/ch03_submitting_data.md"
+      ],
+      "top5_similarities": [
+        0.6461,
+        0.583,
+        0.5681,
+        0.5574,
+        0.5597
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "DOMAIN",
+        "EPOCH",
+        "STUDYID",
+        "TAETORD",
+        "USUBJID"
+      ],
+      "fact_misses": [],
+      "answer_preview": "根据 SDTM 元数据，以下 **5 个变量**出现在 40 个或更多域中：\n\n| 变量名 | 出现域数 |\n|--------|---------|\n| **STUDYID** | 63 |\n| **DOMAIN** | 59 |\n| **USUBJID** | 55 |\n| **EPOCH** | 44 |\n| **TAETORD** | 43 |\n\n这些变量均为跨域通用变量，其中 STUDYID、DOMAIN、USUBJID 是必需的标识符变量（Required Identifiers），EPOCH 是常用的时间变量（Timing variable），TAETORD 是试验设计相关的排序变量。\n\n**[Source: Structured Facts (authoritative, exhaustive, from SDTM metadata)]**",
+      "usage": {
+        "prompt_tokens": 17291,
+        "completion_tokens": 161,
+        "total_tokens": 17452
+      },
+      "model": "deepseek/deepseek-chat",
+      "answer": "根据 SDTM 元数据，以下 **5 个变量**出现在 40 个或更多域中：\n\n| 变量名 | 出现域数 |\n|--------|---------|\n| **STUDYID** | 63 |\n| **DOMAIN** | 59 |\n| **USUBJID** | 55 |\n| **EPOCH** | 44 |\n| **TAETORD** | 43 |\n\n这些变量均为跨域通用变量，其中 STUDYID、DOMAIN、USUBJID 是必需的标识符变量（Required Identifiers），EPOCH 是常用的时间变量（Timing variable），TAETORD 是试验设计相关的排序变量。\n\n**[Source: Structured Facts (authoritative, exhaustive, from SDTM metadata)]**",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "DOMAIN",
+        "EPOCH",
+        "STUDYID",
+        "TAETORD",
+        "USUBJID"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 3.11
+    },
+    {
+      "id": "ms01",
+      "category": "aggregate",
+      "question": "Across all of SDTM, which controlled terminology codelist is the most reused?",
+      "source_recall": 0.0,
+      "source_hits": [],
+      "source_misses": [
+        "VARIABLE_INDEX.md"
+      ],
+      "top5_sources": [
+        "domains/RELSPEC/assumptions.md",
+        "chapters/ch10_appendices.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch04_general_assumptions.md"
+      ],
+      "top5_similarities": [
+        0.623,
+        0.6077,
+        0.6334,
+        0.5557,
+        0.6105
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "C66742",
+        "No Yes Response"
+      ],
+      "fact_misses": [],
+      "answer_preview": "根据检索到的结构化事实，SDTM 中**复用次数最多的受控术语 codelist** 是 **C66742 (No Yes Response)**，被 **123 个变量**引用。\n\n**[Source: Structured Facts (Most-shared codelists)]**",
+      "usage": {
+        "prompt_tokens": 13561,
+        "completion_tokens": 56,
+        "total_tokens": 13617
+      },
+      "model": "deepseek/deepseek-chat",
+      "answer": "根据检索到的结构化事实，SDTM 中**复用次数最多的受控术语 codelist** 是 **C66742 (No Yes Response)**，被 **123 个变量**引用。\n\n**[Source: Structured Facts (Most-shared codelists)]**",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "C66742",
+        "No Yes Response"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 2.44
+    },
+    {
+      "id": "ms02",
+      "category": "aggregate",
+      "question": "Which single codelist is referenced by the greatest number of variables in SDTM?",
+      "source_recall": 0.0,
+      "source_hits": [],
+      "source_misses": [
+        "VARIABLE_INDEX.md"
+      ],
+      "top5_sources": [
+        "model/01_concepts_and_terms.md",
+        "chapters/ch04_general_assumptions.md",
+        "model/01_concepts_and_terms.md",
+        "chapters/ch10_appendices.md",
+        "chapters/ch01_introduction.md"
+      ],
+      "top5_similarities": [
+        0.5932,
+        0.5857,
+        0.5612,
+        0.5747,
+        0.5463
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "C66742",
+        "No Yes Response"
+      ],
+      "fact_misses": [],
+      "answer_preview": "根据检索到的结构化事实，SDTM 中被最多变量引用的单一受控术语列表是 **C66742 (No Yes Response)**，共有 **123 个变量**引用它。\n\n**[Source: Structured Facts (from SDTM metadata)]**",
+      "usage": {
+        "prompt_tokens": 14838,
+        "completion_tokens": 52,
+        "total_tokens": 14890
+      },
+      "model": "deepseek/deepseek-chat",
+      "answer": "根据检索到的结构化事实，SDTM 中被最多变量引用的单一受控术语列表是 **C66742 (No Yes Response)**，共有 **123 个变量**引用它。\n\n**[Source: Structured Facts (from SDTM metadata)]**",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "C66742",
+        "No Yes Response"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 2.31
+    },
+    {
+      "id": "ms03",
+      "category": "aggregate",
+      "question": "What is the most widely shared codelist across SDTM domains?",
+      "source_recall": 0.0,
+      "source_hits": [],
+      "source_misses": [
+        "VARIABLE_INDEX.md"
+      ],
+      "top5_sources": [
+        "model/01_concepts_and_terms.md",
+        "chapters/ch01_introduction.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch04_general_assumptions.md",
+        "terminology/supplementary/supplementary_part5.md"
+      ],
+      "top5_similarities": [
+        0.5614,
+        0.5415,
+        0.5468,
+        0.5262,
+        0.5882
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "C66742",
+        "No Yes Response"
+      ],
+      "fact_misses": [],
+      "answer_preview": "根据检索到的结构化事实，SDTM 中**共享范围最广的编码表（codelist）**是 **C66742 (No Yes Response)**，被 **123 个变量**引用。\n\n其他共享范围较广的编码表包括：\n- **C71620 (Unit)** — 58 个变量\n- **C66789 (Not Done)** — 36 个变量\n- **C66728 (Relation to Reference Period)** — 26 个变量\n- **C74456 (Anatomical Location)** — 19 个变量\n\n**[Source: Structured Facts (authoritative, exhaustive, from SDTM metadata)]**",
+      "usage": {
+        "prompt_tokens": 13721,
+        "completion_tokens": 137,
+        "total_tokens": 13858
+      },
+      "model": "deepseek/deepseek-chat",
+      "answer": "根据检索到的结构化事实，SDTM 中**共享范围最广的编码表（codelist）**是 **C66742 (No Yes Response)**，被 **123 个变量**引用。\n\n其他共享范围较广的编码表包括：\n- **C71620 (Unit)** — 58 个变量\n- **C66789 (Not Done)** — 36 个变量\n- **C66728 (Relation to Reference Period)** — 26 个变量\n- **C74456 (Anatomical Location)** — 19 个变量\n\n**[Source: Structured Facts (authoritative, exhaustive, from SDTM metadata)]**",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "C66742",
+        "No Yes Response"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 3.49
+    },
+    {
+      "id": "ms04",
+      "category": "aggregate",
+      "question": "What are the three most frequently reused controlled terminology codelists in SDTM?",
+      "source_recall": 0.0,
+      "source_hits": [],
+      "source_misses": [
+        "VARIABLE_INDEX.md"
+      ],
+      "top5_sources": [
+        "domains/RELSPEC/assumptions.md",
+        "chapters/ch10_appendices.md",
+        "domains/TS/assumptions.md",
+        "domains/PP/assumptions.md",
+        "domains/DD/assumptions.md"
+      ],
+      "top5_similarities": [
+        0.6933,
+        0.6507,
+        0.629,
+        0.6177,
+        0.6263
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "C66742",
+        "C71620",
+        "C66789"
+      ],
+      "fact_misses": [],
+      "answer_preview": "根据 SDTM 知识库的结构化事实，SDTM 中**最常被复用的三个受控术语 codelist** 是：\n\n1. **C66742** (No Yes Response) — 被 123 个变量引用\n2. **C71620** (Unit) — 被 58 个变量引用\n3. **C66789** (Not Done) — 被 36 个变量引用\n\n**[Source: Structured Facts (Most-shared codelists)]**",
+      "usage": {
+        "prompt_tokens": 10975,
+        "completion_tokens": 108,
+        "total_tokens": 11083
+      },
+      "model": "deepseek/deepseek-chat",
+      "answer": "根据 SDTM 知识库的结构化事实，SDTM 中**最常被复用的三个受控术语 codelist** 是：\n\n1. **C66742** (No Yes Response) — 被 123 个变量引用\n2. **C71620** (Unit) — 被 58 个变量引用\n3. **C66789** (Not Done) — 被 36 个变量引用\n\n**[Source: Structured Facts (Most-shared codelists)]**",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "C66742",
+        "C71620",
+        "C66789"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 2.54
+    },
+    {
+      "id": "ms05",
+      "category": "aggregate",
+      "question": "Could you name several of the most commonly shared codelists used throughout the SDTM domains?",
+      "source_recall": 0.0,
+      "source_hits": [],
+      "source_misses": [
+        "VARIABLE_INDEX.md"
+      ],
+      "top5_sources": [
+        "model/01_concepts_and_terms.md",
+        "chapters/ch01_introduction.md",
+        "chapters/ch10_appendices.md",
+        "chapters/ch04_general_assumptions.md",
+        "chapters/ch10_appendices.md"
+      ],
+      "top5_similarities": [
+        0.5836,
+        0.5635,
+        0.543,
+        0.5709,
+        0.6223
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "C66742",
+        "C71620",
+        "C66789",
+        "C66728",
+        "C74456"
+      ],
+      "fact_misses": [],
+      "answer_preview": "根据 SDTM 元数据，以下是在各域中共享最广泛的受控术语列表（codelists）：\n\n- **C66742** (No Yes Response) — 用于 123 个变量\n- **C71620** (Unit) — 用于 58 个变量\n- **C66789** (Not Done) — 用于 36 个变量\n- **C66728** (Relation to Reference Period) — 用于 26 个变量\n- **C74456** (Anatomical Location) — 用于 19 个变量\n\n**[Source: Structured Facts (authoritative, exhaustive, from SDTM metadata)]**",
+      "usage": {
+        "prompt_tokens": 14776,
+        "completion_tokens": 139,
+        "total_tokens": 14915
+      },
+      "model": "deepseek/deepseek-chat",
+      "answer": "根据 SDTM 元数据，以下是在各域中共享最广泛的受控术语列表（codelists）：\n\n- **C66742** (No Yes Response) — 用于 123 个变量\n- **C71620** (Unit) — 用于 58 个变量\n- **C66789** (Not Done) — 用于 36 个变量\n- **C66728** (Relation to Reference Period) — 用于 26 个变量\n- **C74456** (Anatomical Location) — 用于 19 个变量\n\n**[Source: Structured Facts (authoritative, exhaustive, from SDTM metadata)]**",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "C66742",
+        "C71620",
+        "C66789",
+        "C66728",
+        "C74456"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 2.79
+    }
+  ],
+  "tag": "agg_on"
+}
