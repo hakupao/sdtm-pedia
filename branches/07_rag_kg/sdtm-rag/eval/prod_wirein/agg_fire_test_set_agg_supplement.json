@@ -1,0 +1,86 @@
+[
+  {
+    "id": "an01g",
+    "category": "aggregate_threshold",
+    "fired_sp2": true,
+    "fired_agg": true,
+    "fired_sp3": false
+  },
+  {
+    "id": "an01h",
+    "category": "aggregate_threshold",
+    "fired_sp2": true,
+    "fired_agg": true,
+    "fired_sp3": false
+  },
+  {
+    "id": "an02g",
+    "category": "aggregate_threshold",
+    "fired_sp2": false,
+    "fired_agg": true,
+    "fired_sp3": false
+  },
+  {
+    "id": "an02h",
+    "category": "aggregate_threshold",
+    "fired_sp2": false,
+    "fired_agg": true,
+    "fired_sp3": false
+  },
+  {
+    "id": "an03g",
+    "category": "aggregate_superlative",
+    "fired_sp2": false,
+    "fired_agg": false,
+    "fired_sp3": false
+  },
+  {
+    "id": "an03h",
+    "category": "aggregate_superlative",
+    "fired_sp2": false,
+    "fired_agg": true,
+    "fired_sp3": false
+  },
+  {
+    "id": "an04g",
+    "category": "aggregate_superlative",
+    "fired_sp2": false,
+    "fired_agg": false,
+    "fired_sp3": false
+  },
+  {
+    "id": "an04h",
+    "category": "aggregate_superlative",
+    "fired_sp2": false,
+    "fired_agg": false,
+    "fired_sp3": false
+  },
+  {
+    "id": "an05g",
+    "category": "aggregate_superlative",
+    "fired_sp2": false,
+    "fired_agg": true,
+    "fired_sp3": false
+  },
+  {
+    "id": "an05h",
+    "category": "aggregate_superlative",
+    "fired_sp2": false,
+    "fired_agg": false,
+    "fired_sp3": false
+  },
+  {
+    "id": "an06g",
+    "category": "aggregate_superlative",
+    "fired_sp2": false,
+    "fired_agg": false,
+    "fired_sp3": false
+  },
+  {
+    "id": "an06h",
+    "category": "aggregate_superlative",
+    "fired_sp2": false,
+    "fired_agg": false,
+    "fired_sp3": false
+  }
+]

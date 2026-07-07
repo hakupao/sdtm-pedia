@@ -232,6 +232,29 @@ def test_top_n_without_codelist_cue_must_not_fire():
         "What are the top three products this quarter?") == set()
 
 
+# ── round 5: threshold gate anchor-word synonyms (datasets/vars) ─────────────
+
+
+def test_vocab_synonyms_fire_threshold():
+    # burned (supplement an02g): informal "vars" + "datasets" for the same intent
+    assert "threshold" in detect_aggregate_intents(
+        "hey quick q - which vars appear in 20+ datasets?")
+    # burned (supplement an01h): "datasets" as the domain word
+    assert "threshold" in detect_aggregate_intents(
+        "Which variables appear in at least seven of the SDTM datasets?")
+    # fresh
+    assert "threshold" in detect_aggregate_intents(
+        "How many vars show up in 10 or more datasets?")
+
+
+def test_vocab_lookalikes_must_not_fire():
+    # word boundaries: "variance"/"various" must NOT satisfy the variable-word anchor
+    assert detect_aggregate_intents(
+        "Is there variance across domains in more than 5 studies?") == set()
+    assert detect_aggregate_intents(
+        "Are various datasets updated more than 5 times a year?") == set()
+
+
 # ── detection: must-not-fire ─────────────────────────────────────────────────
 
 

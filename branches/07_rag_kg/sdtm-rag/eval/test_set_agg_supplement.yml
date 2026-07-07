@@ -1,0 +1,37 @@
+- id: an01g
+  category: aggregate_threshold
+  question: Which variables show up in seven or more of the SDTM datasets?
+- id: an01h
+  category: aggregate_threshold
+  question: Which variables appear in at least seven of the SDTM datasets?
+- id: an02g
+  category: aggregate_threshold
+  question: hey quick q - which vars appear in 20+ datasets?
+- id: an02h
+  category: aggregate_threshold
+  question: Which variables are in 20+ datasets?
+- id: an03g
+  category: aggregate_superlative
+  question: Is there one codelist that more variables point to than any other?
+- id: an03h
+  category: aggregate_superlative
+  question: What's the single codelist that the most variables depend on?
+- id: an04g
+  category: aggregate_superlative
+  question: Which codelist has the widest reach across all the SDTM datasets?
+- id: an04h
+  category: aggregate_superlative
+  question: Which codelist has the broadest reach across the datasets?
+- id: an05g
+  category: aggregate_superlative
+  question: What's the single most reused controlled terminology codelist overall?
+- id: an05h
+  category: aggregate_superlative
+  question: What controlled-terminology grouping is the most recycled?
+- id: an06g
+  category: aggregate_superlative
+  question: Can you rank the codelists by how widely they're adopted and give me the
+    top ones?
+- id: an06h
+  category: aggregate_superlative
+  question: Can you rank the most-adopted codelists?

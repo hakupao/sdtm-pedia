@@ -1,0 +1,14 @@
+{
+  "an01g": "Which variables show up in seven or more of the SDTM datasets?",
+  "an02g": "hey quick q - which vars appear in 20+ datasets?",
+  "an03g": "Is there one codelist that more variables point to than any other?",
+  "an04g": "Which codelist has the widest reach across all the SDTM datasets?",
+  "an05g": "What's the single most reused controlled terminology codelist overall?",
+  "an06g": "Can you rank the codelists by how widely they're adopted and give me the top ones?",
+  "an01h": "Which variables appear in at least seven of the SDTM datasets?",
+  "an02h": "Which variables are in 20+ datasets?",
+  "an03h": "What's the single codelist that the most variables depend on?",
+  "an04h": "Which codelist has the broadest reach across the datasets?",
+  "an05h": "What controlled-terminology grouping is the most recycled?",
+  "an06h": "Can you rank the most-adopted codelists?"
+}

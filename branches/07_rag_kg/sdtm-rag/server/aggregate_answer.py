@@ -16,6 +16,9 @@ Round 4 (agg_attempt_2, fresh blind set fired 12/16): adds the numeric "plus" po
 ("30-plus domains") to the threshold family and the top-N ranking request ("the top
 three codelists", "the top few") to the superlative family; metaphoric superlatives
 ("the clear champion") are a documented known limit, not patched.
+Round 5: the threshold co-occurrence gate accepts production vocabulary synonyms —
+"datasets" for domains, "vars" for variables — via word-boundary anchor regexes
+(lookalikes like "various"/"variance" do not count).
 
 Safety model matches SP2/SP3: a misfire injects at worst recall-additive TRUE facts.
 Lower-bound thresholds only: the engine exposes variables_in_min_domains (>= semantics);
@@ -105,14 +108,22 @@ _SUPERLATIVE_RE = re.compile(
 # of" / "top priority" stay out. Same codelist-cue co-occurrence gate as above.
 _TOP_N_RE = re.compile(r"\btop\s+(?:\d{1,3}|few|several|couple)\b", re.IGNORECASE)
 
+# Threshold co-occurrence anchors (round 5): SDTM users interchangeably say
+# "datasets" for domains and "vars" for variables. Word-boundary matching so
+# lookalikes ("various", "variance") do NOT satisfy the variable anchor.
+# AGG-local only — the SP2/SP3 gates are untouched.
+_VAR_WORD_RE = re.compile(r"\b(?:variables?|vars?)\b", re.IGNORECASE)
+_DOMAIN_WORD_RE = re.compile(r"\b(?:domains?|datasets?)\b", re.IGNORECASE)
+
 
 def detect_aggregate_intents(query: str) -> set[str]:
     ql = query.lower()
     norm = _normalize_numbers(query)
     intents: set[str] = set()
-    # threshold: a lower-bound quantity shape AND both context words (co-occurrence
-    # gate, carried over from the SP3 semantics); matched on the number-normalized text
-    if ("variable" in ql and "domain" in ql and (
+    # threshold: a lower-bound quantity shape AND both anchor words (co-occurrence
+    # gate, carried over from the SP3 semantics; anchors widened to production
+    # vocabulary in round 5); quantity matched on the number-normalized text
+    if (_VAR_WORD_RE.search(query) and _DOMAIN_WORD_RE.search(query) and (
             _THRESH_STRICT_RE.search(norm)
             or _THRESH_INCL_PRE_RE.search(norm)
             or _THRESH_INCL_POST_RE.search(norm))):
