@@ -1,4 +1,4 @@
-"""SP3 graph answer channel: detect relationship/impact/aggregate intent + assemble
+"""SP3 graph answer channel: detect relationship/impact intent + assemble
 graph facts for injection into the LLM context.
 
 Conservative by construction: zero hardcoded q-ids/variables; misfire is at worst
@@ -6,10 +6,12 @@ recall-additive true facts; correctness of cardinalities is back-stopped by the
 grounding gate. Intent vocab is deliberately DISJOINT from SP2's distribution/count
 vocab (use/include/which-domains) so plain SP2 queries never trip the graph channel.
 
-NL surface covers three intent families:
+NL surface covers two intent families:
   impact       — codelist/variable cascade ("affected if X changes", "downstream of X")
   relationship — single-domain discovery ("how is AE related to other domains?")
-  aggregate    — graph-wide ("variables in >N domains", "most shared codelist")
+
+Aggregate queries (variables-in-min-domains / most-shared codelists) moved to the
+dedicated AGG channel (server/aggregate_answer.py) after the KG value eval.
 
 Class-roster queries ("how many domains in Events class?") are NOT exposed at the NL
 layer: class names are common words ("Findings", "Events") → NL anchoring is inherently
@@ -56,14 +58,6 @@ def detect_graph_intents(query: str) -> set[str]:
     # Relationship: rel-discovery cue AND no definition verb
     if any(c in ql for c in _REL_CUES) and not _DEFINITION_VERBS.search(query):
         intents.add("relationship")
-
-    # Aggregate — two safe sub-intents only (class roster removed from NL surface):
-    # (a) variables-in-min-domains: threshold framing + "variable(s)"
-    if ("more than" in ql or "at least" in ql) and "variable" in ql:
-        intents.add("aggregate")
-    # (b) most-shared codelist: explicit superlative phrases
-    if "most shared" in ql or "most common" in ql or "most widely used" in ql:
-        intents.add("aggregate")
 
     return intents
 
@@ -132,28 +126,6 @@ class GraphAnswerer:
                     mech = f" via {c['mechanism']}" if c.get("mechanism") else ""
                     note = f" — {c['note']}" if c.get("note") else ""
                     adv.append(f"- {dom} → {c['target']}{mech}{note}")
-
-        if "aggregate" in intents:
-            m = re.search(r"\b(\d{1,3})\b", query)
-            if m and ("variable" in query.lower()) and ("domain" in query.lower()):
-                n = int(m.group(1))
-                ql = query.lower()
-                # Strict "more than N" / "greater than N" / "over N" → threshold = n+1.
-                # Inclusive "at least N" / "≥ N" / "N or more" → threshold = n.
-                strict = "more than" in ql or "greater than" in ql or "over " in ql
-                threshold = n + 1 if strict else n
-                wording = f">{n}" if strict else f"≥{n}"
-                res = self.engine.variables_in_min_domains(threshold)
-                if res:
-                    listed = ", ".join(f"{v} ({c})" for v, c in res[:50])
-                    lines.append(
-                        f"- **{len(res)}** variables appear in {wording} domains: {listed}."
-                    )
-            if "most shared" in query.lower() or "most common" in query.lower():
-                top = self.engine.most_shared_codelists(5)
-                listed = ", ".join(
-                    f"{t['code']} ({t['name']}, {t['n_variables']} vars)" for t in top)
-                lines.append(f"- Most-shared codelists: {listed}.")
 
         if not lines and not adv:
             return None

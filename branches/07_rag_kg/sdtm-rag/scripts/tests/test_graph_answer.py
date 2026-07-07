@@ -19,11 +19,13 @@ def test_relationship_intent():
     assert "relationship" in detect_graph_intents("what domains are linked to DM?")
 
 
-def test_aggregate_intent():
-    assert "aggregate" in detect_graph_intents("which variables appear in more than 30 domains?")
-    assert "aggregate" in detect_graph_intents("what is the most shared codelist?")
-    # class-roster removed from NL surface — must NOT produce aggregate intent
-    assert "aggregate" not in detect_graph_intents("how many domains are in the Events class?")
+def test_aggregate_moved_out_of_graph_surface():
+    # aggregate NL 面已迁移到 server/aggregate_answer.py (AGG 通道)
+    assert "aggregate" not in detect_graph_intents(
+        "which variables appear in more than 30 domains?")
+    assert "aggregate" not in detect_graph_intents("what is the most shared codelist?")
+    assert "aggregate" not in detect_graph_intents(
+        "how many domains are in the Events class?")
 
 
 def test_must_not_fire_sp2_and_plain():
@@ -66,29 +68,6 @@ def test_relationship_fires_advisory_only(ga):
     assert all("RELATED" not in c.kind for c in facts.checkable_counts)
 
 
-def test_aggregate_min_domains_fires(ga):
-    # "more than 40" is strict (>40): TAETORD=43 qualifies, a var with exactly 40 does not
-    facts = ga.resolve("Which variables appear in more than 40 domains?")
-    assert facts is not None
-    assert "TAETORD" in facts.text_block or "VISITDY" in facts.text_block
-    # strict "more than 40" → threshold 41; a variable with exactly 40 domains must NOT appear
-    vars_exact_40 = [v for v, c in ga.engine.variables_in_min_domains(40)
-                     if c == 40]
-    for v in vars_exact_40:
-        assert v not in facts.text_block, f"{v} (exactly 40 domains) should be excluded by 'more than 40'"
-
-
-def test_aggregate_at_least_includes_exact(ga):
-    # "at least 40" is inclusive (>=40): a variable with exactly 40 domains IS included
-    facts = ga.resolve("Which variables appear in at least 40 domains?")
-    assert facts is not None
-    vars_exact_40 = [v for v, c in ga.engine.variables_in_min_domains(40) if c == 40]
-    if vars_exact_40:
-        assert any(v in facts.text_block for v in vars_exact_40), (
-            f"at-least-40 should include vars with exactly 40 domains: {vars_exact_40[:3]}"
-        )
-
-
 def test_impact_degenerate_codelist_skipped(ga):
     # C100134 has 0 impacted domains/variables — must not inject "affects 0" line
     facts = ga.resolve("What is affected if codelist C100134 changes?")
@@ -108,12 +87,13 @@ def test_must_not_fire_sp2_query(ga):
     assert ga.resolve("Which domains use VISITNUM?") is None
 
 
-def test_must_not_fire_min_domains_without_domain_context(ga):
-    # "more than" + "variable" + number but NO "domain" → no min-domains injection
-    assert ga.resolve("How many variables are in more than 5 records?") is None
-
-
 def test_must_not_fire_class_roster(ga):
     # class-roster questions removed from NL surface (class names = common words, fragile)
     assert ga.resolve("how many domains are in the Events class?") is None
     assert ga.resolve("What are the Special-Purpose datasets in SDTM and which domains fall into this category?") is None
+
+
+def test_graph_resolve_none_on_aggregate_wordings(ga):
+    # 整条 aggregate 措辞归 AGG 通道; graph 必须静默 (防双注入)
+    assert ga.resolve("Which variables appear in more than 40 domains?") is None
+    assert ga.resolve("What is the most shared codelist?") is None
