@@ -9,8 +9,8 @@
   {
     "id": "ah02",
     "category": "aggregate_threshold",
-    "fired_sp2": true,
-    "fired_agg": true,
+    "fired_sp2": false,
+    "fired_agg": false,
     "fired_sp3": false
   },
   {
@@ -44,14 +44,14 @@
   {
     "id": "ah07",
     "category": "aggregate_threshold",
-    "fired_sp2": false,
+    "fired_sp2": true,
     "fired_agg": true,
     "fired_sp3": false
   },
   {
     "id": "ah08",
     "category": "aggregate_threshold",
-    "fired_sp2": true,
+    "fired_sp2": false,
     "fired_agg": true,
     "fired_sp3": false
   },
@@ -108,7 +108,7 @@
     "id": "as08",
     "category": "aggregate_superlative",
     "fired_sp2": false,
-    "fired_agg": false,
+    "fired_agg": true,
     "fired_sp3": false
   }
 ]

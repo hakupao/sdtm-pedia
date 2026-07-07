@@ -173,6 +173,65 @@ def test_shape6_hyphenated_compound_fires():
         "most-frequently-used one across domains?")
 
 
+# ── round 4: shape classes 7-8 (r2 held-out gate remedy, agg_attempt_2) ───────
+
+
+def test_shape7_numeric_plus_postfix_fires():
+    # burned (r2 ah07): digit + hyphen + word "plus"
+    assert "threshold" in detect_aggregate_intents(
+        "I'm looking for variables that are used in 30-plus domains — "
+        "which ones are those?")
+    # fresh: hyphenated and spaced variants
+    assert "threshold" in detect_aggregate_intents(
+        "Which variables appear in 15-plus SDTM domains?")
+    assert "threshold" in detect_aggregate_intents(
+        "Are there variables in 20 plus domains?")
+
+
+def test_plus_word_without_digit_must_not_fire():
+    # "plus" without a directly-preceding digit is not a threshold
+    assert detect_aggregate_intents(
+        "On the plus side, how do variables map to domains?") == set()
+
+
+def test_version_number_plus_word_must_not_fire():
+    # "SDTM 3.2-plus" is a version reference — the (?<!\.) guard must hold for
+    # the word "plus" exactly as it does for the "+" symbol
+    assert detect_aggregate_intents(
+        "Which variables in SDTM 3.2-plus domains are required?") == set()
+
+
+def test_shape8_top_n_ranking_fires():
+    # burned (r2 as04): vague quantifier — "the top few"
+    assert "superlative" in detect_aggregate_intents(
+        "Could you rank the codelists by how many variables reference "
+        "each one and give me the top few?")
+    # burned (r2 as05): spelled-out N ("top three" -> normalized "top 3")
+    assert "superlative" in detect_aggregate_intents(
+        "What are the top three codelists in terms of how many variables "
+        "reference them?")
+    # fresh: digit N (also superlative via "most" — sets are idempotent)
+    assert "superlative" in detect_aggregate_intents(
+        "What are the top 5 most referenced codelists?")
+    # fresh: vague quantifier + alternate codelist cue
+    assert "superlative" in detect_aggregate_intents(
+        "Show me the top few controlled terminology sets by reuse.")
+
+
+def test_top_without_quantifier_must_not_fire():
+    # "top" not followed by a quantifier is not a ranking request
+    assert detect_aggregate_intents(
+        "How does this sit on top of the codelist structure?") == set()
+    assert detect_aggregate_intents(
+        "The top priority for codelist governance is consistency — "
+        "where is that documented?") == set()
+
+
+def test_top_n_without_codelist_cue_must_not_fire():
+    assert detect_aggregate_intents(
+        "What are the top three products this quarter?") == set()
+
+
 # ── detection: must-not-fire ─────────────────────────────────────────────────
 
 

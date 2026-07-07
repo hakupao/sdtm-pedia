@@ -12,6 +12,10 @@ one noun between the number and a word-bound phrase ("38 domains or more"). Supe
 matching adds comparative ("more X than any other"), postposed "the most" (determiner
 and adverbial forms), extra spread-noun adjectives (widest/broadest range/variety), and
 hyphenated "most-X" compounds — all still gated by the codelist-cue co-occurrence check.
+Round 4 (agg_attempt_2, fresh blind set fired 12/16): adds the numeric "plus" postfix
+("30-plus domains") to the threshold family and the top-N ranking request ("the top
+three codelists", "the top few") to the superlative family; metaphoric superlatives
+("the clear champion") are a documented known limit, not patched.
 
 Safety model matches SP2/SP3: a misfire injects at worst recall-additive TRUE facts.
 Lower-bound thresholds only: the engine exposes variables_in_min_domains (>= semantics);
@@ -58,9 +62,10 @@ def _normalize_numbers(text: str) -> str:
 # Lower-bound threshold shapes. Strict (exclusive) -> engine threshold n+1; inclusive
 # -> n. Fixed-width lookbehinds keep negated forms ("no more than 5", "not over 20",
 # "do not exceed 15" — upper bounds) out of the strict family; the postfix `(?<!\.)`
-# keeps version numbers like "SDTM 3.2+" out. Group 1 is always the number. The
-# word-bound alternatives (not `+`) tolerate ONE optional noun/modifier between the
-# number and the bound phrase ("38 domains or more"); `+` stays strictly adjacent.
+# keeps version numbers like "SDTM 3.2+" / "SDTM 3.2-plus" out. Group 1 is always
+# the number. The word-bound alternatives tolerate ONE optional noun/modifier between
+# the number and the bound phrase ("38 domains or more"); the symbol `+` and the word
+# "plus" ("30-plus", "30 plus" — round 4 shape class 7) stay adjacent to the digit.
 # The gap word must not be "dozen": a multiplier there means the digit is NOT the
 # real quantity ("2 dozen or more" would fire n=2) — fail closed instead.
 _THRESH_STRICT_RE = re.compile(
@@ -70,7 +75,8 @@ _THRESH_INCL_PRE_RE = re.compile(
     r"\b(?:at least|a minimum of|no fewer than|no less than)\s+(\d{1,3})\b",
     re.IGNORECASE)
 _THRESH_INCL_POST_RE = re.compile(
-    r"\b(?<!\.)(\d{1,3})\s*(?:(?:(?!dozen\b)[A-Za-z]+\s+)?(?:or more|or greater|and above)|\+)",
+    r"\b(?<!\.)(\d{1,3})\s*(?:(?:(?!dozen\b)[A-Za-z]+\s+)?(?:or more|or greater|and above)"
+    r"|\+|[\s-]*plus\b)",
     re.IGNORECASE)
 
 # Superlative shapes for most-shared codelists:
@@ -92,6 +98,13 @@ _SUPERLATIVE_RE = re.compile(
     r"[^.?!,;:—–]{0,40}\bthe\s+most\b",
     re.IGNORECASE)
 
+# Top-N ranking request (round 4 shape class 8): "the top three codelists", "give me
+# the top few" — a ranking with a cutoff is a most-shared query even with no
+# superlative token. Matched on the number-normalized text ("top three" -> "top 3");
+# requires a quantifier right after "top" (digit or few/several/couple), so "on top
+# of" / "top priority" stay out. Same codelist-cue co-occurrence gate as above.
+_TOP_N_RE = re.compile(r"\btop\s+(?:\d{1,3}|few|several|couple)\b", re.IGNORECASE)
+
 
 def detect_aggregate_intents(query: str) -> set[str]:
     ql = query.lower()
@@ -104,9 +117,11 @@ def detect_aggregate_intents(query: str) -> set[str]:
             or _THRESH_INCL_PRE_RE.search(norm)
             or _THRESH_INCL_POST_RE.search(norm))):
         intents.add("threshold")
-    # superlative: a superlative shape AND a codelist context cue (blocks prose like
-    # "most common adverse events")
-    if _SUPERLATIVE_RE.search(query) and any(c in ql for c in _CODELIST_CUES):
+    # superlative: a superlative shape (raw text) or a top-N ranking request
+    # (normalized text), AND a codelist context cue (blocks prose like "most common
+    # adverse events" / "top three products")
+    if ((_SUPERLATIVE_RE.search(query) or _TOP_N_RE.search(norm))
+            and any(c in ql for c in _CODELIST_CUES)):
         intents.add("superlative")
     return intents
 
