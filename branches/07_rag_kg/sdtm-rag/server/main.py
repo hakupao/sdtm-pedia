@@ -94,7 +94,12 @@ async def lifespan(app: FastAPI):
     app.state.llm_router = create_router(s)
     app.state.answerer = maybe_build_answerer(s)
     if app.state.answerer is not None:
-        log.info("structured_answer_enabled")
+        log.info(
+            "answer_channels",
+            structured=s.structured_answer_enabled,
+            aggregate=s.aggregate_answer_enabled,
+            graph=s.graph_answer_enabled,
+        )
     app.state.spec_loader = SpecLoader(s.kb_root)
     log.info("spec_loader", domains=len(app.state.spec_loader.domains),
              codelists=len(app.state.spec_loader.codelists))

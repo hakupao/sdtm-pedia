@@ -137,11 +137,15 @@ def test_must_not_fire_dm_message(answerer: StructuredAnswerer):
 def test_maybe_build_answerer_gated():
     from server.config import Settings
     from server.main import maybe_build_answerer
-    # None only when BOTH channels are off (graph_answer defaults ON since SP3).
+    # None only when ALL THREE channels are off (graph/aggregate default ON since
+    # SP3/AGG; must be pinned explicitly here so this test doesn't ride whatever the
+    # production default happens to be).
     assert maybe_build_answerer(
-        Settings(structured_answer_enabled=False, graph_answer_enabled=False)
+        Settings(structured_answer_enabled=False, graph_answer_enabled=False,
+                 aggregate_answer_enabled=False)
     ) is None
-    a = maybe_build_answerer(Settings(structured_answer_enabled=True, graph_answer_enabled=False))
+    a = maybe_build_answerer(Settings(structured_answer_enabled=True, graph_answer_enabled=False,
+                                       aggregate_answer_enabled=False))
     assert a is not None
     assert a.resolve("How many domains include TAETORD?") is not None
 

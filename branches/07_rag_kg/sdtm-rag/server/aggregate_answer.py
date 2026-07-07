@@ -150,6 +150,10 @@ class AggregateAnswerer:
                 threshold, wording = n + 1, f">{n}"
             else:
                 m = _THRESH_INCL_PRE_RE.search(norm) or _THRESH_INCL_POST_RE.search(norm)
+                # Invariant: detect_aggregate_intents() only sets "threshold" when one of
+                # the three regexes matches this SAME normalized query; if STRICT didn't
+                # match above, one of PRE/POST must (mypy can't see across functions).
+                assert m is not None, "threshold intent detected but no threshold regex matched"
                 n = int(m.group(1))
                 threshold, wording = n, f"≥{n}"
             res = self.engine.variables_in_min_domains(threshold)

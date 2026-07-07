@@ -103,9 +103,10 @@ class Settings(BaseSettings):
 
     # AGG: aggregate metadata channel (variables-in-min-domains / most-shared
     # codelists), split out of SP3 after the KG value eval (its only positive niche).
-    # OFF until the five AGG gates pass (spec 2026-07-07); env override:
+    # Default ON since 2026-07-07 (five AGG gates passed, see
+    # evidence/checkpoints/agg_channel_summary.md); env override:
     # SDTM_RAG_AGGREGATE_ANSWER_ENABLED.
-    aggregate_answer_enabled: bool = False
+    aggregate_answer_enabled: bool = True
 
     # ── Multi-model compare + judge (Phase 2; DEPLOY_PLAN §2.5–2.7) ──
     # One question → these N models answer over the SAME retrieved context (FR1),

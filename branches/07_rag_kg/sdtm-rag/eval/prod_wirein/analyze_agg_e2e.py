@@ -12,7 +12,7 @@ import yaml
 
 PW = Path(__file__).resolve().parent
 sys.path.insert(0, str(PW))
-from analyze_kgval import card_present, fact_present  # noqa: E402
+from analyze_kgval import fact_present  # noqa: E402
 
 ROOT = PW.parents[1]
 GOLD = {q["id"]: q for q in yaml.safe_load(
@@ -35,18 +35,25 @@ def set_recall(qid: str, res: dict) -> float:
 def main() -> int:
     off, on = load("off"), load("on")
     ids = [i for i in GOLD if i in off and i in on]
+    excluded = [i for i in GOLD if i not in off or i not in on]
+    if excluded:
+        print(f"excluded (missing from an arm's results): {excluded}")
     rows = []
     for qid in ids:
         r_off, r_on = set_recall(qid, off[qid]), set_recall(qid, on[qid])
         rows.append({"id": qid, "heldout": not GOLD[qid].get("regression"),
                      "off": r_off, "on": r_on, "delta": r_on - r_off})
 
-    def avg(sel):
+    def avg(sel, label):
         xs = [r for r in rows if sel(r)]
+        if not xs:
+            print(f"ERROR: no rows in the '{label}' subset - cannot compute an average "
+                  "(check that both arms ran and IDs match test_set_agg_e2e.yml).")
+            sys.exit(1)
         return (sum(r["off"] for r in xs) / len(xs), sum(r["on"] for r in xs) / len(xs))
 
-    ho_off, ho_on = avg(lambda r: r["heldout"])
-    rg_off, rg_on = avg(lambda r: not r["heldout"])
+    ho_off, ho_on = avg(lambda r: r["heldout"], "held-out")
+    rg_off, rg_on = avg(lambda r: not r["heldout"], "regression")
     print(f"held-out   set_recall: OFF {ho_off:.1%} -> ON {ho_on:.1%}  Δ {ho_on-ho_off:+.1%}")
     print(f"regression set_recall: OFF {rg_off:.1%} -> ON {rg_on:.1%}  Δ {rg_on-rg_off:+.1%}")
     regressions = [r for r in rows if r["delta"] < 0]
