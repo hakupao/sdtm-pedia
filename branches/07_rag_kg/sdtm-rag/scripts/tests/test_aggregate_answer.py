@@ -164,3 +164,34 @@ def test_golden_most_shared_line_format(agg):
     expected = f"- Most-shared codelists: {listed}."
     facts = agg.resolve("What is the most shared codelist?")
     assert facts.text_block == expected
+
+
+# ── wiring: maybe_build_answerer 按 flag 注册 AGG ─────────────────────────────
+
+
+def test_maybe_build_answerer_includes_agg():
+    from server.config import Settings
+    from server.main import maybe_build_answerer
+    a = maybe_build_answerer(Settings(structured_answer_enabled=False,
+                                      graph_answer_enabled=False,
+                                      aggregate_answer_enabled=True))
+    assert a is not None
+    assert a.resolve("Which variables appear in at least 30 domains?") is not None
+    assert a.resolve("How many domains include TAETORD?") is None  # SP2 off → AGG 静默
+    assert maybe_build_answerer(Settings(structured_answer_enabled=False,
+                                         graph_answer_enabled=False,
+                                         aggregate_answer_enabled=False)) is None
+
+
+def test_maybe_build_answerer_full_composite():
+    from server.config import Settings
+    from server.main import maybe_build_answerer
+    from server.structured_answer import CompositeAnswerer
+    a = maybe_build_answerer(Settings(structured_answer_enabled=True,
+                                      graph_answer_enabled=True,
+                                      aggregate_answer_enabled=True))
+    assert isinstance(a, CompositeAnswerer)
+    # 三通道各自的代表 query 都能出事实
+    assert a.resolve("How many domains include TAETORD?") is not None      # SP2
+    assert a.resolve("Which variables appear in 3 or more domains?") is not None  # AGG
+    assert a.resolve("What is affected if codelist C66742 changes?") is not None  # SP3

@@ -520,7 +520,13 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument(
         "--graph-answer",
         action="store_true",
-        help="SP3: add deterministic graph (relationship/impact/aggregate) facts",
+        help="SP3: add deterministic graph (relationship/impact) facts",
+    )
+    parser.add_argument(
+        "--aggregate-answer",
+        action="store_true",
+        help="AGG: add deterministic aggregate facts (variables-in-min-domains / "
+             "most-shared codelists; split out of the SP3 graph channel)",
     )
     parser.add_argument(
         "--tag",
@@ -584,23 +590,30 @@ def main(argv: list[str] | None = None) -> int:
             print(f"LLM router: {len(router.model_list)} models")
 
     answerer = None
-    if args.structured_answer or args.graph_answer:
+    if args.structured_answer or args.graph_answer or args.aggregate_answer:
         from server.meta_store import MetaStore
         store = MetaStore(settings.meta_path)
+        engine = None
+        if args.graph_answer or args.aggregate_answer:
+            from server.graph_engine import GraphEngine
+            engine = GraphEngine(store)
         parts = []
         if args.structured_answer:
             from server.structured_answer import StructuredAnswerer
             parts.append(StructuredAnswerer(store))
+        if args.aggregate_answer:
+            from server.aggregate_answer import AggregateAnswerer
+            parts.append(AggregateAnswerer(engine))
         if args.graph_answer:
             from server.graph_answer import GraphAnswerer
-            from server.graph_engine import GraphEngine
-            parts.append(GraphAnswerer(GraphEngine(store)))
+            parts.append(GraphAnswerer(engine))
         if len(parts) == 1:
             answerer = parts[0]
         else:
             from server.structured_answer import CompositeAnswerer
             answerer = CompositeAnswerer(parts)
         print("Structured-answer channel: ON (meta.yaml facts + counting gate)"
+              + (", aggregate-answer: ON" if args.aggregate_answer else "")
               + (", graph-answer: ON" if args.graph_answer else ""))
 
     print()
@@ -640,6 +653,7 @@ def main(argv: list[str] | None = None) -> int:
     summary["prompt_guardrail"] = args.guardrail
     summary["structured_answer"] = args.structured_answer
     summary["graph_answer"] = args.graph_answer
+    summary["aggregate_answer"] = args.aggregate_answer
     if args.judge:
         summary["judge_model"] = args.judge_model
 

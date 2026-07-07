@@ -101,6 +101,12 @@ class Settings(BaseSettings):
     # env-overridable (SDTM_RAG_GRAPH_ANSWER_ENABLED=false) for rollback.
     graph_answer_enabled: bool = True
 
+    # AGG: aggregate metadata channel (variables-in-min-domains / most-shared
+    # codelists), split out of SP3 after the KG value eval (its only positive niche).
+    # OFF until the five AGG gates pass (spec 2026-07-07); env override:
+    # SDTM_RAG_AGGREGATE_ANSWER_ENABLED.
+    aggregate_answer_enabled: bool = False
+
     # ── Multi-model compare + judge (Phase 2; DEPLOY_PLAN §2.5–2.7) ──
     # One question → these N models answer over the SAME retrieved context (FR1),
     # shown side-by-side; an optional judge scores the anonymized answers (FR5).

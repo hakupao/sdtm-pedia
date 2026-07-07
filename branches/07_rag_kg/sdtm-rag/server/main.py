@@ -32,20 +32,27 @@ log = structlog.get_logger()
 
 
 def maybe_build_answerer(s):
-    """Build the SP2 structured answerer and (if enabled) the SP3 graph answerer, composed
-    so resolve() returns merged facts. Returns None if both are off. Kept tiny/pure so it
-    unit-tests without spinning up FastAPI/RAGEngine."""
+    """Build the SP2 structured answerer, the AGG aggregate answerer, and the SP3
+    graph answerer (each flag-gated), composed so resolve() returns merged facts.
+    Returns None if all are off. Kept tiny/pure so it unit-tests without spinning up
+    FastAPI/RAGEngine."""
     answerers = []
-    if s.structured_answer_enabled or s.graph_answer_enabled:
+    if s.structured_answer_enabled or s.graph_answer_enabled or s.aggregate_answer_enabled:
         from server.meta_store import MetaStore
         store = MetaStore(s.meta_path)
+        engine = None
+        if s.aggregate_answer_enabled or s.graph_answer_enabled:
+            from server.graph_engine import GraphEngine
+            engine = GraphEngine(store)
         if s.structured_answer_enabled:
             from server.structured_answer import StructuredAnswerer
             answerers.append(StructuredAnswerer(store))
+        if s.aggregate_answer_enabled:
+            from server.aggregate_answer import AggregateAnswerer
+            answerers.append(AggregateAnswerer(engine))
         if s.graph_answer_enabled:
             from server.graph_answer import GraphAnswerer
-            from server.graph_engine import GraphEngine
-            answerers.append(GraphAnswerer(GraphEngine(store)))
+            answerers.append(GraphAnswerer(engine))
     if not answerers:
         return None
     if len(answerers) == 1:
