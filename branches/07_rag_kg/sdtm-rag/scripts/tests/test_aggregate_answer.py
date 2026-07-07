@@ -121,11 +121,21 @@ def test_shape4b_postposed_the_most_adverbial_fires():
     assert "superlative" in detect_aggregate_intents(
         "Which codelist is referenced the most across controlled "
         "terminology domains?")
+    # fresh: present-tense verb form (review round 2, folded Minor 2)
+    assert "superlative" in detect_aggregate_intents(
+        "Which codelist do sponsors reference the most?")
 
 
 def test_shape4_postposed_most_without_codelist_cue_must_not_fire():
     assert detect_aggregate_intents(
         "Which domain has the most records per subject?") == set()
+
+
+def test_postposed_most_does_not_cross_clauses():
+    # usage verb in one clause + "the most" in an unrelated later clause must not link up
+    assert detect_aggregate_intents(
+        "The DM domain is used for demographics, and separately the codelist "
+        "that shows up the most across studies is C66742.") == set()
 
 
 def test_shape5_superlative_adjective_spread_noun_fires():
@@ -174,6 +184,19 @@ def test_normalized_spelled_number_upper_bound_must_not_fire():
     # must NOT defeat the existing upper-bound lookbehind guard
     assert detect_aggregate_intents(
         "Which variables occur in no more than six domains?") == set()
+
+
+def test_quantified_dozen_fails_closed():
+    # wrong-magnitude firing is worse than silence: quantified dozen must not fire
+    assert detect_aggregate_intents(
+        "Which variables are shared across two dozen or more SDTM domains?") == set()
+    assert detect_aggregate_intents(
+        "Which variables appear in half a dozen or more domains?") == set()
+
+
+def test_plain_a_dozen_still_fires():
+    assert "threshold" in detect_aggregate_intents(
+        "Which variables are shared across a dozen or more SDTM domains?")
 
 
 def test_version_number_postfix_must_not_fire():

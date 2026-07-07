@@ -36,17 +36,23 @@ _NUMBER_WORDS = {
 }
 _NUMBER_WORD_RE = re.compile(
     r"(?<![\w-])(" + "|".join(_NUMBER_WORDS) + r")(?![\w-])", re.IGNORECASE)
-_A_DOZEN_RE = re.compile(r"\ba\s+dozen\b", re.IGNORECASE)
-_DOZEN_RE = re.compile(r"\bdozen\b", re.IGNORECASE)
+# Quantified dozen must FAIL CLOSED (a wrong-magnitude fire is worse than silence):
+# number words are normalized FIRST (two -> 2), then "a dozen" -> 12 only when not
+# preceded by "half ", and bare "dozen" -> 12 only when not preceded by a digit,
+# "half ", or a leftover "a " (the remnant of a blocked "half a dozen").
+_A_DOZEN_RE = re.compile(r"(?<!half )\ba\s+dozen\b", re.IGNORECASE)
+_DOZEN_RE = re.compile(r"(?<!\d )(?<!half )(?<!\ba )\bdozen\b", re.IGNORECASE)
 
 
 def _normalize_numbers(text: str) -> str:
     """Replace standalone spelled-out number words (one..twenty, thirty, forty, fifty,
-    sixty) and "a dozen"/"dozen" with digits, so threshold regexes (which only match
-    `\\d{1,3}`) can see them. Hyphenated compounds are left untouched."""
+    sixty) and unquantified "a dozen"/"dozen" with digits, so threshold regexes (which
+    only match `\\d{1,3}`) can see them. Hyphenated compounds are left untouched;
+    quantified dozen ("two dozen", "half a dozen") is deliberately NOT resolved to a
+    digit — fail closed rather than fire with the wrong magnitude."""
+    text = _NUMBER_WORD_RE.sub(lambda m: str(_NUMBER_WORDS[m.group(1).lower()]), text)
     text = _A_DOZEN_RE.sub("12", text)
     text = _DOZEN_RE.sub("12", text)
-    text = _NUMBER_WORD_RE.sub(lambda m: str(_NUMBER_WORDS[m.group(1).lower()]), text)
     return text
 
 
@@ -56,6 +62,8 @@ def _normalize_numbers(text: str) -> str:
 # keeps version numbers like "SDTM 3.2+" out. Group 1 is always the number. The
 # word-bound alternatives (not `+`) tolerate ONE optional noun/modifier between the
 # number and the bound phrase ("38 domains or more"); `+` stays strictly adjacent.
+# The gap word must not be "dozen": a multiplier there means the digit is NOT the
+# real quantity ("2 dozen or more" would fire n=2) — fail closed instead.
 _THRESH_STRICT_RE = re.compile(
     r"\b(?<!no )(?<!not )(?:more than|greater than|over|exceeds?|exceeding)\s+(\d{1,3})\b",
     re.IGNORECASE)
@@ -63,7 +71,7 @@ _THRESH_INCL_PRE_RE = re.compile(
     r"\b(?:at least|a minimum of|no fewer than|no less than)\s+(\d{1,3})\b",
     re.IGNORECASE)
 _THRESH_INCL_POST_RE = re.compile(
-    r"\b(?<!\.)(\d{1,3})\s*(?:(?:[A-Za-z]+\s+)?(?:or more|or greater|and above)|\+)",
+    r"\b(?<!\.)(\d{1,3})\s*(?:(?:(?!dozen\b)[A-Za-z]+\s+)?(?:or more|or greater|and above)|\+)",
     re.IGNORECASE)
 
 # Superlative shapes for most-shared codelists:
@@ -72,12 +80,16 @@ _THRESH_INCL_POST_RE = re.compile(
 #   as a bare determiner ("the most variables") or an adverbial usage-verb-then-"the
 #   most" construction ("gets shared ... the most"); superlative adjective + spread
 #   noun ("largest number of", "widest range of", "broadest variety of").
+# The adverbial form covers present-tense verbs too ("sponsors reference the most")
+# and is clause-bound: the verb-to-"the most" gap excludes , ; : and is capped at 40
+# chars, so a usage verb in one clause cannot link to "the most" in an unrelated one.
 _SUPERLATIVE_RE = re.compile(
     r"\bmost[\s-]+(?:\w+ly[\s-]+)?(?:shared|used|reused|common\w*|frequent\w*|prevalent|popular)\b"
     r"|\b(?:largest|highest|greatest|biggest|widest|broadest)\s+(?:number|count|range|spread|variety)\s+of\b"
     r"|\bmore\s+\w+\s+than\s+any\s+other\b"
     r"|\bthe\s+most\s+variables\b"
-    r"|\b(?:shared|used|reused|drawn|draw|referenced|recycled)\b[^.?!]*\bthe\s+most\b",
+    r"|\b(?:share[ds]?|used?|uses|reuse[ds]?|drawn|draws?|draw|reference[ds]?|references|recycled?)\b"
+    r"[^.?!,;:]{0,40}\bthe\s+most\b",
     re.IGNORECASE)
 
 
@@ -110,13 +122,13 @@ class AggregateAnswerer:
         if not intents:
             return None
         lines: list[str] = []
-        norm = _normalize_numbers(query)
 
         if "threshold" in intents:
             # Strict beats inclusive when both shapes appear; n comes from the matched
             # threshold expression itself (NOT the first bare digit in the query — the
             # legacy branch had that bug). Matched on number-normalized text so spelled-
             # out number words ("nine or more") resolve to the right n.
+            norm = _normalize_numbers(query)
             m = _THRESH_STRICT_RE.search(norm)
             if m:
                 n = int(m.group(1))
