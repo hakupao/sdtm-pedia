@@ -27,7 +27,7 @@ def main() -> int:
     if len(pw) < 16:
         print("WARNING: password < 16 chars. Over plain HTTP on the LAN it is sniffable and is "
               "the ENTIRE security boundary; prefer a long random shared phrase.\n", file=sys.stderr)
-    print("\n# --- paste into ~/sdtm-rag-service/.env  (chmod 600, NOT in git) ---")
+    print("\n# --- paste into ~/MyProject/sdtm-rag-service/.env  (chmod 600, NOT in git) ---")
     print("SDTM_RAG_AUTH_ENABLED=true")
     print(f"SDTM_RAG_SHARED_PASSWORD_HASH={hash_password(pw)}")
     print(f"SDTM_RAG_SESSION_SECRET={secrets.token_hex(32)}")

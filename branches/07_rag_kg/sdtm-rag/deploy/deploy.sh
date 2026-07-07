@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Deploy the SDTM RAG service from the repo tree into a self-contained service directory
-# (~/sdtm-rag-service by default) and `uv sync` there. DEPLOY_PLAN.md §3.
+# (~/MyProject/sdtm-rag-service by default) and `uv sync` there. DEPLOY_PLAN.md §3.
 #
 #   ./deploy/deploy.sh            # sync + uv sync
 #   ./deploy/deploy.sh --dry-run  # show what would change, touch nothing
@@ -18,7 +18,7 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SRC="$(cd "$HERE/.." && pwd)"             # .../branches/07_rag_kg/sdtm-rag
 REPO_ROOT="$(cd "$SRC/../../.." && pwd)"  # sdtm-pedia repo root
 KB="$REPO_ROOT/knowledge_base"
-DEST="${SDTM_RAG_SERVICE_DIR:-$HOME/sdtm-rag-service}"
+DEST="${SDTM_RAG_SERVICE_DIR:-$HOME/MyProject/sdtm-rag-service}"
 
 DRY=()
 [[ "${1:-}" == "--dry-run" ]] && DRY=(-n -v --itemize-changes)  # -v so dry-run lists adds/deletes

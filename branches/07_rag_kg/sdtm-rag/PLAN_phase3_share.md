@@ -21,7 +21,7 @@
 | `server/main.py` | 调 `install_security(app, settings)`; 重构出 `create_app(settings)` 工厂 | (经上面间接覆盖) |
 | `server/router.py` | `/api/ask_compare` 错误串按 `sanitize_errors` 脱敏 + 外层 `asyncio.wait_for` 超时上限 | `test_error_sanitize.py` |
 | `webchat/{app.js,index.html,style.css}` | Stop/Abort + 重试; topbar 读 `/api/info` default_model | 浏览器 smoke (Rule A 截图) |
-| `deploy/deploy.sh` (新) | rsync app+data/chroma+kb → `~/sdtm-rag-service/` + `uv sync` (**写好不激活**) | `--dry-run` 验证 |
+| `deploy/deploy.sh` (新) | rsync app+data/chroma+kb → `~/MyProject/sdtm-rag-service/` + `uv sync` (**写好不激活**) | `--dry-run` 验证 |
 | `deploy/com.sdtmrag.api.service.plist.template` (新) | 服务目录版, `--host 0.0.0.0` + go-live 环境变量 (**模板, 不安装**) | — |
 | `deploy/README.md` (新) | go-live runbook (含 IT 阻塞项 + pmset/防火墙手册步骤) | — |
 

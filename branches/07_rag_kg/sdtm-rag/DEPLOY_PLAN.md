@@ -31,7 +31,7 @@
 | 项 | 定为 | 理由 |
 |---|------|------|
 | 开发/源码位置 | repo 原地 `…/branches/07_rag_kg/sdtm-rag` | 调优在这,迭代快、相对路径现成 |
-| 运行/服务位置 | **`~/sdtm-rag-service/`**(专用,阶段 3 启用) | 与活跃 git 树隔离,服务不被日常 git 操作搅乱 |
+| 运行/服务位置 | **`~/MyProject/sdtm-rag-service/`**(专用,阶段 3 启用) | 与活跃 git 树隔离,服务不被日常 git 操作搅乱 |
 | knowledge_base | **复制进服务目录**(自包含) | 运行时注入 ROUTING.md+INDEX.md;复制后服务可整体独立/搬走 |
 | 向量索引 | **复制现成 `data/chroma`,不重建** | 嵌入模型不变,DeepSeek 只换生成,旧索引照常有效 |
 | 密钥 | 服务目录内 `.env`,`chmod 600`,不进 git | 权限最小 |
@@ -152,7 +152,7 @@ question
 > **本期工程件 (localhost 可测+审, 全开关默认 OFF)**: 登录门(`server/auth.py`)+ per-IP 限流 + 登录暴力锁(`LoginThrottle`)+ 错误脱敏 + 外层 asyncio 超时 + 安全头(CSP/nosniff/frame)+ chat UI Stop·重试·topbar 读 `/api/info` + `deploy/`(deploy.sh + 0.0.0.0 plist 模板 + env 模板 + runbook,**写好不激活**)+ `scripts/gen_password_hash.py` + pip-audit(**修 starlette CVE**,pin `starlette>=1.3.1`;chromadb CVE 无修待监控)。中间件全为**纯 ASGI**(不破 SSE,621 token 帧活体实证)。实现 `PLAN_phase3_share.md`,证据 `evidence/checkpoints/phase3_share_hardening.md`,retro `RETROSPECTIVE_phase3_share.md`。**go-live 系统动作(翻 0.0.0.0 / pmset / 防火墙 / 装服务目录 plist)未做**。
 
 目标:同事稳定访问,且安全合规。
-- [x] 我:写 `deploy.sh`(rsync app+data/chroma+kb→`~/sdtm-rag-service/`,`uv sync`)— DONE,`--dry-run` 验证;**未激活**
+- [x] 我:写 `deploy.sh`(rsync app+data/chroma+kb→`~/MyProject/sdtm-rag-service/`,`uv sync`)— DONE,`--dry-run` 验证;**未激活**
 - [x] 我:go-live launchd 模板(`deploy/com.sdtmrag.api.service.plist.template`,指服务目录、**chat UI 绑 `0.0.0.0`**,8501 仍 127.0.0.1)— **模板写好,未安装**;实际安装+自动登录 = go-live(runbook)
 - [x] 我:登录门 = **FastAPI 共享口令**(`server/auth.py`:Starlette SessionMiddleware + scrypt 哈希;覆盖 `GET /` + `/api/*`,health/login 豁免)— DONE,活体实测通过
 - [x] 我:安全硬化:错误串 sanitize、per-IP 限流、asyncio 外层超时、pip-audit(修 starlette CVE);+ 延后 chat UI 项(Stop/Abort+重试、topbar 读 `/api/info`、CSP + `X-Content-Type-Options`)— DONE;**加固**:登录暴力锁 + session TTL 12h(规则 D)

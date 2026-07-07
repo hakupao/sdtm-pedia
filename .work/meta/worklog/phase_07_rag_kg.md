@@ -422,3 +422,10 @@ DEPLOY_PLAN §3 阶段 2 (★核心) 收口。retro `branches/07_rag_kg/RETROSPE
 
 ### next
 - **SP4 (可选)** Neo4j+Cypher+可视化 / **SP5 (可选)** 图增强校验器 = 新设计单元需 brainstorm。可选小补: codelist_co_users NL 接入 (Q2 选过, 干净可加) / mechanism:null back-fill / SP2 同源 degenerate 0-impact 修。**SP1-3 已交付 KG 全部「能力」**; 若不要可视化/校验器, KG 主线收口。路由词「KG 重启 开始任务」→ SP4/SP5 brainstorm。
+
+## 2026-07-07 服务目录迁移 ~/sdtm-rag-service → ~/MyProject/sdtm-rag-service
+
+- 用户要求: deploy 目标目录不放家目录根, 挪到 `~/MyProject/` 下。目录当时为空 (仅 `deploy.sh --dry-run` 的 `mkdir -p` 残留空 `data/`, go-live 未发生), 移动零风险。
+- 更新 8 文件默认路径 (不改则下次 deploy 会在根目录重建): `deploy/deploy.sh` DEST 默认值 → `$HOME/MyProject/sdtm-rag-service` / `deploy/com.sdtmrag.api.service.plist.template` 4 处硬编码 / `deploy/.env.service.template` / `deploy/README.md` (runbook) / `scripts/gen_password_hash.py` 提示 / `server/config.py` 注释 / `DEPLOY_PLAN.md` / `PLAN_phase3_share.md`。
+- 验证: `bash -n` PASS + `--dry-run` 确认 DEST=新路径 + 现役 8000 health 200 不受影响 (launchd plist 指 repo 树, 与服务目录无关) + 全仓 grep 无旧路径残留 (worklog/PROGRESS 历史记录按 append-only 惯例保留原文)。
+- go-live 语义不变, 仍待 IT 内网 IP + 签字; `SDTM_RAG_SERVICE_DIR` env 覆盖机制不变。

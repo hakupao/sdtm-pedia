@@ -188,7 +188,7 @@ class Settings(BaseSettings):
     request_timeout_s: float = 180.0
 
     # Self-contained service dir overrides (DEPLOY_PLAN §1 + §7 open item): deploy.sh
-    # copies knowledge_base/ and data/chroma into ~/sdtm-rag-service/ so the service no
+    # copies knowledge_base/ and data/chroma into ~/MyProject/sdtm-rag-service/ so the service no
     # longer depends on the repo tree. Set SDTM_RAG_KB_ROOT / SDTM_RAG_CHROMA_DIR there.
     # Empty (default) = use the repo-relative paths below (dev / current localhost).
     kb_root_override: str = ""

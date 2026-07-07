@@ -24,13 +24,13 @@ cd branches/07_rag_kg/sdtm-rag
 # 1. 预演 (不改任何文件)
 ./deploy/deploy.sh --dry-run
 
-# 2. 真正同步到服务目录 + uv sync (首次会 seed 一个 ~/sdtm-rag-service/.env 模板)
+# 2. 真正同步到服务目录 + uv sync (首次会 seed 一个 ~/MyProject/sdtm-rag-service/.env 模板)
 ./deploy/deploy.sh
 
 # 3. 填服务目录 .env 的密钥 (chmod 600 已自动设)
 #    - 4 个 provider key 从 repo .env 拷过去
 #    - 生成登录口令哈希 + session secret:
-python -m scripts.gen_password_hash    # 按提示输口令, 把 3 行粘进 ~/sdtm-rag-service/.env
+python -m scripts.gen_password_hash    # 按提示输口令, 把 3 行粘进 ~/MyProject/sdtm-rag-service/.env
 
 # 4. 安装 go-live 版 api LaunchAgent (--host 0.0.0.0, 指服务目录)
 cp deploy/com.sdtmrag.api.service.plist.template ~/Library/LaunchAgents/com.sdtmrag.api.plist
@@ -63,14 +63,14 @@ launchctl kickstart -k gui/$(id -u)/com.sdtmrag.api  # 重载服务
 ```bash
 # 关对外, 退回 localhost: 用 repo 内原 plist 重新指回 127.0.0.1 (git 历史里), 或:
 launchctl bootout gui/$(id -u)/com.sdtmrag.api
-#  + 在 ~/sdtm-rag-service/.env 设 SDTM_RAG_AUTH_ENABLED=false 可临时关登录门 (调试用)。
+#  + 在 ~/MyProject/sdtm-rag-service/.env 设 SDTM_RAG_AUTH_ENABLED=false 可临时关登录门 (调试用)。
 ```
 
 ## 文件清单
 
 | 文件 | 作用 |
 |------|------|
-| `deploy.sh` | rsync repo→`~/sdtm-rag-service/` + `uv sync` (additive, 不碰 .env/.venv) |
+| `deploy.sh` | rsync repo→`~/MyProject/sdtm-rag-service/` + `uv sync` (additive, 不碰 .env/.venv) |
 | `.env.service.template` | 服务目录 .env 模板 (key/路径/auth/限流) |
 | `com.sdtmrag.api.service.plist.template` | go-live api LaunchAgent (0.0.0.0:8000, 指服务目录) |
 | `../scripts/gen_password_hash.py` | 生成口令 scrypt 哈希 + session secret |
