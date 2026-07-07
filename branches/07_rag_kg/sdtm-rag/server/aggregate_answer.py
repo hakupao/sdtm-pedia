@@ -19,16 +19,17 @@ from server.graph_engine import GraphEngine
 from server.structured_answer import _CODELIST_CUES, StructuredFacts
 
 # Lower-bound threshold shapes. Strict (exclusive) -> engine threshold n+1; inclusive
-# -> n. Fixed-width lookbehinds keep "no more than 5" / "not more than 5" (upper
-# bounds) out of the strict family. Group 1 is always the number.
+# -> n. Fixed-width lookbehinds keep negated forms ("no more than 5", "not over 20",
+# "do not exceed 15" — upper bounds) out of the strict family; the postfix `(?<!\.)`
+# keeps version numbers like "SDTM 3.2+" out. Group 1 is always the number.
 _THRESH_STRICT_RE = re.compile(
-    r"\b(?:(?<!no )(?<!not )more than|greater than|over|exceeds?|exceeding)\s+(\d{1,3})\b",
+    r"\b(?<!no )(?<!not )(?:more than|greater than|over|exceeds?|exceeding)\s+(\d{1,3})\b",
     re.IGNORECASE)
 _THRESH_INCL_PRE_RE = re.compile(
     r"\b(?:at least|a minimum of|no fewer than|no less than)\s+(\d{1,3})\b",
     re.IGNORECASE)
 _THRESH_INCL_POST_RE = re.compile(
-    r"\b(\d{1,3})\s*(?:or more|or greater|and above|\+)",
+    r"\b(?<!\.)(\d{1,3})\s*(?:or more|or greater|and above|\+)",
     re.IGNORECASE)
 
 # Superlative shapes for most-shared codelists: "most shared/used/reused/common ...",

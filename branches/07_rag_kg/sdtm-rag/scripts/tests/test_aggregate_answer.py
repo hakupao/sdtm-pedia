@@ -59,6 +59,15 @@ def test_upper_bound_must_not_fire():
     assert detect_aggregate_intents("Variables in no more than 10 domains?") == set()
     assert detect_aggregate_intents("Which variables appear in 5 or fewer domains?") == set()
     assert detect_aggregate_intents("Variables in not more than 6 domains?") == set()
+    assert detect_aggregate_intents("Which variables occur in no greater than 10 domains?") == set()
+    assert detect_aggregate_intents("Are there variables not over 20 domains?") == set()
+    assert detect_aggregate_intents("Which variables do not exceed 15 domains?") == set()
+
+
+def test_version_number_postfix_must_not_fire():
+    # "SDTM 3.2+" is a version reference, not a domain-count threshold
+    assert detect_aggregate_intents(
+        "Which variables in SDTM 3.2+ domains are required?") == set()
 
 
 def test_sp2_territory_must_not_fire():
