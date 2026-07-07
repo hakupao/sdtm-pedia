@@ -36,24 +36,23 @@ _NUMBER_WORDS = {
 }
 _NUMBER_WORD_RE = re.compile(
     r"(?<![\w-])(" + "|".join(_NUMBER_WORDS) + r")(?![\w-])", re.IGNORECASE)
-# Quantified dozen must FAIL CLOSED (a wrong-magnitude fire is worse than silence):
-# number words are normalized FIRST (two -> 2), then "a dozen" -> 12 only when not
-# preceded by "half ", and bare "dozen" -> 12 only when not preceded by a digit,
-# "half ", or a leftover "a " (the remnant of a blocked "half a dozen").
-_A_DOZEN_RE = re.compile(r"(?<!half )\ba\s+dozen\b", re.IGNORECASE)
-_DOZEN_RE = re.compile(r"(?<!\d )(?<!half )(?<!\ba )\bdozen\b", re.IGNORECASE)
+# Dozen resolution is ALLOWLIST-only (round 3): exactly "a dozen"/"a-dozen" -> 12,
+# blocked when preceded by "half "/"half-". Every other dozen form (bare "dozen",
+# "couple dozen", "several dozen", "two dozen", "2 dozen", odd spacing) stays a
+# word — no digit appears, so the threshold regexes cannot fire. A wrong-magnitude
+# fire is worse than silence: anything multiplied or ambiguous FAILS CLOSED.
+_A_DOZEN_RE = re.compile(r"\b(?<!half )(?<!half-)a[\s-]dozen\b", re.IGNORECASE)
 
 
 def _normalize_numbers(text: str) -> str:
     """Replace standalone spelled-out number words (one..twenty, thirty, forty, fifty,
-    sixty) and unquantified "a dozen"/"dozen" with digits, so threshold regexes (which
-    only match `\\d{1,3}`) can see them. Hyphenated compounds are left untouched;
-    quantified dozen ("two dozen", "half a dozen") is deliberately NOT resolved to a
-    digit — fail closed rather than fire with the wrong magnitude."""
+    sixty) and the exact allowlisted phrase "a dozen"/"a-dozen" with digits, so
+    threshold regexes (which only match `\\d{1,3}`) can see them. Hyphenated number
+    compounds are left untouched; any multiplied/ambiguous dozen ("two dozen", "half
+    a dozen", "several dozen", bare "dozen") is deliberately NOT resolved — fail
+    closed rather than fire with the wrong magnitude."""
     text = _NUMBER_WORD_RE.sub(lambda m: str(_NUMBER_WORDS[m.group(1).lower()]), text)
-    text = _A_DOZEN_RE.sub("12", text)
-    text = _DOZEN_RE.sub("12", text)
-    return text
+    return _A_DOZEN_RE.sub("12", text)
 
 
 # Lower-bound threshold shapes. Strict (exclusive) -> engine threshold n+1; inclusive
@@ -80,16 +79,17 @@ _THRESH_INCL_POST_RE = re.compile(
 #   as a bare determiner ("the most variables") or an adverbial usage-verb-then-"the
 #   most" construction ("gets shared ... the most"); superlative adjective + spread
 #   noun ("largest number of", "widest range of", "broadest variety of").
-# The adverbial form covers present-tense verbs too ("sponsors reference the most")
-# and is clause-bound: the verb-to-"the most" gap excludes , ; : and is capped at 40
-# chars, so a usage verb in one clause cannot link to "the most" in an unrelated one.
+# The adverbial form covers present-tense verbs too ("sponsors reference the most",
+# "recycles the most") and is clause-bound: the verb-to-"the most" gap excludes
+# , ; : and em/en dashes and is capped at 40 chars, so a usage verb in one clause
+# cannot link to "the most" in an unrelated one.
 _SUPERLATIVE_RE = re.compile(
     r"\bmost[\s-]+(?:\w+ly[\s-]+)?(?:shared|used|reused|common\w*|frequent\w*|prevalent|popular)\b"
     r"|\b(?:largest|highest|greatest|biggest|widest|broadest)\s+(?:number|count|range|spread|variety)\s+of\b"
     r"|\bmore\s+\w+\s+than\s+any\s+other\b"
     r"|\bthe\s+most\s+variables\b"
-    r"|\b(?:share[ds]?|used?|uses|reuse[ds]?|drawn|draws?|draw|reference[ds]?|references|recycled?)\b"
-    r"[^.?!,;:]{0,40}\bthe\s+most\b",
+    r"|\b(?:share[ds]?|used?|uses|reuse[ds]?|drawn|draws?|reference[ds]?|recycle[ds]?)\b"
+    r"[^.?!,;:—–]{0,40}\bthe\s+most\b",
     re.IGNORECASE)
 
 

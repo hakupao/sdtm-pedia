@@ -67,9 +67,8 @@ def test_shape1_spelled_number_words_fire():
     # fresh: spelled-out "eleven"
     assert "threshold" in detect_aggregate_intents(
         "Which variables occur in eleven or more domains?")
-    # fresh: bare "dozen" (no leading "a")
-    assert "threshold" in detect_aggregate_intents(
-        "Which variables are shared across dozen or more SDTM domains?")
+    # NOTE round 3: bare "dozen" (no leading "a") moved to the fail-closed battery —
+    # dozen resolution is allowlist-only ("a dozen"/"a-dozen"), everything else silent
 
 
 def test_shape2_noun_between_number_and_bound_word_fires():
@@ -124,6 +123,9 @@ def test_shape4b_postposed_the_most_adverbial_fires():
     # fresh: present-tense verb form (review round 2, folded Minor 2)
     assert "superlative" in detect_aggregate_intents(
         "Which codelist do sponsors reference the most?")
+    # fresh: third-person present ("recycles") — round 3 verb-list polish
+    assert "superlative" in detect_aggregate_intents(
+        "Which codelist is the one SDTM recycles the most?")
 
 
 def test_shape4_postposed_most_without_codelist_cue_must_not_fire():
@@ -136,6 +138,13 @@ def test_postposed_most_does_not_cross_clauses():
     assert detect_aggregate_intents(
         "The DM domain is used for demographics, and separately the codelist "
         "that shows up the most across studies is C66742.") == set()
+
+
+def test_postposed_most_blocked_by_dash():
+    # em/en dash is a clause boundary too — the verb-to-"the most" gap must not span it
+    assert detect_aggregate_intents(
+        "The codelist used in DM — but the most important consideration is "
+        "traceability.") == set()
 
 
 def test_shape5_superlative_adjective_spread_noun_fires():
@@ -194,9 +203,28 @@ def test_quantified_dozen_fails_closed():
         "Which variables appear in half a dozen or more domains?") == set()
 
 
+def test_word_multiplier_dozen_fails_closed():
+    # round 3: dozen resolution is ALLOWLIST-only ("a dozen"/"a-dozen"); any word
+    # multiplier, hyphenated half, digit multiplier (even with odd spacing), or bare
+    # "dozen" stays a word — no digit, no fire
+    assert detect_aggregate_intents(
+        "Which variables show up in a couple dozen or more domains?") == set()
+    assert detect_aggregate_intents(
+        "Are there variables in several dozen or more SDTM domains?") == set()
+    assert detect_aggregate_intents(
+        "Which variables appear in half-a-dozen or more domains?") == set()
+    assert detect_aggregate_intents(
+        "Which variables are in 2  dozen or more domains?") == set()  # double space
+    assert detect_aggregate_intents(
+        "Which variables are shared across dozen or more SDTM domains?") == set()
+
+
 def test_plain_a_dozen_still_fires():
     assert "threshold" in detect_aggregate_intents(
         "Which variables are shared across a dozen or more SDTM domains?")
+    # hyphenated "a-dozen" is inside the allowlist (a[\s-]dozen)
+    assert "threshold" in detect_aggregate_intents(
+        "Which variables appear in a-dozen or more domains?")
 
 
 def test_version_number_postfix_must_not_fire():
