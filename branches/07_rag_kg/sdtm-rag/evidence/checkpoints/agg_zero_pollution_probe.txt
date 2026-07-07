@@ -1,0 +1,13 @@
+Date: 2026-07-07
+Commit at HEAD: b5865457a1cac48d6142aea9f6648c23e9b7522d
+Command: .venv/bin/python eval/prod_wirein/sp3_graph_probes.py
+
+PASS (A) C66728 impacted_domains=9
+PASS (A) AGE impacted_domains=1
+PASS (A) graph fired: How is DM related to other domains?
+PASS (A') agg fired: Which variables appear in at least 30 domains?
+PASS (A') agg fired: Any variables used across 20+ domains?
+PASS (A') agg fired: What's the most reused controlled terminology?
+PASS (B) 140q zero-pollution: graph AND aggregate silent on all test_set_v3 questions
+
+SP3+AGG PROBES: ALL PASS

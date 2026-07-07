@@ -416,6 +416,36 @@ def test_maybe_build_answerer_includes_agg():
                                          aggregate_answer_enabled=False)) is None
 
 
+def test_both_intents_two_lines(agg):
+    # single query hits BOTH threshold and superlative -> two-line assembly
+    facts = agg.resolve(
+        "Which variables appear in at least 30 domains, and what is the "
+        "most shared codelist?")
+    assert facts is not None
+    lines = facts.text_block.split("\n")
+    assert len(lines) == 2
+    assert any(line.startswith("- **") for line in lines)
+    assert any(line.startswith("- Most-shared codelists:") for line in lines)
+
+
+def test_strict_beats_inclusive_when_both_present(agg):
+    # query contains both a strict ("more than 40") and an inclusive ("at least
+    # 5") shape -> the assembled line must use the STRICT reading
+    facts = agg.resolve(
+        "Which variables appear in more than 40 domains, or at least 5 domains?")
+    assert facts is not None
+    assert ">40" in facts.text_block
+    n = len(agg.engine.variables_in_min_domains(41))
+    assert f"**{n}**" in facts.text_block
+
+
+def test_threshold_intent_empty_assembly_returns_none(agg):
+    # threshold intent fires (999 matches \d{1,3}, threshold becomes 1000) but no
+    # variable appears in >=1000 domains -> assembly produces no lines -> None
+    assert agg.engine.variables_in_min_domains(1000) == []
+    assert agg.resolve("Which variables appear in more than 999 domains?") is None
+
+
 def test_maybe_build_answerer_full_composite():
     from server.config import Settings
     from server.main import maybe_build_answerer
