@@ -1,0 +1,282 @@
+[
+  {
+    "id": "ic01",
+    "category": "impact_codelist",
+    "fired_sp2": true,
+    "fired_agg": false,
+    "fired_sp3": true
+  },
+  {
+    "id": "ic02",
+    "category": "impact_codelist",
+    "fired_sp2": true,
+    "fired_agg": false,
+    "fired_sp3": false
+  },
+  {
+    "id": "ic03",
+    "category": "impact_codelist",
+    "fired_sp2": true,
+    "fired_agg": false,
+    "fired_sp3": true
+  },
+  {
+    "id": "ic04",
+    "category": "impact_codelist",
+    "fired_sp2": true,
+    "fired_agg": false,
+    "fired_sp3": true
+  },
+  {
+    "id": "ic05",
+    "category": "impact_codelist",
+    "fired_sp2": true,
+    "fired_agg": false,
+    "fired_sp3": true
+  },
+  {
+    "id": "ic06",
+    "category": "impact_codelist",
+    "fired_sp2": true,
+    "fired_agg": false,
+    "fired_sp3": true
+  },
+  {
+    "id": "ic07",
+    "category": "impact_codelist",
+    "fired_sp2": true,
+    "fired_agg": false,
+    "fired_sp3": true
+  },
+  {
+    "id": "ic08",
+    "category": "impact_codelist",
+    "fired_sp2": true,
+    "fired_agg": false,
+    "fired_sp3": true
+  },
+  {
+    "id": "ic09",
+    "category": "impact_codelist",
+    "fired_sp2": true,
+    "fired_agg": false,
+    "fired_sp3": false
+  },
+  {
+    "id": "ic10",
+    "category": "impact_codelist",
+    "fired_sp2": true,
+    "fired_agg": false,
+    "fired_sp3": true
+  },
+  {
+    "id": "iv01",
+    "category": "impact_variable",
+    "fired_sp2": true,
+    "fired_agg": false,
+    "fired_sp3": false
+  },
+  {
+    "id": "iv02",
+    "category": "impact_variable",
+    "fired_sp2": true,
+    "fired_agg": false,
+    "fired_sp3": true
+  },
+  {
+    "id": "iv03",
+    "category": "impact_variable",
+    "fired_sp2": false,
+    "fired_agg": false,
+    "fired_sp3": false
+  },
+  {
+    "id": "iv04",
+    "category": "impact_variable",
+    "fired_sp2": true,
+    "fired_agg": false,
+    "fired_sp3": false
+  },
+  {
+    "id": "iv05",
+    "category": "impact_variable",
+    "fired_sp2": false,
+    "fired_agg": false,
+    "fired_sp3": false
+  },
+  {
+    "id": "iv06",
+    "category": "impact_variable",
+    "fired_sp2": true,
+    "fired_agg": false,
+    "fired_sp3": true
+  },
+  {
+    "id": "iv07",
+    "category": "impact_variable",
+    "fired_sp2": false,
+    "fired_agg": false,
+    "fired_sp3": false
+  },
+  {
+    "id": "iv08",
+    "category": "impact_variable",
+    "fired_sp2": true,
+    "fired_agg": false,
+    "fired_sp3": false
+  },
+  {
+    "id": "iv09",
+    "category": "impact_variable",
+    "fired_sp2": false,
+    "fired_agg": false,
+    "fired_sp3": false
+  },
+  {
+    "id": "iv10",
+    "category": "impact_variable",
+    "fired_sp2": false,
+    "fired_agg": false,
+    "fired_sp3": true
+  },
+  {
+    "id": "ag01",
+    "category": "aggregate",
+    "fired_sp2": false,
+    "fired_agg": true,
+    "fired_sp3": false
+  },
+  {
+    "id": "ag02",
+    "category": "aggregate",
+    "fired_sp2": true,
+    "fired_agg": true,
+    "fired_sp3": false
+  },
+  {
+    "id": "ag03",
+    "category": "aggregate",
+    "fired_sp2": true,
+    "fired_agg": true,
+    "fired_sp3": false
+  },
+  {
+    "id": "ag04",
+    "category": "aggregate",
+    "fired_sp2": false,
+    "fired_agg": true,
+    "fired_sp3": false
+  },
+  {
+    "id": "ag05",
+    "category": "aggregate",
+    "fired_sp2": false,
+    "fired_agg": true,
+    "fired_sp3": false
+  },
+  {
+    "id": "ms01",
+    "category": "aggregate",
+    "fired_sp2": false,
+    "fired_agg": true,
+    "fired_sp3": false
+  },
+  {
+    "id": "ms02",
+    "category": "aggregate",
+    "fired_sp2": true,
+    "fired_agg": true,
+    "fired_sp3": false
+  },
+  {
+    "id": "ms03",
+    "category": "aggregate",
+    "fired_sp2": true,
+    "fired_agg": true,
+    "fired_sp3": false
+  },
+  {
+    "id": "ms04",
+    "category": "aggregate",
+    "fired_sp2": false,
+    "fired_agg": true,
+    "fired_sp3": false
+  },
+  {
+    "id": "ms05",
+    "category": "aggregate",
+    "fired_sp2": false,
+    "fired_agg": true,
+    "fired_sp3": false
+  },
+  {
+    "id": "rl01",
+    "category": "relationship",
+    "fired_sp2": false,
+    "fired_agg": false,
+    "fired_sp3": false
+  },
+  {
+    "id": "rl02",
+    "category": "relationship",
+    "fired_sp2": true,
+    "fired_agg": false,
+    "fired_sp3": true
+  },
+  {
+    "id": "rl03",
+    "category": "relationship",
+    "fired_sp2": false,
+    "fired_agg": false,
+    "fired_sp3": false
+  },
+  {
+    "id": "rl04",
+    "category": "relationship",
+    "fired_sp2": false,
+    "fired_agg": false,
+    "fired_sp3": true
+  },
+  {
+    "id": "rl05",
+    "category": "relationship",
+    "fired_sp2": true,
+    "fired_agg": false,
+    "fired_sp3": false
+  },
+  {
+    "id": "rl06",
+    "category": "relationship",
+    "fired_sp2": false,
+    "fired_agg": false,
+    "fired_sp3": true
+  },
+  {
+    "id": "rl07",
+    "category": "relationship",
+    "fired_sp2": false,
+    "fired_agg": false,
+    "fired_sp3": true
+  },
+  {
+    "id": "rl08",
+    "category": "relationship",
+    "fired_sp2": false,
+    "fired_agg": false,
+    "fired_sp3": false
+  },
+  {
+    "id": "rl09",
+    "category": "relationship",
+    "fired_sp2": false,
+    "fired_agg": false,
+    "fired_sp3": true
+  },
+  {
+    "id": "rl10",
+    "category": "relationship",
+    "fired_sp2": false,
+    "fired_agg": false,
+    "fired_sp3": false
+  }
+]

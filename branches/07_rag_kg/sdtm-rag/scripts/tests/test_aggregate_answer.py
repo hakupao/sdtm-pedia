@@ -49,6 +49,111 @@ def test_superlative_fires():
         "Which code list is used by the largest number of variables?")
 
 
+# ── detection: must-fire, held-out gate shape classes (agg_attempt_1 remedy) ──
+# 每条: 1 例取自烧毁的 held-out set (回归文档), 1+ 例新写 (同形状, 未见过的措辞)。
+
+
+def test_shape1_spelled_number_words_fire():
+    # burned (ah01): spelled-out "two"
+    assert "threshold" in detect_aggregate_intents(
+        "Which SDTM variables show up in two or more different domains?")
+    # burned (ah03): spelled-out "nine"
+    assert "threshold" in detect_aggregate_intents(
+        "Can you name the variables that turn up in nine or more different "
+        "SDTM domains?")
+    # burned (ah04): "a dozen"
+    assert "threshold" in detect_aggregate_intents(
+        "Which variables are shared across a dozen or more SDTM domains?")
+    # fresh: spelled-out "eleven"
+    assert "threshold" in detect_aggregate_intents(
+        "Which variables occur in eleven or more domains?")
+    # fresh: bare "dozen" (no leading "a")
+    assert "threshold" in detect_aggregate_intents(
+        "Which variables are shared across dozen or more SDTM domains?")
+
+
+def test_shape2_noun_between_number_and_bound_word_fires():
+    # burned (ah08): noun "domains" between number and "or more"
+    assert "threshold" in detect_aggregate_intents(
+        "What are the SDTM variables that span 38 domains or more?")
+    # fresh: same shape, different number/adjective
+    assert "threshold" in detect_aggregate_intents(
+        "Which variables appear in 45 domains or greater?")
+
+
+def test_shape2_noun_between_must_not_fire_for_or_fewer():
+    # "or fewer" is not in the word-bound alternation regardless of the noun gap
+    assert detect_aggregate_intents(
+        "Which variables appear in 5 domains or fewer?") == set()
+
+
+def test_shape3_comparative_as_superlative_fires():
+    # burned (as01)
+    assert "superlative" in detect_aggregate_intents(
+        "Which single codelist is attached to more variables than any other?")
+    # burned (as07)
+    assert "superlative" in detect_aggregate_intents(
+        "Which codelist is the real workhorse here — the one tied to more "
+        "variables than any other?")
+    # fresh
+    assert "superlative" in detect_aggregate_intents(
+        "Which controlled terminology codelist covers more variables than "
+        "any other?")
+
+
+def test_shape4a_postposed_the_most_determiner_fires():
+    # burned (as04): "the most variables" (determiner form)
+    assert "superlative" in detect_aggregate_intents(
+        "Can you give me a short list of the codelists that the most "
+        "variables draw on?")
+    # fresh
+    assert "superlative" in detect_aggregate_intents(
+        "Which controlled terminology codelist do the most variables "
+        "reference?")
+
+
+def test_shape4b_postposed_the_most_adverbial_fires():
+    # burned (as03): usage verb ("shared") ... "the most" later in sentence
+    assert "superlative" in detect_aggregate_intents(
+        "What controlled terminology codelist gets shared between "
+        "variables the most?")
+    # fresh
+    assert "superlative" in detect_aggregate_intents(
+        "Which codelist is referenced the most across controlled "
+        "terminology domains?")
+
+
+def test_shape4_postposed_most_without_codelist_cue_must_not_fire():
+    assert detect_aggregate_intents(
+        "Which domain has the most records per subject?") == set()
+
+
+def test_shape5_superlative_adjective_spread_noun_fires():
+    # burned (as02): "widest range of"
+    assert "superlative" in detect_aggregate_intents(
+        "Which codelist is reused across the widest range of SDTM domains?")
+    # fresh: "broadest variety of"
+    assert "superlative" in detect_aggregate_intents(
+        "Which controlled terminology codelist has the broadest variety of "
+        "variables?")
+
+
+def test_shape5_superlative_adjective_without_spread_noun_must_not_fire():
+    assert detect_aggregate_intents(
+        "What is the widest table in the database?") == set()
+
+
+def test_shape6_hyphenated_compound_fires():
+    # burned (as08): "most-used"
+    assert "superlative" in detect_aggregate_intents(
+        "What's the single most-used codelist in terms of how many "
+        "variables reference it?")
+    # fresh: hyphenated adverb + participle
+    assert "superlative" in detect_aggregate_intents(
+        "Which controlled terminology codelist is the "
+        "most-frequently-used one across domains?")
+
+
 # ── detection: must-not-fire ─────────────────────────────────────────────────
 
 
@@ -62,6 +167,13 @@ def test_upper_bound_must_not_fire():
     assert detect_aggregate_intents("Which variables occur in no greater than 10 domains?") == set()
     assert detect_aggregate_intents("Are there variables not over 20 domains?") == set()
     assert detect_aggregate_intents("Which variables do not exceed 15 domains?") == set()
+
+
+def test_normalized_spelled_number_upper_bound_must_not_fire():
+    # "no more than six domains" normalizes to "no more than 6 domains" — normalization
+    # must NOT defeat the existing upper-bound lookbehind guard
+    assert detect_aggregate_intents(
+        "Which variables occur in no more than six domains?") == set()
 
 
 def test_version_number_postfix_must_not_fire():
@@ -126,6 +238,17 @@ def test_postfix_threshold_resolves(agg):
     n = len(agg.engine.variables_in_min_domains(30))
     assert f"**{n}**" in facts.text_block
     assert "≥30" in facts.text_block
+
+
+def test_resolve_spelled_number_threshold_matches_engine(agg):
+    # "nine or more different SDTM domains" -> normalized "9 or more" -> threshold 9
+    facts = agg.resolve(
+        "Can you name the variables that turn up in nine or more different "
+        "SDTM domains?")
+    assert facts is not None
+    n = len(agg.engine.variables_in_min_domains(9))
+    assert f"**{n}**" in facts.text_block
+    assert "≥9" in facts.text_block
 
 
 def test_superlative_top5_matches_engine(agg):
