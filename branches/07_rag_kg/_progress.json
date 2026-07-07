@@ -4,24 +4,72 @@
   "tier": 2,
   "tier_note": "borderline Tier 2-3, 走 Tier 2 + evidence 全留; Phase 2 KG 启动时再评估升 Tier 3",
   "created": "2026-05-22",
-  "updated": "2026-06-17 (★ KG 重启 SP1 meta.yaml 元数据层 DONE — 纯数据层 build_meta.py 生成 data/meta/meta.yaml 64 域 + reconcile_meta.py 独立锚对账; reconcile gate 抓出并修 spec_loader 系统性 bug 247 幻变量; DI 才是桩域非 SUPPQUAL 已纠; Gate1 8/8 + Rule D 异type APPROVE (mypy0/ruff清/300测试) + Rule A N=8 PASS; 设计/计划/证据齐; 路由词「KG 重启 开始任务」现→SP2). 前: 2026-06-16 (★ 阶段 2 多模型对比+裁判 DONE — server/compare.py+cost.py 并行三模型+失败隔离 (NFR2)+匿名 A/B/C 裁判; /api/ask_compare async 复用检索 (FR1); Streamlit Single/Compare/Judge UI; 验证抓修 cost.py litellm API bug + judge_skipped 观测; 规则 D 双独立审阅 [code-reviewer+security-reviewer 异 type] 均 SHIP 0 BLOCKER/HIGH + 8 加固; 四方 eval 140q 同条件配对 [判官均值 Sonnet 96.0 > DeepSeek 93.6 > GPT-4o 90.4 ≈ GPT-5.4-mini 90.2, 每题成本 DeepSeek $0.0075 最低; gpt-5.4-mini 经 /models 查实+冒烟 temp=0; 抽检枚举弱=便宜模型共性 q02]; 主力维持 DeepSeek-v4-pro [用户拍板, Sonnet 留 hard 档/Compare 手动]; launchd kickstart 重载上线. retro RETROSPECTIVE_phase2_compare.md; 证据 phase2_{compare_judge,model_comparison}). 前: 2026-06-15 (★★ v3 full eval 收 S4 尾账 CLEAN_CLOSE + (d) 概念定义双通道 SHIP — Task1: S4 三修 v3 140q full eval 配对 [DeepSeek temp=0, guardrail-off 隔离] src 76.4→97.5 / fact 净 −0.2 带内, 11 掉分独立 scientist 裁判 7 假阴+3 非确定+1 已知前沿 q57 = CLEAN_CLOSE; guardrail-ON+S4 码 grounding 99.65%. Task2: q73+q119 双通道 pattern 级 SHIP, retrieval-only cross 95.0→99.0, 0 回归, pytest 250, Rule D APPROVE; q126 永久 known limitation 架构阻断. 详 phase_d_concept_channel). 前: 2026-06-12 题集 v3+S4 三修; 2026-06-09 答题侧护栏 + P1 接入生产; 2026-05-24 Phase 1D PASS 88.5%",
+  "updated": "2026-07-07",
   "upstream_design": "docs/DESIGN_RAG_KG.md (Approved 2026-04-16)",
-  "current_phase": "KG 重启 SP1 (meta.yaml 数据层) DONE (2026-06-17): 路由词「KG 重启 开始任务」, SP1-5 第一个硬前置; 纯数据层 build_meta.py→data/meta/meta.yaml (64 域=63 真域+DI 桩) + reconcile_meta.py 独立锚对账 (抓修 spec_loader 247 幻变量 bug, DI 才是桩域); Gate1 8/8 + Rule D 异type APPROVE + Rule A N=8 PASS; 下一个 SP2 (确定性答题通道, q103/q104 翻绿 + 退役 structured_lookup 正则). 前: 阶段 2 多模型对比+裁判 核心收口 (2026-06-16): /api/ask_compare 并行三模型+失败隔离+匿名裁判 + Streamlit Compare/Judge UI + 四方 eval 定主力 (维持 DeepSeek-v4-pro); 双独立审阅 SHIP; launchd 重载上线. 阶段 3 共享前 gate (非阻塞): 错误串 sanitize (SEC MED) / 限流 / asyncio 外层超时 / pip-audit / Compare 多轮追问 (history 已预留). 前: 检索线收口 (2026-06-15 PM): retrieval-only v3 single 100/cross 99/concept 100/mixed 100; 语义 LLM-judge fact recall 93.9% (替代 substring 82.6%) — **已固化进 run_eval --judge**; ① 本地 Docker Compose 部署修复/加固+实服 e2e 证 (容器构建待 Docker 主机); ② Phase 2 KG 正式关闭 + 总 retro. 检索目标达成. 残留非阻塞: q126 (架构受限) / 跨模型 eval (Anthropic credits) / 容器构建实测 (Docker 主机)",
+  "current_phase": "AGG (aggregate 独立通道) DONE 默认 ON (2026-07-07): ds e2e Δ+41.7pp 零退化; fire-rate 诚实口径 阈值族100%/最高级族25% (长尾 backlog 等 dogfood); 下一步 SP4/SP5 可选 (产品 UX 理由) 或 KG 主线收口. 前: KG 重启 SP1 (meta.yaml 数据层) DONE (2026-06-17): 路由词「KG 重启 开始任务」, SP1-5 第一个硬前置; 纯数据层 build_meta.py→data/meta/meta.yaml (64 域=63 真域+DI 桩) + reconcile_meta.py 独立锚对账 (抓修 spec_loader 247 幻变量 bug, DI 才是桩域); Gate1 8/8 + Rule D 异type APPROVE + Rule A N=8 PASS; 下一个 SP2 (确定性答题通道, q103/q104 翻绿 + 退役 structured_lookup 正则). 前: 阶段 2 多模型对比+裁判 核心收口 (2026-06-16): /api/ask_compare 并行三模型+失败隔离+匿名裁判 + Streamlit Compare/Judge UI + 四方 eval 定主力 (维持 DeepSeek-v4-pro); 双独立审阅 SHIP; launchd 重载上线. 阶段 3 共享前 gate (非阻塞): 错误串 sanitize (SEC MED) / 限流 / asyncio 外层超时 / pip-audit / Compare 多轮追问 (history 已预留). 前: 检索线收口 (2026-06-15 PM): retrieval-only v3 single 100/cross 99/concept 100/mixed 100; 语义 LLM-judge fact recall 93.9% (替代 substring 82.6%) — **已固化进 run_eval --judge**; ① 本地 Docker Compose 部署修复/加固+实服 e2e 证 (容器构建待 Docker 主机); ② Phase 2 KG 正式关闭 + 总 retro. 检索目标达成. 残留非阻塞: q126 (架构受限) / 跨模型 eval (Anthropic credits) / 容器构建实测 (Docker 主机)",
   "phases": {
     "phase_0_research": {
       "status": "completed",
       "started_at": "2026-05-22",
       "pass_at": "2026-05-22",
       "subtasks": {
-        "0_1_chunker_feasibility": {"status": "completed", "evidence": "research/chunker_feasibility_2026-05-22.md (v0.2 含 F-2 4 处事实修正)", "owner": "main", "pass_at": "2026-05-22"},
-        "0_2_llm_providers": {"status": "completed", "evidence": "research/llm_providers_2026-05-22.md", "owner": "document-specialist (background)", "pass_at": "2026-05-22"},
-        "0_3_plan_draft": {"status": "completed", "evidence": "PLAN.md v0.2", "depends_on": ["0_1", "0_2"], "pass_at": "2026-05-22"},
-        "0_4_execution_plan_draft": {"status": "completed", "evidence": "EXECUTION_PLAN.md v0.2", "depends_on": ["0_3"], "pass_at": "2026-05-22"},
-        "0_5_independent_review": {"status": "completed", "rule_d_isolation": "writer=main session, reviewer=critic (异 subagent_type)", "evidence": "evidence/review_pass_1.md", "verdict": "CONDITIONAL_PASS (32 findings: 3 HIGH/7 MED/6 LOW/4 INFO)", "pass_at": "2026-05-22"},
-        "0_5_5_v0_2_revision": {"status": "completed", "scope": "F-1/F-2/F-3 HIGH 全修 + F-6/F-7/F-8/F-9/F-10/F-11/F-14/F-19/F-20/F-21/F-22/F-23/F-24/F-25/F-27 MED 全修 + F-32 INFO 修", "edits": "chunker_feasibility 10 处 + PLAN 12 处 + EXECUTION_PLAN 9 处 = 31 处", "pass_at": "2026-05-22"},
-        "0_5_6_low_finalization": {"status": "completed", "scope": "5 LOW 全修 — F-12 文件 100MB 上限 (PLAN §5 1C.1 已含) / F-13 单用户/单租户明示 (PLAN §0.2 Out-of-scope) / F-15 metadata schema null vs omit 约定 (PLAN §7) / F-16 pyreadstat fallback (EXECUTION_PLAN 1A.1.d 已含) / F-17 Streamlit timeout UX (PLAN R-21 已含)", "pass_at": "2026-05-22"},
-        "0_6_user_ack": {"status": "completed", "verdict": "ack PLAN v0.2 + critic review + decision log D-2~D-8 + LOW 当场修 + commit OK", "pass_at": "2026-05-22"},
-        "0_7_commit_push": {"status": "completed", "commit": "0644b6c '07 RAG+KG Phase 0 Research closed — PLAN v0.2 + critic Rule D PASS 1 + 用户 ack'", "pass_at": "2026-05-22"}
+        "0_1_chunker_feasibility": {
+          "status": "completed",
+          "evidence": "research/chunker_feasibility_2026-05-22.md (v0.2 含 F-2 4 处事实修正)",
+          "owner": "main",
+          "pass_at": "2026-05-22"
+        },
+        "0_2_llm_providers": {
+          "status": "completed",
+          "evidence": "research/llm_providers_2026-05-22.md",
+          "owner": "document-specialist (background)",
+          "pass_at": "2026-05-22"
+        },
+        "0_3_plan_draft": {
+          "status": "completed",
+          "evidence": "PLAN.md v0.2",
+          "depends_on": [
+            "0_1",
+            "0_2"
+          ],
+          "pass_at": "2026-05-22"
+        },
+        "0_4_execution_plan_draft": {
+          "status": "completed",
+          "evidence": "EXECUTION_PLAN.md v0.2",
+          "depends_on": [
+            "0_3"
+          ],
+          "pass_at": "2026-05-22"
+        },
+        "0_5_independent_review": {
+          "status": "completed",
+          "rule_d_isolation": "writer=main session, reviewer=critic (异 subagent_type)",
+          "evidence": "evidence/review_pass_1.md",
+          "verdict": "CONDITIONAL_PASS (32 findings: 3 HIGH/7 MED/6 LOW/4 INFO)",
+          "pass_at": "2026-05-22"
+        },
+        "0_5_5_v0_2_revision": {
+          "status": "completed",
+          "scope": "F-1/F-2/F-3 HIGH 全修 + F-6/F-7/F-8/F-9/F-10/F-11/F-14/F-19/F-20/F-21/F-22/F-23/F-24/F-25/F-27 MED 全修 + F-32 INFO 修",
+          "edits": "chunker_feasibility 10 处 + PLAN 12 处 + EXECUTION_PLAN 9 处 = 31 处",
+          "pass_at": "2026-05-22"
+        },
+        "0_5_6_low_finalization": {
+          "status": "completed",
+          "scope": "5 LOW 全修 — F-12 文件 100MB 上限 (PLAN §5 1C.1 已含) / F-13 单用户/单租户明示 (PLAN §0.2 Out-of-scope) / F-15 metadata schema null vs omit 约定 (PLAN §7) / F-16 pyreadstat fallback (EXECUTION_PLAN 1A.1.d 已含) / F-17 Streamlit timeout UX (PLAN R-21 已含)",
+          "pass_at": "2026-05-22"
+        },
+        "0_6_user_ack": {
+          "status": "completed",
+          "verdict": "ack PLAN v0.2 + critic review + decision log D-2~D-8 + LOW 当场修 + commit OK",
+          "pass_at": "2026-05-22"
+        },
+        "0_7_commit_push": {
+          "status": "completed",
+          "commit": "0644b6c '07 RAG+KG Phase 0 Research closed — PLAN v0.2 + critic Rule D PASS 1 + 用户 ack'",
+          "pass_at": "2026-05-22"
+        }
       }
     },
     "phase_1a_ingest": {
@@ -68,7 +116,14 @@
           "owner": "main",
           "summary": "D-4 v1 → v2 (bge-m3 主 + OpenAI 留接口); D-2 微调 (V4-Flash → V4-Pro 非思考); R-8 MED → HIGH; R-22 新加; 1A.2 加 1A.2.f bge-m3 sanity (0.3 → 0.5 d); Phase 1 总 13-17 → 13.5-17.5 d",
           "user_ack": "Bojiang 2026-05-22 (1. yes bge-m3 / 2. 保留 Anthropic)",
-          "files_modified": ["PLAN.md (8 edits)", "EXECUTION_PLAN.md (1 edit)", "sdtm-rag/pyproject.toml", "sdtm-rag/.env.example", "sdtm-rag/README.md", "CHANGELOG.md"],
+          "files_modified": [
+            "PLAN.md (8 edits)",
+            "EXECUTION_PLAN.md (1 edit)",
+            "sdtm-rag/pyproject.toml",
+            "sdtm-rag/.env.example",
+            "sdtm-rag/README.md",
+            "CHANGELOG.md"
+          ],
           "pass_at": "2026-05-22"
         },
         "1a_2_litellm_sanity": {
@@ -167,7 +222,11 @@
             "batch_a": {
               "agent_id": "a3fb9d415548679a5",
               "model": "sonnet",
-              "files": ["spec.py", "assumptions.py", "model.py"],
+              "files": [
+                "spec.py",
+                "assumptions.py",
+                "model.py"
+              ],
               "smoke_results": "AE/spec.md=64 chunks (PLAN 估 ~50, 实测 含 non-variable H3), AE/assumptions.md=13 (overview+12 items), model/01=2 chunks",
               "wallclock_min": 2,
               "pass_at": "2026-05-22"
@@ -175,7 +234,9 @@
             "batch_b": {
               "agent_id": "affb90466ee2f2ac5",
               "model": "opus",
-              "files": ["examples.py"],
+              "files": [
+                "examples.py"
+              ],
               "smoke_results": "TA=8 PC=14 IS=11 DS=11, L-1 + L-2 protection verified 0 split-point violations across 4 samples",
               "wallclock_min": 3.7,
               "critical_edge": "PC 14 chunks (Example 4 only Method A+D, total 14 not 16)",
@@ -184,7 +245,11 @@
             "batch_c": {
               "agent_id": "a8a49aea2b8111253",
               "model": "opus",
-              "files": ["chapters.py", "terminology.py", "variable_index.py"],
+              "files": [
+                "chapters.py",
+                "terminology.py",
+                "variable_index.py"
+              ],
               "smoke_results": "ch01=1 ch04=47 ch08=19, ae.md=4 lb_part1=1 (part mode) lb_part4=2 (codelist mode H2>1) questionnaires_part1=66, VARIABLE_INDEX=65",
               "wallclock_min": 4.2,
               "critical_edge": "lb_part4 H2=2 -> codelist mode (NOT part mode); ch04 47 ### chunks max token 3852 < 8K (L-4 holds)",
@@ -231,15 +296,42 @@
             "command": "python3 -m pytest scripts/tests/ -v"
           },
           "test_files": {
-            "test_base.py": {"tests": 27, "coverage": "Chunk schema 19 fields, to_metadata 18 keys, count_tokens L-3, find_mermaid_blocks L-1, find_table_blocks L-2, heading_positions, kb_commit_sha"},
-            "test_spec.py": {"tests": 12, "coverage": "AE=64, file_type/domain/section, DM+LB multi-domain, to_metadata 18 keys"},
-            "test_assumptions.py": {"tests": 15, "coverage": "AE=13 (overview+12), DI+DM, no-overview edge, non-contiguous numbering, table preservation"},
-            "test_model.py": {"tests": 33, "coverage": "All 6 model files parametrized, domain=None, no-H2 fallback"},
-            "test_examples.py": {"tests": 19, "coverage": "TA=8/PC=14/IS=11/DS=11, PC sub_label/example_index/§6.3.5.9.3, L-1+L-2 byte-range protection, heading-inside-fence filter"},
-            "test_chapters.py": {"tests": 20, "coverage": "ch01=1/ch04=47(L-4 HARD max<8000)/ch08=19/ch10>1(## tier)"},
-            "test_terminology.py": {"tests": 24, "coverage": "ae=4/lb_part1=1/lb_part4=2(L-5 edge)/qs_part1=66/supp_part1=27; lb_part2/3 xfail known token overflow"},
-            "test_variable_index.py": {"tests": 14, "coverage": "65 total (1+63+1), §一/§二/§三 section prefixes, §二 all domains non-None"},
-            "test_integration.py": {"tests": 38, "coverage": "CHUNKER_REGISTRY 7 types, 7 samples × 5 assertions, 3 cross-check individual vs registry, idempotence"}
+            "test_base.py": {
+              "tests": 27,
+              "coverage": "Chunk schema 19 fields, to_metadata 18 keys, count_tokens L-3, find_mermaid_blocks L-1, find_table_blocks L-2, heading_positions, kb_commit_sha"
+            },
+            "test_spec.py": {
+              "tests": 12,
+              "coverage": "AE=64, file_type/domain/section, DM+LB multi-domain, to_metadata 18 keys"
+            },
+            "test_assumptions.py": {
+              "tests": 15,
+              "coverage": "AE=13 (overview+12), DI+DM, no-overview edge, non-contiguous numbering, table preservation"
+            },
+            "test_model.py": {
+              "tests": 33,
+              "coverage": "All 6 model files parametrized, domain=None, no-H2 fallback"
+            },
+            "test_examples.py": {
+              "tests": 19,
+              "coverage": "TA=8/PC=14/IS=11/DS=11, PC sub_label/example_index/§6.3.5.9.3, L-1+L-2 byte-range protection, heading-inside-fence filter"
+            },
+            "test_chapters.py": {
+              "tests": 20,
+              "coverage": "ch01=1/ch04=47(L-4 HARD max<8000)/ch08=19/ch10>1(## tier)"
+            },
+            "test_terminology.py": {
+              "tests": 24,
+              "coverage": "ae=4/lb_part1=1/lb_part4=2(L-5 edge)/qs_part1=66/supp_part1=27; lb_part2/3 xfail known token overflow"
+            },
+            "test_variable_index.py": {
+              "tests": 14,
+              "coverage": "65 total (1+63+1), §一/§二/§三 section prefixes, §二 all domains non-None"
+            },
+            "test_integration.py": {
+              "tests": 38,
+              "coverage": "CHUNKER_REGISTRY 7 types, 7 samples × 5 assertions, 3 cross-check individual vs registry, idempotence"
+            }
           },
           "config_locks_verified": {
             "L_1_mermaid": "test_base.py (5 tests) + test_examples.py byte-range protection TA — 0 violations",
@@ -343,12 +435,33 @@
         "model": "claude-sonnet-4-6"
       },
       "by_category": {
-        "single_domain": {"src": 1.0, "fact": 1.0, "n": 5},
-        "concept": {"src": 1.0, "fact": 1.0, "n": 5},
-        "mixed": {"src": 0.9, "fact": 1.0, "n": 5},
-        "cross_domain": {"src": 0.5, "fact": 1.0, "n": 5}
+        "single_domain": {
+          "src": 1.0,
+          "fact": 1.0,
+          "n": 5
+        },
+        "concept": {
+          "src": 1.0,
+          "fact": 1.0,
+          "n": 5
+        },
+        "mixed": {
+          "src": 0.9,
+          "fact": 1.0,
+          "n": 5
+        },
+        "cross_domain": {
+          "src": 0.5,
+          "fact": 1.0,
+          "n": 5
+        }
       },
-      "source_misses": ["q07 VARIABLE_INDEX.md", "q09 RELREC/spec.md", "q10 TR/spec.md", "q16 terminology/core/ae.md"],
+      "source_misses": [
+        "q07 VARIABLE_INDEX.md",
+        "q09 RELREC/spec.md",
+        "q10 TR/spec.md",
+        "q16 terminology/core/ae.md"
+      ],
       "rule_a_4b": "scientist 5q, 60% topic overlap >= 50% threshold, PASS",
       "rule_d_status": "writer=main+scientist, verifier pending",
       "decision_1b5_3": "no adjustment needed (92.5% >= 80%)"
@@ -392,7 +505,12 @@
         },
         "1c_5_api_ui": {
           "status": "completed",
-          "files": ["server/router.py (+60 lines)", "server/main.py (+3 lines)", "ui/streamlit_app.py (rewrite ~230 lines)", "pyproject.toml (+1 dep)"],
+          "files": [
+            "server/router.py (+60 lines)",
+            "server/main.py (+3 lines)",
+            "ui/streamlit_app.py (rewrite ~230 lines)",
+            "pyproject.toml (+1 dep)"
+          ],
           "features": "POST /api/validate multipart + Streamlit tabs (Q&A + Validation) + file upload + report render + JSON download",
           "smoke": "API e2e PASS (rule-only mode < 1s); UI structure verified"
         }
@@ -413,7 +531,13 @@
         "subagent": "oh-my-claudecode:verifier (opus)",
         "n": 5,
         "agreements": 5,
-        "errors_verified": ["E01 REQ", "E04 CT", "E08 PK", "E11 TYPE", "E14 CT"],
+        "errors_verified": [
+          "E01 REQ",
+          "E04 CT",
+          "E08 PK",
+          "E11 TYPE",
+          "E14 CT"
+        ],
         "verdict": "5/5 AGREE PASS"
       },
       "semantic_review_e2e": "PASS — Opus 3860 tokens, 4 findings (date error + missing AETERM + AEBODSYS completeness + RELREC cross-domain)",
@@ -437,10 +561,26 @@
         "model": "deepseek/deepseek-chat"
       },
       "by_category": {
-        "single_domain": {"src": 0.964, "fact": 0.940, "n": 14},
-        "mixed": {"src": 0.923, "fact": 0.962, "n": 13},
-        "concept": {"src": 0.769, "fact": 0.931, "n": 13},
-        "cross_domain": {"src": 0.615, "fact": 0.962, "n": 13}
+        "single_domain": {
+          "src": 0.964,
+          "fact": 0.94,
+          "n": 14
+        },
+        "mixed": {
+          "src": 0.923,
+          "fact": 0.962,
+          "n": 13
+        },
+        "concept": {
+          "src": 0.769,
+          "fact": 0.931,
+          "n": 13
+        },
+        "cross_domain": {
+          "src": 0.615,
+          "fact": 0.962,
+          "n": 13
+        }
       },
       "cross_model": {
         "deepseek": "PASS 88.5%",
@@ -451,11 +591,22 @@
       "phase_2_kg_decision": "cross_domain src recall 61.5% > 50% → Phase 2 KG NOT triggered",
       "rule_a_4c": "scientist 5q, topic overlap 100% ≥ 50%, PASS",
       "rule_d_status": "writer=main+scientist, verifier pending",
-      "deferred": ["Sonnet/Opus cross-model when Anthropic credits available"],
+      "deferred": [
+        "Sonnet/Opus cross-model when Anthropic credits available"
+      ],
       "user_ack": "2026-05-24 Bojiang ack Phase 1D + Phase 1 closure"
     },
-    "phase_1_closure": {"status": "completed", "pass_at": "2026-05-24", "user_ack": "2026-05-24 Bojiang ack Phase 1 PASS 5/5 (commit 9f397ab)", "retrospective": "RETROSPECTIVE.md 三段齐备", "backfill_note": "1C/closure status 字段 2026-06-05 回写, 内容無変更"},
-    "phase_2_kg": {"status": "closed — NOT needed as a retrieval lever (2026-06-15)", "decision_point": "gate = RELATION/cross-domain recall < 50% 才启动. Phase 1D 61.5% → deferred; 2026-06-15 检索路由通道 (P1 + (d)) 把 retrieval-only cross 拉到 99% (远超 50% gate) → 纯向量+路由已解决跨域召回, KG 作为检索质量杠杆不再有理由, 正式关闭. KG 作为独立产品特性 (交互式关系/CT 影响图遍历) 仍是可选未来增强, 但非检索质量需求; 重启需新立项 (前置 P3 meta.yaml). 2026-06-16 用户决定重启 KG 作产品能力 (非检索杠杆), 拆 SP1-5; SP1 (meta.yaml 数据层) 2026-06-17 DONE → 见 phase_kg_sp1_meta."},
+    "phase_1_closure": {
+      "status": "completed",
+      "pass_at": "2026-05-24",
+      "user_ack": "2026-05-24 Bojiang ack Phase 1 PASS 5/5 (commit 9f397ab)",
+      "retrospective": "RETROSPECTIVE.md 三段齐备",
+      "backfill_note": "1C/closure status 字段 2026-06-05 回写, 内容無変更"
+    },
+    "phase_2_kg": {
+      "status": "closed — NOT needed as a retrieval lever (2026-06-15)",
+      "decision_point": "gate = RELATION/cross-domain recall < 50% 才启动. Phase 1D 61.5% → deferred; 2026-06-15 检索路由通道 (P1 + (d)) 把 retrieval-only cross 拉到 99% (远超 50% gate) → 纯向量+路由已解决跨域召回, KG 作为检索质量杠杆不再有理由, 正式关闭. KG 作为独立产品特性 (交互式关系/CT 影响图遍历) 仍是可选未来增强, 但非检索质量需求; 重启需新立项 (前置 P3 meta.yaml). 2026-06-16 用户决定重启 KG 作产品能力 (非检索杠杆), 拆 SP1-5; SP1 (meta.yaml 数据层) 2026-06-17 DONE → 见 phase_kg_sp1_meta."
+    },
     "phase_1_5_retrieval_tuning": {
       "status": "completed — baseline accepted (用户 2026-06-08)",
       "started_at": "2026-06-08",
@@ -464,12 +615,35 @@
       "goal": "I-4: 全 4 类别 src recall > 95% (baseline cross_domain 61.5% / concept 76.9%)",
       "evidence": "sdtm-rag/eval/ablation_retrieval_2026-06-08.md (4 部分) + ablation_t1/*.json (raw) + review_T1.md + review_rechunk.md (Rule D)",
       "experiments": {
-        "T1_topk_sweep": {"verdict": "diagnostic", "finding": "cross_domain 是排序问题 (K=15→100: 61.5%→92.3%); K=100 天花板 95.3%; 副产物修复 q37 测试集 gold-label bug (model/04→03_special_purpose_domains.md)", "rule_d": "verifier independent recompute PASS, caught ae/vs truncation mis-attribution"},
-        "T2_cohere_rerank": {"verdict": "FAILED net -3.8pt", "finding": "全 pool (30/50/100) → top-15 均 80.2% < baseline 84.0%; rank-tracing 证实通用 reranker 系统性降级 spec.md (q08 cosine#2→rerank#17)", "code": "rag.py rerank (默认 off, 保留)"},
-        "T4_multiquery": {"verdict": "FAILED net -7.6pt", "finding": "76.4%; 4列表 RRF 稀释单域强信号"},
-        "T4_hyde": {"verdict": "best single +3.7pt", "finding": "87.7%; mixed 100% concept/cross 升; single 回退 1 题; 但 cross 仅 69.2% 远 < 95%"},
-        "T4_hyde_rrf": {"verdict": "FAILED", "finding": "83.0%; 2列表融合稀释回 baseline"},
-        "rechunk_v2": {"verdict": "partial, net -1.9pt", "finding": "§一/§三 大表→per-entry chunk 修好 q07/q34 (cross 61.5→76.9%) + terminology 注入变量名; 但 222 新索引 chunk 在域内查询挤占 spec.md (q02/q13/q43 回归); terminology 注入太简短未修 q16/s04/s05", "chunk_count": "VARIABLE_INDEX 65→222, KB 4146→4303", "code": "variable_index.py + terminology.py (Rule D CONDITIONAL PASS, 4 必修全应用); pytest 216 PASS", "ingest_bug_fixed": "ingest.py embed 加 429 重试 (重 ingest 撞 OpenAI TPM 限速)"}
+        "T1_topk_sweep": {
+          "verdict": "diagnostic",
+          "finding": "cross_domain 是排序问题 (K=15→100: 61.5%→92.3%); K=100 天花板 95.3%; 副产物修复 q37 测试集 gold-label bug (model/04→03_special_purpose_domains.md)",
+          "rule_d": "verifier independent recompute PASS, caught ae/vs truncation mis-attribution"
+        },
+        "T2_cohere_rerank": {
+          "verdict": "FAILED net -3.8pt",
+          "finding": "全 pool (30/50/100) → top-15 均 80.2% < baseline 84.0%; rank-tracing 证实通用 reranker 系统性降级 spec.md (q08 cosine#2→rerank#17)",
+          "code": "rag.py rerank (默认 off, 保留)"
+        },
+        "T4_multiquery": {
+          "verdict": "FAILED net -7.6pt",
+          "finding": "76.4%; 4列表 RRF 稀释单域强信号"
+        },
+        "T4_hyde": {
+          "verdict": "best single +3.7pt",
+          "finding": "87.7%; mixed 100% concept/cross 升; single 回退 1 题; 但 cross 仅 69.2% 远 < 95%"
+        },
+        "T4_hyde_rrf": {
+          "verdict": "FAILED",
+          "finding": "83.0%; 2列表融合稀释回 baseline"
+        },
+        "rechunk_v2": {
+          "verdict": "partial, net -1.9pt",
+          "finding": "§一/§三 大表→per-entry chunk 修好 q07/q34 (cross 61.5→76.9%) + terminology 注入变量名; 但 222 新索引 chunk 在域内查询挤占 spec.md (q02/q13/q43 回归); terminology 注入太简短未修 q16/s04/s05",
+          "chunk_count": "VARIABLE_INDEX 65→222, KB 4146→4303",
+          "code": "variable_index.py + terminology.py (Rule D CONDITIONAL PASS, 4 必修全应用); pytest 216 PASS",
+          "ingest_bug_fixed": "ingest.py embed 加 429 重试 (重 ingest 撞 OpenAI TPM 限速)"
+        }
       },
       "conclusion": "贯穿 6 次实验铁律: 每个单一检索杠杆都帮某类伤另类; cosine top-15 baseline (84.0%, single/mixed 92-96%) 是强局部最优; 全类 95% @ top-15 单杠杆做不到 (已证). 唯一未来路径 = P1 查询条件路由 (各杠杆只对其擅长类生效, 需 query classifier) 或接受 baseline.",
       "decision_2026_06_08": "接受 baseline 为 interim; live collection 恢复 v1 (4146 chunks, chroma_backup_20260608T104724Z); 全部实验代码保留 (rerank/HyDE 默认 off; chunker 改动 Rule D 通过) 供 P1 复用; raw eval + log + failure 全留 (规则 B)",
@@ -504,7 +678,12 @@
       "evidence": "evidence/checkpoints/s{1,2,3}_*.md + s{1,2}_rule_d_review.md + eval/ablation_t1/v2_*.json",
       "rule_b_failures": "evidence/failures/s2_attempt_1.md",
       "retrospective": "RETROSPECTIVE_P1_retrieval95.md (Rule C 三段齐备)",
-      "followup": ["q73 残留 (变量→model 定义文件通道, 注意 example-patching)", "扩题集增 cross margin (现 24/25)", "接入生产 /ask + full eval (end-to-end fact recall) + 延迟实测", "s3 长名映射在 v2 未被实测 (补长名 single 题)"],
+      "followup": [
+        "q73 残留 (变量→model 定义文件通道, 注意 example-patching)",
+        "扩题集增 cross margin (现 24/25)",
+        "接入生产 /ask + full eval (end-to-end fact recall) + 延迟实测",
+        "s3 长名映射在 v2 未被实测 (补长名 single 题)"
+      ],
       "user_ack": "2026-06-09 (commit b077ffa + 接入生产 0a16a5b)"
     },
     "phase_v3_testset_s4_fixes": {
@@ -517,7 +696,14 @@
       "s3_verified": "probe_s3_longname.py 通道级归因 13/13; q135 OFF 0%→ON 100% 净救回; 06-09 实现的 s3 首次被真实 eval 题穿透",
       "v3_exposed_fail": "ON cross 93.0/single 92.5 <95; 核心新发现 q139/q140 OFF 100%→ON 0% 真回归 (s3 短词守卫排除+hybrid collateral, 四配置消融钉死); q134 斜杠名变体 / q107 datasets 同义词 / q73+q119+q126=(d) 概念定义通道缺口",
       "s4_fixes": "server/structured_lookup.py 三修全 pattern 级: (a) dist 锚加 datasets 同义词 (b) 斜杠复合长名按备选展开变体 (CM/IE/TI/TU/TR 10 变体) (c) 短词长名锚定匹配 <name> dataset|domain",
-      "result": {"single_domain": 1.0, "cross_domain": 0.95, "concept": 1.0, "mixed": 1.0, "overall": 0.982, "all_categories_ge_95": true},
+      "result": {
+        "single_domain": 1.0,
+        "cross_domain": 0.95,
+        "concept": 1.0,
+        "mixed": 1.0,
+        "overall": 0.982,
+        "all_categories_ge_95": true
+      },
       "verification": "pytest 236 (本模块首个单测 22 用例) / s3 探针 13/13 / 零回归逐题 diff (救回恰好预测 4 题, 0 回归) / Rule D code-reviewer APPROVE_WITH_NITS (2 MED 当场采纳, 存量 Procedures/Disposition 裸匹配 known boundary 记录)",
       "evidence": "sdtm-rag/evidence/checkpoints/{testset_v3_expansion_summary,s4_longname_dist_fixes_result,s4_rule_d_review}.md + testset_v3_authoring_audit.json",
       "next": "DONE → phase_d_concept_channel (S4 full eval 收尾账 + (d) 双通道)"
@@ -570,7 +756,12 @@
         "retro": "RETROSPECTIVE_retrieval_arc.md (Rule C 三段 + 6 决策复盘)",
         "evidence": "evidence/checkpoints/llm_judge_fact_recall.md + eval/prod_wirein/judge_{input,result}_v3.json"
       },
-      "next_candidates_non_blocking": ["✅ DONE 语义 judge 固化进 run_eval.py (--judge, 2026-06-15, Rule D 抓修 HIGH 静默膨胀 bug, pytest 260)", "跨模型 eval (Sonnet/Opus, 待 Anthropic credits)", "q126 (需 domain sub-file 判别架构件)", "容器构建实测 (Docker 主机)"],
+      "next_candidates_non_blocking": [
+        "✅ DONE 语义 judge 固化进 run_eval.py (--judge, 2026-06-15, Rule D 抓修 HIGH 静默膨胀 bug, pytest 260)",
+        "跨模型 eval (Sonnet/Opus, 待 Anthropic credits)",
+        "q126 (需 domain sub-file 判别架构件)",
+        "容器构建实测 (Docker 主机)"
+      ],
       "task3_judge_wirein": {
         "what": "语义 fact judge 固化进 run_eval.py --judge (替代 substring 误导值, verdict 用 judge)",
         "impl": "_parse_covered (纯解析器) + check_fact_recall_judge + run_evaluation(judge,judge_model) + print_summary 双报+parse_fail 计数; --judge/--judge-model (默认 deepseek 独立于 --model); 默认路径字节等价",
@@ -595,6 +786,17 @@
       "rule_a": "独立 opus N=8 分层语义抽检 (TE/TD/VS/LB/DM/RELREC/DI-SUPPQUAL 边界/多码+关系): PASS, 零 invented 机制/零错码/零漏数据; 全局不变量 same_class 无自引 + 无悬挂 relation target + 零孤儿 ct + mechanism 分布 {null:50,RELREC:2} 与设计吻合; 证据 evidence/checkpoints/sp1_meta_audit.md",
       "commits": "d0e0bb5..7b453ca (main, TDD 每 Task 一 commit + 修复/polish/hardening/audit, 12 commits)",
       "next": "SP2 (确定性结构化答题通道: meta.yaml 载内存 → /api/ask 计数/穷举/精确查找走确定数据, q103/q104 翻绿 + 退役 structured_lookup 正则影子 KG, 含 model_defhome 替换 len==6 解析). 路由词「KG 重启 开始任务」现→SP2"
+    },
+    "phase_agg_channel": {
+      "status": "completed",
+      "started_at": "2026-07-07",
+      "pass_at": "2026-07-07",
+      "owner": "main (编排/brainstorm/spec/plan/收口) + implementer subagents (haiku/sonnet ×5 修复轮) + task-reviewer ×5 + 盲写 writers ×8 (3 轮+补充) + gold verifier (Rule D lane) + Rule D 全量审 (fable 异 type) + Rule A scientist N=6",
+      "scope": "价值 eval 两条榨值建议: aggregate 从 SP3 拆独立 AggregateAnswerer + pattern-level 触发重写; SP2/SP3 通道零改动 (graph_answer 删 aggregate 回归纯图)",
+      "gates": "五门: 单测48 / 140q 零污染 0/140 (artifact) / fire-rate r3 门 15/16 + 诚实口径 (novelty 补充: 阈值族 100%, 最高级族 25%) / ds e2e Δ+41.7pp 零退化 / Rule D 整改完成 + Rule A 6/6",
+      "verdict": "DONE 默认 ON; 用户批准诚实披露收口 (2026-07-07); 最高级措辞长尾 KL-4 + MED-1/2/3 入 backlog 等 dogfood 信号",
+      "evidence": "sdtm-rag/evidence/checkpoints/agg_channel_summary.md + agg_rule{D,A}_*.md + agg_zero_pollution_probe.txt; failures/agg_attempt_{1,2}.md",
+      "key_learning": "盲写收敛现象: fresh held-out 门必须带 novelty check (工具 eval/novelty_check.py 已沉淀); 词法 pattern 对最高级家族有措辞长尾天花板"
     }
   },
   "constraints": {

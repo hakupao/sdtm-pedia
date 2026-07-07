@@ -4,7 +4,8 @@
 > 2026-06-20 · **SP2 DONE ✅** — Phase 1 (答题通道, 默认 ON) + **Phase 2 (退役正则影子 KG) DONE** (structured_lookup 索引改读 meta.yaml; 严格行为等价 9891+4177 查询 0 divergence; Rule D APPROVE)。详见下方「SP2 Phase 1/2 DONE」段。
 > 2026-06-20 · **SP3 (关系/影响查询) DONE ✅ 默认 ON** — 内存图引擎 (`GraphEngine` + 可换 `GraphBackend`) + NL 图答题 (`GraphAnswerer` 经 `CompositeAnswerer` 并入 SP2 通道)。能力: 影响/级联 · 跨域聚合 (variables_in_min_domains + most_shared) · 结构 (same_class via relationship) · 域间关系发现 (advisory)。**140q 零污染 0/140 (composite ON==OFF byte-identical)**, Rule D 三轮 APPROVE, Rule A N=8 PASS。详见下方「SP3 DONE」段。
 > 2026-06-21 · **KG 价值 eval DONE ✅ — verdict: SP2 是 KG 价值, SP3 图层端到端≈0** (3-臂 × 3 模型, ΔSP2 +14~16pp 三模型一致 / ΔSP3≈0; SP3 唯一正向=aggregate 聚合但 NL 仅 45% 触发 + impact 与 SP2 byte-identical 冗余; Rule A ACCEPT-WITH-RESERVATIONS)。**结论: SP4/SP5 不靠答案质量证明** — 仅当要交互式图浏览 UX 才值。证据 `evidence/checkpoints/kg_value_eval.md` + `evidence/RETROSPECTIVE_kgval.md`。详见下方「KG 价值 eval DONE」段。
-> 用户决策: **SP1-5 全做**, 按依赖顺序逐个 (每个子项目走 设计→spec→plan→实现 循环)。**SP1-3 全 DONE; SP4/SP5 均可选 (价值 eval 后: 仅产品 UX 理由, 非精度)。**
+> 2026-07-07 · **AGG (aggregate 独立通道) DONE ✅ 默认 ON** — 价值 eval 两条榨值建议落地: aggregate 拆出 `AggregateAnswerer` + pattern-level 触发重写。ds 端到端 **Δ+41.7pp** (OFF 58%→ON 100%, 零退化); fire-rate 诚实口径 = 阈值族 novel 盲题 100% / 最高级族 25% (长尾入 backlog, 等 dogfood 信号); 140q 零污染 0/140; Rule D 整改完成 + Rule A 6/6。详见下方「AGG DONE」段。
+> 用户决策: **SP1-5 全做**, 按依赖顺序逐个 (每个子项目走 设计→spec→plan→实现 循环)。**SP1-3 + AGG 全 DONE; SP4/SP5 均可选 (价值 eval 后: 仅产品 UX 理由, 非精度)。**
 > 恢复方式: 新 session 说 **「KG 重启 开始任务」** → 读本文件 + memory `project_kg_decision` → 接 **SP4 (可选 Neo4j+Cypher+可视化) 或 SP5 (可选 图增强校验器)** = 新设计单元, 必须先 re-invoke `superpowers:brainstorming` (均可选; 若不要可视化/校验器则 KG 主线已收口)。
 > ⚠️ **HARD-GATE (每个新设计单元)**: 先把设计问完 + 出 spec + 用户批准, 再 `writing-plans`/写码。**别跳过设计直接实现**。(SP4/SP5 是新单元, 必须走 brainstorm。)
 
@@ -64,10 +65,17 @@
 - **对 SP4/SP5 的含义**: **不靠答案质量证明继续投资**。SP4 (Neo4j/可视化) / SP5 (图校验器) **仅当要交互式图浏览 UX 作产品功能才值** — 非精度决策。榨取 SP3 已有价值性价比最高的是: ① 拓宽 SP3 NL 触发面 (45%→更高, 当前最大瓶颈) ② 把 aggregate 聚合并入 SP2。
 - 证据: `evidence/checkpoints/kg_value_eval.md` + `evidence/RETROSPECTIVE_kgval.md` + `evidence/failures/kgval_gpt54_arm2_quota.md`; 资产 `eval/{gen_kgval_goldset,reconcile_kgval_gold,assemble_kgval_testset}.py` + `eval/test_set_kg_value.yml` + `eval/prod_wirein/{kgval_fire_probe,analyze_kgval}.py`。
 
+## AGG DONE (2026-07-07) — 交付与发现
+
+- **产出**: `server/aggregate_answer.py` (新: `detect_aggregate_intents` 9 形状类 + word-boundary anchor 同义词 datasets/vars + `AggregateAnswerer`, 装配逐字平移 SP3 golden 钉死) 注册 CompositeAnswerer (SP2→AGG→SP3); `graph_answer.py` 删 aggregate 回归纯图; flag `aggregate_answer_enabled` 默认 ON。评测资产: 3 轮盲写 held-out + novelty-check 工具 (`eval/novelty_check.py`) + e2e 26 题 + `agg_fire_probe/analyze_agg_e2e`。
+- **五门**: 单测 48 + 140q 零污染 0/140 (artifact 落盘) + fire-rate (r3 门 15/16; **诚实口径** novelty 补充集: 阈值族 4/4=100% / 最高级族 2/8=25%) + **ds e2e Δ+41.7pp** (held-out OFF 58%→ON 100%, 26 题零退化, 审查者独立复算) + Rule D 整改完成/Rule A 6/6。证据 `evidence/checkpoints/agg_channel_summary.md` + `agg_rule{D,A}_*.md`。
+- **重大发现**: ① 盲写收敛 — 同一 need card 跨轮盲写措辞收敛, "fresh held-out" 必须过 novelty check (Rule D 抓出, 流程工具已沉淀); ② 词法 pattern 对最高级家族有措辞长尾天花板 (每轮盲写挖出新同义表达), **用户决策: 诚实披露收口**, 长尾造册等 dogfood ⚑ 信号; ③ 触发时价值极大且零风险 (静默=与无通道等价)。
+- 2 次门失败归档 `evidence/failures/agg_attempt_{1,2}.md` (规则 B); 5 轮 shape-level 修复全程无按题硬编 (Rule D 逐条判定)。
+
 ## 下一步 — SP4/SP5 仅产品 UX 理由 (非精度)
 
-- **价值 eval 后**: SP3 图能力端到端不改善答案质量 → SP4/SP5 只在用户明确要「交互式图浏览 / 图增强校验工具」时才上, 必须先 `superpowers:brainstorming`。
+- **价值 eval 两条榨值建议已由 AGG 落地** (触发面 + aggregate 独立通道化)。
 - **SP4 (可选)** Neo4j + Cypher + 可视化图浏览器 / 临时探索界面 (DESIGN §5.4/§5.5)。
 - **SP5 (可选)** 图增强校验器: impact / 跨域完整性 / CT 级联一致性 接进 Validator (DESIGN §5.6)。
-- **可选小补 (SP4 或独立)**: codelist_co_users NL 接入 (Q2 选过, 干净可加) / mechanism:null back-fill / 更广 relationship-aggregate NL 覆盖 / SP2 同源 degenerate 0-impact codelist 修。
-- 均为**新设计单元**: 必须先 `superpowers:brainstorming` → spec → 用户批准 → plan。若用户不要可视化/校验器, KG 主线 (能力交付) 已于 SP3 收口。
+- **可选小补 (SP4 或独立)**: codelist_co_users NL 接入 (Q2 选过, 干净可加) / mechanism:null back-fill / SP2 同源 degenerate 0-impact codelist 修 / AGG backlog (最高级长尾 KL-4 + MED-1/2/3 注入侧收紧, 见 `agg_channel_summary.md`)。
+- 均为**新设计单元**: 必须先 `superpowers:brainstorming` → spec → 用户批准 → plan。若用户不要可视化/校验器, KG 主线 (能力交付) 已于 SP3+AGG 收口。

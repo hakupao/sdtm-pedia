@@ -429,3 +429,27 @@ DEPLOY_PLAN §3 阶段 2 (★核心) 收口。retro `branches/07_rag_kg/RETROSPE
 - 更新 8 文件默认路径 (不改则下次 deploy 会在根目录重建): `deploy/deploy.sh` DEST 默认值 → `$HOME/MyProject/sdtm-rag-service` / `deploy/com.sdtmrag.api.service.plist.template` 4 处硬编码 / `deploy/.env.service.template` / `deploy/README.md` (runbook) / `scripts/gen_password_hash.py` 提示 / `server/config.py` 注释 / `DEPLOY_PLAN.md` / `PLAN_phase3_share.md`。
 - 验证: `bash -n` PASS + `--dry-run` 确认 DEST=新路径 + 现役 8000 health 200 不受影响 (launchd plist 指 repo 树, 与服务目录无关) + 全仓 grep 无旧路径残留 (worklog/PROGRESS 历史记录按 append-only 惯例保留原文)。
 - go-live 语义不变, 仍待 IT 内网 IP + 签字; `SDTM_RAG_SERVICE_DIR` env 覆盖机制不变。
+
+## 2026-07-07 AGG (aggregate 独立通道) DONE 默认 ON — 价值 eval 榨值建议落地
+
+全流程 brainstorm(3 决策)→spec→plan(10 task)→subagent-driven(每 task fresh implementer + 异 lane 审查)→Rule D 全量(fable 异 type)→Rule A N=6。**用户批准「诚实披露」收口口径。**
+
+### 做了什么
+- **通道**: `server/aggregate_answer.py` (新) — `detect_aggregate_intents` (threshold/superlative 两意图, 9 语言形状类 + `_normalize_numbers` 拼写数字归一 + word-boundary anchor 同义词 datasets/vars) + `AggregateAnswerer` (装配逐字平移 SP3, golden 单测钉死, 顺修「抓第一个裸数字」遗留 bug)。注册 CompositeAnswerer (SP2→AGG→SP3); `graph_answer.py` 删 aggregate 回归纯图; flag `aggregate_answer_enabled` 默认 ON (env 可回滚); run_eval `--aggregate-answer`。
+- **评测资产**: 3 轮盲写 held-out (16 题/轮, 烧毁轮全保留作回归) + **novelty-check 工具** `eval/novelty_check.py` (内容词 Jaccard, Rule D 流程缺口的沉淀) + 补充轮 12 题 + e2e 26 题 (heldout+kgval 回归) + `agg_fire_probe.py`/`analyze_agg_e2e.py`。
+
+### 五门与诚实口径
+- 单测 48 (must-fire 9 形状类 / must-not-fire 上界·版本号·散文·跨从句·量化 dozen) + 全套 460/460; 140q 零污染 **0/140** (5 轮 pattern 扩展每轮重跑, artifact 落盘); **ds e2e Δ+41.7pp** (held-out OFF 58.3%→ON **100%**, 26 题零退化, 审查者独立复算逐数吻合); Rule A N=6 双源零错配。
+- **fire-rate 门史**: r1 4/16 FAIL → 6 形状类修 → r2 12/16 FAIL → +N-plus/top-N → r3 15/16 门过 → **Rule D 抓出盲写收敛重叠** (r3 与烧毁集 4 逐字+~7 近逐字) → novelty 补充轮 2/12 → anchor 词汇修 → **6/12 (阈值族 4/4=100%, 最高级族 2/8=25%)**。2 次失败归档 `failures/agg_attempt_{1,2}.md` (规则 B)。
+- **已知限**: KL-1 双插入 / KL-2 隐喻最高级 (champion) / KL-3 "most often" 无 the / KL-4 最高级长尾造册; 注入侧 backlog MED-1/2/3 (维度错配优先)。安全模型: 静默=与无通道等价, 永不致害。
+
+### 关键学习 (印证规则 D/A)
+- **盲写收敛**: 同一 need card 跨轮盲写措辞收敛 → "fresh held-out" 独立性被高估; 全部 task 审查都没抓到, Rule D 全量审 (异 type + 最强模型) 抓出 → fire-rate 门必须带 novelty check (工具已沉淀, 下次直接用)。
+- **词法天花板**: 每轮盲写挖出新最高级同义表达 (3 数据点); 用户决策不追 whack-a-mole, 长尾等 dogfood ⚑ 真实信号。
+- Reviewer 对抗式探针 2 轮抓 4 个测试盲区真缺陷 (负向守卫只护一个分支 / 量化 dozen 错数值注入 / 跨从句过宽 / 版本号误触发); 修复者反过来抓出 reviewer 处方本身的洞 ("2 dozen" 间隙词路径) — 双向制衡有效。
+
+### 产出
+代码 5 文件 + 测试 2 文件 + 评测资产 9 文件 + 证据 6 文件 (checkpoint/RuleD/RuleA/零污染 artifact/2 failures); spec/plan `docs/superpowers/{specs,plans}/2026-07-07-agg-*.md`; 15 commits (c42fff7..收口)。
+
+### next
+- SP4/SP5 可选 (产品 UX 理由, 需 brainstorm 硬门) — 用户已预告要做「KG 重启执行落地」; AGG backlog (KL-4 长尾 + MED-1/2/3) 等 dogfood 信号。
