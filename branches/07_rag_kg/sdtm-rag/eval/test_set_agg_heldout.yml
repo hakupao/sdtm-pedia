@@ -1,0 +1,205 @@
+- id: ah01
+  category: aggregate_threshold
+  question: Which SDTM variables show up in two or more different domains?
+  expected_facts:
+  - STUDYID
+  - DOMAIN
+  - USUBJID
+  - EPOCH
+  - TAETORD
+  - VISIT
+  - VISITDY
+  - VISITNUM
+  - SPDEVID
+  - NHOID
+  - ARM
+  - ARMCD
+  - ELEMENT
+  - ETCD
+  - FOCID
+  - IDVAR
+  - IDVARVAL
+  - RDOMAIN
+  - IECAT
+  - IESCAT
+  - IETEST
+  - IETESTCD
+  - MIDS
+  - MIDSTYPE
+  expect_count: 24
+  card_applies: true
+  gold_reading: inclusive
+- id: ah02
+  category: aggregate_threshold
+  question: Are there SDTM variables that appear in as many as six separate domains,
+    or even more?
+  expected_facts:
+  - STUDYID
+  - DOMAIN
+  - USUBJID
+  - EPOCH
+  - TAETORD
+  - VISIT
+  - VISITDY
+  - VISITNUM
+  - SPDEVID
+  expect_count: 9
+  card_applies: true
+  gold_reading: inclusive
+- id: ah03
+  category: aggregate_threshold
+  question: Can you name the variables that turn up in nine or more different SDTM
+    domains?
+  expected_facts:
+  - STUDYID
+  - DOMAIN
+  - USUBJID
+  - EPOCH
+  - TAETORD
+  - VISIT
+  - VISITDY
+  - VISITNUM
+  expect_count: 8
+  card_applies: true
+  gold_reading: inclusive
+- id: ah04
+  category: aggregate_threshold
+  question: Which variables are shared across a dozen or more SDTM domains?
+  expected_facts:
+  - STUDYID
+  - DOMAIN
+  - USUBJID
+  - EPOCH
+  - TAETORD
+  - VISIT
+  - VISITDY
+  - VISITNUM
+  expect_count: 8
+  card_applies: true
+  gold_reading: inclusive
+- id: ah05
+  category: aggregate_threshold
+  question: Which SDTM variables show up in at least 18 different domains?
+  expected_facts:
+  - STUDYID
+  - DOMAIN
+  - USUBJID
+  - EPOCH
+  - TAETORD
+  - VISIT
+  - VISITDY
+  - VISITNUM
+  expect_count: 8
+  card_applies: true
+  gold_reading: inclusive
+- id: ah06
+  category: aggregate_threshold
+  question: Can you list the SDTM variables that appear across 25 or more domains?
+  expected_facts:
+  - STUDYID
+  - DOMAIN
+  - USUBJID
+  - EPOCH
+  - TAETORD
+  - VISIT
+  - VISITDY
+  - VISITNUM
+  expect_count: 8
+  card_applies: true
+  gold_reading: inclusive
+- id: ah07
+  category: aggregate_threshold
+  question: Which variables are used in a minimum of 30 SDTM domains?
+  expected_facts:
+  - STUDYID
+  - DOMAIN
+  - USUBJID
+  - EPOCH
+  - TAETORD
+  - VISIT
+  - VISITDY
+  - VISITNUM
+  expect_count: 8
+  card_applies: true
+  gold_reading: inclusive
+- id: ah08
+  category: aggregate_threshold
+  question: What are the SDTM variables that span 38 domains or more?
+  expected_facts:
+  - STUDYID
+  - DOMAIN
+  - USUBJID
+  - EPOCH
+  - TAETORD
+  expect_count: 5
+  card_applies: true
+  gold_reading: inclusive
+- id: as01
+  category: aggregate_superlative
+  question: Which single codelist is attached to more variables than any other?
+  expected_facts:
+  - C66742
+  expect_count: null
+  card_applies: false
+- id: as02
+  category: aggregate_superlative
+  question: Which codelist is reused across the widest range of SDTM domains?
+  expected_facts:
+  - C66742
+  expect_count: null
+  card_applies: false
+- id: as03
+  category: aggregate_superlative
+  question: What controlled terminology codelist gets shared between variables the
+    most?
+  expected_facts:
+  - C66742
+  expect_count: null
+  card_applies: false
+- id: as04
+  category: aggregate_superlative
+  question: Can you give me a short list of the codelists that the most variables
+    draw on?
+  expected_facts:
+  - C66742
+  - C71620
+  - C66789
+  - C66728
+  - C74456
+  expect_count: null
+  card_applies: false
+- id: as05
+  category: aggregate_superlative
+  question: Which three codelists are shared by the largest number of variables?
+  expected_facts:
+  - C66742
+  - C71620
+  - C66789
+  expect_count: null
+  card_applies: false
+- id: as06
+  category: aggregate_superlative
+  question: What are the four codelists that get reused by the most variables?
+  expected_facts:
+  - C66742
+  - C71620
+  - C66789
+  - C66728
+  expect_count: null
+  card_applies: false
+- id: as07
+  category: aggregate_superlative
+  question: Which codelist is the real workhorse here — the one tied to more variables
+    than any other?
+  expected_facts:
+  - C66742
+  expect_count: null
+  card_applies: false
+- id: as08
+  category: aggregate_superlative
+  question: What's the single most-used codelist in terms of how many variables reference
+    it?
+  expected_facts:
+  - C66742
+  expect_count: null
+  card_applies: false

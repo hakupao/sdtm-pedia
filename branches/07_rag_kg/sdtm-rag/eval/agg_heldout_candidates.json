@@ -1,0 +1,345 @@
+[
+  {
+    "ref": "ah01",
+    "subtype": "threshold",
+    "threshold": 2,
+    "need": "which SDTM variables occur in 2 SDTM domains or in even more domains than that (express the quantity requirement in your own natural English)",
+    "gold_inclusive": [
+      "STUDYID",
+      "DOMAIN",
+      "USUBJID",
+      "EPOCH",
+      "TAETORD",
+      "VISIT",
+      "VISITDY",
+      "VISITNUM",
+      "SPDEVID",
+      "NHOID",
+      "ARM",
+      "ARMCD",
+      "ELEMENT",
+      "ETCD",
+      "FOCID",
+      "IDVAR",
+      "IDVARVAL",
+      "RDOMAIN",
+      "IECAT",
+      "IESCAT",
+      "IETEST",
+      "IETESTCD",
+      "MIDS",
+      "MIDSTYPE"
+    ],
+    "gold_strict": [
+      "STUDYID",
+      "DOMAIN",
+      "USUBJID",
+      "EPOCH",
+      "TAETORD",
+      "VISIT",
+      "VISITDY",
+      "VISITNUM",
+      "SPDEVID",
+      "NHOID",
+      "ARM",
+      "ARMCD",
+      "ELEMENT",
+      "ETCD",
+      "FOCID",
+      "IDVAR",
+      "IDVARVAL",
+      "RDOMAIN"
+    ]
+  },
+  {
+    "ref": "ah02",
+    "subtype": "threshold",
+    "threshold": 6,
+    "need": "which SDTM variables occur in 6 SDTM domains or in even more domains than that (express the quantity requirement in your own natural English)",
+    "gold_inclusive": [
+      "STUDYID",
+      "DOMAIN",
+      "USUBJID",
+      "EPOCH",
+      "TAETORD",
+      "VISIT",
+      "VISITDY",
+      "VISITNUM",
+      "SPDEVID"
+    ],
+    "gold_strict": [
+      "STUDYID",
+      "DOMAIN",
+      "USUBJID",
+      "EPOCH",
+      "TAETORD",
+      "VISIT",
+      "VISITDY",
+      "VISITNUM"
+    ]
+  },
+  {
+    "ref": "ah03",
+    "subtype": "threshold",
+    "threshold": 9,
+    "need": "which SDTM variables occur in 9 SDTM domains or in even more domains than that (express the quantity requirement in your own natural English)",
+    "gold_inclusive": [
+      "STUDYID",
+      "DOMAIN",
+      "USUBJID",
+      "EPOCH",
+      "TAETORD",
+      "VISIT",
+      "VISITDY",
+      "VISITNUM"
+    ],
+    "gold_strict": [
+      "STUDYID",
+      "DOMAIN",
+      "USUBJID",
+      "EPOCH",
+      "TAETORD",
+      "VISIT",
+      "VISITDY",
+      "VISITNUM"
+    ]
+  },
+  {
+    "ref": "ah04",
+    "subtype": "threshold",
+    "threshold": 12,
+    "need": "which SDTM variables occur in 12 SDTM domains or in even more domains than that (express the quantity requirement in your own natural English)",
+    "gold_inclusive": [
+      "STUDYID",
+      "DOMAIN",
+      "USUBJID",
+      "EPOCH",
+      "TAETORD",
+      "VISIT",
+      "VISITDY",
+      "VISITNUM"
+    ],
+    "gold_strict": [
+      "STUDYID",
+      "DOMAIN",
+      "USUBJID",
+      "EPOCH",
+      "TAETORD",
+      "VISIT",
+      "VISITDY",
+      "VISITNUM"
+    ]
+  },
+  {
+    "ref": "ah05",
+    "subtype": "threshold",
+    "threshold": 18,
+    "need": "which SDTM variables occur in 18 SDTM domains or in even more domains than that (express the quantity requirement in your own natural English)",
+    "gold_inclusive": [
+      "STUDYID",
+      "DOMAIN",
+      "USUBJID",
+      "EPOCH",
+      "TAETORD",
+      "VISIT",
+      "VISITDY",
+      "VISITNUM"
+    ],
+    "gold_strict": [
+      "STUDYID",
+      "DOMAIN",
+      "USUBJID",
+      "EPOCH",
+      "TAETORD",
+      "VISIT",
+      "VISITDY",
+      "VISITNUM"
+    ]
+  },
+  {
+    "ref": "ah06",
+    "subtype": "threshold",
+    "threshold": 25,
+    "need": "which SDTM variables occur in 25 SDTM domains or in even more domains than that (express the quantity requirement in your own natural English)",
+    "gold_inclusive": [
+      "STUDYID",
+      "DOMAIN",
+      "USUBJID",
+      "EPOCH",
+      "TAETORD",
+      "VISIT",
+      "VISITDY",
+      "VISITNUM"
+    ],
+    "gold_strict": [
+      "STUDYID",
+      "DOMAIN",
+      "USUBJID",
+      "EPOCH",
+      "TAETORD",
+      "VISIT",
+      "VISITDY",
+      "VISITNUM"
+    ]
+  },
+  {
+    "ref": "ah07",
+    "subtype": "threshold",
+    "threshold": 30,
+    "need": "which SDTM variables occur in 30 SDTM domains or in even more domains than that (express the quantity requirement in your own natural English)",
+    "gold_inclusive": [
+      "STUDYID",
+      "DOMAIN",
+      "USUBJID",
+      "EPOCH",
+      "TAETORD",
+      "VISIT",
+      "VISITDY",
+      "VISITNUM"
+    ],
+    "gold_strict": [
+      "STUDYID",
+      "DOMAIN",
+      "USUBJID",
+      "EPOCH",
+      "TAETORD",
+      "VISIT",
+      "VISITDY",
+      "VISITNUM"
+    ]
+  },
+  {
+    "ref": "ah08",
+    "subtype": "threshold",
+    "threshold": 38,
+    "need": "which SDTM variables occur in 38 SDTM domains or in even more domains than that (express the quantity requirement in your own natural English)",
+    "gold_inclusive": [
+      "STUDYID",
+      "DOMAIN",
+      "USUBJID",
+      "EPOCH",
+      "TAETORD"
+    ],
+    "gold_strict": [
+      "STUDYID",
+      "DOMAIN",
+      "USUBJID",
+      "EPOCH",
+      "TAETORD"
+    ]
+  },
+  {
+    "ref": "as01",
+    "subtype": "superlative",
+    "top_k": 1,
+    "need": "the single codelist that is attached to the largest number of variables",
+    "gold_codes": [
+      "C66742"
+    ],
+    "gold_names": [
+      "No Yes Response"
+    ]
+  },
+  {
+    "ref": "as02",
+    "subtype": "superlative",
+    "top_k": 1,
+    "need": "the codelist reused across the widest spread of SDTM domains",
+    "gold_codes": [
+      "C66742"
+    ],
+    "gold_names": [
+      "No Yes Response"
+    ]
+  },
+  {
+    "ref": "as03",
+    "subtype": "superlative",
+    "top_k": 1,
+    "need": "which controlled-terminology set gets recycled most often between variables",
+    "gold_codes": [
+      "C66742"
+    ],
+    "gold_names": [
+      "No Yes Response"
+    ]
+  },
+  {
+    "ref": "as04",
+    "subtype": "superlative",
+    "top_k": 5,
+    "need": "the top few codelists ranked by how many variables draw on them",
+    "gold_codes": [
+      "C66742",
+      "C71620",
+      "C66789",
+      "C66728",
+      "C74456"
+    ],
+    "gold_names": [
+      "No Yes Response",
+      "Unit",
+      "Not Done",
+      "Relation to Reference Period",
+      "Anatomical Location"
+    ]
+  },
+  {
+    "ref": "as05",
+    "subtype": "superlative",
+    "top_k": 3,
+    "need": "the three codelists shared by the greatest count of variables",
+    "gold_codes": [
+      "C66742",
+      "C71620",
+      "C66789"
+    ],
+    "gold_names": [
+      "No Yes Response",
+      "Unit",
+      "Not Done"
+    ]
+  },
+  {
+    "ref": "as06",
+    "subtype": "superlative",
+    "top_k": 4,
+    "need": "the four most heavily reused codelists in the standard",
+    "gold_codes": [
+      "C66742",
+      "C71620",
+      "C66789",
+      "C66728"
+    ],
+    "gold_names": [
+      "No Yes Response",
+      "Unit",
+      "Not Done",
+      "Relation to Reference Period"
+    ]
+  },
+  {
+    "ref": "as07",
+    "subtype": "superlative",
+    "top_k": 1,
+    "need": "which codelist would you call the workhorse \u2014 used by more variables than any other",
+    "gold_codes": [
+      "C66742"
+    ],
+    "gold_names": [
+      "No Yes Response"
+    ]
+  },
+  {
+    "ref": "as08",
+    "subtype": "superlative",
+    "top_k": 1,
+    "need": "the champion codelist by variable usage",
+    "gold_codes": [
+      "C66742"
+    ],
+    "gold_names": [
+      "No Yes Response"
+    ]
+  }
+]
