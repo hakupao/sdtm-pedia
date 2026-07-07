@@ -84,3 +84,83 @@ def test_threshold_without_number_or_context_must_not_fire():
     assert detect_aggregate_intents("Which variables appear in many domains?") == set()
     # 有数字有 variable 但无 "domain" → 不触发 (沿用 SP3 双词共现门语义)
     assert detect_aggregate_intents("How many variables are in more than 5 records?") == set()
+
+
+# ── resolve() battery ────────────────────────────────────────────────────────
+
+
+@pytest.fixture(scope="module")
+def agg() -> AggregateAnswerer:
+    return AggregateAnswerer(GraphEngine(MetaStore(settings.meta_path)))
+
+
+def test_threshold_strict_excludes_exact_boundary(agg):
+    # "more than 40" 严格 (>40): 恰好 40 域的变量必须不出现
+    facts = agg.resolve("Which variables appear in more than 40 domains?")
+    assert facts is not None
+    exact40 = [v for v, c in agg.engine.variables_in_min_domains(40) if c == 40]
+    for v in exact40:
+        assert v not in facts.text_block
+
+
+def test_threshold_inclusive_includes_exact_boundary(agg):
+    facts = agg.resolve("Which variables appear in at least 40 domains?")
+    assert facts is not None
+    exact40 = [v for v, c in agg.engine.variables_in_min_domains(40) if c == 40]
+    if exact40:
+        assert any(v in facts.text_block for v in exact40)
+
+
+def test_threshold_n_from_expression_not_first_digit(agg):
+    # 旧 graph_answer 抓 query 里第一个裸数字 (此例会错抓 5); 新装配必须从阈值表达取数
+    facts = agg.resolve("List 5 variables that appear in more than 40 domains.")
+    assert facts is not None
+    n_gt40 = len(agg.engine.variables_in_min_domains(41))
+    assert f"**{n_gt40}**" in facts.text_block
+    assert ">40" in facts.text_block
+
+
+def test_postfix_threshold_resolves(agg):
+    facts = agg.resolve("Which variables show up in 30 or more domains?")
+    assert facts is not None
+    n = len(agg.engine.variables_in_min_domains(30))
+    assert f"**{n}**" in facts.text_block
+    assert "≥30" in facts.text_block
+
+
+def test_superlative_top5_matches_engine(agg):
+    facts = agg.resolve("What is the most shared codelist?")
+    assert facts is not None
+    for t in agg.engine.most_shared_codelists(5):
+        assert t["code"] in facts.text_block
+
+
+def test_no_counts_no_advisory(agg):
+    facts = agg.resolve("Which variables appear in at least 30 domains?")
+    assert facts is not None
+    assert facts.checkable_counts == []
+    assert facts.advisory_block == ""
+
+
+def test_resolve_none_when_no_intent(agg):
+    assert agg.resolve("How many domains include TAETORD?") is None
+    assert agg.resolve("What are the most common adverse events?") is None
+
+
+# ── golden: 注入行文与 SP3 遗留格式逐字相同 (kgval 已证有效, 格式不许漂移) ──────
+
+
+def test_golden_threshold_line_format(agg):
+    res = agg.engine.variables_in_min_domains(41)
+    listed = ", ".join(f"{v} ({c})" for v, c in res[:50])
+    expected = f"- **{len(res)}** variables appear in >40 domains: {listed}."
+    facts = agg.resolve("Which variables appear in more than 40 domains?")
+    assert facts.text_block == expected
+
+
+def test_golden_most_shared_line_format(agg):
+    top = agg.engine.most_shared_codelists(5)
+    listed = ", ".join(f"{t['code']} ({t['name']}, {t['n_variables']} vars)" for t in top)
+    expected = f"- Most-shared codelists: {listed}."
+    facts = agg.resolve("What is the most shared codelist?")
+    assert facts.text_block == expected

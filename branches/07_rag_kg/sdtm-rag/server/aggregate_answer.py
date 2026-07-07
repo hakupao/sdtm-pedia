@@ -58,11 +58,42 @@ def detect_aggregate_intents(query: str) -> set[str]:
 
 
 class AggregateAnswerer:
-    """Deterministic aggregate answerer over GraphEngine (read-only, stateless).
-    resolve() is implemented in Task 2."""
+    """Deterministic aggregate answerer over GraphEngine (read-only, stateless)."""
 
     def __init__(self, engine: GraphEngine):
         self.engine = engine
 
     def resolve(self, query: str) -> StructuredFacts | None:
-        raise NotImplementedError  # Task 2
+        intents = detect_aggregate_intents(query)
+        if not intents:
+            return None
+        lines: list[str] = []
+
+        if "threshold" in intents:
+            # Strict beats inclusive when both shapes appear; n comes from the matched
+            # threshold expression itself (NOT the first bare digit in the query — the
+            # legacy branch had that bug).
+            m = _THRESH_STRICT_RE.search(query)
+            if m:
+                n = int(m.group(1))
+                threshold, wording = n + 1, f">{n}"
+            else:
+                m = _THRESH_INCL_PRE_RE.search(query) or _THRESH_INCL_POST_RE.search(query)
+                n = int(m.group(1))
+                threshold, wording = n, f"≥{n}"
+            res = self.engine.variables_in_min_domains(threshold)
+            if res:
+                listed = ", ".join(f"{v} ({c})" for v, c in res[:50])
+                lines.append(
+                    f"- **{len(res)}** variables appear in {wording} domains: {listed}."
+                )
+
+        if "superlative" in intents:
+            top = self.engine.most_shared_codelists(5)
+            listed = ", ".join(
+                f"{t['code']} ({t['name']}, {t['n_variables']} vars)" for t in top)
+            lines.append(f"- Most-shared codelists: {listed}.")
+
+        if not lines:
+            return None
+        return StructuredFacts(text_block="\n".join(lines), checkable_counts=[])
