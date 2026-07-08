@@ -53,6 +53,7 @@ dev = [
     "ruff>=0.6",
     "mypy>=1.11",
     "types-pyyaml>=6.0",
+    "neo4j>=6.2.0",
 ]
 fallback = [
     # pyreadstat fallback if Apple Silicon build fails (R-20)
