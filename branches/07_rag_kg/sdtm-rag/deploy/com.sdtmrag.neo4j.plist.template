@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  com.sdtmrag.neo4j — Neo4j 探索层 launchd 服务 (SP4)
+  spec: docs/superpowers/specs/2026-07-08-sp4-neo4j-exploration-design.md §2/§4
+  安装: cp deploy/com.sdtmrag.neo4j.plist.template ~/Library/LaunchAgents/com.sdtmrag.neo4j.plist
+        launchctl bootout  gui/$(id -u)/com.sdtmrag.neo4j 2>/dev/null || true
+        launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.sdtmrag.neo4j.plist
+  Differences vs com.sdtmrag.api:
+  - 前台命令是 brew 的 `neo4j console` (JVM), 非 .venv 内 python 服务
+  - localhost-only 双端口 7474/7687 (Neo4j 默认), 不进 go-live 共享范围
+  - 日志走 Neo4j 自身 logs 目录 (/opt/homebrew/var/log/neo4j/)
+  - heap 上限 1g: 实测 NEO4J_server_memory_heap_max__size 环境变量在本机
+    brew 2026.05.0 原生安装上 NOT 生效 (该 docker-entrypoint.sh 风格的 env 注入
+    约定只在官方 Docker 镜像里实现, 原生/brew launcher 不认 — 验证见
+    deploy/README.md §Neo4j: SHOW SETTINGS / listConfig 回 NULL, JVM 命令行无
+    -Xmx)。真正生效方式是直接改 neo4j.conf 的 server.memory.heap.max_size=1g
+    (已改, 见 Task 2 report)。下方 EnvironmentVariables 里仍保留该 env 行作为
+    "意图声明的文档", 无害但不生效 —— 不要以为它在起作用。
+  - JAVA_HOME: /opt/homebrew/bin/neo4j 的 wrapper 脚本本身已 hardcode
+    JAVA_HOME=/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home,
+    理论上无需重复设置; 这里仍显式加一行, 对 launchd 的最小化环境更稳健。
+-->
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.sdtmrag.neo4j</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/opt/homebrew/bin/neo4j</string>
+    <string>console</string>
+  </array>
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>HOME</key>
+    <string>/Users/bojiangzhang</string>
+    <key>PATH</key>
+    <string>/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+    <key>JAVA_HOME</key>
+    <string>/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home</string>
+    <key>NEO4J_server_memory_heap_max__size</key>
+    <string>1g</string>
+  </dict>
+  <key>RunAtLoad</key>
+  <true/>
+  <key>KeepAlive</key>
+  <true/>
+  <key>ThrottleInterval</key>
+  <integer>10</integer>
+  <key>StandardOutPath</key>
+  <string>/opt/homebrew/var/log/neo4j/launchd.log</string>
+  <key>StandardErrorPath</key>
+  <string>/opt/homebrew/var/log/neo4j/launchd.log</string>
+</dict>
+</plist>

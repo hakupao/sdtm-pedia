@@ -66,6 +66,52 @@ launchctl bootout gui/$(id -u)/com.sdtmrag.api
 #  + 在 ~/MyProject/sdtm-rag-service/.env 设 SDTM_RAG_AUTH_ENABLED=false 可临时关登录门 (调试用)。
 ```
 
+## Neo4j 探索层 (SP4; 本机自用, 不进 go-live)
+
+> 状态: 本机探索层。localhost-only (7474 Browser / 7687 bolt), 与 8000 生产服务零耦合 —
+> Neo4j 挂/停/没装, 生产答题不受影响 (spec 硬约束, Gate 3 有停机 byte-identical 证据)。
+
+```bash
+# 1. 安装 (formula 自带 openjdk)
+brew install neo4j
+
+# 2. 首次: 生成密码进 .env (chmod 600, 不进 git), 设初始密码
+PW=$(openssl rand -base64 24)   # 追加 NEO4J_URI/NEO4J_USER/NEO4J_PASSWORD 到 sdtm-rag/.env
+neo4j-admin dbms set-initial-password "$PW"
+
+# 3. heap 上限 1g —— 实测结论 (2026-07-08, brew neo4j 2026.05.0):
+#    NEO4J_server_memory_heap_max__size 这类 docker-entrypoint.sh 风格的环境变量
+#    注入约定只在官方 Docker 镜像里实现, 本机原生/brew launcher 不认
+#    (CALL dbms.listConfig()/SHOW SETTINGS 验证回 NULL, JVM 命令行也无 -Xmx)。
+#    真正生效方式是直接改 neo4j.conf:
+echo 'server.memory.heap.max_size=1g' >> "$(dirname $(readlink -f $(which neo4j)))/../conf/neo4j.conf"
+#    (本机路径: /opt/homebrew/Cellar/neo4j/<version>/libexec/conf/neo4j.conf;
+#     plist 模板 EnvironmentVariables 里仍保留同名 env 行, 但那只是意图声明, 不生效)
+
+# 4. 装载 launchd 服务
+cp deploy/com.sdtmrag.neo4j.plist.template ~/Library/LaunchAgents/com.sdtmrag.neo4j.plist
+launchctl bootout  gui/$(id -u)/com.sdtmrag.neo4j 2>/dev/null || true
+launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.sdtmrag.neo4j.plist
+
+# 5. 验证 (heap 1g + localhost-only)
+source <(grep '^NEO4J_' .env)
+cypher-shell -a "$NEO4J_URI" -u "$NEO4J_USER" -p "$NEO4J_PASSWORD" \
+  "SHOW SETTINGS YIELD name, value WHERE name = 'server.memory.heap.max_size' RETURN name, value;"
+  # 期望: "server.memory.heap.max_size", "1.00GiB"
+lsof -nP -iTCP:7474 -iTCP:7687 -sTCP:LISTEN   # 期望两端口都绑 127.0.0.1
+
+# 6. 全量导入 / 重建 (KB 冻结, 低频; 幂等可重跑; build_neo4j.py/reconcile_neo4j.py 见 SP4 Task 3-5)
+cd <sdtm-rag 根> && .venv/bin/python scripts/build_neo4j.py
+.venv/bin/python scripts/reconcile_neo4j.py    # 对账门, exit 0 才算导入成功
+
+# 7. 起停 / 重启 / 卸载
+launchctl kickstart -k gui/$(id -u)/com.sdtmrag.neo4j   # 重启
+launchctl bootout gui/$(id -u)/com.sdtmrag.neo4j        # 停 (生产不受影响)
+
+# 8. Browser 探索: open http://127.0.0.1:7474 (登录 neo4j/$NEO4J_PASSWORD)
+#    精选查询库: ../docs/cypher_cookbook.md (SP4 Task 6)
+```
+
 ## 文件清单
 
 | 文件 | 作用 |
@@ -74,3 +120,5 @@ launchctl bootout gui/$(id -u)/com.sdtmrag.api
 | `.env.service.template` | 服务目录 .env 模板 (key/路径/auth/限流) |
 | `com.sdtmrag.api.service.plist.template` | go-live api LaunchAgent (0.0.0.0:8000, 指服务目录) |
 | `../scripts/gen_password_hash.py` | 生成口令 scrypt 哈希 + session secret |
+| `com.sdtmrag.neo4j.plist.template` | 本机 Neo4j 探索层 LaunchAgent (localhost-only 7474/7687, heap 1g 走 neo4j.conf) |
+| `../docs/cypher_cookbook.md` | 精选 Cypher 查询库 (SP4 Task 6) |
