@@ -6,7 +6,7 @@
 > 2026-06-21 · **KG 价值 eval DONE ✅ — verdict: SP2 是 KG 价值, SP3 图层端到端≈0** (3-臂 × 3 模型, ΔSP2 +14~16pp 三模型一致 / ΔSP3≈0; SP3 唯一正向=aggregate 聚合但 NL 仅 45% 触发 + impact 与 SP2 byte-identical 冗余; Rule A ACCEPT-WITH-RESERVATIONS)。**结论: SP4/SP5 不靠答案质量证明** — 仅当要交互式图浏览 UX 才值。证据 `evidence/checkpoints/kg_value_eval.md` + `evidence/RETROSPECTIVE_kgval.md`。详见下方「KG 价值 eval DONE」段。
 > 2026-07-07 · **AGG (aggregate 独立通道) DONE ✅ 默认 ON** — 价值 eval 两条榨值建议落地: aggregate 拆出 `AggregateAnswerer` + pattern-level 触发重写。ds 端到端 **Δ+41.7pp** (OFF 58%→ON 100%, 零退化); fire-rate 诚实口径 = 阈值族 novel 盲题 100% / 最高级族 25% (长尾入 backlog, 等 dogfood 信号); 140q 零污染 0/140; Rule D 整改完成 + Rule A 6/6。详见下方「AGG DONE」段。
 > 用户决策: **SP1-5 全做**, 按依赖顺序逐个 (每个子项目走 设计→spec→plan→实现 循环)。**SP1-3 + AGG 全 DONE; SP4/SP5 均可选 (价值 eval 后: 仅产品 UX 理由, 非精度)。**
-> 恢复方式: 新 session 说 **「KG 重启 开始任务」** → 读本文件 + memory `project_kg_decision` → 接 **SP4 (可选 Neo4j+Cypher+可视化) 或 SP5 (可选 图增强校验器)** = 新设计单元, 必须先 re-invoke `superpowers:brainstorming` (均可选; 若不要可视化/校验器则 KG 主线已收口)。
+> 恢复方式: 新 session 说 **「KG 重启 开始任务」** → 读本文件 + memory `project_kg_decision`。**当前状态 (2026-07-08): 用户决定 SP4+SP5 都做, SP4 先; SP4 brainstorm 已完成, spec 已批准并提交** (`docs/superpowers/specs/2026-07-08-sp4-neo4j-exploration-design.md`, repo-root) → **下一步 = 直接 invoke `superpowers:writing-plans` 出 SP4 实现计划** (不要重新 brainstorm)。SP4 完成后 SP5 另起 brainstorm。
 > ⚠️ **HARD-GATE (每个新设计单元)**: 先把设计问完 + 出 spec + 用户批准, 再 `writing-plans`/写码。**别跳过设计直接实现**。(SP4/SP5 是新单元, 必须走 brainstorm。)
 
 ## 已 settled (别再 re-litigate)

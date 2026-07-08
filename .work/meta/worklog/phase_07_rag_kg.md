@@ -453,3 +453,9 @@ DEPLOY_PLAN §3 阶段 2 (★核心) 收口。retro `branches/07_rag_kg/RETROSPE
 
 ### next
 - SP4/SP5 可选 (产品 UX 理由, 需 brainstorm 硬门) — 用户已预告要做「KG 重启执行落地」; AGG backlog (KL-4 长尾 + MED-1/2/3) 等 dogfood 信号。
+
+## 2026-07-08 SP4 (Neo4j 探索层) brainstorm + spec 批准 — 待 writing-plans (新 session)
+
+- 用户决策: **SP4+SP5 两个都做, SP4 先**。brainstorm 3 决策: ① 底座 **Neo4j** (用户否决纯前端推荐项, 要完整愿景; 生产答题继续内存 DictBackend, Neo4j 纯探索层) ② 安装 **brew + launchd** (核实机器无 Docker) ③ 交付面 **数据层 + Neo4j Browser + Cypher 查询库** (webchat Graph tab 二期)。
+- Spec `docs/superpowers/specs/2026-07-08-sp4-neo4j-exploration-design.md` (d318874) 用户批准。要点: 4 节点/5 边 SP3 同构建模 (逐域权威值在 HAS_VARIABLE 边属性, curated 边 advisory 标注), Term 不物化; 四道验收门 (独立对账 N≥8 / cookbook golden / **停机 byte-identical 生产不受扰** / Rule D); 生产隔离硬约束 (server/ 零 neo4j 依赖, `grep -r neo4j server/` 零命中入门)。
+- **接续 (新 session)**: 读 spec → 直接 `superpowers:writing-plans` (不重新 brainstorm) → subagent-driven 执行 (照 AGG 模式)。KG_ROADMAP 恢复方式行 + memory `project_kg_decision` 均已更新指针。
