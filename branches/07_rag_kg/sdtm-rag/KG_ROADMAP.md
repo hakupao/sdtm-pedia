@@ -8,7 +8,7 @@
 > 2026-07-09 · **SP4 (Neo4j 探索层) DONE ✅** — brew+launchd 本机 Neo4j 图探索层 (5 节点标签/5 边类型, meta.yaml 唯一源) + 独立对账 + Cypher cookbook + Browser; 生产答题通道零改动/零依赖/零扰动; 四门全过, D1-D4 数据接地偏差披露。详见下方「SP4 DONE」段。
 > 用户决策: **SP1-5 全做**, 按依赖顺序逐个 (每个子项目走 设计→spec→plan→实现 循环)。**SP1-3 + AGG + SP4 全 DONE; SP5 待另起 brainstorm (仅产品 UX 理由, 非精度)。**
 > 恢复方式: 新 session 说 **「KG 重启 开始任务」** → 读本文件 + memory `project_kg_decision`。**当前状态 (2026-07-09): SP4 (Neo4j 探索层) DONE ✅, SP1-3+AGG+SP4 全部收口。下一步 = SP5 (图增强校验器), 是新设计单元, 必须先 `superpowers:brainstorming`** (无现成 spec/plan, 不可跳过设计直接实现)。
-> ⚠️ **HARD-GATE (每个新设计单元)**: 先把设计问完 + 出 spec + 用户批准, 再 `writing-plans`/写码。**别跳过设计直接实现**。(SP4/SP5 是新单元, 必须走 brainstorm。)
+> ⚠️ **HARD-GATE (每个新设计单元)**: 先把设计问完 + 出 spec + 用户批准, 再 `writing-plans`/写码。**别跳过设计直接实现**。(SP5 是新单元, 必须走 brainstorm。)
 
 ## 已 settled (别再 re-litigate)
 

@@ -42,3 +42,4 @@
 41/41 checks passed
 
 idempotency: two rebuilds -> snapshot byte-diff empty (IDEMPOTENT-PASS 2026-07-09, preserved from Task 5 — DB unchanged by this fix round)
+snapshot line count: 5254 lines (2621 nodes + 2633 edges = 5254 canonical lines) — regenerated 2026-07-09 via `scripts/reconcile_neo4j.py --snapshot`, confirmed by `wc -l`

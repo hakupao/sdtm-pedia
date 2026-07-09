@@ -22,3 +22,5 @@ BYTE-IDENTICAL PASS
 import-grep clean
 lowercase-literal-grep clean
 runtime-import clean
+
+probe dump size: 6225 bytes (identical off/on) — reconfirmed 2026-07-09 via `eval/prod_wirein/sp4_isolation_probe.py`, confirmed by `wc -c`
