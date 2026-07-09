@@ -165,20 +165,42 @@ def _batches(rows: list[dict], size: int = BATCH_SIZE):
 
 def import_graph(driver: Any, graph: Graph) -> dict[str, int]:
     """Wipe + full deterministic rebuild. Idempotent: two runs -> identical
-    node/edge sets (Gate 1 snapshot diff proves it)."""
+    node/edge sets (Gate 1 snapshot diff proves it).
+
+    Self-verifying: `UNWIND $rows AS r MATCH (...) CREATE (...)` silently
+    skips a row when a MATCH fails to bind (e.g. missing endpoint) — no
+    error, no warning. So counts[label]/counts[etype] must come from the
+    driver's write-summary counters (actually created), not len(rows)
+    (rows submitted); a mismatch is raised loud rather than deferred to
+    Task 5's reconcile gate.
+    """
     counts: dict[str, int] = {}
     with driver.session(database="neo4j") as session:
         session.run("MATCH (n) DETACH DELETE n")          # ~2.6k nodes: single tx fine
         for stmt in CONSTRAINTS:
             session.run(stmt)
         for label, rows in graph["nodes"].items():
+            created = 0
             for chunk in _batches(rows):
-                session.run(NODE_CYPHER[label], rows=chunk)
-            counts[label] = len(rows)
+                result = session.run(NODE_CYPHER[label], rows=chunk)
+                created += result.consume().counters.nodes_created
+            if created != len(rows):
+                raise ValueError(
+                    f"node import mismatch for {label}: created={created} "
+                    f"expected={len(rows)}"
+                )
+            counts[label] = created
         for etype, rows in graph["edges"].items():
+            created = 0
             for chunk in _batches(rows):
-                session.run(EDGE_CYPHER[etype], rows=chunk)
-            counts[etype] = len(rows)
+                result = session.run(EDGE_CYPHER[etype], rows=chunk)
+                created += result.consume().counters.relationships_created
+            if created != len(rows):
+                raise ValueError(
+                    f"edge import mismatch for {etype}: created={created} "
+                    f"expected={len(rows)} (silent drop / missing endpoint?)"
+                )
+            counts[etype] = created
     return counts
 
 
