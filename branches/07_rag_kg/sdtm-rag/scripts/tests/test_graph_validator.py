@@ -6,7 +6,7 @@ import pytest
 
 from server.config import settings
 from server.graph_engine import GraphEngine
-from server.graph_validator import check_completeness
+from server.graph_validator import check_completeness, check_ct_cascade
 from server.meta_store import MetaStore
 
 
@@ -33,3 +33,29 @@ def test_completeness_silent_when_target_present(engine):
 
 def test_completeness_unknown_domain_no_crash(engine):
     assert check_completeness({"ZZ": _df("ZZ")}, engine) == []
+
+
+# ── Task 2: check_ct_cascade ──────────────────────────────────────────────
+# NOTE: plan used AESER/MHSER; MHSER binds no codelist (verified against meta.yaml),
+# so the second-domain variable is MHPRESP, which binds C66742 like AESER.
+# See evidence/failures/sp5_attempt_1.md.
+
+
+def test_ct_cascade_flags_inconsistent_values(engine):
+    # AESER + MHPRESP both bind codelist C66742 (No Yes Response). Different value sets.
+    ae = pd.DataFrame({"DOMAIN": ["AE", "AE"], "AESER": ["Y", "N"]})
+    mh = pd.DataFrame({"DOMAIN": ["MH"], "MHPRESP": ["U"]})
+    findings = check_ct_cascade({"AE": ae, "MH": mh}, engine)
+    assert any(f.rule == "GCASCADE" and "C66742" in f.message for f in findings)
+    assert all(f.severity == "WARN" for f in findings)
+
+
+def test_ct_cascade_silent_when_consistent(engine):
+    ae = pd.DataFrame({"DOMAIN": ["AE"], "AESER": ["Y"]})
+    mh = pd.DataFrame({"DOMAIN": ["MH"], "MHPRESP": ["Y"]})
+    assert check_ct_cascade({"AE": ae, "MH": mh}, engine) == []
+
+
+def test_ct_cascade_silent_single_domain(engine):
+    ae = pd.DataFrame({"DOMAIN": ["AE", "AE"], "AESER": ["Y", "N"]})
+    assert check_ct_cascade({"AE": ae}, engine) == []
