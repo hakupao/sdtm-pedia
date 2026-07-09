@@ -35,8 +35,10 @@
 [OK ] nbhd:Codelist:C124676:users: expected=set() actual=set()
 [OK ] nbhd:Codelist:C141657:props: expected=('10-Meter Walk/Run Functional Test Test Code', False, 4, 'terminology/supplementary/supplementary_part1.md') actual=('10-Meter Walk/Run Functional Test Test Code', False, 4, 'terminology/supplementary/supplementary_part1.md')
 [OK ] nbhd:Codelist:C141657:users: expected=set() actual=set()
-[OK ] nbhd:Class:Relationship:domains: expected={'RELSUB', 'SUPPQUAL', 'RELSPEC', 'RELREC'} actual={'RELSUB', 'SUPPQUAL', 'RELSPEC', 'RELREC'}
+[OK ] nbhd:Class:Relationship:domains: expected={'SUPPQUAL', 'RELSPEC', 'RELSUB', 'RELREC'} actual={'SUPPQUAL', 'RELSUB', 'RELREC', 'RELSPEC'}
 [OK ] nbhd:Class:Relationship:n_domains: expected=4 actual=4
-39/39 checks passed
+[OK ] anchor:Domain:AE:RELATED_TO: expected=<set of 3> actual=<set of 3>
+[OK ] anchor:Codelist:C66742:users: expected=<set of 123> actual=<set of 123>
+41/41 checks passed
 
-idempotency: two rebuilds -> snapshot byte-diff empty (IDEMPOTENT-PASS 2026-07-09)
+idempotency: two rebuilds -> snapshot byte-diff empty (IDEMPOTENT-PASS 2026-07-09, preserved from Task 5 — DB unchanged by this fix round)

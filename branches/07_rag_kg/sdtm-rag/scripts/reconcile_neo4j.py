@@ -2,9 +2,12 @@
 
 Deliberately does NOT reuse the importer's traversal: expected values are
 re-derived from a raw yaml.safe_load of data/meta/meta.yaml with its own code
-shapes (Counter/set comprehensions), then compared against the live Neo4j via
+shapes (set/dict comprehensions), then compared against the live Neo4j via
 read-only driver queries. Rule A lane: N=9 stratified entity neighborhoods
-(3 Domain / 3 Variable / 2 Codelist / 1 Class, seeded RNG) compared edge-by-edge.
+(3 Domain / 3 Variable / 2 Codelist / 1 Class, seeded RNG) compared edge-by-edge,
+plus 2 fixed anchor checks (Domain:AE RELATED_TO, Codelist:C66742 users) that
+guarantee non-empty positive-membership coverage on the two sparsest edge types
+regardless of what the random sample draws.
 
 Honest disclosure (reconcile_meta.py discipline): both sides ultimately trace
 to meta.yaml — this breaks *code-path* tautology (importer bug classes: dropped
@@ -168,6 +171,22 @@ def reconcile(meta_path: Path) -> list[dict]:
             check(f"nbhd:Class:{name}:domains", e["domains"], doms)
             nd = _rows(s, "MATCH (k:Class {name:$n}) RETURN k.n_domains AS nd", n=name)[0]["nd"]
             check(f"nbhd:Class:{name}:n_domains", e["n_domains"], nd)
+
+        # Fixed anchors (not random) — guarantee non-empty positive-membership
+        # coverage on the two edge types the N=9 sample happened to land on
+        # empty-set comparisons for. Reuse the same expected_from_yaml
+        # derivations and Cypher patterns as the loops above.
+        ae_related = exp["domain_nbhd"]("AE")["related_to"]
+        rel_ae = {(r["t"], r["m"], r["cat"], r["note"], r["f"]) for r in _rows(
+            s, "MATCH (d:Domain {code:$c})-[r:RELATED_TO]->(b:Domain) RETURN b.code AS t, "
+               "r.mechanism AS m, r.category AS cat, r.note AS note, r.fidelity AS f", c="AE")}
+        check("anchor:Domain:AE:RELATED_TO", ae_related, rel_ae)
+
+        c66742_users = exp["codelist_nbhd"]("C66742")["users"]
+        users_c66742 = {r["v"] for r in _rows(
+            s, "MATCH (v:Variable)-[:USES_CT]->(c:Codelist {code:$c}) RETURN v.name AS v",
+            c="C66742")}
+        check("anchor:Codelist:C66742:users", c66742_users, users_c66742)
     return report
 
 
