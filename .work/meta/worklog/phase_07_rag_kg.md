@@ -459,3 +459,37 @@ DEPLOY_PLAN §3 阶段 2 (★核心) 收口。retro `branches/07_rag_kg/RETROSPE
 - 用户决策: **SP4+SP5 两个都做, SP4 先**。brainstorm 3 决策: ① 底座 **Neo4j** (用户否决纯前端推荐项, 要完整愿景; 生产答题继续内存 DictBackend, Neo4j 纯探索层) ② 安装 **brew + launchd** (核实机器无 Docker) ③ 交付面 **数据层 + Neo4j Browser + Cypher 查询库** (webchat Graph tab 二期)。
 - Spec `docs/superpowers/specs/2026-07-08-sp4-neo4j-exploration-design.md` (d318874) 用户批准。要点: 4 节点/5 边 SP3 同构建模 (逐域权威值在 HAS_VARIABLE 边属性, curated 边 advisory 标注), Term 不物化; 四道验收门 (独立对账 N≥8 / cookbook golden / **停机 byte-identical 生产不受扰** / Rule D); 生产隔离硬约束 (server/ 零 neo4j 依赖, `grep -r neo4j server/` 零命中入门)。
 - **接续 (新 session)**: 读 spec → 直接 `superpowers:writing-plans` (不重新 brainstorm) → subagent-driven 执行 (照 AGG 模式)。KG_ROADMAP 恢复方式行 + memory `project_kg_decision` 均已更新指针。
+
+## 2026-07-09 KG 重启 SP4 (Neo4j 探索层) DONE — brew+launchd 本机探索层, 数据接地偏差 D1-D4 披露
+
+全流程 spec (批准 2026-07-08) → plan (9 task) → subagent-driven (每 task fresh sonnet implementer + task 内 review-fix 循环) → Rule D `feature-dev:code-reviewer` 异 type 全量审。**用户全程要求「SP4+SP5 都做」, SP4 先, SP5 待另起 brainstorm。**
+
+### 做了什么
+- **数据层**: `scripts/build_neo4j.py` — 纯函数 `extract_graph(meta) -> rows` (meta.yaml → 5 节点标签/5 边类型行, golden-anchored TDD) + 导入层 `import_graph(driver, rows)` (全清 `MATCH(n) DETACH DELETE n` + UNWIND 批量写 + 5 唯一性约束 + 写计数器自校验 `created==input` fail-loud, 幂等)。
+- **对账**: `scripts/reconcile_neo4j.py` — 独立码路 (禁 import `build_neo4j`/`MetaStore`/`GraphEngine`, 只用 `yaml.safe_load` + neo4j driver 读库), Gate 1 = Rule A lane。
+- **查询库**: `docs/cypher_cookbook.md` (7 条锚定 Cypher 查询, APOC 缺失→plain-Cypher 变体) + `eval/prod_wirein/sp4_cookbook_golden.py` (锚定生产 `GraphEngine`/`MetaStore` 等价 lane, Gate 2)。
+- **运维**: `deploy/com.sdtmrag.neo4j.plist.template` (沿用 `com.sdtmrag.{api,ui}` 命名族, localhost-only 7474/7687) + `deploy/README.md` §Neo4j runbook (brew 安装/heap 配置走 `neo4j.conf` 非 docker 式 env var/验证)。
+- **依赖隔离**: pyproject `[project.optional-dependencies].dev` 追加 `neo4j>=6.2.0` (不进 `[project.dependencies]`); `.env.example` 追加 NEO4J_* 空值行。
+- **生产隔离验证**: `eval/prod_wirein/sp4_isolation_probe.py` (12-query battery, Gate 3)。
+
+### 4 数据接地偏差 (D1-D4, plan 期程序实测 meta.yaml 抓出)
+D1 C66742 影响域数 spec 笔误 44→实测 41 (变量数 123 吻合) / D2 USES_CT 边加 `domains` 属性 (FOCID/C119013 逐域精确 vs closure 3 域) / D3 新增第 5 节点标签 ModelChapter (DEFHOME 目标是 model 章节文件非 Domain) / D4 18 个 model-only 变量也建 Variable 节点 (`model_only: true`, 否则 DEFHOME 静默丢 18 边)。D2 由 3 条独立代码路三角验证一致; D4 经证不污染计数类 cookbook 查询。
+
+### 四门
+- **Gate1 reconcile**: 41/41 `[OK]` exit 0 + 幂等 (两建 snapshot 5254 行逐字节同 empty diff) + N=9 分层邻域抽检 + 2 确定性锚点。`sp4_reconcile_gate.txt`。
+- **Gate2 cookbook golden**: 15/15 PASS (7 drift + 8 golden) exit 0, 锚定生产 GraphEngine/MetaStore 等价 lane。`sp4_cookbook_golden.txt`。
+- **Gate3 生产隔离**: Neo4j 停机全套 **477 passed** exit 0 + composite off/on **byte-identical** (6225B, 9/12 battery 双态一致) + `server/` 零 neo4j 引用 (import-grep + 字面量-grep + 运行时 `sys.modules` 三重 clean)。`sp4_isolation_gate.txt`。
+- **Gate4 Rule D**: `feature-dev:code-reviewer` 全量审 `b2e2f92..6dc123c` (11 commits) → **APPROVE_WITH_NITS** 0 BLOCKER/HIGH, 1 MED (localhost 绑定证据缺口) + 2 LOW 均修补验证。`sp4_ruleD_review.md` + `sp4_localhost_binding.txt`。
+
+### 关键学习
+- **plan 期写 golden 数字表天然强制实测**, D1-D4 都是这一步抓出而非 brainstorm 期臆测 — plan 阶段是"逐字段核对"的正确粒度, 早于此 (brainstorm) 过早优化, 晚于此 (review) 要走返工。
+- **纯函数/导入层分层是 Gate 3 停机全绿的架构性前提**, 非事后补丁 — `extract_graph` 零 I/O 独立可测, driver 写入薄到只做 I/O+自校验。
+- **两 lane 分工 (reconcile 独立 yaml vs cookbook GraphEngine 等价) 真互补**: reviewer 验证 `expected_from_yaml` 遍历结构不同形 (非表面镜像), 对 D2 难例三角验证。
+- **Task 7 首派遭 API 登出中断** — 复用未提交探针脚本 (与 brief 逐字比对一致) + 诊断根因 (pytest 命令行 `-q` 叠加 `pyproject.toml addopts=-ra -q` → verbosity -2 → pytest 9.x 静默省略汇总行), 干净重跑收口, 无需重写。
+- **限制诚实披露**: Term 节点未物化 (spec §3 backlog) / webchat Graph tab 二期 / 两 lane 同源 meta.yaml (抓代码路径 bug 非源头真值, 源头真值是 SP1 `reconcile_meta.py` 职责) / heap 配置走 `neo4j.conf` 非 env-var (brew 原生安装 docker 式 env var 无效, 已验证)。
+
+### 产出
+代码 2 脚本 + 1 plist + 1 runbook 段 + 1 cookbook + 2 评测工具 + pyproject/.env.example 改动; 证据 6 文件 (`sp4_{reconcile_gate,cookbook_golden,isolation_gate,ruleD_review,localhost_binding,neo4j_summary}.{txt,md}`); `RETROSPECTIVE_sp4.md` (Rule C 三段+); 11 commits (`9de80ee..0b8ac79`)。
+
+### next
+- **SP5** (图增强校验器: impact/跨域完整性/CT 级联一致性接进 Validator, DESIGN §5.6) = **新设计单元, 必须先 `superpowers:brainstorming`** (HARD-GATE, 无现成 spec/plan)。路由词「KG 重启 开始任务」现 → 读 KG_ROADMAP + memory `project_kg_decision` → SP5 brainstorm, 或 KG 主线 (SP1-3+AGG) + 探索层 (SP4) 已全收口。

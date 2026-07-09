@@ -5,8 +5,9 @@
 > 2026-06-20 · **SP3 (关系/影响查询) DONE ✅ 默认 ON** — 内存图引擎 (`GraphEngine` + 可换 `GraphBackend`) + NL 图答题 (`GraphAnswerer` 经 `CompositeAnswerer` 并入 SP2 通道)。能力: 影响/级联 · 跨域聚合 (variables_in_min_domains + most_shared) · 结构 (same_class via relationship) · 域间关系发现 (advisory)。**140q 零污染 0/140 (composite ON==OFF byte-identical)**, Rule D 三轮 APPROVE, Rule A N=8 PASS。详见下方「SP3 DONE」段。
 > 2026-06-21 · **KG 价值 eval DONE ✅ — verdict: SP2 是 KG 价值, SP3 图层端到端≈0** (3-臂 × 3 模型, ΔSP2 +14~16pp 三模型一致 / ΔSP3≈0; SP3 唯一正向=aggregate 聚合但 NL 仅 45% 触发 + impact 与 SP2 byte-identical 冗余; Rule A ACCEPT-WITH-RESERVATIONS)。**结论: SP4/SP5 不靠答案质量证明** — 仅当要交互式图浏览 UX 才值。证据 `evidence/checkpoints/kg_value_eval.md` + `evidence/RETROSPECTIVE_kgval.md`。详见下方「KG 价值 eval DONE」段。
 > 2026-07-07 · **AGG (aggregate 独立通道) DONE ✅ 默认 ON** — 价值 eval 两条榨值建议落地: aggregate 拆出 `AggregateAnswerer` + pattern-level 触发重写。ds 端到端 **Δ+41.7pp** (OFF 58%→ON 100%, 零退化); fire-rate 诚实口径 = 阈值族 novel 盲题 100% / 最高级族 25% (长尾入 backlog, 等 dogfood 信号); 140q 零污染 0/140; Rule D 整改完成 + Rule A 6/6。详见下方「AGG DONE」段。
-> 用户决策: **SP1-5 全做**, 按依赖顺序逐个 (每个子项目走 设计→spec→plan→实现 循环)。**SP1-3 + AGG 全 DONE; SP4/SP5 均可选 (价值 eval 后: 仅产品 UX 理由, 非精度)。**
-> 恢复方式: 新 session 说 **「KG 重启 开始任务」** → 读本文件 + memory `project_kg_decision`。**当前状态 (2026-07-08): 用户决定 SP4+SP5 都做, SP4 先; SP4 brainstorm 已完成, spec 已批准并提交** (`docs/superpowers/specs/2026-07-08-sp4-neo4j-exploration-design.md`, repo-root) → **下一步 = 直接 invoke `superpowers:writing-plans` 出 SP4 实现计划** (不要重新 brainstorm)。SP4 完成后 SP5 另起 brainstorm。
+> 2026-07-09 · **SP4 (Neo4j 探索层) DONE ✅** — brew+launchd 本机 Neo4j 图探索层 (5 节点标签/5 边类型, meta.yaml 唯一源) + 独立对账 + Cypher cookbook + Browser; 生产答题通道零改动/零依赖/零扰动; 四门全过, D1-D4 数据接地偏差披露。详见下方「SP4 DONE」段。
+> 用户决策: **SP1-5 全做**, 按依赖顺序逐个 (每个子项目走 设计→spec→plan→实现 循环)。**SP1-3 + AGG + SP4 全 DONE; SP5 待另起 brainstorm (仅产品 UX 理由, 非精度)。**
+> 恢复方式: 新 session 说 **「KG 重启 开始任务」** → 读本文件 + memory `project_kg_decision`。**当前状态 (2026-07-09): SP4 (Neo4j 探索层) DONE ✅, SP1-3+AGG+SP4 全部收口。下一步 = SP5 (图增强校验器), 是新设计单元, 必须先 `superpowers:brainstorming`** (无现成 spec/plan, 不可跳过设计直接实现)。
 > ⚠️ **HARD-GATE (每个新设计单元)**: 先把设计问完 + 出 spec + 用户批准, 再 `writing-plans`/写码。**别跳过设计直接实现**。(SP4/SP5 是新单元, 必须走 brainstorm。)
 
 ## 已 settled (别再 re-litigate)
@@ -21,8 +22,8 @@
 - **SP1 — `meta.yaml` 元数据层** ✅ **DONE 2026-06-17** (基础, 硬前置): `scripts/build_meta.py` 确定性生成 `data/meta/meta.yaml` (64 域=63 真域+DI 桩; 变量 name/role/type/core/`ct_codes`/`ct_dict` + `same_class` + `relations_curated`[机制仅字面] + `model_defhome` + `codelists`) + `scripts/reconcile_meta.py` 独立锚对账。reconcile gate 抓修 `spec_loader` 247 幻变量 bug; 桩域是 DI 非 SUPPQUAL。Gate1 8/8 + Rule D APPROVE + Rule A N=8 PASS。详见下方「SP1 DONE」段。
 - **SP2 — 确定性结构化答题通道** ✅ **DONE**: **Phase 1 (答题通道) DONE 默认 ON** (meta.yaml 载内存 → `/api/ask` 计数/穷举/属性/CT 走确定数据, q103/q104 翻绿); **Phase 2 (退役 structured_lookup 正则) DONE** (索引全改读 meta.yaml/MetaStore, 退役 load-bearing `len==6` + spec.md xref + VARIABLE_INDEX 解析 + `_cross_check_vars`; 严格行为等价, 净删 ~185 行)。详见下方「SP2 Phase 2 DONE」段。
 - **SP3 — 关系/影响查询** ✅ **DONE**: meta.yaml 之上**纯 Python 内存图引擎** (`GraphEngine` + 可换 `GraphBackend` seam) + NL 答题 (`GraphAnswerer`)。"改 C66742 影响哪些域/变量"、"哪些变量跨 >N 域"、域间关系发现 (advisory)。class-roster + codelist_co_users 保留 engine-only (NL 未接, 见下方「SP3 DONE」段)。详见下方「SP3 DONE」段。
-- **SP4 (可选) — Neo4j + Cypher + 混合路由**: 仅当要可视化图浏览器 / 临时 Cypher 探索界面作产品界面才上 (DESIGN §5.4/§5.5)。
-- **SP5 (可选) — 图增强校验**: 影响/级联检查接进 Validator (impact analysis / cross-domain completeness / CT cascade, DESIGN §5.6)。
+- **SP4 — Neo4j + Cypher 探索层** ✅ **DONE 2026-07-09**: brew+launchd 本机 Neo4j (5 节点标签/5 边类型, meta.yaml 唯一源) + 独立对账 (`reconcile_neo4j.py`) + Cypher cookbook (`docs/cypher_cookbook.md`) + Browser 探索界面 (127.0.0.1:7474); 生产答题通道 (内存 DictBackend) 零改动/零依赖/零扰动。详见下方「SP4 DONE」段。
+- **SP5 (可选, 下一单元) — 图增强校验**: 影响/级联检查接进 Validator (impact analysis / cross-domain completeness / CT cascade, DESIGN §5.6)。**新设计单元, 需另起 brainstorm。**
 
 ## SP1 DONE (2026-06-17) — 交付与发现
 
@@ -72,10 +73,18 @@
 - **重大发现**: ① 盲写收敛 — 同一 need card 跨轮盲写措辞收敛, "fresh held-out" 必须过 novelty check (Rule D 抓出, 流程工具已沉淀); ② 词法 pattern 对最高级家族有措辞长尾天花板 (每轮盲写挖出新同义表达), **用户决策: 诚实披露收口**, 长尾造册等 dogfood ⚑ 信号; ③ 触发时价值极大且零风险 (静默=与无通道等价)。
 - 2 次门失败归档 `evidence/failures/agg_attempt_{1,2}.md` (规则 B); 5 轮 shape-level 修复全程无按题硬编 (Rule D 逐条判定)。
 
-## 下一步 — SP4/SP5 仅产品 UX 理由 (非精度)
+## SP4 DONE (2026-07-09) — 交付与发现
 
-- **价值 eval 两条榨值建议已由 AGG 落地** (触发面 + aggregate 独立通道化)。
-- **SP4 (可选)** Neo4j + Cypher + 可视化图浏览器 / 临时探索界面 (DESIGN §5.4/§5.5)。
-- **SP5 (可选)** 图增强校验器: impact / 跨域完整性 / CT 级联一致性 接进 Validator (DESIGN §5.6)。
-- **可选小补 (SP4 或独立)**: codelist_co_users NL 接入 (Q2 选过, 干净可加) / mechanism:null back-fill / SP2 同源 degenerate 0-impact codelist 修 / AGG backlog (最高级长尾 KL-4 + MED-1/2/3 注入侧收紧, 见 `agg_channel_summary.md`)。
-- 均为**新设计单元**: 必须先 `superpowers:brainstorming` → spec → 用户批准 → plan。若用户不要可视化/校验器, KG 主线 (能力交付) 已于 SP3+AGG 收口。
+- **产出**: `scripts/build_neo4j.py` (纯函数 `extract_graph` meta.yaml→5 标签/5 边行, golden-anchored TDD + driver 导入层 `import_graph`: 全清+确定性排序重建, 写计数器自校验 `created==input` fail-loud) + `scripts/reconcile_neo4j.py` (独立码路对账, 禁 import `build_neo4j`/`MetaStore`/`GraphEngine`) + `docs/cypher_cookbook.md` (7 条锚定查询) + `eval/prod_wirein/{sp4_cookbook_golden,sp4_isolation_probe}.py` + `deploy/com.sdtmrag.neo4j.plist.template` + `deploy/README.md` §Neo4j runbook + pyproject dev extra `neo4j>=6.2.0` + `.env.example` NEO4J_* 块。brew (Neo4j 2026.05.0, arm64) + launchd (`com.sdtmrag.neo4j`, 沿用 `com.sdtmrag.{api,ui}` 命名族, localhost-only 7474/7687)。
+- **建模**: SP3 同构 (meta.yaml 唯一源), 5 节点标签 (Domain 63 / Variable 1541[=1523 IG+18 model-only] / Codelist 1005 / Class 8 / ModelChapter 4) + 5 边类型 (HAS_VARIABLE 1917 / USES_CT 542 / IN_CLASS 63 / DEFHOME 59 / RELATED_TO 52); RELATED_TO 沿用 SP3 保真度纪律 (`advisory: true` + `fidelity: 'curated_prose'`)。
+- **4 数据接地偏差 (D1-D4, plan 期程序实测 meta.yaml 抓出, 非 brainstorm 期臆测)**: D1 C66742 影响域数 spec 笔误 44→实测 41 (变量数 123 吻合); D2 USES_CT 边加 `domains` 属性 (FOCID/C119013 逐域精确 vs closure 3 域); D3 新增第 5 节点标签 ModelChapter (DEFHOME 目标是 model 章节文件非 Domain); D4 18 个 model-only 变量也建 Variable 节点 (`model_only: true`), 否则 DEFHOME 静默丢 18 条边。
+- **四门结果**: Gate1 reconcile 41/41[OK]+幂等(两建 snapshot 5254 行逐字节同)+N=9 分层邻域抽检+2 确定性锚点 / Gate2 cookbook golden 15/15(7 drift+8 golden, 锚定生产 GraphEngine 等价 lane, APOC 缺失→plain Cypher) / Gate3 生产隔离(Neo4j 停机全套 **477 passed**+composite off/on **byte-identical** 6225B+`server/` 零 neo4j 引用静态+运行时双验) / Gate4 Rule D 异 type `feature-dev:code-reviewer` **APPROVE_WITH_NITS** 0 BLOCKER/HIGH(1 MED localhost 证据缺口+2 LOW 均修补验证)。证据 `evidence/checkpoints/sp4_{reconcile_gate,cookbook_golden,isolation_gate,ruleD_review,localhost_binding,neo4j_summary}.{txt,md}`。
+- **关键发现**: D2 (FOCID/C119013 逐域精确) 由 3 条独立代码路 (extract_graph / reconcile 独立重导 yaml / 生产 GraphEngine) 三角验证一致, 反过拟合证据最强; D4 model_only 拆分经证不污染计数类 cookbook 查询 (18 节点结构上不可能收到 HAS_VARIABLE/USES_CT 边, 免疫非靠可遗忘的 WHERE 过滤器); Task 7 首派遭 API 登出中断 (环境非任务缺陷), 复用未提交探针脚本 + 诊断出 pytest 命令行 `-q` 叠加 `addopts=-ra -q` 导致 verbosity -2 静默省略汇总行的根因, 干净重跑收口。
+- 复盘 `RETROSPECTIVE_sp4.md` (Rule C 三段+)。
+
+## 下一步 — SP5 是唯一剩余可选单元 (仅产品 UX 理由, 非精度)
+
+- **SP1-3 + AGG + SP4 全 DONE。**
+- **SP5 (可选)** 图增强校验器: impact / 跨域完整性 / CT 级联一致性 接进 Validator (DESIGN §5.6)。**新设计单元, 必须先 `superpowers:brainstorming`** → spec → 用户批准 → plan。
+- **可选小补 (独立)**: codelist_co_users NL 接入 (Q2 选过, 干净可加) / mechanism:null back-fill / SP2 同源 degenerate 0-impact codelist 修 / AGG backlog (最高级长尾 KL-4 + MED-1/2/3 注入侧收紧, 见 `agg_channel_summary.md`) / webchat Graph tab (SP4 brainstorm 决策③明确二期)。
+- 若用户不要图校验器, KG 主线 (能力交付 SP1-3+AGG) 与探索层 (SP4) 均已收口。
