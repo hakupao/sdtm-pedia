@@ -85,9 +85,13 @@ def main() -> int:
     for name, q in QUERIES.items():
         gate(f"drift:{name}", q.strip() in cookbook, "query text verbatim in cookbook")
 
+    password = os.environ.get("NEO4J_PASSWORD")
+    if not password:
+        raise SystemExit("NEO4J_PASSWORD missing — add it to sdtm-rag/.env (see deploy/README.md §Neo4j)")
+
     with GraphDatabase.driver(
         os.environ.get("NEO4J_URI", "bolt://127.0.0.1:7687"),
-        auth=(os.environ.get("NEO4J_USER", "neo4j"), os.environ["NEO4J_PASSWORD"]),
+        auth=(os.environ.get("NEO4J_USER", "neo4j"), password),
     ) as driver, driver.session(database="neo4j") as s:
         rec = s.run(QUERIES["impact"], code="C66742").single()
         if rec is None:

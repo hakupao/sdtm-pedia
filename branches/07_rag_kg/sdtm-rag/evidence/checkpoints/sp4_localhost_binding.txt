@@ -1,0 +1,13 @@
+== SP4 localhost-only binding evidence 2026-07-09 ==
+-- lsof: both ports must show 127.0.0.1 only, no 0.0.0.0 / * --
+COMMAND   PID         USER   FD   TYPE             DEVICE SIZE/OFF NODE NAME
+java    30019 bojiangzhang  382u  IPv6 0xe08a2783d2a6c22f      0t0  TCP 127.0.0.1:7687 (LISTEN)
+java    30019 bojiangzhang  385u  IPv6 0x6ef9abc48887fda9      0t0  TCP 127.0.0.1:7474 (LISTEN)
+-- SHOW SETTINGS: bolt + http listen addresses --
+name, value
+"server.bolt.listen_address", "localhost:7687"
+"server.default_listen_address", "localhost"
+"server.http.listen_address", "localhost:7474"
+-- heap (from Task 2, re-confirm) --
+name, value
+"server.memory.heap.max_size", "1.00GiB"

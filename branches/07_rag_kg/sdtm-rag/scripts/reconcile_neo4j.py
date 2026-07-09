@@ -200,6 +200,9 @@ def snapshot(out_path: Path) -> None:
             lines.append(f"NODE|{r['label']}|{props}")
         for r in _rows(s, "MATCH (a)-[e]->(b) RETURN labels(a)[0] AS la, properties(a) AS pa, "
                           "type(e) AS t, properties(e) AS pe, labels(b)[0] AS lb, properties(b) AS pb"):
+            # assumes node identifiers are unique across labels (Domain code / Variable name /
+            # Codelist code / Class name / ModelChapter path don't collide in this dataset);
+            # used only for the idempotency byte-diff, not the counts reconcile
             key = lambda lab, p: p.get("code") or p.get("name") or p.get("path")  # noqa: E731
             props = ";".join(f"{k}={r['pe'][k]!r}" for k in sorted(r["pe"]))
             lines.append(f"EDGE|{r['t']}|{key(r['la'], r['pa'])}->{key(r['lb'], r['pb'])}|{props}")
