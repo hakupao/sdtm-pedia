@@ -58,8 +58,17 @@ def check_ct_cascade(datasets: dict[str, pd.DataFrame], engine: GraphEngine) -> 
         dom_vals = cascade[ct]
         if len(dom_vals) < 2:
             continue
-        union = set().union(*dom_vals.values())
-        if any(vals != union for vals in dom_vals.values()):
+        # WARN only on *non-nested* divergence: two domains whose value sets each
+        # contain something the other lacks (a genuine inconsistency). Legitimate
+        # coverage differences where one domain's values are a subset of another's
+        # (e.g. AE={Y} vs MH={Y,N,U}) are NOT flagged — that was a false-positive source.
+        sets = sorted(dom_vals.items())
+        diverges = any(
+            not (a[1] <= b[1] or b[1] <= a[1])
+            for i, a in enumerate(sets)
+            for b in sets[i + 1:]
+        )
+        if diverges:
             cl = engine.store.codelist(ct)
             name = cl["name"] if cl else ct
             detail = "; ".join(f"{d}={sorted(v)}" for d, v in sorted(dom_vals.items()))
@@ -73,7 +82,11 @@ def check_ct_cascade(datasets: dict[str, pd.DataFrame], engine: GraphEngine) -> 
 def check_impact(datasets: dict[str, pd.DataFrame], engine: GraphEngine) -> list[Finding]:
     """INFO advisory: flag high-impact variables/codelists present in the data
     (a variable or its codelist spanning >= IMPACT_DOMAIN_THRESHOLD domains) so the
-    user knows changes there have wide cross-domain effect. Never pass/fail."""
+    user knows changes there have wide cross-domain effect. Never pass/fail.
+
+    Identifier-role variables (STUDYID/DOMAIN/USUBJID/--SEQ) are skipped: they are
+    universal by construction, so their wide spread is trivially known and flagging
+    them is pure noise (they would fire in every dataset)."""
     findings: list[Finding] = []
     for dom in sorted(datasets):
         df = datasets[dom]
@@ -84,7 +97,10 @@ def check_impact(datasets: dict[str, pd.DataFrame], engine: GraphEngine) -> list
             if var not in seen_vars:
                 seen_vars.add(var)
                 iv = engine.impact_of_variable(var)
-                if iv and iv["n_domains"] >= IMPACT_DOMAIN_THRESHOLD:
+                attrs = engine.store.variable_attributes(var)
+                role = attrs["role"] if attrs else None
+                if (iv and iv["n_domains"] >= IMPACT_DOMAIN_THRESHOLD
+                        and role != "Identifier"):
                     findings.append(Finding(
                         "INFO", "GIMPACT", var,
                         f"{var} is high-impact: appears in {iv['n_domains']} domains; "

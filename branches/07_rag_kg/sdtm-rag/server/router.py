@@ -645,7 +645,9 @@ async def validate_study(
         ))
         frames[dom] = df
 
-    engine = GraphEngine(MetaStore(settings.meta_path))
+    engine = getattr(request.app.state, "graph_engine", None)
+    if engine is None:  # bare-app / test path without lifespan
+        engine = GraphEngine(MetaStore(settings.meta_path))
     graph_findings = run_graph_checks(frames, engine)
     out = generate_study_json(per_dataset, graph_findings)
 

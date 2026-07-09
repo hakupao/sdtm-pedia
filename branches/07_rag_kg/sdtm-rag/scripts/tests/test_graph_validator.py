@@ -66,15 +66,39 @@ def test_ct_cascade_silent_single_domain(engine):
     assert check_ct_cascade({"AE": ae}, engine) == []
 
 
+def test_ct_cascade_silent_when_subset_coverage(engine):
+    # AE uses {Y}, MH uses {Y,N,U} for shared C66742 — a legitimate coverage subset
+    # (nested), NOT an inconsistency. Only non-nested divergence should WARN.
+    ae = pd.DataFrame({"DOMAIN": ["AE"], "AESER": ["Y"]})
+    mh = pd.DataFrame({"DOMAIN": ["MH", "MH", "MH"], "MHPRESP": ["Y", "N", "U"]})
+    assert check_ct_cascade({"AE": ae, "MH": mh}, engine) == []
+
+
 # ── Task 3: check_impact + run_graph_checks ───────────────────────────────
 
 
-def test_impact_flags_high_impact_variable(engine):
-    # USUBJID appears in 55 domains (>= threshold 10) — high impact INFO.
-    df = pd.DataFrame({"DOMAIN": ["AE"], "USUBJID": ["S1-1"], "AESER": ["Y"]})
+def test_impact_flags_high_impact_nonidentifier(engine):
+    # EPOCH appears in 44 domains (>= threshold 10) and is role=Timing (not an
+    # Identifier) — a genuinely informative high-impact variable.
+    df = pd.DataFrame({"DOMAIN": ["AE"], "EPOCH": ["TREATMENT"]})
     findings = check_impact({"AE": df}, engine)
-    assert any(f.rule == "GIMPACT" and f.variable == "USUBJID" for f in findings)
+    assert any(f.rule == "GIMPACT" and f.variable == "EPOCH" for f in findings)
     assert all(f.severity == "INFO" for f in findings)
+
+
+def test_impact_skips_identifier_variables(engine):
+    # USUBJID (55 domains) / DOMAIN / STUDYID are role=Identifier — their wide spread is
+    # trivially known, so flagging them is pure noise. Skip them.
+    df = pd.DataFrame({"STUDYID": ["S1"], "DOMAIN": ["AE"], "USUBJID": ["S1-1"]})
+    findings = check_impact({"AE": df}, engine)
+    assert not any(f.variable in {"USUBJID", "DOMAIN", "STUDYID"} for f in findings)
+
+
+def test_impact_flags_high_impact_codelist(engine):
+    # AESER binds C66742 (used by 41 domains) — codelist-level high impact still flagged.
+    df = pd.DataFrame({"DOMAIN": ["AE"], "AESER": ["Y"]})
+    findings = check_impact({"AE": df}, engine)
+    assert any(f.rule == "GIMPACT" and "C66742" in f.message for f in findings)
 
 
 def test_impact_silent_low_impact_variable(engine):
@@ -85,8 +109,8 @@ def test_impact_silent_low_impact_variable(engine):
 
 
 def test_run_graph_checks_merges_all_three(engine):
-    # MHPRESP (not MHSER) binds C66742; equal-length columns (see sp5_attempt_1.md).
-    ae = pd.DataFrame({"DOMAIN": ["AE", "AE"], "USUBJID": ["S1-1", "S1-2"], "AESER": ["Y", "N"]})
+    # EPOCH (non-Identifier, 44 domains) -> GIMPACT; MHPRESP binds C66742 (see sp5_attempt_1.md).
+    ae = pd.DataFrame({"DOMAIN": ["AE", "AE"], "EPOCH": ["T", "T"], "AESER": ["Y", "N"]})
     mh = pd.DataFrame({"DOMAIN": ["MH"], "MHPRESP": ["U"]})
     findings = run_graph_checks({"AE": ae, "MH": mh}, engine)
     rules = {f.rule for f in findings}

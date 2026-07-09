@@ -40,6 +40,21 @@ def test_validate_study_returns_rollup(client):
     assert "graph_findings" in body and "datasets" in body
 
 
+def test_validate_study_uses_cached_engine():
+    # When app.state.graph_engine is present (prod lifespan path), the endpoint reuses it.
+    from server.graph_engine import GraphEngine
+    from server.meta_store import MetaStore
+    app = FastAPI()
+    app.include_router(api_router)
+    app.state.spec_loader = SpecLoader(settings.kb_root)
+    app.state.graph_engine = GraphEngine(MetaStore(settings.meta_path))
+    c = TestClient(app)
+    files = [("files", ("ae.csv", io.BytesIO(_csv("AE", "AESEQ")), "text/csv"))]
+    r = c.post("/api/validate-study", files=files)
+    assert r.status_code == 200
+    assert r.json()["domains"] == ["AE"]
+
+
 def test_validate_study_missing_domain_column_422(client):
     # No DOMAIN column -> domain cannot be detected -> 422.
     bad = b"STUDYID,USUBJID,AGE\nS1,S1-1,30\n"
