@@ -54,3 +54,29 @@
 5. **无真实 study 数据**: 用合成 fixture {AE,CM,PR}/{AE,MH}; 真实误报率未测。
 6. **每请求重建 GraphEngine** (LOW): `/validate-study` 每次 `GraphEngine(MetaStore(meta_path))`; meta.yaml 解析快, 校验端点非高 QPS, 接受。
 7. **未暴露 go-live webchat / back-fill 不写回 meta.yaml** (spec §5 范围外)。
+
+## 缺口修正 (follow-up 2026-07-09, 用户要求全修)
+
+上述缺口 1/3/4/5/6 + 存量 lint 债已修 (commits `c681410..HEAD`, 4 提交, 503 passed)。逐条:
+
+| 缺口 | 修正 | 状态 |
+|------|------|------|
+| ④ impact INFO 通用标识符噪声 | `check_impact` 跳过 `role=="Identifier"` (STUDYID/DOMAIN/USUBJID); EPOCH/VISIT 等 Timing 高 impact 仍留 | ✅ 修 |
+| ③ cascade 合法误报 | (a) 只在**非嵌套发散**才 WARN (子集覆盖 AE={Y}⊆MH={Y,N,U} 静默); (b) **跳过 extensible codelist** (真实数据 C71620 Unit 假阳) | ✅ 修 (残余样本敏感性诚实披露, 见 `sp5_real_data_validation.md`) |
+| ⑥ 每请求重建 GraphEngine | lifespan 建一次挂 `app.state.graph_engine`, 端点 fallback 懒建 | ✅ 修 |
+| ① completeness 触发面窄 | KB 仅 2 条 RELREC (无更多可提取, **不臆造**) → (a) RELREC 对称 (CM/PR 缺 AE 也 WARN); (b) 45 条 KB 策划关系作 **INFO** 软提示 (severity 匹配低保真) | ✅ 拓宽 (KB-grounded) |
+| ⑤ 无真实数据 | 拉 **CDISCPILOT01** 9 域全量 (LB 59580 行) 跑三类检查, 抓出并修 C71620 真实假阳, 修后全量 0 假阳 WARN; 派生小样本 fixture + 集成测试 | ✅ 验 (`sp5_real_data_validation.md`) |
+| 存量 lint/type 债 | report.py (loop-var rename 修 mypy + ruff --fix) + router.py (7 B904 `from e` + ruff --fix) + pyproject `extend-immutable-calls`(B008); 两文件 ruff+mypy 全清 | ✅ 清 (仅本二文件, 全项目其它模块债不在此 scope) |
+| ⑦ webchat 暴露 / back-fill 写回 meta.yaml | spec §5 范围外, 未动 | 保持 |
+
+**重大真实数据发现**: cascade 在真实数据抓出 C71620 (Unit, extensible/830 词) 假阳 (CM/EX/LB 单位词表合法不相交)
+→ 修为跳过 extensible codelist。残余诚实披露: cascade 是三类里最弱 (对多变量共享 codelist / 小样本仍样本敏感);
+若 dogfood 噪声高, 候选降级 INFO。
+
+**Rule D 复审 (gap-fixes, 异 type code-reviewer opus)**: 首轮 **REQUEST_CHANGES — 1 BLOCKER** (B1): `main.py`
+lifespan 里 `store.n_domains()` 把 `@property` 当方法调 → `TypeError: 'int' object is not callable` → **生产
+`uvicorn server.main:app` 启动即崩**。503 全绿漏网, 因所有端点测试都 bare-app 手工 state、**零测试进 lifespan
+startup**。已修 (`store.n_domains` 去括号) + **补 lifespan 冒烟测试** `test_create_app_boots_through_lifespan`
+(实跑 create_app 全 lifespan, 堵住生产 boot lane), 504 passed。其余 7 审查点全过 (对称 RELREC 无双计 /
+`_REL_DATASET_TARGETS` 排除 load-bearing / extensible-skip fail-closed / advisory-only 成立 / 证据诚实)。
+证据 `sp5_gapfix_ruleD_review.md`。**教训: 校验器 lifespan/boot 路径必须有冒烟测试, 光测端点 handler 漏 boot 崩。**

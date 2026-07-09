@@ -20,6 +20,20 @@
   的 5 处对齐 (A-E) + Task 3 fixture 列长笔误, 附实测证据。**"实现逻辑一字未改去凑测试, 只改测试/
   fixture 数据对齐真值"** 的纪律写进归档, 供 Rule D 复核。
 
+- **真实数据验证抓出合成 fixture + 单测都漏的假阳 (缺口修正 follow-up)**: 用户要求把披露的缺口全修。
+  拉 **CDISCPILOT01** 真实 9 域全量 (LB 59580 行) 跑三类检查, 立刻抓出 cascade 对 **C71620 (Unit, extensible
+  830 词)** 的真实假阳 (CM/EX/LB 单位词表合法不相交) — 这是合成 fixture 和非嵌套单测都想不到的形状。修为
+  **跳过 extensible codelist** (开放式 codelist 跨域发散是设计使然)。**教训: 合成 fixture 证逻辑, 真实数据证
+  校准; 校验器类工具必须过一遍真实脏数据才敢说"误报率低"。** cascade 还暴露"多变量共享 codelist"的固有弱点
+  (C66742 被 AESER/DTHFL/LB flags 等语义无关变量共用, 值集本无理由跨域一致) → cascade 是三类里最弱, 诚实披露留 dogfood。
+- **缺口修正的反过拟合守则**: completeness 拓宽时发现 KB 只有 2 条 RELREC 边、无更多可提取, **拒绝臆造一份
+  "常见 RELREC 域对"清单** (用户对 example/编造敏感), 改用 KB-grounded 的两条: RELREC 对称 (WARN) + 45 条已策划
+  关系降为 INFO (severity 匹配低保真)。宁可覆盖面诚实地窄, 不编数据凑广度。
+- **lifespan/boot 路径必须有冒烟测试 (Rule D gap-fix 复审 B1 教训)**: GraphEngine 缓存加在 `main.py` lifespan,
+  一处 `store.n_domains()` 把 `@property` 当方法调 → 生产 `uvicorn` 启动即 TypeError 崩。**503 全绿却漏网**, 因所有
+  端点测试都 bare-app + 手工 `app.state`、**零测试进 create_app 全 lifespan**。补 `test_create_app_boots_through_lifespan`
+  实跑 boot。**教训: 只测 handler 不测 boot = 生产起不来也全绿; 服务类项目必须有一条走真 lifespan 的冒烟。**
+
 ## 2. 必须补上的缺口 (诚实披露 + backlog)
 
 - **CT cascade 是"跨域值集合不一致"的启发式, 有合法误报面**: 两个域对同一 codelist 合法地使用不同

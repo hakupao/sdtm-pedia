@@ -108,7 +108,7 @@ async def lifespan(app: FastAPI):
     from server.graph_engine import GraphEngine
     from server.meta_store import MetaStore
     app.state.graph_engine = GraphEngine(MetaStore(s.meta_path))
-    log.info("graph_engine", domains=app.state.graph_engine.store.n_domains())
+    log.info("graph_engine", domains=app.state.graph_engine.store.n_domains)
     count = app.state.rag.collection.count()
     # Guard the one documented foot-gun: hybrid-on with structured_lookup-off is the
     # known-bad config (P1 measured single_domain 96->83). A half-applied env rollback

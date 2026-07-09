@@ -61,3 +61,18 @@ def test_validate_study_missing_domain_column_422(client):
     files = [("files", ("nodom.csv", io.BytesIO(bad), "text/csv"))]
     r = client.post("/api/validate-study", files=files)
     assert r.status_code == 422
+
+
+def test_create_app_boots_through_lifespan():
+    # Guards the REAL production boot path: `uvicorn server.main:app` runs create_app()'s
+    # full lifespan (which builds app.state.graph_engine). Every other test uses a bare app
+    # with manual state and never enters lifespan startup — that is exactly why a crash in
+    # the lifespan graph_engine log line slipped past a green suite (sp5_gapfix_ruleD_review
+    # B1). Skips if the built RAG index is absent (this test needs the real chroma store).
+    from server.config import settings
+    from server.main import create_app
+    if not settings.chroma_dir.exists():
+        pytest.skip("built chroma index absent; lifespan boot needs the RAG index")
+    with TestClient(create_app()) as c:
+        assert c.get("/api/health").status_code == 200
+        assert c.app.state.graph_engine.store.n_domains > 0  # cached engine reachable
