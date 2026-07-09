@@ -10,22 +10,29 @@ from server.graph_engine import GraphEngine
 from server.validator import Finding
 
 IMPACT_DOMAIN_THRESHOLD = 10
-_RELATIONSHIP_DATASETS = {"RELREC", "RELSPEC", "RELSUB"}
 
 
 def check_completeness(datasets: dict[str, pd.DataFrame], engine: GraphEngine) -> list[Finding]:
-    """WARN when a submitted domain is RELREC-linked to a target domain absent from
-    the submission. mechanism==None is back-filled to the target when the target is
-    itself a relationship dataset (deterministic structural inference, SP5-local)."""
+    """WARN when a submitted domain is RELREC-linked to a *partner domain* absent from
+    the submission.
+
+    Only edges with an explicit ``mechanism == "RELREC"`` identify a missing partner
+    DOMAIN (e.g. AE -> CM, AE -> PR). The spec's proposed back-fill (null mechanism +
+    target in {RELREC,RELSPEC,RELSUB} => infer mechanism) is intentionally dropped:
+    verification against meta.yaml showed those null-mechanism edges have the
+    *relationship dataset itself* as their target (LB/BS/IS/MB/MS -> RELSPEC, "specimen
+    hierarchy"), i.e. the target IS the mechanism, not a partner domain to be present.
+    Back-filling them would emit nonsensical "X is RELSPEC-linked to RELSPEC, absent"
+    warnings. So RELSPEC/RELSUB relationships are out of completeness scope by design.
+    (See evidence/failures/sp5_attempt_1.md; corroborated by Rule A + Rule D reviews.)"""
     submitted = {d.upper() for d in datasets}
     findings: list[Finding] = []
     for dom in sorted(submitted):
         for rel in engine.store.relations_curated(dom):
+            if rel.get("mechanism") != "RELREC":
+                continue
             target = str(rel["target"]).upper()
-            mech = rel.get("mechanism")
-            if mech is None and target in _RELATIONSHIP_DATASETS:
-                mech = target
-            if mech == "RELREC" and target not in submitted:
+            if target not in submitted:
                 findings.append(Finding(
                     "WARN", "GXDOM", None,
                     f"Domain {dom} is RELREC-linked to {target}, but {target} "

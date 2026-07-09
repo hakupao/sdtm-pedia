@@ -605,10 +605,10 @@ async def validate_dataset(
 async def validate_study(
     request: Request,
     files: list[UploadFile] = File(...),
-    semantic_review: str = Form("false"),
 ):
     """Validate a multi-domain SDTM study: per-domain rule validation + SP5 graph
-    checks (impact/completeness/CT-cascade) over the whole submission."""
+    checks (impact/completeness/CT-cascade) over the whole submission. Study-level is
+    deterministic rule + graph checks only (no per-domain semantic LLM review)."""
     import pandas as pd
 
     from scripts.parse_dataset import ParseError, parse_bytes
