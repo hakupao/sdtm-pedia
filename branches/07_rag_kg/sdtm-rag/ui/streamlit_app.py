@@ -449,3 +449,61 @@ with tab_validate:
             file_name=f"sdtm_validation_{report.get('domain', 'unknown')}.json",
             mime="application/json",
         )
+
+    # ── Study-level validation (multi-domain, SP5) ───────────────────────
+    st.divider()
+    with st.expander("Study-level validation (multi-domain, SP5)", expanded=False):
+        st.caption("Upload multiple domain files (each needs a DOMAIN column) for "
+                   "cross-domain graph checks: impact, RELREC completeness, CT cascade.")
+        study_files = st.file_uploader(
+            "Study domain files",
+            type=["csv", "xpt", "sas7bdat"],
+            accept_multiple_files=True,
+            key="study_files",
+        )
+        if study_files and st.button("Validate study", type="primary", key="validate_study_btn"):
+            with st.status("Validating study...", expanded=True) as status:
+                files = [("files", (f.name, f.getvalue(), "application/octet-stream"))
+                         for f in study_files]
+                try:
+                    r = requests.post(f"{API_URL}/api/validate-study", files=files, timeout=180)
+                    r.raise_for_status()
+                    study = r.json()
+                    status.update(label="Study validation complete", state="complete", expanded=False)
+                except requests.exceptions.ConnectionError:
+                    status.update(label="Error", state="error")
+                    st.error("Cannot connect to API. Start server first.")
+                    st.stop()
+                except requests.exceptions.HTTPError as e:
+                    status.update(label="Error", state="error")
+                    st.error(f"Study validation error: {e.response.text[:500]}")
+                    st.stop()
+
+            sv = study.get("study_verdict", "?")
+            vc = {"PASS": "green", "PASS_WITH_WARNINGS": "orange", "FAIL": "red"}.get(sv, "gray")
+            st.markdown(f"### Study verdict: :{vc}[{sv}]")
+            m1, m2, m3, m4 = st.columns(4)
+            m1.metric("Datasets", study.get("n_datasets", 0))
+            m2.metric("Errors", study.get("total_errors", 0))
+            m3.metric("Warnings", study.get("total_warnings", 0))
+            m4.metric("Info", study.get("total_info", 0))
+
+            gf = study.get("graph_findings", [])
+            if gf:
+                st.subheader("Cross-Domain Graph Findings")
+                for f in gf:
+                    st.markdown(f"**[{f.get('rule', '')}]** {f.get('message', '')}")
+            for ds in study.get("datasets", []):
+                with st.expander(f"{ds.get('domain', '?')} — {ds.get('verdict', '?')} "
+                                 f"({ds.get('total_errors', 0)}E/{ds.get('total_warnings', 0)}W)"):
+                    for f in ds.get("validation", {}).get("findings", []):
+                        st.markdown(f"**[{f.get('rule', '')}]** `{f.get('variable', '')}`: "
+                                    f"{f.get('message', '')}")
+
+            st.download_button(
+                "Download study JSON",
+                data=json.dumps(study, indent=2, ensure_ascii=False),
+                file_name="sdtm_study_validation.json",
+                mime="application/json",
+                key="study_dl",
+            )
