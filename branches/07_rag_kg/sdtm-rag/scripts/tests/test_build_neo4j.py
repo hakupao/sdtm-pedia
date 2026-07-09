@@ -89,3 +89,48 @@ def test_load_meta_missing_key_fails_loud(tmp_path):
     bad.write_text("meta_version: 1\ndomains: []\n", encoding="utf-8")
     with pytest.raises(ValueError, match="missing top-level key"):
         load_meta(bad)
+
+
+def _minimal_domain(**overrides):
+    """Smallest counts_toward_63 domain that reaches extract_graph's loud-fail
+    checks — one real domain, one variable, no relations by default."""
+    domain = {
+        "domain": "DM",
+        "label": "Demographics",
+        "class": "Special Purpose",
+        "structure": "One record per subject",
+        "counts_toward_63": True,
+        "same_class": [],
+        "variables": [
+            {
+                "name": "STUDYID",
+                "label": "Study Identifier",
+                "role": "Identifier",
+                "type": "Char",
+                "core": "Req",
+                "ct_codes": [],
+                "ct_dict": {},
+            }
+        ],
+        "relations_curated": [],
+    }
+    domain.update(overrides)
+    return domain
+
+
+def test_extract_graph_bad_relation_target_fails_loud():
+    domain = _minimal_domain(relations_curated=[
+        {"target": "ZZ", "mechanism": "manual", "note": "n/a",
+         "category": "Other", "fidelity": "low"},
+    ])
+    bad_meta = {"meta_version": 1, "domains": [domain], "codelists": [], "model_defhome": {}}
+    with pytest.raises(ValueError, match="relations_curated targets not in real domains"):
+        extract_graph(bad_meta)
+
+
+def test_extract_graph_dangling_ct_code_fails_loud():
+    domain = _minimal_domain()
+    domain["variables"][0]["ct_codes"] = ["C99999"]
+    bad_meta = {"meta_version": 1, "domains": [domain], "codelists": [], "model_defhome": {}}
+    with pytest.raises(ValueError, match="ct_codes not in codelists section"):
+        extract_graph(bad_meta)
