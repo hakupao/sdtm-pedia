@@ -1,0 +1,42 @@
+[OK ] nodes:Domain: expected=63 actual=63
+[OK ] nodes:Variable: expected=1541 actual=1541
+[OK ] nodes:Codelist: expected=1005 actual=1005
+[OK ] nodes:Class: expected=8 actual=8
+[OK ] nodes:ModelChapter: expected=4 actual=4
+[OK ] nodes:no_extra_labels: expected=['Class', 'Codelist', 'Domain', 'ModelChapter', 'Variable'] actual=['Class', 'Codelist', 'Domain', 'ModelChapter', 'Variable']
+[OK ] edges:HAS_VARIABLE: expected=1917 actual=1917
+[OK ] edges:USES_CT: expected=542 actual=542
+[OK ] edges:IN_CLASS: expected=63 actual=63
+[OK ] edges:DEFHOME: expected=59 actual=59
+[OK ] edges:RELATED_TO: expected=52 actual=52
+[OK ] edges:no_extra_types: expected=['DEFHOME', 'HAS_VARIABLE', 'IN_CLASS', 'RELATED_TO', 'USES_CT'] actual=['DEFHOME', 'HAS_VARIABLE', 'IN_CLASS', 'RELATED_TO', 'USES_CT']
+[OK ] nbhd:Domain:BE:props: expected=<set of 4> actual=<set of 4>
+[OK ] nbhd:Domain:BE:HAS_VARIABLE: expected=<set of 25> actual=<set of 25>
+[OK ] nbhd:Domain:BE:IN_CLASS: expected=Events actual=Events
+[OK ] nbhd:Domain:BE:RELATED_TO: expected={('BS', None, 'Specimen', 'biospecimen data for the event', 'curated_prose')} actual={('BS', None, 'Specimen', 'biospecimen data for the event', 'curated_prose')}
+[OK ] nbhd:Domain:SV:props: expected=('Subject Visits', 'Special-Purpose', 'One record per actual or planned visit per subject', 16) actual=('Subject Visits', 'Special-Purpose', 'One record per actual or planned visit per subject', 16)
+[OK ] nbhd:Domain:SV:HAS_VARIABLE: expected=<set of 16> actual=<set of 16>
+[OK ] nbhd:Domain:SV:IN_CLASS: expected=Special-Purpose actual=Special-Purpose
+[OK ] nbhd:Domain:SV:RELATED_TO: expected=set() actual=set()
+[OK ] nbhd:Domain:PE:props: expected=('Physical Examination', 'Findings', 'One record per body system or abnormality per visit per subject', 30) actual=('Physical Examination', 'Findings', 'One record per body system or abnormality per visit per subject', 30)
+[OK ] nbhd:Domain:PE:HAS_VARIABLE: expected=<set of 30> actual=<set of 30>
+[OK ] nbhd:Domain:PE:IN_CLASS: expected=Findings actual=Findings
+[OK ] nbhd:Domain:PE:RELATED_TO: expected=set() actual=set()
+[OK ] nbhd:Variable:AGE:domains: expected={'DM'} actual={'DM'}
+[OK ] nbhd:Variable:AGE:USES_CT: expected=set() actual=set()
+[OK ] nbhd:Variable:AGE:DEFHOME: expected=model/03_special_purpose_domains.md actual=model/03_special_purpose_domains.md
+[OK ] nbhd:Variable:MSEVLINT:domains: expected={'MS'} actual={'MS'}
+[OK ] nbhd:Variable:MSEVLINT:USES_CT: expected=set() actual=set()
+[OK ] nbhd:Variable:MSEVLINT:DEFHOME: expected=None actual=None
+[OK ] nbhd:Variable:BSGRPID:domains: expected={'BS'} actual={'BS'}
+[OK ] nbhd:Variable:BSGRPID:USES_CT: expected=set() actual=set()
+[OK ] nbhd:Variable:BSGRPID:DEFHOME: expected=None actual=None
+[OK ] nbhd:Codelist:C124676:props: expected=<set of 4> actual=<set of 4>
+[OK ] nbhd:Codelist:C124676:users: expected=set() actual=set()
+[OK ] nbhd:Codelist:C141657:props: expected=('10-Meter Walk/Run Functional Test Test Code', False, 4, 'terminology/supplementary/supplementary_part1.md') actual=('10-Meter Walk/Run Functional Test Test Code', False, 4, 'terminology/supplementary/supplementary_part1.md')
+[OK ] nbhd:Codelist:C141657:users: expected=set() actual=set()
+[OK ] nbhd:Class:Relationship:domains: expected={'RELSUB', 'SUPPQUAL', 'RELSPEC', 'RELREC'} actual={'RELSUB', 'SUPPQUAL', 'RELSPEC', 'RELREC'}
+[OK ] nbhd:Class:Relationship:n_domains: expected=4 actual=4
+39/39 checks passed
+
+idempotency: two rebuilds -> snapshot byte-diff empty (IDEMPOTENT-PASS 2026-07-09)
