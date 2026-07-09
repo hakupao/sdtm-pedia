@@ -82,6 +82,16 @@ def test_ct_cascade_silent_single_domain(engine):
     assert check_ct_cascade({"AE": ae}, engine) == []
 
 
+def test_ct_cascade_skips_extensible_codelist(engine):
+    # C71620 (Unit) is extensible — domains legitimately use different unit subsets
+    # (CM dose units vs EX/LB units), so divergence must NOT warn (real-data false positive
+    # found on CDISCPILOT01; see evidence/checkpoints/sp5_real_data_validation.md).
+    cm = pd.DataFrame({"DOMAIN": ["CM"], "CMDOSU": ["mg"]})
+    ex = pd.DataFrame({"DOMAIN": ["EX"], "EXDOSU": ["CAPSULE"]})
+    findings = check_ct_cascade({"CM": cm, "EX": ex}, engine)
+    assert not any("C71620" in f.message for f in findings)
+
+
 def test_ct_cascade_silent_when_subset_coverage(engine):
     # AE uses {Y}, MH uses {Y,N,U} for shared C66742 — a legitimate coverage subset
     # (nested), NOT an inconsistency. Only non-nested divergence should WARN.

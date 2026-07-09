@@ -90,6 +90,13 @@ def check_ct_cascade(datasets: dict[str, pd.DataFrame], engine: GraphEngine) -> 
         dom_vals = cascade[ct]
         if len(dom_vals) < 2:
             continue
+        cl = engine.store.codelist(ct)
+        # Skip extensible codelists: they are open-ended by design (e.g. Unit C71620 with
+        # 830 terms), so different domains legitimately use disjoint value subsets (CM dose
+        # units vs LB lab units). Only CLOSED codelists have a fixed value domain where
+        # cross-domain divergence is a real signal. (Real-data FP on CDISCPILOT01.)
+        if cl and cl.get("extensible"):
+            continue
         # WARN only on *non-nested* divergence: two domains whose value sets each
         # contain something the other lacks (a genuine inconsistency). Legitimate
         # coverage differences where one domain's values are a subset of another's
@@ -101,7 +108,6 @@ def check_ct_cascade(datasets: dict[str, pd.DataFrame], engine: GraphEngine) -> 
             for b in sets[i + 1:]
         )
         if diverges:
-            cl = engine.store.codelist(ct)
             name = cl["name"] if cl else ct
             detail = "; ".join(f"{d}={sorted(v)}" for d, v in sorted(dom_vals.items()))
             findings.append(Finding(
