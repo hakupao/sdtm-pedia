@@ -6,9 +6,10 @@
 > 2026-06-21 · **KG 价值 eval DONE ✅ — verdict: SP2 是 KG 价值, SP3 图层端到端≈0** (3-臂 × 3 模型, ΔSP2 +14~16pp 三模型一致 / ΔSP3≈0; SP3 唯一正向=aggregate 聚合但 NL 仅 45% 触发 + impact 与 SP2 byte-identical 冗余; Rule A ACCEPT-WITH-RESERVATIONS)。**结论: SP4/SP5 不靠答案质量证明** — 仅当要交互式图浏览 UX 才值。证据 `evidence/checkpoints/kg_value_eval.md` + `evidence/RETROSPECTIVE_kgval.md`。详见下方「KG 价值 eval DONE」段。
 > 2026-07-07 · **AGG (aggregate 独立通道) DONE ✅ 默认 ON** — 价值 eval 两条榨值建议落地: aggregate 拆出 `AggregateAnswerer` + pattern-level 触发重写。ds 端到端 **Δ+41.7pp** (OFF 58%→ON 100%, 零退化); fire-rate 诚实口径 = 阈值族 novel 盲题 100% / 最高级族 25% (长尾入 backlog, 等 dogfood 信号); 140q 零污染 0/140; Rule D 整改完成 + Rule A 6/6。详见下方「AGG DONE」段。
 > 2026-07-09 · **SP4 (Neo4j 探索层) DONE ✅** — brew+launchd 本机 Neo4j 图探索层 (5 节点标签/5 边类型, meta.yaml 唯一源) + 独立对账 + Cypher cookbook + Browser; 生产答题通道零改动/零依赖/零扰动; 四门全过, D1-D4 数据接地偏差披露。详见下方「SP4 DONE」段。
-> 用户决策: **SP1-5 全做**, 按依赖顺序逐个 (每个子项目走 设计→spec→plan→实现 循环)。**SP1-3 + AGG + SP4 全 DONE; SP5 待另起 brainstorm (仅产品 UX 理由, 非精度)。**
-> 恢复方式: 新 session 说 **「KG 重启 开始任务」** → 读本文件 + memory `project_kg_decision`。**当前状态 (2026-07-09): SP4 (Neo4j 探索层) DONE ✅, SP1-3+AGG+SP4 全部收口。下一步 = SP5 (图增强校验器), 是新设计单元, 必须先 `superpowers:brainstorming`** (无现成 spec/plan, 不可跳过设计直接实现)。
-> ⚠️ **HARD-GATE (每个新设计单元)**: 先把设计问完 + 出 spec + 用户批准, 再 `writing-plans`/写码。**别跳过设计直接实现**。(SP5 是新单元, 必须走 brainstorm。)
+> 2026-07-09 · **SP5 (图增强校验器) DONE ✅ — KG 重启全线收官** — 3 类图增强跨域校验 (impact INFO / RELREC 完整性 WARN / CT cascade WARN) 接进 Validator, 全 advisory 确定性只读 GraphEngine 不碰 Neo4j; 新 `POST /api/validate-study` 多域入口 (单域 `/validate` 零改动); 合成 fixture golden。493 passed 零回归 + Rule D APPROVE_WITH_NITS (0 BLOCKER/HIGH) + Rule A 8/8。**重大: spec 的 mechanism back-fill 经数据核验不适用 (RELSPEC/RELSUB 边 target 是关系数据集本身非伙伴域), 收窄为仅显式 RELREC。** 详见下方「SP5 DONE」段。
+> 用户决策: **SP1-5 全做**, 按依赖顺序逐个 (每个子项目走 设计→spec→plan→实现 循环)。**SP1-3 + AGG + SP4 + SP5 全 DONE — KG 重启全线收官。**
+> 恢复方式: 路由词 **「KG 重启 开始任务」** 已无剩余单元。**当前状态 (2026-07-09): SP1-5 + AGG 全部收口, KG 重启子项目线关闭。** 未来若要新增图能力 (codelist_co_users NL 接入 / mechanism 写回 meta.yaml / webchat Graph tab / study 校验暴露对外), 均属新设计单元, 需另起 brainstorm。
+> ⚠️ **HARD-GATE (每个新设计单元)**: 先把设计问完 + 出 spec + 用户批准, 再 `writing-plans`/写码。**别跳过设计直接实现**。
 
 ## 已 settled (别再 re-litigate)
 
@@ -23,7 +24,7 @@
 - **SP2 — 确定性结构化答题通道** ✅ **DONE**: **Phase 1 (答题通道) DONE 默认 ON** (meta.yaml 载内存 → `/api/ask` 计数/穷举/属性/CT 走确定数据, q103/q104 翻绿); **Phase 2 (退役 structured_lookup 正则) DONE** (索引全改读 meta.yaml/MetaStore, 退役 load-bearing `len==6` + spec.md xref + VARIABLE_INDEX 解析 + `_cross_check_vars`; 严格行为等价, 净删 ~185 行)。详见下方「SP2 Phase 2 DONE」段。
 - **SP3 — 关系/影响查询** ✅ **DONE**: meta.yaml 之上**纯 Python 内存图引擎** (`GraphEngine` + 可换 `GraphBackend` seam) + NL 答题 (`GraphAnswerer`)。"改 C66742 影响哪些域/变量"、"哪些变量跨 >N 域"、域间关系发现 (advisory)。class-roster + codelist_co_users 保留 engine-only (NL 未接, 见下方「SP3 DONE」段)。详见下方「SP3 DONE」段。
 - **SP4 — Neo4j + Cypher 探索层** ✅ **DONE 2026-07-09**: brew+launchd 本机 Neo4j (5 节点标签/5 边类型, meta.yaml 唯一源) + 独立对账 (`reconcile_neo4j.py`) + Cypher cookbook (`docs/cypher_cookbook.md`) + Browser 探索界面 (127.0.0.1:7474); 生产答题通道 (内存 DictBackend) 零改动/零依赖/零扰动。详见下方「SP4 DONE」段。
-- **SP5 (可选, 下一单元) — 图增强校验**: 影响/级联检查接进 Validator (impact analysis / cross-domain completeness / CT cascade, DESIGN §5.6)。**新设计单元, 需另起 brainstorm。**
+- **SP5 — 图增强校验器** ✅ **DONE 2026-07-09**: 3 类图增强跨域校验接进 Validator (impact INFO / RELREC 完整性 WARN / CT cascade WARN, DESIGN §5.6), 全 advisory 确定性只读 GraphEngine, 新 `POST /api/validate-study` 多域入口 + Streamlit study UI, 单域 `/validate` 零回归。详见下方「SP5 DONE」段。
 
 ## SP1 DONE (2026-06-17) — 交付与发现
 
@@ -82,9 +83,16 @@
 - **关键发现**: D2 (FOCID/C119013 逐域精确) 由 3 条独立代码路 (extract_graph / reconcile 独立重导 yaml / 生产 GraphEngine) 三角验证一致, 反过拟合证据最强; D4 model_only 拆分经证不污染计数类 cookbook 查询 (18 节点结构上不可能收到 HAS_VARIABLE/USES_CT 边, 免疫非靠可遗忘的 WHERE 过滤器); Task 7 首派遭 API 登出中断 (环境非任务缺陷), 复用未提交探针脚本 + 诊断出 pytest 命令行 `-q` 叠加 `addopts=-ra -q` 导致 verbosity -2 静默省略汇总行的根因, 干净重跑收口。
 - 复盘 `RETROSPECTIVE_sp4.md` (Rule C 三段+)。
 
-## 下一步 — SP5 是唯一剩余可选单元 (仅产品 UX 理由, 非精度)
+## SP5 DONE (2026-07-09) — 交付与发现
 
-- **SP1-3 + AGG + SP4 全 DONE。**
-- **SP5 (可选)** 图增强校验器: impact / 跨域完整性 / CT 级联一致性 接进 Validator (DESIGN §5.6)。**新设计单元, 必须先 `superpowers:brainstorming`** → spec → 用户批准 → plan。
-- **可选小补 (独立)**: codelist_co_users NL 接入 (Q2 选过, 干净可加) / mechanism:null back-fill / SP2 同源 degenerate 0-impact codelist 修 / AGG backlog (最高级长尾 KL-4 + MED-1/2/3 注入侧收紧, 见 `agg_channel_summary.md`) / webchat Graph tab (SP4 brainstorm 决策③明确二期)。
-- 若用户不要图校验器, KG 主线 (能力交付 SP1-3+AGG) 与探索层 (SP4) 均已收口。
+- **产出**: `server/graph_validator.py` (3 纯函数 `check_impact`[GIMPACT/INFO] / `check_completeness`[GXDOM/WARN] / `check_ct_cascade`[GCASCADE/WARN] + `run_graph_checks` 汇总, 只读 `GraphEngine`, 全 advisory 绝不 ERROR) + `server/report.py` `generate_study_json` (study-level 聚合, 纯追加) + `server/router.py` `POST /api/validate-study` (多文件 study 校验, 单域 `/validate` 逐字节不动) + `ui/streamlit_app.py` study 多文件 UI + 合成 fixture `scripts/tests/fixtures/sp5_study/` ({AE,CM,PR} pass / {AE,MH} fail)。spec/plan `docs/superpowers/{specs,plans}/2026-07-09-sp5-graph-validator*.md`; 复盘 `RETROSPECTIVE_sp5.md`; 证据 `evidence/checkpoints/sp5_{summary,ruleD_review,ruleA_audit}.md`; 偏差归档 `evidence/failures/sp5_attempt_1.md`。
+- **3 类检查**: impact (变量/codelist 跨 ≥10 域 → 提示高 impact, 从不 pass/fail) · completeness (提交域 RELREC-链接的伙伴域缺席 → WARN) · CT cascade (≥2 域共享 codelist 实际值集合跨域不一致 → WARN)。
+- **重大发现 (开工数据核验 + Rule A/D 双抓)**: ① plan 3 处数据假设错位 (MHSER 实际不绑 codelist→换 MHPRESP / AE 的 RELREC target 是 {CM,PR} 两个 / pass study {AE,CM,MH} 非 RELREC-闭合→改 {AE,CM,PR}), 全改测试数据对齐真值、实现逻辑未改去凑, 归档 attempt_1。② **spec §3.2 的 mechanism back-fill 撤销 (M1)**: 实测 null-mech 边 (LB/BS/IS/MB/MS→RELSPEC "specimen hierarchy") 的 target 是关系数据集本身而非伙伴域, back-fill 在 RELREC 守卫下是死码, 放宽会产无意义 WARN → 收窄 completeness 为仅显式 `mechanism=='RELREC'` (真实数据行为逐字不变: 全域仅 AE→CM/PR 两条 RELREC 边)。
+- **验收门**: 程序门 493 passed 零回归 (单域 validate 函数体逐字节不变) + golden 精确命中 + 新码 ruff/mypy 干净; Rule D (异 type code-reviewer) **APPROVE_WITH_NITS 0 BLOCKER/HIGH** (advisory-only 构造级 + 诚实性偏保守核实); Rule A (异 type scientist) **PASS 8/8** (raw-yaml 独立重算 vs run_graph_checks 逐字全串匹配, USUBJID=55/C66742=41域123变量/AE RELREC={CM,PR} 自核)。
+- **诚实缺口** (详 `sp5_summary.md`): completeness 真实触发面极窄 (全域仅 2 条 RELREC 边) / CT cascade 有合法误报面 / impact INFO 含通用标识符 (STUDYID/DOMAIN/USUBJID) 噪声 (未硬编排除, 留 dogfood) / 无真实数据用合成 fixture / 每请求重建 GraphEngine (LOW 接受) / 未暴露 go-live webchat + back-fill 不写回 meta.yaml (范围外)。
+
+## KG 重启全线收官 (2026-07-09)
+
+- **SP1-5 + AGG 全 DONE。** KG 重启子项目线关闭, 路由词「KG 重启 开始任务」无剩余单元。
+- 能力交付 (计数/穷举/影响/关系/聚合 SP1-3+AGG) + 探索层 (Neo4j SP4) + 图增强校验 (SP5) 全部收口。
+- **未来可选小补 (均属新设计单元, 需另起 brainstorm)**: codelist_co_users NL 接入 (Q2 选过, 干净可加) / mechanism:null back-fill 写回 meta.yaml / SP2 同源 degenerate 0-impact codelist 修 / AGG backlog (最高级长尾 KL-4 + MED-1/2/3 注入侧收紧, 见 `agg_channel_summary.md`) / webchat Graph tab (SP4 决策③二期) / study 校验暴露对外 (SP5 §5 范围外) / impact INFO 通用标识符降噪。

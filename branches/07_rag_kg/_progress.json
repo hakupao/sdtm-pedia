@@ -829,6 +829,23 @@
       "evidence": "sdtm-rag/evidence/checkpoints/sp4_{reconcile_gate,cookbook_golden,isolation_gate,ruleD_review,localhost_binding,neo4j_summary}.{txt,md}",
       "key_learning": "D2 (FOCID/C119013 逐域精确) 由 3 条独立代码路 (extract_graph / reconcile 独立重导 yaml / 生产 GraphEngine) 三角验证一致; D4 model_only 拆分经证不污染计数类 cookbook 查询 (18 节点结构上不可能收到 HAS_VARIABLE/USES_CT 边, 免疫非靠 WHERE 过滤器); Task 7 首派遭 API 登出中断, 复用未提交探针脚本 + 诊断出 pytest 命令行 -q 叠加 addopts=-ra -q 导致 verbosity -2 静默省略汇总行的根因, 干净重跑收口; plan 期写 golden 数字表天然强制实测抓出 D1-D4, 是结构性抓点而非运气",
       "known_gaps": "Term 节点未物化 (spec §3 backlog); webchat Graph tab 二期 (SP4 brainstorm 决策③明确); reconcile 与 cookbook 两 lane 均同源 meta.yaml, 只抓代码路径 bug 非源头真值 (源头真值是 SP1 reconcile_meta.py 职责); heap 配置走 neo4j.conf 非 env-var (brew 原生安装 docker 式 env var 对 Neo4j 无效, 已验证)"
+    },
+    "phase_sp5_graph_validator": {
+      "status": "completed",
+      "started_at": "2026-07-09",
+      "pass_at": "2026-07-09",
+      "owner": "KG 重启子项目 5/5 (最后一个) — 图增强校验器",
+      "scope": "给现有 Validator (Phase 1C, 7 规则) 接进 DESIGN §5.6 三类图增强跨域校验: impact (GIMPACT/INFO, 变量或 codelist 跨 >=10 域→提示高 impact, 从不 pass/fail) / cross-domain completeness (GXDOM/WARN, 提交域显式 RELREC-链接的伙伴域缺席→WARN) / CT cascade (GCASCADE/WARN, >=2 域共享 codelist 实际值集合跨域不一致→WARN)。全 advisory 绝不 ERROR; 确定性只读内存 GraphEngine (over meta.yaml); 不碰 Neo4j; 单域 /validate 零改动零回归。",
+      "spec": "docs/superpowers/specs/2026-07-09-sp5-graph-validator-design.md",
+      "plan": "docs/superpowers/plans/2026-07-09-sp5-graph-validator.md",
+      "deliverables": "server/graph_validator.py (新, 3 纯函数 + run_graph_checks) + server/report.py generate_study_json (study-level 聚合, 纯追加) + server/router.py POST /api/validate-study (多域入口, 单域 validate_dataset 逐字节不变) + ui/streamlit_app.py study 多文件 UI + 测试 4 文件 (test_graph_validator 9 / _e2e 2 / test_report_study 3 / test_validate_study_endpoint 2) + 合成 fixture scripts/tests/fixtures/sp5_study/ ({AE,CM,PR} pass / {AE,MH} fail)",
+      "verification_first_findings": "开工用 MetaStore/GraphEngine 逐条打表抓 plan 3 处数据假设硬伤 (归档 evidence/failures/sp5_attempt_1.md): (1) MHSER 实际不绑任何 codelist → cascade 对换 MHPRESP (同绑 C66742); (2) AE 的 RELREC target 是 {CM, PR} 两个非一个; (3) pass study {AE,CM,MH} 非 RELREC-闭合 (AE→PR 悬空误报) → 改 {AE,CM,PR}。全改测试数据对齐真值, 实现逻辑一字未改去凑。另修 plan Task 3 fixture 列长笔误 (pandas ValueError)。",
+      "M1_backfill_retraction": "Rule A/D 双抓: spec §3.2 设计的 mechanism back-fill (null-mech + target in {RELREC,RELSPEC,RELSUB} → mech=target) 经数据核验不适用 — 那些 null-mech 边 (LB/BS/IS/MB/MS → RELSPEC 'specimen hierarchy') 的 target 是关系数据集本身而非伙伴域, back-fill 在 mech=='RELREC' 守卫下是死码, 放宽会产 'X RELSPEC-linked to RELSPEC, absent' 无意义 WARN。收窄 completeness 为仅显式 mechanism=='RELREC' (真实数据行为逐字不变: 全域仅 AE→CM/PR 两条 RELREC 边)。",
+      "gates": "程序门: 全套 493 passed 零回归 (单域 validate_dataset 函数体逐字节 IDENTICAL) + golden pass/fail 精确命中 ({AE,CM,PR}=0 graph-WARN / {AE,MH}=GXDOM(CM)+GCASCADE(C66742)) + 新码 graph_validator.py ruff+mypy 干净 (evidence/checkpoints/sp5_summary.md) / Rule D 异type pr-review-toolkit:code-reviewer opus APPROVE_WITH_NITS 0 BLOCKER/HIGH (advisory-only 构造级成立 + 诚实性偏保守核实: router 11→12 唯一新增 idiomatic B008 / report 5→4 反清旧 F401 / mypy +0; 1 MED M1 已修 + LOW 处置; evidence/checkpoints/sp5_ruleD_review.md) / Rule A 异type general-purpose scientist opus PASS 8/8 零 mismatch (raw-yaml safe_load 自建索引算 EXPECTED 不 import graph_validator, ACTUAL 跑 run_graph_checks, Finding 四元组逐字全串匹配; USUBJID=55/C66742=41域123变量/AE RELREC={CM,PR} 自核; evidence/checkpoints/sp5_ruleA_audit.md)",
+      "verdict": "DONE; 三门全 PASS (493 passed 零回归 + Rule D APPROVE_WITH_NITS 0 BLOCKER/HIGH + Rule A 8/8); KG 重启 SP1-5 + AGG 全线收官",
+      "evidence": "sdtm-rag/evidence/checkpoints/sp5_{summary,ruleD_review,ruleA_audit}.md + sdtm-rag/evidence/failures/sp5_attempt_1.md + sdtm-rag/RETROSPECTIVE_sp5.md",
+      "key_learning": "verification-first: plan 里凡'探索实测'标注的实体/数字, 实现者开工必须重测对齐真值 (抓出 3 处硬伤); 连'确定性 back-fill 非臆造'这种看似安全的推断也须真实数据打表验证语义 (M1 back-fill 撤销); 全改测试/fixture 数据对齐真值、实现逻辑不改去凑 = 反过拟合红线; Rule A/D 双 lane 独立异 subagent_type 与 writer 隔离, Rule A raw-yaml 重算不碰被审模块。",
+      "known_gaps": "completeness 真实触发面极窄 (meta.yaml 全域仅 2 条 RELREC 边 AE→CM/PR); CT cascade 有合法误报面 (两域合法用不同值子集触发 WARN, advisory 缓解); impact INFO 含通用标识符 STUDYID/DOMAIN/USUBJID 噪声 (未硬编排除避 example-tuning, 留 dogfood); 无真实 study 数据用合成 fixture; 每请求重建 GraphEngine (LOW 接受); 未暴露 go-live webchat + back-fill 不写回 meta.yaml (spec §5 范围外)"
     }
   },
   "constraints": {

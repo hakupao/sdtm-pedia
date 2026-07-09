@@ -493,3 +493,37 @@ D1 C66742 影响域数 spec 笔误 44→实测 41 (变量数 123 吻合) / D2 US
 
 ### next
 - **SP5** (图增强校验器: impact/跨域完整性/CT 级联一致性接进 Validator, DESIGN §5.6) = **新设计单元, 必须先 `superpowers:brainstorming`** (HARD-GATE, 无现成 spec/plan)。路由词「KG 重启 开始任务」现 → 读 KG_ROADMAP + memory `project_kg_decision` → SP5 brainstorm, 或 KG 主线 (SP1-3+AGG) + 探索层 (SP4) 已全收口。
+
+## 2026-07-09 KG 重启 SP5 (图增强校验器) DONE — KG 重启全线收官
+
+承接已批 spec (74c27a0) + plan (2d5b5b9) → 执行 8-task plan (superpowers:executing-plans, TDD 逐 task commit)。给现有 Validator (Phase 1C, 7 规则) 接进 DESIGN §5.6 三类图增强跨域校验。**全 advisory (WARN/INFO 绝不 ERROR), 确定性只读内存 GraphEngine (over meta.yaml), 不碰 Neo4j。单域 `/validate` 零改动零回归。**
+
+### 三类检查 (`server/graph_validator.py` 新, 3 纯函数 + `run_graph_checks`)
+- **impact** (GIMPACT/INFO): 变量或其 codelist 跨 ≥10 域 → 提示高 impact, 从不 pass/fail。
+- **completeness** (GXDOM/WARN): 提交域经**显式 mechanism=='RELREC'** 链接的伙伴域缺席 → WARN。
+- **CT cascade** (GCASCADE/WARN): ≥2 提交域共享同一 codelist, 实际数据值集合跨域不一致 → WARN (列各域 distinct 值)。
+
+### 架构接线
+- `report.generate_study_json` (study-level 聚合: worst-of verdict + 图层 findings, 纯追加)。
+- `POST /api/validate-study` (多 UploadFile, 逐域 parse+validate + 跑 3 类跨域 check; 单域 `validate_dataset` 函数体逐字节不变)。
+- `ui/streamlit_app.py` study 多文件 uploader + 报告渲染 (现有单域上传不动)。
+
+### 开工数据核验 (verification-first, 抓 plan 3 处硬伤, 归档 `sp5_attempt_1.md`)
+plan 把测试/fixture 实体写死, 开工用 MetaStore/GraphEngine 逐条打表: ① **MHSER 实际不绑任何 codelist** → cascade 对换 MHPRESP (同绑 C66742); ② **AE 的 RELREC target 是 {CM, PR} 两个**非一个; ③ **pass study {AE,CM,MH} 非 RELREC-闭合** (AE→PR 悬空误报) → 改 RELREC-闭合的 {AE,CM,PR}。全改测试数据对齐真值, **实现逻辑一字未改去凑**。另修 plan Task 3 fixture 列长笔误 (pandas ValueError)。
+
+### Rule A/D 双抓 M1 — spec back-fill 撤销 (重大)
+spec §3.2 设计 mechanism back-fill (null-mech + target∈{RELREC,RELSPEC,RELSUB}→mech=target)。**实测 meta.yaml: 这类 null-mech 边 (LB/BS/IS/MB/MS→RELSPEC "specimen hierarchy") 的 target 是关系数据集本身而非伙伴域**, back-fill 在 `mech=='RELREC'` 守卫下是死码, 放宽会产 "X RELSPEC-linked to RELSPEC, absent" 无意义 WARN。**收窄 completeness 为仅显式 RELREC** (真实数据行为逐字不变: 全域仅 AE→CM/PR 两条 RELREC 边)。教训: 连"确定性 back-fill 非臆造"也须真实数据打表验证语义。
+
+### 三门
+- **程序门**: 全套 **493 passed 零回归** (单域 validate 函数体逐字节 IDENTICAL) + golden pass/fail 精确命中 ({AE,CM,PR}=0 graph-WARN / {AE,MH}=GXDOM(CM)+GCASCADE(C66742)) + 新码 `graph_validator.py` ruff+mypy 干净。测试 16 (9+2+3+2)。
+- **Rule D** (异 type `pr-review-toolkit:code-reviewer`, opus): **APPROVE_WITH_NITS 0 BLOCKER/HIGH**。构造级证 advisory-only (`generate_study_json` graph 侧 `g_err` 恒 0 → 图层永不顶 FAIL); 诚实性偏保守核实 (router 11→12 唯一新增 idiomatic B008 / report 5→4 反清旧 F401 / mypy +0); 1 MED (M1) 已修 + LOW (dead param 已删 / test_validator.py 不存在订正 / impact 通用标识符噪声接受)。
+- **Rule A** (异 type `general-purpose` scientist, opus): **PASS 8/8 零 mismatch**。raw-yaml `safe_load` 自建索引算 EXPECTED (不 import graph_validator / 不用 MetaStore-GraphEngine 算期望), ACTUAL 跑 run_graph_checks, Finding 四元组逐字全串匹配。独立复算 USUBJID=55 / C66742=41域123变量 / AE RELREC={CM,PR} 自核无误。
+
+### 诚实缺口 (披露)
+completeness 真实触发面极窄 (全域仅 2 条 RELREC 边) / CT cascade 有合法误报面 (advisory 缓解) / impact INFO 含 STUDYID/DOMAIN/USUBJID 通用标识符噪声 (未硬编排除避 example-tuning, 留 dogfood) / 无真实数据用合成 fixture / 每请求重建 GraphEngine (LOW 接受) / 未暴露 go-live webchat + back-fill 不写回 meta.yaml (范围外)。
+
+### 产出
+代码 4 文件改 (graph_validator 新 + report/router/streamlit 追加) + 测试 4 文件 + 合成 fixture 5 csv; 证据 `evidence/checkpoints/sp5_{summary,ruleD_review,ruleA_audit}.md` + 偏差 `evidence/failures/sp5_attempt_1.md`; `RETROSPECTIVE_sp5.md` (Rule C 三段); commits `c871b04..HEAD` (7 task + 1 Rule D/A fix)。
+
+### next
+**KG 重启全线收官 — SP1-5 + AGG 全 DONE。** 路由词「KG 重启 开始任务」无剩余单元, 子项目线关闭。未来可选小补 (codelist_co_users NL / mechanism 写回 meta.yaml / webchat Graph tab / study 校验对外 / impact 降噪) 均属新设计单元, 需另起 brainstorm。
