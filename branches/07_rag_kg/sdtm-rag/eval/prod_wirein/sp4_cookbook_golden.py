@@ -90,39 +90,60 @@ def main() -> int:
         auth=(os.environ.get("NEO4J_USER", "neo4j"), os.environ["NEO4J_PASSWORD"]),
     ) as driver, driver.session(database="neo4j") as s:
         rec = s.run(QUERIES["impact"], code="C66742").single()
-        truth = engine.impact_of_codelist("C66742")
-        gate("impact:C66742", (rec["n_variables"], rec["n_domains"])
-             == (truth["n_variables"], truth["n_domains"]),
-             f"{rec['n_variables']}/{rec['n_domains']} vs engine {truth['n_variables']}/{truth['n_domains']} (期望 123/41)")
+        if rec is None:
+            gate("impact:C66742", False, "query returned 0 rows")
+        else:
+            truth = engine.impact_of_codelist("C66742")
+            gate("impact:C66742", (rec["n_variables"], rec["n_domains"])
+                 == (truth["n_variables"], truth["n_domains"]),
+                 f"{rec['n_variables']}/{rec['n_domains']} vs engine {truth['n_variables']}/{truth['n_domains']} (期望 123/41)")
         rec2 = s.run(QUERIES["impact"], code="C119013").single()
-        t2 = engine.impact_of_codelist("C119013")
-        gate("impact:C119013", (rec2["n_variables"], rec2["n_domains"])
-             == (t2["n_variables"], t2["n_domains"]),
-             f"逐域精确回归 (D2): {rec2['n_variables']}/{rec2['n_domains']} vs engine {t2['n_variables']}/{t2['n_domains']} (期望 1/1 非 1/3)")
+        if rec2 is None:
+            gate("impact:C119013", False, "query returned 0 rows")
+        else:
+            t2 = engine.impact_of_codelist("C119013")
+            gate("impact:C119013", (rec2["n_variables"], rec2["n_domains"])
+                 == (t2["n_variables"], t2["n_domains"]),
+                 f"逐域精确回归 (D2): {rec2['n_variables']}/{rec2['n_domains']} vs engine {t2['n_variables']}/{t2['n_domains']} (期望 1/1 非 1/3)")
 
         rows = [(r["var"], r["n_domains"]) for r in s.run(QUERIES["min_domains"], min=20)]
         gate("min_domains:20", rows == engine.variables_in_min_domains(20),
              f"{len(rows)} rows vs engine (期望 8)")
 
         rec = s.run(QUERIES["same_class"], dom="DM").single()
-        gate("same_class:DM", sorted(rec["siblings"]) == engine.same_class_domains("DM"),
-             f"{sorted(rec['siblings'])} (期望 CO,SE,SM,SV)")
+        if rec is None:
+            gate("same_class:DM", False, "query returned 0 rows")
+        else:
+            gate("same_class:DM",
+                 sorted(rec["siblings"]) == sorted(engine.same_class_domains("DM")),
+                 f"{sorted(rec['siblings'])} (期望 CO,SE,SM,SV)")
 
-        rows = [(r["code"], r["n_others"]) for r in s.run(QUERIES["co_users"], var="AECONTRT")]
+        rows = sorted(
+            ((r["code"], r["n_others"]) for r in s.run(QUERIES["co_users"], var="AECONTRT")),
+            key=lambda x: x[0],
+        )
         truth_cu = engine.codelist_co_users("AECONTRT")
-        gate("co_users:AECONTRT",
-             rows == [(c, len(v["others"])) for c, v in sorted(truth_cu.items())],
-             f"{rows} (期望 [('C66742', 122)])")
+        truth_rows = sorted(
+            ((c, len(v["others"])) for c, v in truth_cu.items()),
+            key=lambda x: x[0],
+        )
+        gate("co_users:AECONTRT", rows == truth_rows, f"{rows} (期望 [('C66742', 122)])")
 
         rec = s.run(QUERIES["class_compass"], cls="Findings").single()
-        gate("class_compass:Findings", sorted(rec["domains"]) == engine.domains_in_class("Findings")
-             and rec["n"] == 30, f"n={rec['n']} (期望 30)")
+        if rec is None:
+            gate("class_compass:Findings", False, "query returned 0 rows")
+        else:
+            gate("class_compass:Findings", sorted(rec["domains"]) == engine.domains_in_class("Findings")
+                 and rec["n"] == 30, f"n={rec['n']} (期望 30)")
 
         chap = "model/06_relationship_datasets.md"
         rec = s.run(QUERIES["defhome"], chapter=chap).single()
-        truth_dh = sorted(v for v, p in store.model_defhome_map.items() if p == chap)
-        got = sorted(x.replace(" (model-only)", "") for x in rec["variables"])
-        gate("defhome:ch06", got == truth_dh, f"{rec['n']} vars vs store {len(truth_dh)}")
+        if rec is None:
+            gate("defhome:ch06", False, "query returned 0 rows")
+        else:
+            truth_dh = sorted(v for v, p in store.model_defhome_map.items() if p == chap)
+            got = sorted(x.replace(" (model-only)", "") for x in rec["variables"])
+            gate("defhome:ch06", got == truth_dh, f"{rec['n']} vars vs store {len(truth_dh)}")
 
         rows = [(r["code"], r["n_variables"], r["n_domains"])
                 for r in s.run(QUERIES["most_shared"], k=5)]
