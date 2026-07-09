@@ -27,13 +27,29 @@ def _df(domain: str) -> pd.DataFrame:
 def test_completeness_flags_missing_relrec_target(engine):
     # AE is curated-related to CM via mechanism RELREC (meta.yaml). Submit AE without CM.
     findings = check_completeness({"AE": _df("AE")}, engine)
-    assert any(f.rule == "GXDOM" and "CM" in f.message for f in findings)
-    assert all(f.severity == "WARN" for f in findings)
+    assert any(f.rule == "GXDOM" and f.severity == "WARN" and "CM" in f.message for f in findings)
+    assert all(f.severity in ("WARN", "INFO") for f in findings)  # advisory only, never ERROR
 
 
-def test_completeness_silent_when_target_present(engine):
+def test_completeness_silent_when_relrec_target_present(engine):
+    # Submitting AE and CM -> CM is never named as an absent partner ("...to CM..."),
+    # though CM may appear as the *source* of its own hints (e.g. "Domain CM related to EC").
     findings = check_completeness({"AE": _df("AE"), "CM": _df("CM")}, engine)
-    assert not any("CM" in f.message for f in findings)
+    assert not any("to CM" in f.message for f in findings)
+
+
+def test_completeness_symmetric_relrec(engine):
+    # RELREC is bidirectional: submitting CM without AE also warns (AE is CM's RELREC
+    # partner, from the AE->CM edge), not just AE-without-CM.
+    findings = check_completeness({"CM": _df("CM")}, engine)
+    assert any(f.rule == "GXDOM" and f.severity == "WARN" and "AE" in f.message for f in findings)
+
+
+def test_completeness_curated_relation_is_info(engine):
+    # AE is curated-related to FA (Findings About, non-RELREC) — a softer INFO hint, not
+    # a WARN, when FA is absent.
+    findings = check_completeness({"AE": _df("AE")}, engine)
+    assert any(f.rule == "GXDOM" and f.severity == "INFO" and "FA" in f.message for f in findings)
 
 
 def test_completeness_unknown_domain_no_crash(engine):

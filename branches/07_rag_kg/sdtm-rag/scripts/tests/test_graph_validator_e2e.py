@@ -34,7 +34,8 @@ def _load(name: str) -> pd.DataFrame:
 def test_pass_study_no_completeness_or_cascade_warns(engine):
     study = {"AE": _load("ae_pass.csv"), "CM": _load("cm_pass.csv"), "PR": _load("pr_pass.csv")}
     findings = run_graph_checks(study, engine)
-    assert not any(f.rule == "GXDOM" for f in findings)     # CM+PR present -> no missing RELREC target
+    # RELREC-closed -> no GXDOM WARN (soft non-RELREC INFO hints e.g. AE->FA are allowed).
+    assert not any(f.rule == "GXDOM" and f.severity == "WARN" for f in findings)
     assert not any(f.rule == "GCASCADE" for f in findings)  # AESER/CMPRESP/PRPRESP all Y
     assert all(f.severity in ("INFO", "WARN") for f in findings)
 

@@ -129,6 +129,10 @@ class MetaStore:
         d = self._domain_by_code.get(dom.upper())
         return [dict(r) for r in d["relations_curated"]] if d else []
 
+    def all_domains(self) -> list[str]:
+        """Sorted list of all domain codes in meta.yaml (real + stub)."""
+        return sorted(self._domain_by_code)
+
     def ct_codes_for_variable(self, var: str) -> list[str]:
         """Union of CT codes attached to this variable across ALL domains it appears in
         (sorted). Differs from variable_attributes()['ct_codes'] (first-seen only) for the

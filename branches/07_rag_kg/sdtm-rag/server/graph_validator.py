@@ -10,34 +10,66 @@ from server.graph_engine import GraphEngine
 from server.validator import Finding
 
 IMPACT_DOMAIN_THRESHOLD = 10
+# Curated-relation targets that are relationship/special-purpose datasets, not partner
+# domains a study would submit — excluded from completeness (see M1 in sp5_attempt_1.md).
+_REL_DATASET_TARGETS = {"RELREC", "RELSPEC", "RELSUB", "SUPPQUAL", "SUPP", "CO"}
 
 
 def check_completeness(datasets: dict[str, pd.DataFrame], engine: GraphEngine) -> list[Finding]:
-    """WARN when a submitted domain is RELREC-linked to a *partner domain* absent from
-    the submission.
+    """Flag cross-domain relations whose partner domain is absent from the submission.
 
-    Only edges with an explicit ``mechanism == "RELREC"`` identify a missing partner
-    DOMAIN (e.g. AE -> CM, AE -> PR). The spec's proposed back-fill (null mechanism +
-    target in {RELREC,RELSPEC,RELSUB} => infer mechanism) is intentionally dropped:
-    verification against meta.yaml showed those null-mechanism edges have the
-    *relationship dataset itself* as their target (LB/BS/IS/MB/MS -> RELSPEC, "specimen
-    hierarchy"), i.e. the target IS the mechanism, not a partner domain to be present.
-    Back-filling them would emit nonsensical "X is RELSPEC-linked to RELSPEC, absent"
-    warnings. So RELSPEC/RELSUB relationships are out of completeness scope by design.
-    (See evidence/failures/sp5_attempt_1.md; corroborated by Rule A + Rule D reviews.)"""
+    Two tiers, matched to the meta.yaml curation's fidelity:
+
+    * **RELREC -> WARN**: explicit ``mechanism == "RELREC"`` edges identify related
+      *records* that belong together, so a missing partner is a real completeness gap.
+      RELREC is treated as **symmetric** (a related-records relationship has two
+      endpoints): the AE->CM / AE->PR edges also mean submitting CM or PR without AE
+      warns. The KB asserts only these 2 RELREC pairs; RELREC linkage is otherwise
+      study-specific, so this stays a narrow, high-confidence signal.
+
+    * **other curated cross-domain relations -> INFO**: the remaining curated edges
+      (Findings About, Shared Dataset, Specimen, Source Domain, ...) are LOW-fidelity
+      curated_prose associations. A missing partner is surfaced as a soft, advisory hint,
+      never a WARN. Targets that are relationship/special-purpose datasets (RELSPEC/RELSUB/
+      SUPPQUAL/CO) are excluded — they are mechanisms, not partner domains to submit.
+
+    All findings are advisory (never ERROR)."""
     submitted = {d.upper() for d in datasets}
+    all_domains = set(engine.store.all_domains())
+
+    # Build the RELREC partner map (symmetric) and the non-RELREC curated map once.
+    relrec_partners: dict[str, set[str]] = {}
+    curated: dict[str, list[tuple[str, str | None]]] = {}
+    for dom in all_domains:
+        for rel in engine.store.relations_curated(dom):
+            target = str(rel["target"]).upper()
+            if rel.get("mechanism") == "RELREC":
+                relrec_partners.setdefault(dom, set()).add(target)
+                relrec_partners.setdefault(target, set()).add(dom)  # symmetric
+            elif target in all_domains and target not in _REL_DATASET_TARGETS:
+                curated.setdefault(dom, []).append((target, rel.get("category")))
+
     findings: list[Finding] = []
     for dom in sorted(submitted):
-        for rel in engine.store.relations_curated(dom):
-            if rel.get("mechanism") != "RELREC":
-                continue
-            target = str(rel["target"]).upper()
+        partners = relrec_partners.get(dom, set())
+        for target in sorted(partners):
             if target not in submitted:
                 findings.append(Finding(
                     "WARN", "GXDOM", None,
                     f"Domain {dom} is RELREC-linked to {target}, but {target} "
                     f"is not present in this study submission.",
                 ))
+        seen: set[str] = set()
+        for target, category in curated.get(dom, []):
+            if target in partners or target in submitted or target in seen:
+                continue
+            seen.add(target)
+            label = f" ({category})" if category else ""
+            findings.append(Finding(
+                "INFO", "GXDOM", None,
+                f"Domain {dom} is commonly related to {target}{label}, which is not "
+                f"present in this study submission.",
+            ))
     return findings
 
 
