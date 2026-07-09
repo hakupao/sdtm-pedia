@@ -599,3 +599,56 @@ async def validate_dataset(
              warnings=full.total_warnings, elapsed_s=round(elapsed, 2))
 
     return generate_json(full)
+
+
+@api_router.post("/validate-study")
+async def validate_study(
+    request: Request,
+    files: list[UploadFile] = File(...),
+    semantic_review: str = Form("false"),
+):
+    """Validate a multi-domain SDTM study: per-domain rule validation + SP5 graph
+    checks (impact/completeness/CT-cascade) over the whole submission."""
+    import pandas as pd
+
+    from scripts.parse_dataset import ParseError, parse_bytes
+    from server.config import settings
+    from server.graph_engine import GraphEngine
+    from server.graph_validator import run_graph_checks
+    from server.meta_store import MetaStore
+    from server.report import FullReport, generate_study_json
+    from server.validator import validate
+
+    spec_loader = request.app.state.spec_loader
+    t0 = time.perf_counter()
+
+    per_dataset: list[FullReport] = []
+    frames: dict[str, pd.DataFrame] = {}  # domain -> DataFrame (for graph checks)
+    for uf in files:
+        data = await uf.read()
+        fname = uf.filename or "upload.csv"
+        try:
+            df, meta = parse_bytes(data, fname)
+        except ParseError as e:
+            raise HTTPException(status_code=422, detail=f"{fname}: {e}") from e
+        dom = (meta.domain or "").upper()
+        if not dom:
+            raise HTTPException(
+                status_code=422,
+                detail=f"{fname}: cannot detect domain (need a DOMAIN column).",
+            )
+        val = validate(df, dom, spec_loader)
+        per_dataset.append(FullReport(
+            domain=dom, file_path=fname, row_count=meta.row_count,
+            col_count=meta.col_count, completeness_pct=val.completeness_pct,
+            validation=val, review=None,
+        ))
+        frames[dom] = df
+
+    engine = GraphEngine(MetaStore(settings.meta_path))
+    graph_findings = run_graph_checks(frames, engine)
+    out = generate_study_json(per_dataset, graph_findings)
+
+    log.info("validate_study_done", n=len(files), verdict=out["study_verdict"],
+             elapsed_s=round(time.perf_counter() - t0, 2))
+    return out
