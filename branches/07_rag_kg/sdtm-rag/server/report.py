@@ -154,3 +154,31 @@ def generate_json(report: FullReport) -> dict:
 
 def generate_json_str(report: FullReport) -> str:
     return json.dumps(generate_json(report), indent=2, ensure_ascii=False)
+
+
+def generate_study_json(datasets: list[FullReport], graph_findings: list[Finding]) -> dict:
+    """Aggregate per-domain FullReports + cross-domain graph findings into one
+    study-level JSON. graph_findings are advisory (WARN/INFO); study_verdict is the
+    worst-of per-dataset verdict combined with graph severities."""
+    g_err = sum(1 for f in graph_findings if f.severity == "ERROR")
+    g_warn = sum(1 for f in graph_findings if f.severity == "WARN")
+    g_info = sum(1 for f in graph_findings if f.severity == "INFO")
+    total_errors = sum(d.total_errors for d in datasets) + g_err
+    total_warnings = sum(d.total_warnings for d in datasets) + g_warn
+    total_info = sum(d.total_info for d in datasets) + g_info
+    if total_errors:
+        verdict = "FAIL"
+    elif total_warnings:
+        verdict = "PASS_WITH_WARNINGS"
+    else:
+        verdict = "PASS"
+    return {
+        "study_verdict": verdict,
+        "n_datasets": len(datasets),
+        "domains": [d.domain for d in datasets],
+        "total_errors": total_errors,
+        "total_warnings": total_warnings,
+        "total_info": total_info,
+        "datasets": [generate_json(d) for d in datasets],
+        "graph_findings": [f.to_dict() for f in graph_findings],
+    }
