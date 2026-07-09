@@ -8,9 +8,9 @@ import time
 from typing import Literal
 
 import structlog
-from pydantic import BaseModel, Field
-from fastapi import APIRouter, Request, HTTPException, UploadFile, File, Form
+from fastapi import APIRouter, File, Form, HTTPException, Request, UploadFile
 from fastapi.responses import StreamingResponse
+from pydantic import BaseModel, Field
 
 log = structlog.get_logger()
 api_router = APIRouter(prefix="/api")
@@ -118,7 +118,7 @@ def ask(body: AskRequest, request: Request):
         )
     except Exception as e:
         log.error("retrieve_failed", error=str(e), exc_info=True)
-        raise HTTPException(status_code=502, detail="Retrieval service temporarily unavailable.")
+        raise HTTPException(status_code=502, detail="Retrieval service temporarily unavailable.") from e
 
     answerer = getattr(request.app.state, "answerer", None)
     try:
@@ -139,7 +139,7 @@ def ask(body: AskRequest, request: Request):
         response = llm_router.completion(model=body.model, messages=messages)
     except Exception as e:
         log.error("llm_failed", error=str(e), model=body.model, exc_info=True)
-        raise HTTPException(status_code=502, detail="LLM service temporarily unavailable.")
+        raise HTTPException(status_code=502, detail="LLM service temporarily unavailable.") from e
 
     answer = response.choices[0].message.content or ""
     if facts is not None:
@@ -214,7 +214,7 @@ async def ask_stream(body: AskStreamRequest, request: Request):
         )
     except Exception as e:
         log.error("stream_retrieve_failed", error=str(e), exc_info=True)
-        raise HTTPException(status_code=502, detail="Retrieval service temporarily unavailable.")
+        raise HTTPException(status_code=502, detail="Retrieval service temporarily unavailable.") from e
 
     answerer = getattr(request.app.state, "answerer", None)
     try:
@@ -439,7 +439,7 @@ async def ask_compare(body: AskCompareRequest, request: Request):
         )
     except Exception as e:
         log.error("retrieve_failed", error=str(e), exc_info=True)
-        raise HTTPException(status_code=502, detail="Retrieval service temporarily unavailable.")
+        raise HTTPException(status_code=502, detail="Retrieval service temporarily unavailable.") from e
 
     context = rag.format_context(chunks)
     history_dicts = [{"role": m.role, "content": m.content} for m in body.history]
@@ -458,7 +458,7 @@ async def ask_compare(body: AskCompareRequest, request: Request):
         )
     except TimeoutError:
         log.error("ask_compare_timeout", request_timeout_s=s.request_timeout_s, models=models)
-        raise HTTPException(status_code=504, detail="Compare request timed out.")
+        raise HTTPException(status_code=504, detail="Compare request timed out.") from None
 
     judge_result = None
     if body.judge.enabled:
@@ -527,10 +527,10 @@ async def validate_dataset(
     semantic_review: str = Form("true"),
 ):
     """Validate an SDTM dataset against KB specs + optional RAG semantic review."""
-    from scripts.parse_dataset import parse_bytes, ParseError
-    from server.validator import validate
-    from server.reviewer import review
+    from scripts.parse_dataset import ParseError, parse_bytes
     from server.report import FullReport, generate_json
+    from server.reviewer import review
+    from server.validator import validate
 
     spec_loader = request.app.state.spec_loader
     t0 = time.perf_counter()
@@ -542,7 +542,7 @@ async def validate_dataset(
     try:
         df, meta = parse_bytes(data, filename)
     except ParseError as e:
-        raise HTTPException(status_code=422, detail=str(e))
+        raise HTTPException(status_code=422, detail=str(e)) from e
 
     effective_domain = domain or meta.domain
     if not effective_domain:
@@ -558,7 +558,7 @@ async def validate_dataset(
         try:
             dm_df, _ = parse_bytes(dm_data, dm_filename)
         except ParseError as e:
-            raise HTTPException(status_code=422, detail=f"DM file error: {e}")
+            raise HTTPException(status_code=422, detail=f"DM file error: {e}") from e
 
     val_result = validate(df, effective_domain, spec_loader, dm_df=dm_df)
 

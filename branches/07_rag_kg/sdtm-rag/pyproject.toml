@@ -79,6 +79,11 @@ target-version = "py311"
 select = ["E", "F", "I", "B", "UP", "N", "RET", "SIM"]
 ignore = ["E501"]  # ruff format handles line length
 
+[tool.ruff.lint.flake8-bugbear]
+# FastAPI's dependency-injection markers are designed to be called in parameter
+# defaults (that is the framework's intended API), so B008 does not apply to them.
+extend-immutable-calls = ["fastapi.File", "fastapi.Form", "fastapi.Query", "fastapi.Depends", "fastapi.Body", "fastapi.Path", "fastapi.Header"]
+
 [tool.mypy]
 python_version = "3.11"
 strict = false
