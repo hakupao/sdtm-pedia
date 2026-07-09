@@ -85,7 +85,7 @@ Full chain definitions are in `.work/MANIFEST.md`.
 | Phase 7 本地部署+多模型对比 规划 | `branches/07_rag_kg/sdtm-rag/DEPLOY_PLAN.md` — launchd 部署 + 对比/裁判 (§3 阶段3 工程件 DONE+审; go-live 待 IT) |
 | Phase 7 阶段3 共享 (工程件+go-live runbook) | `branches/07_rag_kg/sdtm-rag/deploy/` (deploy.sh + 0.0.0.0 plist 模板 + README runbook); 登录门 `server/auth.py`; 证据 `evidence/checkpoints/phase3_share_hardening.md` |
 | Phase 7 Chat UI (单模型流式前端) | `branches/07_rag_kg/sdtm-rag/webchat/` + `PLAN_chat_ui.md`; prod localhost:8000 (launchd); ⚑ dogfood 失败捕获 (`POST /api/flag` → `dogfood_failures.md`, 优先级 backlog) |
-| Phase 7 KG 重启 (SP1-3+AGG DONE; SP4/SP5 可选) | `branches/07_rag_kg/sdtm-rag/KG_ROADMAP.md` — AGG 通道 2026-07-07 默认 ON (e2e Δ+41.7pp) → `evidence/checkpoints/agg_channel_summary.md`; SP4/SP5 仅产品 UX 理由 |
+| Phase 7 KG 重启 (SP1-5+AGG DONE 全线收官) | `branches/07_rag_kg/sdtm-rag/KG_ROADMAP.md` — SP1-5+AGG 全 DONE (2026-07-09); SP5 图增强校验器 `server/graph_validator.py` + `POST /api/validate-study`; 路由词无剩余单元, 新图能力需 brainstorm |
 
 ## AI 平台多平台部署 (CLOSED 冻结 2026-06-15)
 
