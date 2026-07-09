@@ -61,3 +61,47 @@ def check_ct_cascade(datasets: dict[str, pd.DataFrame], engine: GraphEngine) -> 
                 f"Codelist {ct} ({name}) has inconsistent values across domains: {detail}",
             ))
     return findings
+
+
+def check_impact(datasets: dict[str, pd.DataFrame], engine: GraphEngine) -> list[Finding]:
+    """INFO advisory: flag high-impact variables/codelists present in the data
+    (a variable or its codelist spanning >= IMPACT_DOMAIN_THRESHOLD domains) so the
+    user knows changes there have wide cross-domain effect. Never pass/fail."""
+    findings: list[Finding] = []
+    for dom in sorted(datasets):
+        df = datasets[dom]
+        seen_vars: set[str] = set()
+        seen_cts: set[str] = set()
+        for col in df.columns:
+            var = str(col).upper()
+            if var not in seen_vars:
+                seen_vars.add(var)
+                iv = engine.impact_of_variable(var)
+                if iv and iv["n_domains"] >= IMPACT_DOMAIN_THRESHOLD:
+                    findings.append(Finding(
+                        "INFO", "GIMPACT", var,
+                        f"{var} is high-impact: appears in {iv['n_domains']} domains; "
+                        f"changes have wide cross-domain effect.",
+                    ))
+            for ct in engine.store.ct_codes_for_variable(var):
+                if ct in seen_cts:
+                    continue
+                seen_cts.add(ct)
+                ic = engine.impact_of_codelist(ct)
+                if ic and ic["n_domains"] >= IMPACT_DOMAIN_THRESHOLD:
+                    findings.append(Finding(
+                        "INFO", "GIMPACT", var,
+                        f"Codelist {ct} ({ic['name']}) used by {var} is high-impact: "
+                        f"{ic['n_domains']} domains / {ic['n_variables']} variables.",
+                    ))
+    return findings
+
+
+def run_graph_checks(datasets: dict[str, pd.DataFrame], engine: GraphEngine) -> list[Finding]:
+    """Run all three SP5 graph checks over a submitted study. Returns merged findings
+    (all WARN/INFO). datasets maps uppercase domain code -> its DataFrame."""
+    return (
+        check_impact(datasets, engine)
+        + check_completeness(datasets, engine)
+        + check_ct_cascade(datasets, engine)
+    )

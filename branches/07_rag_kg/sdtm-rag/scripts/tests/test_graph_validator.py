@@ -6,7 +6,12 @@ import pytest
 
 from server.config import settings
 from server.graph_engine import GraphEngine
-from server.graph_validator import check_completeness, check_ct_cascade
+from server.graph_validator import (
+    check_completeness,
+    check_ct_cascade,
+    check_impact,
+    run_graph_checks,
+)
 from server.meta_store import MetaStore
 
 
@@ -59,3 +64,31 @@ def test_ct_cascade_silent_when_consistent(engine):
 def test_ct_cascade_silent_single_domain(engine):
     ae = pd.DataFrame({"DOMAIN": ["AE", "AE"], "AESER": ["Y", "N"]})
     assert check_ct_cascade({"AE": ae}, engine) == []
+
+
+# ── Task 3: check_impact + run_graph_checks ───────────────────────────────
+
+
+def test_impact_flags_high_impact_variable(engine):
+    # USUBJID appears in 55 domains (>= threshold 10) — high impact INFO.
+    df = pd.DataFrame({"DOMAIN": ["AE"], "USUBJID": ["S1-1"], "AESER": ["Y"]})
+    findings = check_impact({"AE": df}, engine)
+    assert any(f.rule == "GIMPACT" and f.variable == "USUBJID" for f in findings)
+    assert all(f.severity == "INFO" for f in findings)
+
+
+def test_impact_silent_low_impact_variable(engine):
+    # AETERM is AE-specific (1 domain) — below threshold, no impact finding for it.
+    df = pd.DataFrame({"DOMAIN": ["AE"], "AETERM": ["headache"]})
+    findings = check_impact({"AE": df}, engine)
+    assert not any(f.variable == "AETERM" for f in findings)
+
+
+def test_run_graph_checks_merges_all_three(engine):
+    # MHPRESP (not MHSER) binds C66742; equal-length columns (see sp5_attempt_1.md).
+    ae = pd.DataFrame({"DOMAIN": ["AE", "AE"], "USUBJID": ["S1-1", "S1-2"], "AESER": ["Y", "N"]})
+    mh = pd.DataFrame({"DOMAIN": ["MH"], "MHPRESP": ["U"]})
+    findings = run_graph_checks({"AE": ae, "MH": mh}, engine)
+    rules = {f.rule for f in findings}
+    assert {"GIMPACT", "GXDOM", "GCASCADE"} <= rules
+    assert not any(f.severity == "ERROR" for f in findings)  # advisory only
