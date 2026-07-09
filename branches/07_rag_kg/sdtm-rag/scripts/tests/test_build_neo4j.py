@@ -134,3 +134,23 @@ def test_extract_graph_dangling_ct_code_fails_loud():
     bad_meta = {"meta_version": 1, "domains": [domain], "codelists": [], "model_defhome": {}}
     with pytest.raises(ValueError, match="ct_codes not in codelists section"):
         extract_graph(bad_meta)
+
+
+# ── Task 4: import layer (offline — no live Neo4j in pytest, Gate 3 rule) ──
+
+def test_cypher_statements_cover_graph_keys(graph):
+    from scripts.build_neo4j import CONSTRAINTS, EDGE_CYPHER, NODE_CYPHER
+    assert set(NODE_CYPHER) == set(graph["nodes"])
+    assert set(EDGE_CYPHER) == set(graph["edges"])
+    assert len(CONSTRAINTS) == 5           # 每个节点标签一条唯一约束
+    for label, stmt in NODE_CYPHER.items():
+        assert f":{label}" in stmt and "UNWIND $rows" in stmt
+    for etype, stmt in EDGE_CYPHER.items():
+        assert f":{etype}" in stmt and "UNWIND $rows" in stmt and "MATCH" in stmt
+
+def test_batches():
+    from scripts.build_neo4j import _batches
+    rows = [{"i": i} for i in range(1201)]
+    chunks = list(_batches(rows, 500))
+    assert [len(c) for c in chunks] == [500, 500, 201]
+    assert [c["i"] for chunk in chunks for c in chunk] == list(range(1201))

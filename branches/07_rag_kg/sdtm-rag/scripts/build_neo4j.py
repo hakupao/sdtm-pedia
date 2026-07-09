@@ -19,6 +19,7 @@ below is pure (no neo4j import) so unit tests run with Neo4j stopped.
 
 from __future__ import annotations
 
+import os
 from collections import Counter
 from pathlib import Path
 from typing import Any
@@ -112,3 +113,93 @@ def extract_graph(meta: dict) -> Graph:
         "edges": {"HAS_VARIABLE": has_variable, "USES_CT": uses_ct,
                   "IN_CLASS": in_class, "DEFHOME": defhome, "RELATED_TO": related},
     }
+
+
+# ── import layer (requires the dev-extra neo4j driver + a live local Neo4j) ──
+
+BATCH_SIZE = 500
+
+CONSTRAINTS = [
+    "CREATE CONSTRAINT domain_code IF NOT EXISTS FOR (n:Domain) REQUIRE n.code IS UNIQUE",
+    "CREATE CONSTRAINT variable_name IF NOT EXISTS FOR (n:Variable) REQUIRE n.name IS UNIQUE",
+    "CREATE CONSTRAINT codelist_code IF NOT EXISTS FOR (n:Codelist) REQUIRE n.code IS UNIQUE",
+    "CREATE CONSTRAINT class_name IF NOT EXISTS FOR (n:Class) REQUIRE n.name IS UNIQUE",
+    "CREATE CONSTRAINT chapter_path IF NOT EXISTS FOR (n:ModelChapter) REQUIRE n.path IS UNIQUE",
+]
+
+NODE_CYPHER = {
+    "Domain": ("UNWIND $rows AS r CREATE (:Domain {code: r.code, label: r.label, "
+               "class: r.class, structure: r.structure, n_variables: r.n_variables})"),
+    # r.role 等对 model-only 行不存在 -> Cypher null -> 属性自然缺省, 无需分支
+    "Variable": ("UNWIND $rows AS r CREATE (:Variable {name: r.name, label: r.label, "
+                 "role: r.role, type: r.type, core: r.core, model_only: r.model_only})"),
+    "Codelist": ("UNWIND $rows AS r CREATE (:Codelist {code: r.code, name: r.name, "
+                 "extensible: r.extensible, term_count: r.term_count, termfile: r.termfile})"),
+    "Class": "UNWIND $rows AS r CREATE (:Class {name: r.name, n_domains: r.n_domains})",
+    "ModelChapter": "UNWIND $rows AS r CREATE (:ModelChapter {path: r.path})",
+}
+
+EDGE_CYPHER = {
+    "HAS_VARIABLE": ("UNWIND $rows AS r MATCH (d:Domain {code: r.domain}) "
+                     "MATCH (v:Variable {name: r.var}) "
+                     "CREATE (d)-[:HAS_VARIABLE {role: r.role, type: r.type, core: r.core}]->(v)"),
+    "USES_CT": ("UNWIND $rows AS r MATCH (v:Variable {name: r.var}) "
+                "MATCH (c:Codelist {code: r.code}) "
+                "CREATE (v)-[:USES_CT {domains: r.domains}]->(c)"),
+    "IN_CLASS": ("UNWIND $rows AS r MATCH (d:Domain {code: r.domain}) "
+                 "MATCH (k:Class {name: r.class}) CREATE (d)-[:IN_CLASS]->(k)"),
+    "DEFHOME": ("UNWIND $rows AS r MATCH (v:Variable {name: r.var}) "
+                "MATCH (m:ModelChapter {path: r.chapter}) CREATE (v)-[:DEFHOME]->(m)"),
+    # mechanism 可为 null -> 属性缺省; cookbook 查询用 `r.mechanism IS NULL` 语义
+    "RELATED_TO": ("UNWIND $rows AS r MATCH (a:Domain {code: r.src}) "
+                   "MATCH (b:Domain {code: r.dst}) "
+                   "CREATE (a)-[:RELATED_TO {mechanism: r.mechanism, note: r.note, "
+                   "category: r.category, fidelity: r.fidelity, advisory: r.advisory}]->(b)"),
+}
+
+
+def _batches(rows: list[dict], size: int = BATCH_SIZE):
+    for i in range(0, len(rows), size):
+        yield rows[i:i + size]
+
+
+def import_graph(driver: Any, graph: Graph) -> dict[str, int]:
+    """Wipe + full deterministic rebuild. Idempotent: two runs -> identical
+    node/edge sets (Gate 1 snapshot diff proves it)."""
+    counts: dict[str, int] = {}
+    with driver.session(database="neo4j") as session:
+        session.run("MATCH (n) DETACH DELETE n")          # ~2.6k nodes: single tx fine
+        for stmt in CONSTRAINTS:
+            session.run(stmt)
+        for label, rows in graph["nodes"].items():
+            for chunk in _batches(rows):
+                session.run(NODE_CYPHER[label], rows=chunk)
+            counts[label] = len(rows)
+        for etype, rows in graph["edges"].items():
+            for chunk in _batches(rows):
+                session.run(EDGE_CYPHER[etype], rows=chunk)
+            counts[etype] = len(rows)
+    return counts
+
+
+def main() -> None:
+    from dotenv import load_dotenv
+    from neo4j import GraphDatabase
+
+    root = Path(__file__).resolve().parents[1]            # scripts -> sdtm-rag
+    load_dotenv(root / ".env")
+    uri = os.environ.get("NEO4J_URI", "bolt://127.0.0.1:7687")
+    user = os.environ.get("NEO4J_USER", "neo4j")
+    password = os.environ.get("NEO4J_PASSWORD")
+    if not password:
+        raise SystemExit("NEO4J_PASSWORD missing — add it to sdtm-rag/.env (see deploy/README.md §Neo4j)")
+
+    graph = extract_graph(load_meta(root / "data" / "meta" / "meta.yaml"))
+    with GraphDatabase.driver(uri, auth=(user, password)) as driver:
+        driver.verify_connectivity()
+        counts = import_graph(driver, graph)
+    print("imported " + " ".join(f"{k}={v}" for k, v in counts.items()))
+
+
+if __name__ == "__main__":
+    main()
