@@ -41,3 +41,36 @@ def resolve_cluster(kb_root: Path, seeds: list[str]) -> list[str]:
             if tok in known and tok != d:
                 found.add(tok)
     return sorted(found)
+
+
+_MECH = re.compile(r"\b(RELREC|RELSPEC|RELSUB|SUPPQUAL|SUPP[A-Z]{2})\b")
+
+
+def _edge(src, tgt, kind, directed, relation, quote, src_file, line, conf,
+          extractor, verified, note="") -> dict:
+    return {
+        "id": f"{kind[:4]}:{src}>{tgt}:{line}",
+        "source": src, "target": tgt, "kind": kind, "directed": directed,
+        "relation": relation,
+        "evidence": {"quote": quote.strip(), "source_file": src_file, "line": line},
+        "confidence": conf, "extractor": extractor,
+        "verified": verified, "verify_note": note,
+    }
+
+
+def extract_explicit_links(prose: dict, domains: list[str]) -> list[dict]:
+    dom_set = set(domains)
+    out: list[dict] = []
+    for d, kinds in prose.items():
+        for kind in ("assumptions", "examples"):
+            src_file = f"knowledge_base/domains/{d}/{kind}.md"
+            for i, line in enumerate(kinds[kind].split("\n"), 1):
+                m = _MECH.search(line)
+                if not m:
+                    continue
+                mech = m.group(1)
+                for other in _DOMAIN_TOKEN.findall(line):
+                    if other in dom_set and other != d and not _MECH.match(other):
+                        out.append(_edge(d, other, "explicit_link", False, mech,
+                                         line, src_file, i, 0.95, "regex", True))
+    return out

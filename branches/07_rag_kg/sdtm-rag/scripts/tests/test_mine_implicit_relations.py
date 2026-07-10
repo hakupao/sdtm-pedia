@@ -14,3 +14,14 @@ def test_resolve_cluster_adds_named_neighbors():
     assert {"PR", "TU", "TR", "RS"} <= set(cluster)
     assert "DM" not in cluster  # known non-seed dir, unnamed in any seed prose -> must be excluded
     assert cluster == sorted(cluster)
+
+
+def test_explicit_links_finds_relrec():
+    prose = M.load_prose(M.Path(__file__).parent.joinpath("fixtures","sp6_prose"), ["PR","TU"])
+    edges = M.extract_explicit_links(prose, ["PR","TU","TR","RS"])
+    relrec = [e for e in edges if e["relation"] == "RELREC"]
+    assert any({e["source"], e["target"]} == {"PR","TU"} for e in relrec)
+    e = relrec[0]
+    assert e["kind"] == "explicit_link" and e["extractor"] == "regex"
+    assert e["verified"] is True and e["directed"] is False
+    assert "RELREC" in e["evidence"]["quote"]
