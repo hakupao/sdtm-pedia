@@ -89,6 +89,6 @@ def extract_cooccurrence(prose: dict, domains: list[str], min_count: int = 2) ->
     for (a, b), c in sorted(pair_count.items()):
         if c >= min_count:
             out.append(_edge(a, b, "co_occurrence", False, "",
-                             f"{a}/{b} co-mentioned {c}x", "(co-occurrence)", c,
+                             f"{a}/{b} co-mentioned {c}x", "(co-occurrence)", 0,
                              min(0.5 + 0.1 * c, 0.9), "count", True))
     return out
