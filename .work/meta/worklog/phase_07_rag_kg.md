@@ -527,3 +527,23 @@ completeness 真实触发面极窄 (全域仅 2 条 RELREC 边) / CT cascade 有
 
 ### next
 **KG 重启全线收官 — SP1-5 + AGG 全 DONE。** 路由词「KG 重启 开始任务」无剩余单元, 子项目线关闭。未来可选小补 (codelist_co_users NL / mechanism 写回 meta.yaml / webchat Graph tab / study 校验对外 / impact 降噪) 均属新设计单元, 需另起 brainstorm。
+
+---
+
+## 2026-07-10 SP6 (隐性关系挖掘 + 网状富节点查看器) DONE — 收官后新设计单元, 合并 main
+
+- **触发**: 用户想「看隐性关系」(如 RECIST 肿瘤评估 PR→TR/MI→RS→TU 数据流) + 把 KG 查看器从树状升级成网状点击展开、富节点带详情。属 KG 收官后的新图能力单元, 走完整 brainstorm→spec→plan→实现。
+- **决策 (brainstorm 4 项)**: 定位=**探索线索·证据锚定** (advisory 非权威); 关系三类 (数据流有向 / 显式链接 RELREC / 共现无向); 广度=试点肿瘤簇 TU/TR/RS/PR/MI + 一跳邻居; 富节点详情=混合 (离线内嵌 + 可选联网 RAG)。spec `docs/superpowers/specs/2026-07-10-sp6-implicit-relations-networked-viewer-design.md`, plan `docs/superpowers/plans/2026-07-10-sp6-implicit-relations-networked-viewer.md`。
+
+### 交付 (subagent-driven 9 task + 硬化, 合并 main `247fd53`)
+- **挖掘管线** `scripts/mine_implicit_relations.py`: 从 IG 散文 (`knowledge_base/domains/*/{assumptions,examples}.md`) 挖 `data/meta/implicit_relations.json` = **30 边 (12 data_flow + 9 explicit_link + 9 co_occurrence)**。确定性优先: explicit_link=RELREC 正则 / co_occurrence=计数 / 仅 data_flow 用 LLM (deepseek)。**分层反捏造闸**: gate1 逐字引文命中源文件 → **gate1b target 必须在引文里出现 (确定性反捏造)** → gate2 对抗裁判 (fail-closed on inconclusive) → 置信≥0.6 → 每无序对 ≤2。**绝不写 meta.yaml** (硬软彻底分层); 被毙边归档 `failures/sp6_rejected_edges.json` (Rule B)。
+- **查看器** `scripts/build_kg_viewer.py` → `kg_viewer.html`: 新增 **explore 网状点击无限展开** (EXPLORE_CAP=40 防毛线球) + **两层边线型区分** (数据流实线+箭头 / 显式链接绿虚线 / 共现点线 / 硬关联灰实线, 非仅颜色) + **富节点分层关系面板** (跨域 CURATED + 推断分层, 带 tag/置信/✓核验) + **点推断边看逐字 IG 引文证据弹窗** (quote + source_file:line + 置信 + 核验) + 可选 **RAG 深入解释** (探活 /api/health, graceful-hide 离线)。
+
+### data_flow 标定 saga (核心教训, 进 anti-cheating 谱系)
+LLM 挖有向 data_flow 本质吵: 首跑 **0** 条 (fail-closed judge + 精确引文匹配过严) → 用户选放松重跑 **24** 条, 但 opus 独立 Rule A 抽检 (N=8) 发现 **~50% 是「引文逐字真、但 target 是捏造的过度解读」** (如 FT→LB 引文根本没提 LB, MI→EG, RS→TU) → 加**确定性「有向边 target 必须在引文出现」闸 (gate1b, no-LLM) + 去重 + judge 复位 fail-closed → 12 条干净** (Rule A 复审 N=10 **0 FAIL / 0 WEAK**)。确定性通道 (RELREC/共现) 全程净。**结论: 确定性反捏造闸 > 软化 LLM 裁判**。核心肿瘤流 PR→MI/TR↔TU/TR↔RS/TR→PR 全在且可点开看原文。
+
+### 三门 + 硬化
+per-task TDD 审阅 (每任务 implementer+reviewer, 多轮修) + **Rule A opus 独立语义抽检 (Rule D 隔离) 复审 PASS** + **opus 全分支终审 READY TO MERGE 5/5 不变量** (不碰 meta.yaml / 反捏造闸链非旁路 / 确定性 / 自包含+RAG graceful / 测试真实) + 2 条 defense-in-depth 硬化 (IMPL_PATH 可 patch → test 不动冻结数据 / DATA JSON 注入转义 `<`)。521 passed。SDD ledger `.superpowers/sdd/progress.md`。
+
+### next
+**SP6 收口。** 隐性关系是 advisory 层与 meta.yaml 硬软分层。可选扩展 (全 63 域 / 更多边类型 / webchat 嵌图 / RAG 常态化) 均属新设计单元, 需另起 brainstorm。合并 main 未 push (用户选本地合并)。

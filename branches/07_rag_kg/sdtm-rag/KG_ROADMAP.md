@@ -97,3 +97,12 @@
 - **SP1-5 + AGG 全 DONE。** KG 重启子项目线关闭, 路由词「KG 重启 开始任务」无剩余单元。
 - 能力交付 (计数/穷举/影响/关系/聚合 SP1-3+AGG) + 探索层 (Neo4j SP4) + 图增强校验 (SP5) 全部收口。
 - **未来可选小补 (均属新设计单元, 需另起 brainstorm)**: codelist_co_users NL 接入 (Q2 选过, 干净可加) / mechanism:null back-fill 写回 meta.yaml / SP2 同源 degenerate 0-impact codelist 修 / AGG backlog (最高级长尾 KL-4 + MED-1/2/3 注入侧收紧, 见 `agg_channel_summary.md`) / webchat Graph tab (SP4 决策③二期) / study 校验暴露对外 (SP5 §5 范围外) / impact INFO 通用标识符降噪。
+
+## SP6 DONE (2026-07-10) — 收官后新设计单元: 隐性关系挖掘 + 网状富节点查看器
+
+- **是什么**: KG 收官后用户提的新图能力单元 (走完整 brainstorm→spec→plan→subagent-driven)。目标 = 从 IG 散文挖出 meta.yaml 之外的**隐性跨域关系** (advisory), 并把 KG 查看器从树状升级成**网状点击展开 + 富节点**。合并 main `247fd53` (未 push)。
+- **挖掘管线** `scripts/mine_implicit_relations.py` → `data/meta/implicit_relations.json` (**30 边 = 12 data_flow + 9 explicit_link + 9 co_occurrence**): 确定性优先 (explicit_link=RELREC 正则 / co_occurrence=计数 / 仅 data_flow 用 LLM)。**分层反捏造闸**: gate1 逐字引文命中源 → **gate1b target 必须在引文出现 (确定性反捏造)** → gate2 对抗裁判 fail-closed → 置信≥0.6 → 每无序对≤2。**绝不写 meta.yaml (硬软彻底分层)** + 被毙边归档 Rule B。试点肿瘤簇 TU/TR/RS/PR/MI + 一跳邻居。
+- **网状查看器** `scripts/build_kg_viewer.py` → `kg_viewer.html`: explore 网状点击无限展开 (cap 40) + 两层边线型区分 (数据流实线箭头/显式链接绿虚线/共现点线/硬关联灰实线) + 富节点分层关系面板 + 点推断边看逐字 IG 引文证据弹窗 + 可选 RAG 深入解释 (探活 graceful-hide)。
+- **核心教训 (data_flow saga)**: LLM 挖有向数据流本质吵 — 0 (过严) → 24 (放松, Rule A 抽检 ~50% 「引文真但 target 捏造」) → **确定性 target-in-quote 闸 → 12 干净** (Rule A 复审 0 FAIL)。**确定性反捏造闸 > 软化 LLM 裁判**。
+- **验收**: per-task TDD 审 + Rule A opus 独立复审 PASS + opus 全分支终审 READY TO MERGE 5/5 不变量 + 2 硬化; 521 passed。spec/plan `docs/superpowers/{specs,plans}/2026-07-10-sp6-implicit-relations-networked-viewer*`。
+- **可选扩展 (新单元, 需 brainstorm)**: 全 63 域挖掘 / 更多边类型 / webchat 嵌图 / RAG 常态化。
