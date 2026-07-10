@@ -185,18 +185,23 @@ def build_implicit_relations(kb_root: Path, seeds: list[str], model: str,
     per_pair: dict[tuple, int] = {}
     for e in extract_data_flow(prose, cluster, model, complete=complete):
         if not quote_in_source(e, kb_root):
-            e["verify_note"] = "gate1: quote not found in source"; rejected.append(e); continue
+            e["verify_note"] = "gate1: quote not found in source"
+            rejected.append(e)
+            continue
         v = verify_data_flow_edge(e, model, judge=judge)
         e["verified"], e["verify_note"] = v["verified"], v["note"]
         key = tuple(sorted((e["source"], e["target"])))
         if not v["verified"]:
-            rejected.append(e); continue          # verify_note already holds judge's refute reason
+            rejected.append(e)
+            continue          # verify_note already holds judge's refute reason
         if e["confidence"] < CONF_THRESHOLD:
             e["verify_note"] = f"below confidence threshold ({e['confidence']} < {CONF_THRESHOLD})"
-            rejected.append(e); continue
+            rejected.append(e)
+            continue
         if per_pair.get(key, 0) >= MAX_FLOW_PER_PAIR:
             e["verify_note"] = f"per-pair cap reached ({MAX_FLOW_PER_PAIR}) for {key}"
-            rejected.append(e); continue
+            rejected.append(e)
+            continue
         per_pair[key] = per_pair.get(key, 0) + 1
         edges.append(e)
     return {
@@ -206,3 +211,50 @@ def build_implicit_relations(kb_root: Path, seeds: list[str], model: str,
         "edges": sorted(edges, key=lambda e: (e["kind"], e["source"], e["target"])),
         "_rejected": rejected,
     }
+
+
+def write_outputs(result: dict, out_json: Path, audit_md: Path, failures_dir: Path) -> None:
+    rejected = result.pop("_rejected", [])
+    out_json.parent.mkdir(parents=True, exist_ok=True)
+    out_json.write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
+    if rejected:
+        failures_dir.mkdir(parents=True, exist_ok=True)
+        (failures_dir / "sp6_rejected_edges.json").write_text(
+            json.dumps(rejected, ensure_ascii=False, indent=2), encoding="utf-8")
+    by_kind: dict[str, int] = {}
+    for e in result["edges"]:
+        by_kind[e["kind"]] = by_kind.get(e["kind"], 0) + 1
+    lines = ["# SP6 隐性关系抽检 (Rule A)\n",
+             f"> 生成: 见 git;域: {', '.join(result['meta']['domains'])}\n",
+             f"边计数: {by_kind};被毙: {len(rejected)}\n\n## N=8 分层抽检\n",
+             "| # | 边 | 类型 | 引文命中? | 关系/方向对? | 判定 |\n|--|--|--|--|--|--|\n"]
+    sample = result["edges"][:8]
+    for i, e in enumerate(sample, 1):
+        lines.append(f"| {i} | {e['source']}→{e['target']} | {e['kind']} | 待核 | 待核 | 待填 |\n")
+    audit_md.write_text("".join(lines), encoding="utf-8")
+
+
+def main() -> None:
+    import argparse
+
+    from dotenv import load_dotenv
+    root = Path(__file__).resolve().parents[1]
+    load_dotenv(root / ".env")
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--model", default="deepseek/deepseek-chat")
+    ap.add_argument("--out", default=str(root / "data" / "meta" / "implicit_relations.json"))
+    ap.add_argument("--dry-run", action="store_true")
+    args = ap.parse_args()
+    result = build_implicit_relations(KB_ROOT, SEEDS, args.model)
+    n = len(result["edges"])
+    if args.dry_run:
+        print(f"[dry-run] {n} edges, {len(result['_rejected'])} rejected")
+        return
+    write_outputs(result, Path(args.out),
+                  root / "evidence" / "checkpoints" / "implicit_relations_audit.md",
+                  root / "failures")
+    print(f"wrote {args.out} ({n} edges)")
+
+
+if __name__ == "__main__":
+    main()

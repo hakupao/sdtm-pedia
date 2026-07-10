@@ -106,3 +106,16 @@ def test_build_rejects_below_confidence():
     assert [e for e in res["edges"] if e["kind"] == "data_flow"] == []
     assert any(e["kind"] == "data_flow" and "confidence" in e["verify_note"]
                for e in res["_rejected"])
+
+
+def test_write_outputs_creates_json_audit_and_failures(tmp_path):
+    result = {"meta": {"domains": ["PR", "TR"]},
+              "edges": [{"source": "PR", "target": "TR", "kind": "data_flow"}],
+              "_rejected": [{"source": "X", "target": "Y", "kind": "data_flow", "verify_note": "gate1"}]}
+    import json as _j
+    M.write_outputs(result, tmp_path / "impl.json", tmp_path / "audit.md", tmp_path / "failures")
+    data = _j.loads((tmp_path / "impl.json").read_text())
+    assert "_rejected" not in data                       # popped before writing
+    assert data["edges"][0]["kind"] == "data_flow"
+    assert (tmp_path / "failures" / "sp6_rejected_edges.json").exists()
+    assert "data_flow" in (tmp_path / "audit.md").read_text()

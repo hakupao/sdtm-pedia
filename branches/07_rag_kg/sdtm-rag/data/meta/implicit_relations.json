@@ -1,0 +1,453 @@
+{
+  "meta": {
+    "version": 1,
+    "cluster_seeds": [
+      "TU",
+      "TR",
+      "RS",
+      "PR",
+      "MI"
+    ],
+    "domains": [
+      "CM",
+      "EG",
+      "FT",
+      "IS",
+      "LB",
+      "MI",
+      "PR",
+      "RS",
+      "TR",
+      "TU"
+    ],
+    "generated_from": "knowledge_base/domains/<D>/{assumptions,examples}.md",
+    "confidence_threshold": 0.6
+  },
+  "edges": [
+    {
+      "id": "co_o:CM>RS:0",
+      "source": "CM",
+      "target": "RS",
+      "kind": "co_occurrence",
+      "directed": false,
+      "relation": "",
+      "evidence": {
+        "quote": "CM/RS co-mentioned 4x",
+        "source_file": "(co-occurrence)",
+        "line": 0
+      },
+      "confidence": 0.9,
+      "extractor": "count",
+      "verified": true,
+      "verify_note": ""
+    },
+    {
+      "id": "co_o:EG>PR:0",
+      "source": "EG",
+      "target": "PR",
+      "kind": "co_occurrence",
+      "directed": false,
+      "relation": "",
+      "evidence": {
+        "quote": "EG/PR co-mentioned 18x",
+        "source_file": "(co-occurrence)",
+        "line": 0
+      },
+      "confidence": 0.9,
+      "extractor": "count",
+      "verified": true,
+      "verify_note": ""
+    },
+    {
+      "id": "co_o:FT>RS:0",
+      "source": "FT",
+      "target": "RS",
+      "kind": "co_occurrence",
+      "directed": false,
+      "relation": "",
+      "evidence": {
+        "quote": "FT/RS co-mentioned 5x",
+        "source_file": "(co-occurrence)",
+        "line": 0
+      },
+      "confidence": 0.9,
+      "extractor": "count",
+      "verified": true,
+      "verify_note": ""
+    },
+    {
+      "id": "co_o:LB>RS:0",
+      "source": "LB",
+      "target": "RS",
+      "kind": "co_occurrence",
+      "directed": false,
+      "relation": "",
+      "evidence": {
+        "quote": "LB/RS co-mentioned 4x",
+        "source_file": "(co-occurrence)",
+        "line": 0
+      },
+      "confidence": 0.9,
+      "extractor": "count",
+      "verified": true,
+      "verify_note": ""
+    },
+    {
+      "id": "co_o:MI>PR:0",
+      "source": "MI",
+      "target": "PR",
+      "kind": "co_occurrence",
+      "directed": false,
+      "relation": "",
+      "evidence": {
+        "quote": "MI/PR co-mentioned 2x",
+        "source_file": "(co-occurrence)",
+        "line": 0
+      },
+      "confidence": 0.7,
+      "extractor": "count",
+      "verified": true,
+      "verify_note": ""
+    },
+    {
+      "id": "co_o:PR>RS:0",
+      "source": "PR",
+      "target": "RS",
+      "kind": "co_occurrence",
+      "directed": false,
+      "relation": "",
+      "evidence": {
+        "quote": "PR/RS co-mentioned 10x",
+        "source_file": "(co-occurrence)",
+        "line": 0
+      },
+      "confidence": 0.9,
+      "extractor": "count",
+      "verified": true,
+      "verify_note": ""
+    },
+    {
+      "id": "co_o:PR>TU:0",
+      "source": "PR",
+      "target": "TU",
+      "kind": "co_occurrence",
+      "directed": false,
+      "relation": "",
+      "evidence": {
+        "quote": "PR/TU co-mentioned 3x",
+        "source_file": "(co-occurrence)",
+        "line": 0
+      },
+      "confidence": 0.8,
+      "extractor": "count",
+      "verified": true,
+      "verify_note": ""
+    },
+    {
+      "id": "co_o:RS>TR:0",
+      "source": "RS",
+      "target": "TR",
+      "kind": "co_occurrence",
+      "directed": false,
+      "relation": "",
+      "evidence": {
+        "quote": "RS/TR co-mentioned 8x",
+        "source_file": "(co-occurrence)",
+        "line": 0
+      },
+      "confidence": 0.9,
+      "extractor": "count",
+      "verified": true,
+      "verify_note": ""
+    },
+    {
+      "id": "co_o:TR>TU:0",
+      "source": "TR",
+      "target": "TU",
+      "kind": "co_occurrence",
+      "directed": false,
+      "relation": "",
+      "evidence": {
+        "quote": "TR/TU co-mentioned 27x",
+        "source_file": "(co-occurrence)",
+        "line": 0
+      },
+      "confidence": 0.9,
+      "extractor": "count",
+      "verified": true,
+      "verify_note": ""
+    },
+    {
+      "id": "expl:PR>MI:10",
+      "source": "PR",
+      "target": "MI",
+      "kind": "explicit_link",
+      "directed": false,
+      "relation": "RELREC",
+      "evidence": {
+        "quote": "The Procedures domain is based on the Interventions observation class. The extent of physiological effect may range from observable to microscopic. Regardless of the extent of effect or whether it is collected in the study, all collected procedures are represented in this domain. The protocol design should specify whether procedure information will be collected. Measurements obtained from procedures are to be represented in their respective Findings domain(s). For example, a biopsy may be performed to obtain a tissue sample that is then evaluated histopathologically. In this case, details of the biopsy procedure can be represented in the PR domain and the histopathology findings in the Microscopic Findings (MI) domain. Describing the relationship between PR and MI records (in RELREC) in this example is dependent on whether the relationship is collected, either explicitly or implicitly.",
+        "source_file": "knowledge_base/domains/PR/assumptions.md",
+        "line": 10
+      },
+      "confidence": 0.95,
+      "extractor": "regex",
+      "verified": true,
+      "verify_note": ""
+    },
+    {
+      "id": "expl:PR>MI:10",
+      "source": "PR",
+      "target": "MI",
+      "kind": "explicit_link",
+      "directed": false,
+      "relation": "RELREC",
+      "evidence": {
+        "quote": "The Procedures domain is based on the Interventions observation class. The extent of physiological effect may range from observable to microscopic. Regardless of the extent of effect or whether it is collected in the study, all collected procedures are represented in this domain. The protocol design should specify whether procedure information will be collected. Measurements obtained from procedures are to be represented in their respective Findings domain(s). For example, a biopsy may be performed to obtain a tissue sample that is then evaluated histopathologically. In this case, details of the biopsy procedure can be represented in the PR domain and the histopathology findings in the Microscopic Findings (MI) domain. Describing the relationship between PR and MI records (in RELREC) in this example is dependent on whether the relationship is collected, either explicitly or implicitly.",
+        "source_file": "knowledge_base/domains/PR/assumptions.md",
+        "line": 10
+      },
+      "confidence": 0.95,
+      "extractor": "regex",
+      "verified": true,
+      "verify_note": ""
+    },
+    {
+      "id": "expl:RS>LB:18",
+      "source": "RS",
+      "target": "LB",
+      "kind": "explicit_link",
+      "directed": false,
+      "relation": "RELREC",
+      "evidence": {
+        "quote": "4. The RSLNKGRP variable is used to provide a link between the records in a findings domain (e.g., Tumor/Lesion Results, TR; Laboratory Test Results, LB) that contribute to a record in the RS domain. Records should exist in the RELREC dataset to support this relationship. A RELREC relationship could also be defined using RSLNKID when a response evaluation or clinical classification measure relates back to another source dataset (e.g., tumor assessment in TR). The domain in which data that contribute to an assessment of response reside should not affect whether a link to the RS record through a RELREC relationship is created. For example, a set of oncology response criteria might require lab results in the LB domain, not only tumor results in the TR domain.",
+        "source_file": "knowledge_base/domains/RS/assumptions.md",
+        "line": 18
+      },
+      "confidence": 0.95,
+      "extractor": "regex",
+      "verified": true,
+      "verify_note": ""
+    },
+    {
+      "id": "expl:RS>LB:18",
+      "source": "RS",
+      "target": "LB",
+      "kind": "explicit_link",
+      "directed": false,
+      "relation": "RELREC",
+      "evidence": {
+        "quote": "4. The RSLNKGRP variable is used to provide a link between the records in a findings domain (e.g., Tumor/Lesion Results, TR; Laboratory Test Results, LB) that contribute to a record in the RS domain. Records should exist in the RELREC dataset to support this relationship. A RELREC relationship could also be defined using RSLNKID when a response evaluation or clinical classification measure relates back to another source dataset (e.g., tumor assessment in TR). The domain in which data that contribute to an assessment of response reside should not affect whether a link to the RS record through a RELREC relationship is created. For example, a set of oncology response criteria might require lab results in the LB domain, not only tumor results in the TR domain.",
+        "source_file": "knowledge_base/domains/RS/assumptions.md",
+        "line": 18
+      },
+      "confidence": 0.95,
+      "extractor": "regex",
+      "verified": true,
+      "verify_note": ""
+    },
+    {
+      "id": "expl:RS>TR:18",
+      "source": "RS",
+      "target": "TR",
+      "kind": "explicit_link",
+      "directed": false,
+      "relation": "RELREC",
+      "evidence": {
+        "quote": "4. The RSLNKGRP variable is used to provide a link between the records in a findings domain (e.g., Tumor/Lesion Results, TR; Laboratory Test Results, LB) that contribute to a record in the RS domain. Records should exist in the RELREC dataset to support this relationship. A RELREC relationship could also be defined using RSLNKID when a response evaluation or clinical classification measure relates back to another source dataset (e.g., tumor assessment in TR). The domain in which data that contribute to an assessment of response reside should not affect whether a link to the RS record through a RELREC relationship is created. For example, a set of oncology response criteria might require lab results in the LB domain, not only tumor results in the TR domain.",
+        "source_file": "knowledge_base/domains/RS/assumptions.md",
+        "line": 18
+      },
+      "confidence": 0.95,
+      "extractor": "regex",
+      "verified": true,
+      "verify_note": ""
+    },
+    {
+      "id": "expl:RS>TR:18",
+      "source": "RS",
+      "target": "TR",
+      "kind": "explicit_link",
+      "directed": false,
+      "relation": "RELREC",
+      "evidence": {
+        "quote": "4. The RSLNKGRP variable is used to provide a link between the records in a findings domain (e.g., Tumor/Lesion Results, TR; Laboratory Test Results, LB) that contribute to a record in the RS domain. Records should exist in the RELREC dataset to support this relationship. A RELREC relationship could also be defined using RSLNKID when a response evaluation or clinical classification measure relates back to another source dataset (e.g., tumor assessment in TR). The domain in which data that contribute to an assessment of response reside should not affect whether a link to the RS record through a RELREC relationship is created. For example, a set of oncology response criteria might require lab results in the LB domain, not only tumor results in the TR domain.",
+        "source_file": "knowledge_base/domains/RS/assumptions.md",
+        "line": 18
+      },
+      "confidence": 0.95,
+      "extractor": "regex",
+      "verified": true,
+      "verify_note": ""
+    },
+    {
+      "id": "expl:RS>TR:18",
+      "source": "RS",
+      "target": "TR",
+      "kind": "explicit_link",
+      "directed": false,
+      "relation": "RELREC",
+      "evidence": {
+        "quote": "4. The RSLNKGRP variable is used to provide a link between the records in a findings domain (e.g., Tumor/Lesion Results, TR; Laboratory Test Results, LB) that contribute to a record in the RS domain. Records should exist in the RELREC dataset to support this relationship. A RELREC relationship could also be defined using RSLNKID when a response evaluation or clinical classification measure relates back to another source dataset (e.g., tumor assessment in TR). The domain in which data that contribute to an assessment of response reside should not affect whether a link to the RS record through a RELREC relationship is created. For example, a set of oncology response criteria might require lab results in the LB domain, not only tumor results in the TR domain.",
+        "source_file": "knowledge_base/domains/RS/assumptions.md",
+        "line": 18
+      },
+      "confidence": 0.95,
+      "extractor": "regex",
+      "verified": true,
+      "verify_note": ""
+    },
+    {
+      "id": "expl:TR>PR:25",
+      "source": "TR",
+      "target": "PR",
+      "kind": "explicit_link",
+      "directed": false,
+      "relation": "RELREC",
+      "evidence": {
+        "quote": "7. When additional data are collected about a procedure (e.g., imaging procedure) from which tumor/lesion results are determined, the data about the procedure is stored in the PR domain and the link between the tumor/lesion results and the procedure should be recorded using RELREC.",
+        "source_file": "knowledge_base/domains/TR/assumptions.md",
+        "line": 25
+      },
+      "confidence": 0.95,
+      "extractor": "regex",
+      "verified": true,
+      "verify_note": ""
+    },
+    {
+      "id": "expl:TR>RS:9",
+      "source": "TR",
+      "target": "RS",
+      "kind": "explicit_link",
+      "directed": false,
+      "relation": "RELREC",
+      "evidence": {
+        "quote": "2. TRLNKGRP is used to relate records in the TR domain to a response assessment record in the RS domain. The organization of data across the TR and RS domains requires a RELREC relationship to link the related data rows. A dataset-to-dataset link would be the most appropriate linking mechanism. Utilizing 1 of the existing ID variables is not possible because --GRPID, --REFID, and --SPID may be used for other purposes, per the SDTM. The --LNKGRP variable is used for values that support a RELREC dataset-to-dataset relationship and to provide a unique code for each response and associated tumor/lesion measurements/assessments.",
+        "source_file": "knowledge_base/domains/TR/assumptions.md",
+        "line": 9
+      },
+      "confidence": 0.95,
+      "extractor": "regex",
+      "verified": true,
+      "verify_note": ""
+    },
+    {
+      "id": "expl:TR>RS:9",
+      "source": "TR",
+      "target": "RS",
+      "kind": "explicit_link",
+      "directed": false,
+      "relation": "RELREC",
+      "evidence": {
+        "quote": "2. TRLNKGRP is used to relate records in the TR domain to a response assessment record in the RS domain. The organization of data across the TR and RS domains requires a RELREC relationship to link the related data rows. A dataset-to-dataset link would be the most appropriate linking mechanism. Utilizing 1 of the existing ID variables is not possible because --GRPID, --REFID, and --SPID may be used for other purposes, per the SDTM. The --LNKGRP variable is used for values that support a RELREC dataset-to-dataset relationship and to provide a unique code for each response and associated tumor/lesion measurements/assessments.",
+        "source_file": "knowledge_base/domains/TR/assumptions.md",
+        "line": 9
+      },
+      "confidence": 0.95,
+      "extractor": "regex",
+      "verified": true,
+      "verify_note": ""
+    },
+    {
+      "id": "expl:TR>TU:7",
+      "source": "TR",
+      "target": "TU",
+      "kind": "explicit_link",
+      "directed": false,
+      "relation": "RELREC",
+      "evidence": {
+        "quote": "1. TRLNKID is used to relate records in the TR domain to an identification record in TU domain. The organization of data across the TU and TR domains requires a RELREC relationship to link the related data rows. A dataset-to-dataset link would be the most appropriate linking mechanism. Utilizing 1 of the existing ID variables is not possible, because --GRPID, --REFID, and --SPID may be used for other purposes, per the SDTM. The --LNKID variable is used for values that support a RELREC dataset-to-dataset relationship and to provide a unique code for each identified tumor/lesion/location of interest.",
+        "source_file": "knowledge_base/domains/TR/assumptions.md",
+        "line": 7
+      },
+      "confidence": 0.95,
+      "extractor": "regex",
+      "verified": true,
+      "verify_note": ""
+    },
+    {
+      "id": "expl:TR>TU:7",
+      "source": "TR",
+      "target": "TU",
+      "kind": "explicit_link",
+      "directed": false,
+      "relation": "RELREC",
+      "evidence": {
+        "quote": "1. TRLNKID is used to relate records in the TR domain to an identification record in TU domain. The organization of data across the TU and TR domains requires a RELREC relationship to link the related data rows. A dataset-to-dataset link would be the most appropriate linking mechanism. Utilizing 1 of the existing ID variables is not possible, because --GRPID, --REFID, and --SPID may be used for other purposes, per the SDTM. The --LNKID variable is used for values that support a RELREC dataset-to-dataset relationship and to provide a unique code for each identified tumor/lesion/location of interest.",
+        "source_file": "knowledge_base/domains/TR/assumptions.md",
+        "line": 7
+      },
+      "confidence": 0.95,
+      "extractor": "regex",
+      "verified": true,
+      "verify_note": ""
+    },
+    {
+      "id": "expl:TR>TU:47",
+      "source": "TR",
+      "target": "TU",
+      "kind": "explicit_link",
+      "directed": false,
+      "relation": "RELREC",
+      "evidence": {
+        "quote": "The relationship between the TU and TR datasets is represented in RELREC.",
+        "source_file": "knowledge_base/domains/TR/examples.md",
+        "line": 47
+      },
+      "confidence": 0.95,
+      "extractor": "regex",
+      "verified": true,
+      "verify_note": ""
+    },
+    {
+      "id": "expl:TU>PR:104",
+      "source": "TU",
+      "target": "PR",
+      "kind": "explicit_link",
+      "directed": false,
+      "relation": "RELREC",
+      "evidence": {
+        "quote": "12. When additional data are collected about a procedure used for tumor/lesion identification, the data about the procedure are stored in the PR domain; the link between the tumor/lesion identification and the procedure should be recorded using RELREC.",
+        "source_file": "knowledge_base/domains/TU/assumptions.md",
+        "line": 104
+      },
+      "confidence": 0.95,
+      "extractor": "regex",
+      "verified": true,
+      "verify_note": ""
+    },
+    {
+      "id": "expl:TU>TR:22",
+      "source": "TU",
+      "target": "TR",
+      "kind": "explicit_link",
+      "directed": false,
+      "relation": "RELREC",
+      "evidence": {
+        "quote": "2. TRLNKID is used to relate an identification record in the TU domain to assessment records in the Tumor/Lesion Results (TR) domain. The organization of data across the TU and TR domains requires a linking mechanism. The TULNKID variable is used to provide a unique code for each identified tumor/lesion. The values of TULNKID are compound values that may carry the following information: an indication of the role (or assessor) providing the data record, when it is someone other than the principal investigator; an indication of whether the data record is for a target or non-target tumor/lesion; a tracking identifier or number; and an indication of whether the tumor/lesion has split (see assumption 3 for details on splitting). A RELREC relationship record can be created to describe the link, probably as a dataset-to-dataset link.",
+        "source_file": "knowledge_base/domains/TU/assumptions.md",
+        "line": 22
+      },
+      "confidence": 0.95,
+      "extractor": "regex",
+      "verified": true,
+      "verify_note": ""
+    },
+    {
+      "id": "expl:TU>TR:22",
+      "source": "TU",
+      "target": "TR",
+      "kind": "explicit_link",
+      "directed": false,
+      "relation": "RELREC",
+      "evidence": {
+        "quote": "2. TRLNKID is used to relate an identification record in the TU domain to assessment records in the Tumor/Lesion Results (TR) domain. The organization of data across the TU and TR domains requires a linking mechanism. The TULNKID variable is used to provide a unique code for each identified tumor/lesion. The values of TULNKID are compound values that may carry the following information: an indication of the role (or assessor) providing the data record, when it is someone other than the principal investigator; an indication of whether the data record is for a target or non-target tumor/lesion; a tracking identifier or number; and an indication of whether the tumor/lesion has split (see assumption 3 for details on splitting). A RELREC relationship record can be created to describe the link, probably as a dataset-to-dataset link.",
+        "source_file": "knowledge_base/domains/TU/assumptions.md",
+        "line": 22
+      },
+      "confidence": 0.95,
+      "extractor": "regex",
+      "verified": true,
+      "verify_note": ""
+    }
+  ]
+}
