@@ -17,7 +17,7 @@ def test_resolve_cluster_adds_named_neighbors():
 
 
 def test_explicit_links_finds_relrec():
-    prose = M.load_prose(M.Path(__file__).parent.joinpath("fixtures","sp6_prose"), ["PR","TU"])
+    prose = M.load_prose(FIX, ["PR","TU"])
     edges = M.extract_explicit_links(prose, ["PR","TU","TR","RS"])
     relrec = [e for e in edges if e["relation"] == "RELREC"]
     assert any({e["source"], e["target"]} == {"PR","TU"} for e in relrec)

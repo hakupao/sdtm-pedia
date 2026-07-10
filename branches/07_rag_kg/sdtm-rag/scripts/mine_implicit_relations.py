@@ -70,7 +70,7 @@ def extract_explicit_links(prose: dict, domains: list[str]) -> list[dict]:
                     continue
                 mech = m.group(1)
                 for other in _DOMAIN_TOKEN.findall(line):
-                    if other in dom_set and other != d and not _MECH.match(other):
+                    if other in dom_set and other != d:
                         out.append(_edge(d, other, "explicit_link", False, mech,
                                          line, src_file, i, 0.95, "regex", True))
     return out
