@@ -67,7 +67,7 @@ def test_verify_rejects_when_judge_refutes():
     v = M.verify_data_flow_edge(edge, "x", judge=refute)
     assert v["verified"] is False and "support" in v["note"]
 
-def test_build_assembles_and_gates(monkeypatch, tmp_path):
+def test_build_assembles_and_gates():
     fix = M.Path(__file__).parent.joinpath("fixtures","sp6_prose")
     flow = lambda prompt, model: [{"source":"PR","target":"TR","relation":"recorded in",
         "quote":"The tumor measurements obtained via the procedure are recorded in the TR dataset.",
@@ -79,3 +79,30 @@ def test_build_assembles_and_gates(monkeypatch, tmp_path):
     df = [e for e in res["edges"] if e["kind"]=="data_flow"]
     assert df and df[0]["verified"] is True     # 引文命中 + 裁判通过
     assert res["meta"]["confidence_threshold"] == M.CONF_THRESHOLD
+
+def test_build_caps_data_flow_per_pair():
+    q = "recorded in the TR dataset"  # verbatim substring of PR/examples.md -> passes gate1
+    def flow(prompt, model):
+        if "PR" in prompt and "TR" in prompt:
+            return [{"source":"PR","target":"TR","relation":r,"quote":q,"confidence":0.8}
+                    for r in ("a","b","c")]   # 3 candidates for the same pair
+        return []
+    accept = lambda prompt, model: [{"refuted": False, "reason": "ok"}]
+    res = M.build_implicit_relations(FIX, ["PR","TU"], "x", complete=flow, judge=accept)
+    df = [e for e in res["edges"] if e["kind"] == "data_flow"]
+    assert len(df) == 2                                   # per_pair cap = MAX_FLOW_PER_PAIR
+    capped = [e for e in res["_rejected"]
+              if e["kind"] == "data_flow" and "cap" in e["verify_note"]]
+    assert len(capped) == 1                               # 3rd rejected by the cap
+
+def test_build_rejects_below_confidence():
+    def flow(prompt, model):
+        if "PR" in prompt and "TR" in prompt:
+            return [{"source":"PR","target":"TR","relation":"x",
+                     "quote":"recorded in the TR dataset","confidence":0.5}]  # < 0.6
+        return []
+    accept = lambda prompt, model: [{"refuted": False, "reason": "ok"}]
+    res = M.build_implicit_relations(FIX, ["PR","TU"], "x", complete=flow, judge=accept)
+    assert [e for e in res["edges"] if e["kind"] == "data_flow"] == []
+    assert any(e["kind"] == "data_flow" and "confidence" in e["verify_note"]
+               for e in res["_rejected"])

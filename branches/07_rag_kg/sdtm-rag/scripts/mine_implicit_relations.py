@@ -189,8 +189,13 @@ def build_implicit_relations(kb_root: Path, seeds: list[str], model: str,
         v = verify_data_flow_edge(e, model, judge=judge)
         e["verified"], e["verify_note"] = v["verified"], v["note"]
         key = tuple(sorted((e["source"], e["target"])))
-        if not v["verified"] or e["confidence"] < CONF_THRESHOLD \
-           or per_pair.get(key, 0) >= MAX_FLOW_PER_PAIR:
+        if not v["verified"]:
+            rejected.append(e); continue          # verify_note already holds judge's refute reason
+        if e["confidence"] < CONF_THRESHOLD:
+            e["verify_note"] = f"below confidence threshold ({e['confidence']} < {CONF_THRESHOLD})"
+            rejected.append(e); continue
+        if per_pair.get(key, 0) >= MAX_FLOW_PER_PAIR:
+            e["verify_note"] = f"per-pair cap reached ({MAX_FLOW_PER_PAIR}) for {key}"
             rejected.append(e); continue
         per_pair[key] = per_pair.get(key, 0) + 1
         edges.append(e)
