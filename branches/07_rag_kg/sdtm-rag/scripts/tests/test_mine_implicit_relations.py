@@ -58,3 +58,24 @@ def test_quote_in_source_gate():
                          "source_file": "domains/PR/examples.md"}}
     assert M.quote_in_source(good, fix) is True
     assert M.quote_in_source(bad, fix) is False
+
+
+def test_verify_rejects_when_judge_refutes():
+    edge = {"source":"PR","target":"TR","relation":"x",
+            "evidence":{"quote":"q","source_file":"f"}}
+    refute = lambda prompt, model: [{"refuted": True, "reason": "quote does not support direction"}]
+    v = M.verify_data_flow_edge(edge, "x", judge=refute)
+    assert v["verified"] is False and "support" in v["note"]
+
+def test_build_assembles_and_gates(monkeypatch, tmp_path):
+    fix = M.Path(__file__).parent.joinpath("fixtures","sp6_prose")
+    flow = lambda prompt, model: [{"source":"PR","target":"TR","relation":"recorded in",
+        "quote":"The tumor measurements obtained via the procedure are recorded in the TR dataset.",
+        "confidence":0.82}]
+    accept = lambda prompt, model: [{"refuted": False, "reason": "ok"}]
+    res = M.build_implicit_relations(fix, ["PR","TU"], "x", complete=flow, judge=accept)
+    kinds = {e["kind"] for e in res["edges"]}
+    assert "data_flow" in kinds and "explicit_link" in kinds
+    df = [e for e in res["edges"] if e["kind"]=="data_flow"]
+    assert df and df[0]["verified"] is True     # 引文命中 + 裁判通过
+    assert res["meta"]["confidence_threshold"] == M.CONF_THRESHOLD

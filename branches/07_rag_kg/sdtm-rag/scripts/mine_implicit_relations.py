@@ -158,3 +158,46 @@ def quote_in_source(edge: dict, kb_root: Path) -> bool:
             if p.exists() and q and q in p.read_text(encoding="utf-8"):
                 return True
     return False
+
+
+_VERIFY_PROMPT = """A relation was extracted from SDTM IG prose:
+  {S} --[{R}]--> {T}   (directed)
+Supporting quote: "{Q}"
+Try hard to REFUTE it. Does the quote actually support THIS directed relation
+(right direction, right domains)? If uncertain, refute. Return ONLY:
+[{{"refuted": <true|false>, "reason": "<short>"}}]"""
+
+
+def verify_data_flow_edge(edge: dict, model: str, judge=_complete_json) -> dict:
+    out = judge(_VERIFY_PROMPT.format(S=edge["source"], T=edge["target"],
+                R=edge["relation"], Q=edge["evidence"]["quote"]), model)
+    verdict = out[0] if out else {"refuted": True, "reason": "no verdict"}
+    return {"verified": not bool(verdict.get("refuted", True)),
+            "note": str(verdict.get("reason", ""))}
+
+
+def build_implicit_relations(kb_root: Path, seeds: list[str], model: str,
+                             complete=_complete_json, judge=_complete_json) -> dict:
+    cluster = resolve_cluster(kb_root, seeds)
+    prose = load_prose(kb_root, cluster)
+    edges = extract_explicit_links(prose, cluster) + extract_cooccurrence(prose, cluster)
+    rejected: list[dict] = []
+    per_pair: dict[tuple, int] = {}
+    for e in extract_data_flow(prose, cluster, model, complete=complete):
+        if not quote_in_source(e, kb_root):
+            e["verify_note"] = "gate1: quote not found in source"; rejected.append(e); continue
+        v = verify_data_flow_edge(e, model, judge=judge)
+        e["verified"], e["verify_note"] = v["verified"], v["note"]
+        key = tuple(sorted((e["source"], e["target"])))
+        if not v["verified"] or e["confidence"] < CONF_THRESHOLD \
+           or per_pair.get(key, 0) >= MAX_FLOW_PER_PAIR:
+            rejected.append(e); continue
+        per_pair[key] = per_pair.get(key, 0) + 1
+        edges.append(e)
+    return {
+        "meta": {"version": 1, "cluster_seeds": seeds, "domains": cluster,
+                 "generated_from": "knowledge_base/domains/<D>/{assumptions,examples}.md",
+                 "confidence_threshold": CONF_THRESHOLD},
+        "edges": sorted(edges, key=lambda e: (e["kind"], e["source"], e["target"])),
+        "_rejected": rejected,
+    }
