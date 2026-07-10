@@ -21,6 +21,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]  # scripts -> sdtm-rag
+IMPL_PATH = ROOT / "data" / "meta" / "implicit_relations.json"
 sys.path.insert(0, str(ROOT / "scripts"))
 
 from build_neo4j import extract_graph, load_meta  # noqa: E402  (pure, no neo4j import)
@@ -63,10 +64,9 @@ def build_data() -> dict:
         for e in edges["RELATED_TO"]
     ]
 
-    impl_path = ROOT / "data" / "meta" / "implicit_relations.json"
     implicit = None
-    if impl_path.exists():
-        raw = json.loads(impl_path.read_text(encoding="utf-8"))
+    if IMPL_PATH.exists():
+        raw = json.loads(IMPL_PATH.read_text(encoding="utf-8"))
         implicit = {"domains": raw["meta"]["domains"],
                     "edges": [e for e in raw["edges"]]}  # 已含 evidence/confidence/kind
 
@@ -645,6 +645,7 @@ matchMedia("(prefers-color-scheme: dark)").addEventListener?.("change",refreshCo
 def main() -> None:
     data = build_data()
     payload = json.dumps(data, separators=(",", ":"), ensure_ascii=False)
+    payload = payload.replace("<", "\\u003c")
     html = TEMPLATE.replace("__DATA__", payload)
     out = ROOT / "kg_viewer.html"
     out.write_text(html, encoding="utf-8")
