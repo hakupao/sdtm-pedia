@@ -110,7 +110,22 @@ svg.panning{cursor:grabbing}
 #panel .chip.k{font-family:ui-monospace,"SF Mono",monospace}
 #panel .rel{padding:6px 0;border-top:1px solid var(--line)}
 #panel .rel .m{color:var(--muted);font-size:11px;margin-top:2px}
+#panel .m{color:var(--muted);font-size:11px;margin-top:4px}
 #panel .adv{font-size:10px;color:var(--muted)}
+#panel .q{margin:8px 0;padding:8px 10px;border-left:3px solid var(--c1);background:var(--surface);
+  color:var(--ink2);font-size:12.5px;line-height:1.6;font-style:italic}
+#panel .tag{font-size:10px;padding:1px 7px;border-radius:10px;color:#fff;display:inline-block;font-weight:600}
+#panel .tag.flow{background:var(--flow)}
+#panel .tag.link{background:var(--link)}
+#panel .tag.cooc{background:var(--cooc)}
+#panel .ragBtn{font-size:10px;margin-left:6px;padding:2px 9px;border:1px solid var(--ring);border-radius:20px;
+  background:var(--surface);color:var(--ink2);cursor:pointer;font-family:inherit}
+#panel .ragBtn:hover{color:var(--ink);border-color:var(--ink2)}
+#panel .ragBtn:disabled{opacity:.55;cursor:default}
+#panel .ragans{margin:8px 0;padding:8px 10px;background:var(--surface);border:1px solid var(--ring);
+  border-radius:8px;font-size:12px;color:var(--ink2);line-height:1.6}
+#panel .irel{cursor:pointer}
+#panel .irel:hover{background:var(--surface)}
 </style>
 </head>
 <body>
@@ -176,6 +191,13 @@ const domainsByVar=new Map();
 for(const [dm,v] of DATA.hasVar){ if(!domainsByVar.has(v))domainsByVar.set(v,[]); domainsByVar.get(v).push(dm); }
 const relBySrc=new Map();
 for(const e of (DATA.related||[])){ if(!relBySrc.has(e[0]))relBySrc.set(e[0],[]); relBySrc.get(e[0]).push({d:e[1],mech:e[2],cat:e[3],note:e[4]}); }
+const implicitEdges=(DATA.implicit&&DATA.implicit.edges)?DATA.implicit.edges:[];
+const implicitById=new Map(implicitEdges.map(e=>[e.id,e]));
+const implicitByDomain=new Map();
+for(const e of implicitEdges){
+  if(!implicitByDomain.has(e.source))implicitByDomain.set(e.source,[]); implicitByDomain.get(e.source).push(e);
+  if(e.target!==e.source){ if(!implicitByDomain.has(e.target))implicitByDomain.set(e.target,[]); implicitByDomain.get(e.target).push(e); }
+}
 
 // ---- view builders -> {nodes:[{id,type,label,full,cls,r}], edges:[{s,t,adv}]} ----
 function vOverview(){
@@ -405,6 +427,24 @@ function applyLayerToggles(){
 $("#layers").addEventListener("click",ev=>{ const b=ev.target.closest("button"); if(!b)return;
   b.classList.toggle("on"); applyLayerToggles(); });
 
+// ---- RAG deep-explain (optional local backend at :8000, graceful offline) ----
+let RAG_OK=false;
+fetch("http://127.0.0.1:8000/api/health").then(r=>{ if(r&&r.ok){RAG_OK=true; applyRagVisibility();} }).catch(()=>{});
+function applyRagVisibility(){ document.querySelectorAll(".ragBtn").forEach(b=>b.classList.toggle("hide",!RAG_OK)); }
+function ragExplain(a,b,btn){
+  if(!RAG_OK)return;
+  const q=b?("In SDTM, explain how domain "+a+" relates to "+b+" and why.")
+           :("In SDTM, explain domain "+a+"'s role and how it typically relates to other domains.");
+  if(btn){ btn.disabled=true; btn.textContent="思考中…"; }
+  fetch("http://127.0.0.1:8000/api/ask",{method:"POST",headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({question:q})})
+   .then(r=>r.json()).then(d=>{
+     const ans=document.createElement("div"); ans.className="ragans"; ans.textContent=d.answer||"(无回答)";
+     if(btn&&btn.parentNode)btn.replaceWith(ans); else $("#panel").appendChild(ans);
+   })
+   .catch(()=>{ if(btn){ btn.disabled=false; btn.textContent="深入解释"; } });
+}
+
 // ---- click-to-inspect relationship panel ----
 function closePanel(){ $("#panel").classList.add("hide"); }
 function nav(v,key){ cur.v=v; if(v==="domain")cur.dom=key; else cur.code=key; render(); }
@@ -421,8 +461,27 @@ function openPanel(n){
     h+='<div class="kv"><b>'+esc(d.label)+'</b><br>类: <span style="color:'+classColor(d.cls)+'">●</span> '+esc(d.cls)+'<br>结构: '+esc(d.struct)+'<br>变量: <b>'+d.nv+'</b> · 码表: <b>'+codes.size+'</b></div>';
     if(rels.length){ h+='<h4>跨域关系 · curated</h4>';
       for(const r of rels) h+='<div class="rel"><span class="chip navdom" data-code="'+esc(r.d)+'">'+esc(r.d)+'</span> '+(r.mech?'<span class="adv">['+esc(r.mech)+']</span>':'')+'<div class="m">'+esc(r.cat)+(r.note?' — '+esc(r.note):'')+'</div></div>'; }
+    const impl=implicitByDomain.get(n.label)||[];
+    if(impl.length){
+      const KIND_LABEL={data_flow:"数据流",explicit_link:"显式链接",co_occurrence:"共现"};
+      const byKind={}; for(const e of impl)(byKind[e.kind]=byKind[e.kind]||[]).push(e);
+      h+='<h4>关系 · 分层（推断） · '+impl.length+'</h4>';
+      for(const k of ["data_flow","explicit_link","co_occurrence"]){
+        const list=byKind[k]; if(!list||!list.length)continue;
+        for(const e of list){
+          const other=e.source===n.label?e.target:e.source;
+          const arrow=e.directed?(e.source===n.label?" → ":" ← "):" — ";
+          h+='<div class="rel irel" data-eid="'+esc(e.id)+'"><span class="tag '+IMPLICIT_LAYER[k]+'">'+esc(KIND_LABEL[k])+'</span> '
+            +'<span class="chip navdom" data-code="'+esc(other)+'">'+esc(other)+'</span>'+arrow
+            +'<span class="adv">置信 '+e.confidence+(e.verified?" · ✓":" · 未核验")+'</span>'
+            +'<button class="ragBtn'+(RAG_OK?"":" hide")+'" data-a="'+esc(n.label)+'" data-b="'+esc(other)+'">深入解释</button>'
+            +(e.relation?'<div class="m">'+esc(e.relation)+'</div>':'')+'</div>';
+        }
+      }
+    }
     h+='<h4>同类域 · '+mates.length+'</h4>'+chips(mates,"dom");
     h+='<h4>码表 · '+codes.size+'</h4>'+chips([...codes],"code");
+    h+='<button class="ragBtn'+(RAG_OK?"":" hide")+'" data-a="'+esc(n.label)+'" style="margin-top:12px">深入解释 / 为何相关</button>';
   } else if(n.type==="var"){
     const vi=DATA.vars[n.label]||{}; const doms=(domainsByVar.get(n.label)||[]).slice().sort();
     const cc=(ctByVar.get(n.label)||[]).map(x=>x[0]);
@@ -440,9 +499,21 @@ function openPanel(n){
   }
   P.innerHTML=h; P.classList.remove("hide");
 }
+function openEvidence(e){
+  const P=$("#panel");
+  const kindLabel={data_flow:"数据流",explicit_link:"显式链接",co_occurrence:"共现"}[e.kind]||e.kind;
+  let h='<div class="ph"><div><div class="pty">推断边 · '+esc(kindLabel)+'</div><div class="pt">'+esc(e.source)+(e.directed?' → ':' — ')+esc(e.target)+'</div></div><button class="x" id="pClose">×</button></div>';
+  if(e.relation) h+='<div class="kv">'+esc(e.relation)+'</div>';
+  h+='<div class="q">'+esc(e.evidence.quote)+'</div>';
+  h+='<div class="m">来源: '+esc(e.evidence.source_file)+':'+e.evidence.line+'</div>';
+  h+='<div class="m">置信 '+e.confidence+(e.verified?' · ✓ 已核验':' · 未核验')+'</div>';
+  h+='<button class="ragBtn'+(RAG_OK?"":" hide")+'" data-a="'+esc(e.source)+'" data-b="'+esc(e.target)+'" style="margin-top:10px">深入解释 / 为何相关</button>';
+  P.innerHTML=h; P.classList.remove("hide");
+}
 $("#panel").addEventListener("click",ev=>{ if(ev.target.id==="pClose"){closePanel();return;}
-  const el=ev.target.closest("[data-code]"); if(!el)return;
-  if(el.classList.contains("navcode"))nav("impact",el.dataset.code); else nav("domain",el.dataset.code); });
+  const rag=ev.target.closest(".ragBtn"); if(rag){ if(!rag.classList.contains("hide"))ragExplain(rag.dataset.a,rag.dataset.b,rag); return; }
+  const el=ev.target.closest("[data-code]"); if(el){ if(el.classList.contains("navcode"))nav("impact",el.dataset.code); else nav("domain",el.dataset.code); return; }
+  const re=ev.target.closest("[data-eid]"); if(re){ const e=implicitById.get(re.dataset.eid); if(e)openEvidence(e); } });
 $("#physBtn").addEventListener("click",()=>{ running=!running; if(running){alpha=Math.max(alpha,.4);} $("#physBtn").textContent=(running?"⏸":"▶")+" 布局"; });
 $("#fitBtn").addEventListener("click",()=>{ resetZoom(); alpha=Math.max(alpha,.5); });
 $("#themeBtn").addEventListener("click",()=>{ const cur=document.documentElement.dataset.theme;
