@@ -164,11 +164,16 @@ def _find_line(text: str, quote: str) -> int:
     return 0
 
 
+def _target_in_quote(edge: dict) -> bool:
+    """A directed data_flow edge's TARGET domain must be named in the quote."""
+    return bool(re.search(rf"\b{re.escape(edge['target'])}[A-Z]*\b", edge["evidence"]["quote"]))
+
+
 def quote_in_source(edge: dict, kb_root: Path) -> bool:
     q = _norm(edge["evidence"]["quote"])
     rel = edge["evidence"]["source_file"].replace("knowledge_base/", "")
     cand = kb_root / rel
-    for p in {cand, cand.with_name("examples.md"), cand.with_name("assumptions.md")}:
+    for p in dict.fromkeys([cand, cand.with_name("examples.md"), cand.with_name("assumptions.md")]):
         if not (p.exists() and q):
             continue
         text = p.read_text(encoding="utf-8")
@@ -182,10 +187,10 @@ def quote_in_source(edge: dict, kb_root: Path) -> bool:
 _VERIFY_PROMPT = """A relation was extracted from SDTM IG prose:
   {S} --[{R}]--> {T}   (directed)
 Supporting quote: "{Q}"
-Judge whether the quote SUPPORTS this directed relation. Refute ONLY if the quote
-clearly does not support it — it names the wrong domains, states the wrong
-direction, or plainly does not mention the relationship. If the quote plausibly
-supports the relation, do NOT refute. Return ONLY:
+Refute if the quote does NOT explicitly name the target domain {T}, or does not
+support data/information flowing from {S} to {T} (wrong direction counts as
+refuted). Only accept if the quote names both {S} and {T} and supports the
+{S}→{T} direction. Return ONLY:
 [{{"refuted": <true|false>, "reason": "<short>"}}]"""
 
 
@@ -194,9 +199,9 @@ def verify_data_flow_edge(edge: dict, model: str, judge=_complete_json) -> dict:
                                    R=edge["relation"], Q=edge["evidence"]["quote"])
     out = judge(prompt, model) or judge(prompt, model)   # one retry on empty/unparseable
     if not out:
-        return {"verified": True, "note": "judge inconclusive (no parseable verdict) — kept"}
+        return {"verified": False, "note": "judge inconclusive (no parseable verdict) — rejected"}
     verdict = out[0]
-    return {"verified": not bool(verdict.get("refuted", False)),
+    return {"verified": not bool(verdict.get("refuted", True)),
             "note": str(verdict.get("reason", ""))}
 
 
@@ -210,6 +215,10 @@ def build_implicit_relations(kb_root: Path, seeds: list[str], model: str,
     for e in extract_data_flow(prose, cluster, model, complete=complete):
         if not quote_in_source(e, kb_root):
             e["verify_note"] = "gate1: quote not found in source"
+            rejected.append(e)
+            continue
+        if not _target_in_quote(e):
+            e["verify_note"] = f"gate1b: target {e['target']} not named in quote"
             rejected.append(e)
             continue
         v = verify_data_flow_edge(e, model, judge=judge)
@@ -228,6 +237,20 @@ def build_implicit_relations(kb_root: Path, seeds: list[str], model: str,
             continue
         per_pair[key] = per_pair.get(key, 0) + 1
         edges.append(e)
+    seen, deduped = set(), []
+    for e in edges:
+        k = (e["kind"], e["source"], e["target"], e["evidence"]["quote"])
+        if k in seen:
+            continue
+        seen.add(k)
+        deduped.append(e)
+    idc: dict = {}
+    for e in deduped:
+        base = f'{e["kind"][:4]}:{e["source"]}>{e["target"]}:{e["evidence"]["line"]}'
+        n = idc.get(base, 0)
+        idc[base] = n + 1
+        e["id"] = base if n == 0 else f"{base}#{n}"
+    edges = deduped
     return {
         "meta": {"version": 1, "cluster_seeds": seeds, "domains": cluster,
                  "generated_from": "knowledge_base/domains/<D>/{assumptions,examples}.md",
@@ -252,7 +275,11 @@ def write_outputs(result: dict, out_json: Path, audit_md: Path, failures_dir: Pa
              f"> 生成: 见 git;域: {', '.join(result['meta']['domains'])}\n",
              f"边计数: {by_kind};被毙: {len(rejected)}\n\n## N=8 分层抽检\n",
              "| # | 边 | 类型 | 引文命中? | 关系/方向对? | 判定 |\n|--|--|--|--|--|--|\n"]
-    sample = result["edges"][:8]
+    by_kind_edges: dict[str, list] = {}
+    for e in result["edges"]:
+        by_kind_edges.setdefault(e["kind"], []).append(e)
+    sample = (by_kind_edges.get("data_flow", [])[:6] + by_kind_edges.get("explicit_link", [])[:1]
+              + by_kind_edges.get("co_occurrence", [])[:1])[:8]
     for i, e in enumerate(sample, 1):
         lines.append(f"| {i} | {e['source']}→{e['target']} | {e['kind']} | 待核 | 待核 | 待填 |\n")
     audit_md.write_text("".join(lines), encoding="utf-8")

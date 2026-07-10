@@ -81,11 +81,15 @@ def test_build_assembles_and_gates():
     assert res["meta"]["confidence_threshold"] == M.CONF_THRESHOLD
 
 def test_build_caps_data_flow_per_pair():
-    q = "recorded in the TR dataset"  # verbatim substring of PR/examples.md -> passes gate1
+    # 3 DISTINCT verbatim quotes (all name TR, all substrings of PR/examples.md) so the
+    # per-pair cap — not the exact-duplicate dedup — is what limits the pair to 2.
+    quotes = ["recorded in the TR dataset",
+              "are recorded in the TR dataset",
+              "procedure are recorded in the TR dataset"]
     def flow(prompt, model):
         if "PR" in prompt and "TR" in prompt:
-            return [{"source":"PR","target":"TR","relation":r,"quote":q,"confidence":0.8}
-                    for r in ("a","b","c")]   # 3 candidates for the same pair
+            return [{"source":"PR","target":"TR","relation":"x","quote":q,"confidence":0.8}
+                    for q in quotes]   # 3 distinct candidates for the same pair
         return []
     accept = lambda prompt, model: [{"refuted": False, "reason": "ok"}]
     res = M.build_implicit_relations(FIX, ["PR","TU"], "x", complete=flow, judge=accept)
@@ -116,10 +120,17 @@ def test_quote_in_source_records_actual_sibling_file():
     assert edge["evidence"]["line"] >= 1
 
 
-def test_verify_inconclusive_judge_keeps_edge():
+def test_target_in_quote_gate():
+    good = {"target": "TR", "evidence": {"quote": "measurements are recorded in TR"}}
+    bad = {"target": "LB", "evidence": {"quote": "the QRS family covers FT, QS and RS"}}
+    assert M._target_in_quote(good) is True
+    assert M._target_in_quote(bad) is False
+
+
+def test_verify_inconclusive_judge_rejects():
     edge = {"source": "PR", "target": "MI", "relation": "x", "evidence": {"quote": "q"}}
     v = M.verify_data_flow_edge(edge, "x", judge=lambda prompt, model: [])
-    assert v["verified"] is True and "inconclusive" in v["note"]
+    assert v["verified"] is False and "inconclusive" in v["note"]
 
 
 def test_quote_in_source_normalizes_whitespace():

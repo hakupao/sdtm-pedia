@@ -178,58 +178,7 @@
       "verify_note": ""
     },
     {
-      "id": "data:EG>LB:0",
-      "source": "EG",
-      "target": "LB",
-      "kind": "data_flow",
-      "directed": true,
-      "relation": "EG and LB share similar reference range and clinical significance handling",
-      "evidence": {
-        "quote": "EGNRIND can be added to indicate where a result falls with respect to reference range defined by EGORNRLO and EGORNRHI. Examples: \"HIGH\", \"LOW\". Clinical significance would be represented as described in Section 4.5.5, Clinical Significance for Findings Observation Class Data, in EGCLSIG (see also EG Example 1).",
-        "source_file": "knowledge_base/domains/EG/assumptions.md",
-        "line": 18
-      },
-      "confidence": 0.9,
-      "extractor": "llm",
-      "verified": true,
-      "verify_note": "The quote discusses EGNRIND, EGORNRLO, EGORNRHI, and EGCLSIG, which are EG-specific variables, and mentions reference range and clinical significance handling, which aligns with the shared handling between EG and LB described in the relation. The quote does not explicitly name LB or state the direction, but it plausibly supports the relation by describing similar concepts."
-    },
-    {
-      "id": "data:FT>LB:0",
-      "source": "FT",
-      "target": "LB",
-      "kind": "data_flow",
-      "directed": true,
-      "relation": "FT and LB share common QRS assumptions",
-      "evidence": {
-        "quote": "The following assumptions are common to the FT and QS domains as well as the Clinical Classifications use case of the RS domain (not the Disease Response use case of RS):",
-        "source_file": "knowledge_base/domains/FT/assumptions.md",
-        "line": 3
-      },
-      "confidence": 0.9,
-      "extractor": "llm",
-      "verified": true,
-      "verify_note": "The quote mentions FT and QS (which includes LB under QRS assumptions), and the relation is plausible as FT and LB share common QRS assumptions."
-    },
-    {
-      "id": "data:IS>CM:0",
-      "source": "IS",
-      "target": "CM",
-      "kind": "data_flow",
-      "directed": true,
-      "relation": "IS antidrug antibody tests target therapies recorded in CM",
-      "evidence": {
-        "quote": "For antidrug antibody (ADA) tests, the ISBDAGNT variable is used to represent the free-text description of the name/identity of the therapy the antidrug antibody targets.",
-        "source_file": "knowledge_base/domains/IS/assumptions.md",
-        "line": 24
-      },
-      "confidence": 0.85,
-      "extractor": "llm",
-      "verified": true,
-      "verify_note": "The quote mentions ISBDAGNT in IS representing the therapy targeted by ADA tests, which aligns with the directed relation from IS to CM for antidrug antibody tests targeting therapies recorded in CM."
-    },
-    {
-      "id": "data:IS>LB:0",
+      "id": "data:IS>LB:21",
       "source": "IS",
       "target": "LB",
       "kind": "data_flow",
@@ -246,41 +195,7 @@
       "verify_note": "The quote explicitly states that measurements of cytokines, chemokines, and complement proteins should be represented in the LB domain, which directly supports the directed relation from IS to LB."
     },
     {
-      "id": "data:LB>EG:0",
-      "source": "LB",
-      "target": "EG",
-      "kind": "data_flow",
-      "directed": true,
-      "relation": "LB and EG share similar reference range and clinical significance handling",
-      "evidence": {
-        "quote": "LBNRIND can be added to indicate where a result falls with respect to reference range defined by LBORNRLO and LBORNRHI. Examples: \"HIGH\", \"LOW\". If toxicity grading is available, values would be represented in the variables LBTOX and LBTOXGR. Clinical significance would be represented as described in Section 4.5.5, Clinical Significance for Findings Observation Class Data, in LBCLSIG (see also LB Example 1).",
-        "source_file": "knowledge_base/domains/LB/assumptions.md",
-        "line": 9
-      },
-      "confidence": 0.9,
-      "extractor": "llm",
-      "verified": true,
-      "verify_note": "The quote discusses LB reference range and clinical significance handling, which aligns with the relation's claim that LB and EG share similar handling, though EG is not explicitly named."
-    },
-    {
-      "id": "data:MI>EG:0",
-      "source": "MI",
-      "target": "EG",
-      "kind": "data_flow",
-      "directed": true,
-      "relation": "MI is distinct from EG for microscopic examination",
-      "evidence": {
-        "quote": "This domain holds findings resulting from the microscopic examination of tissue samples.",
-        "source_file": "knowledge_base/domains/MI/assumptions.md",
-        "line": 3
-      },
-      "confidence": 0.9,
-      "extractor": "llm",
-      "verified": true,
-      "verify_note": "The quote describes microscopic examination findings, which aligns with MI being distinct from EG for that purpose, and does not contradict the directed relation."
-    },
-    {
-      "id": "data:MI>LB:0",
+      "id": "data:MI>LB:3",
       "source": "MI",
       "target": "LB",
       "kind": "data_flow",
@@ -297,7 +212,7 @@
       "verify_note": "The quote supports the distinction between microscopic tissue exams (MI) and lab tests (LB) by stating that certain cell examinations are classified as lab tests and stored in LB, which aligns with the directed relation from MI to LB."
     },
     {
-      "id": "data:PR>EG:0",
+      "id": "data:PR>EG:29",
       "source": "PR",
       "target": "EG",
       "kind": "data_flow",
@@ -314,7 +229,7 @@
       "verify_note": "The quote mentions heart rate findings from a procedure being represented in the EG domain, which aligns with the directed relation from PR to EG."
     },
     {
-      "id": "data:PR>EG:0",
+      "id": "data:PR>EG:39",
       "source": "PR",
       "target": "EG",
       "kind": "data_flow",
@@ -331,58 +246,7 @@
       "verify_note": "The quote explicitly states a one-to-many relationship between PR and EG using --LNKID, which aligns with the directed relation from PR to EG."
     },
     {
-      "id": "data:PR>FT:0",
-      "source": "PR",
-      "target": "FT",
-      "kind": "data_flow",
-      "directed": true,
-      "relation": "Measurements from procedures are represented in findings domains like FT",
-      "evidence": {
-        "quote": "Measurements obtained from procedures are to be represented in their respective Findings domain(s).",
-        "source_file": "knowledge_base/domains/PR/assumptions.md",
-        "line": 10
-      },
-      "confidence": 0.9,
-      "extractor": "llm",
-      "verified": true,
-      "verify_note": "The quote states that measurements from procedures go to findings domains, which matches the directed relation from PR to FT."
-    },
-    {
-      "id": "data:PR>IS:0",
-      "source": "PR",
-      "target": "IS",
-      "kind": "data_flow",
-      "directed": true,
-      "relation": "PR procedures may generate IS findings",
-      "evidence": {
-        "quote": "Measurements obtained from procedures are to be represented in their respective Findings domain(s).",
-        "source_file": "knowledge_base/domains/PR/assumptions.md",
-        "line": 10
-      },
-      "confidence": 0.9,
-      "extractor": "llm",
-      "verified": true,
-      "verify_note": "The quote states that measurements from procedures go to Findings domains, which aligns with the directed relation from PR to IS."
-    },
-    {
-      "id": "data:PR>LB:0",
-      "source": "PR",
-      "target": "LB",
-      "kind": "data_flow",
-      "directed": true,
-      "relation": "measurements from procedures are represented in findings domains",
-      "evidence": {
-        "quote": "Measurements obtained from procedures are to be represented in their respective Findings domain(s).",
-        "source_file": "knowledge_base/domains/PR/assumptions.md",
-        "line": 10
-      },
-      "confidence": 0.9,
-      "extractor": "llm",
-      "verified": true,
-      "verify_note": "The quote states that measurements from procedures go to Findings domains, which matches the directed relation from PR to LB (a findings domain)."
-    },
-    {
-      "id": "data:PR>MI:0",
+      "id": "data:PR>MI:10",
       "source": "PR",
       "target": "MI",
       "kind": "data_flow",
@@ -399,7 +263,7 @@
       "verify_note": "The quote explicitly describes a biopsy (PR) providing a tissue sample for histopathology evaluation (MI), which supports the directed relation from PR to MI."
     },
     {
-      "id": "data:PR>MI:0",
+      "id": "data:PR>MI:10#1",
       "source": "PR",
       "target": "MI",
       "kind": "data_flow",
@@ -416,7 +280,7 @@
       "verify_note": "The quote mentions PR and MI records and their relationship via RELREC, which aligns with the directed relation."
     },
     {
-      "id": "data:RS>CM:0",
+      "id": "data:RS>CM:27",
       "source": "RS",
       "target": "CM",
       "kind": "data_flow",
@@ -433,41 +297,7 @@
       "verify_note": "The quote mentions linking RS and CM records using CMLNKGRP and RSLNKGRP, which supports the directed relation from RS to CM."
     },
     {
-      "id": "data:RS>EG:0",
-      "source": "RS",
-      "target": "EG",
-      "kind": "data_flow",
-      "directed": true,
-      "relation": "RS may link to EG records via RSLNKGRP",
-      "evidence": {
-        "quote": "The RSLNKGRP variable is used to provide a link between the records in a findings domain (e.g., Tumor/Lesion Results, TR; Laboratory Test Results, LB) that contribute to a record in the RS domain.",
-        "source_file": "knowledge_base/domains/RS/assumptions.md",
-        "line": 18
-      },
-      "confidence": 0.9,
-      "extractor": "llm",
-      "verified": true,
-      "verify_note": "The quote mentions that RSLNKGRP links records in findings domains (e.g., TR, LB) to records in the RS domain, which aligns with the directed relation from RS to EG, as EG is also a findings domain."
-    },
-    {
-      "id": "data:RS>IS:0",
-      "source": "RS",
-      "target": "IS",
-      "kind": "data_flow",
-      "directed": true,
-      "relation": "RS may link to IS records via RSLNKGRP",
-      "evidence": {
-        "quote": "The RSLNKGRP variable is used to provide a link between the records in a findings domain (e.g., Tumor/Lesion Results, TR; Laboratory Test Results, LB) that contribute to a record in the RS domain.",
-        "source_file": "knowledge_base/domains/RS/assumptions.md",
-        "line": 18
-      },
-      "confidence": 0.7,
-      "extractor": "llm",
-      "verified": true,
-      "verify_note": "The quote mentions that RSLNKGRP links findings domain records (e.g., TR, LB) to RS records, which aligns with the directed relation from RS to IS, as IS is a findings domain."
-    },
-    {
-      "id": "data:RS>TR:0",
+      "id": "data:RS>TR:18",
       "source": "RS",
       "target": "TR",
       "kind": "data_flow",
@@ -484,41 +314,7 @@
       "verify_note": "The quote names TR and RS, and describes RSLNKGRP linking findings domain records (like TR) to RS records, which matches the directed relation from RS to TR via RSLNKGRP."
     },
     {
-      "id": "data:RS>TU:0",
-      "source": "RS",
-      "target": "TU",
-      "kind": "data_flow",
-      "directed": true,
-      "relation": "RS domain links to tumor identification records in TU via RSLNKGRP and RELREC",
-      "evidence": {
-        "quote": "The RSLNKGRP variable is used to provide a link between the records in a findings domain (e.g., Tumor/Lesion Results, TR; Laboratory Test Results, LB) that contribute to a record in the RS domain.",
-        "source_file": "knowledge_base/domains/RS/assumptions.md",
-        "line": 18
-      },
-      "confidence": 0.9,
-      "extractor": "llm",
-      "verified": true,
-      "verify_note": "The quote mentions RSLNKGRP linking findings domains (e.g., TR) to RS records, which is consistent with the RS-to-TU direction via RSLNKGRP and RELREC, even though TU is not explicitly named."
-    },
-    {
-      "id": "data:TR>LB:0",
-      "source": "TR",
-      "target": "LB",
-      "kind": "data_flow",
-      "directed": true,
-      "relation": "TR does not include certain qualifiers that LB uses",
-      "evidence": {
-        "quote": "Any Identifiers, Timing variables, or Findings general observation class qualifiers may be added to the TR domain, but the following qualifiers would not generally be used: --POS, --BODSYS, --ORNRLO, --ORNRHI, --STNRLO, --STNRHI, --STNRC, --NRIND, --XFN, --LOINC, --SPEC, --SPCCND, --FAST, --TOX, --TOXGR, --SEV.",
-        "source_file": "knowledge_base/domains/TR/assumptions.md",
-        "line": 27
-      },
-      "confidence": 0.9,
-      "extractor": "llm",
-      "verified": true,
-      "verify_note": "The quote lists qualifiers not used in TR that are used in LB, supporting the directed relation that TR excludes certain LB qualifiers."
-    },
-    {
-      "id": "data:TR>PR:0",
+      "id": "data:TR>PR:25",
       "source": "TR",
       "target": "PR",
       "kind": "data_flow",
@@ -535,7 +331,7 @@
       "verify_note": "The quote mentions TR (tumor/lesion results) linking to PR (procedure data) via RELREC, which matches the directed relation TR->PR."
     },
     {
-      "id": "data:TR>RS:0",
+      "id": "data:TR>RS:9",
       "source": "TR",
       "target": "RS",
       "kind": "data_flow",
@@ -552,7 +348,7 @@
       "verify_note": "The quote explicitly states that TRLNKGRP relates TR records to RS response assessment records, matching the domains and direction of the relation."
     },
     {
-      "id": "data:TR>TU:0",
+      "id": "data:TR>TU:7",
       "source": "TR",
       "target": "TU",
       "kind": "data_flow",
@@ -569,7 +365,7 @@
       "verify_note": "The quote correctly names TR and TU domains and describes TRLNKID as linking TR records to TU identification records, matching the directed relation."
     },
     {
-      "id": "data:TU>TR:0",
+      "id": "data:TU>TR:22",
       "source": "TU",
       "target": "TR",
       "kind": "data_flow",
@@ -603,77 +399,9 @@
       "verify_note": ""
     },
     {
-      "id": "expl:PR>MI:10",
-      "source": "PR",
-      "target": "MI",
-      "kind": "explicit_link",
-      "directed": false,
-      "relation": "RELREC",
-      "evidence": {
-        "quote": "The Procedures domain is based on the Interventions observation class. The extent of physiological effect may range from observable to microscopic. Regardless of the extent of effect or whether it is collected in the study, all collected procedures are represented in this domain. The protocol design should specify whether procedure information will be collected. Measurements obtained from procedures are to be represented in their respective Findings domain(s). For example, a biopsy may be performed to obtain a tissue sample that is then evaluated histopathologically. In this case, details of the biopsy procedure can be represented in the PR domain and the histopathology findings in the Microscopic Findings (MI) domain. Describing the relationship between PR and MI records (in RELREC) in this example is dependent on whether the relationship is collected, either explicitly or implicitly.",
-        "source_file": "knowledge_base/domains/PR/assumptions.md",
-        "line": 10
-      },
-      "confidence": 0.95,
-      "extractor": "regex",
-      "verified": true,
-      "verify_note": ""
-    },
-    {
       "id": "expl:RS>LB:18",
       "source": "RS",
       "target": "LB",
-      "kind": "explicit_link",
-      "directed": false,
-      "relation": "RELREC",
-      "evidence": {
-        "quote": "4. The RSLNKGRP variable is used to provide a link between the records in a findings domain (e.g., Tumor/Lesion Results, TR; Laboratory Test Results, LB) that contribute to a record in the RS domain. Records should exist in the RELREC dataset to support this relationship. A RELREC relationship could also be defined using RSLNKID when a response evaluation or clinical classification measure relates back to another source dataset (e.g., tumor assessment in TR). The domain in which data that contribute to an assessment of response reside should not affect whether a link to the RS record through a RELREC relationship is created. For example, a set of oncology response criteria might require lab results in the LB domain, not only tumor results in the TR domain.",
-        "source_file": "knowledge_base/domains/RS/assumptions.md",
-        "line": 18
-      },
-      "confidence": 0.95,
-      "extractor": "regex",
-      "verified": true,
-      "verify_note": ""
-    },
-    {
-      "id": "expl:RS>LB:18",
-      "source": "RS",
-      "target": "LB",
-      "kind": "explicit_link",
-      "directed": false,
-      "relation": "RELREC",
-      "evidence": {
-        "quote": "4. The RSLNKGRP variable is used to provide a link between the records in a findings domain (e.g., Tumor/Lesion Results, TR; Laboratory Test Results, LB) that contribute to a record in the RS domain. Records should exist in the RELREC dataset to support this relationship. A RELREC relationship could also be defined using RSLNKID when a response evaluation or clinical classification measure relates back to another source dataset (e.g., tumor assessment in TR). The domain in which data that contribute to an assessment of response reside should not affect whether a link to the RS record through a RELREC relationship is created. For example, a set of oncology response criteria might require lab results in the LB domain, not only tumor results in the TR domain.",
-        "source_file": "knowledge_base/domains/RS/assumptions.md",
-        "line": 18
-      },
-      "confidence": 0.95,
-      "extractor": "regex",
-      "verified": true,
-      "verify_note": ""
-    },
-    {
-      "id": "expl:RS>TR:18",
-      "source": "RS",
-      "target": "TR",
-      "kind": "explicit_link",
-      "directed": false,
-      "relation": "RELREC",
-      "evidence": {
-        "quote": "4. The RSLNKGRP variable is used to provide a link between the records in a findings domain (e.g., Tumor/Lesion Results, TR; Laboratory Test Results, LB) that contribute to a record in the RS domain. Records should exist in the RELREC dataset to support this relationship. A RELREC relationship could also be defined using RSLNKID when a response evaluation or clinical classification measure relates back to another source dataset (e.g., tumor assessment in TR). The domain in which data that contribute to an assessment of response reside should not affect whether a link to the RS record through a RELREC relationship is created. For example, a set of oncology response criteria might require lab results in the LB domain, not only tumor results in the TR domain.",
-        "source_file": "knowledge_base/domains/RS/assumptions.md",
-        "line": 18
-      },
-      "confidence": 0.95,
-      "extractor": "regex",
-      "verified": true,
-      "verify_note": ""
-    },
-    {
-      "id": "expl:RS>TR:18",
-      "source": "RS",
-      "target": "TR",
       "kind": "explicit_link",
       "directed": false,
       "relation": "RELREC",
@@ -739,40 +467,6 @@
       "verify_note": ""
     },
     {
-      "id": "expl:TR>RS:9",
-      "source": "TR",
-      "target": "RS",
-      "kind": "explicit_link",
-      "directed": false,
-      "relation": "RELREC",
-      "evidence": {
-        "quote": "2. TRLNKGRP is used to relate records in the TR domain to a response assessment record in the RS domain. The organization of data across the TR and RS domains requires a RELREC relationship to link the related data rows. A dataset-to-dataset link would be the most appropriate linking mechanism. Utilizing 1 of the existing ID variables is not possible because --GRPID, --REFID, and --SPID may be used for other purposes, per the SDTM. The --LNKGRP variable is used for values that support a RELREC dataset-to-dataset relationship and to provide a unique code for each response and associated tumor/lesion measurements/assessments.",
-        "source_file": "knowledge_base/domains/TR/assumptions.md",
-        "line": 9
-      },
-      "confidence": 0.95,
-      "extractor": "regex",
-      "verified": true,
-      "verify_note": ""
-    },
-    {
-      "id": "expl:TR>TU:7",
-      "source": "TR",
-      "target": "TU",
-      "kind": "explicit_link",
-      "directed": false,
-      "relation": "RELREC",
-      "evidence": {
-        "quote": "1. TRLNKID is used to relate records in the TR domain to an identification record in TU domain. The organization of data across the TU and TR domains requires a RELREC relationship to link the related data rows. A dataset-to-dataset link would be the most appropriate linking mechanism. Utilizing 1 of the existing ID variables is not possible, because --GRPID, --REFID, and --SPID may be used for other purposes, per the SDTM. The --LNKID variable is used for values that support a RELREC dataset-to-dataset relationship and to provide a unique code for each identified tumor/lesion/location of interest.",
-        "source_file": "knowledge_base/domains/TR/assumptions.md",
-        "line": 7
-      },
-      "confidence": 0.95,
-      "extractor": "regex",
-      "verified": true,
-      "verify_note": ""
-    },
-    {
       "id": "expl:TR>TU:7",
       "source": "TR",
       "target": "TU",
@@ -817,23 +511,6 @@
         "quote": "12. When additional data are collected about a procedure used for tumor/lesion identification, the data about the procedure are stored in the PR domain; the link between the tumor/lesion identification and the procedure should be recorded using RELREC.",
         "source_file": "knowledge_base/domains/TU/assumptions.md",
         "line": 104
-      },
-      "confidence": 0.95,
-      "extractor": "regex",
-      "verified": true,
-      "verify_note": ""
-    },
-    {
-      "id": "expl:TU>TR:22",
-      "source": "TU",
-      "target": "TR",
-      "kind": "explicit_link",
-      "directed": false,
-      "relation": "RELREC",
-      "evidence": {
-        "quote": "2. TRLNKID is used to relate an identification record in the TU domain to assessment records in the Tumor/Lesion Results (TR) domain. The organization of data across the TU and TR domains requires a linking mechanism. The TULNKID variable is used to provide a unique code for each identified tumor/lesion. The values of TULNKID are compound values that may carry the following information: an indication of the role (or assessor) providing the data record, when it is someone other than the principal investigator; an indication of whether the data record is for a target or non-target tumor/lesion; a tracking identifier or number; and an indication of whether the tumor/lesion has split (see assumption 3 for details on splitting). A RELREC relationship record can be created to describe the link, probably as a dataset-to-dataset link.",
-        "source_file": "knowledge_base/domains/TU/assumptions.md",
-        "line": 22
       },
       "confidence": 0.95,
       "extractor": "regex",
