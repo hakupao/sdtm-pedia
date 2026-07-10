@@ -7,6 +7,7 @@ verbatim-quote gate + adversarial verification.
 """
 from __future__ import annotations
 
+import json
 import re
 from pathlib import Path
 
@@ -92,3 +93,68 @@ def extract_cooccurrence(prose: dict, domains: list[str], min_count: int = 2) ->
                              f"{a}/{b} co-mentioned {c}x", "(co-occurrence)", 0,
                              min(0.5 + 0.1 * c, 0.9), "count", True))
     return out
+
+
+_FLOW_PROMPT = """You are analyzing SDTM Implementation Guide prose for two domains.
+Domain {A} text:
+---
+{TA}
+---
+Domain {B} text:
+---
+{TB}
+---
+Identify DIRECTED data-flow relations between {A} and {B} that the text SUPPORTS
+(e.g. "{A} measurements are recorded in {B}"). For each, return an object:
+{{"source": "<{A} or {B}>", "target": "<the other>", "relation": "<short phrase>",
+  "quote": "<VERBATIM sentence copied exactly from the text above that supports it>",
+  "confidence": <0..1>}}
+Rules: quote MUST be copied verbatim from the text; if nothing is clearly supported,
+return []. Return ONLY a JSON array."""
+
+
+def _complete_json(prompt: str, model: str) -> list[dict]:
+    import litellm
+    resp = litellm.completion(model=model, temperature=0,
+                              messages=[{"role": "user", "content": prompt}])
+    txt = resp["choices"][0]["message"]["content"].strip()
+    txt = re.sub(r"^```(?:json)?|```$", "", txt, flags=re.M).strip()
+    try:
+        data = json.loads(txt)
+        return data if isinstance(data, list) else []
+    except json.JSONDecodeError:
+        return []
+
+
+def extract_data_flow(prose: dict, domains: list[str], model: str,
+                      complete=_complete_json) -> list[dict]:
+    out: list[dict] = []
+    doms = sorted(domains)
+    for i, a in enumerate(doms):
+        for b in doms[i + 1:]:
+            ta = prose.get(a, {}).get("assumptions", "") + prose.get(a, {}).get("examples", "")
+            tb = prose.get(b, {}).get("assumptions", "") + prose.get(b, {}).get("examples", "")
+            if not ta or not tb:
+                continue
+            cands = complete(_FLOW_PROMPT.format(A=a, B=b, TA=ta[:6000], TB=tb[:6000]), model)
+            for c in cands[:MAX_FLOW_PER_PAIR * 2]:
+                s, t = c.get("source"), c.get("target")
+                if {s, t} != {a, b}:
+                    continue
+                src_file = f"knowledge_base/domains/{s}/examples.md"
+                out.append(_edge(s, t, "data_flow", True, c.get("relation", ""),
+                                 c.get("quote", ""), src_file, 0,
+                                 float(c.get("confidence", 0.0)), "llm", False))
+    return out
+
+
+def quote_in_source(edge: dict, kb_root: Path) -> bool:
+    q = edge["evidence"]["quote"].strip()
+    rel = edge["evidence"]["source_file"].replace("knowledge_base/", "")
+    for kind in ("examples", "assumptions"):
+        # try the declared file, then the sibling kind (LLM may misattribute)
+        cand = kb_root / rel
+        for p in {cand, cand.with_name(f"{kind}.md")}:
+            if p.exists() and q and q in p.read_text(encoding="utf-8"):
+                return True
+    return False

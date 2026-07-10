@@ -37,3 +37,24 @@ def test_cooccurrence_counts_and_dedups():
     assert len(co) == 1                       # 无向, 只一条
     assert co[0]["source"] == "PR" and co[0]["target"] == "TR"  # source<target
     assert co[0]["directed"] is False and co[0]["extractor"] == "count"
+
+
+def test_data_flow_uses_injected_completer_and_marks_directed():
+    prose = M.load_prose(M.Path(__file__).parent.joinpath("fixtures","sp6_prose"), ["PR","TR"])
+    fake = lambda prompt, model: [{
+        "source": "PR", "target": "TR", "relation": "measurements recorded in",
+        "quote": "The tumor measurements obtained via the procedure are recorded in the TR dataset.",
+        "confidence": 0.82,
+    }]
+    edges = M.extract_data_flow(prose, ["PR","TR"], model="x", complete=fake)
+    assert edges and edges[0]["kind"] == "data_flow" and edges[0]["directed"] is True
+    assert edges[0]["extractor"] == "llm"
+
+def test_quote_in_source_gate():
+    fix = M.Path(__file__).parent.joinpath("fixtures","sp6_prose")
+    good = {"evidence": {"quote": "recorded in the TR dataset",
+                         "source_file": "domains/PR/examples.md"}}
+    bad  = {"evidence": {"quote": "THIS SENTENCE IS FABRICATED",
+                         "source_file": "domains/PR/examples.md"}}
+    assert M.quote_in_source(good, fix) is True
+    assert M.quote_in_source(bad, fix) is False
