@@ -25,3 +25,15 @@ def test_explicit_links_finds_relrec():
     assert e["kind"] == "explicit_link" and e["extractor"] == "regex"
     assert e["verified"] is True and e["directed"] is False
     assert "RELREC" in e["evidence"]["quote"]
+
+
+def test_cooccurrence_counts_and_dedups():
+    prose = {
+        "PR": {"assumptions": "PR relates to TR. See TR again. TR TR.", "examples": ""},
+        "TR": {"assumptions": "TR mentions PR here.", "examples": ""},
+    }
+    edges = M.extract_cooccurrence(prose, ["PR", "TR"], min_count=2)
+    co = [e for e in edges if e["kind"] == "co_occurrence"]
+    assert len(co) == 1                       # 无向, 只一条
+    assert co[0]["source"] == "PR" and co[0]["target"] == "TR"  # source<target
+    assert co[0]["directed"] is False and co[0]["extractor"] == "count"

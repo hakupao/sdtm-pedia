@@ -74,3 +74,21 @@ def extract_explicit_links(prose: dict, domains: list[str]) -> list[dict]:
                         out.append(_edge(d, other, "explicit_link", False, mech,
                                          line, src_file, i, 0.95, "regex", True))
     return out
+
+
+def extract_cooccurrence(prose: dict, domains: list[str], min_count: int = 2) -> list[dict]:
+    dom_set = set(domains)
+    pair_count: dict[tuple[str, str], int] = {}
+    for d, kinds in prose.items():
+        text = kinds["assumptions"] + "\n" + kinds["examples"]
+        for other in _DOMAIN_TOKEN.findall(text):
+            if other in dom_set and other != d:
+                key = tuple(sorted((d, other)))
+                pair_count[key] = pair_count.get(key, 0) + 1
+    out: list[dict] = []
+    for (a, b), c in sorted(pair_count.items()):
+        if c >= min_count:
+            out.append(_edge(a, b, "co_occurrence", False, "",
+                             f"{a}/{b} co-mentioned {c}x", "(co-occurrence)", c,
+                             min(0.5 + 0.1 * c, 0.9), "count", True))
+    return out
