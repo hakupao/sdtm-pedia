@@ -10,6 +10,7 @@
   --line:#e1e0d9; --ring:rgba(11,11,11,.10); --panel:#ffffffcc; --nodeStroke:#fcfcfb;
   --varFill:#b9b7ad; --codeFill:#6f6d78; --codeStroke:#4a4954;
   --c1:#2a78d6;--c2:#1baf7a;--c3:#eda100;--c4:#008300;--c5:#4a3aa7;--c6:#e34948;--c7:#e87ba4;--c8:#eb6834;
+  --flow:#2a78d6; --link:#1baf7a; --cooc:#7a52c7;
 }
 :root[data-theme="dark"], :root:not([data-theme="light"]){}
 @media (prefers-color-scheme: dark){
@@ -18,6 +19,7 @@
     --line:#2c2c2a; --ring:rgba(255,255,255,.10); --panel:#222220e6; --nodeStroke:#1a1a19;
     --varFill:#6a6862; --codeFill:#9d9ba8; --codeStroke:#c9c7d4;
     --c1:#3987e5;--c2:#199e70;--c3:#c98500;--c4:#008300;--c5:#9085e9;--c6:#e66767;--c7:#d55181;--c8:#d95926;
+    --flow:#3987e5; --link:#199e70; --cooc:#9085e9;
   }
 }
 :root[data-theme="dark"]{
@@ -25,6 +27,7 @@
   --line:#2c2c2a; --ring:rgba(255,255,255,.10); --panel:#222220e6; --nodeStroke:#1a1a19;
   --varFill:#6a6862; --codeFill:#9d9ba8; --codeStroke:#c9c7d4;
   --c1:#3987e5;--c2:#199e70;--c3:#c98500;--c4:#008300;--c5:#9085e9;--c6:#e66767;--c7:#d55181;--c8:#d95926;
+  --flow:#3987e5; --link:#199e70; --cooc:#9085e9;
 }
 *{box-sizing:border-box}
 html,body{margin:0;height:100%}
@@ -54,6 +57,12 @@ svg{width:100%;height:100%;display:block;cursor:grab}
 svg.panning{cursor:grabbing}
 .edge{stroke:var(--line);stroke-width:1.4}
 .edge.adv{stroke-dasharray:4 3}
+.edge.hardrel{stroke:var(--ink2);stroke-width:1.6}
+.iedge{fill:none}
+.iedge.flow{stroke:var(--flow,#2a78d6);stroke-width:2.2}
+.iedge.link{stroke:var(--link,#1baf7a);stroke-width:2.2;stroke-dasharray:5 3}
+.iedge.cooc{stroke:var(--cooc,#7a52c7);stroke-width:2;stroke-dasharray:1 5;stroke-linecap:round}
+.iedge-arrow{fill:var(--flow,#2a78d6)}
 .node{cursor:pointer}
 .node text{fill:var(--ink);font-size:10px;paint-order:stroke;
   stroke:var(--surface);stroke-width:3px;stroke-linejoin:round;pointer-events:none;user-select:none}
@@ -112,9 +121,16 @@ svg.panning{cursor:grabbing}
       <button data-v="overview" class="on">结构总览</button>
       <button data-v="domain">域钻取</button>
       <button data-v="impact">码表影响</button>
+      <button data-v="explore">网状探索</button>
     </div>
     <select id="domSel" class="hide"></select>
     <select id="codeSel" class="hide"></select>
+    <div class="seg hide" id="layers" title="图层开关：硬关联(实线) · 数据流(实线+箭头) · 显式链接(虚线) · 共现(点线)">
+      <button data-l="hard" class="on">硬关联 —</button>
+      <button data-l="flow" class="on">数据流 →</button>
+      <button data-l="link" class="on">显式链接 ╌</button>
+      <button data-l="cooc" class="on">共现 ┄</button>
+    </div>
     <input id="search" type="search" placeholder="搜索 code / name…">
     <div class="spacer"></div>
     <button class="ghost" id="physBtn" title="暂停/继续布局">⏸ 布局</button>
@@ -122,10 +138,10 @@ svg.panning{cursor:grabbing}
     <button class="ghost" id="themeBtn" title="切换主题">◐ 主题</button>
   </header>
   <main>
-    <svg id="svg"><g id="vp"><g id="edges"></g><g id="nodes"></g></g></svg>
+    <svg id="svg"><defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path class="iedge-arrow" d="M0,0L10,5L0,10z"></path></marker></defs><g id="vp"><g id="edges"></g><g id="nodes"></g></g></svg>
     <div id="count"></div>
     <div class="legend" id="legend"></div>
-    <div class="hint">悬停看全名 · 点击节点看关系 · 拖拽 · 滚轮缩放 · 空白平移</div>
+    <div class="hint" id="hint">悬停看全名 · 点击节点看关系 · 拖拽 · 滚轮缩放 · 空白平移</div>
     <aside id="panel" class="hide"></aside>
   </main>
 </div>
@@ -195,6 +211,36 @@ function vImpact(code){
     edges.push({s:"D:"+dm,t:"K:"+code}); }
   return {nodes,edges,title:code+" “"+ci.n+"” 波及 "+doms.length+" 个域 / "+(codeVars.get(code)?codeVars.get(code).size:0)+" 个变量"};
 }
+const IMPLICIT_LAYER={data_flow:"flow",explicit_link:"link",co_occurrence:"cooc"};
+const EXPLORE_CAP=40; // anti-hairball ceiling: max domains shown at once in explore view
+function vExplore(seed){
+  window.__expanded=window.__expanded||new Set();
+  const shown=new Set([seed]); window.__expanded.forEach(x=>shown.add(x));
+  const nodes=[],edges=[],have=new Set();
+  const add=(code,big)=>{ const id="D:"+code; if(have.has(id))return; have.add(id);
+    const d=domByCode.get(code); if(!d)return;
+    nodes.push({id,type:"domain",label:code,full:code+" — "+d.label,cls:d.cls,r:big?14:12,big:big?1:0}); };
+  for(const code of shown) add(code,code===seed);
+  // 硬结构层: curated RELATED_TO, only among shown nodes (Task 7 relBySrc)
+  for(const [s,list] of relBySrc) if(shown.has(s)) for(const r of list) if(shown.has(r.d)){
+    edges.push({s:"D:"+s,t:"D:"+r.d,layer:"hard"}); }
+  // 推断层: DATA.implicit edges (data_flow / explicit_link / co_occurrence), only among shown nodes
+  for(const e of (DATA.implicit?DATA.implicit.edges:[])) if(shown.has(e.source)&&shown.has(e.target)){
+    edges.push({s:"D:"+e.source,t:"D:"+e.target,layer:IMPLICIT_LAYER[e.kind],dir:e.directed,ev:e}); }
+  return {nodes,edges,title:"网状探索 · 从 "+seed+" 展开（"+shown.size+" 域，上限 "+EXPLORE_CAP+"）"};
+}
+function expandNode(code){
+  window.__expanded=window.__expanded||new Set();
+  const shownCount=()=>new Set([cur.dom||"TU",...window.__expanded]).size;
+  if(shownCount()>=EXPLORE_CAP){ cur.v="explore"; render(); return; } // cap already hit: no new nodes
+  window.__expanded.add(code);
+  for(const e of (DATA.implicit?DATA.implicit.edges:[])){
+    if(shownCount()>=EXPLORE_CAP) break;
+    if(e.source===code) window.__expanded.add(e.target);
+    if(e.target===code) window.__expanded.add(e.source);
+  }
+  cur.v="explore"; render();
+}
 
 // ---- force simulation ----
 let N=[],E=[],byId=new Map(),alpha=1,running=true,raf=0;
@@ -224,8 +270,11 @@ function frame(){ if(running){ for(let k=0;k<2;k++)tick(); draw(); } raf=request
 
 // ---- render ----
 function draw(){
-  for(const e of E){ e.el.setAttribute("x1",e.a.x);e.el.setAttribute("y1",e.a.y);
-    e.el.setAttribute("x2",e.b.x);e.el.setAttribute("y2",e.b.y); }
+  for(const e of E){
+    if(e.isPath) e.el.setAttribute("d","M"+e.a.x+","+e.a.y+"L"+e.b.x+","+e.b.y);
+    else { e.el.setAttribute("x1",e.a.x);e.el.setAttribute("y1",e.a.y);
+      e.el.setAttribute("x2",e.b.x);e.el.setAttribute("y2",e.b.y); }
+  }
   for(const n of N) n.g.setAttribute("transform","translate("+n.x+","+n.y+")");
 }
 function makeNodeShape(n){
@@ -242,10 +291,20 @@ function build(view){
   cancelAnimationFrame(raf);
   gEdges.textContent=""; gNodes.textContent="";
   N=view.nodes.map(n=>({...n})); byId=new Map(N.map(n=>[n.id,n]));
-  E=view.edges.map(e=>({a:byId.get(e.s),b:byId.get(e.t),adv:e.adv})).filter(e=>e.a&&e.b);
+  E=view.edges.map(e=>({a:byId.get(e.s),b:byId.get(e.t),adv:e.adv,layer:e.layer,dir:e.dir,ev:e.ev})).filter(e=>e.a&&e.b);
   seed(N);
-  for(const e of E){ const l=document.createElementNS(SVGNS,"line");
-    l.setAttribute("class","edge"+(e.adv?" adv":"")); e.el=l; gEdges.appendChild(l); }
+  for(const e of E){
+    let l;
+    if(e.layer&&e.layer!=="hard"){
+      l=document.createElementNS(SVGNS,"path"); l.setAttribute("class","iedge "+e.layer);
+      if(e.dir) l.setAttribute("marker-end","url(#arrow)");
+      e.isPath=true;
+    } else {
+      l=document.createElementNS(SVGNS,"line");
+      l.setAttribute("class","edge"+(e.adv?" adv":"")+(e.layer==="hard"?" hardrel":""));
+    }
+    e.el=l; gEdges.appendChild(l);
+  }
   for(const n of N){ const g=document.createElementNS(SVGNS,"g");
     g.setAttribute("class","node"+(n.big?" big":"")); n.g=g;
     g.appendChild(makeNodeShape(n));
@@ -262,6 +321,7 @@ function build(view){
   $("#sub").textContent=view.title;
   alpha=1; running=true; $("#physBtn").textContent="⏸ 布局";
   resetZoom(); raf=requestAnimationFrame(frame);
+  applyLayerToggles();
 }
 
 // ---- hover / tooltip / highlight ----
@@ -301,7 +361,7 @@ function startDrag(n,ev){ ev.stopPropagation(); drag=n; n.fix=1;
   const move=e=>{ if(!drag)return; moved=Math.max(moved,Math.hypot(e.clientX-sx,e.clientY-sy));
     const r=svg.getBoundingClientRect();
     n.x=(e.clientX-r.left-T.x)/T.k; n.y=(e.clientY-r.top-T.y)/T.k; alpha=Math.max(alpha,.5); };
-  const up=()=>{ if(drag){drag.fix=0; if(moved<4)openPanel(n); drag=null;} removeEventListener("pointermove",move); removeEventListener("pointerup",up); };
+  const up=()=>{ if(drag){drag.fix=0; if(moved<4){ if(cur.v==="explore"&&n.type==="domain")expandNode(n.label); else openPanel(n); } drag=null;} removeEventListener("pointermove",move); removeEventListener("pointerup",up); };
   addEventListener("pointermove",move); addEventListener("pointerup",up);
 }
 
@@ -316,18 +376,34 @@ function render(){
   closePanel(); syncUI();
   let view; if(cur.v==="overview")view=vOverview();
   else if(cur.v==="domain")view=vDomain(cur.dom);
+  else if(cur.v==="explore")view=vExplore(cur.dom||"TU");
   else view=vImpact(cur.code);
   build(view); applySearch();
 }
 function syncUI(){
   for(const x of $("#views").children) x.classList.toggle("on",x.dataset.v===cur.v);
-  $("#domSel").classList.toggle("hide",cur.v!=="domain");
+  $("#domSel").classList.toggle("hide",!(cur.v==="domain"||cur.v==="explore"));
   $("#codeSel").classList.toggle("hide",cur.v!=="impact");
+  $("#layers").classList.toggle("hide",cur.v!=="explore");
   if(cur.dom)$("#domSel").value=cur.dom; if(cur.code)$("#codeSel").value=cur.code;
+  $("#hint").textContent=cur.v==="explore"
+    ? "点击域节点展开邻居 · 拖拽 · 滚轮缩放 · 空白平移 · 上方图层开关可隐藏边"
+    : "悬停看全名 · 点击节点看关系 · 拖拽 · 滚轮缩放 · 空白平移";
 }
-$("#views").addEventListener("click",ev=>{ const b=ev.target.closest("button"); if(!b)return; cur.v=b.dataset.v; render(); });
-$("#domSel").addEventListener("change",e=>{cur.dom=e.target.value;render();});
+$("#views").addEventListener("click",ev=>{ const b=ev.target.closest("button"); if(!b)return;
+  if(b.dataset.v==="explore"&&cur.v!=="explore") window.__expanded=new Set(); // fresh entry: reset expansion
+  cur.v=b.dataset.v; render(); });
+$("#domSel").addEventListener("change",e=>{cur.dom=e.target.value; if(cur.v==="explore")window.__expanded=new Set(); render();});
 $("#codeSel").addEventListener("change",e=>{cur.code=e.target.value;render();});
+const LAYER_SEL={hard:".edge.hardrel",flow:".iedge.flow",link:".iedge.link",cooc:".iedge.cooc"};
+function applyLayerToggles(){
+  for(const b of $("#layers").children){
+    const on=b.classList.contains("on");
+    document.querySelectorAll(LAYER_SEL[b.dataset.l]).forEach(el=>el.style.display=on?"":"none");
+  }
+}
+$("#layers").addEventListener("click",ev=>{ const b=ev.target.closest("button"); if(!b)return;
+  b.classList.toggle("on"); applyLayerToggles(); });
 
 // ---- click-to-inspect relationship panel ----
 function closePanel(){ $("#panel").classList.add("hide"); }
