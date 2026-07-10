@@ -186,8 +186,8 @@
       "relation": "EG and LB share similar reference range and clinical significance handling",
       "evidence": {
         "quote": "EGNRIND can be added to indicate where a result falls with respect to reference range defined by EGORNRLO and EGORNRHI. Examples: \"HIGH\", \"LOW\". Clinical significance would be represented as described in Section 4.5.5, Clinical Significance for Findings Observation Class Data, in EGCLSIG (see also EG Example 1).",
-        "source_file": "knowledge_base/domains/EG/examples.md",
-        "line": 0
+        "source_file": "knowledge_base/domains/EG/assumptions.md",
+        "line": 18
       },
       "confidence": 0.9,
       "extractor": "llm",
@@ -203,8 +203,8 @@
       "relation": "FT and LB share common QRS assumptions",
       "evidence": {
         "quote": "The following assumptions are common to the FT and QS domains as well as the Clinical Classifications use case of the RS domain (not the Disease Response use case of RS):",
-        "source_file": "knowledge_base/domains/FT/examples.md",
-        "line": 0
+        "source_file": "knowledge_base/domains/FT/assumptions.md",
+        "line": 3
       },
       "confidence": 0.9,
       "extractor": "llm",
@@ -220,8 +220,8 @@
       "relation": "IS antidrug antibody tests target therapies recorded in CM",
       "evidence": {
         "quote": "For antidrug antibody (ADA) tests, the ISBDAGNT variable is used to represent the free-text description of the name/identity of the therapy the antidrug antibody targets.",
-        "source_file": "knowledge_base/domains/IS/examples.md",
-        "line": 0
+        "source_file": "knowledge_base/domains/IS/assumptions.md",
+        "line": 24
       },
       "confidence": 0.85,
       "extractor": "llm",
@@ -237,8 +237,8 @@
       "relation": "measurements of cytokines, chemokines, and complement proteins are represented in LB",
       "evidence": {
         "quote": "Measurements of cytokines, chemokines, and complement proteins should be represented in the Laboratory Test Results (LB) domain.",
-        "source_file": "knowledge_base/domains/IS/examples.md",
-        "line": 0
+        "source_file": "knowledge_base/domains/IS/assumptions.md",
+        "line": 21
       },
       "confidence": 1.0,
       "extractor": "llm",
@@ -254,8 +254,8 @@
       "relation": "LB and EG share similar reference range and clinical significance handling",
       "evidence": {
         "quote": "LBNRIND can be added to indicate where a result falls with respect to reference range defined by LBORNRLO and LBORNRHI. Examples: \"HIGH\", \"LOW\". If toxicity grading is available, values would be represented in the variables LBTOX and LBTOXGR. Clinical significance would be represented as described in Section 4.5.5, Clinical Significance for Findings Observation Class Data, in LBCLSIG (see also LB Example 1).",
-        "source_file": "knowledge_base/domains/LB/examples.md",
-        "line": 0
+        "source_file": "knowledge_base/domains/LB/assumptions.md",
+        "line": 9
       },
       "confidence": 0.9,
       "extractor": "llm",
@@ -271,8 +271,8 @@
       "relation": "MI is distinct from EG for microscopic examination",
       "evidence": {
         "quote": "This domain holds findings resulting from the microscopic examination of tissue samples.",
-        "source_file": "knowledge_base/domains/MI/examples.md",
-        "line": 0
+        "source_file": "knowledge_base/domains/MI/assumptions.md",
+        "line": 3
       },
       "confidence": 0.9,
       "extractor": "llm",
@@ -288,8 +288,8 @@
       "relation": "distinguishes microscopic tissue exams from lab tests",
       "evidence": {
         "quote": "Some examinations of cells in fluid specimens (e.g., blood, urine) are classified as lab tests and should be stored in the Laboratory Test Results (LB) domain.",
-        "source_file": "knowledge_base/domains/MI/examples.md",
-        "line": 0
+        "source_file": "knowledge_base/domains/MI/assumptions.md",
+        "line": 3
       },
       "confidence": 1.0,
       "extractor": "llm",
@@ -306,7 +306,7 @@
       "evidence": {
         "quote": "The heart rate findings from the procedure are represented in the ECG Test Results (EG) domain.",
         "source_file": "knowledge_base/domains/PR/examples.md",
-        "line": 0
+        "line": 29
       },
       "confidence": 1.0,
       "extractor": "llm",
@@ -323,7 +323,7 @@
       "evidence": {
         "quote": "The relrec.xpt reflects a one-to-many dataset-level relationship between PR and EG using --LNKID.",
         "source_file": "knowledge_base/domains/PR/examples.md",
-        "line": 0
+        "line": 39
       },
       "confidence": 1.0,
       "extractor": "llm",
@@ -339,8 +339,8 @@
       "relation": "Measurements from procedures are represented in findings domains like FT",
       "evidence": {
         "quote": "Measurements obtained from procedures are to be represented in their respective Findings domain(s).",
-        "source_file": "knowledge_base/domains/PR/examples.md",
-        "line": 0
+        "source_file": "knowledge_base/domains/PR/assumptions.md",
+        "line": 10
       },
       "confidence": 0.9,
       "extractor": "llm",
@@ -356,8 +356,8 @@
       "relation": "PR procedures may generate IS findings",
       "evidence": {
         "quote": "Measurements obtained from procedures are to be represented in their respective Findings domain(s).",
-        "source_file": "knowledge_base/domains/PR/examples.md",
-        "line": 0
+        "source_file": "knowledge_base/domains/PR/assumptions.md",
+        "line": 10
       },
       "confidence": 0.9,
       "extractor": "llm",
@@ -373,8 +373,8 @@
       "relation": "measurements from procedures are represented in findings domains",
       "evidence": {
         "quote": "Measurements obtained from procedures are to be represented in their respective Findings domain(s).",
-        "source_file": "knowledge_base/domains/PR/examples.md",
-        "line": 0
+        "source_file": "knowledge_base/domains/PR/assumptions.md",
+        "line": 10
       },
       "confidence": 0.9,
       "extractor": "llm",
@@ -390,8 +390,8 @@
       "relation": "PR procedures can provide specimens for MI findings",
       "evidence": {
         "quote": "For example, a biopsy may be performed to obtain a tissue sample that is then evaluated histopathologically. In this case, details of the biopsy procedure can be represented in the PR domain and the histopathology findings in the Microscopic Findings (MI) domain.",
-        "source_file": "knowledge_base/domains/PR/examples.md",
-        "line": 0
+        "source_file": "knowledge_base/domains/PR/assumptions.md",
+        "line": 10
       },
       "confidence": 1.0,
       "extractor": "llm",
@@ -407,8 +407,8 @@
       "relation": "PR and MI records can be related via RELREC",
       "evidence": {
         "quote": "Describing the relationship between PR and MI records (in RELREC) in this example is dependent on whether the relationship is collected, either explicitly or implicitly.",
-        "source_file": "knowledge_base/domains/PR/examples.md",
-        "line": 0
+        "source_file": "knowledge_base/domains/PR/assumptions.md",
+        "line": 10
       },
       "confidence": 1.0,
       "extractor": "llm",
@@ -424,8 +424,8 @@
       "relation": "RS records may be linked to CM records",
       "evidence": {
         "quote": "The record in RS may be related and linked to record(s) in Concomitant/Prior Medications (CM) using CMLNKGRP and RSLNKGRP.",
-        "source_file": "knowledge_base/domains/RS/examples.md",
-        "line": 0
+        "source_file": "knowledge_base/domains/RS/assumptions.md",
+        "line": 27
       },
       "confidence": 1.0,
       "extractor": "llm",
@@ -441,8 +441,8 @@
       "relation": "RS may link to EG records via RSLNKGRP",
       "evidence": {
         "quote": "The RSLNKGRP variable is used to provide a link between the records in a findings domain (e.g., Tumor/Lesion Results, TR; Laboratory Test Results, LB) that contribute to a record in the RS domain.",
-        "source_file": "knowledge_base/domains/RS/examples.md",
-        "line": 0
+        "source_file": "knowledge_base/domains/RS/assumptions.md",
+        "line": 18
       },
       "confidence": 0.9,
       "extractor": "llm",
@@ -458,8 +458,8 @@
       "relation": "RS may link to IS records via RSLNKGRP",
       "evidence": {
         "quote": "The RSLNKGRP variable is used to provide a link between the records in a findings domain (e.g., Tumor/Lesion Results, TR; Laboratory Test Results, LB) that contribute to a record in the RS domain.",
-        "source_file": "knowledge_base/domains/RS/examples.md",
-        "line": 0
+        "source_file": "knowledge_base/domains/RS/assumptions.md",
+        "line": 18
       },
       "confidence": 0.7,
       "extractor": "llm",
@@ -475,8 +475,8 @@
       "relation": "RS links to TR via RSLNKGRP",
       "evidence": {
         "quote": "The RSLNKGRP variable is used to provide a link between the records in a findings domain (e.g., Tumor/Lesion Results, TR; Laboratory Test Results, LB) that contribute to a record in the RS domain.",
-        "source_file": "knowledge_base/domains/RS/examples.md",
-        "line": 0
+        "source_file": "knowledge_base/domains/RS/assumptions.md",
+        "line": 18
       },
       "confidence": 1.0,
       "extractor": "llm",
@@ -492,8 +492,8 @@
       "relation": "RS domain links to tumor identification records in TU via RSLNKGRP and RELREC",
       "evidence": {
         "quote": "The RSLNKGRP variable is used to provide a link between the records in a findings domain (e.g., Tumor/Lesion Results, TR; Laboratory Test Results, LB) that contribute to a record in the RS domain.",
-        "source_file": "knowledge_base/domains/RS/examples.md",
-        "line": 0
+        "source_file": "knowledge_base/domains/RS/assumptions.md",
+        "line": 18
       },
       "confidence": 0.9,
       "extractor": "llm",
@@ -509,8 +509,8 @@
       "relation": "TR does not include certain qualifiers that LB uses",
       "evidence": {
         "quote": "Any Identifiers, Timing variables, or Findings general observation class qualifiers may be added to the TR domain, but the following qualifiers would not generally be used: --POS, --BODSYS, --ORNRLO, --ORNRHI, --STNRLO, --STNRHI, --STNRC, --NRIND, --XFN, --LOINC, --SPEC, --SPCCND, --FAST, --TOX, --TOXGR, --SEV.",
-        "source_file": "knowledge_base/domains/TR/examples.md",
-        "line": 0
+        "source_file": "knowledge_base/domains/TR/assumptions.md",
+        "line": 27
       },
       "confidence": 0.9,
       "extractor": "llm",
@@ -526,8 +526,8 @@
       "relation": "TR links to PR for procedure data",
       "evidence": {
         "quote": "When additional data are collected about a procedure (e.g., imaging procedure) from which tumor/lesion results are determined, the data about the procedure is stored in the PR domain and the link between the tumor/lesion results and the procedure should be recorded using RELREC.",
-        "source_file": "knowledge_base/domains/TR/examples.md",
-        "line": 0
+        "source_file": "knowledge_base/domains/TR/assumptions.md",
+        "line": 25
       },
       "confidence": 1.0,
       "extractor": "llm",
@@ -543,8 +543,8 @@
       "relation": "TR links to RS via TRLNKGRP",
       "evidence": {
         "quote": "TRLNKGRP is used to relate records in the TR domain to a response assessment record in the RS domain.",
-        "source_file": "knowledge_base/domains/TR/examples.md",
-        "line": 0
+        "source_file": "knowledge_base/domains/TR/assumptions.md",
+        "line": 9
       },
       "confidence": 1.0,
       "extractor": "llm",
@@ -560,8 +560,8 @@
       "relation": "TRLNKID links TR records to TU identification records",
       "evidence": {
         "quote": "TRLNKID is used to relate records in the TR domain to an identification record in TU domain.",
-        "source_file": "knowledge_base/domains/TR/examples.md",
-        "line": 0
+        "source_file": "knowledge_base/domains/TR/assumptions.md",
+        "line": 7
       },
       "confidence": 1.0,
       "extractor": "llm",
@@ -577,8 +577,8 @@
       "relation": "TULNKID links TU identification records to TR assessment records",
       "evidence": {
         "quote": "TRLNKID is used to relate an identification record in the TU domain to assessment records in the Tumor/Lesion Results (TR) domain.",
-        "source_file": "knowledge_base/domains/TU/examples.md",
-        "line": 0
+        "source_file": "knowledge_base/domains/TU/assumptions.md",
+        "line": 22
       },
       "confidence": 1.0,
       "extractor": "llm",

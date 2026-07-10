@@ -108,6 +108,14 @@ def test_build_rejects_below_confidence():
                for e in res["_rejected"])
 
 
+def test_quote_in_source_records_actual_sibling_file():
+    edge = {"evidence": {"quote": "the specimen is later evaluated and reported",
+                         "source_file": "domains/PR/examples.md", "line": 0}}
+    assert M.quote_in_source(edge, FIX) is True
+    assert edge["evidence"]["source_file"].endswith("PR/assumptions.md")  # corrected to real file
+    assert edge["evidence"]["line"] >= 1
+
+
 def test_verify_inconclusive_judge_keeps_edge():
     edge = {"source": "PR", "target": "MI", "relation": "x", "evidence": {"quote": "q"}}
     v = M.verify_data_flow_edge(edge, "x", judge=lambda prompt, model: [])

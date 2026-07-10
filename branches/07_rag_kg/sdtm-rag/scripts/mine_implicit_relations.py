@@ -154,12 +154,27 @@ def _norm(s: str) -> str:
     return re.sub(r"\s+", " ", s).strip()
 
 
+def _find_line(text: str, quote: str) -> int:
+    key = _norm(quote)[:24]
+    if not key:
+        return 0
+    for i, line in enumerate(text.split("\n"), 1):
+        if key in _norm(line):
+            return i
+    return 0
+
+
 def quote_in_source(edge: dict, kb_root: Path) -> bool:
     q = _norm(edge["evidence"]["quote"])
     rel = edge["evidence"]["source_file"].replace("knowledge_base/", "")
     cand = kb_root / rel
     for p in {cand, cand.with_name("examples.md"), cand.with_name("assumptions.md")}:
-        if p.exists() and q and q in _norm(p.read_text(encoding="utf-8")):
+        if not (p.exists() and q):
+            continue
+        text = p.read_text(encoding="utf-8")
+        if q in _norm(text):
+            edge["evidence"]["source_file"] = "knowledge_base/" + p.relative_to(kb_root).as_posix()
+            edge["evidence"]["line"] = _find_line(text, edge["evidence"]["quote"])
             return True
     return False
 
