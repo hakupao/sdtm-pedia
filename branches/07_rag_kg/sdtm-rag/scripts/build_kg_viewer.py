@@ -63,6 +63,13 @@ def build_data() -> dict:
         for e in edges["RELATED_TO"]
     ]
 
+    impl_path = ROOT / "data" / "meta" / "implicit_relations.json"
+    implicit = None
+    if impl_path.exists():
+        raw = json.loads(impl_path.read_text(encoding="utf-8"))
+        implicit = {"domains": raw["meta"]["domains"],
+                    "edges": [e for e in raw["edges"]]}  # 已含 evidence/confidence/kind
+
     return {
         "classes": classes,
         "domains": domains,
@@ -71,6 +78,7 @@ def build_data() -> dict:
         "usesCt": uses_ct,
         "clsCodes": cls_codes,
         "related": related,
+        "implicit": implicit,
         "counts": {
             "domain": len(domains), "variable": len(nodes["Variable"]),
             "codelist": len(nodes["Codelist"]), "cls": len(classes),
