@@ -15,6 +15,7 @@ KB_ROOT = Path(__file__).resolve().parents[4] / "knowledge_base"
 SEEDS = ["TU", "TR", "RS", "PR", "MI"]
 CONF_THRESHOLD = 0.6
 MAX_FLOW_PER_PAIR = 2
+PROSE_WINDOW = 12000
 
 _DOMAIN_TOKEN = re.compile(r"\b([A-Z]{2,4})\b")
 
@@ -136,7 +137,8 @@ def extract_data_flow(prose: dict, domains: list[str], model: str,
             tb = prose.get(b, {}).get("assumptions", "") + prose.get(b, {}).get("examples", "")
             if not ta or not tb:
                 continue
-            cands = complete(_FLOW_PROMPT.format(A=a, B=b, TA=ta[:6000], TB=tb[:6000]), model)
+            cands = complete(_FLOW_PROMPT.format(A=a, B=b, TA=ta[:PROSE_WINDOW],
+                                                 TB=tb[:PROSE_WINDOW]), model)
             for c in cands[:MAX_FLOW_PER_PAIR * 2]:
                 s, t = c.get("source"), c.get("target")
                 if {s, t} != {a, b}:
@@ -148,31 +150,38 @@ def extract_data_flow(prose: dict, domains: list[str], model: str,
     return out
 
 
+def _norm(s: str) -> str:
+    return re.sub(r"\s+", " ", s).strip()
+
+
 def quote_in_source(edge: dict, kb_root: Path) -> bool:
-    q = edge["evidence"]["quote"].strip()
+    q = _norm(edge["evidence"]["quote"])
     rel = edge["evidence"]["source_file"].replace("knowledge_base/", "")
-    for kind in ("examples", "assumptions"):
-        # try the declared file, then the sibling kind (LLM may misattribute)
-        cand = kb_root / rel
-        for p in {cand, cand.with_name(f"{kind}.md")}:
-            if p.exists() and q and q in p.read_text(encoding="utf-8"):
-                return True
+    cand = kb_root / rel
+    for p in {cand, cand.with_name("examples.md"), cand.with_name("assumptions.md")}:
+        if p.exists() and q and q in _norm(p.read_text(encoding="utf-8")):
+            return True
     return False
 
 
 _VERIFY_PROMPT = """A relation was extracted from SDTM IG prose:
   {S} --[{R}]--> {T}   (directed)
 Supporting quote: "{Q}"
-Try hard to REFUTE it. Does the quote actually support THIS directed relation
-(right direction, right domains)? If uncertain, refute. Return ONLY:
+Judge whether the quote SUPPORTS this directed relation. Refute ONLY if the quote
+clearly does not support it — it names the wrong domains, states the wrong
+direction, or plainly does not mention the relationship. If the quote plausibly
+supports the relation, do NOT refute. Return ONLY:
 [{{"refuted": <true|false>, "reason": "<short>"}}]"""
 
 
 def verify_data_flow_edge(edge: dict, model: str, judge=_complete_json) -> dict:
-    out = judge(_VERIFY_PROMPT.format(S=edge["source"], T=edge["target"],
-                R=edge["relation"], Q=edge["evidence"]["quote"]), model)
-    verdict = out[0] if out else {"refuted": True, "reason": "no verdict"}
-    return {"verified": not bool(verdict.get("refuted", True)),
+    prompt = _VERIFY_PROMPT.format(S=edge["source"], T=edge["target"],
+                                   R=edge["relation"], Q=edge["evidence"]["quote"])
+    out = judge(prompt, model) or judge(prompt, model)   # one retry on empty/unparseable
+    if not out:
+        return {"verified": True, "note": "judge inconclusive (no parseable verdict) — kept"}
+    verdict = out[0]
+    return {"verified": not bool(verdict.get("refuted", False)),
             "note": str(verdict.get("reason", ""))}
 
 

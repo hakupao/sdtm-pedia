@@ -1,20 +1,105 @@
 [
   {
+    "id": "data:CM>FT:0",
+    "source": "CM",
+    "target": "FT",
+    "kind": "data_flow",
+    "directed": true,
+    "relation": "no direct data-flow relation supported",
+    "evidence": {
+      "quote": "",
+      "source_file": "knowledge_base/domains/CM/examples.md",
+      "line": 0
+    },
+    "confidence": 0.0,
+    "extractor": "llm",
+    "verified": false,
+    "verify_note": "gate1: quote not found in source"
+  },
+  {
+    "id": "data:CM>IS:0",
+    "source": "CM",
+    "target": "IS",
+    "kind": "data_flow",
+    "directed": true,
+    "relation": "CM treatments may be the target of immunogenicity assessments in IS",
+    "evidence": {
+      "quote": "The Immunogenicity Specimen Assessments (IS) domain holds assessments that describe whether a therapy (e.g., biologic, drug, vaccine) provoked/caused/induced an immune response in a subject.",
+      "source_file": "knowledge_base/domains/CM/examples.md",
+      "line": 0
+    },
+    "confidence": 0.9,
+    "extractor": "llm",
+    "verified": false,
+    "verify_note": "gate1: quote not found in source"
+  },
+  {
+    "id": "data:CM>LB:0",
+    "source": "CM",
+    "target": "LB",
+    "kind": "data_flow",
+    "directed": true,
+    "relation": "CM does not directly flow into LB",
+    "evidence": {
+      "quote": "An interventions domain that contains concomitant and prior medications used by the subject, such as those given on an as needed basis or condition-appropriate medications.",
+      "source_file": "knowledge_base/domains/CM/examples.md",
+      "line": 0
+    },
+    "confidence": 0.0,
+    "extractor": "llm",
+    "verified": false,
+    "verify_note": "The quote defines CM as an interventions domain for medications, but does not mention LB or any relationship between CM and LB."
+  },
+  {
+    "id": "data:LB>CM:0",
+    "source": "LB",
+    "target": "CM",
+    "kind": "data_flow",
+    "directed": true,
+    "relation": "LB does not directly flow into CM",
+    "evidence": {
+      "quote": "This domain captures laboratory data collected on the CRF or received from a central provider or vendor.",
+      "source_file": "knowledge_base/domains/LB/examples.md",
+      "line": 0
+    },
+    "confidence": 0.0,
+    "extractor": "llm",
+    "verified": false,
+    "verify_note": "The quote describes LB as capturing lab data, but does not mention any relationship or flow to CM."
+  },
+  {
+    "id": "data:CM>MI:0",
+    "source": "CM",
+    "target": "MI",
+    "kind": "data_flow",
+    "directed": true,
+    "relation": "CM does not reference MI",
+    "evidence": {
+      "quote": "",
+      "source_file": "knowledge_base/domains/CM/examples.md",
+      "line": 0
+    },
+    "confidence": 0.0,
+    "extractor": "llm",
+    "verified": false,
+    "verify_note": "gate1: quote not found in source"
+  },
+  {
     "id": "data:MI>CM:0",
     "source": "MI",
     "target": "CM",
     "kind": "data_flow",
     "directed": true,
-    "relation": "MI does not include concomitant medications",
+    "relation": "MI does not reference CM",
     "evidence": {
-      "quote": "Some examinations of cells in fluid specimens (e.g., blood, urine) are classified as lab tests and should be stored in the Laboratory Test Results (LB) domain.",
+      "quote": "",
       "source_file": "knowledge_base/domains/MI/examples.md",
       "line": 0
     },
-    "confidence": 0.3,
+    "confidence": 0.0,
     "extractor": "llm",
     "verified": false,
-    "verify_note": "The quote discusses lab tests (LB) and fluid specimens, not MI or CM, and does not address any relation between MI and CM."
+    "verify_note": "gate1: quote not found in source"
   },
   {
     "id": "data:PR>CM:0",
@@ -22,44 +107,27 @@
     "target": "CM",
     "kind": "data_flow",
     "directed": true,
-    "relation": "procedures may involve medications that are recorded in CM",
+    "relation": "PR records may be related to CM records via RELREC",
     "evidence": {
-      "quote": "Measurements obtained from procedures are to be represented in their respective Findings domain(s). For example, a biopsy may be performed to obtain a tissue sample that is then evaluated histopathologically. In this case, details of the biopsy procedure can be represented in the PR domain and the histopathology findings in the Microscopic Findings (MI) domain.",
+      "quote": "Describing the relationship between PR and MI records (in RELREC) in this example is dependent on whether the relationship is collected, either explicitly or implicitly.",
       "source_file": "knowledge_base/domains/PR/examples.md",
       "line": 0
     },
     "confidence": 0.3,
     "extractor": "llm",
     "verified": false,
-    "verify_note": "The quote discusses PR to MI (findings), not PR to CM; it does not mention medications or the CM domain at all."
+    "verify_note": "Quote mentions PR and MI, not PR and CM."
   },
   {
-    "id": "data:RS>CM:0",
-    "source": "RS",
-    "target": "CM",
+    "id": "data:CM>TR:0",
+    "source": "CM",
+    "target": "TR",
     "kind": "data_flow",
     "directed": true,
-    "relation": "RS records may be linked to CM records",
+    "relation": "CM and TR are separate domains with no direct data-flow relation",
     "evidence": {
-      "quote": "The record in RS may be related and linked to record(s) in Concomitant/Prior Medications (CM) using CMLNKGRP and RSLNKGRP.",
-      "source_file": "knowledge_base/domains/RS/examples.md",
-      "line": 0
-    },
-    "confidence": 1.0,
-    "extractor": "llm",
-    "verified": false,
-    "verify_note": "The quote states RS and CM records are linked via CMLNKGRP and RSLNKGRP, implying a bidirectional or undirected relationship, not a directed one from RS to CM."
-  },
-  {
-    "id": "data:TU>CM:0",
-    "source": "TU",
-    "target": "CM",
-    "kind": "data_flow",
-    "directed": true,
-    "relation": "TU domain does not reference CM",
-    "evidence": {
-      "quote": "",
-      "source_file": "knowledge_base/domains/TU/examples.md",
+      "quote": "The TR domain represents quantitative measurements and/or qualitative assessments of the tumors, lesions, or locations of interest identified in the Tumor/Lesion Identification (TU) domain.",
+      "source_file": "knowledge_base/domains/CM/examples.md",
       "line": 0
     },
     "confidence": 0.0,
@@ -73,7 +141,7 @@
     "target": "TU",
     "kind": "data_flow",
     "directed": true,
-    "relation": "CM domain does not reference TU",
+    "relation": "no direct data-flow relation supported",
     "evidence": {
       "quote": "",
       "source_file": "knowledge_base/domains/CM/examples.md",
@@ -85,55 +153,21 @@
     "verify_note": "gate1: quote not found in source"
   },
   {
-    "id": "data:MI>EG:0",
-    "source": "MI",
-    "target": "EG",
+    "id": "data:EG>TR:0",
+    "source": "EG",
+    "target": "TR",
     "kind": "data_flow",
     "directed": true,
-    "relation": "MI does not include ECG-related findings",
+    "relation": "EG domain can be used in conjunction with QT domain, but no direct data-flow relation to TR is supported",
     "evidence": {
-      "quote": "Biomarkers assessed by histologic or histopathological examination (by employing cytochemical/immunocytochemical stains) are stored in the MI domain.",
-      "source_file": "knowledge_base/domains/MI/examples.md",
+      "quote": "If this domain is used in conjunction with the ECG QT Correction Model Data (QT) domain:",
+      "source_file": "knowledge_base/domains/EG/examples.md",
       "line": 0
     },
-    "confidence": 0.9,
+    "confidence": 0.0,
     "extractor": "llm",
-    "verified": false,
-    "verify_note": "The quote describes MI as storing histologic/histopathological biomarkers, but does not mention any exclusion of ECG-related findings or a directed relation to EG."
-  },
-  {
-    "id": "data:PR>EG:0",
-    "source": "PR",
-    "target": "EG",
-    "kind": "data_flow",
-    "directed": true,
-    "relation": "PR procedures provide context for EG findings",
-    "evidence": {
-      "quote": "The heart rate findings from the procedure are represented in the ECG Test Results (EG) domain.",
-      "source_file": "knowledge_base/domains/PR/examples.md",
-      "line": 0
-    },
-    "confidence": 1.0,
-    "extractor": "llm",
-    "verified": false,
-    "verify_note": "The quote describes heart rate findings from a procedure being represented in EG, but does not state that PR procedures provide context for EG findings as a directed relation; it only implies a source of data, not a directional contextual link."
-  },
-  {
-    "id": "data:PR>EG:0",
-    "source": "PR",
-    "target": "EG",
-    "kind": "data_flow",
-    "directed": true,
-    "relation": "PR and EG records can be linked via --LNKID",
-    "evidence": {
-      "quote": "The relrec.xpt reflects a one-to-many dataset-level relationship between PR and EG using --LNKID.",
-      "source_file": "knowledge_base/domains/PR/examples.md",
-      "line": 0
-    },
-    "confidence": 1.0,
-    "extractor": "llm",
-    "verified": false,
-    "verify_note": "The quote states a one-to-many relationship from PR to EG, but the direction is ambiguous; it could mean PR links to many EG records or vice versa, and the quote does not explicitly confirm the directed arrow from PR to EG as shown."
+    "verified": true,
+    "verify_note": "below confidence threshold (0.0 < 0.6)"
   },
   {
     "id": "data:EG>TU:0",
@@ -141,7 +175,7 @@
     "target": "TU",
     "kind": "data_flow",
     "directed": true,
-    "relation": "no direct data-flow relation supported",
+    "relation": "EG and TU are separate domains with no direct data-flow relation supported",
     "evidence": {
       "quote": "",
       "source_file": "knowledge_base/domains/EG/examples.md",
@@ -170,38 +204,21 @@
     "verify_note": "gate1: quote not found in source"
   },
   {
-    "id": "data:MI>FT:0",
-    "source": "MI",
-    "target": "FT",
+    "id": "data:FT>MI:0",
+    "source": "FT",
+    "target": "MI",
     "kind": "data_flow",
     "directed": true,
-    "relation": "MI and FT share common QRS assumptions",
+    "relation": "FT and MI share QRS assumptions",
     "evidence": {
       "quote": "The following assumptions are common to the FT and QS domains as well as the Clinical Classifications use case of the RS domain (not the Disease Response use case of RS):",
-      "source_file": "knowledge_base/domains/MI/examples.md",
-      "line": 0
-    },
-    "confidence": 1.0,
-    "extractor": "llm",
-    "verified": false,
-    "verify_note": "gate1: quote not found in source"
-  },
-  {
-    "id": "data:PR>FT:0",
-    "source": "PR",
-    "target": "FT",
-    "kind": "data_flow",
-    "directed": true,
-    "relation": "measurements from procedures are represented in findings domains",
-    "evidence": {
-      "quote": "Measurements obtained from procedures are to be represented in their respective Findings domain(s).",
-      "source_file": "knowledge_base/domains/PR/examples.md",
+      "source_file": "knowledge_base/domains/FT/examples.md",
       "line": 0
     },
     "confidence": 0.9,
     "extractor": "llm",
     "verified": false,
-    "verify_note": "The quote states measurements from procedures go to findings domains, but does not specify PR as the source domain; PR is a procedures domain, but the relation's direction and domain pairing are not explicitly supported by the quote."
+    "verify_note": "The quote mentions FT and QS, not MI, and does not state any directed relationship between FT and MI."
   },
   {
     "id": "data:FT>RS:0",
@@ -209,16 +226,16 @@
     "target": "RS",
     "kind": "data_flow",
     "directed": true,
-    "relation": "FT and RS share QRS assumptions",
+    "relation": "QRS shared assumptions apply to both domains",
     "evidence": {
-      "quote": "The following assumptions are common to the FT and QS domains as well as the Clinical Classifications use case of the RS domain (not the Disease Response use case of RS):",
+      "quote": "The QRS Shared Assumptions (see FT assumptions) also apply to the Clinical Classifications use case of the RS domain, but not the Disease Response use case.",
       "source_file": "knowledge_base/domains/FT/examples.md",
       "line": 0
     },
     "confidence": 1.0,
     "extractor": "llm",
     "verified": false,
-    "verify_note": "The quote states assumptions are common to FT, QS, and the Clinical Classifications use case of RS, but does not specify a directed relation from FT to RS; it only indicates shared assumptions, not a directional dependency."
+    "verify_note": "gate1: quote not found in source"
   },
   {
     "id": "data:FT>TR:0",
@@ -235,24 +252,24 @@
     "confidence": 0.9,
     "extractor": "llm",
     "verified": false,
-    "verify_note": "The quote states assumptions are common to FT, QS, and RS (Clinical Classifications), but does not specify a directed relation from FT to TR; TR is not mentioned, and the direction is unsupported."
+    "verify_note": "The quote mentions FT, QS, and RS, not TR, so it does not support a relation between FT and TR."
   },
   {
-    "id": "data:IS>LB:0",
-    "source": "IS",
-    "target": "LB",
+    "id": "data:FT>TU:0",
+    "source": "FT",
+    "target": "TU",
     "kind": "data_flow",
     "directed": true,
-    "relation": "measurements of cytokines, chemokines, and complement proteins are represented in LB instead of IS",
+    "relation": "no direct data-flow relation supported",
     "evidence": {
-      "quote": "Measurements of cytokines, chemokines, and complement proteins should be represented in the Laboratory Test Results (LB) domain.",
-      "source_file": "knowledge_base/domains/IS/examples.md",
+      "quote": "",
+      "source_file": "knowledge_base/domains/FT/examples.md",
       "line": 0
     },
-    "confidence": 1.0,
+    "confidence": 0.0,
     "extractor": "llm",
     "verified": false,
-    "verify_note": "The quote supports LB as the target, but the source domain IS is not mentioned; the quote does not establish a directed relation from IS to LB."
+    "verify_note": "gate1: quote not found in source"
   },
   {
     "id": "data:IS>MI:0",
@@ -269,41 +286,24 @@
     "confidence": 0.9,
     "extractor": "llm",
     "verified": false,
-    "verify_note": "The quote states flow cytometry data goes to CP, not MI, so the relation IS -> MI is incorrect."
+    "verify_note": "The quote states flow cytometry data should be in the CP domain, not MI, and does not mention a directed relation between IS and MI."
   },
   {
-    "id": "data:PR>IS:0",
-    "source": "PR",
-    "target": "IS",
+    "id": "data:IS>TR:0",
+    "source": "IS",
+    "target": "TR",
     "kind": "data_flow",
     "directed": true,
-    "relation": "PR procedures may generate IS findings",
+    "relation": "no direct data-flow relation supported",
     "evidence": {
-      "quote": "Measurements obtained from procedures are to be represented in their respective Findings domain(s).",
-      "source_file": "knowledge_base/domains/PR/examples.md",
+      "quote": "",
+      "source_file": "knowledge_base/domains/IS/examples.md",
       "line": 0
     },
-    "confidence": 0.7,
+    "confidence": 0.0,
     "extractor": "llm",
     "verified": false,
-    "verify_note": "The quote says measurements from procedures go to Findings domains, but does not specify that PR procedures generate IS findings specifically; IS is only one of many possible Findings domains, so the directed relation to IS is unsupported."
-  },
-  {
-    "id": "data:RS>IS:0",
-    "source": "RS",
-    "target": "IS",
-    "kind": "data_flow",
-    "directed": true,
-    "relation": "RS may link to IS records via RELREC",
-    "evidence": {
-      "quote": "The RSLNKGRP variable is used to provide a link between the records in a findings domain (e.g., Tumor/Lesion Results, TR; Laboratory Test Results, LB) that contribute to a record in the RS domain.",
-      "source_file": "knowledge_base/domains/RS/examples.md",
-      "line": 0
-    },
-    "confidence": 0.6,
-    "extractor": "llm",
-    "verified": false,
-    "verify_note": "The quote describes RS linking to findings like TR or LB, not to IS, and the direction is from those findings to RS, not RS to IS."
+    "verify_note": "gate1: quote not found in source"
   },
   {
     "id": "data:IS>TU:0",
@@ -323,48 +323,14 @@
     "verify_note": "gate1: quote not found in source"
   },
   {
-    "id": "data:MI>LB:0",
-    "source": "MI",
-    "target": "LB",
-    "kind": "data_flow",
-    "directed": true,
-    "relation": "MI excludes certain cell examinations that belong in LB",
-    "evidence": {
-      "quote": "Some examinations of cells in fluid specimens (e.g., blood, urine) are classified as lab tests and should be stored in the Laboratory Test Results (LB) domain.",
-      "source_file": "knowledge_base/domains/MI/examples.md",
-      "line": 0
-    },
-    "confidence": 1.0,
-    "extractor": "llm",
-    "verified": false,
-    "verify_note": "The quote states that certain cell examinations belong in LB, but does not specify that MI excludes them or that the relation is directed from MI to LB; it only clarifies domain placement, not exclusion."
-  },
-  {
-    "id": "data:PR>LB:0",
-    "source": "PR",
-    "target": "LB",
-    "kind": "data_flow",
-    "directed": true,
-    "relation": "measurements from procedures are represented in findings domains",
-    "evidence": {
-      "quote": "Measurements obtained from procedures are to be represented in their respective Findings domain(s).",
-      "source_file": "knowledge_base/domains/PR/examples.md",
-      "line": 0
-    },
-    "confidence": 0.9,
-    "extractor": "llm",
-    "verified": false,
-    "verify_note": "The quote does not specify direction from PR to LB; it only states measurements from procedures go to findings domains, which could include LB, VS, or others, and does not confirm a direct, exclusive PR→LB relation."
-  },
-  {
     "id": "data:LB>RS:0",
     "source": "LB",
     "target": "RS",
     "kind": "data_flow",
     "directed": true,
-    "relation": "LB results contribute to RS response assessment",
+    "relation": "LB results contribute to RS response assessments",
     "evidence": {
-      "quote": "A RELREC relationship could also be defined using RSLNKID when a response evaluation or clinical classification measure relates back to another source dataset (e.g., tumor assessment in TR). The domain in which data that contribute to an assessment of response reside should not affect whether a link to the RS record through a RELREC relationship is created. For example, a set of oncology response criteria might require lab results in the LB domain, not only tumor results in the TR domain.",
+      "quote": "For example, a set of oncology response criteria might require lab results in the LB domain, not only tumor results in the TR domain.",
       "source_file": "knowledge_base/domains/LB/examples.md",
       "line": 0
     },
@@ -379,9 +345,26 @@
     "target": "RS",
     "kind": "data_flow",
     "directed": true,
-    "relation": "LB test values are used in response evaluation scoring",
+    "relation": "LB test values are recorded in LB and used in RS response evaluation",
     "evidence": {
-      "quote": "Whenever possible, all source data must be represented in the topic-based domain(s) to which they pertain. For example, if a lab test value is collected and then scored for a response evaluation, the lab test value must be recorded in the LB domain using the rules that apply to that domain and the tests being represented.",
+      "quote": "if a lab test value is collected and then scored for a response evaluation, the lab test value must be recorded in the LB domain using the rules that apply to that domain and the tests being represented.",
+      "source_file": "knowledge_base/domains/LB/examples.md",
+      "line": 0
+    },
+    "confidence": 0.95,
+    "extractor": "llm",
+    "verified": false,
+    "verify_note": "gate1: quote not found in source"
+  },
+  {
+    "id": "data:LB>RS:0",
+    "source": "LB",
+    "target": "RS",
+    "kind": "data_flow",
+    "directed": true,
+    "relation": "LB results can be used in oncology response assessments",
+    "evidence": {
+      "quote": "Data from other sources (in other SDTM domains) might also be used in an assessment of response (e.g., lab test results, assessments of symptoms).",
       "source_file": "knowledge_base/domains/LB/examples.md",
       "line": 0
     },
@@ -396,33 +379,16 @@
     "target": "RS",
     "kind": "data_flow",
     "directed": true,
-    "relation": "LB results are used in oncology response assessments",
+    "relation": "LB results contribute to clinical classification instruments in RS",
     "evidence": {
-      "quote": "Data from other sources (in other SDTM domains) might also be used in an assessment of response (e.g., lab test results, assessments of symptoms).",
+      "quote": "if a lab test value is collected and then scored for a response evaluation or clinical classification instrument, the lab test value must be recorded in the LB domain using the rules that apply to that domain and the tests being represented.",
       "source_file": "knowledge_base/domains/LB/examples.md",
       "line": 0
     },
-    "confidence": 0.85,
+    "confidence": 0.9,
     "extractor": "llm",
     "verified": false,
     "verify_note": "gate1: quote not found in source"
-  },
-  {
-    "id": "data:TR>LB:0",
-    "source": "TR",
-    "target": "LB",
-    "kind": "data_flow",
-    "directed": true,
-    "relation": "TR does not include anatomical location information that duplicates LB",
-    "evidence": {
-      "quote": "The TR domain does not include anatomical location information on each measurement/assessment record, because this would duplicate information represented in TU.",
-      "source_file": "knowledge_base/domains/TR/examples.md",
-      "line": 0
-    },
-    "confidence": 0.1,
-    "extractor": "llm",
-    "verified": false,
-    "verify_note": "The quote mentions TU, not LB, so it does not support the directed relation from TR to LB."
   },
   {
     "id": "data:TU>LB:0",
@@ -430,50 +396,50 @@
     "target": "LB",
     "kind": "data_flow",
     "directed": true,
-    "relation": "TU provides linking identifiers for LB records",
+    "relation": "TU does not reference LB",
     "evidence": {
-      "quote": "TRLNKID is used to relate an identification record in the TU domain to assessment records in the Tumor/Lesion Results (TR) domain.",
+      "quote": "",
       "source_file": "knowledge_base/domains/TU/examples.md",
       "line": 0
     },
-    "confidence": 0.3,
+    "confidence": 0.0,
     "extractor": "llm",
     "verified": false,
-    "verify_note": "The quote specifies TRLNKID links TU to TR, not LB, so the directed relation TU→LB is unsupported."
+    "verify_note": "gate1: quote not found in source"
   },
   {
-    "id": "data:PR>MI:0",
-    "source": "PR",
-    "target": "MI",
+    "id": "data:LB>TU:0",
+    "source": "LB",
+    "target": "TU",
     "kind": "data_flow",
     "directed": true,
-    "relation": "PR procedures provide specimens for MI findings",
+    "relation": "LB does not reference TU",
     "evidence": {
-      "quote": "For example, a biopsy may be performed to obtain a tissue sample that is then evaluated histopathologically. In this case, details of the biopsy procedure can be represented in the PR domain and the histopathology findings in the Microscopic Findings (MI) domain.",
-      "source_file": "knowledge_base/domains/PR/examples.md",
+      "quote": "",
+      "source_file": "knowledge_base/domains/LB/examples.md",
       "line": 0
     },
-    "confidence": 1.0,
+    "confidence": 0.0,
     "extractor": "llm",
     "verified": false,
-    "verify_note": "no verdict"
+    "verify_note": "gate1: quote not found in source"
   },
   {
-    "id": "data:RS>MI:0",
-    "source": "RS",
-    "target": "MI",
+    "id": "data:MI>RS:0",
+    "source": "MI",
+    "target": "RS",
     "kind": "data_flow",
     "directed": true,
-    "relation": "RS may link to MI records via RSLNKGRP",
+    "relation": "MI results may contribute to RS response assessments",
     "evidence": {
-      "quote": "The RSLNKGRP variable is used to provide a link between the records in a findings domain (e.g., Tumor/Lesion Results, TR; Laboratory Test Results, LB) that contribute to a record in the RS domain.",
-      "source_file": "knowledge_base/domains/RS/examples.md",
+      "quote": "Data from other sources (in other SDTM domains) might also be used in an assessment of response (e.g., lab test results, assessments of symptoms).",
+      "source_file": "knowledge_base/domains/MI/examples.md",
       "line": 0
     },
-    "confidence": 0.9,
+    "confidence": 0.6,
     "extractor": "llm",
     "verified": false,
-    "verify_note": "The quote says RS links to findings domains like TR and LB, not MI; MI is not mentioned, so the directed relation to MI is unsupported."
+    "verify_note": "gate1: quote not found in source"
   },
   {
     "id": "data:MI>TR:0",
@@ -481,33 +447,16 @@
     "target": "TR",
     "kind": "data_flow",
     "directed": true,
-    "relation": "MI does not contain tumor measurements; TR does",
+    "relation": "MI and TR are separate domains with no direct data-flow relation supported",
     "evidence": {
-      "quote": "This domain holds findings resulting from the microscopic examination of tissue samples.",
+      "quote": "",
       "source_file": "knowledge_base/domains/MI/examples.md",
       "line": 0
     },
-    "confidence": 0.9,
+    "confidence": 0.0,
     "extractor": "llm",
     "verified": false,
-    "verify_note": "The quote describes MI as findings from microscopic examination, but does not mention TR or any directed relation between them."
-  },
-  {
-    "id": "data:TR>MI:0",
-    "source": "TR",
-    "target": "MI",
-    "kind": "data_flow",
-    "directed": true,
-    "relation": "TR measurements are not stored in MI",
-    "evidence": {
-      "quote": "A findings domain that represents quantitative measurements and/or qualitative assessments of the tumors, lesions, or locations of interest identified in the Tumor/Lesion Identification (TU) domain.",
-      "source_file": "knowledge_base/domains/TR/examples.md",
-      "line": 0
-    },
-    "confidence": 0.8,
-    "extractor": "llm",
-    "verified": false,
-    "verify_note": "The quote describes MI as a findings domain for tumor/lesion measurements, but does not state that TR measurements are not stored in MI, nor does it establish a directed relation from TR to MI."
+    "verify_note": "gate1: quote not found in source"
   },
   {
     "id": "data:MI>TU:0",
@@ -515,43 +464,26 @@
     "target": "TU",
     "kind": "data_flow",
     "directed": true,
-    "relation": "MI findings may be linked to tumor identification records",
+    "relation": "MI findings are not directly linked to TU",
     "evidence": {
-      "quote": "The TU domain should contain only 1 record for each unique tumor/lesion/location of interest identified by an assessor (e.g., investigator, independent assessor) per medical evaluator.",
+      "quote": "This domain holds findings resulting from the microscopic examination of tissue samples.",
       "source_file": "knowledge_base/domains/MI/examples.md",
       "line": 0
     },
-    "confidence": 0.3,
+    "confidence": 0.1,
     "extractor": "llm",
     "verified": false,
-    "verify_note": "gate1: quote not found in source"
+    "verify_note": "Quote describes microscopic examination findings, not tumor identification (TU), and does not mention any relationship between MI and TU."
   },
   {
-    "id": "data:RS>PR:0",
-    "source": "RS",
-    "target": "PR",
+    "id": "data:PR>RS:0",
+    "source": "PR",
+    "target": "RS",
     "kind": "data_flow",
     "directed": true,
-    "relation": "RS records may be linked to PR records using PRLNKGRP",
+    "relation": "PR records can be linked to RS records via PRLNKGRP",
     "evidence": {
       "quote": "Likewise, the link to Procedures (PR; e.g., radiotherapy, surgery) would be made using PRLNKGRP.",
-      "source_file": "knowledge_base/domains/RS/examples.md",
-      "line": 0
-    },
-    "confidence": 1.0,
-    "extractor": "llm",
-    "verified": false,
-    "verify_note": "The quote does not specify direction or confirm that RS links to PR via PRLNKGRP; it only says a link 'would be made using PRLNKGRP,' which could be bidirectional or from PR to RS."
-  },
-  {
-    "id": "data:PR>TR:0",
-    "source": "PR",
-    "target": "TR",
-    "kind": "data_flow",
-    "directed": true,
-    "relation": "PR procedure data linked to TR tumor/lesion results via RELREC",
-    "evidence": {
-      "quote": "When additional data are collected about a procedure (e.g., imaging procedure) from which tumor/lesion results are determined, the data about the procedure is stored in the PR domain and the link between the tumor/lesion results and the procedure should be recorded using RELREC.",
       "source_file": "knowledge_base/domains/PR/examples.md",
       "line": 0
     },
@@ -566,13 +498,30 @@
     "target": "TU",
     "kind": "data_flow",
     "directed": true,
-    "relation": "no direct data-flow relation supported",
+    "relation": "PR domain contains scans referenced by TU disease recurrence records",
     "evidence": {
-      "quote": "",
+      "quote": "The image identifier is in TUREFID and may match a PRREFID in the Procedures (PR) domain.",
       "source_file": "knowledge_base/domains/PR/examples.md",
       "line": 0
     },
-    "confidence": 0.0,
+    "confidence": 0.9,
+    "extractor": "llm",
+    "verified": false,
+    "verify_note": "gate1: quote not found in source"
+  },
+  {
+    "id": "data:PR>TU:0",
+    "source": "PR",
+    "target": "TU",
+    "kind": "data_flow",
+    "directed": true,
+    "relation": "PR domain contains scans performed per protocol at each assessment",
+    "evidence": {
+      "quote": "The PR domain would contain the scans performed per protocol at each assessment; only when new tumors appear would records be included in TU.",
+      "source_file": "knowledge_base/domains/PR/examples.md",
+      "line": 0
+    },
+    "confidence": 0.95,
     "extractor": "llm",
     "verified": false,
     "verify_note": "gate1: quote not found in source"
@@ -583,16 +532,16 @@
     "target": "TR",
     "kind": "data_flow",
     "directed": true,
-    "relation": "RS records link to TR records via RSLNKGRP",
+    "relation": "RS response assessments are determined from TR data",
     "evidence": {
-      "quote": "The RSLNKGRP variable is used to provide a link between the records in a findings domain (e.g., Tumor/Lesion Results, TR; Laboratory Test Results, LB) that contribute to a record in the RS domain.",
+      "quote": "This example shows response assessments determined from the TR domain based on RECIST 1.1 criteria and also shows a case where progressive disease due to symptomatic deterioration was determined based on a clinical assessment by the investigator.",
       "source_file": "knowledge_base/domains/RS/examples.md",
       "line": 0
     },
     "confidence": 1.0,
     "extractor": "llm",
-    "verified": false,
-    "verify_note": "The quote says RS links to findings domains like TR, but the direction is ambiguous; it states RS records link to TR records via RSLNKGRP, which could be bidirectional or from TR to RS, not necessarily the directed RS→TR shown."
+    "verified": true,
+    "verify_note": "per-pair cap reached (2) for ('RS', 'TR')"
   },
   {
     "id": "data:RS>TR:0",
@@ -600,7 +549,7 @@
     "target": "TR",
     "kind": "data_flow",
     "directed": true,
-    "relation": "RS response assessments may use data from TR",
+    "relation": "Oncology response uses data from TR domain",
     "evidence": {
       "quote": "In the oncology setting, the response to therapy would often be determined, at least in part, from data in the TR domain.",
       "source_file": "knowledge_base/domains/RS/examples.md",
@@ -608,42 +557,8 @@
     },
     "confidence": 1.0,
     "extractor": "llm",
-    "verified": false,
-    "verify_note": "no verdict"
-  },
-  {
-    "id": "data:TR>RS:0",
-    "source": "TR",
-    "target": "RS",
-    "kind": "data_flow",
-    "directed": true,
-    "relation": "TR records link to RS records via TRLNKGRP",
-    "evidence": {
-      "quote": "TRLNKGRP is used to relate records in the TR domain to a response assessment record in the RS domain.",
-      "source_file": "knowledge_base/domains/TR/examples.md",
-      "line": 0
-    },
-    "confidence": 1.0,
-    "extractor": "llm",
-    "verified": false,
-    "verify_note": "The quote states TRLNKGRP relates TR records to RS records, but does not specify direction; the arrow implies TR→RS, yet the link could be bidirectional or RS→TR."
-  },
-  {
-    "id": "data:RS>TU:0",
-    "source": "RS",
-    "target": "TU",
-    "kind": "data_flow",
-    "directed": true,
-    "relation": "RS records may link to TU via RSLNKGRP and RELREC",
-    "evidence": {
-      "quote": "The RSLNKGRP variable is used to provide a link between the records in a findings domain (e.g., Tumor/Lesion Results, TR; Laboratory Test Results, LB) that contribute to a record in the RS domain.",
-      "source_file": "knowledge_base/domains/RS/examples.md",
-      "line": 0
-    },
-    "confidence": 0.9,
-    "extractor": "llm",
-    "verified": false,
-    "verify_note": "The quote mentions RS linking to TR and LB, not TU, and does not specify a directed relation from RS to TU via RSLNKGRP and RELREC."
+    "verified": true,
+    "verify_note": "per-pair cap reached (2) for ('RS', 'TR')"
   },
   {
     "id": "data:TU>RS:0",
@@ -651,33 +566,16 @@
     "target": "RS",
     "kind": "data_flow",
     "directed": true,
-    "relation": "TU records link to TR, which contributes to RS assessments",
+    "relation": "TU provides tumor identification records that are linked to response assessments in RS",
     "evidence": {
       "quote": "A record is required in TU to identify and create the TULNKID when there are associated records in TR with matching TRLNKID.",
       "source_file": "knowledge_base/domains/TU/examples.md",
       "line": 0
     },
-    "confidence": 0.85,
+    "confidence": 0.8,
     "extractor": "llm",
     "verified": false,
-    "verify_note": "The quote describes TU records linking to TR via matching link IDs, not a direct directed relation from TU to RS. RS assessments are derived from TR, not directly from TU."
-  },
-  {
-    "id": "data:TR>TU:0",
-    "source": "TR",
-    "target": "TU",
-    "kind": "data_flow",
-    "directed": true,
-    "relation": "TR records are linked to TU identification records via TRLNKID",
-    "evidence": {
-      "quote": "TRLNKID is used to relate records in the TR domain to an identification record in TU domain.",
-      "source_file": "knowledge_base/domains/TR/examples.md",
-      "line": 0
-    },
-    "confidence": 1.0,
-    "extractor": "llm",
-    "verified": false,
-    "verify_note": "The quote says TRLNKID relates TR records to TU identification records, but does not specify direction; the directed arrow from TR to TU is not explicitly supported, and the relation could be bidirectional or undefined."
+    "verify_note": "Quote mentions TR and TRLNKID, not RS or TULNKID to RS link."
   },
   {
     "id": "data:TU>TR:0",
@@ -685,24 +583,7 @@
     "target": "TR",
     "kind": "data_flow",
     "directed": true,
-    "relation": "TU identification records are linked to TR assessment records via TULNKID",
-    "evidence": {
-      "quote": "TRLNKID is used to relate an identification record in the TU domain to assessment records in the Tumor/Lesion Results (TR) domain.",
-      "source_file": "knowledge_base/domains/TU/examples.md",
-      "line": 0
-    },
-    "confidence": 1.0,
-    "extractor": "llm",
-    "verified": false,
-    "verify_note": "The quote states TRLNKID relates TU to TR, but the relation is undirected (linking records, not a directed arrow from TU to TR). The direction in the claim is unsupported."
-  },
-  {
-    "id": "data:TU>TR:0",
-    "source": "TU",
-    "target": "TR",
-    "kind": "data_flow",
-    "directed": true,
-    "relation": "TU records are required when there are associated TR records with matching TRLNKID",
+    "relation": "TU records are required when there are associated TR records",
     "evidence": {
       "quote": "A record is required in TU to identify and create the TULNKID when there are associated records in TR with matching TRLNKID.",
       "source_file": "knowledge_base/domains/TU/examples.md",
@@ -710,8 +591,8 @@
     },
     "confidence": 1.0,
     "extractor": "llm",
-    "verified": false,
-    "verify_note": "The quote says TU records are required when TR records exist with matching TRLNKID, implying TU depends on TR, but the directed arrow shows TU pointing to TR, which reverses the dependency direction."
+    "verified": true,
+    "verify_note": "per-pair cap reached (2) for ('TR', 'TU')"
   },
   {
     "id": "data:TU>TR:0",
@@ -719,15 +600,15 @@
     "target": "TR",
     "kind": "data_flow",
     "directed": true,
-    "relation": "TU records link location assessments in TR",
+    "relation": "New tumors require records in both TU and TR",
     "evidence": {
-      "quote": "A record is required in TU in order to link the assessments of the particular location of interest in TR.",
+      "quote": "In the oncology setting, when a new tumor is identified, a record must be included in both the TU and TR domains.",
       "source_file": "knowledge_base/domains/TU/examples.md",
       "line": 0
     },
     "confidence": 1.0,
     "extractor": "llm",
-    "verified": false,
-    "verify_note": "The quote says TU links assessments in TR, meaning TU points to TR, but the direction shown (TU → TR) is correct; however, the quote does not explicitly state a directed relation from TU to TR—it only says TU is required to link assessments, which could be interpreted as a dependency or association, not a directed arrow. The direction is plausible but not definitively supported by the quote alone."
+    "verified": true,
+    "verify_note": "per-pair cap reached (2) for ('TR', 'TU')"
   }
 ]

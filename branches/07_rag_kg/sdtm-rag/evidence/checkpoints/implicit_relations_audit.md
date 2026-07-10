@@ -1,6 +1,6 @@
 # SP6 隐性关系抽检 (Rule A)
 > 生成: 见 git;域: CM, EG, FT, IS, LB, MI, PR, RS, TR, TU
-边计数: {'co_occurrence': 9, 'explicit_link': 16};被毙: 43
+边计数: {'co_occurrence': 9, 'data_flow': 24, 'explicit_link': 16};被毙: 36
 
 ## N=8 分层抽检
 | # | 边 | 类型 | 引文命中? | 关系/方向对? | 判定 |

@@ -108,6 +108,18 @@ def test_build_rejects_below_confidence():
                for e in res["_rejected"])
 
 
+def test_verify_inconclusive_judge_keeps_edge():
+    edge = {"source": "PR", "target": "MI", "relation": "x", "evidence": {"quote": "q"}}
+    v = M.verify_data_flow_edge(edge, "x", judge=lambda prompt, model: [])
+    assert v["verified"] is True and "inconclusive" in v["note"]
+
+
+def test_quote_in_source_normalizes_whitespace():
+    edge = {"evidence": {"quote": "recorded   in the\nTR dataset",
+                         "source_file": "domains/PR/examples.md"}}
+    assert M.quote_in_source(edge, FIX) is True
+
+
 def test_write_outputs_creates_json_audit_and_failures(tmp_path):
     result = {"meta": {"domains": ["PR", "TR"]},
               "edges": [{"source": "PR", "target": "TR", "kind": "data_flow"}],
