@@ -341,20 +341,22 @@ function vExplore(seed){
 }
 function expandNode(code){
   window.__expanded=window.__expanded||new Set();
-  const shownCount=()=>new Set([cur.dom||"TU",...window.__expanded]).size;
+  const shownCount=()=>new Set([cur.seed||"TU",...window.__expanded]).size;
   if(shownCount()>=EXPLORE_CAP){ cur.v="explore"; render(); return; } // cap already hit: no new nodes
   window.__expanded.add(code);
-  for(const e of (DATA.implicit?DATA.implicit.edges:[])){
-    if(shownCount()>=EXPLORE_CAP) break;
-    if(e.source===code) window.__expanded.add(e.target);
-    if(e.target===code) window.__expanded.add(e.source);
-  }
+  const tryAdd=x=>{ if(shownCount()<EXPLORE_CAP) window.__expanded.add(x); };
+  // 展开优先级 (spec §5): 硬边邻居 > 推断邻居按置信度降序
+  for(const [s,list] of relBySrc) for(const r of list){
+    if(s===code) tryAdd(r.d); else if(r.d===code) tryAdd(s); }
+  const impl=(DATA.implicit?DATA.implicit.edges:[]).slice().sort((a,b)=>(b.confidence||0)-(a.confidence||0));
+  for(const e of impl){
+    if(e.source===code) tryAdd(e.target); else if(e.target===code) tryAdd(e.source); }
   cur.v="explore"; render();
 }
 
 // ---- force simulation ----
 let N=[],E=[],byId=new Map(),alpha=1,running=true,raf=0;
-const REP=11000,REST=94,SPRING=.045,GRAV=.011,DAMP=.88,CENTER={x:0,y:0};
+const REP=11000,REST=94,SPRING=.045,GRAV=.011,DAMP=.88,CENTER={x:0,y:0},ALPHA_MIN=0.001;
 function seed(nodes){
   const R=Math.min(innerWidth,innerHeight)*0.44;
   nodes.forEach((n,i)=>{const a=i*2.399963;const r=R*Math.sqrt((i+1)/nodes.length);
@@ -374,9 +376,9 @@ function tick(){
   for(const a of N){ if(a.fix)continue;
     a.vx+=(CENTER.x-a.x)*GRAV*alpha; a.vy+=(CENTER.y-a.y)*GRAV*alpha;
     a.vx*=DAMP; a.vy*=DAMP; a.x+=a.vx; a.y+=a.vy; }
-  alpha*=0.985; if(alpha<0.02)alpha=0.02;
+  alpha*=0.985;
 }
-function frame(){ if(running){ for(let k=0;k<2;k++)tick(); draw(); } raf=requestAnimationFrame(frame); }
+function frame(){ if(running&&alpha>ALPHA_MIN){ for(let k=0;k<2;k++)tick(); draw(); } raf=requestAnimationFrame(frame); }
 
 // ---- render ----
 function draw(){
@@ -462,7 +464,7 @@ let pan=null;
 svg.addEventListener("pointerdown",ev=>{ if(ev.target.closest(".node"))return;
   pan={x:ev.clientX,y:ev.clientY,tx:T.x,ty:T.y}; svg.classList.add("panning"); });
 addEventListener("pointermove",ev=>{ if(!pan)return; T.x=pan.tx+(ev.clientX-pan.x); T.y=pan.ty+(ev.clientY-pan.y); applyT(); });
-addEventListener("pointerup",()=>{ pan=null; svg.classList.remove("panning"); drag=null; });
+addEventListener("pointerup",()=>{ pan=null; svg.classList.remove("panning"); });
 
 // ---- node drag ----
 let drag=null;
@@ -481,12 +483,12 @@ function applySearch(){ const q=$("#search").value.trim().toLowerCase(); if(!q){
 $("#search").addEventListener("input",applySearch);
 
 // ---- controls ----
-let cur={v:"overview",dom:"AE",code:null};
+let cur={v:"overview",dom:"AE",code:null,seed:"TU"};
 function render(){
   closePanel(); syncUI();
   let view; if(cur.v==="overview")view=vOverview();
   else if(cur.v==="domain")view=vDomain(cur.dom);
-  else if(cur.v==="explore")view=vExplore(cur.dom||"TU");
+  else if(cur.v==="explore")view=vExplore(cur.seed||"TU");
   else view=vImpact(cur.code);
   build(view); applySearch();
 }
@@ -495,15 +497,17 @@ function syncUI(){
   $("#domSel").classList.toggle("hide",!(cur.v==="domain"||cur.v==="explore"));
   $("#codeSel").classList.toggle("hide",cur.v!=="impact");
   $("#layers").classList.toggle("hide",cur.v!=="explore");
-  if(cur.dom)$("#domSel").value=cur.dom; if(cur.code)$("#codeSel").value=cur.code;
+  $("#domSel").value=cur.v==="explore"?(cur.seed||"TU"):(cur.dom||"AE"); if(cur.code)$("#codeSel").value=cur.code;
   $("#hint").textContent=cur.v==="explore"
     ? "点击域节点展开邻居 · 拖拽 · 滚轮缩放 · 空白平移 · 上方图层开关可隐藏边"
     : "悬停看全名 · 点击节点看关系 · 拖拽 · 滚轮缩放 · 空白平移";
 }
 $("#views").addEventListener("click",ev=>{ const b=ev.target.closest("button"); if(!b)return;
-  if(b.dataset.v==="explore"&&cur.v!=="explore") window.__expanded=new Set(); // fresh entry: reset expansion
+  if(b.dataset.v==="explore"&&cur.v!=="explore"){ window.__expanded=new Set(); expandNode(cur.seed||"TU"); return; } // fresh entry: 自动展开种子一跳
   cur.v=b.dataset.v; render(); });
-$("#domSel").addEventListener("change",e=>{cur.dom=e.target.value; if(cur.v==="explore")window.__expanded=new Set(); render();});
+$("#domSel").addEventListener("change",e=>{
+  if(cur.v==="explore"){ cur.seed=e.target.value; window.__expanded=new Set(); expandNode(cur.seed); return; }
+  cur.dom=e.target.value; render();});
 $("#codeSel").addEventListener("change",e=>{cur.code=e.target.value;render();});
 const LAYER_SEL={hard:".edge.hardrel",flow:".iedge.flow",link:".iedge.link",cooc:".iedge.cooc"};
 function applyLayerToggles(){
