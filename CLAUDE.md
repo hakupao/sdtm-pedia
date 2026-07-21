@@ -87,9 +87,9 @@ Full chain definitions are in `.work/MANIFEST.md`.
 | Phase 7 答题侧护栏 (DONE) | `sdtm-rag/evidence/checkpoints/guardrail_v2_summary.md`; 确定性码闸 `eval/prod_wirein/check_code_grounding.py` |
 | Phase 7 本地部署+多模型对比 规划 | `sdtm-rag/DEPLOY_PLAN.md` — launchd 部署 + 对比/裁判 (§3 阶段3 工程件 DONE+审; go-live 待 IT) |
 | Phase 7 阶段3 共享 (工程件+go-live runbook) | `sdtm-rag/deploy/` (deploy.sh + 0.0.0.0 plist 模板 + README runbook); 登录门 `server/auth.py`; 证据 `evidence/checkpoints/phase3_share_hardening.md` |
-| Phase 7 Chat UI (单模型流式前端) | `sdtm-rag/webchat/` + `PLAN_chat_ui.md`; prod localhost:8000 (launchd); ⚑ dogfood 失败捕获 (`POST /api/flag` → `dogfood_failures.md`, 优先级 backlog) |
+| Phase 7 Chat UI (单模型流式前端) | `sdtm-rag/webchat/` + `sdtm-rag/PLAN_chat_ui.md`; prod localhost:8000 (launchd); ⚑ dogfood 失败捕获 (`POST /api/flag` → `dogfood_failures.md`, 优先级 backlog) |
 | Phase 7 KG 重启 (SP1-5+AGG DONE 全线收官) | `sdtm-rag/KG_ROADMAP.md` — SP1-5+AGG 全 DONE (2026-07-09); SP5 图增强校验器 `server/graph_validator.py` + `POST /api/validate-study`; 路由词无剩余单元, 新图能力需 brainstorm |
-| Phase 7 SP6 隐性关系 + 网状查看器 (2026-07-10) | 挖掘管线 `sdtm-rag/scripts/mine_implicit_relations.py` → `data/meta/implicit_relations.json` (30 advisory 边, 分层反捏造闸, 不碰 meta.yaml); 网状查看器 `sdtm-rag/scripts/build_kg_viewer.py` → `kg_viewer.html`; spec/plan `docs/superpowers/*2026-07-10-sp6-*` |
+| Phase 7 SP6 隐性关系 + 网状查看器 (2026-07-10) | 挖掘管线 `sdtm-rag/scripts/mine_implicit_relations.py` → `data/meta/implicit_relations.json` (30 advisory 边, 分层反捏造闸, 不碰 meta.yaml); 网状查看器 `sdtm-rag/scripts/build_kg_viewer.py` → `kg_viewer.html`; spec/plan `docs/superpowers/{specs,plans}/2026-07-10-sp6-*` |
 
 ## AI 平台多平台部署 (CLOSED 冻结 2026-06-15)
 
