@@ -130,12 +130,21 @@ sdtm-pedia/
 │   ├── SDTM_v2.0.pdf
 │   └── SDTM Terminology.xlsx
 │
-├── ai_platforms/                # Phase 6.5 — AI platform deployment assets
-│   ├── claude_projects/         # Claude Projects bundle (v2.6, 19 uploads)
-│   ├── chatgpt_gpt/             # ChatGPT GPTs bundle (9 uploads)
-│   ├── gemini_gems/             # Gemini Gems bundle (4 uploads)
-│   ├── notebooklm/              # NotebookLM bundle (42 uploads)
-│   └── release/v1.{0,1,3,4}/    # Self-contained company releases (latest: v1.4, 2026-05-22)
+├── sdtm-rag/                    # ★ Active dev — RAG + KG service (FastAPI, localhost:8000)
+│   ├── server/                  # API, RAG engine, graph engine, validators
+│   ├── scripts/                 # ingest / build_meta / build_neo4j / KG viewer
+│   ├── webchat/                 # Chat UI (vanilla JS, streaming)
+│   └── eval/                    # Retrieval & answer eval harness
+│
+├── web/                         # Astro website (prod: sdtm-pedia.pages.dev)
+│
+├── milestones/                  # Completed project milestones (read-only)
+│   ├── 06_deep_verification/    # PDF→KB literal-level deep audit — COMPLETE (P1-P7, coverage 99.02%)
+│   ├── 07_rag_kg/               # RAG+KG plans/evidence docs (code promoted to /sdtm-rag)
+│   ├── jp_delivery/             # Japanese delivery line (CLOSED)
+│   ├── ai_platforms/            # Phase 6.5 — 4-platform AI deployment assets (CLOSED)
+│   ├── release/v1.{0,1,2,3,4}/  # Self-contained company releases (latest: v1.4, 2026-05-22)
+│   └── archive/                 # Superseded v0 knowledge base + legacy logs
 │
 ├── .work/                       # Build workspace
 │   ├── 00_planning/             # Design documents
@@ -143,14 +152,10 @@ sdtm-pedia/
 │   ├── 02_indexing/             # PDF page index for extraction
 │   ├── 03_verification/         # Verification results & reports
 │   ├── 04_optimization/         # Phase 6 retrieval optimization
-│   ├── 05_rag_kg/               # Phase 7 RAG + knowledge graph design (impl lives in branches/07_rag_kg/)
+│   ├── 05_rag_kg/               # Phase 7 RAG + knowledge graph design (impl lives in milestones/07_rag_kg/)
 │   ├── 07_release{,_v1_1,_v1_2,_v1_3,_v1_4}/  # Release v1.0-v1.4 plans + retrospectives
 │   ├── meta/                    # Work log, mappings, findings
 │   └── MANIFEST.md              # File index & change chains
-│
-├── branches/                    # Self-contained side-projects (refactor v1, 2026-05)
-│   ├── 06_deep_verification/    # PDF→KB literal-level deep audit — COMPLETE (P1-P7, coverage 99.02%)
-│   └── 07_rag_kg/               # RAG + dataset validation — Phase 1 COMPLETE (sdtm-rag/; 53q eval 88.5%)
 │
 ├── docs/                        # Project documentation
 │   ├── PROGRESS.md              # Build progress dashboard
@@ -287,12 +292,12 @@ Pre-built instances you can open and use right away — no install, no API key. 
 
 ### Option A — Self-deploy on a hosted AI platform (recommended)
 
-A turn-key release bundle for **4 platforms** (Claude Projects, ChatGPT GPTs, Gemini Gems, NotebookLM) ships at `release/v1.4/` (latest, 2026-05-22). Each platform sub-directory is self-contained: system prompt + uploads + step-by-step tutorial in 3 languages (zh/en/ja). Earlier releases (`release/v1.{0,1,3}/`) remain immutable for reference. Note: **Gemini is MAINTAINED_NO_SANITY_TEST from v1.4 onwards** — bundle still ships, but sanity testing was discontinued; users self-verify.
+A turn-key release bundle for **4 platforms** (Claude Projects, ChatGPT GPTs, Gemini Gems, NotebookLM) ships at `milestones/release/v1.4/` (latest, 2026-05-22). Each platform sub-directory is self-contained: system prompt + uploads + step-by-step tutorial in 3 languages (zh/en/ja). Earlier releases (`milestones/release/v1.{0,1,3}/`) remain immutable for reference. Note: **Gemini is MAINTAINED_NO_SANITY_TEST from v1.4 onwards** — bundle still ships, but sanity testing was discontinued; users self-verify.
 
 1. **Clone the repo**
    ```bash
    git clone https://github.com/hakupao/sdtm-pedia.git
-   cd sdtm-pedia/release/v1.4
+   cd sdtm-pedia/milestones/release/v1.4
    ```
 
 2. **Pick a platform** — Read `self_deploy/README.en.md` for the decision tree (capacity, sharing, audio overview, etc.)
@@ -336,10 +341,10 @@ The knowledge base is plain Markdown — it works with any LLM that supports fil
 - [x] Phase 6.1 — Query routing index (`knowledge_base/ROUTING.md`)
 - [x] Phase 6.2 — Cross-references between domains (in `spec.md` of each domain)
 - [x] Phase 6.3 — Variable-level reverse index (`knowledge_base/VARIABLE_INDEX.md`, 1,523 variables)
-- [x] Phase 6.5 — Multi-platform AI deployment + Releases v1.0 → v1.4 (4 platforms, latest at `release/v1.4/`; Gemini MAINTAINED_NO_SANITY_TEST from v1.4)
-- [x] Deep verification — literal-level PDF→KB atom-by-atom audit (COMPLETE: P1–P7, coverage 99.02%, see `branches/06_deep_verification/`)
-- [x] Phase 7 / Phase 1 — RAG Q&A + dataset validation (local Chroma + LiteLLM + FastAPI/Streamlit; 53-question eval 88.5% PASS, see `branches/07_rag_kg/`)
-- [ ] Retrieval quality tuning — raise eval source recall to >95% (rerank / multi-query / re-evaluate KG; see `branches/07_rag_kg/TODO_retrieval_quality.md`)
+- [x] Phase 6.5 — Multi-platform AI deployment + Releases v1.0 → v1.4 (4 platforms, latest at `milestones/release/v1.4/`; Gemini MAINTAINED_NO_SANITY_TEST from v1.4)
+- [x] Deep verification — literal-level PDF→KB atom-by-atom audit (COMPLETE: P1–P7, coverage 99.02%, see `milestones/06_deep_verification/`)
+- [x] Phase 7 / Phase 1 — RAG Q&A + dataset validation (local Chroma + LiteLLM + FastAPI/Streamlit; 53-question eval 88.5% PASS, see `milestones/07_rag_kg/`)
+- [ ] Retrieval quality tuning — raise eval source recall to >95% (rerank / multi-query / re-evaluate KG; see `milestones/07_rag_kg/TODO_retrieval_quality.md`)
 - [ ] Phase 6.4 — Structured metadata (YAML/JSON) — merged into Phase 7 / Phase 2 KG (deferred)
 - [ ] Phase 7 / Phase 2 — Knowledge graph (Neo4j) — deferred; to be re-evaluated under the >95% retrieval bar
 

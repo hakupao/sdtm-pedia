@@ -130,12 +130,21 @@ sdtm-pedia/
 │   ├── SDTM_v2.0.pdf
 │   └── SDTM Terminology.xlsx
 │
-├── ai_platforms/                # Phase 6.5 — AI 平台部署资产
-│   ├── claude_projects/         # Claude Projects 部署包（v2.6, 19 上传）
-│   ├── chatgpt_gpt/             # ChatGPT GPTs 部署包（9 上传）
-│   ├── gemini_gems/             # Gemini Gems 部署包（4 上传）
-│   ├── notebooklm/              # NotebookLM 部署包（42 上传）
-│   └── release/v1.{0,1,3,4}/    # 公司发布版（最新: v1.4, 2026-05-22, 4 平台）
+├── sdtm-rag/                    # ★ 活跃开发 — RAG + KG 服务（FastAPI, localhost:8000）
+│   ├── server/                  # API、RAG 引擎、图引擎、校验器
+│   ├── scripts/                 # ingest / build_meta / build_neo4j / KG 查看器
+│   ├── webchat/                 # 聊天前端（原生 JS 流式）
+│   └── eval/                    # 检索与答题评测
+│
+├── web/                         # Astro 网站（prod: sdtm-pedia.pages.dev）
+│
+├── milestones/                  # 已收官的阶段性成果（只读）
+│   ├── 06_deep_verification/    # PDF→KB 字面级深审 — 已完成（P1-P7，覆盖率 99.02%）
+│   ├── 07_rag_kg/               # RAG+KG 计划/证据文档（代码已提升至 /sdtm-rag）
+│   ├── jp_delivery/             # 日语交付线（CLOSED）
+│   ├── ai_platforms/            # Phase 6.5 — 4 平台 AI 部署资产（CLOSED）
+│   ├── release/v1.{0,1,2,3,4}/  # 公司发布版（最新: v1.4, 2026-05-22）
+│   └── archive/                 # 废弃的 v0 知识库 + 旧日志
 │
 ├── .work/                       # 构建工作区
 │   ├── 00_planning/             # 方案设计文档
@@ -143,14 +152,10 @@ sdtm-pedia/
 │   ├── 02_indexing/             # PDF 页码索引
 │   ├── 03_verification/         # 验证结果与报告
 │   ├── 04_optimization/         # Phase 6 检索优化
-│   ├── 05_rag_kg/               # Phase 7 RAG + 知识图谱设计（实现在 branches/07_rag_kg/）
+│   ├── 05_rag_kg/               # Phase 7 RAG + 知识图谱设计（实现在 milestones/07_rag_kg/）
 │   ├── 07_release{,_v1_1,_v1_2,_v1_3,_v1_4}/  # Release v1.0-v1.4 计划与复盘
 │   ├── meta/                    # 工作日志、映射、质量记录
 │   └── MANIFEST.md              # 文件清单与变更链
-│
-├── branches/                    # 独立旁枝（refactor v1 迁移，2026-05）
-│   ├── 06_deep_verification/    # PDF→KB 字面级深审 — 已完成（P1-P7，覆盖率 99.02%）
-│   └── 07_rag_kg/               # RAG + 数据集校验 — Phase 1 已完成（sdtm-rag/；53 题 eval 88.5%）
 │
 ├── docs/                        # 项目文档
 │   ├── PROGRESS.md              # 构建进度看板
@@ -287,12 +292,12 @@ sdtm-pedia/
 
 ### 方式 A — 在主流 AI 平台自部署（推荐）
 
-`release/v1.4/`（最新版, 2026-05-22）提供 **4 个平台**（Claude Projects / ChatGPT GPTs / Gemini Gems / NotebookLM）的开箱即用部署包。每个平台子目录自成一体：system prompt + 上传文件 + 三语教程（zh/en/ja）。早期 release（`release/v1.{0,1,3}/`）作为不可变历史保留。注意: **v1.4 起 Gemini 切换到 MAINTAINED_NO_SANITY_TEST 模式** — 仍交付 bundle, 但停 sanity 测试, 用户自验。
+`milestones/release/v1.4/`（最新版, 2026-05-22）提供 **4 个平台**（Claude Projects / ChatGPT GPTs / Gemini Gems / NotebookLM）的开箱即用部署包。每个平台子目录自成一体：system prompt + 上传文件 + 三语教程（zh/en/ja）。早期 release（`milestones/release/v1.{0,1,3}/`）作为不可变历史保留。注意: **v1.4 起 Gemini 切换到 MAINTAINED_NO_SANITY_TEST 模式** — 仍交付 bundle, 但停 sanity 测试, 用户自验。
 
 1. **克隆仓库**
    ```bash
    git clone https://github.com/hakupao/sdtm-pedia.git
-   cd sdtm-pedia/release/v1.4
+   cd sdtm-pedia/milestones/release/v1.4
    ```
 
 2. **挑一个平台** — 阅读 `self_deploy/README.zh.md` 中的决策树（容量、分享方式、Audio Overview 等）
@@ -336,10 +341,10 @@ SEX 绑定哪个 codelist？
 - [x] Phase 6.1 — 问题路由索引（`knowledge_base/ROUTING.md`）
 - [x] Phase 6.2 — Domain 交叉引用（写入各 domain 的 `spec.md` 末尾）
 - [x] Phase 6.3 — 变量级反向索引（`knowledge_base/VARIABLE_INDEX.md`，1,523 个变量）
-- [x] Phase 6.5 — 多平台 AI 部署 + Release v1.0 → v1.4（4 平台，最新 `release/v1.4/`；v1.4 起 Gemini 转 MAINTAINED_NO_SANITY_TEST）
-- [x] Deep Verification — PDF→KB 字面级 atom 逐条审计（已完成：P1–P7，覆盖率 99.02%，详见 `branches/06_deep_verification/`）
-- [x] Phase 7 / Phase 1 — RAG 问答 + 数据集校验（本地 Chroma + LiteLLM + FastAPI/Streamlit；53 题 eval 88.5% PASS，详见 `branches/07_rag_kg/`）
-- [ ] 检索质量优化 — 把 eval source recall 拉到 >95%（rerank / 多查询 / 重评 KG，详见 `branches/07_rag_kg/TODO_retrieval_quality.md`）
+- [x] Phase 6.5 — 多平台 AI 部署 + Release v1.0 → v1.4（4 平台，最新 `milestones/release/v1.4/`；v1.4 起 Gemini 转 MAINTAINED_NO_SANITY_TEST）
+- [x] Deep Verification — PDF→KB 字面级 atom 逐条审计（已完成：P1–P7，覆盖率 99.02%，详见 `milestones/06_deep_verification/`）
+- [x] Phase 7 / Phase 1 — RAG 问答 + 数据集校验（本地 Chroma + LiteLLM + FastAPI/Streamlit；53 题 eval 88.5% PASS，详见 `milestones/07_rag_kg/`）
+- [ ] 检索质量优化 — 把 eval source recall 拉到 >95%（rerank / 多查询 / 重评 KG，详见 `milestones/07_rag_kg/TODO_retrieval_quality.md`）
 - [ ] Phase 6.4 — 结构化元数据（YAML/JSON）— 已并入 Phase 7 / Phase 2 KG（暂缓）
 - [ ] Phase 7 / Phase 2 — 知识图谱（Neo4j）— 暂缓；在 >95% 检索标准下重新评估
 
