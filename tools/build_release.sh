@@ -2,12 +2,12 @@
 # tools/build_release.sh — single entry point to build all release products.
 #
 # Inputs (single source of truth):
-#   release/$VERSION/                       (the only authoritative source)
+#   milestones/release/$VERSION/                       (the only authoritative source)
 #
 # Outputs:
 #   web/dist-bundles/*_bundle_$VERSION.zip   (4 per-platform GitHub-release zips)
-#   branches/jp_delivery/deliverable/*.zip   (iTMS bundle, includes release/ copy)
-#   release/$VERSION/BUILD_MANIFEST.json     (hash + size record, prevents drift)
+#   milestones/jp_delivery/deliverable/*.zip   (iTMS bundle, includes release/ copy)
+#   milestones/release/$VERSION/BUILD_MANIFEST.json     (hash + size record, prevents drift)
 #
 # Usage:
 #   tools/build_release.sh [VERSION] [--skip-jp] [--skip-web]
@@ -27,7 +27,7 @@ for arg in "$@"; do
 done
 
 REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-RELEASE_DIR="$REPO_ROOT/release/$VERSION"
+RELEASE_DIR="$REPO_ROOT/milestones/release/$VERSION"
 
 if [[ ! -d "$RELEASE_DIR" ]]; then
   echo "ERROR: $RELEASE_DIR not found" >&2
@@ -50,7 +50,7 @@ fi
 # --- 2. jp_delivery zip (iTMS bundle) ---
 if [[ $SKIP_JP -eq 0 ]]; then
   echo "→ building jp_delivery zip..."
-  bash "$REPO_ROOT/branches/jp_delivery/scripts/build_zip.sh" "$VERSION"
+  bash "$REPO_ROOT/milestones/jp_delivery/scripts/build_zip.sh" "$VERSION"
   echo
 else
   echo "→ skip jp_delivery zip (--skip-jp)"
@@ -67,7 +67,7 @@ echo "→ writing $MANIFEST"
   echo "  \"source_md_count\": $(find "$RELEASE_DIR" -name '*.md' | wc -l | tr -d ' '),"
   echo "  \"artifacts\": ["
   FIRST=1
-  for f in "$REPO_ROOT/web/dist-bundles"/*.zip "$REPO_ROOT/branches/jp_delivery/deliverable"/*.zip; do
+  for f in "$REPO_ROOT/web/dist-bundles"/*.zip "$REPO_ROOT/milestones/jp_delivery/deliverable"/*.zip; do
     [[ -f "$f" ]] || continue
     [[ $FIRST -eq 0 ]] && echo ","
     FIRST=0

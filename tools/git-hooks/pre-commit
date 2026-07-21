@@ -3,7 +3,7 @@
 #
 # Checks:
 #   1. Trilingual tutorial lockstep: if a tutorial.{en,ja,zh}.md is changed in
-#      release/<version>/self_deploy/<platform>/, warn if the other languages
+#      milestones/release/<version>/self_deploy/<platform>/, warn if the other languages
 #      were not also changed in the same commit.
 #
 # This is a WARNING only — `exit 0` so the commit always proceeds.
@@ -17,7 +17,7 @@ set -e
 STAGED="$(git diff --cached --name-only --diff-filter=ACMR)"
 
 # --- Trilingual tutorial lockstep check ---
-TUTORIAL_LINES="$(printf '%s\n' "$STAGED" | grep -E '^release/v[0-9.]+/self_deploy/[^/]+/tutorial\.(en|ja|zh)\.md$' || true)"
+TUTORIAL_LINES="$(printf '%s\n' "$STAGED" | grep -E '^milestones/release/v[0-9.]+/self_deploy/[^/]+/tutorial\.(en|ja|zh)\.md$' || true)"
 
 if [ -n "$TUTORIAL_LINES" ]; then
   # Group by platform path (everything before tutorial.X.md)
