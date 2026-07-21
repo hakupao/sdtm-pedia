@@ -12,7 +12,7 @@
 重建全部节点/边）, 不支持增量。meta.yaml 变了就重跑:
 
 ```bash
-cd branches/07_rag_kg/sdtm-rag
+cd sdtm-rag
 .venv/bin/python scripts/build_neo4j.py       # 全量重建
 .venv/bin/python scripts/reconcile_neo4j.py   # Gate 1 对账（应 41/41 PASS）
 ```

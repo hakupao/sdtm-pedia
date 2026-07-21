@@ -21,7 +21,7 @@ from scripts.spec_loader import SpecLoader
 from server.validator import validate, ValidationResult
 
 
-REPO_ROOT = Path(__file__).resolve().parent.parent.parent.parent.parent
+REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 KB_ROOT = REPO_ROOT / "knowledge_base"
 
 

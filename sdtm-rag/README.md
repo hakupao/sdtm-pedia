@@ -71,7 +71,7 @@ sdtm-rag/
 
 ```bash
 # 1. Create venv + install deps
-cd branches/07_rag_kg/sdtm-rag
+cd sdtm-rag
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -e .
@@ -94,7 +94,7 @@ streamlit run ui/streamlit_app.py
 ## Quick Start — Docker Compose (local self-host)
 
 > Prereq: Docker + Docker Compose v2. 单用户/单租户本地部署 (云部署 defer per H-2).
-> Run from this dir (`branches/07_rag_kg/sdtm-rag/`).
+> Run from this dir (`sdtm-rag/`).
 
 ```bash
 # 1. Environment — OPENAI_API_KEY 是硬性必需 (embedding, 无 fallback);

@@ -9,7 +9,7 @@ export const meta = {
 
 // Paths the lenses read (absolute, so CWD-independent).
 const ROOT = '/Users/bojiangzhang/MyProject/sdtm-pedia'
-const RAG = `${ROOT}/branches/07_rag_kg/sdtm-rag`
+const RAG = `${ROOT}/sdtm-rag`
 const FORENSIC = `${RAG}/eval/prod_wirein/forensic_guardrail.json`   // full off/on text, 16q subset
 const FORENSIC_DROPS = `${RAG}/eval/prod_wirein/forensic_drops.json` // full off/on text for the 10 fact DROPS
 const PAIRED = `${RAG}/eval/prod_wirein/guardrail_paired_analysis.txt` // analyze_paired OFF vs ON (all 102q)

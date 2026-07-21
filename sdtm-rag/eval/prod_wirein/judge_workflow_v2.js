@@ -7,7 +7,7 @@ export const meta = {
   ],
 }
 
-const RAG = '/Users/bojiangzhang/MyProject/sdtm-pedia/branches/07_rag_kg/sdtm-rag'
+const RAG = '/Users/bojiangzhang/MyProject/sdtm-pedia/sdtm-rag'
 const KB = '/Users/bojiangzhang/MyProject/sdtm-pedia/knowledge_base'
 const BUNDLE = `${RAG}/eval/prod_wirein/judge_bundle_v2.json` // {id,question,expected_facts,on_v2_fact_misses,retrieved_context,off_answer,on_v2_answer}
 const GROUND = `${RAG}/eval/prod_wirein/code_grounding_on.json` // deterministic: codes=147 grounded=147 ungrounded=0 nonexistent=0

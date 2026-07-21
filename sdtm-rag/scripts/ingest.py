@@ -32,7 +32,7 @@ from pathlib import Path
 
 # Repo paths (script lives at sdtm-rag/scripts/ingest.py)
 SDTM_RAG_ROOT = Path(__file__).resolve().parent.parent
-REPO_ROOT = SDTM_RAG_ROOT.parent.parent.parent  # branches/07_rag_kg/sdtm-rag → repo root
+REPO_ROOT = SDTM_RAG_ROOT.parent  # sdtm-rag → repo root
 KB_ROOT = REPO_ROOT / "knowledge_base"
 CHROMA_DIR = SDTM_RAG_ROOT / "data" / "chroma"
 

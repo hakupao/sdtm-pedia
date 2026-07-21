@@ -23,7 +23,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from scripts.spec_loader import SpecLoader  # noqa: E402
 from server.validator import validate  # noqa: E402
 
-REPO_ROOT = Path(__file__).resolve().parent.parent.parent.parent.parent
+REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 KB_ROOT = REPO_ROOT / "knowledge_base"
 
 

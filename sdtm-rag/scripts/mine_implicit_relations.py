@@ -11,7 +11,7 @@ import json
 import re
 from pathlib import Path
 
-KB_ROOT = Path(__file__).resolve().parents[4] / "knowledge_base"
+KB_ROOT = Path(__file__).resolve().parents[2] / "knowledge_base"
 SEEDS = ["TU", "TR", "RS", "PR", "MI"]
 CONF_THRESHOLD = 0.6
 MAX_FLOW_PER_PAIR = 2

@@ -15,7 +15,7 @@
 set -euo pipefail
 
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-SRC="$(cd "$HERE/.." && pwd)"             # .../branches/07_rag_kg/sdtm-rag
+SRC="$(cd "$HERE/.." && pwd)"             # .../sdtm-rag
 REPO_ROOT="$(cd "$SRC/../../.." && pwd)"  # sdtm-pedia repo root
 KB="$REPO_ROOT/knowledge_base"
 DEST="${SDTM_RAG_SERVICE_DIR:-$HOME/MyProject/sdtm-rag-service}"

@@ -19,7 +19,7 @@ Tunnel) 见 DEPLOY_PLAN §6 路线图。**口令请用长随机串** (限流 30/
 ## go-live 步骤
 
 ```bash
-cd branches/07_rag_kg/sdtm-rag
+cd sdtm-rag
 
 # 1. 预演 (不改任何文件)
 ./deploy/deploy.sh --dry-run
@@ -53,7 +53,7 @@ sudo pmset -c sleep 0 disablesleep 1 autorestart 1      # 接电时不睡, 断�
 ## 发版更新 (上线后)
 
 ```bash
-cd branches/07_rag_kg/sdtm-rag
+cd sdtm-rag
 ./deploy/deploy.sh                                  # 同步最新代码/索引
 launchctl kickstart -k gui/$(id -u)/com.sdtmrag.api  # 重载服务
 ```

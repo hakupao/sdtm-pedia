@@ -1,7 +1,7 @@
 """Phase 1A.3 Batch B self-smoke — ExamplesChunker on TA / PC / IS / DS.
 
 Run from repo root:
-    python3 branches/07_rag_kg/sdtm-rag/scripts/chunkers/_smoke_batch_b.py
+    python3 sdtm-rag/scripts/chunkers/_smoke_batch_b.py
 
 Verifies:
   - Chunk counts (TA=8 / PC=14 / IS=11 / DS=11) — the 14 for PC is HARD per chunker_feasibility §3.2.
@@ -24,8 +24,8 @@ sys.path.insert(0, str(HERE.parent.parent))  # repo .../sdtm-rag
 from scripts.chunkers.base import find_mermaid_blocks, find_table_blocks  # noqa: E402
 from scripts.chunkers.examples import ExamplesChunker  # noqa: E402
 
-# KB path (this script lives 5 dirs deep: sdtm-pedia/branches/07_rag_kg/sdtm-rag/scripts/chunkers)
-KB_ROOT = HERE.parent.parent.parent.parent.parent  # → sdtm-pedia/
+# KB path (this script lives 3 dirs deep: sdtm-pedia/sdtm-rag/scripts/chunkers)
+KB_ROOT = HERE.parent.parent.parent  # → sdtm-pedia/
 KB_DOMAINS = KB_ROOT / "knowledge_base" / "domains"
 
 

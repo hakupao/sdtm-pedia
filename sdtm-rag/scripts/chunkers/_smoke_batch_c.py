@@ -1,7 +1,7 @@
 """Self-smoke for Batch C chunkers: chapters, terminology, variable_index.
 
 Run from repo root:
-    python branches/07_rag_kg/sdtm-rag/scripts/chunkers/_smoke_batch_c.py
+    python sdtm-rag/scripts/chunkers/_smoke_batch_c.py
 
 Or from sdtm-rag/:
     python scripts/chunkers/_smoke_batch_c.py
@@ -22,8 +22,8 @@ from scripts.chunkers.terminology import TerminologyChunker
 from scripts.chunkers.variable_index import VariableIndexChunker
 
 # KB root is 4 levels up:
-#   _smoke_batch_c.py -> chunkers/ -> scripts/ -> sdtm-rag/ -> branches/07_rag_kg/ -> sdtm-pedia/
-_KB_ROOT = _HERE.parents[5] / "knowledge_base"
+#   _smoke_batch_c.py -> chunkers/ -> scripts/ -> sdtm-rag/ -> sdtm-pedia/
+_KB_ROOT = _HERE.parents[3] / "knowledge_base"
 assert _KB_ROOT.exists(), f"KB root not found: {_KB_ROOT}"
 
 print(f"KB root: {_KB_ROOT}")

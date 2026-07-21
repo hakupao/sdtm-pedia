@@ -245,7 +245,7 @@ def dump_meta(meta: dict, out_path: Path) -> None:
 
 def main() -> None:
     # scripts -> sdtm-rag -> 07_rag_kg -> branches -> sdtm-pedia
-    kb_root = Path(__file__).resolve().parents[4] / "knowledge_base"
+    kb_root = Path(__file__).resolve().parents[2] / "knowledge_base"
     out = Path(__file__).resolve().parents[1] / "data" / "meta" / "meta.yaml"
     meta = build_meta(kb_root)
     dump_meta(meta, out)

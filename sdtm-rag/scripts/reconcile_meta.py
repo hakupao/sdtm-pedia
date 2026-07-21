@@ -130,7 +130,7 @@ def reconcile(meta_path: Path, kb_root: Path) -> list[dict]:
 def main() -> None:
     here = Path(__file__).resolve()
     # scripts -> sdtm-rag -> 07_rag_kg -> branches -> sdtm-pedia
-    kb_root = here.parents[4] / "knowledge_base"
+    kb_root = here.parents[2] / "knowledge_base"
     meta_path = here.parents[1] / "data" / "meta" / "meta.yaml"
     report = reconcile(meta_path, kb_root)
     for c in report:

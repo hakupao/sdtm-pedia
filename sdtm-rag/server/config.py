@@ -12,7 +12,7 @@ from dotenv import load_dotenv
 from pydantic_settings import BaseSettings
 
 _SDTM_RAG_ROOT = Path(__file__).resolve().parent.parent
-_REPO_ROOT = _SDTM_RAG_ROOT.parent.parent.parent  # sdtm-pedia repo root
+_REPO_ROOT = _SDTM_RAG_ROOT.parent  # sdtm-pedia repo root
 
 load_dotenv(_SDTM_RAG_ROOT / ".env")
 

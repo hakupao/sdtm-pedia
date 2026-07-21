@@ -1,7 +1,7 @@
 """Self-smoke for Batch A chunkers: spec, assumptions, model.
 
 Run from repo root:
-    python branches/07_rag_kg/sdtm-rag/scripts/chunkers/_smoke_batch_a.py
+    python sdtm-rag/scripts/chunkers/_smoke_batch_a.py
 
 Or from sdtm-rag/:
     python scripts/chunkers/_smoke_batch_a.py
@@ -22,9 +22,9 @@ from scripts.chunkers.model import ModelChunker
 from scripts.chunkers.spec import SpecChunker
 
 # KB root is 4 levels up from this file:
-#   _smoke_batch_a.py -> chunkers/ -> scripts/ -> sdtm-rag/ -> branches/07_rag_kg/ -> sdtm-pedia/
+#   _smoke_batch_a.py -> chunkers/ -> scripts/ -> sdtm-rag/ -> sdtm-pedia/
 # knowledge_base/ lives at sdtm-pedia/knowledge_base/
-_KB_ROOT = _HERE.parents[5] / "knowledge_base"
+_KB_ROOT = _HERE.parents[3] / "knowledge_base"
 assert _KB_ROOT.exists(), f"KB root not found: {_KB_ROOT}"
 
 print(f"KB root: {_KB_ROOT}")

@@ -11,7 +11,7 @@ hand-rolled force-directed graph and three scoped, readable views:
 Colors: the dataviz reference categorical palette (validated CVD-safe) for the 8
 SDTM classes; node TYPE encoded by shape+size (no 9th hue). Light/dark themed.
 
-Run:  cd branches/07_rag_kg/sdtm-rag && .venv/bin/python scripts/build_kg_viewer.py
+Run:  cd sdtm-rag && .venv/bin/python scripts/build_kg_viewer.py
 """
 
 from __future__ import annotations
