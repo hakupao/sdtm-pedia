@@ -4,23 +4,12 @@
 # CDISC source files (copyrighted, not for redistribution)
 source/
 
-# Legacy output (superseded by knowledge_base/; project_knowledge_base/ 已迁到 archive/old_knowledge_base_v0/ 2026-05-06)
-markdown/
-reports/
-
 # Claude Code / tool state
 .claude/
 .omc/
-.omx/
 .superpowers/
-
-# npm tooling at repo root (og-image generation etc.)
-/node_modules/
-/package-lock.json
+.playwright-mcp/
 
 # Build output for the website's release-bundle pipeline (web/scripts/build-bundles.sh).
 # Zips are uploaded to GitHub releases instead of committed.
 web/dist-bundles/
-
-# Playwright MCP scratch (browser verification artifacts)
-.playwright-mcp/
