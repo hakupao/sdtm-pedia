@@ -1,1 +1,1 @@
-{"tier": 2, "status": "in_progress", "started": "2026-07-21", "tasks_done": []}
+{"tier": 2, "status": "closed", "started": "2026-07-21", "closed": "2026-07-21", "tasks_done": [1,2,3,4,5,6,7,8,9,10,11,12,13], "summary": "branches/ 解散 → sdtm-rag 顶层 + milestones/; ~550MB 清理; 525 passed; 服务/网站/文档全迁; RETROSPECTIVE.md 齐备"}

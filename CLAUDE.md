@@ -63,6 +63,7 @@ Full chain definitions are in `.work/MANIFEST.md`.
 | Source files (PDF/xlsx) | `source/` |
 | ★ 活跃开发 RAG+KG 服务 | `sdtm-rag/` (顶层代码仓; launchd localhost:8000) |
 | 阶段性成果容器 (只读) | `milestones/` (06深审/07文档层/jp/ai_platforms/release/archive) |
+| 09 restructure v3 (2026-07-21) | `.work/09_repo_refactor_v3/` (branches→milestones; RETRO 齐备) |
 | Work artifacts | `.work/` (phase-numbered dirs) |
 | Project docs | `docs/` |
 | Web 站点 (Phase 7 产物) | `web/` (Astro; prod sdtm-pedia.pages.dev) |

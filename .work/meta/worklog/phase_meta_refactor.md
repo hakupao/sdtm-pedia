@@ -49,3 +49,17 @@
   - `.work/refactor_v1/RETROSPECTIVE.md`
   - `evidence/checkpoints/段3_完成报告.md` (规则 A PASS)
 - **规则 C**: RETROSPECTIVE.md 三段齐备 ✅
+
+---
+
+## 2026-07-21 repo restructure v3 — branches/ 解散 + sdtm-rag 提顶层 + milestones/ 收成果 DONE ✅
+
+- **触发**: 用户判定 branches/ 语义错误 (实为阶段性成果非 git branch) + 开发垃圾累积, 要求大改结构方便后续开发维护。走完整 brainstorm→spec→plan→executing-plans (13 task 六段时序)。
+- **决策 (D1-D5 用户确认)**: 活跃 vs 成果二分 / .work 不动 archive 并入 / release 进 milestones 同步改 web / tracked 冗余四类全删 / jp_delivery 全量收编入 git。
+- **新布局**: 顶层 = knowledge_base + **sdtm-rag** (★活跃, 深度 3→1) + web + **milestones/** (06_deep_verification / 07_rag_kg 文档层 / jp_delivery / ai_platforms / release / archive) + source + docs + .work + tools。`branches/` 消失, 顶层可见目录 14→9 (含文件)。
+- **清理**: 磁盘 ~300MB (mypy_cache 86M / chroma_backup 93M / .omx 15M / web dist ~74M / 根 node_modules 17M / 缓存杂项) + tracked ~93MB git rm (06 .bak×15 ~40M + 07_release_v1_3/backups 26M + eval ≤6/20 旧 run ~9.6M 逐文件枚举 + sharp package.json) + **git gc 146M→42.6M** (首次 repack)。
+- **迁移工程**: bootout api/ui → jp 原位收编 (74 文件入 git) → git mv 全部 → venv 重建 (uv sync) → plist ×2 改写 → bootstrap; parent-chain 深度锚 ×21 修 (**含 plan 遗漏执行期抓住的 tests ×11 + smoke a/c ×2**); web content.config/build-bundles/tools/build_release/git-hooks/jp build_zip 全指 milestones。
+- **验证矩阵全 PASS**: 双向 grep 0 残留 (历史白名单外) / 服务四联 (api·ui·neo4j·/api/ask 真答 15 sources) / reconcile_meta 8/8 锚 / **pytest 525 passed** (> 迁移前 521 — 旧布局下 4 测试因锚指空在静默 skip, 本次连带治愈) / web 本地 build 过 + push 触发 CF / 独立 dry-run agent 走查。
+- **文档**: 活文档 78 处路径迁移 + README×2 结构树重写 + MANIFEST Chain 07_RAG 改指顶层 sdtm-rag + 布局变更总注记; **PROGRESS.md 重切** (117→64 行, 14.4K 单行巨段→550 字符, 30 天外 milestone 剪除); memory ×2 更新; 历史文档 (worklog/closed checkpoint/superpowers 已执行 spec·plan/release 内部) 旧路径故意保留。
+- **销旧账**: 08_repo_refactor_v2 `awaiting_user_ack` (2026-05-11 起挂) → closed (v2 遗留 smoke 被 v3 Task 9/12 实测覆盖)。
+- **证据**: `.work/09_repo_refactor_v3/evidence/step_{disk_cleanup,services_smoke,verification_matrix,dryrun_agent}.md` + `RETROSPECTIVE.md` (Rule C 三段)。spec/plan `docs/superpowers/{specs,plans}/2026-07-21-repo-restructure-v3*`。
