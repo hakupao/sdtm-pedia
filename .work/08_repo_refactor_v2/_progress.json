@@ -3,7 +3,7 @@
   "tier": 2,
   "started": "2026-05-11",
   "execution_complete": "2026-05-11",
-  "status": "awaiting_user_ack",
+  "status": "closed",
   "design_doc": "docs/REPO_REFACTOR.md",
   "plan_doc": ".work/08_repo_refactor_v2/PLAN.md",
   "retro_doc": ".work/08_repo_refactor_v2/RETROSPECTIVE.md",
@@ -29,5 +29,6 @@
     "B_upload_tutorial": "approved (a) — done, 2 files deleted",
     "C_build_entry": "approved (a) — done, tools/build_release.sh + jp build_zip.sh",
     "D_trilingual_lockstep": "approved (a) — done, tools/git-hooks/pre-commit (warn-only, requires manual install)"
-  }
+  },
+  "closed_note": "2026-07-21 随 restructure v3 收尾销账; v2 遗留 smoke (build_release/web build) 已被 v3 Task 9/12 实测覆盖"
 }
