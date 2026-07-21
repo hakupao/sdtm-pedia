@@ -30,7 +30,7 @@
 
 | 项 | 定为 | 理由 |
 |---|------|------|
-| 开发/源码位置 | repo 原地 `…/branches/07_rag_kg/sdtm-rag` | 调优在这,迭代快、相对路径现成 |
+| 开发/源码位置 | repo 原地 `…/sdtm-rag` | 调优在这,迭代快、相对路径现成 |
 | 运行/服务位置 | **`~/MyProject/sdtm-rag-service/`**(专用,阶段 3 启用) | 与活跃 git 树隔离,服务不被日常 git 操作搅乱 |
 | knowledge_base | **复制进服务目录**(自包含) | 运行时注入 ROUTING.md+INDEX.md;复制后服务可整体独立/搬走 |
 | 向量索引 | **复制现成 `data/chroma`,不重建** | 嵌入模型不变,DeepSeek 只换生成,旧索引照常有效 |

@@ -41,7 +41,7 @@ The knowledge base was produced through a seven-phase pipeline. Each phase is do
 | 6 | Retrieval optimization (routing layer; reverse variable index) | `ROUTING.md`; `VARIABLE_INDEX.md` (1,523 variables) |
 | 6.5 | AI platform deployment | Four-platform release bundle |
 
-In parallel with the seven-phase pipeline, an independent **atom-level literal verification audit** is being executed as a continuing work track. Each atomic claim in the knowledge base is reconciled against the source PDF on a page-by-page basis. As of 2026-04-29 the audit covers **97% of the in-scope pages** and remains active. Per-batch evidence is published under [`branches/06_deep_verification/evidence/checkpoints/`](branches/06_deep_verification/evidence/checkpoints).
+In parallel with the seven-phase pipeline, an independent **atom-level literal verification audit** is being executed as a continuing work track. Each atomic claim in the knowledge base is reconciled against the source PDF on a page-by-page basis. As of 2026-04-29 the audit covers **97% of the in-scope pages** and remains active. Per-batch evidence is published under [`milestones/06_deep_verification/evidence/checkpoints/`](milestones/06_deep_verification/evidence/checkpoints).
 
 ## 3. Traceability — auditing an individual answer
 
@@ -89,7 +89,7 @@ Closure record: [`.work/03_verification/issues_found.md`](.work/03_verification/
 
 ### Standing limitations
 
-Certain limitations cannot be fully resolved within the current AI-platform deployment form — for example, large codelists stored as stubs, and real-time external lookups not embedded. These are tracked separately and disclosed in the deployment artifact: [`release/v1.4/KNOWN_LIMITATIONS.en.md`](release/v1.4/KNOWN_LIMITATIONS.en.md) (latest; v1.0/v1.1/v1.3 also available as immutable historical references).
+Certain limitations cannot be fully resolved within the current AI-platform deployment form — for example, large codelists stored as stubs, and real-time external lookups not embedded. These are tracked separately and disclosed in the deployment artifact: [`milestones/release/v1.4/KNOWN_LIMITATIONS.en.md`](milestones/release/v1.4/KNOWN_LIMITATIONS.en.md) (latest; v1.0/v1.1/v1.3 also available as immutable historical references).
 
 ## 5. Standing verification controls
 

@@ -47,7 +47,7 @@ Then summarize to the user: current status, open issues, and suggested next step
 ## 06 Deep Verification (旁枝)
 
 **当前阶段: P7 COMPLETE ✅ 工程全部收官** — P1-P7 全 PASS (coverage 99.02%, Issues 5-16 repaired, P7 content error 3.3%, RETROSPECTIVE.md 归档, Rule D PASS 2026-05-12).
-进度 / metric / archive → `branches/06_deep_verification/_progress.json`. 入口 PLAN → `branches/06_deep_verification/PLAN.md`.
+进度 / metric / archive → `milestones/06_deep_verification/_progress.json`. 入口 PLAN → `milestones/06_deep_verification/PLAN.md`.
 
 ## Change Chains
 
@@ -61,10 +61,12 @@ Full chain definitions are in `.work/MANIFEST.md`.
 |------|-------|
 | Knowledge base output | `knowledge_base/` |
 | Source files (PDF/xlsx) | `source/` |
+| ★ 活跃开发 RAG+KG 服务 | `sdtm-rag/` (顶层代码仓; launchd localhost:8000) |
+| 阶段性成果容器 (只读) | `milestones/` (06深审/07文档层/jp/ai_platforms/release/archive) |
 | Work artifacts | `.work/` (phase-numbered dirs) |
 | Project docs | `docs/` |
 | Web 站点 (Phase 7 产物) | `web/` (Astro; prod sdtm-pedia.pages.dev) |
-| 历史归档 (只读, 不再维护) | `archive/` (含 old_knowledge_base_v0/ + legacy_logs/) |
+| 历史归档 (只读, 不再维护) | `milestones/archive/` (含 old_knowledge_base_v0/ + legacy_logs/) |
 | Agent 进入指引 | `.work/AGENT_GUIDE.md` |
 | Page index (authoritative) | `.work/02_indexing/page_index.json` |
 | Verification plan | `.work/03_verification/plan.md` |
@@ -73,24 +75,24 @@ Full chain definitions are in `.work/MANIFEST.md`.
 | TODO (Phase 6) | `.work/04_optimization/retrieval_optimization.md` |
 | Phase 7 设计文档 | `docs/DESIGN_RAG_KG.md` |
 | Phase 7 session 记录 | `.work/05_rag_kg/session_2026-04-16_design.md` |
-| 06 Deep Verification 入口 | `branches/06_deep_verification/PLAN.md` (字面级 PDF→KB 深审; 详细见 §06 Deep Verification 段) |
-| 06 Deep Verification schema | `branches/06_deep_verification/schema/{atom,ledger}_schema.json` (frozen JSON Schema 2020-12) |
-| 06 P4b sub-plan (完成) | `branches/06_deep_verification/plans/P4b_section_aggregation.md` (节聚合, section_coverage.jsonl) |
-| Phase 6.5 多平台部署 (CLOSED 冻结) | `ai_platforms/` (4 平台 current/+dev/; SYNC_BOARD.md + retrospectives/ 只读) — 线收口不再更新 |
-| Phase 6.5 Release v1.0-v1.4 (CLOSED) | `release/v1.{0-4}/` + `.work/07_release{,_v1_1,_v1_3,_v1_4}/` (终态 tag `v1.4-company-release`) |
-| METHODOLOGY 公开声明 | `METHODOLOGY.md` + `release/v1.{0,1}/METHODOLOGY.{en,zh,ja}.md` |
-| 07 Website Phases 6-8 (closed) | `.work/07_website/phase{6,7,8}/` + handoffs `.work/meta/website_phase*_handoff_*.md`; prod https://sdtm-pedia.pages.dev/ || Phase 7 RAG+KG 旁枝 | `branches/07_rag_kg/PLAN.md` (Phase 1 CLOSED 53q 88.5%; sdtm-rag/ 代码仓, Chain 07_RAG) |
-| Phase 7 检索质量 (检索 99% + (d) 通道) | `branches/07_rag_kg/TODO_retrieval_quality.md` §5/§6; 收口 `sdtm-rag/evidence/checkpoints/{s4_full_eval_closure,d_channel_concept_definition}.md` (q126 永久 known limit) |
-| Phase 7 答题侧护栏 (DONE) | `branches/07_rag_kg/sdtm-rag/evidence/checkpoints/guardrail_v2_summary.md`; 确定性码闸 `eval/prod_wirein/check_code_grounding.py` |
-| Phase 7 本地部署+多模型对比 规划 | `branches/07_rag_kg/sdtm-rag/DEPLOY_PLAN.md` — launchd 部署 + 对比/裁判 (§3 阶段3 工程件 DONE+审; go-live 待 IT) |
-| Phase 7 阶段3 共享 (工程件+go-live runbook) | `branches/07_rag_kg/sdtm-rag/deploy/` (deploy.sh + 0.0.0.0 plist 模板 + README runbook); 登录门 `server/auth.py`; 证据 `evidence/checkpoints/phase3_share_hardening.md` |
-| Phase 7 Chat UI (单模型流式前端) | `branches/07_rag_kg/sdtm-rag/webchat/` + `PLAN_chat_ui.md`; prod localhost:8000 (launchd); ⚑ dogfood 失败捕获 (`POST /api/flag` → `dogfood_failures.md`, 优先级 backlog) |
-| Phase 7 KG 重启 (SP1-5+AGG DONE 全线收官) | `branches/07_rag_kg/sdtm-rag/KG_ROADMAP.md` — SP1-5+AGG 全 DONE (2026-07-09); SP5 图增强校验器 `server/graph_validator.py` + `POST /api/validate-study`; 路由词无剩余单元, 新图能力需 brainstorm |
+| 06 Deep Verification 入口 | `milestones/06_deep_verification/PLAN.md` (字面级 PDF→KB 深审; 详细见 §06 Deep Verification 段) |
+| 06 Deep Verification schema | `milestones/06_deep_verification/schema/{atom,ledger}_schema.json` (frozen JSON Schema 2020-12) |
+| 06 P4b sub-plan (完成) | `milestones/06_deep_verification/plans/P4b_section_aggregation.md` (节聚合, section_coverage.jsonl) |
+| Phase 6.5 多平台部署 (CLOSED 冻结) | `milestones/ai_platforms/` (4 平台 current/+dev/; SYNC_BOARD.md + retrospectives/ 只读) — 线收口不再更新 |
+| Phase 6.5 Release v1.0-v1.4 (CLOSED) | `milestones/release/v1.{0-4}/` + `.work/07_release{,_v1_1,_v1_3,_v1_4}/` (终态 tag `v1.4-company-release`) |
+| METHODOLOGY 公开声明 | `METHODOLOGY.md` + `milestones/release/v1.{0,1}/METHODOLOGY.{en,zh,ja}.md` |
+| 07 Website Phases 6-8 (closed) | `.work/07_website/phase{6,7,8}/` + handoffs `.work/meta/website_phase*_handoff_*.md`; prod https://sdtm-pedia.pages.dev/ || Phase 7 RAG+KG 旁枝 | `milestones/07_rag_kg/PLAN.md` (Phase 1 CLOSED 53q 88.5%; sdtm-rag/ 代码仓, Chain 07_RAG) |
+| Phase 7 检索质量 (检索 99% + (d) 通道) | `milestones/07_rag_kg/TODO_retrieval_quality.md` §5/§6; 收口 `sdtm-rag/evidence/checkpoints/{s4_full_eval_closure,d_channel_concept_definition}.md` (q126 永久 known limit) |
+| Phase 7 答题侧护栏 (DONE) | `sdtm-rag/evidence/checkpoints/guardrail_v2_summary.md`; 确定性码闸 `eval/prod_wirein/check_code_grounding.py` |
+| Phase 7 本地部署+多模型对比 规划 | `sdtm-rag/DEPLOY_PLAN.md` — launchd 部署 + 对比/裁判 (§3 阶段3 工程件 DONE+审; go-live 待 IT) |
+| Phase 7 阶段3 共享 (工程件+go-live runbook) | `sdtm-rag/deploy/` (deploy.sh + 0.0.0.0 plist 模板 + README runbook); 登录门 `server/auth.py`; 证据 `evidence/checkpoints/phase3_share_hardening.md` |
+| Phase 7 Chat UI (单模型流式前端) | `sdtm-rag/webchat/` + `PLAN_chat_ui.md`; prod localhost:8000 (launchd); ⚑ dogfood 失败捕获 (`POST /api/flag` → `dogfood_failures.md`, 优先级 backlog) |
+| Phase 7 KG 重启 (SP1-5+AGG DONE 全线收官) | `sdtm-rag/KG_ROADMAP.md` — SP1-5+AGG 全 DONE (2026-07-09); SP5 图增强校验器 `server/graph_validator.py` + `POST /api/validate-study`; 路由词无剩余单元, 新图能力需 brainstorm |
 | Phase 7 SP6 隐性关系 + 网状查看器 (2026-07-10) | 挖掘管线 `sdtm-rag/scripts/mine_implicit_relations.py` → `data/meta/implicit_relations.json` (30 advisory 边, 分层反捏造闸, 不碰 meta.yaml); 网状查看器 `sdtm-rag/scripts/build_kg_viewer.py` → `kg_viewer.html`; spec/plan `docs/superpowers/*2026-07-10-sp6-*` |
 
 ## AI 平台多平台部署 (CLOSED 冻结 2026-06-15)
 
-多平台部署线 (`ai_platforms/`: ChatGPT / Gemini / NotebookLM / Claude Projects + 双平台锁步 + Release v1.x) **已收口冻结, 以后不再更新** (用户决策 2026-06-15). 终态: 4 平台 signed-off + Release 截至 `v1.4-company-release` (Gemini MAINTAINED_NO_SANITY_TEST); v1.5 候选全部放弃. 原锁步 gate / session 启动自动动作规则**作废**, 不再强制任何 session 动作. 历史只读: `ai_platforms/SYNC_BOARD.md` + `ai_platforms/retrospectives/` + `release/v1.{0-4}/`.
+多平台部署线 (`milestones/ai_platforms/`: ChatGPT / Gemini / NotebookLM / Claude Projects + 双平台锁步 + Release v1.x) **已收口冻结, 以后不再更新** (用户决策 2026-06-15). 终态: 4 平台 signed-off + Release 截至 `v1.4-company-release` (Gemini MAINTAINED_NO_SANITY_TEST); v1.5 候选全部放弃. 原锁步 gate / session 启动自动动作规则**作废**, 不再强制任何 session 动作. 历史只读: `milestones/ai_platforms/SYNC_BOARD.md` + `milestones/ai_platforms/retrospectives/` + `milestones/release/v1.{0-4}/`.
 
 ## Session Wrap-up (收尾)
 
