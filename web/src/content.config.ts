@@ -2,7 +2,7 @@ import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 import path from 'node:path';
 
-const RELEASE_DIR = path.resolve('../release/v1.4');
+const RELEASE_DIR = path.resolve('../milestones/release/v1.4');
 
 const guide = defineCollection({
   loader: glob({

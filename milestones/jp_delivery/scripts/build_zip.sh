@@ -1,24 +1,24 @@
 #!/usr/bin/env bash
-# branches/jp_delivery/scripts/build_zip.sh — pack iTMS deliverable zip.
+# milestones/jp_delivery/scripts/build_zip.sh — pack iTMS deliverable zip.
 #
 # Pulls from single source of truth:
 #   release/$VERSION/                      (md + self_deploy/)
-#   branches/jp_delivery/*.xlsx            (6 xlsx, produced by build_xlsx.py)
+#   milestones/jp_delivery/*.xlsx            (6 xlsx, produced by build_xlsx.py)
 #
 # Output:
-#   branches/jp_delivery/deliverable/YYYYMMDD_iTMS_SDTM_進捗版_$VERSION.zip
+#   milestones/jp_delivery/deliverable/YYYYMMDD_iTMS_SDTM_進捗版_$VERSION.zip
 #   + .sha256
 #
 # Usage:
-#   branches/jp_delivery/scripts/build_zip.sh [VERSION]
-#   branches/jp_delivery/scripts/build_zip.sh v1.0
+#   milestones/jp_delivery/scripts/build_zip.sh [VERSION]
+#   milestones/jp_delivery/scripts/build_zip.sh v1.0
 
 set -euo pipefail
 
 VERSION="${1:-v1.0}"
 REPO_ROOT="$(cd "$(dirname "$0")/../../.." && pwd)"
-JP_ROOT="$REPO_ROOT/branches/jp_delivery"
-RELEASE_DIR="$REPO_ROOT/release/$VERSION"
+JP_ROOT="$REPO_ROOT/milestones/jp_delivery"
+RELEASE_DIR="$REPO_ROOT/milestones/release/$VERSION"
 OUT_DIR="$JP_ROOT/deliverable"
 DATE_STAMP="$(date +%Y%m%d)"
 ZIP_NAME="${DATE_STAMP}_iTMS_SDTM_進捗版_${VERSION}.zip"
