@@ -7,5 +7,5 @@
 | 3 | 管线实测 (静默指空强制检查) | PASS — `reconcile_meta.py` 8/8 锚: 63 域 / 1917 / 1523 / 1005 / 37939 / TAETORD→43 / VISITDY→36 / 裸 Order 1917 |
 | 4 | pytest 复跑 | PASS — **525 passed, 0 failed** (17.3s; 迁移前 521, +4 = 旧布局下静默 skip 的测试现真跑) |
 | 5 | subagent dry-run | (见 step_dryrun_agent.md) |
-| 6 | push + CF | push OK (2380da4..f66d074 + tag pre-restructure-v3); prod 基线 200 (/zh/); 本地同配置 build 已过 (T9), CF 新构建结果待数分钟后复查 |
+| 6 | push + CF | PASS — push OK (2380da4..f66d074 + tag pre-restructure-v3); prod 200 (/zh/); 本地同配置 build 过 (T9); **CF dashboard 最新构建绿 (用户确认 2026-07-21)** — release/→milestones/release/ 改动线上构建闭环 |
 | 7 | git 状态 | 工作树净; 段级 commit 链完整; tag pre-restructure-v3 已推 |
