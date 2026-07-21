@@ -11,7 +11,7 @@ import pytest
 
 from scripts.chunkers.chapters import ChaptersChunker
 
-KB_ROOT = Path(__file__).resolve().parents[5] / "knowledge_base"
+KB_ROOT = Path(__file__).resolve().parents[3] / "knowledge_base"
 CHAPTERS_DIR = KB_ROOT / "chapters"
 
 

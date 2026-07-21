@@ -16,7 +16,7 @@ from server.config import settings
 from server.meta_store import MetaStore
 from server.structured_lookup import StructuredLookup
 
-KB_ROOT = Path(__file__).resolve().parents[5] / "knowledge_base"
+KB_ROOT = Path(__file__).resolve().parents[3] / "knowledge_base"
 
 
 @pytest.fixture(scope="module")

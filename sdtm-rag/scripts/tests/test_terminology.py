@@ -12,7 +12,7 @@ import pytest
 
 from scripts.chunkers.terminology import TerminologyChunker
 
-KB_ROOT = Path(__file__).resolve().parents[5] / "knowledge_base"
+KB_ROOT = Path(__file__).resolve().parents[3] / "knowledge_base"
 CORE_DIR = KB_ROOT / "terminology" / "core"
 QUEST_DIR = KB_ROOT / "terminology" / "questionnaires"
 SUPP_DIR = KB_ROOT / "terminology" / "supplementary"

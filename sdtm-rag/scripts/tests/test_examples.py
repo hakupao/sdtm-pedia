@@ -12,7 +12,7 @@ import pytest
 from scripts.chunkers.examples import ExamplesChunker
 from scripts.chunkers.base import find_mermaid_blocks, find_table_blocks
 
-KB_ROOT = Path(__file__).resolve().parents[5] / "knowledge_base"
+KB_ROOT = Path(__file__).resolve().parents[3] / "knowledge_base"
 DOMAINS_DIR = KB_ROOT / "domains"
 
 

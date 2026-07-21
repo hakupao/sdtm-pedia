@@ -26,7 +26,7 @@ from scripts.chunkers.base import (
 # Fixtures
 # ---------------------------------------------------------------------------
 
-KB_ROOT = Path(__file__).resolve().parents[5] / "knowledge_base"
+KB_ROOT = Path(__file__).resolve().parents[3] / "knowledge_base"
 TA_EXAMPLES = KB_ROOT / "domains" / "TA" / "examples.md"
 PC_EXAMPLES = KB_ROOT / "domains" / "PC" / "examples.md"
 

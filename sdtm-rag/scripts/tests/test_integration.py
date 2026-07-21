@@ -11,7 +11,7 @@ import pytest
 
 from scripts.chunkers import CHUNKER_REGISTRY
 
-KB_ROOT = Path(__file__).resolve().parents[5] / "knowledge_base"
+KB_ROOT = Path(__file__).resolve().parents[3] / "knowledge_base"
 
 _EXPECTED_META_KEYS = {
     "source", "chunk_index", "file_type", "domain", "class",

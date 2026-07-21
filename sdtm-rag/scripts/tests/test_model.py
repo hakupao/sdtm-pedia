@@ -11,7 +11,7 @@ import pytest
 
 from scripts.chunkers.model import ModelChunker
 
-KB_ROOT = Path(__file__).resolve().parents[5] / "knowledge_base"
+KB_ROOT = Path(__file__).resolve().parents[3] / "knowledge_base"
 MODEL_DIR = KB_ROOT / "model"
 
 MODEL_FILES = [
