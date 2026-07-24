@@ -30,11 +30,14 @@ def test_pan_reset_does_not_kill_node_click():
     assert "drag" not in pan_reset
 
 
-def test_layout_comes_to_rest():
-    # alpha 带 0.02 永久下限时模拟永不停 → 节点持续乱动;
-    # 必须衰减穿过 ALPHA_MIN 并让 frame 停止 tick (交互反加热恢复).
-    assert "alpha=0.02" not in V.TEMPLATE
-    assert "running&&alpha>ALPHA_MIN" in V.TEMPLATE
+def test_no_persistent_physics():
+    # 物理引擎(tick/frame/seed 及其常驻 requestAnimationFrame 自循环)已整体退役;
+    # 四视图统一走确定性定位 + animateTo 补间收敛, 不应再有常驻 RAF 循环.
+    t = V.TEMPLATE
+    assert "requestAnimationFrame(frame)" not in t      # 物理循环已删
+    assert "function tick(" not in t and "function seed(" not in t
+    assert "function animateTo(" in t                   # 补间引擎在
+    assert "easeOutCubic" in t
 
 
 def test_explore_seed_and_auto_expand():
@@ -44,9 +47,10 @@ def test_explore_seed_and_auto_expand():
     assert "expandNode(cur.seed" in V.TEMPLATE
 
 
-def test_expand_follows_hard_edges_first():
-    # spec §5: 展开按 硬边邻居 > 高置信推断邻居 优先级; 只沿隐性边会让
-    # 无隐性覆盖的域 (如 AE) 点击无响应.
+def test_expand_anchors_accumulate():
+    # spec §5: 展开按 硬边邻居 > 高置信推断邻居 优先级 (不变); 且展开必须设置
+    # exploreAnchor, 供 exploreTargets() 分派到锚定累积 (旧节点原位不动, 新
+    # 节点落 anchor 周围空槽), 消除"点一下到处飞"的爆炸感.
     fn = V.TEMPLATE.split("function expandNode(code)")[1].split("\n}")[0]
-    assert "relBySrc" in fn
-    assert "confidence" in fn
+    assert "relBySrc" in fn and "confidence" in fn      # 展开优先级不变
+    assert "exploreAnchor" in fn                        # 锚定累积语义
