@@ -547,3 +547,34 @@ per-task TDD 审阅 (每任务 implementer+reviewer, 多轮修) + **Rule A opus 
 
 ### next
 **SP6 收口。** 隐性关系是 advisory 层与 meta.yaml 硬软分层。可选扩展 (全 63 域 / 更多边类型 / webchat 嵌图 / RAG 常态化) 均属新设计单元, 需另起 brainstorm。合并 main 未 push (用户选本地合并)。
+
+
+---
+
+## SP7 KG 查看器 UX 重构 (2026-07-24) — subagent-driven 9 task + fit/visual/polish + ovlabel
+
+用户抱怨 `kg_viewer.html` "点一下到处飞到处弹"。诊断: 力导向物理常驻 (`frame` rAF 循环) + 每次交互全量重排 (`seed` 螺旋播种 + `alpha=1`)。重构为**每视图确定性布局 + 缓动补间 + 无常驻物理**。分支 `kg-viewer-ux-redesign` (e6f7fe1 → merged)。spec/plan `docs/superpowers/*2026-07-24-kg-viewer-ux*`。
+
+### 交付
+- **源码拆分**: 单文件 `TEMPLATE` → `sdtm-rag/viewer/{template.html,style.css,layout.mjs,app.js}`, build 单遍 `re.sub` 内联 (产物仍零依赖离线单 HTML; `TEMPLATE` 模块属性保留供既有 pytest)。**勿手改 `kg_viewer.html`, 改 viewer/* 重新生成。**
+- **纯定位模块** `layout.mjs` (DOM-free, `node --test` 15 例): positionOverview(放射星座) / positionDomain(左→右分层轨道) / positionImpact(轮辐) / positionExploreFresh(ego 雷达 BFS 分环) / positionExploreAccumulate(锚定累积)。
+- **补间引擎** `animateTo` 替代物理; 退役 tick/frame/seed/物理常数。
+- **explore 锚定累积**: 展开只加新邻居到 anchor 周围, 已有节点零位移 (实测 MAXΔ=0.00px; 代数证明 accumulate value-copy → start==target → lerp 塌缩到 a)。
+- **精密仪器视觉**: 发丝网格 / 信号色 amber(落 8 类色外) / 等宽码值 / 标线环 reticle / 边辉光 / 面板棱; 暗色优先双主题, CVD `--c1..--c8` 保留。
+- **fit-to-content** 自动取景 (content-key gate: 换视图/域/码表/seed 重取景; explore 展开不重取景; 整理/resize 重取景)。
+- **overview 域码按需显隐** (hover 焦点+邻居 / 缩放 T.k≥1.3 全显; 解 Findings 30 域标签重叠 — 用户决策)。
+- 面板 sticky 头 (负 margin flush) + 搜索回车居中。
+
+### 验证 / 治理
+- `node --test` 15/15 + `pytest` 6/6 (含新 `test_no_persistent_physics`) + 全仓 525 无回归; `kg_viewer.html` 与源逐字节一致 (regen no-op 反复查)。
+- **规则 D**: 每 task executor/reviewer 异 subagent 异 session; **opus 全分支终审 READY WITH FOLLOW-UPS** (6 硬不变量全 HOLD: no-explode/纯函数/零依赖/CVD双主题/物理删净/layout 未被视觉触碰)。
+- **规则 B**: review 抓到的真缺陷当轮修 — T3 拖拽不重绘 CRITICAL (draw() 只在物理循环) / T8a 重生成 html 脱漏提交 CRITICAL (HEAD 静默退回旧逻辑) / T9 sticky 双 padding。轨迹 `.superpowers/sdd/progress.md` + `task-*-report.md`。
+- **规则 C**: RETROSPECTIVE `docs/superpowers/2026-07-24-sp7-kg-viewer-ux-RETROSPECTIVE.md` (三段)。evidence `sdtm-rag/evidence/checkpoints/kg_viewer_ux_redesign.md`。
+
+### 关键教训 (进谱系)
+- **"生成物必须与源同步" 当硬约束反复查**: T8a fix 只提交 app.js 漏提交重生成 html → HEAD 静默退回旧逻辑, headless 却 PASS (测的是未提交工作区)。派单必须 `git add 源+产物` 且 commit 后 status 必空回贴。
+- **controller 自写 spec 也有 bug 且会被忠实实现**: fit `freshView` coarse `cur.v`-only / sticky 漏负 margin / 整理·resize 漏重取景 → 审阅者(实测 29px)+实现者(主动 flag)比 brief 更靠谱。
+- **headless 验证陷阱**: `--virtual-time-budget` 挂 rAF; 晚触 resize→render 清面板/重置 .zoomed; CSS `transition` 令 sync opacity 读数偏 0 → 用 `transition:none` + sync 读破之。
+
+### next
+SP7 收口, 合并 main。overview 密集类曾评估"松包破 nearest-hub 不变量" → 用户选 hover/缩放显域码 (已实现)。视觉偏克制, 若要更鲜明性格可再加强 (已知方向)。可选扩展 (整理/resize 已修; M2/M3 已闭) 无剩余单元。
