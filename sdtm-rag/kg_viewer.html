@@ -443,7 +443,7 @@ function startDrag(n,ev){ ev.stopPropagation(); drag=n; n.fix=1;
   const sx=ev.clientX,sy=ev.clientY; let moved=0;
   const move=e=>{ if(!drag)return; moved=Math.max(moved,Math.hypot(e.clientX-sx,e.clientY-sy));
     const r=svg.getBoundingClientRect();
-    n.x=(e.clientX-r.left-T.x)/T.k; n.y=(e.clientY-r.top-T.y)/T.k; alpha=Math.max(alpha,.5); };
+    n.x=(e.clientX-r.left-T.x)/T.k; n.y=(e.clientY-r.top-T.y)/T.k; alpha=Math.max(alpha,.5); draw(); };
   const up=()=>{ if(drag){drag.fix=0; if(moved<4){ if(cur.v==="explore"&&n.type==="domain")expandNode(n.label); else openPanel(n); } drag=null;} removeEventListener("pointermove",move); removeEventListener("pointerup",up); };
   addEventListener("pointermove",move); addEventListener("pointerup",up);
 }
