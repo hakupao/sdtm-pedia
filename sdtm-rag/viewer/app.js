@@ -103,31 +103,8 @@ function expandNode(code){
   cur.v="explore"; render();
 }
 
-// ---- force simulation ----
-let N=[],E=[],byId=new Map(),alpha=1,running=true,raf=0;
-const REP=11000,REST=94,SPRING=.045,GRAV=.011,DAMP=.88,CENTER={x:0,y:0},ALPHA_MIN=0.001;
-function seed(nodes){
-  const R=Math.min(innerWidth,innerHeight)*0.44;
-  nodes.forEach((n,i)=>{const a=i*2.399963;const r=R*Math.sqrt((i+1)/nodes.length);
-    n.x=CENTER.x+r*Math.cos(a); n.y=CENTER.y+r*Math.sin(a); n.vx=0; n.vy=0;});
-}
-function tick(){
-  const n=N.length;
-  for(let i=0;i<n;i++){const a=N[i]; if(a.fix)continue;
-    for(let j=i+1;j<n;j++){const b=N[j];
-      let dx=a.x-b.x,dy=a.y-b.y,d2=dx*dx+dy*dy||.01; if(d2>500000)continue;
-      const f=REP*alpha/d2,dd=Math.sqrt(d2),fx=dx/dd*f,fy=dy/dd*f;
-      a.vx+=fx;a.vy+=fy; if(!b.fix){b.vx-=fx;b.vy-=fy;} }
-  }
-  for(const e of E){const a=e.a,b=e.b; let dx=b.x-a.x,dy=b.y-a.y,dd=Math.hypot(dx,dy)||.01;
-    const f=(dd-REST)*SPRING*alpha,fx=dx/dd*f,fy=dy/dd*f;
-    if(!a.fix){a.vx+=fx;a.vy+=fy;} if(!b.fix){b.vx-=fx;b.vy-=fy;} }
-  for(const a of N){ if(a.fix)continue;
-    a.vx+=(CENTER.x-a.x)*GRAV*alpha; a.vy+=(CENTER.y-a.y)*GRAV*alpha;
-    a.vx*=DAMP; a.vy*=DAMP; a.x+=a.vx; a.y+=a.vy; }
-  alpha*=0.985;
-}
-function frame(){ if(running&&alpha>ALPHA_MIN){ for(let k=0;k<2;k++)tick(); draw(); } raf=requestAnimationFrame(frame); }
+// ---- graph state ----
+let N=[],E=[],byId=new Map();
 
 // ---- deterministic layout + tween engine ----
 function viewport(){ const r = svg.getBoundingClientRect(); return {width:r.width, height:r.height}; }
@@ -151,7 +128,6 @@ const LAYOUT = {
   overview: view => positionOverview(view, viewport()),
   domain:   view => positionDomain(view, viewport()),
   impact:   view => positionImpact(view, viewport()),
-  explore:  true,   // 占位：explore 是有状态视图，实际定位由 exploreTargets() 分派（依赖 prevPos，非纯 view→targets）
 };
 function exploreTargets(view){
   const vp = viewport();
@@ -180,11 +156,10 @@ function makeNodeShape(n){
   return c;
 }
 function build(view){
-  cancelAnimationFrame(raf);
+  cancelAnimationFrame(tweenRAF);
   gEdges.textContent=""; gNodes.textContent="";
   N=view.nodes.map(n=>({...n})); byId=new Map(N.map(n=>[n.id,n]));
   E=view.edges.map(e=>({a:byId.get(e.s),b:byId.get(e.t),adv:e.adv,layer:e.layer,dir:e.dir,ev:e.ev})).filter(e=>e.a&&e.b);
-  seed(N);
   for(const e of E){
     let l;
     if(e.layer&&e.layer!=="hard"){
@@ -209,20 +184,12 @@ function build(view){
     g.addEventListener("pointerdown",ev=>startDrag(n,ev));
     gNodes.appendChild(g);
   }
-  $("#count").textContent=N.length+" 节点 · "+E.length+" 边";
-  $("#sub").textContent=view.title;
-  const det = LAYOUT[cur.v];
+  $("#count").textContent=N.length+" 节点 · "+E.length+" 边"; $("#sub").textContent=view.title;
   resetZoom();
-  if(det){
-    const targets = cur.v==="explore" ? exploreTargets(view) : det(view);
-    for(const n of N){ const tg=targets[n.id]; if(tg){ n.x=tg.x; n.y=tg.y; } }  // 首帧即到位（无入场跳动）
-    draw();
-    lastPos = {...targets};
-    running=false; $("#physBtn").textContent="⤺ 整理";   // 确定性视图：物理关，按钮语义暂改（Task 7 定稿）
-  } else {
-    alpha=1; running=true; $("#physBtn").textContent="⏸ 布局";
-    raf=requestAnimationFrame(frame);
-  }
+  const targets = cur.v==="explore" ? exploreTargets(view) : LAYOUT[cur.v](view);
+  for(const n of N){ const tg=targets[n.id]; const prev=lastPos[n.id];
+    if(prev){ n.x=prev.x; n.y=prev.y; } else if(exploreAnchor&&lastPos[exploreAnchor]){ n.x=lastPos[exploreAnchor].x; n.y=lastPos[exploreAnchor].y; } else { n.x=tg.x; n.y=tg.y; } }
+  draw(); animateTo(targets); lastPos={...targets};
   applyLayerToggles();
 }
 
@@ -246,7 +213,7 @@ function esc(s){return (s+"").replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"
 // ---- zoom / pan ----
 let T={k:1,x:0,y:0};
 function applyT(){ vp.setAttribute("transform","translate("+T.x+","+T.y+") scale("+T.k+")"); }
-function resetZoom(){ const r=svg.getBoundingClientRect(); T={k:1,x:r.width/2,y:r.height/2}; CENTER.x=0;CENTER.y=0; applyT(); }
+function resetZoom(){ const r=svg.getBoundingClientRect(); T={k:1,x:r.width/2,y:r.height/2}; applyT(); }
 svg.addEventListener("wheel",ev=>{ ev.preventDefault(); const r=svg.getBoundingClientRect();
   const mx=ev.clientX-r.left,my=ev.clientY-r.top; const s=Math.exp(-ev.deltaY*0.0015);
   const k=Math.max(.15,Math.min(4,T.k*s)); T.x=mx-(mx-T.x)*(k/T.k); T.y=my-(my-T.y)*(k/T.k); T.k=k; applyT(); },{passive:false});
@@ -258,12 +225,12 @@ addEventListener("pointerup",()=>{ pan=null; svg.classList.remove("panning"); })
 
 // ---- node drag ----
 let drag=null;
-function startDrag(n,ev){ ev.stopPropagation(); drag=n; n.fix=1;
+function startDrag(n,ev){ ev.stopPropagation(); drag=n;
   const sx=ev.clientX,sy=ev.clientY; let moved=0;
   const move=e=>{ if(!drag)return; moved=Math.max(moved,Math.hypot(e.clientX-sx,e.clientY-sy));
     const r=svg.getBoundingClientRect();
-    n.x=(e.clientX-r.left-T.x)/T.k; n.y=(e.clientY-r.top-T.y)/T.k; alpha=Math.max(alpha,.5); draw(); };
-  const up=()=>{ if(drag){drag.fix=0; if(moved<4){ if(cur.v==="explore"&&n.type==="domain")expandNode(n.label); else openPanel(n); } drag=null;} removeEventListener("pointermove",move); removeEventListener("pointerup",up); };
+    n.x=(e.clientX-r.left-T.x)/T.k; n.y=(e.clientY-r.top-T.y)/T.k; lastPos[n.id]={x:n.x,y:n.y}; draw(); };
+  const up=()=>{ if(drag){ if(moved<4){ if(cur.v==="explore"&&n.type==="domain")expandNode(n.label); else openPanel(n); } drag=null;} removeEventListener("pointermove",move); removeEventListener("pointerup",up); };
   addEventListener("pointermove",move); addEventListener("pointerup",up);
 }
 
@@ -291,6 +258,8 @@ function syncUI(){
   $("#hint").textContent=cur.v==="explore"
     ? "点击域节点展开邻居 · 拖拽 · 滚轮缩放 · 空白平移 · 上方图层开关可隐藏边"
     : "悬停看全名 · 点击节点看关系 · 拖拽 · 滚轮缩放 · 空白平移";
+  $("#physBtn").classList.toggle("hide", cur.v!=="explore");
+  if(cur.v==="explore") $("#physBtn").textContent="⤺ 整理";
 }
 $("#views").addEventListener("click",ev=>{ const b=ev.target.closest("button"); if(!b)return;
   if(b.dataset.v==="explore"&&cur.v!=="explore"){ window.__expanded=new Set(); exploreAnchor=null; lastPos={}; expandNode(cur.seed||"TU"); return; } // fresh entry: 自动展开种子一跳
@@ -397,12 +366,12 @@ $("#panel").addEventListener("click",ev=>{ if(ev.target.id==="pClose"){closePane
   const el=ev.target.closest("[data-code]"); if(el){ if(el.classList.contains("navcode"))nav("impact",el.dataset.code); else nav("domain",el.dataset.code); return; }
   const re=ev.target.closest("[data-eid]"); if(re){ const e=implicitById.get(re.dataset.eid); if(e)openEvidence(e); } });
 $("#physBtn").addEventListener("click",()=>{
-  if(cur.v==="explore"){ exploreAnchor=null;
-    const view=vExplore(cur.seed||"TU"), targets=positionExploreFresh(view, viewport(), {seedId:"D:"+(cur.seed||"TU")});
-    lastPos={...targets}; animateTo(targets); return; }
-  running=!running; if(running){alpha=Math.max(alpha,.4);} $("#physBtn").textContent=(running?"⏸":"▶")+" 布局";
+  if(cur.v!=="explore")return;
+  exploreAnchor=null;
+  const view=vExplore(cur.seed||"TU"), targets=positionExploreFresh(view, viewport(), {seedId:"D:"+(cur.seed||"TU")});
+  lastPos={...targets}; animateTo(targets);
 });
-$("#fitBtn").addEventListener("click",()=>{ resetZoom(); alpha=Math.max(alpha,.5); });
+$("#fitBtn").addEventListener("click",()=>{ resetZoom(); });
 $("#themeBtn").addEventListener("click",()=>{ const cur=document.documentElement.dataset.theme;
   const next=cur==="dark"?"light":cur==="light"?"":"dark"; if(next)document.documentElement.dataset.theme=next; else document.documentElement.removeAttribute("data-theme");
   refreshColors(); });

@@ -30,11 +30,14 @@ def test_pan_reset_does_not_kill_node_click():
     assert "drag" not in pan_reset
 
 
-def test_layout_comes_to_rest():
-    # alpha 带 0.02 永久下限时模拟永不停 → 节点持续乱动;
-    # 必须衰减穿过 ALPHA_MIN 并让 frame 停止 tick (交互反加热恢复).
-    assert "alpha=0.02" not in V.TEMPLATE
-    assert "running&&alpha>ALPHA_MIN" in V.TEMPLATE
+def test_no_persistent_physics():
+    # 物理引擎(tick/frame/seed 及其常驻 requestAnimationFrame 自循环)已整体退役;
+    # 四视图统一走确定性定位 + animateTo 补间收敛, 不应再有常驻 RAF 循环.
+    t = V.TEMPLATE
+    assert "requestAnimationFrame(frame)" not in t      # 物理循环已删
+    assert "function tick(" not in t and "function seed(" not in t
+    assert "function animateTo(" in t                   # 补间引擎在
+    assert "easeOutCubic" in t
 
 
 def test_explore_seed_and_auto_expand():
