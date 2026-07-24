@@ -67,6 +67,9 @@ svg.panning{cursor:grabbing}
   stroke:var(--surface);stroke-width:3px;stroke-linejoin:round;pointer-events:none;user-select:none}
 .node.big text{font-size:12px;font-weight:700}
 .node text.mono{font-family:ui-monospace,"SF Mono",monospace}
+.node text.ovlabel{opacity:0;transition:opacity .1s}
+svg.zoomed .node text.ovlabel{opacity:1}
+.node.showlabel text.ovlabel{opacity:1}
 .node circle,.node rect{stroke:var(--nodeStroke);stroke-width:1.25}
 .reticle{pointer-events:none;opacity:.9}
 .dim{opacity:.12;transition:opacity .12s}

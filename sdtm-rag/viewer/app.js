@@ -178,6 +178,7 @@ function build(view){
     g.appendChild(makeNodeShape(n));
     const t=document.createElementNS(SVGNS,"text");
     t.setAttribute("y",n.r+11); t.setAttribute("text-anchor","middle"); t.textContent=n.label;
+    if(cur.v==="overview" && n.type==="domain") t.classList.add("ovlabel");
     if(n.type==="code"||n.type==="domain") t.classList.add("mono");
     g.appendChild(t);
     g.addEventListener("pointerenter",ev=>hover(n,ev));
@@ -203,7 +204,7 @@ function build(view){
 function neighbors(n){const s=new Set([n.id]); for(const e of E){ if(e.a===n)s.add(e.b.id); if(e.b===n)s.add(e.a.id);} return s;}
 function removeReticle(){ const old=gNodes.querySelector(".reticle"); if(old)old.remove(); }
 function hover(n,ev){ const keep=neighbors(n);
-  for(const m of N) m.g.classList.toggle("dim",!keep.has(m.id));
+  for(const m of N){ m.g.classList.toggle("dim",!keep.has(m.id)); m.g.classList.toggle("showlabel",keep.has(m.id)); }
   for(const e of E) e.el.classList.toggle("dim",!(e.a===n||e.b===n));
   gNodes.parentNode.classList.add("hl");
   removeReticle();
@@ -218,13 +219,13 @@ function hover(n,ev){ const keep=neighbors(n);
 function moveTip(ev){ const p=12; let x=ev.clientX+p,y=ev.clientY+p;
   const b=tip.getBoundingClientRect(); if(x+b.width>innerWidth)x=ev.clientX-b.width-p;
   if(y+b.height>innerHeight)y=ev.clientY-b.height-p; tip.style.left=x+"px"; tip.style.top=y+"px"; }
-function unhover(){ for(const m of N)m.g.classList.remove("dim"); for(const e of E)e.el.classList.remove("dim");
+function unhover(){ for(const m of N){m.g.classList.remove("dim");m.g.classList.remove("showlabel");} for(const e of E)e.el.classList.remove("dim");
   gNodes.parentNode.classList.remove("hl"); removeReticle(); tip.style.opacity=0; applySearch(); }
 function esc(s){return (s+"").replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));}
 
 // ---- zoom / pan ----
 let T={k:1,x:0,y:0};
-function applyT(){ vp.setAttribute("transform","translate("+T.x+","+T.y+") scale("+T.k+")"); }
+function applyT(){ vp.setAttribute("transform","translate("+T.x+","+T.y+") scale("+T.k+")"); svg.classList.toggle("zoomed", T.k >= 1.3); }
 let lastTargets = {};
 function fitToTargets(targets, pad){
   pad = (pad==null) ? 90 : pad;
