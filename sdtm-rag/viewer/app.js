@@ -144,7 +144,10 @@ function animateTo(targets, {duration=380}={}){
   }
   tweenRAF = requestAnimationFrame(step);
 }
-const LAYOUT = { overview: view => positionOverview(view, viewport()) };
+const LAYOUT = {
+  overview: view => positionOverview(view, viewport()),
+  domain:   view => positionDomain(view, viewport()),
+};
 
 // ---- render ----
 function draw(){

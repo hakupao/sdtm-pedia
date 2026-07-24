@@ -30,3 +30,22 @@ export function positionOverview(view, vp) {
   }
   return pos;
 }
+
+// 域钻取：左→右分层轨道——域(左) → 变量(中，超阈值分两列) → 码表(右)。
+export function positionDomain(view, vp) {
+  const pos = {};
+  const vars = view.nodes.filter(n => n.type === "var");
+  const codes = view.nodes.filter(n => n.type === "code");
+  const domain = view.nodes.find(n => n.type === "domain");
+  const x0 = -vp.width * 0.28, x1 = 0, x2 = vp.width * 0.30, gap = 34, maxCol = 24;
+  const cols = vars.length > maxCol ? 2 : 1, per = Math.ceil(vars.length / cols) || 1;
+  vars.forEach((v, i) => {
+    const c = Math.floor(i / per), r = i % per;
+    const colH = (Math.min(per, vars.length - c * per) - 1) * gap;
+    pos[v.id] = { x: x1 + c * 70, y: -colH / 2 + r * gap };
+  });
+  const cH = (codes.length - 1) * gap;
+  codes.forEach((k, i) => pos[k.id] = { x: x2, y: -cH / 2 + i * gap });
+  if (domain) pos[domain.id] = { x: x0, y: 0 };
+  return pos;
+}

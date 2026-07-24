@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { easeOutCubic, lerp, positionOverview, CLASS_ORDER } from "../layout.mjs";
+import { easeOutCubic, lerp, positionOverview, CLASS_ORDER, positionDomain } from "../layout.mjs";
 
 const VP = { width: 1200, height: 800 };
 function overviewView() {
@@ -41,4 +41,25 @@ test("overview: 每个域离本类枢纽比离其他任何枢纽都近", () => {
 test("overview: 纯函数——两次调用完全一致", () => {
   const v = overviewView();
   assert.deepEqual(positionOverview(v, VP), positionOverview(v, VP));
+});
+
+function domainView(nVars) {
+  const nodes = [{ id: "D:AE", type: "domain", label: "AE", cls: "Events" }];
+  for (let i = 0; i < nVars; i++) nodes.push({ id: `V:v${i}`, type: "var", label: `v${i}` });
+  nodes.push({ id: "K:C1", type: "code", label: "C1" }, { id: "K:C2", type: "code", label: "C2" });
+  return { nodes, edges: [] };
+}
+test("domain: 三层 x 严格递增(域<变量<码表)", () => {
+  const p = positionDomain(domainView(5), VP);
+  const xVar = p["V:v0"].x, xCode = p["K:C1"].x, xDom = p["D:AE"].x;
+  assert.ok(xDom < xVar && xVar < xCode, "x 应 域<变量<码表");
+});
+test("domain: 变量超阈值分两列", () => {
+  const p = positionDomain(domainView(30), VP);
+  const xs = new Set(Array.from({length:30},(_,i)=>p[`V:v${i}`].x));
+  assert.equal(xs.size, 2, "30 变量应占 2 个 x 列");
+});
+test("domain: 纯函数", () => {
+  const v = domainView(12);
+  assert.deepEqual(positionDomain(v, VP), positionDomain(v, VP));
 });
