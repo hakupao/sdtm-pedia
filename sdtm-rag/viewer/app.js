@@ -395,7 +395,7 @@ $("#physBtn").addEventListener("click",()=>{
   if(cur.v!=="explore")return;
   exploreAnchor=null;
   const view=vExplore(cur.seed||"TU"), targets=positionExploreFresh(view, viewport(), {seedId:"D:"+(cur.seed||"TU")});
-  lastPos={...targets}; lastTargets={...targets}; animateTo(targets);
+  lastPos={...targets}; lastTargets={...targets}; fitToTargets(targets); animateTo(targets);
 });
 $("#fitBtn").addEventListener("click",()=>{ fitToTargets(lastTargets); });
 $("#themeBtn").addEventListener("click",()=>{ const cur=document.documentElement.dataset.theme;
@@ -428,5 +428,5 @@ function buildLegend(){
 }
 
 initSelects(); buildLegend(); render();
-addEventListener("resize",()=>{ if(cur.v)render(); });
+addEventListener("resize",()=>{ if(cur.v){ render(); fitToTargets(lastTargets); } });
 matchMedia("(prefers-color-scheme: dark)").addEventListener?.("change",refreshColors);
