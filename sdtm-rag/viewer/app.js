@@ -262,6 +262,7 @@ $("#search").addEventListener("input",applySearch);
 function centerOn(id){ const n=byId.get(id); if(!n)return; const r=svg.getBoundingClientRect();
   T.x=r.width/2 - n.x*T.k; T.y=r.height/2 - n.y*T.k; applyT(); }
 $("#search").addEventListener("keydown",e=>{ if(e.key!=="Enter")return;
+  if(!$("#search").value.trim())return;
   const hit=N.find(n=>!n.g.classList.contains("dim")); if(hit)centerOn(hit.id); });
 
 // ---- controls ----
