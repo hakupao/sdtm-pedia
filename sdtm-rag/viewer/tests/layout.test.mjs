@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { easeOutCubic, lerp, positionOverview, CLASS_ORDER, positionDomain, positionImpact } from "../layout.mjs";
+import { easeOutCubic, lerp, positionOverview, CLASS_ORDER, positionDomain, positionImpact, positionExploreFresh, positionExploreAccumulate } from "../layout.mjs";
 
 const VP = { width: 1200, height: 800 };
 function overviewView() {
@@ -82,4 +82,34 @@ test("impact: 单环时所有域到中心等距", () => {
 test("impact: 纯函数", () => {
   const v = impactView(20);
   assert.deepEqual(positionImpact(v, VP), positionImpact(v, VP));
+});
+
+function ring1View() {
+  return { nodes: [{id:"D:TU",type:"domain",label:"TU"},{id:"D:TR",type:"domain",label:"TR"},
+                    {id:"D:RS",type:"domain",label:"RS"},{id:"D:PR",type:"domain",label:"PR"}],
+           edges: [{s:"D:TU",t:"D:TR",layer:"flow"},{s:"D:TU",t:"D:RS",layer:"hard"},
+                   {s:"D:TU",t:"D:PR",layer:"cooc"}] };
+}
+test("exploreFresh: 种子居中", () => {
+  const p = positionExploreFresh(ring1View(), VP, { seedId: "D:TU" });
+  assert.ok(Math.hypot(p["D:TU"].x, p["D:TU"].y) < 1e-6);
+});
+test("exploreFresh: 一跳邻居等距成环", () => {
+  const p = positionExploreFresh(ring1View(), VP, { seedId: "D:TU" });
+  const rs = ["D:TR","D:RS","D:PR"].map(id => Math.hypot(p[id].x, p[id].y));
+  for (const r of rs) assert.ok(Math.abs(r - rs[0]) < 1e-6);
+});
+test("exploreAccumulate: 已有节点位置不变，新节点落 anchor 附近", () => {
+  const prevPos = { "D:TU": {x:0,y:0}, "D:TR": {x:100,y:0} };
+  const view = { nodes:[{id:"D:TU"},{id:"D:TR"},{id:"D:MI"},{id:"D:RS"}],
+                 edges:[{s:"D:TR",t:"D:MI",layer:"flow"},{s:"D:TR",t:"D:RS",layer:"hard"}] };
+  const p = positionExploreAccumulate(view, VP, { prevPos, anchorId: "D:TR" });
+  assert.deepEqual(p["D:TU"], {x:0,y:0});
+  assert.deepEqual(p["D:TR"], {x:100,y:0});
+  for (const id of ["D:MI","D:RS"])
+    assert.ok(Math.hypot(p[id].x - 100, p[id].y - 0) < 200, `${id} 应落 anchor TR 附近`);
+});
+test("explore: 纯函数", () => {
+  const v = ring1View();
+  assert.deepEqual(positionExploreFresh(v, VP, {seedId:"D:TU"}), positionExploreFresh(v, VP, {seedId:"D:TU"}));
 });

@@ -44,9 +44,10 @@ def test_explore_seed_and_auto_expand():
     assert "expandNode(cur.seed" in V.TEMPLATE
 
 
-def test_expand_follows_hard_edges_first():
-    # spec §5: 展开按 硬边邻居 > 高置信推断邻居 优先级; 只沿隐性边会让
-    # 无隐性覆盖的域 (如 AE) 点击无响应.
+def test_expand_anchors_accumulate():
+    # spec §5: 展开按 硬边邻居 > 高置信推断邻居 优先级 (不变); 且展开必须设置
+    # exploreAnchor, 供 exploreTargets() 分派到锚定累积 (旧节点原位不动, 新
+    # 节点落 anchor 周围空槽), 消除"点一下到处飞"的爆炸感.
     fn = V.TEMPLATE.split("function expandNode(code)")[1].split("\n}")[0]
-    assert "relBySrc" in fn
-    assert "confidence" in fn
+    assert "relBySrc" in fn and "confidence" in fn      # 展开优先级不变
+    assert "exploreAnchor" in fn                        # 锚定累积语义

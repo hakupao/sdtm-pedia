@@ -99,6 +99,7 @@ function expandNode(code){
   const impl=(DATA.implicit?DATA.implicit.edges:[]).slice().sort((a,b)=>(b.confidence||0)-(a.confidence||0));
   for(const e of impl){
     if(e.source===code) tryAdd(e.target); else if(e.target===code) tryAdd(e.source); }
+  exploreAnchor="D:"+code;
   cur.v="explore"; render();
 }
 
@@ -144,11 +145,20 @@ function animateTo(targets, {duration=380}={}){
   }
   tweenRAF = requestAnimationFrame(step);
 }
+let lastPos = {};                 // 上一帧各节点 world 坐标，供跨 build 继承/累积（explore 锚定累积用）
+let exploreAnchor = null;         // 最近一次展开的锚节点 id（null=fresh/整理）
 const LAYOUT = {
   overview: view => positionOverview(view, viewport()),
   domain:   view => positionDomain(view, viewport()),
   impact:   view => positionImpact(view, viewport()),
+  explore:  true,   // 占位：explore 是有状态视图，实际定位由 exploreTargets() 分派（依赖 prevPos，非纯 view→targets）
 };
+function exploreTargets(view){
+  const vp = viewport();
+  if(exploreAnchor && Object.keys(lastPos).length)
+    return positionExploreAccumulate(view, vp, { prevPos: lastPos, anchorId: exploreAnchor });
+  return positionExploreFresh(view, vp, { seedId: "D:" + (cur.seed || "TU") });
+}
 
 // ---- render ----
 function draw(){
@@ -204,9 +214,10 @@ function build(view){
   const det = LAYOUT[cur.v];
   resetZoom();
   if(det){
-    const targets = det(view);
+    const targets = cur.v==="explore" ? exploreTargets(view) : det(view);
     for(const n of N){ const tg=targets[n.id]; if(tg){ n.x=tg.x; n.y=tg.y; } }  // 首帧即到位（无入场跳动）
     draw();
+    lastPos = {...targets};
     running=false; $("#physBtn").textContent="⤺ 整理";   // 确定性视图：物理关，按钮语义暂改（Task 7 定稿）
   } else {
     alpha=1; running=true; $("#physBtn").textContent="⏸ 布局";
@@ -282,10 +293,10 @@ function syncUI(){
     : "悬停看全名 · 点击节点看关系 · 拖拽 · 滚轮缩放 · 空白平移";
 }
 $("#views").addEventListener("click",ev=>{ const b=ev.target.closest("button"); if(!b)return;
-  if(b.dataset.v==="explore"&&cur.v!=="explore"){ window.__expanded=new Set(); expandNode(cur.seed||"TU"); return; } // fresh entry: 自动展开种子一跳
+  if(b.dataset.v==="explore"&&cur.v!=="explore"){ window.__expanded=new Set(); exploreAnchor=null; lastPos={}; expandNode(cur.seed||"TU"); return; } // fresh entry: 自动展开种子一跳
   cur.v=b.dataset.v; render(); });
 $("#domSel").addEventListener("change",e=>{
-  if(cur.v==="explore"){ cur.seed=e.target.value; window.__expanded=new Set(); expandNode(cur.seed); return; }
+  if(cur.v==="explore"){ cur.seed=e.target.value; window.__expanded=new Set(); exploreAnchor=null; lastPos={}; expandNode(cur.seed); return; }
   cur.dom=e.target.value; render();});
 $("#codeSel").addEventListener("change",e=>{cur.code=e.target.value;render();});
 const LAYER_SEL={hard:".edge.hardrel",flow:".iedge.flow",link:".iedge.link",cooc:".iedge.cooc"};
@@ -385,7 +396,12 @@ $("#panel").addEventListener("click",ev=>{ if(ev.target.id==="pClose"){closePane
   const rag=ev.target.closest(".ragBtn"); if(rag){ if(!rag.classList.contains("hide"))ragExplain(rag.dataset.a,rag.dataset.b,rag); return; }
   const el=ev.target.closest("[data-code]"); if(el){ if(el.classList.contains("navcode"))nav("impact",el.dataset.code); else nav("domain",el.dataset.code); return; }
   const re=ev.target.closest("[data-eid]"); if(re){ const e=implicitById.get(re.dataset.eid); if(e)openEvidence(e); } });
-$("#physBtn").addEventListener("click",()=>{ running=!running; if(running){alpha=Math.max(alpha,.4);} $("#physBtn").textContent=(running?"⏸":"▶")+" 布局"; });
+$("#physBtn").addEventListener("click",()=>{
+  if(cur.v==="explore"){ exploreAnchor=null;
+    const view=vExplore(cur.seed||"TU"), targets=positionExploreFresh(view, viewport(), {seedId:"D:"+(cur.seed||"TU")});
+    lastPos={...targets}; animateTo(targets); return; }
+  running=!running; if(running){alpha=Math.max(alpha,.4);} $("#physBtn").textContent=(running?"⏸":"▶")+" 布局";
+});
 $("#fitBtn").addEventListener("click",()=>{ resetZoom(); alpha=Math.max(alpha,.5); });
 $("#themeBtn").addEventListener("click",()=>{ const cur=document.documentElement.dataset.theme;
   const next=cur==="dark"?"light":cur==="light"?"":"dark"; if(next)document.documentElement.dataset.theme=next; else document.documentElement.removeAttribute("data-theme");
