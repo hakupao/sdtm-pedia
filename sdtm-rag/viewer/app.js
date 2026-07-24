@@ -259,6 +259,10 @@ function startDrag(n,ev){ ev.stopPropagation(); drag=n;
 function applySearch(){ const q=$("#search").value.trim().toLowerCase(); if(!q){ for(const n of N)n.g.classList.remove("dim"); return; }
   for(const n of N){ const hit=(n.label+" "+(n.full||"")).toLowerCase().includes(q); n.g.classList.toggle("dim",!hit); } }
 $("#search").addEventListener("input",applySearch);
+function centerOn(id){ const n=byId.get(id); if(!n)return; const r=svg.getBoundingClientRect();
+  T.x=r.width/2 - n.x*T.k; T.y=r.height/2 - n.y*T.k; applyT(); }
+$("#search").addEventListener("keydown",e=>{ if(e.key!=="Enter")return;
+  const hit=N.find(n=>!n.g.classList.contains("dim")); if(hit)centerOn(hit.id); });
 
 // ---- controls ----
 let cur={v:"overview",dom:"AE",code:null,seed:"TU"};

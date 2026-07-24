@@ -99,20 +99,21 @@ svg.panning{cursor:grabbing}
 #panel{position:absolute;top:12px;right:12px;width:300px;max-height:calc(100% - 24px);overflow:auto;
   background:var(--panel);backdrop-filter:blur(6px);border:1px solid var(--ring);border-radius:12px;
   padding:14px 16px;font-size:13px;box-shadow:0 8px 30px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.06);z-index:15}
-#panel .ph{display:flex;align-items:flex-start;gap:8px;margin-bottom:8px}
-#panel .pt{font-size:16px;font-weight:700;line-height:1.2}
-#panel .pty{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+#panel .ph{display:flex;align-items:flex-start;gap:8px;margin-bottom:10px;
+  position:sticky;top:-14px;background:var(--panel);padding-top:14px;z-index:1}
+#panel .pt{font-size:17px;font-weight:700;line-height:1.3}
+#panel .pty{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px}
 #panel .x{margin-left:auto;cursor:pointer;color:var(--muted);border:0;background:none;font-size:20px;line-height:1;padding:0 2px}
 #panel .x:hover{color:var(--ink)}
-#panel h4{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin:13px 0 5px}
-#panel .kv{color:var(--ink2);line-height:1.75}
+#panel h4{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin:18px 0 7px}
+#panel .kv{color:var(--ink2);line-height:1.85}
 #panel .kv b{color:var(--ink);font-weight:600}
 #panel .chips{display:flex;flex-wrap:wrap;gap:4px}
 #panel .chip{font-size:11px;padding:2px 7px;border:1px solid var(--ring);border-radius:20px;
   color:var(--ink2);cursor:pointer;background:var(--surface);white-space:nowrap}
 #panel .chip:hover{color:var(--ink);border-color:var(--ink2)}
 #panel .chip.k{font-family:ui-monospace,"SF Mono",monospace}
-#panel .rel{padding:6px 0;border-top:1px solid var(--line)}
+#panel .rel{padding:9px 0;border-top:1px solid var(--line)}
 #panel .rel .m{color:var(--muted);font-size:11px;margin-top:2px}
 #panel .m{color:var(--muted);font-size:11px;margin-top:4px}
 #panel .adv{font-size:10px;color:var(--muted)}
