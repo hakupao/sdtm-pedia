@@ -178,6 +178,7 @@ function build(view){
     g.appendChild(makeNodeShape(n));
     const t=document.createElementNS(SVGNS,"text");
     t.setAttribute("y",n.r+11); t.setAttribute("text-anchor","middle"); t.textContent=n.label;
+    if(n.type==="code"||n.type==="domain") t.classList.add("mono");
     g.appendChild(t);
     g.addEventListener("pointerenter",ev=>hover(n,ev));
     g.addEventListener("pointermove",ev=>moveTip(ev));
@@ -200,10 +201,16 @@ function build(view){
 
 // ---- hover / tooltip / highlight ----
 function neighbors(n){const s=new Set([n.id]); for(const e of E){ if(e.a===n)s.add(e.b.id); if(e.b===n)s.add(e.a.id);} return s;}
+function removeReticle(){ const old=gNodes.querySelector(".reticle"); if(old)old.remove(); }
 function hover(n,ev){ const keep=neighbors(n);
   for(const m of N) m.g.classList.toggle("dim",!keep.has(m.id));
   for(const e of E) e.el.classList.toggle("dim",!(e.a===n||e.b===n));
   gNodes.parentNode.classList.add("hl");
+  removeReticle();
+  const ring=document.createElementNS(SVGNS,"circle");
+  ring.setAttribute("class","reticle"); ring.setAttribute("r",n.r+6);
+  ring.setAttribute("fill","none"); ring.setAttribute("stroke","var(--reticle)"); ring.setAttribute("stroke-width","1.5");
+  n.g.appendChild(ring);
   const tName={class:"观测类",domain:"域",var:"变量",code:"码表"}[n.type];
   tip.innerHTML='<div class="t">'+esc(n.label)+'</div><div class="m">'+tName+' · '+esc(n.full||"")+'</div>';
   tip.style.opacity=1; moveTip(ev);
@@ -212,7 +219,7 @@ function moveTip(ev){ const p=12; let x=ev.clientX+p,y=ev.clientY+p;
   const b=tip.getBoundingClientRect(); if(x+b.width>innerWidth)x=ev.clientX-b.width-p;
   if(y+b.height>innerHeight)y=ev.clientY-b.height-p; tip.style.left=x+"px"; tip.style.top=y+"px"; }
 function unhover(){ for(const m of N)m.g.classList.remove("dim"); for(const e of E)e.el.classList.remove("dim");
-  gNodes.parentNode.classList.remove("hl"); tip.style.opacity=0; applySearch(); }
+  gNodes.parentNode.classList.remove("hl"); removeReticle(); tip.style.opacity=0; applySearch(); }
 function esc(s){return (s+"").replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));}
 
 // ---- zoom / pan ----

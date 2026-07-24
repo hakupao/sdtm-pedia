@@ -26,12 +26,12 @@
     </div>
     <input id="search" type="search" placeholder="搜索 code / name…">
     <div class="spacer"></div>
-    <button class="ghost" id="physBtn" title="暂停/继续布局">⏸ 布局</button>
+    <button class="ghost" id="physBtn" title="整理布局">⤺ 整理</button>
     <button class="ghost" id="fitBtn" title="重置缩放">⤢ 复位</button>
     <button class="ghost" id="themeBtn" title="切换主题">◐ 主题</button>
   </header>
   <main>
-    <svg id="svg"><defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path class="iedge-arrow" d="M0,0L10,5L0,10z"></path></marker></defs><g id="vp"><g id="edges"></g><g id="nodes"></g></g></svg>
+    <svg id="svg"><defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path class="iedge-arrow" d="M0,0L10,5L0,10z"></path></marker><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="var(--grid)" stroke-width="1"/></pattern></defs><g id="vp"><rect id="gridbg" x="-6000" y="-6000" width="12000" height="12000" fill="url(#grid)"/><g id="edges"></g><g id="nodes"></g></g></svg>
     <div id="count"></div>
     <div class="legend" id="legend"></div>
     <div class="hint" id="hint">悬停看全名 · 点击节点看关系 · 拖拽 · 滚轮缩放 · 空白平移</div>

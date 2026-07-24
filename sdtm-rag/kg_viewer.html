@@ -11,6 +11,7 @@
   --varFill:#b9b7ad; --codeFill:#6f6d78; --codeStroke:#4a4954;
   --c1:#2a78d6;--c2:#1baf7a;--c3:#eda100;--c4:#008300;--c5:#4a3aa7;--c6:#e34948;--c7:#e87ba4;--c8:#eb6834;
   --flow:#2a78d6; --link:#1baf7a; --cooc:#7a52c7;
+  --signal:#c77400; --grid:rgba(11,11,11,.04); --reticle:#c77400;
 }
 :root[data-theme="dark"], :root:not([data-theme="light"]){}
 @media (prefers-color-scheme: dark){
@@ -20,7 +21,9 @@
     --varFill:#6a6862; --codeFill:#9d9ba8; --codeStroke:#c9c7d4;
     --c1:#3987e5;--c2:#199e70;--c3:#c98500;--c4:#008300;--c5:#9085e9;--c6:#e66767;--c7:#d55181;--c8:#d95926;
     --flow:#3987e5; --link:#199e70; --cooc:#9085e9;
+    --signal:#f5b301; --grid:rgba(255,255,255,.05); --reticle:#f5b301;
   }
+  :root:not([data-theme="light"]) .seg button.on{color:#000}
 }
 :root[data-theme="dark"]{
   --surface:#1a1a19; --plane:#0d0d0d; --ink:#ffffff; --ink2:#c3c2b7; --muted:#898781;
@@ -28,7 +31,9 @@
   --varFill:#6a6862; --codeFill:#9d9ba8; --codeStroke:#c9c7d4;
   --c1:#3987e5;--c2:#199e70;--c3:#c98500;--c4:#008300;--c5:#9085e9;--c6:#e66767;--c7:#d55181;--c8:#d95926;
   --flow:#3987e5; --link:#199e70; --cooc:#9085e9;
+  --signal:#f5b301; --grid:rgba(255,255,255,.05); --reticle:#f5b301;
 }
+:root[data-theme="dark"] .seg button.on{color:#000}
 *{box-sizing:border-box}
 html,body{margin:0;height:100%}
 body{background:var(--plane);color:var(--ink);
@@ -42,7 +47,7 @@ h1 small{color:var(--muted);font-weight:500;margin-left:8px;font-size:12px}
 .seg button{border:0;background:transparent;color:var(--ink2);padding:6px 12px;
   font-size:13px;cursor:pointer;font-family:inherit}
 .seg button+button{border-left:1px solid var(--ring)}
-.seg button.on{background:var(--c1);color:#fff;font-weight:600}
+.seg button.on{background:var(--signal);color:#fff;font-weight:600}
 select,input[type=search]{font-family:inherit;font-size:13px;color:var(--ink);
   background:var(--surface);border:1px solid var(--ring);border-radius:8px;padding:6px 9px}
 select{max-width:230px}
@@ -67,15 +72,18 @@ svg.panning{cursor:grabbing}
 .node text{fill:var(--ink);font-size:10px;paint-order:stroke;
   stroke:var(--surface);stroke-width:3px;stroke-linejoin:round;pointer-events:none;user-select:none}
 .node.big text{font-size:12px;font-weight:700}
-.node circle,.node rect{stroke:var(--nodeStroke);stroke-width:1.5}
+.node text.mono{font-family:ui-monospace,"SF Mono",monospace}
+.node circle,.node rect{stroke:var(--nodeStroke);stroke-width:1.25}
+.reticle{pointer-events:none;opacity:.9}
 .dim{opacity:.12;transition:opacity .12s}
 .dim text{opacity:0}
-.hl .edge{stroke:var(--ink2);stroke-width:2}
+.hl .edge{stroke:var(--signal);stroke-width:1.8}
+.hl .iedge{filter:drop-shadow(0 0 3px var(--signal))}
 .legend{position:absolute;left:12px;bottom:12px;background:var(--panel);
   backdrop-filter:blur(6px);border:1px solid var(--ring);border-radius:10px;
   padding:10px 12px;font-size:12px;max-width:210px;line-height:1.7}
 .legend b{display:block;font-size:11px;color:var(--muted);text-transform:uppercase;
-  letter-spacing:.5px;margin:2px 0 4px}
+  letter-spacing:.6px;margin:2px 0 4px}
 .legend .row{display:flex;align-items:center;gap:7px;color:var(--ink2)}
 .sw{width:12px;height:12px;border-radius:50%;flex:none;border:1px solid var(--ring)}
 .sw.dom{border-radius:50%}
@@ -90,17 +98,19 @@ svg.panning{cursor:grabbing}
 #tip .t{font-weight:700;margin-bottom:2px}
 #tip .m{color:var(--muted);font-size:11px}
 #tip kbd{color:var(--ink2)}
-#count{position:absolute;left:12px;top:12px;font-size:12px;color:var(--muted);
+#count, .legend, #panel .kv, #panel .chip.k, #sub{font-variant-numeric:tabular-nums}
+#count{position:absolute;left:12px;top:12px;font-size:12px;color:var(--ink2);
+  font-family:ui-monospace;letter-spacing:.5px;
   background:var(--panel);border:1px solid var(--ring);border-radius:8px;padding:5px 9px}
 #panel{position:absolute;top:12px;right:12px;width:300px;max-height:calc(100% - 24px);overflow:auto;
-  background:var(--panel);backdrop-filter:blur(8px);border:1px solid var(--ring);border-radius:12px;
-  padding:14px 16px;font-size:13px;box-shadow:0 8px 30px rgba(0,0,0,.18);z-index:15}
+  background:var(--panel);backdrop-filter:blur(6px);border:1px solid var(--ring);border-radius:12px;
+  padding:14px 16px;font-size:13px;box-shadow:0 8px 30px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.06);z-index:15}
 #panel .ph{display:flex;align-items:flex-start;gap:8px;margin-bottom:8px}
 #panel .pt{font-size:16px;font-weight:700;line-height:1.2}
 #panel .pty{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
 #panel .x{margin-left:auto;cursor:pointer;color:var(--muted);border:0;background:none;font-size:20px;line-height:1;padding:0 2px}
 #panel .x:hover{color:var(--ink)}
-#panel h4{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin:13px 0 5px}
+#panel h4{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin:13px 0 5px}
 #panel .kv{color:var(--ink2);line-height:1.75}
 #panel .kv b{color:var(--ink);font-weight:600}
 #panel .chips{display:flex;flex-wrap:wrap;gap:4px}
@@ -148,12 +158,12 @@ svg.panning{cursor:grabbing}
     </div>
     <input id="search" type="search" placeholder="搜索 code / name…">
     <div class="spacer"></div>
-    <button class="ghost" id="physBtn" title="暂停/继续布局">⏸ 布局</button>
+    <button class="ghost" id="physBtn" title="整理布局">⤺ 整理</button>
     <button class="ghost" id="fitBtn" title="重置缩放">⤢ 复位</button>
     <button class="ghost" id="themeBtn" title="切换主题">◐ 主题</button>
   </header>
   <main>
-    <svg id="svg"><defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path class="iedge-arrow" d="M0,0L10,5L0,10z"></path></marker></defs><g id="vp"><g id="edges"></g><g id="nodes"></g></g></svg>
+    <svg id="svg"><defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path class="iedge-arrow" d="M0,0L10,5L0,10z"></path></marker><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="var(--grid)" stroke-width="1"/></pattern></defs><g id="vp"><rect id="gridbg" x="-6000" y="-6000" width="12000" height="12000" fill="url(#grid)"/><g id="edges"></g><g id="nodes"></g></g></svg>
     <div id="count"></div>
     <div class="legend" id="legend"></div>
     <div class="hint" id="hint">悬停看全名 · 点击节点看关系 · 拖拽 · 滚轮缩放 · 空白平移</div>
@@ -461,6 +471,7 @@ function build(view){
     g.appendChild(makeNodeShape(n));
     const t=document.createElementNS(SVGNS,"text");
     t.setAttribute("y",n.r+11); t.setAttribute("text-anchor","middle"); t.textContent=n.label;
+    if(n.type==="code"||n.type==="domain") t.classList.add("mono");
     g.appendChild(t);
     g.addEventListener("pointerenter",ev=>hover(n,ev));
     g.addEventListener("pointermove",ev=>moveTip(ev));
@@ -483,10 +494,16 @@ function build(view){
 
 // ---- hover / tooltip / highlight ----
 function neighbors(n){const s=new Set([n.id]); for(const e of E){ if(e.a===n)s.add(e.b.id); if(e.b===n)s.add(e.a.id);} return s;}
+function removeReticle(){ const old=gNodes.querySelector(".reticle"); if(old)old.remove(); }
 function hover(n,ev){ const keep=neighbors(n);
   for(const m of N) m.g.classList.toggle("dim",!keep.has(m.id));
   for(const e of E) e.el.classList.toggle("dim",!(e.a===n||e.b===n));
   gNodes.parentNode.classList.add("hl");
+  removeReticle();
+  const ring=document.createElementNS(SVGNS,"circle");
+  ring.setAttribute("class","reticle"); ring.setAttribute("r",n.r+6);
+  ring.setAttribute("fill","none"); ring.setAttribute("stroke","var(--reticle)"); ring.setAttribute("stroke-width","1.5");
+  n.g.appendChild(ring);
   const tName={class:"观测类",domain:"域",var:"变量",code:"码表"}[n.type];
   tip.innerHTML='<div class="t">'+esc(n.label)+'</div><div class="m">'+tName+' · '+esc(n.full||"")+'</div>';
   tip.style.opacity=1; moveTip(ev);
@@ -495,7 +512,7 @@ function moveTip(ev){ const p=12; let x=ev.clientX+p,y=ev.clientY+p;
   const b=tip.getBoundingClientRect(); if(x+b.width>innerWidth)x=ev.clientX-b.width-p;
   if(y+b.height>innerHeight)y=ev.clientY-b.height-p; tip.style.left=x+"px"; tip.style.top=y+"px"; }
 function unhover(){ for(const m of N)m.g.classList.remove("dim"); for(const e of E)e.el.classList.remove("dim");
-  gNodes.parentNode.classList.remove("hl"); tip.style.opacity=0; applySearch(); }
+  gNodes.parentNode.classList.remove("hl"); removeReticle(); tip.style.opacity=0; applySearch(); }
 function esc(s){return (s+"").replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));}
 
 // ---- zoom / pan ----
