@@ -49,3 +49,20 @@ export function positionDomain(view, vp) {
   if (domain) pos[domain.id] = { x: x0, y: 0 };
   return pos;
 }
+
+// 码表影响：枢纽居中，被波及的域绕环分组排列。
+export function positionImpact(view, vp) {
+  const pos = {};
+  const hub = view.nodes.find(n => n.type === "code");
+  const doms = view.nodes.filter(n => n.type === "domain").sort((a, b) =>
+    (CLASS_ORDER.indexOf(a.cls) - CLASS_ORDER.indexOf(b.cls)) || (a.label < b.label ? -1 : 1));
+  if (hub) pos[hub.id] = { x: 0, y: 0 };
+  const base = Math.min(vp.width, vp.height), R = base * 0.34, per = 28;
+  doms.forEach((d, i) => {
+    const ring = Math.floor(i / per), inRing = i % per;
+    const count = Math.min(per, doms.length - ring * per);
+    const ang = -Math.PI / 2 + TAU * inRing / count, rr = R + ring * base * 0.14;
+    pos[d.id] = { x: rr * Math.cos(ang), y: rr * Math.sin(ang) };
+  });
+  return pos;
+}

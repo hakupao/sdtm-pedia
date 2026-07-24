@@ -147,6 +147,7 @@ function animateTo(targets, {duration=380}={}){
 const LAYOUT = {
   overview: view => positionOverview(view, viewport()),
   domain:   view => positionDomain(view, viewport()),
+  impact:   view => positionImpact(view, viewport()),
 };
 
 // ---- render ----

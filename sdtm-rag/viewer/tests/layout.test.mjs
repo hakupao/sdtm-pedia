@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { easeOutCubic, lerp, positionOverview, CLASS_ORDER, positionDomain } from "../layout.mjs";
+import { easeOutCubic, lerp, positionOverview, CLASS_ORDER, positionDomain, positionImpact } from "../layout.mjs";
 
 const VP = { width: 1200, height: 800 };
 function overviewView() {
@@ -62,4 +62,24 @@ test("domain: 变量超阈值分两列", () => {
 test("domain: 纯函数", () => {
   const v = domainView(12);
   assert.deepEqual(positionDomain(v, VP), positionDomain(v, VP));
+});
+
+function impactView(nDoms) {
+  const nodes = [{ id: "K:C66742", type: "code", label: "C66742" }];
+  for (let i = 0; i < nDoms; i++)
+    nodes.push({ id: `D:d${i}`, type: "domain", label: `d${i}`, cls: CLASS_ORDER[i % CLASS_ORDER.length] });
+  return { nodes, edges: [] };
+}
+test("impact: 枢纽在中心", () => {
+  const p = positionImpact(impactView(10), VP);
+  assert.ok(Math.hypot(p["K:C66742"].x, p["K:C66742"].y) < 1e-6);
+});
+test("impact: 单环时所有域到中心等距", () => {
+  const p = positionImpact(impactView(10), VP);
+  const rs = Array.from({length:10},(_,i)=>Math.hypot(p[`D:d${i}`].x, p[`D:d${i}`].y));
+  for (const r of rs) assert.ok(Math.abs(r - rs[0]) < 1e-6);
+});
+test("impact: 纯函数", () => {
+  const v = impactView(20);
+  assert.deepEqual(positionImpact(v, VP), positionImpact(v, VP));
 });
