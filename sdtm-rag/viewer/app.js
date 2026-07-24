@@ -383,7 +383,7 @@ $("#physBtn").addEventListener("click",()=>{
   if(cur.v!=="explore")return;
   exploreAnchor=null;
   const view=vExplore(cur.seed||"TU"), targets=positionExploreFresh(view, viewport(), {seedId:"D:"+(cur.seed||"TU")});
-  lastPos={...targets}; animateTo(targets);
+  lastPos={...targets}; lastTargets={...targets}; animateTo(targets);
 });
 $("#fitBtn").addEventListener("click",()=>{ fitToTargets(lastTargets); });
 $("#themeBtn").addEventListener("click",()=>{ const cur=document.documentElement.dataset.theme;
