@@ -124,7 +124,7 @@ function animateTo(targets, {duration=380}={}){
 }
 let lastPos = {};                 // 上一帧各节点 world 坐标，供跨 build 继承/累积（explore 锚定累积用）
 let exploreAnchor = null;         // 最近一次展开的锚节点 id（null=fresh/整理）
-let fitView = null;               // 最近一次已 fit-to-content 的 view 类型（cur.v），驱动 build() 内 freshView 判定
+let fitKey = null;               // 最近一次已 fit-to-content 的内容键（view type + domain/code/seed），驱动 build() 内 freshView 判定
 const LAYOUT = {
   overview: view => positionOverview(view, viewport()),
   domain:   view => positionDomain(view, viewport()),
@@ -186,14 +186,15 @@ function build(view){
     gNodes.appendChild(g);
   }
   $("#count").textContent=N.length+" 节点 · "+E.length+" 边"; $("#sub").textContent=view.title;
-  const freshView = (cur.v !== fitView) || (cur.v === "explore" && !exploreAnchor);
+  const contentKey = cur.v + "|" + (cur.v==="domain" ? cur.dom : cur.v==="impact" ? cur.code : cur.v==="explore" ? cur.seed : "");
+  const freshView = (contentKey !== fitKey) || (cur.v === "explore" && !exploreAnchor);
   const targets = cur.v==="explore" ? exploreTargets(view) : LAYOUT[cur.v](view);
   for(const n of N){ const tg=targets[n.id]; const prev=lastPos[n.id];
     if(prev){ n.x=prev.x; n.y=prev.y; } else if(exploreAnchor&&lastPos[exploreAnchor]){ n.x=lastPos[exploreAnchor].x; n.y=lastPos[exploreAnchor].y; } else { n.x=tg.x; n.y=tg.y; } }
   draw(); animateTo(targets); lastPos={...targets};
   lastTargets = {...targets};
   if(freshView) fitToTargets(targets);
-  fitView = cur.v;
+  fitKey = contentKey;
   applyLayerToggles();
 }
 
@@ -217,7 +218,6 @@ function esc(s){return (s+"").replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"
 // ---- zoom / pan ----
 let T={k:1,x:0,y:0};
 function applyT(){ vp.setAttribute("transform","translate("+T.x+","+T.y+") scale("+T.k+")"); }
-function resetZoom(){ const r=svg.getBoundingClientRect(); T={k:1,x:r.width/2,y:r.height/2}; applyT(); }
 let lastTargets = {};
 function fitToTargets(targets, pad){
   pad = (pad==null) ? 90 : pad;
