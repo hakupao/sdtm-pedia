@@ -324,6 +324,24 @@ function tick(){
 }
 function frame(){ if(running&&alpha>ALPHA_MIN){ for(let k=0;k<2;k++)tick(); draw(); } raf=requestAnimationFrame(frame); }
 
+// ---- deterministic layout + tween engine ----
+function viewport(){ const r = svg.getBoundingClientRect(); return {width:r.width, height:r.height}; }
+let tweenRAF = 0;
+function animateTo(targets, {duration=380}={}){
+  cancelAnimationFrame(tweenRAF);
+  const from = {}; for(const n of N) from[n.id] = {x:n.x, y:n.y};
+  const start = performance.now();
+  function step(now){
+    const t = Math.min(1, (now-start)/duration), e = easeOutCubic(t);
+    for(const n of N){ const tg=targets[n.id]; if(!tg) continue;
+      const f = from[n.id] || tg; n.x = lerp(f.x, tg.x, e); n.y = lerp(f.y, tg.y, e); }
+    draw();
+    if(t<1) tweenRAF = requestAnimationFrame(step);
+  }
+  tweenRAF = requestAnimationFrame(step);
+}
+const LAYOUT = { overview: view => positionOverview(view, viewport()) };
+
 // ---- render ----
 function draw(){
   for(const e of E){
@@ -375,8 +393,17 @@ function build(view){
   }
   $("#count").textContent=N.length+" 节点 · "+E.length+" 边";
   $("#sub").textContent=view.title;
-  alpha=1; running=true; $("#physBtn").textContent="⏸ 布局";
-  resetZoom(); raf=requestAnimationFrame(frame);
+  const det = LAYOUT[cur.v];
+  resetZoom();
+  if(det){
+    const targets = det(view);
+    for(const n of N){ const tg=targets[n.id]; if(tg){ n.x=tg.x; n.y=tg.y; } }  // 首帧即到位（无入场跳动）
+    draw();
+    running=false; $("#physBtn").textContent="⤺ 整理";   // 确定性视图：物理关，按钮语义暂改（Task 7 定稿）
+  } else {
+    alpha=1; running=true; $("#physBtn").textContent="⏸ 布局";
+    raf=requestAnimationFrame(frame);
+  }
   applyLayerToggles();
 }
 
