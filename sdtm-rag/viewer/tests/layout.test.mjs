@@ -113,3 +113,15 @@ test("explore: 纯函数", () => {
   const v = ring1View();
   assert.deepEqual(positionExploreFresh(v, VP, {seedId:"D:TU"}), positionExploreFresh(v, VP, {seedId:"D:TU"}));
 });
+
+test("exploreAccumulate: 纯函数/确定性 + 不改 prevPos", () => {
+  const mk = () => ({ prevPos: { "D:TU": {x:0,y:0}, "D:TR": {x:100,y:0} }, anchorId: "D:TR" });
+  const view = { nodes:[{id:"D:TU"},{id:"D:TR"},{id:"D:MI"},{id:"D:RS"}],
+                 edges:[{s:"D:TR",t:"D:MI",layer:"flow"},{s:"D:TR",t:"D:RS",layer:"hard"}] };
+  const a = positionExploreAccumulate(view, VP, mk());
+  const b = positionExploreAccumulate(view, VP, mk());
+  assert.deepEqual(a, b);                                  // deterministic
+  const p = { "D:TU": {x:0,y:0} };
+  positionExploreAccumulate(view, VP, { prevPos: p, anchorId: "D:TU" });
+  assert.deepEqual(p, { "D:TU": {x:0,y:0} });              // does not mutate prevPos
+});
