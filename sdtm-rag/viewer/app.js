@@ -124,6 +124,7 @@ function animateTo(targets, {duration=380}={}){
 }
 let lastPos = {};                 // 上一帧各节点 world 坐标，供跨 build 继承/累积（explore 锚定累积用）
 let exploreAnchor = null;         // 最近一次展开的锚节点 id（null=fresh/整理）
+let fitView = null;               // 最近一次已 fit-to-content 的 view 类型（cur.v），驱动 build() 内 freshView 判定
 const LAYOUT = {
   overview: view => positionOverview(view, viewport()),
   domain:   view => positionDomain(view, viewport()),
@@ -185,11 +186,14 @@ function build(view){
     gNodes.appendChild(g);
   }
   $("#count").textContent=N.length+" 节点 · "+E.length+" 边"; $("#sub").textContent=view.title;
-  resetZoom();
+  const freshView = (cur.v !== fitView) || (cur.v === "explore" && !exploreAnchor);
   const targets = cur.v==="explore" ? exploreTargets(view) : LAYOUT[cur.v](view);
   for(const n of N){ const tg=targets[n.id]; const prev=lastPos[n.id];
     if(prev){ n.x=prev.x; n.y=prev.y; } else if(exploreAnchor&&lastPos[exploreAnchor]){ n.x=lastPos[exploreAnchor].x; n.y=lastPos[exploreAnchor].y; } else { n.x=tg.x; n.y=tg.y; } }
   draw(); animateTo(targets); lastPos={...targets};
+  lastTargets = {...targets};
+  if(freshView) fitToTargets(targets);
+  fitView = cur.v;
   applyLayerToggles();
 }
 
@@ -214,6 +218,16 @@ function esc(s){return (s+"").replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"
 let T={k:1,x:0,y:0};
 function applyT(){ vp.setAttribute("transform","translate("+T.x+","+T.y+") scale("+T.k+")"); }
 function resetZoom(){ const r=svg.getBoundingClientRect(); T={k:1,x:r.width/2,y:r.height/2}; applyT(); }
+let lastTargets = {};
+function fitToTargets(targets, pad){
+  pad = (pad==null) ? 90 : pad;
+  const vals = Object.values(targets); if(!vals.length) return;
+  let a=1e9,b=1e9,c=-1e9,d=-1e9;
+  for(const p of vals){ a=Math.min(a,p.x); b=Math.min(b,p.y); c=Math.max(c,p.x); d=Math.max(d,p.y); }
+  const w=(c-a)||1, h=(d-b)||1, r=svg.getBoundingClientRect();
+  const k=Math.max(.15, Math.min(2.2, Math.min((r.width-2*pad)/w, (r.height-2*pad)/h)));
+  T.k=k; T.x=r.width/2-(a+c)/2*k; T.y=r.height/2-(b+d)/2*k; applyT();
+}
 svg.addEventListener("wheel",ev=>{ ev.preventDefault(); const r=svg.getBoundingClientRect();
   const mx=ev.clientX-r.left,my=ev.clientY-r.top; const s=Math.exp(-ev.deltaY*0.0015);
   const k=Math.max(.15,Math.min(4,T.k*s)); T.x=mx-(mx-T.x)*(k/T.k); T.y=my-(my-T.y)*(k/T.k); T.k=k; applyT(); },{passive:false});
@@ -371,7 +385,7 @@ $("#physBtn").addEventListener("click",()=>{
   const view=vExplore(cur.seed||"TU"), targets=positionExploreFresh(view, viewport(), {seedId:"D:"+(cur.seed||"TU")});
   lastPos={...targets}; animateTo(targets);
 });
-$("#fitBtn").addEventListener("click",()=>{ resetZoom(); });
+$("#fitBtn").addEventListener("click",()=>{ fitToTargets(lastTargets); });
 $("#themeBtn").addEventListener("click",()=>{ const cur=document.documentElement.dataset.theme;
   const next=cur==="dark"?"light":cur==="light"?"":"dark"; if(next)document.documentElement.dataset.theme=next; else document.documentElement.removeAttribute("data-theme");
   refreshColors(); });
