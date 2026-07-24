@@ -17,6 +17,7 @@ Run:  cd sdtm-rag && .venv/bin/python scripts/build_kg_viewer.py
 from __future__ import annotations
 
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -89,13 +90,30 @@ def build_data() -> dict:
 VIEWER_DIR = ROOT / "viewer"
 
 
+def _inline_module(text: str) -> str:
+    """Strip ESM export keywords so a pure .mjs can inline into a classic <script>."""
+    text = re.sub(r"^export\s+(const|function|let|var)\s", r"\1 ", text, flags=re.M)
+    text = re.sub(r"^export\s*\{[^}]*\};?\s*$", "", text, flags=re.M)
+    return text
+
+
 def assemble_template() -> str:
-    """Inline viewer/{style.css,app.js} into template.html. Output identical in
-    shape to the former inline TEMPLATE (still contains the __DATA__ placeholder)."""
+    """Inline viewer/{style.css,layout.mjs,app.js} into template.html. Output
+    identical in shape to the former inline TEMPLATE (still contains the
+    __DATA__ placeholder, left for main() to replace later).
+
+    Uses a single regex pass over the (unsubstituted) template so an inserted
+    payload is never re-scanned for further placeholders — this structurally
+    prevents silent corruption if a hand-edited style.css/app.js happens to
+    contain a __STYLE__/__APP__-shaped substring.
+    """
     html = (VIEWER_DIR / "template.html").read_text(encoding="utf-8")
-    css = (VIEWER_DIR / "style.css").read_text(encoding="utf-8")
-    js = (VIEWER_DIR / "app.js").read_text(encoding="utf-8")
-    return html.replace("__STYLE__", css).replace("__APP__", js)
+    parts = {
+        "__STYLE__": (VIEWER_DIR / "style.css").read_text(encoding="utf-8"),
+        "__APP__": _inline_module((VIEWER_DIR / "layout.mjs").read_text(encoding="utf-8"))
+                   + "\n" + (VIEWER_DIR / "app.js").read_text(encoding="utf-8"),
+    }
+    return re.sub("|".join(map(re.escape, parts)), lambda m: parts[m.group(0)], html)
 
 
 TEMPLATE = assemble_template()   # module attribute: existing tests read this

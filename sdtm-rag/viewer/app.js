@@ -1,6 +1,5 @@
 
 const DATA = __DATA__;
-const CLASS_ORDER=["Special-Purpose","Interventions","Events","Findings","Findings About","Trial Design","Relationship","Study Reference"];
 const $=s=>document.querySelector(s);
 const svg=$("#svg"),vp=$("#vp"),gEdges=$("#edges"),gNodes=$("#nodes"),tip=$("#tip");
 const SVGNS="http://www.w3.org/2000/svg";
