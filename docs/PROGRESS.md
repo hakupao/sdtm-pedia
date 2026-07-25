@@ -1,7 +1,7 @@
 # 进度看板
 
 > **唯一进度状态源**. 历史细节看 `.work/meta/worklog/INDEX.md`. 文件结构看 `.work/MANIFEST.md`. 一页纸入门看 `.work/AGENT_GUIDE.md`.
-> 最后更新: 2026-07-24 (**SP7 KG 查看器 UX 重构 DONE ✅** — 力导向物理 → 确定性布局+补间, 用户抱怨"点一下到处飞"根治 (no-explode 实测 0px); 精密仪器视觉 (暗色优先/发丝网格/信号色/等宽码值/标线环); fit-to-content; overview 域码按需显隐; 源码拆 `sdtm-rag/viewer/{template,style,layout.mjs,app.js}` → build 内联 (勿手改 `kg_viewer.html`); 全分支 review READY; spec/plan `docs/superpowers/*2026-07-24-kg-viewer-ux*`) · 此前 (2026-07-21): **repo restructure v3 DONE ✅** — `branches/` 解散: 活跃代码仓提升为顶层 `sdtm-rag/` (深度 3→1: launchd plist/venv 重建/parent-chain 锚点 ×21 全迁, pytest 525 passed 零回归); 收官成果统一进 `milestones/` (06_deep_verification / 07_rag_kg 文档层 / jp_delivery [全量收编入 git] / ai_platforms / release / archive); 垃圾清理: 磁盘 ~300MB (缓存/备份/废弃状态) + tracked ~93MB git rm (06 .bak×15 + release_v1_3 backups + eval 旧 run + sharp 工具链) + git gc 146M→43M; web 构建改指 `milestones/release/v1.4` (本地 build 过); spec/plan `docs/superpowers/{specs,plans}/2026-07-21-repo-restructure-v3*`)
+> 最后更新: 2026-07-25 (**SP7.1 查看器间距重排 DONE ✅** — 布局从"固定角宽塞节点"翻成"最小间距反推环容量" (`ringPack`), 总览扇区制/域钻取自动分列/explore 环半径随节点数放大; fit 上限 1.35 + 标签阈值 0.8; 18/18 layout 测试含 3 条新间距断言, pytest 零回归) · 此前 (2026-07-24): **SP7 KG 查看器 UX 重构 DONE ✅** — 力导向物理 → 确定性布局+补间, 用户抱怨"点一下到处飞"根治 (no-explode 实测 0px); 精密仪器视觉 (暗色优先/发丝网格/信号色/等宽码值/标线环); fit-to-content; overview 域码按需显隐; 源码拆 `sdtm-rag/viewer/{template,style,layout.mjs,app.js}` → build 内联 (勿手改 `kg_viewer.html`); 全分支 review READY; spec/plan `docs/superpowers/*2026-07-24-kg-viewer-ux*`) · 此前 (2026-07-21): **repo restructure v3 DONE ✅** — `branches/` 解散: 活跃代码仓提升为顶层 `sdtm-rag/` (深度 3→1: launchd plist/venv 重建/parent-chain 锚点 ×21 全迁, pytest 525 passed 零回归); 收官成果统一进 `milestones/` (06_deep_verification / 07_rag_kg 文档层 / jp_delivery [全量收编入 git] / ai_platforms / release / archive); 垃圾清理: 磁盘 ~300MB (缓存/备份/废弃状态) + tracked ~93MB git rm (06 .bak×15 + release_v1_3 backups + eval 旧 run + sharp 工具链) + git gc 146M→43M; web 构建改指 `milestones/release/v1.4` (本地 build 过); spec/plan `docs/superpowers/{specs,plans}/2026-07-21-repo-restructure-v3*`)
 > 此前各阶段收口细节 (SP1-SP6 / AGG / 部署 / Chat UI 等): 见 `.work/meta/worklog/phase_07_rag_kg.md` 对应收口记录 (本行原 84K 单行巨段已于 restructure v3 剪除, 全文在 git 历史 `816c4a5^` 前的版本可查)
 
 ---
@@ -28,6 +28,7 @@
 
 ## 关键 milestone (近 30 天)
 
+- 2026-07-25 (SP7.1) — **查看器间距重排 DONE ★** (固定角宽 → 最小间距反推环容量; 总览扇区制/域钻取自动分列/fit 上限 1.35/标签阈值 0.8; 新增 3 条间距断言当场抓到"比例留白在极坐标里是错的"缺陷) — 细节: `.work/meta/worklog/phase_07_rag_kg.md`
 - 2026-07-24 (SP7) — **KG 查看器 UX 重构 DONE ★★** (力导向物理 → 确定性布局+补间; "到处飞"根治 no-explode 实测 0px; 精密仪器视觉; 源码 `sdtm-rag/viewer/*` build 内联; 全分支 review READY) — evidence: `sdtm-rag/evidence/checkpoints/kg_viewer_ux_redesign.md` · retro: `docs/superpowers/2026-07-24-sp7-kg-viewer-ux-RETROSPECTIVE.md`
 - 2026-07-21 — **repo restructure v3 DONE ★★** (branches/ 解散 → sdtm-rag 顶层 + milestones/; ~550MB 清理; 525 passed; spec/plan `docs/superpowers/*2026-07-21-repo-restructure-v3*`)
 - 2026-07-10 (SP6) — **隐性关系挖掘 + 网状富节点查看器 DONE ★★** (30 advisory 边 + 网状查看器; 确定性反捏造闸 > 软化 LLM 裁判) — 细节: `.work/meta/worklog/phase_07_rag_kg.md`
