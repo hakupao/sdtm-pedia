@@ -64,6 +64,34 @@ test("domain: 纯函数", () => {
   assert.deepEqual(positionDomain(v, VP), positionDomain(v, VP));
 });
 
+// 最小间距不变量 (SP7.1): 布局按"圆心到圆心最小距离"反推环容量, 任何两个同类节点都不该糊在一起。
+function minPairDist(pos, ids) {
+  let m = Infinity;
+  for (let i = 0; i < ids.length; i++) for (let j = i + 1; j < ids.length; j++)
+    m = Math.min(m, Math.hypot(pos[ids[i]].x - pos[ids[j]].x, pos[ids[i]].y - pos[ids[j]].y));
+  return m;
+}
+test("overview: 任意两个域节点间距 ≥ 36px(SEP_DOM 容差内)", () => {
+  const view = overviewView();
+  const p = positionOverview(view, VP);
+  const ids = view.nodes.filter(n => n.type === "domain").map(n => n.id);
+  assert.ok(minPairDist(p, ids) >= 36, "域节点最小间距不足, 会重叠");
+});
+test("impact: 44 个域(单码表最大波及面)仍两两 ≥ 36px", () => {
+  const view = impactView(44);
+  const p = positionImpact(view, VP);
+  const ids = view.nodes.filter(n => n.type === "domain").map(n => n.id);
+  assert.ok(minPairDist(p, ids) >= 36, "影响视图域节点重叠");
+});
+test("domain: 60 变量分 3 列, 列距 ≥ 140px 且纵距 ≥ 28px", () => {
+  const p = positionDomain(domainView(60), VP);
+  const ids = Array.from({ length: 60 }, (_, i) => `V:v${i}`);
+  const xs = [...new Set(ids.map(i => p[i].x))].sort((a, b) => a - b);
+  assert.equal(xs.length, 3);
+  assert.ok(xs[1] - xs[0] >= 140, "变量列距不足, 长变量名会横向撞");
+  assert.ok(minPairDist(p, ids) >= 28, "变量纵距不足");
+});
+
 function impactView(nDoms) {
   const nodes = [{ id: "K:C66742", type: "code", label: "C66742" }];
   for (let i = 0; i < nDoms; i++)

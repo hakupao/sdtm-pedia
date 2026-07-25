@@ -180,7 +180,7 @@ function build(view){
     t.setAttribute("y",n.r+11); t.setAttribute("text-anchor","middle"); t.textContent=n.label;
     if(cur.v==="overview" && n.type==="domain") t.classList.add("ovlabel");
     if(n.type==="code"||n.type==="domain") t.classList.add("mono");
-    g.appendChild(t);
+    g.appendChild(t); n.txt=t;
     g.addEventListener("pointerenter",ev=>hover(n,ev));
     g.addEventListener("pointermove",ev=>moveTip(ev));
     g.addEventListener("pointerleave",()=>unhover());
@@ -191,6 +191,9 @@ function build(view){
   const contentKey = cur.v + "|" + (cur.v==="domain" ? cur.dom : cur.v==="impact" ? cur.code : cur.v==="explore" ? cur.seed : "");
   const freshView = (contentKey !== fitKey) || (cur.v === "explore" && !exploreAnchor);
   const targets = cur.v==="explore" ? exploreTargets(view) : LAYOUT[cur.v](view);
+  for(const n of N){ const tg=targets[n.id]; if(!tg||tg.lx===undefined) continue;   // 布局可指定标签偏移(如枢纽标签朝内)
+    n.txt.setAttribute("x",tg.lx); n.txt.setAttribute("y",tg.ly);
+    if(tg.mid) n.txt.setAttribute("dominant-baseline","central"); }
   for(const n of N){ const tg=targets[n.id]; const prev=lastPos[n.id];
     if(prev){ n.x=prev.x; n.y=prev.y; } else if(exploreAnchor&&lastPos[exploreAnchor]){ n.x=lastPos[exploreAnchor].x; n.y=lastPos[exploreAnchor].y; } else { n.x=tg.x; n.y=tg.y; } }
   draw(); animateTo(targets); lastPos={...targets};
@@ -225,15 +228,18 @@ function esc(s){return (s+"").replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"
 
 // ---- zoom / pan ----
 let T={k:1,x:0,y:0};
-function applyT(){ vp.setAttribute("transform","translate("+T.x+","+T.y+") scale("+T.k+")"); svg.classList.toggle("zoomed", T.k >= 1.3); }
+function applyT(){ vp.setAttribute("transform","translate("+T.x+","+T.y+") scale("+T.k+")"); svg.classList.toggle("zoomed", T.k >= 0.8); }   // 0.8: 新布局下总览标签在贴合视图就已互不重叠
 let lastTargets = {};
 function fitToTargets(targets, pad){
-  pad = (pad==null) ? 90 : pad;
-  const vals = Object.values(targets); if(!vals.length) return;
+  pad = (pad==null) ? 70 : pad;
+  const ids = Object.keys(targets); if(!ids.length) return;
   let a=1e9,b=1e9,c=-1e9,d=-1e9;
-  for(const p of vals){ a=Math.min(a,p.x); b=Math.min(b,p.y); c=Math.max(c,p.x); d=Math.max(d,p.y); }
+  for(const id of ids){ const p=targets[id], n=byId.get(id);
+    const m = (n?n.r:8) + 16;                    // 节点半径 + 标签占位, 避免外圈被裁掉
+    a=Math.min(a,p.x-m); b=Math.min(b,p.y-m); c=Math.max(c,p.x+m); d=Math.max(d,p.y+m); }
   const w=(c-a)||1, h=(d-b)||1, r=svg.getBoundingClientRect();
-  const k=Math.max(.15, Math.min(2.2, Math.min((r.width-2*pad)/w, (r.height-2*pad)/h)));
+  // 上限 1.35: 节点很少时别把三五个点放大成海报, 视觉尺度跨视图保持一致
+  const k=Math.max(.15, Math.min(1.35, Math.min((r.width-2*pad)/w, (r.height-2*pad)/h)));
   T.k=k; T.x=r.width/2-(a+c)/2*k; T.y=r.height/2-(b+d)/2*k; applyT();
 }
 svg.addEventListener("wheel",ev=>{ ev.preventDefault(); const r=svg.getBoundingClientRect();
