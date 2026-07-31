@@ -18,7 +18,7 @@
 - 确定性轨零 LLM: parser 与渲染不调用任何模型; embedding 仅在 ingest 步骤调用。
 - 每个 commit 前执行 `git diff --cached | grep -ci <真实研究名>` 必须为 0 (执行者在本地用真名检查, 计划文档中不写出该名字)。
 - 工作目录: 所有命令在 `/Users/bojiangzhang/MyProject/sdtm-pedia/sdtm-rag` 下执行; python/pytest 用 `.venv/bin/`。
-- xlsx 事实 (已实测): 关键 sheet 三行表头 (行1 sheet名 / 行2 分组·空白需前向填充 / 行3 列名), 数据从行 4 起。`Items and Groups` 56 列 ~1091 行, `Code lists` 5 列 ~2401 行, `Forms` 15 列 ~26 行。新版报告是抜粋 (7 sheets), 旧版全量 (26 sheets, 多出 `Data checks`/`Functions and Conditions` 明细)。
+- xlsx 事实 (已实测): `Forms`/`Items and Groups` 三行表头 (行1 sheet名 / 行2 分组·空白需前向填充 / 行3 列名), 数据从行 4 起; **`Code lists` 是两行表头** (行1 sheet名 / 行2 列名, 无分组行), 数据从行 3 起 — 解析时传 `has_section_row=False`, 分组名取 sheet 名, key 仍为 `Code lists::OID`。`Items and Groups` 56 列 ~1091 行, `Code lists` 5 列 ~2401 行, `Forms` 15 列 ~26 行。新版报告是抜粋 (7 sheets), 旧版全量 (26 sheets, 多出 `Data checks`/`Functions and Conditions` 明细)。真实分组行不留空 (逐列重复写满), 前向填充是对留空形态的防御。
 - 失败 attempt 按规则 B 归档到 `sdtm-rag/failures/` (已有目录惯例); 归档内容同样不得含真名。
 
 ---
@@ -264,7 +264,7 @@ git commit -m "feat(study-rag): scripts/study 包 + st01 路径解析器 (真名
 - Test: `sdtm-rag/scripts/tests/study_fixtures.py`, `sdtm-rag/scripts/tests/test_parse_config_report.py`
 
 **Interfaces:**
-- Produces: `read_sheet_records(ws) -> list[dict[str, object]]` — key 为 `"<分组>::<列名>"`, 分组空白前向填充; 每条记录附 `"_row": int` (1-based xlsx 行号, 溯源用)。空行跳过。
+- Produces: `read_sheet_records(ws, *, has_section_row: bool = True) -> list[dict[str, object]]` — key 为 `"<分组>::<列名>"`, 分组空白前向填充; `has_section_row=False` 时为两行表头 (行1 sheet名/行2 列名), 分组名取 sheet 名, 数据从行 3 起; 每条记录附 `"_row": int` (1-based xlsx 行号, 溯源用)。短行补齐到表头长度。空行跳过。
 - Produces (fixture): `build_config_report(path: Path, *, items_rows: list[tuple] | None = None) -> Path` — 合成假 workbook, 后续所有 parser 测试复用。
 
 - [ ] **Step 1: 写合成 fixture builder**
@@ -325,13 +325,15 @@ DEFAULT_CODELISTS = [
 ]
 
 
-def _write_sheet(wb, title: str, header: list[tuple], rows: list[tuple]) -> None:
+def _write_sheet(wb, title: str, header: list[tuple], rows: list[tuple],
+                 has_section_row: bool = True) -> None:
     ws = wb.create_sheet(title)
     ws.append([title] * len(header))                       # 行1: sheet 名
-    sections = [s for s, _ in header]
-    ws.append([s if i == 0 or sections[i - 1] != s else "" # 行2: 分组, 重复留空
-               for i, s in enumerate(sections)])
-    ws.append([c for _, c in header])                       # 行3: 列名
+    if has_section_row:
+        sections = [s for s, _ in header]
+        ws.append([s if i == 0 or sections[i - 1] != s else ""  # 行2: 分组, 重复留空
+                   for i, s in enumerate(sections)])
+    ws.append([c for _, c in header])                       # 末行表头: 列名
     for r in rows:
         ws.append(list(r))
 
@@ -342,7 +344,8 @@ def build_config_report(path: Path, *, items_rows=None, forms_rows=None,
     wb.remove(wb.active)
     _write_sheet(wb, "Forms", FORMS_HEADER, forms_rows or DEFAULT_FORMS)
     _write_sheet(wb, "Items and Groups", ITEMS_HEADER, items_rows or DEFAULT_ITEMS)
-    _write_sheet(wb, "Code lists", CODELIST_HEADER, codelist_rows or DEFAULT_CODELISTS)
+    _write_sheet(wb, "Code lists", CODELIST_HEADER, codelist_rows or DEFAULT_CODELISTS,
+                 has_section_row=False)   # 真实 Code lists 是两行表头
     wb.save(path)
     return path
 ```
@@ -634,7 +637,7 @@ def parse_items(path: Path) -> list[ItemRow]:
 def parse_codelists(path: Path) -> dict[str, Codelist]:
     wb = openpyxl.load_workbook(path, read_only=True)
     grouped: dict[str, Codelist] = {}
-    for r in read_sheet_records(wb["Code lists"]):
+    for r in read_sheet_records(wb["Code lists"], has_section_row=False):
         oid = _req(r, "Code lists::OID")
         cl = grouped.setdefault(
             oid, Codelist(oid=oid, data_type=r.get("Code lists::Data Type", ""), entries=[])
