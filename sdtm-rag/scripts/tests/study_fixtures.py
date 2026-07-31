@@ -51,13 +51,15 @@ DEFAULT_CODELISTS = [
 ]
 
 
-def _write_sheet(wb, title: str, header: list[tuple], rows: list[tuple]) -> None:
+def _write_sheet(wb, title: str, header: list[tuple], rows: list[tuple],
+                 has_section_row: bool = True) -> None:
     ws = wb.create_sheet(title)
     ws.append([title] * len(header))                       # 行1: sheet 名
-    sections = [s for s, _ in header]
-    ws.append([s if i == 0 or sections[i - 1] != s else "" # 行2: 分组, 重复留空
-               for i, s in enumerate(sections)])
-    ws.append([c for _, c in header])                       # 行3: 列名
+    if has_section_row:
+        sections = [s for s, _ in header]
+        ws.append([s if i == 0 or sections[i - 1] != s else ""  # 行2: 分组, 重复留空
+                   for i, s in enumerate(sections)])
+    ws.append([c for _, c in header])                       # 末行表头: 列名
     for r in rows:
         ws.append(list(r))
 
@@ -68,6 +70,7 @@ def build_config_report(path: Path, *, items_rows=None, forms_rows=None,
     wb.remove(wb.active)
     _write_sheet(wb, "Forms", FORMS_HEADER, forms_rows or DEFAULT_FORMS)
     _write_sheet(wb, "Items and Groups", ITEMS_HEADER, items_rows or DEFAULT_ITEMS)
-    _write_sheet(wb, "Code lists", CODELIST_HEADER, codelist_rows or DEFAULT_CODELISTS)
+    _write_sheet(wb, "Code lists", CODELIST_HEADER, codelist_rows or DEFAULT_CODELISTS,
+                 has_section_row=False)   # 真实 Code lists 是两行表头
     wb.save(path)
     return path

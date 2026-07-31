@@ -36,3 +36,40 @@ def test_read_sheet_records_skips_blank_rows(tmp_path):
                             items_rows=[("", "") + ("",) * 19])
     wb = openpyxl.load_workbook(p, read_only=True)
     assert read_sheet_records(wb["Items and Groups"]) == []
+
+
+def test_read_sheet_records_two_row_header(report):
+    """真实 Code lists 是两行表头 (行1 sheet名 / 行2 列名), 分组名取 sheet 名."""
+    wb = openpyxl.load_workbook(report, read_only=True)
+    recs = read_sheet_records(wb["Code lists"], has_section_row=False)
+    assert len(recs) == 3                     # 三行不能被表头吃掉一条
+    assert recs[0]["_row"] == 3               # 数据从 xlsx 行 3 起
+    assert recs[0]["Code lists::OID"] == "CL_FAKE1"
+    assert recs[0]["Code lists::Code text"] == "偽選択肢はい"
+    assert recs[2]["Code lists::OID"] == "CL_UNUSED"
+
+
+class _StubSheet:
+    """短行 sheet: openpyxl read_only 会自动补到 max_column, 故用 stub 直喂短 tuple."""
+
+    title = "Stub"
+
+    def __init__(self, rows):
+        self._rows = rows
+
+    def iter_rows(self, values_only=True):
+        return iter(self._rows)
+
+
+def test_read_sheet_records_pads_short_rows():
+    ws = _StubSheet([
+        ("Stub", "Stub", "Stub"),
+        ("A", "A", "B"),
+        ("c1", "c2", "c3"),
+        ("v1",),                      # 短行: 缺 c2 / c3
+    ])
+    recs = read_sheet_records(ws)
+    assert len(recs) == 1
+    assert recs[0]["A::c1"] == "v1"
+    assert recs[0]["A::c2"] == ""     # 缺列补空串, 不得静默丢 key
+    assert recs[0]["B::c3"] == ""
