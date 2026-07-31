@@ -529,19 +529,36 @@ def main(argv: list[str] | None = None) -> int:
              "most-shared codelists; split out of the SP3 graph channel)",
     )
     parser.add_argument(
+        "--collection",
+        default=None,
+        help="Override settings.collection_name (e.g. study_st01). Forces "
+             "structured-lookup OFF: the S1 gold map is CDISC-specific.",
+    )
+    parser.add_argument(
+        "--kb-root",
+        default=None,
+        help="Override settings.kb_root (dir holding the indexed corpus)",
+    )
+    parser.add_argument(
         "--tag",
         default=None,
         help="Optional label added to output JSON for cross-model comparison",
     )
     args = parser.parse_args(argv)
 
+    collection_name = args.collection or settings.collection_name
+    kb_root = Path(args.kb_root) if args.kb_root else settings.kb_root
+    structured_lookup = args.structured_lookup and args.collection is None
+    if args.structured_lookup and not structured_lookup:
+        print("--structured-lookup ignored: S1 gold map only applies to the CDISC collection")
+
     test_set = load_test_set(args.test_set)
     print(f"Loaded {len(test_set)} questions from {args.test_set}")
 
     rag = RAGEngine(
         chroma_dir=settings.chroma_dir,
-        kb_root=settings.kb_root,
-        collection_name=settings.collection_name,
+        kb_root=kb_root,
+        collection_name=collection_name,
         embedding_model=settings.embedding_model,
         top_k=args.top_k,
         rerank_enabled=args.rerank,
@@ -554,7 +571,7 @@ def main(argv: list[str] | None = None) -> int:
         query_expansion=args.query_expansion or settings.query_expansion,
         expansion_model=settings.expansion_model,
         expansion_n_queries=settings.expansion_n_queries,
-        structured_lookup_enabled=args.structured_lookup,
+        structured_lookup_enabled=structured_lookup,
         hybrid_enabled=args.hybrid,
         hybrid_fusion=args.hybrid_fusion or settings.hybrid_fusion,
         hybrid_alpha=(
@@ -572,14 +589,15 @@ def main(argv: list[str] | None = None) -> int:
         f", expansion={rag.query_expansion}({rag.expansion_model})"
         if rag.query_expansion != "none" else ""
     )
-    lookup_info = ", structured_lookup=ON" if args.structured_lookup else ""
+    lookup_info = ", structured_lookup=ON" if structured_lookup else ""
     hybrid_info = (
         f", hybrid={rag.hybrid_fusion}"
         + (f"(alpha={rag.hybrid_alpha})" if rag.hybrid_fusion == "weighted" else "")
         if args.hybrid else ""
     )
     guardrail_info = ", guardrail=ON" if args.guardrail else ""
-    print(f"RAG engine: {rag.collection.count()} chunks, model={settings.default_model}, top_k={args.top_k}{rerank_info}{expand_info}{lookup_info}{hybrid_info}{guardrail_info}")
+    collection_info = f", collection={collection_name}" if args.collection else ""
+    print(f"RAG engine: {rag.collection.count()} chunks, model={settings.default_model}, top_k={args.top_k}{rerank_info}{expand_info}{lookup_info}{hybrid_info}{guardrail_info}{collection_info}")
 
     router = None
     if not args.retrieval_only:
@@ -643,13 +661,15 @@ def main(argv: list[str] | None = None) -> int:
             "model": rag.expansion_model,
             "n_queries": rag.expansion_n_queries,
         }
-    if args.structured_lookup:
+    if structured_lookup:
         summary["structured_lookup"] = True
     if args.hybrid:
         summary["hybrid"] = {
             "fusion": rag.hybrid_fusion,
             "alpha": rag.hybrid_alpha if rag.hybrid_fusion == "weighted" else None,
         }
+    if args.collection:
+        summary["collection"] = collection_name
     summary["prompt_guardrail"] = args.guardrail
     summary["structured_answer"] = args.structured_answer
     summary["graph_answer"] = args.graph_answer
