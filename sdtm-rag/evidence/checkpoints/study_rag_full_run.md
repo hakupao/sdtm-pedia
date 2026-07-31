@@ -34,3 +34,15 @@
 2. golden set 为草稿 v0 (12 题, controller 起草), 用户共审/定稿待后续 session; 定稿后重跑成本 ≈ 秒级。
 3. eval 侧 hybrid 需显式 `--hybrid` (与生产 settings 默认不同) — 评测命令已写入本文档供复现。
 4. CDISC 全量重灌与 study 共存的端到端首跑观察项: 停服再灌; backup 保留期规则待定。
+
+## 合并后 backlog (fable 终审 triage, 无 merge 前必修项)
+
+- **P1**: paths.py 三合一 (I-2/I-3 回归测试 + 空串守卫统一 is None + assert→raise);
+  `--collection` 不带 `--kb-root` 的静默错配加 warning (Plan B 路由接线前必须解决)。
+- **P2**: 停用 form (In use 空) 误判 trailer 的语义钉死; 反回声闸假阳性告警。
+- **P3**: parse_* wb.close(); 若干测试覆盖缺口 (维度闸/429/截断/报告层断言/组合场景);
+  diffs=={} 加 diff_available 布尔 (Plan B 输入); pilot 文档补双路佐证口径注。
+- 流程记录: golden questions 粒度验证发生在 schema 冻结后 (spec §4.1 顺序偏差),
+  由幂等管线 + 用户 checkpoint 补偿, 无实害。
+- 评测解读 caveat: 100% 为草稿集/家族前缀粒度; 重复组内精确定位零判别力 (known limit,
+  结构化直查通道属 Plan B 候选)。
