@@ -559,7 +559,7 @@ def test_trailer_rows_flagged(tmp_path):
     """Viedoc 表尾脚注行: Forms 标 is_trailer, Items 归一化为 Trailer."""
     from scripts.tests.study_fixtures import DEFAULT_FORMS, DEFAULT_ITEMS
     trailer_form = ("See the Data checks sheet for details.", "", "", "", "")
-    trailer_item = ("See the Data checks sheet for details.", "", "Footnote", "", "") + ("",) * 16
+    trailer_item = ("See the Data checks sheet for details.", "", "Footnote text", "", "") + ("",) * 16
     p = build_config_report(tmp_path / "t.xlsx",
                             forms_rows=list(DEFAULT_FORMS) + [trailer_form],
                             items_rows=list(DEFAULT_ITEMS) + [trailer_item])
@@ -568,7 +568,8 @@ def test_trailer_rows_flagged(tmp_path):
     items = parse_items(p)
     assert items[-1].row_type == "Trailer"
     # 非空非白名单值: 锁死"白名单归一化"语义, 防退化成 `raw_type or "Trailer"`
-    assert items[-1].raw["Type and container::Field type"] == "Footnote"
+    # 含空格 = 脚注形态 (build_catalog 对无空格的未知值会 raise, 见 Task 5)
+    assert items[-1].raw["Type and container::Field type"] == "Footnote text"
 
 
 def test_parse_items_missing_column_raises(tmp_path):
@@ -838,6 +839,51 @@ def test_write_catalog_outputs(sp, tmp_path):
         rows = list(csv.DictReader(fh))
     assert {"sheet", "row", "status", "target"} <= set(rows[0])
     assert len(rows) == len(cat["ledger"])
+
+
+def test_ledger_per_sheet_counts(sp):
+    """覆盖恒等式测试锁: 台账行数逐 sheet 等于源表数据行数 (部分漏账必红)."""
+    from collections import Counter
+    cat = build_catalog(sp)
+    per_sheet = Counter(r["sheet"] for r in cat["ledger"])
+    assert per_sheet == {"Forms": 2, "Items and Groups": 4, "Code lists": 3}
+
+
+def test_unknown_field_type_raises(sp, tmp_path):
+    """未知结构值 (非脚注形态) 必须响亮失败, 不得静默当脚注吞掉."""
+    from dataclasses import replace
+    from scripts.tests.study_fixtures import DEFAULT_ITEMS
+    bad = ("FAKEFORM1", "偽フォーム一", "Section", "FG9", "") + ("",) * 16
+    new = build_config_report(tmp_path / "bad.xlsx",
+                              items_rows=list(DEFAULT_ITEMS) + [bad])
+    sp2 = replace(sp, config_report_new=new, config_report_old=None)
+    with pytest.raises(ValueError, match="Section"):
+        build_catalog(sp2)
+
+
+def test_trailer_rows_in_ledger(sp, tmp_path):
+    """脚注行 (含空格形态) 落 trailer:footnote, 不进 forms/items."""
+    from dataclasses import replace
+    from scripts.tests.study_fixtures import DEFAULT_FORMS, DEFAULT_ITEMS
+    trailer_form = ("See the Data checks sheet for details.", "", "", "", "")
+    trailer_item = ("See the Data checks sheet for details.", "", "Footnote text",
+                    "", "") + ("",) * 16
+    new = build_config_report(tmp_path / "tr.xlsx",
+                              forms_rows=list(DEFAULT_FORMS) + [trailer_form],
+                              items_rows=list(DEFAULT_ITEMS) + [trailer_item])
+    sp2 = replace(sp, config_report_new=new, config_report_old=None)
+    cat = build_catalog(sp2)
+    trailer_rows = [r for r in cat["ledger"] if r["target"] == "trailer:footnote"]
+    assert len(trailer_rows) == 2
+    assert [f["oid"] for f in cat["forms"]] == ["FAKEFORM1", "FAKEFORM2"]
+    assert all(i["row_type"] == "Item" for i in cat["items"])
+
+
+def test_no_old_report_degrades(sp):
+    from dataclasses import replace
+    cat = build_catalog(replace(sp, config_report_old=None))
+    assert (cat["diffs"], cat["new_items"], cat["removed_items"]) == ({}, [], [])
+    assert cat["version_old"] == "VOLD"   # 标签仍来自注册表, 仅 diff 降级
 ```
 
 - [ ] **Step 2: 跑测试确认失败**
@@ -889,12 +935,12 @@ def build_catalog(sp: StudyPaths) -> dict:
     items = [r for r in rows if r.row_type == "Item"]
     groups = {(r.form_oid, r.group_oid): r for r in rows if r.row_type == "Item group"}
 
-    old_index: dict[str, ItemRow] = {}
     if sp.config_report_old is not None:
         old_index = {r.item_oid: r
                      for r in parse_items(sp.config_report_old) if r.row_type == "Item"}
-    diffs, new_items, removed = _diff_items({r.item_oid: r for r in items}, old_index) \
-        if old_index else ({}, [], [])
+        diffs, new_items, removed = _diff_items({r.item_oid: r for r in items}, old_index)
+    else:   # 无旧版才降级; 旧版存在但 0 item 时 new_items = 全部 (不静默吞)
+        diffs, new_items, removed = {}, [], []
 
     referenced = {r.choices for r in items if r.choices}
     ledger: list[dict] = []
@@ -908,6 +954,12 @@ def build_catalog(sp: StudyPaths) -> dict:
         elif r.row_type == "Item group":
             target = f"group:{r.form_oid}/{r.group_oid}"
         elif r.row_type == "Trailer":
+            # 二次闸: 归一化把一切未知都标成 Trailer, 这里用 raw 原始值区分
+            # 脚注形态 (空或含空格的句子) vs 真正的未知结构值 (如 "Section") — 后者必须响亮失败
+            ft = r.raw.get("Type and container::Field type", "")
+            if ft and " " not in ft:
+                raise ValueError(f"orphan row {r.row} in Items and Groups: "
+                                 f"unknown Field type {ft!r} (非脚注形态)")
             target = "trailer:footnote"
         else:
             raise ValueError(f"orphan row {r.row} in Items and Groups: "
