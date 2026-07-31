@@ -121,3 +121,78 @@ def test_no_old_report_degrades(sp):
     cat = build_catalog(replace(sp, config_report_old=None))
     assert (cat["diffs"], cat["new_items"], cat["removed_items"]) == ({}, [], [])
     assert cat["version_old"] == "VOLD"   # 标签仍来自注册表, 仅 diff 降级
+
+
+def _norm_item(oid, *, label="", data_checks="", required=""):
+    """比较归一化用的最小 Item 行 (21 列)."""
+    return ("FAKEFORM1", "偽フォーム一", "Item", "FG1", "",
+            oid, "text", required, "", "", data_checks, "", label, "Text box",
+            "", "", "", "", "", "", "")
+
+
+@pytest.fixture()
+def norm_sp(sp, tmp_path):
+    """新旧两版只差表記ゆれ (NBSP / HTML 实体) + 两处真实变更."""
+    from dataclasses import replace
+    new = build_config_report(tmp_path / "n2.xlsx", items_rows=[
+        _norm_item("FAKENB1", label="偽項目\u00a0一"),        # NBSP 插在非空白字符之间
+        _norm_item("FAKENB2", label="偽項目\u00a0二"),        # 旧版此处是普通空格 → 被 NBSP 顶替
+        _norm_item("FAKEENT", label="A &amp;amp; B &lt; C"),  # 双重转义 + 实体
+        _norm_item("FAKEREAL", data_checks="DC01"),           # 真实变更: 新增 data checks
+        _norm_item("FAKEREQ", required="X"),                  # 真实变更: bool 字段
+    ])
+    old = build_config_report(tmp_path / "o2.xlsx", items_rows=[
+        _norm_item("FAKENB1", label="偽項目一"),
+        _norm_item("FAKENB2", label="偽項目 二"),
+        _norm_item("FAKEENT", label="A & B < C"),
+        _norm_item("FAKEREAL", data_checks=""),
+        _norm_item("FAKEREQ", required=""),
+    ])
+    return replace(sp, config_report_new=new, config_report_old=old)
+
+
+def test_diff_ignores_export_artifacts(norm_sp):
+    """NBSP 插入 / NBSP 顶替空格 / HTML 实体 (含双重转义) 都不是变更."""
+    diffs = build_catalog(norm_sp)["diffs"]
+    assert set(diffs) == {"FAKEREAL", "FAKEREQ"}
+
+
+def test_diff_keeps_real_changes(norm_sp):
+    """值增删与 bool 翻转必须报出 (归一化不得吞真实变更)."""
+    diffs = build_catalog(norm_sp)["diffs"]
+    assert any(c.startswith("data_checks:") and "DC01" in c for c in diffs["FAKEREAL"])
+    assert any(c.startswith("required:") and "False" in c and "True" in c
+               for c in diffs["FAKEREQ"])
+
+
+def test_diff_text_is_normalized(sp):
+    """diff 文案用归一化值, 不把 NBSP 原样打进卡片."""
+    from dataclasses import replace
+    new = build_config_report(sp.config_report_new.parent / "n3.xlsx",
+                              items_rows=[_norm_item("FAKEX", label="偽\u00a0項目\u00a0甲")])
+    old = build_config_report(sp.config_report_new.parent / "o3.xlsx",
+                              items_rows=[_norm_item("FAKEX", label="旧ラベル")])
+    cat = build_catalog(replace(sp, config_report_new=new, config_report_old=old))
+    line = cat["diffs"]["FAKEX"][0]
+    assert "\u00a0" not in line and "偽 項目 甲" in line
+
+
+def test_normalization_does_not_touch_new_removed(norm_sp):
+    """归一化只作用于比较判定, 不影响 OID 集合运算."""
+    from dataclasses import replace
+    cat = build_catalog(norm_sp)
+    assert cat["new_items"] == [] and cat["removed_items"] == []
+    extra = build_config_report(norm_sp.config_report_new.parent / "n4.xlsx",
+                                items_rows=[_norm_item("FAKENB1", label="偽項目\u00a0一"),
+                                            _norm_item("FAKENEW")])
+    cat2 = build_catalog(replace(norm_sp, config_report_new=extra))
+    assert cat2["new_items"] == ["FAKENEW"]
+    assert set(cat2["removed_items"]) == {"FAKENB2", "FAKEENT", "FAKEREAL", "FAKEREQ"}
+
+
+def test_catalog_stores_raw_values(norm_sp):
+    """存储的是原值: 归一化只是比较口径, 不改 catalog 内容 (卡片仍见真实导出值)."""
+    cat = build_catalog(norm_sp)
+    labels = {i["item_oid"]: i["label"] for i in cat["items"]}
+    assert labels["FAKENB1"] == "偽項目\u00a0一"
+    assert labels["FAKEENT"] == "A &amp;amp; B &lt; C"

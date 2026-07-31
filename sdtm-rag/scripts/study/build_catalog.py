@@ -3,7 +3,9 @@ from __future__ import annotations
 
 import argparse
 import csv
+import html
 import json
+import unicodedata
 from dataclasses import asdict
 from pathlib import Path
 
@@ -16,12 +18,39 @@ _DIFF_FIELDS = ("data_type", "required", "label", "choices", "data_checks",
                 "system_checks", "min_length", "max_length", "control_type")
 
 
+def _norm(v):
+    """比较用归一化: HTML 实体解码 (迭代到不动点, 解双重转义) → NFKC → 空白折叠.
+
+    只用于比较判定与 diff 文案; catalog 存的是原值. 非 str (如 required: bool) 原样返回.
+    """
+    if not isinstance(v, str):
+        return v
+    prev, cur = None, v
+    while cur != prev:
+        prev, cur = cur, html.unescape(cur)
+    return " ".join(unicodedata.normalize("NFKC", cur).split())
+
+
+def _same(a, b) -> bool:
+    """表記ゆれ判定: 导出设置差异 (NBSP 插入/顶替空格, HTML 实体) 不算变更.
+
+    NBSP 既可能插在字符之间 (删掉才等价), 也可能顶替原有空格 (折叠成空格才等价),
+    单条规则覆盖不全, 故两种归一化取或. 普通空格的增删仍算变更 (不做全空白无关比较).
+    """
+    if _norm(a) == _norm(b):
+        return True
+    if not isinstance(a, str) or not isinstance(b, str):
+        return False
+    return _norm(a.replace("\u00a0", "")) == _norm(b.replace("\u00a0", ""))
+
+
 def _diff_items(new: dict[str, ItemRow], old: dict[str, ItemRow]):
     diffs: dict[str, list[str]] = {}
     for oid in new.keys() & old.keys():
         changes = [
-            f"{f}: {getattr(old[oid], f)} → {getattr(new[oid], f)}"
-            for f in _DIFF_FIELDS if getattr(old[oid], f) != getattr(new[oid], f)
+            f"{f}: {_norm(getattr(old[oid], f))} → {_norm(getattr(new[oid], f))}"
+            for f in _DIFF_FIELDS
+            if not _same(getattr(old[oid], f), getattr(new[oid], f))
         ]
         if changes:
             diffs[oid] = changes
