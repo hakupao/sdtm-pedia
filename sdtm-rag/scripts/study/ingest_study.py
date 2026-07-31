@@ -47,7 +47,10 @@ def load_cards(cards_dir: Path) -> list[dict]:
                 "form_oid": fm["form_oid"],
                 "field_oid": fm["field_oid"],
                 "section": fm["form_oid"],
-                "source": f"{fm.get('source_sheet', '')}#row{fm.get('source_row', '')}",
+                # source 是检索侧的引用标识 (run_eval source recall 部分匹配 + webchat 显示),
+                # 与 CDISC chunk 的文件路径语义对齐; xlsx 溯源另存 provenance
+                "source": p.name,
+                "provenance": f"{fm.get('source_sheet', '')}#row{fm.get('source_row', '')}",
             },
         })
     return cards

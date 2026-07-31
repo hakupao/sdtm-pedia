@@ -41,6 +41,9 @@ def test_load_cards_metadata(cards_dir):
     assert c["metadata"]["domain"] == "FAKEFORM1"
     assert c["metadata"]["file_type"] == "field_card"
     assert c["metadata"]["field_oid"] == "FAKEIT1"
+    # source = 卡片文件名: run_eval 的 source recall 对其做部分匹配, 期望值是卡片 id
+    assert c["metadata"]["source"] == "st01__FAKEFORM1__FAKEIT1.md"
+    assert c["metadata"]["provenance"] == "Items and Groups#row5"
     assert "偽項目ラベル一" in c["text"]
 
 
