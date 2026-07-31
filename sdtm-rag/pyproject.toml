@@ -41,6 +41,7 @@ dependencies = [
     # Embedding (D-4 v3: OpenAI text-embedding-3-small via LiteLLM; no local model)
     # Config
     "pyyaml>=6.0",
+    "openpyxl>=3.1",
     "python-dotenv>=1.0",
     # Logging
     "structlog>=24.1",
@@ -65,6 +66,7 @@ packages = [
     "scripts",
     "scripts.chunkers",
     "scripts.shared",
+    "scripts.study",
     "server",
     "ui",
     "eval",
