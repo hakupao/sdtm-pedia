@@ -859,6 +859,14 @@ def test_unknown_field_type_raises(sp, tmp_path):
     sp2 = replace(sp, config_report_new=new, config_report_old=None)
     with pytest.raises(ValueError, match="Section"):
         build_catalog(sp2)
+    # 多词未知类型 + item 载荷: 词形启发拦不住, 语义不变量 (item_oid 非空) 必须拦住
+    bad2 = ("FAKEFORM1", "偽フォーム一", "Item matrix", "FG9", "",
+            "FAKEIT9") + ("",) * 15
+    new2 = build_config_report(tmp_path / "bad2.xlsx",
+                               items_rows=list(DEFAULT_ITEMS) + [bad2])
+    sp3 = replace(sp, config_report_new=new2, config_report_old=None)
+    with pytest.raises(ValueError, match="Item matrix"):
+        build_catalog(sp3)
 
 
 def test_trailer_rows_in_ledger(sp, tmp_path):
@@ -954,12 +962,13 @@ def build_catalog(sp: StudyPaths) -> dict:
         elif r.row_type == "Item group":
             target = f"group:{r.form_oid}/{r.group_oid}"
         elif r.row_type == "Trailer":
-            # 二次闸: 归一化把一切未知都标成 Trailer, 这里用 raw 原始值区分
-            # 脚注形态 (空或含空格的句子) vs 真正的未知结构值 (如 "Section") — 后者必须响亮失败
+            # 二次闸: 归一化把一切未知都标成 Trailer, 这里区分真脚注与未知结构值
+            # 词形启发 (单词形态如 "Section") + 语义不变量 (真脚注 item_oid 恒空;
+            # 959 条真实 Item 行 item_oid 100% 非空) — 带 item 载荷的未知类型必须响亮失败
             ft = r.raw.get("Type and container::Field type", "")
-            if ft and " " not in ft:
+            if (ft and " " not in ft) or r.item_oid:
                 raise ValueError(f"orphan row {r.row} in Items and Groups: "
-                                 f"unknown Field type {ft!r} (非脚注形态)")
+                                 f"unknown Field type {ft!r} (非脚注形态/含 item 载荷)")
             target = "trailer:footnote"
         else:
             raise ValueError(f"orphan row {r.row} in Items and Groups: "
