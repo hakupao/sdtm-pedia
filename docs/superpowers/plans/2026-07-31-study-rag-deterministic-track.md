@@ -18,7 +18,7 @@
 - 确定性轨零 LLM: parser 与渲染不调用任何模型; embedding 仅在 ingest 步骤调用。
 - 每个 commit 前执行 `git diff --cached | grep -ci <真实研究名>` 必须为 0 (执行者在本地用真名检查, 计划文档中不写出该名字)。
 - 工作目录: 所有命令在 `/Users/bojiangzhang/MyProject/sdtm-pedia/sdtm-rag` 下执行; python/pytest 用 `.venv/bin/`。
-- xlsx 事实 (已实测): `Forms`/`Items and Groups` 三行表头 (行1 sheet名 / 行2 分组·空白需前向填充 / 行3 列名), 数据从行 4 起; **`Code lists` 是两行表头** (行1 sheet名 / 行2 列名, 无分组行), 数据从行 3 起 — 解析时传 `has_section_row=False`, 分组名取 sheet 名, key 仍为 `Code lists::OID`。`Items and Groups` 56 列 ~1091 行, `Code lists` 5 列 ~2401 行, `Forms` 15 列 ~26 行。新版报告是抜粋 (7 sheets), 旧版全量 (26 sheets, 多出 `Data checks`/`Functions and Conditions` 明细)。真实分组行不留空 (逐列重复写满), 前向填充是对留空形态的防御。
+- xlsx 事实 (已实测): `Forms`/`Items and Groups` 三行表头 (行1 sheet名 / 行2 分组·空白需前向填充 / 行3 列名), 数据从行 4 起; **`Code lists` 是两行表头** (行1 sheet名 / 行2 列名, 无分组行), 数据从行 3 起 — 解析时传 `has_section_row=False`, 分组名取 sheet 名, key 仍为 `Code lists::OID`。`Items and Groups` 56 列 ~1091 行, `Code lists` 5 列 ~2401 行, `Forms` 15 列 ~26 行。新版报告是抜粋 (7 sheets), 旧版全量 (26 sheets, 多出 `Data checks`/`Functions and Conditions` 明细)。真实分组行不留空 (逐列重复写满; 仅 `read_only=True` 加载时如此 — 普通模式下合并单元格非锚点位读回 None, 前向填充即成必需), 前向填充是防御。新版报告 7 张 sheet 表头形态 (样式判定, 已实测): 三行=`Forms`/`Items and Groups`/`Study workflow-Events`/`Study workflow-Activities`; **两行=`Code lists` 与 `Study workflow-Forms`**; 退化=`Settings-Subject Id Gen` (1 列)。同一文件两种形态并存, 读任何新 sheet 前必须先验表头行数。
 - 失败 attempt 按规则 B 归档到 `sdtm-rag/failures/` (已有目录惯例); 归档内容同样不得含真名。
 
 ---
@@ -393,6 +393,43 @@ def test_read_sheet_records_skips_blank_rows(tmp_path):
                             items_rows=[("", "") + ("",) * 19])
     wb = openpyxl.load_workbook(p, read_only=True)
     assert read_sheet_records(wb["Items and Groups"]) == []
+
+
+def test_read_sheet_records_two_row_header(report):
+    """真实 Code lists 是两行表头 (行1 sheet名 / 行2 列名), 分组名取 sheet 名."""
+    wb = openpyxl.load_workbook(report, read_only=True)
+    recs = read_sheet_records(wb["Code lists"], has_section_row=False)
+    assert len(recs) == 3                     # 三行不能被表头吃掉一条
+    assert recs[0]["_row"] == 3               # 数据从 xlsx 行 3 起
+    assert recs[0]["Code lists::OID"] == "CL_FAKE1"
+    assert recs[0]["Code lists::Code text"] == "偽選択肢はい"
+    assert recs[2]["Code lists::OID"] == "CL_UNUSED"
+
+
+class _StubSheet:
+    """短行 sheet: openpyxl read_only 会自动补到 max_column, 故用 stub 直喂短 tuple."""
+
+    title = "Stub"
+
+    def __init__(self, rows):
+        self._rows = rows
+
+    def iter_rows(self, values_only=True):
+        return iter(self._rows)
+
+
+def test_read_sheet_records_pads_short_rows():
+    ws = _StubSheet([
+        ("Stub", "Stub", "Stub"),
+        ("A", "A", "B"),
+        ("c1", "c2", "c3"),
+        ("v1",),                      # 短行: 缺 c2 / c3
+    ])
+    recs = read_sheet_records(ws)
+    assert len(recs) == 1
+    assert recs[0]["A::c1"] == "v1"
+    assert recs[0]["A::c2"] == ""     # 缺列补空串, 不得静默丢 key
+    assert recs[0]["B::c3"] == ""
 ```
 
 - [ ] **Step 3: 跑测试确认失败**
@@ -418,21 +455,29 @@ def _cell(v: Any) -> str:
     return "" if v is None else str(v).strip()
 
 
-def read_sheet_records(ws) -> list[dict[str, Any]]:
-    """三行表头 (sheet名/分组/列名) → [{'分组::列名': str, '_row': int}]; 全空行跳过."""
+def read_sheet_records(ws, *, has_section_row: bool = True) -> list[dict[str, Any]]:
+    """表头 → [{'分组::列名': str, '_row': int}]; 全空行跳过, 短行补空串.
+
+    has_section_row=True:  三行表头 (行1 sheet名 / 行2 分组, 空白前向填充 / 行3 列名), 数据自行 4 起.
+    has_section_row=False: 两行表头 (行1 sheet名 / 行2 列名), 分组名取 sheet 名, 数据自行 3 起.
+                           真实 Code lists sheet 即此形态.
+    """
     rows = ws.iter_rows(values_only=True)
     next(rows)                                   # 行1: sheet 名, 丢弃
-    sections_raw = next(rows)
+    sections_raw: tuple = next(rows) if has_section_row else ()
     colnames = next(rows)
     keys: list[str] = []
-    cur = ""
-    for s, c in zip(sections_raw, colnames):
-        if _cell(s):
-            cur = _cell(s)
+    cur = "" if has_section_row else ws.title
+    for i, c in enumerate(colnames):
+        section = _cell(sections_raw[i]) if i < len(sections_raw) else ""
+        if section:
+            cur = section
         keys.append(f"{cur}::{_cell(c)}")
+    first_data_row = 4 if has_section_row else 3
     records: list[dict[str, Any]] = []
-    for i, row in enumerate(rows, start=4):
+    for i, row in enumerate(rows, start=first_data_row):
         values = [_cell(v) for v in row[: len(keys)]]
+        values += [""] * (len(keys) - len(values))   # 短行补齐, 否则 zip 静默丢 key
         if not any(values):
             continue
         rec: dict[str, Any] = dict(zip(keys, values))
@@ -447,7 +492,7 @@ def read_sheet_records(ws) -> list[dict[str, Any]]:
 .venv/bin/pytest scripts/tests/test_parse_config_report.py -v
 ```
 
-Expected: 3 passed。
+Expected: 5 passed。
 
 - [ ] **Step 6: Commit**
 
@@ -654,7 +699,7 @@ def parse_codelists(path: Path) -> dict[str, Codelist]:
 .venv/bin/pytest scripts/tests/test_parse_config_report.py -v
 ```
 
-Expected: 7 passed。
+Expected: 9 passed。
 
 - [ ] **Step 5: 真实文件冒烟 (本地, 输出只看统计)**
 
