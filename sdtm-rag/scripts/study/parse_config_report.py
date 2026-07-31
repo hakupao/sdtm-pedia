@@ -59,7 +59,7 @@ class ItemRow:
     row: int
     form_oid: str
     form_name: str
-    row_type: str          # 'Item group' | 'Item'
+    row_type: str          # 'Item group' | 'Item' | 'Trailer' (表尾脚注, 白名单外归一化)
     group_oid: str
     group_name: str
     item_oid: str
