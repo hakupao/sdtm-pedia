@@ -511,7 +511,8 @@ git commit -m "feat(study-rag): 三行表头 sheet 读取器 + 合成 fixture (�
 
 **Interfaces:**
 - Produces:
-  - `@dataclass FormDef(oid, name, summary_format, description, in_use, row)`
+  - `@dataclass FormDef(oid, name, summary_format, description, in_use, row, is_trailer)` — Viedoc 导出表尾脚注行 (oid 含空格或 In use 为空) 标 `is_trailer=True`, 不删除 (Task 5 台账需要每行落点)
+  - `ItemRow.row_type` 归一化: 不在 {"Item", "Item group"} 白名单内的行 (表尾脚注) → `"Trailer"` (原值保留在 raw)
   - `@dataclass ItemRow(row, form_oid, form_name, row_type, group_oid, group_name, item_oid, data_type, required: bool, min_length, max_length, data_checks, system_checks, label, control_type, choices, unit, description, instructions, visible_condition, output_field_id, output_field_label, raw: dict)`
   - `@dataclass Codelist(oid, data_type, entries: list[tuple[str, str]])`
   - `parse_forms(path) -> list[FormDef]` / `parse_items(path) -> list[ItemRow]` / `parse_codelists(path) -> dict[str, Codelist]`
@@ -554,6 +555,21 @@ def test_parse_codelists_grouping(report):
     assert cls["CL_FAKE1"].data_type == "integer"
 
 
+def test_trailer_rows_flagged(tmp_path):
+    """Viedoc 表尾脚注行: Forms 标 is_trailer, Items 归一化为 Trailer."""
+    from scripts.tests.study_fixtures import DEFAULT_FORMS, DEFAULT_ITEMS
+    trailer_form = ("See the Data checks sheet for details.", "", "", "", "")
+    trailer_item = ("See the Data checks sheet for details.", "", "", "", "") + ("",) * 16
+    p = build_config_report(tmp_path / "t.xlsx",
+                            forms_rows=list(DEFAULT_FORMS) + [trailer_form],
+                            items_rows=list(DEFAULT_ITEMS) + [trailer_item])
+    forms = parse_forms(p)
+    assert [f.is_trailer for f in forms] == [False, False, True]
+    items = parse_items(p)
+    assert items[-1].row_type == "Trailer"
+    assert items[-1].raw["Type and container::Field type"] == ""   # 原值保留在 raw
+
+
 def test_parse_items_missing_column_raises(tmp_path):
     import openpyxl as _o
     p = tmp_path / "bad.xlsx"
@@ -592,6 +608,7 @@ class FormDef:
     description: str
     in_use: str
     row: int
+    is_trailer: bool = False   # Viedoc 表尾脚注行 (oid 含空格 / In use 空), 真实 form 21 个均非此形态
 
 
 @dataclass(frozen=True)
@@ -636,26 +653,30 @@ def _req(rec: dict, key: str) -> str:
 
 def parse_forms(path: Path) -> list[FormDef]:
     wb = openpyxl.load_workbook(path, read_only=True)
-    return [
-        FormDef(
-            oid=_req(r, "General::Id"), name=r.get("General::Name", ""),
+    out: list[FormDef] = []
+    for r in read_sheet_records(wb["Forms"]):
+        oid = _req(r, "General::Id")
+        in_use = r.get("General::In use", "")
+        out.append(FormDef(
+            oid=oid, name=r.get("General::Name", ""),
             summary_format=r.get("General::Summary format", ""),
             description=r.get("General::Description", ""),
-            in_use=r.get("General::In use", ""), row=r["_row"],
-        )
-        for r in read_sheet_records(wb["Forms"])
-    ]
+            in_use=in_use, row=r["_row"],
+            is_trailer=(" " in oid or not in_use),
+        ))
+    return out
 
 
 def parse_items(path: Path) -> list[ItemRow]:
     wb = openpyxl.load_workbook(path, read_only=True)
     out: list[ItemRow] = []
     for r in read_sheet_records(wb["Items and Groups"]):
+        raw_type = r.get("Type and container::Field type", "")
         out.append(ItemRow(
             row=r["_row"],
             form_oid=_req(r, "Type and container::Form ID"),
             form_name=r.get("Type and container::Form Name", ""),
-            row_type=r.get("Type and container::Field type", ""),
+            row_type=raw_type if raw_type in ("Item", "Item group") else "Trailer",
             group_oid=r.get("Type and container::Item group ID", ""),
             group_name=r.get("Type and container::Item group name", ""),
             item_oid=_req(r, "Validation::Item ID"),
@@ -699,7 +720,7 @@ def parse_codelists(path: Path) -> dict[str, Codelist]:
 .venv/bin/pytest scripts/tests/test_parse_config_report.py -v
 ```
 
-Expected: 9 passed。
+Expected: 10 passed。
 
 - [ ] **Step 5: 真实文件冒烟 (本地, 输出只看统计)**
 
@@ -715,7 +736,7 @@ print('labelled:', sum(1 for r in items if r.label), '| with-choices:', sum(1 fo
 "
 ```
 
-Expected: 无异常; forms ≈ 23, rows ≈ 1088。若真实表头与假设不符 (KeyError), 修 parser 或 fixture 后重跑测试 — **不得**改成绕过列名。
+Expected: 无异常; forms = 22 (21 真实 + 1 表尾 is_trailer), rows = 1087 (959 Item + 126 Item group + 2 Trailer)。若真实表头与假设不符 (KeyError), 修 parser 或 fixture 后重跑测试 — **不得**改成绕过列名。
 
 - [ ] **Step 6: Commit**
 
@@ -860,7 +881,8 @@ def _diff_items(new: dict[str, ItemRow], old: dict[str, ItemRow]):
 
 
 def build_catalog(sp: StudyPaths) -> dict:
-    forms = parse_forms(sp.config_report_new)
+    all_forms = parse_forms(sp.config_report_new)
+    forms = [f for f in all_forms if not f.is_trailer]   # 表尾脚注行不进 catalog, 但进台账
     rows = parse_items(sp.config_report_new)
     codelists = parse_codelists(sp.config_report_new)
     items = [r for r in rows if r.row_type == "Item"]
@@ -875,14 +897,17 @@ def build_catalog(sp: StudyPaths) -> dict:
 
     referenced = {r.choices for r in items if r.choices}
     ledger: list[dict] = []
-    for f in forms:
+    for f in all_forms:
+        target = "trailer:footnote" if f.is_trailer else f"form:{f.oid}"
         ledger.append({"sheet": "Forms", "row": f.row, "status": "mapped",
-                       "target": f"form:{f.oid}"})
+                       "target": target})
     for r in rows:
         if r.row_type == "Item":
             target = f"card:{sp.study_id}__{r.form_oid}__{r.item_oid}"
         elif r.row_type == "Item group":
             target = f"group:{r.form_oid}/{r.group_oid}"
+        elif r.row_type == "Trailer":
+            target = "trailer:footnote"
         else:
             raise ValueError(f"orphan row {r.row} in Items and Groups: "
                              f"unknown Field type {r.row_type!r}")
@@ -962,7 +987,7 @@ Expected: 3 passed。
 ls data/study/st01/
 ```
 
-Expected: 打印统计 (items ≈ 700-900, diffs/new/removed 为若干); 生成 `catalog.json` + `coverage_ledger.csv`; **无 orphan 异常**。若真实数据出现未知 `Field type` 值 → 这是台账机制在工作: 补映射规则再跑, 失败记录归档 `failures/study_catalog_attempt_1.md` (不含真名)。
+Expected: 打印统计 (forms=21, items=959, codelists=643, diffs/new/removed 为若干); 生成 `catalog.json` + `coverage_ledger.csv`; **无 orphan 异常**。若真实数据出现未知 `Field type` 值 → 这是台账机制在工作: 补映射规则再跑, 失败记录归档 `failures/study_catalog_attempt_1.md` (不含真名)。
 
 - [ ] **Step 6: Commit**
 
