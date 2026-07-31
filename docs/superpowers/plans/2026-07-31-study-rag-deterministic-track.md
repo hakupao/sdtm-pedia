@@ -1074,7 +1074,11 @@ git commit -m "feat(study-rag): catalog 组装 + 覆盖台账 (孤儿即抛错) 
   (a) 列头==item_oid 直配 → (b) DEMO `Items` 字典 sheet Label→ID 且 ID∈catalog →
   (c) form 域内 label 精确匹配 (恰 1 候选才解析, >1 歧义跳过并计数, 0 未匹配)。
   **不做模糊/归一化匹配** (NFKC 留 pilot 按规则 A 抽检后定)。真实覆盖预期 ≈671/959 (70%), 歧义 ≈201。
-  `README`/`Items`/`CodeLists` sheet 不作数据采样。
+  `README`/`Items`/`CodeLists` sheet 不作数据采样。stats 含 `unknown_sheets` 观测哨 (7 键)。
+
+> ⚠️ **本 task 下方 Step 1-6 的代码/测试块是 v1 (列头=OID) 历史版本, 已被 v2 取代。**
+> 实现以交付代码为准: `scripts/study/parse_demo.py` + `scripts/tests/test_parse_demo.py`
+> (commits e17711d → d6bfd1a → a59f47d, 10 tests)。resume/重放时**不得**按下方旧块重写。
 
 - [ ] **Step 1: 写失败测试**
 
@@ -1251,8 +1255,24 @@ def test_render_field_card_content(catalog):
     assert "# [偽フォーム一 FAKEFORM1] 偽項目ラベル一 (FAKEIT1)" in body
     assert "integer" in body and "必須" in body
     assert "1 = 偽選択肢はい" in body                 # codelist 展开
-    assert "DEMO 実例値: 1 / 0" in body
+    assert "DEMO 例値: 1 / 0" in body
     assert "旧→新版差分: なし" in body
+
+
+def test_render_field_card_fallbacks(catalog):
+    """30 无 label / 254 无组名 / 288 无示例值 / advanced 可見性 — 全部降级路径."""
+    cat, _ = catalog
+    item = dict(cat["items"][0])
+    item["label"] = ""
+    item["group_name"] = ""
+    item["visible_condition"] = ""
+    item["raw"] = {**item["raw"], "Visibility::Show on advanced condition": "COND_ADV"}
+    card = render_field_card(item, cat["forms"][0], None, [], [],
+                             study="st01", version="VNEW")
+    assert "# [偽フォーム一 FAKEFORM1] FAKEIT1 (FAKEIT1)" in card   # label 降级 item_oid
+    assert "- Item group: — (FG1)" in card
+    assert "条件付き表示 (Show on advanced condition)" in card
+    assert "- DEMO 例値: —" in card
 
 
 def test_build_cards_files_and_index(catalog):
@@ -1321,17 +1341,31 @@ def render_field_card(item: dict, form: dict, codelist: dict | None,
     else:
         cl_block = item["choices"] or "なし (自由記述)"
     checks = " / ".join(x for x in (item["data_checks"], item["system_checks"]) if x) or "—"
+    # 可見性: visible_condition 只覆盖 Show on simple (66/959); 另有 36% 的条件散在
+    # raw 的 advanced/hide 列 — 有条件但结构化字段空时降级为标记行 (公式不展开, pilot 再定)
+    vis = item["visible_condition"]
+    if not vis:
+        vis_cols = [k.split("::")[1] for k in (
+            "Visibility::Show on advanced condition",
+            "Visibility::Hide on simple condition",
+            "Visibility::Hide on advanced condition",
+            "Visibility::Hidden in activity",
+        ) if item["raw"].get(k)]
+        vis = f"条件付き表示 ({', '.join(vis_cols)})" if vis_cols else "常時表示"
     lines = [
-        f"# [{item['form_name']} {item['form_oid']}] {item['label']} ({item['item_oid']})",
+        # 30/959 item 无 label → 标题降级用 item_oid; 254/959 无组名 → '—'
+        f"# [{item['form_name']} {item['form_oid']}] "
+        f"{item['label'] or item['item_oid']} ({item['item_oid']})",
         f"- Form: {item['form_name']} ({item['form_oid']})",
-        f"- Item group: {item['group_name']} ({item['group_oid']})",
+        f"- Item group: {item['group_name'] or '—'} ({item['group_oid']})",
         f"- 型: {type_bits}",
         f"- Control: {item['control_type'] or '—'}"
         + (f" / 単位: {item['unit']}" if item["unit"] else ""),
         f"- Codelist: {cl_block}",
         f"- Edit checks: {checks}",
-        f"- 表示条件: {item['visible_condition'] or '常時表示'}",
-        f"- DEMO 実例値: {' / '.join(samples) if samples else '—'}",
+        f"- 表示条件: {vis}",
+        # DEMO 每 sheet 仅 1 行数据 → 至多 1 个示例值; 288/959 永无示例值
+        f"- DEMO 例値: {' / '.join(samples) if samples else '—'}",
         f"- 旧→新版差分: {'; '.join(diff) if diff else 'なし'}",
     ]
     if item["output_field_id"]:
