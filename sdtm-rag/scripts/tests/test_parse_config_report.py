@@ -109,6 +109,21 @@ def test_parse_codelists_grouping(report):
     assert cls["CL_FAKE1"].data_type == "integer"
 
 
+def test_trailer_rows_flagged(tmp_path):
+    """Viedoc 表尾脚注行: Forms 标 is_trailer, Items 归一化为 Trailer."""
+    from scripts.tests.study_fixtures import DEFAULT_FORMS, DEFAULT_ITEMS
+    trailer_form = ("See the Data checks sheet for details.", "", "", "", "")
+    trailer_item = ("See the Data checks sheet for details.", "", "", "", "") + ("",) * 16
+    p = build_config_report(tmp_path / "t.xlsx",
+                            forms_rows=list(DEFAULT_FORMS) + [trailer_form],
+                            items_rows=list(DEFAULT_ITEMS) + [trailer_item])
+    forms = parse_forms(p)
+    assert [f.is_trailer for f in forms] == [False, False, True]
+    items = parse_items(p)
+    assert items[-1].row_type == "Trailer"
+    assert items[-1].raw["Type and container::Field type"] == ""   # 原值保留在 raw
+
+
 def test_parse_items_missing_column_raises(tmp_path):
     import openpyxl as _o
     p = tmp_path / "bad.xlsx"

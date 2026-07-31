@@ -51,6 +51,7 @@ class FormDef:
     description: str
     in_use: str
     row: int
+    is_trailer: bool = False   # Viedoc 表尾脚注行 (oid 含空格 / In use 空), 真实 form 21 个均非此形态
 
 
 @dataclass(frozen=True)
@@ -95,26 +96,30 @@ def _req(rec: dict, key: str) -> str:
 
 def parse_forms(path: Path) -> list[FormDef]:
     wb = openpyxl.load_workbook(path, read_only=True)
-    return [
-        FormDef(
-            oid=_req(r, "General::Id"), name=r.get("General::Name", ""),
+    out: list[FormDef] = []
+    for r in read_sheet_records(wb["Forms"]):
+        oid = _req(r, "General::Id")
+        in_use = r.get("General::In use", "")
+        out.append(FormDef(
+            oid=oid, name=r.get("General::Name", ""),
             summary_format=r.get("General::Summary format", ""),
             description=r.get("General::Description", ""),
-            in_use=r.get("General::In use", ""), row=r["_row"],
-        )
-        for r in read_sheet_records(wb["Forms"])
-    ]
+            in_use=in_use, row=r["_row"],
+            is_trailer=(" " in oid or not in_use),
+        ))
+    return out
 
 
 def parse_items(path: Path) -> list[ItemRow]:
     wb = openpyxl.load_workbook(path, read_only=True)
     out: list[ItemRow] = []
     for r in read_sheet_records(wb["Items and Groups"]):
+        raw_type = r.get("Type and container::Field type", "")
         out.append(ItemRow(
             row=r["_row"],
             form_oid=_req(r, "Type and container::Form ID"),
             form_name=r.get("Type and container::Form Name", ""),
-            row_type=r.get("Type and container::Field type", ""),
+            row_type=raw_type if raw_type in ("Item", "Item group") else "Trailer",
             group_oid=r.get("Type and container::Item group ID", ""),
             group_name=r.get("Type and container::Item group name", ""),
             item_oid=_req(r, "Validation::Item ID"),
