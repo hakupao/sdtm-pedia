@@ -49,3 +49,12 @@ def test_resolve_study_missing_file_raises(tmp_path):
     reg.write_text(yaml.safe_dump(data), encoding="utf-8")
     with pytest.raises(FileNotFoundError):
         resolve_study("st01", registry_path=reg)
+
+
+def test_resolve_study_accepts_str_registry_path(tmp_path):
+    reg = _write_registry(tmp_path)
+    sp = resolve_study("st01", registry_path=str(reg))
+    assert isinstance(sp, StudyPaths)
+    assert sp.study_id == "st01"
+    assert sp.config_report_new.exists()
+    assert sp.out_dir.name == "st01"
