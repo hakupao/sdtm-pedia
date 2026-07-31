@@ -76,7 +76,8 @@ def render_field_card(item: dict, form: dict, codelist: dict | None,
     if item["raw"].get(_SCOPE_KEY):
         lines.append(f"- 適用範囲: {_flat(item['raw'][_SCOPE_KEY])}")
     lines += [
-        # DEMO 每 sheet 仅 1 行数据 → 至多 1 个示例值; 288/959 永无示例值
+        # 当前 DEMO 每 sheet 零数据行 (行1 label 表头 / 行2 OID 表头, 行3 起为空) →
+        # samples 恒为空, 本行恒为 '—'; 换含数据的导出后自动生效
         f"- DEMO 例値: {' / '.join(samples) if samples else '—'}",
         # diff 串内嵌旧版 label 值, 同样可能带换行
         f"- 旧→新版差分: {'; '.join(_flat(d) for d in diff) if diff else 'なし'}",
