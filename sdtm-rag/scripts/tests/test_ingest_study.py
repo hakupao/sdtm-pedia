@@ -44,6 +44,15 @@ def test_load_cards_metadata(cards_dir):
     assert "偽項目ラベル一" in c["text"]
 
 
+def test_load_cards_rejects_missing_required_keys(tmp_path):
+    """缺 frontmatter → 响亮报错, 而非静默产出 domain='' 逃出检索过滤。"""
+    d = tmp_path / "cards"
+    d.mkdir()
+    (d / "st01__BAD__BAD1.md").write_text("# 无 frontmatter\n", encoding="utf-8")
+    with pytest.raises(ValueError, match="st01__BAD__BAD1.md"):
+        load_cards(d)
+
+
 def test_persist_study_leaves_other_collections(tmp_path, cards_dir):
     client = chromadb.PersistentClient(path=str(tmp_path / "chroma"))
     other = client.create_collection("sdtm_kb_v1", metadata={"hnsw:space": "cosine"})
