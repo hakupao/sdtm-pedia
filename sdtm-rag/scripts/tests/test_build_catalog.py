@@ -1,6 +1,5 @@
 import csv
 import json
-from pathlib import Path
 
 import pytest
 
@@ -60,7 +59,7 @@ def test_ledger_full_coverage(sp):
     assert "group:FAKEFORM1/FG1" in mapped_targets
 
 
-def test_write_catalog_outputs(sp, tmp_path):
+def test_write_catalog_outputs(sp):
     cat = build_catalog(sp)
     write_catalog(cat, sp.out_dir)
     data = json.loads((sp.out_dir / "catalog.json").read_text(encoding="utf-8"))
@@ -69,3 +68,48 @@ def test_write_catalog_outputs(sp, tmp_path):
         rows = list(csv.DictReader(fh))
     assert {"sheet", "row", "status", "target"} <= set(rows[0])
     assert len(rows) == len(cat["ledger"])
+
+
+def test_ledger_per_sheet_counts(sp):
+    """覆盖恒等式测试锁: 台账行数逐 sheet 等于源表数据行数 (部分漏账必红)."""
+    from collections import Counter
+    cat = build_catalog(sp)
+    per_sheet = Counter(r["sheet"] for r in cat["ledger"])
+    assert per_sheet == {"Forms": 2, "Items and Groups": 4, "Code lists": 3}
+
+
+def test_unknown_field_type_raises(sp, tmp_path):
+    """未知结构值 (非脚注形态) 必须响亮失败, 不得静默当脚注吞掉."""
+    from dataclasses import replace
+    from scripts.tests.study_fixtures import DEFAULT_ITEMS
+    bad = ("FAKEFORM1", "偽フォーム一", "Section", "FG9", "") + ("",) * 16
+    new = build_config_report(tmp_path / "bad.xlsx",
+                              items_rows=list(DEFAULT_ITEMS) + [bad])
+    sp2 = replace(sp, config_report_new=new, config_report_old=None)
+    with pytest.raises(ValueError, match="Section"):
+        build_catalog(sp2)
+
+
+def test_trailer_rows_in_ledger(sp, tmp_path):
+    """脚注行 (含空格形态) 落 trailer:footnote, 不进 forms/items."""
+    from dataclasses import replace
+    from scripts.tests.study_fixtures import DEFAULT_FORMS, DEFAULT_ITEMS
+    trailer_form = ("See the Data checks sheet for details.", "", "", "", "")
+    trailer_item = ("See the Data checks sheet for details.", "", "Footnote text",
+                    "", "") + ("",) * 16
+    new = build_config_report(tmp_path / "tr.xlsx",
+                              forms_rows=list(DEFAULT_FORMS) + [trailer_form],
+                              items_rows=list(DEFAULT_ITEMS) + [trailer_item])
+    sp2 = replace(sp, config_report_new=new, config_report_old=None)
+    cat = build_catalog(sp2)
+    trailer_rows = [r for r in cat["ledger"] if r["target"] == "trailer:footnote"]
+    assert len(trailer_rows) == 2
+    assert [f["oid"] for f in cat["forms"]] == ["FAKEFORM1", "FAKEFORM2"]
+    assert all(i["row_type"] == "Item" for i in cat["items"])
+
+
+def test_no_old_report_degrades(sp):
+    from dataclasses import replace
+    cat = build_catalog(replace(sp, config_report_old=None))
+    assert (cat["diffs"], cat["new_items"], cat["removed_items"]) == ({}, [], [])
+    assert cat["version_old"] == "VOLD"   # 标签仍来自注册表, 仅 diff 降级

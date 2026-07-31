@@ -113,7 +113,7 @@ def test_trailer_rows_flagged(tmp_path):
     """Viedoc 表尾脚注行: Forms 标 is_trailer, Items 归一化为 Trailer."""
     from scripts.tests.study_fixtures import DEFAULT_FORMS, DEFAULT_ITEMS
     trailer_form = ("See the Data checks sheet for details.", "", "", "", "")
-    trailer_item = ("See the Data checks sheet for details.", "", "Footnote", "", "") + ("",) * 16
+    trailer_item = ("See the Data checks sheet for details.", "", "Footnote text", "", "") + ("",) * 16
     p = build_config_report(tmp_path / "t.xlsx",
                             forms_rows=list(DEFAULT_FORMS) + [trailer_form],
                             items_rows=list(DEFAULT_ITEMS) + [trailer_item])
@@ -122,7 +122,8 @@ def test_trailer_rows_flagged(tmp_path):
     items = parse_items(p)
     assert items[-1].row_type == "Trailer"
     # 非空非白名单值: 锁死"白名单归一化"语义, 防退化成 `raw_type or "Trailer"`
-    assert items[-1].raw["Type and container::Field type"] == "Footnote"
+    # 含空格 = 脚注形态 (build_catalog 对无空格的未知值会 raise, 见 Task 5)
+    assert items[-1].raw["Type and container::Field type"] == "Footnote text"
 
 
 def test_parse_items_missing_column_raises(tmp_path):

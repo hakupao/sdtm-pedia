@@ -36,12 +36,12 @@ def build_catalog(sp: StudyPaths) -> dict:
     items = [r for r in rows if r.row_type == "Item"]
     groups = {(r.form_oid, r.group_oid): r for r in rows if r.row_type == "Item group"}
 
-    old_index: dict[str, ItemRow] = {}
     if sp.config_report_old is not None:
         old_index = {r.item_oid: r
                      for r in parse_items(sp.config_report_old) if r.row_type == "Item"}
-    diffs, new_items, removed = _diff_items({r.item_oid: r for r in items}, old_index) \
-        if old_index else ({}, [], [])
+        diffs, new_items, removed = _diff_items({r.item_oid: r for r in items}, old_index)
+    else:   # 无旧版才降级; 旧版存在但 0 item 时 new_items = 全部 (不静默吞)
+        diffs, new_items, removed = {}, [], []
 
     referenced = {r.choices for r in items if r.choices}
     ledger: list[dict] = []
@@ -55,6 +55,12 @@ def build_catalog(sp: StudyPaths) -> dict:
         elif r.row_type == "Item group":
             target = f"group:{r.form_oid}/{r.group_oid}"
         elif r.row_type == "Trailer":
+            # 二次闸: 归一化把一切未知都标成 Trailer, 这里用 raw 原始值区分
+            # 脚注形态 (空或含空格的句子) vs 真正的未知结构值 (如 "Section") — 后者必须响亮失败
+            ft = r.raw.get("Type and container::Field type", "")
+            if ft and " " not in ft:
+                raise ValueError(f"orphan row {r.row} in Items and Groups: "
+                                 f"unknown Field type {ft!r} (非脚注形态)")
             target = "trailer:footnote"
         else:
             raise ValueError(f"orphan row {r.row} in Items and Groups: "
@@ -89,6 +95,12 @@ def build_catalog(sp: StudyPaths) -> dict:
 
 
 def write_catalog(catalog: dict, out_dir: Path) -> None:
+    """写 catalog.json + coverage_ledger.csv.
+
+    注意: coverage_ledger.csv 里 Code lists 行的 row 是占位符 (首 entry 0, 后续 -1),
+    不是物理行号 — Code lists 逐 entry 记账, entry 无独立行号语义. Forms /
+    Items and Groups 两个 sheet 的 row 才是可溯源的物理行号.
+    """
     out_dir.mkdir(parents=True, exist_ok=True)
     (out_dir / "catalog.json").write_text(
         json.dumps(catalog, ensure_ascii=False, indent=1), encoding="utf-8")
