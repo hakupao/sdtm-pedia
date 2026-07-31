@@ -559,7 +559,7 @@ def test_trailer_rows_flagged(tmp_path):
     """Viedoc 表尾脚注行: Forms 标 is_trailer, Items 归一化为 Trailer."""
     from scripts.tests.study_fixtures import DEFAULT_FORMS, DEFAULT_ITEMS
     trailer_form = ("See the Data checks sheet for details.", "", "", "", "")
-    trailer_item = ("See the Data checks sheet for details.", "", "", "", "") + ("",) * 16
+    trailer_item = ("See the Data checks sheet for details.", "", "Footnote", "", "") + ("",) * 16
     p = build_config_report(tmp_path / "t.xlsx",
                             forms_rows=list(DEFAULT_FORMS) + [trailer_form],
                             items_rows=list(DEFAULT_ITEMS) + [trailer_item])
@@ -567,7 +567,8 @@ def test_trailer_rows_flagged(tmp_path):
     assert [f.is_trailer for f in forms] == [False, False, True]
     items = parse_items(p)
     assert items[-1].row_type == "Trailer"
-    assert items[-1].raw["Type and container::Field type"] == ""   # 原值保留在 raw
+    # 非空非白名单值: 锁死"白名单归一化"语义, 防退化成 `raw_type or "Trailer"`
+    assert items[-1].raw["Type and container::Field type"] == "Footnote"
 
 
 def test_parse_items_missing_column_raises(tmp_path):
@@ -616,7 +617,7 @@ class ItemRow:
     row: int
     form_oid: str
     form_name: str
-    row_type: str          # 'Item group' | 'Item'
+    row_type: str          # 'Item group' | 'Item' | 'Trailer' (表尾脚注, 白名单外归一化)
     group_oid: str
     group_name: str
     item_oid: str
