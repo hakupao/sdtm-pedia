@@ -9,6 +9,21 @@ from pathlib import Path
 from scripts.study.parse_demo import sample_demo_values
 from scripts.study.paths import resolve_study
 
+# 可見性 4 列的取值形态 (真实数据实测): hide-simple 是短公式 (14 项, ≤19 字符) → 展开值;
+# show/hide-advanced 只是标志位 (327/7 项, 长度恒 1) → 公式在别处, 只出措辞;
+# hidden-in-activity 是 activity 名单 (231 项, 最长 499 字符) → 单独 適用範囲 行, 非显示条件.
+_VIS_PARTS = (
+    ("Visibility::Hide on simple condition", lambda v: f"非表示条件: {v}"),
+    ("Visibility::Show on advanced condition", lambda v: "条件あり (式は別ソース)"),
+    ("Visibility::Hide on advanced condition", lambda v: "非表示条件あり (式は別ソース)"),
+)
+_SCOPE_KEY = "Visibility::Hidden in activity"
+
+
+def _flat(s: str) -> str:
+    """折成单行: 真实 8 个 label + 1 个组名含换行, 会打断 H1/bullet/表格行结构."""
+    return " ".join((s or "").split())
+
 
 def render_field_card(item: dict, form: dict, codelist: dict | None,
                       samples: list[str], diff: list[str], *,
@@ -36,29 +51,31 @@ def render_field_card(item: dict, form: dict, codelist: dict | None,
     else:
         cl_block = item["choices"] or "なし (自由記述)"
     checks = " / ".join(x for x in (item["data_checks"], item["system_checks"]) if x) or "—"
-    # 可見性: visible_condition 只覆盖 Show on simple (66/959); 另有 36% 的条件散在
-    # raw 的 advanced/hide 列 — 有条件但结构化字段空时降级为标记行 (公式不展开, pilot 再定)
+    # 可見性: visible_condition 只覆盖 Show on simple (66/959); 其余条件散在 raw 的
+    # advanced/hide 列 — 按列形态分别展开值或出标志措辞 (见 _VIS_PARTS)
     vis = item["visible_condition"]
     if not vis:
-        vis_cols = [k.split("::")[1] for k in (
-            "Visibility::Show on advanced condition",
-            "Visibility::Hide on simple condition",
-            "Visibility::Hide on advanced condition",
-            "Visibility::Hidden in activity",
-        ) if item["raw"].get(k)]
-        vis = f"条件付き表示 ({', '.join(vis_cols)})" if vis_cols else "常時表示"
+        parts = [fmt(item["raw"][k]) for k, fmt in _VIS_PARTS if item["raw"].get(k)]
+        vis = "; ".join(parts) if parts else "常時表示"
+    label = _flat(item["label"]) or item["item_oid"]   # 30/959 无 label → 降级 item_oid
+    form_name = _flat(item["form_name"])
     lines = [
-        # 30/959 item 无 label → 标题降级用 item_oid; 254/959 无组名 → '—'
-        f"# [{item['form_name']} {item['form_oid']}] "
-        f"{item['label'] or item['item_oid']} ({item['item_oid']})",
-        f"- Form: {item['form_name']} ({item['form_oid']})",
-        f"- Item group: {item['group_name'] or '—'} ({item['group_oid']})",
+        f"# [{form_name} {item['form_oid']}] {label} ({item['item_oid']})",
+        f"- Form: {form_name} ({item['form_oid']})",
+        # 254/959 无组名 → '—'
+        f"- Item group: {_flat(item['group_name']) or '—'} ({item['group_oid']})",
         f"- 型: {type_bits}",
         f"- Control: {item['control_type'] or '—'}"
         + (f" / 単位: {item['unit']}" if item["unit"] else ""),
         f"- Codelist: {cl_block}",
         f"- Edit checks: {checks}",
         f"- 表示条件: {vis}",
+    ]
+    # 適用範囲 (activity 名单) 与显示条件正交, 独立行 — 231 项, 其中 27 项与
+    # visible_condition 并存, 混进表示条件会被 if-not 短路吞掉
+    if item["raw"].get(_SCOPE_KEY):
+        lines.append(f"- 適用範囲: {_flat(item['raw'][_SCOPE_KEY])}")
+    lines += [
         # DEMO 每 sheet 仅 1 行数据 → 至多 1 个示例值; 288/959 永无示例值
         f"- DEMO 例値: {' / '.join(samples) if samples else '—'}",
         f"- 旧→新版差分: {'; '.join(diff) if diff else 'なし'}",
@@ -71,12 +88,16 @@ def render_field_card(item: dict, form: dict, codelist: dict | None,
     return fm + "\n\n" + "\n".join(lines) + "\n"
 
 
-def _write_index(catalog: dict, cards_dir: Path, per_form: dict[str, int]) -> None:
-    rows = ["# st01 Field Card Index", "",
+def _write_index(catalog: dict, cards_dir: Path, per_form: dict[str, int], *,
+                 forms_filter: set[str] | None = None) -> None:
+    rows = [f"# {catalog['study']} Field Card Index", "",
             f"Study: {catalog['study']} / version {catalog['version_new']}", "",
             "| Form | 名称 | 項目数 |", "|---|---|---|"]
     for f in catalog["forms"]:
-        rows.append(f"| {f['oid']} | {f['name']} | {per_form.get(f['oid'], 0)} |")
+        # INDEX 会被 rag.py 整段拼进 system prompt: filter 外 form 的零计数行会误导模型
+        if forms_filter and f["oid"] not in forms_filter:
+            continue
+        rows.append(f"| {f['oid']} | {_flat(f['name'])} | {per_form.get(f['oid'], 0)} |")
     (cards_dir / "INDEX.md").write_text("\n".join(rows) + "\n", encoding="utf-8")
     routing = (
         "# Routing\n\n"
@@ -108,7 +129,7 @@ def build_cards(catalog: dict, samples: dict[str, list], cards_dir: Path, *,
         p.write_text(card, encoding="utf-8")
         out.append(p)
         per_form[item["form_oid"]] = per_form.get(item["form_oid"], 0) + 1
-    _write_index(catalog, cards_dir, per_form)
+    _write_index(catalog, cards_dir, per_form, forms_filter=forms_filter)
     return out
 
 
