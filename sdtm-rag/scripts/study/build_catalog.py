@@ -35,7 +35,8 @@ def _same(a, b) -> bool:
     """表記ゆれ判定: 导出设置差异 (NBSP 插入/顶替空格, HTML 实体) 不算变更.
 
     NBSP 既可能插在字符之间 (删掉才等价), 也可能顶替原有空格 (折叠成空格才等价),
-    单条规则覆盖不全, 故两种归一化取或. 普通空格的增删仍算变更 (不做全空白无关比较).
+    单条规则覆盖不全, 故两种归一化取或. 普通空格增删仅在改变 token 结构时报出;
+    纯空白数量差异与首尾空白差异被抑制 (不做全空白无关比较).
     """
     if _norm(a) == _norm(b):
         return True
@@ -47,8 +48,10 @@ def _same(a, b) -> bool:
 def _diff_items(new: dict[str, ItemRow], old: dict[str, ItemRow]):
     diffs: dict[str, list[str]] = {}
     for oid in new.keys() & old.keys():
+        # 判定用归一化, 文案打原值: NFKC 会改写丸数字/全角括号等有语义的字符,
+        # 卡片必须逐字可溯源到导出报告 (换行由 Task 7 渲染层 _flat 清洗)
         changes = [
-            f"{f}: {_norm(getattr(old[oid], f))} → {_norm(getattr(new[oid], f))}"
+            f"{f}: {getattr(old[oid], f)} → {getattr(new[oid], f)}"
             for f in _DIFF_FIELDS
             if not _same(getattr(old[oid], f), getattr(new[oid], f))
         ]

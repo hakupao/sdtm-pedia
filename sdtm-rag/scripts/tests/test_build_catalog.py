@@ -165,16 +165,17 @@ def test_diff_keeps_real_changes(norm_sp):
                for c in diffs["FAKEREQ"])
 
 
-def test_diff_text_is_normalized(sp):
-    """diff 文案用归一化值, 不把 NBSP 原样打进卡片."""
+def test_diff_text_preserves_raw(sp):
+    """diff 文案打原值: NFKC 会把丸数字①→1、全角括号→半角, 卡片须逐字可溯源."""
     from dataclasses import replace
+    raw_label = "偽\u00a0項目（①）"
     new = build_config_report(sp.config_report_new.parent / "n3.xlsx",
-                              items_rows=[_norm_item("FAKEX", label="偽\u00a0項目\u00a0甲")])
+                              items_rows=[_norm_item("FAKEX", label=raw_label)])
     old = build_config_report(sp.config_report_new.parent / "o3.xlsx",
                               items_rows=[_norm_item("FAKEX", label="旧ラベル")])
     cat = build_catalog(replace(sp, config_report_new=new, config_report_old=old))
     line = cat["diffs"]["FAKEX"][0]
-    assert "\u00a0" not in line and "偽 項目 甲" in line
+    assert raw_label in line and "旧ラベル" in line
 
 
 def test_normalization_does_not_touch_new_removed(norm_sp):
