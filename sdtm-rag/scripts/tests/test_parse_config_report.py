@@ -4,7 +4,12 @@ import openpyxl
 import pytest
 
 from scripts.tests.study_fixtures import build_config_report
-from scripts.study.parse_config_report import read_sheet_records
+from scripts.study.parse_config_report import (
+    parse_codelists,
+    parse_forms,
+    parse_items,
+    read_sheet_records,
+)
 
 
 @pytest.fixture()
@@ -73,3 +78,45 @@ def test_read_sheet_records_pads_short_rows():
     assert recs[0]["A::c1"] == "v1"
     assert recs[0]["A::c2"] == ""     # 缺列补空串, 不得静默丢 key
     assert recs[0]["B::c3"] == ""
+
+
+def test_parse_forms(report):
+    forms = parse_forms(report)
+    assert [f.oid for f in forms] == ["FAKEFORM1", "FAKEFORM2"]
+    assert forms[0].name == "偽フォーム一"
+
+
+def test_parse_items_types_and_fields(report):
+    items = parse_items(report)
+    assert [r.row_type for r in items] == ["Item group", "Item", "Item", "Item"]
+    it1 = items[1]
+    assert (it1.form_oid, it1.item_oid, it1.data_type) == ("FAKEFORM1", "FAKEIT1", "integer")
+    assert it1.required is True
+    assert it1.choices == "CL_FAKE1"
+    assert it1.label == "偽項目ラベル一"
+    assert items[2].required is False
+    assert items[2].visible_condition == "COND1"
+    # group 行继承上下文: group_name 在后续 Item 行为空, 保留原值即可
+    assert items[0].group_name == "グループ甲"
+    # raw 保留全部列 (不丢信息)
+    assert it1.raw["Output::Output Field ID"] == "OUT1"
+
+
+def test_parse_codelists_grouping(report):
+    cls = parse_codelists(report)
+    assert set(cls) == {"CL_FAKE1", "CL_UNUSED"}
+    assert cls["CL_FAKE1"].entries == [("1", "偽選択肢はい"), ("0", "偽選択肢いいえ")]
+    assert cls["CL_FAKE1"].data_type == "integer"
+
+
+def test_parse_items_missing_column_raises(tmp_path):
+    import openpyxl as _o
+    p = tmp_path / "bad.xlsx"
+    wb = _o.Workbook(); ws = wb.active; ws.title = "Items and Groups"
+    ws.append(["Items and Groups"] * 2)
+    ws.append(["Type and container", ""])
+    ws.append(["Form ID", "Form Name"])
+    ws.append(["F1", "n1"])
+    wb.save(p)
+    with pytest.raises(KeyError, match="Validation::Item ID"):
+        parse_items(p)

@@ -1,7 +1,11 @@
 """ConfigurationReport (Viedoc 导出 xlsx) 确定性解析器. 零 LLM."""
 from __future__ import annotations
 
+from dataclasses import dataclass, field
+from pathlib import Path
 from typing import Any
+
+import openpyxl
 
 
 def _cell(v: Any) -> str:
@@ -37,3 +41,110 @@ def read_sheet_records(ws, *, has_section_row: bool = True) -> list[dict[str, An
         rec["_row"] = i
         records.append(rec)
     return records
+
+
+@dataclass(frozen=True)
+class FormDef:
+    oid: str
+    name: str
+    summary_format: str
+    description: str
+    in_use: str
+    row: int
+
+
+@dataclass(frozen=True)
+class ItemRow:
+    row: int
+    form_oid: str
+    form_name: str
+    row_type: str          # 'Item group' | 'Item'
+    group_oid: str
+    group_name: str
+    item_oid: str
+    data_type: str
+    required: bool
+    min_length: str
+    max_length: str
+    data_checks: str
+    system_checks: str
+    label: str
+    control_type: str
+    choices: str
+    unit: str
+    description: str
+    instructions: str
+    visible_condition: str
+    output_field_id: str
+    output_field_label: str
+    raw: dict = field(repr=False)
+
+
+@dataclass(frozen=True)
+class Codelist:
+    oid: str
+    data_type: str
+    entries: list
+
+
+def _req(rec: dict, key: str) -> str:
+    if key not in rec:
+        raise KeyError(f"{key} (available: {sorted(k for k in rec if k != '_row')[:8]}...)")
+    return rec[key]
+
+
+def parse_forms(path: Path) -> list[FormDef]:
+    wb = openpyxl.load_workbook(path, read_only=True)
+    return [
+        FormDef(
+            oid=_req(r, "General::Id"), name=r.get("General::Name", ""),
+            summary_format=r.get("General::Summary format", ""),
+            description=r.get("General::Description", ""),
+            in_use=r.get("General::In use", ""), row=r["_row"],
+        )
+        for r in read_sheet_records(wb["Forms"])
+    ]
+
+
+def parse_items(path: Path) -> list[ItemRow]:
+    wb = openpyxl.load_workbook(path, read_only=True)
+    out: list[ItemRow] = []
+    for r in read_sheet_records(wb["Items and Groups"]):
+        out.append(ItemRow(
+            row=r["_row"],
+            form_oid=_req(r, "Type and container::Form ID"),
+            form_name=r.get("Type and container::Form Name", ""),
+            row_type=r.get("Type and container::Field type", ""),
+            group_oid=r.get("Type and container::Item group ID", ""),
+            group_name=r.get("Type and container::Item group name", ""),
+            item_oid=_req(r, "Validation::Item ID"),
+            data_type=r.get("Validation::Data type", ""),
+            required=r.get("Validation::Required field", "") == "X",
+            min_length=r.get("Validation::Minimum length", ""),
+            max_length=r.get("Validation::Max length", ""),
+            data_checks=r.get("Validation::Data checks", ""),
+            system_checks=r.get("Validation::System checks", ""),
+            label=r.get("General::Field label", ""),
+            control_type=r.get("General::Control Type", ""),
+            choices=r.get("General::Choices", ""),
+            unit=r.get("General::Measurement Unit", ""),
+            description=r.get("General::Description", ""),
+            instructions=r.get("General::Instructions for user", ""),
+            visible_condition=r.get("Visibility::Show on simple condition", ""),
+            output_field_id=r.get("Output::Output Field ID", ""),
+            output_field_label=r.get("Output::Output Field Label", ""),
+            raw={k: v for k, v in r.items() if k != "_row"},
+        ))
+    return out
+
+
+def parse_codelists(path: Path) -> dict[str, Codelist]:
+    wb = openpyxl.load_workbook(path, read_only=True)
+    grouped: dict[str, Codelist] = {}
+    for r in read_sheet_records(wb["Code lists"], has_section_row=False):
+        oid = _req(r, "Code lists::OID")
+        cl = grouped.setdefault(
+            oid, Codelist(oid=oid, data_type=r.get("Code lists::Data Type", ""), entries=[])
+        )
+        cl.entries.append((r.get("Code lists::Code value", ""), r.get("Code lists::Code text", "")))
+    return grouped
