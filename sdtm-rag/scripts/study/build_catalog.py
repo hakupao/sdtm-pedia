@@ -55,12 +55,13 @@ def build_catalog(sp: StudyPaths) -> dict:
         elif r.row_type == "Item group":
             target = f"group:{r.form_oid}/{r.group_oid}"
         elif r.row_type == "Trailer":
-            # 二次闸: 归一化把一切未知都标成 Trailer, 这里用 raw 原始值区分
-            # 脚注形态 (空或含空格的句子) vs 真正的未知结构值 (如 "Section") — 后者必须响亮失败
+            # 二次闸: 归一化把一切未知都标成 Trailer, 这里区分真脚注与未知结构值
+            # 词形启发 (单词形态如 "Section") + 语义不变量 (真脚注 item_oid 恒空;
+            # 959 条真实 Item 行 item_oid 100% 非空) — 带 item 载荷的未知类型必须响亮失败
             ft = r.raw.get("Type and container::Field type", "")
-            if ft and " " not in ft:
+            if (ft and " " not in ft) or r.item_oid:
                 raise ValueError(f"orphan row {r.row} in Items and Groups: "
-                                 f"unknown Field type {ft!r} (非脚注形态)")
+                                 f"unknown Field type {ft!r} (非脚注形态/含 item 载荷)")
             target = "trailer:footnote"
         else:
             raise ValueError(f"orphan row {r.row} in Items and Groups: "
