@@ -10,6 +10,7 @@ Pipeline:
      - INDEX.md / ROUTING.md skipped (system prompt only)
   2. Dispatch each file to CHUNKER_REGISTRY[file_type] → flat list of Chunk
   3. Backup existing data/chroma/ (if non-empty payload) → data/chroma_backup_<ts>/
+     then reset only collection 'sdtm_kb_v1' (--full-reset wipes the whole dir)
   4. Embed all chunk texts via OpenAI text-embedding-3-small (LiteLLM, batch=100)
   5. PersistentClient → collection 'sdtm_kb_v1', add(embeddings, documents, metadatas, ids)
   6. Write data/chroma/ingested_at_commit.txt (R-18)
@@ -124,8 +125,19 @@ def backup_existing_chroma(chroma_dir: Path) -> Path | None:
     return backup_dir
 
 
+def reset_collection(chroma_dir: Path, name: str) -> None:
+    """Drop one collection only; siblings (study_*) in the same dir stay intact."""
+    client = chromadb.PersistentClient(path=str(chroma_dir))
+    existing = [c.name for c in client.list_collections()]
+    if name in existing:
+        client.delete_collection(name)
+
+
 def reset_chroma_dir(chroma_dir: Path) -> None:
-    """Remove all items in chroma_dir except .gitkeep (after backup)."""
+    """Remove all items in chroma_dir except .gitkeep (after backup).
+
+    Destructive across collections — only reachable via --full-reset.
+    """
     if not chroma_dir.exists():
         chroma_dir.mkdir(parents=True, exist_ok=True)
         return
@@ -259,7 +271,7 @@ def embed_texts(texts: list[str]) -> list[list[float]]:
             i += 1
         # Retry on OpenAI TPM rate limit (429): the limit is per-minute rolling,
         # so back off and retry the same batch rather than aborting the whole ingest
-        # mid-way (reset_chroma_dir already ran, so a crash here leaves an empty DB).
+        # mid-way (the reset already ran, so a crash here leaves the collection empty).
         for _attempt in range(6):
             try:
                 response = litellm.embedding(model=EMBED_MODEL_NAME, input=batch_texts)
@@ -410,6 +422,11 @@ def main(argv: list[str] | None = None) -> int:
         action="store_true",
         help="Skip chunk+embed+persist; only run --retrieval-sanity against existing Chroma",
     )
+    parser.add_argument(
+        "--full-reset",
+        action="store_true",
+        help="旧行为: 整目录清空 (会删除 study_* collection)",
+    )
     args = parser.parse_args(argv)
 
     print(f"[setup] sdtm-rag root  = {SDTM_RAG_ROOT}")
@@ -426,7 +443,12 @@ def main(argv: list[str] | None = None) -> int:
             print(f"[R-16] backed up existing Chroma → {backup}")
         else:
             print(f"[R-16] no prior Chroma payload; skip backup")
-        reset_chroma_dir(CHROMA_DIR)
+        if args.full_reset:
+            print("[reset] --full-reset: wiping whole Chroma dir (study_* included)")
+            reset_chroma_dir(CHROMA_DIR)
+        else:
+            print(f"[reset] collection-level: '{COLLECTION_NAME}' only")
+            reset_collection(CHROMA_DIR, COLLECTION_NAME)
 
         # ── Chunking ──
         chunks, per_type, _unknown = collect_chunks()
