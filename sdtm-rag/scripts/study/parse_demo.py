@@ -63,55 +63,59 @@ def sample_demo_values(
         if label:
             label_by_form[form][label].add(oid)
 
-    wb = openpyxl.load_workbook(demo_path, read_only=True)
-    items_dict = _load_items_dict(wb)
-
     samples: dict[str, list[str]] = {}
     stats: dict[str, Any] = {
         "resolved_direct": 0, "resolved_items_dict": 0, "resolved_label": 0,
-        "ambiguous": 0, "unmatched": 0, "per_sheet": {},
+        "ambiguous": 0, "unmatched": 0, "unknown_sheets": 0, "per_sheet": {},
     }
 
-    for ws in wb.worksheets:
-        if ws.title in _SKIP_SHEETS:
-            continue
-        scope = scope_by_form.get(ws.title, set())
-        rows = ws.iter_rows(values_only=True)
-        header = [_cell(c) for c in next(rows, [])]
-        col_oids: list[str | None] = []
-        resolved_here = 0
-        for name in header:
-            if not name:
-                col_oids.append(None)
+    wb = openpyxl.load_workbook(demo_path, read_only=True)
+    try:
+        items_dict = _load_items_dict(wb)
+        for ws in wb.worksheets:
+            if ws.title in _SKIP_SHEETS:
                 continue
-            oid = None
-            for key, cand in (
-                ("resolved_direct", {name} & scope),
-                ("resolved_items_dict", items_dict.get(name, set()) & scope),
-                ("resolved_label", label_by_form.get(ws.title, {}).get(name, set())),
-            ):
-                if not cand:
+            if ws.title not in scope_by_form:
+                stats["unknown_sheets"] += 1   # sheet 名不是 catalog form OID: 静默失效观测哨
+            scope = scope_by_form.get(ws.title, set())
+            rows = ws.iter_rows(values_only=True)
+            header = [_cell(c) for c in next(rows, [])]
+            col_oids: list[str | None] = []
+            resolved_here = 0
+            for name in header:
+                if not name:
+                    col_oids.append(None)
                     continue
-                if len(cand) == 1:
-                    oid = next(iter(cand))
-                    stats[key] += 1
-                    resolved_here += 1
+                oid = None
+                for key, cand in (
+                    ("resolved_direct", {name} & scope),
+                    ("resolved_items_dict", items_dict.get(name, set()) & scope),
+                    ("resolved_label", label_by_form.get(ws.title, {}).get(name, set())),
+                ):
+                    if not cand:
+                        continue
+                    if len(cand) == 1:
+                        oid = next(iter(cand))
+                        stats[key] += 1
+                        resolved_here += 1
+                    else:
+                        stats["ambiguous"] += 1
+                    break
                 else:
-                    stats["ambiguous"] += 1
-                break
-            else:
-                stats["unmatched"] += 1
-            col_oids.append(oid)
-        stats["per_sheet"][ws.title] = resolved_here
+                    stats["unmatched"] += 1
+                col_oids.append(oid)
+            stats["per_sheet"][ws.title] = resolved_here
 
-        for row in rows:
-            for oid, v in zip(col_oids, row):
-                if oid is None:
-                    continue
-                sv = _cell(v)
-                if not sv:
-                    continue
-                bucket = samples.setdefault(oid, [])
-                if sv not in bucket and len(bucket) < max_per_item:
-                    bucket.append(sv)
+            for row in rows:
+                for oid, v in zip(col_oids, row):
+                    if oid is None:
+                        continue
+                    sv = _cell(v)
+                    if not sv:
+                        continue
+                    bucket = samples.setdefault(oid, [])
+                    if sv not in bucket and len(bucket) < max_per_item:
+                        bucket.append(sv)
+    finally:
+        wb.close()      # read_only 模式持有文件句柄, Task 7 会循环调用
     return samples, stats

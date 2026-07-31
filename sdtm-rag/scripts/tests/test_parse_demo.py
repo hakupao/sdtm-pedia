@@ -15,6 +15,8 @@ CATALOG_ITEMS = [
     {"item_oid": "FAKEIT5", "form_oid": "FAKEFORM1", "label": "ダブり"},
     {"item_oid": "FAKEIT6", "form_oid": "FAKEFORM1", "label": "ダブり"},
     {"item_oid": "FAKEIT7", "form_oid": "OTHERFORM", "label": "ラベル漆"},
+    {"item_oid": "FAKEIT8", "form_oid": "FAKEFORM1", "label": "字典歧義"},
+    {"item_oid": "FAKEIT9", "form_oid": "FAKEFORM1", "label": "ラベル玖"},
 ]
 
 
@@ -37,6 +39,35 @@ def _write_demo(path: Path, *, with_items_sheet: bool = True) -> Path:
         it.append(["FAKEIT4", "デモ側ラベル肆", "text"])
         it.append(["FAKEUNKNOWN", "無関係", "text"])   # ID 不在 catalog, 应忽略
     wb.create_sheet("CodeLists")               # 字典 sheet, 应跳过
+    wb.save(path)
+    return path
+
+
+def _write_b_ambiguity_demo(path: Path) -> Path:
+    """(b) 路歧义: Items 字典同一 Label → 两个都在本 form 的 ID.
+
+    该列头同时是 FAKEIT8 在 catalog 里的唯一 label, 故若 (b) 歧义后下坠 (c), 会被误解析。
+    """
+    wb = openpyxl.Workbook()
+    ws = wb.active
+    ws.title = "FAKEFORM1"
+    ws.append(["字典歧義"])
+    ws.append(["v1"])
+    it = wb.create_sheet("Items")
+    it.append(["ID", "Label", "Data Type"])
+    it.append(["FAKEIT8", "字典歧義", "text"])
+    it.append(["FAKEIT9", "字典歧義", "text"])
+    wb.save(path)
+    return path
+
+
+def _write_ghost_sheet_demo(path: Path) -> Path:
+    """sheet 名不在 catalog forms 里 → 静默失效观测哨."""
+    wb = openpyxl.Workbook()
+    ws = wb.active
+    ws.title = "GHOSTFORM"
+    ws.append(["FAKEIT1", "ラベル壱"])
+    ws.append(["v1", "v2"])
     wb.save(path)
     return path
 
@@ -82,6 +113,28 @@ def test_per_sheet_counts(demo):
 def test_max_per_item(demo):
     samples, _ = sample_demo_values(demo, CATALOG_ITEMS, max_per_item=1)
     assert samples["FAKEIT1"] == ["1"]
+
+
+def test_items_dict_ambiguity_does_not_fall_through(tmp_path):
+    """真实数据 201 个歧义 100% 出自 (b), 主力分支须有判别性测试."""
+    p = _write_b_ambiguity_demo(tmp_path / "b_ambig.xlsx")
+    samples, stats = sample_demo_values(p, CATALOG_ITEMS)
+    assert stats["ambiguous"] == 1
+    assert stats["resolved_items_dict"] == 0
+    assert stats["resolved_label"] == 0        # 歧义后不下坠 (c), 否则会误判为 FAKEIT8
+    assert samples == {}
+
+
+def test_unknown_sheet_counted(tmp_path):
+    p = _write_ghost_sheet_demo(tmp_path / "ghost.xlsx")
+    samples, stats = sample_demo_values(p, CATALOG_ITEMS)
+    assert stats["unknown_sheets"] == 1        # sheet 名不在 catalog forms
+    assert samples == {}
+
+
+def test_known_sheets_not_counted_as_unknown(demo):
+    _, stats = sample_demo_values(demo, CATALOG_ITEMS)
+    assert stats["unknown_sheets"] == 0
 
 
 def test_missing_items_sheet_degrades_gracefully(tmp_path):
