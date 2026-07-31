@@ -223,25 +223,25 @@ def _truncate_for_embedding(text: str, max_tokens: int = EMBED_MAX_TOKENS) -> tu
     return enc.decode(token_ids), True
 
 
-def embed_chunks(chunks: list[Chunk]) -> list[list[float]]:
-    """Batch-embed all chunks via OpenAI text-embedding-3-small (D-4 v3, LiteLLM).
+def embed_texts(texts: list[str]) -> list[list[float]]:
+    """Batch-embed raw texts via OpenAI text-embedding-3-small (D-4 v3, LiteLLM).
 
     Batching is token-aware: each API call stays under 250K total tokens
     (OpenAI limit is 300K; 250K gives headroom for tokenizer divergence).
     """
     MAX_BATCH_TOKENS = 250_000
-    n = len(chunks)
+    n = len(texts)
     result_embs: list[list[float]] = [None] * n  # type: ignore[list-item]
     truncated_indices: list[int] = []
     t0 = time.perf_counter()
 
     # Pre-truncate and collect texts + token counts
     prepared: list[tuple[str, int]] = []
-    for i, chunk in enumerate(chunks):
-        text, was_truncated = _truncate_for_embedding(chunk.text)
+    for i, raw_text in enumerate(texts):
+        text, was_truncated = _truncate_for_embedding(raw_text)
         if was_truncated:
             truncated_indices.append(i)
-        tok = min(chunk.chunk_size_tokens or count_tokens(text), EMBED_MAX_TOKENS)
+        tok = min(count_tokens(text), EMBED_MAX_TOKENS)
         prepared.append((text, tok))
 
     # Build token-aware batches
@@ -284,9 +284,7 @@ def embed_chunks(chunks: list[Chunk]) -> list[list[float]]:
     if truncated_indices:
         print(f"[embed] WARNING: {len(truncated_indices)} chunks truncated to {EMBED_MAX_TOKENS} tokens:")
         for idx in truncated_indices:
-            c = chunks[idx]
-            print(f"        - [{idx}] {Path(c.source).relative_to(KB_ROOT)} "
-                  f"chunk#{c.chunk_index} ({c.chunk_size_tokens} tok)")
+            print(f"        - [{idx}] ({count_tokens(texts[idx])} tok)")
     if result_embs and result_embs[0] is not None:
         if len(result_embs[0]) != EMBED_DIM:
             raise RuntimeError(
@@ -296,6 +294,11 @@ def embed_chunks(chunks: list[Chunk]) -> list[list[float]]:
         missing = sum(1 for e in result_embs if e is None)
         raise RuntimeError(f"{missing} chunks were not embedded")
     return result_embs  # type: ignore[return-value]
+
+
+def embed_chunks(chunks: list[Chunk]) -> list[list[float]]:
+    """Batch-embed all chunks (thin wrapper over embed_texts)."""
+    return embed_texts([c.text for c in chunks])
 
 
 # ── Chroma persist ────────────────────────────────────────────────────────
