@@ -102,6 +102,17 @@ def test_render_strips_newlines(catalog):
     assert len([ln for ln in body_lines if ln.startswith("# ")]) == 1
 
 
+def test_render_strips_newlines_in_diff(catalog):
+    """diff 串内嵌旧版多行 label (真实 1 item) — 折成单行, 否则甩出游离正文行."""
+    cat, _ = catalog
+    card = render_field_card(cat["items"][0], cat["forms"][0], None, [],
+                             ["label: 旧\n値 → 新値", "data_type: text → integer"],
+                             study="st01", version="VNEW")
+    assert "- 旧→新版差分: label: 旧 値 → 新値; data_type: text → integer" in card
+    body = card.split("---\n", 2)[2]
+    assert all(ln.startswith(("#", "- ")) for ln in body.splitlines() if ln)
+
+
 def test_build_cards_files_and_index(catalog):
     cat, sp = catalog
     paths = build_cards(cat, {}, sp.cards_dir)

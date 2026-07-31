@@ -78,13 +78,14 @@ def render_field_card(item: dict, form: dict, codelist: dict | None,
     lines += [
         # DEMO 每 sheet 仅 1 行数据 → 至多 1 个示例值; 288/959 永无示例值
         f"- DEMO 例値: {' / '.join(samples) if samples else '—'}",
-        f"- 旧→新版差分: {'; '.join(diff) if diff else 'なし'}",
+        # diff 串内嵌旧版 label 值, 同样可能带换行
+        f"- 旧→新版差分: {'; '.join(_flat(d) for d in diff) if diff else 'なし'}",
     ]
     if item["output_field_id"]:
         lines.append(f"- Output: {item['output_field_id']} ({item['output_field_label']})")
-    for label, key in (("説明", "description"), ("入力指示", "instructions")):
+    for heading, key in (("説明", "description"), ("入力指示", "instructions")):
         if item[key]:
-            lines.append(f"- {label}: {item[key]}")
+            lines.append(f"- {heading}: {_flat(item[key])}")
     return fm + "\n\n" + "\n".join(lines) + "\n"
 
 
