@@ -1067,9 +1067,14 @@ git commit -m "feat(study-rag): catalog 组装 + 覆盖台账 (孤儿即抛错) 
 - Test: `sdtm-rag/scripts/tests/test_parse_demo.py`
 
 **Interfaces:**
-- Consumes: `StudyPaths.demo_export`。
-- Produces: `sample_demo_values(demo_path: Path, known_item_oids: set[str], max_per_item: int = 5) -> tuple[dict[str, list[str]], list[str]]` — 返回 (item_oid → 去重实例值列表, 未匹配列名列表)。
-- **结构假设 (pilot 验证项)**: DEMO 导出的每个 form sheet 首行为列头, 部分列头与 Item OID 一致; `README`/`Items`/`CodeLists` sheet 跳过。假设不成立时在 pilot (Task 8) 修正。
+- Consumes: `StudyPaths.demo_export`; catalog.json 的 items (item_oid/form_oid/label)。
+- Produces: `sample_demo_values(demo_path: Path, catalog_items: list[dict], max_per_item: int = 5) -> tuple[dict[str, list[str]], dict]` — 返回 (item_oid → 去重实例值列表, resolution stats)。
+- **匹配策略 v2 (真实 DEMO 侦察后定, 原"列头=OID"假设已证伪 — 真实列头是日文 label)**:
+  sheet 名 = form OID (21/21 实证成立) 作消歧域; 每列按序解析:
+  (a) 列头==item_oid 直配 → (b) DEMO `Items` 字典 sheet Label→ID 且 ID∈catalog →
+  (c) form 域内 label 精确匹配 (恰 1 候选才解析, >1 歧义跳过并计数, 0 未匹配)。
+  **不做模糊/归一化匹配** (NFKC 留 pilot 按规则 A 抽检后定)。真实覆盖预期 ≈671/959 (70%), 歧义 ≈201。
+  `README`/`Items`/`CodeLists` sheet 不作数据采样。
 
 - [ ] **Step 1: 写失败测试**
 
@@ -1387,8 +1392,7 @@ def main(argv=None) -> None:
     catalog = json.loads((sp.out_dir / "catalog.json").read_text(encoding="utf-8"))
     samples: dict[str, list] = {}
     if sp.demo_export is not None:
-        oids = {i["item_oid"] for i in catalog["items"]}
-        samples, _ = sample_demo_values(sp.demo_export, oids)
+        samples, _stats = sample_demo_values(sp.demo_export, catalog["items"])
     flt = set(args.forms.split(",")) if args.forms else None
     paths = build_cards(catalog, samples, sp.cards_dir, forms_filter=flt)
     print(f"cards={len(paths)} dir={sp.cards_dir}")
