@@ -19,8 +19,10 @@ from server.config import settings
 def captured(tmp_path, monkeypatch):
     """Run main() with all heavy collaborators stubbed; return RAGEngine kwargs."""
     test_set = tmp_path / "ts.yml"
+    # gold 非空: load_test_set 现在拒绝无 gold 的计分题 (空 gold 会白得满分)
     test_set.write_text(
-        "- id: q1\n  question: hi\n  expected_facts: []\n  expected_sources: []\n",
+        "- id: q1\n  question: hi\n  expected_facts: []\n"
+        "  expected_sources: ['stub.md']\n",
         encoding="utf-8",
     )
     calls: dict = {}
@@ -211,3 +213,109 @@ def test_all_out_of_scope_does_not_divide_by_zero():
     ], retrieval_only=True)
     assert summary["n_scored"] == 0
     assert summary["source_recall_avg"] == 0.0
+
+
+# ---- expected_sources_any: "任一来源即可" 语义 ----
+# 既有 expected_sources 是 AND (每条都要命中)。但常见真相是"这几个来源里任一个都能
+# 完整回答" —— 用 AND 表达会把正确检索记成部分失败 (实测 q43: 两源皆有效, 却只得 0.5)。
+
+def test_sources_any_full_credit_when_one_hit():
+    from eval.run_eval import check_source_recall
+    r, hits, misses = check_source_recall(
+        ["VARIABLE_INDEX.md"], [], any_of=["domains/DM/spec.md", "VARIABLE_INDEX.md"])
+    assert r == 1.0 and hits == ["VARIABLE_INDEX.md"] and misses == []
+
+
+def test_sources_any_zero_when_none_hit():
+    from eval.run_eval import check_source_recall
+    r, hits, misses = check_source_recall(
+        ["chapters/ch01.md"], [], any_of=["domains/DM/spec.md", "VARIABLE_INDEX.md"])
+    assert r == 0.0 and hits == []
+    assert misses == ["domains/DM/spec.md", "VARIABLE_INDEX.md"]
+
+
+def test_sources_and_semantics_unchanged():
+    """既有 AND 行为必须逐字节不变 (139/140 题依赖它)."""
+    from eval.run_eval import check_source_recall
+    r, hits, misses = check_source_recall(
+        ["a.md"], ["a.md", "b.md"])
+    assert r == 0.5 and hits == ["a.md"] and misses == ["b.md"]
+
+
+def test_sources_and_plus_any_combine():
+    """两者并用: AND 组全中 + ANY 组命中一个 → 满分."""
+    from eval.run_eval import check_source_recall
+    r, _, _ = check_source_recall(
+        ["a.md", "v.md"], ["a.md"], any_of=["v.md", "w.md"])
+    assert r == 1.0
+
+
+def test_run_evaluation_reads_sources_any_from_testset():
+    from eval.run_eval import run_evaluation
+
+    class _Chunk:
+        source, similarity = "chapters/ch01.md", 0.9      # any_of 里都没有
+
+    class _Rag:
+        def retrieve(self, q, top_k=None):
+            return [_Chunk()]
+
+    # 若 run_evaluation 不读 expected_sources_any, 空 expected_sources 会恒得 1.0 (假绿),
+    # 故用"全不命中"形态: 只有真读了 any_of 才会是 0.0
+    res = run_evaluation(
+        [{"id": "x", "category": "mixed", "question": "q",
+          "expected_sources_any": ["domains/DM/spec.md", "VARIABLE_INDEX.md"]}],
+        _Rag(), retrieval_only=True,
+    )
+    assert res[0]["source_recall"] == 0.0
+
+
+# ---- 题集 schema 校验: 空 gold 静默送分是单向朝上的计分地雷 ----
+# check_source_recall 对空 expected 返回 1.0。若键名写错 (expected_source_any) 或
+# 两个 gold 键都空, 该题白得满分且分数朝上、幅度小, 不会被任何闸拦住。
+
+def test_load_test_set_rejects_question_without_any_gold(tmp_path):
+    from eval.run_eval import load_test_set
+    p = tmp_path / "ts.yml"
+    p.write_text("- id: q1\n  category: c\n  question: hi\n", encoding="utf-8")
+    with pytest.raises(ValueError, match="q1"):
+        load_test_set(str(p))
+
+
+def test_load_test_set_rejects_unknown_expected_key(tmp_path):
+    """键名拼错 (expected_source_any) 必须响亮失败, 而非静默当作无 gold."""
+    from eval.run_eval import load_test_set
+    p = tmp_path / "ts.yml"
+    p.write_text(
+        "- id: q1\n  category: c\n  question: hi\n"
+        "  expected_sources: ['a.md']\n  expected_source_any: ['b.md']\n",
+        encoding="utf-8",
+    )
+    with pytest.raises(ValueError, match="expected_source_any"):
+        load_test_set(str(p))
+
+
+def test_load_test_set_allows_out_of_scope_without_gold(tmp_path):
+    from eval.run_eval import load_test_set
+    p = tmp_path / "ts.yml"
+    p.write_text(
+        "- id: z\n  category: negative\n  question: hi\n"
+        "  out_of_scope: true\n  expected_sources: []\n",
+        encoding="utf-8",
+    )
+    assert len(load_test_set(str(p))) == 1
+
+
+def test_load_test_set_accepts_sources_any(tmp_path):
+    from eval.run_eval import load_test_set
+    p = tmp_path / "ts.yml"
+    p.write_text(
+        "- id: q1\n  category: c\n  question: hi\n"
+        "  expected_sources_any: ['a.md', 'b.md']\n", encoding="utf-8")
+    assert len(load_test_set(str(p))) == 1
+
+
+def test_real_cdisc_test_set_passes_schema():
+    """回归钉: 生产题集 140 题必须全部有非空 gold."""
+    from eval.run_eval import load_test_set
+    assert len(load_test_set("eval/test_set_v3.yml")) == 140

@@ -43,24 +43,71 @@ from server.rag import RAGEngine  # noqa: E402
 TOP_K = 15
 
 
+_GOLD_KEYS = ("expected_sources", "expected_sources_any")
+_KNOWN_EXPECTED_KEYS = _GOLD_KEYS + ("expected_facts",)
+
+
 def load_test_set(path: str) -> list[dict]:
+    """读题集并做 schema 校验。
+
+    校验的理由: `check_source_recall` 对空 gold 返回 1.0 —— 键名写错 (如
+    `expected_source_any`) 或两个 gold 键都空时, 该题白得满分, 且偏差**单向朝上**、
+    幅度小, 不会被任何闸拦住。这类静默计分地雷比缺功能危险。
+    """
     with open(path, encoding="utf-8") as f:
-        return yaml.safe_load(f)
+        test_set = yaml.safe_load(f)
+    for q in test_set:
+        qid = q.get("id", "<no id>")
+        unknown = [k for k in q
+                   if k.startswith("expected") and k not in _KNOWN_EXPECTED_KEYS]
+        if unknown:
+            raise ValueError(f"{qid}: unknown key(s) {unknown} — 拼错的 gold 键会被静默忽略")
+        if q.get("out_of_scope"):
+            continue
+        if not any(q.get(k) for k in _GOLD_KEYS):
+            raise ValueError(
+                f"{qid}: 无非空 gold ({' / '.join(_GOLD_KEYS)}) —— 该题会白得满分")
+    return test_set
 
 
 def check_source_recall(
     retrieved_sources: list[str],
     expected_sources: list[str],
+    any_of: list[str] | None = None,
 ) -> tuple[float, list[str], list[str]]:
+    """expected_sources 是 AND (每条都要命中); any_of 是 OR (任一命中即满足该组).
+
+    加 OR 的原因: 常见真相是"这几个来源里任一个都能完整回答该问题"。用 AND 表达会把
+    正确检索记成部分失败, 与 study 轨家族题同属"gold 语义表达不了"的一类测量缺陷。
+
+    **使用纪律 (血的教训, 2026-08-04)**: OR 组不增加分母, 但候选越多越容易命中 ——
+    机制本身**挡不住**滥用。一次实际尝试放宽某题就翻了车: 声称"该文件含答案"故加入
+    OR 组, 但实测召回的 chunk **不含**答案 (该文件有 222 chunk, 本函数按**路径子串**
+    匹配, 任一 chunk 命中即算) → 把正确的 true negative 改成了 false positive。故:
+
+      1. any_of 的每个成员必须**独立覆盖全部 expected_facts**;
+      2. 判据是"**实际被召回的 chunk** 能否回答", 不是"文件里有没有这段文字";
+      3. 超大文件 (chunk 数多) 慎入 OR 组 —— 路径级匹配对它们判别力≈0;
+      4. 放宽 gold 应由**非受益方**裁定。
+    """
     hits: list[str] = []
     misses: list[str] = []
     for exp in expected_sources:
         found = any(exp in src for src in retrieved_sources)
-        if found:
-            hits.append(exp)
+        (hits if found else misses).append(exp)
+
+    n_groups = len(expected_sources)
+    n_hit = len(hits)
+    if any_of:
+        n_groups += 1                       # OR 组整体算一个计分单位
+        matched = [e for e in any_of if any(e in src for src in retrieved_sources)]
+        if matched:
+            n_hit += 1
+            hits.extend(matched)
         else:
-            misses.append(exp)
-    recall = len(hits) / len(expected_sources) if expected_sources else 1.0
+            misses.extend(any_of)
+
+    recall = n_hit / n_groups if n_groups else 1.0
     return recall, hits, misses
 
 
@@ -201,7 +248,9 @@ def run_evaluation(
         retrieved_sources = [c.source for c in chunks]
 
         src_recall, src_hits, src_misses = check_source_recall(
-            retrieved_sources, q.get("expected_sources", [])
+            retrieved_sources,
+            q.get("expected_sources", []),
+            any_of=q.get("expected_sources_any"),
         )
 
         result: dict = {

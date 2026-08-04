@@ -383,6 +383,9 @@
   category: concept
   question: "How are SDTM domain abbreviation codes assigned? What are the rules for the two-character domain code?"
   expected_facts:
+    # 曾于 2026-08-04 改为 "2-character", 经独立复核**撤回**: "Two-character" 在 63 个
+    # KB 文件中存在且 check_fact_recall 大小写不敏感 → 原 fact 本就可命中。当时的
+    # "全库零命中"结论来自大小写敏感 grep, 是错的。
     - "two-character"
     - "DOMAIN"
   expected_sources:
@@ -493,6 +496,11 @@
     - "SEX"
     - "C66731"
     - "Req"
+  # 曾于 2026-08-04 试图放宽为 OR (加 VARIABLE_INDEX.md), 经独立复核**撤回**:
+  # 实测召回的 15 个 chunk 中 "Record Qualifier" 0 次、完整 SEX 行 0 次 —— 含答案的
+  # chunk 在索引里但未被召回。source 匹配是**路径子串**, VARIABLE_INDEX 有 222 chunk,
+  # 任一命中即算 → 判别力≈0。放宽 = 把正确的 true negative 改成 false positive。
+  # 若将来要放宽, 前提是把 source 判据下沉到 chunk/section 粒度 (metadata 已有 section)。
   expected_sources:
     - "domains/DM/spec.md"
 
