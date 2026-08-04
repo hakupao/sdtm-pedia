@@ -1,25 +1,25 @@
 # SDTM Variable Index
 
-> 自动生成，勿手动编辑 | 生成日期: 2026-04-16
-> 唯一变量数: 1523 | 条目总数: 1917 | 覆盖域: 63
+> Auto-generated — do not edit manually | Generated: 2026-08-04
+> Unique variables: 1523 | Total entries: 1917 | Domains covered: 63
 
-## 使用说明
+## How to Use
 
-查询变量时，在本文件搜索变量名即可找到它出现在哪些 domain、属于什么角色/类型/核心程度。
+Search this file by variable name to find which domains the variable appears in, and its role, type, and core status.
 
-- **通用变量**（出现在 2+ 个域）：表头标注出现域数，域列表用逗号分隔
-- **领域专属变量**（仅 1 个域）：按域分组，直接标注所属域
-- **CT 交叉引用**：按 CDISC Controlled Terminology Code 分组，列出所有引用该 CT 的变量
+- **Common variables** (present in 2+ domains): the table lists the domain count and a comma-separated domain list.
+- **Domain-specific variables** (present in exactly 1 domain): grouped by domain.
+- **CT cross-reference**: grouped by CDISC Controlled Terminology code, listing every variable that references it.
 
 ---
 
-## 一、通用变量（出现在 2+ 个域，共 24 个）
+## 1. Common Variables (present in 2+ domains, 24 total)
 
-| 变量名 | 域数 | 出现的域 | Label | Type | Role | Core |
+| Variable | Domains | Appears In | Label | Type | Role | Core |
 |--------|------|---------|-------|------|------|------|
-| STUDYID | 63 | 所有域 | Study Identifier | Char | Identifier | Req |
-| DOMAIN | 59 | 除 RELREC, RELSPEC, RELSUB, SUPPQUAL 外所有域 | Domain Abbreviation | Char | Identifier | Req |
-| USUBJID | 55 | 除 OI, TA, TD, TE, TI, TM, TS, TV 外所有域 | Unique Subject Identifier | Char | Identifier | Req* |
+| STUDYID | 63 | All domains | Study Identifier | Char | Identifier | Req |
+| DOMAIN | 59 | All domains except RELREC, RELSPEC, RELSUB, SUPPQUAL | Domain Abbreviation | Char | Identifier | Req |
+| USUBJID | 55 | All domains except OI, TA, TD, TE, TI, TM, TS, TV | Unique Subject Identifier | Char | Identifier | Req* |
 | EPOCH | 44 | AE, AG, CE, CM, CP, CV, DA, DS, DV, EC, EG, EX, FA, FT, HO, IE, IS, LB, MB, MH, MI, MK, ML, MS, NV, OE, PC, PE, PP, PR, QS, RE, RP, RS, SC, SE, SR, SS, SU, TA, TR, TU, UR, VS | Epoch | Char | Timing | Perm* |
 | TAETORD | 43 | AE, AG, CE, CM, CP, CV, DA, DV, EC, EG, EX, FA, FT, HO, IE, IS, LB, MB, MH, MI, MK, ML, MS, NV, OE, PC, PE, PP, PR, QS, RE, RP, RS, SC, SE, SR, SS, SU, TA, TR, TU, UR, VS | Planned Order of Element within Arm | Num | Timing | Perm* |
 | VISIT | 36 | AG, BE, BS, CP, CV, DA, EG, FA, FT, GF, IE, IS, LB, MB, MI, MK, ML, MS, NV, OE, PC, PE, PR, QS, RE, RP, RS, SC, SR, SS, SV, TR, TU, TV, UR, VS | Visit Name | Char | Timing* | Perm* |
@@ -42,15 +42,15 @@
 | MIDS | 2 | ML, SM | Disease Milestone Instance Name | Char | Timing* | Perm* |
 | MIDSTYPE | 2 | SM, TM | Disease Milestone Type | Char | Record Qualifier* | Req |
 
-> \* Core 值后带星号表示该变量在不同域中 Core 不完全一致，以最常见值显示。
+> \* An asterisk on Core means the Core value is not identical across domains; the most common value is shown.
 
 ---
 
-## 二、领域专属变量（仅 1 个域，共 1499 个），按域分组
+## 2. Domain-Specific Variables (1 domain only, 1499 total), grouped by domain
 
 ### AE — Adverse Events (Events)
 
-| 变量名 | Label | Type | Role | Core | CT |
+| Variable | Label | Type | Role | Core | CT |
 |--------|-------|------|------|------|----|
 | AESEQ | Sequence Number | Num | Identifier | Req | — |
 | AEGRPID | Group ID | Char | Identifier | Perm | — |
@@ -109,7 +109,7 @@
 
 ### AG — Procedure Agents (Interventions)
 
-| 变量名 | Label | Type | Role | Core | CT |
+| Variable | Label | Type | Role | Core | CT |
 |--------|-------|------|------|------|----|
 | AGSEQ | Sequence Number | Num | Identifier | Req | — |
 | AGGRPID | Group ID | Char | Identifier | Perm | — |
@@ -147,7 +147,7 @@
 
 ### BE — Biospecimen Events (Events)
 
-| 变量名 | Label | Type | Role | Core | CT |
+| Variable | Label | Type | Role | Core | CT |
 |--------|-------|------|------|------|----|
 | BESEQ | Sequence Number | Num | Identifier | Req | — |
 | BEGRPID | Group ID | Char | Identifier | Perm | — |
@@ -170,7 +170,7 @@
 
 ### BS — Biospecimen Findings (Findings)
 
-| 变量名 | Label | Type | Role | Core | CT |
+| Variable | Label | Type | Role | Core | CT |
 |--------|-------|------|------|------|----|
 | BSSEQ | Sequence Number | Num | Identifier | Req | — |
 | BSGRPID | Group ID | Char | Identifier | Perm | — |
@@ -203,7 +203,7 @@
 
 ### CE — Clinical Events (Events)
 
-| 变量名 | Label | Type | Role | Core | CT |
+| Variable | Label | Type | Role | Core | CT |
 |--------|-------|------|------|------|----|
 | CESEQ | Sequence Number | Num | Identifier | Req | — |
 | CEGRPID | Group ID | Char | Identifier | Perm | — |
@@ -235,7 +235,7 @@
 
 ### CM — Concomitant/Prior Medications (Interventions)
 
-| 变量名 | Label | Type | Role | Core | CT |
+| Variable | Label | Type | Role | Core | CT |
 |--------|-------|------|------|------|----|
 | CMSEQ | Sequence Number | Num | Identifier | Req | — |
 | CMGRPID | Group ID | Char | Identifier | Perm | — |
@@ -276,7 +276,7 @@
 
 ### CO — Comments (Special-Purpose)
 
-| 变量名 | Label | Type | Role | Core | CT |
+| Variable | Label | Type | Role | Core | CT |
 |--------|-------|------|------|------|----|
 | COSEQ | Sequence Number | Num | Identifier | Req | — |
 | COREF | Comment Reference | Char | Record Qualifier | Perm | — |
@@ -288,7 +288,7 @@
 
 ### CP — Cell Phenotype Findings (Findings)
 
-| 变量名 | Label | Type | Role | Core | CT |
+| Variable | Label | Type | Role | Core | CT |
 |--------|-------|------|------|------|----|
 | CPSEQ | Sequence Number | Num | Identifier | Req | — |
 | CPGRPID | Group ID | Char | Identifier | Perm | — |
@@ -347,7 +347,7 @@
 
 ### CV — Cardiovascular System Findings (Findings)
 
-| 变量名 | Label | Type | Role | Core | CT |
+| Variable | Label | Type | Role | Core | CT |
 |--------|-------|------|------|------|----|
 | CVSEQ | Sequence Number | Num | Identifier | Req | — |
 | CVGRPID | Group ID | Char | Identifier | Perm | — |
@@ -386,7 +386,7 @@
 
 ### DA — Product Accountability (Findings)
 
-| 变量名 | Label | Type | Role | Core | CT |
+| Variable | Label | Type | Role | Core | CT |
 |--------|-------|------|------|------|----|
 | DASEQ | Sequence Number | Num | Identifier | Req | — |
 | DAGRPID | Group ID | Char | Identifier | Perm | — |
@@ -410,7 +410,7 @@
 
 ### DD — Death Details (Findings)
 
-| 变量名 | Label | Type | Role | Core | CT |
+| Variable | Label | Type | Role | Core | CT |
 |--------|-------|------|------|------|----|
 | DDSEQ | Sequence Number | Num | Identifier | Req | — |
 | DDTESTCD | Death Detail Assessment Short Name | Char | Topic | Req | C116108 |
@@ -424,7 +424,7 @@
 
 ### DM — Demographics (Special-Purpose)
 
-| 变量名 | Label | Type | Role | Core | CT |
+| Variable | Label | Type | Role | Core | CT |
 |--------|-------|------|------|------|----|
 | SUBJID | Subject Identifier for the Study | Char | Topic | Req | — |
 | RFSTDTC | Subject Reference Start Date/Time | DateTime | Record Qualifier | Exp | ISO 8601 datetime or interval |
@@ -456,7 +456,7 @@
 
 ### DS — Disposition (Events)
 
-| 变量名 | Label | Type | Role | Core | CT |
+| Variable | Label | Type | Role | Core | CT |
 |--------|-------|------|------|------|----|
 | DSSEQ | Sequence Number | Num | Identifier | Req | — |
 | DSGRPID | Group ID | Char | Identifier | Perm | — |
@@ -473,7 +473,7 @@
 
 ### DV — Protocol Deviations (Events)
 
-| 变量名 | Label | Type | Role | Core | CT |
+| Variable | Label | Type | Role | Core | CT |
 |--------|-------|------|------|------|----|
 | DVSEQ | Sequence Number | Num | Identifier | Req | — |
 | DVREFID | Reference ID | Char | Identifier | Perm | — |
@@ -489,7 +489,7 @@
 
 ### EC — Exposure as Collected (Interventions)
 
-| 变量名 | Label | Type | Role | Core | CT |
+| Variable | Label | Type | Role | Core | CT |
 |--------|-------|------|------|------|----|
 | ECSEQ | Sequence Number | Num | Identifier | Req | — |
 | ECGRPID | Group ID | Char | Identifier | Perm | — |
@@ -534,7 +534,7 @@
 
 ### EG — ECG Test Results (Findings)
 
-| 变量名 | Label | Type | Role | Core | CT |
+| Variable | Label | Type | Role | Core | CT |
 |--------|-------|------|------|------|----|
 | EGSEQ | Sequence Number | Num | Identifier | Req | — |
 | EGGRPID | Group ID | Char | Identifier | Perm | — |
@@ -574,7 +574,7 @@
 
 ### EX — Exposure (Interventions)
 
-| 变量名 | Label | Type | Role | Core | CT |
+| Variable | Label | Type | Role | Core | CT |
 |--------|-------|------|------|------|----|
 | EXSEQ | Sequence Number | Num | Identifier | Req | — |
 | EXGRPID | Group ID | Char | Identifier | Perm | — |
@@ -611,7 +611,7 @@
 
 ### FA — Findings About Events or Interventions (Findings About)
 
-| 变量名 | Label | Type | Role | Core | CT |
+| Variable | Label | Type | Role | Core | CT |
 |--------|-------|------|------|------|----|
 | FASEQ | Sequence Number | Num | Identifier | Req | — |
 | FAGRPID | Group ID | Char | Identifier | Perm | — |
@@ -638,7 +638,7 @@
 
 ### FT — Functional Tests (Findings)
 
-| 变量名 | Label | Type | Role | Core | CT |
+| Variable | Label | Type | Role | Core | CT |
 |--------|-------|------|------|------|----|
 | FTSEQ | Sequence Number | Num | Identifier | Req | — |
 | FTGRPID | Group ID | Char | Identifier | Perm | — |
@@ -673,7 +673,7 @@
 
 ### GF — Genomics Findings (Findings)
 
-| 变量名 | Label | Type | Role | Core | CT |
+| Variable | Label | Type | Role | Core | CT |
 |--------|-------|------|------|------|----|
 | GFSEQ | Sequence Number | Num | Identifier | Req | — |
 | GFGRPID | Group ID | Char | Identifier | Perm | — |
@@ -727,7 +727,7 @@
 
 ### HO — Healthcare Encounters (Events)
 
-| 变量名 | Label | Type | Role | Core | CT |
+| Variable | Label | Type | Role | Core | CT |
 |--------|-------|------|------|------|----|
 | HOSEQ | Sequence Number | Num | Identifier | Req | — |
 | HOGRPID | Group ID | Char | Identifier | Perm | — |
@@ -755,7 +755,7 @@
 
 ### IE — Inclusion/Exclusion Criteria Not Met (Findings)
 
-| 变量名 | Label | Type | Role | Core | CT |
+| Variable | Label | Type | Role | Core | CT |
 |--------|-------|------|------|------|----|
 | IESEQ | Sequence Number | Num | Identifier | Req | — |
 | IESPID | Sponsor-Defined Identifier | Char | Identifier | Perm | — |
@@ -766,7 +766,7 @@
 
 ### IS — Immunogenicity Specimen Assessments (Findings)
 
-| 变量名 | Label | Type | Role | Core | CT |
+| Variable | Label | Type | Role | Core | CT |
 |--------|-------|------|------|------|----|
 | ISSEQ | Sequence Number | Num | Identifier | Req | — |
 | ISGRPID | Group ID | Char | Identifier | Perm | — |
@@ -816,7 +816,7 @@
 
 ### LB — Laboratory Test Results (Findings)
 
-| 变量名 | Label | Type | Role | Core | CT |
+| Variable | Label | Type | Role | Core | CT |
 |--------|-------|------|------|------|----|
 | LBSEQ | Sequence Number | Num | Identifier | Req | — |
 | LBGRPID | Group ID | Char | Identifier | Perm | — |
@@ -875,7 +875,7 @@
 
 ### MB — Microbiology Specimen (Findings)
 
-| 变量名 | Label | Type | Role | Core | CT |
+| Variable | Label | Type | Role | Core | CT |
 |--------|-------|------|------|------|----|
 | MBSEQ | Sequence Number | Num | Identifier | Req | — |
 | MBGRPID | Group ID | Char | Identifier | Perm | — |
@@ -918,7 +918,7 @@
 
 ### MH — Medical History (Events)
 
-| 变量名 | Label | Type | Role | Core | CT |
+| Variable | Label | Type | Role | Core | CT |
 |--------|-------|------|------|------|----|
 | MHSEQ | Sequence Number | Num | Identifier | Req | — |
 | MHGRPID | Group ID | Char | Identifier | Perm | — |
@@ -945,7 +945,7 @@
 
 ### MI — Microscopic Findings (Findings)
 
-| 变量名 | Label | Type | Role | Core | CT |
+| Variable | Label | Type | Role | Core | CT |
 |--------|-------|------|------|------|----|
 | MISEQ | Sequence Number | Num | Identifier | Req | — |
 | MIGRPID | Group ID | Char | Identifier | Perm | — |
@@ -979,7 +979,7 @@
 
 ### MK — Musculoskeletal System Findings (Findings)
 
-| 变量名 | Label | Type | Role | Core | CT |
+| Variable | Label | Type | Role | Core | CT |
 |--------|-------|------|------|------|----|
 | MKSEQ | Sequence Number | Num | Identifier | Req | — |
 | MKGRPID | Group ID | Char | Identifier | Perm | — |
@@ -1018,7 +1018,7 @@
 
 ### ML — Meal Data (Interventions)
 
-| 变量名 | Label | Type | Role | Core | CT |
+| Variable | Label | Type | Role | Core | CT |
 |--------|-------|------|------|------|----|
 | MLSEQ | Sequence Number | Num | Identifier | Req | — |
 | MLGRPID | Group ID | Char | Identifier | Perm | — |
@@ -1051,7 +1051,7 @@
 
 ### MS — Microbiology Susceptibility (Findings)
 
-| 变量名 | Label | Type | Role | Core | CT |
+| Variable | Label | Type | Role | Core | CT |
 |--------|-------|------|------|------|----|
 | MSSEQ | Sequence Number | Num | Identifier | Req | — |
 | MSGRPID | Group ID | Char | Identifier | Perm | — |
@@ -1108,7 +1108,7 @@
 
 ### NV — Nervous System Findings (Findings)
 
-| 变量名 | Label | Type | Role | Core | CT |
+| Variable | Label | Type | Role | Core | CT |
 |--------|-------|------|------|------|----|
 | NVSEQ | Sequence Number | Num | Identifier | Req | — |
 | NVGRPID | Group ID | Char | Identifier | Perm | — |
@@ -1146,7 +1146,7 @@
 
 ### OE — Ophthalmic Examinations (Findings)
 
-| 变量名 | Label | Type | Role | Core | CT |
+| Variable | Label | Type | Role | Core | CT |
 |--------|-------|------|------|------|----|
 | OESEQ | Sequence Number | Num | Identifier | Req | — |
 | OEGRPID | Group ID | Char | Identifier | Perm | — |
@@ -1194,7 +1194,7 @@
 
 ### OI — Non-host Organism Identifiers (Study Reference)
 
-| 变量名 | Label | Type | Role | Core | CT |
+| Variable | Label | Type | Role | Core | CT |
 |--------|-------|------|------|------|----|
 | OISEQ | Sequence Number | Num | Identifier | Req | — |
 | OIPARMCD | Non-host Organism ID Element Short Name | Char | Topic | Req | C179591 |
@@ -1203,7 +1203,7 @@
 
 ### PC — Pharmacokinetics Concentrations (Findings)
 
-| 变量名 | Label | Type | Role | Core | CT |
+| Variable | Label | Type | Role | Core | CT |
 |--------|-------|------|------|------|----|
 | PCSEQ | Sequence Number | Num | Identifier | Req | — |
 | PCGRPID | Group ID | Char | Identifier | Perm | — |
@@ -1241,7 +1241,7 @@
 
 ### PE — Physical Examination (Findings)
 
-| 变量名 | Label | Type | Role | Core | CT |
+| Variable | Label | Type | Role | Core | CT |
 |--------|-------|------|------|------|----|
 | PESEQ | Sequence Number | Num | Identifier | Req | — |
 | PEGRPID | Group ID | Char | Identifier | Perm | — |
@@ -1268,7 +1268,7 @@
 
 ### PP — Pharmacokinetics Parameters (Findings)
 
-| 变量名 | Label | Type | Role | Core | CT |
+| Variable | Label | Type | Role | Core | CT |
 |--------|-------|------|------|------|----|
 | PPSEQ | Sequence Number | Num | Identifier | Req | — |
 | PPGRPID | Group ID | Char | Identifier | Perm | — |
@@ -1294,7 +1294,7 @@
 
 ### PR — Procedures (Interventions)
 
-| 变量名 | Label | Type | Role | Core | CT |
+| Variable | Label | Type | Role | Core | CT |
 |--------|-------|------|------|------|----|
 | PRSEQ | Sequence Number | Num | Identifier | Req | — |
 | PRGRPID | Group ID | Char | Identifier | Perm | — |
@@ -1336,7 +1336,7 @@
 
 ### QS — Questionnaires (Findings)
 
-| 变量名 | Label | Type | Role | Core | CT |
+| Variable | Label | Type | Role | Core | CT |
 |--------|-------|------|------|------|----|
 | QSSEQ | Sequence Number | Num | Identifier | Req | — |
 | QSGRPID | Group ID | Char | Identifier | Perm | — |
@@ -1368,7 +1368,7 @@
 
 ### RE — Respiratory System Findings (Findings)
 
-| 变量名 | Label | Type | Role | Core | CT |
+| Variable | Label | Type | Role | Core | CT |
 |--------|-------|------|------|------|----|
 | RESEQ | Sequence Number | Num | Identifier | Req | — |
 | REGRPID | Group ID | Char | Identifier | Perm | — |
@@ -1411,14 +1411,14 @@
 
 ### RELREC — Related Records (Relationship)
 
-| 变量名 | Label | Type | Role | Core | CT |
+| Variable | Label | Type | Role | Core | CT |
 |--------|-------|------|------|------|----|
 | RELTYPE | Relationship Type | Char | Record Qualifier | Exp | C78737 |
 | RELID | Relationship Identifier | Char | Record Qualifier | Req | — |
 
 ### RELSPEC — Related Specimens (Relationship)
 
-| 变量名 | Label | Type | Role | Core | CT |
+| Variable | Label | Type | Role | Core | CT |
 |--------|-------|------|------|------|----|
 | REFID | Specimen ID | Char | Identifier | Req | — |
 | SPEC | Specimen Type | Char | Variable Qualifier | Perm | C78734; C111114 |
@@ -1427,7 +1427,7 @@
 
 ### RELSUB — Related Subjects (Relationship)
 
-| 变量名 | Label | Type | Role | Core | CT |
+| Variable | Label | Type | Role | Core | CT |
 |--------|-------|------|------|------|----|
 | POOLID | Pool Identifier | Char | Identifier | Perm | — |
 | RSUBJID | Related Subject or Pool Identifier | Char | Identifier | Req | — |
@@ -1435,7 +1435,7 @@
 
 ### RP — Reproductive System Findings (Findings)
 
-| 变量名 | Label | Type | Role | Core | CT |
+| Variable | Label | Type | Role | Core | CT |
 |--------|-------|------|------|------|----|
 | RPSEQ | Sequence Number | Num | Identifier | Req | — |
 | RPGRPID | Group ID | Char | Identifier | Perm | — |
@@ -1468,7 +1468,7 @@
 
 ### RS — Disease Response and Clin Classification (Findings)
 
-| 变量名 | Label | Type | Role | Core | CT |
+| Variable | Label | Type | Role | Core | CT |
 |--------|-------|------|------|------|----|
 | RSSEQ | Sequence Number | Num | Identifier | Req | — |
 | RSGRPID | Group ID | Char | Identifier | Perm | — |
@@ -1511,7 +1511,7 @@
 
 ### SC — Subject Characteristics (Findings)
 
-| 变量名 | Label | Type | Role | Core | CT |
+| Variable | Label | Type | Role | Core | CT |
 |--------|-------|------|------|------|----|
 | SCSEQ | Sequence Number | Num | Identifier | Req | — |
 | SCGRPID | Group ID | Char | Identifier | Perm | — |
@@ -1532,7 +1532,7 @@
 
 ### SE — Subject Elements (Special-Purpose)
 
-| 变量名 | Label | Type | Role | Core | CT |
+| Variable | Label | Type | Role | Core | CT |
 |--------|-------|------|------|------|----|
 | SESEQ | Sequence Number | Num | Identifier | Req | — |
 | SESTDTC | Start Date/Time of Element | Char | Timing | Req | ISO 8601 datetime or interval |
@@ -1543,7 +1543,7 @@
 
 ### SM — Subject Disease Milestones (Special-Purpose)
 
-| 变量名 | Label | Type | Role | Core | CT |
+| Variable | Label | Type | Role | Core | CT |
 |--------|-------|------|------|------|----|
 | SMSEQ | Sequence Number | Num | Identifier | Req | — |
 | SMSTDTC | Start Date/Time of Milestone | Char | Timing | Exp | ISO 8601 datetime or interval |
@@ -1553,7 +1553,7 @@
 
 ### SR — Skin Response (Findings About)
 
-| 变量名 | Label | Type | Role | Core | CT |
+| Variable | Label | Type | Role | Core | CT |
 |--------|-------|------|------|------|----|
 | SRSEQ | Sequence Number | Num | Identifier | Req | — |
 | SRGRPID | Group ID | Char | Identifier | Perm | — |
@@ -1589,7 +1589,7 @@
 
 ### SS — Subject Status (Findings)
 
-| 变量名 | Label | Type | Role | Core | CT |
+| Variable | Label | Type | Role | Core | CT |
 |--------|-------|------|------|------|----|
 | SSSEQ | Sequence Number | Num | Identifier | Req | — |
 | SSGRPID | Group ID | Char | Identifier | Perm | — |
@@ -1608,7 +1608,7 @@
 
 ### SU — Substance Use (Interventions)
 
-| 变量名 | Label | Type | Role | Core | CT |
+| Variable | Label | Type | Role | Core | CT |
 |--------|-------|------|------|------|----|
 | SUSEQ | Sequence Number | Num | Identifier | Req | — |
 | SUGRPID | Group ID | Char | Identifier | Perm | — |
@@ -1645,7 +1645,7 @@
 
 ### SUPPQUAL — Supplemental Qualifiers for [domain name] (Relationship)
 
-| 变量名 | Label | Type | Role | Core | CT |
+| Variable | Label | Type | Role | Core | CT |
 |--------|-------|------|------|------|----|
 | QNAM | Qualifier Variable Name | Char | Topic | Req | — |
 | QLABEL | Qualifier Variable Label | Char | Synonym Qualifier | Req | — |
@@ -1655,7 +1655,7 @@
 
 ### SV — Subject Visits (Special-Purpose)
 
-| 变量名 | Label | Type | Role | Core | CT |
+| Variable | Label | Type | Role | Core | CT |
 |--------|-------|------|------|------|----|
 | SVPRESP | Pre-specified | Char | Variable Qualifier | Exp | C66742 |
 | SVOCCUR | Occurrence | Char | Record Qualifier | Exp | C66742 |
@@ -1670,14 +1670,14 @@
 
 ### TA — Trial Arms (Trial Design)
 
-| 变量名 | Label | Type | Role | Core | CT |
+| Variable | Label | Type | Role | Core | CT |
 |--------|-------|------|------|------|----|
 | TABRANCH | Branch | Char | Rule | Exp | — |
 | TATRANS | Transition Rule | Char | Rule | Exp | — |
 
 ### TD — Trial Disease Assessments (Trial Design)
 
-| 变量名 | Label | Type | Role | Core | CT |
+| Variable | Label | Type | Role | Core | CT |
 |--------|-------|------|------|------|----|
 | TDORDER | Sequence of Planned Assessment Schedule | Num | Timing | Req | — |
 | TDANCVAR | Anchor Variable Name | Char | Timing | Req | — |
@@ -1689,7 +1689,7 @@
 
 ### TE — Trial Elements (Trial Design)
 
-| 变量名 | Label | Type | Role | Core | CT |
+| Variable | Label | Type | Role | Core | CT |
 |--------|-------|------|------|------|----|
 | TESTRL | Rule for Start of Element | Char | Rule | Req | — |
 | TEENRL | Rule for End of Element | Char | Rule | Perm | — |
@@ -1697,21 +1697,21 @@
 
 ### TI — Trial Inclusion/Exclusion Criteria (Trial Design)
 
-| 变量名 | Label | Type | Role | Core | CT |
+| Variable | Label | Type | Role | Core | CT |
 |--------|-------|------|------|------|----|
 | TIRL | Inclusion/Exclusion Criterion Rule | Char | Rule | Perm | — |
 | TIVERS | Protocol Criteria Versions | Char | Record Qualifier | Perm | — |
 
 ### TM — Trial Disease Milestones (Trial Design)
 
-| 变量名 | Label | Type | Role | Core | CT |
+| Variable | Label | Type | Role | Core | CT |
 |--------|-------|------|------|------|----|
 | TMDEF | Disease Milestone Definition | Char | Variable Qualifier | Req | — |
 | TMRPT | Disease Milestone Repetition Indicator | Char | Record Qualifier | Req | C66742 |
 
 ### TR — Tumor/Lesion Results (Findings)
 
-| 变量名 | Label | Type | Role | Core | CT |
+| Variable | Label | Type | Role | Core | CT |
 |--------|-------|------|------|------|----|
 | TRSEQ | Sequence Number | Num | Identifier | Req | — |
 | TRGRPID | Group ID | Char | Identifier | Perm | — |
@@ -1740,7 +1740,7 @@
 
 ### TS — Trial Summary (Trial Design)
 
-| 变量名 | Label | Type | Role | Core | CT |
+| Variable | Label | Type | Role | Core | CT |
 |--------|-------|------|------|------|----|
 | TSSEQ | Sequence Number | Num | Identifier | Req | — |
 | TSGRPID | Group ID | Char | Identifier | Perm | — |
@@ -1754,7 +1754,7 @@
 
 ### TU — Tumor/Lesion Identification (Findings)
 
-| 变量名 | Label | Type | Role | Core | CT |
+| Variable | Label | Type | Role | Core | CT |
 |--------|-------|------|------|------|----|
 | TUSEQ | Sequence Number | Num | Identifier | Req | — |
 | TUGRPID | Group ID | Char | Identifier | Perm | — |
@@ -1782,14 +1782,14 @@
 
 ### TV — Trial Visits (Trial Design)
 
-| 变量名 | Label | Type | Role | Core | CT |
+| Variable | Label | Type | Role | Core | CT |
 |--------|-------|------|------|------|----|
 | TVSTRL | Visit Start Rule | Char | Rule | Req | — |
 | TVENRL | Visit End Rule | Char | Rule | Perm | — |
 
 ### UR — Urinary System Findings (Findings)
 
-| 变量名 | Label | Type | Role | Core | CT |
+| Variable | Label | Type | Role | Core | CT |
 |--------|-------|------|------|------|----|
 | URSEQ | Sequence Number | Num | Identifier | Req | — |
 | URGRPID | Group ID | Char | Identifier | Perm | — |
@@ -1829,7 +1829,7 @@
 
 ### VS — Vital Signs (Findings)
 
-| 变量名 | Label | Type | Role | Core | CT |
+| Variable | Label | Type | Role | Core | CT |
 |--------|-------|------|------|------|----|
 | VSSEQ | Sequence Number | Num | Identifier | Req | — |
 | VSGRPID | Group ID | Char | Identifier | Perm | — |
@@ -1864,9 +1864,9 @@
 
 ---
 
-## 三、CDISC Controlled Terminology 交叉引用（共 135 个 CT Code）
+## 3. CDISC Controlled Terminology Cross-Reference (135 CT Codes)
 
-| CT Code | 引用数 | 引用此 CT 的变量 (域.变量名) |
+| CT Code | References | Variables Referencing This CT (DOMAIN.VARIABLE) |
 |---------|--------|---------------------------|
 | C100129 | 1 | QS.QSCAT |
 | C100130 | 1 | RELSUB.SREL |
@@ -1947,20 +1947,20 @@
 | C65047 | 1 | LB.LBTESTCD |
 | C66726 | 7 | AG.AGDOSFRM, CM.CMDOSFRM, EC.ECDOSFRM, EX.EXDOSFRM, ML.MLDOSFRM, PR.PRDOSFRM, SU.SUDOSFRM |
 | C66727 | 1 | DS.DSDECOD |
-| C66728 | 26 | AE.AEENRF, AE.AEENRTPT, AG.AGENRF, AG.AGENRTPT, AG.AGSTRF, AG.AGSTRTPT, CE.CEENRF, CE.CEENRTPT, CE.CESTRF, CE.CESTRTPT, CM.CMENRF, CM.CMENRTPT, CM.CMSTRF, CM.CMSTRTPT, HO.HOENRTPT ... (共 26 个) |
+| C66728 | 26 | AE.AEENRF, AE.AEENRTPT, AG.AGENRF, AG.AGENRTPT, AG.AGSTRF, AG.AGSTRTPT, CE.CEENRF, CE.CEENRTPT, CE.CESTRF, CE.CESTRTPT, CM.CMENRF, CM.CMENRTPT, CM.CMSTRF, CM.CMSTRTPT, HO.HOENRTPT ... (26 total) |
 | C66729 | 6 | AG.AGROUTE, CM.CMROUTE, EC.ECROUTE, EX.EXROUTE, PR.PRROUTE, SU.SUROUTE |
 | C66731 | 1 | DM.SEX |
 | C66734 | 3 | CO.RDOMAIN, RELREC.RDOMAIN, SUPPQUAL.RDOMAIN |
 | C66738 | 1 | TS.TSPARMCD |
 | C66741 | 1 | VS.VSTESTCD |
-| C66742 | 123 | AE.AECONTRT, AE.AEPRESP, AE.AESCAN, AE.AESCONG, AE.AESDISAB, AE.AESDTH, AE.AESER, AE.AESHOSP, AE.AESINTV, AE.AESLIFE, AE.AESMIE, AE.AESOD, AE.AEUNANT, AG.AGOCCUR, AG.AGPRESP ... (共 123 个) |
+| C66742 | 123 | AE.AECONTRT, AE.AEPRESP, AE.AESCAN, AE.AESCONG, AE.AESDISAB, AE.AESDTH, AE.AESER, AE.AESHOSP, AE.AESINTV, AE.AESLIFE, AE.AESMIE, AE.AESOD, AE.AEUNANT, AG.AGOCCUR, AG.AGPRESP ... (123 total) |
 | C66767 | 1 | AE.AEACN |
 | C66768 | 1 | AE.AEOUT |
 | C66769 | 1 | AE.AESEV |
 | C66770 | 2 | VS.VSORRESU, VS.VSSTRESU |
 | C66781 | 1 | DM.AGEU |
 | C66788 | 1 | TS.TSVCDREF |
-| C66789 | 36 | AG.AGSTAT, BS.BSSTAT, CE.CESTAT, CM.CMSTAT, CP.CPSTAT, CV.CVSTAT, DA.DASTAT, EG.EGSTAT, FA.FASTAT, FT.FTSTAT, GF.GFSTAT, HO.HOSTAT, IS.ISSTAT, LB.LBSTAT, MB.MBSTAT ... (共 36 个) |
+| C66789 | 36 | AG.AGSTAT, BS.BSSTAT, CE.CESTAT, CM.CMSTAT, CP.CPSTAT, CV.CVSTAT, DA.DASTAT, EG.EGSTAT, FA.FASTAT, FT.FTSTAT, GF.GFSTAT, HO.HOSTAT, IS.ISSTAT, LB.LBSTAT, MB.MBSTAT ... (36 total) |
 | C66790 | 1 | DM.ETHNIC |
 | C66797 | 2 | IE.IECAT, TI.IECAT |
 | C67152 | 1 | TS.TSPARM |
@@ -1972,8 +1972,8 @@
 | C71151 | 1 | EG.EGMETHOD |
 | C71152 | 1 | EG.EGTEST |
 | C71153 | 1 | EG.EGTESTCD |
-| C71620 | 58 | AG.AGDOSU, BS.BSORRESU, BS.BSSTRESU, CM.CMDOSU, CP.CPORRESU, CP.CPSTRESU, CV.CVORRESU, CV.CVSTRESU, DA.DAORRESU, DA.DASTRESU, EC.ECDOSU, EC.ECPSTRGU, EG.EGORRESU, EG.EGSTRESU, EX.EXDOSU ... (共 58 个) |
-| C74456 | 19 | AE.AELOC, BE.BELOC, CV.CVLOC, EC.ECLOC, EX.EXLOC, FA.FALOC, MB.MBLOC, MI.MILOC, MK.MKLOC, MS.MSLOC, NV.NVLOC, OE.OELOC, PE.PELOC, PR.PRLOC, RE.RELOC ... (共 19 个) |
+| C71620 | 58 | AG.AGDOSU, BS.BSORRESU, BS.BSSTRESU, CM.CMDOSU, CP.CPORRESU, CP.CPSTRESU, CV.CVORRESU, CV.CVSTRESU, DA.DAORRESU, DA.DASTRESU, EC.ECDOSU, EC.ECPSTRGU, EG.EGORRESU, EG.EGSTRESU, EX.EXDOSU ... (58 total) |
+| C74456 | 19 | AE.AELOC, BE.BELOC, CV.CVLOC, EC.ECLOC, EX.EXLOC, FA.FALOC, MB.MBLOC, MI.MILOC, MK.MKLOC, MS.MSLOC, NV.NVLOC, OE.OELOC, PE.PELOC, PR.PRLOC, RE.RELOC ... (19 total) |
 | C74457 | 1 | DM.RACE |
 | C74558 | 1 | DS.DSCAT |
 | C74559 | 1 | SC.SCTESTCD |
@@ -1981,11 +1981,11 @@
 | C78732 | 1 | DA.DATESTCD |
 | C78733 | 8 | BS.BSSPCCND, CP.CPSPCCND, IS.ISSPCCND, LB.LBSPCCND, MB.MBSPCCND, MI.MISPCCND, MS.MSSPCCND, PC.PCSPCCND |
 | C78734 | 11 | BS.BSSPEC, CP.CPSPEC, IS.ISSPEC, LB.LBSPEC, MB.MBSPEC, MI.MISPEC, MS.MSSPEC, PC.PCSPEC, PP.PPSPEC, RELSPEC.SPEC, SR.SRSPEC |
-| C78735 | 19 | CO.COEVAL, CV.CVEVAL, DD.DDEVAL, EG.EGEVAL, FA.FAEVAL, MI.MIEVAL, MK.MKEVAL, MS.MSEVAL, NV.NVEVAL, OE.OEEVAL, PE.PEEVAL, RE.REEVAL, RS.RSEVAL, SR.SREVAL, SS.SSEVAL ... (共 19 个) |
+| C78735 | 19 | CO.COEVAL, CV.CVEVAL, DD.DDEVAL, EG.EGEVAL, FA.FAEVAL, MI.MIEVAL, MK.MKEVAL, MS.MSEVAL, NV.NVEVAL, OE.OEEVAL, PE.PEEVAL, RE.REEVAL, RS.RSEVAL, SR.SREVAL, SS.SSEVAL ... (19 total) |
 | C78736 | 5 | CP.CPNRIND, IS.ISNRIND, LB.LBNRIND, MS.MSNRIND, OE.OENRIND |
 | C78737 | 1 | RELREC.RELTYPE |
 | C85491 | 1 | IS.ISBDAGNT |
-| C85492 | 19 | BS.BSMETHOD, CP.CPMETHOD, CV.CVMETHOD, GF.GFMETHOD, IS.ISMETHOD, LB.LBMETHOD, MB.MBMETHOD, MI.MIMETHOD, MK.MKMETHOD, MS.MSMETHOD, NV.NVMETHOD, OE.OEMETHOD, PC.PCMETHOD, PE.PEMETHOD, RE.REMETHOD ... (共 19 个) |
+| C85492 | 19 | BS.BSMETHOD, CP.CPMETHOD, CV.CVMETHOD, GF.GFMETHOD, IS.ISMETHOD, LB.LBMETHOD, MB.MBMETHOD, MI.MIMETHOD, MK.MKMETHOD, MS.MSMETHOD, NV.NVMETHOD, OE.OEMETHOD, PC.PCMETHOD, PE.PEMETHOD, RE.REMETHOD ... (19 total) |
 | C85493 | 1 | PP.PPTEST |
 | C85494 | 4 | PC.PCORRESU, PC.PCSTRESU, PP.PPORRESU, PP.PPSTRESU |
 | C85495 | 1 | MS.MSRESCAT |
@@ -1999,7 +1999,7 @@
 | C96783 | 1 | TU.TUTEST |
 | C96784 | 1 | TU.TUTESTCD |
 | C96785 | 1 | RS.RSSTRESC |
-| C99073 | 17 | CV.CVLAT, EC.ECLAT, EX.EXLAT, FA.FALAT, MB.MBLAT, MI.MILAT, MK.MKLAT, MS.MSLAT, NV.NVLAT, OE.OELAT, PE.PELAT, PR.PRLAT, RE.RELAT, SR.SRLAT, TU.TULAT ... (共 17 个) |
+| C99073 | 17 | CV.CVLAT, EC.ECLAT, EX.EXLAT, FA.FALAT, MB.MBLAT, MI.MILAT, MK.MKLAT, MS.MSLAT, NV.NVLAT, OE.OELAT, PE.PELAT, PR.PRLAT, RE.RELAT, SR.SRLAT, TU.TULAT ... (17 total) |
 | C99074 | 13 | CV.CVDIR, EC.ECDIR, EX.EXDIR, MB.MBDIR, MI.MIDIR, MK.MKDIR, MS.MSDIR, NV.NVDIR, OE.OEDIR, PR.PRDIR, RE.REDIR, TU.TUDIR, UR.URDIR |
 | C99075 | 4 | EC.ECPORTOT, OE.OEPORTOT, PR.PRPORTOT, TU.TUPORTOT |
-| C99079 | 44 | AE.EPOCH, AG.EPOCH, CE.EPOCH, CM.EPOCH, CP.EPOCH, CV.EPOCH, DA.EPOCH, DS.EPOCH, DV.EPOCH, EC.EPOCH, EG.EPOCH, EX.EPOCH, FA.EPOCH, FT.EPOCH, HO.EPOCH ... (共 44 个) |
+| C99079 | 44 | AE.EPOCH, AG.EPOCH, CE.EPOCH, CM.EPOCH, CP.EPOCH, CV.EPOCH, DA.EPOCH, DS.EPOCH, DV.EPOCH, EC.EPOCH, EG.EPOCH, EX.EPOCH, FA.EPOCH, FT.EPOCH, HO.EPOCH ... (44 total) |

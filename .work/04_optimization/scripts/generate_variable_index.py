@@ -9,7 +9,7 @@ reverse index: shared variables, domain-specific variables, and CT cross-referen
 import re
 import os
 import sys
-from collections import defaultdict
+from collections import Counter, defaultdict
 from datetime import date
 from pathlib import Path
 
@@ -154,67 +154,70 @@ def generate_index(domains_data: list[dict]) -> str:
 
     lines.append("# SDTM Variable Index")
     lines.append("")
-    lines.append(f"> 自动生成，勿手动编辑 | 生成日期: {today}")
-    lines.append(f"> 唯一变量数: {unique_vars} | 条目总数: {total_entries} | 覆盖域: {len(domains_data)}")
+    lines.append(f"> Auto-generated — do not edit manually | Generated: {today}")
+    lines.append(f"> Unique variables: {unique_vars} | Total entries: {total_entries} | Domains covered: {len(domains_data)}")
     lines.append("")
-    lines.append("## 使用说明")
+    lines.append("## How to Use")
     lines.append("")
-    lines.append("查询变量时，在本文件搜索变量名即可找到它出现在哪些 domain、属于什么角色/类型/核心程度。")
+    lines.append("Search this file by variable name to find which domains the variable appears in, and its role, type, and core status.")
     lines.append("")
-    lines.append("- **通用变量**（出现在 2+ 个域）：表头标注出现域数，域列表用逗号分隔")
-    lines.append("- **领域专属变量**（仅 1 个域）：按域分组，直接标注所属域")
-    lines.append("- **CT 交叉引用**：按 CDISC Controlled Terminology Code 分组，列出所有引用该 CT 的变量")
+    lines.append("- **Common variables** (present in 2+ domains): the table lists the domain count and a comma-separated domain list.")
+    lines.append("- **Domain-specific variables** (present in exactly 1 domain): grouped by domain.")
+    lines.append("- **CT cross-reference**: grouped by CDISC Controlled Terminology code, listing every variable that references it.")
     lines.append("")
     lines.append("---")
     lines.append("")
 
     # === Section 1: Shared Variables ===
-    lines.append(f"## 一、通用变量（出现在 2+ 个域，共 {len(shared_sorted)} 个）")
+    lines.append(f"## 1. Common Variables (present in 2+ domains, {len(shared_sorted)} total)")
     lines.append("")
-    lines.append("| 变量名 | 域数 | 出现的域 | Label | Type | Role | Core |")
+    lines.append("| Variable | Domains | Appears In | Label | Type | Role | Core |")
     lines.append("|--------|------|---------|-------|------|------|------|")
 
     for var_name, entries in shared_sorted:
         domain_count = len(entries)
         domains_list = sorted(set(e["domain"] for e in entries))
 
-        # For display: if all 63, say "所有域"; if most, list exclusions
+        # For display: if all 63, say "All domains"; if most, list exclusions
         if domain_count == len(all_domain_codes):
-            domains_str = "所有域"
+            domains_str = "All domains"
         elif domain_count >= len(all_domain_codes) - 8:
             missing = sorted(set(all_domain_codes) - set(domains_list))
-            domains_str = f"除 {', '.join(missing)} 外所有域"
+            domains_str = f"All domains except {', '.join(missing)}"
         else:
             domains_str = ", ".join(domains_list)
 
         # Use the most common label/type/role/core
         label = entries[0]["label"]
         var_type = entries[0]["type"]
-        role = entries[0]["role"]
 
-        # Core: check if consistent
+        # Role: first domain's value, suffixed with '*' when domains disagree.
+        # (Phase 6 V8 fix 45c8e9b was applied to the .md only; ported here so
+        # regeneration reproduces it. Role keeps the first-entry value rather
+        # than the most common one — that is what V8 signed off on.)
+        role = entries[0]["role"]
+        if len(set(e["role"] for e in entries)) > 1:
+            role = f"{role}*"
+
+        # Core: most common value, suffixed with '*' when domains disagree.
         cores = set(e["core"] for e in entries)
         if len(cores) == 1:
             core_str = cores.pop()
         else:
-            # Most common core
-            from collections import Counter
             core_counts = Counter(e["core"] for e in entries)
-            most_common = core_counts.most_common(1)[0][0]
-            others = [f"{c}({n})" for c, n in core_counts.most_common() if c != most_common]
-            core_str = f"{most_common}*"
+            core_str = f"{core_counts.most_common(1)[0][0]}*"
 
         lines.append(f"| {var_name} | {domain_count} | {domains_str} | {label} | {var_type} | {role} | {core_str} |")
 
     lines.append("")
-    lines.append("> \\* Core 值后带星号表示该变量在不同域中 Core 不完全一致，以最常见值显示。")
+    lines.append("> \\* An asterisk on Core means the Core value is not identical across domains; the most common value is shown.")
     lines.append("")
     lines.append("---")
     lines.append("")
 
     # === Section 2: Domain-Specific Variables ===
     specific_count = sum(len(v) for v in specific_vars.values())
-    lines.append(f"## 二、领域专属变量（仅 1 个域，共 {specific_count} 个），按域分组")
+    lines.append(f"## 2. Domain-Specific Variables (1 domain only, {specific_count} total), grouped by domain")
     lines.append("")
 
     for domain_code in all_domain_codes:
@@ -225,7 +228,7 @@ def generate_index(domains_data: list[dict]) -> str:
 
         lines.append(f"### {domain_code} — {full_name} ({obs_class})")
         lines.append("")
-        lines.append("| 变量名 | Label | Type | Role | Core | CT |")
+        lines.append("| Variable | Label | Type | Role | Core | CT |")
         lines.append("|--------|-------|------|------|------|----|")
 
         for var_name, e in vars_list:
@@ -238,9 +241,9 @@ def generate_index(domains_data: list[dict]) -> str:
     lines.append("")
 
     # === Section 3: CT Cross-Reference ===
-    lines.append(f"## 三、CDISC Controlled Terminology 交叉引用（共 {len(ct_index)} 个 CT Code）")
+    lines.append(f"## 3. CDISC Controlled Terminology Cross-Reference ({len(ct_index)} CT Codes)")
     lines.append("")
-    lines.append("| CT Code | 引用数 | 引用此 CT 的变量 (域.变量名) |")
+    lines.append("| CT Code | References | Variables Referencing This CT (DOMAIN.VARIABLE) |")
     lines.append("|---------|--------|---------------------------|")
 
     for ct_code in sorted(ct_index.keys()):
@@ -248,7 +251,7 @@ def generate_index(domains_data: list[dict]) -> str:
         ref_count = len(refs)
         # Truncate if too many
         if len(refs) > 15:
-            refs_str = ", ".join(refs[:15]) + f" ... (共 {ref_count} 个)"
+            refs_str = ", ".join(refs[:15]) + f" ... ({ref_count} total)"
         else:
             refs_str = ", ".join(refs)
         lines.append(f"| {ct_code} | {ref_count} | {refs_str} |")
@@ -259,6 +262,9 @@ def generate_index(domains_data: list[dict]) -> str:
 
 
 def main():
+    # Optional output override (used to diff a candidate against the committed file).
+    out_file = Path(sys.argv[1]) if len(sys.argv) > 1 else OUTPUT_FILE
+
     # Discover all spec.md files
     spec_files = sorted(DOMAINS_DIR.glob("*/spec.md"))
     print(f"Found {len(spec_files)} spec.md files")
@@ -304,9 +310,9 @@ def main():
     print(f"✓ C5 PASS: per-domain sum = {per_domain_sum}")
 
     # Write output
-    OUTPUT_FILE.write_text(content, encoding="utf-8")
-    file_size_kb = OUTPUT_FILE.stat().st_size / 1024
-    print(f"\n✓ Written to {OUTPUT_FILE}")
+    out_file.write_text(content, encoding="utf-8")
+    file_size_kb = out_file.stat().st_size / 1024
+    print(f"\n✓ Written to {out_file}")
     print(f"  File size: {file_size_kb:.1f} KB")
 
 
