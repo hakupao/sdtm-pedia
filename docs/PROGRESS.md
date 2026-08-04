@@ -17,7 +17,7 @@
 | **Phase 5** 全量验证 | ✅ 完成 | Step 0-4 全过 | — |
 | **Phase 6** 检索优化 | ✅ 完成 (P0-P2) | — | P3 → 已合并到 Phase 7 |
 | **Phase 6.5** AI 平台部署 | ⏸ CLOSED 冻结 | 多平台部署线收口 2026-06-15 (用户决策, 以后不再更新); 终态 = Release v1.4 (tag `v1.4-company-release`) + 4 平台 signed-off + Gemini MAINTAINED_NO_SANITY_TEST | — (v1.5 候选全部放弃; 历史只读 milestones/release/ + milestones/ai_platforms/retrospectives/) |
-| **Phase 7** RAG + KG | 🟢 唯一活跃线 | 检索 99% + 语义 fact 93.9% + KG SP1-6/AGG 全 DONE + 部署 launchd (api 8000/ui 8501/neo4j) + Chat UI; 主力 DeepSeek-v4-pro | dogfood 驱动打磨; go-live 待 IT 内网 IP+签字; 残留 q93/q96 (q126 永久 known limit); 细节 `.work/meta/worklog/phase_07_rag_kg.md` |
+| **Phase 7** RAG + KG | 🟢 唯一活跃线 | KG SP1-6/AGG 全 DONE + 部署 launchd (api 8000/ui 8501/neo4j) + Chat UI; 主力 DeepSeek-v4-pro。**study 确定性轨 (st01) 已收官**: golden v1.1 真实基线 **88.5%**; CDISC **81.1%** (2026-08-04 重测, 旧记录 99%/100% 因题集与索引缺陷作废) | **下一步 Plan B 联邦路由** — 交接见 `.work/meta/study_rag_handoff_2026-08-04.md`; 服务认证已关 (局域网免密); 细节 `.work/meta/worklog/phase_07_rag_kg.md` |
 | **06 旁枝** Deep Verification | ✅ 完成 | P1-P7 全 PASS ★★ (coverage 99.02%, Issues 5-16 repaired, P7 content error 3.3%, RETROSPECTIVE.md 归档) | `milestones/06_deep_verification/RETROSPECTIVE.md` |
 | **07 旁枝** Website | ✅ 完成 | Phase 6/7/8/9/10/11 全 closed; prod sdtm-pedia.pages.dev | — |
 | **refactor v1/v2/v3** 项目重构 | ✅ 完成 | v1 段1-3 (2026-05-11) · v2 release 提顶层 (2026-05-11) · **v3 branches→milestones (2026-07-21)** | `.work/09_repo_refactor_v3/RETROSPECTIVE.md` |
