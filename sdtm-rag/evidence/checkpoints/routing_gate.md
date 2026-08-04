@@ -24,10 +24,18 @@
 | 日文 CDISC 标准题 | 11 | cdisc | `eval/routing_gold_ja_supplement.yml` (`ja_supp_01..11`) |
 | 日文 跨库/映射题 | 5 | both | `eval/routing_gold_ja_supplement.yml` (`ja_supp_b01..b05`) |
 
+both 组 5 题**全部**是映射/并列类: 每题都同时含 study 侧指代 (この項目 / このフォーム /
+この試験) 与**显式的标准侧标记** (標準 / SDTM / コントロールターミノロジー)。
+**无标准侧标记、只凭主题就该判 both 的"真两可"形态未覆盖** (见 §4.5)。
+
 后两组是补盲区专用: 原 gold 里语言与语料一一对应 (cdisc 全英/study 全日) 且无 both 题,
 任何"按语言判库"或"見到 項目 就判 study"的规则都无法被证伪。出题依据声明写在 yml 文件头。
 
 ## 3. 三遍结果 (Bedrock `jp.anthropic.claude-haiku-4-5`, temperature 0)
+
+> 本节数字是 **`ja_supp_b03` 题面修正后重跑**的结果 (审阅 I-3: 原题面用了中文词
+> 「受控術語」, 日语无此构词, 已改为「コントロールターミノロジー」), 与当前入库题面一致。
+> 修正前后三遍数字恰好相同 (178/181, fatal=0), b03 两版均判 both。
 
 ```
 run 1: exact 178/181 = 98.3%  fatal=0  fallback=0  PASS
@@ -64,13 +72,21 @@ stability: 181/181 题三遍判定一致
    **拟合后**的表现, 不是对新问题的泛化估计。真实泛化只能靠线上 dogfood 反馈继续观测。
 2. **反向盲区未覆盖**: "英文提问本研究 EDC 字段" 这一类一道题都没有 —— 该方向的误判
    同样不可证伪。现实里 EDC 用户基本用日语提问, 故优先级低, 但记档为已知缺口。
-3. **闸对模型敏感**: 基线 prompt 在 Anthropic 直连与 Bedrock 上给出完全相同的 156/165,
+3. **both 组与规则 3 线索词重合, 该方向不可证伪**: 5 道 both 题的题面都带着规则 3 的
+   线索词 (対応 / マッピング / どの変数に…), 而 gold 里**没有一道含这些词但 gold ≠ both
+   的负例** —— 例如「SDTMIG で --ORRES と --STRESC はどう対応しますか」这类纯标准题
+   (含「対応」但正解是 cdisc)。也就是说, 现在无法区分路由器是**读懂了跨库需求**, 还是
+   只是**见到线索词就判 both**。补一批这样的 cdisc 负例才能证伪, 本轮未做。
+4. **闸对模型敏感**: 基线 prompt 在 Anthropic 直连与 Bedrock 上给出完全相同的 156/165,
    说明结果对通道不敏感; 但换模型 (或换 haiku 版本) 后判据表现无保证 —— **换模型必须重跑**。
-4. **`_ROUTER_SYSTEM` 是被本闸把守的资产**: 改动那段 prompt 必须重跑
+5. **both 组只覆盖"带显式标准侧标记"的形态**: 5 题都同时含 study 指代与标准侧标记
+   (標準 / SDTM / コントロールターミノロジー); **无标准侧标记、只凭主题就该判 both 的
+   真两可形态未覆盖**, 留作后续。
+6. **`_ROUTER_SYSTEM` 是被本闸把守的资产**: 改动那段 prompt 必须重跑
    `python -m eval.run_routing_eval --runs 3`, 三遍全 PASS 才算数。
-5. **两道最脆的哨兵题**: `ja_supp_04` (「単位」既是标准概念也是 EDC 字段) 与
+7. **两道最脆的哨兵题**: `ja_supp_04` (「単位」既是标准概念也是 EDC 字段) 与
    `ja_supp_07` (不含任何标准构造词, 只靠「提出」定性)。判据一旦偏向 study 侧, 这两题最先掉。
-6. 逐题明细写在 `data/study/st01/eval/runs/routing_run_N.json` (**gitignored**, 含题面, 不入库)。
+8. 逐题明细写在 `data/study/st01/eval/runs/routing_run_N.json` (**gitignored**, 含题面, 不入库)。
 
 ## 5. 复跑方式
 
