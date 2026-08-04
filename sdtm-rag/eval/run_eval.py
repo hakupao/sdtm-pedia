@@ -74,6 +74,7 @@ def check_source_recall(
     retrieved_sources: list[str],
     expected_sources: list[str],
     any_of: list[str] | None = None,
+    retrieved_sections: list[str | None] | None = None,
 ) -> tuple[float, list[str], list[str]]:
     """expected_sources 是 AND (每条都要命中); any_of 是 OR (任一命中即满足该组).
 
@@ -89,18 +90,44 @@ def check_source_recall(
       2. 判据是"**实际被召回的 chunk** 能否回答", 不是"文件里有没有这段文字";
       3. 超大文件 (chunk 数多) 慎入 OR 组 —— 路径级匹配对它们判别力≈0;
       4. 放宽 gold 应由**非受益方**裁定。
+
+    **section 粒度语法 (Plan B Phase 0)**: 上述第 3 条的直接对策 —— gold 写成
+    `路径#节` (如 `chapters/ch04.md#4.1`) 时按**双条件**匹配: `路径`子串命中某条
+    retrieved source **且** `节`子串命中**同一条目**的 section。这样 222-chunk 大文件
+    也有判别力: "被召回的那个 chunk 是不是该节"而非"该文件里有没有"。
+
+    调用方须传 `retrieved_sections` (与 `retrieved_sources` 等长, 元素可 None,
+    即 `[c.section for c in chunks]`)。gold 含 `#` 但未传 → 抛 ValueError 而非静默
+    降级为路径匹配 (静默降级会让判据比声称的宽, 属测量缺陷)。section 为 None 的条目
+    永不命中 section 级 gold。纯路径写法行为逐字节不变。
     """
+    def _matches(exp: str) -> bool:
+        if "#" in exp:
+            if retrieved_sections is None:
+                raise ValueError(
+                    f"section-level gold {exp!r} requires retrieved_sections "
+                    "(caller must pass [c.section for c in chunks])"
+                )
+            if len(retrieved_sections) != len(retrieved_sources):
+                raise ValueError("retrieved_sections length mismatch")
+            path, sec = exp.split("#", 1)
+            return any(
+                path in src and sec in (s or "")
+                for src, s in zip(retrieved_sources, retrieved_sections)
+            )
+        return any(exp in src for src in retrieved_sources)
+
     hits: list[str] = []
     misses: list[str] = []
     for exp in expected_sources:
-        found = any(exp in src for src in retrieved_sources)
+        found = _matches(exp)
         (hits if found else misses).append(exp)
 
     n_groups = len(expected_sources)
     n_hit = len(hits)
     if any_of:
         n_groups += 1                       # OR 组整体算一个计分单位
-        matched = [e for e in any_of if any(e in src for src in retrieved_sources)]
+        matched = [e for e in any_of if _matches(e)]
         if matched:
             n_hit += 1
             hits.extend(matched)
@@ -251,6 +278,10 @@ def run_evaluation(
             retrieved_sources,
             q.get("expected_sources", []),
             any_of=q.get("expected_sources_any"),
+            # getattr 而非 c.section: 既有测试用无 section 的 duck-type chunk 桩。
+            # 真 Chunk 恒有该字段; 缺失时退化为"全 None"→ section 级 gold 判 miss,
+            # 是保守方向 (不会把 miss 判成 hit)。
+            retrieved_sections=[getattr(c, "section", None) for c in chunks],
         )
 
         result: dict = {
