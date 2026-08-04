@@ -1,0 +1,63 @@
+# 路由闸补充 gold — 日语措辞的 CDISC 标准问题 (label 全部 cdisc)
+#
+# 由来: Task 5 的 _ROUTER_SYSTEM 迭代里加过一条硬规则「日文提问 → study, 绝不 cdisc」。
+# 该规则在原 gold (cdisc 全英文 / study 全日文) 上无法被证伪 —— 语言与语料一一对应,
+# 盲区不可观测。用户裁决: 补日语标准题进 gold, 软化规则, 让闸能惩罚这个盲区。
+#
+# 出题依据 (规则 D 前置声明):
+#   题目按「日语母语的 CRC / DM 会怎么用日语问 SDTM 标准问题」拟定, 主题限定在
+#   标准侧 (域/数据集归属、变量含义与角色、受控术语、提交格式规则), 与任何具体研究的
+#   EDC 画面/项目无关, 因此正解一律 cdisc。
+#   **出题在接触路由器之前完成**: 未先探路由器对什么措辞判对再照着写 —— 那等于给规则送分。
+#   ja_supp_01..07 刻意不含英文 SDTM 触发词 (用「ドメイン」「データセット」「変数」等
+#   日语/片假名概念词); ja_supp_08..11 混入少量英文词汇 (Required/Expected/severity/
+#   Epoch/SDTMIG) 做梯度, 用于观察触发词对判定的影响。
+#
+# 格式: run_routing_eval.load_gold() 直接读本文件 (不走 load_test_set 的
+# expected_sources 校验 —— 本文件只为路由判库出题, 不做检索打分)。
+
+# ── 无英文触发词 (纯日语概念词) ──────────────────────────────────
+- id: ja_supp_01
+  question: "有害事象の情報は、どのドメインに格納しますか。"
+  gold: cdisc
+
+- id: ja_supp_02
+  question: "被験者の人口統計学的な情報は、どのデータセットとして提出しますか。"
+  gold: cdisc
+
+- id: ja_supp_03
+  question: "併用薬の記録は、標準ではどのデータセットに含めますか。"
+  gold: cdisc
+
+- id: ja_supp_04
+  question: "バイタルサインの測定値と単位は、それぞれ別の変数に分けて格納するのですか。"
+  gold: cdisc
+
+- id: ja_supp_05
+  question: "臨床検査値が基準範囲外であることは、どの変数で表現しますか。"
+  gold: cdisc
+
+- id: ja_supp_06
+  question: "実施されなかった評価や検査は、どのように記録するのが標準的ですか。"
+  gold: cdisc
+
+- id: ja_supp_07
+  question: "日付や時刻は、どのような形式で提出する必要がありますか。"
+  gold: cdisc
+
+# ── 混入少量英文词汇 (梯度) ──────────────────────────────────────
+- id: ja_supp_08
+  question: "変数の「Required」と「Expected」は、何が違いますか。"
+  gold: cdisc
+
+- id: ja_supp_09
+  question: "有害事象の severity と seriousness は、別々の変数に記録しますか。"
+  gold: cdisc
+
+- id: ja_supp_10
+  question: "試験の進行を表す Epoch と Element は、どのような関係にありますか。"
+  gold: cdisc
+
+- id: ja_supp_11
+  question: "SDTMIG では、試験を中止した理由はどこに記録しますか。"
+  gold: cdisc

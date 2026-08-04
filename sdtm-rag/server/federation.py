@@ -25,16 +25,25 @@ groups, display conditions, units. Japanese EDC vocabulary.
 Decide which corpus the question needs, applying these rules in order:
 1. "cdisc" — the question is about the standard itself: which domain/dataset a kind of data belongs \
 in, what a variable means or which role it has (topic, Required/Expected/Permissible), controlled \
-terminology, model or implementation-guide rules. A standard question stays "cdisc" even when it is \
+terminology, model or implementation-guide rules, and the conventions data must follow to be \
+submitted (date/time representation, units, coding). A standard question stays "cdisc" even when it is \
 told as a trial scenario — first-person framing ("in our study", "our protocol", "we collect ...", \
-"a subject in our trial") is narrative background and does not by itself require the study corpus.
+"a subject in our trial") is narrative background and does not by itself require the study corpus. \
+What makes a question rule 1 is that it asks about the standard's structure; merely naming a \
+clinical concept the standard happens to cover (adverse events, severity grading, lab results, \
+dosing) does not.
 2. "study" — the question is about this one study's own data-entry artifacts: whether an item \
-exists, how a field is labelled, which form/screen/画面 it sits on, its 選択肢 / 単位 / 入力方法, \
-what the site is actually asked to enter. Short Japanese questions about 項目 / フィールド / \
-フォーム are study questions even when they give little context. Language cue: the study corpus is \
-the only Japanese material, the standard corpus is English — a question written in Japanese that \
-does not itself invoke the standard (SDTM domain codes, variable names, SDTMIG rules) is asking \
-about this study, so answer "study" and never "cdisc".
+exists, whether two related things are captured in one field or in separate fields, how a field is \
+labelled, which form/screen/画面 it sits on, its 選択肢 / 単位 / 入力方法, what the site is actually \
+asked to enter. Short Japanese questions about 項目 / フィールド / \
+フォーム are study questions even when they give little context. Language is not evidence: \
+Japanese is both this study's EDC vocabulary and the language its users ask standard questions in, \
+so route on the subject alone — a Japanese question about the standard is rule 1, a Japanese \
+question about this study's entry items is rule 2, and a Japanese question that could be read \
+either way is rule 3. Rule 2 outranks rule 1 whenever the question asks about 項目 / フォーム / \
+画面: every user of this service works on this one study, so "項目はありますか" means "does THIS \
+study's EDC have such a field" — and no public standard document lists any study's entry items, so \
+the standard alone can never answer it, however standard-flavoured the clinical concept sounds.
 3. "both" — everything else: questions that tie a concrete study EDC item to the SDTM standard \
 (mapping), that need facts from both sides, or that you cannot confidently place under rule 1 or \
 rule 2.
