@@ -619,3 +619,56 @@ SP7 收口, 合并 main。overview 密集类曾评估"松包破 nearest-hub 不�
 **验证**: 全量 669 passed (基线 531 起算, 本轮净 +138); 服务重启后 `ready chunks=4303` 且索引闸绿; 端到端问答冒烟正常。
 
 **收尾附带**: 按用户要求关闭服务认证 (`AUTH_ENABLED=false`), 局域网免密访问。⚠ **Plan B 前置**: 当前 API 只服务 CDISC 库 (源自公开标准); 一旦把 study 库接进去, 等于把真实临床研究字段数据暴露给整个局域网 —— 必须是一次明确决策, 不能作为路由接线的副作用。
+
+---
+
+## 2026-08-04 (下半场) — Plan B Phase 0+1 双库联邦路由收官, 联邦默认启用
+
+**入口**: spec `docs/superpowers/specs/2026-08-04-plan-b-federated-routing-design.md` →
+plan `docs/superpowers/plans/2026-08-04-plan-b-phase01-federated-core.md` (7 task, TDD + 三 eval 闸)。
+收口证据: `sdtm-rag/evidence/checkpoints/planb_phase1_federation.md` (+ 闸 1 明细 `routing_gate.md`)。
+
+**做了什么**: 上半场交接文档留的"下一步 Plan B 联邦路由"落地 —— CDISC 标准库与 study (st01)
+EDC 库合成一台联邦引擎, 用 light 模型判库 (`cdisc` / `study` / `both`), API 出 `routed_corpus`,
+前端给下拉 + 来源库徽章 + 判定行。7 个 task 逐个 TDD + 逐段独立复审 (每段 diff 一份 review)。
+
+**三闸结果**:
+- **闸 1 路由准确率**: gold 181 题 (英文 cdisc 140 / 日文 cdisc 11 / 日文 both 5 / study 25),
+  三遍 **178/181 = 98.3%**, **fatal=0**, fallback=0 (543 次调用), **稳定性 181/181 三遍一致**。
+- **闸 2/3 检索无回归** (控制组 vs 联邦组配对, 全 `--retrieval-only`): CDISC hybrid-only
+  **81.07% → 81.07% (Δ0)**; CDISC hybrid+S1 **98.93% → 98.93% (Δ0)**; study **88.53% → 88.53% (Δ0)**;
+  三组逐题 recall 差异均 **0 题**。both 配额预案未触发。
+- 判库分布: CDISC 侧 140/140 判 cdisc (逐题 top5 与控制组完全一致 = 对主库恒等变换);
+  study 侧 25 study + 2 both (那 2 题是全部三组里唯一 top5 变化的题, recall 仍 1.0)。
+
+**golden 路由题补充 (16 题)**: 初版 gold 里语言与语料一一对应 (cdisc 全英 / study 全日) 且
+无 both 题 —— 任何"按语言判库"或"见到『項目』就判 study"的规则都**无法被证伪**。补 11 道
+日文 CDISC 标准题 + 5 道日文跨库题后, 闸从 165 题 163/165 → 176 题 174/176 → 181 题 178/181,
+每次扩充都逼着 prompt 判据再改一版。**闸集扩充比 prompt 调参更能提高判据质量**。
+
+**LLM 供给切换 (Anthropic 直连 → AWS Bedrock)**: 直连额度耗尽 (credit balance too low),
+改走 Bedrock (`jp.anthropic.*` haiku-4-5 / sonnet-4-6 / opus-4-7, `.env` + boto3)。
+基线 prompt 在两个通道给出**完全相同**的 156/165, 说明闸对通道不敏感 —— 但**换模型必须重跑闸 1**。
+
+**审阅循环**: 12 commit 逐段独立复审 (`review-<from>..<to>.diff` 各一份)。复审抓到的实质问题
+包括: brief 把 81.1% 与 `--structured-lookup` 旗标串了 (实测该组合是 98.93%, 81.07% 对应
+hybrid-only, 已按两套配置各跑一遍配对避免选择性挑数)、b03 题面用了日语不存在的中文构词
+「受控術語」、两条"该方向不可证伪"的限制此前没入档。
+
+**rollout (本 task)**: `federation_enabled` 默认翻 **True** (本轮唯一生产代码改动),
+全量 **720 passed** (669 → 720, +51, 无测试因默认值改变需修改); launchd 重启后
+`/api/info` `federation: true` + 索引新鲜度绿; 英文标准题 → `routed_corpus=cdisc` 全 cdisc 源,
+日文 study 题 → `routed_corpus=study` 全 study 源 (expected_facts 3/3); 浏览器四点冒烟全过
+(下拉默认「自動」/ study 题 15 个「本研究」徽章 / 标准题 15 个「標準」徽章 / 判定行正确)。
+
+**记档的决策**: ① 局域网免密开放**含 study 库** (用户决策 D2, `auth.py` 代码保留待启用);
+② `/api/ask_compare` 联邦后仍是 CDISC 单库, 响应无 corpus 信号 (已知限制);
+③ federation 关时 `corpus` 入参静默忽略 (刻意前向兼容); ④ `both` 对奇数 k 返回 k+1 条 (单测钉住)。
+
+**已知缺口 (下轮必读)**: ① 调优集 == 闸集, 无 holdout; ② **反向盲区** —— "英文提问 study EDC
+字段"一题未覆盖; ③ both 组全带规则 3 线索词、无"含线索词但 gold≠both"的负例, 无法区分
+路由器是读懂了跨库需求还是见词就判 both; ④ **`run_eval` 的联邦适配器把 `corpus` 硬写成
+`"both"`**, 与生产的 `routed` 不同 —— 检索闸不受影响, 但**做联邦答题 eval 前必须先修**。
+
+**next**: Phase 2 (study 结构化直查) / Phase 3 (eval chunk 粒度判据) / Phase 4 (CDISC 变量
+索引挤占) 各自独立成 plan, 均不在本轮范围。

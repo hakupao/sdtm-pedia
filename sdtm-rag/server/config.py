@@ -33,8 +33,11 @@ class Settings(BaseSettings):
     collection_name: str = "sdtm_kb_v1"
 
     # ── Plan B 联邦路由 (spec docs/superpowers/specs/2026-08-04-plan-b-federated-routing-design.md) ──
-    # 默认关; Phase 1 全部 eval 闸过绿后翻 True (含义: 服务启动时构建 study 引擎 + 联邦层)。
-    federation_enabled: bool = False
+    # 默认开 (2026-08-04, Phase 1 三闸全绿后翻 True): 服务启动时构建 study 引擎 + 联邦层,
+    # /api/ask 的 corpus=auto 走 LLM 判库。闸结果与已知边界见
+    # evidence/checkpoints/planb_phase1_federation.md; 需要回退到纯 CDISC 单库时设
+    # SDTM_RAG_FEDERATION_ENABLED=false (corpus 参数此时被静默忽略, 刻意的前向兼容)。
+    federation_enabled: bool = True
     study_collection_name: str = "study_st01"
     # study 侧 KB 根。RAGEngine 要求 kb_root 下直接躺着 ROUTING.md + INDEX.md, 而 study 侧这两个
     # 文件与 959 张卡同在 cards/ (scripts/study/paths.py: cards_dir = out_dir / "cards"), 所以根
