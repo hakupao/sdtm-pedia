@@ -175,3 +175,54 @@ def test_build_cards_defaults_diff_available_true(catalog, tmp_path):
     paths = build_cards(cat, {}, tmp_path / "cards2")
     text = paths[0].read_text(encoding="utf-8")
     assert "未対比" not in text
+
+
+# ---- §3.4: EDC 富文本导出残留的 HTML 标签剥离 ----
+
+def test_flat_strips_whitelisted_html_tags():
+    from scripts.study.build_field_cards import _flat
+    assert _flat('<span style="color: red;">/mm<sup>3</sup></span>') == "/mm3"
+    assert _flat("<strong>必須</strong>") == "必須"
+
+
+def test_flat_decodes_entities():
+    from scripts.study.build_field_cards import _flat
+    assert _flat("cm&nbsp;＊注意") == "cm ＊注意"
+    assert _flat("10.0&times;10<sup>4</sup>") == "10.0×104"
+
+
+def test_flat_preserves_bare_less_than_in_real_criteria():
+    """真実データに `5cm<AV≤10cm` の裸 < が存在 —— 汎用 <[^>]+> 正規表現なら
+    後続の > まで丸ごと削る。白名单方式であることの回帰钉."""
+    from scripts.study.build_field_cards import _flat
+    s = "※5cm<AV≤10cm,T3a/bN0M0, EMVI-, MRF clear"
+    assert _flat(s) == s
+
+
+def test_flat_preserves_unknown_tag_like_text():
+    from scripts.study.build_field_cards import _flat
+    assert _flat("range <AV> check") == "range <AV> check"
+
+
+def test_rendered_card_unit_has_no_html(catalog, tmp_path):
+    """単位フィールドは _flat を通っていなかった —— カード面に生 HTML が残る."""
+    from scripts.study.build_field_cards import render_field_card
+    cat, _sp = catalog
+    item = dict(cat["items"][0])
+    item["unit"] = '<span style="color: red;">/mm<sup>3</sup>&nbsp;＊単位に注意</span>'
+    card = render_field_card(item, cat["forms"][0], None, [], [],
+                             study="st01", version="V2")
+    assert "<span" not in card and "&nbsp;" not in card
+    assert "/mm3 ＊単位に注意" in card
+
+
+def test_rendered_codelist_entries_have_no_html(catalog):
+    from scripts.study.build_field_cards import render_field_card
+    cat, _sp = catalog
+    item = dict(cat["items"][0])
+    cl = {"data_type": "text",
+          "entries": [["1", "<strong>はい</strong>"], ["0", "いいえ&nbsp;"]]}
+    card = render_field_card(item, cat["forms"][0], cl, [], [],
+                             study="st01", version="V2")
+    assert "<strong>" not in card and "&nbsp;" not in card
+    assert "1 = はい" in card

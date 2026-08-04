@@ -2,7 +2,9 @@
 from __future__ import annotations
 
 import argparse
+import html
 import json
+import re
 import shutil
 from pathlib import Path
 
@@ -20,9 +22,25 @@ _VIS_PARTS = (
 _SCOPE_KEY = "Visibility::Hidden in activity"
 
 
+# EDC の富文本エクスポート由来のタグ。**白名单**である点が要 —— 汎用 `<[^>]+>` だと
+# 実データの裸 `<` (適格規準の `5cm<AV≤10cm` 等) を後続 `>` まで丸ごと削る。
+# 実測で出現するのは span(96) / strong(8) / sup(20) の 3 種のみ。
+_HTML_TAG = re.compile(r"</?(?:span|strong|sup|sub|em|br|b|i|u)\b[^>]*>", re.I)
+_ENTITY = re.compile(r"&(?:nbsp|times|amp|lt|gt|quot|#\d+);")
+
+
+def _strip_html(s: str) -> str:
+    """白名单タグを除去し, 既知エンティティのみデコード (原文の文字は落とさない)."""
+    if "<" not in s and "&" not in s:
+        return s
+    s = _HTML_TAG.sub("", s)
+    return _ENTITY.sub(lambda m: html.unescape(m.group(0)), s)
+
+
 def _flat(s: str) -> str:
-    """折成单行: 真实 8 个 label + 1 个组名含换行, 会打断 H1/bullet/表格行结构."""
-    return " ".join((s or "").split())
+    """折成单行 + HTML 剥离: 真实 8 个 label + 1 个组名含换行, 会打断 H1/bullet/表格行结构;
+    6 卡の単位フィールドには EDC 由来の生 HTML が残っていた (検索テキストと可読性を汚染)."""
+    return " ".join(_strip_html(s or "").split())
 
 
 def render_field_card(item: dict, form: dict, codelist: dict | None,
@@ -46,7 +64,8 @@ def render_field_card(item: dict, form: dict, codelist: dict | None,
         type_bits += f" (len {length})"
     type_bits += " / 必須" if item["required"] else " / 任意"
     if codelist:
-        cl_lines = "\n".join(f"  - {code} = {text}" for code, text in codelist["entries"])
+        cl_lines = "\n".join(f"  - {code} = {_flat(str(text))}"
+                             for code, text in codelist["entries"])
         cl_block = f"{item['choices']}\n{cl_lines}"
     else:
         cl_block = item["choices"] or "なし (自由記述)"
@@ -66,7 +85,7 @@ def render_field_card(item: dict, form: dict, codelist: dict | None,
         f"- Item group: {_flat(item['group_name']) or '—'} ({item['group_oid']})",
         f"- 型: {type_bits}",
         f"- Control: {item['control_type'] or '—'}"
-        + (f" / 単位: {item['unit']}" if item["unit"] else ""),
+        + (f" / 単位: {_flat(item['unit'])}" if item["unit"] else ""),
         f"- Codelist: {cl_block}",
         f"- Edit checks: {checks}",
         f"- 表示条件: {vis}",
