@@ -85,3 +85,16 @@ def test_kb_root_override(captured):
 def test_kb_root_alone_does_not_disable_structured_lookup(captured):
     kwargs = captured(["--kb-root", "data/study/st01/cards", "--structured-lookup"])
     assert kwargs["structured_lookup_enabled"] is True
+
+
+def test_collection_without_kb_root_warns(captured, capsys):
+    captured(["--collection", "study_st01"])
+    out = capsys.readouterr().out
+    assert "warning" in out.lower()
+    assert "--kb-root" in out
+
+
+def test_collection_with_kb_root_no_warning(captured, capsys):
+    captured(["--collection", "study_st01", "--kb-root", "data/study/st01/cards"])
+    out = capsys.readouterr().out
+    assert "warning: --collection" not in out

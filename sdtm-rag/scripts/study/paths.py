@@ -25,8 +25,8 @@ class StudyPaths:
 
 
 def resolve_study(study_id: str, registry_path: Path | str | None = None) -> StudyPaths:
-    reg_path = Path(registry_path) if registry_path else DEFAULT_REGISTRY
-    if not reg_path.exists():
+    reg_path = Path(registry_path) if registry_path is not None else DEFAULT_REGISTRY
+    if not reg_path.is_file():
         raise FileNotFoundError(f"study registry not found: {reg_path}")
     registry = yaml.safe_load(reg_path.read_text(encoding="utf-8")) or {}
     if study_id not in registry:
@@ -47,10 +47,10 @@ def resolve_study(study_id: str, registry_path: Path | str | None = None) -> Stu
             raise FileNotFoundError(f"{study_id}: {key} not found: {p}")
         return p
 
-    out_dir = ((reg_path.parent if registry_path else STUDY_DATA_ROOT) / study_id).resolve()
+    out_dir = ((reg_path.parent if registry_path is not None else STUDY_DATA_ROOT) / study_id).resolve()
     # Safety check: when using default registry (production), ensure out_dir is within STUDY_DATA_ROOT
-    if registry_path is None:
-        assert out_dir.is_relative_to(STUDY_DATA_ROOT), (
+    if registry_path is None and not out_dir.is_relative_to(STUDY_DATA_ROOT):
+        raise RuntimeError(
             f"out_dir={out_dir} not within STUDY_DATA_ROOT={STUDY_DATA_ROOT}"
         )
 

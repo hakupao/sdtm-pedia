@@ -37,9 +37,12 @@
 
 ## 合并后 backlog (fable 终审 triage, 无 merge 前必修项)
 
-- **P1**: paths.py 三合一 (I-2/I-3 回归测试 + 空串守卫统一 is None + assert→raise);
-  `--collection` 不带 `--kb-root` 的静默错配加 warning (Plan B 路由接线前必须解决)。
-- **P2**: 停用 form (In use 空) 误判 trailer 的语义钉死; 反回声闸假阳性告警。
+- **P1**: ✅ DONE (2026-08-04, 独立复审 APPROVE 0C/0H): paths.py 三合一 (I-2/I-3 回归测试 +
+  空串守卫统一 is None + assert→raise, `python -O` 实测拦截) + `--collection` 无 `--kb-root`
+  warning; 全量 597 passed (基线 591+6), mypy clean。
+- **P2**: 停用 form (In use 空) 误判 trailer 的语义钉死; 反回声闸假阳性告警;
+  (P1 复审新增) run_eval.py 内 `--collection`/`--kb-root` truthy/is-None 混用统一
+  (`--collection ""` 静默回落且不触发 warning)。
 - **P3**: parse_* wb.close(); 若干测试覆盖缺口 (维度闸/429/截断/报告层断言/组合场景);
   diffs=={} 加 diff_available 布尔 (Plan B 输入); pilot 文档补双路佐证口径注。
 - 流程记录: golden questions 粒度验证发生在 schema 冻结后 (spec §4.1 顺序偏差),

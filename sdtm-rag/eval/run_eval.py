@@ -548,6 +548,11 @@ def main(argv: list[str] | None = None) -> int:
 
     collection_name = args.collection or settings.collection_name
     kb_root = Path(args.kb_root) if args.kb_root else settings.kb_root
+    if args.collection and not args.kb_root:
+        print(
+            f"warning: --collection {args.collection} given without --kb-root; "
+            f"kb_root stays at {settings.kb_root} and may not match this collection"
+        )
     structured_lookup = args.structured_lookup and args.collection is None
     if args.structured_lookup and not structured_lookup:
         print("--structured-lookup ignored: S1 gold map only applies to the CDISC collection")
