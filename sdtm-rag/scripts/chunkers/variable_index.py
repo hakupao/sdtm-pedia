@@ -29,8 +29,12 @@ from pathlib import Path
 
 from .base import BaseChunker, Chunk, heading_positions
 
-# Detect §一 / §二 / §三 H2 boundaries (CJK numerals).
-_SECTION_H2_RE = re.compile(r"^##\s+(一|二|三)、(.+?)\s*$", re.MULTILINE)
+# Detect §一 / §二 / §三 H2 boundaries. VARIABLE_INDEX.md is English-only, so the
+# headings are numbered "## 1. ..."; the legacy CJK form ("## 一、...") is still
+# accepted so older copies of the file keep parsing. Internal §一/§二/§三 section
+# labels are unchanged either way.
+_SECTION_H2_RE = re.compile(r"^##\s+(?:(一|二|三)、|([123])\.\s)(.+?)\s*$", re.MULTILINE)
+_ARABIC_TO_CJK = {"1": "一", "2": "二", "3": "三"}
 
 # Validate a §三 CT Code cell (e.g. C66742); rejects header leaks / malformed rows.
 _CT_CODE_RE = re.compile(r"^C\d+$")
@@ -94,7 +98,8 @@ class VariableIndexChunker(BaseChunker):
         # Find §一 / §二 / §三 H2 boundaries
         section_marks: dict[str, tuple[int, str]] = {}
         for m in _SECTION_H2_RE.finditer(text):
-            section_marks[m.group(1)] = (m.start(), m.group(0).rstrip())
+            key = m.group(1) or _ARABIC_TO_CJK[m.group(2)]
+            section_marks[key] = (m.start(), m.group(0).rstrip())
 
         chunks: list[Chunk] = []
         chunk_idx = 0

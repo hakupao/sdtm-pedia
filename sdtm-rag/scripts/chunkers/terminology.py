@@ -138,7 +138,7 @@ class TerminologyChunker(BaseChunker):
         # Rule-D HIGH fix: scope the parse to §三 only, so §一/§二 rows can never
         # leak into the map even if a future schema change makes a variable name
         # match C\d+. Bail gracefully if §三 is absent.
-        san = re.search(r"^##\s+三、", text, re.MULTILINE)
+        san = re.search(r"^##\s+(?:三、|3\.\s)", text, re.MULTILINE)
         if not san:
             return {}
         text = text[san.start():]

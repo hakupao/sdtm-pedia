@@ -56,11 +56,16 @@ def _anchors(kb_root: Path) -> dict:
     vidx = vidx_path.read_text(encoding="utf-8")
     index = index_path.read_text(encoding="utf-8")
 
+    # VARIABLE_INDEX.md is English-only; the legacy CJK header is still accepted
+    # so older copies of the file keep reconciling.
     hdr = _require(
         re.search(
-            r"唯一变量数:\s*(\d+)\s*\|\s*条目总数:\s*(\d+)\s*\|\s*覆盖域:\s*(\d+)", vidx
+            r"(?:Unique variables|唯一变量数):\s*(\d+)\s*\|\s*"
+            r"(?:Total entries|条目总数):\s*(\d+)\s*\|\s*"
+            r"(?:Domains covered|覆盖域):\s*(\d+)",
+            vidx,
         ),
-        "VARIABLE_INDEX header (唯一变量数/条目总数/覆盖域)",
+        "VARIABLE_INDEX header (Unique variables/Total entries/Domains covered)",
         vidx_path,
     )
     uniq, entries, _cov = (int(hdr.group(i)) for i in (1, 2, 3))
