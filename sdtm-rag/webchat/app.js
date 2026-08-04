@@ -1,6 +1,8 @@
 // SDTM chat UI — 单模型 (DeepSeek V4 Pro) 流式聊天, 多对话存 localStorage。
 const LS_KEY = "sdtm_chat_v1";
 const HISTORY_TURNS = 10; // 控 token: 发给后端的最近消息条数
+// Plan B 联邦: 库标签 (日文 UI)。map 里没有的值 (null / 未知) 一律不渲染徽章 —— 联邦关时零变化。
+const CORPUS_LABEL = { cdisc: "標準", study: "本研究", both: "両方" };
 
 // uid 不用 crypto.randomUUID (LAN http 非安全上下文不可用)
 const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
@@ -83,7 +85,7 @@ function renderMessages() {
   if (!c) return;
   let lastUserQ = "";
   for (const m of c.messages) {
-    const el = messageEl(m.role, m.content, m.sources);
+    const el = messageEl(m.role, m.content, m.sources, m.routedCorpus);
     if (m.role === "user") lastUserQ = m.content;
     else if (m.role === "assistant") attachFlag(el, lastUserQ, m);
     box.appendChild(el);
@@ -91,7 +93,7 @@ function renderMessages() {
   box.scrollTop = box.scrollHeight;
 }
 
-function messageEl(role, content, sources) {
+function messageEl(role, content, sources, routedCorpus) {
   const wrap = document.createElement("div");
   const msg = document.createElement("div");
   msg.className = "msg " + role;
@@ -103,8 +105,31 @@ function messageEl(role, content, sources) {
   else { b.textContent = content; }
   msg.append(r, b);
   wrap.appendChild(msg);
+  const meta = metaEl(routedCorpus);
+  if (meta) wrap.appendChild(meta);
   if (sources && sources.length) wrap.appendChild(sourcesEl(sources));
   return wrap;
+}
+
+// 答案元信息行: 联邦实际检索了哪个库 (routed_corpus)。联邦关时后端返 null → 不渲染。
+function metaEl(routedCorpus) {
+  const label = CORPUS_LABEL[routedCorpus];
+  if (!label) return null;
+  const d = document.createElement("div");
+  d.className = "msg-meta";
+  d.textContent = `判定: ${label}`;
+  return d;
+}
+
+// 每条来源前缀的库徽章; src.corpus 为空/未知 (单库路径) 时返 null, 来源行与联邦前一致。
+function corpusBadge(corpus) {
+  const label = CORPUS_LABEL[corpus];
+  if (!label) return null;
+  const b = document.createElement("span");
+  // class 只从白名单取, 不拼服务端字符串
+  b.className = corpus === "study" ? "corpus-badge study" : "corpus-badge";
+  b.textContent = label;
+  return b;
 }
 
 function sourcesEl(sources) {
@@ -118,7 +143,10 @@ function sourcesEl(sources) {
     div.className = "src";
     div.innerHTML = `<b></b> <span></span>`;
     div.querySelector("b").textContent = src.source + (src.section ? ` — ${src.section}` : "");
+    // 注意: 取 span 必须在插徽章之前 —— 徽章也是 span, 插在最前会被 querySelector 抢走。
     div.querySelector("span").textContent = ` (sim ${(src.similarity ?? 0).toFixed(3)})`;
+    const badge = corpusBadge(src.corpus);
+    if (badge) div.insertBefore(badge, div.firstChild);
     const p = document.createElement("div");
     p.textContent = src.text_preview || "";
     div.appendChild(p);
@@ -172,7 +200,7 @@ function openFlag(bar, btn, question, msgObj) {
 }
 
 async function postFlag(question, answer, note) {
-  const model = ($("topbar").textContent.split("·").pop() || "").trim() || null;
+  const model = ($("topbar-title").textContent.split("·").pop() || "").trim() || null;
   try {
     const r = await fetch("/api/flag", {
       method: "POST", headers: { "Content-Type": "application/json" },
@@ -198,7 +226,7 @@ async function streamAsk(question, history, { onSources, onToken, onDone, onErro
   try {
     resp = await fetch("/api/ask_stream", {
       method: "POST", headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ question, history }), signal,
+      body: JSON.stringify({ question, history, corpus: $("corpus").value }), signal,
     });
   } catch (e) {
     if (signal?.aborted) { onAbort?.(); return; }
@@ -211,7 +239,7 @@ async function streamAsk(question, history, { onSources, onToken, onDone, onErro
   let terminal = false; // saw a done/error frame
   const dispatch = (ev) => {
     if (!ev) return;
-    if (ev.event === "sources") onSources(ev.data.sources || []);
+    if (ev.event === "sources") onSources(ev.data.sources || [], ev.data.routed_corpus || null);
     else if (ev.event === "token") onToken(ev.data.text || "");
     else if (ev.event === "done") { terminal = true; onDone(ev.data || {}); }
     else if (ev.event === "error") { terminal = true; onError(ev.data.message || "生成失败"); }
@@ -291,13 +319,14 @@ async function runGeneration(c) {
 
   let acc = "";
   let gotSources = null;
+  let gotRouted = null;
   let saved = false;
   let savedMsg = null;
   const renderFinal = (content) => { bubble.innerHTML = mdToSafeHTML(content); highlightIn(bubble); };
   const persist = (content) => {
     if (saved) return;
     saved = true;
-    savedMsg = { role: "assistant", content, sources: gotSources || [] };
+    savedMsg = { role: "assistant", content, sources: gotSources || [], routedCorpus: gotRouted };
     c.messages.push(savedMsg);
     save(); renderSidebar();
   };
@@ -316,7 +345,12 @@ async function runGeneration(c) {
   currentAbort = ctrl;
   try {
     await streamAsk(text, history, {
-      onSources: (s) => { gotSources = s; if (s.length) holder.appendChild(sourcesEl(s)); },
+      onSources: (s, routed) => {
+        gotSources = s; gotRouted = routed;
+        const meta = metaEl(routed);
+        if (meta) holder.appendChild(meta);
+        if (s.length) holder.appendChild(sourcesEl(s));
+      },
       // 流中只追加纯文本 (DESIGN §4: 避免每 token 重解析 markdown/重高亮, O(n^2) jank)。
       onToken: (t) => { acc += t; bubble.textContent = acc; box.scrollTop = box.scrollHeight; },
       // done 后整体渲染 markdown 一次; 空回答用占位 (DESIGN §6)。
@@ -335,14 +369,16 @@ async function runGeneration(c) {
   }
 }
 
-// ── topbar: 显示后端真实 default_model (读 /api/info) ──
+// ── topbar: 显示后端真实 default_model + 联邦开关 (读 /api/info) ──
 async function loadModelName() {
   try {
     const r = await fetch("/api/info");
-    if (!r.ok) return; // not logged in / info unavailable -> keep static label
+    if (!r.ok) return; // not logged in / info unavailable -> keep static label, 选择器保持隐藏
     const info = await r.json();
     const m = (info.default_model || "").split("/").pop();
-    if (m) $("topbar").textContent = "SDTM 知识库助手 · " + m;
+    if (m) $("topbar-title").textContent = "SDTM 知识库助手 · " + m;
+    // 联邦未构建时后端会静默忽略 corpus, 别留个无效控件在界面上
+    $("corpus").hidden = !info.federation;
   } catch (_) {}
 }
 

@@ -14,7 +14,16 @@
       <ul id="conv-list"></ul>
     </aside>
     <main id="main">
-      <header id="topbar">SDTM 知识库助手 · DeepSeek V4 Pro</header>
+      <header id="topbar">
+        <span id="topbar-title">SDTM 知识库助手 · DeepSeek V4 Pro</span>
+        <!-- 联邦双库选择器; /api/info 的 federation=false 时保持 hidden (见 app.js loadModelName) -->
+        <select id="corpus" title="検索対象コーパス" hidden>
+          <option value="auto" selected>自動</option>
+          <option value="cdisc">標準 (CDISC)</option>
+          <option value="study">本研究</option>
+          <option value="both">両方</option>
+        </select>
+      </header>
       <div id="messages"></div>
       <form id="composer">
         <textarea id="input" rows="1" placeholder="问点关于 SDTM 的……（Enter 发送，Shift+Enter 换行）"></textarea>

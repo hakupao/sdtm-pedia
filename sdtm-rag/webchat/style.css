@@ -12,7 +12,9 @@ html, body { margin: 0; height: 100%; font-family: -apple-system, "Segoe UI", "P
 #conv-list .del { opacity: 0; border: none; background: none; cursor: pointer; color: #999; }
 #conv-list li:hover .del { opacity: 1; }
 #main { flex: 1; display: flex; flex-direction: column; min-width: 0; }
-#topbar { padding: 14px 20px; border-bottom: 1px solid #ececec; font-size: 15px; font-weight: 600; color: #444; }
+#topbar { padding: 14px 20px; border-bottom: 1px solid #ececec; font-size: 15px; font-weight: 600; color: #444; display: flex; align-items: center; gap: 12px; }
+#corpus { margin-left: auto; padding: 4px 8px; border: 1px solid #d0d0d0; border-radius: 8px; background: #fff; color: #444; font-size: 13px; font-family: inherit; font-weight: 400; cursor: pointer; }
+#corpus[hidden] { display: none; }
 #messages { flex: 1; overflow-y: auto; padding: 24px 0; }
 .msg { max-width: 760px; margin: 0 auto 18px; padding: 0 20px; display: flex; gap: 12px; }
 .msg .role { width: 28px; height: 28px; border-radius: 6px; flex: 0 0 28px; text-align: center; line-height: 28px; font-size: 12px; color: #fff; }
@@ -26,6 +28,11 @@ html, body { margin: 0; height: 100%; font-family: -apple-system, "Segoe UI", "P
 .sources { max-width: 760px; margin: -8px auto 18px; padding: 0 20px 0 52px; }
 .sources summary { cursor: pointer; color: #666; font-size: 13px; }
 .sources .src { font-size: 12px; color: #555; border-left: 2px solid #ddd; padding: 4px 8px; margin: 6px 0; }
+/* Plan B 联邦: 来源库徽章 + 判定行 */
+.corpus-badge { font-size: 11px; padding: 0 4px; border-radius: 3px; margin-right: 4px;
+  background: var(--badge-bg, #e0e7ff); color: #333; }
+.corpus-badge.study { background: var(--badge-study-bg, #ffe4e6); }
+.msg-meta { max-width: 760px; margin: -10px auto 6px; padding: 0 20px 0 52px; font-size: 12px; color: #888; }
 .err { color: #c00; }
 #composer { max-width: 760px; width: 100%; margin: 0 auto; padding: 12px 20px 20px; display: flex; gap: 8px; }
 #input { flex: 1; resize: none; max-height: 200px; padding: 12px; border: 1px solid #d0d0d0; border-radius: 12px; font-size: 15px; font-family: inherit; }
