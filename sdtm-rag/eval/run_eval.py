@@ -29,6 +29,7 @@ import argparse
 import json
 import sys
 import time
+from collections import Counter
 from pathlib import Path
 
 import litellm
@@ -37,6 +38,7 @@ import yaml
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from server.config import settings  # noqa: E402
+from server.federation import FederatedEngine  # noqa: E402
 from server.llm_config import create_router  # noqa: E402
 from server.rag import RAGEngine  # noqa: E402
 
@@ -503,6 +505,25 @@ def print_summary(
     return summary
 
 
+class _FederatedAdapter:
+    """FederatedEngine → run_evaluation 的 rag 形状 (retrieve 返回 list, 记录判库)."""
+
+    def __init__(self, fed):
+        self.fed = fed
+        self.routed: list[str] = []
+
+    def retrieve(self, q, top_k=None):
+        chunks, routed = self.fed.retrieve(q, corpus="auto", top_k=top_k)
+        self.routed.append(routed)
+        return chunks
+
+    def format_context(self, chunks):
+        return self.fed.format_context(chunks)
+
+    def build_messages(self, q, context, history=None):
+        return self.fed.build_messages(q, context, history, corpus="both")
+
+
 def _non_empty(v: str) -> str:
     """argparse type: 空串既非 None (走默认) 也非有效值, 静默回落默认库比报错更危险."""
     v = v.strip()
@@ -647,11 +668,19 @@ def main(argv: list[str] | None = None) -> int:
         help="Override settings.kb_root (dir holding the indexed corpus)",
     )
     parser.add_argument(
+        "--federated", action="store_true",
+        help="Plan B: cdisc+study 双引擎 + LLM 路由 (corpus=auto) 走全联邦检索路径。"
+             "与 --collection/--kb-root 互斥。study 引擎 S1 恒关。",
+    )
+    parser.add_argument(
         "--tag",
         default=None,
         help="Optional label added to output JSON for cross-model comparison",
     )
     args = parser.parse_args(argv)
+
+    if args.federated and (args.collection or args.kb_root):
+        parser.error("--federated 与 --collection/--kb-root 互斥 (联邦模式引擎路径取自 settings)")
 
     collection_name = args.collection or settings.collection_name
     kb_root = Path(args.kb_root) if args.kb_root else settings.kb_root
@@ -711,6 +740,47 @@ def main(argv: list[str] | None = None) -> int:
     collection_info = f", collection={collection_name}" if args.collection else ""
     print(f"RAG engine: {rag.collection.count()} chunks, model={settings.default_model}, top_k={args.top_k}{rerank_info}{expand_info}{lookup_info}{hybrid_info}{guardrail_info}{collection_info}")
 
+    # 联邦模式: 上面那台是 cdisc 引擎, 再起一台 study 引擎 (S1 恒关 —— gold map 是 CDISC 专属),
+    # 其余 lever 与 cdisc 一致, 由 FederatedEngine 判库分发。retriever 是喂给 run_evaluation 的
+    # 那一台; rag 仍指向 cdisc 引擎, 供下方 info/summary 读 lever 实参。
+    retriever = rag
+    if args.federated:
+        study_rag = RAGEngine(
+            chroma_dir=settings.chroma_dir,
+            kb_root=settings.study_kb_root,
+            collection_name=settings.study_collection_name,
+            embedding_model=settings.embedding_model,
+            top_k=args.top_k,
+            rerank_enabled=args.rerank,
+            rerank_model=settings.rerank_model,
+            rerank_candidates=(
+                args.rerank_candidates
+                if args.rerank_candidates is not None
+                else settings.rerank_candidates
+            ),
+            query_expansion=args.query_expansion or settings.query_expansion,
+            expansion_model=settings.expansion_model,
+            expansion_n_queries=settings.expansion_n_queries,
+            structured_lookup_enabled=False,
+            hybrid_enabled=args.hybrid,
+            hybrid_fusion=args.hybrid_fusion or settings.hybrid_fusion,
+            hybrid_alpha=(
+                args.hybrid_alpha if args.hybrid_alpha is not None else settings.hybrid_alpha
+            ),
+            hybrid_pool=(
+                args.hybrid_pool if args.hybrid_pool is not None else settings.hybrid_pool
+            ),
+            prompt_guardrail_enabled=args.guardrail,
+        )
+        retriever = _FederatedAdapter(
+            FederatedEngine(rag, study_rag, create_router(settings), top_k=args.top_k)
+        )
+        print(
+            f"Federated: study engine {study_rag.collection.count()} chunks, "
+            f"collection={settings.study_collection_name}, structured_lookup=OFF; "
+            f"routing=LLM(light, corpus=auto)"
+        )
+
     router = None
     if not args.retrieval_only:
         if args.model:
@@ -750,7 +820,7 @@ def main(argv: list[str] | None = None) -> int:
     if args.judge and not args.retrieval_only:
         print(f"Judge mode: ON, judge_model={args.judge_model} (temp=0)")
     results = run_evaluation(
-        test_set, rag, router, args.retrieval_only, direct_model=args.model,
+        test_set, retriever, router, args.retrieval_only, direct_model=args.model,
         top_k=args.top_k, temperature=args.temperature, full_answers=args.full_answers,
         judge=args.judge, judge_model=args.judge_model, answerer=answerer,
     )
@@ -782,6 +852,11 @@ def main(argv: list[str] | None = None) -> int:
         }
     if args.collection:
         summary["collection"] = collection_name
+    if args.federated:
+        routing = dict(Counter(retriever.routed))
+        print(f"routing: {routing}")
+        summary["federated"] = True
+        summary["routing"] = routing
     summary["prompt_guardrail"] = args.guardrail
     summary["structured_answer"] = args.structured_answer
     summary["graph_answer"] = args.graph_answer
