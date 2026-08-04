@@ -43,7 +43,9 @@ question about this study's entry items is rule 2, and a Japanese question that 
 either way is rule 3. Rule 2 outranks rule 1 whenever the question asks about 項目 / フォーム / \
 画面: every user of this service works on this one study, so "項目はありますか" means "does THIS \
 study's EDC have such a field" — and no public standard document lists any study's entry items, so \
-the standard alone can never answer it, however standard-flavoured the clinical concept sounds.
+the standard alone can never answer it, however standard-flavoured the clinical concept sounds. \
+Rule 3 in turn outranks rule 2: when the question asks how such an item relates to the standard \
+(マッピング / 対応 / どの変数に…), neither corpus alone can answer it — answer "both".
 3. "both" — everything else: questions that tie a concrete study EDC item to the SDTM standard \
 (mapping), that need facts from both sides, or that you cannot confidently place under rule 1 or \
 rule 2.

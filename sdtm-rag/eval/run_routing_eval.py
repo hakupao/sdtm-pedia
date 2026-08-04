@@ -35,6 +35,8 @@ def load_supplement(path: Path) -> list[dict]:
     if not path.exists():
         raise FileNotFoundError(f"路由补充 gold 缺失: {path} —— 闸口不完整, 拒绝继续")
     items = yaml.safe_load(path.read_text(encoding="utf-8")) or []
+    if not items:  # 空文件 / 全被注释掉: 静默返回 [] = 闸悄悄变松
+        raise ValueError(f"路由补充 gold 为空: {path} —— 闸口不完整, 拒绝继续")
     out = []
     for q in items:
         if not q.get("id") or not q.get("question"):

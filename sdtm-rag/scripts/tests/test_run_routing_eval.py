@@ -25,6 +25,24 @@ def test_wrong_single_corpus_is_fatal_both_directions():
     assert {f["id"] for f in s["fatal_items"]} == {"q1", "q2"}
 
 
+GOLD_BOTH = GOLD + [{"id": "q5", "gold": "both"}]
+_EXACT_4 = {"q1": "cdisc", "q2": "study", "q3": "study", "q4": "cdisc"}
+
+
+def test_gold_both_exact_when_predicted_both():
+    s = score_run(GOLD_BOTH, {**_EXACT_4, "q5": "both"})
+    assert s["exact"] == 5 and s["fatal"] == 0 and s["passed"] is True
+
+
+def test_gold_both_is_fatal_when_predicted_single_corpus():
+    # 映射题被判成任一单库 = 另一半证据永远取不到, 与错向单库同级致命
+    for single in ("cdisc", "study"):
+        s = score_run(GOLD_BOTH, {**_EXACT_4, "q5": single})
+        assert s["fatal"] == 1, single
+        assert s["fatal_items"][0]["id"] == "q5"
+        assert s["passed"] is False
+
+
 def test_missing_prediction_counts_fatal():
     # 断题 (LLM 全挂被 route_corpus 兜成 both 之外的缺失) 不许静默
     s = score_run(GOLD, {"q1": "cdisc", "q2": "study", "q3": "study"})
@@ -82,6 +100,14 @@ def test_missing_ja_supplement_raises(tmp_path, monkeypatch):
 
 def test_ja_supplement_rejects_bad_label(tmp_path, monkeypatch):
     _wire(tmp_path, monkeypatch, ja="- id: ja_bad\n  question: q\n  gold: cdics\n")
+    with pytest.raises(ValueError):
+        run_routing_eval.load_gold()
+
+
+@pytest.mark.parametrize("body", ["", "# 只剩注释, 题全被删了\n"])
+def test_empty_ja_supplement_raises(tmp_path, monkeypatch, body):
+    # 空文件/只剩注释 → 静默返回 [] 等于闸悄悄变松, 必须 fail loud
+    _wire(tmp_path, monkeypatch, ja=body)
     with pytest.raises(ValueError):
         run_routing_eval.load_gold()
 
