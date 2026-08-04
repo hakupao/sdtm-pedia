@@ -441,6 +441,8 @@ class RAGEngine:
         """
         import bm25s  # lazy: only required when hybrid is on
 
+        from server.ja_tokenize import cjk_bigrams
+
         got = self.collection.get(include=["documents", "metadatas"])
         ids = got["ids"]
         docs = got["documents"]
@@ -450,7 +452,11 @@ class RAGEngine:
         self._bm25_chunk_meta = {
             cid: {"text": docs[i], "meta": metas[i]} for i, cid in enumerate(ids)
         }
-        corpus_tokens = bm25s.tokenize(docs, show_progress=False)
+        # CJK 連続串を bigram 展開してから切词: 既定 token_pattern は空白なし日本語を
+        # 整句 1 token にしてしまう (英文は恒等変換なので CDISC 主库に影響なし)
+        corpus_tokens = bm25s.tokenize(
+            [cjk_bigrams(d) for d in docs], show_progress=False
+        )
         self._bm25 = bm25s.BM25()
         self._bm25.index(corpus_tokens, show_progress=False)
 
@@ -465,7 +471,10 @@ class RAGEngine:
         """
         import bm25s  # lazy
 
-        query_tokens = bm25s.tokenize(query_text, show_progress=False)
+        from server.ja_tokenize import cjk_bigrams
+
+        # index 側と同一の変換 (片側だけだと日本語は恒に不一致)
+        query_tokens = bm25s.tokenize(cjk_bigrams(query_text), show_progress=False)
         # over-fetch so the post-filter still yields ~n survivors
         k = min(len(self._bm25_chunk_ids), max(n * 4, n))
         results, scores = self._bm25.retrieve(
