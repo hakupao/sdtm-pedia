@@ -5,11 +5,29 @@ routed=study 时跳过 CDISC 专用 structured answerer。
 """
 from types import SimpleNamespace
 
+import pytest
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
 
 from server.config import Settings
 from server.router import api_router
+
+# ── Settings 默认值: study KB 根必须是 RAGEngine 能直接吃的那一层 ──────────
+# 修复轮 1: 默认曾指 data/study/st01, 但 ROUTING.md/INDEX.md 在其 cards/ 子目录,
+# 开着 federation 启动即 FileNotFoundError (Task 4 冒烟发现)。
+
+def test_study_kb_root_default_points_at_cards_dir():
+    root = Settings().study_kb_root
+    assert root.parts[-3:] == ("study", "st01", "cards")
+
+
+def test_study_kb_root_default_holds_ragengine_required_files():
+    root = Settings().study_kb_root
+    if not root.is_dir():  # data/study 是本地数据, 不入库
+        pytest.skip(f"study data not present: {root}")
+    # RAGEngine.__init__ 硬要求这两个文件就在 kb_root 下 (server/rag.py)
+    assert (root / "ROUTING.md").is_file()
+    assert (root / "INDEX.md").is_file()
 
 
 def _chunk(corpus):

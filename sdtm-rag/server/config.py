@@ -36,9 +36,11 @@ class Settings(BaseSettings):
     # 默认关; Phase 1 全部 eval 闸过绿后翻 True (含义: 服务启动时构建 study 引擎 + 联邦层)。
     federation_enabled: bool = False
     study_collection_name: str = "study_st01"
-    # study 侧 KB 根 (ROUTING.md / INDEX.md / cards)。仿 kb_root 的默认构造方式, 从模块级
-    # 根常量拼出; 服务目录自包含部署用 SDTM_RAG_STUDY_KB_ROOT 覆盖。
-    study_kb_root: Path = _SDTM_RAG_ROOT / "data" / "study" / "st01"
+    # study 侧 KB 根。RAGEngine 要求 kb_root 下直接躺着 ROUTING.md + INDEX.md, 而 study 侧这两个
+    # 文件与 959 张卡同在 cards/ (scripts/study/paths.py: cards_dir = out_dir / "cards"), 所以根
+    # 指到 cards/ 而不是 st01/ —— 指错时开着 federation 启动即 FileNotFoundError。仿 kb_root 的
+    # 默认构造方式从模块级根常量拼出; 服务目录自包含部署用 SDTM_RAG_STUDY_KB_ROOT 覆盖。
+    study_kb_root: Path = _SDTM_RAG_ROOT / "data" / "study" / "st01" / "cards"
 
     # Rerank (T2, PLAN §5 1B.2): wide retrieve -> Cohere rerank -> top_k.
     # COHERE_API_KEY read from env (LiteLLM-style provider key, no SDTM_RAG_ prefix).
