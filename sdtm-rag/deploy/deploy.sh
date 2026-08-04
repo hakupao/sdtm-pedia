@@ -58,6 +58,11 @@ fi
 
 if [[ -z "${DRY[*]}" ]]; then
   ( cd "$DEST" && uv sync )
+  # 索引陈旧闸: 部署了新 KB 却忘了重灌 = 服务静默用旧索引作答 (实测曾发生, 跨越
+  # chunker 一次演进无人察觉)。非阻断 —— 只提示, 因为 ingest 需要 API key 与时间。
+  if ! ( cd "$DEST" && .venv/bin/python -m scripts.check_index_freshness ); then
+    echo "WARNING: 向量库与 knowledge_base 不同步 —— 上线前请先跑 ingest 并重启服务。"
+  fi
   echo "Deploy complete."
   echo "NEXT (go-live, after IT signoff): see deploy/README.md — fill .env, load the"
   echo "service-dir LaunchAgent (--host 0.0.0.0), pmset, firewall."

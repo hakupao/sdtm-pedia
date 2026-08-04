@@ -109,6 +109,18 @@ async def lifespan(app: FastAPI):
     from server.meta_store import MetaStore
     app.state.graph_engine = GraphEngine(MetaStore(s.meta_path))
     log.info("graph_engine", domains=app.state.graph_engine.store.n_domains)
+    # 索引陈旧闸: 灌库与重启都是人工动作, 没有闸就会漂 —— 实测部署索引曾把一个 KB 文件
+    # 欠切 70% 且跨越 chunker 演进无人察觉 (CDISC recall 白丢 5.7pt)。算一次存 state,
+    # /api/info 也读它。判不出来一律按陈旧 (fail loud), 但只告警不拒启动: 拒启会把
+    # 一个可用但略旧的服务变成不可用的服务。
+    from scripts.kb_freshness import check_freshness
+    _fresh = check_freshness(s.chroma_dir / "ingested_at_commit.txt", s.kb_root)
+    app.state.index_fresh = _fresh.fresh
+    app.state.index_freshness_reason = _fresh.reason
+    if not _fresh.fresh:
+        log.error("index_stale", reason=_fresh.reason,
+                  fix="python -m scripts.ingest, then restart")
+
     count = app.state.rag.collection.count()
     # Guard the one documented foot-gun: hybrid-on with structured_lookup-off is the
     # known-bad config (P1 measured single_domain 96->83). A half-applied env rollback

@@ -45,6 +45,7 @@ import litellm  # noqa: E402
 
 from scripts.chunkers import CHUNKER_REGISTRY, Chunk  # noqa: E402
 from scripts.chunkers.base import count_tokens, kb_commit_sha  # noqa: E402
+from scripts.kb_freshness import kb_fingerprint  # noqa: E402
 
 COLLECTION_NAME = "sdtm_kb_v1"
 EMBED_MODEL_NAME = "text-embedding-3-small"
@@ -360,6 +361,9 @@ def write_ingest_stamp(
     stamp = chroma_dir / "ingested_at_commit.txt"
     content = (
         f"kb_commit_sha={kb_sha}\n"
+        # 内容指纹 = 陈旧检测的权威依据; kb_commit_sha 是整仓 HEAD, 任何代码提交都会变,
+        # 误报太多故只作溯源用 (详见 scripts/kb_freshness.py)
+        f"kb_fingerprint={kb_fingerprint(KB_ROOT)}\n"
         f"ingested_at={datetime.now(timezone.utc).isoformat()}\n"
         f"total_chunks={total_chunks}\n"
         f"embedding_model={EMBED_MODEL_NAME}\n"

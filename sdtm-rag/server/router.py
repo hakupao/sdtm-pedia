@@ -64,6 +64,9 @@ class InfoResponse(BaseModel):
     # Phase 2 compare/judge defaults (UI prefills its model slots from these).
     compare_models: list[str] = Field(default_factory=list)
     judge_model: str | None = None
+    # 索引新鲜度 (运维闸): 默认 None 而非 True —— 判不出来时说"新鲜"比没有该字段更糟
+    index_fresh: bool | None = None
+    index_freshness_reason: str | None = None
 
 
 # ── Endpoints ────────────────────────────────────────────────────────────
@@ -89,6 +92,9 @@ def info(request: Request):
         prompt_guardrail=rag.prompt_guardrail_enabled,
         compare_models=s.compare_models,
         judge_model=s.judge_model,
+        # 启动时算好存在 app.state, 避免每次 /info 都重扫 KB 目录
+        index_fresh=getattr(request.app.state, "index_fresh", None),
+        index_freshness_reason=getattr(request.app.state, "index_freshness_reason", None),
     )
 
 
