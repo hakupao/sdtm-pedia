@@ -17,6 +17,11 @@ api_router = APIRouter(prefix="/api")
 
 VALID_MODELS = {"default", "hard", "light"}
 
+# 单库 RAGEngine.format_context 在零 chunk 时返回的哨兵句 (server/rag.py)。联邦层的
+# format_context 两组都空时返回空串 —— 空 context 会让模型以为"上下文段落缺失"而自由
+# 发挥, 所以联邦路径在这里补回同一句, 与单库路径逐字节一致 (漂移由测试钉住)。
+_NO_CONTEXT = "(No relevant context found in the knowledge base.)"
+
 
 # ── Request / Response models ────────────────────────────────────────────
 
@@ -32,6 +37,8 @@ class AskRequest(BaseModel):
     model: str = "default"
     history: list[MessageItem] = Field(default_factory=list)
     top_k: int | None = Field(None, ge=1, le=100)
+    # Plan B 联邦: auto = LLM 判库; 显式值绕过路由 (federation 关时该字段无作用)
+    corpus: Literal["auto", "cdisc", "study", "both"] = "auto"
 
 
 class SourceItem(BaseModel):
@@ -42,6 +49,7 @@ class SourceItem(BaseModel):
     section: str | None
     similarity: float
     text_preview: str
+    corpus: str | None = None  # 联邦路径下 "cdisc"|"study"; 单库路径 None
 
 
 class AskResponse(BaseModel):
@@ -49,6 +57,7 @@ class AskResponse(BaseModel):
     sources: list[SourceItem]
     model_used: str
     usage: dict | None = None
+    routed_corpus: str | None = None  # 实际检索的库; federation 关时 None
 
 
 class InfoResponse(BaseModel):
@@ -67,6 +76,7 @@ class InfoResponse(BaseModel):
     # 索引新鲜度 (运维闸): 默认 None 而非 True —— 判不出来时说"新鲜"比没有该字段更糟
     index_fresh: bool | None = None
     index_freshness_reason: str | None = None
+    federation: bool = False  # Plan B: 双库联邦是否已构建
 
 
 # ── Endpoints ────────────────────────────────────────────────────────────
@@ -95,6 +105,7 @@ def info(request: Request):
         # 启动时算好存在 app.state, 避免每次 /info 都重扫 KB 目录
         index_fresh=getattr(request.app.state, "index_fresh", None),
         index_freshness_reason=getattr(request.app.state, "index_freshness_reason", None),
+        federation=getattr(request.app.state, "federation", None) is not None,
     )
 
 
@@ -115,31 +126,48 @@ def ask(body: AskRequest, request: Request):
 
     log.info("ask", question=body.question[:100], model=body.model, domain=body.domain)
 
+    fed = getattr(request.app.state, "federation", None)
+    routed: str | None = None
     try:
-        chunks = rag.retrieve(
-            body.question,
-            domain=body.domain,
-            file_type=body.file_type,
-            top_k=body.top_k,
-        )
+        if fed is not None:
+            chunks, routed = fed.retrieve(
+                body.question, corpus=body.corpus, top_k=body.top_k,
+                domain=body.domain, file_type=body.file_type,
+            )
+        else:
+            chunks = rag.retrieve(
+                body.question,
+                domain=body.domain,
+                file_type=body.file_type,
+                top_k=body.top_k,
+            )
     except Exception as e:
         log.error("retrieve_failed", error=str(e), exc_info=True)
         raise HTTPException(status_code=502, detail="Retrieval service temporarily unavailable.") from e
 
     answerer = getattr(request.app.state, "answerer", None)
+    if routed == "study":
+        answerer = None  # CDISC 专用事实通道, study 单库路由下必须静默跳过
     try:
         facts = answerer.resolve(body.question) if answerer else None
     except Exception:
         log.warning("structured_answer_resolve_failed", exc_info=True)
         facts = None
 
-    context = rag.format_context(chunks)
+    engine = fed if fed is not None else rag
+    context = engine.format_context(chunks)
+    if fed is not None and not context:
+        context = _NO_CONTEXT
     if facts is not None:
         from server.structured_answer import augment_context
         context = augment_context(facts, context)
 
     history_dicts = [{"role": m.role, "content": m.content} for m in body.history]
-    messages = rag.build_messages(body.question, context, history_dicts or None)
+    if fed is not None:
+        messages = fed.build_messages(body.question, context, history_dicts or None,
+                                      corpus=routed or body.corpus)
+    else:
+        messages = rag.build_messages(body.question, context, history_dicts or None)
 
     try:
         response = llm_router.completion(model=body.model, messages=messages)
@@ -171,6 +199,7 @@ def ask(body: AskRequest, request: Request):
             section=c.section,
             similarity=c.similarity,
             text_preview=c.text[:300],
+            corpus=getattr(c, "corpus", None) or None,
         )
         for c in chunks
     ]
@@ -189,6 +218,7 @@ def ask(body: AskRequest, request: Request):
         sources=sources,
         model_used=model_used,
         usage=usage,
+        routed_corpus=routed,
     )
 
 
@@ -201,6 +231,7 @@ class AskStreamRequest(BaseModel):
     top_k: int | None = Field(None, ge=1, le=100)
     domain: str | None = None
     file_type: str | None = None
+    corpus: Literal["auto", "cdisc", "study", "both"] = "auto"
 
 
 @api_router.post("/ask_stream")
@@ -214,32 +245,50 @@ async def ask_stream(body: AskStreamRequest, request: Request):
     if not body.question.strip():
         raise HTTPException(status_code=422, detail="question must not be empty")
 
+    fed = getattr(request.app.state, "federation", None)
+    routed: str | None = None
     try:
-        chunks = rag.retrieve(
-            body.question, domain=body.domain, file_type=body.file_type, top_k=body.top_k
-        )
+        if fed is not None:
+            chunks, routed = fed.retrieve(
+                body.question, corpus=body.corpus, top_k=body.top_k,
+                domain=body.domain, file_type=body.file_type,
+            )
+        else:
+            chunks = rag.retrieve(
+                body.question, domain=body.domain, file_type=body.file_type, top_k=body.top_k
+            )
     except Exception as e:
         log.error("stream_retrieve_failed", error=str(e), exc_info=True)
         raise HTTPException(status_code=502, detail="Retrieval service temporarily unavailable.") from e
 
     answerer = getattr(request.app.state, "answerer", None)
+    if routed == "study":
+        answerer = None  # CDISC 专用事实通道, study 单库路由下必须静默跳过
     try:
         facts = answerer.resolve(body.question) if answerer else None
     except Exception:
         log.warning("structured_answer_resolve_failed", exc_info=True)
         facts = None
 
-    context = rag.format_context(chunks)
+    engine = fed if fed is not None else rag
+    context = engine.format_context(chunks)
+    if fed is not None and not context:
+        context = _NO_CONTEXT
     if facts is not None:
         from server.structured_answer import augment_context
         context = augment_context(facts, context)
 
     history_dicts = [{"role": m.role, "content": m.content} for m in body.history]
-    messages = rag.build_messages(body.question, context, history_dicts or None)
+    if fed is not None:
+        messages = fed.build_messages(body.question, context, history_dicts or None,
+                                      corpus=routed or body.corpus)
+    else:
+        messages = rag.build_messages(body.question, context, history_dicts or None)
     sources = [
         {"chunk_id": c.chunk_id, "source": c.source, "domain": c.domain,
          "file_type": c.file_type, "section": c.section,
-         "similarity": c.similarity, "text_preview": c.text[:300]}
+         "similarity": c.similarity, "text_preview": c.text[:300],
+         "corpus": getattr(c, "corpus", None) or None}
         for c in chunks
     ]
 
@@ -262,7 +311,7 @@ async def ask_stream(body: AskStreamRequest, request: Request):
             return await llm_router.acompletion(model="default", messages=messages, stream=True)
 
     async def gen():
-        yield sse("sources", {"sources": sources})
+        yield sse("sources", {"sources": sources, "routed_corpus": routed})
         model_used = None
         usage = None
         parts: list[str] = []

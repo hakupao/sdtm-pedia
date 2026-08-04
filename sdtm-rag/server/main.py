@@ -92,6 +92,30 @@ async def lifespan(app: FastAPI):
     )
     rag_init_s = round(time.perf_counter() - t_rag, 2)  # incl. BM25 index build when hybrid on
     app.state.llm_router = create_router(s)
+    app.state.federation = None
+    if s.federation_enabled:
+        # study 引擎: S1 结构化直查是 CDISC 专用故恒关 (先例: run_eval --collection 同此);
+        # hybrid 沿用生产开关 (study 侧经 ja_tokenize 天然获得 CJK bigram)。
+        # 配置错误 (collection 不存在/ROUTING.md 缺失) 一律 fail loud — 显式开着 federation
+        # 却静默退化成单库, 比启动失败更危险。
+        rag_study = RAGEngine(
+            chroma_dir=s.chroma_dir,
+            kb_root=s.study_kb_root,
+            collection_name=s.study_collection_name,
+            embedding_model=s.embedding_model,
+            top_k=s.top_k,
+            structured_lookup_enabled=False,
+            hybrid_enabled=s.hybrid_enabled,
+            hybrid_fusion=s.hybrid_fusion,
+            hybrid_alpha=s.hybrid_alpha,
+            hybrid_pool=s.hybrid_pool,
+            prompt_guardrail_enabled=s.prompt_guardrail_enabled,
+        )
+        from server.federation import FederatedEngine
+        app.state.federation = FederatedEngine(
+            app.state.rag, rag_study, app.state.llm_router, top_k=s.top_k
+        )
+        log.info("federation", study_collection=s.study_collection_name)
     app.state.answerer = maybe_build_answerer(s)
     if app.state.answerer is not None:
         log.info(

@@ -32,6 +32,14 @@ class Settings(BaseSettings):
     top_k: int = 15
     collection_name: str = "sdtm_kb_v1"
 
+    # ── Plan B 联邦路由 (spec docs/superpowers/specs/2026-08-04-plan-b-federated-routing-design.md) ──
+    # 默认关; Phase 1 全部 eval 闸过绿后翻 True (含义: 服务启动时构建 study 引擎 + 联邦层)。
+    federation_enabled: bool = False
+    study_collection_name: str = "study_st01"
+    # study 侧 KB 根 (ROUTING.md / INDEX.md / cards)。仿 kb_root 的默认构造方式, 从模块级
+    # 根常量拼出; 服务目录自包含部署用 SDTM_RAG_STUDY_KB_ROOT 覆盖。
+    study_kb_root: Path = _SDTM_RAG_ROOT / "data" / "study" / "st01"
+
     # Rerank (T2, PLAN §5 1B.2): wide retrieve -> Cohere rerank -> top_k.
     # COHERE_API_KEY read from env (LiteLLM-style provider key, no SDTM_RAG_ prefix).
     # NOTE: T2 ablation (2026-06-08) found rerank degrades source recall on this KB
