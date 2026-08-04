@@ -208,6 +208,9 @@ def run_evaluation(
             "id": qid,
             "category": q["category"],
             "question": q["question"],
+            # 题集侧标记: 该题答案不在本 KB 范围内 (反幻觉题)。retrieval-only 下无判别力,
+            # 必须带进 result 供 print_summary 排除统计, 否则空 expected_sources 恒得 1.0
+            "out_of_scope": bool(q.get("out_of_scope", False)),
             "source_recall": round(src_recall, 4),
             "source_hits": src_hits,
             "source_misses": src_misses,
@@ -314,8 +317,12 @@ def print_summary(
     model: str | None = None,
     judge: bool = False,
 ) -> dict:
+    # out_of_scope 题 (答案不在 KB 内) 在本 harness 无判别力 —— 空 expected_sources 恒得
+    # 1.0, 计进平均值就是白送分。全部统计只跑 scored 集, out_of_scope 单列。
+    out_of_scope = [r for r in results if r.get("out_of_scope")]
+    results = [r for r in results if not r.get("out_of_scope")]
     n = len(results)
-    avg_src = sum(r["source_recall"] for r in results) / n
+    avg_src = sum(r["source_recall"] for r in results) / n if n else 0.0
     src_by_cat: dict[str, list[float]] = {}
     for r in results:
         src_by_cat.setdefault(r["category"], []).append(r["source_recall"])
@@ -331,8 +338,18 @@ def print_summary(
     for cat, vals in sorted(src_by_cat.items()):
         print(f"  {cat}: {sum(vals)/len(vals):.1%} ({len(vals)} q)")
 
+    if out_of_scope:
+        print(f"\nout_of_scope (未计分, 需人工看答案): {len(out_of_scope)}")
+        for r in out_of_scope:
+            print(f"  {r['id']}: {r['question'][:60]}")
+
     summary: dict = {
+        # n_questions 保留旧键名 (下游兼容), 但其语义在 out_of_scope 过滤后 = 计分题数;
+        # n_total 给出题集总数, 避免读者把 n_questions 当总数
         "n_questions": n,
+        "n_scored": n,
+        "n_total": n + len(out_of_scope),
+        "n_out_of_scope": len(out_of_scope),
         "model": model,
         "threshold": threshold,
         "source_recall_avg": round(avg_src, 4),
@@ -342,7 +359,7 @@ def print_summary(
     }
 
     if not retrieval_only:
-        avg_fact = sum(r.get("fact_recall", 0) for r in results) / n
+        avg_fact = sum(r.get("fact_recall", 0) for r in results) / n if n else 0.0
         total_tokens = sum(r.get("usage", {}).get("total_tokens", 0) for r in results)
         print(f"Fact recall (substring, avg): {avg_fact:.1%}")
         print(f"Total tokens used:   {total_tokens:,}")

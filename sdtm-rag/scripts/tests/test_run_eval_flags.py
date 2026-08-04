@@ -129,3 +129,85 @@ def test_collection_whitespace_stripped(captured):
     kwargs = captured(["--collection", "  study_st01  ",
                        "--kb-root", "data/study/st01/cards"])
     assert kwargs["collection_name"] == "study_st01"
+
+
+# ---- golden set v1.1: out_of_scope 题不计入 recall 统计 ----
+
+def _mk_result(qid, cat, recall, **extra):
+    return {"id": qid, "category": cat, "question": "q", "source_recall": recall,
+            "source_hits": [], "source_misses": [], "top5_sources": [],
+            "top5_similarities": [], **extra}
+
+
+def test_out_of_scope_excluded_from_average(capsys):
+    """out_of_scope 题在 harness 里无判别力 (无答案可判), 必须排除出平均值."""
+    from eval.run_eval import print_summary
+    results = [
+        _mk_result("a", "field_lookup", 1.0),
+        _mk_result("b", "field_lookup", 0.0),
+        _mk_result("z", "negative", 1.0, out_of_scope=True),
+    ]
+    summary = print_summary(results, retrieval_only=True)
+    assert summary["n_scored"] == 2
+    assert summary["source_recall_avg"] == 0.5   # 不是 (1+0+1)/3 = 0.667
+    assert summary["n_out_of_scope"] == 1
+
+
+def test_out_of_scope_listed_separately(capsys):
+    from eval.run_eval import print_summary
+    print_summary([
+        _mk_result("a", "field_lookup", 1.0),
+        _mk_result("z", "negative", 1.0, out_of_scope=True),
+    ], retrieval_only=True)
+    out = capsys.readouterr().out
+    assert "out_of_scope" in out and "z" in out
+
+
+def test_no_out_of_scope_keeps_old_behaviour(capsys):
+    from eval.run_eval import print_summary
+    summary = print_summary([
+        _mk_result("a", "field_lookup", 1.0),
+        _mk_result("b", "field_lookup", 0.0),
+    ], retrieval_only=True)
+    assert summary["source_recall_avg"] == 0.5
+    assert summary["n_scored"] == 2
+    assert summary.get("n_out_of_scope", 0) == 0
+
+
+def test_run_evaluation_propagates_out_of_scope():
+    """yml 的 out_of_scope 必须原样带进 result, 否则 print_summary 看不到."""
+    from eval.run_eval import run_evaluation
+
+    class _Chunk:
+        source, similarity = "st01__X__Y.md", 0.5
+
+    class _Rag:
+        def retrieve(self, q, top_k=None):
+            return [_Chunk()]
+
+    res = run_evaluation(
+        [{"id": "z", "category": "negative", "question": "q",
+          "expected_sources": [], "out_of_scope": True}],
+        _Rag(), retrieval_only=True,
+    )
+    assert res[0]["out_of_scope"] is True
+
+
+def test_summary_reports_total_and_scored_separately():
+    """n_questions 在 out_of_scope 过滤后语义已变 → 必须同时给出总题数, 否则读者被误导."""
+    from eval.run_eval import print_summary
+    summary = print_summary([
+        _mk_result("a", "field_lookup", 1.0),
+        _mk_result("z", "negative", 1.0, out_of_scope=True),
+    ], retrieval_only=True)
+    assert summary["n_scored"] == 1
+    assert summary["n_total"] == 2
+
+
+def test_all_out_of_scope_does_not_divide_by_zero():
+    from eval.run_eval import print_summary
+    summary = print_summary([
+        _mk_result("z", "negative", 1.0, out_of_scope=True),
+    ], retrieval_only=True)
+    assert summary["n_scored"] == 0
+    assert summary["source_recall_avg"] == 0.0

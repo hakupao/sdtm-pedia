@@ -9,7 +9,7 @@
 | # | 验收项 | 结果 |
 |---|--------|------|
 | 1 | 覆盖台账全绿 | ✅ 3508 行全 mapped, 孤儿 0 (机器校验) |
-| 2 | Golden questions 检索命中 | ✅ 12 题 (草稿 v0) source recall **100%** (生产同参: hybrid rrf, top_k 15); 阈值 85% |
+| 2 | Golden questions 检索命中 | ⚠️ **已被 v1.1 推翻** — v0 的 100% 是题目缺陷产物 (见下) |
 | 3 | 有损轨抽检 | N/A — 属 Plan C (protocol 轨), 本计划无有损转换 |
 | 4 | 联邦路由双库并查 | N/A — 属 Plan B; 本计划交付独立 collection + eval 通道 |
 | 5 | git 安全 | ✅ data/study 零文件被追踪; 分支全部 commit 真名扫描 0 命中 |
@@ -31,7 +31,9 @@
 ## 已知边界 (记录在案)
 
 1. 丸数字编号锁定 (①-⑫ 重复组内指定某号) 需结构化直查通道 — Plan B 候选能力。
-2. golden set 为草稿 v0 (12 题, controller 起草), 用户共审/定稿待后续 session; 定稿后重跑成本 ≈ 秒级。
+2. **golden set 已定稿为 v1.1 (2026-08-04), v0 的 100% 作废**: v0 由 controller 看着卡片起草
+   (出题人=答题人), 题目偏软且覆盖偏科; PRT 概念驱动重出 27 题 (25 计分) 后真实基线为
+   **hybrid 83.3% / dense 81.3%**, 85% 阈值下 FAIL。详见 `study_golden_v1.md`。
 3. eval 侧 hybrid 需显式 `--hybrid` (与生产 settings 默认不同) — 评测命令已写入本文档供复现。
 4. CDISC 全量重灌与 study 共存的端到端首跑观察项: 停服再灌; backup 保留期规则待定。
 
