@@ -27,6 +27,7 @@ class RetrievedChunk:
     text: str
     rerank_score: float | None = None  # T2: Cohere relevance score (None if rerank off)
     via_lookup: bool = False  # S1: chunk union-added by deterministic structured-lookup
+    corpus: str = ""  # Plan B federation: "cdisc" | "study"; 空串 = 未标注 (单库路径)
 
 
 class RAGEngine:
