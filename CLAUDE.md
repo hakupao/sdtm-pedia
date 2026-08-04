@@ -83,13 +83,14 @@ Full chain definitions are in `.work/MANIFEST.md`.
 | Phase 6.5 Release v1.0-v1.4 (CLOSED) | `milestones/release/v1.{0-4}/` + `.work/07_release{,_v1_1,_v1_3,_v1_4}/` (终态 tag `v1.4-company-release`) |
 | METHODOLOGY 公开声明 | `METHODOLOGY.md` + `milestones/release/v1.{0,1}/METHODOLOGY.{en,zh,ja}.md` |
 | 07 Website Phases 6-8 (closed) | `.work/07_website/phase{6,7,8}/` + handoffs `.work/meta/website_phase*_handoff_*.md`; prod https://sdtm-pedia.pages.dev/ || Phase 7 RAG+KG 旁枝 | `milestones/07_rag_kg/PLAN.md` (Phase 1 CLOSED 53q 88.5%; sdtm-rag/ 代码仓, Chain 07_RAG) |
-| Phase 7 检索质量 (检索 99% + (d) 通道) | `milestones/07_rag_kg/TODO_retrieval_quality.md` §5/§6; 收口 `sdtm-rag/evidence/checkpoints/{s4_full_eval_closure,d_channel_concept_definition}.md` (q126 永久 known limit) |
+| Phase 7 检索质量 ((d) 通道; 基线数字见 PROGRESS) | `milestones/07_rag_kg/TODO_retrieval_quality.md` §5/§6; 收口 `sdtm-rag/evidence/checkpoints/{s4_full_eval_closure,d_channel_concept_definition}.md` (q126 永久 known limit) |
 | Phase 7 答题侧护栏 (DONE) | `sdtm-rag/evidence/checkpoints/guardrail_v2_summary.md`; 确定性码闸 `eval/prod_wirein/check_code_grounding.py` |
 | Phase 7 本地部署+多模型对比 规划 | `sdtm-rag/DEPLOY_PLAN.md` — launchd 部署 + 对比/裁判 (§3 阶段3 工程件 DONE+审; go-live 待 IT) |
 | Phase 7 阶段3 共享 (工程件+go-live runbook) | `sdtm-rag/deploy/` (deploy.sh + 0.0.0.0 plist 模板 + README runbook); 登录门 `server/auth.py`; 证据 `evidence/checkpoints/phase3_share_hardening.md` |
 | Phase 7 Chat UI (单模型流式前端) | `sdtm-rag/webchat/` + `sdtm-rag/PLAN_chat_ui.md`; prod localhost:8000 (launchd); ⚑ dogfood 失败捕获 (`POST /api/flag` → `dogfood_failures.md`, 优先级 backlog) |
 | Phase 7 KG 重启 (SP1-5+AGG DONE 全线收官) | `sdtm-rag/KG_ROADMAP.md` — SP1-5+AGG 全 DONE (2026-07-09); SP5 图增强校验器 `server/graph_validator.py` + `POST /api/validate-study`; 路由词无剩余单元, 新图能力需 brainstorm |
 | Phase 7 SP6 隐性关系 + 网状查看器 (2026-07-10) | 挖掘管线 `sdtm-rag/scripts/mine_implicit_relations.py` → `data/meta/implicit_relations.json` (30 advisory 边, 分层反捏造闸, 不碰 meta.yaml); 网状查看器 `sdtm-rag/scripts/build_kg_viewer.py` → `kg_viewer.html`; spec/plan `docs/superpowers/{specs,plans}/2026-07-10-sp6-*` |
+| Phase 7 study 轨 st01 (确定性轨 DONE) | `sdtm-rag/scripts/study/` + 证据 `evidence/checkpoints/study_{golden_v1,rag_full_run}.md`; 下一步 Plan B 联邦路由 |
 | Phase 7 SP7 查看器 UX 重构 (2026-07-24) | 源码 `sdtm-rag/viewer/{template.html,style.css,layout.mjs,app.js}` → build 内联 `kg_viewer.html` (**勿手改产物, 改 viewer/* 重生成**); 确定性布局+补间无物理; spec/plan `docs/superpowers/*2026-07-24-kg-viewer-ux*` |
 
 ## AI 平台多平台部署 (CLOSED 冻结 2026-06-15)
