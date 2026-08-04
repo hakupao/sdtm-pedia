@@ -197,3 +197,49 @@ def test_catalog_stores_raw_values(norm_sp):
     labels = {i["item_oid"]: i["label"] for i in cat["items"]}
     assert labels["FAKENB1"] == "偽項目\u00a0一"
     assert labels["FAKEENT"] == "A &amp;amp; B &lt; C"
+
+
+# ---- P2: 停用 form 语义钉死 / P3: diff_available ----
+
+def test_deactivated_form_shape_raises(sp, tmp_path):
+    """form 形态 Id (无空格) + In use 空 = 疑似停用 form, 不得静默按脚注吞掉."""
+    from dataclasses import replace
+    from scripts.tests.study_fixtures import DEFAULT_FORMS
+    dead_form = ("FAKEDEAD", "停用フォーム", "", "", "")
+    new = build_config_report(tmp_path / "dead.xlsx",
+                              forms_rows=list(DEFAULT_FORMS) + [dead_form])
+    sp2 = replace(sp, config_report_new=new, config_report_old=None)
+    with pytest.raises(ValueError, match="In use"):
+        build_catalog(sp2)
+
+
+def test_footnote_form_row_still_trailer(sp, tmp_path):
+    """真脚注行 (含空格句子形态 + In use 空) 仍走 trailer, 不误伤."""
+    from dataclasses import replace
+    from scripts.tests.study_fixtures import DEFAULT_FORMS
+    footnote = ("See the Data checks sheet for details.", "", "", "", "")
+    new = build_config_report(tmp_path / "fn.xlsx",
+                              forms_rows=list(DEFAULT_FORMS) + [footnote])
+    sp2 = replace(sp, config_report_new=new, config_report_old=None)
+    cat = build_catalog(sp2)
+    assert [f["oid"] for f in cat["forms"]] == ["FAKEFORM1", "FAKEFORM2"]
+
+
+def test_diff_available_flag(sp):
+    """diffs=={} 歧义消解: 有旧版对比 → True, 无旧版降级 → False (Plan B 输入)."""
+    from dataclasses import replace
+    assert build_catalog(sp)["diff_available"] is True
+    sp2 = replace(sp, config_report_old=None)
+    assert build_catalog(sp2)["diff_available"] is False
+
+
+def test_blank_id_with_payload_raises(sp, tmp_path):
+    """Id 空但 Name/Description 有载荷: 不得静默归脚注 (与 Items 二次闸对称)."""
+    from dataclasses import replace
+    from scripts.tests.study_fixtures import DEFAULT_FORMS
+    ghost = ("", "幽霊フォーム", "", "", "")
+    new = build_config_report(tmp_path / "ghost.xlsx",
+                              forms_rows=list(DEFAULT_FORMS) + [ghost])
+    sp2 = replace(sp, config_report_new=new, config_report_old=None)
+    with pytest.raises(ValueError, match="payload"):
+        build_catalog(sp2)

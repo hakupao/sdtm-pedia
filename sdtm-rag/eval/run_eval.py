@@ -406,6 +406,14 @@ def print_summary(
     return summary
 
 
+def _non_empty(v: str) -> str:
+    """argparse type: 空串既非 None (走默认) 也非有效值, 静默回落默认库比报错更危险."""
+    v = v.strip()
+    if not v:
+        raise argparse.ArgumentTypeError("must be a non-empty value")
+    return v
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Phase 1D Full Evaluation")
     parser.add_argument("test_set", help="Path to test_set YAML file")
@@ -531,12 +539,14 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument(
         "--collection",
         default=None,
+        type=_non_empty,
         help="Override settings.collection_name (e.g. study_st01). Forces "
              "structured-lookup OFF: the S1 gold map is CDISC-specific.",
     )
     parser.add_argument(
         "--kb-root",
         default=None,
+        type=_non_empty,
         help="Override settings.kb_root (dir holding the indexed corpus)",
     )
     parser.add_argument(

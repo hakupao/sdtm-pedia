@@ -27,7 +27,7 @@ def _flat(s: str) -> str:
 
 def render_field_card(item: dict, form: dict, codelist: dict | None,
                       samples: list[str], diff: list[str], *,
-                      study: str, version: str) -> str:
+                      study: str, version: str, diff_available: bool = True) -> str:
     fm = "\n".join([
         "---",
         f"study: {study}",
@@ -79,8 +79,11 @@ def render_field_card(item: dict, form: dict, codelist: dict | None,
         # 当前 DEMO 每 sheet 零数据行 (行1 label 表头 / 行2 OID 表头, 行3 起为空) →
         # samples 恒为空, 本行恒为 '—'; 换含数据的导出后自动生效
         f"- DEMO 例値: {' / '.join(samples) if samples else '—'}",
-        # diff 串内嵌旧版 label 值, 同样可能带换行
-        f"- 旧→新版差分: {'; '.join(_flat(d) for d in diff) if diff else 'なし'}",
+        # diff 串内嵌旧版 label 值, 同样可能带换行; 无旧版时「なし」是过度断言
+        # (没比过 ≠ 无变更), 必须区分措辞
+        f"- 旧→新版差分: "
+        + ("; ".join(_flat(d) for d in diff) if diff
+           else ("なし" if diff_available else "未対比 (旧版なし)")),
     ]
     if item["output_field_id"]:
         lines.append(f"- Output: {item['output_field_id']} ({item['output_field_label']})")
@@ -126,6 +129,8 @@ def build_cards(catalog: dict, samples: dict[str, list], cards_dir: Path, *,
             samples.get(item["item_oid"], []),
             catalog["diffs"].get(item["item_oid"], []),
             study=catalog["study"], version=catalog["version_new"],
+            # 旧 catalog.json 无此键 → 默认 True 维持原措辞 (向后兼容)
+            diff_available=catalog.get("diff_available", True),
         )
         p = cards_dir / f"{catalog['study']}__{item['form_oid']}__{item['item_oid']}.md"
         p.write_text(card, encoding="utf-8")

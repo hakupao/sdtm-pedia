@@ -17,6 +17,7 @@ from __future__ import annotations
 
 import collections
 import itertools
+import sys
 from pathlib import Path
 from typing import Any
 
@@ -95,7 +96,8 @@ def sample_demo_values(
         "resolved_row2_oid": 0, "resolved_direct": 0, "resolved_items_dict": 0,
         "resolved_label": 0, "corroborated": 0, "conflict_row2_label": 0,
         "ambiguous": 0, "unmatched": 0, "unknown_sheets": 0, "oid_header_sheets": 0,
-        "data_rows": 0, "echo_dropped": 0, "per_sheet": {}, "per_sheet_data_rows": {},
+        "data_rows": 0, "echo_dropped": 0, "echo_dropped_degraded": 0,
+        "per_sheet": {}, "per_sheet_data_rows": {},
     }
 
     wb = openpyxl.load_workbook(demo_path, read_only=True)
@@ -173,7 +175,11 @@ def sample_demo_values(
                     if not sv:
                         continue
                     if sv == oid:
-                        stats["echo_dropped"] += 1   # 值 == 自身 OID: 表头被当成数据了
+                        # 值 == 自身 OID: 行2 表头已检出的 sheet 里出现 = 疑似误杀真实数据
+                        # (echo_dropped, 告警); 未检出的退化 sheet 里 = 闸拦下漏网表头行,
+                        # 设计目标场景 (echo_dropped_degraded, 不告警)
+                        stats["echo_dropped" if oid_header
+                              else "echo_dropped_degraded"] += 1
                         continue
                     bucket = samples.setdefault(oid, [])
                     if sv not in bucket and len(bucket) < max_per_item:
@@ -182,4 +188,12 @@ def sample_demo_values(
             stats["per_sheet_data_rows"][ws.title] = n_data
     finally:
         wb.close()      # read_only 模式持有文件句柄, build_field_cards 会循环调用
+    if stats["echo_dropped"] and stats["data_rows"]:
+        # 只对"表头已检出仍有值==OID"的形态告警 (真实数据被误杀的风险); 退化路径的
+        # echo 是闸正确工作, 混进来会稀释信噪比 — 闸不放行, 但必须可见, 由人抽查裁决
+        print(
+            f"warning: anti-echo gate dropped {stats['echo_dropped']} value(s) "
+            f"amid {stats['data_rows']} data rows — 可能误杀真实数据, 请抽查",
+            file=sys.stderr,
+        )
     return samples, stats

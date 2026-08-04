@@ -214,5 +214,37 @@ def test_missing_items_sheet_degrades_gracefully(tmp_path):
     samples, stats = sample_demo_values(p, CATALOG_ITEMS)
     assert stats["oid_header_sheets"] == 0
     assert stats["resolved_items_dict"] == 0
-    assert stats["echo_dropped"] >= 1       # 行2 被当数据, 回声闸挡下
+    # 行2 被当数据被闸挡下 = 闸的设计目标场景, 计入 degraded 桶, 不算误杀风险
+    assert stats["echo_dropped_degraded"] >= 1
+    assert stats["echo_dropped"] == 0
     assert samples["FAKEIT1"] == ["1", "0"]
+
+
+def test_degraded_echo_does_not_warn(tmp_path, capsys):
+    """退化路径 (行2 未判为表头被闸) 是闸正确工作, 不得喷误杀告警稀释信噪比."""
+    _write_demo(tmp_path / "no_items2.xlsx", with_items_sheet=False)
+    sample_demo_values(tmp_path / "no_items2.xlsx", CATALOG_ITEMS)
+    assert "warning" not in capsys.readouterr().err.lower()
+
+
+# ---- P2: 反回声闸假阳性告警 ----
+
+def test_echo_drop_with_data_rows_warns(tmp_path, capsys):
+    """真实数据行里值恰等于自身 OID 被闸掉时, 必须发可见告警 (可能误杀真实数据)."""
+    rows = [
+        ("S1", "1", "値甲", "X1", "d1", "z1"),
+        ("S2", "FAKEIT1", "値乙", "X1", "d2", "z2"),   # 第2列值 == 自身 OID
+    ]
+    demo = _write_demo(tmp_path / "echo.xlsx", data_rows=rows)
+    samples, stats = sample_demo_values(demo, CATALOG_ITEMS)
+    assert stats["echo_dropped"] == 1
+    assert stats["data_rows"] == 2
+    err = capsys.readouterr().err
+    assert "warning" in err.lower() and "echo" in err.lower()
+
+
+def test_no_echo_no_warning(tmp_path, capsys):
+    _write_demo(tmp_path / "clean.xlsx")
+    samples, stats = sample_demo_values(tmp_path / "clean.xlsx", CATALOG_ITEMS)
+    assert stats["echo_dropped"] == 0
+    assert "warning" not in capsys.readouterr().err.lower()

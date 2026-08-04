@@ -98,3 +98,34 @@ def test_collection_with_kb_root_no_warning(captured, capsys):
     captured(["--collection", "study_st01", "--kb-root", "data/study/st01/cards"])
     out = capsys.readouterr().out
     assert "warning: --collection" not in out
+
+
+# ---- P2 (M-2): 空串拒绝 / P3 (T12): 报告层断言 ----
+
+def test_empty_collection_rejected(captured):
+    with pytest.raises(SystemExit) as ei:
+        captured(["--collection", ""])
+    assert ei.value.code == 2      # argparse usage error, 而非静默回落默认库
+
+
+def test_empty_kb_root_rejected(captured):
+    with pytest.raises(SystemExit) as ei:
+        captured(["--kb-root", ""])
+    assert ei.value.code == 2
+
+
+def test_summary_records_collection(captured, tmp_path):
+    """报告层: --collection 必须落进 output JSON 的 summary (评测可溯源)."""
+    import json
+    out_file = tmp_path / "out.json"
+    captured(["--collection", "study_st01",
+              "--kb-root", "data/study/st01/cards", "--output", str(out_file)])
+    saved = json.loads(out_file.read_text(encoding="utf-8"))
+    assert saved["summary"]["collection"] == "study_st01"
+    assert saved["summary"]["top_k"] == 15
+
+
+def test_collection_whitespace_stripped(captured):
+    kwargs = captured(["--collection", "  study_st01  ",
+                       "--kb-root", "data/study/st01/cards"])
+    assert kwargs["collection_name"] == "study_st01"

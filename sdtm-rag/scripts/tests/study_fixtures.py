@@ -51,7 +51,7 @@ DEFAULT_CODELISTS = [
 ]
 
 
-def _write_sheet(wb, title: str, header: list[tuple], rows: list[tuple],
+def _write_sheet(wb, title: str, header: list[tuple], rows: list[tuple], *,
                  has_section_row: bool = True) -> None:
     ws = wb.create_sheet(title)
     ws.append([title] * len(header))                       # 行1: sheet 名

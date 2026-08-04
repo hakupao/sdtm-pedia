@@ -148,3 +148,30 @@ def test_build_cards_idempotent_purges_stale(catalog):
     assert sorted(p.name for p in sp.cards_dir.iterdir()) == [
         "INDEX.md", "ROUTING.md", "st01__FAKEFORM1__FAKEIT1.md",
         "st01__FAKEFORM1__FAKEIT2.md", "st01__FAKEFORM2__FAKEIT3.md"]
+
+
+# ---- M-2: diff_available 贯通到卡片 ----
+
+def test_render_diff_unavailable_says_not_compared(catalog):
+    cat, _sp = catalog
+    item = cat["items"][0]
+    card = render_field_card(item, cat["forms"][0], None, [], [],
+                             study="st01", version="V2", diff_available=False)
+    assert "旧→新版差分: 未対比 (旧版なし)" in card
+    assert "差分: なし" not in card
+
+
+def test_build_cards_passes_diff_available(catalog, tmp_path):
+    cat = dict(catalog[0])
+    cat["diff_available"] = False
+    paths = build_cards(cat, {}, tmp_path / "cards")
+    text = paths[0].read_text(encoding="utf-8")
+    assert "未対比" in text
+
+
+def test_build_cards_defaults_diff_available_true(catalog, tmp_path):
+    """旧 catalog.json (无 diff_available 键) 向后兼容: 维持原「なし」措辞."""
+    cat = {k: v for k, v in catalog[0].items() if k != "diff_available"}
+    paths = build_cards(cat, {}, tmp_path / "cards2")
+    text = paths[0].read_text(encoding="utf-8")
+    assert "未対比" not in text

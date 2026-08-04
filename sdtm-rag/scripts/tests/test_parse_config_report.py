@@ -137,3 +137,63 @@ def test_parse_items_missing_column_raises(tmp_path):
     wb.save(p)
     with pytest.raises(KeyError, match="Validation::Item ID"):
         parse_items(p)
+
+
+# ---- P3: 短 sheet / 组合场景 / 句柄关闭 ----
+
+def test_short_sheet_raises_value_error():
+    """表头不足的 sheet 必须 ValueError 响亮失败, 而非裸 StopIteration."""
+    from scripts.study.parse_config_report import read_sheet_records
+    wb = openpyxl.Workbook()
+    ws = wb.active
+    ws.title = "Forms"
+    ws.append(["Forms"])                     # 只有行1, 三行表头缺行2/行3
+    with pytest.raises(ValueError, match="header"):
+        read_sheet_records(ws)
+
+
+def test_short_sheet_two_row_header_raises():
+    from scripts.study.parse_config_report import read_sheet_records
+    wb = openpyxl.Workbook()
+    ws = wb.active
+    ws.title = "Code lists"
+    ws.append(["Code lists"])                # 两行表头缺行2
+    with pytest.raises(ValueError, match="header"):
+        read_sheet_records(ws, has_section_row=False)
+
+
+def test_two_row_header_short_row_padded():
+    """组合场景: 两行表头 + 短数据行, 短行补空串不丢 key."""
+    from scripts.study.parse_config_report import read_sheet_records
+    wb = openpyxl.Workbook()
+    ws = wb.active
+    ws.title = "Code lists"
+    ws.append(["Code lists"] * 3)
+    ws.append(["OID", "Code value", "Code text"])
+    ws.append(["CL_FAKE1", "1"])             # 短行: 缺 Code text
+    recs = read_sheet_records(ws, has_section_row=False)
+    assert len(recs) == 1
+    assert recs[0]["Code lists::Code text"] == ""
+
+
+def test_parse_functions_close_workbook(tmp_path, monkeypatch):
+    """read_only 模式持有文件句柄, parse_* 返回前必须关闭."""
+    import scripts.study.parse_config_report as pcr
+    path = build_config_report(tmp_path / "close.xlsx")
+    closed: list[bool] = []
+    real_load = pcr.openpyxl.load_workbook
+
+    def spy_load(*a, **k):
+        wb = real_load(*a, **k)
+        real_close = wb.close
+        def spy_close():
+            closed.append(True)
+            real_close()
+        monkeypatch.setattr(wb, "close", spy_close, raising=False)
+        return wb
+
+    monkeypatch.setattr(pcr.openpyxl, "load_workbook", spy_load)
+    pcr.parse_forms(path)
+    pcr.parse_items(path)
+    pcr.parse_codelists(path)
+    assert len(closed) == 3

@@ -20,9 +20,15 @@ def read_sheet_records(ws, *, has_section_row: bool = True) -> list[dict[str, An
                            真实 Code lists sheet 即此形态.
     """
     rows = ws.iter_rows(values_only=True)
-    next(rows)                                   # 行1: sheet 名, 丢弃
-    sections_raw: tuple = next(rows) if has_section_row else ()
-    colnames = next(rows)
+    try:
+        next(rows)                               # 行1: sheet 名, 丢弃
+        sections_raw: tuple = next(rows) if has_section_row else ()
+        colnames = next(rows)
+    except StopIteration:
+        raise ValueError(
+            f"sheet {ws.title!r}: header rows missing "
+            f"(expected {3 if has_section_row else 2}-row header)"
+        ) from None
     keys: list[str] = []
     cur = "" if has_section_row else ws.title
     for i, c in enumerate(colnames):
@@ -96,8 +102,12 @@ def _req(rec: dict, key: str) -> str:
 
 def parse_forms(path: Path) -> list[FormDef]:
     wb = openpyxl.load_workbook(path, read_only=True)
+    try:
+        records = read_sheet_records(wb["Forms"])
+    finally:
+        wb.close()      # read_only 模式持有文件句柄
     out: list[FormDef] = []
-    for r in read_sheet_records(wb["Forms"]):
+    for r in records:
         oid = _req(r, "General::Id")
         in_use = r.get("General::In use", "")
         out.append(FormDef(
@@ -112,8 +122,12 @@ def parse_forms(path: Path) -> list[FormDef]:
 
 def parse_items(path: Path) -> list[ItemRow]:
     wb = openpyxl.load_workbook(path, read_only=True)
+    try:
+        records = read_sheet_records(wb["Items and Groups"])
+    finally:
+        wb.close()
     out: list[ItemRow] = []
-    for r in read_sheet_records(wb["Items and Groups"]):
+    for r in records:
         raw_type = r.get("Type and container::Field type", "")
         out.append(ItemRow(
             row=r["_row"],
@@ -145,8 +159,12 @@ def parse_items(path: Path) -> list[ItemRow]:
 
 def parse_codelists(path: Path) -> dict[str, Codelist]:
     wb = openpyxl.load_workbook(path, read_only=True)
+    try:
+        records = read_sheet_records(wb["Code lists"], has_section_row=False)
+    finally:
+        wb.close()
     grouped: dict[str, Codelist] = {}
-    for r in read_sheet_records(wb["Code lists"], has_section_row=False):
+    for r in records:
         oid = _req(r, "Code lists::OID")
         cl = grouped.setdefault(
             oid, Codelist(oid=oid, data_type=r.get("Code lists::Data Type", ""), entries=[])

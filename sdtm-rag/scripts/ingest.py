@@ -297,14 +297,15 @@ def embed_texts(texts: list[str]) -> list[list[float]]:
         print(f"[embed] WARNING: {len(truncated_indices)} chunks truncated to {EMBED_MAX_TOKENS} tokens:")
         for idx in truncated_indices:
             print(f"        - [{idx}] ({count_tokens(texts[idx])} tok)")
-    if result_embs and result_embs[0] is not None:
-        if len(result_embs[0]) != EMBED_DIM:
-            raise RuntimeError(
-                f"embedding dim mismatch: got {len(result_embs[0])}, expected {EMBED_DIM}"
-            )
     if any(e is None for e in result_embs):
         missing = sum(1 for e in result_embs if e is None)
         raise RuntimeError(f"{missing} chunks were not embedded")
+    bad = next((i for i, e in enumerate(result_embs) if len(e) != EMBED_DIM), None)
+    if bad is not None:
+        raise RuntimeError(
+            f"embedding dim mismatch at index {bad}: "
+            f"got {len(result_embs[bad])}, expected {EMBED_DIM}"
+        )
     return result_embs  # type: ignore[return-value]
 
 

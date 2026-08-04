@@ -62,6 +62,19 @@ def _diff_items(new: dict[str, ItemRow], old: dict[str, ItemRow]):
 
 def build_catalog(sp: StudyPaths) -> dict:
     all_forms = parse_forms(sp.config_report_new)
+    # 语义钉死: is_trailer 判据是 "oid 含空格 或 In use 空" 的并集; form 形态 Id (无空格)
+    # 却 In use 空 = 疑似停用 form, 静默按脚注吞会让整个 form 无声消失 — 必须响亮失败,
+    # 由人裁决 (真脚注行 Id 恒为含空格句子, 真实 21 form 的 In use 均非空)
+    for f in all_forms:
+        if f.is_trailer and f.oid and " " not in f.oid:
+            raise ValueError(
+                f"Forms row {f.row}: form-shaped Id {f.oid!r} with empty 'In use' — "
+                f"疑似停用 form, 不能静默归为脚注")
+        if f.is_trailer and not f.oid and (f.name or f.description):
+            # 与 Items 二次闸对称: Id 空但带载荷的行不是已知脚注形态
+            raise ValueError(
+                f"Forms row {f.row}: blank Id with payload "
+                f"(name={f.name!r}) — 未知行形态, 不能静默归为脚注")
     forms = [f for f in all_forms if not f.is_trailer]   # 表尾脚注行不进 catalog, 但进台账
     rows = parse_items(sp.config_report_new)
     codelists = parse_codelists(sp.config_report_new)
@@ -123,6 +136,8 @@ def build_catalog(sp: StudyPaths) -> dict:
         "codelists": {oid: {"data_type": c.data_type, "entries": c.entries}
                       for oid, c in codelists.items()},
         "diffs": diffs, "new_items": new_items, "removed_items": removed,
+        # diffs=={} 双义消解: True=对比过且零变更, False=无旧版未对比 (Plan B 输入)
+        "diff_available": sp.config_report_old is not None,
         "ledger": ledger,
     }
 

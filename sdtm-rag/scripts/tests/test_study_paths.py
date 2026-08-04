@@ -103,3 +103,25 @@ def test_empty_registry_path_rejected(tmp_path, monkeypatch):
     monkeypatch.setattr(paths_mod, "DEFAULT_REGISTRY", reg)
     with pytest.raises(FileNotFoundError):
         resolve_study("st01", registry_path="")
+
+
+# ---- P3: _file() optional 分支 ----
+
+def test_optional_key_absent_returns_none(tmp_path):
+    reg = _write_registry(tmp_path)
+    data = yaml.safe_load(reg.read_text())
+    del data["st01"]["demo_export"], data["st01"]["config_report_old"]
+    del data["st01"]["version_label_old"]
+    reg.write_text(yaml.safe_dump(data), encoding="utf-8")
+    sp = resolve_study("st01", registry_path=reg)
+    assert sp.demo_export is None and sp.config_report_old is None
+    assert sp.version_label_old is None
+
+
+def test_optional_file_missing_raises(tmp_path):
+    reg = _write_registry(tmp_path)
+    data = yaml.safe_load(reg.read_text())
+    data["st01"]["demo_export"] = "absent_demo.xlsx"
+    reg.write_text(yaml.safe_dump(data), encoding="utf-8")
+    with pytest.raises(FileNotFoundError, match="demo_export"):
+        resolve_study("st01", registry_path=reg)

@@ -40,11 +40,16 @@
 - **P1**: ✅ DONE (2026-08-04, 独立复审 APPROVE 0C/0H): paths.py 三合一 (I-2/I-3 回归测试 +
   空串守卫统一 is None + assert→raise, `python -O` 实测拦截) + `--collection` 无 `--kb-root`
   warning; 全量 597 passed (基线 591+6), mypy clean。
-- **P2**: 停用 form (In use 空) 误判 trailer 的语义钉死; 反回声闸假阳性告警;
-  (P1 复审新增) run_eval.py 内 `--collection`/`--kb-root` truthy/is-None 混用统一
-  (`--collection ""` 静默回落且不触发 warning)。
-- **P3**: parse_* wb.close(); 若干测试覆盖缺口 (维度闸/429/截断/报告层断言/组合场景);
-  diffs=={} 加 diff_available 布尔 (Plan B 输入); pilot 文档补双路佐证口径注。
+- **P2/P3**: ✅ DONE (2026-08-04, 独立复审 APPROVE 0C/0H, 12/12 charter ADDRESSED):
+  停用 form 语义钉死 (form 形态 Id + In use 空 → 响亮失败, 真实两版零误伤) + 空 Id 带载荷闸;
+  反回声闸告警按 sheet 表头检出分流 (echo_dropped 告警 / echo_dropped_degraded 不告警);
+  run_eval 空串拒绝 (argparse _non_empty + strip); parse_* wb.close(); 短 sheet ValueError;
+  diff_available 布尔并贯通卡片渲染 (无旧版 →「未対比」); embed 覆盖 (维度闸改全量检查/
+  429 退避+耗尽/截断/缺失); pilot 口径注。全量 624 passed (基线 597+27), 真实 catalog/cards
+  重生成数字不变。
+- **P4 观察项 (复审遗留 LOW, 不阻塞)**: 脚注形态假设绑定 ASCII 空格 (日文脚注会 fail-loud
+  误报, 属可接受方向); 三种告警分散 stdout/stderr 两流, 待统一告警通道; 部分 embed 测试
+  手写 try/except 风格与 pytest.raises 割裂。
 - 流程记录: golden questions 粒度验证发生在 schema 冻结后 (spec §4.1 顺序偏差),
   由幂等管线 + 用户 checkpoint 补偿, 无实害。
 - 评测解读 caveat: 100% 为草稿集/家族前缀粒度; 重复组内精确定位零判别力 (known limit,
