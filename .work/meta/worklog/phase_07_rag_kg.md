@@ -825,3 +825,20 @@ form_overview 扩题 / 修 `_FederatedAdapter.build_messages` 硬编码 corpus (
 
 **证据**: `sdtm-rag/evidence/checkpoints/study_golden_v2.md` ·
 plan `docs/superpowers/plans/2026-08-06-study-golden-v2-expansion.md` · 全量 **823 passed**
+
+---
+
+## 2026-08-07 S1 对 VARIABLE_INDEX 按字面定位 section DONE (检索续跑 D2; 18 题子集 75% → 100%)
+
+- **触発**: 用户路由词「检索续跑 开始任务」→ `milestones/07_rag_kg/NEXT_ROUND_KICKOFF.md`。用户在 A/B/D 四个候选靶子中选 D2 (S1 对 VARIABLE_INDEX 改按 CT 码/变量名字面定位)。
+- **完了の作業**:
+  - **设计** `docs/superpowers/specs/2026-08-07-s1-variable-index-literal-section-design.md` + **计划** `docs/superpowers/plans/2026-08-07-s1-variable-index-literal-section.md` (5 任务 TDD)
+  - **实现** (commit `25da6cf` + `2667f63`): 锚点抽取 `StructuredLookup.variable_index_anchors` (CT 码 + 已知变量名, CT 在前) / 映射反建 `RAGEngine._vi_section_map` (**从 Chroma 元数据反建, 不拼格式串**) / 注入 `_lookup_chunks_for_variable_index` (`{"$and": [source, section]}` 精确过滤, 复用已算好的 embedding, 零新增 round-trip) / 回落: 锚点解不出或 section 不在索引 → 回落原 cosine
+  - **三方隔离修复** (commit `8dcd1d2`): 抽检方 D-1 锚点饥饿 (先 resolve 再 cap) + 审查方 HIGH-1 (失败点从请求期挪到启动期预热) + HIGH-2 (guard 改两族都必须在 + CI 漂移闸) + MEDIUM/LOW 5 条
+- **成果**: CDISC section 级判据 **95.71% → 98.93%**; **18 题 VI 子集 75.00% → 100.00%** (q107 0.5→1.0, q108/109/110/112 0→1.0, 5 升 0 回归); 其余 122 题 **98.77% 逐题相同**; 全量测试 **823 → 852 passed**
+- **教训 (三条)**:
+  1. **拼格式串 = 把同一份格式定义写两遍**。若 chunker 改 section 命名, 拼串方案会静默全 miss 并回落 cosine —— 分数无声退回改动前, 任何闸都拦不住。从索引反建则只有一份事实源。这与本轮第 1 条硬规矩 (工具须与被检查判据逐字同语义) 同源。
+  2. **"响亮失败"放错位置比不放更糟**。首版把 fail-loud 放在请求期, 审查方实测出 deploy.sh 拷贝路径下 140 题里 71 题会 502 且缓存永不赋值 —— 而改动前同样错配只是静默退化、服务照常出答案。修法是把它挪到启动期: 部署错配在 launchd 启动即失败, 不是用户收到偶发 502。
+  3. **"当前题集无此形态"这种话不能凭印象写**。抽检方查出 q104 的 anchors 恰好打满上限 3 且 gold 在第 3 位 = 零余量, 我写的"无此形态"是事实错误 —— 正是"写错的实测比缺陷更害人"那一类。
+- **已知限制 (7 条)**: 见 `sdtm-rag/evidence/checkpoints/s1_variable_index_literal_section.md` §4。最要紧两条: ① **VI §三 正文在 15 变量处截断**, section 级判据对此零判别力, q109/q69 的 gold 都压在第 15 位过关 —— 禁止把"18 题 100%"读作"VI 类问题已解决"; ② **数字在这里没有判别力**: 新的三元组 (98.93/100.00/98.77) 与已作废的路径级口径**逐位全同**, 是结构必然非巧合, 判别只能靠 section 名 (q109 旧召回 C66734 / 新召回 C99073)
+- **evidence**: `sdtm-rag/evidence/checkpoints/s1_variable_index_literal_section.md` + 前后工件 `s1_vi_{before,after}.json` (配对 diff 可从工件复算, 不必 revert 重跑)
