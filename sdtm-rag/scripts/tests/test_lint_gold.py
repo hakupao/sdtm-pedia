@@ -13,8 +13,8 @@ CARDS = ["stx__FRM_A__ITEM_R", "stx__FRM_A__ITEM_RX", "stx__FRM_A__XITEM_R",
 def _catalog(tmp_path):
     items = []
     for c in CARDS:
-        _, form, oid = c.split("__")
-        items.append({"form_oid": form, "item_oid": oid, "label": "偽ラベル"})
+        _, frm, oid = c.split("__")
+        items.append({"form_oid": frm, "item_oid": oid, "label": "偽ラベル"})
     p = tmp_path / "catalog.json"
     p.write_text(json.dumps({"study": "stx", "items": items}), encoding="utf-8")
     return p
@@ -128,3 +128,81 @@ def test_lint_semantics_match_check_source_recall(tmp_path):
     for gold in golds:
         judged = sum(1 for src in sources if check_source_recall([src], [gold])[0] == 1.0)
         assert counted[gold] == judged, f"{gold}: lint={counted[gold]} judge={judged}"
+
+
+# ---- OR 组 (expected_sources_any) ----------------------------------------
+# OR 组不增加分母却多一次命中机会, 是最容易制造虚高的地方 (check_source_recall
+# 的 docstring 记过一次实际翻车), 但初版 lint 完全没检查它。
+
+
+def test_or_only_question_is_linted(tmp_path):
+    # v2 q20 的形态: 只有 expected_sources_any, 没有 expected_sources。
+    # 初版按 expected_sources 迭代 → 整题零覆盖。
+    ts = _raw_testset(tmp_path, [
+        {"id": "q00", "question": "偽質問", "expected_sources_any": ["stx__FRM_C__FAM_"]},
+    ])
+    f = lint_gold(ts, _catalog(tmp_path))
+    assert len(f) == 1 and f[0].n_matches == 2 and f[0].side == "OR"
+
+
+def test_or_group_with_unique_members_passes(tmp_path):
+    ts = _raw_testset(tmp_path, [
+        {"id": "q00", "question": "偽質問",
+         "expected_sources_any": ["stx__FRM_B__SOLO.md", "stx__FRM_C__FAM_1.md"]},
+    ])
+    assert lint_gold(ts, _catalog(tmp_path)) == []
+
+
+def test_finding_marks_and_vs_or_side(tmp_path):
+    ts = _raw_testset(tmp_path, [
+        {"id": "q00", "question": "偽質問",
+         "expected_sources": ["stx__FRM_A__ITEM_R"],
+         "expected_sources_any": ["stx__FRM_C__FAM_"]},
+    ])
+    assert sorted((x.side, x.n_matches) for x in lint_gold(ts, _catalog(tmp_path))) == [
+        ("AND", 2), ("OR", 2)]
+
+
+def test_gold_max_matches_does_not_relax_or_members(tmp_path):
+    # OR 本身已是"任一命中即得分"的放宽; 再叠加家族放宽 = 两层稀释相乘。
+    # 故 gold_max_matches 只作用于 AND 侧, OR 成员恒要求唯一定位。
+    ts = _raw_testset(tmp_path, [
+        {"id": "q00", "question": "偽質問", "gold_max_matches": 2,
+         "expected_sources": ["stx__FRM_C__FAM_"],
+         "expected_sources_any": ["stx__FRM_C__FAM_"]},
+    ])
+    f = lint_gold(ts, _catalog(tmp_path))
+    assert [(x.side, x.n_matches) for x in f] == [("OR", 2)]
+
+
+def test_or_members_counted_identically_to_and(tmp_path):
+    """两个 gold 键必须走同一套计数 —— 否则 OR 侧会重演"工具与判据不同语义"。"""
+    cat = _catalog(tmp_path)
+    golds = ["stx__FRM_B__SOLO.md", "stx__FRM_A__ITEM_R", "stx__FRM_C__FAM_",
+             "stx__FRM_Z__NOPE"]
+    for i, gold in enumerate(golds):
+        and_ts = _raw_testset(tmp_path, [{"id": "q", "question": "偽質問",
+                                          "expected_sources": [gold]}], name=f"and{i}")
+        or_ts = _raw_testset(tmp_path, [{"id": "q", "question": "偽質問",
+                                         "expected_sources_any": [gold]}], name=f"or{i}")
+        # max_matches=-1 让 AND 侧无条件上报, 取到真实匹配数
+        n_and = lint_gold(and_ts, cat, max_matches=-1)[0].n_matches
+        or_f = lint_gold(or_ts, cat)
+        assert bool(or_f) == (n_and != 1), gold
+        if or_f:
+            assert or_f[0].n_matches == n_and, gold
+
+
+def test_cli_prints_or_group_visibility_line(tmp_path, capsys):
+    """OR 组即使全部合格也要打一行 —— 判别力稀释是成员数与相关性的函数,
+    确定性检查查不了, 只能保证审题人每次都看见它。"""
+    from eval.lint_gold import main
+
+    ts = _raw_testset(tmp_path, [
+        {"id": "q00", "question": "偽質問",
+         "expected_sources_any": ["stx__FRM_B__SOLO.md", "stx__FRM_C__FAM_1.md"]},
+    ])
+    exit_code = main([str(ts), "--catalog", str(_catalog(tmp_path))])
+    out = capsys.readouterr().out
+    assert exit_code == 0
+    assert "[OR]" in out and "q00" in out

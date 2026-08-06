@@ -49,7 +49,13 @@ Task 1 按本计划初稿实现的 lint 却先剥掉 `.md` 再匹配无后缀卡
 - Test: `sdtm-rag/scripts/tests/test_lint_gold.py`
 
 **Interfaces:**
-- Produces: `lint_gold(test_set_path, catalog_path) -> list[Finding]`; `Finding(qid, gold, n_matches, matched_sample)`; CLI `python -m eval.lint_gold <test_set> [--catalog PATH] [--max-matches N]`, 退出码非 0 表示有 gold 非唯一定位。Task 2/3 用它做闸。
+- Produces: `lint_gold(test_set_path, catalog_path) -> list[Finding]`; `Finding(qid, gold, n_matches, matched_sample, side)`; CLI `python -m eval.lint_gold <test_set> [--catalog PATH] [--max-matches N]`, 退出码非 0 表示有 gold 非唯一定位。Task 2/3 用它做闸。
+
+**OR 组覆盖 (2026-08-06 补, 初版缺口)**: lint 必须同时检查 `expected_sources` (AND) 与 `expected_sources_any` (OR) 两个 gold 键 —— 即 `run_eval._GOLD_KEYS` 的全集。初版只迭代 `expected_sources`, 于是**只写 OR 的题** (v2 q20 形态) 整题零覆盖, 而 OR 组恰恰是 `check_source_recall` docstring 记录过实际翻车的地方 (不增分母却多一次命中机会)。`Finding.side` 标记 AND/OR 便于定位。
+
+规则细节: OR 成员**恒要求唯一定位**, `gold_max_matches` 只放宽 AND 侧 —— OR 已是"任一命中即得分"的一层放宽, 再叠家族放宽等于两层稀释相乘。
+
+**不设 OR 成员数阈值** (实测依据, n=21 题 / 105 召回槽位): 多加一个成员白买的命中率取决于成员与检索结果的**相关性**而非成员数 —— 同 form 兄弟卡 6.0%, 全库随机卡 0.52%, 差 12 倍; 计数阈值会把"3 个跨 form 成员"判得比"2 个同 form 成员"更危险, 排序是反的。且逐成员唯一定位闸通过后, 组的总覆盖卡数恒等于成员数, 确定性信息已榨干。改为**无条件打印 `[OR]` 可见性行**(不影响退出码), 语义上"每个成员能否独立回答该题"交人判。将来 OR 组数量足够 (≥10) 且能在真实 run 上测出 P(命中|成员数) 曲线时, 再据此设阈值。
 
 - [ ] **Step 1: 写失败测试** (合成 catalog + 合成题集, 零真名)
 
