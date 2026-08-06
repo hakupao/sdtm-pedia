@@ -45,6 +45,11 @@ class Settings(BaseSettings):
     # 默认构造方式从模块级根常量拼出; 服务目录自包含部署用 SDTM_RAG_STUDY_KB_ROOT 覆盖。
     study_kb_root: Path = _SDTM_RAG_ROOT / "data" / "study" / "st01" / "cards"
 
+    # S2 study 结构化直查 (Plan B Phase 2)。默认关; 验收闸全绿后翻 True (对齐 Phase 1 rollout 惯例)
+    study_lookup_enabled: bool = False
+    study_catalog_path: Path = _SDTM_RAG_ROOT / "data" / "study" / "st01" / "catalog.json"
+    study_aliases_path: Path = _SDTM_RAG_ROOT / "data" / "study" / "st01" / "lookup_aliases.yml"
+
     # Rerank (T2, PLAN §5 1B.2): wide retrieve -> Cohere rerank -> top_k.
     # COHERE_API_KEY read from env (LiteLLM-style provider key, no SDTM_RAG_ prefix).
     # NOTE: T2 ablation (2026-06-08) found rerank degrades source recall on this KB

@@ -673,6 +673,11 @@ def main(argv: list[str] | None = None) -> int:
              "与 --collection/--kb-root 互斥。study 引擎 S1 恒关。",
     )
     parser.add_argument(
+        "--study-lookup", action="store_true",
+        help="S2: study 侧确定性直查 union-add (catalog+别名表)。需 --collection <study "
+             "collection> 或 --federated (作用于其 study 引擎)",
+    )
+    parser.add_argument(
         "--tag",
         default=None,
         help="Optional label added to output JSON for cross-model comparison",
@@ -681,6 +686,8 @@ def main(argv: list[str] | None = None) -> int:
 
     if args.federated and (args.collection or args.kb_root):
         parser.error("--federated 与 --collection/--kb-root 互斥 (联邦模式引擎路径取自 settings)")
+    if args.study_lookup and not (args.collection or args.federated):
+        parser.error("--study-lookup 需要 --collection 或 --federated")
 
     collection_name = args.collection or settings.collection_name
     kb_root = Path(args.kb_root) if args.kb_root else settings.kb_root
@@ -692,6 +699,14 @@ def main(argv: list[str] | None = None) -> int:
     structured_lookup = args.structured_lookup and args.collection is None
     if args.structured_lookup and not structured_lookup:
         print("--structured-lookup ignored: S1 gold map only applies to the CDISC collection")
+
+    # S2: catalog 缺失响亮失败 —— 显式给了 --study-lookup 却静默不通电, 会把一次退回基线的
+    # 评测读成"S2 没效果"。
+    study_lookup = None
+    if args.study_lookup:
+        from server.study_lookup import StudyLookup
+        study_lookup = StudyLookup.from_paths(
+            settings.study_catalog_path, settings.study_aliases_path)
 
     test_set = load_test_set(args.test_set)
     print(f"Loaded {len(test_set)} questions from {args.test_set}")
@@ -713,6 +728,9 @@ def main(argv: list[str] | None = None) -> int:
         expansion_model=settings.expansion_model,
         expansion_n_queries=settings.expansion_n_queries,
         structured_lookup_enabled=structured_lookup,
+        # 联邦模式下这台是 cdisc 引擎, S2 归下面那台 study 引擎; 非联邦时 flag 闸已保证
+        # --collection 在场 (即这台就是指向 study 库的那台)。
+        study_lookup=None if args.federated else study_lookup,
         hybrid_enabled=args.hybrid,
         hybrid_fusion=args.hybrid_fusion or settings.hybrid_fusion,
         hybrid_alpha=(
@@ -762,6 +780,7 @@ def main(argv: list[str] | None = None) -> int:
             expansion_model=settings.expansion_model,
             expansion_n_queries=settings.expansion_n_queries,
             structured_lookup_enabled=False,
+            study_lookup=study_lookup,
             hybrid_enabled=args.hybrid,
             hybrid_fusion=args.hybrid_fusion or settings.hybrid_fusion,
             hybrid_alpha=(
@@ -777,7 +796,8 @@ def main(argv: list[str] | None = None) -> int:
         )
         print(
             f"Federated: study engine {study_rag.collection.count()} chunks, "
-            f"collection={settings.study_collection_name}, structured_lookup=OFF; "
+            f"collection={settings.study_collection_name}, structured_lookup=OFF"
+            f", study_lookup={'ON' if study_lookup is not None else 'OFF'}; "
             f"routing=LLM(light, corpus=auto)"
         )
 
@@ -845,6 +865,8 @@ def main(argv: list[str] | None = None) -> int:
         }
     if structured_lookup:
         summary["structured_lookup"] = True
+    if args.study_lookup:
+        summary["study_lookup"] = True
     if args.hybrid:
         summary["hybrid"] = {
             "fusion": rag.hybrid_fusion,

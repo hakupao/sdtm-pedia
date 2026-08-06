@@ -319,3 +319,156 @@ def test_real_cdisc_test_set_passes_schema():
     """回归钉: 生产题集 140 题必须全部有非空 gold."""
     from eval.run_eval import load_test_set
     assert len(load_test_set("eval/test_set_v3.yml")) == 140
+
+
+# ---- S2 study 结构化直查接线 (Plan B Phase 2 Task 5) ----
+# 接线失效是静默的: S2 不通电 → 指标退回基线, 没有任何异常。所以"开关开着确实注入了"
+# 和"开关关着一定不注入"两个方向都要有锁, 且注入必须落在 study 引擎而非 cdisc 引擎。
+
+
+@pytest.fixture
+def fake_lookup(monkeypatch):
+    """把 StudyLookup.from_paths 换成哨兵工厂 (不碰真 catalog)。
+
+    返回 (sentinel, recorded): recorded 空 = from_paths 根本没被调用。
+    """
+    from server import study_lookup as sl_mod
+
+    recorded: dict = {}
+    sentinel = object()
+
+    def _fake(catalog_path, aliases_path):
+        recorded["catalog"] = catalog_path
+        recorded["aliases"] = aliases_path
+        return sentinel
+
+    monkeypatch.setattr(sl_mod.StudyLookup, "from_paths", staticmethod(_fake))
+    return sentinel, recorded
+
+
+@pytest.fixture
+def captured_federated(tmp_path, monkeypatch):
+    """--federated 模式: 按构造顺序收下两台引擎的 kwargs (cdisc, study)."""
+    test_set = tmp_path / "ts.yml"
+    test_set.write_text(
+        "- id: q1\n  question: hi\n  expected_facts: []\n"
+        "  expected_sources: ['stub.md']\n",
+        encoding="utf-8",
+    )
+    calls: list[dict] = []
+
+    class FakeCollection:
+        def count(self):
+            return 0
+
+    class FakeEngine:
+        def __init__(self, **kwargs):
+            calls.append(kwargs)
+            self.collection = FakeCollection()
+            for k in ("rerank_model", "rerank_candidates", "query_expansion",
+                      "expansion_model", "expansion_n_queries", "hybrid_fusion",
+                      "hybrid_alpha"):
+                setattr(self, k, kwargs[k])
+
+    monkeypatch.setattr(run_eval, "RAGEngine", FakeEngine)
+    monkeypatch.setattr(run_eval, "FederatedEngine", lambda *a, **k: object())
+    monkeypatch.setattr(run_eval, "create_router", lambda *a, **k: None)
+    monkeypatch.setattr(run_eval, "run_evaluation", lambda *a, **k: [])
+    monkeypatch.setattr(
+        run_eval, "print_summary", lambda *a, **k: {"verdict": "PASS"}
+    )
+
+    def _run(extra_args: list[str]) -> list[dict]:
+        run_eval.main(
+            [str(test_set), "--retrieval-only", "--federated", *extra_args]
+        )
+        assert len(calls) == 2, "联邦模式必须构造 cdisc + study 两台引擎"
+        return calls
+
+    return _run
+
+
+def test_study_lookup_requires_collection_or_federated(captured):
+    """裸给 --study-lookup 会挂到 CDISC 库上 (S2 是 study 专属) → 必须 usage error."""
+    with pytest.raises(SystemExit) as ei:
+        captured(["--study-lookup"])
+    assert ei.value.code == 2
+
+
+def test_settings_study_lookup_defaults():
+    from server.config import Settings
+    s = Settings()
+    assert s.study_lookup_enabled is False       # Task 8 验收全绿后才翻 True
+    assert s.study_catalog_path.name == "catalog.json"
+    assert s.study_aliases_path.name == "lookup_aliases.yml"
+    # 两个文件同属一个 study 数据目录; 指到别处 = 配置写错
+    assert s.study_catalog_path.parent == s.study_aliases_path.parent
+
+
+def test_collection_mode_injects_study_lookup(captured, fake_lookup):
+    sentinel, recorded = fake_lookup
+    kwargs = captured(["--collection", "study_st01",
+                       "--kb-root", "data/study/st01/cards", "--study-lookup"])
+    assert kwargs["study_lookup"] is sentinel
+    # 路径取自 settings (不是硬编码), 否则 Task 8 翻开关时改 settings 不生效
+    assert recorded["catalog"] == settings.study_catalog_path
+    assert recorded["aliases"] == settings.study_aliases_path
+    # S1 被 --collection 强制关 → 不触发 RAGEngine 的 S1/S2 互斥闸
+    assert kwargs["structured_lookup_enabled"] is False
+
+
+def test_collection_mode_without_flag_injects_nothing(captured, fake_lookup):
+    _, recorded = fake_lookup
+    kwargs = captured(["--collection", "study_st01",
+                       "--kb-root", "data/study/st01/cards"])
+    assert kwargs.get("study_lookup") is None
+    assert recorded == {}, "没给 --study-lookup 却读了 catalog = 默认路径被污染"
+
+
+def test_federated_injects_study_lookup_into_study_engine_only(
+    captured_federated, fake_lookup
+):
+    sentinel, _ = fake_lookup
+    cdisc, study = captured_federated(["--study-lookup"])
+    assert study["study_lookup"] is sentinel
+    # S2 挂到 cdisc 引擎 = 错线 (且 S1 开着时会撞互斥闸炸启动)
+    assert cdisc.get("study_lookup") is None
+
+
+def test_federated_without_flag_injects_nothing(captured_federated, fake_lookup):
+    _, recorded = fake_lookup
+    cdisc, study = captured_federated([])
+    assert study.get("study_lookup") is None
+    assert cdisc.get("study_lookup") is None
+    assert recorded == {}
+
+
+def test_federated_print_reports_study_lookup_on(
+    captured_federated, fake_lookup, capsys
+):
+    captured_federated(["--study-lookup"])
+    assert "study_lookup=ON" in capsys.readouterr().out
+
+
+def test_federated_print_reports_study_lookup_off(captured_federated, capsys):
+    captured_federated([])
+    assert "study_lookup=OFF" in capsys.readouterr().out
+
+
+def test_summary_records_study_lookup(captured, fake_lookup, tmp_path):
+    """报告层: 跑没跑 S2 必须落进 output JSON, 否则两轮评测结果无法区分."""
+    import json
+    out_file = tmp_path / "out_s2.json"
+    captured(["--collection", "study_st01", "--kb-root", "data/study/st01/cards",
+              "--study-lookup", "--output", str(out_file)])
+    saved = json.loads(out_file.read_text(encoding="utf-8"))
+    assert saved["summary"]["study_lookup"] is True
+
+
+def test_summary_omits_study_lookup_when_off(captured, tmp_path):
+    import json
+    out_file = tmp_path / "out_no_s2.json"
+    captured(["--collection", "study_st01", "--kb-root", "data/study/st01/cards",
+              "--output", str(out_file)])
+    saved = json.loads(out_file.read_text(encoding="utf-8"))
+    assert "study_lookup" not in saved["summary"]

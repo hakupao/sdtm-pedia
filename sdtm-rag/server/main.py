@@ -95,9 +95,15 @@ async def lifespan(app: FastAPI):
     app.state.federation = None
     if s.federation_enabled:
         # study 引擎: S1 结构化直查是 CDISC 专用故恒关 (先例: run_eval --collection 同此);
-        # hybrid 沿用生产开关 (study 侧经 ja_tokenize 天然获得 CJK bigram)。
+        # S2 (study_lookup) 按 settings 开关注入; hybrid 沿用生产开关 (study 侧经
+        # ja_tokenize 天然获得 CJK bigram)。
         # 配置错误 (collection 不存在/ROUTING.md 缺失) 一律 fail loud — 显式开着 federation
         # 却静默退化成单库, 比启动失败更危险。
+        study_lookup = None
+        if s.study_lookup_enabled:
+            from server.study_lookup import StudyLookup
+            # catalog 缺失时这里响亮失败 — 开关开着但数据不在 = 配置错误, 不静默降级
+            study_lookup = StudyLookup.from_paths(s.study_catalog_path, s.study_aliases_path)
         rag_study = RAGEngine(
             chroma_dir=s.chroma_dir,
             kb_root=s.study_kb_root,
@@ -105,6 +111,7 @@ async def lifespan(app: FastAPI):
             embedding_model=s.embedding_model,
             top_k=s.top_k,
             structured_lookup_enabled=False,
+            study_lookup=study_lookup,
             hybrid_enabled=s.hybrid_enabled,
             hybrid_fusion=s.hybrid_fusion,
             hybrid_alpha=s.hybrid_alpha,
