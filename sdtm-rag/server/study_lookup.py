@@ -3,7 +3,8 @@
 golden v1.1 实测四类 miss 的确定性修复层: 数据源只有 catalog.json (+ 本地手工别名表),
 零 LLM、不写卡片。契约对齐 S1: resolve(query) -> 要 union-add 的目标, 由 RAGEngine
 前置注入。三条通道全部保守 — 不 fire 就回落纯检索, 绝不猜。
-编号是设计标识, 不是执行序: ② 先入队 (段级精确 > label 子串), 末尾统一按总 cap 截断。
+三条通道现均已通电。编号是设计标识, 不是执行序: 只有 ①② 争 cards 队列 (② 先入队,
+段级精确 > label 子串, 末尾统一按总 cap 截断); ③ 只填 form_scopes, 不占 cards 名额。
 
   ① label 全文子串: 卡 label (NFKC+去空白归一化, >=4 字) 逐字出现在问句里 →
      该卡 + 其 OID 首段家族 (同 form + item_oid 首段相同; group 不是家族单元,
@@ -16,10 +17,14 @@ golden v1.1 实测四类 miss 的确定性修复层: 数据源只有 catalog.jso
 """
 from __future__ import annotations
 
+import json
 import re
 import unicodedata
 from collections import defaultdict
 from dataclasses import dataclass, field
+from pathlib import Path
+
+import yaml
 
 # 边界不能用 \b: 日文题面里 token 紧贴假名 (QSTは), 而 \w 含 CJK, \b 在此不成立。
 # 只把 ASCII 字母/数字/下划线当作阻断邻居, 段级精确性照旧 (XABC 里取不出 ABC)。
@@ -45,7 +50,13 @@ class StudyLookup:
     def __init__(self, catalog: dict, aliases: list[dict] | None = None):
         self.study_id = catalog["study"]
         items = catalog["items"]
-        self.aliases: list[dict] = []   # Task 3 填充校验
+        known_forms = {it["form_oid"] for it in items}
+        self.aliases: list[dict] = []
+        for a in aliases or []:
+            if a["form"] not in known_forms:
+                raise ValueError(
+                    f"alias form {a['form']!r} not in catalog forms — 别名表指向不存在的 form")
+            self.aliases.append({"term": _norm(a["term"]), "form": a["form"]})
         # label(归一化) -> [card_src]; (form, OID首段) -> [card_src]; 段 -> [card_src]
         self._label_index: dict[str, list[str]] = defaultdict(list)
         self._family: dict[tuple[str, str], list[str]] = defaultdict(list)
@@ -92,4 +103,20 @@ class StudyLookup:
                 for s in expanded:
                     add(s)
 
-        return StudyLookupResult(cards=cards[:_MAX_CARDS_TOTAL], form_scopes=[])
+        # ③ 别名 → form scope (注入层做域内 cosine top-N; 词面排序对该类实测失效)
+        scopes: list[str] = []
+        for a in self.aliases:
+            if a["term"] in qn and a["form"] not in scopes:
+                scopes.append(a["form"])
+
+        return StudyLookupResult(cards=cards[:_MAX_CARDS_TOTAL], form_scopes=scopes)
+
+    @classmethod
+    def from_paths(cls, catalog_path: Path, aliases_path: Path | None) -> "StudyLookup":
+        """catalog 缺失 = 配置错误, 响亮失败; 别名表是可选增强, 缺失降级为空。"""
+        catalog = json.loads(Path(catalog_path).read_text(encoding="utf-8"))
+        aliases: list[dict] = []
+        if aliases_path is not None and Path(aliases_path).exists():
+            data = yaml.safe_load(Path(aliases_path).read_text(encoding="utf-8")) or {}
+            aliases = data.get("aliases", []) or []
+        return cls(catalog, aliases=aliases)

@@ -1,4 +1,6 @@
 """S2 StudyLookup 单元测试 — 合成 catalog, 零真实 OID/label (红线)."""
+import json
+
 import pytest
 
 from server.study_lookup import (
@@ -138,3 +140,41 @@ def test_token_hits_survive_when_labels_would_fill_the_cap():
 ])
 def test_latin_token_regex_boundary_semantics(text, expected):
     assert _LATIN_TOKEN_RE.findall(text) == expected
+
+
+def test_alias_term_in_query_yields_form_scope():
+    lk = StudyLookup(CATALOG, aliases=[{"term": "偽光線", "form": "FRM_A"}])
+    res = lk.resolve("偽光線に関する項目はどれですか?")
+    assert res.form_scopes == ["FRM_A"]
+
+
+def test_alias_term_normalized_like_query():
+    # 别名词与问句同走 NFKC+去空白: 全角/空格差异不得阻断 (term 侧漏 _norm 会挂)
+    lk = StudyLookup(CATALOG, aliases=[{"term": "偽光線 検査", "form": "FRM_A"}])
+    assert lk.resolve("偽光線検査はどこ?").form_scopes == ["FRM_A"]
+
+
+def test_alias_unknown_form_fails_loud():
+    with pytest.raises(ValueError, match="NOFORM"):
+        StudyLookup(CATALOG, aliases=[{"term": "偽語", "form": "NOFORM"}])
+
+
+def test_from_paths_missing_aliases_file_is_empty(tmp_path):
+    cat = tmp_path / "catalog.json"
+    cat.write_text(json.dumps(CATALOG), encoding="utf-8")
+    lk = StudyLookup.from_paths(cat, tmp_path / "no_such.yml")
+    assert lk.aliases == []
+
+
+def test_from_paths_missing_catalog_fails_loud(tmp_path):
+    with pytest.raises(FileNotFoundError):
+        StudyLookup.from_paths(tmp_path / "no_catalog.json", None)
+
+
+def test_from_paths_loads_aliases(tmp_path):
+    cat = tmp_path / "catalog.json"
+    cat.write_text(json.dumps(CATALOG), encoding="utf-8")
+    al = tmp_path / "lookup_aliases.yml"
+    al.write_text("aliases:\n  - term: 偽光線\n    form: FRM_A\n", encoding="utf-8")
+    lk = StudyLookup.from_paths(cat, al)
+    assert lk.resolve("偽光線の項目").form_scopes == ["FRM_A"]
