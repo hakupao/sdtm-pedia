@@ -7,6 +7,7 @@ PLAN §5 Phase 1B.1-1B.2:
 from __future__ import annotations
 
 import copy
+import re
 import sys
 import time
 from dataclasses import dataclass
@@ -44,6 +45,13 @@ class RAGEngine:
 
     _STUDY_SCOPE_CHUNKS = 3   # form scope 域内 cosine 注入条数 (实测 gold 域内第 2 位)
     _STUDY_MAX_CARDS = 10     # 与 StudyLookup._MAX_CARDS_TOTAL 同值, 双保险
+
+    _VARIABLE_INDEX_REL = "VARIABLE_INDEX.md"
+
+    # VARIABLE_INDEX 的 section 尾部 token: `§三 CT 交叉引用: C99073` -> C99073,
+    # `§一 通用变量: STUDYID` -> STUDYID。域变量表 (`AE — Adverse Events (Events)`)
+    # 没有 ": " 尾部, 自然落选 —— 那族由 domains/<CODE>/spec.md 通道承接。
+    _VI_ANCHOR_RE = re.compile(r"^(C\d{4,6}|[A-Z][A-Z0-9]{1,})$")
 
     def __init__(
         self,
@@ -107,6 +115,8 @@ class RAGEngine:
         # union-added ahead of cosine for query classes embeddings can't reach.
         self.structured_lookup_enabled = structured_lookup_enabled
         self._structured_lookup = None
+        # 锚点 -> VARIABLE_INDEX section 全名; 首次用时从索引反建 (见 _vi_section_map)
+        self._vi_sections: dict[str, str] | None = None
         if structured_lookup_enabled:
             # lazy: only when the lever is on. Data source is the SP1 meta.yaml layer
             # (SP2 Phase 2); StructuredLookup builds its resolution maps from it.
@@ -336,10 +346,16 @@ class RAGEngine:
 
         lookup_chunks: list[RetrievedChunk] = []
         for rel_path in targets:
-            n = self._SINGLE_DOMAIN_SPEC_CHUNKS if single_spec else 1
-            for chunk in self._lookup_chunks_for_file(
-                query, rel_path, n, query_embedding=query_embedding
-            ):
+            if rel_path == self._VARIABLE_INDEX_REL:
+                chunks = self._lookup_chunks_for_variable_index(
+                    query, query_embedding=query_embedding
+                )
+            else:
+                n = self._SINGLE_DOMAIN_SPEC_CHUNKS if single_spec else 1
+                chunks = self._lookup_chunks_for_file(
+                    query, rel_path, n, query_embedding=query_embedding
+                )
+            for chunk in chunks:
                 chunk.via_lookup = True
                 lookup_chunks.append(chunk)
 
@@ -408,6 +424,68 @@ class RAGEngine:
         relevant slices of that file. Empty list if the file has no chunks."""
         abs_source = str((self.kb_root / rel_path).resolve())
         return self._search(query, n, {"source": abs_source}, query_embedding=query_embedding)
+
+    def _vi_section_map(self) -> dict[str, str]:
+        """`锚点 token -> VARIABLE_INDEX 的 section 全名`, 从索引元数据反建并缓存。
+
+        不拼格式串: section 的命名只有 ingest 侧知道, 拼串等于把同一份格式定义写两遍,
+        chunker 改名时新通道会静默全 miss 并回落 cosine —— 分数无声退回改动前, 任何闸
+        都拦不住。这里只假设 section 以 `: <TOKEN>` 结尾, 并从实际索引取值。"""
+        if self._vi_sections is not None:
+            return self._vi_sections
+
+        abs_source = str((self.kb_root / self._VARIABLE_INDEX_REL).resolve())
+        rows = self.collection.get(where={"source": abs_source}, include=["metadatas"])
+        mapping: dict[str, str] = {}
+        for meta in rows.get("metadatas") or []:
+            section = (meta or {}).get("section")
+            if not section or ": " not in section:
+                continue
+            token = section.rsplit(": ", 1)[1].strip()
+            if self._VI_ANCHOR_RE.match(token):
+                mapping.setdefault(token, section)
+
+        if not mapping:
+            raise RuntimeError(
+                f"VARIABLE_INDEX section map is empty ({abs_source}) — 索引缺该文件, "
+                "或 ingest 侧 section 命名已改。静默回落 cosine 会把检索退化伪装成无回归。"
+            )
+        self._vi_sections = mapping
+        return mapping
+
+    def _lookup_chunks_for_variable_index(
+        self, query: str, query_embedding: list[float] | None = None
+    ) -> list[RetrievedChunk]:
+        """VARIABLE_INDEX 内部按题面点名的 CT 码 / 变量名**字面**取 section。
+
+        该文件的 222 个 chunk 是极短结构化单行, 对自然语言问句的 embedding 相似度近似
+        噪声 —— 文件内 cosine 选块实测基本随机 (4 道题完全打偏)。题面已经点名了码, 不必猜。
+
+        新通道只能赢不能输: 锚点解不出 / 该 section 不在索引 → 回落原来的 cosine 选块。"""
+        anchors = self._structured_lookup.variable_index_anchors(query)
+        if not anchors:
+            return self._lookup_chunks_for_file(
+                query, self._VARIABLE_INDEX_REL, 1, query_embedding=query_embedding
+            )
+
+        abs_source = str((self.kb_root / self._VARIABLE_INDEX_REL).resolve())
+        section_map = self._vi_section_map()
+        out: list[RetrievedChunk] = []
+        for anchor in anchors:
+            section = section_map.get(anchor)
+            if section is None:
+                continue
+            out.extend(self._search(
+                query, 1,
+                {"$and": [{"source": {"$eq": abs_source}},
+                          {"section": {"$eq": section}}]},
+                query_embedding=query_embedding,
+            ))
+        if not out:
+            return self._lookup_chunks_for_file(
+                query, self._VARIABLE_INDEX_REL, 1, query_embedding=query_embedding
+            )
+        return out
 
     @staticmethod
     def _build_where(domain: str | None, file_type: str | None) -> dict | None:
