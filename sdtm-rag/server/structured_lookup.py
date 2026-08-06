@@ -178,6 +178,11 @@ class StructuredLookup:
     # cosine hits that hold its other gold files.
     _MAX_DOMAIN_SPECS = 3
 
+    # Cap on VARIABLE_INDEX sections union-added from one query. Same value as
+    # _MAX_DOMAIN_SPECS: with top_k=15, three injected chunks leave the cosine
+    # tail intact. A question naming five codelists must not flood the merge.
+    _MAX_VI_ANCHORS = 3
+
     def __init__(self, kb_root: Path, store: MetaStore):
         self.kb_root = kb_root
         self.store = store
@@ -412,6 +417,19 @@ class StructuredLookup:
         if two_var_compare or _DASH_DEFVERB_RE.search(query):
             return [self.general_assumptions_file]
         return []
+
+    def variable_index_anchors(self, query: str) -> list[str]:
+        """VARIABLE_INDEX 内部定位用的**字面锚点** (CT 码 + 已知变量名), CT 码在前,
+        去重保序, 截到 _MAX_VI_ANCHORS。
+
+        返回的是 token 而非 section 串: section 的命名格式只有索引自己知道, 在这里拼
+        格式串等于把同一份格式定义写两遍 (chunker 改名时会静默全 miss)。映射交给
+        RAGEngine 从索引反建。无锚点时返回 [] → 调用方回落 cosine 选块。"""
+        anchors: list[str] = []
+        for tok in _QUERY_CT_RE.findall(query) + self._query_variables(query):
+            if tok not in anchors:
+                anchors.append(tok)
+        return anchors[: self._MAX_VI_ANCHORS]
 
     def resolve(self, query: str) -> list[str]:
         """Return KB-relative gold file paths to union-add, or [] when no intent

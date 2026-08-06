@@ -354,3 +354,48 @@ class TestMetaKBDriftGuard:
     def test_general_assumptions_file_exists(self, lookup):
         assert lookup.general_assumptions_file is not None
         assert (KB_ROOT / lookup.general_assumptions_file).exists()
+
+
+# ---- VI 锚点抽取 (S1 字面 section 定位) --------------------------------------
+
+class TestVariableIndexAnchors:
+    def test_ct_code_anchor(self, lookup):
+        assert lookup.variable_index_anchors(
+            "Which domains use codelist C99073 for laterality?"
+        ) == ["C99073"]
+
+    def test_variable_anchor(self, lookup):
+        assert lookup.variable_index_anchors(
+            "In how many domains does TAETORD appear?"
+        ) == ["TAETORD"]
+
+    def test_ct_codes_come_before_variables(self, lookup):
+        # 混合题: CT 码是更具体的锚点, 必须排在变量前 (否则 3 个名额可能被变量占满)
+        out = lookup.variable_index_anchors(
+            "Which domains share codelist C66742 through the RDOMAIN variable?"
+        )
+        assert out[0] == "C66742"
+        assert "RDOMAIN" in out
+
+    def test_two_variable_anchors_preserved(self, lookup):
+        # q107 形态: 一题要两节 (ARM + ARMCD), 这正是"1 文件只注 1 块"限制的解除点
+        out = lookup.variable_index_anchors("What are the labels of ARM and ARMCD?")
+        assert "ARM" in out and "ARMCD" in out
+
+    def test_dedup_preserves_order(self, lookup):
+        assert lookup.variable_index_anchors(
+            "codelist C66742 and again C66742"
+        ) == ["C66742"]
+
+    def test_capped_at_max(self, lookup):
+        out = lookup.variable_index_anchors(
+            "codelists C66742, C66734, C99073, C78735 and C71620"
+        )
+        assert len(out) == StructuredLookup._MAX_VI_ANCHORS
+
+    def test_no_anchor_returns_empty(self, lookup):
+        assert lookup.variable_index_anchors("What is an SDTM domain?") == []
+
+    def test_unknown_variable_token_is_not_an_anchor(self, lookup):
+        # 未知大写 token 不是变量 → 不得当锚点 (否则会去查一个不存在的 section)
+        assert lookup.variable_index_anchors("What does ZZZQQQ mean?") == []
