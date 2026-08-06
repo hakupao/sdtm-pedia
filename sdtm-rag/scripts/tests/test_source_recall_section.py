@@ -41,6 +41,38 @@ def test_section_gold_without_sections_fails_loud():
         check_source_recall(SOURCES, ["chapters/ch04.md#4.1"])
 
 
+def test_empty_section_fails_loud():
+    """`path#` (井号后为空) 必须响亮报错, 不许静默退化成路径匹配。
+
+    根因: `sec = ""` 时 `"" in (s or "")` 恒 True, 该 gold 不但退化为路径匹配, 还绕过了
+    "section 为 None 的条目永不命中 section 级 gold" 这条承诺 —— 比纯路径写法更松。
+    改写 gold 时手滑打空一个 section, 会静默把该题退回无判别力口径, 且偏差单向朝上、
+    任何闸都拦不住 (与 load_test_set 拦拼错 gold 键同一类防御)。
+    """
+    with pytest.raises(ValueError, match="empty section"):
+        check_source_recall(SOURCES, ["chapters/ch04.md#"], retrieved_sections=SECTIONS)
+
+
+def test_whitespace_only_section_fails_loud():
+    with pytest.raises(ValueError, match="empty section"):
+        check_source_recall(SOURCES, ["chapters/ch04.md#   "],
+                            retrieved_sections=SECTIONS)
+
+
+def test_empty_section_in_any_of_fails_loud():
+    # OR 组同样过 _matches, 漏了这里等于留个后门
+    with pytest.raises(ValueError, match="empty section"):
+        check_source_recall(SOURCES, [], any_of=["chapters/ch04.md#"],
+                            retrieved_sections=SECTIONS)
+
+
+def test_empty_section_fails_loud_before_missing_sections_check():
+    # 空 section 是 gold 写法错误, 与调用方给没给 retrieved_sections 无关 —— 两种畸形
+    # 同时出现时也必须报空 section, 否则修完调用方才发现 gold 还是坏的
+    with pytest.raises(ValueError, match="empty section"):
+        check_source_recall(SOURCES, ["chapters/ch04.md#"])
+
+
 def test_any_of_group_supports_section_syntax():
     recall, hits, _ = check_source_recall(
         SOURCES, [], any_of=["nope.md", "chapters/ch04.md#4.1"],

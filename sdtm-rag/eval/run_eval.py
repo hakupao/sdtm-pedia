@@ -102,9 +102,20 @@ def check_source_recall(
     即 `[c.section for c in chunks]`)。gold 含 `#` 但未传 → 抛 ValueError 而非静默
     降级为路径匹配 (静默降级会让判据比声称的宽, 属测量缺陷)。section 为 None 的条目
     永不命中 section 级 gold。纯路径写法行为逐字节不变。
+
+    **`路径#` (井号后为空) 抛 ValueError**: 空 `sec` 下 `"" in (s or "")` 恒 True, 该 gold
+    不但退化成路径匹配, 还绕过了上一段"section 为 None 永不命中"的承诺 —— 比纯路径写法
+    更松。改写 gold 时打空一个 section 会静默把该题退回无判别力口径, 偏差单向朝上、幅度小,
+    任何闸都拦不住, 与 `load_test_set` 拦拼错 gold 键属同一类防御。
     """
     def _matches(exp: str) -> bool:
         if "#" in exp:
+            path, sec = exp.split("#", 1)
+            if not sec.strip():
+                raise ValueError(
+                    f"section-level gold {exp!r} has an empty section — 写全 `路径#节`, "
+                    "或改回纯路径写法。空 section 会静默退化成路径匹配 (判据比声称的宽)"
+                )
             if retrieved_sections is None:
                 raise ValueError(
                     f"section-level gold {exp!r} requires retrieved_sections "
@@ -112,7 +123,6 @@ def check_source_recall(
                 )
             if len(retrieved_sections) != len(retrieved_sources):
                 raise ValueError("retrieved_sections length mismatch")
-            path, sec = exp.split("#", 1)
             return any(
                 path in src and sec in (s or "")
                 for src, s in zip(retrieved_sources, retrieved_sections)
