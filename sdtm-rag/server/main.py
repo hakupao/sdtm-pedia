@@ -93,13 +93,15 @@ async def lifespan(app: FastAPI):
     rag_init_s = round(time.perf_counter() - t_rag, 2)  # incl. BM25 index build when hybrid on
     app.state.llm_router = create_router(s)
     app.state.federation = None
+    # S2 只挂在 study 引擎上, 而 study 引擎只在联邦分支存在。先置空, 好让下面的 ready 日志
+    # 报告"实际加载了什么"而不是"开关写了什么" —— 两者可以不一致 (见下方 elif)。
+    study_lookup = None
     if s.federation_enabled:
         # study 引擎: S1 结构化直查是 CDISC 专用故恒关 (先例: run_eval --collection 同此);
         # S2 (study_lookup) 按 settings 开关注入; hybrid 沿用生产开关 (study 侧经
         # ja_tokenize 天然获得 CJK bigram)。
         # 配置错误 (collection 不存在/ROUTING.md 缺失) 一律 fail loud — 显式开着 federation
         # 却静默退化成单库, 比启动失败更危险。
-        study_lookup = None
         if s.study_lookup_enabled:
             from server.study_lookup import StudyLookup
             # catalog 缺失时这里响亮失败 — 开关开着但数据不在 = 配置错误, 不静默降级
@@ -122,7 +124,20 @@ async def lifespan(app: FastAPI):
         app.state.federation = FederatedEngine(
             app.state.rag, rag_study, app.state.llm_router, top_k=s.top_k
         )
-        log.info("federation", study_collection=s.study_collection_name)
+        log.info(
+            "federation",
+            study_collection=s.study_collection_name,
+            # 条数而非 ON/OFF: 别名表缺失走的是静默降级, "0 aliases" 是唯一的现场线索
+            study_lookup=study_lookup.stats() if study_lookup is not None else "OFF",
+        )
+    elif s.study_lookup_enabled:
+        # 开关开着却没有 study 引擎可挂 (典型: 临时关联邦调试, 忘了这条还开着)。不拒启动 ——
+        # 但必须留声, 否则表现为"S2 开着却毫无效果"且零线索, 与 catalog 缺失响亮失败不一致。
+        log.warning(
+            "study_lookup_ignored",
+            note="study_lookup_enabled=true 但 federation_enabled=false; S2 只挂在联邦的 "
+                 "study 引擎上, 本次启动未加载",
+        )
     app.state.answerer = maybe_build_answerer(s)
     if app.state.answerer is not None:
         log.info(
@@ -169,6 +184,8 @@ async def lifespan(app: FastAPI):
         collection=s.collection_name,
         chunks=count,
         structured_lookup=s.structured_lookup_enabled,
+        # 报告实际加载结果 (条数) 而非开关值: 开关开着但没加载是一条不会崩的失效路径
+        study_lookup=study_lookup.stats() if study_lookup is not None else False,
         hybrid=s.hybrid_enabled,
         hybrid_fusion=s.hybrid_fusion,
         prompt_guardrail=s.prompt_guardrail_enabled,

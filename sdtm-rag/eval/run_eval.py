@@ -707,6 +707,9 @@ def main(argv: list[str] | None = None) -> int:
         from server.study_lookup import StudyLookup
         study_lookup = StudyLookup.from_paths(
             settings.study_catalog_path, settings.study_aliases_path)
+    # 联邦模式下主引擎是 cdisc 引擎, S2 归下面那台 study 引擎; 非联邦时 flag 闸已保证
+    # --collection 在场 (即这台就是指向 study 库的那台)。
+    main_study_lookup = None if args.federated else study_lookup
 
     test_set = load_test_set(args.test_set)
     print(f"Loaded {len(test_set)} questions from {args.test_set}")
@@ -728,9 +731,7 @@ def main(argv: list[str] | None = None) -> int:
         expansion_model=settings.expansion_model,
         expansion_n_queries=settings.expansion_n_queries,
         structured_lookup_enabled=structured_lookup,
-        # 联邦模式下这台是 cdisc 引擎, S2 归下面那台 study 引擎; 非联邦时 flag 闸已保证
-        # --collection 在场 (即这台就是指向 study 库的那台)。
-        study_lookup=None if args.federated else study_lookup,
+        study_lookup=main_study_lookup,
         hybrid_enabled=args.hybrid,
         hybrid_fusion=args.hybrid_fusion or settings.hybrid_fusion,
         hybrid_alpha=(
@@ -749,6 +750,11 @@ def main(argv: list[str] | None = None) -> int:
         if rag.query_expansion != "none" else ""
     )
     lookup_info = ", structured_lookup=ON" if structured_lookup else ""
+    # 屏幕回执: 不给 --output 时 summary JSON 看不到, 人肉跑就完全看不出 S2 开没开
+    study_lookup_info = (
+        f", study_lookup=ON({main_study_lookup.stats()})"
+        if main_study_lookup is not None else ""
+    )
     hybrid_info = (
         f", hybrid={rag.hybrid_fusion}"
         + (f"(alpha={rag.hybrid_alpha})" if rag.hybrid_fusion == "weighted" else "")
@@ -756,7 +762,7 @@ def main(argv: list[str] | None = None) -> int:
     )
     guardrail_info = ", guardrail=ON" if args.guardrail else ""
     collection_info = f", collection={collection_name}" if args.collection else ""
-    print(f"RAG engine: {rag.collection.count()} chunks, model={settings.default_model}, top_k={args.top_k}{rerank_info}{expand_info}{lookup_info}{hybrid_info}{guardrail_info}{collection_info}")
+    print(f"RAG engine: {rag.collection.count()} chunks, model={settings.default_model}, top_k={args.top_k}{rerank_info}{expand_info}{lookup_info}{study_lookup_info}{hybrid_info}{guardrail_info}{collection_info}")
 
     # 联邦模式: 上面那台是 cdisc 引擎, 再起一台 study 引擎 (S1 恒关 —— gold map 是 CDISC 专属),
     # 其余 lever 与 cdisc 一致, 由 FederatedEngine 判库分发。retriever 是喂给 run_evaluation 的
@@ -797,7 +803,7 @@ def main(argv: list[str] | None = None) -> int:
         print(
             f"Federated: study engine {study_rag.collection.count()} chunks, "
             f"collection={settings.study_collection_name}, structured_lookup=OFF"
-            f", study_lookup={'ON' if study_lookup is not None else 'OFF'}; "
+            f", study_lookup={f'ON({study_lookup.stats()})' if study_lookup is not None else 'OFF'}; "
             f"routing=LLM(light, corpus=auto)"
         )
 

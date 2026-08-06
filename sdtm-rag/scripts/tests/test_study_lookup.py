@@ -200,6 +200,28 @@ def test_from_paths_loads_aliases(tmp_path):
     assert lk.resolve("偽光線の項目").form_scopes == ["FRM_A"]
 
 
+# ---- stats(): 别名 0 条 = 通道③ 没通电, 只有条数能在外部看出来 ----
+
+def test_stats_reports_both_counts():
+    lk = StudyLookup(CATALOG, aliases=[{"term": "偽光線", "form": "FRM_A"}])
+    assert lk.stats() == f"{len(CATALOG['items'])} items/1 aliases"
+
+
+def test_stats_shows_zero_aliases_when_alias_file_missing(tmp_path):
+    """今天的真实形态: catalog 加载成功但别名表还不存在 —— 必须显示为 0, 不能被含糊过去."""
+    cat = tmp_path / "catalog.json"
+    cat.write_text(json.dumps(CATALOG), encoding="utf-8")
+    lk = StudyLookup.from_paths(cat, tmp_path / "no_such.yml")
+    assert lk.stats() == f"{len(CATALOG['items'])} items/0 aliases"
+
+
+def test_stats_item_count_tracks_catalog_size():
+    """条数必须来自 catalog 真实规模, 不是写死的常量."""
+    small = {"study": "stx", "items": [_item("FRM_A", "A_1", "偽ラベル一")]}
+    assert StudyLookup(small).stats() == "1 items/0 aliases"
+    assert StudyLookup(CATALOG).n_items == len(CATALOG["items"])
+
+
 # ---- RAGEngine 注入层 (Task 4) -----------------------------------------------
 # RAGEngine.__new__ + monkeypatch _search: 不建 Chroma / 不发 embedding, 只锁注入契约。
 

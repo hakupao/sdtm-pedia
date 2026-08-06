@@ -326,24 +326,35 @@ def test_real_cdisc_test_set_passes_schema():
 # 和"开关关着一定不注入"两个方向都要有锁, 且注入必须落在 study 引擎而非 cdisc 引擎。
 
 
+class _FakeLookup:
+    """条数刻意用不寻常的值: 回执行若把条数写死成常量, 断言立刻对不上。"""
+
+    def __init__(self, n_items: int = 7, n_aliases: int = 0):
+        self.n_items = n_items
+        self.n_aliases = n_aliases
+
+    def stats(self) -> str:
+        return f"{self.n_items} items/{self.n_aliases} aliases"
+
+
 @pytest.fixture
 def fake_lookup(monkeypatch):
-    """把 StudyLookup.from_paths 换成哨兵工厂 (不碰真 catalog)。
+    """把 StudyLookup.from_paths 换成假货工厂 (不碰真 catalog)。
 
-    返回 (sentinel, recorded): recorded 空 = from_paths 根本没被调用。
+    返回 (lookup, recorded): recorded 空 = from_paths 根本没被调用。
     """
     from server import study_lookup as sl_mod
 
     recorded: dict = {}
-    sentinel = object()
+    lookup = _FakeLookup()
 
     def _fake(catalog_path, aliases_path):
         recorded["catalog"] = catalog_path
         recorded["aliases"] = aliases_path
-        return sentinel
+        return lookup
 
     monkeypatch.setattr(sl_mod.StudyLookup, "from_paths", staticmethod(_fake))
-    return sentinel, recorded
+    return lookup, recorded
 
 
 @pytest.fixture
@@ -406,10 +417,10 @@ def test_settings_study_lookup_defaults():
 
 
 def test_collection_mode_injects_study_lookup(captured, fake_lookup):
-    sentinel, recorded = fake_lookup
+    lookup, recorded = fake_lookup
     kwargs = captured(["--collection", "study_st01",
                        "--kb-root", "data/study/st01/cards", "--study-lookup"])
-    assert kwargs["study_lookup"] is sentinel
+    assert kwargs["study_lookup"] is lookup
     # 路径取自 settings (不是硬编码), 否则 Task 8 翻开关时改 settings 不生效
     assert recorded["catalog"] == settings.study_catalog_path
     assert recorded["aliases"] == settings.study_aliases_path
@@ -428,9 +439,9 @@ def test_collection_mode_without_flag_injects_nothing(captured, fake_lookup):
 def test_federated_injects_study_lookup_into_study_engine_only(
     captured_federated, fake_lookup
 ):
-    sentinel, _ = fake_lookup
+    lookup, _ = fake_lookup
     cdisc, study = captured_federated(["--study-lookup"])
-    assert study["study_lookup"] is sentinel
+    assert study["study_lookup"] is lookup
     # S2 挂到 cdisc 引擎 = 错线 (且 S1 开着时会撞互斥闸炸启动)
     assert cdisc.get("study_lookup") is None
 
@@ -446,8 +457,32 @@ def test_federated_without_flag_injects_nothing(captured_federated, fake_lookup)
 def test_federated_print_reports_study_lookup_on(
     captured_federated, fake_lookup, capsys
 ):
+    """ON 不够: 别名 0 条时通道③ 完全没通电, 而屏幕上与加载成功一模一样。条数必须打出来."""
     captured_federated(["--study-lookup"])
-    assert "study_lookup=ON" in capsys.readouterr().out
+    assert "study_lookup=ON(7 items/0 aliases)" in capsys.readouterr().out
+
+
+def test_federated_print_counts_track_the_lookup(captured_federated, monkeypatch, capsys):
+    """换个规模, 打印数字必须跟着变 (不是写死的字符串)."""
+    from server import study_lookup as sl_mod
+    monkeypatch.setattr(
+        sl_mod.StudyLookup, "from_paths",
+        staticmethod(lambda c, a: _FakeLookup(n_items=41, n_aliases=5)),
+    )
+    captured_federated(["--study-lookup"])
+    assert "study_lookup=ON(41 items/5 aliases)" in capsys.readouterr().out
+
+
+def test_collection_mode_prints_study_lookup_receipt(captured, fake_lookup, capsys):
+    """不给 --output 时 summary JSON 看不到, 屏幕必须能看出 S2 开没开、别名几条."""
+    captured(["--collection", "study_st01",
+              "--kb-root", "data/study/st01/cards", "--study-lookup"])
+    assert "study_lookup=ON(7 items/0 aliases)" in capsys.readouterr().out
+
+
+def test_collection_mode_receipt_absent_without_flag(captured, capsys):
+    captured(["--collection", "study_st01", "--kb-root", "data/study/st01/cards"])
+    assert "study_lookup" not in capsys.readouterr().out
 
 
 def test_federated_print_reports_study_lookup_off(captured_federated, capsys):

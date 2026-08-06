@@ -50,6 +50,7 @@ class StudyLookup:
     def __init__(self, catalog: dict, aliases: list[dict] | None = None):
         self.study_id = catalog["study"]
         items = catalog["items"]
+        self.n_items = len(items)
         known_forms = {it["form_oid"] for it in items}
         self.aliases: list[dict] = []
         for a in aliases or []:
@@ -115,6 +116,15 @@ class StudyLookup:
                 scopes.append(a["form"])
 
         return StudyLookupResult(cards=cards[:_MAX_CARDS_TOTAL], form_scopes=scopes)
+
+    def stats(self) -> str:
+        """加载规模一行摘要, 供启动日志与评测回执共用。
+
+        别名表缺失是 from_paths 刻意的优雅降级 (见下), 代价是"别名 0 条 = 通道③ 完全没通电"
+        与"别名表加载成功"在外部表现一致。把条数打出来是唯一能在跑的时候看出区别的地方 ——
+        别名文件放错目录/文件名写错/顶层键不叫 aliases, 三种错误都只表现为这里的 0。
+        """
+        return f"{self.n_items} items/{len(self.aliases)} aliases"
 
     @classmethod
     def from_paths(cls, catalog_path: Path, aliases_path: Path | None) -> StudyLookup:
