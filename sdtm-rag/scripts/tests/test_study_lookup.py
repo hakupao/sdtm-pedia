@@ -257,6 +257,19 @@ def test_apply_study_lookup_filters_source_by_bare_filename():
     assert log == [(1, {"source": "stx__F__A.md"})]
 
 
+def test_apply_study_lookup_injects_scope_when_no_cards():
+    # 通道③ 的主用例: 别名词与 gold 卡词面零重合 (这正是通道③ 存在的理由), 所以别名命中的
+    # 问句上通道①② 按构造不 fire, cards 常为空。scopes-only 必须照样注入, 否则提前返回的
+    # 判据写成 `if not res.cards:` 也咬不住 —— 而这条正是 Task 6 验收要靠的路径。
+    log = []
+    eng = _engine(_StubLookup(scopes=["FRM_Z"]), log)
+    cosine = [_chunk(f"c{i}", f"c{i}.md") for i in range(20)]
+    out = eng._apply_study_lookup("q", cosine, 15, query_embedding=None)
+    assert [c.chunk_id for c in out[:3]] == ["sc:FRM_Z:0", "sc:FRM_Z:1", "sc:FRM_Z:2"]
+    assert all(c.via_lookup for c in out[:3])
+    assert log == [(3, {"form_oid": "FRM_Z"})]
+
+
 def test_apply_study_lookup_caps_cards_at_max():
     # resolve 已按 _MAX_CARDS_TOTAL 截断; 注入层再截一次是双保险 (stub 故意越界)
     log = []
@@ -265,6 +278,12 @@ def test_apply_study_lookup_caps_cards_at_max():
     out = eng._apply_study_lookup("q", [], 15, query_embedding=None)
     assert len(log) == rag_mod.RAGEngine._STUDY_MAX_CARDS
     assert len(out) == rag_mod.RAGEngine._STUDY_MAX_CARDS
+
+
+def test_engine_card_cap_matches_lookup_cap():
+    # "同值双保险" 靠注释维系不住: 上面那条用 _STUDY_MAX_CARDS 自指, 改常量咬不住。
+    # 若 _MAX_CARDS_TOTAL 调到 12 而注入层没跟, 注入会静默停在 10。
+    assert rag_mod.RAGEngine._STUDY_MAX_CARDS == _MAX_CARDS_TOTAL
 
 
 def test_apply_study_lookup_noop_when_resolve_empty():
@@ -294,6 +313,68 @@ def test_ctor_rejects_both_lookups(tmp_path):
             embedding_model="m", structured_lookup_enabled=True,
             study_lookup=_StubLookup(),
         )
+
+
+# ---- retrieve() 接线 (注入方法正确但没人调用 = 线上静默不通电) ----
+
+
+def _retrieve_engine(query_expansion="none", cards=("stx__F__A.md",)):
+    """retrieve() 走通 S2 分支所需的最小 RAGEngine 状态 (不建 Chroma / 不发 embedding)."""
+    eng = rag_mod.RAGEngine.__new__(rag_mod.RAGEngine)
+    eng._structured_lookup = None
+    eng._study_lookup = SimpleNamespace(
+        resolve=lambda q: StudyLookupResult(cards=list(cards), form_scopes=[])
+    )
+    eng.top_k = 15
+    eng.query_expansion = query_expansion
+    eng.hybrid_enabled = False
+    eng.rerank_enabled = False
+    eng.rerank_candidates = 100
+    return eng
+
+
+def test_retrieve_routes_through_study_lookup():
+    # 删掉 retrieve() 里的 S2 两行分支, 全量 757 条无一失败 —— 注入方法完全正确却
+    # 根本没人调用, 表现为线上 S2 静默不通电、指标退回基线且无报错。
+    eng = _retrieve_engine()
+    embed_calls = []
+    eng._embed_query = lambda t: embed_calls.append(t) or [0.0]
+    emb_seen = []
+
+    def fake_search(q, n, where=None, query_embedding=None):
+        emb_seen.append(query_embedding)
+        if where and "source" in where:
+            return [_chunk("lk:card", where["source"])]
+        return [_chunk(f"c{i}", f"c{i}.md") for i in range(n)]
+
+    eng._search = fake_search
+    out = eng.retrieve("q")
+    assert out[0].chunk_id == "lk:card" and out[0].via_lookup, "retrieve() 没走 S2 注入"
+    assert len(embed_calls) == 1, f"原查询应只 embed 一次, 实际 {len(embed_calls)}"
+    assert all(e is not None for e in emb_seen), "S2 注入检索没复用预算好的 query 向量"
+
+
+def test_retrieve_embeds_original_query_for_study_lookup_on_hyde_path():
+    # need_q_emb 的 study 子句唯一可观测的场景: hyde 自己 embed 的是假想文档, 不 embed 原查询,
+    # 所以缺了该子句 q_emb 就是 None, S2 注入退化成每卡各自重新 embed (最坏 13 次往返)。
+    # query_expansion="none" 下 `!= "hyde"` 已为真, 该子句在别处恒被遮蔽, 咬不住。
+    eng = _retrieve_engine(query_expansion="hyde")
+    eng._hypothetical_doc = lambda q: "hypo doc"
+    embed_calls = []
+    eng._embed_query = lambda t: embed_calls.append(t) or [0.0]
+    inject_emb = []
+
+    def fake_search(q, n, where=None, query_embedding=None):
+        if where and "source" in where:
+            inject_emb.append(query_embedding)
+            return [_chunk("lk:card", where["source"])]
+        return [_chunk(f"c{i}", f"c{i}.md") for i in range(n)]
+
+    eng._search = fake_search
+    out = eng.retrieve("q")
+    assert embed_calls == ["q"], "hyde+study 组合下原查询必须被 embed 恰好一次"
+    assert inject_emb == [[0.0]], "原查询向量没转发给 S2 注入检索"
+    assert out[0].chunk_id == "lk:card"
 
 
 # ---- S1 回归: 尾部 merge 抽出为共用 _merge_lookup_first, 行为必须逐条不变 ----

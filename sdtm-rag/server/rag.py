@@ -11,9 +11,13 @@ import sys
 import time
 from dataclasses import dataclass
 from pathlib import Path
+from typing import TYPE_CHECKING
 
 import chromadb
 import litellm
+
+if TYPE_CHECKING:  # 仅供标注: S2 是对象注入, 运行时不 import study_lookup 模块
+    from server.study_lookup import StudyLookup
 
 
 @dataclass
@@ -60,7 +64,7 @@ class RAGEngine:
         hybrid_alpha: float = 0.5,
         hybrid_pool: int = 30,
         prompt_guardrail_enabled: bool = False,
-        study_lookup=None,
+        study_lookup: StudyLookup | None = None,
     ):
         # 互斥闸放在最前: 配置错误必须在建 Chroma 连接前就响亮失败。
         if structured_lookup_enabled and study_lookup is not None:
