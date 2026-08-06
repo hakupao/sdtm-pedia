@@ -92,6 +92,7 @@ Full chain definitions are in `.work/MANIFEST.md`.
 | Phase 7 SP6 隐性关系 + 网状查看器 (2026-07-10) | 挖掘管线 `sdtm-rag/scripts/mine_implicit_relations.py` → `data/meta/implicit_relations.json` (30 advisory 边, 分层反捏造闸, 不碰 meta.yaml); 网状查看器 `sdtm-rag/scripts/build_kg_viewer.py` → `kg_viewer.html`; spec/plan `docs/superpowers/{specs,plans}/2026-07-10-sp6-*` |
 | Phase 7 study 轨 st01 (确定性轨 DONE) | `sdtm-rag/scripts/study/` + 证据 `evidence/checkpoints/study_{golden_v1,rag_full_run}.md` |
 | Phase 7 Plan B 联邦路由 (P0+1 DONE, 默认开) | `sdtm-rag/server/federation.py`; 证据 `planb_phase1_federation.md` |
+| Phase 7 study golden v2 (48 题, 判别力已恢复) | 闸 `sdtm-rag/eval/lint_gold.py`; 证据 `evidence/checkpoints/study_golden_v2.md` |
 | Phase 7 Plan B P2 study 直查 (DONE, 默认开) | `sdtm-rag/server/study_lookup.py`; 证据 `planb_phase2_study_lookup.md` |
 | Phase 7 SP7 查看器 UX 重构 (2026-07-24) | 源码 `sdtm-rag/viewer/{template.html,style.css,layout.mjs,app.js}` → build 内联 `kg_viewer.html` (**勿手改产物, 改 viewer/* 重生成**); 确定性布局+补间无物理; spec/plan `docs/superpowers/*2026-07-24-kg-viewer-ux*` |
 
