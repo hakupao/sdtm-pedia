@@ -1,7 +1,12 @@
 """S2 StudyLookup 单元测试 — 合成 catalog, 零真实 OID/label (红线)."""
 import pytest
 
-from server.study_lookup import StudyLookup, StudyLookupResult
+from server.study_lookup import (
+    _LATIN_TOKEN_RE,
+    _MAX_CARDS_TOTAL,
+    StudyLookup,
+    StudyLookupResult,
+)
 
 
 def _item(form, oid, label):
@@ -109,3 +114,27 @@ def test_total_cards_capped_at_10():
     lk = StudyLookup({"study": "stx", "items": items})
     res = lk.resolve("BBB と CCC の項目を全部")
     assert len(res.cards) == 10
+
+
+def test_token_hits_survive_when_labels_would_fill_the_cap():
+    # 通道① 独占 10 位时, 通道② 的精确段命中不得被挤掉 (截断发生在本模块, 注入层无从补救)
+    items = ([_item("FRM_Z", f"L{i}_A", f"個別ラベル{i}号") for i in range(10)]
+             + [_item("FRM_Z", "TGT_A", "無関係な別ラベル")])
+    lk = StudyLookup({"study": "stx", "items": items})
+    res = lk.resolve("".join(f"個別ラベル{i}号" for i in range(10)) + " TGT")
+    assert res.cards[0] == "stx__FRM_Z__TGT_A.md"   # 精确信号先入队
+    assert len(res.cards) == _MAX_CARDS_TOTAL       # 总 cap 仍生效, 被挤掉的是 label 卡
+
+
+@pytest.mark.parametrize("text,expected", [
+    ("QSTは何問の設問",       ["QST"]),   # 紧贴 CJK 必须取得出 (\b 在此不成立)
+    ("XABCの理由は?",         ["XABC"]),  # 取整段, 不得从中切出 ABC
+    ("eCRF の入力について",    []),        # 混写: 左邻 ASCII 字母阻断 (lookbehind)
+    ("xABCを選択",            []),        # 同上, 小写前缀不得剥离
+    ("ABC_DEF_R はどの項目",   []),        # 下划线算阻断邻居 → 完整 OID 整串取不出 (已知, m2)
+    ("grade を教えて",        []),        # 纯小写不取
+    ("Q1 の値",              []),        # 2 位不足 3 位下界
+    ("BBB と CCC の項目",     ["BBB", "CCC"]),  # 空白分隔多 token
+])
+def test_latin_token_regex_boundary_semantics(text, expected):
+    assert _LATIN_TOKEN_RE.findall(text) == expected

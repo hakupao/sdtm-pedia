@@ -3,6 +3,7 @@
 golden v1.1 实测四类 miss 的确定性修复层: 数据源只有 catalog.json (+ 本地手工别名表),
 零 LLM、不写卡片。契约对齐 S1: resolve(query) -> 要 union-add 的目标, 由 RAGEngine
 前置注入。三条通道全部保守 — 不 fire 就回落纯检索, 绝不猜。
+编号是设计标识, 不是执行序: ② 先入队 (段级精确 > label 子串), 末尾统一按总 cap 截断。
 
   ① label 全文子串: 卡 label (NFKC+去空白归一化, >=4 字) 逐字出现在问句里 →
      该卡 + 其 OID 首段家族 (同 form + item_oid 首段相同; group 不是家族单元,
@@ -71,6 +72,13 @@ class StudyLookup:
             if src not in cards:
                 cards.append(src)
 
+        # ② 先入队: 段级精确命中的信号强度高于 label 子串, 末尾按总 cap 截断时不该被子串挤掉
+        for tok in dict.fromkeys(_LATIN_TOKEN_RE.findall(query)):
+            hits = self._segment_index.get(tok, [])
+            if 1 <= len(hits) <= _MAX_CARDS_PER_MATCH:
+                for s in hits:
+                    add(s)
+
         # ① label 全文子串 → 卡 + OID 首段家族 (歧义超 cap 整体跳过)
         for ln, srcs in self._label_index.items():
             if ln not in qn:
@@ -82,13 +90,6 @@ class StudyLookup:
                         expanded.append(member)
             if len(expanded) <= _MAX_CARDS_PER_MATCH:
                 for s in expanded:
-                    add(s)
-
-        # ② 拉丁 token → OID 段精确匹配 (段级, 非子串; 集合超 cap 不 fire)
-        for tok in dict.fromkeys(_LATIN_TOKEN_RE.findall(query)):
-            hits = self._segment_index.get(tok, [])
-            if 1 <= len(hits) <= _MAX_CARDS_PER_MATCH:
-                for s in hits:
                     add(s)
 
         return StudyLookupResult(cards=cards[:_MAX_CARDS_TOTAL], form_scopes=[])
