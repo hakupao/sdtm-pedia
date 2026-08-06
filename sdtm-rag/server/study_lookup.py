@@ -11,7 +11,8 @@ golden v1.1 实测四类 miss 的确定性修复层: 数据源只有 catalog.jso
      真实数据里一个 group 可混装几十个家族)。歧义 label (卡+家族 > cap) 整体跳过。
   ② 拉丁 token → OID 段: 问句中的大写 token (>=3 位) 精确匹配 item_oid 的下划线段
      → 该段的卡集合 (1 <= n <= cap 才 fire)。近义双卡 (X vs 前缀加长的 X') 的判别
-     天然成立: token 是段级精确匹配, 不是子串。
+     天然成立: token 是段级精确匹配, 不是子串。题面含 >=2 个 token 时另取各段集合的
+     交集 (合取) 作独立候选先入队 —— 单段命中面过宽被 cap 挡掉时, 交集常仍够窄。
   ③ 别名表 → form scope: 手工别名 (自然语言词 -> form_oid, 本地 yml, 有据可查,
      不写入卡片) 命中 → 交给注入层做域内 cosine top-N (词面排序对该类实测失效)。
 """
@@ -90,7 +91,21 @@ class StudyLookup:
                 cards.append(src)
 
         # ② 先入队: 段级精确命中的信号强度高于 label 子串, 末尾按总 cap 截断时不该被子串挤掉
-        for tok in dict.fromkeys(_LATIN_TOKEN_RE.findall(query)):
+        tokens = list(dict.fromkeys(_LATIN_TOKEN_RE.findall(query)))
+
+        # ②a 多 token 交集 (合取: 同时提到多个段 → 同属这些段的卡最相关)。交集恒 ⊆ 各单
+        #     token 集合, 只会更窄, 与 cap"集合太大=不具判别力"同向, 故沿用同一 cap 且
+        #     比单 token 更精确 → 排在 ②b 之前。任一 token 段命中为空则交集为空 = 不 fire。
+        if len(tokens) >= 2:
+            hit_sets = [self._segment_index.get(t, []) for t in tokens]
+            others = [set(h) for h in hit_sets[1:]]
+            inter = [s for s in hit_sets[0] if all(s in o for o in others)]
+            if 1 <= len(inter) <= _MAX_CARDS_PER_MATCH:
+                for s in inter:
+                    add(s)
+
+        # ②b 单 token → 该段卡集合 (集合超 cap = 不具判别力, 跳过)
+        for tok in tokens:
             hits = self._segment_index.get(tok, [])
             if 1 <= len(hits) <= _MAX_CARDS_PER_MATCH:
                 for s in hits:

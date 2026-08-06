@@ -144,6 +144,83 @@ def test_latin_token_regex_boundary_semantics(text, expected):
     assert _LATIN_TOKEN_RE.findall(text) == expected
 
 
+# ---- 通道②a 多 token 交集 (合取) ----------------------------------------------
+
+def _straddle_catalog():
+    """两个段各自超 cap, 但同属两段的卡只有少数 —— 单 token 全被挡, 交集才够窄。"""
+    return {"study": "stx", "items":
+            [_item("FRM_K", f"TTT_UUU_A{i}", f"両段の甲{i}") for i in range(4)]
+            + [_item("FRM_K", f"TTT_VVV_B{i}", f"片段の乙{i}") for i in range(8)]
+            + [_item("FRM_K", f"WWW_UUU_C{i}", f"片段の丙{i}") for i in range(6)]}
+
+
+def test_intersection_fires_when_both_single_token_sets_are_over_cap():
+    # 单 token: TTT 12 卡 / UUU 10 卡, 双双超 cap 被挡; 交集 4 卡落回 cap 内 → 只有交集入队
+    lk = StudyLookup(_straddle_catalog())
+    res = lk.resolve("TTT と UUU について")
+    assert res.cards == [f"stx__FRM_K__TTT_UUU_A{i}.md" for i in range(4)]
+
+
+def test_intersection_is_enqueued_before_single_token_hits():
+    lk = StudyLookup({"study": "stx", "items": [
+        _item("FRM_I", "PPP_RRR_B", "交差の乙"),   # 仅 PPP; 故意排在交集卡之前
+        _item("FRM_I", "PPP_QQQ_A", "交差の甲"),   # 两段都占
+        _item("FRM_I", "SSS_QQQ_C", "交差の丙"),   # 仅 QQQ
+    ]})
+    res = lk.resolve("PPP と QQQ の項目")
+    # 两个单 token 集合都在 cap 内也会 fire, 但交集卡必须排在最前 (合取判别力最强);
+    # 若交集不先入队, 首位会是 catalog 序更靠前的 PPP_RRR_B
+    assert res.cards == ["stx__FRM_I__PPP_QQQ_A.md",
+                         "stx__FRM_I__PPP_RRR_B.md",
+                         "stx__FRM_I__SSS_QQQ_C.md"]
+
+
+def test_empty_intersection_does_not_fire():
+    # 两段无公共卡 → 交集为空; 单 token 各 9 卡也超 cap → 整体不 fire
+    lk = StudyLookup({"study": "stx", "items":
+                      [_item("FRM_M", f"DDD_M{i}", f"独立の甲{i}") for i in range(9)]
+                      + [_item("FRM_M", f"EEE_N{i}", f"独立の乙{i}") for i in range(9)]})
+    assert lk.resolve("DDD と EEE について").cards == []
+
+
+def test_oversized_intersection_does_not_fire():
+    # 交集恒 ⊆ 单集合, 故交集超 cap 时单 token 必然也超 cap —— 三条路径全被挡
+    lk = StudyLookup({"study": "stx", "items": [
+        _item("FRM_N", f"FFF_GGG_K{i}", f"全重なりの甲{i}") for i in range(9)
+    ]})
+    assert lk.resolve("FFF と GGG について").cards == []
+
+
+def test_three_token_intersection_requires_all_three_segments():
+    # 三段各 9 卡全超 cap; 只有同时占三段的那一张能通过交集
+    lk = StudyLookup({"study": "stx", "items": [
+        _item("FRM_L", "AAA_BBB_CCC_X", "三段の甲"),
+        _item("FRM_L", "AAA_BBB_DDD_Y", "二段の乙"),   # 缺 CCC, 两两交集会带出它
+    ] + [_item("FRM_L", f"AAA_FIL{i}", f"埋め甲{i}") for i in range(7)]
+      + [_item("FRM_L", f"BBB_GIL{i}", f"埋め乙{i}") for i in range(7)]
+      + [_item("FRM_L", f"CCC_HIL{i}", f"埋め丙{i}") for i in range(8)]})
+    res = lk.resolve("AAA と BBB と CCC の項目")
+    assert res.cards == ["stx__FRM_L__AAA_BBB_CCC_X.md"]
+
+
+def test_single_token_query_leaves_segment_channel_unchanged():
+    # 不足 2 个 token 时不走交集路径 (单 token 的"交集"等于它自己, 行为上不可区分, 此处为定性锁)
+    lk = StudyLookup({"study": "stx", "items": [
+        _item("FRM_O", "HHH_R1", "単段の甲"),
+        _item("FRM_O", "HHH_R2", "単段の乙"),
+    ]})
+    assert lk.resolve("HHH について").cards == ["stx__FRM_O__HHH_R1.md",
+                                                "stx__FRM_O__HHH_R2.md"]
+
+
+def test_token_absent_from_index_vetoes_the_whole_intersection():
+    # 已知后果 (合取语义的直接推论): 题面多一个索引里没有的大写词, 交集即空, 通道整体让路。
+    # 只会少 fire 不会误 fire —— 单 token 路径不受影响, 保守回落纯检索。
+    lk = StudyLookup(_straddle_catalog())
+    assert lk.resolve("TTT と UUU について").cards != []        # 对照: 无生词时 fire
+    assert lk.resolve("TTT と UUU と ZZZ について").cards == []
+
+
 def test_alias_term_in_query_yields_form_scope():
     lk = StudyLookup(CATALOG, aliases=[{"term": "偽光線", "form": "FRM_A"}])
     res = lk.resolve("偽光線に関する項目はどれですか?")
