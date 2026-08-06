@@ -20,7 +20,9 @@ import unicodedata
 from collections import defaultdict
 from dataclasses import dataclass, field
 
-_LATIN_TOKEN_RE = re.compile(r"\b[A-Z][A-Z0-9]{2,}\b")
+# 边界不能用 \b: 日文题面里 token 紧贴假名 (QSTは), 而 \w 含 CJK, \b 在此不成立。
+# 只把 ASCII 字母/数字/下划线当作阻断邻居, 段级精确性照旧 (XABC 里取不出 ABC)。
+_LATIN_TOKEN_RE = re.compile(r"(?<![A-Za-z0-9_])[A-Z][A-Z0-9]{2,}(?![A-Za-z0-9_])")
 _MIN_LABEL_LEN = 4
 _MIN_SEG_LEN = 3
 _MAX_CARDS_PER_MATCH = 8   # 单个 label/token 命中集合上限, 超过 = 不具判别力, 跳过
@@ -80,6 +82,13 @@ class StudyLookup:
                         expanded.append(member)
             if len(expanded) <= _MAX_CARDS_PER_MATCH:
                 for s in expanded:
+                    add(s)
+
+        # ② 拉丁 token → OID 段精确匹配 (段级, 非子串; 集合超 cap 不 fire)
+        for tok in dict.fromkeys(_LATIN_TOKEN_RE.findall(query)):
+            hits = self._segment_index.get(tok, [])
+            if 1 <= len(hits) <= _MAX_CARDS_PER_MATCH:
+                for s in hits:
                     add(s)
 
         return StudyLookupResult(cards=cards[:_MAX_CARDS_TOTAL], form_scopes=[])
