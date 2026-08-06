@@ -480,6 +480,18 @@ def test_collection_mode_prints_study_lookup_receipt(captured, fake_lookup, caps
     assert "study_lookup=ON(7 items/0 aliases)" in capsys.readouterr().out
 
 
+def test_collection_mode_receipt_counts_track_the_lookup(captured, monkeypatch, capsys):
+    """联邦回执有多尺度锁, collection 回执没有 —— 条数写死成常量时这一行不会报警."""
+    from server import study_lookup as sl_mod
+    monkeypatch.setattr(
+        sl_mod.StudyLookup, "from_paths",
+        staticmethod(lambda c, a: _FakeLookup(n_items=41, n_aliases=5)),
+    )
+    captured(["--collection", "study_st01", "--kb-root", "data/study/st01/cards",
+              "--study-lookup"])
+    assert "study_lookup=ON(41 items/5 aliases)" in capsys.readouterr().out
+
+
 def test_collection_mode_receipt_absent_without_flag(captured, capsys):
     captured(["--collection", "study_st01", "--kb-root", "data/study/st01/cards"])
     assert "study_lookup" not in capsys.readouterr().out

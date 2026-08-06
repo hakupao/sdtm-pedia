@@ -1,5 +1,6 @@
 """S2 StudyLookup 单元测试 — 合成 catalog, 零真实 OID/label (红线)."""
 import json
+import re
 from types import SimpleNamespace
 
 import pytest
@@ -8,6 +9,7 @@ from server import rag as rag_mod
 from server.study_lookup import (
     _LATIN_TOKEN_RE,
     _MAX_CARDS_TOTAL,
+    _MIN_SEG_LEN,
     StudyLookup,
     StudyLookupResult,
 )
@@ -48,9 +50,47 @@ def test_label_substring_hits_card_and_expands_family():
     assert res.form_scopes == []                      # 通道③前恒空
 
 
+def test_family_does_not_cross_form_with_shared_first_segment():
+    # 家族键的另一半: 上面那条锁的是"同 form 不同首段", 这条锁"同首段不同 form"。
+    # 键去掉 form_oid 全测试仍绿 —— 而真实数据里首段跨 form 复用是常态, 家族会静默变大。
+    lk = StudyLookup({"study": "stx", "items": [
+        _item("FRM_U", "SEG_A1", "共通首段の甲ラベル"),
+        _item("FRM_U", "SEG_A2", "共通首段の乙ラベル"),   # 同 form 同首段 = 同家族
+        _item("FRM_V", "SEG_B1", "別フォームの丙ラベル"),  # 同首段だが別 form = 別家族
+    ]})
+    res = lk.resolve("共通首段の甲ラベルはどの項目?")
+    assert res.cards == ["stx__FRM_U__SEG_A1.md", "stx__FRM_U__SEG_A2.md"]
+    assert "stx__FRM_V__SEG_B1.md" not in res.cards
+
+
 def test_label_shorter_than_4_never_fires():
     lk = StudyLookup(CATALOG)
     assert lk.resolve("熱がありますか").cards == []
+
+
+def test_label_length_bound_is_exactly_four():
+    # `_MIN_LABEL_LEN` 双向锁: 抬到 5/6 会静默废掉一大片短 label 的命中面 (真实数据 22.5%
+    # 的 label 归一化后只有 4-5 字), 降到 3 会放进判别力不足的短 label。上面那条 1 字用例
+    # 只咬得住"完全去掉过滤", 两个方向的挪动都咬不住。
+    lk = StudyLookup({"study": "stx", "items": [
+        _item("FRM_T", "TFR_A", "偽甲乙丙"),   # 归一化後ちょうど 4 字 → 必ず fire
+        _item("FRM_T", "TTR_B", "偽甲乙"),     # 3 字 → 索引に入ってはならない
+    ]})
+    # 4 字ちょうどで fire (下界を 5 以上に上げると空になる);
+    # 同時に 3 字 label が索引入りしていれば此処にも混入する (下界を 3 に下げると赤)
+    assert lk.resolve("偽甲乙丙はどの項目?").cards == ["stx__FRM_T__TFR_A.md"]
+    # 3 字 label だけを含む問句では何も fire しない
+    assert lk.resolve("偽甲乙はどの項目?").cards == []
+
+
+def test_min_seg_len_matches_token_regex_lower_bound():
+    # `_MIN_SEG_LEN` と正則の下界は同一の意味を二箇所の定数で表している:
+    # 正則 `[A-Z][A-Z0-9]{2,}` = 3 位下界。片方だけ動かすと索引と抽出がズレ、
+    # 症状は「その長さの token が黙って引けなくなる」だけで何処も赤くならない。
+    # `_STUDY_MAX_CARDS == _MAX_CARDS_TOTAL` の同値錠と同じ手当て。
+    m = re.search(r"\{(\d+),\}", _LATIN_TOKEN_RE.pattern)
+    assert m, "token 正則の下界の書き方が変わった — この錠は失効している"
+    assert int(m.group(1)) + 1 == _MIN_SEG_LEN
 
 
 def test_ambiguous_label_over_cap_is_skipped():
@@ -68,11 +108,21 @@ def test_no_match_returns_empty_result():
     assert res == StudyLookupResult(cards=[], form_scopes=[])
 
 
-def test_nfkc_and_whitespace_normalized_label_match():
+def test_whitespace_normalized_label_match():
     lk = StudyLookup(CATALOG)
-    # 全角/空白差异不阻断匹配
+    # 空白差异不阻断匹配 (label 側は連続, 問句側は全角スペースで割れている)
     res = lk.resolve("偽末梢症状　グレード について")
     assert "stx__FRM_A__GRP_TOX.md" in res.cards
+
+
+def test_nfkc_normalized_label_match():
+    # 空白除去だけでは届かない差 = NFKC の受け持ち分: 半角カナ ⇄ 全角カナ、
+    # 全角ラテン ⇄ 半角ラテン。catalog 側と問句側で書き分けが違うのは実データの常態。
+    # `_norm` から NFKC を外すと索引キーと問句が別物になり、このテストだけが赤くなる。
+    lk = StudyLookup({"study": "stx", "items": [
+        _item("FRM_W", "WID_A", "ﾊﾞｲﾀﾙ測定ABC"),   # 半角カナ + 半角ラテン
+    ]})
+    assert lk.resolve("バイタル測定ＡＢＣはどこ?").cards == ["stx__FRM_W__WID_A.md"]
 
 
 def test_latin_token_matches_oid_segment_family():
