@@ -117,6 +117,9 @@ def test_enabled_injects_study_lookup_into_study_engine(boot, fake_lookup):
     assert recorded["aliases"] == s.study_aliases_path
     # S2 是 study 侧通道; 挂到 cdisc 引擎上会撞 RAGEngine 的 S1/S2 互斥闸
     assert cdisc.get("study_lookup") is None
+    # ↓ 这行不是搭车断言, 重构 S2 时别删。S1 的 VI section 映射预热落地后, 丢掉这把锁
+    # 的后果从"study 侧静默退化"升级成了"启动即崩" —— study collection 里 VI 行数为 0,
+    # 真给 study 引擎开了 S1, 预热会 raise 而服务永远起不来。
     assert study["structured_lookup_enabled"] is False
 
 

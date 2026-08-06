@@ -11,7 +11,6 @@ import pytest
 
 from server import rag as rag_mod
 
-
 VI_ABS = "/kb/VARIABLE_INDEX.md"
 
 VI_METAS = [
@@ -251,8 +250,14 @@ def test_vi_section_map_matches_chunker_output():
 
     eng = rag_mod.RAGEngine.__new__(rag_mod.RAGEngine)
     eng.kb_root = kb_root
-    eng.collection = chromadb.PersistentClient(
-        path=str(settings.chroma_dir)).get_collection(settings.collection_name)
+    try:
+        eng.collection = chromadb.PersistentClient(
+            path=str(settings.chroma_dir)).get_collection(settings.collection_name)
+    except Exception:  # noqa: BLE001 — 打不开库的原因不重要, 都是"本机没索引"
+        # data/chroma 被 gitignore 且本仓无 CI, 所以 clone 出来的机器上这条会红得
+        # 莫名其妙 —— 而"红了不用管"一旦被学会, 这条闸就白设了。只在**打不开库**时
+        # skip; 下面的 assert 本身绝不 skip, 任何能跑服务的机器上闸全效。
+        pytest.skip("本机无索引; 跑 .venv/bin/python -m scripts.ingest 后此闸才生效")
     eng._vi_sections = None
 
     assert eng._vi_section_map() == expected, (

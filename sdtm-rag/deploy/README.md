@@ -38,7 +38,15 @@ launchctl bootout  gui/$(id -u)/com.sdtmrag.api 2>/dev/null || true   # 卸旧 (
 launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.sdtmrag.api.plist
 #    8501 Streamlit Compare/Judge 的 plist 不动 (保持 127.0.0.1, 开发者私用)。
 
-# 5. 验证: 登录门生效
+# 5. 验证: 服务真的起来了 (不是崩溃重启循环)
+launchctl list | grep com.sdtmrag.api                # 第 2 列 last-exit-status 必须是 0
+#    非 0 → 看 logs/api.launchd.log。最常见死因: chroma 里存的 source 是**构建树**的
+#    绝对路径, 而 SDTM_RAG_KB_ROOT 指到了服务目录 → S1 的 VI section 映射建不出来 →
+#    lifespan 预热 raise → 启动失败 (KeepAlive 会每 10s 重试一次, 端口始终拒连)。
+#    解法: 在服务目录重灌索引 (.venv/bin/python -m scripts.ingest), 别只 rsync data/chroma。
+#    这条闸是有意的: 同样的错配在旧版本下会静默退化成纯 cosine, 服务照常出答案。
+
+# 5b. 验证: 登录门生效
 curl -s http://127.0.0.1:8000/api/health            # {"status":"ok"} (health 豁免鉴权)
 curl -s -o /dev/null -w '%{http_code}\n' http://127.0.0.1:8000/api/info   # 401 (未登录)
 #    浏览器开 http://<主机名>:8000/ → 跳登录页 → 输口令 → 进聊天。

@@ -208,11 +208,11 @@ cd sdtm-rag && .venv/bin/python -m pytest -p no:warnings 2>&1 | tail -1
 
 ## 5. 三方隔离 (规则 D)
 
-| 角色 | 承担 | 首轮裁定 |
-|---|---|---|
-| 实现 | 主 session | — |
-| 审查 | `oh-my-claudecode:code-reviewer` (opus) | **REVISE** (2 HIGH / 3 MEDIUM / 5 LOW) |
-| 抽检/验收 (规则 A, 抽样总体 = 18 题变更集) | `oh-my-claudecode:verifier` (opus) | **PASS** (代码/数字) + **REQUEST_CHANGES** (文档 3 项) |
+| 角色 | 承担 | 首轮裁定 | 复审 |
+|---|---|---|---|
+| 实现 | 主 session | — | — |
+| 审查 | `oh-my-claudecode:code-reviewer` (opus) | **REVISE** (2 HIGH / 3 MEDIUM / 5 LOW) | **APPROVE** |
+| 抽检/验收 (规则 A, 抽样总体 = 18 题变更集) | `oh-my-claudecode:verifier` (opus) | **PASS** (代码/数字) + **REQUEST_CHANGES** (文档 3 项) | — |
 
 **三方各自抓到了对方看不见的东西** —— 实现方自查全绿, 审查方与抽检方各抓到一条实现方漏掉的真缺陷,
 且两者互不重叠 (抽检方查数字与语义, 抓到锚点饥饿; 审查方查失败模式落点, 抓到部署路径 502)。
@@ -252,7 +252,40 @@ cd sdtm-rag && .venv/bin/python -m pytest -p no:warnings 2>&1 | tail -1
 `test_enabled_injects_study_lookup_into_study_engine` 已含 `assert study["structured_lookup_enabled"] is False`,
 该条已被锁住, 未重复添加。
 
-### 5.3 修复后复验 (零回归)
+### 5.3 复审 (APPROVE) — 两条 HIGH 均为**实证消除**, 非读码认可
+
+审查方对自己提的修法做了独立实证:
+
+- **HIGH-1 落点确认**: 用一个必抛的 lifespan 跑真 uvicorn → `EXIT_CODE=3` + 端口 `000 (connection refused)`
+  + `Application startup failed. Exiting.` 全文入日志。配 plist 的 `KeepAlive=true` / `ThrottleInterval=10`,
+  部署错配的表现是**每 10 秒崩溃重启一次、端口始终拒连**, 而非"起来但坏"。对比修复前: 服务正常起,
+  只有 71/140 类问句 502, 运维只看到"偶发 502"。
+- **HIGH-2 两闸互锁无缝** (对真 KB + 真索引三场实证):
+
+  | 场景 | chunker 键 | 索引键 | 结果 |
+  |---|---|---|---|
+  | 今天 | 159 | 159 | 相等 → 绿 |
+  | §一 改名, **未重灌** | 135 | 159 | 不等 → **漂移闸红** |
+  | §一 改名, **已重灌** | 135 | 135 | 相等, 但 `_vi_section_map()` 在 assert 表达式里求值 → **运行时 guard raise** → pytest ERROR |
+
+  第三行那个"相等但仍红"的接缝是关键 —— 两半之间没有夹缝。**KB 合法增删 CT 码不误报** (chunker
+  与索引同源同变); 只有"改了 KB 没重灌"会红, 那是真阳性。
+- **D-1 修法无新引入问题**: `variable_index_anchors` 全仓只有 1 个调用方 (无别处依赖旧的"已截断"契约);
+  `sections` 不会重复 (section→token 是函数故 token→section 双射); v3 全集锚点数均 ≤3, 故本轮
+  resolve-then-cap 与 cap-then-resolve 结果同一 (修的是**将来**会咬人的形状)。
+- **stub 不构成"过度配合实现"**: `vi_map_calls` 只由生产代码那一次调用递增 (删掉预热即红);
+  guard 有自己专属的敌意测试打在真 `_engine()` 上, 职责不重叠。
+
+复审剩余 finding, **均已当场修掉**:
+
+| 严重度 | 问题 | 修法 |
+|---|---|---|
+| MEDIUM | 漂移闸硬依赖 gitignore 掉的 `data/chroma`, 且本仓**没有 CI** (`.github/workflows` 不存在) —— 同事 clone 后这条是 **ERROR 不是 skip**, 会训练所有人"这条红了不用管", 恰好毁掉闸的意义。既有先例 `TestMetaKBDriftGuard` 读的是已入 git 的 `meta.yaml`; 这是**第一条要求生产 chroma 库的测试** | 只在**打不开库**时 `pytest.skip` 并给出重灌命令; **assert 本身绝不 skip**, 任何能跑服务的机器上闸全效 |
+| LOW | "请求期那条 raise 不可达"只对 server 成立 —— `eval/run_eval.py` 与 `eval/prod_wirein/*` 直接构造 `RAGEngine` 不走 lifespan, 仍会撞上它 (那对批处理正是想要的行为) | 注释收窄为"server 路径下不可达", 并写明**删了 eval 侧就退回静默降级** |
+| LOW | `assert study["structured_lookup_enabled"] is False` 是搭在 S2 注入测试里的断言; 预热落地后, 丢掉这把锁的后果从"study 侧静默退化"升级成"**启动即崩**" (study collection 里 VI 行数为 0) | 该行上方加注释"这行不是搭车, 重构 S2 时别删"+ 后果说明 |
+| — (观察) | go-live 缺"确认服务真起来了"这一步 | `deploy/README.md` 新增步骤 5: `launchctl list \| grep com.sdtmrag.api` 的 last-exit-status 必须为 0, 并写明最常见死因 (只 rsync `data/chroma` 而不在服务目录重灌) 与解法 |
+
+### 5.4 修复后复验 (零回归)
 
 ```bash
 cd sdtm-rag && .venv/bin/python -m pytest -p no:warnings 2>&1 | tail -1   # 852 passed

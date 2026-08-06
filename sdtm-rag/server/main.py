@@ -98,7 +98,10 @@ async def lifespan(app: FastAPI):
         # 一起拷到新目录时, chroma 里存的仍是构建树的路径 → 映射为空。若留到请求期才炸,
         # 每个 CT 码/分布类问句都会 502 (v3 题集 140 题里 71 题走这条路), 运维只看到
         # "偶发 502"; 在这里炸则 launchd 启动即失败, 写进 logs/api.launchd.log。
-        # 预热成功后表已缓存, 请求期那条 raise 实际不可达。
+        # 预热成功后表已缓存, 请求期那条 raise 在 **server 路径下**不可达 —— 但
+        # eval/run_eval.py 与 eval/prod_wirein/* 直接构造 RAGEngine, 不走 lifespan,
+        # 仍会在跑批中途撞上它 (那对批处理正是想要的行为: 响亮, 且没有用户可 502)。
+        # 故那条 raise 不是死代码, 删了 eval 侧就退回静默降级。
         vi_map = app.state.rag._vi_section_map()
         log.info("s1_vi_section_map", entries=len(vi_map))
     app.state.llm_router = create_router(s)
