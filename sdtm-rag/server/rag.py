@@ -38,6 +38,9 @@ class RAGEngine:
     # _apply_structured_lookup for the rationale and the narrow trigger condition.
     _SINGLE_DOMAIN_SPEC_CHUNKS = 4
 
+    _STUDY_SCOPE_CHUNKS = 3   # form scope 域内 cosine 注入条数 (实测 gold 域内第 2 位)
+    _STUDY_MAX_CARDS = 10     # 与 StudyLookup._MAX_CARDS_TOTAL 同值, 双保险
+
     def __init__(
         self,
         chroma_dir: Path,
@@ -57,7 +60,15 @@ class RAGEngine:
         hybrid_alpha: float = 0.5,
         hybrid_pool: int = 30,
         prompt_guardrail_enabled: bool = False,
+        study_lookup=None,
     ):
+        # 互斥闸放在最前: 配置错误必须在建 Chroma 连接前就响亮失败。
+        if structured_lookup_enabled and study_lookup is not None:
+            raise ValueError(
+                "structured_lookup (S1/CDISC) 与 study_lookup (S2/study) 互斥 — 一台引擎只挂一条直查通道"
+            )
+        self._study_lookup = study_lookup
+
         self.client = chromadb.PersistentClient(path=str(chroma_dir))
         self.collection = self.client.get_collection(collection_name)
         space = (self.collection.metadata or {}).get("hnsw:space", "cosine")
@@ -235,7 +246,11 @@ class RAGEngine:
         # identical query text — up to ~6 redundant OpenAI round-trips per call).
         # Skipped only on the pure-hyde path with no S1, where the original query is
         # never searched (hyde embeds the hypothetical doc instead).
-        need_q_emb = self._structured_lookup is not None or self.query_expansion != "hyde"
+        need_q_emb = (
+            self._structured_lookup is not None
+            or self._study_lookup is not None
+            or self.query_expansion != "hyde"
+        )
         q_emb = self._embed_query(query) if need_q_emb else None
 
         # T4 query expansion: rewrite the query, keep cosine ordering.
@@ -283,6 +298,8 @@ class RAGEngine:
 
         if self._structured_lookup is not None:
             return self._apply_structured_lookup(query, cosine, where, k, query_embedding=q_emb)
+        if self._study_lookup is not None:
+            return self._apply_study_lookup(query, cosine, k, query_embedding=q_emb)
         return cosine[:k]
 
     def _apply_structured_lookup(
@@ -325,12 +342,50 @@ class RAGEngine:
         if not lookup_chunks:
             return cosine[:k]
 
+        return self._merge_lookup_first(lookup_chunks, cosine, k)
+
+    def _apply_study_lookup(
+        self,
+        query: str,
+        cosine: list[RetrievedChunk],
+        k: int,
+        query_embedding: list[float] | None = None,
+    ) -> list[RetrievedChunk]:
+        """S2 union-add: 精确卡每卡注入其 chunk (source=裸文件名 — study collection
+        的元数据约定, 与 CDISC 的绝对路径不同), form scope 注入域内 cosine top-N
+        (别名类 gold 与问句词面零重合, 词面排序实测失效, 只能语义收窄)。前置注入
+        + 去重合并, resolve 不 fire 时零开销回落。"""
+        res = self._study_lookup.resolve(query)
+        if not res.cards and not res.form_scopes:
+            return cosine[:k]
+        lookup_chunks: list[RetrievedChunk] = []
+        for src in res.cards[: self._STUDY_MAX_CARDS]:
+            for ch in self._search(query, 1, {"source": src}, query_embedding=query_embedding):
+                ch.via_lookup = True
+                lookup_chunks.append(ch)
+        for form in res.form_scopes:
+            for ch in self._search(
+                query, self._STUDY_SCOPE_CHUNKS, {"form_oid": form},
+                query_embedding=query_embedding,
+            ):
+                ch.via_lookup = True
+                lookup_chunks.append(ch)
+        if not lookup_chunks:
+            return cosine[:k]
+        return self._merge_lookup_first(lookup_chunks, cosine, k)
+
+    @staticmethod
+    def _merge_lookup_first(
+        lookup_chunks: list[RetrievedChunk], cosine: list[RetrievedChunk], k: int
+    ) -> list[RetrievedChunk]:
+        """直查注入前置 + 按 chunk_id 去重 + 截到 k (S1/S2 共用)。注入块不会被 cosine
+        挤掉, 其余 cosine 顺序原样保留。"""
         merged: list[RetrievedChunk] = []
-        seen_ids: set[str] = set()
+        seen: set[str] = set()
         for ch in lookup_chunks + cosine:
-            if ch.chunk_id in seen_ids:
+            if ch.chunk_id in seen:
                 continue
-            seen_ids.add(ch.chunk_id)
+            seen.add(ch.chunk_id)
             merged.append(ch)
         return merged[:k]
 

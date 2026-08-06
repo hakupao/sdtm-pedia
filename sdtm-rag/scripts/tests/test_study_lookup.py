@@ -1,8 +1,10 @@
 """S2 StudyLookup 单元测试 — 合成 catalog, 零真实 OID/label (红线)."""
 import json
+from types import SimpleNamespace
 
 import pytest
 
+from server import rag as rag_mod
 from server.study_lookup import (
     _LATIN_TOKEN_RE,
     _MAX_CARDS_TOTAL,
@@ -196,3 +198,143 @@ def test_from_paths_loads_aliases(tmp_path):
     al.write_text("aliases:\n  - term: 偽光線\n    form: FRM_A\n", encoding="utf-8")
     lk = StudyLookup.from_paths(cat, al)
     assert lk.resolve("偽光線の項目").form_scopes == ["FRM_A"]
+
+
+# ---- RAGEngine 注入层 (Task 4) -----------------------------------------------
+# RAGEngine.__new__ + monkeypatch _search: 不建 Chroma / 不发 embedding, 只锁注入契约。
+
+
+class _StubLookup:
+    def __init__(self, cards=(), scopes=()):
+        self._res = StudyLookupResult(cards=list(cards), form_scopes=list(scopes))
+
+    def resolve(self, query):
+        return self._res
+
+
+def _chunk(cid, source):
+    return SimpleNamespace(chunk_id=cid, source=source, via_lookup=False)
+
+
+def _engine(lookup, search_log):
+    eng = rag_mod.RAGEngine.__new__(rag_mod.RAGEngine)
+    eng._study_lookup = lookup
+    eng._structured_lookup = None
+
+    def fake_search(query, n, where=None, query_embedding=None):
+        search_log.append((n, where))
+        if where and "source" in where:
+            return [_chunk(f"lk:{where['source']}", where["source"])]
+        if where and "form_oid" in where:
+            return [_chunk(f"sc:{where['form_oid']}:{i}", f"x{i}.md") for i in range(n)]
+        return []
+
+    eng._search = fake_search
+    return eng
+
+
+def test_apply_study_lookup_prepends_cards_and_scopes_dedup_to_k():
+    log = []
+    eng = _engine(_StubLookup(cards=["stx__F__A.md"], scopes=["FRM_Z"]), log)
+    cosine = [_chunk("lk:stx__F__A.md", "stx__F__A.md")] + [
+        _chunk(f"c{i}", f"c{i}.md") for i in range(14)
+    ]
+    out = eng._apply_study_lookup("q", cosine, 15, query_embedding=None)
+    assert out[0].chunk_id == "lk:stx__F__A.md" and out[0].via_lookup
+    assert [c.chunk_id for c in out[1:4]] == ["sc:FRM_Z:0", "sc:FRM_Z:1", "sc:FRM_Z:2"]
+    assert len(out) == 15
+    assert len([c for c in out if c.chunk_id == "lk:stx__F__A.md"]) == 1  # 去重
+    assert (1, {"source": "stx__F__A.md"}) in log
+    assert (3, {"form_oid": "FRM_Z"}) in log
+
+
+def test_apply_study_lookup_filters_source_by_bare_filename():
+    # study collection 的 chunk metadata 里 source 是裸卡文件名 (CDISC 侧才是绝对路径)。
+    # 若误用 S1 的 _lookup_chunks_for_file (kb_root 拼绝对路径), filter 恒不命中 → 静默空注入。
+    log = []
+    eng = _engine(_StubLookup(cards=["stx__F__A.md"]), log)
+    eng._apply_study_lookup("q", [], 15, query_embedding=None)
+    assert log == [(1, {"source": "stx__F__A.md"})]
+
+
+def test_apply_study_lookup_caps_cards_at_max():
+    # resolve 已按 _MAX_CARDS_TOTAL 截断; 注入层再截一次是双保险 (stub 故意越界)
+    log = []
+    cards = [f"stx__F__C{i}.md" for i in range(14)]
+    eng = _engine(_StubLookup(cards=cards), log)
+    out = eng._apply_study_lookup("q", [], 15, query_embedding=None)
+    assert len(log) == rag_mod.RAGEngine._STUDY_MAX_CARDS
+    assert len(out) == rag_mod.RAGEngine._STUDY_MAX_CARDS
+
+
+def test_apply_study_lookup_noop_when_resolve_empty():
+    log = []
+    eng = _engine(_StubLookup(), log)
+    cosine = [_chunk(f"c{i}", f"c{i}.md") for i in range(20)]
+    out = eng._apply_study_lookup("q", cosine, 15, query_embedding=None)
+    assert [c.chunk_id for c in out] == [f"c{i}" for i in range(15)]
+    assert log == []  # 不 fire 就零额外检索
+
+
+def test_apply_study_lookup_falls_back_when_lookup_chunks_empty():
+    # resolve fire 了但目标卡在库里没有 chunk (catalog 与 collection 不同步) → 回落纯 cosine
+    log = []
+    eng = _engine(_StubLookup(cards=["gone.md"]), log)
+    eng._search = lambda q, n, where=None, query_embedding=None: (log.append((n, where)) or [])
+    cosine = [_chunk(f"c{i}", f"c{i}.md") for i in range(20)]
+    out = eng._apply_study_lookup("q", cosine, 15, query_embedding=None)
+    assert [c.chunk_id for c in out] == [f"c{i}" for i in range(15)]
+    assert log == [(1, {"source": "gone.md"})]
+
+
+def test_ctor_rejects_both_lookups(tmp_path):
+    with pytest.raises(ValueError, match="study_lookup"):
+        rag_mod.RAGEngine(
+            chroma_dir=tmp_path, kb_root=tmp_path, collection_name="x",
+            embedding_model="m", structured_lookup_enabled=True,
+            study_lookup=_StubLookup(),
+        )
+
+
+# ---- S1 回归: 尾部 merge 抽出为共用 _merge_lookup_first, 行为必须逐条不变 ----
+
+
+def _s1_engine(targets, n_log=None):
+    eng = rag_mod.RAGEngine.__new__(rag_mod.RAGEngine)
+    eng._structured_lookup = SimpleNamespace(resolve=lambda q: list(targets))
+
+    def fake_lookup_chunks(query, rel_path, n, query_embedding=None):
+        if n_log is not None:
+            n_log.append((rel_path, n))
+        return [_chunk(f"s1:{rel_path}:{i}", rel_path) for i in range(n)]
+
+    eng._lookup_chunks_for_file = fake_lookup_chunks
+    return eng
+
+
+def test_apply_structured_lookup_merge_is_lookup_first_deduped_and_capped():
+    eng = _s1_engine(["domains/XX/other.md", "domains/YY/other.md"])
+    cosine = [_chunk("s1:domains/XX/other.md:0", "a")] + [
+        _chunk(f"c{i}", f"c{i}.md") for i in range(14)
+    ]
+    out = eng._apply_structured_lookup("q", cosine, None, 15, query_embedding=None)
+    ids = [c.chunk_id for c in out]
+    assert ids[:2] == ["s1:domains/XX/other.md:0", "s1:domains/YY/other.md:0"]
+    assert ids[2:] == [f"c{i}" for i in range(13)]   # 去重后 cosine 顺序不变, 截到 k
+    assert len(out) == 15
+    assert all(c.via_lookup for c in out[:2])
+
+
+def test_apply_structured_lookup_single_spec_still_injects_four():
+    n_log = []
+    eng = _s1_engine(["domains/XX/spec.md"], n_log)
+    out = eng._apply_structured_lookup("q", [], None, 15, query_embedding=None)
+    assert n_log == [("domains/XX/spec.md", rag_mod.RAGEngine._SINGLE_DOMAIN_SPEC_CHUNKS)]
+    assert len(out) == rag_mod.RAGEngine._SINGLE_DOMAIN_SPEC_CHUNKS
+
+
+def test_apply_structured_lookup_noop_when_resolve_empty():
+    eng = _s1_engine([])
+    cosine = [_chunk(f"c{i}", f"c{i}.md") for i in range(20)]
+    out = eng._apply_structured_lookup("q", cosine, None, 15, query_embedding=None)
+    assert [c.chunk_id for c in out] == [f"c{i}" for i in range(15)]
