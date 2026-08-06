@@ -21,7 +21,39 @@ Phase 3 是在修一个**已经被 Phase 之前的工作修掉的问题**。
 | 通道 | overall source recall |
 |---|---|
 | **hybrid-only** (S1 关) | **81.07%** |
-| **hybrid + structured-lookup (S1)** = 生产 | **98.93%** |
+| **hybrid + structured-lookup (S1)** = 生产 | **98.93%** ⚠️ |
+
+> ⚠️ **本文档所有数字均为「路径级判据」下测得 (2026-08-06 判据变更前)**。此后 18 道
+> gold=`VARIABLE_INDEX.md` 的题改为 `路径#节$` section 级判据, 生产通道基线变为 **95.71%**,
+> 不满分题数由 2 变为 7 (新增 q107/q108/q109/q110/q112)。见
+> `cdisc_gold_section_granularity.md`。下面"只有 2 题不满分"这类**绝对数字已过时**, 勿再引用。
+>
+> **本文档的结论 (Phase 3 不值得做) 经实测复核后仍然成立** —— 不是推断, 是在新判据下重跑了
+> §4 的反事实对照 (2026-08-06):
+>
+> ```
+> baseline (top15 of deep40, 新 gold)  = 0.9571
+> VI-filtered on trigger shape          = 0.9571
+> delta                                 = +0.00 pt
+> changed questions                     = []          ← 仍是一道题都没动
+> ```
+>
+> 关键是**无重叠**, 三项实测:
+>
+> | 检查 | 结果 |
+> |---|---|
+> | 本次判据改动的 5 题 ∩ 挤占候选集 | **∅** |
+> | 18 道 VI-gold 题 ∩ 挤占候选集 | **∅** |
+> | 18 道 VI-gold 题 ∩ 触发形状 (80 题) | **∅** |
+>
+> 前两项是**定义上必然**的 (挤占候选集要求 gold **不是** VI, 而这 5 题的 gold 全是 VI);
+> 第三项是 `not dist_intent` 守卫的作用 —— 18 题全部 `dist_intent=True`, 修法根本不会在
+> 它们身上 fire。也就是说 section 化动的那部分题与 Phase 3 想修的那部分题**是两个不相交的
+> 集合**, 判据变更不可能改变 Phase 3 的收益判断。
+>
+> 复核时的一处差异 (如实记录): 重建的挤占候选集为 **62** 题, 本文 §2 记的是 63。已定位为
+> **检索深度差异**而非判据影响 —— 直接 `top_k=15` 检索复现 63, `top_k=40` 取前 15 得 62,
+> 差的是 `q134` 一题。两种取法下上述三个交集**均为空**, 结论不变。
 
 生产通道 140 题里**只有 2 题不满分**, 且两题的 top-15 里 **VARIABLE_INDEX chunk 数均为 0** ——
 与挤占无关:
@@ -180,3 +212,6 @@ cd sdtm-rag
 .venv/bin/python eval/run_eval.py eval/test_set_v3.yml --retrieval-only --hybrid              # 81.07%
 .venv/bin/python eval/run_eval.py eval/test_set_v3.yml --retrieval-only --hybrid --structured-lookup  # 98.93%
 ```
+
+**注 (2026-08-06)**: 上面第二条命令在当前题集上跑出的是 **95.71%** (section 级判据), 不是 98.93%。
+要复算 98.93% 需取回旧题集: `git show bfc9ad7:sdtm-rag/eval/test_set_v3.yml`。

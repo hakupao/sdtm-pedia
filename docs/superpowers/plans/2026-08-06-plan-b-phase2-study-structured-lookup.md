@@ -14,6 +14,8 @@
 - 全程 TDD; 全量测试基线 **720 passed** 只增不减 (junitxml 计数, 套件不打印 summary 行)。
 - 真数据映射与探针结论见本地 `data/study/st01/eval/PLANB_P2_NOTES.md` (gitignored) — 执行 Task 6/8 前必读。
 - 基线记账: study **88.53%** (golden v1.1, 25 计分题, hybrid+CJK bigram, `runs/v1_1_hybrid_bigram.json`); CDISC 81.07% (hybrid-only) / 98.93% (+S1)。
+  - **判据变更 (2026-08-06, 本 plan 收口后)**: CDISC +S1 一项改为 **95.71% (section 级判据)**;
+    98.93% 是旧路径级口径, 二者不可直接比较。见 `sdtm-rag/evidence/checkpoints/cdisc_gold_section_granularity.md`。
 - study chunk 元数据: `source` = 裸文件名 (非绝对路径), 另有 `form_oid`/`field_oid` 字段 — S2 注入 filter 依赖这一点, **不能**复用 S1 的绝对路径 filter。
 - 路由闸资产不碰: `_ROUTER_SYSTEM` prompt / 路由 gold 本计划零改动 (不触发闸 1 重跑条件)。
 - 已知偏差声明: spec §Phase 2 表中"近义双卡"的直查依据写的是 "codelist ID / item group / 显示条件"; 实装用**拉丁 token→OID 段精确匹配**达成同一判别 (query 中的拉丁 token 是 EDC 用语; 干扰卡的 OID 段不含该 token, 判别天然成立 — 实测见 NOTES)。catalog 的 codelist/显示条件字段留作未来 fallback, 本轮 YAGNI。

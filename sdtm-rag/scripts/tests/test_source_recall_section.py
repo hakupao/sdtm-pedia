@@ -73,6 +73,47 @@ def test_empty_section_fails_loud_before_missing_sections_check():
         check_source_recall(SOURCES, ["chapters/ch04.md#"])
 
 
+def test_exact_section_marker_matches_only_whole_section():
+    """`路径#节$` = 精确匹配整个 section, 不接受前缀。
+
+    动机 (实测): section 判据是子串语义, 而 VARIABLE_INDEX 有 6 组 section 互为子串
+    (`§一 通用变量: ARM` ⊂ `…ARMCD`, `…VISIT` ⊂ `…VISITNUM` 等)。q107 要 ARM 和 ARMCD
+    两节但只召回了 ARMCD, 子串语义下 ARM 会被 ARMCD 的 chunk 冒名命中, 该题照样满分 ——
+    正是 section 化要消灭的那种假命中。子串匹配对"标识符类 gold"是一类通用隐患, 但各库要各自
+    验证: study 侧同形态的 gold 因带 `.md` 后缀实际有判别力, 照搬结论会误判。
+    """
+    sources = ["VARIABLE_INDEX.md", "VARIABLE_INDEX.md"]
+    sections = ["§一 通用变量: ARMCD", "§一 通用变量: EPOCH"]
+
+    # 子串语义: ARM 被 ARMCD 冒名命中 (旧行为, 保留给非碰撞场景)
+    recall, _, _ = check_source_recall(
+        sources, ["VARIABLE_INDEX.md#§一 通用变量: ARM"], retrieved_sections=sections)
+    assert recall == 1.0
+
+    # 精确语义: ARM 未被召回 -> miss
+    recall, _, misses = check_source_recall(
+        sources, ["VARIABLE_INDEX.md#§一 通用变量: ARM$"], retrieved_sections=sections)
+    assert recall == 0.0 and misses == ["VARIABLE_INDEX.md#§一 通用变量: ARM$"]
+
+    # 精确语义: ARMCD 确实被召回 -> hit
+    recall, hits, _ = check_source_recall(
+        sources, ["VARIABLE_INDEX.md#§一 通用变量: ARMCD$"], retrieved_sections=sections)
+    assert recall == 1.0 and hits == ["VARIABLE_INDEX.md#§一 通用变量: ARMCD$"]
+
+
+def test_exact_section_marker_never_matches_none_section():
+    recall, _, _ = check_source_recall(
+        SOURCES, ["domains/AE/spec.md#anything$"], retrieved_sections=SECTIONS)
+    assert recall == 0.0
+
+
+def test_exact_marker_with_empty_section_fails_loud():
+    # `path#$` 是空 section 的另一种写法, 同样必须响亮报错
+    with pytest.raises(ValueError, match="empty section"):
+        check_source_recall(SOURCES, ["chapters/ch04.md#$"],
+                            retrieved_sections=SECTIONS)
+
+
 def test_any_of_group_supports_section_syntax():
     recall, hits, _ = check_source_recall(
         SOURCES, [], any_of=["nope.md", "chapters/ch04.md#4.1"],

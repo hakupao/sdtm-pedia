@@ -42,14 +42,26 @@ Phase 4 (CDISC 变量索引挤占) —— 各自独立成 plan。
 | 组 | 题集 | lever | 控制组 | 联邦组 | Δ | 逐题 recall 差异 |
 |---|---|---|---|---|---|---|
 | CDISC-A | `eval/test_set_v3.yml` 140q | `--hybrid` | **81.07%** | **81.07%** | **0** | **0 题** |
-| CDISC-B | 同上 | `--hybrid --structured-lookup` | **98.93%** | **98.93%** | **0** | **0 题** |
+| CDISC-B | 同上 | `--hybrid --structured-lookup` | **98.93%** ¹ | **98.93%** ¹ | **0** | **0 题** |
 | study | golden v1.1 (25 计分 / 27 总) | `--hybrid` | **88.53%** | **88.53%** | **0** | **0 题** |
 
 闸: CDISC ≥ 81.1% ✅ / study ≥ 88.5% ✅。**both 配额预案未触发** (无回归, 无需从
 `ceil(k/2)` 提到 `k`; `test_federation.py` 未改)。
 
+¹ 该行数字为**路径级判据**下的历史值, 本轮"控制组 vs 联邦组 Δ0"的结论不受后续判据变更影响
+(两组同判据配对)。判据改为 section 级后该基线为 **95.71%**, 见下方 ⚠️ 说明。
+
 **基线记账口径 (易踩)**: **81.07% 对应 hybrid-only**, 98.93% 对应 hybrid + structured-lookup;
 两者是同一题集的两套配置。引用 81.1% 时**必须同时写明 "hybrid-only"**。study 基线 88.53%。
+
+> **⚠️ 判据变更 (2026-08-06, 见 `cdisc_gold_section_granularity.md`)**: 上表两个 CDISC 数字
+> 是**路径级判据**下测得。此后 18 道 gold=`VARIABLE_INDEX.md` 的题已改为 `路径#节$` section 级
+> 判据, **加 S1 的基线随之 98.93% → 95.71%**。这是**判据变准, 不是检索回归** —— 同一份检索结果
+> 换判据, 未改写的 122 题 recall 逐位不变; 旧口径 98.93% 实测含约 3pt 水分 (4 假命中 + 1 半假命中)。
+> hybrid-only 的 81.07% 亦为旧判据下的值, 未在新判据下重测。
+>
+> 引用时**必须同时写明判据口径**: "95.71% (section 级)" vs "98.93% (路径级, 已弃用)"。
+> 二者**不可直接比较**, 不是同一把尺子。旧题集在 git 历史里 (`bfc9ad7`), 旧数字仍可复算。
 
 ### 判库分布 (联邦组实测计数)
 
@@ -104,7 +116,7 @@ AWS Bedrock (`AWS_BEARER_TOKEN_BEDROCK` + region; boto3 装进 `.venv`):
 | D-ask_compare | `/api/ask_compare` 联邦后**仍是 CDISC 单库**, 响应里无 corpus 信号 —— 已知限制, 不在本 plan 修 |
 | D-corpus-ignored | federation 关闭时 `corpus` 入参被**静默忽略** (不报错) —— 刻意的前向兼容 |
 | D-both-k+1 | `both` 模式对奇数 k 返回 **k+1** 条 (`ceil(k/2)` × 2, k=15 → 16) —— 设计如此, 单测钉住 |
-| D-baseline | 基线记账: CDISC **81.07% (hybrid-only)** / 加 S1 **98.93%** / study **88.53%** |
+| D-baseline | 基线记账: CDISC **81.07% (hybrid-only)** / 加 S1 **98.93%** / study **88.53%** — 均为**路径级判据**; 加 S1 一项 2026-08-06 起改为 **95.71% (section 级)**, 见 §2 ⚠️ |
 
 spec 决策表 D1-D7 (范围 / 安全边界 / 自动路由+前端覆盖 / 跨库 best-effort 不进验收 /
 LLM 判库 / web search 透传 / study×搜索允许但警示) 见 spec 文档 §决策表, 本轮未改。

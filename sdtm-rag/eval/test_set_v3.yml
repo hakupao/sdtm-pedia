@@ -20,6 +20,23 @@
 #   "Concomitant/Prior Medications" - natural phrasing differs), q139 "Exposure"
 #   + q140 "Comments" (short single words excluded by the S3 collision guard).
 #   Boundary probes are honest: they may fail; failures document the boundary.
+#
+# ── gold 的 section 粒度语法 (2026-08-06) ──────────────────────────────
+# `路径#节`  = 路径子串命中某条 retrieved source **且** 节子串命中**同一条目**的 section
+# `路径#节$` = 同上, 但 section 须**精确相等** (末尾 $ = 精确匹配标记)
+# `路径#`    = 非法, 响亮报错 (空 section 会静默退化成路径匹配, 比纯路径写法还松)
+#
+# 为何引入: `VARIABLE_INDEX.md` 有 **222 chunk**, 横跨 24 通用变量 + 63 域表 + 135 CT 码
+# 三个互不相关的族。路径级匹配下命中任意一个即满分 → 判别力≈0。实测 18 道 gold=VI 的题里
+# **4 道假命中**(召回该文件无关 section 却满分, 如 q109 问侧别 C99073 却召回 C66734=RDOMAIN)
+# + 1 道半假命中。改 section 级后基线 98.93% → 95.71% (**判据变准, 非检索回归**;
+# 未改写的 122 题 recall 逐位不变)。
+# 为何用 `$`: VI 有 6 组 section 互为子串 (`§一 通用变量: ARM` ⊂ `…ARMCD` 等), 子串语义下
+# ARM 会被 ARMCD 的 chunk 冒名命中 (q107)。子串匹配对"标识符类 gold"是通用隐患, 但各库须各自
+# 验证实际 gold 写法 (study 侧同形态因卡名带 `.md` 后缀而实际有判别力, 照搬结论会误判)。
+# 适用范围: **只对 VARIABLE_INDEX 这 18 题铺开**。ch04 (47 chunk) 与 domain spec (20-66 chunk)
+# 实测健康 (正确节基本在 rank0-3), 对它们 section 化是负收益 —— 不要扩大范围。
+# 详见 evidence/checkpoints/cdisc_gold_section_granularity.md
 # ════════════════════════════════════════════════════════════════════════
 
 # Test Set v2 — 102 questions (= v1's 53 preserved verbatim + 49 new)
@@ -186,7 +203,7 @@
     - "EPOCH"
     - "Timing"
   expected_sources:
-    - "VARIABLE_INDEX.md"
+    - "VARIABLE_INDEX.md#§一 通用变量: EPOCH$"
 
 - id: q08
   category: cross_domain
@@ -288,7 +305,7 @@
     - "C66742"
     - "NY"
   expected_sources:
-    - "VARIABLE_INDEX.md"
+    - "VARIABLE_INDEX.md#§三 CT 交叉引用: C66742$"
 
 # ════════════════════════════════════════════════════════════════════════
 # Concept (12) — SDTM model concepts, rules, and structural patterns
@@ -501,6 +518,9 @@
   # chunk 在索引里但未被召回。source 匹配是**路径子串**, VARIABLE_INDEX 有 222 chunk,
   # 任一命中即算 → 判别力≈0。放宽 = 把正确的 true negative 改成 false positive。
   # 若将来要放宽, 前提是把 source 判据下沉到 chunk/section 粒度 (metadata 已有 section)。
+  # 该前提已于 2026-08-06 满足 (18 道 VI 题已改 `路径#节$`, 见文件头 section 语法段)。
+  # 但本题**仍不放宽**: 撤回理由是"召回的 chunk 不含答案", 与判据粒度无关 —— 真要放宽,
+  # 得先证明含答案的那个 section 确实被召回。
   expected_sources:
     - "domains/DM/spec.md"
 
@@ -778,7 +798,7 @@
     - "LB"
     - "VS"
   expected_sources:
-    - "VARIABLE_INDEX.md"
+    - "VARIABLE_INDEX.md#§一 通用变量: VISITNUM$"
 
 - id: q67
   category: cross_domain
@@ -788,7 +808,7 @@
     - "AESER"
     - "AESDTH"
   expected_sources:
-    - "VARIABLE_INDEX.md"
+    - "VARIABLE_INDEX.md#§三 CT 交叉引用: C66742$"
 
 - id: q68
   category: cross_domain
@@ -798,7 +818,7 @@
     - "STAT"
     - "Completion Status"
   expected_sources:
-    - "VARIABLE_INDEX.md"
+    - "VARIABLE_INDEX.md#§三 CT 交叉引用: C66789$"
 
 - id: q69
   category: cross_domain
@@ -808,7 +828,7 @@
     - "EXDOSU"
     - "CMDOSU"
   expected_sources:
-    - "VARIABLE_INDEX.md"
+    - "VARIABLE_INDEX.md#§三 CT 交叉引用: C71620$"
 
 - id: q70
   category: cross_domain
@@ -828,7 +848,7 @@
     - "EVAL"
     - "PE"
   expected_sources:
-    - "VARIABLE_INDEX.md"
+    - "VARIABLE_INDEX.md#§三 CT 交叉引用: C78735$"
 
 - id: q72
   category: cross_domain
@@ -889,7 +909,7 @@
     - "AE"
     - "EX"
   expected_sources:
-    - "VARIABLE_INDEX.md"
+    - "VARIABLE_INDEX.md#§一 通用变量: EPOCH$"
 
 # ──────────────────────────────────────────────────────────────────────
 # Concept (new: q78-q89) — SDTM model concepts, rules, structural patterns
@@ -1228,7 +1248,7 @@
     - "43"
     - "Planned Order of Element within Arm"
   expected_sources:
-    - "VARIABLE_INDEX.md"
+    - "VARIABLE_INDEX.md#§一 通用变量: TAETORD$"
 
 - id: q104
   category: cross_domain
@@ -1237,7 +1257,7 @@
     - "36"
     - "Planned Study Day of Visit"
   expected_sources:
-    - "VARIABLE_INDEX.md"
+    - "VARIABLE_INDEX.md#§一 通用变量: VISITDY$"
 
 - id: q105
   category: cross_domain
@@ -1246,7 +1266,7 @@
     - "Non-Host Organism Identifier"
     - "GF, IS, MS, OI"
   expected_sources:
-    - "VARIABLE_INDEX.md"
+    - "VARIABLE_INDEX.md#§一 通用变量: NHOID$"
 
 - id: q106
   category: cross_domain
@@ -1255,7 +1275,7 @@
     - "Focus of Study-Specific Interest"
     - "MB, NV, OE"
   expected_sources:
-    - "VARIABLE_INDEX.md"
+    - "VARIABLE_INDEX.md#§一 通用变量: FOCID$"
 
 - id: q107
   category: cross_domain
@@ -1265,7 +1285,8 @@
     - "Description of Planned Arm"
     - "Planned Arm Code"
   expected_sources:
-    - "VARIABLE_INDEX.md"
+    - "VARIABLE_INDEX.md#§一 通用变量: ARM$"
+    - "VARIABLE_INDEX.md#§一 通用变量: ARMCD$"
 
 # ── batch: cross-codelist-share ──
 
@@ -1278,7 +1299,7 @@
     - "EX.EXROUTE"
     - "SU.SUROUTE"
   expected_sources:
-    - "VARIABLE_INDEX.md"
+    - "VARIABLE_INDEX.md#§三 CT 交叉引用: C66729$"
 
 - id: q109
   category: cross_domain
@@ -1289,7 +1310,7 @@
     - "FA.FALAT"
     - "PE.PELAT"
   expected_sources:
-    - "VARIABLE_INDEX.md"
+    - "VARIABLE_INDEX.md#§三 CT 交叉引用: C99073$"
 
 - id: q110
   category: cross_domain
@@ -1300,7 +1321,7 @@
     - "LB.LBSPEC"
     - "PC.PCSPEC"
   expected_sources:
-    - "VARIABLE_INDEX.md"
+    - "VARIABLE_INDEX.md#§三 CT 交叉引用: C78734$"
 
 - id: q111
   category: cross_domain
@@ -1311,7 +1332,7 @@
     - "EG.EGPOS"
     - "CV.CVPOS"
   expected_sources:
-    - "VARIABLE_INDEX.md"
+    - "VARIABLE_INDEX.md#§三 CT 交叉引用: C71148$"
 
 - id: q112
   category: cross_domain
@@ -1322,7 +1343,7 @@
     - "IS.ISNRIND"
     - "OE.OENRIND"
   expected_sources:
-    - "VARIABLE_INDEX.md"
+    - "VARIABLE_INDEX.md#§三 CT 交叉引用: C78736$"
 
 # ── batch: cross-relationship ──
 

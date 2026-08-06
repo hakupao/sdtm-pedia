@@ -107,10 +107,23 @@ def check_source_recall(
     不但退化成路径匹配, 还绕过了上一段"section 为 None 永不命中"的承诺 —— 比纯路径写法
     更松。改写 gold 时打空一个 section 会静默把该题退回无判别力口径, 偏差单向朝上、幅度小,
     任何闸都拦不住, 与 `load_test_set` 拦拼错 gold 键属同一类防御。
+
+    **`路径#节$` = 精确匹配整个 section** (子串仍是默认, 不带 `$` 时行为不变)。加它的原因:
+    section 判据是子串语义, 而 VARIABLE_INDEX 有 6 组 section 互为子串
+    (`§一 通用变量: ARM` ⊂ `…ARMCD`, `…VISIT` ⊂ `…VISITNUM` 等)。q107 要 ARM + ARMCD 两节
+    却只召回 ARMCD, 子串语义下 ARM 会被 ARMCD 的 chunk 冒名命中 —— 正是 section 化要消灭的
+    那种假命中, 只是换到了 section 层。**子串匹配对"标识符类 gold"是一类通用隐患**: study 侧
+    同期也排查了这一形态 (gold 写成更长兄弟卡的前缀), 但那边卡名带 `.md` 后缀因而实际有判别力,
+    真正失效的是一条家族前缀 gold。教训: 凡"标识符 + 子串匹配", 都要问"有没有更长的兄弟标识符",
+    并按各自 gold 的实际写法逐一验证, 而不是照搬结论。
+    全库无 section 含 `$`, 故该标记不与真实 section 冲突。
     """
     def _matches(exp: str) -> bool:
         if "#" in exp:
             path, sec = exp.split("#", 1)
+            exact = sec.endswith("$")
+            if exact:
+                sec = sec[:-1]
             if not sec.strip():
                 raise ValueError(
                     f"section-level gold {exp!r} has an empty section — 写全 `路径#节`, "
@@ -124,7 +137,7 @@ def check_source_recall(
             if len(retrieved_sections) != len(retrieved_sources):
                 raise ValueError("retrieved_sections length mismatch")
             return any(
-                path in src and sec in (s or "")
+                path in src and (s == sec if exact else sec in (s or ""))
                 for src, s in zip(retrieved_sources, retrieved_sections)
             )
         return any(exp in src for src in retrieved_sources)
