@@ -178,11 +178,6 @@ class StructuredLookup:
     # cosine hits that hold its other gold files.
     _MAX_DOMAIN_SPECS = 3
 
-    # Cap on VARIABLE_INDEX sections union-added from one query. Same value as
-    # _MAX_DOMAIN_SPECS: with top_k=15, three injected chunks leave the cosine
-    # tail intact. A question naming five codelists must not flood the merge.
-    _MAX_VI_ANCHORS = 3
-
     def __init__(self, kb_root: Path, store: MetaStore):
         self.kb_root = kb_root
         self.store = store
@@ -419,17 +414,23 @@ class StructuredLookup:
         return []
 
     def variable_index_anchors(self, query: str) -> list[str]:
-        """VARIABLE_INDEX 内部定位用的**字面锚点** (CT 码 + 已知变量名), CT 码在前,
-        去重保序, 截到 _MAX_VI_ANCHORS。
+        """VARIABLE_INDEX 内部定位用的**字面锚点候选** (CT 码 + 已知变量名), CT 码在前,
+        去重保序, **不截断**。
 
-        返回的是 token 而非 section 串: section 的命名格式只有索引自己知道, 在这里拼
-        格式串等于把同一份格式定义写两遍 (chunker 改名时会静默全 miss)。映射交给
-        RAGEngine 从索引反建。无锚点时返回 [] → 调用方回落 cosine 选块。"""
+        返回 token 而非 section 串: section 的命名格式只有索引自己知道, 在这里拼格式串
+        等于把同一份格式定义写两遍 (chunker 改名时会静默全 miss)。映射交给 RAGEngine
+        从索引反建。无锚点时返回 [] → 调用方回落 cosine 选块。
+
+        **这里不截断是有意的** (规则 A 抽检 D-1): known_variables 有 ~1500 个变量, 而
+        VI §一 只有 24 个有 section。若在这里先截前 3, 一个被题面顺带提到、却没有 VI
+        条目的变量会白占名额, 把真正能解出 section 的锚点挤出去 —— 实证: q107 题面加一
+        句 "our EXDOSU and CMDOSU mappings aside" 就会把 ARMCD 挤掉。哪些锚点真能解出
+        section 只有索引侧知道, 故上限 (RAGEngine._MAX_VI_SECTIONS) 在解析之后才施加。"""
         anchors: list[str] = []
         for tok in _QUERY_CT_RE.findall(query) + self._query_variables(query):
             if tok not in anchors:
                 anchors.append(tok)
-        return anchors[: self._MAX_VI_ANCHORS]
+        return anchors
 
     def resolve(self, query: str) -> list[str]:
         """Return KB-relative gold file paths to union-add, or [] when no intent

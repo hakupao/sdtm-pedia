@@ -91,6 +91,16 @@ async def lifespan(app: FastAPI):
         prompt_guardrail_enabled=s.prompt_guardrail_enabled,
     )
     rag_init_s = round(time.perf_counter() - t_rag, 2)  # incl. BM25 index build when hybrid on
+    if s.structured_lookup_enabled:
+        # S1 的 VARIABLE_INDEX 字面 section 映射在启动期预热一次。
+        # 这条不是性能优化, 是把失败点从请求期挪到部署动作: 映射依赖 chroma 元数据里的
+        # source 绝对路径与 kb_root 对得上, 而 deploy.sh 把 data/chroma 与 knowledge_base
+        # 一起拷到新目录时, chroma 里存的仍是构建树的路径 → 映射为空。若留到请求期才炸,
+        # 每个 CT 码/分布类问句都会 502 (v3 题集 140 题里 71 题走这条路), 运维只看到
+        # "偶发 502"; 在这里炸则 launchd 启动即失败, 写进 logs/api.launchd.log。
+        # 预热成功后表已缓存, 请求期那条 raise 实际不可达。
+        vi_map = app.state.rag._vi_section_map()
+        log.info("s1_vi_section_map", entries=len(vi_map))
     app.state.llm_router = create_router(s)
     app.state.federation = None
     # S2 只挂在 study 引擎上, 而 study 引擎只在联邦分支存在。先置空, 好让下面的 ready 日志

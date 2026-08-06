@@ -48,10 +48,18 @@ class RAGEngine:
 
     _VARIABLE_INDEX_REL = "VARIABLE_INDEX.md"
 
+    # Cap on VARIABLE_INDEX sections union-added from one query (top_k=15 下三块注入
+    # 仍给 cosine 尾巴留足名额)。**施加在 section 解析之后**: 先截锚点会让没有 VI 条目
+    # 的变量白占名额, 把真能解出 section 的锚点挤掉 (规则 A 抽检 D-1)。
+    _MAX_VI_SECTIONS = 3
+
     # VARIABLE_INDEX 的 section 尾部 token: `§三 CT 交叉引用: C99073` -> C99073,
     # `§一 通用变量: STUDYID` -> STUDYID。域变量表 (`AE — Adverse Events (Events)`)
     # 没有 ": " 尾部, 自然落选 —— 那族由 domains/<CODE>/spec.md 通道承接。
-    _VI_ANCHOR_RE = re.compile(r"^(C\d{4,6}|[A-Z][A-Z0-9]{1,})$")
+    _VI_ANCHOR_RE = re.compile(r"^[A-Z][A-Z0-9]{1,}$")
+    # CT 码形状 (CDISC 定义, 非本仓 chunker 的命名约定), 只用于把映射表分成两族做
+    # 完整性校验 —— 不做接受/拒绝, 接受由 _VI_ANCHOR_RE 负责。
+    _VI_CT_RE = re.compile(r"^C\d{4,6}$")
 
     def __init__(
         self,
@@ -442,13 +450,28 @@ class RAGEngine:
             if not section or ": " not in section:
                 continue
             token = section.rsplit(": ", 1)[1].strip()
-            if self._VI_ANCHOR_RE.match(token):
-                mapping.setdefault(token, section)
+            if not self._VI_ANCHOR_RE.match(token):
+                continue
+            if token in mapping and mapping[token] != section:
+                # 同尾 token 的两个 section = 命名约定本身已歧义。Chroma 的 get() 无顺序
+                # 保证, 静默取第一个会让"选中哪个"随版本漂移 (审查 LOW-2)。
+                raise RuntimeError(
+                    f"VARIABLE_INDEX section token {token!r} 对应多个 section: "
+                    f"{mapping[token]!r} / {section!r} — 命名约定歧义, 无法确定性定位。"
+                )
+            mapping[token] = section
 
-        if not mapping:
+        # 两族都必须在: 只判 `not mapping` 会放过"一族改名"这个真会发生的情况 (§一 与 §三
+        # 的 section 串由 chunkers/variable_index.py 两段独立代码生成)。若 §一 改成没有
+        # ": " 的形态, 24 个变量键全丢而 135 个 CT 键还在 → 非空 → 不 raise → 变量锚点题
+        # 静默回落 cosine, 分数无声退回改动前 —— 正是本 guard 声称要防的那个失败 (审查 HIGH-2)。
+        n_ct = sum(1 for k in mapping if self._VI_CT_RE.match(k))
+        if not n_ct or n_ct == len(mapping):
             raise RuntimeError(
-                f"VARIABLE_INDEX section map is empty ({abs_source}) — 索引缺该文件, "
-                "或 ingest 侧 section 命名已改。静默回落 cosine 会把检索退化伪装成无回归。"
+                f"VARIABLE_INDEX section map 不完整 ({abs_source}): "
+                f"CT 码 {n_ct} 条 / 通用变量 {len(mapping) - n_ct} 条, 两族必须都在。"
+                " 索引缺该文件, 或 ingest 侧 section 命名已改 —— 静默回落 cosine 会把"
+                "检索退化伪装成无回归。"
             )
         self._vi_sections = mapping
         return mapping
@@ -461,7 +484,10 @@ class RAGEngine:
         该文件的 222 个 chunk 是极短结构化单行, 对自然语言问句的 embedding 相似度近似
         噪声 —— 文件内 cosine 选块实测基本随机 (4 道题完全打偏)。题面已经点名了码, 不必猜。
 
-        新通道只能赢不能输: 锚点解不出 / 该 section 不在索引 → 回落原来的 cosine 选块。"""
+        回落纪律 (准确措辞, 审查 MEDIUM-1): **锚点命中即接管, 全部落空才回落**。只要有一个
+        锚点解出 section, 字面通道就无条件接管这个文件的注入名额, 即便文件内 cosine 那一块
+        本来更贴题。v3 实测未咬人 (18/18 全命中, 122 题 Δ0), 但这不是"只能赢不能输"的
+        零风险通道 —— 改动它仍需逐题配对 diff 验收。"""
         anchors = self._structured_lookup.variable_index_anchors(query)
         if not anchors:
             return self._lookup_chunks_for_file(
@@ -470,11 +496,10 @@ class RAGEngine:
 
         abs_source = str((self.kb_root / self._VARIABLE_INDEX_REL).resolve())
         section_map = self._vi_section_map()
+        # 先 resolve 再 cap: 解不出 section 的锚点不占名额 (见 _MAX_VI_SECTIONS 注释)
+        sections = [section_map[a] for a in anchors if a in section_map]
         out: list[RetrievedChunk] = []
-        for anchor in anchors:
-            section = section_map.get(anchor)
-            if section is None:
-                continue
+        for section in sections[: self._MAX_VI_SECTIONS]:
             out.extend(self._search(
                 query, 1,
                 {"$and": [{"source": {"$eq": abs_source}},

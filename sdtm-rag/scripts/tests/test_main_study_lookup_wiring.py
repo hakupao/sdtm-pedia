@@ -46,6 +46,13 @@ def boot(monkeypatch):
         def __init__(self, **kwargs):
             engines.append(kwargs)
             self.collection = FakeCollection()
+            self.vi_map_calls = 0
+
+        def _vi_section_map(self):
+            # lifespan 在 structured_lookup 开着时预热 S1 的 VI section 映射, 好让部署
+            # 路径错配在启动期就炸 (而不是每个 CT 码问句 502)。stub 必须实现这个接口。
+            self.vi_map_calls += 1
+            return {"C99073": "§三 CT 交叉引用: C99073", "ARM": "§一 通用变量: ARM"}
 
     monkeypatch.setattr(main_mod, "RAGEngine", FakeEngine)
     monkeypatch.setattr(main_mod, "create_router", lambda *a, **k: None)
@@ -74,7 +81,7 @@ def boot(monkeypatch):
 
         with structlog.testing.capture_logs() as logs:
             asyncio.run(_enter())
-        return SimpleNamespace(engines=engines, logs=logs)
+        return SimpleNamespace(engines=engines, logs=logs, app=app)
 
     return _run
 
@@ -181,3 +188,26 @@ def test_federation_on_does_not_warn(boot, fake_lookup):
 def test_federation_off_without_lookup_does_not_warn(boot):
     logs = boot(Settings(study_lookup_enabled=False, federation_enabled=False)).logs
     assert not [e for e in logs if e["event"] == "study_lookup_ignored"]
+
+
+# ---- S1 VI section 映射的启动期预热 (审查 HIGH-1) -----------------------------
+
+
+def test_startup_preheats_vi_section_map(boot, fake_lookup):
+    """S1 开着时 lifespan 必须预热 VI section 映射。
+
+    映射依赖 chroma 元数据里的 source 绝对路径与 kb_root 对得上。deploy.sh 把
+    data/chroma 与 knowledge_base 一起拷到新目录时, chroma 里存的仍是构建树的路径 →
+    映射为空。若留到请求期才炸, 每个 CT 码/分布类问句都 502 (v3 140 题里 71 题走这条
+    路), 运维只看到"偶发 502"; 预热则让 launchd 启动即失败, 写进 api.launchd.log。
+    删掉预热不会让任何功能测试变红 —— 所以这条锁必须存在。"""
+    r = boot(Settings(structured_lookup_enabled=True))
+    assert r.app.state.rag.vi_map_calls == 1
+    assert _event(r.logs, "s1_vi_section_map")["entries"] == 2
+
+
+def test_startup_skips_preheat_when_s1_off(boot, fake_lookup):
+    # S1 关着时 VI 映射根本用不到, 预热它等于凭空引入一条启动期失败源
+    r = boot(Settings(structured_lookup_enabled=False))
+    assert r.app.state.rag.vi_map_calls == 0
+    assert not [e for e in r.logs if e["event"] == "s1_vi_section_map"]

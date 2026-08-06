@@ -387,11 +387,13 @@ class TestVariableIndexAnchors:
             "codelist C66742 and again C66742"
         ) == ["C66742"]
 
-    def test_capped_at_max(self, lookup):
+    def test_not_capped_here(self, lookup):
+        # 上限施加在 RAGEngine 侧 (section 解析之后)。若在这里先截, 没有 VI 条目的
+        # 变量会白占名额, 把真能解出 section 的锚点挤掉 —— 规则 A 抽检 D-1。
         out = lookup.variable_index_anchors(
             "codelists C66742, C66734, C99073, C78735 and C71620"
         )
-        assert len(out) == StructuredLookup._MAX_VI_ANCHORS
+        assert out == ["C66742", "C66734", "C99073", "C78735", "C71620"]
 
     def test_no_anchor_returns_empty(self, lookup):
         assert lookup.variable_index_anchors("What is an SDTM domain?") == []
