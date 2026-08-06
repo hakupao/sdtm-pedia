@@ -152,6 +152,24 @@ def test_alias_term_normalized_like_query():
     # 别名词与问句同走 NFKC+去空白: 全角/空格差异不得阻断 (term 侧漏 _norm 会挂)
     lk = StudyLookup(CATALOG, aliases=[{"term": "偽光線 検査", "form": "FRM_A"}])
     assert lk.resolve("偽光線検査はどこ?").form_scopes == ["FRM_A"]
+    # raw 保留作者在 yml 写的字面 (归一化形态排查时对不上账)
+    assert lk.aliases == [{"term": "偽光線検査", "raw": "偽光線 検査", "form": "FRM_A"}]
+
+
+@pytest.mark.parametrize("bad_term", ["", "　 　"])   # 空串 / 纯全角+半角空白
+def test_alias_empty_term_rejected(bad_term):
+    # 空 term 会子串命中所有问句 → 该 form 无差别 scope 进来, 是唯一的静默错误面
+    with pytest.raises(ValueError, match="FRM_A"):
+        StudyLookup(CATALOG, aliases=[{"term": bad_term, "form": "FRM_A"}])
+
+
+def test_same_form_synonyms_yield_one_scope():
+    # 手写别名表常见形态: 同一 form 挂多个同义词; 同时命中不得产出重复 scope
+    lk = StudyLookup(CATALOG, aliases=[
+        {"term": "偽光線", "form": "FRM_A"},
+        {"term": "偽検査", "form": "FRM_A"},
+    ])
+    assert lk.resolve("偽光線と偽検査について").form_scopes == ["FRM_A"]
 
 
 def test_alias_unknown_form_fails_loud():

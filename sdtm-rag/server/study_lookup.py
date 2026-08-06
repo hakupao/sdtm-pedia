@@ -53,10 +53,15 @@ class StudyLookup:
         known_forms = {it["form_oid"] for it in items}
         self.aliases: list[dict] = []
         for a in aliases or []:
+            term = _norm(a["term"])
+            if not term:
+                raise ValueError(
+                    f"alias term for form {a['form']!r} is empty after normalization — 空别名会命中所有问句")
             if a["form"] not in known_forms:
                 raise ValueError(
-                    f"alias form {a['form']!r} not in catalog forms — 别名表指向不存在的 form")
-            self.aliases.append({"term": _norm(a["term"]), "form": a["form"]})
+                    f"alias form {a['form']!r} has no item in catalog — 别名表指向不存在的 form")
+            # raw = 作者在 yml 写的字面, 供命中日志排查 (term 是归一化形态, 对不上账)
+            self.aliases.append({"term": term, "raw": a["term"], "form": a["form"]})
         # label(归一化) -> [card_src]; (form, OID首段) -> [card_src]; 段 -> [card_src]
         self._label_index: dict[str, list[str]] = defaultdict(list)
         self._family: dict[tuple[str, str], list[str]] = defaultdict(list)
@@ -112,7 +117,7 @@ class StudyLookup:
         return StudyLookupResult(cards=cards[:_MAX_CARDS_TOTAL], form_scopes=scopes)
 
     @classmethod
-    def from_paths(cls, catalog_path: Path, aliases_path: Path | None) -> "StudyLookup":
+    def from_paths(cls, catalog_path: Path, aliases_path: Path | None) -> StudyLookup:
         """catalog 缺失 = 配置错误, 响亮失败; 别名表是可选增强, 缺失降级为空。"""
         catalog = json.loads(Path(catalog_path).read_text(encoding="utf-8"))
         aliases: list[dict] = []
