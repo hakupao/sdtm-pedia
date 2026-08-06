@@ -409,7 +409,7 @@ def test_study_lookup_requires_collection_or_federated(captured):
 def test_settings_study_lookup_defaults():
     from server.config import Settings
     s = Settings()
-    assert s.study_lookup_enabled is False       # Task 8 验收全绿后才翻 True
+    assert s.study_lookup_enabled is True        # Task 8 验收全绿后翻开 (2026-08-06)
     assert s.study_catalog_path.name == "catalog.json"
     assert s.study_aliases_path.name == "lookup_aliases.yml"
     # 两个文件同属一个 study 数据目录; 指到别处 = 配置写错

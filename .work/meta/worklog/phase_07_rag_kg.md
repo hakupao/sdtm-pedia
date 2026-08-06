@@ -672,3 +672,61 @@ hybrid-only, 已按两套配置各跑一遍配对避免选择性挑数)、b03 �
 
 **next**: Phase 2 (study 结构化直查) / Phase 3 (eval chunk 粒度判据) / Phase 4 (CDISC 变量
 索引挤占) 各自独立成 plan, 均不在本轮范围。
+
+---
+
+## 2026-08-06 — Plan B Phase 2 (S2) study 结构化直查 DONE ✅ 默认启用
+
+**目标**: study 侧 golden v1.1 上 4 道 dense/hybrid 打不中的题, 靠**确定性**结构直查补上 —
+数据源只有 `catalog.json` (959 items) 与本地手工别名表, **零 LLM**。
+
+**做法** (`sdtm-rag/server/study_lookup.py` 新建, 8 task TDD): 三通道 + 一个补充形状 —
+① 题面含卡 label (NFKC+去空白归一, 长度下界 4) → 该卡 + 其 OID 首段家族 (家族键含 `form_oid`,
+不跨 form); ② 单个拉丁大写 token 命中 OID 段 → 该段全部卡; **②a** ≥2 个 token 各自命中段但单段
+集合过宽被 cap 挡 → 取**交集** (严格全 token 合取); ③ 别名 term → form scope (≤3 名额)。
+命中卡在检索前置 union-add 合并 (与 S1 共用 `_merge_lookup_first`), 与 S1 互斥。
+
+**验收**: 25 计分题 **88.53% → 100.00% (+11.47pt)**, 四题 (q08/q14/q16/q21) 分别由通道
+③/②a/②/① 修复; `regressions=[]` 对基线与对 attempt1 双向零回归; 计分口径 (oos={q26,q27}) 未变。
+**联邦复核** (`--federated`): 100.0%, 逐题 recall 与 top5 集合**双双零差异**, routing `{study:25, both:2}`。
+测试 **720 → 799** (0 failed / 0 skipped)。生产 launchd 重启零 traceback, `ready` 日志显示
+`study_lookup='959 items/1 aliases'` (Task 5 加的可见性闸首次派上用场), q08/q14 端到端各命中 gold 1/1。
+
+**日文题面的真 bug**: `\b` 在 CJK 下失效 (CJK 属 `\w`), 通道② 若照计划用 `\b` 会成死代码 →
+改 ASCII-only 词边界。这是实现方在 TDD 中发现并按规格纠正的计划缺陷。
+
+**q14 attempt 1 FAIL 的根因 = 规划缺陷, 不是实现缺陷**: 规划期探针口径隐含「限定首段 + 单一 form」,
+实装规格是「全段 + 全 form」, 故 NOTES 里 q14 的通道预期在真实索引下被证伪 (两 token 的段命中
+21/12 卡双双超 cap=8 → 通道② 完全不 fire)。这直接催生了 ②a。失败 run 已按规则 B 归档
+`..._attempt1_FAIL_q14.json` (未删, mtime 未触碰)。**教训**: 规划期探针口径必须与实装规格逐条对齐,
+否则「机制已实证」是假的。
+
+**为破"单样本无法证伪"做的全库证据**: 359 张 ≥2 段的卡里交集规模 min1/p50 1/p90 2/max 6,
+**0 张超 cap**; 以段对为单位 (段对才是 query 形状的单位) 全库 338 个共现段对中 **8 对**属
+「双单段皆超 cap 而交集落回」= ②a 独有解锁的形状 → q14 非孤例, ②a 是 pattern 级修法。
+**但必须同时记住**: 这些统计证明的是**形状的 cap 安全性与复现性**, **不是 fire 正确性** —
+后者证据仍是 **n=1** (27 题中 ②a 实际 fire 1 题)。这是本轮最大的未证伪面。
+
+**cap=8 的反过拟合证据**: cap 扫 6/8/10/16 全 gold 覆盖题数**恒为 4**, `_MAX_CARDS_TOTAL` 扫
+6-15 亦恒为 4 → 落在**平台**上而非尖峰, 100% 不是靠调常数得来。代价也如实入档: label 侧
+193/515 (37.5%) 超 cap 被整体跳过 (含 107 条唯一 label), 段侧 20/458 (4.4%); 抬到 12/16 注入量
+17→23 而 gold 覆盖零增益 → **对称的无知** (无损害证据也无收益证据)。本题集无代价 ≠ 该规格无代价。
+
+**审阅循环 (规则 D)**: 实现方与各审阅方全部不同 `subagent_type`; 终审 37 变异独立自跑 31 杀 6 存活,
+其中 3 条真缺口 (家族键 form 分量 / NFKC 空转断言 / `_MIN_LABEL_LEN` 双向) 在 fix wave 全部补锁,
+终审复核 6/6 ADDRESSED 且逐文件 sha256 证明生产代码零改动 → 验收数字无需重跑。终审还发现
+**q23 (计分题) 的唯一 gold 是 17 张卡的公共子串, 判别力≈0** —— 既存缺陷、基线亦 1.0、不影响
++11.47pt 归因, 但「25/25」里有一题近乎不可证伪, 已写进 checkpoint。
+
+**终审模型降档如实入档**: 原定 fable 因额度耗尽改由 opus 承担 (用户 2026-08-06 确认), **非为省钱**;
+规则 D 隔离靠 5 种不同 `subagent_type` 维持。
+
+**open follow-ups**: ① M-f 注入量 ≥k 时 `log.warning` 从未实装 (实测 max slot 6 << k=15, 非阻塞);
+② `aliases.raw` 字段无生产消费方; ③ `_apply_study_lookup` 忽略 `where` 属未言明的不变量
+(当前安全: federation 只以无 domain/file_type 形式调 study 引擎); ④ 继承自 Phase 1 —
+`_FederatedAdapter.build_messages` 把 `corpus` 硬写成 `"both"`, **做联邦答题 eval 前必须先修**。
+
+**证据**: `sdtm-rag/evidence/checkpoints/planb_phase2_study_lookup.md` ·
+plan `docs/superpowers/plans/2026-08-06-plan-b-phase2-study-structured-lookup.md`
+
+**next**: Plan B Phase 3 (eval chunk 粒度判据) / Phase 4 (CDISC 变量索引挤占), 各自独立成 plan。
