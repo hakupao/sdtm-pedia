@@ -1,12 +1,21 @@
 """gold 唯一性 lint — 把"期望来源必须唯一定位"变成可执行闸。
 
-动机 (2026-08-06 勘察): v1.1 的 42 条 gold 里 9 条是多卡匹配。`check_source_recall`
-是**子串**匹配, 所以 gold 写成家族前缀 (`..__FAM_`) 或写成兄弟卡的子串
-(`ITEM_R` ⊂ `XITEM_R`) 时, 召回**任意**一张匹配卡都判满分 —— 答错也得分。
-最极端的一例是一条 gold 匹配 17 张卡, 该题判别力≈0。
+动机: gold 写成家族前缀 (`..__FAM_`) 时, 子串匹配下召回**任意**一张同族卡都判满分,
+答错也得分。v1.1 有一条这样的 gold 匹配 17 张卡, 该题判别力≈0。
 
-本工具不改 `check_source_recall` 的语义 (改了历史 run 就不可复算), 而是在出题侧
-把这类 gold 拦下来。0 匹配同样报 —— 打错的 gold 恒 miss, 比多匹配更隐蔽。
+**本工具必须与 `check_source_recall` 逐字同语义** (这是本文件唯一的正确性要求):
+判据末行是 `any(exp in src for src in retrieved_sources)` —— gold **原样**去匹配
+retrieval 返回的**完整 source 串**, 不做任何规范化。study 侧的 source 实测是裸文件名
+`<study>__<form>__<item>.md` (无目录前缀), 所以 `.md` **参与匹配且有判别力**:
+`…__ITEM_R.md` 不是 `…__ITEM_RX.md` 的子串 (R 后面是 `.` 不是 `X`)。
+
+初版曾先剥掉 `.md` 再匹配无后缀卡名, 比真实判据**严**, 于是把 12 条带 `.md` 的合法 gold
+中的 8 条报成多匹配。连锁后果: 出题人为迁就假阳性删过合法 gold。教训是判据检查工具
+一旦与被检查的判据不同语义, 就会制造连锁误判 —— 故 `test_lint_semantics_match_check_source_recall`
+直接钉住两者等价, 改任一侧都会红。
+
+不改 `check_source_recall` 本身 (改了历史 run 就不可复算), 只在出题侧设闸。
+0 匹配同样报 —— 打错的 gold 恒 miss, 比多匹配更隐蔽。
 """
 from __future__ import annotations
 
@@ -28,8 +37,9 @@ class Finding:
 
 
 def _card_names(catalog: dict) -> list[str]:
+    """卡名带 `.md`, 与 retrieval 返回的 source 串逐字一致。"""
     study = catalog["study"]
-    return [f"{study}__{it['form_oid']}__{it['item_oid']}" for it in catalog["items"]]
+    return [f"{study}__{it['form_oid']}__{it['item_oid']}.md" for it in catalog["items"]]
 
 
 def lint_gold(test_set_path, catalog_path, max_matches: int = 1) -> list[Finding]:
@@ -46,8 +56,15 @@ def lint_gold(test_set_path, catalog_path, max_matches: int = 1) -> list[Finding
             continue
         allowed = q.get("gold_max_matches", max_matches)
         for gold in (q.get("expected_sources") or []):
-            key = gold[:-3] if gold.endswith(".md") else gold
-            hits = [n for n in names if key in n]
+            if "#" in gold:
+                # `路径#节` 在 check_source_recall 下是双条件匹配, 需要 retrieved_sections;
+                # catalog 里没有 section 信息, 本工具建模不了。宁可报错也不静默按字面数 ——
+                # 那正是本文件要消灭的"工具与判据不同语义"。
+                raise ValueError(
+                    f"{q['id']}: section 级 gold {gold!r} 无法由 catalog 建模 "
+                    "(study 卡无 section)。card 级 gold 请写完整卡名。"
+                )
+            hits = [n for n in names if gold in n]
             if len(hits) != allowed:
                 findings.append(Finding(q["id"], gold, len(hits), sorted(hits)[:3]))
     return findings
