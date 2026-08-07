@@ -24,6 +24,8 @@ top-15 的**成分**跨独立进程会变 (Chroma HNSW 在一批正文逐字节�
   —— **进程内循环 N 次不是 N 个独立样本**, 严重偏向单一状态。
 - **排位一律不可复现**: `composition` 里的先后、以及具体哪个域填了某席位, 都由 ingest
   分批噪声决定。"14 席被 §DOMAIN 占掉"可引用, "AE 排在 FA 前面"不可引用。
+- `max_cluster_section` 在**并列**时也是排位产物 (实测 140 题里 71 题并列)。落盘行带
+  `max_cluster_section_tied` 标记, **为 true 即不可引用该字段**。
 
 跑批 (从 sdtm-rag/ 起):
   .venv/bin/python -m eval.crowding_probe --output evidence/checkpoints/crowding_layer1.json
@@ -50,6 +52,24 @@ def crowding_stats(chunks) -> dict:
         "max_cluster_section": top_sec,
         "distinct_sections": len(cnt),
     }
+
+
+def max_cluster_section_tied(chunks) -> bool:
+    """簇头的 section 名是不是**由排位决定**的 (即有并列)。
+
+    `crowding_stats` 用 `Counter.most_common(1)` 取簇头, 并列时胜者由插入顺序决定,
+    而插入顺序 = top-k **排位** —— 排位不可复现 (topk_jitter.md §4)。实测 140 题里
+    71 题存在并列 (其中 49 题 `max_cluster == 1`, 压根没有簇, 那个名字纯属噪声)。
+
+    单独成函数而不是塞进 `crowding_stats`: 后者的返回 schema 由 brief 钉死并有单测
+    锁 (`test_empty` 断言逐键相等)。这个标记走**落盘行**这一层, 让下游读 JSON 就能
+    看见禁忌 —— 禁忌只写在文档里, 读 JSON 的人看不到。
+    """
+    cnt = Counter(getattr(c, "section", None) for c in chunks)
+    if not cnt:
+        return False
+    top_n = cnt.most_common(1)[0][1]
+    return sum(1 for n in cnt.values() if n == top_n) > 1
 
 
 # ---- 跨进程验稳 (Task 3B 硬要求) --------------------------------------------
@@ -162,6 +182,9 @@ def _run_single_shot(qs, top_k: int, output: str) -> int:
         st = crowding_stats(chunks)
         rows.append({
             "id": q["id"], "category": q["category"], "n": len(chunks), **st,
+            # true = 簇头 section 名由排位决定, **不可引用** (见 max_cluster_section_tied)。
+            # 标在行内而不是只写文档: 下游读的是这个 JSON。
+            "max_cluster_section_tied": max_cluster_section_tied(chunks),
             # 单次快照: 顺序与"哪个域填了某席位"都是噪声, 不可引用 (见模块 docstring)
             "composition": [
                 {"source": c.source, "section": c.section,

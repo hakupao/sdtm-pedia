@@ -46,6 +46,17 @@ brief Step 5 的期望是"**逐值相同**" (gold 不参与本探针任何计算
 q120 这次的翻转**不是**并列造成的 (两版都无并列), 是真成分变化; 但两件事共同说明:
 **簇头的 section 名不是稳定事实, 只有簇的大小是。**
 
+## 追加 (fix round 1): q120 又翻回去了 —— 第三个样本
+
+为加 `max_cluster_section_tied` 字段而重跑 140 题 (同一命令), 逐题再比一次:
+**唯一差异仍是 q120 的 `max_cluster_section`, 且这次翻回了 `whole_file`**。
+三次单次快照的簇头名: `whole_file` (scratchpad) → `item_1` (首次落库) → `whole_file` (重跑),
+三次的 `(max_cluster, dup_seats, distinct_sections)` 恒为 `(2,1,14)`, 与 20 进程跨进程分布一致。
+
+**要点**: q120 的 `max_cluster_section_tied` **三次都是 false** —— 它的不稳定**不是并列造成的**,
+所以新加的标记**照不出它**。故标记的语义必须写准: `tied=false` = "不是并列打破出来的",
+**不等于"稳定"**。要判稳定性只能看跨进程分布。已写进 `crowding_layer1.md` §4 禁忌 2。
+
 ## 下一 attempt 的输入
 
 - 引用层① 逐题数字时, 只引 `max_cluster` (含 §5.6 豁免条件); `dup_seats`/`distinct_sections`

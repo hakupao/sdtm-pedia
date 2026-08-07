@@ -4,6 +4,7 @@ import pytest
 from eval.crowding_probe import (
     crowding_across_processes,
     crowding_stats,
+    max_cluster_section_tied,
     sections_by_chunk_id,
     stats_distribution,
 )
@@ -50,6 +51,33 @@ def test_same_section_same_source_still_counts():
     """同一文件的两个同名 section 也算簇 —— 挤占看的是席位, 不问来源。"""
     chunks = [_C("same.md", "S"), _C("same.md", "S")]
     assert crowding_stats(chunks)["max_cluster"] == 2
+
+
+# ---- 簇头 section 名的可引用性标记 (下游读的是 JSON, 禁忌必须 in-band) ------
+
+
+def test_tied_flag_true_when_max_cluster_is_shared():
+    """两个 section 并列最大 -> 簇头名由插入顺序(=排位)决定, 必须标 true。"""
+    chunks = [_C("a.md", "A"), _C("b.md", "B"), _C("c.md", "A"), _C("d.md", "B")]
+    assert crowding_stats(chunks)["max_cluster"] == 2
+    assert max_cluster_section_tied(chunks) is True
+
+
+def test_tied_flag_false_when_cluster_head_is_unique():
+    chunks = [_C("a.md", "A"), _C("b.md", "A"), _C("c.md", "B")]
+    assert max_cluster_section_tied(chunks) is False
+
+
+def test_tied_flag_true_when_no_cluster_at_all():
+    """max_cluster==1 时人人并列 —— 实测 140 题里有 49 题是这种, 那个 section 名纯属噪声。"""
+    chunks = [_C(f"f{i}.md", f"s{i}") for i in range(5)]
+    assert crowding_stats(chunks)["max_cluster"] == 1
+    assert max_cluster_section_tied(chunks) is True
+
+
+def test_tied_flag_edge_cases():
+    assert max_cluster_section_tied([]) is False           # 没有簇头可言
+    assert max_cluster_section_tied([_C("a.md", "A")]) is False   # 唯一条目不算并列
 
 
 # ---- 跨进程验稳 (brief Step 4B; 这些数字会进证据, 探针自己先被测) ----------
