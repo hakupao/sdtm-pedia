@@ -1864,7 +1864,7 @@ Search this file by variable name to find which domains the variable appears in,
 
 ---
 
-## 3. CDISC Controlled Terminology Cross-Reference (135 CT Codes)
+## 3. CDISC Controlled Terminology Cross-Reference (147 CT Codes)
 
 | CT Code | References | Variables Referencing This CT (DOMAIN.VARIABLE) |
 |---------|--------|---------------------------|
@@ -1872,6 +1872,7 @@ Search this file by variable name to find which domains the variable appears in,
 | C100130 | 1 | RELSUB.SREL |
 | C101832 | 1 | FA.FATESTCD |
 | C101833 | 1 | FA.FATEST |
+| C101834 | 1 | EG.EGSTRESC |
 | C101846 | 1 | CV.CVTEST |
 | C101847 | 1 | CV.CVTESTCD |
 | C101858 | 1 | PR.PRDECOD |
@@ -1882,9 +1883,10 @@ Search this file by variable name to find which domains the variable appears in,
 | C111106 | 1 | RE.RETESTCD |
 | C111107 | 1 | RE.RETEST |
 | C111110 | 1 | AE.AEACNDEV |
-| C111114 | 1 | GF.GFSPEC |
+| C111114 | 3 | BS.BSSPEC, GF.GFSPEC, RELSPEC.SPEC |
 | C112023 | 1 | SR.SRTEST |
 | C112024 | 1 | SR.SRTESTCD |
+| C114118 | 1 | DS.DSDECOD |
 | C115304 | 1 | FT.FTCAT |
 | C116103 | 1 | NV.NVTEST |
 | C116104 | 1 | NV.NVTESTCD |
@@ -1892,7 +1894,11 @@ Search this file by variable name to find which domains the variable appears in,
 | C116108 | 1 | DD.DDTESTCD |
 | C117742 | 1 | OE.OETEST |
 | C117743 | 1 | OE.OETESTCD |
+| C118971 | 1 | RS.RSCAT |
 | C119013 | 1 | OE.FOCID |
+| C120522 | 1 | EG.EGSTRESC |
+| C120523 | 1 | EG.EGTESTCD |
+| C120524 | 1 | EG.EGTEST |
 | C120525 | 1 | IS.ISTESTCD |
 | C120526 | 1 | IS.ISTEST |
 | C120527 | 1 | MB.MBTESTCD |
@@ -1911,6 +1917,10 @@ Search this file by variable name to find which domains the variable appears in,
 | C125923 | 1 | EC.ECMOOD |
 | C127269 | 1 | MK.MKTESTCD |
 | C127270 | 1 | MK.MKTEST |
+| C128683 | 2 | PP.PPORRESU, PP.PPSTRESU |
+| C128684 | 2 | PP.PPORRESU, PP.PPSTRESU |
+| C128685 | 2 | PP.PPORRESU, PP.PPSTRESU |
+| C128686 | 2 | PP.PPORRESU, PP.PPSTRESU |
 | C128687 | 1 | MS.MSTEST |
 | C128688 | 1 | MS.MSTESTCD |
 | C129941 | 1 | UR.URTEST |
@@ -1918,6 +1928,7 @@ Search this file by variable name to find which domains the variable appears in,
 | C132262 | 1 | MI.MITEST |
 | C132263 | 1 | MI.MITESTCD |
 | C142179 | 1 | DM.ARMNRS |
+| C150811 | 1 | DS.DSDECOD |
 | C158113 | 3 | FT.FTMETHOD, QS.QSMETHOD, RS.RSMETHOD |
 | C160922 | 1 | LB.LBANMETH |
 | C165643 | 1 | CE.CESEV |
@@ -1932,6 +1943,7 @@ Search this file by variable name to find which domains the variable appears in,
 | C179589 | 1 | LB.LBTMTHSN |
 | C179590 | 1 | OI.OIPARM |
 | C179591 | 1 | OI.OIPARMCD |
+| C181169 | 1 | IS.ISBDAGNT |
 | C181170 | 2 | IS.ISTSTOPO, LB.LBTSTOPO |
 | C181171 | 1 | CP.CPCAT |
 | C181172 | 1 | CP.CPCELSTA |
