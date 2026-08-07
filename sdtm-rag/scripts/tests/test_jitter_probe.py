@@ -2,6 +2,8 @@
 import contextlib
 import math
 
+import pytest
+
 from eval.jitter_probe import (
     min_adjacent_gap,
     pair_margins,
@@ -165,3 +167,26 @@ def test_stability_across_processes_aggregates_runner_output():
     assert r["distinct_sets"] == 2
     assert r["sometimes"] == 2      # c, d
     assert r["always"] == 2         # a, b
+
+
+@pytest.mark.slow
+def test_stability_across_processes_real_subprocess_smoke():
+    """真子进程路径的冒烟测试 (n_procs=2)。
+
+    上面两条跨进程测试都注入 fake runner, 只验聚合口径与参数透传; 而**改判整个压在
+    真实子进程这条路径上** —— 它若因为 cwd / 模块名 / pickling 之类的原因起不来,
+    上面两条一条都不会红。这里就用最小规模真起两个进程, 换 API 与 Chroma 的真实开销。
+
+    只断言"路径能跑通且形状对", 不断言稳定性: 2 个进程的结果本来就可能同也可能不同。
+    """
+    from server.config import settings
+
+    rep = stability_across_processes(
+        "What is the DOMAIN variable?", n_procs=2,
+        config="hybrid", top_k=settings.top_k,
+    )
+    assert rep["n_procs"] == 2
+    assert len(rep["runs"]) == 2
+    assert all(len(r) > 0 for r in rep["runs"])          # 真检索回了东西
+    assert all(isinstance(c, str) for r in rep["runs"] for c in r)
+    assert rep["distinct_sets"] in (1, 2)

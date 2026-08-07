@@ -94,3 +94,7 @@ ignore_missing_imports = true
 [tool.pytest.ini_options]
 testpaths = ["scripts/tests"]
 addopts = "-ra -q"
+markers = [
+    # 起真实子进程 / 打真实外部 API 的慢测试。默认跑; 要跳过用 -m "not slow"。
+    "slow: spawns real subprocesses or hits real APIs",
+]

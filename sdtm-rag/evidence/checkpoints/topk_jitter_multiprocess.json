@@ -1,13 +1,15 @@
 {
  "_meta": {
   "what": "跨独立进程的 top-15 稳定性 (第一版探针漏掉的一维)",
-  "why": "同一进程内循环 N 次 = 1 个样本: 固定同一份逐位相同的 query 向量、同一份 BM25 索引顺序, 8 个独立进程跑纯 dense top-31 结果仍不同 —— Chroma HNSW 近似检索在一批向量完全相同的重复 chunk 之间选谁, 进程内稳定、换进程会变。",
+  "why": "固定一份逐位相同的 query 向量 (embedding 维被完全控制掉) + 各进程 BM25 索引顺序指纹相同, 8 个独立进程跑纯 dense top-31 结果仍不同 —— Chroma HNSW 近似检索在一批向量完全相同的重复 chunk 之间选谁, 跨进程会变。",
+  "in_process_is_biased_not_locked": "进程内并非量不到, 而是**严重偏向单一状态**: 单进程连跑 60 次 (每次新建引擎+现场 embed) 实测 top-15 出现 2 种状态, 多数派 57/60≈95%, 且状态切换与向量切换不同步。0.95^12≈54% 即可解释第一版 12 次 block 多数报零变化, 无需'进程内锁死'假设。",
+  "state_space_not_exhausted": "20 进程**未穷尽**状态空间, 但比一开始报告的更好: 评审 run2 (ch04,SV,TS,ML,DA,PR,CO,CV,TE,BS,NV,PC,TR,UR,DD) 在 fixed_vector 模式里被**逐位复现**, 出现 1/20 进程 (见 questions.q38.fixed_vector.distinct_compositions)。但 live_embed 模式那 20 个进程里没有它, 却多出另一个同时含 TE 与 TR 的第 5 种状态。即: 不同批次见到的状态集合不同, 稀有态在 1/20 量级。n_procs=20 是**检出不稳定**的下限, 不足以**刻画分布尾部**; q47 那种接近四六开的分布 20 次够用, 1/20 那种稀有态显然不够。",
   "n_procs": 20,
   "n_questions": 140,
   "top_k": 15,
   "config": "hybrid + structured_lookup (生产口径)",
   "modes": {
-   "fixed_vector": "query 向量逐位固定 => 只含检索侧 (HNSW) 抖动",
+   "fixed_vector": "query 向量逐位固定 => 只含检索侧 HNSW 抖动",
    "live_embed": "每进程各自现场 embed => 生产口径, embedding 抖动 + HNSW 抖动叠加"
   },
   "summary": {
@@ -69,7 +71,8 @@
      "ids": []
     }
    }
-  }
+  },
+  "max_cluster_exemption_is_conditional": "max_cluster 0/140 不是巧合, 也不是无条件豁免。机制: 抖动换的是'哪个域'(TE↔OE↔TR↔RP), 而这些 chunk 全是 domains/*/spec.md#1、section 一律为 DOMAIN => 换人不换 section => §DOMAIN 簇大小恒定。更根本地: 重复 chunk 之所以成为 HNSW 的歧义源, 正因为它们**正文逐字节相同**, 而正文相同就意味着 **section 相同** —— **抖动天然发生在簇内部**。条件: 一旦 churn 跨出簇 (Task 6 去重、Task 8 重灌索引、改 chunk 切分或 section 命名, 都可能改变这个前提), 本豁免立即失效, 必须重测。q47/q117 正是 churn 跨了 section 名的例子。"
  },
  "questions": {
   "q01": {
@@ -573,6 +576,48 @@
       "distinct_sections": 9,
       "n_procs": 20
      }
+    ],
+    "distinct_compositions": [
+     {
+      "chunk_ids": [
+       "domains/EC/spec.md#46",
+       "domains/EX/spec.md#38",
+       "domains/EX/assumptions.md#5",
+       "domains/EC/assumptions.md#1",
+       "domains/EX/assumptions.md#1",
+       "domains/CM/spec.md#42",
+       "domains/AG/assumptions.md#1",
+       "domains/EC/assumptions.md#6",
+       "domains/EX/assumptions.md#4",
+       "domains/ML/assumptions.md#1",
+       "domains/EX/assumptions.md#6",
+       "domains/TA/assumptions.md#12",
+       "domains/EX/examples.md#6",
+       "domains/EX/examples.md#2",
+       "domains/EX/examples.md#3"
+      ],
+      "n_procs": 17
+     },
+     {
+      "chunk_ids": [
+       "domains/EC/spec.md#46",
+       "domains/EX/spec.md#38",
+       "domains/EX/assumptions.md#5",
+       "domains/EC/assumptions.md#1",
+       "domains/EX/assumptions.md#1",
+       "domains/CM/spec.md#42",
+       "domains/AG/assumptions.md#1",
+       "domains/EC/assumptions.md#6",
+       "domains/EX/assumptions.md#4",
+       "domains/ML/assumptions.md#1",
+       "domains/EX/assumptions.md#6",
+       "domains/TA/assumptions.md#12",
+       "domains/EX/examples.md#6",
+       "domains/EX/examples.md#2",
+       "domains/EX/examples.md#4"
+      ],
+      "n_procs": 3
+     }
     ]
    }
   },
@@ -850,6 +895,88 @@
       "distinct_sections": 2,
       "n_procs": 20
      }
+    ],
+    "distinct_compositions": [
+     {
+      "chunk_ids": [
+       "chapters/ch04_general_assumptions.md#5",
+       "domains/SV/spec.md#1",
+       "domains/TS/spec.md#1",
+       "domains/ML/spec.md#1",
+       "domains/DA/spec.md#1",
+       "domains/PR/spec.md#1",
+       "domains/CO/spec.md#1",
+       "domains/CV/spec.md#1",
+       "domains/TE/spec.md#1",
+       "domains/BS/spec.md#1",
+       "domains/NV/spec.md#1",
+       "domains/PC/spec.md#1",
+       "domains/UR/spec.md#1",
+       "domains/DD/spec.md#1",
+       "domains/TU/spec.md#1"
+      ],
+      "n_procs": 10
+     },
+     {
+      "chunk_ids": [
+       "chapters/ch04_general_assumptions.md#5",
+       "domains/SV/spec.md#1",
+       "domains/TS/spec.md#1",
+       "domains/ML/spec.md#1",
+       "domains/DA/spec.md#1",
+       "domains/PR/spec.md#1",
+       "domains/CO/spec.md#1",
+       "domains/CV/spec.md#1",
+       "domains/BS/spec.md#1",
+       "domains/NV/spec.md#1",
+       "domains/PC/spec.md#1",
+       "domains/UR/spec.md#1",
+       "domains/DD/spec.md#1",
+       "domains/TU/spec.md#1",
+       "domains/OE/spec.md#1"
+      ],
+      "n_procs": 8
+     },
+     {
+      "chunk_ids": [
+       "chapters/ch04_general_assumptions.md#5",
+       "domains/SV/spec.md#1",
+       "domains/TS/spec.md#1",
+       "domains/ML/spec.md#1",
+       "domains/DA/spec.md#1",
+       "domains/PR/spec.md#1",
+       "domains/CO/spec.md#1",
+       "domains/CV/spec.md#1",
+       "domains/TE/spec.md#1",
+       "domains/BS/spec.md#1",
+       "domains/NV/spec.md#1",
+       "domains/PC/spec.md#1",
+       "domains/TR/spec.md#1",
+       "domains/UR/spec.md#1",
+       "domains/DD/spec.md#1"
+      ],
+      "n_procs": 1
+     },
+     {
+      "chunk_ids": [
+       "chapters/ch04_general_assumptions.md#5",
+       "domains/SV/spec.md#1",
+       "domains/TS/spec.md#1",
+       "domains/ML/spec.md#1",
+       "domains/DA/spec.md#1",
+       "domains/PR/spec.md#1",
+       "domains/CO/spec.md#1",
+       "domains/CV/spec.md#1",
+       "domains/BS/spec.md#1",
+       "domains/NV/spec.md#1",
+       "domains/PC/spec.md#1",
+       "domains/RP/spec.md#1",
+       "domains/UR/spec.md#1",
+       "domains/DD/spec.md#1",
+       "domains/TU/spec.md#1"
+      ],
+      "n_procs": 1
+     }
     ]
    },
    "live_embed": {
@@ -860,6 +987,88 @@
       "dup_seats": 13,
       "distinct_sections": 2,
       "n_procs": 20
+     }
+    ],
+    "distinct_compositions": [
+     {
+      "chunk_ids": [
+       "chapters/ch04_general_assumptions.md#5",
+       "domains/SV/spec.md#1",
+       "domains/TS/spec.md#1",
+       "domains/ML/spec.md#1",
+       "domains/DA/spec.md#1",
+       "domains/PR/spec.md#1",
+       "domains/CO/spec.md#1",
+       "domains/CV/spec.md#1",
+       "domains/TE/spec.md#1",
+       "domains/BS/spec.md#1",
+       "domains/NV/spec.md#1",
+       "domains/PC/spec.md#1",
+       "domains/UR/spec.md#1",
+       "domains/DD/spec.md#1",
+       "domains/TU/spec.md#1"
+      ],
+      "n_procs": 11
+     },
+     {
+      "chunk_ids": [
+       "chapters/ch04_general_assumptions.md#5",
+       "domains/SV/spec.md#1",
+       "domains/TS/spec.md#1",
+       "domains/ML/spec.md#1",
+       "domains/DA/spec.md#1",
+       "domains/PR/spec.md#1",
+       "domains/CO/spec.md#1",
+       "domains/CV/spec.md#1",
+       "domains/BS/spec.md#1",
+       "domains/NV/spec.md#1",
+       "domains/PC/spec.md#1",
+       "domains/UR/spec.md#1",
+       "domains/DD/spec.md#1",
+       "domains/TU/spec.md#1",
+       "domains/OE/spec.md#1"
+      ],
+      "n_procs": 6
+     },
+     {
+      "chunk_ids": [
+       "chapters/ch04_general_assumptions.md#5",
+       "domains/SV/spec.md#1",
+       "domains/TS/spec.md#1",
+       "domains/ML/spec.md#1",
+       "domains/DA/spec.md#1",
+       "domains/PR/spec.md#1",
+       "domains/CO/spec.md#1",
+       "domains/CV/spec.md#1",
+       "domains/BS/spec.md#1",
+       "domains/NV/spec.md#1",
+       "domains/PC/spec.md#1",
+       "domains/RP/spec.md#1",
+       "domains/UR/spec.md#1",
+       "domains/DD/spec.md#1",
+       "domains/TU/spec.md#1"
+      ],
+      "n_procs": 2
+     },
+     {
+      "chunk_ids": [
+       "chapters/ch04_general_assumptions.md#5",
+       "domains/SV/spec.md#1",
+       "domains/TS/spec.md#1",
+       "domains/ML/spec.md#1",
+       "domains/PR/spec.md#1",
+       "domains/CO/spec.md#1",
+       "domains/TE/spec.md#1",
+       "domains/RP/spec.md#1",
+       "domains/DA/spec.md#1",
+       "domains/BS/spec.md#1",
+       "domains/TR/spec.md#1",
+       "domains/NV/spec.md#1",
+       "domains/PC/spec.md#1",
+       "domains/UR/spec.md#1",
+       "domains/DD/spec.md#1"
+      ],
+      "n_procs": 1
      }
     ]
    }
@@ -1201,6 +1410,48 @@
       "max_cluster": 2,
       "dup_seats": 1,
       "distinct_sections": 14,
+      "n_procs": 8
+     }
+    ],
+    "distinct_compositions": [
+     {
+      "chunk_ids": [
+       "VARIABLE_INDEX.md#61",
+       "domains/QS/spec.md#8",
+       "chapters/ch04_general_assumptions.md#6",
+       "chapters/ch08_relationships.md#10",
+       "domains/SUPPQUAL/examples.md#1",
+       "chapters/ch08_relationships.md#7",
+       "domains/QS/spec.md#6",
+       "model/01_concepts_and_terms.md#0",
+       "domains/FT/assumptions.md#11",
+       "domains/QS/assumptions.md#9",
+       "terminology/questionnaires/questionnaires_part28.md#4",
+       "terminology/questionnaires/questionnaires_part29.md#3",
+       "domains/QS/assumptions.md#1",
+       "chapters/ch02_fundamentals.md#0",
+       "domains/FT/assumptions.md#3"
+      ],
+      "n_procs": 12
+     },
+     {
+      "chunk_ids": [
+       "VARIABLE_INDEX.md#61",
+       "domains/QS/spec.md#8",
+       "chapters/ch04_general_assumptions.md#6",
+       "chapters/ch08_relationships.md#10",
+       "domains/SUPPQUAL/examples.md#1",
+       "chapters/ch08_relationships.md#7",
+       "domains/QS/spec.md#6",
+       "model/01_concepts_and_terms.md#0",
+       "domains/FT/assumptions.md#11",
+       "domains/QS/assumptions.md#9",
+       "terminology/questionnaires/questionnaires_part28.md#4",
+       "terminology/questionnaires/questionnaires_part29.md#3",
+       "domains/QS/assumptions.md#1",
+       "chapters/ch02_fundamentals.md#0",
+       "domains/QS/spec.md#7"
+      ],
       "n_procs": 8
      }
     ]
@@ -2878,6 +3129,48 @@
       "distinct_sections": 14,
       "n_procs": 1
      }
+    ],
+    "distinct_compositions": [
+     {
+      "chunk_ids": [
+       "domains/SUPPQUAL/examples.md#0",
+       "chapters/ch04_general_assumptions.md#39",
+       "domains/AE/assumptions.md#7",
+       "domains/DS/examples.md#6",
+       "domains/AE/assumptions.md#4",
+       "chapters/ch04_general_assumptions.md#16",
+       "chapters/ch08_relationships.md#11",
+       "domains/CE/assumptions.md#1",
+       "domains/RS/assumptions.md#8",
+       "domains/FA/examples.md#3",
+       "domains/TU/assumptions.md#7",
+       "chapters/ch08_relationships.md#3",
+       "domains/SUPPQUAL/assumptions.md#0",
+       "domains/AE/examples.md#3",
+       "chapters/ch08_relationships.md#7"
+      ],
+      "n_procs": 19
+     },
+     {
+      "chunk_ids": [
+       "domains/SUPPQUAL/examples.md#0",
+       "chapters/ch04_general_assumptions.md#39",
+       "domains/AE/assumptions.md#7",
+       "domains/DS/examples.md#6",
+       "domains/AE/assumptions.md#4",
+       "chapters/ch04_general_assumptions.md#16",
+       "chapters/ch08_relationships.md#11",
+       "domains/CE/assumptions.md#1",
+       "domains/FA/examples.md#3",
+       "chapters/ch08_relationships.md#3",
+       "domains/SUPPQUAL/assumptions.md#0",
+       "domains/AE/examples.md#3",
+       "chapters/ch08_relationships.md#7",
+       "chapters/ch04_general_assumptions.md#14",
+       "terminology/core/ae.md#2"
+      ],
+      "n_procs": 1
+     }
     ]
    },
    "live_embed": {
@@ -2950,6 +3243,68 @@
       "distinct_sections": 14,
       "n_procs": 20
      }
+    ],
+    "distinct_compositions": [
+     {
+      "chunk_ids": [
+       "model/04_associated_persons.md#0",
+       "chapters/ch04_general_assumptions.md#14",
+       "model/06_relationship_datasets.md#6",
+       "chapters/ch02_fundamentals.md#0",
+       "chapters/ch08_relationships.md#13",
+       "domains/FA/examples.md#5",
+       "domains/TA/assumptions.md#0",
+       "domains/AE/assumptions.md#3",
+       "model/06_relationship_datasets.md#3",
+       "model/06_relationship_datasets.md#8",
+       "domains/PC/assumptions.md#4",
+       "chapters/ch08_relationships.md#6",
+       "model/06_relationship_datasets.md#1",
+       "domains/RS/assumptions.md#8",
+       "chapters/ch01_introduction.md#0"
+      ],
+      "n_procs": 17
+     },
+     {
+      "chunk_ids": [
+       "model/04_associated_persons.md#0",
+       "chapters/ch04_general_assumptions.md#14",
+       "model/06_relationship_datasets.md#6",
+       "chapters/ch02_fundamentals.md#0",
+       "chapters/ch08_relationships.md#13",
+       "domains/FA/examples.md#5",
+       "domains/RELSUB/assumptions.md#1",
+       "domains/TA/assumptions.md#0",
+       "domains/AE/assumptions.md#3",
+       "model/06_relationship_datasets.md#3",
+       "model/06_relationship_datasets.md#8",
+       "domains/PC/assumptions.md#4",
+       "chapters/ch08_relationships.md#6",
+       "model/06_relationship_datasets.md#1",
+       "domains/RS/assumptions.md#8"
+      ],
+      "n_procs": 2
+     },
+     {
+      "chunk_ids": [
+       "model/04_associated_persons.md#0",
+       "chapters/ch04_general_assumptions.md#14",
+       "model/06_relationship_datasets.md#6",
+       "chapters/ch02_fundamentals.md#0",
+       "chapters/ch08_relationships.md#13",
+       "domains/FA/examples.md#5",
+       "chapters/ch08_relationships.md#3",
+       "domains/RELSUB/assumptions.md#1",
+       "domains/TA/assumptions.md#0",
+       "domains/AE/assumptions.md#3",
+       "model/06_relationship_datasets.md#3",
+       "model/06_relationship_datasets.md#8",
+       "domains/PC/assumptions.md#4",
+       "chapters/ch08_relationships.md#6",
+       "model/06_relationship_datasets.md#1"
+      ],
+      "n_procs": 1
+     }
     ]
    },
    "live_embed": {
@@ -2960,6 +3315,68 @@
       "dup_seats": 1,
       "distinct_sections": 14,
       "n_procs": 20
+     }
+    ],
+    "distinct_compositions": [
+     {
+      "chunk_ids": [
+       "model/04_associated_persons.md#0",
+       "chapters/ch04_general_assumptions.md#14",
+       "model/06_relationship_datasets.md#6",
+       "chapters/ch02_fundamentals.md#0",
+       "chapters/ch08_relationships.md#13",
+       "domains/FA/examples.md#5",
+       "domains/TA/assumptions.md#0",
+       "domains/AE/assumptions.md#3",
+       "model/06_relationship_datasets.md#3",
+       "model/06_relationship_datasets.md#8",
+       "domains/PC/assumptions.md#4",
+       "chapters/ch08_relationships.md#6",
+       "model/06_relationship_datasets.md#1",
+       "domains/RS/assumptions.md#8",
+       "chapters/ch01_introduction.md#0"
+      ],
+      "n_procs": 15
+     },
+     {
+      "chunk_ids": [
+       "model/04_associated_persons.md#0",
+       "chapters/ch04_general_assumptions.md#14",
+       "model/06_relationship_datasets.md#6",
+       "chapters/ch02_fundamentals.md#0",
+       "chapters/ch08_relationships.md#13",
+       "domains/FA/examples.md#5",
+       "domains/RELSUB/assumptions.md#1",
+       "domains/TA/assumptions.md#0",
+       "domains/AE/assumptions.md#3",
+       "model/06_relationship_datasets.md#3",
+       "model/06_relationship_datasets.md#8",
+       "domains/PC/assumptions.md#4",
+       "chapters/ch08_relationships.md#6",
+       "model/06_relationship_datasets.md#1",
+       "domains/RS/assumptions.md#8"
+      ],
+      "n_procs": 3
+     },
+     {
+      "chunk_ids": [
+       "model/04_associated_persons.md#0",
+       "chapters/ch04_general_assumptions.md#14",
+       "model/06_relationship_datasets.md#6",
+       "chapters/ch02_fundamentals.md#0",
+       "chapters/ch08_relationships.md#13",
+       "domains/FA/examples.md#5",
+       "chapters/ch08_relationships.md#3",
+       "domains/RELSUB/assumptions.md#1",
+       "domains/TA/assumptions.md#0",
+       "domains/AE/assumptions.md#3",
+       "model/06_relationship_datasets.md#3",
+       "model/06_relationship_datasets.md#8",
+       "domains/PC/assumptions.md#4",
+       "chapters/ch08_relationships.md#6",
+       "model/06_relationship_datasets.md#1"
+      ],
+      "n_procs": 2
      }
     ]
    }
@@ -3272,6 +3689,48 @@
       "dup_seats": 1,
       "distinct_sections": 14,
       "n_procs": 20
+     }
+    ],
+    "distinct_compositions": [
+     {
+      "chunk_ids": [
+       "domains/TU/spec.md#31",
+       "domains/TU/spec.md#30",
+       "domains/TU/spec.md#7",
+       "domains/TU/spec.md#14",
+       "VARIABLE_INDEX.md#83",
+       "domains/TU/assumptions.md#2",
+       "domains/TU/assumptions.md#6",
+       "domains/TR/assumptions.md#0",
+       "terminology/core/oncology_part2.md#2",
+       "terminology/core/oncology_part2.md#3",
+       "terminology/core/oncology_part2.md#1",
+       "domains/TU/assumptions.md#0",
+       "VARIABLE_INDEX.md#81",
+       "domains/RS/assumptions.md#4",
+       "domains/TU/spec.md#11"
+      ],
+      "n_procs": 14
+     },
+     {
+      "chunk_ids": [
+       "domains/TU/spec.md#31",
+       "domains/TU/spec.md#30",
+       "domains/TU/spec.md#7",
+       "domains/TU/spec.md#14",
+       "VARIABLE_INDEX.md#83",
+       "domains/TU/assumptions.md#2",
+       "domains/TU/assumptions.md#6",
+       "domains/TR/assumptions.md#0",
+       "terminology/core/oncology_part2.md#2",
+       "terminology/core/oncology_part2.md#3",
+       "terminology/core/oncology_part2.md#1",
+       "domains/TU/assumptions.md#0",
+       "VARIABLE_INDEX.md#81",
+       "model/01_concepts_and_terms.md#0",
+       "domains/TU/spec.md#11"
+      ],
+      "n_procs": 6
      }
     ]
    }
