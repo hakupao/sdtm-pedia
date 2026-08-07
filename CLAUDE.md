@@ -85,6 +85,7 @@ Full chain definitions are in `.work/MANIFEST.md`.
 | 07 Website Phases 6-8 (closed) | `.work/07_website/phase{6,7,8}/` + handoffs `.work/meta/website_phase*_handoff_*.md`; prod https://sdtm-pedia.pages.dev/ || Phase 7 RAG+KG 旁枝 | `milestones/07_rag_kg/PLAN.md` (Phase 1 CLOSED 53q 88.5%; sdtm-rag/ 代码仓, Chain 07_RAG) |
 | Phase 7 检索质量 ((d) 通道; 基线数字见 PROGRESS) | `milestones/07_rag_kg/TODO_retrieval_quality.md` §5/§6; 收口 `sdtm-rag/evidence/checkpoints/{s4_full_eval_closure,d_channel_concept_definition}.md` (q126 永久 known limit) |
 | Phase 7 答题侧护栏 (DONE) | `sdtm-rag/evidence/checkpoints/guardrail_v2_summary.md`; 确定性码闸 `eval/prod_wirein/check_code_grounding.py` |
+| Phase 7 挤占+gold 完整性 收口 | `sdtm-rag/evidence/checkpoints/crowding_and_gold_integrity.md` — 挤占是否有害仍未知 |
 | Phase 7 本地部署+多模型对比 规划 | `sdtm-rag/DEPLOY_PLAN.md` — launchd 部署 + 对比/裁判 (§3 阶段3 工程件 DONE+审; go-live 待 IT) |
 | Phase 7 阶段3 共享 (工程件+go-live runbook) | `sdtm-rag/deploy/` (deploy.sh + 0.0.0.0 plist 模板 + README runbook); 登录门 `server/auth.py`; 证据 `evidence/checkpoints/phase3_share_hardening.md` |
 | Phase 7 Chat UI (单模型流式前端) | `sdtm-rag/webchat/` + `sdtm-rag/PLAN_chat_ui.md`; prod localhost:8000 (launchd); ⚑ dogfood 失败捕获 (`POST /api/flag` → `dogfood_failures.md`, 优先级 backlog) |

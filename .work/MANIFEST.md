@@ -72,6 +72,32 @@ meta/mapping.md                      ← 更新源文件→产出映射 (如有�
 meta/worklog/phase0N_xxx.md          ← 记录变更
 ```
 
+> ⚠️ **RAG 索引侧的溯源缺口 (2026-08-07 查明)**: `sdtm-rag/` 的 chapters chunker 从第一个 `## `
+> 开始切, **首个 H2 之前的前言不进任何 chunk** —— 那里正是 **H1 标题 + 一行
+> `Source: SDTMIG v3.4, Section N (Pages X-Y)` 页码溯源**。
+>
+> **实测的全貌比"三个文件丢了"更广**: 全库 **4329 个 chunk 里, 含 `Source: SDTMIG` 的 = 0,
+> 含 `Pages ` 的 = 0** —— ch04/ch08/ch10 (一直按 H2/H3 切) **从来就没有过**这行。
+> 2026-08-07 的切分改动只是把 ch01/ch02/ch03 (各 86/99/109 B) **对齐到既有行为**。
+>
+> ⇒ **`knowledge_base/` 的源 markdown 里这些行完整**, `page_index.json` 仍是 authoritative,
+> 但 **RAG 索引里任何 chapter 都检索不到页码**。做页码溯源必须走源 md / `page_index.json`,
+> **不要默认 RAG 能答出章节页码**。
+>
+> 复跑:
+> ```bash
+> cd sdtm-rag && .venv/bin/python -c "
+> import chromadb
+> a=chromadb.PersistentClient(path='data/chroma').get_collection('sdtm_kb_v1').get(include=['documents'])
+> print('total', len(a['documents']),
+>       '| Source: SDTMIG', sum(1 for d in a['documents'] if 'Source: SDTMIG' in d),
+>       '| Pages ', sum(1 for d in a['documents'] if 'Pages ' in d))"
+> # total 4329 | Source: SDTMIG 0 | Pages  0
+> ```
+> 修法 (未做): chunker 里把前言 prepend 到首块 (块数仍为 5/9/3), 或对全部 chapters 统一注入。
+> 证据: `sdtm-rag/evidence/checkpoints/chapters_chunking.md` §7 +
+> `crowding_and_gold_integrity.md` §4.4 + `sdtm-rag/evidence/step_09_audit.md` S6。
+
 ### Chain E: 方案变更链
 
 **触发**: 项目方案/架构调整
