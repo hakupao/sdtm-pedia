@@ -9,6 +9,54 @@
 
 ---
 
+## 0. 引用本文件所依据的分数时, 必须原样带上以下两段声明
+
+> 这两段原本只写在 `.superpowers/sdd/.../task-3-report.md` 里, 而那个目录 **gitignored 且收尾会被清掉** ——
+> 数字进了仓 (`evidence/checkpoints/gold_integrity_after.json` 的 `source_recall_avg`), 警告却没进。
+> 2026-08-07 搬到这里, 与数字同仓同寿。
+
+### 0.1 口径断裂声明 (⚠️ 引用时必须带口径)
+
+| | source_recall_avg |
+|---|---|
+| 改 gold 前 (同命令同口径) | 98.93% |
+| 改 gold 后 (**当前**) | **99.17%** |
+| Δ | +0.24pt |
+
+```bash
+cd /Users/bojiangzhang/MyProject/sdtm-pedia/sdtm-rag
+.venv/bin/python eval/run_eval.py eval/test_set_v3.yml --retrieval-only --hybrid \
+  --structured-lookup --output evidence/checkpoints/gold_integrity_after.json
+```
+
+**99.17% 与历史 98.93% 换了一把尺子, 不可比。** 判据本身 (分母的构成) 变了: 26 题的 gold 被改写,
+其中 15 题引入了此前题集**从未使用过**的 OR 组计分单位 (改前全题集 `expected_sources_any` 使用数 = **0**)。
+
+引用时必须写成:
+**「99.17% (140 题, retrieval-only, hybrid + structured_lookup, 含 gold 完整性修复后)」**
+
+只写 "99.17%", 或拿它与任何 2026-08-07 之前的数字做加减, 都是混口径。
+
+**这 +0.24pt 是什么, 不是什么**: 26 题里**只有 q38 的分数变了** (0.0 → 0.3333), 其余 25 题改前改后同分。
+所以它**是**修掉了一处真实假失分 (检索早把 ch04 §4.1.6 排在 #1, 旧 gold 里没有它, 于是判 0.0);
+**不是**检索变好了 (检索一行代码没动); **也不是**靠放宽判据换来的分 —— 25 题同分本身就是证据。
+
+### 0.2 q126 三点声明 (⚠️ 不得表述为「q126 修好了」)
+
+q126 补了 `model/03_special_purpose_domains.md#Subject Elements (SE)$` (与 `domains/SE/assumptions.md` 并成 OR 组)。
+
+1. **原 known limit 的技术裁定仍然成立、未被推翻。** 双重阻断 (例级作弊风险 +
+   `domain_to_spec` 只映 `spec.md`、缺 sub-file 判别器) 是关于"检索够不到
+   `SE/assumptions.md` / `TE/spec.md`"的结论, **依然为真**。
+2. **本次改的是判据完整性这个独立维度** —— 检索早就召回了等价权威源
+   (`model/03#Subject Elements (SE)$` 在 top-3), 是 gold 没写它。
+3. **分数变化**: q126 **改前 0.5, 改后仍 0.5, 一分没动**。miss 的是 `domains/TE/spec.md`,
+   而那正是 known limit 说够不到的东西。
+
+**q126 分数不动这件事本身, 是原 known limit 未被推翻的直接实测证据。**
+
+---
+
 ## 1. 判定原则
 
 ### 1.1 门槛 (两条同时满足才判 `遗漏_应补`)
@@ -363,41 +411,73 @@ q67  q68  q73  q76  q82  q91  q108 q109 q111 q112 q115 q117 q126
 
 ---
 
-## 6. Step 7 实施记录 (由实施方 task3-impl 填写, 2026-08-07)
+## 6. Step 7 实施记录 (由实施方 task3-impl 填写, 2026-08-07; 含 fix round 2)
 
 判定的 27 条 `遗漏_应补` **全部落地**, 涉及 26 题。零条被"因不好写而跳过", 零条为凑数硬补。
-§5 的 10 条灰区**维持原判未翻**(见下 §6.3)。
+§5 的 10 条灰区**维持原判未翻**(见 §6.3)。
 
-### 6.1 OR/AND 形态: 4 处偏离本文件的建议, 全部朝"不放宽"方向
+**形态最终分布: 15 题 OR 组 / 11 题 AND。**
 
-本文件 §4 的「建议形态」列有 20 条标 OR。实施时逐条对照了 `check_source_recall` docstring 的
-OR 组使用纪律第 1 条(**每个成员必须独立覆盖全部 expected_facts**), 有 4 条不满足, 改判为 AND:
+### 6.1 OR/AND 形态: 7 处偏离本文件的建议, 全部朝"不放宽"方向
+
+本文件 §4 的「建议形态」列有 20 条标 OR。逐条对照 `check_source_recall` docstring 的 OR 组
+使用纪律第 1 条(**每个成员必须独立覆盖全部 `expected_facts`**)后, 有 7 条不满足, 改判为 AND:
 
 | 题号 | 本文件建议 | 实际采用 | 不满足纪律的理由 (实测) |
 |---|---|---|---|
-| q43 | OR | **AND** | 题干明确要"**describe the Core designation**"。`terminology/core/dm.md#Sex$` 的 chunk 正文只有 `Used by variable(s): DM.SEX` + 码表名/code/Extensible/提交值, **没有 Core 指派**(Core=Req 只在 `domains/DM/spec.md`)。并成 OR = 只召回码表 chunk 也算满分, 而它答不出 Core |
-| q45 | OR | **AND** | 同上, 题干问 "what is its Core designation"; `#Race$` chunk 无 Core(Exp) |
-| q62 | OR | **AND** | 题干第一问是 "**What is the SS domain**" + 要 Findings/Topic; 码表 chunk 只有 SSTESTCD 的 code 与取值, 描述不了域本身 |
-| q39 | OR | **AND** | `ch08#8.6.3` 无 `FAOBJ`, 而题干第二问"与标准 Findings 有何不同"正靠 FAOBJ 区分(现 gold `model/02` 有)。本文件 §5 自己也把这条列为"勉强应补" |
+| q43 | OR | **AND** | 题干要"describe the **Core** designation"。`terminology/core/dm.md#Sex$` chunk 只有 `Used by variable(s)` + 码表名/code/Extensible/提交值, **无 Core**(Req 只在 `domains/DM/spec.md`) |
+| q45 | OR | **AND** | 同上, 题干问 "what is its Core designation"; `#Race$` chunk 无 Core (Exp) |
+| q62 | OR | **AND** | 题干第一问 "**What is the SS domain**" + 要 Findings/Topic; 码表 chunk 描述不了域本身 |
+| q39 | OR | **AND** | `ch08#8.6.3` 无 `FAOBJ`, 而题干第二问"与标准 Findings 有何不同"正靠 FAOBJ 区分。本文件 §5 亦列为"勉强应补" |
+| **q46** | OR | **AND** | **fix round 2 补**: `ae.md#Outcome of Event$` 覆盖 `expected_facts` 2/3, **缺 `Perm`**(Core 指派)。与 q43/q45/q62 同形 —— 首轮用了"题干明确要"这个比成文规则更弱的代理判准, 漏掉了它 |
+| **q59** | OR | **AND** | **fix round 2 补**: `other_part4.md#…Test Code$` 覆盖 2/3, **缺 `Topic`**(Role)。同上 |
+| **q38** | OR | **AND** | **fix round 2 撤回**: 见 §6.1.1 |
 
-其余 16 条 OR 建议全部照采。**采用 OR 的判断依据**: 新源与被替换的现有 gold 各自独立回答全题 ——
-「码表 C 覆盖哪些变量」族(q34/q67/q68/q108/q109/q111/q112)是最干净的一类: 现 gold 是派生索引
+其余 13 条 OR 建议照采。**采用 OR 的判断依据**: 新源与被替换的现有 gold 各自独立回答全题 ——
+「码表 C 覆盖哪些变量」族(q34/q67/q68/q108/q109/q111/q112)最干净: 现 gold 是派生索引
 `VARIABLE_INDEX §三` 的一行, 新源是码表 chunk 抬头, **两者都逐条枚举同一个变量全集**, 互为等价。
+
+**首轮判准缺陷记录**: §6.1 首版用的是"题干是否明确要求该 fact", 而成文规则是"是否独立覆盖
+**全部 `expected_facts`**"。后者更严, 且是写进 docstring 的那条。q46/q59 就卡在两者之差里。
+以成文规则为准。
+
+#### 6.1.1 q38 为什么必须全 AND (fix round 2 撤回 OR)
+
+两条理由, 第二条更要紧:
+
+1. **正文实测: 两节互补而非等价。** 从 chroma 取 chunk 正文核对:
+
+   | | 含 "two-character"/"2-character" | 含首位字符集规则 | 内容 |
+   |---|---|---|---|
+   | `§4.2.2` | **是** | 是 | 两字符域码标识符 |
+   | `§4.1.6` | **否 (全文不含)** | 否 | 数据集命名 + X/Y/Z 自定义域保留 + 第二位可为任意字母数字 |
+
+   本文件 §4 建议列写"等价", 但**同文件第 128 行写的是"互补而非重复"** —— 文档内部自相矛盾,
+   首轮采信了"等价", 现以正文实测为准。
+
+2. **OR 组会把挤占证据从评测账本里抹掉。** `check_source_recall` 里 OR 组**未命中的成员不进
+   `misses`**。而"§4.2.2 在生产口径下被同质簇挤出 top-15"是检索挤占那条线的**头号证据**;
+   一旦并成 OR, `misses` 里就再也看不到它。改回全 AND 后 miss 列同时列出
+   `chapters/ch02` 与 `#4.2.2$`, 证据回到账本。
+
+   代价是 q38 从 0.5 降到 0.3333。**这是正确方向 —— 本项目判别力优先于分数。**
+
+   已在 `scripts/tests/test_gold_q38_integrity.py` 锁死"q38 不得使用 OR 组", 并**断言 miss 列内容**
+   (只断言分数的话, 换回 OR 组照样绿)。
 
 ### 6.2 成组统一, 未逐题打补丁
 
 - **「码表 C 覆盖哪些变量」族 7 题** → 统一 `OR: [VARIABLE_INDEX §三 Cxxxxx$, terminology/core/*.md#<码表名>$]`
-- **「变量 V 用哪个码表」族** → 统一把 `terminology/core/*.md#<码表名>$` 收进 gold; 这与题集**既有 17 题**
-  (`q16/q90/q92/q94/q95/q96/q97/q98/q99/q101/q102/s01/s04/s05/q19/q91/q93`)的
-  `[domains/X/spec.md, terminology/core/*.md]` 写法同向, 只是升级成 section 级(路径级对
-  多 chunk 大文件判别力≈0)。q43/q45/q62 走 AND 正是**对齐 s01/q92 的既有 AND 写法**
+- **「变量 V 用哪个码表」族** → 统一把 `terminology/core/*.md#<码表名>$` 收进 gold; 与题集**既有 17 题**
+  的 `[domains/X/spec.md, terminology/core/*.md]` 写法同向, 只是升级成 section 级 (路径级对多 chunk
+  大文件判别力≈0)。q43/q45/q46/q59/q62 走 AND 正是**对齐 s01/q92 的既有 AND 写法**
 - **孪生题 q19/q91** → 按 §4.1 建议统一成同一组: 两题现在都是
   `AND: [terminology/core/disposition.md]` + `OR: [DS/spec.md#DSDECOD$, DS/assumptions.md#item_3$]`,
   彻底消除"一个收 spec 一个收 assumptions"的自相矛盾
 
 ### 6.3 §5 灰区 10 条: 维持原判
 
-未翻任何一条(q39 的**形态**由 OR 改 AND, 但**verdict 仍是应补**, 不属翻案)。
+未翻任何一条(q39 的**形态**由 OR 改 AND, 但 **verdict 仍是应补**, 不属翻案)。
 理由: 判定方已按统一门槛判过, 个案翻盘会破坏门槛一致性。列为 follow-up。
 
 ### 6.4 逐题前后 diff
@@ -409,13 +489,13 @@ OR 组使用纪律第 1 条(**每个成员必须独立覆盖全部 expected_fact
 | q25 | AND | AND: `domains/MH/assumptions.md` | AND: `domains/MH/assumptions.md`, `domains/MH/spec.md#MHTERM$` | 1.0 → 1.0 |
 | q26 | AND | AND: `domains/EG/spec.md` | AND: `domains/EG/spec.md`, `terminology/core/eg_part3.md#Holter ECG Test Code$` | 1.0 → 1.0 |
 | q34 | OR | AND: `VARIABLE_INDEX.md#§三 CT 交叉引用: C66742$` | OR: `VARIABLE_INDEX.md#§三 CT 交叉引用: C66742$`, `terminology/core/general_part4.md#No Yes Response$` | 1.0 → 1.0 |
-| q38 | OR | AND: `chapters/ch02`, `chapters/ch04_general_assumptions.md#4.2.2 Two-character Domain Identifier$` | AND: `chapters/ch02`<br>OR: `chapters/ch04_general_assumptions.md#4.2.2 Two-character Domain Identifier$`, `chapters/ch04_general_assumptions.md#4.1.6 Additional Guidance on Dataset Naming$` | 0.0 → 0.5  **变** |
+| q38 | AND | AND: `chapters/ch02`, `chapters/ch04_general_assumptions.md#4.2.2 Two-character Domain Identifier$` | AND: `chapters/ch02`, `chapters/ch04_general_assumptions.md#4.2.2 Two-character Domain Identifier$`, `chapters/ch04_general_assumptions.md#4.1.6 Additional Guidance on Dataset Naming$` | 0.0 → 0.3333  **变** |
 | q39 | AND | AND: `model/02_observation_classes.md` | AND: `model/02_observation_classes.md`, `chapters/ch08_relationships.md#8.6.3 Guidelines for Differentiating Between Interventions, Events, Findings, and Findings About Events or Interventions$` | 1.0 → 1.0 |
 | q43 | AND | AND: `domains/DM/spec.md` | AND: `domains/DM/spec.md`, `terminology/core/dm.md#Sex$` | 1.0 → 1.0 |
 | q45 | AND | AND: `domains/DM/spec.md` | AND: `domains/DM/spec.md`, `terminology/core/dm.md#Race$` | 1.0 → 1.0 |
-| q46 | OR | AND: `domains/AE/spec.md` | OR: `domains/AE/spec.md`, `terminology/core/ae.md#Outcome of Event$` | 1.0 → 1.0 |
+| q46 | AND | AND: `domains/AE/spec.md` | AND: `domains/AE/spec.md`, `terminology/core/ae.md#Outcome of Event$` | 1.0 → 1.0 |
 | q48 | OR | AND: `domains/FA/spec.md` | OR: `domains/FA/spec.md`, `terminology/core/findings_about.md#Findings About Test Code$` | 1.0 → 1.0 |
-| q59 | OR | AND: `domains/DD/spec.md` | OR: `domains/DD/spec.md`, `terminology/core/other_part4.md#SDTM Death Diagnosis and Details Test Code$` | 1.0 → 1.0 |
+| q59 | AND | AND: `domains/DD/spec.md` | AND: `domains/DD/spec.md`, `terminology/core/other_part4.md#SDTM Death Diagnosis and Details Test Code$` | 1.0 → 1.0 |
 | q62 | AND | AND: `domains/SS/spec.md` | AND: `domains/SS/spec.md`, `terminology/core/other_part5.md#Subject Status Test Code$` | 1.0 → 1.0 |
 | q67 | OR | AND: `VARIABLE_INDEX.md#§三 CT 交叉引用: C66742$` | OR: `VARIABLE_INDEX.md#§三 CT 交叉引用: C66742$`, `terminology/core/general_part4.md#No Yes Response$` | 1.0 → 1.0 |
 | q68 | OR | AND: `VARIABLE_INDEX.md#§三 CT 交叉引用: C66789$` | OR: `VARIABLE_INDEX.md#§三 CT 交叉引用: C66789$`, `terminology/core/general_part4.md#Not Done$` | 1.0 → 1.0 |
@@ -431,16 +511,25 @@ OR 组使用纪律第 1 条(**每个成员必须独立覆盖全部 expected_fact
 | q117 | OR | AND: `chapters/ch08_relationships.md` | OR: `chapters/ch08_relationships.md`, `chapters/ch04_general_assumptions.md#4.5.4 Evaluators in the Interventions and Events Observation Classes$` | 1.0 → 1.0 |
 | q126 | OR | AND: `domains/SE/assumptions.md`, `domains/TE/spec.md` | AND: `domains/TE/spec.md`<br>OR: `domains/SE/assumptions.md`, `model/03_special_purpose_domains.md#Subject Elements (SE)$` | 0.5 → 0.5 |
 
-**26 题里只有 q38 的分数变了 (0.0 → 0.5)**。其余 25 题改前改后同分 —— 这正是预期:
+**26 题里只有 q38 的分数变了 (0.0 → 0.3333)**。其余 25 题改前改后同分 —— 这正是预期:
 它们本来就命中了现有 gold, 补进来的是**判据视野**(让真正的权威源被判据看见), 不是分数。
 换句话说, 这 26 处改动**没有制造任何"白得的分"**。
 
 ### 6.5 chunk 层断言已就位
 
-`scripts/tests/test_terminology_usage_line.py` (4 条断言)。锁住 14 条 A 类 gold 依赖的
+`scripts/tests/test_terminology_usage_line.py` (4 条断言)。锁住 A 类 gold 依赖的
 `Used by variable(s):` 抬头 —— 该行由 `scripts/chunkers/terminology.py` 注入, **实测不在
 `knowledge_base/terminology/core/*.md` 的 42 个文件中任何一个里**(`grep` 零命中)。
 闸是 gold 驱动的(随 gold 自动扩张), 不是"所有码表 chunk 都必须有" —— 实测 258 个
 terminology chunk 只有 134 个(51%)带该行, 注入是有条件的, 写成全量断言会当场误报。
 
 **已反向验证会红**(两个分支都验了, 见 task-3-report.md), 不是从没红过的闸。
+
+### 6.6 已知遗留 (评审 Minor, 本轮按指示未改)
+
+1. **6 题的新 OR 成员严格弱于旧成员** (q117 `expected_facts` 覆盖 0/4 最突出, q73 1/3,
+   q115 1/3, q19 1/2)。当前全成员都被召回, 故**尚未兑现**为放宽; 但检索侧一动就会兑现。
+2. **8 个 OR 组保留了路径级成员** (如 q46 的 `AE/spec.md`: 64 个 chunk 里 63 个不含答案,
+   却足以命中该 gold)。
+3. **section 级 gold 从 20 条涨到 49 条**, 与 chunker section 命名的耦合面 ×2.45,
+   而 Task 3C 的存在性闸尚未建立、Task 8 要重灌索引。本轮的抬头闸只覆盖其中 14 条。

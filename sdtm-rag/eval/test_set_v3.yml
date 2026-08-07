@@ -411,12 +411,17 @@
     - "DOMAIN"
   expected_sources:
     - "chapters/ch02"
-  expected_sources_any:
     - "chapters/ch04_general_assumptions.md#4.2.2 Two-character Domain Identifier$"
     - "chapters/ch04_general_assumptions.md#4.1.6 Additional Guidance on Dataset Naming$"
-    # 字面回答"two-character 规则"的是 ch04 §4.2.2, 原 gold 漏了它。**口径依赖, 勿混淆**:
-    # dense-only 下 §4.2.2 是检索 #1, 旧 gold 把这次正确召回判成 0.0 (假失分);
-    # 生产口径 (hybrid+structured_lookup) 下它被挤出 top-15, 故 q38 改前改后同为 0.0。
+    # 三个源**互补, 不可互相替代**, 故一律 AND。实测 (2026-08-07, 从 chroma 取 chunk 正文):
+    #   §4.2.2 含 "two-character"/"2-character" 与首位字符集规则;
+    #   §4.1.6 **全文不含** "two-character", 讲的是数据集命名 + X/Y/Z 自定义域保留 + 第二位可为任意字母数字。
+    # 曾于本轮短暂并成 OR 组 (采信了判定文档 §4 建议列的"等价"), 经评审**撤回**: 同文档
+    # 第 128 行写的是"互补而非重复", 以正文实测为准。
+    # **勿改回 OR**: OR 组未命中的成员不进 miss 列, 会把"§4.2.2 被同质簇挤出 top-15"
+    # 这条挤占证据从评测账本里抹掉 —— 那正是段② 的头号证据。判别力优先于分数。
+    # **口径依赖, 勿混淆**: dense-only 下 §4.2.2 是检索 #1, 旧 gold 把这次正确召回判成 0.0
+    # (假失分); 生产口径 (hybrid+structured_lookup) 下它被挤出 top-15。
     # 两组实测见 .superpowers/sdd/2026-08-07-retrieval-crowding-and-gold-integrity/task-1-report.md
     # `$` = section 精确匹配 (标识符类 gold 防兄弟节冒名命中)。
 
@@ -568,7 +573,10 @@
     - "AEOUT"
     - "C66768"
     - "Perm"
-  expected_sources_any:
+  expected_sources:
+    # AND 而非 OR: 码表 chunk 只有 `Used by variable(s)` + 码表名/code/取值, **没有 Core 指派**
+    # (Perm 只在 domains/AE/spec.md)。并成 OR = 只召回码表 chunk 也算满分, 而它答不出 Perm ——
+    # 违反 OR 组纪律第 1 条 "每个成员必须独立覆盖全部 expected_facts"。与 q43/q45/q62 同形。
     - "domains/AE/spec.md"
     - "terminology/core/ae.md#Outcome of Event$"
 
@@ -738,7 +746,8 @@
     - "DDTESTCD"
     - "C116108"
     - "Topic"
-  expected_sources_any:
+  expected_sources:
+    # AND 而非 OR: 码表 chunk 没有 Role 指派 (Topic 只在 domains/DD/spec.md)。同 q46/q43/q45/q62。
     - "domains/DD/spec.md"
     - "terminology/core/other_part4.md#SDTM Death Diagnosis and Details Test Code$"
 
