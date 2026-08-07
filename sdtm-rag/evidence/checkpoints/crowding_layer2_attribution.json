@@ -1,0 +1,293 @@
+{
+ "generated_at": "2026-08-07T17:12:34+0900",
+ "top_k": 15,
+ "fuse_out": 60,
+ "hybrid_pool": 30,
+ "questions": {
+  "q38": {
+   "question": "How are SDTM domain abbreviation codes assigned? What are the rules for the two-character domain code?",
+   "top_k": 15,
+   "routes": {
+    "dense_only": {
+     "n": 15,
+     "max_cluster": 13,
+     "max_cluster_section": "DOMAIN",
+     "distinct_sections": 3,
+     "sections": [
+      "4.2.2 Two-character Domain Identifier",
+      "DOMAIN",
+      "4.1.6 Additional Guidance on Dataset Naming",
+      "DOMAIN",
+      "DOMAIN",
+      "DOMAIN",
+      "DOMAIN",
+      "DOMAIN",
+      "DOMAIN",
+      "DOMAIN",
+      "DOMAIN",
+      "DOMAIN",
+      "DOMAIN",
+      "DOMAIN",
+      "DOMAIN"
+     ],
+     "focus_seats": 13,
+     "focus_best_rank": 2
+    },
+    "bm25_only": {
+     "n": 15,
+     "max_cluster": 14,
+     "max_cluster_section": "DOMAIN",
+     "distinct_sections": 2,
+     "sections": [
+      "4.1.6 Additional Guidance on Dataset Naming",
+      "DOMAIN",
+      "DOMAIN",
+      "DOMAIN",
+      "DOMAIN",
+      "DOMAIN",
+      "DOMAIN",
+      "DOMAIN",
+      "DOMAIN",
+      "DOMAIN",
+      "DOMAIN",
+      "DOMAIN",
+      "DOMAIN",
+      "DOMAIN",
+      "DOMAIN"
+     ],
+     "focus_seats": 14,
+     "focus_best_rank": 2
+    },
+    "hybrid": {
+     "n": 15,
+     "max_cluster": 14,
+     "max_cluster_section": "DOMAIN",
+     "distinct_sections": 2,
+     "sections": [
+      "4.1.6 Additional Guidance on Dataset Naming",
+      "DOMAIN",
+      "DOMAIN",
+      "DOMAIN",
+      "DOMAIN",
+      "DOMAIN",
+      "DOMAIN",
+      "DOMAIN",
+      "DOMAIN",
+      "DOMAIN",
+      "DOMAIN",
+      "DOMAIN",
+      "DOMAIN",
+      "DOMAIN",
+      "DOMAIN"
+     ],
+     "focus_seats": 14,
+     "focus_best_rank": 2
+    }
+   },
+   "focus_section": "DOMAIN",
+   "pool_overlap": {
+    "n_dense_pool": 30,
+    "n_bm25_pool": 30,
+    "n_both": 16,
+    "focus_seats_in_hybrid": 14,
+    "focus_in_both_pools": 14
+   },
+   "dense_top1": {
+    "source": "chapters/ch04_general_assumptions.md",
+    "section": "4.2.2 Two-character Domain Identifier",
+    "rank_in_hybrid": null,
+    "in_bm25_pool": false
+   }
+  },
+  "q104": {
+   "question": "Beyond VISIT and VISITNUM, our schedule-of-activities mapping also populates VISITDY. How many domains carry VISITDY, and what does its label say it represents?",
+   "top_k": 15,
+   "routes": {
+    "dense_only": {
+     "n": 15,
+     "max_cluster": 14,
+     "max_cluster_section": "VISIT",
+     "distinct_sections": 2,
+     "sections": [
+      "VISIT",
+      "VISIT",
+      "VISIT",
+      "VISIT",
+      "VISIT",
+      "§一 通用变量: VISITDY",
+      "VISIT",
+      "VISIT",
+      "VISIT",
+      "VISIT",
+      "VISIT",
+      "VISIT",
+      "VISIT",
+      "VISIT",
+      "VISIT"
+     ],
+     "focus_seats": 14,
+     "focus_best_rank": 1
+    },
+    "bm25_only": {
+     "n": 15,
+     "max_cluster": 1,
+     "max_cluster_section": "4.4.5 Clinical Encounters and Visits",
+     "distinct_sections": 15,
+     "sections": [
+      "4.4.5 Clinical Encounters and Visits",
+      "World Health Organization Disability Assessment Schedule 2.0 - 36-Item Proxy Questionnaire Test Name",
+      "World Health Organization Disability Assessment Schedule 2.0 - 12-Item Proxy Questionnaire Test Name",
+      "questionnaires_part43",
+      "World Health Organization Disability Assessment Schedule 2.0 - 36-Item Interviewer Questionnaire Test Name",
+      "World Health Organization Disability Assessment Schedule 2.0 - 12 + 24-Item Interviewer Questionnaire Test Name",
+      "World Health Organization Disability Assessment Schedule 2.0 - 12-Item Proxy Questionnaire Test Code",
+      "World Health Organization Disability Assessment Schedule 2.0 - 36-Item Proxy Questionnaire Test Code",
+      "World Health Organization Disability Assessment Schedule 2.0 - 12-Item Interviewer Questionnaire Test Name",
+      "World Health Organization Disability Assessment Schedule 2.0 - 36-Item Self Questionnaire Test Code",
+      "World Health Organization Disability Assessment Schedule 2.0 - 36-Item Interviewer Questionnaire Test Code",
+      "World Health Organization Disability Assessment Schedule 2.0 - 12-Item Self Questionnaire Test Name",
+      "World Health Organization Disability Assessment Schedule 2.0 - 12-Item Interviewer Questionnaire Test Code",
+      "item_6",
+      "World Health Organization Disability Assessment Schedule 2.0 - 12 + 24-Item Interviewer Questionnaire Test Code"
+     ],
+     "focus_seats": 0,
+     "focus_best_rank": null
+    },
+    "hybrid": {
+     "n": 15,
+     "max_cluster": 10,
+     "max_cluster_section": "VISIT",
+     "distinct_sections": 6,
+     "sections": [
+      "VISIT",
+      "VISIT",
+      "VISIT",
+      "VISIT",
+      "VISIT",
+      "VISIT",
+      "VISIT",
+      "VISIT",
+      "VISIT",
+      "4.4.5 Clinical Encounters and Visits",
+      "World Health Organization Disability Assessment Schedule 2.0 - 36-Item Proxy Questionnaire Test Name",
+      "World Health Organization Disability Assessment Schedule 2.0 - 12-Item Proxy Questionnaire Test Name",
+      "VISIT",
+      "questionnaires_part43",
+      "World Health Organization Disability Assessment Schedule 2.0 - 36-Item Interviewer Questionnaire Test Name"
+     ],
+     "focus_seats": 10,
+     "focus_best_rank": 1
+    }
+   },
+   "focus_section": "VISIT",
+   "pool_overlap": {
+    "n_dense_pool": 30,
+    "n_bm25_pool": 30,
+    "n_both": 9,
+    "focus_seats_in_hybrid": 10,
+    "focus_in_both_pools": 9
+   },
+   "dense_top1": {
+    "source": "domains/FA/spec.md",
+    "section": "VISIT",
+    "rank_in_hybrid": 2,
+    "in_bm25_pool": true
+   }
+  },
+  "q29": {
+   "question": "How do the four Trial Design domains TA (Trial Arms), TE (Trial Elements), TV (Trial Visits), and TI (Trial Inclusion/Exclusion) work together to define a study design?",
+   "top_k": 15,
+   "routes": {
+    "dense_only": {
+     "n": 15,
+     "max_cluster": 7,
+     "max_cluster_section": "Related Domains",
+     "distinct_sections": 6,
+     "sections": [
+      "Related Domains",
+      "Related Domains",
+      "overview",
+      "Related Domains",
+      "overview",
+      "Trial Elements Issues",
+      "Related Domains",
+      "Related Domains",
+      "overview",
+      "Related Domains",
+      "Related Domains",
+      "Example 1",
+      "Example 3",
+      "Example 3",
+      "5.1 Trial Design Model"
+     ],
+     "focus_seats": 7,
+     "focus_best_rank": 1
+    },
+    "bm25_only": {
+     "n": 15,
+     "max_cluster": 6,
+     "max_cluster_section": "Related Domains",
+     "distinct_sections": 6,
+     "sections": [
+      "Related Domains",
+      "Related Domains",
+      "overview",
+      "Related Domains",
+      "overview",
+      "overview",
+      "Trial Arms Issues",
+      "Related Domains",
+      "Related Domains",
+      "Related Domains",
+      "overview",
+      "5.1 Trial Design Model",
+      "Example 1",
+      "Trial Elements Issues",
+      "Example 1"
+     ],
+     "focus_seats": 6,
+     "focus_best_rank": 1
+    },
+    "hybrid": {
+     "n": 15,
+     "max_cluster": 7,
+     "max_cluster_section": "Related Domains",
+     "distinct_sections": 6,
+     "sections": [
+      "Related Domains",
+      "Related Domains",
+      "overview",
+      "overview",
+      "Related Domains",
+      "Related Domains",
+      "Related Domains",
+      "Related Domains",
+      "Trial Elements Issues",
+      "overview",
+      "Example 1",
+      "Trial Arms Issues",
+      "5.1 Trial Design Model",
+      "Related Domains",
+      "Example 1"
+     ],
+     "focus_seats": 7,
+     "focus_best_rank": 1
+    }
+   },
+   "focus_section": "Related Domains",
+   "pool_overlap": {
+    "n_dense_pool": 30,
+    "n_bm25_pool": 30,
+    "n_both": 22,
+    "focus_seats_in_hybrid": 7,
+    "focus_in_both_pools": 7
+   },
+   "dense_top1": {
+    "source": "domains/TV/spec.md",
+    "section": "Related Domains",
+    "rank_in_hybrid": 1,
+    "in_bm25_pool": true
+   }
+  }
+ }
+}
