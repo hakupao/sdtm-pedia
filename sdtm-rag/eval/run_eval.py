@@ -72,6 +72,49 @@ def load_test_set(path: str) -> list[dict]:
     return test_set
 
 
+def source_matches(
+    expected: str,
+    retrieved_sources: list[str],
+    retrieved_sections: list[str | None] | None = None,
+) -> bool:
+    """单条 gold 的匹配判定 —— check_source_recall 与判据扫描工具的**唯一**实现。
+
+    硬规矩 1 (2026-08-06 的教训): 判据检查工具与判据必须逐字同语义。上一轮用
+    "照着再写一遍"来保证, lint 剥 `.md` 后匹配、严于真实判据, 制造 8 条假阳性,
+    并连锁导致出题人删掉合法 gold。故同语义在此是**结构保证**: 谁都不许有第二份实现。
+
+    语法与语义 (完整背景见 check_source_recall 的 docstring):
+      - `路径`         -> 对 retrieved_sources 做子串匹配
+      - `路径#节`      -> 双条件: 路径子串命中某条目 **且** 节子串命中**同一条目**的 section
+      - `路径#节$`     -> 同上, 但 section 要求**精确相等** (对付互为子串的兄弟 section)
+      - `路径#` (空节) -> ValueError (空 sec 下子串恒真, 会静默放宽判据)
+      - 含 `#` 但未传 retrieved_sections -> ValueError (静默降级为路径匹配属测量缺陷)
+      - section 为 None 的条目永不命中 section 级 gold
+    """
+    if "#" in expected:
+        path, sec = expected.split("#", 1)
+        exact = sec.endswith("$")
+        if exact:
+            sec = sec[:-1]
+        if not sec.strip():
+            raise ValueError(
+                f"section-level gold {expected!r} has an empty section — 写全 `路径#节`, "
+                "或改回纯路径写法。空 section 会静默退化成路径匹配 (判据比声称的宽)"
+            )
+        if retrieved_sections is None:
+            raise ValueError(
+                f"section-level gold {expected!r} requires retrieved_sections "
+                "(caller must pass [c.section for c in chunks])"
+            )
+        if len(retrieved_sections) != len(retrieved_sources):
+            raise ValueError("retrieved_sections length mismatch")
+        return any(
+            path in src and (s == sec if exact else sec in (s or ""))
+            for src, s in zip(retrieved_sources, retrieved_sections)
+        )
+    return any(expected in src for src in retrieved_sources)
+
+
 def check_source_recall(
     retrieved_sources: list[str],
     expected_sources: list[str],
@@ -79,6 +122,8 @@ def check_source_recall(
     retrieved_sections: list[str | None] | None = None,
 ) -> tuple[float, list[str], list[str]]:
     """expected_sources 是 AND (每条都要命中); any_of 是 OR (任一命中即满足该组).
+
+    单条匹配委托给模块级 `source_matches` —— 判据扫描工具共用同一实现 (硬规矩 1)。
 
     加 OR 的原因: 常见真相是"这几个来源里任一个都能完整回答该问题"。用 AND 表达会把
     正确检索记成部分失败, 与 study 轨家族题同属"gold 语义表达不了"的一类测量缺陷。
@@ -118,41 +163,17 @@ def check_source_recall(
     并按各自 gold 的实际写法逐一验证, 而不是照搬结论。
     全库无 section 含 `$`, 故该标记不与真实 section 冲突。
     """
-    def _matches(exp: str) -> bool:
-        if "#" in exp:
-            path, sec = exp.split("#", 1)
-            exact = sec.endswith("$")
-            if exact:
-                sec = sec[:-1]
-            if not sec.strip():
-                raise ValueError(
-                    f"section-level gold {exp!r} has an empty section — 写全 `路径#节`, "
-                    "或改回纯路径写法。空 section 会静默退化成路径匹配 (判据比声称的宽)"
-                )
-            if retrieved_sections is None:
-                raise ValueError(
-                    f"section-level gold {exp!r} requires retrieved_sections "
-                    "(caller must pass [c.section for c in chunks])"
-                )
-            if len(retrieved_sections) != len(retrieved_sources):
-                raise ValueError("retrieved_sections length mismatch")
-            return any(
-                path in src and (s == sec if exact else sec in (s or ""))
-                for src, s in zip(retrieved_sources, retrieved_sections)
-            )
-        return any(exp in src for src in retrieved_sources)
-
     hits: list[str] = []
     misses: list[str] = []
     for exp in expected_sources:
-        found = _matches(exp)
+        found = source_matches(exp, retrieved_sources, retrieved_sections)
         (hits if found else misses).append(exp)
 
     n_groups = len(expected_sources)
     n_hit = len(hits)
     if any_of:
         n_groups += 1                       # OR 组整体算一个计分单位
-        matched = [e for e in any_of if _matches(e)]
+        matched = [e for e in any_of if source_matches(e, retrieved_sources, retrieved_sections)]
         if matched:
             n_hit += 1
             hits.extend(matched)
