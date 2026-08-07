@@ -21,6 +21,16 @@
 - **规则 B**: 任何失败 attempt 归档到 `sdtm-rag/evidence/failures/`, 不删。
 - 红线: 真实 study 的 form/field OID / label / 题面 / 别名词只允许存在于 `sdtm-rag/data/study/` (gitignored)。本轮不碰 study 库, 但任何产出仍走程序化复扫。
 - 现有已知限制不得在本轮"顺手调绿": `q126` 是永久 known limit; `eval/test_set_vi_completeness.yml` 的 `vic01` 在 `--judge` 口径下故意保留失分 0.5。
+- **所有文件 I/O 必须 `with open(..., encoding="utf-8")`** (读写两侧都要)。
+  本仓的题集/证据含中文与 `§`, 非 UTF-8 locale 下裸 `open()` 直接炸;
+  写侧更要紧 —— 这些脚本用 `ensure_ascii=False`, **保证**输出含非 ASCII, 没有 `with` 时
+  dump 中途失败会在磁盘留下**半截 JSON**, 下游拿到的是坏证据而不是干净的报错。
+  (Task 1 fix round 1 刚修掉这个形态, 两个 commit 后 Task 3 的新文件里又出现了 —— 因为
+  brief 逐字这么写的。这是 plan 的系统性缺陷, 已在下列各 task 的代码块中统一订正。)
+- **读题集一律走 `eval.run_eval.load_test_set`**, 不要自己 `yaml.safe_load` + `.get()`。
+  它会拦"gold 键拼错"(拼错的键被静默忽略 → 该题白得满分)和"无非空 gold";绕过它的话,
+  这类题会被当成"没有 gold", 其 top-k 全部进清单, 凭空放大人工审的工作量。
+  (当前三个题集恰好都没有此类题, 故属潜在而非现症 —— 但闸要在。)
 
 ---
 
@@ -334,7 +344,11 @@ git commit -m "refactor(eval): 判据匹配提为共享 source_matches — 同�
 
 **Interfaces:**
 - Consumes: `eval.run_eval.source_matches` (Task 2), `server.rag.RAGEngine`
-- Produces: `evidence/checkpoints/gold_gap_scan.json` — 每题一条 `{id, question, gold, unmatched_top3: [{source, section, sim, rank}]}`
+- Produces: `evidence/checkpoints/gold_gap_scan.json` — 每题一条
+  `{id, question, gold, top_n, unmatched_top3: [{source, section, sim, rank}]}`
+  (键名沿用 `unmatched_top3` 是**刻意的**: 首轮扫描产物与独立判定已在用它, 改名要重跑
+  140 题检索并打断判定; 实际条数以 `top_n` 字段为准 —— 这是 Task 3 评审 Minor 1 的
+  低成本选项)
 
 **为什么**: 只改 q38 一题 = example-level 对症下药 (用户明确反对)。必须做 pattern 层扫描, 找出**同类**的 gold 遗漏。
 
@@ -423,9 +437,7 @@ from __future__ import annotations
 import argparse
 import json
 
-import yaml
-
-from eval.run_eval import source_matches
+from eval.run_eval import load_test_set, source_matches
 
 
 def unmatched_in_top_n(chunks, expected_sources, n=3, any_of=None):
@@ -471,7 +483,7 @@ def main(argv=None):
     )
 
     rows = []
-    qs = yaml.safe_load(open(args.test_set))
+    qs = load_test_set(args.test_set)   # 走它而非裸 yaml: 拦拼错的 gold 键 / 无 gold 题
     for i, q in enumerate(qs, 1):
         chunks = rag.retrieve(q["question"], top_k=args.top_k)
         um = unmatched_in_top_n(
@@ -482,11 +494,14 @@ def main(argv=None):
             "id": q["id"], "category": q["category"], "question": q["question"],
             "gold": q.get("expected_sources", []),
             "gold_any": q.get("expected_sources_any"),
+            # 键名保留 top3 (下游证据与判定已在用); 实际条数以 top_n 字段为准
+            "top_n": args.top_n,
             "unmatched_top3": um,
         })
         print(f"[{i}/{len(qs)}] {q['id']} unmatched={len(um)}", flush=True)
 
-    json.dump(rows, open(args.output, "w"), ensure_ascii=False, indent=1)
+    with open(args.output, "w", encoding="utf-8") as f:
+        json.dump(rows, f, ensure_ascii=False, indent=1)
     n_any = sum(1 for r in rows if r["unmatched_top3"])
     print(f"\n{n_any}/{len(rows)} 题的 top-{args.top_n} 含未被 gold 匹配的条目")
     print(f"明细: {args.output}")
@@ -909,8 +924,7 @@ def main(argv=None):
     p.add_argument("--output", default="evidence/checkpoints/crowding_layer1.json")
     args = p.parse_args(argv)
 
-    import yaml
-
+    from eval.run_eval import load_test_set
     from server.config import settings
     from server.rag import RAGEngine
 
@@ -923,7 +937,7 @@ def main(argv=None):
         hybrid_pool=settings.hybrid_pool,
     )
 
-    qs = yaml.safe_load(open(args.test_set))
+    qs = load_test_set(args.test_set)   # 走它而非裸 yaml: 拦拼错的 gold 键 / 无 gold 题
     rows = []
     for i, q in enumerate(qs, 1):
         chunks = rag.retrieve(q["question"], top_k=args.top_k)
@@ -940,7 +954,8 @@ def main(argv=None):
         print(f"[{i}/{len(qs)}] {q['id']} dup={st['dup_seats']} "
               f"max={st['max_cluster']}(§{st['max_cluster_section']})", flush=True)
 
-    json.dump(rows, open(args.output, "w"), ensure_ascii=False, indent=1)
+    with open(args.output, "w", encoding="utf-8") as f:
+        json.dump(rows, f, ensure_ascii=False, indent=1)
 
     n = len(rows)
     print(f"\n===== 层① 汇总 (题数 {n}, k={args.top_k}) =====")
@@ -1022,11 +1037,12 @@ from server.config import settings
 from server.rag import RAGEngine
 import yaml
 
-rows = json.load(open("evidence/checkpoints/crowding_layer1.json"))
+with open("evidence/checkpoints/crowding_layer1.json", encoding="utf-8") as f:
+    rows = json.load(f)
 target = [r["id"] for r in sorted(rows, key=lambda x: -x["max_cluster"])[:11]]
 if "q38" not in target:
     target.append("q38")
-qs = {q["id"]: q for q in yaml.safe_load(open("eval/test_set_v3.yml"))}
+qs = {q["id"]: q for q in yaml.safe_load(open("eval/test_set_v3.yml", encoding="utf-8"))}
 
 def engine(pool):
     return RAGEngine(
@@ -1256,17 +1272,21 @@ def main(argv=None):
     args = p.parse_args(argv)
 
     import litellm
-    import yaml
 
-    from eval.run_eval import DEFAULT_JUDGE_MODEL, check_fact_recall_judge
+    from eval.run_eval import (
+        DEFAULT_JUDGE_MODEL,
+        check_fact_recall_judge,
+        load_test_set,
+    )
     from server.config import settings
     from server.rag import RAGEngine
 
-    rows = json.load(open(args.layer1))
+    with open(args.layer1, encoding="utf-8") as f:
+        rows = json.load(f)
     target = [r["id"] for r in sorted(rows, key=lambda x: -x["max_cluster"])[:11]]
     if "q38" not in target:
         target.append("q38")
-    qs = {q["id"]: q for q in yaml.safe_load(open(args.test_set))}
+    qs = {q["id"]: q for q in load_test_set(args.test_set)}
     model = args.model or settings.default_model
 
     rag = RAGEngine(
@@ -1304,7 +1324,8 @@ def main(argv=None):
                   f"score={arms[arm]['score']}", flush=True)
         results.append({"id": qid, "question": q["question"], "arms": arms})
 
-    json.dump(results, open(args.output, "w"), ensure_ascii=False, indent=1)
+    with open(args.output, "w", encoding="utf-8") as f:
+        json.dump(results, f, ensure_ascii=False, indent=1)
 
     print("\n===== 层② 判定 =====")
     n_unparsed = sum(1 for r in results for a in r["arms"].values() if not a["judge_parse_ok"])
