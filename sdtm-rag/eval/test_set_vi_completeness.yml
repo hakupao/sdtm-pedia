@@ -1,0 +1,36 @@
+# VI 交叉引用完整性 — 独立题集 (不并入 test_set_v3.yml)
+#
+# 为什么独立: 并进 v3 会换掉 140 的分母, 使 98.93% 基线与全部历史 run 失去可比性
+# ("一版一把尺子")。
+#
+# 出题规则 (规则驱动, 非挑例子 — 任何人可机械重生成同一批题):
+#   凡 N > 15 的码表, 问"哪些变量引用它", gold fact 取位置 > 15 的条目 (字母序末位)。
+#   规则作用于 9 个宽码表全体 (C66742/C71620/C99079/C66789/C66728/C74456/C78735/
+#   C85492/C99073); 此处只落 2 道控体量, 其余 7 个由
+#   scripts/tests/test_kb_crossref_completeness.py 的数据不变量全覆盖。
+#
+# 判别力声明: source recall 对本题集**失明** (gold section 本来就命中, 与正文是否被截
+# 无关), 判别力只在 fact 侧。用 --judge 或 fact_recall 读成绩, 不要看 source recall。
+#
+# expected_facts 用**裸变量名**而非 `DOMAIN.VAR` 点号形式: 模型合法地会用按域分组的
+# 表格作答 (`| UR | URORRESU, URSTRESU |`), 点号形式在这种答案里永远不出现 —— 用点号
+# 会把正确作答判成失分。SDTM 变量名自带域前缀故裸名全局唯一; 实测裸名在截断 context
+# 里同样不存在, 判别力未被削弱。
+- id: vic01
+  category: cross_domain
+  question: >-
+    Which SDTM domain variables reference the No Yes Response codelist C66742?
+    List them exhaustively.
+  expected_sources:
+    - "VARIABLE_INDEX.md#§三 CT 交叉引用: C66742$"
+  expected_facts:
+    - "VSLOBXFL"          # 第 123 位 = 旧正文 (只到第 15 位) 结构上答不出
+- id: vic02
+  category: cross_domain
+  question: >-
+    Which SDTM domain variables reference the Unit codelist C71620?
+    List them exhaustively.
+  expected_sources:
+    - "VARIABLE_INDEX.md#§三 CT 交叉引用: C71620$"
+  expected_facts:
+    - "URSTRESU"          # 第 58 位 = 同上

@@ -1,0 +1,128 @@
+{
+  "summary": {
+    "n_questions": 2,
+    "n_scored": 2,
+    "n_total": 2,
+    "n_out_of_scope": 0,
+    "model": null,
+    "threshold": 0.85,
+    "source_recall_avg": 1.0,
+    "source_recall_by_category": {
+      "cross_domain": 1.0
+    },
+    "fact_recall_avg": 1.0,
+    "fact_recall_by_category": {
+      "cross_domain": 1.0
+    },
+    "total_tokens": 38415,
+    "judge_fact_recall_avg": 1.0,
+    "judge_fact_recall_by_category": {
+      "cross_domain": 1.0
+    },
+    "judge_parse_failures": 0,
+    "overall": 1.0,
+    "overall_metric": "judge",
+    "verdict": "PASS",
+    "top_k": 15,
+    "structured_lookup": true,
+    "hybrid": {
+      "fusion": "rrf",
+      "alpha": null
+    },
+    "prompt_guardrail": false,
+    "structured_answer": false,
+    "graph_answer": false,
+    "aggregate_answer": false,
+    "judge_model": "deepseek/deepseek-chat"
+  },
+  "results": [
+    {
+      "id": "vic01",
+      "category": "cross_domain",
+      "question": "Which SDTM domain variables reference the No Yes Response codelist C66742? List them exhaustively.",
+      "out_of_scope": false,
+      "source_recall": 1.0,
+      "source_hits": [
+        "VARIABLE_INDEX.md#§三 CT 交叉引用: C66742$"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "VARIABLE_INDEX.md",
+        "terminology/core/general_part4.md",
+        "model/01_concepts_and_terms.md",
+        "terminology/supplementary/supplementary_part5.md",
+        "domains/CE/spec.md"
+      ],
+      "top5_similarities": [
+        0.5168,
+        0.6338,
+        0.556,
+        0.5846,
+        0.5448
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "VSLOBXFL"
+      ],
+      "fact_misses": [],
+      "answer_preview": "# Variables Referencing No Yes Response Codelist C66742\n\nThe codelist **No Yes Response (C66742)** is **non-extensible** and contains four permitted values: `N`, `NA`, `U`, and `Y`.\n\n[Source: terminology/core/general_part4.md]\n\nIt is referenced by **123 variables** across **53 domains**. Below is the exhaustive list, organized by domain:\n\n---\n\n## AE — Adverse Events (13 variables)\n| Variable | Variable Name |\n|----------|--------------|\n| AE.AECONTRT | Concomitant or Additional Trtmnt Given |\n| AE.AEPRESP | Pre-Specified Adverse Event |\n| AE.AESCAN | Involves Cancer |\n| AE.AESCONG | Congenital",
+      "usage": {
+        "prompt_tokens": 17788,
+        "completion_tokens": 2564,
+        "total_tokens": 20352
+      },
+      "model": "jp.anthropic.claude-sonnet-4-6",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "VSLOBXFL"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 34.68
+    },
+    {
+      "id": "vic02",
+      "category": "cross_domain",
+      "question": "Which SDTM domain variables reference the Unit codelist C71620? List them exhaustively.",
+      "out_of_scope": false,
+      "source_recall": 1.0,
+      "source_hits": [
+        "VARIABLE_INDEX.md#§三 CT 交叉引用: C71620$"
+      ],
+      "source_misses": [],
+      "top5_sources": [
+        "VARIABLE_INDEX.md",
+        "terminology/core/general_part5.md",
+        "VARIABLE_INDEX.md",
+        "chapters/ch04_general_assumptions.md",
+        "VARIABLE_INDEX.md"
+      ],
+      "top5_similarities": [
+        0.5336,
+        0.4235,
+        0.6348,
+        10.9989,
+        0.624
+      ],
+      "fact_recall": 1.0,
+      "fact_hits": [
+        "URSTRESU"
+      ],
+      "fact_misses": [],
+      "answer_preview": "## Variables Referencing Unit Codelist C71620\n\nBased on the CT cross-reference index, **58 variables** across 30+ domains reference the Unit codelist **C71620**.\n\n[Source: VARIABLE_INDEX.md §三 CT 交叉引用: C71620]\n\n### Interventions Domains\n\n| Domain | Variable(s) |\n|--------|-------------|\n| AG | AGDOSU |\n| CM | CMDOSU |\n| EC | ECDOSU, ECPSTRGU |\n| EX | EXDOSU |\n| ML | MLDOSU |\n| PR | PRDOSU |\n| SU | SUDOSU |\n\n### Events Domains\n\n*(No Events domain variables reference C71620)*\n\n### Findings Domains\n\n| Domain | Variable(s) |\n|--------|-------------|\n| BS | BSORRESU, BSSTRESU |\n| CP | CPORRESU, CPS",
+      "usage": {
+        "prompt_tokens": 17322,
+        "completion_tokens": 741,
+        "total_tokens": 18063
+      },
+      "model": "jp.anthropic.claude-sonnet-4-6",
+      "judge_fact_recall": 1.0,
+      "judge_fact_hits": [
+        "URSTRESU"
+      ],
+      "judge_fact_misses": [],
+      "judge_parse_ok": true,
+      "elapsed_s": 10.85
+    }
+  ]
+}
