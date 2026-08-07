@@ -60,6 +60,13 @@ cd sdtm-rag && .venv/bin/python \
 重灾: q38 `§DOMAIN` **14/15 席** · q104 `§VISIT` 9 · q39 `§Model Definition` 8 ·
 q08 `§USUBJID` 7 · q29 `§Related Domains` 7 · q81 `§DOMAIN` 7。
 
+> 上表 (原出自 scratchpad 探针) 已由落库版 Task 4 逐值复现, 复跑:
+> `.venv/bin/python -m eval.crowding_probe --output evidence/checkpoints/crowding_layer1.json`。
+> **引用这些数字必须连可复现性声明与 `max_cluster` 豁免的失效条件一起带**, 见
+> `sdtm-rag/evidence/checkpoints/crowding_layer1.md` §2 (以及 `topk_jitter.md` §5.6)。
+> 逐题层面: `dup_seats`/`distinct_sections` 对 q47 只能按分布引 (12:8 四六开), q117 需标注;
+> `max_cluster_section` 在并列时由排位决定 (140 题里 71 题存在并列), 排位结论一律作废。
+
 ## 1. 核心洞察: 尺子为什么看不见这件事
 
 **除 q38 外, 上述重灾题全部 gold 满分。** 现有 140 题判据对挤占结构性失明, 机制是:

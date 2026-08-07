@@ -1,0 +1,260 @@
+{
+ "_meta": {
+  "what": "跨独立进程取样下, 层① 三个集合统计的取值分布",
+  "sampling": "eval.jitter_probe.stability_across_processes (真子进程)",
+  "why_cross_process": "进程内循环 N 次不是 N 个独立样本: 实测 60 次里 57:3 ≈ 95% 偏向单一状态, 系统性低估状态分布",
+  "n_procs_is_a_floor": "n_procs 是检出不稳定的下限, 不足以刻画分布尾部 (稀有态在 1/20 量级, 且不同批次见到的状态集合不同)。只可读作'见到 N 种取值', 次数不是概率。",
+  "no_rank": "分布键不含 max_cluster_section: 并列时它由插入顺序(=排位)决定, 而排位不可复现。",
+  "n_procs": 20,
+  "top_k": 15,
+  "config": "hybrid + structured_lookup"
+ },
+ "questions": {
+  "q38": {
+   "n_runs": 20,
+   "n_distinct_values": 1,
+   "values": [
+    {
+     "max_cluster": 14,
+     "dup_seats": 13,
+     "distinct_sections": 2,
+     "n_procs": 20
+    }
+   ],
+   "n_procs": 20,
+   "distinct_sets": 3,
+   "sometimes": 4
+  },
+  "q47": {
+   "n_runs": 20,
+   "n_distinct_values": 2,
+   "values": [
+    {
+     "max_cluster": 2,
+     "dup_seats": 2,
+     "distinct_sections": 13,
+     "n_procs": 12
+    },
+    {
+     "max_cluster": 2,
+     "dup_seats": 1,
+     "distinct_sections": 14,
+     "n_procs": 8
+    }
+   ],
+   "n_procs": 20,
+   "distinct_sets": 2,
+   "sometimes": 2
+  },
+  "q117": {
+   "n_runs": 20,
+   "n_distinct_values": 1,
+   "values": [
+    {
+     "max_cluster": 2,
+     "dup_seats": 2,
+     "distinct_sections": 13,
+     "n_procs": 20
+    }
+   ],
+   "n_procs": 20,
+   "distinct_sets": 1,
+   "sometimes": 0
+  },
+  "q120": {
+   "n_runs": 20,
+   "n_distinct_values": 1,
+   "values": [
+    {
+     "max_cluster": 2,
+     "dup_seats": 1,
+     "distinct_sections": 14,
+     "n_procs": 20
+    }
+   ],
+   "n_procs": 20,
+   "distinct_sets": 2,
+   "sometimes": 4
+  },
+  "q104": {
+   "n_runs": 20,
+   "n_distinct_values": 1,
+   "values": [
+    {
+     "max_cluster": 9,
+     "dup_seats": 8,
+     "distinct_sections": 7,
+     "n_procs": 20
+    }
+   ],
+   "n_procs": 20,
+   "distinct_sets": 1,
+   "sometimes": 0
+  },
+  "q39": {
+   "n_runs": 20,
+   "n_distinct_values": 1,
+   "values": [
+    {
+     "max_cluster": 8,
+     "dup_seats": 8,
+     "distinct_sections": 7,
+     "n_procs": 20
+    }
+   ],
+   "n_procs": 20,
+   "distinct_sets": 1,
+   "sometimes": 0
+  },
+  "q08": {
+   "n_runs": 20,
+   "n_distinct_values": 1,
+   "values": [
+    {
+     "max_cluster": 7,
+     "dup_seats": 7,
+     "distinct_sections": 8,
+     "n_procs": 20
+    }
+   ],
+   "n_procs": 20,
+   "distinct_sets": 1,
+   "sometimes": 0
+  },
+  "q29": {
+   "n_runs": 20,
+   "n_distinct_values": 1,
+   "values": [
+    {
+     "max_cluster": 7,
+     "dup_seats": 9,
+     "distinct_sections": 6,
+     "n_procs": 20
+    }
+   ],
+   "n_procs": 20,
+   "distinct_sets": 1,
+   "sometimes": 0
+  },
+  "q81": {
+   "n_runs": 20,
+   "n_distinct_values": 1,
+   "values": [
+    {
+     "max_cluster": 7,
+     "dup_seats": 6,
+     "distinct_sections": 9,
+     "n_procs": 20
+    }
+   ],
+   "n_procs": 20,
+   "distinct_sets": 1,
+   "sometimes": 0
+  },
+  "q77": {
+   "n_runs": 20,
+   "n_distinct_values": 1,
+   "values": [
+    {
+     "max_cluster": 6,
+     "dup_seats": 5,
+     "distinct_sections": 10,
+     "n_procs": 20
+    }
+   ],
+   "n_procs": 20,
+   "distinct_sets": 1,
+   "sometimes": 0
+  },
+  "q108": {
+   "n_runs": 20,
+   "n_distinct_values": 1,
+   "values": [
+    {
+     "max_cluster": 6,
+     "dup_seats": 5,
+     "distinct_sections": 10,
+     "n_procs": 20
+    }
+   ],
+   "n_procs": 20,
+   "distinct_sets": 1,
+   "sometimes": 0
+  },
+  "q07": {
+   "n_runs": 20,
+   "n_distinct_values": 1,
+   "values": [
+    {
+     "max_cluster": 5,
+     "dup_seats": 5,
+     "distinct_sections": 10,
+     "n_procs": 20
+    }
+   ],
+   "n_procs": 20,
+   "distinct_sets": 1,
+   "sometimes": 0
+  },
+  "q84": {
+   "n_runs": 20,
+   "n_distinct_values": 1,
+   "values": [
+    {
+     "max_cluster": 5,
+     "dup_seats": 4,
+     "distinct_sections": 11,
+     "n_procs": 20
+    }
+   ],
+   "n_procs": 20,
+   "distinct_sets": 1,
+   "sometimes": 0
+  },
+  "q118": {
+   "n_runs": 20,
+   "n_distinct_values": 1,
+   "values": [
+    {
+     "max_cluster": 5,
+     "dup_seats": 4,
+     "distinct_sections": 11,
+     "n_procs": 20
+    }
+   ],
+   "n_procs": 20,
+   "distinct_sets": 1,
+   "sometimes": 0
+  },
+  "q31": {
+   "n_runs": 20,
+   "n_distinct_values": 1,
+   "values": [
+    {
+     "max_cluster": 4,
+     "dup_seats": 6,
+     "distinct_sections": 9,
+     "n_procs": 20
+    }
+   ],
+   "n_procs": 20,
+   "distinct_sets": 2,
+   "sometimes": 2
+  },
+  "q133": {
+   "n_runs": 20,
+   "n_distinct_values": 1,
+   "values": [
+    {
+     "max_cluster": 2,
+     "dup_seats": 1,
+     "distinct_sections": 14,
+     "n_procs": 20
+    }
+   ],
+   "n_procs": 20,
+   "distinct_sets": 2,
+   "sometimes": 2
+  }
+ }
+}
