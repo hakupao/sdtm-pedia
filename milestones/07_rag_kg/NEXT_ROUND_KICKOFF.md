@@ -2,6 +2,8 @@
 
 > 路由词: **「检索续跑 开始任务」**
 > 建立: 2026-08-06 (Plan B Phase 2 + CDISC section 化 + study golden v2 三线收官后)
+> 更新: 2026-08-07 (挤占 + gold 完整性轮收口 —— §2.A 根因**已被推翻并订正**, 新增 §2.A′ 主线,
+> §3 新增硬规矩 8-16, §4 新增已知限制 + 规则 A 抽检 open 项)
 > 红线: 真实 study 的 form/field OID / label / 题面 / 别名词**只允许**存在于 `sdtm-rag/data/study/` (gitignored)。
 > 任何 committed 文件与报告零真名; 红线检查**必须程序化** (与 `data/study/st01/catalog.json` 比对), **不许用"我觉得这个不算"豁免**。
 
@@ -10,18 +12,28 @@
 CDISC 与 study 两条检索轨的**判据都刚被修准**, 基线数字随之下修 —— 这是判据变准, 不是检索回归。
 两把尺子现在都有判别力, 且各自指出了明确靶子。
 
+**2026-08-07 补一句**: CDISC 的**源侧**尺子现在准了但**接近饱和** (只剩 q38/q126, 余量 0.83pt);
+**事实侧**尺子 (`expected_facts`) 则被实证**分辨力不足** —— 全 140 题 121/140 顶格, 抽样看 85%
+的 fact 是 1–2 词关键词碎片。**下一轮主线 §2.A′ 就是给它换锚。** 挤占是否有害**仍然未知**。
+
 ## 1. 当前基线 (引用必须带口径, 否则会被误读)
 
 | 轨 | 配置 | 值 | 口径 |
 |---|---|---|---|
 | CDISC | hybrid-only | 81.07% | 路径级判据 (未受本轮影响) |
-| CDISC | hybrid + S1 | **98.93%** | **section 级判据** (`路径#节$`), 2026-08-07 D2 修完后; 此前 95.71% |
+| CDISC | hybrid + S1 | **99.17%** | **当前值**; section 级判据 + **含 gold 完整性修复后** (2026-08-07 补 27 条权威源)。非满分题 `{q38: 0.3333, q126: 0.5}` |
+| CDISC | hybrid + S1 | 98.93% | **历史值, 与上一行不可比** —— 换了一把尺子 (gold 集合本身变了)。section 级判据, D2 修完后; 此前 95.71% |
 | study | v2, S2 关 | **80.49%** | v2 题集 (48 计分) |
 | study | v2, S2 开 | **87.50%** | 同上; S2 真实增益 **+7.01pt**, 改善 5 题回归 0 题 |
 | study | v1.1, S2 开 | 100.00% | **该题集已饱和, 判别力耗尽 —— 不要再用它衡量新改动** |
 
 **三版 study 题集分数互不可比** (一版一把尺子), 只有同版内的开关对照才有意义。
-CDISC 新旧口径同理。引用 98.93% 必须写明 "section 级判据"; 引用 81.07% 必须写明 "hybrid-only"。
+CDISC 新旧口径同理。引用 **99.17%** 必须写明 "含 gold 完整性修复后"; 引用 98.93% 必须写明
+"section 级判据 + **gold 修复前**"; 引用 81.07% 必须写明 "hybrid-only"。
+
+> ⚠️ **99.29% 是已作废的中间值**。它曾随已提交的 JSON 短暂进仓 (commit `7c9ee68`), 后因 q38
+> 从 OR 组改回 AND 而降为 99.17% (commit `8930461`); `0.992857 + (0.3333-0.5)/140 = 0.991666`,
+> 降幅 100% 来自 q38 一题。**在任何地方看到 99.29%, 那是过期值。**
 
 > ⚠️ **CDISC 那一行有个已知陷阱**: 98.93% 与**已作废的路径级口径**数值相同, 且 18 题子集 (100.00%)
 > 与其余 122 题 (98.77%) 也逐位全同。这是**结构必然不是巧合** —— 两把尺子的分歧只在那 18 题,
@@ -31,10 +43,76 @@ CDISC 新旧口径同理。引用 98.93% 必须写明 "section 级判据"; 引�
 
 ## 2. 剩余工作 (按依赖排序, 顺序有实质理由)
 
-### A. q38 chapters 整文件单块策略
-CDISC 140 题里**唯一一道 recall 0.0** 的题。根因: `chapters/` 下 ≤20KB 的文件整个当一个 chunk
-(ch01/ch02/ch03 各只有 1 个), 语义被稀释。属 chunk 构造侧改动, 需重建索引。
-**排在判据修准之后是有意的** —— 用粗判据量不出 chunk 构造改动的真实效果, 现在判据准了才能测。
+### A. ~~q38 chapters 整文件单块策略~~ → ✅ **切分 DONE 2026-08-07**, 但 **q38 未解决**
+
+~~根因: `chapters/` 下 ≤20KB 的文件整个当一个 chunk (ch01/ch02/ch03 各只有 1 个), 语义被稀释。~~
+
+> ⛔ **上面那句根因是错的, 且它是上一轮收口时写下的 —— 写进 kickoff 之前没做过诊断验证。**
+> 收口证据 `sdtm-rag/evidence/checkpoints/crowding_and_gold_integrity.md`;
+> retro `docs/superpowers/2026-08-07-crowding-gold-RETROSPECTIVE.md` §二.4。
+
+**真实根因是三件独立的事叠加, 整文件稀释是其中最弱的一件**:
+
+1. **gold 漏了权威源** (判据缺陷造成的**假失分**)。字面回答 q38 的 `ch04 §4.2.2` 在 dense-only
+   下是检索 **#1 (sim 0.6970)**, 而它**不在 gold 里** —— 旧 gold 把一次正确召回判成 0.0。
+2. **同质簇挤占** (主因)。q38 的 top-15 被 **14 席 `§DOMAIN`** 占满 (63 个域的模板化变量行,
+   字面都含 "Two-character abbreviation"); 生产口径 (hybrid RRF) 把 dense 排第 1 的 `§4.2.2`
+   **挤出了 top-15**。**不是"gold 排不进来", 是"把已排第 1 的正确 chunk 挤掉"。**
+3. **整文件稀释真实存在, 但非主因**。推翻它的两条实测:
+   - 诊断期: 剔掉那 59 条 `§DOMAIN` 后, ch02 的整文件块从 #71 只升到 **#12** —— 仍进不了 top-15;
+   - **Task 8 真切完之后**: ch02 最好的块 #71 → **#63**, 而**真正回答 q38 的 §2.6 Creating a
+     New Domain 在 #70**, **仍在 top-15 之外**; **q38 recall 仍是 0.3333, 一分没涨**。
+
+**已做**: 取消整文件单块档, ch01/ch02/ch03 按 H2 切成 **5/9/3** 块, 重灌索引 4315 → **4329**。
+140 题 gold **逐题零变化**; ch02 在全 140 题 top-15 的席位 48 → **98** (分散在 9 个真实小节名下);
+层① `max_cluster ≥3` 28.6% → **23.6%**。
+**意外收益**: `whole_file` 原本在 **23 题**里成簇 —— 它是个**纯人造簇** (ch01/ch02/ch03 三个内容
+毫不相干的整章共用同一 section 名)。旧策略不只稀释语义, 还凭空造出跨文件假同质簇。
+**已知损失 (C2)**: 首个 H2 之前的前言不再入索引 (ch01/02/03 各 86/99/109 B = H1 标题 +
+`Source: ... (Pages N-M)` **页码溯源行**)。源 markdown 仍有, 丢的是**索引侧**。
+规则 A 抽检实测把范围改大了: 全库 **4329 chunk 里含 `Source: SDTMIG` 的 = 0、含 `Pages ` 的 = 0**
+—— ch04/ch08/ch10 **从来就没有过**这行, 本轮只是把 ch01-03 **对齐到既有行为** (故本轮改动无害),
+但**更该记住的是: RAG 索引里任何 chapter 都检索不到页码**。见 §4 + `.work/MANIFEST.md` Chain D。
+
+**剩下的**: q38 要靠**去重/配额**, 那是 §2.A′ 的辖区。
+
+### A′. 换锚重做层② —— 挤占是否**有害**仍然未知 (下一轮主线)
+
+> ⛔ **不要读成"已验过、挤占无害"。** 层② 判定是 **`VOID_TIE` 作废**, Task 7 是 **SKIPPED
+> (前置未满足)** —— **本轮没有产生任何关于挤占是否有害的信息。**
+
+层② 用答案正确性 (LLM judge) 作外部锚跑了 11 题 × 3 组 (A 无配额 / B1 限 1 席 / B2 限 2 席)。
+**配额生效了** (context 逐位差 5–13 席, 11 题无一相同)、**答案变了** (33 个答案与 A 逐字相同的
+一个都没有), **分数却纹丝不动** (33 臂全 1.00, 零方差, gold fact miss 总数 0)。
+
+**量具饱和, 不是效应为零**: `evidence/checkpoints/llm_judge_fact_recall.md:29` **早在本实验之前
+就记着** 全 140 题的 fact-recall 分布 —— **121/140 (86.4%) 就是 fr=1.0**。而 **A 组自己也是 1.00**:
+一把对**所有臂**都顶格的尺子, 逻辑上无法区分"无效应"与"有效应"。
+
+**根因: fact gold 的分辨力问题 (影响面远超本轮)**。这 11 题的 33 条 `expected_facts` 里
+**28 条 (85%) 是 1–2 个词的关键词碎片** —— q38 的两条"事实"字面就是 `two-character` 和 `DOMAIN`,
+任何相关答案都必含, **连只有 3 席 context 的 B1 都满分**。
+旁证: q38 源级 recall **0.3333** 而**同一条 context** 的 fact-recall **1.00**。
+⇒ **所有用 fact-recall 读出来的答案质量结论, 分辨力都存疑**, 不限于这 11 题。
+(用户裁定 2026-08-07: 本轮不修 fact gold, 换锚重做归下一轮。)
+
+**换锚前必过的零成本前置闸 (评审给的, 别跳)**:
+
+1. **先在 A 组单臂上验新锚** —— **如果 A 组自己就顶格, 任何 A/B 都不可能有信息。**
+   不用跑 B 组、不花 judge 的钱, 却能在开跑前排除整轮白做。
+2. 锚在题集上必须**方差 > 0**。
+3. **"改写成句子级 gold"这条路本身尚未被证明够用**: q118 是唯一句子级 gold 的题,
+   **它同样三组同分 (n=1)**。选锚必须独立验证其分辨力, 不许想当然。
+
+**配套已就位, 不必重写**: `sdtm-rag/server/diversity.py` 的 `apply_section_cap` (含单测) ·
+`eval/crowding_ab.py` 三组框架 + `--summarize` 零 LLM 重算 · `eval/crowding_probe.py` 层① 探针 ·
+`eval/jitter_probe.py` 跨进程取样。
+
+**动检索前必扫的存量债**: **剩 2 题**的 OR 成员**严格弱于**同组其他成员 (**q117 0/4 facts ·
+q115 1/3**), 且它们的 OR 组是该题**唯一计分单位** ⇒ 只命中最弱成员即得 `source_recall = 1.0`。
+当前两题均已命中强成员故**未兑现且 99.17% 未虚高**, 但**一动检索 OR 组就会吃掉回归让分数纹丝不动**。
+(q73 已在 2026-08-07 改回 AND, 见收口证据 §7.1 —— 实测 140 题逐题 Δ0;
+规则 A 抽检把 q19 排除 —— 它保留了 AND 成员, facts 分摊两侧, 不构成问题。)
 
 ### B. 联邦答题 eval (含一行硬前置修复)
 **硬前置 (必须先做)**: `eval/run_eval.py` 的 `_FederatedAdapter.build_messages` 把 corpus
@@ -62,6 +140,18 @@ CDISC 140 题里**唯一一道 recall 0.0** 的题。根因: `chapters/` 下 ≤
    chunk 正文读对**变量数** (123, 正文直接写着) 却**估域数** —— `C66742` 答 "50+ domains"/"53"
    (两次跑), 真值 **41**。属答题侧, KB 数据修复不解决。常驻探针: `eval/test_set_vi_completeness.yml`
    的 `vic01` 在 `--judge` 口径下**故意保留失分 0.5**, **修好前不要把它调绿**。
+
+4. **CDISC 主题集缺 OR 纪律的自动闸** (2026-08-07 由规则 A 抽检暴露, **下一轮候选**)。
+   `check_source_recall` docstring 的纪律第 1 条 ("`any_of` 每个成员必须**独立覆盖全部
+   `expected_facts`**") **在 `test_set_v3.yml` 上没有任何机械检查** —— `eval/lint_gold.py` 是
+   **study 轨**的闸: 它需要 card catalog, 且第 66 行对 section 级 gold 直接 `raise ValueError`,
+   **根本跑不到 CDISC 题集**; 其 `or_groups()` 注释明写"能否独立回答该题**由人判**"。
+   本轮就是这个人工环节漏了 (15 个自建 OR 组无一过纪律, 机械扫描 8 题不合格)。
+   **建单独的闸**: 对每个 OR 成员, 用 `source_matches` 取回它在全索引里匹配的所有 chunk 正文,
+   逐条 `expected_facts` 做大小写不敏感子串 (与 `check_fact_recall` 同口径), 覆盖不全则红。
+   ⚠️ 闸要能表达"**有 AND 成员时纪律按字面套过严**"这个例外 (q19/q91/q126 属此类, 不是缺陷),
+   否则会造一批假阳性 —— **那正是上一轮 lint 语义事故的形态**。
+   抽检方已实现过一版一次性脚本, 可作起点 (`evidence/step_09_audit.md` §3)。
 
 ### ⛔ 已裁定不做
 **Plan B Phase 3 (CDISC 变量索引挤占)** —— 勘察实证放弃, 证据
@@ -91,6 +181,57 @@ CDISC 140 题里**唯一一道 recall 0.0** 的题。根因: `chapters/` 下 ≤
    结果答案里"123 variables across 50+ domains"(真值 41) 这个可验证的事实错误**双判据满分通过**。
    **判据视野外的错等于没查** —— 题干问穷举, 就要钉至少两个互相独立的可判定量。
 
+8. **判定规则必须先于数据写死, 且自毁条款排在肯定性结论之前** (2026-08-07 新立)。
+   本轮层② 五种结果里三种指向"不修", 最省事的读法是"两组都不过门槛 ⇒ 挤占无害 ⇒ 跳过 Task 7";
+   规则表里排在前面的是"同分题 ≥8 ⇒ 整个判定作废, 不许顺着读结论", 实现方照实报了作废。
+   **这是本轮最有价值的产出之一** —— 它把"我们不知道"保留了下来, 而不是让它被好看的假结论盖掉。
+   派 A/B 实验时, 判定规则 (含作废条款) 必须写进 brief。**决策表要穷举, 或显式写 default 行**
+   (本轮规则表有空档: "两组都不过门槛且 regressed 为 2–3" 不落在任何一行)。
+
+9. **护栏不能自洽 —— 新变体: 参照物也不能被系统的另一个组件确定性保证** (2026-08-07 新立,
+   硬规矩 6 的推广)。S1 是 union-add **前置注入**, 确定性地把 gold 钉在 top-k 最前 ⇒
+   `expected_sources` 判据对"剩余席位的质量"**结构性失明**, **gold recall 永远判不出挤占是否有害**。
+   **凡用判据 X 度量改动 Y, 先问"系统里有没有别的组件确定性地保证了 X"。** 有, 就必须换锚。
+
+10. **结论的方向与证据的强度要分开写** (2026-08-07 新立)。本轮同一形态出现**四次**: 结论方向
+    对, 但支撑它的那句话比证据能给的更强, 且**四次都以断言形式进了源码注释或已提交的证据文件**
+    ("eval Δ0 证明逐字节等价" / "进程内 N 次 = 1 个样本" / "run1/run2 都在这 4 种里" /
+    "两题稳定性依赖测量模式")。可执行的最小版本 (审阅者原话):
+    **给"不会发生 X"这类全称结论时必须标样本量, 或改写成"在我查的 N 题里未见"**;
+    证据不足以判定时标 **"⚠️ 无法从证据验证"**, 不许写成断言。
+
+11. **数字与它的适用条件必须在同一个可提交的载体里, 且载体格式要与下游读取方式一致**
+    (2026-08-07 新立)。本轮三次: 99.29% 随 JSON 进仓而口径声明留在 gitignored 目录 /
+    `max_cluster_section` 的禁忌写在 markdown 而下游读 JSON / spec §0 的 28.6% 依赖的豁免
+    已被重灌击穿。**下游读 JSON 就得写进 JSON。**
+
+12. **写进 kickoff / 下轮清单的"根因", 要么附诊断证据, 要么标"待验证假设"** (2026-08-07 新立)。
+    §2.A 那条根因是上一轮收口时写下的、未经诊断, 本轮实测推翻 —— 而下一轮会直接按它设计整个 plan。
+
+13. **"跑 N 次都一样"的稳定性结论, 先问清"独立"是相对哪个维度** (2026-08-07 新立)。
+    本项目实测: **进程内循环严重偏向单一状态 (57:3 ≈ 95%)**, **跨进程才是独立样本**;
+    且 `n_procs=20` 只是**检出下限**, 不足以刻画分布尾部。用**控制变量**取代采样
+    (钉死 query 向量 × 8 独立进程仍出 3 种 top-15 ⇒ 变化主源在检索侧而非 embedding)。
+    所有"进程内跑 N 次验稳"的历史探针, 强度都要按这条重估。
+
+14. **改判据实现 (`source_matches` / `check_source_recall`) 前后必跑差分对拍** (2026-08-07 新立)。
+    `.venv/bin/python -m eval.tests_support.gold_semantics_diff`。
+    **不许用 "eval 逐题 Δ0" 代替它** —— 140 题里 138 题是 1.0、`#`/`$` 语法只有个位数题用到、
+    三条抛错分支在 eval 里根本走不到, 那把仪器的分辨率证明不了等价性。
+
+15. **成文纪律必须对"自己刚做的东西"也跑一遍** (2026-08-07 新立, 规则 A 抽检发现)。
+    本轮实现方对 OR 纪律第 1 条 ("`any_of` 每个成员必须独立覆盖全部 `expected_facts`")
+    **在拒绝别人时执行得很好** (q43/q45/q46/q59/q62 全部拒绝并成 OR), **却对自己新建的 15 个
+    OR 组没跑同一条纪律** —— 3 题判别力实质下降。**同一条规则在同一位置的两个方向上被非对称应用。**
+    ⇒ 凡"写在 docstring 里、靠人执行"的纪律, **要么补自动闸, 要么在检查清单里写死
+    "对本轮新建的对象也跑一遍"**。**这类纪律的半衰期等于写它那个人的记忆。**
+
+16. **规则 A 抽检的三件动作固化为模板** (2026-08-07 新立): ①**不采信仓内既有工件, 全新重跑**
+    (本轮独立复现 0.9917 逐位相同, 并独立证实两条已声明限制为真); ②**对新闸做变异测试** ——
+    **一道不会红的闸就是装饰**; ③**机械扫描之后逐条读正文** —— **机械结果 ≠ 业务结论**
+    (本轮机械扫出 8 条不合格, 逐条读后只有 3 条是真问题)。
+    变异测试**必须在 `/tmp` 副本上做**, 不许改仓内共享文件 (本轮抽检自陈的失误)。
+
 ## 4. 必须随分数一起声明的已知限制
 
 - **study 继承题存量债** (为保 v1.1 历史可比性刻意不动): 3 题 fact 命中 >100 卡 (最宽 574/481/352) /
@@ -102,6 +243,48 @@ CDISC 140 题里**唯一一道 recall 0.0** 的题。根因: `chapters/` 下 ≤
 - **②a 多 token 交集的 fire 正确性证据仍为 n=1** (爆炸半径: 27 题中实际 fire 1 题); 全库统计证明的是
   形状的 cap 安全性与复现性, **不是** fire 正确性。
 
+**2026-08-07 挤占 + gold 完整性轮新增** (全表 23 条见
+`sdtm-rag/evidence/checkpoints/crowding_and_gold_integrity.md` §5):
+
+- **挤占是否有害仍然未知** —— 层② 判定作废, Task 7 是 SKIPPED 不是"判定无害"。
+- **fact gold 85% 是 1–2 词关键词碎片** ⇒ 所有用 fact-recall 读出来的答案质量结论分辨力存疑
+  (全 140 题 fact-recall 121/140 顶格)。**句子级 gold 的分辨力也尚未被证明 (q118, n=1 同样同分)。**
+- **CDISC 140 题尺子接近饱和**: 只剩 `q38 = 0.3333` / `q126 = 0.5`, 上限余量 **0.83pt**;
+  叠加 fact 侧 86.4% 顶格 ⇒ **源侧与事实侧同时接近饱和, 长期要补的是题源不是判据**。
+- **q126 补了 gold 但未动检索**: 原 known limit ("检索够不到 `SE/assumptions.md`、`TE/spec.md`")
+  **仍然成立** —— 本次改的是判据完整性这个独立维度。**"补了 gold" ≠ "known limit 已解除"。**
+- **索引侧溯源缺口 (比 C2 更广)**: 全库 **4329 chunk 里含 `Source: SDTMIG` 的 = 0、含 `Pages ` 的 = 0**
+  ⇒ **RAG 索引里任何 chapter 都检索不到页码**。本轮改动只是把 ch01/02/03 (各 86/99/109 B)
+  **对齐到 ch04/08/10 一直以来的行为**, 不是新增损失。**源 markdown 仍有**;
+  `page_index.json` 仍是 authoritative。做**页码溯源**必须走源 md / `page_index.json`,
+  **不要默认 RAG 能答出章节页码**。修法: chunker 里把前言 prepend 到首块 (块数不变),
+  或对**全部** chapters 统一注入。
+- **层① 只认 section 名字面不认语义** (`whole_file` 曾被算成同质簇); **排位结论一律不可复现**;
+  `max_cluster` 豁免是**有条件的**, "重灌索引"就是它自己明列的失效条件之一。
+- **跨进程取样只验了 16 题** (124 题未覆盖); **配额定在 S1 之前** ⇒ S1 前插可能把被挤走的
+  同名 section 带回来 (q29 实证: 名义 `cap=1` 实际 3 席, 该题根本没拿到 `cap=1` 的处理)。
+- **8 个 OR 组保留路径级成员** (如 q46 的 `AE/spec.md`, 64 chunk 中 63 个不含答案却足以命中);
+  **section 级 gold 20 → 49**, 存在性闸只判"存在"**不判"对不对"**。
+
+**规则 A 抽检 (`sdtm-rag/evidence/step_09_audit.md`, 有条件 PASS) 留下的 open 项**:
+
+- ⚠️ **OR 纪律第 1 条在主题集上无任何自动闸**。`eval/lint_gold.py` 是 **study 轨**的闸 (需要
+  card catalog), 且第 66 行对 section 级 gold 直接 `raise ValueError`, **根本不作用于
+  `test_set_v3.yml`**; 其 `or_groups()` 注释明写"由人判"。**下轮应补自动闸。**
+- ✅ ~~q73 待裁定~~ → **DONE 2026-08-07**: 改回 AND 与 q25 统一。**实测 140 题逐题 Δ0,
+  全集 0.9917 不变** (两成员本就都命中); 反事实实测证明判别力已买到 —— "只召回 VI 那一行"
+  旧 OR 给 **1.0** (不可区分), 新 AND 给 **0.5** (可区分)。OR 组题数 15 → **14**。
+  见收口证据 §7.1。
+- ⚠️ **q115 / q117**: 源判定成立, 但 `expected_facts` 照 ch08 措辞逐字抄、**与单一源强耦合**
+  ⇒ 只召回 OR 弱成员时 **source 满分而 fact_recall 会背离**。
+  **别把这种背离误读成检索缺陷** —— 已在 `eval/test_set_v3.yml` 就地注释。
+- ⚠️ **q68 的 `Completion Status` fact 在现 gold 下不可满足** (题干称 C66789 是
+  "Completion Status codelist", 而 KB 里 C66789 的码表名是 **`Not Done`**;
+  `Completion Status` 是 `--STAT` 的**变量标签**, 那两处都不在 q68 的 gold 里)。
+  **既有出题缺陷, 非本轮引入**, 单开条目跟踪。
+- ⚠️ 抽检**未覆盖**层② 判定作废的原始论证与跨进程抖动探针的统计充分性 (不在 N=8 内);
+  且它**同样受 `gold_gap_verdicts.md` §1.4 的边界限制** —— **不能反证 gold 现在完整**。
+
 ## 5. 入口文件
 
 | 用途 | 路径 |
@@ -111,6 +294,11 @@ CDISC 140 题里**唯一一道 recall 0.0** 的题。根因: `chapters/` 下 ≤
 | v2 扩容计划 (含判据语义订正的教训段) | `docs/superpowers/plans/2026-08-06-study-golden-v2-expansion.md` |
 | S2 实施计划 | `docs/superpowers/plans/2026-08-06-plan-b-phase2-study-structured-lookup.md` |
 | Plan B spec (Phase 4 定义) | `docs/superpowers/specs/2026-08-04-plan-b-federated-routing-design.md` |
+| **挤占 + gold 完整性轮 收口证据** | `sdtm-rag/evidence/checkpoints/crowding_and_gold_integrity.md` |
+| 同上 retro | `docs/superpowers/2026-08-07-crowding-gold-RETROSPECTIVE.md` |
+| 同上 spec / plan | `docs/superpowers/{specs,plans}/2026-08-07-retrieval-crowding-and-gold-integrity*.md` |
+| 同上 分段证据 | `sdtm-rag/evidence/checkpoints/{crowding_layer1,crowding_layer2,topk_jitter,pool_depth_invariance,chapters_chunking,gold_gap_verdicts}.md` |
+| 判据等价性差分对拍 (改判据前后必跑) | `sdtm-rag/eval/tests_support/gold_semantics_diff.py` |
 | gold 唯一性 lint | `sdtm-rag/eval/lint_gold.py` (AND + OR 双侧) |
 | study 题集 v2 + 审计脚本 | `sdtm-rag/data/study/st01/eval/{test_set_study_v2.yml,audit_v2.py}` (gitignored) |
 
@@ -118,10 +306,14 @@ CDISC 140 题里**唯一一道 recall 0.0** 的题。根因: `chapters/` 下 ≤
 
 ```bash
 cd sdtm-rag
-.venv/bin/python -m pytest -q                                   # 859 passed
+.venv/bin/python -m pytest -q                                   # 958 passed / 0 F / 0 E / 0 S
 .venv/bin/python -m eval.lint_gold data/study/st01/eval/test_set_study_v2.yml \
     --catalog data/study/st01/catalog.json                      # EXIT 0
 .venv/bin/python data/study/st01/eval/audit_v2.py               # ALL PASS
-curl -s localhost:8000/api/info                                 # federation: true, chunk_count 4315
+curl -s localhost:8000/api/info                                 # federation: true, chunk_count 4329
 .venv/bin/python -m pytest scripts/tests/test_kb_crossref_completeness.py -q      # 7 passed
+.venv/bin/python -m pytest scripts/tests/test_section_gold_exists.py -q  # 2 passed —— skip 不算绿
 ```
+
+> 最后一条**必须 passed 而非 skipped**: 那个闸在无活索引时会 skip 而不是红。
+> **它红 = section 命名变了; 它 skip = 索引没建成, 什么也没验。**

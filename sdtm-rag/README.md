@@ -149,6 +149,21 @@ python eval/run_eval.py eval/test_set_v3.yml --model deepseek/deepseek-chat --te
 > `evidence/checkpoints/llm_judge_fact_recall.md`. Always prefer `--judge` for reported
 > fact-recall numbers; the substring metric is for fast/free sanity only.
 
+### 改判据实现前后必跑的差分对拍
+
+`source_matches` / `check_source_recall` (`eval/run_eval.py`) 是 CDISC 140 题**全部分数的
+判据实现**。动它们之前和之后各跑一次:
+
+```bash
+.venv/bin/python -m eval.tests_support.gold_semantics_diff            # 工作树 vs HEAD
+.venv/bin/python -m eval.tests_support.gold_semantics_diff --old-ref 501875b   # 历史基线
+```
+
+逐格比较 `(recall, hits, misses)` + 异常消息全文 + docstring 非空行, 覆盖仓内全部真实
+gold 字符串 × 输入网格 (2026-08-07 实测 15620 格, mismatches 0)。
+**不要用 "eval 逐题 Δ0" 代替它** —— 140 题里 138 题是 1.0、`#`/`$` 语法只有个位数题用到、
+三条抛错分支在 eval 里根本走不到, 那把仪器的分辨率证明不了等价性。
+
 ## Environment Variables
 
 详见 `.env.example`. 关键说明:

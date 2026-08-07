@@ -6,8 +6,11 @@ brief Step 5 的期望是"**逐值相同**" (gold 不参与本探针任何计算
 
 ## 输入
 
-- 旧: scratchpad 版探针 (`.superpowers/sdd/.../artifact-crowding_probe.py`) 的输出
-  `<scratchpad>/crowding_layer1.json` (2026-08-07 11:26, Task 1/3 改 gold 之前跑的)
+- 旧: scratchpad 版探针的输出 `<scratchpad>/crowding_layer1.json`
+  (2026-08-07 11:26, Task 1/3 改 gold 之前跑的)。
+  ⚠️ **该探针与其输出均已随 SDD workspace 删除, 不可复跑** —— 本文记录的旧值是当时的实测抄录,
+  无法从仓内复算。落库版探针 (`eval/crowding_probe.py`) 及其输出才是可复跑的那一份。
+  本轮总收口: `evidence/checkpoints/crowding_and_gold_integrity.md`。
 - 新: 落库版 `.venv/bin/python -m eval.crowding_probe --output evidence/checkpoints/crowding_layer1.json`
 
 ## 产物 / 技术判定
