@@ -36,8 +36,9 @@
 
 删掉两个生成器里的条数上限, 重生成 KB, 重灌索引。
 
-全展开只 **+2.6 KB** (当前 129.6 KB), 最宽的 `C66742` 那行约 1.5K 字符 —— 远在 chunk 尺度内。
-**截断几乎没有买到任何东西**, 却把该表在最需要它的那 9 个宽码表上变成了半张表。
+全展开 **129.6 KB → 133.8 KB (+4.2 KB)** —— 实测非估算, 命令见 §5.3。最宽的 `C66742`
+那行约 1.5K 字符, 远在 chunk 尺度内。
+**截断买到的是 4.2 KB**, 代价是把该表在最需要它的那 9 个宽码表上变成了半张表。
 
 范围: **两处同病一起修**。同一种病同一次重灌解决; 分两轮做要重灌两次。
 
@@ -122,6 +123,20 @@ diff /tmp/vi_regen.md knowledge_base/VARIABLE_INDEX.md    # 只应有日期行 1
 ```
 
 实测已确认: 唯一 diff 是 `Generated: 2026-08-07` vs `2026-08-04`。**生成器未漂移, 重生成安全。**
+
+### 5.3 全展开的体积代价 (实测)
+
+```bash
+cd /Users/bojiangzhang/MyProject/sdtm-pedia
+cp .work/04_optimization/scripts/generate_variable_index.py .work/04_optimization/scripts/_tmp_gvi.py
+# 把 _tmp_gvi.py 里 `if len(refs) > 15:` 那四行换成 `refs_str = ", ".join(refs)`
+# (副本必须留在原目录 — 生成器用 Path(__file__).parents[3] 定位 KB_ROOT)
+sdtm-rag/.venv/bin/python .work/04_optimization/scripts/_tmp_gvi.py /tmp/vi_full.md
+rm .work/04_optimization/scripts/_tmp_gvi.py
+ls -l knowledge_base/VARIABLE_INDEX.md /tmp/vi_full.md
+```
+
+实测: **129.6 KB → 133.8 KB (+4.2 KB)**。补回的 226 条引用平均每条约 19 字节。
 
 ## 6. 不做
 
