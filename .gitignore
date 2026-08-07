@@ -13,3 +13,7 @@ source/
 # Build output for the website's release-bundle pipeline (web/scripts/build-bundles.sh).
 # Zips are uploaded to GitHub releases instead of committed.
 web/dist-bundles/
+
+# Python 构建产物 (sdtm-rag/.gitignore 管不到 .work/)
+__pycache__/
+*.py[cod]

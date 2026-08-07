@@ -16,6 +16,11 @@
 # 表格作答 (`| UR | URORRESU, URSTRESU |`), 点号形式在这种答案里永远不出现 —— 用点号
 # 会把正确作答判成失分。SDTM 变量名自带域前缀故裸名全局唯一; 实测裸名在截断 context
 # 里同样不存在, 判别力未被削弱。
+#
+# 每题**两个** fact (末位变量 + 域数): 规则 A 抽检发现只钉 1 个 fact 时, vic01 的答案
+# 写了"123 variables across 53 domains"(真值 41 个域) 这个可验证的事实错误, 而
+# fact_recall 与 judge 双双满分 —— **判据视野外的错等于没查**。题干问的是"穷举",
+# 只钉一个末位变量证明不了穷举对不对。域数是同一份数据的第二个独立可判定量。
 - id: vic01
   category: cross_domain
   question: >-
@@ -25,6 +30,7 @@
     - "VARIABLE_INDEX.md#§三 CT 交叉引用: C66742$"
   expected_facts:
     - "VSLOBXFL"          # 第 123 位 = 旧正文 (只到第 15 位) 结构上答不出
+    - "41 domains"        # 123 个引用分布在 41 个域 (xlsx 独立复算确认)
 - id: vic02
   category: cross_domain
   question: >-
@@ -34,3 +40,4 @@
     - "VARIABLE_INDEX.md#§三 CT 交叉引用: C71620$"
   expected_facts:
     - "URSTRESU"          # 第 58 位 = 同上
+    - "32 domains"        # 58 个引用分布在 32 个域 (xlsx 独立复算确认)

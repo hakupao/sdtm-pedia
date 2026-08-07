@@ -96,13 +96,23 @@ def parse_spec_md(filepath: Path) -> dict:
     }
 
 
-def extract_ct_code(ct_string: str) -> str:
-    """Extract the primary CT code from a Controlled Terms value."""
-    if not ct_string:
-        return ""
-    # Match C-code pattern like C66742
-    m = re.match(r"(C\d+)", ct_string)
-    return m.group(1) if m else ""
+def extract_ct_codes(ct_string: str) -> list[str]:
+    """Extract **every** CT code from a Controlled Terms value, in order.
+
+    以前只取首码 (`re.match(r"(C\\d+)")`)。但 CT 字段可以列多个码表, 例如
+    `PP.PPORRESU = "C85494; C128684; C128683; C128685; C128686"` —— 该变量对这几个
+    码表都是真引用。只取首码的后果: 10 个多码变量的 18 个 (码, 变量) 引用对进不了
+    §三, 且 12 个码表在 §三 **整行不存在** (C101834 / C114118 / C118971 / C120522-4 /
+    C128683-6 / C150811 / C181169 / C111114)。
+
+    §二 渲染的是 CT 全串, 于是同一个文件自相矛盾: §二 说 BS.BSSPEC 引用 C111114,
+    §三 里 C111114 这一行根本没有。问"哪些变量引用 C128683"时检索不到, 而 section 名
+    照常存在 —— 与被截断时同样看不出来。
+
+    由 scripts/tests/test_kb_crossref_completeness.py 的
+    test_section3_covers_every_ct_reference_declared_by_the_specs 钉住。
+    """
+    return re.findall(r"C\d+", ct_string or "")
 
 
 def generate_index(domains_data: list[dict]) -> str:
@@ -124,8 +134,7 @@ def generate_index(domains_data: list[dict]) -> str:
                 "core": v["core"],
                 "ct": v["ct"],
             })
-            ct_code = extract_ct_code(v["ct"])
-            if ct_code:
+            for ct_code in extract_ct_codes(v["ct"]):
                 ct_index[ct_code].append(f"{d['domain']}.{v['name']}")
 
     unique_vars = len(var_index)
@@ -250,10 +259,13 @@ def generate_index(domains_data: list[dict]) -> str:
         refs = sorted(ct_index[ct_code])
         ref_count = len(refs)
         # 不截断: 这张表是"哪些变量引用该码表"的唯一权威来源, 截到 15 条等于半张表。
-        # 全展开对最宽的 C66742 (123 个引用) 也只有约 1.5K 字符, 全库 129.6 -> 133.8 KB
-        # (+4.2 KB) —— 旧的 15 条上限买到的就是这 4.2 KB, 代价是 9 个最需要它的宽码表
-        # 答不全。检索侧判据看不出这个缺陷 (section 名不变), 故由
-        # sdtm-rag/scripts/tests/test_kb_crossref_completeness.py 钉住"条目数 == 声称的 N"。
+        # 全展开对最宽的 C66742 (123 个引用) 也只有约 1.5K 字符; 全库 131.3 -> 133.8 KiB
+        # (+2527 B), 复跑: `git show 6ed3d2b:knowledge_base/VARIABLE_INDEX.md | wc -c`
+        # 对比 `wc -c < knowledge_base/VARIABLE_INDEX.md`。旧的 15 条上限买到的就是这
+        # 2.5 KB, 代价是 9 个最需要它的宽码表答不全。
+        # 检索侧判据看不出这个缺陷 (section 名不变), 故由
+        # sdtm-rag/scripts/tests/test_kb_crossref_completeness.py 钉住 (含对 spec.md
+        # 反建的外部锚 —— 只钉"条目数 == 自己声称的 N"是自洽的, 挡不住回归)。
         lines.append(f"| {ct_code} | {ref_count} | {', '.join(refs)} |")
 
     lines.append("")

@@ -47,7 +47,7 @@ CDISC 140 题里**唯一一道 recall 0.0** 的题。根因: `chapters/` 下 ≤
 **必须排最后**: 其验收标准是"开关关 = 现状零回归", 而答题侧现无成规模闸 —— 先有 B 才有对照,
 否则这条验收是空话。spec: `docs/superpowers/specs/2026-08-04-plan-b-federated-routing-design.md` §Phase 4。
 
-### D. 两个新浮现的靶子
+### D. 新浮现的靶子
 1. **study `form_overview` 类别仅 50%** (v2 实测, S2 开)。失分 6 题全是 v2 新题, 继承题 0 失分。**未排期**。
 2. ~~**CDISC 那 4 道假命中背后的真实检索缺陷**~~ → ✅ **DONE 2026-08-07**。S1 对 VARIABLE_INDEX 改按
    CT 码 / 变量名**字面定位 section** (映射从索引反建, 不拼格式串)。18 题子集 **75.00% → 100.00%**
@@ -55,9 +55,13 @@ CDISC 140 题里**唯一一道 recall 0.0** 的题。根因: `chapters/` 下 ≤
    (锚点饥饿 / 部署路径 502 / guard 口径错位) 全部已修。
    收口 `sdtm-rag/evidence/checkpoints/s1_variable_index_literal_section.md`。
    ~~**⚠️ 遗留**: VI §三 正文在 15 变量处截断~~ → ✅ **DONE 2026-08-07**: 两个生成器的条数上限全拆,
-   补回 226 + 10 条隐藏引用, 重灌索引。**v3 数字一动不动 (逐题 Δ0) 是预期** —— 那把尺子对此失明,
+   补回 226 + 10 条隐藏引用; 三方审查另抓出**只取 CT 字段首码**这个同类缺陷 (12 个码表在 §三 整行不存在), 一并修掉, §三 135 → **147 行**。**v3 数字一动不动 (逐题 Δ0) 是预期** —— 那把尺子对此失明,
    证明靠自带的层① 数据不变量 + 层② context A/B。收口
    `sdtm-rag/evidence/checkpoints/vi_crossref_completeness.md`。
+3. **答题侧: 域数估而不数** (2026-08-07 由规则 A 抽检暴露, **未排期**)。宽码表问句下, 模型能从
+   chunk 正文读对**变量数** (123, 正文直接写着) 却**估域数** —— `C66742` 答 "50+ domains"/"53"
+   (两次跑), 真值 **41**。属答题侧, KB 数据修复不解决。常驻探针: `eval/test_set_vi_completeness.yml`
+   的 `vic01` 在 `--judge` 口径下**故意保留失分 0.5**, **修好前不要把它调绿**。
 
 ### ⛔ 已裁定不做
 **Plan B Phase 3 (CDISC 变量索引挤占)** —— 勘察实证放弃, 证据
@@ -70,10 +74,22 @@ CDISC 140 题里**唯一一道 recall 0.0** 的题。根因: `chapters/` 下 ≤
    并连锁导致出题人删掉合法 gold、lead 做出错误判断。已加"两者语义等价"的测试锁。
 2. **写「实测」必须附可复跑的一行命令**, 写不出命令就不许用这个词。
    理由 (审阅者原话): *一条写错的「实测」比缺陷本身更值得纠正 —— 它会让下一个人跳过复验。*
+   **2026-08-07 补充 (踩了才补的)**: 附了命令**不等于**数字来自那条命令。VI 完整性那轮把
+   "129.6 → 133.8 KB (+4.2 KB)" 标成"实测非估算", 实为 Python 字符数与 KiB 混用, 真值 +2.5 KB,
+   且写进了**生成器源码注释**。故规矩收紧为: **标"实测"的数字必须真的从那条附上的命令跑出来,
+   且单位对齐**; 尤其是要写进源码注释的数字 —— 它比 md 活得久。
+
 3. **红线检查程序化, 不许自我豁免**。lead 本轮曾把 17 个真实 form 标识写进待提交文件,
    并在自查里用"属通用缩写"放行, 靠程序化复扫才抓出。
 4. **三方隔离** (规则 D): 出题 ≠ 审题 ≠ 抽检/验收, 各用不同 `subagent_type`。本轮三方各自抓到了对方看不见的缺陷。
 5. **规则 A 抽样总体应等于本轮实际变更集合**, 而非变更后全集 (抽检人 §4.2 建议; 否则改写率中等时抽不到要害)。
+6. **护栏不能自洽** (2026-08-07 新立)。VI 完整性那轮的首版断言比的是"正文条目数 == 该行**自己
+   声称**的 N", 而两个值出自生成器同一条 f-string —— 审查方构造伪造 KB 实证: 把切片放在计数
+   之前 (最自然的一行回归写法), 226 条静默消失而全部断言绿。**凡校验生成物, 参照物必须来自
+   生成器之外** (对输入反建, 或独立数据源)。
+7. **一个 gold fact 钉不住"穷举"类题目** (2026-08-07 新立)。VI 完整性那轮每题只钉 1 个 fact,
+   结果答案里"123 variables across 50+ domains"(真值 41) 这个可验证的事实错误**双判据满分通过**。
+   **判据视野外的错等于没查** —— 题干问穷举, 就要钉至少两个互相独立的可判定量。
 
 ## 4. 必须随分数一起声明的已知限制
 
@@ -102,9 +118,10 @@ CDISC 140 题里**唯一一道 recall 0.0** 的题。根因: `chapters/` 下 ≤
 
 ```bash
 cd sdtm-rag
-.venv/bin/python -m pytest -q                                   # 823 passed
+.venv/bin/python -m pytest -q                                   # 859 passed
 .venv/bin/python -m eval.lint_gold data/study/st01/eval/test_set_study_v2.yml \
     --catalog data/study/st01/catalog.json                      # EXIT 0
 .venv/bin/python data/study/st01/eval/audit_v2.py               # ALL PASS
-curl -s localhost:8000/api/info                                 # federation: true
+curl -s localhost:8000/api/info                                 # federation: true, chunk_count 4315
+.venv/bin/python -m pytest scripts/tests/test_kb_crossref_completeness.py -q      # 7 passed
 ```

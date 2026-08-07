@@ -49,9 +49,101 @@ def test_no_truncation_marker_in_domain_specs():
     assert not bad, f"这些域 spec 仍有截断标记: {bad}"
 
 
-def test_ct_row_count_is_stable():
-    # 防"把截断行整行删掉"这种假修法: 135 行一个都不能少
-    assert len(_ct_rows()) == 135
+def _spec_own_ct_map(spec: Path) -> dict[str, set[str]]:
+    """单个 spec.md 自身变量表反建 `码 -> {VAR}` (裸变量名, 无域前缀)。"""
+    out: dict[str, set[str]] = {}
+    var = None
+    for line in spec.read_text(encoding="utf-8").splitlines():
+        m = re.match(r"^###\s+(\S+)\s*$", line)
+        if m:
+            var = m.group(1)
+            continue
+        m2 = re.match(r"^-\s+\*\*Controlled Terms:\*\*\s*(.*)$", line)
+        if m2 and var:
+            for code in re.findall(r"C\d+", m2.group(1)):
+                out.setdefault(code, set()).add(var)
+    return out
+
+
+def test_domain_spec_crossref_lists_every_variable_of_that_codelist():
+    """域 spec 的交叉引用段必须列全该域引用该码表的所有变量。
+
+    此前这一侧**只查 `... (N total)` 字符串**, 比 VI 侧弱得多: 把
+    `generate_cross_references.py` 改回 `", ".join(var_names[:5])` 但不写 marker,
+    10 条隐藏引用回来了而断言全绿 (审查方 MEDIUM-3)。
+
+    参照物是**该 spec 自己的变量表**, 不是 §三 —— 用 §三 当参照会把两处的差异混为一谈。"""
+    line_re = re.compile(r"^-\s+\[.*?\((C\d+)\)\]\([^)]*\)\s+—\s+(.+)$")
+    bad = []
+    for spec in sorted((KB_ROOT / "domains").glob("*/spec.md")):
+        own = _spec_own_ct_map(spec)
+        for line in spec.read_text(encoding="utf-8").splitlines():
+            m = line_re.match(line)
+            if not m:
+                continue
+            code, listed = m.group(1), {x.strip() for x in m.group(2).split(",") if x.strip()}
+            expected = own.get(code, set())
+            if expected and listed != expected:
+                bad.append((spec.parent.name, code,
+                            f"少 {sorted(expected - listed)} 多 {sorted(listed - expected)}"))
+    assert not bad, f"域 spec 交叉引用段与自身变量表不符: {bad[:5]} (共 {len(bad)})"
+
+
+def _spec_ct_pairs() -> dict[str, set[str]]:
+    """从 domains/*/spec.md 的 CT 字段反建 `码 -> {DOMAIN.VAR}` —— §三 的外部锚。
+
+    **取全部 C 码, 不是首码**: CT 字段可以是 `C85494; C128684; C128683; ...`,
+    该变量对这几个码表都是真引用。
+    """
+    out: dict[str, set[str]] = {}
+    for spec in sorted((KB_ROOT / "domains").glob("*/spec.md")):
+        domain = spec.parent.name
+        var = None
+        for line in spec.read_text(encoding="utf-8").splitlines():
+            m = re.match(r"^###\s+(\S+)\s*$", line)
+            if m:
+                var = m.group(1)
+                continue
+            m2 = re.match(r"^-\s+\*\*Controlled Terms:\*\*\s*(.*)$", line)
+            if m2 and var:
+                for code in re.findall(r"C\d+", m2.group(1)):
+                    out.setdefault(code, set()).add(f"{domain}.{var}")
+    return out
+
+
+def test_section3_covers_every_ct_reference_declared_by_the_specs():
+    """§三 必须覆盖 domains/*/spec.md 声明的每一个 (码, 变量) 引用。
+
+    **这条是外部锚, 上面那条不是。** `test_every_ct_row_lists_all_the_variables_it_claims`
+    比的是"条目数 == 该行自己声称的 N", 两个值出自生成器同一条 f-string —— 自洽即通过。
+    有人把切片放在计数之前 (`refs = sorted(...)[:15]` 再 `ref_count = len(refs)`), 5 条
+    断言全绿而 226 条静默消失 (审查方已构造伪造 KB 实证)。
+
+    本条改用 spec.md 的 CT 字段反建期望集, 于是"§三 少了谁"当场显形。
+    它也是 12 个码表整行缺失 (生成器只取 CT 字段首码) 这个既有缺陷的捕获者。
+
+    局限: spec.md 是该生成器的**输入**, 故本条证明的是"输入→输出忠实", 不是"输入本身对"。
+    输入正确性由 source/cdisc/*.xlsx 的独立对照负责 (规则 A 抽检, 非 CI 常驻)。"""
+    expected = _spec_ct_pairs()
+    actual = {c: {x.strip() for x in v.split(", ") if x.strip()} for c, _n, v in _ct_rows()}
+
+    missing_rows = sorted(set(expected) - set(actual))
+    incomplete = {c: sorted(expected[c] - actual[c])
+                  for c in set(expected) & set(actual) if expected[c] - actual[c]}
+    spurious = {c: sorted(actual[c] - expected[c])
+                for c in set(expected) & set(actual) if actual[c] - expected[c]}
+
+    assert not missing_rows, f"§三 整行缺失的码表 ({len(missing_rows)}): {missing_rows}"
+    assert not incomplete, f"§三 少列的引用: {dict(list(incomplete.items())[:5])}"
+    assert not spurious, f"§三 多列的引用 (spec 里没有): {dict(list(spurious.items())[:5])}"
+
+
+def test_ct_row_count_matches_the_specs():
+    """§三 行数必须等于 spec.md 声明的**不同码表数** —— 不写死数字。
+
+    原先写死 135 有两个毛病: (a) 它同时充当 `_CT_ROW_RE` 漏匹配的哨兵却没说;
+    (b) 修好首码提取后 135 会变, 硬编码等于每次都要人改。改为对外部锚推导。"""
+    assert len(_ct_rows()) == len(_spec_ct_pairs())
 
 
 # ---- chunk 层 (真正进索引的那段文本) ----------------------------------------

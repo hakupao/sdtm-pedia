@@ -10,17 +10,17 @@
     "source_recall_by_category": {
       "cross_domain": 1.0
     },
-    "fact_recall_avg": 1.0,
+    "fact_recall_avg": 0.5,
     "fact_recall_by_category": {
-      "cross_domain": 1.0
+      "cross_domain": 0.5
     },
-    "total_tokens": 38415,
-    "judge_fact_recall_avg": 1.0,
+    "total_tokens": 38310,
+    "judge_fact_recall_avg": 0.75,
     "judge_fact_recall_by_category": {
-      "cross_domain": 1.0
+      "cross_domain": 0.75
     },
     "judge_parse_failures": 0,
-    "overall": 1.0,
+    "overall": 0.875,
     "overall_metric": "judge",
     "verdict": "PASS",
     "top_k": 15,
@@ -54,31 +54,35 @@
         "domains/CE/spec.md"
       ],
       "top5_similarities": [
-        0.5168,
-        0.6338,
+        0.5167,
+        0.6339,
         0.556,
         0.5846,
-        0.5448
+        0.5447
       ],
-      "fact_recall": 1.0,
+      "fact_recall": 0.5,
       "fact_hits": [
         "VSLOBXFL"
       ],
-      "fact_misses": [],
-      "answer_preview": "# Variables Referencing No Yes Response Codelist C66742\n\nThe codelist **No Yes Response (C66742)** is **non-extensible** and contains four permitted values: `N`, `NA`, `U`, and `Y`.\n\n[Source: terminology/core/general_part4.md]\n\nIt is referenced by **123 variables** across **53 domains**. Below is the exhaustive list, organized by domain:\n\n---\n\n## AE — Adverse Events (13 variables)\n| Variable | Variable Name |\n|----------|--------------|\n| AE.AECONTRT | Concomitant or Additional Trtmnt Given |\n| AE.AEPRESP | Pre-Specified Adverse Event |\n| AE.AESCAN | Involves Cancer |\n| AE.AESCONG | Congenital",
+      "fact_misses": [
+        "41 domains"
+      ],
+      "answer_preview": "# Variables Referencing No Yes Response Codelist C66742\n\nThe codelist **No Yes Response (C66742)** is **non-extensible** and contains four permitted values: `N`, `NA`, `U`, and `Y`.\n\n[Source: terminology/core/general_part4.md]\n\nIt is referenced by **123 variables** across **49 domains**, listed exhaustively below:\n\n---\n\n## AE — Adverse Events\n| Variable |\n|----------|\n| AE.AECONTRT |\n| AE.AEPRESP |\n| AE.AESCAN |\n| AE.AESCONG |\n| AE.AESDISAB |\n| AE.AESDTH |\n| AE.AESER |\n| AE.AESHOSP |\n| AE.AESINTV |\n| AE.AESLIFE |\n| AE.AESMIE |\n| AE.AESOD |\n| AE.AEUNANT |\n\n## AG — Procedure Agents\n| Variable |\n",
       "usage": {
         "prompt_tokens": 17788,
-        "completion_tokens": 2564,
-        "total_tokens": 20352
+        "completion_tokens": 2299,
+        "total_tokens": 20087
       },
       "model": "jp.anthropic.claude-sonnet-4-6",
-      "judge_fact_recall": 1.0,
+      "judge_fact_recall": 0.5,
       "judge_fact_hits": [
         "VSLOBXFL"
       ],
-      "judge_fact_misses": [],
+      "judge_fact_misses": [
+        "41 domains"
+      ],
       "judge_parse_ok": true,
-      "elapsed_s": 34.68
+      "elapsed_s": 32.88
     },
     {
       "id": "vic02",
@@ -98,31 +102,34 @@
         "VARIABLE_INDEX.md"
       ],
       "top5_similarities": [
-        0.5336,
+        0.5335,
         0.4235,
-        0.6348,
-        10.9989,
+        0.6347,
+        10.9637,
         0.624
       ],
-      "fact_recall": 1.0,
+      "fact_recall": 0.5,
       "fact_hits": [
         "URSTRESU"
       ],
-      "fact_misses": [],
-      "answer_preview": "## Variables Referencing Unit Codelist C71620\n\nBased on the CT cross-reference index, **58 variables** across 30+ domains reference the Unit codelist **C71620**.\n\n[Source: VARIABLE_INDEX.md §三 CT 交叉引用: C71620]\n\n### Interventions Domains\n\n| Domain | Variable(s) |\n|--------|-------------|\n| AG | AGDOSU |\n| CM | CMDOSU |\n| EC | ECDOSU, ECPSTRGU |\n| EX | EXDOSU |\n| ML | MLDOSU |\n| PR | PRDOSU |\n| SU | SUDOSU |\n\n### Events Domains\n\n*(No Events domain variables reference C71620)*\n\n### Findings Domains\n\n| Domain | Variable(s) |\n|--------|-------------|\n| BS | BSORRESU, BSSTRESU |\n| CP | CPORRESU, CPS",
+      "fact_misses": [
+        "32 domains"
+      ],
+      "answer_preview": "## Variables Referencing Unit Codelist C71620\n\nBased on the CT cross-reference index, **C71620** is referenced by **58 variables** across 30+ domains. Here is the exhaustive list:\n\n[Source: VARIABLE_INDEX.md §三 CT 交叉引用: C71620]\n\n### Interventions Domains\n\n| Domain | Variable |\n|--------|----------|\n| AG | AG.AGDOSU |\n| CM | CM.CMDOSU |\n| EC | EC.ECDOSU, EC.ECPSTRGU |\n| EX | EX.EXDOSU |\n| ML | ML.MLDOSU |\n| PR | PR.PRDOSU |\n| SU | SU.SUDOSU |\n\n### Events Domains\n*(None directly reference C71620)*\n\n### Findings Domains\n\n| Domain | Variable |\n|--------|----------|\n| BS | BS.BSORRESU, BS.BSSTRESU ",
       "usage": {
         "prompt_tokens": 17322,
-        "completion_tokens": 741,
-        "total_tokens": 18063
+        "completion_tokens": 901,
+        "total_tokens": 18223
       },
       "model": "jp.anthropic.claude-sonnet-4-6",
       "judge_fact_recall": 1.0,
       "judge_fact_hits": [
-        "URSTRESU"
+        "URSTRESU",
+        "32 domains"
       ],
       "judge_fact_misses": [],
       "judge_parse_ok": true,
-      "elapsed_s": 10.85
+      "elapsed_s": 13.31
     }
   ]
 }

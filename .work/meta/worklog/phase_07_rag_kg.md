@@ -850,13 +850,20 @@ plan `docs/superpowers/plans/2026-08-06-study-golden-v2-expansion.md` · 全量 
 - **触発**: 上一轮 S1 字面 section 定位收口时, 规则 A 抽检提出 D-3 —— VI §三 正文在 15 变量处截断, section 级判据对此**零判别力**, 故"18 题子集 100%"不能读作"VI 类问题已解决"。用户在四个候选靶子中选它。
 - **完了の作業**:
   - **设计** `docs/superpowers/specs/2026-08-07-vi-truncation-completeness-design.md` + **计划** `docs/superpowers/plans/2026-08-07-vi-truncation-completeness.md` (6 任务)
-  - 拆掉两个生成器的条数上限: `generate_variable_index.py` (VI §三 上限 15, 9/135 行命中, 隐藏 226 条) + `generate_cross_references.py` (域 spec 上限 5, AE/LB 两文件, 隐藏 10 条)
-  - 重生成 KB (129.6 → 133.8 KB) + 重灌索引 (4303 chunks, 与基线同数 = 分块边界未变)
-  - **自带两层尺子** (现有检索闸对本修复结构上失明): 层① `scripts/tests/test_kb_crossref_completeness.py` 数据不变量 3 红 → 5 绿, 覆盖 135 行全体, KB 层 + chunk 层双打; 层② `eval/test_set_vi_completeness.yml` 2 题独立计分 + `eval/vi_completeness_ab.py` 截断/完整 context 对照
-- **成果**: 层① 5 绿; 层② A/B 两题判别力均成立 (C66742→VSLOBXFL / C71620→URSTRESU, 截断答不出、完整答得出), 独立 gold 集 fact 子串与 judge 双 100%; 生产端到端答案含旧语料结构上产不出的 `VSLOBXFL`; **v3 逐题 Δ0 (98.9286% 不动)**; 852 → **857 passed**; reconcile_meta 8 项全 OK; freshness in sync
+  - **修了两个独立缺陷**: (a) 条数上限截断 —— `generate_variable_index.py` VI §三 上限 15 (9/135 行, 隐藏 226 条) + `generate_cross_references.py` 域 spec 上限 5 (AE/LB, 隐藏 10 条); (b) **只取 CT 字段首码** (三方审查在收口前抓出) —— CT 字段可列多码 (`PP.PPORRESU = C85494; C128684; ...`), 只取首码导致 **12 个码表在 §三 整行不存在** + 18 个引用对遗漏, §二 渲染全码串故同一文件自相矛盾; 修为 `extract_ct_codes` 收全码, §三 **135 → 147 行**
+  - 重生成 KB (131.3 → 133.8 KiB, +2527 B) + 重灌索引两轮 (4303 → **4315 chunks**, +12 = 新增的 12 个 §三 行; chunk 数由 chunker 逐行切块结构决定, **不是"没影响"的证据**)
+  - **自带两层尺子** (现有检索闸对本修复结构上失明): 层① `scripts/tests/test_kb_crossref_completeness.py` 数据不变量 3 红 → **7 绿**, KB 层 + chunk 层双打, **含两条外部锚** (对 spec.md 反建, 审查方 REVISE 后补); 层② `eval/test_set_vi_completeness.yml` 2 题独立计分 + `eval/vi_completeness_ab.py` 截断/完整 context 对照
+- **成果**: 层① 5 绿; 层② A/B 两题判别力均成立 (C66742→VSLOBXFL / C71620→URSTRESU, 截断答不出、完整答得出), 独立 gold 集 fact 子串与 judge 双 100%; 生产端到端答案含旧语料结构上产不出的 `VSLOBXFL`; **v3 逐题 Δ0 (98.9286% 不动)**; 852 → **859 passed**; reconcile_meta 8 项全 OK; freshness in sync
 - **教训 (三条)**:
   1. **"闸绿了"与"修好了"是两件事**。v3 检索闸对本修复结构上失明 (section 名不变), 改完必然不动。若不自带尺子, 这轮就是"改了但说不清"。**引用本轮成果不得用 v3 数字。**
   2. **判据检查工具必须与被检查对象逐字同语义 (第二次栽在同一条)**。A/B 初版用 `DOMAIN.VAR` 点号形式做子串匹配, 把模型一次**正确作答** (按域分组表格 `| UR | URORRESU, URSTRESU |`) 误判成"无判别力"。改裸变量名后两题都成立。上一轮是 lint 与真判据不同语义制造 8 条假阳性, 这轮是 A/B 判据与答案表达形式不同语义。
   3. **"停下查清第四个文件"这条计划纪律真的抓到东西**。重生成时冒出预期外的 `PC/spec.md` 改动, 查清是**既有缺陷**: 交叉引用自 06 深审以来陈旧 (生成器按 assumptions.md 是否提及 RELREC 决定加链接, 而 PC/spec.md 生成于 Phase 6, 早于 06 给它的 assumptions 补进 RELREC 正文)。生成器是对的、已提交 spec 是旧的 —— 顺带修好而非回归。
 - **已知限制 (5 条)**: 见 `sdtm-rag/evidence/checkpoints/vi_crossref_completeness.md` §5。最要紧: ① A/B 隔离的是 context 变量, 证明因果但不等于线上答题必然变好 ② 只落 2 道端到端题, 其余 7 个宽码表靠层① 数据不变量而非端到端验证 —— 层① 证明"数据完整", 不证明"模型用得上"
 - **evidence**: `sdtm-rag/evidence/checkpoints/vi_crossref_completeness.md` + 工件 `vi_trunc_v3_after.json` / `vi_completeness_after.json`
+
+**收口后追加 (三方审查结果)**: 审查方 **REVISE** (2 HIGH), 抽检方 **PASS** (数据正确性) + 4 项入档。三方各自抓到对方看不见的东西, **实现方自查全绿、三条真缺陷一条都没自己发现**:
+- **审查方独有**: 层① **自洽即通过** —— 只比"条目数 == 该行自己声称的 N", 而两个值出自生成器同一条 f-string; 构造伪造 KB 实证 (切片放在计数之前) 226 条静默消失而当时 5 条断言全绿。修法 = 加对 `domains/*/spec.md` 反建的**外部锚**, 一条同时堵住自洽绕过并让缺陷 (b) 当场显形。另抓到: 域 spec 侧只有 marker 断言比 VI 侧弱 / `.pyc` 入库 / "chunk 总数不变"当证据是恒等式非观测。
+- **抽检方独有**: 用 `source/cdisc/SDTMIG_v3.4.xlsx` (与生成器无共享代码) 独立重算, **全部 135 码表双向差集为 0、1917/1917 变量 CT 单元格逐字零偏差**, 证明补回的 226 条是**对的**而不只是"变多了"; 并发现 **vic01 答案写 "53 domains" 而真值 41** —— 1-fact 判据视野外的事实错误。
+- **两方独立收敛**: 12 个码表整行缺失; **体积 "+4.2 KB 实测" 是错的** (真值 +2.5 KB, 且写进了生成器源码注释)。
+- **新浮现的答题侧缺陷 (本轮不修)**: 宽码表下模型能读对变量数 (123) 却**估而不数域数** (答 "50+"/"53", 真值 41)。`vic01` 在 judge 口径下**故意保留失分 0.5** 作常驻探针, 修好前不要调绿。
+- **第三条教训**: **我把估算值标成了"实测"**。附了命令段落但数字不是从那条命令来的 (Python 字符数 vs 生成器打印的 KiB 混用, delta 报大 68%)。第 2 条硬规矩要补一句: **标"实测"的数字必须真的来自那条附上的命令, 单位要对齐。**

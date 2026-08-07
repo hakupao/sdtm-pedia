@@ -5,6 +5,7 @@ Phase 1A.4 test-engineer.
 
 from __future__ import annotations
 
+import re
 from pathlib import Path
 
 import pytest
@@ -31,14 +32,29 @@ def vi_chunks(chunker):
 
 
 # ---------------------------------------------------------------------------
-# Total: exactly 222 chunks after per-row §一/§三 splitting
-# (§一 24 per-variable + §二 63 per-domain + §三 135 per-CT-code)
+# Total = §一 per-variable + §二 per-domain + §三 per-CT-code, 一行一块。
 # Was 65 (1 + 63 + 1) before the re-chunking fix.
+#
+# 数字不写死: 2026-08-07 修掉 CT 首码提取后 §三 从 135 → 147 行, 硬编码的 222/135
+# 当场红成"回归", 但其实是数据变对了。计数改为对 KB 实际行数推导。
 # ---------------------------------------------------------------------------
 
-def test_variable_index_produces_222_chunks(vi_chunks):
-    """VARIABLE_INDEX.md produces exactly 222 chunks (§一 24 + §二 63 + §三 135)."""
-    assert len(vi_chunks) == 222
+def _kb_section_row_counts() -> tuple[int, int, int]:
+    """从 VARIABLE_INDEX.md 直接数 §一 / §二 / §三 的行数 (chunker 的期望输入)。"""
+    text = VAR_INDEX_FILE.read_text(encoding="utf-8")
+    sec1 = text.split("## 1. Common Variables")[1].split("## 2. Domain-Specific")[0]
+    sec2 = text.split("## 2. Domain-Specific")[1].split("## 3. CDISC Controlled")[0]
+    sec3 = text.split("## 3. CDISC Controlled")[1]
+    n1 = len(re.findall(r"^\| [A-Z][A-Z0-9]+ \|", sec1, re.M))
+    n2 = len(re.findall(r"^### ", sec2, re.M))
+    n3 = len(re.findall(r"^\| C\d+ \|", sec3, re.M))
+    return n1, n2, n3
+
+
+def test_variable_index_chunk_total_matches_kb_rows(vi_chunks):
+    """chunk 总数 == §一 行数 + §二 H3 数 + §三 行数 (逐行一块, 无按尺寸再切)。"""
+    n1, n2, n3 = _kb_section_row_counts()
+    assert len(vi_chunks) == n1 + n2 + n3
 
 
 def test_variable_index_all_file_type_variable_index(vi_chunks):
@@ -142,13 +158,13 @@ def test_variable_index_section2_has_63_chunks(vi_chunks):
 
 
 # ---------------------------------------------------------------------------
-# §三: per-CT-code chunks (135), each section starts with "§三", ct_code set.
+# §三: per-CT-code chunks, each section starts with "§三", ct_code set.
 # ---------------------------------------------------------------------------
 
-def test_variable_index_section3_has_135_chunks(vi_chunks):
-    """Exactly 135 §三 per-CT-code chunks (one per CT cross-reference table row)."""
+def test_variable_index_section3_chunk_count_matches_kb_rows(vi_chunks):
+    """§三 chunk 数 == KB 里 §三 的表格行数 (一行一块)。数字不写死, 见文件上方说明。"""
     sec3 = [c for c in vi_chunks if c.section and c.section.startswith("§三")]
-    assert len(sec3) == 135
+    assert len(sec3) == _kb_section_row_counts()[2]
 
 
 def test_variable_index_last_chunk_section_starts_with_san(vi_chunks):
