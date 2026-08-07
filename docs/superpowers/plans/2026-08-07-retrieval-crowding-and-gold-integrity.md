@@ -62,8 +62,9 @@ TEST_SET = "eval/test_set_v3.yml"
 
 
 def _q38():
-    for q in yaml.safe_load(open(TEST_SET)):
-        if q["id"] == "q38":
+    with open(TEST_SET, encoding="utf-8") as f:
+        for q in yaml.safe_load(f):
+            if q["id"] == "q38":
             return q
     raise AssertionError("q38 not found in " + TEST_SET)
 
@@ -317,8 +318,8 @@ Expected: failures=0 errors=0, tests ≥ 871 (862 + Task1 的 2 + 本 task 的 7
   --structured-lookup --output /tmp/after_refactor.json
 .venv/bin/python -c "
 import json
-a=json.load(open('evidence/checkpoints/crowding_gold_after_q38.json'))
-b=json.load(open('/tmp/after_refactor.json'))
+with open('evidence/checkpoints/crowding_gold_after_q38.json', encoding='utf-8') as f: a=json.load(f)
+with open('/tmp/after_refactor.json', encoding='utf-8') as f: b=json.load(f)
 ra={x['id']:x['source_recall'] for x in (a if isinstance(a,list) else a['results'])}
 rb={x['id']:x['source_recall'] for x in (b if isinstance(b,list) else b['results'])}
 d=[k for k in ra if ra[k]!=rb.get(k)]
@@ -1042,7 +1043,8 @@ with open("evidence/checkpoints/crowding_layer1.json", encoding="utf-8") as f:
 target = [r["id"] for r in sorted(rows, key=lambda x: -x["max_cluster"])[:11]]
 if "q38" not in target:
     target.append("q38")
-qs = {q["id"]: q for q in yaml.safe_load(open("eval/test_set_v3.yml", encoding="utf-8"))}
+from eval.run_eval import load_test_set
+qs = {q["id"]: q for q in load_test_set("eval/test_set_v3.yml")}
 
 def engine(pool):
     return RAGEngine(
@@ -1542,8 +1544,8 @@ Expected: 3 passed (或含 1 skipped, 若无 live index)
   --structured-lookup --output /tmp/cap_off.json
 .venv/bin/python -c "
 import json
-a=json.load(open('evidence/checkpoints/gold_integrity_after.json'))
-b=json.load(open('/tmp/cap_off.json'))
+with open('evidence/checkpoints/gold_integrity_after.json', encoding='utf-8') as f: a=json.load(f)
+with open('/tmp/cap_off.json', encoding='utf-8') as f: b=json.load(f)
 ra={x['id']:x['source_recall'] for x in (a if isinstance(a,list) else a['results'])}
 rb={x['id']:x['source_recall'] for x in (b if isinstance(b,list) else b['results'])}
 d=[k for k in ra if ra[k]!=rb.get(k)]
@@ -1851,7 +1853,7 @@ SDD workspace 收尾会被 `rm -rf`, 以下产物有长期价值, 必须搬进 r
 git diff --cached --name-only | while read f; do
   [ -f "$f" ] && .venv/bin/python -c "
 import json,sys
-cat=json.load(open('data/study/st01/catalog.json'))
+with open('data/study/st01/catalog.json', encoding='utf-8') as f: cat=json.load(f)
 names=set()
 def walk(o):
     if isinstance(o,dict):
