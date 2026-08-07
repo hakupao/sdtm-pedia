@@ -1,0 +1,2626 @@
+[
+ {
+  "id": "q01",
+  "category": "single_domain",
+  "question": "What is AETERM and what are its variable attributes in the AE domain?",
+  "gold": [
+   "domains/AE/spec.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": []
+ },
+ {
+  "id": "q02",
+  "category": "single_domain",
+  "question": "What are the required (Core=Req) variables in the DM domain?",
+  "gold": [
+   "domains/DM/spec.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": []
+ },
+ {
+  "id": "q03",
+  "category": "single_domain",
+  "question": "What are the key assumptions for adverse event data collection and coding?",
+  "gold": [
+   "domains/AE/assumptions.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 2,
+    "source": "domains/FA/examples.md",
+    "section": "Example 6",
+    "sim": 0.504
+   }
+  ]
+ },
+ {
+  "id": "q04",
+  "category": "single_domain",
+  "question": "What is the purpose of the TV (Trial Visits) domain and what variables does it contain?",
+  "gold": [
+   "domains/TV/spec.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": []
+ },
+ {
+  "id": "q05",
+  "category": "single_domain",
+  "question": "In the PE (Physical Examination) domain, what is the structure of the dataset, what is the role of the PETESTCD variable, and what value should PETESTCD have when the results of the entire physical examination are represented in one record?",
+  "gold": [
+   "domains/PE/spec.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": []
+ },
+ {
+  "id": "q21",
+  "category": "single_domain",
+  "question": "What is the LBTESTCD variable in the LB (Laboratory Test Results) domain? Describe its role, controlled terminology codelist code, and naming constraints.",
+  "gold": [
+   "domains/LB/spec.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 2,
+    "source": "terminology/core/lb_part2.md",
+    "section": "lb_part2",
+    "sim": 0.5222
+   },
+   {
+    "rank": 3,
+    "source": "VARIABLE_INDEX.md",
+    "section": "§三 CT 交叉引用: C65047",
+    "sim": 0.748
+   }
+  ]
+ },
+ {
+  "id": "q22",
+  "category": "single_domain",
+  "question": "What is the VS (Vital Signs) domain and what are some examples of VSTESTCD values? Include the codelist code.",
+  "gold": [
+   "domains/VS/spec.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 2,
+    "source": "terminology/core/vs.md",
+    "section": "Units for Vital Signs Results",
+    "sim": 0.5882
+   }
+  ]
+ },
+ {
+  "id": "q23",
+  "category": "single_domain",
+  "question": "In the CM (Concomitant Medications) domain, what is the CMTRT variable and what observation class does CM belong to?",
+  "gold": [
+   "domains/CM/spec.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": []
+ },
+ {
+  "id": "q24",
+  "category": "single_domain",
+  "question": "What is the EX (Exposure) domain used for and what is the Topic variable EXTRT?",
+  "gold": [
+   "domains/EX/spec.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": []
+ },
+ {
+  "id": "q25",
+  "category": "single_domain",
+  "question": "In the MH (Medical History) domain, what is the role of MHTERM and what assumptions guide medical history data collection?",
+  "gold": [
+   "domains/MH/assumptions.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 1,
+    "source": "domains/MH/spec.md",
+    "section": "MHTERM",
+    "sim": 0.6765
+   },
+   {
+    "rank": 2,
+    "source": "domains/MH/spec.md",
+    "section": "Controlled Terminology",
+    "sim": 0.6118
+   },
+   {
+    "rank": 3,
+    "source": "domains/MH/spec.md",
+    "section": "MHOCCUR",
+    "sim": 0.5934
+   }
+  ]
+ },
+ {
+  "id": "q26",
+  "category": "single_domain",
+  "question": "Describe the EG (ECG Test Results) domain structure and the EGTESTCD variable, including its controlled terminology codelist codes.",
+  "gold": [
+   "domains/EG/spec.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 2,
+    "source": "terminology/core/eg_part3.md",
+    "section": "Holter ECG Test Code",
+    "sim": 0.6321
+   },
+   {
+    "rank": 3,
+    "source": "terminology/core/eg_part2.md",
+    "section": "ECG Test Method",
+    "sim": 0.5162
+   }
+  ]
+ },
+ {
+  "id": "q27",
+  "category": "single_domain",
+  "question": "What is the IE (Inclusion/Exclusion) domain and what is the role and maximum length of the IETEST variable?",
+  "gold": [
+   "domains/IE/spec.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": []
+ },
+ {
+  "id": "q06",
+  "category": "cross_domain",
+  "question": "What is SUPPQUAL and when should supplemental qualifiers be used instead of adding variables to a domain?",
+  "gold": [
+   "domains/SUPPQUAL/spec.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": []
+ },
+ {
+  "id": "q07",
+  "category": "cross_domain",
+  "question": "Which SDTM domains use the EPOCH variable and what is its purpose?",
+  "gold": [
+   "VARIABLE_INDEX.md#§一 通用变量: EPOCH$"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 2,
+    "source": "chapters/ch04_general_assumptions.md",
+    "section": "4.1.3 Additional Timing Variables",
+    "sim": 0.7
+   },
+   {
+    "rank": 3,
+    "source": "model/01_concepts_and_terms.md",
+    "section": "2.1 Model Concepts and Terms — Variables",
+    "sim": 11.2717
+   }
+  ]
+ },
+ {
+  "id": "q08",
+  "category": "cross_domain",
+  "question": "How does USUBJID serve as a linking key across SDTM domains?",
+  "gold": [
+   "domains/DM/spec.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 1,
+    "source": "VARIABLE_INDEX.md",
+    "section": "§一 通用变量: USUBJID",
+    "sim": 0.7061
+   },
+   {
+    "rank": 2,
+    "source": "domains/SUPPQUAL/spec.md",
+    "section": "USUBJID",
+    "sim": 0.7075
+   },
+   {
+    "rank": 3,
+    "source": "chapters/ch04_general_assumptions.md",
+    "section": "4.5.9 Baseline Values",
+    "sim": 10.2119
+   }
+  ]
+ },
+ {
+  "id": "q09",
+  "category": "cross_domain",
+  "question": "How are adverse events linked to concomitant medications using RELREC?",
+  "gold": [
+   "domains/RELREC/spec.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 2,
+    "source": "domains/CM/spec.md",
+    "section": "Related Domains",
+    "sim": 0.5329
+   },
+   {
+    "rank": 3,
+    "source": "domains/AE/spec.md",
+    "section": "AECONTRT",
+    "sim": 0.5187
+   }
+  ]
+ },
+ {
+  "id": "q10",
+  "category": "cross_domain",
+  "question": "In oncology studies, how are the TR (Tumor/Lesion Results) domain and RS (Disease Response) domain linked together, and which specific identifier variables are used for each linkage direction?",
+  "gold": [
+   "domains/TR/assumptions.md",
+   "domains/TR/spec.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 2,
+    "source": "domains/RS/spec.md",
+    "section": "Controlled Terminology",
+    "sim": 0.6214
+   },
+   {
+    "rank": 3,
+    "source": "domains/RS/assumptions.md",
+    "section": "item_4",
+    "sim": 0.7131
+   }
+  ]
+ },
+ {
+  "id": "q28",
+  "category": "cross_domain",
+  "question": "What is the FA (Findings About Events or Interventions) domain and how does it link to parent domains like AE or CM using FAOBJ?",
+  "gold": [
+   "domains/FA/spec.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 1,
+    "source": "VARIABLE_INDEX.md",
+    "section": "FA — Findings About Events or Interventions (Findings About)",
+    "sim": 0.6349
+   },
+   {
+    "rank": 3,
+    "source": "domains/AE/spec.md",
+    "section": "Related Domains",
+    "sim": 0.6387
+   }
+  ]
+ },
+ {
+  "id": "q29",
+  "category": "cross_domain",
+  "question": "How do the four Trial Design domains TA (Trial Arms), TE (Trial Elements), TV (Trial Visits), and TI (Trial Inclusion/Exclusion) work together to define a study design?",
+  "gold": [
+   "domains/TA/assumptions.md",
+   "domains/TE/assumptions.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 1,
+    "source": "domains/TA/spec.md",
+    "section": "Related Domains",
+    "sim": 0.7523
+   },
+   {
+    "rank": 2,
+    "source": "domains/TE/spec.md",
+    "section": "Related Domains",
+    "sim": 0.7352
+   },
+   {
+    "rank": 3,
+    "source": "domains/TV/spec.md",
+    "section": "Related Domains",
+    "sim": 0.7528
+   }
+  ]
+ },
+ {
+  "id": "q30",
+  "category": "cross_domain",
+  "question": "What is the CO (Comments) domain and how does it reference records in other SDTM domains? Describe the RDOMAIN and IDVAR mechanism.",
+  "gold": [
+   "domains/CO/spec.md",
+   "domains/CO/assumptions.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 1,
+    "source": "VARIABLE_INDEX.md",
+    "section": "§一 通用变量: RDOMAIN",
+    "sim": 0.6783
+   },
+   {
+    "rank": 2,
+    "source": "VARIABLE_INDEX.md",
+    "section": "§一 通用变量: IDVAR",
+    "sim": 0.5735
+   }
+  ]
+ },
+ {
+  "id": "q31",
+  "category": "cross_domain",
+  "question": "How are the EC (Exposure as Collected) and EX (Exposure) domains different in purpose, and when should each be used?",
+  "gold": [
+   "domains/EC/assumptions.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 1,
+    "source": "domains/EC/spec.md",
+    "section": "Related Domains",
+    "sim": 0.5813
+   },
+   {
+    "rank": 2,
+    "source": "domains/EX/spec.md",
+    "section": "Related Domains",
+    "sim": 0.5963
+   },
+   {
+    "rank": 3,
+    "source": "domains/EX/assumptions.md",
+    "section": "item_5",
+    "sim": 0.7328
+   }
+  ]
+ },
+ {
+  "id": "q32",
+  "category": "cross_domain",
+  "question": "How is VISIT and VISITNUM used consistently across observation-class domains, and what role does the SV (Subject Visits) domain play in tracking actual visit dates?",
+  "gold": [
+   "domains/SV/spec.md",
+   "domains/SV/assumptions.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 1,
+    "source": "VARIABLE_INDEX.md",
+    "section": "§一 通用变量: VISIT",
+    "sim": 0.6094
+   },
+   {
+    "rank": 2,
+    "source": "VARIABLE_INDEX.md",
+    "section": "§一 通用变量: VISITNUM",
+    "sim": 0.6544
+   }
+  ]
+ },
+ {
+  "id": "q33",
+  "category": "cross_domain",
+  "question": "What is the RELSPEC domain and how does it define relationships between datasets at the study level, as opposed to RELREC which links individual records?",
+  "gold": [
+   "domains/RELSPEC/spec.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 2,
+    "source": "domains/RELREC/spec.md",
+    "section": "RELID",
+    "sim": 0.6534
+   },
+   {
+    "rank": 3,
+    "source": "domains/RELREC/assumptions.md",
+    "section": "overview",
+    "sim": 0.7707
+   }
+  ]
+ },
+ {
+  "id": "q34",
+  "category": "cross_domain",
+  "question": "Which SDTM domains share the controlled terminology codelist for NY (No Yes Response, C66742), and what variable typically uses this codelist in those domains?",
+  "gold": [
+   "VARIABLE_INDEX.md#§三 CT 交叉引用: C66742$"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 2,
+    "source": "terminology/core/general_part4.md",
+    "section": "No Yes Response",
+    "sim": 0.585
+   },
+   {
+    "rank": 3,
+    "source": "chapters/ch04_general_assumptions.md",
+    "section": "4.3.3 Controlled Terminology Values",
+    "sim": 0.6158
+   }
+  ]
+ },
+ {
+  "id": "q11",
+  "category": "concept",
+  "question": "What are the three observation classes in the SDTM model?",
+  "gold": [
+   "model/02_observation_classes.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 1,
+    "source": "model/01_concepts_and_terms.md",
+    "section": "2.1 Model Concepts and Terms — Variables",
+    "sim": 0.563
+   },
+   {
+    "rank": 3,
+    "source": "chapters/ch04_general_assumptions.md",
+    "section": "4.1.4 Order of the Variables",
+    "sim": 0.5452
+   }
+  ]
+ },
+ {
+  "id": "q12",
+  "category": "concept",
+  "question": "What do the Core designations Req, Exp, and Perm mean in SDTM?",
+  "gold": [
+   "chapters/ch04"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 2,
+    "source": "VARIABLE_INDEX.md",
+    "section": "SR — Skin Response (Findings About)",
+    "sim": 0.5685
+   },
+   {
+    "rank": 3,
+    "source": "domains/SUPPQUAL/spec.md",
+    "section": "Controlled Terminology",
+    "sim": 0.6055
+   }
+  ]
+ },
+ {
+  "id": "q13",
+  "category": "concept",
+  "question": "What is the difference between Topic, Qualifier, and Identifier variable roles?",
+  "gold": [
+   "model/01_concepts_and_terms.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 2,
+    "source": "chapters/ch08_relationships.md",
+    "section": "8.4.1 Supplemental Qualifiers (SUPP--)",
+    "sim": 0.4721
+   },
+   {
+    "rank": 3,
+    "source": "VARIABLE_INDEX.md",
+    "section": "SUPPQUAL — Supplemental Qualifiers for [domain name] (Relationship)",
+    "sim": 0.5465
+   }
+  ]
+ },
+ {
+  "id": "q14",
+  "category": "concept",
+  "question": "How should a sponsor create a new custom domain in SDTM?",
+  "gold": [
+   "chapters/ch02"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 1,
+    "source": "chapters/ch04_general_assumptions.md",
+    "section": "4.1.6 Additional Guidance on Dataset Naming",
+    "sim": 0.6007
+   },
+   {
+    "rank": 3,
+    "source": "chapters/ch01_introduction.md",
+    "section": "whole_file",
+    "sim": 0.4776
+   }
+  ]
+ },
+ {
+  "id": "q15",
+  "category": "concept",
+  "question": "What are the three SDTM Core designation categories for variables, and what are the rules for handling a Permissible variable when a study did not collect the corresponding data item?",
+  "gold": [
+   "chapters/ch04_general_assumptions.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 2,
+    "source": "chapters/ch01_introduction.md",
+    "section": "whole_file",
+    "sim": 0.6228
+   }
+  ]
+ },
+ {
+  "id": "q35",
+  "category": "concept",
+  "question": "What is Controlled Terminology (CT) in SDTM and how does it constrain the values that variables can contain?",
+  "gold": [
+   "chapters/ch04"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 3,
+    "source": "model/01_concepts_and_terms.md",
+    "section": "2.1 Model Concepts and Terms — Variables",
+    "sim": 0.6231
+   }
+  ]
+ },
+ {
+  "id": "q36",
+  "category": "concept",
+  "question": "What are the timing variables in SDTM (such as --DTC, --STDTC, --ENDTC) and how are they structured across domains?",
+  "gold": [
+   "chapters/ch04"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 2,
+    "source": "model/01_concepts_and_terms.md",
+    "section": "2.1 Model Concepts and Terms — Variables",
+    "sim": 0.7001
+   }
+  ]
+ },
+ {
+  "id": "q37",
+  "category": "concept",
+  "question": "What are the Special-Purpose datasets in SDTM and which domains fall into this category?",
+  "gold": [
+   "model/03_special_purpose_domains.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 1,
+    "source": "model/01_concepts_and_terms.md",
+    "section": "2.1 Model Concepts and Terms — Variables",
+    "sim": 0.6659
+   },
+   {
+    "rank": 2,
+    "source": "model/02_observation_classes.md",
+    "section": "Overview",
+    "sim": 0.6625
+   }
+  ]
+ },
+ {
+  "id": "q38",
+  "category": "concept",
+  "question": "How are SDTM domain abbreviation codes assigned? What are the rules for the two-character domain code?",
+  "gold": [
+   "chapters/ch02",
+   "chapters/ch04_general_assumptions.md#4.2.2 Two-character Domain Identifier$"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 1,
+    "source": "chapters/ch04_general_assumptions.md",
+    "section": "4.1.6 Additional Guidance on Dataset Naming",
+    "sim": 0.676
+   },
+   {
+    "rank": 2,
+    "source": "domains/SV/spec.md",
+    "section": "DOMAIN",
+    "sim": 0.6702
+   },
+   {
+    "rank": 3,
+    "source": "domains/TS/spec.md",
+    "section": "DOMAIN",
+    "sim": 0.6691
+   }
+  ]
+ },
+ {
+  "id": "q39",
+  "category": "concept",
+  "question": "What is the Findings About observation class and how does it differ from the standard Findings class?",
+  "gold": [
+   "model/02_observation_classes.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 1,
+    "source": "domains/MI/spec.md",
+    "section": "Model Definition",
+    "sim": 0.7123
+   },
+   {
+    "rank": 2,
+    "source": "chapters/ch08_relationships.md",
+    "section": "8.6.3 Guidelines for Differentiating Between Interventions, Events, Findings, and Findings About Events or Interventions",
+    "sim": 16.7908
+   },
+   {
+    "rank": 3,
+    "source": "domains/DA/spec.md",
+    "section": "Model Definition",
+    "sim": 0.7123
+   }
+  ]
+ },
+ {
+  "id": "q40",
+  "category": "concept",
+  "question": "What is the difference between collected data and derived data in SDTM, and how is the origin of a variable value indicated?",
+  "gold": [
+   "chapters/ch04"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 2,
+    "source": "model/01_concepts_and_terms.md",
+    "section": "2.1 Model Concepts and Terms — Variables",
+    "sim": 0.6331
+   },
+   {
+    "rank": 3,
+    "source": "chapters/ch01_introduction.md",
+    "section": "whole_file",
+    "sim": 0.5624
+   }
+  ]
+ },
+ {
+  "id": "q41",
+  "category": "concept",
+  "question": "What are the Trial Design Model datasets in SDTM and what kind of study-level information do they capture?",
+  "gold": [
+   "model/05_study_level_data.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 1,
+    "source": "model/01_concepts_and_terms.md",
+    "section": "2.1 Model Concepts and Terms — Variables",
+    "sim": 0.6589
+   },
+   {
+    "rank": 2,
+    "source": "chapters/ch04_general_assumptions.md",
+    "section": "4.1.1 Review Study Data Tabulation Model and Implementation Guide",
+    "sim": 0.66
+   }
+  ]
+ },
+ {
+  "id": "q16",
+  "category": "mixed",
+  "question": "What values are allowed for AESEV and what is its codelist code?",
+  "gold": [
+   "domains/AE/spec.md",
+   "terminology/core/ae.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 2,
+    "source": "VARIABLE_INDEX.md",
+    "section": "§三 CT 交叉引用: C66769",
+    "sim": 0.663
+   },
+   {
+    "rank": 3,
+    "source": "domains/DM/examples.md",
+    "section": "Example 7",
+    "sim": 8.5294
+   }
+  ]
+ },
+ {
+  "id": "q17",
+  "category": "mixed",
+  "question": "How are date and time variables formatted in SDTM and what suffix do they use?",
+  "gold": [
+   "chapters/ch04"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 2,
+    "source": "model/01_concepts_and_terms.md",
+    "section": "2.1 Model Concepts and Terms — Variables",
+    "sim": 0.6154
+   }
+  ]
+ },
+ {
+  "id": "q18",
+  "category": "mixed",
+  "question": "Explain the MedDRA coding chain for adverse events from verbatim term to dictionary term.",
+  "gold": [
+   "domains/AE/spec.md",
+   "domains/AE/assumptions.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": []
+ },
+ {
+  "id": "q19",
+  "category": "mixed",
+  "question": "What controlled terminology codelist is used for DSDECOD when DSCAT equals 'DISPOSITION EVENT', and list specific CDISC Submission Values from that codelist for reasons of non-completion.",
+  "gold": [
+   "domains/DS/assumptions.md",
+   "terminology/core/disposition.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 1,
+    "source": "domains/DS/spec.md",
+    "section": "DSDECOD",
+    "sim": 0.8038
+   }
+  ]
+ },
+ {
+  "id": "q20",
+  "category": "mixed",
+  "question": "In the DM domain, what is the difference between the RFSTDTC/RFENDTC reference period pair and the RFXSTDTC/RFXENDTC pair, and under what circumstances will RFSTDTC be null?",
+  "gold": [
+   "domains/DM/assumptions.md",
+   "domains/DM/spec.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": []
+ },
+ {
+  "id": "q42",
+  "category": "mixed",
+  "question": "In the LB domain, how are normal ranges represented using LBORNRLO and LBORNRHI, and what is the LBNRIND variable used for?",
+  "gold": [
+   "domains/LB/spec.md",
+   "domains/LB/assumptions.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": []
+ },
+ {
+  "id": "q43",
+  "category": "mixed",
+  "question": "What is the controlled terminology codelist for the SEX variable in the DM domain? Provide the codelist code and describe the Core designation.",
+  "gold": [
+   "domains/DM/spec.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 2,
+    "source": "terminology/core/dm.md",
+    "section": "Sex",
+    "sim": 0.6075
+   },
+   {
+    "rank": 3,
+    "source": "VARIABLE_INDEX.md",
+    "section": "§三 CT 交叉引用: C66731",
+    "sim": 0.8
+   }
+  ]
+ },
+ {
+  "id": "q44",
+  "category": "mixed",
+  "question": "In the VS domain, what is the controlled terminology codelist code for VSTESTCD, and give examples of standard vital signs test codes like systolic and diastolic blood pressure.",
+  "gold": [
+   "domains/VS/spec.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 2,
+    "source": "terminology/core/vs.md",
+    "section": "Units for Vital Signs Results",
+    "sim": 0.5477
+   }
+  ]
+ },
+ {
+  "id": "q45",
+  "category": "mixed",
+  "question": "What is the RACE variable in the DM domain, what codelist does it use, and what is its Core designation?",
+  "gold": [
+   "domains/DM/spec.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 2,
+    "source": "terminology/core/dm.md",
+    "section": "Race",
+    "sim": 0.5473
+   },
+   {
+    "rank": 3,
+    "source": "domains/DM/assumptions.md",
+    "section": "item_6",
+    "sim": 0.6038
+   }
+  ]
+ },
+ {
+  "id": "q46",
+  "category": "mixed",
+  "question": "What is the AEOUT (Outcome of Adverse Event) variable in the AE domain and what controlled terminology codelist code does it use?",
+  "gold": [
+   "domains/AE/spec.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 2,
+    "source": "terminology/core/ae.md",
+    "section": "Outcome of Event",
+    "sim": 0.6989
+   }
+  ]
+ },
+ {
+  "id": "q47",
+  "category": "mixed",
+  "question": "How do QS (Questionnaires) domains handle instrument-specific variables using QSCAT, and what role does QSTESTCD play in organizing question-level data?",
+  "gold": [
+   "domains/QS/spec.md",
+   "domains/QS/assumptions.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 1,
+    "source": "VARIABLE_INDEX.md",
+    "section": "QS — Questionnaires (Findings)",
+    "sim": 0.6735
+   },
+   {
+    "rank": 3,
+    "source": "chapters/ch04_general_assumptions.md",
+    "section": "4.1.7 Splitting Domains",
+    "sim": 0.6635
+   }
+  ]
+ },
+ {
+  "id": "q48",
+  "category": "mixed",
+  "question": "What is the FATESTCD variable's controlled terminology codelist code in the FA domain, and give examples of standard FA test codes?",
+  "gold": [
+   "domains/FA/spec.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 2,
+    "source": "terminology/core/findings_about.md",
+    "section": "Findings About Test Code",
+    "sim": 0.4065
+   },
+   {
+    "rank": 3,
+    "source": "VARIABLE_INDEX.md",
+    "section": "§三 CT 交叉引用: C101832",
+    "sim": 0.7634
+   }
+  ]
+ },
+ {
+  "id": "s01",
+  "category": "single_domain",
+  "question": "In the DM domain, what is the controlled terminology codelist code for the SEX variable, and what are its four permitted submission values?",
+  "gold": [
+   "terminology/core/dm.md",
+   "domains/DM/spec.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 3,
+    "source": "VARIABLE_INDEX.md",
+    "section": "§三 CT 交叉引用: C66731",
+    "sim": 0.7772
+   }
+  ]
+ },
+ {
+  "id": "s02",
+  "category": "concept",
+  "question": "What is the SUPPQUAL variable QNAM and what character constraints apply to it? What is the maximum length and what characters are allowed?",
+  "gold": [
+   "domains/SUPPQUAL/spec.md",
+   "model/06_relationship_datasets.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": []
+ },
+ {
+  "id": "s03",
+  "category": "cross_domain",
+  "question": "The DM variable RFXSTDTC is defined as equal to the earliest value of which variable in the EX domain? Similarly, RFXENDTC is equal to the latest value of which EX variable (or which fallback variable if that is not collected)?",
+  "gold": [
+   "domains/DM/spec.md",
+   "domains/EX/spec.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 3,
+    "source": "domains/DM/assumptions.md",
+    "section": "item_10",
+    "sim": 0.637
+   }
+  ]
+ },
+ {
+  "id": "s04",
+  "category": "mixed",
+  "question": "In the AE domain, what is the controlled terminology codelist code for the AEACN (Action Taken with Study Treatment) variable, and what ICH E2B example values does the CDISC Notes field list for this variable?",
+  "gold": [
+   "domains/AE/spec.md",
+   "terminology/core/ae.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": []
+ },
+ {
+  "id": "s05",
+  "category": "single_domain",
+  "question": "In the VS domain, what is the controlled terminology codelist code for the VSTESTCD variable? Name the codelist, state whether it is extensible, and give three example TESTCD values listed for blood pressure and heart rate.",
+  "gold": [
+   "domains/VS/spec.md",
+   "terminology/core/vs.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 3,
+    "source": "VARIABLE_INDEX.md",
+    "section": "§三 CT 交叉引用: C66741",
+    "sim": 0.7253
+   }
+  ]
+ },
+ {
+  "id": "q54",
+  "category": "single_domain",
+  "question": "In the DV (Protocol Deviations) domain, which observation class does it belong to and what is the Topic variable DVTERM?",
+  "gold": [
+   "domains/DV/spec.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": []
+ },
+ {
+  "id": "q55",
+  "category": "single_domain",
+  "question": "What is the structure and observation class of the DS (Disposition) domain, and what is the role of the DSTERM variable?",
+  "gold": [
+   "domains/DS/spec.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": []
+ },
+ {
+  "id": "q56",
+  "category": "single_domain",
+  "question": "In the SU (Substance Use) domain, what observation class is it and what is the SUTRT variable?",
+  "gold": [
+   "domains/SU/spec.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": []
+ },
+ {
+  "id": "q57",
+  "category": "single_domain",
+  "question": "What is the PR (Procedures) domain used for, and what is the PRTRT topic variable along with its Core designation?",
+  "gold": [
+   "domains/PR/spec.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": []
+ },
+ {
+  "id": "q58",
+  "category": "single_domain",
+  "question": "Describe the TS (Trial Summary) domain structure and the TSPARMCD variable, including its controlled terminology codelist code and length limit.",
+  "gold": [
+   "domains/TS/spec.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 2,
+    "source": "terminology/core/trial_design.md",
+    "section": "Dictionary Name",
+    "sim": 0.5276
+   },
+   {
+    "rank": 3,
+    "source": "VARIABLE_INDEX.md",
+    "section": "TS — Trial Summary (Trial Design)",
+    "sim": 0.7472
+   }
+  ]
+ },
+ {
+  "id": "q59",
+  "category": "single_domain",
+  "question": "In the DD (Death Details) domain, what is the DDTESTCD variable and its controlled terminology codelist code?",
+  "gold": [
+   "domains/DD/spec.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 2,
+    "source": "terminology/core/other_part4.md",
+    "section": "SDTM Death Diagnosis and Details Test Code",
+    "sim": 0.6944
+   },
+   {
+    "rank": 3,
+    "source": "VARIABLE_INDEX.md",
+    "section": "§三 CT 交叉引用: C116108",
+    "sim": 0.7987
+   }
+  ]
+ },
+ {
+  "id": "q60",
+  "category": "single_domain",
+  "question": "What is the CE (Clinical Events) domain, which observation class does it belong to, and what is the CETERM variable?",
+  "gold": [
+   "domains/CE/spec.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": []
+ },
+ {
+  "id": "q61",
+  "category": "single_domain",
+  "question": "In the MB (Microbiology Specimen) domain, what is the MBTESTCD variable, what observation class is MB, and what is the codelist code for MBTESTCD?",
+  "gold": [
+   "domains/MB/spec.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 2,
+    "source": "terminology/core/microbiology_part2.md",
+    "section": "microbiology_part2",
+    "sim": 0.5274
+   },
+   {
+    "rank": 3,
+    "source": "domains/MB/assumptions.md",
+    "section": "item_1",
+    "sim": 0.7556
+   }
+  ]
+ },
+ {
+  "id": "q62",
+  "category": "single_domain",
+  "question": "What is the SS (Subject Status) domain, what is the SSTESTCD variable, and what controlled terminology codelist does it use?",
+  "gold": [
+   "domains/SS/spec.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 2,
+    "source": "terminology/core/other_part5.md",
+    "section": "Subject Status Test Code",
+    "sim": 0.6686
+   },
+   {
+    "rank": 3,
+    "source": "VARIABLE_INDEX.md",
+    "section": "§三 CT 交叉引用: C124305",
+    "sim": 0.7199
+   }
+  ]
+ },
+ {
+  "id": "q63",
+  "category": "single_domain",
+  "question": "In the SC (Subject Characteristics) domain, what observation class is it and what is its dataset structure?",
+  "gold": [
+   "domains/SC/spec.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": []
+ },
+ {
+  "id": "q64",
+  "category": "single_domain",
+  "question": "What is the PC (Pharmacokinetics Concentrations) domain used for and what is the structure of one record in this dataset?",
+  "gold": [
+   "domains/PC/spec.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": []
+ },
+ {
+  "id": "q65",
+  "category": "single_domain",
+  "question": "In the DA (Product Accountability) domain, what observation class does it belong to and what is the structure of the dataset?",
+  "gold": [
+   "domains/DA/spec.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": []
+ },
+ {
+  "id": "q66",
+  "category": "cross_domain",
+  "question": "Which SDTM domains include the VISITNUM timing variable?",
+  "gold": [
+   "VARIABLE_INDEX.md#§一 通用变量: VISITNUM$"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 2,
+    "source": "domains/EX/assumptions.md",
+    "section": "item_4",
+    "sim": 0.6769
+   },
+   {
+    "rank": 3,
+    "source": "chapters/ch04_general_assumptions.md",
+    "section": "4.4.5 Clinical Encounters and Visits",
+    "sim": 0.6828
+   }
+  ]
+ },
+ {
+  "id": "q67",
+  "category": "cross_domain",
+  "question": "Many SDTM variables use the No Yes Response codelist C66742. How many variables reference it and give some examples of AE seriousness variables that use it.",
+  "gold": [
+   "VARIABLE_INDEX.md#§三 CT 交叉引用: C66742$"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 2,
+    "source": "domains/AE/spec.md",
+    "section": "AESEV",
+    "sim": 0.5335
+   },
+   {
+    "rank": 3,
+    "source": "terminology/core/general_part4.md",
+    "section": "No Yes Response",
+    "sim": 0.6359
+   }
+  ]
+ },
+ {
+  "id": "q68",
+  "category": "cross_domain",
+  "question": "Which domains use the Completion Status codelist (C66789) for their --STAT variable, and what does --STAT indicate?",
+  "gold": [
+   "VARIABLE_INDEX.md#§三 CT 交叉引用: C66789$"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 2,
+    "source": "terminology/core/general_part4.md",
+    "section": "Not Done",
+    "sim": 0.6316
+   },
+   {
+    "rank": 3,
+    "source": "domains/SS/spec.md",
+    "section": "SSSTAT",
+    "sim": 0.6856
+   }
+  ]
+ },
+ {
+  "id": "q69",
+  "category": "cross_domain",
+  "question": "The dose units codelist C71620 is shared across many Intervention and Findings domains. Which variables such as EXDOSU and CMDOSU reference it?",
+  "gold": [
+   "VARIABLE_INDEX.md#§三 CT 交叉引用: C71620$"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 2,
+    "source": "terminology/core/general_part5.md",
+    "section": "general_part5",
+    "sim": 0.4805
+   },
+   {
+    "rank": 3,
+    "source": "domains/CM/spec.md",
+    "section": "CMDOSU",
+    "sim": 0.7093
+   }
+  ]
+ },
+ {
+  "id": "q70",
+  "category": "cross_domain",
+  "question": "How is the RELSUB (Related Subjects) dataset used to represent relationships between two subjects, and what does the RSUBJID variable hold?",
+  "gold": [
+   "domains/RELSUB/spec.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": []
+ },
+ {
+  "id": "q71",
+  "category": "cross_domain",
+  "question": "What is the EVAL (Evaluator) codelist C78735 and which domains' --EVAL variables share it?",
+  "gold": [
+   "VARIABLE_INDEX.md#§三 CT 交叉引用: C78735$"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 2,
+    "source": "terminology/core/general_part2.md",
+    "section": "Category of Inclusion/Exclusion",
+    "sim": 0.4558
+   },
+   {
+    "rank": 3,
+    "source": "domains/CO/spec.md",
+    "section": "COEVALID",
+    "sim": 0.6116
+   }
+  ]
+ },
+ {
+  "id": "q72",
+  "category": "cross_domain",
+  "question": "How do the PC (Pharmacokinetics Concentrations) and PP (Pharmacokinetic Parameters) domains relate to each other, and why are they kept as two separate domains?",
+  "gold": [
+   "chapters/ch08_relationships.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 1,
+    "source": "domains/PC/spec.md",
+    "section": "Related Domains",
+    "sim": 0.5576
+   },
+   {
+    "rank": 2,
+    "source": "domains/PP/spec.md",
+    "section": "Related Domains",
+    "sim": 0.549
+   },
+   {
+    "rank": 3,
+    "source": "domains/PC/assumptions.md",
+    "section": "overview",
+    "sim": 0.733
+   }
+  ]
+ },
+ {
+  "id": "q73",
+  "category": "cross_domain",
+  "question": "Which special-purpose and relationship domains carry the RDOMAIN variable, and what does RDOMAIN identify?",
+  "gold": [
+   "model/06_relationship_datasets.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 1,
+    "source": "VARIABLE_INDEX.md",
+    "section": "§一 通用变量: RDOMAIN",
+    "sim": 0.7319
+   },
+   {
+    "rank": 3,
+    "source": "domains/RELREC/spec.md",
+    "section": "RDOMAIN",
+    "sim": 0.7529
+   }
+  ]
+ },
+ {
+  "id": "q74",
+  "category": "cross_domain",
+  "question": "How are Supplemental Qualifier datasets named per parent domain (for example for AE and CM), and what variable ties each SUPP-- record back to its parent domain?",
+  "gold": [
+   "model/06_relationship_datasets.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 1,
+    "source": "domains/AE/spec.md",
+    "section": "Related Domains",
+    "sim": 0.4955
+   },
+   {
+    "rank": 2,
+    "source": "domains/CM/spec.md",
+    "section": "DOMAIN",
+    "sim": 0.4617
+   }
+  ]
+ },
+ {
+  "id": "q75",
+  "category": "cross_domain",
+  "question": "In SDTM, which identifier variables besides USUBJID can identify the source of a record across the general observation classes (for example for pooled or device data)?",
+  "gold": [
+   "model/02_observation_classes.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 3,
+    "source": "VARIABLE_INDEX.md",
+    "section": "§一 通用变量: USUBJID",
+    "sim": 0.7055
+   }
+  ]
+ },
+ {
+  "id": "q76",
+  "category": "cross_domain",
+  "question": "How do the AP (Associated Persons) domains link non-subject persons back to study subjects, and what role do RSUBJID and SREL play?",
+  "gold": [
+   "model/04_associated_persons.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 1,
+    "source": "VARIABLE_INDEX.md",
+    "section": "RELSUB — Related Subjects (Relationship)",
+    "sim": 0.625
+   },
+   {
+    "rank": 2,
+    "source": "model/06_relationship_datasets.md",
+    "section": "6.6 Associated Persons Related Subjects (APRELSUB)",
+    "sim": 0.7015
+   }
+  ]
+ },
+ {
+  "id": "q77",
+  "category": "cross_domain",
+  "question": "The EPOCH timing variable appears in many domains. List several domains where EPOCH is used and state what kind of variable it is.",
+  "gold": [
+   "VARIABLE_INDEX.md#§一 通用变量: EPOCH$"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 2,
+    "source": "chapters/ch04_general_assumptions.md",
+    "section": "4.1.3 Additional Timing Variables",
+    "sim": 0.6479
+   },
+   {
+    "rank": 3,
+    "source": "domains/TA/assumptions.md",
+    "section": "item_12",
+    "sim": 0.7119
+   }
+  ]
+ },
+ {
+  "id": "q78",
+  "category": "concept",
+  "question": "What are the rules for values of --TESTCD variables in SDTM? Describe the maximum length and which characters are allowed.",
+  "gold": [
+   "chapters/ch04_general_assumptions.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": []
+ },
+ {
+  "id": "q79",
+  "category": "concept",
+  "question": "How does SDTM represent a missing value, and what should be done when a test is not performed?",
+  "gold": [
+   "chapters/ch04_general_assumptions.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": []
+ },
+ {
+  "id": "q80",
+  "category": "concept",
+  "question": "What is the convention for using 'Yes' and 'No' values in SDTM variables, and when is it acceptable to populate only one value?",
+  "gold": [
+   "chapters/ch04_general_assumptions.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": []
+ },
+ {
+  "id": "q81",
+  "category": "concept",
+  "question": "What rules govern the two-character DOMAIN code in SDTM? What characters are allowed for the first and second characters?",
+  "gold": [
+   "chapters/ch04_general_assumptions.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 2,
+    "source": "domains/TM/spec.md",
+    "section": "DOMAIN",
+    "sim": 0.6584
+   }
+  ]
+ },
+ {
+  "id": "q82",
+  "category": "concept",
+  "question": "Which identifier variables are required in all domains based on the three general observation classes, and which subject-level identifier must each include?",
+  "gold": [
+   "model/02_observation_classes.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 2,
+    "source": "chapters/ch04_general_assumptions.md",
+    "section": "4.2.2 Two-character Domain Identifier",
+    "sim": 0.644
+   }
+  ]
+ },
+ {
+  "id": "q83",
+  "category": "concept",
+  "question": "What is RELREC and how is it used to relate records or datasets to one another in SDTM? What does the RDOMAIN variable do in RELREC?",
+  "gold": [
+   "model/06_relationship_datasets.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 1,
+    "source": "VARIABLE_INDEX.md",
+    "section": "§一 通用变量: RDOMAIN",
+    "sim": 0.7065
+   },
+   {
+    "rank": 2,
+    "source": "domains/RELREC/spec.md",
+    "section": "Controlled Terminology",
+    "sim": 0.6848
+   }
+  ]
+ },
+ {
+  "id": "q84",
+  "category": "concept",
+  "question": "When deciding whether data belong to the Events, Interventions, or Findings observation class, what is the definition of an intervention versus an event?",
+  "gold": [
+   "chapters/ch08_relationships.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 3,
+    "source": "chapters/ch04_general_assumptions.md",
+    "section": "4.5.7 Presence or Absence of Prespecified Interventions and Events",
+    "sim": 0.5139
+   }
+  ]
+ },
+ {
+  "id": "q85",
+  "category": "concept",
+  "question": "What are Associated Persons in SDTM, and how are AP domains named relative to the standard domain codes?",
+  "gold": [
+   "model/04_associated_persons.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 2,
+    "source": "chapters/ch04_general_assumptions.md",
+    "section": "4.1.6 Additional Guidance on Dataset Naming",
+    "sim": 0.5732
+   },
+   {
+    "rank": 3,
+    "source": "chapters/ch01_introduction.md",
+    "section": "whole_file",
+    "sim": 0.5321
+   }
+  ]
+ },
+ {
+  "id": "q86",
+  "category": "concept",
+  "question": "What is an Expected (Exp) Core variable in SDTM, and what must be done in the Define-XML when a study does not collect the data item for an Expected variable?",
+  "gold": [
+   "chapters/ch04_general_assumptions.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 3,
+    "source": "model/01_concepts_and_terms.md",
+    "section": "2.1 Model Concepts and Terms — Variables",
+    "sim": 0.5625
+   }
+  ]
+ },
+ {
+  "id": "q87",
+  "category": "concept",
+  "question": "How does SDTM decide whether assessments of an event should be stored as Supplemental Qualifiers versus in the Findings About (FA) domain?",
+  "gold": [
+   "chapters/ch08_relationships.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 1,
+    "source": "domains/FA/spec.md",
+    "section": "Related Domains",
+    "sim": 0.5036
+   },
+   {
+    "rank": 2,
+    "source": "domains/FA/spec.md",
+    "section": "FASCAT",
+    "sim": 0.489
+   },
+   {
+    "rank": 3,
+    "source": "domains/FA/spec.md",
+    "section": "Controlled Terminology",
+    "sim": 0.4873
+   }
+  ]
+ },
+ {
+  "id": "q88",
+  "category": "concept",
+  "question": "What distinguishes ETCD, TSPARMCD, and ARMCD from --TESTCD with respect to character restrictions and maximum lengths in SDTM?",
+  "gold": [
+   "chapters/ch04_general_assumptions.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 1,
+    "source": "domains/DM/spec.md",
+    "section": "ARMCD",
+    "sim": 0.6434
+   },
+   {
+    "rank": 2,
+    "source": "domains/TA/spec.md",
+    "section": "ARMCD",
+    "sim": 0.6254
+   },
+   {
+    "rank": 3,
+    "source": "domains/TS/spec.md",
+    "section": "TSPARMCD",
+    "sim": 0.6625
+   }
+  ]
+ },
+ {
+  "id": "q89",
+  "category": "concept",
+  "question": "What are the timing variables grouped under Relative Timing in SDTM (such as --STRF, --ENRF, --STRTPT, --ENRTPT) and what kinds of values do they take?",
+  "gold": [
+   "model/02_observation_classes.md",
+   "chapters/ch04_general_assumptions.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 3,
+    "source": "domains/SV/assumptions.md",
+    "section": "item_15",
+    "sim": 0.6002
+   }
+  ]
+ },
+ {
+  "id": "q90",
+  "category": "mixed",
+  "question": "In the EX (Exposure) domain, what is the EXROUTE variable and its controlled terminology codelist code, and list some parenteral route-of-administration values from that codelist (for example routes administered under the skin or into a muscle).",
+  "gold": [
+   "domains/EX/spec.md",
+   "terminology/core/interventions.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 3,
+    "source": "VARIABLE_INDEX.md",
+    "section": "§三 CT 交叉引用: C66729",
+    "sim": 0.5887
+   }
+  ]
+ },
+ {
+  "id": "q91",
+  "category": "mixed",
+  "question": "In the DS (Disposition) domain, which codelist does DSDECOD use for disposition events, and what are some reason-for-non-completion values from that codelist (for example a subject-initiated withdrawal or a physician's decision)?",
+  "gold": [
+   "domains/DS/spec.md",
+   "terminology/core/disposition.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 3,
+    "source": "domains/DS/assumptions.md",
+    "section": "item_3",
+    "sim": 0.7319
+   }
+  ]
+ },
+ {
+  "id": "q92",
+  "category": "mixed",
+  "question": "What is the ETHNIC variable in the DM domain, what controlled terminology codelist code does it use, and what are its permitted values?",
+  "gold": [
+   "domains/DM/spec.md",
+   "terminology/core/dm.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 3,
+    "source": "VARIABLE_INDEX.md",
+    "section": "§三 CT 交叉引用: C66790",
+    "sim": 0.7604
+   }
+  ]
+ },
+ {
+  "id": "q93",
+  "category": "mixed",
+  "question": "In the EX domain, what is the EXDOSFRM (Dose Form) variable and its controlled terminology codelist code, and give some dose-form values from that codelist (for example a solid oral shell form or a sterile parenteral form)?",
+  "gold": [
+   "domains/EX/spec.md",
+   "terminology/core/interventions.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 3,
+    "source": "domains/EC/spec.md",
+    "section": "ECDOSFRM",
+    "sim": 0.7137
+   }
+  ]
+ },
+ {
+  "id": "q94",
+  "category": "mixed",
+  "question": "How does the LB domain distinguish the original result LBORRES from the standardized result LBSTRESC, what codelist does LBSTRESC reference, and what are some of the standard result values in that codelist (for example for positive/negative findings)?",
+  "gold": [
+   "domains/LB/spec.md",
+   "terminology/core/lb_part4.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 3,
+    "source": "domains/LB/examples.md",
+    "section": "Example 3",
+    "sim": 0.6411
+   }
+  ]
+ },
+ {
+  "id": "q95",
+  "category": "mixed",
+  "question": "In the DD (Death Details) domain, what is the DDTEST variable and its controlled terminology codelist code, and what are some of the test names defined in that codelist (for example relating to cause of death or age at death)?",
+  "gold": [
+   "domains/DD/spec.md",
+   "terminology/core/other_part4.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": []
+ },
+ {
+  "id": "q96",
+  "category": "mixed",
+  "question": "In the FA (Findings About) domain, what is the FATEST variable and its controlled terminology codelist code, and give some example test names from that codelist (such as Diameter or Cumulative Exposure)?",
+  "gold": [
+   "domains/FA/spec.md",
+   "terminology/core/findings_about.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 3,
+    "source": "domains/FA/assumptions.md",
+    "section": "item_4",
+    "sim": 0.7102
+   }
+  ]
+ },
+ {
+  "id": "q97",
+  "category": "mixed",
+  "question": "In the SS (Subject Status) domain, what is the SSSTRESC variable, what controlled terminology codelist does it use, and what are the standard subject-status result values in that codelist (such as for a living versus deceased subject)?",
+  "gold": [
+   "domains/SS/spec.md",
+   "terminology/core/other_part5.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": []
+ },
+ {
+  "id": "q98",
+  "category": "mixed",
+  "question": "In the CM (Concomitant Medications) domain, what is the CMDOSU (Dose Units) variable, what controlled terminology codelist does it use, and give some unit values from that codelist (for example an international unit or a milliequivalent)?",
+  "gold": [
+   "domains/CM/spec.md",
+   "terminology/core/general_part5.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 3,
+    "source": "domains/CM/assumptions.md",
+    "section": "item_2",
+    "sim": 0.6801
+   }
+  ]
+ },
+ {
+  "id": "q99",
+  "category": "mixed",
+  "question": "In the QS (Questionnaires) domain, what is the QSCAT variable used for, what controlled terminology codelist does it reference, and give some example questionnaire short names from that codelist.",
+  "gold": [
+   "domains/QS/spec.md",
+   "terminology/core/qs_part1.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 3,
+    "source": "VARIABLE_INDEX.md",
+    "section": "§三 CT 交叉引用: C100129",
+    "sim": 0.7388
+   }
+  ]
+ },
+ {
+  "id": "q100",
+  "category": "single_domain",
+  "question": "In the TA (Trial Arms) domain, what is the ARMCD variable's role and Core designation, and what is the ETCD variable used for?",
+  "gold": [
+   "domains/TA/spec.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": []
+ },
+ {
+  "id": "q101",
+  "category": "mixed",
+  "question": "What is the TSPARM variable in the TS domain, what is its controlled terminology codelist code, and give some example trial summary parameter names defined in that codelist.",
+  "gold": [
+   "domains/TS/spec.md",
+   "terminology/core/trial_design.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 3,
+    "source": "VARIABLE_INDEX.md",
+    "section": "§三 CT 交叉引用: C67152",
+    "sim": 0.7632
+   }
+  ]
+ },
+ {
+  "id": "q102",
+  "category": "mixed",
+  "question": "In the VS (Vital Signs) domain, what is the VSPOS variable, what controlled terminology codelist does it use, and list some subject-position values from that codelist (for example a face-down position or a semi-sitting bed position)?",
+  "gold": [
+   "domains/VS/spec.md",
+   "terminology/core/interventions.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": []
+ },
+ {
+  "id": "q103",
+  "category": "cross_domain",
+  "question": "Several of our event and intervention datasets carry TAETORD. According to the variable index, how many SDTM domains include TAETORD, and what is this variable's label?",
+  "gold": [
+   "VARIABLE_INDEX.md#§一 通用变量: TAETORD$"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 2,
+    "source": "model/01_concepts_and_terms.md",
+    "section": "2.1 Model Concepts and Terms — Variables",
+    "sim": 0.6487
+   },
+   {
+    "rank": 3,
+    "source": "model/02_observation_classes.md",
+    "section": "Overview",
+    "sim": 0.585
+   }
+  ]
+ },
+ {
+  "id": "q104",
+  "category": "cross_domain",
+  "question": "Beyond VISIT and VISITNUM, our schedule-of-activities mapping also populates VISITDY. How many domains carry VISITDY, and what does its label say it represents?",
+  "gold": [
+   "VARIABLE_INDEX.md#§一 通用变量: VISITDY$"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 1,
+    "source": "VARIABLE_INDEX.md",
+    "section": "§一 通用变量: VISIT",
+    "sim": 0.6407
+   },
+   {
+    "rank": 2,
+    "source": "VARIABLE_INDEX.md",
+    "section": "§一 通用变量: VISITNUM",
+    "sim": 0.6374
+   }
+  ]
+ },
+ {
+  "id": "q105",
+  "category": "cross_domain",
+  "question": "I noticed the NHOID identifier variable in one of our microbiology datasets. Which SDTM domains include NHOID, and what is its label?",
+  "gold": [
+   "VARIABLE_INDEX.md#§一 通用变量: NHOID$"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 2,
+    "source": "domains/GF/spec.md",
+    "section": "NHOID",
+    "sim": 0.7429
+   },
+   {
+    "rank": 3,
+    "source": "domains/IS/spec.md",
+    "section": "NHOID",
+    "sim": 0.7366
+   }
+  ]
+ },
+ {
+  "id": "q106",
+  "category": "cross_domain",
+  "question": "A reviewer asked about the FOCID variable in our ophthalmology data. Which domains is FOCID defined in, and what does the variable capture?",
+  "gold": [
+   "VARIABLE_INDEX.md#§一 通用变量: FOCID$"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 2,
+    "source": "domains/OE/assumptions.md",
+    "section": "item_1",
+    "sim": 0.7061
+   },
+   {
+    "rank": 3,
+    "source": "domains/MB/spec.md",
+    "section": "FOCID",
+    "sim": 0.6944
+   }
+  ]
+ },
+ {
+  "id": "q107",
+  "category": "cross_domain",
+  "question": "Which SDTM datasets carry both the ARM and ARMCD variables, and what are the labels of these two variables?",
+  "gold": [
+   "VARIABLE_INDEX.md#§一 通用变量: ARM$",
+   "VARIABLE_INDEX.md#§一 通用变量: ARMCD$"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 3,
+    "source": "domains/DM/spec.md",
+    "section": "ARMCD",
+    "sim": 0.6459
+   }
+  ]
+ },
+ {
+  "id": "q108",
+  "category": "cross_domain",
+  "question": "A site recorded route of administration for both concomitant meds and the study treatment. Which SDTM variables are governed by the Route of Administration codelist C66729?",
+  "gold": [
+   "VARIABLE_INDEX.md#§三 CT 交叉引用: C66729$"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 2,
+    "source": "terminology/core/interventions.md",
+    "section": "Route of Administration Response",
+    "sim": 0.5382
+   },
+   {
+    "rank": 3,
+    "source": "domains/CM/spec.md",
+    "section": "CMROUTE",
+    "sim": 0.6535
+   }
+  ]
+ },
+ {
+  "id": "q109",
+  "category": "cross_domain",
+  "question": "We need to report left/right/bilateral consistently wherever anatomical side is collected. Which domain variables reference the Laterality codelist C99073?",
+  "gold": [
+   "VARIABLE_INDEX.md#§三 CT 交叉引用: C99073$"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 2,
+    "source": "terminology/core/general_part2.md",
+    "section": "Laterality",
+    "sim": 0.6962
+   },
+   {
+    "rank": 3,
+    "source": "domains/UR/spec.md",
+    "section": "URLAT",
+    "sim": 0.6093
+   }
+  ]
+ },
+ {
+  "id": "q110",
+  "category": "cross_domain",
+  "question": "Several datasets record what kind of specimen was collected and tested. Which variables across the SDTM model draw their values from the Specimen Type codelist C78734?",
+  "gold": [
+   "VARIABLE_INDEX.md#§三 CT 交叉引用: C78734$"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 2,
+    "source": "terminology/core/general_part4.md",
+    "section": "Specimen Condition",
+    "sim": 0.6176
+   },
+   {
+    "rank": 3,
+    "source": "model/01_concepts_and_terms.md",
+    "section": "2.1 Model Concepts and Terms — Variables",
+    "sim": 0.6086
+   }
+  ]
+ },
+ {
+  "id": "q111",
+  "category": "cross_domain",
+  "question": "Our CRFs capture the subject's body position (e.g., supine vs standing) at the time of measurement. Which domains include a position variable controlled by codelist C71148?",
+  "gold": [
+   "VARIABLE_INDEX.md#§三 CT 交叉引用: C71148$"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 2,
+    "source": "terminology/core/interventions.md",
+    "section": "Position",
+    "sim": 0.5675
+   },
+   {
+    "rank": 3,
+    "source": "domains/CV/spec.md",
+    "section": "CVPOS",
+    "sim": 0.5931
+   }
+  ]
+ },
+ {
+  "id": "q112",
+  "category": "cross_domain",
+  "question": "When a result needs to be flagged relative to its normal range, which variables in which domains are mapped to the Reference Range Indicator codelist C78736?",
+  "gold": [
+   "VARIABLE_INDEX.md#§三 CT 交叉引用: C78736$"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 2,
+    "source": "terminology/core/general_part4.md",
+    "section": "Reference Range Indicator",
+    "sim": 0.7134
+   },
+   {
+    "rank": 3,
+    "source": "domains/IS/spec.md",
+    "section": "ISNRIND",
+    "sim": 0.6493
+   }
+  ]
+ },
+ {
+  "id": "q113",
+  "category": "cross_domain",
+  "question": "When I build a supplemental qualifier dataset for the Demographics domain, what do I put in the IDVAR and IDVARVAL columns to point each record back to its parent, and why is that handled differently from other domains?",
+  "gold": [
+   "chapters/ch08_relationships.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 1,
+    "source": "VARIABLE_INDEX.md",
+    "section": "§一 通用变量: IDVAR",
+    "sim": 0.6657
+   },
+   {
+    "rank": 2,
+    "source": "VARIABLE_INDEX.md",
+    "section": "§一 通用变量: IDVARVAL",
+    "sim": 0.662
+   },
+   {
+    "rank": 3,
+    "source": "domains/DM/spec.md",
+    "section": "INVID",
+    "sim": 0.4805
+   }
+  ]
+ },
+ {
+  "id": "q114",
+  "category": "cross_domain",
+  "question": "If I use RELREC to relate two entire datasets rather than individual records, how should I populate RELTYPE, what happens to USUBJID and IDVARVAL, and is it acceptable to use --SEQ as the join key?",
+  "gold": [
+   "chapters/ch08_relationships.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 1,
+    "source": "VARIABLE_INDEX.md",
+    "section": "§一 通用变量: USUBJID",
+    "sim": 0.4196
+   },
+   {
+    "rank": 2,
+    "source": "VARIABLE_INDEX.md",
+    "section": "§一 通用变量: IDVARVAL",
+    "sim": 0.5129
+   },
+   {
+    "rank": 3,
+    "source": "domains/RELREC/spec.md",
+    "section": "RELID",
+    "sim": 0.6397
+   }
+  ]
+ },
+ {
+  "id": "q115",
+  "category": "cross_domain",
+  "question": "Within a SUPP-- dataset, what is the purpose of the QORIG column versus the QEVAL column, and when should QEVAL be left blank?",
+  "gold": [
+   "domains/SUPPQUAL/spec.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 1,
+    "source": "chapters/ch08_relationships.md",
+    "section": "8.4.1 Supplemental Qualifiers (SUPP--)",
+    "sim": 0.6915
+   },
+   {
+    "rank": 2,
+    "source": "chapters/ch08_relationships.md",
+    "section": "8.3.1 RELREC Dataset Relationship Example",
+    "sim": 0.6532
+   },
+   {
+    "rank": 3,
+    "source": "domains/SUPPQUAL/assumptions.md",
+    "section": "overview",
+    "sim": 0.6396
+   }
+  ]
+ },
+ {
+  "id": "q116",
+  "category": "cross_domain",
+  "question": "In the Related Specimens dataset, how can I tell which row is the originally collected specimen versus a derived aliquot using the PARENT and LEVEL fields, and what does the LEVEL number actually represent?",
+  "gold": [
+   "domains/RELSPEC/spec.md",
+   "domains/RELSPEC/examples.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": []
+ },
+ {
+  "id": "q117",
+  "category": "cross_domain",
+  "question": "Both the investigator and an independent adjudicator each decide whether the same adverse event is treatment-emergent. How do I store both of their determinations in SUPPAE without one overwriting or losing the other?",
+  "gold": [
+   "chapters/ch08_relationships.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 1,
+    "source": "domains/SUPPQUAL/examples.md",
+    "section": "Example 1",
+    "sim": 0.5166
+   },
+   {
+    "rank": 2,
+    "source": "chapters/ch04_general_assumptions.md",
+    "section": "4.5.4 Evaluators in the Interventions and Events Observation Classes",
+    "sim": 0.503
+   },
+   {
+    "rank": 3,
+    "source": "domains/AE/assumptions.md",
+    "section": "item_7",
+    "sim": 0.4956
+   }
+  ]
+ },
+ {
+  "id": "q118",
+  "category": "cross_domain",
+  "question": "I'm deriving EPOCH for my subject-level datasets. Which date/time variable should the EPOCH assignment be based on for Findings class domains versus Interventions and Events class domains, and what should I do when an observation's epoch cannot be determined?",
+  "gold": [
+   "chapters/ch04_general_assumptions.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 1,
+    "source": "VARIABLE_INDEX.md",
+    "section": "§一 通用变量: EPOCH",
+    "sim": 0.5822
+   },
+   {
+    "rank": 3,
+    "source": "domains/TA/assumptions.md",
+    "section": "item_12",
+    "sim": 0.6565
+   }
+  ]
+ },
+ {
+  "id": "q119",
+  "category": "cross_domain",
+  "question": "We need a dataset-to-dataset link between our tumor identification records and tumor results records. What exactly is the difference between the --LNKID and --LNKGRP variables, and how do they typically come into play in RELREC?",
+  "gold": [
+   "chapters/ch04_general_assumptions.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 1,
+    "source": "domains/RELREC/spec.md",
+    "section": "RELID",
+    "sim": 0.4903
+   },
+   {
+    "rank": 2,
+    "source": "domains/TU/spec.md",
+    "section": "TULNKID",
+    "sim": 0.5947
+   },
+   {
+    "rank": 3,
+    "source": "domains/TR/spec.md",
+    "section": "TRLNKID",
+    "sim": 0.5969
+   }
+  ]
+ },
+ {
+  "id": "q120",
+  "category": "cross_domain",
+  "question": "In our study, some assessments were performed on a group of associated persons collectively rather than on each individual. How should that group be identified in the AP dataset, and where do we document which persons belong to the group?",
+  "gold": [
+   "model/04_associated_persons.md",
+   "model/06_relationship_datasets.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 2,
+    "source": "chapters/ch04_general_assumptions.md",
+    "section": "4.2.6 Grouping Variables and Categorization",
+    "sim": 0.469
+   }
+  ]
+ },
+ {
+  "id": "q121",
+  "category": "cross_domain",
+  "question": "One of our subjects re-consented partway through the study, so we have two informed consent dates on file. How should RFICDTC in DM be populated in that case, and what period do RFICDTC and RFPENDTC together represent?",
+  "gold": [
+   "domains/DM/assumptions.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 1,
+    "source": "domains/DM/spec.md",
+    "section": "RFICDTC",
+    "sim": 0.6735
+   },
+   {
+    "rank": 2,
+    "source": "domains/DM/spec.md",
+    "section": "RFPENDTC",
+    "sim": 0.6402
+   },
+   {
+    "rank": 3,
+    "source": "domains/DM/spec.md",
+    "section": "RFENDTC",
+    "sim": 0.6331
+   }
+  ]
+ },
+ {
+  "id": "q122",
+  "category": "cross_domain",
+  "question": "Our oncology study switches to monthly telephone contacts after the treatment phase, during which we collect the subject's survival status and any medications taken. Which domains should those collected data be stored in, and what has to happen in Demographics if a subject is reported as dead?",
+  "gold": [
+   "chapters/ch04_general_assumptions.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 1,
+    "source": "domains/DM/spec.md",
+    "section": "DTHDTC",
+    "sim": 0.443
+   },
+   {
+    "rank": 2,
+    "source": "domains/DM/spec.md",
+    "section": "DTHFL",
+    "sim": 0.414
+   },
+   {
+    "rank": 3,
+    "source": "domains/DM/spec.md",
+    "section": "RFPENDTC",
+    "sim": 0.3991
+   }
+  ]
+ },
+ {
+  "id": "q123",
+  "category": "cross_domain",
+  "question": "In an oncology RECIST study we capture both which tumors exist and their measurements over time. How should the work be divided between the TU and TR datasets, and what keeps the anatomical location from being stored twice?",
+  "gold": [
+   "domains/TU/assumptions.md",
+   "domains/TR/assumptions.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 1,
+    "source": "domains/TU/spec.md",
+    "section": "Controlled Terminology",
+    "sim": 0.5762
+   },
+   {
+    "rank": 2,
+    "source": "domains/TR/spec.md",
+    "section": "TRDY",
+    "sim": 0.5714
+   }
+  ]
+ },
+ {
+  "id": "q124",
+  "category": "cross_domain",
+  "question": "When a subject dies during a trial, where do we record the cause-of-death details versus the disposition event, and how do we avoid re-collating the death flag that already lives in AE?",
+  "gold": [
+   "domains/DD/assumptions.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 1,
+    "source": "domains/AE/spec.md",
+    "section": "AESDTH",
+    "sim": 0.5355
+   },
+   {
+    "rank": 2,
+    "source": "domains/DD/spec.md",
+    "section": "Controlled Terminology",
+    "sim": 0.4642
+   },
+   {
+    "rank": 3,
+    "source": "domains/DS/spec.md",
+    "section": "Controlled Terminology",
+    "sim": 0.4157
+   }
+  ]
+ },
+ {
+  "id": "q125",
+  "category": "cross_domain",
+  "question": "Our protocol treats certain disease signs and symptoms (like migraine episodes) as efficacy events rather than safety events. How do we decide whether such occurrences belong in CE versus AE?",
+  "gold": [
+   "domains/CE/assumptions.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 1,
+    "source": "domains/CE/spec.md",
+    "section": "CEPRESP",
+    "sim": 0.5052
+   },
+   {
+    "rank": 2,
+    "source": "domains/AE/spec.md",
+    "section": "Controlled Terminology",
+    "sim": 0.5652
+   }
+  ]
+ },
+ {
+  "id": "q126",
+  "category": "cross_domain",
+  "question": "A subject's actual progression through study elements deviated from the assigned arm. Which dataset captures the planned elements versus the elements the subject really experienced, and how is an off-plan period represented?",
+  "gold": [
+   "domains/SE/assumptions.md",
+   "domains/TE/spec.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 2,
+    "source": "domains/DM/assumptions.md",
+    "section": "item_4",
+    "sim": 0.5473
+   },
+   {
+    "rank": 3,
+    "source": "model/03_special_purpose_domains.md",
+    "section": "Subject Elements (SE)",
+    "sim": 0.5316
+   }
+  ]
+ },
+ {
+  "id": "q127",
+  "category": "cross_domain",
+  "question": "We track biospecimens from collection through aliquoting plus the physical characteristics of each sample. Which biospecimen domain holds the handling actions versus the sample characteristics like type and size?",
+  "gold": [
+   "domains/BE/assumptions.md",
+   "domains/BS/assumptions.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": [
+   {
+    "rank": 2,
+    "source": "domains/BE/examples.md",
+    "section": "Example 2",
+    "sim": 0.5674
+   },
+   {
+    "rank": 3,
+    "source": "terminology/core/other_part1.md",
+    "section": "Biospecimen Characteristics Test Name",
+    "sim": 0.5701
+   }
+  ]
+ },
+ {
+  "id": "q128",
+  "category": "single_domain",
+  "question": "We're standing up the Vital Signs dataset for a new study. What does a single record in this dataset represent, and which of the result-related variables carry an Expected core designation rather than Required?",
+  "gold": [
+   "domains/VS/spec.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": []
+ },
+ {
+  "id": "q129",
+  "category": "single_domain",
+  "question": "Which observation class does the Medical History dataset belong to, what does each record correspond to, and which sequence-number identifier is Required in it?",
+  "gold": [
+   "domains/MH/spec.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": []
+ },
+ {
+  "id": "q130",
+  "category": "single_domain",
+  "question": "In the Laboratory Test Results dataset, how is one record defined, and which two variables hold the lower and upper ends of the reference range in original units?",
+  "gold": [
+   "domains/LB/spec.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": []
+ },
+ {
+  "id": "q131",
+  "category": "single_domain",
+  "question": "When collecting data for the Clinical Events dataset, an event may be prespecified on the CRF or reported spontaneously. Which variable flags that the event was prespecified, which one records whether a solicited event actually happened, and what does one record in this dataset correspond to?",
+  "gold": [
+   "domains/CE/spec.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": []
+ },
+ {
+  "id": "q132",
+  "category": "single_domain",
+  "question": "For the Healthcare Encounters dataset: what does each record represent, what kind of content goes into its topic variable, and which date variable is the only one in the dataset designated Expected?",
+  "gold": [
+   "domains/HO/spec.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": []
+ },
+ {
+  "id": "q133",
+  "category": "single_domain",
+  "question": "Our oncology study uses the Tumor/Lesion Identification dataset. How granular is each record in it, which variable serves as the topic, and what example value does the spec give for that variable?",
+  "gold": [
+   "domains/TU/spec.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": []
+ },
+ {
+  "id": "q134",
+  "category": "single_domain",
+  "question": "In the Concomitant Medications dataset, does each row correspond to one medication overall, or to something finer-grained? And aside from the study, domain, and subject identifiers, which other identifier variable is Required, and what is it for?",
+  "gold": [
+   "domains/CM/spec.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": []
+ },
+ {
+  "id": "q135",
+  "category": "single_domain",
+  "question": "How is the Demographics dataset structured, which class does it belong to, and which variable carries the Topic role in it?",
+  "gold": [
+   "domains/DM/spec.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": []
+ },
+ {
+  "id": "q136",
+  "category": "single_domain",
+  "question": "In the Disposition dataset, the standardized term for each record is drawn from different controlled terminology codelists depending on whether the record is a disposition event, a protocol milestone, or some other kind of event. Which codelist names apply in each of these three cases?",
+  "gold": [
+   "domains/DS/spec.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": []
+ },
+ {
+  "id": "q137",
+  "category": "single_domain",
+  "question": "A site has logged several surgeries for one participant — when building the Procedures dataset, what does a single record represent, and under which general observation class does this dataset fall?",
+  "gold": [
+   "domains/PR/spec.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": []
+ },
+ {
+  "id": "q138",
+  "category": "single_domain",
+  "question": "At what level of granularity should records be created in the Questionnaires dataset, and which observation class does it use?",
+  "gold": [
+   "domains/QS/spec.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": []
+ },
+ {
+  "id": "q139",
+  "category": "single_domain",
+  "question": "When dosing data goes into the Exposure dataset, what does a single record cover, and which observation class does the dataset belong to?",
+  "gold": [
+   "domains/EX/spec.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": []
+ },
+ {
+  "id": "q140",
+  "category": "single_domain",
+  "question": "In the Comments dataset, what does each record correspond to, what class is it assigned to, and how is free text longer than 200 characters accommodated?",
+  "gold": [
+   "domains/CO/spec.md"
+  ],
+  "gold_any": null,
+  "unmatched_top3": []
+ }
+]
