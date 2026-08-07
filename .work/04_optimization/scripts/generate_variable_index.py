@@ -249,12 +249,12 @@ def generate_index(domains_data: list[dict]) -> str:
     for ct_code in sorted(ct_index.keys()):
         refs = sorted(ct_index[ct_code])
         ref_count = len(refs)
-        # Truncate if too many
-        if len(refs) > 15:
-            refs_str = ", ".join(refs[:15]) + f" ... ({ref_count} total)"
-        else:
-            refs_str = ", ".join(refs)
-        lines.append(f"| {ct_code} | {ref_count} | {refs_str} |")
+        # 不截断: 这张表是"哪些变量引用该码表"的唯一权威来源, 截到 15 条等于半张表。
+        # 全展开对最宽的 C66742 (123 个引用) 也只有约 1.5K 字符, 全库 129.6 -> 133.8 KB
+        # (+4.2 KB) —— 旧的 15 条上限买到的就是这 4.2 KB, 代价是 9 个最需要它的宽码表
+        # 答不全。检索侧判据看不出这个缺陷 (section 名不变), 故由
+        # sdtm-rag/scripts/tests/test_kb_crossref_completeness.py 钉住"条目数 == 声称的 N"。
+        lines.append(f"| {ct_code} | {ref_count} | {', '.join(refs)} |")
 
     lines.append("")
 

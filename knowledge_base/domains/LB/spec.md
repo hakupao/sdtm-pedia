@@ -573,7 +573,7 @@
 - [Test Operational Objective (C181170)](../../terminology/core/general_part4.md) — LBTSTOPO
 - [Test Condition Response (C181175)](../../terminology/core/general_part4.md) — LBTSTCND
 - [Laboratory Test Code (C65047)](../../terminology/core/lb_part2.md) — LBTESTCD
-- [No Yes Response (C66742)](../../terminology/core/general_part4.md) — LBSPCUFL, LBLOBXFL, LBBLFL, LBFAST, LBDRVFL ... (7 total)
+- [No Yes Response (C66742)](../../terminology/core/general_part4.md) — LBSPCUFL, LBLOBXFL, LBBLFL, LBFAST, LBDRVFL, LBCLSIG, LBPTFL
 - [Not Done (C66789)](../../terminology/core/general_part4.md) — LBSTAT
 - [Laboratory Test Name (C67154)](../../terminology/core/lb_part3.md) — LBTEST
 - [Unit (C71620)](../../terminology/core/general_part5.md) — LBORRESU, LBSTRESU
