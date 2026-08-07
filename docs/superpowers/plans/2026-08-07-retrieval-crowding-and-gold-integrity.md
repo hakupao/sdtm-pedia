@@ -1111,6 +1111,9 @@ PY
 
 写 `evidence/checkpoints/pool_depth_invariance.md`, 含上面那条完整命令 + 原始输出。
 
+- **实测结论 (2026-08-07)**: `POOL_DEEP_OK = **false**` (加深池改 RRF 分数表, 130/140 题
+  top-15 变化), 但 `FUSE_OUT_DEEP_OK = **true**` —— Task 6 改走**放长融合输出**这条路,
+  见 Task 6 的三组定义。下面两条分支保留作历史记录。
 - **若 `POOL_DEEP_OK = true`**: Task 6 三组统一用 `hybrid_pool=200`。B 组能补满 15 席,
   A 组与生产 top-15 逐位相同 —— 实验干净。
 - **若 `POOL_DEEP_OK = false`**: Task 6 三组统一用生产 `hybrid_pool=30`, 且
@@ -1175,6 +1178,45 @@ per-section 配额仍适用但归因描述要改。
 
 A/B 同分题计入分母但不计 improved/regressed。**若同分题 ≥ 8/12, 整个层② 判定作废** ——
 锤子选错, 换锚重做, 不许顺着读结论。
+
+**Task 5 定稿的实施约束 (必读, 与 brief 早期写法不同)**
+
+1. **池一律 `hybrid_pool=30` (生产值), 任一组加深池即作废。** `POOL_DEEP_OK = false`:
+   加深池会改 RRF 分数表, 实测 130/140 题 top-15 变化。
+2. **三组统一放长融合输出到 60 再施配额**, 取 15。`FUSE_OUT_DEEP_OK = true` 且
+   **代码结构可证** (`_hybrid_fuse` 里 `k` 只在最后一行 `ranked[:k]` 出现)。
+   需要一个 helper 复现生产链但允许在 fuse 与 S1 之间插配额:
+
+```python
+def _fused_candidates(rag, question, fuse_out):
+    """生产链的前半段, 但融合输出放长到 fuse_out (不加深池)。
+
+    Task 5 实测: 池不变时深融合输出的前 15 名恒等于浅融合输出 (140/140 逐位相同),
+    故 A 组用它取前 15 与生产一致; B 组则有更长的排序可供配额后补位。
+    """
+    q_emb = rag._embed_query(question)
+    pool = max(rag.top_k, rag.hybrid_pool)          # 生产值, 不放大
+    dense = rag._search(question, pool, None, query_embedding=q_emb)
+    bm25 = rag._bm25_search(question, pool, None)
+    return rag._hybrid_fuse(dense, bm25, fuse_out), q_emb
+```
+
+   配额后再走 S1 注入 (`rag._apply_structured_lookup(question, capped, None, top_k,
+   query_embedding=q_emb)`), 顺序必须是 **fuse → 配额 → 截 15 → S1**, 与 Task 7 的
+   生产改法一致。
+
+3. **⚠️ q38 补不满 15 席, 必须单列走 fallback 口径。** Task 5 评审实测: q38 的深融合候选
+   共 **43** 条, 其中 **§DOMAIN 占 41 条, 非该簇只有 2 条**。配额 2/3/5 三档下 q38 分别只能
+   凑到 **4 / 5 / 7 席**, 而 140 题里**只有它**补不满。加大融合输出救不了 —— pool=30 时
+   候选并集上限 60, 非簇候选就只有 2 条; 要补满只能加深池 (禁) 或配额 ≥13 (等于没配额)。
+   故 **139 题走"补满 15 席"口径; q38 单列**, 并声明"B 组 context 比 A 组短, 该题的 A/B
+   差异含 **context 长度**这一混杂因素"。
+
+4. **硬 gate (不是自陈)**: 逐题记录 B 组实际席位数; **席位数 < 15 的题一律走 fallback 口径,
+   不得混进主结论**。
+
+5. **退化检查 (Task 5 Concern 1 建议, 评审赞成)**: 加一条断言 —— **配额关掉 (`cap=None`) 时,
+   B 组必须与 A 组逐位相同**。便宜, 且能当场抓出管线接错。
 
 - [ ] **Step 1: 写失败测试**
 
@@ -1284,11 +1326,17 @@ def apply_section_cap(chunks, cap, exempt_lookup=True):
 "剩余席位的质量"结构性失明。故本模块的锚是**答案正确性** (LLM judge),
 它在 section 名这个代理量之外 (硬规矩 6)。
 
-三组同池同序, 唯一差别是配额:
+三组同池同序, 唯一差别是配额 (Task 5 定稿: **放长融合输出, 不加深池**):
   A  = 无配额 (生产现状)
   B1 = 同名 section 限 1 席
   B2 = 同名 section 限 2 席
 S1 注入的 chunk 三组一律豁免 (确定性 gold, 不属被检验对象)。
+
+池一律用生产 hybrid_pool=30 (POOL_DEEP_OK=false: 加深池改 RRF 分数表, 130/140 题
+top-15 会变)。三组统一把 _hybrid_fuse 的**输出** k 从 15 放长到 60 再施配额 ——
+FUSE_OUT_DEEP_OK=true 且**代码结构可证**: _hybrid_fuse 里 k 只出现在最后一行
+ranked[:k], best 字典/RRF 分数表/sorted 全排序都与 k 无关, sorted 稳定且 tie 由
+插入序决定 ⇒ 深融合输出的前 15 名恒等于浅融合输出 (实测 140/140 逐位相同)。
 配额语义来自 server.diversity.apply_section_cap —— Task 7 的生产代码用同一份, 不重写。
 """
 from __future__ import annotations
@@ -1304,8 +1352,8 @@ def main(argv=None):
     p.add_argument("--layer1", default="evidence/checkpoints/crowding_layer1.json")
     p.add_argument("--test-set", default="eval/test_set_v3.yml")
     p.add_argument("--top-k", type=int, default=15)
-    p.add_argument("--pool", type=int, required=True,
-                   help="Task 5 定的池深 (POOL_DEEP_OK=true 用 200, 否则 30)")
+    p.add_argument("--fuse-out", type=int, default=60,
+                   help="融合输出放长到多少再施配额 (Task 5: 放长安全, 加深池不安全)")
     p.add_argument("--model", default=None, help="答题模型; 默认 settings.default_model")
     p.add_argument("--output", default="evidence/checkpoints/crowding_layer2.json")
     args = p.parse_args(argv)
@@ -1334,14 +1382,15 @@ def main(argv=None):
         embedding_model=settings.embedding_model, top_k=args.top_k,
         structured_lookup_enabled=True, hybrid_enabled=True,
         hybrid_fusion=settings.hybrid_fusion, hybrid_alpha=settings.hybrid_alpha,
-        hybrid_pool=args.pool,
+        hybrid_pool=settings.hybrid_pool,   # 生产值, 不许改
     )
 
     results = []
     for i, qid in enumerate(target, 1):
         q = qs[qid]
-        # 一次检索, 三组共用 —— 保证同池同序, 唯一变量是配额
-        pool_chunks = rag.retrieve(q["question"], top_k=max(args.pool, args.top_k))
+        # 一次检索, 三组共用 —— 保证同池同序, 唯一变量是配额。
+        # 走放长的融合输出 (不是加深池), 再各自施配额并补满 15 席。
+        pool_chunks = _fused_candidates(rag, q["question"], args.fuse_out)
         arms = {}
         for arm, cap in (("A", None), ("B1", 1), ("B2", 2)):
             capped = apply_section_cap(pool_chunks, cap)[: args.top_k]
@@ -1408,7 +1457,7 @@ Expected: 5 passed
 用 Task 5 定的池深 (下面按 `POOL_DEEP_OK=true` 写; false 则把 200 换成 30):
 
 ```bash
-.venv/bin/python -m eval.crowding_ab --pool 200 \
+.venv/bin/python -m eval.crowding_ab --fuse-out 60 \
   --output evidence/checkpoints/crowding_layer2.json
 ```
 
