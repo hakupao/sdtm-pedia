@@ -182,7 +182,10 @@ judge 打分若出现 A/B 完全同分的题, 计入分母但不计入 improved/
 
 - 现状 (`scripts/chunkers/chapters.py`): >50KB→H3, 20KB–50KB→H2, ≤20KB→整文件单块。
   落在整块档的是 ch01 (11,070 B) / ch02 (18,141 B) / ch03 (19,708 B)。
-- 改动: 下调 whole_file 阈值使这三个文件按 `^## ` 切 (ch02 有 8 个 H2, 切后均 ~2.3KB)。
+- 改动: 下调 whole_file 阈值使这三个文件按 `^## ` 切。H2 数实测
+  (`grep -c '^## ' knowledge_base/chapters/<f>.md`): ch01 **5** / ch02 **9** / ch03 **3**;
+  ch02 切后平均 ~2.0KB。
+  (初稿此处写"ch02 有 8 个 H2"是**数错的、未实测**的数字 —— 正是硬规矩 2 要防的东西, 已订正。)
   无该级标题时仍回落整文件 (现有回落分支保留)。
 - **需重建索引**, 且 `chunk_count` 会变 (当前 4315), `/api/info` 与 freshness 断言需同步。
 

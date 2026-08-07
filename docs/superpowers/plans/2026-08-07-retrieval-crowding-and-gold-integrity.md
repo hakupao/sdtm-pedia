@@ -398,25 +398,24 @@ from eval.run_eval import source_matches
 
 
 def unmatched_in_top_n(chunks, expected_sources, n=3, any_of=None):
-    """返回 top-n 里不被任何 gold (AND 组 + OR 组合并看) 匹配的条目。"""
-    top = list(chunks)[:n]
-    srcs = [c.source for c in top]
-    secs = [getattr(c, "section", None) for c in top]
-    golds = list(expected_sources or []) + list(any_of or [])
+    """返回 top-n 里不被任何 gold (AND 组 + OR 组合并看) 匹配的条目。
 
+    逐条判定 (每条自成一个单元素列表) 而非整体判定: 我们要的是"**这一条**有没有
+    被某条 gold 认领", 而 source_matches 的语义是"gold 在**整个列表**里有没有命中"。
+    传整个列表会让 rank1 因为 rank3 命中而被误判为已认领。
+    """
+    golds = list(expected_sources or []) + list(any_of or [])
     out = []
-    for rank, c in enumerate(top, 1):
-        one_src, one_sec = [c.source], [getattr(c, "section", None)]
-        if any(source_matches(g, one_src, one_sec) for g in golds):
+    for rank, c in enumerate(list(chunks)[:n], 1):
+        sec = getattr(c, "section", None)
+        if any(source_matches(g, [c.source], [sec]) for g in golds):
             continue
         out.append({
             "rank": rank,
             "source": c.source,
-            "section": getattr(c, "section", None),
+            "section": sec,
             "sim": round(c.similarity, 4),
         })
-    # srcs/secs 只为将来扩展保留形参一致性, 当前逐条判定
-    del srcs, secs
     return out
 
 
@@ -805,13 +804,19 @@ git commit -m "test(eval): 池深度不变性实测 — 定 A/B 对照的池策�
 ### Task 6: 层② context A/B1/B2 损害判定 (段②2b)
 
 **Files:**
-- Create: `eval/crowding_ab.py`
+- Create: `server/diversity.py` (配额语义的**唯一**实现)
+- Create: `eval/crowding_ab.py` (实验跑批)
 - Create: `scripts/tests/test_crowding_ab.py`
 - Create: `evidence/checkpoints/crowding_layer2.md`
 
 **Interfaces:**
 - Consumes: `eval.crowding_probe.crowding_stats`, `eval.run_eval.check_fact_recall_judge`, Task 5 的池策略
-- Produces: `eval.crowding_ab.apply_section_cap(chunks, cap, exempt_lookup=True) -> list` — 供 Task 7 复用同一份配额语义
+- Produces: `server.diversity.apply_section_cap(chunks, cap, exempt_lookup=True) -> list` — 供 Task 7 的生产代码复用同一份配额语义
+
+**为什么配额函数放 `server/` 而不是 `eval/`**: Task 7 要让 `server/rag.py` 用它。
+生产代码 import `eval/` 是层次倒置 (eval 依赖 server, 反向依赖会成环, 且把实验脚本
+变成生产依赖)。故配额语义从一开始就落在 `server/diversity.py`, eval 侧 import 它 ——
+而不是先写在 eval 里、Task 7 再搬家。
 
 **为什么**: gold 判据对挤占结构性失明 (S1 钉死 recall), 必须换外部锚 = 答案正确性。
 
@@ -837,7 +842,7 @@ A/B 同分题计入分母但不计 improved/regressed。**若同分题 ≥ 8/12,
 
 ```python
 """配额语义: 同名 section 限 cap 席, 腾出的席位由池中下一位依次补足。"""
-from eval.crowding_ab import apply_section_cap
+from server.diversity import apply_section_cap
 
 
 class _C:
@@ -883,28 +888,21 @@ def test_none_sections_are_not_clustered_together():
 Run: `.venv/bin/python -m pytest scripts/tests/test_crowding_ab.py -v`
 Expected: FAIL — `ModuleNotFoundError: No module named 'eval.crowding_ab'`
 
-- [ ] **Step 3: 实现配额 + A/B 跑批**
+- [ ] **Step 3a: 实现配额 (生产侧)**
 
-新建 `eval/crowding_ab.py`:
+新建 `server/diversity.py`:
 
 ```python
-"""层②: context A/B1/B2 对照 —— 判定同质簇挤占是否**有害**。
+"""检索结果多样性: per-section 配额。
 
-层① 只能证明挤占存在。它是否有害, 用 gold 判据永远判不出来: S1 前置注入
-(_merge_lookup_first) 已经确定性地保证了 gold 恒在 top-k, 判据因而对
-"剩余席位的质量"结构性失明。故本模块的锚是**答案正确性** (LLM judge),
-它在 section 名这个代理量之外 (硬规矩 6)。
+治的是模板化同质簇 —— 63 个域的同名变量行 (DOMAIN / STUDYID / USUBJID / VISIT /
+EPOCH …) 正文逐字近似, 对含该字面的问句齐刷刷高分, 会占满 top-k。
+q38 实测: top-15 里 14 席是 §DOMAIN, 只剩 1 席给别的内容。
 
-三组同池同序, 唯一差别是配额:
-  A  = 无配额 (生产现状)
-  B1 = 同名 section 限 1 席
-  B2 = 同名 section 限 2 席
-S1 注入的 chunk 三组一律豁免 (确定性 gold, 不属被检验对象)。
+是否启用由证据决定, 见 evidence/checkpoints/crowding_layer2.md。
 """
 from __future__ import annotations
 
-import argparse
-import json
 from collections import Counter
 
 
@@ -912,7 +910,8 @@ def apply_section_cap(chunks, cap, exempt_lookup=True):
     """同名 section 最多保留 cap 席, 其余丢弃; 相对顺序不变。cap=None 为恒等。
 
     section=None 的条目不参与聚簇 (缺元数据不等于同质)。
-    via_lookup=True 的条目在 exempt_lookup 下豁免且**不计入**簇计数。
+    via_lookup=True 的条目在 exempt_lookup 下豁免且**不计入**簇计数 ——
+    它们是 S1/S2 的确定性 gold 注入, 不属被检验对象。
     """
     if cap is None:
         return list(chunks)
@@ -931,6 +930,33 @@ def apply_section_cap(chunks, cap, exempt_lookup=True):
         seen[sec] += 1
         out.append(c)
     return out
+```
+
+- [ ] **Step 3b: 实现 A/B 跑批**
+
+新建 `eval/crowding_ab.py`:
+
+```python
+"""层②: context A/B1/B2 对照 —— 判定同质簇挤占是否**有害**。
+
+层① 只能证明挤占存在。它是否有害, 用 gold 判据永远判不出来: S1 前置注入
+(_merge_lookup_first) 已经确定性地保证了 gold 恒在 top-k, 判据因而对
+"剩余席位的质量"结构性失明。故本模块的锚是**答案正确性** (LLM judge),
+它在 section 名这个代理量之外 (硬规矩 6)。
+
+三组同池同序, 唯一差别是配额:
+  A  = 无配额 (生产现状)
+  B1 = 同名 section 限 1 席
+  B2 = 同名 section 限 2 席
+S1 注入的 chunk 三组一律豁免 (确定性 gold, 不属被检验对象)。
+配额语义来自 server.diversity.apply_section_cap —— Task 7 的生产代码用同一份, 不重写。
+"""
+from __future__ import annotations
+
+import argparse
+import json
+
+from server.diversity import apply_section_cap
 
 
 def main(argv=None):
@@ -1073,7 +1099,7 @@ git commit -m "test(eval): 层② context A/B1/B2 —— 用答案质量作外�
 - Test: `scripts/tests/test_section_cap_retrieval.py` (新建)
 
 **Interfaces:**
-- Consumes: `eval.crowding_ab.apply_section_cap` (Task 6 —— **复用同一份配额语义, 不重写**)
+- Consumes: `server.diversity.apply_section_cap` (Task 6 —— **复用同一份配额语义, 不重写**)
 - Produces: `RAGEngine(..., section_cap: int | None = None)`; 默认 `None` = 行为逐字节不变
 
 - [ ] **Step 1: 写失败测试**
@@ -1100,7 +1126,7 @@ def test_default_is_off(monkeypatch):
 
 def test_cap_applied_between_fusion_and_lookup():
     """配额必须在 fusion 之后、S1 注入之前 —— S1 注入不受影响。"""
-    from eval.crowding_ab import apply_section_cap
+    from server.diversity import apply_section_cap
     pool = [_chunk(i, "DOMAIN") for i in range(5)] + [_chunk(90, "Other")]
     assert [c.chunk_id for c in apply_section_cap(pool, 2)] == [0, 1, 90]
 ```
@@ -1140,7 +1166,13 @@ Expected: FAIL — `RAGEngine.__init__` 无 `section_cap`
 
 - [ ] **Step 3: 实现**
 
-`server/rag.py` 的 `__init__` 参数列表末尾加 (紧跟 `prompt_guardrail_enabled` 之后):
+`server/rag.py` 顶部 import 区加:
+
+```python
+from server.diversity import apply_section_cap
+```
+
+`__init__` 参数列表末尾加 (紧跟 `prompt_guardrail_enabled` 之后):
 
 ```python
         section_cap: int | None = None,
@@ -1169,7 +1201,6 @@ Expected: FAIL — `RAGEngine.__init__` 无 `section_cap`
                 cosine = self._hybrid_fuse(dense, bm25, k)
             else:
                 # 先融合到池深再配额, 否则配额腾出的席位无处可补
-                from eval.crowding_ab import apply_section_cap
                 fused = self._hybrid_fuse(dense, bm25, pool)
                 cosine = apply_section_cap(fused, self.section_cap)[:k]
 ```
@@ -1245,11 +1276,22 @@ git commit -m "feat(rag): per-section 配额治同质簇挤占 (默认关, 证�
 
 **Files:**
 - Modify: `scripts/chunkers/chapters.py`
-- Test: `scripts/tests/test_chunkers_chapters.py` (既有文件, 追加; 若不存在则新建)
+- Modify: `scripts/tests/test_chapters.py` (**既有文件 —— 有两条测试会被本改动打破, 见 Step 2**)
 
 **Interfaces:**
-- Consumes: `scripts.chunkers.chapters.ChaptersChunker.chunk(file_path) -> list[Chunk]`
+- Consumes: `scripts.chunkers.chapters.ChaptersChunker(kb_root).chunk(file_path) -> list[Chunk]`
+  (**构造器需要 kb_root 参数**, 既有测试用 `KB_ROOT = Path(__file__).resolve().parents[3] / "knowledge_base"`)
 - Produces: 行为改变 —— ch01/ch02/ch03 由 1 块变多块; `chunk_count` 从 4315 变化
+
+**⚠ 既有测试冲突 (pre-flight 扫描发现)**: `scripts/tests/test_chapters.py` 现有两条测试
+把"≤20KB → 整文件单块"这一档**锁死**了:
+
+- `test_ch01_produces_1_chunk` — `assert len(ch01_chunks) == 1`
+- `test_ch01_section_is_whole_file` — `assert ch01_chunks[0].section == "whole_file"`
+
+本 task 取消该档, 这两条**必然失败**。改它们是正当的 (测试是策略的编码, 策略变了测试就该变),
+但**必须显式改、写明理由, 并用新测试锁住新策略** —— 不许"看到红就删测试"。
+`test_ch04_produces_47_chunks` / `test_ch08_produces_19_chunks` 等 L-4 锁**不许动**。
 
 - [ ] **Step 1: 先记录现状 (改之前必须有基线)**
 
@@ -1257,61 +1299,96 @@ git commit -m "feat(rag): per-section 配额治同质簇挤占 (默认关, 证�
 .venv/bin/python -c "
 from pathlib import Path
 from scripts.chunkers.chapters import ChaptersChunker
-for f in sorted(Path('../knowledge_base/chapters').glob('*.md')):
-    n = len(ChaptersChunker().chunk(f))
-    print(f'{f.name:35s} {f.stat().st_size:7d} B  -> {n:3d} chunks')"
+kb = Path('../knowledge_base').resolve()
+ck = ChaptersChunker(kb)
+for f in sorted((kb / 'chapters').glob('*.md')):
+    n_h2 = sum(1 for line in f.read_text(encoding='utf-8').splitlines() if line.startswith('## '))
+    print(f'{f.name:35s} {f.stat().st_size:7d} B  H2={n_h2:2d}  -> {len(ck.chunk(f)):3d} chunks')"
 ```
-Expected: ch01 11070→1, ch02 18141→1, ch03 19708→1, ch04 130532→多, ch08 51764→多, ch10 30233→多
+Expected (2026-08-07 实测): ch01 11070 B H2=5 →1 · ch02 18141 B H2=9 →1 · ch03 19708 B H2=3 →1 ·
+ch04 130532 B →47 · ch08 51764 B →19 · ch10 30233 B →多
 
 把输出贴进 `evidence/checkpoints/chapters_chunking.md` 作为 before。
 
-- [ ] **Step 2: 写失败测试**
+- [ ] **Step 2: 改既有的两条 ch01 测试 + 写新测试**
 
-在 `scripts/tests/test_chunkers_chapters.py` 追加:
+在 `scripts/tests/test_chapters.py` 中, 把这两条**替换**掉 (它们锁的是被取消的那一档):
 
 ```python
-def test_small_chapters_now_split_by_h2(tmp_path):
-    """≤20KB 整文件单块的档取消: 有 H2 就按 H2 切。
+def test_ch01_produces_1_chunk(ch01_chunks):
+    """ch01 (11KB ≤ 20KB) produces exactly 1 chunk (whole_file tier)."""
+    assert len(ch01_chunks) == 1
 
-    背景: ch02 (18KB) 整块的 cosine 被稀释 (q38 诊断: ch02 whole_file 在 dense
-    排 #71 / sim 0.5613, 而 ch04 §4.2.2 是 #1 / 0.6970)。
+
+def test_ch01_section_is_whole_file(ch01_chunks):
+    """ch01 single chunk has section == 'whole_file'."""
+    assert ch01_chunks[0].section == "whole_file"
+```
+
+替换为:
+
+```python
+def test_ch01_splits_by_h2(ch01_chunks):
+    """2026-08-07: "≤20KB → 整文件单块" 这一档取消, ch01 (11KB, 5 个 H2) 按 H2 切。
+
+    原策略把 ch01/ch02/ch03 各压成 1 个 chunk, 整章共用一个向量 -> 语义稀释。
+    q38 诊断实测: ch02 的 whole_file 块在 dense 检索排 #71 (sim 0.5613), 而回答
+    同一问题的 ch04 §4.2.2 是 #1 (sim 0.6970) —— 后者是被 H3 切出来的小节。
+    证据 evidence/checkpoints/chapters_chunking.md。
     """
-    from pathlib import Path
-    from scripts.chunkers.chapters import ChaptersChunker
+    assert len(ch01_chunks) == 5
+    assert all(c.section != "whole_file" for c in ch01_chunks)
 
-    ch02 = Path("../knowledge_base/chapters/ch02_fundamentals.md")
-    chunks = ChaptersChunker().chunk(ch02)
-    assert len(chunks) > 1, "18KB 且有 8 个 H2, 不该是整文件单块"
+
+def test_ch01_sections_carry_real_headings(ch01_chunks):
+    secs = [c.section for c in ch01_chunks]
+    assert any("1.1" in (s or "") for s in secs), secs
+    assert any("1.5" in (s or "") for s in secs), secs
+```
+
+并追加新测试:
+
+```python
+def test_ch02_splits_by_h2(chunker):
+    """ch02 (18KB, 9 个 H2) —— q38 的 gold 章节, 原为整文件单块。"""
+    chunks = chunker.chunk(CHAPTERS_DIR / "ch02_fundamentals.md")
+    assert len(chunks) == 9
     assert all(c.section != "whole_file" for c in chunks)
-    secs = [c.section for c in chunks]
-    assert any("2.6" in (s or "") for s in secs), secs
+    # §2.6 Creating a New Domain 含 "Determine the domain code" —— q38 要的那一半
+    assert any("2.6" in (c.section or "") for c in chunks), [c.section for c in chunks]
 
 
-def test_file_without_headings_still_falls_back_to_whole_file(tmp_path):
-    from scripts.chunkers.chapters import ChaptersChunker
+def test_ch03_splits_by_h2(chunker):
+    chunks = chunker.chunk(CHAPTERS_DIR / "ch03_submitting_data.md")
+    assert len(chunks) == 3
+    assert all(c.section != "whole_file" for c in chunks)
 
+
+def test_file_without_headings_still_falls_back_to_whole_file(chunker, tmp_path):
+    """无 H2 时仍回落整文件单块 —— 该回落分支是原整块档取消后的唯一兜底。"""
     f = tmp_path / "ch99_noheading.md"
     f.write_text("plain text with no markdown headings at all\n" * 20, encoding="utf-8")
-    chunks = ChaptersChunker().chunk(f)
+    chunks = chunker.chunk(f)
     assert len(chunks) == 1
     assert chunks[0].section == "whole_file"
 
 
-def test_large_chapter_still_splits_by_h3():
-    """L-4 锁不得被本次改动破坏: >50KB 仍按 ### 切 (ch04 §4.4 单节就超 embedding 上限)。"""
-    from pathlib import Path
-    from scripts.chunkers.chapters import ChaptersChunker
-
-    ch04 = Path("../knowledge_base/chapters/ch04_general_assumptions.md")
-    chunks = ChaptersChunker().chunk(ch04)
-    assert len(chunks) > 20
-    assert any("4.2.2" in (c.section or "") for c in chunks)
+def test_large_chapter_still_splits_by_h3(ch04_chunks):
+    """L-4 锁不得被本次改动破坏: >50KB 仍按 ### 切。"""
+    assert len(ch04_chunks) == 47
+    assert any("4.2.2" in (c.section or "") for c in ch04_chunks)
 ```
+
+**若 ch01/ch02/ch03 的实际块数与 5/9/3 不符** (例如首个 H2 之前的前言另成一块),
+以 Step 1 基线命令重跑出的真实值为准并订正断言 —— **但必须在证据里写明实际值与原因**,
+不许把断言改成 `> 1` 了事 (那就失去了锁的意义)。
 
 - [ ] **Step 3: 跑测试确认失败**
 
-Run: `.venv/bin/python -m pytest scripts/tests/test_chunkers_chapters.py -v`
-Expected: `test_small_chapters_now_split_by_h2` FAIL (len == 1)
+Run: `.venv/bin/python -m pytest scripts/tests/test_chapters.py -v`
+Expected: `test_ch01_splits_by_h2` / `test_ch01_sections_carry_real_headings` /
+`test_ch02_splits_by_h2` / `test_ch03_splits_by_h2` 全 FAIL (当前都是 1 块);
+L-4 那几条 (ch04 47 / ch08 19) 仍 PASS
 
 - [ ] **Step 4: 改 chunker**
 
@@ -1343,8 +1420,8 @@ cl100k tokens > 8191 embedding limit). Two-tier size policy:
 
 - [ ] **Step 5: 跑测试确认通过**
 
-Run: `.venv/bin/python -m pytest scripts/tests/test_chunkers_chapters.py -v`
-Expected: 全 passed
+Run: `.venv/bin/python -m pytest scripts/tests/test_chapters.py -v`
+Expected: 全 passed (含未动的 L-4 锁 ch04=47 / ch08=19)
 
 - [ ] **Step 6: 重灌索引**
 
