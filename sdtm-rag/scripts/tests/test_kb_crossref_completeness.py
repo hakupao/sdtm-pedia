@@ -52,3 +52,37 @@ def test_no_truncation_marker_in_domain_specs():
 def test_ct_row_count_is_stable():
     # 防"把截断行整行删掉"这种假修法: 135 行一个都不能少
     assert len(_ct_rows()) == 135
+
+
+# ---- chunk 层 (真正进索引的那段文本) ----------------------------------------
+
+
+def test_indexed_ct_chunks_carry_every_variable():
+    """KB 对而索引里是旧的 / chunker 截断, 照样答不出来。
+
+    `scripts/kb_freshness.py` 的存在动因正是 2026-08-04 实测到"部署中的向量库把
+    VARIABLE_INDEX.md 欠切 70%" —— 同一个文件有前科, 所以 KB 层断言不够, 必须打到
+    真正被检索到的那段文本上。"""
+    import chromadb
+
+    try:
+        col = chromadb.PersistentClient(
+            path=str(settings.chroma_dir)).get_collection(settings.collection_name)
+    except Exception:  # noqa: BLE001 — 打不开库的原因不重要, 都是"本机没索引"
+        pytest.skip("本机无索引; 跑 .venv/bin/python -m scripts.ingest 后此闸才生效")
+
+    vi_abs = str((KB_ROOT / "VARIABLE_INDEX.md").resolve())
+    rows = col.get(where={"source": vi_abs}, include=["documents", "metadatas"])
+    by_section = {m.get("section"): d
+                  for m, d in zip(rows["metadatas"], rows["documents"], strict=True)}
+
+    bad = []
+    for code, _n, refs in _ct_rows():
+        doc = by_section.get(f"§三 CT 交叉引用: {code}")
+        if doc is None:
+            bad.append((code, "section 不在索引"))
+            continue
+        missing = [r.strip() for r in refs.split(", ") if r.strip() and r.strip() not in doc]
+        if missing:
+            bad.append((code, f"正文缺 {len(missing)} 个, 例: {missing[:3]}"))
+    assert not bad, f"索引里的 CT chunk 与 KB 不一致: {bad[:5]} (共 {len(bad)})"
