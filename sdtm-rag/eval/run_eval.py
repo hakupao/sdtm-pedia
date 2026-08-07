@@ -544,7 +544,11 @@ class _FederatedAdapter:
         return self.fed.format_context(chunks)
 
     def build_messages(self, q, context, history=None):
-        return self.fed.build_messages(q, context, history, corpus="both")
+        # 本题判库 (生产 router.py 同口径 corpus=routed); 曾硬编码 "both", 会让单库题
+        # 拿到双库 system prompt —— 答题闸测的就不是生产行为了。
+        if not self.routed:
+            raise RuntimeError("build_messages before retrieve: no routed corpus recorded")
+        return self.fed.build_messages(q, context, history, corpus=self.routed[-1])
 
 
 def _non_empty(v: str) -> str:

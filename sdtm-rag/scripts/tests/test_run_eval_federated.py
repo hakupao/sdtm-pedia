@@ -6,16 +6,19 @@ from server.rag import RetrievedChunk
 
 
 class _FakeFed:
-    def __init__(self):
+    def __init__(self, routes=None):
         self.calls = []
+        # 每次 retrieve 依次吐一个判库; 耗尽后固定复用最后一个
+        self.routes = list(routes or ["study"])
 
     def retrieve(self, q, *, corpus="auto", top_k=None, domain=None, file_type=None):
         assert corpus == "auto"
         self.calls.append({"q": q, "top_k": top_k})
+        routed = self.routes.pop(0) if len(self.routes) > 1 else self.routes[0]
         c = RetrievedChunk(chunk_id="s-1", source="study/f.md", domain=None,
                            file_type=None, section="§2", similarity=0.9,
-                           text="t", corpus="study")
-        return [c], "study"
+                           text="t", corpus=routed)
+        return [c], routed
 
     def format_context(self, chunks):
         return f"CTX({len(chunks)})"
@@ -41,13 +44,35 @@ def test_adapter_passes_top_k_through():
     assert a.routed == ["study", "study"]
 
 
-def test_adapter_delegates_format_context_and_build_messages():
+def test_adapter_delegates_format_context():
     a = _FederatedAdapter(_FakeFed())
     assert a.format_context([1, 2]) == "CTX(2)"
+
+
+def test_build_messages_uses_the_route_of_the_question_just_retrieved():
+    """答题 system prompt 必须跟着本题判库走 — 硬编码 both 会让单库题拿到双库 prompt,
+    与生产 router.py (corpus=routed) 不一致, 使联邦答题闸测的不是生产行为."""
+    a = _FederatedAdapter(_FakeFed(["study"]))
+    a.retrieve("q")
     msgs = a.build_messages("q", "ctx")
-    # 联邦答题走双库 system prompt (corpus="both"), 与检索判库无关
-    assert msgs[0]["content"] == "SYS-both"
+    assert msgs[0]["content"] == "SYS-study"
     assert msgs[1]["content"] == "ctx\nq"
+
+
+def test_build_messages_tracks_route_changing_across_questions():
+    a = _FederatedAdapter(_FakeFed(["study", "cdisc", "both"]))
+    seen = []
+    for q in ("q1", "q2", "q3"):
+        a.retrieve(q)
+        seen.append(a.build_messages(q, "ctx")[0]["content"])
+    assert seen == ["SYS-study", "SYS-cdisc", "SYS-both"]
+
+
+def test_build_messages_before_any_retrieve_fails_loud():
+    """无判库时静默回落 both 正是本 bug 的形状 — 报错而不是猜."""
+    a = _FederatedAdapter(_FakeFed())
+    with pytest.raises(RuntimeError, match="retrieve"):
+        a.build_messages("q", "ctx")
 
 
 def _write_ts(tmp_path):
