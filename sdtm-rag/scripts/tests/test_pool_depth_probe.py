@@ -7,12 +7,14 @@ import pytest
 from eval.pool_depth_probe import (
     AA_PAIRS,
     AB_PAIRS,
+    QUOTAS,
     aggregate,
     compact_raw,
     cross_process_stability,
     expand_raw,
     pair_stats,
     positional_diff,
+    seats_under_quota,
     verdict,
 )
 
@@ -53,12 +55,16 @@ def test_cross_process_stability_counts_orders_and_sets():
 
 
 def _row(qid, e2e, *, fuse30, fuse200, d30, ddeep, b30, bdeep,
-         fuse_out_k=None, fuse_out_deep=None, e2e_deep_fuse=None):
+         fuse_out_k=None, fuse_out_deep=None, e2e_deep_fuse=None, sections=None):
+    deep = fuse_out_deep if fuse_out_deep is not None else fuse30 + ["z"]
     return {
         "id": qid, "e2e": e2e,
         "e2e_deep_fuse": e2e_deep_fuse if e2e_deep_fuse is not None else e2e[0],
         "fuse_out_k": fuse_out_k if fuse_out_k is not None else fuse30,
-        "fuse_out_deep": fuse_out_deep if fuse_out_deep is not None else fuse30 + ["z"],
+        "fuse_out_deep": deep,
+        # 缺省给每条一个独立 section, 于是任何配额都填得满 —— 想测填不满要显式传
+        "fuse_out_deep_sections": (sections if sections is not None
+                                   else [f"S{i}" for i in range(len(deep))]),
         "fuse_30": fuse30, "fuse_200": fuse200,
         "dense_30": d30, "dense_deep_head": ddeep,
         "bm25_30": b30, "bm25_deep_head": bdeep,
@@ -185,6 +191,96 @@ def test_compact_raw_keeps_differing_rows_verbatim():
 def test_aggregate_accepts_expanded_raw():
     procs = [[_clean_row()], [_clean_row()]]
     assert aggregate(expand_raw(compact_raw(procs))) == aggregate(procs)
+
+
+def test_seats_under_quota_all_distinct_sections_fills_k():
+    assert seats_under_quota([f"S{i}" for i in range(40)], quota=2, k=15) == 15
+
+
+def test_seats_under_quota_one_dominant_cluster_cannot_fill():
+    """q38 的形状: 44 条候选, 42 条同属一个 section, 非该簇只有 2 条。
+
+    按条数看"余量 29"很充裕, 按 section 看配额=2 时只能凑 2+1+1 = 4 席。
+    这正是「加大融合输出救不了 q38」的原因。
+    """
+    sections = ["DOMAIN"] * 42 + ["4.1.6 Additional Guidance", "4.2.2 Two-character"]
+    assert seats_under_quota(sections, quota=2, k=15) == 4
+    assert seats_under_quota(sections, quota=3, k=15) == 5
+    assert seats_under_quota(sections, quota=5, k=15) == 7
+    # 配额放到 13 才补得满 —— 等于对 max_cluster=14 的簇几乎没有配额
+    assert seats_under_quota(sections, quota=13, k=15) == 15
+
+
+def test_seats_under_quota_matches_greedy_admission():
+    """闭式上限必须等于"按 rank 顺序贪心录取"的实际结果 —— 这是该函数的全部前提。
+
+    Task 6 真正会跑的是贪心录取; 若两者不等, 这里算出的席位数就是错的。
+    """
+    def greedy(sections, quota, k):
+        seen, out = {}, 0
+        for s in sections:
+            if seen.get(s, 0) < quota:
+                seen[s] = seen.get(s, 0) + 1
+                out += 1
+                if out == k:
+                    break
+        return out
+
+    cases = [
+        ["DOMAIN"] * 42 + ["A", "B"],
+        ["A", "DOMAIN", "DOMAIN", "B", "DOMAIN", "A", "C"],
+        [f"S{i % 7}" for i in range(60)],
+        ["X"] * 3,
+        [],
+    ]
+    for sections in cases:
+        for quota in (1, 2, 3, 5, 13):
+            for k in (2, 15, 60):
+                assert seats_under_quota(sections, quota, k) == greedy(sections, quota, k), (
+                    sections[:5], quota, k
+                )
+
+
+def test_seats_under_quota_never_exceeds_k():
+    assert seats_under_quota([f"S{i}" for i in range(99)], quota=99, k=15) == 15
+
+
+def test_seats_under_quota_counts_none_section_as_its_own_bucket():
+    """section 缺失 (None) 不该被当成"每条各不相同"而虚高席位。"""
+    assert seats_under_quota([None] * 10, quota=2, k=15) == 2
+
+
+def test_aggregate_flags_questions_that_cannot_fill_seats():
+    """凑不满席位的题必须被单独点名 —— 它们不能混进主结论。"""
+    ok = _clean_row("q_ok")
+    bad = _row("q_bad", [["a", "b"]] * 4,
+               fuse30=["a", "b"], fuse200=["a", "b"],
+               d30=["a", "b"], ddeep=["a", "b"], b30=["a", "b"], bdeep=["a", "b"],
+               fuse_out_deep=["a", "b", "c", "d"],
+               sections=["DOMAIN"] * 4)
+    agg = aggregate([[ok, bad]])
+    sf = agg["seat_feasibility"]
+    assert sf["quotas"] == list(QUOTAS)
+    # k = len(fuse_out_k) = 2; 全同 section 时配额=2 恰好凑满 2 席, 配额=1 才不足
+    assert sf["short_by_quota"]["2"] == []
+    assert sf["seats_by_quota"]["2"]["q_bad"] == 2
+    # 把 k 抬到 3 (fuse_out_k 三条) 就该点名
+    bad3 = dict(bad, fuse_out_k=["a", "b", "c"])
+    agg3 = aggregate([[dict(ok, fuse_out_k=["a", "b", "c"]), bad3]])
+    assert agg3["seat_feasibility"]["short_by_quota"]["2"] == ["q_bad"]
+
+
+def test_seat_feasibility_takes_worst_across_processes():
+    """跨进程抖动会改候选成分; 席位数取最小, 不许用运气好的那个进程粉饰。"""
+    good = _row("q1", [["a", "b"]] * 4,
+                fuse30=["a", "b"], fuse200=["a", "b"],
+                d30=["a", "b"], ddeep=["a", "b"], b30=["a", "b"], bdeep=["a", "b"],
+                fuse_out_k=["a", "b", "c"],
+                fuse_out_deep=["a", "b", "c"], sections=["S0", "S1", "S2"])
+    poor = dict(good, fuse_out_deep=["a", "b", "c"], fuse_out_deep_sections=["X"] * 3)
+    agg = aggregate([[good], [poor]])
+    assert agg["seat_feasibility"]["seats_by_quota"]["2"]["q1"] == 2
+    assert agg["seat_feasibility"]["short_by_quota"]["2"] == ["q1"]
 
 
 def test_verdict_reads_all_three_arms():

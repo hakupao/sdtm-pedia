@@ -14,10 +14,15 @@ Chroma 的 HNSW 在向量完全相同的重复 chunk 之间返回谁不由 sim �
 - `candidate_prefix`  正是上面那个前提: `_search(q, 30)` 是否等于 `_search(q, 200)[:30]`,
   BM25 同理。这一臂把"候选列表本身依赖于请求深度"这条路径单独暴露出来。
 - `fuse_output_depth`  **池深不动**, 只把 `_hybrid_fuse` 的**输出**截断 k 从 15 放到 60。
-  RRF 分数只由候选在两份列表里的 rank 决定 —— 池不变则分数表不变, 放长输出只是
-  多留几名, 前 15 名必然逐位不变。这一臂用实测把"必然"钉死, 并顺带量出
-  **补位余量** (融合后还剩多少条可用)。Task 6 的 B 组要"腾席位再补满 15",
-  需要的是**更深的融合输出**, 不是更深的池 —— 这两件事常被混为一谈。
+  这一条是**代码结构可证**的, 不只是经验: `_hybrid_fuse` 里 `k` 只出现在最后一行
+  `ranked[:k]` —— `best` 字典、RRF 分数表、`sorted` 全排序都与 k 无关, 且 `sorted`
+  稳定、并列由插入序 (dense 先 bm25 后) 决定, 同样与 k 无关。所以放长输出只是多留
+  几名, 前 k 名必然逐位不变。这一臂用实测复核这条结构论证。
+  Task 6 的 B 组要"腾席位再补满 15", 需要的是**更深的融合输出**, 不是更深的池 ——
+  这两件事常被混为一谈。
+- `seat_feasibility`  配额下究竟能凑到几席。**补位余量不能按条数算** —— 备选本身
+  绝大多数就是那个超配额簇的成员 (q38: 44 条候选里 42 条同属 §DOMAIN)。这一臂按
+  section 数算各配额档的席位上限, 找出"放多长的融合输出也补不满"的题。
 - `e2e`  生产整条链 (hybrid 融合 + S1 直查) 在同一进程内交替跑
   `[30, 200, 30, 200]`, **同一个引擎对象、同一份钉死的 query 向量**, 只改
   `hybrid_pool`。于是:
@@ -58,6 +63,8 @@ AA_PAIRS = [(0, 2), (1, 3)]
 AB_PAIRS = [(0, 1), (2, 3), (1, 2), (0, 3)]
 # 融合**输出**放长到这个深度 (池仍是 SHALLOW): B 组腾出席位后的补位来源。
 FUSE_OUT = 60
+# Task 6 层② 打算试的同名 section 配额档。三档一起算, 免得结论只在某一档成立。
+QUOTAS = (2, 3, 5)
 
 
 def positional_diff(a: Sequence[str], b: Sequence[str]) -> int:
@@ -100,6 +107,22 @@ def cross_process_stability(runs: Sequence[Sequence[str]]) -> dict:
         "distinct_sets": len({frozenset(r) for r in runs}),
         "sometimes": len(ever - always),
     }
+
+
+def seats_under_quota(sections: Sequence[str | None], quota: int, k: int) -> int:
+    """同名 section 限 `quota` 席时, 从这批候选里最多能凑到几席 (上限 k)。
+
+    **补位余量不能按条数算。** 直觉上"候选 44 条、只要 15 席, 余量充裕"是错的 ——
+    备选本身绝大多数就是那个超配额簇的成员。q38 实测 44 条候选里 42 条同属 §DOMAIN,
+    非该簇只有 2 条: 配额=2 时总共只能凑 2+2 = 4 席, 放多长的融合输出都补不满 15。
+
+    席位上限 = Σ_section min(count(section), quota), 再截到 k。按 rank 顺序贪心录取
+    的结果与这个上限一致 (每个 section 独立计数, 先来后到不影响各自能录几条)。
+    """
+    counts: dict[str | None, int] = {}
+    for s in sections:
+        counts[s] = counts.get(s, 0) + 1
+    return min(k, sum(min(n, quota) for n in counts.values()))
 
 
 def compact_raw(proc_results: Sequence[Sequence[dict]]) -> list[list[dict]]:
@@ -198,9 +221,13 @@ def _worker(payload: dict) -> list[dict]:
         # 去掉配额本身)。S1 直查仍按 k 填满, 故若这一臂与 e2e[0] 逐位相同, 就证明
         # "给 B 组一个补位储备"不需要动池深, 也就不引入池深这个混杂变量。
         real_fuse = rag._hybrid_fuse
-        rag._hybrid_fuse = lambda d, b, _k, _f=real_fuse: _f(d, b, FUSE_OUT)
-        deep_fuse_e2e = [c.chunk_id for c in rag.retrieve(q, top_k=top_k)]
-        rag._hybrid_fuse = real_fuse
+        try:
+            rag._hybrid_fuse = lambda d, b, _k, _f=real_fuse: _f(d, b, FUSE_OUT)
+            deep_fuse_e2e = [c.chunk_id for c in rag.retrieve(q, top_k=top_k)]
+        finally:
+            # 必须 finally 复原: retrieve 抛异常时补丁会泄漏到本 worker 的后续题目,
+            # 那之后每条结果都是错的却看不出来。
+            rag._hybrid_fuse = real_fuse
 
         qv = rag._embed_query(q)
         # 臂 candidate_prefix: 候选列表本身是否依赖请求深度
@@ -217,7 +244,8 @@ def _worker(payload: dict) -> list[dict]:
 
         # 臂 fuse_output_depth: 同一份浅池候选, 融合输出截 top_k vs 截 FUSE_OUT
         fout_k = [c.chunk_id for c in rag._hybrid_fuse(dense_30, bm25_30, top_k)]
-        fout_deep = [c.chunk_id for c in rag._hybrid_fuse(dense_30, bm25_30, FUSE_OUT)]
+        deep_chunks = rag._hybrid_fuse(dense_30, bm25_30, FUSE_OUT)
+        fout_deep = [c.chunk_id for c in deep_chunks]
 
         out.append({
             "id": item["id"],
@@ -225,6 +253,8 @@ def _worker(payload: dict) -> list[dict]:
             "e2e_deep_fuse": deep_fuse_e2e,
             "fuse_out_k": fout_k,
             "fuse_out_deep": fout_deep,
+            # 席位可行性要按 section 数, 不是按条数 —— 备选本身多半就是超配额簇的成员
+            "fuse_out_deep_sections": [c.section for c in deep_chunks],
             "dense_30": [c.chunk_id for c in dense_30],
             "dense_deep_head": [c.chunk_id for c in dense_deep[:SHALLOW]],
             "bm25_30": [c.chunk_id for c in bm25_30],
@@ -289,6 +319,7 @@ def aggregate(proc_results: Sequence[Sequence[dict]]) -> dict:
 
     alg_bad, cand_bad, fout_bad, fout_e2e_bad = [], [], [], []
     headroom = []
+    seat_short: dict[str, list[str]] = {}
     aa_total = {"n_pairs": 0, "n_mismatched": 0, "max_positional_diff": 0}
     ab_total = {"n_pairs": 0, "n_mismatched": 0, "max_positional_diff": 0}
     per_q = {}
@@ -314,6 +345,16 @@ def aggregate(proc_results: Sequence[Sequence[dict]]) -> dict:
         q_headroom = min(len(r["fuse_out_deep"]) for r in rows)
         headroom.append(q_headroom)
 
+        # 席位可行性: 各配额档下最少能凑到几席 (跨进程取最小 —— 抖动不许粉饰)
+        seats = {
+            str(quota): min(seats_under_quota(r["fuse_out_deep_sections"], quota, k)
+                            for r in rows)
+            for quota in QUOTAS
+        }
+        for quota, n in seats.items():
+            if n < k:
+                seat_short.setdefault(quota, []).append(qid)
+
         if any(alg_diffs):
             alg_bad.append(qid)
         if any(cand_diffs):
@@ -328,6 +369,7 @@ def aggregate(proc_results: Sequence[Sequence[dict]]) -> dict:
             "fuse_out_max_diff": max(fout_diffs),
             "fuse_out_e2e_max_diff": max(fout_e2e_diffs),
             "fuse_candidates": q_headroom,
+            "seats_by_quota": seats,
             "aa_mismatched": sum(s["n_mismatched"] for s in aa),
             "ab_mismatched": sum(s["n_mismatched"] for s in ab),
             "aa_max_diff": max(s["max_positional_diff"] for s in aa),
@@ -355,9 +397,18 @@ def aggregate(proc_results: Sequence[Sequence[dict]]) -> dict:
             "mismatched": fout_bad,
             "e2e_n_mismatched_questions": len(fout_e2e_bad),
             "e2e_mismatched": fout_e2e_bad,
-            # 补位余量: 融合后可用条目数的最小值 (B 组腾席位后能从这里补回来)
+            # 候选**总数** (不是"余量"): 15 席之外的余量 = 这个数 - 15
             "min_fuse_candidates": min(headroom),
             "median_fuse_candidates": sorted(headroom)[len(headroom) // 2],
+        },
+        "seat_feasibility": {
+            "quotas": list(QUOTAS),
+            # 各配额档下**凑不满 k 席**的题 —— 这些题必须走 fallback 口径
+            "short_by_quota": {str(q): seat_short.get(str(q), []) for q in QUOTAS},
+            "seats_by_quota": {
+                str(q): {qid: per_q[qid]["seats_by_quota"][str(q)] for qid in per_q}
+                for q in QUOTAS
+            },
         },
         "e2e": {"aa": aa_total, "ab": ab_total},
         "per_question": per_q,
@@ -447,7 +498,14 @@ def main(argv=None) -> int:
     print(f"[fuse_output_depth] 池不动只放长融合输出到 {fo['fuse_out']}: "
           f"前 {args.top_k} 名有差异的题 {fo['n_mismatched_questions']}/{len(wanted)}, "
           f"整条生产链有差异的题 {fo['e2e_n_mismatched_questions']}/{len(wanted)}; "
-          f"补位余量最小 {fo['min_fuse_candidates']} 条")
+          f"候选总数最小 {fo['min_fuse_candidates']} 条 "
+          f"(即 {args.top_k} 席之外余量 {fo['min_fuse_candidates'] - args.top_k})")
+    sf = agg["seat_feasibility"]
+    for quota in sf["quotas"]:
+        short = sf["short_by_quota"][str(quota)]
+        detail = ", ".join(f"{q}={sf['seats_by_quota'][str(quota)][q]}席" for q in short)
+        print(f"[seat_feasibility] 配额={quota}: 凑不满 {args.top_k} 席的题 "
+              f"{len(short)}/{len(wanted)} {('— ' + detail) if short else ''}")
     n_cross = sum(1 for r in agg["per_question"].values()
                   if r["cross_proc_shallow"]["distinct_orders"] > 1
                   or r["cross_proc_deep"]["distinct_orders"] > 1)
