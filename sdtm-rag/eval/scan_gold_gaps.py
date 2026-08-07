@@ -11,9 +11,7 @@ from __future__ import annotations
 import argparse
 import json
 
-import yaml
-
-from eval.run_eval import source_matches
+from eval.run_eval import load_test_set, source_matches
 
 
 def unmatched_in_top_n(chunks, expected_sources, n=3, any_of=None):
@@ -59,7 +57,10 @@ def main(argv=None):
     )
 
     rows = []
-    qs = yaml.safe_load(open(args.test_set))
+    # 走 load_test_set 而非裸 yaml.safe_load: 它拦"gold 键拼错"(拼错的键被静默忽略 →
+    # 该题白得满分) 与"无非空 gold"。绕过它, 这类题会被当成没有 gold, 其 top-N 会整段
+    # 涌进清单, 凭空放大人工审的工作量。
+    qs = load_test_set(args.test_set)
     for i, q in enumerate(qs, 1):
         chunks = rag.retrieve(q["question"], top_k=args.top_k)
         um = unmatched_in_top_n(
@@ -70,11 +71,16 @@ def main(argv=None):
             "id": q["id"], "category": q["category"], "question": q["question"],
             "gold": q.get("expected_sources", []),
             "gold_any": q.get("expected_sources_any"),
+            # 键名写死为 top3 而 --top-n 可配: 下游证据与独立判定都在引用这个键名,
+            # 改名要重跑 140 题检索并打断判定。故键名不动, 用 top_n 记下实际值,
+            # 免得 --top-n 5 的产物看起来像 top-3。
+            "top_n": args.top_n,
             "unmatched_top3": um,
         })
         print(f"[{i}/{len(qs)}] {q['id']} unmatched={len(um)}", flush=True)
 
-    json.dump(rows, open(args.output, "w"), ensure_ascii=False, indent=1)
+    with open(args.output, "w", encoding="utf-8") as f:
+        json.dump(rows, f, ensure_ascii=False, indent=1)
     n_any = sum(1 for r in rows if r["unmatched_top3"])
     print(f"\n{n_any}/{len(rows)} 题的 top-{args.top_n} 含未被 gold 匹配的条目")
     print(f"明细: {args.output}")
