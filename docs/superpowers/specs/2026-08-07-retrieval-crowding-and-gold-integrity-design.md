@@ -24,9 +24,15 @@ cd sdtm-rag && .venv/bin/python \
 数字若变则以重跑值为准并在证据里记录差异。在那之前引用本节数字必须带这条 scratchpad 路径 ——
 **不许提前写成 `eval/crowding_probe.py`**, 那是一条跑不出数的假命令 (硬规矩 2)。
 
+> **⚠️ 口径警告 (2026-08-07 由 Task 1 实测补上, 初稿漏了这一行)**: 下表除注明外均为
+> **dense-only** 口径。**生产口径是 hybrid + S1**, 在那里 `ch04 §4.2.2` **根本不在 top-15** ——
+> hybrid RRF 把 dense 排第 1 的它挤掉了。故 q38 在 dense-only 下补完 gold 得 0.5,
+> 在生产口径下仍是 **0.0**。挤占比本表初稿呈现的更严重: 不是"gold 排不进来",
+> 而是"把已排第 1 的正确 chunk 挤掉"。引用本表任何数字必须带口径。
+
 | 事实 | 数据 | 含义 |
 |---|---|---|
-| `ch04 §4.2.2 Two-character Domain Identifier` 正文字面回答了 q38 | dense 排名 **#1, sim 0.6970** | 检索找得极准 |
+| `ch04 §4.2.2 Two-character Domain Identifier` 正文字面回答了 q38 | dense 排名 **#1, sim 0.6970**; **hybrid 口径下不在 top-15** | dense 找得极准, 而生产口径把它丢了 |
 | 该 section **不在 q38 的 gold 里** (gold 只有 `chapters/ch02`) | — | **判据缺陷: 假失分** |
 | top-60 被 **59 条 `domains/*/spec.md §DOMAIN`** 占满 | sim 区间 [0.6689, 0.6851], 极差 **0.0162** | **真缺陷: 同质簇挤占** |
 | gold `ch02 §whole_file` | dense **#71, sim 0.5613**; 剔掉那 59 条后升到 **#12** | 稀释真实存在, 但**剔簇后仍进不了 top-15** |

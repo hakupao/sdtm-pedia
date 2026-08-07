@@ -124,10 +124,21 @@ Run:
 .venv/bin/python eval/run_eval.py eval/test_set_v3.yml --retrieval-only --hybrid \
   --structured-lookup --output evidence/checkpoints/crowding_gold_after_q38.json
 ```
-Expected: q38 recall = **0.5** (ch04 §4.2.2 命中, ch02 仍未召回)。
+Expected: q38 recall = **0.0**。
 
-**这是预期结果, 不是失败。** q38 从 0.0 → 0.5 说明判据修准照出了"检索确实找到了一半"。
-剩下的 0.5 (ch02 未进 top-15) 正是段② 要判定的挤占问题。**不许为了让 q38 变 1.0 去动检索或再放宽 gold。**
+**⚠️ 本条预期于 2026-08-07 由 Task 1 实测订正 (原写 0.5, 是错的)**:
+
+| 口径 | q38 recall | 说明 |
+|---|---|---|
+| dense-only | **0.5** | ch04 §4.2.2 命中 (dense #1), ch02 未召回 |
+| **hybrid + S1 (本命令 / 生产口径)** | **0.0** | §4.2.2 **被挤出 top-15**, 两条 gold 都没命中 |
+
+原预期 0.5 出自 dense-only 诊断, 而本命令是 hybrid 口径 —— 二者不是一回事。
+hybrid 下 14 条 domain spec 的 `§DOMAIN` chunk 占满 top-15, 把 dense 排**第 1** 的
+§4.2.2 直接挤掉。
+
+**这是预期结果, 不是失败, 且比原诊断更严重**: 挤占不是"让 gold 排不进来",
+而是"把已经排第 1 的正确 chunk 挤掉"。**不许为了让 q38 变好看去动检索或再放宽 gold。**
 
 - [ ] **Step 6: Commit**
 
@@ -522,6 +533,247 @@ git commit -m "fix(eval): gold 完整性 pattern 层扫描 + 独立审补漏"
 
 ---
 
+### Task 3C: section 级 gold 存在性闸 (Task 1 评审的 Important 2)
+
+**Files:**
+- Create: `scripts/tests/test_section_gold_exists.py`
+
+**Interfaces:**
+- Consumes: `eval.run_eval.source_matches` (Task 2), chroma collection
+
+**为什么**: 用 `#节$` 精确匹配后, gold 与 chunker 的 section 命名**强耦合**。重建索引时命名
+一变 (加前缀 / 重编号 / 去引号), 这条 gold 就**静默变成永不命中**, 题目继续显示低分,
+而没人分得清是判据坏了还是检索坏了。这正是 `check_source_recall` docstring 警告的
+"打错的 gold 恒 miss, 比多匹配更隐蔽"。**Task 8 要重灌索引, 所以这个闸必须在它之前就位。**
+
+现状实测 (`2026-08-07`): `eval/test_set_v3.yml` 共 **20** 条 section 级 gold,
+其中指向 `chapters/` 的只有 **1** 条 (q38 的 `ch04...#4.2.2...$`, ch04 走 H3 不受 Task 8 影响);
+**无任何 gold 引用 `whole_file`**。故当前风险低 —— 但闸是给将来的。
+
+- [ ] **Step 1: 写失败测试 (先确认它真能抓到问题)**
+
+新建 `scripts/tests/test_section_gold_exists.py`:
+
+```python
+"""section 级 gold 必须在索引里真实存在 —— 否则静默恒 miss。
+
+用 `路径#节$` 精确匹配后, gold 与 chunker 的 section 命名强耦合。重灌索引若改了
+命名, gold 会无声失效: 题目一直低分, 而看不出是判据坏了还是检索坏了。
+"""
+import yaml
+
+TEST_SET = "eval/test_set_v3.yml"
+
+
+def _section_golds():
+    with open(TEST_SET, encoding="utf-8") as f:
+        qs = yaml.safe_load(f)
+    out = []
+    for q in qs:
+        golds = (q.get("expected_sources") or []) + (q.get("expected_sources_any") or [])
+        for g in golds:
+            if "#" in str(g):
+                out.append((q["id"], g))
+    return out
+
+
+def test_there_are_section_golds_to_check():
+    """护栏的护栏: 若这里变成 0, 上面的解析八成坏了, 而下面的测试会空转通过。"""
+    assert len(_section_golds()) >= 15
+
+
+def test_every_section_gold_exists_in_index():
+    import pytest
+
+    from server.config import settings
+    from server.rag import RAGEngine
+
+    try:
+        rag = RAGEngine(
+            chroma_dir=settings.chroma_dir, kb_root=settings.kb_root,
+            collection_name=settings.collection_name,
+            embedding_model=settings.embedding_model, top_k=1,
+        )
+        got = rag.collection.get(include=["metadatas"])
+    except Exception as exc:  # 无索引的环境跳过, 与既有集成测试同策
+        pytest.skip(f"needs live index: {exc}")
+
+    pairs = {(m.get("source") or "", m.get("section")) for m in got["metadatas"]}
+
+    missing = []
+    for qid, gold in _section_golds():
+        path, sec = gold.split("#", 1)
+        exact = sec.endswith("$")
+        if exact:
+            sec = sec[:-1]
+        hit = any(
+            path in src and (s == sec if exact else sec in (s or ""))
+            for src, s in pairs
+        )
+        if not hit:
+            missing.append(f"{qid}: {gold}")
+
+    assert not missing, (
+        "以下 section 级 gold 在索引里不存在 —— 它们会静默恒 miss:\n  "
+        + "\n  ".join(missing)
+    )
+```
+
+- [ ] **Step 2: 跑测试, 确认当前全绿**
+
+Run: `.venv/bin/python -m pytest scripts/tests/test_section_gold_exists.py -v`
+Expected: 2 passed
+
+**若有 gold 被报为不存在**: 那就是抓到真问题了 —— 逐条查明是 gold 写错还是索引变了,
+在报告里列出并**据实修 gold**(不许改闸来迁就)。
+
+- [ ] **Step 3: 反向验证闸真的会红 (不许只看它绿)**
+
+临时把某条 section gold 改成一个不存在的 section (例如把 q38 那条的 `4.2.2` 改成 `4.2.2X`),
+重跑测试, **确认它 FAIL 并在消息里点名 q38**; 然后**改回来**再跑一次确认绿。
+把这两次的原始输出贴进报告。
+
+**理由**: 一个从没红过的闸, 和没有闸是一回事。上一轮 VI 那次就是断言恒绿而缺陷照样溜过去。
+
+- [ ] **Step 4: Commit**
+
+```bash
+git add scripts/tests/test_section_gold_exists.py
+git commit -m "test(eval): section 级 gold 存在性闸 — 防重灌索引后判据静默失效"
+```
+
+---
+
+### Task 3B: top-k 抖动的量化与探针稳健化 (Task 1 评审发现, plan 原本没有)
+
+**Files:**
+- Create: `evidence/checkpoints/topk_jitter.md`
+- Create: `eval/jitter_probe.py`
+- Create: `scripts/tests/test_jitter_probe.py`
+
+**Interfaces:**
+- Produces: `eval.jitter_probe.stability_report(runs: list[list[str]]) -> dict` —
+  返回 `{n_runs, distinct_sets, distinct_orders, stable_prefix, always, sometimes}`
+- Produces: 一个二值结论 `JITTER_AFFECTS_STATS ∈ {true, false}`, 决定 Task 4 探针是否必须多次取样
+
+**为什么 (来源: Task 1 评审的额外发现, 非 plan 原有)**
+
+评审同 query 同参数连跑两次, top-15 **第 9 位起成分变化** (run1 第 9 位 BS / run2 第 9 位 TE)。
+控制器随后用 chunk_id 跑 5 次却**全稳定** (逐位 15/15) —— 说明抖动**偶发**而非必然。
+同一次探测实测到根因线索: **embedding API 重复调用返回的向量不逐位相同**
+(`len(set(embs)) == 1` 为 **False**)。`§DOMAIN` 簇 61 条挤在 sim [0.6689, 0.6851],
+簇内相邻间隔极小, 浮点抖动足以翻转尾部顺序。
+
+**这威胁的是层① 的全部数字** (`max_cluster` / `dup_seats` / "28.6%"), 它们都出自单次 top-15
+且要写进证据。**在量化清楚之前, 层① 的数字不许当作稳定事实引用。**
+
+⚠️ **控制器踩过的坑, 别重蹈**: 首版抖动探针用 `文件名#section` 作条目标识,
+而 63 个域的文件名都是 `spec.md`、section 都是 `DOMAIN` → 14 条塌缩成 1 个字符串,
+探针于是"证明"了稳定性。**标识必须用 `chunk_id`**。症状是"每次都在的"只有 2 条 —— 
+凡稳定性探针, 先验证它区分得开你要区分的东西。
+
+- [ ] **Step 1: 写失败测试**
+
+新建 `scripts/tests/test_jitter_probe.py`:
+
+```python
+"""稳定性统计的口径。构造已知的多次运行结果, 验统计正确。"""
+from eval.jitter_probe import stability_report
+
+
+def test_all_runs_identical():
+    runs = [["a", "b", "c"]] * 4
+    r = stability_report(runs)
+    assert r["n_runs"] == 4
+    assert r["distinct_sets"] == 1
+    assert r["distinct_orders"] == 1
+    assert r["stable_prefix"] == 3
+    assert r["always"] == 3
+    assert r["sometimes"] == 0
+
+
+def test_tail_swap_same_set():
+    """成分相同、顺序不同 —— 集合数 1 但顺序数 2。"""
+    runs = [["a", "b", "c"], ["a", "c", "b"]]
+    r = stability_report(runs)
+    assert r["distinct_sets"] == 1
+    assert r["distinct_orders"] == 2
+    assert r["stable_prefix"] == 1
+    assert r["sometimes"] == 0
+
+
+def test_membership_churn():
+    runs = [["a", "b", "c"], ["a", "b", "d"]]
+    r = stability_report(runs)
+    assert r["distinct_sets"] == 2
+    assert r["stable_prefix"] == 2
+    assert r["always"] == 2      # a, b
+    assert r["sometimes"] == 2   # c, d
+
+
+def test_identifiers_must_be_distinguishable():
+    """探针自身的护栏: 全同标识说明标识选错了 (控制器踩过 —— 63 个 spec.md#DOMAIN
+    塌缩成 1 个 key, 探针于是假装稳定)。"""
+    import pytest
+    with pytest.raises(ValueError, match="indistinguishable"):
+        stability_report([["x", "x", "x"], ["x", "x", "x"]])
+```
+
+- [ ] **Step 2: 跑测试确认失败**
+
+Run: `.venv/bin/python -m pytest scripts/tests/test_jitter_probe.py -v`
+Expected: FAIL — `ModuleNotFoundError: No module named 'eval.jitter_probe'`
+
+- [ ] **Step 3: 实现探针**
+
+新建 `eval/jitter_probe.py`, 含 `stability_report(runs)` 与一个跑批 `main`。
+`main` 要求:
+
+- 用 **`chunk_id`** 作条目标识 (不是文件名, 不是 section)
+- 默认 `--runs 12`, 每次**新建 RAGEngine** 并重新 embed (模拟真实调用)
+- 支持 `--config hybrid|dense|both`
+- 额外测量并输出:
+  - embedding 重复调用的**最大逐位差值**与 L2 距离 (证明抖动源)
+  - top-15 内**相邻 similarity 的最小间隔** (证明为什么这点抖动足以翻转顺序)
+- `stability_report` 在所有 run 的所有标识去重后**总数 ≤ 1** 时抛
+  `ValueError("indistinguishable identifiers: ...")`
+
+- [ ] **Step 4: 跑测试确认通过**
+
+Run: `.venv/bin/python -m pytest scripts/tests/test_jitter_probe.py -v`
+Expected: 4 passed
+
+- [ ] **Step 5: 对挤占最重的题跑抖动实测**
+
+对 q38 + 层① 榜上 max_cluster ≥5 的题各跑 `--runs 12`:
+
+```bash
+.venv/bin/python -m eval.jitter_probe --runs 12 --config both \
+  --output evidence/checkpoints/topk_jitter.json
+```
+
+- [ ] **Step 6: 判定 + 写证据**
+
+写 `evidence/checkpoints/topk_jitter.md`, 含完整命令 + 原始输出 + 结论:
+
+| 观察 | 结论 | 对 Task 4 的要求 |
+|---|---|---|
+| 12 次 `distinct_orders == 1` 且 `sometimes == 0` | 抖动不影响 top-15 | `JITTER_AFFECTS_STATS = false`, Task 4 单次取样即可, 但证据里要写明"已用 12 次验稳" |
+| 顺序变但成分不变 (`sometimes == 0`) | 只影响排序 | `max_cluster`/`dup_seats` **不受影响** (它们是集合统计) → false, 但须在证据里点明"顺序不可复现, 任何按排位下的结论无效" |
+| 成分变 (`sometimes > 0`) | 影响集合统计 | `JITTER_AFFECTS_STATS = true` → **Task 4 探针必须跑 N 次取交集/众数, 并报告每题的稳定性**; 层① 已发布的数字须重算 |
+
+**无论结论如何**, 层① 证据里必须附一句可复现性声明, 说明数字是单次还是 N 次取样。
+
+- [ ] **Step 7: Commit**
+
+```bash
+git add eval/jitter_probe.py scripts/tests/test_jitter_probe.py \
+        evidence/checkpoints/topk_jitter.md evidence/checkpoints/topk_jitter.json
+git commit -m "test(eval): top-k 抖动量化 — embedding 非确定性对同质簇尾部的影响"
+```
+
+---
+
 ### Task 4: 层① 挤占结构探针落库 (段②2a)
 
 **Files:**
@@ -819,6 +1071,19 @@ git commit -m "test(eval): 池深度不变性实测 — 定 A/B 对照的池策�
 而不是先写在 eval 里、Task 7 再搬家。
 
 **为什么**: gold 判据对挤占结构性失明 (S1 钉死 recall), 必须换外部锚 = 答案正确性。
+
+**Task 1 带来的口径修正 (必读)**: q38 在 **dense-only** 下补完 gold 得 0.5, 在**生产口径
+(hybrid + S1)** 下仍是 **0.0** —— hybrid RRF 把 dense 排**第 1** 的 `ch04 §4.2.2` 挤出了 top-15。
+故挤占的形态是"把已排第 1 的正确 chunk 挤掉", 比 spec 初稿描述的更严重。
+
+**Task 1 提出的待验假设 (段② 应独立证伪, 不许当成已知事实引用)**:
+> hybrid 的 BM25 侧在 `domain` / `code` 这类高频标识符词上, 召回被 63 个同构 chunk
+> (每个域各一条 `§DOMAIN` 节) **摊平**, 于是 RRF 融合后同构簇整体上浮, 挤掉 dense 的头名。
+
+验证方法: 对 q38 分别取 dense-only / BM25-only / hybrid 三路的 top-15,
+看 `§DOMAIN` 簇在各路的席位数与排名。若 BM25-only 里该簇席位显著多于 dense-only,
+假设成立。**结果无论正反都要写进 `crowding_layer2.md`** —— 若证伪, 说明挤占源在 dense 侧,
+per-section 配额仍适用但归因描述要改。
 
 **判定规则 (spec §2.2b, 先写死, 不许看到数据再改)**:
 
