@@ -1,0 +1,3475 @@
+{
+ "_meta": {
+  "n_perturbations": 60,
+  "l2": 0.0008756,
+  "seed": 20260807,
+  "top_k": 15,
+  "config": "hybrid+structured_lookup (生产口径)",
+  "n_questions": 140,
+  "elapsed_s": 131.5,
+  "compositions_changed": [
+   "q31",
+   "q38",
+   "q39",
+   "q46",
+   "q47"
+  ],
+  "section_multisets_changed": [
+   "q31",
+   "q46",
+   "q47"
+  ]
+ },
+ "questions": {
+  "q01": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "4.2.8 Multiple Values for a Variable": 1,
+      "4.3.6 Storing Topic Variables for General Domain Models": 1,
+      "4.5.3 Text Strings that Exceed the Maximum Length for General Observation-class Domain Variables": 1,
+      "AEDECOD": 1,
+      "AEREFID": 1,
+      "AETERM": 1,
+      "Controlled Terminology": 1,
+      "Example 1": 1,
+      "Example 3": 1,
+      "Example 6": 1,
+      "item_1": 1,
+      "item_10": 1,
+      "item_2": 1,
+      "item_5": 1,
+      "item_9": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q02": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "2.1 Model Concepts and Terms — Variables": 1,
+      "4.1.5 SDTM Core Designations": 1,
+      "4.2.2 Two-character Domain Identifier": 1,
+      "Controlled Terminology": 1,
+      "DOMAIN": 2,
+      "Example": 1,
+      "Example 1": 1,
+      "Example 2": 1,
+      "General References": 1,
+      "Model Definition": 1,
+      "overview": 2,
+      "§一 通用变量: DOMAIN": 1,
+      "§一 通用变量: RDOMAIN": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q03": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "8.6.3 Guidelines for Differentiating Between Interventions, Events, Findings, and Findings About Events or Interventions": 1,
+      "AE — Adverse Events (Events)": 1,
+      "Example 1": 1,
+      "Example 4": 2,
+      "Example 6": 1,
+      "item_1": 1,
+      "item_2": 2,
+      "item_3": 1,
+      "item_4": 1,
+      "item_6": 1,
+      "item_7": 1,
+      "item_8": 1,
+      "overview": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q04": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "2.1 Model Concepts and Terms — Variables": 1,
+      "4.4.5 Clinical Encounters and Visits": 1,
+      "Example 1": 1,
+      "Model Definition": 1,
+      "Related Domains": 1,
+      "TV — Trial Visits (Trial Design)": 1,
+      "TVSTRL": 1,
+      "Trial Arms Issues": 1,
+      "Trial Visits Issues": 1,
+      "VISIT": 1,
+      "item_1": 2,
+      "overview": 3
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q05": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "4.5.1 Original and Standardized Results": 1,
+      "8.6.3 Guidelines for Differentiating Between Interventions, Events, Findings, and Findings About Events or Interventions": 1,
+      "Example 1": 1,
+      "Example 2": 1,
+      "Example 3": 1,
+      "Mini-Mental State Examination Functional Test Test Name": 1,
+      "PE — Physical Examination (Findings)": 1,
+      "PEDTC": 1,
+      "PELOC": 1,
+      "PETEST": 1,
+      "PETESTCD": 1,
+      "item_1": 1,
+      "item_2": 1,
+      "overview": 1,
+      "whole_file": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q21": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "4.5.1 Original and Standardized Results": 1,
+      "Controlled Terminology": 1,
+      "Example 1": 1,
+      "LBSCAT": 1,
+      "LBTEST": 1,
+      "LBTESTCD": 1,
+      "item_4": 1,
+      "item_8": 1,
+      "lb_part2": 1,
+      "whole_file": 2,
+      "§三 CT 交叉引用: C102580": 1,
+      "§三 CT 交叉引用: C179589": 1,
+      "§三 CT 交叉引用: C65047": 1,
+      "§三 CT 交叉引用: C67154": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q22": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "4.5.1 Original and Standardized Results": 1,
+      "4.5.5 Clinical Significance for Findings Observation Class Data": 1,
+      "Controlled Terminology": 1,
+      "Units for Vital Signs Results": 1,
+      "VS — Vital Signs (Findings)": 1,
+      "VSLOC": 1,
+      "VSPOS": 1,
+      "VSSCAT": 1,
+      "VSSTAT": 1,
+      "VSTEST": 1,
+      "VSTESTCD": 1,
+      "item_2": 1,
+      "item_3": 1,
+      "overview": 1,
+      "§三 CT 交叉引用: C66741": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q23": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "8.1.1 --GRPID Example": 1,
+      "8.2.2 RELREC Dataset Examples": 1,
+      "CM — Concomitant/Prior Medications (Interventions)": 1,
+      "CMCAT": 1,
+      "CMCLAS": 1,
+      "CMCLASCD": 1,
+      "CMTRT": 1,
+      "Example 3": 1,
+      "Example 4": 1,
+      "Example 5": 1,
+      "Related Domains": 1,
+      "item_2": 1,
+      "item_3": 1,
+      "item_5": 1,
+      "overview": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q24": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "4.3.6 Storing Topic Variables for General Domain Models": 1,
+      "EX — Exposure (Interventions)": 1,
+      "EXCAT": 1,
+      "EXDOSTXT": 1,
+      "EXELTM": 1,
+      "Example 2": 2,
+      "Related Domains": 2,
+      "item_1": 2,
+      "item_2": 1,
+      "item_4": 1,
+      "item_5": 1,
+      "item_6": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q25": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "Controlled Terminology": 1,
+      "Example 1": 1,
+      "Example 2": 1,
+      "Example 3": 2,
+      "Example 5": 1,
+      "MH — Medical History (Events)": 1,
+      "MHDTC": 1,
+      "MHOCCUR": 1,
+      "MHSCAT": 1,
+      "MHTERM": 1,
+      "item_2": 1,
+      "item_3": 1,
+      "item_4": 1,
+      "overview": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q26": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "Controlled Terminology": 1,
+      "ECG Test Method": 1,
+      "EG — ECG Test Results (Findings)": 1,
+      "EGTEST": 1,
+      "EGTESTCD": 1,
+      "Example 1": 1,
+      "Example 2": 2,
+      "Holter ECG Test Code": 1,
+      "item_10": 1,
+      "§三 CT 交叉引用: C101834": 1,
+      "§三 CT 交叉引用: C120522": 1,
+      "§三 CT 交叉引用: C120523": 1,
+      "§三 CT 交叉引用: C120524": 1,
+      "§三 CT 交叉引用: C71153": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q27": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "Category of Inclusion/Exclusion": 1,
+      "IE — Inclusion/Exclusion Criteria Not Met (Findings)": 1,
+      "IEORRES": 1,
+      "IESTRESC": 1,
+      "IETEST": 2,
+      "IETESTCD": 1,
+      "item_1": 1,
+      "item_2": 1,
+      "item_3": 1,
+      "item_4": 1,
+      "§一 通用变量: IECAT": 1,
+      "§一 通用变量: IESCAT": 1,
+      "§一 通用变量: IETEST": 1,
+      "§一 通用变量: IETESTCD": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q06": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "4.5.3 Text Strings that Exceed the Maximum Length for General Observation-class Domain Variables": 1,
+      "4.5.4 Evaluators in the Interventions and Events Observation Classes": 1,
+      "6.2 Supplemental Qualifiers (SUPP--)": 1,
+      "8.3.1 RELREC Dataset Relationship Example": 1,
+      "8.4.1 Supplemental Qualifiers (SUPP--)": 1,
+      "8.4.2 Submitting Supplemental Qualifiers in Separate Datasets": 1,
+      "8.4.4 When Not to Use Supplemental Qualifiers": 1,
+      "Controlled Terminology": 1,
+      "Key Rules": 1,
+      "QEVAL": 1,
+      "QNAM": 1,
+      "QVAL": 1,
+      "SUPPQUAL — Supplemental Qualifiers for [domain name] (Relationship)": 1,
+      "item_6": 1,
+      "overview": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q07": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "2.1 Model Concepts and Terms — Variables": 1,
+      "4.1.1 Review Study Data Tabulation Model and Implementation Guide": 1,
+      "4.1.3 Additional Timing Variables": 1,
+      "4.5.9 Baseline Values": 1,
+      "EPOCH": 5,
+      "item_12": 1,
+      "item_15": 1,
+      "overview": 1,
+      "whole_file": 2,
+      "§一 通用变量: EPOCH": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q08": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "4.5.9 Baseline Values": 1,
+      "8.3.1 RELREC Dataset Relationship Example": 1,
+      "Overview": 1,
+      "USUBJID": 7,
+      "item_1": 1,
+      "item_2": 1,
+      "whole_file": 2,
+      "§一 通用变量: USUBJID": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q09": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "8.1.1 --GRPID Example": 1,
+      "8.2.2 RELREC Dataset Examples": 1,
+      "8.6.3 Guidelines for Differentiating Between Interventions, Events, Findings, and Findings About Events or Interventions": 1,
+      "AECONTRT": 1,
+      "Peer Record Examples": 1,
+      "RELID": 1,
+      "Related Domains": 2,
+      "item_1": 1,
+      "item_3": 1,
+      "item_4": 1,
+      "item_6": 2,
+      "item_7": 1,
+      "overview": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q10": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "Controlled Terminology": 2,
+      "Oncology Response Assessment Test Code": 1,
+      "Oncology Response Assessment Test Name": 1,
+      "RS — Examples - Disease Response": 1,
+      "Related Domains": 1,
+      "item_1": 1,
+      "item_2": 3,
+      "item_3": 1,
+      "item_4": 1,
+      "item_5": 1,
+      "item_6": 1,
+      "overview": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q28": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "3.1.3 The Findings Observation Class": 1,
+      "8.6.3 Guidelines for Differentiating Between Interventions, Events, Findings, and Findings About Events or Interventions": 1,
+      "Example 2": 1,
+      "Example 4": 1,
+      "Example 6": 1,
+      "FA — Findings About Events or Interventions (Findings About)": 1,
+      "FAOBJ": 1,
+      "Related Domains": 4,
+      "item_2": 1,
+      "item_4": 1,
+      "item_6": 1,
+      "whole_file": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q29": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "5.1 Trial Design Model": 1,
+      "Example 1": 2,
+      "Related Domains": 7,
+      "Trial Arms Issues": 1,
+      "Trial Elements Issues": 1,
+      "overview": 3
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q30": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "2.1 Model Concepts and Terms — Variables": 1,
+      "4.2.2 Two-character Domain Identifier": 1,
+      "8.4.4 When Not to Use Supplemental Qualifiers": 1,
+      "Comments (CO)": 1,
+      "Controlled Terminology": 1,
+      "Example 1": 1,
+      "item_1": 1,
+      "item_3": 1,
+      "item_4": 1,
+      "overview": 2,
+      "whole_file": 2,
+      "§一 通用变量: IDVAR": 1,
+      "§一 通用变量: RDOMAIN": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q31": {
+   "n_distinct_compositions": 2,
+   "n_distinct_section_multisets": 2,
+   "section_multisets": [
+    {
+     "counts": {
+      "Example 3": 1,
+      "Example 4": 1,
+      "Example 7": 1,
+      "Related Domains": 3,
+      "item_1": 4,
+      "item_12": 1,
+      "item_4": 1,
+      "item_5": 1,
+      "item_6": 2
+     },
+     "n_runs": 42
+    },
+    {
+     "counts": {
+      "Example 3": 1,
+      "Example 5": 1,
+      "Example 7": 1,
+      "Related Domains": 3,
+      "item_1": 4,
+      "item_12": 1,
+      "item_4": 1,
+      "item_5": 1,
+      "item_6": 2
+     },
+     "n_runs": 18
+    }
+   ]
+  },
+  "q32": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "4.4.5 Clinical Encounters and Visits": 1,
+      "8.6.3 Guidelines for Differentiating Between Interventions, Events, Findings, and Findings About Events or Interventions": 1,
+      "SV — Subject Visits (Special-Purpose)": 1,
+      "Subject Visits (SV)": 1,
+      "Trial Visits Issues": 1,
+      "VISIT": 1,
+      "VISITNUM": 3,
+      "item_6": 2,
+      "overview": 1,
+      "whole_file": 1,
+      "§一 通用变量: VISIT": 1,
+      "§一 通用变量: VISITNUM": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q33": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "6.1 Related Records (RELREC)": 1,
+      "6.7 Related Specimens (RELSPEC)": 1,
+      "8.1.1 --GRPID Example": 1,
+      "8.2.1 Related Records (RELREC)": 1,
+      "8.2.2 RELREC Dataset Examples": 1,
+      "8.3.1 RELREC Dataset Relationship Example": 1,
+      "Assumptions": 2,
+      "Peer Record Examples": 1,
+      "RELID": 1,
+      "Related Domains": 1,
+      "Summary of Relationship Datasets": 1,
+      "item_1": 1,
+      "item_2": 1,
+      "overview": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q34": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "4.1.6 Additional Guidance on Dataset Naming": 1,
+      "4.3.1 Controlled Terms, Codelist or Format Column": 1,
+      "4.3.3 Controlled Terminology Values": 1,
+      "4.5.7 Presence or Absence of Prespecified Interventions and Events": 1,
+      "Controlled Terminology": 1,
+      "No Yes Response": 1,
+      "overview": 1,
+      "whole_file": 2,
+      "§三 CT 交叉引用: C66726": 1,
+      "§三 CT 交叉引用: C66727": 1,
+      "§三 CT 交叉引用: C66731": 1,
+      "§三 CT 交叉引用: C66734": 1,
+      "§三 CT 交叉引用: C66742": 1,
+      "§三 CT 交叉引用: C85491": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q11": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "2.1 Model Concepts and Terms — Variables": 1,
+      "3.1.1 The Interventions Observation Class": 1,
+      "4.1.1 Review Study Data Tabulation Model and Implementation Guide": 1,
+      "4.1.4 Order of the Variables": 1,
+      "4.1.5 SDTM Core Designations": 1,
+      "4.2.2 Two-character Domain Identifier": 1,
+      "8.6.1 Guidelines for Determining the General Observation Class": 1,
+      "Appendix B: Glossary and Abbreviations": 1,
+      "Overview": 3,
+      "SDTM Version Response": 1,
+      "SDTMIG Version Response": 1,
+      "item_5": 1,
+      "whole_file": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q12": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "4.1.5 SDTM Core Designations": 1,
+      "4.3.3 Controlled Terminology Values": 1,
+      "AEREL": 1,
+      "Controlled Terminology": 3,
+      "DD — Death Details (Findings)": 1,
+      "Example 7": 1,
+      "Hypoglycemic Confidence Scale Questionnaire Test Code": 1,
+      "Hypoglycemic Confidence Scale Questionnaire Test Name": 1,
+      "SDTM Version Response": 1,
+      "SR — Skin Response (Findings About)": 1,
+      "TS — Trial Summary (Trial Design)": 1,
+      "overview": 1,
+      "§一 通用变量: ETCD": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q13": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "2.1 Model Concepts and Terms — Variables": 1,
+      "3.1.3 The Findings Observation Class": 1,
+      "4.1.4 Order of the Variables": 1,
+      "5.1 Trial Design Model": 1,
+      "5.2 Study References": 1,
+      "6.1 Related Records (RELREC)": 1,
+      "6.2 Supplemental Qualifiers (SUPP--)": 1,
+      "8.4.1 Supplemental Qualifiers (SUPP--)": 1,
+      "IDVAR": 1,
+      "SUPPQUAL — Supplemental Qualifiers for [domain name] (Relationship)": 1,
+      "item_3": 1,
+      "item_6": 1,
+      "whole_file": 1,
+      "§一 通用变量: IDVAR": 1,
+      "§一 通用变量: IDVARVAL": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q14": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "2.1 Model Concepts and Terms — Variables": 1,
+      "4.1.6 Additional Guidance on Dataset Naming": 1,
+      "4.2.2 Two-character Domain Identifier": 1,
+      "8.6.1 Guidelines for Determining the General Observation Class": 1,
+      "Appendix E: Revision History": 1,
+      "Controlled Terminology": 1,
+      "DOMAIN": 1,
+      "item_1": 1,
+      "item_3": 1,
+      "overview": 1,
+      "whole_file": 3,
+      "§一 通用变量: DOMAIN": 1,
+      "§一 通用变量: SPDEVID": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q15": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "2.1 Model Concepts and Terms — Variables": 1,
+      "2.2 Table Structure": 1,
+      "4.1.5 SDTM Core Designations": 1,
+      "4.2.2 Two-character Domain Identifier": 1,
+      "4.2.6 Grouping Variables and Categorization": 1,
+      "4.2.9 Variable Lengths": 1,
+      "4.3.3 Controlled Terminology Values": 1,
+      "4.3.7 Use of \"Yes\" and \"No\" Values": 1,
+      "4.5.7 Presence or Absence of Prespecified Interventions and Events": 1,
+      "8.3.1 RELREC Dataset Relationship Example": 1,
+      "8.6.3 Guidelines for Differentiating Between Interventions, Events, Findings, and Findings About Events or Interventions": 1,
+      "Overview": 1,
+      "item_5": 1,
+      "whole_file": 2
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q35": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "2.1 Model Concepts and Terms — Variables": 1,
+      "2.2 Table Structure": 1,
+      "4.1.5 SDTM Core Designations": 1,
+      "4.2.1 Variable-Naming Conventions": 1,
+      "4.2.9 Variable Lengths": 1,
+      "4.3.1 Controlled Terms, Codelist or Format Column": 1,
+      "4.3.2 Controlled Terminology Text Case": 1,
+      "4.3.3 Controlled Terminology Values": 1,
+      "4.5.9 Baseline Values": 1,
+      "8.3.1 RELREC Dataset Relationship Example": 1,
+      "Appendix C: Controlled Terminology": 1,
+      "item_8": 1,
+      "whole_file": 2,
+      "§一 通用变量: ETCD": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q36": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "2.1 Model Concepts and Terms — Variables": 1,
+      "3.1.5 Timing Variables for All Classes": 1,
+      "4.1.3 Additional Timing Variables": 1,
+      "4.2.1 Variable-Naming Conventions": 1,
+      "4.2.2 Two-character Domain Identifier": 1,
+      "4.3.7 Use of \"Yes\" and \"No\" Values": 1,
+      "4.4.1 Formats for Date/Time Variables": 1,
+      "4.4.4 Use of the Study Day Variables": 1,
+      "4.4.8 Date and Time Reported in a Domain Based on Findings": 1,
+      "Overview": 1,
+      "item_11": 1,
+      "item_15": 1,
+      "item_4": 1,
+      "item_6": 1,
+      "whole_file": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q37": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "2.1 Model Concepts and Terms — Variables": 1,
+      "4.1.1 Review Study Data Tabulation Model and Implementation Guide": 1,
+      "4.1.6 Additional Guidance on Dataset Naming": 1,
+      "4.2.2 Two-character Domain Identifier": 1,
+      "Appendix E: Revision History": 1,
+      "Overview": 2,
+      "SDTM Domain Abbreviation": 1,
+      "item_1": 1,
+      "overview": 3,
+      "whole_file": 3
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q38": {
+   "n_distinct_compositions": 5,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "4.1.6 Additional Guidance on Dataset Naming": 1,
+      "DOMAIN": 14
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q39": {
+   "n_distinct_compositions": 2,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "3.1.3 The Findings Observation Class": 1,
+      "4.1.4 Order of the Variables": 1,
+      "8.6.1 Guidelines for Determining the General Observation Class": 1,
+      "8.6.3 Guidelines for Differentiating Between Interventions, Events, Findings, and Findings About Events or Interventions": 1,
+      "Model Definition": 8,
+      "item_6": 1,
+      "whole_file": 2
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q40": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "2.1 Model Concepts and Terms — Variables": 1,
+      "2.2 Table Structure": 1,
+      "4.1.5 SDTM Core Designations": 1,
+      "4.1.8 Origin Metadata": 1,
+      "4.2.6 Grouping Variables and Categorization": 1,
+      "4.3.7 Use of \"Yes\" and \"No\" Values": 1,
+      "8.3.1 RELREC Dataset Relationship Example": 1,
+      "Overview": 1,
+      "SDTM Version Response": 1,
+      "item_4": 2,
+      "item_6": 1,
+      "whole_file": 3
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q41": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "2.1 Model Concepts and Terms — Variables": 1,
+      "4.1.1 Review Study Data Tabulation Model and Implementation Guide": 1,
+      "Appendix B: Glossary and Abbreviations": 1,
+      "Model Definition": 3,
+      "Overview": 1,
+      "Trial Elements Issues": 1,
+      "Trial Summary Parameter Test Code": 1,
+      "Trial Summary Parameter Test Name": 1,
+      "item_5": 1,
+      "overview": 2,
+      "whole_file": 2
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q16": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "4.3.3 Controlled Terminology Values": 1,
+      "AESEV": 1,
+      "Example 7": 1,
+      "Mini-Mental State Examination Functional Test Test Code": 1,
+      "Patient-Reported Outcomes Version of the Common Terminology Criteria for Adverse Events Item Library Version 1.0 Questionnaire Test Code": 1,
+      "Patient-Reported Outcomes Version of the Common Terminology Criteria for Adverse Events Item Library Version 1.0 Questionnaire Test Name": 1,
+      "Severity/Intensity Scale for Adverse Events": 1,
+      "item_10": 1,
+      "item_2": 1,
+      "§三 CT 交叉引用: C111110": 1,
+      "§三 CT 交叉引用: C165643": 1,
+      "§三 CT 交叉引用: C66767": 1,
+      "§三 CT 交叉引用: C66768": 1,
+      "§三 CT 交叉引用: C66769": 1,
+      "§三 CT 交叉引用: C78735": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q17": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "2.1 Model Concepts and Terms — Variables": 1,
+      "2.2 Table Structure": 1,
+      "4.2.1 Variable-Naming Conventions": 1,
+      "4.3.7 Use of \"Yes\" and \"No\" Values": 1,
+      "4.4.1 Formats for Date/Time Variables": 1,
+      "4.4.2 Date/Time Precision": 1,
+      "Alcohol Use Disorder Identification Test: Self-Report Version Questionnaire Test Name": 1,
+      "DMDTC": 1,
+      "SDTM Version Response": 1,
+      "SSDTC": 1,
+      "Treatment Satisfaction Questionnaire for Medication Version 1.4 Questionnaire Test Code": 1,
+      "Treatment Satisfaction Questionnaire for Medication Version 1.4 Questionnaire Test Name": 1,
+      "VSDTC": 1,
+      "whole_file": 2
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q18": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "3.1.2 The Events Observation Class": 1,
+      "4.3.5 Storing Controlled Terminology for Synonym Qualifier Variables (MedDRA and WHODrug)": 1,
+      "AE — Adverse Events (Events)": 1,
+      "AEDECOD": 1,
+      "AEHLTCD": 1,
+      "AELLTCD": 1,
+      "AEPTCD": 1,
+      "AETERM": 1,
+      "Dictionary Name": 1,
+      "Example 1": 1,
+      "MHDECOD": 1,
+      "item_2": 3,
+      "item_3": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q19": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "Category of Disposition Event": 1,
+      "Controlled Terminology": 1,
+      "DS — Disposition (Events)": 1,
+      "DSDECOD": 1,
+      "DSSCAT": 1,
+      "Example 1": 1,
+      "item_2": 1,
+      "item_3": 1,
+      "item_4": 1,
+      "item_5": 1,
+      "item_7": 1,
+      "§三 CT 交叉引用: C114118": 1,
+      "§三 CT 交叉引用: C150811": 1,
+      "§三 CT 交叉引用: C66727": 1,
+      "§三 CT 交叉引用: C74558": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q20": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "AEENRF": 1,
+      "AGENRF": 1,
+      "CEENRF": 1,
+      "CESTRF": 1,
+      "CMENRF": 1,
+      "CMSTRF": 1,
+      "Demographics (DM)": 1,
+      "MHENRF": 1,
+      "RFENDTC": 1,
+      "RFSTDTC": 1,
+      "RFXENDTC": 1,
+      "RFXSTDTC": 1,
+      "item_10": 1,
+      "item_7": 1,
+      "item_9": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q42": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "CPNRIND": 1,
+      "Example 1": 1,
+      "ISNRIND": 1,
+      "LB — Laboratory Test Results (Findings)": 1,
+      "LBNRIND": 1,
+      "LBORNRHI": 1,
+      "LBORNRLO": 1,
+      "LBSTNRC": 1,
+      "LBSTNRHI": 1,
+      "LBSTNRLO": 1,
+      "OERESCAT": 1,
+      "Reference Range Indicator": 1,
+      "item_2": 1,
+      "item_3": 1,
+      "item_5": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q43": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "4.1.6 Additional Guidance on Dataset Naming": 1,
+      "SEX": 1,
+      "Sex": 1,
+      "whole_file": 1,
+      "§三 CT 交叉引用: C116107": 1,
+      "§三 CT 交叉引用: C124297": 1,
+      "§三 CT 交叉引用: C142179": 1,
+      "§三 CT 交叉引用: C170443": 1,
+      "§三 CT 交叉引用: C66726": 1,
+      "§三 CT 交叉引用: C66727": 1,
+      "§三 CT 交叉引用: C66731": 1,
+      "§三 CT 交叉引用: C66734": 1,
+      "§三 CT 交叉引用: C66781": 1,
+      "§三 CT 交叉引用: C66790": 1,
+      "§三 CT 交叉引用: C74457": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q44": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "4.5.5 Clinical Significance for Findings Observation Class Data": 1,
+      "Controlled Terminology": 2,
+      "Example 1": 1,
+      "Units for Vital Signs Results": 1,
+      "VS — Vital Signs (Findings)": 1,
+      "VSTEST": 1,
+      "VSTESTCD": 1,
+      "Vital Signs Test Code": 1,
+      "Vital Signs Test Name": 1,
+      "item_3": 1,
+      "§三 CT 交叉引用: C124300": 1,
+      "§三 CT 交叉引用: C66741": 1,
+      "§三 CT 交叉引用: C66770": 1,
+      "§三 CT 交叉引用: C67153": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q45": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "Controlled Terminology": 1,
+      "Example 4": 1,
+      "Example 6": 1,
+      "Example 7": 1,
+      "Patient-Reported Outcomes Version of the Common Terminology Criteria for Adverse Events Item Library Version 1.0 Questionnaire Test Code": 1,
+      "Patient-Reported Outcomes Version of the Common Terminology Criteria for Adverse Events Item Library Version 1.0 Questionnaire Test Name": 1,
+      "RACE": 1,
+      "Race": 1,
+      "item_1": 1,
+      "item_6": 1,
+      "whole_file": 1,
+      "§三 CT 交叉引用: C142179": 1,
+      "§三 CT 交叉引用: C66734": 1,
+      "§三 CT 交叉引用: C66790": 1,
+      "§三 CT 交叉引用: C74457": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q46": {
+   "n_distinct_compositions": 2,
+   "n_distinct_section_multisets": 2,
+   "section_multisets": [
+    {
+     "counts": {
+      "3.1.2 The Events Observation Class": 1,
+      "AE — Adverse Events (Events)": 1,
+      "AEACN": 1,
+      "AECAT": 1,
+      "AEOUT": 1,
+      "AETERM": 1,
+      "Controlled Terminology": 1,
+      "Example 1": 1,
+      "Example 4": 1,
+      "Example 6": 1,
+      "Outcome of Event": 1,
+      "item_2": 2,
+      "item_7": 1,
+      "§三 CT 交叉引用: C66768": 1
+     },
+     "n_runs": 45
+    },
+    {
+     "counts": {
+      "AE — Adverse Events (Events)": 1,
+      "AEACN": 1,
+      "AECAT": 1,
+      "AEOUT": 1,
+      "AETERM": 1,
+      "Controlled Terminology": 1,
+      "Example 1": 1,
+      "Example 4": 1,
+      "Example 6": 1,
+      "Outcome of Event": 1,
+      "item_2": 2,
+      "item_7": 1,
+      "§三 CT 交叉引用: C111110": 1,
+      "§三 CT 交叉引用: C66768": 1
+     },
+     "n_runs": 15
+    }
+   ]
+  },
+  "q47": {
+   "n_distinct_compositions": 2,
+   "n_distinct_section_multisets": 2,
+   "section_multisets": [
+    {
+     "counts": {
+      "2.1 Model Concepts and Terms — Variables": 1,
+      "4.1.7 Splitting Domains": 1,
+      "8.4.3 Examples": 1,
+      "8.6.2 Guidelines for Forming New Domains": 1,
+      "Example 2": 1,
+      "Pediatric Outcomes Data Collection Instrument, Adolescent Parent-Reported Version Questionnaire Test Name": 1,
+      "Pediatric Outcomes Data Collection Instrument, Pediatric Parent-Reported Version Questionnaire Test Name": 1,
+      "QS — Questionnaires (Findings)": 1,
+      "QSCAT": 1,
+      "QSTEST": 1,
+      "QSTESTCD": 1,
+      "item_1": 1,
+      "item_9": 2,
+      "whole_file": 1
+     },
+     "n_runs": 46
+    },
+    {
+     "counts": {
+      "2.1 Model Concepts and Terms — Variables": 1,
+      "4.1.7 Splitting Domains": 1,
+      "8.4.3 Examples": 1,
+      "8.6.2 Guidelines for Forming New Domains": 1,
+      "Example 2": 1,
+      "Pediatric Outcomes Data Collection Instrument, Adolescent Parent-Reported Version Questionnaire Test Name": 1,
+      "Pediatric Outcomes Data Collection Instrument, Pediatric Parent-Reported Version Questionnaire Test Name": 1,
+      "QS — Questionnaires (Findings)": 1,
+      "QSCAT": 1,
+      "QSTESTCD": 1,
+      "item_1": 2,
+      "item_9": 2,
+      "whole_file": 1
+     },
+     "n_runs": 14
+    }
+   ]
+  },
+  "q48": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "3.1.3 The Findings Observation Class": 1,
+      "Appendix E: Revision History": 1,
+      "Controlled Terminology": 1,
+      "Example 1": 1,
+      "FATESTCD": 1,
+      "FTTESTCD": 1,
+      "Findings About Test Code": 1,
+      "item_4": 1,
+      "whole_file": 2,
+      "§三 CT 交叉引用: C101832": 1,
+      "§三 CT 交叉引用: C101833": 1,
+      "§三 CT 交叉引用: C115304": 1,
+      "§三 CT 交叉引用: C181178": 1,
+      "§三 CT 交叉引用: C85839": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "s01": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "Controlled Terminology": 1,
+      "Example 7": 1,
+      "Key Rules": 1,
+      "Patient-Reported Outcomes Version of the Common Terminology Criteria for Adverse Events Item Library Version 1.0 Questionnaire Test Code": 1,
+      "Patient-Reported Outcomes Version of the Common Terminology Criteria for Adverse Events Item Library Version 1.0 Questionnaire Test Name": 1,
+      "SEX": 1,
+      "Sex": 1,
+      "item_18": 1,
+      "item_6": 1,
+      "§三 CT 交叉引用: C66726": 1,
+      "§三 CT 交叉引用: C66731": 1,
+      "§三 CT 交叉引用: C66734": 1,
+      "§三 CT 交叉引用: C66781": 1,
+      "§三 CT 交叉引用: C66790": 1,
+      "§三 CT 交叉引用: C74457": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "s02": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "4.2.1 Variable-Naming Conventions": 1,
+      "4.2.9 Variable Lengths": 1,
+      "4.5.3 Text Strings that Exceed the Maximum Length for General Observation-class Domain Variables": 1,
+      "4.5.4 Evaluators in the Interventions and Events Observation Classes": 1,
+      "6.2 Supplemental Qualifiers (SUPP--)": 1,
+      "8.4.1 Supplemental Qualifiers (SUPP--)": 1,
+      "8.4.2 Submitting Supplemental Qualifiers in Separate Datasets": 1,
+      "Example 7": 1,
+      "Key Rules": 1,
+      "Mini-Mental State Examination 2 Standard Version Functional Test Test Name": 1,
+      "QEVAL": 1,
+      "QLABEL": 1,
+      "QNAM": 1,
+      "QVAL": 1,
+      "SUPPQUAL — Supplemental Qualifiers for [domain name] (Relationship)": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "s03": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "2.1 Model Concepts and Terms — Variables": 1,
+      "4.5.9 Baseline Values": 1,
+      "CPCSMRKS": 1,
+      "Demographics (DM)": 1,
+      "EXENDTC": 1,
+      "EXSTDY": 1,
+      "Example 6": 1,
+      "RFCENDTC": 1,
+      "RFXENDTC": 1,
+      "RFXSTDTC": 1,
+      "item_10": 1,
+      "item_4": 1,
+      "item_5": 1,
+      "item_7": 1,
+      "item_9": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "s04": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "4.2.7 Submitting Free Text from the CRF": 1,
+      "4.2.8 Multiple Values for a Variable": 1,
+      "4.5.3 Text Strings that Exceed the Maximum Length for General Observation-class Domain Variables": 1,
+      "AEACN": 1,
+      "AEACNOTH": 1,
+      "AEHLTCD": 1,
+      "AEREL": 1,
+      "Action Taken with Study Treatment": 1,
+      "Controlled Terminology": 1,
+      "Example 1": 1,
+      "item_2": 1,
+      "item_6": 1,
+      "§三 CT 交叉引用: C111110": 1,
+      "§三 CT 交叉引用: C66767": 1,
+      "§三 CT 交叉引用: C66769": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "s05": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "4.3.3 Controlled Terminology Values": 1,
+      "Controlled Terminology": 1,
+      "Example 1": 1,
+      "Units for Vital Signs Results": 1,
+      "Vital Signs Test Code": 1,
+      "item_1": 2,
+      "item_3": 1,
+      "§三 CT 交叉引用: C116104": 1,
+      "§三 CT 交叉引用: C120525": 1,
+      "§三 CT 交叉引用: C124300": 1,
+      "§三 CT 交叉引用: C124305": 1,
+      "§三 CT 交叉引用: C66741": 1,
+      "§三 CT 交叉引用: C66770": 1,
+      "§三 CT 交叉引用: C67153": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q54": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "2.1 Model Concepts and Terms — Variables": 1,
+      "3.1.3 The Findings Observation Class": 1,
+      "4.3.6 Storing Topic Variables for General Domain Models": 1,
+      "BETERM": 1,
+      "DV — Protocol Deviations (Events)": 1,
+      "DVCAT": 1,
+      "DVDECOD": 1,
+      "DVSCAT": 1,
+      "DVTERM": 1,
+      "Example 1": 1,
+      "item_1": 1,
+      "item_2": 1,
+      "item_3": 1,
+      "item_4": 1,
+      "whole_file": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q55": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "2.1 Model Concepts and Terms — Variables": 1,
+      "4.2.8 Multiple Values for a Variable": 1,
+      "DS — Disposition (Events)": 1,
+      "DSDECOD": 1,
+      "DSDTC": 1,
+      "DSSCAT": 1,
+      "DSTERM": 1,
+      "Example 1": 1,
+      "Example 2": 1,
+      "Example 7": 1,
+      "Example 8": 1,
+      "Overview": 1,
+      "item_3": 1,
+      "item_4": 1,
+      "item_6": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q56": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "3.1.3 The Findings Observation Class": 1,
+      "Example 1": 1,
+      "Related Domains": 1,
+      "SU — Substance Use (Interventions)": 1,
+      "SUCAT": 1,
+      "SUCLAS": 1,
+      "SUCLASCD": 1,
+      "SUDECOD": 1,
+      "SUDOSE": 1,
+      "SUDOSTOT": 1,
+      "SUOCCUR": 1,
+      "SUTRT": 1,
+      "item_1": 1,
+      "item_2": 1,
+      "item_3": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q57": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "Example 1": 1,
+      "Example 2": 1,
+      "Example 3": 3,
+      "PR — Procedures (Interventions)": 1,
+      "PRDECOD": 1,
+      "PRGRPID": 1,
+      "PRROUTE": 1,
+      "PRTPT": 1,
+      "PRTRT": 1,
+      "item_1": 4
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q58": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "5.1 Trial Design Model": 1,
+      "Controlled Terminology": 1,
+      "Dictionary Name": 1,
+      "TS — Trial Summary (Trial Design)": 1,
+      "TSPARMCD": 1,
+      "item_12": 1,
+      "item_13": 1,
+      "item_17": 1,
+      "item_8": 1,
+      "item_9": 1,
+      "overview": 2,
+      "§三 CT 交叉引用: C66738": 1,
+      "§三 CT 交叉引用: C66788": 1,
+      "§三 CT 交叉引用: C67152": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q59": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "Controlled Terminology": 1,
+      "DD — Death Details (Findings)": 1,
+      "DDTEST": 1,
+      "DDTESTCD": 1,
+      "Example 1": 1,
+      "Example 2": 1,
+      "SDTM Death Diagnosis and Details Test Code": 1,
+      "SDTM Death Diagnosis and Details Test Name": 1,
+      "item_1": 1,
+      "item_2": 1,
+      "item_4": 1,
+      "§三 CT 交叉引用: C116107": 1,
+      "§三 CT 交叉引用: C116108": 1,
+      "§三 CT 交叉引用: C85839": 1,
+      "§三 CT 交叉引用: C96779": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q60": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "3.1.3 The Findings Observation Class": 1,
+      "8.6.3 Guidelines for Differentiating Between Interventions, Events, Findings, and Findings About Events or Interventions": 1,
+      "CE — Clinical Events (Events)": 1,
+      "CECAT": 1,
+      "CEOCCUR": 1,
+      "CEPRESP": 1,
+      "CESCAT": 1,
+      "CETERM": 1,
+      "Example 1": 2,
+      "Example 2": 1,
+      "Example 3": 1,
+      "item_1": 1,
+      "item_6": 1,
+      "whole_file": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q61": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "Controlled Terminology": 1,
+      "Example 1": 1,
+      "Example 2": 1,
+      "Example 3": 1,
+      "MB — Microbiology Specimen (Findings)": 1,
+      "MBTEST": 1,
+      "MBTESTCD": 1,
+      "MBTSTDTL": 1,
+      "Microbiology Findings Test Details": 1,
+      "item_1": 1,
+      "microbiology_part2": 1,
+      "overview": 1,
+      "§6.3.5.7.3 Microbiology Specimen and Microbiology Susceptibility Examples": 1,
+      "§三 CT 交叉引用: C120527": 1,
+      "§三 CT 交叉引用: C120528": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q62": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "Controlled Terminology": 2,
+      "Example 1": 1,
+      "Patient-Reported Outcomes Version of the Common Terminology Criteria for Adverse Events Item Library Version 1.0 Questionnaire Test Code": 1,
+      "Patient-Reported Outcomes Version of the Common Terminology Criteria for Adverse Events Item Library Version 1.0 Questionnaire Test Name": 1,
+      "SS — Subject Status (Findings)": 1,
+      "SSTEST": 1,
+      "SSTESTCD": 1,
+      "Subject Status Test Code": 1,
+      "Subject Status Test Name": 1,
+      "item_7": 1,
+      "whole_file": 1,
+      "§三 CT 交叉引用: C124304": 1,
+      "§三 CT 交叉引用: C124305": 1,
+      "§三 CT 交叉引用: C124306": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q63": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "2.1 Model Concepts and Terms — Variables": 1,
+      "8.6.1 Guidelines for Determining the General Observation Class": 1,
+      "Controlled Terminology": 1,
+      "Example 2": 1,
+      "Overview": 1,
+      "SC – Specification (p340)": 1,
+      "SC — Subject Characteristics (Findings)": 1,
+      "SCCAT": 1,
+      "SCORRES": 1,
+      "SCSCAT": 1,
+      "SDTM Domain Abbreviation": 1,
+      "item_1": 1,
+      "item_3": 1,
+      "overview": 1,
+      "whole_file": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q64": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "8.6.2 Guidelines for Forming New Domains": 1,
+      "Method D (One to One, Using PCSEQ and PPSEQ)": 1,
+      "PC — Pharmacokinetics Concentrations (Findings)": 1,
+      "PCGRPID": 1,
+      "PCORRESU": 1,
+      "PCTEST": 1,
+      "Peer Record Examples": 1,
+      "Related Domains": 2,
+      "SDTM Domain Abbreviation": 1,
+      "item_1": 2,
+      "item_3": 2,
+      "overview": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q65": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "3.1.3 The Findings Observation Class": 1,
+      "8.6.1 Guidelines for Determining the General Observation Class": 1,
+      "8.6.3 Guidelines for Differentiating Between Interventions, Events, Findings, and Findings About Events or Interventions": 1,
+      "Controlled Terminology": 1,
+      "DA — Product Accountability (Findings)": 1,
+      "DAORRES": 1,
+      "DASTAT": 1,
+      "Model Definition": 3,
+      "Overview": 2,
+      "item_1": 2,
+      "whole_file": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q66": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "2.1 Model Concepts and Terms — Variables": 1,
+      "4.2.2 Two-character Domain Identifier": 1,
+      "4.3.7 Use of \"Yes\" and \"No\" Values": 1,
+      "4.4.5 Clinical Encounters and Visits": 1,
+      "VISIT": 3,
+      "item_4": 2,
+      "whole_file": 3,
+      "§一 通用变量: VISIT": 1,
+      "§一 通用变量: VISITDY": 1,
+      "§一 通用变量: VISITNUM": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q67": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "4.2.6 Grouping Variables and Categorization": 1,
+      "4.3.7 Use of \"Yes\" and \"No\" Values": 1,
+      "AESEV": 1,
+      "Controlled Terminology": 1,
+      "Example 1": 1,
+      "No Yes Response": 1,
+      "Severity Response": 1,
+      "item_1": 1,
+      "item_10": 1,
+      "item_7": 1,
+      "whole_file": 2,
+      "§三 CT 交叉引用: C66742": 1,
+      "§三 CT 交叉引用: C66767": 1,
+      "§三 CT 交叉引用: C66769": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q68": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "AGSTAT": 1,
+      "BSSTAT": 1,
+      "CMSTAT": 1,
+      "CPSTAT": 1,
+      "ISSTAT": 1,
+      "LBSTAT": 1,
+      "Not Done": 1,
+      "PCSTAT": 1,
+      "QSSTAT": 1,
+      "SCSTAT": 1,
+      "SRSTAT": 1,
+      "SSSTAT": 1,
+      "SUSTAT": 1,
+      "VSSTAT": 1,
+      "§三 CT 交叉引用: C66789": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q69": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "3.1.3 The Findings Observation Class": 1,
+      "4.4.11 Disease Milestones and Disease Milestone Timing Variables": 1,
+      "CM — Concomitant/Prior Medications (Interventions)": 1,
+      "CMDOSTOT": 1,
+      "CMDOSTXT": 1,
+      "CMDOSU": 1,
+      "ECDOSE": 1,
+      "ECDOSU": 1,
+      "EX — Exposure (Interventions)": 1,
+      "EXDOSU": 1,
+      "MLDOSU": 1,
+      "general_part5": 1,
+      "item_6": 1,
+      "whole_file": 1,
+      "§三 CT 交叉引用: C71620": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q70": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "6.4 Related Subjects (RELSUB)": 1,
+      "8.1.1 --GRPID Example": 1,
+      "Assumptions": 1,
+      "Controlled Terminology": 1,
+      "Example": 1,
+      "RELSUB — Related Subjects (Relationship)": 1,
+      "RSUBJID": 1,
+      "SREL": 1,
+      "Summary of Relationship Datasets": 1,
+      "USUBJID": 1,
+      "item_1": 1,
+      "item_7": 1,
+      "item_8": 1,
+      "overview": 2
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q71": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "4.5.4 Evaluators in the Interventions and Events Observation Classes": 1,
+      "COEVAL": 1,
+      "COEVALID": 1,
+      "CVEVAL": 1,
+      "Category of Inclusion/Exclusion": 1,
+      "Controlled Terminology": 2,
+      "DDEVAL": 1,
+      "MKEVAL": 1,
+      "OEEVAL": 1,
+      "REEVAL": 1,
+      "TUEVALID": 1,
+      "item_8": 2,
+      "§三 CT 交叉引用: C78735": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q72": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "8.6.2 Guidelines for Forming New Domains": 1,
+      "Method D (One to One, Using PCSEQ and PPSEQ)": 2,
+      "PC — Pharmacokinetics Concentrations (Findings)": 1,
+      "Pharmacokinetic Parameters (PP) Dataset for All Examples": 1,
+      "Related Domains": 2,
+      "item_1": 2,
+      "item_2": 1,
+      "item_3": 3,
+      "overview": 1,
+      "§6.3.5.9.3 RELREC Method Quick Reference (PP-side view)": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q73": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "2.1 Model Concepts and Terms — Variables": 1,
+      "6.2 Supplemental Qualifiers (SUPP--)": 1,
+      "8.2.2 RELREC Dataset Examples": 1,
+      "8.3.1 RELREC Dataset Relationship Example": 1,
+      "8.4.4 When Not to Use Supplemental Qualifiers": 1,
+      "Controlled Terminology": 1,
+      "Dataset Relationship Example": 1,
+      "RDOMAIN": 3,
+      "Related Domains": 1,
+      "overview": 2,
+      "§一 通用变量: DOMAIN": 1,
+      "§一 通用变量: RDOMAIN": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q74": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "4.1.7 Splitting Domains": 1,
+      "4.2.8 Multiple Values for a Variable": 1,
+      "4.5.3 Text Strings that Exceed the Maximum Length for General Observation-class Domain Variables": 1,
+      "4.5.4 Evaluators in the Interventions and Events Observation Classes": 1,
+      "6.2 Supplemental Qualifiers (SUPP--)": 1,
+      "8.3.1 RELREC Dataset Relationship Example": 1,
+      "8.4.1 Supplemental Qualifiers (SUPP--)": 1,
+      "8.4.2 Submitting Supplemental Qualifiers in Separate Datasets": 1,
+      "8.4.3 Examples": 1,
+      "8.4.4 When Not to Use Supplemental Qualifiers": 1,
+      "DOMAIN": 1,
+      "Key Rules": 1,
+      "Related Domains": 1,
+      "overview": 1,
+      "whole_file": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q75": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "2.1 Model Concepts and Terms — Variables": 1,
+      "3.1.4 Identifiers for All Classes": 1,
+      "4.2.2 Two-character Domain Identifier": 1,
+      "4.2.6 Grouping Variables and Categorization": 1,
+      "6.1 Related Records (RELREC)": 1,
+      "Overview": 2,
+      "USUBJID": 4,
+      "item_2": 1,
+      "overview": 1,
+      "whole_file": 1,
+      "§一 通用变量: USUBJID": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q76": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "6.1 Related Records (RELREC)": 1,
+      "6.3 Pool Definition (POOLDEF)": 1,
+      "6.4 Related Subjects (RELSUB)": 1,
+      "6.6 Associated Persons Related Subjects (APRELSUB)": 1,
+      "Assumptions": 1,
+      "Example": 1,
+      "Overview": 2,
+      "RELSUB — Related Subjects (Relationship)": 1,
+      "SREL": 1,
+      "Specification": 1,
+      "Summary of Relationship Datasets": 1,
+      "item_1": 1,
+      "item_7": 1,
+      "whole_file": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q77": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "3.1.5 Timing Variables for All Classes": 1,
+      "4.1.3 Additional Timing Variables": 1,
+      "Appendix C: Controlled Terminology": 1,
+      "EPOCH": 6,
+      "Trial Elements Issues": 1,
+      "item_12": 1,
+      "item_4": 1,
+      "whole_file": 1,
+      "§一 通用变量: EPOCH": 1,
+      "§一 通用变量: MIDS": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q78": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "4.2.1 Variable-Naming Conventions": 1,
+      "4.2.9 Variable Lengths": 1,
+      "4.5.3 Text Strings that Exceed the Maximum Length for General Observation-class Domain Variables": 1,
+      "ACTARMCD": 1,
+      "ARMCD": 2,
+      "CVTESTCD": 1,
+      "DDTESTCD": 1,
+      "FTTESTCD": 1,
+      "Key Rules": 1,
+      "MSTESTCD": 1,
+      "SCTESTCD": 1,
+      "SRTESTCD": 1,
+      "item_7": 2
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q79": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "4.1.5 SDTM Core Designations": 1,
+      "4.2.5 Convention for Missing Values": 1,
+      "4.4.1 Formats for Date/Time Variables": 1,
+      "4.5.1 Original and Standardized Results": 1,
+      "4.5.6 Supplemental Reason Variables": 1,
+      "8.6.3 Guidelines for Differentiating Between Interventions, Events, Findings, and Findings About Events or Interventions": 1,
+      "Controlled Terminology": 1,
+      "Example 1": 1,
+      "MISTAT": 1,
+      "RSREASND": 1,
+      "SDTM Death Diagnosis and Details Test Code": 1,
+      "SDTM Death Diagnosis and Details Test Name": 1,
+      "SDTM Version Response": 1,
+      "SDTMIG Version Response": 1,
+      "item_5": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q80": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "4.1.5 SDTM Core Designations": 1,
+      "4.2.1 Variable-Naming Conventions": 1,
+      "4.2.8 Multiple Values for a Variable": 1,
+      "4.3.3 Controlled Terminology Values": 1,
+      "4.3.7 Use of \"Yes\" and \"No\" Values": 1,
+      "4.5.3 Text Strings that Exceed the Maximum Length for General Observation-class Domain Variables": 1,
+      "4.5.7 Presence or Absence of Prespecified Interventions and Events": 1,
+      "8.4.4 When Not to Use Supplemental Qualifiers": 1,
+      "No Yes Response": 1,
+      "SDTM Version Response": 1,
+      "SDTMIG Version Response": 1,
+      "item_6": 1,
+      "item_7": 1,
+      "overview": 1,
+      "whole_file": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q81": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "4.2.1 Variable-Naming Conventions": 1,
+      "4.2.2 Two-character Domain Identifier": 1,
+      "4.4.1 Formats for Date/Time Variables": 1,
+      "4.5.3 Text Strings that Exceed the Maximum Length for General Observation-class Domain Variables": 1,
+      "DOMAIN": 7,
+      "Example 1": 1,
+      "item_10": 1,
+      "item_4": 1,
+      "whole_file": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q82": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "2.1 Model Concepts and Terms — Variables": 1,
+      "3.1.4 Identifiers for All Classes": 1,
+      "4.1.4 Order of the Variables": 1,
+      "4.2.2 Two-character Domain Identifier": 1,
+      "4.3.7 Use of \"Yes\" and \"No\" Values": 1,
+      "Overview": 2,
+      "item_2": 1,
+      "item_3": 1,
+      "item_4": 2,
+      "item_5": 1,
+      "item_6": 1,
+      "overview": 1,
+      "whole_file": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q83": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "6.1 Related Records (RELREC)": 1,
+      "8.1.1 --GRPID Example": 1,
+      "8.2.1 Related Records (RELREC)": 1,
+      "8.2.2 RELREC Dataset Examples": 1,
+      "8.3.1 RELREC Dataset Relationship Example": 1,
+      "Controlled Terminology": 1,
+      "Dataset Relationship Example": 1,
+      "Peer Record Examples": 1,
+      "RELREC — Related Records (Relationship)": 1,
+      "item_1": 1,
+      "item_2": 1,
+      "item_4": 1,
+      "overview": 1,
+      "whole_file": 1,
+      "§一 通用变量: RDOMAIN": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q84": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "3.1.3 The Findings Observation Class": 1,
+      "4.3.7 Use of \"Yes\" and \"No\" Values": 1,
+      "4.5.7 Presence or Absence of Prespecified Interventions and Events": 1,
+      "8.6.1 Guidelines for Determining the General Observation Class": 1,
+      "8.6.3 Guidelines for Differentiating Between Interventions, Events, Findings, and Findings About Events or Interventions": 1,
+      "Model Definition": 5,
+      "Overview": 1,
+      "item_2": 1,
+      "item_4": 1,
+      "item_6": 1,
+      "whole_file": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q85": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "2.1 Model Concepts and Terms — Variables": 1,
+      "4.1.6 Additional Guidance on Dataset Naming": 1,
+      "4.2.2 Two-character Domain Identifier": 1,
+      "6.6 Associated Persons Related Subjects (APRELSUB)": 1,
+      "8.4.2 Submitting Supplemental Qualifiers in Separate Datasets": 1,
+      "Appendix B: Glossary and Abbreviations": 1,
+      "Appendix C: Controlled Terminology": 1,
+      "Appendix E: Revision History": 1,
+      "Controlled Terminology": 1,
+      "DOMAIN": 1,
+      "Overview": 2,
+      "whole_file": 2,
+      "§一 通用变量: DOMAIN": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q86": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "2.1 Model Concepts and Terms — Variables": 1,
+      "4.1.5 SDTM Core Designations": 1,
+      "4.3.3 Controlled Terminology Values": 1,
+      "4.5.3 Text Strings that Exceed the Maximum Length for General Observation-class Domain Variables": 1,
+      "8.6.3 Guidelines for Differentiating Between Interventions, Events, Findings, and Findings About Events or Interventions": 1,
+      "Overview": 1,
+      "Subject Elements (SE)": 1,
+      "item_2": 3,
+      "item_6": 1,
+      "item_8": 1,
+      "whole_file": 3
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q87": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "3.1.3 The Findings Observation Class": 1,
+      "4.1.7 Splitting Domains": 1,
+      "8.3.1 RELREC Dataset Relationship Example": 1,
+      "8.4.2 Submitting Supplemental Qualifiers in Separate Datasets": 1,
+      "8.6.3 Guidelines for Differentiating Between Interventions, Events, Findings, and Findings About Events or Interventions": 1,
+      "Controlled Terminology": 1,
+      "FACAT": 1,
+      "FASCAT": 1,
+      "Related Domains": 1,
+      "item_2": 1,
+      "item_4": 1,
+      "item_6": 1,
+      "overview": 1,
+      "whole_file": 2
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q88": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "4.2.1 Variable-Naming Conventions": 1,
+      "4.2.9 Variable Lengths": 1,
+      "ACTARMCD": 1,
+      "ARMCD": 3,
+      "ETCD": 3,
+      "Example 3": 1,
+      "SCTESTCD": 1,
+      "TSPARMCD": 1,
+      "item_5": 1,
+      "§一 通用变量: ARMCD": 1,
+      "§一 通用变量: ETCD": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q89": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "2.2 Table Structure": 1,
+      "3.1.5 Timing Variables for All Classes": 1,
+      "4.3.7 Use of \"Yes\" and \"No\" Values": 1,
+      "4.4.11 Disease Milestones and Disease Milestone Timing Variables": 1,
+      "4.4.7 Use of Relative Timing Variables": 1,
+      "AGSTRF": 1,
+      "RSENRTPT": 1,
+      "RSSTRTPT": 1,
+      "SUSTRTPT": 1,
+      "item_15": 1,
+      "item_5": 3,
+      "item_7": 1,
+      "whole_file": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q90": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "4.3.3 Controlled Terminology Values": 1,
+      "CMROUTE": 1,
+      "Controlled Terminology": 1,
+      "ECROUTE": 1,
+      "EX — Exposure (Interventions)": 1,
+      "EXLOC": 1,
+      "EXROUTE": 1,
+      "Example 2": 1,
+      "Route of Administration Response": 1,
+      "item_1": 1,
+      "item_10": 1,
+      "item_4": 1,
+      "item_7": 1,
+      "whole_file": 1,
+      "§三 CT 交叉引用: C66729": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q91": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "Category of Disposition Event": 1,
+      "Controlled Terminology": 1,
+      "DS — Disposition (Events)": 1,
+      "DSDECOD": 1,
+      "Example 1": 1,
+      "Example 2": 2,
+      "Example 6": 1,
+      "Example 7": 1,
+      "Other Disposition Event Response": 1,
+      "item_1": 1,
+      "item_2": 1,
+      "item_3": 1,
+      "item_4": 1,
+      "item_5": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q92": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "Controlled Terminology": 1,
+      "ETHNIC": 1,
+      "Ethnic Group": 1,
+      "Example 7": 1,
+      "Patient-Reported Outcomes Version of the Common Terminology Criteria for Adverse Events Item Library Version 1.0 Questionnaire Test Code": 1,
+      "Patient-Reported Outcomes Version of the Common Terminology Criteria for Adverse Events Item Library Version 1.0 Questionnaire Test Name": 1,
+      "item_18": 1,
+      "item_6": 1,
+      "item_7": 1,
+      "§三 CT 交叉引用: C116107": 1,
+      "§三 CT 交叉引用: C150811": 1,
+      "§三 CT 交叉引用: C66731": 1,
+      "§三 CT 交叉引用: C66781": 1,
+      "§三 CT 交叉引用: C66790": 1,
+      "§三 CT 交叉引用: C74457": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q93": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "AGDOSFRM": 1,
+      "CMDOSFRM": 1,
+      "Controlled Terminology": 1,
+      "ECDOSFRM": 1,
+      "ECDOSTXT": 1,
+      "EX — Exposure (Interventions)": 1,
+      "EXDOSFRM": 1,
+      "EXDOSTXT": 1,
+      "Frequency": 1,
+      "MLDOSFRM": 1,
+      "PRDOSFRM": 1,
+      "Pharmaceutical Dosage Form": 1,
+      "SUDOSFRM": 1,
+      "item_11": 1,
+      "§三 CT 交叉引用: C66726": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q94": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "CVSTRESC": 1,
+      "Controlled Terminology": 1,
+      "Example 1": 1,
+      "Example 3": 1,
+      "LB — Laboratory Test Results (Findings)": 1,
+      "LBSTRESC": 1,
+      "LBSTRESN": 1,
+      "Laboratory Test Standard Character Result": 1,
+      "MKSTRESC": 1,
+      "MSSTRESC": 1,
+      "PCSTRESC": 1,
+      "RPSTRESC": 1,
+      "SCSTRESC": 1,
+      "VSSTRESC": 1,
+      "§三 CT 交叉引用: C102580": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q95": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "Controlled Terminology": 1,
+      "DD — Death Details (Findings)": 1,
+      "DDTEST": 1,
+      "DDTESTCD": 1,
+      "DSDECOD": 1,
+      "Example 1": 1,
+      "Example 2": 1,
+      "SDTM Death Diagnosis and Details Test Code": 1,
+      "SDTM Death Diagnosis and Details Test Name": 1,
+      "item_1": 2,
+      "item_2": 1,
+      "item_4": 1,
+      "§三 CT 交叉引用: C116107": 1,
+      "§三 CT 交叉引用: C116108": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q96": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "3.1.3 The Findings Observation Class": 1,
+      "Appendix E: Revision History": 1,
+      "Controlled Terminology": 1,
+      "Example 2": 1,
+      "FA — Findings About Events or Interventions (Findings About)": 1,
+      "FATEST": 1,
+      "FATESTCD": 1,
+      "FTTEST": 1,
+      "Findings About Test Code": 1,
+      "item_4": 1,
+      "item_6": 1,
+      "whole_file": 2,
+      "§三 CT 交叉引用: C101832": 1,
+      "§三 CT 交叉引用: C101833": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q97": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "Assumptions": 1,
+      "Controlled Terminology": 1,
+      "Example 1": 1,
+      "QSSTRESC": 1,
+      "RSSTRESC": 1,
+      "SC — Subject Characteristics (Findings)": 1,
+      "SS — Subject Status (Findings)": 1,
+      "SSSTAT": 1,
+      "SSSTRESC": 1,
+      "Subject Status Response": 1,
+      "Subject Status Test Code": 1,
+      "Subject Status Test Name": 1,
+      "item_1": 1,
+      "whole_file": 1,
+      "§三 CT 交叉引用: C124304": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q98": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "8.2.2 RELREC Dataset Examples": 1,
+      "CM — Concomitant/Prior Medications (Interventions)": 1,
+      "CMDOSE": 1,
+      "CMDOSFRQ": 1,
+      "CMDOSTOT": 1,
+      "CMDOSTXT": 1,
+      "CMDOSU": 1,
+      "Controlled Terminology": 1,
+      "Example 3": 1,
+      "MLDOSU": 1,
+      "general_part5": 2,
+      "item_1": 1,
+      "item_2": 1,
+      "item_7": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q99": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "4.1.7 Splitting Domains": 1,
+      "8.4.3 Examples": 1,
+      "8.6.2 Guidelines for Forming New Domains": 1,
+      "Controlled Terminology": 1,
+      "Example 2": 1,
+      "QS — Questionnaires (Findings)": 1,
+      "QSCAT": 1,
+      "QSSCAT": 1,
+      "QSTESTCD": 1,
+      "item_1": 2,
+      "item_2": 2,
+      "qs_part1": 1,
+      "§三 CT 交叉引用: C100129": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q100": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "ACTARMCD": 1,
+      "ARM": 1,
+      "ARMCD": 2,
+      "Example 3": 1,
+      "Related Domains": 2,
+      "TA — Trial Arms (Trial Design)": 1,
+      "TAETORD": 1,
+      "Trial Arms Issues": 1,
+      "item_4": 1,
+      "overview": 2,
+      "§一 通用变量: ARMCD": 1,
+      "§一 通用变量: ETCD": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q101": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "5.1 Trial Design Model": 1,
+      "Controlled Terminology": 1,
+      "Dictionary Name": 1,
+      "Example 2": 1,
+      "TS — Trial Summary (Trial Design)": 1,
+      "TSPARM": 1,
+      "TSPARMCD": 1,
+      "TSVAL": 1,
+      "item_14": 1,
+      "item_5": 1,
+      "item_6": 1,
+      "item_8": 1,
+      "overview": 1,
+      "§三 CT 交叉引用: C66738": 1,
+      "§三 CT 交叉引用: C67152": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q102": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "4.1.6 Additional Guidance on Dataset Naming": 1,
+      "CVPOS": 1,
+      "Controlled Terminology": 1,
+      "EGPOS": 1,
+      "FTPOS": 1,
+      "MKPOS": 1,
+      "Position": 1,
+      "REPOS": 1,
+      "VS — Vital Signs (Findings)": 1,
+      "VSLOC": 1,
+      "VSPOS": 1,
+      "item_1": 1,
+      "item_3": 1,
+      "§三 CT 交叉引用: C66770": 1,
+      "§三 CT 交叉引用: C71148": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q103": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "2.1 Model Concepts and Terms — Variables": 1,
+      "4.3.7 Use of \"Yes\" and \"No\" Values": 1,
+      "4.4.11 Disease Milestones and Disease Milestone Timing Variables": 1,
+      "8.6.3 Guidelines for Differentiating Between Interventions, Events, Findings, and Findings About Events or Interventions": 1,
+      "Overview": 1,
+      "TAETORD": 3,
+      "TD — Trial Disease Assessments (Trial Design)": 1,
+      "Trial Elements Issues": 1,
+      "item_6": 1,
+      "overview": 1,
+      "whole_file": 1,
+      "§一 通用变量: ETCD": 1,
+      "§一 通用变量: TAETORD": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q104": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "4.4.5 Clinical Encounters and Visits": 1,
+      "VISIT": 9,
+      "World Health Organization Disability Assessment Schedule 2.0 - 12-Item Proxy Questionnaire Test Name": 1,
+      "World Health Organization Disability Assessment Schedule 2.0 - 36-Item Proxy Questionnaire Test Name": 1,
+      "§一 通用变量: VISIT": 1,
+      "§一 通用变量: VISITDY": 1,
+      "§一 通用变量: VISITNUM": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q105": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "2.1 Model Concepts and Terms — Variables": 1,
+      "3.1.4 Identifiers for All Classes": 1,
+      "4.2.2 Two-character Domain Identifier": 1,
+      "5.2 Study References": 1,
+      "Example 1": 1,
+      "Example 9": 1,
+      "NHOID": 4,
+      "OISEQ": 1,
+      "item_2": 1,
+      "item_3": 1,
+      "item_4": 1,
+      "§一 通用变量: NHOID": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q106": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "3.1.3 The Findings Observation Class": 1,
+      "4.2.6 Grouping Variables and Categorization": 1,
+      "4.4.11 Disease Milestones and Disease Milestone Timing Variables": 1,
+      "Controlled Terminology": 1,
+      "Example 4": 1,
+      "FAOBJ": 1,
+      "FOCID": 3,
+      "Ophthalmic Focus of Study Specific Interest": 1,
+      "item_1": 1,
+      "item_2": 1,
+      "whole_file": 1,
+      "§一 通用变量: FOCID": 1,
+      "§三 CT 交叉引用: C119013": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q107": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "2.1 Model Concepts and Terms — Variables": 1,
+      "4.2.1 Variable-Naming Conventions": 1,
+      "4.2.2 Two-character Domain Identifier": 1,
+      "ACTARMCD": 1,
+      "ARM": 1,
+      "ARMCD": 3,
+      "ARMNRS": 1,
+      "Example 2": 1,
+      "Trial Arms Issues": 1,
+      "item_4": 1,
+      "whole_file": 1,
+      "§一 通用变量: ARM": 1,
+      "§一 通用变量: ARMCD": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q108": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "AGROUTE": 1,
+      "CM — Concomitant/Prior Medications (Interventions)": 1,
+      "CMROUTE": 1,
+      "Controlled Terminology": 6,
+      "ECROUTE": 1,
+      "EXROUTE": 1,
+      "PRROUTE": 1,
+      "Route of Administration Response": 1,
+      "SUROUTE": 1,
+      "§三 CT 交叉引用: C66729": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q109": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "CVLAT": 1,
+      "FALAT": 1,
+      "Laterality": 1,
+      "MBLAT": 1,
+      "MKLAT": 1,
+      "MSLAT": 1,
+      "NVLAT": 1,
+      "OELAT": 1,
+      "PELAT": 1,
+      "RELAT": 1,
+      "SRLAT": 1,
+      "TULAT": 1,
+      "URLAT": 1,
+      "VSLAT": 1,
+      "§三 CT 交叉引用: C99073": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q110": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "2.1 Model Concepts and Terms — Variables": 1,
+      "4.1.3 Additional Timing Variables": 1,
+      "6.7 Related Specimens (RELSPEC)": 1,
+      "8.3.1 RELREC Dataset Relationship Example": 1,
+      "CPSPEC": 1,
+      "Controlled Terminology": 2,
+      "PPSPEC": 1,
+      "SPEC": 1,
+      "SRSPEC": 1,
+      "Specification": 1,
+      "Specimen Condition": 1,
+      "whole_file": 2,
+      "§三 CT 交叉引用: C78734": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q111": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "CVPOS": 1,
+      "Controlled Terminology": 1,
+      "EGPOS": 1,
+      "FTPOS": 1,
+      "MKPOS": 1,
+      "Position": 1,
+      "RELAT": 1,
+      "REPOS": 1,
+      "VSPOS": 1,
+      "Vital Signs Test Code": 1,
+      "Vital Signs Test Name": 1,
+      "item_1": 1,
+      "§6.1.3.3 Exposure/Exposure as Collected Examples (p115)": 1,
+      "§三 CT 交叉引用: C66734": 1,
+      "§三 CT 交叉引用: C71148": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q112": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "CPNRIND": 1,
+      "ISNRIND": 1,
+      "ISSTNRC": 1,
+      "LBNRIND": 1,
+      "LBSTNRC": 1,
+      "MSNRIND": 1,
+      "OENRIND": 1,
+      "OEORNRHI": 1,
+      "OEORNRLO": 1,
+      "OESTNRC": 1,
+      "OESTNRHI": 1,
+      "Reference Range Indicator": 1,
+      "item_2": 1,
+      "item_3": 1,
+      "§三 CT 交叉引用: C78736": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q113": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "4.1.7 Splitting Domains": 1,
+      "4.5.4 Evaluators in the Interventions and Events Observation Classes": 1,
+      "6.2 Supplemental Qualifiers (SUPP--)": 1,
+      "8.3.1 RELREC Dataset Relationship Example": 1,
+      "8.4.1 Supplemental Qualifiers (SUPP--)": 1,
+      "8.4.2 Submitting Supplemental Qualifiers in Separate Datasets": 1,
+      "8.4.3 Examples": 1,
+      "8.4.4 When Not to Use Supplemental Qualifiers": 1,
+      "Example 2": 1,
+      "INVID": 1,
+      "Key Rules": 1,
+      "overview": 1,
+      "whole_file": 1,
+      "§一 通用变量: IDVAR": 1,
+      "§一 通用变量: IDVARVAL": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q114": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "6.1 Related Records (RELREC)": 1,
+      "8.1.1 --GRPID Example": 1,
+      "8.2.1 Related Records (RELREC)": 1,
+      "8.2.2 RELREC Dataset Examples": 1,
+      "8.3.1 RELREC Dataset Relationship Example": 1,
+      "Dataset Relationship Example": 1,
+      "Method A (Many to Many, Using PCGRPID and PPGRPID)": 2,
+      "Method B (One to Many, Using PCSEQ and PPGRPID)": 1,
+      "Method C (Many to One, Using PCGRPID and PPSEQ)": 1,
+      "Peer Record Examples": 1,
+      "RELID": 1,
+      "overview": 1,
+      "§一 通用变量: IDVARVAL": 1,
+      "§一 通用变量: USUBJID": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q115": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "4.1.7 Splitting Domains": 1,
+      "4.5.4 Evaluators in the Interventions and Events Observation Classes": 1,
+      "6.2 Supplemental Qualifiers (SUPP--)": 1,
+      "8.3.1 RELREC Dataset Relationship Example": 1,
+      "8.4.1 Supplemental Qualifiers (SUPP--)": 1,
+      "8.4.3 Examples": 1,
+      "8.4.4 When Not to Use Supplemental Qualifiers": 1,
+      "Example 1": 1,
+      "Key Rules": 1,
+      "QVAL": 1,
+      "RSEVAL": 1,
+      "SUPPQUAL — Supplemental Qualifiers for [domain name] (Relationship)": 1,
+      "TUEVAL": 1,
+      "item_6": 1,
+      "overview": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q116": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "6.7 Related Specimens (RELSPEC)": 1,
+      "8.3.1 RELREC Dataset Relationship Example": 1,
+      "Example": 1,
+      "Example 1": 2,
+      "Example 2": 1,
+      "Example 3": 1,
+      "LEVEL": 1,
+      "PARENT": 1,
+      "REFID": 1,
+      "RELSPEC — Related Specimens (Relationship)": 1,
+      "SPEC": 1,
+      "Specification": 1,
+      "Summary of Relationship Datasets": 1,
+      "§6.3.5.7 Microbiology Domains — RELSPEC parent/aliquot relationship (p261)": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q117": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "4.2.8 Multiple Values for a Variable": 1,
+      "4.5.4 Evaluators in the Interventions and Events Observation Classes": 1,
+      "8.3.1 RELREC Dataset Relationship Example": 1,
+      "8.4.3 Examples": 1,
+      "8.6.3 Guidelines for Differentiating Between Interventions, Events, Findings, and Findings About Events or Interventions": 1,
+      "Example 1": 1,
+      "Example 4": 2,
+      "Example 7": 1,
+      "item_1": 1,
+      "item_4": 1,
+      "item_7": 2,
+      "item_8": 1,
+      "overview": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q118": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "2.1 Model Concepts and Terms — Variables": 1,
+      "3.1.5 Timing Variables for All Classes": 1,
+      "4.1.3 Additional Timing Variables": 1,
+      "4.3.7 Use of \"Yes\" and \"No\" Values": 1,
+      "8.6.3 Guidelines for Differentiating Between Interventions, Events, Findings, and Findings About Events or Interventions": 1,
+      "EPOCH": 5,
+      "item_12": 1,
+      "item_4": 1,
+      "item_9": 1,
+      "whole_file": 1,
+      "§一 通用变量: EPOCH": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q119": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "4.2.6 Grouping Variables and Categorization": 1,
+      "8.2.1 Related Records (RELREC)": 1,
+      "8.2.2 RELREC Dataset Examples": 1,
+      "Dataset Relationship Example": 1,
+      "Example 1": 1,
+      "RELID": 1,
+      "TRLNKID": 1,
+      "TULNKID": 1,
+      "item_1": 1,
+      "item_12": 1,
+      "item_2": 2,
+      "item_4": 1,
+      "item_7": 1,
+      "overview": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q120": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "4.2.6 Grouping Variables and Categorization": 1,
+      "6.1 Related Records (RELREC)": 1,
+      "6.3 Pool Definition (POOLDEF)": 1,
+      "6.6 Associated Persons Related Subjects (APRELSUB)": 1,
+      "8.4.2 Submitting Supplemental Qualifiers in Separate Datasets": 1,
+      "Assumptions": 1,
+      "Example 6": 1,
+      "Overview": 1,
+      "Summary of Relationship Datasets": 1,
+      "item_1": 1,
+      "item_3": 1,
+      "item_8": 1,
+      "overview": 1,
+      "whole_file": 2
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q121": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "DM — Demographics (Special-Purpose)": 1,
+      "Demographics (DM)": 1,
+      "Example 1": 1,
+      "Example 10": 1,
+      "Example 9": 1,
+      "RFENDTC": 1,
+      "RFICDTC": 1,
+      "RFPENDTC": 1,
+      "RFSTDTC": 1,
+      "RFXENDTC": 1,
+      "Trial Elements Issues": 1,
+      "item_10": 1,
+      "item_4": 1,
+      "item_7": 1,
+      "item_9": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q122": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "4.5.7 Presence or Absence of Prespecified Interventions and Events": 1,
+      "4.5.8 Accounting for Long-term Follow-up": 1,
+      "Completion/Reason for Non-Completion": 1,
+      "DTHDTC": 1,
+      "DTHFL": 1,
+      "Epoch": 1,
+      "Example 1": 1,
+      "Example 11": 1,
+      "Example 2": 1,
+      "Example 3": 1,
+      "RFPENDTC": 1,
+      "RFXENDTC": 1,
+      "SDTM Domain Abbreviation": 1,
+      "item_1": 1,
+      "item_3": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q123": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "8.3.1 RELREC Dataset Relationship Example": 1,
+      "Controlled Terminology": 1,
+      "Example 2": 1,
+      "Example 2 (continued from TU)": 1,
+      "Example 3": 1,
+      "TRDY": 1,
+      "Tumor or Lesion Identification Test Name": 1,
+      "item_1": 1,
+      "item_2": 1,
+      "item_3": 1,
+      "item_4": 1,
+      "item_6": 1,
+      "overview": 3
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q124": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "4.5.8 Accounting for Long-term Follow-up": 1,
+      "AESDTH": 1,
+      "Controlled Terminology": 2,
+      "DTHFL": 1,
+      "Example 1": 1,
+      "Example 11": 1,
+      "Example 2": 1,
+      "Example 4": 1,
+      "SDTM Death Diagnosis and Details Test Code": 1,
+      "SDTM Death Diagnosis and Details Test Name": 1,
+      "item_1": 3,
+      "item_2": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q125": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "8.6.3 Guidelines for Differentiating Between Interventions, Events, Findings, and Findings About Events or Interventions": 1,
+      "CE — Clinical Events (Events)": 1,
+      "CEPRESP": 1,
+      "Completion/Reason for Non-Completion": 1,
+      "Controlled Terminology": 1,
+      "Example 1": 3,
+      "Example 2": 1,
+      "Example 6": 1,
+      "item_1": 2,
+      "item_10": 1,
+      "item_3": 1,
+      "item_6": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q126": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "Example 1": 1,
+      "Example 10": 1,
+      "Example 11": 1,
+      "Example 2": 2,
+      "Example 3": 1,
+      "Subject Elements (SE)": 1,
+      "Trial Elements Issues": 1,
+      "item_4": 3,
+      "item_6": 1,
+      "item_7": 2,
+      "overview": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q127": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "Biospecimen Characteristics Test Code": 1,
+      "Biospecimen Characteristics Test Name": 1,
+      "Biospecimen Events Dictionary Derived Term": 1,
+      "Controlled Terminology": 1,
+      "Example 1": 1,
+      "Example 2": 2,
+      "Example 3": 1,
+      "Observational Study Biospecimen Retention": 1,
+      "item_1": 2,
+      "item_3": 2,
+      "§6.3.5.7 Microbiology Domains — RELSPEC parent/aliquot relationship (p261)": 1,
+      "§6.3.5.7.3 Microbiology Specimen and Microbiology Susceptibility Examples": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q128": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "2.1 Model Concepts and Terms — Variables": 1,
+      "4.1.5 SDTM Core Designations": 1,
+      "4.5.1 Original and Standardized Results": 1,
+      "6.1 Related Records (RELREC)": 1,
+      "8.3.1 RELREC Dataset Relationship Example": 1,
+      "CV — Cardiovascular System Findings (Findings)": 1,
+      "Controlled Terminology": 1,
+      "Example 1": 1,
+      "VS — Vital Signs (Findings)": 1,
+      "VSDY": 1,
+      "VSLOC": 1,
+      "VSSTAT": 1,
+      "overview": 1,
+      "whole_file": 2
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q129": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "2.1 Model Concepts and Terms — Variables": 1,
+      "3.1.4 Identifiers for All Classes": 1,
+      "Controlled Terminology": 1,
+      "MH — Medical History (Events)": 1,
+      "MHOCCUR": 1,
+      "MHSCAT": 1,
+      "MHSEQ": 1,
+      "MKSEQ": 1,
+      "MSSEQ": 1,
+      "Overview": 1,
+      "RESEQ": 1,
+      "URSEQ": 1,
+      "item_4": 1,
+      "overview": 1,
+      "whole_file": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q130": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "CPORNRHI": 1,
+      "CPORNRLO": 1,
+      "CPSTNRHI": 1,
+      "ISORNRHI": 1,
+      "ISORNRLO": 1,
+      "ISSTNRHI": 1,
+      "ISSTNRLO": 1,
+      "LB — Laboratory Test Results (Findings)": 1,
+      "LBORNRHI": 1,
+      "LBORNRLO": 1,
+      "LBSTNRHI": 1,
+      "LBSTNRLO": 1,
+      "OEORNRHI": 1,
+      "OEORNRLO": 1,
+      "OESTNRHI": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q131": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "4.5.7 Presence or Absence of Prespecified Interventions and Events": 1,
+      "8.6.3 Guidelines for Differentiating Between Interventions, Events, Findings, and Findings About Events or Interventions": 1,
+      "AEPRESP": 1,
+      "CEOCCUR": 1,
+      "CEPRESP": 1,
+      "CEREASND": 1,
+      "CETERM": 1,
+      "Example 2": 1,
+      "Example 4": 1,
+      "MHPRESP": 1,
+      "item_1": 1,
+      "item_2": 1,
+      "item_4": 2,
+      "item_7": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q132": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "2.1 Model Concepts and Terms — Variables": 1,
+      "8.3.1 RELREC Dataset Relationship Example": 1,
+      "CE — Clinical Events (Events)": 1,
+      "Controlled Terminology": 1,
+      "Example 2": 1,
+      "Example 4": 1,
+      "HO — Healthcare Encounters (Events)": 1,
+      "HOENDTC": 1,
+      "HOOCCUR": 1,
+      "HOSTDTC": 1,
+      "item_1": 1,
+      "item_3": 1,
+      "item_6": 1,
+      "overview": 1,
+      "whole_file": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q133": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "Controlled Terminology": 1,
+      "TR — Tumor/Lesion Results (Findings)": 1,
+      "TU — Tumor/Lesion Identification (Findings)": 1,
+      "TUDY": 1,
+      "TULNKID": 1,
+      "TULOC": 1,
+      "TUORRES": 1,
+      "Tumor or Lesion Identification Test Code": 1,
+      "Tumor or Lesion Identification Test Name": 1,
+      "Tumor or Lesion Identification Test Results": 1,
+      "item_2": 1,
+      "item_4": 1,
+      "item_6": 1,
+      "overview": 2
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q134": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "2.1 Model Concepts and Terms — Variables": 1,
+      "3.1.4 Identifiers for All Classes": 1,
+      "8.1.1 --GRPID Example": 1,
+      "8.2.2 RELREC Dataset Examples": 1,
+      "CM — Concomitant/Prior Medications (Interventions)": 1,
+      "CMPRESP": 1,
+      "CMRSDISC": 1,
+      "Controlled Terminology": 1,
+      "Example 3": 1,
+      "Example 5": 1,
+      "Peer Record Examples": 1,
+      "STUDYID": 1,
+      "item_3": 1,
+      "overview": 1,
+      "whole_file": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q135": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "2.1 Model Concepts and Terms — Variables": 1,
+      "3.1.3 The Findings Observation Class": 1,
+      "4.3.6 Storing Topic Variables for General Domain Models": 1,
+      "8.3.1 RELREC Dataset Relationship Example": 1,
+      "Controlled Terminology": 1,
+      "DMDTC": 1,
+      "Demographics (DM)": 1,
+      "ETHNIC": 1,
+      "Example 1": 1,
+      "Overview": 1,
+      "SUBJID": 1,
+      "Trial Arms Issues": 1,
+      "item_1": 1,
+      "overview": 1,
+      "whole_file": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q136": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "4.2.8 Multiple Values for a Variable": 1,
+      "Category of Disposition Event": 1,
+      "Controlled Terminology": 1,
+      "DS — Disposition (Events)": 1,
+      "DSDECOD": 1,
+      "DSSCAT": 1,
+      "DSTERM": 1,
+      "Example 1": 1,
+      "Example 5": 1,
+      "item_1": 1,
+      "item_2": 1,
+      "item_3": 1,
+      "item_4": 1,
+      "item_5": 1,
+      "item_7": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q137": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "8.3.1 RELREC Dataset Relationship Example": 1,
+      "8.6.3 Guidelines for Differentiating Between Interventions, Events, Findings, and Findings About Events or Interventions": 1,
+      "Controlled Terminology": 1,
+      "Example 1": 2,
+      "Example 3": 1,
+      "Overview": 1,
+      "PRLOC": 1,
+      "PROCCUR": 1,
+      "PRTRT": 1,
+      "item_1": 1,
+      "item_12": 1,
+      "item_7": 1,
+      "overview": 2
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q138": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "3.1.3 The Findings Observation Class": 1,
+      "4.3.7 Use of \"Yes\" and \"No\" Values": 1,
+      "8.3.1 RELREC Dataset Relationship Example": 1,
+      "8.6.3 Guidelines for Differentiating Between Interventions, Events, Findings, and Findings About Events or Interventions": 1,
+      "Controlled Terminology": 1,
+      "Example 2": 1,
+      "Key Rules": 1,
+      "Model Definition": 1,
+      "Overview": 1,
+      "QS — Questionnaires (Findings)": 1,
+      "QSCAT": 1,
+      "QSSCAT": 1,
+      "overview": 2,
+      "whole_file": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q139": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "4.1.5 SDTM Core Designations": 1,
+      "8.3.1 RELREC Dataset Relationship Example": 1,
+      "8.6.3 Guidelines for Differentiating Between Interventions, Events, Findings, and Findings About Events or Interventions": 1,
+      "EXDOSE": 1,
+      "EXDOSTXT": 1,
+      "EXTRT": 1,
+      "Example 4": 1,
+      "Overview": 1,
+      "Related Domains": 1,
+      "item_1": 2,
+      "item_5": 1,
+      "overview": 1,
+      "whole_file": 1,
+      "§6.1.3.3 Exposure/Exposure as Collected Examples (p115)": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  },
+  "q140": {
+   "n_distinct_compositions": 1,
+   "n_distinct_section_multisets": 1,
+   "section_multisets": [
+    {
+     "counts": {
+      "4.5.3 Text Strings that Exceed the Maximum Length for General Observation-class Domain Variables": 1,
+      "8.4.2 Submitting Supplemental Qualifiers in Separate Datasets": 1,
+      "8.4.4 When Not to Use Supplemental Qualifiers": 1,
+      "CODTC": 1,
+      "COREF": 1,
+      "COVAL": 1,
+      "Example 1": 1,
+      "IDVAR": 1,
+      "Key Rules": 1,
+      "item_1": 1,
+      "item_4": 2,
+      "item_7": 2,
+      "overview": 1
+     },
+     "n_runs": 60
+    }
+   ]
+  }
+ }
+}

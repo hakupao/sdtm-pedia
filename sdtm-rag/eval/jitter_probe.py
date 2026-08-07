@@ -17,6 +17,7 @@ from __future__ import annotations
 import argparse
 import json
 import math
+import random
 import time
 from collections.abc import Sequence
 
@@ -136,6 +137,50 @@ def pair_margins(orders: Sequence[Sequence[str]], sims: Sequence[dict]) -> dict:
         "tied_pairs": sum(1 for p in pairs if p["gap"] == 0.0),
         "pairs": pairs,
     }
+
+
+def perturbed_vectors(
+    vec: Sequence[float], l2: float, n: int, seed: int = 20260807
+) -> list[list[float]]:
+    """把抖动当**自变量**: 返回 n 个与 `vec` 相距恰好 `l2` 的向量 (随机方向)。
+
+    为什么需要它 —— 采样验稳会系统性低估抖动。实测 embedding API 在一个时间窗里
+    只返回**一小组离散向量** (350 秒内只见 2-3 种, 且重复出现), 所以"连跑 N 次"
+    拿到的往往是同一个向量, N 次 ≠ N 个独立样本; 而向量真正换一批要等几十分钟到几小时。
+    与其等它发生, 不如直接按实测幅度施加扰动, 一次把稳定性问到底 (且零 API 开销)。
+
+    ⚠️ 随机方向**不是**真实抖动的分布 (真实抖动是量化式的、有结构的: 沿真实差值方向
+    放大 5 倍都翻不动, 而同样长度的随机方向有约 10% 概率翻)。所以这里得到的频率是
+    **敏感度上界**, 不是"每次调用的翻转概率"。它回答的是"这个统计量在这个幅度下稳不稳",
+    不回答"多久会发生一次"。
+    """
+    rng = random.Random(seed)
+    out = []
+    for _ in range(n):
+        g = [rng.gauss(0, 1) for _ in range(len(vec))]
+        norm = math.sqrt(sum(x * x for x in g))
+        out.append([a + l2 * x / norm for a, x in zip(vec, g, strict=True)])
+    return out
+
+
+def retrieve_under_perturbation(rag, question: str, vectors, top_k: int) -> list[list]:
+    """对每个给定的 query 向量跑一次生产检索, 返回各次的 chunk 列表。
+
+    只替换 embedding 这一步 (`retrieve()` 每次调用只 embed 一次, 见 server/rag.py),
+    BM25 侧对同一 query 文本本就是确定性的, 因此这里控制的正是唯一的抖动源。
+
+    **不在这里算任何挤占统计** —— 统计口径归 Task 4 的 `crowding_stats` 独有,
+    本模块不做第二份实现 (硬规矩: 判据不许有两个来源)。调用方自己往结果上套。
+    """
+    real = rag._embed_query
+    out = []
+    try:
+        for v in vectors:
+            rag._embed_query = lambda _t, _v=v: list(_v)
+            out.append(rag.retrieve(question, top_k=top_k))
+    finally:
+        rag._embed_query = real
+    return out
 
 
 def embedding_jitter(vectors: Sequence[Sequence[float]]) -> dict:

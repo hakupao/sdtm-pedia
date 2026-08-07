@@ -1,27 +1,149 @@
 # top-k 抖动量化 (Task 3B)
 
-> 日期: 2026-08-07 · 探针 `eval/jitter_probe.py` · 数据 `evidence/checkpoints/topk_jitter.json`(样本2) + `topk_jitter_sample1.json`(样本1)
-> 起因: Task 1 评审同 query 同参数连跑两次, top-15 **第 9 位起成分变化**; 控制器随后用 chunk_id 跑 5 次却全稳定 → 抖动**偶发**。
+> 日期: 2026-08-07 · 探针 `eval/jitter_probe.py`
+> 数据: **`topk_jitter_perturbation.json`(控制变量, 定论所依据)** · `topk_jitter.json` + `topk_jitter_sample1.json`(采样, 第一版依据, 保留作反面教材)
+> 起因: Task 1 评审同 query 同参数连跑两次, top-15 **第 9 位起成分变化**; 控制器随后用 chunk_id 跑 5 次却全稳定 → 当时判"抖动偶发"。
 > 层① 的 `max_cluster` / `dup_seats` / "28.6%" 全部出自**单次** top-15, 在量化清楚之前不许当稳定事实引用。
+>
+> **结论经过一次推翻**: 采样口径判 `false` → 控制变量口径判 **`true`**。评审的观察是对的, 我第一版的取样方式无效。§0 记录了全过程。
 
 ## 结论
 
-**`JITTER_AFFECTS_STATS = false`**
+**`JITTER_AFFECTS_STATS = true`**
 
-528 次检索 (11 题 × 12 次 × 2 配置 × 2 个时间窗) 里, top-15 的**成分**一次没变 (`sometimes == 0` 全表,
-跨样本比对集合也逐题相同)。唯一一次变化是**顺序**变化: dense q08 在 24 次里的 1 次, 第 11-13 位三条轮转,
-**集合不变**。命中 brief 判定表第 2 行 —— `max_cluster` / `dup_seats` 是**集合统计**, 不看顺序,
-故 **Task 4 单次取样即可, 层① 已发布的数字不需要重算**。
+> ⚠️ **本结论是修正后的第二版**。第一版判 `false`, 依据是"528 次采样里成分零变化"。
+> 那个依据**是错的取样方式得出的**, 已被推翻 —— 见 §0。原始测量本身没错, 结论错了。
 
-但**排位不可复现**: 任何"第 N 位是什么""排在前面所以更相关"的结论无效。理由不止是"观察到过一次翻转",
-而是 §4 的结构事实 —— 挤占席位的那些 chunk **正文逐字节相同**, 它们之间的先后由 ingest 分批噪声决定。
+top-15 的**成分确实会变**。用控制变量法 (把实测幅度的扰动直接喂给 query 向量, 不靠采样等它发生)
+跑全 140 题 × 60 次 = **8400 次生产口径检索**, 结果分层:
 
-⚠️ 两条必须跟着结论一起被引用的限定:
+| 层级 | 变过的题 |
+|---|---|
+| top-15 **成分** (chunk 级) | **5/140** — q31, q38, q39, q46, q47 |
+| top-15 的 **section 多重集** | **3/140** — q31, q46, q47 |
+| `dup_seats` | **1/140** — q47 (1 席 46/60 次, 2 席 14/60 次) |
+| `distinct_sections` | **1/140** — q47 (14 个 46/60 次, 13 个 14/60 次) |
+| `max_cluster` | **0/140** |
 
-- **dense 池 (top-30, 即 hybrid 融合的输入) 的成分跨时间窗实测会变** (§5.3: `HO` 占了 15/15 次的第 30 名,
-  一分钟后整个跌出 top-31)。它这次没传导到 top-15, 且换上换下的双方同属同一批逐字节重复的 chunk ——
-  **变的正是"哪个域"这一维, 而 `max_cluster`/`dup_seats` 数的是"section 名占几席", 不看这一维。**
-- 本结论只对**当前切割线 (`top_k=15` + `hybrid_pool=30`)** 成立。改 k、改池深、改融合权重或重灌索引, 都要重测 (§5.5-1, §6-5)。
+**成分变 ⇒ 按 brief 判定表第 3 行, `JITTER_AFFECTS_STATS = true`**: Task 4 必须多次取样并报告每题稳定性。
+
+但这个 true **不是一句"全都不可信"**, 分寸要带上:
+
+- **`max_cluster` 在 8400 次测量里一次没变** → 凡是基于 `max_cluster` 阈值的聚合数字
+  (如"28.6% 的题被同质簇挤占") **不受影响, 不需要重算**。
+- **`dup_seats` / `distinct_sections` 只有 q47 会变** (约 23% 的扰动下变) → 需要重算的是**这一题**,
+  以及任何用到它们的**逐题**数字; 全表均值受 1/140 影响, 量级 ~0.007 席。
+- 会换的席位**几乎总是同一批逐字节重复的 chunk 互换** (§4), 所以按 section 名计席位的统计天然抗它;
+  q47 是例外 —— 它的换人跨了 section 名 (§0.3)。
+
+**排位则一律不可复现**, 这点两版结论一致, 且理由是结构性的 (§4): 挤占席位的 chunk 正文逐字节相同,
+先后由 ingest 分批噪声决定。
+
+本结论只对**当前切割线 (`top_k=15` + `hybrid_pool=30`)** 成立。改 k、改池深、改融合权重或重灌索引, 都要重测。
+
+---
+
+## 0. 第一版判 false 是怎么错的 (方法论, 比结论本身更该被记住)
+
+### 0.1 错在哪
+
+第一版跑了 528 次检索, 成分零变化, 于是判 `false`。**测量没错, 推断错了**: 那 528 次**不是 528 个独立样本**。
+
+实测: embedding API 在一个时间窗内只返回**一小组离散向量** —— 350 秒里连取 15 次, q38 只见到 **3 种**
+向量, q08 只见到 **2 种** (§5.2)。连跑 12 次拿到的往往是同一个向量, 检索自然逐位相同。
+**"跑了 N 次都一样"在这里几乎不携带信息**, 而我把它当成了强证据。
+
+向量真正换一批的时间尺度是**几十分钟到几小时**, 远长于任何一次探针的运行时长。
+
+### 0.2 两条独立的真实反例
+
+**(a) 评审的两次** (约 03:0x, 生产口径 hybrid + S1, q38, top_k=15):
+
+```
+run1: ch04, SV, TS, ML, DA, PR, CO, CV, BS, NV, PC, UR, DD, TU, OE
+run2: ch04, SV, TS, ML, DA, PR, CO, CV, TE, BS, NV, PC, TR, UR, DD
+差集: run1 独有 {TU, OE}; run2 独有 {TE, TR}
+```
+
+run2 = run1 在第 9 位插入 `TE`、第 13 位插入 `TR`, 把尾部的 `TU`/`OE` 挤出 15 名的切割线。
+**这是换人, 不是换位。**
+
+**(b) 我自己的两次**, 相隔约 10 分钟, 同一进程外同一代码同一索引 (`_engine("hybrid", 15)` + `retrieve(top_k=15)`):
+
+```
+14:2x: ch04, SV, TS, ML, DA, PR, CO, CV, BS, NV, PC, UR, DD, TU, OE   ← 与评审 run1 逐位相同
+14:3x: ch04, SV, TS, ML, DA, PR, CO, CV, TE, BS, NV, PC, UR, DD, TU   ← TE 进, OE 出
+```
+
+**第一版的 528 次全部落在 14:2x 那个状态里。** 索引未动过 (`data/chroma/*/data_level0.bin` 停在 8 月 4 日),
+代码未动过 —— 排除了"重灌索引"和"配置差异"这两个替代解释。
+
+### 0.3 控制变量: 不再采样等它发生
+
+真实抖动要等几小时才换一次向量, 采样验稳既慢又会低估。改为**把扰动当自变量**:
+取一个真实 query 向量, 施加实测幅度 (L2 = 8.756e-04) 的扰动, 直接喂进 `retrieve()`
+(`retrieve` 每次调用只 embed 一次, 故替换 `_embed_query` 即可完全控制唯一的抖动源; BM25 侧对同一
+query 文本本就确定)。
+
+```bash
+.venv/bin/python - <<'PY'
+import json, time
+from collections import Counter
+import yaml
+from eval.jitter_probe import _engine, perturbed_vectors, retrieve_under_perturbation
+
+N, L2, SEED = 60, 8.756e-04, 20260807   # L2 = 实测真实抖动幅度 (7.98e-04 ~ 2.16e-03)
+with open("eval/test_set_v3.yml", encoding="utf-8") as f:
+    qs = yaml.safe_load(f)
+rag = _engine("hybrid", 15)
+churn, sec_churn = [], []
+for i, q in enumerate(qs, 1):
+    v0 = rag._embed_query(q["question"])
+    runs = retrieve_under_perturbation(
+        rag, q["question"], perturbed_vectors(v0, L2, N, SEED), top_k=15)
+    sets = {frozenset(c.chunk_id for c in r) for r in runs}
+    multisets = Counter(tuple(sorted(Counter(c.section for c in r).items())) for r in runs)
+    if len(sets) > 1: churn.append(q["id"])
+    if len(multisets) > 1: sec_churn.append(q["id"])
+print("top-15 成分变过:", len(churn), churn)
+print("section 多重集变过:", len(sec_churn), sec_churn)
+PY
+```
+```
+top-15 成分变过:    5 ['q31', 'q38', 'q39', 'q46', 'q47']
+section 多重集变过: 3 ['q31', 'q46', 'q47']
+```
+
+完整产物 (含每题各多重集及其出现次数): `evidence/checkpoints/topk_jitter_perturbation.json`
+(140 题 × 60 次 = 8400 次生产检索, 用时 131.5 秒, **零 API 调用**)。
+
+按统计量分层 (从该 JSON 读出):
+
+```
+max_cluster         0/140  []
+dup_seats           1/140  ['q47']
+distinct_sections   1/140  ['q47']
+
+q47 明细: max_cluster=2 dup_seats=1 distinct_sections=14  —— 46/60 次
+          max_cluster=2 dup_seats=2 distinct_sections=13  —— 14/60 次
+q31/q46: 多重集变了, 但三个汇总统计不变 (换的是两个各占 1 席的 section, 席位账不动)
+```
+
+⚠️ **随机方向不是真实抖动的分布**: 沿两个真实 API 向量之差的方向放大到 5 倍 (L2=4.4e-03) 都翻不动 top-15,
+而同样长度的**随机**方向约 10% 会翻。所以这里的频率是**敏感度上界**, 回答"这个统计量在这个幅度下稳不稳",
+**不回答"每次调用有多大概率翻"**。真实频率的量级由 §0.2 的两条实例给出: 小时级会换。
+
+**复跑说明 (别把它当成对不上)**: 扰动方向由 `seed` 定死可复现, 但**基准向量 `v0` 是当场调 API 取的**,
+而 API 返回的是一小组离散向量之一 (§0.1) —— 所以逐题结果**条件于你那次拿到哪个基准向量**。
+实测: 两次完整的 140 题扫描结果**完全一致** (都是 成分 5 / 多重集 3 / 汇总统计 1, 题号也相同);
+但一次只挑 7 题的复核里 `q46` 没抖 —— **q46 处在边界上**, 换个基准向量就不翻了。
+稳的是结论的三层分布 (`max_cluster` 0、汇总统计 1 题、成分 5 题), 边界题的名单可能小幅出入。
+
+### 0.4 该记住的教训
+
+**凡"跑 N 次都一样"的稳定性结论, 先证明这 N 次是 N 个独立样本。**
+本例里 N 次连跑共享同一个 API 返回值, 稳定性是自证的 (探针问了同一个问题 N 遍)。
+能控制变量时就别采样 —— 控制变量 8400 次只花 131 秒且零 API 开销, 采样 528 次花了半小时还得出反了的结论。
 
 ---
 
@@ -30,11 +152,14 @@
 ```bash
 cd /Users/bojiangzhang/MyProject/sdtm-pedia/sdtm-rag
 
-# 主探针: 11 题 x 12 次 x 2 配置 = 264 次检索, 每次新建 RAGEngine 并重新 embed
+# ① 定论所依据的控制变量扫描 (全 140 题 x 60 次扰动, 131 秒, 零 API 调用) —— 见 §0.3 的完整脚本
+#    产物 evidence/checkpoints/topk_jitter_perturbation.json
+
+# ② 采样口径探针 (第一版依据; 仍是量化抖动源与间隔的工具, 但**不足以判成分稳定性**)
 .venv/bin/python -m eval.jitter_probe --runs 12 --config both \
   --output evidence/checkpoints/topk_jitter.json
 
-# 探针自己的单元测试 (统计口径 + 标识可区分性护栏)
+# ③ 探针自己的单元测试
 .venv/bin/python -m pytest scripts/tests/test_jitter_probe.py -v
 ```
 
@@ -206,10 +331,13 @@ PY
 
 | 观察 | 命中 brief 判定表 | 结论 |
 |---|---|---|
-| 528 次里成分种类数恒 = 1、`sometimes == 0` 全表; 顺序种类数出现过一次 = 2 | **第 2 行: 顺序变但成分不变** | `JITTER_AFFECTS_STATS = **false**` |
+| 成分变: 5/140 题 (控制变量 8400 次); 真实世界两条实例 (§0.2) | **第 3 行: 成分变** | `JITTER_AFFECTS_STATS = **true**` |
 
-`max_cluster` / `dup_seats` / `distinct_sections` 都在 top-15 的**集合**上算 (`Counter(section)` 不看顺序),
-而成分在 528 次检索、两个时间窗里一次没变 → 层① 数字不因抖动而变。
+**以下 §5.1-§5.5 是第一版 (采样口径) 的分析, 保留原样不删** —— 它们的测量都成立, 只是当时被我用来支撑
+一个反了的结论。保留的价值: §5.1 解释了"为什么成分比排位稳得多"(仍然正确, 且正是
+`max_cluster` 0/140 变化的原因), §5.2/§5.3 正是把我引向 §0 那个方法论错误的现场。
+
+> 阅读提示: 凡 §5.x 里出现"528 次没变"的措辞, 一律按 §0.1 打折 —— 那 528 次不是 528 个独立样本。
 
 ### 5.1 结构上为什么成分比排位稳 (不只是"没观察到")
 
@@ -365,28 +493,43 @@ PY
 
 ---
 
-## 6. 对 Task 4 的具体要求
+## 6. 对 Task 4 的具体要求 (按 `true` 修订)
 
-1. **单次取样即可**, 不必跑 N 次取交集/众数。理由: 成分统计在 528 次运行、两个时间窗里零变化 (§2),
-   且有两条结构理由 (§5.1 切割线两侧是重复 chunk、差值几乎不漂; §5.3 会变的那一维正是这些统计不看的一维)。
-2. **证据里必须写这句可复现性声明** (brief 硬要求, 原样抄):
+1. **必须多次取样 —— 但不许用"连跑 N 次"的方式。** 连跑 N 次会拿到同一个 API 向量,
+   是自证 (§0.1)。用**控制变量**: 取一次真实向量, 用 `perturbed_vectors(v0, l2=8.756e-04, n=60,
+   seed=20260807)` 造 60 个实测幅度的扰动向量, 喂给 `retrieve_under_perturbation(...)`。
+   全 140 题 **131 秒、零 API 调用**跑完, 比采样又快又强。两个函数都在 `eval/jitter_probe.py`,
+   已有单元测试 (幅度精确、seed 可复现、用完还原 `_embed_query`)。
 
-   > 本表数字出自**单次** top-15 (生产口径 hybrid + S1)。抖动已由 Task 3B 量化
-   > (`evidence/checkpoints/topk_jitter.md`): 11 道挤占最重的题各跑 24 次、跨两个时间窗,
-   > top-15 **成分零变化** (`sometimes == 0` 全表), 故集合统计 (`max_cluster` / `dup_seats` /
-   > `distinct_sections`) 可单次取样; 但**排位不可复现**, 本表不含也不支持任何按排位下的结论。
-   > 另注: dense 池 (top-30) 的成分**跨时间窗实测会变**, 换上换下的双方同属同一批逐字节重复的
-   > chunk, 故按 section 名计席位的统计对它不敏感 (Task 3B §5.3)。
+   ```python
+   from eval.jitter_probe import perturbed_vectors, retrieve_under_perturbation
+   runs = retrieve_under_perturbation(
+       rag, question, perturbed_vectors(rag._embed_query(question), 8.756e-04, 60), top_k=15)
+   stats = [crowding_stats(r) for r in runs]      # crowding_stats 归你实现, 我不做第二份
+   ```
 
-3. **探针只许输出集合统计, 不许输出排位结论。** `crowding_stats` 的四个字段
-   (`dup_seats` / `max_cluster` / `max_cluster_section` / `distinct_sections`) 都不看顺序, 保持这样。
-   不要新增"簇头排在第几位""top-3 里有几条属于簇"这类**依赖排位**的字段 —— 那类数字不可复现 (§5.3)。
-4. **`composition` 明细可以留, 但要标清它是单次快照。** 数组里的**顺序**、以及**具体哪个域**填了某个席位,
-   都是噪声决定的 (§4): 61 条逐字节相同的 chunk 谁进 top-15, 由 ingest 分批决定。
-   **"AE 排在 FA 前面"不可引用; "有 14 席被 §DOMAIN 占掉"可引用。**
-5. **若日后重灌索引 (re-ingest), 层① 数字必须重算。** 重灌会重新分批调 embedding, §4 的 17 档向量会重排,
-   同质簇内谁进 top-15 会变。簇的**规模**大概率不变, 但这需要重测, 不能沿用本结论。
-   **同理, 改 `top_k`、改 `hybrid_pool`、改融合权重, 也都要重测** —— 本结论只对"k=15 + pool=30"这条切割线成立 (§5.5-1)。
+2. **逐题报告稳定性, 不许只报众数。** 每题至少给: 众数值 + 不同取值的个数 + 各自出现次数。
+   当前唯一不稳的是 **q47**(`dup_seats` 1→2、`distinct_sections` 14→13, 14/60 次), 必须点名,
+   不能把它的 `dup_seats=1` 当事实写。
+3. **哪些已发布数字要重算**:
+   - `max_cluster` 及一切基于它的聚合 (含 **"28.6%"**): **不用重算** —— 8400 次测量里 0/140 变过。
+   - `dup_seats` / `distinct_sections` 的**逐题值**: 只有 q47 会变; 全表均值受影响 ~0.007 席。
+   - 任何**按排位**的结论: 一律作废, 不是重算的问题 (§4 结构理由)。
+4. **探针只许输出集合统计, 不许输出排位结论。** `crowding_stats` 那四个字段都不看顺序, 保持这样。
+   不要新增"簇头排在第几位""top-3 里有几条属于簇"这类依赖排位的字段。
+5. **`composition` 明细可以留, 但必须标清是单次快照。** 数组里的顺序、以及具体哪个域填了某席位,
+   都是噪声决定的 (§4)。**"AE 排在 FA 前面"不可引用; "有 14 席被 §DOMAIN 占掉"可引用。**
+6. **证据里必须写这句可复现性声明** (brief 硬要求, 已按 `true` 改写, 原样抄):
+
+   > 本表逐题数字出自**单次** top-15 (生产口径 hybrid + S1), 并已按 Task 3B 的口径做过稳定性验证:
+   > 对每题施加 60 次实测幅度 (L2=8.756e-04) 的 query 向量扰动, 全 140 题 8400 次检索中,
+   > `max_cluster` **0/140 题**变化, `dup_seats` / `distinct_sections` **1/140 题**变化 (q47)。
+   > 故基于 `max_cluster` 的数字可直接引用; **q47 的 `dup_seats`/`distinct_sections` 不稳定, 已单独标注**。
+   > 抖动的完整量化与方法论见 `evidence/checkpoints/topk_jitter.md`(含"连跑 N 次 ≠ N 个独立样本"这一坑)。
+   > **排位一律不可复现**, 本表不含也不支持任何按排位下的结论。
+
+7. **若重灌索引 / 改 `top_k` / 改 `hybrid_pool` / 改融合权重, 全部重测。** 本结论只对
+   "k=15 + pool=30 + 当前索引"这条切割线成立。重灌会重新分批调 embedding, §4 的 17 档向量会重排。
 
 ---
 
@@ -395,7 +538,7 @@ PY
 ```bash
 .venv/bin/python -m pytest scripts/tests/test_jitter_probe.py -v
 ```
-→ **7 passed**。brief 给的 4 条 (统计口径 + 标识可区分性护栏) 逐字落地; 另补 3 条, 覆盖后加的
+→ **11 passed**。brief 给的 4 条 (统计口径 + 标识可区分性护栏) 逐字落地; 另补 3 条, 覆盖后加的
 `min_adjacent_gap` / `pair_margins` —— 它们产出的数字进了 §3 表, 不能没测:
 
 - `test_min_adjacent_gap` —— 取最小的那一对; 全精度并列返回 0.0; 不足一对返回 None
@@ -403,9 +546,17 @@ PY
 - `test_pair_margins_absolute_drift_vs_differential_drift` —— 两条 sim 各漂 0.01 但**差值不漂**时
   不许报翻转风险 (锁住 §3 那个"别用绝对漂移吓自己"的口径)
 
+另 4 条覆盖修正版新增的扰动注入 (Task 4 要靠它验稳, 它自己必须先被验):
+
+- `test_perturbed_vectors_hits_requested_distance` —— 扰动幅度**恰好**是请求的 L2; 不就地改输入
+- `test_perturbed_vectors_is_deterministic_given_seed` —— 同 seed 逐位重现 (证据要能复跑)
+- `test_retrieve_under_perturbation_feeds_each_vector_and_restores_embed` —— 每个向量都真被用上, 用完还原
+- `test_retrieve_under_perturbation_restores_embed_on_error` —— 检索抛错也必须还原,
+  否则引擎被永久钉在假向量上, 后续所有检索静默作废
+
 全量:
 
 ```bash
 .venv/bin/python -m pytest -q --junit-xml=/tmp/j.xml   # 本仓 pytest 吞末行统计, 数字读 xml
 ```
-→ **889 passed, 0 failed** (本 task 之前实测基线 **882**, 本 task +7)。
+→ **893 passed, 0 failed** (本 task 之前实测基线 **882**, 本 task +11)。
