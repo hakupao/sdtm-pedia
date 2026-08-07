@@ -992,6 +992,33 @@ if __name__ == "__main__":
 Run: `.venv/bin/python -m pytest scripts/tests/test_crowding_probe.py -v`
 Expected: 5 passed
 
+- [ ] **Step 4B: 接入 Task 3B 的跨进程取样 (硬要求, 3B 判定 JITTER_AFFECTS_STATS = true)**
+
+Task 3B 实证: **单进程内循环 N 次不是 N 个独立样本** —— 严重偏向单一状态 (60 次实测 57:3 ≈ 95%),
+系统性低估状态分布。跨进程才是独立样本 (钉死 query 向量 × 8 进程仍出 3 种 top-15,
+证明变化主源在检索侧而非 embedding)。
+
+故本探针**必须**:
+
+1. 取样走 `eval.jitter_probe.stability_across_processes(question, n_procs=20, ...)`,
+   把 `rep["runs"]` 的每个进程结果各自套 `crowding_stats`。**进程内循环不算数, 不许自己另写一份跨进程逻辑。**
+2. **逐题报分布, 不许只报众数**: 众数值 + 取值个数 + 各自次数。**q47 与 q117 必须点名** (3B 实测这两题的
+   统计量跨进程有变化)。
+3. **探针只输出集合统计** (`max_cluster` / `dup_seats` / `distinct_sections`), 不加任何依赖**排位**的字段。
+   **排位结论一律作废** —— 不是重算的问题, 是那个维度本身不可复现。
+4. `composition` 可保留但必须标清是**单次快照**: "14 席被 §DOMAIN 占掉"可引用,
+   "AE 排在 FA 前面"**不可**引用。
+5. 报告只说"见到 N 种状态", **不许把 20 次的频率当概率** —— `n_procs=20` 是**检出不稳定**的下限,
+   不足以刻画分布尾部 (实测稀有态在 1/20 量级, 且**不同批次见到的状态集合不同**)。
+
+**`max_cluster` 与"28.6%"聚合值可沿用单次取样结果**, 但引用时**必须连豁免机制一起带** ——
+见 `evidence/checkpoints/topk_jitter*.md` §5.6: 抖动换的是"哪个域"(TE↔OE↔TR↔RP), 而这些 chunk
+全是 `domains/*/spec.md#1`、section 一律 `DOMAIN` ⇒ **换人不换 section** ⇒ 簇大小恒定。
+根因是重复 chunk **正文逐字节相同**, 正文相同则 **section 必相同** ⇒ **抖动天然发生在簇内部**,
+换的恰好是"按 section 名计席位"这个统计**不看**的那一维。
+**该豁免是有条件的**, 失效条件 (任一成立即须重测): Task 6 做去重拆掉歧义源 / Task 8 重灌索引 /
+改切分或 section 命名 / 改 `top_k`、`hybrid_pool`、融合权重。
+
 - [ ] **Step 5: 跑落库版, 与 spec §0 数字核对**
 
 Run: `.venv/bin/python -m eval.crowding_probe --output evidence/checkpoints/crowding_layer1.json`
