@@ -67,6 +67,37 @@ q08 `§USUBJID` 7 · q29 `§Related Domains` 7 · q81 `§DOMAIN` 7。
 > 逐题层面: `dup_seats`/`distinct_sections` 对 q47 只能按分布引 (12:8 四六开), q117 需标注;
 > `max_cluster_section` 在并列时由排位决定 (140 题里 71 题存在并列), 排位结论一律作废。
 
+> **[2026-08-07 Task 8] 上表 (尤其 28.6%) 系重灌前口径, 且含人造簇 —— 引用前必读。**
+>
+> 1. **含 `whole_file` 人造簇**: 40 题中 **5 题**的簇头就是它 (q14/q37/q40/q66/q86)。
+>    `whole_file` 不是真同质簇 —— ch01/ch02/ch03 三个**内容毫不相干**的整章共用这一个
+>    section 名, 只因按字面计簇才被认成同质。剔除 `whole_file` 席位后重算, q14/q40 掉出
+>    ≥3 档, 同口径值为 **27.1% (38/140)**。
+> 2. **已被重灌取代**: Task 8 取消整文件单块档 (ch01/02/03 按 H2 切) + 重灌索引
+>    (4315 → 4329), 这正是 `max_cluster` 豁免**自己明列的失效条件 3 与 4**。
+>    **重灌后现值 23.6% (33/140)**, 四组均值同步为 `max_cluster` 2.300→2.157 /
+>    `dup_seats` 1.729→1.471 / `distinct_sections` 13.271→13.529。
+>    落盘 `sdtm-rag/evidence/checkpoints/crowding_layer1_after_split.json`,
+>    说明见 `sdtm-rag/evidence/checkpoints/chapters_chunking.md` §6 / §6.1。
+>
+> **历史数字不改写** (改了就是伪造当轮实测)。要引用挤占普遍性, 引 23.6%; 要与本表对照,
+> 必须连"含人造簇"这一条一起带。剔除人造簇的复算:
+>
+> ```bash
+> cd sdtm-rag && .venv/bin/python -c "
+> import json; from collections import Counter
+> b=json.load(open('evidence/checkpoints/crowding_layer1.json',encoding='utf-8'))
+> print('>=3 total:', sum(1 for r in b if r['max_cluster']>=3))
+> print('head==whole_file:', [r['id'] for r in b if r['max_cluster']>=3 and r['max_cluster_section']=='whole_file'])
+> still=[r['id'] for r in b
+>        if (lambda c: (c.most_common(1)[0][1] if c else 0) >= 3)(
+>            Counter(e['section'] for e in r['composition'] if e['section']!='whole_file'))]
+> print('excl. whole_file:', len(still), '=> %.1f%%' % (100*len(still)/140))"
+> # >=3 total: 40
+> # head==whole_file: ['q14', 'q37', 'q40', 'q66', 'q86']
+> # excl. whole_file: 38 => 27.1%
+> ```
+
 ## 1. 核心洞察: 尺子为什么看不见这件事
 
 **除 q38 外, 上述重灾题全部 gold 满分。** 现有 140 题判据对挤占结构性失明, 机制是:

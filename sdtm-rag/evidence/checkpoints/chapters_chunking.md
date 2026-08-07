@@ -2,7 +2,7 @@
 
 > 结论: `ChaptersChunker` 由三档改两档。ch01/ch02/ch03 从各 1 个整文件块变为按 H2 切
 > (5 / 9 / 3)。索引 **4315 → 4329 (+14)**。140 题 gold **逐题零变化** (avg 0.9917 → 0.9917)。
-> 层① `whole_file` 簇头消失且**未出现任何新簇头**。
+> 层① `whole_file` 簇头消失, 且**这一次取样里未见任何新簇头** (单次快照口径, 见 §6)。
 >
 > **这份证据不能证明什么**: 它**没有**解决 q38 —— ch02 仍未进 top-15, 见 §6。
 > 切分是结构改善, 不是 q38 的修复。
@@ -79,7 +79,10 @@ ch10_appendices.md                    30233 B  H2= 7 H3= 12 ->   7 chunks
 | 增 | `test_ch03_splits_by_h2` | ==3 |
 | 增 | `test_file_without_headings_still_falls_back_to_whole_file` | **回落分支现在是唯一兜底**, 之前被 ≤20KB 档遮住从没被单独测过 |
 | 增 | `test_large_chapter_still_splits_by_h3` | L-4 反向锁: 本改动不得动 ch04 |
+| 增¹ | `test_every_chapter_chunk_under_embedding_limit` | **全量** token 上限闸, 见 §9 |
 | 未动 | `test_ch04_produces_47_chunks` / `test_ch08_produces_19_chunks` | L-4, 不许动 |
+
+¹ 评审后补 (Minor 2)。
 
 断言值 5 / 9 / 3 是 §3 命令跑出来的真实块数, 与 H2 计数一致 (无"首个 H2 前的前言另成一块"
 的情况, 原因见 §7)。**没有**用 `> 1` 之类的弱断言顶替。
@@ -262,7 +265,16 @@ NEW: {}
 GONE: {'whole_file': 23, 'TAETORD': 1}
 ```
 
-**新簇 0 个。** `whole_file` 原本在 **23 题**的 top-15 里占 ≥2 席 —— 那是个纯人造簇:
+**这一次取样里没见到新簇 (0 个)。**
+
+> ⚠ **口径限定**: 上面的普查是**单次快照**, 前后各跑一遍。而本轮自己的结论是 top-15 的
+> **成分跨进程会变** (topk_jitter §0.1 / §4)。所以严格说法是「**这一次取样里没见到新簇**」,
+> 不是「不存在新簇」—— 一个只在少数进程状态下才成形的簇, 单次快照照不出来。
+> 支撑这个结论的不止快照: §6.1 的 3 题 × 20 进程跨进程取样里也没见到新簇头, 且
+> `whole_file` 已从索引里**结构性归零** (0 条 chunk), 它不可能以任何进程状态回来。
+> 但"其他 section 名会不会在别的进程状态下成新簇"这一问, 本证据**没有**回答。
+
+`whole_file` 原本在 **23 题**的 top-15 里占 ≥2 席 —— 那是个纯人造簇:
 ch01/ch02/ch03 三个**内容毫不相干**的整章共用同一个 section 名, 按字面被认成同质簇。
 切完之后它彻底消失, 且没有任何新名字顶上来。
 
@@ -379,11 +391,11 @@ ch03_submitting_data.md 109 B of 19698 '# SDTMIG v3.4 — Chapter 3: ...\n\nSour
 .venv/bin/python -c "import xml.etree.ElementTree as ET;print(ET.parse('/tmp/j_after.xml').getroot().find('testsuite').attrib)"
 ```
 ```
-{'errors': '0', 'failures': '0', 'skipped': '0', 'tests': '957', 'time': '22.427', ...}
+{'errors': '0', 'failures': '0', 'skipped': '0', 'tests': '958', 'time': '23.320', ...}
 ```
 
-951 → **957** = −2 (删掉锁旧档的两条) +6 (新锁) +2 (`test_chapter_chunk_size_tokens_positive`
-的 parametrize 加了 ch02 / ch03)。**failures=0, skipped=0。**
+951 → **958** = −2 (删掉锁旧档的两条) +6 (新锁) +2 (`test_chapter_chunk_size_tokens_positive`
+的 parametrize 加了 ch02 / ch03) +1 (评审后补的全量 token 闸, §9)。**failures=0, skipped=0。**
 `test_kb_crossref_completeness.py` 7 passed。
 
 `4315` 的全库引用:
@@ -396,3 +408,41 @@ grep -rn "4315" --include="*.py" --include="*.md" --include="*.json" --include="
 **没有一处是断言** —— 它们是当时那一轮的实测记录。历史实测数字**不改写** (改了就成了伪造),
 改为在 `topk_jitter.md` §5.6 追加一条 Task 8 的失效/重测记录, 指向本文件 §6.1。
 `server/router.py` 的 `chunk_count` 是运行时 `collection.count()`, 无硬编码。
+
+---
+
+## 9. 全量 token 上限闸 (评审 Minor 2, 2026-08-07 补)
+
+**缺口**: 改动前的 `< 8000` 断言只覆盖 ch04 (L-4 锁) 与 ch08。ch01/02/03/10 **无闸**。
+这不是笔误而是结构性缝隙: L-4 只在 `>50KB` 触发, 而两档策略下 20-50KB 文件一律只按 H2 切。
+若将来某章 H2 极少而正文极长, 会在**没有任何测试报警**的情况下越过 8191 embedding 上限 ——
+越限的表现是 ingest 报错或该块被静默截断, 两种都难倒查。
+
+新增 `test_every_chapter_chunk_under_embedding_limit`: 按目录遍历 `chapters/*.md`
+(不写死文件名, 新增 chapter 自动纳入), 断言**任意** chunk `< 8000` tok。
+
+**闸能不能咬得动** —— 只报"它绿了"是不够的, 绿也可能是因为它永远不会红:
+
+```bash
+.venv/bin/python -c "
+from pathlib import Path
+from scripts.chunkers.chapters import ChaptersChunker
+KB=Path('../knowledge_base').resolve(); ck=ChaptersChunker(KB)
+allc=[(f.name,c.section,c.chunk_size_tokens) for f in sorted((KB/'chapters').glob('*.md')) for c in ck.chunk(f)]
+print('total chapter chunks:', len(allc)); print('max:', max(allc, key=lambda t:t[2]))
+for thr in (8000, 4400, 4000):
+    print(f'threshold {thr}: offenders={len([t for t in allc if t[2]>=thr])}')"
+```
+```
+total chapter chunks: 90
+max: ('ch03_submitting_data.md', '3.2 Using the CDISC Domain Models ... Dataset Metadata', 4400)
+threshold 8000: offenders=0
+threshold 4400: offenders=1
+threshold 4000: offenders=2
+```
+
+覆盖 **90/90** 个 chapter chunk (之前只有 66 个: ch04 47 + ch08 19)。阈值降到真实最大值
+4400 时闸**确实变红**, 说明它是活闸而非恒真式。当前最大 4400 tok, 距 8000 有 45% 余量。
+
+> 这条闸能证明"chapter 类没有块会撑爆 embedding";
+> **不能**证明其他 file_type 安全 —— 它只遍历 `chapters/`。

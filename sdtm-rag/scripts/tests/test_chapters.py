@@ -231,3 +231,28 @@ def test_chapter_chunk_size_tokens_positive(chunker, fname):
     for chunk in chunks:
         assert chunk.chunk_size_tokens is not None
         assert chunk.chunk_size_tokens > 0
+
+
+# ---------------------------------------------------------------------------
+# 全量 token 上限 (2026-08-07): 补 ch01/02/03/10 的缺口
+# ---------------------------------------------------------------------------
+
+def test_every_chapter_chunk_under_embedding_limit(chunker):
+    """**任意** chapters/*.md 的**任意** chunk 都必须 < 8000 tok。
+
+    既有的 `< 8000` 断言只覆盖 ch04 (L-4) 与 ch08 —— ch01/02/03/10 无闸。这是结构性缝隙
+    而非笔误: L-4 只在 >50KB 触发, 而两档策略下 20-50KB 文件一律只按 H2 切。若将来某章
+    H2 极少而正文极长 (ch03 §3.2 已是 4400 tok), 会在没有任何测试报警的情况下越过 8191
+    embedding 上限 —— 越限的表现是 ingest 报错或该块被静默截断, 两种都难倒查。
+
+    本闸按目录遍历而非写死文件名: 新增 chapter 文件自动纳入, 不需要有人记得来加一行。
+    """
+    files = sorted(CHAPTERS_DIR.glob("*.md"))
+    assert len(files) >= 6, f"chapters/ 只找到 {len(files)} 个文件, 目录结构可能变了"
+    offenders = [
+        (f.name, c.section, c.chunk_size_tokens)
+        for f in files
+        for c in chunker.chunk(f)
+        if c.chunk_size_tokens >= 8000
+    ]
+    assert not offenders, f"chunk 越过 8000 tok: {offenders}"
