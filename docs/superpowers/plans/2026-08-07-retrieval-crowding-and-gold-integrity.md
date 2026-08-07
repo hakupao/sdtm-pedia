@@ -20,7 +20,17 @@
 - **规则 A**: 抽样总体 = 本轮实际变更集合 (改动的 gold 条目 + 改动的检索行为), 不是变更后全集。
 - **规则 B**: 任何失败 attempt 归档到 `sdtm-rag/evidence/failures/`, 不删。
 - 红线: 真实 study 的 form/field OID / label / 题面 / 别名词只允许存在于 `sdtm-rag/data/study/` (gitignored)。本轮不碰 study 库, 但任何产出仍走程序化复扫。
-- 现有已知限制不得在本轮"顺手调绿": `q126` 是永久 known limit; `eval/test_set_vi_completeness.yml` 的 `vic01` 在 `--judge` 口径下故意保留失分 0.5。
+- 现有已知限制不得在本轮"顺手调绿": `eval/test_set_vi_completeness.yml` 的 `vic01` 在 `--judge`
+  口径下故意保留失分 0.5。
+- **`q126` 的例外裁定 (用户 2026-08-07 批准)**: 独立判定发现 q126 的 gold 漏了
+  `model/03_special_purpose_domains.md#Subject Elements (SE)$` —— 该正文三问全中**且已在 top-3**,
+  与 q38 完全同型。故**补 gold**, 但证据里必须写死三点:
+  1. 原 known limit 的**技术裁定仍然成立、未被推翻** —— 双重阻断 (例级作弊风险 +
+     `domain_to_spec` 只映 `spec.md` 缺 sub-file 判别器) 是关于"检索够不到
+     `domains/SE/assumptions.md` / `TE/spec.md`"的结论, 依然为真;
+  2. 本次改的是**判据完整性**这个**独立维度** —— 检索早就召回了一个等价权威源, 是 gold 没写它;
+  3. 分数变化必须带口径, **不得表述为"q126 修好了"**。
+  这不是"调绿": 调绿是为分数好看而放宽判据, 这里是判据漏了检索已经找到的权威源。
 - **所有文件 I/O 必须 `with open(..., encoding="utf-8")`** (读写两侧都要)。
   本仓的题集/证据含中文与 `§`, 非 UTF-8 locale 下裸 `open()` 直接炸;
   写侧更要紧 —— 这些脚本用 `ensure_ascii=False`, **保证**输出含非 ASCII, 没有 `with` 时
