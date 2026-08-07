@@ -7,6 +7,7 @@ from eval.jitter_probe import (
     pair_margins,
     perturbed_vectors,
     retrieve_under_perturbation,
+    stability_across_processes,
     stability_report,
 )
 
@@ -136,3 +137,31 @@ def test_retrieve_under_perturbation_restores_embed_on_error():
     with contextlib.suppress(RuntimeError):
         retrieve_under_perturbation(rag, "q", [[1.0, 0.0]], top_k=15)
     assert rag._embed_query is original
+
+
+# ---- 跨进程稳定性: 第一版漏掉的那一维 ----
+
+
+def test_stability_across_processes_rejects_single_process():
+    """1 个进程量不到跨进程差异 —— 必须响亮拒绝, 而不是返回一个"很稳"的假结论。
+    第一版探针的教训就是"样本数看着大、独立样本数其实是 1"。"""
+    import pytest
+    with pytest.raises(ValueError, match="至少要 2 个进程"):
+        stability_across_processes("q", n_procs=1)
+
+
+def test_stability_across_processes_aggregates_runner_output():
+    """注入 runner 验聚合口径: 3 个进程里有一个换了人, 必须报成分不稳。"""
+    def fake_runner(fn, payload):
+        assert len(payload) == 3
+        assert all(p[0] == "q38?" for p in payload)      # 每个进程拿到同一个问题
+        assert all(p[3] == [0.1, 0.2] for p in payload)  # 固定向量被透传
+        return [["a", "b", "c"], ["a", "b", "c"], ["a", "b", "d"]]
+
+    r = stability_across_processes(
+        "q38?", n_procs=3, vector=[0.1, 0.2], runner=fake_runner)
+    assert r["n_procs"] == 3
+    assert r["vector_fixed"] is True
+    assert r["distinct_sets"] == 2
+    assert r["sometimes"] == 2      # c, d
+    assert r["always"] == 2         # a, b

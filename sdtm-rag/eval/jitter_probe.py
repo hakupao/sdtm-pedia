@@ -18,8 +18,10 @@ import argparse
 import json
 import math
 import random
+import sys
 import time
 from collections.abc import Sequence
+from pathlib import Path
 
 # 层① (crowding) 里 max_cluster >= 5 的 11 题, 含挤占最重的 q38 (max_cluster=14)。
 # 抖动只在同质簇尾部才有翻转空间, 所以量化就打这批最可能翻的题 —— 它们不抖, 挤占
@@ -183,6 +185,88 @@ def retrieve_under_perturbation(rag, question: str, vectors, top_k: int) -> list
     return out
 
 
+def _process_worker(args):
+    """子进程入口: 建引擎, 用给定向量 (或现场 embed) 跑一次生产检索, 回 chunk_id 列表。
+
+    必须是模块级函数, 否则 spawn 起的解释器 pickle 不到它。
+    """
+    question, config, top_k, vector = args
+    rag = _engine(config, top_k)
+    if vector is not None:
+        rag._embed_query = lambda _t: list(vector)
+    return [c.chunk_id for c in rag.retrieve(question, top_k=top_k)]
+
+
+def _subprocess_runner(_fn, payload) -> list[list[str]]:
+    """把每个任务交给一个**真正独立的 python 进程** (`-m eval.jitter_probe --worker`)。
+
+    并发只用线程池转发 I/O —— 干活的是子进程, 线程只负责等它们。
+    任何子进程失败都当场抛出: 静默跳过会让"样本数"虚高, 而这个探针的全部意义
+    就是样本数得是真的。
+    """
+    import concurrent.futures as cf
+    import subprocess
+    import tempfile
+
+    root = str(Path(__file__).resolve().parent.parent)
+
+    def one(task):
+        question, config, top_k, vector = task
+        with tempfile.NamedTemporaryFile("w", suffix=".json", delete=False,
+                                         encoding="utf-8") as f:
+            json.dump({"question": question, "config": config,
+                       "top_k": top_k, "vector": vector}, f)
+            path = f.name
+        try:
+            r = subprocess.run(
+                [sys.executable, "-m", "eval.jitter_probe", "--worker", path],
+                cwd=root, capture_output=True, text=True, check=True,
+            )
+            return json.loads(r.stdout)
+        except subprocess.CalledProcessError as exc:
+            raise RuntimeError(f"子进程失败: {exc.stderr[-2000:]}") from exc
+        finally:
+            Path(path).unlink(missing_ok=True)
+
+    with cf.ThreadPoolExecutor(max_workers=min(len(payload), 8)) as ex:
+        return list(ex.map(one, payload))
+
+
+def stability_across_processes(
+    question: str, n_procs: int, config: str = "hybrid", top_k: int = 15,
+    vector=None, runner=None,
+) -> dict:
+    """**跨进程**稳定性 —— 本模块第一版漏掉的那一维, 也是实测中占主导的那一维。
+
+    为什么必须跨进程: 固定同一份逐位相同的 query 向量、同一份 BM25 索引顺序,
+    在 8 个独立进程里跑纯 dense top-31, 结果**仍然不同** (1/8 的尾部换了人)。
+    Chroma 的 HNSW 是近似检索, 在一堆**向量完全相同**的重复 chunk 之间, 它返回谁
+    并不由 sim 决定; 而这个选择在**一个进程内是稳定的, 换进程会变**。
+
+    后果: 在一个进程里循环 N 次 —— 哪怕每次新建 RAGEngine、每次重新 embed ——
+    也只等于**一个样本**。第一版探针正是这么跑的, 于是 44 个 block 全报"成分零变化",
+    而评审用 shell `for` 循环 (每次一个新进程) 一跑就复现了变化。
+
+    `vector` 给定时逐位固定 query 向量, 从而把 embedding 抖动排除干净, 单独量这一维;
+    留空则每个进程各自现场 embed (与生产完全一致, 两种抖动叠加)。
+    `runner` 仅供测试注入, 默认起真正的子进程。
+
+    用 `subprocess` 而不是 `multiprocessing`: 后者的 spawn 要求调用方有 `__main__` 保护
+    且 `__main__` 可被子解释器重新导入 —— 从 heredoc / stdin / REPL 调用会直接挂死
+    (实测挂满 10 分钟)。证据里量到差异的那次也正是 `for` 循环起独立 `python` 进程,
+    subprocess 与它同形。
+    """
+    if n_procs < 2:
+        raise ValueError("跨进程稳定性至少要 2 个进程, 否则量不到任何东西")
+    payload = [(question, config, top_k, vector)] * n_procs
+    runs = (runner or _subprocess_runner)(_process_worker, payload)
+    rep = stability_report(runs)
+    rep["n_procs"] = n_procs
+    rep["vector_fixed"] = vector is not None
+    rep["runs"] = runs
+    return rep
+
+
 def embedding_jitter(vectors: Sequence[Sequence[float]]) -> dict:
     """重复 embed 同一 query 的向量 -> 逐位最大差值与 L2 距离 (均相对第 1 次)。
 
@@ -261,8 +345,21 @@ def main(argv=None) -> int:
         "--ids", default=None,
         help="逗号分隔题号; 缺省用层① max_cluster>=5 的 11 题 (含 q38)",
     )
-    p.add_argument("--output", required=True)
+    p.add_argument("--output", default=None)
+    p.add_argument("--worker", default=None,
+                   help="内部用: 子进程模式, 读 payload json, 输出 chunk_id 列表 json")
     args = p.parse_args(argv)
+
+    if args.worker:  # 被 _subprocess_runner 起来的一次性子进程
+        with open(args.worker, encoding="utf-8") as f:
+            payload = json.load(f)
+        ids = _process_worker((payload["question"], payload["config"],
+                               payload["top_k"], payload["vector"]))
+        print(json.dumps(ids))
+        return 0
+
+    if not args.output:
+        raise SystemExit("--output 是必需的 (除非 --worker)")
 
     import yaml
 

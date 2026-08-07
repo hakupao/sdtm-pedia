@@ -1,0 +1,3448 @@
+{
+ "_meta": {
+  "what": "跨独立进程的 top-15 稳定性 (第一版探针漏掉的一维)",
+  "why": "同一进程内循环 N 次 = 1 个样本: 固定同一份逐位相同的 query 向量、同一份 BM25 索引顺序, 8 个独立进程跑纯 dense top-31 结果仍不同 —— Chroma HNSW 近似检索在一批向量完全相同的重复 chunk 之间选谁, 进程内稳定、换进程会变。",
+  "n_procs": 20,
+  "n_questions": 140,
+  "top_k": 15,
+  "config": "hybrid + structured_lookup (生产口径)",
+  "modes": {
+   "fixed_vector": "query 向量逐位固定 => 只含检索侧 (HNSW) 抖动",
+   "live_embed": "每进程各自现场 embed => 生产口径, embedding 抖动 + HNSW 抖动叠加"
+  },
+  "summary": {
+   "fixed_vector": {
+    "composition_changed": {
+     "n": 3,
+     "ids": [
+      "q38",
+      "q117",
+      "q120"
+     ]
+    },
+    "section_multiset_changed": {
+     "n": 2,
+     "ids": [
+      "q117",
+      "q120"
+     ]
+    },
+    "stats_changed": {
+     "n": 1,
+     "ids": [
+      "q117"
+     ]
+    },
+    "max_cluster_changed": {
+     "n": 0,
+     "ids": []
+    }
+   },
+   "live_embed": {
+    "composition_changed": {
+     "n": 5,
+     "ids": [
+      "q31",
+      "q38",
+      "q47",
+      "q120",
+      "q133"
+     ]
+    },
+    "section_multiset_changed": {
+     "n": 4,
+     "ids": [
+      "q31",
+      "q47",
+      "q120",
+      "q133"
+     ]
+    },
+    "stats_changed": {
+     "n": 1,
+     "ids": [
+      "q47"
+     ]
+    },
+    "max_cluster_changed": {
+     "n": 0,
+     "ids": []
+    }
+   }
+  }
+ },
+ "questions": {
+  "q01": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q02": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 2,
+      "distinct_sections": 13,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 2,
+      "distinct_sections": 13,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q03": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 2,
+      "distinct_sections": 13,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 2,
+      "distinct_sections": 13,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q04": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 3,
+      "dup_seats": 3,
+      "distinct_sections": 12,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 3,
+      "dup_seats": 3,
+      "distinct_sections": 12,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q05": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q21": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 1,
+      "distinct_sections": 14,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 1,
+      "distinct_sections": 14,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q22": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q23": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q24": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 3,
+      "distinct_sections": 12,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 3,
+      "distinct_sections": 12,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q25": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 1,
+      "distinct_sections": 14,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 1,
+      "distinct_sections": 14,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q26": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 1,
+      "distinct_sections": 14,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 1,
+      "distinct_sections": 14,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q27": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 1,
+      "distinct_sections": 14,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 1,
+      "distinct_sections": 14,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q06": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q07": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 5,
+      "dup_seats": 5,
+      "distinct_sections": 10,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 5,
+      "dup_seats": 5,
+      "distinct_sections": 10,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q08": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 7,
+      "dup_seats": 7,
+      "distinct_sections": 8,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 7,
+      "dup_seats": 7,
+      "distinct_sections": 8,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q09": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 2,
+      "distinct_sections": 13,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 2,
+      "distinct_sections": 13,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q10": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 3,
+      "dup_seats": 3,
+      "distinct_sections": 12,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 3,
+      "dup_seats": 3,
+      "distinct_sections": 12,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q28": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 4,
+      "dup_seats": 3,
+      "distinct_sections": 12,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 4,
+      "dup_seats": 3,
+      "distinct_sections": 12,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q29": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 7,
+      "dup_seats": 9,
+      "distinct_sections": 6,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 7,
+      "dup_seats": 9,
+      "distinct_sections": 6,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q30": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 2,
+      "distinct_sections": 13,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 2,
+      "distinct_sections": 13,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q31": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 4,
+      "dup_seats": 6,
+      "distinct_sections": 9,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 2,
+    "stats_distribution": [
+     {
+      "max_cluster": 4,
+      "dup_seats": 6,
+      "distinct_sections": 9,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q32": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 3,
+      "dup_seats": 3,
+      "distinct_sections": 12,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 3,
+      "dup_seats": 3,
+      "distinct_sections": 12,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q33": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 1,
+      "distinct_sections": 14,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 1,
+      "distinct_sections": 14,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q34": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 1,
+      "distinct_sections": 14,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 1,
+      "distinct_sections": 14,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q11": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 3,
+      "dup_seats": 2,
+      "distinct_sections": 13,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 3,
+      "dup_seats": 2,
+      "distinct_sections": 13,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q12": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 3,
+      "dup_seats": 2,
+      "distinct_sections": 13,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 3,
+      "dup_seats": 2,
+      "distinct_sections": 13,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q13": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q14": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 3,
+      "dup_seats": 2,
+      "distinct_sections": 13,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 3,
+      "dup_seats": 2,
+      "distinct_sections": 13,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q15": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 1,
+      "distinct_sections": 14,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 1,
+      "distinct_sections": 14,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q35": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 1,
+      "distinct_sections": 14,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 1,
+      "distinct_sections": 14,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q36": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q37": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 3,
+      "dup_seats": 5,
+      "distinct_sections": 10,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 3,
+      "dup_seats": 5,
+      "distinct_sections": 10,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q38": {
+   "fixed_vector": {
+    "n_distinct_compositions": 4,
+    "stats_distribution": [
+     {
+      "max_cluster": 14,
+      "dup_seats": 13,
+      "distinct_sections": 2,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 4,
+    "stats_distribution": [
+     {
+      "max_cluster": 14,
+      "dup_seats": 13,
+      "distinct_sections": 2,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q39": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 8,
+      "dup_seats": 8,
+      "distinct_sections": 7,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 8,
+      "dup_seats": 8,
+      "distinct_sections": 7,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q40": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 3,
+      "dup_seats": 3,
+      "distinct_sections": 12,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 3,
+      "dup_seats": 3,
+      "distinct_sections": 12,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q41": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 3,
+      "dup_seats": 4,
+      "distinct_sections": 11,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 3,
+      "dup_seats": 4,
+      "distinct_sections": 11,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q16": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q17": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 1,
+      "distinct_sections": 14,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 1,
+      "distinct_sections": 14,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q18": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 3,
+      "dup_seats": 2,
+      "distinct_sections": 13,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 3,
+      "dup_seats": 2,
+      "distinct_sections": 13,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q19": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q20": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q42": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q43": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q44": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 1,
+      "distinct_sections": 14,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 1,
+      "distinct_sections": 14,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q45": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q46": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 1,
+      "distinct_sections": 14,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 1,
+      "distinct_sections": 14,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q47": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 2,
+      "distinct_sections": 13,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 2,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 2,
+      "distinct_sections": 13,
+      "n_procs": 12
+     },
+     {
+      "max_cluster": 2,
+      "dup_seats": 1,
+      "distinct_sections": 14,
+      "n_procs": 8
+     }
+    ]
+   }
+  },
+  "q48": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 1,
+      "distinct_sections": 14,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 1,
+      "distinct_sections": 14,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "s01": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "s02": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "s03": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "s04": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "s05": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 1,
+      "distinct_sections": 14,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 1,
+      "distinct_sections": 14,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q54": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q55": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q56": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q57": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 4,
+      "dup_seats": 5,
+      "distinct_sections": 10,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 4,
+      "dup_seats": 5,
+      "distinct_sections": 10,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q58": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 1,
+      "distinct_sections": 14,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 1,
+      "distinct_sections": 14,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q59": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q60": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 1,
+      "distinct_sections": 14,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 1,
+      "distinct_sections": 14,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q61": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q62": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 1,
+      "distinct_sections": 14,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 1,
+      "distinct_sections": 14,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q63": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q64": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 3,
+      "distinct_sections": 12,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 3,
+      "distinct_sections": 12,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q65": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 3,
+      "dup_seats": 4,
+      "distinct_sections": 11,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 3,
+      "dup_seats": 4,
+      "distinct_sections": 11,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q66": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 3,
+      "dup_seats": 5,
+      "distinct_sections": 10,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 3,
+      "dup_seats": 5,
+      "distinct_sections": 10,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q67": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 1,
+      "distinct_sections": 14,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 1,
+      "distinct_sections": 14,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q68": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q69": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q70": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 1,
+      "distinct_sections": 14,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 1,
+      "distinct_sections": 14,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q71": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 2,
+      "distinct_sections": 13,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 2,
+      "distinct_sections": 13,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q72": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 3,
+      "dup_seats": 5,
+      "distinct_sections": 10,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 3,
+      "dup_seats": 5,
+      "distinct_sections": 10,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q73": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 3,
+      "dup_seats": 3,
+      "distinct_sections": 12,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 3,
+      "dup_seats": 3,
+      "distinct_sections": 12,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q74": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q75": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 4,
+      "dup_seats": 4,
+      "distinct_sections": 11,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 4,
+      "dup_seats": 4,
+      "distinct_sections": 11,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q76": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 1,
+      "distinct_sections": 14,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 1,
+      "distinct_sections": 14,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q77": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 6,
+      "dup_seats": 5,
+      "distinct_sections": 10,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 6,
+      "dup_seats": 5,
+      "distinct_sections": 10,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q78": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 2,
+      "distinct_sections": 13,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 2,
+      "distinct_sections": 13,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q79": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q80": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q81": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 7,
+      "dup_seats": 6,
+      "distinct_sections": 9,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 7,
+      "dup_seats": 6,
+      "distinct_sections": 9,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q82": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 2,
+      "distinct_sections": 13,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 2,
+      "distinct_sections": 13,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q83": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q84": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 5,
+      "dup_seats": 4,
+      "distinct_sections": 11,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 5,
+      "dup_seats": 4,
+      "distinct_sections": 11,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q85": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 2,
+      "distinct_sections": 13,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 2,
+      "distinct_sections": 13,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q86": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 3,
+      "dup_seats": 4,
+      "distinct_sections": 11,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 3,
+      "dup_seats": 4,
+      "distinct_sections": 11,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q87": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 1,
+      "distinct_sections": 14,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 1,
+      "distinct_sections": 14,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q88": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 3,
+      "dup_seats": 4,
+      "distinct_sections": 11,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 3,
+      "dup_seats": 4,
+      "distinct_sections": 11,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q89": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 3,
+      "dup_seats": 2,
+      "distinct_sections": 13,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 3,
+      "dup_seats": 2,
+      "distinct_sections": 13,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q90": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q91": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 1,
+      "distinct_sections": 14,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 1,
+      "distinct_sections": 14,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q92": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q93": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q94": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q95": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 1,
+      "distinct_sections": 14,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 1,
+      "distinct_sections": 14,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q96": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 1,
+      "distinct_sections": 14,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 1,
+      "distinct_sections": 14,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q97": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q98": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 1,
+      "distinct_sections": 14,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 1,
+      "distinct_sections": 14,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q99": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 2,
+      "distinct_sections": 13,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 2,
+      "distinct_sections": 13,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q100": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 3,
+      "distinct_sections": 12,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 3,
+      "distinct_sections": 12,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q101": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q102": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q103": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 3,
+      "dup_seats": 2,
+      "distinct_sections": 13,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 3,
+      "dup_seats": 2,
+      "distinct_sections": 13,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q104": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 9,
+      "dup_seats": 8,
+      "distinct_sections": 7,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 9,
+      "dup_seats": 8,
+      "distinct_sections": 7,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q105": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 4,
+      "dup_seats": 3,
+      "distinct_sections": 12,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 4,
+      "dup_seats": 3,
+      "distinct_sections": 12,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q106": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 3,
+      "dup_seats": 2,
+      "distinct_sections": 13,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 3,
+      "dup_seats": 2,
+      "distinct_sections": 13,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q107": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 3,
+      "dup_seats": 2,
+      "distinct_sections": 13,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 3,
+      "dup_seats": 2,
+      "distinct_sections": 13,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q108": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 6,
+      "dup_seats": 5,
+      "distinct_sections": 10,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 6,
+      "dup_seats": 5,
+      "distinct_sections": 10,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q109": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q110": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 2,
+      "distinct_sections": 13,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 2,
+      "distinct_sections": 13,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q111": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q112": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q113": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q114": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 1,
+      "distinct_sections": 14,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 1,
+      "distinct_sections": 14,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q115": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q116": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 1,
+      "distinct_sections": 14,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 1,
+      "distinct_sections": 14,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q117": {
+   "fixed_vector": {
+    "n_distinct_compositions": 2,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 2,
+      "distinct_sections": 13,
+      "n_procs": 19
+     },
+     {
+      "max_cluster": 2,
+      "dup_seats": 1,
+      "distinct_sections": 14,
+      "n_procs": 1
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 2,
+      "distinct_sections": 13,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q118": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 5,
+      "dup_seats": 4,
+      "distinct_sections": 11,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 5,
+      "dup_seats": 4,
+      "distinct_sections": 11,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q119": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 1,
+      "distinct_sections": 14,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 1,
+      "distinct_sections": 14,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q120": {
+   "fixed_vector": {
+    "n_distinct_compositions": 3,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 1,
+      "distinct_sections": 14,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 3,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 1,
+      "distinct_sections": 14,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q121": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q122": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q123": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 3,
+      "dup_seats": 2,
+      "distinct_sections": 13,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 3,
+      "dup_seats": 2,
+      "distinct_sections": 13,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q124": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 3,
+      "dup_seats": 3,
+      "distinct_sections": 12,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 3,
+      "dup_seats": 3,
+      "distinct_sections": 12,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q125": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 3,
+      "dup_seats": 3,
+      "distinct_sections": 12,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 3,
+      "dup_seats": 3,
+      "distinct_sections": 12,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q126": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 3,
+      "dup_seats": 4,
+      "distinct_sections": 11,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 3,
+      "dup_seats": 4,
+      "distinct_sections": 11,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q127": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 3,
+      "distinct_sections": 12,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 3,
+      "distinct_sections": 12,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q128": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 1,
+      "distinct_sections": 14,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 1,
+      "distinct_sections": 14,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q129": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q130": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q131": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 1,
+      "distinct_sections": 14,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 1,
+      "distinct_sections": 14,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q132": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q133": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 1,
+      "distinct_sections": 14,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 2,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 1,
+      "distinct_sections": 14,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q134": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q135": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q136": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 1,
+      "dup_seats": 0,
+      "distinct_sections": 15,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q137": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 2,
+      "distinct_sections": 13,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 2,
+      "distinct_sections": 13,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q138": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 1,
+      "distinct_sections": 14,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 1,
+      "distinct_sections": 14,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q139": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 1,
+      "distinct_sections": 14,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 1,
+      "distinct_sections": 14,
+      "n_procs": 20
+     }
+    ]
+   }
+  },
+  "q140": {
+   "fixed_vector": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 2,
+      "distinct_sections": 13,
+      "n_procs": 20
+     }
+    ]
+   },
+   "live_embed": {
+    "n_distinct_compositions": 1,
+    "stats_distribution": [
+     {
+      "max_cluster": 2,
+      "dup_seats": 2,
+      "distinct_sections": 13,
+      "n_procs": 20
+     }
+    ]
+   }
+  }
+ }
+}
