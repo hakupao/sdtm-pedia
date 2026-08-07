@@ -161,6 +161,7 @@
     - "Verbatim"
   expected_sources:
     - "domains/MH/assumptions.md"
+    - "domains/MH/spec.md#MHTERM$"
 
 - id: q26
   category: single_domain
@@ -171,6 +172,7 @@
     - "C71153"
   expected_sources:
     - "domains/EG/spec.md"
+    - "terminology/core/eg_part3.md#Holter ECG Test Code$"
 
 - id: q27
   category: single_domain
@@ -234,6 +236,7 @@
   expected_sources:
     - "domains/TR/assumptions.md"
     - "domains/TR/spec.md"
+    - "domains/RS/assumptions.md#item_4$"
 
 - id: q28
   category: cross_domain
@@ -304,8 +307,9 @@
   expected_facts:
     - "C66742"
     - "NY"
-  expected_sources:
+  expected_sources_any:
     - "VARIABLE_INDEX.md#§三 CT 交叉引用: C66742$"
+    - "terminology/core/general_part4.md#No Yes Response$"
 
 # ════════════════════════════════════════════════════════════════════════
 # Concept (12) — SDTM model concepts, rules, and structural patterns
@@ -407,12 +411,14 @@
     - "DOMAIN"
   expected_sources:
     - "chapters/ch02"
+  expected_sources_any:
+    - "chapters/ch04_general_assumptions.md#4.2.2 Two-character Domain Identifier$"
+    - "chapters/ch04_general_assumptions.md#4.1.6 Additional Guidance on Dataset Naming$"
     # 字面回答"two-character 规则"的是 ch04 §4.2.2, 原 gold 漏了它。**口径依赖, 勿混淆**:
     # dense-only 下 §4.2.2 是检索 #1, 旧 gold 把这次正确召回判成 0.0 (假失分);
     # 生产口径 (hybrid+structured_lookup) 下它被挤出 top-15, 故 q38 改前改后同为 0.0。
     # 两组实测见 .superpowers/sdd/2026-08-07-retrieval-crowding-and-gold-integrity/task-1-report.md
     # `$` = section 精确匹配 (标识符类 gold 防兄弟节冒名命中)。
-    - "chapters/ch04_general_assumptions.md#4.2.2 Two-character Domain Identifier$"
 
 - id: q39
   category: concept
@@ -422,6 +428,7 @@
     - "FAOBJ"
   expected_sources:
     - "model/02_observation_classes.md"
+    - "chapters/ch08_relationships.md#8.6.3 Guidelines for Differentiating Between Interventions, Events, Findings, and Findings About Events or Interventions$"
 
 - id: q40
   category: concept
@@ -488,8 +495,10 @@
     - "NCOMPLT"
     - "C66727"
   expected_sources:
-    - "domains/DS/assumptions.md"
     - "terminology/core/disposition.md"
+  expected_sources_any:
+    - "domains/DS/spec.md#DSDECOD$"
+    - "domains/DS/assumptions.md#item_3$"
 
 - id: q20
   category: mixed
@@ -529,6 +538,7 @@
   # 得先证明含答案的那个 section 确实被召回。
   expected_sources:
     - "domains/DM/spec.md"
+    - "terminology/core/dm.md#Sex$"
 
 - id: q44
   category: mixed
@@ -549,6 +559,7 @@
     - "Exp"
   expected_sources:
     - "domains/DM/spec.md"
+    - "terminology/core/dm.md#Race$"
 
 - id: q46
   category: mixed
@@ -557,8 +568,9 @@
     - "AEOUT"
     - "C66768"
     - "Perm"
-  expected_sources:
+  expected_sources_any:
     - "domains/AE/spec.md"
+    - "terminology/core/ae.md#Outcome of Event$"
 
 - id: q47
   category: mixed
@@ -577,8 +589,9 @@
   expected_facts:
     - "FATESTCD"
     - "C101832"
-  expected_sources:
+  expected_sources_any:
     - "domains/FA/spec.md"
+    - "terminology/core/findings_about.md#Findings About Test Code$"
 
 # ════════════════════════════════════════════════════════════════════════
 # Scientist-authored (5) — Rule A 4.c independence check
@@ -725,8 +738,9 @@
     - "DDTESTCD"
     - "C116108"
     - "Topic"
-  expected_sources:
+  expected_sources_any:
     - "domains/DD/spec.md"
+    - "terminology/core/other_part4.md#SDTM Death Diagnosis and Details Test Code$"
 
 - id: q60
   category: single_domain
@@ -760,6 +774,7 @@
     - "Topic"
   expected_sources:
     - "domains/SS/spec.md"
+    - "terminology/core/other_part5.md#Subject Status Test Code$"
 
 - id: q63
   category: single_domain
@@ -813,8 +828,9 @@
     - "C66742"
     - "AESER"
     - "AESDTH"
-  expected_sources:
+  expected_sources_any:
     - "VARIABLE_INDEX.md#§三 CT 交叉引用: C66742$"
+    - "terminology/core/general_part4.md#No Yes Response$"
 
 - id: q68
   category: cross_domain
@@ -823,8 +839,9 @@
     - "C66789"
     - "STAT"
     - "Completion Status"
-  expected_sources:
+  expected_sources_any:
     - "VARIABLE_INDEX.md#§三 CT 交叉引用: C66789$"
+    - "terminology/core/general_part4.md#Not Done$"
 
 - id: q69
   category: cross_domain
@@ -873,8 +890,9 @@
     - "RDOMAIN"
     - "parent"
     - "2-character"
-  expected_sources:
+  expected_sources_any:
     - "model/06_relationship_datasets.md"
+    - "VARIABLE_INDEX.md#§一 通用变量: RDOMAIN$"
 
 - id: q74
   category: cross_domain
@@ -905,6 +923,7 @@
     - "SREL"
   expected_sources:
     - "model/04_associated_persons.md"
+    - "model/06_relationship_datasets.md#6.6 Associated Persons Related Subjects (APRELSUB)$"
 
 - id: q77
   category: cross_domain
@@ -970,8 +989,9 @@
     - "DOMAIN"
     - "SEQ"
     - "USUBJID"
-  expected_sources:
+  expected_sources_any:
     - "model/02_observation_classes.md"
+    - "chapters/ch04_general_assumptions.md#4.2.2 Two-character Domain Identifier$"
 
 - id: q83
   category: concept
@@ -1072,8 +1092,10 @@
     - "WITHDRAWAL BY SUBJECT"
     - "PHYSICIAN DECISION"
   expected_sources:
-    - "domains/DS/spec.md"
     - "terminology/core/disposition.md"
+  expected_sources_any:
+    - "domains/DS/spec.md#DSDECOD$"
+    - "domains/DS/assumptions.md#item_3$"
 
 - id: q92
   category: mixed
@@ -1304,8 +1326,9 @@
     - "CM.CMROUTE"
     - "EX.EXROUTE"
     - "SU.SUROUTE"
-  expected_sources:
+  expected_sources_any:
     - "VARIABLE_INDEX.md#§三 CT 交叉引用: C66729$"
+    - "terminology/core/interventions.md#Route of Administration Response$"
 
 - id: q109
   category: cross_domain
@@ -1315,8 +1338,9 @@
     - "TU.TULAT"
     - "FA.FALAT"
     - "PE.PELAT"
-  expected_sources:
+  expected_sources_any:
     - "VARIABLE_INDEX.md#§三 CT 交叉引用: C99073$"
+    - "terminology/core/general_part2.md#Laterality$"
 
 - id: q110
   category: cross_domain
@@ -1337,8 +1361,9 @@
     - "VS.VSPOS"
     - "EG.EGPOS"
     - "CV.CVPOS"
-  expected_sources:
+  expected_sources_any:
     - "VARIABLE_INDEX.md#§三 CT 交叉引用: C71148$"
+    - "terminology/core/interventions.md#Position$"
 
 - id: q112
   category: cross_domain
@@ -1348,8 +1373,9 @@
     - "LB.LBNRIND"
     - "IS.ISNRIND"
     - "OE.OENRIND"
-  expected_sources:
+  expected_sources_any:
     - "VARIABLE_INDEX.md#§三 CT 交叉引用: C78736$"
+    - "terminology/core/general_part4.md#Reference Range Indicator$"
 
 # ── batch: cross-relationship ──
 
@@ -1380,8 +1406,10 @@
     - "QORIG is used to indicate the origin of this data"
     - "Should be null for records that contain objectively collected or derived data"
     - "ADJUDICATION COMMITTEE"
-  expected_sources:
+  expected_sources_any:
     - "domains/SUPPQUAL/spec.md"
+    - "chapters/ch08_relationships.md#8.4.1 Supplemental Qualifiers (SUPP--)$"
+    - "domains/SUPPQUAL/assumptions.md#overview$"
 
 - id: q116
   category: cross_domain
@@ -1402,8 +1430,9 @@
     - "AETRTEMI"
     - "AETRTEMA"
     - "first 6 columns (STUDYID...QNAM) should be unique"
-  expected_sources:
+  expected_sources_any:
     - "chapters/ch08_relationships.md"
+    - "chapters/ch04_general_assumptions.md#4.5.4 Evaluators in the Interventions and Events Observation Classes$"
 
 # ── batch: cross-model-concepts ──
 
@@ -1504,8 +1533,10 @@
     - "SEUPDES"
     - "One record per planned Element"
   expected_sources:
-    - "domains/SE/assumptions.md"
     - "domains/TE/spec.md"
+  expected_sources_any:
+    - "domains/SE/assumptions.md"
+    - "model/03_special_purpose_domains.md#Subject Elements (SE)$"
 
 - id: q127
   category: cross_domain
