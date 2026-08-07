@@ -54,8 +54,10 @@ CDISC 140 题里**唯一一道 recall 0.0** 的题。根因: `chapters/` 下 ≤
    (5 升 0 回归), 其余 122 题逐题 Δ0, 823 → 852 passed。三方隔离抓到 3 条实现方自查漏掉的缺陷
    (锚点饥饿 / 部署路径 502 / guard 口径错位) 全部已修。
    收口 `sdtm-rag/evidence/checkpoints/s1_variable_index_literal_section.md`。
-   **⚠️ 遗留**: VI §三 正文在 15 变量处截断, section 级判据对此零判别力 (q109/q69 的 gold 压在第 15 位
-   过关) —— **禁止把"18 题 100%"读作"VI 类问题已解决"**; 修 VI ingest 截断是独立单元。
+   ~~**⚠️ 遗留**: VI §三 正文在 15 变量处截断~~ → ✅ **DONE 2026-08-07**: 两个生成器的条数上限全拆,
+   补回 226 + 10 条隐藏引用, 重灌索引。**v3 数字一动不动 (逐题 Δ0) 是预期** —— 那把尺子对此失明,
+   证明靠自带的层① 数据不变量 + 层② context A/B。收口
+   `sdtm-rag/evidence/checkpoints/vi_crossref_completeness.md`。
 
 ### ⛔ 已裁定不做
 **Plan B Phase 3 (CDISC 变量索引挤占)** —— 勘察实证放弃, 证据
