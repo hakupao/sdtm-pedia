@@ -1,7 +1,16 @@
 """q38 gold 完整性: 题干两问需要两个不可互相替代的源。
 
-背景: 原 gold 只有 chapters/ch02, 而字面回答"two-character 规则"的是
-ch04 §4.2.2 (dense 检索 #1)。原判据把一次正确检索判成 0.0 (假失分)。
+背景: 原 gold 只有 chapters/ch02, 而字面回答"two-character 规则"的是 ch04 §4.2.2。
+
+**下面这条是口径依赖的, 引用时必须带口径** (混口径正是本项目上一轮栽过的形态):
+- dense-only 口径: §4.2.2 是检索 #1, 旧 gold 把这次正确召回判成 0.0 (假失分) ——
+  这是补 gold 的理由。
+- 生产口径 (hybrid + structured_lookup): §4.2.2 被挤出 top-15, 故 q38 改前改后
+  同为 0.0。**本次改动不改变生产分数**, 它买到的是判别力 (能区分"召回了 §4.2.2"
+  和"只召回了 ch04 的别的节"), 不是涨分。
+
+两组实测数字见
+.superpowers/sdd/2026-08-07-retrieval-crowding-and-gold-integrity/task-1-report.md
 """
 import yaml
 
@@ -11,7 +20,10 @@ TEST_SET = "eval/test_set_v3.yml"
 
 
 def _q38():
-    for q in yaml.safe_load(open(TEST_SET)):
+    # encoding 显式给死: 该题集含中文注释, 非 UTF-8 locale 下不指定会炸。
+    with open(TEST_SET, encoding="utf-8") as f:
+        test_set = yaml.safe_load(f)
+    for q in test_set:
         if q["id"] == "q38":
             return q
     raise AssertionError("q38 not found in " + TEST_SET)

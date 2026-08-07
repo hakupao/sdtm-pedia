@@ -407,8 +407,11 @@
     - "DOMAIN"
   expected_sources:
     - "chapters/ch02"
-    # 字面回答"two-character 规则"的是 ch04 §4.2.2; 原 gold 漏它, 把 dense #1 的
-    # 正确召回判成 0.0。`$` = section 精确匹配 (标识符类 gold 防兄弟节冒名命中)。
+    # 字面回答"two-character 规则"的是 ch04 §4.2.2, 原 gold 漏了它。**口径依赖, 勿混淆**:
+    # dense-only 下 §4.2.2 是检索 #1, 旧 gold 把这次正确召回判成 0.0 (假失分);
+    # 生产口径 (hybrid+structured_lookup) 下它被挤出 top-15, 故 q38 改前改后同为 0.0。
+    # 两组实测见 .superpowers/sdd/2026-08-07-retrieval-crowding-and-gold-integrity/task-1-report.md
+    # `$` = section 精确匹配 (标识符类 gold 防兄弟节冒名命中)。
     - "chapters/ch04_general_assumptions.md#4.2.2 Two-character Domain Identifier$"
 
 - id: q39
