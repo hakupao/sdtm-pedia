@@ -1216,7 +1216,27 @@ def _fused_candidates(rag, question, fuse_out):
    不得混进主结论**。
 
 5. **退化检查 (Task 5 Concern 1 建议, 评审赞成)**: 加一条断言 —— **配额关掉 (`cap=None`) 时,
-   B 组必须与 A 组逐位相同**。便宜, 且能当场抓出管线接错。
+   B 组必须与 A 组逐位相同**。便宜, 且能当场抓出管线接错 —— 包括下面第 6 条的 S1 接线顺序。
+
+6. **配额施加在 S1 的哪一侧 —— 定死在 S1 之前, 并声明其已知限制** (Task 5 评审提出)。
+   顺序固定为 **fuse(60) → 配额 → 截 15 → S1 注入**, 理由: S1 注入的是确定性 gold,
+   spec 已定"三组一律豁免配额"; 若把配额放在 S1 之后, 配额可能挤掉 gold chunk,
+   使 B 组 recall 因**与挤占无关**的原因下降 —— 那是另一种混杂。
+
+   **但这个顺序有一个必须声明的已知限制**: S1 是**前插且不受配额约束**的
+   (`_merge_lookup_first` 的 docstring: "prepend them … Lookup chunks go first so they
+   cannot be crowded out"), 所以它**可能把被配额挤走的同名 section 又带回来, 部分抵消配额**。
+
+   实测风险量级 (Task 5 评审): S1 注入量小且注入 chunk 的 section 各不相同, 不会自造同名簇 ——
+   `q38` 注入 **0** 条 (故 4/5/7 席那组数字对生产链同样精确)、`q104` 注入 3 条
+   (`VARIABLE_INDEX` 的 §VISIT/§VISITNUM/§VISITDY, 三个不同 section)、`q08` 注入 1 条。
+   **逐题记录 S1 注入条数与其 section**, 若某题出现"S1 带回了被配额挤走的同名 section",
+   该题单独标注。
+
+7. **gate 以实际席位数为准, 不许用预判值。** `eval.pool_depth_probe.seats_under_quota`
+   可在跑 A/B **之前**预判哪些题会不足席 (纯函数, 有穷举对拍), 但它算的是**融合候选**、
+   **不含 S1 注入**; 配额定在 S1 之前时二者会差 S1 注入条数。预判只用于提前排查,
+   **硬 gate 判定一律用实际席位数**。
 
 - [ ] **Step 1: 写失败测试**
 
