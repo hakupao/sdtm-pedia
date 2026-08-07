@@ -407,6 +407,9 @@
     - "DOMAIN"
   expected_sources:
     - "chapters/ch02"
+    # 字面回答"two-character 规则"的是 ch04 §4.2.2; 原 gold 漏它, 把 dense #1 的
+    # 正确召回判成 0.0。`$` = section 精确匹配 (标识符类 gold 防兄弟节冒名命中)。
+    - "chapters/ch04_general_assumptions.md#4.2.2 Two-character Domain Identifier$"
 
 - id: q39
   category: concept
