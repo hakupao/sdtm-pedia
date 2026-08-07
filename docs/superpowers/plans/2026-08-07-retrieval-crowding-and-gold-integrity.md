@@ -378,7 +378,27 @@ def test_n_truncates():
 def test_or_group_gold_counts_as_matched():
     chunks = [_C("kb/domains/DM/spec.md", "DOMAIN", 0.6)]
     assert not unmatched_in_top_n(chunks, [], n=3, any_of=["domains/DM/spec.md"])
+
+
+def test_scanner_actually_delegates_to_source_matches(monkeypatch):
+    """运行期锁: 扫描工具必须真的走 source_matches, 不是自带一份等价逻辑。
+
+    Task 2 的结构锁 (inspect.getsource) 只锁文本、防漂移; 这条锁的是**运行时真的
+    调用了那个函数** —— 把它 patch 成恒 True 后, 本该 unmatched 的条目必须消失。
+    两端合起来才让"同语义"成为结构保证而非约定 (Task 2 评审的建议)。
+    """
+    import eval.scan_gold_gaps as m
+
+    chunks = [_C("kb/whatever.md", "S", 0.5)]
+    assert unmatched_in_top_n(chunks, ["nothing-matches-this"], n=3)
+
+    monkeypatch.setattr(m, "source_matches", lambda *a, **k: True)
+    assert not unmatched_in_top_n(chunks, ["nothing-matches-this"], n=3)
 ```
+
+**注意**: `source_matches` 只返回 `bool`。本工具**逐条**调用它 (每条自成单元素列表) 是刻意的,
+不要因为"拿 bool 不顺手"就另开一份计数逻辑 —— 那正是当年 `lint_gold` 另起炉灶的起点
+(Task 2 评审 Minor 2)。
 
 - [ ] **Step 2: 跑测试确认失败**
 
@@ -1773,6 +1793,25 @@ N 写死为 **8**, 由**第三个** `subagent_type` (既非改 gold 方, 亦非�
 - "S1 前置注入使 gold 判据对剩余席位结构性失明" 是硬规矩 6 的**新变体**:
   参照物不仅不能来自生成器内部, 也不能被系统的另一个组件确定性保证
 - CDISC 140 题尺子已接近饱和 (修完只剩 q126), 长期需要新题源
+
+- [ ] **Step 3B: 归档两份可复用的探针 (否则随 workspace 一起消失)**
+
+SDD workspace 收尾会被 `rm -rf`, 以下产物有长期价值, 必须搬进 repo:
+
+1. **判据等价性差分对拍** — `.superpowers/sdd/<plan>/artifact-diff_equiv.py`
+   (Task 2 评审所写: 把改动前后两版 `run_eval` 同时装进一个进程, 对 96 条真实 gold ×
+   输入网格 = **12870 格**逐格比对 `(recall, hits, misses)` 与异常消息全文)。
+   归档为 `eval/tests_support/gold_semantics_diff.py`, 并**泛化**: 旧版本从
+   `git show <ref>:sdtm-rag/eval/run_eval.py` 动态取, 而不是依赖手工放好的
+   `old_run_eval.py`。加一条 README 说明"改 `source_matches` / `check_source_recall`
+   前后跑它"。
+2. **top-k 抖动探针** — Task 3B 已落 `eval/jitter_probe.py`, 无需再搬。
+
+**同时修 Task 1 遗留的指针问题**: `eval/test_set_v3.yml` 与
+`scripts/tests/test_gold_q38_integrity.py` 里两处证据指针指向
+`.superpowers/sdd/.../task-1-report.md` —— 该目录**收尾即删**, 注释会指空。
+改为指向本轮总收口证据 `evidence/checkpoints/crowding_and_gold_integrity.md`,
+并确保那份证据里含 q38 的两组口径实测数字 (dense 0.5 / hybrid 0.0)。
 
 - [ ] **Step 4: 更新 kickoff + 索引三件套**
 
