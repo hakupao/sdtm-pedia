@@ -231,10 +231,8 @@ def generate_cross_ref_section(
         if code in ct_map:
             file_path, ct_name = ct_map[code]
             rel_link = f"../../{file_path}"
-            vars_str = ", ".join(var_names[:5])
-            if len(var_names) > 5:
-                vars_str += f" ... ({len(var_names)} total)"
-            ct_entries.append(f"- [{ct_name} ({code})]({rel_link}) — {vars_str}")
+            # 同 VARIABLE_INDEX §三: 不截断 (本处仅 AE/LB 两个文件命中, 共隐藏 10 条)
+            ct_entries.append(f"- [{ct_name} ({code})]({rel_link}) — {', '.join(var_names)}")
         else:
             unmapped_codes.append((code, var_names))
 

@@ -548,7 +548,7 @@
 ### Controlled Terminology
 - [Device Events Action Taken with Device (C111110)](../../terminology/core/ae.md) — AEACNDEV
 - [Relation to Reference Period (C66728)](../../terminology/core/general_part4.md) — AEENRF, AEENRTPT
-- [No Yes Response (C66742)](../../terminology/core/general_part4.md) — AEPRESP, AESER, AESCAN, AESCONG, AESDISAB ... (13 total)
+- [No Yes Response (C66742)](../../terminology/core/general_part4.md) — AEPRESP, AESER, AESCAN, AESCONG, AESDISAB, AESDTH, AESHOSP, AESLIFE, AESOD, AESMIE, AESINTV, AEUNANT, AECONTRT
 - [Action Taken with Study Treatment (C66767)](../../terminology/core/ae.md) — AEACN
 - [Outcome of Event (C66768)](../../terminology/core/ae.md) — AEOUT
 - [Severity/Intensity Scale for Adverse Events (C66769)](../../terminology/core/ae.md) — AESEV

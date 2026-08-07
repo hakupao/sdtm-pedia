@@ -389,6 +389,7 @@
 
 ### General References
 - [General Assumptions (Ch4)](../../chapters/ch04_general_assumptions.md) — variable naming, coding, timing rules
+- [Relationships (Ch8)](../../chapters/ch08_relationships.md) — RELREC, SUPPQUAL usage
 - [Variable Index](../../VARIABLE_INDEX.md) — reverse lookup by variable name
 
 ### Model Definition
