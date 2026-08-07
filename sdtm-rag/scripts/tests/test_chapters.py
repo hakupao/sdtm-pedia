@@ -31,6 +31,16 @@ def ch01_chunks(chunker):
 
 
 @pytest.fixture(scope="module")
+def ch02_chunks(chunker):
+    return chunker.chunk(CHAPTERS_DIR / "ch02_fundamentals.md")
+
+
+@pytest.fixture(scope="module")
+def ch03_chunks(chunker):
+    return chunker.chunk(CHAPTERS_DIR / "ch03_submitting_data.md")
+
+
+@pytest.fixture(scope="module")
 def ch04_chunks(chunker):
     return chunker.chunk(CHAPTERS_DIR / "ch04_general_assumptions.md")
 
@@ -46,17 +56,53 @@ def ch10_chunks(chunker):
 
 
 # ---------------------------------------------------------------------------
-# ch01 (~11KB, ≤20KB tier): 1 chunk, section == "whole_file"
+# ch01/ch02/ch03 (11-20KB): H2 split
+#
+# 2026-08-07 策略变更: 原第三档 "≤20KB → 整文件单块" 取消。原来锁死该档的两条测试
+# (test_ch01_produces_1_chunk / test_ch01_section_is_whole_file) 被下面这组替换 ——
+# 测试是策略的编码, 策略变了测试就该跟着变, 但必须留下等强度的新锁。
 # ---------------------------------------------------------------------------
 
-def test_ch01_produces_1_chunk(ch01_chunks):
-    """ch01 (11KB ≤ 20KB) produces exactly 1 chunk (whole_file tier)."""
-    assert len(ch01_chunks) == 1
+def test_ch01_splits_by_h2(ch01_chunks):
+    """2026-08-07: "≤20KB → 整文件单块" 这一档取消, ch01 (11KB, 5 个 H2) 按 H2 切。
+
+    原策略把 ch01/ch02/ch03 各压成 1 个 chunk, 整章共用一个向量 -> 语义稀释。
+    q38 诊断实测: ch02 的 whole_file 块在 dense 检索排 #71 (sim 0.5613), 而回答
+    同一问题的 ch04 §4.2.2 是 #1 (sim 0.6970) —— 后者是被 H3 切出来的小节。
+    证据 evidence/checkpoints/chapters_chunking.md。
+    """
+    assert len(ch01_chunks) == 5
+    assert all(c.section != "whole_file" for c in ch01_chunks)
 
 
-def test_ch01_section_is_whole_file(ch01_chunks):
-    """ch01 single chunk has section == 'whole_file'."""
-    assert ch01_chunks[0].section == "whole_file"
+def test_ch01_sections_carry_real_headings(ch01_chunks):
+    secs = [c.section for c in ch01_chunks]
+    assert any("1.1" in (s or "") for s in secs), secs
+    assert any("1.5" in (s or "") for s in secs), secs
+
+
+def test_ch02_splits_by_h2(ch02_chunks):
+    """ch02 (18KB, 9 个 H2) —— q38 的 gold 章节, 原为整文件单块。"""
+    assert len(ch02_chunks) == 9
+    assert all(c.section != "whole_file" for c in ch02_chunks)
+    # §2.6 Creating a New Domain 含 "Determine the domain code" —— q38 要的那一半
+    assert any("2.6" in (c.section or "") for c in ch02_chunks), \
+        [c.section for c in ch02_chunks]
+
+
+def test_ch03_splits_by_h2(ch03_chunks):
+    """ch03 (19KB, 3 个 H2) —— 原落在被取消的整块档 (19708 B 差 700 B 就进 H2 档)。"""
+    assert len(ch03_chunks) == 3
+    assert all(c.section != "whole_file" for c in ch03_chunks)
+
+
+def test_file_without_headings_still_falls_back_to_whole_file(chunker, tmp_path):
+    """无 H2 时仍回落整文件单块 —— 该回落分支是原整块档取消后的唯一兜底。"""
+    f = tmp_path / "ch99_noheading.md"
+    f.write_text("plain text with no markdown headings at all\n" * 20, encoding="utf-8")
+    chunks = chunker.chunk(f)
+    assert len(chunks) == 1
+    assert chunks[0].section == "whole_file"
 
 
 def test_ch01_file_type_is_chapter(ch01_chunks):
@@ -76,6 +122,12 @@ def test_ch01_domain_is_none(ch01_chunks):
 def test_ch04_produces_47_chunks(ch04_chunks):
     """ch04 (130KB > 50KB) produces exactly 47 chunks via ### split (L-4 lock)."""
     assert len(ch04_chunks) == 47
+
+
+def test_large_chapter_still_splits_by_h3(ch04_chunks):
+    """L-4 锁不得被本次改动破坏: >50KB 仍按 ### 切。"""
+    assert len(ch04_chunks) == 47
+    assert any("4.2.2" in (c.section or "") for c in ch04_chunks)
 
 
 def test_ch04_l4_lock_max_chunk_size_tokens_under_8000(ch04_chunks):
@@ -167,6 +219,8 @@ def test_ch10_domain_is_none(ch10_chunks):
 
 @pytest.mark.parametrize("fname", [
     "ch01_introduction.md",
+    "ch02_fundamentals.md",
+    "ch03_submitting_data.md",
     "ch04_general_assumptions.md",
     "ch08_relationships.md",
     "ch10_appendices.md",

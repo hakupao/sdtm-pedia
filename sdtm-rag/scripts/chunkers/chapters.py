@@ -3,10 +3,14 @@
 Phase 1A.3 Batch C.
 
 L-4 (locked by 1A.0.c HIGH): chapters/ ≥ 50KB 强制 `^### ` 切 (ch04 §4.4 alone = 9598
-cl100k tokens > 8191 embedding limit). Three-tier size policy:
+cl100k tokens > 8191 embedding limit). Two-tier size policy:
   - size_bytes > 50KB → split by `^### ` (H3)
-  - 20KB < size_bytes ≤ 50KB → split by `^## ` (H2)
-  - size_bytes ≤ 20KB → whole file = 1 chunk
+  - otherwise         → split by `^## ` (H2); 无 H2 时回落整文件单块
+
+2026-08-07: 原第三档 "≤20KB → 整文件单块" 取消。ch01/ch02/ch03 落在该档,
+18KB 的 ch02 整块被稀释 (q38 诊断: ch02 whole_file dense #71 sim 0.5613,
+而回答同一问题的 ch04 §4.2.2 是 #1 sim 0.6970)。
+证据 evidence/checkpoints/chapters_chunking.md。
 
 cdisc_section_id parsed from heading prefix when it matches `\\d+(\\.\\d+){1,3}`,
 e.g. `### 4.1.1 Review Study Data ...` → section_id = "4.1.1".
@@ -40,29 +44,8 @@ class ChaptersChunker(BaseChunker):
 
         if size_bytes > 50 * 1024:
             level = 3  # ★ L-4 lock: >50KB MUST split by ### (ch04 case)
-        elif size_bytes > 20 * 1024:
-            level = 2
         else:
-            # Whole file = 1 chunk
-            return [
-                self._new_chunk(
-                    source=str(file_path),
-                    text=text,
-                    chunk_index=0,
-                    domain=None,
-                    section="whole_file",
-                    cdisc_class=None,
-                    cdisc_section_id=None,
-                    example_index=None,
-                    sub_label=None,
-                    has_mermaid=None,
-                    has_table=None,
-                    ct_code=None,
-                    ct_extensible=None,
-                    part_index=None,
-                    table_chunk_idx=None,
-                )
-            ]
+            level = 2
 
         headings = heading_positions(text, level)
         if not headings:
