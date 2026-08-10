@@ -11,6 +11,7 @@ from scripts.study.paths import resolve_study
 
 _SKIP = {"INDEX.md", "ROUTING.md"}
 _REQUIRED = ("study", "form_oid", "field_oid")
+_DOC_REQUIRED = ("study", "doc_type", "doc_no", "section_number", "page_start", "page_end")
 
 
 def _parse_frontmatter(text: str) -> dict[str, str]:
@@ -56,6 +57,46 @@ def load_cards(cards_dir: Path) -> list[dict]:
     return cards
 
 
+def load_doc_chunks(docs_dir: Path) -> list[dict]:
+    """文档型 chunk (protocol 章节)。与 field card 同形状, 但**没有 field_oid** ——
+    S2 的确定性直查因此不会把它当卡片吃进去 (那条通道按 label/OID 建索引)。
+
+    docs_dir 不存在时返回空列表: C1 之前没有 docs/, xlsx 轨必须照跑不误。
+    """
+    if not docs_dir.is_dir():
+        return []
+    out: list[dict] = []
+    for p in sorted(docs_dir.glob("*.md")):
+        text = p.read_text(encoding="utf-8")
+        fm = _parse_frontmatter(text)
+        missing = [k for k in _DOC_REQUIRED if not fm.get(k)]
+        if missing:
+            raise ValueError(f"{p.name}: doc chunk frontmatter 缺必需键 {missing}")
+        doc_ns = f"doc{int(fm['doc_no']):02d}"
+        part, parts_total = int(fm.get("part", 1) or 1), int(fm.get("parts_total", 1) or 1)
+        prov = f"{doc_ns}#p{fm['page_start']}-{fm['page_end']}"
+        if parts_total > 1:
+            # 同一节的多份共用页区间, 不带份号就无法一步定位回源 (Global Constraint 4)
+            prov = f"{prov}#part{part}of{parts_total}"
+        out.append({
+            "id": p.stem,
+            "text": text,
+            "metadata": {
+                "study": fm["study"],
+                "version": fm.get("version", ""),
+                "file_type": fm["doc_type"],
+                # domain 不留空: 空串会静默逃出 RAGEngine._build_where 的过滤
+                "domain": doc_ns,
+                "section": fm["section_number"],
+                "part": part,
+                "parts_total": parts_total,
+                "source": p.name,
+                "provenance": prov,
+            },
+        })
+    return out
+
+
 def persist_study(chroma_dir: Path, collection: str, cards: list[dict],
                   embeddings: list[list[float]]) -> None:
     client = chromadb.PersistentClient(path=str(chroma_dir))
@@ -84,14 +125,18 @@ def main(argv=None) -> None:
     if not cards:
         # 空数据换掉一个好 collection 比不换更糟
         raise SystemExit(f"no cards found in {sp.cards_dir}")
+    # persist_study 是整 collection 重建 ⇒ doc chunk 必须与 cards 同批 persist,
+    # 单独跑一次会当场抹掉已入库的 field card。
+    docs = load_doc_chunks(sp.docs_dir)
+    records = cards + docs
     collection = f"study_{sp.study_id}"
-    print(f"cards={len(cards)} → collection={collection}")
+    print(f"field cards {len(cards)} + doc chunks {len(docs)} = {len(records)} → collection={collection}")
     if args.dry_run:
         return
-    embeddings = embed_texts([c["text"] for c in cards])
-    persist_study(CHROMA_DIR, collection, cards, embeddings)
+    embeddings = embed_texts([c["text"] for c in records])
+    persist_study(CHROMA_DIR, collection, records, embeddings)
     (sp.out_dir / "ingested_at.txt").write_text(
-        f"cards={len(cards)}\n", encoding="utf-8")
+        f"cards={len(cards)}\ndoc_chunks={len(docs)}\ntotal={len(records)}\n", encoding="utf-8")
     print("done")
 
 
