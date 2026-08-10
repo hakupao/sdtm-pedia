@@ -47,7 +47,7 @@
 **Interfaces:**
 - Produces: `StudyPaths.doc_pdfs: tuple[Path, ...]`（已存在性校验过的绝对路径，registry 中顺序保留）、`StudyPaths.docs_dir: Path`（= `out_dir / "docs"`）
 
-- [ ] **Step 1: 写失败测试**
+- [x] **Step 1: 写失败测试**
 
 ```python
 # scripts/tests/test_paths_doc_pdfs.py
@@ -101,12 +101,12 @@ def test_doc_pdfs_defaults_to_empty_when_key_absent(tmp_path):
     assert resolve_study("st99", registry_path=reg).doc_pdfs == ()
 ```
 
-- [ ] **Step 2: 跑测试确认失败**
+- [x] **Step 2: 跑测试确认失败**
 
 Run: `.venv/bin/python -m pytest scripts/tests/test_paths_doc_pdfs.py -p no:warnings`
 Expected: FAIL —— `AttributeError: 'StudyPaths' object has no attribute 'doc_pdfs'`
 
-- [ ] **Step 3: 实现**
+- [x] **Step 3: 实现**
 
 在 `scripts/study/paths.py` 的 `StudyPaths` dataclass 末尾追加两个字段（放最后，避免破坏既有位置参数）：
 
@@ -128,12 +128,12 @@ Expected: FAIL —— `AttributeError: 'StudyPaths' object has no attribute 'doc
 
 并把 `doc_pdfs=tuple(doc_pdfs), docs_dir=out_dir / "docs"` 加进 `StudyPaths(...)` 构造。
 
-- [ ] **Step 4: 跑测试确认通过**
+- [x] **Step 4: 跑测试确认通过**
 
 Run: `.venv/bin/python -m pytest scripts/tests/test_paths_doc_pdfs.py -p no:warnings`
 Expected: 4 passed
 
-- [ ] **Step 5: 真实 registry 加条目（本地文件，不进 git）**
+- [x] **Step 5: 真实 registry 加条目（本地文件，不进 git）**
 
 在 `data/study/studies.local.yaml` 的 `st01` 下加 `doc_pdfs:`，只列**那份 113 页的 PDF 文件名**（另两份表单版面的留给 C2）。加完自检：
 
@@ -145,7 +145,7 @@ print('doc_pdfs 数量 =', len(sp.doc_pdfs), '| docs_dir =', sp.docs_dir)"
 ```
 Expected: `doc_pdfs 数量 = 1`
 
-- [ ] **Step 6: 提交**
+- [x] **Step 6: 提交**
 
 ```bash
 git add scripts/study/paths.py scripts/tests/test_paths_doc_pdfs.py
