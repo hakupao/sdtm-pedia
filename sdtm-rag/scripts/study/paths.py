@@ -22,6 +22,13 @@ class StudyPaths:
     demo_export: Path | None
     out_dir: Path
     cards_dir: Path
+    # C1 文档轨: registry 里 doc_pdfs 缺省时为空 tuple, xlsx 轨照跑不误.
+    doc_pdfs: tuple[Path, ...] = ()
+
+    @property
+    def docs_dir(self) -> Path:
+        """章节 chunk 输出目录. 用 property 而非字段: 不可能与 out_dir 失同步, 且类型不必 Optional."""
+        return self.out_dir / "docs"
 
 
 def resolve_study(study_id: str, registry_path: Path | str | None = None) -> StudyPaths:
@@ -54,6 +61,13 @@ def resolve_study(study_id: str, registry_path: Path | str | None = None) -> Stu
             f"out_dir={out_dir} not within STUDY_DATA_ROOT={STUDY_DATA_ROOT}"
         )
 
+    doc_pdfs: list[Path] = []
+    for name in ent.get("doc_pdfs", []) or []:
+        p = source_dir / name
+        if not p.is_file():
+            raise FileNotFoundError(f"{study_id}: doc pdf not found: {p}")
+        doc_pdfs.append(p)
+
     return StudyPaths(
         study_id=study_id,
         version_label_new=ent["version_label_new"],
@@ -63,4 +77,5 @@ def resolve_study(study_id: str, registry_path: Path | str | None = None) -> Stu
         demo_export=_file("demo_export", required=False),
         out_dir=out_dir,
         cards_dir=out_dir / "cards",
+        doc_pdfs=tuple(doc_pdfs),
     )
