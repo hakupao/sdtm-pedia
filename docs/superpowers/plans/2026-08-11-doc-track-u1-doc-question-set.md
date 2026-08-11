@@ -365,10 +365,9 @@ def chunk_bodies(docs_dir: Path | str) -> dict[str, str]:
     return out
 
 
-def load_questions(test_set_path: Path | str) -> list[dict]:
-    data = yaml.safe_load(Path(test_set_path).read_text(encoding="utf-8"))
-    qs = data["questions"] if isinstance(data, dict) else data
-    return [q for q in qs if not q.get("out_of_scope")]
+# ⚠ 本函数已于 Task 2 fix round 1 移入 `eval/lint_gold.py` 并提为公开函数 ——
+# 它与 `lint_gold._load` 的题集口径原本三行逐字相同, 两道闸将来会判不同题集且不报错。
+# 下游一律 `from eval.lint_gold import load_questions`, 不要在本文件重新定义。
 
 
 def gate_gold_unique(test_set_path: Path | str, docs_dir: Path | str) -> list[GateFinding]:
@@ -664,8 +663,18 @@ Expected: FAIL — `ImportError: cannot import name 'run_all_gates'`
 
 - [ ] **Step 3: 实现**
 
-追加到 `eval/docs_gold_gates.py`。**先把 Task 2 按 ruff 裁定删掉的三个 import 补回顶部**
-(`import argparse` / `import json` / `import sys` —— 到这一步它们才真正被用上):
+追加到 `eval/docs_gold_gates.py`。**先补顶部 import**(到这一步它们才真正被用上,
+Task 2 按 ruff 裁定删掉/未提前加):
+
+```python
+import argparse
+import json
+import sys
+from eval.lint_gold import doc_chunk_names, load_questions, match_names   # 后两个是 Task 2 fix 移过去的
+```
+
+⚠ 漏掉 `load_questions` 会让 `run_all_gates` 与 `main` 直接 NameError —— Task 2 已把它
+从 `docs_gold_gates` 移进 `lint_gold`(消除逐字复制的题集口径),本文件不再自带定义。
 
 ```python
 def run_all_gates(test_set_path: Path | str, docs_dir: Path | str,
