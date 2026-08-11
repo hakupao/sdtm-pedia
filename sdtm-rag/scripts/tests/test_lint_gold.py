@@ -251,3 +251,47 @@ def test_lint_gold_requires_exactly_one_name_source(tmp_path):
     ts.write_text("- id: q1\n  expected_sources: ['a.md']\n", encoding="utf-8")
     with pytest.raises(ValueError, match="catalog 与 docs-dir"):
         lint_gold(str(ts))
+
+
+def test_lint_gold_refuses_both_name_sources(tmp_path):
+    """互斥的 both 分支 (neither 分支见上一条)。
+
+    退化成 `if catalog_path is None and docs_dir is None:` 时上一条仍绿, 而 both
+    会静默偏向 catalog —— 拿**错误的全集**判绿是一道闸最坏的失败模式 (两个全集
+    互不包含, 每条 gold 都会被按另一侧的名字数, 结果既非真也不报错)。
+    """
+    from eval.lint_gold import lint_gold
+    ts = tmp_path / "ts.yml"
+    ts.write_text("- id: q1\n  expected_sources: ['a.md']\n", encoding="utf-8")
+    cat = tmp_path / "cat.json"
+    cat.write_text(json.dumps({"study": "st01", "items": [{"form_oid": "F", "item_oid": "I"}]}),
+                   encoding="utf-8")
+    d = tmp_path / "docs"
+    d.mkdir()
+    (d / "a.md").write_text("x", encoding="utf-8")
+    with pytest.raises(ValueError, match="catalog 与 docs-dir"):
+        lint_gold(str(ts), str(cat), docs_dir=d)
+
+
+def test_cli_accepts_docs_dir(tmp_path, capsys):
+    """doc 侧 CLI 接线, 与卡片侧的 test_cli_prints_or_group_visibility_line 对称。
+
+    一条用例同时钉住三处: `--docs-dir` 的 argparse dest 命名、互斥组接受 doc 侧、
+    以及 `or_groups(..., docs_dir=...)` 的透传 (漏传时 or_groups 会拿 catalog=None
+    走进 neither 分支炸掉, 而不是静默少打一行)。
+    """
+    from eval.lint_gold import main
+
+    d = tmp_path / "docs"
+    d.mkdir()
+    for n in ("st01__doc01__s10_1.md", "st01__doc01__s10_10.md"):
+        (d / n).write_text("x", encoding="utf-8")
+    ts = _raw_testset(tmp_path, [
+        {"id": "q00", "question": "偽質問",
+         "expected_sources": ["st01__doc01__s10_10.md"],
+         "expected_sources_any": ["st01__doc01__s10_1.md", "st01__doc01__s10_10.md"]},
+    ])
+    exit_code = main([str(ts), "--docs-dir", str(d)])
+    out = capsys.readouterr().out
+    assert exit_code == 0
+    assert "[OR]" in out and "q00" in out
