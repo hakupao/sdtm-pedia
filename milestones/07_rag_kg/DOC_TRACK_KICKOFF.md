@@ -28,6 +28,9 @@ collection。field card 侧 `study_st01` = 959 张, study golden v2 **87.50%, �
 
 ### U1 doc 侧题集 (先做, 属设计单元 ⇒ 先 brainstorm)
 
+> **进行中 (2026-08-12)**: spec/plan 已定稿, 四闸+CLI 已收口, 题出到 **12/30**。
+> **续跑入口 → `milestones/07_rag_kg/U1_RESUME.md`** (路由词「U1 续跑 开始任务」)。
+
 产出: doc 侧 gold 题集 + 可执行判据闸。要在动手前定死的口径:
 
 1. **判据粒度**: chunk 文件名? `section_number`? 页区间? —— C1 的 `provenance` 是
