@@ -9,8 +9,6 @@
 物理变异测试 (把闸函数改成 `return []` 跑全套) 由 Task 9 Step 2 第 3 条的
 独立抽检方执行 —— 那是实现方自己做不了的独立性检查。
 """
-import pytest
-
 from eval.docs_gold_gates import (
     ANCHOR_MIN_LEN,
     chunk_bodies,
