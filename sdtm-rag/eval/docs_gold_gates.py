@@ -4,11 +4,11 @@
 不能靠出题人自述。四道闸对应 spec §4:
 
   A gold_unique    gold 在 114 个 chunk 名里唯一定位 (委托 eval.lint_gold, 唯一实现)
-  B anchor_unique  答案锚串在全集出现次数 == gold 数
+  B anchor_unique  答案锚串**落在该题每个 gold chunk 里, 且不溢出到任何非 gold chunk**
   C fact_length    每条 expected_facts 够长 (1-2 词碎片会让 fact-recall 顶格失明)
   D card_unanswerable  没有任何一张 field card 同时含全部 card_probe_terms
 
-**闸 B 的口径边界 (硬规矩 19, 引用绿灯时必须同时写)**: 锚串唯一 != 语义唯一。
+**闸 B 的口径边界 (硬规矩 19, 引用绿灯时必须同时写)**: 锚串落位正确 != 语义唯一。
 别的 chunk 可能换措辞表达同一事实, 本闸看不见。它只挡字面。
 """
 from __future__ import annotations
@@ -17,9 +17,7 @@ import re
 from dataclasses import dataclass
 from pathlib import Path
 
-import yaml
-
-from eval.lint_gold import doc_chunk_names, lint_gold
+from eval.lint_gold import doc_chunk_names, lint_gold, match_names
 
 ANCHOR_MIN_LEN = 20
 _FM_RE = re.compile(r"\A---\n.*?\n---\n", re.DOTALL)
@@ -46,12 +44,6 @@ def chunk_bodies(docs_dir: Path | str) -> dict[str, str]:
     return out
 
 
-def load_questions(test_set_path: Path | str) -> list[dict]:
-    data = yaml.safe_load(Path(test_set_path).read_text(encoding="utf-8"))
-    qs = data["questions"] if isinstance(data, dict) else data
-    return [q for q in qs if not q.get("out_of_scope")]
-
-
 def gate_gold_unique(test_set_path: Path | str, docs_dir: Path | str) -> list[GateFinding]:
     return [
         GateFinding("gold_unique", f.qid,
@@ -61,11 +53,36 @@ def gate_gold_unique(test_set_path: Path | str, docs_dir: Path | str) -> list[Ga
 
 
 def gate_anchor_unique(questions: list[dict], bodies: dict[str, str]) -> list[GateFinding]:
+    """锚串必须落在该题**每个** gold chunk 里, 且**不溢出**到任何非 gold chunk。
+
+    口径是 membership, 不是数量。初版比的是"含锚串的 chunk 数 == len(expected_sources)",
+    复审复现了它的四条 fail-open (全部恒绿):
+
+      ① OR-only 题 + 捏造锚串     n_gold==0, hits==0 → 0==0 判绿
+      ② 完全无 gold 的题 + 捏造   同上; 而闸 A 对没有 gold 键的题零迭代也不报,
+                                  两闸叠加 ⇒ 一道完全没有尺子的坏题四闸全绿入池
+      ③ gold=[a] 但锚串只在 b     1==1 判绿, 指向完全错位 (最致命)
+      ④ gold=[a,c] 锚串在 a,b     2==2 判绿, 半数错位
+
+    ①②的病根是同一个: `n_gold == 0` 时 `0 == 0` 恒成立, 而"锚串根本不在语料里"
+    正是这道闸存在的**唯一理由** —— 旧口径恰好在这一格失明。故无 gold 直接报。
+
+    gold 两侧 (`expected_sources` / `expected_sources_any`) 都收: 闸 A 经 lint_gold
+    是两侧都查的, 闸 B 只看 AND 侧就会与闸 A 口径不一致 (即①)。
+
+    `targets` 必须走 `match_names` 而不是拿 gold 直接当 `bodies` 的键:
+    闸 A 允许"子串唯一定位"的 gold (如写 `s22_1__part01` 不带 `.md`), 精确取键会对
+    这类合法 gold 误报 missing。同一个函数 ⇒ 闸 A 与闸 B 对"哪些 chunk 算这题的 gold"
+    永远给同一个答案。
+    """
     findings: list[GateFinding] = []
     for q in questions:
         qid = q.get("id", "<no id>")
         anchor = q.get("anchor")
-        n_gold = len(q.get("expected_sources") or [])
+        gold = list(q.get("expected_sources") or []) + list(q.get("expected_sources_any") or [])
+        if not gold:
+            findings.append(GateFinding("anchor_unique", qid, "无 gold — 锚串无从校验"))
+            continue
         if not anchor:
             findings.append(GateFinding("anchor_unique", qid, "缺 anchor 字段"))
             continue
@@ -74,9 +91,14 @@ def gate_anchor_unique(questions: list[dict], bodies: dict[str, str]) -> list[Ga
                 "anchor_unique", qid,
                 f"anchor 过短 {len(anchor)} < {ANCHOR_MIN_LEN} — 短串会碰巧命中"))
             continue
-        hits = sum(1 for body in bodies.values() if anchor in body)
-        if hits != n_gold:
+        targets = {n for g in gold for n in match_names(g, qid, list(bodies))}
+        missing = sorted(n for n in targets if anchor not in bodies[n])
+        extra = sorted(n for n, body in bodies.items() if anchor in body and n not in targets)
+        if not targets:
+            findings.append(GateFinding(
+                "anchor_unique", qid, f"gold {gold} 未解析到任何 chunk — 锚串无从校验"))
+        elif missing or extra:
             findings.append(GateFinding(
                 "anchor_unique", qid,
-                f"anchor 在全集出现 {hits} 次, gold 数 {n_gold} — {hits} != {n_gold}"))
+                f"锚串不在 gold chunk {missing} / 溢出到非 gold chunk {extra[:3]}"))
     return findings

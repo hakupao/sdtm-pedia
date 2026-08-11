@@ -62,6 +62,18 @@ def doc_chunk_names(docs_dir: Path | str) -> list[str]:
     return names
 
 
+def load_questions(test_set_path: Path | str) -> list[dict]:
+    """题集读取的**唯一实现** —— 所有闸必须判同一批题。
+
+    此前 `docs_gold_gates` 有一份逐字相同的副本: 闸 A 走这里, 闸 B/C/D 走那里。
+    将来任一侧加个跳过标志 (如 `draft: true`), 两道闸就会**判不同的题集且不报错** ——
+    与本文件 `_load` 那句"两个 gold 全集不可混用"同一类失败, 只是从"全集"挪到了"题集"。
+    """
+    data = yaml.safe_load(Path(test_set_path).read_text(encoding="utf-8"))
+    qs = data["questions"] if isinstance(data, dict) else data
+    return [q for q in qs if not q.get("out_of_scope")]
+
+
 def _load(test_set_path, catalog_path=None, docs_dir=None) -> tuple[list[dict], list[str]]:
     if (catalog_path is None) == (docs_dir is None):
         raise ValueError("catalog 与 docs-dir 必须且只能给一个 —— 两个 gold 全集不可混用")
@@ -69,12 +81,16 @@ def _load(test_set_path, catalog_path=None, docs_dir=None) -> tuple[list[dict], 
         names = _card_names(json.loads(Path(catalog_path).read_text(encoding="utf-8")))
     else:
         names = doc_chunk_names(docs_dir)
-    data = yaml.safe_load(Path(test_set_path).read_text(encoding="utf-8"))
-    qs = data["questions"] if isinstance(data, dict) else data
-    return [q for q in qs if not q.get("out_of_scope")], names
+    return load_questions(test_set_path), names
 
 
-def _count(gold: str, qid: str, names: list[str]) -> list[str]:
+def match_names(gold: str, qid: str, names: list[str]) -> list[str]:
+    """gold → 它匹配到的名字列表。**"哪些 chunk 算这题的 gold" 的唯一实现。**
+
+    公开 (原 `_count`) 是因为闸 B 也要问这个问题。若闸 B 自己写一个 `g in n` 推导式,
+    就是第二份匹配语义 —— 本文件开头记的那场翻车 (工具与判据不同语义, 真实题集上
+    8 条假阳性) 会在闸 A / 闸 B 之间重演: 两道闸对同一条 gold 给出不同的 chunk 集合。
+    """
     if "#" in gold:
         # `路径#节` 在 check_source_recall 下是双条件匹配, 需要 retrieved_sections;
         # catalog 里没有 section 信息, 本工具建模不了。宁可报错也不静默按字面数 ——
@@ -102,7 +118,7 @@ def lint_gold(test_set_path, catalog_path=None, max_matches: int = 1, *,
             ("OR", "expected_sources_any", 1),
         ):
             for gold in (q.get(key) or []):
-                hits = _count(gold, q["id"], names)
+                hits = match_names(gold, q["id"], names)
                 if len(hits) != allowed:
                     findings.append(Finding(q["id"], gold, len(hits), sorted(hits)[:3], side))
     return findings
@@ -119,7 +135,7 @@ def or_groups(test_set_path, catalog_path=None, *, docs_dir=None) -> list[tuple[
     故此处只保证审题人每次都看见 OR 组, 语义上"每个成员能否独立回答该题"由人判。
     """
     qs, names = _load(test_set_path, catalog_path, docs_dir)
-    return [(q["id"], [len(_count(g, q["id"], names)) for g in q["expected_sources_any"]])
+    return [(q["id"], [len(match_names(g, q["id"], names)) for g in q["expected_sources_any"]])
             for q in qs if q.get("expected_sources_any")]
 
 
