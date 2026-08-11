@@ -11,8 +11,12 @@
 """
 from eval.docs_gold_gates import (
     ANCHOR_MIN_LEN,
+    FACT_MIN_LEN,
+    card_texts,
     chunk_bodies,
     gate_anchor_unique,
+    gate_card_unanswerable,
+    gate_fact_length,
     gate_gold_unique,
 )
 
@@ -150,3 +154,77 @@ def test_gate_anchor_unique_flags_misaligned_multi_gold():
     bodies = {"a.md": anchor, "b.md": anchor, "c.md": "z"}
     qs = [{"id": "q1", "expected_sources": ["a.md", "c.md"], "anchor": anchor}]
     assert [x.qid for x in gate_anchor_unique(qs, bodies)] == ["q1"]
+
+
+# ---- 闸 C fact 长度 --------------------------------------------------------
+
+
+def test_fact_min_len_is_12():
+    """钉住字面值 (M1, 与 test_anchor_min_len_is_20 同构)。
+
+    干净用例写的是 `"あ" * FACT_MIN_LEN` —— 长度引用常量, 会跟着常量一起漂:
+    把 12 改成 3, 干净用例仍绿 (长 3 >= 3), 脏用例 `"短い"` 长 2 仍 < 3 照报,
+    全套照绿而阈值等于没设。这一条是唯一挡住该漂移的断言。
+    """
+    assert FACT_MIN_LEN == 12
+
+
+def test_gate_fact_length_accepts_long_fact():
+    qs = [{"id": "q1", "expected_facts": ["あ" * FACT_MIN_LEN]}]
+    assert gate_fact_length(qs) == []
+
+
+def test_gate_fact_length_flags_short_fact():
+    qs = [{"id": "q1", "expected_facts": ["短い"]}]
+    f = gate_fact_length(qs)
+    assert [x.gate for x in f] == ["fact_length"]
+
+
+def test_gate_fact_length_accepts_short_oid_shaped_fact():
+    """OID / codelist ID 天生短, 但不是碎片 —— 放行。"""
+    qs = [{"id": "q1", "expected_facts": ["C66742", "REDACTED_OID_02"]}]
+    assert gate_fact_length(qs) == []
+
+
+def test_gate_fact_length_flags_missing_facts():
+    qs = [{"id": "q1"}]
+    assert [x.qid for x in gate_fact_length(qs)] == ["q1"]
+
+
+# ---- 闸 D 卡片答不出 -------------------------------------------------------
+
+
+def test_card_texts_reads_cards(tmp_path):
+    d = tmp_path / "cards"
+    d.mkdir()
+    (d / "st01__F__I.md").write_text("label: ABC", encoding="utf-8")
+    (d / "ignore.txt").write_text("x", encoding="utf-8")
+    assert card_texts(d) == {"st01__F__I.md": "label: ABC"}
+
+
+def test_gate_card_unanswerable_passes_when_no_card_has_all_terms():
+    cards = {"a.md": "TERM_A only", "b.md": "TERM_B only"}
+    qs = [{"id": "q1", "card_probe_terms": ["TERM_A", "TERM_B"]}]
+    assert gate_card_unanswerable(qs, cards) == []
+
+
+def test_gate_card_unanswerable_flags_card_covering_all_terms():
+    cards = {"a.md": "TERM_A and TERM_B together"}
+    qs = [{"id": "q1", "card_probe_terms": ["TERM_A", "TERM_B"]}]
+    f = gate_card_unanswerable(qs, cards)
+    assert [x.qid for x in f] == ["q1"]
+    assert "a.md" in f[0].detail
+
+
+def test_gate_card_unanswerable_is_case_insensitive():
+    cards = {"a.md": "term_a and TERM_b"}
+    qs = [{"id": "q1", "card_probe_terms": ["TERM_A", "term_B"]}]
+    assert [x.qid for x in gate_card_unanswerable(qs, cards)] == ["q1"]
+
+
+def test_gate_card_unanswerable_requires_two_terms():
+    """单个词太容易不撞卡 —— 闸会变成白送。"""
+    qs = [{"id": "q1", "card_probe_terms": ["ONLY_ONE"]}]
+    f = gate_card_unanswerable(qs, {"a.md": "x"})
+    assert [x.qid for x in f] == ["q1"]
+    assert "2" in f[0].detail

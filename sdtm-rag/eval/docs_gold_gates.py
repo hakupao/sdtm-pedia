@@ -102,3 +102,62 @@ def gate_anchor_unique(questions: list[dict], bodies: dict[str, str]) -> list[Ga
                 "anchor_unique", qid,
                 f"锚串不在 gold chunk {missing} / 溢出到非 gold chunk {extra[:3]}"))
     return findings
+
+
+FACT_MIN_LEN = 12
+# OID / codelist ID / 项目コード 形态: 全大写+数字+下划线, 长度 >= 3。
+# 它们天生短但不是碎片 —— check_fact_recall 对它们有判别力 (v2 已验证)。
+_ID_SHAPED = re.compile(r"^[A-Z][A-Z0-9_]{2,}$")
+
+
+def card_texts(cards_dir: Path | str) -> dict[str, str]:
+    """field card 全文语料。
+
+    用卡片全文而不是 catalog 派生串: audit_v2 记过一次口径事故 —— 出题人用 catalog
+    近似语料、审题人用卡片全文, 数字差几个百分点。以卡片全文为准。
+    """
+    return {p.name: p.read_text(encoding="utf-8")
+            for p in sorted(Path(cards_dir).glob("*.md"))}
+
+
+def gate_fact_length(questions: list[dict]) -> list[GateFinding]:
+    findings: list[GateFinding] = []
+    for q in questions:
+        qid = q.get("id", "<no id>")
+        facts = q.get("expected_facts") or []
+        if not facts:
+            findings.append(GateFinding("fact_length", qid, "缺 expected_facts"))
+            continue
+        for fact in facts:
+            if len(fact) >= FACT_MIN_LEN or _ID_SHAPED.match(fact):
+                continue
+            findings.append(GateFinding(
+                "fact_length", qid,
+                f"fact {fact!r} 长 {len(fact)} < {FACT_MIN_LEN} 且非 ID 形态 — "
+                "1-2 词碎片会让 fact-recall 顶格失明"))
+    return findings
+
+
+def gate_card_unanswerable(questions: list[dict], cards: dict[str, str]) -> list[GateFinding]:
+    """闸 D: 没有任何一张 field card 同时含全部 probe 词。
+
+    口径边界 (硬规矩 19): 这是**字面**筛。语义等价的卡片本闸看不见, 故 spec §4 要求
+    另抽 N=6 分层样本走实测复核。单词数 < 2 直接报 —— 一个词太容易不撞卡, 闸会白送。
+    """
+    findings: list[GateFinding] = []
+    lowered = {name: text.lower() for name, text in cards.items()}
+    for q in questions:
+        qid = q.get("id", "<no id>")
+        terms = q.get("card_probe_terms") or []
+        if len(terms) < 2:
+            findings.append(GateFinding(
+                "card_unanswerable", qid,
+                f"card_probe_terms 只有 {len(terms)} 个, 需 >= 2 — 单词筛会白送"))
+            continue
+        low = [t.lower() for t in terms]
+        hit = [name for name, text in lowered.items() if all(t in text for t in low)]
+        if hit:
+            findings.append(GateFinding(
+                "card_unanswerable", qid,
+                f"卡片 {sorted(hit)[:3]} 同时含全部 probe 词 — 该题卡片可能答得出"))
+    return findings
