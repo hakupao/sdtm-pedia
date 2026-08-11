@@ -9,6 +9,8 @@
 物理变异测试 (把闸函数改成 `return []` 跑全套) 由 Task 9 Step 2 第 3 条的
 独立抽检方执行 —— 那是实现方自己做不了的独立性检查。
 """
+import pytest
+
 from eval.docs_gold_gates import (
     ANCHOR_MIN_LEN,
     FACT_MIN_LEN,
@@ -181,13 +183,37 @@ def test_gate_fact_length_flags_short_fact():
 
 
 def test_gate_fact_length_accepts_short_oid_shaped_fact():
-    """OID / codelist ID 天生短, 但不是碎片 —— 放行。"""
-    qs = [{"id": "q1", "expected_facts": ["C66742", "REDACTED_OID_02"]}]
+    """OID / codelist ID 天生短, 但不是碎片 —— 放行。
+
+    两个串都是**合成**的: `C66742` 是公开 CDISC NCI 码, `XXTERM_99` 对 `data/study/`
+    零命中。初版这里写的是真实 item OID, 属数据红线事故 (复审 C1)。
+    """
+    qs = [{"id": "q1", "expected_facts": ["C66742", "XXTERM_99"]}]
     assert gate_fact_length(qs) == []
 
 
 def test_gate_fact_length_flags_missing_facts():
     qs = [{"id": "q1"}]
+    assert [x.qid for x in gate_fact_length(qs)] == ["q1"]
+
+
+def test_gate_fact_length_flags_two_char_upper_fragment():
+    """钉住 `_ID_SHAPED` 的 `{2,}` 下限 (复审 m2)。
+
+    白名单是闸 C **已知限制的入口** —— 没有这条, 把它放宽成 `^[A-Z]` 全套仍绿,
+    已知限制就能在无人察觉时继续扩大。这里不用 `YES`: 3 字符全大写今天就是放行的,
+    属已裁定的已知限制; 用长 2 的 `YE` 才钉得住下限。
+    """
+    qs = [{"id": "q1", "expected_facts": ["YE"]}]
+    assert [x.qid for x in gate_fact_length(qs)] == ["q1"]
+
+
+def test_gate_fact_length_flags_id_shaped_with_trailing_newline():
+    """`$` 会匹配末尾换行, 故判定用 `fullmatch` (复审 m2)。
+
+    `"C66742\\n"` 在 `.match` 下算 ID 形态被放行 —— YAML 块标量很容易带出这个尾巴。
+    """
+    qs = [{"id": "q1", "expected_facts": ["C66742\n"]}]
     assert [x.qid for x in gate_fact_length(qs)] == ["q1"]
 
 
@@ -200,6 +226,28 @@ def test_card_texts_reads_cards(tmp_path):
     (d / "st01__F__I.md").write_text("label: ABC", encoding="utf-8")
     (d / "ignore.txt").write_text("x", encoding="utf-8")
     assert card_texts(d) == {"st01__F__I.md": "label: ABC"}
+
+
+def test_card_texts_rejects_empty_dir(tmp_path):
+    """空语料必须响亮失败 (复审 I1), 与 `lint_gold.doc_chunk_names` 同一处理。
+
+    静默返回 `{}` 时闸 D 整闸白送: 没有卡片可撞 ⇒ 每题判绿。同一系列里两个语料装载器
+    对空目录给相反处理是最坏的形态, 而先写的那个 (`doc_chunk_names`) 选的是炸。
+    """
+    d = tmp_path / "cards"
+    d.mkdir()
+    with pytest.raises(ValueError):
+        card_texts(d)
+
+
+def test_card_texts_rejects_missing_dir(tmp_path):
+    """路径打错是这条洞的现实触发方式: `Path.glob` 对不存在的目录不报错, 只给空迭代。
+
+    Task 4 的 `main` 把 `--cards-dir` 暴露到命令行后, 一个拼错的路径就让闸 D 变 no-op
+    并以退出码 0 全绿收工。
+    """
+    with pytest.raises(ValueError):
+        card_texts(tmp_path / "no_such_dir")
 
 
 def test_gate_card_unanswerable_passes_when_no_card_has_all_terms():
@@ -228,3 +276,16 @@ def test_gate_card_unanswerable_requires_two_terms():
     f = gate_card_unanswerable(qs, {"a.md": "x"})
     assert [x.qid for x in f] == ["q1"]
     assert "2" in f[0].detail
+
+
+def test_gate_card_unanswerable_flags_scalar_probe_terms():
+    """YAML 写成标量而非列表时必须报 (复审 m1)。
+
+    字符串长度 >= 2 会滑过 `len(terms) < 2` 守卫, 随后**每个字符**被当成一个 probe 词
+    —— 单字符几乎撞不上"全部命中", 于是静默判绿。同样的手滑闸 C 是吵闹地红
+    (`len(fact)` 对字符串有意义), 闸 D 是安静地绿。题集 YAML 由出题批手写, 是典型手滑。
+    """
+    qs = [{"id": "q1", "card_probe_terms": "TERM_A"}]
+    f = gate_card_unanswerable(qs, {"a.md": "x"})
+    assert [x.qid for x in f] == ["q1"]
+    assert "列表" in f[0].detail

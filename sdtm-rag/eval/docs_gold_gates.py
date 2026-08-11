@@ -115,9 +115,18 @@ def card_texts(cards_dir: Path | str) -> dict[str, str]:
 
     用卡片全文而不是 catalog 派生串: audit_v2 记过一次口径事故 —— 出题人用 catalog
     近似语料、审题人用卡片全文, 数字差几个百分点。以卡片全文为准。
+
+    空语料必须响亮失败 (与 `lint_gold.doc_chunk_names` 逐字同一处理): 静默返回 `{}`
+    会让闸 D **整闸白送** —— 没有卡片可撞, `hit` 恒空, 每题判绿。而 `Path.glob` 对
+    **不存在**的目录也不报错、只给空迭代, 所以打错一个 `--cards-dir` 就够了:
+    闸 D 变 no-op 且以退出码 0 全绿收工。同一系列里两个语料装载器对空目录给相反处理
+    是最坏形态, 故这里照抄先写那个的选择 —— 宁可现在炸。
     """
-    return {p.name: p.read_text(encoding="utf-8")
-            for p in sorted(Path(cards_dir).glob("*.md"))}
+    out = {p.name: p.read_text(encoding="utf-8")
+           for p in sorted(Path(cards_dir).glob("*.md"))}
+    if not out:
+        raise ValueError(f"cards_dir 无 md 文件, 空语料会让闸 D 每题判绿: {cards_dir}")
+    return out
 
 
 def gate_fact_length(questions: list[dict]) -> list[GateFinding]:
@@ -129,7 +138,7 @@ def gate_fact_length(questions: list[dict]) -> list[GateFinding]:
             findings.append(GateFinding("fact_length", qid, "缺 expected_facts"))
             continue
         for fact in facts:
-            if len(fact) >= FACT_MIN_LEN or _ID_SHAPED.match(fact):
+            if len(fact) >= FACT_MIN_LEN or _ID_SHAPED.fullmatch(fact):
                 continue
             findings.append(GateFinding(
                 "fact_length", qid,
@@ -149,6 +158,14 @@ def gate_card_unanswerable(questions: list[dict], cards: dict[str, str]) -> list
     for q in questions:
         qid = q.get("id", "<no id>")
         terms = q.get("card_probe_terms") or []
+        if not isinstance(terms, list):
+            # YAML 标量 (`card_probe_terms: TERM_A`) 长度 >= 2 会滑过下面的守卫, 然后
+            # **逐字符**当 probe 词 —— 单字符几乎撞不上"全部命中", 于是静默判绿。
+            findings.append(GateFinding(
+                "card_unanswerable", qid,
+                f"card_probe_terms 不是列表 (拿到 {type(terms).__name__}) — "
+                "YAML 标量会被逐字符当 probe 词, 静默判绿"))
+            continue
         if len(terms) < 2:
             findings.append(GateFinding(
                 "card_unanswerable", qid,
