@@ -13,11 +13,14 @@
 """
 from __future__ import annotations
 
+import argparse
+import json
 import re
+import sys
 from dataclasses import dataclass
 from pathlib import Path
 
-from eval.lint_gold import doc_chunk_names, lint_gold, match_names
+from eval.lint_gold import doc_chunk_names, lint_gold, load_questions, match_names
 
 ANCHOR_MIN_LEN = 20
 _FM_RE = re.compile(r"\A---\n.*?\n---\n", re.DOTALL)
@@ -178,3 +181,45 @@ def gate_card_unanswerable(questions: list[dict], cards: dict[str, str]) -> list
                 "card_unanswerable", qid,
                 f"卡片 {sorted(hit)[:3]} 同时含全部 probe 词 — 该题卡片可能答得出"))
     return findings
+
+
+def run_all_gates(test_set_path: Path | str, docs_dir: Path | str,
+                  cards_dir: Path | str) -> list[GateFinding]:
+    """四道闸的唯一汇总点 —— Task 5-7 的每道新题都靠它决定能否入池。
+
+    `questions` 只加载一次并喂给闸 B/C/D, 闸 A 收路径 (内部经 `lint_gold._load` 加载),
+    但两条路径都落到 `lint_gold.load_questions` 这一份实现上, 所以四道闸判的是同一批题。
+    `test_all_gates_see_the_same_question_set` 钉住这件事。
+    """
+    questions = load_questions(test_set_path)
+    bodies = chunk_bodies(docs_dir)
+    cards = card_texts(cards_dir)
+    return (gate_gold_unique(test_set_path, docs_dir)
+            + gate_anchor_unique(questions, bodies)
+            + gate_fact_length(questions)
+            + gate_card_unanswerable(questions, cards))
+
+
+def main(argv=None) -> int:
+    ap = argparse.ArgumentParser(description="doc 侧题集四道入池闸 (确定性, 零 LLM)")
+    ap.add_argument("test_set")
+    ap.add_argument("--docs-dir", required=True)
+    ap.add_argument("--cards-dir", required=True)
+    ap.add_argument("--json", help="把 findings 另存为 JSON (收口证据用)")
+    args = ap.parse_args(argv)
+
+    findings = run_all_gates(args.test_set, args.docs_dir, args.cards_dir)
+    n_q = len(load_questions(args.test_set))
+    for f in findings:
+        print(f"[{f.gate}] {f.qid}: {f.detail}")
+    if args.json:
+        Path(args.json).write_text(
+            json.dumps([f.__dict__ for f in findings], ensure_ascii=False, indent=2),
+            encoding="utf-8")
+    print(f"\n计分题 {n_q} 道 · {len(findings)} 条 finding "
+          f"(闸 B 只挡字面, 语义等价看不见 — 引用绿灯时必须同时写这句)")
+    return 1 if findings else 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

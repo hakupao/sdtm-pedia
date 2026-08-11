@@ -20,6 +20,8 @@ from eval.docs_gold_gates import (
     gate_card_unanswerable,
     gate_fact_length,
     gate_gold_unique,
+    main,
+    run_all_gates,
 )
 
 FM = "---\nstudy: st01\nsection_number: '10.1'\n---\n"
@@ -295,3 +297,106 @@ def test_gate_card_unanswerable_flags_scalar_probe_terms():
     f = gate_card_unanswerable(qs, {"a.md": "x"})
     assert [x.qid for x in f] == ["q1"]
     assert "列表" in f[0].detail
+
+
+# ---- 汇总 CLI --------------------------------------------------------------
+
+
+def _fixture(tmp_path, *, clean: bool):
+    """clean=False 必须让**四道闸同时**报, 每道闸各有一个**独立**的脏维度。
+
+    只弄脏一维时, `run_all_gates` 漏掉 A/B/C 中任意一个甚至全部三个, 四条用例仍全绿
+    —— 缺失的加数在那个 fixture 上恒贡献 [], 断言原理上看不见它在不在。这个洞比单闸
+    缺半边严重: 单闸缺 clean 半边只放过**恒红**闸 (吵, 会被发现), 聚合器缺口放过的是
+    **恒绿** —— 而 Task 5-7 出题跑的就是这个 CLI, 漏掉的闸对每道新题静默返回"无
+    finding", 题照常入池, 「四闸全绿」还会被后续证据引用成"尺子有判别力"。
+
+    **闸 B 的脏维度必须是第三个 chunk, 不能是 s1_10 也含锚串** (实测, 别改回去):
+    plan 初稿把闸 B 弄脏成"第二个 chunk 也含同一锚串 → 锚串出现 2 次而 gold 数 1",
+    那是照着**旧的计数版**闸 B 写的。Task 3 复审已把闸 B 改成 membership 口径, 于是
+    两个脏维度**互相抵消**: 不带 `.md` 的脏 gold 让 s1_10 也成了合法 target, 锚串落在
+    两个 target 里既不 missing 也不 extra ⇒ 闸 B 返回 []。结果是这份 fixture 恰好对
+    闸 B 恒绿, 聚合器漏掉闸 B 也测不出来 —— 正是本 fixture 要防的那个洞, 出现在防它的
+    fixture 自己身上。故锚串溢出到一个 gold **解析不到**的 chunk (doc02), 该维度与
+    gold 脏不脏无关。
+    """
+    anchor = "A" * 30
+    docs = tmp_path / "docs"
+    docs.mkdir()
+    (docs / "st01__doc01__s1_1.md").write_text(FM + anchor, encoding="utf-8")
+    (docs / "st01__doc01__s1_10.md").write_text(FM + "other body", encoding="utf-8")
+    # 脏 (闸 B 维): 锚串溢出到 gold 解析不到的 chunk
+    (docs / "st01__doc02__s9_1.md").write_text(
+        FM + ("unrelated" if clean else anchor), encoding="utf-8")
+    cards = tmp_path / "cards"
+    cards.mkdir()
+    # 脏 (闸 D 维): 同一张卡同时含全部 probe 词
+    (cards / "st01__F__I.md").write_text(
+        "TERM_A only" if clean else "TERM_A TERM_B", encoding="utf-8")
+    ts = tmp_path / "ts.yml"
+    ts.write_text(
+        "- id: q1\n"
+        # 脏 (闸 A 维): gold 不带 .md → 同时命中 s1_1.md 与 s1_10.md
+        f"  expected_sources: ['st01__doc01__s1_1{'.md' if clean else ''}']\n"
+        # 脏 (闸 C 维): fact 过短且非 ID 形态
+        f"  expected_facts: ['{'x' * 20 if clean else '短'}']\n"
+        f"  anchor: '{anchor}'\n"
+        "  card_probe_terms: ['TERM_A', 'TERM_B']\n",
+        encoding="utf-8")
+    return ts, docs, cards
+
+
+def test_fixture_dirty_side_trips_each_gate_individually(tmp_path):
+    """钉住"四个脏维度互相独立"这件事本身 —— fixture 是这批用例的唯一判别力来源。
+
+    上面那场互相抵消的事故说明: fixture 某一维**看着**脏、实际对该闸恒绿, 是会真实发生的,
+    且发生时四条聚合用例照绿 (因为它们只看聚合结果, 抵消掉的那维在聚合里也不出现)。
+    这条把每道闸单独喂脏 fixture 各跑一次, 让"这一维真的脏"成为可执行断言而非注释里的声明。
+    """
+    ts, docs, cards = _fixture(tmp_path, clean=False)
+    questions = [{"id": "q1", "expected_sources": ["st01__doc01__s1_1"],
+                  "anchor": "A" * 30, "expected_facts": ["短"],
+                  "card_probe_terms": ["TERM_A", "TERM_B"]}]
+    assert [x.gate for x in gate_gold_unique(str(ts), docs)] == ["gold_unique"]
+    assert [x.gate for x in gate_anchor_unique(questions, chunk_bodies(docs))] == ["anchor_unique"]
+    assert [x.gate for x in gate_fact_length(questions)] == ["fact_length"]
+    assert [x.gate for x in gate_card_unanswerable(
+        questions, card_texts(cards))] == ["card_unanswerable"]
+
+
+def test_run_all_gates_clean_fixture_has_no_findings(tmp_path):
+    ts, docs, cards = _fixture(tmp_path, clean=True)
+    assert run_all_gates(str(ts), docs, cards) == []
+
+
+def test_run_all_gates_reports_every_gate(tmp_path):
+    """聚合器漏掉任一加数本用例必红 —— 断言的是 gate 集合, 不是某一个。"""
+    ts, docs, cards = _fixture(tmp_path, clean=False)
+    f = run_all_gates(str(ts), docs, cards)
+    assert sorted({x.gate for x in f}) == [
+        "anchor_unique", "card_unanswerable", "fact_length", "gold_unique"]
+
+
+def test_main_exit_code_0_when_clean(tmp_path, capsys):
+    ts, docs, cards = _fixture(tmp_path, clean=True)
+    rc = main([str(ts), "--docs-dir", str(docs), "--cards-dir", str(cards)])
+    assert rc == 0
+    assert "0 条" in capsys.readouterr().out
+
+
+def test_main_exit_code_1_when_findings(tmp_path):
+    ts, docs, cards = _fixture(tmp_path, clean=False)
+    assert main([str(ts), "--docs-dir", str(docs), "--cards-dir", str(cards)]) == 1
+
+
+def test_all_gates_see_the_same_question_set(tmp_path):
+    """out_of_scope 题必须被四道闸**一致**跳过。
+
+    闸 A 走路径、闸 B/C/D 走列表, 是两条加载路径。任一侧将来加了跳过标志而另一侧没加,
+    两道闸就会判不同的题集且不报错 —— 与 lint_gold 那句"两个 gold 全集不可混用"同类,
+    只是从"全集"挪到了"题集"。
+    """
+    ts, docs, cards = _fixture(tmp_path, clean=False)     # 四维全脏
+    dirty = ts.read_text(encoding="utf-8") + "  out_of_scope: true\n"
+    ts.write_text(dirty, encoding="utf-8")
+    assert run_all_gates(str(ts), docs, cards) == []       # 全脏但被跳过 ⇒ 四闸都没看它
