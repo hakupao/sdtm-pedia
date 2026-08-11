@@ -713,15 +713,37 @@ if __name__ == "__main__":
     sys.exit(main())
 ```
 
-- [ ] **Step 4: 跑测试确认通过**
+- [ ] **Step 4: 加一条「四道闸判的是同一批题」的用例**
 
-Run: `.venv/bin/python -m pytest scripts/tests/test_docs_gold_gates.py -q -p no:warnings`
-Expected: PASS (21 passed)
+Task 2 复审留下的检查点: 闸 A 收的是**题集路径**(内部经 `lint_gold._load` 加载),
+闸 B/C/D 收的是**已加载的 questions 列表**。两条加载路径现在都走
+`lint_gold.load_questions`, 但没有任何用例钉住这件事 —— 那句
+"题集读取的唯一实现, 所有闸必须判同一批题"目前只是没有执行力的声明。
 
-- [ ] **Step 5: 全量回归 + 提交**
+```python
+def test_all_gates_see_the_same_question_set(tmp_path):
+    """out_of_scope 题必须被四道闸**一致**跳过。
+
+    闸 A 走路径、闸 B/C/D 走列表, 是两条加载路径。任一侧将来加了跳过标志而另一侧没加,
+    两道闸就会判不同的题集且不报错 —— 与 lint_gold 那句"两个 gold 全集不可混用"同类,
+    只是从"全集"挪到了"题集"。
+    """
+    ts, docs, cards = _fixture(tmp_path, clean=False)     # 四维全脏
+    dirty = ts.read_text(encoding="utf-8") + "  out_of_scope: true\n"
+    ts.write_text(dirty, encoding="utf-8")
+    assert run_all_gates(str(ts), docs, cards) == []       # 全脏但被跳过 ⇒ 四闸都没看它
+```
+
+- [ ] **Step 5: 跑测试确认通过**
+
+Run: `.venv/bin/python -m pytest scripts/tests/test_docs_gold_gates.py -p no:warnings`
+(**不要加 `-q`** —— `pyproject.toml:96` 已有 `addopts = "-ra -q"`, 叠成 `-qq` 会吞掉末行摘要)
+Expected: PASS (22 passed)
+
+- [ ] **Step 6: 全量回归 + 提交**
 
 ```bash
-.venv/bin/python -m pytest -p no:warnings -q     # 0 failed, 总数 >= 1060
+.venv/bin/python -m pytest -p no:warnings        # 0 failed, 总数 >= 1060
 git add eval/docs_gold_gates.py scripts/tests/test_docs_gold_gates.py
 git commit -m "feat(eval): doc 侧四闸 CLI 汇总 + 退出码语义"
 ```
