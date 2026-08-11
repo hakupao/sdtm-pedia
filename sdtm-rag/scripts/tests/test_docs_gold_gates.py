@@ -200,9 +200,15 @@ def test_gate_fact_length_flags_missing_facts():
 def test_gate_fact_length_flags_two_char_upper_fragment():
     """钉住 `_ID_SHAPED` 的 `{2,}` 下限 (复审 m2)。
 
-    白名单是闸 C **已知限制的入口** —— 没有这条, 把它放宽成 `^[A-Z]` 全套仍绿,
+    白名单是闸 C **已知限制的入口** —— 没有这条, 把量词 `{2,}` 降成 `{1,}` 全套仍绿,
     已知限制就能在无人察觉时继续扩大。这里不用 `YES`: 3 字符全大写今天就是放行的,
     属已裁定的已知限制; 用长 2 的 `YE` 才钉得住下限。
+
+    **别拿 `^[A-Z]` 当验证配方** (本条初版就是这么写的, 实测为假): 判定用的是
+    `fullmatch`, 所以 `^[A-Z]` 只匹配**单字符**串 —— 它不是放宽而是**收紧**, 连
+    `C66742` 都不再放行, 于是打红的是**干净侧**的 `accepts_short_oid_shaped_fact`
+    (`1 failed`), 对本条零载荷。照那条配方复验的人会得到与描述相反的结果, 可能据此
+    误判本条是装饰品而删掉它。`fullmatch` 下的等价放宽只有降低量词。
     """
     qs = [{"id": "q1", "expected_facts": ["YE"]}]
     assert [x.qid for x in gate_fact_length(qs)] == ["q1"]
