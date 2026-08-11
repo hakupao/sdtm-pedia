@@ -220,6 +220,17 @@ git commit -m "feat(eval): lint_gold 支持 doc chunk 侧 gold 全集"
 新建 `scripts/tests/test_docs_gold_gates.py`:
 
 ```python
+"""doc 侧四闸单测。
+
+反装饰保证 (硬规矩 18) 的结构: **每道闸都有一对测试** —— 干净 fixture 必须返回 []
+(`*_passes_*` / `*_accepts_*`), 脏 fixture 必须返回 finding (`*_flags_*`)。
+后者就是"闸恒返回 [] 则变红"的断言, 不需要再写一条同义的 `test_mutation_*`
+—— 那只是同一断言的复制。cap_recall 那轮 `hidden_loss_shadow` 之所以是装饰品,
+正是因为当时**缺**脏 fixture 测试, 不是因为缺一个叫 mutation 的测试。
+
+物理变异测试 (把闸函数改成 `return []` 跑全套) 由 Task 9 Step 2 第 3 条的
+独立抽检方执行 —— 那是实现方自己做不了的独立性检查。
+"""
 import pytest
 
 from eval.docs_gold_gates import (
@@ -291,13 +302,6 @@ def test_gate_anchor_unique_counts_multi_gold(tmp_path):
     qs = [{"id": "q1", "expected_sources": ["a.md", "b.md"], "anchor": anchor}]
     assert gate_anchor_unique(qs, bodies) == []
 
-
-def test_mutation_gate_anchor_unique_is_not_decorative():
-    """硬规矩 18: 闸恒返回空则本测试必须红。"""
-    anchor = "X" * ANCHOR_MIN_LEN
-    bodies = {"a.md": anchor, "b.md": anchor}
-    qs = [{"id": "q1", "expected_sources": ["a.md"], "anchor": anchor}]
-    assert gate_anchor_unique(qs, bodies), "闸不报 = 装饰品"
 ```
 
 - [ ] **Step 2: 跑测试确认失败**
@@ -400,7 +404,7 @@ def gate_anchor_unique(questions: list[dict], bodies: dict[str, str]) -> list[Ga
 - [ ] **Step 4: 跑测试确认通过**
 
 Run: `.venv/bin/python -m pytest scripts/tests/test_docs_gold_gates.py -q -p no:warnings`
-Expected: PASS (9 passed)
+Expected: PASS (7 passed)
 
 - [ ] **Step 5: 提交**
 
@@ -491,15 +495,6 @@ def test_gate_card_unanswerable_requires_two_terms():
     assert [x.qid for x in f] == ["q1"]
     assert "2" in f[0].detail
 
-
-def test_mutation_gate_card_unanswerable_is_not_decorative():
-    cards = {"a.md": "TERM_A TERM_B"}
-    qs = [{"id": "q1", "card_probe_terms": ["TERM_A", "TERM_B"]}]
-    assert gate_card_unanswerable(qs, cards), "闸不报 = 装饰品"
-
-
-def test_mutation_gate_fact_length_is_not_decorative():
-    assert gate_fact_length([{"id": "q1", "expected_facts": ["短"]}]), "闸不报 = 装饰品"
 ```
 
 - [ ] **Step 2: 跑测试确认失败**
@@ -574,7 +569,7 @@ def gate_card_unanswerable(questions: list[dict], cards: dict[str, str]) -> list
 - [ ] **Step 4: 跑测试确认通过**
 
 Run: `.venv/bin/python -m pytest scripts/tests/test_docs_gold_gates.py -q -p no:warnings`
-Expected: PASS (20 passed)
+Expected: PASS (16 passed)
 
 - [ ] **Step 5: 提交**
 
@@ -696,7 +691,7 @@ if __name__ == "__main__":
 - [ ] **Step 4: 跑测试确认通过**
 
 Run: `.venv/bin/python -m pytest scripts/tests/test_docs_gold_gates.py -q -p no:warnings`
-Expected: PASS (24 passed)
+Expected: PASS (20 passed)
 
 - [ ] **Step 5: 全量回归 + 提交**
 
