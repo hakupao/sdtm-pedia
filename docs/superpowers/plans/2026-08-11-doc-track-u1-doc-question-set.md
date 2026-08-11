@@ -620,7 +620,12 @@ def _fixture(tmp_path, *, clean: bool):
     # 闸 B 写的; Task 3 改 membership 口径后, 不带 `.md` 的脏 gold 经 match_names 让 s1_10
     # 也成了合法 target ⇒ 锚串既不 missing 也不 extra ⇒ **闸 B 恒绿, 两个脏维互相抵消**。
     # 即"缺失加数恒贡献 []"那个洞, 恰好出现在防它的 fixture 自己身上。
-    # 本维必须与 gold 脏不脏**无关**, 否则会被另一维抵消。
+    # ⚠ **只做到一半** (Task 4 复审 Q3 实测): `extra` 这半确实与 gold 无关, 但闸 B 在脏
+    # fixture 上是**双因致红且两因冗余** —— `missing=['…s1_10.md']` 那半来自**闸 A 的脏维**
+    # (不带 `.md` 的 gold 经 match_names 子串匹配把 s1_10 也拉成 target, 而它正文无锚串)。
+    # 于是洗掉 doc02 甚至删掉它, 闸 B 仍红, 全套照绿 ⇒ **本维非 load-bearing**。
+    # 对策不是再改 fixture (要真正正交须把脏 gold 挪到第二道题, 复杂度不划算), 而是在
+    # 逐闸用例里**断言 detail 含 doc02**: 那一句 baseline 为真、洗掉 doc02 即假。
     if not clean:
         (docs / "st01__doc02__s9_1.md").write_text(FM + anchor, encoding="utf-8")
     cards = tmp_path / "cards"
