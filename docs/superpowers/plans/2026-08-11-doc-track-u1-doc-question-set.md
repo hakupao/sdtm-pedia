@@ -569,7 +569,7 @@ def gate_card_unanswerable(questions: list[dict], cards: dict[str, str]) -> list
 - [ ] **Step 4: 跑测试确认通过**
 
 Run: `.venv/bin/python -m pytest scripts/tests/test_docs_gold_gates.py -q -p no:warnings`
-Expected: PASS (16 passed)
+Expected: PASS (17 passed)
 
 - [ ] **Step 5: 提交**
 
@@ -599,20 +599,33 @@ from eval.docs_gold_gates import main, run_all_gates
 
 
 def _fixture(tmp_path, *, clean: bool):
+    """clean=False 必须让**四道闸同时**报。
+
+    只弄脏一维 (原设计只脏卡片) 时, `run_all_gates` 漏掉 A/B/C 中任意一个甚至全部三个,
+    四条用例仍全绿 —— 缺失的加数在那个 fixture 上恒贡献 [], 断言原理上看不见它在不在。
+    这个洞比单闸缺半边严重: 单闸缺 clean 半边只放过**恒红**闸 (吵, 会被发现), 聚合器
+    缺口放过的是**恒绿** —— 而 Task 5-7 出题跑的就是这个 CLI, 漏掉的闸对每道新题静默
+    返回"无 finding", 题照常入池, 「四闸全绿」还会被后续证据引用成"尺子有判别力"。
+    """
+    anchor = "A" * 30
     docs = tmp_path / "docs"
     docs.mkdir()
-    anchor = "A" * 30
     (docs / "st01__doc01__s1_1.md").write_text(FM + anchor, encoding="utf-8")
-    (docs / "st01__doc01__s1_2.md").write_text(FM + "other body", encoding="utf-8")
+    # 脏: 第二个 chunk 也含同一锚串 → 锚串出现 2 次而 gold 数 1
+    (docs / "st01__doc01__s1_10.md").write_text(
+        FM + ("other body" if clean else anchor), encoding="utf-8")
     cards = tmp_path / "cards"
     cards.mkdir()
-    (cards / "st01__F__I.md").write_text("TERM_A only" if clean else "TERM_A TERM_B",
-                                         encoding="utf-8")
+    # 脏: 同一张卡同时含全部 probe 词
+    (cards / "st01__F__I.md").write_text(
+        "TERM_A only" if clean else "TERM_A TERM_B", encoding="utf-8")
     ts = tmp_path / "ts.yml"
     ts.write_text(
         "- id: q1\n"
-        "  expected_sources: ['st01__doc01__s1_1.md']\n"
-        f"  expected_facts: ['{'x' * 20}']\n"
+        # 脏: gold 不带 .md → 同时命中 s1_1.md 与 s1_10.md
+        f"  expected_sources: ['st01__doc01__s1_1{'.md' if clean else ''}']\n"
+        # 脏: fact 过短且非 ID 形态
+        f"  expected_facts: ['{'x' * 20 if clean else '短'}']\n"
         f"  anchor: '{anchor}'\n"
         "  card_probe_terms: ['TERM_A', 'TERM_B']\n",
         encoding="utf-8")
@@ -624,10 +637,12 @@ def test_run_all_gates_clean_fixture_has_no_findings(tmp_path):
     assert run_all_gates(str(ts), docs, cards) == []
 
 
-def test_run_all_gates_reports_card_gate(tmp_path):
+def test_run_all_gates_reports_every_gate(tmp_path):
+    """聚合器漏掉任一加数本用例必红 —— 断言的是 gate 集合, 不是某一个。"""
     ts, docs, cards = _fixture(tmp_path, clean=False)
     f = run_all_gates(str(ts), docs, cards)
-    assert [x.gate for x in f] == ["card_unanswerable"]
+    assert sorted({x.gate for x in f}) == [
+        "anchor_unique", "card_unanswerable", "fact_length", "gold_unique"]
 
 
 def test_main_exit_code_0_when_clean(tmp_path, capsys):
@@ -649,7 +664,8 @@ Expected: FAIL — `ImportError: cannot import name 'run_all_gates'`
 
 - [ ] **Step 3: 实现**
 
-追加到 `eval/docs_gold_gates.py`:
+追加到 `eval/docs_gold_gates.py`。**先把 Task 2 按 ruff 裁定删掉的三个 import 补回顶部**
+(`import argparse` / `import json` / `import sys` —— 到这一步它们才真正被用上):
 
 ```python
 def run_all_gates(test_set_path: Path | str, docs_dir: Path | str,
@@ -691,7 +707,7 @@ if __name__ == "__main__":
 - [ ] **Step 4: 跑测试确认通过**
 
 Run: `.venv/bin/python -m pytest scripts/tests/test_docs_gold_gates.py -q -p no:warnings`
-Expected: PASS (20 passed)
+Expected: PASS (21 passed)
 
 - [ ] **Step 5: 全量回归 + 提交**
 
