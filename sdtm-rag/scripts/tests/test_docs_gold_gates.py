@@ -23,6 +23,7 @@ from eval.docs_gold_gates import (
     gate_fact_length,
     gate_gold_unique,
     main,
+    probe_binding,
     run_all_gates,
 )
 from eval.lint_gold import load_questions
@@ -342,6 +343,44 @@ def test_gate_card_unanswerable_requires_two_terms():
     assert "2" in f[0].detail
 
 
+def test_probe_binding_reports_binding_when_every_term_hits_some_card():
+    """干净维: 两个词各自都撞得到卡, 但没有一张卡同时含两者 ⇒ 闸 D **能**变红, 只是没红。"""
+    cards = {"st01__F__A.md": "TERM_A only", "st01__F__B.md": "TERM_B only"}
+    qs = [{"id": "q1", "card_probe_terms": ["TERM_A", "TERM_B"]}]
+    assert probe_binding(qs, cards) == [("q1", [1, 1], True)]
+
+
+def test_probe_binding_flags_non_binding_when_a_term_hits_zero_cards():
+    """脏维: 任一词 0 命中 ⇒ `all(...)` 对每张卡恒 False ⇒ 闸 D **不可能**变红。
+
+    这就是批 1 的 12 题里 11 题踩中的形态。绿灯不可证伪, 却和通过的检验长得一样。
+    """
+    cards = {"st01__F__A.md": "TERM_A only"}
+    qs = [{"id": "q1", "card_probe_terms": ["TERM_A", "TERM_ABSENT"]}]
+    assert probe_binding(qs, cards) == [("q1", [1, 0], False)]
+
+
+def test_probe_binding_returns_counts_not_probe_terms():
+    """只回计数, 不回 probe 词本身 —— 输出会被贴进进 git 的 evidence, 红线是零正文。"""
+    cards = {"st01__F__A.md": "TERM_A"}
+    (qid, counts, _), = probe_binding([{"id": "q1", "card_probe_terms": ["TERM_A", "X"]}], cards)
+    assert (qid, counts) == ("q1", [1, 0])
+    assert all(isinstance(c, int) for c in counts)
+
+
+def test_probe_binding_survives_scalar_probe_terms():
+    """标量 probe 词由闸 D 自己报 finding; 可见性这条只需不炸且判为不可触发。"""
+    assert probe_binding([{"id": "q1", "card_probe_terms": "TERM_A"}], {"a.md": "x"}) == [
+        ("q1", [], False)]
+
+
+def test_probe_binding_single_term_is_not_binding():
+    """< 2 个词时闸 D 本就报 finding, 可见性侧同样不得判成有约束力。"""
+    cards = {"st01__F__A.md": "TERM_A"}
+    assert probe_binding([{"id": "q1", "card_probe_terms": ["TERM_A"]}], cards) == [
+        ("q1", [1], False)]
+
+
 def test_gate_card_unanswerable_flags_scalar_probe_terms():
     """YAML 写成标量而非列表时必须报 (复审 m1)。
 
@@ -489,6 +528,41 @@ def test_main_exit_code_1_when_findings(tmp_path, capsys):
     dumped = json.loads(out_json.read_text(encoding="utf-8"))
     assert sorted({d["gate"] for d in dumped}) == gates      # --json 出口的内容
     assert all(d["qid"] == "q1" and d["detail"] for d in dumped)
+
+
+def test_main_prints_probe_binding_visibility(tmp_path, capsys):
+    """闸 D 可触发性必须**无条件打印** —— 没有这条断言, 把它从 `main` 删掉全套照绿。
+
+    干净 fixture 的 probe 词是 `['TERM_A','TERM_B']` 而卡只有 `"TERM_A only"`,
+    即 TERM_B 命中 0 张 ⇒ **这份 fixture 自己就是不可触发的**。这不是巧合而是常态:
+    批 1 的 12 题里 11 题同形态。
+    """
+    ts, docs, cards = _fixture(tmp_path, clean=True)
+    rc = main([str(ts), "--docs-dir", str(docs), "--cards-dir", str(cards)])
+    out = capsys.readouterr().out
+    assert rc == 0
+    assert "[probe] q1: 各 probe 词单独命中卡数 [1, 0]" in out
+    assert "不可触发" in out
+    assert "闸 D 对 0/1 题有约束力" in out
+    # 加行不改行: 既有汇总句必须原样保留 (Task 10 收口证据按整句引用)
+    assert "计分题 1 道 · 0 条 finding" in out
+
+
+def test_probe_binding_visibility_does_not_change_exit_code(tmp_path, capsys):
+    """**只给可见性, 不设闸** —— 可触发与不可触发, 退出码都必须是 0。
+
+    这条钉住的是"别把它做成阈值闸"。设成闸会误杀一类真实情形: probe 词在 959 张卡里
+    零出现, 本身就是"EDC 没有这个概念"的证据 (临床假设类词汇本就不该在 EDC 里)。
+    """
+    ts, docs, cards = _fixture(tmp_path, clean=True)
+    # 补一张只含 TERM_B 的卡 ⇒ 两词各自都撞得到、但没有一张卡同时含两者 ⇒ 变成可触发
+    (cards / "st01__F__J.md").write_text("TERM_B only", encoding="utf-8")
+    rc = main([str(ts), "--docs-dir", str(docs), "--cards-dir", str(cards)])
+    out = capsys.readouterr().out
+    assert rc == 0                                   # 可触发, 退出码仍 0
+    assert "[probe] q1: 各 probe 词单独命中卡数 [1, 1]" in out
+    assert "闸 D 对 1/1 题有约束力" in out
+    assert "计分题 1 道 · 0 条 finding" in out        # 闸 D 仍无 finding (没有卡同时含两词)
 
 
 def test_all_gates_see_the_same_question_set(tmp_path):

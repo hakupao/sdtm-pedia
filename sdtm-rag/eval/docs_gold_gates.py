@@ -207,6 +207,59 @@ def gate_card_unanswerable(questions: list[dict], cards: dict[str, str]) -> list
     return findings
 
 
+def probe_binding(questions: list[dict],
+                  cards: dict[str, str]) -> list[tuple[str, list[int], bool]]:
+    """每题各 probe 词**单独**命中的卡数, 以及闸 D 对该题**是否可能变红**。
+
+    ## 存在的理由 (2026-08-11 实测逼出, 批 1 的 12 题里 11 题踩中)
+
+    闸 D 判的是 `all(t in card_text for t in terms)`。只要**任一** probe 词单独命中
+    **0 张卡**, 该合取对每张卡恒 False ⇒ **闸 D 结构上不可能变红**。实测批 1:
+
+        q01[0,0] q02[0,0] q03[1,0] q04[0,0] q05[0,3] q08[0,0]
+        q09[8,0] q11[1,0] q12[10,2]✓ q14[0,0] q15[0,0] q16[186,0]
+        ⇒ 12 题里闸 D 真正施加了约束的只有 1 题
+
+    那 11 题的绿灯**不可证伪** —— 它不是"卡片答不出"的独立检验, 只是"我挑的词不在
+    任何卡里"的复述。**而不可证伪的绿灯, 和通过了的检验, 长得一模一样。**
+
+    ## 为什么只打印、不设阈值、不设闸、不改退出码
+
+    照抄本仓 `lint_gold.or_groups` 的选择 (它只打印 OR 组成员数而不设成员数阈值,
+    docstring 已论证过"拍脑袋的常数会把排序搞反")。这里是同一情形: 我们无法为
+    "probe 词该命中几张卡"定一个有原则的阈值 ——
+
+    - 0 命中**不等于**坏题: 词在 959 张卡里一次都不出现, 本身就是"EDC 里没有这个概念"
+      的真实证据 (如临床假设类词汇, EDC 本就不会有)。
+    - 但 0 命中**也可能**是"卡片用另一套措辞写同一概念"。**本函数分不开这两种** ——
+      分开它们需要语义判断, 那是 spec §4 要求另抽 N=6 走实测复核的活。
+
+    设成闸就会把上面第一种情形误杀, 并逼出"为了让闸变难而改 probe 词"——
+    那与"红了改词"是同一种病、反方向。故: **只保证后人看得见这道闸对该题有没有
+    约束力, 判断留给人。**
+
+    ## 为什么只回计数、不回 probe 词本身
+
+    probe 词是研究文档的日文词汇。本函数的输出会被贴进 `evidence/checkpoints/`,
+    而那个目录**进 git**、红线是"零正文零真名"。回计数 (位置对应 `card_probe_terms`
+    的顺序) 就够定位, 且贴进证据不泄漏原文。
+
+    Returns: `[(qid, [各 probe 词的命中卡数], 闸 D 是否可触发), ...]`
+    """
+    low = [t.lower() for t in cards.values()]
+    out: list[tuple[str, list[int], bool]] = []
+    for q in questions:
+        terms = q.get("card_probe_terms") or []
+        if not isinstance(terms, list):
+            # 标量 probe 词已由闸 D 自己报 finding; 这里只保证不炸且判为不可触发。
+            out.append((q.get("id", "<no id>"), [], False))
+            continue
+        counts = [sum(1 for text in low if str(t).lower() in text) for t in terms]
+        binding = len(terms) >= 2 and all(c > 0 for c in counts)
+        out.append((q.get("id", "<no id>"), counts, binding))
+    return out
+
+
 def run_all_gates(test_set_path: Path | str, docs_dir: Path | str,
                   cards_dir: Path | str) -> list[GateFinding]:
     """四道闸的唯一汇总点 —— Task 5-7 的每道新题都靠它决定能否入池。
@@ -233,15 +286,27 @@ def main(argv=None) -> int:
     args = ap.parse_args(argv)
 
     findings = run_all_gates(args.test_set, args.docs_dir, args.cards_dir)
-    n_q = len(load_questions(args.test_set))
+    questions = load_questions(args.test_set)
+    n_q = len(questions)
     for f in findings:
         print(f"[{f.gate}] {f.qid}: {f.detail}")
     if args.json:
         Path(args.json).write_text(
             json.dumps([f.__dict__ for f in findings], ensure_ascii=False, indent=2),
             encoding="utf-8")
+
+    # 闸 D 可触发性 —— **无阈值可见性, 不设闸、不改退出码** (见 probe_binding docstring)。
+    binding = probe_binding(questions, card_texts(args.cards_dir))
+    for qid, counts, ok in binding:
+        verdict = "可触发" if ok else "**不可触发** (任一词 0 命中 ⇒ 合取恒空, 绿灯不可证伪)"
+        print(f"[probe] {qid}: 各 probe 词单独命中卡数 {counts} — 闸 D {verdict}")
+    n_bind = sum(1 for _, _, ok in binding if ok)
+
     print(f"\n计分题 {n_q} 道 · {len(findings)} 条 finding "
           f"(闸 B 只挡字面, 语义等价看不见 — 引用绿灯时必须同时写这句)")
+    print(f"闸 D 对 {n_bind}/{n_q} 题有约束力 "
+          f"— 其余题的绿灯不可证伪, 只说明所选 probe 词不在任何卡里, "
+          f"**不构成**「卡片答不出」的独立检验")
     return 1 if findings else 0
 
 
