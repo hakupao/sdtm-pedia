@@ -239,6 +239,59 @@ def test_card_texts_reads_cards(tmp_path):
     assert card_texts(d) == {"st01__F__I.md": "label: ABC"}
 
 
+def test_card_texts_excludes_kb_navigation_files(tmp_path):
+    """`INDEX.md` / `ROUTING.md` 是 kb_root 的导航文件, **不在检索语料里**。
+
+    实测 (2026-08-11): `cards/*.md` = 961, 含 `__` = 959, chroma `study_st01` = 959
+    —— 逐一相等, 即导航文件确实不可检索。闸 D 的口径是"没有任何一张 **field card**
+    同时含全部 probe 词", 扫导航文件量的就不是那件事。
+    """
+    d = tmp_path / "cards"
+    d.mkdir()
+    (d / "st01__F__I.md").write_text("label: ABC", encoding="utf-8")
+    (d / "INDEX.md").write_text("form list", encoding="utf-8")
+    (d / "ROUTING.md").write_text("routing", encoding="utf-8")
+    assert card_texts(d) == {"st01__F__I.md": "label: ABC"}
+
+
+def test_gate_card_unanswerable_ignores_navigation_file_but_still_flags_field_card(tmp_path):
+    """闸 D 不得因导航文件报, 但**仍须**因真实 field card 报。
+
+    两个方向一起断言, 因为单测方向一 (不报) 时, 把 `card_texts` 改成恒返回 `{}`
+    也能让它绿 —— 那是把闸拆了而不是修好。方向二钉住闸本身还活着。
+
+    这条洞的真实后果 (spec §7): 闸 D 的筛掉率喂给 >50% 停止条款, 该条款用来**否掉
+    C1 的整个价值假设**。`INDEX.md` 是列全部 form 名的表, 任意两个 form 级词都会在
+    它里面双双命中 ⇒ 虚高的分子 ⇒ "文档与卡片高度重叠、C1 没价值"的错误结论。
+    """
+    d = tmp_path / "cards"
+    d.mkdir()
+    # 导航文件同时含两个 probe 词 —— 修好后不得触发闸 D
+    (d / "INDEX.md").write_text("TERM_A and TERM_B together", encoding="utf-8")
+    (d / "st01__F__CLEAN.md").write_text("TERM_A only", encoding="utf-8")
+    qs = [{"id": "q1", "card_probe_terms": ["TERM_A", "TERM_B"]}]
+    assert gate_card_unanswerable(qs, card_texts(d)) == []
+
+    # 同样两个词落在**真实 field card** 上时, 闸 D 必须照报
+    (d / "st01__F__DIRTY.md").write_text("TERM_A and TERM_B together", encoding="utf-8")
+    f = gate_card_unanswerable(qs, card_texts(d))
+    assert [x.qid for x in f] == ["q1"]
+    assert "st01__F__DIRTY.md" in f[0].detail
+
+
+def test_card_texts_rejects_dir_with_only_navigation_files(tmp_path):
+    """只有导航文件 = 没有 field card = 空语料, 守卫必须在过滤**之后**。
+
+    否则 961 个文件里滤剩 0 张卡时, `out` 非空判断用的是过滤前的集合, 闸 D 白送。
+    """
+    d = tmp_path / "cards"
+    d.mkdir()
+    (d / "INDEX.md").write_text("x", encoding="utf-8")
+    (d / "ROUTING.md").write_text("y", encoding="utf-8")
+    with pytest.raises(ValueError):
+        card_texts(d)
+
+
 def test_card_texts_rejects_empty_dir(tmp_path):
     """空语料必须响亮失败 (复审 I1), 与 `lint_gold.doc_chunk_names` 同一处理。
 

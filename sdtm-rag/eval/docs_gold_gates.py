@@ -114,21 +114,45 @@ _ID_SHAPED = re.compile(r"^[A-Z][A-Z0-9_]{2,}$")
 
 
 def card_texts(cards_dir: Path | str) -> dict[str, str]:
-    """field card 全文语料。
+    """field card 全文语料 —— **只收 field card, 不收 kb 导航文件**。
 
     用卡片全文而不是 catalog 派生串: audit_v2 记过一次口径事故 —— 出题人用 catalog
     近似语料、审题人用卡片全文, 数字差几个百分点。以卡片全文为准。
+
+    **为什么必须滤掉不含 `__` 的文件** (2026-08-11 实测逼出): `cards_dir` 是
+    `RAGEngine` 的 kb_root, 它**硬要求**该目录下存在 `ROUTING.md` + `INDEX.md`
+    两个导航文件。这两个文件**不在检索语料里** —— 实测:
+
+        cards/*.md            = 961      含 `__` (即 `<study>__<form>__<item>.md`) = 959
+        不含 `__` 的           = INDEX.md + ROUTING.md 两个
+        chroma `study_st01`   = 959      ⇒ 与含 `__` 的数量逐一相等
+
+    而 spec §4 闸 2 的口径是「没有任何一张 **field card** 同时含全部 probe 词」。
+    把导航文件算进来量的就不是那件事: `INDEX.md` 是一张**列全部 form 名的表**,
+    任意两个 form 级词都会在它里面双双命中, 于是闸 D 对着一段**不可检索**的内容判红。
+
+    方向上"过严"不等于安全: 闸 D 的筛掉率直接喂给 spec §7 那条 **>50% 停止条款**,
+    而该条款的作用是**否掉 C1 的整个价值假设**。用虚高的分子触发它, 会得出
+    "文档与卡片高度重叠、C1 没价值"的**错误结论**, 真相却只是我们扫了一张导航表。
+    这不是保守, 是量错了东西。
+
+    判据用命名形态而不是硬编码两个文件名: field card 恒为 `<study>__<form>__<item>.md`,
+    导航文件恒无 `__`。将来 kb_root 下再多一个导航文件也自动被排除。
 
     空语料必须响亮失败 (与 `lint_gold.doc_chunk_names` 逐字同一处理): 静默返回 `{}`
     会让闸 D **整闸白送** —— 没有卡片可撞, `hit` 恒空, 每题判绿。而 `Path.glob` 对
     **不存在**的目录也不报错、只给空迭代, 所以打错一个 `--cards-dir` 就够了:
     闸 D 变 no-op 且以退出码 0 全绿收工。同一系列里两个语料装载器对空目录给相反处理
     是最坏形态, 故这里照抄先写那个的选择 —— 宁可现在炸。
+    **守卫必须在过滤之后**: 一个只有导航文件、没有 field card 的目录同样是空语料。
     """
     out = {p.name: p.read_text(encoding="utf-8")
-           for p in sorted(Path(cards_dir).glob("*.md"))}
+           for p in sorted(Path(cards_dir).glob("*.md"))
+           if "__" in p.name}
     if not out:
-        raise ValueError(f"cards_dir 无 md 文件, 空语料会让闸 D 每题判绿: {cards_dir}")
+        raise ValueError(
+            f"cards_dir 无 field card (形如 `<study>__<form>__<item>.md`), "
+            f"空语料会让闸 D 每题判绿: {cards_dir}")
     return out
 
 
