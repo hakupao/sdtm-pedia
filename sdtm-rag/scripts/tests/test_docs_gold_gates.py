@@ -320,15 +320,30 @@ def _fixture(tmp_path, *, clean: bool):
     两个脏维度**互相抵消**: 不带 `.md` 的脏 gold 让 s1_10 也成了合法 target, 锚串落在
     两个 target 里既不 missing 也不 extra ⇒ 闸 B 返回 []。结果是这份 fixture 恰好对
     闸 B 恒绿, 聚合器漏掉闸 B 也测不出来 —— 正是本 fixture 要防的那个洞, 出现在防它的
-    fixture 自己身上。故锚串溢出到一个 gold **解析不到**的 chunk (doc02), 该维度与
-    gold 脏不脏无关。
+    fixture 自己身上。故锚串溢出到一个 gold **解析不到**的 chunk (doc02)。
+
+    **闸 B 在脏侧是双因致红, 两因冗余** (复审 Q3 实测, 别照着旧说法"该维度与 gold
+    脏不脏无关"理解整条闸):
+
+      baseline (doc02 脏)   → missing=['…s1_10.md']  extra=['…doc02__s9_1.md']  红
+      wash_b   (doc02 干净) → missing=['…s1_10.md']  extra=[]                   仍红
+      wash_a   (gold 带 .md)→ missing=[]             extra=['…doc02__s9_1.md']  仍红
+
+    `extra` 那半确实与 gold 脏度无关, 但 `missing` 那半是**闸 A 脏维的副产物**: 不带
+    `.md` 的 gold 经 `match_names` 子串匹配把 `s1_10.md` 也拉成 target, 而它正文
+    `"other body"` 不含锚串。所以只断言"闸 B 报了"时, 把 doc02 洗干净甚至删掉, 全套照绿
+    —— 与 I-1 在 C 维上的病同型, 换了个方向。故下面那条用例**额外断言 detail 里出现
+    doc02**, 把闸 B 专属的那一维单独钉住。
+
+    (真正的正交要把脏 gold 挪到第二道题, fixture 复杂度上升且 `计分题 1 道` 系列断言
+    要改成 2 道 —— 不划算, 按复审裁定不做。)
     """
     anchor = "A" * 30
     docs = tmp_path / "docs"
     docs.mkdir()
     (docs / "st01__doc01__s1_1.md").write_text(FM + anchor, encoding="utf-8")
     (docs / "st01__doc01__s1_10.md").write_text(FM + "other body", encoding="utf-8")
-    # 脏 (闸 B 维): 锚串溢出到 gold 解析不到的 chunk
+    # 脏 (闸 B 维, extra 半): 锚串溢出到 gold 解析不到的 chunk
     (docs / "st01__doc02__s9_1.md").write_text(
         FM + ("unrelated" if clean else anchor), encoding="utf-8")
     cards = tmp_path / "cards"
@@ -367,7 +382,11 @@ def test_fixture_dirty_side_trips_each_gate_individually(tmp_path):
     ts, docs, cards = _fixture(tmp_path, clean=False)
     questions = load_questions(str(ts))
     assert [x.gate for x in gate_gold_unique(str(ts), docs)] == ["gold_unique"]
-    assert [x.gate for x in gate_anchor_unique(questions, chunk_bodies(docs))] == ["anchor_unique"]
+    b = gate_anchor_unique(questions, chunk_bodies(docs))
+    assert [x.gate for x in b] == ["anchor_unique"]
+    # 闸 B 专属那一维 (extra). 只断言"报了"的话, `missing` 半 (来自闸 A 脏维) 独力
+    # 就能让它红 ⇒ 洗掉甚至删掉 doc02 全套照绿, 这条声明就没有执行力 (复审 Q3)。
+    assert "st01__doc02__s9_1.md" in b[0].detail
     assert [x.gate for x in gate_fact_length(questions)] == ["fact_length"]
     assert [x.gate for x in gate_card_unanswerable(
         questions, card_texts(cards))] == ["card_unanswerable"]
