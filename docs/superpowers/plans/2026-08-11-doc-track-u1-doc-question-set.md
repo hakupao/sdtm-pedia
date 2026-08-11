@@ -13,6 +13,10 @@
 ## Global Constraints
 
 - **数据红线**: 进 git 的一切内容**零真名零正文**。题集 / 锚串 / 笔记只许落在 `sdtm-rag/data/study/` 下 (该目录在 `.gitignore:10`)。研究一律代号 `st01`。
+  ⚠ **本 plan 自己犯过一次** (2026-08-11, Task 3 复审抓到): brief 的 fact fixture 里写了一个
+  **真实 item OID**, 随测试文件进了 tracked git。**任何写进测试 fixture 的 ID 形态串, 落盘前
+  必须跑 `grep -rw '<串>' sdtm-rag/data/study/` 确认 0 命中** —— 看着像合成的不等于是合成的。
+  举例说明某类标识符存在时, 一律用形态描述 + 计数, 不写具体值。
 - **判据唯一实现**: gold 匹配语义只许有 `eval/run_eval.py: source_matches` 一份。任何闸都必须调用它或调用 `eval/lint_gold.py` —— **不许照着再写一遍** (2026-08-06 的 8 条假阳性就是这么来的)。
 - **OR 组一题都不用**: `expected_sources_any` 结构上不进 lint, 用了等于把该题移出闸外。跨节聚合题一律用 AND。
 - **自毁阈值不得修改**: doc-only 上界 ≥95% 或 ≤40% → 题集退回重写; 闸 D 筛掉 >50% → 当场停下报告用户。**触发时不许改阈值, 不许改判定规则。**
@@ -450,7 +454,7 @@ def test_gate_fact_length_flags_short_fact():
 
 def test_gate_fact_length_accepts_short_oid_shaped_fact():
     """OID / codelist ID 天生短, 但不是碎片 —— 放行。"""
-    qs = [{"id": "q1", "expected_facts": ["C66742", "REDACTED_OID_02"]}]
+    qs = [{"id": "q1", "expected_facts": ["C66742", "XXTERM_99"]}]
     assert gate_fact_length(qs) == []
 
 
