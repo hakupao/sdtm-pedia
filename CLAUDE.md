@@ -97,6 +97,7 @@ Full chain definitions are in `.work/MANIFEST.md`.
 | Phase 7 study golden v2 (48 题, 判别力已恢复) | 闸 `sdtm-rag/eval/lint_gold.py`; 证据 `evidence/checkpoints/study_golden_v2.md` |
 | Phase 7 Plan B P2 study 直查 (DONE, 默认开) | `sdtm-rag/server/study_lookup.py`; 证据 `planb_phase2_study_lookup.md` |
 | Phase 7 study C1 文档章节化 (DONE, 未接线) | `sdtm-rag/evidence/checkpoints/study_c1_doc_sections.md` — 114 chunk 进 `study_st01_docs`; 检索侧欠账 |
+| Phase 7 U1 续跑入口 (题 12/30) | `milestones/07_rag_kg/U1_RESUME.md` — 路由词「U1 续跑 开始任务」 |
 | Phase 7 doc 轨下一单元入口 | `milestones/07_rag_kg/DOC_TRACK_KICKOFF.md` (路由词「doc 轨 开始任务」; 题集先于接线) |
 | Phase 7 SP7 查看器 UX 重构 (2026-07-24) | 源码 `sdtm-rag/viewer/{template.html,style.css,layout.mjs,app.js}` → build 内联 `kg_viewer.html` (**勿手改产物, 改 viewer/* 重生成**); 确定性布局+补间无物理; spec/plan `docs/superpowers/*2026-07-24-kg-viewer-ux*` |
 
