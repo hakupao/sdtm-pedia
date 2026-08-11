@@ -115,7 +115,7 @@ def test_body_sentence_starting_with_section_number_is_not_an_anchor():
 
 def test_short_real_heading_without_period_still_anchors():
     """反向钉一次: 判别器只挡句子, 不挡真标题 (真标题不带 。)。"""
-    assert [a[2] for a in find_anchors(["6.4 有害事象の報告\n"])] == ["6.4"]
+    assert [a[2] for a in find_anchors(["6.4 偽見出し甲\n"])] == ["6.4"]
 
 
 def test_anchor_rule_is_shared_by_find_anchors_and_split_sections():

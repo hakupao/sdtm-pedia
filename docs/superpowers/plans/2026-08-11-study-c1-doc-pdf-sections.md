@@ -163,7 +163,7 @@ git commit -m "feat(study): paths 支持 doc PDF 注册 (C1 Task 1)"
 **Interfaces:**
 - Produces: `require_pdftotext() -> None`（缺失抛 `RuntimeError`）、`extract_pages(pdf: Path, n_pages: int | None = None) -> list[str]`（返回列表，索引 0 = 第 1 页）、`count_pages(pdf: Path) -> int`
 
-- [ ] **Step 1: 写失败测试**
+- [x] **Step 1: 写失败测试**
 
 ```python
 # scripts/tests/test_pdf_text.py
@@ -220,12 +220,12 @@ def test_extract_pages_raises_on_pdftotext_failure(monkeypatch, tmp_path):
         pdf_text.extract_pages(pdf, n_pages=1)
 ```
 
-- [ ] **Step 2: 跑测试确认失败**
+- [x] **Step 2: 跑测试确认失败**
 
 Run: `.venv/bin/python -m pytest scripts/tests/test_pdf_text.py -p no:warnings`
 Expected: FAIL —— `ModuleNotFoundError: No module named 'scripts.study.pdf_text'`
 
-- [ ] **Step 3: 实现**
+- [x] **Step 3: 实现**
 
 ```python
 # scripts/study/pdf_text.py
@@ -285,12 +285,12 @@ def extract_pages(pdf: Path, n_pages: int | None = None) -> list[str]:
     return out
 ```
 
-- [ ] **Step 4: 跑测试确认通过**
+- [x] **Step 4: 跑测试确认通过**
 
 Run: `.venv/bin/python -m pytest scripts/tests/test_pdf_text.py -p no:warnings`
 Expected: 4 passed
 
-- [ ] **Step 5: 对真实 PDF 冒烟（只报统计，不打印内容）**
+- [x] **Step 5: 对真实 PDF 冒烟（只报统计，不打印内容）**
 
 ```bash
 .venv/bin/python -c "
@@ -302,7 +302,7 @@ print(f'页数={n} 抽出页数={len(pages)} 总字符={sum(len(p) for p in page
 ```
 Expected: `页数=113 抽出页数=113`，空页数应为个位数
 
-- [ ] **Step 6: 提交**
+- [x] **Step 6: 提交**
 
 ```bash
 git add scripts/study/pdf_text.py scripts/tests/test_pdf_text.py
@@ -330,7 +330,7 @@ git commit -m "feat(study): PDF 文本抽取薄 IO 层 (C1 Task 2)"
 而顶层 `^\d+\s` **50 条里混入正文数字**（出现 `608`），非递减比例仅 38/49。
 **故锚点只认二层及更深（`number` 含至少一个 `.`），顶层不作为切分点。**
 
-- [ ] **Step 1: 写失败测试**
+- [x] **Step 1: 写失败测试**
 
 ```python
 # scripts/tests/test_split_sections.py
@@ -429,12 +429,12 @@ def test_long_heading_line_is_not_an_anchor():
     assert find_anchors([long_line + "\n"]) == []
 ```
 
-- [ ] **Step 2: 跑测试确认失败**
+- [x] **Step 2: 跑测试确认失败**
 
 Run: `.venv/bin/python -m pytest scripts/tests/test_split_sections.py -p no:warnings`
 Expected: FAIL —— `ModuleNotFoundError: No module named 'scripts.study.split_sections'`
 
-- [ ] **Step 3: 实现**
+- [x] **Step 3: 实现**
 
 ```python
 # scripts/study/split_sections.py
@@ -558,12 +558,12 @@ def assert_partition_complete(pages: list[str], sections: list[Section]) -> None
     )
 ```
 
-- [ ] **Step 4: 跑测试确认通过**
+- [x] **Step 4: 跑测试确认通过**
 
 Run: `.venv/bin/python -m pytest scripts/tests/test_split_sections.py -p no:warnings`
 Expected: 11 passed
 
-- [ ] **Step 5: 对真实 PDF 跑两把闸（只报统计，不打印标题文字）**
+- [x] **Step 5: 对真实 PDF 跑两把闸（只报统计，不打印标题文字）**
 
 ```bash
 .venv/bin/python -c "
@@ -585,7 +585,7 @@ assert_partition_complete(pages, secs); print('分割完备闸: PASS')"
 Expected: 节数 ≈ 104；`分割完备闸: PASS`。
 **编号闸若报违规，逐条读源 PDF 对应页确认是「源文档真的这么编号」还是「切分器切错了」，把结论写进 Task 6 的证据文件 —— 不许直接放宽正则让它变绿。**
 
-- [ ] **Step 6: 提交**
+- [x] **Step 6: 提交**
 
 ```bash
 git add scripts/study/split_sections.py scripts/tests/test_split_sections.py
@@ -607,7 +607,7 @@ git commit -m "feat(study): 章节切分 + 编号连续性/分割完备性双闸
 **frontmatter 契约**（Task 5 的 `load_doc_chunks` 依赖，键名不得改）：
 `study` / `doc_type`（固定 `protocol_section`）/ `doc_no` / `section_number` / `page_start` / `page_end` / `version`
 
-- [ ] **Step 1: 写失败测试**
+- [x] **Step 1: 写失败测试**
 
 ```python
 # scripts/tests/test_render_doc_chunks.py
@@ -660,12 +660,12 @@ def test_build_is_idempotent_and_clears_stale_files(tmp_path):
     assert not stale.exists()
 ```
 
-- [ ] **Step 2: 跑测试确认失败**
+- [x] **Step 2: 跑测试确认失败**
 
 Run: `.venv/bin/python -m pytest scripts/tests/test_render_doc_chunks.py -p no:warnings`
 Expected: FAIL —— `ModuleNotFoundError: No module named 'scripts.study.render_doc_chunks'`
 
-- [ ] **Step 3: 实现**
+- [x] **Step 3: 实现**
 
 ```python
 # scripts/study/render_doc_chunks.py
@@ -715,12 +715,12 @@ def build_doc_chunks(study_id: str, docs_dir: Path, doc_no: int,
     return len(sections)
 ```
 
-- [ ] **Step 4: 跑测试确认通过**
+- [x] **Step 4: 跑测试确认通过**
 
 Run: `.venv/bin/python -m pytest scripts/tests/test_render_doc_chunks.py -p no:warnings`
 Expected: 6 passed
 
-- [ ] **Step 5: 提交**
+- [x] **Step 5: 提交**
 
 ```bash
 git add scripts/study/render_doc_chunks.py scripts/tests/test_render_doc_chunks.py
@@ -750,7 +750,7 @@ cards/docs 目录**。而 `catalog.json` 完全由 xlsx 管线生成，本计划
 - Consumes: `chunk_filename` / frontmatter 契约（Task 4）
 - Produces: `load_doc_chunks(docs_dir: Path) -> list[dict]`（与 `load_cards` 同形状：`{"id", "text", "metadata"}`）
 
-- [ ] **Step 1: 写失败测试**
+- [x] **Step 1: 写失败测试**
 
 ```python
 # scripts/tests/test_ingest_study_docs.py
@@ -835,12 +835,12 @@ def test_ids_do_not_collide_with_cards(tmp_path):
     assert doc_id.startswith("st01__doc")
 ```
 
-- [ ] **Step 2: 跑测试确认失败**
+- [x] **Step 2: 跑测试确认失败**
 
 Run: `.venv/bin/python -m pytest scripts/tests/test_ingest_study_docs.py -p no:warnings`
 Expected: FAIL —— `ImportError: cannot import name 'load_doc_chunks'`
 
-- [ ] **Step 3: 实现**
+- [x] **Step 3: 实现**
 
 在 `scripts/study/ingest_study.py` 顶部常量区加：
 
@@ -895,12 +895,12 @@ def load_doc_chunks(docs_dir: Path) -> list[dict]:
 
 其后原先所有用 `cards` 的地方（embed、persist）一律改用 `records`。
 
-- [ ] **Step 4: 跑测试确认通过**
+- [x] **Step 4: 跑测试确认通过**
 
 Run: `.venv/bin/python -m pytest scripts/tests/test_ingest_study_docs.py scripts/tests/test_ingest_study.py -p no:warnings`
 Expected: 全部 passed（新 7 条 + 既有 ingest 测试零回归）
 
-- [ ] **Step 5: 钉住 S2 隔离的**结构性理由**（不是钉现象）**
+- [x] **Step 5: 钉住 S2 隔离的**结构性理由**（不是钉现象）**
 
 隔离之所以成立，是因为 **S2 的输入是 `catalog.json`，不是目录扫描**。测试要钉的是这个理由 ——
 哪天有人把 S2 改成扫 cards 目录，这条必须红。在 `scripts/tests/test_ingest_study_docs.py` 末尾追加：
@@ -939,7 +939,7 @@ def test_doc_pipeline_does_not_write_catalog(tmp_path):
 Run: `.venv/bin/python -m pytest scripts/tests/test_ingest_study_docs.py -p no:warnings`
 Expected: 9 passed
 
-- [ ] **Step 6: 提交**
+- [x] **Step 6: 提交**
 
 ```bash
 git add scripts/study/ingest_study.py scripts/tests/test_ingest_study_docs.py
@@ -955,7 +955,7 @@ git commit -m "feat(study): ingest 合流 cards + doc chunks, S2 隔离钉死 (C
 - Create: `sdtm-rag/evidence/checkpoints/study_c1_doc_sections.md`
 - Test: `scripts/tests/test_build_docs_cli.py`
 
-- [ ] **Step 1: 写 CLI 的失败测试**
+- [x] **Step 1: 写 CLI 的失败测试**
 
 ```python
 # scripts/tests/test_build_docs_cli.py
@@ -987,12 +987,12 @@ def test_cli_raises_when_partition_incomplete(tmp_path, monkeypatch):
         raise AssertionError("空章节树必须响亮失败")
 ```
 
-- [ ] **Step 2: 跑测试确认失败**
+- [x] **Step 2: 跑测试确认失败**
 
 Run: `.venv/bin/python -m pytest scripts/tests/test_build_docs_cli.py -p no:warnings`
 Expected: FAIL —— `ModuleNotFoundError: No module named 'scripts.study.build_docs'`
 
-- [ ] **Step 3: 实现 CLI**
+- [x] **Step 3: 实现 CLI**
 
 ```python
 # scripts/study/build_docs.py
@@ -1043,12 +1043,12 @@ if __name__ == "__main__":
     raise SystemExit(main())
 ```
 
-- [ ] **Step 4: 跑测试确认通过**
+- [x] **Step 4: 跑测试确认通过**
 
 Run: `.venv/bin/python -m pytest scripts/tests/test_build_docs_cli.py -p no:warnings`
 Expected: 2 passed
 
-- [ ] **Step 5: 全量跑 + 重灌 + 验证卡片没被抹掉**
+- [x] **Step 5: 全量跑 + 重灌 + 验证卡片没被抹掉**
 
 ```bash
 .venv/bin/python -m scripts.study.build_docs --study st01
@@ -1063,7 +1063,7 @@ print('按 file_type =', dict(Counter(m['file_type'] for m in got['metadatas']))
 ```
 Expected: `field_card` 仍为 **959**（一张都不能少），`protocol_section` ≈ 104
 
-- [ ] **Step 6: 红线程序化复扫（不许人工豁免）**
+- [x] **Step 6: 红线程序化复扫（不许人工豁免）**
 
 ```bash
 .venv/bin/python -c "
@@ -1092,7 +1092,7 @@ git status --porcelain data/study | head    # 必须为空: study 产物一个�
 ```
 Expected: `无 —— 已追踪文件零真名`；`git status` 对 `data/study` 输出为空
 
-- [ ] **Step 7: 规则 A 独立抽检（有损轨强制，spec §4）**
+- [x] **Step 7: 规则 A 独立抽检（有损轨强制，spec §4）**
 
 派**与实现方不同 `subagent_type`** 的抽检 agent，N=8 随机抽 8 个 chunk，逐条核对：
 ① 该节正文与源 PDF 对应页**逐字一致**（这是本轨唯一的有损点，必须人眼看过）；
@@ -1101,7 +1101,7 @@ Expected: `无 —— 已追踪文件零真名`；`git status` 对 `data/study` 
 **要求抽检方边做边把结论落盘到文件**（本项目已吃过「agent 做完不回报」的亏），
 结果写进 `evidence/step_c1_audit.md`。
 
-- [ ] **Step 8: 写收口证据**
+- [x] **Step 8: 写收口证据**
 
 `sdtm-rag/evidence/checkpoints/study_c1_doc_sections.md` 必须包含（**纯统计，无真名无正文**）：
 页数 / 节数 / 层级分布 / 正文长度分位 / 编号闸违规条数**及逐条裁定**（源文档如此 vs 切分器错）/
@@ -1109,7 +1109,7 @@ Expected: `无 —— 已追踪文件零真名`；`git status` 对 `data/study` 
 红线复扫结果 / 规则 A 抽检结论 / **已知限制**（至少写清：顶层编号不作锚点因而顶层标题
 不单独成节；表格跨页时 `-layout` 的列对齐可能在节边界处失真；C2 的两份表单版面 PDF 未处理）。
 
-- [ ] **Step 9: 全量测试 + 提交**
+- [x] **Step 9: 全量测试 + 提交**
 
 ```bash
 .venv/bin/python -m pytest -p no:warnings 2>&1 | tail -3

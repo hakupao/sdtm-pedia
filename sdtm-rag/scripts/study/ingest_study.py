@@ -12,6 +12,8 @@ from scripts.study.paths import resolve_study
 _SKIP = {"INDEX.md", "ROUTING.md"}
 _REQUIRED = ("study", "form_oid", "field_oid")
 _DOC_REQUIRED = ("study", "doc_type", "doc_no", "section_number", "page_start", "page_end")
+# 章节 chunk 的独立 collection 后缀 (C1: 与 field card 分库, 理由见 main())
+DOCS_SUFFIX = "_docs"
 
 
 def _parse_frontmatter(text: str) -> dict[str, str]:
@@ -115,6 +117,14 @@ def persist_study(chroma_dir: Path, collection: str, cards: list[dict],
         )
 
 
+def drop_collection_if_exists(chroma_dir: Path, collection: str) -> bool:
+    client = chromadb.PersistentClient(path=str(chroma_dir))
+    if collection in [c.name for c in client.list_collections()]:
+        client.delete_collection(collection)
+        return True
+    return False
+
+
 def main(argv=None) -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--study", required=True)
@@ -125,18 +135,26 @@ def main(argv=None) -> None:
     if not cards:
         # 空数据换掉一个好 collection 比不换更糟
         raise SystemExit(f"no cards found in {sp.cards_dir}")
-    # persist_study 是整 collection 重建 ⇒ doc chunk 必须与 cards 同批 persist,
-    # 单独跑一次会当场抹掉已入库的 field card。
     docs = load_doc_chunks(sp.docs_dir)
-    records = cards + docs
     collection = f"study_{sp.study_id}"
-    print(f"field cards {len(cards)} + doc chunks {len(docs)} = {len(records)} → collection={collection}")
+    docs_collection = f"{collection}{DOCS_SUFFIX}"
+    print(f"field cards {len(cards)} → {collection}; doc chunks {len(docs)} → {docs_collection}")
     if args.dry_run:
         return
-    embeddings = embed_texts([c["text"] for c in records])
-    persist_study(CHROMA_DIR, collection, records, embeddings)
+    # 分库: 章节 chunk **不进卡片 collection**。实测同库混装时长篇章节在向量
+    # 相似度上压过卡片, 占掉 top-5 的 1-4 席, study golden v2 87.5% → 78.1%
+    # (6 题回归 / 0 上升)。persist_study 只重建自己那个 collection, 故两批互不抹。
+    persist_study(CHROMA_DIR, collection, cards, embed_texts([c["text"] for c in cards]))
+    if docs:
+        persist_study(CHROMA_DIR, docs_collection, docs,
+                      embed_texts([d["text"] for d in docs]))
+    else:
+        # docs/ 被清空却留着旧 collection = 静默陈旧数据, 宁可响亮删掉
+        dropped = drop_collection_if_exists(CHROMA_DIR, docs_collection)
+        if dropped:
+            print(f"docs 目录为空 → 已删除陈旧 collection {docs_collection}")
     (sp.out_dir / "ingested_at.txt").write_text(
-        f"cards={len(cards)}\ndoc_chunks={len(docs)}\ntotal={len(records)}\n", encoding="utf-8")
+        f"cards={len(cards)}\ndoc_chunks={len(docs)}\n", encoding="utf-8")
     print("done")
 
 

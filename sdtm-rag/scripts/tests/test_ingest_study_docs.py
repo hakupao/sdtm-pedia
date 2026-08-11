@@ -98,6 +98,71 @@ def test_part_defaults_to_single_when_keys_absent(tmp_path):
     assert m["part"] == 1 and m["parts_total"] == 1 and m["provenance"] == "doc01#p7-8"
 
 
+def _study_fixture(tmp_path):
+    """最小 study 目录: 1 张卡 + 1 个 doc chunk。"""
+    cards = tmp_path / "cards"
+    cards.mkdir()
+    (cards / "st01__FAKEFORM1__FAKEIT1.md").write_text(CARD, encoding="utf-8")
+    _docs(tmp_path)
+    return tmp_path
+
+
+def test_main_persists_docs_into_a_separate_collection(tmp_path, monkeypatch, capsys):
+    """**分库是硬要求**: 章节 chunk 与 field card 同库时, 长篇章节在向量相似度上
+    压过卡片, 占掉 top-5 的 1-4 席 —— 实测 study golden v2 87.5% → 78.1%
+    (6 题回归 / 0 上升)。这条测试红了, 说明那个坑被重新挖开了。
+    """
+    from scripts.study import ingest_study as mod
+
+    out = tmp_path / "st01"
+    out.mkdir()
+    _study_fixture(out)
+    calls: list[tuple[str, list[str]]] = []
+    monkeypatch.setattr(mod, "embed_texts", lambda texts: [[0.1] * 3 for _ in texts])
+    monkeypatch.setattr(mod, "persist_study",
+                        lambda _dir, col, recs, _emb: calls.append((col, [r["id"] for r in recs])))
+
+    class _SP:
+        study_id = "st01"
+        cards_dir = out / "cards"
+        docs_dir = out / "docs"
+        out_dir = out
+
+    monkeypatch.setattr(mod, "resolve_study", lambda _s: _SP())
+    mod.main(["--study", "st01"])
+
+    assert [c[0] for c in calls] == ["study_st01", "study_st01_docs"]
+    cards_ids, docs_ids = calls[0][1], calls[1][1]
+    assert cards_ids == ["st01__FAKEFORM1__FAKEIT1"]
+    assert docs_ids == ["st01__doc01__s2_1"]
+    assert not [i for i in cards_ids if "doc" in i], "doc chunk 混进了卡片 collection"
+    assert "doc chunks 1" in capsys.readouterr().out
+
+
+def test_main_drops_stale_docs_collection_when_docs_dir_empty(tmp_path, monkeypatch):
+    """docs/ 清空却留着旧 collection = 静默陈旧数据, 必须响亮删掉。"""
+    from scripts.study import ingest_study as mod
+
+    out = tmp_path / "st01"
+    (out / "cards").mkdir(parents=True)
+    (out / "cards" / "st01__FAKEFORM1__FAKEIT1.md").write_text(CARD, encoding="utf-8")
+    dropped: list[str] = []
+    monkeypatch.setattr(mod, "embed_texts", lambda texts: [[0.1] * 3 for _ in texts])
+    monkeypatch.setattr(mod, "persist_study", lambda *_a: None)
+    monkeypatch.setattr(mod, "drop_collection_if_exists",
+                        lambda _dir, col: dropped.append(col) or True)
+
+    class _SP:
+        study_id = "st01"
+        cards_dir = out / "cards"
+        docs_dir = out / "docs"      # 不存在
+        out_dir = out
+
+    monkeypatch.setattr(mod, "resolve_study", lambda _s: _SP())
+    mod.main(["--study", "st01"])
+    assert dropped == ["study_st01_docs"]
+
+
 def test_s2_input_is_catalog_not_a_directory_scan():
     """S2 (零 LLM 确定性直查) 的输入是 catalog.json —— 由 xlsx 管线独家生成,
     doc 管线一个字都不动它。**doc chunk 因此在结构上进不了 S2**, 不是靠小心避开。
