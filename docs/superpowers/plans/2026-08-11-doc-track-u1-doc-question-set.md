@@ -614,9 +614,15 @@ def _fixture(tmp_path, *, clean: bool):
     docs = tmp_path / "docs"
     docs.mkdir()
     (docs / "st01__doc01__s1_1.md").write_text(FM + anchor, encoding="utf-8")
-    # 脏: 第二个 chunk 也含同一锚串 → 锚串出现 2 次而 gold 数 1
-    (docs / "st01__doc01__s1_10.md").write_text(
-        FM + ("other body" if clean else anchor), encoding="utf-8")
+    (docs / "st01__doc01__s1_10.md").write_text(FM + "other body", encoding="utf-8")
+    # 脏(闸 B): 锚串溢出到一个 gold **解析不到**的第三 chunk。
+    # ⚠ 初版写的是"第二个 chunk 也含同一锚串 → 锚串 2 次而 gold 数 1", 那是照**旧计数版**
+    # 闸 B 写的; Task 3 改 membership 口径后, 不带 `.md` 的脏 gold 经 match_names 让 s1_10
+    # 也成了合法 target ⇒ 锚串既不 missing 也不 extra ⇒ **闸 B 恒绿, 两个脏维互相抵消**。
+    # 即"缺失加数恒贡献 []"那个洞, 恰好出现在防它的 fixture 自己身上。
+    # 本维必须与 gold 脏不脏**无关**, 否则会被另一维抵消。
+    if not clean:
+        (docs / "st01__doc02__s9_1.md").write_text(FM + anchor, encoding="utf-8")
     cards = tmp_path / "cards"
     cards.mkdir()
     # 脏: 同一张卡同时含全部 probe 词
