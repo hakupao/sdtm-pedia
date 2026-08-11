@@ -9,6 +9,8 @@
 物理变异测试 (把闸函数改成 `return []` 跑全套) 由 Task 9 Step 2 第 3 条的
 独立抽检方执行 —— 那是实现方自己做不了的独立性检查。
 """
+import json
+
 import pytest
 
 from eval.docs_gold_gates import (
@@ -23,6 +25,7 @@ from eval.docs_gold_gates import (
     main,
     run_all_gates,
 )
+from eval.lint_gold import load_questions
 
 FM = "---\nstudy: st01\nsection_number: '10.1'\n---\n"
 
@@ -352,11 +355,17 @@ def test_fixture_dirty_side_trips_each_gate_individually(tmp_path):
     上面那场互相抵消的事故说明: fixture 某一维**看着**脏、实际对该闸恒绿, 是会真实发生的,
     且发生时四条聚合用例照绿 (因为它们只看聚合结果, 抵消掉的那维在聚合里也不出现)。
     这条把每道闸单独喂脏 fixture 各跑一次, 让"这一维真的脏"成为可执行断言而非注释里的声明。
+
+    **四道闸的输入必须全部取自 fixture** (复审 I-1): 初版 B/C/D 喂的是手抄的 questions
+    字面量, 于是闸 C 的脏维度 (题侧的 `'短'`) 住在手抄件里、不住在 fixture 里。实测把
+    `_fixture` 的 fact 改长: 本用例照绿 (手抄件恒脏), 而 `run_all_gates` 的 gate 集合已
+    掉成 `['anchor_unique', 'card_unanswerable', 'gold_unique']`。那样 C 维的脏度就只剩
+    `test_run_all_gates_reports_every_gate` 间接背书 —— 而后者正是本用例要独立验证的对象,
+    绕回了本用例本来要打断的循环 (聚合用例的判别力由聚合用例自己背书)。
+    闸 A 收路径、B/C/D 收 `load_questions(ts)`, 与 `run_all_gates` 内部逐字同源。
     """
     ts, docs, cards = _fixture(tmp_path, clean=False)
-    questions = [{"id": "q1", "expected_sources": ["st01__doc01__s1_1"],
-                  "anchor": "A" * 30, "expected_facts": ["短"],
-                  "card_probe_terms": ["TERM_A", "TERM_B"]}]
+    questions = load_questions(str(ts))
     assert [x.gate for x in gate_gold_unique(str(ts), docs)] == ["gold_unique"]
     assert [x.gate for x in gate_anchor_unique(questions, chunk_bodies(docs))] == ["anchor_unique"]
     assert [x.gate for x in gate_fact_length(questions)] == ["fact_length"]
@@ -381,12 +390,33 @@ def test_main_exit_code_0_when_clean(tmp_path, capsys):
     ts, docs, cards = _fixture(tmp_path, clean=True)
     rc = main([str(ts), "--docs-dir", str(docs), "--cards-dir", str(cards)])
     assert rc == 0
-    assert "0 条" in capsys.readouterr().out
+    out = capsys.readouterr().out
+    # 整句匹配, 不是 `"0 条"` 也不是 `"0 条 finding"` (复审 M-1 + 它自身的同款缺陷):
+    # 两者都是 `"10 条 finding"` 的子串, 断言的就成了"报了"而非"报对了"。计分题数一并钉住。
+    assert "计分题 1 道 · 0 条 finding" in out
+    # 闸 B 的口径边界句 (硬规矩 19 明令"引用绿灯时必须同时写") 靠 main 无条件打印落实。
+    # 没有这条断言, 把它从 main 删掉全套照绿 —— 设计对但没人守。
+    assert "只挡字面" in out
 
 
-def test_main_exit_code_1_when_findings(tmp_path):
+def test_main_exit_code_1_when_findings(tmp_path, capsys):
+    """退出码之外, `main` 的输出面也要有断言 (复审 M-1)。
+
+    只断言 `rc == 1` 时, 把逐条打印循环删掉、把 `--json` 整个删掉, 全套照绿 ——
+    而 `--json` 正是 Task 10 收口证据要引用的出口, 目前零覆盖。
+    """
     ts, docs, cards = _fixture(tmp_path, clean=False)
-    assert main([str(ts), "--docs-dir", str(docs), "--cards-dir", str(cards)]) == 1
+    out_json = tmp_path / "findings.json"
+    rc = main([str(ts), "--docs-dir", str(docs), "--cards-dir", str(cards),
+               "--json", str(out_json)])
+    assert rc == 1
+    out = capsys.readouterr().out
+    assert "计分题 1 道 · 4 条 finding" in out
+    gates = ["anchor_unique", "card_unanswerable", "fact_length", "gold_unique"]
+    assert all(g in out for g in gates)                     # 逐条打印循环
+    dumped = json.loads(out_json.read_text(encoding="utf-8"))
+    assert sorted({d["gate"] for d in dumped}) == gates      # --json 出口的内容
+    assert all(d["qid"] == "q1" and d["detail"] for d in dumped)
 
 
 def test_all_gates_see_the_same_question_set(tmp_path):
