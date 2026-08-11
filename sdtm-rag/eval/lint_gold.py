@@ -47,11 +47,31 @@ def _card_names(catalog: dict) -> list[str]:
     return [f"{study}__{it['form_oid']}__{it['item_oid']}.md" for it in catalog["items"]]
 
 
-def _load(test_set_path, catalog_path) -> tuple[list[dict], list[str]]:
-    catalog = json.loads(Path(catalog_path).read_text(encoding="utf-8"))
+def doc_chunk_names(docs_dir: Path | str) -> list[str]:
+    """doc 侧 gold 全集 = docs/ 下的文件名 (带 `.md`)。
+
+    与 retrieval 返回的 `source` 元数据逐字一致 (ingest_study 写的就是 `p.name`),
+    所以这里和 catalog 侧一样, `.md` 参与匹配且有判别力。
+
+    空目录必须响亮失败: 名字全集为空时"匹配数 != 1"对每条 gold 恒成立, 闸会
+    全红看似严格; 但若将来有人把 0 匹配当成"跳过", 就变成恒绿。宁可现在炸。
+    """
+    names = sorted(p.name for p in Path(docs_dir).glob("*.md"))
+    if not names:
+        raise ValueError(f"docs_dir 无 md 文件, 空全集不可用作 gold 全集: {docs_dir}")
+    return names
+
+
+def _load(test_set_path, catalog_path=None, docs_dir=None) -> tuple[list[dict], list[str]]:
+    if (catalog_path is None) == (docs_dir is None):
+        raise ValueError("catalog 与 docs-dir 必须且只能给一个 —— 两个 gold 全集不可混用")
+    if catalog_path is not None:
+        names = _card_names(json.loads(Path(catalog_path).read_text(encoding="utf-8")))
+    else:
+        names = doc_chunk_names(docs_dir)
     data = yaml.safe_load(Path(test_set_path).read_text(encoding="utf-8"))
     qs = data["questions"] if isinstance(data, dict) else data
-    return [q for q in qs if not q.get("out_of_scope")], _card_names(catalog)
+    return [q for q in qs if not q.get("out_of_scope")], names
 
 
 def _count(gold: str, qid: str, names: list[str]) -> list[str]:
@@ -66,14 +86,15 @@ def _count(gold: str, qid: str, names: list[str]) -> list[str]:
     return [n for n in names if gold in n]
 
 
-def lint_gold(test_set_path, catalog_path, max_matches: int = 1) -> list[Finding]:
+def lint_gold(test_set_path, catalog_path=None, max_matches: int = 1, *,
+              docs_dir=None) -> list[Finding]:
     """返回所有"匹配卡数 != 期望"的 gold, AND 侧与 OR 侧同查。
 
     max_matches=1 要求唯一定位; 家族题可显式放宽 (与出题人声明的家族规模一致)。
     **放宽只作用于 AND 侧**: OR 组本身已是"任一成员命中即得分"的放宽, 再叠加家族
     放宽等于两层稀释相乘, 而 OR 正是最容易制造虚高的地方。
     """
-    qs, names = _load(test_set_path, catalog_path)
+    qs, names = _load(test_set_path, catalog_path, docs_dir)
     findings: list[Finding] = []
     for q in qs:
         for side, key, allowed in (
@@ -87,7 +108,7 @@ def lint_gold(test_set_path, catalog_path, max_matches: int = 1) -> list[Finding
     return findings
 
 
-def or_groups(test_set_path, catalog_path) -> list[tuple[str, list[int]]]:
+def or_groups(test_set_path, catalog_path=None, *, docs_dir=None) -> list[tuple[str, list[int]]]:
     """每个 OR 组的成员匹配数, 用于**无条件**打印可见性行。
 
     为什么只打印不设成员数阈值 (2026-08-06 实测, n=21 题 / 105 召回槽位):
@@ -97,7 +118,7 @@ def or_groups(test_set_path, catalog_path) -> list[tuple[str, list[int]]]:
     组的总覆盖卡数恒等于成员数, 确定性信息已被榨干 —— 再加阈值只能是拍脑袋的常数。
     故此处只保证审题人每次都看见 OR 组, 语义上"每个成员能否独立回答该题"由人判。
     """
-    qs, names = _load(test_set_path, catalog_path)
+    qs, names = _load(test_set_path, catalog_path, docs_dir)
     return [(q["id"], [len(_count(g, q["id"], names)) for g in q["expected_sources_any"]])
             for q in qs if q.get("expected_sources_any")]
 
@@ -105,14 +126,16 @@ def or_groups(test_set_path, catalog_path) -> list[tuple[str, list[int]]]:
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description="lint study golden gold 唯一性")
     ap.add_argument("test_set")
-    ap.add_argument("--catalog", required=True)
+    src = ap.add_mutually_exclusive_group(required=True)
+    src.add_argument("--catalog", help="card 侧 gold 全集来源")
+    src.add_argument("--docs-dir", help="doc 侧 gold 全集来源 (章节 chunk 目录)")
     ap.add_argument("--max-matches", type=int, default=1)
     args = ap.parse_args(argv)
-    findings = lint_gold(args.test_set, args.catalog, args.max_matches)
+    findings = lint_gold(args.test_set, args.catalog, args.max_matches, docs_dir=args.docs_dir)
     for f in findings:
         verdict = "匹配 0 卡 (gold 打错?)" if f.n_matches == 0 else f"匹配 {f.n_matches} 卡"
         print(f"{f.qid}: [{f.side}] {verdict} — 期望唯一定位")
-    for qid, counts in or_groups(args.test_set, args.catalog):
+    for qid, counts in or_groups(args.test_set, args.catalog, docs_dir=args.docs_dir):
         print(f"[OR] {qid}: {len(counts)} 成员 (各匹配 {'/'.join(map(str, counts))} 卡) "
               "— OR 不增分母, 成员越多越易命中; 请人工确认每个成员都能独立回答该题")
     print(f"\n{len(findings)} 条 gold 未唯一定位")

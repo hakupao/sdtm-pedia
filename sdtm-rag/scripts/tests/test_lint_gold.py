@@ -206,3 +206,48 @@ def test_cli_prints_or_group_visibility_line(tmp_path, capsys):
     out = capsys.readouterr().out
     assert exit_code == 0
     assert "[OR]" in out and "q00" in out
+
+
+def test_doc_chunk_names_returns_filenames_with_md(tmp_path):
+    from eval.lint_gold import doc_chunk_names
+    d = tmp_path / "docs"
+    d.mkdir()
+    (d / "st01__doc01__s10_1.md").write_text("x", encoding="utf-8")
+    (d / "st01__doc01__s10_10.md").write_text("x", encoding="utf-8")
+    assert doc_chunk_names(d) == ["st01__doc01__s10_1.md", "st01__doc01__s10_10.md"]
+
+
+def test_doc_chunk_names_refuses_empty_dir(tmp_path):
+    from eval.lint_gold import doc_chunk_names
+    d = tmp_path / "docs"
+    d.mkdir()
+    with pytest.raises(ValueError, match="空全集"):
+        doc_chunk_names(d)
+
+
+def test_lint_gold_against_docs_dir(tmp_path):
+    """docs 侧 gold 唯一性走同一份 lint 逻辑。"""
+    from eval.lint_gold import lint_gold
+    d = tmp_path / "docs"
+    d.mkdir()
+    for n in ("st01__doc01__s10_1.md", "st01__doc01__s10_10.md"):
+        (d / n).write_text("x", encoding="utf-8")
+    ts = tmp_path / "ts.yml"
+    ts.write_text(
+        "- id: q1\n"
+        "  expected_sources: ['st01__doc01__s10_1.md']\n"
+        "- id: q2\n"
+        "  expected_sources: ['st01__doc01__s10_1']\n",   # 不带 .md → 匹配 2 个
+        encoding="utf-8",
+    )
+    findings = lint_gold(str(ts), docs_dir=d)
+    assert [f.qid for f in findings] == ["q2"]
+    assert findings[0].n_matches == 2
+
+
+def test_lint_gold_requires_exactly_one_name_source(tmp_path):
+    from eval.lint_gold import lint_gold
+    ts = tmp_path / "ts.yml"
+    ts.write_text("- id: q1\n  expected_sources: ['a.md']\n", encoding="utf-8")
+    with pytest.raises(ValueError, match="catalog 与 docs-dir"):
+        lint_gold(str(ts))
