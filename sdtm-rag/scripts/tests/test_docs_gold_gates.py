@@ -101,12 +101,102 @@ def test_gate_anchor_unique_flags_missing_anchor():
     assert [x.qid for x in f] == ["q1"]
 
 
-def test_gate_anchor_unique_accepts_multi_gold(tmp_path):
-    """跨节题: 锚串落在两个 gold chunk 里, 且不溢出到第三个。"""
-    anchor = "Y" * ANCHOR_MIN_LEN
-    bodies = {"a.md": anchor, "b.md": anchor, "c.md": "z"}
-    qs = [{"id": "q1", "expected_sources": ["a.md", "b.md"], "anchor": anchor}]
+A20 = "Y" * ANCHOR_MIN_LEN
+B20 = "Z" * ANCHOR_MIN_LEN
+
+
+def test_gate_anchor_unique_accepts_multi_gold_with_per_gold_anchors():
+    """跨节题干净维: 每个 gold 含**自己那条**锚串, 且没有锚串溢出到第三块。
+
+    这才是跨节聚合题该有的形态 —— 两条不同的锚串证明答案**分布**在两块。
+    (旧口径要求一条锚串同时出现在两块, 那证明的是两块**重复**, 方向相反。)
+    """
+    bodies = {"a.md": A20, "b.md": B20, "c.md": "z"}
+    qs = [{"id": "q1", "expected_sources": ["a.md", "b.md"], "anchors": [A20, B20]}]
     assert gate_anchor_unique(qs, bodies) == []
+
+
+def test_gate_anchor_unique_flags_multi_gold_with_single_anchor():
+    """多 gold 用单条 anchor 必须报 —— 实测 98.6% 的 chunk 对不存在共享 20 字串,
+    放行它等于逼出题人去找重复节配对, 或干脆把跨节题降成单节。"""
+    bodies = {"a.md": A20, "b.md": A20, "c.md": "z"}
+    qs = [{"id": "q1", "expected_sources": ["a.md", "b.md"], "anchor": A20}]
+    f = gate_anchor_unique(qs, bodies)
+    assert [x.qid for x in f] == ["q1"]
+    assert "anchors" in f[0].detail
+
+
+def test_gate_anchor_unique_flags_anchor_and_anchors_both_given():
+    bodies = {"a.md": A20}
+    qs = [{"id": "q1", "expected_sources": ["a.md"], "anchor": A20, "anchors": [A20]}]
+    f = gate_anchor_unique(qs, bodies)
+    assert [x.qid for x in f] == ["q1"]
+    assert "互斥" in f[0].detail
+
+
+def test_gate_anchor_unique_flags_anchors_length_mismatch():
+    """长度不等必须报: zip 会静默截断, 多出来的那个 gold 就完全没被校验。"""
+    bodies = {"a.md": A20, "b.md": B20}
+    qs = [{"id": "q1", "expected_sources": ["a.md", "b.md"], "anchors": [A20]}]
+    f = gate_anchor_unique(qs, bodies)
+    assert [x.qid for x in f] == ["q1"]
+    assert "一一对应" in f[0].detail
+
+
+def test_gate_anchor_unique_flags_anchor_not_in_its_own_gold():
+    """脏维①: anchors[1] 不在 expected_sources[1] 里 (错位到别处)。"""
+    bodies = {"a.md": A20, "b.md": "nothing", "c.md": B20}
+    qs = [{"id": "q1", "expected_sources": ["a.md", "b.md"], "anchors": [A20, B20]}]
+    f = gate_anchor_unique(qs, bodies)
+    assert [x.qid for x in f] == ["q1"]
+    assert "b.md" in f[0].detail
+
+
+def test_gate_anchor_unique_flags_anchor_overflowing_to_non_gold():
+    """脏维②: 某条锚串同时落在 gold 集合之外的 chunk 上。"""
+    bodies = {"a.md": A20, "b.md": B20, "c.md": B20}
+    qs = [{"id": "q1", "expected_sources": ["a.md", "b.md"], "anchors": [A20, B20]}]
+    f = gate_anchor_unique(qs, bodies)
+    assert [x.qid for x in f] == ["q1"]
+    assert "c.md" in f[0].detail
+
+
+def test_gate_anchor_unique_flags_anchors_with_or_group():
+    bodies = {"a.md": A20, "b.md": B20}
+    qs = [{"id": "q1", "expected_sources": ["a.md"],
+           "expected_sources_any": ["b.md"], "anchors": [A20]}]
+    assert [x.qid for x in gate_anchor_unique(qs, bodies)] == ["q1"]
+
+
+def test_gate_anchor_unique_flags_scalar_anchors():
+    """YAML 写成标量时必须报 —— 与闸 D 的 `card_probe_terms` 同款手滑。"""
+    bodies = {"a.md": A20}
+    qs = [{"id": "q1", "expected_sources": ["a.md"], "anchors": A20}]
+    assert [x.qid for x in gate_anchor_unique(qs, bodies)] == ["q1"]
+
+
+def test_gate_anchor_unique_flags_short_anchor_inside_anchors():
+    """长度下限对 anchors 里**每一条**都生效, 不是只看第一条。"""
+    bodies = {"a.md": A20, "b.md": "yy"}
+    qs = [{"id": "q1", "expected_sources": ["a.md", "b.md"], "anchors": [A20, "yy"]}]
+    f = gate_anchor_unique(qs, bodies)
+    assert [x.qid for x in f] == ["q1"]
+    assert "过短" in f[0].detail
+
+
+def test_single_gold_path_unchanged_by_anchors_feature():
+    """单 gold 路径行为不变 —— 逐 gold 锚串是**新增**分支, 不得改动既有 12 题的判定。
+
+    干净/错位/溢出三种情形与 anchors 特性引入前逐字同结果。
+    """
+    bodies = {"a.md": A20, "b.md": "z", "c.md": A20}
+    assert gate_anchor_unique(
+        [{"id": "q1", "expected_sources": ["a.md"], "anchor": A20}],
+        {"a.md": A20, "b.md": "z"}) == []
+    assert [x.qid for x in gate_anchor_unique(
+        [{"id": "q2", "expected_sources": ["b.md"], "anchor": A20}], bodies)] == ["q2"]
+    assert [x.qid for x in gate_anchor_unique(
+        [{"id": "q3", "expected_sources": ["a.md"], "anchor": A20}], bodies)] == ["q3"]
 
 
 # ---- 闸 B fail-open 回归 (复审复现的四条恒绿) -----------------------------
@@ -153,15 +243,21 @@ def test_gate_anchor_unique_flags_anchor_in_wrong_chunk():
 
 
 def test_gate_anchor_unique_flags_misaligned_multi_gold():
-    """④ gold=[a,c] 但锚串在 a,b —— 数量相等 (2==2), 半数错位。
+    """④ 半数错位: gold=[a,c], 锚串却落在 a,b。旧计数口径下 2==2 判绿。
 
-    与 test_gate_anchor_unique_accepts_multi_gold 共用同一 bodies, 只把 gold 的
-    第二个成员由 b 换成 c: 干净/脏两侧只差这一处, 排除 fixture 其他差异的干扰。
+    2026-08-12 起多 gold 走 `anchors`, 故本条改用逐 gold 锚串表达同一个错位:
+    `anchors[1]` 声称在 c.md, 实际落在 b.md ⇒ 既 missing(c) 又 extra(b)。
+    与 `test_..._accepts_multi_gold_with_per_gold_anchors` 共用同一 bodies,
+    只把 gold 第二个成员由 b 换成 c —— 干净/脏两侧只差这一处。
+
+    (若写成单条 anchor, 现在会先撞上"多 gold 必须用 anchors"那条而**提前返回**,
+    本条就测不到错位了 —— 那正是 `test_..._multi_gold_with_single_anchor` 的活。)
     """
-    anchor = "Y" * ANCHOR_MIN_LEN
-    bodies = {"a.md": anchor, "b.md": anchor, "c.md": "z"}
-    qs = [{"id": "q1", "expected_sources": ["a.md", "c.md"], "anchor": anchor}]
-    assert [x.qid for x in gate_anchor_unique(qs, bodies)] == ["q1"]
+    bodies = {"a.md": A20, "b.md": B20, "c.md": "z"}
+    qs = [{"id": "q1", "expected_sources": ["a.md", "c.md"], "anchors": [A20, B20]}]
+    f = gate_anchor_unique(qs, bodies)
+    assert [x.qid for x in f] == ["q1"]
+    assert "c.md" in f[0].detail and "b.md" in f[0].detail
 
 
 # ---- 闸 C fact 长度 --------------------------------------------------------

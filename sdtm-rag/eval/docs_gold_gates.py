@@ -77,33 +77,98 @@ def gate_anchor_unique(questions: list[dict], bodies: dict[str, str]) -> list[Ga
     闸 A 允许"子串唯一定位"的 gold (如写 `s22_1__part01` 不带 `.md`), 精确取键会对
     这类合法 gold 误报 missing。同一个函数 ⇒ 闸 A 与闸 B 对"哪些 chunk 算这题的 gold"
     永远给同一个答案。
+
+    ## 多 gold 题走 `anchors` (逐 gold 锚串), 2026-08-12 实测逼出
+
+    单条锚串要求它**逐字出现在每个 gold chunk 里**。实测 114 个 chunk 的 20 字 shingle:
+
+        20 字 shingle 总数                104,553
+        恰好只出现在 2 个 chunk 的         2,715
+        存在这种串的 chunk 对              90 / 6,441  = **1.4%**
+        s22_1__part01 + part02 (切点两侧)  **0 条**
+
+    即 **98.6% 的 chunk 对之间不存在可用作双 gold 锚串的 20 字串**, 而这不是缺陷:
+    两个**互补**的节本来就不共享逐字长串; 共享长串的恰是重复节与父子节。
+    ⇒ 单条共享锚串证明的是"有句话同时出现在两块" —— 那是**重复的证据**,
+    而跨节聚合题要的是**互补**。**方向是反的, 旧口径不是严一点, 是量错了东西。**
+
+    故多 gold 时改判: `anchors[i]` 必须落在 `expected_sources[i]` 解析出的**每个**
+    chunk 里, 且**任何一条 anchor 都不得落到 gold 集合之外**。这直接表达
+    "这半在这块、那半在那块" —— 表格被切点劈开 (L6 探针) 本来就该这么表达。
+
+    单 gold 路径**行为不变** (`test_single_gold_path_unchanged_by_anchors_feature` 钉住)。
     """
     findings: list[GateFinding] = []
     for q in questions:
         qid = q.get("id", "<no id>")
-        anchor = q.get("anchor")
-        gold = list(q.get("expected_sources") or []) + list(q.get("expected_sources_any") or [])
+        and_gold = list(q.get("expected_sources") or [])
+        or_gold = list(q.get("expected_sources_any") or [])
+        gold = and_gold + or_gold
+        anchor, anchors = q.get("anchor"), q.get("anchors")
+
         if not gold:
             findings.append(GateFinding("anchor_unique", qid, "无 gold — 锚串无从校验"))
             continue
-        if not anchor:
-            findings.append(GateFinding("anchor_unique", qid, "缺 anchor 字段"))
-            continue
-        if len(anchor) < ANCHOR_MIN_LEN:
+        if anchor is not None and anchors is not None:
             findings.append(GateFinding(
                 "anchor_unique", qid,
-                f"anchor 过短 {len(anchor)} < {ANCHOR_MIN_LEN} — 短串会碰巧命中"))
+                "anchor 与 anchors 同时给出 — 两键互斥, 否则判的是哪条无从确定"))
             continue
-        targets = {n for g in gold for n in match_names(g, qid, list(bodies))}
-        missing = sorted(n for n in targets if anchor not in bodies[n])
-        extra = sorted(n for n, body in bodies.items() if anchor in body and n not in targets)
+
+        if anchors is not None:
+            if not isinstance(anchors, list):
+                findings.append(GateFinding(
+                    "anchor_unique", qid,
+                    f"anchors 不是列表 (拿到 {type(anchors).__name__}) — 标量会被逐字符当锚串"))
+                continue
+            if or_gold:
+                findings.append(GateFinding(
+                    "anchor_unique", qid,
+                    "anchors 只与 expected_sources 一一对应, 不支持 OR 组"))
+                continue
+            if len(anchors) != len(and_gold):
+                findings.append(GateFinding(
+                    "anchor_unique", qid,
+                    f"anchors 长 {len(anchors)} != expected_sources 长 {len(and_gold)} "
+                    "— 必须一一对应, 否则错位对齐会静默判绿"))
+                continue
+            pairs = list(zip(and_gold, anchors, strict=True))
+        else:
+            if len(and_gold) > 1:
+                findings.append(GateFinding(
+                    "anchor_unique", qid,
+                    f"多 gold ({len(and_gold)} 个) 必须用 anchors 逐 gold 给锚串 — "
+                    "单条锚串要求两节共享逐字长串, 实测 98.6% 的 chunk 对不存在这种串"))
+                continue
+            if not anchor:
+                findings.append(GateFinding("anchor_unique", qid, "缺 anchor 字段"))
+                continue
+            pairs = [(g, anchor) for g in gold]
+
+        short = [a for _, a in pairs if not a or len(a) < ANCHOR_MIN_LEN]
+        if short:
+            findings.append(GateFinding(
+                "anchor_unique", qid,
+                f"anchor 过短/缺失 (最短 {min(len(a) if a else 0 for a in short)} "
+                f"< {ANCHOR_MIN_LEN}) — 短串会碰巧命中"))
+            continue
+
+        targets: set[str] = set()
+        missing: list[str] = []
+        for g, a in pairs:
+            names = match_names(g, qid, list(bodies))
+            targets |= set(names)
+            missing += [n for n in names if a not in bodies[n]]
         if not targets:
             findings.append(GateFinding(
                 "anchor_unique", qid, f"gold {gold} 未解析到任何 chunk — 锚串无从校验"))
-        elif missing or extra:
+            continue
+        extra = sorted({n for _, a in pairs
+                        for n, body in bodies.items() if a in body and n not in targets})
+        if missing or extra:
             findings.append(GateFinding(
                 "anchor_unique", qid,
-                f"锚串不在 gold chunk {missing} / 溢出到非 gold chunk {extra[:3]}"))
+                f"锚串不在 gold chunk {sorted(missing)} / 溢出到非 gold chunk {extra[:3]}"))
     return findings
 
 
