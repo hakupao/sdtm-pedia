@@ -22,6 +22,15 @@
 8. **关键数字用非自洽写法复算** (硬规矩 17b)。
 9. 引用 U1 上界时必须写「100% **触发了**自毁条款, **用户豁免**」, 不得写成「一次过」。
 10. 基线: `1119 passed` · `sdtm_kb_v1` 4329 / `study_st01` 959 / `study_st01_docs` 114 · 卡片侧 87.50% 逐题 Δ0 vs `runs/v2_baseline_s2on.json` · 路由 178/181 fatal=0。
+11. **变异跑批必须用私有子目录 + 复原核验** (2026-08-12 Task 3 事故立): 并发 agent 覆写了
+    共享 scratchpad 根目录的脚本, 变异跑批被超时 SIGTERM, `finally` 未执行, **`eval/run_eval.py`
+    被留在变异态**。实现方靠快照 diff 发现并复原, controller 独立复核了 diff 确认无残留。
+    ⇒ 变异脚本一律放 `<scratchpad>/<task 名>/` 私有子目录; 每轮带子超时; 收尾必须打印
+    `RESTORED True` 之类的**可核验**复原证据。被留在变异态的生产文件会静默污染其后全部数字。
+12. **两个搜索方向都要做** (Task 1 审查方实证): ①「从断言出发找能杀死它的变异」——
+    上界 = 已有断言集合, **结构上发现不了无人守的代码行**; ②「**从代码行出发问这行改坏了谁会红**」。
+    只做① 的自证式变异测试会得到"全部断言都被证伪过"的真结论, 同时漏掉整块零覆盖代码
+    (Task 3 实测: 删光 27 行装配块, 计划的 4 条断言一条不红)。
 
 ---
 
@@ -478,6 +487,19 @@ git commit -m "feat(doc-track): U2 Task 2 — doc 通道生产接线 (默认 OFF
 - Consumes: Task 1 `StudyCorpusEngine`
 - Produces: CLI `--study-docs` (bool) / `--doc-seats N` (int, 默认取 `settings.study_docs_seats`) / `--corpus {auto,cdisc,study,both}` (默认 `auto`); `_FederatedAdapter.__init__(fed, corpus="auto")`
 
+> **修订 (2026-08-12, Task 3 执行后)**:
+> 1. ⛔ **下面这 4 条断言经实证是装饰品**。把 `main()` 里整个 doc 通道装配块**删光**
+>    (变异 B9) 首测 **1142 passed / 0 failed** —— 4 条没有一条进入 federated 装配分支,
+>    新增的 27 行零覆盖。实际实现**保留这 4 条逐字不动**, 另加 6 条 (3 条 stderr 判别 +
+>    3 条装配锁, `RAGEngine`/`create_router`/`FederatedEngine`/`run_evaluation` 全 stub,
+>    零 chroma 零 LLM), 22 条变异补强后 22/22 全红。
+> 2. Step 2 写的预期失败 (`unrecognized arguments: --study-docs`) **不成立**: argparse 对
+>    未知 flag 抛的**同样是 `SystemExit`** ⇒ `pytest.raises(SystemExit)` 在"闸拒绝"与
+>    "flag 压根没实现"两种情形下一样绿, 那条测试在实现之前就已 PASS。**教训: 用
+>    `SystemExit` 断 argparse 闸时, 必须同时判 stderr 内容, 否则闸与缺失不可分。**
+> 3. `settings.study_docs_seats` 出厂值恰为 **5**, 与计划里"写死 5"的变异撞号 ⇒
+>    照那条变异跑必须先把 settings 改成别的值, 否则变异是 no-op 会被误读成装饰断言。
+
 - [ ] **Step 1: 写失败测试**
 
 ```python
@@ -636,6 +658,72 @@ Expected: `avg 0.875 | per-q diffs: {}`
 cd /Users/bojiangzhang/MyProject/sdtm-pedia && \
 git add sdtm-rag/eval/run_eval.py sdtm-rag/scripts/tests/test_run_eval_doc_channel.py && \
 git commit -m "feat(doc-track): U2 Task 3 — eval 侧 --study-docs/--doc-seats/--corpus"
+```
+
+---
+
+### Task 3b: docs 引擎构造去重 (新增 — 两方独立提出的漂移风险)
+
+**为什么必须在 Task 4 之前做**: docs 引擎现在被**两条独立代码路径各造一次** ——
+`server/main.py` 的 lifespan (生产) 与 `eval/run_eval.py` 的 `--study-docs` 分支 (尺子)。
+两处各抄了一份参数清单, **没有任何东西钉它们相等**。漂移的表现是: **尺子全绿而生产是另一台
+引擎, 且不会有任何报错** —— 这直接抽掉本单元全部数字的效力。
+
+两方独立提出: Task 2 审查方 (问题 2③「跨路径漂移才是本条真正的风险」) 与 Task 3 实现方
+(风险 3: eval 侧 docs 引擎**少了 `rerank_*` / `query_expansion` 三个 lever**, 吃默认值,
+而 cards/cdisc 两台都从 `args` 取 ⇒ 一旦有人跑 `--rerank` 或 `--query-expansion`, 三台引擎
+口径不一致而数字看不出来)。
+
+**Files:**
+- Modify: `server/study_corpus.py` (加模块级工厂)
+- Modify: `server/main.py` (lifespan 改调工厂) · `eval/run_eval.py` (federated 分支改调工厂)
+- Test: `scripts/tests/test_study_corpus.py` (工厂单测) · `scripts/tests/test_docs_engine_parity.py` (新, 两路径同源闸)
+
+**Interfaces:**
+- Produces: `make_docs_engine(rag_cls, *, chroma_dir, kb_root, collection_name, embedding_model, seats, levers: dict)` → RAGEngine 实例; `DOCS_ENGINE_FIXED_KWARGS` (常量 dict, 记录 doc 引擎恒定的那几个: `structured_lookup_enabled=False`, `study_lookup` 不传)
+
+- [ ] **Step 1: 写失败测试 — 两路径同源闸**
+
+断言两件事 (第二件是本 task 的核心):
+1. 工厂产出的 kwargs 里 `structured_lookup_enabled is False` 且不含 `study_lookup`;
+2. **`main.py` 与 `run_eval.py` 两条路径在同一组 lever 值下, 构造 docs 引擎所用的 kwargs
+   逐键相同** —— 用同一个 `FakeRAG` 记录 kwargs, 分别跑 lifespan 与 `run_eval.main()`
+   (两侧都 stub 掉真引擎/路由/评测), 比对两个 dict。
+
+- [ ] **Step 2: 跑测试确认失败** (工厂不存在 / 两侧 kwargs 不等)
+
+- [ ] **Step 3: 实现工厂并让两处都调它**
+
+工厂只负责"把参数装配成 RAGEngine", **不读 settings 也不读 args** —— 两侧各自解析自己的
+配置来源后把**解析结果**传进来, 这样 eval 的 `--hybrid` 覆盖与生产的 settings 取值都保留,
+被钉住的是**装配方式**而不是取值来源。
+
+同时补齐 eval 侧缺的三个 lever (`rerank_enabled` / `rerank_model` / `rerank_candidates` /
+`query_expansion` 一族), 使 docs 引擎与同一次运行里的 cards 引擎 lever 一致。
+
+- [ ] **Step 4: 跑测试确认通过 + 全量 pytest**
+
+- [ ] **Step 5: 回归闸 — 重跑 Task 3 Step 5 的不变性检查**
+
+```bash
+cd sdtm-rag && ./.venv/bin/python -m eval.run_eval data/study/st01/eval/test_set_study_v2.yml \
+  --retrieval-only --hybrid --study-lookup \
+  --collection study_st01 --kb-root data/study/st01/cards --output /tmp/u2_t3b_regress.json
+```
+Expected: `avg 0.875`, 逐题 diffs `{}` (重构不许动数字)
+
+- [ ] **Step 6: 变异测试 (两个方向, 见 Global Constraint 12)**
+
+至少含: 工厂里 `structured_lookup_enabled` 改 `True` · 两路径之一绕过工厂直接 `RAGEngine(...)` ·
+lever 传参漏一个 —— 三条都必须变红。
+
+- [ ] **Step 7: 提交**
+
+```bash
+cd /Users/bojiangzhang/MyProject/sdtm-pedia && \
+git add sdtm-rag/server/study_corpus.py sdtm-rag/server/main.py sdtm-rag/eval/run_eval.py \
+        sdtm-rag/scripts/tests/test_study_corpus.py sdtm-rag/scripts/tests/test_docs_engine_parity.py && \
+git commit -m "refactor(doc-track): U2 Task 3b — docs 引擎构造去重 + 两路径同源闸"
 ```
 
 ---
