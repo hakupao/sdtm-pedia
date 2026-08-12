@@ -55,7 +55,7 @@ class Settings(BaseSettings):
     # collection 不存在而开关开着 = 配置错误, 启动响亮失败 (见 main.py), 不静默降级。
     study_docs_enabled: bool = False
     study_docs_collection_name: str = "study_st01_docs"
-    study_docs_seats: int = 5
+    study_docs_seats: int = 8
 
     # Rerank (T2, PLAN §5 1B.2): wide retrieve -> Cohere rerank -> top_k.
     # COHERE_API_KEY read from env (LiteLLM-style provider key, no SDTM_RAG_ prefix).

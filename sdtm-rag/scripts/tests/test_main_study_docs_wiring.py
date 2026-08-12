@@ -153,7 +153,11 @@ def test_settings_study_docs_defaults():
     s = Settings()
     assert s.study_docs_enabled is False
     assert s.study_docs_collection_name == "study_st01_docs"
-    assert s.study_docs_seats == 5
+    # 席位数 8 是 Task 4 sweep 实测裁定的 (evidence/step_u2_sweep.md §4): 它是召回天花板上
+    # 的**最小** N —— N=8 满分 30/30 而 N=5 只有 25/30 (丢 11.67pt), N=10/15 零召回增益却
+    # 把 context 从 3.17x 推到 3.68x/5.19x。改这个值 = 换掉一个有实测依据的裁定, 要连
+    # evidence 一起改。
+    assert s.study_docs_seats == 8
     # 库名与卡片库必须是两个不同的 collection (指成同一个 = doc 通道其实没接上)
     assert s.study_docs_collection_name != s.study_collection_name
 
