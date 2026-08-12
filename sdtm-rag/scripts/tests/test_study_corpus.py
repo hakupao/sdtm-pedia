@@ -5,7 +5,11 @@
 import pytest
 
 from server.rag import RetrievedChunk
-from server.study_corpus import StudyCorpusEngine
+from server.study_corpus import (
+    DOCS_ENGINE_FIXED_KWARGS,
+    StudyCorpusEngine,
+    make_docs_engine,
+)
 
 
 def _chunk(cid, file_type, sim=0.5):
@@ -180,6 +184,72 @@ def test_negative_per_call_doc_seats_fails_loud_before_any_retrieval():
     with pytest.raises(ValueError, match="doc_seats"):
         eng.retrieve("q", top_k=15, doc_seats=-1)
     assert cards.calls == [] and docs.calls == []   # 失败要发生在花掉任何一次检索之前
+
+
+# ────────────────────────────── Task 3b: docs 引擎工厂 ──────────────────────────────
+# 两条路径 (server/main.py lifespan · eval/run_eval.py --study-docs) 共用的唯一装配点。
+# 跨路径的同源比对在 test_docs_engine_parity.py; 这里只测工厂自身。
+
+
+def _factory(levers, seats=7, rag_cls=None):
+    seen: dict = {}
+
+    def _rag(**kw):
+        seen.update(kw)
+        return "ENGINE"
+
+    got = make_docs_engine(rag_cls or _rag, chroma_dir="C", kb_root="K",
+                           collection_name="docs-collection", embedding_model="E",
+                           seats=seats, levers=levers)
+    return got, seen
+
+
+def test_factory_pins_the_docs_only_kwargs_and_passes_levers_through():
+    """工厂的全部产出逐键钉死: 席位进 top_k · S1 恒关 · S2 一个键都不出现 · lever 原样透传。
+
+    工厂**不读 settings 也不读 args** —— 两侧各自解析自己的配置来源后把结果传进来
+    (eval 的 --hybrid 覆盖与生产的 settings 取值都因此保留), 被钉住的是装配方式。
+    """
+    got, seen = _factory({"hybrid_enabled": True, "hybrid_pool": 41})
+    assert got == "ENGINE"
+    assert seen == {
+        "chroma_dir": "C", "kb_root": "K", "collection_name": "docs-collection",
+        "embedding_model": "E", "top_k": 7,
+        "structured_lookup_enabled": False,      # S1 的 gold map 对 doc chunk 无定义
+        "hybrid_enabled": True, "hybrid_pool": 41,
+    }
+    # 上面的相等已含这两条, 但它们是 spec §4.1 逐字点名的两条恒定项, 单列以便变异定位
+    assert seen["structured_lookup_enabled"] is False
+    assert "study_lookup" not in seen
+
+
+def test_factory_fixed_kwargs_constant_matches_what_it_actually_assembles():
+    """常量与实际装配漂移 = 注释说 S1 关着而引擎开着 —— 两条路径同时被骗。"""
+    _, seen = _factory({})
+    assert DOCS_ENGINE_FIXED_KWARGS == {"structured_lookup_enabled": False}
+    for k, v in DOCS_ENGINE_FIXED_KWARGS.items():
+        assert seen[k] == v
+
+
+@pytest.mark.parametrize(
+    "bad", ["study_lookup", "structured_lookup_enabled", "top_k", "collection_name",
+            "chroma_dir", "kb_root", "embedding_model"])
+def test_factory_rejects_levers_that_would_override_its_own_kwargs(bad):
+    """lever 里塞工厂自己管的键 = 从内部掏空"两条路径同源"这条闸。
+
+    `study_lookup` 是其中最危险的一个: 它不与任何显式实参重名, 塞进去会**静默**给 docs
+    引擎挂上 S2 直查, 而跨路径 kwargs 比对照样相等 (两边都塞就更看不出来)。其余几个虽然
+    会撞 Python 的 duplicate-keyword TypeError, 但那是实现细节, 不是可依赖的闸。
+    """
+    with pytest.raises(ValueError, match=bad):
+        _factory({bad: object()})
+
+
+def test_factory_seats_go_to_top_k_not_the_other_way_round():
+    """席位数与 lever 的方向: seats 只喂 top_k, 不许被 lever 里的同名值顶掉 (上一条已拒),
+    也不许工厂自己回落到某个常量 —— 换个席位数, 出参必须跟着换。"""
+    assert _factory({}, seats=3)[1]["top_k"] == 3
+    assert _factory({}, seats=11)[1]["top_k"] == 11
 
 
 def test_unknown_kwarg_fails_loud_not_silently_swallowed():

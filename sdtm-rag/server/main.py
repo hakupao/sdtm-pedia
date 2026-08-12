@@ -119,6 +119,15 @@ async def lifespan(app: FastAPI):
             from server.study_lookup import StudyLookup
             # catalog 缺失时这里响亮失败 — 开关开着但数据不在 = 配置错误, 不静默降级
             study_lookup = StudyLookup.from_paths(s.study_catalog_path, s.study_aliases_path)
+        # 检索杠杆一份, 两台 study 引擎共用 —— docs 引擎与 cards 引擎的 lever 不一致时
+        # 症状是静默的 (doc 侧照样出块, 只是与卡片侧不可比), 故做成结构上不可能不同。
+        study_levers = dict(
+            hybrid_enabled=s.hybrid_enabled,
+            hybrid_fusion=s.hybrid_fusion,
+            hybrid_alpha=s.hybrid_alpha,
+            hybrid_pool=s.hybrid_pool,
+            prompt_guardrail_enabled=s.prompt_guardrail_enabled,
+        )
         rag_study = RAGEngine(
             chroma_dir=s.chroma_dir,
             kb_root=s.study_kb_root,
@@ -127,17 +136,17 @@ async def lifespan(app: FastAPI):
             top_k=s.top_k,
             structured_lookup_enabled=False,
             study_lookup=study_lookup,
-            hybrid_enabled=s.hybrid_enabled,
-            hybrid_fusion=s.hybrid_fusion,
-            hybrid_alpha=s.hybrid_alpha,
-            hybrid_pool=s.hybrid_pool,
-            prompt_guardrail_enabled=s.prompt_guardrail_enabled,
+            **study_levers,
         )
         study_engine = rag_study
         if s.study_docs_enabled:
             # collection 缺失 = 配置错误, 响亮失败 (与 federation 同纪律): 显式开着 doc 通道
             # 却静默退化成纯卡片, 比启动失败更危险 —— 它表现为"接了线但一条 doc 都不出现"。
-            rag_docs = RAGEngine(
+            # 装配走 study_corpus 的工厂 (Task 3b): eval/run_eval.py 的 --study-docs 分支是
+            # 同一个调用, 两条路径因此不可能各抄一份参数清单再悄悄漂移。
+            from server.study_corpus import StudyCorpusEngine, make_docs_engine
+            rag_docs = make_docs_engine(
+                RAGEngine,
                 chroma_dir=s.chroma_dir,
                 # docs/ 没有 ROUTING.md/INDEX.md ⇒ kb_root 指到 cards/, 与 U1 测上界时逐字
                 # 同一条路径, 数字因此可比。kb_root 有两个出口, 对**本引擎**都不改检索结果:
@@ -152,18 +161,9 @@ async def lifespan(app: FastAPI):
                 kb_root=s.study_kb_root,
                 collection_name=s.study_docs_collection_name,
                 embedding_model=s.embedding_model,
-                # 惰性参数: StudyCorpusEngine.retrieve 每次都显式传 top_k=seats, 而
-                # rag.py:263 是 `k = top_k or self.top_k` ⇒ 右支在生产路径上永不取值。
-                # 改这里调不动席位, 要调改 study_docs_seats (它同时喂这里与组合器)。
-                top_k=s.study_docs_seats,
-                structured_lookup_enabled=False,
-                hybrid_enabled=s.hybrid_enabled,
-                hybrid_fusion=s.hybrid_fusion,
-                hybrid_alpha=s.hybrid_alpha,
-                hybrid_pool=s.hybrid_pool,
-                prompt_guardrail_enabled=s.prompt_guardrail_enabled,
+                seats=s.study_docs_seats,
+                levers=study_levers,
             )
-            from server.study_corpus import StudyCorpusEngine
             study_engine = StudyCorpusEngine(rag_study, rag_docs, doc_seats=s.study_docs_seats)
             log.info("study_docs", collection=s.study_docs_collection_name,
                      seats=s.study_docs_seats, chunks=rag_docs.collection.count())

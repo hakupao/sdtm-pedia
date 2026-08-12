@@ -65,3 +65,51 @@ class StudyCorpusEngine:
         if docs:
             parts.append("## 【手順書章節】\n" + self.docs.format_context(docs))
         return "\n\n".join(parts)
+
+
+# ─────────────────────────── docs 引擎的唯一装配点 (Task 3b) ───────────────────────────
+# docs 引擎被两条独立路径各造一次 (server/main.py 的 lifespan = 生产, eval/run_eval.py 的
+# --study-docs 分支 = 尺子)。两处各抄一份参数清单则**没有任何东西钉它们相等**, 而漂移的
+# 表现是"尺子全绿而生产是另一台引擎, 且不报错" —— 那会抽掉本单元全部数字的效力。
+#
+# 工厂**不读 settings 也不读 args**: 两侧各自解析自己的配置来源, 把解析结果传进来
+# (eval 的 --hybrid 覆盖与生产的 settings 取值都因此保留)。被钉住的是**装配方式**,
+# 不是取值来源。
+DOCS_ENGINE_FIXED_KWARGS = {
+    # S1 结构化直查是 CDISC 专属 (gold map 建在 spec.md xref + VARIABLE_INDEX 上,
+    # 对 doc chunk 无定义)。
+    "structured_lookup_enabled": False,
+}
+
+# 工厂自己写的键 + 恒不传的 study_lookup。levers 里出现任何一个 = 调用方在绕过本工厂的
+# 约定。study_lookup 尤其危险: 它不与下面任何显式实参重名, 塞进去会**静默**给 docs 引擎
+# 挂上 S2 直查 (S2 的数据源是 catalog.json, 对 doc chunk 同样无定义)。
+_DOCS_ENGINE_OWNED_KWARGS = frozenset(
+    {"chroma_dir", "kb_root", "collection_name", "embedding_model", "top_k", "study_lookup"}
+    | set(DOCS_ENGINE_FIXED_KWARGS)
+)
+
+
+def make_docs_engine(rag_cls, *, chroma_dir, kb_root, collection_name,
+                     embedding_model, seats, levers: dict):
+    """把已解析好的配置装配成一台 docs 引擎。`seats` 即该引擎的 top_k。
+
+    `levers` 是检索杠杆 (hybrid 一族 / rerank 一族 / query expansion 一族 / 答题护栏),
+    调用方必须传**与同一次运行里 cards 引擎相同**的那一份。
+    """
+    clash = sorted(_DOCS_ENGINE_OWNED_KWARGS & set(levers))
+    if clash:
+        raise ValueError(
+            f"levers must not carry docs-engine-owned kwargs: {clash}"
+        )
+    return rag_cls(
+        chroma_dir=chroma_dir,
+        kb_root=kb_root,
+        collection_name=collection_name,
+        embedding_model=embedding_model,
+        # 惰性参数: StudyCorpusEngine.retrieve 每次都显式传 top_k=seats, 而 rag.py:263 是
+        # `k = top_k or self.top_k` ⇒ 右支在组合器路径上永不取值。改这里调不动席位。
+        top_k=seats,
+        **DOCS_ENGINE_FIXED_KWARGS,
+        **levers,
+    )

@@ -836,12 +836,10 @@ def main(argv: list[str] | None = None) -> int:
     # 那一台; rag 仍指向 cdisc 引擎, 供下方 info/summary 读 lever 实参。
     retriever = rag
     if args.federated:
-        study_rag = RAGEngine(
-            chroma_dir=settings.chroma_dir,
-            kb_root=settings.study_kb_root,
-            collection_name=settings.study_collection_name,
-            embedding_model=settings.embedding_model,
-            top_k=args.top_k,
+        # 检索杠杆一份, 两台 study 引擎共用 (Task 3b)。原先 docs 引擎这份是手抄的, 少了
+        # rerank/expansion 三族 ⇒ 跑 `--rerank`/`--query-expansion` 时 cards 与 docs 口径
+        # 不一致, 而数字上完全看不出来。共用一份后"漏一个 lever"在结构上不可能。
+        study_levers = dict(
             rerank_enabled=args.rerank,
             rerank_model=settings.rerank_model,
             rerank_candidates=(
@@ -852,8 +850,6 @@ def main(argv: list[str] | None = None) -> int:
             query_expansion=args.query_expansion or settings.query_expansion,
             expansion_model=settings.expansion_model,
             expansion_n_queries=settings.expansion_n_queries,
-            structured_lookup_enabled=False,
-            study_lookup=study_lookup,
             hybrid_enabled=args.hybrid,
             hybrid_fusion=args.hybrid_fusion or settings.hybrid_fusion,
             hybrid_alpha=(
@@ -864,29 +860,33 @@ def main(argv: list[str] | None = None) -> int:
             ),
             prompt_guardrail_enabled=args.guardrail,
         )
+        study_rag = RAGEngine(
+            chroma_dir=settings.chroma_dir,
+            kb_root=settings.study_kb_root,
+            collection_name=settings.study_collection_name,
+            embedding_model=settings.embedding_model,
+            top_k=args.top_k,
+            structured_lookup_enabled=False,
+            study_lookup=study_lookup,
+            **study_levers,
+        )
         study_engine = study_rag
         if args.study_docs:
             doc_seats = (
                 args.doc_seats if args.doc_seats is not None else settings.study_docs_seats
             )
-            docs_rag = RAGEngine(
+            # 装配走 server/study_corpus.py 的工厂 —— server/main.py 的 lifespan 是同一个
+            # 调用。两条路径共用一个装配点, 尺子量的引擎与生产跑的引擎因此不会各自漂移。
+            from server.study_corpus import StudyCorpusEngine, make_docs_engine
+            docs_rag = make_docs_engine(
+                RAGEngine,
                 chroma_dir=settings.chroma_dir,
                 kb_root=settings.study_kb_root,      # 与 U1 上界口径逐字相同
                 collection_name=settings.study_docs_collection_name,
                 embedding_model=settings.embedding_model,
-                top_k=doc_seats,
-                structured_lookup_enabled=False,
-                hybrid_enabled=args.hybrid,
-                hybrid_fusion=args.hybrid_fusion or settings.hybrid_fusion,
-                hybrid_alpha=(
-                    args.hybrid_alpha if args.hybrid_alpha is not None else settings.hybrid_alpha
-                ),
-                hybrid_pool=(
-                    args.hybrid_pool if args.hybrid_pool is not None else settings.hybrid_pool
-                ),
-                prompt_guardrail_enabled=args.guardrail,
+                seats=doc_seats,
+                levers=study_levers,
             )
-            from server.study_corpus import StudyCorpusEngine
             study_engine = StudyCorpusEngine(study_rag, docs_rag, doc_seats=doc_seats)
             print(f"Study docs channel: {docs_rag.collection.count()} chunks, "
                   f"collection={settings.study_docs_collection_name}, seats={doc_seats}")
