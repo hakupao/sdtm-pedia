@@ -1134,7 +1134,11 @@ git commit -m "test(doc-track): U2 Task 9 — 规则 D 三方核验 + 生产默�
 cd sdtm-rag && ./.venv/bin/python -c "
 import json, subprocess, pathlib
 cat=json.load(open('data/study/st01/catalog.json'))
-vals={it['item_oid'] for it in cat['items']} | {it['label'] for it in cat['items'] if len(it['label'])>=4}
+# ⚠ 长度下限对 item_oid 也必须设 (Task 1 实现方实测): catalog 里有 CT / AGE 这类 2-3 字符
+# OID, 不设下限会把 RAGEngine 里的 'AGE'、stub 里的 'CTX' 全报成泄漏 —— 真泄漏会被噪声淹掉。
+# 加 >=4 后 1417 个值对 Task 1 的三个新文件零命中。
+vals={it['item_oid'] for it in cat['items'] if len(it['item_oid'])>=4} \
+     | {it['label'] for it in cat['items'] if len(it['label'])>=4}
 files=subprocess.run(['git','ls-files'],capture_output=True,text=True,cwd='..').stdout.split()
 hits=[]
 for f in files:
