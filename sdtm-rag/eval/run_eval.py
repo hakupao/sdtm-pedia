@@ -552,12 +552,13 @@ def print_summary(
 class _FederatedAdapter:
     """FederatedEngine → run_evaluation 的 rag 形状 (retrieve 返回 list, 记录判库)."""
 
-    def __init__(self, fed):
+    def __init__(self, fed, corpus: str = "auto"):
         self.fed = fed
+        self.corpus = corpus
         self.routed: list[str] = []
 
     def retrieve(self, q, top_k=None):
-        chunks, routed = self.fed.retrieve(q, corpus="auto", top_k=top_k)
+        chunks, routed = self.fed.retrieve(q, corpus=self.corpus, top_k=top_k)
         self.routed.append(routed)
         return chunks
 
@@ -726,6 +727,20 @@ def main(argv: list[str] | None = None) -> int:
              "collection> 或 --federated (作用于其 study 引擎)",
     )
     parser.add_argument(
+        "--study-docs", action="store_true",
+        help="U2: study 侧 doc 通道 (手順書章节 chunk 追加 N 席)。需 --federated",
+    )
+    parser.add_argument(
+        "--doc-seats", type=int, default=None,
+        help="doc 追加席位数 N (默认取 settings.study_docs_seats)。加席不抢席: "
+             "cards 的 top_k 不受影响",
+    )
+    parser.add_argument(
+        "--corpus", default="auto", choices=["auto", "cdisc", "study", "both"],
+        help="强制判库 (默认 auto = 走 LLM 路由, 与生产逐字相同)。强制 study 用于把"
+             "判库损耗与接线损耗拆开",
+    )
+    parser.add_argument(
         "--tag",
         default=None,
         help="Optional label added to output JSON for cross-model comparison",
@@ -736,6 +751,10 @@ def main(argv: list[str] | None = None) -> int:
         parser.error("--federated 与 --collection/--kb-root 互斥 (联邦模式引擎路径取自 settings)")
     if args.study_lookup and not (args.collection or args.federated):
         parser.error("--study-lookup 需要 --collection 或 --federated")
+    if args.study_docs and not args.federated:
+        parser.error("--study-docs 需要 --federated (doc 通道挂在联邦的 study 引擎上)")
+    if args.corpus != "auto" and not args.federated:
+        parser.error("--corpus 只在 --federated 下有意义")
 
     collection_name = args.collection or settings.collection_name
     kb_root = Path(args.kb_root) if args.kb_root else settings.kb_root
@@ -845,8 +864,35 @@ def main(argv: list[str] | None = None) -> int:
             ),
             prompt_guardrail_enabled=args.guardrail,
         )
+        study_engine = study_rag
+        if args.study_docs:
+            doc_seats = (
+                args.doc_seats if args.doc_seats is not None else settings.study_docs_seats
+            )
+            docs_rag = RAGEngine(
+                chroma_dir=settings.chroma_dir,
+                kb_root=settings.study_kb_root,      # 与 U1 上界口径逐字相同
+                collection_name=settings.study_docs_collection_name,
+                embedding_model=settings.embedding_model,
+                top_k=doc_seats,
+                structured_lookup_enabled=False,
+                hybrid_enabled=args.hybrid,
+                hybrid_fusion=args.hybrid_fusion or settings.hybrid_fusion,
+                hybrid_alpha=(
+                    args.hybrid_alpha if args.hybrid_alpha is not None else settings.hybrid_alpha
+                ),
+                hybrid_pool=(
+                    args.hybrid_pool if args.hybrid_pool is not None else settings.hybrid_pool
+                ),
+                prompt_guardrail_enabled=args.guardrail,
+            )
+            from server.study_corpus import StudyCorpusEngine
+            study_engine = StudyCorpusEngine(study_rag, docs_rag, doc_seats=doc_seats)
+            print(f"Study docs channel: {docs_rag.collection.count()} chunks, "
+                  f"collection={settings.study_docs_collection_name}, seats={doc_seats}")
         retriever = _FederatedAdapter(
-            FederatedEngine(rag, study_rag, create_router(settings), top_k=args.top_k)
+            FederatedEngine(rag, study_engine, create_router(settings), top_k=args.top_k),
+            corpus=args.corpus,
         )
         print(
             f"Federated: study engine {study_rag.collection.count()} chunks, "
