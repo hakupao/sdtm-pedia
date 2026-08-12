@@ -68,6 +68,13 @@ class Overlap:
     is_gold: bool
 
 
+@dataclass(frozen=True)
+class SelfSufficient:
+    qid: str
+    chunk: str
+    per_fact: tuple[float, ...]
+
+
 def _norm(s: str) -> str:
     return _WS.sub("", s)
 
@@ -119,6 +126,107 @@ def flagged(questions: list[dict], bodies: dict[str, str],
             if not o.is_gold and o.score >= threshold]
 
 
+def _per_fact_coverage(facts: list[str], normed_body: str) -> tuple[float, ...]:
+    """**逐条** fact 的覆盖率 (与 `coverage` 共用 `fact_tokens`, 只是不把 fact 合并)。
+
+    无可计数单元的 fact (纯符号/超短串) 跳过而不是记 0: 记 0 会让整题恒不触发,
+    即在"闸 C 没拦住的坏 fact"上恰好失明。跳过则该题按剩下的 fact 判 —— 方向是
+    多报, 而这是触发器不是闸, 多报的代价只是多看一眼。
+    """
+    out: list[float] = []
+    for f in facts:
+        toks = fact_tokens([f])
+        if not toks:
+            continue
+        out.append(sum(1 for t in toks if t in normed_body) / len(toks))
+    return tuple(out)
+
+
+def self_sufficient_golds(questions: list[dict], bodies: dict[str, str],
+                          threshold: float = THRESHOLD) -> list[SelfSufficient]:
+    """多 gold 题里**单独一个 gold 就答得全每一条 fact** 的那些 gold。
+
+    ## 存在的理由: `flagged()` 结构上看不见这件事
+
+    `flagged()` 的条件是 `not o.is_gold and ...` —— **gold 按设计豁免**。于是"两个
+    gold 里其实有一个自足, 另一个是冗余"这一形态, 它**不可能**报出来。而多 gold 题
+    正是跨节探针的题型 ⇒ 那道判据对最需要它的题型覆盖率恒为 0。`q40` 的 L6 探针
+    (part02 单侧自足、part01 冗余) 是人工发现的; 现在知道了原因: 工具报不了。
+
+    ## 为什么逐 fact 而不是合并覆盖率
+
+    合并口径把所有 fact 的单元并成一袋, **一条 fact 满分能替另一条完全没答上的
+    补票**。实测 (30 题题集, 10 道多 gold 题, 命令见下): 合并 >= 0.7 的单 gold 有
+    5 个 (q18/q22/q24/q41/q57), 其中 4 个各有一条明显没答上的 fact
+    (逐 fact 最低分 0.15 / 0.54 / 0.50 / 0.62) —— 那 4 个恰恰是**真跨节**, 合并口径
+    会把它们全报成"疑似冗余"。逐 fact 口径只剩 1 个 (q24), 噪声降到 1/5。
+
+        .venv/bin/python -m eval.gold_semantic_check \\
+          data/study/st01/eval/test_set_docs_v1.yml \\
+          --docs-dir data/study/st01/docs --mode selfsuff
+
+    ## 为什么只看 AND 侧
+
+    `expected_sources_any` 按定义就是"任一成员命中即得分" —— OR 组成员本来就该各自
+    自足。把它当多 gold 会把**设计意图**报成缺陷, 且每道 OR 题必报, 排序立刻被淹。
+
+    ## 仍然是触发器不是闸
+
+    与 `flagged` / `probe_binding` / `or_groups` 同取向: 报出来**不等于**坏题。
+    实测 q24 被独立审题人工判为真跨节 (读 `s16_2` 全文确认无判别内容), 触发只是
+    "值得看一眼"。故不改退出码语义。
+    """
+    normed = {name: _norm(body) for name, body in bodies.items()}
+    out: list[SelfSufficient] = []
+    for q in questions:
+        qid = q.get("id", "<no id>")
+        golds = list(q.get("expected_sources") or [])
+        if len(golds) < 2:
+            continue
+        facts = q.get("expected_facts") or []
+        # 走 match_names: "哪些 chunk 算这题的 gold" 只许有一个实现 (见 lint_gold)。
+        names = {n for g in golds for n in match_names(g, qid, list(bodies))}
+        for name in sorted(names):
+            per = _per_fact_coverage(facts, normed[name])
+            if per and all(s >= threshold for s in per):
+                out.append(SelfSufficient(qid, name, per))
+    return sorted(out, key=lambda r: (r.qid, r.chunk))
+
+
+def _print_self_sufficiency(questions: list[dict], bodies: dict[str, str],
+                            threshold: float) -> int:
+    """selfsuff 模式的打印。无条件先打**每道多 gold 题每个 gold 的逐 fact 分数**。
+
+    照抄 `probe_binding` 的做法: 只报触发项, 后人无从判断这项判据对该题集**有没有
+    约束力** —— 一份 0 触发的输出既可能是"题都很干净", 也可能是"它根本没看这些题",
+    两者长得一模一样。可见性行让这两种情形可分。
+    """
+    rows = self_sufficient_golds(questions, bodies, threshold)
+    hit = {(r.qid, r.chunk) for r in rows}
+    normed = {n: _norm(b) for n, b in bodies.items()}
+    n_multi = 0
+    for q in questions:
+        golds = list(q.get("expected_sources") or [])
+        if len(golds) < 2:
+            continue
+        n_multi += 1
+        qid = q.get("id", "<no id>")
+        facts = q.get("expected_facts") or []
+        names = sorted({n for g in golds for n in match_names(g, qid, list(bodies))})
+        shown = " · ".join(
+            f"{n}{'!' if (qid, n) in hit else ''}="
+            f"[{', '.join(f'{s:.2f}' for s in _per_fact_coverage(facts, normed[n]))}]"
+            for n in names)
+        print(f"[selfcov] {qid}: {shown}   (! = 单 gold 自足)")
+    for r in rows:
+        print(f"[SELF] {r.qid}: gold {r.chunk} 逐 fact "
+              f"[{', '.join(f'{s:.2f}' for s in r.per_fact)}] 全 >= {threshold} "
+              f"— 人工复核另一个 gold 是否冗余")
+    print(f"\n{len(rows)} 处单 gold 疑似自足 / {n_multi} 道多 gold 题 (触发线 {threshold}) "
+          f"— 本项是**排序触发器不是闸**: 自足不等于坏题, 判定由人做")
+    return 0
+
+
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(
         description="gold 语义完整性自查 (排序+触发器, 非闸; 确定性零 LLM)")
@@ -126,10 +234,15 @@ def main(argv=None) -> int:
     ap.add_argument("--docs-dir", required=True)
     ap.add_argument("--threshold", type=float, default=THRESHOLD)
     ap.add_argument("--top", type=int, default=3, help="每题额外打印的最高分 chunk 数")
+    ap.add_argument("--mode", choices=("overlap", "selfsuff"), default="overlap",
+                    help="overlap=非 gold 覆盖率 (默认, 原行为); "
+                         "selfsuff=多 gold 题的单 gold 自足性")
     args = ap.parse_args(argv)
 
     questions = load_questions(args.test_set)
     bodies = chunk_bodies(args.docs_dir)
+    if args.mode == "selfsuff":
+        return _print_self_sufficiency(questions, bodies, args.threshold)
     allcov = coverage(questions, bodies)
 
     by_q: dict[str, list[Overlap]] = {}
