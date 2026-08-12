@@ -51,7 +51,17 @@
 
 **Interfaces:**
 - Consumes: `server.rag.RetrievedChunk` (字段 `chunk_id / source / domain / file_type / section / similarity / text / rerank_score / via_lookup / corpus`)
-- Produces: `StudyCorpusEngine(cards, docs, *, doc_seats: int)`, 方法 `retrieve(question, *, top_k=None, doc_seats=None) -> list[RetrievedChunk]` · `format_context(chunks) -> str` · `build_messages(question, context, history=None) -> list[dict]` · 属性 `system_prompt: str` · 常量 `DOC_FILE_TYPE = "protocol_section"` / `CARD_FILE_TYPE = "field_card"`
+- Produces: `StudyCorpusEngine(cards, docs, *, doc_seats: int)`, 方法 `retrieve(question, *, top_k=None, doc_seats=None) -> list[RetrievedChunk]` · `format_context(chunks) -> str` · 属性 `system_prompt: str` · 常量 `DOC_FILE_TYPE = "protocol_section"` / `CARD_FILE_TYPE = "field_card"`
+
+> **修订 (2026-08-12, Task 1 审查后)**: 原 Interfaces 还列了 `build_messages`。独立审查方实证
+> 它在生产路径上**不可达** (联邦答题走 `FederatedEngine.build_messages` → `cdisc.build_messages`
+> + `_system_for`, 后者只读 `study.system_prompt`), 且删掉整个方法后 8 条测试全绿 = 零覆盖。
+> **裁定: 删掉**, 不补钉子 —— 留着是"零测试守护的死代码", 删了则未来真有人调它会
+> AttributeError 响亮失败。
+>
+> **补入 (spec §7 的 `both` 模式席位, 原计划漏分配)**: Task 1 需补一条测试断言
+> `retrieve(q, top_k=8)` (= `ceil(15/2)`, both 档 cards 拿到的值) 下 **docs 仍拿满 N 席不缩**。
+> spec §4.2 逐字禁止在 both 下缩 doc 席位; 这条测试是该禁令唯一的守卫。
 
 - [ ] **Step 1: 写失败测试 (核心行为四条)**
 
@@ -268,6 +278,18 @@ git commit -m "feat(doc-track): U2 Task 1 — StudyCorpusEngine 组合器 (加�
 **Interfaces:**
 - Consumes: Task 1 的 `StudyCorpusEngine`
 - Produces: `settings.study_docs_enabled: bool` / `settings.study_docs_collection_name: str` / `settings.study_docs_seats: int`; `app.state.federation.study` 在开关开时是 `StudyCorpusEngine` 实例
+
+> **修订 (2026-08-12, Task 2 执行后 —— 两处计划缺陷, 逐字记账)**:
+> 1. 下面 fixture 的 `structlog.configure(processors=[lambda _l, m, ed: ...])` **是错的**:
+>    structlog processor 签名是 `(logger, method_name, event_dict)`, `m` 绑的是 `"info"`/
+>    `"warning"` 这个**方法名**, 事件名在 `ed["event"]` ⇒ 照抄则后两条测试**在任何实现下
+>    都不可能通过**。实际实现改用 `structlog.testing.capture_logs()` (顺带避免裸
+>    `configure` 把处理器永久留在全局配置里泄漏给后续测试)。
+> 2. Step 2 写的预期失败形态 (`Settings 没有 study_docs_enabled`) **不成立**:
+>    pydantic-settings 对构造函数里的未知字段**静默忽略**, `Settings(study_docs_enabled=True)`
+>    在字段还不存在时也不报错 ⇒ 失败以断言形式出现。**推论 (给 Task 9 抽检方)**: 任何
+>    `boot(study_doc_seats=7)` 这类拼错的 override 都会静默走默认值而测试照绿, setting
+>    名拼写值得专门验一次。
 
 - [ ] **Step 1: 写失败测试**
 
