@@ -977,7 +977,11 @@ git commit -m "evidence(doc-track): U2 Task 6 — 三把尺子 + 卡片侧逐题
 - Test: `scripts/tests/test_judge_controls.py`
 
 **Interfaces:**
-- Consumes: `eval.run_eval.check_fact_recall_judge(answer, expected_facts, judge_model=..., temperature=...)`
+- Consumes: `eval.run_eval.check_fact_recall_judge(question, answer, expected_facts, judge_model=..., temperature=0.0)`
+  > **订正 (2026-08-12, Task 7 实现方发现)**: 本行原先漏写首参 `question`。Step 3 的代码
+  > 是对的, 是这行陈旧。**照这行写会正好落进变异 C2 那条 HIGH** —— `question`/`answer`
+  > 位置互换后两参数同为 `str` 不抛 TypeError, 阳性对照会假性崩到 ≈0, 现场误判成
+  > 「judge 尺子失效」而 judge 完好。
 - Produces: CLI `python -m eval.judge_controls <test_set.yml> --mode {positive,negative} --n 6`; 函数 `sample_ids(ids: list[str], n: int) -> list[str]`
 
 - [ ] **Step 1: 写失败测试 (抽样规则是重点 — 它必须与分数无关)**
