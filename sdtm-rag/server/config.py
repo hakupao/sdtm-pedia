@@ -50,6 +50,13 @@ class Settings(BaseSettings):
     study_catalog_path: Path = _SDTM_RAG_ROOT / "data" / "study" / "st01" / "catalog.json"
     study_aliases_path: Path = _SDTM_RAG_ROOT / "data" / "study" / "st01" / "lookup_aliases.yml"
 
+    # U2 doc 通道 (spec 2026-08-12 §4.5): study 侧除 959 张卡片外, 还有 114 个手順書章节
+    # chunk 在独立 collection 里。加席不抢席 —— cards 的 top_k 不动, doc 另取 seats 席。
+    # collection 不存在而开关开着 = 配置错误, 启动响亮失败 (见 main.py), 不静默降级。
+    study_docs_enabled: bool = False
+    study_docs_collection_name: str = "study_st01_docs"
+    study_docs_seats: int = 5
+
     # Rerank (T2, PLAN §5 1B.2): wide retrieve -> Cohere rerank -> top_k.
     # COHERE_API_KEY read from env (LiteLLM-style provider key, no SDTM_RAG_ prefix).
     # NOTE: T2 ablation (2026-06-08) found rerank degrades source recall on this KB

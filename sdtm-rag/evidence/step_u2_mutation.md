@@ -53,3 +53,97 @@ cd /Users/bojiangzhang/MyProject/sdtm-pedia/sdtm-rag
 - `server/study_corpus.py` 与计划 §Task 1 Step 3 的代码块 **byte-identical**
   (`diff <(sed -n '166,229p' docs/superpowers/plans/2026-08-12-doc-track-u2-wirein.md) sdtm-rag/server/study_corpus.py` → 空)。
 - `scripts/tests/test_study_corpus.py` 与计划 §Task 1 Step 1 的代码块同样 byte-identical。
+
+---
+
+## Task 2 — `server/config.py` + `server/main.py` lifespan (2026-08-12 实测)
+
+开工基线 **1127 passed** (Task 1 收尾态); Task 2 落地后 **1131 passed** (新增 4 条测试)。
+变异口径与 Task 1 相同: 单条施加 → 全量 `./.venv/bin/python -m pytest -p no:warnings` → 记 failed 数 → 改回。
+
+新增的 4 条测试共 **10 条断言** (下表以 A1-A10 编号):
+
+| 断言 | 出处 (`scripts/tests/test_main_study_docs_wiring.py`) | 守什么 |
+|---|---|---|
+| A1 | `"study_st01_docs" in built` | docs 引擎用的是 doc collection, 不是卡片 collection |
+| A2 | `isinstance(...federation.study, StudyCorpusEngine)` | 建了还要**包**进联邦 |
+| A3 | `...federation.study.doc_seats == 5` | 席位数进了组合器 |
+| A4 | 关着时 `"study_st01_docs" not in built` | 开关关着不建 docs 引擎 |
+| A5 | 关着时 `not isinstance(..., StudyCorpusEngine)` | 开关关着不包 |
+| A6 | 联邦关着时 `"study_st01_docs" not in built` | 没有 study 引擎可挂时不空建 |
+| A7 | `any(m == "study_docs_ignored" ...)` | 联邦关着 + doc 开着必须留声 |
+| A8 | `hit` 非空 | `study_docs` 这行日志确实打了 |
+| A9 | `hit[0]["seats"] == 7` | 日志里的席位数来自 settings 而非常量 |
+| A10 | `hit[0]["collection"] == "study_st01_docs"` | 日志里的库名来自 doc setting 而非卡片 setting |
+
+### 计划指定的三条
+
+| # | 变异 (施加于 `server/main.py`) | 期望 | 实测 failed | 变红的测试 | 覆盖断言 |
+|---|---|---|---|---|---|
+| 0 | 无 (基线) | 0 failed | **0 failed / 1131 passed** | — | — |
+| 1 | `study_engine = StudyCorpusEngine(...)` 的赋值去掉 (只建不包) | ≥1 | **1 failed / 1130 passed** | `test_docs_engine_is_built_and_wrapped_when_enabled` | A2 A3 |
+| 2 | `doc_seats=s.study_docs_seats` 改成常量 `doc_seats=5` | ≥1 | ⚠ **0 failed / 1131 passed** → 补断言后 **1 failed / 1130 passed** | (补断言后) `test_seats_and_collection_are_reported_in_the_ready_log` | A3(旧,失效) → 新增断言 |
+| 3 | `study_docs_ignored` 告警整块删掉 | ≥1 | **1 failed / 1130 passed** | `test_docs_enabled_without_federation_logs_ignored` | A7 |
+
+**⚠ 变异 2 首轮全绿 = 装饰断言, 当场补断言。** 原因: 计划里唯一检查引擎席位的 A3 恰好用
+`study_docs_seats=5`, 与写死的常量 `5` 逐位相同; 而用 seats=7 的那条测试只看**日志**, 不看引擎。
+于是"日志报 7 席、引擎实际只拿 5 席"这类日志撒谎故障在计划的断言集下完全不可见。
+补的断言 (在 seats=7 那条测试里): `assert app.state.federation.study.doc_seats == 7` ——
+用非默认值把日志与引擎钉成同源。补后重跑变异 2 → **1 failed**, 装饰性解除。
+
+### 实现方自查补做的六条 (计划三条只覆盖 A2/A3/A7, 其余 7 条断言从未变红过)
+
+同 Task 1 的做法: 未被证伪的断言 = 未证明的断言。补做六条, 同一口径。
+
+| # | 变异 (施加于 `server/main.py`) | 期望 | 实测 failed | 变红的测试 | 覆盖断言 |
+|---|---|---|---|---|---|
+| 4 | docs 引擎的 `collection_name=s.study_docs_collection_name` 改成 `s.study_collection_name` (指回卡片库) | ≥1 | **1 failed / 1130 passed** | `test_docs_engine_is_built_and_wrapped_when_enabled` | A1 |
+| 5 | `if s.study_docs_enabled:` 改成 `if True:` (开关失效, 恒建恒包) | ≥1 | **3 failed / 1128 passed** | `test_docs_engine_absent_when_disabled` + `test_main_study_lookup_wiring.py::test_enabled_injects_study_lookup_into_study_engine` + `::test_disabled_injects_nothing` | A4 A5 |
+| 6 | 日志 `seats=s.study_docs_seats` 改成常量 `seats=5` | ≥1 | **1 failed / 1130 passed** | `test_seats_and_collection_are_reported_in_the_ready_log` | A9 |
+| 7 | 日志 `collection=s.study_docs_collection_name` 改成 `s.study_collection_name` | ≥1 | **1 failed / 1130 passed** | `test_seats_and_collection_are_reported_in_the_ready_log` | A10 |
+| 8 | 整条 `log.info("study_docs", ...)` 删掉 | ≥1 | **1 failed / 1130 passed** | `test_seats_and_collection_are_reported_in_the_ready_log` | A8 |
+| 9 | 在 `study_docs_ignored` 分支里也构造一台 docs `RAGEngine` (联邦关着仍空建) | ≥1 | **1 failed / 1130 passed** | `test_docs_enabled_without_federation_logs_ignored` | A6 |
+
+⇒ **10 条断言 (含补做的第 11 条) 全部至少被一条变异证伪过, 无装饰断言残留。**
+
+变异 5 顺带把既有的 `test_main_study_lookup_wiring.py` 两条也打红 —— 那是因为它按位置解包
+`cdisc, study = boot(s).engines`, doc 引擎恒建会多出第三台。这不是搭车断言, 而是同一条 bug
+的两处独立现场; 记在此以免下一个人误以为是 flaky。
+
+### Task 2 复原核验
+
+九条变异逐条改回后:
+
+- `diff` 与变异前的备份 → `server/main.py` 与 `server/config.py` **完全一致** (零残留)。
+- 全量 `pytest -p no:warnings` → **1131 passed** (= Task 1 收尾 1127 + 本 task 新增 4)。
+- 计划 §Task 2 Step 3/Step 4 的三个代码块与落地代码 **byte-identical**:
+  ```bash
+  cd /Users/bojiangzhang/MyProject/sdtm-pedia
+  diff <(sed -n '369,374p' docs/superpowers/plans/2026-08-12-doc-track-u2-wirein.md) <(sed -n '53,58p'   sdtm-rag/server/config.py)  # config 三个 setting
+  diff <(sed -n '385,408p' docs/superpowers/plans/2026-08-12-doc-track-u2-wirein.md) <(sed -n '136,159p' sdtm-rag/server/main.py)    # lifespan 接线
+  diff <(sed -n '416,421p' docs/superpowers/plans/2026-08-12-doc-track-u2-wirein.md) <(sed -n '178,183p' sdtm-rag/server/main.py)    # study_docs_ignored 告警
+  ```
+  三条 diff 均为空。
+
+### 与计划的偏离 (仅测试脚手架, 断言零改写)
+
+计划 §Task 2 Step 1 的 fixture 写的是
+`structlog.configure(processors=[lambda _l, m, ed: events.append((m, ed)) or ""])`,
+把元组首位当成**事件名**用。structlog 的 processor 签名实为
+`(logger, method_name, event_dict)` —— `m` 绑的是 `"info"` / `"warning"` 这个**方法名**,
+事件名在 `ed["event"]` 里。实测:
+
+```bash
+cd /Users/bojiangzhang/MyProject/sdtm-pedia/sdtm-rag && ./.venv/bin/python -c "
+import structlog
+seen=[]
+structlog.configure(processors=[lambda _l, m, ed: seen.append((m, ed)) or ''])
+structlog.get_logger().warning('study_docs_ignored', note='x')
+print(seen)"
+# → [('warning', {'note': 'x', 'event': 'study_docs_ignored'})]
+```
+
+故照原文抄时 A7/A8/A9/A10 在**任何实现下都不可能通过** (首跑即 3 failed, 其中两条是这个原因)。
+修法取计划 Step 1 docstring 自己指的路 (「仿 `test_main_study_lookup_wiring.py` 的 stub 编制」):
+改用 `structlog.testing.capture_logs()`, 元组首位换成 `e["event"]`。附带收益是不再往全局
+structlog 配置里永久塞处理器 (裸 `configure` 会泄漏给后续测试)。**四条测试的断言一字未改。**

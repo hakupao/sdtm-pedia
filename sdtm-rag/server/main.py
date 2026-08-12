@@ -133,9 +133,33 @@ async def lifespan(app: FastAPI):
             hybrid_pool=s.hybrid_pool,
             prompt_guardrail_enabled=s.prompt_guardrail_enabled,
         )
+        study_engine = rag_study
+        if s.study_docs_enabled:
+            # collection 缺失 = 配置错误, 响亮失败 (与 federation 同纪律): 显式开着 doc 通道
+            # 却静默退化成纯卡片, 比启动失败更危险 —— 它表现为"接了线但一条 doc 都不出现"。
+            rag_docs = RAGEngine(
+                chroma_dir=s.chroma_dir,
+                # docs/ 没有 ROUTING.md/INDEX.md, 而 kb_root 只进 system prompt 不参与检索;
+                # 这里与 U1 测上界时逐字同一条路径, 数字因此可比。system_prompt 不被读 ——
+                # StudyCorpusEngine 只用 cards 引擎那份 (test_study_corpus 已钉死)。
+                kb_root=s.study_kb_root,
+                collection_name=s.study_docs_collection_name,
+                embedding_model=s.embedding_model,
+                top_k=s.study_docs_seats,
+                structured_lookup_enabled=False,
+                hybrid_enabled=s.hybrid_enabled,
+                hybrid_fusion=s.hybrid_fusion,
+                hybrid_alpha=s.hybrid_alpha,
+                hybrid_pool=s.hybrid_pool,
+                prompt_guardrail_enabled=s.prompt_guardrail_enabled,
+            )
+            from server.study_corpus import StudyCorpusEngine
+            study_engine = StudyCorpusEngine(rag_study, rag_docs, doc_seats=s.study_docs_seats)
+            log.info("study_docs", collection=s.study_docs_collection_name,
+                     seats=s.study_docs_seats, chunks=rag_docs.collection.count())
         from server.federation import FederatedEngine
         app.state.federation = FederatedEngine(
-            app.state.rag, rag_study, app.state.llm_router, top_k=s.top_k
+            app.state.rag, study_engine, app.state.llm_router, top_k=s.top_k
         )
         log.info(
             "federation",
@@ -149,6 +173,12 @@ async def lifespan(app: FastAPI):
         log.warning(
             "study_lookup_ignored",
             note="study_lookup_enabled=true 但 federation_enabled=false; S2 只挂在联邦的 "
+                 "study 引擎上, 本次启动未加载",
+        )
+    if s.study_docs_enabled and not s.federation_enabled:
+        log.warning(
+            "study_docs_ignored",
+            note="study_docs_enabled=true 但 federation_enabled=false; doc 通道只挂在联邦的 "
                  "study 引擎上, 本次启动未加载",
         )
     app.state.answerer = maybe_build_answerer(s)
