@@ -20,8 +20,10 @@ VALID_CORPORA = ("cdisc", "study", "both")
 _ROUTER_SYSTEM = """You are a corpus router for a clinical-data Q&A service. Two corpora exist:
 - "cdisc": the public CDISC SDTM standard — domains (DM, AE, VS, ...), variables, controlled \
 terminology, implementation-guide chapters. English content.
-- "study": ONE specific clinical study's EDC field cards — forms/screens, field labels, item \
-groups, display conditions, units. Japanese EDC vocabulary.
+- "study": ONE specific clinical study's own artifacts — its EDC field cards \
+(forms/screens, field labels, item groups, display conditions, units) AND that study's own \
+protocol / procedure document sections (手順・計画文書の節: eligibility, treatment schedule, \
+assessments, statistical plan). Japanese content.
 Decide which corpus the question needs, applying these rules in order:
 1. "cdisc" — the question is about the standard itself: which domain/dataset a kind of data belongs \
 in, what a variable means or which role it has (topic, Required/Expected/Permissible), controlled \

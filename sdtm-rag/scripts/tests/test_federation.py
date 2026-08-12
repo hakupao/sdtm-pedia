@@ -8,7 +8,7 @@ from types import SimpleNamespace
 
 import pytest
 
-from server.federation import VALID_CORPORA, FederatedEngine, route_corpus
+from server.federation import _ROUTER_SYSTEM, VALID_CORPORA, FederatedEngine, route_corpus
 from server.rag import RetrievedChunk
 
 
@@ -21,7 +21,7 @@ class _FakeLLM:
         self.text, self.exc, self.calls = text, exc, []
 
     def completion(self, model, messages, **kw):
-        self.calls.append({"model": model, **kw})
+        self.calls.append({"model": model, "messages": messages, **kw})
         if self.exc:
             raise self.exc
         return _resp(self.text)
@@ -51,6 +51,26 @@ class _StubEngine:
                 {"role": "user", "content": f"{ctx}\n{q}"}]
 
 
+# ── _ROUTER_SYSTEM 事实描述 ──
+
+def test_router_prompt_describes_the_study_document_corpus():
+    """C1 之后 study 库里除了 EDC 卡片还有本研究自己的手順/計画文書章节 chunk。
+
+    判库 prompt 里 study 的语料描述若仍只写 field cards, 偏"标准味"的手順問題会被判给
+    cdisc, 而 CDISC 库结构上答不出本研究的手順 (该题 recall 归零)。
+
+    ⚠ 断言范围只取 study 那一条 bullet, 不是整段 prompt: 规则 1 的正文里早就有
+    "our protocol" 这个词 (第一人称叙事的例子), 所以 `"protocol" in _ROUTER_SYSTEM.lower()`
+    这种整段断言在改动**之前**就是绿的 = 装饰品, 不能用。
+    """
+    study_bullet = _ROUTER_SYSTEM.split("Decide which corpus")[0].split('- "study":')[1]
+    assert "field cards" in study_bullet, "study 语料描述必须仍包含 EDC 卡片"
+    low = study_bullet.lower()
+    assert "protocol" in low and "section" in low, (
+        "study 语料描述必须写明本研究自己的手順/計画文書章节 (protocol/procedure document sections)"
+    )
+
+
 # ── route_corpus ──
 
 @pytest.mark.parametrize("corpus", VALID_CORPORA)
@@ -73,6 +93,20 @@ def test_route_bad_output_falls_back_both(bad):
 def test_route_exception_falls_back_both():
     got, fallback = route_corpus(_FakeLLM(exc=RuntimeError("timeout")), "q")
     assert got == "both" and fallback is True
+
+
+def test_route_actually_sends_the_router_prompt_and_the_question():
+    """上一条只钉 prompt 常量的**内容**; 这条钉它确实被**送出去**。
+
+    变异实证 (2026-08-12, U2 Task 5): 把 route_corpus 送出的 system 换成空串、或把用户问题
+    换成空串, 全量 1155 条测试**一条都不红** —— 判库整个 prompt 通道此前零覆盖, 只有跑 181
+    题的 run_routing_eval (LLM, 不在 pytest 里) 才看得见。
+    """
+    llm = _FakeLLM('{"corpus": "cdisc"}')
+    route_corpus(llm, "どの項目ですか")
+    msgs = llm.calls[0]["messages"]
+    assert msgs[0] == {"role": "system", "content": _ROUTER_SYSTEM}
+    assert msgs[1] == {"role": "user", "content": "どの項目ですか"}
 
 
 def test_route_uses_light_model_temperature_zero():
