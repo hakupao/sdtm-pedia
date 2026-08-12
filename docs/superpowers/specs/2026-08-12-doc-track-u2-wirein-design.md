@@ -148,6 +148,29 @@ FederatedEngine(cdisc_engine, StudyCorpusEngine, llm_router)
 - ⚠ **这条在本设计下是构造保证的** (cards 15 席不动, doc 追加) ⇒ 它**判别力很低**,
   绿灯不构成"接线安全"的证据。引用时必须同写这句。卡片侧真正的风险全部转移到 §5.3。
 
+#### 5.2.1 ⚠ 检索非确定性 (2026-08-12 Task 3b 发现, controller 溯源实证)
+
+**embedding API 本身非确定**, 检索层与融合层确定。三步探针 (命令见 §9):
+
+| 探针 | 实测 |
+|---|---|
+| 同一 query 连续 embed 6 次 | **2 种不同向量**; 1122/1536 维不同, max \|Δ\| = **1.5e-4** |
+| **固定向量**下检索 6 次 | 顺序 1 种 / 成分 1 种 ⇒ **完全确定** |
+| 全链路 (每次重新 embed) | 微扰只在两块分数近乎并列时翻位 |
+
+**打到计分上的量级**: controller 在两条路径各跑 3 遍 (卡片路径 / doc-ON 联邦路径),
+**6 遍全部 `0.875` 逐题零变动**; Task 3b 实现方在 doc-ON 路径 4 遍中翻过 **1 次**
+(`st01_v2_q15` 1.0 → 0.5)。合计 **7 遍 1 次**。
+
+**推论 (必须执行)**:
+1. **任何"逐题 Δ0"必须连跑 3 遍且 3 遍都成立**, 单跑一次有假红/假绿。
+   逐题变动的题**按抖动记账, 不按回归记账**, 但必须列名并附遍数。
+2. 本仓历史上所有"逐题 Δ0 / 零回归"的说法 (C1 的 87.50% · U1 的两遍 NONE ·
+   S1/S2 的零回归) 都是**概率陈述而非确定性陈述**。**不追溯重跑**, 但引用时不得
+   读作"确定性相同"。
+3. **答题侧双臂必须先测噪声地板** (见 §5.3.1) —— embedding 抖动在那里只是二阶,
+   LLM 生成与 judge 本身的抖动是一阶。
+
 ### 5.3 答题侧双臂 (kickoff 硬验收第 3 条 — 从未碰过的那半个坑)
 
 同一模型同一温度, doc 通道 OFF / ON 两臂:
@@ -161,6 +184,19 @@ FederatedEngine(cdisc_engine, StudyCorpusEngine, llm_router)
 
 **对照组抽样规则先写死** (仿 U1 Task 9, 读数据前定): 各组按 `id` 升序排序后取
 `idx = ⌊n/7⌋, ⌊2n/7⌋, …, ⌊6n/7⌋` 六个位置。该规则不依赖任何分数, 事后不许换。
+
+#### 5.3.1 空臂 (OFF vs OFF) — 噪声地板, 先于 ON 臂跑
+
+**加一条空臂: doc 通道 OFF 跑两遍**, 同一模型同一温度, 逐题比。
+两遍之间的差异 = **本尺子的噪声地板**, 它是解读 OFF-vs-ON 的前提。
+
+⚠ **这不是改判据, 阈值一个字不动** (§6 自毁条款 3 仍是「逐题下降 ≥3 题 或 均值降 >2.0pt」)。
+空臂的作用是让那个阈值**可解读**:
+
+- 若噪声地板 **< 3 题**且均值波动 **< 2.0pt** ⇒ 阈值有判别力, 照常判。
+- 若噪声地板 **≥ 3 题**或均值波动 **≥ 2.0pt** ⇒ **必须在证据里大声写明「自毁条款 3
+  在本尺子上不具判别力」**, 并把 ON 臂结果与地板并列呈现。
+  **不许**拿"这在噪声范围内"来消化一次真回归 —— 那正是本仓反复在防的读法。
 
 - **必须开 `--judge`** (U1 §8 硬约束 2: 裸子串对 12–82 字整句 fact 恒接近零, 与检索质量无关)。
 - `judge_parse_ok=False` 的题**单独列出**, 不许混进均值 (它会静默退回子串口径)。
@@ -224,6 +260,26 @@ print({c.name: c.count() for c in cl.list_collections()})"      # 4329 / 959 / 1
 ```
 
 三条对不上先查环境, 不要在错的基线上开工。
+
+### 9.1 检索非确定性溯源 (§5.2.1 的三步探针)
+
+```python
+# 同一 query: A) 连续 embed 6 次比向量  B) 固定向量检索 6 次  C) 全链路 6 次
+# A 变 = 源在 embedding API; B 变 = 源在 chroma/融合层。实测 A 变 (2 种向量) B 不变。
+vecs = [tuple(eng._embed_query(q)) for _ in range(6)]
+seqs = [tuple(c.chunk_id for c in eng._search(q, 15, None, query_embedding=list(vecs[0])))
+        for _ in range(6)]
+full = [tuple(c.chunk_id for c in eng.retrieve(q, top_k=15)) for _ in range(6)]
+```
+
+计分层量级 (两条路径各 3 遍, 逐题比):
+
+```bash
+for i in 1 2 3; do ./.venv/bin/python -m eval.run_eval \
+  data/study/st01/eval/test_set_study_v2.yml --retrieval-only --hybrid --study-lookup \
+  --federated --corpus study --study-docs --output /tmp/jit_docon_$i.json; done
+#   -> avg [0.875, 0.875, 0.875] · per-q varying across 3 runs: {}
+```
 
 ## 10. 规则 D 编制 (写/审/抽检不同 session 不同 subagent_type)
 
