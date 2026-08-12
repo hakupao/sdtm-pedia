@@ -139,12 +139,22 @@ async def lifespan(app: FastAPI):
             # 却静默退化成纯卡片, 比启动失败更危险 —— 它表现为"接了线但一条 doc 都不出现"。
             rag_docs = RAGEngine(
                 chroma_dir=s.chroma_dir,
-                # docs/ 没有 ROUTING.md/INDEX.md, 而 kb_root 只进 system prompt 不参与检索;
-                # 这里与 U1 测上界时逐字同一条路径, 数字因此可比。system_prompt 不被读 ——
-                # StudyCorpusEngine 只用 cards 引擎那份 (test_study_corpus 已钉死)。
+                # docs/ 没有 ROUTING.md/INDEX.md ⇒ kb_root 指到 cards/, 与 U1 测上界时逐字
+                # 同一条路径, 数字因此可比。kb_root 有两个出口, 对**本引擎**都不改检索结果:
+                #  ① system_prompt —— 本引擎那份从不被读 (StudyCorpusEngine 只取 cards 引擎
+                #     的, test_study_corpus 已钉死)。
+                #  ② RetrievedChunk.source 的相对化 (rag.py:578-581)。⚠ 这条对 CDISC 侧成立
+                #     (metadata 存绝对路径), 对 study/docs 侧**不成立**: 两库的 source
+                #     metadata 是裸文件名 (st01__doc01__s10_1.md), relative_to 恒抛 ValueError
+                #     被同处的 except 接住回落原值。实测同一 docs collection 换 kb_root,
+                #     source 与 chunk_id 逐位相同 (evidence/step_u2_mutation.md「kb_root 零
+                #     影响」附复跑命令)。别据此以为 U1 的上界数字依赖 kb_root 取值 —— 不依赖。
                 kb_root=s.study_kb_root,
                 collection_name=s.study_docs_collection_name,
                 embedding_model=s.embedding_model,
+                # 惰性参数: StudyCorpusEngine.retrieve 每次都显式传 top_k=seats, 而
+                # rag.py:263 是 `k = top_k or self.top_k` ⇒ 右支在生产路径上永不取值。
+                # 改这里调不动席位, 要调改 study_docs_seats (它同时喂这里与组合器)。
                 top_k=s.study_docs_seats,
                 structured_lookup_enabled=False,
                 hybrid_enabled=s.hybrid_enabled,

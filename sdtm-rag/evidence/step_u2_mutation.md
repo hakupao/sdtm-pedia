@@ -256,3 +256,141 @@ cd /Users/bojiangzhang/MyProject/sdtm-pedia/sdtm-rag
    逐字规定的"both 判库下 doc 席位不缩" (缩了则 both 题与 study 题的 doc 召回不可比)。
    唯一守卫是 `test_both_mode_halves_cards_but_never_shrinks_doc_seats` —— 它刻意取
    `N=10 > top_k=8`, 因为 `N <= top_k` 时 `min()` 不咬人, 那样的测试守不住 (变异 MIN 即为此设)。
+
+---
+
+## Task 2 修复轮 (2026-08-12) — 独立审查 REQUEST-CHANGES 的收口
+
+审查方 (不同 subagent_type / 不同 session) 从**代码行**出发设计 17 条变异, **10 条存活**;
+实现方上一轮从**断言**出发设计 9 条, 两套几乎不重叠 —— 两个搜索方向不等价, 这是本轮
+最贵的一条方法论结论。审查方判定**实现逻辑一处不用改**, 要动的是一条错注释 + 测试侧断言。
+
+修复轮基线: **1144 passed / 0 failed** (口径 `--ignore=scripts/tests/test_run_eval_doc_channel.py`
+—— 该文件是并发 agent 的 Task 3 in-flight 产物, 不属本 task)。
+
+### A. 两条独立实测探针 (Global Constraint 3: 声称必须可复跑)
+
+复跑脚本已落 `scripts/` 之外的临时目录, 逐字命令如下 (零 LLM, 探针 2 打 1 次 embedding):
+
+```bash
+./.venv/bin/python -c "
+from server.config import settings
+from server.rag import RAGEngine
+common = dict(chroma_dir=settings.chroma_dir, embedding_model=settings.embedding_model,
+              structured_lookup_enabled=False, hybrid_enabled=settings.hybrid_enabled,
+              hybrid_fusion=settings.hybrid_fusion, hybrid_alpha=settings.hybrid_alpha,
+              hybrid_pool=settings.hybrid_pool,
+              prompt_guardrail_enabled=settings.prompt_guardrail_enabled)
+# 探针 1: collection 名指错 → 响亮失败?
+try:
+    RAGEngine(kb_root=settings.study_kb_root, collection_name='study_st01_docs_TYPO',
+              top_k=5, **common)
+except Exception as e:
+    print('RAISED', type(e).__module__ + '.' + type(e).__name__ + ':', e)
+# 探针 2: 同一 collection 换 kb_root, 召回是否逐位相同
+a = RAGEngine(kb_root=settings.study_kb_root,
+              collection_name=settings.study_docs_collection_name, top_k=5, **common)
+b = RAGEngine(kb_root=settings.kb_root,
+              collection_name=settings.study_docs_collection_name, top_k=5, **common)
+ra, rb = a.retrieve('評価スケジュール', top_k=5), b.retrieve('評価スケジュール', top_k=5)
+print('chunks =', a.collection.count())
+print('chunk_id 逐位相同:', [c.chunk_id for c in ra] == [c.chunk_id for c in rb])
+print('source   逐位相同:', [c.source for c in ra] == [c.source for c in rb])
+print('source 样例:', [c.source for c in ra][:3])"
+```
+
+实测输出 (2026-08-12):
+
+```
+RAISED chromadb.errors.NotFoundError: Collection [study_st01_docs_TYPO] does not exist
+chunks = 114
+chunk_id 逐位相同: True
+source   逐位相同: True
+source 样例: ['st01__doc01__s7_6.md', 'st01__doc01__s8_2__part01.md', 'st01__doc01__s8_2__part02.md']
+```
+
+**探针 1 — 响亮失败纪律属实。** `main.py` 的注释此前**只是声称**了这条纪律, 没有任何地方
+证明过。抛点是 `rag.py:93` 的 `client.get_collection` (**不是** `get_or_create`) ⇒ 开关开着
+而库不在时启动即崩, 不会静默退化成纯卡片。
+⚠ **刻意不为它补测试**: 生产 lifespan 的测试把 `RAGEngine` 整个 stub 掉了, FakeEngine 永远
+不会抛; 让 stub 抛再断"启动失败", 断的是 stub 自己的行为 —— 构造性装饰断言。
+
+**探针 2 — `kb_root` 对本引擎的 source 零影响。** 审查方的论断「`kb_root` 决定
+`RetrievedChunk.source` ⇒ 是量尺参数」作为**一般性论断成立, 对本引擎不成立**:
+`rag.py:578-581` 是 `Path(source_raw).relative_to(self.kb_root)` 包在
+`try/except (ValueError, TypeError)` 里; 而 study/docs 两库的 `source` metadata 是**裸文件名**
+(`st01__doc01__s10_1.md`), `relative_to` 恒抛 `ValueError` 被同处 except 接住回落原值。
+故同一 docs collection 下 `kb_root` 指 `data/study/st01/cards` 与指 `knowledge_base/`,
+召回的 `source` 与 `chunk_id` 逐位相同。
+⇒ `main.py:139-150` 的注释按此重写。写成"kb_root 是量尺参数"会让下一个人以为 **U1 的上界
+数字依赖 kb_root 取值 —— 它不依赖**。
+
+### B. 修复清单
+
+| # | 改了什么 | 落点 |
+|---|---|---|
+| 1 | 钉住两台引擎的**位置**参数 (新测试 `test_engine_positions_are_not_swapped`; FakeEngine 加 `self.kwargs`) | 测试 |
+| 2 | **同源比对**断言替代逐参数抄写 (新测试 `test_docs_engine_shares_every_lever_with_the_cards_engine`) | 测试 |
+| 3 | `kb_root` 注释按探针 2 重写 (区分 CDISC 侧成立 / study·docs 侧不成立) | `main.py:139-150` |
+| 4 | 告警的**两条反方向**断言 (仿参照文件 `:186-188` / `:191-193`) | 测试 |
+| 5 | `Settings()` 默认值断言 (体例仿 `test_run_eval_flags.py::test_settings_study_lookup_defaults`) | 测试 |
+| 6 | `FakeCollection.count()` 0 → **137** (不寻常值) + 断 `chunks=` 字段 | 测试 |
+| 7 | stub `StudyLookup.from_paths` (catalog 不进 git ⇒ 裸检出可跑) | 测试 |
+| 8 | `top_k=s.study_docs_seats` 惰性注释 (**不加断言**, 见下) | `main.py:155-157` |
+
+第 8 条为何不加断言: `self.top_k` 全文只被 `rag.py:263` 的 `k = top_k or self.top_k` 读, 而
+`StudyCorpusEngine.retrieve` 恒显式传正整数 ⇒ `or` 右支在生产路径上永不取值。为它加断言
+= 断一个不可观测的值, 构造性装饰断言。改成注释, 免得下一个人以为改它能调席位。
+
+第 7 条的效果实测: 把 catalog/aliases 指向不存在的文件, 修前本文件 **3 failed**
+(FileNotFoundError), 修后与参照文件一起 **21 passed**:
+
+```bash
+cd /Users/bojiangzhang/MyProject/sdtm-pedia/sdtm-rag && \
+SDTM_RAG_STUDY_CATALOG_PATH=/nope/missing.json SDTM_RAG_STUDY_ALIASES_PATH=/nope/missing.yml \
+./.venv/bin/python -m pytest scripts/tests/test_main_study_docs_wiring.py \
+  scripts/tests/test_main_study_lookup_wiring.py -p no:warnings   # → 21 passed
+```
+
+### C. 变异复验 (M10-M23)
+
+口径变更 (吸取 Task 1 实现方报的坑): **不再用整文件快照**, 改成对**当前源码**做文本替换并
+断言锚点恰好命中一次 —— 快照会随源码演进悄悄变成 no-op, 写错的变异以全绿身份显示, 被
+误读成"装饰断言"。跑批脚本每条: 替换 → 全量 pytest → 无条件改回。
+
+| # | 变异 | 审查方编号 | 实测 failed | 变红的测试 |
+|---|---|---|---|---|
+| 0 | 无 (基线) | — | **0 / 1144 passed** | — |
+| M10 | 两台引擎位置写反 `(rag_docs, rag_study)` | 09 | **1 / 1143** | `test_engine_positions_are_not_swapped` |
+| M11 | docs 引擎 `kb_root` 指到 CDISC 根 | 03 | **1 / 1143** | `test_docs_engine_shares_every_lever_...` |
+| M12 | docs 引擎 `top_k` 用全局 15 | 05 | **1 / 1143** | 同上 |
+| M13 | docs 引擎误开 S1 | 06 | **1 / 1143** | 同上 |
+| M14 | docs 引擎关掉 hybrid | 07 | **1 / 1143** | 同上 |
+| M15 | docs 引擎关掉答题护栏 | 08 | **1 / 1143** | 同上 |
+| M16 | docs 引擎换 embedding 模型 | 14 | **1 / 1143** | 同上 |
+| M17 | docs 引擎换 chroma 目录 | 15 | **1 / 1143** | 同上 |
+| M18 | 日志丢掉 `chunks` 字段 | 11 | **1 / 1143** | `test_seats_and_collection_are_reported_in_the_ready_log` |
+| M19 | 告警丢掉 `and not federation_enabled` (恒报警) | 13 | **1 / 1143** | `test_no_ignored_warning_when_federation_is_on` |
+| M20 | 告警并进 `study_lookup` 的 elif 链 (被前一支吃掉) | 17 | **1 / 1143** | `test_docs_enabled_without_federation_logs_ignored` |
+| M21 | `study_docs_enabled` 默认偷偷翻 `True` | — | **3 / 1141** | `test_settings_study_docs_defaults` + 参照文件 2 条 |
+| M22 | **cards** 引擎降到 seats 席 (抢席, 反方向) | 双方均未覆盖 | **1 / 1143** | `test_docs_engine_shares_every_lever_...` |
+| M23 | 两台引擎 `top_k` **对调** (双点) | 双方均未覆盖 | ⚠ **0 / 1144 全绿** → 补断言后 **1 / 1143** | 同上 |
+
+上一轮四条复验 (断言集改动后仍红): `M1r` 只建不包 **3 failed** · `M2r` 席位写死常量
+**1 failed** · `M3r` 告警事件名打错 **1 failed** · (M22 见上表)。
+
+**M23 是本轮唯一新发现的存活变异, 审查方 17 条与实现方前 12 条都没覆盖。**
+同源比对只断"两者不同", 不断"谁大" ⇒ 把 cards 与 docs 的 `top_k` **对调**后差集一字不变,
+全量 **1144 全绿**。而那正是"加席不抢席"在**接线层**的反面: 真 cards 降成 5 席去查 959 张卡,
+docs 拿 15 席去查 114 条章节。补的断言把方向单独钉死:
+`assert cards["top_k"] == Settings().top_k and docs["top_k"] == 7`。
+补后 M22 / M23 / M12 三条 top_k 变异**全部变红**。
+
+方法论账: 单点变异全红 ≠ 断言集完备 —— **对调型 (双点、差集不变) 变异是同源比对类断言的
+系统性盲区**, 下一个用同源比对的单元必须同时钉方向。
+
+### D. 修复轮复原核验
+
+- 跑批脚本无条件 `finally` 改回; 收尾 `git diff` 只剩本轮**有意**的改动 (注释 + 测试)。
+- 全量 (排除并发 in-flight 文件) → **1144 passed / 0 failed**。
+- 本文件所在 task 的三个文件对 catalog 1417 个值 **零命中** (红线复扫)。

@@ -14,8 +14,13 @@ import structlog
 from fastapi import FastAPI
 
 from server import main as main_mod
+from server import study_lookup as study_lookup_mod
 from server.config import Settings
 from server.study_corpus import StudyCorpusEngine
+
+# 条数刻意取不寻常值 (仿 test_main_study_lookup_wiring.py 的 _FakeLookup=7): 返回 0 时
+# "字段缺失" / "库是空的" / "写死成常量 0" 三种情况在断言上逐位不可分。
+FAKE_CHUNKS = 137
 
 
 @pytest.fixture
@@ -24,11 +29,14 @@ def boot(monkeypatch):
 
     class FakeCollection:
         def count(self):
-            return 0
+            return FAKE_CHUNKS
 
     class FakeEngine:
         def __init__(self, **kwargs):
             engines.append(kwargs)
+            # 实例上也留一份: 组合器收的是引擎**实例**(位置参数), 只看 engines 列表
+            # 无法判断哪台引擎被放到了 cards 位、哪台被放到了 docs 位。
+            self.kwargs = kwargs
             self.collection = FakeCollection()
             self.system_prompt = "SYS"
 
@@ -39,6 +47,14 @@ def boot(monkeypatch):
     monkeypatch.setattr(main_mod, "create_router", lambda s: SimpleNamespace(model_list=[]))
     monkeypatch.setattr(main_mod, "SpecLoader",
                         lambda root: SimpleNamespace(domains=[], codelists=[]))
+    # catalog.json 按数据红线不进 git ⇒ 不 stub 的话裸检出里这些测试全部 FileNotFoundError
+    # (实测: catalog 路径指向不存在的文件时本文件 3 failed, 而参照文件 12 passed)。
+    # 顺带免掉每次 boot 真读 959 items 的开销。
+    monkeypatch.setattr(
+        study_lookup_mod.StudyLookup, "from_paths",
+        staticmethod(lambda catalog_path, aliases_path: SimpleNamespace(
+            stats=lambda: "7 items/0 aliases")),
+    )
 
     def _run(**overrides):
         s = Settings(**overrides)
@@ -76,10 +92,70 @@ def test_docs_engine_absent_when_disabled(boot):
     assert not isinstance(app.state.federation.study, StudyCorpusEngine)
 
 
+def test_engine_positions_are_not_swapped(boot):
+    """两台引擎是**位置**参数 —— 写反了 isinstance 与 doc_seats 都照样绿。
+
+    位置重排是最可能真实发生的编辑, 后果却是核心不变量整个反转: docs 引擎当上 "cards"
+    拿走 15 席去查 114 条章节, 真 cards 降成 5 席查 959 张卡, 且 system_prompt 会来自
+    docs 引擎 —— 正是 spec §4.1 花一整条测试去钉的那条约束的反面。只能断到构造实参上。
+    """
+    app, _, _ = boot(federation_enabled=True, study_docs_enabled=True, study_docs_seats=5)
+    eng = app.state.federation.study
+    assert eng.cards.kwargs["collection_name"] == "study_st01"
+    assert eng.docs.kwargs["collection_name"] == "study_st01_docs"
+
+
+def test_docs_engine_shares_every_lever_with_the_cards_engine(boot):
+    """spec §4.1「与 U1 测上界时逐字同一条路径, 数字因此可比」的可执行形式。
+
+    逐参数抄一遍清单是抄写练习 (且漏一个就是漏一个); 这里改成**同源比对**: 两台引擎的
+    构造实参只允许差三处 —— 库名、席位数、以及卡片侧专属的 S2 直查。任何一条检索杠杆
+    (hybrid 三件套 / embedding / chroma_dir / kb_root / S1 / 答题护栏) 在 docs 侧被改成
+    另一个值, 这条就红 —— 因为那一刻两条路径不再可比, U1 的上界数字也就不再是参照物。
+    """
+    app, engines, _ = boot(federation_enabled=True, study_docs_enabled=True, study_docs_seats=7)
+    cards, docs = engines[1], engines[2]
+    assert cards["collection_name"] == "study_st01" and docs["collection_name"] == "study_st01_docs"
+    # S2 是卡片侧专属通道 (docs 侧连键都不该出现, 传 None 也不行 —— 那会掩盖 RAGEngine
+    # 的 S1/S2 互斥闸把 docs 引擎误配成直查通道的情形)
+    assert set(cards) - set(docs) == {"study_lookup"}
+    assert set(docs) - set(cards) == set()
+    assert {k for k in docs if cards[k] != docs[k]} == {"collection_name", "top_k"}
+    # 差集只说"两者不同", 不说谁大 —— 实测把两台引擎的 top_k **对调** (cards 拿 seats、
+    # docs 拿全局 15) 差集一字不变, 全量 1144 全绿。而那正是"加席不抢席"在接线层的反面:
+    # 真 cards 降成 5 席查 959 张卡, docs 拿 15 席查 114 条章节。所以方向必须单独钉。
+    assert cards["top_k"] == Settings().top_k and docs["top_k"] == 7
+
+
 def test_docs_enabled_without_federation_logs_ignored(boot):
     _, engines, events = boot(federation_enabled=False, study_docs_enabled=True)
     assert "study_st01_docs" not in [e["collection_name"] for e in engines]
     assert any(m == "study_docs_ignored" for m, _ in events)
+
+
+def test_no_ignored_warning_when_federation_is_on(boot):
+    """反方向: 去掉 `and not s.federation_enabled` 后每次正常启动都报警 = 告警失效,
+    而正方向那条照样绿。参照文件两处反方向断言都写了 (`:186-188` / `:191-193`)。"""
+    _, _, events = boot(federation_enabled=True, study_docs_enabled=True)
+    assert not [e for m, e in events if m == "study_docs_ignored"]
+
+
+def test_no_ignored_warning_when_docs_disabled(boot):
+    _, _, events = boot(federation_enabled=False, study_docs_enabled=False)
+    assert not [e for m, e in events if m == "study_docs_ignored"]
+
+
+def test_settings_study_docs_defaults():
+    """全 task 唯一有**书面禁令**却无人守的值: plan Task 2 Step 3 写死「不许在证据之前
+    改成 True」(生产默认由 Task 8 双臂 + spec §6 自毁条款 3 裁定)。四条接线测试全部显式
+    传值, 没有一条读默认 ⇒ 把默认偷偷翻成 True 全量仍全绿。体例仿
+    test_run_eval_flags.py::test_settings_study_lookup_defaults。"""
+    s = Settings()
+    assert s.study_docs_enabled is False
+    assert s.study_docs_collection_name == "study_st01_docs"
+    assert s.study_docs_seats == 5
+    # 库名与卡片库必须是两个不同的 collection (指成同一个 = doc 通道其实没接上)
+    assert s.study_docs_collection_name != s.study_collection_name
 
 
 def test_seats_and_collection_are_reported_in_the_ready_log(boot):
@@ -92,3 +168,6 @@ def test_seats_and_collection_are_reported_in_the_ready_log(boot):
     # seats=5, 而这条只看日志。日志报 7 而引擎实际只拿 5 席正是"日志在撒谎"的那类故障,
     # 用非默认值把两者钉成同源。
     assert app.state.federation.study.doc_seats == 7
+    # chunks 是"库真的灌进去了"的唯一现场线索 (114 → 0 是静默失效, 不会崩)。用不寻常的
+    # FAKE_CHUNKS 断, 才能把"字段缺失/库是空的/写死成常量"三种情况分开。
+    assert hit[0]["chunks"] == FAKE_CHUNKS
