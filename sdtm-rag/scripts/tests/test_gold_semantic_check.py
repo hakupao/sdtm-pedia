@@ -300,6 +300,14 @@ def test_main_selfsuff_mode_exits_zero_with_findings(tmp_path, capsys):
     assert rc == 0
     assert "[SELF] q1" in out and S1 in out
     assert "[FLAG]" not in out          # 两个模式互不串台
+    # 下面两条钉的是**可见性输出**, 不是判据 (硬规矩 18, 抽检方 B 2026-08-12 点名):
+    # 这两行删掉曾经全套 1119 passed 一条不红, 而同设计的闸 D `[probe]` 行是被钉住的
+    # (`test_main_prints_probe_binding_visibility`) —— 照抄了设计没照抄断言。
+    # 它们存在的唯一理由: 一份 0 触发的输出既可能是"题都很干净"也可能是"它根本没看",
+    # 没有这两行两者长得一模一样。故断言必须带**数值**且写**整句** ——
+    # `"1 处" in out` 会被 `"11 处"` 满足, 那样只证明"打了"不证明"打对了"。
+    assert f"[selfcov] q1: {S1}!=[1.00, 1.00]" in out
+    assert "1 处单 gold 疑似自足 / 1 道多 gold 题" in out
 
 
 def test_main_default_mode_prints_no_selfsuff(tmp_path, capsys):
