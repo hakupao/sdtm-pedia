@@ -1155,3 +1155,43 @@ C1 收尾后就"下一步做什么"做了一道**零配额勘察** (抽 20 页/�
 
 **下一步**: U2 接线 (路由词「doc 轨 开始任务」)。硬约束见收口证据 §8 ——
 两把尺子都要报 / 必须跑 `--judge` / 失分不得默认归因到检索质量。
+
+## 2026-08-13 doc 轨 U2 — doc chunk 检索接线 DONE (有条件), 生产默认启用
+
+### 交付
+- `server/study_corpus.py` — `StudyCorpusEngine` 组合器 (cards 15 席不动 + doc 追加 N=8) + `make_docs_engine` 工厂
+- `server/main.py` / `eval/run_eval.py` — 两条路径共用工厂, 跨路径同源闸 `test_docs_engine_parity.py`
+- `server/federation.py` — `_ROUTER_SYSTEM` 的 study 语料描述补上手順書章节
+- `eval/judge_controls.py` — 阳性/阴性对照 harness (抽样规则先写死)
+- 新 flag: `--study-docs` / `--doc-seats` / `--corpus {auto,cdisc,study,both}`
+- 1119 → **1181 passed**
+
+### 数字
+| 尺子 | 值 |
+|---|---|
+| ① 接线损耗档 (强制 study, N=15) | 1.0000 ⇒ **接线损耗 0.00pt** |
+| ② 判别力档 (强制 study, N=5) | 0.8833 (与 U1 逐位) |
+| ③ 生产档 (auto, N=8) | 0.9000 ⇒ **判库损耗 10.00pt** |
+| 卡片侧检索 三遍协议 | 0.875 逐题 Δ0 |
+| doc 侧答题 OFF → ON | 0.0333 → 0.9517 |
+| 路由闸 | 178/181 → 179/181, fatal=0 |
+
+生产 N=8 = 召回天花板上的最小 N (N=10/15 零增益却把 context 推到 3.68x/5.19x)。
+
+### ⛔ 自毁条款 3 触发, 用户 2026-08-13 裁定豁免
+阈值一字未改。补测 **ON-ON 对照**后驱动它的 `q23r` 不复现 (ON-A 0.0 / ON-B 1.0),
+ON 臂自身噪声 +2.78pt = 声称效应量, 四种 OFF×ON 组合跨 −4.17 到 +0.00。
+⇒ **卡片侧回归「未被建立」而非「已被证明不存在」**。引用必须写「触发了, 用户豁免」。
+
+### 方法论产出 (跨单元可复用)
+1. **变异测试三个搜索方向不等价**: ①从断言出发 (上界 = 已有断言集合) · ②**从代码行出发**
+   (抓到删光 27 行装配块测试一条不红) · ③**从断言的逻辑形状出发** (**对调型是集合/差集类
+   断言的系统性盲区**, 本单元命中 5 次)。
+2. **检索非确定性**: 源在 embedding API, 固定向量下检索完全确定 ⇒ 「逐题 Δ0」必须连跑 3 遍;
+   本仓历史上所有「零回归」都是概率陈述。
+3. **空臂 (OFF vs OFF) + ON-ON 是最低控制配置** —— 缺一条就会把不复现的抖动读成真回归。
+4. **输出说成功不代表事情发生了** (自己栽过: shell 变量未加引号致 6 次跑批全失败而 echo 照打 done)。
+
+evidence: `sdtm-rag/evidence/checkpoints/doc_track_u2_wirein.md`
+spec/plan: `docs/superpowers/{specs,plans}/2026-08-12-doc-track-u2-wirein*`
+下一单元: 无默认, 5 个独立候选见 `milestones/07_rag_kg/DOC_TRACK_KICKOFF.md` §0′
