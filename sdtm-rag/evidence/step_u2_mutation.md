@@ -43,7 +43,12 @@ cd /Users/bojiangzhang/MyProject/sdtm-pedia/sdtm-rag
 | 6 | 删掉 `if d.chunk_id in seen: continue` (不去重) | ≥1 | **1 failed / 1126 passed** | `test_duplicate_chunk_ids_are_deduped_cards_win` |
 | 7 | `if doc_seats < 0: raise ValueError(...)` 改成 `doc_seats = max(doc_seats, 0)` (静默夹紧) | ≥1 | **1 failed / 1126 passed** | `test_negative_doc_seats_fails_loud` |
 
-⇒ **8 条断言全部至少被一条变异证伪过, 无装饰断言残留。**
+⇒ ~~**8 条断言全部至少被一条变异证伪过, 无装饰断言残留。**~~
+
+> ⛔ **此结论已被独立审查方推翻 (2026-08-12), 见下方「Task 1 修复轮」。** 上面这句话说的是
+> "8 条**断言**都被证伪过", 但那只证明了**断言侧**没有装饰品, 完全没有覆盖**代码侧**:
+> 独立审查方从代码行出发另设计 9 条变异, **9 条全部存活**。原句保留划线不删, 作为
+> "自证式变异测试会漏什么" 的样本 (规则 B: 失败数据不删)。
 
 ## 复原核验
 
@@ -147,3 +152,107 @@ print(seen)"
 修法取计划 Step 1 docstring 自己指的路 (「仿 `test_main_study_lookup_wiring.py` 的 stub 编制」):
 改用 `structlog.testing.capture_logs()`, 元组首位换成 `e["event"]`。附带收益是不再往全局
 structlog 配置里永久塞处理器 (裸 `configure` 会泄漏给后续测试)。**四条测试的断言一字未改。**
+
+---
+
+## Task 1 修复轮 — 独立审查方 REQUEST-CHANGES 后 (2026-08-12)
+
+独立审查方 (不同 subagent_type / 不同 session) 判定: **实现逻辑无缺陷** (三路席位、去重方向、
+早返、守卫全部实证正确), 问题**全在断言缺口**。它独立设计 9 条变异, **9 条全部存活 (8 tests 全绿)**。
+
+### 方法论差异 (本轮最贵的一条, 给 Task 9 抽检方: 别重复踩)
+
+| | 实现方首轮 | 独立审查方 |
+|---|---|---|
+| 搜索方向 | **从断言出发**: 找能杀死这条断言的变异 | **从代码行出发**: 问这行改坏了谁会红 |
+| 覆盖到的 | 断言侧无装饰品 (7/7 变异变红) | 代码侧大片无人守 (9/9 变异存活) |
+| 结构性盲区 | 只会构造"已经有人守"的变异 —— **恒不可能发现无人守的代码行** | — |
+
+⇒ **自证式变异测试的上界 = 已有断言的集合。** 实现方跑出"变异全红"时,证明的是
+"我写的断言不是装饰品",**不是**"我的代码被守住了"。这两句话在首轮被混为一谈。
+Task 9 的抽检方 B 若也从断言出发, 会重现同一盲区 —— **必须从代码行 / diff 出发**。
+
+### 本轮改了什么
+
+| # | 改动 | 类型 |
+|---|---|---|
+| 1 | `format_context` 两个分组标题补字面断言 (含 `\n\n` 前导, 保证 `##` 在行首) | 补断言 |
+| 2 | `retrieve` 删掉 `**kw` + 补 `TypeError` 断言 | 删代码 + 补断言 |
+| 3 | **删掉 `build_messages`** (生产路径不可达的死代码) + 补 `not hasattr` 断言 | 删代码 + 补断言 |
+| 4 | `_DOC_CORPUS_RULES` 补内容断言 (两类来源 + 節番号) | 补断言 |
+| 5 | `file_type=None` 落进卡片组的断言 (反选 vs 正选) | 补断言 |
+| 6 | both 模式席位测试 (spec §7 列为必测, 计划漏分配给任何 task) | 补断言 |
+| 7 | per-call `doc_seats` 负值补 `ValueError` 闸 (与 `__init__` 同纪律) | 补代码 + 补断言 |
+| 8 | docs 引擎**自身**返回重复 id 的去重断言 (原测试走不到 `seen.add` 那行) | 补断言 |
+| 9 | `list()` 防御性拷贝的断言 (审查方变异 F, 本轮之前无人守) | 补断言 |
+
+测试 8 条 → **16 条**。
+
+### `build_messages` 删除前的调用方核验 (逐字命令 + 结果)
+
+```bash
+cd /Users/bojiangzhang/MyProject/sdtm-pedia/sdtm-rag
+grep -rn "build_messages" --include="*.py" . | grep -v "\.venv/"           # [G1]
+grep -rn "\.study\." --include="*.py" . | grep -v "\.venv/" | \
+  grep -v "study_lookup\|study_corpus\|study_kb\|study_docs\|study_collection\|study_catalog\|study_aliases"  # [G3]
+```
+
+- **[G1]**: 全仓 `build_messages` 共 38 处。唯一在联邦路径上的是
+  `server/federation.py:148` → `msgs = self.cdisc.build_messages(...)` —— 走 **cdisc** 引擎。
+  其余调用方 (`server/router.py` ×5 / `eval/run_eval.py:353` / `eval/prod_wirein/forensic_*.py` /
+  `eval/crowding_ab.py:509` / `eval/vi_completeness_ab.py:50`) 的接收者均为 CDISC `RAGEngine`
+  (逐处核过: 三个 `eng.build_messages` 的 `eng` 都由 `settings.kb_root` + `settings.collection_name`
+  构造) 或 `FederatedEngine` 本身。**无一处调用 study 引擎的 build_messages。**
+- **[G3]**: 全仓对 `.study.` 的成员访问只有 5 处, 全在 `federation.py`:
+  `retrieve` (:122/:129) · `format_context` (:143) · `system_prompt` (:156/:158)。
+  ⇒ `StudyCorpusEngine` 的鸭子接口实际只需三件套, `build_messages` 结构上不可达。
+
+### 变异复验 (17 条, 2026-08-12 实测)
+
+口径变更: 本轮**不再改动工作树**。变异施加在真实源码的**副本**上, 用 conftest 把副本注入
+`sys.modules['server.study_corpus']`, 跑**真实的** `scripts/tests/test_study_corpus.py`
+(每次从工作树重新拷贝)。驱动器对每条变异先断言"替换确实发生了" —— 一条写错的变异会以
+no-op 身份显示全绿, 被误读成"断言是装饰品"。
+
+```bash
+cd /Users/bojiangzhang/MyProject/sdtm-pedia/sdtm-rag
+./.venv/bin/python <scratch>/mut2/drive.py      # 驱动器 + conftest 见报告; 不进 git
+```
+
+| # | 变异 | 结果 | 变红的测试 |
+|---|---|---|---|
+| BASE | 无 | 16 passed | — |
+| R1-1 | 去掉 `seats<=0` 早返 (恒不取 doc) | **RED 5** | cards_keep_full_top_k · both_mode · per_call_doc_seats · format_context_groups · docs_internal_dup |
+| R1-2 | cards 抢席 `top_k`→`seats` | **RED 3** | cards_keep_full_top_k · both_mode · format_context_groups |
+| R1-3 | `system_prompt` 读 docs 引擎 | **RED 1** | system_prompt_comes_from_cards_engine_never_docs |
+| R1-4 | `format_context` 去掉 `if docs:` 守卫 | **RED 1** | format_context_omits_absent_group |
+| A | 删掉两个分组标题 | **RED 1** | format_context_groups_the_two_source_kinds |
+| A2 | 只删手順書标题 | **RED 1** | format_context_groups_the_two_source_kinds |
+| I | `"\n\n".join` → `"".join` (`##` 不在行首) | **RED 1** | format_context_groups_the_two_source_kinds |
+| B | `_DOC_CORPUS_RULES = ""` | **RED 1** | system_prompt_names_both_source_kinds_and_keeps_section_numbers |
+| C | re-add `build_messages` (弱版) | **RED 1** | engine_builds_no_messages_of_its_own |
+| D | re-add `build_messages` (原版) | **RED 1** | engine_builds_no_messages_of_its_own |
+| E | 去掉 `seen.add(d.chunk_id)` | **RED 1** | docs_internal_duplicates_are_deduped_too |
+| G | 分组改正选 `== CARD_FILE_TYPE` | **RED 1** | unknown_file_type_is_grouped_with_cards_never_dropped |
+| KW | `retrieve` 重新收 `**kw` | **RED 1** | unknown_kwarg_fails_loud_not_silently_swallowed |
+| NEG | 删掉 per-call 负席位闸 | **RED 1** | negative_per_call_doc_seats_fails_loud_before_any_retrieval |
+| MIN | `seats = min(seats, top_k)` (both 下缩 doc 席位) | **RED 1** | both_mode_halves_cards_but_never_shrinks_doc_seats |
+| F | 去掉 `list()` 防御性拷贝 | **RED 1** (补断言前 GREEN) | retrieve_never_mutates_the_cards_engine_result |
+| H | `if seats <= 0` → `if seats == 0` | **GREEN(存活)** | — 见下 |
+
+**变异 H 存活是正确的, 不是缺口**: 修复 7 之后负席位在函数开头就 `raise`, 能走到该守卫的
+`seats` 恒 `>= 0`, 故 `<= 0` 与 `== 0` **在所有可达输入下逐位等价** (equivalent mutant)。
+不存在能区分二者的测试; 保留 `<=` 只是纵深防御。**不许为了让它变红去造断言。**
+
+全量: **1149 passed** (= 修复轮开工基线 1131 + 本轮新增 8 + 并发 agent 的 Task 3 新增 10)。
+
+### 已知限制 (本轮**不**改代码, 只记 —— Task 10 收编)
+
+1. **`doc_seats` 是绝对常量, 不随 `top_k` 缩放。** 独立审查方实测: `top_k=3` 时得 3 张卡片 +
+   5 条 doc, **doc 条数反超卡片**。而答题侧双臂只在 `top_k=15` 下量 ⇒ 双臂数字对
+   "小 top_k 下 doc 占比失衡" 这个方向**看不见**。生产联邦只用 15 (study) 与 8 (both),
+   故不影响本单元结论, 但任何人把 `top_k` 调小时该结论立刻失效。
+2. **不许"顺手"把 seats 改成 `min(doc_seats, top_k)` 来修上一条。** 那会违反 spec §4.2
+   逐字规定的"both 判库下 doc 席位不缩" (缩了则 both 题与 study 题的 doc 召回不可比)。
+   唯一守卫是 `test_both_mode_halves_cards_but_never_shrinks_doc_seats` —— 它刻意取
+   `N=10 > top_k=8`, 因为 `N <= top_k` 时 `min()` 不咬人, 那样的测试守不住 (变异 MIN 即为此设)。

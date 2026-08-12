@@ -7,6 +7,12 @@
 - **不做跨库分数排序**: 沿用联邦既有纪律 (两库相似度分布不可比)。
 - **system_prompt 只来自 cards 引擎**: docs 引擎的 kb_root 指向 cards/ (RAGEngine 硬要求
   ROUTING.md/INDEX.md, docs/ 没有), 它自己的 system_prompt 描述的是卡片库, 读了就是错的。
+- **本类不出 build_messages**: 联邦答题走 `FederatedEngine.build_messages` → cdisc 引擎
+  (`federation.py:148`), 对本类只读 `system_prompt` (`:156/158`) 与 `retrieve/format_context`
+  (`:122/129/143`)。留一份自己的 build_messages = 零测试守护的死代码; 删掉后真有人调它会
+  AttributeError 响亮失败 (断言见 test_engine_builds_no_messages_of_its_own)。
+- **retrieve 不收 `**kw`**: 席位数是本单元唯一的自变量, `**kw` 会把 `doc_seat=8` 这类拼写错
+  静默吞成默认席位。联邦从不给 study 引擎传 domain/file_type (`federation.py:122/129`)。
 """
 from __future__ import annotations
 
@@ -35,8 +41,10 @@ class StudyCorpusEngine:
     def system_prompt(self) -> str:
         return self.cards.system_prompt + _DOC_CORPUS_RULES
 
-    def retrieve(self, question: str, *, top_k=None, doc_seats=None, **kw):
+    def retrieve(self, question: str, *, top_k=None, doc_seats=None):
         seats = self.doc_seats if doc_seats is None else doc_seats
+        if seats < 0:  # per-call 与 __init__ 同纪律: 非法席位数响亮失败, 不静默当 0
+            raise ValueError(f"doc_seats must be >= 0, got {seats}")
         chunks = list(self.cards.retrieve(question, top_k=top_k))
         if seats <= 0:
             return chunks
@@ -57,8 +65,3 @@ class StudyCorpusEngine:
         if docs:
             parts.append("## 【手順書章節】\n" + self.docs.format_context(docs))
         return "\n\n".join(parts)
-
-    def build_messages(self, question, context, history=None):
-        msgs = self.cards.build_messages(question, context, history)
-        msgs[0] = {"role": "system", "content": self.system_prompt}
-        return msgs
