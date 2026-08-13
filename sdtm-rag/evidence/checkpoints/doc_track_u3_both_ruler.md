@@ -3,6 +3,13 @@
 > 状态: **DONE** · 日期 2026-08-13 · 单元 = doc 轨 U3「判库欠账」Task 2
 > 分支 `doc-track-u3` · **零生产代码改动** (`eval/run_eval.py:739` 已支持 `--corpus both`)
 > 数据红线: 题集 / 语料 / 逐题题面全在 `data/study/`(gitignored)。**本文件零真名零正文, 只有 id 与数字。**
+>
+> ⏱ **时效性锚点**: 本文件引用的**代码行号**(`federation.py` / `study_corpus.py` / `run_eval.py`)
+> 与**姊妹交付物的行为**(`eval/compare_runs.py` 的输出)均核于 `761c6ef`(首轮)与 `ab9215d`(修复轮 1)。
+> 行号会随他人编辑漂移 —— **引用前请按符号名重新定位, 不要盲信行号**。
+> 就地锁了 commit 的三处 —— **已实际漂移**: §2.1(comparator 的 avg 口径, 由 `92d8ca8` 改)、
+> §6 末尾(pytest 全量计数, 1203 → 1207); **尚未漂移但会静默失效**: §1(`study_docs_seats` 默认值,
+> 复核仍为 8)。§2/§4 的**测量结果本身**不随这些漂移而变(它们锚在落盘产物上)。
 
 ## 0. 一句话
 
@@ -25,7 +32,10 @@
 | **B3** doc 30 题 @ `study` N=8 | `--corpus study --study-docs --doc-seats 8` | 0 | 15 | 8 |
 
 B3 的作用是**隔离变量**: 它与 B1 的 doc 席位同为 8, 差别只在 cards 是否被减半 + 是否掺 cdisc。
-(B1/B2 不传 `--doc-seats`, 走默认值; 实测 `settings.study_docs_seats = 8`, `.env` 无覆盖 ⇒ 三档 doc 席位同为 8。)
+(B1/B2 不传 `--doc-seats`, 走默认值; 实测 `settings.study_docs_seats = 8`, `.env` 无覆盖
+⇒ 三档 doc 席位同为 8。⏱ 该默认值实测于 `761c6ef` / 复核于 `ab9215d`, 定义在
+`server/config.py:64` —— **若日后有人改了这个默认值或加了 `.env` 覆盖, B1/B2 的席位前提即失效,
+本文件 §2 的三个数需重跑**。)
 
 ## 2. 数字 (检索侧 source recall, 确定性, 零 LLM 判库)
 
@@ -118,6 +128,9 @@ for i in 1 2 3; do ./.venv/bin/python -m eval.compare_runs \
   print(len(a), len(b), len(a&b))"      # 959 114 0
   ```
   ⇒ `seen` **不可能**丢掉任何 doc chunk。
+  ⏱ 959/114 是 `761c6ef` / `ab9215d` 两次实测的**当时**集合规模; 重建索引后条数会变,
+  但**恒等性只依赖交集为 0**(id 前缀 `st01__<DOM>__<FIELD>` vs `st01__doc01__sN_M` 天然分离),
+  不依赖这两个具体条数 —— 重跑上面这条命令看第三个数是否仍为 `0` 即可。
 
 **⇒ 对 doc-gold 的 source_recall, B1 与 B3 恒等, 与分数高低无关。**
 
@@ -328,4 +341,8 @@ done
 ```
 ⚠ B2 的 `rc=1` 是 `run_eval` 分数低于 85% 阈值的返回值, **不是跑批失败** —— 看产物, 不看 rc。
 
-**本 task 零生产代码改动**: 全量测试 `./.venv/bin/python -m pytest` → **1203 passed** (34.29s), 与 U3 Task 1 后的基线一致。
+**本 task 零生产代码改动**: 在本文件首轮 commit 时刻(`761c6ef`)全量测试
+`./.venv/bin/python -m pytest` → **1203 passed** (34.29s)。
+此后 `92d8ca8` 为 comparator 的 avg 口径修复**新增 4 条测试**, 故在该 commit 之后复跑得
+**1207 passed**(修复轮 1 实测, 34.48s)—— `1207 − 4 = 1203`, 两个数自洽。
+⚠ 这个数**只用于证明本 task 没碰代码**, 不是本文件的结论; 它随分支上任何后续 task 增长, 属正常。
