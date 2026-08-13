@@ -14,7 +14,7 @@
 
 - **数据红线**: 一切进 git 的内容**零真名零正文**。手順書题面 / 逐题明细一律落 `data/study/`(`.gitignore:10`)。stdout 与进 git 的文档只许出现 **id 与数字**。
 - **工作目录**: 所有命令在 `sdtm-rag/` 下跑,Python 一律用 `./.venv/bin/python`。
-- **开工基线**: `1189 passed / 0 failed / 0 errors / 0 skipped`;collections `sdtm_kb_v1 4329 / study_st01 959 / study_st01_docs 114`。对不上先查环境。
+- **开工基线**: `1189 passed / 0 failed / 0 errors / 0 skipped`(Task 1 交付后为 **1203**);collections `sdtm_kb_v1 4329 / study_st01 959 / study_st01_docs 114`。对不上先查环境。
 - **不要再加 `-q`**:`pyproject.toml` 的 `addopts` 已含 `-q`,再加一个就是 `-qq`,pytest 会**吞掉 `N passed` 汇总行**(本仓踩过)。用 `pytest -p no:warnings --tb=no | tail -2` 即可看到计数。
 - **连跑 3 遍**: 任何检索跑批都连跑 3 遍(U2 §5-1:非确定性源在 embedding API)。三遍不一致的题必须逐题点名。
 - **rc=1 ≠ 跑批失败**: `run_eval` 与 `run_routing_eval` 在不达标时返回 1。**去看产物,不要看日志**(U2 自己栽过:shell 变量未加引号致 6 次跑批全失败而 `echo` 照打 6 次 "done")。
@@ -239,7 +239,7 @@ Expected: `test_unstable_ids_requires_two_runs` **变红**。改回来。
 ```bash
 ./.venv/bin/python -m pytest -p no:warnings --tb=no | tail -2
 ```
-Expected: `1199 passed`(1189 + 10)
+Expected: `1199 passed`(1189 + 10)。⚠ **修复轮后终值为 1203**(+4 条 `main()` 测试),下游预期数按 1203 起算
 
 ```bash
 git add eval/compare_runs.py scripts/tests/test_compare_runs.py
@@ -712,7 +712,7 @@ U2 §4.1 实证:**对调型是集合/差集类断言的系统性盲区,本仓已
 ```bash
 ./.venv/bin/python -m pytest -p no:warnings --tb=no | tail -2
 ```
-Expected: `1213 passed`(1199 + 14)
+Expected: `1217 passed`(1203 + 14)
 
 ```bash
 git add eval/run_routing_eval.py scripts/tests/test_run_routing_eval.py
@@ -979,7 +979,7 @@ Expected: `total = 253`;
 ```bash
 ./.venv/bin/python -m pytest -p no:warnings --tb=no | tail -2
 ```
-Expected: `1220 passed`(1213 + 7)
+Expected: `1224 passed`(1217 + 7)
 
 ```bash
 git add scripts/tests/test_u3_gold_redline.py
@@ -1446,5 +1446,5 @@ git push
 - `GROUPS` / `NEW_GROUPS` / `FINAL_IDS` / `LEGACY_EXACT_FLOOR` 在 Task 3 定义,Task 5 Step 4、Task 8 Step 3 引用 ✓
 - gold 条目统一形状 `{id, question, gold, group}`(`routing_gold_docs.yml` 另带 `chapter`,加载器忽略)✓
 
-**4. 测试计数链**:1189(基线)→ 1199(T1 +10)→ 1213(T3 +14)→ 1220(T5 +7)→ Task 7 再 +2 = **1222**。
+**4. 测试计数链**:1189(基线)→ **1203**(T1 +10 +4 修复轮)→ 1217(T3 +14)→ 1224(T5 +7)→ Task 7 再 +2 = **1226**。
 Task 9 Step 5 只验「全 passed、0 failed/error/skipped」,不写死总数(抽检方 B 会补断言,总数会涨)。
