@@ -9,6 +9,7 @@ import pytest
 import yaml
 
 from eval import judge_controls as jc
+from eval import run_eval
 from eval.judge_controls import sample_ids, positive_answer
 
 
@@ -31,6 +32,10 @@ def test_sample_ids_rejects_impossible_n():
     import pytest
     with pytest.raises(ValueError):
         sample_ids(["a", "b"], 6)
+    # `n <= 0` 的下界: 改成 `n < 0` 后 `--n 0` 变合法 —— 跑 0 题、avg=0.0、退出码 0,
+    # 即"阳性对照跑过了且分数是 0" ⇒ 会被读成自毁条款 4 触发 (实际一题都没跑)。
+    with pytest.raises(ValueError):
+        sample_ids(["a", "b"], 0)
 
 
 def test_positive_answer_is_the_gold_facts_joined():
@@ -118,8 +123,12 @@ def test_main_puts_question_and_answer_in_their_own_slots(harness):
     """
     run, _, _, _ = harness
     for c in run("--mode", "positive", "--n", "3"):
+        qid = c["question"].rsplit("-", 1)[1]
         assert c["question"].startswith("QUESTION-TEXT-")
         assert not c["answer"].startswith("QUESTION-TEXT-")
+        # gold 槽位传 `[]` 时下面那条 `all(...)` **真空为真** ⇒ judge 被要求"逐 0 个 fact
+        # 打分", 每题恒返回满分而两臂都读不出任何东西。故先钉住槽位内容本身。
+        assert c["facts"] == _FACTS[qid]
         assert all(f in c["answer"] for f in c["facts"])
 
 
@@ -166,6 +175,9 @@ def test_main_keeps_unparseable_verdicts_out_of_the_average(harness):
 
     got = json.loads(out.read_text(encoding="utf-8"))
     assert got["mode"] == "positive"
+    # id 列写死成常量时下面三条逐位不变 —— 而这一列是 JSON 里唯一说明"这些分数属于哪些题"
+    # 的东西 (证据引用它做逐题追溯)。
+    assert [r["id"] for r in got["rows"]] == ["q02", "q04", "q06"]
     assert [r["parse_ok"] for r in got["rows"]] == [True, False, True]
     assert [r["recall"] for r in got["rows"]] == [1.0, None, 1.0]
     assert got["avg"] == 1.0                      # 2/2, 不是 2/3
@@ -179,3 +191,84 @@ def test_positive_answer_preserves_gold_fact_order_and_line_separation():
     """
     q = {"expected_facts": ["fact one", "fact two", "fact three"]}
     assert positive_answer(q).splitlines() == q["expected_facts"]
+
+
+# ─────────────────────── U2 抽检方 B 缺口 (evidence/step_u2_mutation_remediation.md) ───────
+#
+# 抽检方 B 独立复跑本文件的变异时发现: 上面 11 条测试有 7 条把 judge **整个 monkeypatch
+# 掉**, 于是「用的是哪把尺子 / 抽了几题 / 均值怎么算」三件事在全量套件里零断言 —— 逐条实测
+# 每种变异后都是 1181 passed。本段按那三件事补。
+
+def test_the_judged_ruler_is_the_one_run_eval_uses():
+    """杀 X2 (最重): 把 import 换成本文件自带的一个假 judge, 全量仍全绿。
+
+    对照的全部意义是"量 run_eval 那把尺子还准不准"; 量了另一把 = 数字与双臂评测无关,
+    而 7 条 main() 测试全部 monkeypatch 掉这个名字 ⇒ 维系同一性的只剩那行 import。
+    本条**不取 harness** —— 取了就等于在被打桩后的模块上断身份, 什么也证明不了。
+    """
+    assert jc.check_fact_recall_judge is run_eval.check_fact_recall_judge
+
+
+def test_default_judge_model_is_run_evals_default(harness):
+    """杀 I: `--judge-model` 的默认值换成别的模型 ⇒ 全绿。
+
+    不传 `--judge-model` 是证据里的常规跑法; 默认值与 run_eval 脱钩后, 对照用 A 模型打分
+    而双臂用 B 模型打分, 两个数字不再可比且无任何提示。
+    """
+    run, _, _, _ = harness
+    calls = run("--mode", "positive", "--n", "3")           # 不传 --judge-model
+    assert {c["judge_model"] for c in calls} == {run_eval.DEFAULT_JUDGE_MODEL}
+
+
+def test_sample_size_defaults_to_six_and_follows_the_flag(harness):
+    """杀 J (默认 6→3) 与 U1 (`sample_ids(..., a.n)` 写死 3)。
+
+    11 条测试全部显式传 `--n` ⇒ 默认值零覆盖; 而 spec §5.3 把 n=6 写死在读数据之前,
+    偷偷改小 = 对照的样本量比证据里写的少, 且证据无从发现。
+    """
+    run, _, _, _ = harness
+    got6 = [c["question"].rsplit("-", 1)[1] for c in run("--mode", "positive")]
+    assert got6 == sample_ids(list(_FACTS), 6)              # spec §5.3: n 默认 6
+    assert len(got6) == 6
+    # 写死成 6 同样要红: 抽几题必须真的跟着 flag 走。
+    got5 = [c["question"].rsplit("-", 1)[1] for c in run("--mode", "positive", "--n", "5")]
+    assert got5 == sample_ids(list(_FACTS), 5)
+    assert len(got5) == 5
+
+
+def test_total_parse_failure_reads_as_zero_never_as_a_perfect_score(harness):
+    """杀 K: `avg = … if ok else 0.0` 改成 `else 1.0` ⇒ 全绿。
+
+    judge 全部解析失败时 avg 报 1.0 = 阳性对照假性满分 —— 一次 judge 故障会被读成
+    "尺子完好" (自毁条款 4 的阳性侧 ≥0.80 被凭空满足), 是本文件最危险的一种沉默。
+    """
+    run, _, verdicts, tmp_path = harness
+    for qid in sample_ids(list(_FACTS), 3):
+        verdicts[f"QUESTION-TEXT-{qid}"] = None             # 三题全部解析失败
+    out = tmp_path / "ctrl.json"
+    run("--mode", "positive", "--n", "3", "--output", str(out))
+
+    got = json.loads(out.read_text(encoding="utf-8"))
+    assert got["avg"] == 0.0
+    assert [r["parse_ok"] for r in got["rows"]] == [False, False, False]
+
+
+def test_screen_receipt_reports_the_real_numbers(harness, capsys):
+    """杀 U6: 两行屏幕回执写死 `recall=1.0 parse_ok=True avg=1.0000` ⇒ 全绿。
+
+    不给 `--output` 时 (证据里的常规跑法) 人只看得到这两行 —— 它们是这个脚本唯一的输出。
+    故意让三题取三种不同结局, 使"写死常量"与"如实转述"逐字可分。
+    """
+    run, _, verdicts, _ = harness
+    picked = sample_ids(list(_FACTS), 3)                    # q02 / q04 / q06
+    verdicts[f"QUESTION-TEXT-{picked[0]}"] = (0.5, [], [])  # 部分命中
+    verdicts[f"QUESTION-TEXT-{picked[1]}"] = None           # 解析失败
+    capsys.readouterr()
+    run("--mode", "positive", "--n", "3")
+    out = capsys.readouterr().out
+
+    assert f"[positive] {picked[0]} recall=0.5 parse_ok=True" in out
+    assert f"[positive] {picked[1]} recall=None parse_ok=False" in out
+    assert f"[positive] {picked[2]} recall=1.0 parse_ok=True" in out
+    # 汇总行: n / 成功解析数 / 均值三个数都要如实 (均值 0.75 = 1.5/2, 不是 1.5/3)
+    assert "[positive] n=3 parse_ok=2 avg=0.7500" in out

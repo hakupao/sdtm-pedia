@@ -20,9 +20,10 @@ def sample_ids(ids: list[str], n: int) -> list[str]:
     if n <= 0 or n > len(ids):
         raise ValueError(f"n={n} out of range for {len(ids)} ids")
     ordered = sorted(ids)
+    # 撞位不可能: 闸已保证 n <= L, 而 n == L 时 (k*L)//(L+1) = k-1 (k=1..L) 已两两不同,
+    # n < L 时步长更大 ⇒ 恒得 n 个位置。原先那条"撞位回落"分支据此删除 (暴力枚举
+    # L=1..299 × n=1..L 零撞位, 见 evidence/step_u2_mutation_remediation.md)。
     idx = sorted({(k * len(ordered)) // (n + 1) for k in range(1, n + 1)})
-    if len(idx) != n:  # 小池子撞位: 退化成前 n 个不重复位置, 仍与分数无关
-        idx = list(range(n))
     return [ordered[i] for i in idx]
 
 

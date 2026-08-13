@@ -80,6 +80,10 @@ def prod_boot(monkeypatch):
                 pass
 
         asyncio.run(go())
+        # 本次 boot 实际用的 Settings。lever **取值**断言必须对着它, 不能对着模块级 settings
+        # 单例的值再抄一份常量 —— 那样断的是"本机 .env 长什么样"而不是"生产把 settings 传
+        # 下去了" (见 test_prod_docs_engine_carries_every_lever_its_cards_engine_carries)。
+        _run.settings = app.state.settings
         return engines
 
     return _run
@@ -158,7 +162,10 @@ def test_the_two_paths_hand_the_docs_engine_identical_structural_kwargs(
     assert prod["collection_name"] != settings.study_collection_name
     assert prod["kb_root"] == settings.study_kb_root      # 与 U1 上界口径逐字相同
     assert prod["top_k"] == 7                             # 席位数, 不是全局 top_k
-    assert prod["top_k"] != settings.top_k
+    # ⚠ 此处原有一条 `prod["top_k"] != settings.top_k`, 已删: `Settings` 走 env_prefix
+    #   SDTM_RAG_ 且 config.py import 期就 load_dotenv ⇒ 有人把 SDTM_RAG_TOP_K 设成 7,
+    #   这条就伪红 (量的是本机环境而不是代码)。"cards 拿全局 top_k、docs 拿席位"这个方向
+    #   由下面两条同源测试里的 `cards["top_k"] == …top_k and docs["top_k"] == 7` 承担。
     assert prod["structured_lookup_enabled"] is False     # S1 是 CDISC 专属
 
     # S2 的数据源是 catalog.json, 对 doc chunk 无定义 ⇒ 两条路径都不许把它传进来
@@ -200,6 +207,13 @@ def test_eval_docs_engine_carries_every_lever_its_cards_engine_carries(eval_boot
     assert docs["hybrid_alpha"] == 0.7 and docs["hybrid_pool"] == 41
     assert docs["prompt_guardrail_enabled"] is True
 
+    # 无 CLI 覆盖的两个键: 只比"两台相同"时**两台一起指错**照样绿 (抽检方 B 的 S2: 四台
+    # study 引擎的 embedding_model 一起换成 bogus 值 ⇒ 全量全绿)。用与索引期同一个
+    # settings 取值钉方向 —— 生产用与索引不同的 embedding = 检索静默崩塌 (不报错, 只是
+    # 全查不中); chroma_dir 指错则是查了另一份库。
+    assert docs["embedding_model"] == settings.embedding_model
+    assert docs["chroma_dir"] == settings.chroma_dir
+
 
 def test_prod_docs_engine_carries_every_lever_its_cards_engine_carries(prod_boot):
     """生产侧同一条不变量的镜像 —— eval 侧那条改红了而这条没有, 就是单边漂移。"""
@@ -211,3 +225,20 @@ def test_prod_docs_engine_carries_every_lever_its_cards_engine_carries(prod_boot
     assert cards["top_k"] == settings.top_k and docs["top_k"] == 7
     assert cards["collection_name"] == settings.study_collection_name
     assert docs["collection_name"] == settings.study_docs_collection_name
+
+    # ── lever **取值** (生产侧此前一条都没有) ──
+    # 上面全是 cards↔docs 自比, 跨路径又只比 6 个 STRUCTURAL 键 ⇒ 把两台 study 引擎的
+    # lever **一起**改掉在生产侧完全没人管 (抽检方 B 的 Q: 两台 hybrid_alpha 一起改成
+    # 0.99 ⇒ 全量全绿), 而 eval 侧的同类变异 S3 是被杀的 —— 两侧强度不对称。
+    # 断的是"生产把 settings 那一份传下去了", 不是"取值等于某个常量": 对着本次 boot 真正
+    # 用的 Settings, 故 .env 覆盖任一 lever 时这条跟着走而不会伪红。
+    s = prod_boot.settings
+    assert docs["hybrid_enabled"] == s.hybrid_enabled
+    assert docs["hybrid_fusion"] == s.hybrid_fusion
+    assert docs["hybrid_alpha"] == s.hybrid_alpha
+    assert docs["hybrid_pool"] == s.hybrid_pool
+    assert docs["prompt_guardrail_enabled"] == s.prompt_guardrail_enabled
+    # 方向钉 (STRUCTURAL 里比了但没钉方向, 两条路径一起指错就照绿): 生产用与索引不同的
+    # embedding = 检索静默崩塌; chroma_dir 指错 = 查的是另一份库。
+    assert docs["embedding_model"] == s.embedding_model
+    assert docs["chroma_dir"] == s.chroma_dir

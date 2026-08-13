@@ -76,6 +76,20 @@ def test_per_call_doc_seats_overrides_default():
     assert docs.calls == [8]
 
 
+def test_per_call_doc_seats_zero_turns_the_channel_off_for_that_call():
+    """`is None` 写成 `or` 时 per-call 0 静默回落成默认席位 (上面那条给 8, 照样绿)。
+
+    per-call **负数**有闸也有断言, 0 却是**空臂实验唯一的表达方式** —— 回落发生时空臂
+    那一臂会被悄悄跑成满席, 而两臂数字看起来一切正常。同一个单边守卫在
+    eval/run_eval.py 的 `--doc-seats 0` 上也有一份 (test_run_eval_doc_channel)。
+    """
+    eng, cards, docs = _engine(doc_seats=5)
+    got = eng.retrieve("q", top_k=3, doc_seats=0)
+    assert docs.calls == []
+    assert cards.calls == [3]
+    assert len(got) == 3
+
+
 def test_duplicate_chunk_ids_are_deduped_cards_win():
     cards = _Stub("x", "field_card", 3)
     docs = _Stub("x", "protocol_section", 3)   # 同名 chunk_id
@@ -159,10 +173,17 @@ def test_system_prompt_names_both_source_kinds_and_keeps_section_numbers():
     """这段规则是唯一告诉答题方"有两类来源、引用要保留節番号"的东西。
 
     它没了, 答题侧双臂的差值会被误读成席位挤占 (实际是答题方分不清来源)。
+
+    ⚠ 三条断言原本都是**成员形状** (`in`), 对**配对**结构上不可见: 把两个名字与各自的
+    定义对调 (卡片被说成"手順・計画文書の節"、章節被说成"入力項目の定義") 后三条实测全为
+    True、全量全绿, 而那正是"答题方分得清来源"这条交付物的反面 —— 它会把 Task 8 的双臂
+    差值解释整个说反。故改断**名字与其定义相连**的整句。
     """
     sp = _engine()[0].system_prompt
-    assert "【EDC 項目カード】" in sp and "【手順書章節】" in sp
-    assert "節番号" in sp
+    assert "【EDC 項目カード】 (入力項目の定義) と 【手順書章節】 (本研究自身の手順・計画文書の節)" in sp
+    # 節番号规则挂到卡片上 (变体 X1) 同样存活于 `"節番号" in sp` ⇒ 主语一并钉住。
+    assert "手順書章節は節番号を伴う" in sp
+    assert "節番号を保持" in sp
 
 
 def test_engine_builds_no_messages_of_its_own():

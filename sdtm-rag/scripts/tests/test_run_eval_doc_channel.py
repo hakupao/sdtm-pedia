@@ -86,10 +86,18 @@ class _Stop(Exception):
     """哨兵: 装配一完成就停, 不进 run_evaluation (不发 embedding / 不发 LLM)。"""
 
 
+# 屏幕回执里的 chunk 数。两台 study 引擎取**不同**值, 否则 `docs_rag.collection.count()`
+# 被改读兄弟引擎 `study_rag` 时逐位不可分 (main.py 的 ready 日志是同一种共错, 已实测全绿)。
+FAKE_DOC_CHUNKS = 137
+FAKE_CARD_CHUNKS = 959
+
+
 class _FakeRAG:
     def __init__(self, **kw):
         self.kwargs = kw
-        self.collection = SimpleNamespace(count=lambda: 0)
+        n = (FAKE_DOC_CHUNKS if str(kw.get("collection_name", "")).endswith("_docs")
+             else FAKE_CARD_CHUNKS)
+        self.collection = SimpleNamespace(count=lambda: n)
         self.query_expansion = "none"
         self.hybrid_fusion = "rrf"
         self.hybrid_alpha = 0.5
@@ -163,6 +171,31 @@ def test_doc_seats_defaults_to_settings_not_a_hardcoded_constant(assemble, monke
     engines, fed, _ = assemble("--study-docs")
     assert fed["study"].doc_seats == 9
     assert engines[2].kwargs["top_k"] == 9
+
+
+def test_doc_seats_zero_is_honoured_not_silently_defaulted(assemble, monkeypatch):
+    """`args.doc_seats if … is not None else …` 写成 `or` 时, `--doc-seats 0` 静默变成
+    8 席 —— 而 0 正是**空臂那一臂**唯一的表达方式: 声称的"关掉 doc 通道"会被悄悄跑成满席,
+    两臂差值于是塌成噪声, 且屏幕回执与 JSON 都不会有任何提示。
+
+    settings 换成 9 (≠ 出厂 8) 才能把"回落"与"恰好等于默认"分开。
+    """
+    monkeypatch.setattr(m.settings, "study_docs_seats", 9)
+    engines, fed, _ = assemble("--study-docs", "--doc-seats", "0")
+    assert fed["study"].doc_seats == 0
+    assert engines[2].kwargs["top_k"] == 0
+
+
+def test_docs_channel_receipt_reports_the_docs_collection_not_its_sibling(assemble, capsys):
+    """屏幕回执里的 chunk 数读成兄弟引擎 (`study_rag`) 时, doc 库一条都没灌进去也会报 959。
+
+    这一行是"库真的灌进去了"在 eval 侧唯一的现场线索 (114 → 0 是静默失效, 不会崩)。
+    """
+    capsys.readouterr()
+    assemble("--study-docs", "--doc-seats", "7")
+    out = capsys.readouterr().out
+    assert f"Study docs channel: {FAKE_DOC_CHUNKS} chunks" in out
+    assert f"collection={m.settings.study_docs_collection_name}, seats=7" in out
 
 
 def test_without_study_docs_the_federation_gets_the_bare_cards_engine(assemble):

@@ -7,6 +7,7 @@
 from __future__ import annotations
 
 import asyncio
+import os
 from types import SimpleNamespace
 
 import pytest
@@ -20,7 +21,12 @@ from server.study_corpus import StudyCorpusEngine
 
 # 条数刻意取不寻常值 (仿 test_main_study_lookup_wiring.py 的 _FakeLookup=7): 返回 0 时
 # "字段缺失" / "库是空的" / "写死成常量 0" 三种情况在断言上逐位不可分。
-FAKE_CHUNKS = 137
+#
+# ⚠ 两台 fake 的 count 必须**不同**: 两台同为 137 时把 ready 日志里的
+# `chunks=rag_docs.collection.count()` 改读**兄弟引擎** `rag_study` 全量全绿 (抽检方 B 实测),
+# 而那条日志正是"doc 库一条都没灌进去"的唯一现场线索 —— 共错下它会报 959。
+FAKE_DOC_CHUNKS = 137
+FAKE_CARD_CHUNKS = 959
 
 
 @pytest.fixture
@@ -28,8 +34,11 @@ def boot(monkeypatch):
     engines: list[dict] = []
 
     class FakeCollection:
+        def __init__(self, n):
+            self._n = n
+
         def count(self):
-            return FAKE_CHUNKS
+            return self._n
 
     class FakeEngine:
         def __init__(self, **kwargs):
@@ -37,7 +46,10 @@ def boot(monkeypatch):
             # 实例上也留一份: 组合器收的是引擎**实例**(位置参数), 只看 engines 列表
             # 无法判断哪台引擎被放到了 cards 位、哪台被放到了 docs 位。
             self.kwargs = kwargs
-            self.collection = FakeCollection()
+            self.collection = FakeCollection(
+                FAKE_DOC_CHUNKS if kwargs["collection_name"].endswith("_docs")
+                else FAKE_CARD_CHUNKS
+            )
             self.system_prompt = "SYS"
 
         def _vi_section_map(self):
@@ -145,13 +157,26 @@ def test_no_ignored_warning_when_docs_disabled(boot):
     assert not [e for m, e in events if m == "study_docs_ignored"]
 
 
-def test_settings_study_docs_defaults():
-    """全 task 唯一有**书面禁令**却无人守的值: plan Task 2 Step 3 写死「不许在证据之前
-    改成 True」(生产默认由 Task 8 双臂 + spec §6 自毁条款 3 裁定)。四条接线测试全部显式
-    传值, 没有一条读默认 ⇒ 把默认偷偷翻成 True 全量仍全绿。体例仿
-    test_run_eval_flags.py::test_settings_study_lookup_defaults。"""
+def test_settings_study_docs_defaults(monkeypatch):
+    """本文件唯一读**代码默认值**的测试。四条接线测试全部显式传值 ⇒ 默认被偷偷改掉时
+    全量仍全绿。体例仿 test_run_eval_flags.py::test_settings_study_lookup_defaults。
+
+    ⚠ `Settings` 走 pydantic-settings 的 `env_prefix="SDTM_RAG_"`, 且 config.py import 期
+    就 `load_dotenv` 把 .env 灌进 os.environ ⇒ 不隔离环境时本条量的是**本机配置**而不是
+    代码默认。实测 `SDTM_RAG_STUDY_DOCS_SEATS=5 SDTM_RAG_STUDY_DOCS_ENABLED=true pytest …`
+    → 1 failed。后果两面: 这条断言挡不住通过 .env 打开通道 (而那正是生产启用的正规方式),
+    且团队一旦在 .env 里改, 全量套件会伪红。故先清掉全部 SDTM_RAG_* 再构造。
+
+    生产默认 `study_docs_enabled=True` (2026-08-13 翻转): 收益侧 doc 答题 0.0333→0.9517,
+    代价侧卡片侧回归**未被建立** (ON-ON 对照里驱动条款的 q23r 不复现, ON 臂自身噪声
+    +2.78pt 已达声称效应量)。即 **spec §6 自毁条款 3 是触发状态, 由用户 2026-08-13 裁定
+    豁免**后翻转 —— 不是"未触发", 也不是"验收通过"。
+    """
+    for k in list(os.environ):
+        if k.startswith("SDTM_RAG_"):
+            monkeypatch.delenv(k, raising=False)
     s = Settings()
-    assert s.study_docs_enabled is False
+    assert s.study_docs_enabled is True
     assert s.study_docs_collection_name == "study_st01_docs"
     # 席位数 8 是 Task 4 sweep 实测裁定的 (evidence/step_u2_sweep.md §4): 它是召回天花板上
     # 的**最小** N —— N=8 满分 30/30 而 N=5 只有 25/30 (丢 11.67pt), N=10/15 零召回增益却
@@ -173,5 +198,6 @@ def test_seats_and_collection_are_reported_in_the_ready_log(boot):
     # 用非默认值把两者钉成同源。
     assert app.state.federation.study.doc_seats == 7
     # chunks 是"库真的灌进去了"的唯一现场线索 (114 → 0 是静默失效, 不会崩)。用不寻常的
-    # FAKE_CHUNKS 断, 才能把"字段缺失/库是空的/写死成常量"三种情况分开。
-    assert hit[0]["chunks"] == FAKE_CHUNKS
+    # FAKE_DOC_CHUNKS 断, 才能把"字段缺失/库是空的/写死成常量"三种情况分开; 与卡片库的
+    # FAKE_CARD_CHUNKS 不同值, 才能把"读了兄弟引擎的 count"也分开 (共错型)。
+    assert hit[0]["chunks"] == FAKE_DOC_CHUNKS != FAKE_CARD_CHUNKS

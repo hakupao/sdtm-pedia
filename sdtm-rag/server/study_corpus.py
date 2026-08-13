@@ -16,7 +16,9 @@
 """
 from __future__ import annotations
 
-CARD_FILE_TYPE = "field_card"
+# 卡片侧没有对应常量: 分组用反选 (`!= DOC_FILE_TYPE`), 见 format_context —— 一个
+# `CARD_FILE_TYPE` 常量全仓无引用, 留着只会诱导有人把反选改成正选 (那会让未知
+# file_type 的 chunk 从 context 里静默消失)。
 DOC_FILE_TYPE = "protocol_section"
 
 _DOC_CORPUS_RULES = (

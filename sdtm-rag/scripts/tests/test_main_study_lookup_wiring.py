@@ -109,7 +109,9 @@ def _event(logs, name):
 
 def test_enabled_injects_study_lookup_into_study_engine(boot, fake_lookup):
     lookup, recorded = fake_lookup
-    s = Settings(study_lookup_enabled=True)
+    # doc 通道显式关掉: 本条量的是 S2 挂在**哪台**引擎上, 二台引擎的世界最直白。
+    # (U2 把 study_docs_enabled 默认翻成 True 后, 不关则多出第三台 docs 引擎。)
+    s = Settings(study_lookup_enabled=True, study_docs_enabled=False)
     cdisc, study = boot(s).engines
     assert study["study_lookup"] is lookup
     # 路径必须来自 settings, 否则 SDTM_RAG_STUDY_CATALOG_PATH 覆盖形同虚设
@@ -125,7 +127,9 @@ def test_enabled_injects_study_lookup_into_study_engine(boot, fake_lookup):
 
 def test_disabled_injects_nothing(boot, fake_lookup):
     _, recorded = fake_lookup
-    cdisc, study = boot(Settings(study_lookup_enabled=False)).engines
+    cdisc, study = boot(
+        Settings(study_lookup_enabled=False, study_docs_enabled=False)   # 同上, 二台引擎
+    ).engines
     assert study.get("study_lookup") is None
     assert cdisc.get("study_lookup") is None
     assert recorded == {}, "开关关着却读了 catalog = 开关没接上"

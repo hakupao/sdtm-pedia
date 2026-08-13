@@ -53,7 +53,13 @@ class Settings(BaseSettings):
     # U2 doc 通道 (spec 2026-08-12 §4.5): study 侧除 959 张卡片外, 还有 114 个手順書章节
     # chunk 在独立 collection 里。加席不抢席 —— cards 的 top_k 不动, doc 另取 seats 席。
     # collection 不存在而开关开着 = 配置错误, 启动响亮失败 (见 main.py), 不静默降级。
-    study_docs_enabled: bool = False
+    #
+    # 默认 True (2026-08-13 翻转)。收益侧: doc 侧答题 0.0333→0.9517、doc 侧检索 0→1.0
+    # (evidence/step_u2_answerside.md)。代价侧: 卡片侧回归**未被建立** —— ON-ON 对照显示
+    # 驱动自毁条款 3 的 q23r 不复现, ON 臂自身噪声 +2.78pt 已达声称效应量, 四种 OFF×ON
+    # 组合跨 −4.17 到 +0.00pt。**自毁条款 3 因此是触发状态**, 由用户 2026-08-13 裁定豁免
+    # 后翻转 (不是"未触发", 也不是"验收通过")。回退: SDTM_RAG_STUDY_DOCS_ENABLED=false。
+    study_docs_enabled: bool = True
     study_docs_collection_name: str = "study_st01_docs"
     study_docs_seats: int = 8
 
