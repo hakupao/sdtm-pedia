@@ -8,6 +8,8 @@
 
 `both` 档此前**一条尺子都没有**而生产已在跑它; 本轮建成三档确定性尺子(9 次跑批, 三遍全一致):
 **doc 侧 1.0000 分毫不动, 代价全部落在卡片侧 —— 0.8750 → 0.8229 (−5.21pt), 归因闭合到 4 题**。
+⚠ 「doc 侧不动」的证据强度**低于**卡片侧那个数: 它是**结构恒等**(两档 doc 检索入参恒同),
+不是测出来的稳健性 —— 详见 §2.4, 别拿它当「席位不对称无害」的证据。
 代价来自席位不对称: `both` 把 cards 从 15 席砍到 8 席, 而 doc 的 8 席**不随 k 缩放**,
 于是 doc 在 study 半边的占比 35% → 50%。**本单元只量不改。**
 
@@ -19,7 +21,7 @@
 | 档 | 命令要点 | cdisc 席 | cards 席 | doc 席 |
 |---|---|---|---|---|
 | **B1** doc 30 题 @ `both` | `--corpus both --study-docs` | 8 | 8 | 8 |
-| **B2** cards 51 题 @ `both` | `--corpus both --study-docs` | 8 | 8 | 8 |
+| **B2** cards **51 行 / 48 计分** @ `both` | `--corpus both --study-docs` | 8 | 8 | 8 |
 | **B3** doc 30 题 @ `study` N=8 | `--corpus study --study-docs --doc-seats 8` | 0 | 15 | 8 |
 
 B3 的作用是**隔离变量**: 它与 B1 的 doc 席位同为 8, 差别只在 cards 是否被减半 + 是否掺 cdisc。
@@ -35,10 +37,17 @@ B3 的作用是**隔离变量**: 它与 B1 的 doc 席位同为 8, 差别只在 
 | **B2** cards @ `both` | **0.8229** | **0.8229** | **0.8229** | U2 study 档 **0.8750** |
 | **B3** doc @ `study` N=8 | **1.0000** | **1.0000** | **1.0000** | U1 k=8 曲线 1.0000 |
 
-⚠ **报数口径**: 上表取产物的 `summary.source_recall_avg`(除以 `n_scored`)。
-`compare_runs` 打印的 `avg` 除以 `results` 全行数, cards 题集 51 行里有 **3 行 `out_of_scope`**
-(其 `source_recall` 记 1.0), 故它给 B2 打 0.8333 / 给 U2 参照打 0.8824 —— **两者都不是本表的口径**。
-账: `0.8229*48 + 3*1.0 = 42.5`, `42.5/51 = 0.8333` ✓。**逐题 diff 与稳定性判定不受此影响**(按 id 比, 与除数无关)。
+⚠ **报数口径**: 上表取产物的 `summary.source_recall_avg` —— 它除以 `n_scored`(**48**), 不是
+`results` 的行数(**51**)。cards 题集 51 行里有 **3 行 `out_of_scope`**, 其 `source_recall` 恒记 1.0。
+
+**⏱ 关于 `compare_runs` 打印的 `avg`(已过期, 保留作历史记录)**: 在本文件 commit 时刻
+(`761c6ef`)的 comparator 除以全 51 行, 会给 B2 打 **0.8333** / 给 U2 参照打 **0.8824**,
+与本表口径不同(账: `0.8229*48 + 3*1.0 = 42.5`, `42.5/51 = 0.8333` ✓)。
+**该口径漂移已由 `92d8ca8` 修复** —— 现 CLI 直接照抄产物自称的 `summary.source_recall_avg`,
+且 `n=` 已改名 `rows=`。今天照 §2.2 复跑会看到 `rows=51 avg=0.8229`, **与本表一致**。
+(此段是给"拿着旧文档、旧 checkout 的读者"用的; 该 finding 正是由本 task 的实战使用暴露并回流修掉的。)
+
+**逐题 diff 与稳定性判定在两个版本下都不受影响**(按 id 比, 与除数无关)。
 
 ### 2.2 三遍稳定性 —— **三档全部三遍全一致, 零不稳定题**
 
@@ -59,9 +68,9 @@ for b in u3_both_docs u3_both_cards u3_study_docs_n8; do
 ⚠ 「三遍一致」在本仓**不是免费的**: U2 §5-1 实测检索非确定性源在 embedding API。
 本轮三档共 **111 个逐题分数**(30 + 51 + 30)三遍零变动 ⇒ 下游拿这三个数做对照时不必再担心噪声。
 
-### 2.3 B2 vs U2 study 档 —— 「cards 15 席 → 8 席」的代价
+### 2.3 B2 vs U2 study 档 —— 「cards 15 席 → 8 席」的代价 (除数 = **48 计分题**, 非 51 行)
 
-**0.8750 → 0.8229, Δ = −0.0521 (−5.21pt)**。逐题降级 **4 题**, 其余 44 题 Δ0:
+**0.8750 → 0.8229, Δ = −0.0521 (−5.21pt)**。逐题降级 **4 题**, 其余 44 计分题 Δ0:
 
 | id | `study` 档 | `both` 档 | 丢分 |
 |---|---|---|---|
@@ -92,9 +101,52 @@ for i in 1 2 3; do ./.venv/bin/python -m eval.compare_runs \
   "data/study/st01/eval/runs/u3_study_docs_n8_r${i}.json" \
   "data/study/st01/eval/runs/u3_both_docs_r${i}.json"; done
 ```
-⚠ **这个绿灯判别力低**: doc 侧 N=8 已经**满分饱和**, 没有上行空间。
-它能证伪「both 伤 doc」(掉分会显示), 但**看不见 doc 占比 35%→50% 带来的任何增益** ——
-增益在这个题集上无处显现。别把 `diff: 0` 读成「不对称无害」。
+⚠⚠ **这个 `diff: 0` 不是「测出来的稳健性」, 是结构恒等 —— 该比对根本不是可失败的检验。**
+
+原因**不是**「doc 侧满分饱和、没有上行空间」(本文件初版这么写, **是错的**, 见下方反证):
+
+- `federation.py:124`(`study` 档)与 `:131`(`both` 档)**都不传 `doc_seats`**
+- ⇒ `study_corpus.py:47` 两档同取 `self.doc_seats` = **8**
+- ⇒ `study_corpus.py:54` `self.docs.retrieve(question, top_k=seats)` **两档入参逐字相同**
+- 唯一可能造成差异的是去重集 `seen`(由 cards 结果构成), 但 cards 与 doc 的 chunk id
+  **命名空间不相交** —— 实测 `study_st01` 959 个 id ∩ `study_st01_docs` 114 个 id = **0**:
+  ```bash
+  ./.venv/bin/python -c "
+  import chromadb; cl=chromadb.PersistentClient(path='data/chroma')
+  a=set(cl.get_collection('study_st01').get(include=[])['ids'])
+  b=set(cl.get_collection('study_st01_docs').get(include=[])['ids'])
+  print(len(a), len(b), len(a&b))"      # 959 114 0
+  ```
+  ⇒ `seen` **不可能**丢掉任何 doc chunk。
+
+**⇒ 对 doc-gold 的 source_recall, B1 与 B3 恒等, 与分数高低无关。**
+
+**反证实验**(U3 审查方设计并首跑, 我复跑确认): 把 doc 席位压到 3, doc 侧掉到 **0.8667**,
+30 题里 **6 题不满分** —— **明确脱离饱和, 有充分上/下行空间** —— 恒等性依然成立:
+```bash
+for c in both study; do
+  ./.venv/bin/python -m eval.run_eval data/study/st01/eval/test_set_docs_v1.yml \
+    --retrieval-only --hybrid --study-lookup --federated --corpus $c --study-docs \
+    --doc-seats 3 --output "data/study/st01/eval/runs/rev_t2_${c}_docs_n3.json"; done
+./.venv/bin/python -m eval.compare_runs \
+  data/study/st01/eval/runs/rev_t2_study_docs_n3.json \
+  data/study/st01/eval/runs/rev_t2_both_docs_n3.json
+# run 1: rows=30 avg=0.8667 / run 2: rows=30 avg=0.8667
+# unstable across 2 runs: 0        pairwise diff: 0
+# 逐题 source_recall 与 source_hits 全等: True   (6/30 < 1.0)
+```
+
+**⇒ 给下游的行动项(重要)**: **不要**为了"让增益显形"去换更难的工作点或更难的题集 ——
+U1 `doc_track_u1_question_set.md:239` 备着一个 k=5 = 88.33% 的诊断工作点, 照那条路走
+**保证仍是 `diff: 0`**, 白烧一轮跑批与评审; 更糟的是拿到第二个 `diff: 0` 后极易被误读成
+「反复验证了不对称无害」—— 那正是本节警告不要下的结论。
+**doc 加权的增益只能在答题侧, 或在对「位置 / 库间竞争」敏感的指标上测**, 在本指标上永远测不到。
+
+📌 **席位事实(别把占比读反)**: doc 的**绝对席位两档均为 8, 一个字没变**; 变的只是 study
+半边的分母(23 → 16)。§3 那句「**在 study 半边**占比 35% → 50%」的限定词是必须的 ——
+若按**整个 context** 算, 方向反而是**略降**: `study` 档 8/(15+8) = 34.8%,
+`both` 档 8/(8+8+8) = **33.3%**, 因为 `both` 是在原有基础上**追加** 8 个 cdisc 席
+(总块数 23 → 24), **不是**把席位重新分配。
 
 ### 2.5 harness 校准 (本轮额外做的, brief 未要求)
 
@@ -136,8 +188,9 @@ B3 与 U1 已落盘的 k=8 曲线点**逐题 diff = 0**, 均值同为 1.0000:
 
 1. **本 task 的合同是建尺子, 不是调参**。`both` 此前零尺子, 现在才第一次有基线;
    在基线落盘的同一轮里改被测对象, 等于把「改动的效果」和「基线本身」搅在一起, 之后谁也说不清。
-2. **改了往哪个方向也还没有依据**: 2.4 已说明本题集**看不见** doc 加权的增益,
-   只看得见 cards 的 −5.21pt。只拿得到代价、拿不到收益时改配比, 是在没有目标函数的情况下调参。
+2. **改了往哪个方向也还没有依据**: §2.4 已说明本指标**在结构上不可能**显现 doc 加权的增益
+   (换题集换工作点都不行), 只看得见 cards 的 −5.21pt。只拿得到代价、拿不到收益时改配比,
+   是在没有目标函数的情况下调参。**要先有一把能看见收益的尺子**(答题侧, 或对位置/竞争敏感的指标)。
 3. **代价当前不落在生产路径上**(见 §4 触发率), 不构成必须立刻动的理由。
 
 ⇒ 交给下游单元决策。本文件提供的是决策所需的数字, 不是决策。
@@ -157,6 +210,20 @@ B3 与 U1 已落盘的 k=8 曲线点**逐题 diff = 0**, 均值同为 1.0000:
 - **doc 侧: `both` 触发 0 次** ⇒ brief 那句「doc 30 题在 auto 下从不触发 `both`」**已由实测确认**
   (三遍均 0/30)。§2 的 B1 因此是**当前生产路径上不会发生**的配置。
 - **cards 侧: `both` 触发 5/51** ⇒ **`both` 在生产里是活的**, 不是死配置。B2 量的是真实路径。
+  ⚠ **这条结论依赖一个前提: 这 5 次是 LLM 判定的 `both`, 不是异常兜底的 `both`。**
+  `route_corpus` 在**任何异常**下都返回 `("both", True)`(`federation.py:71` docstring / `:89-90`),
+  而 `run_eval.py:562` 只 `self.routed.append(routed)`、`:978` 只 `Counter(retriever.routed)`
+  —— **`fallback` 标志被丢弃**, 计数器把两条路径合并。若不写这个前提, `{'both': 5}` 同样可以
+  读成"router 崩了 5 次", 那 B2 量的就是**降级路径**, 该修的也变成 router 稳定性。
+  **本轮实测该前提成立**: 6 次 auto 跑批共 243 次判库(81 题 × 3 遍)全部 `fallback=False`,
+  `route_corpus_fallback_both` 零命中:
+  ```bash
+  grep -c "route_corpus_fallback_both" <auto 跑批日志>          # 0
+  grep -o "fallback=[A-Za-z]*" <auto 跑批日志> | sort | uniq -c  # 243 fallback=False
+  ```
+  ⚠ **该证据不可从落盘产物重建** —— 产物不记 `fallback`, 上述 grep 跑的是本轮 auto 批次的
+  **stdout 日志(含题面全文, 按红线未落盘、未进 git)**。下游要复核, 需按 §6 重跑 auto 批次
+  并对**自己那一份**日志跑同样两条 grep。(见 §5 第 11 条)
 - doc 侧 `0.9000` 与 cdisc 3 题 **逐位复现 U2 的「判库损耗 10.00pt / 归因到 3 题」**
   (miss 的 3 题 id 与 U2 记录的 `q15`/`q17`/`q53` 一致)。
 
@@ -189,15 +256,22 @@ B3 与 U1 已落盘的 k=8 曲线点**逐题 diff = 0**, 均值同为 1.0000:
 
 1. **答题侧完全未测**。三档没跑一次 LLM 答题, `fact=n/a`。cards 的 −5.21pt 会不会真的让答案变错、
    doc 占比升到 50% 会不会让答案变好 —— **本文件一个字都没说**。
-2. **doc 侧 1.0000 是饱和值**(§2.4)。`diff: 0` 只证伪了「both 伤 doc」, 不构成「不对称无害」的证据;
-   增益方向在这个题集上不可观测。
+2. **B1 vs B3 对 doc-gold source_recall 是结构恒等, 不是可失败的检验**(§2.4)。
+   两档的 doc 检索是同一次调用同一参数(`doc_seats` 恒 8), 且 cards/doc 的 id 命名空间不相交
+   ⇒ 该比对**不可能**产生非零结果, **换题集、换工作点都不行**(已用 doc 席位 = 3、
+   doc 侧 0.8667/6 题不满分的反证实验证实)。它既不能证明「both 不伤 doc」是测出来的,
+   也永远看不见 doc 加权的增益。**别把 `diff: 0` 读成「不对称无害」。**
 3. **强制档不经 LLM 判库**。三档的 `summary.routing` 记的是**被强制的档**(`federation.py:114-116`:
    `routed = corpus` 直接赋值, 仅当 `corpus == "auto"` 才调 `route_corpus`) ⇒
-   这三个数是**判库正确时的上界**, 不含任何判库错误的代价。
+   这三个数是**判库被固定时**的数, 不含任何判库错误的代价 —— 但**不等于「判库正确时」的数**:
+   §4.1 实测 `auto` 把 cards 45/51、docs 27/30 判去 `study`, 把全部题强制成 `both`
+   恰恰不是正确判库会做的事(B1 更是 §4.1 所说"生产路径上不会发生"的配置)。
 4. **只测了 k=15 这一个工作点**。`k_each = ceil(k/2)` 与 `doc_seats=8` 的相对关系随 k 变化,
    换 `--top-k` 则本文全部数字失效。
-5. **`compare_runs` 的 avg 不是本文口径**(§2.1)。引用本文数字时若改用 comparator 的均值,
-   cards 档会系统性偏高约 1pt。
+5. ~~**`compare_runs` 的 avg 不是本文口径**~~ —— **该边界已于 `92d8ca8` 消失**(§2.1)。
+   在 `761c6ef` 时刻它成立(comparator 除以 51 行, cards 档系统性偏高约 1pt);
+   现 CLI 已改读产物自称的 `summary.source_recall_avg`, 与本文口径一致。
+   **保留此条仅作历史记录** —— 若你手上的 checkout 早于 `92d8ca8`, 这条仍然适用。
 6. **只有 st01 一个研究**。`both` 的席位不对称对其他研究的影响未测。
 7. **B2 的 4 题降级只做到「哪 4 题、丢多少」**, 没做到「为什么是这 4 题」——
    未核实它们的 gold 原本排在 cards 第 9-15 位(即恰好被砍掉的那 7 席)。归因闭合是**算术闭合**
@@ -211,6 +285,15 @@ B3 与 U1 已落盘的 k=8 曲线点**逐题 diff = 0**, 均值同为 1.0000:
 10. **`both` 的收益侧完全没量**。`both` 存在的理由是跨库问题(既要 CDISC 标准又要本研究做法),
     而这两个题集**都是单库题**。本文件只量到 `both` 的代价, 没量到它本该带来的好处 ——
     拿本文件去论证"`both` 不值得"是**误用**。
+11. **routing 计数器不分「LLM 判的 `both`」与「异常兜底的 `both`」**(§4.1)。
+    `route_corpus` 任何异常都返回 `("both", True)`, 而产物**只存 `routed`、不存 `fallback`**
+    ⇒ 单看产物无法区分这两者。本轮已用跑批日志核到 243 次判库全 `fallback=False`,
+    但**那份日志按红线未落盘**, 下游只能重跑后自行核。
+    ⚠ 长期风险: 日后 router 换模型若开始偶发异常, 同一个计数器仍打 `both: N`,
+    「触发率上升」会被读成"跨库问题变多了", 真相却是 router 在崩。
+12. **`both` 是「追加」不是「重分配」**(§2.4 席位事实)。总块数 23 → 24, doc 绝对席位恒为 8;
+    doc 占**整个 context** 的比例实际 34.8% → **33.3%**(略降)。只有「**study 半边**」这个
+    分母下才是 35% → 50%。引用占比时**必须带限定词**, 否则方向会被读反。
 
 ## 6. 产物与复跑
 
