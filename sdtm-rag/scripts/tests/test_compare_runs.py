@@ -3,7 +3,7 @@ import json
 
 import pytest
 
-from eval.compare_runs import diff_scores, load_scores, main, unstable_ids
+from eval.compare_runs import diff_scores, load_scores, load_summary_avg, main, unstable_ids
 
 
 def _write(tmp_path, name, results):
@@ -71,6 +71,28 @@ def test_unstable_ids_flags_key_present_in_only_some_runs():
     assert unstable_ids([{"a": 1.0}, {"a": 1.0, "b": 1.0}]) == {"b": [None, 1.0]}
 
 
+# --- avg 只许照抄产物自称值: 复制 run_eval 的口径就会漂移 (51 池 vs 48 池) ---
+
+
+def test_load_summary_avg_uses_product_value_not_a_recomputed_one(tmp_path):
+    # 产物自称 0.9, 而逐题均值是 0.5 —— 自己算必得 0.5。这一条专杀「又回去自己算」。
+    p = tmp_path / "s.json"
+    p.write_text(json.dumps({"summary": {"source_recall_avg": 0.9},
+                             "results": [{"id": "docs_v1_q1", "source_recall": 0.5},
+                                         {"id": "docs_v1_q2", "source_recall": 0.5},
+                                         {"id": "docs_v1_q3", "source_recall": 0.5}]}),
+                 encoding="utf-8")
+    assert load_summary_avg(p) == 0.9
+
+
+def test_load_summary_avg_returns_none_when_summary_absent(tmp_path):
+    # 缺键回退自算 = 打一个与产物自称值不同却同名的数, 正是本 bug 的形状
+    p = tmp_path / "n.json"
+    p.write_text(json.dumps({"results": [{"id": "docs_v1_q1", "source_recall": 0.5}]}),
+                 encoding="utf-8")
+    assert load_summary_avg(p) is None
+
+
 # --- CLI 入口: 它自己就是闸 (rc 与 unstable 计数是判据), 故必须有守护 ---
 
 
@@ -95,6 +117,28 @@ def test_main_returns_one_and_names_unstable_id(tmp_path, capsys):
                                     {"id": "docs_v1_q2", "source_recall": 0.5}])
     assert main([str(a), str(b)]) == 1
     assert "docs_v1_q2" in capsys.readouterr().out
+
+
+def test_main_prints_na_rather_than_a_self_computed_avg(tmp_path, capsys):
+    # 产物无 summary 时, 宁可打 n/a 也不许拿自算的 0.5000 冒充一个权威数字
+    rows = [{"id": "docs_v1_q1", "source_recall": 0.5}]
+    assert main([str(_write(tmp_path, "a.json", rows)),
+                 str(_write(tmp_path, "b.json", rows))]) == 0
+    out = capsys.readouterr().out
+    assert "n/a" in out
+    assert "0.5000" not in out
+
+
+def test_main_prints_the_products_own_avg(tmp_path, capsys):
+    # 有 summary 时打产物自称值 (0.9), 而非逐题均值 (0.5)
+    payload = {"summary": {"source_recall_avg": 0.9},
+               "results": [{"id": "docs_v1_q1", "source_recall": 0.5}]}
+    for name in ("a.json", "b.json"):
+        (tmp_path / name).write_text(json.dumps(payload), encoding="utf-8")
+    assert main([str(tmp_path / "a.json"), str(tmp_path / "b.json")]) == 0
+    out = capsys.readouterr().out
+    assert "0.9000" in out
+    assert "0.5000" not in out
 
 
 def test_main_reads_every_run_not_just_the_first_two(tmp_path, capsys):

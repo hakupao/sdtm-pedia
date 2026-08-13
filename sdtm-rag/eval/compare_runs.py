@@ -28,6 +28,21 @@ def load_scores(path: str | Path) -> dict[str, float]:
     return out
 
 
+def load_summary_avg(path: str | Path) -> float | None:
+    """读产物**自称**的 `summary.source_recall_avg`; 缺 summary / 缺该键返回 None.
+
+    为什么不自己算: run_eval 的 source_recall_avg 先剔掉 out_of_scope 题再平均 (那些题
+    expected_sources 为空、恒得 1.0 = 白送分), 而 `results` 里**保留**这些行。比对器若
+    自己 sum(results)/len(results), 就会得到一个与产物自称值不同、却同名的 avg ——
+    cards 题集实测 0.8333 vs 0.8229 (48 计分 + 3 out_of_scope: 0.8229*48+3 = 42.5, /51)。
+
+    静默回退自算正是这个 bug 的形状, 故缺键时返回 None、由调用方打 n/a: 复制口径就会漂移,
+    世界上只许有一个 avg。逐题比对不受影响 —— 按 id 比, 与除数无关。
+    """
+    data = json.loads(Path(path).read_text(encoding="utf-8"))
+    return (data.get("summary") or {}).get("source_recall_avg")
+
+
 def diff_scores(a: dict[str, float],
                 b: dict[str, float]) -> dict[str, tuple[float | None, float | None]]:
     """逐题差异 {id: (a, b)}; 只含不相等的题, 缺席一侧记 None.
@@ -65,8 +80,11 @@ def main(argv: list[str] | None = None) -> int:
         p.error("同一产物路径传了多次 —— 自我比对恒等于稳定")
     scored = [load_scores(f) for f in args.runs]
     for i, f in enumerate(args.runs, 1):
-        vals = list(scored[i - 1].values())
-        print(f"run {i}: n={len(vals)} avg={sum(vals) / len(vals):.4f}  {f}")
+        avg = load_summary_avg(f)
+        shown = f"{avg:.4f}" if avg is not None else "n/a (产物无 summary.source_recall_avg)"
+        # rows= 是**比对的行数**, 不是 avg 的除数 (avg 已剔 out_of_scope, 分母更小)。
+        # 两个数并排放且都叫 n 时, 读者拿 avg*n 对账必然对不上 —— U2 的 51 池 vs 48 池同一个坑。
+        print(f"run {i}: rows={len(scored[i - 1])} avg={shown}  {f}")
     unstable = unstable_ids(scored)
     print(f"unstable across {len(scored)} runs: {len(unstable)}")
     for k, vals in unstable.items():
