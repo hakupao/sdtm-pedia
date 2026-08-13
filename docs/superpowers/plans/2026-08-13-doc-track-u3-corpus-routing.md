@@ -737,13 +737,17 @@ git commit -m "feat(doc-track): U3 Task 3 — 路由闸支持手順書 gold + �
 ```bash
 ./.venv/bin/python -c "
 import glob, collections, re, os
-fs = sorted(glob.glob('data/study/doc_chunks/*.md'))
-print('n_chunks =', len(fs))
-ch = collections.Counter(re.match(r's(\d+)', os.path.basename(f)).group(1) for f in fs)
-print('chapters =', len(ch), sorted(ch.items(), key=lambda x: int(x[0])))
+fs = sorted(glob.glob('data/study/st01/docs/*.md'))
+ch = collections.Counter(re.search(r'__s(\d+)', os.path.basename(f)).group(1) for f in fs)
+print('n_chunks =', len(fs), '| chapters =', len(ch))
+print(sorted(((int(k), v) for k, v in ch.items())))
 "
 ```
-Expected: `n_chunks = 114`。若路径不对,先 `ls data/study/` 定位,不要猜。
+Expected(controller 已实测): `n_chunks = 114 | chapters = 20`,分布
+`[(2,7),(3,10),(4,2),(5,4),(6,14),(7,6),(8,6),(9,4),(10,5),(11,2),(12,11),(13,7),(14,4),(16,3),(17,2),(18,2),(19,3),(20,18),(21,2),(22,2)]`。
+
+⚠ **语料是 20 章**;别处常见的「17 章」是 **U1 那 30 道题的覆盖章数**,不是语料章数。
+出题按 20 章分层,不是 17。
 
 - [ ] **Step 2: 派出题 subagent(prompt 逐字如下)**
 
@@ -755,7 +759,7 @@ Expected: `n_chunks = 114`。若路径不对,先 `ls data/study/` 定位,不要�
 > - `study`:某一个具体临床研究自己的产物 —— ① EDC 项目卡片(表单/画面/字段标签/选择肢/单位)
 >   ② **该研究自己的手順書・計画文書的章节**(适格性、治療スケジュール、評価、統計解析計画)。
 >
-> **语料在** `data/study/doc_chunks/*.md`(114 个章节 chunk,覆盖 17 章)。先读它们。
+> **语料在** `data/study/st01/docs/*.md`(114 个章节 chunk,**跨 20 章**)。先读它们。
 >
 > **要写的四组**:
 >
@@ -1153,16 +1157,29 @@ def test_router_prompt_covers_study_own_documents():
 
 
 def test_router_prompt_carries_no_heldout_clinical_terms():
-    """反对症下药闸: 规则文本不得出现 held-out 三题的临床概念 (spec §6.1).
+    """反对症下药闸: 规则文本不得出现 held-out 题的临床概念 (spec §6.1).
 
-    这些词本身不是语料内容 (都是公开医学名词), 但它们出现在 prompt 里就意味着
-    实现方看过 held-out —— 那会让条款 2 的比较失去意义。
+    词表**不写在这里** —— 把它写进 tracked 的测试文件, 等于把「held-out 是关于什么的」
+    交给任何读这个测试的人 (包括本任务的实现方), 那正是本闸要防的事。
+    词表由 controller 事先落在 gitignored 的 `data/study/st01/eval/heldout_banned_terms.txt`,
+    每行一个词, `#` 开头为注释。**实现方不需要、也不许打开那个文件。**
     """
+    from pathlib import Path
+
     from server.federation import _ROUTER_SYSTEM
-    banned = ("歯状線", "Dentate", "短径", "リンパ節転移", "因果関係")
+
+    p = Path("data/study/st01/eval/heldout_banned_terms.txt")
+    assert p.exists(), f"{p} 缺失 —— 本闸无词表则恒绿, 拒绝静默通过"
+    banned = [ln.strip() for ln in p.read_text(encoding="utf-8").splitlines()
+              if ln.strip() and not ln.startswith("#")]
+    assert banned, f"{p} 为空 —— 空词表恒绿, 拒绝静默通过"
     hit = [w for w in banned if w in _ROUTER_SYSTEM]
-    assert not hit, f"规则文本泄漏 held-out 临床概念: {hit}"
+    assert not hit, f"规则文本泄漏 held-out 概念 ({len(hit)} 个, 内容不打印以免二次泄漏)"
 ```
+
+⚠ **给实现方的话**:上面这个测试你照抄即可。词表文件**已由 controller 备好**,
+你**不需要也不许**打开 `heldout_banned_terms.txt` —— 打开它就等于看了 held-out,
+本单元条款 2 的比较会因此失效(spec §6.2 防线 2)。
 
 ```bash
 ./.venv/bin/python -m pytest scripts/tests/test_federation.py -p no:warnings --tb=short
@@ -1174,8 +1191,10 @@ Expected: 全绿
 删掉 Step 2 新插入的整段规则文本,跑 `test_router_prompt_covers_study_own_documents`。
 Expected: **变红**。加回来。
 
-在 `_ROUTER_SYSTEM` 里插一句含 `歯状線` 的例子,跑 `test_router_prompt_carries_no_heldout_clinical_terms`。
-Expected: **变红**。删掉。
+在 `_ROUTER_SYSTEM` 里插一句含**词表第一行那个词**的例子,跑
+`test_router_prompt_carries_no_heldout_clinical_terms`。Expected: **变红**。删掉。
+⚠ 这一条由 **controller 代跑**(实现方不得读词表);实现方跑前两条即可,
+并在报告里写「第三条变异由 controller 执行」。
 
 - [ ] **Step 6: commit**
 
