@@ -26,6 +26,17 @@ RUNS_DIR = Path("data/study/st01/eval/runs")
 EXACT_THRESHOLD = 0.95
 VALID_GOLD = ("cdisc", "study", "both")
 
+DOCS_QUESTION_SET = Path("data/study/st01/eval/test_set_docs_v1.yml")
+DOCS_ROUTING_SET = Path("data/study/st01/eval/routing_gold_docs.yml")
+
+# spec §7 条款 5: 这三题只报告不作 PASS 条件, 单独分组。硬编码 id (非题面) 入库是有意的 ——
+# 它们必须可被 code review 看见, 否则「哪三题被豁免」就成了口头约定。
+FINAL_IDS = ("docs_v1_q15", "docs_v1_q17", "docs_v1_q53")
+# spec §7 条款 1: U2 收口实测三遍稳定 179/181, 留 1 题噪声余量。**不许下调。**
+LEGACY_EXACT_FLOOR = 178
+NEW_GROUPS = ("u1_doc", "final", "dev", "heldout", "distractor_cdisc", "ambiguous_both")
+GROUPS = ("legacy", *NEW_GROUPS)
+
 
 def load_supplement(path: Path) -> list[dict]:
     """读路由专用补充 gold (自带 gold 标签, 不走 load_test_set 的检索 gold 校验).
@@ -47,12 +58,57 @@ def load_supplement(path: Path) -> list[dict]:
     return out
 
 
+def load_u1_doc_gold(path: Path) -> list[dict]:
+    """U1 的 30 道 doc 题, gold 一律 study (spec §5.2)。
+
+    统一标签而非逐题裁定 —— 逐题裁定意味着标签可以被路由结果反向塑造。
+    手順書内容 CDISC 结构上答不了, 这个统一是有实据的 (U1 各题 note 均记录反向查卡 0 命中)。
+    """
+    if not path.exists():
+        raise FileNotFoundError(f"U1 doc 题集缺失: {path} —— 闸口不完整, 拒绝继续")
+    items = load_test_set(str(path))
+    if not items:  # 空题集 → 静默少 30 题 = 本单元要修的那个错重新对闸隐形
+        raise ValueError(f"U1 doc 题集为空: {path} —— 闸口不完整, 拒绝继续")
+    ids = {q["id"] for q in items}
+    missing = sorted(set(FINAL_IDS) - ids)
+    if missing:  # 三题被改名/删掉而闸照跑 = 条款 5 的报告对象静默消失
+        raise ValueError(f"{path}: FINAL_IDS 缺失 {missing} —— 条款 5 无报告对象, 拒绝继续")
+    return [{"id": q["id"], "question": q["question"], "gold": "study",
+             "group": "final" if q["id"] in FINAL_IDS else "u1_doc"}
+            for q in items]
+
+
+def load_docs_routing_gold(path: Path) -> list[dict]:
+    """U3 新写的 42 道路由题 (自带 gold + group)。缺文件/空文件 raise —— 同 load_supplement。"""
+    if not path.exists():
+        raise FileNotFoundError(f"U3 手順書路由 gold 缺失: {path} —— 闸口不完整, 拒绝继续")
+    items = yaml.safe_load(path.read_text(encoding="utf-8")) or []
+    if not items:  # 空文件 / 全被注释掉: 静默返回 [] = 闸悄悄变松
+        raise ValueError(f"U3 手順書路由 gold 为空: {path} —— 闸口不完整, 拒绝继续")
+    out = []
+    for q in items:
+        if not q.get("id") or not q.get("question"):
+            raise ValueError(f"{path}: 条目缺 id/question: {q!r}")
+        if q.get("gold") not in VALID_GOLD:
+            raise ValueError(f"{path}: {q['id']} 的 gold={q.get('gold')!r} 非法")
+        # legacy 被排除在外: 新题自称 legacy 会污染回归条款 1 的参照物
+        if q.get("group") not in NEW_GROUPS:
+            raise ValueError(
+                f"{path}: {q['id']} 的 group={q.get('group')!r} 非法, 应属 {NEW_GROUPS}")
+        out.append({"id": q["id"], "question": q["question"],
+                    "gold": q["gold"], "group": q["group"]})
+    return out
+
+
 def load_gold() -> list[dict]:
-    items = [{"id": q["id"], "question": q["question"], "gold": "cdisc"}
+    items = [{"id": q["id"], "question": q["question"], "gold": "cdisc", "group": "legacy"}
              for q in load_test_set(str(CDISC_SET))]
-    items += [{"id": f"st_{q['id']}", "question": q["question"], "gold": "study"}
+    items += [{"id": f"st_{q['id']}", "question": q["question"], "gold": "study",
+               "group": "legacy"}
               for q in load_test_set(str(STUDY_SET)) if not q.get("out_of_scope")]
-    items += load_supplement(JA_SUPP_SET)
+    items += [{**q, "group": "legacy"} for q in load_supplement(JA_SUPP_SET)]
+    items += load_u1_doc_gold(DOCS_QUESTION_SET)
+    items += load_docs_routing_gold(DOCS_ROUTING_SET)
     ids = [g["id"] for g in items]
     dupes = sorted({i for i in ids if ids.count(i) > 1})
     if dupes:  # predictions 以 id 为键, 重名会互相覆盖 → 静默改变计分
@@ -75,6 +131,43 @@ def score_run(gold: list[dict], predictions: dict[str, str]) -> dict:
             "passed": acc >= EXACT_THRESHOLD and not fatal_items}
 
 
+def score_by_group(gold: list[dict], predictions: dict[str, str]) -> dict[str, dict]:
+    """按 group 切片各自 score_run。未知 group 直接 raise —— 分组口径写死在 spec §7。"""
+    unknown = sorted({g.get("group") for g in gold} - set(GROUPS))
+    if unknown:
+        raise ValueError(f"未知 group: {unknown} —— 口径写死在 spec §7, 不许实施时新增")
+    out = {}
+    for name in GROUPS:
+        subset = [g for g in gold if g.get("group") == name]
+        if subset:
+            out[name] = score_run(subset, predictions)
+    return out
+
+
+def gate_verdict(gold: list[dict], predictions: dict[str, str]) -> dict:
+    """spec §7 条款 1 的判定。
+
+    fatal 口径 = **全集减去 final 组** —— final 三题的 gold 是 study, 判去 cdisc 按
+    score_run 就是 fatal; 若计入, 条款 1 会与条款 5 (只报告不作判据) 互相打架。
+    """
+    by_group = score_by_group(gold, predictions)
+    if "legacy" not in by_group:  # 没有参照物时拒绝给结论, 而不是默认放行
+        raise ValueError("legacy 子集缺失 —— 回归条款 1 无参照物, 拒绝给结论")
+    non_final = [g for g in gold if g.get("group") != "final"]
+    overall = score_run(non_final, predictions)
+    legacy_exact = by_group["legacy"]["exact"]
+    return {
+        "n_scored_excl_final": overall["n"],
+        "fatal_excl_final": overall["fatal"],
+        "fatal_ids_excl_final": sorted(f["id"] for f in overall["fatal_items"]),
+        "legacy_exact": legacy_exact,
+        "legacy_floor": LEGACY_EXACT_FLOOR,
+        "by_group": {k: {kk: vv for kk, vv in v.items() if kk != "fatal_items"}
+                     for k, v in by_group.items()},
+        "passed": overall["fatal"] == 0 and legacy_exact >= LEGACY_EXACT_FLOOR,
+    }
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--runs", type=int, default=3)
@@ -92,16 +185,20 @@ def main(argv: list[str] | None = None) -> int:
             corpus, fallback = route_corpus(llm, g["question"])
             preds[g["id"]] = corpus
             n_fallback += fallback
-        s = score_run(gold, preds)
+        v = gate_verdict(gold, preds)
         per_run_preds.append(preds)
         detail = [{**g, "pred": preds[g["id"]]} for g in gold]
         (RUNS_DIR / f"routing_run_{run_i}.json").write_text(
-            json.dumps({"summary": {k: v for k, v in s.items() if k != "fatal_items"},
-                        "detail": detail}, ensure_ascii=False, indent=1))
-        print(f"run {run_i}: exact {s['exact']}/{s['n']} = {s['exact_acc']:.1%}  "
-              f"fatal={s['fatal']}  fallback={n_fallback}  "
-              f"{'PASS' if s['passed'] else 'FAIL'}")
-        all_passed &= s["passed"]
+            json.dumps({"summary": v, "detail": detail}, ensure_ascii=False, indent=1))
+        groups = "  ".join(
+            f"{k}:{s['exact']}/{s['n']}" for k, s in v["by_group"].items())
+        print(f"run {run_i}: legacy {v['legacy_exact']}/{v['by_group']['legacy']['n']} "
+              f"(floor {v['legacy_floor']})  fatal_excl_final={v['fatal_excl_final']}  "
+              f"fallback={n_fallback}  {'PASS' if v['passed'] else 'FAIL'}")
+        print(f"         groups: {groups}")
+        if v["fatal_ids_excl_final"]:
+            print(f"         fatal ids: {v['fatal_ids_excl_final']}")
+        all_passed &= v["passed"]
 
     stable = sum(
         1 for g in gold
