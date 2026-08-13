@@ -56,6 +56,13 @@ def main(argv: list[str] | None = None) -> int:
     p = argparse.ArgumentParser(description="run_eval 产物逐题比对 (只吐 id, 不吐题面)")
     p.add_argument("runs", nargs="+", help="两个或以上 run_eval --output 产物")
     args = p.parse_args(argv)
+    # 「连跑 3 遍」最常见的操作事故: 循环里 --output 忘了带轮次变量, 三遍写进同一个文件。
+    # 此时三份「产物」字面上是同一个文件, 比对器会给出干净的 rc=0 稳定性证明 ——
+    # 与 load_scores 挡掉的「空产物比对恒真」是同一格危害。按内容哈希去重不行:
+    # run_eval 的 result dict 无 latency/时间戳, 两遍真独立且恰好稳定的跑批可以字节相同。
+    resolved = [Path(f).resolve() for f in args.runs]
+    if len(set(resolved)) != len(resolved):
+        p.error("同一产物路径传了多次 —— 自我比对恒等于稳定")
     scored = [load_scores(f) for f in args.runs]
     for i, f in enumerate(args.runs, 1):
         vals = list(scored[i - 1].values())

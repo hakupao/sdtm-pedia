@@ -3,7 +3,7 @@ import json
 
 import pytest
 
-from eval.compare_runs import diff_scores, load_scores, unstable_ids
+from eval.compare_runs import diff_scores, load_scores, main, unstable_ids
 
 
 def _write(tmp_path, name, results):
@@ -66,3 +66,42 @@ def test_unstable_ids_requires_two_runs():
 def test_unstable_ids_flags_key_present_in_only_some_runs():
     runs = [{"a": 1.0, "b": 1.0}, {"a": 1.0}]
     assert unstable_ids(runs) == {"b": [1.0, None]}
+    # 反向: 缺题出现在后面的遍次 (第 2/3 遍中途崩了少写几题)。键集合若只取 runs[0],
+    # 这一格返回 {} —— 字面意义的「遍遍一致」, 正是本模块要防的那一格。
+    assert unstable_ids([{"a": 1.0}, {"a": 1.0, "b": 1.0}]) == {"b": [None, 1.0]}
+
+
+# --- CLI 入口: 它自己就是闸 (rc 与 unstable 计数是判据), 故必须有守护 ---
+
+
+def test_main_rejects_same_path_passed_twice(tmp_path):
+    # 三遍 --output 忘带轮次变量 = 三份「产物」是同一个文件, 自我比对恒等于稳定
+    p = _write(tmp_path, "r.json", [{"id": "docs_v1_q1", "source_recall": 1.0}])
+    with pytest.raises(SystemExit):
+        main([str(p), str(p)])
+
+
+def test_main_returns_zero_when_runs_agree(tmp_path):
+    rows = [{"id": "docs_v1_q1", "source_recall": 1.0},
+            {"id": "docs_v1_q2", "source_recall": 1.0}]
+    assert main([str(_write(tmp_path, "a.json", rows)),
+                 str(_write(tmp_path, "b.json", rows))]) == 0
+
+
+def test_main_returns_one_and_names_unstable_id(tmp_path, capsys):
+    a = _write(tmp_path, "a.json", [{"id": "docs_v1_q1", "source_recall": 1.0},
+                                    {"id": "docs_v1_q2", "source_recall": 1.0}])
+    b = _write(tmp_path, "b.json", [{"id": "docs_v1_q1", "source_recall": 1.0},
+                                    {"id": "docs_v1_q2", "source_recall": 0.5}])
+    assert main([str(a), str(b)]) == 1
+    assert "docs_v1_q2" in capsys.readouterr().out
+
+
+def test_main_reads_every_run_not_just_the_first_two(tmp_path, capsys):
+    # 只有第 3 遍偏离: 若 main 静默丢掉尾部遍次 (如 scored[:2]), 这里会报「一致」rc=0
+    same = [{"id": "docs_v1_q1", "source_recall": 1.0}]
+    a = _write(tmp_path, "a.json", same)
+    b = _write(tmp_path, "b.json", same)
+    c = _write(tmp_path, "c.json", [{"id": "docs_v1_q1", "source_recall": 0.5}])
+    assert main([str(a), str(b), str(c)]) == 1
+    assert "docs_v1_q1" in capsys.readouterr().out
