@@ -60,9 +60,11 @@ def load_supplement(path: Path) -> list[dict]:
     if not items:  # 空文件 / 全被注释掉: 静默返回 [] = 闸悄悄变松
         raise ValueError(f"路由补充 gold 为空: {path} —— 闸口不完整, 拒绝继续")
     out = []
-    for q in items:
+    for i, q in enumerate(items):
         if not q.get("id") or not q.get("question"):
-            raise ValueError(f"{path}: 条目缺 id/question: {q!r}")
+            # 不打 q 本身: 见 load_docs_routing_gold 同一处的注释。本文件 (ja_supplement)
+            # 是 tracked 的、不含 study 内容, 这里跟着改是为了不留下可被照抄的写法。
+            raise ValueError(f"{path}: 第 {i} 条缺 id/question (id={q.get('id')!r})")
         if q.get("gold") not in VALID_GOLD:
             raise ValueError(f"{path}: {q['id']} 的 gold={q.get('gold')!r} 非法")
         out.append({"id": q["id"], "question": q["question"], "gold": q["gold"]})
@@ -102,9 +104,12 @@ def load_docs_routing_gold(path: Path) -> list[dict]:
     if not items:  # 空文件 / 全被注释掉: 静默返回 [] = 闸悄悄变松
         raise ValueError(f"U3 手順書路由 gold 为空: {path} —— 闸口不完整, 拒绝继续")
     out = []
-    for q in items:
+    for i, q in enumerate(items):
         if not q.get("id") or not q.get("question"):
-            raise ValueError(f"{path}: 条目缺 id/question: {q!r}")
+            # **红线**: 这个 path 是 gitignored 的手順書 gold, `{q!r}` 会把整条 item (含题面)
+            # 写进异常消息 —— 而异常消息会随 pytest traceback 进入本仓惯例贴进 evidence/ 的
+            # 实测输出。只打序号 / id, 定位够用, 值不出门。(实测: 修前 --tb=short 泄 1 条。)
+            raise ValueError(f"{path}: 第 {i} 条缺 id/question (id={q.get('id')!r})")
         if q.get("gold") not in VALID_GOLD:
             raise ValueError(f"{path}: {q['id']} 的 gold={q.get('gold')!r} 非法")
         # legacy 被排除在外: 新题自称 legacy 会污染回归条款 1 的参照物。
