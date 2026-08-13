@@ -34,8 +34,19 @@ DOCS_ROUTING_SET = Path("data/study/st01/eval/routing_gold_docs.yml")
 FINAL_IDS = ("docs_v1_q15", "docs_v1_q17", "docs_v1_q53")
 # spec §7 条款 1: U2 收口实测三遍稳定 179/181, 留 1 题噪声余量。**不许下调。**
 LEGACY_EXACT_FLOOR = 178
-NEW_GROUPS = ("u1_doc", "final", "dev", "heldout", "distractor_cdisc", "ambiguous_both")
+# 数据文件**有权自称**的 group。`final` / `u1_doc` 不在其中: 它们只能由 load_u1_doc_gold
+# 按 FINAL_IDS 产生。若把 `final` 放进这个白名单, routing_gold_docs.yml 里任何一题都可以
+# 写 group: final 从而脱离 fatal_excl_final —— 而该 yml 是 gitignored, 不进 code review,
+# 等于把「哪几题被条款 5 豁免」这个必须可被 review 看见的名单交给一个看不见的文件改写。
+AUTHORED_GROUPS = ("dev", "heldout", "distractor_cdisc", "ambiguous_both")
+NEW_GROUPS = ("u1_doc", "final", *AUTHORED_GROUPS)
 GROUPS = ("legacy", *NEW_GROUPS)
+# spec §5.2 的配比。写死而非「非空即可」: 两个 gold 文件都 gitignored, 少掉整整一组题
+# (U1 题集删到只剩 FINAL_IDS 三题 / 新 gold 缩到 1 题) 在输出里长得跟「这组本来就不存在」
+# 一模一样, 闸照样 PASS —— spec §7「不许从 gold 删题」就没有任何执行者。
+# 数字改动必须走 code review, 这正是把它放进源码的理由。
+EXPECTED_GROUP_SIZES = {"legacy": 181, "u1_doc": 27, "final": 3, "dev": 12,
+                        "heldout": 12, "distractor_cdisc": 12, "ambiguous_both": 6}
 
 
 def load_supplement(path: Path) -> list[dict]:
@@ -66,8 +77,13 @@ def load_u1_doc_gold(path: Path) -> list[dict]:
     """
     if not path.exists():
         raise FileNotFoundError(f"U1 doc 题集缺失: {path} —— 闸口不完整, 拒绝继续")
+    # 空题集 → 静默少 30 题 = 本单元要修的那个错重新对闸隐形。这一步必须在
+    # load_test_set 之前: 它对空文件抛的是 TypeError('NoneType' object is not iterable),
+    # 消息来自无关模块, 且会把下面那条 if not items 变成永远够不着的死代码。
+    if not (yaml.safe_load(path.read_text(encoding="utf-8")) or []):
+        raise ValueError(f"U1 doc 题集为空: {path} —— 闸口不完整, 拒绝继续")
     items = load_test_set(str(path))
-    if not items:  # 空题集 → 静默少 30 题 = 本单元要修的那个错重新对闸隐形
+    if not items:
         raise ValueError(f"U1 doc 题集为空: {path} —— 闸口不完整, 拒绝继续")
     ids = {q["id"] for q in items}
     missing = sorted(set(FINAL_IDS) - ids)
@@ -91,10 +107,11 @@ def load_docs_routing_gold(path: Path) -> list[dict]:
             raise ValueError(f"{path}: 条目缺 id/question: {q!r}")
         if q.get("gold") not in VALID_GOLD:
             raise ValueError(f"{path}: {q['id']} 的 gold={q.get('gold')!r} 非法")
-        # legacy 被排除在外: 新题自称 legacy 会污染回归条款 1 的参照物
-        if q.get("group") not in NEW_GROUPS:
+        # legacy 被排除在外: 新题自称 legacy 会污染回归条款 1 的参照物。
+        # final / u1_doc 同样被排除: 见 AUTHORED_GROUPS 的注释 —— 自称 final 即脱离 fatal。
+        if q.get("group") not in AUTHORED_GROUPS:
             raise ValueError(
-                f"{path}: {q['id']} 的 group={q.get('group')!r} 非法, 应属 {NEW_GROUPS}")
+                f"{path}: {q['id']} 的 group={q.get('group')!r} 非法, 应属 {AUTHORED_GROUPS}")
         out.append({"id": q["id"], "question": q["question"],
                     "gold": q["gold"], "group": q["group"]})
     return out
@@ -113,6 +130,21 @@ def load_gold() -> list[dict]:
     dupes = sorted({i for i in ids if ids.count(i) > 1})
     if dupes:  # predictions 以 id 为键, 重名会互相覆盖 → 静默改变计分
         raise ValueError(f"gold id 重复: {dupes}")
+    # 条款 5 的豁免名单必须**恒等于**源码里的 FINAL_IDS。AUTHORED_GROUPS 已经拦住了
+    # 数据文件自称 final 这条路, 这里是第二道: 任何来源 (含将来新增的第 6 个 gold 来源)
+    # 只要往 final 组多塞或少塞一题, 就等于在一个不进 code review 的地方改豁免名单。
+    final_ids = {g["id"] for g in items if g["group"] == "final"}
+    if final_ids != set(FINAL_IDS):
+        raise ValueError(
+            f"final 组 ≠ FINAL_IDS —— 条款 5 的豁免名单被改写 "
+            f"(多出 {sorted(final_ids - set(FINAL_IDS))}, 缺少 {sorted(set(FINAL_IDS) - final_ids)}), "
+            f"拒绝继续")
+    sizes = {name: sum(1 for g in items if g["group"] == name) for name in GROUPS}
+    if sizes != EXPECTED_GROUP_SIZES:  # 整组消失长得跟「这组本来就不存在」一样, 必须点名
+        diff = {k: (v, EXPECTED_GROUP_SIZES.get(k)) for k, v in sizes.items()
+                if v != EXPECTED_GROUP_SIZES.get(k)}
+        raise ValueError(
+            f"gold 组题量与 spec §5.2 不符 (实际, 期望): {diff} —— 闸口题量被改动, 拒绝继续")
     return items
 
 
@@ -133,7 +165,9 @@ def score_run(gold: list[dict], predictions: dict[str, str]) -> dict:
 
 def score_by_group(gold: list[dict], predictions: dict[str, str]) -> dict[str, dict]:
     """按 group 切片各自 score_run。未知 group 直接 raise —— 分组口径写死在 spec §7。"""
-    unknown = sorted({g.get("group") for g in gold} - set(GROUPS))
+    # repr 而非裸值: gold 同时缺 group (None) 与带未知字符串组时, sorted() 会先炸
+    # TypeError('<' not supported between str and NoneType), 把这条写好的消息挤掉。
+    unknown = sorted(map(repr, {g.get("group") for g in gold} - set(GROUPS)))
     if unknown:
         raise ValueError(f"未知 group: {unknown} —— 口径写死在 spec §7, 不许实施时新增")
     out = {}
@@ -192,9 +226,12 @@ def main(argv: list[str] | None = None) -> int:
             json.dumps({"summary": v, "detail": detail}, ensure_ascii=False, indent=1))
         groups = "  ".join(
             f"{k}:{s['exact']}/{s['n']}" for k, s in v["by_group"].items())
+        # PASS 后缀写死「(条款1)」: v["passed"] 只等于 spec §7 条款 1, 不含条款 2 (held-out
+        # 与 dev 差 ≤25pt) / 3 (dev ≥10/12) / 4 (干扰题下降 ≤1)。裸 PASS + rc=0 极易被
+        # 下游读成「本单元通过」, 那三条条款就凭空消失。条款 2/3/4 的原料在 groups: 那行。
         print(f"run {run_i}: legacy {v['legacy_exact']}/{v['by_group']['legacy']['n']} "
               f"(floor {v['legacy_floor']})  fatal_excl_final={v['fatal_excl_final']}  "
-              f"fallback={n_fallback}  {'PASS' if v['passed'] else 'FAIL'}")
+              f"fallback={n_fallback}  {'PASS(条款1)' if v['passed'] else 'FAIL(条款1)'}")
         print(f"         groups: {groups}")
         if v["fatal_ids_excl_final"]:
             print(f"         fatal ids: {v['fatal_ids_excl_final']}")

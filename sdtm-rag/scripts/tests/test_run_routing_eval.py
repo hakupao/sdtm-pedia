@@ -25,6 +25,10 @@ def test_wrong_single_corpus_is_fatal_both_directions():
     s = score_run(GOLD, {"q1": "study", "q2": "cdisc", "q3": "study", "q4": "cdisc"})
     assert s["fatal"] == 2 and s["passed"] is False
     assert {f["id"] for f in s["fatal_items"]} == {"q1", "q2"}
+    # 红线的**源头**: fatal_items 是唯一逐题的容器。给它加一个 question 键今天还不泄漏
+    # (gate_verdict 只取 id, by_group 又整个剔掉), 但与「by_group 不再剔除」叠加即泄漏。
+    # 在源头钉键集 = 不依赖下游两道过滤器同时不出事。
+    assert all(set(f) == {"id", "gold", "pred"} for f in s["fatal_items"])
 
 
 GOLD_BOTH = GOLD + [{"id": "q5", "gold": "both"}]
@@ -160,8 +164,14 @@ _DOCS_ROUTING_YML = """
 """
 
 
+# fixture 题集的组分布。真值 (spec §5.2 的 181/27/3/12/12/12/6) 由
+# test_policy_constants_match_spec + test_real_gold_files_match_expected_sizes 钉住。
+_FIXTURE_SIZES = {"legacy": 3, "u1_doc": 1, "final": 3, "dev": 1,
+                  "heldout": 1, "distractor_cdisc": 1, "ambiguous_both": 1}
+
+
 def _wire_u3(tmp_path, monkeypatch, *, docs_q=_DOCS_QUESTION_YML, docs_r=_DOCS_ROUTING_YML,
-             ja=_JA_YML):
+             ja=_JA_YML, sizes=_FIXTURE_SIZES):
     _wire(tmp_path, monkeypatch, ja=ja)
     dq = tmp_path / "docs_q.yml"
     dq.write_text(docs_q, encoding="utf-8")
@@ -169,6 +179,7 @@ def _wire_u3(tmp_path, monkeypatch, *, docs_q=_DOCS_QUESTION_YML, docs_r=_DOCS_R
     dr.write_text(docs_r, encoding="utf-8")
     monkeypatch.setattr(run_routing_eval, "DOCS_QUESTION_SET", dq)
     monkeypatch.setattr(run_routing_eval, "DOCS_ROUTING_SET", dr)
+    monkeypatch.setattr(run_routing_eval, "EXPECTED_GROUP_SIZES", sizes)
     return dq, dr
 
 
@@ -242,9 +253,15 @@ def test_score_by_group_slices_independently():
     assert by["heldout"]["exact"] == 0 and by["heldout"]["fatal"] == 1
 
 
-def test_score_by_group_rejects_unknown_group():
+@pytest.mark.parametrize("gold", [
+    [{"id": "X", "gold": "cdisc", "group": "mystery"}],
+    [{"id": "X", "gold": "cdisc"}],                                  # group 键缺失 → None
+    # 两者并存: sorted() 会先炸 TypeError(str 与 NoneType 不可比), 把这条消息挤掉
+    [{"id": "X", "gold": "cdisc", "group": "mystery"}, {"id": "Y", "gold": "cdisc"}],
+])
+def test_score_by_group_rejects_unknown_group(gold):
     with pytest.raises(ValueError, match="未知 group"):
-        score_by_group([{"id": "X", "gold": "cdisc", "group": "mystery"}], {"X": "cdisc"})
+        score_by_group(gold, {"X": "cdisc", "Y": "cdisc"})
 
 
 def test_gate_verdict_excludes_final_from_fatal(monkeypatch):
@@ -255,6 +272,16 @@ def test_gate_verdict_excludes_final_from_fatal(monkeypatch):
     assert v["fatal_excl_final"] == 0          # F1 判错但不计入
     assert v["by_group"]["final"]["fatal"] == 1  # 仍然如实报告
     assert v["passed"] is True
+    # 减法**只能**是 final 一组。审查方实测: 排除项扩成 ("final","u1_doc") 或
+    # ("final","heldout") 时 28 条全绿, 27 道 U1 doc / 12 道 held-out「眼睛」集体失明。
+    # `!=`→`==` 那种「排除反了」会让闸明显崩掉, 「排除多了」才是悄悄放松的自然形态。
+    assert v["n_scored_excl_final"] == len(_G) - 1
+    # 名字说 excl_final, 内容也必须 excl_final: 从全集算会把被豁免的三题 id 打进 stdout
+    assert v["fatal_ids_excl_final"] == []
+    # 上报的 floor 必须是真判据用的那个, 否则 stdout 显示 178 而实判另一个数
+    assert v["legacy_floor"] == run_routing_eval.LEGACY_EXACT_FLOOR
+    # by_group 必须剔掉 fatal_items: 它是唯一逐题的容器, 留着就是给题面泄漏留门
+    assert all("fatal_items" not in s for s in v["by_group"].values())
 
 
 def test_gate_verdict_counts_non_final_fatal(monkeypatch):
@@ -272,18 +299,192 @@ def test_gate_verdict_fails_when_legacy_below_floor(monkeypatch):
     assert v["passed"] is False
 
 
+# 覆盖全部 7 组的 gold。_G 只有 4 组 (缺 u1_doc / distractor_cdisc / ambiguous_both),
+# 所以「排除项扩成 ("final","u1_doc")」在 _G 上根本不改变 n —— 实测该变异在只有 _G 时存活。
+_G7 = [{"id": "L1", "gold": "cdisc", "group": "legacy"},
+       {"id": "L2", "gold": "study", "group": "legacy"},
+       {"id": "F1", "gold": "study", "group": "final"},
+       {"id": "U1", "gold": "study", "group": "u1_doc"},
+       {"id": "D1", "gold": "study", "group": "dev"},
+       {"id": "H1", "gold": "study", "group": "heldout"},
+       {"id": "X1", "gold": "cdisc", "group": "distractor_cdisc"},
+       {"id": "B1", "gold": "both", "group": "ambiguous_both"}]
+
+
+@pytest.mark.parametrize("wrong_id", ["L1", "L2", "U1", "D1", "H1", "X1", "B1"])
+def test_every_non_final_group_is_watched(monkeypatch, wrong_id):
+    """六个非 final 组里任何一题判错都必须计入 fatal —— 逐组各来一遍。
+
+    这是「减法被悄悄扩大」的正面防线: 排除项每多写一组, 对应那条参数就会红。
+    """
+    monkeypatch.setattr(run_routing_eval, "LEGACY_EXACT_FLOOR", 0)
+    preds = {g["id"]: (_FLIP[g["gold"]] if g["id"] == wrong_id else g["gold"]) for g in _G7}
+    v = gate_verdict(_G7, preds)
+    assert v["fatal_excl_final"] == 1
+    assert v["fatal_ids_excl_final"] == [wrong_id]
+    assert v["n_scored_excl_final"] == len(_G7) - 1
+    assert v["passed"] is False
+
+
+def test_final_group_alone_escapes_fatal(monkeypatch):
+    # 反向: 恰好只有 final 逃过, 且逃过不等于不被报告 (条款 5 = 只报告)
+    monkeypatch.setattr(run_routing_eval, "LEGACY_EXACT_FLOOR", 0)
+    preds = {g["id"]: (_FLIP[g["gold"]] if g["id"] == "F1" else g["gold"]) for g in _G7}
+    v = gate_verdict(_G7, preds)
+    assert v["fatal_excl_final"] == 0 and v["fatal_ids_excl_final"] == []
+    assert v["passed"] is True
+    assert v["by_group"]["final"]["fatal"] == 1 and v["by_group"]["final"]["n"] == 1
+
+
 def test_gate_verdict_raises_without_legacy_subset():
     # 回归条款 1 没有参照物时必须拒绝给结论, 而不是默认放行
     with pytest.raises(ValueError, match="legacy"):
         gate_verdict([{"id": "D1", "gold": "study", "group": "dev"}], {"D1": "study"})
 
 
-def test_gate_verdict_does_not_print_question_text(tmp_path, monkeypatch, capsys):
-    # 红线: stdout 只许出现 id 与数字
+_FLIP = {"study": "cdisc", "cdisc": "study", "both": "cdisc"}
+
+
+def test_gate_verdict_return_value_carries_no_question_text(tmp_path, monkeypatch):
+    # 红线: gate_verdict 的返回值 (= 写进 runs json 的 summary, 也是 stdout 的唯一来源)
+    # 只许带 id 与数字。**必须用带判错的预测**: fatal_items 是唯一逐题的容器, 全对预测
+    # 下它恒空 ⇒ 「只有判错时才泄漏」这个形态结构上看不见 (审查方变异 V2 即此)。
     _wire_u3(tmp_path, monkeypatch)
+    monkeypatch.setattr(run_routing_eval, "LEGACY_EXACT_FLOOR", 0)
     gold = run_routing_eval.load_gold()
-    v = gate_verdict(gold, {g["id"]: g["gold"] for g in gold})
-    assert "dummy" not in json.dumps(v, ensure_ascii=False)
+    all_wrong = {g["id"]: _FLIP[g["gold"]] for g in gold}   # 每组都有 fatal
+    v = gate_verdict(gold, all_wrong)
+    assert v["fatal_excl_final"] > 0, "预测必须真的造出 fatal, 否则这条测试又瞎了"
+    assert all(v["by_group"][name]["fatal"] > 0 for name in v["by_group"])
+    dumped = json.dumps(v, ensure_ascii=False)
+    assert "dummy" not in dumped
+    for g in gold:
+        assert g["question"] not in dumped
+
+
+# ── main() 冒烟 (不发任何 LLM 请求) ────────────────────────────────
+def _run_main(tmp_path, monkeypatch, capsys, wrong_id):
+    """跑真 main(), 但把 create_router / route_corpus 换成确定性桩。"""
+    _wire_u3(tmp_path, monkeypatch)
+    monkeypatch.setattr(run_routing_eval, "RUNS_DIR", tmp_path / "runs")
+    monkeypatch.setattr(run_routing_eval, "LEGACY_EXACT_FLOOR", 3)
+    monkeypatch.setattr(run_routing_eval, "create_router", lambda settings: object())
+    gold = run_routing_eval.load_gold()
+    preds = {g["id"]: (_FLIP[g["gold"]] if g["id"] == wrong_id else g["gold"]) for g in gold}
+    by_question = {g["question"]: preds[g["id"]] for g in gold}
+    monkeypatch.setattr(run_routing_eval, "route_corpus",
+                        lambda llm, question: (by_question[question], 0))
+    rc = run_routing_eval.main(["--runs", "1"])
+    return gold, preds, rc, capsys.readouterr().out
+
+
+@pytest.mark.parametrize("wrong_id,expect_rc", [
+    ("docs_v1_q15", 0),   # final 组判错: 条款 5 只报告 ⇒ 仍 rc=0 (旧全集口径会给 1)
+    ("u3_dev_01", 1),     # dev 判错: 计入 fatal ⇒ rc=1
+])
+def test_main_rc_follows_gate_verdict(tmp_path, monkeypatch, capsys, wrong_id, expect_rc):
+    # main() 此前零测试覆盖: 把 all_passed 悄悄换回 score_run 的旧全集口径,
+    # 退出码含义被替换而 28 条测试全绿 (审查方变异 M29)。
+    gold, preds, rc, _ = _run_main(tmp_path, monkeypatch, capsys, wrong_id)
+    assert rc == expect_rc
+    assert rc == (0 if gate_verdict(gold, preds)["passed"] else 1)
+
+
+@pytest.mark.parametrize("wrong_id", ["docs_v1_q15", "u3_dev_01"])
+def test_main_stdout_never_prints_question_text(tmp_path, monkeypatch, capsys, wrong_id):
+    # 红线, 回归版: 报告里那种「把 f-string 抄进独立脚本跑一遍」证明不了 main() 将来
+    # 多出来的行。审查方变异 M27 (插一行 print(detail)) / M28 (打题面而非 id) 全部存活过。
+    gold, preds, _, out = _run_main(tmp_path, monkeypatch, capsys, wrong_id)
+    assert "dummy" not in out
+    for g in gold:
+        assert g["question"] not in out
+
+
+def test_main_prints_fatal_ids_not_questions(tmp_path, monkeypatch, capsys):
+    gold, _, rc, out = _run_main(tmp_path, monkeypatch, capsys, "u3_dev_01")
+    assert "fatal ids: ['u3_dev_01']" in out and rc == 1
+    assert "groups:" in out and "legacy:3/3" in out
+
+
+def test_main_writes_detail_with_questions_to_runs_dir_only(tmp_path, monkeypatch, capsys):
+    # 逐题明细 (含题面) 该进 gitignored 的 RUNS_DIR —— 这条同时防「为了红线把 detail 也删了」
+    _run_main(tmp_path, monkeypatch, capsys, "u3_dev_01")
+    written = json.loads((tmp_path / "runs" / "routing_run_1.json").read_text(encoding="utf-8"))
+    assert any("dummy" in d["question"] for d in written["detail"])
+    assert "dummy" not in json.dumps(written["summary"], ensure_ascii=False)
+
+
+# ── C1: 条款 5 的豁免名单不许被数据文件改写 ──────────────────────────
+@pytest.mark.parametrize("group", ["final", "u1_doc"])
+def test_docs_routing_gold_rejects_self_declared_reserved_group(tmp_path, monkeypatch, group):
+    # 自称 final = 直接脱离 fatal_excl_final。该 yml 是 gitignored ⇒ 不进 code review,
+    # 等于把「哪三题被豁免」交给一个看不见的文件改写 (审查方实测: 闸 FAIL 翻 PASS)。
+    _wire_u3(tmp_path, monkeypatch,
+             docs_r=f"- id: u3_x\n  question: q\n  gold: study\n  group: {group}\n")
+    with pytest.raises(ValueError, match="非法"):
+        run_routing_eval.load_gold()
+
+
+def test_final_group_must_equal_final_ids(tmp_path, monkeypatch):
+    # 第二道: 任何来源 (含将来新增的第 6 个 gold 来源) 往 final 组多塞一题都要拦
+    _wire_u3(tmp_path, monkeypatch)
+    monkeypatch.setattr(run_routing_eval, "load_docs_routing_gold",
+                        lambda path: [{"id": "u3_rogue", "question": "q",
+                                       "gold": "study", "group": "final"}])
+    with pytest.raises(ValueError, match="豁免名单被改写"):
+        run_routing_eval.load_gold()
+
+
+# ── I4: 题量下限 (两个 gold 文件都 gitignored, 删题无人执行) ──────────
+def test_trimmed_u1_doc_set_raises(tmp_path, monkeypatch):
+    # 审查方 G1: U1 题集只剩 FINAL_IDS 三题 ⇒ u1_doc 整组消失, 闸照样 PASS
+    _wire_u3(tmp_path, monkeypatch, docs_q="".join(
+        f"- id: {i}\n  question: dummy {i}\n  expected_sources: [x]\n"
+        for i in ("docs_v1_q15", "docs_v1_q17", "docs_v1_q53")))
+    with pytest.raises(ValueError, match="题量"):
+        run_routing_eval.load_gold()
+
+
+def test_trimmed_docs_routing_gold_raises(tmp_path, monkeypatch):
+    # 审查方 G2/G3: 新 gold 缩到 1 题 / 只剩 dev 一组 ⇒ 空组静默不进结果 dict, 闸照样 PASS
+    _wire_u3(tmp_path, monkeypatch,
+             docs_r="- id: u3_dev_01\n  question: q\n  gold: study\n  group: dev\n")
+    with pytest.raises(ValueError, match="题量"):
+        run_routing_eval.load_gold()
+
+
+def test_real_gold_files_match_expected_sizes():
+    """拿**真实**题集核对 EXPECTED_GROUP_SIZES —— 常量不能只跟自己对得上。
+
+    routing_gold_docs.yml 由 Task 5 交付, 故这里只核已存在的三个 legacy 来源与 U1 题集;
+    余下四组在 Task 5 之后由 load_gold() 的题量闸覆盖。
+    """
+    exp = run_routing_eval.EXPECTED_GROUP_SIZES
+    legacy = (len(run_routing_eval.load_test_set(str(run_routing_eval.CDISC_SET)))
+              + len([q for q in run_routing_eval.load_test_set(str(run_routing_eval.STUDY_SET))
+                     if not q.get("out_of_scope")])
+              + len(run_routing_eval.load_supplement(run_routing_eval.JA_SUPP_SET)))
+    assert legacy == exp["legacy"]
+    docs = run_routing_eval.load_u1_doc_gold(run_routing_eval.DOCS_QUESTION_SET)
+    assert sum(1 for g in docs if g["group"] == "u1_doc") == exp["u1_doc"]
+    assert sum(1 for g in docs if g["group"] == "final") == exp["final"]
+
+
+# ── m5: DOCS_QUESTION_SET 侧的缺文件/空文件 (brief 只给了 ROUTING 侧两条) ──
+def test_missing_u1_doc_set_raises(tmp_path, monkeypatch):
+    # match 消息而非只看类型: 删掉 exists 守卫后 open() 也抛 FileNotFoundError,
+    # 只断言类型的话那个守卫就是等价变异 (审查方 M25)。
+    _wire_u3(tmp_path, monkeypatch)
+    monkeypatch.setattr(run_routing_eval, "DOCS_QUESTION_SET", tmp_path / "nope.yml")
+    with pytest.raises(FileNotFoundError, match="闸口不完整"):
+        run_routing_eval.load_gold()
+
+
+@pytest.mark.parametrize("body", ["", "# 题全被删了\n"])
+def test_empty_u1_doc_set_raises(tmp_path, monkeypatch, body):
+    _wire_u3(tmp_path, monkeypatch, docs_q=body)
+    with pytest.raises(ValueError, match="为空"):
+        run_routing_eval.load_gold()
 
 
 def test_policy_constants_match_spec():
@@ -294,3 +495,11 @@ def test_policy_constants_match_spec():
     assert run_routing_eval.FINAL_IDS == ("docs_v1_q15", "docs_v1_q17", "docs_v1_q53")
     assert run_routing_eval.GROUPS == (
         "legacy", "u1_doc", "final", "dev", "heldout", "distractor_cdisc", "ambiguous_both")
+    # 数据文件有权自称的组: final / u1_doc 必须**不在**里面 (C1)
+    assert run_routing_eval.AUTHORED_GROUPS == (
+        "dev", "heldout", "distractor_cdisc", "ambiguous_both")
+    # spec §5.2 的配比, 同样是策略值 —— _wire_u3 把它 monkeypatch 成 fixture 分布了 (I4)
+    assert run_routing_eval.EXPECTED_GROUP_SIZES == {
+        "legacy": 181, "u1_doc": 27, "final": 3, "dev": 12,
+        "heldout": 12, "distractor_cdisc": 12, "ambiguous_both": 6}
+    assert sum(run_routing_eval.EXPECTED_GROUP_SIZES.values()) == 253
