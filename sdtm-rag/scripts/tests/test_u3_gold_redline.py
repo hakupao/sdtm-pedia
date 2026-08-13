@@ -29,6 +29,14 @@ import yaml
 DRAFT = Path("data/study/st01/eval/routing_gold_docs_draft.yml")
 FINAL = Path("data/study/st01/eval/routing_gold_docs.yml")
 
+# Task 4 出题结束 ⇒ draft 冻结 (用户裁定 2026-08-14)。摘要钉在**这里**而不是数据文件里:
+# 测试文件进 git 进 code review, 两个 yml 两者都不进。
+# 它堵的是 test_final_gold_preserves_draft_questions 单独堵不住的那条路 —— 那条比的是
+# FINAL 对 DRAFT, 同方向改动两个文件即可全绿通过。要改这个常量就得过 review, 正是要的效果。
+# 只钉 draft 不钉 final: final 的数据段已被 ..._deterministic_split_of_the_draft 逐条钉住,
+# 而它的文件头注释是给人读的, 不该因为改一句说明就变红。
+DRAFT_SHA256 = "b1373fd81214b11816b817b5c24539fac3e9753c6f1ada7b34f4921b88d94099"
+
 
 def _load(path: Path) -> list[dict]:
     return yaml.safe_load(path.read_text(encoding="utf-8"))
@@ -80,6 +88,19 @@ def test_gold_file_is_not_tracked(path):
     rc = subprocess.run(["git", "ls-files", "--error-unmatch", str(path)],
                         capture_output=True).returncode
     assert rc != 0, f"{path} 已被 git 跟踪 —— 必须 git rm --cached"
+
+
+def test_draft_is_frozen_at_the_authored_bytes():
+    """出题已结束, draft 冻结在 Task 4 交付时的字节上 —— 改一个字节这条就红.
+
+    比字节而非 yaml 语义: 连「语义等价的重排」也算改动。出题隔离一旦结束,
+    题集就不该再有任何理由变动; 真有正当需求, 改常量走 review。
+    失败信息只有两个十六进制串, 不含题面 (见文件头 ⚠)。
+    """
+    actual = hashlib.sha256(DRAFT.read_bytes()).hexdigest()
+    assert actual == DRAFT_SHA256, (
+        f"draft 已变动 (实际 {actual} / 冻结值 {DRAFT_SHA256}) —— "
+        "出题已结束, 题面变动必须走 code review")
 
 
 def test_dev_and_heldout_cover_disjoint_ids():
