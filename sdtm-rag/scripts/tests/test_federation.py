@@ -71,16 +71,43 @@ def test_router_prompt_describes_the_study_document_corpus():
     )
 
 
+# 三条规则之后的收尾段 (讲兜底取舍) 的起始锚点。三条规则各自的正文都切到它为止。
+_TAIL_MARKER = "\nWhen one of the three rules"
+
+
+def test_router_prompt_tail_anchor_is_intact():
+    """锚点自检: 下面几条切片测试全靠 _TAIL_MARKER 定位收尾段。
+
+    锚点一旦被改没 (第 5 轮就把收尾段首句从 "Never guess…" 换成了别的), 切片会**静默**地
+    连收尾段一起吞进规则 3, 断言可能因此恒绿。这条让锚点失效直接变红, 而不是悄悄退化。
+    """
+    assert _ROUTER_SYSTEM.count(_TAIL_MARKER) == 1
+
+
 def _rule_segment(n: int) -> str:
-    """取 _ROUTER_SYSTEM 里第 n 条规则的正文段 (不含其他规则与结尾通则)。
+    """取 _ROUTER_SYSTEM 里第 n 条规则的正文段 (不含其他规则与收尾段)。
 
     与上一条测试同理由: 整段 prompt 断言在改动**之前**多半已经是绿的 (例如 "even when"
     在规则 1/2 里早就有), 那种断言是装饰品。规则级切片才能让变异 (删掉新增规则文本) 变红。
     """
     seg = _ROUTER_SYSTEM.split(f"\n{n}. ")[1]
-    for tail in (f"\n{n + 1}. ", "\nNever guess"):
+    for tail in (f"\n{n + 1}. ", _TAIL_MARKER):
         seg = seg.split(tail)[0]
     return seg
+
+
+def test_router_prompt_tail_keeps_both_as_the_safe_fallback():
+    """收尾段被重写 (U3 Task 7 第 5 轮) 后, 安全意图必须仍在。
+
+    第 5 轮删掉的是"默认值 = both"那半句 (它把有规则明确覆盖的题也拽去 both);
+    **不得**顺手删掉真不确定时退到 both 的指示 —— 那会把判库从"宁可多查"翻成"敢猜单库",
+    漏查不可恢复。这条钉住三件事: 无法归类 → both / 单库判错不可恢复 / 不许猜单库。
+    """
+    tail = _ROUTER_SYSTEM.split(_TAIL_MARKER)[1].split("\nRespond with ONLY")[0].lower()
+    assert "cannot place it" in tail, "必须保留「无法归入任一规则 ⇒ both」"
+    assert '"both"' in tail
+    assert "unrecoverable" in tail, "必须保留「单库判错不可恢复」这条取舍理由"
+    assert "never guess a single corpus" in tail, "必须保留「不许猜单库」"
 
 
 def test_router_prompt_covers_study_own_definitions():
@@ -105,15 +132,21 @@ def test_router_prompt_carries_no_heldout_clinical_terms():
     词表**不写在这里** —— 写进 tracked 的测试文件等于把「held-out 是关于什么的」
     交给任何读它的人。词表由 controller 预置在 gitignored 文件里,
     实现方不需要、也不许打开它。
+
+    ⚠ 本闸**失败时也不能泄漏**: pytest 的断言改写会把被断言表达式里的值打进输出, 所以
+    断言只落在 int 上 —— 词表本身和命中的词都不进任何 assert 表达式, 也不进失败消息。
+    末尾的 del 是同一考虑的第二道: 万一有人带 --showlocals 跑, 局部变量里也没有词表。
     """
     from pathlib import Path
     p = Path("data/study/st01/eval/heldout_banned_terms.txt")
     assert p.exists(), f"{p} 缺失 —— 本闸无词表则恒绿, 拒绝静默通过"
     banned = [ln.strip() for ln in p.read_text(encoding="utf-8").splitlines()
               if ln.strip() and not ln.startswith("#")]
-    assert banned, f"{p} 为空 —— 空词表恒绿, 拒绝静默通过"
-    hit = [w for w in banned if w in _ROUTER_SYSTEM]
-    assert not hit, f"规则文本泄漏 held-out 概念 ({len(hit)} 个, 内容不打印以免二次泄漏)"
+    n_terms = len(banned)
+    assert n_terms > 0, f"{p} 为空 —— 空词表恒绿, 拒绝静默通过"
+    n_hits = sum(w in _ROUTER_SYSTEM for w in banned)
+    del banned
+    assert n_hits == 0, f"规则文本泄漏 held-out 概念 ({n_hits} 个, 内容不打印以免二次泄漏)"
 
 
 # ── route_corpus ──

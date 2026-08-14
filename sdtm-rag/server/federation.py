@@ -35,17 +35,18 @@ What makes a question rule 1 is that it asks about the standard's structure; mer
 clinical concept the standard happens to cover (adverse events, severity grading, lab results, \
 dosing) does not. That allowance is about the setting of a question, never about its object: what \
 separates rule 1 from rule 2 is the object of the question — the standard's way of representing \
-data, or one study's own decision — and not the clinical topic either of them may touch. Test it \
-on the answer. If the answer would have to be a fact that only this study's own documents could \
-have fixed — how many levels or which categories its own scheme distinguishes, which criterion or \
-cut-off it set, which of several possible methods it adopted, how it defines a term for its own \
-use, what deadline, duty or handling its own 手順・計画文書 lay down — then no public standard \
-contains that answer, whatever clinical concept the question names, the ones listed just above \
-included. A standard prescribes how such data is submitted once a study has decided it (which \
-dataset it belongs in, which variable carries it, which controlled term is allowed); it never \
-prescribes what any single study decided. Route those to rule 2, however standard-flavoured the \
-topic sounds. The reverse lock holds too: when the object is what the standard prescribes for such \
-data, the question stays rule 1 even though its setting is this study.
+data, or what this one study runs. Decide it by asking where the answer is written down. If it \
+could only be written down in this study's own documents and forms — how many levels or which \
+categories a scheme it applies distinguishes, which criterion or cut-off it set, which of several \
+possible methods it adopted, how it defines a term for its own use, what an instrument it \
+administers actually contains, what deadline, duty or handling its own 手順・計画文書 lay down — \
+then no public standard holds that answer, whatever clinical concept the question names, the ones \
+listed just above included: that is rule 2, answer "study". Adopting something defined outside \
+this study does not hand it to the standard: a standard describes how collected data is submitted \
+(which dataset it belongs in, which variable carries it, which controlled term is allowed), never \
+what any one study runs or how any clinical instrument reads. The reverse is just as strict: when \
+the answer is written down in the standard, the question is rule 1 and stays "cdisc" even though \
+its setting is this study, and even though the data being discussed was collected here.
 2. "study" — the question is about this one study's own data-entry artifacts: whether an item \
 exists, whether two related things are captured in one field or in separate fields, how a field is \
 labelled, which form/screen/画面 it sits on, its 選択肢 / 単位 / 入力方法, what the site is actually \
@@ -63,24 +64,26 @@ Rule 3 in turn outranks rule 2: when the question asks how such an item relates 
 3. "both" — everything else: questions that tie a concrete study EDC item to the SDTM standard \
 (mapping), that need facts from both sides, or that you cannot confidently place under rule 1 or \
 rule 2. Rule 3 does not require the question to name the standard, but it is a test of necessity, \
-not of topic overlap. Ask whether a correct and complete answer would have to state two facts at \
-once: one that can only be read off this study's own artifacts (a particular thing it holds, or a \
-choice it made) and one that only the public CDISC standard fixes (which dataset or variable such \
-data belongs to, which controlled term or submission format applies). Only when the answer is \
-incomplete without either of them is it "both", and each half has to be independently necessary. \
-The standard half may be implied rather than named: a question asking what becomes of something \
-this study holds once it leaves this study's own records — how it has to be represented to be \
-submitted — needs the standard side even when it never says 標準 / SDTM / コントロールターミノロジー. \
-Nothing else implies either half. Asking where in this study something is entered, recorded or kept \
-is rule 2 and carries no implied standard side; and telling a question in the first person, or \
-naming this study as whose data is being discussed, never supplies the study half — when \
-everything the answer must state comes from the standard, the question is rule 1 no matter whose \
-data occasioned it. "The standard side" also means the public CDISC SDTM standard specifically: \
-outside laws, guidelines or regulations this study complies with belong to this study's own \
-documents, not to the cdisc corpus.
-Never guess a single corpus. A wrong single corpus makes the answer unrecoverable, while "both" is \
-merely broader — so commit to "cdisc" or "study" only when the question clearly matches that rule, \
-and answer "both" in every remaining case.
+not of topic overlap. Settle it with two separate look-ups. First: to answer, would you have to \
+open this study's own artifacts and look up something particular of its own — an item, a value, an \
+option, a definition? Second: would you have to consult the public CDISC standard — which dataset \
+or variable such data belongs to, which controlled term or submission format applies? Answer \
+"both" only when both look-ups are needed. The standard look-up can be needed without being named: \
+asking what becomes of something this study holds once it leaves this study's own records — how it \
+has to be represented in order to be submitted — needs it even when the question never says 標準 / \
+SDTM / コントロールターミノロジー. Nothing else adds a look-up. A question you can answer from the \
+standard alone is rule 1 however much study scenery it carries: first-person framing, naming this \
+study, saying whose data it is, or noting that the data was collected here adds no study look-up. \
+A question you can answer from this study's artifacts alone is rule 2, and that includes asking \
+where in this study something is entered, recorded or kept. Outside laws, guidelines or \
+regulations this study complies with are documented on this study's side, not in the CDISC \
+standard.
+When one of the three rules plainly covers the question, apply it and let it settle the answer: a \
+clinical topic that sounds like the other corpus is not a reason to hesitate, and "both" is not a \
+way of avoiding the decision. Real uncertainty is the other case, and there "both" is right: when \
+the question genuinely needs facts from both sides, or when you cannot place it under any one rule, \
+answer "both" — a wrong single corpus makes the answer unrecoverable, while "both" is merely \
+broader. Never guess a single corpus to look decisive.
 Respond with ONLY this JSON, nothing else: {"corpus": "cdisc"} or {"corpus": "study"} or {"corpus": "both"}"""
 
 _FEDERATION_RULES = (
