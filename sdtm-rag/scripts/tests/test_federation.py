@@ -71,6 +71,51 @@ def test_router_prompt_describes_the_study_document_corpus():
     )
 
 
+def _rule_segment(n: int) -> str:
+    """取 _ROUTER_SYSTEM 里第 n 条规则的正文段 (不含其他规则与结尾通则)。
+
+    与上一条测试同理由: 整段 prompt 断言在改动**之前**多半已经是绿的 (例如 "even when"
+    在规则 1/2 里早就有), 那种断言是装饰品。规则级切片才能让变异 (删掉新增规则文本) 变红。
+    """
+    seg = _ROUTER_SYSTEM.split(f"\n{n}. ")[1]
+    for tail in (f"\n{n + 1}. ", "\nNever guess"):
+        seg = seg.split(tail)[0]
+    return seg
+
+
+def test_router_prompt_covers_study_own_definitions():
+    """规则 1 侧: 必须显式覆盖「本研究自己规定的分類/判定/定義」这一类。"""
+    rule1 = _rule_segment(1)
+    assert "手順" in rule1 or "計画文書" in rule1, (
+        "规则 1 必须写明这类问题指向本研究自己的手順/計画文書 (→ 规则 2)"
+    )
+    # 判别器是「问题的对象」而非临床主题
+    assert "object of the question" in rule1
+
+
+def test_router_prompt_covers_unmarked_both():
+    """规则 3 侧: 必须覆盖「无标准侧显式标记的真两可」形态。"""
+    low = _rule_segment(3).lower()
+    assert "without" in low or "even when" in low
+
+
+def test_router_prompt_carries_no_heldout_clinical_terms():
+    """反对症下药闸: 规则文本不得出现 held-out 题的临床概念。
+
+    词表**不写在这里** —— 写进 tracked 的测试文件等于把「held-out 是关于什么的」
+    交给任何读它的人。词表由 controller 预置在 gitignored 文件里,
+    实现方不需要、也不许打开它。
+    """
+    from pathlib import Path
+    p = Path("data/study/st01/eval/heldout_banned_terms.txt")
+    assert p.exists(), f"{p} 缺失 —— 本闸无词表则恒绿, 拒绝静默通过"
+    banned = [ln.strip() for ln in p.read_text(encoding="utf-8").splitlines()
+              if ln.strip() and not ln.startswith("#")]
+    assert banned, f"{p} 为空 —— 空词表恒绿, 拒绝静默通过"
+    hit = [w for w in banned if w in _ROUTER_SYSTEM]
+    assert not hit, f"规则文本泄漏 held-out 概念 ({len(hit)} 个, 内容不打印以免二次泄漏)"
+
+
 # ── route_corpus ──
 
 @pytest.mark.parametrize("corpus", VALID_CORPORA)
