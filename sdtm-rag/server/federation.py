@@ -33,20 +33,7 @@ told as a trial scenario — first-person framing ("in our study", "our protocol
 "a subject in our trial") is narrative background and does not by itself require the study corpus. \
 What makes a question rule 1 is that it asks about the standard's structure; merely naming a \
 clinical concept the standard happens to cover (adverse events, severity grading, lab results, \
-dosing) does not. That allowance is about the setting of a question, never about its object: what \
-separates rule 1 from rule 2 is the object of the question — the standard's way of representing \
-data, or what this one study runs. Decide it by asking where the answer is written down. If it \
-could only be written down in this study's own documents and forms — how many levels or which \
-categories a scheme it applies distinguishes, which criterion or cut-off it set, which of several \
-possible methods it adopted, how it defines a term for its own use, what an instrument it \
-administers actually contains, what deadline, duty or handling its own 手順・計画文書 lay down — \
-then no public standard holds that answer, whatever clinical concept the question names, the ones \
-listed just above included: that is rule 2, answer "study". Adopting something defined outside \
-this study does not hand it to the standard: a standard describes how collected data is submitted \
-(which dataset it belongs in, which variable carries it, which controlled term is allowed), never \
-what any one study runs or how any clinical instrument reads. The reverse is just as strict: when \
-the answer is written down in the standard, the question is rule 1 and stays "cdisc" even though \
-its setting is this study, and even though the data being discussed was collected here.
+dosing) does not.
 2. "study" — the question is about this one study's own data-entry artifacts: whether an item \
 exists, whether two related things are captured in one field or in separate fields, how a field is \
 labelled, which form/screen/画面 it sits on, its 選択肢 / 単位 / 入力方法, what the site is actually \
@@ -63,27 +50,10 @@ Rule 3 in turn outranks rule 2: when the question asks how such an item relates 
 (マッピング / 対応 / どの変数に…), neither corpus alone can answer it — answer "both".
 3. "both" — everything else: questions that tie a concrete study EDC item to the SDTM standard \
 (mapping), that need facts from both sides, or that you cannot confidently place under rule 1 or \
-rule 2. Rule 3 does not require the question to name the standard, but it is a test of necessity, \
-not of topic overlap. Settle it with two separate look-ups. First: to answer, would you have to \
-open this study's own artifacts and look up something particular of its own — an item, a value, an \
-option, a definition? Second: would you have to consult the public CDISC standard — which dataset \
-or variable such data belongs to, which controlled term or submission format applies? Answer \
-"both" only when both look-ups are needed. The standard look-up can be needed without being named: \
-asking what becomes of something this study holds once it leaves this study's own records — how it \
-has to be represented in order to be submitted — needs it even when the question never says 標準 / \
-SDTM / コントロールターミノロジー. Nothing else adds a look-up. A question you can answer from the \
-standard alone is rule 1 however much study scenery it carries: first-person framing, naming this \
-study, saying whose data it is, or noting that the data was collected here adds no study look-up. \
-A question you can answer from this study's artifacts alone is rule 2, and that includes asking \
-where in this study something is entered, recorded or kept. Outside laws, guidelines or \
-regulations this study complies with are documented on this study's side, not in the CDISC \
-standard.
-When one of the three rules plainly covers the question, apply it and let it settle the answer: a \
-clinical topic that sounds like the other corpus is not a reason to hesitate, and "both" is not a \
-way of avoiding the decision. Real uncertainty is the other case, and there "both" is right: when \
-the question genuinely needs facts from both sides, or when you cannot place it under any one rule, \
-answer "both" — a wrong single corpus makes the answer unrecoverable, while "both" is merely \
-broader. Never guess a single corpus to look decisive.
+rule 2.
+Never guess a single corpus. A wrong single corpus makes the answer unrecoverable, while "both" is \
+merely broader — so commit to "cdisc" or "study" only when the question clearly matches that rule, \
+and answer "both" in every remaining case.
 Respond with ONLY this JSON, nothing else: {"corpus": "cdisc"} or {"corpus": "study"} or {"corpus": "both"}"""
 
 _FEDERATION_RULES = (
