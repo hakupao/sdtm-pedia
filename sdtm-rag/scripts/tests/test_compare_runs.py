@@ -141,6 +141,23 @@ def test_main_prints_the_products_own_avg(tmp_path, capsys):
     assert "0.5000" not in out
 
 
+def test_main_prints_the_pairwise_diff_section(tmp_path, capsys):
+    """两遍比对时逐题差异段必须真的被打出来 —— 它是本模块存在的理由.
+
+    变异验证 (抽检方 B M42): 删掉 main 里整个 pairwise diff 输出块 (5 行) 后 17 条全绿 ——
+    test_main_returns_one_and_names_unstable_id 断言的那个 id 同时出现在 unstable 段里,
+    于是「pairwise 段有没有被打出来」此前没有任何断言分辨得出。
+    """
+    a = _write(tmp_path, "a.json", [{"id": "docs_v1_q1", "source_recall": 1.0},
+                                    {"id": "docs_v1_q2", "source_recall": 1.0}])
+    b = _write(tmp_path, "b.json", [{"id": "docs_v1_q1", "source_recall": 1.0},
+                                    {"id": "docs_v1_q2", "source_recall": 0.5}])
+    assert main([str(a), str(b)]) == 1
+    out = capsys.readouterr().out
+    assert "pairwise diff: 1" in out          # 段头 + 计数
+    assert "docs_v1_q2: 1.0 -> 0.5" in out    # 逐题那一行, 含两侧的值
+
+
 def test_main_reads_every_run_not_just_the_first_two(tmp_path, capsys):
     # 只有第 3 遍偏离: 若 main 静默丢掉尾部遍次 (如 scored[:2]), 这里会报「一致」rc=0
     same = [{"id": "docs_v1_q1", "source_recall": 1.0}]

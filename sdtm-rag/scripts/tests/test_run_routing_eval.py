@@ -209,6 +209,21 @@ def test_missing_final_id_raises(tmp_path, monkeypatch):
         run_routing_eval.load_gold()
 
 
+def test_load_u1_doc_gold_itself_rejects_missing_final_id(tmp_path):
+    """守卫必须钉在 load_u1_doc_gold 自己身上, 不能靠 load_gold 的恒等闸兜底.
+
+    变异验证 (抽检方 B M04): 删掉本函数的 FINAL_IDS 守卫后, 上面那条仍全绿 —— 它的
+    `match="FINAL_IDS"` 命中的是 load_gold 里「final 组 ≠ FINAL_IDS」那条消息, 即断言
+    实际盯着的是**另一道闸**。而 test_real_gold_files_match_expected_sizes 直接调用
+    本函数, 那条路上没有任何兜底。故按函数边界钉, 并 match 本闸独有的措辞。
+    """
+    p = tmp_path / "u1.yml"
+    p.write_text("- id: docs_v1_q01\n  question: placeholder\n  expected_sources: [x]\n",
+                 encoding="utf-8")
+    with pytest.raises(ValueError, match="条款 5 无报告对象"):
+        run_routing_eval.load_u1_doc_gold(p)
+
+
 def test_docs_routing_gold_rejects_bad_group(tmp_path, monkeypatch):
     _wire_u3(tmp_path, monkeypatch,
              docs_r="- id: u3_x\n  question: q\n  gold: study\n  group: devv\n")
@@ -226,8 +241,11 @@ def test_docs_routing_gold_rejects_legacy_group(tmp_path, monkeypatch):
 
 @pytest.mark.parametrize("body", ["", "# 题全被删了\n"])
 def test_empty_docs_routing_gold_raises(tmp_path, monkeypatch, body):
+    # match 消息而非只看类型 (抽检方 B M18): 删掉 load_docs_routing_gold 的空文件闸后,
+    # load_gold 的题量闸照样抛 ValueError, 裸 pytest.raises(ValueError) 分辨不出是哪道闸红的
+    # ⇒ 那个守卫成了等价变异。与兄弟测试 test_empty_u1_doc_set_raises 的 match 口径对齐。
     _wire_u3(tmp_path, monkeypatch, docs_r=body)
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError, match="为空"):
         run_routing_eval.load_gold()
 
 
@@ -406,6 +424,20 @@ def test_main_prints_fatal_ids_not_questions(tmp_path, monkeypatch, capsys):
     assert "groups:" in out and "legacy:3/3" in out
 
 
+@pytest.mark.parametrize("wrong_id,expect", [("u3_dev_01", "FAIL(条款1)"),
+                                             ("docs_v1_q15", "PASS(条款1)")])
+def test_main_qualifies_the_verdict_with_the_clause_it_checks(
+        tmp_path, monkeypatch, capsys, wrong_id, expect):
+    """stdout 的判定词必须带「(条款1)」限定 —— 源码注释点名了裸 PASS 的后果.
+
+    变异验证 (抽检方 B M30): 把 `PASS(条款1)`/`FAIL(条款1)` 改成裸 `PASS`/`FAIL` 后无一条测试红。
+    而 `v["passed"]` 只等于 spec §7 条款 1, 裸 PASS + rc=0 正是「本单元通过」这个误读的入口,
+    条款 2/3/4 会就此凭空消失。限定词是给人读的, 所以必须由断言钉住, 不能只写在注释里。
+    """
+    _, _, _, out = _run_main(tmp_path, monkeypatch, capsys, wrong_id)
+    assert expect in out
+
+
 def test_main_writes_detail_with_questions_to_runs_dir_only(tmp_path, monkeypatch, capsys):
     # 逐题明细 (含题面) 该进 gitignored 的 RUNS_DIR —— 这条同时防「为了红线把 detail 也删了」
     _run_main(tmp_path, monkeypatch, capsys, "u3_dev_01")
@@ -433,6 +465,41 @@ def test_final_group_must_equal_final_ids(tmp_path, monkeypatch):
                                        "gold": "study", "group": "final"}])
     with pytest.raises(ValueError, match="豁免名单被改写"):
         run_routing_eval.load_gold()
+
+
+def test_final_group_must_not_be_short_of_final_ids(tmp_path, monkeypatch):
+    """恒等而非包含: final 组**少**一题同样是改写豁免名单.
+
+    变异验证 (抽检方 B M24): 把 `final_ids != set(FINAL_IDS)` 放宽成
+    `not final_ids <= set(FINAL_IDS)` 后上面那条仍绿 —— 它只造了「多塞一题」。
+    少塞的方向此前只由 load_u1_doc_gold 的守卫间接盖着 (那条又被 M04 证明自己没人盯),
+    两道闸互为唯一守护 ⇒ 各自钉住各自的方向。
+    """
+    _wire_u3(tmp_path, monkeypatch)
+    short = [{"id": i, "question": "placeholder", "gold": "study", "group": "final"}
+             for i in run_routing_eval.FINAL_IDS[:-1]]
+    monkeypatch.setattr(run_routing_eval, "load_u1_doc_gold", lambda path: short)
+    with pytest.raises(ValueError, match="缺少"):
+        run_routing_eval.load_gold()
+
+
+@pytest.mark.parametrize("loader", ["load_docs_routing_gold", "load_supplement"])
+def test_gold_loader_error_message_carries_no_question_text(tmp_path, loader):
+    """红线的**回归守卫**: 缺键条目的异常消息只许带序号与 id, 不许带题面.
+
+    变异验证 (抽检方 B M57): 把两个 loader 的消息改回 `f"...: {q!r}"` (Task 5 修法之前的
+    写法) 后, 针对性模块 82 条全绿; 而真实畸形 gold 上三种默认 --tb 档各泄 1 条题面 ——
+    即本仓最硬的那条红线, 此前没有任何断言守着, 下一个人改回去不会有任何提示。
+    合成题面是无意义占位串, 不涉红线。
+    """
+    canary = "SYNTHETIC-QUESTION-TEXT-MUST-NOT-APPEAR"
+    p = tmp_path / "gold.yml"
+    p.write_text(f"- id: u3_ok\n  question: {canary}\n  gold: study\n  group: dev\n"
+                 f"- question: {canary}\n  gold: study\n  group: dev\n", encoding="utf-8")
+    with pytest.raises(ValueError) as exc:
+        getattr(run_routing_eval, loader)(p)
+    assert canary not in str(exc.value), "异常消息带出了题面 —— 红线的第 3 条路 (生产码消息) 破了"
+    assert "第 1 条" in str(exc.value), "定位信息也没了: 消息必须仍能指出是哪一条"
 
 
 # ── I4: 题量下限 (两个 gold 文件都 gitignored, 删题无人执行) ──────────
