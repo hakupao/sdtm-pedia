@@ -144,6 +144,7 @@ _PIN_HINT = (
     "本段与逐字期望值不符。这不是测试坏了 —— _ROUTER_SYSTEM 是无开关的生产判库 prompt, "
     "任何改动都必须连同本期望值一起改, 并在 code review 里被看见。"
     "若确属有意改动: 更新对应的 _EXPECTED_* 常量, 并复跑可见集回归 (报告 §10.8 的命令)。"
+    "⚠ 更新期望值等于关掉逐字层, 此后段内非点名句的改动无自动闸, 须在 review 里逐句看。"
 )
 
 # 规则 1 的反向锁整句: 干扰组 (对象在标准侧 + 场景在本研究) 的唯一保护句。
@@ -222,11 +223,16 @@ def test_router_prompt_tail_keeps_both_as_the_safe_fallback():
     uncertainty = _sentence_containing(tail, "cannot place it")
     assert 'answer "both"' in uncertainty, (
         "「无法归入任一规则」必须与「answer \"both\"」在同一句内 —— "
-        "分成两个独立的存在性断言时, 把该句改判单库仍会全绿 (审查方 M6)"
+        "分成两个独立的存在性断言时, 把该句改判单库仍会全绿 (审查方 M6)。"
+        "若确需拆句: 把三者留在同一句, 或把本断言改成跨句合取"
     )
     for single in ('answer "study"', 'answer "cdisc"'):
         assert single not in uncertainty, f"真不确定时不得指示单库 ({single})"
-    assert "unrecoverable" in uncertainty, "「单库判错不可恢复」必须在同一句内作为取舍理由"
+    assert "unrecoverable" in uncertainty, (
+        "「单库判错不可恢复」必须在同一句内作为取舍理由。"
+        "注意本条对**拆句**也会红 (语义等价的排版编辑同样触发, 且 _PIN_HINT 对它无效): "
+        "若确需拆句, 把三者留在同一句, 或把本断言改成跨句合取"
+    )
     assert _TAIL_NEVER_GUESS in tail, "必须保留「不许猜单库」整句 (前缀子串不算, 见 Minor-2b)"
     assert tail == _EXPECTED_TAIL_SEGMENT, _PIN_HINT
 
