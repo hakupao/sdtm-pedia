@@ -1195,3 +1195,61 @@ ON 臂自身噪声 +2.78pt = 声称效应量, 四种 OFF×ON 组合跨 −4.17 �
 evidence: `sdtm-rag/evidence/checkpoints/doc_track_u2_wirein.md`
 spec/plan: `docs/superpowers/{specs,plans}/2026-08-12-doc-track-u2-wirein*`
 下一单元: 无默认, 5 个独立候选见 `milestones/07_rag_kg/DOC_TRACK_KICKOFF.md` §0′
+
+## 2026-08-13→15 doc 轨 U3 — 判库侧收口 (⛔ FAIL 收口, 修法退回; 尺子与 gold 存续)
+
+> 分支 `doc-track-u3` · spec/plan `docs/superpowers/{specs,plans}/2026-08-13-doc-track-u3-corpus-routing*`
+> 收口证据 `sdtm-rag/evidence/checkpoints/doc_track_u3_corpus_routing.md` (§6 已知限制 11 条 + §9 硬约束 6 条)
+> 失败归档 `sdtm-rag/evidence/failures/u3_task{5,8}_attempt_1*.md` (规则 B) · 核验原件 `evidence/step_u3_audit{,_mutation}.md`
+
+### 时间线 (10 task)
+
+- Task 1-3: 量具 —— `eval/compare_runs.py` (run 比对器, 测试守护) / `both` 三档尺子 (三遍全一致,
+  cards @both −5.21pt 悬着未付) / 路由闸支持手順書 gold + 分组计分 + 六条条款 `gate_verdict`。
+- Task 4-5: 规则 D 隔离出题 42 题 (24 手順書 + 12 干扰 + 6 真两可) + 确定性 (chapter,id) 奇偶
+  划分 dev/heldout 12/12 + 题面 gitignored 双红线闸。中途 attempt 1 失败归档: plan 初版把
+  held-out 题型逐字写进派发段, task-brief 原样抽走 = 泄漏源 (u3_task5_attempt_1_question_leak)。
+- Task 6: T3 基线冻结三遍 (fatal=10, 253/253 稳定)。途中「根因被证伪」结论自己又被撤回
+  (基线只是第 4 个盲写实例), 目标由用户裁定重定向为两方向同修。
+- Task 7: 唯一生产改动 —— `_ROUTER_SYSTEM` 规则 1 排除条款 + 规则 3 both 判据 + 兜底句, 5 轮
+  (含用户裁定扩大改动面至兜底句 + 事前登记退回条件)。只看 dev, 出口 12/12。
+- Task 8: 全闸三遍 → **条款 1 触发 (fatal 9 ≠ 0 三遍同, 距 0 非边缘)**。修 2 坏 1, `dist_05`
+  both→study 非致命错变致命错, 条款 4 exact 口径 7/12 持平**没抓到**。归档停下上报;
+  **用户三选一裁定「退回」**, `c754bed` revert, 退回验证与冻结基线逐题 EXACT MATCH。
+- Task 9: 三方核验 (五方不同 session, 用户点单): 审查方 0C/4I/5M · 抽检 A 10/10 复现 + 7
+  findings (2 HIGH) · 抽检 B 69 变异终态 SURVIVED 0 · controller 非自洽复算全对上。
+  1259 → **1275 passed**。
+- Task 10 (2026-08-15): 收口 —— checkpoint 补完 §4-§10, kickoff §0′ 重排 (C2 旧编号 §U3 更名),
+  PROGRESS / AGENT_GUIDE / CLAUDE.md 同步。findings 处置 = 记已知限制 + 硬约束, 本单元不修。
+
+### 复盘 (规则 C)
+
+**保留下来的做法**:
+1. **尺子先于修法 + 防对症下药三道防线** (基线冻结 / 实现方只看 dev / legacy floor) 全按设计
+   工作 —— 可见集出口绿 (dev 12/12) 而全闸如实拦下, 这正是花钱买的那个判定力。
+2. **事前登记退回条件** (Task 7 第 5 轮扩改动面时把「条款 1 触发即退回」写在跑之前) 让 FAIL
+   收口无争议可执行, 用户裁定只花一轮。
+3. 抽检方 B 的**机械 scrubber** (从 gitignored yml 提 244 敏感串逐字滤 stdout 再落盘) 是红线
+   自动化的正确形态, 值得做成共用工具。
+4. 变异测试三方向 (断言/代码行/逻辑形状-对调型) 第三次复用, 又抓到两大缺口 —— 该清单已稳定,
+   写进了下一单元硬约束。
+
+**必须补上的缺口**:
+1. **判定脚本与判据仪器自身是本单元最弱一环**: `u3_task8_verdict.py` 整文件零测试 (FAIL 结论
+   唯一出处, 5 变异可翻结论不留痕; 已补 9 case) / `--runs 0/1` 也打「三遍一致」 / 无输入校验 /
+   `by_group.passed` 挂错阈值。**闸的代码要与生产代码同等对待, 立项时就写测试**。
+2. **条款 4 的 exact 口径方向错** —— 对「非致命→致命」零敏感又误杀真改善; 尺子在立项评审时
+   没人问过「它对哪类回归失明」(硬规矩 19 只被用在完备性闸上, 应推广到每条自毁条款)。
+3. **u1_doc 27 题的漂移方向没有任何条款看着** (I-3) —— 修法受力方向上整组真空。
+4. run json 无 run 级元数据, 「三遍」对事后读者不可证伪 (A-3) —— 跑批工具应写入时间戳/参数指纹。
+
+**关键决策复盘**:
+1. **用户裁定退回而非豁免/续攻是对的**: fatal 9 距 0 非边缘, 且审查方独立探针证明措辞杠杆已到底
+   —— 续攻 prompt 层是把 token 花在没有行程的方向上。
+2. **「修法失败」≠「单元失败」**: 存续产物 (253 题闸 + both 尺子 + 六条条款) 正是下一次修法
+   能被诚实评估的前提; 本单元把「判库欠账」从传闻变成了带仪器的已量化问题。
+3. **spec 初版把题型写进 plan 派发段**是本单元自己栽的坑 (泄漏 attempt 归档) —— 隔离设计的
+   文本本身也是泄漏面, 「给 controller 的纪律」段不得随 brief 抽给被隔离方, 已写回 plan。
+4. 审查方三问的答案 (「散文 pattern-level, 有效层 example-level」) 说明**反例词表闸挡得住
+   字面泄漏, 挡不住决策结构等价于词表** —— 下一单元若重启修法, 防线要从「禁词」升级到
+   「禁结构」或干脆离开 prompt 层。
