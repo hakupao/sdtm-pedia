@@ -855,8 +855,10 @@ R=data/study/st01/eval/runs
   --docs-study  $R/u5_docs_study_r1.json  $R/u5_docs_study_r2.json  $R/u5_docs_study_r3.json \
   --docs-both   $R/u5_docs_both_r1.json   $R/u5_docs_both_r2.json   $R/u5_docs_both_r3.json \
   --probe-cards $R/u5_probe_cards.json --probe-docs $R/u5_probe_docs.json \
-  --controls $R/u5_ctrl_docs_positive.json $R/u5_ctrl_docs_negative.json \
-             $R/u5_ctrl_cards_positive.json $R/u5_ctrl_cards_negative.json \
+  --controls-docs-pos  $R/u5_ctrl_docs_positive.json \
+  --controls-docs-neg  $R/u5_ctrl_docs_negative.json \
+  --controls-cards-pos $R/u5_ctrl_cards_positive.json \
+  --controls-cards-neg $R/u5_ctrl_cards_negative.json \
   --output $R/u5_verdict.json; echo "rc=$?"
 ```
 
