@@ -24,7 +24,9 @@ def rejudge(run: dict, facts_by_id: dict[str, list[str]], judge_model: str) -> d
             # substring 分 (系统性低估). 拿它当 orig 比, 量到的是跨口径分歧却会被读成
             # judge 自噪声 —— 整行排除出 same_rate 分母, 单列计数.
             # 缺 judge_parse_ok 键 (旧版产物: 有 judge_model 但行缺该键) 同样排除:
-            # 不能证明 orig 是真语义分就不拿它当基准.
+            # 不能证明 orig 是真语义分就不拿它当基准. 注: 经 main() 进来时, 非 --judge
+            # 产物在 judge_model 断言处就先炸了, 到不了这里; 但 rejudge() 作为库函数被
+            # 直接调用时没有那道闸, 仍会走到本分支并归零.
             rows.append({"id": r["id"], "orig_parse_fail": True})
             continue
         verdict = check_fact_recall_judge(

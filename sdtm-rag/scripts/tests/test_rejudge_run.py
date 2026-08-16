@@ -10,6 +10,15 @@ def _run(rows):
     return {"results": rows}
 
 
+def _boom(*a):
+    """judge 桩: 一被调用就红.
+
+    双重作用 —— 既证明「这条路径不该打 judge」, 也保证被测守卫万一回归时,
+    用例是零网络零费用地红, 而不是去打真实付费 API 把「零 LLM」变成守卫依赖式的巧合.
+    """
+    raise AssertionError("本用例不该调 judge (零 LLM 契约)")
+
+
 def test_same_and_diff_counted(monkeypatch):
     monkeypatch.setattr(rr, "check_fact_recall_judge", lambda q, a, f, m: (0.5, [], []))
     run = _run([
@@ -56,9 +65,6 @@ def test_orig_parse_fail_excluded_and_never_judged(monkeypatch):
     # 原 run judge parse 失败的行, judge_fact_recall 是回落的 substring 分 (系统性低估):
     # 拿它当 orig 比几乎必然 not-same, 会把 same_rate 压低却被读成 judge 噪声.
     # 该行必须整行排除出分母, 且**不打 judge** (会 raise 的 mock 证明没打).
-    def _boom(*a):
-        raise AssertionError("orig parse-fail 行不该调 judge")
-
     monkeypatch.setattr(rr, "check_fact_recall_judge", _boom)
     run = _run([{"id": "a", "question": "?", "answer": "x", "judge_fact_recall": 0.4,
                  "judge_parse_ok": False}])
@@ -70,9 +76,6 @@ def test_orig_parse_fail_excluded_and_never_judged(monkeypatch):
 def test_missing_judge_parse_ok_key_excluded_and_never_judged(monkeypatch):
     # 钉死 fail-safe 默认值本身 (`.get(..., False)`): 旧版产物的行连 judge_parse_ok 键都
     # 没有, 不能证明 orig 是真语义分 -> 必须排除. 默认值若被写成 True 本例即红.
-    def _boom(*a):
-        raise AssertionError("缺 judge_parse_ok 键的行不该调 judge")
-
     monkeypatch.setattr(rr, "check_fact_recall_judge", _boom)
     run = _run([{"id": "a", "question": "?", "answer": "x", "judge_fact_recall": 0.7}])
     out = rr.rejudge(run, {"a": ["f"]}, "m")
@@ -94,16 +97,19 @@ def _write_min_pair(tmp_path, summary):
     return [str(run_p), str(ts_p)]
 
 
-def test_main_missing_judge_model_key_fails_loud(tmp_path):
+def test_main_missing_judge_model_key_fails_loud(monkeypatch, tmp_path):
     # 钉死直接下标: summary 无 judge_model (非 --judge 产物) 必须 KeyError,
     # 不许静默回落成 a.judge_model —— 那等于假装模型对得上.
+    # 桩顺带钉死「炸点在 judge 之前」: 守卫若回归, 本例零网络照样红 (而非去打真 API).
+    monkeypatch.setattr(rr, "check_fact_recall_judge", _boom)
     argv = _write_min_pair(tmp_path, {}) + ["--output", str(tmp_path / "out.json")]
     with pytest.raises(KeyError):
         rr.main(argv)
 
 
-def test_main_judge_model_mismatch_fails_loud(tmp_path):
+def test_main_judge_model_mismatch_fails_loud(monkeypatch, tmp_path):
     # run 的 judge 模型 ≠ --judge-model = 测的是跨模型分歧, 不是同模型自噪声
+    monkeypatch.setattr(rr, "check_fact_recall_judge", _boom)  # 同上: 炸点须在 judge 之前
     argv = _write_min_pair(tmp_path, {"judge_model": "model-a"}) + [
         "--judge-model", "model-b", "--output", str(tmp_path / "out.json")]
     with pytest.raises(SystemExit, match="judge model mismatch"):
