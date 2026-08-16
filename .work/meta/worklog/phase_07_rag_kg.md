@@ -1262,8 +1262,8 @@ spec/plan `docs/superpowers/{specs,plans}/2026-08-16-doc-track-u5-both-answer-co
 收口 `sdtm-rag/evidence/checkpoints/doc_track_u5_both_answer_cost.md` · 分支 `doc-track-u5`。
 
 **产出**:
-- 工具三件 (TDD, 判据先于数据): 逐题 routed/fallback 观测字段 (生产改动仅 federation.py 2 行
-  零行为属性) · `eval/rejudge_run.py` judge 重判探针 · `eval/u5_verdict.py` 六段冻结判定
+- 工具三件 (TDD, 判据先于数据): 逐题 routed/fallback 观测字段 (生产改动仅 federation.py
+  3 处赋值零行为属性) · `eval/rejudge_run.py` judge 重判探针 · `eval/u5_verdict.py` 六段冻结判定
   (36 例 + 字面断言兜底)。任务级审查 9 轮 (T1×2 / T2×4 / T3×4), 每轮变异自证。
 - 测量: I3 对照 1.0/0.0×2 → 12 答题 run (4 配置 ×3, parse_fail 全 0) → 2 rejudge probe →
   6 auto run → 判定 rc=0。1275 → **1353 passed**。

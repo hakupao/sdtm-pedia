@@ -16,8 +16,9 @@
 
 ## 1. 架构改动面
 
-**生产改动面 = `server/federation.py` 2 行零行为观测属性** (`last_route_fallback`, 只写不读,
-spec 修正案 1)。其余全在 eval 侧, 各带测试:
+**生产改动面 = `server/federation.py` 3 处赋值 (~5 行含注释) 的零行为观测属性**
+(`last_route_fallback`: init / 每次 retrieve 复位 / auto 档写入; 只写不读, spec 修正案 1
+写「≈2 行」, 实为 3 条赋值语句, 终审勘误)。其余全在 eval 侧, 各带测试:
 
 1. run 产物 `results[*]` 逐题 `routed` + `routed_fallback` (attach 长度闸 fail-loud) —
    修掉 both_ruler §5-8/§5-11 两条仪器缺口
@@ -129,6 +130,11 @@ M1 (cards@study) 三遍 0.8681/0.9028/0.8819 与 U2 ON 臂 (0.8542/0.8819) 同�
 12. **I2 的「全 parse_ok」合取项本轮空转** (468 行全 True, A F-5): 是「未触发」不是「防线已验」。
 13. **rejudge/main 级测试的零 LLM 是桩保护的** (守卫回归时零网络红, 但 socket 级禁网 fixture
     未建, Task 2 backlog)。
+14. **抽检 B 报告 M-D 行的记账覆盖过头** (终审 I-3): probes 键集「多余键」方向实际零变异
+    零测试 (A29 实为 controls 侧), 该行读起来像已闭环。实际风险 0 (`set(probes) !=
+    set(PROBE_KEYS)` 恒等判已拒多余键), 但这正是 §9-3 所指「合取项只测一半」的失误出现在
+    确立 §9-3 的证据内部。audit 原件为签名件不改, 以本条勘误。看不见: probes-⊇ 路径无
+    独立测试背书。
 
 ## 6. 本单元明确不能证明什么 (spec §8 + 审查方越界清单)
 
@@ -149,7 +155,7 @@ M1 (cards@study) 三遍 0.8681/0.9028/0.8819 与 U2 ON 臂 (0.8542/0.8819) 同�
 1. **「both 便宜 ⇒ 放宽 router」未获干净支持**: 冻结判词 cheap 只在可比池成立, 最坏界 2.08pt
    代价恰落在检索侧脆弱题上 (q14/q21 = 检索丢分**确实传导**到答题的两例), 聚合方向 −0.69pt。
    修法线的必要性**没有被解除**。
-2. **现行触发面上的 both 是免费的** (最扎实结论): auto 实判 both 的 5 题两侧同分。
+2. **现行触发面上的 both 是免费的** (最扎实结论): auto 实判 both 的 5 题**全在可比池**且两侧同分。
    ⇒ 修法方向如果只是「让该去 both 的题去 both」而非「把 study 题推去 both」, 答题侧无已证代价。
 3. **判库欠账 10pt 本体再次现形**: `docs_v1_q15/q17/q53` + `st01_v2_q07` 路由打空 (gold 零命中)
    且 fallback 结构上捕获不到错判 — 修它要动 router 判据, 与 U3 §9 硬前置对齐。
@@ -170,7 +176,7 @@ R=data/study/st01/eval/runs
   --probe-cards $R/u5_probe_cards.json --probe-docs $R/u5_probe_docs.json \
   --controls-docs-pos $R/u5_ctrl_docs_positive.json --controls-docs-neg $R/u5_ctrl_docs_negative.json \
   --controls-cards-pos $R/u5_ctrl_cards_positive.json --controls-cards-neg $R/u5_ctrl_cards_negative.json \
-  --output $R/u5_verdict.json                                    # rc=0, E2=cheap_on_this_ruler
+  --output $R/u5_verdict.json    # rc=0, E2=cheap_on_this_ruler (可比池限定与最坏界并列见 §2.2)
 ```
 
 run 产物 gitignored 本地件; 缺失时按 plan Task 4/5/6 命令重生成 (答题侧非确定, 重跑数字会变,
@@ -181,8 +187,10 @@ run 产物 gitignored 本地件; 缺失时按 plan Task 4/5/6 命令重生成 (�
 1. **可比池限定词入闸**: 任何引用 E2 判词的文句, 同句必须有「可比池 / 41/48」字样; 出现
    「零代价 / 免费 / cheap」而无池限定 = 收口不合格 (审查方自检闸)。
 2. **重启答题侧测量前先修判定设计** (§5-1/2/3): E1 并列最坏界口径 (或把 `max(both3) <
-   min(study3)` 题移入确认代价) · E4 并集入闸 · I-1 结论词抑制。属判据变更, 须用户裁定 +
-   新基线冻结, 不许沿用本轮判定脚本原样重测。
+   min(study3)` 题移入确认代价) · E4 并集入闸 · I-1 结论词抑制 · **verdict 产物同时落盘
+   聚合均值差与配对净额, 符号不一致时脚本主动置 `divergent_readings: true`** (唯一能自动
+   抓住本轮 C1 型双口径反向的机制)。属判据变更, 须用户裁定 + 新基线冻结, 不许沿用本轮
+   判定脚本原样重测。
 3. **变异抽检必须覆盖合取/并集项的每一半** (审查 I-2 / 抽检 B pattern: 多族只测一族 ·
    多遍只测一遍 · 对调型); 变异 harness 必须 purge __pycache__ + compile 前置检查 (假阴性
    与假还原两个坑本单元都踩实了)。
@@ -192,6 +200,9 @@ run 产物 gitignored 本地件; 缺失时按 plan Task 4/5/6 命令重生成 (�
    「auto 相对强制 study 的 source_recall 差」列为显式指标 (docs 侧 −10pt 即判库欠账本体)。
 6. **q23r 三度出现** (U2 条款 3 驱动题 → 本轮 E4 不可判): 该题是答题侧不稳定的常驻样本,
    任何逐题结论先查它在不在池里。
+7. **强制档结论必须并列该档的 auto 实测触发率与被测题实际去向** (终审补): §7-2 那条
+   「免费」结论正是靠「auto 实判 both 的 5 题」这一区分才成立; 任何强制档数字脱离生产
+   触发面引用都会把反事实读成现实。
 
 ## 10. 任务台账
 
@@ -204,6 +215,6 @@ run 产物 gitignored 本地件; 缺失时按 plan Task 4/5/6 命令重生成 (�
 | 4 | I3 双向对照 | DONE — PASS 1.0/0.0×2, parse_ok 24/24 |
 | 5 | 4×3 答题矩阵 + probe | DONE — 12 run ALL OK, parse_fail 全 0 |
 | 6 | auto 触发观测 | DONE — 逐位复现 U3, fallback 243 False (带 4 题打空限定) |
-| 7 | 判定执行 | DONE — rc=0, cheap_on_this_ruler (双口径并列见 §2.2) |
+| 7 | 判定执行 | DONE — rc=0, cheap_on_this_ruler (可比池限定 + 最坏界并列, 见 §2.2) |
 | 8 | 三方核验 (规则 D 五方) | DONE — A 64/64 + B 148 变异 SURVIVED 0 + 审查条件通过 |
 | 9 | 收口 | DONE (本文件 + kickoff/PROGRESS/worklog/CLAUDE.md 同步) |

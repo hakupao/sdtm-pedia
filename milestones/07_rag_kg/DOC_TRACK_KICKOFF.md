@@ -117,7 +117,7 @@ collection。field card 侧 `study_st01` = 959 张, study golden v2 **87.50%, �
 > 稳定性过滤偏删代价信号, 最坏界确认 2 题 **2.08pt** (`q14`/`q21`, 检索丢分传导实锤), 聚合
 > 均值 **−0.69pt**。最扎实结论: **auto 实判 both 的 5 题免费**。触发率演绎→观测 (逐位复现
 > U3; fallback 243/243 False **但 4 题路由打空未触发** = 判库欠账本体)。产物: 逐题
-> routed/fallback 观测字段 (federation 2 行) + `eval/rejudge_run.py` + `eval/u5_verdict.py`;
+> routed/fallback 观测字段 (federation 3 处赋值) + `eval/rejudge_run.py` + `eval/u5_verdict.py`;
 > 1275 → **1353 passed**; 规则 D 五方 (A 64/64 复现 · B 148 变异 SURVIVED 0)。
 > 收口 → `sdtm-rag/evidence/checkpoints/doc_track_u5_both_answer_cost.md` (已知限制 13 条 +
 > §9 硬约束 6 条; **+2.78pt 禁止作为放宽 router 论据**)。
