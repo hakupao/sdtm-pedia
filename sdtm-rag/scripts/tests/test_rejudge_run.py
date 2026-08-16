@@ -39,6 +39,8 @@ def test_parse_fail_counts_as_not_same(monkeypatch):
                  "judge_parse_ok": True}])
     out = rr.rejudge(run, {"a": ["f"]}, "m")
     assert out["rows"][0]["parse_fail"] is True and out["n_same"] == 0
+    # 留在分母 (n=1) 但必须单列计数, 否则与「真分歧」混为一谈
+    assert (out["n"], out["n_rejudge_parse_fail"]) == (1, 1)
 
 
 def test_unknown_id_fails_loud(monkeypatch):
@@ -65,17 +67,44 @@ def test_orig_parse_fail_excluded_and_never_judged(monkeypatch):
     assert out["rows"] == [{"id": "a", "orig_parse_fail": True}]
 
 
-def test_main_judge_model_mismatch_fails_loud(tmp_path):
-    # run 的 judge 模型 ≠ --judge-model = 测的是跨模型分歧, 不是同模型自噪声
+def test_missing_judge_parse_ok_key_excluded_and_never_judged(monkeypatch):
+    # 钉死 fail-safe 默认值本身 (`.get(..., False)`): 旧版产物的行连 judge_parse_ok 键都
+    # 没有, 不能证明 orig 是真语义分 -> 必须排除. 默认值若被写成 True 本例即红.
+    def _boom(*a):
+        raise AssertionError("缺 judge_parse_ok 键的行不该调 judge")
+
+    monkeypatch.setattr(rr, "check_fact_recall_judge", _boom)
+    run = _run([{"id": "a", "question": "?", "answer": "x", "judge_fact_recall": 0.7}])
+    out = rr.rejudge(run, {"a": ["f"]}, "m")
+    assert (out["n"], out["n_orig_parse_fail"]) == (0, 1)
+    assert out["rows"] == [{"id": "a", "orig_parse_fail": True}]
+
+
+def _write_min_pair(tmp_path, summary):
+    """最小 run json + 最小题集 (零题面: question 一律 "?", id 只用 a)."""
     run_p = tmp_path / "run.json"
     run_p.write_text(json.dumps({
-        "summary": {"judge_model": "model-a"},
+        "summary": summary,
         "results": [{"id": "a", "question": "?", "answer": "x",
                      "judge_fact_recall": 1.0, "judge_parse_ok": True}],
     }), encoding="utf-8")
     ts_p = tmp_path / "ts.yml"
     ts_p.write_text('- id: a\n  question: "?"\n  category: c\n'
                     '  expected_sources: ["x.md"]\n  expected_facts: ["f"]\n', encoding="utf-8")
+    return [str(run_p), str(ts_p)]
+
+
+def test_main_missing_judge_model_key_fails_loud(tmp_path):
+    # 钉死直接下标: summary 无 judge_model (非 --judge 产物) 必须 KeyError,
+    # 不许静默回落成 a.judge_model —— 那等于假装模型对得上.
+    argv = _write_min_pair(tmp_path, {}) + ["--output", str(tmp_path / "out.json")]
+    with pytest.raises(KeyError):
+        rr.main(argv)
+
+
+def test_main_judge_model_mismatch_fails_loud(tmp_path):
+    # run 的 judge 模型 ≠ --judge-model = 测的是跨模型分歧, 不是同模型自噪声
+    argv = _write_min_pair(tmp_path, {"judge_model": "model-a"}) + [
+        "--judge-model", "model-b", "--output", str(tmp_path / "out.json")]
     with pytest.raises(SystemExit, match="judge model mismatch"):
-        rr.main([str(run_p), str(ts_p), "--judge-model", "model-b",
-                 "--output", str(tmp_path / "out.json")])
+        rr.main(argv)

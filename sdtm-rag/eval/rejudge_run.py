@@ -23,8 +23,8 @@ def rejudge(run: dict, facts_by_id: dict[str, list[str]], judge_model: str) -> d
             # 原 run 的 judge 没 parse 成功时 run_eval 把 judge_fact_recall 回落成
             # substring 分 (系统性低估). 拿它当 orig 比, 量到的是跨口径分歧却会被读成
             # judge 自噪声 —— 整行排除出 same_rate 分母, 单列计数.
-            # 缺 judge_parse_ok 键 (非 --judge 跑的 / 旧版产物) 同样排除: 不能证明
-            # orig 是真语义分就不拿它当基准.
+            # 缺 judge_parse_ok 键 (旧版产物: 有 judge_model 但行缺该键) 同样排除:
+            # 不能证明 orig 是真语义分就不拿它当基准.
             rows.append({"id": r["id"], "orig_parse_fail": True})
             continue
         verdict = check_fact_recall_judge(
@@ -41,7 +41,11 @@ def rejudge(run: dict, facts_by_id: dict[str, list[str]], judge_model: str) -> d
     n_same = sum(r["same"] for r in scored)
     return {"n": len(scored), "n_same": n_same,
             "same_rate": round(n_same / len(scored), 4) if scored else 0.0,
-            "n_orig_parse_fail": len(rows) - len(scored), "rows": rows}
+            "n_orig_parse_fail": len(rows) - len(scored),
+            # 重跑 judge 自己 parse 失败的行: 留在分母里算 not-same (仪器失败也是不复现),
+            # 但必须单列 —— 否则读数人分不清「真分歧」与「judge 没答成 JSON」.
+            "n_rejudge_parse_fail": sum(1 for r in scored if r.get("parse_fail")),
+            "rows": rows}
 
 
 def main(argv=None) -> int:
@@ -62,7 +66,8 @@ def main(argv=None) -> int:
     facts_by_id = {q["id"]: q["expected_facts"] for q in load_test_set(a.test_set)}
     out = rejudge(run, facts_by_id, a.judge_model)
     print(f"rejudge n={out['n']} same={out['n_same']} same_rate={out['same_rate']:.4f}"
-          f" orig_parse_fail={out['n_orig_parse_fail']}")
+          f" orig_parse_fail={out['n_orig_parse_fail']}"
+          f" rejudge_parse_fail={out['n_rejudge_parse_fail']}")
     with open(a.output, "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, indent=1)
     return 0
