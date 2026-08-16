@@ -4,8 +4,27 @@ import json
 
 import pytest
 
-from eval.u5_verdict import (EXPECTED_N, FRAGILE_4, build_verdict, main,
-                             paired_effect, scores_by_id, stability)
+from eval.u5_verdict import (
+    EXPECTED_N,
+    FRAGILE_4,
+    I1_MIN_SAME_RATE,
+    I2_MAX_UNSTABLE,
+    I3_NEG_MAX,
+    I3_POS_MIN,
+    build_verdict,
+    main,
+    paired_effect,
+    scores_by_id,
+    stability,
+)
+
+
+def test_frozen_thresholds_are_literal():
+    """T5 后判据冻结: 常量被改必须有人看见 (测试 import 常量 ⇒ 常量自身无守卫)."""
+    assert (I1_MIN_SAME_RATE, I3_POS_MIN, I3_NEG_MAX) == (0.95, 0.80, 0.20)
+    assert I2_MAX_UNSTABLE == {"cards": 7, "docs": 4}
+    assert EXPECTED_N == {"cards": 48, "docs": 30}
+    assert FRAGILE_4 == ("st01_v11_q19", "st01_v2_q14", "st01_v2_q15", "st01_v2_q21")
 
 
 def _mkrun(scores: dict, n: int, judge_model: str = "stub-judge"):
@@ -39,9 +58,11 @@ def test_scores_by_id_none_on_parse_fail_and_skips_oos():
 
 
 def _ctl(mode: str, avg: float, n_ok: int = 6, n_rows: int = 6):
-    """judge_controls 产物形状 (eval/judge_controls.py:57,64): mode 只带极性不带家族."""
+    """judge_controls 产物形状 (eval/judge_controls.py:57,64): mode 只带极性不带家族;
+    parse 失败行的 recall 为 None (`verdict is None` 时不落分)."""
     return {"mode": mode, "avg": avg,
-            "rows": [{"id": f"c{i}", "recall": avg, "parse_ok": i < n_ok} for i in range(n_rows)]}
+            "rows": [{"id": f"c{i}", "recall": avg if i < n_ok else None,
+                      "parse_ok": i < n_ok} for i in range(n_rows)]}
 
 
 def test_stability_flags_flip_and_parse_fail():
@@ -197,6 +218,16 @@ def test_i1_records_denominator_and_parse_fail():
     v, _ = build_verdict(runs, probes, controls)
     assert v["I1"]["n"] == {"cards": 46, "docs": 30}
     assert v["I1"]["n_orig_parse_fail"] == {"cards": 2, "docs": 0}
+
+
+def test_build_verdict_requires_probe_parse_fail_count():
+    """N6 硬下标的守卫: 缺 n_orig_parse_fail 必须炸, 不能静默落 None 进归档 (复审 LOW)."""
+    runs, probes, controls = _happy_inputs()
+    p = dict(probes["cards"])
+    del p["n_orig_parse_fail"]
+    probes["cards"] = p
+    with pytest.raises(KeyError):
+        build_verdict(runs, probes, controls)
 
 
 def test_build_verdict_rejects_probe_n_zero():
