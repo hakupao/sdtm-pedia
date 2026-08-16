@@ -1,16 +1,34 @@
 """eval/u5_verdict.py 单测 — 全合成 fixture, 判定逻辑逐条钉死 (U3 §6-10 教训:
 判定脚本零测试 = 结论可翻不留痕). 变异集含对调型 (U2 §4.1 方向③)."""
+import json
+
 import pytest
 
-from eval.u5_verdict import (FRAGILE_4, build_verdict, paired_effect,
-                             scores_by_id, stability)
+from eval.u5_verdict import (EXPECTED_N, FRAGILE_4, build_verdict, main,
+                             paired_effect, scores_by_id, stability)
 
 
-def _mkrun(scores: dict, n: int):
+def _mkrun(scores: dict, n: int, judge_model: str = "stub-judge"):
     """scores: id -> float (judge 分) | None (parse 失败)."""
-    return {"summary": {"n_questions": n},
+    return {"summary": {"n_questions": n, "judge_model": judge_model},
             "results": [{"id": i, "judge_fact_recall": (s if s is not None else 0.0),
                          "judge_parse_ok": s is not None} for i, s in scores.items()]}
+
+
+def _pad(scores: dict, fam: str) -> dict:
+    """补足到 EXPECTED_N[fam] 行. 填充题两侧同为 1.0 —— 对 cost/gain 与稳定性计数皆中性,
+    只为满足行数闸 (审查 M3)."""
+    out = dict(scores)
+    i = 0
+    while len(out) < EXPECTED_N[fam]:
+        out.setdefault(f"_pad{i}", 1.0)
+        i += 1
+    return out
+
+
+def _mkfull(scores: dict, fam: str, **kw):
+    """行数与表头都合规的 run (build_verdict 级 fixture 用)."""
+    return _mkrun(_pad(scores, fam), EXPECTED_N[fam], **kw)
 
 
 def test_scores_by_id_none_on_parse_fail_and_skips_oos():
@@ -30,7 +48,8 @@ def test_stability_flags_flip_and_parse_fail():
 
 
 def test_stability_rejects_mismatched_question_sets():
-    with pytest.raises(AssertionError):
+    # SystemExit 而非 assert: python -O 会剥掉裸 assert, 静默放行 (审查 L1)
+    with pytest.raises(SystemExit):
         stability([_mkrun({"a": 1.0}, n=48), _mkrun({"b": 1.0}, n=48),
                    _mkrun({"a": 1.0}, n=48)])
 
@@ -55,9 +74,10 @@ def _happy_inputs(cards_both_scores=None):
     cs = {f"q{i}": 1.0 for i in range(4)}
     cb = cards_both_scores or dict(cs)
     ds = {f"d{i}": 1.0 for i in range(3)}
-    runs = {"cards_study": [_mkrun(cs, 48)] * 3, "cards_both": [_mkrun(cb, 48)] * 3,
-            "docs_study": [_mkrun(ds, 30)] * 3, "docs_both": [_mkrun(ds, 30)] * 3}
-    probes = {"cards": {"same_rate": 1.0, "n": 48}, "docs": {"same_rate": 1.0, "n": 30}}
+    runs = {"cards_study": [_mkfull(cs, "cards")] * 3, "cards_both": [_mkfull(cb, "cards")] * 3,
+            "docs_study": [_mkfull(ds, "docs")] * 3, "docs_both": [_mkfull(ds, "docs")] * 3}
+    probes = {"cards": {"same_rate": 1.0, "n": 48, "n_orig_parse_fail": 0},
+              "docs": {"same_rate": 1.0, "n": 30, "n_orig_parse_fail": 0}}
     controls = {"docs_positive": {"avg": 1.0}, "docs_negative": {"avg": 0.0},
                 "cards_positive": {"avg": 1.0}, "cards_negative": {"avg": 0.0}}
     return runs, probes, controls
@@ -77,13 +97,24 @@ def test_build_verdict_cost_reported():
     assert v["E"]["cards"]["confirmed_cost_ids"] == ["q0"]
 
 
+def test_build_verdict_cost_reported_when_pt_rounds_to_zero():
+    """代价小到 round 2 位舍成 0.0pt 也必须 cost_reported —— 判 cheap 的依据是
+    已确证代价集合为空, 不是 pt 读数 (审查 M1: 否则产物自相矛盾)."""
+    cb = {"q0": 0.999, "q1": 1.0, "q2": 1.0, "q3": 1.0}
+    v, rc = build_verdict(*_happy_inputs(cards_both_scores=cb))
+    assert v["E"]["cards"]["confirmed_cost_pt"] == 0.0
+    assert v["E"]["cards"]["confirmed_cost_ids"] == ["q0"]
+    assert rc == 0 and v["E2_verdict"] == "cost_reported"
+
+
 def test_build_verdict_i2_trigger_blocks_e():
     runs, probes, controls = _happy_inputs()
     # cards 阈值是绝对数 7 — 用 8 题全翻钉死触发:
     big = {f"q{i}": 1.0 for i in range(8)}
     big_flip = {f"q{i}": 0.0 for i in range(8)}
-    runs["cards_study"] = [_mkrun(big, 48), _mkrun(big_flip, 48), _mkrun(big, 48)]
-    runs["cards_both"] = [_mkrun(big, 48)] * 3
+    runs["cards_study"] = [_mkfull(big, "cards"), _mkfull(big_flip, "cards"),
+                           _mkfull(big, "cards")]
+    runs["cards_both"] = [_mkfull(big, "cards")] * 3
     v, rc = build_verdict(runs, probes, controls)
     assert rc == 2 and v["E"] is None and v["E2_verdict"] == "instrument_unusable"
 
@@ -95,18 +126,43 @@ def test_build_verdict_i3_trigger():
     assert rc == 2 and v["E2_verdict"] == "controls_failed" and v["E"] is None
 
 
+def test_build_verdict_rejects_wrong_controls_keys():
+    """错键名 → 两个 all() 零迭代 → 完全反转的阴性对照也能 pass (审查 H1)."""
+    runs, probes, controls = _happy_inputs()
+    del controls["cards_negative"]
+    controls["cards_neg"] = {"avg": 1.0}                        # 完全反转 + 错键名
+    with pytest.raises(SystemExit):
+        build_verdict(runs, probes, controls)
+
+
+def test_build_verdict_rejects_missing_probe_keys():
+    """probes 为空 → all([]) is True → I1 空过 (审查 H1)."""
+    runs, _, controls = _happy_inputs()
+    with pytest.raises(SystemExit):
+        build_verdict(runs, {}, controls)
+
+
 def test_build_verdict_i1_degrades_to_advisory():
     runs, probes, controls = _happy_inputs()
-    probes["docs"] = {"same_rate": 0.90, "n": 30}
+    probes["docs"] = {"same_rate": 0.90, "n": 30, "n_orig_parse_fail": 0}
     v, rc = build_verdict(runs, probes, controls)
     assert rc == 3 and v["advisory_only"] is True and v["E"] is not None
+
+
+def test_i1_records_denominator_and_parse_fail():
+    """same_rate 单独看无意义 —— 分母与被排除行数必须同落盘 (审查 M2)."""
+    runs, probes, controls = _happy_inputs()
+    probes["cards"] = {"same_rate": 1.0, "n": 46, "n_orig_parse_fail": 2}
+    v, _ = build_verdict(runs, probes, controls)
+    assert v["I1"]["n"] == {"cards": 46, "docs": 30}
+    assert v["I1"]["n_orig_parse_fail"] == {"cards": 2, "docs": 0}
 
 
 def test_build_verdict_rejects_probe_n_zero():
     """probe n=0 时 rejudge_run 会吐 same_rate=0.0 (无意义值) — 必须炸而不是当 I1 失守.
     (Task 2 复审遗留: same_rate 读数须与 n 同看)"""
     runs, probes, controls = _happy_inputs()
-    probes["docs"] = {"same_rate": 0.0, "n": 0}
+    probes["docs"] = {"same_rate": 0.0, "n": 0, "n_orig_parse_fail": 30}
     with pytest.raises(SystemExit):
         build_verdict(runs, probes, controls)
 
@@ -118,13 +174,86 @@ def test_build_verdict_rejects_wrong_n():
         build_verdict(runs, probes, controls)
 
 
+def test_build_verdict_rejects_row_count_mismatch():
+    """表头 n_questions 对但实际计分行数不对 = 产物残缺 (审查 M3)."""
+    runs, probes, controls = _happy_inputs()
+    runs["cards_study"] = [_mkrun({"q0": 1.0}, EXPECTED_N["cards"])] * 3
+    with pytest.raises(SystemExit):
+        build_verdict(runs, probes, controls)
+
+
+def test_build_verdict_rejects_run_without_judge():
+    """漏 --judge 的 run 全行无 judge_parse_ok → 会被误诊成 instrument_unusable (审查 M4)."""
+    runs, probes, controls = _happy_inputs()
+    r = _mkfull({f"q{i}": 1.0 for i in range(4)}, "cards")
+    del r["summary"]["judge_model"]
+    runs["cards_study"] = [r] * 3
+    with pytest.raises(SystemExit):
+        build_verdict(runs, probes, controls)
+
+
 def test_fragile_and_undecidable_reported():
     runs, probes, controls = _happy_inputs()
     cs = {FRAGILE_4[0]: 1.0, "x": 1.0}
     cb = {FRAGILE_4[0]: 0.5, "x": 1.0}
-    runs["cards_study"] = [_mkrun(cs, 48)] * 3
-    runs["cards_both"] = [_mkrun(cb, 48)] * 3
+    runs["cards_study"] = [_mkfull(cs, "cards")] * 3
+    runs["cards_both"] = [_mkfull(cb, "cards")] * 3
     v, _ = build_verdict(runs, probes, controls)
     f = v["E3_fragile"][FRAGILE_4[0]]
     assert (f["study"], f["both"], f["stable_study"], f["stable_both"]) == (1.0, 0.5, True, True)
     assert v["E4_undecidable"] == {"cards": [], "docs": []}
+
+
+# ---- main() 级: CLI 接线 / 对照身份绑定 / rc 传播 (审查 M5) ----
+
+def _write_json(tmp_path, name: str, obj) -> str:
+    p = tmp_path / f"{name}.json"
+    p.write_text(json.dumps(obj), encoding="utf-8")
+    return str(p)
+
+
+def _main_argv(tmp_path, probe_cards=None, controls=None):
+    cs = {f"q{i}": 1.0 for i in range(4)}
+    ds = {f"d{i}": 1.0 for i in range(3)}
+    argv = []
+    for flag, sc, fam in (("--cards-study", cs, "cards"), ("--cards-both", cs, "cards"),
+                          ("--docs-study", ds, "docs"), ("--docs-both", ds, "docs")):
+        stem = flag.lstrip("-").replace("-", "_")
+        argv.append(flag)
+        argv += [_write_json(tmp_path, f"{stem}_{k}", _mkfull(sc, fam)) for k in range(3)]
+    argv += ["--probe-cards",
+             _write_json(tmp_path, "probe_cards",
+                         probe_cards or {"n": 48, "same_rate": 1.0, "n_orig_parse_fail": 0}),
+             "--probe-docs",
+             _write_json(tmp_path, "probe_docs",
+                         {"n": 30, "same_rate": 1.0, "n_orig_parse_fail": 0})]
+    # 四个 avg 刻意互不相同: 家族或极性传错会在 I3.avg 上现形
+    ctl = controls or {"docs-pos": 0.9, "docs-neg": 0.1, "cards-pos": 0.85, "cards-neg": 0.05}
+    for k, v in ctl.items():
+        argv += [f"--controls-{k}", _write_json(tmp_path, f"ctl_{k.replace('-', '_')}", {"avg": v})]
+    argv += ["--output", str(tmp_path / "verdict.json")]
+    return argv
+
+
+def test_main_happy_binds_control_identity(tmp_path):
+    argv = _main_argv(tmp_path)
+    assert main(argv) == 0
+    v = json.loads((tmp_path / "verdict.json").read_text(encoding="utf-8"))
+    assert v["I3"]["avg"] == {"docs_positive": 0.9, "docs_negative": 0.1,
+                             "cards_positive": 0.85, "cards_negative": 0.05}
+    assert v["I3"]["pass"] and v["E2_verdict"] == "cheap_on_this_ruler"
+
+
+def test_main_missing_control_flag_exits(tmp_path):
+    argv = _main_argv(tmp_path)
+    i = argv.index("--controls-cards-neg")
+    del argv[i:i + 2]                                          # 少一个对照 = 必须炸
+    with pytest.raises(SystemExit):
+        main(argv)
+
+
+def test_main_bad_probe_exits(tmp_path):
+    argv = _main_argv(tmp_path,
+                      probe_cards={"n": 0, "same_rate": 0.0, "n_orig_parse_fail": 48})
+    with pytest.raises(SystemExit):
+        main(argv)

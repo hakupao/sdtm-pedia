@@ -14,6 +14,8 @@ I2_MAX_UNSTABLE = {"cards": 7, "docs": 4}      # ≤15% of 48 / 30 (spec §5.1)
 I3_POS_MIN, I3_NEG_MAX = 0.80, 0.20            # U2 冻结判据 (spec 修正案 2)
 EXPECTED_N = {"cards": 48, "docs": 30}
 FRAGILE_4 = ("st01_v11_q19", "st01_v2_q14", "st01_v2_q15", "st01_v2_q21")
+CONTROL_KEYS = ("docs_positive", "docs_negative", "cards_positive", "cards_negative")
+PROBE_KEYS = ("cards", "docs")
 
 
 def scores_by_id(run: dict) -> dict:
@@ -30,7 +32,9 @@ def stability(runs: list) -> tuple:
     """三遍 → (稳定题 id→分, 不稳定/不可信 id 清单). 稳定 = 三遍同分且全 parse_ok."""
     maps = [scores_by_id(r) for r in runs]
     ids = set(maps[0])
-    assert all(set(m) == ids for m in maps), "三遍题集不一致"
+    # 裸 assert 会被 python -O 剥掉 → 题集不一致静默放行, 故用显式 raise.
+    if any(set(m) != ids for m in maps):
+        raise SystemExit(f"三遍题集不一致: {[len(m) for m in maps]} 行, 无法逐题配对")
     stable, unstable = {}, []
     for i in ids:
         vals = [m[i] for m in maps]
@@ -55,6 +59,12 @@ def paired_effect(stable_a: dict, stable_b: dict, n_scored: int) -> dict:
 
 
 def build_verdict(runs: dict, probes: dict, controls: dict) -> tuple:
+    # 键集必须先钉死: all() 对空生成器返回 True, 错键名/空字典会让 I3、I1 零迭代空过,
+    # 完全反转的对照也能判 pass (审查 H1).
+    if set(controls) != set(CONTROL_KEYS):
+        raise SystemExit(f"controls 键集 {sorted(controls)} != {sorted(CONTROL_KEYS)} — 闸会空过")
+    if set(probes) != set(PROBE_KEYS):
+        raise SystemExit(f"probes 键集 {sorted(probes)} != {sorted(PROBE_KEYS)} — 闸会空过")
     i3 = {k: c["avg"] for k, c in controls.items()}
     i3_pass = (all(v >= I3_POS_MIN for k, v in i3.items() if k.endswith("positive"))
                and all(v <= I3_NEG_MAX for k, v in i3.items() if k.endswith("negative")))
@@ -72,12 +82,23 @@ def build_verdict(runs: dict, probes: dict, controls: dict) -> tuple:
             n = r["summary"]["n_questions"]
             if n != EXPECTED_N[fam]:
                 raise SystemExit(f"{cfg}: n_questions {n} != {EXPECTED_N[fam]} — 题集变了, 阈值失义")
+            # 漏 --judge 的 run 全行无 judge_parse_ok → 会被读成全不稳定 → 误诊
+            # instrument_unusable (审查 M4, 与 Task 2 rejudge 的 judge 断言同款规矩).
+            if not r["summary"].get("judge_model"):
+                raise SystemExit(f"{cfg}: run 无 summary.judge_model — 该 run 没跑 judge")
+            n_rows = len(scores_by_id(r))
+            if n_rows != EXPECTED_N[fam]:
+                raise SystemExit(f"{cfg}: 计分行数 {n_rows} != {EXPECTED_N[fam]} — 产物残缺")
         stab[cfg], unstable[cfg] = stability(rs)
 
     i2_pass = all(len(v) <= I2_MAX_UNSTABLE[cfg.split("_")[0]] for cfg, v in unstable.items())
     out = {"thresholds": {"I1": I1_MIN_SAME_RATE, "I2": I2_MAX_UNSTABLE,
                           "I3": [I3_POS_MIN, I3_NEG_MAX]},
-           "I1": {"same_rate": i1, "pass": i1_pass},
+           "I1": {"same_rate": i1,
+                  # same_rate 单看无意义, 分母与被排除行数必须同落盘 (审查 M2)
+                  "n": {k: p["n"] for k, p in probes.items()},
+                  "n_orig_parse_fail": {k: p.get("n_orig_parse_fail") for k, p in probes.items()},
+                  "pass": i1_pass},
            "I2": {"counts": {c: len(v) for c, v in unstable.items()},
                   "unstable": unstable, "pass": i2_pass},
            "I3": {"avg": i3, "pass": i3_pass},
@@ -89,8 +110,10 @@ def build_verdict(runs: dict, probes: dict, controls: dict) -> tuple:
 
     out["E"] = {"cards": paired_effect(stab["cards_study"], stab["cards_both"], EXPECTED_N["cards"]),
                 "docs": paired_effect(stab["docs_study"], stab["docs_both"], EXPECTED_N["docs"])}
-    cheap = (out["E"]["cards"]["confirmed_cost_pt"] == 0
-             and out["E"]["docs"]["confirmed_cost_pt"] == 0)
+    # cheap 的依据是"已确证代价集合为空", 不是 pt 读数 —— pt 只 round 2 位, 非空代价
+    # 可被舍成 0.0, 那会让产物自相矛盾 (cost_ids 非空却判 cheap) (审查 M1).
+    cheap = (not out["E"]["cards"]["confirmed_cost_ids"]
+             and not out["E"]["docs"]["confirmed_cost_ids"])
     out["E2_verdict"] = "cheap_on_this_ruler" if cheap else "cost_reported"
     out["E3_fragile"] = {q: {"study": stab["cards_study"].get(q),
                              "both": stab["cards_both"].get(q),
@@ -113,19 +136,27 @@ def main(argv=None) -> int:
         p.add_argument(f"--{cfg}", nargs=3, required=True, metavar="RUN")
     p.add_argument("--probe-cards", required=True)
     p.add_argument("--probe-docs", required=True)
-    p.add_argument("--controls", nargs=4, required=True,
-                   metavar=("DOCS_POS", "DOCS_NEG", "CARDS_POS", "CARDS_NEG"))
+    # 四个对照各用具名 flag: 身份绑进 flag 名. 位置传参一旦家族/极性对调, 会静默错标
+    # I3.avg 归档 (家族对调) 或假自毁 (极性对调) —— 且要等 12 次付费跑批之后才现形 (审查 M5).
+    for flag, what in (("--controls-docs-pos", "docs 阳性对照 (judge_controls mode=docs_positive)"),
+                       ("--controls-docs-neg", "docs 阴性对照 (docs_negative)"),
+                       ("--controls-cards-pos", "cards 阳性对照 (cards_positive)"),
+                       ("--controls-cards-neg", "cards 阴性对照 (cards_negative)")):
+        p.add_argument(flag, required=True, metavar="JSON", help=what)
     p.add_argument("--output", required=True)
     a = p.parse_args(argv)
     runs = {cfg.replace("-", "_"): [_load(x) for x in getattr(a, cfg.replace("-", "_"))]
             for cfg in ("cards-study", "cards-both", "docs-study", "docs-both")}
     probes = {"cards": _load(a.probe_cards), "docs": _load(a.probe_docs)}
-    keys = ("docs_positive", "docs_negative", "cards_positive", "cards_negative")
-    controls = dict(zip(keys, (_load(x) for x in a.controls), strict=True))
+    controls = {"docs_positive": _load(a.controls_docs_pos),
+                "docs_negative": _load(a.controls_docs_neg),
+                "cards_positive": _load(a.controls_cards_pos),
+                "cards_negative": _load(a.controls_cards_neg)}
     verdict, rc = build_verdict(runs, probes, controls)
     with open(a.output, "w", encoding="utf-8") as f:
         json.dump(verdict, f, ensure_ascii=False, indent=1)
-    print(f"I1 pass={verdict['I1']['pass']} {verdict['I1']['same_rate']}")
+    print(f"I1 pass={verdict['I1']['pass']} same_rate={verdict['I1']['same_rate']}"
+          f" n={verdict['I1']['n']} orig_parse_fail={verdict['I1']['n_orig_parse_fail']}")
     print(f"I2 pass={verdict['I2']['pass']} counts={verdict['I2']['counts']}")
     print(f"I3 pass={verdict['I3']['pass']}")
     print(f"E2_verdict={verdict['E2_verdict']}  advisory_only={verdict['advisory_only']}")
