@@ -177,3 +177,30 @@ def test_build_messages_system_per_corpus():
     # 联邦规则恒在 (标源库 + 跨库推理性标注)
     for msgs in (single, both):
         assert "Federation rules" in msgs[0]["content"]
+
+
+# ── U5: 逐题判库 fallback 观测属性 ──
+
+class _U5StubEngine:
+    def retrieve(self, question, *, top_k=None, **kw):
+        return []
+
+
+def _u5_fed():
+    from server.federation import FederatedEngine
+    return FederatedEngine(cdisc=_U5StubEngine(), study=_U5StubEngine(), llm_router=object())
+
+
+def test_last_route_fallback_none_on_forced_corpus():
+    fed = _u5_fed()
+    fed.retrieve("q", corpus="study")
+    assert fed.last_route_fallback is None
+
+
+def test_last_route_fallback_records_auto_and_clears_on_forced(monkeypatch):
+    fed = _u5_fed()
+    monkeypatch.setattr("server.federation.route_corpus", lambda r, q: ("study", True))
+    fed.retrieve("q", corpus="auto")
+    assert fed.last_route_fallback is True
+    fed.retrieve("q", corpus="both")  # 强制档必须清掉上一题的标志, 否则串题
+    assert fed.last_route_fallback is None

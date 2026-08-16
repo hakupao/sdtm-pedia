@@ -1,7 +1,7 @@
 """--federated 的 adapter 与互斥闸. 引擎用 stub, 不碰 chroma."""
 import pytest
 
-from eval.run_eval import _FederatedAdapter, main
+from eval.run_eval import _FederatedAdapter, attach_routing_fields, main
 from server.rag import RetrievedChunk
 
 
@@ -91,3 +91,38 @@ def test_federated_mutually_exclusive_with_kb_root(tmp_path, capsys):
     ts = _write_ts(tmp_path)
     with pytest.raises(SystemExit):
         main([ts, "--retrieval-only", "--federated", "--kb-root", "data/study/st01/cards"])
+
+
+# ── U5: 逐题判库观测字段 ──
+
+def test_adapter_records_fallback_flag_per_question():
+    fed = _FakeFed()
+    fed.last_route_fallback = False
+    a = _FederatedAdapter(fed)
+    a.retrieve("q")
+    fed.last_route_fallback = True
+    a.retrieve("q2")
+    assert a.routed_fallback == [False, True]
+
+
+def test_adapter_fallback_defaults_none_when_engine_lacks_attr():
+    a = _FederatedAdapter(_FakeFed())
+    a.retrieve("q")
+    assert a.routed_fallback == [None]
+
+
+def test_attach_routing_fields_writes_per_question_observations():
+    results = [{"id": "a"}, {"id": "b"}]
+    a = _FederatedAdapter(_FakeFed(["study", "both"]))
+    a.retrieve("q1")
+    a.retrieve("q2")
+    attach_routing_fields(results, a)
+    assert [r["routed"] for r in results] == ["study", "both"]
+    assert results[0]["routed_fallback"] is None
+
+
+def test_attach_routing_fields_fails_loud_on_length_mismatch():
+    a = _FederatedAdapter(_FakeFed())
+    a.retrieve("q")
+    with pytest.raises(RuntimeError):
+        attach_routing_fields([], a)
