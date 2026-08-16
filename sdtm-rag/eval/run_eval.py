@@ -556,10 +556,12 @@ class _FederatedAdapter:
         self.fed = fed
         self.corpus = corpus
         self.routed: list[str] = []
+        self.routed_fallback: list[bool | None] = []
 
     def retrieve(self, q, top_k=None):
         chunks, routed = self.fed.retrieve(q, corpus=self.corpus, top_k=top_k)
         self.routed.append(routed)
+        self.routed_fallback.append(getattr(self.fed, "last_route_fallback", None))
         return chunks
 
     def format_context(self, chunks):
@@ -571,6 +573,17 @@ class _FederatedAdapter:
         if not self.routed:
             raise RuntimeError("build_messages before retrieve: no routed corpus recorded")
         return self.fed.build_messages(q, context, history, corpus=self.routed[-1])
+
+
+def attach_routing_fields(results: list[dict], retriever: "_FederatedAdapter") -> None:
+    """逐题判库观测写进产物 (both_ruler §5-8/§5-11 缺口). 长度不齐 = 取证链断了, fail loud."""
+    if len(retriever.routed) != len(results):
+        raise RuntimeError(
+            f"routed({len(retriever.routed)}) != results({len(results)}): "
+            "per-question routing evidence broken; refusing to write partial fields")
+    for r, routed, fb in zip(results, retriever.routed, retriever.routed_fallback, strict=True):
+        r["routed"] = routed
+        r["routed_fallback"] = fb
 
 
 def _non_empty(v: str) -> str:
@@ -975,6 +988,7 @@ def main(argv: list[str] | None = None) -> int:
     if args.collection:
         summary["collection"] = collection_name
     if args.federated:
+        attach_routing_fields(results, retriever)
         routing = dict(Counter(retriever.routed))
         print(f"routing: {routing}")
         summary["federated"] = True

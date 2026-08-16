@@ -97,6 +97,9 @@ class FederatedEngine:
         self.study = study
         self.llm_router = llm_router
         self.top_k = top_k
+        # U5 观测属性: 最近一次 retrieve 的判库 fallback 标志 (auto 档才有意义;
+        # 强制档恒 None)。只写不读, 供 eval 侧记逐题取证 (both_ruler §5-11 缺口)。
+        self.last_route_fallback: bool | None = None
 
     def retrieve(
         self,
@@ -112,8 +115,10 @@ class FederatedEngine:
             raise ValueError(f"corpus must be auto|cdisc|study|both, got {corpus!r}")
         k = top_k or self.top_k
         routed = corpus
+        self.last_route_fallback = None
         if corpus == "auto":
             routed, fallback = route_corpus(self.llm_router, question)
+            self.last_route_fallback = fallback
             log.info("federation_routed", corpus=routed, fallback=fallback)
         if routed == "cdisc":
             chunks = self.cdisc.retrieve(question, domain=domain, file_type=file_type, top_k=k)

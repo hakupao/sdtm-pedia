@@ -396,6 +396,9 @@ git commit -m "feat(u5): rejudge 探针 (judge 噪声与答题噪声分解, I1 �
   --docs-study A B C --docs-both A B C --probe-cards P --probe-docs P
   --controls DP DN CP CN --output out.json`; rc: 0 全过 / 2 = I2 或 I3 触发 /
   3 = I1 降级 (advisory)。
+  **⚠ 实现后契约已变 (审查 M5)**: `--controls` 四位置参已改为四个具名 required flag
+  `--controls-docs-pos/--controls-docs-neg/--controls-cards-pos/--controls-cards-neg`,
+  本段与下方参考实现的旧形态仅作冻结史料, 拼命令以 Task 7 调用块为准。
 - 纯函数 (供测试与抽检方复算): `scores_by_id(run) -> dict[str, float | None]` ·
   `stability(runs: list[dict]) -> (stable: dict[str, float], unstable: list[str])` ·
   `paired_effect(stable_a, stable_b, n_scored) -> dict` ·
@@ -855,8 +858,10 @@ R=data/study/st01/eval/runs
   --docs-study  $R/u5_docs_study_r1.json  $R/u5_docs_study_r2.json  $R/u5_docs_study_r3.json \
   --docs-both   $R/u5_docs_both_r1.json   $R/u5_docs_both_r2.json   $R/u5_docs_both_r3.json \
   --probe-cards $R/u5_probe_cards.json --probe-docs $R/u5_probe_docs.json \
-  --controls $R/u5_ctrl_docs_positive.json $R/u5_ctrl_docs_negative.json \
-             $R/u5_ctrl_cards_positive.json $R/u5_ctrl_cards_negative.json \
+  --controls-docs-pos  $R/u5_ctrl_docs_positive.json \
+  --controls-docs-neg  $R/u5_ctrl_docs_negative.json \
+  --controls-cards-pos $R/u5_ctrl_cards_positive.json \
+  --controls-cards-neg $R/u5_ctrl_cards_negative.json \
   --output $R/u5_verdict.json; echo "rc=$?"
 ```
 

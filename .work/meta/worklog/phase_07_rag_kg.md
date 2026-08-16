@@ -1253,3 +1253,39 @@ spec/plan: `docs/superpowers/{specs,plans}/2026-08-12-doc-track-u2-wirein*`
 4. 审查方三问的答案 (「散文 pattern-level, 有效层 example-level」) 说明**反例词表闸挡得住
    字面泄漏, 挡不住决策结构等价于词表** —— 下一单元若重启修法, 防线要从「禁词」升级到
    「禁结构」或干脆离开 prompt 层。
+
+## 2026-08-17 doc 轨 U5 both 答题侧代价 + 答题侧仪器 收口 (DONE 有条件)
+
+**单元**: kickoff §0′ 原候选 #3+#4 合并 (用户点单 2026-08-16, 收益侧明确出局)。
+spec/plan `docs/superpowers/{specs,plans}/2026-08-16-doc-track-u5-both-answer-cost*` (spec 含
+修正案 1 federation 观测属性 / 修正案 2 I3 阈值对齐 U2 冻结判据, 均经用户批准)。
+收口 `sdtm-rag/evidence/checkpoints/doc_track_u5_both_answer_cost.md` · 分支 `doc-track-u5`。
+
+**产出**:
+- 工具三件 (TDD, 判据先于数据): 逐题 routed/fallback 观测字段 (生产改动仅 federation.py
+  3 处赋值零行为属性) · `eval/rejudge_run.py` judge 重判探针 · `eval/u5_verdict.py` 六段冻结判定
+  (36 例 + 字面断言兜底)。任务级审查 9 轮 (T1×2 / T2×4 / T3×4), 每轮变异自证。
+- 测量: I3 对照 1.0/0.0×2 → 12 答题 run (4 配置 ×3, parse_fail 全 0) → 2 rejudge probe →
+  6 auto run → 判定 rc=0。1275 → **1353 passed**。
+
+**数字与结论** (引用纪律见 checkpoint §6):
+- E2 = cheap_on_this_ruler, **必须连可比池 (cards 41/48 · docs 29/30) 与最坏界并列口径**:
+  最坏界 2.08pt 稳健退化在 `st01_v2_q14`/`q21` (检索脆弱题 ⇒ 传导实锤), 聚合 −0.69pt;
+  +2.78pt 收益禁作放宽 router 论据。**修法线必要性未被解除**; auto 实判 both 的 5 题免费。
+- 触发率演绎→观测: auto 分布逐位复现 U3; fallback 243/243 False **但 4 题路由打空未触发**
+  (判库欠账 10pt 本体首次逐题观测); 脆弱 4 题 12/12 全 study。
+
+**三方核验 (规则 D 五方)**: 审查方条件通过 (2C/4I/3M; C1 双口径反向与抽检 A F-1 同机制独立
+命中; 引用纪律 11 条越界清单) · 抽检 A 64/64 全复现 + 7 findings (`evidence/step_u5_audit.md`)
+· 抽检 B 148 变异终态 SURVIVED 0, 冻结期存活 0 (`evidence/step_u5_audit_mutation.md`) ·
+controller 亲手复现 q14/q21/q08 逐遍数字。
+
+**Retro (规则 C)**:
+- 保留: 判据先于数据 + T5 前三轮加固窗口用尽 (U3 §6-10 教训落地); 逐题配对设计使 3.47pt 聚合
+  噪声下仍能出可辩护结论; 抽检最坏界并列尺子应成为今后 E1 类判定的标配。
+- 必须补的缺口: E1 稳定性过滤偏删代价信号 (F-1) / E4 并集无闸 (C2) / I-1 latent 结论词不抑制
+  — 全属判据变更, 冻结期不修, 重启答题侧测量前须用户裁定后重建基线。
+- 关键决策复盘: ① 「cheap 判词按冻结规则存续 + 并列口径入档」优于当场改判 — 判据可信度靠
+  一次性冻结, 修尺子留给下一单元; ② 观测字段选「生产 2 行属性」而非「eval 自行判库」是对的
+  (防两路径漂移); ③ 变异 harness 两坑 (pytest -rf 吞收集错 = 假阴性 / 同秒 pyc = 假还原)
+  已固化进抽检 B 流程, 今后变异必 purge __pycache__ + compile 前置。
