@@ -38,6 +38,12 @@ def test_scores_by_id_none_on_parse_fail_and_skips_oos():
     assert scores_by_id(run) == {"a": 1.0, "b": None}
 
 
+def _ctl(mode: str, avg: float, n_ok: int = 6, n_rows: int = 6):
+    """judge_controls 产物形状 (eval/judge_controls.py:57,64): mode 只带极性不带家族."""
+    return {"mode": mode, "avg": avg,
+            "rows": [{"id": f"c{i}", "recall": avg, "parse_ok": i < n_ok} for i in range(n_rows)]}
+
+
 def test_stability_flags_flip_and_parse_fail():
     r_ok = _mkrun({"a": 1.0, "b": 0.5, "c": 1.0}, n=48)
     r_flip = _mkrun({"a": 1.0, "b": 1.0, "c": 1.0}, n=48)      # b 翻转
@@ -45,6 +51,14 @@ def test_stability_flags_flip_and_parse_fail():
     stable, unstable = stability([r_ok, r_flip, r_pf])
     assert stable == {"a": 1.0}
     assert unstable == ["b", "c"]
+
+
+def test_stability_flags_question_that_parse_failed_every_run():
+    """三遍全 parse 失败 = 三遍"同值"(都 None) —— 必须进不稳定, 不能因同值被判稳定
+    (复审 N5: 去掉 `None in vals` 这条的变异否则存活)."""
+    stable, unstable = stability([_mkrun({"a": 1.0, "z": None}, n=48)] * 3)
+    assert stable == {"a": 1.0}
+    assert unstable == ["z"]
 
 
 def test_stability_rejects_mismatched_question_sets():
@@ -78,8 +92,8 @@ def _happy_inputs(cards_both_scores=None):
             "docs_study": [_mkfull(ds, "docs")] * 3, "docs_both": [_mkfull(ds, "docs")] * 3}
     probes = {"cards": {"same_rate": 1.0, "n": 48, "n_orig_parse_fail": 0},
               "docs": {"same_rate": 1.0, "n": 30, "n_orig_parse_fail": 0}}
-    controls = {"docs_positive": {"avg": 1.0}, "docs_negative": {"avg": 0.0},
-                "cards_positive": {"avg": 1.0}, "cards_negative": {"avg": 0.0}}
+    controls = {"docs_positive": _ctl("positive", 1.0), "docs_negative": _ctl("negative", 0.0),
+                "cards_positive": _ctl("positive", 1.0), "cards_negative": _ctl("negative", 0.0)}
     return runs, probes, controls
 
 
@@ -121,7 +135,7 @@ def test_build_verdict_i2_trigger_blocks_e():
 
 def test_build_verdict_i3_trigger():
     runs, probes, controls = _happy_inputs()
-    controls["cards_negative"] = {"avg": 0.5}                   # 阴性对照失守
+    controls["cards_negative"] = _ctl("negative", 0.5)          # 阴性对照失守
     v, rc = build_verdict(runs, probes, controls)
     assert rc == 2 and v["E2_verdict"] == "controls_failed" and v["E"] is None
 
@@ -130,7 +144,34 @@ def test_build_verdict_rejects_wrong_controls_keys():
     """错键名 → 两个 all() 零迭代 → 完全反转的阴性对照也能 pass (审查 H1)."""
     runs, probes, controls = _happy_inputs()
     del controls["cards_negative"]
-    controls["cards_neg"] = {"avg": 1.0}                        # 完全反转 + 错键名
+    controls["cards_neg"] = _ctl("negative", 1.0)               # 完全反转 + 错键名
+    with pytest.raises(SystemExit):
+        build_verdict(runs, probes, controls)
+
+
+def test_build_verdict_rejects_missing_control_key():
+    """纯缺键 (非改名): 键集断言若从 != 弱化成 ⊆ 就漏 (复审 N4)."""
+    runs, probes, controls = _happy_inputs()
+    del controls["cards_negative"]
+    with pytest.raises(SystemExit):
+        build_verdict(runs, probes, controls)
+
+
+def test_build_verdict_rejects_swapped_control_polarity():
+    """阳阴两份产物对调塞错 flag = 唯一的静默假过路径: 真实阳性 0.1 / 阴性 0.9 (管线已坏),
+    对调后两边都"合格" → I3 反判 pass. 靠 mode 断言关掉 (复审 极性半)."""
+    runs, probes, controls = _happy_inputs()
+    controls["cards_positive"] = _ctl("negative", 0.9)          # 阴性产物塞进阳性位
+    controls["cards_negative"] = _ctl("positive", 0.1)          # 阳性产物塞进阴性位
+    with pytest.raises(SystemExit):
+        build_verdict(runs, probes, controls)
+
+
+def test_build_verdict_rejects_control_with_zero_parsed_rows():
+    """6 行全 parse 失败 → avg 兜底成 0.0, 阴性对照会"完美通过" —— 零信息不是证据
+    (复审 N1, 与 probe n=0 同类病)."""
+    runs, probes, controls = _happy_inputs()
+    controls["cards_negative"] = _ctl("negative", 0.0, n_ok=0)
     with pytest.raises(SystemExit):
         build_verdict(runs, probes, controls)
 
@@ -168,8 +209,12 @@ def test_build_verdict_rejects_probe_n_zero():
 
 
 def test_build_verdict_rejects_wrong_n():
+    """表头闸独占覆盖: 行数合规 (48), 只有 n_questions 不对 —— 否则删掉表头闸也全绿
+    (复审 N3)."""
     runs, probes, controls = _happy_inputs()
-    runs["cards_study"] = [_mkrun({"q0": 1.0}, 47)] * 3        # 题集变了 = 阈值失义
+    bad = _mkfull({f"q{i}": 1.0 for i in range(4)}, "cards")
+    bad["summary"]["n_questions"] = 47                          # 题集变了 = 阈值失义
+    runs["cards_study"] = [bad] * 3
     with pytest.raises(SystemExit):
         build_verdict(runs, probes, controls)
 
@@ -204,6 +249,50 @@ def test_fragile_and_undecidable_reported():
     assert v["E4_undecidable"] == {"cards": [], "docs": []}
 
 
+# ---- 冻结阈值的边界 (复审 N2): 各钉 "== 阈值 ⇒ pass" 与 "越界一步 ⇒ fail".
+# T5 付费跑批后判据即冻结, 边界一旦松动没人会再发现 ----
+
+@pytest.mark.parametrize(("same_rate", "expect_pass"), [(0.95, True), (0.9499, False)])
+def test_i1_threshold_boundary(same_rate, expect_pass):
+    runs, probes, controls = _happy_inputs()
+    probes["docs"] = {"same_rate": same_rate, "n": 30, "n_orig_parse_fail": 0}
+    v, rc = build_verdict(runs, probes, controls)
+    assert v["I1"]["pass"] is expect_pass
+    assert rc == (0 if expect_pass else 3)
+
+
+@pytest.mark.parametrize(("n_unstable", "expect_pass"), [(7, True), (8, False)])
+def test_i2_threshold_boundary(n_unstable, expect_pass):
+    runs, probes, controls = _happy_inputs()
+    base = {f"q{i}": 1.0 for i in range(n_unstable)}
+    flip = {f"q{i}": 0.0 for i in range(n_unstable)}
+    runs["cards_study"] = [_mkfull(base, "cards"), _mkfull(flip, "cards"),
+                           _mkfull(base, "cards")]
+    runs["cards_both"] = [_mkfull(base, "cards")] * 3
+    v, rc = build_verdict(runs, probes, controls)
+    assert v["I2"]["counts"]["cards_study"] == n_unstable
+    assert v["I2"]["pass"] is expect_pass
+    assert rc == (0 if expect_pass else 2)
+
+
+@pytest.mark.parametrize(("avg", "expect_pass"), [(0.80, True), (0.7999, False)])
+def test_i3_positive_threshold_boundary(avg, expect_pass):
+    runs, probes, controls = _happy_inputs()
+    controls["cards_positive"] = _ctl("positive", avg)
+    v, rc = build_verdict(runs, probes, controls)
+    assert v["I3"]["pass"] is expect_pass
+    assert rc == (0 if expect_pass else 2)
+
+
+@pytest.mark.parametrize(("avg", "expect_pass"), [(0.20, True), (0.2001, False)])
+def test_i3_negative_threshold_boundary(avg, expect_pass):
+    runs, probes, controls = _happy_inputs()
+    controls["cards_negative"] = _ctl("negative", avg)
+    v, rc = build_verdict(runs, probes, controls)
+    assert v["I3"]["pass"] is expect_pass
+    assert rc == (0 if expect_pass else 2)
+
+
 # ---- main() 级: CLI 接线 / 对照身份绑定 / rc 传播 (审查 M5) ----
 
 def _write_json(tmp_path, name: str, obj) -> str:
@@ -230,7 +319,9 @@ def _main_argv(tmp_path, probe_cards=None, controls=None):
     # 四个 avg 刻意互不相同: 家族或极性传错会在 I3.avg 上现形
     ctl = controls or {"docs-pos": 0.9, "docs-neg": 0.1, "cards-pos": 0.85, "cards-neg": 0.05}
     for k, v in ctl.items():
-        argv += [f"--controls-{k}", _write_json(tmp_path, f"ctl_{k.replace('-', '_')}", {"avg": v})]
+        mode = "positive" if k.endswith("-pos") else "negative"
+        argv += [f"--controls-{k}",
+                 _write_json(tmp_path, f"ctl_{k.replace('-', '_')}", _ctl(mode, v))]
     argv += ["--output", str(tmp_path / "verdict.json")]
     return argv
 

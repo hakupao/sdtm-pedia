@@ -65,6 +65,14 @@ def build_verdict(runs: dict, probes: dict, controls: dict) -> tuple:
         raise SystemExit(f"controls 键集 {sorted(controls)} != {sorted(CONTROL_KEYS)} — 闸会空过")
     if set(probes) != set(PROBE_KEYS):
         raise SystemExit(f"probes 键集 {sorted(probes)} != {sorted(PROBE_KEYS)} — 闸会空过")
+    for key, c in controls.items():
+        # 极性绑定: judge_controls 产物的 mode 只带极性 (positive/negative), 不带家族.
+        # 阳阴两份产物对调塞错 flag 时 I3 会反判 pass —— 这是唯一的静默假过路径.
+        if c["mode"] != key.rsplit("_", 1)[1]:
+            raise SystemExit(f"control {key}: mode={c['mode']} 与所在位极性不符 — 产物塞错 flag")
+        # 信息量闸 (同 probe n=0 病): 全行 parse 失败时 avg 兜底成 0.0, 阴性对照会"完美通过".
+        if sum(r["parse_ok"] for r in c["rows"]) == 0:
+            raise SystemExit(f"control {key}: 0/{len(c['rows'])} 行 parse 成功 — avg 零信息, 不能过闸")
     i3 = {k: c["avg"] for k, c in controls.items()}
     i3_pass = (all(v >= I3_POS_MIN for k, v in i3.items() if k.endswith("positive"))
                and all(v <= I3_NEG_MAX for k, v in i3.items() if k.endswith("negative")))
@@ -97,7 +105,7 @@ def build_verdict(runs: dict, probes: dict, controls: dict) -> tuple:
            "I1": {"same_rate": i1,
                   # same_rate 单看无意义, 分母与被排除行数必须同落盘 (审查 M2)
                   "n": {k: p["n"] for k, p in probes.items()},
-                  "n_orig_parse_fail": {k: p.get("n_orig_parse_fail") for k, p in probes.items()},
+                  "n_orig_parse_fail": {k: p["n_orig_parse_fail"] for k, p in probes.items()},
                   "pass": i1_pass},
            "I2": {"counts": {c: len(v) for c, v in unstable.items()},
                   "unstable": unstable, "pass": i2_pass},
