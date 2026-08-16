@@ -194,6 +194,17 @@ def _run_main_federated(tmp_path, monkeypatch, fed):
     return json.loads(out.read_text(encoding="utf-8"))["results"]
 
 
+def test_attach_routing_fields_fails_loud_when_the_two_evidence_lists_desync():
+    """长度闸只比 routed 与 results; routed 与 routed_fallback 之间的错位靠 zip(strict=True).
+    去掉 strict 后 zip 会静默截断, 尾部若干题一个字段都不写却不报错 (抽检方 B 变异 C03)."""
+    a = _FederatedAdapter(_FallbackFed(["study", "both"], [False, True]))
+    a.retrieve("q1")
+    a.retrieve("q2")
+    a.routed_fallback.pop()
+    with pytest.raises(ValueError):
+        attach_routing_fields([{"id": "a"}, {"id": "b"}], a)
+
+
 def test_main_federated_writes_routing_fields_into_output_json(tmp_path, monkeypatch):
     """主线接线断言: 产物每行都要有本题的 routed / routed_fallback (审查 I1)."""
     rows = _run_main_federated(

@@ -332,11 +332,12 @@ def _write_json(tmp_path, name: str, obj) -> str:
     return str(p)
 
 
-def _main_argv(tmp_path, probe_cards=None, controls=None):
+def _main_argv(tmp_path, probe_cards=None, controls=None, cards_both=None):
     cs = {f"q{i}": 1.0 for i in range(4)}
+    cb = cards_both or cs
     ds = {f"d{i}": 1.0 for i in range(3)}
     argv = []
-    for flag, sc, fam in (("--cards-study", cs, "cards"), ("--cards-both", cs, "cards"),
+    for flag, sc, fam in (("--cards-study", cs, "cards"), ("--cards-both", cb, "cards"),
                           ("--docs-study", ds, "docs"), ("--docs-both", ds, "docs")):
         stem = flag.lstrip("-").replace("-", "_")
         argv.append(flag)
@@ -377,5 +378,189 @@ def test_main_missing_control_flag_exits(tmp_path):
 def test_main_bad_probe_exits(tmp_path):
     argv = _main_argv(tmp_path,
                       probe_cards={"n": 0, "same_rate": 0.0, "n_orig_parse_fail": 48})
+    with pytest.raises(SystemExit):
+        main(argv)
+
+
+# ── 抽检方 B 变异补网: 合取/并集只测一半 + 对调型 + 顺序确定性 ────────────────
+# 下面每条都由一个存活变异倒推而来 (见 evidence/step_u5_audit_mutation.md 变异号)。
+
+def test_scores_by_id_treats_missing_parse_ok_key_as_untrusted():
+    """旧版产物整行没有 judge_parse_ok 键: 缺省值必须是"不可信", 不是"可信".
+    (缺省 False→True 的变异原本全绿 —— 现有用例只喂显式 False 的行。)"""
+    run = {"summary": {}, "results": [{"id": "a", "judge_fact_recall": 0.7}]}
+    assert scores_by_id(run) == {"a": None}
+
+
+def test_stability_unstable_list_is_deterministically_sorted():
+    """去掉 sorted 的变异只在某些 hash seed 下才红 (实测 3/8) —— 两元素集合的迭代序
+    有一半概率碰巧就是升序。用 12 个 id 把这条守卫钉成确定性的。"""
+    ids = [f"z{i:02d}" for i in range(12)]
+    same = _mkrun({i: 1.0 for i in ids}, n=48)
+    flip = _mkrun({i: 0.0 for i in ids}, n=48)
+    _, unstable = stability([same, flip, same])
+    assert unstable == sorted(ids)
+
+
+def test_paired_effect_n_compared_counts_ties_not_just_movers():
+    """n_compared 是"两侧都稳定的配对数", 不是"有变化的题数" —— 后者会让
+    cost_pt 的可比性说明失真 (分母口径被悄悄换掉)."""
+    a = {"q1": 1.0, "q2": 1.0}
+    b = {"q1": 1.0, "q2": 0.5}
+    e = paired_effect(a, b, n_scored=48)
+    assert e["n_compared"] == 2
+    assert e["confirmed_cost_ids"] == ["q2"] and e["confirmed_gain_ids"] == []
+
+
+def test_build_verdict_rejects_extra_control_key():
+    """键集闸必须是恒等而非"⊇": 多塞一份能过极性闸的对照 (合法极性后缀) 会
+    悄悄改变 I3 的判定面, 且 12 次付费跑批后才现形."""
+    runs, probes, controls = _happy_inputs()
+    controls["extra_positive"] = _ctl("positive", 1.0)
+    with pytest.raises(SystemExit):
+        build_verdict(runs, probes, controls)
+
+
+@pytest.mark.parametrize(("n_unstable", "expect_pass"), [(4, True), (5, False)])
+def test_i2_docs_threshold_is_independent_of_cards(n_unstable, expect_pass):
+    """docs 档阈值 4 此前零覆盖: 把查表写死成 cards(7) 或干脆只判 cards 两档,
+    原有用例全绿 —— docs 侧仪器失守会被静默放过."""
+    runs, probes, controls = _happy_inputs()
+    base = {f"d{i}": 1.0 for i in range(n_unstable)}
+    flip = {f"d{i}": 0.0 for i in range(n_unstable)}
+    runs["docs_study"] = [_mkfull(base, "docs"), _mkfull(flip, "docs"), _mkfull(base, "docs")]
+    runs["docs_both"] = [_mkfull(base, "docs")] * 3
+    v, rc = build_verdict(runs, probes, controls)
+    assert v["I2"]["counts"]["docs_study"] == n_unstable
+    assert v["I2"]["pass"] is expect_pass
+    assert rc == (0 if expect_pass else 2)
+
+
+def test_docs_side_cost_is_reported_with_the_docs_denominator():
+    """E 的 docs 半边此前零差异覆盖: study/both 入参对调、pt 分母错用 cards 题量、
+    cheap 合取删掉 docs 项 —— 三种改法原本都全绿."""
+    runs, probes, controls = _happy_inputs()
+    ds = {"d0": 1.0, "d1": 1.0, "d2": 1.0}
+    db = {"d0": 0.5, "d1": 1.0, "d2": 1.0}
+    runs["docs_study"] = [_mkfull(ds, "docs")] * 3
+    runs["docs_both"] = [_mkfull(db, "docs")] * 3
+    v, rc = build_verdict(runs, probes, controls)
+    assert v["E"]["docs"]["confirmed_cost_ids"] == ["d0"]
+    assert v["E"]["docs"]["confirmed_gain_ids"] == []
+    assert v["E"]["docs"]["confirmed_cost_pt"] == round(100 * 0.5 / EXPECTED_N["docs"], 2)
+    assert v["E"]["cards"]["confirmed_cost_ids"] == []
+    assert v["E2_verdict"] == "cost_reported" and rc == 0
+
+
+def test_e3_covers_every_fragile_question_and_separates_the_two_stability_sides():
+    """E3 此前只在"两侧都稳定"的 fixture 上验过一题: stable_study/stable_both 对调
+    或只报首题, 原本都全绿."""
+    runs, probes, controls = _happy_inputs()
+    q = FRAGILE_4[1]
+    stay = {q: 1.0, "x": 1.0}
+    drift = {q: 0.0, "x": 1.0}
+    runs["cards_study"] = [_mkfull(stay, "cards")] * 3
+    runs["cards_both"] = [_mkfull(stay, "cards"), _mkfull(drift, "cards"),
+                          _mkfull(stay, "cards")]
+    v, _ = build_verdict(runs, probes, controls)
+    assert set(v["E3_fragile"]) == set(FRAGILE_4)
+    f = v["E3_fragile"][q]
+    assert (f["stable_study"], f["stable_both"]) == (True, False)
+    assert (f["study"], f["both"]) == (1.0, None)
+
+
+def _unstable_runs(flip_ids, steady_ids, fam):
+    """本族三遍: flip_ids 中间一遍翻分 (→不稳定), steady_ids 恒定 (→稳定)."""
+    base = {i: 1.0 for i in list(flip_ids) + list(steady_ids)}
+    flip = {**base, **{i: 0.0 for i in flip_ids}}
+    return [_mkfull(base, fam), _mkfull(flip, fam), _mkfull(base, fam)]
+
+
+def test_e4_unions_both_sides_per_family_and_stays_sorted():
+    """E4 是并集且分族: 删任一半边 / 并集改交集 / 两族对调 / 去 sorted —— 五类改法
+    在"两侧不可判题相同且为空"的老 fixture 上全绿。这里让四档各自不同。"""
+    runs, probes, controls = _happy_inputs()
+    cs_ids = [f"ca{i}" for i in range(4)]
+    cb_ids = [f"cb{i}" for i in range(4)]
+    ds_ids = [f"da{i}" for i in range(3)]
+    db_ids = [f"db{i}" for i in range(3)]
+    runs["cards_study"] = _unstable_runs(cs_ids, cb_ids, "cards")
+    runs["cards_both"] = _unstable_runs(cb_ids, cs_ids, "cards")
+    runs["docs_study"] = _unstable_runs(ds_ids, db_ids, "docs")
+    runs["docs_both"] = _unstable_runs(db_ids, ds_ids, "docs")
+    v, rc = build_verdict(runs, probes, controls)
+    assert v["E4_undecidable"]["cards"] == sorted(cs_ids + cb_ids)
+    assert v["E4_undecidable"]["docs"] == sorted(ds_ids + db_ids)
+    assert rc == 0
+
+
+def test_verdict_archives_the_frozen_thresholds_it_judged_by():
+    """产物必须自带判据: 阈值只活在代码里的话, 归档 json 事后无法自证按什么判的."""
+    v, _ = build_verdict(*_happy_inputs())
+    assert v["thresholds"] == {"I1": I1_MIN_SAME_RATE, "I2": I2_MAX_UNSTABLE,
+                               "I3": [I3_POS_MIN, I3_NEG_MAX]}
+
+
+def test_i3_reads_the_control_avg_field_not_a_single_row():
+    """I3 读的是对照产物的 avg 聚合值; 退化成读首行 recall 在老 fixture 上无差别
+    (那里每行 recall 都等于 avg)."""
+    runs, probes, controls = _happy_inputs()
+    c = _ctl("negative", 0.0)
+    c["rows"][0]["recall"] = 0.9                # 单行不代表整体
+    controls["cards_negative"] = c
+    v, rc = build_verdict(runs, probes, controls)
+    assert v["I3"]["avg"]["cards_negative"] == 0.0
+    assert v["I3"]["pass"] and rc == 0
+
+
+@pytest.mark.parametrize("bad_idx", [0, 1, 2])
+def test_build_verdict_checks_all_three_runs_not_just_the_first(bad_idx):
+    """三道产物闸在 for 里逐遍跑; 只验首遍的变异在"三遍同一份"的老 fixture 上全绿."""
+    runs, probes, controls = _happy_inputs()
+    good = _mkfull({f"q{i}": 1.0 for i in range(4)}, "cards")
+    bad = json.loads(json.dumps(good))
+    bad["summary"]["n_questions"] = 47
+    trio = [good, good, good]
+    trio[bad_idx] = bad
+    runs["cards_study"] = trio
+    with pytest.raises(SystemExit):
+        build_verdict(runs, probes, controls)
+
+
+def test_main_binds_probe_identity(tmp_path):
+    """两份 probe 产物对调 = 两族的 I1 读数整体错标; 两族 n 不同 (48/30) 才照得出来."""
+    argv = _main_argv(tmp_path)
+    assert main(argv) == 0
+    v = json.loads((tmp_path / "verdict.json").read_text(encoding="utf-8"))
+    assert v["I1"]["n"] == {"cards": 48, "docs": 30}
+
+
+def test_main_binds_study_and_both_run_identity(tmp_path):
+    """study/both 两组 run 在 main 里对调 = 代价与收益整体翻面 (对调型),
+    而两组分数相同的老 fixture 照不出来."""
+    argv = _main_argv(tmp_path, cards_both={"q0": 0.5, "q1": 1.0, "q2": 1.0, "q3": 1.0})
+    assert main(argv) == 0
+    v = json.loads((tmp_path / "verdict.json").read_text(encoding="utf-8"))
+    assert v["E"]["cards"]["confirmed_cost_ids"] == ["q0"]
+    assert v["E"]["cards"]["confirmed_gain_ids"] == []
+    assert v["E2_verdict"] == "cost_reported"
+
+
+def test_main_propagates_advisory_rc_and_prints_the_verdict(tmp_path, capsys):
+    """rc 是给跑批脚本读的, 终端回显是给人读的 —— 两条出口都得钉住:
+    `return rc → return 0` 与删掉 print 行原本都全绿."""
+    argv = _main_argv(tmp_path,
+                      probe_cards={"n": 48, "same_rate": 0.90, "n_orig_parse_fail": 0})
+    assert main(argv) == 3
+    out = capsys.readouterr().out
+    assert "E2_verdict=cheap_on_this_ruler" in out
+    assert "advisory_only=True" in out
+    assert "rc=3" in out
+
+
+def test_main_requires_exactly_three_runs_per_config(tmp_path):
+    """三遍复跑是 I2 的定义前提; nargs 从 3 松成 '+' 后两遍也收, 稳定性口径失义."""
+    argv = _main_argv(tmp_path)
+    del argv[argv.index("--cards-study") + 1]
     with pytest.raises(SystemExit):
         main(argv)

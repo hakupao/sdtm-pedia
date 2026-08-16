@@ -191,6 +191,12 @@ def _u5_fed():
     return FederatedEngine(cdisc=_U5StubEngine(), study=_U5StubEngine(), llm_router=object())
 
 
+def test_last_route_fallback_exists_before_any_retrieve():
+    """观测属性得在构造期就存在: 只靠 retrieve 里赋值的话, 首次 retrieve 之前读到的是
+    AttributeError, 而 eval 侧的 getattr 兜底会把它读成 None —— 缺属性伪装成"没回落"."""
+    assert _u5_fed().last_route_fallback is None
+
+
 def test_last_route_fallback_none_on_forced_corpus():
     fed = _u5_fed()
     fed.retrieve("q", corpus="study")
