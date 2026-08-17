@@ -50,22 +50,58 @@ source miss 6 题 (仅题号):
 判定: 87.5% 与 U5 收口一致 ✓
 
 
-1-3 附: 复现条件 (本次实测新发现, 记录以免下个人误判环境漂移)
+1-3 附: st01_v11_q04 的一次不复现观测 (成因未查明)
 ----------------------------------------------------------------
-本命令须**独占 CPU 跑**, 否则读数会低 2.1pt。
+观测: 本 session **第 1 次**执行 1-3 命令读数 85.4% (miss 7 题, 比上表多出
+      st01_v11_q04); 其后**同一命令逐字执行 7 次全部 87.5%**, 6 题 miss 集合逐次一致。
 
-  · 第 1 次执行时, 后台并行跑着 1-1 的 pytest 全量 ⇒ 读数 85.4%,
-    miss 7 题 (比上表多出 st01_v11_q04)。
-  · 随后**独占**连跑 4 遍 (命令逐字同上, 仅 --output 改 /tmp/chk{2,3,4,5}.json)
-    ⇒ 4/4 全部 87.5%, 且上列 6 题 miss 集合逐遍完全一致。
+7 次的分布 (逐字同 1-3, 仅 --output 不同):
+    独占跑        4 次 → /tmp/chk{2,3,4,5}.json      → 4/4 87.5%
+    故意加 CPU 负载 3 次 → /tmp/load_chk{1,2,3}.json  → 3/3 87.5% (q04 全部命中)
 
-机制 (实测, 读 /tmp/chk.json 与 /tmp/chk2.json 的 top5_similarities):
-    st01_v11_q04 的 gold 卡余弦相似度 0.4665, 与 top-5 截断线外那张卡的
-    0.4657 只差 ~8e-4; embedding 浮点在 CPU 争用下漂移 ~3e-4,
-    足以翻转这两张卡的 top-5 入选顺序。
+加负载那 3 次的复跑命令 (逐字, 在 sdtm-rag/ 下):
 
-结论: 87.5% 成立, 但该读数含 1 题刀刃 (st01_v11_q04);
-      并行负载下会读成 85.4%, 那不是环境漂移, 是测量条件不合格。
+    ( while true; do ./.venv/bin/python -m pytest -p no:warnings --tb=no -q >/dev/null 2>&1; done ) &
+    LOAD=$!; sleep 8
+    for i in 1 2 3; do
+      ./.venv/bin/python -m eval.run_eval data/study/st01/eval/test_set_study_v2.yml \
+        --retrieval-only --hybrid --study-lookup --collection study_st01 \
+        --kb-root data/study/st01/cards --output /tmp/load_chk$i.json | grep "^Source recall"
+    done
+    kill $LOAD; pkill -P $LOAD
+
+    → loadrun1/2/3: Source recall (avg): 87.5%   (q04 recall 均 = 1.0)
+
+⇒ **「CPU 争用导致读数下降」这一假说已被上面 3/3 加载跑证伪**, 不是未验证而是不成立。
+   85.4% 那一次的成因**未查明**。它与其余 7 次目前已知的唯一差别是: 它是本 session
+   第 1 次调用 (chroma / embedding 模型冷缓存)。该差别**没做对照实验**
+   (冷缓存不易在无 sudo 下复制), 属候选假说, **不是结论**。
+
+两次 run json 的 q04 top-5 (提取命令逐字):
+
+$ ./.venv/bin/python -c "
+import json
+for tag,p in [('85.4%那次','/tmp/chk.json'),('87.5%其一','/tmp/chk2.json')]:
+    d=json.load(open(p)); r=[x for x in d['results'] if x['id']=='st01_v11_q04'][0]
+    print(tag)
+    [print(f'    {s:32s} {v}') for s,v in zip(r['top5_sources'], r['top5_similarities'])]
+"
+    85.4%那次:  卡A 0.4657 / 卡B 0.4958 / 卡C 14.3979 / 卡D 0.4903 / 卡E 10.1583
+    87.5%其一:  卡C 0.5075 / 卡A 0.4654 / 卡G(gold) 0.4665 / 卡B 0.4962 / 卡E 10.1583
+    (卡名按红线不抄进本文件; 上面命令的真实输出里可见完整文件名)
+
+读这组数时注意两点 (这是撤回旧机制说法的依据):
+  · 同一张卡 C 两次的分数量纲不同 (14.3979 vs 0.5075) ⇒ 两次走了不同的检索/融合
+    路径, 不是同一路径上的浮点噪声。
+  · 若单纯按上表分数排序, 卡D(0.4903) 恒高于 gold 卡(0.4665), 那么 gold 卡不可能
+    在「卡D 入选」的那次落榜、却在「卡D 落榜」的那次入选 —— 观测与
+    「单一排序键 + 微小浮点漂移」的模型自相矛盾。
+  ⇒ 本文件**不再**给出 q04 翻转的机制解释; 早先「~8e-4 缺口被 ~3e-4 浮点漂移翻转」
+    的写法是从缺口反推的推断且与上述量纲证据冲突, 已撤回。
+
+结论 (只写站得住的): 87.5% 是可复现读数 (7/7)。st01_v11_q04 是已知不稳定题,
+      8 次中观测到 1 次翻转, 成因未查明。后续若读到 85.4% 且多出的正是 q04,
+      **先重跑再判**, 不要直接当回归, 也不要直接当测量条件问题。
 
 
 2. 路由基线预跑三遍
@@ -105,7 +141,7 @@ rc=1 是**预期**: 条款 1 (每遍 fatal=0 且 legacy ≥ 178) 的 fatal 分�
 ================================================================
     pytest        1353            ≥ 1353   ✓
     chroma        4329/959/114    逐项一致  ✓
-    study 检索     87.5%           一致      ✓  (独占跑; 见 1-3 附)
+    study 检索     87.5%           一致      ✓  (7/7 复现; q04 见 1-3 附)
     fatal         10 (三遍同)      == 10    ✓  停下条件「fatal ≠ 10」未触发
     legacy        179/181 (三遍同) ≥ 178    ✓  停下条件「legacy < 178」未触发
     stability     253/253 三遍一致                ✓
@@ -115,15 +151,40 @@ rc=1 是**预期**: 条款 1 (每遍 fatal=0 且 legacy ≥ 178) 的 fatal 分�
 
 4. 本文件泄漏自检
 ================================================================
-对本文件跑题面泄漏扫描 (needle = 6 个 gold yml 内全部 question 字段, 计 306 条;
-判定 = 任一 question 的 ≥8 字连续片段在本文件出现即算泄漏):
+扫描器已进 git: `scripts/leakscan_evidence.py` (规则与阈值写在其 docstring 里,
+不再是本文件里的口头描述)。规则摘要: needle = 6 个 gold yml 的每条 question 字段;
+对每条 question 以 stride=4 取长度 min_len 的连续子串, 原文匹配 (不折叠大小写),
+任一子串出现在目标文件即记该 question 命中一次。
 
-    $ ./.venv/bin/python <leakscan.py> evidence/u6_task0_selfcheck.txt
-    needles collected: 306
-    LEAK SCAN CLEAN: 0 question fragments found      (rc=0)
+判定跑 (逐字, 在 sdtm-rag/ 下):
 
-阳性对照 (证明扫描器非空转): 同扫描器跑 1-3 的原始 stdout (确含题面)
-⇒ LEAK: 77 question fragments found (rc=1)。
+    $ ./.venv/bin/python scripts/leakscan_evidence.py evidence/u6_task0_selfcheck.txt --min-len 12
+    needles     : 306 条 question (来自 6 个 gold set)
+    rule        : stride=4, min_len=12, 原文匹配 (不折叠大小写)
+    CLEAN: 0 条 question 片段出现在目标文件 (min_len=12)      (rc=0)
 
-扫描器本身是一次性件, 未进 git (逻辑已在上面写明, 可照描述重建)。
+阈值必须连着数字一起引用 —— 同一文件在不同 min_len 下结论不同 (实测):
+
+    $ ./.venv/bin/python scripts/leakscan_evidence.py evidence/u6_task0_selfcheck.txt --min-len 8
+    → LEAK: 11 条 (rc=1)   命中全部是英文词 'collect*' 家族:
+      'collecti' 'ollectio' 'ollected' 'question' 'collecte' 's collec' ' collect' ...
+    $ ./.venv/bin/python scripts/leakscan_evidence.py evidence/u6_task0_selfcheck.txt --min-len 10
+    → LEAK: 5 条 (rc=1)    'collection' 's collecte' ' collected' 'ollection '
+    $ (min_len 12) → 0 条 (rc=0)
+
+这些 8/10 长度的命中**不是题面泄漏**: 它们来自本文件里的命令文本
+(`cl.list_collections()`、`--collection study_st01`) 与 CDISC 侧英文题面
+(`eval/test_set_v3.yml`) 共享的通用英文词, 逐条看即可判定。日文 study 侧题面
+在任何阈值下都零命中。默认阈值取 12 即为避开这类通用词假阳性。
+
+阳性对照 (证明扫描器在 min_len=12 下也不是空转):
+
+    $ ./.venv/bin/python scripts/leakscan_evidence.py <1-3 的原始 stdout 文件> --min-len 12
+    → LEAK: 77 条 question 片段 (rc=1), 命中均为日文题面开头片段
+
+补充 kana 扫描 (题面为日文, 本文件正文为中文不含假名):
+
+    $ grep -nP '[\x{3040}-\x{309F}\x{30A0}-\x{30FF}]' evidence/u6_task0_selfcheck.txt
+    → 无输出 (0 命中)
+
 本文件通篇只有统计值、题号 (u3_* / st01_v*_q*)、命令与 rc。
