@@ -159,9 +159,24 @@ rc=1 是**预期**: 条款 1 (每遍 fatal=0 且 legacy ≥ 178) 的 fatal 分�
 判定跑 (逐字, 在 sdtm-rag/ 下):
 
     $ ./.venv/bin/python scripts/leakscan_evidence.py evidence/u6_task0_selfcheck.txt --min-len 12
-    needles     : 306 条 question (来自 6 个 gold set)
+    needles     : 306 条 question (6/6 个 gold set 可读)
+                    eval/test_set_v3.yml: 140 条
+                    eval/routing_gold_ja_supplement.yml: 16 条
+                    data/study/st01/eval/test_set_study_v1_1.yml: 27 条
+                    data/study/st01/eval/test_set_study_v2.yml: 51 条
+                    data/study/st01/eval/test_set_docs_v1.yml: 30 条
+                    data/study/st01/eval/routing_gold_docs.yml: 42 条
     rule        : stride=4, min_len=12, 原文匹配 (不折叠大小写)
     CLEAN: 0 条 question 片段出现在目标文件 (min_len=12)      (rc=0)
+
+闸是 fail-closed 的 (退出码有四档, 引用 CLEAN 时必须同时看 needle 是否 6/6):
+    rc=0  CLEAN 且 needle 集完整   ← 只有这个算过闸 (本次即此档)
+    rc=1  发现泄漏
+    rc=2  缺任一 gold set, 拒绝给结论 (未加 --allow-missing)
+    rc=3  缺 set + --allow-missing 放行且无命中 —— CLEAN 不可信
+理由: GOLD_SETS 里 4 个在 gitignored 的 data/study/ 下, 新克隆 / CI 上不存在,
+needle 会 306 → 156 且**日文 study 题面 needle 全消失**; 若此时仍给 rc=0,
+一个确实含 study 题面的文件会被扫成「干净」—— 假保证比没有闸更危险。
 
 阈值必须连着数字一起引用 —— 同一文件在不同 min_len 下结论不同 (实测):
 
