@@ -6,7 +6,9 @@ stdout 只打统计, 不打题目文本。
 from __future__ import annotations
 
 import argparse
+import datetime
 import json
+import subprocess
 import sys
 from pathlib import Path
 
@@ -47,6 +49,15 @@ GROUPS = ("legacy", *NEW_GROUPS)
 # 数字改动必须走 code review, 这正是把它放进源码的理由。
 EXPECTED_GROUP_SIZES = {"legacy": 181, "u1_doc": 27, "final": 3, "dev": 12,
                         "heldout": 12, "distractor_cdisc": 12, "ambiguous_both": 6}
+
+
+def _git_rev() -> str:
+    """跑批时的 commit。取不到就写 unknown —— 记不下版本不该让整批跑批失败。"""
+    try:
+        return subprocess.run(["git", "rev-parse", "--short", "HEAD"],
+                              capture_output=True, text=True, check=True).stdout.strip()
+    except Exception:
+        return "unknown"
 
 
 def load_supplement(path: Path) -> list[dict]:
@@ -201,7 +212,11 @@ def gate_verdict(gold: list[dict], predictions: dict[str, str]) -> dict:
         "fatal_ids_excl_final": sorted(f["id"] for f in overall["fatal_items"]),
         "legacy_exact": legacy_exact,
         "legacy_floor": LEGACY_EXACT_FLOOR,
-        "by_group": {k: {kk: vv for kk, vv in v.items() if kk != "fatal_items"}
+        # fatal_items 剔掉是红线 (唯一逐题的容器); passed 剔掉是 I-4: score_run 的那个
+        # passed 按 EXACT_THRESHOLD=0.95 算, 而本闸的判据里根本没有这个阈值 —— 12 题的组
+        # 错 1 题就 0.917 < 0.95, 组级 `passed: false` 会被读成「这组没过闸」。
+        # 真判据只有下面顶层那个 passed。
+        "by_group": {k: {kk: vv for kk, vv in v.items() if kk not in ("fatal_items", "passed")}
                      for k, v in by_group.items()},
         "passed": overall["fatal"] == 0 and legacy_exact >= LEGACY_EXACT_FLOOR,
     }
@@ -210,7 +225,17 @@ def gate_verdict(gold: list[dict], predictions: dict[str, str]) -> dict:
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--runs", type=int, default=3)
+    # 基线与改后曾共用 routing_run_{i}.json 这一组文件名, 后跑的直接盖掉前跑的 ——
+    # 想事后比对就只能靠「跑批前记得手工改名」这个口头约定。
+    parser.add_argument("--out-prefix", default="routing_run")
+    parser.add_argument("--allow-nonstandard-runs", action="store_true",
+                        help="调试用; 打开时不打稳定性行, rc 恒非 0")
     args = parser.parse_args(argv)
+    # I-1: --runs 1 也照样打「三遍判定一致」—— 一遍与自己比恒等于 100%, 那行读起来跟真
+    # 三遍一字不差, 于是一遍的结果可以被当成三遍纪律的证据引用。守卫必须在 load_gold /
+    # create_router 之前, 否则要先烧掉 253 题 × N 遍的 LLM 调用才发现参数不对。
+    if args.runs != 3 and not args.allow_nonstandard_runs:
+        raise SystemExit("三遍纪律: --runs 必须为 3 (审查 I-1 修缮); 调试请加 --allow-nonstandard-runs")
     gold = load_gold()
     llm = create_router(settings)
     RUNS_DIR.mkdir(parents=True, exist_ok=True)
@@ -227,8 +252,15 @@ def main(argv: list[str] | None = None) -> int:
         v = gate_verdict(gold, preds)
         per_run_preds.append(preds)
         detail = [{**g, "pred": preds[g["id"]]} for g in gold]
-        (RUNS_DIR / f"routing_run_{run_i}.json").write_text(
-            json.dumps({"summary": v, "detail": detail}, ensure_ascii=False, indent=1))
+        # A-3: 没有 meta 时, 一份 run json 里没有任何一处记着「哪次跑的 / 哪个 commit /
+        # 什么参数」, 唯一线索是文件 mtime —— 而 mtime 会被下一次跑批直接抹掉。
+        # 只放数字与短串: 逐题内容 (含题面) 只许待在 detail 里。
+        meta = {"generated_at": datetime.datetime.now(datetime.UTC).isoformat(),
+                "git_rev": _git_rev(), "runs_arg": args.runs, "run_index": run_i,
+                "n_gold": len(gold), "out_prefix": args.out_prefix}
+        (RUNS_DIR / f"{args.out_prefix}_{run_i}.json").write_text(
+            json.dumps({"meta": meta, "summary": v, "detail": detail},
+                       ensure_ascii=False, indent=1))
         groups = "  ".join(
             f"{k}:{s['exact']}/{s['n']}" for k, s in v["by_group"].items())
         # PASS 后缀写死「(条款1)」: v["passed"] 只等于 spec §7 条款 1, 不含条款 2 (held-out
@@ -246,7 +278,11 @@ def main(argv: list[str] | None = None) -> int:
         1 for g in gold
         if len({p[g["id"]] for p in per_run_preds}) == 1
     )
-    print(f"stability: {stable}/{len(gold)} 题三遍判定一致")
+    if args.runs >= 3 and not args.allow_nonstandard_runs:
+        print(f"stability: {stable}/{len(gold)} 题三遍判定一致")
+    else:
+        print("⚠ 非三遍纪律运行, 稳定性/一致性结论无效, rc 强制非 0")
+        return 1
     return 0 if all_passed else 1
 
 

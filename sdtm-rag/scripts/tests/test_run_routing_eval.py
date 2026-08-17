@@ -1,4 +1,5 @@
 """Plan B Phase 1 闸 1: 路由打分逻辑. LLM 调用不进单测 (真实三遍在 eval 执行)."""
+import datetime
 import json
 
 import pytest
@@ -381,8 +382,12 @@ def test_gate_verdict_return_value_carries_no_question_text(tmp_path, monkeypatc
 
 
 # ── main() 冒烟 (不发任何 LLM 请求) ────────────────────────────────
-def _run_main(tmp_path, monkeypatch, capsys, wrong_id):
-    """跑真 main(), 但把 create_router / route_corpus 换成确定性桩。"""
+def _run_main(tmp_path, monkeypatch, capsys, wrong_id, argv=("--runs", "3")):
+    """跑真 main(), 但把 create_router / route_corpus 换成确定性桩。
+
+    argv 默认三遍: U6 T1 起 `--runs != 3` 会被守卫直接 SystemExit (I-1)。桩是确定性的,
+    三遍与一遍的判定完全相同, 故这些 case 断言的含义未变。
+    """
     _wire_u3(tmp_path, monkeypatch)
     monkeypatch.setattr(run_routing_eval, "RUNS_DIR", tmp_path / "runs")
     monkeypatch.setattr(run_routing_eval, "LEGACY_EXACT_FLOOR", 3)
@@ -392,7 +397,7 @@ def _run_main(tmp_path, monkeypatch, capsys, wrong_id):
     by_question = {g["question"]: preds[g["id"]] for g in gold}
     monkeypatch.setattr(run_routing_eval, "route_corpus",
                         lambda llm, question: (by_question[question], 0))
-    rc = run_routing_eval.main(["--runs", "1"])
+    rc = run_routing_eval.main(list(argv))
     return gold, preds, rc, capsys.readouterr().out
 
 
@@ -570,3 +575,97 @@ def test_policy_constants_match_spec():
         "legacy": 181, "u1_doc": 27, "final": 3, "dev": 12,
         "heldout": 12, "distractor_cdisc": 12, "ambiguous_both": 6}
     assert sum(run_routing_eval.EXPECTED_GROUP_SIZES.values()) == 253
+
+
+# ── U6 T1: 活仪器修缮 (A-3 run 元数据 / I-1 三遍守卫 / I-4 by_group.passed) ──────
+@pytest.mark.parametrize("runs", [0, 1, 2, 4])
+def test_runs_guard_rejects_non_three_before_loading_gold(monkeypatch, runs):
+    """I-1: `--runs != 3` 必须在**加载 gold / 建 router 之前**就 SystemExit.
+
+    一遍跑完照样打「三遍判定一致」—— 一遍与自己比恒等于 100%, 那行读起来跟真三遍
+    一字不差, 于是 `--runs 1` 的结果可以被当成三遍纪律的证据引用。
+    守卫的位置也是断言的一部分: 放到 load_gold 之后, 就得先烧掉 253 题 × N 遍的 LLM 调用
+    才告诉你参数不对; 故用会炸的桩钉住「这两个都不许被碰到」。
+    """
+    def _boom(*a, **k):
+        raise AssertionError("守卫必须在 load_gold / create_router 之前就拒绝")
+    monkeypatch.setattr(run_routing_eval, "load_gold", _boom)
+    monkeypatch.setattr(run_routing_eval, "create_router", _boom)
+    with pytest.raises(SystemExit, match="三遍纪律"):
+        run_routing_eval.main(["--runs", str(runs)])
+
+
+def test_default_runs_is_three_and_needs_no_flag(tmp_path, monkeypatch, capsys):
+    # 守卫不许把默认路径也拦掉: 不带 --runs 就是三遍纪律本身
+    _, _, rc, out = _run_main(tmp_path, monkeypatch, capsys, "docs_v1_q15", argv=())
+    assert rc == 0 and "stability:" in out
+
+
+def test_nonstandard_runs_flag_suppresses_stability_and_forces_nonzero_rc(
+        tmp_path, monkeypatch, capsys):
+    """I-1 的另一半: 调试口 `--allow-nonstandard-runs` 开着时不许打稳定性行, rc 恒非 0.
+
+    wrong_id 选的是 final 组那题 —— 正常三遍下它 rc=0 (条款 5 只报告)。若 rc 仍是 1,
+    只能是这个 flag 强制的, 不是 fatal 造成的。
+    """
+    _, _, rc, out = _run_main(tmp_path, monkeypatch, capsys, "docs_v1_q15",
+                              argv=("--runs", "1", "--allow-nonstandard-runs"))
+    assert rc == 1, "非三遍纪律运行必须非 0 退出, 否则 rc=0 会被读成闸通过"
+    assert "stability:" not in out, "一遍的自我比对不是稳定性证据, 那行不许出现"
+    assert "非三遍纪律" in out
+
+
+def test_meta_written_and_out_prefix(tmp_path, monkeypatch, capsys):
+    """A-3: 每份 run json 顶层带 meta; `--out-prefix` 让基线/改后两批不再互相覆盖.
+
+    U3 抽检时三份 run json 里没有任何一处记着「这是哪次跑的、跑在哪个 commit 上、
+    参数是什么」—— 文件 mtime 是唯一线索, 而 mtime 会被下一次跑批直接抹掉 (基线与改后
+    共用 routing_run_{i}.json 这同一组文件名, 正是 --out-prefix 要解决的那个覆盖)。
+    """
+    _, _, rc, _ = _run_main(tmp_path, monkeypatch, capsys, "docs_v1_q15",
+                            argv=("--runs", "3", "--out-prefix", "u6_x"))
+    assert rc == 0
+    gold_n = len(run_routing_eval.load_gold())
+    for i in (1, 2, 3):
+        path = tmp_path / "runs" / f"u6_x_{i}.json"
+        assert path.exists(), f"--out-prefix 没生效: {path.name} 不存在"
+        d = json.loads(path.read_text(encoding="utf-8"))
+        m = d["meta"]
+        assert set(m) >= {"generated_at", "git_rev", "runs_arg", "run_index",
+                          "n_gold", "out_prefix"}
+        assert m["run_index"] == i and m["runs_arg"] == 3
+        assert m["out_prefix"] == "u6_x" and m["n_gold"] == gold_n
+        assert m["git_rev"] and isinstance(m["git_rev"], str)
+        datetime.datetime.fromisoformat(m["generated_at"])  # 必须是可解析的时间戳
+        assert d["summary"] and d["detail"]  # meta 是新增, 不是替换
+    # 默认前缀那批不许被这次写出来 —— 否则 --out-prefix 只是多写一份, 覆盖照旧
+    assert not (tmp_path / "runs" / "routing_run_1.json").exists()
+
+
+def test_meta_carries_no_question_text(tmp_path, monkeypatch, capsys):
+    # 红线: meta 是新增的写盘内容, 顺手钉住它只装数字/短串 (逐题明细只许待在 detail 里)
+    gold, _, _, _ = _run_main(tmp_path, monkeypatch, capsys, "u3_dev_01",
+                              argv=("--runs", "3", "--out-prefix", "u6_meta"))
+    meta = json.loads((tmp_path / "runs" / "u6_meta_1.json").read_text(encoding="utf-8"))["meta"]
+    dumped = json.dumps(meta, ensure_ascii=False)
+    assert "dummy" not in dumped
+    for g in gold:
+        assert g["question"] not in dumped
+
+
+def test_by_group_has_no_passed_key(monkeypatch):
+    """I-4: by_group 子项里的 `passed` 是 score_run 按 0.95 阈值算的, 而闸根本不用那个阈值.
+
+    真判据是 gate_verdict 顶层的 `passed` (fatal_excl_final==0 且 legacy≥floor)。
+    子项那个 True/False 与判定无关却长得一模一样, 读 runs json 的人会拿组级 `passed: false`
+    当成「这组没过」—— 而 12 题里错 1 题 (11/12 = 0.917 < 0.95) 就足以让它是 false。
+    """
+    monkeypatch.setattr(run_routing_eval, "LEGACY_EXACT_FLOOR", 0)
+    preds = {g["id"]: g["gold"] for g in _G7}
+    v = gate_verdict(_G7, preds)
+    assert v["by_group"], "空 by_group 会让下面这条断言恒真"
+    assert all("passed" not in grp for grp in v["by_group"].values())
+    # 顶层判据必须还在 —— 剥掉子项的 passed 不等于把结论也剥了
+    assert v["passed"] is True
+    # 剥掉的只有那两个键, 其余原料 (条款 2/3/4 全靠它们) 一个不能少
+    assert all(set(grp) == {"n", "exact", "exact_acc", "fatal"} for grp in v["by_group"].values())
