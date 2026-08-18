@@ -775,6 +775,11 @@ def main(argv: list[str] | None = None) -> int:
         parser.error("--corpus 只在 --federated 下有意义")
     if args.signal_layer == "on" and not args.federated:
         parser.error("--signal-layer 只在 --federated 下有意义 (信号层挂在联邦判库上)")
+    if args.signal_layer == "on" and args.corpus != "auto":
+        # 强制判库不走 decide_corpus ⇒ 信号层整层惰性, 而 summary 与回执照样写 "on"。
+        # 那是假标签面: 一批信号层从未通电的数字, 事后与真 on 臂一字不差。
+        parser.error("--signal-layer on 只在 --corpus auto 下有意义 "
+                     "(强制判库不经 decide_corpus, 信号层不会被调用)")
 
     collection_name = args.collection or settings.collection_name
     kb_root = Path(args.kb_root) if args.kb_root else settings.kb_root
@@ -931,7 +936,10 @@ def main(argv: list[str] | None = None) -> int:
             f"Federated: study engine {study_rag.collection.count()} chunks, "
             f"collection={settings.study_collection_name}, structured_lookup=OFF"
             f", study_lookup={f'ON({study_lookup.stats()})' if study_lookup is not None else 'OFF'}; "
-            f"routing=LLM(light, corpus=auto), signal_layer={args.signal_layer}"
+            # corpus 曾硬编码 auto: 强制档跑批的屏幕与日志因此自称 auto, 而那正是
+            # U5 用来拆「判库损耗 vs 接线损耗」的开关 —— 回执必须打命令行真给的那个。
+            f"routing={'LLM(light)' if args.corpus == 'auto' else 'forced'}"
+            f"(corpus={args.corpus}), signal_layer={args.signal_layer}"
         )
 
     router = None

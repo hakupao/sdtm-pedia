@@ -241,9 +241,20 @@ def captured_fed_kwargs(tmp_path, monkeypatch):
             for k, v in kwargs.items():
                 setattr(self, k, v)
 
+    class _AnyCorpusFed(_FakeFed):
+        """`_FakeFed` 钉死 corpus=="auto"; 本 fixture 也要跑强制档, 故放开这一条。"""
+
+        def retrieve(self, q, *, corpus="auto", top_k=None, domain=None, file_type=None):
+            self.calls.append({"q": q, "corpus": corpus, "top_k": top_k})
+            routed = self.routes[0] if corpus == "auto" else corpus
+            c = RetrievedChunk(chunk_id="s-1", source="study/f.md", domain=None,
+                               file_type=None, section="§2", similarity=0.9,
+                               text="t", corpus=routed)
+            return [c], routed
+
     def _fake_fed(*a, **k):
         kw.update(k)
-        return _FakeFed()
+        return _AnyCorpusFed()
 
     monkeypatch.setattr(run_eval, "RAGEngine", FakeEngine)
     monkeypatch.setattr(run_eval, "FederatedEngine", _fake_fed)
@@ -358,3 +369,42 @@ def test_federated_receipt_prints_signal_layer(captured_fed_kwargs, spy_build_si
     """屏幕回执: 不给 --output 时 summary 看不到, 人肉跑必须看得出这一臂开没开。"""
     captured_fed_kwargs(["--signal-layer", "on"])
     assert "signal_layer=on" in capsys.readouterr().out
+
+
+def test_signal_layer_on_rejects_a_forced_corpus(tmp_path, monkeypatch):
+    """强制判库不走 `decide_corpus`, 信号层整层惰性 —— 但 summary 与回执照样写 `on`。
+    那是**假标签面**: 一批信号层从未通电的数字, 事后看与真 on 臂一字不差。"""
+    ts = tmp_path / "t.yml"
+    ts.write_text(
+        "- id: q1\n  category: c\n  question: x1\n  expected_sources: [study/f.md]\n",
+        encoding="utf-8",
+    )
+    for forced in ("study", "both", "cdisc"):
+        with pytest.raises(SystemExit) as ei:
+            main([str(ts), "--retrieval-only", "--federated",
+                  "--corpus", forced, "--signal-layer", "on"])
+        assert ei.value.code == 2
+
+
+def test_signal_layer_off_still_allows_a_forced_corpus(captured_fed_kwargs):
+    """U5 的强制档矩阵 (--corpus study/both) 必须原样跑得动 —— 闸只拦 on。"""
+    kw = captured_fed_kwargs(["--corpus", "study"])
+    assert kw["signals"] is None
+
+
+def test_federated_receipt_prints_the_real_corpus(captured_fed_kwargs, capsys):
+    """回执曾把 corpus 硬编码成 auto: 强制档跑批的屏幕/日志因此自称 auto,
+    而那正是 U5 用来拆分「判库损耗 vs 接线损耗」的那个开关。"""
+    captured_fed_kwargs(["--corpus", "study"])
+    out = capsys.readouterr().out
+    assert "corpus=study" in out
+    assert "corpus=auto" not in out
+
+
+def test_explicit_corpus_auto_with_signal_layer_on_is_accepted(captured_fed_kwargs,
+                                                               spy_build_signals):
+    """Task 11 双臂跑批命令逐字写的是 `--corpus auto --signal-layer on` ——
+    新加的强制档闸不许把它一起拦掉 (那会让 evidence §15 的复跑命令失效)。"""
+    sentinel, _ = spy_build_signals
+    kw = captured_fed_kwargs(["--corpus", "auto", "--signal-layer", "on"])
+    assert kw["signals"] is sentinel
