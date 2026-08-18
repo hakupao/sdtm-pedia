@@ -161,6 +161,20 @@ def test_stable_half_still_counts_and_is_reported_separately():
     assert out["E1"]["dominance_only_ids"] == []        # 稳定半已收的题不算支配额外带进来的
 
 
+def test_stable_half_carries_a_caliber_marker():
+    """stable_half 与顶层 E1 同名同形 (confirmed_cost_ids 等) = C1 型双口径误读隐患:
+    单独摘出这块引用会把有代价的批次读成"无代价". 标记键把"这只是 U5 稳定半子集"
+    钉在数据里, 不靠读者记性 —— 判词与代价额只引顶层 E1."""
+    a = runs({"q1": 1.0}, {"q1": 1.0}, {"q1": 0.9})     # 仅支配纳入, 稳定半为空
+    b = runs({"q1": 0.5}, {"q1": 0.6}, {"q1": 0.4})
+    out = compare_arms(a, b, n_scored=1, family="cards", expected_n=1)
+    assert out["E1"]["stable_half"]["caliber"] == "u5_stable_only_subset"
+    # 正是这一格能骗人: 子块说"无代价", 顶层 E1 说有 —— 两者都为真, 口径不同
+    assert out["E1"]["stable_half"]["confirmed_cost_ids"] == []
+    assert out["E1"]["confirmed_cost_ids"] == ["q1"]
+    assert out["verdict_word"] == "cost_reported"
+
+
 def test_dominance_only_ids_names_what_the_worst_bound_ruler_added():
     """dominance_only_ids = 支配纳入里稳定半没收的那些. 它若和 dominance_ids 混成一格,
     读者无从知道判词的哪部分靠最坏界 (q2 两侧都稳定也满足支配, 不该算"额外")."""
@@ -219,6 +233,26 @@ def test_e4_threshold_boundary_per_family(fam, n_unstable, expect_pass):
     assert out["E4"]["n_union"] == n_unstable
     assert out["E4"]["gate_pass"] is expect_pass
     assert verdict_rc(out) == (0 if expect_pass else 2)
+
+
+def test_e4_union_deduplicates_overlapping_ids_at_the_gate_boundary():
+    """并集是**集合**并, 不是两臂清单相加: 同一题两臂都不稳定只占一格.
+
+    构造刻意落在闸边界上 —— A 不稳定 7 题 (q00-q06), B 不稳定 4 题 (q05-q08), 重叠 2 题:
+    去重后 9 = 闸值 ⇒ PASS; 按 concat 双计是 11 > 9 ⇒ 假触发不可判。
+    `sorted(unstable_a + unstable_b)` 这条变异在"两臂不稳定题互斥或单臂"的 fixture 上
+    全绿, 只有重叠 + 边界这一格能杀它 (审查方检出)。
+    """
+    ids = [f"q{i:02d}" for i in range(48)]
+    a = _unstable_arm(ids[:7], ids[7:])
+    b = _unstable_arm(ids[5:9], [*ids[:5], *ids[9:]])
+    out = compare_arms(a, b, n_scored=48, family="cards")
+    assert len(out["E4"]["unstable_a"]) == 7 and len(out["E4"]["unstable_b"]) == 4
+    assert out["E4"]["union"] == sorted(ids[:9])
+    assert out["E4"]["n_union"] == 9                 # 拼接求和会是 11
+    assert out["E4"]["n_union"] < len(out["E4"]["unstable_a"]) + len(out["E4"]["unstable_b"])
+    assert out["E4"]["gate_pass"] is True            # 恰在闸值上; 双计会假触发成 False
+    assert verdict_rc(out) == 0 and out["verdict_word"] is not None
 
 
 def test_e4_is_a_union_not_a_per_arm_check():
@@ -537,9 +571,12 @@ def test_main_prints_the_verdict_and_rc(tmp_path, capsys):
     assert "verdict_word=None" in out and "rc=2" in out
 
 
-def test_output_carries_zero_question_text(tmp_path):
+def test_output_carries_zero_question_text(tmp_path, capsys):
     """红线: run json 的 results 行里带 question, 判定产物是要进 checkpoint 的 ——
-    两者之间这道过滤只有这一层. 产物里只许有 id 与数字."""
+    两者之间这道过滤只有这一层. 产物里只许有 id 与数字.
+
+    落盘文件与 stdout **两路都要钉**: 终端回显常被整段贴进 checkpoint, 只钉文件的话
+    print 里多带一个题面字段就悄悄泄漏 (审查方检出)."""
     secret = "WHAT IS THE PERMISSIBLE VALUE OF AESEV"
     a = _flat({"q1": 1.0, "q2": 1.0})
     b = _flat({"q1": 0.5, "q2": 1.0})
@@ -551,3 +588,6 @@ def test_output_carries_zero_question_text(tmp_path):
     assert main(_argv(tmp_path, a, b, family="cards")) == 0
     dumped = (tmp_path / "v.json").read_text(encoding="utf-8")
     assert secret not in dumped and "question" not in dumped and "answer" not in dumped
+    printed = capsys.readouterr().out
+    assert secret not in printed
+    assert "question" not in printed and "answer" not in printed

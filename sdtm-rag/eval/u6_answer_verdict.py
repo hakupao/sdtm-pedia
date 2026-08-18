@@ -11,6 +11,10 @@ C1 型双口径反向的结构来源)。
 rc: 0 正常 · 2 = E4 并集闸触发 (不下结论)。I-1 失守**不改 rc**, 只把结论词降成
 `advisory_no_verdict` —— 这是 spec §4.3 冻结的出口口径; 消费方读结论词而非只读 rc。
 
+引用纪律 (进 Task 11/12 读法条款): 判词与代价额**只引顶层 E1**。`E1.stable_half` 是
+U5 稳定半口径的**子集** (不含支配题, 带 `caliber` 标记键), 单独摘引会把有代价的批次
+读成无代价。
+
 复跑:
   ./.venv/bin/python -m eval.u6_answer_verdict \
       --arm-a runs/u6_ans_off_{1,2,3}.json --arm-b runs/u6_ans_on_{1,2,3}.json \
@@ -121,6 +125,9 @@ def compare_arms(arm_a: list, arm_b: list, n_scored: int, family: str,
 
     # 稳定半直接走 U5 的 paired_effect: 口径与 U5 逐字同源, 本件只在其上并入支配题。
     stable_half = paired_effect(stable_a, stable_b, n_scored)
+    # 这个子块与顶层 E1 同名同形 (confirmed_cost_ids 等), 单独摘出来引用会被读成"无代价"
+    # —— 它只是 U5 口径的**子集**, 支配题不在其中。标记键把这层限定钉在数据里, 不靠读者记性。
+    stable_half["caliber"] = "u5_stable_only_subset"
     cost = {i: stable_a[i] - stable_b[i] for i in stable_half["confirmed_cost_ids"]}
     gain = {i: stable_b[i] - stable_a[i] for i in stable_half["confirmed_gain_ids"]}
     stable_moved = set(cost) | set(gain)
@@ -143,6 +150,8 @@ def compare_arms(arm_a: list, arm_b: list, n_scored: int, family: str,
           "n_all_parse_ok": len(ok_ids),
           "stable_half": stable_half}
 
+    # 集合并集, 不是两臂清单相加: 同一题在两臂都不稳定时只占一格。拼接求和会把重叠题双计,
+    # 闸值是绝对题数 ⇒ 并集本已过闸的批次会被假触发成"不可判"。
     union = sorted(set(unstable_a) | set(unstable_b))
     e4 = {"unstable_a": unstable_a, "unstable_b": unstable_b,
           "union": union, "n_union": len(union), "max": E4_MAX_UNION[family],
@@ -157,6 +166,10 @@ def compare_arms(arm_a: list, arm_b: list, n_scored: int, family: str,
     divergent = abs(agg) > _EPS and abs(net) > _EPS and (agg > 0) != (net > 0)
 
     i1 = _i1_block(probe)
+    # E4 闸响时 E1 / aggregate 的数字**照样落盘** —— 有意如此 (controller 裁定 2026-08-18),
+    # 不学 U5 的 `E = None`: 失败归档纪律要求闸响那批的原始读数留得下来供复盘。
+    # 代价是这些数字看着像结论 —— 唯一的判词信号是 `verdict_word` (None = 闸响不下结论),
+    # 消费方必须读它, 不许拿本块任何 pt 读数当结论 (Task 11/12 读法条款)。
     suppressed = []
     if not e4["gate_pass"]:
         suppressed.append("E4_union_gate")
