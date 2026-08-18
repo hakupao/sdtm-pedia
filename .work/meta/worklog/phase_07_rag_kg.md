@@ -1289,3 +1289,64 @@ controller 亲手复现 q14/q21/q08 逐遍数字。
   一次性冻结, 修尺子留给下一单元; ② 观测字段选「生产 2 行属性」而非「eval 自行判库」是对的
   (防两路径漂移); ③ 变异 harness 两坑 (pytest -rf 吞收集错 = 假阴性 / 同秒 pyc = 假还原)
   已固化进抽检 B 流程, 今后变异必 purge __pycache__ + compile 前置。
+
+## 2026-08-18 doc 轨 U6 判库欠账重启修法 收口 (⛔ FAIL — 条款 1 触发, 部分达成)
+
+**单元**: kickoff §0′ 候选 #1 (用户点单 2026-08-17, 四项裁定于设计对话做出)。
+spec/plan `docs/superpowers/{specs,plans}/2026-08-17-doc-track-u6-routing-debt-restart*`。
+收口 `sdtm-rag/evidence/checkpoints/doc_track_u6_routing_debt.md` · 在 main 就地执行 (无 worktree)。
+14 task: Phase 0 (仪器修缮 + gold 复核 + 新基线冻结, T0-T6) → 硬闸 → Phase 1 (确定性信号层
+widen-only + 可见集标定 + 全闸 + 答题 spot-check + 五方核验 + 收口, T7-T13)。
+
+**产出**:
+- 生产 4 文件 +343/−18: `server/routing_signals.py` (新, 双向确定性信号; 词表由公开 KB 机械派生
+  60 域码/200 词根/98 单独变量) · `federation.py` 的 `decide_corpus` 同源抽取 (生产与 eval 共用) +
+  白名单/方向/异常三闸 + 观测属性 · `study_lookup.py` 的 G1 只读 `strong_hit` (`resolve` 逐位不变,
+  8127 差分 IDENTICAL) · `main.py` 接线 (复用同一份 S2)。`_ROUTER_SYSTEM` 一字未动。
+- 仪器 5 件: `run_routing_eval` 修缮 (run 级 meta / 三遍守卫 / `by_group.passed` 移除 / `--out-prefix`
+  / `--signal-layer`) · `u6_gate_verdict` (七条款, 条款 4/7 双列双闸补 U3 两处真空) ·
+  `u6_answer_verdict` (E1 支配纳入 / E4 并集入闸 / I-1 抑制 / divergent_readings) ·
+  `u6_calibrate_signals` (零 LLM 标定台, 离线模拟走 `decide_corpus` 本尊) · `leakscan_evidence` 进 git。
+  U3/U5 历史判定件冻结不动。gold 两处变更均在基线冻结前 (`u3_amb_06` both→study 经盲判复核 +
+  用户裁定; `st01_v2_q07` 入 final 只报告组)。1353 → **1699 passed**。
+
+**数字与结论** (引用纪律见 checkpoint §6/§9-8):
+- 基线冻结 (sha 1fe5cda): 254 题 / fatal 口径 250 / fatal **9×3** / legacy 179×3 / 254-254 全稳。
+  与 U3 期 fatal=10 的唯一差是 `u3_amb_06` gold 改判, **不是路由变好**。
+- 全闸 (sha 6b92857, `--signal-layer on`): **rc=1, 条款 1 触发 (fatal 8/8/8)**; 条款 2/3/4/7 全 PASS;
+  七组 exact 逐格未降; 新增 fatal 0; 非 widen 形状 0。**欠账 9→8 必须与「`cdisc_sig` 在全部 254 题
+  零触发」同框读** —— 8 条残余 (amb×5 + dist×3) baseline pred 全是 study, 需要的正是那个零触发的
+  方向 ⇒ 修法**没触发**而非触发后判错。`study_sig` widen 2 次/遍 (doc_02 + q07), 与派出前预期反向。
+- 标定 (零 LLM): R0 legacy 179→167 → R1 词表锚定公开 KB 179→173 (**BLOCKED, 结构性**) →
+  G1 强通道裁定 → 179→179 Δ0 / dev drop 0 / (c) detect 9·104 (**widen 读法结构上不可满足**, 须连读法引)。
+- 答题 spot-check (cards 48, auto 双臂各三遍): rc=0 `cost_reported`, 代价与收益各 1 题各 2.08pt
+  恰抵消 (**可比池 45/48**)。**`st01_v2_q07` 端到端实证 (off judge 0.0×3 → on 1.0×3, src 0.0→1.0)**
+  = 「判库欠账→答题损失」因果链首次单题闭合。代价题 `q23r` 经输入同一性核验**机制上不可能来自
+  信号层** (两臂 routed 六次全 study) ⇒ 支配尺子对双峰题有假阳性路径; 判词未改未豁免 (冻结件)。
+- 生产: 信号层默认启用 (widen-only), **但 launchd 现役进程仍是旧代码 (启动早于接线 commit), 线上未通电**。
+
+**三方核验 (规则 D 五方)**: 实现方 12 session (7 修复环 + T9 的 BLOCKED→G1 轮) · 任务审查方 11 session
+(T3 审查方失联判定后**重派全新 session** 而非放行) · 出题侧盲判复核方 (派单刻意不含 router 行为信息) ·
+抽检 A **5/5 全复现 0 不一致** + 7 findings (F-1 HIGH = 五方共用工作树, `evidence/step_u6_audit.md`) ·
+抽检 B 235 变异 → 补杀波 **29/29 转杀 (+45 测试)** → 复验终态存活 8 等价 + F08 低危
+(`evidence/step_u6_audit_mutation.md`) · controller 亲手复算全对上。
+
+**处置**: 预登记写「任一条款触发 ⇒ Phase 1 全部 revert」, 实测失败形态是「零伤害部分达成」而非
+预登记设想的修坏型 ⇒ controller 上报三选项, **用户裁定保留信号层 + 按 FAIL 诚实收口** (覆盖预登记)。
+规则 B 归档 `evidence/failures/u6_task10_attempt_1.md`。**不得写成「验收通过」。**
+
+**Retro (规则 C)**:
+- 保留: 判据先于数据 + Phase 0 硬闸使 rc=1 无解释空间; **预登记失败区间**(被实测部分推翻反成可引用信息);
+  零 LLM 标定台几秒买到「照现状必不过」且等价性有可执行锚; 出题侧盲判隔离; harness 先自证再用且
+  补杀波后**在新树重证**; 各抽检方自曝失误 (协调令时序 / 自触发泄漏 / harness 真坏过一次 / 推断被实测推翻)。
+- 必须补的缺口: ① **五方共用一个工作树** (只读方取不到干净窗口, 隔离要求必须先于派出到达);
+  ② 唯一决定成败的那把闸只读 summary 不校验 detail 自洽 (红线又让人工只能看 summary);
+  ③ A-3 仪器修缮只做路由侧, 答题 run 至今无 meta; ④ eval 侧丢弃 `widened_by` 致 widen 计数永缺构造保证;
+  ⑤ 词表类标定件天然缺阴性对照 (须写进 plan 验收条款); ⑥ docs 侧未跑 ⇒ spec §5.4 顶层指标未闭合。
+- 关键决策复盘: ① **G1 是最贵也最正确的一次裁定, 但它与 R1 剪枝一起把修法面收窄到接不住欠账题**
+  —— 「零害约束会不会把修法面收窄到无效」应在标定开始前作为预登记风险写明, 而非 BLOCKED 报告里
+  才首次出现; ② 用户裁定保留优于机械 revert (零伤害部分达成 + 一条端到端实证不该一起丢),
+  但预登记的价值不因被覆盖而降低 —— 正因写在前面, 「保留」才是留痕的显式裁定而非事后合理化;
+  ③ 动机题一律进只报告组 (q07 因此反而给出唯一端到端实证); ④ 「派了审查 ≠ 审过了」本轮真兑现一次;
+  ⑤ **把不可归因的失败换成可归因的失败本身就是进展** —— U3 是「模型就是不听」, 本轮确切知道
+  8 条为什么没修好 (信号根本没触发)。

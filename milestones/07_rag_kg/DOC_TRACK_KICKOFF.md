@@ -4,23 +4,25 @@
 > 前置: C1 DONE (`sdtm-rag/evidence/checkpoints/study_c1_doc_sections.md`)
 > 数据红线: 一切进 git 的内容零真名零正文, 研究一律代号 `st01` (同 C1 Global Constraint 1)
 
-## 0′. 下一单元 (2026-08-17 更新, 路由词「doc 轨 开始任务」落在这里)
+## 0′. 下一单元 (2026-08-18 更新, 路由词「doc 轨 开始任务」落在这里)
 
-C1 → U1 → U2 → U3 → **U5** 五个单元已收口 (U3 = FAIL 收口; **U5 = 原候选 #3+#4 合并,
-both 答题侧代价 + 答题侧仪器, DONE 有条件 2026-08-17**, 收口证据
-`sdtm-rag/evidence/checkpoints/doc_track_u5_both_answer_cost.md`)。
-**doc chunk 生产已可检索可答题, 判库损耗 10pt 仍在。** U5 一句话: 冻结判定 cheap_on_this_ruler
-(rc=0) 但**必须连可比池限定与最坏界并列口径读** (最坏界 2.08pt 代价在 `q14`/`q21` = 检索丢分
-传导实锤); 最扎实结论 = **现行 auto 实判 both 的 5 题免费**; 「放宽 router」**未获干净支持**,
-修法线必要性未被解除。剩余候选:
+C1 → U1 → U2 → U3 → U5 → **U6** 六个单元已收口 (U3 = FAIL 收口; U5 = DONE 有条件;
+**U6 = 候选 #1 判库欠账重启, ⛔ FAIL 收口 2026-08-18 (条款 1 触发, 部分达成; 用户裁定保留
+信号层)**, 收口证据 `sdtm-rag/evidence/checkpoints/doc_track_u6_routing_debt.md`)。
+**U6 一句话**: Phase 0 仪器修缮全达成 (七条款判定 `u6_gate_verdict` / 答题侧修订判定
+`u6_answer_verdict` / gold 复核 amb_06→study / 新基线 254 题 fatal 9 冻结); Phase 1 widen-only
+确定性信号层**零害但没修掉欠账** — 全闸 fatal 8/8/8 ≠ 0, **判库欠账 9 → 8** (修好 `u3_doc_02`,
+须连同「cdisc_sig 全集零触发」同框读); `st01_v2_q07` 拿到本仓第一条端到端实证
+(off judge 0.0×3 → on 1.0×3)。**引用纪律: 不得写「验收通过」。** 剩余候选:
 
 | # | 单元 | 前置 | 一句话 |
 |---|---|---|---|
-| 1 | **判库欠账 (重启修法)** | ⚠ 硬前置 = U3 收口 §9 + U5 收口 §9 | U3 修法退回 (条款 1 触发), 措辞杠杆已到底。U5 已补掉「both 答题侧代价」前置: 结论是修法线必要性**未被解除** (最坏界代价在检索脆弱题上), 且 auto 4 题路由打空被直接观测到 (`st01_v2_q07`+`docs_v1_q15/q17/q53` gold 零命中, fallback 结构上捕获不到错判)。重启前仍须: 修 U3 判据仪器 (4I+2HIGH) + 修 U5 判定设计 (§5-1/2/3, 属判据变更须用户裁定) / 实现方全新 session / 复核 `u3_amb_01/04/06` gold |
+| 1 | **判库欠账二次重启 (study→both 半边)** | ⚠ 硬前置 = U6 收口 §9 全部 | 残余 8 fatal (amb×5 + dist×3) 全在 study→both 方向; U6 证明 cdisc_sig 的标定困境是**结构性的** (可见集无该方向活正例, 零害标定 ⇒ 零触发)。重启需新标定源 (用户授权部分封存转可见 / 或先做封存组误差分析) + q23r 双峰假阳性路径处置 |
 | 2 | **L1 卷首 chunk** | 无 (U2 之后已解闸) | 卷首概要区 9,129 字符 (逐字重复率 44.1%/29.6% 是下界 ⇒ 独有内容约 56-70% 是上界)。做了会让 `docs_v1_q20` 的 gold 字面不再唯一, 题集要跟着改; 且**换语料 ⇒ U1 那两把尺子全部要重测** |
 | 3 | **C2** (933/212 页表单 PDF) | U2 已完成 ⇒ 解闸条件 1 满足 | 仍需 §C2 的条件 2 (独立勘察 C2-pre) 与条件 3 (价值探针 5-10 页) |
 
 **没有默认下一个** —— 候选互相独立, 由用户点单。#1 已带硬前置, 不满足前不接单。
+(U6 期历史版 #1 的前置清单已由 U6 落实完毕, 原文见 git 历史。)
 
 ---
 
@@ -122,6 +124,21 @@ collection。field card 侧 `study_st01` = 959 张, study golden v2 **87.50%, �
 > 收口 → `sdtm-rag/evidence/checkpoints/doc_track_u5_both_answer_cost.md` (已知限制 13 条 +
 > §9 硬约束 6 条; **+2.78pt 禁止作为放宽 router 论据**)。
 
+### U6 判库欠账重启修法 — ⛔ **FAIL 收口 2026-08-18 (条款 1 触发, 部分达成)**
+
+> 仪器先行 + 确定性信号层 (widen-only)。**存续**: `eval/u6_gate_verdict.py` (七条款, 条款 4/7
+> 双列双闸) · `eval/u6_answer_verdict.py` (E1 支配纳入/E4 并集闸/I-1 抑制/divergent_readings) ·
+> 可见集标定台 `eval/u6_calibrate_signals.py` · 信号层 `server/routing_signals.py` +
+> `decide_corpus` 同源 (用户裁定保留, 生产默认启用; ⚠ launchd 现役进程早于接线 commit,
+> 通电需重启) · gold: `st01_v2_q07` 入 final 组 (254 题) + `u3_amb_06` both→study (用户裁定)。
+> **数字**: 新基线 fatal 9 → 全闸 fatal 8/8/8 (条款 1 触发; 2/3/4/7 全 PASS; 254/254 三遍稳);
+> widen 全集恰 2 题 (`u3_doc_02`+`st01_v2_q07`, 均 cdisc→both); **cdisc_sig 全集零触发** =
+> 残余 8 债 (amb×5+dist×3) 的方向信号一次没 fire (标定困境结构性: 可见集无该方向活正例)。
+> 答题侧 spot-check: q07 端到端实证 off 0.0×3 → on 1.0×3; q23r 双峰假阳性路径 (第四次出现)。
+> 规则 D 五方: A 5/5 全复现 · B 235 变异终态存活=8 等价+F08 低危 · 补杀波 29/29 · controller 复算。
+> 1353 → **1699 passed**。**引用纪律: 不得写「验收通过」; 9→8 必须连同 cdisc_sig 零触发同框。**
+> 收口 → `sdtm-rag/evidence/checkpoints/doc_track_u6_routing_debt.md` (已知限制 + §9 硬约束)。
+
 ### C2 (另两份表单版面 PDF, 旧编号 §U3) — **已被闸住, 且抽出方式已被否**
 
 933 页 / 212 页表单版面。**用户决策 2026-08-11: 走本 kickoff 第 2 条路线 (先接线), C2 闸在 U2 之后;
@@ -179,7 +196,7 @@ collection。field card 侧 `study_st01` = 959 张, study golden v2 **87.50%, �
 
 ```bash
 cd sdtm-rag
-.venv/bin/python -m pytest -p no:warnings                     # → 1275 passed (2026-08-15 起)
+.venv/bin/python -m pytest -p no:warnings                     # → 1699 passed (2026-08-18 起)
 .venv/bin/python -c "
 import chromadb; cl = chromadb.PersistentClient(path='data/chroma')
 print({c.name: c.count() for c in cl.list_collections()})"    # → sdtm_kb_v1 4329 / study_st01 959 / study_st01_docs 114

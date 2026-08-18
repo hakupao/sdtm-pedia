@@ -162,3 +162,13 @@ Phase 0 开工时必须实跑并归档:
 ./.venv/bin/python -m eval.run_eval data/study/st01/eval/test_set_study_v2.yml --retrieval-only --hybrid --study-lookup --collection study_st01 --kb-root data/study/st01/cards --output /tmp/chk.json  # → 87.5% (实测 2026-08-17)
 ./.venv/bin/python -m eval.run_routing_eval --runs 3            # rc=1 预期, 基线 fatal=10 (U3 §8 数字, 本设计日未复跑)
 ```
+
+---
+
+## 勘误 (2026-08-18, 收口时补记)
+
+- §4.2/§4.5 所写「基线 fatal 10 / 修掉全部 10 个 / 预期 fatal≈10」以设计日 U3 收口数字为据;
+  §4.4 的 gold 复核落地后 (`u3_amb_06` both→study, 用户裁定 2026-08-18) 实际冻结基线为
+  **254 题 / fatal 9**。差异归因见 `sdtm-rag/evidence/u6_task6_baseline_freeze.md` §3-2。
+- §7 预登记的「任一条款触发 ⇒ 修法退回 (revert)」在 Task 10 实际触发时被**用户裁定覆盖**
+  (保留信号层, FAIL 诚实收口), 记录见 `sdtm-rag/evidence/failures/u6_task10_attempt_1.md` 处置节。
