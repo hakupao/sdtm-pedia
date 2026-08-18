@@ -4,6 +4,7 @@
 合法 JSON 三值 / 包噪声 JSON / 非法值 / 异常 → 兜底 both (宁可多查)。
 引擎侧用 stub (duck-typed), 不碰 chroma。
 """
+import logging
 from types import SimpleNamespace
 
 import pytest
@@ -405,23 +406,85 @@ class _SigBadValue:
         return self.value
 
 
+def _signal_warnings(logs):
+    return [e for e in logs if e["event"] == "signal_layer_error"]
+
+
 @pytest.mark.parametrize("exc", [RuntimeError("boom"), ValueError("bad"), KeyError("k")])
 def test_decide_corpus_treats_a_raising_signal_layer_as_no_widen(monkeypatch, exc):
     monkeypatch.setattr(federation, "route_corpus", _route_stub(("cdisc", False)))
     with structlog.testing.capture_logs() as logs:
         assert decide_corpus(object(), "q", _SigRaises(exc)) == ("cdisc", False, None)
-    warn = [e for e in logs if e["event"] == "signal_layer_error"]
+    warn = _signal_warnings(logs)
     assert warn and warn[0]["log_level"] == "warning", "静默吞掉 = 信号层死了也没人知道"
+    assert warn[0]["kind"] == "raised"
+    assert warn[0]["error"] == type(exc).__name__
 
 
 @pytest.mark.parametrize("bad", ["widen", "study", "both", "STUDY_SIG", "", 1, True])
 def test_decide_corpus_rejects_reasons_outside_the_whitelist(monkeypatch, bad):
     """白名单是 widen-only 的最后一道结构闸: 信号层返回 "study" 之类的库名时,
-    不设闸的实现会照样拓宽并把库名写进逐题观测字段, 让下游读成一次合法拓宽。"""
+    不设闸的实现会照样拓宽并把库名写进逐题观测字段, 让下游读成一次合法拓宽。
+
+    kind 必须是 not_whitelisted 而非 wrong_direction: 方向闸恰好也会拦下所有表外取值,
+    两条闸因此在"拦没拦住"这一层不可分 —— 只有现场报出破的是哪条契约, 白名单这条闸
+    才是活的 (去掉它, 本断言立刻红)。
+    """
     monkeypatch.setattr(federation, "route_corpus", _route_stub(("study", False)))
     with structlog.testing.capture_logs() as logs:
         assert decide_corpus(object(), "q", _SigBadValue(bad)) == ("study", False, None)
-    assert [e for e in logs if e["event"] == "signal_layer_error"]
+    assert _signal_warnings(logs)[0]["kind"] == "not_whitelisted"
+
+
+@pytest.mark.parametrize("routed,same_side", [("cdisc", "cdisc_sig"), ("study", "study_sig")])
+def test_decide_corpus_rejects_a_reason_that_contradicts_the_routed_corpus(
+    monkeypatch, routed, same_side
+):
+    """方向闸 (修复环 1 I-1): 拓宽的依据只能是**对侧**信号。同侧理由 (cdisc 判定 +
+    cdisc_sig) 是白名单内的合法取值, 却对每道判对的单库题都成立 —— 认它等于把 auto
+    档整体推成 both, 而白名单闸对此完全看不见。"""
+    monkeypatch.setattr(federation, "route_corpus", _route_stub((routed, False)))
+    with structlog.testing.capture_logs() as logs:
+        assert decide_corpus(object(), "q", _SigStub(same_side)) == (routed, False, None)
+    assert _signal_warnings(logs)[0]["kind"] == "wrong_direction"
+
+
+@pytest.mark.parametrize("sig_factory", [
+    _SigBadValue,                                  # 把题面当 reason 返回
+    lambda q: _SigRaises(RuntimeError(q)),         # 把题面写进异常 message
+])
+def test_signal_layer_warning_never_carries_question_text(sig_factory):
+    """红线: warning 行会进 logs/api.launchd.log 与排障贴文。题面有两条渗漏路径 ——
+    信号层返回的原值, 与它抛出的异常 message (`exc_info=True` 更狠: 本服务的 structlog
+    走默认 rich traceback, 连帧 locals 一起打, `question` 就在 locals 里)。
+    故 warning 只带受控字段: kind (固定哨兵) + error (异常类名)。
+    """
+    q = "この項目はどの変数に対応しますか"
+    with structlog.testing.capture_logs() as logs:
+        decide_corpus(_FakeLLM('{"corpus": "study"}'), q, sig_factory(q))
+    assert _signal_warnings(logs), "先确认这条路径真的走到了 warning"
+    assert q not in repr(logs)
+    assert "この項目" not in repr(logs)
+
+
+def test_rendered_warning_has_no_question_text(capsys):
+    """上一条看的是事件字典, 而题面渗漏发生在**渲染层**: `capture_logs` 把 exc_info 存成
+    一个布尔就完事, 真渲染器 (本服务只配 wrapper_class ⇒ 默认 ConsoleRenderer + rich
+    traceback) 却会把整条栈连同帧局部变量打出来, `question` 就在里面。
+    故这条按生产配置真渲染一次, 读 stdout —— 落地的正是 logs/api.launchd.log 那份内容。
+    """
+    q = "この項目はどの変数に対応しますか"
+    structlog.reset_defaults()
+    try:
+        structlog.configure(
+            wrapper_class=structlog.make_filtering_bound_logger(logging.WARNING))
+        decide_corpus(_FakeLLM('{"corpus": "study"}'), q,
+                      _SigRaises(RuntimeError(q)))
+    finally:
+        structlog.reset_defaults()
+    out = capsys.readouterr().out
+    assert "signal_layer_error" in out, "先确认真的渲染出了这条 warning"
+    assert q not in out and "この項目" not in out
 
 
 @pytest.mark.parametrize("routed,reason", [("cdisc", "study_sig"), ("study", "cdisc_sig")])

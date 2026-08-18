@@ -30,6 +30,13 @@ from server.study_lookup import StudyLookup
 # 把它读成一次合法拓宽。新增理由必须同时改本表与 Task 9 的标定记录。
 WIDEN_REASONS = ("study_sig", "cdisc_sig")
 
+# 方向表: 每个单库判定只有**一个**合法拓宽理由 —— 拓宽的依据永远是**对侧**信号
+# (cdisc 判定要 study 侧证据才值得多查 study 库, 反之亦然)。同侧理由 (cdisc 判定 +
+# cdisc 信号) 不是"更强的确认", 而是无依据的拓宽: 它对每道 router 判对的单库题都成立,
+# 等于把 auto 档整体推成 both。白名单只管"取值合法", 方向表管"这个取值配不配这道判定";
+# 两者由测试钉成同一份 (值集 == WIDEN_REASONS)。
+WIDEN_REASON_BY_CORPUS = {"cdisc": "study_sig", "study": "cdisc_sig"}
+
 # 标准结构词汇 (NFKC + 小写归一后比对, 故词条自身必须已是该形态; 见测试的自洽闸)。
 # 初版 = Task 9 标定起点。零临床概念 (红线)。
 CDISC_STRUCT_TERMS = (

@@ -15,11 +15,24 @@ import math
 
 import structlog
 
-from server.routing_signals import WIDEN_REASONS
+from server.routing_signals import WIDEN_REASON_BY_CORPUS, WIDEN_REASONS
 
 log = structlog.get_logger()
 
 VALID_CORPORA = ("cdisc", "study", "both")
+
+
+class _SignalContractError(ValueError):
+    """信号层返回值违反契约。`kind` 是**固定哨兵**, 不带信号层给的原值。
+
+    原值可以是任意字符串 (一个写坏的信号层能把题面原样返回来), 而 warning 行会进服务端
+    stdout 与排障贴文 —— 红线不许题面出现在那里。运维要区分的是"破了哪条契约", 那正是
+    kind 承载的信息; 原值本身对排障的增量小于它带来的泄漏面。
+    """
+
+    def __init__(self, kind: str):
+        super().__init__(f"signal layer contract violation: {kind}")
+        self.kind = kind
 
 _ROUTER_SYSTEM = """You are a corpus router for a clinical-data Q&A service. Two corpora exist:
 - "cdisc": the public CDISC SDTM standard — domains (DM, AE, VS, ...), variables, controlled \
@@ -107,20 +120,33 @@ def decide_corpus(llm_router, question: str, signals=None) -> tuple[str, bool, s
     (同源闸, 同 `make_docs_engine` 先例): 两侧各抄一份「判库 + 纠偏」就会各自漂移,
     而 eval 量出来的判库数字正是拿来给生产背书的。
 
-    信号层是**旁路**: 它抛异常或返回白名单外的取值时, 本题按"不拓宽"处理并留一条
-    warning, 绝不把异常放进生产 retrieve —— 一个坏掉的信号层可以让判库退回冻结基线,
-    但不该让 /api/ask 返回 500。反向代价已记账: 信号层整条静默死掉时, 条款 1 (fatal=0)
-    会在全闸响亮地不通过, 所以这里吞异常不会让"死掉的信号层"混过本单元。
+    信号层是**旁路**: 它抛异常、返回白名单外的取值、或返回与判库方向矛盾的理由时,
+    本题一律按"不拓宽"处理并留一条 warning (`kind` 区分三种破法), 绝不把异常放进生产
+    retrieve —— 一个坏掉的信号层可以让判库退回冻结基线, 但不该让 /api/ask 返回 500。
+    反向代价已记账: 信号层整条静默死掉时, 条款 1 (fatal=0) 会在全闸响亮地不通过,
+    所以这里吞异常不会让"死掉的信号层"混过本单元。
     """
     corpus, fallback = route_corpus(llm_router, question)
     widened_by = None
     if signals is not None and corpus in ("cdisc", "study"):
         try:
             reason = signals.widen_reason(corpus, question)
-            if reason is not None and reason not in WIDEN_REASONS:
-                raise ValueError(f"widen reason not in whitelist: {str(reason)[:32]!r}")
-        except Exception:
-            log.warning("signal_layer_error", exc_info=True)
+            if reason is not None:
+                # 两条独立契约: 取值合法 (白名单) 与 方向合法 (对侧信号才算依据)。
+                # 分开抛是为了让 warning 行说得出破的是哪一条 —— 合成一条断言的话,
+                # 现场只知道"信号层不对劲"。
+                if reason not in WIDEN_REASONS:
+                    raise _SignalContractError("not_whitelisted")
+                if reason != WIDEN_REASON_BY_CORPUS[corpus]:
+                    raise _SignalContractError("wrong_direction")
+        except Exception as exc:
+            # 刻意不用 exc_info=True: 本服务的 structlog 只配了 wrapper_class, 渲染走
+            # 默认 ConsoleRenderer + rich traceback, 而它**连帧局部变量一起打** ——
+            # `question` 就在 decide_corpus / widen_reason 两帧的 locals 里, 一条
+            # exc_info 就把题面写进 logs/api.launchd.log。故只留三个受控字段:
+            # kind (破了哪条契约) + error (异常类名, 不含其 message)。
+            log.warning("signal_layer_error", kind=getattr(exc, "kind", "raised"),
+                        error=type(exc).__name__)
             reason = None
         if reason is not None:
             widened_by, corpus = reason, "both"

@@ -20,6 +20,7 @@ import pytest
 from server.config import Settings
 from server.routing_signals import (
     CDISC_STRUCT_TERMS,
+    WIDEN_REASON_BY_CORPUS,
     WIDEN_REASONS,
     RoutingSignals,
     _norm,
@@ -81,6 +82,41 @@ def test_cdisc_signal_fires_on_struct_terms():
     assert s.widen_reason("study", "この項目は SDTM のどの変数にマッピングされますか") == "cdisc_sig"
 
 
+# 方向表四格全钉 (修复环 1 I-1)。对角线 (判定 ← 对侧信号) 才拓宽; 反对角线 (判定 ←
+# 同侧信号) 必须沉默 —— 同侧信号对每道 router 判对的单库题都成立, 认它等于把 auto 档
+# 整体推成 both, 而这条错法在只测"该 fire 的格"时全绿。
+_STUDY_HIT = ["stx__FRM_A__GRP_TOX.md"]
+_CDISC_Q = "SDTM のどの変数ですか"        # 只有 cdisc 信号
+_PLAIN_Q = "この項目の入力方法は?"          # 两侧信号都没有 (lookup 桩空)
+
+
+@pytest.mark.parametrize("routed,cards,question,expected", [
+    ("cdisc", _STUDY_HIT, _PLAIN_Q, "study_sig"),   # 对角: cdisc 判定 + study 信号 → 拓宽
+    ("study", [],         _CDISC_Q, "cdisc_sig"),   # 对角: study 判定 + cdisc 信号 → 拓宽
+    ("cdisc", [],         _CDISC_Q, None),          # 反对角: cdisc 判定 + cdisc 信号 → 沉默
+    ("study", _STUDY_HIT, _PLAIN_Q, None),          # 反对角: study 判定 + study 信号 → 沉默
+])
+def test_direction_table_all_four_cells(routed, cards, question, expected):
+    s = RoutingSignals(FakeLookup(cards=cards))
+    assert s.widen_reason(routed, question) == expected
+
+
+def test_direction_table_matches_the_contract_map():
+    """信号层的实际方向必须与 `WIDEN_REASON_BY_CORPUS` (decide_corpus 用它校验) 一致。
+    两处各写各的, 症状是信号层每次 fire 都被判成 wrong_direction 而整层静默失效。"""
+    s = RoutingSignals(FakeLookup(cards=_STUDY_HIT))
+    assert s.widen_reason("cdisc", _PLAIN_Q) == WIDEN_REASON_BY_CORPUS["cdisc"]
+    assert RoutingSignals(FakeLookup()).widen_reason("study", _CDISC_Q) == \
+        WIDEN_REASON_BY_CORPUS["study"]
+
+
+def test_contract_map_and_whitelist_are_one_source():
+    """白名单加了新理由却没进方向表 (或反过来), 新理由会被 decide_corpus 一律拒收。"""
+    assert set(WIDEN_REASON_BY_CORPUS) == {"cdisc", "study"}
+    assert set(WIDEN_REASON_BY_CORPUS.values()) == set(WIDEN_REASONS)
+    assert len(WIDEN_REASON_BY_CORPUS) == len(WIDEN_REASONS)   # 两个判定不许共用一个理由
+
+
 def test_pure_study_question_does_not_fire_cdisc_signal():
     assert RoutingSignals(FakeLookup()).widen_reason("study", "この項目の入力方法は?") is None
 
@@ -93,6 +129,14 @@ def test_pure_study_question_does_not_fire_cdisc_signal():
     "ＡＥＳＥＶはどの値ですか",         # 全角 (NFKC 归一后才是变量形态)
 ])
 def test_cdisc_signal_fires_on_code_shapes(q):
+    assert RoutingSignals(FakeLookup()).widen_reason("study", q) == "cdisc_sig"
+
+
+@pytest.mark.parametrize("q", ["Controlled Terminology の話", "Sdtm ではどうなりますか"])
+def test_cdisc_signal_is_case_insensitive_on_terms(q):
+    """词表比对走 `_norm` (NFKC + **小写**)。这两条问句里没有 4 位以上连续大写, 变量正则
+    兜不住 —— 少了 lower 这一步就整条不 fire。用 "SDTM のどの変数" 那类问句量不出本步:
+    它即使不 lower 也会被变量正则命中, 于是 lower 写没写都全绿 (修复环 1 M-2)。"""
     assert RoutingSignals(FakeLookup()).widen_reason("study", q) == "cdisc_sig"
 
 
