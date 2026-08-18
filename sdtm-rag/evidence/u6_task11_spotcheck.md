@@ -4,6 +4,9 @@
 > 执行目录: `sdtm-rag/` (以下命令逐字可复跑, 全部用 `./.venv/bin/python`)
 > git rev (六个 run 全部产自此 sha): `2012258` — 跑批前后 `git status --porcelain` 均空,
 > 无 `-dirty`, 即这批数字可凭 sha 复现。
+> ⚠ 跑批之后本 task 走过一轮审查修复环 (§12 后两条 + 回执串), **不影响这批产物**:
+> 新加的闸只拦 `--signal-layer on` + **强制**判库, 而本轮六个 run 用的是 `--corpus auto`
+> (修复后仍有专门测试钉住该组合可跑); 回执串只进 gitignored 日志, 不进产物。
 > 性质: spec §5.3 的 spot-check。**不是**全矩阵重跑 (那属「放宽 router」新单元, U5 §8 边界原样)。
 > 上游状态: Task 10 全闸 `rc=1` (条款 1 触发), 用户裁定**保留信号层**, 单元按诚实 FAIL 收口。
 > 本 task 因此测的是「一个已判 FAIL 的修法, 在答题侧到底带来了什么」。
@@ -225,7 +228,36 @@ Task 10 的 widen 统计是在**路由 gold** 上做的。路由 gold 与本 tas
 直接从六份产物的逐题 `routed` 字段读差分:
 
 ```bash
-# 三遍 × 两臂逐题 routed 差分 (零题面)
+./.venv/bin/python -c "
+import json
+R='data/study/st01/eval/runs/u6_spot_cards'
+def routes(a):
+    return [{r['id']: r['routed'] for r in json.load(open(f'{R}_{a}_r{i}.json'))['results']}
+            for i in (1,2,3)]
+off, on = routes('off'), routes('on')
+ids = sorted(off[0])
+diff  = [(q, [m[q] for m in off], [m[q] for m in on]) for q in ids
+         if {m[q] for m in off} != {m[q] for m in on}]
+drift = [q for q in ids if len({m[q] for m in off}) > 1 or len({m[q] for m in on}) > 1]
+fb = {a: sorted({r['routed_fallback']
+                 for i in (1,2,3)
+                 for r in json.load(open(f'{R}_{a}_r{i}.json'))['results']})
+      for a in ('off','on')}
+n_rows = sum(len(json.load(open(f'{R}_{a}_r{i}.json'))['results'])
+             for a in ('off','on') for i in (1,2,3))
+print('n_questions', len(ids))
+print('两臂 routed 不同:', len(diff), [(q, o, n) for q, o, n in diff])
+print('三遍内 routed 漂移:', len(drift), drift)
+print('routed_fallback 取值集:', fb, '总行数', n_rows)"
+```
+
+逐字输出 (只有题号与判库取值, 零题面):
+
+```
+n_questions 51
+两臂 routed 不同: 1 [('st01_v2_q07', ['cdisc', 'cdisc', 'cdisc'], ['both', 'both', 'both'])]
+三遍内 routed 漂移: 0 []
+routed_fallback 取值集: {'off': [False], 'on': [False]} 总行数 306
 ```
 
 | 项 | 实测 |
@@ -271,10 +303,36 @@ U5 §2.3 与 U3 §4.1 —— 信号层 off 确实等于旧基线。
 | off | `study` ×3 | 0.0 ×3 (2 miss) | **1.0 / 1.0 / 1.0** | 三遍同 | r1 与 r2/r3 差 ≤1e-4 |
 | on | `study` ×3 | 0.0 ×3 (2 miss) | **0.0 / 0.0 / 0.0** | 与 off 逐条相同 | 与 off r2/r3 逐位相同 |
 
-**输入同一性核验**: 该题两臂判库同为 `study` (信号层只加宽, 未触碰此题), `top5_sources`
-逐条相同, `top5_similarities` 与 off r2/r3 逐位相同 (off r1 有 ≤1e-4 的浮点抖动),
-source_recall 两臂同为 0.0 且缺的是同 2 条 gold。⇒ **两臂在这一题上的检索输入相同,
-system prompt 也相同** (`build_messages` 按本题 routed 取 corpus)。
+**输入同一性核验 (主证据 = 机制, 不是指纹比对)**:
+
+1. **主证据 — 信号层只经 `decide_corpus` 一个入口**: `server/federation.py` 全文里
+   `self.signals` 除 `__init__` 赋值外**只出现一次** (`:189`, 传进 `decide_corpus`),
+   它**不进** `self.cdisc.retrieve` / `self.study.retrieve` / `format_context` /
+   `build_messages` 任何一个。`decide_corpus` 对下游的唯一产出是 `routed`
+   (其余两个返回值 `fallback` / `widened` 只写观测属性)。
+   ⇒ **两臂 `routed` 相同 ⇒ 走的是同一条分支、同样的实参**, 检索输入**在构造上**相同,
+   system prompt 也相同 (`build_messages` 按本题 routed 取 corpus)。
+   复核命令: `grep -n "self\.signals\|signals" server/federation.py` (行号见上)。
+
+   ```bash
+   ./.venv/bin/python -c "
+   import json
+   R='data/study/st01/eval/runs/u6_spot_cards'
+   q='st01_v11_q23r'
+   for a in ('off','on'):
+       v=[next(r for r in json.load(open(f'{R}_{a}_r{i}.json'))['results'] if r['id']==q)
+          for i in (1,2,3)]
+       print(a, [x['routed'] for x in v], [x['source_recall'] for x in v],
+             [x['judge_fact_recall'] for x in v])"
+   # → off ['study','study','study'] [0.0,0.0,0.0] [1.0,1.0,1.0]
+   # → on  ['study','study','study'] [0.0,0.0,0.0] [0.0,0.0,0.0]
+   ```
+
+2. **佐证 (弱, 不作主证据)**: `top5_sources` 两臂逐条相同, `top5_similarities` 与
+   off r2/r3 逐位相同 (off r1 有 ≤1e-4 浮点抖动), source_recall 两臂同为 0.0 且缺同 2 条 gold。
+   ⚠ **这层只能是佐证**: run json 只落 **top5**, 而本轮 `top_k=15` —— 第 6-15 位的
+   chunk 从不进产物, 指纹相同**不能**证明 15 条全同。真正把它钉死的是第 1 条的机制,
+   指纹只是与机制一致的旁证。
 
 ⇒ 这 2.08pt「代价」**在机制上不可能由信号层产生**; 它是一道双峰题在两臂各自三遍里
 恰好落到相反的稳定值上 (答案文本三遍全不同, §1-2)。
@@ -336,6 +394,14 @@ q23r 至此**第四次**出现 (U2 条款 3 驱动题 → U5 E4 不可判池 →
 | 闸 (cards) | ≤ **9** (spec §4.3 冻结, = 20% × 48) |
 | 判定 | **PASS** (3/9), rc 不受影响 |
 
+**Task 5 carry-forward ③「Task 11 消费前确认 concat 变异已死」— 本轮闭合**:
+本批**本身就是活判别 case**。两臂各 2 题不稳定, 重叠 1 题 (`st01_v2_q18` 两臂都不稳),
+故集合并集 = **3** 而 `sorted(unstable_a + unstable_b)` 的双计口径 = **4**。
+两者都 ≤9 不改本轮判定, 但**产物数字不同** ⇒ 这批数据能区分两种实现 (若脚本是 concat,
+上面表里那格会写 4)。闸响侧则由
+`test_e4_union_deduplicates_overlapping_ids_at_the_gate_boundary` 钉死 (闸边界构造:
+去重 9 = PASS vs concat 11 = 假触发不可判)。**活判别 + 边界测试两侧齐备, 该 carry-forward 关闭。**
+
 并集 3 题 = 6.25% —— 显著低于 U5 的 14.6% (U5 §5-2 点名「并集从未被闸」, 本轮该闸已存在
 且实际生效判 PASS)。⚠ 两批不可直接比: U5 是强制 study/both 两档, 本轮是 auto 同档双臂,
 档内噪声本就更小。
@@ -383,20 +449,32 @@ commit `2012258` — `eval/run_eval.py` 加 `--signal-layer {off,on}` 透传:
   (那里的注释: 不造第二份, 因为两份可以来自不同文件而信号层那份从不出现在日志里)
 - 工厂返回 `None` 拒绝跑批 (否则 summary 写着 `on` 的一批数字其实是 off)
 - 非联邦下给 `--signal-layer on` = usage error (rc=2)
+- **强制判库下给 `--signal-layer on` = usage error** (审查修复环 1): 强制档不经
+  `decide_corpus` ⇒ 信号层整层惰性, 而 summary 与回执照样写 `on` —— 那是**假标签面**,
+  一批信号层从未通电的数字事后与真 on 臂一字不差。`--corpus auto` (本轮跑批用的组合)
+  与强制档 + `--signal-layer off` (U5 矩阵用的组合) 都照样跑得动, 各有测试钉住。
+- **联邦回执打命令行真给的 corpus** (审查修复环 1): 原先硬编码 `corpus=auto`,
+  强制档跑批的屏幕与日志因此自称 auto —— 而那正是 U5 拆「判库损耗 vs 接线损耗」的开关。
 - `summary.signal_layer` + 屏幕回执各留一处出处
 
 **冻结件零改动**: `server/routing_signals.py` (信号层定义) 与 `eval/u5_verdict.py` /
 `eval/u6_answer_verdict.py` / `eval/u6_gate_verdict.py` (判定脚本) 一字未动。
 
-测试: `scripts/tests/test_run_eval_federated.py` **+9 wiring test**;
+测试: `scripts/tests/test_run_eval_federated.py` **+13 wiring test** (首轮 9 + 修复环 4);
 `scripts/tests/test_run_eval_doc_channel.py` 的 `_fed` 桩签名跟随真构造器加 `signals`
 (不加则 `TypeError`, 5 个既有测试红 —— 这正是接线测试该有的响应)。
-两道 guard 各做过变异验杀 (删掉 `parser.error` 那行 → `test_signal_layer_requires_federated`
-FAILED; 把 `raise SystemExit` 换成 `pass` → `test_signal_layer_on_refuses_a_none_factory_result`
-FAILED), 恢复后全绿。
+
+四道 guard / 回执各做过**变异验杀** (改坏 → 目标测试 FAILED, 恢复 → 全绿):
+
+| 变异 | 被杀的测试 |
+|---|---|
+| 删 `--signal-layer` 非联邦那行 `parser.error` | `test_signal_layer_requires_federated` |
+| `raise SystemExit` → `pass` (工厂返 None) | `test_signal_layer_on_refuses_a_none_factory_result` |
+| 删强制档那行 `parser.error` | `test_signal_layer_on_rejects_a_forced_corpus` |
+| 回执改回硬编码 `corpus=auto` | `test_federated_receipt_prints_the_real_corpus` |
 
 ```bash
-./.venv/bin/python -m pytest -p no:warnings --tb=short | tail -2   # 1641 → 1650 passed
+./.venv/bin/python -m pytest -p no:warnings --tb=short | tail -2   # 1641 → 1654 passed
 ```
 
 ---
@@ -457,7 +535,7 @@ FAILED), 恢复后全绿。
 ## 15. 复跑命令 (逐字, 在 `sdtm-rag/` 下)
 
 ```bash
-./.venv/bin/python -m pytest -p no:warnings --tb=no | tail -2      # → 1650 passed
+./.venv/bin/python -m pytest -p no:warnings --tb=no | tail -2      # → 1654 passed
 R=data/study/st01/eval/runs
 # 判定 (确定性, 只读已落盘产物; 答题 run 非确定, 重跑数字会变)
 ./.venv/bin/python -m eval.u6_answer_verdict \
@@ -496,10 +574,19 @@ needle **6/6 完整** (无 `--allow-missing`), 故 CLEAN 可信。
 
 ### 16-2 阈值敏感性 (引用 CLEAN 必须连阈值一起写)
 
-`--min-len 8` 下报 **LEAK 16 条**, 但 16 条**全部来自 `eval/test_set_v3.yml`**
-(英文 CDISC 公开题集), 片段为 `controll` / `ontrolle` / `nstraint` / `question` /
-`summary ` / `allback ` / ` is not ` —— 即脚本 docstring 明载的**通用英文词形假阳性**类。
+`--min-len 8` 下报 **LEAK 17 条**, 但 17 条**全部来自 `eval/test_set_v3.yml`**
+(英文 CDISC 公开题集), 片段为 `controll` ×6 / `ontrolle` ×4 / `nstraint` ×2 /
+`question` / `summary ` / `allback ` / ` is not ` / `upplemen` —— 即脚本 docstring
+明载的**通用英文词形假阳性**类。其中 `upplemen` 命中的是**本文件 §16-1 里逐字抄录的
+扫描器自身输出**那行 gold set 文件名 (`routing_gold_ja_supplement.yml`), 与题面无关。
 `data/study/` 下四个 gold set (真实试验内容) 在 min_len=8 下命中 **0 条**。
+
+复核命令 (按来源分组数命中):
+
+```bash
+./.venv/bin/python scripts/leakscan_evidence.py evidence/u6_task11_spotcheck.md \
+  --min-len 8 --show 20 | grep -E "yml:" | sort | uniq -c | sort -rn
+```
 
 补充 kana 扫描 (中文正文不含假名, 日文题面必含):
 
