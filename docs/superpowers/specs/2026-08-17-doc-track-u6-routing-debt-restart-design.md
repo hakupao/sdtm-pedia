@@ -172,3 +172,5 @@ Phase 0 开工时必须实跑并归档:
   **254 题 / fatal 9**。差异归因见 `sdtm-rag/evidence/u6_task6_baseline_freeze.md` §3-2。
 - §7 预登记的「任一条款触发 ⇒ 修法退回 (revert)」在 Task 10 实际触发时被**用户裁定覆盖**
   (保留信号层, FAIL 诚实收口), 记录见 `sdtm-rag/evidence/failures/u6_task10_attempt_1.md` 处置节。
+- §5.1 study 侧信号原文含「docs 通道命中强度探针」— 该探针**本单元未实现** (study 半边仅按
+  G1 强通道 `strong_hit` 落地, 见收口 checkpoint §1); 属设计候选未落地, 非静默偏离 (终审 O1 收录)。

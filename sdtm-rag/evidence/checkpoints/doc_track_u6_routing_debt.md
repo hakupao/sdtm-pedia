@@ -10,7 +10,7 @@
 ## 0. 一句话
 
 Phase 0 的仪器修缮与新基线冻结全部达成 (254 题 / fatal 口径 250 / 三遍 254/254 全稳),
-Phase 1 的确定性信号层 (widen-only) **零害但没修掉欠账**: 全闸 `rc=1`,
+Phase 1 的确定性信号层 (widen-only) **路由侧零害但没修掉欠账**: 全闸 `rc=1`,
 **条款 1 触发 (fatal 8/8/8, 要求 0)**, 条款 2/3/4/7 全 PASS。
 判库欠账 **9 → 8 (修好 1 条 `u3_doc_02`), 而这必须与「`cdisc_sig` 在全部 254 题上零触发」同框读**
 —— 8 条残余全部需要 study→both 方向, 而那个方向的信号一次都没 fire。
@@ -255,7 +255,7 @@ min_len=12 泄漏 (解释假阳性时把被解释的英文串写了进来), 改�
 5. **条款 2/3 只吃 after 批, 连「有没有喂对批次」都判别不出** (抽检 A F-3, MED): 本批 baseline 与
    after 的 dev / heldout 读数逐格相同 (dev 12/12, heldout 11/12, 三遍皆然) ⇒ 若把 baseline 误当
    after 传进去, 这两条款输出一字不差。**本次影响 = 无** (出处校验独立排除: 两批 `git_rev` /
-   `generated_at` / `signal_layer` 三项互不相同, 且 gate.json 的逐题 `fatal_ids` 与 after 批 detail 逐条相等)。
+   `generated_at` 两项互异; `signal_layer` 为 after 批独有键 (=on), baseline 批产于该键落地前**无此键** (缺席即 off, 判别力更强); gate.json 的逐题 `fatal_ids` 与 after 批 detail 逐条相等)。
    ⚠ 这与「多数类基线 ⇒ 零判别力」是**两件事**: 那条说「过闸不代表路由变好」, 这条说「过闸不代表量的是 after」。
 6. **widen 计数是 pred 差分不是仪器直读**: run json 的 `detail` 不落 `widened_by`
    (`decide_corpus` 第三个返回值在 eval 侧被丢弃, 只有生产 `retrieve` 留观测字段)。**看不见**:

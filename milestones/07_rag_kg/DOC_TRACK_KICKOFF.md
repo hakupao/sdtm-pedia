@@ -11,7 +11,7 @@ C1 → U1 → U2 → U3 → U5 → **U6** 六个单元已收口 (U3 = FAIL 收�
 信号层)**, 收口证据 `sdtm-rag/evidence/checkpoints/doc_track_u6_routing_debt.md`)。
 **U6 一句话**: Phase 0 仪器修缮全达成 (七条款判定 `u6_gate_verdict` / 答题侧修订判定
 `u6_answer_verdict` / gold 复核 amb_06→study / 新基线 254 题 fatal 9 冻结); Phase 1 widen-only
-确定性信号层**零害但没修掉欠账** — 全闸 fatal 8/8/8 ≠ 0, **判库欠账 9 → 8** (修好 `u3_doc_02`,
+确定性信号层**路由侧零害但没修掉欠账** — 全闸 fatal 8/8/8 ≠ 0, **判库欠账 9 → 8** (修好 `u3_doc_02`,
 须连同「cdisc_sig 全集零触发」同框读); `st01_v2_q07` 拿到本仓第一条端到端实证
 (off judge 0.0×3 → on 1.0×3)。**引用纪律: 不得写「验收通过」。** 剩余候选:
 
@@ -134,7 +134,7 @@ collection。field card 侧 `study_st01` = 959 张, study golden v2 **87.50%, �
 > **数字**: 新基线 fatal 9 → 全闸 fatal 8/8/8 (条款 1 触发; 2/3/4/7 全 PASS; 254/254 三遍稳);
 > widen 全集恰 2 题 (`u3_doc_02`+`st01_v2_q07`, 均 cdisc→both); **cdisc_sig 全集零触发** =
 > 残余 8 债 (amb×5+dist×3) 的方向信号一次没 fire (标定困境结构性: 可见集无该方向活正例)。
-> 答题侧 spot-check: q07 端到端实证 off 0.0×3 → on 1.0×3; q23r 双峰假阳性路径 (第四次出现)。
+> 答题侧 spot-check: q07 端到端实证 off judge 0.0×3 → on judge 1.0×3 (可比池 45/48); q23r 双峰假阳性路径 (第四次出现)。
 > 规则 D 五方: A 5/5 全复现 · B 235 变异终态存活=8 等价+F08 低危 · 补杀波 29/29 · controller 复算。
 > 1353 → **1699 passed**。**引用纪律: 不得写「验收通过」; 9→8 必须连同 cdisc_sig 零触发同框。**
 > 收口 → `sdtm-rag/evidence/checkpoints/doc_track_u6_routing_debt.md` (已知限制 + §9 硬约束)。
