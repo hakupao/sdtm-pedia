@@ -421,6 +421,21 @@ def test_decide_corpus_treats_a_raising_signal_layer_as_no_widen(monkeypatch, ex
     assert warn[0]["error"] == type(exc).__name__
 
 
+@pytest.mark.parametrize("text", ['{"corpus": "cdisc"}', '{"corpus": "study"}',
+                                  '{"corpus": "both"}', "not json"])
+def test_decide_corpus_without_signals_is_silent_too(text):
+    """「signals=None 时逐位等于裸 route_corpus」这条承诺的**日志面**。
+
+    丢掉 `signals is not None` 那半合取后返回值逐位不变 —— `None.widen_reason(...)` 抛
+    AttributeError, 被下面那道旁路原样吞掉 —— 但每一道题都会多出一条 signal_layer_error
+    warning (finding F-15)。返回值面上一条已经钉住了, 缺的是这一面。
+    """
+    with structlog.testing.capture_logs() as logs:
+        decide_corpus(_FakeLLM(text), "q")
+        decide_corpus(_FakeLLM(text), "q", None)
+    assert _signal_warnings(logs) == []
+
+
 @pytest.mark.parametrize("bad", ["widen", "study", "both", "STUDY_SIG", "", 1, True])
 def test_decide_corpus_rejects_reasons_outside_the_whitelist(monkeypatch, bad):
     """白名单是 widen-only 的最后一道结构闸: 信号层返回 "study" 之类的库名时,

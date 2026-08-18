@@ -113,11 +113,31 @@ def test_input_validation_needs_three_each():
         validate_inputs(BASE[:2], BASE)
 
 
+def test_input_validation_needs_three_in_the_after_batch_too():
+    """三遍纪律是**两臂**的事。上一条只短了 baseline 一臂, 于是「after 臂 (正被判定的
+    那一批) 传两份照样放行」这个方向从未被量 (finding F-03)。"""
+    with pytest.raises(SystemExit, match="各需 3 份"):
+        validate_inputs(BASE, after_runs()[:2])
+
+
 def test_input_validation_needs_meta():
     b = copy.deepcopy(BASE)
     del b[0]["meta"]
     with pytest.raises(SystemExit, match="缺 meta"):
         validate_inputs(b, [mk_run(i, gen="a") for i in (1, 2, 3)])
+
+
+@pytest.mark.parametrize("stamp", ["", "   "])
+def test_input_validation_rejects_a_blank_generated_at(stamp):
+    """meta 在场但没有跑批时刻, 后果不是错话术而是**直接放行** (抽检 B 探针 3 实测)。
+
+    `generated_at` 是批内去重闸的全部原料: 三份里有一份为空、另两份时戳互不相同, 去重闸
+    就不响, 一份没有跑批时刻的 run 被当成合法证据收下, 且此后它与任何一份 run 都「不重复」。
+    """
+    b = copy.deepcopy(BASE)
+    b[0]["meta"]["generated_at"] = stamp
+    with pytest.raises(SystemExit, match="缺 meta.generated_at"):
+        validate_inputs(b, after_runs())
 
 
 # --------------------------------------------------------------------------- 条款 1/2/3
@@ -322,6 +342,17 @@ def test_same_summary_but_different_run_is_not_rejected():
     validate_inputs(BASE, after)      # 不抛
 
 
+def test_shared_generated_at_alone_is_not_a_copy_error():
+    """I-2 是**合取**: summary 逐字相同 **且** meta 撞上才算拷贝错。
+
+    上一条覆盖了 meta 半 (summary 同而 meta 不同 ⇒ 不拦); 这一条是另一半 —— 两批时戳撞上
+    而 summary 不同, 同样不该拦 (finding F-13)。丢掉 summary 半的实现会在这里误拦。
+    """
+    after = after_runs()
+    after[0]["meta"]["generated_at"] = BASE[0]["meta"]["generated_at"]
+    validate_inputs(BASE, after)      # 不抛
+
+
 def test_duplicate_run_within_the_after_batch_is_rejected():
     """同一份 after 喂三遍: 条款 1 的「每遍」与均值全都恒等于那一遍, clause6 还会报
     「三遍全稳」—— 不拦的话这是全绿产物里最有欺骗性的一格。"""
@@ -359,9 +390,15 @@ def test_dual_gate_group_size_mismatch_is_rejected():
         validate_inputs(BASE, after)
 
 
-def test_dev_group_size_must_match_the_percentage_denominator():
+@pytest.mark.parametrize("name", ["dev", "heldout"])
+@pytest.mark.parametrize("n", [11, 13])
+def test_group_size_gate_covers_both_groups_and_both_directions(name, n):
+    """条款 2 的百分比分母写死 GROUP_N=12, 两个组各是分子/分母的一侧 —— 只查 dev 会让
+    heldout 漂移无人拦, 只查「变小」会让组**变大**无人拦 (finding F-02)。恒等判 `!=`,
+    故两个方向各配一格。
+    """
     after = after_runs()
-    after[1]["summary"]["by_group"]["dev"] = {"n": 11, "exact": 11, "fatal": 0}
+    after[1]["summary"]["by_group"][name] = {"n": n, "exact": min(n, 12), "fatal": 0}
     with pytest.raises(SystemExit, match="组量"):
         validate_inputs(BASE, after)
 
@@ -377,6 +414,18 @@ def test_shared_git_rev_between_base_and_after_warns(capsys):
     # fixture 两批同为 abc1234 → 告警; 尾段比对 (describe 串 vs 裸 sha) 也须认得
     verdict(BASE, [mk_run(i, gen="after", git_rev="v1.4-7-gabc1234") for i in (1, 2, 3)])
     assert "共用 git_rev" in capsys.readouterr().out
+
+
+def test_distinct_git_revs_do_not_trigger_the_shared_warning(capsys):
+    """告警的阴性对照: 两批 sha 不同 ⇒ 不告警。
+
+    交集写成并集后, 只要两批各自有版本号告警就恒响 —— 而一条恒响的告警等于没有告警,
+    它正是 I-2 (拷贝错文件) 的弱形态探测器 (finding F-11)。
+    """
+    base = [mk_run(i, fatal=10, dist_fatal=2, u1_fatal=1, dev=6, gen="base", git_rev="aaa1111")
+            for i in (1, 2, 3)]
+    verdict(base, [mk_run(i, gen="after", git_rev="bbb2222") for i in (1, 2, 3)])
+    assert "共用 git_rev" not in capsys.readouterr().out
 
 
 def test_unknown_git_rev_does_not_trigger_shared_warning(capsys):

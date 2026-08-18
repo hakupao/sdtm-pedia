@@ -93,7 +93,10 @@ def validate_inputs(base: list[dict], after: list[dict]) -> None:
         raise SystemExit(f"baseline/after 各需 3 份, 得 {len(base)}/{len(after)} — 三遍纪律")
     for label, runs in (("baseline", base), ("after", after)):
         for i, r in enumerate(runs, 1):
-            if "meta" not in r or not r["meta"].get("generated_at"):
+            # 空串与纯空白同样算「没有跑批时刻」: `generated_at` 是 run json 里唯一的跑批
+            # 时刻凭证, 也是下面那道批内去重闸的全部原料。三份里只要有一份是空的, 另两份
+            # 时戳互不相同 ⇒ 去重闸不响 ⇒ 整批被当成合法证据收下 (抽检 B 探针 3 实测)。
+            if "meta" not in r or not str(r["meta"].get("generated_at") or "").strip():
                 raise SystemExit(f"{label} 第 {i} 份 run 缺 meta.generated_at — "
                                  f"先用 Task 1 修缮后的 run_routing_eval 重产")
         # 批内重复是最有欺骗性的一格: 同一份 run 喂三遍, 条款 1 的「每遍」恒等于那一遍,

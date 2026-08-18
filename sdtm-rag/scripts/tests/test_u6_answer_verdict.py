@@ -186,6 +186,24 @@ def test_dominance_only_ids_names_what_the_worst_bound_ruler_added():
     assert out["E1"]["dominance_only_ids"] == ["q1"]
 
 
+def test_dominance_only_ids_subtracts_the_gain_side_too():
+    """上一条的两道题**都在 cost 侧**, 于是"稳定半已收 ⇒ 不算支配独有"这条在 gain 侧
+    从未被量 (`stable_moved = set(cost) | set(gain)` 丢掉 gain 半仍全绿, finding F-04)。
+
+    本条是它的镜像: q1 只有支配收得到 (A 臂档内不稳定), q2 稳定半与支配都收得到 ⇒
+    只有 q1 算「最坏界尺子额外带进来的」。丢掉 gain 半时 q2 会被错报进这一格, 而这一格
+    正是 U5 §9-1 「判词有多少压在最坏界尺子上」的拆分依据。
+    """
+    a = runs({"q1": 0.5, "q2": 0.5}, {"q1": 0.6, "q2": 0.5}, {"q1": 0.4, "q2": 0.5})
+    b = runs({"q1": 1.0, "q2": 1.0}, {"q1": 1.0, "q2": 1.0}, {"q1": 0.9, "q2": 1.0})
+    out = compare_arms(a, b, n_scored=2, family="cards", expected_n=2)
+    assert out["E1"]["confirmed_gain_ids"] == ["q1", "q2"]
+    assert out["E1"]["confirmed_cost_ids"] == []
+    assert out["E1"]["dominance_ids"] == ["q1", "q2"]
+    assert out["E1"]["stable_half"]["confirmed_gain_ids"] == ["q2"]
+    assert out["E1"]["dominance_only_ids"] == ["q1"]
+
+
 def test_e1_counts_the_all_parse_ok_pool_it_could_dominate_over():
     """n_all_parse_ok 是支配尺子的可比池分母 —— 判词的"可比池"限定要有数字支撑."""
     a = runs({"q1": 1.0, "q2": 1.0}, {"q1": 1.0, "q2": 1.0}, {"q1": 1.0, "q2": None})
@@ -311,6 +329,27 @@ def test_divergent_false_when_one_reading_is_zero():
     out = compare_arms(a, b, n_scored=48, family="cards")
     assert out["paired_net_pt"] == 0.0
     assert out["aggregate_mean_diff_pt"] != 0.0
+    assert out["divergent_readings"] is False
+
+
+def test_divergent_false_when_the_aggregate_reading_is_zero():
+    """上一条构造的是「配对净额为 0 而聚合非 0」; 这是它的**镜像半** —— 聚合为 0 而配对
+    净额非 0 (finding F-04: 该测试的 docstring 自称覆盖"去掉非 0 判", 实测只覆盖一半)。
+
+    构造: q_gain 两侧各自稳定 (+0.5, 进配对净额); d1/d2 在 B 臂档内不稳定且两臂区间重叠
+    ⇒ 既非稳定半也非支配, 只进聚合池, 各 −0.25 ⇒ 聚合读数恰好抵成 0。
+    """
+    a = runs({"q_gain": 0.5, "d1": 1.0, "d2": 1.0},
+             {"q_gain": 0.5, "d1": 1.0, "d2": 1.0},
+             {"q_gain": 0.5, "d1": 1.0, "d2": 1.0})
+    b = runs({"q_gain": 1.0, "d1": 0.75, "d2": 0.75},
+             {"q_gain": 1.0, "d1": 0.5, "d2": 0.5},
+             {"q_gain": 1.0, "d1": 1.0, "d2": 1.0})
+    out = compare_arms(a, b, n_scored=3, family="cards", expected_n=3)
+    assert out["aggregate_n"] == 3
+    assert out["aggregate_mean_diff_pt"] == 0.0
+    assert out["paired_net_pt"] > 0
+    assert out["E1"]["confirmed_gain_ids"] == ["q_gain"]
     assert out["divergent_readings"] is False
 
 
@@ -451,6 +490,17 @@ def test_rejects_arm_without_three_runs():
         compare_arms(a[:2], a, n_scored=48, family="cards")
     with pytest.raises(SystemExit):
         compare_arms(a, a[:2], n_scored=48, family="cards")
+
+
+@pytest.mark.parametrize("arm", ["a", "b"])
+def test_rejects_arm_with_more_than_three_runs(arm):
+    """三遍纪律是**恒等**判, 不是下界: 上一条只测了"少于 3 份"。`!=` 松成 `<` 后四遍
+    照样放行, 而支配的最好/最差界与聚合均值的分母全按三遍写死 (finding F-03)。"""
+    a = _flat({"q1": 1.0})
+    four = [*a, a[0]]
+    args = (four, a) if arm == "a" else (a, four)
+    with pytest.raises(SystemExit, match="三遍纪律"):
+        compare_arms(*args, n_scored=48, family="cards")
 
 
 @pytest.mark.parametrize("bad_idx", [0, 1, 2])

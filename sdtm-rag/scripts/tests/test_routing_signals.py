@@ -19,6 +19,8 @@ import pytest
 
 from server.config import Settings
 from server.routing_signals import (
+    _CT_CODE_RE,
+    _DOMAIN_VAR_RE,
     CDISC_STRUCT_TERMS,
     WIDEN_REASON_BY_CORPUS,
     WIDEN_REASONS,
@@ -203,6 +205,47 @@ def test_cdisc_signal_stays_silent_on_non_standard_shapes(q):
     assert RoutingSignals(FakeLookup()).widen_reason("study", q) is None
 
 
+# ── ①' 阴性对照: 标定件的全部价值在「不该 fire 的时候不 fire」 ────────────
+#
+# Task 9 的标定判据恰恰是**别多触** (起点版 `[A-Z]{4,8}` 在可见集上误触 6 题, 每触
+# −1 exact, 模拟 legacy 173 < 阈值 178)。上面那些用例只钉住「该 fire 时会 fire」——
+# 把位数放宽或把两侧边界拆掉, 阳性侧一条都不会红 (抽检 B finding F-01)。
+# 下面按**冻结形态的每一条边界**各配一格阴性对照。
+
+@pytest.mark.parametrize("q,boundary", [
+    ("この項目は C1234 ですか", "位数下界: 4 位不是 CT 码"),
+    ("この項目は C1234567 ですか", "位数上界: 7 位不是 CT 码"),
+    ("この項目は ZC12345 ですか", "左边界: 码形态不许从更长 ASCII 串里被切出"),
+    ("この項目は C12345Z ですか", "右边界: 同上, 右侧"),
+])
+def test_ct_code_shape_stays_silent_outside_the_frozen_bounds(q, boundary):
+    assert RoutingSignals(FakeLookup()).widen_reason("study", q) is None, boundary
+
+
+@pytest.mark.parametrize("q,boundary", [
+    ("ZAESEV はどの値ですか", "左边界: 变量名嵌在更长大写串里不算命中"),
+    ("AESEVZ はどの値ですか", "右边界: 同上, 右侧"),
+])
+def test_variable_shape_stays_silent_inside_a_longer_ascii_run(q, boundary):
+    """两侧边界写的是 ASCII 负向环视 (不能用 \\b: CJK 侧 \\b 不成立, 见源码注释)。
+
+    拆掉任一侧, 试验缩写 / 系统名这类更长的大写串会开始整段误触 —— 而 Task 9 正是
+    因为这类误触才把起点版 `[A-Z]{4,8}` 换成词表锚定的形态。
+    """
+    assert RoutingSignals(FakeLookup()).widen_reason("study", q) is None, boundary
+
+
+def test_frozen_lexicon_and_patterns_are_literal():
+    """Task 9 标定收敛后**冻结** (源码 docstring: 此后不许再动)。改词表 / 改形态必须同时
+    改这条, 从而落到 code review 上 —— 不然放宽一位数字就是一次无人看守的重新标定。"""
+    assert CDISC_STRUCT_TERMS == (
+        "sdtm", "cdisc", "マッピング", "どの変数", "対応する変数", "どのドメイン",
+        "controlled terminology", "提出データ")
+    assert _CT_CODE_RE.pattern == r"(?<![A-Za-z0-9_])C\d{5,6}(?![A-Za-z0-9_])"
+    assert _DOMAIN_VAR_RE.pattern.startswith("(?<![A-Za-z0-9_])")
+    assert _DOMAIN_VAR_RE.pattern.endswith("(?![A-Za-z0-9_])")
+
+
 @pytest.mark.parametrize("routed", ["both", "auto", "", "cdisc_sig"])
 def test_widen_only_never_fires_outside_the_two_single_corpora(routed):
     """widen-only: both 已是最宽; 其余取值是调用方出错, 信号层一律沉默 (绝不换库)。"""
@@ -239,14 +282,44 @@ def test_deterministic(routed, question, expected):
 
 def test_terms_contain_no_clinical_concepts():
     """红线闸: 词表只许含标准结构词汇。临床概念词一进来, 信号层就从"结构信号"
-    退化成"题面关键词命中", 那正是 U3 §6.1 已经判死的路子。"""
-    banned_roots = ("病", "癌", "検査値", "薬", "投与量", "mg", "腫")
+    退化成"题面关键词命中", 那正是 U3 §6.1 已经判死的路子。
+
+    黑名单必须覆盖**本域最核心的那类临床词根**: 起初只写了 ("病","癌","検査値","薬",
+    "投与量","mg","腫"), 而「有害事象」这类最典型的临床概念一个字根都不沾, 照样进得来
+    (抽检 B finding F-01)。下面按本域实际会出现的临床词根补齐。
+    """
+    banned_roots = (
+        # 起初版
+        "病", "癌", "検査値", "薬", "投与量", "mg", "腫",
+        # 本域最核心的临床概念词根 (F-01 补)
+        "有害", "事象", "症状", "疾患", "患者", "被験者", "診断", "治療", "副作用",
+        "発現", "重篤", "転帰", "既往", "併用", "妊娠", "死亡", "用量", "服用", "処方",
+        "adverse", "event", "disease", "symptom", "patient", "subject", "diagnos",
+        "therap", "dose", "drug", "medicat", "concomitant",
+    )
     assert not [t for t in CDISC_STRUCT_TERMS for b in banned_roots if b in t]
 
 
 def test_terms_are_already_in_matching_normal_form():
     """词条与问句同走 `_norm`; 词条自己不是归一形态 = 永不命中的死条目。"""
     assert [t for t in CDISC_STRUCT_TERMS if _norm(t) != t] == []
+
+
+@pytest.mark.parametrize("raw,normalized", [
+    ("SDTM", "sdtm"),
+    ("ＳＤＴＭ", "sdtm"),                                   # 全角 → NFKC → 小写
+    ("Controlled Terminology", "controlled terminology"),
+    ("マッピング", "マッピング"),                            # 已是归一形态: 恒等
+])
+def test_norm_is_nfkc_plus_lowercase(raw, normalized):
+    """上面那条自检闸的**量尺**本身要有锚。
+
+    `_norm` 在生产路径上没有调用点 (`_cdisc_signal` 走内联的 NFKC + `.lower()`), 于是
+    删掉这里的 `.lower()` 生产行为一字不变、全量测试全绿, 而自检闸从此接受大写词条 ——
+    大写词条正是它存在的理由 (抽检 B finding F-05 / 探针 1b: 两处各自无害, 合起来把
+    红线词表的归一化纪律注销掉)。
+    """
+    assert _norm(raw) == normalized
 
 
 def test_terms_have_no_blanks_or_duplicates():
@@ -274,6 +347,19 @@ def test_build_signals_loads_from_settings_paths(tmp_path):
 def test_build_signals_tolerates_a_missing_alias_table(tmp_path):
     """别名表缺失是 S2 刻意的优雅降级 (通道③ 空转); 工厂不得把它升级成硬失败。"""
     assert build_signals(_settings(tmp_path)) is not None
+
+
+def test_build_signals_actually_loads_the_alias_table_when_present(tmp_path):
+    """上一条只证"缺表不抛"; 缺的是"在场时真的被读进来了"。
+
+    `StudyLookup.stats()` 的 docstring 已点名这个坑: 「别名 0 条 = 通道③ 完全没通电」
+    与「别名表加载成功」在外部表现一致。而通道③ 是 `strong_hit` 的强通道之一 —— 路径
+    不传进去, 它整条静默空转, study 侧信号覆盖面缩水而全部测试照旧全绿 (finding F-06)。
+    """
+    s = build_signals(_settings(
+        tmp_path, aliases="aliases:\n  - term: 偽フォーム呼称\n    form: FRM_A\n"))
+    assert s.study_lookup.stats() == "1 items/1 aliases"
+    assert s.widen_reason("cdisc", "偽フォーム呼称について教えてください") == "study_sig"
 
 
 def test_build_signals_reuses_a_given_lookup_without_touching_disk(tmp_path):

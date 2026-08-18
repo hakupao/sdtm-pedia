@@ -401,6 +401,18 @@ def test_federated_receipt_prints_the_real_corpus(captured_fed_kwargs, capsys):
     assert "corpus=auto" not in out
 
 
+@pytest.mark.parametrize("corpus,word", [("auto", "LLM(light)"), ("study", "forced"),
+                                         ("both", "forced"), ("cdisc", "forced")])
+def test_federated_receipt_routing_word_follows_the_corpus(captured_fed_kwargs, capsys,
+                                                           corpus, word):
+    """同一行里的 `corpus=` 与 `signal_layer=` 两格各有专测, 而 `routing=` 判词没有 ——
+    同一类缺陷、同一行, 只修了一半 (finding F-10)。判词写死成 LLM(light) 后, 强制档
+    跑批的回执会再次自称走了 LLM 路由, 而强制档根本不经 `decide_corpus`。
+    """
+    captured_fed_kwargs(["--corpus", corpus])
+    assert f"routing={word}(corpus={corpus})" in capsys.readouterr().out
+
+
 def test_explicit_corpus_auto_with_signal_layer_on_is_accepted(captured_fed_kwargs,
                                                                spy_build_signals):
     """Task 11 双臂跑批命令逐字写的是 `--corpus auto --signal-layer on` ——

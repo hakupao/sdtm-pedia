@@ -618,6 +618,36 @@ def test_strong_hit_ignores_hits_that_the_cap_already_dropped():
     assert lk.strong_hit("ALPHA について") is False
 
 
+def test_repeating_one_token_does_not_promote_the_weak_channel():
+    """②a 的「多 token」语义全靠 `_channel_hits` 那一次 token 去重保障。
+
+    去重一拆, 同一个 token 在题面里出现两次就让 `len(tokens) >= 2` 成立, 交集退化成该
+    单 token 的命中集 ⇒ 弱通道 ②b 的形态从 ①②a③ 的后门走成了强通道 —— 正是 G1 判死的
+    那条路 (finding F-07, 抽检 B 探针 2 实证)。
+    """
+    lk = _g1()
+    once, twice = "SOLO はどの変数ですか", "SOLO と SOLO はどの変数ですか"
+    assert lk.resolve(once).cards == lk.resolve(twice).cards != [], "用例失效: ②b 没命中"
+    assert lk.strong_hit(once) is False
+    assert lk.strong_hit(twice) is False
+
+
+def test_repeated_oid_segment_is_counted_once_against_the_cap():
+    """同一张卡的 OID 里出现重复段时, 段索引只许记它一次。
+
+    不去重的话该卡被重复计进 `_segment_index`, 把 `_MAX_CARDS_PER_MATCH` 的计数灌高 ⇒
+    本该 fire 的命中被 cap 挡掉 (finding F-14)。下面刚好卡在界上: 去重后 8 张 = cap,
+    不去重则 9 条记录 > cap, 整条通道静默不 fire。
+    """
+    cat = {"study": "stx", "items": [
+        *[_item("FRM_R", f"REP_N{i}", f"偽反復ラベル{i}") for i in range(7)],
+        _item("FRM_R", "REP_X_REP", "偽反復ラベル末"),
+    ]}
+    cards = StudyLookup(cat).resolve("REP について").cards
+    assert len(cards) == 8
+    assert "stx__FRM_R__REP_X_REP.md" in cards
+
+
 def test_strong_hit_true_when_strong_and_weak_both_hit():
     # 收紧 ≠ 有弱通道就一票否决 (写成 `not weak` 的实现在这里露馅)
     assert _g1().strong_hit("偽戊ラベル全文一致 と SOLO について") is True

@@ -19,9 +19,11 @@ import types
 
 import pytest
 
+from eval import u6_calibrate_signals as calib
 from eval.u6_calibrate_signals import (
     VISIBLE_GROUPS,
     load_base_preds,
+    main,
     render,
     simulate,
     visible_subset,
@@ -83,6 +85,25 @@ class WrongDirection:
 class Boom:
     def widen_reason(self, routed, question):
         raise RuntimeError("signal layer exploded")
+
+
+class AliveBothWaysNeverWidens:
+    """两个探针都活着, 但方向都对不上实际判定 ⇒ 一次拓宽都不发生 —— 标定的目标形态。
+    (要求 gold 的 question 就是 id, 见各用例的 `{**g, "question": g["id"]}`。)"""
+
+    def widen_reason(self, routed, question):
+        if routed == "study" and question == "L1":
+            return "cdisc_sig"
+        if routed == "cdisc" and question == "D1":
+            return "study_sig"
+        return None
+
+
+class OnlyCdiscSigAlive:
+    """只有一个信号活着 (且不产生拓宽): 规则 (c) 的 `all` vs `any` 只在这一格上可分。"""
+
+    def widen_reason(self, routed, question):
+        return "cdisc_sig" if routed == "study" and question == "L1" else None
 
 
 ALL_STUBS = [Silent, FiresBothDirections, FiresStudySigOnly, NotWhitelisted, WrongDirection, Boom]
@@ -212,6 +233,31 @@ def test_detector_fires_are_probed_independently_of_the_routed_corpus():
     assert rep["widen_fires"]["study_sig"] == {"legacy": [], "dev": []}
 
 
+@pytest.mark.parametrize("stub", [WrongDirection, NotWhitelisted, Boom])
+def test_a_broken_signal_layer_never_counts_as_alive(stub):
+    """探针量的是「这个信号活着吗」, 而 (c) 正是「无死信号」这条预登记规则的操作性读法 ——
+    所以探针必须与 `decide_corpus` 同一把尺子: 方向不对 / 取值不在白名单 / 直接抛异常,
+    三种破法一律记「没命中」。松成"任意理由都算" 或 "抛异常按命中计" 会让 (c) 虚高
+    (finding F-08), 而虚高的方向恰好是「让这版词表看起来合格」。
+    """
+    gold = mk_gold(legacy=[("L1", "cdisc")], dev=[("D1", "study")])
+    rep = simulate(gold, {"L1": "cdisc", "D1": "study"}, stub())
+    assert rep["detector_fires"] == {"study_sig": {"legacy": [], "dev": []},
+                                     "cdisc_sig": {"legacy": [], "dev": []}}
+    assert rep["rules"]["c_both_signals_alive_detect"]["pass"] is False
+
+
+def test_simulate_refuses_a_pred_that_replays_into_a_fallback():
+    """一次静默 fallback 在计数上与一次 widen 无法区分 (模块 docstring 明说)。
+
+    `load_base_preds` 的非法 pred 闸是第一道, 但 `simulate` 可被直接调用 (本文件里就是),
+    而这道闸此前无对照 (finding F-08)。
+    """
+    gold = mk_gold(legacy=[("L1", "cdisc")], dev=[("D1", "study")])
+    with pytest.raises(ValueError, match="fallback"):
+        simulate(gold, {"L1": "nonsense", "D1": "study"}, Silent())
+
+
 def test_gold_both_items_gain_exact_when_widened():
     """widen 的收益面: gold=both 而判成单库的题 (欠账形态) 被拓宽后转正, 且 fatal 减 1。"""
     gold = mk_gold(legacy=[("L1", "cdisc")], dev=[("D1", "both")])
@@ -281,6 +327,24 @@ def test_rule_c_dead_signal_fails():
     assert rep["accepted"] is False
 
 
+def test_rule_c_fails_when_only_one_of_the_two_signals_is_alive():
+    """上一条用的 `Silent()` 让**两个**信号都死 —— `any` 与 `all` 同为 False, 于是
+    「只死一个信号」这个真正的判别形态从未被量 (finding F-08)。
+
+    本条只让 cdisc_sig 活着且不产生任何拓宽 ⇒ (a)(b) 都过, 只有 (c) 该拦, accepted 因此
+    也跟着翻 —— `all`→`any` 在这一格上会把一版半死的词表判成合格。
+    """
+    gold = [{**g, "question": g["id"]} for g in
+            mk_gold(legacy=[("L1", "cdisc")], dev=[("D1", "study")])]
+    rep = simulate(gold, {"L1": "cdisc", "D1": "study"}, OnlyCdiscSigAlive())
+    c = rep["rules"]["c_both_signals_alive_detect"]
+    assert c["counts"] == {"study_sig": 0, "cdisc_sig": 1}
+    assert c["pass"] is False
+    assert rep["rules"]["a_legacy_exact_not_lower"]["pass"] is True
+    assert rep["rules"]["b_dev_exact_drop_le_1"]["pass"] is True
+    assert rep["accepted"] is False
+
+
 def test_accepted_requires_all_three_rules():
     """两个信号探针都活着 + 零 widen ⇒ 三条全过。这是标定的目标形态。"""
     gold = mk_gold(legacy=[("L1", "cdisc")], dev=[("D1", "study")])
@@ -320,3 +384,40 @@ def test_report_carries_no_question_text():
     gold = mk_gold(legacy=[("L1", "cdisc")], dev=[("D1", "study")])
     rep = simulate(gold, {"L1": "cdisc", "D1": "study"}, FiresBothDirections())
     assert QMARK not in json.dumps(rep, ensure_ascii=False)
+
+
+# ── ⑦ CLI: 落盘产物与出口 rc ────────────────────────────────────────
+
+def _stub_cli(monkeypatch, tmp_path, stub):
+    """main() 的两个外部依赖 (真 gold / 真信号层) 换成合成件; 返回 baseline run 路径。"""
+    gold = [{**g, "question": g["id"]} for g in
+            mk_gold(legacy=[("L1", "cdisc")], dev=[("D1", "study")])]
+    monkeypatch.setattr(calib, "load_gold", lambda: gold)
+    monkeypatch.setattr(calib, "build_signals", lambda settings: stub)
+    return str(mk_run({"L1": ("legacy", "cdisc", "cdisc"), "D1": ("dev", "study", "study")},
+                      tmp_path / "run.json"))
+
+
+def test_json_out_excludes_the_intermediate_sim_preds(tmp_path, monkeypatch, capsys):
+    """`sim_preds` 是逐题中间量, 而 --json-out 的产物是要贴进 evidence 的证据件。"""
+    run = _stub_cli(monkeypatch, tmp_path, Silent())
+    out = tmp_path / "report.json"
+    main(["--baseline", run, "--json-out", str(out)])
+    capsys.readouterr()
+    saved = json.loads(out.read_text(encoding="utf-8"))
+    assert "sim_preds" not in saved
+    assert saved["rules"] and saved["by_group"]["legacy"]["n"] == 1
+    assert QMARK not in out.read_text(encoding="utf-8")
+
+
+@pytest.mark.parametrize("stub,accepted,rc", [
+    (Silent(), False, 1),
+    (AliveBothWaysNeverWidens(), True, 0),
+])
+def test_main_rc_follows_accepted(tmp_path, monkeypatch, capsys, stub, accepted, rc):
+    """标定台的**出口 rc** 是复跑 / CI 判断"这版词表被采纳了没有"的唯一信号 ——
+    与 accepted 脱钩 (恒 0) 时屏幕上照样打着 `accepted = False` 而 rc 说通过 (finding F-08)。
+    """
+    run = _stub_cli(monkeypatch, tmp_path, stub)
+    assert main(["--baseline", run]) == rc
+    assert f"accepted = {accepted}" in capsys.readouterr().out

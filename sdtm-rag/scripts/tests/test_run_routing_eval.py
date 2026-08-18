@@ -660,6 +660,55 @@ def test_nonstandard_runs_flag_suppresses_stability_and_forces_nonzero_rc(
     assert "非三遍纪律" in out
 
 
+def test_nonstandard_flag_still_forces_nonzero_rc_at_three_runs(
+        tmp_path, monkeypatch, capsys):
+    """守卫是**合取**: `--runs 3 --allow-nonstandard-runs` 这个组合此前无人守 —— 上一条
+    用的是 `--runs 1`, 于是 `args.runs >= 3` 半单独就够, 丢掉 allow 半全绿 (finding F-14)。
+
+    调试口的承诺是「打开就不作数」: 不打稳定性行 + rc 恒非 0。wrong_id 取 final 组那题,
+    正常三遍下它 rc=0 ⇒ 这里的 rc=1 只可能是这个 flag 强制的。
+    """
+    _, _, rc, out = _run_main(tmp_path, monkeypatch, capsys, "docs_v1_q15",
+                              argv=("--runs", "3", "--allow-nonstandard-runs"))
+    assert rc == 1, "调试 flag 开着时 rc 必须非 0, 否则那批数字会被当成正规三遍引用"
+    assert "stability:" not in out
+    assert "非三遍纪律" in out
+
+
+def test_stability_counts_only_ids_that_agree_across_all_three_runs(
+        tmp_path, monkeypatch, capsys):
+    """`stability: N/M` 是要被引用的取证数字, 而此前只断言过那行**在场** (finding F-09)。
+
+    判据改成恒真后这行永远打满分 —— 一个恒报 100% 的稳定性仪器, 全绿。故本条造一道
+    三遍判定不一致的题, 断言 N 真的少了 1。
+    """
+    _wire_u3(tmp_path, monkeypatch)
+    monkeypatch.setattr(run_routing_eval, "RUNS_DIR", tmp_path / "runs")
+    monkeypatch.setattr(run_routing_eval, "LEGACY_EXACT_FLOOR", 3)
+    monkeypatch.setattr(run_routing_eval, "create_router", lambda settings: object())
+    gold = run_routing_eval.load_gold()
+    by_question = {g["question"]: g["gold"] for g in gold}
+    # final 组那题来回翻: 它不计入 fatal, 故 rc 不被这条不稳定性带偏
+    flappy = next(g["question"] for g in gold if g["id"] == "docs_v1_q15")
+    seq = iter(("cdisc", "study", "cdisc"))
+    monkeypatch.setattr(federation, "route_corpus", lambda llm, question: (
+        (next(seq) if question == flappy else by_question[question]), 0))
+    run_routing_eval.main(["--runs", "3"])
+    out = capsys.readouterr().out
+    n = len(gold)
+    assert f"stability: {n - 1}/{n} " in out
+
+
+def test_supplement_gold_empty_file_raises(tmp_path):
+    """docs 侧的同款守卫有锚 (`test_trimmed_u1_doc_set_raises`), 补充 gold 这边没有
+    (finding F-14)。空文件 / 全被注释掉时 yaml 返回 None, `or []` 会把它变成静默的空集,
+    闸就这么悄悄变松了。"""
+    p = tmp_path / "supp.yml"
+    p.write_text("# 全部被注释掉\n", encoding="utf-8")
+    with pytest.raises(ValueError, match="为空"):
+        run_routing_eval.load_supplement(p)
+
+
 def test_meta_written_and_out_prefix(tmp_path, monkeypatch, capsys):
     """A-3: 每份 run json 顶层带 meta; `--out-prefix` 让基线/改后两批不再互相覆盖.
 
