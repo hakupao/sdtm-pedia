@@ -568,3 +568,79 @@ def test_apply_structured_lookup_noop_when_resolve_empty():
     cosine = [_chunk(f"c{i}", f"c{i}.md") for i in range(20)]
     out = eng._apply_structured_lookup("q", cosine, None, 15, query_embedding=None)
     assert [c.chunk_id for c in out] == [f"c{i}" for i in range(15)]
+
+
+# ── G1: strong_hit (U6 判库信号层专用) + resolve 行为不变 ─────────────────
+#
+# `strong_hit` 与 `resolve` 共用 `_channel_hits` 一处实现。共用是为了不漂移, 代价是
+# 重构动了 resolve 的内脏 —— 故这里既钉新方法的通道语义, 也钉 resolve 的合并顺序
+# (跨通道去重 + 总 cap 截断这两件事最容易在重构里悄悄变形)。
+
+# ALPHA/BETA 段各 10 张 (> _MAX_CARDS_PER_MATCH) ⇒ 单 token 被 cap 挡掉, 唯有交集落在
+# cap 内; SOLO 段 1 张 ⇒ 只有 ②b 命中; 另留一张长 label 卡走 ①。
+_G1_CATALOG = {"study": "stx", "items": [
+    *[_item("FRM_A", f"ALPHA_{i}", f"偽甲ラベル{i}") for i in range(9)],
+    *[_item("FRM_A", f"BETA_{i}", f"偽乙ラベル{i}") for i in range(9)],
+    _item("FRM_A", "ALPHA_BETA", "偽丙ラベル交差"),
+    _item("FRM_B", "SOLO_X", "偽丁ラベル単独"),
+    _item("FRM_B", "LONELABEL_Y", "偽戊ラベル全文一致"),
+]}
+_G1_ALIASES = [{"term": "偽フォーム呼称", "form": "FRM_B"}]
+
+
+def _g1():
+    return StudyLookup(_G1_CATALOG, aliases=_G1_ALIASES)
+
+
+@pytest.mark.parametrize("channel,query", [
+    ("①  label 全文子串", "偽戊ラベル全文一致はありますか"),
+    ("②a 多 token 段交集", "ALPHA と BETA の関係は?"),
+    ("③  别名 form scope", "偽フォーム呼称について"),
+])
+def test_strong_hit_true_for_each_strong_channel(channel, query):
+    assert _g1().strong_hit(query) is True, channel
+
+
+def test_strong_hit_false_for_the_weak_single_token_channel():
+    """②b 单 token 撞段是弱通道: 对注入层够用 (多召回几张卡), 对判库层不够 ——
+    纯标准题里的 SDTM 变量名会精确撞上本研究 OID 段 (Task 9 实测 6 题误触)。"""
+    lk = _g1()
+    q = "SOLO はどの変数に対応しますか"
+    assert lk.resolve(q).cards, "用例失效: ②b 没命中, 这条就证不了排除的是弱通道"
+    assert lk.strong_hit(q) is False
+
+
+def test_strong_hit_ignores_hits_that_the_cap_already_dropped():
+    """命中集超 cap 在 resolve 里就是"不具判别力, 整体跳过"; 信号层没有理由反倒认它。
+    ALPHA 单段 10 张 > cap ⇒ 既不进 cards, 也不算强信号。"""
+    lk = _g1()
+    assert lk.resolve("ALPHA について").cards == []
+    assert lk.strong_hit("ALPHA について") is False
+
+
+def test_strong_hit_true_when_strong_and_weak_both_hit():
+    # 收紧 ≠ 有弱通道就一票否决 (写成 `not weak` 的实现在这里露馅)
+    assert _g1().strong_hit("偽戊ラベル全文一致 と SOLO について") is True
+
+
+@pytest.mark.parametrize("query,expected", [
+    # ②a 交集 (ALPHA∩BETA; 两个单段各 10 张均超 cap) 在 label 子串之前
+    ("ALPHA と BETA と 偽戊ラベル全文一致 の話",
+     ["stx__FRM_A__ALPHA_BETA.md", "stx__FRM_B__LONELABEL_Y.md"]),
+    # ②b 单 token (SOLO) 同样在 label 子串之前
+    ("SOLO と 偽戊ラベル全文一致 の話",
+     ["stx__FRM_B__SOLO_X.md", "stx__FRM_B__LONELABEL_Y.md"]),
+])
+def test_resolve_puts_segment_hits_before_label_substring(query, expected):
+    """跨通道合并顺序 (段级 → label) + 首次出现去重 —— G1 重构最易碰坏的地方。
+    顺序即优先级: 末尾按总 cap 截断时, 段级精确命中不该被 label 子串挤掉。
+    (②a 先于 ②b 已由 test_intersection_is_enqueued_before_single_token_hits 钉住。)"""
+    assert _g1().resolve(query).cards == expected
+
+
+def test_resolve_total_cap_still_truncates_after_the_refactor():
+    # 9 张同 label 家族 + 别的通道, 总量必须仍被 _MAX_CARDS_TOTAL 截断
+    cat = {"study": "stx", "items": [
+        _item("FRM_C", f"FAM_{i}", "偽共通ラベル") for i in range(12)
+    ]}
+    assert len(StudyLookup(cat).resolve("偽共通ラベルの話").cards) <= _MAX_CARDS_TOTAL

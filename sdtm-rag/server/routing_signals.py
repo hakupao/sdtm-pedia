@@ -4,8 +4,9 @@
 捕获不到 (`route_corpus` 只在异常时兜底), 表现为该题 recall 直接归零。本层用两侧各自
 已有的确定性件, 在 router 判定之后做一次纠偏, 且**只做 单库 → both**:
 
-- **study 侧信号** (cdisc → both): `StudyLookup.resolve` 结构命中 (label 子串 / OID 段 /
-  别名三通道, Plan B Phase 2 的确定性件, 零 LLM)。
+- **study 侧信号** (cdisc → both): `StudyLookup.strong_hit` —— S2 的**强**通道命中
+  (① label 全文子串 / ②a 多 token 段交集 / ③ 别名 form_scope; Plan B Phase 2 的确定性件,
+  零 LLM)。弱通道 ②b (单 token 撞 OID 段) 刻意不作依据, 见 G1 段与 `strong_hit` 的 docstring。
 - **cdisc 侧信号** (study → both): 标准结构词汇 + CT 码形态 + SDTM 变量形态的词面命中。
 
 只加宽的理由与 `route_corpus` 的兜底同向 (宁可多查不可漏查): 信号判错的最坏代价是多查
@@ -18,12 +19,12 @@ recall 归零且不可恢复。
 **零临床概念** —— 临床词一进来, 本层就从"结构信号"退化成"题面关键词命中", 那正是 U3
 判死过的路子。
 
-⚠ **未解阻断** (Task 9 §5, 交 controller): 上面 study 侧那条"`resolve` 有任何命中即算信号"
-在可见集上误触 6 道纯标准题 (150 道 cdisc 判定题的 4.0%), 每触 −1 exact ⇒ 模拟 legacy
-exact 173 < 冻结阈值 178。误触 6/6 全部来自 `resolve` 的通道②b (单个大写 token 撞上某个
-item OID 段) —— 本研究 EDC 的 OID 段沿用 SDTM 风味命名, 于是一道纯标准题里的变量名会精确
-撞段。收紧到强通道 (① label / ②a 多 token 交集 / ③ 别名) 的反事实已实测: 可见集 widen 0 次、
-两信号仍活。该改动**不是**词表改动, 不在 Task 9 旋钮内, 故未做。
+⚠ **G1 (Task 9 阻断的解法, controller 裁定后实施)**: study 侧原为"`resolve` 有任何命中即算
+信号", 在可见集上误触 6 道纯标准题 (150 道 cdisc 判定题的 4.0%), 每触 −1 exact ⇒ 模拟
+legacy exact 173 < 冻结阈值 178。误触 6/6 全部来自 `resolve` 的通道②b (单个大写 token 撞上
+某个 item OID 段) —— 本研究 EDC 的 OID 段沿用 SDTM 风味命名, 于是一道纯标准题里的变量名会
+精确撞段。现已收紧为 `StudyLookup.strong_hit` (①/②a/③, 不含 ②b); `resolve` 本身逐位不变
+(S2 注入面零改动), 判据与证据见 `strong_hit` docstring 与 task-8-report.md §G1。
 """
 from __future__ import annotations
 
@@ -153,10 +154,12 @@ class RoutingSignals:
         self.study_lookup = study_lookup
 
     def _study_signal(self, question: str) -> bool:
-        r = self.study_lookup.resolve(question)
-        # form_scopes 也算命中: 通道③ (别名 → form scope) 不产 cards, 只看 cards
-        # 会让别名命中这一整条通道对信号层静默失效。
-        return bool(r.cards or r.form_scopes)
+        # 强通道 (① label 子串 / ②a 多 token 段交集 / ③ 别名 form_scope) 才算依据。
+        # 弱通道 ②b (单个大写 token 撞 OID 段) 被 StudyLookup.strong_hit 排除在外 ——
+        # 判据在那里 (G1): 本研究 OID 段是 SDTM 风味命名, 纯标准题里的变量名会精确撞段,
+        # Task 9 可见集实测 6 题误触, 全出自这条弱通道。
+        # 注意通道③ 不产 cards, 只看卡片会让别名命中整条对信号层失效, 故它算强通道。
+        return self.study_lookup.strong_hit(question)
 
     def _cdisc_signal(self, question: str) -> bool:
         q = _nfkc(question)

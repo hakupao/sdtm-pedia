@@ -26,19 +26,26 @@ from server.routing_signals import (
     _norm,
     build_signals,
 )
-from server.study_lookup import StudyLookupResult
+from server.study_lookup import StudyLookup, StudyLookupResult
 
 
 class FakeLookup:
-    """S2 契约桩: resolve(query) -> StudyLookupResult。calls 用来证"没被问过"。"""
+    """S2 契约桩: strong_hit(query) -> bool (G1 后信号层只问这一个)。
 
-    def __init__(self, cards=(), form_scopes=()):
-        self.cards, self.form_scopes = list(cards), list(form_scopes)
+    刻意也实现 `resolve` 并在被调用时炸: 信号层若退回 `resolve()`, 弱通道 ②b 就又成了
+    widen 依据 —— 而那正是 Task 9 量到的 6 题误触来源。calls 用来证"没被问过"。
+    """
+
+    def __init__(self, strong=False):
+        self.strong = strong
         self.calls: list[str] = []
 
-    def resolve(self, query: str) -> StudyLookupResult:
+    def strong_hit(self, query: str) -> bool:
         self.calls.append(query)
-        return StudyLookupResult(cards=list(self.cards), form_scopes=list(self.form_scopes))
+        return self.strong
+
+    def resolve(self, query: str) -> StudyLookupResult:
+        raise AssertionError("信号层不许走 resolve() —— 弱通道 ②b 会重新变成 widen 依据")
 
 
 def _item(form, oid, label):
@@ -52,15 +59,9 @@ CATALOG = {"study": "stx", "items": [_item("FRM_A", "GRP_TOX", "偽ラベル甲�
 # ── ① 方向 ──────────────────────────────────────────────────────────
 
 def test_study_signal_fires_on_lookup_hit():
-    sl = FakeLookup(cards=["stx__FRM_A__GRP_TOX.md"])
+    sl = FakeLookup(strong=True)
     s = RoutingSignals(sl)
     assert s.widen_reason("cdisc", "偽ラベル甲その一はありますか") == "study_sig"
-
-
-def test_study_signal_fires_on_form_scope_only():
-    """通道③ (别名→form scope) 不产 cards。只看 cards 会让别名命中整条静默失效。"""
-    s = RoutingSignals(FakeLookup(form_scopes=["FRM_A"]))
-    assert s.widen_reason("cdisc", "偽フォームの話") == "study_sig"
 
 
 def test_study_signal_silent_when_lookup_misses():
@@ -72,7 +73,7 @@ def test_study_signal_silent_when_lookup_misses():
 def test_study_routed_question_never_consults_the_lookup():
     """routed=study 时 study 信号毫无意义 (它只会把 study 拓宽成 study)。
     真去问一遍不会让任何断言变红 —— 但那说明方向没写对, 且白烧一次全表扫描。"""
-    sl = FakeLookup(cards=["stx__FRM_A__GRP_TOX.md"])
+    sl = FakeLookup(strong=True)
     assert RoutingSignals(sl).widen_reason("study", "この項目の入力方法は?") is None
     assert sl.calls == []
 
@@ -82,29 +83,82 @@ def test_cdisc_signal_fires_on_struct_terms():
     assert s.widen_reason("study", "この項目は SDTM のどの変数にマッピングされますか") == "cdisc_sig"
 
 
+# ── G1: 强/弱通道 (拿**真** StudyLookup 跑, 桩证不了通道的事) ──────────
+#
+# 合成 catalog 刻意造出四条通道各自的判别用例 (零真名, 红线同 test_study_lookup.py):
+#   ALPHA / BETA 段各 10 张卡 (> _MAX_CARDS_PER_MATCH=8) ⇒ 单 token 命中被 cap 挡掉,
+#   只有两段的交集 (唯一那张 ALPHA_BETA 卡) 落在 cap 内 ⇒ ②a 单独可判别;
+#   SOLO 段只 1 张卡 ⇒ ②b 单独可判别 (它正是要被排除的弱通道)。
+
+_G1_CATALOG = {"study": "stx", "items": [
+    *[_item("FRM_A", f"ALPHA_{i}", f"偽甲ラベル{i}") for i in range(9)],
+    *[_item("FRM_A", f"BETA_{i}", f"偽乙ラベル{i}") for i in range(9)],
+    _item("FRM_A", "ALPHA_BETA", "偽丙ラベル交差"),
+    _item("FRM_B", "SOLO_X", "偽丁ラベル単独"),
+    _item("FRM_B", "LONELABEL_Y", "偽戊ラベル全文一致"),
+]}
+_G1_ALIASES = [{"term": "偽フォーム呼称", "form": "FRM_B"}]
+
+
+def _g1_signals():
+    return RoutingSignals(StudyLookup(_G1_CATALOG, aliases=_G1_ALIASES))
+
+
+@pytest.mark.parametrize("channel,question", [
+    ("① label 全文子串", "偽戊ラベル全文一致はありますか"),
+    ("②a 多 token 段交集", "ALPHA と BETA の関係は?"),
+    ("③ 别名 form scope", "偽フォーム呼称について教えてください"),
+])
+def test_strong_channels_fire_the_study_signal(channel, question):
+    assert _g1_signals().widen_reason("cdisc", question) == "study_sig", channel
+
+
+def test_weak_single_token_channel_does_not_fire_the_study_signal():
+    """G1 的整条理由: ②b (单个大写 token 撞 OID 段) 不作 widen 依据。
+
+    本研究 EDC 的 OID 段沿用 SDTM 风味命名, 于是一道**纯标准题**里的变量名会精确撞段
+    —— Task 9 可见集实测 6 道纯标准题因此被误拓宽, 每题 −1 exact。
+    """
+    lk = StudyLookup(_G1_CATALOG, aliases=_G1_ALIASES)
+    q = "SOLO はどの変数に対応しますか"
+    # 非空断言先钉住"这条用例不是空跑": ②b 确实命中了 (旧口径会 fire), 只是不再算依据
+    assert lk.resolve(q).cards, "用例失效: ②b 根本没命中, 这条测试证不了收紧"
+    assert lk.strong_hit(q) is False
+    assert RoutingSignals(lk).widen_reason("cdisc", q) is None
+
+
+def test_strong_channel_still_fires_when_the_weak_one_also_hits():
+    """收紧不是"有弱通道就一票否决": 强弱同时命中时照常 fire。
+    写成 `not weak` 的实现会在这里露馅, 而只测纯强通道的用例看不见。"""
+    lk = StudyLookup(_G1_CATALOG, aliases=_G1_ALIASES)
+    q = "偽戊ラベル全文一致 と SOLO について"
+    assert lk.resolve(q).cards
+    assert RoutingSignals(lk).widen_reason("cdisc", q) == "study_sig"
+
+
 # 方向表四格全钉 (修复环 1 I-1)。对角线 (判定 ← 对侧信号) 才拓宽; 反对角线 (判定 ←
 # 同侧信号) 必须沉默 —— 同侧信号对每道 router 判对的单库题都成立, 认它等于把 auto 档
 # 整体推成 both, 而这条错法在只测"该 fire 的格"时全绿。
-_STUDY_HIT = ["stx__FRM_A__GRP_TOX.md"]
+_STUDY_HIT = True     # FakeLookup.strong_hit 的返回
 _CDISC_Q = "SDTM のどの変数ですか"        # 只有 cdisc 信号
 _PLAIN_Q = "この項目の入力方法は?"          # 两侧信号都没有 (lookup 桩空)
 
 
-@pytest.mark.parametrize("routed,cards,question,expected", [
+@pytest.mark.parametrize("routed,strong,question,expected", [
     ("cdisc", _STUDY_HIT, _PLAIN_Q, "study_sig"),   # 对角: cdisc 判定 + study 信号 → 拓宽
-    ("study", [],         _CDISC_Q, "cdisc_sig"),   # 对角: study 判定 + cdisc 信号 → 拓宽
-    ("cdisc", [],         _CDISC_Q, None),          # 反对角: cdisc 判定 + cdisc 信号 → 沉默
+    ("study", False,      _CDISC_Q, "cdisc_sig"),   # 对角: study 判定 + cdisc 信号 → 拓宽
+    ("cdisc", False,      _CDISC_Q, None),          # 反对角: cdisc 判定 + cdisc 信号 → 沉默
     ("study", _STUDY_HIT, _PLAIN_Q, None),          # 反对角: study 判定 + study 信号 → 沉默
 ])
-def test_direction_table_all_four_cells(routed, cards, question, expected):
-    s = RoutingSignals(FakeLookup(cards=cards))
+def test_direction_table_all_four_cells(routed, strong, question, expected):
+    s = RoutingSignals(FakeLookup(strong=strong))
     assert s.widen_reason(routed, question) == expected
 
 
 def test_direction_table_matches_the_contract_map():
     """信号层的实际方向必须与 `WIDEN_REASON_BY_CORPUS` (decide_corpus 用它校验) 一致。
     两处各写各的, 症状是信号层每次 fire 都被判成 wrong_direction 而整层静默失效。"""
-    s = RoutingSignals(FakeLookup(cards=_STUDY_HIT))
+    s = RoutingSignals(FakeLookup(strong=_STUDY_HIT))
     assert s.widen_reason("cdisc", _PLAIN_Q) == WIDEN_REASON_BY_CORPUS["cdisc"]
     assert RoutingSignals(FakeLookup()).widen_reason("study", _CDISC_Q) == \
         WIDEN_REASON_BY_CORPUS["study"]
@@ -152,14 +206,14 @@ def test_cdisc_signal_stays_silent_on_non_standard_shapes(q):
 @pytest.mark.parametrize("routed", ["both", "auto", "", "cdisc_sig"])
 def test_widen_only_never_fires_outside_the_two_single_corpora(routed):
     """widen-only: both 已是最宽; 其余取值是调用方出错, 信号层一律沉默 (绝不换库)。"""
-    sl = FakeLookup(cards=["stx__FRM_A__GRP_TOX.md"])
+    sl = FakeLookup(strong=True)
     assert RoutingSignals(sl).widen_reason(routed, "SDTM のどの変数ですか") is None
     assert sl.calls == []
 
 
 def test_every_fired_reason_is_whitelisted():
     hits = [
-        RoutingSignals(FakeLookup(cards=["x.md"])).widen_reason("cdisc", "偽ラベル"),
+        RoutingSignals(FakeLookup(strong=True)).widen_reason("cdisc", "偽ラベル"),
         RoutingSignals(FakeLookup()).widen_reason("study", "SDTM のどの変数ですか"),
     ]
     assert hits and all(h in WIDEN_REASONS for h in hits)
@@ -177,7 +231,7 @@ def test_whitelist_is_frozen_and_ordered():
     ("study", "この項目の入力方法は?", None),
 ])
 def test_deterministic(routed, question, expected):
-    s = RoutingSignals(FakeLookup(cards=["x.md"]))
+    s = RoutingSignals(FakeLookup(strong=True))
     assert {s.widen_reason(routed, question) for _ in range(100)} == {expected}
 
 
@@ -225,7 +279,7 @@ def test_build_signals_tolerates_a_missing_alias_table(tmp_path):
 def test_build_signals_reuses_a_given_lookup_without_touching_disk(tmp_path):
     """生产侧必须复用 lifespan 已构造的那一份 S2 —— 再造一份等于把同一份 catalog
     读两遍并各持一份索引, 而两份可以来自不同文件 (路径 override 只改一处时)。"""
-    sl = FakeLookup(cards=["x.md"])
+    sl = FakeLookup(strong=True)
     s = build_signals(Settings(study_catalog_path=tmp_path / "nope.json"), study_lookup=sl)
     assert s.study_lookup is sl
     assert s.widen_reason("cdisc", "q") == "study_sig"

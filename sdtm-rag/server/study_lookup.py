@@ -47,6 +47,16 @@ class StudyLookupResult:
     form_scopes: list[str] = field(default_factory=list)
 
 
+@dataclass
+class _ChannelHits:
+    """四条通道各自的命中 (cap 过滤后, 未合并未去重未截断)。内部件, 别当公开契约用。"""
+
+    intersection: list[str] = field(default_factory=list)   # ②a 多 token 段交集 (强)
+    single_token: list[str] = field(default_factory=list)   # ②b 单 token 段命中 (弱)
+    label: list[str] = field(default_factory=list)          # ① label 子串 + 家族 (强)
+    form_scopes: list[str] = field(default_factory=list)    # ③ 别名 → form scope (强)
+
+
 class StudyLookup:
     def __init__(self, catalog: dict, aliases: list[dict] | None = None):
         self.study_id = catalog["study"]
@@ -82,36 +92,38 @@ class StudyLookup:
                 if len(seg) >= _MIN_SEG_LEN:
                     self._segment_index[seg].append(src)
 
-    def resolve(self, query: str) -> StudyLookupResult:
+    def _channel_hits(self, query: str) -> _ChannelHits:
+        """四条通道各自的命中 (均已按 cap 过滤), 未合并未截断。
+
+        拆出来只为让"哪条通道命中了"有**一处**定义: `resolve` 要四条按序去重的并集,
+        U6 信号层只要强通道 (见 `strong_hit`)。两处各写一份筛选就会各自漂移, 而漂移的
+        症状是静默的 (信号层照常 fire, 只是 fire 的依据与 resolve 注入的卡不是一回事)。
+        """
         qn = _norm(query)
-        cards: list[str] = []
 
-        def add(src: str) -> None:
-            if src not in cards:
-                cards.append(src)
-
-        # ② 先入队: 段级精确命中的信号强度高于 label 子串, 末尾按总 cap 截断时不该被子串挤掉
+        # ② 段级精确命中的信号强度高于 label 子串, 末尾按总 cap 截断时不该被子串挤掉
         tokens = list(dict.fromkeys(_LATIN_TOKEN_RE.findall(query)))
 
         # ②a 多 token 交集 (合取: 同时提到多个段 → 同属这些段的卡最相关)。交集恒 ⊆ 各单
         #     token 集合, 只会更窄, 与 cap"集合太大=不具判别力"同向, 故沿用同一 cap 且
         #     比单 token 更精确 → 排在 ②b 之前。任一 token 段命中为空则交集为空 = 不 fire。
+        intersection: list[str] = []
         if len(tokens) >= 2:
             hit_sets = [self._segment_index.get(t, []) for t in tokens]
             others = [set(h) for h in hit_sets[1:]]
             inter = [s for s in hit_sets[0] if all(s in o for o in others)]
             if 1 <= len(inter) <= _MAX_CARDS_PER_MATCH:
-                for s in inter:
-                    add(s)
+                intersection = inter
 
         # ②b 单 token → 该段卡集合 (集合超 cap = 不具判别力, 跳过)
+        single_token: list[str] = []
         for tok in tokens:
             hits = self._segment_index.get(tok, [])
             if 1 <= len(hits) <= _MAX_CARDS_PER_MATCH:
-                for s in hits:
-                    add(s)
+                single_token.extend(hits)
 
         # ① label 全文子串 → 卡 + OID 首段家族 (歧义超 cap 整体跳过)
+        label: list[str] = []
         for ln, srcs in self._label_index.items():
             if ln not in qn:
                 continue
@@ -121,8 +133,7 @@ class StudyLookup:
                     if member not in expanded:
                         expanded.append(member)
             if len(expanded) <= _MAX_CARDS_PER_MATCH:
-                for s in expanded:
-                    add(s)
+                label.extend(expanded)
 
         # ③ 别名 → form scope (注入层做域内 cosine top-N; 词面排序对该类实测失效)
         scopes: list[str] = []
@@ -130,7 +141,32 @@ class StudyLookup:
             if a["term"] in qn and a["form"] not in scopes:
                 scopes.append(a["form"])
 
-        return StudyLookupResult(cards=cards[:_MAX_CARDS_TOTAL], form_scopes=scopes)
+        return _ChannelHits(intersection=intersection, single_token=single_token,
+                            label=label, form_scopes=scopes)
+
+    def resolve(self, query: str) -> StudyLookupResult:
+        h = self._channel_hits(query)
+        cards: list[str] = []
+        # 入队顺序 = ②a → ②b → ①, 首次出现为准; 总 cap 在最后截断 (顺序即优先级)
+        for src in (*h.intersection, *h.single_token, *h.label):
+            if src not in cards:
+                cards.append(src)
+        return StudyLookupResult(cards=cards[:_MAX_CARDS_TOTAL], form_scopes=h.form_scopes)
+
+    def strong_hit(self, query: str) -> bool:
+        """强通道 (①/②a/③) 是否命中 —— U6 判库信号层专用, 不影响 `resolve` 的注入。
+
+        弱通道 ②b (单个大写 token 撞上某个 item OID 段) 刻意排除: 本研究 EDC 的 OID 段
+        沿用 SDTM 风味命名, 于是一道**纯标准题**里的变量名 (AESEV 之类) 会精确撞段。
+        对注入层那是廉价的多召回几张卡, 对判库层却是把 cdisc 判定错误地拓宽成 both ——
+        Task 9 可见集标定实测 6 道纯标准题误触, 全部出自这条通道 (每触 −1 exact,
+        模拟 legacy 173 < 阈值 178, 见 evidence/u6_task9_calibration.md §5)。
+
+        用的是**cap 过滤后**的命中: 命中集超 cap 在 resolve 里就是"不具判别力, 整体跳过",
+        没有理由在信号层反倒算作依据。
+        """
+        h = self._channel_hits(query)
+        return bool(h.intersection or h.label or h.form_scopes)
 
     def stats(self) -> str:
         """加载规模一行摘要, 供启动日志与评测回执共用。
