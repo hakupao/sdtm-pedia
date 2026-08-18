@@ -12,10 +12,18 @@
 一库 (挤占面, 由条款 4/7 exact 半 + 答题侧 spot-check 看住), 而收窄判错的代价是某题
 recall 归零且不可恢复。
 
-⚠ 本文件的词表与正则是**标定起点**, 不是终态: Task 9 只拿可见集 (legacy 181 + dev 12)
-标定并冻结, 冻结 commit 之后不许再动 (held-out / amb / final 组全程封存, U3 §6.2 三道
-防线)。词表纪律 (红线, 同 U3 §6.1): 只许标准结构词汇, **零临床概念** —— 临床词一进来,
-本层就从"结构信号"退化成"题面关键词命中", 那正是 U3 判死过的路子。
+⚠ 词表与正则已由 Task 9 在可见集 (legacy 181 + dev 12) 上标定并**冻结**, 此后不许再动
+(held-out / amb / final 组全程封存, U3 §6.2 三道防线); 证据与轮次表见
+`evidence/u6_task9_calibration.md`。词表纪律 (红线, 同 U3 §6.1): 只许标准结构词汇,
+**零临床概念** —— 临床词一进来, 本层就从"结构信号"退化成"题面关键词命中", 那正是 U3
+判死过的路子。
+
+⚠ **未解阻断** (Task 9 §5, 交 controller): 上面 study 侧那条"`resolve` 有任何命中即算信号"
+在可见集上误触 6 道纯标准题 (150 道 cdisc 判定题的 4.0%), 每触 −1 exact ⇒ 模拟 legacy
+exact 173 < 冻结阈值 178。误触 6/6 全部来自 `resolve` 的通道②b (单个大写 token 撞上某个
+item OID 段) —— 本研究 EDC 的 OID 段沿用 SDTM 风味命名, 于是一道纯标准题里的变量名会精确
+撞段。收紧到强通道 (① label / ②a 多 token 交集 / ③ 别名) 的反事实已实测: 可见集 widen 0 次、
+两信号仍活。该改动**不是**词表改动, 不在 Task 9 旋钮内, 故未做。
 """
 from __future__ import annotations
 
@@ -54,9 +62,76 @@ CDISC_STRUCT_TERMS = (
 # 那个位置上 \b 不成立 —— 整条正则会在真实题面上静默失灵 (study_lookup.py 同一坑)。
 # 只把 ASCII 字母/数字/下划线当作阻断邻居。
 _CT_CODE_RE = re.compile(r"(?<![A-Za-z0-9_])C\d{5,6}(?![A-Za-z0-9_])")      # NCI C-code
-# SDTM 变量形态 (如 AESEV): 4-8 位大写拉丁。两字母裸域码 (DM/AE/VS) 刻意不收 —— 它们
-# 在日文题面里与缩写噪声不可分, 收进来等于对一大批题无条件拓宽。
-_DOMAIN_VAR_RE = re.compile(r"(?<![A-Za-z0-9_])[A-Z]{4,8}(?![A-Za-z0-9_])")
+# SDTM 变量形态 (如 AESEV): 锚定到**公开标准的词表**, 不是"任意 4-8 位大写"。
+# 起点版 (Task 8) 写的是 [A-Z]{4,8}, 它在 study 侧题面上大量误触 —— 试验缩写 (方案名 /
+# 評価尺度名 / システム名) 与 NFKC 把罗马数字归一出来的大写串都是 4-8 位大写, 而它们与
+# 标准结构毫无关系。Task 9 可见集标定实测: 起点版在 legacy 的 study 侧题上误触 6 题
+# (证据 evidence/u6_task9_calibration.md §3), 每一触都是 −1 exact。
+#
+# 词源全部是**公开**件 (knowledge_base/, 进 git), 零 study 内容、零临床概念词; 三份表
+# 均由下面这条命令从 VARIABLE_INDEX.md 机械派生, 可逐字复算 (复算命令见 evidence §2):
+#   域码 = 域目录名 ∪ §2 域小节头; 词根 = §2 中以本域域码开头的变量去掉域码后的余段;
+#   单独变量 = §1/§2 全部变量里不被"域码+词根"覆盖且 ≥4 位的那些 (CT 码另由 _CT_CODE_RE 管)。
+# **冻结**: Task 9 标定结束后不许再改 (Task 10 全闸以此版为准)。
+# 两字母域码 (knowledge_base/domains/ 的目录名 ∪ VARIABLE_INDEX.md §2 的域小节头)。
+_SDTM_DOMAIN_CODES = (
+    "AE", "AG", "BE", "BS", "CE", "CM", "CO", "CP", "CV", "DA", "DD", "DI", "DM", "DS", "DV",
+    "EC", "EG", "EX", "FA", "FT", "GF", "HO", "IE", "IS", "LB", "MB", "MH", "MI", "MK", "ML",
+    "MS", "NV", "OE", "OI", "PC", "PE", "PP", "PR", "QS", "RE", "RP", "RS", "SC", "SE", "SM",
+    "SR", "SS", "SU", "SV", "TA", "TD", "TE", "TI", "TM", "TR", "TS", "TU", "TV", "UR", "VS",
+)
+
+# `--` 词根: VARIABLE_INDEX.md §2 里**以本域域码开头**的变量去掉域码后的余段 (≥3 位)。
+# 归属自己域是关键: 按「任意两字母前缀」切会切出 SUBJID→BJID 这类假词根。
+_SDTM_VAR_ROOTS = (
+    "ABCLID", "ACN", "ACNDEV", "ACNOTH", "ACPTFL", "ADJ", "AGENT", "ANCVAR", "ANMETH", "ANTREG",
+    "BDAGNT", "BDSYCD", "BEATNO", "BLFL", "BODSYS", "BRANCH", "CAT", "CELSTA", "CHROM", "CLAS",
+    "CLASCD", "CLSIG", "CNDAGT", "CNTMOD", "COLSRT", "CONC", "CONCU", "CONTRT", "COPYID",
+    "CSMRKS", "DECOD", "DEF", "DIR", "DOSE", "DOSFRM", "DOSFRQ", "DOSRGM", "DOSTOT", "DOSTXT",
+    "DOSU", "DRVFL", "DTC", "DUR", "ELTM", "ENDTC", "ENDY", "ENINT", "ENRF", "ENRL", "ENRTPT",
+    "ENTPT", "EPCHGI", "EVAL", "EVALID", "EVDTYP", "EVINTX", "EVLINT", "FAST", "GATDEF", "GATE",
+    "GENLOC", "GENREF", "GENSR", "GRPID", "HLGT", "HLGTCD", "HLT", "HLTCD", "INDC", "INHERT",
+    "LAT", "LEAD", "LLOD", "LLOQ", "LLT", "LLTCD", "LNKGRP", "LNKID", "LOBXFL", "LOC", "LOINC",
+    "LOT", "MAXPAI", "METHOD", "MINPAI", "MODIFY", "MOOD", "MRKSTR", "MSCBCE", "NAM", "NRIND",
+    "NUMRPT", "OBJ", "OCCUR", "ORDER", "ORNRHI", "ORNRLO", "ORREF", "ORRES", "ORRESU", "OUT",
+    "PARM", "PARMCD", "PARTY", "PATT", "PDUR", "PORTOT", "POS", "PRESP", "PRTYID", "PSTRG",
+    "PSTRGU", "PTCD", "PTFL", "PVRID", "REASND", "REASOC", "REF", "REFID", "REL", "RELNST",
+    "REPNUM", "RESCAT", "RESSCL", "RESTYP", "RFTDTC", "RLDEV", "RLPRC", "RLPRT", "ROUTE", "RPT",
+    "RSDISC", "RUNID", "SBMRKS", "SCAN", "SCAT", "SCONG", "SDISAB", "SDTH", "SEQ", "SEQID",
+    "SER", "SEV", "SHOSP", "SINTV", "SLIFE", "SMIE", "SOC", "SOCCD", "SOD", "SPCCND", "SPCUFL",
+    "SPEC", "SPID", "SPTSTD", "STAT", "STDTC", "STDY", "STINT", "STNRC", "STNRHI", "STNRLO",
+    "STOFF", "STREFC", "STREFN", "STRESC", "STRESN", "STRESU", "STRF", "STRL", "STRTPT",
+    "STTPT", "SYM", "SYMTYP", "TERM", "TEST", "TESTCD", "TGTPAI", "TMTHSN", "TOX", "TOXGR",
+    "TPT", "TPTNUM", "TPTREF", "TRANS", "TRT", "TSTCND", "TSTDTL", "TSTOPO", "TSTPNL", "ULOQ",
+    "UNANT", "UPDES", "VAL", "VALCD", "VALNF", "VCDREF", "VCDVER", "VERS", "XFN",
+)
+
+# 不走 `--` 组合的标准变量 (§1 共通变量 + 各域里前缀非本域码的那些, ≥4 位, 去掉 CT 码)。
+_SDTM_STANDALONE_VARS = (
+    "ACTARM", "ACTARMCD", "ACTARMUD", "AGEU", "ARMCD", "ARMNRS", "BRTHDTC", "BSDY", "CEDY",
+    "CODY", "COUNTRY", "CPDY", "CVDY", "DADY", "DDDY", "DMDY", "DOMAIN", "DSDY", "DTHDTC",
+    "DTHFL", "EGDY", "ELEMENT", "EPOCH", "ETCD", "ETHNIC", "FADY", "FOCID", "FTDY", "GFDY",
+    "HODY", "IDVAR", "IDVARVAL", "IEDY", "INVID", "INVNAM", "ISDY", "LBDY", "LEVEL", "MBDY",
+    "MHDY", "MIDS", "MIDSDTC", "MIDSTYPE", "MIDY", "MKDY", "MLDY", "MSDY", "NHOID", "NVDY",
+    "OEDY", "PARENT", "PCDY", "PEDY", "POOLID", "PPDY", "QEVAL", "QLABEL", "QNAM", "QORIG",
+    "QSDY", "QVAL", "RACE", "RDOMAIN", "REDY", "REFID", "RELID", "RELMIDS", "RELTYPE",
+    "RFCENDTC", "RFCSTDTC", "RFENDTC", "RFICDTC", "RFPENDTC", "RFSTDTC", "RFXENDTC", "RFXSTDTC",
+    "RPDY", "RSDY", "RSUBJID", "SCDY", "SITEID", "SPDEVID", "SPEC", "SRDY", "SREL", "SSDY",
+    "STUDYID", "SUBJID", "TAETORD", "TIRL", "TRDY", "TUDY", "URDY", "USUBJID", "VISIT",
+    "VISITDY", "VISITNUM", "VSDY",
+)
+
+
+def _alt(words: tuple[str, ...]) -> str:
+    """词表 → 正则交替式。长词优先: 短词条先匹上会让尾部的负向前瞻失败 (AESTDTC 先吃到
+    短词根那种), re 照样回溯出同一结果, 排序只是省掉那一轮回溯。"""
+    return "|".join(sorted(words, key=len, reverse=True))
+
+
+_DOMAIN_VAR_RE = re.compile(
+    rf"(?<![A-Za-z0-9_])(?:(?:{_alt(_SDTM_DOMAIN_CODES)})(?:{_alt(_SDTM_VAR_ROOTS)})"
+    rf"|{_alt(_SDTM_STANDALONE_VARS)})(?![A-Za-z0-9_])"
+)
 
 
 def _nfkc(s: str) -> str:
