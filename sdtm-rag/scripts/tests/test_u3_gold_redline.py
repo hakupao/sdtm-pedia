@@ -54,6 +54,17 @@ FINAL = Path("data/study/st01/eval/routing_gold_docs.yml")
 # 而它的文件头注释是给人读的, 不该因为改一句说明就变红。
 DRAFT_SHA256 = "b1373fd81214b11816b817b5c24539fac3e9753c6f1ada7b34f4921b88d94099"
 
+# 用户裁定的 gold 终值覆盖 (出题侧复核 + 用户裁定, 先于 U6 基线冻结; 规则 D 见 evidence 文件)。
+# 加行必须过 code review —— 这正是本表存在的意义: draft 冻结不动, 未登记的偏差照样红。
+# 每条**必须**指向一份进了 git 的裁定证据 (`evidence` 键), 由
+# test_user_ruled_overrides_are_live_and_evidence_backed 逐条核到文件存在且被 git 跟踪:
+# 一个只写在这里、没有证据文件的覆盖 = 把「谁裁定的、凭什么」变回口头约定。
+# 为什么不回改 draft: draft 是 U3 出题方的签名历史件, 回改 = 伪造历史 (DRAFT_SHA256 因此不变)。
+USER_RULED_GOLD_OVERRIDES = {
+    "u3_amb_06": {"from": "both", "to": "study",
+                  "ruled": "2026-08-18", "evidence": "evidence/u6_amb_gold_review.md"},
+}
+
 _REQUIRED = ("id", "question", "gold", "chapter")
 
 
@@ -75,6 +86,14 @@ def _question_digests(path: Path) -> dict[str, str]:
     """题面 → 摘要。失败时 pytest 打的是 id + 十六进制, 不是手順書原文 (见文件头 ⚠ 第 1 条)。"""
     return {x["id"]: hashlib.sha256(x["question"].encode("utf-8")).hexdigest()[:16]
             for x in _load(path)}
+
+
+def _gold_by_id(path: Path) -> dict[str, str]:
+    """id → gold。draft 侧没有 group 键 (group 由划分规则产生), 故不能借 _routing_fields。
+
+    **只收 Path** 且只交回投影 (见文件头 ⚠ 第 2 条): 题面不进返回值, 也不进调用方的局部。
+    """
+    return {x["id"]: x["gold"] for x in _load(path)}
 
 
 def _routing_fields(path: Path) -> list[tuple]:
@@ -103,9 +122,30 @@ def _deterministic_split(draft_path: Path) -> list[dict]:
 
 
 def _expected_routing_fields(draft_path: Path) -> list[tuple]:
-    """规则作用在 draft 上应当产出的字段投影。中间的 list[dict] 不跨函数边界。"""
-    return [(x["id"], x["gold"], x["group"], int(x["chapter"]))
-            for x in _deterministic_split(draft_path)]
+    """规则作用在 draft 上应当产出的字段投影, 再叠加 USER_RULED_GOLD_OVERRIDES。
+
+    覆盖**只改 gold, 不重跑划分规则**, 也不在划分之前动 draft ——
+    amb_06 的 gold 从 both 变 study 后, 若把它喂回 _deterministic_split,
+    它会被当成一道 study 手順書题挤进 dev/heldout 的隔位轮转, 把其后所有题的
+    dev/heldout 归属整体错位一格。用户裁定改的是这题的**判库答案**, 不是它属于哪一组
+    (FINAL 里它的 group 仍是 ambiguous_both), 故覆盖发生在划分之后。
+
+    中间的 list[dict] 不跨函数边界 (见文件头 ⚠ 第 2 条); 这里流转的是已投影的元组, 不含题面。
+    """
+    out = []
+    for x in _deterministic_split(draft_path):
+        i, gold, group, chapter = x["id"], x["gold"], x["group"], int(x["chapter"])
+        rule = USER_RULED_GOLD_OVERRIDES.get(i)
+        if rule is not None:
+            # 先核 draft 原值 —— 豁免表自己也会过期: 若哪天 draft 侧的原值不再是 from,
+            # 这条覆盖就是在拿一个早已不成立的前提替换期望值, 必须停下而不是照改。
+            if gold != rule["from"]:
+                raise ValueError(
+                    f"{i}: 豁免表记的 draft 原值 {rule['from']!r} 与 draft 实际 {gold!r} 不符 "
+                    "—— 豁免表已过期, 拒绝继续")
+            gold = rule["to"]
+        out.append((i, gold, group, chapter))
+    return out
 
 
 def _authored_group_sizes() -> tuple[int, dict[str, int]]:
@@ -174,8 +214,38 @@ def test_final_gold_is_exactly_the_deterministic_split_of_the_draft():
     只有重跑规则逐条比对能看见。held-out 的效力全压在这条上。
     列表相等而非集合相等: 连条目顺序被动过也算改动。
     题面不进这条断言 (见文件头 ⚠), 它由 test_final_gold_preserves_draft_questions 按摘要盯。
+
+    用户裁定的 gold 改动走 USER_RULED_GOLD_OVERRIDES 显式登记, **不回改 draft**:
+    豁免表条目须指向进 git 的裁定证据, 加行要过 code review。未登记的偏差照样红 ——
+    豁免的是「哪几题、改成什么、凭哪份证据」这三件已写明的事, 不是「FINAL 可以和 draft 不一样」。
     """
     assert _routing_fields(FINAL) == _expected_routing_fields(DRAFT)
+
+
+def test_user_ruled_overrides_are_live_and_evidence_backed():
+    """豁免表的**自检**: 每条都还指着 draft 里真实存在的题, 且裁定证据进了 git.
+
+    上面那条比对只在**覆盖被用到**时才核 `from`。一条 id 拼错 / 指向已不存在的题的
+    僵尸条目在那里是彻底隐形的 (查表查不到就当没有覆盖), 而它留在表里就是一张
+    随时可被复制粘贴的空白豁免。故正向再核一遍: 表 → draft。
+
+    证据键同样要核到文件**且被 git 跟踪** —— 只写一个路径字符串, 与只写一句
+    「用户同意了」没有区别; 而 draft/FINAL 两个 yml 都 gitignored, 本仓在这条线上
+    唯一能留下可追溯裁定的地方就是 evidence/ 里那份 tracked 文件。
+    """
+    draft_gold = _gold_by_id(DRAFT)
+    for qid, rule in USER_RULED_GOLD_OVERRIDES.items():
+        assert qid in draft_gold, f"豁免表登记了 draft 里不存在的 id: {qid} —— 僵尸条目"
+        assert draft_gold[qid] == rule["from"], (
+            f"{qid}: 豁免表记的 draft 原值 {rule['from']!r} 与 draft 实际 "
+            f"{draft_gold[qid]!r} 不符 —— 豁免表已过期")
+        assert rule["to"] != rule["from"], f"{qid}: from == to, 这条覆盖什么也没改"
+        ev = Path(rule["evidence"])
+        assert ev.exists(), f"{qid}: 裁定证据 {ev} 不存在"
+        rc = subprocess.run(["git", "ls-files", "--error-unmatch", str(ev)],
+                            capture_output=True).returncode
+        assert rc == 0, f"{qid}: 裁定证据 {ev} 未进 git —— 豁免就成了口头约定"
+        assert rule["ruled"], f"{qid}: 缺裁定日期"
 
 
 def test_split_rule_sorts_by_chapter_not_by_id(tmp_path):
