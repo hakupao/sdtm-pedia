@@ -482,3 +482,7 @@ needle 集 **6/6 完整** (无 `--allow-missing`), 故这个 CLEAN 是 rc=0 那�
 | G1 后 (a)(b)(c) | R1 期反事实预测: 三条全过, widen 0, 探针 8+1 | 实测逐数字相符 (§5-1) | ✓ 预测被证实 |
 | LLM 调用 (终值复跑) | 0 | 0 | ✓ |
 | LLM 调用 | 0 | 0 | ✓ |
+
+### §7 补行 (controller 修订, 2026-08-18, 采审查方 Minor 6)
+
+- **已知限制 (补)**: `_SDTM_STANDALONE_VARS` 含通用英文词形 (DOMAIN/VISIT/LEVEL/RACE/COUNTRY/PARENT/ELEMENT/SPEC/EPOCH), 仅在全大写且前后无 ASCII 字母数字时匹配; 可见集零误触, **封存组上不可测**。它们是公开 KB §1 共通变量的机械派生产物, 删除会破坏可复算性, 故保留并在此记账 (源: task-9 报告 §6-3)。
