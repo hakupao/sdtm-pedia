@@ -5,6 +5,8 @@
 - LLM 路由是全计划唯一非确定性组件: temperature 0 + 严格 JSON + 任何异常降级 "both"
   (兜底方向 = 宁可多查不可漏查; 路由准确率由 eval/run_routing_eval.py 三遍闸把守)。
 - both 合并不做跨库分数排序 —— 两库相似度分布不可比, 按库配额 ceil(k/2) 分组拼接。
+- 判库入口是 decide_corpus (route_corpus + 可选的确定性信号纠偏), 生产 retrieve(auto)
+  与 eval/run_routing_eval.py 共用它; route_corpus 只由它调用 (U6 同源闸)。
 """
 from __future__ import annotations
 
@@ -91,15 +93,42 @@ def route_corpus(llm_router, question: str) -> tuple[str, bool]:
         return "both", True
 
 
+def decide_corpus(llm_router, question: str, signals=None) -> tuple[str, bool, str | None]:
+    """判库 + 确定性信号纠偏 (U6). 返回 (corpus, fallback_used, widened_by)。
+
+    widen-only: 信号层只做 单库 → both, 永不收窄也不换库。方向与 route_corpus 的兜底一致
+    (宁可多查不可漏查) —— 信号判错的最坏代价是多查一库, 而不是让某题 recall 归零。
+    `both` 已是最宽, 故不问信号层。
+
+    signals=None (默认) 时逐位等于裸 route_corpus, widened_by 恒 None。
+    生产 `FederatedEngine.retrieve(auto)` 与 `eval/run_routing_eval.py` 共用本函数
+    (同源闸, 同 `make_docs_engine` 先例): 两侧各抄一份「判库 + 纠偏」就会各自漂移,
+    而 eval 量出来的判库数字正是拿来给生产背书的。
+    """
+    corpus, fallback = route_corpus(llm_router, question)
+    widened_by = None
+    if signals is not None and corpus in ("cdisc", "study"):
+        widened_by = signals.widen_reason(corpus, question)
+        if widened_by is not None:
+            corpus = "both"
+    return corpus, fallback, widened_by
+
+
 class FederatedEngine:
-    def __init__(self, cdisc, study, llm_router, top_k: int = 15):
+    def __init__(self, cdisc, study, llm_router, top_k: int = 15, signals=None):
         self.cdisc = cdisc
         self.study = study
         self.llm_router = llm_router
         self.top_k = top_k
+        # U6 确定性信号层 (widen-only)。None = 不挂 —— 判库行为与挂之前逐位相同。
+        self.signals = signals
         # U5 观测属性: 最近一次 retrieve 的判库 fallback 标志 (auto 档才有意义;
         # 强制档恒 None)。只写不读, 供 eval 侧记逐题取证 (both_ruler §5-11 缺口)。
         self.last_route_fallback: bool | None = None
+        # U6 观测属性: 最近一次 auto 判库被信号层拓宽的理由 ("study_sig"/"cdisc_sig");
+        # 未拓宽与强制档恒 None。同上, 必须在构造期就存在 —— 只在 retrieve 里赋值的话,
+        # 首次 retrieve 之前读到的是 AttributeError, 而下游 getattr 兜底会把它读成"没拓宽"。
+        self.last_signal_widened: str | None = None
 
     def retrieve(
         self,
@@ -116,10 +145,12 @@ class FederatedEngine:
         k = top_k or self.top_k
         routed = corpus
         self.last_route_fallback = None
+        self.last_signal_widened = None
         if corpus == "auto":
-            routed, fallback = route_corpus(self.llm_router, question)
+            routed, fallback, widened = decide_corpus(self.llm_router, question, self.signals)
             self.last_route_fallback = fallback
-            log.info("federation_routed", corpus=routed, fallback=fallback)
+            self.last_signal_widened = widened
+            log.info("federation_routed", corpus=routed, fallback=fallback, widened=widened)
         if routed == "cdisc":
             chunks = self.cdisc.retrieve(question, domain=domain, file_type=file_type, top_k=k)
             for c in chunks:

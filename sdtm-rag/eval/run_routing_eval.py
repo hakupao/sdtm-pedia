@@ -16,7 +16,7 @@ import yaml
 
 from eval.run_eval import load_test_set
 from server.config import settings
-from server.federation import route_corpus
+from server.federation import decide_corpus
 from server.llm_config import create_router
 
 CDISC_SET = Path("eval/test_set_v3.yml")
@@ -271,12 +271,27 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--out-prefix", default="routing_run")
     parser.add_argument("--allow-nonstandard-runs", action="store_true",
                         help="调试用; 打开时不打稳定性行, rc 恒非 0")
+    # U6: 确定性信号层 (widen-only)。默认 off = 判库逐位同 Task 6 冻结基线 —— 基线正是在
+    # 无信号层下跑出来的, 默认路径若悄悄开着, after 批与那份基线就不再可比。
+    parser.add_argument("--signal-layer", choices=("off", "on"), default="off",
+                        help="on: 经生产同款工厂挂上 RoutingSignals (widen-only)")
     args = parser.parse_args(argv)
     # I-1: --runs 1 也照样打「三遍判定一致」—— 一遍与自己比恒等于 100%, 那行读起来跟真
     # 三遍一字不差, 于是一遍的结果可以被当成三遍纪律的证据引用。守卫必须在 load_gold /
     # create_router 之前, 否则要先烧掉 254 题 × N 遍的 LLM 调用才发现参数不对。
     if args.runs != 3 and not args.allow_nonstandard_runs:
         raise SystemExit("三遍纪律: --runs 必须为 3 (审查 I-1 修缮); 调试请加 --allow-nonstandard-runs")
+    signals = None
+    if args.signal_layer == "on":
+        # 惰性导入, 且只在 on 分支里: server.routing_signals 是 U6 Task 8 的产物,
+        # 默认 off 的路径 (含全量单测) 因此完全不依赖它是否存在。
+        from server.routing_signals import build_signals
+        signals = build_signals(settings)
+        # 工厂返回 None 就等于悄悄跑成 off, 而 meta 仍写着 "on" —— 那批数字会被当成
+        # 「信号层开着」的证据引用。同 load_gold 各处: 闸口不完整就响亮失败, 不静默降级。
+        if signals is None:
+            raise SystemExit("--signal-layer on 但 build_signals 返回 None —— "
+                             "信号层未装配, 拒绝跑出一批会被误读成「开着」的数字")
     gold = load_gold()
     llm = create_router(settings)
     RUNS_DIR.mkdir(parents=True, exist_ok=True)
@@ -287,7 +302,7 @@ def main(argv: list[str] | None = None) -> int:
         preds: dict[str, str] = {}
         n_fallback = 0
         for g in gold:
-            corpus, fallback = route_corpus(llm, g["question"])
+            corpus, fallback, _ = decide_corpus(llm, g["question"], signals)
             preds[g["id"]] = corpus
             n_fallback += fallback
         v = gate_verdict(gold, preds)
@@ -296,9 +311,12 @@ def main(argv: list[str] | None = None) -> int:
         # A-3: 没有 meta 时, 一份 run json 里没有任何一处记着「哪次跑的 / 哪个 commit /
         # 什么参数」, 唯一线索是文件 mtime —— 而 mtime 会被下一次跑批直接抹掉。
         # 只放数字与短串: 逐题内容 (含题面) 只许待在 detail 里。
+        # ⚠ 这个 dict 必须留在 per-run 循环内: 提到循环外会让三份 run 共用同一个
+        # generated_at, 而 u6_gate_verdict 的批内去重闸 (I-2) 会据此拒收每一批真实三遍。
         meta = {"generated_at": datetime.datetime.now(datetime.UTC).isoformat(),
                 "git_rev": _git_rev(), "runs_arg": args.runs, "run_index": run_i,
-                "n_gold": len(gold), "out_prefix": args.out_prefix}
+                "n_gold": len(gold), "out_prefix": args.out_prefix,
+                "signal_layer": args.signal_layer}
         (RUNS_DIR / f"{args.out_prefix}_{run_i}.json").write_text(
             json.dumps({"meta": meta, "summary": v, "detail": detail},
                        ensure_ascii=False, indent=1))

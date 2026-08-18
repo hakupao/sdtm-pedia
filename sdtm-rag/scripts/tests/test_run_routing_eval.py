@@ -2,12 +2,14 @@
 import datetime
 import json
 import subprocess
+import sys
 import types
 
 import pytest
 
 from eval import run_routing_eval
 from eval.run_routing_eval import score_run
+from server import federation
 
 GOLD = [{"id": "q1", "gold": "cdisc"}, {"id": "q2", "gold": "study"},
         {"id": "q3", "gold": "study"}, {"id": "q4", "gold": "cdisc"}]
@@ -411,6 +413,10 @@ def _run_main(tmp_path, monkeypatch, capsys, wrong_id, argv=("--runs", "3")):
 
     argv 默认三遍: U6 T1 起 `--runs != 3` 会被守卫直接 SystemExit (I-1)。桩是确定性的,
     三遍与一遍的判定完全相同, 故这些 case 断言的含义未变。
+
+    U6 T7 起桩打在 **server.federation.route_corpus** 而非本模块的名字上: eval 侧改走
+    decide_corpus (与生产同源), 真 decide_corpus 因此留在被测路径里 —— 桩若打在
+    run_routing_eval.decide_corpus 上, 信号层挂点与「signals=None 行为不变」就整段不被覆盖。
     """
     _wire_u3(tmp_path, monkeypatch)
     monkeypatch.setattr(run_routing_eval, "RUNS_DIR", tmp_path / "runs")
@@ -419,7 +425,7 @@ def _run_main(tmp_path, monkeypatch, capsys, wrong_id, argv=("--runs", "3")):
     gold = run_routing_eval.load_gold()
     preds = {g["id"]: (_FLIP[g["gold"]] if g["id"] == wrong_id else g["gold"]) for g in gold}
     by_question = {g["question"]: preds[g["id"]] for g in gold}
-    monkeypatch.setattr(run_routing_eval, "route_corpus",
+    monkeypatch.setattr(federation, "route_corpus",
                         lambda llm, question: (by_question[question], 0))
     rc = run_routing_eval.main(list(argv))
     return gold, preds, rc, capsys.readouterr().out
@@ -865,3 +871,126 @@ def test_v2_final_id_does_not_collide_with_other_sources(tmp_path, monkeypatch):
              docs_r="- id: st01_v2_q07\n  question: q\n  gold: study\n  group: dev\n")
     with pytest.raises(ValueError, match="gold id 重复"):
         run_routing_eval.load_gold()
+
+
+# ── U6 T7: decide_corpus 同源 + --signal-layer 开关 ──────────────────
+def test_eval_and_production_share_one_decide_corpus():
+    """同源闸: eval 侧调的必须是生产 FederatedEngine 调的**同一个函数对象**。
+
+    各自 import 一份同名实现 (或 eval 侧自己抄一遍 route_corpus + widen), 本文件其余
+    断言照样全绿 —— 而 eval 量出来的判库数字正是拿来给生产背书的, 两份实现一漂移,
+    那份背书就失效且无人察觉 (make_docs_engine 同源工厂的先例)。
+    """
+    assert run_routing_eval.decide_corpus is federation.decide_corpus
+
+
+def _poison_signal_module(monkeypatch):
+    """把 server.routing_signals 换成「一被调用就炸」的桩。
+
+    该模块由 Task 8 落地; 在此之前默认路径若真去 import 它, 整个脚本会 ImportError ——
+    所以「off 不碰信号层」不只是省事, 是本 task 的默认路径能不能跑的前提。
+    """
+    mod = types.ModuleType("server.routing_signals")
+
+    def _boom(*a, **k):
+        raise AssertionError("--signal-layer off 不许构造信号层")
+
+    mod.build_signals = _boom
+    monkeypatch.setitem(sys.modules, "server.routing_signals", mod)
+
+
+def _spy_decide(monkeypatch):
+    """记下每次 decide_corpus 拿到的 signals 实参 (真实现照跑)。"""
+    seen = []
+    real = run_routing_eval.decide_corpus
+
+    def _spy(llm, question, signals=None):
+        seen.append(signals)
+        return real(llm, question, signals)
+
+    monkeypatch.setattr(run_routing_eval, "decide_corpus", _spy)
+    return seen
+
+
+def test_signal_layer_defaults_off_and_bypasses_the_signal_layer(tmp_path, monkeypatch, capsys):
+    """默认 off: 逐题 signals 恒 None, 判库结果逐题等于 route_corpus 裸跑, meta 记 off.
+
+    这条同时是 Phase 1 的行为不变承诺 —— Task 6 冻结的基线正是在「无信号层」下跑出来的,
+    默认路径一旦悄悄开着信号层, 后续 after 批与那份基线就不再可比。
+    """
+    _poison_signal_module(monkeypatch)
+    seen = _spy_decide(monkeypatch)
+    gold, preds, rc, _ = _run_main(tmp_path, monkeypatch, capsys, "docs_v1_q15",
+                                   argv=("--out-prefix", "u6_sig_off"))
+    assert rc == 0
+    assert len(seen) == 3 * len(gold) and all(s is None for s in seen)
+    for i in (1, 2, 3):
+        d = json.loads((tmp_path / "runs" / f"u6_sig_off_{i}.json").read_text(encoding="utf-8"))
+        assert d["meta"]["signal_layer"] == "off"
+        assert {x["id"]: x["pred"] for x in d["detail"]} == preds
+
+
+def test_signal_layer_on_builds_signals_through_the_production_factory(
+        tmp_path, monkeypatch, capsys):
+    """on 时必须经生产同款工厂 `build_signals(settings)` 构造, 并逐题交给 decide_corpus.
+
+    eval 侧自己 new 一个 RoutingSignals 就等于量了一台**别的**信号层 (词表/依赖都可能不同),
+    而 Task 10 的判定要用这批数字给生产接线背书。工厂由 Task 8 落地; 这里用桩钉住 import
+    路径与调用签名, 免得两个 task 各写各的。
+    """
+    built = []
+    mod = types.ModuleType("server.routing_signals")
+
+    class _Sig:
+        def widen_reason(self, routed, question):
+            return "study_sig" if routed == "cdisc" else None
+
+    def _build(settings):
+        built.append(settings)
+        return _Sig()
+
+    mod.build_signals = _build
+    monkeypatch.setitem(sys.modules, "server.routing_signals", mod)
+    seen = _spy_decide(monkeypatch)
+    gold, preds, _, _ = _run_main(tmp_path, monkeypatch, capsys, "docs_v1_q15",
+                                  argv=("--signal-layer", "on", "--out-prefix", "u6_sig_on"))
+    assert len(built) == 1, "工厂必须**只**构造一次 (逐题重建 = 逐题一台新信号层)"
+    assert built[0] is run_routing_eval.settings, "必须传生产那份 settings"
+    assert len(seen) == 3 * len(gold) and all(isinstance(s, _Sig) for s in seen)
+    d = json.loads((tmp_path / "runs" / "u6_sig_on_1.json").read_text(encoding="utf-8"))
+    assert d["meta"]["signal_layer"] == "on"
+    widened = {x["id"] for x in d["detail"]
+               if x["pred"] == "both" and preds[x["id"]] == "cdisc"}
+    assert widened, "信号层开着却一题都没被拓宽 —— 这条 flag 没接到 decide_corpus 上"
+
+
+def test_signal_layer_on_refuses_a_null_factory(tmp_path, monkeypatch, capsys):
+    """工厂返回 None 时必须停下: signals=None 会让 on 悄悄跑成 off, 而 meta 仍写着 "on"
+    —— 那批数字会被当成「信号层开着」的证据引用 (本仓对静默降级的一贯处置: 响亮失败)。
+    """
+    mod = types.ModuleType("server.routing_signals")
+    mod.build_signals = lambda settings: None
+    monkeypatch.setitem(sys.modules, "server.routing_signals", mod)
+    with pytest.raises(SystemExit, match="signal-layer on"):
+        _run_main(tmp_path, monkeypatch, capsys, "docs_v1_q15",
+                  argv=("--signal-layer", "on", "--out-prefix", "u6_sig_null"))
+
+
+@pytest.mark.parametrize("value", ["maybe", "ON", ""])
+def test_signal_layer_rejects_unknown_values(value):
+    """错拼的开关值不许被当成 off 静默放行 (argparse choices; 在 load_gold 之前就拒)。"""
+    with pytest.raises(SystemExit):
+        run_routing_eval.main(["--signal-layer", value])
+
+
+def test_each_run_gets_its_own_generated_at(tmp_path, monkeypatch, capsys):
+    """三份 run json 的 meta.generated_at 必须两两不同 (Task 2 carry-forward)。
+
+    meta 的构造一旦被提到 per-run 循环**外**, 三遍会共用同一个时刻戳, 而 u6_gate_verdict
+    的批内去重闸 (I-2) 正是拿它认「同一份 run 被当成三遍喂进来」—— 于是每一批**真实**三遍
+    都会被拒收。那道闸的自测用的是合成 fixture, 拦不住产出侧的这个改动, 故在这里钉。
+    """
+    _run_main(tmp_path, monkeypatch, capsys, "docs_v1_q15", argv=("--out-prefix", "u6_stamp"))
+    stamps = [json.loads((tmp_path / "runs" / f"u6_stamp_{i}.json").read_text(encoding="utf-8")
+                         )["meta"]["generated_at"] for i in (1, 2, 3)]
+    assert len(set(stamps)) == 3, f"三遍共用了同一个 generated_at: {stamps}"

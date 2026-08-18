@@ -8,7 +8,14 @@ from types import SimpleNamespace
 
 import pytest
 
-from server.federation import _ROUTER_SYSTEM, VALID_CORPORA, FederatedEngine, route_corpus
+from server import federation
+from server.federation import (
+    _ROUTER_SYSTEM,
+    VALID_CORPORA,
+    FederatedEngine,
+    decide_corpus,
+    route_corpus,
+)
 from server.rag import RetrievedChunk
 
 
@@ -210,3 +217,163 @@ def test_last_route_fallback_records_auto_and_clears_on_forced(monkeypatch):
     assert fed.last_route_fallback is True
     fed.retrieve("q", corpus="both")  # 强制档必须清掉上一题的标志, 否则串题
     assert fed.last_route_fallback is None
+
+
+# ── U6 T7: decide_corpus (判库 + 确定性信号纠偏挂点; 生产与 eval 同源) ──
+
+class _SigStub:
+    """signals 契约桩: widen_reason(routed, question) -> "study_sig" | "cdisc_sig" | None."""
+
+    def __init__(self, reason=None):
+        self.reason, self.calls = reason, []
+
+    def widen_reason(self, routed, question):
+        self.calls.append((routed, question))
+        return self.reason
+
+
+class _SigBoom:
+    """一被问就炸 —— 用来钉「这条路径**不许**碰信号层」, 而不是事后数调用次数."""
+
+    def widen_reason(self, routed, question):
+        raise AssertionError("这条路径不该询问信号层")
+
+
+def _route_stub(result, seen=None):
+    def _route(llm_router, question):
+        if seen is not None:
+            seen.append((llm_router, question))
+        return result
+    return _route
+
+
+@pytest.mark.parametrize("text", ['{"corpus": "cdisc"}', '{"corpus": "study"}',
+                                  '{"corpus": "both"}', '{"corpus": "everything"}',
+                                  "not json", ""])
+def test_decide_corpus_without_signals_is_route_corpus_verbatim(text):
+    """本 task 的行为不变承诺: signals 缺省时三元组前两位逐位等于裸 route_corpus (含兜底路径).
+
+    对照物是**真跑一遍 route_corpus**, 不是另抄一份期望值 —— 抄的那份会跟着 route_corpus
+    一起被改动, 证不了「同一条判库」。
+    """
+    expected = route_corpus(_FakeLLM(text), "q")
+    assert decide_corpus(_FakeLLM(text), "q") == (*expected, None)          # 默认实参
+    assert decide_corpus(_FakeLLM(text), "q", None) == (*expected, None)    # 显式 None
+
+
+def test_decide_corpus_forwards_router_and_question_untouched(monkeypatch):
+    """判库入参必须原样透传: 送错 router / 送空问题时上面那些断言照样全绿。"""
+    seen = []
+    monkeypatch.setattr(federation, "route_corpus", _route_stub(("cdisc", False), seen))
+    llm = object()
+    decide_corpus(llm, "どの項目ですか")
+    assert seen == [(llm, "どの項目ですか")]
+
+
+@pytest.mark.parametrize("routed,reason", [("cdisc", "study_sig"), ("study", "cdisc_sig")])
+def test_decide_corpus_widens_single_corpus_to_both(monkeypatch, routed, reason):
+    monkeypatch.setattr(federation, "route_corpus", _route_stub((routed, False)))
+    sig = _SigStub(reason)
+    assert decide_corpus(object(), "q", sig) == ("both", False, reason)
+    assert sig.calls == [(routed, "q")], "信号层拿到的必须是**判库结果**与原问题"
+
+
+@pytest.mark.parametrize("routed", ["cdisc", "study"])
+def test_decide_corpus_keeps_corpus_when_no_signal_fires(monkeypatch, routed):
+    monkeypatch.setattr(federation, "route_corpus", _route_stub((routed, False)))
+    assert decide_corpus(object(), "q", _SigStub(None)) == (routed, False, None)
+
+
+def test_decide_corpus_never_consults_signals_on_both(monkeypatch):
+    """widen-only: both 已是最宽, 再问信号层只可能带来收窄/换库 —— 本设计明令禁止的方向."""
+    monkeypatch.setattr(federation, "route_corpus", _route_stub(("both", False)))
+    assert decide_corpus(object(), "q", _SigBoom()) == ("both", False, None)
+
+
+def test_decide_corpus_keeps_fallback_flag_on_router_failure():
+    """判库整个挂掉 → ("both", True): fallback 标志必须原样带出 (逐题取证靠它),
+    且兜底出来的 both 同样不问信号层."""
+    got = decide_corpus(_FakeLLM(exc=RuntimeError("timeout")), "q", _SigBoom())
+    assert got == ("both", True, None)
+
+
+def _sig_fed(signals=None):
+    return FederatedEngine(cdisc=_U5StubEngine(), study=_U5StubEngine(),
+                           llm_router=object(), signals=signals)
+
+
+def test_signals_default_to_none_and_widened_attr_exists_before_any_retrieve():
+    """默认不挂信号层 (Task 8 才接线); 观测属性得在构造期就存在 —— 理由同
+    last_route_fallback: eval 侧的 getattr 兜底会把「缺属性」读成「没被拓宽」."""
+    fed = _sig_fed()
+    assert fed.signals is None and fed.last_signal_widened is None
+
+
+def test_engine_auto_widens_and_records_the_reason(monkeypatch):
+    monkeypatch.setattr(federation, "route_corpus", _route_stub(("cdisc", False)))
+    sig = _SigStub("study_sig")
+    fed = _sig_fed(sig)
+    _, routed = fed.retrieve("q", corpus="auto")
+    assert routed == "both", "信号 fire 后必须真的按 both 去检索, 不能只记个标志"
+    assert fed.last_signal_widened == "study_sig"
+    assert sig.calls == [("cdisc", "q")]
+
+
+def test_engine_auto_goes_through_the_shared_decide_corpus(monkeypatch):
+    """同源闸: 引擎里把「route_corpus + widen」再抄一份, 上面那些断言照样全绿 ——
+    而 eval 侧调的是 decide_corpus, 两份实现从此各自漂移且无人看得见 (make_docs_engine 先例)."""
+    calls = []
+    real = federation.decide_corpus
+
+    def _spy(llm_router, question, signals=None):
+        calls.append((question, signals))
+        return real(llm_router, question, signals)
+
+    monkeypatch.setattr(federation, "decide_corpus", _spy)
+    monkeypatch.setattr(federation, "route_corpus", _route_stub(("study", False)))
+    sig = _SigStub(None)
+    _sig_fed(sig).retrieve("q", corpus="auto")
+    assert calls == [("q", sig)], "auto 档必须经 decide_corpus, 且把引擎自己的 signals 交出去"
+
+
+@pytest.mark.parametrize("corpus", list(VALID_CORPORA))
+def test_forced_corpus_never_consults_signals(corpus):
+    fed = FederatedEngine(cdisc=_U5StubEngine(), study=_U5StubEngine(),
+                          llm_router=_FakeLLM(exc=RuntimeError("must not be called")),
+                          signals=_SigBoom())
+    fed.retrieve("q", corpus=corpus)
+    assert fed.last_signal_widened is None
+
+
+def test_last_signal_widened_clears_on_the_next_forced_call(monkeypatch):
+    monkeypatch.setattr(federation, "route_corpus", _route_stub(("study", False)))
+    fed = _sig_fed(_SigStub("cdisc_sig"))
+    fed.retrieve("q", corpus="auto")
+    assert fed.last_signal_widened == "cdisc_sig"
+    fed.retrieve("q", corpus="cdisc")  # 强制档必须清掉上一题的理由, 否则串题
+    assert fed.last_signal_widened is None
+
+
+class _LogSpy:
+    def __init__(self):
+        self.calls = []
+
+    def info(self, event, **kw):
+        self.calls.append((event, kw))
+
+    def warning(self, *a, **kw):
+        pass
+
+
+def test_routed_log_line_carries_the_widen_reason_and_no_question_text(monkeypatch):
+    """判库日志是「这题为什么查了两库」的唯一现场线索; 少 widened= 就只能看到一个无来由的 both.
+
+    红线同时钉住: 该行不许带题面 (日志会进服务端 stdout / 排障贴文)。
+    """
+    spy = _LogSpy()
+    monkeypatch.setattr(federation, "log", spy)
+    monkeypatch.setattr(federation, "route_corpus", _route_stub(("cdisc", False)))
+    _sig_fed(_SigStub("study_sig")).retrieve("どの項目ですか", corpus="auto")
+    assert spy.calls == [("federation_routed",
+                          {"corpus": "both", "fallback": False, "widened": "study_sig"})]
+    assert "どの項目" not in repr(spy.calls)
