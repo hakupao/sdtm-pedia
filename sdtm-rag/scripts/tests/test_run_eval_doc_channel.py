@@ -115,8 +115,9 @@ def assemble(monkeypatch, tmp_path):
         engines.append(_FakeRAG(**kw))
         return engines[-1]
 
-    def _fed(cdisc, study, router, *, top_k=None):
-        fed_args.update(cdisc=cdisc, study=study, top_k=top_k)
+    def _fed(cdisc, study, router, *, top_k=None, signals=None):
+        # 签名必须跟着真构造器走: 少一个 kwarg 就是 TypeError, 而那正是接线测试要看的东西
+        fed_args.update(cdisc=cdisc, study=study, top_k=top_k, signals=signals)
         return SimpleNamespace(retrieve=lambda q, corpus, top_k: ([], corpus))
 
     def _adapter(*a, **kw):

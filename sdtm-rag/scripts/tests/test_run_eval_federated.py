@@ -213,3 +213,148 @@ def test_main_federated_writes_routing_fields_into_output_json(tmp_path, monkeyp
     assert [r["id"] for r in rows] == ["q1", "q2"]
     assert [r["routed"] for r in rows] == ["study", "both"]
     assert [r["routed_fallback"] for r in rows] == [False, True]
+
+
+# ---- U6 Task 11: --signal-layer 透传 (答题侧 off/on 双臂的唯一开关) ----
+# 接线失效是静默的: on 臂没通电 ⇒ 两臂逐位相同 ⇒ 判定读出"信号层无代价无收益",
+# 而那批数字的文件名与 evidence 都写着 on。所以"开着确实传了"和"关着一定是 None"
+# 两个方向都要锁, 且必须锁在 FederatedEngine 的构造实参上 (生产同一个入口)。
+
+
+@pytest.fixture
+def captured_fed_kwargs(tmp_path, monkeypatch):
+    """跑 main(--federated), 收下 FederatedEngine 的构造 kwargs。"""
+    ts = tmp_path / "t.yml"
+    ts.write_text(
+        "- id: q1\n  category: c\n  question: x1\n  expected_sources: [study/f.md]\n",
+        encoding="utf-8",
+    )
+    kw: dict = {}
+
+    class FakeCollection:
+        def count(self):
+            return 0
+
+    class FakeEngine:
+        def __init__(self, **kwargs):
+            self.collection = FakeCollection()
+            for k, v in kwargs.items():
+                setattr(self, k, v)
+
+    def _fake_fed(*a, **k):
+        kw.update(k)
+        return _FakeFed()
+
+    monkeypatch.setattr(run_eval, "RAGEngine", FakeEngine)
+    monkeypatch.setattr(run_eval, "FederatedEngine", _fake_fed)
+    monkeypatch.setattr(run_eval, "create_router", lambda *a, **k: None)
+
+    def _run(extra: list[str], out: str | None = None) -> dict:
+        args = [str(ts), "--retrieval-only", "--federated", *extra]
+        if out:
+            args += ["--output", out]
+        main(args)
+        return kw
+
+    return _run
+
+
+@pytest.fixture
+def spy_build_signals(monkeypatch):
+    """把 build_signals 换成哨兵工厂; recorded 空 = 根本没被调用。"""
+    from server import routing_signals as rs_mod
+
+    sentinel = object()
+    recorded: dict = {}
+
+    def _fake(settings_arg, study_lookup=None):
+        recorded["settings"] = settings_arg
+        recorded["study_lookup"] = study_lookup
+        return sentinel
+
+    monkeypatch.setattr(rs_mod, "build_signals", _fake)
+    return sentinel, recorded
+
+
+def test_signal_layer_defaults_to_off(captured_fed_kwargs, spy_build_signals):
+    """默认路径必须与加 flag 之前逐位相同: signals=None 且工厂根本没被调用。"""
+    _, recorded = spy_build_signals
+    kw = captured_fed_kwargs([])
+    assert kw["signals"] is None
+    assert recorded == {}, "off 臂却调了 build_signals — 默认路径被污染"
+
+
+def test_signal_layer_on_passes_the_production_factory_object(
+    captured_fed_kwargs, spy_build_signals
+):
+    sentinel, recorded = spy_build_signals
+    kw = captured_fed_kwargs(["--signal-layer", "on"])
+    assert kw["signals"] is sentinel
+    from server.config import settings
+    assert recorded["settings"] is settings      # 硬编码路径会绕开 settings override
+
+
+def test_signal_layer_off_explicitly_is_still_none(captured_fed_kwargs, spy_build_signals):
+    _, recorded = spy_build_signals
+    kw = captured_fed_kwargs(["--signal-layer", "off"])
+    assert kw["signals"] is None
+    assert recorded == {}
+
+
+def test_signal_layer_on_reuses_the_s2_lookup(captured_fed_kwargs, spy_build_signals,
+                                              monkeypatch):
+    """生产 lifespan 复用同一份 S2 (main.py 注释: 不造第二份 —— 两份可以来自不同文件)。
+    eval 侧另造一份 ⇒ 尺子量的信号层与线上跑的不是同一个数据源。"""
+    from server import study_lookup as sl_mod
+
+    class _FakeLookup:
+        def stats(self):
+            return "7 items/0 aliases"
+
+    lookup = _FakeLookup()
+    monkeypatch.setattr(sl_mod.StudyLookup, "from_paths", staticmethod(lambda c, a: lookup))
+    _, recorded = spy_build_signals
+    captured_fed_kwargs(["--signal-layer", "on", "--study-lookup"])
+    assert recorded["study_lookup"] is lookup
+
+
+def test_signal_layer_requires_federated(tmp_path, monkeypatch):
+    """裸给 --signal-layer on 会静默无效 (信号层只挂在联邦判库上) → usage error。"""
+    ts = tmp_path / "t.yml"
+    ts.write_text(
+        "- id: q1\n  category: c\n  question: x1\n  expected_sources: [study/f.md]\n",
+        encoding="utf-8",
+    )
+    with pytest.raises(SystemExit) as ei:
+        main([str(ts), "--retrieval-only", "--signal-layer", "on"])
+    assert ei.value.code == 2
+
+
+def test_signal_layer_on_refuses_a_none_factory_result(captured_fed_kwargs, monkeypatch):
+    """工厂返回 None = 悄悄跑成 off, 而产物 summary 仍写 "on" —— 那批数字会被当成
+    「信号层开着」的证据引用 (run_routing_eval 同款闸)。"""
+    from server import routing_signals as rs_mod
+
+    monkeypatch.setattr(rs_mod, "build_signals", lambda *a, **k: None)
+    with pytest.raises(SystemExit):
+        captured_fed_kwargs(["--signal-layer", "on"])
+
+
+def test_summary_records_signal_layer(captured_fed_kwargs, spy_build_signals, tmp_path):
+    """两臂产物除文件名外必须能自证 off/on, 否则事后无法判断哪份是哪臂。"""
+    out = tmp_path / "sig_on.json"
+    captured_fed_kwargs(["--signal-layer", "on"], out=str(out))
+    assert json.loads(out.read_text(encoding="utf-8"))["summary"]["signal_layer"] == "on"
+
+
+def test_summary_records_signal_layer_off(captured_fed_kwargs, tmp_path):
+    out = tmp_path / "sig_off.json"
+    captured_fed_kwargs([], out=str(out))
+    assert json.loads(out.read_text(encoding="utf-8"))["summary"]["signal_layer"] == "off"
+
+
+def test_federated_receipt_prints_signal_layer(captured_fed_kwargs, spy_build_signals,
+                                               capsys):
+    """屏幕回执: 不给 --output 时 summary 看不到, 人肉跑必须看得出这一臂开没开。"""
+    captured_fed_kwargs(["--signal-layer", "on"])
+    assert "signal_layer=on" in capsys.readouterr().out

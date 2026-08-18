@@ -754,6 +754,11 @@ def main(argv: list[str] | None = None) -> int:
              "判库损耗与接线损耗拆开",
     )
     parser.add_argument(
+        "--signal-layer", choices=("off", "on"), default="off",
+        help="U6 确定性信号层 (widen-only)。默认 off = 判库行为逐位同挂之前; "
+             "on 经生产同款工厂 build_signals 挂上 (答题侧 off/on 双臂的唯一开关)",
+    )
+    parser.add_argument(
         "--tag",
         default=None,
         help="Optional label added to output JSON for cross-model comparison",
@@ -768,6 +773,8 @@ def main(argv: list[str] | None = None) -> int:
         parser.error("--study-docs 需要 --federated (doc 通道挂在联邦的 study 引擎上)")
     if args.corpus != "auto" and not args.federated:
         parser.error("--corpus 只在 --federated 下有意义")
+    if args.signal_layer == "on" and not args.federated:
+        parser.error("--signal-layer 只在 --federated 下有意义 (信号层挂在联邦判库上)")
 
     collection_name = args.collection or settings.collection_name
     kb_root = Path(args.kb_root) if args.kb_root else settings.kb_root
@@ -903,15 +910,28 @@ def main(argv: list[str] | None = None) -> int:
             study_engine = StudyCorpusEngine(study_rag, docs_rag, doc_seats=doc_seats)
             print(f"Study docs channel: {docs_rag.collection.count()} chunks, "
                   f"collection={settings.study_docs_collection_name}, seats={doc_seats}")
+        # U6 信号层: 惰性导入且只在 on 分支 —— 默认路径 (含全量单测) 因此不依赖它。
+        # 生产 lifespan 复用同一份 S2, 这里同样传 study_lookup: 另造一份可以来自别的文件
+        # (路径 override 只改一处时), 而信号层用的那份从不出现在任何日志里。
+        signals = None
+        if args.signal_layer == "on":
+            from server.routing_signals import build_signals
+            signals = build_signals(settings, study_lookup=study_lookup)
+            # 工厂返回 None 就等于悄悄跑成 off, 而 summary 仍写 "on" —— 那批数字会被当成
+            # 「信号层开着」的证据引用 (run_routing_eval 同款闸)。
+            if signals is None:
+                raise SystemExit("--signal-layer on 但 build_signals 返回 None —— "
+                                 "信号层未装配, 拒绝跑出一批会被误读成「开着」的数字")
         retriever = _FederatedAdapter(
-            FederatedEngine(rag, study_engine, create_router(settings), top_k=args.top_k),
+            FederatedEngine(rag, study_engine, create_router(settings), top_k=args.top_k,
+                            signals=signals),
             corpus=args.corpus,
         )
         print(
             f"Federated: study engine {study_rag.collection.count()} chunks, "
             f"collection={settings.study_collection_name}, structured_lookup=OFF"
             f", study_lookup={f'ON({study_lookup.stats()})' if study_lookup is not None else 'OFF'}; "
-            f"routing=LLM(light, corpus=auto)"
+            f"routing=LLM(light, corpus=auto), signal_layer={args.signal_layer}"
         )
 
     router = None
@@ -993,6 +1013,8 @@ def main(argv: list[str] | None = None) -> int:
         print(f"routing: {routing}")
         summary["federated"] = True
         summary["routing"] = routing
+        # 两臂产物除文件名外必须能自证 off/on —— 事后只靠文件名认臂是没有取证价值的
+        summary["signal_layer"] = args.signal_layer
     summary["prompt_guardrail"] = args.guardrail
     summary["structured_answer"] = args.structured_answer
     summary["graph_answer"] = args.graph_answer
