@@ -52,10 +52,18 @@ EXPECTED_GROUP_SIZES = {"legacy": 181, "u1_doc": 27, "final": 3, "dev": 12,
 
 
 def _git_rev() -> str:
-    """跑批时的 commit。取不到就写 unknown —— 记不下版本不该让整批跑批失败。"""
+    """跑批时的版本。取不到就写 unknown —— 记不下版本不该让整批跑批失败。
+
+    用 describe --dirty 而非 rev-parse HEAD: 基线/改后跑批常在**未提交**状态下进行
+    (改动就躺在工作树里), 而裸 sha 结构上无法表达这件事 —— 后来者会以为 checkout 那个
+    sha 就能复现这批数字。脏树时值带 `-dirty` 后缀。
+    (注意: --dirty 只看**已跟踪**文件的改动, 新增未跟踪文件不标脏。)
+    timeout: 取个版本号而已, 不许一次挂住的 git 把整批三遍跑批一起挂住。
+    """
     try:
-        return subprocess.run(["git", "rev-parse", "--short", "HEAD"],
-                              capture_output=True, text=True, check=True).stdout.strip()
+        return subprocess.run(["git", "describe", "--always", "--dirty"],
+                              capture_output=True, text=True, check=True,
+                              timeout=5).stdout.strip()
     except Exception:
         return "unknown"
 

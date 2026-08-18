@@ -1,6 +1,8 @@
 """Plan B Phase 1 闸 1: 路由打分逻辑. LLM 调用不进单测 (真实三遍在 eval 执行)."""
 import datetime
 import json
+import subprocess
+import types
 
 import pytest
 
@@ -651,6 +653,60 @@ def test_meta_carries_no_question_text(tmp_path, monkeypatch, capsys):
     assert "dummy" not in dumped
     for g in gold:
         assert g["question"] not in dumped
+
+
+def _git(*args, cwd):
+    subprocess.run(["git", *args], cwd=cwd, check=True, capture_output=True, timeout=30)
+
+
+def test_git_rev_marks_dirty_worktree(tmp_path, monkeypatch):
+    """脏树必须在 meta 里看得出来 —— 干净 sha 会被读成「checkout 它即可复现这批数字」。
+
+    基线/改后跑批常在未提交状态下进行 (改动就躺在工作树里), 而 `rev-parse --short HEAD`
+    **结构上不可能**表达这件事: 它只认 HEAD。故这条用真 git 仓验证「脏了就带得出来」,
+    而不是去断言 argv 里有 "--dirty" —— 那种断言只是把实现抄一遍。
+    """
+    repo = tmp_path / "repo"
+    repo.mkdir()
+    _git("init", "-q", cwd=repo)
+    (repo / "f.txt").write_text("v1\n", encoding="utf-8")
+    _git("add", "f.txt", cwd=repo)
+    _git("-c", "user.email=t@example.invalid", "-c", "user.name=t",
+         "commit", "-q", "-m", "init", cwd=repo)
+    monkeypatch.chdir(repo)
+
+    clean = run_routing_eval._git_rev()
+    assert clean and clean != "unknown" and not clean.endswith("-dirty")
+    (repo / "f.txt").write_text("v2\n", encoding="utf-8")   # 工作树改动, 未提交
+    assert run_routing_eval._git_rev() == f"{clean}-dirty"
+
+
+def test_git_rev_passes_output_through_and_bounds_the_subprocess(monkeypatch):
+    # 值原样透传 (不许把 -dirty 后缀在这里剪掉); 且 git 必须有超时 ——
+    # 一次挂住的 git 会把整批三遍跑批一起挂住, 而这只是取个版本号。
+    seen = {}
+
+    def fake_run(cmd, **kw):
+        seen.update(cmd=cmd, kw=kw)
+        return types.SimpleNamespace(stdout="v1.4-491-gabc1234-dirty\n")
+
+    monkeypatch.setattr(run_routing_eval.subprocess, "run", fake_run)
+    assert run_routing_eval._git_rev() == "v1.4-491-gabc1234-dirty"
+    assert seen["kw"].get("timeout"), "取版本号不许无限期挂住整批跑批"
+
+
+@pytest.mark.parametrize("exc", [
+    subprocess.TimeoutExpired(cmd="git", timeout=5),
+    subprocess.CalledProcessError(returncode=128, cmd="git"),   # 非 git 仓
+    FileNotFoundError("git"),                                   # 环境里没有 git
+])
+def test_git_rev_falls_back_to_unknown(monkeypatch, exc):
+    # 记不下版本不该让整批跑批失败 —— 但也不许伪造一个看起来正常的值
+    def boom(*a, **k):
+        raise exc
+
+    monkeypatch.setattr(run_routing_eval.subprocess, "run", boom)
+    assert run_routing_eval._git_rev() == "unknown"
 
 
 def test_by_group_has_no_passed_key(monkeypatch):
