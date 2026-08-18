@@ -15,6 +15,8 @@ import math
 
 import structlog
 
+from server.routing_signals import WIDEN_REASONS
+
 log = structlog.get_logger()
 
 VALID_CORPORA = ("cdisc", "study", "both")
@@ -104,13 +106,24 @@ def decide_corpus(llm_router, question: str, signals=None) -> tuple[str, bool, s
     生产 `FederatedEngine.retrieve(auto)` 与 `eval/run_routing_eval.py` 共用本函数
     (同源闸, 同 `make_docs_engine` 先例): 两侧各抄一份「判库 + 纠偏」就会各自漂移,
     而 eval 量出来的判库数字正是拿来给生产背书的。
+
+    信号层是**旁路**: 它抛异常或返回白名单外的取值时, 本题按"不拓宽"处理并留一条
+    warning, 绝不把异常放进生产 retrieve —— 一个坏掉的信号层可以让判库退回冻结基线,
+    但不该让 /api/ask 返回 500。反向代价已记账: 信号层整条静默死掉时, 条款 1 (fatal=0)
+    会在全闸响亮地不通过, 所以这里吞异常不会让"死掉的信号层"混过本单元。
     """
     corpus, fallback = route_corpus(llm_router, question)
     widened_by = None
     if signals is not None and corpus in ("cdisc", "study"):
-        widened_by = signals.widen_reason(corpus, question)
-        if widened_by is not None:
-            corpus = "both"
+        try:
+            reason = signals.widen_reason(corpus, question)
+            if reason is not None and reason not in WIDEN_REASONS:
+                raise ValueError(f"widen reason not in whitelist: {str(reason)[:32]!r}")
+        except Exception:
+            log.warning("signal_layer_error", exc_info=True)
+            reason = None
+        if reason is not None:
+            widened_by, corpus = reason, "both"
     return corpus, fallback, widened_by
 
 

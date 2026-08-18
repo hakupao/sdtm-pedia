@@ -7,6 +7,7 @@
 from types import SimpleNamespace
 
 import pytest
+import structlog
 
 from server import federation
 from server.federation import (
@@ -377,3 +378,71 @@ def test_routed_log_line_carries_the_widen_reason_and_no_question_text(monkeypat
     assert spy.calls == [("federation_routed",
                           {"corpus": "both", "fallback": False, "widened": "study_sig"})]
     assert "どの項目" not in repr(spy.calls)
+
+
+# ── U6 T8: 信号层是**旁路**, 不是判库的必经之路 (控制器裁定 1/2) ──
+#
+# 信号层挂在生产 retrieve 上之后, 它每一种失效方式都必须收敛成「本题不拓宽」:
+# 一个坏掉的信号层可以让判库退回 Task 6 冻结基线, 但绝不许让 /api/ask 返回 500。
+# 反向的代价也已记账: 信号层若整条静默死掉, 条款 1 (fatal=0) 会在 Task 10 响亮地
+# 不通过 —— 所以这里吞异常不会让"死掉的信号层"混过本单元。
+
+class _SigRaises:
+    def __init__(self, exc):
+        self.exc = exc
+
+    def widen_reason(self, routed, question):
+        raise self.exc
+
+
+class _SigBadValue:
+    """返回白名单外的字符串 —— 契约违反, 与抛异常同路处理。"""
+
+    def __init__(self, value):
+        self.value = value
+
+    def widen_reason(self, routed, question):
+        return self.value
+
+
+@pytest.mark.parametrize("exc", [RuntimeError("boom"), ValueError("bad"), KeyError("k")])
+def test_decide_corpus_treats_a_raising_signal_layer_as_no_widen(monkeypatch, exc):
+    monkeypatch.setattr(federation, "route_corpus", _route_stub(("cdisc", False)))
+    with structlog.testing.capture_logs() as logs:
+        assert decide_corpus(object(), "q", _SigRaises(exc)) == ("cdisc", False, None)
+    warn = [e for e in logs if e["event"] == "signal_layer_error"]
+    assert warn and warn[0]["log_level"] == "warning", "静默吞掉 = 信号层死了也没人知道"
+
+
+@pytest.mark.parametrize("bad", ["widen", "study", "both", "STUDY_SIG", "", 1, True])
+def test_decide_corpus_rejects_reasons_outside_the_whitelist(monkeypatch, bad):
+    """白名单是 widen-only 的最后一道结构闸: 信号层返回 "study" 之类的库名时,
+    不设闸的实现会照样拓宽并把库名写进逐题观测字段, 让下游读成一次合法拓宽。"""
+    monkeypatch.setattr(federation, "route_corpus", _route_stub(("study", False)))
+    with structlog.testing.capture_logs() as logs:
+        assert decide_corpus(object(), "q", _SigBadValue(bad)) == ("study", False, None)
+    assert [e for e in logs if e["event"] == "signal_layer_error"]
+
+
+@pytest.mark.parametrize("routed,reason", [("cdisc", "study_sig"), ("study", "cdisc_sig")])
+def test_decide_corpus_accepts_every_whitelisted_reason(monkeypatch, routed, reason):
+    """白名单的另一向: 闸不许把合法理由也一起挡掉 (那等于信号层从未接通)。"""
+    monkeypatch.setattr(federation, "route_corpus", _route_stub((routed, False)))
+    assert decide_corpus(object(), "q", _SigStub(reason)) == ("both", False, reason)
+
+
+def test_whitelist_is_the_one_in_routing_signals():
+    """两处各写一份白名单 = Task 9 加理由时改一处漏一处, 且症状是"新理由被当成非法"。"""
+    from server.routing_signals import WIDEN_REASONS
+    assert federation.WIDEN_REASONS is WIDEN_REASONS
+
+
+def test_retrieve_survives_a_dead_signal_layer(monkeypatch):
+    """生产路径的锁: 信号层炸了, retrieve 照常返回未拓宽的判库结果, 不向上抛。"""
+    monkeypatch.setattr(federation, "route_corpus", _route_stub(("study", False)))
+    fed = _sig_fed(_SigRaises(RuntimeError("boom")))
+    with structlog.testing.capture_logs() as logs:
+        chunks, routed = fed.retrieve("q", corpus="auto")
+    assert (chunks, routed) == ([], "study")
+    assert fed.last_signal_widened is None
+    assert [e for e in logs if e["event"] == "signal_layer_error"]

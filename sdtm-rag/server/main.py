@@ -168,14 +168,28 @@ async def lifespan(app: FastAPI):
             log.info("study_docs", collection=s.study_docs_collection_name,
                      seats=s.study_docs_seats, chunks=rag_docs.collection.count())
         from server.federation import FederatedEngine
+        # U6 确定性信号层 (widen-only): 复用上面那一份 S2, 不再造第二份 —— 两份可以来自
+        # 不同文件 (路径 override 只改一处时), 而信号层用的那份从不出现在任何日志里。
+        signals = None
+        if study_lookup is not None:
+            from server.routing_signals import build_signals
+            signals = build_signals(s, study_lookup=study_lookup)
+        else:
+            # S2 关着 ⇒ 信号层的 study 半边没有数据源, 整层不挂。判库因此退回无信号层
+            # 的基线行为 —— 那是个不会崩的静默降级, 必须留声。
+            log.warning(
+                "signal_layer_off",
+                note="study_lookup_enabled=false; U6 信号层依赖 S2 的结构命中, 本次启动未装配",
+            )
         app.state.federation = FederatedEngine(
-            app.state.rag, study_engine, app.state.llm_router, top_k=s.top_k
+            app.state.rag, study_engine, app.state.llm_router, top_k=s.top_k, signals=signals
         )
         log.info(
             "federation",
             study_collection=s.study_collection_name,
             # 条数而非 ON/OFF: 别名表缺失走的是静默降级, "0 aliases" 是唯一的现场线索
             study_lookup=study_lookup.stats() if study_lookup is not None else "OFF",
+            signal_layer=signals is not None,
         )
     elif s.study_lookup_enabled:
         # 开关开着却没有 study 引擎可挂 (典型: 临时关联邦调试, 忘了这条还开着)。不拒启动 ——
