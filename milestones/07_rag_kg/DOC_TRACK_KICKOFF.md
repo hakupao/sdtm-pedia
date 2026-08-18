@@ -129,8 +129,8 @@ collection。field card 侧 `study_st01` = 959 张, study golden v2 **87.50%, �
 > 仪器先行 + 确定性信号层 (widen-only)。**存续**: `eval/u6_gate_verdict.py` (七条款, 条款 4/7
 > 双列双闸) · `eval/u6_answer_verdict.py` (E1 支配纳入/E4 并集闸/I-1 抑制/divergent_readings) ·
 > 可见集标定台 `eval/u6_calibrate_signals.py` · 信号层 `server/routing_signals.py` +
-> `decide_corpus` 同源 (用户裁定保留, 生产默认启用; ⚠ launchd 现役进程早于接线 commit,
-> 通电需重启) · gold: `st01_v2_q07` 入 final 组 (254 题) + `u3_amb_06` both→study (用户裁定)。
+> `decide_corpus` 同源 (用户裁定保留, 生产默认启用; launchd 已于
+> 2026-08-18 重启, 线上通电确认: 启动日志 `federation signal_layer=True`) · gold: `st01_v2_q07` 入 final 组 (254 题) + `u3_amb_06` both→study (用户裁定)。
 > **数字**: 新基线 fatal 9 → 全闸 fatal 8/8/8 (条款 1 触发; 2/3/4/7 全 PASS; 254/254 三遍稳);
 > widen 全集恰 2 题 (`u3_doc_02`+`st01_v2_q07`, 均 cdisc→both); **cdisc_sig 全集零触发** =
 > 残余 8 债 (amb×5+dist×3) 的方向信号一次没 fire (标定困境结构性: 可见集无该方向活正例)。

@@ -576,3 +576,13 @@ echo "rc=$?"          # 0 = CLEAN, needle 集须为 6/6 (无 --allow-missing)
 6. **本单元没有走措辞层是对的**: U3 已用五轮实证「措辞杠杆已到底」(最强兜底指令三遍零方差不执行)。
    走确定性信号层至少让失败是**可归因的** —— 我们现在确切知道 8 条为什么没修好 (信号根本没触发),
    而不是又一次「模型就是不听」。**把不可归因的失败换成可归因的失败, 本身就是进展。**
+
+---
+
+## 操作项闭合 (2026-08-18, 收尾补记)
+
+§1/§5 所记「launchd 现役进程早于接线 commit, 线上未通电」已闭合: 用户指示后
+`launchctl kickstart -k gui/501/com.sdtmrag.api` 重启 (新进程 2026-08-18 19:14:11 起),
+`/api/info` 200, 启动日志 `federation signal_layer=True study_lookup='959 items/1 aliases'`
+—— widen-only 信号层自此在生产在线。复核命令:
+`grep signal_layer sdtm-rag/logs/api.launchd.log | tail -1`。
