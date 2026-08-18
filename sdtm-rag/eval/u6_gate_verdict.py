@@ -96,6 +96,13 @@ def validate_inputs(base: list[dict], after: list[dict]) -> None:
             if "meta" not in r or not r["meta"].get("generated_at"):
                 raise SystemExit(f"{label} 第 {i} 份 run 缺 meta.generated_at — "
                                  f"先用 Task 1 修缮后的 run_routing_eval 重产")
+        # 批内重复是最有欺骗性的一格: 同一份 run 喂三遍, 条款 1 的「每遍」恒等于那一遍,
+        # 均值恒等于那一遍, clause6 更会报出「三遍全稳」—— 三遍纪律形同虚设却全绿。
+        stamps = [r["meta"]["generated_at"] for r in runs]
+        if len(set(stamps)) != len(stamps):
+            raise SystemExit(
+                f"{label} 三份 run 的 meta.generated_at 有重复 {sorted(stamps)} — "
+                f"同一份 run 被当成多遍喂进来, 三遍纪律与 clause6 稳定性都会是假象")
     bdump = {json.dumps(r["summary"], sort_keys=True) for r in base}
     adump = {json.dumps(r["summary"], sort_keys=True) for r in after}
     # 两个条件是 AND: 确定性跑批下两批 summary 逐字相同是合法的, 只有连 meta (跑批时刻)

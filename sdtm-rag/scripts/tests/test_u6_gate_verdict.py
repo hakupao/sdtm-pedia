@@ -48,13 +48,30 @@ def mk_run(idx, *, fatal=0, legacy=179, dist_exact=12, dist_fatal=0,
 BASE = [mk_run(i, fatal=10, dist_fatal=2, u1_fatal=1, dev=6, gen="base") for i in (1, 2, 3)]
 
 
+def mk_batch(gen, **kw):
+    """一批三遍。任一 kwarg 传 3 元列表即**逐遍不同** —— 异质 fixture 是刚需:
+
+    三遍数字全同质时, 「每遍都要满足」与「只看第一遍」、「三遍均值」与「取第一遍」在断言里
+    完全同形, 聚合塌成一遍的变异会全数存活 (审查方实测 3/3 存活)。
+    """
+    def per_run(v, i):
+        return v[i] if isinstance(v, list | tuple) else v
+
+    return [mk_run(idx, gen=gen, **{k: per_run(v, idx - 1) for k, v in kw.items()})
+            for idx in (1, 2, 3)]
+
+
 def after_runs(**kw):
-    return [mk_run(i, gen="after", **kw) for i in (1, 2, 3)]
+    return mk_batch("after", **kw)
 
 
 def base_runs(**kw):
-    kw = {"fatal": 10, "dist_fatal": 2, "u1_fatal": 1, "dev": 6, **kw}
-    return [mk_run(i, gen="base", **kw) for i in (1, 2, 3)]
+    return mk_batch("base", **{"fatal": 10, "dist_fatal": 2, "u1_fatal": 1, "dev": 6, **kw})
+
+
+# 条款 4/7 的双列闸口径完全相同, 只是读不同的组 —— 边界与方向用例两条条款各跑一遍,
+# 免得 clause7 一直蹭 clause4 的 _dual_gate 覆盖 (审查 Minor 3)。
+DUAL = [("clause4", "dist_exact", "dist_fatal", 12), ("clause7", "u1_exact", "u1_fatal", 27)]
 
 
 # --------------------------------------------------------------------------- brief 的七条
@@ -176,31 +193,30 @@ def test_clause4_and_clause7_do_not_read_the_same_group():
     assert only_u1["clause7"]["pass"] is False and only_u1["clause4"]["pass"] is True
 
 
-@pytest.mark.parametrize("clause,base_kw,after_kw", [
-    ("clause4", {"dist_exact": 12}, {"dist_exact": 12}),
-    ("clause7", {"u1_exact": 27}, {"u1_exact": 27}),
-])
-def test_dual_gate_exact_direction_not_reversed(clause, base_kw, after_kw):
+@pytest.mark.parametrize("clause,ekey,fkey,full", DUAL)
+def test_dual_gate_exact_direction_not_reversed(clause, ekey, fkey, full):
     """**对调型**: `eb - ea <= 1` 写成 `ea - eb <= 1` 时, 下降 4 题会变 PASS 而
     改善 4 题会变触发 —— 与用途正好相反。两个方向都钉。"""
-    drop_key, = after_kw
-    dropped = verdict(base_runs(**base_kw), after_runs(**{drop_key: after_kw[drop_key] - 4}))[0]
-    gained = verdict(base_runs(**{drop_key: base_kw[drop_key] - 4}), after_runs(**after_kw))[0]
+    dropped = verdict(base_runs(**{ekey: full}), after_runs(**{ekey: full - 4}))[0]
+    gained = verdict(base_runs(**{ekey: full - 4}), after_runs(**{ekey: full}))[0]
     assert dropped[clause]["pass"] is False, "较基线下降 4 题必须触发"
     assert gained[clause]["pass"] is True, "较基线改善 4 题不得触发"
 
 
-@pytest.mark.parametrize("after_exact,expected", [(12, True), (11, True), (10, False)])
-def test_dual_gate_exact_allows_drop_of_exactly_one(after_exact, expected):
-    out, _ = verdict(base_runs(dist_exact=12), after_runs(dist_exact=after_exact))
-    assert out["clause4"]["pass"] is expected
+@pytest.mark.parametrize("clause,ekey,fkey,full", DUAL)
+@pytest.mark.parametrize("drop,expected", [(0, True), (1, True), (2, False)])
+def test_dual_gate_exact_allows_drop_of_exactly_one(clause, ekey, fkey, full, drop, expected):
+    out, _ = verdict(base_runs(**{ekey: full}), after_runs(**{ekey: full - drop}))
+    assert out[clause]["pass"] is expected
 
 
+@pytest.mark.parametrize("clause,ekey,fkey,full", DUAL)
 @pytest.mark.parametrize("after_fatal,expected", [(1, True), (2, True), (3, False)])
-def test_dual_gate_fatal_allows_equal_but_not_increase(after_fatal, expected):
+def test_dual_gate_fatal_allows_equal_but_not_increase(clause, ekey, fkey, full,
+                                                      after_fatal, expected):
     """**对调型 + 边界**: fatal 半是「不得增加」, 持平放行, 多 1 个就拦。"""
-    out, _ = verdict(base_runs(dist_fatal=2), after_runs(dist_fatal=after_fatal))
-    assert out["clause4"]["pass"] is expected
+    out, _ = verdict(base_runs(**{fkey: 2}), after_runs(**{fkey: after_fatal}))
+    assert out[clause]["pass"] is expected
 
 
 def test_dual_gate_columns_are_independent():
@@ -209,6 +225,59 @@ def test_dual_gate_columns_are_independent():
                       after_runs(dist_fatal=0, dist_exact=8))
     assert out["clause4"]["fatal"] == {"base": 5.0, "after": 0.0}
     assert out["clause4"]["pass"] is False and rc == 1
+
+
+# ------------------------------------------------------------------- 三遍语义 (异质 fixture)
+#
+# 以下每条都造成「第一遍干净, 第二/三遍才出事」的形状 —— 把聚合塌成第一遍的变异会给出与
+# 真实判定**相反**的结果。三遍数字同质时这类变异 3/3 存活 (审查方实测: 条款 1 的 all(...)
+# 改 after[:1] / _dual_gate 均值改 [0] / 条款 2·3 均值改第一遍, 48 条照样全绿)。
+
+
+def test_clause1_reads_every_run_not_just_the_first():
+    """条款 1 的口径是「三遍**每一遍**」: 第 2 遍跌破 floor、第 3 遍冒出 fatal, 都得红。"""
+    assert verdict(BASE, after_runs(legacy=[179, 177, 179]))[0]["clause1"]["pass"] is False
+    assert verdict(BASE, after_runs(fatal=[0, 0, 2]))[0]["clause1"]["pass"] is False
+    # 反向: 三遍逐遍不同但都合格, 不得误红
+    assert verdict(BASE, after_runs(legacy=[179, 178, 181]))[0]["clause1"]["pass"] is True
+
+
+def test_clause3_reads_the_three_run_mean_not_the_first_run():
+    # dev 三遍 12/12/3 → 均值 9 < 10 触发; 取第一遍 (12) 则 PASS
+    out, _ = verdict(BASE, after_runs(dev=[12, 12, 3]))
+    assert out["clause3"]["dev_mean"] == 9.0 and out["clause3"]["pass"] is False
+
+
+def test_clause2_reads_the_three_run_mean_not_the_first_run():
+    # heldout 三遍 12/12/0 → 均值 8/12 = 66.67% vs dev 100% → 33.3pt 触发; 取第一遍则 PASS
+    out, _ = verdict(BASE, after_runs(heldout=[12, 12, 0]))
+    assert out["clause2"]["heldout_pct"] == 66.67 and out["clause2"]["pass"] is False
+
+
+@pytest.mark.parametrize("clause,ekey,fkey,full", DUAL)
+def test_dual_gate_exact_reads_the_three_run_mean(clause, ekey, fkey, full):
+    """after 三遍 full/full/(full-6) → 均值 full-2, 掉 2 题必须触发; 只看第一遍则 full vs full。"""
+    out, rc = verdict(base_runs(**{ekey: full}), after_runs(**{ekey: [full, full, full - 6]}))
+    assert out[clause]["exact"] == {"base": float(full), "after": float(full) - 2}
+    assert out[clause]["pass"] is False and rc == 1
+
+
+@pytest.mark.parametrize("clause,ekey,fkey,full", DUAL)
+def test_dual_gate_fatal_reads_the_three_run_mean(clause, ekey, fkey, full):
+    """基线零 fatal, after 只在第三遍冒 3 个 → 均值 1.0 > 0 必须触发 (第一遍看不见)。"""
+    out, _ = verdict(base_runs(**{fkey: 0}), after_runs(**{fkey: [0, 0, 3]}))
+    assert out[clause]["fatal"] == {"base": 0.0, "after": 1.0}
+    assert out[clause]["pass"] is False
+
+
+def test_dual_gate_reads_the_baseline_mean_too():
+    """基线侧同样是三遍均值: 基线 6/12/12 的均值是 10, 不是第一遍那个 6。
+
+    这一格 after 是改善 (不触发), 故只有归档下来的数字能揭穿塌遍 —— 而那个数字要进 checkpoint。
+    """
+    out, _ = verdict(base_runs(dist_exact=[6, 12, 12]), after_runs(dist_exact=12))
+    assert out["clause4"]["exact"] == {"base": 10.0, "after": 12.0}
+    assert out["clause4"]["pass"] is True
 
 
 # --------------------------------------------------------------------------- 条款 5/6 + rc
@@ -251,6 +320,27 @@ def test_same_summary_but_different_run_is_not_rejected():
     for i, r in enumerate(after, 1):
         r["meta"]["generated_at"] = f"after-{i}"
     validate_inputs(BASE, after)      # 不抛
+
+
+def test_duplicate_run_within_the_after_batch_is_rejected():
+    """同一份 after 喂三遍: 条款 1 的「每遍」与均值全都恒等于那一遍, clause6 还会报
+    「三遍全稳」—— 不拦的话这是全绿产物里最有欺骗性的一格。"""
+    one = after_runs()[0]
+    triple = [one, copy.deepcopy(one), copy.deepcopy(one)]
+    with pytest.raises(SystemExit, match="generated_at 有重复"):
+        validate_inputs(BASE, triple)
+    with pytest.raises(SystemExit, match="generated_at 有重复"):   # verdict 也走同一道闸
+        verdict(BASE, triple)
+
+
+def test_duplicate_run_within_the_baseline_batch_is_rejected():
+    one = BASE[0]
+    with pytest.raises(SystemExit, match="generated_at 有重复"):
+        validate_inputs([one, copy.deepcopy(one), copy.deepcopy(one)], after_runs())
+
+
+def test_three_distinct_runs_are_not_rejected():
+    validate_inputs(BASE, after_runs())      # 反向闸: 去重闸不许把正常三遍拦掉
 
 
 def test_missing_group_is_rejected():
