@@ -17,6 +17,11 @@
 全部 38 条 SURVIVED 都**再用全量 1654 条复判过一遍**, 无一条被别的测试文件杀掉 (每次复判的
 `restored_clean` 皆为 true, 输出皆为 `1654 passed`) —— 即这 38 条确实是"改坏源码而测试全绿"。
 
+> **复验后记 (2026-08-18, `f2244e7`)**: 补杀波之后用同一套变异集重跑过一遍, **29 条 finding 变异
+> 全部转 KILLED**, F-01..F-15 无一留作 known limit; 终态存活 9 条 = 8 条等价 + 1 条我自己设计过弱的
+> 变异 (F08, 其守卫本体有锚)。**§0-§8 保持复验前的原貌不动** (它们是补杀波的输入), 复验结果与
+> 终态存活清单见 **§9**。
+
 | 文件 | 变异 | KILLED | SURVIVED | 其中等价 | 计入缺口 |
 |------|-----:|-------:|---------:|---------:|---------:|
 | `eval/u6_gate_verdict.py` | 36 | 30 | 6 | 0 | 6 |
@@ -1125,3 +1130,138 @@ rc 与 accepted 脱钩 (恒 0)
 - f"routing={'LLM(light)' if args.corpus == 'auto' else 'forced'}"
 + f"routing={'LLM(light)'}"
 ```
+
+---
+
+## 9. 冻结期终态存活清单 (复验 @ f2244e7)
+
+补杀波 (`f2244e7`, +45 测试) 之后, 用**同一套变异集**对新测试面重跑了一遍。本节是复验结果与
+终态存活清单; §0-§8 保持复验前的原貌不动 (那是补杀波的输入, 改了就对不上账)。
+
+### 9.1 复验条件
+
+| 项 | 值 |
+|----|----|
+| 复验 HEAD | `f2244e7` (`test(u6-t12): 补杀波 — 抽检 B 29 条存活变异全部转 KILLED`) |
+| 复验基线 | 净树 + 全量 **1699 passed in 38.08s** (原审计基线为 1654) |
+| 变异集 | 原 38 条 SURVIVED 全部重跑 (等价 8 条**未抽样, 全跑**) + 2 条新增 |
+| harness | scratchpad 原件仍在, 未重建 |
+
+**等价 8 条为什么全跑而不抽 2 条**: 我的等价论证是对**返回值**成立的; 补杀波若补了以调用探针 /
+日志面为观测点的测试 (D01/D03 尤其可能), 等价关系就会被更强的观测面打破 —— 那种情况下"抽样
+通过"会漏掉真实的转杀。全跑只多花几秒, 而且只有全跑才配得上"终态清单"这四个字。
+
+### 9.2 harness 在新树上的自证 (先证仪器)
+
+测试面换了, 仪器必须重证一次, 不能沿用昨天的结论:
+
+| id | 期望 | 实测 @ f2244e7 |
+|----|------|----------------|
+| S0 哨兵语法错 | COMPILE_FAIL | `COMPILE_FAIL: SyntaxError: '(' was never closed` ✅ |
+| S1 阳性对照 | KILLED | 11 条红 ✅ |
+| S2 阴性对照 (只改注释) | SURVIVED | 全绿 ✅ |
+| S3 锚点不存在 | ANCHOR_FAIL | `anchor occurs 0 times` ✅ |
+
+### 9.3 A17 的锚点被加固改掉了 —— 重导, 外加一条回退闸
+
+补杀波唯一的源码改动落在 A17 那一行, 原锚点因此**在新源码里不存在**。这是变异复验最容易出事的
+一格: 锚点消失时若 harness 静默跳过, 那条变异会被记成"已修"而实际从未施加。这里 S3 那道
+ANCHOR_FAIL 自检正是为它准备的。处理:
+
+- **A17 (重导)**: 在加固后的新行上施加**同一语义**的变异 (丢掉 `generated_at` 那一半)
+  → **KILLED** by `test_input_validation_rejects_a_blank_generated_at`。
+- **A17b (新增)**: 把加固**整条回退**成补杀波之前的写法
+  → **KILLED** by 同一条测试。⇒ 加固自身有锚, 回退即红 (印证补杀波 commit message 的说法)。
+
+### 9.4 复验结果: 39 条 → KILLED 30 / SURVIVED 9
+
+**29 条 finding 变异全部转 KILLED**, 逐条列出杀它的**新**测试:
+
+| id | 原 finding | 杀它的新测试 |
+|----|-----------|--------------|
+| A09 | F-11 | `test_distinct_git_revs_do_not_trigger_the_shared_warning` |
+| A12 / A13 | F-02 | `test_group_size_gate_covers_both_groups_and_both_directions` |
+| A16 | F-03 | `test_input_validation_needs_three_in_the_after_batch_too` |
+| A17 | F-12 | `test_input_validation_rejects_a_blank_generated_at` |
+| A19 | F-13 | `test_shared_generated_at_alone_is_not_a_copy_error` |
+| B05 | F-03 | `test_rejects_arm_with_more_than_three_runs` |
+| B27 | F-04 | `test_dominance_only_ids_subtracts_the_gain_side_too` |
+| B33 | F-04 | `test_divergent_false_when_the_aggregate_reading_is_zero` |
+| C06 | F-01 | `test_terms_contain_no_clinical_concepts` + `test_frozen_lexicon_and_patterns_are_literal` |
+| C07 / C08 | F-01 | `test_ct_code_shape_stays_silent_outside_the_frozen_bounds` + 冻结闸 |
+| C09 / C10 | F-01 | `test_variable_shape_stays_silent_inside_a_longer_ascii_run` + 冻结闸 |
+| C12 | F-05 | `test_norm_is_nfkc_plus_lowercase` |
+| C26 | F-06 | `test_build_signals_actually_loads_the_alias_table_when_present` |
+| D02 | F-15 | `test_decide_corpus_without_signals_is_silent_too` |
+| E25 | F-14 | `test_repeated_oid_segment_is_counted_once_against_the_cap` |
+| E30 | F-07 | `test_repeating_one_token_does_not_promote_the_weak_channel` |
+| F09 / F10 | F-08 | `test_a_broken_signal_layer_never_counts_as_alive` |
+| F11 | F-08 | `test_simulate_refuses_a_pred_that_replays_into_a_fallback` |
+| F18 | F-08 | `test_rule_c_fails_when_only_one_of_the_two_signals_is_alive` |
+| F23 | F-08 | `test_json_out_excludes_the_intermediate_sim_preds` |
+| F24 | F-08 | `test_main_rc_follows_accepted` |
+| G28 | F-09 | `test_stability_counts_only_ids_that_agree_across_all_three_runs` |
+| G29 | F-14 | `test_nonstandard_flag_still_forces_nonzero_rc_at_three_runs` |
+| G35 | F-14 | `test_supplement_gold_empty_file_raises` |
+| H12 | F-10 | `test_federated_receipt_routing_word_follows_the_corpus` |
+| A17b | (新增回退闸) | `test_input_validation_rejects_a_blank_generated_at` |
+
+**F-01..F-15 十五条 finding 全部落地**, 无一条留作 known limit。
+
+### 9.5 终态存活清单 (9 条)
+
+9 条仍存活, **全部再用全量 1699 条复判过** (`restored_clean` 逐条 true, 输出皆 `1699 passed`):
+
+| id | 类别 | 复验结论 |
+|----|------|----------|
+| B22 | 等价 | 论证仍成立 —— 支配并集必逐键覆盖稳定半, 且额相等 |
+| C11 | 等价 | 论证仍成立 —— 交替式顺序不改 `bool(search)` |
+| C23 | 等价 | 论证仍成立 —— 拆守卫后 `read_text` 抛同类同路径异常 |
+| C25 | 等价 | 论证仍成立 —— `StudyLookup` 恒真, 取不到 None |
+| D01 | 等价 | 论证仍成立 —— 内层 `widen_reason("both")` 恒 None, 返回值不变 |
+| D03 | 等价 | 同 D01 |
+| D16 | 等价 | 论证仍成立 —— 两种破法同落 `except` → 同一 fallback |
+| G11 | 等价 | 论证仍成立 —— `score_run["passed"]` 生产无消费者 |
+| **F08** | **非等价 (弱变异)** | 仍存活, 详见 9.6 |
+
+⇒ **非等价存活 K = 1** (F08), 不是 0。这一条我按原样报出来, 不并进等价项。
+
+### 9.6 F08 的残留: 守卫会响, 但"哪些 pred 算合法"没有锚
+
+`u6_calibrate_signals.load_base_preds` 的非法 pred 守卫本体**有锚** —— 整条拆掉 (F08b) 在补杀波
+前后都是 KILLED (`test_load_base_preds_raises_on_invalid_pred`)。存活的是它的**合法集**:
+
+| 变异 | 方向 | 结果 |
+|------|------|------|
+| F08 | 放宽: `p not in (*VALID_CORPORA, "junk")` | SURVIVED |
+| **F08c** (本次新增) | 收紧: `p not in ("cdisc", "study")` —— 连合法的 `both` 也拒 | **SURVIVED** |
+
+两个方向都不红 ⇒ 该守卫的合法集**完全没有被钉住**, 现有测试只证明"某个非法值会被拒"。
+
+**严重度: 低, 且方向安全。** F08c 那种收紧形态一跑真实基线就会当场炸 (模块 docstring 自己算过:
+legacy 181 题里那 2 道不 exact 的题 pred 必为 `both`) —— 是 fail-loud, 不是静默给错结论;
+F08 那种放宽形态需要 run json 里恰好出现 `"junk"` 这个字面值才会显形。
+
+修法 (一行, 若认为值得): 把守卫的合法集断言成字面 —— 与 C06/C07 那条
+`test_frozen_lexicon_and_patterns_are_literal` 同形。**我不主张现在就改**: 本条既 fail-loud 又
+需要构造性输入才触发, 和补杀波刚关掉的那 29 条不是一个量级。列在这里是为了不留口头约定。
+
+### 9.7 一条不算 finding 的观察 (F-01 的修法形状)
+
+C06-C10 这五条现在由两层拦住: 语义层 (黑名单补齐词根 / 阴性对照参数化) + **冻结层**
+(`test_frozen_lexicon_and_patterns_are_literal` 把 8 条词表与两条正则钉成字面)。冻结层是这轮
+真正的主力 —— 任何改动都红, 不依赖黑名单猜得全不全。
+
+需要说清楚的是它**改变了缺口的形状而不是消灭了语义判据**: 将来若有一次正当的重新标定, 改词表的人
+必须同时改那条字面断言, 而那一刻语义上唯一的守门人仍是黑名单。这不是缺陷 —— 在"词表冻结"这个
+前提下, 冻结闸正是对的机制 (它把"改了没人知道"变成"改了必须显式声明")。记在这里只是让下一个
+重新标定的人知道: **红的那一刻不是阻碍, 是要求你把新词表的出处写进 review**。
+
+### 9.8 复验收尾自检
+
+| 项 | 命令 | 结果 |
+|----|------|------|
+| 目标源文件净树 | `git status --porcelain -- eval server scripts` | 空 |
+| 复验基线 / 收尾复跑 | `./.venv/bin/python -m pytest -o addopts="-q" -p no:warnings` | **1699 passed** |
+| 9 条存活的全量复判 | harness `tests: ["ALL"]` | 9/9 皆 `1699 passed`, `restored_clean` 全 true |
+| harness 自证 | 见 §9.2 | 四条对照全部成立 |
