@@ -30,10 +30,15 @@ VALID_GOLD = ("cdisc", "study", "both")
 
 DOCS_QUESTION_SET = Path("data/study/st01/eval/test_set_docs_v1.yml")
 DOCS_ROUTING_SET = Path("data/study/st01/eval/routing_gold_docs.yml")
+STUDY_SET_V2 = Path("data/study/st01/eval/test_set_study_v2.yml")
 
-# spec §7 条款 5: 这三题只报告不作 PASS 条件, 单独分组。硬编码 id (非题面) 入库是有意的 ——
-# 它们必须可被 code review 看见, 否则「哪三题被豁免」就成了口头约定。
-FINAL_IDS = ("docs_v1_q15", "docs_v1_q17", "docs_v1_q53")
+# spec §7 条款 5: 这几题只报告不作 PASS 条件, 单独分组。硬编码 id (非题面) 入库是有意的 ——
+# 它们必须可被 code review 看见, 否则「哪几题被豁免」就成了口头约定。
+# st01_v2_q07 是 U6 T3 补进来的第 4 题 (U5 观测: auto 路由在它上面打空), 同一条纪律。
+FINAL_IDS = ("docs_v1_q15", "docs_v1_q17", "docs_v1_q53", "st01_v2_q07")
+# FINAL_IDS 里由 v2 题集 (而非 U1 doc 题集) 供给的那部分。两份名单都写死在源码里,
+# 理由同上: 谁被条款 5 豁免、由哪个来源供给, 都必须落在 code review 看得见的地方。
+V2_FINAL_IDS = ("st01_v2_q07",)
 # spec §7 条款 1: U2 收口实测三遍稳定 179/181, 留 1 题噪声余量。**不许下调。**
 LEGACY_EXACT_FLOOR = 178
 # 数据文件**有权自称**的 group。`final` / `u1_doc` 不在其中: 它们只能由 load_u1_doc_gold
@@ -44,10 +49,10 @@ AUTHORED_GROUPS = ("dev", "heldout", "distractor_cdisc", "ambiguous_both")
 NEW_GROUPS = ("u1_doc", "final", *AUTHORED_GROUPS)
 GROUPS = ("legacy", *NEW_GROUPS)
 # spec §5.2 的配比。写死而非「非空即可」: 两个 gold 文件都 gitignored, 少掉整整一组题
-# (U1 题集删到只剩 FINAL_IDS 三题 / 新 gold 缩到 1 题) 在输出里长得跟「这组本来就不存在」
+# (U1 题集删到只剩 FINAL_IDS 那几题 / 新 gold 缩到 1 题) 在输出里长得跟「这组本来就不存在」
 # 一模一样, 闸照样 PASS —— spec §7「不许从 gold 删题」就没有任何执行者。
 # 数字改动必须走 code review, 这正是把它放进源码的理由。
-EXPECTED_GROUP_SIZES = {"legacy": 181, "u1_doc": 27, "final": 3, "dev": 12,
+EXPECTED_GROUP_SIZES = {"legacy": 181, "u1_doc": 27, "final": 4, "dev": 12,
                         "heldout": 12, "distractor_cdisc": 12, "ambiguous_both": 6}
 
 
@@ -107,12 +112,39 @@ def load_u1_doc_gold(path: Path) -> list[dict]:
     if not items:
         raise ValueError(f"U1 doc 题集为空: {path} —— 闸口不完整, 拒绝继续")
     ids = {q["id"] for q in items}
-    missing = sorted(set(FINAL_IDS) - ids)
-    if missing:  # 三题被改名/删掉而闸照跑 = 条款 5 的报告对象静默消失
+    # 只核 docs_ 前缀那几个: U6 T3 起 FINAL_IDS 里还有一题来自 v2 题集 (load_v2_final 供给),
+    # 本函数拿到的题集里本就没有它, 全量核会把这个来源分工误判成「题集缺题」。
+    missing = sorted({i for i in FINAL_IDS if i.startswith("docs_")} - ids)
+    if missing:  # 题被改名/删掉而闸照跑 = 条款 5 的报告对象静默消失
         raise ValueError(f"{path}: FINAL_IDS 缺失 {missing} —— 条款 5 无报告对象, 拒绝继续")
     return [{"id": q["id"], "question": q["question"], "gold": "study",
              "group": "final" if q["id"] in FINAL_IDS else "u1_doc"}
             for q in items]
+
+
+def load_v2_final(path: Path) -> list[dict]:
+    """v2 题集中被条款 5 收编的题 (id 硬编码源码, 同 FINAL_IDS 的 review 可见性理由)。
+
+    只取 V2_FINAL_IDS 那几题: v2 题集有 51 题, 整份并进来会把其余题偷渡进 final 组 ——
+    而 final 组正是唯一不计入 fatal 的那一组。
+    """
+    # 该题集 gitignored, 换台机器就可能不在 —— 缺文件必须说清是**闸口**不完整,
+    # 而不是留一句裸 FileNotFoundError 让人读成「这份可选文件没装」(同 load_u1_doc_gold)。
+    if not path.exists():
+        raise FileNotFoundError(f"v2 题集缺失: {path} —— 闸口不完整, 拒绝继续")
+    # 空题集 → 静默少题 = 条款 5 的报告对象消失。这一步必须在 load_test_set 之前:
+    # 它对空文件抛的是 TypeError('NoneType' object is not iterable), 消息来自无关模块,
+    # 且会把下面那条缺失检查变成永远够不着的死代码 (同 load_u1_doc_gold 的教训)。
+    if not (yaml.safe_load(path.read_text(encoding="utf-8")) or []):
+        raise ValueError(f"v2 题集为空: {path} —— 闸口不完整, 拒绝继续")
+    items = {q["id"]: q for q in load_test_set(str(path))}
+    missing = sorted(set(V2_FINAL_IDS) - set(items))
+    # 只打 id 与路径: 该题集是 gitignored 的 study 内容, 异常消息会随 pytest traceback
+    # 进入本仓惯例贴进 evidence/ 的实测输出 (同 load_docs_routing_gold 处的红线)。
+    if missing:
+        raise ValueError(f"{path}: v2 final 题缺失 {missing} —— 条款 5 报告对象不完整, 拒绝继续")
+    return [{"id": i, "question": items[i]["question"], "gold": "study", "group": "final"}
+            for i in V2_FINAL_IDS]
 
 
 def load_docs_routing_gold(path: Path) -> list[dict]:
@@ -150,6 +182,7 @@ def load_gold() -> list[dict]:
     items += [{**q, "group": "legacy"} for q in load_supplement(JA_SUPP_SET)]
     items += load_u1_doc_gold(DOCS_QUESTION_SET)
     items += load_docs_routing_gold(DOCS_ROUTING_SET)
+    items += load_v2_final(STUDY_SET_V2)
     ids = [g["id"] for g in items]
     dupes = sorted({i for i in ids if ids.count(i) > 1})
     if dupes:  # predictions 以 id 为键, 重名会互相覆盖 → 静默改变计分
@@ -205,7 +238,7 @@ def score_by_group(gold: list[dict], predictions: dict[str, str]) -> dict[str, d
 def gate_verdict(gold: list[dict], predictions: dict[str, str]) -> dict:
     """spec §7 条款 1 的判定。
 
-    fatal 口径 = **全集减去 final 组** —— final 三题的 gold 是 study, 判去 cdisc 按
+    fatal 口径 = **全集减去 final 组** —— final 组各题的 gold 是 study, 判去 cdisc 按
     score_run 就是 fatal; 若计入, 条款 1 会与条款 5 (只报告不作判据) 互相打架。
     """
     by_group = score_by_group(gold, predictions)
@@ -241,7 +274,7 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
     # I-1: --runs 1 也照样打「三遍判定一致」—— 一遍与自己比恒等于 100%, 那行读起来跟真
     # 三遍一字不差, 于是一遍的结果可以被当成三遍纪律的证据引用。守卫必须在 load_gold /
-    # create_router 之前, 否则要先烧掉 253 题 × N 遍的 LLM 调用才发现参数不对。
+    # create_router 之前, 否则要先烧掉 254 题 × N 遍的 LLM 调用才发现参数不对。
     if args.runs != 3 and not args.allow_nonstandard_runs:
         raise SystemExit("三遍纪律: --runs 必须为 3 (审查 I-1 修缮); 调试请加 --allow-nonstandard-runs")
     gold = load_gold()

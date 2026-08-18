@@ -215,14 +215,17 @@ def test_double_chapters_are_split_one_each():
 
 
 def test_real_load_gold_enforces_authored_group_sizes():
-    """拿**真实**的 253 题跑一遍 load_gold() —— 纯函数, 不发任何 LLM 请求.
+    """拿**真实**的 254 题跑一遍 load_gold() —— 纯函数, 不发任何 LLM 请求.
 
     load_gold() 内建的题量闸此前只在 monkeypatch 过 EXPECTED_GROUP_SIZES 的 fixture 上跑过,
     真实的 routing_gold_docs.yml 没有任何测试碰过 ⇒ 「四组题量对不对」在 CI 里是空白,
     只有人工跑 eval (要发 LLM 请求) 才会发现。这条把那次相遇搬进单测。
+
+    253 → 254 (U6 T3): st01_v2_q07 入 final 组。本条盯的是 authored 四组 (下面那行),
+    它们一题未动 —— 变的只有全集与 final。
     """
     from eval.run_routing_eval import EXPECTED_GROUP_SIZES
 
     total, sizes = _authored_group_sizes()
-    assert total == sum(EXPECTED_GROUP_SIZES.values()) == 253
+    assert total == sum(EXPECTED_GROUP_SIZES.values()) == 254
     assert sizes == {"dev": 12, "heldout": 12, "distractor_cdisc": 12, "ambiguous_both": 6}

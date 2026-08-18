@@ -167,21 +167,38 @@ _DOCS_ROUTING_YML = """
 """
 
 
-# fixture 题集的组分布。真值 (spec §5.2 的 181/27/3/12/12/12/6) 由
+# U6 T3: v2 题集的 fixture。带一条**非** final 的 v2 题 —— 收编的是指定 id 那一题,
+# 不是整份 v2 题集 (51 题), 少了这条对照, 「整份并进来」的写法在 fixture 上看不出来。
+_V2_YML = """
+- id: st01_v11_q01
+  question: dummy v2 question 01
+  expected_sources: [st01__Y]
+- id: st01_v2_q07
+  question: dummy v2 question 07
+  expected_sources: [st01__Z]
+"""
+
+# fixture 题集的组分布。真值 (spec §5.2 的 181/27/4/12/12/12/6) 由
 # test_policy_constants_match_spec + test_real_gold_files_match_expected_sizes 钉住。
-_FIXTURE_SIZES = {"legacy": 3, "u1_doc": 1, "final": 3, "dev": 1,
+# final=4: U6 T3 起 docs 三题 + v2 的 st01_v2_q07。
+_FIXTURE_SIZES = {"legacy": 3, "u1_doc": 1, "final": 4, "dev": 1,
                   "heldout": 1, "distractor_cdisc": 1, "ambiguous_both": 1}
 
 
 def _wire_u3(tmp_path, monkeypatch, *, docs_q=_DOCS_QUESTION_YML, docs_r=_DOCS_ROUTING_YML,
-             ja=_JA_YML, sizes=_FIXTURE_SIZES):
+             ja=_JA_YML, v2=_V2_YML, sizes=_FIXTURE_SIZES):
     _wire(tmp_path, monkeypatch, ja=ja)
     dq = tmp_path / "docs_q.yml"
     dq.write_text(docs_q, encoding="utf-8")
     dr = tmp_path / "docs_r.yml"
     dr.write_text(docs_r, encoding="utf-8")
+    # v2 也走 fixture: 真 v2 题集是 gitignored 的本机文件, 让单测依赖它 = 换台机器整组红,
+    # 且会把真实题面带进 fixture gold (红线)。真文件由下面的 real_gold 那条单独核。
+    v2p = tmp_path / "v2.yml"
+    v2p.write_text(v2, encoding="utf-8")
     monkeypatch.setattr(run_routing_eval, "DOCS_QUESTION_SET", dq)
     monkeypatch.setattr(run_routing_eval, "DOCS_ROUTING_SET", dr)
+    monkeypatch.setattr(run_routing_eval, "STUDY_SET_V2", v2p)
     monkeypatch.setattr(run_routing_eval, "EXPECTED_GROUP_SIZES", sizes)
     return dq, dr
 
@@ -194,6 +211,9 @@ def test_load_gold_tags_every_item_with_a_group(tmp_path, monkeypatch):
     assert by["c1"] == "legacy" and by["st_s1"] == "legacy" and by["ja_supp_01"] == "legacy"
     assert by["docs_v1_q15"] == "final" and by["docs_v1_q01"] == "u1_doc"
     assert by["u3_dev_01"] == "dev" and by["u3_hold_01"] == "heldout"
+    # U6 T3: 第 6 个 gold 来源也必须带上组, 且落在 final
+    assert by["st01_v2_q07"] == "final"
+    assert "st01_v11_q01" not in by, "v2 题集只收编 V2_FINAL_IDS, 不是整份并进来"
 
 
 def test_u1_doc_questions_are_all_gold_study(tmp_path, monkeypatch):
@@ -201,7 +221,9 @@ def test_u1_doc_questions_are_all_gold_study(tmp_path, monkeypatch):
     _wire_u3(tmp_path, monkeypatch)
     gold = run_routing_eval.load_gold()
     docs = [g for g in gold if g["group"] in ("final", "u1_doc")]
-    assert len(docs) == 4 and {g["gold"] for g in docs} == {"study"}
+    # 4 → 5 (U6 T3): U1 题集 4 题 (3 final + 1 u1_doc) + v2 收编的 st01_v2_q07。
+    # 新来源的 gold 同样是 study, 统一标签这条纪律对它一样成立。
+    assert len(docs) == 5 and {g["gold"] for g in docs} == {"study"}
 
 
 def test_missing_final_id_raises(tmp_path, monkeypatch):
@@ -483,8 +505,11 @@ def test_final_group_must_not_be_short_of_final_ids(tmp_path, monkeypatch):
     两道闸互为唯一守护 ⇒ 各自钉住各自的方向。
     """
     _wire_u3(tmp_path, monkeypatch)
+    # U6 T3: 少塞一题必须从 **docs 侧**的名单里减 —— FINAL_IDS[:-1] 减掉的是 v2 那题,
+    # 而它由 load_v2_final 独立补回去, final 组照样是 4 题, 这条就失去杀伤力。
+    docs_final = [i for i in run_routing_eval.FINAL_IDS if i.startswith("docs_")]
     short = [{"id": i, "question": "placeholder", "gold": "study", "group": "final"}
-             for i in run_routing_eval.FINAL_IDS[:-1]]
+             for i in docs_final[:-1]]
     monkeypatch.setattr(run_routing_eval, "load_u1_doc_gold", lambda path: short)
     with pytest.raises(ValueError, match="缺少"):
         run_routing_eval.load_gold()
@@ -541,7 +566,10 @@ def test_real_gold_files_match_expected_sizes():
     assert legacy == exp["legacy"]
     docs = run_routing_eval.load_u1_doc_gold(run_routing_eval.DOCS_QUESTION_SET)
     assert sum(1 for g in docs if g["group"] == "u1_doc") == exp["u1_doc"]
-    assert sum(1 for g in docs if g["group"] == "final") == exp["final"]
+    # U6 T3: final 组自此有**两个**来源, 只核 U1 侧会让 exp["final"] 3→4 这次改动
+    # 在真实题集上无人核对 (fixture 那边 sizes 是 monkeypatch 的, 核不到真文件)。
+    v2 = run_routing_eval.load_v2_final(run_routing_eval.STUDY_SET_V2)
+    assert sum(1 for g in docs if g["group"] == "final") + len(v2) == exp["final"]
 
 
 # ── m5: DOCS_QUESTION_SET 侧的缺文件/空文件 (brief 只给了 ROUTING 侧两条) ──
@@ -566,7 +594,13 @@ def test_policy_constants_match_spec():
     # monkeypatch 掉了 LEGACY_EXACT_FLOOR —— 源码里把 178 悄悄改小 (spec §7 明写"不许下调")
     # 或给 FINAL_IDS 增删一题, 原测试集合无一条会红。这条钉的就是那个盲区。
     assert run_routing_eval.LEGACY_EXACT_FLOOR == 178
-    assert run_routing_eval.FINAL_IDS == ("docs_v1_q15", "docs_v1_q17", "docs_v1_q53")
+    # U6 T3: 第 4 题 st01_v2_q07 (U5 观测到 auto 路由打空) 加入豁免名单 —— 同样是
+    # 只报告不作判据, 故与前三题一样必须硬编码在源码里给 code review 看见。
+    assert run_routing_eval.FINAL_IDS == (
+        "docs_v1_q15", "docs_v1_q17", "docs_v1_q53", "st01_v2_q07")
+    assert run_routing_eval.V2_FINAL_IDS == ("st01_v2_q07",)
+    assert set(run_routing_eval.V2_FINAL_IDS) <= set(run_routing_eval.FINAL_IDS), (
+        "v2 收编的题不在 FINAL_IDS 里 ⇒ load_gold 的恒等闸会直接拒绝整批跑批")
     assert run_routing_eval.GROUPS == (
         "legacy", "u1_doc", "final", "dev", "heldout", "distractor_cdisc", "ambiguous_both")
     # 数据文件有权自称的组: final / u1_doc 必须**不在**里面 (C1)
@@ -574,9 +608,12 @@ def test_policy_constants_match_spec():
         "dev", "heldout", "distractor_cdisc", "ambiguous_both")
     # spec §5.2 的配比, 同样是策略值 —— _wire_u3 把它 monkeypatch 成 fixture 分布了 (I4)
     assert run_routing_eval.EXPECTED_GROUP_SIZES == {
-        "legacy": 181, "u1_doc": 27, "final": 3, "dev": 12,
+        "legacy": 181, "u1_doc": 27, "final": 4, "dev": 12,
         "heldout": 12, "distractor_cdisc": 12, "ambiguous_both": 6}
-    assert sum(run_routing_eval.EXPECTED_GROUP_SIZES.values()) == 253
+    # 253 → 254 (U6 T3): 新增的是 final 组那一题, 判据口径 (全集减 final) 仍是 250 题。
+    assert sum(run_routing_eval.EXPECTED_GROUP_SIZES.values()) == 254
+    assert (sum(run_routing_eval.EXPECTED_GROUP_SIZES.values())
+            - run_routing_eval.EXPECTED_GROUP_SIZES["final"]) == 250
 
 
 # ── U6 T1: 活仪器修缮 (A-3 run 元数据 / I-1 三遍守卫 / I-4 by_group.passed) ──────
@@ -586,7 +623,7 @@ def test_runs_guard_rejects_non_three_before_loading_gold(monkeypatch, runs):
 
     一遍跑完照样打「三遍判定一致」—— 一遍与自己比恒等于 100%, 那行读起来跟真三遍
     一字不差, 于是 `--runs 1` 的结果可以被当成三遍纪律的证据引用。
-    守卫的位置也是断言的一部分: 放到 load_gold 之后, 就得先烧掉 253 题 × N 遍的 LLM 调用
+    守卫的位置也是断言的一部分: 放到 load_gold 之后, 就得先烧掉 254 题 × N 遍的 LLM 调用
     才告诉你参数不对; 故用会炸的桩钉住「这两个都不许被碰到」。
     """
     def _boom(*a, **k):
@@ -725,3 +762,106 @@ def test_by_group_has_no_passed_key(monkeypatch):
     assert v["passed"] is True
     # 剥掉的只有那两个键, 其余原料 (条款 2/3/4 全靠它们) 一个不能少
     assert all(set(grp) == {"n", "exact", "exact_acc", "fatal"} for grp in v["by_group"].values())
+
+
+# ── U6 T3: st01_v2_q07 入 final 组 (出题侧, Task 6 基线冻结之前) ──────────
+def test_final_group_has_four_including_v2_q07():
+    """真实题集: final 恒等于 FINAL_IDS 四题, 全集 254.
+
+    刻意**不**走 fixture: 254 与那四个 id 才是 Task 6 要冻结的基线所指的东西,
+    fixture 版 (12 题) 对它一无所知 —— 常量与真实文件同时改错时它不会红。
+    """
+    gold = run_routing_eval.load_gold()
+    final = sorted(g["id"] for g in gold if g["group"] == "final")
+    assert final == ["docs_v1_q15", "docs_v1_q17", "docs_v1_q53", "st01_v2_q07"]
+    assert len(gold) == 254
+    # 条款 5 = 只报告不作判据 ⇒ 判据口径 (全集减 final) 必须仍是 250, 而不是 251。
+    assert len([g for g in gold if g["group"] != "final"]) == 250
+
+
+def test_v2_final_loader_missing_id_raises(tmp_path):
+    # 收编的那题被改名/删掉而闸照跑 = 条款 5 的报告对象静默消失 (同 load_u1_doc_gold 的守卫)
+    p = tmp_path / "v2.yml"
+    p.write_text("- id: other\n  question: x\n  expected_sources: [st01__X]\n",
+                 encoding="utf-8")
+    with pytest.raises(ValueError, match="st01_v2_q07"):
+        run_routing_eval.load_v2_final(p)
+
+
+def test_v2_final_loader_takes_only_the_listed_ids(tmp_path):
+    """v2 题集有 51 题, 收编的只有 V2_FINAL_IDS —— 整份并进来会把 50 题偷渡进 final 组.
+
+    题量闸 (EXPECTED_GROUP_SIZES) 与恒等闸都会拦住那个写法, 但它们给的消息指向
+    「组题量被改动」而非「loader 取多了」; 按函数边界钉住取哪几题, 定位才落在源头。
+    """
+    p = tmp_path / "v2.yml"
+    p.write_text(_V2_YML, encoding="utf-8")
+    out = run_routing_eval.load_v2_final(p)
+    assert [g["id"] for g in out] == list(run_routing_eval.V2_FINAL_IDS)
+    assert all(g["gold"] == "study" and g["group"] == "final" for g in out)
+    # 键集与另外五个来源一致: load_gold 之后所有条目都要能被 score_by_group / detail 一样地读
+    assert all(set(g) == {"id", "question", "gold", "group"} for g in out)
+    assert out[0]["question"] == "dummy v2 question 07"
+
+
+def test_missing_v2_set_raises(tmp_path, monkeypatch):
+    # match 消息而非只看类型: 删掉 exists 守卫后 read_text() 也抛 FileNotFoundError,
+    # 只断言类型的话那个守卫就是等价变异 (同 test_missing_u1_doc_set_raises)。
+    _wire_u3(tmp_path, monkeypatch)
+    monkeypatch.setattr(run_routing_eval, "STUDY_SET_V2", tmp_path / "nope.yml")
+    with pytest.raises(FileNotFoundError, match="闸口不完整"):
+        run_routing_eval.load_gold()
+
+
+@pytest.mark.parametrize("body", ["", "# 题全被删了\n"])
+def test_empty_v2_set_raises(tmp_path, body):
+    """空题集必须给本闸自己的消息.
+
+    没有这道守卫时 load_test_set 对空文件抛的是
+    TypeError('NoneType' object is not iterable) —— 消息来自无关模块, 且会把下面
+    「v2 final 题缺失」那条变成永远够不着的死代码 (与 load_u1_doc_gold 同一处教训)。
+    """
+    p = tmp_path / "v2.yml"
+    p.write_text(body, encoding="utf-8")
+    with pytest.raises(ValueError, match="为空"):
+        run_routing_eval.load_v2_final(p)
+
+
+def test_v2_final_loader_error_message_carries_no_question_text(tmp_path):
+    """红线: v2 题集是 gitignored 的 study 内容, 异常消息只许带路径与 id.
+
+    与 test_gold_loader_error_message_carries_no_question_text 同一条红线的新来源版本 ——
+    异常消息会随 pytest traceback 进入本仓惯例贴进 evidence/ 的实测输出。
+    """
+    canary = "SYNTHETIC-QUESTION-TEXT-MUST-NOT-APPEAR"
+    p = tmp_path / "v2.yml"
+    p.write_text(f"- id: other\n  question: {canary}\n  expected_sources: [x]\n",
+                 encoding="utf-8")
+    with pytest.raises(ValueError) as exc:
+        run_routing_eval.load_v2_final(p)
+    assert canary not in str(exc.value), "异常消息带出了题面 —— 红线的第 3 条路 (生产码消息) 破了"
+
+
+def test_load_gold_rejects_dropped_v2_final(tmp_path, monkeypatch):
+    """新来源必须真的接进 load_gold, 且被恒等闸盖住.
+
+    源码注释早就写了「任何来源 (含将来新增的第 6 个 gold 来源) 只要往 final 组多塞或
+    少塞一题就拦」—— 这条把那句话对**第 6 个来源**兑现: v2 侧返回空时必须点名缺 q07。
+    """
+    _wire_u3(tmp_path, monkeypatch)
+    monkeypatch.setattr(run_routing_eval, "load_v2_final", lambda path: [])
+    with pytest.raises(ValueError, match="缺少") as exc:
+        run_routing_eval.load_gold()
+    assert "st01_v2_q07" in str(exc.value)
+
+
+def test_v2_final_id_does_not_collide_with_other_sources(tmp_path, monkeypatch):
+    """v2 的 id 与其余五个来源不许重名 (predictions 以 id 为键, 重名会静默互相覆盖).
+
+    真实数据上 load_gold() 的 dupe 检查已在盯着; 这条钉的是**冲突时拒绝继续**这个行为 ——
+    以免将来有人靠改 id 绕开, 而不是停下上报。
+    """
+    _wire_u3(tmp_path, monkeypatch,
+             docs_r="- id: st01_v2_q07\n  question: q\n  gold: study\n  group: dev\n")
+    with pytest.raises(ValueError, match="gold id 重复"):
+        run_routing_eval.load_gold()
