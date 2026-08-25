@@ -13,13 +13,13 @@ from scripts.study.paths import resolve_study
 
 # 可見性 4 列的取值形态 (真实数据实测): hide-simple 是短公式 (14 项, ≤19 字符) → 展开值;
 # show/hide-advanced 只是标志位 (327/7 项, 长度恒 1) → 公式在别处, 只出措辞;
-# hidden-in-activity 是 activity 名单 (231 项, 最长 499 字符) → 单独 適用範囲 行, 非显示条件.
+# hidden-in-activity 是 activity 名单 (231 项, 最长 499 字符) → 单独 非表示アクティビティ 行, 非显示条件.
 _VIS_PARTS = (
     ("Visibility::Hide on simple condition", lambda v: f"非表示条件: {v}"),
     ("Visibility::Show on advanced condition", lambda v: "条件あり (式は別ソース)"),
     ("Visibility::Hide on advanced condition", lambda v: "非表示条件あり (式は別ソース)"),
 )
-_SCOPE_KEY = "Visibility::Hidden in activity"
+_HIDDEN_ACT_KEY = "Visibility::Hidden in activity"
 
 
 # EDC の富文本エクスポート由来のタグ。**白名单**である点が要 —— 汎用 `<[^>]+>` だと
@@ -90,10 +90,12 @@ def render_field_card(item: dict, form: dict, codelist: dict | None,
         f"- Edit checks: {checks}",
         f"- 表示条件: {vis}",
     ]
-    # 適用範囲 (activity 名单) 与显示条件正交, 独立行 — 231 项, 其中 27 项与
-    # visible_condition 并存, 混进表示条件会被 if-not 短路吞掉
-    if item["raw"].get(_SCOPE_KEY):
-        lines.append(f"- 適用範囲: {_flat(item['raw'][_SCOPE_KEY])}")
+    # 非表示アクティビティ (activity 名单) 与显示条件正交, 独立行 — 231 项, 其中 27 项与
+    # visible_condition 并存, 混进表示条件会被 if-not 短路吞掉。
+    # ⚠ 语义: 列名是 'Hidden in activity' = 在这些 activity 中**被隐藏**。
+    # 旧标签 '適用範囲' (=适用范围) 语义相反, 2026-08-25 修正。
+    if item["raw"].get(_HIDDEN_ACT_KEY):
+        lines.append(f"- 非表示アクティビティ: {_flat(item['raw'][_HIDDEN_ACT_KEY])}")
     lines += [
         # 当前 DEMO 每 sheet 零数据行 (行1 label 表头 / 行2 OID 表头, 行3 起为空) →
         # samples 恒为空, 本行恒为 '—'; 换含数据的导出后自动生效

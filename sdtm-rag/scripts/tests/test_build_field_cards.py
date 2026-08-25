@@ -62,11 +62,16 @@ def test_render_visibility_v2_parts(catalog):
                              study="st01", version="VNEW")
     assert ("- 表示条件: 非表示条件: FAKEIT2 == 1; 条件あり (式は別ソース); "
             "非表示条件あり (式は別ソース)") in card
-    assert "適用範囲" not in card              # Hidden in activity 空 → 无该行
+    assert "非表示アクティビティ" not in card   # Hidden in activity 空 → 无该行
 
 
-def test_render_visibility_scope_row(catalog):
-    """適用範囲 独立行: Hidden in activity 原值展开, 且与 visible_condition 并存 (27 项)."""
+def test_render_hidden_activity_row(catalog):
+    """非表示アクティビティ 独立行: Hidden in activity 原值展开, 且与 visible_condition 并存 (27 项).
+
+    列名是 'Hidden in activity' = 该字段在这些 activity 中**被隐藏**; 旧标签 '適用範囲'
+    (=适用范围) 语义相反, 2026-08-25 修正. 与 Study workflow-Forms 的 'Hidden items'
+    列互为精确转置 (实测 61/61 逐键相同).
+    """
     cat, _ = catalog
     item = dict(cat["items"][0])
     item["visible_condition"] = "FAKEIT3 != ''"
@@ -74,7 +79,8 @@ def test_render_visibility_scope_row(catalog):
     card = render_field_card(item, cat["forms"][0], None, [], [],
                              study="st01", version="VNEW")
     assert "- 表示条件: FAKEIT3 != ''" in card
-    assert "- 適用範囲: 偽アクティビティ甲, 偽乙" in card   # 不混入表示条件
+    assert "- 非表示アクティビティ: 偽アクティビティ甲, 偽乙" in card   # 不混入表示条件
+    assert "適用範囲" not in card                                    # 旧标签彻底消失
     assert "条件あり" not in card
 
 
