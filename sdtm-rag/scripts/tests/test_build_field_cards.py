@@ -70,7 +70,7 @@ def test_render_hidden_activity_row(catalog):
 
     列名是 'Hidden in activity' = 该字段在这些 activity 中**被隐藏**; 旧标签 '適用範囲'
     (=适用范围) 语义相反, 2026-08-25 修正. 与 Study workflow-Forms 的 'Hidden items'
-    列互为精确转置 (实测 61/61 逐键相同).
+    列互为精确转置 (实测 61/61 逐键相同 — 见 spec §4 F3 与 evidence/checkpoints/c2_pre_survey.md §8-5).
     """
     cat, _ = catalog
     item = dict(cat["items"][0])
@@ -232,3 +232,58 @@ def test_rendered_codelist_entries_have_no_html(catalog):
                              study="st01", version="V2")
     assert "<strong>" not in card and "&nbsp;" not in card
     assert "1 = はい" in card
+
+
+# ---- Task 4: 収集アクティビティ (spec §2.3) ----
+
+def test_collect_scope_subtracts_hidden():
+    """采集范围 = form 被分配到的 activity - 该 item 被隐藏的 activity."""
+    from scripts.study.build_field_cards import collect_scope
+    assignments = [
+        {"form_oid": "偽F", "activity_oid": "偽A1"},
+        {"form_oid": "偽F", "activity_oid": "偽A2"},
+        {"form_oid": "偽F", "activity_oid": "偽A3"},
+        {"form_oid": "偽G", "activity_oid": "偽A9"},   # 别的 form, 不算
+    ]
+    item = {"form_oid": "偽F",
+            "raw": {"Visibility::Hidden in activity": "偽A2"}}
+    assert collect_scope(item, assignments) == ["偽A1", "偽A3"]
+
+
+def test_collect_scope_empty_hidden_keeps_all():
+    from scripts.study.build_field_cards import collect_scope
+    assignments = [{"form_oid": "偽F", "activity_oid": "偽A1"},
+                   {"form_oid": "偽F", "activity_oid": "偽A1"}]   # 重复 → 去重
+    item = {"form_oid": "偽F", "raw": {}}
+    assert collect_scope(item, assignments) == ["偽A1"]
+
+
+def test_render_collect_scope_row(catalog):
+    """卡片新增 収集アクティビティ 行, 位于 非表示アクティビティ 之后."""
+    cat, _ = catalog
+    item = dict(cat["items"][0])
+    item["raw"] = {**item["raw"], "Visibility::Hidden in activity": "偽アクティビティ甲"}
+    assignments = [{"form_oid": item["form_oid"], "activity_oid": "偽アクティビティ甲"},
+                   {"form_oid": item["form_oid"], "activity_oid": "偽乙"}]
+    card = render_field_card(item, cat["forms"][0], None, [], [],
+                             study="st01", version="VNEW", assignments=assignments)
+    assert "- 収集アクティビティ: 偽乙" in card
+    lines = card.splitlines()
+    i_hidden = next(i for i, l in enumerate(lines) if l.startswith("- 非表示アクティビティ:"))
+    i_scope = next(i for i, l in enumerate(lines) if l.startswith("- 収集アクティビティ:"))
+    assert i_scope == i_hidden + 1
+
+
+def test_build_cards_omits_collect_scope_row(catalog):
+    """用户 2026-08-25 裁定执行 spec §6 S3: 生产 build_cards 路径不渲染 収集アクティビティ 行
+    (评测回归 87.50% → 84.38%, 见 evidence/failures/t4_step7_retrieval_regression.md)。
+
+    本测试是这次裁定的守门人 —— build_cards 内部调用若被"顺手"改回传
+    `catalog.get("assignments", [])`, 该行会在磁盘卡片上重新出现而没有测试察觉。
+    collect_scope 推导本身与「传 assignments 就渲染」的行为均未被否定 (见上面两个
+    collect_scope 单测 + test_render_collect_scope_row), 此处只锁生产调用路径。
+    """
+    cat, sp = catalog
+    paths = build_cards(cat, {}, sp.cards_dir)
+    for p in paths:
+        assert "収集アクティビティ" not in p.read_text(encoding="utf-8")

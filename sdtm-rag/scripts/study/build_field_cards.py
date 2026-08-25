@@ -43,9 +43,31 @@ def _flat(s: str) -> str:
     return " ".join(_strip_html(s or "").split())
 
 
+def collect_scope(item: dict, assignments: list[dict]) -> list[str]:
+    """item 实际被采集的 activity OID (有序去重).
+
+    = (该 item 所属 form 被分配到的 activity) − (该 item 的 Hidden in activity)
+    两个输入都出自同一份 ConfigReport, 故本推导是确定性的, 无推断成分。
+    """
+    hidden = {
+        x.strip()
+        for x in str(item["raw"].get(_HIDDEN_ACT_KEY) or "").replace("\n", ",").split(",")
+        if x.strip()
+    }
+    out: list[str] = []
+    for a in assignments:
+        if a["form_oid"] != item["form_oid"]:
+            continue
+        oid = a["activity_oid"]
+        if oid and oid not in hidden and oid not in out:
+            out.append(oid)
+    return out
+
+
 def render_field_card(item: dict, form: dict, codelist: dict | None,
                       samples: list[str], diff: list[str], *,
-                      study: str, version: str, diff_available: bool = True) -> str:
+                      study: str, version: str, diff_available: bool = True,
+                      assignments: list[dict] | None = None) -> str:
     fm = "\n".join([
         "---",
         f"study: {study}",
@@ -96,6 +118,11 @@ def render_field_card(item: dict, form: dict, codelist: dict | None,
     # 旧标签 '適用範囲' (=适用范围) 语义相反, 2026-08-25 修正。
     if item["raw"].get(_HIDDEN_ACT_KEY):
         lines.append(f"- 非表示アクティビティ: {_flat(item['raw'][_HIDDEN_ACT_KEY])}")
+    # 収集アクティビティ = form 分配 − item 隐藏 (spec §2.3)。恒输出该行 (含 '—'),
+    # 因为"哪里都不采集"与"没算过"必须可区分 —— 缺席会被读成前者。
+    if assignments is not None:
+        scope = collect_scope(item, assignments)
+        lines.append(f"- 収集アクティビティ: {', '.join(scope) if scope else '—'}")
     lines += [
         # 当前 DEMO 每 sheet 零数据行 (行1 label 表头 / 行2 OID 表头, 行3 起为空) →
         # samples 恒为空, 本行恒为 '—'; 换含数据的导出后自动生效
@@ -152,6 +179,15 @@ def build_cards(catalog: dict, samples: dict[str, list], cards_dir: Path, *,
             study=catalog["study"], version=catalog["version_new"],
             # 旧 catalog.json 无此键 → 默认 True 维持原措辞 (向后兼容)
             diff_available=catalog.get("diff_available", True),
+            # ⛔ 用户 2026-08-25 裁定执行 spec §6 S3 —— 生产卡片暂不渲染 収集アクティビティ 行,
+            # 故意传 None (不是删掉 collect_scope/该参数: 推导仍是 spec §2.3 in-scope, 数据经
+            # catalog["assignments"] 由 Task 6 的 study_lookup 直查交付, 只是不进向量库)。
+            # 实测: 开启该行 → study golden v2 87.50% → 84.38%, q14/q21 两题回归。机制: 959 卡
+            # 的该行只有 46 种取值, 最大簇 175 卡 (18.2%) 逐字相同; 两题回归前恰好压在 rank
+            # 15/15 检索窗口边缘, 被同簇 (逐字相同该行) 的兄弟卡挤出 top-k (q14 顶替者仅赢
+            # 0.0002 相似度)。归因: A 臂 (仅 Task 1 标签修复, 无此行) = 87.50% 逐题 Δ0, 致害
+            # 全部来自本行。完整实验数据见 evidence/failures/t4_step7_retrieval_regression.md。
+            assignments=None,
         )
         p = cards_dir / f"{catalog['study']}__{item['form_oid']}__{item['item_oid']}.md"
         p.write_text(card, encoding="utf-8")
