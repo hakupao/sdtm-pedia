@@ -767,6 +767,10 @@ collect_scope(item) = { a.activity_oid | a ∈ assignments, a.form_oid == item.f
 
 - [ ] **Step 1: 写失败的测试**
 
+⚠ **顺带修一处 Minor (控制方 Ruling M-2)**: 本文件第 72 行 docstring 里的
+`(实测 61/61 逐键相同)` 缺出处, 违反本仓「『实测』须附可复跑来源」的规矩。改为:
+`(实测 61/61 逐键相同 — 见 spec §4 F3 与 evidence/checkpoints/c2_pre_survey.md §8-5)`。
+
 在 `scripts/tests/test_build_field_cards.py` 末尾追加:
 
 ```python
@@ -912,7 +916,18 @@ Expected: `变化卡片 959 ... / 非预期变化 0` + `PASS`。
 ⚠ **959 不是 961**: `cards/` 下另有 `INDEX.md` 与 `ROUTING.md` 两个索引文件, 它们不是 field card, 不获得新行 (实测 959 张 `st01__` 前缀卡 = catalog items 数)。
 **任何非预期变化 → spec §6 S3 触发, 退回本任务卡片改动。**
 
-- [ ] **Step 7: 检索侧回归 (spec §5.D 第 2/3 条)**
+- [ ] **Step 7: 检索侧回归 (spec §5.D 第 2/3 条) — ⚠ 本步同时了结 Task 1 与 Task 4 两次卡片改动**
+
+> **控制方 Ruling I-1 (2026-08-25)**: Task 1 的标签修复只到了生成器与磁盘卡片, **没到线上索引**
+> (实证: 重灌前 `chroma.sqlite3` 内旧标签 943 处 / 新标签 0 处; `server/` 无任何读 `cards/*.md`
+> 的代码路径, 线上文本全部来自 chroma 落盘)。spec §5.D 的 D.2/D.3 在 T1 **未执行**。
+> **本步骤是这两次改动共同的 §5.D.2/D.3 验收点 —— 不得默认「T1 已闭合 §5.D」。**
+> 重灌索引后请顺带确认旧标签已从索引消失:
+> ```bash
+> cd sdtm-rag
+> LC_ALL=C grep -a -c -- "適用範囲" data/chroma/chroma.sqlite3            # 期望 0
+> LC_ALL=C grep -a -c -- "非表示アクティビティ" data/chroma/chroma.sqlite3  # 期望 > 0
+> ```
 
 ```bash
 cd sdtm-rag
