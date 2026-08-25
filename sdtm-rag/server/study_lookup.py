@@ -27,6 +27,8 @@ from pathlib import Path
 
 import yaml
 
+from scripts.study.collect_scope import collect_scope
+
 # 边界不能用 \b: 日文题面里 token 紧贴假名 (QSTは), 而 \w 含 CJK, \b 在此不成立。
 # 只把 ASCII 字母/数字/下划线当作阻断邻居, 段级精确性照旧 (XABC 里取不出 ABC)。
 _LATIN_TOKEN_RE = re.compile(r"(?<![A-Za-z0-9_])[A-Z][A-Z0-9]{2,}(?![A-Za-z0-9_])")
@@ -34,6 +36,9 @@ _MIN_LABEL_LEN = 4
 _MIN_SEG_LEN = 3
 _MAX_CARDS_PER_MATCH = 8   # 单个 label/token 命中集合上限, 超过 = 不具判别力, 跳过
 _MAX_CARDS_TOTAL = 10      # resolve 输出的精确卡总上限 (k=15 里给 cosine 留位)
+_MAX_EVENTS_TOTAL = 8      # 事件命中上限 (与 _MAX_CARDS_TOTAL 同精神: 超出=不具判别力)
+_MIN_EVENT_NAME_LEN = 3    # 事件/活动名称索引最短长度, 防短名命中一切
+_MIN_ITEM_OID_LEN = 3      # item OID 索引最短长度 (与 _MIN_SEG_LEN 同阈值)
 
 
 def _norm(s: str) -> str:
@@ -91,6 +96,38 @@ class StudyLookup:
             for seg in set(segs):
                 if len(seg) >= _MIN_SEG_LEN:
                     self._segment_index[seg].append(src)
+
+        # 事件层索引 (三池是 2026-08-25 新增, 老 catalog 无此 key → 空索引, 静默降级)
+        self._event_index: dict[str, list[str]] = defaultdict(list)
+        for e in catalog.get("events", []):
+            target = f"event:{e['oid']}"
+            self._event_index[_norm(e["oid"])].append(target)
+            n = _norm(e.get("name", ""))
+            if len(n) >= _MIN_EVENT_NAME_LEN:
+                self._event_index[n].append(target)
+        for a in catalog.get("activities", []):
+            target = f"activity:{a['event_oid']}/{a['oid']}"
+            self._event_index[_norm(a["oid"])].append(target)
+            n = _norm(a.get("name", ""))
+            if len(n) >= _MIN_EVENT_NAME_LEN:
+                self._event_index[n].append(target)
+
+        # item 采集范围索引 (spec §2.3 的 collect_scope 减法, 经本类接通"类型6/
+        # item_collection_scope"问法; Task 4 review M4/M5 —— 该函数原来只活在渲染器
+        # 里, 生产渲染路径从不调用它, 是纯粹的死代码风险; 这里是它的第一个真实消费方)。
+        # 索引对象是 item_oid (子串命中, 与事件/活动索引同精神), 真正命中时才现算
+        # collect_scope, 不预算 (959 item 逐一预算无意义, 命中面通常个位数)。
+        self._item_oid_index: dict[str, list[dict]] = defaultdict(list)
+        for it in items:
+            oid = it.get("item_oid")
+            if oid and len(oid) >= _MIN_ITEM_OID_LEN:
+                self._item_oid_index[oid].append(it)
+        # (form_oid, activity_oid) -> 该组合下的 assignment 行 (供 collect_scope 算出
+        # activity_oid 后反查 event_oid, 组出 assignment:{event}/{activity}/{form} 目标)
+        self._assignments_by_form_activity: dict[tuple[str, str], list[dict]] = defaultdict(list)
+        for a in catalog.get("assignments", []):
+            self._assignments_by_form_activity[(a["form_oid"], a["activity_oid"])].append(a)
+        self._assignments: list[dict] = catalog.get("assignments", [])
 
     def _channel_hits(self, query: str) -> _ChannelHits:
         """四条通道各自的命中 (均已按 cap 过滤), 未合并未截断。
@@ -152,6 +189,40 @@ class StudyLookup:
             if src not in cards:
                 cards.append(src)
         return StudyLookupResult(cards=cards[:_MAX_CARDS_TOTAL], form_scopes=h.form_scopes)
+
+    def resolve_events(self, query: str) -> list[str]:
+        """事件层命中: OID 与名称双向, 子串匹配, 有序去重, 上限 _MAX_EVENTS_TOTAL。
+
+        与 resolve() 分开是刻意的 —— 事件目标名不是卡名, 混进 cards 会让调用方
+        把它当 chunk 去取, 那是静默的类型错误。
+
+        两段各自独立命中后合并去重: ①event/activity 的 OID·名称子串 (与 resolve()
+        的①label子串同精神, 换了索引对象); ②item OID 子串命中后现算 collect_scope()
+        减法 (表单分配 − 隐藏清单, spec §2.3), 换算成实际收集到它的 assignment 目标
+        —— 这是类型6/item_collection_scope 问法的判据, 唯一同时消费 items 与
+        assignments 两池的通道。②不做 precision 判断: collect_scope 减法算出的
+        activity 集合只要非空就全部换算进 out, 一个"该 item 恰好命中多个候选"的
+        query 会把它们的收集点都并入同一个返回列表, 调用方无法从返回值本身分辨
+        "这条是唯一候选" 还是 "这条是多个候选之一"——已知限制, 见 checkpoint。
+        """
+        qn = _norm(query)
+        out: list[str] = []
+        for key, targets in self._event_index.items():
+            if key and key in qn:
+                for t in targets:
+                    if t not in out:
+                        out.append(t)
+        for oid, cand_items in self._item_oid_index.items():
+            if oid not in qn:
+                continue
+            for it in cand_items:
+                scope = collect_scope(it, self._assignments)
+                for act_oid in scope:
+                    for a in self._assignments_by_form_activity.get((it["form_oid"], act_oid), []):
+                        t = f"assignment:{a['event_oid']}/{act_oid}/{it['form_oid']}"
+                        if t not in out:
+                            out.append(t)
+        return out[:_MAX_EVENTS_TOTAL]
 
     def strong_hit(self, query: str) -> bool:
         """强通道 (①/②a/③) 是否命中 —— U6 判库信号层专用, 不影响 `resolve` 的注入。

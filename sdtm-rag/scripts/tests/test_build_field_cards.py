@@ -235,28 +235,8 @@ def test_rendered_codelist_entries_have_no_html(catalog):
 
 
 # ---- Task 4: 収集アクティビティ (spec §2.3) ----
-
-def test_collect_scope_subtracts_hidden():
-    """采集范围 = form 被分配到的 activity - 该 item 被隐藏的 activity."""
-    from scripts.study.build_field_cards import collect_scope
-    assignments = [
-        {"form_oid": "偽F", "activity_oid": "偽A1"},
-        {"form_oid": "偽F", "activity_oid": "偽A2"},
-        {"form_oid": "偽F", "activity_oid": "偽A3"},
-        {"form_oid": "偽G", "activity_oid": "偽A9"},   # 别的 form, 不算
-    ]
-    item = {"form_oid": "偽F",
-            "raw": {"Visibility::Hidden in activity": "偽A2"}}
-    assert collect_scope(item, assignments) == ["偽A1", "偽A3"]
-
-
-def test_collect_scope_empty_hidden_keeps_all():
-    from scripts.study.build_field_cards import collect_scope
-    assignments = [{"form_oid": "偽F", "activity_oid": "偽A1"},
-                   {"form_oid": "偽F", "activity_oid": "偽A1"}]   # 重复 → 去重
-    item = {"form_oid": "偽F", "raw": {}}
-    assert collect_scope(item, assignments) == ["偽A1"]
-
+# collect_scope() 自身的单测已挪到 test_collect_scope.py (Task 6, M5: 函数本体挪出
+# 渲染器模块到 scripts/study/collect_scope.py); 这里只留"渲染器怎么用它"的测试。
 
 def test_render_collect_scope_row(catalog):
     """卡片新增 収集アクティビティ 行, 位于 非表示アクティビティ 之后."""

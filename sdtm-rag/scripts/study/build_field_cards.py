@@ -8,6 +8,7 @@ import re
 import shutil
 from pathlib import Path
 
+from scripts.study.collect_scope import _HIDDEN_ACT_KEY, collect_scope
 from scripts.study.parse_demo import sample_demo_values
 from scripts.study.paths import resolve_study
 
@@ -19,8 +20,6 @@ _VIS_PARTS = (
     ("Visibility::Show on advanced condition", lambda v: "条件あり (式は別ソース)"),
     ("Visibility::Hide on advanced condition", lambda v: "非表示条件あり (式は別ソース)"),
 )
-_HIDDEN_ACT_KEY = "Visibility::Hidden in activity"
-
 
 # EDC の富文本エクスポート由来のタグ。**白名单**である点が要 —— 汎用 `<[^>]+>` だと
 # 実データの裸 `<` (適格規準の `5cm<AV≤10cm` 等) を後続 `>` まで丸ごと削る。
@@ -41,27 +40,6 @@ def _flat(s: str) -> str:
     """折成单行 + HTML 剥离: 真实 8 个 label + 1 个组名含换行, 会打断 H1/bullet/表格行结构;
     6 卡の単位フィールドには EDC 由来の生 HTML が残っていた (検索テキストと可読性を汚染)."""
     return " ".join(_strip_html(s or "").split())
-
-
-def collect_scope(item: dict, assignments: list[dict]) -> list[str]:
-    """item 实际被采集的 activity OID (有序去重).
-
-    = (该 item 所属 form 被分配到的 activity) − (该 item 的 Hidden in activity)
-    两个输入都出自同一份 ConfigReport, 故本推导是确定性的, 无推断成分。
-    """
-    hidden = {
-        x.strip()
-        for x in str(item["raw"].get(_HIDDEN_ACT_KEY) or "").replace("\n", ",").split(",")
-        if x.strip()
-    }
-    out: list[str] = []
-    for a in assignments:
-        if a["form_oid"] != item["form_oid"]:
-            continue
-        oid = a["activity_oid"]
-        if oid and oid not in hidden and oid not in out:
-            out.append(oid)
-    return out
 
 
 def render_field_card(item: dict, form: dict, codelist: dict | None,
