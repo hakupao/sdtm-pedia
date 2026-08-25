@@ -191,10 +191,16 @@ Expected: `变化卡片 231 (期望 231) / 非预期行变化 0 (期望 0)` + `P
 
 ```bash
 cd sdtm-rag
-.venv/bin/python -m pytest -p no:warnings -q 2>&1 | tail -3
+.venv/bin/python -m pytest -p no:warnings -q --junitxml=/tmp/j.xml >/dev/null 2>&1; echo "rc=$?"
+.venv/bin/python -c "
+import xml.etree.ElementTree as ET
+r=ET.parse('/tmp/j.xml').getroot(); s=r if r.tag=='testsuite' else r.find('testsuite')
+t,f,e,k=(int(s.get(x)) for x in ('tests','failures','errors','skipped'))
+print(f'tests={t} failures={f} errors={e} skipped={k} passed={t-f-e-k}')
+"
 ```
 
-Expected: `1699 passed` (本任务改断言不增减测试数)。
+Expected: `passed=1699` (本任务改断言不增减测试数)。
 
 - [ ] **Step 10: 提交**
 
@@ -463,10 +469,16 @@ Expected: `7 passed`。
 
 ```bash
 cd sdtm-rag
-.venv/bin/python -m pytest -p no:warnings -q 2>&1 | tail -3
+.venv/bin/python -m pytest -p no:warnings -q --junitxml=/tmp/j.xml >/dev/null 2>&1; echo "rc=$?"
+.venv/bin/python -c "
+import xml.etree.ElementTree as ET
+r=ET.parse('/tmp/j.xml').getroot(); s=r if r.tag=='testsuite' else r.find('testsuite')
+t,f,e,k=(int(s.get(x)) for x in ('tests','failures','errors','skipped'))
+print(f'tests={t} failures={f} errors={e} skipped={k} passed={t-f-e-k}')
+"
 ```
 
-Expected: `1706 passed` (1699 + 7)。
+Expected: `passed=1706` (1699 + 7)。
 
 - [ ] **Step 6: 提交**
 
@@ -707,10 +719,16 @@ Expected: `PASS` + `ledger: 3508 -> 3717 (期望 +209)` (17+80+112=209)。
 
 ```bash
 cd sdtm-rag
-.venv/bin/python -m pytest -p no:warnings -q 2>&1 | tail -3
+.venv/bin/python -m pytest -p no:warnings -q --junitxml=/tmp/j.xml >/dev/null 2>&1; echo "rc=$?"
+.venv/bin/python -c "
+import xml.etree.ElementTree as ET
+r=ET.parse('/tmp/j.xml').getroot(); s=r if r.tag=='testsuite' else r.find('testsuite')
+t,f,e,k=(int(s.get(x)) for x in ('tests','failures','errors','skipped'))
+print(f'tests={t} failures={f} errors={e} skipped={k} passed={t-f-e-k}')
+"
 ```
 
-Expected: `1712 passed` (1706 + 6)。
+Expected: `passed=1712` (1706 + 6)。
 
 - [ ] **Step 7: 提交**
 
@@ -866,29 +884,32 @@ Expected: `22 passed` (19 + 3)。
 cd sdtm-rag
 .venv/bin/python -m scripts.study.build_field_cards --study st01
 .venv/bin/python - <<'PY'
-import pathlib, difflib
+import pathlib
 base = pathlib.Path('/tmp/cards_baseline_t4'); new = pathlib.Path('data/study/st01/cards')
 assert {p.name for p in base.glob('*.md')} == {p.name for p in new.glob('*.md')}
 unexpected = 0; changed = 0
+NEW = '- 収集アクティビティ: '
 for p in sorted(new.glob('*.md')):
     a = (base/p.name).read_text(encoding='utf-8').splitlines()
     b = p.read_text(encoding='utf-8').splitlines()
     if a == b:
         continue
     changed += 1
-    for line in difflib.unified_diff(a, b, lineterm='', n=0):
-        if line.startswith(('---', '+++', '@@')):
-            continue
-        if line[0] == '-' or not line[1:].startswith('- 収集アクティビティ: '):
-            unexpected += 1
-            print("UNEXPECTED", p.name, repr(line[:80]))
-print(f"变化卡片 {changed} (期望 961 = 全部都加了新行) / 非预期变化 {unexpected} (期望 0)")
-assert changed == 961 and unexpected == 0
+    # 从新卡剔除所有新增行, 结果必须与基线逐行逐字相等 (顺序敏感, 无 diff 标记碰撞)
+    if [l for l in b if not l.startswith(NEW)] != a:
+        unexpected += 1
+        print("UNEXPECTED", p.name)
+    elif sum(1 for l in b if l.startswith(NEW)) != 1:
+        unexpected += 1
+        print("NOT-EXACTLY-ONE", p.name)
+print(f"变化卡片 {changed} (期望 959 = 全部 field card 都加了新行) / 非预期变化 {unexpected} (期望 0)")
+assert changed == 959 and unexpected == 0
 print("PASS: 每张卡只新增了一行")
 PY
 ```
 
-Expected: `变化卡片 961 ... / 非预期变化 0` + `PASS`。
+Expected: `变化卡片 959 ... / 非预期变化 0` + `PASS`。
+⚠ **959 不是 961**: `cards/` 下另有 `INDEX.md` 与 `ROUTING.md` 两个索引文件, 它们不是 field card, 不获得新行 (实测 959 张 `st01__` 前缀卡 = catalog items 数)。
 **任何非预期变化 → spec §6 S3 触发, 退回本任务卡片改动。**
 
 - [ ] **Step 7: 检索侧回归 (spec §5.D 第 2/3 条)**
@@ -925,12 +946,12 @@ git add scripts/study/build_field_cards.py scripts/tests/test_build_field_cards.
 git commit -m "feat(study-cards): 新增 収集アクティビティ 行 — item 真实采集范围确定性推导
 
 collect_scope = (form 被分配到的 activity) - (item 的 Hidden in activity)。
-两个输入同出一份 ConfigReport, 零推断。961 张卡各新增一行 (无采集范围输出 '—',
+两个输入同出一份 ConfigReport, 零推断。959 张 field card 各新增一行 (无采集范围输出 '—',
 与'没算过'可区分)。逐卡 diff 闸: 只新增该行, 非预期变化 0。
 检索侧三遍逐题稳定, study golden v2 逐题 Δ0。"
 ```
 
-Expected: `1712 passed` → `1715 passed`。
+Expected: `passed=1712` → `passed=1715`。
 
 ---
 
@@ -1080,7 +1101,7 @@ git commit -m "feat(eval): lint_gold 支持 event 侧 gold 全集 (--events-cata
 .venv/bin/python -m pytest -p no:warnings -q 2>&1 | tail -3
 ```
 
-Expected: `1717 passed` (1715 + 2)。
+Expected: `passed=1717` (1715 + 2)。
 
 ---
 
@@ -1211,10 +1232,16 @@ Expected: `5 passed`。
 
 ```bash
 cd sdtm-rag
-.venv/bin/python -m pytest -p no:warnings -q 2>&1 | tail -3
+.venv/bin/python -m pytest -p no:warnings -q --junitxml=/tmp/j.xml >/dev/null 2>&1; echo "rc=$?"
+.venv/bin/python -c "
+import xml.etree.ElementTree as ET
+r=ET.parse('/tmp/j.xml').getroot(); s=r if r.tag=='testsuite' else r.find('testsuite')
+t,f,e,k=(int(s.get(x)) for x in ('tests','failures','errors','skipped'))
+print(f'tests={t} failures={f} errors={e} skipped={k} passed={t-f-e-k}')
+"
 ```
 
-Expected: `1722 passed` (1717 + 5)。**既有 1699 条一条都不许红。**
+Expected: `passed=1722` (1717 + 5)。**既有 1699 条一条都不许红。**
 
 - [ ] **Step 6: 用 Task 5 的题集实测**
 
