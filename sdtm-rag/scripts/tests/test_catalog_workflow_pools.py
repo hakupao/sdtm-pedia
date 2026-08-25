@@ -18,7 +18,29 @@ from scripts.study.paths import resolve_study
 
 class _RedactedCatalog(dict):
     """dict 包一层, 只改 __repr__/__str__: 内容 (含真实 OID/label) 逐字不变, 只是
-    pytest 失败 traceback 默认打印的函数实参 repr 不再吐出整个 catalog。"""
+    pytest 失败 traceback 默认打印的函数实参 repr 不再吐出整个 catalog。
+
+    生效范围 (已实测钉死, 控制方 O3):
+    - 只对 `--tb=long` / `--tb=auto`(pytest 默认, 本仓未显式设置 `--tb`)生效;
+      `--tb=short` 根本不打印函数实参这一行, 不需要这层防护(但断言本身仍要标量化,
+      两者是独立机制)。
+    - `-q`(本仓 `addopts = "-ra -q"` 就是这个)**不会**抑制这层防护要挡的那一行 ——
+      已实测复现: `-q` 下失败详情段仍会打印 `cat = <fixture repr>`。
+    - `--junitxml` 落盘的是同一份 longrepr 字符串, 所以这层防护对终端输出和 junit
+      文件同时生效, 不需要分别处理。
+
+    **不要做的事** (下一个人若碰这几条会绕过防护, 而且不会意识到):
+    1. 不要把 `cat` 整体拿去和字面量 dict 比较(如 `assert cat == {...}`) —— dict 相等
+       比较走 pytest 的 `assertrepr_compare` 结构化 diff, **绕开 `__repr__`**, 会把双方
+       内容原样展开(已用哨兵字符串实测复现: "Differing items" / "Full diff" 段直接打出
+       真实值, 与 `__repr__` 无关)。当前文件没有这种写法, 但这是最容易踩的坑。
+    2. 不要把 `cat[...]` 的子对象(`cat["events"]` 等, 都是裸 list/dict, 没有包这层)
+       当函数实参传给别的测试函数或 helper —— 包装只在 `cat` 这一层, 子对象逐一取出
+       后就是原始真实数据, 传给任何会被 traceback 打印实参的函数都会泄漏。
+    3. `--showlocals` / `-l` 下本防护**完全失效**, 且不是本防护范围能解决的: 本文件里
+       `ev_ids`/`ac_ids`/`form_ids`/`fwd`/`bwd`/`mismatched`/`used` 等局部变量本身就是
+       真实 OID 的裸 set/dict, `-l` 会把这些原样打出来(已实测复现)。本仓当前不跑
+       `-l`, 但这是显式的已知限制, 不是"以为挡住了其实没挡住"。"""
 
     def __repr__(self):
         return f"<catalog: {len(self)} top-level keys, content redacted (real st01 data)>"
@@ -51,8 +73,13 @@ def test_gate_a_cross_check_against_design_summary(cat):
     assert n_assignments == 110
     assert n_form_oids == 21
     by_type = {e["oid"]: e["event_type"] for e in cat["events"]}
-    # .get() 而非 [] 索引: 引用不到时不抛 KeyError('真名'), 只是计入一个额外桶
-    # (会被下面的 == [1, 109] 判据挡住, 不静默通过)
+    # .get() 而非 [] 索引: 引用不到时不抛 KeyError('真名')。但这有副作用 (控制方 N1
+    # 实测复现): 若 events 池丢的恰好是分布 [1, 109] 里那个"独占型" (只挂 1 条
+    # assignment) event, .get() 返回 None, counts 变成 {109型: 109, None: 1},
+    # sorted(values) 仍是 [1, 109] —— 下面的分布判据**挡不住**这种破坏, 必须单独
+    # 断言"引用得到"这件事本身 (n_unresolved, 只是个数, 不含真实 event_oid)。
+    n_unresolved = sum(1 for a in asg if a["event_oid"] not in by_type)
+    assert n_unresolved == 0
     counts = collections.Counter(by_type.get(a["event_oid"]) for a in asg)
     event_type_counts = sorted(counts.values())   # 值是计数 (int), 不含真实 event_type 字符串
     assert event_type_counts == [1, 109]
