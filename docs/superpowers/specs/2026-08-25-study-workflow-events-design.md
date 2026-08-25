@@ -63,7 +63,7 @@ Plan C 原设想「protocol/aCRF PDF → markdown 有损入库」。C2-pre 勘�
 | F2 | items 的 hidden-activity ⊆ `Activities.ActivityID` | **True**, 61 ⊆ 77, 缺 0 |
 | F3 | `Forms.Hidden items` 与 items 的 `Hidden in activity` **互为精确转置** | **61/61 逐键集合完全相同** |
 | F4 | `Repeating` 取值分布 (滤脚注后) | `0`×106 + `Unlimited`×4 = **110** (滤前 112 行另有 `None`×2, 正是那 2 行脚注 — 可作脚注判据的旁证) |
-| F5 | `Event type` 分布 | `<EVENT_TYPE_値>`×13 + `<EVENT_TYPE_値>`×1 = 14 |
+| F5 | `Event type` 分布 | `<EVENT_TYPE_A>`×13 + `<EVENT_TYPE_B>`×1 = 14 (A=常规访视类, B=试验开始类) |
 
 **F3 是本设计最强的一条**: xlsx 内两处独立表示完全一致 ⇒ join 可确定性完成, 且**语义确认为
 hide-list** (Forms 侧列名直接叫 `Hidden items`), 从而坐实 §2.4 的缺陷判定。
@@ -78,8 +78,8 @@ PDF 封面的设计摘要给出 4 个数字, 必须由 xlsx 解析结果**完全
 |---|---|
 | `len(assignments)` | **110** |
 | `len({a.form_oid for a in assignments})` | **21** |
-| `<EVENT_TYPE_値>` 下的分配数 | **109** |
-| `<EVENT_TYPE_値>` 下的分配数 | **1** |
+| `<EVENT_TYPE_A>` 下的分配数 | **109** |
+| `<EVENT_TYPE_B>` 下的分配数 | **1** |
 
 (实测已 4/4 吻合, 见 §4; 本闸把它固化成回归断言。)
 
