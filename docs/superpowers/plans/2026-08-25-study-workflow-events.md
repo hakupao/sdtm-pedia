@@ -935,9 +935,18 @@ Expected: `变化卡片 959 ... / 非预期变化 0` + `PASS`。
 > LC_ALL=C grep -a -c -- "非表示アクティビティ" data/chroma/chroma.sqlite3  # 期望 > 0
 > ```
 
+> ⛔ **必须先停线上服务再重灌 (控制方 Ruling T4-launchd)**: `ingest_study` 用
+> `client.delete_collection()` 删除后重建 collection, 而 `server/rag.py:92-93` 在 lifespan
+> 启动时就 `get_collection()` **持有句柄** —— 边跑边灌会让线上句柄指向已删除的 collection。
+> 实测线上 `com.sdtmrag.api` 正在运行 (`/api/health` = 200)。
+
 ```bash
 cd sdtm-rag
+launchctl bootout gui/$(id -u)/com.sdtmrag.api 2>/dev/null || launchctl stop com.sdtmrag.api
 .venv/bin/python -m scripts.study.ingest_study --study st01
+launchctl kickstart -k gui/$(id -u)/com.sdtmrag.api
+sleep 5
+curl -s -o /dev/null -w 'health=%{http_code}\n' --max-time 5 http://localhost:8000/api/health
 for i in 1 2 3; do
   .venv/bin/python -m eval.run_eval --test-set data/study/st01/eval/test_set_study_v2.yml \
     --retrieval-only --out /tmp/t4_run_$i.json
