@@ -31,8 +31,9 @@
 - 2026-08-26 (study 轨 workflow 事件层) — **`events`/`activities`/`assignments` 三池入
   catalog + `resolve_events` 实现 + 实测 DONE ★★ (有条件合并, 零代码遗留)**。**做成的**:
   ConfigReport 三个未解析 sheet 进 catalog (14/77/110 三池, 闸 A/B/C 全绿); item 真实
-  采集范围推导 `collect_scope` (spec §2.3); `適用範囲` 标签语义反转缺陷修复
-  (S3 触发退回卡片渲染, 用户裁定, study golden v2 87.50% 逐题 Δ0 不回归); `resolve_events(query) ->
+  采集范围推导 `collect_scope` (spec §2.3; **S3 触发, 用户裁定退回卡片渲染**, 数据留 catalog
+  三池经 `resolve_events` 交付); `適用範囲` 标签语义反转缺陷修复 (**未被退回, 已重灌索引生效** —
+  归因 A 臂实证它逐题 Δ0 无责, 是 S3 退回后唯一存活的用户可见改动); `resolve_events(query) ->
   list[str]` 四层优先级 (event/activity OID → item 减法 → form 原始清单 → 名称子串);
   33 题 event gold **21/33 = 63.64% source-recall** (净额剔除 3 题已知泄漏后 19/30);
   1764 → **1780 passed**。⛔ **三条必须点名**: ① **`resolve_events` 尚未接入任何服务
