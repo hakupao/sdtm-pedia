@@ -78,6 +78,15 @@ def event_target_names(catalog_path: Path | str) -> list[str]:
     dupes = {n for n in names if names.count(n) > 1}
     if dupes:
         raise ValueError(f"duplicate event target names: {sorted(dupes)[:5]}")
+    # 空全集必须响亮失败 (同 doc_chunk_names 的纪律): 三池全空时"匹配数 != 1"对每条
+    # gold 恒成立, 闸会全红看似严格; 但若把 0 匹配的空全集当成合法返回值, 将来某次
+    # catalog 路径拼错/三池字段名改了, 闸会悄悄退化成"每条 gold 都不唯一定位"这种
+    # 噪音, 而不是在此处直接报错指出"根本没读到数据"。
+    if not names:
+        raise ValueError(
+            f"catalog 三池 (events/activities/assignments) 全为空, "
+            f"空全集不可用作 gold 全集: {catalog_path}"
+        )
     return names
 
 

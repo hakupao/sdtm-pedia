@@ -29,3 +29,13 @@ def test_event_target_names_are_unique(tmp_path):
     p.write_text(json.dumps(cat), encoding="utf-8")
     with pytest.raises(ValueError, match="duplicate"):
         event_target_names(p)
+
+
+def test_event_target_names_refuses_empty_universe(tmp_path):
+    """三池全空必须响亮失败, 同 doc_chunk_names 的"空全集不可用作 gold 全集"纪律
+    (团队 lead 复审 M1: 本函数此前缺这道闸, 而 doc_chunk_names 已论证过必要性)。"""
+    cat = {"events": [], "activities": [], "assignments": []}
+    p = tmp_path / "catalog.json"
+    p.write_text(json.dumps(cat), encoding="utf-8")
+    with pytest.raises(ValueError, match="空全集"):
+        event_target_names(p)
