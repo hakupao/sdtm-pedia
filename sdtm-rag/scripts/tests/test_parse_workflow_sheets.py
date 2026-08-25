@@ -23,9 +23,22 @@ from scripts.study.parse_config_report import (
 from scripts.study.paths import resolve_study
 
 
-class _RedactedPath(Path):
+class _RedactedPath(type(Path())):
     """Path 子类, 只改 __repr__: 路径本身 (str/__fspath__) 逐字不变, 只是 pytest 失败
-    traceback 默认打印的函数实参 repr 不再吐出真实文件路径 (含真实研究代号)。"""
+    traceback 默认打印的函数实参 repr 不再吐出真实文件路径 (含真实研究代号)。
+
+    继承 `type(Path())`(具体的 PosixPath/WindowsPath)而非直接继承 `Path`: `Path`
+    本身只在 3.12+ 才支持直接子类化, 本仓声明 `requires-python = ">=3.11"`, 3.11 上
+    `Path.__new__` 走 `_from_parts`, 子类没有 `_flavour` 会在 fixture 建立阶段就
+    `AttributeError` (控制方指出, **未实测复现** —— 本机是 3.14, 复审当时也没有
+    3.11/3.12/3.13 解释器可用; 依据是 pyproject.toml 的版本下限 + CPython 已知行为,
+    不是"已实测修复")。`type(Path())` 在 3.11/3.14 两侧都拿到具体的、可直接子类化的类。
+
+    **故意不覆写 `__str__`**(不要仿照 `_RedactedCatalog` 的 `__str__ = __repr__` 写法):
+    `pathlib.PurePath.__fspath__` 内部基于 `str(self)`, 覆写 `__str__` 会让
+    `open()`/`openpyxl.load_workbook()` 等一切基于路径的文件 IO 直接失败或读到
+    redacted 占位字符串当文件名 —— dict 的 `__str__`/`__repr__` 只是显示用, 和
+    Path 的 `__str__` 承担真实 IO 语义完全不是一回事, 两个类不能用同一套改法。"""
 
     def __repr__(self):
         return "<config_report_new path: redacted (real study path)>"
