@@ -171,3 +171,120 @@ def parse_codelists(path: Path) -> dict[str, Codelist]:
         )
         cl.entries.append((r.get("Code lists::Code value", ""), r.get("Code lists::Code text", "")))
     return grouped
+
+
+# ── Study workflow 三表 ────────────────────────────────────────────────
+# 三个 sheet 在同一个 ConfigReport 里, 但表头形态不同 (实测):
+#   Events / Activities  = 三行表头 (has_section_row=True),  数据自行 4 起
+#   Forms                = 两行表头 (has_section_row=False), 数据自行 3 起
+# 三表末尾均有 Viedoc 说明性脚注行, 形态: ID 列为空或含空格 (真 OID 无空格)。
+# 与 FormDef.is_trailer 同惯例: 解析器**返回全部行**, 过滤交给调用方 (台账要记脚注)。
+
+
+@dataclass(frozen=True)
+class EventDef:
+    oid: str
+    name: str
+    description: str
+    event_type: str
+    visibility_condition: str
+    sched_reference: str
+    sched_minus_days: str
+    sched_plus_days: str
+    row: int
+    is_trailer: bool = False
+
+
+@dataclass(frozen=True)
+class ActivityDef:
+    oid: str
+    event_oid: str
+    event_name: str
+    name: str
+    description: str
+    visibility_condition: str
+    row: int
+    is_trailer: bool = False
+
+
+@dataclass(frozen=True)
+class FormAssignment:
+    event_oid: str
+    event_name: str
+    activity_oid: str
+    activity_name: str
+    form_oid: str
+    repeating: str
+    item_visibility: str
+    hidden_items: str
+    row: int
+    is_trailer: bool = False
+
+
+def _read(path: Path, sheet: str, *, has_section_row: bool) -> list[dict]:
+    wb = openpyxl.load_workbook(path, read_only=True)
+    try:
+        return read_sheet_records(wb[sheet], has_section_row=has_section_row)
+    finally:
+        wb.close()      # read_only 模式持有文件句柄
+
+
+def _is_footnote(oid: str) -> bool:
+    """脚注判据: ID 列为空或含空格。真 OID 是无空格标识符, 脚注是整句说明文字。"""
+    return (not oid) or (" " in oid)
+
+
+def parse_events(path: Path) -> list[EventDef]:
+    out: list[EventDef] = []
+    for r in _read(path, "Study workflow-Events", has_section_row=True):
+        oid = _req(r, "General::Study event ID")
+        out.append(EventDef(
+            oid=oid,
+            name=r.get("General::Event name", ""),
+            description=r.get("General::Study event description", ""),
+            event_type=r.get("General::Event type", ""),
+            visibility_condition=r.get("Visibility::Visibility condition", ""),
+            sched_reference=r.get("Scheduling::Reference", ""),
+            sched_minus_days=r.get("Scheduling::- days", ""),
+            sched_plus_days=r.get("Scheduling::+ days", ""),
+            row=r["_row"],
+            is_trailer=_is_footnote(oid),
+        ))
+    return out
+
+
+def parse_activities(path: Path) -> list[ActivityDef]:
+    out: list[ActivityDef] = []
+    for r in _read(path, "Study workflow-Activities", has_section_row=True):
+        oid = _req(r, "General::Activity ID")
+        out.append(ActivityDef(
+            oid=oid,
+            event_oid=r.get("General::Study event ID", ""),
+            event_name=r.get("General::Event name", ""),
+            name=r.get("General::Activity name", ""),
+            description=r.get("General::Activity description", ""),
+            visibility_condition=r.get("General::Visibility condition", ""),
+            row=r["_row"],
+            is_trailer=_is_footnote(oid),
+        ))
+    return out
+
+
+def parse_form_assignments(path: Path) -> list[FormAssignment]:
+    out: list[FormAssignment] = []
+    for r in _read(path, "Study workflow-Forms", has_section_row=False):
+        form_oid = _req(r, "Study workflow-Forms::Form ID")
+        out.append(FormAssignment(
+            event_oid=r.get("Study workflow-Forms::Event ID", ""),
+            event_name=r.get("Study workflow-Forms::Event name", ""),
+            activity_oid=r.get("Study workflow-Forms::Activity ID", ""),
+            activity_name=r.get("Study workflow-Forms::Activity name", ""),
+            form_oid=form_oid,
+            repeating=r.get("Study workflow-Forms::Repeating", ""),
+            item_visibility=r.get("Study workflow-Forms::Item visibility", ""),
+            hidden_items=r.get("Study workflow-Forms::Hidden items", ""),
+            row=r["_row"],
+            # Forms 表脚注行的 Form ID 为空 (Event ID 列反而是整句说明文字)
+            is_trailer=_is_footnote(form_oid),
+        ))
+    return out
