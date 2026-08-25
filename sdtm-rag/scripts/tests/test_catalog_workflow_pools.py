@@ -105,6 +105,22 @@ def test_gate_b_referential_integrity(cat):
     assert n_bad_assignment_form == 0
 
 
+def test_activity_oid_globally_unique(cat):
+    """spec §5.B 第 3 条的隐含前提: activity OID 全局唯一。
+
+    gate B 的三条差集判据 (上面) 全部成立**不需要**这条前提也能通过——它们只检查
+    "被引用的 OID 是否都在 activities 池里", 不检查 activities 池自身有没有重复键。
+    Task 6 的 `resolve_events` 直接把 activity OID 当字典键用 (item/事件/活动索引都
+    是 dict[oid -> targets]), 若真实数据里有重复 activity OID, 后一条会静默覆盖前一
+    条, 不会报错——2026-08-26 复审指出这条前提此前无测试看守, 复算成立 (77/77 互异),
+    但"成立"是当前数据的事实, 不是被测试钉死的契约, 换一版 ConfigReport 有重复时
+    这里会先红, 而不是让 resolve_events 静默丢数据。"""
+    ac_ids = [a["oid"] for a in cat["activities"]]
+    n_total = len(ac_ids)
+    n_unique = len(set(ac_ids))
+    assert n_total == n_unique == 77
+
+
 def test_gate_c_transpose_consistency(cat):
     """spec §5.C: assignments.hidden_items 与 items 的 Hidden in activity 互为精确转置.
 
@@ -131,6 +147,41 @@ def test_gate_c_transpose_consistency(cat):
     assert n_key_mismatch == 0, "两侧 activity 键集不同"
     n_fwd_keys = len(fwd)   # fwd 是 defaultdict(set), len() 若直接写进 assert 会连值一起打出
     assert n_fwd_keys == 61
+    mismatched = [k for k in fwd if fwd[k] != bwd[k]]
+    n_mismatched = len(mismatched)
+    assert n_mismatched == 0
+
+
+def test_gate_c_transpose_consistency_form_aware(cat):
+    """spec §5.C 转置一致性的加强版, 按 (activity_oid, form_oid) 二元键做转置,
+    而不是只按 activity_oid (上面 `test_gate_c_transpose_consistency` 的口径)。
+
+    2026-08-26 复审指出: 上面那条闸按纯 activity_oid 分组会把"同一个 activity
+    被分配给多个不同 form"的情形合并成一个键, 掩盖掉 form 级错配的可能——若解析
+    时把某 item 的隐藏清单错记到了同一 activity 下的**另一个** form, 纯 activity
+    键的闸看不出来 (两个 form 的隐藏集合被合并进同一个 activity 键, 只要合并后的
+    并集两侧还一致, 闸就还是绿的)。真实数据复算: 77 个 activity 里有 15 个被分配
+    给了不止一个 form, 按 (activity, form) 二元键分组后从 61 键涨到 **82 键**,
+    82/82 逐键相同——数据本身没有缺陷, 但升级前的闸看不出"没有 form 级错配"这件
+    事, 只是恰好没错。约 5 行成本, 补上闸, 不改变判定结论(仍是"一致", PASS)。
+    """
+    fwd = collections.defaultdict(set)
+    for a in cat["assignments"]:
+        if not a["hidden_items"].strip():
+            continue
+        for x in a["hidden_items"].replace("\n", ",").split(","):
+            if x.strip():
+                fwd[(a["activity_oid"], a["form_oid"])].add(x.strip())
+    bwd = collections.defaultdict(set)
+    for it in cat["items"]:
+        raw = str(it["raw"].get("Visibility::Hidden in activity") or "")
+        for x in raw.replace("\n", ",").split(","):
+            if x.strip():
+                bwd[(x.strip(), it["form_oid"])].add(it["item_oid"])
+    n_key_mismatch = len(set(fwd) ^ set(bwd))
+    assert n_key_mismatch == 0, "两侧 (activity, form) 键集不同"
+    n_fwd_keys = len(fwd)
+    assert n_fwd_keys == 82
     mismatched = [k for k in fwd if fwd[k] != bwd[k]]
     n_mismatched = len(mismatched)
     assert n_mismatched == 0

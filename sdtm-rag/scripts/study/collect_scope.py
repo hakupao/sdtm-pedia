@@ -28,9 +28,13 @@ def collect_scope(item: dict, assignments: list[dict]) -> list[str]:
     这个 item / 上游数据缺失"在外部不可区分 —— 这是已知限制, 需在消费方 checkpoint
     里记录, 不是本函数的缺陷。
     """
+    # `.get("raw") or {}` 而非 `item["raw"]`: 生产 catalog 恒有 raw 键 (asdict() 输出),
+    # 但 resolve_events (2026-08-26 修复轮1) 让本函数首次被"任意手搭 fixture"调用到
+    # (测试文件里已有十几处不带 raw 的手搭 item), 缺 raw 键应视同无隐藏清单, 不该 KeyError
+    # (规则 D 审查方实测复现 KeyError 场景, 见 task-6-report.md 修复轮1记录)。
     hidden = {
         x.strip()
-        for x in str(item["raw"].get(_HIDDEN_ACT_KEY) or "").replace("\n", ",").split(",")
+        for x in str((item.get("raw") or {}).get(_HIDDEN_ACT_KEY) or "").replace("\n", ",").split(",")
         if x.strip()
     }
     out: list[str] = []

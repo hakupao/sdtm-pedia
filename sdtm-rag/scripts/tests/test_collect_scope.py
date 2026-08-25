@@ -37,3 +37,13 @@ def test_collect_scope_empty_when_form_has_no_assignments():
     assignments = [{"form_oid": "偽別F", "activity_oid": "偽A9"}]   # 与 item 的 form 不同
     item = {"form_oid": "偽孤立F", "raw": {}}
     assert collect_scope(item, assignments) == []
+
+
+def test_collect_scope_missing_raw_key_treated_as_no_hidden():
+    """2026-08-26 复审 (规则 D 审查方 Minor-1): item 缺 raw 键时不许 KeyError, 视同无
+    隐藏清单——生产 catalog 恒有 raw (asdict() 输出), 但 resolve_events 接线后本函数
+    首次会被"任意手搭 fixture"调用到 (测试文件里已有不带 raw 的手搭 item), 审查方实测
+    复现过 KeyError, 已修复 (`item.get("raw") or {}`)。"""
+    assignments = [{"form_oid": "偽F", "activity_oid": "偽A1"}]
+    item = {"form_oid": "偽F"}   # 无 raw 键
+    assert collect_scope(item, assignments) == ["偽A1"]

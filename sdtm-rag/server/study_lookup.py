@@ -36,14 +36,55 @@ _MIN_LABEL_LEN = 4
 _MIN_SEG_LEN = 3
 _MAX_CARDS_PER_MATCH = 8   # 单个 label/token 命中集合上限, 超过 = 不具判别力, 跳过
 _MAX_CARDS_TOTAL = 10      # resolve 输出的精确卡总上限 (k=15 里给 cosine 留位)
-_MAX_EVENTS_TOTAL = 8      # 事件命中上限 (与 _MAX_CARDS_TOTAL 同精神: 超出=不具判别力)
+# resolve_events 总输出上限。**不是**从 _MAX_CARDS_TOTAL 抄来的诊断性质的阈值 (团队 lead
+# 2026-08-26 复审指出 8 是从卡片场景抄的, 未必适用于此处 —— 采纳)。语义不同:
+# `resolve()` 的 cap 是"匹配集合太大 = 不具判别力"的质量闸(见 _MAX_CARDS_PER_MATCH,
+# 超出直接整体跳过, 不进候选池); resolve_events 的这三类目标里"一个事件/表单合法地对应
+# 几十条 assignment"是数据的正常形态, 不是匹配质量差的信号(实测: 单个 form 最多挂 40 条
+# assignment, 单个 item 的 collect_scope 最多算出 40 条, 均为真实值非异常)。故这里定位
+# 是"防真正失控的输出量级"的安全阀, 不是诊断质量闸, 阈值定得比 _MAX_CARDS_TOTAL 宽松
+# 很多, 覆盖到实测最大单次命中(40)之上留出余量, 但仍然是个上限(未知查询理论上可能同时
+# 撞上多个索引键叠加得更大, 需要有底)。
+_MAX_EVENTS_TOTAL = 50
 _MIN_EVENT_NAME_LEN = 3    # 事件/活动名称索引最短长度, 防短名命中一切
 _MIN_ITEM_OID_LEN = 3      # item OID 索引最短长度 (与 _MIN_SEG_LEN 同阈值)
+# form_oid 词汇表本身很短 (21 个真实值, 7 个只有 2 字符, 见 assignments 池): 沿用
+# _MIN_ITEM_OID_LEN=3 会永久排除 1/3 的 form, 直接废掉这条索引对短 form 的价值 ——
+# 但 2 字符阈值若用裸子串匹配, 误召回面太大, 靠下面的 _bounded_contains 有界匹配
+# (两侧都不是 ASCII 字母/数字/下划线) 兜底, 而不是靠拉高最短长度。
+_MIN_FORM_OID_LEN = 2
 
 
 def _norm(s: str) -> str:
     """匹配用归一化: NFKC + 去全部空白 (label 与问句同变换)。"""
     return "".join(unicodedata.normalize("NFKC", s).split())
+
+
+def _norm_ws(s: str) -> str:
+    """NFKC 正规化但**保留空白**, 供 _bounded_contains 的有界 OID 匹配专用。
+
+    与 `_norm` 的关键差异: `_norm` 去空白会把被空格隔开的两个 token 拼接成一个连续串,
+    让"两侧是否有边界"这个判断失真——实测案例 (2026-08-26 复审发现): 某题题面里一个
+    3 字符 item OID 后面紧跟半角空格再接数字 (OID 与数字之间原有空格), 去空白后 OID
+    直接贴上该数字, 对短 OID 的有界判断而言, 这个人为拼接的邻接关系是假的, 必须在保留
+    空白的文本上判边界, 结论才稳定。名称索引 (Tier 3) 不受这个问题影响, 继续用 `_norm`。
+    """
+    return unicodedata.normalize("NFKC", s)
+
+
+def _bounded_contains(oid_key: str, text_ws: str) -> bool:
+    """oid_key 是否以完整边界 token 形式出现在 text_ws 里 (两侧都不是 ASCII 字母/数字/
+    下划线) —— 比裸子串更严格, 专防短 OID (2-3 字符, form_oid/item_oid 词汇表里均有
+    这个长度的真实值) 撞上无关内容的子串 (2026-08-26 复审实测案例: 一个 3 字符 item OID
+    撞进题面里一段无关文字, 贡献 7 条与本题无关的噪声目标)。CJK 字符不在 [A-Za-z0-9_]
+    里, 紧贴假名/汉字两侧天然满足边界, 不受影响 (同 `_LATIN_TOKEN_RE` 的边界哲学, 见
+    文件顶部说明)。
+
+    `text_ws` 必须是 `_norm_ws` 的输出 (保留空白), 不能传 `_norm` 的去空白版本 ——
+    原因见 `_norm_ws` 文档字符串。
+    """
+    pattern = re.compile(rf"(?<![A-Za-z0-9_]){re.escape(oid_key)}(?![A-Za-z0-9_])")
+    return bool(pattern.search(text_ws))
 
 
 @dataclass
@@ -97,31 +138,67 @@ class StudyLookup:
                 if len(seg) >= _MIN_SEG_LEN:
                     self._segment_index[seg].append(src)
 
-        # 事件层索引 (三池是 2026-08-25 新增, 老 catalog 无此 key → 空索引, 静默降级)
-        self._event_index: dict[str, list[str]] = defaultdict(list)
+        # 事件层索引 (三池是 2026-08-25 新增, 老 catalog 无此 key → 空索引, 静默降级)。
+        # 拆两个索引对应 resolve_events 的两个精度层级 (2026-08-26 复审后拆分):
+        # Tier 1 `_exact_oid_index` = OID/form 精确命中 (event OID / activity OID /
+        #   form OID, 有界匹配), 命中即直接给目标, 不含推断成分;
+        # Tier 3 `_name_index` = 事件/活动**名称**子串命中 (自然语言短语, 沿用既有裸
+        #   子串, 不加边界——通用词碰撞风险已知, 见 checkpoint 已知限制)。
+        # 两者分开是为了 resolve_events 能按"精确 > 推导 > 名称"优先级分层拼接输出,
+        # 名称这类较弱信号不会在总 cap 截断时把精确/推导目标挤出去。
+        self._exact_oid_index: dict[str, list[str]] = defaultdict(list)
+        self._name_index: dict[str, list[str]] = defaultdict(list)
         for e in catalog.get("events", []):
             target = f"event:{e['oid']}"
-            self._event_index[_norm(e["oid"])].append(target)
+            self._exact_oid_index[_norm(e["oid"])].append(target)
             n = _norm(e.get("name", ""))
             if len(n) >= _MIN_EVENT_NAME_LEN:
-                self._event_index[n].append(target)
+                self._name_index[n].append(target)
         for a in catalog.get("activities", []):
             target = f"activity:{a['event_oid']}/{a['oid']}"
-            self._event_index[_norm(a["oid"])].append(target)
+            self._exact_oid_index[_norm(a["oid"])].append(target)
             n = _norm(a.get("name", ""))
             if len(n) >= _MIN_EVENT_NAME_LEN:
-                self._event_index[n].append(target)
+                self._name_index[n].append(target)
+        # Ruling P2 (团队 lead 复审, 2026-08-26 修复轮1): form_oid -> 该 form 的**全部**
+        # assignment (未做 item 级减法的原始清单)。与下面 item 采集范围索引 (Tier 2)
+        # 是两回事——这里回答"这个表单被分配到哪些活动/事件"(event_form_assignment/
+        # repeating_rule 两类问法的判据落点), 不做"某个具体 item 实际在哪采集"的减法;
+        # 该减法是 item 级概念, 对表单本身不适用。真实数据 21 个 form_oid 里 7 个只有
+        # 2 字符 (_MIN_FORM_OID_LEN=2 覆盖全部), 裸子串在这个长度下误召回风险高, 故这类
+        # 键统一走 `_bounded_contains` 有界匹配, 不直接并进 `_exact_oid_index` (下同)。
+        #
+        # 单独存一个索引 (不并进 `_exact_oid_index`) 是因为 resolve_events 需要在填充
+        # 这层之前先知道 Tier 2 覆盖了哪些 form ——若某 form 在本次查询里**同时**被
+        # Tier 2 的减法结果覆盖 (题面同时点名了这个 form 下某个具体 item OID, 类型6的
+        # 5 题常见), 该 form 的未减法原始清单要让位, 否则精确的减法答案会被同一 form
+        # 的几十条未减法原始清单埋掉——命中不丢 (两层都含 gold), 但 precision 暴跌
+        # (2026-08-26 复审后追加发现, 实测 `ev_q27`/`ev_q28` 从"tp=gold,fp=0"退化到
+        # 两位数 fp; 详见 checkpoint)。`_form_assignment_form_oid` 记录归一化键对应的
+        # 原始 form_oid 字面 (同一 key 下全部 assignment 的 form_oid 相同, 取一份即可)。
+        self._form_assignment_index: dict[str, list[str]] = defaultdict(list)
+        self._form_assignment_form_oid: dict[str, str] = {}
+        for a in catalog.get("assignments", []):
+            key = _norm(a["form_oid"])
+            if len(key) >= _MIN_FORM_OID_LEN:
+                t = f"assignment:{a['event_oid']}/{a['activity_oid']}/{a['form_oid']}"
+                self._form_assignment_index[key].append(t)
+                self._form_assignment_form_oid[key] = a["form_oid"]
 
-        # item 采集范围索引 (spec §2.3 的 collect_scope 减法, 经本类接通"类型6/
+        # item 采集范围索引 (Tier 2, spec §2.3 的 collect_scope 减法, 经本类接通"类型6/
         # item_collection_scope"问法; Task 4 review M4/M5 —— 该函数原来只活在渲染器
         # 里, 生产渲染路径从不调用它, 是纯粹的死代码风险; 这里是它的第一个真实消费方)。
-        # 索引对象是 item_oid (子串命中, 与事件/活动索引同精神), 真正命中时才现算
+        # 索引对象是 item_oid (有界匹配, 与 Tier 1 同精神), 真正命中时才现算
         # collect_scope, 不预算 (959 item 逐一预算无意义, 命中面通常个位数)。
+        # 键过 _norm (与 _exact_oid_index/_form_assignment_index 同规范, 2026-08-26
+        # 复审 Minor-2 修复——之前裸 oid 当键, 与查找端 _bounded_contains(oid, q_ws) 的
+        # q_ws 只做 NFKC (未去空白) 尚可对齐, 但和其他三类索引的键规范不对称, 是没写下来
+        # 也没测到的隐含不变量; item OID 现实中不含内部空白, 本次是无行为变化的加固)。
         self._item_oid_index: dict[str, list[dict]] = defaultdict(list)
         for it in items:
             oid = it.get("item_oid")
             if oid and len(oid) >= _MIN_ITEM_OID_LEN:
-                self._item_oid_index[oid].append(it)
+                self._item_oid_index[_norm(oid)].append(it)
         # (form_oid, activity_oid) -> 该组合下的 assignment 行 (供 collect_scope 算出
         # activity_oid 后反查 event_oid, 组出 assignment:{event}/{activity}/{form} 目标)
         self._assignments_by_form_activity: dict[tuple[str, str], list[dict]] = defaultdict(list)
@@ -191,37 +268,90 @@ class StudyLookup:
         return StudyLookupResult(cards=cards[:_MAX_CARDS_TOTAL], form_scopes=h.form_scopes)
 
     def resolve_events(self, query: str) -> list[str]:
-        """事件层命中: OID 与名称双向, 子串匹配, 有序去重, 上限 _MAX_EVENTS_TOTAL。
+        """事件层命中: OID/form 精确匹配 + item 采集范围推导 + 名称子串, 三层按精度
+        优先级拼接后统一按 _MAX_EVENTS_TOTAL 截断。
 
         与 resolve() 分开是刻意的 —— 事件目标名不是卡名, 混进 cards 会让调用方
         把它当 chunk 去取, 那是静默的类型错误。
 
-        两段各自独立命中后合并去重: ①event/activity 的 OID·名称子串 (与 resolve()
-        的①label子串同精神, 换了索引对象); ②item OID 子串命中后现算 collect_scope()
-        减法 (表单分配 − 隐藏清单, spec §2.3), 换算成实际收集到它的 assignment 目标
-        —— 这是类型6/item_collection_scope 问法的判据, 唯一同时消费 items 与
-        assignments 两池的通道。②不做 precision 判断: collect_scope 减法算出的
-        activity 集合只要非空就全部换算进 out, 一个"该 item 恰好命中多个候选"的
-        query 会把它们的收集点都并入同一个返回列表, 调用方无法从返回值本身分辨
-        "这条是唯一候选" 还是 "这条是多个候选之一"——已知限制, 见 checkpoint。
+        **三层优先级是 2026-08-26 复审后的核心修复** (团队 lead Ruling, 抽检方实测
+        验证): 若不分层、按索引遍历顺序 (事件/活动先于 item) 简单拼接再截断, 较弱的
+        名称子串命中会排在结构化目标**前面**抢占 cap 名额——噪声先于信号, 已实测复现
+        (`ev_q30` 一题在旧实现下未截断即达到 4 条, 其中 3 条是名称索引段的巧合命中)。
+        现按下列优先级拼接, **同层内部去重, 跨层也去重**, 最后统一截断:
+
+        - **Tier 1a (event/activity OID 精确命中, 有界匹配)**: 直接给 `event:`/
+          `activity:` 目标, 无推断成分。
+        - **Tier 2 (结构化推导)**: item OID (有界匹配) 命中后现算 `collect_scope()`
+          减法 (表单分配 − 隐藏清单, spec §2.3), 换算成实际收集到它的 assignment
+          目标——这是类型6/item_collection_scope 问法的判据, 唯一同时消费 items 与
+          assignments 两池的通道。不做 precision 判断: 减法算出的 activity 集合只要
+          非空就全部纳入, 一个"该 item 恰好命中多个候选"的 query 会把它们的收集点
+          都并入同一层, 调用方无法从返回值本身分辨"这条是唯一候选"还是"多个候选之
+          一"——已知限制, 见 checkpoint。
+        - **Tier 1b (form OID → 该 form 的全部 assignment 原始清单, 有界匹配)**:
+          Ruling P2 (团队 lead 复审, 2026-08-26 修复轮1) ——未做 item 级减法, 回答的是
+          "这个表单被分配到哪些活动/事件"(event_form_assignment/repeating_rule 两类
+          问法的判据落点), 与 Tier 2 的"某个具体 item 实际在哪采集"是不同问题。**排在
+          Tier 2 之后而不是之前**是刻意的: 若某 form 在本次查询里同时被 Tier 2 的减法
+          结果覆盖 (题面同时点名了这个 form 下某个具体 item OID, 类型6的 5 题常见),
+          该 form 的未减法原始清单让位 (`covered_forms` 收集 Tier 2 已算过的 form,
+          Tier 1b 跳过这些 form 的原始清单)——否则精确的减法答案会被同一 form 几十条
+          未减法条目埋掉: 命中不丢 (两层都含 gold), 但 precision 暴跌 (2026-08-26
+          复审后实测复现: 不做这个避让时, `ev_q27`/`ev_q28` 从"tp=gold,fp=0"退化到
+          两位数 fp, 详见 checkpoint)。form OID 词汇表 7/21 只有 2 字符, 裸子串在这个
+          长度下误召回风险不可接受, 故用 `_bounded_contains`。
+        - **Tier 3 (名称子串, 裸匹配, 无边界)**: event/activity 名称是自然语言短语,
+          边界概念不适用 (与 label 子串同精神)。已知会撞上研究内高频通用词造成假阳性
+          (如某治疗方案缩写同时是一个 event 的可读名) ——正因为这层信号最弱、误召回
+          风险最高, 才必须排在最后, 只填充前几层用剩的名额。
         """
         qn = _norm(query)
-        out: list[str] = []
-        for key, targets in self._event_index.items():
-            if key and key in qn:
+        q_ws = _norm_ws(query)
+
+        tier1a: list[str] = []
+        for key, targets in self._exact_oid_index.items():
+            if key and _bounded_contains(key, q_ws):
                 for t in targets:
-                    if t not in out:
-                        out.append(t)
+                    if t not in tier1a:
+                        tier1a.append(t)
+
+        tier2: list[str] = []
+        covered_forms: set[str] = set()
         for oid, cand_items in self._item_oid_index.items():
-            if oid not in qn:
+            if not _bounded_contains(oid, q_ws):
                 continue
             for it in cand_items:
                 scope = collect_scope(it, self._assignments)
+                if scope:
+                    covered_forms.add(it["form_oid"])
                 for act_oid in scope:
                     for a in self._assignments_by_form_activity.get((it["form_oid"], act_oid), []):
                         t = f"assignment:{a['event_oid']}/{act_oid}/{it['form_oid']}"
-                        if t not in out:
-                            out.append(t)
+                        if t not in tier2:
+                            tier2.append(t)
+
+        tier1b: list[str] = []
+        for key, targets in self._form_assignment_index.items():
+            if not key or not _bounded_contains(key, q_ws):
+                continue
+            if self._form_assignment_form_oid[key] in covered_forms:
+                continue
+            for t in targets:
+                if t not in tier1b:
+                    tier1b.append(t)
+
+        tier3: list[str] = []
+        for key, targets in self._name_index.items():
+            if key and key in qn:
+                for t in targets:
+                    if t not in tier3:
+                        tier3.append(t)
+
+        out: list[str] = []
+        for t in (*tier1a, *tier2, *tier1b, *tier3):
+            if t not in out:
+                out.append(t)
         return out[:_MAX_EVENTS_TOTAL]
 
     def strong_hit(self, query: str) -> bool:
