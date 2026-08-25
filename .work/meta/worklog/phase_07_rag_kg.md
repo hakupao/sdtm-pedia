@@ -1350,3 +1350,54 @@ widen-only + 可见集标定 + 全闸 + 答题 spot-check + 五方核验 + 收�
   ③ 动机题一律进只报告组 (q07 因此反而给出唯一端到端实证); ④ 「派了审查 ≠ 审过了」本轮真兑现一次;
   ⑤ **把不可归因的失败换成可归因的失败本身就是进展** —— U3 是「模型就是不听」, 本轮确切知道
   8 条为什么没修好 (信号根本没触发)。
+
+## 2026-08-25→26 study 轨 workflow 事件层 — 三池入 catalog + `resolve_events` 实现+实测 收口 (DONE, 有条件合并)
+
+**目标**: ConfigReport 里三个从未解析的 workflow sheet (`Events`/`Activities`/`Forms`) 接进
+catalog, 让事件/活动/表单分配可确定性查询, 并修掉卡片 `適用範囲` 行的语义反转缺陷
+(该行实为 `Visibility::Hidden in activity`, 标签写反)。spec/plan
+`docs/superpowers/{specs,plans}/2026-08-25-study-workflow-events*`, 6 任务分解
+(标签修复 → 三表解析 → gold 题集 → 接线实测, 尺子先于接线)。
+
+**做成的**: `events[14]`/`activities[77]`/`assignments[110]` 三池入 catalog (闸 A 四数
+交叉核对 / 闸 B 引用完整性 / 闸 C 转置一致性 61/61 + form-aware 82/82 全绿); 标签缺陷
+修复并重渲染 961 卡片; item 真实采集范围推导 `collect_scope` (spec §2.3, 独立成
+`scripts/study/collect_scope.py`); 33 题 event gold 题集冻结; `StudyLookup.
+resolve_events(query) -> list[str]` 四层优先级实现 (event/activity OID 精确命中 →
+item OID → `collect_scope` 减法 → form OID → 该 form 全部 assignment 原始清单 → 名称
+子串), 有界匹配 (`_bounded_contains`) 防短 OID 误召回。33 题实测 **21/33 = 63.64%
+source-recall** (净额剔除 3 题已知泄漏后 19/30 = 63.33%)。1764 → **1780 passed**。
+
+⛔ **S3 触发, 用户裁定退回卡片渲染**: 采集范围行进卡片正文一度让 study golden v2
+87.50% → 84.38% 回归 (2 题), 归因实验坐实致害全部来自该行; 退回后卡片保持 87.50% 逐题
+Δ0, 采集范围改由 catalog + `resolve_events` 交付, 不进卡片正文。spec §2.3/§5.D 已补
+S3 注记 (不留死档案不同步的缺口)。
+
+⛔ **`resolve_events` 未接入任何生产服务路径** (`rag.py`/`main.py`/`routing_signals.py`/
+`run_eval.py` 均不调用, `grep -rn resolve_events --include='*.py'` 复核只有定义/注释/
+测试三类) —— 全局 precision 仅 **10.81%** (259 返回/28 命中) 是这个前提下的纯测量,
+不是线上污染; 接线属后续单元, 且接线前须先定 precision 门槛并复测 (与 S3 同一教训:
+往检索里塞东西的代价必须先测)。spec §6 S4 自毁条款判定未触发 (阈值 80%, 卡片侧 9.1%/
+doc侧 21.2%/并集 27.3%, 语义核验真阳性 3/33)。
+
+**规则 D 三轮核验** (均不同 session/subagent_type): 第一轮抽检方+审查方 (1 Critical
+Ruling P2 未落地/4 Important/3 Minor + 抽检方 2 Minor) 驱动 form→assignment 索引 +
+三层优先级重构 + cap 语义重定义 (8→50)。第二轮审查方 (1 Critical 归因错误同类复发
+`ev_q06`/`ev_q09`/`ev_q07`/`ev_q08` 判断有误/3 Important `ev_q06`净退步+全局噪声未披露
++类型6 gold 同源自洽应予定稿/1 Minor) 逐条修复, 并主动查出 Tier 1b 避让逻辑对 form 级
+问法非无损 (231/959 items 受影响) 与 cap"从未挤掉结构化目标"全称断言的反例。最终整
+分支审查 (A1-A4 + I-2/I-5 + 三条 Minor, 零代码, 全文档) 判**有条件合并**, 条件全部
+满足后收口。**本单元犯过两次同类归因/记录错误 (死代码 guard 写成"已设闸"、归因错误
+复发), 两次均被独立第三方抓出且在证据文件里明写"上一版是错的", 无一次悄悄改掉** ——
+最终审查称此为"本仓见过的最诚实的自我记录形态"。
+
+**已知限制** (17 条, 详见 checkpoint §6): 名称→`assignment:` 粒度索引入口仍缺 (未完成
+项非结构性限制) / Tier 1b"整form让位"应改"逐条相减" / 短 form/item OID 兼通用词误召回
+/ item OID <3 字符覆盖面缺口 (10/959, 11/110 目标不可达 Tier 2 精确路径) / `resolve_
+events` 空列表双重诱因不可分辨 / fixture repr 泄漏边界 / 红线扫描纪律补强 / Task 4
+数据自洽复算 (231/231 无减法失效情形)。
+
+evidence: `sdtm-rag/evidence/checkpoints/study_workflow_events.md` (17 条已知限制 +
+§9/§9b/§9c 三轮修复记录 + §10 收口状态) + `sdtm-rag/evidence/step_workflow_events_
+audit{,_review,_review_r2}.md`; plan 顶部已加指针 (设计基准以 checkpoint §2 为准,
+48 checkbox 已勾); 路由词无剩余单元 (本轨收口)。

@@ -10,6 +10,12 @@
 
 **Spec:** `docs/superpowers/specs/2026-08-25-study-workflow-events-design.md`
 
+⚠ **本计划已被两轮修复取代 (2026-08-26, Task 6 收口后)**: Task 6 的实现 (`_MAX_EVENTS_TOTAL`
+取值、`resolve_events` 的单层示例代码) 与下方 Step 3/5 给出的字面代码已不一致——**设计基准
+以 `sdtm-rag/evidence/checkpoints/study_workflow_events.md` §2 为准** (cap=50、四层优先级
+Tier 1a/2/1b/3, 而非本计划写的单层子串 + cap=8)。全部 48 个 checkbox 已按最终交付状态勾选;
+本文件保留作历史设计记录, 不再是可执行基准。
+
 ## Global Constraints
 
 - **零真名**: 一切进 git 的内容 (代码/测试/题集/证据/报告/commit message) 零真实 form/field/event/activity OID 与 label; 研究一律代号 `st01`。测试 fixture 用 `偽` 前缀伪值 (既有惯例见 `test_build_field_cards.py`)。
@@ -52,7 +58,7 @@
 
 **背景 (给零上下文的实现者)**: `Visibility::Hidden in activity` 是 ConfigReport 的**隐藏**清单 (该字段在这些 activity 里**不显示**), 现被渲染成 `適用範囲` (=适用范围), 语义相反。961 张卡中 231 张带此行。已确认没有任何 gold 题依赖该行, 故不影响既有评分。判定依据见 spec §4 F3 (与 `Study workflow-Forms` 的 `Hidden items` 列互为精确转置, 61/61)。
 
-- [ ] **Step 1: 记录基线 (必须先跑, 后面每一步都对照它)**
+- [x] **Step 1: 记录基线 (必须先跑, 后面每一步都对照它)**
 
 ```bash
 cd sdtm-rag
@@ -69,7 +75,7 @@ grep -l "適用範囲" data/study/st01/cards/*.md | wc -l
 
 Expected: `1699 passed` / `961` / `231`。**若三个数任一对不上, 停下来先查为什么, 不要继续。**
 
-- [ ] **Step 2: 先把卡片目录做一份基线副本 (Task 结束时逐字对比用)**
+- [x] **Step 2: 先把卡片目录做一份基线副本 (Task 结束时逐字对比用)**
 
 ```bash
 cd sdtm-rag
@@ -77,7 +83,7 @@ rm -rf /tmp/cards_baseline_t1 && cp -R data/study/st01/cards /tmp/cards_baseline
 ls /tmp/cards_baseline_t1/*.md | wc -l    # 期望 961
 ```
 
-- [ ] **Step 3: 改测试断言 (TDD: 先让测试表达新期望)**
+- [x] **Step 3: 改测试断言 (TDD: 先让测试表达新期望)**
 
 在 `scripts/tests/test_build_field_cards.py` 中做三处替换:
 
@@ -107,7 +113,7 @@ def test_render_hidden_activity_row(catalog):
     assert "条件あり" not in card
 ```
 
-- [ ] **Step 4: 运行测试, 确认失败**
+- [x] **Step 4: 运行测试, 确认失败**
 
 ```bash
 cd sdtm-rag
@@ -116,7 +122,7 @@ cd sdtm-rag
 
 Expected: FAIL — `assert "- 非表示アクティビティ: 偽アクティビティ甲, 偽乙" in card` 不成立 (当前渲染的还是 `適用範囲`)。
 
-- [ ] **Step 5: 改实现**
+- [x] **Step 5: 改实现**
 
 `scripts/study/build_field_cards.py` 第 16 行注释改为:
 ```python
@@ -138,7 +144,7 @@ Expected: FAIL — `assert "- 非表示アクティビティ: 偽アクティビ
 _HIDDEN_ACT_KEY = "Visibility::Hidden in activity"
 ```
 
-- [ ] **Step 6: 运行测试, 确认通过**
+- [x] **Step 6: 运行测试, 确认通过**
 
 ```bash
 cd sdtm-rag
@@ -147,7 +153,7 @@ cd sdtm-rag
 
 Expected: 19 passed。
 
-- [ ] **Step 7: 重渲染 961 张卡片**
+- [x] **Step 7: 重渲染 961 张卡片**
 
 ```bash
 cd sdtm-rag
@@ -157,7 +163,7 @@ ls data/study/st01/cards/*.md | wc -l
 
 Expected: `961`。
 
-- [ ] **Step 8: 回归闸 — 逐卡 diff, 只允许那一行变化 (spec §5.D 第 1 条)**
+- [x] **Step 8: 回归闸 — 逐卡 diff, 只允许那一行变化 (spec §5.D 第 1 条)**
 
 ```bash
 cd sdtm-rag
@@ -193,7 +199,7 @@ PY
 Expected: `变化卡片 231 (期望 231) / 非预期行变化 0 (期望 0)` + `PASS`。
 **若 unexpected > 0 或 changed != 231 → 按 spec §6 S3 退回本任务的卡片改动, 归档到 `evidence/failures/`。**
 
-- [ ] **Step 9: 全量测试**
+- [x] **Step 9: 全量测试**
 
 ```bash
 cd sdtm-rag
@@ -208,7 +214,7 @@ print(f'tests={t} failures={f} errors={e} skipped={k} passed={t-f-e-k}')
 
 Expected: `passed=1699` (本任务改断言不增减测试数)。
 
-- [ ] **Step 10: 提交**
+- [x] **Step 10: 提交**
 
 ```bash
 cd sdtm-rag
@@ -255,7 +261,7 @@ Visibility::Hidden in activity 是隐藏清单, 旧标签 適用範囲 (=适用�
 
 ⚠ **不要**取 `Scheduling::Days` / `Scheduling::After` / `Scheduling::Enable recurrence` / `Timing::*` —— 实测这些列在本研究**全空** (非空 0), 取了只会造出恒空字段。时点语义实际承载在 `Activity name` 自由文本里。
 
-- [ ] **Step 1: 写失败的测试**
+- [x] **Step 1: 写失败的测试**
 
 Create `scripts/tests/test_parse_workflow_sheets.py`:
 
@@ -331,7 +337,7 @@ def test_row_numbers_are_physical(cfg_path):
     assert evs[-1].row == 22
 ```
 
-- [ ] **Step 2: 运行测试, 确认失败**
+- [x] **Step 2: 运行测试, 确认失败**
 
 ```bash
 cd sdtm-rag
@@ -340,7 +346,7 @@ cd sdtm-rag
 
 Expected: FAIL — `ImportError: cannot import name 'parse_events'`。
 
-- [ ] **Step 3: 写实现**
+- [x] **Step 3: 写实现**
 
 在 `scripts/study/parse_config_report.py` 末尾追加:
 
@@ -462,7 +468,7 @@ def parse_form_assignments(path: Path) -> list[FormAssignment]:
     return out
 ```
 
-- [ ] **Step 4: 运行测试, 确认通过**
+- [x] **Step 4: 运行测试, 确认通过**
 
 ```bash
 cd sdtm-rag
@@ -471,7 +477,7 @@ cd sdtm-rag
 
 Expected: `7 passed`。
 
-- [ ] **Step 5: 全量测试**
+- [x] **Step 5: 全量测试**
 
 ```bash
 cd sdtm-rag
@@ -486,7 +492,7 @@ print(f'tests={t} failures={f} errors={e} skipped={k} passed={t-f-e-k}')
 
 Expected: `passed=1706` (1699 + 7)。
 
-- [ ] **Step 6: 提交**
+- [x] **Step 6: 提交**
 
 ```bash
 cd sdtm-rag
@@ -515,7 +521,7 @@ git commit -m "feat(study-parse): 解析 Study workflow-{Events,Activities,Forms
   - `assignments`: `list[dict]` (FormAssignment 的 asdict, 已滤 trailer, 期望 110 条)
   - `ledger` 新增三个 sheet 的记账行 (每行一条, trailer 记 `trailer:footnote`)
 
-- [ ] **Step 1: 写失败的测试**
+- [x] **Step 1: 写失败的测试**
 
 Create `scripts/tests/test_catalog_workflow_pools.py`:
 
@@ -627,7 +633,7 @@ def test_no_consumed_column_is_silently_empty(cat):
             assert n > 0, f"{pool}.{f} 全空 — 列名可能已改, .get() 静默返回 ''"
 ```
 
-- [ ] **Step 2: 运行测试, 确认失败**
+- [x] **Step 2: 运行测试, 确认失败**
 
 ```bash
 cd sdtm-rag
@@ -636,7 +642,7 @@ cd sdtm-rag
 
 Expected: FAIL — `KeyError: 'events'`。
 
-- [ ] **Step 3: 写实现**
+- [x] **Step 3: 写实现**
 
 在 `scripts/study/build_catalog.py` 顶部 import 处追加:
 ```python
@@ -711,7 +717,7 @@ from scripts.study.parse_config_report import (
           f"ledger={n_status}")
 ```
 
-- [ ] **Step 4: 运行测试, 确认通过**
+- [x] **Step 4: 运行测试, 确认通过**
 
 ```bash
 cd sdtm-rag
@@ -720,7 +726,7 @@ cd sdtm-rag
 
 Expected: `7 passed`。**若 `test_gate_c_transpose_consistency` 失败 → spec §6 S2 触发, 停止本计划, 归档 `evidence/failures/`, 不要继续 Task 4 (采集范围推导整个建立在该语义之上)。**
 
-- [ ] **Step 5: 重生成 catalog 并核对台账**
+- [x] **Step 5: 重生成 catalog 并核对台账**
 
 ```bash
 cd sdtm-rag
@@ -750,7 +756,7 @@ PY
 
 Expected: `PASS` + `ledger: 3508 -> 3717 (期望 +209)` (17+80+112=209)。
 
-- [ ] **Step 6: 全量测试**
+- [x] **Step 6: 全量测试**
 
 ```bash
 cd sdtm-rag
@@ -765,7 +771,7 @@ print(f'tests={t} failures={f} errors={e} skipped={k} passed={t-f-e-k}')
 
 Expected: `passed=1713` (1706 + 7)。
 
-- [ ] **Step 7: 提交**
+- [x] **Step 7: 提交**
 
 ```bash
 cd sdtm-rag
@@ -813,7 +819,7 @@ collect_scope(item) = { a.activity_oid | a ∈ assignments, a.form_oid == item.f
                     − { item 的 Hidden in activity 集合 }
 ```
 
-- [ ] **Step 1: 写失败的测试**
+- [x] **Step 1: 写失败的测试**
 
 ⚠ **顺带修一处 Minor (控制方 Ruling M-2)**: 本文件第 72 行 docstring 里的
 `(实测 61/61 逐键相同)` 缺出处, 违反本仓「『实测』须附可复跑来源」的规矩。改为:
@@ -860,7 +866,7 @@ def test_render_collect_scope_row(catalog):
     assert i_scope == i_hidden + 1
 ```
 
-- [ ] **Step 2: 运行测试, 确认失败**
+- [x] **Step 2: 运行测试, 确认失败**
 
 ```bash
 cd sdtm-rag
@@ -869,14 +875,14 @@ cd sdtm-rag
 
 Expected: FAIL — `ImportError: cannot import name 'collect_scope'`。
 
-- [ ] **Step 3: 备份卡片基线**
+- [x] **Step 3: 备份卡片基线**
 
 ```bash
 cd sdtm-rag
 rm -rf /tmp/cards_baseline_t4 && cp -R data/study/st01/cards /tmp/cards_baseline_t4
 ```
 
-- [ ] **Step 4: 写实现**
+- [x] **Step 4: 写实现**
 
 在 `scripts/study/build_field_cards.py` 中, `render_field_card` 之前新增:
 
@@ -921,7 +927,7 @@ def collect_scope(item: dict, assignments: list[dict]) -> list[str]:
 ```
 ⚠ 实现者注意: 上面这一行的**前 6 个位置参数照抄当前文件里已有的调用**, 只追加 `assignments=` 这一个关键字参数。不要改动既有参数顺序。
 
-- [ ] **Step 5: 运行测试, 确认通过**
+- [x] **Step 5: 运行测试, 确认通过**
 
 ```bash
 cd sdtm-rag
@@ -930,7 +936,7 @@ cd sdtm-rag
 
 Expected: `22 passed` (19 + 3)。
 
-- [ ] **Step 6: 重渲染 + 回归闸**
+- [x] **Step 6: 重渲染 + 回归闸**
 
 ```bash
 cd sdtm-rag
@@ -968,7 +974,7 @@ Expected: `变化卡片 959 ... / 非预期变化 0` + `PASS`。
 ⚠ **959 不是 961**: `cards/` 下另有 `INDEX.md` 与 `ROUTING.md` 两个索引文件, 它们不是 field card, 不获得新行 (实测 959 张 `st01__` 前缀卡 = catalog items 数)。
 **任何非预期变化 → spec §6 S3 触发, 退回本任务卡片改动。**
 
-- [ ] **Step 7: 检索侧回归 (spec §5.D 第 2/3 条) — ⚠ 本步同时了结 Task 1 与 Task 4 两次卡片改动**
+- [x] **Step 7: 检索侧回归 (spec §5.D 第 2/3 条) — ⚠ 本步同时了结 Task 1 与 Task 4 两次卡片改动**
 
 > **控制方 Ruling I-1 (2026-08-25)**: Task 1 的标签修复只到了生成器与磁盘卡片, **没到线上索引**
 > (实证: 重灌前 `chroma.sqlite3` 内旧标签 943 处 / 新标签 0 处; `server/` 无任何读 `cards/*.md`
@@ -1026,7 +1032,7 @@ PY
 Expected: 三遍逐题稳定, overall 与基线 **87.50%** 一致。
 ⚠ 实现者注意: `run_eval` 的实际 flag 名以 `.venv/bin/python -m eval.run_eval --help` 为准; 上面是既有 study 轨评测的惯用形态。**若 overall ≠ 87.50% 或出现任何逐题回归 → spec §6 S3 触发, 退回。**
 
-- [ ] **Step 8: 全量测试 + 提交**
+- [x] **Step 8: 全量测试 + 提交**
 
 ```bash
 cd sdtm-rag
@@ -1070,7 +1076,7 @@ Expected: `passed=1713` → `passed=1716`。
 - gold 唯一性必须过 lint (退出码 0)
 - **逐题重新裁定**: `evidence/checkpoints/c2_pre_survey.md` §7-4 那 10 道候选可作起点, 但它们当初的判据是「961 张卡片答不出」, 现在语义已变成「workflow 三池能不能答出」——**每一题都要重新判, 不许整批搬运**
 
-- [ ] **Step 1: 写 lint 扩展的失败测试**
+- [x] **Step 1: 写 lint 扩展的失败测试**
 
 Create `scripts/tests/test_lint_gold_events.py`:
 
@@ -1108,7 +1114,7 @@ def test_event_target_names_are_unique(tmp_path):
         event_target_names(p)
 ```
 
-- [ ] **Step 2: 运行测试, 确认失败**
+- [x] **Step 2: 运行测试, 确认失败**
 
 ```bash
 cd sdtm-rag
@@ -1117,7 +1123,7 @@ cd sdtm-rag
 
 Expected: FAIL — `ImportError: cannot import name 'event_target_names'`。
 
-- [ ] **Step 3: 写实现**
+- [x] **Step 3: 写实现**
 
 在 `eval/lint_gold.py` 中, `doc_chunk_names` 函数之后追加:
 
@@ -1147,7 +1153,7 @@ def event_target_names(catalog_path: Path | str) -> list[str]:
 ```
 并在 `_load` 里按同样方式接上 (照抄 `--docs-dir` 那一支的写法, 把 `doc_chunk_names` 换成 `event_target_names`)。
 
-- [ ] **Step 4: 运行测试, 确认通过**
+- [x] **Step 4: 运行测试, 确认通过**
 
 ```bash
 cd sdtm-rag
@@ -1156,7 +1162,7 @@ cd sdtm-rag
 
 Expected: `2 passed`。
 
-- [ ] **Step 5: 出题 (人工, 逐题裁定)**
+- [x] **Step 5: 出题 (人工, 逐题裁定)**
 
 写 `data/study/st01/eval/test_set_events_v1.yml`, 沿用 `test_set_study_v2.yml` 的字段结构 (`id` / `question` / `expected_sources` / `expected_facts`)。
 
@@ -1172,7 +1178,7 @@ Expected: `2 passed`。
 
 题量建议 **20-30 道**。**不足 20 道就说明这一层没有足够可问的东西, 按 spec §6 S4 的精神停下来问用户。**
 
-- [ ] **Step 6: 过 lint 闸**
+- [x] **Step 6: 过 lint 闸**
 
 ```bash
 cd sdtm-rag
@@ -1183,7 +1189,7 @@ echo "exit=$?"
 
 Expected: `exit=0`。非 0 则改 gold, **不许改 lint 迁就 gold**。
 
-- [ ] **Step 7: 红线扫描 + 提交**
+- [x] **Step 7: 红线扫描 + 提交**
 
 ```bash
 cd sdtm-rag
@@ -1217,7 +1223,7 @@ Expected: `passed=1718` (1716 + 2)。
 - Consumes: Task 3 的三池; Task 5 的题集与 lint 闸
 - Produces: `StudyLookup.resolve_events(query: str) -> list[str]` — 返回命中的 event/activity 目标名 (与 Task 5 的 `event_target_names` 同命名空间), 上限 `_MAX_EVENTS_TOTAL = 8`
 
-- [ ] **Step 1: 写失败的测试**
+- [x] **Step 1: 写失败的测试**
 
 Create `scripts/tests/test_study_lookup_events.py`:
 
@@ -1267,7 +1273,7 @@ def test_resolve_events_missing_pools_degrades_quietly():
     assert lk.resolve_events("偽EV1") == []
 ```
 
-- [ ] **Step 2: 运行测试, 确认失败**
+- [x] **Step 2: 运行测试, 确认失败**
 
 ```bash
 cd sdtm-rag
@@ -1276,7 +1282,7 @@ cd sdtm-rag
 
 Expected: FAIL — `AttributeError: 'StudyLookup' object has no attribute 'resolve_events'`。
 
-- [ ] **Step 3: 写实现**
+- [x] **Step 3: 写实现**
 
 在 `server/study_lookup.py` 顶部常量区追加:
 ```python
@@ -1320,7 +1326,7 @@ _MIN_EVENT_NAME_LEN = 3    # 名称索引最短长度, 防短名命中一切
         return out[:_MAX_EVENTS_TOTAL]
 ```
 
-- [ ] **Step 4: 运行测试, 确认通过**
+- [x] **Step 4: 运行测试, 确认通过**
 
 ```bash
 cd sdtm-rag
@@ -1329,7 +1335,7 @@ cd sdtm-rag
 
 Expected: `5 passed`。
 
-- [ ] **Step 5: 全量测试 + 既有回归**
+- [x] **Step 5: 全量测试 + 既有回归**
 
 ```bash
 cd sdtm-rag
@@ -1344,7 +1350,7 @@ print(f'tests={t} failures={f} errors={e} skipped={k} passed={t-f-e-k}')
 
 Expected: `passed=1723` (1718 + 5)。**既有 1699 条一条都不许红。**
 
-- [ ] **Step 6: 用 Task 5 的题集实测**
+- [x] **Step 6: 用 Task 5 的题集实测**
 
 ```bash
 cd sdtm-rag
@@ -1371,7 +1377,7 @@ PY
 
 记录该数字。**这是本单元的主结果, 不许只报一个总分 —— 未命中题必须逐题写进证据。**
 
-- [ ] **Step 7: 卡片侧不回归确认 (spec §5.D)**
+- [x] **Step 7: 卡片侧不回归确认 (spec §5.D)**
 
 ```bash
 cd sdtm-rag
@@ -1388,7 +1394,7 @@ print("三遍逐题稳定 ✓ overall =", runs[0].get('overall_source_recall'), 
 PY
 ```
 
-- [ ] **Step 8: 写收口证据**
+- [x] **Step 8: 写收口证据**
 
 Create `sdtm-rag/evidence/checkpoints/study_workflow_events.md`, 必含:
 - 各闸实测值 (A: 110/21/109/1 · B: 四条 · C: 61/61 · D: 逐卡 diff 与三遍稳定 · E: lint exit=0)
@@ -1397,7 +1403,7 @@ Create `sdtm-rag/evidence/checkpoints/study_workflow_events.md`, 必含:
 - **已知限制**至少含: ① `Scheduling::Days/After/recurrence` 与 `Timing::*` 本研究全空, 时点语义承载在 `Activity name` 自由文本, 故"结构化调度"不成立; ② 脚注判据是启发式 (ID 空或含空格), 换研究/换版本可能失效, 由闸 A 四条数字看守; ③ `resolve_events` 是子串匹配, 与 `resolve()` 的四通道不同源, 未做挤占分析
 - **引用纪律**: 本单元不得写「SDTM 映射已支持」—— TA/TE/TV/SV 映射是 spec §2 明确 out of scope
 
-- [ ] **Step 9: 规则 D 三方核验 (不许自审)**
+- [x] **Step 9: 规则 D 三方核验 (不许自审)**
 
 派两个**不同 `subagent_type`** 的 agent (与实现方均不同):
 1. **抽检方**: 独立重跑闸 A/B/C 的全部数字, 用**非自洽写法**复算 (不复用本计划的脚本), 报告是否逐位吻合
@@ -1405,7 +1411,7 @@ Create `sdtm-rag/evidence/checkpoints/study_workflow_events.md`, 必含:
 
 两方报告落盘 `sdtm-rag/evidence/step_workflow_events_audit{,_review}.md`。**拿不到报告就当那一环没发生并在证据里点名** (kickoff 硬规矩 17)。
 
-- [ ] **Step 10: 红线扫描 + 提交**
+- [x] **Step 10: 红线扫描 + 提交**
 
 ```bash
 cd sdtm-rag

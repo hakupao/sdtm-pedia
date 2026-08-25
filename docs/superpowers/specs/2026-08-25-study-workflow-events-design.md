@@ -25,12 +25,19 @@ Plan C 原设想「protocol/aCRF PDF → markdown 有损入库」。C2-pre 勘�
 ### In scope
 
 1. **事件层入 catalog**: 三个 sheet → `events` / `activities` / `assignments` 三池
-2. **OID ↔ 人类可读名打通**: 事件/活动 OID 与名称双向可查
+2. **OID ↔ 人类可读名打通**: 事件/活动 OID 与名称双向可查。⚠ 2026-08-26 Task 6 收口
+   补注: 实现是 `resolve_events(query) -> list[str]`, **输出恒为目标标识符**
+   (`event:{oid}`/`activity:{event_oid}/{oid}`/`assignment:...`), **不直接返回人类
+   可读名字符串**——"双向可查"指 OID 与名称**均可作为查询输入**命中同一目标, 不是
+   "调用后能拿到对方的可读名"。措辞比交付宽半格, 非虚假声称, 但可能让人以为能拿到名字,
+   记录以防误读。
 3. **item 真实采集范围 (核心推导)**:
    ```
    item 的采集范围 = (该 item 所属 form 被分配到的 (event, activity) 集合)
                     − (该 item 的 Hidden in activity 集合)
    ```
+   ⚠ 2026-08-26 S3 触发, 用户裁定退回卡片渲染 (详见 §6 S3 / §7 任务1); 本条改由
+   catalog 三池 + `resolve_events` 交付, 不再进卡片正文。
 4. **修一处生产缺陷**: 卡片 `- 適用範囲:` 行实为 `Visibility::Hidden in activity` (语义相反)
 5. **event 侧 gold 题集** (尺子先于接线)
 6. **接 `study_lookup` 确定性直查**
@@ -96,6 +103,12 @@ PDF 封面的设计摘要给出 4 个数字, 必须由 xlsx 解析结果**完全
 1. 重渲染前后逐卡 diff, **只允许 `適用範囲` 行与新增采集范围行发生变化**, 其余行逐字节相同;
 2. study golden v2 (48 题) 重跑 **逐题 Δ0** (S2 开, 基线 87.50%);
 3. 重灌索引后卡片侧检索三遍协议逐题稳定。
+
+⚠ 2026-08-26 S3 触发, 用户裁定退回卡片渲染: **第 1 条的判据已无对象**——采集范围行
+从未进入生产卡片正文 (`build_field_cards.py` 恒传 `assignments=None`), 故"逐卡 diff
+只允许两行变化"这条断言实际上是"逐卡 diff 应为 0 变化" (只有 §2.4 的语义修复那次
+真实渲染过, 且已完成)。第 2/3 条仍然有效并已复测 (87.50% 逐题 Δ0, sha256 961/961
+不回归), 判据落在 `evidence/checkpoints/study_workflow_events.md` §1 闸 D。
 
 ### E. 尺子先于接线 (硬顺序, 不许跳)
 event 侧 gold 题集**必须在**接 `study_lookup` **之前**建成并冻结。
