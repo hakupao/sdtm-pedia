@@ -954,8 +954,12 @@ for p in sorted(new.glob('*.md')):
     elif sum(1 for l in b if l.startswith(NEW)) != 1:
         unexpected += 1
         print("NOT-EXACTLY-ONE", p.name)
-print(f"变化卡片 {changed} (期望 959 = 全部 field card 都加了新行) / 非预期变化 {unexpected} (期望 0)")
-assert changed == 959 and unexpected == 0
+print(f"变化卡片 {changed} / 非预期变化 {unexpected} (期望 0)")
+# ⛔ S3 终态注解 (控制方 2026-08-25): 用户裁定执行退回后, 生产不渲染该行,
+# 故按当前代码重跑本步骤时 changed **应为 0**, 不是 959。959 是"该行开启"那条路径的期望值,
+# 保留在此仅为记录当时的判据。**照原样断言 959 会在一个正确的系统上抛异常。**
+assert unexpected == 0
+# assert changed == 959   # 仅当重新开启该行时才成立 (开启前须先解决同质簇挤占)
 print("PASS: 每张卡只新增了一行")
 PY
 ```
