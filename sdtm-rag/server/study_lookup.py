@@ -172,10 +172,20 @@ class StudyLookup:
         # 这层之前先知道 Tier 2 覆盖了哪些 form ——若某 form 在本次查询里**同时**被
         # Tier 2 的减法结果覆盖 (题面同时点名了这个 form 下某个具体 item OID, 类型6的
         # 5 题常见), 该 form 的未减法原始清单要让位, 否则精确的减法答案会被同一 form
-        # 的几十条未减法原始清单埋掉——命中不丢 (两层都含 gold), 但 precision 暴跌
-        # (2026-08-26 复审后追加发现, 实测 `ev_q27`/`ev_q28` 从"tp=gold,fp=0"退化到
-        # 两位数 fp; 详见 checkpoint)。`_form_assignment_form_oid` 记录归一化键对应的
-        # 原始 form_oid 字面 (同一 key 下全部 assignment 的 form_oid 相同, 取一份即可)。
+        # 的几十条未减法原始清单埋掉——precision 会暴跌 (2026-08-26 复审后追加发现,
+        # 实测 `ev_q27`/`ev_q28` 从"tp=gold,fp=0"退化到两位数 fp; 详见 checkpoint)。
+        # ⚠ 2026-08-26 修复轮2 复审指出: "整 form 让位"不是无损操作——Tier 2 的结果按
+        # 定义是该 form 全量的**子集** (= 分配 − 该 item 的隐藏清单), 若隐藏清单非空,
+        # 这就是真子集, 被让掉的差集**没有任何其他层会补回来**。这个claim只在"gold 恰好
+        # 落在 Tier 2 那个子集里"(即题面问的是 item 采集范围) 时才成立"命中不丢";
+        # 对 form 级问法 (event_form_assignment/repeating_rule, 正是 Ruling P2 要服务
+        # 的那两类) 不成立——若 gold 是该 form 里**被这个 item 隐藏、但仍是真实分配**的
+        # 另一条 assignment, 会被静默让掉。真实数据: 231/959 个 item 的减法结果是所属
+        # form 全量的真子集 (涉 7/21 个 form), 单次最多让掉 39 条; 当前 33 题因这条让位
+        # 丢失 gold 的题数 = 0 (未触发, 不代表设计上不存在), 已记入 checkpoint 已知限制,
+        # 未在本轮修复 (更稳妥的解是"逐条相减"而非"整 form 让位", 留作后续工作)。
+        # `_form_assignment_form_oid` 记录归一化键对应的原始 form_oid 字面 (同一 key 下
+        # 全部 assignment 的 form_oid 相同, 取一份即可)。
         self._form_assignment_index: dict[str, list[str]] = defaultdict(list)
         self._form_assignment_form_oid: dict[str, str] = {}
         for a in catalog.get("assignments", []):
@@ -297,10 +307,15 @@ class StudyLookup:
           结果覆盖 (题面同时点名了这个 form 下某个具体 item OID, 类型6的 5 题常见),
           该 form 的未减法原始清单让位 (`covered_forms` 收集 Tier 2 已算过的 form,
           Tier 1b 跳过这些 form 的原始清单)——否则精确的减法答案会被同一 form 几十条
-          未减法条目埋掉: 命中不丢 (两层都含 gold), 但 precision 暴跌 (2026-08-26
-          复审后实测复现: 不做这个避让时, `ev_q27`/`ev_q28` 从"tp=gold,fp=0"退化到
-          两位数 fp, 详见 checkpoint)。form OID 词汇表 7/21 只有 2 字符, 裸子串在这个
-          长度下误召回风险不可接受, 故用 `_bounded_contains`。
+          未减法条目埋掉, precision 暴跌 (2026-08-26 复审后实测复现: 不做这个避让时,
+          `ev_q27`/`ev_q28` 从"tp=gold,fp=0"退化到两位数 fp, 详见 checkpoint)。
+          ⚠ 这个"整 form 让位"不是无损操作, "命中不丢"**不是**一般性结论——只在
+          gold 恰好落在 Tier 2 那个 (真) 子集里时成立; 若 gold 是该 form 里被这个
+          item 隐藏、但仍是别的问题真实需要的另一条 assignment, 会被静默让掉 (真实
+          数据 231/959 个 item 触发此情形, 当前 33 题未因此丢过 gold, 但设计上存在,
+          详见 `__init__` 里 `_form_assignment_index` 那段注释与 checkpoint 已知限制)。
+          form OID 词汇表 7/21 只有 2 字符, 裸子串在这个长度下误召回风险不可接受,
+          故用 `_bounded_contains`。
         - **Tier 3 (名称子串, 裸匹配, 无边界)**: event/activity 名称是自然语言短语,
           边界概念不适用 (与 label 子串同精神)。已知会撞上研究内高频通用词造成假阳性
           (如某治疗方案缩写同时是一个 event 的可读名) ——正因为这层信号最弱、误召回
