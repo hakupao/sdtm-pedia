@@ -75,7 +75,9 @@ def test_ledger_per_sheet_counts(sp):
     from collections import Counter
     cat = build_catalog(sp)
     per_sheet = Counter(r["sheet"] for r in cat["ledger"])
-    assert per_sheet == {"Forms": 2, "Items and Groups": 4, "Code lists": 3}
+    assert per_sheet == {"Forms": 2, "Items and Groups": 4, "Code lists": 3,
+                          "Study workflow-Events": 3, "Study workflow-Activities": 3,
+                          "Study workflow-Forms": 3}
 
 
 def test_unknown_field_type_raises(sp, tmp_path):
@@ -111,7 +113,8 @@ def test_trailer_rows_in_ledger(sp, tmp_path):
     sp2 = replace(sp, config_report_new=new, config_report_old=None)
     cat = build_catalog(sp2)
     trailer_rows = [r for r in cat["ledger"] if r["target"] == "trailer:footnote"]
-    assert len(trailer_rows) == 2
+    # 2 (本用例追加的 Forms/Items 脚注行) + 3 (三个 workflow sheet 默认各自带 1 条脚注行)
+    assert len(trailer_rows) == 5
     assert [f["oid"] for f in cat["forms"]] == ["FAKEFORM1", "FAKEFORM2"]
     assert all(i["row_type"] == "Item" for i in cat["items"])
 

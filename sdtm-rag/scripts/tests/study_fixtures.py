@@ -26,6 +26,25 @@ CODELIST_HEADER = [
     ("Code lists", "Data Type"), ("Code lists", "Code value"),
     ("Code lists", "Code text"),
 ]
+# 三个 workflow sheet: Events/Activities 三行表头 (has_section_row=True), Forms 两行表头 —
+# 与真实 ConfigReport 及 parse_config_report.py 消费的列名一致 (build_catalog 无条件消费三表)
+WORKFLOW_EVENTS_HEADER = [
+    ("General", "Study event ID"), ("General", "Event name"),
+    ("General", "Study event description"), ("General", "Event type"),
+    ("Visibility", "Visibility condition"),
+    ("Scheduling", "Reference"), ("Scheduling", "- days"), ("Scheduling", "+ days"),
+]
+WORKFLOW_ACTIVITIES_HEADER = [
+    ("General", "Activity ID"), ("General", "Study event ID"),
+    ("General", "Event name"), ("General", "Activity name"),
+    ("General", "Activity description"), ("General", "Visibility condition"),
+]
+WORKFLOW_FORMS_HEADER = [
+    ("Study workflow-Forms", "Event ID"), ("Study workflow-Forms", "Event name"),
+    ("Study workflow-Forms", "Activity ID"), ("Study workflow-Forms", "Activity name"),
+    ("Study workflow-Forms", "Form ID"), ("Study workflow-Forms", "Repeating"),
+    ("Study workflow-Forms", "Item visibility"), ("Study workflow-Forms", "Hidden items"),
+]
 
 DEFAULT_ITEMS = [
     ("FAKEFORM1", "偽フォーム一", "Item group", "FG1", "グループ甲",
@@ -49,6 +68,26 @@ DEFAULT_CODELISTS = [
     ("CL_FAKE1", "", "integer", "0", "偽選択肢いいえ"),
     ("CL_UNUSED", "", "text", "A", "未参照リスト"),
 ]
+# 每张表末尾各含 1 条脚注行 (ID 列写成含空格的整句), 让 is_trailer 分支与
+# build_catalog 的三个新 guard 在合成路径上也有覆盖. Forms 表引用 event/activity 存在的 id,
+# 保持引用完整性 (即便当前既有测试未断言此闸, 也不让合成路径给 build_catalog 的闸误红).
+DEFAULT_WORKFLOW_EVENTS = [
+    ("EV_FAKE01", "偽イベント一", "偽説明一", "偽タイプA", "", "", "", ""),
+    ("EV_FAKE02", "偽イベント二", "偽説明二", "偽タイプB", "", "", "", ""),
+    ("See the workflow notes sheet for details.", "", "", "", "", "", "", ""),
+]
+DEFAULT_WORKFLOW_ACTIVITIES = [
+    ("AC_FAKE01", "EV_FAKE01", "偽イベント一", "偽アクティビティ一", "", ""),
+    ("AC_FAKE02", "EV_FAKE02", "偽イベント二", "偽アクティビティ二", "", ""),
+    ("See the workflow notes sheet for details.", "", "", "", "", ""),
+]
+DEFAULT_WORKFLOW_FORMS = [
+    ("EV_FAKE01", "偽イベント一", "AC_FAKE01", "偽アクティビティ一",
+     "FAKEFORM1", "0", "偽可視性A", "FAKEIT2"),
+    ("EV_FAKE02", "偽イベント二", "AC_FAKE02", "偽アクティビティ二",
+     "FAKEFORM2", "0", "偽可視性B", ""),
+    ("See the workflow notes sheet for details.", "", "", "", "", "", "", ""),
+]
 
 
 def _write_sheet(wb, title: str, header: list[tuple], rows: list[tuple], *,
@@ -65,12 +104,20 @@ def _write_sheet(wb, title: str, header: list[tuple], rows: list[tuple], *,
 
 
 def build_config_report(path: Path, *, items_rows=None, forms_rows=None,
-                        codelist_rows=None) -> Path:
+                        codelist_rows=None, events_rows=None,
+                        activities_rows=None, workflow_forms_rows=None) -> Path:
     wb = openpyxl.Workbook()
     wb.remove(wb.active)
     _write_sheet(wb, "Forms", FORMS_HEADER, forms_rows or DEFAULT_FORMS)
     _write_sheet(wb, "Items and Groups", ITEMS_HEADER, items_rows or DEFAULT_ITEMS)
     _write_sheet(wb, "Code lists", CODELIST_HEADER, codelist_rows or DEFAULT_CODELISTS,
                  has_section_row=False)   # 真实 Code lists 是两行表头
+    _write_sheet(wb, "Study workflow-Events", WORKFLOW_EVENTS_HEADER,
+                 events_rows or DEFAULT_WORKFLOW_EVENTS)
+    _write_sheet(wb, "Study workflow-Activities", WORKFLOW_ACTIVITIES_HEADER,
+                 activities_rows or DEFAULT_WORKFLOW_ACTIVITIES)
+    _write_sheet(wb, "Study workflow-Forms", WORKFLOW_FORMS_HEADER,
+                 workflow_forms_rows or DEFAULT_WORKFLOW_FORMS,
+                 has_section_row=False)   # 真实 Study workflow-Forms 是两行表头
     wb.save(path)
     return path

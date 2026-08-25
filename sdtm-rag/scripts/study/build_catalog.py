@@ -10,7 +10,8 @@ from dataclasses import asdict
 from pathlib import Path
 
 from scripts.study.parse_config_report import (
-    ItemRow, parse_codelists, parse_forms, parse_items,
+    ItemRow, parse_activities, parse_codelists, parse_events,
+    parse_form_assignments, parse_forms, parse_items,
 )
 from scripts.study.paths import StudyPaths, resolve_study
 
@@ -88,6 +89,26 @@ def build_catalog(sp: StudyPaths) -> dict:
     else:   # 无旧版才降级; 旧版存在但 0 item 时 new_items = 全部 (不静默吞)
         diffs, new_items, removed = {}, [], []
 
+    all_events = parse_events(sp.config_report_new)
+    all_activities = parse_activities(sp.config_report_new)
+    all_assignments = parse_form_assignments(sp.config_report_new)
+    # 与 Forms 二次闸同构: OID 形态却缺关键载荷 = 未知行形态, 不能静默归为脚注
+    for e in all_events:
+        if e.is_trailer and e.oid and " " not in e.oid:
+            raise ValueError(f"workflow Events row {e.row}: event-shaped Id {e.oid!r} "
+                             f"判为脚注 — 未知行形态")
+    for a in all_activities:
+        if a.is_trailer and a.oid and " " not in a.oid:
+            raise ValueError(f"workflow Activities row {a.row}: activity-shaped Id {a.oid!r} "
+                             f"判为脚注 — 未知行形态")
+    for f in all_assignments:
+        if f.is_trailer and (f.activity_oid and " " not in f.activity_oid):
+            raise ValueError(f"workflow Forms row {f.row}: 空 Form ID 但 Activity ID "
+                             f"{f.activity_oid!r} 是 OID 形态 — 未知行形态, 不能静默归为脚注")
+    events = [e for e in all_events if not e.is_trailer]
+    activities = [a for a in all_activities if not a.is_trailer]
+    assignments = [f for f in all_assignments if not f.is_trailer]
+
     referenced = {r.choices for r in items if r.choices}
     ledger: list[dict] = []
     for f in all_forms:
@@ -118,6 +139,17 @@ def build_catalog(sp: StudyPaths) -> dict:
         for i, _ in enumerate(cl.entries):
             ledger.append({"sheet": "Code lists", "row": -1 if i else 0,
                            "status": status, "target": f"codelist:{oid}"})
+    for e in all_events:
+        ledger.append({"sheet": "Study workflow-Events", "row": e.row, "status": "mapped",
+                       "target": "trailer:footnote" if e.is_trailer else f"event:{e.oid}"})
+    for a in all_activities:
+        ledger.append({"sheet": "Study workflow-Activities", "row": a.row, "status": "mapped",
+                       "target": "trailer:footnote" if a.is_trailer
+                                 else f"activity:{a.event_oid}/{a.oid}"})
+    for f in all_assignments:
+        ledger.append({"sheet": "Study workflow-Forms", "row": f.row, "status": "mapped",
+                       "target": "trailer:footnote" if f.is_trailer
+                                 else f"assignment:{f.event_oid}/{f.activity_oid}/{f.form_oid}"})
 
     item_dicts = []
     for r in items:
@@ -135,6 +167,9 @@ def build_catalog(sp: StudyPaths) -> dict:
         "items": item_dicts,
         "codelists": {oid: {"data_type": c.data_type, "entries": c.entries}
                       for oid, c in codelists.items()},
+        "events": [asdict(e) for e in events],
+        "activities": [asdict(a) for a in activities],
+        "assignments": [asdict(f) for f in assignments],
         "diffs": diffs, "new_items": new_items, "removed_items": removed,
         # diffs=={} 双义消解: True=对比过且零变更, False=无旧版未对比 (Plan B 输入)
         "diff_available": sp.config_report_old is not None,
@@ -170,7 +205,9 @@ def main(argv=None) -> None:
         n_status[r["status"]] = n_status.get(r["status"], 0) + 1
     trailers = [r for r in cat["ledger"] if r["target"] == "trailer:footnote"]
     print(f"forms={len(cat['forms'])} items={len(cat['items'])} "
-          f"codelists={len(cat['codelists'])} diffs={len(cat['diffs'])} "
+          f"codelists={len(cat['codelists'])} events={len(cat['events'])} "
+          f"activities={len(cat['activities'])} assignments={len(cat['assignments'])} "
+          f"diffs={len(cat['diffs'])} "
           f"new={len(cat['new_items'])} removed={len(cat['removed_items'])} "
           f"ledger={n_status}")
     # 停用 form 被误判为 trailer 的观测哨: 版本间数字跳变即为信号
