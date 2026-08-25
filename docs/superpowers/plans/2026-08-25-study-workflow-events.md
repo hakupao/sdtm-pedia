@@ -505,7 +505,7 @@ git commit -m "feat(study-parse): 解析 Study workflow-{Events,Activities,Forms
 
 **Files:**
 - Modify: `scripts/study/build_catalog.py` (`build_catalog` 函数 + `main` 的打印行)
-- Test: `scripts/tests/test_catalog_workflow_pools.py` (**Create**)
+- Test: `scripts/tests/test_catalog_workflow_pools.py` (**Create**, 7 个测试)
 
 **Interfaces:**
 - Consumes: Task 2 的 `parse_events` / `parse_activities` / `parse_form_assignments` 与三个 dataclass
@@ -604,6 +604,27 @@ def test_ledger_covers_workflow_sheets(cat):
     assert sheets["Study workflow-Events"] == 17
     assert sheets["Study workflow-Activities"] == 80
     assert sheets["Study workflow-Forms"] == 112
+
+
+def test_no_consumed_column_is_silently_empty(cat):
+    """键名守卫 (控制方 Ruling I-2, 源自 Task 2 审查 I-1)。
+
+    三个 parse 函数只有 ID 列走 `_req()`; 其余字段用 `r.get(key, "")` —— 上游改列名时
+    **不报错, 静默给 ""**, 而 Task 2 的测试仍全绿。本条钉死"每个被消费的必填字段至少有值",
+    用 `> 0` 而非精确计数: 精确计数需要先看数据再定判据, 违反判据先于数据。
+    注: `hidden_items` 这一最关键字段另有闸 C (转置 61/61) 兜底, 静默全空会让闸 C 先红。
+    刻意不含 description / visibility_condition —— 它们**合法地**稀疏。
+    """
+    required = [
+        ("events", ["oid", "name", "event_type"]),
+        ("activities", ["oid", "event_oid", "name"]),
+        ("assignments", ["event_oid", "activity_oid", "form_oid",
+                         "repeating", "item_visibility", "hidden_items"]),
+    ]
+    for pool, fields in required:
+        for f in fields:
+            n = sum(1 for r in cat[pool] if str(r[f]).strip())
+            assert n > 0, f"{pool}.{f} 全空 — 列名可能已改, .get() 静默返回 ''"
 ```
 
 - [ ] **Step 2: 运行测试, 确认失败**
@@ -689,7 +710,7 @@ cd sdtm-rag
 .venv/bin/python -m pytest scripts/tests/test_catalog_workflow_pools.py -p no:warnings -q 2>&1 | tail -3
 ```
 
-Expected: `6 passed`。**若 `test_gate_c_transpose_consistency` 失败 → spec §6 S2 触发, 停止本计划, 归档 `evidence/failures/`, 不要继续 Task 4 (采集范围推导整个建立在该语义之上)。**
+Expected: `7 passed`。**若 `test_gate_c_transpose_consistency` 失败 → spec §6 S2 触发, 停止本计划, 归档 `evidence/failures/`, 不要继续 Task 4 (采集范围推导整个建立在该语义之上)。**
 
 - [ ] **Step 5: 重生成 catalog 并核对台账**
 
@@ -734,7 +755,7 @@ print(f'tests={t} failures={f} errors={e} skipped={k} passed={t-f-e-k}')
 "
 ```
 
-Expected: `passed=1712` (1706 + 6)。
+Expected: `passed=1713` (1706 + 7)。
 
 - [ ] **Step 7: 提交**
 
@@ -987,7 +1008,7 @@ collect_scope = (form 被分配到的 activity) - (item 的 Hidden in activity)�
 检索侧三遍逐题稳定, study golden v2 逐题 Δ0。"
 ```
 
-Expected: `passed=1712` → `passed=1715`。
+Expected: `passed=1713` → `passed=1716`。
 
 ---
 
@@ -1143,7 +1164,7 @@ print(f'tests={t} failures={f} errors={e} skipped={k} passed={t-f-e-k}')
 "
 ```
 
-Expected: `passed=1717` (1715 + 2)。
+Expected: `passed=1718` (1716 + 2)。
 
 ---
 
@@ -1283,7 +1304,7 @@ print(f'tests={t} failures={f} errors={e} skipped={k} passed={t-f-e-k}')
 "
 ```
 
-Expected: `passed=1722` (1717 + 5)。**既有 1699 条一条都不许红。**
+Expected: `passed=1723` (1718 + 5)。**既有 1699 条一条都不许红。**
 
 - [ ] **Step 6: 用 Task 5 的题集实测**
 
