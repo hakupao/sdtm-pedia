@@ -74,19 +74,19 @@ DEFAULT_CODELISTS = [
 DEFAULT_WORKFLOW_EVENTS = [
     ("EV_FAKE01", "偽イベント一", "偽説明一", "偽タイプA", "", "", "", ""),
     ("EV_FAKE02", "偽イベント二", "偽説明二", "偽タイプB", "", "", "", ""),
-    ("See the workflow notes sheet for details.", "", "", "", "", "", "", ""),
+    ("偽脚注: this row is a synthetic footnote.", "", "", "", "", "", "", ""),
 ]
 DEFAULT_WORKFLOW_ACTIVITIES = [
     ("AC_FAKE01", "EV_FAKE01", "偽イベント一", "偽アクティビティ一", "", ""),
     ("AC_FAKE02", "EV_FAKE02", "偽イベント二", "偽アクティビティ二", "", ""),
-    ("See the workflow notes sheet for details.", "", "", "", "", ""),
+    ("偽脚注: this row is a synthetic footnote.", "", "", "", "", ""),
 ]
 DEFAULT_WORKFLOW_FORMS = [
     ("EV_FAKE01", "偽イベント一", "AC_FAKE01", "偽アクティビティ一",
      "FAKEFORM1", "0", "偽可視性A", "FAKEIT2"),
     ("EV_FAKE02", "偽イベント二", "AC_FAKE02", "偽アクティビティ二",
      "FAKEFORM2", "0", "偽可視性B", ""),
-    ("See the workflow notes sheet for details.", "", "", "", "", "", "", ""),
+    ("偽脚注: this row is a synthetic footnote.", "", "", "", "", "", "", ""),
 ]
 
 

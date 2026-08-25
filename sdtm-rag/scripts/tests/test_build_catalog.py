@@ -43,6 +43,11 @@ def test_build_catalog_core(sp):
     assert any("旧ラベル一" in d for d in cat["diffs"]["FAKEIT1"])
     # group 上下文折进 item
     assert cat["items"][0]["group_name"] == "グループ甲"
+    # workflow 三池: 内容级断言 (不止台账计数) — 防 is_trailer filter 写反 (真实数据侧的闸
+    # 在没有 data/study/ 检出的分支上是 ERROR 不是 skip, 合成路径必须自己兜住)
+    assert [e["oid"] for e in cat["events"]] == ["EV_FAKE01", "EV_FAKE02"]
+    assert [a["oid"] for a in cat["activities"]] == ["AC_FAKE01", "AC_FAKE02"]
+    assert [f["form_oid"] for f in cat["assignments"]] == ["FAKEFORM1", "FAKEFORM2"]
 
 
 def test_ledger_full_coverage(sp):
@@ -245,4 +250,56 @@ def test_blank_id_with_payload_raises(sp, tmp_path):
                               forms_rows=list(DEFAULT_FORMS) + [ghost])
     sp2 = replace(sp, config_report_new=new, config_report_old=None)
     with pytest.raises(ValueError, match="payload"):
+        build_catalog(sp2)
+
+
+# ---- workflow 三表二次闸: 四条可达 raise 路径 (审查方 C1 指出 Events/Activities 旧判据
+# 恒假, 是死代码; 修复后必须证明"没有闸时会红, 加了闸变绿"—— 全仓此前对这三段 guard
+# 零 pytest.raises 覆盖) ----
+
+def test_workflow_events_blank_id_with_payload_raises(sp, tmp_path):
+    """Events: Id 空但 Event name / Event type 有载荷 — 唯一可达的判据 (oid 形态判据恒假)."""
+    from dataclasses import replace
+    from scripts.tests.study_fixtures import DEFAULT_WORKFLOW_EVENTS
+    ghost = ("", "偽イベント零", "", "偽タイプZ", "", "", "", "")
+    new = build_config_report(tmp_path / "ev_ghost.xlsx",
+                              events_rows=list(DEFAULT_WORKFLOW_EVENTS) + [ghost])
+    sp2 = replace(sp, config_report_new=new, config_report_old=None)
+    with pytest.raises(ValueError, match="blank Id with payload"):
+        build_catalog(sp2)
+
+
+def test_workflow_activities_blank_id_with_payload_raises(sp, tmp_path):
+    """Activities: Id 空但 Study event ID 有载荷 — 唯一可达的判据."""
+    from dataclasses import replace
+    from scripts.tests.study_fixtures import DEFAULT_WORKFLOW_ACTIVITIES
+    ghost = ("", "EV_FAKE01", "偽イベント一", "", "", "")
+    new = build_config_report(tmp_path / "ac_ghost.xlsx",
+                              activities_rows=list(DEFAULT_WORKFLOW_ACTIVITIES) + [ghost])
+    sp2 = replace(sp, config_report_new=new, config_report_old=None)
+    with pytest.raises(ValueError, match="blank Id with payload"):
+        build_catalog(sp2)
+
+
+def test_workflow_forms_activity_id_shaped_raises(sp, tmp_path):
+    """Forms: Form ID 空但 Activity ID 是 OID 形态 (与 activity_oid 解耦, 判据可达)."""
+    from dataclasses import replace
+    from scripts.tests.study_fixtures import DEFAULT_WORKFLOW_FORMS
+    ghost = ("", "", "AC_FAKE01", "", "", "", "", "")
+    new = build_config_report(tmp_path / "fm_ghost_a.xlsx",
+                              workflow_forms_rows=list(DEFAULT_WORKFLOW_FORMS) + [ghost])
+    sp2 = replace(sp, config_report_new=new, config_report_old=None)
+    with pytest.raises(ValueError, match="Activity ID"):
+        build_catalog(sp2)
+
+
+def test_workflow_forms_event_id_shaped_raises(sp, tmp_path):
+    """Forms: Form ID 空但 Event ID 是 OID 形态 (第二条判据, 与上一条互相独立)."""
+    from dataclasses import replace
+    from scripts.tests.study_fixtures import DEFAULT_WORKFLOW_FORMS
+    ghost = ("EV_FAKE01", "", "", "", "", "", "", "")
+    new = build_config_report(tmp_path / "fm_ghost_b.xlsx",
+                              workflow_forms_rows=list(DEFAULT_WORKFLOW_FORMS) + [ghost])
+    sp2 = replace(sp, config_report_new=new, config_report_old=None)
+    with pytest.raises(ValueError, match="Event ID"):
         build_catalog(sp2)

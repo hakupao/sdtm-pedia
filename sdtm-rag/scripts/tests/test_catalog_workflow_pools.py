@@ -1,4 +1,13 @@
-"""catalog 三池 + spec §5.A/B/C 三闸. 零真名: 只断言计数/集合关系."""
+"""catalog 三池 + spec §5.A/B/C 三闸. 零真名: 只断言计数/差集长度等标量,不直接比较
+原始集合/列表/字典 —— 后者失败时会被 pytest assertion rewriting 把真实内容打进 stdout
+(控制方 I1, 已实测复现; §5.C 转置结构与 §5.A event_type 分布同类风险一并排查修正).
+
+`cat` fixture 另需要 repr 层防护 (与断言改写是两条独立机制): pytest 默认 (--tb=long)
+的失败 traceback 会在每个失败用例最上方打印 "cat = <fixture repr>" —— 这与具体哪条
+assert 无关, 任何一条断言红了都会触发, 已实测复现 (整个真实 catalog dict, 含真实
+form OID / 真实日文 label 逐字打出). 断言层的改写只挡住了"比较双方"这一处, repr 层
+的默认参数打印是另一处独立泄漏面, 必须靠 `_RedactedCatalog.__repr__` 挡, 单靠标量化
+断言挡不住。"""
 import collections
 
 import pytest
@@ -7,36 +16,66 @@ from scripts.study.build_catalog import build_catalog
 from scripts.study.paths import resolve_study
 
 
+class _RedactedCatalog(dict):
+    """dict 包一层, 只改 __repr__/__str__: 内容 (含真实 OID/label) 逐字不变, 只是
+    pytest 失败 traceback 默认打印的函数实参 repr 不再吐出整个 catalog。"""
+
+    def __repr__(self):
+        return f"<catalog: {len(self)} top-level keys, content redacted (real st01 data)>"
+
+    __str__ = __repr__
+
+
 @pytest.fixture(scope="module")
 def cat():
-    return build_catalog(resolve_study("st01"))
+    return _RedactedCatalog(build_catalog(resolve_study("st01")))
 
 
 def test_three_pools_exist_with_expected_sizes(cat):
-    assert len(cat["events"]) == 14
-    assert len(cat["activities"]) == 77
-    assert len(cat["assignments"]) == 110
+    # len() 的结果先落局部变量再断言标量: `assert len(cat["events"]) == 14` 若失败,
+    # pytest assertion rewriting 会在 "+ where" 里把 cat["events"] 整个 list[dict]
+    # (含真实 label/description) 打出来 —— 已实测复现 (控制方 I1 同类问题, 扩大排查发现).
+    n_events = len(cat["events"])
+    n_activities = len(cat["activities"])
+    n_assignments = len(cat["assignments"])
+    assert n_events == 14
+    assert n_activities == 77
+    assert n_assignments == 110
 
 
 def test_gate_a_cross_check_against_design_summary(cat):
     """spec §5.A: 四条数字必须与 ConfigReport 设计摘要吻合 (已由 PDF 封面独立确认)."""
     asg = cat["assignments"]
-    assert len(asg) == 110
-    assert len({a["form_oid"] for a in asg}) == 21
+    n_assignments = len(asg)
+    n_form_oids = len({a["form_oid"] for a in asg})
+    assert n_assignments == 110
+    assert n_form_oids == 21
     by_type = {e["oid"]: e["event_type"] for e in cat["events"]}
-    counts = collections.Counter(by_type[a["event_oid"]] for a in asg)
-    assert sorted(counts.values()) == [1, 109]
+    # .get() 而非 [] 索引: 引用不到时不抛 KeyError('真名'), 只是计入一个额外桶
+    # (会被下面的 == [1, 109] 判据挡住, 不静默通过)
+    counts = collections.Counter(by_type.get(a["event_oid"]) for a in asg)
+    event_type_counts = sorted(counts.values())   # 值是计数 (int), 不含真实 event_type 字符串
+    assert event_type_counts == [1, 109]
 
 
 def test_gate_b_referential_integrity(cat):
-    """spec §5.B: 四条引用完整性."""
+    """spec §5.B: 四条引用完整性.
+
+    差集先落局部变量, 断言只比较标量长度 —— 直接 `assert set_a <= set_b` 在失败时会被
+    pytest assertion rewriting 把两个集合的真实内容 (真实 OID) 打进 stdout/报告
+    (控制方 I1, 已实测复现), 而失败输出是最容易被复制粘贴带出红线的地方.
+    """
     ev_ids = {e["oid"] for e in cat["events"]}
     ac_ids = {a["oid"] for a in cat["activities"]}
     form_ids = {f["oid"] for f in cat["forms"]}
-    assert {a["event_oid"] for a in cat["activities"]} <= ev_ids
-    assert {a["event_oid"] for a in cat["assignments"]} <= ev_ids
-    assert {a["activity_oid"] for a in cat["assignments"]} <= ac_ids
-    assert {a["form_oid"] for a in cat["assignments"]} <= form_ids
+    n_bad_activity_event = len({a["event_oid"] for a in cat["activities"]} - ev_ids)
+    n_bad_assignment_event = len({a["event_oid"] for a in cat["assignments"]} - ev_ids)
+    n_bad_assignment_activity = len({a["activity_oid"] for a in cat["assignments"]} - ac_ids)
+    n_bad_assignment_form = len({a["form_oid"] for a in cat["assignments"]} - form_ids)
+    assert n_bad_activity_event == 0
+    assert n_bad_assignment_event == 0
+    assert n_bad_assignment_activity == 0
+    assert n_bad_assignment_form == 0
 
 
 def test_gate_c_transpose_consistency(cat):
@@ -44,6 +83,9 @@ def test_gate_c_transpose_consistency(cat):
 
     这是解析正确性的**独立参照物** —— 两处表示由 Viedoc 分别导出, 一致即互证。
     不一致 ⇒ spec §6 S2 触发, 停。
+
+    差集/不一致项先落局部变量再断言标量长度, 理由同 test_gate_b_referential_integrity
+    的 docstring(控制方 I1)。
     """
     fwd = collections.defaultdict(set)
     for a in cat["assignments"]:
@@ -58,10 +100,13 @@ def test_gate_c_transpose_consistency(cat):
         for x in raw.replace("\n", ",").split(","):
             if x.strip():
                 bwd[x.strip()].add(it["item_oid"])
-    assert set(fwd) == set(bwd), "两侧 activity 键集不同"
-    assert len(fwd) == 61
+    n_key_mismatch = len(set(fwd) ^ set(bwd))
+    assert n_key_mismatch == 0, "两侧 activity 键集不同"
+    n_fwd_keys = len(fwd)   # fwd 是 defaultdict(set), len() 若直接写进 assert 会连值一起打出
+    assert n_fwd_keys == 61
     mismatched = [k for k in fwd if fwd[k] != bwd[k]]
-    assert mismatched == [], f"{len(mismatched)} 个 activity 的 item 集合不一致"
+    n_mismatched = len(mismatched)
+    assert n_mismatched == 0
 
 
 def test_hidden_activities_subset_of_activities(cat):
@@ -73,8 +118,10 @@ def test_hidden_activities_subset_of_activities(cat):
         for x in raw.replace("\n", ",").split(","):
             if x.strip():
                 used.add(x.strip())
-    assert len(used) == 61
-    assert used <= ac_ids
+    n_used = len(used)
+    assert n_used == 61
+    n_extra = len(used - ac_ids)
+    assert n_extra == 0
 
 
 def test_ledger_covers_workflow_sheets(cat):

@@ -92,19 +92,28 @@ def build_catalog(sp: StudyPaths) -> dict:
     all_events = parse_events(sp.config_report_new)
     all_activities = parse_activities(sp.config_report_new)
     all_assignments = parse_form_assignments(sp.config_report_new)
-    # 与 Forms 二次闸同构: OID 形态却缺关键载荷 = 未知行形态, 不能静默归为脚注
+    # 与 Forms/Items 二次闸同精神(未知行形态不能静默归为脚注), 但判据不同构:
+    # Events/Activities 的 is_trailer 100% 来自 oid 形态 (无第二个析取项), 所以"oid 非空
+    # 且不含空格"与 is_trailer 互斥 — 判据必须落在"oid 空但其他列有载荷"这个真正可达的形态上
+    # (审查方 C1 指出旧版判据恒假, 是死代码; 根因在 brief 设计, 非合成 fixture 缺覆盖)
     for e in all_events:
-        if e.is_trailer and e.oid and " " not in e.oid:
-            raise ValueError(f"workflow Events row {e.row}: event-shaped Id {e.oid!r} "
-                             f"判为脚注 — 未知行形态")
+        if e.is_trailer and not e.oid and (e.name or e.event_type or e.description):
+            raise ValueError(f"workflow Events row {e.row}: blank Id with payload "
+                             f"— 未知行形态, 不能静默归为脚注")
     for a in all_activities:
-        if a.is_trailer and a.oid and " " not in a.oid:
-            raise ValueError(f"workflow Activities row {a.row}: activity-shaped Id {a.oid!r} "
-                             f"判为脚注 — 未知行形态")
+        if a.is_trailer and not a.oid and (a.name or a.event_oid or a.description):
+            raise ValueError(f"workflow Activities row {a.row}: blank Id with payload "
+                             f"— 未知行形态, 不能静默归为脚注")
     for f in all_assignments:
+        # FormAssignment.is_trailer 只看 form_oid, 与 activity_oid/event_oid 解耦 —
+        # 这两条判据均可达 (与 Events/Activities 不同), 保留原有 activity_oid 判据,
+        # 补一条同形态的 event_oid 判据 (同一个 raise 条件套两个字段, 各自独立可触发)
         if f.is_trailer and (f.activity_oid and " " not in f.activity_oid):
             raise ValueError(f"workflow Forms row {f.row}: 空 Form ID 但 Activity ID "
                              f"{f.activity_oid!r} 是 OID 形态 — 未知行形态, 不能静默归为脚注")
+        if f.is_trailer and f.event_oid and " " not in f.event_oid:
+            raise ValueError(f"workflow Forms row {f.row}: 空 Form ID 但 Event ID "
+                             f"{f.event_oid!r} 是 OID 形态 — 未知行形态, 不能静默归为脚注")
     events = [e for e in all_events if not e.is_trailer]
     activities = [a for a in all_activities if not a.is_trailer]
     assignments = [f for f in all_assignments if not f.is_trailer]
