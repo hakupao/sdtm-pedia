@@ -56,7 +56,13 @@
 
 ```bash
 cd sdtm-rag
-.venv/bin/python -m pytest -p no:warnings -q 2>&1 | tail -3
+.venv/bin/python -m pytest -p no:warnings -q --junitxml=/tmp/j.xml >/dev/null 2>&1; echo "rc=$?"
+.venv/bin/python -c "
+import xml.etree.ElementTree as ET
+r=ET.parse('/tmp/j.xml').getroot(); s=r if r.tag=='testsuite' else r.find('testsuite')
+t,f,e,k=(int(s.get(x)) for x in ('tests','failures','errors','skipped'))
+print(f'tests={t} failures={f} errors={e} skipped={k} passed={t-f-e-k}')
+"
 ls data/study/st01/cards/*.md | wc -l
 grep -l "適用範囲" data/study/st01/cards/*.md | wc -l
 ```
@@ -956,7 +962,13 @@ Expected: 三遍逐题稳定, overall 与基线 **87.50%** 一致。
 
 ```bash
 cd sdtm-rag
-.venv/bin/python -m pytest -p no:warnings -q 2>&1 | tail -3
+.venv/bin/python -m pytest -p no:warnings -q --junitxml=/tmp/j.xml >/dev/null 2>&1; echo "rc=$?"
+.venv/bin/python -c "
+import xml.etree.ElementTree as ET
+r=ET.parse('/tmp/j.xml').getroot(); s=r if r.tag=='testsuite' else r.find('testsuite')
+t,f,e,k=(int(s.get(x)) for x in ('tests','failures','errors','skipped'))
+print(f'tests={t} failures={f} errors={e} skipped={k} passed={t-f-e-k}')
+"
 git add scripts/study/build_field_cards.py scripts/tests/test_build_field_cards.py
 git commit -m "feat(study-cards): 新增 収集アクティビティ 行 — item 真实采集范围确定性推导
 
@@ -1113,7 +1125,13 @@ git commit -m "feat(eval): lint_gold 支持 event 侧 gold 全集 (--events-cata
 
 三池目标名与 build_catalog 的 ledger target 同构, 便于 gold 对照台账溯源。
 题集本体在 data/study/ (gitignored, 零进 git)。"
-.venv/bin/python -m pytest -p no:warnings -q 2>&1 | tail -3
+.venv/bin/python -m pytest -p no:warnings -q --junitxml=/tmp/j.xml >/dev/null 2>&1; echo "rc=$?"
+.venv/bin/python -c "
+import xml.etree.ElementTree as ET
+r=ET.parse('/tmp/j.xml').getroot(); s=r if r.tag=='testsuite' else r.find('testsuite')
+t,f,e,k=(int(s.get(x)) for x in ('tests','failures','errors','skipped'))
+print(f'tests={t} failures={f} errors={e} skipped={k} passed={t-f-e-k}')
+"
 ```
 
 Expected: `passed=1717` (1715 + 2)。
