@@ -784,6 +784,19 @@ events=14 activities=77 assignments=110; ledger +209 行 (含脚注记账)。
 
 ## Task 4: item 真实采集范围推导 + 卡片新增行
 
+> ⛔ **执行结果: spec §6 S3 触发, 用户 2026-08-25 裁定执行退回。**
+> 卡片渲染该行的实测后果: study golden v2 **87.50% → 84.38%**, q14/q21 两题回归 (三遍逐题稳定, 非抖动)。
+> 归因实验: A 臂 (仅 Task 1 标签改动) = **87.50% 逐题 Δ0** ⇒ 致害**全部**来自本行。
+> 机制: 959 卡的该行**仅 46 种取值**, 最大簇 **175 卡 (18.3%) 逐字相同**; 两道回归题本就在
+> **rank 15/15** 压线, 被同簇兄弟卡挤出 top-k (q14 顶替者仅赢 0.0002 sim)。
+> **这正是 spec §2 Out of scope 早已点名的机制**「事件层进向量库切 chunk (增量是关系型,
+> 走确定性通道)」—— 回归是违反自家原则的可预期后果。
+> **终态**: `collect_scope` 推导与单测**保留** (spec §2.3 仍 in-scope, 数据经 catalog 三池
+> 由 Task 6 的 `study_lookup` 直查交付); 生产 `build_cards` 传 `assignments=None`, **不渲染该行**。
+> 完整归档 → `sdtm-rag/evidence/failures/t4_step7_retrieval_regression.md`
+> **引用纪律: 一律写「S3 触发, 用户裁定执行退回」, 不得写成「未触发」或「验收通过」。**
+
+
 **Files:**
 - Modify: `scripts/study/build_field_cards.py` (新增推导函数 + 渲染行 + 调用处传参)
 - Test: `scripts/tests/test_build_field_cards.py` (追加 3 个测试)
@@ -957,12 +970,22 @@ Expected: `变化卡片 959 ... / 非预期变化 0` + `PASS`。
 > (实证: 重灌前 `chroma.sqlite3` 内旧标签 943 处 / 新标签 0 处; `server/` 无任何读 `cards/*.md`
 > 的代码路径, 线上文本全部来自 chroma 落盘)。spec §5.D 的 D.2/D.3 在 T1 **未执行**。
 > **本步骤是这两次改动共同的 §5.D.2/D.3 验收点 —— 不得默认「T1 已闭合 §5.D」。**
-> 重灌索引后请顺带确认旧标签已从索引消失:
+> 重灌索引后确认旧标签已从索引消失。⛔ **不要对 chroma.sqlite3 做 raw grep** ——
+> 控制方实测: 那样会看到**已删除但未 vacuum 的空闲页残留** (重灌后 raw grep 仍得 4,
+> 而逻辑内容实为 0)。必须走 chromadb API 查真实文档:
 > ```bash
 > cd sdtm-rag
-> LC_ALL=C grep -a -c -- "適用範囲" data/chroma/chroma.sqlite3            # 期望 0
-> LC_ALL=C grep -a -c -- "非表示アクティビティ" data/chroma/chroma.sqlite3  # 期望 > 0
+> .venv/bin/python - <<'PY'
+> import chromadb
+> c = chromadb.PersistentClient(path='data/chroma')
+> for name in ('study_st01', 'study_st01_docs', 'sdtm_kb_v1'):
+>     docs = c.get_collection(name).get(include=['documents'])['documents'] or []
+>     f = lambda s: sum(1 for d in docs if d and s in d)
+>     print(f"{name:18s} n={len(docs):5d} 旧={f('適用範囲'):4d} 非表示={f('非表示アクティビティ'):4d} 収集={f('収集アクティビティ'):4d}")
+> PY
 > ```
+> 期望: `study_st01` → 旧=**0** · 非表示=**231** · 収集=**959**; 另两个 collection 三项皆 0。
+> (231 与 959 分别对上"有 hidden 列表的卡数"与"全部 field card 数", 是索引侧与磁盘侧的交叉核对。)
 
 > ⛔ **必须先停线上服务再重灌 (控制方 Ruling T4-launchd)**: `ingest_study` 用
 > `client.delete_collection()` 删除后重建 collection, 而 `server/rag.py:92-93` 在 lifespan
