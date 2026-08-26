@@ -101,6 +101,7 @@ Full chain definitions are in `.work/MANIFEST.md`.
 | Phase 7 doc 轨下一单元入口 | `milestones/07_rag_kg/DOC_TRACK_KICKOFF.md` §0′ (路由词「doc 轨 开始任务」) |
 | Phase 7 SP7 查看器 UX 重构 (2026-07-24) | 源码 `sdtm-rag/viewer/{template.html,style.css,layout.mjs,app.js}` → build 内联 `kg_viewer.html` (**勿手改产物, 改 viewer/* 重生成**); 确定性布局+补间无物理; spec/plan `docs/superpowers/*2026-07-24-kg-viewer-ux*` |
 | Phase 7 study 轨 workflow 事件层 (DONE, 有条件合并) | `sdtm-rag/evidence/checkpoints/study_workflow_events.md` — 21/33 recall, 未接线 |
+| C1 红线 triage (4 真阳性已清) | `sdtm-rag/evidence/checkpoints/c1_redline_triage.md` — 26 假阳性未动 |
 
 ## AI 平台多平台部署 (CLOSED 冻结 2026-06-15)
 
