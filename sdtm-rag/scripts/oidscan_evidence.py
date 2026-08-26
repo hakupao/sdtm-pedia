@@ -114,6 +114,13 @@ DEFAULT_TARGETS: tuple[Path, ...] = (
     REPO_ROOT / "evidence",
     GIT_ROOT / "docs",
     REPO_ROOT / "docs",
+    # 源码树 (2026-08-26 加入): C1 那次真实泄漏就在 `scripts/tests/` 里, 而当时默认面
+    # 只有 evidence/ + docs/ —— "手跑一次闸"这个动作天然看不见它。pre-commit 只管新
+    # 进 git 的文件, 存量面只能靠不带参数的全仓审计, 故默认面必须含源码。
+    # 代价: 默认面 205 → 538 文件, 实测 10.0s → 11.3s (每文件约 62ms, 见
+    # precommit_oidscan.py 的说明); 手动审计能接受, 这也正是 hook 不用默认面的原因。
+    REPO_ROOT / "scripts",
+    REPO_ROOT / "server",
     _SELF_PATH,
 )
 

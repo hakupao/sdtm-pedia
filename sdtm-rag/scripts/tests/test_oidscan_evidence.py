@@ -238,6 +238,20 @@ def test_default_targets_are_absolute_and_git_root_anchored():
     assert any(t.name == "oidscan_evidence.py" for t in DEFAULT_TARGETS)
 
 
+def test_default_targets_include_source_trees():
+    """默认扫描面必须覆盖源码 —— C1 那次真实泄漏就发生在 `scripts/tests/` 里, 而当时
+    默认面只有 evidence/ + docs/, 于是"手跑一次闸"这个动作天然看不见它 (判定书 §4
+    记的"红线扫描有结构性盲区: 对照产物而非源")。
+
+    pre-commit 只管**新进 git 的**文件; 存量面只能靠不带参数的手动全仓审计, 所以
+    默认面必须包含源码树, 否则那次审计仍是"扫了个寂寞却给绿灯"。
+    """
+    from scripts.oidscan_evidence import DEFAULT_TARGETS, REPO_ROOT
+
+    assert REPO_ROOT / "scripts" in DEFAULT_TARGETS
+    assert REPO_ROOT / "server" in DEFAULT_TARGETS
+
+
 def test_find_git_root_walks_up_to_dot_git(tmp_path):
     from scripts.oidscan_evidence import _find_git_root
 

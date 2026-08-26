@@ -166,3 +166,65 @@ cd sdtm-rag
 
 **本单元不含** (仍是 C2 本体): 扩默认扫描面到源码、接 pre-commit / CI。本单元只是
 把"接上去会长期红"这个阻塞解掉。
+
+## 9. C2 本体: 闸接自动化 (2026-08-26)
+
+**先破一个假选项**: "接成一条 pytest / 接 GitHub Actions" **结构上行不通** ——
+needle 源 `data/study/st01/catalog.json` 是 gitignored 且**永远不能推**(它本身就是要
+保护的东西), 所以 CI 里根本没有 needle 源, 闸只会 fail-closed ABORT。一条在干净检出
+里永远 skip 的测试就是装饰闸, 正是本单元要治的病。**唯一可行的自动化是本地**。
+(本仓现状实测: `.github/workflows` 不存在、无 pre-commit 框架、`.git/hooks/` 为空
+—— C2 是从零建, 不是往现成管道上挂。)
+
+**为什么 hook 只扫暂存文件**: 闸的匹配是 1638 个 needle 编进一条交替正则逐行跑,
+实测 **62 ms/文件**; 默认面 542 文件要 **11.3 秒**。一个每次 commit 加 10+ 秒的 hook
+迟早被 `--no-verify` 绕过 —— "纸面规则等于没规则"换个死法。暂存文件典型 1-5 个,
+实测约 0.3 秒。
+
+**交付**:
+
+| 件 | 说明 |
+|---|---|
+| `sdtm-rag/scripts/precommit_oidscan.py` | 逻辑本体 (可测). 复用 `oidscan_evidence.main`, 不另写一套匹配/掩码, 免得 hook 与手跑两条路径悄悄分叉 |
+| `.githooks/pre-commit` | 三行 shim (shell 难测, 故逻辑全在 Python 里) |
+| `.githooks/install.sh` | 一次性 `git config core.hooksPath .githooks` |
+| `DEFAULT_TARGETS` += `scripts/` `server/` | 手动全仓审计终于覆盖 C1 的暴露发生地 |
+
+**四条行为 (各有先行失败测试, 共 6 条新测试)**:
+1. 暂存项里的**已删除路径与二进制文件**先滤掉 —— 否则一次纯删除的提交会撞上闸的
+   "0 个文件可扫"fail-closed 被误拦。
+2. 过滤后为空 → **在调用闸之前**放行。
+3. `catalog` 不在本机 → **拦下** (没 needle 源 = 没有任何保证, 与闸同纪律), 且必须
+   **具名**告知逆转: `OIDSCAN_NO_CATALOG=1 git commit`。**不引导去用 `--no-verify`**
+   —— 那会顺手关掉未来所有 hook, 且不留"我知道我在绕过什么"的痕迹。
+4. `OIDSCAN_NO_CATALOG=1` → 放行但**响亮**打印"本次提交未经任何 OID/label 泄漏检查"。
+   静默的逃生门用两次就变成默认路径。
+
+**`core.hooksPath` 不随 clone 传播** (它写在 `.git/config`), 所以本 hook 的 fail-closed
+只作用于**主动启用它的人**; 别人 clone 本公开仓不会因此无法提交。这条不是缺陷,
+是选 `core.hooksPath` 而非 `.git/hooks/` 直写的附带好处 (后者还不受版本控制, 改坏无痕)。
+
+**端到端实证 (不止测 Python 层)**:
+```
+A 干净路径 : 暂存 4 个文件 → hook rc=0, CLEAN, 瞬时
+B 泄漏路径 : 程序化写入一个真 needle (len=23) 的探针文件并 git add -f
+             → hook rc=1, 输出 `_e2e_leak_probe.md:1: <OID len=23>` (掩码, 未打真值)
+C 真提交   : `git commit -m "THIS MUST BE BLOCKED"` → **rc=1, HEAD 未动**
+             (证明 core.hooksPath 接线真的生效, 而非手动调了个脚本)
+D 清除     : 探针 unstage + 删除; `git status` 无残留; 闸对全仓复扫 rc=0
+```
+
+**实测 (可复跑)**:
+```bash
+sh .githooks/install.sh                                  # 一次性启用
+cd sdtm-rag
+./.venv/bin/python -m pytest -q                          # 1784 → 1791 passed / 0 failed
+./.venv/bin/python scripts/oidscan_evidence.py           # 默认面 rc=0 CLEAN (542 文件, 原 205)
+```
+
+**已知限制**:
+- hook 只管**新进 git 的**文件; 存量面靠不带参数的手动全仓审计, 没有定期跑的强制力。
+- 默认面仍不含 `knowledge_base/` `web/` `milestones/` `.work/` —— 本轮未评估这些树的
+  必要性与耗时, 未扩。
+- `OIDSCAN_NO_CATALOG=1` 与 `--no-verify` 都仍能绕过; 本设计只做到"绕过要具名且响亮",
+  做不到"绕不过"。

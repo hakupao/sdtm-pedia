@@ -1,0 +1,19 @@
+#!/bin/sh
+# OID/label 泄漏闸 (C2 本体) —— 只扫暂存文件, 详见 sdtm-rag/scripts/precommit_oidscan.py
+#
+# 启用 (每个 clone 一次性):  git config core.hooksPath .githooks
+# 注意: core.hooksPath 写在 .git/config, **不随 clone 传播** —— 别人 clone 本仓不会
+# 自动获得这个 hook, 因此本 hook 的 fail-closed 只作用于主动启用它的人。
+set -e
+REPO_ROOT=$(git rev-parse --show-toplevel)
+PY="$REPO_ROOT/sdtm-rag/.venv/bin/python"
+
+if [ ! -x "$PY" ]; then
+    echo "[oidscan] ⛔ 拦下提交: 找不到解释器 $PY"
+    echo "          闸跑不起来就没有任何扫描保证 (fail-closed)。先建 venv, 或"
+    echo "          在确实无法运行的机器上关掉 hook: git config --unset core.hooksPath"
+    exit 1
+fi
+
+cd "$REPO_ROOT/sdtm-rag"
+exec "$PY" -m scripts.precommit_oidscan
