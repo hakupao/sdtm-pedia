@@ -1401,3 +1401,67 @@ evidence: `sdtm-rag/evidence/checkpoints/study_workflow_events.md` (17 条已知
 §9/§9b/§9c 三轮修复记录 + §10 收口状态) + `sdtm-rag/evidence/step_workflow_events_
 audit{,_review,_review_r2}.md`; plan 顶部已加指针 (设计基准以 checkpoint §2 为准,
 48 checkbox 已勾); 路由词无剩余单元 (本轨收口)。
+
+---
+
+## 2026-08-26 — 分支合并 + C1 红线既有命中面 triage 与清理
+
+**合并决策 (交接文档 §0 的唯一阻塞项)**: 用户裁定「合并 + 推送到公开 GitHub」。
+`feat/study-workflow-events` → `main` **fast-forward** (merge-base == main HEAD),
+连同 main 原有 7 个未推 commit 共 **35 commit** 推上 `origin/main` (`674f85d..1fe4df2`)。
+⚠ 交接文档写「25 commit」, 实际 **28**, 不影响任何判定。
+
+**合并前独立复核** (不引用交接文档的自称, 全部本轮实跑):
+- `cd sdtm-rag && ./.venv/bin/python -m pytest -q --junitxml=…` → **1780 passed / 0 failed
+  / 0 error / 0 skipped**
+- `./.venv/bin/python scripts/oidscan_evidence.py` (默认面) → rc=0 CLEAN (204 文件)
+- 最终复审两条 minor 复核: CLAUDE.md 单元格 **76 ≤ 80** (python3 实测字符数) / 总 139 行;
+  `docs/PROGRESS.md` S3 括注已正确挂在 `collect_scope` 而非标签修复
+- **新增一道推送前闸**: 默认扫描面不覆盖 `.work/` / `CLAUDE.md` / `eval/`, 故对
+  `git diff --name-only origin/main..HEAD` 的全部 32 个文件单独跑闸 → 6 处命中**全部是
+  main 基线里已有的同一集合**, 本次**零新增**
+
+**C1 只读评估 (用户裁定「先做只读评估, 不改动」)**: 见
+`sdtm-rag/evidence/checkpoints/c1_redline_triage.md`。方法是**掩码 triage** —— 复用闸的
+needle 池, 打印命中所在源码行但把命中子串遮成 `<OID len=N>`/`<LABEL len=N>`, 靠"它在
+代码里被怎么用"判真假阳性, **全程不把真值打进对话/日志** (闸自己 docstring 点名过
+"红线从 git 绕道进 CI 日志/贴给 LLM 的截图"这个模式)。
+
+判定: **32 处 → 28 假阳性 (87.5%) + 4 真阳性**。假阳性分五类: build 模板占位符 2 /
+Python 变量名 2 / **CDISC 公开 Pilot 示例数据 6** (`CDISCPILOT01`, 命中值在 `LBTESTCD`
+列紧邻 `Albumin`) / 刻意假名 fixture (`_FAKE1`/`_UNUSED`) 16 / SDTM 标准变量名列表 1。
+真阳性 4 处全在 `scripts/tests/test_ja_tokenize.py` 的 6 行内, 其中一处是 **item OID
+与其 label 同行成对** (`# <label> (<OID>)`, 识别性最强), 一处是 11 字符 CJK label。
+
+**暴露状态**: 仓库 `hakupao/sdtm-pedia` 为 **PUBLIC** (`gh repo view` 实查);
+`test_ja_tokenize.py` 当前内容与 `origin/main` 字节级一致, 该文件最后推送 **2026-08-04**
+⇒ 这 4 处至迟自该日起公开可访问。**这把 C1 从「待清理的工作量」改判为「已发生的暴露」**,
+也是本轮把 C1 提到 C2 之前的理由。
+
+**C1 清理 (用户裁定「清理那 4 处」)**: 单文件 16 处替换 (4 字符 label ×4 → `偽項目名` /
+11 字符 label ×1 → `偽ひらがなカタカナ漢字` / 5 字符 OID ×1 → `FAKE5` / **派生 bigram
+期望值 ×10 由假名重新推导**)。闸复测 **32 → 26** (剩余 26 = 判定书 §1 的假阳性全集,
+逐条未动), **1780 passed 零增减**。
+
+**两条新发现 (比命中本身更重要)**:
+1. **只换字面量不算清理** —— `test_japanese_run_becomes_overlapping_bigrams` 把 label 的
+   bigram 切分期望值逐个列在断言里, 即使字面量换成假名, 期望值数组仍能**无损重构**原值。
+   任何后续红线清理必须连派生期望值一起改。
+2. **C2 有硬前置** —— 87.5% 假阳性的根因是**闸的 OID 池没有 `min_len` 过滤** (闸自己记的
+   deferred: `min_len` 只作用于 label 池), 2-3 字符 OID 与大写缩写/模板占位符/变量名大量
+   撞车。此状态下接进 pre-commit/CI, 闸会长期红着 ⇒ 必被人为忽略 ⇒ **这是「纸面规则等于
+   没规则」的另一种死法**。C2 应先修 OID 池判据 (加 `min_len` 或改成"命中须处于标识符
+   位置"的上下文判据), 再谈自动化。
+
+**⚠ 残留限制 (诚实记录)**: 只清理了**当前 HEAD 的内容**; 4 处真值仍在公开仓的**历史
+commit** 中可访问。彻底清除需改写历史 + force push, **本轮按用户裁定未做**。
+另: `scripts/tests/fixtures/sp5_real_sample/` 是**误导性命名** (装的是 CDISC 公开 Pilot
+数据, 不是客户数据), 建议将来改名 `cdisc_pilot_sample/`, 本轮未改。
+
+**ledger 保全**: 控制方 65 条裁定所在的 `.superpowers/sdd/2026-08-25-study-workflow-events/`
+(gitignored) 已整目录拷至仓外 `~/MyProject/_sdd_ledger_archive/2026-08-25-study-workflow-events/`
+(41 文件 / 1.4M, 含 progress.md 772 行 + 6 份 task-report + 三方 review + 13 份 review diff)。
+该路径**不属于任何 git 仓库** (已验证), 因内含真名, 不得进版本库。
+
+evidence: `sdtm-rag/evidence/checkpoints/c1_redline_triage.md` (§1 逐类判定 / §2 4 处真阳性
+形态 / §4 对 C2 的两条影响 / §5 复跑命令 / §7 处置记录与残留限制); 自扫 rc=0 CLEAN。
