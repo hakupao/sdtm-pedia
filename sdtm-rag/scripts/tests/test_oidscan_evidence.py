@@ -4,6 +4,7 @@ import pytest
 
 from scripts.oidscan_evidence import (
     ALLOWLIST,
+    DEFAULT_MIN_LEN,
     KNOWN_PUBLIC_COLLISIONS,
     compile_needle_pattern,
     load_cdisc_domain_codes,
@@ -39,21 +40,34 @@ def _write_full_catalog(tmp_path, **pools):
 
 def test_load_needles_excludes_pure_numeric(tmp_path):
     """行号 / 长度这类纯数字字段不能混进 needle 集 (会到处假阳性)。"""
-    cat = _write_catalog(tmp_path, forms=["偽F1", "12"], items=["偽I1", "34"])
+    cat = _write_catalog(tmp_path, forms=["偽FRM01", "12"], items=["偽ITM01", "34"])
     needles = load_needles(cat)
-    assert needles == {"偽F1", "偽I1"}
+    assert needles == {"偽FRM01", "偽ITM01"}
 
 
 def test_load_needles_excludes_given_set(tmp_path):
-    cat = _write_catalog(tmp_path, forms=["偽F1", "AE"])
-    needles = load_needles(cat, exclude={"AE"})
-    assert needles == {"偽F1"}
+    # needle 必须 >= min_len, 否则本测试会因"被长度剔除"而通过, 证不到 exclude 生效
+    cat = _write_catalog(tmp_path, forms=["偽FRM01", "TESTCD"])
+    needles = load_needles(cat, exclude={"TESTCD"})
+    assert needles == {"偽FRM01"}
+
+
+def test_load_needles_drops_values_shorter_than_min_len(tmp_path):
+    """短 OID (2-3 字符) 与大写缩写 / 模板占位符 / Python 变量名大量撞车。
+
+    实测依据 (c1_redline_triage.md): 闸对 `scripts/ server/` 的 26 处命中**全部**
+    来自 4 个 2-3 字符 OID needle, 无一是真泄漏 (假阳性率 87.5%)。与 label 池
+    (`load_label_needles(min_len=4)`) 同一处置, 此前 OID 池漏掉这一手。
+    """
+    cat = _write_catalog(tmp_path, forms=["偽F1", "偽FORM1"], items=["偽I", "偽ITEM1"])
+    needles = load_needles(cat, min_len=4)
+    assert needles == {"偽FORM1", "偽ITEM1"}   # 6 字保留, 3 字/2 字被剔除
 
 
 def test_load_needles_unions_four_pools(tmp_path):
-    cat = _write_catalog(tmp_path, forms=["偽F1"], items=["偽I1"],
-                         events=["偽E1"], activities=["偽A1"])
-    assert load_needles(cat) == {"偽F1", "偽I1", "偽E1", "偽A1"}
+    cat = _write_catalog(tmp_path, forms=["偽FRM01"], items=["偽ITM01"],
+                         events=["偽EVT01"], activities=["偽ACT01"])
+    assert load_needles(cat) == {"偽FRM01", "偽ITM01", "偽EVT01", "偽ACT01"}
 
 
 # ---- N3: label/name 池 (spec §8 第 2 条 "OID / label" 并列, 只扫 OID 不算闭合) ----
@@ -61,11 +75,11 @@ def test_load_needles_unions_four_pools(tmp_path):
 def test_load_label_needles_collects_all_named_fields(tmp_path):
     cat = _write_full_catalog(
         tmp_path,
-        forms=[{"oid": "偽F1", "name": "偽表单名称甲", "description": "偽表单说明甲"}],
-        items=[{"item_oid": "偽I1", "label": "偽项目标签甲", "group_name": "偽分组甲",
+        forms=[{"oid": "偽FRM01", "name": "偽表单名称甲", "description": "偽表单说明甲"}],
+        items=[{"item_oid": "偽ITM01", "label": "偽项目标签甲", "group_name": "偽分组甲",
                 "form_name": "偽表单名甲"}],
-        events=[{"oid": "偽E1", "name": "偽事件名称甲"}],
-        activities=[{"oid": "偽A1", "name": "偽活动名称甲", "event_name": "偽关联事件甲"}],
+        events=[{"oid": "偽EVT01", "name": "偽事件名称甲"}],
+        activities=[{"oid": "偽ACT01", "name": "偽活动名称甲", "event_name": "偽关联事件甲"}],
     )
     needles = load_label_needles(cat)
     assert needles == {
@@ -78,7 +92,7 @@ def test_load_label_needles_drops_values_shorter_than_min_len(tmp_path):
     """group_name/form_name 常见 1-3 字通用词, 太短会重蹈"纯数字"式假阳性覆辙。"""
     cat = _write_full_catalog(
         tmp_path,
-        items=[{"item_oid": "偽I1", "label": "偽", "group_name": "偽甲乙丙丁"}],
+        items=[{"item_oid": "偽ITM01", "label": "偽", "group_name": "偽甲乙丙丁"}],
     )
     needles = load_label_needles(cat, min_len=4)
     assert needles == {"偽甲乙丙丁"}   # 4 字保留, 1 字 "偽" 被剔除
@@ -87,8 +101,8 @@ def test_load_label_needles_drops_values_shorter_than_min_len(tmp_path):
 def test_load_label_needles_ignores_missing_and_empty_fields(tmp_path):
     cat = _write_full_catalog(
         tmp_path,
-        forms=[{"oid": "偽F1"}],                 # 无 name/description 键
-        items=[{"item_oid": "偽I1", "label": ""}],  # 空字符串
+        forms=[{"oid": "偽FRM01"}],                 # 无 name/description 键
+        items=[{"item_oid": "偽ITM01", "label": ""}],  # 空字符串
     )
     assert load_label_needles(cat) == set()
 
@@ -96,7 +110,7 @@ def test_load_label_needles_ignores_missing_and_empty_fields(tmp_path):
 def test_load_label_needles_excludes_given_set(tmp_path):
     cat = _write_full_catalog(
         tmp_path,
-        forms=[{"oid": "偽F1", "name": "公開語彙甲甲"}],
+        forms=[{"oid": "偽FRM01", "name": "公開語彙甲甲"}],
     )
     needles = load_label_needles(cat, exclude={"公開語彙甲甲"})
     assert needles == set()
@@ -201,7 +215,7 @@ def test_iter_target_files_expands_directory_and_skips_binary(tmp_path):
 
 def test_main_fails_closed_on_missing_target(tmp_path, capsys):
     """N1 回归钉: 拼错路径 / cwd 不对必须非零退出并明说缺了哪个, 不能打印 CLEAN。"""
-    cat = _write_catalog(tmp_path, forms=["偽F1"])
+    cat = _write_catalog(tmp_path, forms=["偽FRM01"])
     missing_target = tmp_path / "typo_path_does_not_exist"
     rc = main([str(missing_target), "--catalog", str(cat)])
     out = capsys.readouterr().out
@@ -246,7 +260,7 @@ def test_find_git_root_raises_when_no_dot_git_found(tmp_path):
 # ---- main() 端到端 (CLI 行为), 全部用 偽 前缀合成数据 ----
 
 def test_main_clean_when_no_hits(tmp_path, capsys):
-    cat = _write_catalog(tmp_path, forms=["偽F1"])
+    cat = _write_catalog(tmp_path, forms=["偽FRM01"])
     target = tmp_path / "clean.md"
     target.write_text("nothing sensitive here", encoding="utf-8")
     rc = main([str(target), "--catalog", str(cat)])
@@ -255,22 +269,22 @@ def test_main_clean_when_no_hits(tmp_path, capsys):
 
 
 def test_main_leak_when_hit_not_allowlisted(tmp_path, capsys):
-    cat = _write_catalog(tmp_path, forms=["偽F1"])
+    cat = _write_catalog(tmp_path, forms=["偽FRM01"])
     target = tmp_path / "leaky.md"
-    target.write_text("包含 偽F1 在正文里", encoding="utf-8")
+    target.write_text("包含 偽FRM01 在正文里", encoding="utf-8")
     # --show-values: 本测试要断言具体命中了哪个 needle, 数据是合成 偽 前缀值, 打真值无害。
     rc = main([str(target), "--catalog", str(cat), "--show-values"])
     out = capsys.readouterr().out
     assert rc == 1
     assert "LEAK" in out
-    assert "偽F1" in out
+    assert "偽FRM01" in out
 
 
 def test_main_catches_label_leak_not_just_oid(tmp_path, capsys):
     """N3 回归钉: 只含真实 label (不含任何真实 OID) 的文件也必须被抓到。"""
     cat = _write_full_catalog(
         tmp_path,
-        items=[{"item_oid": "偽I1", "label": "偽長い項目ラベル甲乙丙"}],
+        items=[{"item_oid": "偽ITM01", "label": "偽長い項目ラベル甲乙丙"}],
     )
     target = tmp_path / "label_only_leak.md"
     target.write_text("正文里混进了 偽長い項目ラベル甲乙丙 这段标签文本", encoding="utf-8")
@@ -296,12 +310,12 @@ def test_main_aborts_on_empty_catalog(tmp_path, capsys):
 def test_allowlist_entries_are_excluded_from_leak(tmp_path, monkeypatch, capsys):
     """守门人: allowlist 命中的 (文件, needle) 不计入 LEAK, 但仍打印在报告里。"""
     fake_rel = "scripts/tests/_fake_allowlisted.md"
-    monkeypatch.setitem(ALLOWLIST, (fake_rel, "偽F1"), "测试用假条目")
-    cat = _write_catalog(tmp_path, forms=["偽F1"])
+    monkeypatch.setitem(ALLOWLIST, (fake_rel, "偽FRM01"), "测试用假条目")
+    cat = _write_catalog(tmp_path, forms=["偽FRM01"])
     target_dir = tmp_path / "scripts" / "tests"
     target_dir.mkdir(parents=True)
     target = target_dir / "_fake_allowlisted.md"
-    target.write_text("偽F1 出现在这里", encoding="utf-8")
+    target.write_text("偽FRM01 出现在这里", encoding="utf-8")
 
     import scripts.oidscan_evidence as mod
     monkeypatch.setattr(mod, "GIT_ROOT", tmp_path)   # rel 现在相对 GIT_ROOT (N2 修复)
@@ -316,16 +330,72 @@ def test_allowlist_entries_are_excluded_from_leak(tmp_path, monkeypatch, capsys)
 def test_known_public_collisions_are_excluded_globally(tmp_path, capsys):
     """KNOWN_PUBLIC_COLLISIONS 里的 needle 即便是 catalog 真实 OID, 也不该被当泄漏 ——
     这批是公开/通用词汇 (CT/K/MAX/... ) 与私密 OID 偶然撞车, 见模块 docstring 教训。"""
-    collision_needle = next(iter(KNOWN_PUBLIC_COLLISIONS))
-    cat = _write_catalog(tmp_path, forms=[collision_needle, "偽F1"])
+    # 必须挑 >= min_len 的条目: 短条目会被长度剔除, 本测试就证不到 exclude 这条路径
+    collision_needle = next(n for n in KNOWN_PUBLIC_COLLISIONS if len(n) >= 4)
+    cat = _write_catalog(tmp_path, forms=[collision_needle, "偽FRM01"])
     target = tmp_path / "doc.md"
-    target.write_text(f"讨论 {collision_needle} 与 偽F1 都出现", encoding="utf-8")
+    target.write_text(f"讨论 {collision_needle} 与 偽FRM01 都出现", encoding="utf-8")
     rc = main([str(target), "--catalog", str(cat), "--show-values"])
     out = capsys.readouterr().out
-    assert rc == 1                       # 偽F1 仍应被抓到
+    assert rc == 1                       # 偽FRM01 仍应被抓到
     leak_section = out.split("LEAK:", 1)[1]
-    assert "偽F1" in leak_section
+    assert "偽FRM01" in leak_section
     assert f"'{collision_needle}'" not in leak_section   # 公开词汇不算泄漏, 不进 LEAK 明细
+
+
+def test_short_oid_paired_with_its_label_still_leaks_via_label_pool(tmp_path, capsys):
+    """min_len 造出的盲区是**有界的**: 短 OID 与自身 label 成对出现时, label 侧仍抓得到。
+
+    这条钉住 `load_needles` docstring 里"盲区小于被剔除的 OID 数"这个论断 —— 本仓
+    实测 70 条用短 OID 的记录里 63 条的名称仍在 label 池, 全盲只剩 7 条。C1 那次
+    真实泄漏正是"OID 与其 label 同行成对"的形态 (识别性最强的一种), 该形态必须
+    保持可检出, 否则 min_len 就不是降噪而是拆闸。
+    """
+    cat = _write_full_catalog(
+        tmp_path,
+        items=[{"item_oid": "偽I", "label": "偽項目標籤甲"}],   # OID 2 字 (低于 min_len)
+    )
+    target = tmp_path / "paired.md"
+    target.write_text("# 偽項目標籤甲 (偽I)", encoding="utf-8")   # C1 那次的成对形态
+    rc = main([str(target), "--catalog", str(cat)])
+    out = capsys.readouterr().out
+    assert rc == 1, "短 OID 与自身 label 成对出现时必须仍判 LEAK"
+    assert "<LABEL len=6>" in out          # 由 label 侧抓到 (掩码输出)
+    assert "<OID" not in out.split("LEAK:", 1)[1]   # OID 侧确实已被 min_len 剔除
+
+
+# ---- 豁免条目可达性 (C2 前置): 永不触发的豁免 = 死代码 ----
+
+def test_allowlist_entries_are_reachable_under_default_min_len():
+    """allowlist 条目若短于 `DEFAULT_MIN_LEN`, 其 needle 根本进不了任何 needle 池 ——
+    该条目永远不会被查询, 是恒假的死代码。
+
+    本仓刚吃过这个亏 (Ruling C1: events/activities guard "原写法恒假是死代码")。
+    给 OID 池加 min_len 会一次性造出 11 条这样的死条目, 故把"不许留死豁免"钉成测试:
+    一个要接进 CI 的闸, 不能悄悄积累永不触发的豁免。
+    """
+    # 掩码: allowlist 的 needle 不保证是公开词汇, 断言失败信息会进 CI 日志 ——
+    # 一条防红线的测试自己打真值, 就是模块 docstring 点名的"绕道进日志"那个模式。
+    dead = sorted(
+        f"{path}:<len={len(needle)}>"
+        for (path, needle) in ALLOWLIST if len(needle) < DEFAULT_MIN_LEN
+    )
+    assert dead == [], (
+        f"{len(dead)} 条 allowlist 条目的 needle 短于 DEFAULT_MIN_LEN="
+        f"{DEFAULT_MIN_LEN}, 永不触发 (死代码): {dead}"
+    )
+
+
+def test_known_public_collisions_are_reachable_under_default_min_len():
+    """同上: `exclude` 在两个池里都作用于已过 min_len 的取值, 故短于 min_len 的
+    公开词汇条目同样恒不触发。"""
+    # 这批按定义是公开 CDISC 词汇, 打真值无害; 仍与上一条保持同一掩码形状便于比对
+    dead = sorted(f"<len={len(n)}>" for n in KNOWN_PUBLIC_COLLISIONS
+                  if len(n) < DEFAULT_MIN_LEN)
+    assert dead == [], (
+        f"{len(dead)} 条 KNOWN_PUBLIC_COLLISIONS 条目短于 DEFAULT_MIN_LEN="
+        f"{DEFAULT_MIN_LEN}, 永不触发 (死代码)"
+    )
 
 
 # ---- 输出脱敏 (复审第 3 轮): 默认掩码, --show-values 才打真值 ----
@@ -351,7 +421,7 @@ def test_main_masks_leak_values_by_default(tmp_path, capsys):
 def test_main_masks_label_leak_values_by_default(tmp_path, capsys):
     cat = _write_full_catalog(
         tmp_path,
-        items=[{"item_oid": "偽I1", "label": "偽長い項目ラベル甲乙丙"}],
+        items=[{"item_oid": "偽ITM01", "label": "偽長い項目ラベル甲乙丙"}],
     )
     target = tmp_path / "label_leak.md"
     target.write_text("正文混进 偽長い項目ラベル甲乙丙 标签文本", encoding="utf-8")
@@ -395,7 +465,7 @@ def test_main_masks_allowlist_hit_values_by_default(tmp_path, monkeypatch, capsy
 # ---- 复审第 4 轮 Item 3: target 存在但展开后 0 个文件也要 fail-closed ----
 
 def test_main_fails_closed_on_empty_directory(tmp_path, capsys):
-    cat = _write_catalog(tmp_path, forms=["偽F1"])
+    cat = _write_catalog(tmp_path, forms=["偽FRM01"])
     empty_dir = tmp_path / "empty_target_dir"
     empty_dir.mkdir()
     rc = main([str(empty_dir), "--catalog", str(cat)])
@@ -407,7 +477,7 @@ def test_main_fails_closed_on_empty_directory(tmp_path, capsys):
 
 
 def test_main_fails_closed_on_directory_with_only_binary_files(tmp_path, capsys):
-    cat = _write_catalog(tmp_path, forms=["偽F1"])
+    cat = _write_catalog(tmp_path, forms=["偽FRM01"])
     d = tmp_path / "only_binary"
     d.mkdir()
     (d / "a.png").write_bytes(b"\x89PNG")

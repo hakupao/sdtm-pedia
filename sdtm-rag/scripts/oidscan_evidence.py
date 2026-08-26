@@ -29,15 +29,21 @@ activity 的 OID 或 label/name。
 判定规则:
     needle 来源 : --catalog 指向的 catalog.json, 两个独立的 needle 池:
                   (1) OID 池 —— forms[].oid / items[].item_oid / events[].oid /
-                      activities[].oid, 四池去重后取并集。
+                      activities[].oid, 四池去重后取并集; len < DEFAULT_MIN_LEN
+                      的取值剔除 (2026-08-26 起, 与 label 池同值)。
                   (2) label/name 池 —— forms[].name/description、
                       items[].label/group_name/form_name、events[].name、
                       activities[].name/event_name (spec §8 第 2 条把"真实
                       form/field OID **/ label**"并列, 只扫 OID 池闭合不了该条;
-                      len < 4 的取值剔除, 太短的通用词/单字段噪音太大)。
+                      同样剔除 len < DEFAULT_MIN_LEN 的取值)。
                   两池取并集后统一过滤 (剔除纯数字 + 公开 CDISC 词汇, 见下)、
                   统一编译进同一条交替正则, 走同一套匹配/allowlist 逻辑。
-    过滤        : 剔除纯数字取值 (`str.isdigit()`) —— 否则行号 / 长度字段这类到处
+    过滤        : 剔除**过短取值** (len < DEFAULT_MIN_LEN, 两池同用) —— 2-3 字符
+                  OID 与大写缩写/模板占位符/变量名大量撞车, 实测假阳性率 87.5%
+                  (26/26 命中来自 4 个短 needle, 无一是真泄漏, 见 c1_redline_triage.md);
+                  这个噪声水平下闸无法接进 pre-commit/CI, 会长期红着然后被人为忽略。
+                  盲区代价与其边界见 `load_needles` docstring。
+                  另剔除纯数字取值 (`str.isdigit()`) —— 否则行号 / 长度字段这类到处
                   出现的数字会被当成"OID 命中", 制造大量假阳性 (教训: 若不过滤,
                   任何写了 `row: 12` 或 `len 34` 的证据文件都会被判 LEAK)。另剔除
                   公开 CDISC 词汇 (标准 domain 码 / 标准变量名 / 零散公开缩写撞车,
@@ -90,6 +96,11 @@ def _find_git_root(start: Path) -> Path:
     raise RuntimeError(f"未找到 .git —— 无法定位仓库根 (从 {start} 向上找)")
 
 
+# needle 最短长度 —— OID 池与 label 池同用一个默认值。低于它的取值永远进不了池,
+# 因此**任何短于本值的 allowlist / KNOWN_PUBLIC_COLLISIONS 条目都是恒不触发的死代码**
+# (由 test_*_are_reachable_under_default_min_len 两条元测试看守)。
+DEFAULT_MIN_LEN = 4
+
 REPO_ROOT = Path(__file__).resolve().parent.parent    # sdtm-rag/
 GIT_ROOT = _find_git_root(Path(__file__))              # sdtm-pedia/ (可能与上面不同)
 _SELF_PATH = Path(__file__).resolve()
@@ -129,16 +140,10 @@ _VARIABLE_ROW_RE = re.compile(r"^\| ([A-Z0-9_]+) \|", re.M)
 # 写出这个真实事件名都不会被本闸抓到。之所以不改走 per-file ALLOWLIST, 是因为
 # 现在只在 1 个文件命中、且那处用法明确是"公开肿瘤学缩写举例", 但**这条豁免不会
 # 随文件搬家或复用而失效** —— 下一个人如果要在别的地方引用这个真实事件名, 本闸
-# 不会挡。CN/APP/CL 原先也放在这里, 复审指出它们的豁免理由是"单文件内的
-# 巧合撞车事实" (合成 fixture / 模板占位符 / 文件名后缀), 不是"token 本身公开",
-# 全局放行会掩盖它们在其他上下文里可能是真实泄漏的情况, 已改走下面的 ALLOWLIST。
+# 另有 5 条 (len<4) 公开词汇条目与 11 条 ALLOWLIST 条目已于 2026-08-26 删除: OID 池
+# 加了 min_len 后它们的 needle 根本进不了 needle 池, 条目恒不触发 = 死代码
+# (由 test_*_are_reachable_under_default_min_len 两条元测试看守)。
 KNOWN_PUBLIC_COLLISIONS: dict[str, str] = {
-    "CT": "CDISC Controlled Terminology 缩写; 反复出现的模式是各证据文件引用"
-          " VARIABLE_INDEX.md 的 \"CT 交叉引用\" 章节标签, 另有 USES_CT/CT codelist 等用法",
-    "K": "retrieval top-K 参数扫描惯用记号 (`for K in 3 5 8 ...`), 本仓工程通用词",
-    "MAX": "本仓通用工程缩写 (MAXΔ / _STUDY_MAX_CARDS 等), 非任何私密标识",
-    "NA": "CDISC 标准 Controlled Terminology 取值 (Not Applicable, 常见于 N/NA/U/Y codelist)",
-    "RC": "Unix 返回码 (return code) 惯用缩写, 本仓工程通用词",
     "RECIST": "公开肿瘤学标准 (Response Evaluation Criteria in Solid Tumors), 非私密标识",
     "WEIGHT": "CDISC 标准 Controlled Terminology 取值 (VSTESTCD codelist 里的公开码, 如 C49678)",
     "HEIGHT": "同上 (VSTESTCD codelist, 如 C49679)",
@@ -162,42 +167,11 @@ ALLOWLIST: dict[tuple[str, str], str] = {
         "(test_flat_preserves_bare_less_than_in_real_criteria), "
         "早于本任务已存在于仓库, 非本次改动引入"
     ),
-    ("sdtm-rag/scripts/tests/test_build_field_cards.py", "MRF"): (
-        "同上 (Mesorectal Fascia, 同一条测试里的另一个通用临床用语)"
-    ),
     ("sdtm-rag/scripts/oidscan_evidence.py", "EMVI"): (
         "本闸把上面那条 allowlist 的 needle 字面量写进了自己的源码 (字典键必须是"
         "真实字符串才能匹配) —— 闸源码现已纳入默认扫描面自扫, 这条自引用因此需要"
         "走正规 allowlist, 不能靠「不在扫描面内」侥幸清白"
     ),
-    ("sdtm-rag/scripts/oidscan_evidence.py", "MRF"): "同上",
-    # 复审第 4 轮: CN/APP/CL 从全局 KNOWN_PUBLIC_COLLISIONS 移下来 (理由见上方那档
-    # 的说明) —— 三者都是真实 items.item_oid, 豁免依据是"这个具体文件里的这个具体
-    # 撞车事实", 不是"token 本身公开", 必须锁定到单个文件才不会掩盖别处的真实泄漏。
-    ("docs/superpowers/plans/2026-07-21-repo-restructure-v3.md", "CN"): (
-        "全部命中都是 README_CN.md 文件名引用 (Chinese 语言后缀), 与私密标识无关"
-    ),
-    ("docs/superpowers/plans/2026-08-16-doc-track-u5-both-answer-cost.md", "CN"): (
-        "评测 harness 的控制组标签 (--controls DP DN CP CN 一类记号), 与私密标识无关"
-    ),
-    ("docs/superpowers/specs/2026-07-21-repo-restructure-v3-design.md", "CN"): (
-        "同上, README_CN 文件名引用"
-    ),
-    ("docs/superpowers/plans/2026-07-24-kg-viewer-ux-redesign.md", "APP"): (
-        "前端构建模板的占位符 token __APP__ (kg-viewer 的 <script> 替换点), "
-        "与该 needle 对应的私密 item 无关的巧合命中"
-    ),
-    ("docs/superpowers/specs/2026-07-24-kg-viewer-ux-redesign-design.md", "APP"): "同上",
-    ("docs/superpowers/plans/2026-07-31-study-rag-deterministic-track.md", "CL"): (
-        "计划文档里演示用的合成/占位 codelist 值 (带 _FAKE/_UNUSED 后缀标记), "
-        "本身已自证是假数据, 非泄漏"
-    ),
-    # 上面三条 (CN/APP/CL) 的理由文本里为了讲清楚具体撞车事实, 写出了触发它们自己
-    # 的字面量 (文件名后缀/占位符 token/合成后缀) —— 闸源码自扫会命中这段说明文字
-    # 本身, 与 EMVI/MRF 同一模式, 走正规 allowlist:
-    ("sdtm-rag/scripts/oidscan_evidence.py", "CN"): "同 EMVI/MRF 模式, 见上方 CN 相关 allowlist 理由文本自身的字面量",
-    ("sdtm-rag/scripts/oidscan_evidence.py", "APP"): "同上, 见 APP 相关理由文本",
-    ("sdtm-rag/scripts/oidscan_evidence.py", "CL"): "同上, 见 CL 相关理由文本",
 }
 
 # 明显非文本的扩展名, 不尝试解码 (evidence/docs 下实测含 .png)
@@ -221,9 +195,28 @@ def load_cdisc_variable_names(index_path: Path = _VARIABLE_INDEX_PATH) -> set[st
     return set(_VARIABLE_ROW_RE.findall(text))
 
 
-def load_needles(catalog_path: Path, exclude: set[str] | None = None) -> set[str]:
-    """→ catalog 四池 **OID** 的去重并集, 已剔除纯数字取值与 `exclude` (公开 CDISC 词汇)。
-    label/name 池见 `load_label_needles` —— 两池分开加载, 由调用方 union。"""
+def load_needles(catalog_path: Path, exclude: set[str] | None = None,
+                 min_len: int = DEFAULT_MIN_LEN) -> set[str]:
+    """→ catalog 四池 **OID** 的去重并集, 已剔除纯数字取值、过短取值与 `exclude`。
+
+    label/name 池见 `load_label_needles` —— 两池分开加载, 由调用方 union。
+
+    `min_len` 剔除过短取值 (默认 4, 与 label 池同值): 2-3 字符 OID 与大写缩写 /
+    build 模板占位符 / Python 变量名 / CDISC 公开变量名大量撞车。**实测依据**
+    (`evidence/checkpoints/c1_redline_triage.md`): 本闸对 `scripts/ server/` 报出的
+    26 处命中**全部**来自 4 个 2-3 字符 OID needle, 逐条判定无一是真泄漏 ——
+    假阳性率 **87.5% (28/32)**。这个噪声水平下闸无法接进 pre-commit/CI: 它会长期
+    红着, 然后必然被人为忽略, 与"纸面规则等于没规则"同一种死法。
+
+    **已知盲区 (不藏, 数字为 2026-08-26 本仓实测)**: 原始去重非数字 OID 1071 个中
+    70 个 (6.5%) 长度 < 4, 有效 needle 池因此 1060 → 997 (净减 63; 差额 7 是本来就
+    在公开词汇排除集里的)。但**盲区远小于这 70 个** —— 用短 OID 的 70 条记录
+    (forms 13 + items 57) 里, **63 条自身名称仍在 label 池**, 成对泄漏时由 label 侧
+    抓到 (C1 那次真实泄漏正是"OID 与其 label 同行成对"的形态; 由
+    `test_short_oid_paired_with_its_label_still_leaks_via_label_pool` 看守, 该测试经
+    两次变异实测会红)。**真正全盲的只有 7 条** (forms 5 + items 2): 短 OID 且自身
+    名称也过短/被排除。用户 2026-08-26 裁定接受该盲区。
+    """
     catalog = json.loads(catalog_path.read_text(encoding="utf-8"))
     raw: set[str] = set()
     for f in catalog.get("forms", []):
@@ -235,11 +228,12 @@ def load_needles(catalog_path: Path, exclude: set[str] | None = None) -> set[str
     for a in catalog.get("activities", []):
         raw.add(a.get("oid", ""))
     exclude = exclude or set()
-    return {n for n in raw if n and not n.isdigit() and n not in exclude}
+    return {n for n in raw
+            if n and len(n) >= min_len and not n.isdigit() and n not in exclude}
 
 
 def load_label_needles(catalog_path: Path, exclude: set[str] | None = None,
-                       min_len: int = 4) -> set[str]:
+                       min_len: int = DEFAULT_MIN_LEN) -> set[str]:
     """→ catalog 的 form/item/event/activity **名称/标签**字段 (非 OID) 去重集合。
 
     spec §8 第 2 条把"真实 form/field OID **/ label**"并列 —— 只扫 OID 池闭合不了

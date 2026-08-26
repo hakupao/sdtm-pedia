@@ -107,3 +107,62 @@ cd sdtm-rag
 **⚠ 残留限制 (必须诚实记录)**: 本次只清理了**当前 HEAD 的内容**。这 4 处真值仍存在于
 公开仓的**历史 commit** 中 (`test_ja_tokenize.py` 自 2026-08-04 起的版本), 通过旧 commit
 仍可访问。**彻底清除需要改写历史 + force push, 本轮按用户裁定未做。**
+
+## 8. C2 前置: OID 池 min_len 判据 (2026-08-26, 用户裁定「先修闸的 OID 池判据」)
+
+**问题** (§4-①): 闸对 `scripts/ server/` 的 26 处命中全部来自 **4 个** 2-3 字符 OID
+needle, 无一真泄漏 (假阳性率 87.5%)。根因是 `load_needles` 缺 `min_len` 过滤 ——
+`load_label_needles` 早有 `min_len=4` 且 docstring 写明理由, OID 池当初漏了这一手。
+
+**为什么阈值取 4 而非 3**: 26 处里 **17 处**来自那个 len=2 needle, **9 处**来自三个
+len=3 needle。`min_len=3` 只消掉 17 处, 闸仍是红的 —— 达不到"能接自动化"的目标。
+
+**改动**:
+1. `load_needles(..., min_len=DEFAULT_MIN_LEN)`, 新增模块常量 `DEFAULT_MIN_LEN = 4`,
+   两个池共用 (原先 label 池的 4 是裸字面量)。
+2. **剪除因此变成死代码的豁免条目**: `ALLOWLIST` **13 → 2**,
+   `KNOWN_PUBLIC_COLLISIONS` **11 → 6** (needle 短于 min_len 者根本进不了池, 条目恒
+   不触发)。本仓刚吃过同款亏 (Ruling C1: guard "原写法恒假是死代码")。
+3. 既有测试的假 OID fixture 由 3 字符升到 ≥4 (`偽F1` → `偽FRM01` 等, 38 处)。
+   **两处顺带加强, 不是顺着改**: `test_load_needles_excludes_given_set` 与
+   `test_known_public_collisions_are_excluded_globally` 原本用 2-3 字符 token, 加了
+   min_len 后会**因长度被剔除而通过**, 证不到 exclude 这条路径 —— 已改成必须挑
+   ≥ min_len 的 token。
+
+**新增 4 条测试 (TDD, 逐条先看红)**:
+
+| 测试 | 看红方式 | 作用 |
+|---|---|---|
+| `test_load_needles_drops_values_shorter_than_min_len` | `TypeError: unexpected keyword 'min_len'` | 驱动本体改动 |
+| `test_allowlist_entries_are_reachable_under_default_min_len` | 实测 11 条死条目 | 不许积累永不触发的豁免 |
+| `test_known_public_collisions_are_reachable_under_default_min_len` | 实测 5 条死条目 | 同上 |
+| `test_short_oid_paired_with_its_label_still_leaks_via_label_pool` | **立刻绿 ⇒ 改用变异验证** | 钉住"盲区有界" |
+
+⚠ 最后一条写完**立刻通过** (它描述的是已有行为), 按 TDD 这不构成证据。改用变异实测:
+**变异 A** (`needles_raw = oid_raw`, label 池不并入) → rc=1 红; **变异 B**
+(`load_label_needles(min_len=8)`, 6 字标签漏掉) → rc=1 红; 还原 → rc=0 绿。
+**两次变异都能杀死它 ⇒ 不是装饰闸。**
+
+**另一条自查**: 元测试首版的断言失败信息会把 allowlist 的真实 needle 打进 CI 日志
+(pytest 的 `assert dead == []` 会 repr 整个元组) —— 一条防红线的测试自己走了模块
+docstring 点名的"绕道进日志"那条路。已改成 `路径:<len=N>` 掩码形状。
+
+**盲区 (§7 之外的新增已知限制, 数字本轮实测)**: 原始去重非数字 OID **1071** 个中
+**70 个 (6.5%)** 长度 <4, 有效 needle 池 **1060 → 997** (净减 63)。但**全盲远小于 70**
+—— 用短 OID 的 70 条记录 (forms 13 + items 57) 里 **63 条自身名称仍在 label 池**,
+成对泄漏由 label 侧抓到 (C1 那次真实泄漏正是这个形态)。**真正全盲 7 条**
+(forms 5 + items 2): 短 OID 且自身名称也过短/被排除。**用户裁定接受。**
+
+> 订正: 本轮早先口头估过"全盲 14 条", 那是只算 items 且漏了 `group_name`/`form_name`
+> 也在 label 池里所致。以本节的 7 条为准。
+
+**实测 (可复跑)**:
+```bash
+cd sdtm-rag
+./.venv/bin/python -m pytest -q --junitxml=/tmp/t.xml   # 1780 → 1784 passed / 0 failed / 0 error / 0 skipped
+./.venv/bin/python scripts/oidscan_evidence.py                  # 默认面 rc=0 CLEAN (205 文件)
+./.venv/bin/python scripts/oidscan_evidence.py scripts server   # rc=0 CLEAN (333 文件) ← 本次目标, 原 rc=1 LEAK 26
+```
+
+**本单元不含** (仍是 C2 本体): 扩默认扫描面到源码、接 pre-commit / CI。本单元只是
+把"接上去会长期红"这个阻塞解掉。
