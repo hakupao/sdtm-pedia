@@ -2,13 +2,14 @@
 
 > 判定方 : 本轮 session (未参与 workflow 事件层任何 Task 实现/审查)
 > 范围   : `oidscan_evidence.py` 对 `scripts/ server/` 的 32 处 LEAK 命中, 逐条判真/假阳性
-> 性质   : **只读评估, 本轮零改动** —— 未改任何命中文件, 未碰 git 历史, 未改仓库可见性
+> 性质   : 先只读评估 (§1-§4), 后按用户裁定清理 4 处真阳性 (§7) —— **未碰 git 历史,
+>          未改仓库可见性**; 26 处假阳性一律未动
 > 红线   : 全文零真名, 一律用 `<OID len=N>` / `<LABEL len=N>` + 用法形态指代
 
 ## 0. 一句话结论
 
 **32 处里 28 处是假阳性 (87.5%), 4 处是真阳性且全部集中在 `scripts/tests/test_ja_tokenize.py`
-一个文件的 6 行内。** 但真阳性的**形态**比数量更值得注意: 其中一处是 **item OID 与其
+一个文件的 6 行内。** 该 4 处已按用户裁定清理 (§7), 闸复测 32→26; 26 处假阳性未动。 但真阳性的**形态**比数量更值得注意: 其中一处是 **item OID 与其
 label 成对出现在同一行**, 另一处的 label 真值可由断言的 bigram 期望值**完整重构** ——
 把字面量换成假名并不能消除它。
 
@@ -76,3 +77,33 @@ cd sdtm-rag && ./.venv/bin/python scripts/oidscan_evidence.py scripts server
 $ ./.venv/bin/python scripts/oidscan_evidence.py evidence/checkpoints/c1_redline_triage.md
 ```
 实测 **rc=0 · `CLEAN: 0 处未在 allowlist 的 OID/label 命中 (1 个文件)`** (2026-08-26)。
+
+## 7. 处置记录 (2026-08-26, 用户裁定「清理那 4 处」)
+
+**改动面**: `sdtm-rag/scripts/tests/test_ja_tokenize.py` 单文件, 16 处字符串替换。
+
+| 被替换 | 处数 | 替换为 | 说明 |
+|---|---|---|---|
+| 4 字符 CJK label | 4 | `偽項目名` | 等长同字符类 |
+| 11 字符 CJK label | 1 | `偽ひらがなカタカナ漢字` | 等长, 保留 漢字/ひらがな/カタカナ 混排性质 |
+| 5 字符 item OID | 1 | `FAKE5` | 等长; 沿用本仓 `_FAKE1`/`_UNUSED` 假名约定 |
+| 派生 bigram 期望值 | 10 | 由假名重新推导 | **§2 的关键点**: 只换字面量不算清理 |
+
+**两处语义保全 (不是顺手改, 是替换的必然后果)**:
+1. `test_kana_and_kanji_in_same_run` 原断言取 bigram 下标 0/7/9; 换成假名后改取 **0/4/8**,
+   即 `偽ひ` (漢字→ひらがな) / `なカ` (ひらがな→カタカナ) / `ナ漢` (カタカナ→漢字) ——
+   三条**全部跨字种边界**, 比原下标更贴该测试 docstring 声明的意图 (「境界で切らない」)。
+2. `test_bigrams_make_query_and_doc_share_tokens` 的 doc/query 交集来自尾部 `項目` 一词,
+   不来自被替换的 label, 故替换不影响该断言 —— 已由测试实跑确认。
+
+**实测 (可复跑)**:
+```bash
+cd sdtm-rag
+./.venv/bin/python -m pytest -q --junitxml=/tmp/after.xml   # 1780 passed / 0 failed / 0 error / 0 skipped
+./.venv/bin/python scripts/oidscan_evidence.py scripts server  # rc=1, LEAK 32 → 26
+```
+剩余 26 处 = §1 表中判定为假阳性的全部条目, 逐条未动。
+
+**⚠ 残留限制 (必须诚实记录)**: 本次只清理了**当前 HEAD 的内容**。这 4 处真值仍存在于
+公开仓的**历史 commit** 中 (`test_ja_tokenize.py` 自 2026-08-04 起的版本), 通过旧 commit
+仍可访问。**彻底清除需要改写历史 + force push, 本轮按用户裁定未做。**

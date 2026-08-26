@@ -30,7 +30,7 @@ def test_empty_and_symbols_unchanged():
 
 def test_japanese_run_becomes_overlapping_bigrams():
     # 4 文字 → 3 個の重疊 bigram
-    assert cjk_bigrams("偽秘匿ラベル06").split() == ["偽秘", "秘匿", "匿ラ"]
+    assert cjk_bigrams("偽項目名").split() == ["偽項", "項目", "目名"]
 
 
 def test_single_cjk_char_preserved():
@@ -46,15 +46,15 @@ def test_latin_survives_whole_in_mixed_text():
 
 def test_kana_and_kanji_in_same_run():
     """ひらがな・カタカナ・漢字は同一 CJK 走査単位 (境界で切らない)."""
-    out = cjk_bigrams("偽秘匿ラベル01").split()
-    assert "偽秘" in out and "偽名" in out and "偽名" in out
+    out = cjk_bigrams("偽ひらがなカタカナ漢字").split()
+    assert "偽ひ" in out and "なカ" in out and "ナ漢" in out
 
 
 # ---- 実効性: 変換後は query と doc の token が交差する ----
 
 def test_bigrams_make_query_and_doc_share_tokens():
     doc = "放射線を何回に分けて当てたかを記録する項目"
-    query = "偽秘匿ラベル06はどの項目ですか"
+    query = "偽項目名はどの項目ですか"
 
     def vocab(text):
         return set(bm25s.tokenize(text, show_progress=False).vocab)
@@ -82,17 +82,17 @@ def test_rag_applies_bigrams_on_both_index_and_query(monkeypatch):
     monkeypatch.setattr(bm25s, "tokenize", spy)
 
     eng = rag_mod.RAGEngine.__new__(rag_mod.RAGEngine)
-    eng.collection = _FakeCollection(["# 偽秘匿ラベル06 (REDACTED_OID_04)"], ["c1"])
+    eng.collection = _FakeCollection(["# 偽項目名 (FAKE5)"], ["c1"])
     eng.kb_root = __import__("pathlib").Path("/tmp")
     eng._bm25 = None
     eng._bm25_chunk_ids = []
     eng._bm25_chunk_meta = {}
     eng._build_bm25_index()
-    assert any("偽秘 秘匿" in s for s in seen), "索引侧未做 bigram 变换"
+    assert any("偽項 項目" in s for s in seen), "索引侧未做 bigram 变换"
 
     seen.clear()
-    eng._bm25_search("偽秘匿ラベル06はどれですか", 5, None)
-    assert any("偽秘 秘匿" in s for s in seen), "查询侧未做 bigram 变换"
+    eng._bm25_search("偽項目名はどれですか", 5, None)
+    assert any("偽項 項目" in s for s in seen), "查询侧未做 bigram 变换"
 
 
 class _FakeCollection:
