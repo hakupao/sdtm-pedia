@@ -1505,3 +1505,43 @@ min_len 者根本进不了池, 条目恒不触发 = 死代码 (同 Ruling C1 的
 
 **不含** (仍是 C2 本体): 扩默认扫描面到源码、接 pre-commit / CI。本单元只解掉
 "接上去会长期红"这个阻塞。
+
+### 同日续 — C2 本体: 闸接 pre-commit + 默认扫描面扩到源码
+
+**先破一个假选项**: "接成一条 pytest / 接 GitHub Actions" **结构上行不通** —— needle 源
+`data/study/st01/catalog.json` 是 gitignored 且永远不能推 (它本身就是要保护的东西),
+CI 里没有 needle 源, 闸只会 fail-closed ABORT。**一条在干净检出里永远 skip 的测试就是
+装饰闸**, 正是本单元要治的病。⇒ 唯一可行的自动化是本地。本仓现状实测: `.github/workflows`
+不存在、无 pre-commit 框架、`.git/hooks/` 为空 —— C2 是从零建。
+
+**为什么只扫暂存文件**: 闸实测 **62 ms/文件** (1638 needle 编一条交替正则逐行跑),
+默认面 542 文件要 **11.3 秒**。每次 commit 加 10+ 秒的 hook 迟早被 `--no-verify` 绕过 ——
+"纸面规则等于没规则"换个死法。暂存典型 1-5 个文件, 约 0.3 秒。
+
+**交付**: `sdtm-rag/scripts/precommit_oidscan.py` (逻辑本体, 复用 `oidscan_evidence.main`
+不另写匹配/掩码, 免得 hook 与手跑两条路径分叉) + `.githooks/pre-commit` (三行 shim) +
+`.githooks/install.sh` + `DEFAULT_TARGETS` 增 `scripts/` `server/` (205 → 542 文件)。
+
+**四条行为各有先行失败测试** (6 条新测试): 滤掉暂存清单里的已删除/二进制项 (否则一次
+**纯删除的提交**会撞上闸的"0 个文件可扫"fail-closed 被误拦) / 过滤后为空在调用闸之前
+放行 / catalog 缺席**拦下**并**具名**告知 `OIDSCAN_NO_CATALOG=1` (**不引导去用
+`--no-verify`** —— 那会顺手关掉未来所有 hook 且不留"我知道我在绕过什么"的痕迹) /
+逆转时**响亮**打印"本次提交未经任何检查" (静默逃生门用两次就变成默认路径)。
+
+**TDD 留痕**: `OIDSCAN_NO_CATALOG` 分支曾**没有先行失败测试就写了进去** —— 按 Iron Law
+不算数, 已删除该分支 → 补 RED (`assert 1 == 0`) → 再写回。
+
+**端到端实证 (不止测 Python 层)**: 干净路径 rc=0; 程序化写入一个真 needle (len=23) 的
+探针文件 → hook rc=1 且输出掩码 (`<OID len=23>`, 未打真值); **真 `git commit` rc=1 且
+HEAD 未动** (证明 `core.hooksPath` 接线真生效, 而非手动调了个脚本); 探针 unstage+删除,
+全仓复扫 rc=0。本单元自己的提交也经 hook 放行 (7 文件 CLEAN), 自证。
+
+**`core.hooksPath` 不随 clone 传播** (写在 `.git/config`), 故本 hook 的 fail-closed 只作用于
+主动启用它的人, 别人 clone 本公开仓不会因此无法提交 —— 这是选 `core.hooksPath` 而非直写
+`.git/hooks/` 的附带好处 (后者还不受版本控制, 改坏无痕)。
+
+**实测**: `pytest` **1784 → 1791 passed / 0 failed / 0 error / 0 skipped`; 默认面
+**rc=0 CLEAN (542 文件)**。**已知限制 3 条** (证据 §9): hook 只管新进 git 的文件, 存量面
+靠手动审计无强制力 / 默认面仍不含 `knowledge_base/` `web/` `milestones/` `.work/` (本轮
+未评估耗时, 未扩) / `OIDSCAN_NO_CATALOG=1` 与 `--no-verify` 仍能绕过, 本设计只做到
+"绕过要具名且响亮", 做不到"绕不过"。
