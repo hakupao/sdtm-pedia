@@ -1465,3 +1465,43 @@ commit** 中可访问。彻底清除需改写历史 + force push, **本轮按用
 
 evidence: `sdtm-rag/evidence/checkpoints/c1_redline_triage.md` (§1 逐类判定 / §2 4 处真阳性
 形态 / §4 对 C2 的两条影响 / §5 复跑命令 / §7 处置记录与残留限制); 自扫 rc=0 CLEAN。
+
+### 同日续 — C2 前置: 闸的 OID 池判据 (用户裁定「先修闸的 OID 池判据」)
+
+走 brainstorming(bounded 路径)→ 用户批准设计 → TDD 实施。
+
+**根因**: `load_needles` 缺 `min_len` 过滤, 而同文件的 `load_label_needles` 早有
+`min_len=4` 且 docstring 写明理由 —— OID 池当初漏了这一手。26 处命中全部来自
+**4 个** 2-3 字符 needle。**阈值取 4 不取 3**: 17 处来自 len=2 / 9 处来自 len=3,
+`min_len=3` 只消掉 17 处, 闸仍红, 达不到"能接自动化"的目标。
+
+**连带**: `ALLOWLIST` **13 → 2**, `KNOWN_PUBLIC_COLLISIONS` **11 → 6** —— needle 短于
+min_len 者根本进不了池, 条目恒不触发 = 死代码 (同 Ruling C1 的教训)。新增两条
+**可达性元测试**看守"不许积累永不触发的豁免"; 因真 catalog 是 gitignored, 元测试
+做成**结构性**判据 (needle 长度 vs `DEFAULT_MIN_LEN`), 不依赖 catalog —— 否则在
+干净检出 / CI 里必挂, 而 CI 恰恰是 C2 要跑的地方。
+
+**三条方法论留痕**:
+1. **测试立刻绿 = 不算证据**。"短 OID 与其 label 成对仍应被 label 侧抓到"一条写完
+   即通过 (描述的是已有行为)。改用变异实测: 去掉 label 池并入 → 红; label
+   `min_len` 提到 8 → 红; 还原 → 绿。**两次变异都杀得死 ⇒ 不是装饰闸。**
+2. **加了 min_len 会让既有测试因错误的理由通过**。`test_load_needles_excludes_given_set`
+   与 `test_known_public_collisions_are_excluded_globally` 原本用 2-3 字符 token,
+   加 min_len 后会**因长度被剔除而通过**, 证不到 exclude 这条路径 —— 已改成必须挑
+   ≥ min_len 的 token (顺带加强, 不是顺着改)。
+3. **元测试自己差点走了红线**。首版断言失败信息会把 allowlist 真实 needle 打进
+   CI 日志 (pytest `assert dead == []` repr 整个元组), 正是模块 docstring 点名的
+   "红线从 git 绕道进 CI 日志"那条路。已改成 `路径:<len=N>` 掩码形状。
+
+**盲区 (用户裁定接受)**: 原始去重非数字 OID **1071** 中 **70 个 (6.5%)** len<4,
+有效池 **1060 → 997**。但全盲远小于 70 —— 用短 OID 的 70 条记录 (forms 13 + items 57)
+里 **63 条自身名称仍在 label 池**, 成对泄漏由 label 侧抓到 (C1 那次真实泄漏正是这个
+形态); **真正全盲 7 条** (forms 5 + items 2)。⚠ 本轮早先口头估过"14 条", 系只算 items
+且漏了 `group_name`/`form_name` 也在 label 池, **以 7 条为准**。
+
+**实测**: `pytest` **1780 → 1784 passed / 0 failed / 0 error / 0 skipped`;
+`oidscan_evidence.py scripts server` **rc=1 LEAK 26 → rc=0 CLEAN (333 文件)**;
+默认面 rc=0 CLEAN (205 文件)。证据 `c1_redline_triage.md` §8。
+
+**不含** (仍是 C2 本体): 扩默认扫描面到源码、接 pre-commit / CI。本单元只解掉
+"接上去会长期红"这个阻塞。
