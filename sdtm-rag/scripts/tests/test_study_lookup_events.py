@@ -106,23 +106,30 @@ def test_resolve_events_item_scope_empty_when_form_has_no_assignments():
 # 两类问法结构性 0 命中——这两类问法的 gold 是表单级事实, 题面常直接点名 form OID,
 # 但旧实现只索引 event/activity OID, 对 form OID 视而不见。
 
-def test_resolve_events_form_oid_lists_raw_assignments():
-    """form OID 命中 -> 该 form 的全部 assignment (不做减法, 与 item 采集范围索引
-    是两个不同判据)。"""
+def test_resolve_events_form_oid_lists_assignments_without_subtraction():
+    """form OID 命中 -> 该 form 的 assignment 原始清单 (**不做 item 级减法**, 与 item
+    采集范围索引是两个不同判据)。
+
+    ⚠ **契约变更 (C3, 2026-08-26)**: 本测试原先用一个 2 条 assignment 的 form 断言
+    "两条都在", 那条断言在 `_MAX_ASSIGNMENTS_PER_FORM = 1` 之后**不再成立** —— 清单
+    超过上限的 form 现在整个不 fire (判据见常量处; 由
+    `test_resolve_events_skips_form_whose_assignment_list_is_not_discriminative` 看守)。
+    这里改用 1 条 assignment 的 form 演示同一个意图: 该 item 在这个活动里是**隐藏**的,
+    Tier 2 会把它减掉, 而 Tier 1b 不减 —— 只要题面没点名 item OID, 原始清单照出。
+    """
     cat = {
         "study": "st01",
         "items": [{"form_oid": "偽F", "item_oid": "偽IT_A", "label": "偽ラベル甲",
-                   "raw": {}}],
+                   "raw": {"Visibility::Hidden in activity": "偽AC1"}}],
         "events": [], "activities": [],
         "assignments": [
             {"event_oid": "偽EV1", "activity_oid": "偽AC1", "form_oid": "偽F"},
-            {"event_oid": "偽EV2", "activity_oid": "偽AC2", "form_oid": "偽F"},
         ],
     }
     lk = StudyLookup(cat)
     got = lk.resolve_events("偽Fフォームは繰り返し記録できますか")
-    assert "assignment:偽EV1/偽AC1/偽F" in got
-    assert "assignment:偽EV2/偽AC2/偽F" in got   # 两条都在, 未做减法
+    # 偽IT_A 在 偽AC1 里是隐藏的; 题面没点名它, 故 Tier 2 不 fire, Tier 1b 原样列出
+    assert got == ["assignment:偽EV1/偽AC1/偽F"]
 
 
 def test_resolve_events_form_raw_listing_yields_to_item_scope_same_form():
@@ -183,3 +190,32 @@ def test_resolve_events_structured_not_squeezed_by_name_substring():
     # 题面同时含事件 OID (Tier 1a, 精确) 与"偽コモンワード" (Tier 3, 撞上 61 个名称同款目标)
     got = lk.resolve_events("偽EVX について、偽コモンワード は何回実施されますか")
     assert "event:偽EVX" in got   # 精确命中即便面对海量同名候选也必须留在结果里
+
+
+def test_resolve_events_skips_form_whose_assignment_list_is_not_discriminative():
+    """Tier 1b 只在该 form 的 assignment 清单**足够短**时才 fire。
+
+    判据来源 (C3 精度取舍单元, 2026-08-26 实测, 证据 evidence/checkpoints/study_c3_precision_tradeoff.md):
+    Tier 1b 一层贡献 33 题里 220/259 条返回、214/231 条噪声, 层内 precision **2.7%**;
+    噪声全部来自 4 个长清单 form (清单长度分布 {1:13, 2:3, 4:1, 14:1, 15:1, 18:1, 40:1})。
+    收紧后 precision **10.81% → 54.00%**, 返回 259 → 50, 代价是 33 题里丢 1 题。
+
+    与既有 `_MAX_CARDS_PER_MATCH` 同精神: **匹配集合太大 = 不具判别力, 整个跳过**。
+    """
+    cat = {
+        "study": "st01",
+        "items": [], "events": [], "activities": [],
+        "assignments": [
+            # 偽SHORT: 1 条 => 具判别力, 应 fire
+            {"event_oid": "偽EV1", "activity_oid": "偽AC1", "form_oid": "偽SHORT"},
+            # 偽LONG: 2 条 (超过上限) => 不具判别力, 整个跳过
+            {"event_oid": "偽EV2", "activity_oid": "偽AC2", "form_oid": "偽LONG"},
+            {"event_oid": "偽EV3", "activity_oid": "偽AC3", "form_oid": "偽LONG"},
+        ],
+    }
+    lk = StudyLookup(cat)
+
+    assert lk.resolve_events("偽SHORT はどこに割り付けられていますか") == [
+        "assignment:偽EV1/偽AC1/偽SHORT"
+    ]
+    assert lk.resolve_events("偽LONG はどこに割り付けられていますか") == []

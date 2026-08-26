@@ -53,6 +53,19 @@ _MIN_ITEM_OID_LEN = 3      # item OID 索引最短长度 (与 _MIN_SEG_LEN 同�
 # 但 2 字符阈值若用裸子串匹配, 误召回面太大, 靠下面的 _bounded_contains 有界匹配
 # (两侧都不是 ASCII 字母/数字/下划线) 兜底, 而不是靠拉高最短长度。
 _MIN_FORM_OID_LEN = 2
+# Tier 1b 判别力闸: 该 form 的 assignment 清单超过本值 = 清单不具判别力, **整个跳过**。
+# 与 `_MAX_CARDS_PER_MATCH` 同精神 ("匹配集合太大 = 不具判别力")。
+#
+# 判据 (C3 精度取舍单元, 2026-08-26 全 33 题实测, 证据 evidence/checkpoints/study_c3_precision_tradeoff.md):
+# Tier 1b 一层贡献 220/259 条返回与 214/231 条噪声, **层内 precision 仅 2.7%**;
+# 噪声集中在 4 个长清单 form (长度分布 {1:13, 2:3, 4:1, 14:1, 15:1, 18:1, 40:1})。
+# 设为 1 后: 全局 precision **10.81% → 54.00%**, 返回 **259 → 50**;
+# 逐类 recall 只有 event_form_assignment 由 1/5 变 0/5, 其余五类逐格不变
+# (repeating_rule 5/5 全保住 —— Tier 1b 的真实价值在短清单上)。
+# ⚠ 三条限定 (不许单独引用上面的数字): ① n=33 且是自出的尺子, 与基线只差 1 题;
+# ② `resolve_events` 零生产调用方, 本闸今天不影响线上; ③ 评测口径是"每题≥1条 gold",
+# 对**条目级** recall 失明 —— 换口径结论可能翻。
+_MAX_ASSIGNMENTS_PER_FORM = 1
 
 
 def _norm(s: str) -> str:
@@ -299,7 +312,8 @@ class StudyLookup:
           非空就全部纳入, 一个"该 item 恰好命中多个候选"的 query 会把它们的收集点
           都并入同一层, 调用方无法从返回值本身分辨"这条是唯一候选"还是"多个候选之
           一"——已知限制, 见 checkpoint。
-        - **Tier 1b (form OID → 该 form 的全部 assignment 原始清单, 有界匹配)**:
+        - **Tier 1b (form OID → 该 form 的 assignment 原始清单, 有界匹配, 且清单
+          长度须 ≤ `_MAX_ASSIGNMENTS_PER_FORM`)**:
           Ruling P2 (团队 lead 复审, 2026-08-26 修复轮1) ——未做 item 级减法, 回答的是
           "这个表单被分配到哪些活动/事件"(event_form_assignment/repeating_rule 两类
           问法的判据落点), 与 Tier 2 的"某个具体 item 实际在哪采集"是不同问题。**排在
@@ -316,6 +330,11 @@ class StudyLookup:
           详见 `__init__` 里 `_form_assignment_index` 那段注释与 checkpoint 已知限制)。
           form OID 词汇表 7/21 只有 2 字符, 裸子串在这个长度下误召回风险不可接受,
           故用 `_bounded_contains`。
+          **判别力闸 (C3, 2026-08-26)**: 清单长度超过 `_MAX_ASSIGNMENTS_PER_FORM`
+          的 form **整个跳过** —— 实测本层贡献 220/259 条返回与 214/231 条噪声,
+          层内 precision 仅 2.7%, 噪声全部来自 4 个长清单 form。收紧后全局
+          precision 10.81% → 54.00%, 返回 259 → 50, 代价是 event_form_assignment
+          由 1/5 变 0/5 (其余五类逐格不变)。数字的三条限定见常量处注释。
         - **Tier 3 (名称子串, 裸匹配, 无边界)**: event/activity 名称是自然语言短语,
           边界概念不适用 (与 label 子串同精神)。已知会撞上研究内高频通用词造成假阳性
           (如某治疗方案缩写同时是一个 event 的可读名) ——正因为这层信号最弱、误召回
@@ -352,6 +371,8 @@ class StudyLookup:
                 continue
             if self._form_assignment_form_oid[key] in covered_forms:
                 continue
+            if len(targets) > _MAX_ASSIGNMENTS_PER_FORM:
+                continue          # 清单太长 = 不具判别力 (见常量处的实测判据)
             for t in targets:
                 if t not in tier1b:
                     tier1b.append(t)
