@@ -1,7 +1,9 @@
 """doc PDF → 章节 chunk 的 CLI。三把闸的结果一律打印, 不许静默。
 
 闸 1 编号连续性 (参照物: 文档自身编号序列)
-闸 2 分割完备性 (参照物: 原始页文本, 拼回去必须逐字相等)
+闸 2 分割完备性 (参照物: 原始页文本, 拼回去必须逐字相等) —— 口径是「首锚点行起」
+闸 2b 全文覆盖 (参照物同上, 但口径是「全文减去显式排除页」) —— 闸 2 对首锚点
+     **之前**的区域天然免疫, 真实文档 66,200 字符 (27.42%) 就是这么漏掉且三闸全绿的
 闸 3 embedding 上限 (参照物: ingest 侧真实使用的分词器与硬上限, 见下)
 
 闸 3 为什么必要: 入库的是**整个 md 文件** (frontmatter + 正文), 而
@@ -20,8 +22,11 @@ from scripts.study.pdf_text import extract_pages
 from scripts.study.render_doc_chunks import build_doc_chunks, render_chunk
 from scripts.study.split_sections import (
     Section,
+    assert_full_coverage,
     assert_partition_complete,
     check_numbering,
+    detect_toc_pages,
+    split_front_matter,
     split_sections,
     subdivide_oversized,
 )
@@ -54,13 +59,21 @@ def build_one(docs_dir: Path, doc_no: int, pdf: Path, study_id: str, version: st
     assert_partition_complete(pages, sections)
     print(f"分割完备闸: PASS ({len(sections)} 节, {len(pages)} 页)")
 
-    budget = _body_budget(sections, study_id, doc_no, version)
-    chunks = subdivide_oversized(pages, sections, budget, count_tokens)
+    # 卷首 (首锚点之前) —— 目录靠形态识别后显式排除, 不是"没覆盖到就算排除"
+    toc_pages = detect_toc_pages(pages)
+    front = split_front_matter(pages, excluded_pages=toc_pages)
+    all_sections = front + sections
+    assert_full_coverage(pages, all_sections, toc_pages)
+    print(f"全文覆盖闸: PASS (卷首 {len(front)} 块 + 编号节 {len(sections)} 节; "
+          f"排除目录页 {toc_pages or '无'})")
+
+    budget = _body_budget(all_sections, study_id, doc_no, version)
+    chunks = subdivide_oversized(pages, all_sections, budget, count_tokens)
     split_map = {c.number: c.parts_total for c in chunks if c.parts_total > 1}
-    print(f"二次切分 (预算 {budget} token/份): {len(sections)} 节 → {len(chunks)} 份"
+    print(f"二次切分 (预算 {budget} token/份): {len(all_sections)} 块 → {len(chunks)} 份"
           f"{'; 被切: ' + str(split_map) if split_map else '; 无节超限'}")
-    assert_partition_complete(pages, chunks)
-    print("分割完备闸 (切完后复查): PASS")
+    assert_full_coverage(pages, chunks, toc_pages)
+    print("全文覆盖闸 (切完后复查): PASS")
 
     written = build_doc_chunks(study_id, docs_dir, doc_no, chunks, version)
     over = [f.name for f in sorted(docs_dir.glob("*.md"))

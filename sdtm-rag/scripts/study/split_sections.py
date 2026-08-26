@@ -25,6 +25,16 @@ _MAX_HEADING_LEN = 60
 # 而「含 。」在 113 个锚点上命中 2 条、正好是那 2 条、零误伤。
 _SENTENCE_END = "。"
 
+# 目录页形态判据 —— **必须形态判定, 不许硬编码页号**: 页号写死后换一份 PDF 就会
+# 静默排除掉真实正文, 而闸照样绿。两条判据取合取:
+#   ① 编号行 >= _TOC_MIN_NUMBERED   ② 点线行 >= _TOC_MIN_DOT_LEADER
+# 实测那份 113 页文档: 全文**只有 p11-16 这 6 页**满足 ①(正文页最多 2 条编号行),
+# 且这 6 页各有 25-46 条点线行, 而 107 个正文页点线行**恒为 0** —— 两条各自都已能
+# 分开, 合取是为了让"某页恰好排版成多列数字表"也不会被误判成目录。
+_TOC_MIN_NUMBERED = 8
+_TOC_MIN_DOT_LEADER = 3
+_DOT_LEADER = re.compile(r"\.{10,}|・{10,}|…{3,}")
+
 
 def _is_heading(line: str) -> bool:
     """锚点判定的单一入口 —— find_anchors 与 split_sections 必须用同一套口径,
@@ -220,3 +230,80 @@ def assert_partition_complete(pages: list[str], sections: list[Section]) -> None
         f"分割不完备: 拼回 {len(joined)} 字符 vs 原文尾段 {len(tail)} 字符 "
         f"(差 {len(tail) - len(joined)})"
     )
+
+
+def detect_toc_pages(pages: list[str]) -> list[int]:
+    """目录页 (1-based) —— 靠版面形态识别, 判据与阈值见 `_TOC_MIN_*` 处的实测依据。
+
+    目录是导航不是内容: 它的每一条都是某个真实章节标题的**重复**, 而那些标题本身
+    已经在编号 chunk 里; 把目录也入库, 命中它只会返回一块「只有点线和页码」的东西,
+    还要跟正文抢检索名额。故本函数的产物是**排除清单**, 不是待切分清单。
+    """
+    out: list[int] = []
+    for pi, text in enumerate(pages, start=1):
+        lines = [ln for ln in text.splitlines() if ln.strip()]
+        numbered = sum(1 for ln in lines if _ANCHOR.match(ln))
+        leaders = sum(1 for ln in lines if _DOT_LEADER.search(ln))
+        if numbered >= _TOC_MIN_NUMBERED and leaders >= _TOC_MIN_DOT_LEADER:
+            out.append(pi)
+    return out
+
+
+def split_front_matter(pages: list[str], excluded_pages: list[int]) -> list[Section]:
+    """首锚点之前、且不在 `excluded_pages` 里的内容 → **每页一个** Section。
+
+    为什么按页而不按锚点: 真实文档的卷首 (p1-10) 实测 **编号行 0 条、可识别标题
+    0 条** —— 锚点切分器在这里无处下手。页是抽取器本来的单位 (`pdftotext -f N -l N`
+    逐页), 且实测单页 169-1,907 token, 远低于 8,191 上限 (整块则是 10,034, 超限)。
+
+    编号用 `front{页号:02d}`: 页号即出处, 且与编号节的命名空间不相交, 不会污染
+    `check_numbering` 的编号序列。首锚点所在页只取锚点行**之前**的部分 (真实文档
+    这半页是 578 字符), 否则那段会继续漏掉。
+    """
+    anchors = find_anchors(pages)
+    if not anchors:
+        return []          # 无锚点时不猜; build_docs 已对"切出 0 节"fail-closed
+    first_page, first_line, _, _ = anchors[0]
+    excluded = set(excluded_pages)
+    out: list[Section] = []
+    for pi, text in enumerate(pages, start=1):
+        if pi > first_page or pi in excluded:
+            continue
+        if pi == first_page:
+            body = "".join(text.splitlines(keepends=True)[:first_line])
+        else:
+            body = text
+        if not body:
+            continue
+        if not body.strip():
+            raise AssertionError(
+                f"卷首第 {pi} 页只有空白 —— 拒绝写出空 chunk (会被 embed 成噪声向量)。"
+                f"若该页确实无内容, 把它显式加进排除清单, 别让它静默变成空块。")
+        out.append(Section(number=f"front{pi:02d}", level=0, heading_line="",
+                           body=body, page_start=pi, page_end=pi))
+    return out
+
+
+def assert_full_coverage(pages: list[str], sections: list[Section],
+                         excluded_pages: list[int]) -> None:
+    """**全文**每个字符必须落在某个 section 里, 或落在显式声明的排除页里。
+
+    与 `assert_partition_complete` 的区别就是这条闸存在的理由: 那把闸的口径是
+    「逐字等于**首锚点行起**的全文」, 对首锚点**之前**的区域**天然免疫** ——
+    真实文档 66,200 字符 (全文 27.42%) 就是这么漏掉的, 而那把闸全程绿灯
+    (见 study_c1_doc_sections.md 已知限制 L1: "不得把闸绿读成内容都能检索到")。
+
+    排除页必须由调用方**显式传入**并有形态依据 (见 `detect_toc_pages`), 不接受
+    "反正没覆盖到就算排除"这种事后追认 —— 那等于把闸的口径交给缺陷自己定义。
+    """
+    excluded = set(excluded_pages)
+    expected = "".join(t for i, t in enumerate(pages, start=1) if i not in excluded)
+    joined = "".join(s.body for s in sections)
+    if joined == expected:
+        return
+    n = min(len(joined), len(expected))
+    at = next((i for i in range(n) if joined[i] != expected[i]), n)
+    raise AssertionError(
+        f"未覆盖: 拼回 {len(joined)} 字符 vs 应覆盖 {len(expected)} 字符 "
+        f"(差 {len(expected) - len(joined)}), 首个不一致在偏移 {at}; "
+        f"排除页 {sorted(excluded) or '无'}")

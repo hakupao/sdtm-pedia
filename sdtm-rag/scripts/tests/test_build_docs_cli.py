@@ -48,3 +48,38 @@ def test_cli_output_chunks_stay_under_embedding_limit(tmp_path, monkeypatch):
     build_docs.build_one(tmp_path / "docs", 1, tmp_path / "x.pdf", "st01", "vNEW")
     for f in (tmp_path / "docs").iterdir():
         assert count_tokens(f.read_text(encoding="utf-8")) <= EMBED_MAX_TOKENS, f.name
+
+
+def test_cli_covers_front_matter_and_reports_the_full_coverage_gate(tmp_path, monkeypatch, capsys):
+    """L1 修复: 首锚点之前的内容必须成 chunk, 且 CLI 要打印全文覆盖闸的结果。
+
+    真实文档里这块是 16,880 字符 (卷首 p1-10 + 首锚点页前段), 长期不在任何 chunk
+    里而三把闸全绿 —— 因为旧闸的口径是「首锚点行起」, 对它天然免疫。
+    """
+    front = "治験実施計画書\n実施医療機関一覧\n"
+    body = "2.1 目的\n本文。\n"
+    monkeypatch.setattr(build_docs, "extract_pages", lambda _p: [front, body])
+
+    n = build_docs.build_one(tmp_path / "docs", 1, tmp_path / "x.pdf", "st01", "vNEW")
+    out = capsys.readouterr().out
+    names = sorted(p.name for p in (tmp_path / "docs").iterdir())
+
+    assert "全文覆盖闸" in out
+    assert names == ["st01__doc01__s2_1.md", "st01__doc01__sfront01.md"]
+    assert n == 2
+    # 卷首正文逐字, 不 strip
+    assert (tmp_path / "docs" / "st01__doc01__sfront01.md").read_text(
+        encoding="utf-8").endswith(front)
+
+
+def test_cli_full_coverage_gate_is_not_decorative(tmp_path, monkeypatch):
+    """闸必须真的会红: 把卷首切分函数打成哑巴 (返回空), 全文覆盖闸应当拦下。"""
+    front = "治験実施計画書\n実施医療機関一覧\n"
+    monkeypatch.setattr(build_docs, "extract_pages", lambda _p: [front, "2.1 目的\n本文。\n"])
+    monkeypatch.setattr(build_docs, "split_front_matter", lambda _p, excluded_pages: [])
+    try:
+        build_docs.build_one(tmp_path / "docs", 1, tmp_path / "x.pdf", "st01", "vNEW")
+    except AssertionError as e:
+        assert "未覆盖" in str(e)
+    else:
+        raise AssertionError("卷首没被覆盖时全文覆盖闸必须红")

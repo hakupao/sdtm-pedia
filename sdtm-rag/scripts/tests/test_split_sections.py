@@ -191,3 +191,71 @@ def test_check_numbering_still_flags_backwards_deep_child():
     pages = ["6.2.3.2 甲\n本文\n6.2.3.1 乙\n本文\n"]
     problems = check_numbering(split_sections(pages))
     assert problems and "6.2.3.1" in problems[0]
+
+
+# ---- 全文覆盖闸 (L1 修复): 首锚点之前的区域必须被看见 ----
+
+# 合成: 卷首 2 页 (无编号行) + 目录 1 页 (编号行 + 点线长行) + 正文 1 页
+FRONT = "治験実施計画書\n実施医療機関一覧\n"
+FRONT2 = "略語一覧\nAE 有害事象\n"
+TOC = "".join(f"{i}.{j} 章題{'.' * 60} {i*10+j}\n"
+              for i in range(2, 6) for j in range(1, 5))
+BODY = "2.1 目的\n本試験の目的。\n"
+FULL_PAGES = [FRONT, FRONT2, TOC, BODY]
+
+
+def test_detect_toc_pages_by_shape_not_by_hardcoded_page_number():
+    """目录页靠**形态**识别 (大量编号行 + 点线长行), 不靠硬编码页号 ——
+    页号硬编码换一份 PDF 就会静默排除掉真实正文。"""
+    from scripts.study.split_sections import detect_toc_pages
+
+    assert detect_toc_pages(FULL_PAGES) == [3]          # 只有目录那页
+    assert detect_toc_pages([FRONT, FRONT2, BODY]) == []  # 没有目录就不该乱排除
+
+
+def test_full_coverage_gate_catches_content_before_first_anchor():
+    """L1 的根因: `assert_partition_complete` 的口径是「首锚点行起」, 对首锚点
+    **之前**的区域天然免疫 —— 那 66,200 字符 (全文 27.42%) 就是这么漏掉且闸全绿的。
+
+    本闸改口径为「全文减去显式声明的排除区」, 故只切编号节时必须**红**。
+    """
+    from scripts.study.split_sections import assert_full_coverage
+
+    sections = split_sections(FULL_PAGES)
+    assert_partition_complete(FULL_PAGES, sections)      # 旧闸: 依然绿 (这正是问题)
+    with pytest.raises(AssertionError, match="未覆盖"):
+        assert_full_coverage(FULL_PAGES, sections, excluded_pages=[3])
+
+
+def test_full_coverage_gate_passes_when_front_matter_is_covered():
+    from scripts.study.split_sections import assert_full_coverage, split_front_matter
+
+    sections = split_front_matter(FULL_PAGES, excluded_pages=[3]) + split_sections(FULL_PAGES)
+    assert_full_coverage(FULL_PAGES, sections, excluded_pages=[3])
+
+
+def test_split_front_matter_is_one_chunk_per_page_and_verbatim():
+    """卷首没有编号行也没有可识别标题 (真实文档 p1-10 实测: 编号行 0 / 标题行 0),
+    锚点切分器无处下手 ⇒ 按**页**切 (页本来就是抽取单位)。正文逐字。"""
+    from scripts.study.split_sections import split_front_matter
+
+    front = split_front_matter(FULL_PAGES, excluded_pages=[3])
+
+    # 编号按**页号**编码 (front{页:02d}), 不是顺序号 —— 页号即出处, 换文档也自解释
+    assert [s.number for s in front] == ["front01", "front02"]
+    assert [s.body for s in front] == [FRONT, FRONT2]          # 逐字, 不 strip
+    assert [(s.page_start, s.page_end) for s in front] == [(1, 1), (2, 2)]
+    # 第 3 页是目录 (排除), 第 4 页整页都在首锚点之后 ⇒ 都不该出现在卷首里
+
+
+def test_split_front_matter_covers_partial_page_before_the_anchor():
+    """真实文档里首锚点落在 p17 页中 (该页前 578 字符属卷首侧, 其余属首节) ——
+    卷首必须能切出**半页**, 否则那 578 字符会继续漏掉。"""
+    from scripts.study.split_sections import split_front_matter
+
+    pages = [FRONT, "前書き\n2.1 目的\n本文。\n"]
+    front = split_front_matter(pages, excluded_pages=[])
+
+    assert [s.number for s in front] == ["front01", "front02"]
+    assert front[1].body == "前書き\n"                          # 只到锚点行为止
+    assert front[1].page_start == 2 and front[1].page_end == 2
