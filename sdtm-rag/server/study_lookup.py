@@ -46,7 +46,6 @@ _MAX_CARDS_TOTAL = 10      # resolve 输出的精确卡总上限 (k=15 里给 co
 # 很多, 覆盖到实测最大单次命中(40)之上留出余量, 但仍然是个上限(未知查询理论上可能同时
 # 撞上多个索引键叠加得更大, 需要有底)。
 _MAX_EVENTS_TOTAL = 50
-_MIN_EVENT_NAME_LEN = 3    # 事件/活动名称索引最短长度, 防短名命中一切
 _MIN_ITEM_OID_LEN = 3      # item OID 索引最短长度 (与 _MIN_SEG_LEN 同阈值)
 # form_oid 词汇表本身很短 (21 个真实值, 7 个只有 2 字符, 见 assignments 池): 沿用
 # _MIN_ITEM_OID_LEN=3 会永久排除 1/3 的 form, 直接废掉这条索引对短 form 的价值 ——
@@ -80,7 +79,7 @@ def _norm_ws(s: str) -> str:
     让"两侧是否有边界"这个判断失真——实测案例 (2026-08-26 复审发现): 某题题面里一个
     3 字符 item OID 后面紧跟半角空格再接数字 (OID 与数字之间原有空格), 去空白后 OID
     直接贴上该数字, 对短 OID 的有界判断而言, 这个人为拼接的邻接关系是假的, 必须在保留
-    空白的文本上判边界, 结论才稳定。名称索引 (Tier 3) 不受这个问题影响, 继续用 `_norm`。
+    空白的文本上判边界, 结论才稳定。(旧名称索引 Tier 3 曾用 `_norm`, 该层已移除。)
     """
     return unicodedata.normalize("NFKC", s)
 
@@ -152,27 +151,20 @@ class StudyLookup:
                     self._segment_index[seg].append(src)
 
         # 事件层索引 (三池是 2026-08-25 新增, 老 catalog 无此 key → 空索引, 静默降级)。
-        # 拆两个索引对应 resolve_events 的两个精度层级 (2026-08-26 复审后拆分):
-        # Tier 1 `_exact_oid_index` = OID/form 精确命中 (event OID / activity OID /
-        #   form OID, 有界匹配), 命中即直接给目标, 不含推断成分;
-        # Tier 3 `_name_index` = 事件/活动**名称**子串命中 (自然语言短语, 沿用既有裸
-        #   子串, 不加边界——通用词碰撞风险已知, 见 checkpoint 已知限制)。
-        # 两者分开是为了 resolve_events 能按"精确 > 推导 > 名称"优先级分层拼接输出,
-        # 名称这类较弱信号不会在总 cap 截断时把精确/推导目标挤出去。
+        # `_exact_oid_index` = OID/form 精确命中 (event OID / activity OID / form OID,
+        # 有界匹配), 命中即直接给目标, 不含推断成分。
+        #
+        # ⚠ 曾有一个 `_name_index` (事件/活动**名称**裸子串命中, 旧 Tier 3), 已于
+        # 2026-08-26 **整层移除** —— Tier 1b 收紧后, 全通道剩余 23 条假阳性里 19 条
+        # (83%) 出自它, 层内 tp 5 / fp 19。机制: 可读名是自然语言短语, 日文没有可用
+        # 的词边界, 这层不做边界判定, 问题里出现该短语即召回, 哪怕说的是别的意思。
+        # 判据与代价见 evidence/checkpoints/study_c3_precision_tradeoff.md §7。
         self._exact_oid_index: dict[str, list[str]] = defaultdict(list)
-        self._name_index: dict[str, list[str]] = defaultdict(list)
         for e in catalog.get("events", []):
-            target = f"event:{e['oid']}"
-            self._exact_oid_index[_norm(e["oid"])].append(target)
-            n = _norm(e.get("name", ""))
-            if len(n) >= _MIN_EVENT_NAME_LEN:
-                self._name_index[n].append(target)
+            self._exact_oid_index[_norm(e["oid"])].append(f"event:{e['oid']}")
         for a in catalog.get("activities", []):
-            target = f"activity:{a['event_oid']}/{a['oid']}"
-            self._exact_oid_index[_norm(a["oid"])].append(target)
-            n = _norm(a.get("name", ""))
-            if len(n) >= _MIN_EVENT_NAME_LEN:
-                self._name_index[n].append(target)
+            self._exact_oid_index[_norm(a["oid"])].append(
+                f"activity:{a['event_oid']}/{a['oid']}")
         # Ruling P2 (团队 lead 复审, 2026-08-26 修复轮1): form_oid -> 该 form 的**全部**
         # assignment (未做 item 级减法的原始清单)。与下面 item 采集范围索引 (Tier 2)
         # 是两回事——这里回答"这个表单被分配到哪些活动/事件"(event_form_assignment/
@@ -291,17 +283,18 @@ class StudyLookup:
         return StudyLookupResult(cards=cards[:_MAX_CARDS_TOTAL], form_scopes=h.form_scopes)
 
     def resolve_events(self, query: str) -> list[str]:
-        """事件层命中: OID/form 精确匹配 + item 采集范围推导 + 名称子串, 三层按精度
-        优先级拼接后统一按 _MAX_EVENTS_TOTAL 截断。
+        """事件层命中: OID/form 精确匹配 + item 采集范围推导, 三层按精度优先级拼接后
+        统一按 _MAX_EVENTS_TOTAL 截断。**全部三层都要求标识符字面出现在题面里** ——
+        本方法是 lookup 不是 retriever, 不做任何模糊/语义匹配。
 
         与 resolve() 分开是刻意的 —— 事件目标名不是卡名, 混进 cards 会让调用方
         把它当 chunk 去取, 那是静默的类型错误。
 
-        **三层优先级是 2026-08-26 复审后的核心修复** (团队 lead Ruling, 抽检方实测
-        验证): 若不分层、按索引遍历顺序 (事件/活动先于 item) 简单拼接再截断, 较弱的
-        名称子串命中会排在结构化目标**前面**抢占 cap 名额——噪声先于信号, 已实测复现
-        (`ev_q30` 一题在旧实现下未截断即达到 4 条, 其中 3 条是名称索引段的巧合命中)。
-        现按下列优先级拼接, **同层内部去重, 跨层也去重**, 最后统一截断:
+        **分层优先级是 2026-08-26 复审后的核心修复** (团队 lead Ruling, 抽检方实测
+        验证): 若不分层、按索引遍历顺序简单拼接再截断, 较弱的信号会排在结构化目标
+        **前面**抢占 cap 名额——噪声先于信号, 当时已实测复现。分层至今仍必要 (Tier 1b
+        仍可能在多个 form 同时命中时占满名额), 故保留。**同层内部去重, 跨层也去重**,
+        最后统一截断:
 
         - **Tier 1a (event/activity OID 精确命中, 有界匹配)**: 直接给 `event:`/
           `activity:` 目标, 无推断成分。
@@ -335,12 +328,13 @@ class StudyLookup:
           层内 precision 仅 2.7%, 噪声全部来自 4 个长清单 form。收紧后全局
           precision 10.81% → 54.00%, 返回 259 → 50, 代价是 event_form_assignment
           由 1/5 变 0/5 (其余五类逐格不变)。数字的三条限定见常量处注释。
-        - **Tier 3 (名称子串, 裸匹配, 无边界)**: event/activity 名称是自然语言短语,
-          边界概念不适用 (与 label 子串同精神)。已知会撞上研究内高频通用词造成假阳性
-          (如某治疗方案缩写同时是一个 event 的可读名) ——正因为这层信号最弱、误召回
-          风险最高, 才必须排在最后, 只填充前几层用剩的名额。
+        ~~**Tier 3 (event/activity 名称裸子串)**~~ —— **2026-08-26 整层移除**。
+        Tier 1b 收紧后, 全通道剩余 23 条假阳性里 **19 条 (83%) 出自这一层** (层内
+        tp 5 / fp 19)。机制: 可读名是自然语言短语, 日文没有可用的词边界, 该层不做
+        边界判定, 只要题面出现该短语即召回, 哪怕说的是别的意思。移除代价: 命中
+        20/33 → 15/33 (丢 oid_name_mapping 4 题 + conditional_event 1 题),
+        换来 precision **54.00% → 84.62%**, 返回 50 → 26。判据见 evidence/checkpoints/study_c3_precision_tradeoff.md §7。
         """
-        qn = _norm(query)
         q_ws = _norm_ws(query)
 
         tier1a: list[str] = []
@@ -377,15 +371,8 @@ class StudyLookup:
                 if t not in tier1b:
                     tier1b.append(t)
 
-        tier3: list[str] = []
-        for key, targets in self._name_index.items():
-            if key and key in qn:
-                for t in targets:
-                    if t not in tier3:
-                        tier3.append(t)
-
         out: list[str] = []
-        for t in (*tier1a, *tier2, *tier1b, *tier3):
+        for t in (*tier1a, *tier2, *tier1b):
             if t not in out:
                 out.append(t)
         return out[:_MAX_EVENTS_TOTAL]

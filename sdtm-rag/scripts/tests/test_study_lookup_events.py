@@ -22,14 +22,22 @@ def test_resolve_events_by_oid():
     assert "event:偽EV1" in lk.resolve_events("偽EV1 について教えて")
 
 
-def test_resolve_events_by_name():
-    lk = StudyLookup(CAT)
-    assert "event:偽EV1" in lk.resolve_events("偽イベント名甲 はいつ実施しますか")
+def test_resolve_events_does_not_match_on_event_or_activity_names():
+    """事件/活动**名称**子串匹配 (旧 Tier 3) 已于 2026-08-26 整层移除。
 
+    ⚠ **这是一次能力删除, 不是重构** —— 本测试原先是两条断言"名称能查到"的正面
+    测试 (`test_resolve_events_by_name` / `test_resolve_activity_by_name`), 现在
+    断言的是**反面**: 名称查不到了。
 
-def test_resolve_activity_by_name():
+    判据 (证据 evidence/checkpoints/study_c3_precision_tradeoff.md §7): Tier 1b 收紧
+    之后, 全通道剩余 23 条假阳性里 **19 条 (83%) 来自这一层**; 层内 tp 5 / fp 19。
+    机制: 事件与活动的可读名是自然语言短语, 日文没有可用的词边界, 这层不做边界
+    判定 —— 只要问题里出现该短语, 哪怕说的是别的意思也会被召回。
+    移除后: 命中 20/33 → 15/33, precision **54.00% → 84.62%**, 返回 50 → 26。
+    """
     lk = StudyLookup(CAT)
-    assert "activity:偽EV1/偽AC1" in lk.resolve_events("偽活動名乙 のタイミングは")
+    assert lk.resolve_events("偽イベント名甲 はいつ実施しますか") == []
+    assert lk.resolve_events("偽活動名乙 のタイミングは") == []
 
 
 def test_resolve_events_empty_on_no_hit():
@@ -171,25 +179,34 @@ def test_bounded_contains_does_not_merge_across_whitespace():
     assert lk.resolve_events("偽XY 1回目の状況は") != []
 
 
-def test_resolve_events_structured_not_squeezed_by_name_substring():
-    """精确/推导目标必须排在名称子串命中之前——即便名称命中数量众多, 结构化目标
-    也不能被挤出总 cap (2026-08-26 复审 Ruling: 不许让结构化目标被巧合命中挤掉)。"""
-    many_name_targets = [
-        {"oid": f"偽NM{i}", "event_oid": "偽EVX", "name": "偽コモンワード"}
-        for i in range(60)   # 远超 _MAX_EVENTS_TOTAL, 若排序反了会把结构化目标冲掉
-    ]
+def test_resolve_events_exact_oid_survives_when_a_later_tier_floods_the_cap():
+    """精确命中 (Tier 1a) 必须留在结果里, 即便靠后的层单独就产出超过总 cap 的目标。
+
+    ⚠ **本测试于 2026-08-26 换过洪水来源**: 原版
+    (`..._not_squeezed_by_name_substring`) 用 61 个同名 event/activity 制造 Tier 3
+    洪水, 而 Tier 3 已整层移除 —— 那个场景**再也构造不出来**, 原断言会恒真通过,
+    即沦为装饰闸。现改用**能构造出来**的洪水源: 一个 item 的 `collect_scope` 覆盖
+    60 个活动 → Tier 2 单层即产出 60 个目标, 远超 `_MAX_EVENTS_TOTAL`。
+
+    这条守的是**拼接顺序**这个不变量 (Tier 1a 必须排在前面), 不是某一层的存在性;
+    有人把 `out` 的拼接顺序改掉时它会红 (已变异实测)。
+    """
+    n = 60
     cat = {
         "study": "st01",
         "items": [{"form_oid": "偽F", "item_oid": "偽IT_A", "label": "偽ラベル甲",
                    "raw": {}}],
-        "events": [{"oid": "偽EVX", "name": "偽コモンワード"}],
-        "activities": many_name_targets,
-        "assignments": [{"event_oid": "偽EV1", "activity_oid": "偽AC1", "form_oid": "偽F"}],
+        "events": [{"oid": "偽EVX", "name": "偽イベントX"}],
+        "activities": [{"oid": f"偽AC{i}", "event_oid": "偽EVX", "name": f"偽活動{i}"}
+                       for i in range(n)],
+        "assignments": [{"event_oid": "偽EVX", "activity_oid": f"偽AC{i}",
+                         "form_oid": "偽F"} for i in range(n)],
     }
     lk = StudyLookup(cat)
-    # 题面同时含事件 OID (Tier 1a, 精确) 与"偽コモンワード" (Tier 3, 撞上 61 个名称同款目标)
-    got = lk.resolve_events("偽EVX について、偽コモンワード は何回実施されますか")
-    assert "event:偽EVX" in got   # 精确命中即便面对海量同名候选也必须留在结果里
+    got = lk.resolve_events("偽EVX の 偽IT_A はどこで採取されますか")
+
+    assert len(got) == 50                 # 总 cap 确实生效 (60 个 Tier 2 目标被截断)
+    assert got[0] == "event:偽EVX"        # 精确命中排在最前, 没被后面的层冲掉
 
 
 def test_resolve_events_skips_form_whose_assignment_list_is_not_discriminative():
