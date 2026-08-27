@@ -102,8 +102,9 @@ Full chain definitions are in `.work/MANIFEST.md`.
 | Phase 7 SP7 查看器 UX 重构 (2026-07-24) | 源码 `sdtm-rag/viewer/{template.html,style.css,layout.mjs,app.js}` → build 内联 `kg_viewer.html` (**勿手改产物, 改 viewer/* 重生成**); 确定性布局+补间无物理; spec/plan `docs/superpowers/*2026-07-24-kg-viewer-ux*` |
 | Phase 7 study 轨 workflow 事件层 (DONE, 有条件合并) | `sdtm-rag/evidence/checkpoints/study_workflow_events.md` — 21/33 recall, 未接线 |
 | C1 红线 triage (4 真阳性已清) | `sdtm-rag/evidence/checkpoints/c1_redline_triage.md` — 26 假阳性未动 |
-| 红线 pre-commit 闸 (需启用) | `.githooks/` — `sh .githooks/install.sh` 一次性设 hooksPath |
-| C3 精度取舍判据 (event 通道) | `sdtm-rag/evidence/checkpoints/study_c3_precision_tradeoff.md` |
+| 红线 pre-commit 闸 (已启用) | `.githooks/` — hooksPath 已设; 重装 `sh .githooks/install.sh` |
+| C4 接线三闸 (event 通道) | `sdtm-rag/evidence/checkpoints/study_c3_precision_tradeoff.md` §8 |
+| C4 G3 判据 (路由词「G3 收题」) | `sdtm-rag/evidence/checkpoints/g3_pre_registration.md` §7.0 |
 
 ## AI 平台多平台部署 (CLOSED 冻结 2026-06-15)
 
