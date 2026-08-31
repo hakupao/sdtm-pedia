@@ -1228,6 +1228,60 @@ if __name__ == "__main__":
     sys.exit(main())
 ```
 
+- [ ] **Step 3b: 补 SSE 解析层的端到端验证（Task 5 遗留的覆盖缺口）**
+
+⚠ Task 5 的前端验证是**直接调渲染函数**（`onToolCallUI(holder, {...})`），跳过了 SSE 解析那一层。
+也就是说「真实 SSE 字节流 → `dispatch` 解析 → 渲染函数」这条链路目前**零覆盖** ——
+后端改一个事件名或字段名，前端会静默不渲染，而两侧的测试都照样绿。
+
+创建 `sdtm-rag/scripts/tests/test_sse_contract.py`:
+
+```python
+"""SSE 事件契约: 后端实际吐出的事件名与字段, 必须正是前端 dispatch 认得的那些。
+
+这个闸防的是「两侧各自绿、拼起来不工作」—— Task 4 的测试只验后端发了什么,
+Task 5 的验证只验渲染函数收到 dict 后怎么画, 中间的解析层没人管。
+"""
+import re
+from pathlib import Path
+
+APP_JS = Path(__file__).resolve().parents[2] / "webchat" / "app.js"
+
+
+def _dispatched_events() -> set[str]:
+    """从 app.js 的 dispatch 里抠出前端认得的事件名。"""
+    src = APP_JS.read_text(encoding="utf-8")
+    return set(re.findall(r'ev\.event === "([a-z_]+)"', src))
+
+
+def test_frontend_knows_every_event_the_backend_emits():
+    # 后端 sse() 的调用点 = 实际会吐出的事件名
+    router = (Path(__file__).resolve().parents[2] / "server" / "router.py").read_text(encoding="utf-8")
+    emitted = set(re.findall(r'sse\("([a-z_]+)"', router))
+    known = _dispatched_events()
+    assert emitted <= known, f"后端会发但前端不认识的事件: {emitted - known}"
+
+
+def test_frontend_reads_web_fields_from_done():
+    src = APP_JS.read_text(encoding="utf-8")
+    # done 的两个新字段必须真的被读取, 不能只在后端存在
+    assert "web_status" in src, "前端没有读 done.web_status"
+    assert "web_searches_ok" in src, "前端没有读 done.web_searches_ok"
+
+
+def test_frontend_covers_every_tool_result_status():
+    """后端 tool_result.status 的取值域必须被前端文案表全覆盖 —— 少一个就会显示裸状态码。"""
+    router = (Path(__file__).resolve().parents[2] / "server" / "router.py").read_text(encoding="utf-8")
+    backend = set(re.findall(r'st = "([a-z_]+)"', router)) | {"ok"}
+    src = APP_JS.read_text(encoding="utf-8")
+    block = src.split("note.textContent = {", 1)[1].split("}[d.status]", 1)[0]
+    frontend = set(re.findall(r'^\s*([a-z_]+):', block, re.M))
+    assert backend <= frontend, f"后端会发但前端文案表没有的 status: {backend - frontend}"
+```
+
+跑: `cd sdtm-rag && .venv/bin/python -m pytest scripts/tests/test_sse_contract.py -p no:warnings -o addopts="-ra"`
+Expected: 3 passed。⚠ 若失败, 说明前后端契约真的对不上, **先查契约而不是改断言**。
+
 - [ ] **Step 4: 跑通**
 
 ```bash
