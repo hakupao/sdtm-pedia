@@ -205,8 +205,16 @@ N 样本人工核验 —— `[Web:]` 标注是否规矩、有无从网页搬 CT 
 
 1. `web_search.py` 解析与降级: mock Tavily 响应, 覆盖超时 / 空结果 / 畸形 JSON / 无 key
 2. 循环上限: 第 6 轮必须停, 且拿现有结果作答 (不得无限循环)
-3. **回归闸**: `web=false` 时 system prompt 与当前版本**逐字节相同** ——
-   证明本功能对现有路径零污染 (同 `prompt_guardrail_enabled` 当初的 A/B 回滚闸套路)
+3. **回归闸**: `SDTM_RAG_WEB_SEARCH_ENABLED=false` 时 system prompt 与引入本功能前
+   **逐字节相同** (同 `prompt_guardrail_enabled` 当初的 A/B 回滚闸套路)
+
+   ⚠ **闸的对象是 config 级开关, 不是单次请求的 `web` 字段** —— 原 §9.3 写的是
+   「`web=false` 时逐字节相同」, 与 §5「Rule 9 常驻」直接矛盾 (常驻 ⇒ prompt 必然变),
+   2026-08-31 写实现计划时发现并改正。两者的分工是:
+   - **请求级 `web`** (每次请求变): 只决定**是否把 `web_search` 工具挂上去**,
+     **不动 system prompt** —— 这正是 §5「常驻」要保的性质 (不造两套 prompt)。
+   - **config 级 `web_search_enabled`** (启动时定): 决定 Rule 9 是否进 system prompt。
+     关掉即逐字节回到引入前, 提供 A/B 与瞬时回滚。
 4. 集成: 勾联网跑一题, 验证 sources 含 web 条目、答案带 `[Web:]`、
    且答案内**无**任何非 KB-grounded 的 `Cxxxxx`
 
