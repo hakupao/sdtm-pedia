@@ -30,6 +30,17 @@ v4 (2026-08-31, 代码审查后修复): 审查发现同一类失败模式反复�
       之前只查了 CT 码那一样;
   (d) `main()` 在任何一行失败 (调用异常 / 解析失败) 时返回非零, 不再恒 0。
 
+v5 (2026-08-31, 复审两轮修复): (c) 那列机检本身有问题, 分两轮修:
+  第一轮: 大小写敏感 (只认 `Class` 不认 `class`) + 扫描范围只看"含 [Web: 的
+  句子"漏掉"先引后断"的推论句——都已修, 但**方向不完整**。
+  第二轮 (复审在真实语料上验证): 真正的根因是按 ASCII 句子标点切分这件事本身
+  就是错的——引用标记的标准落点是句末标点**之后**, 按句切会把断言句和它的引用
+  切到两个不同片段, 且中日文全角句号不触发这个切分规则、导致两种语言的扫描
+  粒度不一致。改成不再按句子切, 只按 markdown 段落/bullet 行 (`\\n`) 切, 见
+  `_web_paragraphs` docstring。顺带补了两个文档与代码不一致的缺陷: 关键词表
+  漏了 `Type` (文档写着扫但代码没有), 且不认规则复数 (`Qualifiers` 真实语料
+  实测漏检)。判读规则也补了"命中为 0 不代表没有"这条防假阴性的话。
+
 跑法:
   cd sdtm-rag && .venv/bin/python eval/web_channel_spotcheck.py --n 5 \
       --out evidence/checkpoints/web_channel_spotcheck.md
@@ -61,16 +72,26 @@ KB_CITE_RE = re.compile(r"\[Source:\s*([^\]]+)\]")
 
 # Rule 9(b) 禁的是三样硬事实: CT 码 (CODE_RE 管这个) / class 或 category 归属 /
 # Core-Role-Type。后两样目前没有专门的机检, 这组关键词只是在"含 [Web: 引用的
-# 句子"里做形状扫描, 供人判读时优先看——不是判定, 见 I-6 相关注释。
+# 段落"里做形状扫描, 供人判读时优先看——不是判定, 见 I-6 相关注释。
 #
-# 大小写不敏感 (复审 v4→v5 修复): 英文散文里写这类归属的常态是小写
+# 大小写不敏感 (复审第一轮修复): 英文散文里写这类归属的常态是小写
 # ("treat FA as a findings class domain"), 不是 KB 字段名那种大写 ("Class");
 # 只匹配大写会把最常见的写法漏掉。代价是常见英文词 (class/role/core/topic 等)
 # 现在会更频繁命中, 误报率上升——这是有意的取舍: 命中不是判定、只是"值得看
 # 一眼"的提示 (见下方判读规则文案), 漏检 (让真正违规的句子完全不出现在这一
 # 列里) 比误报 (让一个无关句子多被人扫一眼) 危险得多。
+#
+# 补了两处 (复审第二轮修复):
+# - `Type` 之前根本不在这个元组里——文件头 v4(c) 的说明和本模块 docstring 都
+#   写着扫 "Core/Role/Class/Type", 代码却只有 Core/Role/Class/**Topic**, 少了
+#   `Type` 这个真正的 CDISC Core/Role/**Type**/... 三元组成员。文档声明和代码
+#   行为不一致——跟 I-1 是同一类缺陷, 只是这次出现在修好 I-1 的那个 commit 里。
+# - `(?:es|s)?` 容许规则复数 (`Qualifier`→`Qualifiers`, `Class`→`Classes`):
+#   `\bQualifier\b` 在真实语料 (Q1 答案) 里就实测漏过 "Supplemental
+#   **Qualifiers**"——`\b` 要求词尾恰好停在 "r" 之后, 复数的 "s" 让它匹配不上。
 _HARD_FACT_KEYWORDS = re.compile(
-    r"\b(Req|Perm|Exp|Core|Role|Qualifier|Class|Identifier|Topic|Grouping|Timing)\b",
+    r"\b(Req|Perm|Exp|Core|Role|Qualifier|Class|Identifier|Topic|Type|Grouping|Timing)"
+    r"(?:es|s)?\b",
     re.IGNORECASE)
 
 
@@ -152,47 +173,60 @@ def _code_contexts(answer: str) -> list[dict]:
     return out
 
 
-def _web_sentences(answer: str) -> list[str]:
-    """粗切句子 (按 `. `/`! `/`? `/换行) —— 不是严谨的分句器。给 I-6 的关键词
-    机检定位扫描范围: 含 `[Web:` 引用的句子本身, **加上紧随其后的一句**。
+def _web_paragraphs(answer: str) -> list[str]:
+    """按 markdown 段落/bullet 行切 (`\\n+` 分隔), 只留含 `[Web:` 引用的那些——
+    给 I-6 的关键词机检定位扫描范围。
 
-    只扩到"后一句", 不扩到"前一句" (复审 v4→v5 修复的另一半): 基于网页内容
-    做推论时最自然的写法是"先引后断"——引用单独一句, 支撑的断言紧跟在下一句
-    ("Several teams do this [Web: ...]. It is a Findings class domain.")。
-    这种写法里断言句本身不含 `[Web:`, 原来只扫"含 [Web: 的句子"会把它整句漏掉
-    ——这正是复审发现的漏检根因之一 (用例 C)。"断言先说、引用作为后一句才补上"
-    这种反过来的写法不常见, 暂不纳入前一句; 若之后发现常见, 再补并说明理由。
+    v4→v5 第一轮曾按 ASCII 句子标点 (`(?<=[.!?])\\s+`) 切, 并往"含 [Web: 的
+    句子"后面扩一句。复审第二轮在**真实语料** (`_answers.md` 三题原文) 上验证
+    这个方向是反的、且比预想的问题更根本:
+
+    - 引用标记的标准落点是**句末标点之后**, 而不是嵌在句子中间: 真实写法是
+      `"...归入 Events Class. [Web: url] 下一句是别的论点。"`——按 ASCII 句子
+      标点切, 断点恰好落在句号后面, 于是"含 [Web: 的片段"变成 `"[Web: url]
+      下一句是别的论点。"`, 而真正带着 `Class` 这个硬事实词的断言句
+      `"...归入 Events Class."` 被切在**前一个**片段里, 反而不在扫描范围内。
+      第一轮扩"后一句"扩的正是本来就已经在范围里的东西, 方向反了。
+    - 这套按句切分的规则对中日文还整体失效: 中日文用全角句号 `。`, 不会命中
+      `[.!?]`, 所以日文答案里唯一有效的切分点其实只有 `\\n` (逐行/逐 bullet)。
+      也就是说第一轮的实现里, 日文答案实际按行切, 英文答案却在按句切——两种
+      语言的扫描粒度不一致, 这本身也是一个当时没被发现的 bug。
+
+    改成不再按句子切、只按 `\\n` 切段落/bullet 行: 一条 markdown bullet 常常
+    横跨好几个 ASCII 句子, 但真实语料里引用和它支撑的论述几乎总是落在**同一条
+    bullet 行**内, 不管这条 bullet 内部有几句话——这样处理还顺带修好了上面那条
+    中日文/英文粒度不一致的问题: 现在两种语言都统一按行切, 不再有语言差异。
+    代价是同一 bullet 里较远的、跟引用不直接相关的从句也会被一并扫到, 换来的是
+    不会再把引用和它支撑的断言切到两个不同片段——跟大小写不敏感是同一个取舍:
+    漏检比误报危险。
+
+    只按单行扩, 不额外扩到"前一行"/"后一行": 真实语料里没有发现引用与其断言
+    分处两条不同 bullet 行的例子; 如果之后发现常见, 再扩并说明理由。
 
     ⚠ 局限仍在: 这依然是关键词形状扫描, 不是语义判断。不用 Req/Perm/Core/Role/
     Class/Type 这类词的归属表述 (比如 "belongs to the Events category"、
     "is a special-purpose dataset") 扫不到, 见 `_hard_fact_keyword_hits`
     docstring 与判读规则文案。
     """
-    sentences = re.split(r"(?<=[.!?])\s+|\n+", answer)
-    keep: set[int] = set()
-    for i, s in enumerate(sentences):
-        if "[Web:" in s:
-            keep.add(i)
-            if i + 1 < len(sentences):
-                keep.add(i + 1)
-    return [sentences[i] for i in sorted(keep)]
+    return [p for p in re.split(r"\n+", answer) if "[Web:" in p]
 
 
 def _hard_fact_keyword_hits(answer: str) -> list[tuple[str, str]]:
     """Rule 9(b) 禁的另外两样 (class/category 归属, Core-Role-Type) 目前没有像
-    CT 码那样的专门机检——这里只做最粗的形状扫描: `[Web:` 引用句 (含紧随的下一句,
-    见 `_web_sentences`) 里出现的 Core/Role/Class/Type 一类关键词 (大小写不敏感),
-    返回 (关键词, 命中句子) 列表供人核对。
+    CT 码那样的专门机检——这里只做最粗的形状扫描: `[Web:` 引用所在的段落/bullet
+    行 (见 `_web_paragraphs`) 里出现的 Core/Role/Class/Type 一类关键词
+    (大小写不敏感, 容规则复数), 返回 (关键词, 命中段落) 列表供人核对。
 
-    ⚠ 命中不等于红线破 (这些词在 KB 来源的句子里也会正常出现), 只是提示"这句话
-    里混着硬事实词汇, 且附近有 web 引用, 值得多看一眼"——**这仍然只是关键词形状
+    ⚠ 命中不等于红线破 (这些词在 KB 来源段落里也会正常出现), 只是提示"这段话
+    里混着硬事实词汇, 且带 web 引用, 值得多看一眼"——**这仍然只是关键词形状
     扫描, 不是语义判断, 不代表 Rule 9(b) 的 class/Core/Role/Type 这部分已经被
     机检"覆盖"**: 不使用这些词的归属表述 (例如 "belongs to the Events category"、
-    "is a special-purpose dataset") 依然会被完全漏掉。"""
+    "is a special-purpose dataset") 依然会被完全漏掉, **命中为 0 不代表这两样
+    硬事实真的没被违反, 只代表没查到这几个特定关键词**。"""
     hits = []
-    for s in _web_sentences(answer):
-        for kw in _HARD_FACT_KEYWORDS.findall(s):
-            hits.append((kw, s.strip()))
+    for p in _web_paragraphs(answer):
+        for kw in _HARD_FACT_KEYWORDS.findall(p):
+            hits.append((kw, p.strip()))
     return hits
 
 
@@ -239,6 +273,13 @@ def ask(base: str, q: str, timeout: float) -> dict:
     }
 
 
+def _md_cell(text: str) -> str:
+    """转成能安全塞进一个 markdown 表格单元格的文本: `|` 会被解析成列分隔符、
+    换行会撑破那一行, 两个都替换掉。失败行把 `str(exc)` 直接拼进单元格
+    (调用异常的原始消息不受我们控制, 可能带换行或 `|`), 不转义会撑破表格。"""
+    return text.replace("|", "/").replace("\n", " ")
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--n", type=int, default=len(QUESTIONS))
@@ -254,7 +295,7 @@ def main() -> int:
         except Exception as exc:  # noqa: BLE001
             rows.append({
                 "q": q, "answer": "", "failed": True,
-                "codes": [f"解析失败: 调用异常 {type(exc).__name__}: {exc}"],
+                "codes": [_md_cell(f"解析失败: 调用异常 {type(exc).__name__}: {exc}")],
                 "webs": [], "kbs": [], "web_status": None,
                 "web_searches_ok": None, "n_calls": 0, "contexts": [], "hard_fact_hits": [],
             })
@@ -302,7 +343,7 @@ def main() -> int:
     for i, row in enumerate(rows, 1):
         flag = "⛔ " + ",".join(row["codes"]) if row["codes"] else "✅ 无"
         lines.append(
-            f"| {i} | {row['q'][:60]} | {flag} | {row['web_status']} | "
+            f"| {i} | {_md_cell(row['q'][:60])} | {_md_cell(flag)} | {row['web_status']} | "
             f"{row['web_searches_ok']} | {row['n_calls']} | {len(row['webs'])} | "
             f"{len(row['kbs'])} | {len(row['hard_fact_hits'])} | ⬜ 待判 | ⬜ 待判 |"
         )
@@ -326,12 +367,16 @@ def main() -> int:
               " 说明联网本身有问题或不完整 (`partial` = 有成有败, 不是全灭)。",
               "- **`机检: Web句含硬事实词` 只是形状扫描, 不是判定, 更不代表"
               "Rule 9(b) 的 class/Core/Role/Type 这部分已被机检『覆盖』**: 扫描"
-              "范围是 [Web: 引用所在句 + 紧随其后一句 (大小写不敏感), 命中不等于"
-              "红线破 (这些词在 KB 来源句子里也会正常出现), 只是提示该句混着"
-              "Core/Role/Class 一类硬事实词汇又带 web 引用, 值得人多看一眼——具体"
-              "命中在附录列出。**不用这些词的归属表述依然会被完全漏掉**"
-              "(例如 \"belongs to the Events category\"、\"is a special-purpose"
-              " dataset\"), 这一列命中为 0 不代表这两样硬事实真的没被违反。",
+              "范围是 [Web: 引用所在的段落/bullet 行 (大小写不敏感, 容规则复数),"
+              "命中不等于红线破 (这些词在 KB 来源段落里也会正常出现), 只是提示"
+              "该段混着 Core/Role/Class 一类硬事实词汇又带 web 引用, 值得人多看"
+              "一眼——具体命中在附录列出。",
+              "- **⚠ 防假阴性: 这一列命中为 0, 不代表 class/Core/Role/Type 这两样"
+              "硬事实真的没被违反, 只代表『没查到这几个特定关键词』**。"
+              "不使用这些词的归属表述 (例如 \"belongs to the Events category\"、"
+              "\"is a special-purpose dataset\") 依然会被完全漏掉——本列命中"
+              "为 0 加 CT 码列 `✅ 无`, 只说明 CT 码这一样真的查过且干净, 不能读成"
+              "『Rule 9(b) 三样都查过都干净』, 那两样从来没有可靠的机检覆盖。",
               "- 人判两列必须逐条看答案原文, 不看就填 = 抽检失效 (规则 A 的意义就在这)。"]
 
     any_codes = any(row["contexts"] for row in rows)
@@ -365,7 +410,7 @@ def main() -> int:
         lines.append("")
 
     any_hits = any(row["hard_fact_hits"] for row in rows)
-    lines += ["", "## 附录: [Web:] 句子里的 Core/Role/Class 等硬事实关键词 "
+    lines += ["", "## 附录: [Web:] 段落里的 Core/Role/Class 等硬事实关键词 "
               "(机器只定位, 不判读)", ""]
     if not any_hits:
         lines.append("(本轮没有命中。)")
@@ -374,8 +419,8 @@ def main() -> int:
             continue
         lines.append(f"### 第 {i} 题: {row['q']}")
         lines.append("")
-        for kw, sentence in row["hard_fact_hits"]:
-            lines.append(f"- 关键词 `{kw}`: …{sentence}…")
+        for kw, para in row["hard_fact_hits"]:
+            lines.append(f"- 关键词 `{kw}`: …{para}…")
         lines.append("")
 
     a.out.parent.mkdir(parents=True, exist_ok=True)
