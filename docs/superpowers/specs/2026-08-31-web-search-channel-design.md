@@ -214,11 +214,38 @@ N 样本人工核验 —— `[Web:]` 标注是否规矩、有无从网页搬 CT 
 
 - **阻塞前置**: Tavily API key (用户 2026-08-31 已去申请)。无 key 时可先用 mock 跑通
   全部单测, 但"能否真跑通"会一直悬着。
-- ⚠ **未验证的技术风险 (实现第一步必须先验)**: §2.2 的工具循环实测走的是**裸 curl 到
-  Bedrock Converse**, 尚未验证 **LiteLLM Router 这一层**的
-  `completion(tools=..., stream=True)` + `bedrock/converse/` 组合能否正常透传
-  `toolUse` / 回灌 `toolResult`。生产调用走的是 Router (`llm_config.py`), 不是裸 curl。
-  若 Router 层不支持, 备选是该路径绕开 Router 直接用 `litellm.completion` (需自行处理
-  fallback), 或裸 boto3/HTTP。**此项未验证前不要开工写业务逻辑。**
+- ✅ **[已解除] LiteLLM Router 透传工具循环** (2026-08-31 实测, 见 §11)。原风险: §2.2 只在
+  裸 curl 上验过, 生产走 Router。现已验证 Router 层完整支持, **无需绕开 Router**。
 - 未决: Tavily 具体额度与单价 (申请时确认, 本 spec 不编数字); 日配额取值待定。
 - 未决: 反代/前端总超时的具体调整值, 实现时按跑满 5 轮的实测时长定。
+
+## 11. 前置验证结果 (2026-08-31, 实现开工前)
+
+脚本 (一次性, 未入库): scratchpad `verify_router_toolcall.py` + `verify_router_loop.py`。
+Router = `create_router(Settings())`, `model="default"` = `global.anthropic.claude-opus-5`。
+
+| # | 验证项 | 结果 |
+|---|---|---|
+| A | 非流式 `router.completion(tools=...)` 透传 | ✅ `finish_reason=tool_calls`, 2 个并行 call |
+| C | **流式** `router.acompletion(stream=True, tools=...)` | ✅ 25 chunk, 增量 `tool_calls` 可拼接 |
+| B1 | 完整循环收敛 | ✅ 4 轮工具调用 → 第 5 轮 `finish=stop`, 7762 字符答案 |
+| B2 | 搜索次数上限兜底 | ✅ 用 8 次 / 上限 15, 未触顶 |
+| B3 | 答案引用喂入的 URL | ✅ 15/23 个 URL 出现在答案里 |
+| B4 | 答案未从网页搬 CT 码 | ✅ 零 `Cxxxxx` (⚠ n=1 观察, **不是**保证 — 见下) |
+
+**实测的查询演进** (印证 agentic 行为, 非单轮前置注入可得):
+
+```
+轮1 泛查 (custom domain vs supplemental qualifiers / 命名约定)
+轮2 FDA Study Data Technical Conformance Guide · PharmaSUG 论文
+轮3 SDTMIG v4.0 NS-- 变量 · define.xml 中不提交的操作性数据
+轮4 FA domain vs 自定义域的取舍 · "supplemental qualifiers" 被审阅者诟病
+轮5 收敛作答
+```
+
+⚠ **B4 不得当作 Rule 9.2 已生效的证据**: 这是**一次**观察, 且该次提问本身不诱导出码。
+Rule 9.2 的真实保证仍须由 §9 测试 4 (集成断言「答案内无非 KB-grounded 的 Cxxxxx」)
+与 §8 的语义抽检承担。**n=1 的干净结果不能证明反捏造有效。**
+
+⇒ 结论: **§10 的管道风险解除, 可按本 spec 开工**; 循环、上限、去重、引用四件事在真实
+Tavily + 真实 Router 上均已跑通。
