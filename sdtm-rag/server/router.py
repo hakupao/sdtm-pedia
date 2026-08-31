@@ -24,6 +24,11 @@ VALID_MODELS = {"default", "hard", "light"}
 # 发挥, 所以联邦路径在这里补回同一句, 与单库路径逐字节一致 (漂移由测试钉住)。
 _NO_CONTEXT = "(No relevant context found in the knowledge base.)"
 
+# 联网失败的严重度序 (F-10): 一次都没成功时报"最严重"的那个, 而不是"最后一个"。
+# disabled (没配 key, 永远不会成) > quota_exceeded (今天的预算用光) > failed (可能是瞬时的)。
+# 只有真打了网的尝试才进这张表 —— 模型自己出错 (bad_query / unknown_tool) 不算联网失败。
+_WEB_FAIL_RANK = {"disabled": 3, "quota_exceeded": 2, "failed": 1}
+
 
 # ── Request / Response models ────────────────────────────────────────────
 
@@ -319,9 +324,22 @@ async def ask_stream(body: AskStreamRequest, request: Request):
     async def gen():
         yield sse("sources", {"sources": sources, "routed_corpus": routed})
         model_used = None
-        usage = None
-        parts: list[str] = []
-        web_status = "off" if not use_web else "ok"
+        parts: list[str] = []   # 跨轮全文, 只给 counting gate 用
+        # 每轮都是一次独立计费的 API 调用 —— usage 必须跨轮累加, 只报最后一轮会系统性低报
+        # 成本。某轮走了 stream_options 窄重试就拿不到 usage; 那种情况打 partial 标记:
+        # 部分数据比没有有用, 但不能把"缺了一轮"呈现成一个看起来完整的总量。
+        usage_total = {"prompt_tokens": 0, "completion_tokens": 0, "total_tokens": 0}
+        usage_seen = False
+        usage_missing = False
+        web_ok = 0
+        web_fail: str | None = None   # 最严重的一次联网失败 (见 _WEB_FAIL_RANK)
+        if not body.web:
+            web_status = "off"
+        elif not s.web_search_enabled:
+            # 用户勾了联网、服务端关着 —— 报 off 会让界面一声不吭, 那正是最骗人的失败模式。
+            web_status = "disabled"
+        else:
+            web_status = "ok"
         msgs = list(messages)
 
         try:
@@ -336,6 +354,8 @@ async def ask_stream(body: AskStreamRequest, request: Request):
                     _open_stream(msgs, with_tools), timeout=s.request_timeout_s)
 
                 acc: dict[int, dict] = {}   # 流式 tool_calls 是增量的, 按 index 拼
+                round_parts: list[str] = []  # 本轮文本, 回灌 assistant 消息用
+                cu_round = None
                 async for chunk in resp:
                     choices = getattr(chunk, "choices", None)
                     if choices:
@@ -345,30 +365,45 @@ async def ask_stream(body: AskStreamRequest, request: Request):
                         text = getattr(ch.delta, "content", None)
                         if text:
                             parts.append(text)
+                            round_parts.append(text)
                             yield sse("token", {"text": text})
                         for tc in (getattr(ch.delta, "tool_calls", None) or []):
-                            slot = acc.setdefault(tc.index, {"id": None, "name": "", "args": ""})
-                            if tc.id:
-                                slot["id"] = tc.id
+                            # index / id 一律 getattr 兜底: 缺字段的 delta 若让
+                            # AttributeError 穿透, 用户拿到的是 "LLM stream failed",
+                            # 整个答案丢光 —— 这比少拼一个分片严重得多。
+                            slot = acc.setdefault(getattr(tc, "index", 0),
+                                                  {"id": None, "name": "", "args": ""})
+                            tc_id = getattr(tc, "id", None)
+                            if tc_id and not slot["id"]:
+                                slot["id"] = tc_id          # 取首个非空
                             fn = getattr(tc, "function", None)
-                            if fn and fn.name:
-                                slot["name"] += fn.name
-                            if fn and fn.arguments:
-                                slot["args"] += fn.arguments
+                            if fn and getattr(fn, "name", None) and not slot["name"]:
+                                slot["name"] = fn.name      # 取首个非空: 有 provider 每片都重发
+                            if fn and getattr(fn, "arguments", None):
+                                slot["args"] += fn.arguments  # 只有 arguments 是真分片
                         model_used = getattr(chunk, "model", None) or model_used
                     cu = getattr(chunk, "usage", None)
                     if cu:
-                        usage = {"prompt_tokens": cu.prompt_tokens,
-                                 "completion_tokens": cu.completion_tokens,
-                                 "total_tokens": cu.total_tokens}
+                        cu_round = cu
 
-                # 没有工具调用 = 本轮就是最终答案。web 关闭时压根没挂工具, 即便 provider
-                # 硬塞回 tool_calls 也一律当最终答案 —— 老路径必须逐字节不变, 不发工具事件。
-                if not acc or not use_web:
+                if cu_round is not None:
+                    usage_seen = True
+                    usage_total["prompt_tokens"] += getattr(cu_round, "prompt_tokens", None) or 0
+                    usage_total["completion_tokens"] += (
+                        getattr(cu_round, "completion_tokens", None) or 0)
+                    usage_total["total_tokens"] += getattr(cu_round, "total_tokens", None) or 0
+                else:
+                    usage_missing = True
+
+                # 没有工具调用 = 本轮就是最终答案; 本轮压根没挂工具 (web 关闭, 或已是收尾轮)
+                # 也一律当最终答案 —— 没挂工具就不该解释工具调用, 更不该为它烧一次配额。
+                if not acc or not with_tools:
                     break
 
-                # 回灌 assistant 的 tool_calls, 再逐个执行并回灌结果
-                msgs.append({"role": "assistant", "content": None, "tool_calls": [
+                # 回灌 assistant 本轮的文本 + tool_calls。content 不能硬写 None —— 模型调
+                # 工具前说的话已经流给用户了, 不回灌它就"忘了"自己说过什么, 最终答案会重复一遍。
+                round_text = "".join(round_parts)
+                msgs.append({"role": "assistant", "content": round_text or None, "tool_calls": [
                     {"id": v["id"], "type": "function",
                      "function": {"name": v["name"], "arguments": v["args"]}}
                     for _, v in sorted(acc.items())]})
@@ -380,16 +415,47 @@ async def ask_stream(body: AskStreamRequest, request: Request):
                         query = ""   # 模型偶发畸形 JSON: 当空查询处理, 不炸循环
                     yield sse("tool_call", {"round": rnd, "query": query, "id": v["id"]})
 
-                    if not query or searcher.searches_used >= s.web_max_searches:
-                        refs, st = [], ("quota_exceeded" if query else "failed")
+                    if v["name"] != "web_search":
+                        # 工具分发不能"名字不管一律当 web_search"。模型点名不存在的工具就
+                        # 如实告诉它, 不执行、不烧配额 —— 这是安全边界, 不只是健壮性。
+                        refs, st = [], "unknown_tool"
+                        content = json.dumps(
+                            {"status": st, "results": [],
+                             "error": f"No tool named {v['name']!r}. Only 'web_search' exists."},
+                            ensure_ascii=False)
+                    elif not query:
+                        # 模型给了畸形/空 query: 是**模型**出错不是**联网**出错, 不能让用户
+                        # 看到"联网失败"。如实标在这一条上, 不动 web_status。
+                        refs, st = [], "bad_query"
+                        content = json.dumps(
+                            {"status": st, "results": [],
+                             "error": "tool call carried no usable 'query' argument."},
+                            ensure_ascii=False)
+                    elif searcher.searches_used >= s.web_max_searches:
+                        refs, st = [], "quota_exceeded"
+                        content = render_tool_result(refs, st)
                     else:
-                        refs, st = searcher.search(query)
-                    if st != "ok":
-                        web_status = st
+                        # searcher.search 是同步 requests.post, 单次最长 web_timeout_s,
+                        # 单请求可跑 web_max_searches 次 —— 直接调会把整个 event loop
+                        # (所有并发 SSE 流 + 健康检查) 占死几分钟。本服务是 LAN 共享的。
+                        refs, st = await asyncio.to_thread(searcher.search, query)
+                        content = render_tool_result(refs, st)
+
+                    if st == "ok":
+                        web_ok += 1
+                    elif st in _WEB_FAIL_RANK and (
+                            web_fail is None or _WEB_FAIL_RANK[st] > _WEB_FAIL_RANK[web_fail]):
+                        web_fail = st
+
                     yield sse("tool_result", {"id": v["id"], "count": len(refs),
                                               "status": st, "urls": [r.url for r in refs]})
                     msgs.append({"role": "tool", "tool_call_id": v["id"],
-                                 "name": v["name"], "content": render_tool_result(refs, st)})
+                                 "name": v["name"], "content": content})
+
+            # 全成 -> ok; 有成有败 -> partial; 一次没成 -> 最严重的那个失败状态。
+            # 逐条的失败细节不丢, 它已经在每条 tool_result 事件里。
+            if web_fail is not None:
+                web_status = "partial" if web_ok else web_fail
 
             # counting gate: 拼出来的答案与可核验的计数矛盾时, 在 done 之前补发一段修正 token
             if facts is not None:
@@ -399,6 +465,12 @@ async def ask_stream(body: AskStreamRequest, request: Request):
                 if violations:
                     log.warning("structured_count_violation_stream", violations=violations)
                     yield sse("token", {"text": corrected[len(full):]})
+
+            usage = None
+            if usage_seen:
+                usage = dict(usage_total)
+                if usage_missing:
+                    usage["partial"] = True   # 有轮次没拿到 usage, 总量不完整, 必须标明
             yield sse("done", {"model_used": model_used or "default",
                                "usage": usage, "web_status": web_status})
         except Exception as e:  # noqa: BLE001 — 流已开, 以事件形式暴露
