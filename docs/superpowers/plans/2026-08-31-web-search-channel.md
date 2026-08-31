@@ -374,10 +374,19 @@ class WebSearcher:
             log.warning("web_search_failed", error=str(exc))
             return [], "failed"
 
+        # 结构校验: "results" 键缺失 (raw == []) 仍是合法的"搜到但没结果" → ok;
+        # 但 "results" 存在却不是 list, 是结构异常, 与网络失败同级 —— 不校验的话下面
+        # it.get(...) 会在非 dict 元素上抛 AttributeError 穿透出去, 违反 §7 红线。
+        if not isinstance(raw, list):
+            log.warning("web_search_malformed_results", type=type(raw).__name__)
+            return [], "failed"
+
         today = _dt.date.today().isoformat()
         seen: set[str] = set()
         refs: list[WebRef] = []
         for it in raw:
+            if not isinstance(it, dict):  # 单个坏元素跳过, 不毁掉整批可用结果
+                continue
             url = it.get("url") or ""
             key = normalize_url(url)
             if not key or key in seen:
