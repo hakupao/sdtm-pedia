@@ -456,3 +456,54 @@ def test_search_runs_off_the_event_loop_thread(monkeypatch):
         "/api/ask_stream", json={"question": "q", "web": True})
     assert _of(_events(r.text), "tool_result")[0]["status"] == "ok"
     assert probe["on_loop_thread"] is False
+
+
+# ── done.web_searches_ok: 让"开了联网但一次没搜成"变得可观测 ──────────────
+
+def test_web_searches_ok_counts_only_successful_searches(monkeypatch):
+    r = _client(_ToolThenTextRouter(), monkeypatch).post(
+        "/api/ask_stream", json={"question": "q", "web": True})
+    assert _of(_events(r.text), "done")[0]["web_searches_ok"] == 1
+
+
+def test_web_off_reports_zero_successful_searches(monkeypatch):
+    r = _client(_ToolThenTextRouter(), monkeypatch).post(
+        "/api/ask_stream", json={"question": "q", "web": False})
+    assert _of(_events(r.text), "done")[0]["web_searches_ok"] == 0
+
+
+def test_model_burning_rounds_on_bogus_tools_is_visible(monkeypatch):
+    """盲区: 模型净点名不存在的工具耗光 5 轮, web_status 仍是 ok (确实一次网都没打)。
+    单看 web_status 用户无从判断; web_searches_ok == 0 把它变成可观测的。"""
+    router = _ScriptedRouter([
+        [_tool_chunk(0, "tooluse_a", "run_shell", '{"query": "x"}'),
+         _text_chunk(None, finish="tool_calls")],
+    ])                                        # _ScriptedRouter 会重复最后一批
+    r = _client(router, monkeypatch).post("/api/ask_stream", json={"question": "q", "web": True})
+    evs = _events(r.text)
+    s = Settings()
+    assert router.calls == s.web_max_rounds + 1
+    assert [d["status"] for d in _of(evs, "tool_result")] == ["unknown_tool"] * s.web_max_rounds
+    assert _FakeSearcher.made[0].queries == []          # 一次网都没打
+    done = _of(evs, "done")[0]
+    assert done["web_status"] == "ok" and done["web_searches_ok"] == 0
+
+
+def test_quota_run_reports_only_the_successful_searches(monkeypatch):
+    """配额耗尽那几次不算成功。"""
+    r = _client(_AlwaysToolRouter(), monkeypatch, settings=Settings(web_max_searches=2)).post(
+        "/api/ask_stream", json={"question": "q", "web": True})
+    done = _of(_events(r.text), "done")[0]
+    assert done["web_status"] == "partial" and done["web_searches_ok"] == 2
+
+
+def test_all_failed_reports_zero_successful_searches(monkeypatch):
+    class _FailSearcher(_FakeSearcher):
+        def search(self, query):
+            self.searches_used += 1
+            self.queries.append(query)
+            return [], "failed"
+    r = _client(_AlwaysToolRouter(), monkeypatch, _FailSearcher).post(
+        "/api/ask_stream", json={"question": "q", "web": True})
+    done = _of(_events(r.text), "done")[0]
+    assert done["web_status"] == "failed" and done["web_searches_ok"] == 0
