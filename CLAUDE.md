@@ -105,6 +105,7 @@ Full chain definitions are in `.work/MANIFEST.md`.
 | 红线 pre-commit 闸 (已启用) | `.githooks/` — hooksPath 已设; 重装 `sh .githooks/install.sh` |
 | C4 接线三闸 (event 通道) | `sdtm-rag/evidence/checkpoints/study_c3_precision_tradeoff.md` §8 |
 | C4 G3 判据 (路由词「G3 收题」) | `sdtm-rag/evidence/checkpoints/g3_pre_registration.md` §7.0 |
+| Phase 7 联网参考通道 (2026-08-31) | `sdtm-rag/server/web_search.py`; 仅 `/api/ask_stream` 支持 |
 
 ## AI 平台多平台部署 (CLOSED 冻结 2026-06-15)
 
