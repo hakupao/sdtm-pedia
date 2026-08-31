@@ -989,22 +989,39 @@ function onToolResultUI(holder, d) {
   const row = p.querySelector(sel);
   const note = document.createElement("span");
   note.className = "web-note";
-  note.textContent = d.status === "ok"
-    ? ` — 找到 ${d.count} 个来源`
-    : ` — 未联网 (${d.status})`;
+  // tool_result.status 有 6 个值, 其中 bad_query/unknown_tool 是**模型**出错不是联网出错,
+  // 措辞必须区分 —— 把模型的失误显示成"联网失败"会让人去查网络而不是查模型。
+  note.textContent = {
+    ok: ` — 找到 ${d.count} 个来源`,
+    failed: " — 搜索失败",
+    quota_exceeded: " — 已达搜索次数上限",
+    disabled: " — 服务端未启用联网",
+    bad_query: " — 跳过 (模型给出的查询无效)",
+    unknown_tool: " — 跳过 (模型调用了不存在的工具)",
+  }[d.status] || ` — ${d.status}`;
   (row || p).appendChild(note);
 }
 
 // web_status 落在 done 上: 勾了联网却静默降级是最骗人的失败模式, 必须显式说出来。
-function renderWebStatus(holder, status) {
-  if (!status || status === "ok" || status === "off") return;
+// ⚠ 契约以 Task 4 实现为准 (计划初稿只列了 3 个状态, 实测收口后是 6 个 + 一个计数):
+//   web_status ∈ {ok, partial, failed, quota_exceeded, disabled, off}
+//   web_searches_ok: int  —— 真正拿到结果的搜索次数 (bad_query/unknown_tool/quota/failed 不计)
+// 三种"看起来正常其实没搜到"的情形必须分开说, 否则用户无从判断答案的成色。
+function renderWebStatus(holder, status, searchesOk) {
+  if (!status || status === "off") return;
+  // ok + 0 次成功检索: 联网开着、一次网都没打成 (模型净吐畸形工具调用能耗光轮数)
+  const msg = status === "ok"
+    ? (searchesOk > 0 ? null : "ℹ 已开启联网, 但本次未实际检索到内容, 以下回答基于知识库")
+    : {
+        partial: "⚠ 部分搜索失败, 联网参考可能不完整 (逐条状态见上方搜索过程)",
+        failed: "⚠ 本次未联网: 搜索请求失败, 以下回答仅基于知识库",
+        quota_exceeded: "⚠ 本次未联网: 已达搜索配额上限, 以下回答仅基于知识库",
+        disabled: "⚠ 本次未联网: 服务端未启用联网, 以下回答仅基于知识库",
+      }[status] || `⚠ 本次未联网 (${status})`;
+  if (!msg) return;
   const warn = document.createElement("div");
-  warn.className = "web-warn";
-  warn.textContent = {
-    failed: "⚠ 本次未联网: 搜索请求失败, 以下回答仅基于知识库",
-    quota_exceeded: "⚠ 本次未联网: 已达搜索配额上限, 以下回答仅基于知识库",
-    disabled: "⚠ 本次未联网: 服务端未配置搜索 key, 以下回答仅基于知识库",
-  }[status] || `⚠ 本次未联网 (${status})`;
+  warn.className = status === "ok" ? "web-note-block" : "web-warn";
+  warn.textContent = msg;
   ensureWebPanel(holder).appendChild(warn);
 }
 ```
@@ -1020,7 +1037,7 @@ function renderWebStatus(holder, status) {
 
 ```javascript
       onDone: (data) => {
-        renderWebStatus(holder, (data || {}).web_status);
+        renderWebStatus(holder, (data || {}).web_status, (data || {}).web_searches_ok);
         const content = acc.trim() ? acc : "(无内容)"; renderFinal(content); persist(content);
       },
 ```
@@ -1036,6 +1053,7 @@ function renderWebStatus(holder, status) {
 .web-row { padding: 2px 0; }
 .web-note { color: #888; }
 .web-warn { margin-top: 6px; color: #b45309; font-weight: 500; }
+.web-note-block { margin-top: 6px; color: #666; }
 .corpus-badge.web { background: #f59e0b; }
 ```
 
