@@ -833,6 +833,9 @@ def main(argv: list[str] | None = None) -> int:
             args.hybrid_pool if args.hybrid_pool is not None else settings.hybrid_pool
         ),
         prompt_guardrail_enabled=args.guardrail,
+        # Task 3 未给 eval 开联网开关 (无 --web-search flag); 恒 False 与 RAGEngine
+        # 默认值一致, 评测数字因此不受 Rule 9 影响, 与生产 web_search_enabled=on 是两回事。
+        web_search_enabled=False,
     )
     rerank_info = (
         f", rerank={rag.rerank_model} pool={rag.rerank_candidates}" if args.rerank else ""
@@ -884,6 +887,9 @@ def main(argv: list[str] | None = None) -> int:
                 args.hybrid_pool if args.hybrid_pool is not None else settings.hybrid_pool
             ),
             prompt_guardrail_enabled=args.guardrail,
+            # 与上面 cdisc 引擎同理恒 False —— 保 docs_engine_parity 闸 (prod/eval 结构
+            # 键集相同) 不因本 task 新增的 lever 而漂移。
+            web_search_enabled=False,
         )
         study_rag = RAGEngine(
             chroma_dir=settings.chroma_dir,

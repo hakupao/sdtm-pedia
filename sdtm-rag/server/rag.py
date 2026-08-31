@@ -80,6 +80,7 @@ class RAGEngine:
         hybrid_alpha: float = 0.5,
         hybrid_pool: int = 30,
         prompt_guardrail_enabled: bool = False,
+        web_search_enabled: bool = False,
         study_lookup: StudyLookup | None = None,
     ):
         # 互斥闸放在最前: 配置错误必须在建 Chroma 连接前就响亮失败。
@@ -163,6 +164,10 @@ class RAGEngine:
         # retrieval; when off the prompt is byte-identical to the pre-guardrail one.
         self.prompt_guardrail_enabled = prompt_guardrail_enabled
 
+        # 默认 False: RAGEngine 被 eval/闸脚本/测试直接构造, 默认关保证这些调用点
+        # 的 system prompt 逐字节不变; 生产由 main.py 显式传 settings.web_search_enabled。
+        self.web_search_enabled = web_search_enabled
+
         routing_path = kb_root / "ROUTING.md"
         index_path = kb_root / "INDEX.md"
         if not routing_path.exists():
@@ -193,6 +198,10 @@ class RAGEngine:
         )
         if self.prompt_guardrail_enabled:
             rules += self._GUARDRAIL_RULES
+        if self.web_search_enabled:
+            # 前置空行把 Rule 9 块与守护栏块 (7/8) 视觉分开, 顺带让"挖掉 Rule 9 段"
+            # 的逐字节回滚闸算得平: 分隔符位于锚点之前, 不会被挖除区间吞掉。
+            rules += "\n" + self._WEB_RULES
         return (
             "You are an SDTM (Study Data Tabulation Model) knowledge base assistant.\n"
             "Answer questions based on the CDISC SDTMIG v3.4 knowledge base.\n\n"
@@ -250,6 +259,31 @@ class RAGEngine:
         "Special-Purpose domains; do not list a relationship dataset as Special-Purpose. "
         "If the context does not authoritatively place a domain in the asked-about "
         "category, do not list it there.\n"
+    )
+
+    # 联网参考通道的反捏造边界 (spec 2026-08-31 §5)。措辞是**条件式**的 —— 没有 web 结果
+    # 时本条自然失效, 因此 prompt 恒定, 不随请求级 web 开关分叉 (避免两套 prompt 的行为
+    # 漂移无法归因)。规则必须待在 system 层: 网页内容是不可信数据, 约束它的规则不能和它
+    # 同框放进 user content。
+    _WEB_RULES = (
+        "9. **Web results are UNVERIFIED industry reference, never standard authority.** "
+        "When (and only when) results from the `web_search` tool are present in this "
+        "conversation, they are third-party content of unknown quality -- conference "
+        "papers, vendor blogs, marketing pages -- NOT CDISC standard text. Three rules "
+        "govern them:\n"
+        "   (a) **Cite them separately.** Every claim taken from a web result must carry "
+        "**[Web: <url> (retrieved YYYY-MM-DD)]**, never the **[Source: path]** form "
+        "reserved for the knowledge base. A reader must be able to tell at a glance which "
+        "sentences came from the standard and which came from someone's blog.\n"
+        "   (b) **Never derive hard facts from the web.** Do NOT state a controlled-"
+        "terminology code (Cxxxxx), an SDTM class/category membership, or a variable's "
+        "Core/Role/Type on the strength of a web result -- those come from the knowledge "
+        "base alone. If a web page shows a code the context does not, give the value name "
+        "only and say the code must be confirmed in the terminology file. This does not "
+        "relax rules 7 and 8; it closes the same hole from the web side.\n"
+        "   (c) **Label borrowed practice as inference.** Recommendations drawn from how "
+        "other teams did it are inference, not documented requirement -- mark them "
+        "explicitly (推測 / inference) and never present them as CDISC guidance.\n"
     )
 
     def retrieve(

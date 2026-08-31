@@ -89,6 +89,8 @@ async def lifespan(app: FastAPI):
         hybrid_pool=s.hybrid_pool,
         # Answer-side trust guardrail (system-prompt grounding rules; default on).
         prompt_guardrail_enabled=s.prompt_guardrail_enabled,
+        # 联网参考通道的 Rule 9 反捏造边界 (system prompt 侧; 默认关, 见 config.py)。
+        web_search_enabled=s.web_search_enabled,
     )
     rag_init_s = round(time.perf_counter() - t_rag, 2)  # incl. BM25 index build when hybrid on
     if s.structured_lookup_enabled:
@@ -127,6 +129,7 @@ async def lifespan(app: FastAPI):
             hybrid_alpha=s.hybrid_alpha,
             hybrid_pool=s.hybrid_pool,
             prompt_guardrail_enabled=s.prompt_guardrail_enabled,
+            web_search_enabled=s.web_search_enabled,
         )
         rag_study = RAGEngine(
             chroma_dir=s.chroma_dir,
