@@ -88,6 +88,22 @@ def test_search_malformed_json_degrades(monkeypatch):
     assert refs == [] and status == "ok"       # 结构合法但空结果, 不算失败
 
 
+def test_search_results_not_a_list_degrades(monkeypatch):
+    # "results" 键存在但值不是 list (Tavily 抽风) —— 结构异常, 与网络失败同级, 不得抛异常
+    sr = _searcher(monkeypatch, lambda *a, **k: _FakeResp(_payload("some string")))
+    refs, status = sr.search("q")
+    assert refs == [] and status == "failed"
+
+
+def test_search_skips_non_dict_elements(monkeypatch):
+    # 混了坏元素的合法列表: 跳过坏的, 保留好的, 不因为一个坏元素判 failed
+    sr = _searcher(monkeypatch, lambda *a, **k: _FakeResp(_payload(
+        [123, {"url": "https://e.com/1", "title": "T", "content": "c"}])))
+    refs, status = sr.search("q")
+    assert [r.url for r in refs] == ["https://e.com/1"]
+    assert status == "ok"
+
+
 def test_missing_key_disabled(monkeypatch):
     # 本机 .env 里跑着真的 TAVILY_API_KEY (dotenv 在 import server.config 时已灌入
     # os.environ), api_key=None 的"无 key"语义靠 delenv 隔离, 而非改实现的 fallback 逻辑
