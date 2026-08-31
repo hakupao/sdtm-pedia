@@ -12,6 +12,8 @@ from fastapi import APIRouter, File, Form, HTTPException, Request, UploadFile
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel, Field
 
+from server.web_search import WEB_TOOL_SPEC, WebSearcher, render_tool_result
+
 log = structlog.get_logger()
 api_router = APIRouter(prefix="/api")
 
@@ -232,6 +234,7 @@ class AskStreamRequest(BaseModel):
     domain: str | None = None
     file_type: str | None = None
     corpus: Literal["auto", "cdisc", "study", "both"] = "auto"
+    web: bool = False  # 联网参考通道; 与 corpus 判库正交 (spec §4)
 
 
 @api_router.post("/ask_stream")
@@ -295,47 +298,100 @@ async def ask_stream(body: AskStreamRequest, request: Request):
     def sse(event: str, data: dict) -> str:
         return f"event: {event}\ndata: {json.dumps(data, ensure_ascii=False)}\n\n"
 
-    async def _open_stream():
-        # include_usage lets the `done` event report token counts. Some providers reject
-        # the stream_options kwarg; if the open fails, retry once WITHOUT it so the answer
-        # is preserved (usage then reported as null — never fabricated). DeepSeek (current
-        # default) supports it; this guards a future provider swap. Iteration-time failures
-        # are NOT retried (would risk double generation) — they fall to the except below.
+    use_web = bool(body.web) and s.web_search_enabled
+    tools = [WEB_TOOL_SPEC] if use_web else None
+    searcher = WebSearcher(s) if use_web else None
+
+    async def _open_stream(msgs, with_tools: bool):
+        """include_usage 让 done 能报 token; 个别 provider 不收该 kwarg, 失败则退化重开一次
+        (保住答案, usage 报 null 而非编造)。开流失败才重试 —— 迭代中途失败不重试 (会重复生成),
+        由下面的 except 兜。工具参数只在 with_tools 时传 —— web 关闭时请求体与本功能引入前
+        逐位相同。"""
+        kw = {"model": "default", "messages": msgs, "stream": True}
+        if with_tools and tools:
+            kw["tools"] = tools
         try:
-            return await llm_router.acompletion(
-                model="default", messages=messages, stream=True,
-                stream_options={"include_usage": True},
-            )
-        except Exception:  # noqa: BLE001 — narrow retry: drop stream_options, keep the answer
+            return await llm_router.acompletion(**kw, stream_options={"include_usage": True})
+        except Exception:  # noqa: BLE001 — 窄重试: 去掉 stream_options, 保住答案
             log.warning("stream_options_unsupported_retry_without", exc_info=True)
-            return await llm_router.acompletion(model="default", messages=messages, stream=True)
+            return await llm_router.acompletion(**kw)
 
     async def gen():
         yield sse("sources", {"sources": sources, "routed_corpus": routed})
         model_used = None
         usage = None
         parts: list[str] = []
+        web_status = "off" if not use_web else "ok"
+        msgs = list(messages)
+
         try:
-            # Outer ceiling on opening the stream (REV MED-b): if the provider hangs on
-            # connect without honoring its own timeout, fail to an error event rather than
-            # holding the SSE connection open forever. Mid-stream is NOT wrapped — a single
-            # deadline there would truncate a long, healthy answer.
-            resp = await asyncio.wait_for(_open_stream(), timeout=s.request_timeout_s)
-            async for chunk in resp:
-                choices = getattr(chunk, "choices", None)
-                if choices:
-                    text = getattr(choices[0].delta, "content", None)
-                    if text:
-                        parts.append(text)
-                        yield sse("token", {"text": text})
-                    model_used = getattr(chunk, "model", None) or model_used
-                cu = getattr(chunk, "usage", None)
-                if cu:
-                    usage = {"prompt_tokens": cu.prompt_tokens,
-                             "completion_tokens": cu.completion_tokens,
-                             "total_tokens": cu.total_tokens}
-            # counting gate: if the assembled answer contradicts a checkable count,
-            # emit the correction suffix as an extra token event before done
+            # web 开启时多跑一轮: 前 max_rounds 轮带工具, 最后一轮**不带**工具 ——
+            # 触顶后模型必须用手上的东西作答, 不能再要搜索, 也不会被硬切断在半句话上。
+            total_rounds = (s.web_max_rounds + 1) if use_web else 1
+            for rnd in range(1, total_rounds + 1):
+                with_tools = use_web and rnd <= s.web_max_rounds
+                # 开流的外层上限 (REV MED-b): provider 连接挂死时以 error 事件收场, 不把
+                # SSE 连接晾着。流中途**不**包 wait_for —— 单一 deadline 会截断健康的长答案。
+                resp = await asyncio.wait_for(
+                    _open_stream(msgs, with_tools), timeout=s.request_timeout_s)
+
+                acc: dict[int, dict] = {}   # 流式 tool_calls 是增量的, 按 index 拼
+                async for chunk in resp:
+                    choices = getattr(chunk, "choices", None)
+                    if choices:
+                        ch = choices[0]
+                        # 是否继续循环只看 acc 是否攒到工具调用, 不看 finish_reason ——
+                        # 各 provider 的收尾理由字段并不统一, acc 是唯一可靠的信号。
+                        text = getattr(ch.delta, "content", None)
+                        if text:
+                            parts.append(text)
+                            yield sse("token", {"text": text})
+                        for tc in (getattr(ch.delta, "tool_calls", None) or []):
+                            slot = acc.setdefault(tc.index, {"id": None, "name": "", "args": ""})
+                            if tc.id:
+                                slot["id"] = tc.id
+                            fn = getattr(tc, "function", None)
+                            if fn and fn.name:
+                                slot["name"] += fn.name
+                            if fn and fn.arguments:
+                                slot["args"] += fn.arguments
+                        model_used = getattr(chunk, "model", None) or model_used
+                    cu = getattr(chunk, "usage", None)
+                    if cu:
+                        usage = {"prompt_tokens": cu.prompt_tokens,
+                                 "completion_tokens": cu.completion_tokens,
+                                 "total_tokens": cu.total_tokens}
+
+                # 没有工具调用 = 本轮就是最终答案。web 关闭时压根没挂工具, 即便 provider
+                # 硬塞回 tool_calls 也一律当最终答案 —— 老路径必须逐字节不变, 不发工具事件。
+                if not acc or not use_web:
+                    break
+
+                # 回灌 assistant 的 tool_calls, 再逐个执行并回灌结果
+                msgs.append({"role": "assistant", "content": None, "tool_calls": [
+                    {"id": v["id"], "type": "function",
+                     "function": {"name": v["name"], "arguments": v["args"]}}
+                    for _, v in sorted(acc.items())]})
+
+                for _, v in sorted(acc.items()):
+                    try:
+                        query = json.loads(v["args"] or "{}").get("query", "")
+                    except json.JSONDecodeError:
+                        query = ""   # 模型偶发畸形 JSON: 当空查询处理, 不炸循环
+                    yield sse("tool_call", {"round": rnd, "query": query, "id": v["id"]})
+
+                    if not query or searcher.searches_used >= s.web_max_searches:
+                        refs, st = [], ("quota_exceeded" if query else "failed")
+                    else:
+                        refs, st = searcher.search(query)
+                    if st != "ok":
+                        web_status = st
+                    yield sse("tool_result", {"id": v["id"], "count": len(refs),
+                                              "status": st, "urls": [r.url for r in refs]})
+                    msgs.append({"role": "tool", "tool_call_id": v["id"],
+                                 "name": v["name"], "content": render_tool_result(refs, st)})
+
+            # counting gate: 拼出来的答案与可核验的计数矛盾时, 在 done 之前补发一段修正 token
             if facts is not None:
                 from server.grounding import apply_counting_gate
                 full = "".join(parts)
@@ -343,8 +399,9 @@ async def ask_stream(body: AskStreamRequest, request: Request):
                 if violations:
                     log.warning("structured_count_violation_stream", violations=violations)
                     yield sse("token", {"text": corrected[len(full):]})
-            yield sse("done", {"model_used": model_used or "default", "usage": usage})
-        except Exception as e:  # noqa: BLE001 — stream already open, surface as event
+            yield sse("done", {"model_used": model_used or "default",
+                               "usage": usage, "web_status": web_status})
+        except Exception as e:  # noqa: BLE001 — 流已开, 以事件形式暴露
             log.error("stream_failed", error=str(e), exc_info=True)
             yield sse("error", {"message": "LLM stream failed"})
 
