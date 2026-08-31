@@ -137,6 +137,15 @@ from server.web_search import (WEB_TOOL_SPEC, WebRef, WebSearcher, normalize_url
                                render_tool_result)
 
 
+@pytest.fixture(autouse=True)
+def _reset_daily_quota():
+    """WebSearcher 的日配额是**类级**状态 (进程内累计) —— 不重置会跨测试污染:
+    排在 test_quota_exceeded 之前的每个 search() 都会把计数推高, 那条断言必挂。"""
+    WebSearcher._day, WebSearcher._day_used = "", 0
+    yield
+    WebSearcher._day, WebSearcher._day_used = "", 0
+
+
 def _payload(results):
     return {"results": results}
 
@@ -212,9 +221,8 @@ def test_missing_key_disabled():
 
 
 def test_quota_exceeded(monkeypatch):
-    s = Settings()
-    s.web_daily_quota = 1
-    sr = WebSearcher(s, api_key="tvly-test")
+    monkeypatch.setenv("SDTM_RAG_WEB_DAILY_QUOTA", "1")   # 经 env 而非改实例, 不依赖 Settings 可变性
+    sr = WebSearcher(Settings(), api_key="tvly-test")
     monkeypatch.setattr("server.web_search.requests.post",
                         lambda *a, **k: _FakeResp(_payload([{"url": "https://e.com/1",
                                                              "title": "T", "content": "c"}])))
