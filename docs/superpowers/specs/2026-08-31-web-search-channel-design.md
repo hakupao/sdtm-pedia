@@ -233,6 +233,7 @@ N 样本人工核验 —— `[Web:]` 标注是否规矩、有无从网页搬 CT 
 |---|---|---|---|
 | B1 | Rule 9(b) 文本写 `This does not relax rules 7 and 8`, 但 `SDTM_RAG_PROMPT_GUARDRAIL_ENABLED=false` 时规则序列是 `6.` 直接跳 `9.`, **7/8 根本不存在** ⇒ 该句悬空引用 | guardrail 关闭 + 联网开启 (A/B 回滚路径才会碰到) | **spec 作者疏漏** (写 Rule 9 时未考虑 guardrail 可关)。未修: 改文本要连带改代码+测试, 而该组合仅出现在回滚 A/B 中; 悬空引用不会削弱 (b) 自身的禁令效力 |
 | B2 | 逐字节回滚闸测的是「ON 挖掉 Rule 9 == OFF」的内部一致性, 不是 spec 要的「OFF == 引入本功能前」 | 恒定 | 后者在 Task 3 期由 reviewer 与控制器**各自独立**用 `850fd13^` 建 golden 比 sha 验过 (两侧均 True), 但**没有常驻断言**。可补一份 OFF prompt 的 sha256 golden |
+| B4 | `web_search.py::_bump_day()` 对**类级** `_day_used` 做 read-modify-write (`+= 1` 是 LOAD/OP/STORE 三步) 且 `if cls._day != today` 是 check-then-act | 并发请求 + `asyncio.to_thread` (Task 4 F-1 修复后引入) | Task 4 前所有搜索串在唯一 event loop 线程上**天然互斥**, 修复后并发跑进线程池。reviewer 实测 24 线程 × 5000 次 × 3 轮**零丢失** (GIL 版 CPython 3.14.4)。⇒ 判 Minor 记账: 影响面仅日配额**软闸**计数精度, 不碰 `web_max_searches` 每请求**硬闸**。⚠ **换 free-threaded 构建时必须在此加 `threading.Lock`** |
 | B3 | `eval/run_eval.py` 的 `web_search_enabled` 恒 `False` (兄弟 lever 走 `args.guardrail`, 唯独它写死) | 未来加联网评测时 | 今日无害 (eval 未接工具循环)。⚠ **未来加 `--web-search` 时必须用同一个 args 同时驱动工具循环与本 lever**, 否则会跑「无 Rule 9 构型」却当生产数字上报 |
 
 ## 11. 前置验证结果 (2026-08-31, 实现开工前)
