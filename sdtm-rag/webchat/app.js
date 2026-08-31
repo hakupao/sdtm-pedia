@@ -85,7 +85,7 @@ function renderMessages() {
   if (!c) return;
   let lastUserQ = "";
   for (const m of c.messages) {
-    const el = messageEl(m.role, m.content, m.sources, m.routedCorpus);
+    const el = messageEl(m.role, m.content, m.sources, m.routedCorpus, m.webStatus, m.webSearchesOk);
     if (m.role === "user") lastUserQ = m.content;
     else if (m.role === "assistant") attachFlag(el, lastUserQ, m);
     box.appendChild(el);
@@ -93,7 +93,7 @@ function renderMessages() {
   box.scrollTop = box.scrollHeight;
 }
 
-function messageEl(role, content, sources, routedCorpus) {
+function messageEl(role, content, sources, routedCorpus, webStatus, webSearchesOk) {
   const wrap = document.createElement("div");
   const msg = document.createElement("div");
   msg.className = "msg " + role;
@@ -108,6 +108,9 @@ function messageEl(role, content, sources, routedCorpus) {
   const meta = metaEl(routedCorpus);
   if (meta) wrap.appendChild(meta);
   if (sources && sources.length) wrap.appendChild(sourcesEl(sources));
+  // 刷新/切会话后复原联网状态。不复原的话, 一个"已降级为未联网"的 KB-only 答案
+  // 和正常联网答案长得一模一样 (spec §7 点名的最骗人的失败模式)。
+  renderWebStatus(wrap, webStatus, webSearchesOk);
   return wrap;
 }
 
@@ -399,13 +402,16 @@ async function runGeneration(c) {
   let acc = "";
   let gotSources = null;
   let gotRouted = null;
+  let gotWebStatus = null;
+  let gotWebSearchesOk = null;
   let saved = false;
   let savedMsg = null;
   const renderFinal = (content) => { bubble.innerHTML = mdToSafeHTML(content); highlightIn(bubble); };
   const persist = (content) => {
     if (saved) return;
     saved = true;
-    savedMsg = { role: "assistant", content, sources: gotSources || [], routedCorpus: gotRouted };
+    savedMsg = { role: "assistant", content, sources: gotSources || [], routedCorpus: gotRouted,
+                 webStatus: gotWebStatus, webSearchesOk: gotWebSearchesOk };
     c.messages.push(savedMsg);
     save(); renderSidebar();
   };
@@ -436,7 +442,8 @@ async function runGeneration(c) {
       onToolResult: (d) => onToolResultUI(holder, d),
       // done 后整体渲染 markdown 一次; 空回答用占位 (DESIGN §6)。
       onDone: (data) => {
-        renderWebStatus(holder, (data || {}).web_status, (data || {}).web_searches_ok);
+        gotWebStatus = (data || {}).web_status; gotWebSearchesOk = (data || {}).web_searches_ok;
+        renderWebStatus(holder, gotWebStatus, gotWebSearchesOk);
         const content = acc.trim() ? acc : "(无内容)"; renderFinal(content); persist(content);
       },
       onError: (msg) => { if (acc) { renderFinal(acc); persist(acc); } appendErr(msg); appendRetry(); },

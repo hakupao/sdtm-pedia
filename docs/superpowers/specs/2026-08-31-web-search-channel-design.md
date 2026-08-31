@@ -246,8 +246,37 @@ N 样本人工核验 —— `[Web:]` 标注是否规矩、有无从网页搬 CT 
 |---|---|---|---|
 | B1 | Rule 9(b) 文本写 `This does not relax rules 7 and 8`, 但 `SDTM_RAG_PROMPT_GUARDRAIL_ENABLED=false` 时规则序列是 `6.` 直接跳 `9.`, **7/8 根本不存在** ⇒ 该句悬空引用 | guardrail 关闭 + 联网开启 (A/B 回滚路径才会碰到) | **spec 作者疏漏** (写 Rule 9 时未考虑 guardrail 可关)。未修: 改文本要连带改代码+测试, 而该组合仅出现在回滚 A/B 中; 悬空引用不会削弱 (b) 自身的禁令效力 |
 | B2 | 逐字节回滚闸测的是「ON 挖掉 Rule 9 == OFF」的内部一致性, 不是 spec 要的「OFF == 引入本功能前」 | 恒定 | 后者在 Task 3 期由 reviewer 与控制器**各自独立**用 `850fd13^` 建 golden 比 sha 验过 (两侧均 True), 但**没有常驻断言**。可补一份 OFF prompt 的 sha256 golden |
-| B4 | `web_search.py::_bump_day()` 对**类级** `_day_used` 做 read-modify-write (`+= 1` 是 LOAD/OP/STORE 三步) 且 `if cls._day != today` 是 check-then-act | 并发请求 + `asyncio.to_thread` (Task 4 F-1 修复后引入) | Task 4 前所有搜索串在唯一 event loop 线程上**天然互斥**, 修复后并发跑进线程池。reviewer 实测 24 线程 × 5000 次 × 3 轮**零丢失** (GIL 版 CPython 3.14.4)。⇒ 判 Minor 记账: 影响面仅日配额**软闸**计数精度, 不碰 `web_max_searches` 每请求**硬闸**。⚠ **换 free-threaded 构建时必须在此加 `threading.Lock`** |
+| B4 | `web_search.py::_bump_day()` 对**类级** `_day_used` 做 read-modify-write (`+= 1` 是 LOAD/OP/STORE 三步) 且 `if cls._day != today` 是 check-then-act | 并发请求 + `asyncio.to_thread` (Task 4 F-1 修复后引入) | Task 4 前所有搜索串在唯一 event loop 线程上**天然互斥**, 修复后并发跑进线程池。reviewer 实测 24 线程 × 5000 次 × 3 轮**零丢失** (GIL 版 CPython 3.14.4)。⇒ 当时判 Minor 记账 (影响面仅日配额**软闸**计数精度, 不碰 `web_max_searches` 每请求**硬闸**)。**✅ 已修 (合并前终审)**: `_bump_day()` 现由类级 `threading.Lock` 保护, 日期翻转的 check-then-act 与 `+= 1` 同处一个临界区。终审驳回了原来的记账理由 —— 压测零丢失证明的是**窗口窄, 不是操作原子**, 而「换 free-threaded 构建时记得加锁」这类注释的历史命中率接近零, 故不留 TODO 直接上锁 |
+| B3' ⛔ | **eval 已无法复现生产 system prompt**（终审 I-C，**升级自 B3**）| 恒定，**今天就在咬** | 生产每次请求（含 `web=false`）都带 Rule 9；eval 写死 `web_search_enabled=False` 且无 `--web-search` lever。终审变异实测：两处 `False` 改 `True`，**1862 条全绿**，值漂无人响。⇒ **现有 140q / study 48q 数字描述的是一个生产不跑的构型**。<br>⛔ **硬约束：在加 lever 并以 `--web-search` 跑过一遍之前，这些数字不得作为生产构型的质量背书对外引用。**<br>修法：加 `--web-search`，用同一 `args` 同时驱动工具循环与本 lever；不必专门花钱重跑，等下次因别的原因跑 eval 时顺带跑一遍即可。<br>⚠ 风险形状**不是**「Rule 9 把答案搞坏」（抽检 Q3 已证否，见 §10.2），而是「Rule 9(b) 可能让模型在涉码题上**系统性变保守**」——渐进、静默、朝向"更安全"一侧，**人工抽检天然不敏感**，只有 140q + `check_code_grounding.py` 能量化。 |
 | B3 | `eval/run_eval.py` 的 `web_search_enabled` 恒 `False` (兄弟 lever 走 `args.guardrail`, 唯独它写死) | 未来加联网评测时 | 今日无害 (eval 未接工具循环)。⚠ **未来加 `--web-search` 时必须用同一个 args 同时驱动工具循环与本 lever**, 否则会跑「无 Rule 9 构型」却当生产数字上报 |
+
+## 10.2 Rule 9 常驻对非联网题的影响 — 现有证据强度
+
+**唯一的直接观察 = 抽检 Q3，且它是自证的**（不依赖任何运行时记录）：
+
+`router.py` 的状态机是 `not body.web -> "off"` / `not s.web_search_enabled -> "disabled"` /
+else `"ok"`。Q3 落盘 `web_status=ok`，而抽检脚本恒发 `web: True`；且 `main.py` 建引擎与路由
+读的是**同一个 Settings 对象**。⇒ `web_status=ok` **蕴含** `web_search_enabled=True` **蕴含**
+Rule 9 当时就在 system prompt 里；同时 `搜索次数=0 / web_searches_ok=0` **蕴含**零网页内容进
+context。**Q3 因此是一次真实的、生产非联网构型下的运行。**
+
+| 维度 | 判断 |
+|---|---|
+| 构型等同生产非联网态 | ✅ 是，且自证 |
+| 排除 Rule 9(c) 溢出（污染纯 KB 答案） | ✅ 8002 字符答案，`推測/inference` 出现 **0 次** |
+| 排除 Rule 9(b) 溢出（让模型少给码） | ✅ 照常给出 C101833/C101832，22 个 `[Source:]` |
+| 统计强度 | ❌ **n=1，单题，未对 gold 打分** |
+
+⇒ 「完全悬空」不成立，但这是**存在性证据**（至少有一次没坏），**不是分布证据**（整体不变）。
+
+**体量的两句话必须同时说**（缺一条都是误导）：Rule 9 使 system prompt 从 3053 -> 4363 字符，
+增量 1310 字符 ≈ 327 token，**占指令层 30%**（作对照，`_GUARDRAIL_RULES` 整块才 1946 字符）；
+放进含检索上下文的完整 prompt 只占 3-5%。后者说明**它不会撑爆上下文也不显著涨钱**，但
+**不构成行为安全的论据** —— 检索上下文是**数据**，system prompt 是**指令**，行为策略由指令层
+决定，用整体占比去稀释一个只在指令层起作用的量是错的。
+⚠ 且 Rule 9 与 rules 7-8 **同构且相邻**（都管码/归属，仅约束对象不同），这种结构最容易被
+**欠判别地合并理解** —— 模型未必能干净保持「9(b) 只在有 web 结果时生效」这条边界，而这正是
+B3' 所说漂移机理的来源。
 
 ## 11. 前置验证结果 (2026-08-31, 实现开工前)
 

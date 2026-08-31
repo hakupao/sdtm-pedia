@@ -28,6 +28,9 @@ def test_frontend_knows_every_event_the_backend_emits():
     router = ROUTER_PY.read_text(encoding="utf-8")
     emitted = set(re.findall(r'sse\("([a-z_]+)"', router))
     known = _dispatched_events()
+    # 尺寸下限 (兄弟断言 `len(backend) >= 6` 的同款): `sse(` 一旦改名, `emitted` 变空集,
+    # `set() <= known` 恒真 —— 正是这条闸本该防的那类失效。
+    assert len(emitted) >= 6, f"事件名抽取失效, 只拿到 {emitted}"
     assert emitted <= known, f"后端会发但前端不认识的事件: {emitted - known}"
 
 

@@ -12,6 +12,7 @@ from __future__ import annotations
 import datetime as _dt
 import json
 import os
+import threading
 from dataclasses import dataclass
 
 import requests
@@ -68,6 +69,11 @@ class WebSearcher:
 
     _day: str = ""
     _day_used: int = 0  # 类级: 进程内的当日累计 (轻量兜底, 非跨进程强一致)
+    # Task 4 把搜索放进 asyncio.to_thread ⇒ 跨请求会并发跑进线程池, 而 _bump_day 对
+    # 类级状态做的是 read-modify-write (`+= 1` = LOAD/ADD/STORE 三步) 加日期翻转的
+    # check-then-act。压测"零丢失"证明的只是窗口窄, 不是操作原子, 且"换 free-threaded
+    # 构建时记得加锁"这类注释的历史命中率接近零 —— 所以直接上锁, 不留 TODO。
+    _day_lock = threading.Lock()
 
     def __init__(self, settings, api_key: str | None = None) -> None:
         self.s = settings
@@ -77,10 +83,11 @@ class WebSearcher:
     @classmethod
     def _bump_day(cls) -> int:
         today = _dt.date.today().isoformat()
-        if cls._day != today:
-            cls._day, cls._day_used = today, 0
-        cls._day_used += 1
-        return cls._day_used
+        with cls._day_lock:          # 日期翻转的 check-then-act 与 += 1 必须在同一临界区内
+            if cls._day != today:
+                cls._day, cls._day_used = today, 0
+            cls._day_used += 1
+            return cls._day_used
 
     def search(self, query: str) -> tuple[list[WebRef], str]:
         if not self.api_key:

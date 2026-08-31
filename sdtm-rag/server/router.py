@@ -10,7 +10,7 @@ from typing import Literal
 import structlog
 from fastapi import APIRouter, File, Form, HTTPException, Request, UploadFile
 from fastapi.responses import StreamingResponse
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
 
 from server.web_search import WEB_TOOL_SPEC, WebSearcher, render_tool_result
 
@@ -38,6 +38,11 @@ class MessageItem(BaseModel):
 
 
 class AskRequest(BaseModel):
+    # extra="forbid": 未知字段必须 422, 不能静默丢弃。抽检脚本 v1 就是往 /api/ask 传了
+    # `web: true` —— pydantic 默默扔掉, 端点照常返回 200, 于是产出一整张"全 ✅ 却什么
+    # 都没测到"的抽检表 (evidence/failures/web_channel_spotcheck_attempt_1_*)。
+    model_config = ConfigDict(extra="forbid")
+
     question: str = Field(max_length=10000)
     domain: str | None = None
     file_type: str | None = None
@@ -77,6 +82,7 @@ class InfoResponse(BaseModel):
     hybrid: bool
     hybrid_fusion: str | None = None
     prompt_guardrail: bool
+    web_search: bool = False  # Rule 9 是否在线 (回滚开关的唯一可观测出口)
     # Phase 2 compare/judge defaults (UI prefills its model slots from these).
     compare_models: list[str] = Field(default_factory=list)
     judge_model: str | None = None
@@ -107,6 +113,7 @@ def info(request: Request):
         hybrid=rag.hybrid_enabled,
         hybrid_fusion=rag.hybrid_fusion if rag.hybrid_enabled else None,
         prompt_guardrail=rag.prompt_guardrail_enabled,
+        web_search=rag.web_search_enabled,
         compare_models=s.compare_models,
         judge_model=s.judge_model,
         # 启动时算好存在 app.state, 避免每次 /info 都重扫 KB 目录
