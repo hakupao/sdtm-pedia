@@ -117,6 +117,18 @@ class Settings(BaseSettings):
     # when off, the system prompt is byte-identical to the pre-guardrail production one.
     prompt_guardrail_enabled: bool = True
 
+    # ── 联网参考通道 (spec 2026-08-31) ──
+    # 联网与 corpus 判库正交: 请求级 `web` 只决定是否把 web_search 工具挂上去,
+    # **不动 system prompt**; 本开关才决定 Rule 9 是否进 system prompt。
+    # 关掉 ⇒ system prompt 与本功能引入前逐字节相同 (A/B 回滚, 同 prompt_guardrail 先例)。
+    web_search_enabled: bool = True
+    web_max_rounds: int = 5          # 工具循环轮数上限 (用户裁定)
+    web_max_searches: int = 15       # 单次请求搜索次数上限 (用户裁定)
+    web_results_per_search: int = 3  # 每次搜索取回条数 (§6.1: 5 条 ≈ 3K token, 收到 3)
+    web_result_max_chars: int = 1200 # 单条正文截断 (§6.1 上下文预算)
+    web_daily_quota: int = 200       # 日配额兜底, 防忘关跑飞 (§7)
+    web_timeout_s: float = 30.0      # 单次 Tavily 调用超时
+
     # ── Structured answer channel (SP2): deterministic count/enumerate/attribute/CT
     # answers from data/meta/meta.yaml, injected as an authoritative context block +
     # a counting grounding gate. Orthogonal to retrieval (Phase 1 never touches
