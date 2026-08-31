@@ -218,7 +218,7 @@ def test_eval_docs_engine_carries_every_lever_its_cards_engine_carries(eval_boot
 def test_prod_docs_engine_carries_every_lever_its_cards_engine_carries(prod_boot):
     """生产侧同一条不变量的镜像 —— eval 侧那条改红了而这条没有, 就是单边漂移。"""
     engines = prod_boot(study_docs_seats=7)
-    cards, docs = engines[1], engines[2]
+    cdisc, cards, docs = engines[0], engines[1], engines[2]
     assert set(cards) - set(docs) == {"study_lookup"}
     assert set(docs) - set(cards) == set()
     assert {k for k in docs if cards[k] != docs[k]} == {"collection_name", "top_k"}
@@ -238,6 +238,11 @@ def test_prod_docs_engine_carries_every_lever_its_cards_engine_carries(prod_boot
     assert docs["hybrid_alpha"] == s.hybrid_alpha
     assert docs["hybrid_pool"] == s.hybrid_pool
     assert docs["prompt_guardrail_enabled"] == s.prompt_guardrail_enabled
+    # web_search_enabled (Task 3): main.py:93/:132 两处注入点此前无人管 —— 单独改值
+    # (不删键, 不影响上面的键集断言) 全量全绿。cdisc 引擎 (main.py:93) 与 docs 引擎
+    # (main.py:132 的 study_levers) 各钉一条, 覆盖两个独立注入点。
+    assert cdisc["web_search_enabled"] == s.web_search_enabled
+    assert docs["web_search_enabled"] == s.web_search_enabled
     # 方向钉 (STRUCTURAL 里比了但没钉方向, 两条路径一起指错就照绿): 生产用与索引不同的
     # embedding = 检索静默崩塌; chroma_dir 指错 = 查的是另一份库。
     assert docs["embedding_model"] == s.embedding_model

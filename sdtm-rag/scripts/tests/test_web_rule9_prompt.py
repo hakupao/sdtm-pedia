@@ -3,6 +3,8 @@
 `scripts/tests/` 无 make_engine helper (已确认), 故本地直接构造 —— 只测 prompt 组装,
 用 __new__ 绕开 chroma/embedding 初始化。
 """
+import inspect
+
 from server.rag import RAGEngine
 
 
@@ -40,3 +42,12 @@ def test_rule9_is_the_only_difference():
     tail = on.find("---\n\n## Routing Guide")
     assert tail > idx
     assert on[:idx] + on[tail:] == off         # 挖掉 Rule 9 段后必须逐字节还原
+
+
+def test_web_search_enabled_default_is_false():
+    """构造器默认值钉死 (全局约束, brief §「默认值是 False 而非 True」): eval 脚本/闸
+    脚本/大量测试直接构造 RAGEngine 而不传这个关键字, 全靠默认值挡住 Rule 9 误开。
+    `_engine()` helper 用 __new__ 绕开 __init__ 再显式赋值, 测不到这条 —— default 被
+    悄悄改成 True 时, 上面三条用例不会有任何一条变红。"""
+    default = inspect.signature(RAGEngine.__init__).parameters["web_search_enabled"].default
+    assert default is False
