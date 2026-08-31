@@ -62,8 +62,16 @@ KB_CITE_RE = re.compile(r"\[Source:\s*([^\]]+)\]")
 # Rule 9(b) 禁的是三样硬事实: CT 码 (CODE_RE 管这个) / class 或 category 归属 /
 # Core-Role-Type。后两样目前没有专门的机检, 这组关键词只是在"含 [Web: 引用的
 # 句子"里做形状扫描, 供人判读时优先看——不是判定, 见 I-6 相关注释。
+#
+# 大小写不敏感 (复审 v4→v5 修复): 英文散文里写这类归属的常态是小写
+# ("treat FA as a findings class domain"), 不是 KB 字段名那种大写 ("Class");
+# 只匹配大写会把最常见的写法漏掉。代价是常见英文词 (class/role/core/topic 等)
+# 现在会更频繁命中, 误报率上升——这是有意的取舍: 命中不是判定、只是"值得看
+# 一眼"的提示 (见下方判读规则文案), 漏检 (让真正违规的句子完全不出现在这一
+# 列里) 比误报 (让一个无关句子多被人扫一眼) 危险得多。
 _HARD_FACT_KEYWORDS = re.compile(
-    r"\b(Req|Perm|Exp|Core|Role|Qualifier|Class|Identifier|Topic|Grouping|Timing)\b")
+    r"\b(Req|Perm|Exp|Core|Role|Qualifier|Class|Identifier|Topic|Grouping|Timing)\b",
+    re.IGNORECASE)
 
 
 def _iter_sse_frames(text: str):
@@ -145,18 +153,42 @@ def _code_contexts(answer: str) -> list[dict]:
 
 
 def _web_sentences(answer: str) -> list[str]:
-    """粗切句子 (按 `. `/`! `/`? `/换行), 只留含 `[Web:` 引用的那些——给 I-6 的
-    关键词机检定位扫描范围, 不是严谨的分句器。"""
+    """粗切句子 (按 `. `/`! `/`? `/换行) —— 不是严谨的分句器。给 I-6 的关键词
+    机检定位扫描范围: 含 `[Web:` 引用的句子本身, **加上紧随其后的一句**。
+
+    只扩到"后一句", 不扩到"前一句" (复审 v4→v5 修复的另一半): 基于网页内容
+    做推论时最自然的写法是"先引后断"——引用单独一句, 支撑的断言紧跟在下一句
+    ("Several teams do this [Web: ...]. It is a Findings class domain.")。
+    这种写法里断言句本身不含 `[Web:`, 原来只扫"含 [Web: 的句子"会把它整句漏掉
+    ——这正是复审发现的漏检根因之一 (用例 C)。"断言先说、引用作为后一句才补上"
+    这种反过来的写法不常见, 暂不纳入前一句; 若之后发现常见, 再补并说明理由。
+
+    ⚠ 局限仍在: 这依然是关键词形状扫描, 不是语义判断。不用 Req/Perm/Core/Role/
+    Class/Type 这类词的归属表述 (比如 "belongs to the Events category"、
+    "is a special-purpose dataset") 扫不到, 见 `_hard_fact_keyword_hits`
+    docstring 与判读规则文案。
+    """
     sentences = re.split(r"(?<=[.!?])\s+|\n+", answer)
-    return [s for s in sentences if "[Web:" in s]
+    keep: set[int] = set()
+    for i, s in enumerate(sentences):
+        if "[Web:" in s:
+            keep.add(i)
+            if i + 1 < len(sentences):
+                keep.add(i + 1)
+    return [sentences[i] for i in sorted(keep)]
 
 
 def _hard_fact_keyword_hits(answer: str) -> list[tuple[str, str]]:
     """Rule 9(b) 禁的另外两样 (class/category 归属, Core-Role-Type) 目前没有像
-    CT 码那样的专门机检——这里只做最粗的形状扫描: `[Web:` 引用句里出现的
-    Core/Role/Class/Type 一类关键词, 返回 (关键词, 命中句子) 列表供人核对。
-    命中不等于红线破 (这些词在 KB 来源的句子里也会正常出现), 只是提示"这句话
-    里混着硬事实词汇, 且旁边有 web 引用, 值得多看一眼"。"""
+    CT 码那样的专门机检——这里只做最粗的形状扫描: `[Web:` 引用句 (含紧随的下一句,
+    见 `_web_sentences`) 里出现的 Core/Role/Class/Type 一类关键词 (大小写不敏感),
+    返回 (关键词, 命中句子) 列表供人核对。
+
+    ⚠ 命中不等于红线破 (这些词在 KB 来源的句子里也会正常出现), 只是提示"这句话
+    里混着硬事实词汇, 且附近有 web 引用, 值得多看一眼"——**这仍然只是关键词形状
+    扫描, 不是语义判断, 不代表 Rule 9(b) 的 class/Core/Role/Type 这部分已经被
+    机检"覆盖"**: 不使用这些词的归属表述 (例如 "belongs to the Events category"、
+    "is a special-purpose dataset") 依然会被完全漏掉。"""
     hits = []
     for s in _web_sentences(answer):
         for kw in _HARD_FACT_KEYWORDS.findall(s):
@@ -292,9 +324,14 @@ def main() -> int:
               "`web_searches_ok` > 0 才是真的搜到了结果; `web_status` 应为 `ok`,"
               " 非 `ok` (如 `partial`/`disabled`/`quota_exceeded`/`failed`/`off`)"
               " 说明联网本身有问题或不完整 (`partial` = 有成有败, 不是全灭)。",
-              "- **`机检: Web句含硬事实词` 只是形状扫描, 不是判定**: 命中不等于红线破"
-              "(这些词在 KB 来源句子里也会正常出现), 只是提示该句混着 Core/Role/Class"
-              "一类硬事实词汇又带 [Web: 引用, 值得人多看一眼——具体命中在附录列出。",
+              "- **`机检: Web句含硬事实词` 只是形状扫描, 不是判定, 更不代表"
+              "Rule 9(b) 的 class/Core/Role/Type 这部分已被机检『覆盖』**: 扫描"
+              "范围是 [Web: 引用所在句 + 紧随其后一句 (大小写不敏感), 命中不等于"
+              "红线破 (这些词在 KB 来源句子里也会正常出现), 只是提示该句混着"
+              "Core/Role/Class 一类硬事实词汇又带 web 引用, 值得人多看一眼——具体"
+              "命中在附录列出。**不用这些词的归属表述依然会被完全漏掉**"
+              "(例如 \"belongs to the Events category\"、\"is a special-purpose"
+              " dataset\"), 这一列命中为 0 不代表这两样硬事实真的没被违反。",
               "- 人判两列必须逐条看答案原文, 不看就填 = 抽检失效 (规则 A 的意义就在这)。"]
 
     any_codes = any(row["contexts"] for row in rows)
