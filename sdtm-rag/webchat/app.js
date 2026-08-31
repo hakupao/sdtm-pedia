@@ -155,6 +155,70 @@ function sourcesEl(sources) {
   return d;
 }
 
+// 搜索过程条: 网页版那种「看得见它在搜什么」的观感。没有这层, 勾了联网只会
+// 看到卡住半分钟然后蹦出一段话 —— 那是超时的感觉, 不是联网的感觉。
+// ⚠ 挂在 holder (气泡外层) 而非 bubble: onToken 会 bubble.textContent=acc 覆盖气泡内容。
+function ensureWebPanel(holder) {
+  let p = holder.querySelector(":scope > .web-panel");
+  if (!p) {
+    p = document.createElement("div");
+    p.className = "web-panel";
+    holder.prepend(p);   // 搜索过程显示在答案上方
+  }
+  return p;
+}
+
+function onToolCallUI(holder, d) {
+  const row = document.createElement("div");
+  row.className = "web-row";
+  row.dataset.callId = d.id || "";
+  row.textContent = `🔍 搜索 "${d.query || ""}"`;
+  ensureWebPanel(holder).appendChild(row);
+}
+
+function onToolResultUI(holder, d) {
+  const p = ensureWebPanel(holder);
+  // CSS.escape: tool id 来自模型返回, 不保证是合法选择器
+  const sel = `.web-row[data-call-id="${CSS.escape(d.id || "")}"]`;
+  const row = p.querySelector(sel);
+  const note = document.createElement("span");
+  note.className = "web-note";
+  // tool_result.status 有 6 个值, 其中 bad_query/unknown_tool 是**模型**出错不是联网出错,
+  // 措辞必须区分 —— 把模型的失误显示成"联网失败"会让人去查网络而不是查模型。
+  note.textContent = {
+    ok: ` — 找到 ${d.count} 个来源`,
+    failed: " — 搜索失败",
+    quota_exceeded: " — 已达搜索次数上限",
+    disabled: " — 服务端未启用联网",
+    bad_query: " — 跳过 (模型给出的查询无效)",
+    unknown_tool: " — 跳过 (模型调用了不存在的工具)",
+  }[d.status] || ` — ${d.status}`;
+  (row || p).appendChild(note);
+}
+
+// web_status 落在 done 上: 勾了联网却静默降级是最骗人的失败模式, 必须显式说出来。
+// ⚠ 契约以 Task 4 实现为准 (计划初稿只列了 3 个状态, 实测收口后是 6 个 + 一个计数):
+//   web_status ∈ {ok, partial, failed, quota_exceeded, disabled, off}
+//   web_searches_ok: int  —— 真正拿到结果的搜索次数 (bad_query/unknown_tool/quota/failed 不计)
+// 三种"看起来正常其实没搜到"的情形必须分开说, 否则用户无从判断答案的成色。
+function renderWebStatus(holder, status, searchesOk) {
+  if (!status || status === "off") return;
+  // ok + 0 次成功检索: 联网开着、一次网都没打成 (模型净吐畸形工具调用能耗光轮数)
+  const msg = status === "ok"
+    ? (searchesOk > 0 ? null : "ℹ 已开启联网, 但本次未实际检索到内容, 以下回答基于知识库")
+    : {
+        partial: "⚠ 部分搜索失败, 联网参考可能不完整 (逐条状态见上方搜索过程)",
+        failed: "⚠ 本次未联网: 搜索请求失败, 以下回答仅基于知识库",
+        quota_exceeded: "⚠ 本次未联网: 已达搜索配额上限, 以下回答仅基于知识库",
+        disabled: "⚠ 本次未联网: 服务端未启用联网, 以下回答仅基于知识库",
+      }[status] || `⚠ 本次未联网 (${status})`;
+  if (!msg) return;
+  const warn = document.createElement("div");
+  warn.className = status === "ok" ? "web-note-block" : "web-warn";
+  warn.textContent = msg;
+  ensureWebPanel(holder).appendChild(warn);
+}
+
 // ── 失败捕获 (⚑ 标记答错/答弱 → POST /api/flag → dogfood_failures.md) ──
 function attachFlag(wrap, question, msgObj) {
   const bar = document.createElement("div");
@@ -231,12 +295,15 @@ function selectedCorpus() {
   return "auto";
 }
 
-async function streamAsk(question, history, { onSources, onToken, onDone, onError, onClose, onAbort, signal }) {
+// 联网是与 corpus 正交的第四维: 只决定挂不挂 web_search 工具, 不参与判库。
+function webEnabled() { return $("scope-web").checked; }
+
+async function streamAsk(question, history, { onSources, onToken, onToolCall, onToolResult, onDone, onError, onClose, onAbort, signal }) {
   let resp;
   try {
     resp = await fetch("/api/ask_stream", {
       method: "POST", headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ question, history, corpus: selectedCorpus() }), signal,
+      body: JSON.stringify({ question, history, corpus: selectedCorpus(), web: webEnabled() }), signal,
     });
   } catch (e) {
     if (signal?.aborted) { onAbort?.(); return; }
@@ -251,6 +318,8 @@ async function streamAsk(question, history, { onSources, onToken, onDone, onErro
     if (!ev) return;
     if (ev.event === "sources") onSources(ev.data.sources || [], ev.data.routed_corpus || null);
     else if (ev.event === "token") onToken(ev.data.text || "");
+    else if (ev.event === "tool_call") onToolCall?.(ev.data || {});
+    else if (ev.event === "tool_result") onToolResult?.(ev.data || {});
     else if (ev.event === "done") { terminal = true; onDone(ev.data || {}); }
     else if (ev.event === "error") { terminal = true; onError(ev.data.message || "生成失败"); }
   };
@@ -363,8 +432,13 @@ async function runGeneration(c) {
       },
       // 流中只追加纯文本 (DESIGN §4: 避免每 token 重解析 markdown/重高亮, O(n^2) jank)。
       onToken: (t) => { acc += t; bubble.textContent = acc; box.scrollTop = box.scrollHeight; },
+      onToolCall: (d) => onToolCallUI(holder, d),
+      onToolResult: (d) => onToolResultUI(holder, d),
       // done 后整体渲染 markdown 一次; 空回答用占位 (DESIGN §6)。
-      onDone: () => { const content = acc.trim() ? acc : "(无内容)"; renderFinal(content); persist(content); },
+      onDone: (data) => {
+        renderWebStatus(holder, (data || {}).web_status, (data || {}).web_searches_ok);
+        const content = acc.trim() ? acc : "(无内容)"; renderFinal(content); persist(content);
+      },
       onError: (msg) => { if (acc) { renderFinal(acc); persist(acc); } appendErr(msg); appendRetry(); },
       // 干净 EOF 但无 done/error: 内容已在屏上, 落盘防刷新丢失 (规则 D HIGH 修复)。
       onClose: () => { if (acc) { renderFinal(acc); persist(acc); appendErr("连接中断（已保留已生成内容）"); } else appendErr("连接中断"); appendRetry(); },
