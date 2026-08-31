@@ -118,10 +118,12 @@ def test_route_actually_sends_the_router_prompt_and_the_question():
     assert msgs[1] == {"role": "user", "content": "どの項目ですか"}
 
 
-def test_route_uses_light_model_temperature_zero():
+def test_route_uses_light_model_without_sampling_params():
+    """判库走 light 档, 且不得传采样参数 —— light 是 Claude Opus 5, 传 temperature 直接 400。"""
     llm = _FakeLLM('{"corpus": "cdisc"}')
     route_corpus(llm, "q")
-    assert llm.calls[0]["model"] == "light" and llm.calls[0]["temperature"] == 0
+    assert llm.calls[0]["model"] == "light"
+    assert not {"temperature", "top_p", "top_k"} & llm.calls[0].keys()
 
 
 # ── FederatedEngine ──

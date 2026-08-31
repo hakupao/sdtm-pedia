@@ -1826,3 +1826,108 @@ U1-U6 / 事件层 / C1-C4 全部单元都没更新它 —— Chain B 的这一�
 - **evidence**: `sdtm-rag/evidence/checkpoints/g3_pre_registration.md` (判据全文 + §6 五条
   限制 + §7.0 收题状态) + `sdtm-rag/evidence/checkpoints/c4_g2_control_refresh.md`
   (实测三遍 + §3 这个绿灯看不见什么四条)
+
+## 2026-08-31 — 全模型组切 Claude Opus 5 (global.) + webchat 检索范围 checkbox + 联网通道 spec
+
+### 1. 模型供应: jp. → global., 三档全部 opus-5 (用户裁定)
+
+用户要求「都用 opus-5」。实测查明 **Bedrock 东京区的 Opus 5 只有 `global.` 前缀,
+无 `jp.` 版本** (`GET bedrock.ap-northeast-1.amazonaws.com/inference-profiles`:
+jp. 全集 = haiku-4-5 / sonnet-4-5 / sonnet-4-6 / opus-4-7 / opus-4-8)。
+
+⇒ 取舍摆到用户面前 (Opus 5 vs 日本区数据驻留), **用户裁定全切 global.**:
+
+| 档 | 旧 (jp.) | 新 (global.) |
+|---|---|---|
+| light (判库) | `haiku-4-5-20251001-v1:0` | `claude-opus-5` |
+| default (答题) | `sonnet-4-6` | `claude-opus-5` |
+| hard | `opus-4-7` | `claude-opus-5` |
+| fallback | `deepseek/deepseek-v4-pro` | **不变** (用户裁定保留异源兜底) |
+
+⚠ **推理不再限于日本区**。study 轨碰过真实标识符 (见 08-26 历史改写), 该属性变更已
+明确告知用户后由用户拍板。
+
+### 2. 硬约束: Opus 5 拒收采样参数
+
+实测 (裸 curl + LiteLLM 两侧一致):
+
+```
+{"message":"The model returned the following errors: `temperature` is deprecated for this model."}  HTTP 400
+```
+
+⇒ `server/federation.py:96` 判库调用 (走 light 档) **删 `temperature=0`**;
+`test_federation.py` 的 `temperature == 0` 断言改为**断言不得传采样参数**
+(把新约束变成回归闸)。
+
+**未动的两处**: `rag.py:790` (expansion_model) / `compare.py:229` (judge_model) 传的都是
+`deepseek/deepseek-chat`, 不受影响。全仓扫描确认生产路径无其他采样参数残留。
+
+⚠ **方法论欠账**: `eval/run_eval.py --temperature 0.0` (配对可复算, `crowding_ab` /
+`vi_completeness_ab` 靠它) 在答题模型为 opus-5 时会 400。默认 `--temperature=None` 故
+日常 eval 不炸, 但**以后做配对 A/B 必须带 `--model deepseek/...` 走直连, 或放弃
+temperature 锁**。
+
+### 3. 实测代价 (判库档换模型的直接后果)
+
+| 判库单次 (light, 同 prompt ×3 均值) | |
+|---|---|
+| 旧 `jp.haiku-4-5` | **0.72s** |
+| 新 `global.opus-5` | **3.26s** |
+
+整题端到端 19.4s (`/api/ask`, corpus=auto)。根因: opus-5 默认开 adaptive thinking,
+连"该查哪个库"这种二选一也在思考。**用户裁定保持 opus-5 不降档**。
+
+### 4. webchat 右上角: select → checkbox (用户需求)
+
+`#corpus` 单选 select → 两个并列 checkbox (`CDISC 標準` / `本研究 (ST01)`),
+映射到后端已有的 `corpus` 字面量, 后端契约零改动:
+
+```
+✗✗ → auto (LLM 判库, 等于原默认行为)   ✓✗ → cdisc (15 sources 全 cdisc)
+✗✓ → study (23 全 study)              ✓✓ → both (24 = 8 cdisc + 16 study)
+```
+
+四种组合均端到端实测通过。**两个都不勾保留为 `auto`** —— 默认勾上就等于每题绕过判库,
+会把 `decide_corpus` + U6 信号纠偏 + routing eval 三遍闸整套工程架空。
+
+⚠ 用户原始需求是**三个** checkbox (含「是否联网」)。第三个**未做**: 后端零基础
+(全仓 grep 无 `web_search`/`tavily`/`serper` 命中), 且冲击 grounding 地基 ⇒ 转入 §5 设计。
+
+### 5. 联网通道: brainstorm 完成, spec 已存档, 未实现
+
+spec: `docs/superpowers/specs/2026-08-31-web-search-channel-design.md`
+
+用户真实诉求经澄清**不是查事实, 是「借鉴别的成熟项目的做法」+ 推理**, 体验目标
+「类似 ChatGPT / Claude 网页版聊天的那种感觉」。
+
+**两条实测判决**:
+
+```
+# Bedrock 拿不到 Anthropic 托管的 web 工具
+additionalModelRequestFields.tools=[{type:web_search_20260209}]
+  → HTTP 400 "tool type 'web_search_20260209' is not supported for this model"
+
+# 但 Converse 自定义工具循环可用 —— 网页版体验能做到
+toolConfig.tools=[{toolSpec:{name:web_search,...}}]
+  → stopReason: tool_use, opus-5 自主并发 2 条查询
+```
+
+用户裁定: 源范围 **全网开放** · 实现 **A1 外部搜索 API (Tavily)** · 循环 **5 轮 / 15 次**。
+
+**核心红线 (spec §5)**: 网页内容**永远不得产出 `Cxxxxx` 与 class/category 归属**;
+不给网络来源开码闸白名单 (那等于教会模型用「网上看到的」绕过 Rule 7, 闸即废);
+`check_code_grounding.py` 与 `apply_counting_gate` **一行不改**。
+代价已知并接受: 真实的新 C 码也只给名称, 让用户去终端文件确认。
+
+**联网路径不进 gold set** (答案不可复算), 质量只有规则 A 语义抽检背书, 无 eval 数字。
+
+⚠ **spec §10 标记的未验证风险**: §2.2 工具循环实测走的是**裸 curl**, 生产走
+**LiteLLM Router**; Router 层能否透传 `toolUse` / 回灌 `toolResult` (尤其 `stream=True`)
+**未验证**, 实现第一步必须先验, 不验不要写业务逻辑。
+
+### 6. 本轮遗留的账
+
+- ⛔ **路由闸未重跑** —— 记忆 [[project-bedrock-supply]] 明载「换模型必须重跑三遍闸」,
+  本轮换的正是 light 档 (判库模型) 却**尚未跑 `eval/run_routing_eval.py`**。
+  判库精度是否因换模型漂移**当前未知**。下一步立即补。
+- Tavily API key 用户 2026-08-31 已申请到, 联网通道实现待 spec 审毕后开工。

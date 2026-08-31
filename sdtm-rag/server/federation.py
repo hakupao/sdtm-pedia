@@ -2,8 +2,9 @@
 
 设计要点:
 - 组合而非改造: 两个 RAGEngine 各自保留 BM25 索引 (study 侧天然 CJK bigram) 与直查通道。
-- LLM 路由是全计划唯一非确定性组件: temperature 0 + 严格 JSON + 任何异常降级 "both"
+- LLM 路由是全计划唯一非确定性组件: 严格 JSON + 白名单校验 + 任何异常降级 "both"
   (兜底方向 = 宁可多查不可漏查; 路由准确率由 eval/run_routing_eval.py 三遍闸把守)。
+  temperature 已移除 —— light 档走 Claude Opus 5, 该模型族拒收采样参数 (400)。
 - both 合并不做跨库分数排序 —— 两库相似度分布不可比, 按库配额 ceil(k/2) 分组拼接。
 - 判库入口是 decide_corpus (route_corpus + 可选的确定性信号纠偏), 生产 retrieve(auto)
   与 eval/run_routing_eval.py 共用它; route_corpus 只由它调用 (U6 同源闸)。
@@ -93,7 +94,6 @@ def route_corpus(llm_router, question: str) -> tuple[str, bool]:
                 {"role": "system", "content": _ROUTER_SYSTEM},
                 {"role": "user", "content": question},
             ],
-            temperature=0,
         )
         raw = (resp.choices[0].message.content or "").strip()
         start, end = raw.find("{"), raw.rfind("}")

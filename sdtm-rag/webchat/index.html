@@ -16,13 +16,12 @@
     <main id="main">
       <header id="topbar">
         <span id="topbar-title">SDTM 知识库助手 · DeepSeek V4 Pro</span>
-        <!-- 联邦双库选择器; /api/info 的 federation=false 时保持 hidden (见 app.js loadModelName) -->
-        <select id="corpus" title="検索対象コーパス" hidden>
-          <option value="auto" selected>自動</option>
-          <option value="cdisc">標準 (CDISC)</option>
-          <option value="study">本研究</option>
-          <option value="both">両方</option>
-        </select>
+        <!-- 联邦检索范围; /api/info 的 federation=false 时保持 hidden (见 app.js loadModelName)。
+             两个都不勾 = auto (LLM 判库), 勾选则显式指定并绕过路由。 -->
+        <fieldset id="scope" title="検索範囲 (未選択 = 自動判定)" hidden>
+          <label><input type="checkbox" id="scope-cdisc" /> CDISC 標準</label>
+          <label><input type="checkbox" id="scope-study" /> 本研究 (ST01)</label>
+        </fieldset>
       </header>
       <div id="messages"></div>
       <form id="composer">

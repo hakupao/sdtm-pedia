@@ -221,12 +221,22 @@ function parseSSE(raw) {
   try { return { event, data: JSON.parse(data) }; } catch (_) { return null; }
 }
 
+// 检索范围 checkbox → 后端 corpus 字面量 (auto|cdisc|study|both)。
+// 两个都不勾 = auto: 交给 LLM 判库 (federation.decide_corpus), 与改 checkbox 前的默认行为一致。
+function selectedCorpus() {
+  const cdisc = $("scope-cdisc").checked, study = $("scope-study").checked;
+  if (cdisc && study) return "both";
+  if (cdisc) return "cdisc";
+  if (study) return "study";
+  return "auto";
+}
+
 async function streamAsk(question, history, { onSources, onToken, onDone, onError, onClose, onAbort, signal }) {
   let resp;
   try {
     resp = await fetch("/api/ask_stream", {
       method: "POST", headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ question, history, corpus: $("corpus").value }), signal,
+      body: JSON.stringify({ question, history, corpus: selectedCorpus() }), signal,
     });
   } catch (e) {
     if (signal?.aborted) { onAbort?.(); return; }
@@ -378,7 +388,7 @@ async function loadModelName() {
     const m = (info.default_model || "").split("/").pop();
     if (m) $("topbar-title").textContent = "SDTM 知识库助手 · " + m;
     // 联邦未构建时后端会静默忽略 corpus, 别留个无效控件在界面上
-    $("corpus").hidden = !info.federation;
+    $("scope").hidden = !info.federation;
   } catch (_) {}
 }
 
