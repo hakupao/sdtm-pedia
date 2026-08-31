@@ -1960,3 +1960,66 @@ U6 期 8 个 fatal 中 6 个 (`u3_amb_01/02/04/05` + `u3_dist_07/11`) 在 Opus 5
 - **evidence**: `sdtm-rag/evidence/checkpoints/routing_gate.md` §6 (新增) + 顶部状态沿革
   (该文件顶部自 U6 起一直停在「PASS (2026-08-04)」, 本轮一并修正)
 - 耗时实测: OFF ≈ 12 min/遍, ON ≈ 22 min/遍 (信号层每题多一次判断, 成本近翻倍)
+
+## 2026-08-31 同日续 — 联网参考通道 (web search channel) 实现落地
+
+分支 `feat/web-search-channel` (22 commits, 23 文件, +2352/-56), 全量 **1798 → 1862 passed**。
+spec `docs/superpowers/specs/2026-08-31-web-search-channel-design.md` ·
+plan `docs/superpowers/plans/2026-08-31-web-search-channel.md` (6 任务 / 36 步, subagent 逐任务执行)。
+
+### 做出来的东西
+
+模型自主决定要不要搜网、搜什么、搜几轮 (上限 **5 轮 / 15 次**), 搜索过程以 SSE 事件推给前端。
+KB 检索**前置注入不变** (RAG 管线 / grounding 闸 / 码闸一行未改), 只有 web 是工具。
+
+| 组件 | 内容 |
+|---|---|
+| `server/config.py` | 7 个旋钮 + `web_search_enabled` 逐字节回滚开关 |
+| `server/web_search.py` (新) | Tavily 客户端: 规范化去重 / 正文截断 / 四态降级 / 日配额 |
+| `server/rag.py` | Rule 9 三条进 system prompt, 注入 **CDISC 主引擎 + study 引擎** |
+| `server/router.py` | `/api/ask_stream` 工具循环 + `tool_call`/`tool_result` 事件 + `web_status`/`web_searches_ok` |
+| `webchat/` | 第三个 checkbox + 搜索过程渲染 + 未联网提示 |
+| 测试/证据 | 红线断言 + SSE 契约闸 (静态+行为双闸) + 语义抽检脚手架 |
+
+### 两条实测判决 (决定了整个形状)
+
+```
+Bedrock 拿不到 Anthropic 托管的 web 工具:
+  additionalModelRequestFields.tools=[{type:web_search_20260209}] → HTTP 400 not supported
+但 Converse 自定义工具循环可用 (= 网页版体验能做到, 只是循环跑在自己服务端):
+  toolConfig.tools=[{toolSpec:{name:web_search}}] → stopReason: tool_use, opus-5 自主并发 2 条查询
+```
+
+### 红线现状 (措辞已经过三轮收紧, 引用请照抄)
+
+1. 抽检第 3 题的 `⛔ C101833/C101832` **已结构性排除**: 该轮 `搜索次数=0` ⇒ 零条 `role:tool`
+   消息 ⇒ context 内无任何网页内容 ⇒ `rag.py` 里 9(b) 的适用前提 "When (and only when)
+   results from the web_search tool are present" 从未成立。不依赖任何启发式。
+2. 有真实网页内容的题 **n=2**, 两题零 CT 码 —— **首份实运行证据, 不是有效性证明**。
+3. **9(b) 的 class / Core / Role / Type 那一半本轮完全未经检验**; 新增的关键词机检只是弱信号,
+   且对日语答案基本无效 (三题中第 1 题是日语)。
+4. 抽检表两列人判仍 `⬜ 待判` —— 规则 A 要求本人填, 机器不代劳。
+⇒ **不能对外宣称"红线守住了"**。
+
+### 实证发现 (用户「全网开放」决策的直接后果)
+
+模型真实引用: PharmaSUG 论文 PDF ×3 / **FDA 官方文档** (`fda.gov/media/136460`) / ASA 论文
+— 但也有 `omophub.com/blog`、`cdiscguru.blogspot.com`(2013 年)、**`instagram.com/p/...`**、
+**`linkedin.com/posts/...`**。Rule 9 兜住它们不产硬断言, 但抽象风险已变具体证据, 待用户裁定
+是否收紧 (`exclude_domains` 挡社交平台 / 白名单会掐死"借鉴成熟做法")。
+
+### 意外观察 (既有行为, 非本功能引入, 未追根因)
+
+抽检第 1 题**提问是英文, 模型用日语作答**, 与 `rag.py` system prompt 的
+"Respond in the same language as the user's question" 不符。走的是 `corpus=cdisc`。
+
+### 过程留痕
+
+- 计划缺陷 **8 个**, 全部由实现或审查抓到; 其中 3 个是"看起来完全正常的代码"
+  (try 块边界 / 只给主引擎注入 Rule 9 / 同步 requests 跑在 async generator 里)。
+- 反复出现的失败模式: **失败时的表现与成功时一模一样** —— 打错端点跑出"干净"抽检表、
+  契约闸正则抠空成永真式、CRLF 让 SSE 只切出 1 帧、检测前端字段的闸认注释。
+- 生产级缺陷一条: `searcher.search()` 同步阻塞 event loop, 15 次 × 30s 最坏冻结全部并发请求;
+  修法 `await asyncio.to_thread(...)`, 项目内已有同款先例。
+- 失败归档 (规则 B): `evidence/failures/web_channel_spotcheck_attempt_1_wrong_endpoint.md`
+- 已知瑕疵 backlog: spec §10.0 (联网仅 `/api/ask_stream` 支持) + §10.1 B1-B4
