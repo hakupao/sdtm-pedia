@@ -6,6 +6,12 @@ Task 5 的验证只验渲染函数收到 dict 后怎么画, 中间的解析层�
 import re
 from pathlib import Path
 
+from server.config import Settings
+from scripts.tests.test_ask_stream_web import (
+    _AlwaysToolRouter, _FakeSearcher, _ScriptedRouter, _ToolThenTextRouter,
+    _client, _events, _of, _text_chunk, _tool_chunk,
+)
+
 APP_JS = Path(__file__).resolve().parents[2] / "webchat" / "app.js"
 ROUTER_PY = Path(__file__).resolve().parents[2] / "server" / "router.py"
 WEB_SEARCH_PY = Path(__file__).resolve().parents[2] / "server" / "web_search.py"
@@ -26,24 +32,36 @@ def test_frontend_knows_every_event_the_backend_emits():
 
 
 def test_frontend_reads_web_fields_from_done():
+    """断言的是**读取形状** (`.web_status` / `.web_searches_ok` 属性访问), 不是
+    字符串在全文出现过——`webchat/app.js:199-202` 那几行解释这两个字段的**注释**
+    里也裸写着 "web_status" / "web_searches_ok" 这两个词 (没有前导 `.`), 删掉
+    `:439` 唯一的真实读取点 `renderWebStatus(holder, (data||{}).web_status, ...)`
+    之后, 老断言 (`"web_status" in src`) 照样能在注释里找到匹配, 变成纸老虎。
+    要求前导 `.` 就把注释行 (裸词, 无 `.`) 排除在外, 只认真实属性访问。"""
     src = APP_JS.read_text(encoding="utf-8")
-    # done 的两个新字段必须真的被读取, 不能只在后端存在
-    assert "web_status" in src, "前端没有读 done.web_status"
-    assert "web_searches_ok" in src, "前端没有读 done.web_searches_ok"
+    assert re.search(r"\.web_status\b", src), "前端没有以 .web_status 形式读取该字段"
+    assert re.search(r"\.web_searches_ok\b", src), "前端没有以 .web_searches_ok 形式读取该字段"
 
 
 def _backend_tool_result_statuses() -> set[str]:
-    """tool_result.status 的真实取值域。
+    """tool_result.status 的真实取值域 (静态字面量扫描, 见 test_frontend_covers_
+    every_tool_result_status 的 docstring 说明这道闸的定位与局限)。
 
-    router.py 里赋值写的是 `refs, st = [], "value"` (元组解包), 不是裸的
-    `st = "value"` —— 用后一种形式抠字符串的话在这份代码里一个都抠不到,
-    会让本测试的 backend 集合基本是空集, `backend <= frontend` 变成永远
-    为真的伪命题, 起不到契约闸的作用。所以这里按两处真实来源分别抠:
-      - router.py 里 `st = [...], "value"` 形式的字面量 (unknown_tool / bad_query / quota_exceeded)
-      - web_search.py 的 WebSearcher.search() 各 return 语句 (disabled / quota_exceeded / failed / ok)
+    router.py 里赋值写的是 `refs, st = [], "value"` 这类元组解包, 不是裸的
+    `st = "value"`。早期用 `st = \\[\\], "..."` 做字面匹配, 但那个形状太窄:
+    reviewer 实测把某处改成 `refs, st = refs2, "rate_limited"` (同样是元组解包,
+    只是右边不是空列表 `[]`) 时, 老正则完全抠不到这个新状态值, `backend` 集合
+    里根本不会出现 "rate_limited", 测试照样绿——契约漏洞被这条"闸"放过了。
+    这里换成更宽的 `st\\s*=\\s*[^=\\n]*?"..."`, 只要求"`st` 被赋值为某个含双引号
+    字符串的表达式", 不再挑剔右边的具体形状。
+
+    `\\b` 前缀不能省: 不加的话会误抓 `test = "hello"` / `last = "world"` /
+    `manifest = "boom"` 这类变量名恰好以 "st" 结尾的赋值 (reviewer 实测证实)。
+    `\\b` 要求"st"前是词边界, 而这些变量名里"st"前一个字符 (e/a) 都是词字符,
+    没有边界, 天然被排除。
     """
     router = ROUTER_PY.read_text(encoding="utf-8")
-    from_router = set(re.findall(r'st = \[\], "([a-z_]+)"', router))
+    from_router = set(re.findall(r'\bst\s*=\s*[^=\n]*?"([a-z_]+)"', router))
 
     web_search = WEB_SEARCH_PY.read_text(encoding="utf-8")
     from_search = set(re.findall(r'return\s+[^\n]*"([a-z_]+)"', web_search))
@@ -52,9 +70,83 @@ def _backend_tool_result_statuses() -> set[str]:
 
 
 def test_frontend_covers_every_tool_result_status():
-    """后端 tool_result.status 的取值域必须被前端文案表全覆盖 —— 少一个就会显示裸状态码。"""
+    """后端 tool_result.status 的取值域必须被前端文案表全覆盖 —— 少一个就会显示裸状态码。
+
+    这道闸是**静态**的 (抠源码字面量), 优点是能看到"源码里出现过哪些取值"这个
+    信息本身、不依赖能不能真的构造出触发它的场景; 缺点是抠取形状可能跟不上写法
+    变化 (见 `_backend_tool_result_statuses` docstring)。所以配了
+    `test_tool_result_status_matrix_matches_frontend_table` 做**行为**层的第二重——
+    那道闸从真实吐出的 SSE 事件收集 status, 抠取形状对不对无所谓, 局限反过来:
+    只覆盖"有测试场景触发"的分支, 新增一个没场景覆盖的状态它不会报警。两者互补,
+    缺一都会漏掉一类回归。
+    """
     backend = _backend_tool_result_statuses()
+    # 尺寸下限: brief 原版的字面匹配正则在这份代码上会把 backend 抠成几乎空集
+    # (`{"ok"}` 兜底值以外一个都抠不到), `backend <= frontend` 对任何前端文案表
+    # 都成立, 变成永真式——这条断言本该防的正是"契约闸失效却仍然全绿", 结果自己
+    # 先失效了, 而且是手动 grep 才发现的。加这条下限, 一旦抠取逻辑又被写法变化
+    # 绕过导致集合缩水, 测试直接报错, 不需要再靠人工複查才发现。
+    assert len(backend) >= 6, f"status 抽取失效, 只拿到 {backend}"
     src = APP_JS.read_text(encoding="utf-8")
     block = src.split("note.textContent = {", 1)[1].split("}[d.status]", 1)[0]
     frontend = set(re.findall(r'^\s*([a-z_]+):', block, re.M))
     assert backend <= frontend, f"后端会发但前端文案表没有的 status: {backend - frontend}"
+
+
+def _observed_tool_result_statuses(monkeypatch) -> set[str]:
+    """跑一个小矩阵, 触发 6 种 tool_result.status 里的每一种, 从真实吐出的 SSE
+    事件收集 —— 比静态抠源码更硬: 断的是"这个分支真的会被触发且正确上报",
+    不是"源码里字面出现过这个词"。
+
+    ⚠ 局限 (与静态闸互补, 不能互相替代): 只覆盖这里写了场景的分支。新增一个
+    没有对应测试场景的状态分支, 这个矩阵不会报警——它只是漏测那个值, 不会主动
+    发现"少测了一种"; 静态闸至少能看到源码字面出现过哪些取值, 兜住这个盲区。
+    """
+    observed: set[str] = set()
+
+    class _FailSearcher(_FakeSearcher):
+        def search(self, query):
+            self.searches_used += 1
+            self.queries.append(query)
+            return [], "failed"
+
+    class _DisabledSearcher(_FakeSearcher):
+        def search(self, query):
+            self.searches_used += 1
+            self.queries.append(query)
+            return [], "disabled"
+
+    scenarios = [
+        # ok
+        (_ToolThenTextRouter(), _FakeSearcher, None),
+        # failed: searcher 自己报失败 (与"server 端整体未启用"的 disabled 不同)
+        (_ToolThenTextRouter(), _FailSearcher, None),
+        # disabled: searcher 报没有 API key (工具仍被提供给模型, 只是搜索本身报废)
+        (_ToolThenTextRouter(), _DisabledSearcher, None),
+        # quota_exceeded (+顺带再出一次 ok): 配额=1, 模型永远要搜, 第 2 轮起超额
+        (_AlwaysToolRouter(), _FakeSearcher, Settings(web_max_searches=1)),
+        # unknown_tool: 模型点名了一个不存在的工具
+        (_ScriptedRouter([[_tool_chunk(0, "t", "run_shell", '{"query": "x"}'),
+                           _text_chunk(None, finish="tool_calls")]]),
+         _FakeSearcher, None),
+        # bad_query: 模型给出截断的畸形 JSON 参数, 解不出 query
+        (_ScriptedRouter([[_tool_chunk(0, "t", "web_search", '{"query": '),
+                           _text_chunk(None, finish="tool_calls")]]),
+         _FakeSearcher, None),
+    ]
+    for router, searcher_cls, settings in scenarios:
+        client = _client(router, monkeypatch, searcher_cls, settings)
+        r = client.post("/api/ask_stream", json={"question": "q", "web": True})
+        for d in _of(_events(r.text), "tool_result"):
+            observed.add(d["status"])
+    return observed
+
+
+def test_tool_result_status_matrix_matches_frontend_table(monkeypatch):
+    observed = _observed_tool_result_statuses(monkeypatch)
+    assert len(observed) >= 6, f"场景矩阵没能触发全部 6 种 status, 只观测到 {observed}"
+    src = APP_JS.read_text(encoding="utf-8")
+    block = src.split("note.textContent = {", 1)[1].split("}[d.status]", 1)[0]
+    frontend = set(re.findall(r'^\s*([a-z_]+):', block, re.M))
+    assert observed <= frontend, (
+        f"运行时真实吐出但前端文案表没有的 status: {observed - frontend}")
