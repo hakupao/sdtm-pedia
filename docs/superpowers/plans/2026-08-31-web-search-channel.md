@@ -553,7 +553,15 @@ Expected: FAIL — `TypeError: __init__() got an unexpected keyword argument 'we
             web_search_enabled=s.web_search_enabled,
 ```
 
-⚠ 若 `main.py` 构造了**多个**引擎 (cdisc / study / docs), 只给**答题主引擎**加 —— study/docs 引擎的 prompt 由 `federation.py::build_messages` 拼接, 重复注入会让 Rule 9 出现两次。
+⚠ **主引擎 (`app.state.rag`) 与 study 引擎 (`study_levers` dict) 都要加**, docs 引擎不用
+(它的 `system_prompt` 从不被读, `main.py` 注释已钉死, `test_study_corpus` 也钉住了)。
+
+**为什么不是「只给主引擎加」** (本 spec 作者第一版就写错了这条): `federation._system_for`
+按 corpus 选 prompt —— `cdisc` 取 cdisc 引擎的、`study` 取 study 引擎的、`both` 把两个拼接。
+只给主引擎加 ⇒ **`corpus=study` + 联网时模型完全不受 Rule 9 约束**, 网页内容可直接产 CT 码,
+正踩 spec §5 红线。代价是 `both` 模式下 Rule 9 出现两次 —— 无害: 该分支本就把两份完整
+system prompt 首尾相接, Rules 1-8 / Routing Guide / KB Index **现在已经全是重复的**,
+Rule 9 跟着重复不引入任何新性质。漏洞有害, 重复无害。
 
 - [ ] **Step 4: 跑测试确认通过 + 全量回归**
 
