@@ -144,6 +144,20 @@ user content 里跟不可信的网页数据同框。
 | `server/config.py` | 改 | `web_search_enabled` / `web_max_rounds=5` / `web_max_searches=15` / 日配额 |
 | `webchat/index.html,app.js,style.css` | 改 | 第三个 checkbox; `tool_call`/`tool_result` 事件渲染; 橙色 web 徽章 |
 
+### 6.1 Tavily 实测观察 (2026-08-31, key 到手当日)
+
+查询 `SDTM custom domain mapping non-standard EDC fields practice PHUSE`
+(`search_depth=advanced`, `max_results=5`):
+
+| 观察 | 实测 | 对实现的要求 |
+|---|---|---|
+| **能捞到真参考** | top1 = PHUSE 2023 会议论文 PDF (`phuse.s3.../PRE_DS07.pdf`), 正文已提取 1704 字符; top4 = Quanticate 博客 "Creating Custom / Non-Standard Domains" | 「借鉴成熟做法」这条诉求技术上成立 |
+| **重复 URL** | 第 2、3 条是同一篇的 `www.` 与非 `www.` 两个 URL, 白占两坑 | **必须按规范化域名 + 标题去重** |
+| **厂商软文** | 第 5 条为营销页 (推销自家工具) | 全网开放的已知代价; Rule 9.2 兜住其不产硬断言, 但观点会进答案 |
+| **正文体量** | 单条 1350-2869 字符, 5 条 ≈ 3K token | 跑满 5 轮/15 次可能累积 **40K+ token**。须给单次 `max_results` 与单条正文长度**设上限**, 否则成本与延迟按该量级走 |
+
+⚠ 原 spec 未计上下文预算这笔账, 由本次实测补入。
+
 ## 7. 错误处理与可见性
 
 ### 过程可见 (网页版感觉的一半)

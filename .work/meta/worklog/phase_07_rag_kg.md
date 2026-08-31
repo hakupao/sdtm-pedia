@@ -1927,7 +1927,36 @@ toolConfig.tools=[{toolSpec:{name:web_search,...}}]
 
 ### 6. 本轮遗留的账
 
-- ⛔ **路由闸未重跑** —— 记忆 [[project-bedrock-supply]] 明载「换模型必须重跑三遍闸」,
-  本轮换的正是 light 档 (判库模型) 却**尚未跑 `eval/run_routing_eval.py`**。
-  判库精度是否因换模型漂移**当前未知**。下一步立即补。
+- ✅ **路由闸已补跑** (同日续, 见下节) —— 原记为遗留, 当场补齐。
 - Tavily API key 用户 2026-08-31 已申请到, 联网通道实现待 spec 审毕后开工。
+
+### 同日续 — 路由闸随换模型重跑 (§4.4 纪律执行; 闸仍 FAIL 但欠账砍掉大半)
+
+依据 `routing_gate.md` §4.4「换模型必须重跑」+ 记忆 [[project-bedrock-supply]]。
+light 档 haiku → Opus 5, **两个口径各三遍** (254 题 × 6 遍 ≈ 1524 次判库调用)。
+
+```
+--signal-layer on (对齐生产)   legacy 180/181/181  fatal_excl_final 2/2/2  stability 250/254
+--signal-layer off (裸判库)    legacy 181/181/181  fatal_excl_final 2/2/2  stability 251/254
+fatal ids 六遍全同: u3_amb_03, u3_dist_10        fallback=0
+```
+
+**对照 U6 基线 (haiku·ON, §2.2 全闸): fatal 8/8/8 → 2/2/2, legacy 179 → 180~181。**
+U6 期 8 个 fatal 中 6 个 (`u3_amb_01/02/04/05` + `u3_dist_07/11`) 在 Opus 5 下消失。
+
+⚠ **三件必须随数字一起引用的限定**:
+
+1. **闸仍 ⛔ FAIL 且非本次引入**: 条款 1 要求 fatal=0, 现 2。FAIL 自 U6 起延续
+   (用户当时裁定「按部分达成 FAIL 诚实收口」), 本轮方向是改善不是恶化。
+2. ⚠ **确定性永久丢失**: haiku 时代 `temperature=0` ⇒ 三遍 254/254 逐题一致;
+   Opus 5 拒收采样参数 + 默认 adaptive thinking ⇒ 实测 250~251/254 (3-4 题遍次间摇摆)。
+   **本闸数字自此不再逐位可复现**, 引用单次数值须带「±3~4 题抖动」限定。
+3. **口径踩坑**: `--signal-layer` 默认 `off` 而**生产是 ON**; 本轮先跑错 off 才补跑 on。
+   警示已写进 `routing_gate.md` §5。
+
+⚠ **U6 文档两个口径易混**: §2.1 冻结基线 = off (fatal **9**); §2.2 全闸 = on (fatal **8**)。
+本轮起草对照表时误取 9 作 ON 基线, 复核 U6 原文后已改正。
+
+- **evidence**: `sdtm-rag/evidence/checkpoints/routing_gate.md` §6 (新增) + 顶部状态沿革
+  (该文件顶部自 U6 起一直停在「PASS (2026-08-04)」, 本轮一并修正)
+- 耗时实测: OFF ≈ 12 min/遍, ON ≈ 22 min/遍 (信号层每题多一次判断, 成本近翻倍)
