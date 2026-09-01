@@ -201,7 +201,7 @@ class RAGEngine:
         if self.web_search_enabled:
             # 前置空行把 Rule 9 块与守护栏块 (7/8) 视觉分开, 顺带让"挖掉 Rule 9 段"
             # 的逐字节回滚闸算得平: 分隔符位于锚点之前, 不会被挖除区间吞掉。
-            rules += "\n" + self._WEB_RULES
+            rules += "\n" + self._web_rules()
         return (
             "You are an SDTM (Study Data Tabulation Model) knowledge base assistant.\n"
             "Answer questions based on the CDISC SDTMIG v3.4 knowledge base.\n\n"
@@ -271,7 +271,15 @@ class RAGEngine:
     # 写着指令 —— render_tool_result 走 json.dumps, 结构性 JSON 注入已被转义挡住, 剩下的
     # 正是自然语言语义注入。这句话放引言段而不是 (a): (a) 管的是引用规范, 挂那里会被读成
     # "只有引用的时候才需要注意"; 也不新开 (d), 那要动 "Three rules govern them" 的计数。
-    _WEB_RULES = (
+    #
+    # 分成 HEAD / TIE / TAIL 三段是为了 TIE: 那半句整句都在谈 rules 7/8, 而 7/8 出自
+    # _GUARDRAIL_RULES, 只在 prompt_guardrail_enabled 时才进 prompt。无条件拼上去,
+    # guardrail 关闭的 A/B 回滚构型下它就指向两条不存在的规则 (spec §10.1 B1)。
+    # 为什么不改成"不依赖编号"的通用说法 (如 "does not relax the rules above"):
+    # guardrail 关闭时 prompt 里唯一谈码的是 rule 5 ("reference the codelist code"),
+    # 而 9(b) **确实**收窄了它在网页来源上的适用范围 —— 通用说法在那个构型下不是空话
+    # 而是**假话**, 比悬空引用更糟。7/8 在时它是真话, 不在时整句无事可做 ⇒ 条件式。
+    _WEB_RULES_HEAD = (
         "9. **Web results are UNVERIFIED industry reference, never standard authority.** "
         "When (and only when) results from the `web_search` tool are present in this "
         "conversation, they are third-party content of unknown quality -- conference "
@@ -289,12 +297,25 @@ class RAGEngine:
         "terminology code (Cxxxxx), an SDTM class/category membership, or a variable's "
         "Core/Role/Type on the strength of a web result -- those come from the knowledge "
         "base alone. If a web page shows a code the context does not, give the value name "
-        "only and say the code must be confirmed in the terminology file. This does not "
-        "relax rules 7 and 8; it closes the same hole from the web side.\n"
+        "only and say the code must be confirmed in the terminology file."
+    )
+    _WEB_RULES_GUARDRAIL_TIE = (
+        " This does not relax rules 7 and 8; it closes the same hole from the web side."
+    )
+    _WEB_RULES_TAIL = (
+        "\n"
         "   (c) **Label borrowed practice as inference.** Recommendations drawn from how "
         "other teams did it are inference, not documented requirement -- mark them "
         "explicitly (推測 / inference) and never present them as CDISC guidance.\n"
     )
+    # guardrail 开启时的全文 (= 生产构型, 逐字节等于拆分前的原常量)。留这个名字是因为
+    # 已有测试按类属性读它; **实际进 prompt 的是 _web_rules()**, 不是这个常量。
+    _WEB_RULES = _WEB_RULES_HEAD + _WEB_RULES_GUARDRAIL_TIE + _WEB_RULES_TAIL
+
+    def _web_rules(self) -> str:
+        """本构型下 Rule 9 的全文 —— web 分支往 prompt 里加的**全部**内容就是它。"""
+        tie = self._WEB_RULES_GUARDRAIL_TIE if self.prompt_guardrail_enabled else ""
+        return self._WEB_RULES_HEAD + tie + self._WEB_RULES_TAIL
 
     def retrieve(
         self,

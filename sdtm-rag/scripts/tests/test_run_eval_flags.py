@@ -46,14 +46,21 @@ def captured(tmp_path, monkeypatch):
             self.web_search_enabled = kwargs["web_search_enabled"]
             self.prompt_guardrail_enabled = kwargs["prompt_guardrail_enabled"]
 
+    class FakeRouter:
+        model_list: list = []
+
     monkeypatch.setattr(run_eval, "RAGEngine", FakeEngine)
     monkeypatch.setattr(run_eval, "run_evaluation", lambda *a, **k: [])
     monkeypatch.setattr(
         run_eval, "print_summary", lambda *a, **k: {"verdict": "PASS"}
     )
+    # 非 retrieval-only 分支会真建 Router (B6 的闸要跑那个方向), 桩掉。
+    # retrieval-only 时根本不调用它, 对既有用例是无操作。
+    monkeypatch.setattr(run_eval, "create_router", lambda *a, **k: FakeRouter())
 
-    def _run(extra_args: list[str]) -> dict:
-        run_eval.main([str(test_set), "--retrieval-only", *extra_args])
+    def _run(extra_args: list[str], *, retrieval_only: bool = True) -> dict:
+        mode = ["--retrieval-only"] if retrieval_only else []
+        run_eval.main([str(test_set), *mode, *extra_args])
         return calls
 
     return _run
@@ -682,3 +689,158 @@ def test_summary_records_guardrail_both_directions(captured, tmp_path):
     captured(["--output", str(off_file)])
     assert json.loads(on_file.read_text(encoding="utf-8"))["summary"]["prompt_guardrail"] is True
     assert json.loads(off_file.read_text(encoding="utf-8"))["summary"]["prompt_guardrail"] is False
+
+# ---------------------------------------------------------------------------
+# B6 — retrieval-only 下答题侧 lever 空转, 而产物无法自证 (spec §10.1)
+#
+# `--retrieval-only` 一次 LLM 调用都不发 (run_eval.py:4 帮助文本 + 答题分支的
+# `if not retrieval_only ...`), 所以 prompt_guardrail / web_search 这两个**答题侧**
+# lever 完全空转 —— 但屏幕照打 `guardrail=ON`, summary 照落 `prompt_guardrail: true`。
+# 门面上的 7 个数字全部出自 retrieval-only 跑法, 而 spec §10.1 的 B3′ 当初被写成
+# 「140q 数字描述生产不跑的构型」, 多半正是因为产物自己分不清这两类 run。
+# ---------------------------------------------------------------------------
+
+
+def test_summary_records_retrieval_only_both_directions():
+    """两个方向都钉 —— 只钉 True 那侧, 把这个键写死成常量 True 也全绿。"""
+    from eval.run_eval import print_summary
+    src_only = print_summary([_mk_result("a", "field_lookup", 1.0)], retrieval_only=True)
+    full = print_summary(
+        [_mk_result("a", "field_lookup", 1.0, fact_recall=1.0, answer_preview="ans")],
+        retrieval_only=False,
+    )
+    assert src_only["retrieval_only"] is True
+    assert full["retrieval_only"] is False
+    # 类型不许漂: 既有消费方按 bool 读 prompt_guardrail / web_search, 新键同口径
+    assert isinstance(src_only["retrieval_only"], bool)
+    # 空转的那两个键本身仍是 bool, 语义由上面这个键限定, 不改类型
+    assert isinstance(full["retrieval_only"], bool)
+
+
+def test_retrieval_only_flag_reaches_print_summary_both_directions(captured, monkeypatch):
+    """落盘的 retrieval_only 必须跟命令行同步 —— 接线断了, 上面那条直测照样全绿。"""
+    seen: list[bool] = []
+
+    def _spy(results, **kw):
+        seen.append(kw["retrieval_only"])
+        return {"verdict": "PASS"}
+
+    monkeypatch.setattr(run_eval, "print_summary", _spy)
+    captured([])
+    captured([], retrieval_only=False)
+    assert seen == [True, False]
+
+
+def test_summary_n_answered_records_the_fact_not_the_flag():
+    """n_answered 记**事实**: 「模式 = full」不蕴含「真的答了题」。
+
+    答题分支除了 `not retrieval_only` 还有 `router is not None or direct_model is not
+    None` 一层; 那层不满足时一题不答, 而 retrieval_only 仍是 False。只钉 retrieval_only
+    的闸对这种情况是瞎的 —— 落盘的 `prompt_guardrail: true` 照样是个空标签。"""
+    from eval.run_eval import print_summary
+    answered = print_summary([
+        _mk_result("a", "field_lookup", 1.0, answer_preview="ans"),
+        _mk_result("b", "field_lookup", 1.0, answer_preview="ans"),
+    ], retrieval_only=False)
+    assert answered["n_answered"] == 2
+
+    silent = print_summary([
+        _mk_result("a", "field_lookup", 1.0),
+        _mk_result("b", "field_lookup", 1.0),
+    ], retrieval_only=False)
+    assert silent["retrieval_only"] is False and silent["n_answered"] == 0
+
+    src_only = print_summary([_mk_result("a", "field_lookup", 1.0)], retrieval_only=True)
+    assert src_only["n_answered"] == 0
+
+
+def test_summary_n_answered_counts_out_of_scope_rows_too():
+    """out_of_scope 题同样走答题分支。n_answered 问的是"发生过多少次答题",
+    用计分集 (已剔除 out_of_scope) 去数会低报。"""
+    from eval.run_eval import print_summary
+    s = print_summary([
+        _mk_result("a", "field_lookup", 1.0, answer_preview="ans"),
+        _mk_result("z", "negative", 1.0, answer_preview="ans", out_of_scope=True),
+    ], retrieval_only=False)
+    assert s["n_answered"] == 2
+    assert s["n_scored"] == 1          # 对照: 计分集确实只有 1 题
+
+
+def test_run_evaluation_marks_answered_rows_so_summary_can_count_them():
+    """端到端 (真 run_evaluation + 真 print_summary): 答题分支真的跑过时 n_answered 才涨。
+
+    上面几条喂的是手搓 row, 挡不住"答题分支被改坏"—— 例如把它的 `or` 写成 `and`,
+    没给 --model 时就一题不答, 而 retrieval_only 仍是 False。这条能。"""
+    from eval.run_eval import print_summary, run_evaluation
+
+    class _Chunk:
+        source, similarity, section = "a.md", 0.5, None
+
+    class _Rag:
+        def retrieve(self, q, top_k=None):
+            return [_Chunk()]
+
+        def format_context(self, chunks):
+            return "ctx"
+
+        def build_messages(self, q, ctx):
+            return [{"role": "user", "content": q}]
+
+    class _Resp:
+        usage, model = None, "fake"
+        choices = [type("C", (), {"message": type("M", (), {"content": "ans"})()})()]
+
+    class _Router:
+        def completion(self, model=None, **kw):
+            return _Resp()
+
+    res = run_evaluation(
+        [{"id": "a", "category": "field_lookup", "question": "q",
+          "expected_sources": ["a.md"], "expected_facts": []}],
+        _Rag(), _Router(), retrieval_only=False,
+    )
+    assert "answer_preview" in res[0]
+    assert print_summary(res, retrieval_only=False)["n_answered"] == 1
+
+
+def _lever_segment(line: str, lever: str) -> str:
+    """取回执行里属于某个 lever 的那一段 (到下一个 `, <字段>=` 为止)。
+
+    不能简单用逗号切: web_search 的文案自带逗号 (`(prompt-only, no live search)`)。
+    下一段的起点是"逗号+空格后面紧跟 `标识符=`"。"""
+    m = re.search(rf"\b{re.escape(lever)}=ON", line)
+    assert m, f"回执里没有 {lever}=ON: {line}"
+    rest = line[m.end():]
+    nxt = re.search(r",\s(?=[a-z_]+=)", rest)
+    return rest[:nxt.start()] if nxt else rest
+
+
+@pytest.mark.parametrize("flag,lever", [("--guardrail", "guardrail"),
+                                        ("--web-search", "web_search")])
+def test_retrieval_only_receipt_marks_answer_levers_inert(captured, capsys, flag, lever):
+    """空转标记必须**紧贴**它标注的那个 lever, 不能只是同一行里出现过。
+
+    单独开一个 lever 跑: 标记恰好一个, 且落在那个 lever 自己的段里。「扫全行有没有
+    INERT」那种闸挡不住标记被挪到行尾 —— 读者扫到 `guardrail=ON` 时就看不到它了。"""
+    captured([flag])
+    line = _engine_receipt_line(capsys.readouterr().out)
+    assert line.count(run_eval.INERT_LEVER_MARK) == 1, line
+    assert run_eval.INERT_LEVER_MARK in _lever_segment(line, lever), line
+
+
+def test_retrieval_only_receipt_marks_each_answer_lever_separately(captured, capsys):
+    """两个都开时**各标各的** —— 只在行尾打一个总标记, 上面的参数化用例照样绿。"""
+    captured(["--guardrail", "--web-search"])
+    line = _engine_receipt_line(capsys.readouterr().out)
+    assert line.count(run_eval.INERT_LEVER_MARK) == 2, line
+    for lever in ("guardrail", "web_search"):
+        assert run_eval.INERT_LEVER_MARK in _lever_segment(line, lever), line
+
+
+def test_full_run_receipt_does_not_mark_levers_inert(captured, capsys):
+    """反方向: 真发 LLM 调用时不许打空转标记, 否则标记恒在 = 无信息。"""
+    captured(["--guardrail", "--web-search"], retrieval_only=False)
+    line = _engine_receipt_line(capsys.readouterr().out)
+    assert "guardrail=ON" in line and "web_search=ON" in line
+    assert run_eval.INERT_LEVER_MARK not in line
+    assert "INERT" not in line

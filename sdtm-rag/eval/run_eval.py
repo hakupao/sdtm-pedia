@@ -436,6 +436,10 @@ def run_evaluation(
     return results
 
 
+# 屏幕回执上给空转 lever 打的标记。抽成常量: 闸按它断言, 改文案不会静默让闸失效。
+INERT_LEVER_MARK = "[INERT: retrieval-only, no LLM call]"
+
+
 def print_summary(
     results: list[dict],
     retrieval_only: bool = False,
@@ -446,6 +450,9 @@ def print_summary(
     # out_of_scope 题 (答案不在 KB 内) 在本 harness 无判别力 —— 空 expected_sources 恒得
     # 1.0, 计进平均值就是白送分。全部统计只跑 scored 集, out_of_scope 单列。
     out_of_scope = [r for r in results if r.get("out_of_scope")]
+    # 过滤**之前**数: out_of_scope 题同样会走答题分支, n_answered 问的是"这轮发生过多少次
+    # 答题", 不是"计分题里答了几道" —— 用过滤后的集合算会低报。
+    n_answered = sum(1 for r in results if "answer_preview" in r)
     results = [r for r in results if not r.get("out_of_scope")]
     n = len(results)
     avg_src = sum(r["source_recall"] for r in results) / n if n else 0.0
@@ -476,6 +483,19 @@ def print_summary(
         "n_scored": n,
         "n_total": n + len(out_of_scope),
         "n_out_of_scope": len(out_of_scope),
+        # ---- 本轮到底有没有生成过答案 ----
+        # 决定 summary 里 prompt_guardrail / web_search 两个**答题侧** lever 有没有因果
+        # 意义: retrieval-only 不发任何 LLM 调用 (run_evaluation 的 `if not retrieval_only
+        # ...` 跳过整个答题分支), 那两个 lever 完全空转, 却照样落盘 ⇒ 一份
+        # `prompt_guardrail: true` 无法区分「护栏开着跑出来的答案质量」与「根本没生成答案」
+        # (spec §10.1 B6)。
+        # 两个键分工明确, 缺一不可:
+        #   retrieval_only — 记**模式** (命令行意图)
+        #   n_answered     — 记**事实** (产物自证)。答题分支另有 `router is not None or
+        #     direct_model is not None` 一层条件, 所以 retrieval_only 为 False **不蕴含**
+        #     真的答了题; 只有这个数能挡住"模式说会答题、实际一次都没答"。
+        "retrieval_only": bool(retrieval_only),
+        "n_answered": n_answered,
         "model": model,
         "threshold": threshold,
         "source_recall_avg": round(avg_src, 4),
@@ -870,10 +890,14 @@ def main(argv: list[str] | None = None) -> int:
     # 下面两个回执读**引擎实收值**而不是 args: 记事实, 不记意图。读 args 时注入点漏改
     # (引擎实收 OFF) 屏幕照打 ON, 就能跑出一批标着 ON 实际 OFF 的 140q 数字, 事后无从分辨。
     # 同 print 里 rerank_info / expand_info / hybrid_info 一向读 rag.*, 这里对齐。
-    guardrail_info = ", guardrail=ON" if rag.prompt_guardrail_enabled else ""
+    # retrieval-only 一次 LLM 调用都不发 ⇒ 这两个**答题侧** lever 完全空转。不标注就会
+    # 在屏幕上打出一个与本轮产物无因果关系的 "guardrail=ON" (spec §10.1 B6)。只标注开着
+    # 的那个 —— 关着时 info 串本来就是空的, 没有可误导的东西。
+    inert = INERT_LEVER_MARK if args.retrieval_only else ""
+    guardrail_info = f", guardrail=ON{inert}" if rag.prompt_guardrail_enabled else ""
     # web_search 文案额外写死"不联网": flag 名读起来像 eval 会去搜, 实际只是 prompt 构型 (§10.0)
     web_search_info = (
-        ", web_search=ON(prompt-only, no live search)"
+        f", web_search=ON(prompt-only, no live search){inert}"
         if rag.web_search_enabled else ""
     )
     collection_info = f", collection={collection_name}" if args.collection else ""
@@ -1051,6 +1075,9 @@ def main(argv: list[str] | None = None) -> int:
         summary["signal_layer"] = args.signal_layer
     # 两行同口径: 记**引擎实收值**(事实), 不记 args(意图) —— 注入点漏改时这两行会跟着变,
     # 而读 args 会落盘一个与引擎无关的标签 (标着 ON 实际 OFF 的数字, 事后无从分辨)。
+    # ⚠ 这两个是**答题侧** lever: 只在真发生 LLM 调用时才有因果意义。它们是否空转,
+    # 由 print_summary 落的 retrieval_only / n_answered 两个键作证 (spec §10.1 B6) ——
+    # 单看这两行会把"没答题"读成"护栏开着的答案质量"。
     summary["prompt_guardrail"] = rag.prompt_guardrail_enabled
     summary["web_search"] = rag.web_search_enabled
     summary["structured_answer"] = args.structured_answer

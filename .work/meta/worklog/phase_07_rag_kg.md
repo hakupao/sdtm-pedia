@@ -2073,3 +2073,60 @@ Bedrock 拿不到 Anthropic 托管的 web 工具:
 Rule D 全程遵守: 实现者 (opus) / 复审 (code-reviewer, opus) 不共享上下文, 走了
 派单 → 实现 → 复审 → 修复 → 复核 → 终轮 六轮。实现者顶回控制器 2 条 (均成立)、
 订正复审 1 条 (成立); 复审推翻控制器 1 条 (规则 6 初稿)、自曝行号错误 1 条。
+
+---
+
+## 2026-09-01 (二) · 还账轮: B1/B2/B6 + B3′ 作用域重划 + Bedrock GPT-5.6 实测
+
+> 分支 `fix/web-rule9-backlog` (基线 main `2ea9603` = 1881 passed → **1899 passed**)
+> 派单/报告/复审 `.superpowers/sdd/2026-09-01-b1-b2-cleanup/`
+> Bedrock 实测 `.superpowers/sdd/2026-09-01-multi-model-switch/bedrock-probe.md`
+
+### 最重要的一条: B3′ 这条 ⛔ 硬约束本身写错了作用域
+
+原文「现有 140q / study 48q 数字描述的是一个生产不跑的构型」**写宽了**。
+`--retrieval-only` **不发任何 LLM 调用**, 而 `web_search_enabled` / `prompt_guardrail_enabled`
+**只往 answer 侧 system prompt 追加文本** ⇒ 那段 prompt 增量**从未被消费**。
+而 PROGRESS 门面 **7 个数字全部是 retrieval-only** (各有命令行出处)。
+⇒ 说它们"描述生产不跑的构型" = 说**一把不量温度的尺子读错了温度**。
+
+已按 **run 类型**重划: retrieval-only 移出约束范围; ⛔ 指向两处**真实**引用点
+(`README.md`/`README_CN.md` 的 53q 88.5%、`RETROSPECTIVE_retrieval_arc.md` 的 fact recall 93.9%),
+两处均已加构型尾注。**对答题侧数字, 硬约束维持不解除。**
+
+⚠ 教训: **一条写宽了的 ⛔ 约束是它自己的缺陷** —— 它会误伤本来干净的数字, 也会因为"显然过头"而被绕过。
+
+### 逐笔
+
+- **B1** Rule 9(b) 悬空引用 → 条件式修复。实测另发现 spec 未记的**编号断层** (`1..6` 直接跳 `9.`)。
+  判定**不重编号**: `9` 是**标识符不是序号**, 全仓 17 个文件引用「Rule 9」。
+  副产品: **生产构型 prompt 逐字节不变** (四格三格 sha 不动), 回滚闸锚点与断言一字未动。
+- **B2** 「OFF == 引入前」→ **未**采纳 ledger 建议的 sha256 golden。理由: 该闸**活不过第一次合法变红**
+  (按正确流程也必然失效, 非偷懒)。改钉长期有效的不变式, 并补掉逐字节回滚闸**此前未记的两个盲区**
+  (抄进基础规则 / 偷塞进 web 分支) —— **三条合起来才是完整红线闸**。
+- **B6** (本轮新挖) retrieval-only 产物无法自证 → `print_summary()` 落 `retrieval_only` + **`n_answered`**。
+- **B7** (新记, 未修) `run_evaluation()` 重试耗尽**跨题串答案**: 第 N>1 题耗尽时 `response` 仍持有
+  上一题响应 ⇒ 静默把上一题的 answer/usage 记到本题并照常算分。**长跑批产出看不出异常的错数据。**
+- spec **§10.2 体量数字**过期已更新 (1310→**1633** 字符 / 327→**408** token / 30%→**34.9%**), 三方独立复算一致。
+
+### 关键教训 (已落 retrospective)
+
+- **行号在长效文档里有两种坏法, 一天内两种都撞上**: (1) 凭印象填没回核 (四条错三条);
+  (2) **写的时候是对的, 被同一个 changeset 自己改废** —— 校对当时发现不了, 失效发生在核完之后、提交之前。
+  ⇒ 对策不是"更仔细核行号", 是**别引行号**。spec 已清空全部行号引用。
+- **记意图不记事实的产物会骗人**: 控制器派单时自己写着"记事实不记意图", 指定的方案仍只落了意图那一半
+  (`retrieval_only`), 是实现者补上事实那一半 (`n_answered`) 并用变异证明必要。
+
+### 过程
+
+Rule D 全程。实现者顶回控制器 **5 处**(B1 理由/编号代价排序/B2 措辞/B6 两条), 复审独立裁定**全部成立**;
+复审另提 Important 2 条, **两条都在控制器改的 spec 里** (B6 行与同 changeset 代码自相矛盾、行号被自己改废)。
+
+### 旁支: Bedrock GPT-5.6 可用性实测
+
+用户提出今后四模型自选切换。实测 `ap-northeast-1`: OpenAI 是 14 家 provider 之一,
+`global.openai.gpt-5.6-{terra,sol,luna}` 均 ACTIVE 且**账号有权调用**
+(⚠ 控制器先前「OpenAI 大概率不在 Bedrock 上」的判断**被实测推翻**)。
+三个坑: **不支持 `temperature`** (撞确定性配对 eval) / LiteLLM 1.88.1 能力表过时需 `register_model`
+(裸 boto3 证明工具调用本身通, 属客户端缺口) / **「自带联网」在 Bedrock 上不暴露**
+(对本项目是好消息 —— Rule 9 边界照常生效)。切换层已定「Chat UI 下拉 + API 参数」, 待 brainstorm。

@@ -17,6 +17,12 @@
 | 端到端 full eval src (DeepSeek temp=0) | — | OFF 76.4 → **ON 97.5** |
 | 端到端 fact recall (substring) | 94.8% (53q) | 82.6% (140q, substring 假阴重) |
 | 端到端 fact recall (语义 LLM-judge, 140q/466 facts) | — | **93.9%** (concept 100/cross 93.5/mixed 92.0/single 91.7; 替代误导性 82.6% substring) |
+
+> ⚠ **构型尾注 (补于 2026-09-01)**: 本表「端到端」三行 (src OFF 76.4→ON 97.5 / substring 82.6% / judge **93.9%**) 均为**答题侧**数字, 其源 run 落盘 `prompt_guardrail=False`, 而生产默认 `True` (`sdtm-rag/server/config.py:118`); 且该 run 早于联网参考规则 (Rule 9) 落地, 生产现在每次请求都带 Rule 9。⇒ **这三个数字不描述当前生产的 prompt 构型**, 不得作为生产质量背书引用。详见 spec `docs/superpowers/specs/2026-08-31-web-search-channel-design.md` §10.1 B3′ 行。
+>
+> 本表其余检索侧数字 (source recall / 各类型 recall) 走 `--retrieval-only`, **不发 LLM 调用**, 答题侧 lever 碰不到它们, **不在该约束范围内**。
+>
+> ⚠ 一条未坐实: judge 输入 `judge_input_v3.json` 取自 guardrail OFF 还是 ON 的那一臂, 按 substring 对照值 82.6% **推断**为 OFF 臂, 但两份源 JSON 已从工作树删除 —— **这是推断不是取证**。
 | Phase 2 KG | deferred (gate 61.5%>50%) | **正式关闭** (cross 99%, gate 远不满足) |
 | 部署 | 仅本地 venv | Docker Compose 修复/加固 + 实服 e2e 证过 (容器构建待 Docker 主机) |
 
