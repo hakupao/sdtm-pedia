@@ -2130,3 +2130,64 @@ Rule D 全程。实现者顶回控制器 **5 处**(B1 理由/编号代价排序/
 三个坑: **不支持 `temperature`** (撞确定性配对 eval) / LiteLLM 1.88.1 能力表过时需 `register_model`
 (裸 boto3 证明工具调用本身通, 属客户端缺口) / **「自带联网」在 Bedrock 上不暴露**
 (对本项目是好消息 —— Rule 9 边界照常生效)。切换层已定「Chat UI 下拉 + API 参数」, 待 brainstorm。
+
+---
+
+## 2026-09-01 (三) · U1 多模型切换 (Chat UI 下拉 + API 参数)
+
+> 分支 `feat/model-switching` (基线 main `67d53d3` = 1899 passed → **1939 passed**, +40)
+> spec `docs/superpowers/specs/2026-09-01-model-switching-design.md`
+> plan `docs/superpowers/plans/2026-09-01-model-switching.md`
+> 全程留痕 `.superpowers/sdd/2026-09-01-model-switching/` (ledger + 7 task 派单/报告 + 各轮复审 + 终审 977 行)
+
+### 做了什么
+
+用户可在 Chat UI 每次提问时自选答题模型, 四选一, **全部走公司 Bedrock**:
+Claude Opus 5 (verified) / Claude Sonnet 5 / GPT-5.6 Terra / GPT-5.6 Sol。
+
+核心设计: `settings.selectable_models` 作**唯一事实源**, LiteLLM Router 的模型组与
+`/api/info` 吐给前端的下拉**都从它派生** ⇒「UI 提供了 Router 没有的模型」结构上不可能发生。
+只换**答题**环节 —— 判库(`light`)/检索改写不受影响 (C1)。
+
+### 前置实测 (推翻了控制器的先验判断)
+
+⚠ 控制器先前认为「OpenAI 模型大概率不在 Bedrock 上」——**实测推翻**。
+`ap-northeast-1` 里 OpenAI 是 14 家 provider 之一, `global.openai.gpt-5.6-{terra,sol,luna}`
+均 ACTIVE 且账号有权调用。三个坑: 不支持 `temperature` (对本轮无影响, 且 Claude Opus 5
+也拒收, 仓库早踩过) / LiteLLM 1.88.1 能力表过时需 `register_model` (裸 boto3 证明工具调用
+本身通 ⇒ 客户端缺口非服务端限制) / **「自带联网」在 Bedrock 上不暴露** (对本项目是好消息 ——
+Rule 9 反捏造边界照常生效)。详见 `.superpowers/sdd/2026-09-01-multi-model-switch/bedrock-probe.md`。
+
+### 关键教训
+
+- ⛔ **pre-flight 扫描表自己也会「看起来在检查、实际没检查」**: 控制器的任务对表在
+  `T6→T7 | done 事件 model_id/verified | 前端存历史 | ✅ 一致` 这一行填了 ✅ —— 但它核的是
+  「T6 产出的东西 T7 会用」, **没核 T7 的计划正文里到底有没有写消费端**。结果 brief 逐字给的
+  代码块里没这段, 实现者忠实照做, 缺口落地, 而 T7 是最后一个 task **没有后续兜底**。
+  终审判为 Critical。⇒ 检查接口配对的**意图** ≠ 检查计划文本的**事实**。
+- ⛔ **终审抓到的三类问题, 前 7 轮 task 复审全部没抓到**, 共同点是都在**跨 task 接缝**或
+  **生产调用点**上: ⚑ 归档归错模型 (本分支打破的既有不变量) / 闸 6 看的不是 spec 写明要看的
+  那个变量 (默认配置下结构上不可能报警) / `main.py` 启动接线**零测试** (整块删掉仍 1922 全绿)。
+  ⇒ 单 task 复审只看自己那段 diff, **接缝与生产调用点必须由全分支终审兜**。
+- **变异没作用在被测代码上**的三种栽法一天内全撞上 (已并入 retrospective 规则 5):
+  裸子串定位失败被 shell 吞 / 前端先加载页面后改文件 (JS 不热重载) /
+  `git checkout --` 还原变异时把**未提交的修复本身**一起冲掉。第三种最阴 —— 前面的变异结论
+  看起来都成立, 因为它们确实红了, 只是红的原因是「修复没了」而不是「闸抓住了」。
+- **意图与事实要各自有闸, 不能拿一个冒充另一个**: `done` 事件的 `model_id` 只回显 `body.model`
+  (意图), 两条新测试因此抓不到「实际派发的模型被写死」这个变异; 另加事实层闸钉
+  `_CapturingRouter.last_model` 才补上。
+
+### 过程
+
+Rule D 全程: 7 个 task 各配独立复审 (实现者/复审不共享上下文), 6 轮修复,
+终审 opus 全分支 + 一轮定向复核。实现者顶回控制器判断 **6 次**, 复审独立裁定**全部成立**;
+复审推翻自己上一轮立场 1 次; 终审推翻控制器的 pre-flight 结论 1 次。
+控制器共做 **9 条裁定**, 全部记入 ledger 并含「若错代价」。
+
+### 已知欠账 (spec §9 D5-D11)
+
+⛔ **D5 是本分支引入的生产韧性回归**: 分支前 UI 永发 `default` 组(有 fallback 网),
+分支后永发显式 id 落 `opus-5`, 而四个新派生组**无 fallback 条目** ⇒ **容灾网没了**。
+`DEPLOY_PLAN.md` 记着该回退在 Anthropic credits 耗尽时**真的生效过**。
+本轮只记录不修 (属 U2 范围; 且加了会激活 `model_id`/`model_used` 分叉而 `model_used`
+无任何取值断言 = 在没有闸的地方引入新行为)。**U2 落地前 `opus-5` 失败会直接报错不再回退。**

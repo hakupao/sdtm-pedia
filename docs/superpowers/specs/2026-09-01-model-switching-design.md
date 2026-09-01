@@ -156,3 +156,10 @@ SSE `done` 事件带**实际答题的模型 id 与其 `verified` 值**, 前端�
 | D2 | `run_eval.py` 多模型 + `--temperature` 配对口径冲突 | 另议 |
 | D3 | embedding 走个人 OpenAI key (每次提问必走) | **接受, 不改** |
 | D4 | fallback / expansion / judge 走 DeepSeek 个人流量 | **接受, 不改** |
+| **D5** ⚠ | **Chat UI 主路径失去 fallback (本分支引入的回归)** —— 分支前 UI 永发 `default` 组, 该组有 `fallbacks=[{"default": ["default-fallback"]}]` 兜底; 分支后 UI **永发显式 id** (§5 裁定) 落 `opus-5`, 而四个新派生组**无 fallback 条目** ⇒ 主模型没变, **容灾网没了**。非理论风险: `sdtm-rag/DEPLOY_PLAN.md` 记着实测「Anthropic credits 耗尽 → DeepSeek 自动回退」**真的生效过** | **本轮只记录不修**。理由: (a) 扩 fallback 表属 §1 明确划为非目标的 **U2**; (b) 更要紧 —— 加了会**激活 `model_id` 与 `model_used` 的分叉** (用户选 `gpt-sol` 却拿到 DeepSeek 的答案), 而 `model_used` **目前无任何取值断言** (见 D6), 等于在没有闸的地方引入新行为。<br>⛔ **在 U2 落地前, `opus-5` 失败时前端直接收到 `event: error`, 不再自动回退。** |
+| **D6** | `model_used` 字段的**取值**在整个测试套件里无任何断言 (既有欠账, 非本分支引入) | 与 D5 同轮处理 —— U2 引入 fallback 时**必须**先补上, 否则分叉发生时无人可证 |
+| **D7** | `/api/info` 直接读 `s.selectable_models`, **未经** `_validated_selectable_models` 的撞名 fail-loud 闸 —— 五条读路径里四条过闸, 它是唯一例外 | 当前生产够不到 (`create_router` 在 lifespan 启动期就会因撞名让应用起不来)。⚠ 若将来把 `create_router` 改成懒加载、或把撞名异常改成 catch-and-log, `/api/info` 会在无人守护下把撞名 id 吐给前端, 而子集闸测的是默认配置、测不出该漂移 |
+| **D8** | `/api/ask_stream` 接受 `hard` / `light` / `default-fallback` 作答题模型 | 终审判定按 §5 字面**合规** (「必须在 Router 已知组名集合内」), UI 也够不到 (`/api/info` 不吐它们), `done` 事件对它们发 `verified: null` 语义正确。**不改** —— 改了会与 §5 字面定义冲突 |
+| **D9** | streamlit 端另有一份模型清单 (第四份真相); 两处失效文档指针 (指向已删的 `VALID_MODELS`、引用旧事件名 `selectable_models_not_on_bedrock`) | 终审修复轮按指示未动, 清单见 `.superpowers/sdd/2026-09-01-model-switching/fix-final-report.md` §4 |
+| **D10** | `webchat/app.js` 顶部注释与最终实现**相反**, 且过时那条正好描述的是被 C-1 修掉的 bug 行为 (「从 topbar 切模型名」) | 终审 M-1, 未修。⚠ 本仓库既有判例: **假约束注释比过期注释更害人** —— 它会让后来人以为当前实现就是那样。1 行改动, 建议下轮清掉 |
+| **D11** | `/api/ask` 现在能用未验证模型答题 (I-3 修法把接受值 3→8 的必然结果), 但 `AskResponse` 没有 `model_id` / `verified` ⇒ **自证面缺一块** | 终审 M-7。今天无调用方这么用, 不阻塞; 若将来 `/api/ask` 真被用来跑非 Claude 模型, 这条要补 |
