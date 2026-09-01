@@ -21,6 +21,7 @@ from server.auth import install_security
 from server.config import settings
 from server.llm_config import (
     create_router,
+    non_bedrock_model_groups,
     register_selectable_model_capabilities,
     verify_selectable_model_capabilities,
 )
@@ -111,12 +112,15 @@ async def lifespan(app: FastAPI):
         vi_map = app.state.rag._vi_section_map()
         log.info("s1_vi_section_map", entries=len(vi_map))
     app.state.llm_router = create_router(s)
-    # C3 告警: 未走 Bedrock 的可选模型 (config.py 硬编码默认值是 anthropic/ 直连,
-    # 只靠 .env 改写且无任何校验 ⇒ .env 一缺就静默走直连)。同时给 GPT 系模型补
-    # LiteLLM 能力元数据, 否则 bedrock allowlist 拒收 tools, 联网通道对它们不可用。
-    non_bedrock_models = register_selectable_model_capabilities(s)
+    # 给 GPT 系模型补 LiteLLM 能力元数据, 否则 bedrock allowlist 拒收 tools, 联网通道
+    # 对它们不可用 (spec §4.2)。
+    register_selectable_model_capabilities(s)
+    # C3 告警: 模型串没走公司 Bedrock 的组 (config.py 里 default/hard/light 的硬编码默认
+    # 值是 anthropic/ 直连, 只靠 .env 改写且无任何校验 ⇒ .env 缺一段、或并列两段顺序一换,
+    # 答题主路径就静默回到直连)。default-fallback 按 spec §9 D4 豁免。
+    non_bedrock_models = non_bedrock_model_groups(s)
     if non_bedrock_models:
-        log.warning("selectable_models_not_on_bedrock", models=non_bedrock_models)
+        log.warning("models_not_on_bedrock", models=non_bedrock_models)
     # spec §4.2 启动期自检: register_model() 跑过不等于生效 (带前缀的 key 注册就是
     # 静默无效, 不报错直到有人开联网才炸) —— 回查而非假定调用没抛异常就算数。
     unverified_capability_models = verify_selectable_model_capabilities(s)

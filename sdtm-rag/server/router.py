@@ -19,8 +19,6 @@ from server.web_search import WEB_TOOL_SPEC, WebSearcher, render_tool_result
 log = structlog.get_logger()
 api_router = APIRouter(prefix="/api")
 
-VALID_MODELS = {"default", "hard", "light"}
-
 # 单库 RAGEngine.format_context 在零 chunk 时返回的哨兵句 (server/rag.py)。联邦层的
 # format_context 两组都空时返回空串 —— 空 context 会让模型以为"上下文段落缺失"而自由
 # 发挥, 所以联邦路径在这里补回同一句, 与单库路径逐字节一致 (漂移由测试钉住)。
@@ -132,16 +130,20 @@ def info(request: Request):
 def ask(body: AskRequest, request: Request):
     rag = request.app.state.rag
     llm_router = request.app.state.llm_router
+    s = request.app.state.settings
     t0 = time.perf_counter()
 
     if not body.question.strip():
         raise HTTPException(status_code=422, detail="question must not be empty")
 
-    if body.model not in VALID_MODELS:
-        raise HTTPException(
-            status_code=422,
-            detail=f"model must be one of {VALID_MODELS}",
-        )
+    # 与 /api/ask_stream 共用 known_model_groups —— 曾经这里是一份写死的
+    # {"default","hard","light"}, 于是 /api/info 广播出去的 id 打到本端点就 422,
+    # 同一个仓库两个端点对同一个模型名给出相反答案 (它连 default-fallback 都漏了)。
+    # 白名单只能有一份, 且必须是 Router 事实的那份。
+    known = known_model_groups(s)
+    if body.model not in known:
+        raise HTTPException(status_code=422,
+                            detail=f"unknown model {body.model!r}; known: {sorted(known)}")
 
     log.info("ask", question=body.question[:100], model=body.model, domain=body.domain)
 

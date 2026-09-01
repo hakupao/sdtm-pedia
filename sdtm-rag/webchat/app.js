@@ -295,7 +295,7 @@ function openFlag(bar, btn, question, msgObj) {
   cancel.onclick = () => { box.remove(); btn.style.display = ""; };
   send.onclick = async () => {
     send.disabled = true; cancel.disabled = true; send.textContent = "...";
-    const ok = await postFlag(question, msgObj ? msgObj.content : "", ta.value);
+    const ok = await postFlag(question, msgObj ? msgObj.content : "", ta.value, msgObj);
     if (ok) {
       if (msgObj) { msgObj.flagged = true; save(); }
       box.remove();
@@ -312,8 +312,19 @@ function openFlag(bar, btn, question, msgObj) {
   ta.focus();
 }
 
-async function postFlag(question, answer, note) {
-  const model = ($("topbar-title").textContent.split("·").pop() || "").trim() || null;
+// 归因必须取**这一条答案实际用的模型** (msgObj.modelId, 由 done 事件落进历史存档)。
+// topbar 文本是 /api/info 的 default_model, 与答题模型无关 —— 下拉可选模型之前"唯一
+// 答题模型就是 default 组"成立, 所以拿它凑合是对的; 现在它会把 A 模型的捏造记到 B 头上,
+// 而 dogfood_failures.md 是 append-only 的优先级 backlog, 错误写入即永久且无从回溯。
+// modelId 缺失 (下拉上线前存的旧历史) 时才退回 topbar 文本: 那些记录确实产自 default 组。
+function flagModelName(msgObj) {
+  const id = msgObj && msgObj.modelId;
+  if (id) return modelLabelById[id] || id;   // 表没加载好就发原始 id, 归因照样正确
+  return ($("topbar-title").textContent.split("·").pop() || "").trim() || null;
+}
+
+async function postFlag(question, answer, note, msgObj) {
+  const model = flagModelName(msgObj);
   try {
     const r = await fetch("/api/flag", {
       method: "POST", headers: { "Content-Type": "application/json" },

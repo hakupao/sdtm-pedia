@@ -15,6 +15,22 @@ from server.config import Settings, SelectableModel
 
 INTERNAL_GROUPS = ("default", "default-fallback", "hard", "light")
 
+# 内部组名 → Settings 上存它模型串的字段名。写成显式表而不是 f"{group}_model" 拼字符串:
+# 拼名字在字段改名时不会报错, 只会静默少检一个模型 —— 正是闸 6 已经栽过一次的形状
+# (它只扫 selectable_models, 而那四条硬编码全是 bedrock/, 于是默认配置下结构上不可能报警)。
+# 表里缺项则 KeyError 当场炸在启动路径上, 比静默漏检好。
+# 与 INTERNAL_GROUPS 的一一对应由 test_model_switching 钉住, 新增内部组必须同步这里。
+_INTERNAL_GROUP_MODEL_FIELDS = {
+    "default": "default_model",
+    "default-fallback": "fallback_model",
+    "hard": "hard_model",
+    "light": "light_model",
+}
+
+# C3 检查豁免: fallback 默认就是 DeepSeek 个人流量, 用户已明确裁定接受 (spec §9 D4)。
+# 把它纳入会产生恒定假阳性, 而一条长期喊狼来了的告警等于没有告警。
+_C3_EXEMPT_GROUPS = ("default-fallback",)
+
 
 def _validated_selectable_models(s: Settings) -> list[SelectableModel]:
     """`s.selectable_models`, 但先 fail-loud 挡住与 INTERNAL_GROUPS 撞名的 id。
@@ -90,8 +106,38 @@ def known_model_groups(s: Settings) -> set[str]:
     return set(INTERNAL_GROUPS) | {m.id for m in _validated_selectable_models(s)}
 
 
-def register_selectable_model_capabilities(s: Settings) -> list[str]:
-    """给可选模型补 LiteLLM 能力元数据, 并报出未走 Bedrock 的那些。
+def non_bedrock_model_groups(s: Settings) -> list[str]:
+    """C3 闸 (spec §8 闸 6): 报出模型串**不走公司 Bedrock** 的全部 Router 组名。
+
+    检查集合 = 内部组 (default/hard/light, 经 `_INTERNAL_GROUP_MODEL_FIELDS` 取字段)
+    ∪ selectable_models, **不含** default-fallback (见 `_C3_EXEMPT_GROUPS`)。
+
+    ⚠ 内部三组是这条闸的**主要**目标, 不是附带: spec §8 闸 6 的脚注点名的正是
+    「`server/config.py` 里三个 Claude 模型的硬编码默认值是 `anthropic/` 直连,
+    只有 `.env` 把它们改写成 Bedrock, 且无任何启动期校验」。selectable_models 那
+    四条硬编码本来就全是 `bedrock/`, 只扫它们的话默认配置下返回值恒为 `[]` ——
+    结构上不可能报警, 而闸要防的失败 (.env 缺一段、或两段并列时顺序一换) 全在
+    内部三组上。`default` 组还是 `/api/ask`、eval 脚本、以及 Chat UI 在 /api/info
+    加载失败时的降级落点。
+
+    C3 与 C1 正交, 纳入 light/hard **不**触碰 C1: 本函数只读模型串判前缀、结果进
+    ready 日志, 不往 model_list 加组、不进 known_model_groups、不进 /api/info、
+    不碰答题请求的 `kw["model"]`。C1 管"谁能被用户切", C3 管"钱走谁的账"。
+
+    返回组名列表; 空列表 = 全部合规。告警不阻止启动 (spec §8 闸 6)。
+    """
+    off = [
+        g for g in INTERNAL_GROUPS
+        if g not in _C3_EXEMPT_GROUPS
+        and not getattr(s, _INTERNAL_GROUP_MODEL_FIELDS[g]).startswith("bedrock/")
+    ]
+    off += [m.id for m in _validated_selectable_models(s)
+            if not m.model.startswith("bedrock/")]
+    return off
+
+
+def register_selectable_model_capabilities(s: Settings) -> None:
+    """给可选模型补 LiteLLM 能力元数据。
 
     为什么需要: LiteLLM 的 bedrock provider allowlist 只认
     anthropic|mistral|cohere|meta.llama3-*|amazon.nova, 其余走 supports_function_calling()
@@ -104,17 +150,16 @@ def register_selectable_model_capabilities(s: Settings) -> list[str]:
     经 `_validated_selectable_models` 读取 (与 `create_router` / `known_model_groups`
     同一道 fail-loud 撞名闸), 不直接读 `s.selectable_models`。
 
-    返回未走 Bedrock 的模型 id (C3 告警用); 空列表 = 全部合规。
+    非 Bedrock 的模型跳过注册 (这里的元数据写死 `bedrock_converse` provider, 套到别的
+    provider 上是错的)。它们的合规问题由 `non_bedrock_model_groups` 管 —— C3 告警是
+    一个函数一个口径, 不在这里分一半出去。
     """
     info = {"litellm_provider": "bedrock_converse", "mode": "chat",
             "supports_function_calling": True}
-    non_bedrock: list[str] = []
     for m in _validated_selectable_models(s):
         if not m.model.startswith("bedrock/"):
-            non_bedrock.append(m.id)
             continue
         litellm.register_model({m.model.removeprefix("bedrock/"): dict(info)})
-    return non_bedrock
 
 
 def verify_selectable_model_capabilities(s: Settings) -> list[str]:
