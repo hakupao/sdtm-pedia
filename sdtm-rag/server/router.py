@@ -12,6 +12,7 @@ from fastapi import APIRouter, File, Form, HTTPException, Request, UploadFile
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel, ConfigDict, Field
 
+from server.config import SelectableModel
 from server.web_search import WEB_TOOL_SPEC, WebSearcher, render_tool_result
 
 log = structlog.get_logger()
@@ -86,6 +87,8 @@ class InfoResponse(BaseModel):
     # Phase 2 compare/judge defaults (UI prefills its model slots from these).
     compare_models: list[str] = Field(default_factory=list)
     judge_model: str | None = None
+    # 用户可选答题模型 (spec §7)。前端下拉直接渲染这张表 —— 与 Router 组同源, 见 §3.1。
+    selectable_models: list[SelectableModel] = Field(default_factory=list)
     # 索引新鲜度 (运维闸): 默认 None 而非 True —— 判不出来时说"新鲜"比没有该字段更糟
     index_fresh: bool | None = None
     index_freshness_reason: str | None = None
@@ -116,6 +119,7 @@ def info(request: Request):
         web_search=rag.web_search_enabled,
         compare_models=s.compare_models,
         judge_model=s.judge_model,
+        selectable_models=s.selectable_models,
         # 启动时算好存在 app.state, 避免每次 /info 都重扫 KB 目录
         index_fresh=getattr(request.app.state, "index_fresh", None),
         index_freshness_reason=getattr(request.app.state, "index_freshness_reason", None),

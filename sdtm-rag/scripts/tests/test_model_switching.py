@@ -168,3 +168,43 @@ def test_verify_does_not_let_a_natively_true_model_mask_a_broken_one():
                          verified=False),
     ])
     assert verify_selectable_model_capabilities(s) == ["never-registered"]
+
+
+def _info_client(**kw):
+    """/api/info 只读 rag/settings 上的几个属性, 最小 stub 即可 (照
+    test_web_search_config.py 的既有写法), 不碰 chroma/embedding。"""
+    from types import SimpleNamespace
+
+    from fastapi import FastAPI
+    from fastapi.testclient import TestClient
+
+    from server.router import api_router
+
+    app = FastAPI()
+    app.include_router(api_router)
+    app.state.rag = SimpleNamespace(
+        collection=SimpleNamespace(count=lambda: 1),
+        structured_lookup_enabled=True, hybrid_enabled=True, hybrid_fusion="rrf",
+        prompt_guardrail_enabled=True, web_search_enabled=True,
+    )
+    app.state.settings = Settings(**kw)
+    return TestClient(app)
+
+
+def test_info_exposes_selectable_models_with_verified():
+    got = _info_client().get("/api/info").json()["selectable_models"]
+    assert [m["id"] for m in got] == ["opus-5", "sonnet-5", "gpt-terra", "gpt-sol"]
+    by_id = {m["id"]: m for m in got}
+    assert by_id["opus-5"]["verified"] is True
+    assert by_id["gpt-sol"]["verified"] is False
+    assert by_id["opus-5"]["label"] == "Claude Opus 5"
+
+
+def test_info_model_table_is_subset_of_router_groups():
+    """闸 3: 结构上杜绝「UI 提供了 Router 没有的模型」。这条是本设计选方案 C 的理由,
+    必须有闸兜住 —— 派生逻辑将来被改坏时它要响。"""
+    from server.llm_config import create_router
+    s = Settings()
+    exposed = {m["id"] for m in _info_client().get("/api/info").json()["selectable_models"]}
+    assert exposed <= {m["model_name"] for m in create_router(s).model_list}
+    assert len(exposed) >= 4, "抽取端失效: 暴露的模型表为空时上面的子集断言恒真"
