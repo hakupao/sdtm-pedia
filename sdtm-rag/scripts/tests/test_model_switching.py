@@ -152,3 +152,19 @@ def test_verify_flags_a_model_whose_registration_never_happened():
                          verified=False),
     ])
     assert verify_selectable_model_capabilities(s) == ["never-registered"]
+
+
+def test_verify_does_not_let_a_natively_true_model_mask_a_broken_one():
+    """Claude 天然 True; 若 verify 是"存在一个 True 即通过", 混一个天然 True 的
+    Claude 与一个从未注册的假 bedrock 模型会让后者被掩盖。同一个 Settings 里
+    混装两者, 专门钉这条(与两条现有新测试互补, 它们都没测到这个组合)。"""
+    from server.llm_config import verify_selectable_model_capabilities
+    s = Settings(selectable_models=[
+        SelectableModel(id="opus-5", label="Claude Opus 5",
+                         model="bedrock/converse/global.anthropic.claude-opus-5",
+                         verified=True),
+        SelectableModel(id="never-registered", label="从未注册",
+                         model="bedrock/converse/global.openai.gpt-9.9-never-registered",
+                         verified=False),
+    ])
+    assert verify_selectable_model_capabilities(s) == ["never-registered"]
