@@ -44,6 +44,7 @@ html, body { margin: 0; height: 100%; font-family: -apple-system, "Segoe UI", "P
   background: var(--badge-bg, #e0e7ff); color: #333; }
 .corpus-badge.study { background: var(--badge-study-bg, #ffe4e6); }
 .msg-meta { max-width: 760px; margin: -10px auto 6px; padding: 0 20px 0 52px; font-size: 12px; color: #888; }
+.model-meta.unverified { color: #b45309; } /* 同 .web-warn 的琥珀色, 未验证模型徽章一眼分辨 */
 .err { color: #c00; }
 #composer { max-width: 760px; width: 100%; margin: 0 auto; padding: 12px 20px 20px; display: flex; gap: 8px; }
 #input { flex: 1; resize: none; max-height: 200px; padding: 12px; border: 1px solid #d0d0d0; border-radius: 12px; font-size: 15px; font-family: inherit; }

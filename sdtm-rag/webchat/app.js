@@ -3,6 +3,9 @@ const LS_KEY = "sdtm_chat_v1";
 const HISTORY_TURNS = 10; // 控 token: 发给后端的最近消息条数
 // Plan B 联邦: 库标签 (日文 UI)。map 里没有的值 (null / 未知) 一律不渲染徽章 —— 联邦关时零变化。
 const CORPUS_LABEL = { cdisc: "標準", study: "本研究", both: "両方" };
+// 模型 id → label 表, loadModelName() 拿到 /api/info 后填。页面刚打开、表还是空的时候历史
+// 徽章会退化显示原始 id (不影响正确性), loadModelName 填完表后会重渲染一次消息列表补上。
+let modelLabelById = {};
 
 // uid 不用 crypto.randomUUID (LAN http 非安全上下文不可用)
 const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
@@ -85,7 +88,8 @@ function renderMessages() {
   if (!c) return;
   let lastUserQ = "";
   for (const m of c.messages) {
-    const el = messageEl(m.role, m.content, m.sources, m.routedCorpus, m.webStatus, m.webSearchesOk);
+    const el = messageEl(m.role, m.content, m.sources, m.routedCorpus, m.webStatus, m.webSearchesOk,
+                          m.modelId, m.verified);
     if (m.role === "user") lastUserQ = m.content;
     else if (m.role === "assistant") attachFlag(el, lastUserQ, m);
     box.appendChild(el);
@@ -93,7 +97,7 @@ function renderMessages() {
   box.scrollTop = box.scrollHeight;
 }
 
-function messageEl(role, content, sources, routedCorpus, webStatus, webSearchesOk) {
+function messageEl(role, content, sources, routedCorpus, webStatus, webSearchesOk, modelId, verified) {
   const wrap = document.createElement("div");
   const msg = document.createElement("div");
   msg.className = "msg " + role;
@@ -111,7 +115,26 @@ function messageEl(role, content, sources, routedCorpus, webStatus, webSearchesO
   // 刷新/切会话后复原联网状态。不复原的话, 一个"已降级为未联网"的 KB-only 答案
   // 和正常联网答案长得一模一样 (spec §7 点名的最骗人的失败模式)。
   renderWebStatus(wrap, webStatus, webSearchesOk);
+  // 同一个坑, spec §6: 只做 UI 标注(下拉旁边那行提示)的话, 对话存下来后这条信息就没了。
+  renderModelBadge(wrap, role, modelId, verified);
   return wrap;
+}
+
+// 答案实际用的模型 (spec §6 产物自证)。modelId 为空 (生成中占位 / 未流完就中断 / 旧历史
+// 记录没存这个字段) 时什么都不画 —— 比瞎猜一个模型名更诚实, 也避免占位阶段先画一个"未知"
+// 徽章、done 后又叠一个真实徽章的重复渲染。
+function renderModelBadge(wrap, role, modelId, verified) {
+  if (role !== "assistant" || !modelId) return;
+  const b = document.createElement("div");
+  b.className = "msg-meta model-meta";
+  const label = modelLabelById[modelId] || modelId;
+  // verified 三态不可混同 (spec §6): true 正常; false 是拿到确证的"验过且不通过";
+  // null (default 组不在 selectable_models 里, 没有 verified 概念) 一律显"未知",
+  // 绝不能落进 false 那支 (会把"没这个概念"误报成"验过且不通过")。
+  if (verified === true) b.textContent = `模型: ${label}`;
+  else if (verified === false) { b.textContent = `模型: ${label} ⚠未验证`; b.classList.add("unverified"); }
+  else b.textContent = `模型: ${label} · 验证状态未知`;
+  wrap.appendChild(b);
 }
 
 // 答案元信息行: 联邦实际检索了哪个库 (routed_corpus)。联邦关时后端返 null → 不渲染。
@@ -412,6 +435,8 @@ async function runGeneration(c) {
   let gotRouted = null;
   let gotWebStatus = null;
   let gotWebSearchesOk = null;
+  let gotModelId = null;
+  let gotVerified = null;
   let saved = false;
   let savedMsg = null;
   const renderFinal = (content) => { bubble.innerHTML = mdToSafeHTML(content); highlightIn(bubble); };
@@ -419,7 +444,8 @@ async function runGeneration(c) {
     if (saved) return;
     saved = true;
     savedMsg = { role: "assistant", content, sources: gotSources || [], routedCorpus: gotRouted,
-                 webStatus: gotWebStatus, webSearchesOk: gotWebSearchesOk };
+                 webStatus: gotWebStatus, webSearchesOk: gotWebSearchesOk,
+                 modelId: gotModelId, verified: gotVerified };
     c.messages.push(savedMsg);
     save(); renderSidebar();
   };
@@ -451,7 +477,12 @@ async function runGeneration(c) {
       // done 后整体渲染 markdown 一次; 空回答用占位 (DESIGN §6)。
       onDone: (data) => {
         gotWebStatus = (data || {}).web_status; gotWebSearchesOk = (data || {}).web_searches_ok;
+        // ?? 只在 null/undefined 时取右值, false 会原样保留 —— 与 renderModelBadge 的
+        // 三态语义 (spec §6) 保持一致: verified 缺失时按"未知"收, 不会误当成 false。
+        gotModelId = (data || {}).model_id ?? null;
+        gotVerified = (data || {}).verified ?? null;
         renderWebStatus(holder, gotWebStatus, gotWebSearchesOk);
+        renderModelBadge(holder, "assistant", gotModelId, gotVerified);
         const content = acc.trim() ? acc : "(无内容)"; renderFinal(content); persist(content);
       },
       onError: (msg) => { if (acc) { renderFinal(acc); persist(acc); } appendErr(msg); appendRetry(); },
@@ -487,6 +518,7 @@ async function loadModelName() {
       o.textContent = m.verified ? m.label : `${m.label} ⚠未验证`;
       o.dataset.verified = String(m.verified);
       sel.appendChild(o);
+      modelLabelById[m.id] = m.label; // 供 renderModelBadge 查表, 把历史消息里的原始 id 换成人话
     });
     // 刷新保留 —— 终审 I-E (联网状态过不了刷新) 的同款, 不重犯
     const saved = localStorage.getItem("sdtm_model");
@@ -500,6 +532,9 @@ async function loadModelName() {
       syncWarning();
     });
     syncWarning();
+    // 首屏 renderMessages() 早于这个 fetch 落地, 历史消息的模型徽章当时只能显示原始 id;
+    // 表填好后重画一遍补上人话 label (renderMessages 全量重建 #messages, 幂等, 代价可忽略)。
+    renderMessages();
   } catch (_) {}
 }
 
