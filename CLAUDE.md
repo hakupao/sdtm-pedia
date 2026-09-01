@@ -40,7 +40,7 @@ Every new session, **before doing any work**, read these files in order:
 2. `docs/PROGRESS.md` — 当前各 phase 状态 (唯一状态源)
 3. `.work/meta/worklog/INDEX.md` — 历史工作日志入口 (按 phase 拆分)
 4. `.work/03_verification/issues_found.md` — open issues
-5. `.work/meta/retrospective.md` § 4 — four prevention rules (must follow when doing any AI-assisted content work)
+5. `.work/meta/retrospective.md` § 4 — six prevention rules (1-4 内容抽取; 5-6 代码/测试: 变异验证 + 按成因选对策)
 
 Then summarize to the user: current status, open issues, and suggested next step.
 

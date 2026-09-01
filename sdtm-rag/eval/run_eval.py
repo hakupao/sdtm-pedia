@@ -680,6 +680,15 @@ def main(argv: list[str] | None = None) -> int:
              "pre-guardrail prod); pass for the guardrail-ON arm of a paired eval.",
     )
     parser.add_argument(
+        "--web-search",
+        action="store_true",
+        help="Reproduce prod's system prompt: append the Rule 9 web-source rules, "
+             "which prod carries on EVERY request (independent of the per-request "
+             "'web' field). Prompt-only -- eval does NOT search the web, because the "
+             "tool loop lives solely in /api/ask_stream. Pass it whenever the numbers "
+             "are meant to describe the production configuration.",
+    )
+    parser.add_argument(
         "--full-answers",
         action="store_true",
         help="Store the untruncated answer per question (field 'answer') in addition to "
@@ -833,9 +842,12 @@ def main(argv: list[str] | None = None) -> int:
             args.hybrid_pool if args.hybrid_pool is not None else settings.hybrid_pool
         ),
         prompt_guardrail_enabled=args.guardrail,
-        # Task 3 未给 eval 开联网开关 (无 --web-search flag); 恒 False 与 RAGEngine
-        # 默认值一致, 评测数字因此不受 Rule 9 影响, 与生产 web_search_enabled=on 是两回事。
-        web_search_enabled=False,
+        # Rule 9 是否进 system prompt。生产恒 on 且与请求级 web 真假无关 ⇒ 不给
+        # --web-search 跑出来的数字描述的是一个生产不跑的构型 (spec §10.1 B3')。
+        # ⚠ 本 lever 只复现 prompt 构型, eval 并不联网 —— 工具循环只在 /api/ask_stream (§10.0)。
+        # ⚠ 将来 eval 真接工具循环时, 必须用这同一个 args.web_search 同时驱动循环与本
+        #   lever, 不得新开第二个 flag: 否则会跑「无 Rule 9 构型」却当生产数字上报。
+        web_search_enabled=args.web_search,
     )
     rerank_info = (
         f", rerank={rag.rerank_model} pool={rag.rerank_candidates}" if args.rerank else ""
@@ -855,9 +867,17 @@ def main(argv: list[str] | None = None) -> int:
         + (f"(alpha={rag.hybrid_alpha})" if rag.hybrid_fusion == "weighted" else "")
         if args.hybrid else ""
     )
-    guardrail_info = ", guardrail=ON" if args.guardrail else ""
+    # 下面两个回执读**引擎实收值**而不是 args: 记事实, 不记意图。读 args 时注入点漏改
+    # (引擎实收 OFF) 屏幕照打 ON, 就能跑出一批标着 ON 实际 OFF 的 140q 数字, 事后无从分辨。
+    # 同 print 里 rerank_info / expand_info / hybrid_info 一向读 rag.*, 这里对齐。
+    guardrail_info = ", guardrail=ON" if rag.prompt_guardrail_enabled else ""
+    # web_search 文案额外写死"不联网": flag 名读起来像 eval 会去搜, 实际只是 prompt 构型 (§10.0)
+    web_search_info = (
+        ", web_search=ON(prompt-only, no live search)"
+        if rag.web_search_enabled else ""
+    )
     collection_info = f", collection={collection_name}" if args.collection else ""
-    print(f"RAG engine: {rag.collection.count()} chunks, model={settings.default_model}, top_k={args.top_k}{rerank_info}{expand_info}{lookup_info}{study_lookup_info}{hybrid_info}{guardrail_info}{collection_info}")
+    print(f"RAG engine: {rag.collection.count()} chunks, model={settings.default_model}, top_k={args.top_k}{rerank_info}{expand_info}{lookup_info}{study_lookup_info}{hybrid_info}{guardrail_info}{web_search_info}{collection_info}")
 
     # 联邦模式: 上面那台是 cdisc 引擎, 再起一台 study 引擎 (S1 恒关 —— gold map 是 CDISC 专属),
     # 其余 lever 与 cdisc 一致, 由 FederatedEngine 判库分发。retriever 是喂给 run_evaluation 的
@@ -887,9 +907,9 @@ def main(argv: list[str] | None = None) -> int:
                 args.hybrid_pool if args.hybrid_pool is not None else settings.hybrid_pool
             ),
             prompt_guardrail_enabled=args.guardrail,
-            # 与上面 cdisc 引擎同理恒 False —— 保 docs_engine_parity 闸 (prod/eval 结构
-            # 键集相同) 不因本 task 新增的 lever 而漂移。
-            web_search_enabled=False,
+            # 与上面 cdisc 引擎同一个 args.web_search —— 两处注入点必须同源: 只改一处时
+            # 联邦两臂的 prompt 构型不一致, 而数字上完全看不出来 (B3' 就是这么活下来的)。
+            web_search_enabled=args.web_search,
         )
         study_rag = RAGEngine(
             chroma_dir=settings.chroma_dir,
@@ -1029,7 +1049,10 @@ def main(argv: list[str] | None = None) -> int:
         summary["routing"] = routing
         # 两臂产物除文件名外必须能自证 off/on —— 事后只靠文件名认臂是没有取证价值的
         summary["signal_layer"] = args.signal_layer
-    summary["prompt_guardrail"] = args.guardrail
+    # 两行同口径: 记**引擎实收值**(事实), 不记 args(意图) —— 注入点漏改时这两行会跟着变,
+    # 而读 args 会落盘一个与引擎无关的标签 (标着 ON 实际 OFF 的数字, 事后无从分辨)。
+    summary["prompt_guardrail"] = rag.prompt_guardrail_enabled
+    summary["web_search"] = rag.web_search_enabled
     summary["structured_answer"] = args.structured_answer
     summary["graph_answer"] = args.graph_answer
     summary["aggregate_answer"] = args.aggregate_answer

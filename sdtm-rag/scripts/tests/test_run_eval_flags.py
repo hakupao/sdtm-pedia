@@ -7,6 +7,7 @@ force structured-lookup off (the S1 gold map is CDISC-specific).
 """
 from __future__ import annotations
 
+import re
 from pathlib import Path
 
 import pytest
@@ -42,6 +43,8 @@ def captured(tmp_path, monkeypatch):
             self.expansion_n_queries = kwargs["expansion_n_queries"]
             self.hybrid_fusion = kwargs["hybrid_fusion"]
             self.hybrid_alpha = kwargs["hybrid_alpha"]
+            self.web_search_enabled = kwargs["web_search_enabled"]
+            self.prompt_guardrail_enabled = kwargs["prompt_guardrail_enabled"]
 
     monkeypatch.setattr(run_eval, "RAGEngine", FakeEngine)
     monkeypatch.setattr(run_eval, "run_evaluation", lambda *a, **k: [])
@@ -378,7 +381,8 @@ def captured_federated(tmp_path, monkeypatch):
             self.collection = FakeCollection()
             for k in ("rerank_model", "rerank_candidates", "query_expansion",
                       "expansion_model", "expansion_n_queries", "hybrid_fusion",
-                      "hybrid_alpha"):
+                      "hybrid_alpha", "web_search_enabled",
+                      "prompt_guardrail_enabled"):
                 setattr(self, k, kwargs[k])
 
     monkeypatch.setattr(run_eval, "RAGEngine", FakeEngine)
@@ -519,3 +523,162 @@ def test_summary_omits_study_lookup_when_off(captured, tmp_path):
               "--output", str(out_file)])
     saved = json.loads(out_file.read_text(encoding="utf-8"))
     assert "study_lookup" not in saved["summary"]
+
+
+# ---- B3': --web-search lever (联网参考通道 spec §10.1 B3'/B3) ----
+# 生产每次请求都带 Rule 9 (与请求级 `web` 真假无关), 而 eval 曾把 web_search_enabled 写死
+# False ⇒ 140q / study 48q 的数字描述的是一个**生产不跑的构型**。终审变异实测: 两处 False
+# 改 True, 1862 条全绿 —— 值漂无人响。所以两个方向 + 两个注入点都要钉:
+#   · 只钉 ON: 把值写死成常量 True 照样绿;
+#   · 只钉 cdisc: 联邦 study_levers 那处漏改照样绿 —— 这正是 B3' 得以存活的形状。
+# ⚠ 本 lever 只复现 system prompt 构型, eval 不会真去联网 (工具循环只在 /api/ask_stream)。
+
+def _engine_receipt_line(stdout: str) -> str:
+    """只取 `RAG engine:` 那一行再断言。
+
+    两个理由: (1) tmp_path 目录名含测试函数名, 整段 stdout 自带 "web_search" 字样;
+    (2) 回执若哪天被挪到别的 print, 扫全文照绿而屏幕上那行已经没有它了。
+    """
+    lines = [ln for ln in stdout.splitlines() if ln.startswith("RAG engine:")]
+    assert len(lines) == 1, f"期望恰好一行 RAG engine 回执, 实得 {len(lines)}"
+    return lines[0]
+
+
+def test_web_search_flag_reaches_cdisc_engine(captured):
+    assert captured(["--web-search"])["web_search_enabled"] is True
+
+
+def test_web_search_default_off_on_cdisc_engine(captured):
+    """反方向: 缺了它, 把 lever 写死成 True 也能全绿 (终审刚在 I-B 上踩过同款)."""
+    assert captured([])["web_search_enabled"] is False
+
+
+def test_web_search_flag_reaches_both_federated_engines(captured_federated):
+    """联邦两臂共用一个 args ⇒ 两台引擎的 prompt 构型必须同时翻。"""
+    cdisc, study = captured_federated(["--web-search"])
+    assert cdisc["web_search_enabled"] is True
+    assert study["web_search_enabled"] is True
+
+
+def test_web_search_default_off_on_both_federated_engines(captured_federated):
+    cdisc, study = captured_federated([])
+    assert cdisc["web_search_enabled"] is False
+    assert study["web_search_enabled"] is False
+
+
+def test_web_search_receipt_says_it_does_not_search(captured, capsys):
+    """不给 --output 时 summary JSON 看不到, 屏幕必须能看出开没开;
+
+    且回执要写死"不联网" —— 一行 `web_search=ON` 会被读成"这轮是联网评测", 而它只是
+    prompt 构型。本分支反复栽的正是这类"看起来在做、实际不做"。
+    """
+    captured(["--web-search"])
+    engine_line = _engine_receipt_line(capsys.readouterr().out)
+    assert "web_search=ON" in engine_line
+    assert "no live search" in engine_line
+
+
+def test_web_search_receipt_absent_without_flag(captured, capsys):
+    captured([])
+    assert "web_search" not in _engine_receipt_line(capsys.readouterr().out)
+
+
+def test_web_search_help_states_the_prompt_only_boundary(capsys, monkeypatch):
+    """flag 名读起来像"eval 会联网"。help 一旦丢掉这条边界, 下一个人就会拿它当联网评测,
+    而 eval 走非流式路径, 工具循环只存在于 /api/ask_stream (spec §10.0)。
+
+    ⚠ 断言必须落在 `--web-search` **自己那一块** help 上。对整份 --help 裸 `in` 是假闸:
+    `"--web-search" in help_text` 光 usage 行的 `[--web-search]` 就满足; `/api/ask_stream`
+    出现在**任何别的 flag** 的 help 里也算 —— 实测把边界句从本 flag 删光、把该 token 塞进
+    `--full-answers`, 九条全绿而渲染出来的 help 一句"eval 不联网"都没有。
+    """
+    # 钉住宽度: argparse 按 COLUMNS 折行, 且折平**不修复断词** ⇒ W<=21 时 `/api/ask_stream`
+    # 被 textwrap 拆开会伪红 (实测阈值 W=21 红 / W=22 绿)。钉死后该依赖整体消失。
+    monkeypatch.setenv("COLUMNS", "100")
+    with pytest.raises(SystemExit) as ei:
+        run_eval.main(["--help"])
+    assert ei.value.code == 0
+    help_text = capsys.readouterr().out
+
+    # 抽取端先自证: 抽不到就红, 否则下面全是永真式 (空 block 里什么都 `in` 不到 → 会红,
+    # 但错因会指成"文案没写", 掩盖"选项整个没了")
+    m = re.search(r"^ {2}--web-search\b(.*?)(?=^ {2}-|\Z)", help_text, re.S | re.M)
+    assert m, "--help 里没有 `--web-search` 选项块 (抽取端失效)"
+    # argparse 按终端宽度折行并缩进 24 空格, 还会在连字符处断词 ⇒ 先折平, 断言才不随
+    # COLUMNS 飘 (两个待断言的串本身不含连字符, 折平后即可稳定匹配)
+    block = " ".join(m.group(1).split())
+    assert len(block.split()) >= 20, f"help 块只剩 {len(block.split())} 词, 已被抠空"
+
+    # 结论句 (边界本身) 与原因锚点各钉一条 —— 只钉原因时, 把"eval 不联网"整句删掉
+    # 而留着 /api/ask_stream 仍会绿
+    assert "does not search the web" in block.lower()
+    assert "/api/ask_stream" in block
+
+
+def test_summary_records_web_search(captured, tmp_path):
+    """报告层: 两轮评测事后只靠文件名认构型是没有取证价值的."""
+    import json
+    out_file = tmp_path / "out_web.json"
+    captured(["--web-search", "--output", str(out_file)])
+    saved = json.loads(out_file.read_text(encoding="utf-8"))
+    assert saved["summary"]["web_search"] is True
+
+
+def test_summary_records_web_search_off(captured, tmp_path):
+    import json
+    out_file = tmp_path / "out_no_web.json"
+    captured(["--output", str(out_file)])
+    saved = json.loads(out_file.read_text(encoding="utf-8"))
+    assert saved["summary"]["web_search"] is False
+
+
+# ---- R3: --guardrail 取值接线 (与上面 --web-search 同款病, 同一文件隔 8 行) ----
+# 复审变异实测 (2026-09-01): 把 cdisc 那处 prompt_guardrail_enabled 钉成常量, **True 和
+# False 两个方向各 1874 条全绿** —— 只有 study_levers 那处被 docs_engine_parity 闸捎带钉住
+# (且仅 ON 方向), cdisc 主引擎两个方向都没人管。叠加当时回执与 summary 都读 args, 就能跑出
+# 一批**标着 guardrail=ON、实际全程 OFF 的 140q 数字**, 而 guardrail A/B 成对评测正是
+# evidence/checkpoints/guardrail_v2_summary.md 那批结论的来源。
+# 现回执 (:872) 与 summary (:1055) 已改读 rag.prompt_guardrail_enabled, 这里补取值断言。
+
+def test_guardrail_flag_reaches_cdisc_engine(captured):
+    assert captured(["--guardrail"])["prompt_guardrail_enabled"] is True
+
+
+def test_guardrail_default_off_on_cdisc_engine(captured):
+    """反方向: 缺了它, 把 lever 钉成常量 True 也能全绿 (复审 Mut-G1 实测)."""
+    assert captured([])["prompt_guardrail_enabled"] is False
+
+
+def test_guardrail_flag_reaches_both_federated_engines(captured_federated):
+    cdisc, study = captured_federated(["--guardrail"])
+    assert cdisc["prompt_guardrail_enabled"] is True
+    assert study["prompt_guardrail_enabled"] is True
+
+
+def test_guardrail_default_off_on_both_federated_engines(captured_federated):
+    """parity 闸只钉住 study_levers 的 ON 方向 ⇒ OFF 方向此前两处都裸着."""
+    cdisc, study = captured_federated([])
+    assert cdisc["prompt_guardrail_enabled"] is False
+    assert study["prompt_guardrail_enabled"] is False
+
+
+def test_guardrail_receipt_tracks_the_engine_not_the_flag(captured, capsys):
+    """回执读引擎实收值: 注入点漏改时屏幕上的 guardrail=ON 就是假标签."""
+    captured(["--guardrail"])
+    assert "guardrail=ON" in _engine_receipt_line(capsys.readouterr().out)
+
+
+def test_guardrail_receipt_absent_without_flag(captured, capsys):
+    captured([])
+    assert "guardrail" not in _engine_receipt_line(capsys.readouterr().out)
+
+
+def test_summary_records_guardrail_both_directions(captured, tmp_path):
+    """落盘的是引擎实收值 —— 事后拿两份 JSON 对臂时, 标签必须与引擎一致."""
+    import json
+
+    on_file, off_file = tmp_path / "g_on.json", tmp_path / "g_off.json"
+    captured(["--guardrail", "--output", str(on_file)])
+    captured(["--output", str(off_file)])
+    assert json.loads(on_file.read_text(encoding="utf-8"))["summary"]["prompt_guardrail"] is True
+    assert json.loads(off_file.read_text(encoding="utf-8"))["summary"]["prompt_guardrail"] is False
