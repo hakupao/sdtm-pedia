@@ -104,3 +104,24 @@ def test_known_model_groups_raises_on_internal_group_collision():
     ])
     with pytest.raises(ValueError, match="hard"):
         known_model_groups(s)
+
+
+def test_registration_makes_tools_supported_for_gpt():
+    """LiteLLM 1.88.1 的 bedrock allowlist 不认 openai.*, 不注册就拒收 tools ——
+    联网通道对 GPT 直接不可用。裸 boto3 已实测工具调用本身通 ⇒ 这是客户端元数据缺口。
+    ⚠ 注册 key 必须**去掉 bedrock/ 前缀**, 用错前缀是静默无效 (spec §4.2)。"""
+    import litellm
+    from server.llm_config import register_selectable_model_capabilities
+    register_selectable_model_capabilities(Settings())
+    for mid in ["converse/global.openai.gpt-5.6-terra", "converse/global.openai.gpt-5.6-sol"]:
+        assert litellm.supports_function_calling(model=mid, custom_llm_provider="bedrock_converse")
+
+
+def test_registration_reports_non_bedrock_models():
+    """闸 6 (C3): config.py 里三个 Claude 的硬编码默认值是 anthropic/ 直连, 只靠 .env
+    改写且无任何校验 ⇒ .env 一缺就静默走直连。两个方向都钉。"""
+    from server.llm_config import register_selectable_model_capabilities
+    assert register_selectable_model_capabilities(Settings()) == []
+    bad = Settings(selectable_models=[
+        {"id": "x", "label": "X", "model": "anthropic/claude-opus-5", "verified": False}])
+    assert register_selectable_model_capabilities(bad) == ["x"]

@@ -7,6 +7,7 @@ Model groups:
 """
 from __future__ import annotations
 
+import litellm
 from litellm import Router
 
 from server.config import Settings, SelectableModel
@@ -87,3 +88,30 @@ def known_model_groups(s: Settings) -> set[str]:
     `test_known_groups_equals_what_router_actually_has` 钉住。
     """
     return set(INTERNAL_GROUPS) | {m.id for m in _validated_selectable_models(s)}
+
+
+def register_selectable_model_capabilities(s: Settings) -> list[str]:
+    """给可选模型补 LiteLLM 能力元数据, 并报出未走 Bedrock 的那些。
+
+    为什么需要: LiteLLM 的 bedrock provider allowlist 只认
+    anthropic|mistral|cohere|meta.llama3-*|amazon.nova, 其余走 supports_function_calling()
+    兜底, 而 registry 里没有 openai.gpt-5.6-* ⇒ 拒收 tools, 联网通道对 GPT 不可用。
+    裸 boto3 Converse 已实测工具调用本身是通的 ⇒ 客户端元数据缺口, 非服务端限制。
+
+    ⚠ 注册 key 必须是**去掉 bedrock/ 前缀**的形式 (litellm 内部就用这个查表)。
+    用带前缀的 key 注册会**静默无效** —— 不报错, 直到有人开联网才炸。
+
+    经 `_validated_selectable_models` 读取 (与 `create_router` / `known_model_groups`
+    同一道 fail-loud 撞名闸), 不直接读 `s.selectable_models`。
+
+    返回未走 Bedrock 的模型 id (C3 告警用); 空列表 = 全部合规。
+    """
+    info = {"litellm_provider": "bedrock_converse", "mode": "chat",
+            "supports_function_calling": True}
+    non_bedrock: list[str] = []
+    for m in _validated_selectable_models(s):
+        if not m.model.startswith("bedrock/"):
+            non_bedrock.append(m.id)
+            continue
+        litellm.register_model({m.model.removeprefix("bedrock/"): dict(info)})
+    return non_bedrock

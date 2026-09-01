@@ -19,7 +19,7 @@ from fastapi.staticfiles import StaticFiles
 from scripts.spec_loader import SpecLoader
 from server.auth import install_security
 from server.config import settings
-from server.llm_config import create_router
+from server.llm_config import create_router, register_selectable_model_capabilities
 from server.rag import RAGEngine
 from server.router import api_router
 
@@ -107,6 +107,12 @@ async def lifespan(app: FastAPI):
         vi_map = app.state.rag._vi_section_map()
         log.info("s1_vi_section_map", entries=len(vi_map))
     app.state.llm_router = create_router(s)
+    # C3 告警: 未走 Bedrock 的可选模型 (config.py 硬编码默认值是 anthropic/ 直连,
+    # 只靠 .env 改写且无任何校验 ⇒ .env 一缺就静默走直连)。同时给 GPT 系模型补
+    # LiteLLM 能力元数据, 否则 bedrock allowlist 拒收 tools, 联网通道对它们不可用。
+    non_bedrock_models = register_selectable_model_capabilities(s)
+    if non_bedrock_models:
+        log.warning("selectable_models_not_on_bedrock", models=non_bedrock_models)
     app.state.federation = None
     # S2 只挂在 study 引擎上, 而 study 引擎只在联邦分支存在。先置空, 好让下面的 ready 日志
     # 报告"实际加载了什么"而不是"开关写了什么" —— 两者可以不一致 (见下方 elif)。
@@ -261,6 +267,7 @@ async def lifespan(app: FastAPI):
         prompt_guardrail=s.prompt_guardrail_enabled,
         web_search=s.web_search_enabled,
         rag_init_s=rag_init_s,
+        non_bedrock_models=non_bedrock_models,
     )
     yield
     log.info("shutdown")
