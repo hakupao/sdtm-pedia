@@ -120,6 +120,16 @@ function messageEl(role, content, sources, routedCorpus, webStatus, webSearchesO
   return wrap;
 }
 
+// verified 三态不可混同 (spec §6): true 正常; false 是拿到确证的"验过且不通过";
+// null (default 组不在 selectable_models 里, 没有 verified 概念) 一律显"未知",
+// 绝不能落进 false 那支 (会把"没这个概念"误报成"验过且不通过")。
+function modelBadgeText(modelId, verified) {
+  const label = modelLabelById[modelId] || modelId;
+  if (verified === true) return { text: `模型: ${label}`, unverified: false };
+  if (verified === false) return { text: `模型: ${label} ⚠未验证`, unverified: true };
+  return { text: `模型: ${label} · 验证状态未知`, unverified: false };
+}
+
 // 答案实际用的模型 (spec §6 产物自证)。modelId 为空 (生成中占位 / 未流完就中断 / 旧历史
 // 记录没存这个字段) 时什么都不画 —— 比瞎猜一个模型名更诚实, 也避免占位阶段先画一个"未知"
 // 徽章、done 后又叠一个真实徽章的重复渲染。
@@ -127,14 +137,27 @@ function renderModelBadge(wrap, role, modelId, verified) {
   if (role !== "assistant" || !modelId) return;
   const b = document.createElement("div");
   b.className = "msg-meta model-meta";
-  const label = modelLabelById[modelId] || modelId;
-  // verified 三态不可混同 (spec §6): true 正常; false 是拿到确证的"验过且不通过";
-  // null (default 组不在 selectable_models 里, 没有 verified 概念) 一律显"未知",
-  // 绝不能落进 false 那支 (会把"没这个概念"误报成"验过且不通过")。
-  if (verified === true) b.textContent = `模型: ${label}`;
-  else if (verified === false) { b.textContent = `模型: ${label} ⚠未验证`; b.classList.add("unverified"); }
-  else b.textContent = `模型: ${label} · 验证状态未知`;
+  // modelId/verified 存进 dataset: /api/info 比首屏渲染慢一步是常态, label 表填好后
+  // refreshModelBadgeLabels() 要能原地补字, 不能靠重建 DOM 拿到这两个值。
+  b.dataset.modelId = modelId;
+  b.dataset.verified = String(verified); // "true" | "false" | "null"
+  const { text, unverified } = modelBadgeText(modelId, verified);
+  b.textContent = text;
+  if (unverified) b.classList.add("unverified");
   wrap.appendChild(b);
+}
+
+// loadModelName() 拿到 /api/info 的 label 表往往晚于首屏渲染, 此前画出的模型徽章只能显示
+// 原始 id。这里只原地改文字, 不碰其余 DOM —— 尤其不能用 renderMessages() 整体重建: 一次
+// 生成中的助手气泡是直接 appendChild 挂到 #messages 上的, 要等 onDone→persist() 之后才会
+// 进 c.messages, 这个窗口内重建会把它整个抹掉(复审用 gate 住 /api/info + 卡流复现过)。
+function refreshModelBadgeLabels() {
+  document.querySelectorAll(".model-meta").forEach((b) => {
+    const modelId = b.dataset.modelId;
+    if (!modelId) return;
+    const verified = b.dataset.verified === "true" ? true : b.dataset.verified === "false" ? false : null;
+    b.textContent = modelBadgeText(modelId, verified).text;
+  });
 }
 
 // 答案元信息行: 联邦实际检索了哪个库 (routed_corpus)。联邦关时后端返 null → 不渲染。
@@ -532,9 +555,7 @@ async function loadModelName() {
       syncWarning();
     });
     syncWarning();
-    // 首屏 renderMessages() 早于这个 fetch 落地, 历史消息的模型徽章当时只能显示原始 id;
-    // 表填好后重画一遍补上人话 label (renderMessages 全量重建 #messages, 幂等, 代价可忽略)。
-    renderMessages();
+    refreshModelBadgeLabels(); // 原地补字, 不重建 #messages (理由见函数注释)
   } catch (_) {}
 }
 
