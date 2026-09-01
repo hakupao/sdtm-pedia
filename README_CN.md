@@ -343,7 +343,7 @@ SEX 绑定哪个 codelist？
 - [x] Phase 6.3 — 变量级反向索引（`knowledge_base/VARIABLE_INDEX.md`，1,523 个变量）
 - [x] Phase 6.5 — 多平台 AI 部署 + Release v1.0 → v1.4（4 平台，最新 `milestones/release/v1.4/`；v1.4 起 Gemini 转 MAINTAINED_NO_SANITY_TEST）
 - [x] Deep Verification — PDF→KB 字面级 atom 逐条审计（已完成：P1–P7，覆盖率 99.02%，详见 `milestones/06_deep_verification/`）
-- [x] Phase 7 / Phase 1 — RAG 问答 + 数据集校验（本地 Chroma + LiteLLM + FastAPI/Streamlit；53 题 eval 88.5% PASS，详见 `milestones/07_rag_kg/`）
+- [x] Phase 7 / Phase 1 — RAG 问答 + 数据集校验（本地 Chroma + LiteLLM + FastAPI/Streamlit；53 题 eval 88.5% PASS，详见 `milestones/07_rag_kg/`）—— *该数字是 Phase 1D 的 `overall` 混合值 = (source recall 82.1 + fact recall 94.8) / 2，其中 fact recall 那一半是答题侧。它跑在答题侧护栏与联网参考规则落地之前，**不描述当前生产的 prompt 构型**。*
 - [ ] 检索质量优化 — 把 eval source recall 拉到 >95%（rerank / 多查询 / 重评 KG，详见 `milestones/07_rag_kg/TODO_retrieval_quality.md`）
 - [ ] Phase 6.4 — 结构化元数据（YAML/JSON）— 已并入 Phase 7 / Phase 2 KG（暂缓）
 - [ ] Phase 7 / Phase 2 — 知识图谱（Neo4j）— 暂缓；在 >95% 检索标准下重新评估
