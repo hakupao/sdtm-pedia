@@ -1,5 +1,7 @@
 """多模型切换 (U1) 的闸。spec docs/superpowers/specs/2026-09-01-model-switching-design.md"""
-from server.config import Settings
+import pytest
+
+from server.config import Settings, SelectableModel
 
 
 def test_selectable_models_defaults():
@@ -50,8 +52,13 @@ def test_router_keeps_internal_groups():
 
 
 def test_known_groups_equals_what_router_actually_has():
-    """裁定 F-1 的补偿闸: 校验端读 known_model_groups (意图), Router 是事实 ——
-    二者必须逐项相等, 派生一旦坏掉这条就响。不需要任何假 Router。"""
+    """裁定 F-1 的补偿闸: 给『校验端读 known_model_groups (意图)』与『Router 是事实』
+    这层关系上闸, 二者必须逐项相等。不需要任何假 Router。
+
+    这条**不防派生逻辑本身漂移**: 若 create_router 与 known_model_groups 两处同时
+    手滑把 m.id 写成 m.label, 两边算出来的错法一致, 本测试照绿。真正锚定字面量、
+    防住这种 co-drift 的是 test_router_derives_a_group_per_selectable_model 和
+    test_router_group_maps_to_the_configured_model_string。"""
     from server.llm_config import create_router, known_model_groups
     s = Settings()
     assert known_model_groups(s) == {m["model_name"] for m in create_router(s).model_list}
@@ -65,3 +72,35 @@ def test_router_group_maps_to_the_configured_model_string():
     by_name = {m["model_name"]: m["litellm_params"]["model"] for m in create_router(s).model_list}
     for m in s.selectable_models:
         assert by_name[m.id] == m.model
+
+
+def test_create_router_succeeds_when_no_id_collision():
+    """两个方向之一: 默认配置的 id 不撞内部组, 正常构造不该被误伤。"""
+    from server.llm_config import create_router
+    create_router(Settings())  # 不应抛
+
+
+def test_create_router_raises_on_internal_group_collision():
+    """另一个方向: selectable id 撞上 INTERNAL_GROUPS (如 "light") 时必须 fail-loud。
+
+    litellm Router 允许同一 model_name 出现两次并当同一组的多个 deployment 做
+    load-balance —— 撞名会让判库(light)悄悄混进用户选的答题模型, 静默打破 C1,
+    且没有任何既有测试会变红。selectable_models 还能被 SDTM_RAG_SELECTABLE_MODELS
+    在运行时注入, 只挡默认配置不够, 必须在构造时就拒绝。"""
+    from server.llm_config import create_router
+    s = Settings(selectable_models=[
+        SelectableModel(id="light", label="撞名", model="bedrock/x", verified=False),
+    ])
+    with pytest.raises(ValueError, match="light"):
+        create_router(s)
+
+
+def test_known_model_groups_raises_on_internal_group_collision():
+    """同一防线在 known_model_groups 这条路径上也要生效 —— Task 5 的白名单校验
+    走的正是这个函数, 不经过 create_router。"""
+    from server.llm_config import known_model_groups
+    s = Settings(selectable_models=[
+        SelectableModel(id="hard", label="撞名", model="bedrock/x", verified=False),
+    ])
+    with pytest.raises(ValueError, match="hard"):
+        known_model_groups(s)
