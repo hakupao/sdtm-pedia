@@ -125,3 +125,30 @@ def test_registration_reports_non_bedrock_models():
     bad = Settings(selectable_models=[
         {"id": "x", "label": "X", "model": "anthropic/claude-opus-5", "verified": False}])
     assert register_selectable_model_capabilities(bad) == ["x"]
+
+
+def test_verify_reports_empty_after_successful_registration():
+    """spec §4.2 启动期自检: register 之后回查, 正常路径必须为空 —— 既包括注册后
+    变 True 的 GPT 系, 也包括在 litellm bedrock allowlist 里原生就是 True 的 Claude
+    系 (不注册也通过 allowlist)。两类模型都不该被自检误报。"""
+    from server.llm_config import (
+        register_selectable_model_capabilities,
+        verify_selectable_model_capabilities,
+    )
+    s = Settings()
+    register_selectable_model_capabilities(s)
+    assert verify_selectable_model_capabilities(s) == []
+
+
+def test_verify_flags_a_model_whose_registration_never_happened():
+    """自检真的会抓: 用一个专造的、别处从未注册过的 bedrock key (不依赖源码变异,
+    也不依赖测试执行顺序) 验证 supports_function_calling 仍为 False 时会被 flag。
+    这是"注册未生效"在自检里的直接复现 —— 与控制器实测的『去掉 removeprefix 导致
+    静默无效』是同一条检测路径, 只是不需要真的改坏源码就能钉住。"""
+    from server.llm_config import verify_selectable_model_capabilities
+    s = Settings(selectable_models=[
+        SelectableModel(id="never-registered", label="从未注册",
+                         model="bedrock/converse/global.openai.gpt-9.9-never-registered",
+                         verified=False),
+    ])
+    assert verify_selectable_model_capabilities(s) == ["never-registered"]

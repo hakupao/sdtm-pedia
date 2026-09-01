@@ -115,3 +115,31 @@ def register_selectable_model_capabilities(s: Settings) -> list[str]:
             continue
         litellm.register_model({m.model.removeprefix("bedrock/"): dict(info)})
     return non_bedrock
+
+
+def verify_selectable_model_capabilities(s: Settings) -> list[str]:
+    """spec §4.2 启动期自检: `register_model()` 跑过不等于生效 (实测带前缀的 key
+    注册就是这样静默无效的) ——理由原文: 「注册失败的表现是『一切正常, 直到有人开
+    联网』」。这里回查 litellm 是否真的认了每个 Bedrock 模型的 tool-calling 能力,
+    而不是假定调用 `register_model()` 没抛异常就算数。
+
+    逐模型独立回查 (而非"任意一个通过就算过"): Claude 系在 litellm bedrock
+    allowlist 里原生认 `anthropic` 前缀, 不注册也是 True —— 若把检查做成"存在
+    一个 True 即通过", 只要 Claude 天然为真, GPT 系注册悄悄失效也测不出来, 自
+    检就形同虚设。故每个模型各自核对自己的 `supports_function_calling`, Claude
+    天然为 True 不会被误报, 也不会因为它天然为真就让 GPT 那份检查跟着恒真。
+
+    非 Bedrock 的模型不在本自检范围内 —— 那是 C3 (`register_selectable_model_
+    capabilities` 的返回值) 管的另一个问题, 两者语义不混。
+
+    返回注册后仍未生效 (`supports_function_calling` 为 False) 的模型 id;
+    空列表 = 全部生效。
+    """
+    failed: list[str] = []
+    for m in _validated_selectable_models(s):
+        if not m.model.startswith("bedrock/"):
+            continue
+        key = m.model.removeprefix("bedrock/")
+        if not litellm.supports_function_calling(model=key, custom_llm_provider="bedrock_converse"):
+            failed.append(m.id)
+    return failed

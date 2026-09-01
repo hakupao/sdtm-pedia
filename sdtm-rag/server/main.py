@@ -19,7 +19,11 @@ from fastapi.staticfiles import StaticFiles
 from scripts.spec_loader import SpecLoader
 from server.auth import install_security
 from server.config import settings
-from server.llm_config import create_router, register_selectable_model_capabilities
+from server.llm_config import (
+    create_router,
+    register_selectable_model_capabilities,
+    verify_selectable_model_capabilities,
+)
 from server.rag import RAGEngine
 from server.router import api_router
 
@@ -113,6 +117,14 @@ async def lifespan(app: FastAPI):
     non_bedrock_models = register_selectable_model_capabilities(s)
     if non_bedrock_models:
         log.warning("selectable_models_not_on_bedrock", models=non_bedrock_models)
+    # spec §4.2 启动期自检: register_model() 跑过不等于生效 (带前缀的 key 注册就是
+    # 静默无效, 不报错直到有人开联网才炸) —— 回查而非假定调用没抛异常就算数。
+    unverified_capability_models = verify_selectable_model_capabilities(s)
+    if unverified_capability_models:
+        log.warning(
+            "selectable_model_capability_registration_failed",
+            models=unverified_capability_models,
+        )
     app.state.federation = None
     # S2 只挂在 study 引擎上, 而 study 引擎只在联邦分支存在。先置空, 好让下面的 ready 日志
     # 报告"实际加载了什么"而不是"开关写了什么" —— 两者可以不一致 (见下方 elif)。
@@ -268,6 +280,7 @@ async def lifespan(app: FastAPI):
         web_search=s.web_search_enabled,
         rag_init_s=rag_init_s,
         non_bedrock_models=non_bedrock_models,
+        capability_registration_failed=unverified_capability_models,
     )
     yield
     log.info("shutdown")
