@@ -304,9 +304,17 @@ function webEnabled() { return $("scope-web").checked; }
 async function streamAsk(question, history, { onSources, onToken, onToolCall, onToolResult, onDone, onError, onClose, onAbort, signal }) {
   let resp;
   try {
+    const payload = { question, history, corpus: selectedCorpus(), web: webEnabled() };
+    // spec §5 裁定: UI **永远发显式 id**, 绝不依赖默认值落到 default 组 ——
+    // default 与 opus-5 今天都解析到 Opus 5, 但改 .env 的 default_model 会让二者静默分叉。
+    // 下拉为空 (info 没加载出来) 时**整个字段省略**, 由服务端默认值接管, 而不是硬塞 "default"
+    // ——「省略」与「显式传 default」在服务端是同一行为, 但省略不会在产物里留下一个
+    // 用户根本没做过的选择。
+    const chosen = $("model-select").value;
+    if (chosen) payload.model = chosen;
     resp = await fetch("/api/ask_stream", {
       method: "POST", headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ question, history, corpus: selectedCorpus(), web: webEnabled() }), signal,
+      body: JSON.stringify(payload), signal,
     });
   } catch (e) {
     if (signal?.aborted) { onAbort?.(); return; }
@@ -470,6 +478,28 @@ async function loadModelName() {
     if (m) $("topbar-title").textContent = "SDTM 知识库助手 · " + m;
     // 联邦未构建时后端会静默忽略 corpus, 别留个无效控件在界面上
     $("scope").hidden = !info.federation;
+    // 下拉从 /api/info 的模型表渲染 —— 与 Router 组同源, 故不可能提供后端没有的模型。
+    const sel = $("model-select");
+    (info.selectable_models || []).forEach((m) => {
+      const o = document.createElement("option");
+      o.value = m.id;
+      // 未验证的在文字上标出来: 用户选之前就该看见, 而不是选完才知道
+      o.textContent = m.verified ? m.label : `${m.label} ⚠未验证`;
+      o.dataset.verified = String(m.verified);
+      sel.appendChild(o);
+    });
+    // 刷新保留 —— 终审 I-E (联网状态过不了刷新) 的同款, 不重犯
+    const saved = localStorage.getItem("sdtm_model");
+    if (saved && [...sel.options].some((o) => o.value === saved)) sel.value = saved;
+    const syncWarning = () => {
+      const o = sel.selectedOptions[0];
+      $("model-warning").hidden = !o || o.dataset.verified === "true";
+    };
+    sel.addEventListener("change", () => {
+      localStorage.setItem("sdtm_model", sel.value);
+      syncWarning();
+    });
+    syncWarning();
   } catch (_) {}
 }
 
