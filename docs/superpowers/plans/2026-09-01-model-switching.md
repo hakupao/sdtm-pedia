@@ -186,6 +186,15 @@ def test_router_keeps_internal_groups():
     assert {"default", "default-fallback", "hard", "light"} <= names
 
 
+def test_known_groups_equals_what_router_actually_has():
+    """裁定 F-1 的补偿闸: 校验端读 known_model_groups (意图), Router 是事实 ——
+    二者必须逐项相等, 派生一旦坏掉这条就响。不需要任何假 Router。"""
+    from server.llm_config import create_router, known_model_groups
+    s = Settings()
+    assert known_model_groups(s) == {m["model_name"] for m in create_router(s).model_list}
+    assert len(known_model_groups(s)) >= 8, "抽取端失效: 集合为空时上面的等式恒真"
+
+
 def test_router_group_maps_to_the_configured_model_string():
     """方向钉: 组名对了但指向错模型, 上面两条照样绿。"""
     from server.llm_config import create_router
@@ -213,14 +222,31 @@ Expected: FAIL — `AssertionError: Router 缺少组 opus-5`
     ]
 ```
 
+并在同文件加一个**共用**函数 (Task 5 的校验也读它, 见控制器裁定 F-1):
+
+```python
+INTERNAL_GROUPS = ("default", "default-fallback", "hard", "light")
+
+
+def known_model_groups(s: Settings) -> set[str]:
+    """Router 会有的全部组名。
+
+    `create_router` 与 `/api/ask_stream` 的白名单校验**共用**本函数, 故"能选的"与
+    "能调的"不存在两份定义。校验端不读 `llm_router.model_list` 是有意的: 仓库里 4 个
+    测试文件约 15 处假 Router 都没有该属性, 而用 getattr 兜底会造出"没有 model_list
+    就不校验"的静默旁路。等式由下面的闸钉住。
+    """
+    return set(INTERNAL_GROUPS) | {m.id for m in s.selectable_models}
+```
+
 - [ ] **Step 4: 跑测试确认通过**
 
 Run: `cd sdtm-rag && .venv/bin/python -m pytest scripts/tests/test_model_switching.py -p no:warnings -q`
-Expected: 6 passed
+Expected: 7 passed
 
 - [ ] **Step 5: 全量 + 变异验证**
 
-Expected: 1905 passed
+Expected: 1906 passed
 
 变异: 把派生那段的 `m.id` 改成 `m.label` → `test_router_derives_a_group_per_selectable_model` 必须变红。还原并 grep 回读。
 
@@ -319,11 +345,11 @@ def register_selectable_model_capabilities(s: Settings) -> list[str]:
 - [ ] **Step 4: 跑测试确认通过**
 
 Run: `cd sdtm-rag && .venv/bin/python -m pytest scripts/tests/test_model_switching.py -p no:warnings -q`
-Expected: 8 passed
+Expected: 9 passed
 
 - [ ] **Step 5: 全量 + 变异验证**
 
-Expected: 1907 passed
+Expected: 1908 passed
 
 变异两条, 各自还原并 grep 回读:
 1. 把 `removeprefix("bedrock/")` 去掉 (即用带前缀的 key 注册) → `test_registration_makes_tools_supported_for_gpt` 必须变红。**这条正是控制器实测时踩过的静默失败。**
@@ -411,11 +437,11 @@ Expected: FAIL — `KeyError: 'selectable_models'`
 - [ ] **Step 4: 跑测试确认通过**
 
 Run: `cd sdtm-rag && .venv/bin/python -m pytest scripts/tests/test_model_switching.py -p no:warnings -q`
-Expected: 10 passed
+Expected: 11 passed
 
 - [ ] **Step 5: 全量 + 变异验证**
 
-Expected: 1909 passed
+Expected: 1910 passed
 
 变异: 让 `/api/info` 吐一个 Router 里没有的模型 (临时在传给 `InfoResponse` 的列表里塞一项
 `{"id": "ghost", ...}`) → `test_info_model_table_is_subset_of_router_groups` 必须变红。还原并 grep 回读。
@@ -497,9 +523,7 @@ class _CapturingRouter:
     也能让"接受每个模型"的测试全绿 (记事实不记意图)。
     """
 
-    def __init__(self, group_names):
-        self.model_list = [{"model_name": n, "litellm_params": {"model": f"stub/{n}"}}
-                           for n in group_names]
+    def __init__(self):
         self.last_model = None
 
     async def acompletion(self, model, messages, stream=False, **kw):
@@ -515,13 +539,11 @@ class _CapturingRouter:
 
 
 def _stream_client():
-    from server.llm_config import create_router
     s = Settings()
     app = FastAPI()
     app.include_router(api_router)
     app.state.rag = _FakeRAG()
-    app.state.llm_router = _CapturingRouter(
-        [m["model_name"] for m in create_router(s).model_list])
+    app.state.llm_router = _CapturingRouter()
     app.state.settings = s
     return TestClient(app)
 ```
@@ -545,8 +567,12 @@ Expected: FAIL — 未知模型返回 200 而非 422 (字段被 pydantic 忽略�
 
 `ask_stream` 函数体内, 在空问题校验之后加:
 
+⚠ **控制器裁定 F-1**: 校验读 `known_model_groups(s)`, **不读** `llm_router.model_list` ——
+仓库里 4 个测试文件约 15 处假 Router 都没有该属性 (含两个红线文件), 读它会让它们全部 500。
+等式由 Task 2 的 `test_known_groups_equals_what_router_actually_has` 钉住。
+
 ```python
-    known = {m["model_name"] for m in llm_router.model_list}
+    known = known_model_groups(s)
     if body.model not in known:
         # ⛔ 不静默退回 default: 静默退回会让"选了模型 X 却拿到 Y 的答案"完全不可见。
         raise HTTPException(status_code=422,
@@ -558,11 +584,11 @@ Expected: FAIL — 未知模型返回 200 而非 422 (字段被 pydantic 忽略�
 - [ ] **Step 4: 跑测试确认通过**
 
 Run: `cd sdtm-rag && .venv/bin/python -m pytest scripts/tests/test_model_switching.py -p no:warnings -q`
-Expected: 13 passed
+Expected: 14 passed
 
 - [ ] **Step 5: 全量 + 变异验证**
 
-Expected: 1912 passed。**`test_ask_stream.py` / `test_ask_stream_web.py` 必须一字未改且全绿** —— 单独跑一遍并贴输出。
+Expected: 1913 passed。**`test_ask_stream.py` / `test_ask_stream_web.py` 必须一字未改且全绿** —— 单独跑一遍并贴输出。
 
 变异两条, 各自还原并 grep 回读:
 1. 把 422 改成静默退回 `body.model = "default"` → `test_ask_stream_rejects_unknown_model` 必须变红。
@@ -674,11 +700,11 @@ Expected: FAIL — `KeyError: 'model_id'`
 - [ ] **Step 4: 跑测试确认通过**
 
 Run: `cd sdtm-rag && .venv/bin/python -m pytest scripts/tests/test_model_switching.py -p no:warnings -q`
-Expected: 15 passed
+Expected: 16 passed
 
 - [ ] **Step 5: 全量 + 变异验证**
 
-Expected: 1914 passed
+Expected: 1915 passed
 
 变异三条, 各自还原并 grep 回读:
 1. `verified_by_id.get(body.model)` 改成 `verified_by_id.get(body.model, False)` →
@@ -774,7 +800,7 @@ git commit -m "feat(models): done 事件带 model_id + verified (产物自证)"
 - [ ] **Step 6: 全量 + Commit**
 
 Run: `cd sdtm-rag && .venv/bin/python -m pytest scripts/tests/ -p no:warnings -o addopts="-ra"`
-Expected: 1914 passed (前端改动不影响 Python 测试)
+Expected: 1915 passed (前端改动不影响 Python 测试)
 
 ```bash
 git add sdtm-rag/webchat/index.html sdtm-rag/webchat/app.js
