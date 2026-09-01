@@ -274,6 +274,11 @@ async def ask_stream(body: AskStreamRequest, request: Request):
         raise HTTPException(status_code=422,
                             detail=f"unknown model {body.model!r}; known: {sorted(known)}")
 
+    verified_by_id = {m.id: m.verified for m in s.selectable_models}
+    # default/hard/light 不在表里 ⇒ None = "未知", 不是 False。发 False 会把"没这个概念"
+    # 误报成"验过且不通过" (spec §6)。
+    model_verified = verified_by_id.get(body.model)
+
     fed = getattr(request.app.state, "federation", None)
     routed: str | None = None
     try:
@@ -383,6 +388,11 @@ async def ask_stream(body: AskStreamRequest, request: Request):
                         ch = choices[0]
                         # 是否继续循环只看 acc 是否攒到工具调用, 不看 finish_reason ——
                         # 各 provider 的收尾理由字段并不统一, acc 是唯一可靠的信号。
+                        # 只取 content / tool_calls, 其余 delta 字段有意丢弃 ——
+                        # 含 GPT-5.6 Sol 的 reasoning_content (模型内部思考, 不该进
+                        # 知识库答案, 更不该被当成引用来源)。spec §4.3。
+                        # 实测边界: 流式下两个 GPT 均未发该增量, 只有非流式 boto3 调用
+                        # 时 Sol 发了 reasoningContent 块 ⇒ 这是预防, 不是现实问题。
                         text = getattr(ch.delta, "content", None)
                         if text:
                             parts.append(text)
@@ -496,6 +506,8 @@ async def ask_stream(body: AskStreamRequest, request: Request):
             # "开了联网但一次都没搜成" (模型净吐畸形/不存在的工具时它仍是 ok) —— 与其再往
             # 枚举里塞值让前端分支爆炸, 不如给一个整数, 顺带能显示"本次联网检索了 N 次"。
             yield sse("done", {"model_used": model_used or "default",
+                               "model_id": body.model,
+                               "verified": model_verified,
                                "usage": usage, "web_status": web_status,
                                "web_searches_ok": web_ok})
         except Exception as e:  # noqa: BLE001 — 流已开, 以事件形式暴露

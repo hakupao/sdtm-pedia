@@ -1,4 +1,5 @@
 """多模型切换 (U1) 的闸。spec docs/superpowers/specs/2026-09-01-model-switching-design.md"""
+import json
 from types import SimpleNamespace
 
 import pytest
@@ -273,3 +274,48 @@ def test_ask_stream_default_is_unchanged():
     c = _stream_client()
     assert c.post("/api/ask_stream", json={"question": "AETERM?"}).status_code == 200
     assert c.app.state.llm_router.last_model == "default"
+
+
+def _done_event(client, **body):
+    """POST 后解析出 done 事件的 JSON。
+
+    ⚠ 先断言确实**只**拿到一个 done 事件再取字段 —— 抽取端失效 (0 个) 时,
+    下面所有字段断言都会变成永真式 (retrospective 规则 6 成因 A)。
+    """
+    text = client.post("/api/ask_stream", json={"question": "AETERM?", **body}).text
+    blocks = [b for b in text.split("\n\n") if b.startswith("event: done")]
+    assert len(blocks) == 1, f"没解析到唯一的 done 事件: {text[:400]!r}"
+    line = next(l for l in blocks[0].splitlines() if l.startswith("data: "))
+    return json.loads(line[len("data: "):])
+
+
+def test_done_event_carries_model_id_and_verified():
+    """产物自证 (spec §6): 只做 UI 标注的话, 对话存下来之后这条信息就没了。
+    与 2026-09-01 清掉的 B6 同形 —— 产物必须能自证。"""
+    ev = _done_event(_stream_client(), model="gpt-sol")
+    assert ev["model_id"] == "gpt-sol"
+    assert ev["verified"] is False
+    ev2 = _done_event(_stream_client(), model="opus-5")
+    assert ev2["model_id"] == "opus-5"
+    assert ev2["verified"] is True
+
+
+def test_done_event_verified_is_null_for_default_group():
+    """default 组不在 selectable_models 里, 没有 verified 这个概念。
+    ⛔ 必须发 null(未知), 不得发 false —— 那会把"没这个概念"误报成"验过且不通过"。"""
+    ev = _done_event(_stream_client())          # 不传 model
+    assert ev["model_id"] == "default"
+    assert ev["verified"] is None
+
+
+def test_ask_stream_actually_dispatches_the_selected_model():
+    """闸 Task 5 遗留缺口: `done` 事件的 `model_id` 只是回显 `body.model` (意图),
+    不是"Router 真的收到了这个模型" (事实)。若 `ask_stream` 内把传给 `acompletion`
+    的 `kw["model"]` 写死回 "default", 上面两条 done 事件测试**测不到**——它们只
+    看 `body.model` 有没有被原样塞回 JSON, 与实际派发无关。这里直接钉派发事实:
+    `_CapturingRouter.last_model` 必须等于所选的组名, 不能是别的。"""
+    for m in Settings().selectable_models:
+        c = _stream_client()
+        c.post("/api/ask_stream", json={"question": "AETERM?", "model": m.id})
+        assert c.app.state.llm_router.last_model == m.id, (
+            f"{m.id}: Router 实际收到的是 {c.app.state.llm_router.last_model!r}")
