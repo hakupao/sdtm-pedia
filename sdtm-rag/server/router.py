@@ -13,6 +13,7 @@ from fastapi.responses import StreamingResponse
 from pydantic import BaseModel, ConfigDict, Field
 
 from server.config import SelectableModel
+from server.llm_config import known_model_groups
 from server.web_search import WEB_TOOL_SPEC, WebSearcher, render_tool_result
 
 log = structlog.get_logger()
@@ -251,6 +252,9 @@ class AskStreamRequest(BaseModel):
     file_type: str | None = None
     corpus: Literal["auto", "cdisc", "study", "both"] = "auto"
     web: bool = False  # 联网参考通道; 与 corpus 判库正交 (spec §4)
+    # 答题模型组名。与 AskRequest.model 同名同默认值。校验在 ask_stream 里做 ——
+    # 合法值集合来自 Router (与 /api/info 同源), pydantic 层拿不到它。
+    model: str = "default"
 
 
 @api_router.post("/ask_stream")
@@ -263,6 +267,12 @@ async def ask_stream(body: AskStreamRequest, request: Request):
 
     if not body.question.strip():
         raise HTTPException(status_code=422, detail="question must not be empty")
+
+    known = known_model_groups(s)
+    if body.model not in known:
+        # ⛔ 不静默退回 default: 静默退回会让"选了模型 X 却拿到 Y 的答案"完全不可见。
+        raise HTTPException(status_code=422,
+                            detail=f"unknown model {body.model!r}; known: {sorted(known)}")
 
     fed = getattr(request.app.state, "federation", None)
     routed: str | None = None
@@ -323,7 +333,7 @@ async def ask_stream(body: AskStreamRequest, request: Request):
         (保住答案, usage 报 null 而非编造)。开流失败才重试 —— 迭代中途失败不重试 (会重复生成),
         由下面的 except 兜。工具参数只在 with_tools 时传 —— web 关闭时请求体与本功能引入前
         逐位相同。"""
-        kw = {"model": "default", "messages": msgs, "stream": True}
+        kw = {"model": body.model, "messages": msgs, "stream": True}
         if with_tools and tools:
             kw["tools"] = tools
         try:

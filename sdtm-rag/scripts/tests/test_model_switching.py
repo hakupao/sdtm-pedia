@@ -1,7 +1,12 @@
 """多模型切换 (U1) 的闸。spec docs/superpowers/specs/2026-09-01-model-switching-design.md"""
+from types import SimpleNamespace
+
 import pytest
+from fastapi import FastAPI
+from fastapi.testclient import TestClient
 
 from server.config import Settings, SelectableModel
+from server.router import api_router
 
 
 def test_selectable_models_defaults():
@@ -173,13 +178,6 @@ def test_verify_does_not_let_a_natively_true_model_mask_a_broken_one():
 def _info_client(**kw):
     """/api/info 只读 rag/settings 上的几个属性, 最小 stub 即可 (照
     test_web_search_config.py 的既有写法), 不碰 chroma/embedding。"""
-    from types import SimpleNamespace
-
-    from fastapi import FastAPI
-    from fastapi.testclient import TestClient
-
-    from server.router import api_router
-
     app = FastAPI()
     app.include_router(api_router)
     app.state.rag = SimpleNamespace(
@@ -208,3 +206,70 @@ def test_info_model_table_is_subset_of_router_groups():
     exposed = {m["id"] for m in _info_client().get("/api/info").json()["selectable_models"]}
     assert exposed <= {m["model_name"] for m in create_router(s).model_list}
     assert len(exposed) >= 4, "抽取端失效: 暴露的模型表为空时上面的子集断言恒真"
+
+
+class _FakeRAG:
+    def retrieve(self, q, *, domain=None, file_type=None, top_k=None):
+        return [SimpleNamespace(chunk_id="c1", source="domains/AE/spec.md", domain="AE",
+                                file_type="spec", section="§1", similarity=0.9,
+                                text="AETERM is the reported term." * 5)]
+    def format_context(self, chunks):
+        return "CTX"
+    def build_messages(self, q, ctx, history=None):
+        return [{"role": "user", "content": q}]
+
+
+class _CapturingRouter:
+    """记下**实际**传给 acompletion 的组名。
+
+    校验通过 ≠ 真的用了那个模型 —— 少了这一层, 把 kw 里的组名写死成 "default"
+    也能让"接受每个模型"的测试全绿 (记事实不记意图)。
+    """
+
+    def __init__(self):
+        self.last_model = None
+
+    async def acompletion(self, model, messages, stream=False, **kw):
+        self.last_model = model
+
+        async def agen():
+            yield SimpleNamespace(model=f"resolved-{model}", usage=None,
+                                  choices=[SimpleNamespace(delta=SimpleNamespace(content="ok"))])
+            yield SimpleNamespace(model=f"resolved-{model}", choices=[],
+                                  usage=SimpleNamespace(prompt_tokens=1, completion_tokens=1,
+                                                        total_tokens=2))
+        return agen()
+
+
+def _stream_client():
+    s = Settings()
+    app = FastAPI()
+    app.include_router(api_router)
+    app.state.rag = _FakeRAG()
+    app.state.llm_router = _CapturingRouter()
+    app.state.settings = s
+    return TestClient(app)
+
+
+def test_ask_stream_rejects_unknown_model():
+    """白名单外 → 422。⛔ 不得静默退回 default —— 静默退回正是本仓库反复栽的形状
+    (参见 AskRequest 的 extra=forbid 注释所记的抽检事故)。"""
+    c = _stream_client()
+    r = c.post("/api/ask_stream", json={"question": "AETERM?", "model": "gpt-9000"})
+    assert r.status_code == 422, r.text
+    assert "gpt-9000" in r.text or "model" in r.text
+
+
+def test_ask_stream_accepts_every_selectable_model():
+    """反方向: 只测拒绝的话, 把校验写成"一律 422"也能绿。"""
+    c = _stream_client()
+    for m in Settings().selectable_models:
+        r = c.post("/api/ask_stream", json={"question": "AETERM?", "model": m.id})
+        assert r.status_code == 200, f"{m.id}: {r.text}"
+
+
+def test_ask_stream_default_is_unchanged():
+    """零影响硬要求: 不传 model 时走 default 组, 与本功能引入前逐位相同。"""
+    c = _stream_client()
+    assert c.post("/api/ask_stream", json={"question": "AETERM?"}).status_code == 200
+    assert c.app.state.llm_router.last_model == "default"
