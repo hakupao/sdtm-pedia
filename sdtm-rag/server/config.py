@@ -9,6 +9,7 @@ from __future__ import annotations
 from pathlib import Path
 
 from dotenv import load_dotenv
+from pydantic import BaseModel
 from pydantic_settings import BaseSettings
 
 _SDTM_RAG_ROOT = Path(__file__).resolve().parent.parent
@@ -17,12 +18,43 @@ _REPO_ROOT = _SDTM_RAG_ROOT.parent  # sdtm-pedia repo root
 load_dotenv(_SDTM_RAG_ROOT / ".env")
 
 
+class SelectableModel(BaseModel):
+    """用户可在 Chat UI 选择的答题模型。
+
+    这是 Router 模型组与前端下拉的**唯一事实源** —— 两者都从这张表派生, 故
+    「UI 提供了 Router 没有的模型」在结构上不可能发生 (spec §3.1)。
+    """
+
+    id: str          # Router 组名 = 前端提交值
+    label: str       # 下拉显示文字
+    model: str       # litellm 模型串
+    verified: bool   # ⟺ 该模型跑过反捏造抽检 (Rule 9 + 答题侧 guardrail) 并通过
+
+
 class Settings(BaseSettings):
     # LLM models (PLAN §4.2 D-2)
     default_model: str = "anthropic/claude-sonnet-4-6"
     fallback_model: str = "deepseek/deepseek-v4-pro"
     hard_model: str = "anthropic/claude-opus-4-7"
     light_model: str = "anthropic/claude-haiku-4-5"
+
+    # 用户可选答题模型 (spec §3.2)。只作用于**答题**; 判库(light)/检索改写不受影响 (C1)。
+    # verified 的语义写死: 跑过反捏造抽检并通过。目前只有 opus-5 —— 联网通道那轮抽检
+    # 就在它上面做的; sonnet-5 是 Claude 不代表验过。
+    selectable_models: list[SelectableModel] = [
+        SelectableModel(id="opus-5", label="Claude Opus 5",
+                        model="bedrock/converse/global.anthropic.claude-opus-5",
+                        verified=True),
+        SelectableModel(id="sonnet-5", label="Claude Sonnet 5",
+                        model="bedrock/converse/global.anthropic.claude-sonnet-5",
+                        verified=False),
+        SelectableModel(id="gpt-terra", label="GPT-5.6 Terra",
+                        model="bedrock/converse/global.openai.gpt-5.6-terra",
+                        verified=False),
+        SelectableModel(id="gpt-sol", label="GPT-5.6 Sol",
+                        model="bedrock/converse/global.openai.gpt-5.6-sol",
+                        verified=False),
+    ]
 
     # Embedding (D-4 v3: OpenAI cloud)
     embedding_model: str = "text-embedding-3-small"
