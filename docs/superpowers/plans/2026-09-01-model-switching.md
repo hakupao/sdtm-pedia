@@ -15,6 +15,7 @@
 - 测试命令一律: `cd sdtm-rag && .venv/bin/python -m pytest scripts/tests/ -p no:warnings -o addopts="-ra"`。基线 **1899 passed**, 每个 task 结束必须报数字。
 - **不得修改**: `server/grounding.py`、`eval/prod_wirein/check_code_grounding.py`。`scripts/tests/test_ask_stream.py` 与 `test_ask_stream_web.py` 是既有红线闸 —— **只允许新增测试文件, 不得改这两个文件的现有断言**; 若你的改动迫使它们变红, 那是信号: 换改法或停下来报告。
 - 每个 task 的新闸必须**两个方向都钉**。只钉一个方向时, 把值写死成常量也能绿。
+- ⚠ **变异验证一律跑整个 `test_model_switching.py`, 不许用 `-k <子串>` 过滤** —— Task 1 实测: `-k selectable` 会把 `test_only_opus5_is_verified` deselect 掉 (`2 passed, 1 deselected`), 照字面跑那条变异命令**捕获不到篡改**, 是假阴性。「看起来在验证、实际没验」同款。
 - 每个 task 收尾做**变异验证**: 把本 task 的实现回滚掉, 确认新闸变红, 给命令与真实输出。**变异脚本必须自证变异真的打上了** (改完 grep 回读或比 sha256) —— 拿未变异的代码跑出的"全绿"是**假确认不是报错**。
 - 长效文档/注释里**不得引行号**, 引函数名或常量名。
 - 不 commit 到 main; 分支 `feat/model-switching` 已建。
