@@ -66,6 +66,23 @@ cd sdtm-rag
 launchctl kickstart -k gui/$(id -u)/com.sdtmrag.api  # 重载服务
 ```
 
+### ⚠ 改了 webchat 前端就要通知同事强刷一次
+
+改动落在 `webchat/` (index.html / app.js / style.css) 时, **重载服务不等于同事看得到**。
+发完版在群里说一句: **访问页面后按 `Cmd+Shift+R` (Win: `Ctrl+F5`) 强刷一次**。
+
+原因: 服务端已给 `/` 与 `/static/*` 发 `Cache-Control: no-cache` (每次回源校验), 但那**只对
+修复之后才存进浏览器的缓存条目生效**。在此之前存下的条目仍按当初编造的启发式新鲜期
+(约为 Last-Modified age 的 10%, 实际观察到 **≈3 天**) 存活 —— 这段时间里浏览器**连问都不会问**
+服务器, 页面也不会给任何提示。
+
+实测过的症状 (2026-09-02): 服务器已在发新文件, 浏览器执行的却是旧 app.js, `performance` 里
+HTML 与 app.js 的 `transferSize` 双双为 0 (零网络)。表现是**新加的控件整排消失**, 看起来像
+"新功能没上线"而不是"浏览器没去拿新文件" —— 不知道这条的人会去查后端。强刷一次即恢复。
+
+回归闸: `scripts/tests/test_webchat_cache_headers.py` (响应头) +
+`scripts/tests/test_webchat_cache_browser.py` (真浏览器, 未装 playwright 时 skip)。
+
 ## 回滚
 
 ```bash

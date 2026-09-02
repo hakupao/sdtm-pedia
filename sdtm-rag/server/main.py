@@ -13,8 +13,9 @@ from pathlib import Path
 
 import structlog
 from fastapi import FastAPI
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, Response
 from fastapi.staticfiles import StaticFiles
+from starlette.types import Scope
 
 from scripts.spec_loader import SpecLoader
 from server.auth import install_security
@@ -306,13 +307,14 @@ _REVALIDATE = {"Cache-Control": "no-cache"}
 class _RevalidatingStaticFiles(StaticFiles):
     """StaticFiles that tells the browser to revalidate instead of guessing.
 
-    Hooking get_response (rather than file_response) also covers the 304 branch: starlette
-    rebuilds a NotModifiedResponse from a whitelist of headers, so a Cache-Control added any
-    earlier would survive only on the 200s, and a browser refreshing a cache entry off the
-    304 would fall straight back to heuristic freshness.
+    Hooked at get_response rather than file_response because get_response is the single exit
+    every StaticFiles response leaves by: its directory-redirect and 404.html branches build
+    a Response directly instead of going through self.file_response. Both are unreachable at
+    html=False, which is exactly the kind of premise that stops holding quietly — attaching
+    the header at the exit means there is no premise to hold.
     """
 
-    async def get_response(self, path: str, scope):
+    async def get_response(self, path: str, scope: Scope) -> Response:
         response = await super().get_response(path, scope)
         response.headers.update(_REVALIDATE)
         return response

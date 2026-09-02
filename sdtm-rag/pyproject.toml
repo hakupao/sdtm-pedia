@@ -60,6 +60,15 @@ fallback = [
     # pyreadstat fallback if Apple Silicon build fails (R-20)
     "sas7bdat>=2.2",
 ]
+browser = [
+    # Only scripts/tests/test_webchat_cache_browser.py needs this: the webchat cache defect
+    # is "the server serves the new file, the browser executes an old one", which no in-process
+    # HTTP client can reproduce (none of them implement a cache). Deliberately its own extra
+    # and not in `dev` — deploy.sh runs a plain `uv sync`, so production never pulls it, and a
+    # dev without it gets a visible skip rather than a failure. The browser binary is optional
+    # too: the test falls back to the machine's installed Google Chrome.
+    "playwright>=1.48",
+]
 
 [tool.setuptools]
 packages = [
