@@ -20,10 +20,18 @@ def test_sample_is_five_consistent_plus_three_flagged():
 
 
 def test_shortfall_is_backfilled_to_eight_and_recorded():
-    """报警只有 1 条时: 仍然 8 条, 缺的 2 条从 consistent 补, 且构成被记下来。"""
+    """报警只有 1 条时: 仍然 8 条, 缺的 2 条从 consistent 补, 且构成被记下来。
+
+    ⚠ 光断 `len(sample)==8` 和 `comp=={...}` 字面量, 从没独立核对 `sample` 里
+    实际的 verdict 构成是否真等于 `comp` 报的数字——`comp` 不是内部变量,
+    是预登记判据要求写进证据文件的"8 条实际构成", 人判照包判, comp 照报的,
+    两边不会自动对上。补上与 test_sample_is_five_consistent_plus_three_flagged
+    里 `sum(...) == 5` 对称的断言。"""
     sample, comp = pick_sample(_rows(50, 1))
     assert len(sample) == 8, "⛔ 不许少判"
     assert comp == {"consistent": 7, "flagged": 1, "backfilled": 2}
+    assert sum(1 for r in sample if r["verdict"] == "consistent") == 7
+    assert sum(1 for r in sample if r["verdict"] != "consistent") == 1
 
 
 def test_sample_is_deterministic_for_a_given_seed():
