@@ -351,7 +351,8 @@ async def ask_stream(body: AskStreamRequest, request: Request):
 
     async def gen():
         yield sse("sources", {"sources": sources, "routed_corpus": routed})
-        model_used = None
+        model_used = None   # 流里一个 chunk 都没报模型时就一直是 None —— done 事件如实发 null,
+                            # ⛔ 不许兜成 "default": 那是**编**一个模型名, 而这个值会进历史存档
         parts: list[str] = []   # 跨轮全文, 只给 counting gate 用
         # 每轮都是一次独立计费的 API 调用 —— usage 必须跨轮累加, 只报最后一轮会系统性低报
         # 成本。某轮走了 stream_options 窄重试就拿不到 usage; 那种情况打 partial 标记:
@@ -507,7 +508,7 @@ async def ask_stream(body: AskStreamRequest, request: Request):
             # web_searches_ok: 本次真正拿到结果的搜索次数。web_status 的 6 个值分不出
             # "开了联网但一次都没搜成" (模型净吐畸形/不存在的工具时它仍是 ok) —— 与其再往
             # 枚举里塞值让前端分支爆炸, 不如给一个整数, 顺带能显示"本次联网检索了 N 次"。
-            yield sse("done", {"model_used": model_used or "default",
+            yield sse("done", {"model_used": model_used,
                                "model_id": body.model,
                                "verified": model_verified,
                                "usage": usage, "web_status": web_status,

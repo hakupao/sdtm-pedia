@@ -317,14 +317,38 @@ class _CapturingRouter:
         return agen()
 
 
-def _stream_client():
+def _stream_client(router=None):
     s = Settings()
     app = FastAPI()
     app.include_router(api_router)
     app.state.rag = _FakeRAG()
-    app.state.llm_router = _CapturingRouter()
+    app.state.llm_router = router if router is not None else _CapturingRouter()
     app.state.settings = s
     return TestClient(app)
+
+
+class _EchoModelRouter:
+    """回一个**固定**的模型串, 与请求的组名无关 —— 模拟 "Router 换了别的 deployment"。
+
+    为什么不能只用 `_CapturingRouter`: 它回的是 `resolved-{组名}`, **跟着组名走**。
+    只有它的话, 把 `model_used` 实现成 `body.model` 的某种变形也可能蒙混过关。
+    这个类把"事实"与"意图"彻底解耦: 请求 gpt-sol、回 deepseek-v4-pro。
+
+    `reported=None` 用来造"chunk 压根没报模型"那一档 (getattr 取到 None)。
+    """
+
+    def __init__(self, reported: str | None = "deepseek-v4-pro"):
+        self.reported = reported
+        self.last_model = None
+
+    async def acompletion(self, model, messages, stream=False, **kw):
+        self.last_model = model
+        reported = self.reported
+
+        async def agen():
+            yield SimpleNamespace(model=reported, usage=None,
+                                  choices=[SimpleNamespace(delta=SimpleNamespace(content="ok"))])
+        return agen()
 
 
 def test_ask_stream_rejects_unknown_model():
@@ -411,6 +435,46 @@ def test_done_event_verified_is_null_for_default_group():
     ev = _done_event(_stream_client())          # 不传 model
     assert ev["model_id"] == "default"
     assert ev["verified"] is None
+
+
+def test_done_event_model_used_is_what_the_router_returned():
+    """闸 G1 正向 (spec §6): `model_used` 记的是**事实** —— 实际答题的模型,
+    与 `model_id` (意图, = body.model) 是两个东西。
+
+    ⚠ 这个字段在 U1 那轮**整套件零断言** (spec §9 D6)。它今天低风险的唯一原因是
+    四个新组还没有 fallback, 事实与意图在结构上不会分叉 —— Task 2 一补 fallback,
+    分叉立刻成为活场景, 那时缺断言就从"欠账"变成"漏洞"。
+    """
+    ev = _done_event(_stream_client(), model="opus-5")
+    assert ev["model_used"] == "resolved-opus-5", ev
+    # 诱饵: 两个字段必须不相等, 否则这条测试对"回显 model_id"的实现无分辨力
+    assert ev["model_used"] != ev["model_id"], ev
+
+
+def test_done_event_model_used_follows_the_router_not_the_request():
+    """闸 G1 反向: Router 交出别的模型时, `model_used` 必须跟着变。
+
+    把实现写成 `"model_used": body.model` (回显意图) 会让这条红 —— 而那正是
+    U2 容灾落地后最容易发生的静默错误: 用户选 gpt-sol、DeepSeek 答题、事件却说 gpt-sol。
+    """
+    c = _stream_client(_EchoModelRouter("deepseek-v4-pro"))
+    ev = _done_event(c, model="gpt-sol")
+    assert ev["model_used"] == "deepseek-v4-pro", ev
+    assert ev["model_id"] == "gpt-sol", ev
+
+
+def test_done_event_model_used_is_null_when_the_router_reports_nothing():
+    """闸 G3: 一个 chunk 都没带 `.model` 时真相是"不知道" ——
+    ⛔ 不得发写死的 `"default"`。
+
+    与同一个事件里 `verified` 的裁定同一条原则 (2026-09-01 spec §6:
+    「不得把'没这个概念'误报成一个具体值」)。Task 5 会把这个字段**存进
+    append-only 的历史存档**, 一个编出来的 "default" 从此永久留档 ——
+    正是用户全局规则 B 最贵的那类数据被污染。
+    """
+    c = _stream_client(_EchoModelRouter(None))
+    ev = _done_event(c, model="opus-5")
+    assert ev["model_used"] is None, ev
 
 
 class _SyncCapturingRouter:
