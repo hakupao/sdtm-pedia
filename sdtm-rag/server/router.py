@@ -415,7 +415,12 @@ async def ask_stream(body: AskStreamRequest, request: Request):
                                 slot["name"] = fn.name      # 取首个非空: 有 provider 每片都重发
                             if fn and getattr(fn, "arguments", None):
                                 slot["args"] += fn.arguments  # 只有 arguments 是真分片
-                        model_used = getattr(chunk, "model", None) or model_used
+                    # 两半各防一件事, 缺任一半 model_used 都会丢成 None (⇒ 回退发生了也报不出来):
+                    # · 放在 `if choices` **外面**: usage chunk 的 choices 是空列表, 而有
+                    #   provider 只在那一片上报模型 —— 搁在里面就整条流都取不到。
+                    # · `or model_used` **不能删**: 报模型的往往只有首片, 后续片的 .model
+                    #   是 None, 裸赋值会被最后一片抹掉。
+                    model_used = getattr(chunk, "model", None) or model_used
                     cu = getattr(chunk, "usage", None)
                     if cu:
                         cu_round = cu

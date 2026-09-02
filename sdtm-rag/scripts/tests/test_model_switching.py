@@ -351,6 +351,37 @@ class _EchoModelRouter:
         return agen()
 
 
+class _ChunkScriptRouter:
+    """逐 chunk 控制"这一片报不报模型 / 带不带 choices" —— 用来钉**累积端**。
+
+    `chunks` 每项是 `(reported, has_choices)`:
+    `reported=None` 造"这一片的 .model 是 None" (provider 只在首片报模型是常态);
+    `has_choices=False` 造 usage chunk —— 它的 `choices` 是**空列表**, 而有 provider
+    只在这一片上报模型。
+
+    ⚠ 不改 `_EchoModelRouter` 来做这件事: 它"整条流只有一片、固定回一个串"的语义被
+    既有三条发射端闸依赖, 动它等于同时动那三条闸的被测面。
+    """
+
+    def __init__(self, chunks: list[tuple[str | None, bool]]):
+        self.chunks = chunks
+        self.last_model = None
+
+    async def acompletion(self, model, messages, stream=False, **kw):
+        self.last_model = model
+        script = self.chunks
+
+        async def agen():
+            for reported, has_choices in script:
+                yield SimpleNamespace(
+                    model=reported,
+                    usage=None if has_choices else SimpleNamespace(
+                        prompt_tokens=1, completion_tokens=1, total_tokens=2),
+                    choices=([SimpleNamespace(delta=SimpleNamespace(content="ok"))]
+                             if has_choices else []))
+        return agen()
+
+
 def test_ask_stream_rejects_unknown_model():
     """白名单外 → 422。⛔ 不得静默退回 default —— 静默退回正是本仓库反复栽的形状
     (参见 AskRequest 的 extra=forbid 注释所记的抽检事故)。"""
@@ -444,6 +475,13 @@ def test_done_event_model_used_is_what_the_router_returned():
     ⚠ 这个字段在 U1 那轮**整套件零断言** (spec §9 D6)。它今天低风险的唯一原因是
     四个新组还没有 fallback, 事实与意图在结构上不会分叉 —— Task 2 一补 fallback,
     分叉立刻成为活场景, 那时缺断言就从"欠账"变成"漏洞"。
+
+    ⛔ **不许把这条单独留下、删掉兄弟测试**
+    (`…follows_the_router_not_the_request`)。复审实测: 把实现伪装成
+    `"resolved-" + body.model` (纯回显意图) 时**这条照绿** —— `_CapturingRouter` 回的
+    `resolved-{组名}` 与它逐字相同, 连那句"两字段不相等"的诱饵也拦不住。分辨力全在
+    兄弟那条 (`_EchoModelRouter` 把事实与意图解耦) 上。
+    本仓库既有判例: 把一道闸的能力说大, 后来人会据此删掉真正在保护的那条。
     """
     ev = _done_event(_stream_client(), model="opus-5")
     assert ev["model_used"] == "resolved-opus-5", ev
@@ -475,6 +513,36 @@ def test_done_event_model_used_is_null_when_the_router_reports_nothing():
     c = _stream_client(_EchoModelRouter(None))
     ev = _done_event(c, model="opus-5")
     assert ev["model_used"] is None, ev
+
+
+def test_done_event_model_used_survives_later_chunks_that_report_nothing():
+    """闸: **累积端**保值 —— 报模型的往往只有首片, 后续片的 `.model` 是 None。
+
+    上面三条闸全在**发射端** (done 事件那一行), 累积端零断言: 复审实测把
+    `model_used = getattr(chunk, "model", None) or model_used` 的 ` or model_used`
+    删掉 ⇒ 本文件 38 条全绿。裸赋值会让最后一片把已拿到的模型串抹成 None。
+
+    丢成 None 不是"少个字段"这么轻: D5 落地后 `fell_back` 只能据它返 `None`,
+    于是一次**真实的回退**在用户界面上静默降级成"验证状态未知" ——
+    "回退了却不说出来"正是本轮要修的那件事本身。
+    """
+    c = _stream_client(_ChunkScriptRouter([("deepseek-v4-pro", True), (None, True)]))
+    ev = _done_event(c, model="opus-5")
+    assert ev["model_used"] == "deepseek-v4-pro", ev
+
+
+def test_done_event_model_used_reads_a_model_reported_only_on_the_usage_chunk():
+    """闸: 累积端**位置** —— usage chunk 的 `choices` 是空列表。
+
+    累积行原先写在 `if choices:` **里面**, 所以只在 usage 那一片上报模型的 provider
+    会让整条流的 `model_used` 是 None。把它挪回 `if` 里面 ⇒ 这条红。
+
+    ⚠ 与上一条是同一个洞的两半, 分开钉: 只有"保值"那条时, 把累积行搁回 `if` 里
+    照样全绿; 只有本条时, 删掉 ` or model_used` 照样全绿。
+    """
+    c = _stream_client(_ChunkScriptRouter([(None, True), ("deepseek-v4-pro", False)]))
+    ev = _done_event(c, model="opus-5")
+    assert ev["model_used"] == "deepseek-v4-pro", ev
 
 
 class _SyncCapturingRouter:
