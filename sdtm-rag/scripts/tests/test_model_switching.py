@@ -1197,6 +1197,13 @@ def test_flag_payload_reads_the_message_fell_back():
     body = src.split("function flagModelName", 1)[1].split("\n}", 1)[0]
     assert re.search(r"\.fellBack\b", body), "归因没有读 msgObj.fellBack"
     assert re.search(r"\.modelsUsed\b", body), "归因没有读 msgObj.modelsUsed"
+    # ⚠ 与 `test_badge_text_reads_the_fell_back_field` **对称**的一条 (复审 M5):
+    # 同一条三态规矩有两个消费者 (徽章 / ⚑ 归因), 徽章那处的全等判据有静态闸钉着,
+    # 这里此前**零覆盖** —— 复审变异 V-M5 (改成 truthy) 是 69 passed 零红 (本人复跑确认)。
+    # 钉的是**判据形状一致**, 不是 JS 真值语义: 后端 `fell_back()` 返 bool|None, 产不出
+    # "truthy 但非 true"的值, 所以这里**不该**写成行为闸去钉一个后端产不出的输入。
+    assert re.search(r"fellBack\s*===\s*true", body), \
+        "回退判据不是全等 —— 与徽章那处的三态写法不一致 (spec §5 B1 同一条规矩)"
 
 
 def test_badge_survives_a_models_used_that_is_not_a_list(flag_probe):
@@ -1218,6 +1225,26 @@ def test_badge_survives_a_models_used_that_is_not_a_list(flag_probe):
         assert got["renderError"] is None, f"{key}: 渲染抛了 —— {got['renderError']}"
         assert got["renderedCount"] == 2, f"{key}: 历史渲染中止了, 只画出 {got['renderedCount']} 条"
         assert got["badgeText"] == "模型: gpt-sol ⚠未验证", f"{key}: {got['badgeText']}"
+
+
+def test_flagging_still_records_when_models_used_is_not_a_list(flag_probe):
+    """闸 **I-5**: 同一个护栏加在了 `flagModelName`, 那一处也必须有闸。
+
+    ⚠ 与徽章那处**不是同一个后果, 而且更重**: `flagModelName` 抛出的异常穿过 `postFlag`
+    ⇒ **用户点了 ⚑, 结果什么都没记下**, 而 `dogfood_failures.md` 是 append-only 的优先级
+    backlog (用户全局规则 B)。"归错模型"至少还留下一条错记录, 事后能翻出来纠正;
+    这个是**连记录都没有**, 且用户以为记上了 —— 缺陷本身把发现缺陷的渠道给堵了。
+
+    ⚠ 只钉徽章那处不够: 复审变异 V-F1b (**只**拿掉 `flagModelName` 的 `Array.isArray`)
+    在本条存在之前是 **69 passed 零红** (本人复跑确认)。
+    """
+    for key in ("badShapeString", "badShapeObject"):
+        got = flag_probe[key]
+        assert got["flagError"] is None, f"{key}: ⚑ 抛了 —— {got['flagError']}"
+        assert got["flagBody"] is not None, f"{key}: /api/flag 压根没被调用, 记录丢了"
+        # 归因退回"用户选的那个" (label 表此时还没加载, 所以是原始 id) —— 形状不对时
+        # 不知道实际是谁, 报选的那个是诚实的降级, 空着或崩掉都不是。
+        assert got["flagBody"]["model"] == "gpt-sol", got["flagBody"]
 
 
 def test_badge_at_first_paint_is_observed_not_only_after_the_label_table_loads(flag_probe):
@@ -1266,6 +1293,15 @@ def test_archive_says_unknown_not_false_when_the_backend_never_sent_the_field(fl
     got = flag_probe["streamOldBackend"]
     assert got["stored"]["fellBack"] is None, got["stored"]
     assert got["stored"]["modelsUsed"] is None, got["stored"]
-    # 徽章与 ⚑ 归因都必须退回今天的样子
     assert got["badgeAfterReload"] == "模型: GPT-5.6 Sol ⚠未验证", got["badgeAfterReload"]
+
+
+def test_flag_attribution_is_unchanged_when_the_backend_is_old(flag_probe):
+    """闸 G10 在 **⚑ 归因层**的那一半 (spec §5 B1)。
+
+    ⚠ 单独成条是有理由的 (复审 M-12): 这条断言原本挂在上面那个**名字只讲存档**的测试里,
+    按名字精简时会被当成"重复的多余断言"顺手删掉, 而删掉即**无声重开** ⚑ 层的 B1 缺口。
+    闸的名字就是它的说明书 —— 说明书没提到的东西, 下一个人不会知道要保护。
+    """
+    got = flag_probe["streamOldBackend"]
     assert got["flagBody"]["model"] == "GPT-5.6 Sol", got["flagBody"]

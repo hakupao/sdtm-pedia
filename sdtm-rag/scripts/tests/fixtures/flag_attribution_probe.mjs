@@ -206,7 +206,8 @@ async function scenario({ modelId, modelsUsed, fellBack }) {
 // `.join is not a function` 抛在 renderMessages 里, 死的不是一条徽章而是整段历史。
 // 今天不可达 (onDone 还没接通这两个字段), 但接通它的正是同一个 commit。
 async function badShapeScenario(modelsUsed) {
-  const sandbox = makeSandbox([]);
+  const flagBodies = [];
+  const sandbox = makeSandbox(flagBodies);
   const ctx = createContext(sandbox);
   sandbox.localStorage.setItem("sdtm_chat_v1", JSON.stringify({
     currentId: "c1",
@@ -224,10 +225,35 @@ async function badShapeScenario(modelsUsed) {
     renderError = String(e);
   }
   const messages = sandbox.__byId.get("messages");
+  // ⚠ 先抓徽章再驱动 ⚑: 下面的 `await` 会把 loadModelName 的微任务放跑,
+  // label 表一到位 refreshModelBadgeLabels 就把文案从原始 id 改成 label ——
+  // 抓晚了断言的就不再是"畸形形状下落回老文案", 而是"label 表加载完了没"。
+  const badgeText =
+    (findByClass(messages, "model-meta") || { textContent: null }).textContent;
+
+  // 也驱动一次 ⚑ (I-5): 护栏加在 flagModelName 那处同样必须有闸。那里抛的话异常穿过
+  // postFlag ⇒ **用户点了 ⚑ 却什么都没记下**, 而 dogfood_failures.md 是 append-only 的
+  // 优先级 backlog (规则 B)。"归错模型"至少还留下一条错记录; 这个是**连记录都没有**,
+  // 且用户以为记上了 —— 比徽章那处更贴本轮主题。
+  let flagError = null;
+  try {
+    const btn = findByClass(messages, "flag-btn");
+    if (btn) {
+      btn.onclick();
+      const box = findByClass(messages, "flag-box");
+      box.children.find((c) => c.tagName === "textarea").value = "答案是捏造的";
+      await findByClass(box.parentNode, "flag-send").onclick();
+    }
+  } catch (e) {
+    flagError = String(e);
+  }
+
   return {
     renderError,
     renderedCount: messages.children.length,     // 2 条消息都画出来 = 渲染没中止
-    badgeText: (findByClass(messages, "model-meta") || { textContent: null }).textContent,
+    badgeText,
+    flagError,
+    flagBody: flagBodies.length ? flagBodies[0] : null,
   };
 }
 

@@ -142,6 +142,14 @@ function modelBadgeText(modelId, verified, modelsUsed, fellBack) {
   // 也挡不住 array-like 对象 —— 两者都会走到 `.join` 上抛 TypeError, 而这一抛是在
   // `renderMessages` 里 ⇒ 死的不是一条徽章, 是**整段对话历史渲染不出来**。
   // 后端发回什么形状不由前端说了算 (onDone 是 `?? null`, 零形状校验), 所以这里必须自己挡。
+  //
+  // **容器级**契约到此为止, **元素级**的 (每个元素是非空串) 由后端保证:
+  // `server/router.py` 收集处的 `if reported:` 只 append 真值串, 所以 `[null]` / `[""]`
+  // 这类"说回退了却说不出回退到谁"的半个真话在生产上产不出来。
+  // ⛔ 别在这里加 `filter(Boolean)` 之类的防御 —— 为不可达路径写防御, 下一个人会以为它可达。
+  // 为什么容器级只需要这一个判断就够: 值必然经 JSON 往返 (localStorage / SSE), 到达时
+  // 只可能是 null|bool|number|string|array|plain object 六种, `Array.isArray` 恰好把前五种
+  // 全挡在外面 —— 这也是"`join` 被改写成别的东西"那类畸形同样不会抛的原因。
   if (fellBack === true && Array.isArray(modelsUsed) && modelsUsed.length) {
     return { text: `模型: ${label} → 实际 ${modelsUsed.join("、")}（已回退）· 验证状态未知`,
              unverified: true };
@@ -352,7 +360,10 @@ function flagModelName(msgObj) {
   // 记到 GPT-5.6 Sol 头上, 与终审 C-1 是同一个缺陷换了触发路径 (那次是切 topbar 文本,
   // 这次是读了 modelId 但答案不是它产的)。两边都写进去: backlog 的读者既要知道谁捏造的,
   // 也要知道当时选的是谁 —— 否则"为什么会用到这个模型"这条线索断了。
-  // Array.isArray 的理由与 modelBadgeText 那处相同, 只是这里抛出去会让 ⚑ 静默记录失败。
+  // Array.isArray 的理由与 modelBadgeText 那处相同 (容器级契约; 元素级由 server/router.py
+  // 收集处的 `if reported:` 保证, 那里只 append 真值串), 但**后果更重**: 这里抛出去的
+  // 异常穿过 postFlag ⇒ 用户点了 ⚑ 却什么都没记下, 而 backlog 是 append-only 的 (规则 B)。
+  // 缺陷本身把发现缺陷的渠道堵了。⛔ 同样别加 filter(Boolean): 那条路径不可达。
   if (msgObj && msgObj.fellBack === true && Array.isArray(msgObj.modelsUsed)
       && msgObj.modelsUsed.length) {
     return `${msgObj.modelsUsed.join("、")}（回退自 ${id ? (modelLabelById[id] || id) : "未知"}）`;
