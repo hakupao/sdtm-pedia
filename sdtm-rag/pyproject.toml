@@ -63,10 +63,12 @@ fallback = [
 browser = [
     # Only scripts/tests/test_webchat_cache_browser.py needs this: the webchat cache defect
     # is "the server serves the new file, the browser executes an old one", which no in-process
-    # HTTP client can reproduce (none of them implement a cache). Deliberately its own extra
-    # and not in `dev` — deploy.sh runs a plain `uv sync`, so production never pulls it, and a
-    # dev without it gets a visible skip rather than a failure. The browser binary is optional
-    # too: the test falls back to the machine's installed Google Chrome.
+    # HTTP client can reproduce (none of them implement a cache). Its own extra rather than a
+    # line in `dev` so that not having it is a visible skip on one file instead of a failure
+    # everyone has to install their way out of. The browser binary is optional too: the test
+    # falls back to the machine's installed Google Chrome.
+    # Install additively (`uv pip install playwright`) — a `uv sync` against this lock would
+    # uninstall the packages this venv carries beyond it, boto3 (Bedrock) among them.
     "playwright>=1.48",
 ]
 

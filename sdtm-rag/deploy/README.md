@@ -80,8 +80,19 @@ launchctl kickstart -k gui/$(id -u)/com.sdtmrag.api  # 重载服务
 HTML 与 app.js 的 `transferSize` 双双为 0 (零网络)。表现是**新加的控件整排消失**, 看起来像
 "新功能没上线"而不是"浏览器没去拿新文件" —— 不知道这条的人会去查后端。强刷一次即恢复。
 
-回归闸: `scripts/tests/test_webchat_cache_headers.py` (响应头) +
-`scripts/tests/test_webchat_cache_browser.py` (真浏览器, 未装 playwright 时 skip)。
+回归闸: `scripts/tests/test_webchat_cache_headers.py` (响应头) 随全量常驻;
+`scripts/tests/test_webchat_cache_browser.py` (真浏览器) 默认 skip, **改了 `webchat/` 后、
+发版前手动跑一次**:
+
+```bash
+uv pip install --python .venv/bin/python playwright   # 只增不删; 别用 uv sync --extra,
+                                                      # 它会按 lock 卸掉 boto3/pytest 等
+.venv/bin/python -m pytest scripts/tests/test_webchat_cache_browser.py
+```
+
+为什么不常驻: 能让它变红的**代码回归** (有人把 `Cache-Control` 拿掉) 已被常驻的响应头闸抓住;
+它的独有价值是抓**浏览器侧行为变了** (将来前面加反代/CDN、Chrome 缓存策略变动) —— 那类事件与
+本仓的 commit 无关, 所以按时机跑, 不按 commit 跑。
 
 ## 回滚
 

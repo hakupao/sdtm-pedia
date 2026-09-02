@@ -6,8 +6,9 @@ httpx / TestClient 也顶不了 —— 它们**没有 HTTP 缓存实现**, 每�
 test_webchat_cache_headers.py 钉。
 
 装法 (dev-only 可选; 没装则本文件整体 skip, skip 是可见的, 不是静默跳过):
-    uv pip install playwright        # 或 uv sync --extra browser
-    .venv/bin/playwright install chromium   # 可跳过: 会回退到本机已装的 Google Chrome (见 _launch)
+    uv pip install --python .venv/bin/python playwright   # 只增不删; 别用 uv sync --extra
+    .venv/bin/playwright install chromium                 # 可跳过: 会回退到本机已装的
+                                                          # Google Chrome (见 _launch)
 """
 from __future__ import annotations
 
@@ -26,7 +27,7 @@ from server.config import Settings
 
 pw_api = pytest.importorskip(
     "playwright.sync_api",
-    reason="真浏览器端到端闸需要 playwright (dev-only 可选): uv sync --extra browser",
+    reason="真浏览器端到端闸需要 playwright (dev-only 可选; 装法见本文件 docstring)",
 )
 
 # 浏览器给一条没有 Cache-Control 的响应编造的新鲜期, 惯例是 (now - Last-Modified) 的 10%。
