@@ -40,7 +40,7 @@ U1 落地时留下两笔互相咬合的债 (spec §9):
 | R3 | 后端在 `done` 事件算 `fell_back`: 拿 `model_used` 与**所选组配置的模型串**比对; 内部组无从判断 ⇒ 发 `null` |
 | R4 | 前端徽章必须跟着变: 回退时显示「模型: GPT-5.6 Sol → 实际 deepseek-v4-pro（已回退）」, `verified` 按未知处理 |
 | R5 | `modelUsed` + `fellBack` 一并存档, 历史记录同样诚实 |
-| **R6** | (2026-09-02 追加, 由 Task 1 复审的 I-2 触发) 一次问答里**可能有多个模型各答了一段** ⇒ 按 **chunk** 收全实际报出的模型, `done` 加 `models_used` **有序去重列表**; `fell_back` = **任一个**不符即 `true`; 徽章用列表呈现 |
+| **R6** | (2026-09-02 追加, 由 Task 1 复审的 I-2 触发) 一次问答里**可能有多个模型各答了一段** ⇒ 按 **chunk** 收全实际报出的模型, `done` 加 `models_used` **有序归并列表** (同一模型的多种拼法归为一项, 保留最限定形); `fell_back` = **任一个**不符即 `true`; 徽章用列表呈现 |
 
 ⚠ **R6 的来历必须写明, 否则它看起来像是凭空多出来的复杂度**: 原设计按 `model_used` (last-wins)
 单值判定。Task 1 复审实测出两条路径会让它**静默说谎**:
@@ -49,8 +49,8 @@ U1 落地时留下两笔互相咬合的债 (spec §9):
    ⇒ `fell_back` 算成 `False` —— **回退了却不说**, 正是本轮要修的那件事本身。
 2. **流中途回退** (见 §3 P6): 同一轮里就可能有两个模型的文字。
 
-⇒ 按轮记都不够, 必须**按 chunk** 记。而代码本来就在逐 chunk 读 `.model`, 收成有序去重列表
-是顺手的事。单模型场景 (绝大多数) 列表长度为 1, 文案与 R4 原样一字不差。
+⇒ 按轮记都不够, 必须**按 chunk** 记。而代码本来就在逐 chunk 读 `.model`, 收成一张有序列表
+是顺手的事。⚠ 但归并**不能是裸的相等去重** —— 见 §4.3 与 L6b: litellm 对同一个模型会报两种拼法。单模型场景 (绝大多数) 列表长度为 1, 文案与 R4 原样一字不差。
 
 ⚠ **R4 不能省的理由 (用户原话)**: 不做的话「用户选 Sol、DeepSeek 答题、徽章却说 Sol」——
 就是刚修掉的 **C-1 (⚑ 归错模型)** 同族缺陷换了个位置。
@@ -136,7 +136,8 @@ fallbacks = [{g: ["default-fallback"]} for g in ("default", *(m.id for m in sele
 (`_INTERNAL_GROUP_MODEL_FIELDS` / `non_bedrock_model_groups` / `register_...` 都在处理前缀),
 再开一处等于又造一份真相。
 
-**输入是列表** (R6): `reported_models` = 本次问答里逐 chunk 收到的、**有序去重**的模型串。
+**输入是列表** (R6): `reported_models` = 本次问答里逐 chunk 收到、经 `merge_reported_model` **归并**后的模型串
+(同一模型的多种拼法归为一项, 保留**最限定**形; 顺序 = 首次出现顺序)。
 
 判定规则:
 
@@ -147,11 +148,32 @@ fallbacks = [{g: ["default-fallback"]} for g in ("default", *(m.id for m in sele
 | **每一个**都与该组配置串同一个模型 | `False` | |
 | **任一个**不是 | `True` | R6: 一次回答里只要有一段是别人答的, 就必须说 |
 
-"同一个模型"的判据 (§3 P3 已实测 `reported` 是**去掉 provider 前缀**的串):
+"同一个模型"的判据。
+
+⚠⚠ **本文这里原本写着「§3 P3 已实测 `reported` 是**去掉 provider 前缀**的串」—— 那是错的, 终审修复轮直接证伪。** 真实情况 (真 `create_router` + litellm `mock_response` 实测, 零外部调用):
+
+| 报出方 | 串 |
+|---|---|
+| 内容 chunk | `converse/global.anthropic.claude-opus-5` |
+| 收尾 / usage chunk | `bedrock/converse/global.anthropic.claude-opus-5` |
+
+`converse/` **保留**, 而且**同一次调用里两种拼法都会出现**。
+
+**错法与 §3 P6 一模一样, 只是下沉了一层**: 「去掉 provider 前缀」这个结论来自 `DEPLOY_PLAN.md` 里
+**deepseek** 那一次 (`deepseek/deepseek-v4-pro` → `deepseek-v4-pro`), 我把它**外推**到 bedrock 串上,
+还标成了「已实测」。⇒ P6 的教训是「我没测到 ≠ 它不存在」, 这一条是它的孪生:
+**「我在 A 上测到 ≠ 它在 B 上也成立」——尤其当 A 和 B 的前缀结构根本不同时。**
+⚠ 而真正的 `reported` 串 (**真实** Bedrock 回退时) **至今仍未实测** —— 见 §7 L1, 那是本轮最大的未验假设。
+
+判据本身 (**不依赖前缀被剥掉几层**, 这也是它扛住了这次证伪的原因):
 
 ```python
-configured == reported or configured.endswith("/" + reported)
+# server/llm_config.py :: _same_model —— 本仓库对"同一个模型"的**唯一**定义
+a == b or a.endswith("/" + b) or b.endswith("/" + a)
 ```
+
+⚠ **判据是对称的, 而本文初稿只写了单向** (`configured == reported or configured.endswith(...)`)。
+终审变异 L10 (去掉对称那半) **红 5 条** ⇒ 对称半是**承重的**, 照初稿重写代码会当场撞红。
 
 `bedrock/converse/global.anthropic.claude-opus-5` vs `global.anthropic.claude-opus-5` ⇒ 相同。
 ⛔ **必须带 `/` 边界, 不许用裸 `in`** —— 裸子串正是 retrospective 规则 6 成因 A 的形状
@@ -160,7 +182,8 @@ configured == reported or configured.endswith("/" + reported)
 `done` 事件加**两个**字段:
 
 ```jsonc
-"models_used": ["deepseek-v4-pro", "global.openai.gpt-5.6-sol"],  // 有序去重, 逐 chunk 收
+"models_used": ["deepseek-v4-pro",
+                "bedrock/converse/global.openai.gpt-5.6-sol"],  // 逐 chunk 收, 归并后留最限定形
 "fell_back":   true                                               // true | false | null
 ```
 
@@ -216,6 +239,7 @@ configured == reported or configured.endswith("/" + reported)
 |---|---|---|
 | B1 | **新前端 + 老后端** (`done` 不带 `model_used`/`fell_back`) | `?? null` ⇒ 徽章与今天**逐字相同**, 不报错 |
 | B2 | **新前端 + 老历史存档** (localStorage 里的旧消息没有 `modelUsed`/`fellBack`) | 同上 |
+| **B3** | (终审 I-3 补 —— **本文初稿只分析了一个方向**) **老前端 + 新后端**: `app.js` 虽是 StaticFiles 现读且带 `Cache-Control: no-cache`, 但**一个已经打开、始终没刷新的标签页持有旧 JS**。重启后在那种 tab 里发生真回退 ⇒ 徽章不吭声、存档里连键都没有、⚑ 归到用户**选的**模型 —— **就是 C-1 原样**。⇒ 无法用代码消除 (旧 JS 已在对方内存里), 唯一对策是**重启后硬刷新**, 见 §7.5 |
 
 ## 6. 测试闸 (每条都要能被变异打红, 两个方向都钉)
 
@@ -235,7 +259,8 @@ configured == reported or configured.endswith("/" + reported)
 | G6 | **真 `Router` 端到端**: 主模型开流抛错 ⇒ 流仍成功, `done.model_used` / `models_used` 来自 fallback, `fell_back` 为 `true` | 反: 抽掉该组的 fallback 条目 ⇒ 变成 `event: error` |
 | G7 | `fell_back` 三态: 全部是配置串 ⇒ `False`; 有别的串 ⇒ `True`; 内部组 / 列表为空 ⇒ `None` (⛔ 不是 `False`) | 三向各一条 |
 | **G7b** | **R6 核心**: 列表 `["配置串", "别的串"]` ⇒ `True` (**任一**不符即回退) | 反: `["配置串"]` ⇒ `False`。变异成"只看最后一个" ⇒ 正向红 —— 这条正是 I-2 那个静默谎言 |
-| **G7c** | `models_used` 是**有序去重**: 同一模型连报 N 个 chunk ⇒ 列表长度 1; 两个模型交替 ⇒ 按首次出现顺序各一次 | 两个方向 (去重坏掉→长度爆炸; 顺序坏掉→顺序断言红) |
+| **G7c** | `models_used` 是**有序归并**: 同一模型连报 N 个 chunk ⇒ 列表长度 1; 两个模型交替 ⇒ 按首次出现顺序各一次 | 两个方向 (去重坏掉→长度爆炸; 顺序坏掉→顺序断言红) |
+| **G7d** | **同一模型两种拼法归为一项且保留最限定形**; **真的两个模型仍是两项**且 `fell_back` 仍 `True` | 三种错误策略 (不合并 / 合并留短形 / 跨 provider 被合并) 各自打红**不同的**断言; 传递链 `openai/gpt-4`→`gpt-4`→`azure/gpt-4` 的**全部 6 种排列**都跑 |
 | G8 | 匹配必须带 `/` 边界 | `reported="claude-opus-5"` (真子串但非完整尾段) ⇒ `True`; 变异成裸 `in` ⇒ 红 |
 | G9 | 徽章: `fellBack=true` ⇒ 文案含 `→ 实际 {modelsUsed 顿号连接}`+`已回退`+`验证状态未知` 且带 `.unverified` | 反: `fellBack=false` ⇒ 与今天**逐字相同** |
 | **G9b** | 多模型 (`modelsUsed` 两项) ⇒ 两个名字**都**出现在徽章上 | 反: 单项时文案与 R4 原样一字不差 (不许出现悬空的顿号) |
@@ -243,6 +268,16 @@ configured == reported or configured.endswith("/" + reported)
 | G11 | 存档诚实: 走完整流 (`onDone`→`persist`) 后 localStorage 里有 `modelsUsed`/`fellBack`, 重建 DOM 后徽章仍显示回退 | 反: 不回退的流存档里 `fellBack` 为 `false` |
 | G12 | ⚑ 归因: 回退时 `/api/flag` 的 `model` = 实际模型 (**诱饵**: `msgObj.modelId` 是 `gpt-sol`, 读它就红) | 反: 既有两条 (`withModelId` / `legacyNoModelId`) 必须仍绿 |
 | G13 | 静态形状闸 (node 缺席时仍在): `.fellBack` / `.modelsUsed` 属性读取存在 | 照 `test_flag_payload_reads_the_message_model_id` 双闸写法 |
+| **G14** | **琥珀色 `.unverified` 样式**本身 (不只是文案) —— 回退时有、`verified===true` 且未回退时无、未验证模型时有 | 反: `unverified: true` → `verified === false` 在两个回退场景上**逐字同输出** (成因 D) ⇒ 必须另加一个 `verified: true` **且**回退的场景才有分辨力 |
+| **G15** | `models_used` **不是列表**时 (字符串 / 对象 / 数字): 徽章落回老文案**且历史渲染不中止**; ⚑ **仍然记得下** | 两处护栏**各自**有闸 —— 只钉徽章那处时, 拿掉 ⚑ 那处的护栏 71 条全绿 (终审 I-5) |
+| **G16** | **首屏渲染**那一版被观测 (不只是 `/api/info` 到位后的刷新文案); 坏 dataset 时 `try/catch` 真的兜住 | 正 |
+| **G17** | **每个消费者各自的 B1**: 老后端不发字段时 —— 存档存 `null` (⛔ 不是 `false`)、⚑ 归因与今天逐字相同 | 反: 存档层若写 `?? false`, 在**显式发 true/false** 的场景上逐字同输出 (成因 D) ⇒ 有分辨力的输入只有 B1 本身 |
+| **G18** | `/api/ask` (非流式) 的**行为变更被钉住**: `model=opus-5` 由 502 → 200 + 回退作答 (§7 L5) | 反: 容灾表退回分支前的样子 ⇒ 回到 502 |
+| **G19** | **现实锚**: litellm 真的对同一模型报两种拼法 (mock 流实测, 非真 Bedrock); `model_fell_back` 日志两向 | 日志闸必须用 `capsys` 不能用 `caplog` —— structlog 直接写 stdout, 用 `caplog` 时**正向那半恒失败、反向那半恒真** |
+
+⚠ **本表列的是"闸守的是什么", 不是测试清册。** 权威枚举在 `sdtm-rag/scripts/tests/test_model_switching.py`
+(本轮新增 **47** 条, 该文件 35 → **82**; 全量 1956 → **2003 passed, 1 skipped**)。
+⇒ 表与文件对不上时**以文件为准**, 并回来补这张表 —— 本轮终审就抓到过"两轮共 10 条新闸不在表里"。
 
 ## 7. 已知限制
 
@@ -252,6 +287,29 @@ configured == reported or configured.endswith("/" + reported)
 | **L2** | (⚠ **本文初稿在这条上写错过, 见 §3 P6**) 准确说法: **开流阶段**失败 ⇒ 换 deployment, **已实测**; **流中途**抛 `MidStreamFallbackError` ⇒ 也走 fallback 链, **源码级确认、未实测**; 其余中途失败 (普通网络断) ⇒ 仍走 `event: error`。中途回退会让一次回答里出现两个模型的文字 —— 由 R6 的 `models_used` 列表如实呈现 |
 | **L3** | 内部组 (`default`/`hard`/`light`) 的 `fell_back` 一律 `null`。技术上 `default` 组是**可判**的 (配置串在 `s.default_model`), 本轮按 R3 裁定不做 —— UI 永远发显式 id, 够不到这条路径; 若将来 `/api/ask_stream` 被脚本用 `model=default` 大量调用, 这条要补 |
 | **L4** | 回退目标是 `default-fallback` = **DeepSeek 个人流量** (C3/D4)。这是 R2 的既定代价, 由 R4/R5 的标注承担 |
+| **L5** | (Task 2 复审 I-3, **实测**) 给四个组补 fallback **同时扩大了 `/api/ask` (非流式) 的行为面**: `/api/ask model=opus-5` 由 **502 → 200 + 回退作答**。而 `/api/ask` 的 `model_used = getattr(response,"model",None) or body.model` **回显分支仍在** (D6 只删了 SSE 侧) ⇒ 回退响应不带 `.model` 时会把 DeepSeek 的答案标成 `opus-5` —— **C-1 同族**。今天无调用方 (streamlit 下拉只有 default/hard/light), 且 `default` 组分支前就是这个形状, 本轮扩的是**范围** (1→5 组)。⇒ 本轮**只钉行为、只记账, 不改 `AskResponse` 契约** (那属上一轮 D11); 行为面由 Task 3 的一条闸钉住, 不靠文档记忆 |
+| **L6** | `models_used` **无长度上界**: 它由 `merge_reported_model` (经 `_same_model` 判等、只朝更限定方向合并) 归并, 故长度 = 本次问答里**不同**模型串的个数 —— 正常等于 deployment 数 (1-2)。但若某个 provider 每片报的串都不同 (例如把 request id 拼进 `.model`), 列表会随 chunk 数增长, 并**整份**进 `done` 事件与浏览器 localStorage。本轮**不加截断** —— 截断会悄悄丢掉「到底谁答的」这个信息, 与本轮主旨相反; 且该形态未在任何真实 provider 上观察到。⇒ 记为已知限制, 上线后若真出现, 表现是徽章异常长 (**响的**失败) |
+| **L6b** | (终审 I-2, **实测**) 更现实的一种同款: litellm 对**同一个模型**会报**两种拼法** —— 内容 chunk 报 `converse/global.anthropic.claude-opus-5`, 收尾/usage chunk 报 `bedrock/converse/global.anthropic.claude-opus-5` (源码佐证: `chunk_creator` 里 `model_response.model = self.model`, 而"用 chunk 自带 model 覆盖"那支**只对 Azure 生效**)。`fell_back` 判定不受影响 (`/` 边界两种都认), 但去重前徽章会**把 2 个模型写成 4 个串**。⇒ 终审修复轮已加**拼法归一去重** (与 `fell_back` 共用同一个"同一模型"谓词, 不另造第二份真相)。⚠ 该实测来自 **litellm mock 流**, **不是真 Bedrock 流** |
+
+## 7.5 ⚠ 上线时序 (Task 2 复审 M-7 / 终审 I-3)
+
+**曾经的禁令 (已解除)**: Task 2-3 落地后, R2 的**代价**(答题可能落到 DeepSeek 个人流量) 先于
+R4/R5 的**条件**(徽章/存档/⚑ 的诚实标注) 存在, 故当时要求 **Task 5 合入前不要重启服务**。
+
+**Task 5 (`bfeeebe`) 之后已解禁。** 逐 task 复审的重新评估: `onDone` 已是 6 参调用 ⇒ 上一阶段
+那条"回退分支结构性不可达"的保险没了, 改为**靠值**保证 —— 而它差分实测: 老后端不发
+`fell_back`/`models_used` ⇒ `?? null` ⇒ 三处消费者 (徽章 / 存档 / ⚑) 全走今天的分支,
+徽章 (初次渲染 + 刷新后两版) / `/api/flag` 请求体 / B1 存档**逐字节相同**。
+⇒ 比上一阶段更好: 那时是"够不到所以安全 (**无闸**)", 现在是"**走到了、落回原样、且有一条只有它能打红的闸**"。
+
+⛔ **但解禁带一个条件 (终审 I-3)**: **重启服务后, 已经打开的浏览器标签页必须硬刷新。**
+`Cache-Control: no-cache` 只保证**下一次请求**拿到新 JS, 保证不了一个**根本没再请求过**的 tab。
+在旧 tab 里发生真回退 = C-1 原样 (见 §5 B3)。
+
+⚠ **这条是终审补的, 本文初稿漏了**: §5 原本只写了 B1/B2 两个方向 (新前端 + 老后端 / 老存档),
+**没有"老前端 + 新后端"**。而"重启禁令可解禁"的三条论证**全部落在另一个方向上** ——
+论证本身没错, 但它回答的不是全部问题。⇒ 记进 retrospective: **兼容性分析要问"哪两端会各自
+处在哪个版本", 而不是只问"我这一端换了新的会怎样"。**
 
 ## 8. 收尾要动的文档
 

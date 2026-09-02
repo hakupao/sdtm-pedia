@@ -378,6 +378,13 @@ git commit -m "fix(models): D5.1 — 四个可选模型组补 fallback, 表从 s
 
 ### Task 3: D5.2 —— `fell_back` 三态判定 (按 chunk 收全) + `done` 事件接线
 
+> ⚠⚠ **本计划有三处写着「实测 chunk 报的是**去掉 provider 前缀**的串」—— 那是错的, 终审修复轮直接证伪** (真 `create_router` + litellm `mock_response`, 零外部调用):
+> 内容 chunk 报 `converse/global.anthropic.claude-opus-5`, 收尾/usage chunk 报 `bedrock/converse/global.anthropic.claude-opus-5` —— **`converse/` 保留, 且同一次调用两种拼法都出现**。
+> 该结论原本来自 `DEPLOY_PLAN.md` 里 **deepseek** 那一次 (`deepseek/deepseek-v4-pro` → `deepseek-v4-pro`), 被**外推**到 bedrock 串上还标成了「实测」。
+> ⇒ 与 spec §3 P6 同族的孪生教训: **「我在 A 上测到 ≠ 它在 B 上也成立」**。
+> 下面三处保留原文不改 (计划是**当时**的记录, 改它是篡改账本), 以此注记为准; 落地实现见 spec §4.3 与 `_same_model` / `merge_reported_model`。
+> ⚠ 而**真实** Bedrock 回退时的串**至今仍未实测** —— spec §7 L1, 本轮最大的未验假设。
+
 > ⚠ **本 task 已按用户裁定 R6 改写** (2026-09-02, 由 Task 1 复审的 I-2 触发)。
 > 原设计按 `model_used` 单值 (last-wins) 判定, 实测有两条路径会让它**静默说谎**:
 > 联网多轮里某一轮回退、末轮落回主模型 ⇒ 报 `False`; 以及流中途回退 (spec §3 P6)。
