@@ -34,10 +34,24 @@ def test_sample_is_deterministic_for_a_given_seed():
 
 
 def test_different_seeds_give_different_samples():
-    """反方向: seed 不生效的实现 (例如忽略 seed 直接取前 5 条) 会让这条红。"""
-    a, _ = pick_sample(_rows(50, 10), seed=1)
-    b, _ = pick_sample(_rows(50, 10), seed=2)
-    assert [r["id"] for r in a] != [r["id"] for r in b]
+    """反方向: seed 不生效的实现会让这条红。
+
+    ⚠ **必须分半断言**: 只断整条列表不等时, "clean 半段钉死、flagged 半段仍随机"
+    这种**局部退化**照样绿 (实测)。而 clean 半段正是对抗抽样的承重处 ——
+    它一旦钉死, 我们每次人判的就永远是同 5 条, "5 条抽自裁判判干净的" 名存实亡。
+
+    ⚠ **用多个 seed 取集合、而非两个 seed 直接比**: flagged 是 3 抽自 10, 只有 720 种
+    有序结果, 两个 seed 撞车的概率约 1/720 —— 那是会真的假红的量级。
+    """
+    def halves(seed):
+        s, _ = pick_sample(_rows(50, 10), seed=seed)
+        clean = tuple(r["id"] for r in s if r["verdict"] == "consistent")
+        flagged = tuple(r["id"] for r in s if r["verdict"] != "consistent")
+        return clean, flagged
+
+    results = [halves(s) for s in range(5)]
+    assert len({c for c, _ in results}) > 1, "consistent 半段没随 seed 变 —— 对抗抽样退化成固定 5 条"
+    assert len({f for _, f in results}) > 1, "flagged 半段没随 seed 变"
 
 
 def test_too_few_rows_fails_loud():
