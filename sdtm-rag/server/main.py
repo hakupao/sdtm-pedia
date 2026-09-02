@@ -292,6 +292,31 @@ async def lifespan(app: FastAPI):
 
 _WEBCHAT_DIR = Path(__file__).resolve().parent.parent / "webchat"
 
+# A response carrying only ETag/Last-Modified and no Cache-Control lets the browser invent
+# its own freshness lifetime (the usual heuristic is 10% of the file's age), so a chat UI
+# asset that had been sitting on disk for weeks kept being served from the local cache for
+# a day-plus after a deploy without ever asking the server. That failure is dressed up as
+# "the new feature never shipped": the whole header row of the UI reverts at once.
+# `no-cache` means "keep the copy, but revalidate before every use" — unchanged files still
+# answer 304 with an empty body. NOT `no-store`, which would forbid caching outright and
+# re-download everything on every navigation.
+_REVALIDATE = {"Cache-Control": "no-cache"}
+
+
+class _RevalidatingStaticFiles(StaticFiles):
+    """StaticFiles that tells the browser to revalidate instead of guessing.
+
+    Hooking get_response (rather than file_response) also covers the 304 branch: starlette
+    rebuilds a NotModifiedResponse from a whitelist of headers, so a Cache-Control added any
+    earlier would survive only on the 200s, and a browser refreshing a cache entry off the
+    304 would fall straight back to heuristic freshness.
+    """
+
+    async def get_response(self, path: str, scope):
+        response = await super().get_response(path, scope)
+        response.headers.update(_REVALIDATE)
+        return response
+
 
 def create_app(app_settings=None) -> FastAPI:
     """Build the FastAPI app. A factory (not a bare module global) so the phase-3 security
@@ -314,12 +339,18 @@ def create_app(app_settings=None) -> FastAPI:
     # Static hosting for the ChatGPT-style chat UI (DESIGN_chat_ui.md §1). `/static` and
     # `GET /` do not collide with the api_router's `/api/*` prefix. Guard with exists() so
     # a missing webchat/ during build-out never crashes boot.
+    # Both halves need the revalidation header, and for the same reason: a stale index.html
+    # is the worse of the two (the elements are missing from the DOM entirely, so the JS has
+    # nothing to bind to). `/api/*` is deliberately left alone — this is a policy for the
+    # static shell, not for the API.
     if _WEBCHAT_DIR.exists():
-        application.mount("/static", StaticFiles(directory=str(_WEBCHAT_DIR)), name="static")
+        application.mount(
+            "/static", _RevalidatingStaticFiles(directory=str(_WEBCHAT_DIR)), name="static"
+        )
 
         @application.get("/")
         def chat_index():
-            return FileResponse(str(_WEBCHAT_DIR / "index.html"))
+            return FileResponse(str(_WEBCHAT_DIR / "index.html"), headers=_REVALIDATE)
 
     # Phase 3 sharing: login gate + rate limit + security headers (all OFF by default; see
     # server/auth.install_security and config.py). Added last so it wraps routes + static.
