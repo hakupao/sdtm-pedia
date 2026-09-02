@@ -662,6 +662,10 @@ def test_done_event_model_used_reads_a_model_reported_only_on_the_usage_chunk():
     # 而断言照绿 (成因 A)。
     assert [bool(getattr(c, "choices", None)) for c in r.emitted] == [True, False], r.emitted
     assert ev["model_used"] == "deepseek-v4-pro", ev
+    # 同一件事在**兄弟字段**上也要钉 (复审 M-8): 累积块被拆成 model_used / models_used 两半后,
+    # 只把 append 那半限回"有 choices 才收"⇒ 54 条全绿 (V9 实测)。Task 1 的 M-1 在
+    # models_used 上原样重演了一次 —— 一类缺陷极少只出现一处。
+    assert ev["models_used"] == ["deepseek-v4-pro"], ev
 
 
 def _real_router_stream(monkeypatch, *, model, fallbacks=None) -> str:
@@ -790,16 +794,85 @@ def test_real_fallback_path_reports_fell_back(monkeypatch):
 
     这条是本轮的**中心断言** —— 用户原话: 不做的话"用户选 Sol、DeepSeek 答题、
     徽章却说 Sol", 就是刚修掉的 C-1 (⚑ 归错模型) 同族缺陷换了个位置。
+
+    ⚠ **`calls` 断言不可省** (复审 M-9): 只断事件字段的话, 把主模型改成**根本不失败**
+    (于是压根没有回退) 这条**照绿** —— fake 无论派到哪个 deployment 都回
+    `model="deepseek-v4-pro"`, 事件字段一模一样。中心断言必须自己钉住"回退真的发生了",
+    不能靠兄弟闸。
     """
     r = _real_router_stream(monkeypatch, model="opus-5")
     blocks = [b for b in r.text.split("\n\n") if b.startswith("event: done")]
     assert len(blocks) == 1, r.text[:400]
     ev = json.loads(next(l for l in blocks[0].splitlines() if l.startswith("data: "))[6:])
+    assert r.calls == [_OPUS5, Settings().fallback_model], f"派单序列不对: {r.calls}"
     assert ev["fell_back"] is True, ev
     assert ev["models_used"] == ["deepseek-v4-pro"], ev
     assert ev["model_used"] == "deepseek-v4-pro", ev
     assert ev["model_id"] == "opus-5", ev
     assert ev["verified"] is True, "verified 记的是**用户选的**模型验没验过, 这个事实不变"
+
+
+def test_models_used_spans_every_web_round(monkeypatch):
+    """闸 I-4: `models_used` 必须**跨轮**累积 —— 这是裁定 R6 的**第一条动机**。
+
+    联网时每一轮是一次**独立**的 `acompletion` (`web_max_rounds = 5`), 各自可能回退。
+    第 1 轮回退到 DeepSeek、第 2 轮落回主模型时, 只看最后一个会报"没回退" —— 那正是
+    I-2 那个静默谎言。
+
+    ⚠ **这条闸存在的直接理由**: 在轮循环里加一行 `models_used.clear()` (它旁边的
+    `acc` / `round_parts` / `cu_round` **三个都真的是每轮重置**, 所以这是这段代码里最
+    自然的一个误读, 不是刻意破坏) ⇒ 全套件 1975 条**零红** (复审实测, 本人复跑确认)。
+    在此之前 R6 的第一条动机是靠"models_used 在 gen() 作用域里跨轮天然累积"这个**结构
+    事实**成立的, 没有任何闸真的跑过两轮。
+
+    ⛔ 不改红线文件 `test_ask_stream_web.py` —— 这里用本地假搜索器 + 本地两轮 fake router,
+    monkeypatch `server.router.WebSearcher` (本文件既有先例:
+    `test_request_body_gate_actually_sees_an_added_kwarg`)。
+    """
+    from server.web_search import WebRef
+
+    class _FakeSearcher:
+        def __init__(self, s):
+            self.searches_used = 0
+
+        def search(self, query):
+            self.searches_used += 1
+            return ([WebRef(url="https://example.org/x", title="T", content="C",
+                            retrieved_at="2026-09-02")], "ok")
+
+    monkeypatch.setattr("server.router.WebSearcher", _FakeSearcher)
+
+    class _TwoRoundRouter:
+        """第 1 轮工具调用 + 报**回退**串; 第 2 轮纯文本 + 报**主模型**串。"""
+
+        def __init__(self):
+            self.rounds = 0
+
+        async def acompletion(self, model, messages, stream=False, **kw):
+            self.rounds += 1
+            first = self.rounds == 1
+
+            async def agen():
+                if first:
+                    yield SimpleNamespace(model="deepseek-v4-pro", usage=None, choices=[
+                        SimpleNamespace(delta=SimpleNamespace(content=None, tool_calls=[
+                            SimpleNamespace(index=0, id="call-1",
+                                            function=SimpleNamespace(
+                                                name="web_search",
+                                                arguments='{"query": "AETERM"}'))]))])
+                else:
+                    yield SimpleNamespace(model=_OPUS5_REPORTED, usage=None, choices=[
+                        SimpleNamespace(delta=SimpleNamespace(
+                            content="Per [Web: https://example.org/x (retrieved 2026-09-02)] ok.",
+                            tool_calls=None))])
+            return agen()
+
+    r = _TwoRoundRouter()
+    ev = _done_event(_stream_client(r), model="opus-5", web=True)
+    assert r.rounds == 2, f"没真的跑两轮, 这条闸就没测到跨轮: {r.rounds}"
+    assert ev["models_used"] == ["deepseek-v4-pro", _OPUS5_REPORTED], ev
+    assert ev["model_used"] == _OPUS5_REPORTED, "最后一轮是主模型 —— 诱饵摆上了"
+    assert ev["fell_back"] is True, "第 1 轮是 DeepSeek 答的, 就必须说"
 
 
 def test_ask_now_falls_back_instead_of_502(monkeypatch):
