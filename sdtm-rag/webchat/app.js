@@ -89,7 +89,7 @@ function renderMessages() {
   let lastUserQ = "";
   for (const m of c.messages) {
     const el = messageEl(m.role, m.content, m.sources, m.routedCorpus, m.webStatus, m.webSearchesOk,
-                          m.modelId, m.verified);
+                          m.modelId, m.verified, m.modelsUsed, m.fellBack);
     if (m.role === "user") lastUserQ = m.content;
     else if (m.role === "assistant") attachFlag(el, lastUserQ, m);
     box.appendChild(el);
@@ -97,7 +97,8 @@ function renderMessages() {
   box.scrollTop = box.scrollHeight;
 }
 
-function messageEl(role, content, sources, routedCorpus, webStatus, webSearchesOk, modelId, verified) {
+function messageEl(role, content, sources, routedCorpus, webStatus, webSearchesOk, modelId, verified,
+                   modelsUsed, fellBack) {
   const wrap = document.createElement("div");
   const msg = document.createElement("div");
   msg.className = "msg " + role;
@@ -116,15 +117,31 @@ function messageEl(role, content, sources, routedCorpus, webStatus, webSearchesO
   // 和正常联网答案长得一模一样 (spec §7 点名的最骗人的失败模式)。
   renderWebStatus(wrap, webStatus, webSearchesOk);
   // 同一个坑, spec §6: 只做 UI 标注(下拉旁边那行提示)的话, 对话存下来后这条信息就没了。
-  renderModelBadge(wrap, role, modelId, verified);
+  renderModelBadge(wrap, role, modelId, verified, modelsUsed, fellBack);
   return wrap;
 }
 
 // verified 三态不可混同 (spec §6): true 正常; false 是拿到确证的"验过且不通过";
 // null (default 组不在 selectable_models 里, 没有 verified 概念) 一律显"未知",
 // 绝不能落进 false 那支 (会把"没这个概念"误报成"验过且不通过")。
-function modelBadgeText(modelId, verified) {
+//
+// 回退 (fellBack === true, 2026-09-02 spec §4.4) 优先于以上三态: 答案是**另一个(些)**
+// 模型产的, 那么"用户选的那个验没验过"对这条消息不再成立 —— 拿 opus-5 的 verified: true
+// 给一条 DeepSeek 答的消息背书, 就是终审 C-1 (⚑ 归错模型) 同族。琥珀色照挂: 回退是
+// **已知的偏离**, 不是单纯的元数据缺失, 值得与"未验证模型"同级的视觉提示。
+//
+// modelsUsed 是**列表**: 联网多轮 / 流中途回退时一次回答可能有两个模型各写了一段,
+// 只报一个就又变成半个真话了 (spec R6)。绝大多数情况长度为 1, 文案退化成单模型形态。
+//
+// ⚠ `fellBack === true` 用**全等**而非 truthy: 老后端不发这个字段 (StaticFiles 从工作树
+// 现读 ⇒ 新前端会先于 Python 重启上线, spec §5 B1) 、老存档里也没有这个键, 两种情况都是
+// undefined, 必须落回下面三态、文案与今天逐字相同。
+function modelBadgeText(modelId, verified, modelsUsed, fellBack) {
   const label = modelLabelById[modelId] || modelId;
+  if (fellBack === true && modelsUsed && modelsUsed.length) {
+    return { text: `模型: ${label} → 实际 ${modelsUsed.join("、")}（已回退）· 验证状态未知`,
+             unverified: true };
+  }
   if (verified === true) return { text: `模型: ${label}`, unverified: false };
   if (verified === false) return { text: `模型: ${label} ⚠未验证`, unverified: true };
   return { text: `模型: ${label} · 验证状态未知`, unverified: false };
@@ -133,15 +150,18 @@ function modelBadgeText(modelId, verified) {
 // 答案实际用的模型 (spec §6 产物自证)。modelId 为空 (生成中占位 / 未流完就中断 / 旧历史
 // 记录没存这个字段) 时什么都不画 —— 比瞎猜一个模型名更诚实, 也避免占位阶段先画一个"未知"
 // 徽章、done 后又叠一个真实徽章的重复渲染。
-function renderModelBadge(wrap, role, modelId, verified) {
+function renderModelBadge(wrap, role, modelId, verified, modelsUsed, fellBack) {
   if (role !== "assistant" || !modelId) return;
   const b = document.createElement("div");
   b.className = "msg-meta model-meta";
-  // modelId/verified 存进 dataset: /api/info 比首屏渲染慢一步是常态, label 表填好后
-  // refreshModelBadgeLabels() 要能原地补字, 不能靠重建 DOM 拿到这两个值。
+  // 这四个值存进 dataset: /api/info 比首屏渲染慢一步是常态, label 表填好后
+  // refreshModelBadgeLabels() 要能原地补字, 不能靠重建 DOM 拿到它们
+  // (重建会抹掉正在生成、尚未进 c.messages 的那个气泡 —— 上一轮复审用 gate stub 复现过)。
   b.dataset.modelId = modelId;
   b.dataset.verified = String(verified); // "true" | "false" | "null"
-  const { text, unverified } = modelBadgeText(modelId, verified);
+  b.dataset.modelsUsed = JSON.stringify(modelsUsed || []);
+  b.dataset.fellBack = String(fellBack);  // "true" | "false" | "null" | "undefined"(老存档)
+  const { text, unverified } = modelBadgeText(modelId, verified, modelsUsed, fellBack);
   b.textContent = text;
   if (unverified) b.classList.add("unverified");
   wrap.appendChild(b);
@@ -156,7 +176,12 @@ function refreshModelBadgeLabels() {
     const modelId = b.dataset.modelId;
     if (!modelId) return;
     const verified = b.dataset.verified === "true" ? true : b.dataset.verified === "false" ? false : null;
-    b.textContent = modelBadgeText(modelId, verified).text;
+    // 显式三路比较, 不用 truthy —— dataset 里存的是字符串, "false" 是 truthy 的
+    const fellBack = b.dataset.fellBack === "true" ? true : b.dataset.fellBack === "false" ? false : null;
+    let modelsUsed = [];
+    // 坏数据不该让整条历史渲染崩掉 —— 拿不到就当"没有这个信息", 退回非回退文案
+    try { modelsUsed = JSON.parse(b.dataset.modelsUsed || "[]"); } catch (_) { modelsUsed = []; }
+    b.textContent = modelBadgeText(modelId, verified, modelsUsed, fellBack).text;
   });
 }
 

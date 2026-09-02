@@ -828,6 +828,14 @@ def test_models_used_spans_every_web_round(monkeypatch):
     ⛔ 不改红线文件 `test_ask_stream_web.py` —— 这里用本地假搜索器 + 本地两轮 fake router,
     monkeypatch `server.router.WebSearcher` (本文件既有先例:
     `test_request_body_gate_actually_sees_an_added_kwarg`)。
+
+    ⚠ **本闸在顺序上的分辨力边界** (成因 D 自查, 实测得出, 别把它记宽也别记窄):
+    对**反序**型有分辨力 (`append` → `insert(0, …)` ⇒ 本闸红), 但对**排序归一化**型
+    (`sorted` / `sorted(set)`) **没有** —— 期望值 `["deepseek-v4-pro", "global.…"]`
+    恰好已是字典序, 排序实现输出与它逐字相同。排序归一化那一支由
+    `test_done_event_models_used_is_ordered_and_deduped` 负责 (它的数据是 `["m-b","m-a"]`)。
+    ⛔ 别为了补这一支把这里的模型串换成 m-a/m-b: 它俩有语义 (回退串 / 主模型串),
+    换掉就不再像它要测的那个真实场景了。
     """
     from server.web_search import WebRef
 
@@ -1051,3 +1059,79 @@ def test_flag_payload_reads_the_message_model_id():
     assert len(body) == 2, "flagModelName 没了 —— 归因逻辑被搬走或删掉了"
     body = body[1].split("\n}", 1)[0]
     assert re.search(r"\.modelId\b", body), "归因没有读 msgObj.modelId"
+
+
+def test_badge_says_which_model_actually_answered_when_it_fell_back(flag_probe):
+    """闸 G9 正向 (用户裁定 R4): 回退时徽章必须写出**实际**答题的模型。
+
+    不做的话: 用户选 Sol、DeepSeek 答题、徽章却说 Sol —— 与终审 C-1 (⚑ 归错模型)
+    同族, 只是位置从归档换到了徽章。
+    `verified` 按未知处理: 它描述的是用户**选的**那个模型验没验过, 拿它给一条
+    **别人答的**消息背书就是撒谎。
+    """
+    badge = flag_probe["fellBack"]["badgeText"]
+    assert badge == "模型: GPT-5.6 Sol → 实际 deepseek-v4-pro（已回退）· 验证状态未知", badge
+    assert "⚠未验证" not in badge, f"verified 那一支必须被盖掉: {badge}"
+
+
+def test_badge_lists_every_model_that_answered(flag_probe):
+    """闸 **G9b** (用户裁定 R6): 一次回答里有两个模型各答了一段时, **两个都要出现**。
+
+    只显示最后一个 / 只显示第一个都会让这条红。单模型场景 (上一条) 的文案则必须
+    与 R4 原样一字不差 —— 不许因为改成列表就冒出个悬空的顿号。
+    """
+    badge = flag_probe["fellBackMulti"]["badgeText"]
+    assert "deepseek-v4-pro" in badge, badge
+    assert "global.openai.gpt-5.6-sol" in badge, badge
+    assert "已回退" in badge and "验证状态未知" in badge, badge
+
+
+def test_badge_is_byte_identical_when_it_did_not_fall_back(flag_probe):
+    """闸 G9 反向: 没回退时徽章与今天**逐字相同**。
+
+    ⚠ 这条不是形式主义: 把回退分支写成"只要有 modelsUsed 就显示箭头"的实现会让它红,
+    而那种实现会给**每一条**正常回答都挂上"已回退", 三天之内没人再看这个徽章。
+    """
+    assert flag_probe["notFellBack"]["badgeText"] == "模型: GPT-5.6 Sol ⚠未验证"
+
+
+def test_badge_ignores_records_that_predate_the_field(flag_probe):
+    """闸 G10 (spec §5 B1/B2): 老后端不发这两个字段、老存档里没有这两个键时,
+    徽章必须与今天逐字相同。
+
+    ⚠ B1 不是假想: `webchat/` 是从工作树挂载的 (`StaticFiles` 每请求现读), 这个前端
+    一保存就出现在用户正在跑的服务上, 而 Python 改动要重启才生效 ——
+    "新前端 + 老后端"是**必然发生的中间态**, 且是用户真的会看到的那一刻。
+
+    `withModelId` 场景的历史记录里 `modelsUsed` / `fellBack` **两个键都不存在**
+    (探针的 `scenario()` 对显式 undefined 整个键都不设), 正是那个形状。
+    """
+    assert flag_probe["withModelId"]["badgeText"] == "模型: GPT-5.6 Sol ⚠未验证"
+
+
+def test_badge_text_reads_the_fell_back_field():
+    """闸 G13 静态第二重 (照 `test_flag_payload_reads_the_message_model_id` 双闸写法):
+    node 缺席时行为闸会 skip, 这条不会。断的是**属性/形参读取形状**, 不是"源码里出现过这个词"。
+
+    ⚠ **只断 `\\bfellBack\\b` / `\\bmodelsUsed\\b` 是不够的** (本轮实测): 那两个词出现在
+    **函数签名**里, 所以把整个回退分支删光 (变异 M2) 这条**照绿** —— 而 M2 正是 node 缺席时
+    最需要它拦住的那种改动。故这里再钉两样**只存在于分支体内**的东西:
+    - `fellBack === true` 的**全等**判据: 它就是 spec §5 B1 的降级保证 (老后端/老存档
+      发 undefined 时必须落回原文案)。写成 `fellBack !== false` 之类会让这条红。
+    - `已回退` 这个用户可见串: 分支存在与否的锚。
+
+    成因 D 自查 —— **哪种错误实现在这组输入上会产出相同输出?** 答: 保留这两样却把列表
+    接错 (例如只显示 `modelsUsed[0]`)。那一支**不归本闸**, 由行为闸
+    `test_badge_lists_every_model_that_answered` 负责 (变异 M4 实测只打红它)。
+    ⛔ 别为此在这里加 `modelsUsed\\.join` 之类的字面断言: 那会把一种写法钉死成契约,
+    而它保证的事已经有行为闸在管。
+    """
+    src = APP_JS.read_text(encoding="utf-8")
+    body = src.split("function modelBadgeText", 1)
+    assert len(body) == 2, "modelBadgeText 没了 —— 徽章文案逻辑被搬走或删掉了"
+    body = body[1].split("\n}", 1)[0]
+    assert re.search(r"\bfellBack\b", body), "徽章文案没读 fellBack"
+    assert re.search(r"\bmodelsUsed\b", body), "徽章文案没读 modelsUsed"
+    assert re.search(r"fellBack\s*===\s*true", body), \
+        "回退判据不是全等 —— 老后端发 undefined 时会落错分支 (spec §5 B1)"
+    assert "已回退" in body, "回退分支没了 —— 徽章不会再说出实际答题的模型"

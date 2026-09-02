@@ -140,12 +140,17 @@ function makeSandbox(flagBodies) {
 
 const flush = () => new Promise((r) => setTimeout(r, 0));
 
-async function scenario({ modelId }) {
+async function scenario({ modelId, modelsUsed, fellBack }) {
   const flagBodies = [];
   const sandbox = makeSandbox(flagBodies);
   const ctx = createContext(sandbox);
   const assistant = { role: "assistant", content: "捏造的答案", sources: [] };
   if (modelId) { assistant.modelId = modelId; assistant.verified = false; }
+  // 显式 undefined 时**整个键都不设** —— 那正是老历史存档的样子 (spec §5 B2)。
+  // ⚠ 不能写成 `assistant.modelsUsed = modelsUsed ?? undefined`: 那样键会存在且值为
+  // undefined, 而老存档里这个键**根本不存在**, 两者在 `in` 判定与 JSON 往返上都不同。
+  if (modelsUsed !== undefined) assistant.modelsUsed = modelsUsed;
+  if (fellBack !== undefined) assistant.fellBack = fellBack;
   sandbox.localStorage.setItem("sdtm_chat_v1", JSON.stringify({
     currentId: "c1",
     conversations: [{
@@ -174,8 +179,16 @@ async function scenario({ modelId }) {
   };
 }
 
+// ⚠ 前两条**一字不动** —— 它们是终审 C-1 (⚑ 归错模型) 的既有闸。
+// withModelId 同时兼任 spec §5 B1/B2 的降级场景: 它的历史记录里**没有** modelsUsed/fellBack
+// 两个键, 正是"新前端 + 老后端"与"新前端 + 老存档"的形状。
 const out = {
   withModelId: await scenario({ modelId: "gpt-sol" }),
   legacyNoModelId: await scenario({ modelId: null }),
+  fellBack: await scenario({ modelId: "gpt-sol", modelsUsed: ["deepseek-v4-pro"], fellBack: true }),
+  fellBackMulti: await scenario({ modelId: "gpt-sol", fellBack: true,
+                                  modelsUsed: ["deepseek-v4-pro", "global.openai.gpt-5.6-sol"] }),
+  notFellBack: await scenario({ modelId: "gpt-sol", fellBack: false,
+                                modelsUsed: ["global.openai.gpt-5.6-sol"] }),
 };
 process.stdout.write(JSON.stringify(out));
