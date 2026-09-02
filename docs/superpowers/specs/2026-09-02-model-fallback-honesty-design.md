@@ -283,7 +283,7 @@ a == b or a.endswith("/" + b) or b.endswith("/" + a)
 
 | # | 限制 |
 |---|---|
-| **L1** | §3 P3 的实测用的是我们自己的 fake provider ⇒ 证的是「我们的接线 + litellm 机制」。**真实回退时 chunk 里到底写什么串**没有本轮实测 (唯一证据是 `DEPLOY_PLAN.md` 里 `/api/ask` 非流式那次)。若真串与配置串对不上, 表现是**每条答案都误报"已回退"** —— 是**响的**失败不是静默的, 但会立刻吵到用户。⇒ 上线后第一条真实回答就能证伪, 见 §9 冒烟步骤 |
+| **L1** | §3 P3 的实测用的是我们自己的 fake provider ⇒ 证的是「我们的接线 + litellm 机制」。**真实回退时 chunk 里到底写什么串**没有本轮实测 (唯一证据是 `DEPLOY_PLAN.md` 里 `/api/ask` 非流式那次)。若真串与配置串对不上, 表现是**每条答案都误报"已回退"** —— 是**响的**失败不是静默的, 但会立刻吵到用户。⇒ 上线后第一条真实回答就能证伪, 见 §9 冒烟步骤。<br>**⚠ 2026-09-02 更新 — 已部分闭合 (真实调用实测)**: 下一单元 (verified 抽检) 选裁判模型时顺带打了两次**真实 Bedrock 非流式**调用, `response.model` 实测为**裸 profile id** (`bedrock/converse/` 全剥掉): `bedrock/converse/global.xai.grok-4.6` → `global.xai.grok-4.6`; `bedrock/converse/global.anthropic.claude-opus-4-8` → `global.anthropic.claude-opus-4-8`。代入 `_same_model` 的 `configured.endswith("/" + reported)` ⇒ **True** ✅。⇒ 连同 L6b 的 mock 流两种拼法, 现已知**三种形态** (`global.…` / `converse/global.…` / `bedrock/converse/global.…`), `_same_model` **三种全认** —— 「每条答案都误报已回退」这个失败模式现在有**真实调用**证据支撑, 不再只是源码级推断。<br>**仍未闭合的窄口**: 这两次是**非流式**调用, 且**不是真的回退路径** (没有主模型失败→换 deployment)。 |
 | **L2** | (⚠ **本文初稿在这条上写错过, 见 §3 P6**) 准确说法: **开流阶段**失败 ⇒ 换 deployment, **已实测**; **流中途**抛 `MidStreamFallbackError` ⇒ 也走 fallback 链, **源码级确认、未实测**; 其余中途失败 (普通网络断) ⇒ 仍走 `event: error`。中途回退会让一次回答里出现两个模型的文字 —— 由 R6 的 `models_used` 列表如实呈现 |
 | **L3** | 内部组 (`default`/`hard`/`light`) 的 `fell_back` 一律 `null`。技术上 `default` 组是**可判**的 (配置串在 `s.default_model`), 本轮按 R3 裁定不做 —— UI 永远发显式 id, 够不到这条路径; 若将来 `/api/ask_stream` 被脚本用 `model=default` 大量调用, 这条要补 |
 | **L4** | 回退目标是 `default-fallback` = **DeepSeek 个人流量** (C3/D4)。这是 R2 的既定代价, 由 R4/R5 的标注承担 |
