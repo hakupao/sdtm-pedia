@@ -54,6 +54,24 @@ def _validated_selectable_models(s: Settings) -> list[SelectableModel]:
     return s.selectable_models
 
 
+def _fallback_map(s: Settings) -> list[dict[str, list[str]]]:
+    """答题组 → `default-fallback` 的容灾表, 从 `selectable_models` **派生**。
+
+    ⛔ 不手写第二份清单 —— 与 `known_model_groups` 同一条理由 (spec 2026-09-01 §3.1):
+    两份真相会各自漂移, 而"UI 有某个组、容灾表没有"这种漏正好是无声的。
+
+    表里**只有**答题组: `default` (既有调用方 / `/api/ask` / eval 脚本) 与四个可选模型。
+    ⛔ `hard` / `light` 不进表 —— 它们是检索改写与判库, C1 要求不受用户选择影响,
+    能悄悄换模型就破了 C1。`default-fallback` 也不进表 (给自己配 fallback 是个环)。
+
+    ⚠ 代价是**明的**: 兜底落在 `default-fallback` = DeepSeek **个人流量** (spec §9 D4),
+    即答题有可能不走公司 Bedrock。用户 2026-09-02 裁定接受, 条件是**必须让用户看得见** ——
+    `done` 事件的 `fell_back` 字段与前端徽章就是那个条件的兑现, 不许只补这半边。
+    """
+    return [{g: ["default-fallback"]}
+            for g in ("default", *(m.id for m in _validated_selectable_models(s)))]
+
+
 def create_router(s: Settings) -> Router:
     model_list = [
         {
@@ -81,7 +99,7 @@ def create_router(s: Settings) -> Router:
     ]
     return Router(
         model_list=model_list,
-        fallbacks=[{"default": ["default-fallback"]}],
+        fallbacks=_fallback_map(s),
         num_retries=1,
         timeout=120,
     )

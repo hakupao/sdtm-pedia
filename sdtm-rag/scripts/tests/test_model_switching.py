@@ -84,6 +84,47 @@ def test_router_group_maps_to_the_configured_model_string():
         assert by_name[m.id] == m.model
 
 
+_FALLBACK_GROUP = "default-fallback"
+
+
+def _fallbacks(router) -> dict:
+    """`Router.fallbacks` 是 list[dict], 摊平成 {组名: [兜底组]}。
+
+    ⚠ 先断尺寸下限: 表塌成空的时候, 下面所有"某组**不在**表里"的断言都会变成
+    永真式 (retrospective 规则 6 成因 A)。
+    """
+    flat = {k: v for entry in router.fallbacks for k, v in entry.items()}
+    assert len(flat) >= 5, f"fallback 表塌了, 下面的断言会变永真: {router.fallbacks}"
+    return flat
+
+
+def test_every_selectable_group_falls_back_to_the_default_fallback_group():
+    """闸 G4 (spec §9 D5): U1 那轮 UI 从"永发 default 组"改成"永发显式 id",
+    而四个新派生组没有 fallback 条目 ⇒ **主模型没变, 容灾网没了**。
+    DEPLOY_PLAN.md 记着实测「Anthropic credits 耗尽 → DeepSeek 自动回退」真的生效过。
+    """
+    from server.llm_config import create_router
+    s = Settings()
+    flat = _fallbacks(create_router(s))
+    for m in s.selectable_models:
+        assert flat.get(m.id) == [_FALLBACK_GROUP], f"{m.id} 没有容灾: {flat.get(m.id)}"
+    assert flat["default"] == [_FALLBACK_GROUP], "既有 default 组的容灾不许丢"
+
+
+def test_internal_worker_groups_have_no_fallback():
+    """闸 G5 反方向 (C1)。"一律给所有组加 fallback" 的偷懒实现会让这条红:
+
+    - `light` 是判库、`hard` 是检索改写 —— C1 明确要求它们**不受用户选择影响**,
+      能悄悄换模型就等于破了 C1 (判库换了模型, 检索结果跟着变, 对比时分不清
+      是模型差异还是检索差异);
+    - `default-fallback` 给自己配 fallback 是个环。
+    """
+    from server.llm_config import create_router
+    flat = _fallbacks(create_router(Settings()))
+    for g in ("hard", "light", _FALLBACK_GROUP):
+        assert g not in flat, f"{g} 不该有 fallback 条目: {flat}"
+
+
 def test_create_router_succeeds_when_no_id_collision():
     """两个方向之一: 默认配置的 id 不撞内部组, 正常构造不该被误伤。"""
     from server.llm_config import create_router
@@ -366,19 +407,27 @@ class _ChunkScriptRouter:
     def __init__(self, chunks: list[tuple[str | None, bool]]):
         self.chunks = chunks
         self.last_model = None
+        # 实际发出去的 chunk。⚠ 没有它的话, 下面 usage-only 闸的全部分辨力压在
+        # `choices=(... if has_choices else [])` 这一个三元式上: 把它改成恒非空,
+        # 被测的"空 choices"场景就悄悄不存在了, 而闸照绿 (复审实测: 40 passed)。
+        # 这是 retrospective 规则 6 成因 A —— 抽取端变形 ⇒ 判定式恒真。
+        self.emitted: list = []
 
     async def acompletion(self, model, messages, stream=False, **kw):
         self.last_model = model
         script = self.chunks
+        emitted = self.emitted
 
         async def agen():
             for reported, has_choices in script:
-                yield SimpleNamespace(
+                chunk = SimpleNamespace(
                     model=reported,
                     usage=None if has_choices else SimpleNamespace(
                         prompt_tokens=1, completion_tokens=1, total_tokens=2),
                     choices=([SimpleNamespace(delta=SimpleNamespace(content="ok"))]
                              if has_choices else []))
+                emitted.append(chunk)
+                yield chunk
         return agen()
 
 
@@ -540,9 +589,77 @@ def test_done_event_model_used_reads_a_model_reported_only_on_the_usage_chunk():
     ⚠ 与上一条是同一个洞的两半, 分开钉: 只有"保值"那条时, 把累积行搁回 `if` 里
     照样全绿; 只有本条时, 删掉 ` or model_used` 照样全绿。
     """
-    c = _stream_client(_ChunkScriptRouter([(None, True), ("deepseek-v4-pro", False)]))
-    ev = _done_event(c, model="opus-5")
+    r = _ChunkScriptRouter([(None, True), ("deepseek-v4-pro", False)])
+    ev = _done_event(_stream_client(r), model="opus-5")
+    # 形状闸: 被测场景真的发生过 —— 第二片的 choices 确实是空的。缺这句时, 把
+    # fixture 的三元式改成恒非空 ⇒ "只在 usage 片报模型"这个场景压根没被造出来,
+    # 而断言照绿 (成因 A)。
+    assert [bool(getattr(c, "choices", None)) for c in r.emitted] == [True, False], r.emitted
     assert ev["model_used"] == "deepseek-v4-pro", ev
+
+
+def _real_router_stream(monkeypatch, *, model, fallbacks=None) -> str:
+    """用**真 litellm Router** 跑一次 `/api/ask_stream`, 返回整段 SSE 文本。
+
+    ⚠ patch 的是 `litellm.acompletion` —— Router 每个 deployment 最终调的那个函数
+    (实测: `Router.acompletion` 无论 stream 与否都走 `async_function_with_fallbacks`,
+    再落到它)。⛔ 不能用仓库里的假 Router 测这条: 假 Router 根本没有 fallback 逻辑,
+    拿它测容灾等于测了个寂寞 —— 这正是"闸看起来在测、其实没测"的形状。
+
+    `fallbacks=None` 用 `create_router` 派生的真实配置; 传别的值可以模拟"没有容灾"。
+    """
+    import litellm
+    from server.llm_config import create_router
+
+    async def fake_acompletion(**kw):
+        if "anthropic" in str(kw.get("model")):
+            raise Exception("primary deployment boom")     # 模拟 credits 耗尽/认证失败
+
+        async def agen():
+            yield SimpleNamespace(model="deepseek-v4-pro", usage=None,
+                                  choices=[SimpleNamespace(delta=SimpleNamespace(content="ok"))])
+        return agen()
+
+    monkeypatch.setattr(litellm, "acompletion", fake_acompletion)
+    s = Settings()
+    router = create_router(s)
+    router.num_retries = 0        # 重试只会让这条测试变慢, 与被测的容灾无关
+    if fallbacks is not None:
+        router.fallbacks = fallbacks
+    app = FastAPI()
+    app.include_router(api_router)
+    app.state.rag = _FakeRAG()
+    app.state.llm_router = router
+    app.state.settings = s
+    return TestClient(app).post("/api/ask_stream",
+                                json={"question": "AETERM?", "model": model}).text
+
+
+def test_stream_survives_a_dead_primary_deployment(monkeypatch):
+    """闸 G6 正向, **端到端**: 主模型开流抛错 ⇒ 流不该死, 由 default-fallback 接管,
+    且 `done.model_used` 报的是**实际**答题的那个。
+
+    ⚠ `Settings()` 的类默认值里 opus-5 走 `bedrock/converse/global.anthropic.*`,
+    所以 fake 里那句 `"anthropic" in model` 打的就是它。
+    """
+    text = _real_router_stream(monkeypatch, model="opus-5")
+    assert "event: error" not in text, text[:400]
+    blocks = [b for b in text.split("\n\n") if b.startswith("event: done")]
+    assert len(blocks) == 1, f"没解析到唯一的 done 事件: {text[:400]!r}"
+    ev = json.loads(next(l for l in blocks[0].splitlines() if l.startswith("data: "))[6:])
+    assert ev["model_used"] == "deepseek-v4-pro", ev
+    assert ev["model_id"] == "opus-5", ev
+
+
+def test_stream_dies_without_the_fallback_entry(monkeypatch):
+    """闸 G6 反向: 把 fallback 表退回**分支前的样子** (只有 default 组一条) ⇒
+    同样的失败变成 `event: error`。
+
+    这条同时是 D5 那个回归的**复现**: 它红了才说明上一条不是靠别的什么东西绿的。
+    """
+    text = _real_router_stream(monkeypatch, model="opus-5",
+                               fallbacks=[{"default": ["default-fallback"]}])
+    assert "event: error" in text, text[:400]
 
 
 class _SyncCapturingRouter:
