@@ -1135,3 +1135,137 @@ def test_badge_text_reads_the_fell_back_field():
     assert re.search(r"fellBack\s*===\s*true", body), \
         "回退判据不是全等 —— 老后端发 undefined 时会落错分支 (spec §5 B1)"
     assert "已回退" in body, "回退分支没了 —— 徽章不会再说出实际答题的模型"
+
+
+def test_archive_records_the_models_that_actually_answered(flag_probe):
+    """闸 G11 正向 (用户裁定 R5): `modelsUsed` / `fellBack` 必须落进历史存档,
+    刷新之后徽章仍然诚实。
+
+    只做 UI 标注的话, 对话存下来之后这条信息就没了 —— 读的人得靠记得自己当时选了什么。
+    与 2026-09-01 清掉的 B6 同形: **产物必须能自证**。
+    """
+    got = flag_probe["streamFellBack"]
+    assert got["stored"]["modelsUsed"] == ["deepseek-v4-pro"], got["stored"]
+    assert got["stored"]["fellBack"] is True, got["stored"]
+    assert "已回退" in got["badgeAfterReload"], got["badgeAfterReload"]
+    assert "deepseek-v4-pro" in got["badgeAfterReload"], got["badgeAfterReload"]
+
+
+def test_archive_records_a_clean_run_as_not_fallen_back(flag_probe):
+    """闸 G11 反向: 没回退的那条存的是 `False`, 不是缺字段也不是 `True`。
+    把 persist 写成"一律存 true/一律不存"都会让这一对里的某条红。"""
+    got = flag_probe["streamNoFallback"]
+    assert got["stored"]["fellBack"] is False, got["stored"]
+    assert got["badgeAfterReload"] == "模型: GPT-5.6 Sol ⚠未验证", got["badgeAfterReload"]
+
+
+def test_flag_is_attributed_to_the_fallback_model_that_actually_answered(flag_probe):
+    """闸 G12 (⚑ 归因): 回退时 `dogfood_failures.md` 记的必须是**实际**答题的模型。
+
+    ⚠ 诱饵: 这条消息的 `msgObj.modelId` 是 `gpt-sol` —— 只读 modelId 的实现
+    (也就是终审 C-1 的修法) 在这里会把 DeepSeek 的捏造记到 GPT-5.6 Sol 头上。
+    backlog 是 append-only 的 (用户全局规则 B), 错误写入即永久且无从回溯,
+    读的人还可能据此把一轮反捏造工作投到错误的模型上。
+    """
+    body = flag_probe["streamFellBack"]["flagBody"]
+    assert "deepseek-v4-pro" in body["model"], body
+    assert "GPT-5.6 Sol" in body["model"], "当时选的是谁也要留着, 否则复盘断线"
+
+
+def test_flag_model_field_fits_the_worst_case_attribution():
+    """归因串变长了 (可能是"两个模型名 + 回退自 + label"), 而 `FlagRequest.model` 有
+    `max_length` —— 超了后端会 422, 用户侧表现是 **⚑ 静默记录失败**。
+
+    ⚠ 这条钉的是"最坏情况装得下", 用**真实配置串**算, 不是拍一个宽松的数字。
+    """
+    from server.router import FlagRequest
+    s = Settings()
+    worst = "、".join(m.model.split("/")[-1] for m in s.selectable_models)
+    worst += f"（回退自 {max((m.label for m in s.selectable_models), key=len)}）"
+    FlagRequest(question="q", answer="a", note="n", model=worst)   # 不抛 = 装得下
+
+
+def test_flag_payload_reads_the_message_fell_back():
+    """闸 G13 静态第二重: node 缺席时行为闸 skip, 这条不会。
+
+    ⚠ 按 Task 4 那条教训自查: 搜的 token **不能**也出现在引入它的声明里 (签名/const/import),
+    否则对"体内有没有用它"零分辨力。这里搜的是 `.fellBack` / `.modelsUsed` (**带前导点**的
+    属性读取形状), 而 `flagModelName(msgObj)` 的签名里只有 `msgObj` —— 两个 token 都只可能
+    来自函数体内的真实读取。
+    """
+    src = APP_JS.read_text(encoding="utf-8")
+    body = src.split("function flagModelName", 1)[1].split("\n}", 1)[0]
+    assert re.search(r"\.fellBack\b", body), "归因没有读 msgObj.fellBack"
+    assert re.search(r"\.modelsUsed\b", body), "归因没有读 msgObj.modelsUsed"
+
+
+def test_badge_survives_a_models_used_that_is_not_a_list(flag_probe):
+    """闸 **F-1**: `modelsUsed` 形状不对时, 徽章**落回老文案且不抛**, 且**整段历史渲染不中止**。
+
+    ⚠ 死法与"一条徽章降级"完全不是一个量级: `.join is not a function` 抛在
+    `renderMessages` 里 ⇒ **整段对话历史渲染不出来**。现有 try/catch 只包了 `JSON.parse`,
+    没包 `.join`。
+
+    今天不可达 (回退分支在生产上结构性够不到), **但接通它的正是本 commit** ——
+    `onDone` 从这一版起把 `models_used` 原样喂进来, 且是 `?? null` 零形状校验。
+    这是"今天不可达"与"下一个 commit 就可达"的交界, 拖一轮就变成活缺陷。
+
+    判据用 `Array.isArray`: 只判 truthy + `.length` 挡不住字符串 ("abc".length 是 3),
+    也挡不住 array-like 对象 —— 两者都会走到 `.join` 上。
+    """
+    for key in ("badShapeString", "badShapeObject"):
+        got = flag_probe[key]
+        assert got["renderError"] is None, f"{key}: 渲染抛了 —— {got['renderError']}"
+        assert got["renderedCount"] == 2, f"{key}: 历史渲染中止了, 只画出 {got['renderedCount']} 条"
+        assert got["badgeText"] == "模型: gpt-sol ⚠未验证", f"{key}: {got['badgeText']}"
+
+
+def test_badge_at_first_paint_is_observed_not_only_after_the_label_table_loads(flag_probe):
+    """闸 **F-2**: 初次渲染那一版也要被观测。
+
+    此前全套闸只看 `/api/info` 之后 `refreshModelBadgeLabels()` 重写的文案, 于是:
+    - 初次渲染那条路径 (`renderModelBadge` 直接调 `modelBadgeText`) 无人观测;
+    - `fellBack === undefined` —— **spec §5 B1 字面的那个值** —— 在被观测路径里从不出现
+      (刷新那版走的是 dataset 三路比较后的 `null`)。
+
+    初次渲染时 label 表还没到, 所以是原始 id `gpt-sol` 而不是 `GPT-5.6 Sol` —— 这个差异
+    本身就证明抓的确实是**另一个**时点。
+    """
+    # B1 形状 (两个键都不存在) ⇒ 与今天逐字相同, 只是 label 还没补上
+    assert flag_probe["withModelId"]["badgeTextInitial"] == "模型: gpt-sol ⚠未验证", \
+        flag_probe["withModelId"]["badgeTextInitial"]
+    # 回退形状 ⇒ 首屏就该说实话, 不能等 /api/info 回来才说
+    assert flag_probe["fellBack"]["badgeTextInitial"] == \
+        "模型: gpt-sol → 实际 deepseek-v4-pro（已回退）· 验证状态未知", \
+        flag_probe["fellBack"]["badgeTextInitial"]
+
+
+def test_refresh_survives_a_corrupt_dataset(flag_probe):
+    """闸 **F-3**: `refreshModelBadgeLabels` 里 `JSON.parse` 的 try/catch 在做事, 钉住它。
+
+    契约是"坏数据不该让整条历史渲染崩掉" —— 抛出去的话 `forEach` 中断, 后面所有徽章
+    都停在旧文案上, 而且异常会一路穿到 `loadModelName` 的调用点。
+    """
+    got = flag_probe["corruptDataset"]
+    assert got["refreshError"] is None, f"try/catch 没兜住: {got['refreshError']}"
+    # 坏数据 ⇒ 当"没有这个信息", 退回非回退文案 (label 表此时已加载)
+    assert got["badgeText"] == "模型: GPT-5.6 Sol ⚠未验证", got["badgeText"]
+
+
+def test_archive_says_unknown_not_false_when_the_backend_never_sent_the_field(flag_probe):
+    """闸 **G11c** (spec §5 B1 在**存档层**): 老后端不发 `fell_back` / `models_used` 时,
+    存档里必须是 `null`(不知道), ⛔ 不是 `false`(确证没回退)。
+
+    ⚠ 这不是洁癖, 是本轮全部工作的那条原则本身: `false` 会让一条**可能回退过**的历史
+    记录永久地自称"确证没回退"。存档是 append-only 的, 写错就是永久错。
+    与同一事件里 `verified` 的三态、与 `fell_back(...)` 内部组返 `None` 同一条规矩。
+
+    ⚠ 它同时是 `?? null` 那一处唯一有分辨力的输入 (本轮实测): 另两个 stream 场景都发
+    显式值, `?? false` 与 `?? null` 在它们身上输出**逐字相同** —— 成因 D。
+    """
+    got = flag_probe["streamOldBackend"]
+    assert got["stored"]["fellBack"] is None, got["stored"]
+    assert got["stored"]["modelsUsed"] is None, got["stored"]
+    # 徽章与 ⚑ 归因都必须退回今天的样子
+    assert got["badgeAfterReload"] == "模型: GPT-5.6 Sol ⚠未验证", got["badgeAfterReload"]
+    assert got["flagBody"]["model"] == "GPT-5.6 Sol", got["flagBody"]

@@ -551,7 +551,11 @@ class FlagRequest(BaseModel):
     question: str = Field("", max_length=10000)
     answer: str = Field("", max_length=50000)
     note: str = Field("", max_length=2000)
-    model: str | None = Field(None, max_length=120)
+    # 归因串在回退时是"实际模型(可能多个)（回退自 用户选的）", 比单个模型名长得多。
+    # 装不下的后果不是截断而是 422 ⇒ 用户点 ⚑ 后**静默记录失败**, 而 dogfood backlog
+    # 正是本项目最贵的那类数据 (规则 B)。上限由
+    # test_flag_model_field_fits_the_worst_case_attribution 用真实配置串钉住, 不是拍脑袋。
+    model: str | None = Field(None, max_length=300)
 
 
 @api_router.post("/flag")

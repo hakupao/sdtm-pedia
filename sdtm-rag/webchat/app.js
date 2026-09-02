@@ -138,7 +138,11 @@ function messageEl(role, content, sources, routedCorpus, webStatus, webSearchesO
 // undefined, 必须落回下面三态、文案与今天逐字相同。
 function modelBadgeText(modelId, verified, modelsUsed, fellBack) {
   const label = modelLabelById[modelId] || modelId;
-  if (fellBack === true && modelsUsed && modelsUsed.length) {
+  // ⚠ `Array.isArray` 不是洁癖: 只判 truthy + `.length` 挡不住**字符串** ("abc".length 是 3)
+  // 也挡不住 array-like 对象 —— 两者都会走到 `.join` 上抛 TypeError, 而这一抛是在
+  // `renderMessages` 里 ⇒ 死的不是一条徽章, 是**整段对话历史渲染不出来**。
+  // 后端发回什么形状不由前端说了算 (onDone 是 `?? null`, 零形状校验), 所以这里必须自己挡。
+  if (fellBack === true && Array.isArray(modelsUsed) && modelsUsed.length) {
     return { text: `模型: ${label} → 实际 ${modelsUsed.join("、")}（已回退）· 验证状态未知`,
              unverified: true };
   }
@@ -344,6 +348,15 @@ function openFlag(bar, btn, question, msgObj) {
 // modelId 缺失 (下拉上线前存的旧历史) 时才退回 topbar 文本: 那些记录确实产自 default 组。
 function flagModelName(msgObj) {
   const id = msgObj && msgObj.modelId;
+  // 回退过 ⇒ 答案是 modelsUsed 里那些模型产的, **不是**用户选的那个。把 DeepSeek 的捏造
+  // 记到 GPT-5.6 Sol 头上, 与终审 C-1 是同一个缺陷换了触发路径 (那次是切 topbar 文本,
+  // 这次是读了 modelId 但答案不是它产的)。两边都写进去: backlog 的读者既要知道谁捏造的,
+  // 也要知道当时选的是谁 —— 否则"为什么会用到这个模型"这条线索断了。
+  // Array.isArray 的理由与 modelBadgeText 那处相同, 只是这里抛出去会让 ⚑ 静默记录失败。
+  if (msgObj && msgObj.fellBack === true && Array.isArray(msgObj.modelsUsed)
+      && msgObj.modelsUsed.length) {
+    return `${msgObj.modelsUsed.join("、")}（回退自 ${id ? (modelLabelById[id] || id) : "未知"}）`;
+  }
   if (id) return modelLabelById[id] || id;   // 表没加载好就发原始 id, 归因照样正确
   return ($("topbar-title").textContent.split("·").pop() || "").trim() || null;
 }
@@ -496,6 +509,8 @@ async function runGeneration(c) {
   let gotWebSearchesOk = null;
   let gotModelId = null;
   let gotVerified = null;
+  let gotModelsUsed = null;
+  let gotFellBack = null;
   let saved = false;
   let savedMsg = null;
   const renderFinal = (content) => { bubble.innerHTML = mdToSafeHTML(content); highlightIn(bubble); };
@@ -504,7 +519,10 @@ async function runGeneration(c) {
     saved = true;
     savedMsg = { role: "assistant", content, sources: gotSources || [], routedCorpus: gotRouted,
                  webStatus: gotWebStatus, webSearchesOk: gotWebSearchesOk,
-                 modelId: gotModelId, verified: gotVerified };
+                 modelId: gotModelId, verified: gotVerified,
+                 // 产物自证 (spec §6 / 2026-09-02 R5): 回退这件事必须活过刷新, 否则
+                 // 存档里一条 DeepSeek 答的消息与 Opus 5 答的长得一模一样。
+                 modelsUsed: gotModelsUsed, fellBack: gotFellBack };
     c.messages.push(savedMsg);
     save(); renderSidebar();
   };
@@ -540,8 +558,13 @@ async function runGeneration(c) {
         // 三态语义 (spec §6) 保持一致: verified 缺失时按"未知"收, 不会误当成 false。
         gotModelId = (data || {}).model_id ?? null;
         gotVerified = (data || {}).verified ?? null;
+        // 同一条 ?? 的理由: fell_back 的 false 是**确证没回退**, 不能被当成缺失塌成 null。
+        // ⚠ 这两个字段原样收下、不做形状校验 —— 形状由 modelBadgeText 的 Array.isArray
+        // 挡 (后端发个裸串就能让整段历史渲染不出来, 见那里的注释)。
+        gotModelsUsed = (data || {}).models_used ?? null;
+        gotFellBack = (data || {}).fell_back ?? null;
         renderWebStatus(holder, gotWebStatus, gotWebSearchesOk);
-        renderModelBadge(holder, "assistant", gotModelId, gotVerified);
+        renderModelBadge(holder, "assistant", gotModelId, gotVerified, gotModelsUsed, gotFellBack);
         const content = acc.trim() ? acc : "(无内容)"; renderFinal(content); persist(content);
       },
       onError: (msg) => { if (acc) { renderFinal(acc); persist(acc); } appendErr(msg); appendRetry(); },

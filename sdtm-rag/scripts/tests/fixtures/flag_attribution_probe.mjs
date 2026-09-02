@@ -12,7 +12,11 @@ import { createContext, runInContext } from "node:vm";
 import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
 
-const APP_JS = resolve(dirname(fileURLToPath(import.meta.url)), "../../../webchat/app.js");
+// PROBE_APP_JS 让变异验证**在副本上**跑: webchat/ 是从工作树挂载且每请求现读, 直接变异
+// 工作树里的 app.js 意味着那几秒内用户刷新页面会拿到变异版。行为闸走副本即可 ——
+// 只有静态闸 (读 Python 侧的 APP_JS 常量) 才必须动工作树。
+const APP_JS = process.env.PROBE_APP_JS
+  || resolve(dirname(fileURLToPath(import.meta.url)), "../../../webchat/app.js");
 
 // /api/info 的模型表 —— 与 config.py 的 selectable_models 同形。topbar 会被 loadModelName
 // 写成 "… · global.anthropic.claude-opus-5" (default_model 的尾段), 这正是老实现拿去
@@ -49,6 +53,13 @@ class El {
       add: (c) => self._classes.add(c),
       remove: (c) => self._classes.delete(c),
       contains: (c) => self._classes.has(c),
+      // setSending() 用 toggle(cls, force) —— 只有走完整条 send() 的场景才碰得到,
+      // 预置历史的场景走不到, 所以此前一直没暴露出缺这个方法。
+      toggle: (c, force) => {
+        const on = force === undefined ? !self._classes.has(c) : !!force;
+        if (on) self._classes.add(c); else self._classes.delete(c);
+        return on;
+      },
     };
   }
   get className() { return [...this._classes].join(" "); }
@@ -119,6 +130,7 @@ function makeSandbox(flagBodies) {
     hljs: { highlightElement() {} },
     AbortController,
     TextDecoder,
+    TextEncoder,        // vm sandbox 默认没有 (spec §3 P5 实测), 造 SSE 字节流喂 getReader 要用
     console,
     setTimeout,
     async fetch(url, opts) {
@@ -160,6 +172,15 @@ async function scenario({ modelId, modelsUsed, fellBack }) {
   }));
 
   runInContext(readFileSync(APP_JS, "utf8"), ctx, { filename: APP_JS });
+
+  // ⚠ **初次渲染那一版**必须单独抓 (F-2): 两次 flush 之后 refreshModelBadgeLabels() 会用
+  // dataset 重写文案, 于是全套闸此前只观测到"刷新后"那一版。两版走的代码路径不同 ——
+  // 初次渲染拿到的 fellBack 是**真的 undefined** (老后端/老存档的字面值), 而刷新那版
+  // 是 dataset 三路比较后的 null。B1 降级要防的正是前者, 它此前从未被观测过。
+  const messagesEarly = sandbox.__byId.get("messages");
+  const badgeTextInitial =
+    (findByClass(messagesEarly, "model-meta") || { textContent: null }).textContent;
+
   await flush(); await flush();          // loadModelName 的两段 await
 
   const messages = sandbox.__byId.get("messages");
@@ -176,6 +197,113 @@ async function scenario({ modelId, modelsUsed, fellBack }) {
     flagBody: flagBodies[0],
     topbarText: sandbox.__byId.get("topbar-title").textContent,
     badgeText: (findByClass(messages, "model-meta") || { textContent: null }).textContent,
+    badgeTextInitial,
+  };
+}
+
+// F-1: `modelsUsed` 形状不对时 (后端发了字符串 / null / 对象 / 数字), 徽章必须**落回老文案
+// 且不抛**, 且**整段历史渲染不中止**。现有 try/catch 只包了 JSON.parse, 没包 .join ——
+// `.join is not a function` 抛在 renderMessages 里, 死的不是一条徽章而是整段历史。
+// 今天不可达 (onDone 还没接通这两个字段), 但接通它的正是同一个 commit。
+async function badShapeScenario(modelsUsed) {
+  const sandbox = makeSandbox([]);
+  const ctx = createContext(sandbox);
+  sandbox.localStorage.setItem("sdtm_chat_v1", JSON.stringify({
+    currentId: "c1",
+    conversations: [{
+      id: "c1", title: "t", createdAt: 1,
+      messages: [{ role: "user", content: "AETERM?" },
+                 { role: "assistant", content: "答案", sources: [],
+                   modelId: "gpt-sol", verified: false, modelsUsed, fellBack: true }],
+    }],
+  }));
+  let renderError = null;
+  try {
+    runInContext(readFileSync(APP_JS, "utf8"), ctx, { filename: APP_JS });
+  } catch (e) {
+    renderError = String(e);
+  }
+  const messages = sandbox.__byId.get("messages");
+  return {
+    renderError,
+    renderedCount: messages.children.length,     // 2 条消息都画出来 = 渲染没中止
+    badgeText: (findByClass(messages, "model-meta") || { textContent: null }).textContent,
+  };
+}
+
+// F-3: refreshModelBadgeLabels 里 JSON.parse 的 try/catch 在做事, 但此前无人钉。
+// 直接把 dataset 弄脏再驱动它 —— 该 try/catch 的契约就是"坏数据不该让整条历史渲染崩掉"。
+async function corruptDatasetScenario() {
+  const sandbox = makeSandbox([]);
+  const ctx = createContext(sandbox);
+  sandbox.localStorage.setItem("sdtm_chat_v1", JSON.stringify({
+    currentId: "c1",
+    conversations: [{
+      id: "c1", title: "t", createdAt: 1,
+      messages: [{ role: "user", content: "AETERM?" },
+                 { role: "assistant", content: "答案", sources: [],
+                   modelId: "gpt-sol", verified: false,
+                   modelsUsed: ["deepseek-v4-pro"], fellBack: true }],
+    }],
+  }));
+  runInContext(readFileSync(APP_JS, "utf8"), ctx, { filename: APP_JS });
+  await flush(); await flush();          // 先让 label 表到位, 与真实刷新时序一致
+  const messages = sandbox.__byId.get("messages");
+  findByClass(messages, "model-meta").dataset.modelsUsed = "{不是合法 JSON";
+  let refreshError = null;
+  try {
+    runInContext("refreshModelBadgeLabels()", ctx);
+  } catch (e) {
+    refreshError = String(e);
+  }
+  return {
+    refreshError,
+    badgeText: (findByClass(messages, "model-meta") || { textContent: null }).textContent,
+  };
+}
+
+// 走完整条 send() → streamAsk() → onDone() → persist() 链, 然后从 localStorage 重建 DOM。
+// 为什么必须这么测: 前面的场景都是**预置**历史再渲染, `persist` 有没有把新字段存下来
+// 它们一个都看不见 —— 而"存档不诚实"正是本轮 R5 要防的事。
+async function streamScenario(doneData) {
+  const flagBodies = [];
+  const sandbox = makeSandbox(flagBodies);
+  const frames =
+    `event: sources\ndata: {"sources":[],"routed_corpus":null}\n\n` +
+    `event: token\ndata: {"text":"ok"}\n\n` +
+    `event: done\ndata: ${JSON.stringify(doneData)}\n\n`;
+  const baseFetch = sandbox.fetch;
+  sandbox.fetch = async (url, opts) => {
+    if (String(url).includes("/api/ask_stream")) {
+      const bytes = new TextEncoder().encode(frames);
+      let sent = false;
+      return { ok: true, body: { getReader: () => ({
+        read: async () => (sent ? { done: true } : ((sent = true), { value: bytes, done: false })),
+      }) } };
+    }
+    return baseFetch(url, opts);
+  };
+  const ctx = createContext(sandbox);
+  runInContext(readFileSync(APP_JS, "utf8"), ctx, { filename: APP_JS });
+  await flush(); await flush();
+  sandbox.__byId.get("model-select").value = "gpt-sol";
+  await sandbox.send("AETERM?");
+
+  const stored = JSON.parse(sandbox.localStorage.getItem("sdtm_chat_v1"));
+  const last = stored.conversations[0].messages.at(-1);
+  sandbox.renderMessages();                       // 模拟刷新: 只从存档重建
+  const messages = sandbox.__byId.get("messages");
+  const btn = findByClass(messages, "flag-btn");
+  if (!btn) throw new Error("没找到 ⚑ 按钮 — streamScenario 的驱动路径失效了");
+  btn.onclick();
+  const box = findByClass(messages, "flag-box");
+  box.children.find((c) => c.tagName === "textarea").value = "答案是捏造的";
+  await findByClass(box.parentNode, "flag-send").onclick();
+
+  return {
+    stored: last,
+    badgeAfterReload: (findByClass(messages, "model-meta") || { textContent: null }).textContent,
+    flagBody: flagBodies[0],
   };
 }
 
@@ -190,5 +318,22 @@ const out = {
                                   modelsUsed: ["deepseek-v4-pro", "global.openai.gpt-5.6-sol"] }),
   notFellBack: await scenario({ modelId: "gpt-sol", fellBack: false,
                                 modelsUsed: ["global.openai.gpt-5.6-sol"] }),
+  badShapeString: await badShapeScenario("deepseek-v4-pro"),   // 后端发了裸串而非列表
+  badShapeObject: await badShapeScenario({ 0: "x", length: 1 }),  // array-like, 没有 .join
+  corruptDataset: await corruptDatasetScenario(),
+  streamFellBack: await streamScenario({ model_id: "gpt-sol", verified: false,
+                                         model_used: "deepseek-v4-pro",
+                                         models_used: ["deepseek-v4-pro"], fell_back: true,
+                                         web_status: "off", web_searches_ok: 0 }),
+  streamNoFallback: await streamScenario({ model_id: "gpt-sol", verified: false,
+                                           model_used: "global.openai.gpt-5.6-sol",
+                                           models_used: ["global.openai.gpt-5.6-sol"],
+                                           fell_back: false,
+                                           web_status: "off", web_searches_ok: 0 }),
+  // spec §5 B1 在**存档层**的形状: done 事件里压根没有 models_used / fell_back 两个键
+  // (新前端已上线、Python 侧还没重启)。上面两条都发了显式值, 看不见"缺失"与"false"的差别。
+  streamOldBackend: await streamScenario({ model_id: "gpt-sol", verified: false,
+                                           model_used: "global.openai.gpt-5.6-sol",
+                                           web_status: "off", web_searches_ok: 0 }),
 };
 process.stdout.write(JSON.stringify(out));
