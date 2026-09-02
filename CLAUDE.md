@@ -107,6 +107,7 @@ Full chain definitions are in `.work/MANIFEST.md`.
 | C4 G3 判据 (路由词「G3 收题」) | `sdtm-rag/evidence/checkpoints/g3_pre_registration.md` §7.0 |
 | Phase 7 联网参考通道 (2026-08-31) | `sdtm-rag/server/web_search.py`; 仅 `/api/ask_stream` 支持 |
 | Phase 7 U1 多模型切换 (2026-09-01) | `sdtm-rag/server/llm_config.py` `selectable_models` 单一事实源 |
+| Phase 7 回退容灾+诚实呈现 (2026-09-02) | `llm_config.py` `fell_back`/`merge_reported_model`; 徽章+存档+⚑ |
 
 ## AI 平台多平台部署 (CLOSED 冻结 2026-06-15)
 
