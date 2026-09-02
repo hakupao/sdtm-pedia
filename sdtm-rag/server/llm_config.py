@@ -206,3 +206,36 @@ def verify_selectable_model_capabilities(s: Settings) -> list[str]:
         if not litellm.supports_function_calling(model=key, custom_llm_provider="bedrock_converse"):
             failed.append(m.id)
     return failed
+
+
+def fell_back(s: Settings, model_group: str, reported_models) -> bool | None:
+    """答这道题的, 是不是**自始至终**都是用户选的那个模型? 不知道就返 `None` —— ⛔ 不返 `False`。
+
+    `None` 与 `False` 语义不同, 混同即撒谎: `False` 是"确证没回退", `None` 是
+    "这里没有可比对的东西"。内部组 (default/hard/light/default-fallback) 不在
+    `selectable_models` 里, 没有"用户选的模型串"这个概念 ⇒ `None`。
+    同一个 done 事件里 `verified` 的三态是同一条原则 (2026-09-01 spec §6)。
+
+    **入参是列表**(本次问答逐 chunk 收到的、有序去重的模型串), 不是单值。
+    ⚠ 为什么不能只看最后一个: 联网多轮 (`web_max_rounds = 5`) 里每一轮是独立的
+    `acompletion`, 各自可能回退; 第 1 轮回退、末轮落回主模型时, 只看最后一个会报
+    `False` —— **回退了却不说**。流中途回退 (litellm `MidStreamFallbackError`) 是
+    同一形状的第二条路径。故判据是"**任一个**不符即 True", 不是"最后一个不符"。
+
+    `reported_models` 的元素来自流式 chunk 的 `.model`, 实测是**去掉 provider 前缀**的串
+    (`bedrock/converse/global.anthropic.claude-opus-5` → `global.anthropic.claude-opus-5`),
+    故两种形式都认。⛔ 匹配必须带 `/` 边界: 裸子串会让 `claude-opus-5` 这类**不完整**
+    标识也算命中 (retrospective 规则 6 成因 A)。
+
+    ⚠ 已知限制 (spec §7 L1): "真实回退时 chunk 里到底写什么串"本轮没有真实调用的实测,
+    唯一证据是 DEPLOY_PLAN.md 里 `/api/ask` 非流式那次。若真串与配置串对不上, 表现是
+    **每条答案都误报"已回退"** —— 响的失败, 不是静默的, 上线第一条真实回答即可证伪。
+    """
+    if not reported_models:
+        return None
+    configured = next((m.model for m in _validated_selectable_models(s)
+                       if m.id == model_group), None)
+    if configured is None:
+        return None
+    return not all(configured == r or configured.endswith("/" + r)
+                   for r in reported_models)

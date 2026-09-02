@@ -11,6 +11,7 @@ from fastapi import FastAPI
 from fastapi.testclient import TestClient
 
 from server.config import Settings, SelectableModel
+from server.llm_config import fell_back
 from server.router import api_router
 
 
@@ -109,6 +110,11 @@ def test_every_selectable_group_falls_back_to_the_default_fallback_group():
     for m in s.selectable_models:
         assert flat.get(m.id) == [_FALLBACK_GROUP], f"{m.id} 没有容灾: {flat.get(m.id)}"
     assert flat["default"] == [_FALLBACK_GROUP], "既有 default 组的容灾不许丢"
+    # 钉"**恰好**是这些", 不只是"这些都在" (复审 U11 实测: 往表里多塞一条不存在的组,
+    # 44 条全绿)。左边是 Router 的事实、右边是 Settings 的意图, 两次独立计算 ——
+    # 不是规则 6 成因 B2 那种"两边一起漂"的形状。
+    assert set(flat) == {"default"} | {m.id for m in s.selectable_models}, \
+        f"容灾表多/少了组: {sorted(flat)}"
 
 
 def test_internal_worker_groups_have_no_fallback():
@@ -123,6 +129,66 @@ def test_internal_worker_groups_have_no_fallback():
     flat = _fallbacks(create_router(Settings()))
     for g in ("hard", "light", _FALLBACK_GROUP):
         assert g not in flat, f"{g} 不该有 fallback 条目: {flat}"
+
+
+_OPUS5 = "bedrock/converse/global.anthropic.claude-opus-5"   # config.py 里 opus-5 的配置串
+_OPUS5_REPORTED = "global.anthropic.claude-opus-5"           # 实测 chunk 报的形式 (去 provider 前缀)
+
+
+def test_fell_back_is_false_when_every_reported_model_is_the_configured_one():
+    """闸 G7 (a): 实测 chunk 报的是**去掉 provider 前缀**的串, 两种形式都必须认作"同一个模型"。"""
+    s = Settings()
+    assert fell_back(s, "opus-5", [_OPUS5_REPORTED]) is False
+    assert fell_back(s, "opus-5", [_OPUS5]) is False
+    assert fell_back(s, "opus-5", [_OPUS5_REPORTED, _OPUS5]) is False
+
+
+def test_fell_back_is_true_when_another_model_answered():
+    """闸 G7 (b): 容灾真的触发时的样子 —— 用户选 gpt-sol, DeepSeek 答的。"""
+    assert fell_back(Settings(), "gpt-sol", ["deepseek-v4-pro"]) is True
+
+
+def test_fell_back_is_true_when_any_single_chunk_came_from_another_model():
+    """闸 **G7b** —— 本 task 的中心断言 (用户裁定 R6)。
+
+    ⚠ 这条钉的正是 Task 1 复审抓到的 I-2: 联网多轮时每一轮是**独立**的 `acompletion`,
+    各自可能回退 (`web_search_enabled` 默认 True, `web_max_rounds = 5`)。第 1 轮回退、
+    第 2 轮落回主模型时, 按"最后一个"判会报 `False` —— **回退了却不说**, 正是本轮要
+    修的那件事本身。把实现写成 `fell_back(..., reported_models[-1])` 会让这条红。
+
+    流中途回退 (spec §3 P6, litellm `MidStreamFallbackError`) 是同一个形状的第二条路径。
+    """
+    s = Settings()
+    assert fell_back(s, "opus-5", ["deepseek-v4-pro", _OPUS5_REPORTED]) is True   # 先回退后落回
+    assert fell_back(s, "opus-5", [_OPUS5_REPORTED, "deepseek-v4-pro"]) is True   # 先正常后回退
+    # 反方向: 全都是配置串就必须是 False, 否则"一律 True"也能让上面两条绿
+    assert fell_back(s, "opus-5", [_OPUS5_REPORTED, _OPUS5_REPORTED]) is False
+
+
+def test_fell_back_is_none_for_internal_groups_and_empty_reports():
+    """闸 G7 (c): ⛔ 不知道就发 `None`, **不得发 `False`**。
+
+    `False` 的语义是"确证没回退"; 内部组 (default/hard/light/default-fallback) 压根
+    不在 `selectable_models` 里, **没有"用户选的模型串"这个概念** —— 发 False 就是
+    把"没这个概念"报成了一个确证结论。与同一个 done 事件里 `verified` 的三态同一条原则。
+    """
+    s = Settings()
+    for g in ("default", "hard", "light", "default-fallback"):
+        assert fell_back(s, g, ["deepseek-v4-pro"]) is None, g
+    assert fell_back(s, "opus-5", []) is None
+    assert fell_back(s, "opus-5", None) is None
+
+
+def test_fell_back_match_requires_a_path_boundary():
+    """闸 G8: 匹配必须带 `/` 边界, ⛔ 不许裸子串。
+
+    `claude-opus-5` 是配置串的真子串, 但它**不是**一个完整的模型标识 ——
+    把实现写成 `reported in configured` 会让这条红。裸子串正是 retrospective
+    规则 6 成因 A 的形状 (判定式被悄悄放宽成近乎恒真)。
+    """
+    s = Settings()
+    assert fell_back(s, "opus-5", ["claude-opus-5"]) is True
+    assert fell_back(s, "opus-5", ["anthropic.claude-opus-5"]) is True
 
 
 def test_create_router_succeeds_when_no_id_collision():
@@ -607,11 +673,18 @@ def _real_router_stream(monkeypatch, *, model, fallbacks=None) -> str:
     拿它测容灾等于测了个寂寞 —— 这正是"闸看起来在测、其实没测"的形状。
 
     `fallbacks=None` 用 `create_router` 派生的真实配置; 传别的值可以模拟"没有容灾"。
+
+    返回 `SimpleNamespace(text=<整段 SSE>, calls=[实际派到的 deployment 模型串, ...])`。
+    ⚠ `calls` 不是装饰: 只断 SSE 文本的话, "主模型压根没失败、直接答对了"与"失败后由
+    fallback 答对了"**长得一模一样** (复审 U13 实测: 把主模型改成不失败, 正向那条照绿)。
     """
     import litellm
     from server.llm_config import create_router
 
+    calls: list[str] = []
+
     async def fake_acompletion(**kw):
+        calls.append(str(kw.get("model")))
         if "anthropic" in str(kw.get("model")):
             raise Exception("primary deployment boom")     # 模拟 credits 耗尽/认证失败
 
@@ -631,8 +704,9 @@ def _real_router_stream(monkeypatch, *, model, fallbacks=None) -> str:
     app.state.rag = _FakeRAG()
     app.state.llm_router = router
     app.state.settings = s
-    return TestClient(app).post("/api/ask_stream",
+    text = TestClient(app).post("/api/ask_stream",
                                 json={"question": "AETERM?", "model": model}).text
+    return SimpleNamespace(text=text, calls=calls)
 
 
 def test_stream_survives_a_dead_primary_deployment(monkeypatch):
@@ -641,14 +715,22 @@ def test_stream_survives_a_dead_primary_deployment(monkeypatch):
 
     ⚠ `Settings()` 的类默认值里 opus-5 走 `bedrock/converse/global.anthropic.*`,
     所以 fake 里那句 `"anthropic" in model` 打的就是它。
+
+    ⛔ **兄弟闸 `test_stream_dies_without_the_fallback_entry` 承重, 不许单删本条留它、
+    也不许单删它留本条。** 复审 U13 实测: 只断 SSE 文本时, 把主模型改成**不失败**,
+    本条照绿 —— "没回退也能答对"与"回退后答对"在 SSE 层长得一模一样。故这里补
+    `calls` 的**绝对**断言 (真的先派了主模型、失败后真的派了 fallback), 分辨力才在本条自己身上。
     """
-    text = _real_router_stream(monkeypatch, model="opus-5")
-    assert "event: error" not in text, text[:400]
-    blocks = [b for b in text.split("\n\n") if b.startswith("event: done")]
-    assert len(blocks) == 1, f"没解析到唯一的 done 事件: {text[:400]!r}"
+    r = _real_router_stream(monkeypatch, model="opus-5")
+    assert "event: error" not in r.text, r.text[:400]
+    blocks = [b for b in r.text.split("\n\n") if b.startswith("event: done")]
+    assert len(blocks) == 1, f"没解析到唯一的 done 事件: {r.text[:400]!r}"
     ev = json.loads(next(l for l in blocks[0].splitlines() if l.startswith("data: "))[6:])
     assert ev["model_used"] == "deepseek-v4-pro", ev
     assert ev["model_id"] == "opus-5", ev
+    # 派单序列钉到绝对值: 主模型先被派过(且它就是失败的那个), 最后落到 fallback 部署。
+    s = Settings()
+    assert r.calls == [_OPUS5, s.fallback_model], f"派单序列不对: {r.calls}"
 
 
 def test_stream_dies_without_the_fallback_entry(monkeypatch):
@@ -657,9 +739,110 @@ def test_stream_dies_without_the_fallback_entry(monkeypatch):
 
     这条同时是 D5 那个回归的**复现**: 它红了才说明上一条不是靠别的什么东西绿的。
     """
-    text = _real_router_stream(monkeypatch, model="opus-5",
-                               fallbacks=[{"default": ["default-fallback"]}])
-    assert "event: error" in text, text[:400]
+    r = _real_router_stream(monkeypatch, model="opus-5",
+                            fallbacks=[{"default": ["default-fallback"]}])
+    assert "event: error" in r.text, r.text[:400]
+
+
+def test_done_event_models_used_is_ordered_and_deduped():
+    """闸 **G7c**: `models_used` 是**有序去重**。
+
+    去重坏掉 ⇒ 长度断言红 (真实流里同一个模型会在几十上百片上重复报);
+    顺序坏掉 (例如用 set) ⇒ 顺序断言红。两个方向各自有断言, 不靠一条兼职。
+
+    ⚠ **测试数据必须让插入序 ≠ 字典序**, 否则"顺序"那半是空断言: plan 原本给的
+    `["m-a", "m-b"]` 恰好已是字典序, `sorted(set(...))` 的变异**一条都打不红**
+    (本轮实测, 且 G7b 端到端那组 `["deepseek-v4-pro", "global.anthropic..."]` 同病)。
+    故这里用 m-b 先出现 —— 期望 `["m-b", "m-a"]`, 排序实现会得到 `["m-a", "m-b"]`。
+    """
+    c = _stream_client(_ChunkScriptRouter([("m-b", True), ("m-b", True), ("m-a", True),
+                                           ("m-b", True), (None, False)]))
+    ev = _done_event(c, model="opus-5")
+    assert ev["models_used"] == ["m-b", "m-a"], ev
+    assert ev["model_used"] == "m-b", "单值字段仍是**最后一个**报出的, 语义不变"
+
+
+def test_done_event_carries_fell_back_three_ways():
+    """闸 G7 端到端 (SSE 层): 纯函数对不代表接线对。"""
+    ev = _done_event(_stream_client(_EchoModelRouter(_OPUS5_REPORTED)), model="opus-5")
+    assert ev["fell_back"] is False, ev
+    ev = _done_event(_stream_client(_EchoModelRouter("deepseek-v4-pro")), model="opus-5")
+    assert ev["fell_back"] is True, ev
+    ev = _done_event(_stream_client(_EchoModelRouter("deepseek-v4-pro")))   # 不传 model
+    assert ev["fell_back"] is None, ev
+
+
+def test_done_event_fell_back_sees_every_chunk_not_just_the_last():
+    """闸 G7b 端到端: 纯函数按列表判是一回事, **接线时真的把整份列表喂进去**是另一回事。
+
+    ⚠ 这条与上面那条纯函数版**不可互相替代**: 把接线写成
+    `fell_back(s, body.model, [model_used])` (只喂最后一个) 会让纯函数那条照绿。
+    """
+    c = _stream_client(_ChunkScriptRouter([("deepseek-v4-pro", True), (_OPUS5_REPORTED, True)]))
+    ev = _done_event(c, model="opus-5")
+    assert ev["models_used"] == ["deepseek-v4-pro", _OPUS5_REPORTED], ev
+    assert ev["model_used"] == _OPUS5_REPORTED, "最后一个是主模型 —— 诱饵摆上了"
+    assert ev["fell_back"] is True, "有一段是 DeepSeek 答的, 就必须说"
+
+
+def test_real_fallback_path_reports_fell_back(monkeypatch):
+    """闸 G6 + G7 合流: 真 Router 真触发容灾时, 事件必须自己说出这件事。
+
+    这条是本轮的**中心断言** —— 用户原话: 不做的话"用户选 Sol、DeepSeek 答题、
+    徽章却说 Sol", 就是刚修掉的 C-1 (⚑ 归错模型) 同族缺陷换了个位置。
+    """
+    r = _real_router_stream(monkeypatch, model="opus-5")
+    blocks = [b for b in r.text.split("\n\n") if b.startswith("event: done")]
+    assert len(blocks) == 1, r.text[:400]
+    ev = json.loads(next(l for l in blocks[0].splitlines() if l.startswith("data: "))[6:])
+    assert ev["fell_back"] is True, ev
+    assert ev["models_used"] == ["deepseek-v4-pro"], ev
+    assert ev["model_used"] == "deepseek-v4-pro", ev
+    assert ev["model_id"] == "opus-5", ev
+    assert ev["verified"] is True, "verified 记的是**用户选的**模型验没验过, 这个事实不变"
+
+
+def test_ask_now_falls_back_instead_of_502(monkeypatch):
+    """闸 I-3: 钉住 Task 2 **静默扩大**的 `/api/ask` 行为面。
+
+    分支前 `/api/ask model=opus-5` 在主模型 deployment 抛错时是 **502**
+    (`opus-5` 组没有 fallback 条目); Task 2 把容灾表从 `selectable_models` 派生之后,
+    同一个失败变成 **200 + 由 default-fallback 作答**。这是**期望**的 (裁定 R2 的
+    全部意义就在这), 但它属于 `/api/ask` —— 而本轮 spec §1 的非目标里写着"不动
+    `/api/ask` 的 model_used"。⇒ 行为面确实变了, 必须**被测试记住, 而不是只被文档记住**:
+    文档没有执行力, 下一个人重构 `_fallback_map` 时不会读 spec §1, 但会看见这条红。
+
+    ⚠ **残留 (spec §7 L5, 本轮不修)**: `/api/ask` 里那句
+    `model_used = getattr(response, "model", None) or body.model` 的回显分支还在 ——
+    provider 不报 `.model` 的回退会把 DeepSeek 的答案标成 `opus-5` (终审 C-1 同族)。
+    它今天无调用方 (streamlit 只读自己那次请求的返回), 且改 `AskResponse` 契约属
+    上一轮的 D11, 不在本轮单内。这条闸**不**断言 `model_used` 的取值, 免得把"今天碰巧
+    是对的"钉成"契约保证"。
+    """
+    import litellm
+    from server.llm_config import create_router
+
+    calls: list[str] = []
+
+    def fake_completion(**kw):
+        calls.append(str(kw.get("model")))
+        if "anthropic" in str(kw.get("model")):
+            raise Exception("primary deployment boom")
+        return SimpleNamespace(model="deepseek-v4-pro", usage=None,
+                               choices=[SimpleNamespace(message=SimpleNamespace(content="ok"))])
+
+    monkeypatch.setattr(litellm, "completion", fake_completion)
+    s = Settings()
+    router = create_router(s)
+    router.num_retries = 0
+    app = FastAPI()
+    app.include_router(api_router)
+    app.state.rag = _FakeRAG()
+    app.state.llm_router = router
+    app.state.settings = s
+    resp = TestClient(app).post("/api/ask", json={"question": "AETERM?", "model": "opus-5"})
+    assert resp.status_code == 200, f"分支前是 502, Task 2 之后应回退作答: {resp.text[:300]}"
+    assert calls == [_OPUS5, s.fallback_model], f"派单序列不对: {calls}"
 
 
 class _SyncCapturingRouter:
