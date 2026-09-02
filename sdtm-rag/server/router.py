@@ -13,7 +13,7 @@ from fastapi.responses import StreamingResponse
 from pydantic import BaseModel, ConfigDict, Field
 
 from server.config import SelectableModel
-from server.llm_config import fell_back, known_model_groups
+from server.llm_config import fell_back, known_model_groups, merge_reported_model
 from server.web_search import WEB_TOOL_SPEC, WebSearcher, render_tool_result
 
 log = structlog.get_logger()
@@ -428,8 +428,11 @@ async def ask_stream(body: AskStreamRequest, request: Request):
                     reported = getattr(chunk, "model", None)
                     if reported:
                         model_used = reported
-                        if reported not in models_used:
-                            models_used.append(reported)
+                        # 去重判据在 llm_config 里, 与 fell_back 共用同一个 `_same_model`
+                        # (终审 I-2): litellm 对同一次回答会报两种拼法, 裸 `not in` 会把
+                        # 一个模型收成两项 ⇒ 徽章把 2 个模型写成 4 个串, R4 想要的
+                        # "一眼看出实际是谁答的"就没了。⛔ 不在这里另写一套判据。
+                        merge_reported_model(models_used, reported)
                     cu = getattr(chunk, "usage", None)
                     if cu:
                         cu_round = cu
@@ -552,7 +555,8 @@ class FlagRequest(BaseModel):
     answer: str = Field("", max_length=50000)
     note: str = Field("", max_length=2000)
     # 归因串在回退时是"实际模型(可能多个)（回退自 用户选的）", 比单个模型名长得多。
-    # 装不下的后果不是截断而是 422 ⇒ 用户点 ⚑ 后**静默记录失败**, 而 dogfood backlog
+    # 装不下的后果不是截断而是 422 ⇒ 用户点 ⚑ 后**记录失败** (前端会在按钮旁显示
+    # "记录失败", 所以是**响的**失败不是静默的 —— 但那条反馈仍然丢了), 而 dogfood backlog
     # 正是本项目最贵的那类数据 (规则 B)。上限由
     # test_flag_model_field_fits_the_worst_case_attribution 用真实配置串钉住, 不是拍脑袋。
     model: str | None = Field(None, max_length=300)

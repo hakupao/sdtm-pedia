@@ -93,9 +93,14 @@ def _fallbacks(router) -> dict:
 
     ⚠ 先断尺寸下限: 表塌成空的时候, 下面所有"某组**不在**表里"的断言都会变成
     永真式 (retrospective 规则 6 成因 A)。
+
+    ⚠ 下限**从 Settings 算**, 不写死数字 (终审 Minor 3): 硬编码的 `>= 5` 在加第 5 个
+    可选模型时要手改, 而"忘了手改"的表现是下限变松 —— 又是一条悄悄放宽的判定式。
     """
+    expected = 1 + len(Settings().selectable_models)      # default + 每个可选模型
     flat = {k: v for entry in router.fallbacks for k, v in entry.items()}
-    assert len(flat) >= 5, f"fallback 表塌了, 下面的断言会变永真: {router.fallbacks}"
+    assert len(flat) >= expected, \
+        f"fallback 表塌了 (期望至少 {expected} 条), 下面的断言会变永真: {router.fallbacks}"
     return flat
 
 
@@ -132,11 +137,22 @@ def test_internal_worker_groups_have_no_fallback():
 
 
 _OPUS5 = "bedrock/converse/global.anthropic.claude-opus-5"   # config.py 里 opus-5 的配置串
-_OPUS5_REPORTED = "global.anthropic.claude-opus-5"           # 实测 chunk 报的形式 (去 provider 前缀)
+# ⚠ 这是一个**构造**的短形, 不是实测串。本轮实测 (真 create_router + litellm mock_response)
+# bedrock 侧 chunk 报的是 `converse/global.anthropic.claude-opus-5` 与
+# `bedrock/converse/...` 两种拼法 —— `converse/` **保留**。真实串见
+# test_litellm_really_reports_two_spellings_for_one_model。这里留着它是因为它测的是
+# `_same_model` 在"更短的合法后缀"上也成立, 那个性质本身要钉。
+_OPUS5_REPORTED = "global.anthropic.claude-opus-5"
 
 
 def test_fell_back_is_false_when_every_reported_model_is_the_configured_one():
-    """闸 G7 (a): 实测 chunk 报的是**去掉 provider 前缀**的串, 两种形式都必须认作"同一个模型"。"""
+    """闸 G7 (a): 配置串与 chunk 报的串**拼法不一定逐字相同**, 都必须认作"同一个模型"。
+
+    ⚠ 措辞在终审修正过: 初稿写的是"实测 chunk 报的是**去掉 provider 前缀**的串" ——
+    那是把 deepseek 那次非流式实测 (`deepseek/deepseek-v4-pro` → `deepseek-v4-pro`)
+    **外推**到了 bedrock 串。本轮实测 bedrock 侧 `converse/` 是**保留**的
+    (见 test_litellm_really_reports_two_spellings_for_one_model)。
+    """
     s = Settings()
     assert fell_back(s, "opus-5", [_OPUS5_REPORTED]) is False
     assert fell_back(s, "opus-5", [_OPUS5]) is False
@@ -1305,3 +1321,135 @@ def test_flag_attribution_is_unchanged_when_the_backend_is_old(flag_probe):
     """
     got = flag_probe["streamOldBackend"]
     assert got["flagBody"]["model"] == "GPT-5.6 Sol", got["flagBody"]
+
+
+def _badge_classes(probe_entry) -> set:
+    """徽章的 class 集合。⚠ 先断基础 class 在, 否则"没有 unverified"会变成永真式
+    (抽取端塌成 None / 空串时下面的 `not in` 恒成立 —— 规则 6 成因 A)。"""
+    cls = probe_entry["badgeClass"]
+    assert cls, f"抽取端失效: badgeClass 是 {cls!r}, 下面的断言会变永真"
+    parts = set(cls.split())
+    assert "model-meta" in parts, f"抽取端失效: 拿到的不是徽章元素 {cls!r}"
+    return parts
+
+
+def test_badge_is_amber_when_it_fell_back(flag_probe):
+    """闸 **I-1** (spec §6 G9 的"**且带 `.unverified`**"那半, 此前全套件零覆盖)。
+
+    ⚠ 终审实测: 把回退分支的 `unverified: true` 改成 `false` ⇒ 71 条**全绿**;
+    把 `classList.add("unverified")` 整行删光 ⇒ 也**全绿** (本人复跑确认)。
+    失败场景是"文字对、但没颜色" —— 而四个可选模型里三个 `verified=false`, **琥珀是常态**,
+    于是唯独"真出事"那条长得像正常消息, 正好反了。
+    """
+    assert "unverified" in _badge_classes(flag_probe["fellBack"]), \
+        flag_probe["fellBack"]["badgeClass"]
+    assert "unverified" in _badge_classes(flag_probe["fellBackMulti"]), \
+        flag_probe["fellBackMulti"]["badgeClass"]
+
+
+def test_badge_is_not_amber_for_a_verified_model_that_did_not_fall_back(flag_probe):
+    """闸 I-1 反方向: 没有它的话"一律加 unverified"也能让上面那条绿, 而那样琥珀色就
+    不再传递任何信息了。"""
+    assert "unverified" not in _badge_classes(flag_probe["verifiedTrue"]), \
+        flag_probe["verifiedTrue"]["badgeClass"]
+
+
+def test_badge_is_amber_for_an_unverified_model(flag_probe):
+    """闸 I-1 第三向 (既有欠账, 顺手补): `verified === false` 的琥珀色此前也从来没闸。
+    它与回退那一支共用同一条 `if (unverified) classList.add(...)` 接线。"""
+    assert "unverified" in _badge_classes(flag_probe["notFellBack"]), \
+        flag_probe["notFellBack"]["badgeClass"]
+
+
+def test_same_model_does_not_merge_across_providers():
+    """闸 **I-2 反方向**: 归一化**不许做过头**。
+
+    ⚠ 这条钉的正是 team-lead 点名禁掉的那种实现: `rsplit("/")[-1]` 取最后一段会把
+    `openai/gpt-4` 与 `azure/gpt-4` 判成同一个模型 ⇒ 真回退被合并掉 ⇒ `fell_back`
+    从 True 变 False, 正是本轮要防的那件事。
+    """
+    from server.llm_config import _same_model
+    assert _same_model("openai/gpt-4", "azure/gpt-4") is False
+    assert _same_model("bedrock/converse/x", "converse/x") is True      # 带 / 边界的后缀
+    assert _same_model("converse/x", "bedrock/converse/x") is True      # 反方向也认
+    assert _same_model("bedrock/converse/claude-opus-5", "claude-opus-5") is True
+    # ⛔ 不完整标识不算命中 (`.` 不是 `/`)
+    assert _same_model("bedrock/converse/global.anthropic.claude-opus-5",
+                       "claude-opus-5") is False
+
+
+def test_done_event_merges_two_spellings_of_one_model():
+    """闸 **I-2 正向** (终审实测的那个真实形状): litellm 对**同一次**回答会报两种拼法,
+    `models_used` 必须收成**一项**, 且是**最短形**。
+
+    成因 D 自查 —— 哪种错误实现在这组输入上会产出相同输出?
+    答: "保留首次出现的那个"。真实流里短形先到, 那种实现与正确实现输出**逐字相同**。
+    ⇒ 故这里**长形先到**, 期望仍是短形; 并另跑一遍短形先到的顺序, 两个方向都钉。
+    """
+    long_, short = "bedrock/converse/global.anthropic.claude-opus-5", \
+                   "converse/global.anthropic.claude-opus-5"
+    for first, second in ((long_, short), (short, long_)):
+        c = _stream_client(_ChunkScriptRouter([(first, True), (second, True)]))
+        ev = _done_event(c, model="opus-5")
+        assert ev["models_used"] == [short], f"{first} 先到: {ev['models_used']}"
+        assert ev["fell_back"] is False, ev
+
+
+def test_done_event_keeps_genuinely_different_models_apart():
+    """闸 I-2 另一个反方向: 真的两个不同模型进来 ⇒ 列表**两项**, 且 `fell_back` 仍是 True。
+
+    归一化做过头会把这两项合并 ⇒ `fell_back` 翻成 False ⇒ 一次**真回退**被说成没回退。
+    """
+    c = _stream_client(_ChunkScriptRouter(
+        [("deepseek-v4-pro", True), ("converse/global.anthropic.claude-opus-5", True)]))
+    ev = _done_event(c, model="opus-5")
+    assert ev["models_used"] == ["deepseek-v4-pro",
+                                 "converse/global.anthropic.claude-opus-5"], ev
+    assert ev["fell_back"] is True, ev
+
+
+def test_litellm_really_reports_two_spellings_for_one_model():
+    """**现实锚**: 上面那条用的是我们自己的假 Router, 证的是"我们的合并逻辑"。
+    这一条用**真 `create_router` + litellm 自带 `mock_response`** (零外部调用) 钉住
+    "litellm 确实会报两种拼法"这个**事实** —— 它一旦变了, 这条会红, 而不是让合并逻辑
+    悄悄变成一段无用代码。
+
+    源码佐证: `chunk_creator` 里 `model_response.model = self.model`, 而"用 chunk 自带
+    model 覆盖"那支只对 Azure 生效。
+    """
+    import asyncio
+    from server.llm_config import create_router, merge_reported_model
+
+    async def collect():
+        r = create_router(Settings())
+        resp = await r.acompletion(model="opus-5", messages=[{"role": "user", "content": "hi"}],
+                                   stream=True, mock_response="hello world",
+                                   stream_options={"include_usage": True})
+        return [getattr(ch, "model", None) async for ch in resp]
+
+    raw = [m for m in asyncio.run(collect()) if m]
+    assert len(raw) >= 2, f"抽取端失效, 下面的断言会变永真: {raw}"
+    assert len(set(raw)) == 2, f"litellm 的拼法行为变了 (不再是两种): {sorted(set(raw))}"
+    merged: list[str] = []
+    for m in raw:
+        merge_reported_model(merged, m)
+    assert merged == ["converse/global.anthropic.claude-opus-5"], merged
+
+
+def test_fell_back_warning_is_logged(capsys):
+    """闸 (终审 Minor 4): 回退时那条运维日志此前零闸。
+
+    它是回退在**用户屏幕之外**的唯一痕迹 —— 回退同时意味着"钱走了别的账"(C3/D4) 与
+    "答案来自未验证模型", 值得能被 grep 到。删掉它不会有任何别的测试变红。
+    """
+    # ⚠ 用 capsys 不是 caplog: 本服务的 structlog 直接写 stdout, 不经 stdlib logging
+    # 的 handler 链 —— caplog.text 恒为空, 那会让"没打日志"这一支变成永真式。
+    ev = _done_event(_stream_client(_EchoModelRouter("deepseek-v4-pro")), model="opus-5")
+    assert ev["fell_back"] is True, ev
+    out = capsys.readouterr().out
+    assert "model_fell_back" in out, \
+        f"stdout 里没有 model_fell_back 这条日志; 末 500 字符: {out[-500:]!r}"
+    assert "deepseek-v4-pro" in out, "日志里没写实际答题的模型, grep 出来也没用"
+    # 反方向: 没回退时**不该**打这条 (否则日志里全是狼来了)
+    _done_event(_stream_client(_EchoModelRouter(_OPUS5_REPORTED)), model="opus-5")
+    assert "model_fell_back" not in capsys.readouterr().out

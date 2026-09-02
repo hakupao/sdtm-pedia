@@ -152,12 +152,14 @@ function makeSandbox(flagBodies) {
 
 const flush = () => new Promise((r) => setTimeout(r, 0));
 
-async function scenario({ modelId, modelsUsed, fellBack }) {
+async function scenario({ modelId, modelsUsed, fellBack, verified = false }) {
   const flagBodies = [];
   const sandbox = makeSandbox(flagBodies);
   const ctx = createContext(sandbox);
   const assistant = { role: "assistant", content: "捏造的答案", sources: [] };
-  if (modelId) { assistant.modelId = modelId; assistant.verified = false; }
+  // verified 默认 false —— 既有两个场景 (withModelId / legacyNoModelId) 的行为逐位不变。
+  // 可覆盖是为了造 verified===true 那一档: 琥珀色的**反方向**闸需要它 (终审 I-1)。
+  if (modelId) { assistant.modelId = modelId; assistant.verified = verified; }
   // 显式 undefined 时**整个键都不设** —— 那正是老历史存档的样子 (spec §5 B2)。
   // ⚠ 不能写成 `assistant.modelsUsed = modelsUsed ?? undefined`: 那样键会存在且值为
   // undefined, 而老存档里这个键**根本不存在**, 两者在 `in` 判定与 JSON 往返上都不同。
@@ -197,6 +199,10 @@ async function scenario({ modelId, modelsUsed, fellBack }) {
     flagBody: flagBodies[0],
     topbarText: sandbox.__byId.get("topbar-title").textContent,
     badgeText: (findByClass(messages, "model-meta") || { textContent: null }).textContent,
+    // 琥珀色 (`.unverified`) 是**独立于文案**的一路信号, 必须单独导出才能上闸 (终审 I-1):
+    // 文案对但没颜色时, 四个可选模型里三个 verified=false 的琥珀是常态 ⇒ 唯独"真出事"
+    // 那条长得像正常消息。
+    badgeClass: (findByClass(messages, "model-meta") || { className: null }).className,
     badgeTextInitial,
   };
 }
@@ -339,6 +345,7 @@ async function streamScenario(doneData) {
 const out = {
   withModelId: await scenario({ modelId: "gpt-sol" }),
   legacyNoModelId: await scenario({ modelId: null }),
+  verifiedTrue: await scenario({ modelId: "opus-5", verified: true }),
   fellBack: await scenario({ modelId: "gpt-sol", modelsUsed: ["deepseek-v4-pro"], fellBack: true }),
   fellBackMulti: await scenario({ modelId: "gpt-sol", fellBack: true,
                                   modelsUsed: ["deepseek-v4-pro", "global.openai.gpt-5.6-sol"] }),

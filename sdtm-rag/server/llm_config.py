@@ -208,6 +208,43 @@ def verify_selectable_model_capabilities(s: Settings) -> list[str]:
     return failed
 
 
+def _same_model(a: str, b: str) -> bool:
+    """两个模型串指的是不是**同一个模型**。
+
+    ⚠ 这是本仓库对"同一个模型"的**唯一**定义 —— `fell_back` 的比对与 `merge_reported_model`
+    的去重都走它。⛔ 不许在收集端另写一套判据: 两份真相会各自漂移, 而"去重认为相同、
+    回退判定认为不同"这种漏正好是无声的 (与 `known_model_groups` 同一条理由)。
+
+    判据是"一方是另一方带 `/` 边界的后缀"。⛔ **必须带 `/`**: 裸子串会让 `claude-opus-5`
+    这类**不完整**标识也算命中 (retrospective 规则 6 成因 A) —— 它是配置串的真子串,
+    但不是一个完整的模型标识。
+    ⛔ **不许用"取最后一段"** (`rsplit("/")[-1]`): 那会把 `openai/gpt-4` 与 `azure/gpt-4`
+    这种**跨 provider 同名**静默合并成一个, 于是真回退被判成没回退。
+    """
+    return a == b or a.endswith("/" + b) or b.endswith("/" + a)
+
+
+def merge_reported_model(models_used: list[str], reported: str) -> None:
+    """把一个 chunk 报出的模型串并进有序列表 —— 同一模型只留一项, 且保留**最短形**。
+
+    ⚠ 为什么需要这个 (2026-09-02 终审 I-2, 本轮实测): litellm 对**同一次**回答会报出
+    **两种拼法** —— 内容 chunk 是 `converse/global.anthropic.claude-opus-5`, 收尾/usage
+    chunk 是 `bedrock/converse/global.anthropic.claude-opus-5` (源码: `chunk_creator` 用
+    `model_response.model = self.model`, 而"用 chunk 自带 model 覆盖"那支只对 Azure 生效)。
+    不合并的话, 徽章会把 2 个模型写成 4 个串、上百字符, 而且"实际答题的是谁"这一栏里还混着
+    **用户自己选的那个** —— 直接把 R4 想要的"一眼看出实际是谁答的"给毁了。
+
+    留**最短形**而不是"首次出现的那个": 展示用, 短的那个信息量不少、噪音更小。
+    位置不动 (列表顺序 = **首次出现**顺序), 因为顺序表达的是"谁先答的"。
+    """
+    for i, seen in enumerate(models_used):
+        if _same_model(seen, reported):
+            if len(reported) < len(seen):
+                models_used[i] = reported
+            return
+    models_used.append(reported)
+
+
 def fell_back(s: Settings, model_group: str, reported_models) -> bool | None:
     """答这道题的, 是不是**自始至终**都是用户选的那个模型? 不知道就返 `None` —— ⛔ 不返 `False`。
 
@@ -222,14 +259,23 @@ def fell_back(s: Settings, model_group: str, reported_models) -> bool | None:
     `False` —— **回退了却不说**。流中途回退 (litellm `MidStreamFallbackError`) 是
     同一形状的第二条路径。故判据是"**任一个**不符即 True", 不是"最后一个不符"。
 
-    `reported_models` 的元素来自流式 chunk 的 `.model`, 实测是**去掉 provider 前缀**的串
-    (`bedrock/converse/global.anthropic.claude-opus-5` → `global.anthropic.claude-opus-5`),
-    故两种形式都认。⛔ 匹配必须带 `/` 边界: 裸子串会让 `claude-opus-5` 这类**不完整**
-    标识也算命中 (retrospective 规则 6 成因 A)。
+    `reported_models` 的元素来自流式 chunk 的 `.model`, **拼法与配置串不一定逐字相同**,
+    故比对走 `_same_model` (带 `/` 边界的后缀关系), 而不是 `==`。三个已知形态:
 
-    ⚠ 已知限制 (spec §7 L1): "真实回退时 chunk 里到底写什么串"本轮没有真实调用的实测,
-    唯一证据是 DEPLOY_PLAN.md 里 `/api/ask` 非流式那次。若真串与配置串对不上, 表现是
-    **每条答案都误报"已回退"** —— 响的失败, 不是静默的, 上线第一条真实回答即可证伪。
+    - **bedrock 侧, 本轮实测** (真 `create_router` + litellm `mock_response`, 零外部调用):
+      同一次回答里会出现**两种**拼法 —— `converse/global.anthropic.claude-opus-5` 与
+      `bedrock/converse/global.anthropic.claude-opus-5`。`get_llm_provider` **保留** `converse/`,
+      只剥掉最前面的 `bedrock/`。
+    - **deepseek 侧, 实测但只有非流式那一次**: `DEPLOY_PLAN.md` 记的 `/api/ask` 回退到
+      `deepseek/deepseek-v4-pro` 时 `response.model = deepseek-v4-pro` (provider 前缀被剥掉)。
+    - ⚠ **真实 bedrock 回退时流式 chunk 里写什么, 仍未实测** (spec §7 L1)。上面第一条用的是
+      litellm 的 mock 流, 证的是"litellm 的拼法逻辑", 不是"真实 provider 返回什么"。
+      若真串与配置串对不上, 表现是**每条答案都误报"已回退"** —— 响的失败不是静默的,
+      上线第一条真实回答即可证伪。
+
+    ⚠ 上面这段是 2026-09-02 终审修正过的: 初稿把 deepseek 那次实测的"去掉 provider 前缀"
+    **外推**到 bedrock 串并标成"实测", 而实测结果是 `converse/` 被保留。
+    这正是 spec §3 P6 那条教训 (把自己实验的边界当成被测系统的边界) 在下一层重演。
     """
     if not reported_models:
         return None
@@ -237,5 +283,4 @@ def fell_back(s: Settings, model_group: str, reported_models) -> bool | None:
                        if m.id == model_group), None)
     if configured is None:
         return None
-    return not all(configured == r or configured.endswith("/" + r)
-                   for r in reported_models)
+    return not all(_same_model(configured, r) for r in reported_models)
