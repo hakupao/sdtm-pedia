@@ -684,8 +684,8 @@ def test_done_event_model_used_reads_a_model_reported_only_on_the_usage_chunk():
     assert ev["models_used"] == ["deepseek-v4-pro"], ev
 
 
-def _real_router_stream(monkeypatch, *, model, fallbacks=None) -> str:
-    """用**真 litellm Router** 跑一次 `/api/ask_stream`, 返回整段 SSE 文本。
+def _real_router_stream(monkeypatch, *, model, fallbacks=None) -> SimpleNamespace:
+    """用**真 litellm Router** 跑一次 `/api/ask_stream`, 返回整段 SSE 文本**与实际派单序列**。
 
     ⚠ patch 的是 `litellm.acompletion` —— Router 每个 deployment 最终调的那个函数
     (实测: `Router.acompletion` 无论 stream 与否都走 `async_function_with_fallbacks`,
