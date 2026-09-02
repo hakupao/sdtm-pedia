@@ -13,7 +13,7 @@ from fastapi.responses import StreamingResponse
 from pydantic import BaseModel, ConfigDict, Field
 
 from server.config import SelectableModel
-from server.llm_config import known_model_groups
+from server.llm_config import fell_back, known_model_groups, merge_reported_model
 from server.web_search import WEB_TOOL_SPEC, WebSearcher, render_tool_result
 
 log = structlog.get_logger()
@@ -351,7 +351,13 @@ async def ask_stream(body: AskStreamRequest, request: Request):
 
     async def gen():
         yield sse("sources", {"sources": sources, "routed_corpus": routed})
-        model_used = None
+        model_used = None   # 流里一个 chunk 都没报模型时就一直是 None —— done 事件如实发 null,
+                            # ⛔ 不许兜成 "default": 那是**编**一个模型名, 而这个值会进历史存档
+        # 逐 chunk 收全**出现过的**模型, 有序去重 (spec R6)。与 model_used 各记一件事:
+        # model_used = 最后一个 (最后那段文字是谁写的), models_used = 全部 (整次问答里
+        # 有没有别人插过手)。⚠ 只看最后一个会漏掉"某一轮回退、末轮落回主模型"这种情况,
+        # 那正是"回退了却不说"。
+        models_used: list[str] = []
         parts: list[str] = []   # 跨轮全文, 只给 counting gate 用
         # 每轮都是一次独立计费的 API 调用 —— usage 必须跨轮累加, 只报最后一轮会系统性低报
         # 成本。某轮走了 stream_options 窄重试就拿不到 usage; 那种情况打 partial 标记:
@@ -414,7 +420,19 @@ async def ask_stream(body: AskStreamRequest, request: Request):
                                 slot["name"] = fn.name      # 取首个非空: 有 provider 每片都重发
                             if fn and getattr(fn, "arguments", None):
                                 slot["args"] += fn.arguments  # 只有 arguments 是真分片
-                        model_used = getattr(chunk, "model", None) or model_used
+                    # 两半各防一件事, 缺任一半 model_used 都会丢成 None (⇒ 回退发生了也报不出来):
+                    # · 搁在 `if choices:` **外面**: usage chunk 的 choices 是空列表, 而有
+                    #   provider 只在那一片上报模型 —— 搁在里面就整条流都取不到。
+                    # · `reported` 为假时**不赋值**: 报模型的往往只有首片, 后续片的 .model
+                    #   是 None, 裸赋值会被最后一片抹掉 (等价于原来的 `or model_used`)。
+                    reported = getattr(chunk, "model", None)
+                    if reported:
+                        model_used = reported
+                        # 去重判据在 llm_config 里, 与 fell_back 共用同一个 `_same_model`
+                        # (终审 I-2): litellm 对同一次回答会报两种拼法, 裸 `not in` 会把
+                        # 一个模型收成两项 ⇒ 徽章把 2 个模型写成 4 个串, R4 想要的
+                        # "一眼看出实际是谁答的"就没了。⛔ 不在这里另写一套判据。
+                        merge_reported_model(models_used, reported)
                     cu = getattr(chunk, "usage", None)
                     if cu:
                         cu_round = cu
@@ -507,9 +525,16 @@ async def ask_stream(body: AskStreamRequest, request: Request):
             # web_searches_ok: 本次真正拿到结果的搜索次数。web_status 的 6 个值分不出
             # "开了联网但一次都没搜成" (模型净吐畸形/不存在的工具时它仍是 ok) —— 与其再往
             # 枚举里塞值让前端分支爆炸, 不如给一个整数, 顺带能显示"本次联网检索了 N 次"。
-            yield sse("done", {"model_used": model_used or "default",
+            fell = fell_back(s, body.model, models_used)
+            if fell:
+                # 让运维日志也留痕, 不只在用户屏幕上 —— 回退同时意味着"钱走了别的账"(C3/D4)
+                # 与"答案来自未验证模型"两件事, 值得能被 grep 到。
+                log.warning("model_fell_back", model_id=body.model, models_used=models_used)
+            yield sse("done", {"model_used": model_used,
+                               "models_used": models_used,
                                "model_id": body.model,
                                "verified": model_verified,
+                               "fell_back": fell,
                                "usage": usage, "web_status": web_status,
                                "web_searches_ok": web_ok})
         except Exception as e:  # noqa: BLE001 — 流已开, 以事件形式暴露
@@ -529,7 +554,12 @@ class FlagRequest(BaseModel):
     question: str = Field("", max_length=10000)
     answer: str = Field("", max_length=50000)
     note: str = Field("", max_length=2000)
-    model: str | None = Field(None, max_length=120)
+    # 归因串在回退时是"实际模型(可能多个)（回退自 用户选的）", 比单个模型名长得多。
+    # 装不下的后果不是截断而是 422 ⇒ 用户点 ⚑ 后**记录失败** (前端会在按钮旁显示
+    # "记录失败", 所以是**响的**失败不是静默的 —— 但那条反馈仍然丢了), 而 dogfood backlog
+    # 正是本项目最贵的那类数据 (规则 B)。上限由
+    # test_flag_model_field_fits_the_worst_case_attribution 用真实配置串钉住, 不是拍脑袋。
+    model: str | None = Field(None, max_length=300)
 
 
 @api_router.post("/flag")

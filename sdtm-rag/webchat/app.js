@@ -89,7 +89,7 @@ function renderMessages() {
   let lastUserQ = "";
   for (const m of c.messages) {
     const el = messageEl(m.role, m.content, m.sources, m.routedCorpus, m.webStatus, m.webSearchesOk,
-                          m.modelId, m.verified);
+                          m.modelId, m.verified, m.modelsUsed, m.fellBack);
     if (m.role === "user") lastUserQ = m.content;
     else if (m.role === "assistant") attachFlag(el, lastUserQ, m);
     box.appendChild(el);
@@ -97,7 +97,8 @@ function renderMessages() {
   box.scrollTop = box.scrollHeight;
 }
 
-function messageEl(role, content, sources, routedCorpus, webStatus, webSearchesOk, modelId, verified) {
+function messageEl(role, content, sources, routedCorpus, webStatus, webSearchesOk, modelId, verified,
+                   modelsUsed, fellBack) {
   const wrap = document.createElement("div");
   const msg = document.createElement("div");
   msg.className = "msg " + role;
@@ -116,15 +117,43 @@ function messageEl(role, content, sources, routedCorpus, webStatus, webSearchesO
   // 和正常联网答案长得一模一样 (spec §7 点名的最骗人的失败模式)。
   renderWebStatus(wrap, webStatus, webSearchesOk);
   // 同一个坑, spec §6: 只做 UI 标注(下拉旁边那行提示)的话, 对话存下来后这条信息就没了。
-  renderModelBadge(wrap, role, modelId, verified);
+  renderModelBadge(wrap, role, modelId, verified, modelsUsed, fellBack);
   return wrap;
 }
 
 // verified 三态不可混同 (spec §6): true 正常; false 是拿到确证的"验过且不通过";
 // null (default 组不在 selectable_models 里, 没有 verified 概念) 一律显"未知",
 // 绝不能落进 false 那支 (会把"没这个概念"误报成"验过且不通过")。
-function modelBadgeText(modelId, verified) {
+//
+// 回退 (fellBack === true, 2026-09-02 spec §4.4) 优先于以上三态: 答案是**另一个(些)**
+// 模型产的, 那么"用户选的那个验没验过"对这条消息不再成立 —— 拿 opus-5 的 verified: true
+// 给一条 DeepSeek 答的消息背书, 就是终审 C-1 (⚑ 归错模型) 同族。琥珀色照挂: 回退是
+// **已知的偏离**, 不是单纯的元数据缺失, 值得与"未验证模型"同级的视觉提示。
+//
+// modelsUsed 是**列表**: 联网多轮 / 流中途回退时一次回答可能有两个模型各写了一段,
+// 只报一个就又变成半个真话了 (spec R6)。绝大多数情况长度为 1, 文案退化成单模型形态。
+//
+// ⚠ `fellBack === true` 用**全等**而非 truthy: 老后端不发这个字段 (StaticFiles 从工作树
+// 现读 ⇒ 新前端会先于 Python 重启上线, spec §5 B1) 、老存档里也没有这个键, 两种情况都是
+// undefined, 必须落回下面三态、文案与今天逐字相同。
+function modelBadgeText(modelId, verified, modelsUsed, fellBack) {
   const label = modelLabelById[modelId] || modelId;
+  // ⚠ `Array.isArray` 不是洁癖: 只判 truthy + `.length` 挡不住**字符串** ("abc".length 是 3)
+  // 也挡不住 array-like 对象 —— 两者都会走到 `.join` 上抛 TypeError, 而这一抛是在
+  // `renderMessages` 里 ⇒ 死的不是一条徽章, 是**整段对话历史渲染不出来**。
+  // 后端发回什么形状不由前端说了算 (onDone 是 `?? null`, 零形状校验), 所以这里必须自己挡。
+  //
+  // **容器级**契约到此为止, **元素级**的 (每个元素是非空串) 由后端保证:
+  // `server/router.py` 收集处的 `if reported:` 只 append 真值串, 所以 `[null]` / `[""]`
+  // 这类"说回退了却说不出回退到谁"的半个真话在生产上产不出来。
+  // ⛔ 别在这里加 `filter(Boolean)` 之类的防御 —— 为不可达路径写防御, 下一个人会以为它可达。
+  // 为什么容器级只需要这一个判断就够: 值必然经 JSON 往返 (localStorage / SSE), 到达时
+  // 只可能是 null|bool|number|string|array|plain object 六种, `Array.isArray` 恰好把前五种
+  // 全挡在外面 —— 这也是"`join` 被改写成别的东西"那类畸形同样不会抛的原因。
+  if (fellBack === true && Array.isArray(modelsUsed) && modelsUsed.length) {
+    return { text: `模型: ${label} → 实际 ${modelsUsed.join("、")}（已回退）· 验证状态未知`,
+             unverified: true };
+  }
   if (verified === true) return { text: `模型: ${label}`, unverified: false };
   if (verified === false) return { text: `模型: ${label} ⚠未验证`, unverified: true };
   return { text: `模型: ${label} · 验证状态未知`, unverified: false };
@@ -133,15 +162,18 @@ function modelBadgeText(modelId, verified) {
 // 答案实际用的模型 (spec §6 产物自证)。modelId 为空 (生成中占位 / 未流完就中断 / 旧历史
 // 记录没存这个字段) 时什么都不画 —— 比瞎猜一个模型名更诚实, 也避免占位阶段先画一个"未知"
 // 徽章、done 后又叠一个真实徽章的重复渲染。
-function renderModelBadge(wrap, role, modelId, verified) {
+function renderModelBadge(wrap, role, modelId, verified, modelsUsed, fellBack) {
   if (role !== "assistant" || !modelId) return;
   const b = document.createElement("div");
   b.className = "msg-meta model-meta";
-  // modelId/verified 存进 dataset: /api/info 比首屏渲染慢一步是常态, label 表填好后
-  // refreshModelBadgeLabels() 要能原地补字, 不能靠重建 DOM 拿到这两个值。
+  // 这四个值存进 dataset: /api/info 比首屏渲染慢一步是常态, label 表填好后
+  // refreshModelBadgeLabels() 要能原地补字, 不能靠重建 DOM 拿到它们
+  // (重建会抹掉正在生成、尚未进 c.messages 的那个气泡 —— 上一轮复审用 gate stub 复现过)。
   b.dataset.modelId = modelId;
   b.dataset.verified = String(verified); // "true" | "false" | "null"
-  const { text, unverified } = modelBadgeText(modelId, verified);
+  b.dataset.modelsUsed = JSON.stringify(modelsUsed || []);
+  b.dataset.fellBack = String(fellBack);  // "true" | "false" | "null" | "undefined"(老存档)
+  const { text, unverified } = modelBadgeText(modelId, verified, modelsUsed, fellBack);
   b.textContent = text;
   if (unverified) b.classList.add("unverified");
   wrap.appendChild(b);
@@ -156,7 +188,12 @@ function refreshModelBadgeLabels() {
     const modelId = b.dataset.modelId;
     if (!modelId) return;
     const verified = b.dataset.verified === "true" ? true : b.dataset.verified === "false" ? false : null;
-    b.textContent = modelBadgeText(modelId, verified).text;
+    // 显式三路比较, 不用 truthy —— dataset 里存的是字符串, "false" 是 truthy 的
+    const fellBack = b.dataset.fellBack === "true" ? true : b.dataset.fellBack === "false" ? false : null;
+    let modelsUsed = [];
+    // 坏数据不该让整条历史渲染崩掉 —— 拿不到就当"没有这个信息", 退回非回退文案
+    try { modelsUsed = JSON.parse(b.dataset.modelsUsed || "[]"); } catch (_) { modelsUsed = []; }
+    b.textContent = modelBadgeText(modelId, verified, modelsUsed, fellBack).text;
   });
 }
 
@@ -319,6 +356,18 @@ function openFlag(bar, btn, question, msgObj) {
 // modelId 缺失 (下拉上线前存的旧历史) 时才退回 topbar 文本: 那些记录确实产自 default 组。
 function flagModelName(msgObj) {
   const id = msgObj && msgObj.modelId;
+  // 回退过 ⇒ 答案是 modelsUsed 里那些模型产的, **不是**用户选的那个。把 DeepSeek 的捏造
+  // 记到 GPT-5.6 Sol 头上, 与终审 C-1 是同一个缺陷换了触发路径 (那次是切 topbar 文本,
+  // 这次是读了 modelId 但答案不是它产的)。两边都写进去: backlog 的读者既要知道谁捏造的,
+  // 也要知道当时选的是谁 —— 否则"为什么会用到这个模型"这条线索断了。
+  // Array.isArray 的理由与 modelBadgeText 那处相同 (容器级契约; 元素级由 server/router.py
+  // 收集处的 `if reported:` 保证, 那里只 append 真值串), 但**后果更重**: 这里抛出去的
+  // 异常穿过 postFlag ⇒ 用户点了 ⚑ 却什么都没记下, 而 backlog 是 append-only 的 (规则 B)。
+  // 缺陷本身把发现缺陷的渠道堵了。⛔ 同样别加 filter(Boolean): 那条路径不可达。
+  if (msgObj && msgObj.fellBack === true && Array.isArray(msgObj.modelsUsed)
+      && msgObj.modelsUsed.length) {
+    return `${msgObj.modelsUsed.join("、")}（回退自 ${id ? (modelLabelById[id] || id) : "未知"}）`;
+  }
   if (id) return modelLabelById[id] || id;   // 表没加载好就发原始 id, 归因照样正确
   return ($("topbar-title").textContent.split("·").pop() || "").trim() || null;
 }
@@ -471,6 +520,8 @@ async function runGeneration(c) {
   let gotWebSearchesOk = null;
   let gotModelId = null;
   let gotVerified = null;
+  let gotModelsUsed = null;
+  let gotFellBack = null;
   let saved = false;
   let savedMsg = null;
   const renderFinal = (content) => { bubble.innerHTML = mdToSafeHTML(content); highlightIn(bubble); };
@@ -479,7 +530,10 @@ async function runGeneration(c) {
     saved = true;
     savedMsg = { role: "assistant", content, sources: gotSources || [], routedCorpus: gotRouted,
                  webStatus: gotWebStatus, webSearchesOk: gotWebSearchesOk,
-                 modelId: gotModelId, verified: gotVerified };
+                 modelId: gotModelId, verified: gotVerified,
+                 // 产物自证 (spec §6 / 2026-09-02 R5): 回退这件事必须活过刷新, 否则
+                 // 存档里一条 DeepSeek 答的消息与 Opus 5 答的长得一模一样。
+                 modelsUsed: gotModelsUsed, fellBack: gotFellBack };
     c.messages.push(savedMsg);
     save(); renderSidebar();
   };
@@ -515,8 +569,13 @@ async function runGeneration(c) {
         // 三态语义 (spec §6) 保持一致: verified 缺失时按"未知"收, 不会误当成 false。
         gotModelId = (data || {}).model_id ?? null;
         gotVerified = (data || {}).verified ?? null;
+        // 同一条 ?? 的理由: fell_back 的 false 是**确证没回退**, 不能被当成缺失塌成 null。
+        // ⚠ 这两个字段原样收下、不做形状校验 —— 形状由 modelBadgeText 的 Array.isArray
+        // 挡 (后端发个裸串就能让整段历史渲染不出来, 见那里的注释)。
+        gotModelsUsed = (data || {}).models_used ?? null;
+        gotFellBack = (data || {}).fell_back ?? null;
         renderWebStatus(holder, gotWebStatus, gotWebSearchesOk);
-        renderModelBadge(holder, "assistant", gotModelId, gotVerified);
+        renderModelBadge(holder, "assistant", gotModelId, gotVerified, gotModelsUsed, gotFellBack);
         const content = acc.trim() ? acc : "(无内容)"; renderFinal(content); persist(content);
       },
       onError: (msg) => { if (acc) { renderFinal(acc); persist(acc); } appendErr(msg); appendRetry(); },

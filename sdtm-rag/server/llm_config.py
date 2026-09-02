@@ -54,6 +54,24 @@ def _validated_selectable_models(s: Settings) -> list[SelectableModel]:
     return s.selectable_models
 
 
+def _fallback_map(s: Settings) -> list[dict[str, list[str]]]:
+    """答题组 → `default-fallback` 的容灾表, 从 `selectable_models` **派生**。
+
+    ⛔ 不手写第二份清单 —— 与 `known_model_groups` 同一条理由 (spec 2026-09-01 §3.1):
+    两份真相会各自漂移, 而"UI 有某个组、容灾表没有"这种漏正好是无声的。
+
+    表里**只有**答题组: `default` (既有调用方 / `/api/ask` / eval 脚本) 与四个可选模型。
+    ⛔ `hard` / `light` 不进表 —— 它们是检索改写与判库, C1 要求不受用户选择影响,
+    能悄悄换模型就破了 C1。`default-fallback` 也不进表 (给自己配 fallback 是个环)。
+
+    ⚠ 代价是**明的**: 兜底落在 `default-fallback` = DeepSeek **个人流量** (spec §9 D4),
+    即答题有可能不走公司 Bedrock。用户 2026-09-02 裁定接受, 条件是**必须让用户看得见** ——
+    `done` 事件的 `fell_back` 字段与前端徽章就是那个条件的兑现, 不许只补这半边。
+    """
+    return [{g: ["default-fallback"]}
+            for g in ("default", *(m.id for m in _validated_selectable_models(s)))]
+
+
 def create_router(s: Settings) -> Router:
     model_list = [
         {
@@ -81,7 +99,7 @@ def create_router(s: Settings) -> Router:
     ]
     return Router(
         model_list=model_list,
-        fallbacks=[{"default": ["default-fallback"]}],
+        fallbacks=_fallback_map(s),
         num_retries=1,
         timeout=120,
     )
@@ -188,3 +206,104 @@ def verify_selectable_model_capabilities(s: Settings) -> list[str]:
         if not litellm.supports_function_calling(model=key, custom_llm_provider="bedrock_converse"):
             failed.append(m.id)
     return failed
+
+
+def _same_model(a: str, b: str) -> bool:
+    """两个模型串指的是不是**同一个模型**。
+
+    ⚠ 这是本仓库对"同一个模型"的**唯一**定义 —— `fell_back` 的比对与 `merge_reported_model`
+    的去重都走它。⛔ 不许在收集端另写一套判据: 两份真相会各自漂移, 而"去重认为相同、
+    回退判定认为不同"这种漏正好是无声的 (与 `known_model_groups` 同一条理由)。
+
+    判据是"一方是另一方带 `/` 边界的后缀"。⛔ **必须带 `/`**: 裸子串会让 `claude-opus-5`
+    这类**不完整**标识也算命中 (retrospective 规则 6 成因 A) —— 它是配置串的真子串,
+    但不是一个完整的模型标识。
+    ⛔ **不许用"取最后一段"** (`rsplit("/")[-1]`): 那会把 `openai/gpt-4` 与 `azure/gpt-4`
+    这种**跨 provider 同名**静默合并成一个, 于是真回退被判成没回退。
+
+    ⚠ **本关系不满足传递性**: `openai/gpt-4` ≡ `gpt-4` ≡ `azure/gpt-4`, 但
+    `openai/gpt-4` ≢ `azure/gpt-4`。⇒ 任何"沿着已存条目往下缩"的合并策略都会经由中间的
+    裸形把两个 provider 串起来。`merge_reported_model` 因此**只往更长(更限定)的方向**
+    更新已存条目 —— 见那里的证明。
+    """
+    return a == b or a.endswith("/" + b) or b.endswith("/" + a)
+
+
+def merge_reported_model(models_used: list[str], reported: str) -> None:
+    """把一个 chunk 报出的模型串并进有序列表 —— 同一模型只留一项, 已存条目**只朝更限定
+    (更长) 的方向增长**, ⛔ 绝不缩短。
+
+    ⚠ 为什么需要这个 (2026-09-02 终审 I-2, 本轮实测): litellm 对**同一次**回答会报出
+    **两种拼法** —— 内容 chunk 是 `converse/global.anthropic.claude-opus-5`, 收尾/usage
+    chunk 是 `bedrock/converse/global.anthropic.claude-opus-5` (源码: `chunk_creator` 用
+    `model_response.model = self.model`, 而"用 chunk 自带 model 覆盖"那支只对 Azure 生效)。
+    不合并的话, 徽章会把 2 个模型写成 4 个串、上百字符, 而且"实际答题的是谁"这一栏里还混着
+    **用户自己选的那个** —— 直接把 R4 想要的"一眼看出实际是谁答的"给毁了。
+
+    留**最长(最限定)形**, 位置不动 (列表顺序 = **首次出现**顺序, 它表达的是"谁先答的")。
+
+    ⚠ **为什么必须是"最长"而不是"最短"或"首见"** (2026-09-02 终审第 2 轮 N-2, 三策略实测):
+    `_same_model` **不传递** (`openai/gpt-4` ≡ `gpt-4` ≡ `azure/gpt-4`, 但两端 ≢)。
+    已存条目一旦被**缩短**, 它就成了通往别的 provider 的跳板:
+
+    | 策略 | `openai/gpt-4, gpt-4, azure/gpt-4` | `gpt-4, openai/gpt-4, azure/gpt-4` | `gpt-4, azure/gpt-4, openai/gpt-4` |
+    |---|---|---|---|
+    | 最短形 | `['gpt-4']` ❌ | `['gpt-4']` ❌ | `['gpt-4']` ❌ |
+    | 首见形 | 2 项 ✅ | `['gpt-4']` ❌ | `['gpt-4']` ❌ |
+    | **最长形** | 2 项 ✅ | 2 项 ✅ | 2 项 ✅ |
+
+    **最长形是无条件安全的**, 证明: 已存条目只会朝"更限定"增长, 即新值 `A'` 必有
+    `A' = 前缀 + "/" + A`。若 `A'` 与另一已存条目 `B` 等价, 则 `B` 必是 `A'` 的 `/` 后缀
+    或反之; 而 `B` 若以 `A` 结尾则 `A` 是 `B` 的 `/` 后缀 ⇒ `A ≡ B`, 与"`A`、`B` 是两个
+    不同条目"矛盾。⇒ **增长永远不会把原本互不等价的两项并到一起。**
+
+    代价: 展示的是较长那个形 (`bedrock/converse/…` 而非 `converse/…`, 多 7 个字符),
+    换来的是**与到达顺序无关的确定性输出** + 上面那条 ⛔ 承诺真的无条件成立。
+    """
+    for i, seen in enumerate(models_used):
+        if _same_model(seen, reported):
+            if len(reported) > len(seen):
+                models_used[i] = reported     # 只朝"更限定"增长, ⛔ 绝不缩短
+            return
+    models_used.append(reported)
+
+
+def fell_back(s: Settings, model_group: str, reported_models) -> bool | None:
+    """答这道题的, 是不是**自始至终**都是用户选的那个模型? 不知道就返 `None` —— ⛔ 不返 `False`。
+
+    `None` 与 `False` 语义不同, 混同即撒谎: `False` 是"确证没回退", `None` 是
+    "这里没有可比对的东西"。内部组 (default/hard/light/default-fallback) 不在
+    `selectable_models` 里, 没有"用户选的模型串"这个概念 ⇒ `None`。
+    同一个 done 事件里 `verified` 的三态是同一条原则 (2026-09-01 spec §6)。
+
+    **入参是列表**(本次问答逐 chunk 收到的、有序去重的模型串), 不是单值。
+    ⚠ 为什么不能只看最后一个: 联网多轮 (`web_max_rounds = 5`) 里每一轮是独立的
+    `acompletion`, 各自可能回退; 第 1 轮回退、末轮落回主模型时, 只看最后一个会报
+    `False` —— **回退了却不说**。流中途回退 (litellm `MidStreamFallbackError`) 是
+    同一形状的第二条路径。故判据是"**任一个**不符即 True", 不是"最后一个不符"。
+
+    `reported_models` 的元素来自流式 chunk 的 `.model`, **拼法与配置串不一定逐字相同**,
+    故比对走 `_same_model` (带 `/` 边界的后缀关系), 而不是 `==`。三个已知形态:
+
+    - **bedrock 侧, 本轮实测** (真 `create_router` + litellm `mock_response`, 零外部调用):
+      同一次回答里会出现**两种**拼法 —— `converse/global.anthropic.claude-opus-5` 与
+      `bedrock/converse/global.anthropic.claude-opus-5`。`get_llm_provider` **保留** `converse/`,
+      只剥掉最前面的 `bedrock/`。
+    - **deepseek 侧, 实测但只有非流式那一次**: `DEPLOY_PLAN.md` 记的 `/api/ask` 回退到
+      `deepseek/deepseek-v4-pro` 时 `response.model = deepseek-v4-pro` (provider 前缀被剥掉)。
+    - ⚠ **真实 bedrock 回退时流式 chunk 里写什么, 仍未实测** (spec §7 L1)。上面第一条用的是
+      litellm 的 mock 流, 证的是"litellm 的拼法逻辑", 不是"真实 provider 返回什么"。
+      若真串与配置串对不上, 表现是**每条答案都误报"已回退"** —— 响的失败不是静默的,
+      上线第一条真实回答即可证伪。
+
+    ⚠ 上面这段是 2026-09-02 终审修正过的: 初稿把 deepseek 那次实测的"去掉 provider 前缀"
+    **外推**到 bedrock 串并标成"实测", 而实测结果是 `converse/` 被保留。
+    这正是 spec §3 P6 那条教训 (把自己实验的边界当成被测系统的边界) 在下一层重演。
+    """
+    if not reported_models:
+        return None
+    configured = next((m.model for m in _validated_selectable_models(s)
+                       if m.id == model_group), None)
+    if configured is None:
+        return None
+    return not all(_same_model(configured, r) for r in reported_models)

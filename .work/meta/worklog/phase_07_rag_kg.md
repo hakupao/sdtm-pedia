@@ -2191,3 +2191,69 @@ Rule D 全程: 7 个 task 各配独立复审 (实现者/复审不共享上下文
 `DEPLOY_PLAN.md` 记着该回退在 Anthropic credits 耗尽时**真的生效过**。
 本轮只记录不修 (属 U2 范围; 且加了会激活 `model_id`/`model_used` 分叉而 `model_used`
 无任何取值断言 = 在没有闸的地方引入新行为)。**U2 落地前 `opus-5` 失败会直接报错不再回退。**
+
+## 2026-09-02 D6 + D5 还债 — 回退容灾恢复 + 全链诚实呈现 (分支 `fix/model-fallback-honesty`)
+
+**结果**: 全量 **1956 → 2003 passed, 1 skipped** (基线 `2bcd840`)。
+`test_model_switching.py` **35 → 82** (新增 **47** 条闸, **零测试删除行** —— 既有闸期望值仅
+改过 1 条, 且附前后对照说明"被测语义变了"而非"闸被改软")。
+终审裁定 **可合并, 无条件** (0 Critical, 0 遗留 Important)。
+spec `docs/superpowers/specs/2026-09-02-model-fallback-honesty-design.md`;
+账本 `.superpowers/sdd/2026-09-02-model-fallback-honesty/progress.md`;
+retro `sdtm-rag/RETROSPECTIVE_model_fallback_honesty.md`。
+
+### 做了什么
+
+- **D6 (先做)**: `done` 事件 `model_used` 从"整套件零断言"补到**五向** —— 发射端三条
+  (等于 Router 实际返回 / 跟着 Router 变而非回显 `body.model` / 无人报告时发 `null`
+  而**不是**写死 `"default"`), 累积端两条 (后续 chunk 不报时**保值** / 只在 usage chunk
+  报时**收得到**)。后两条是复审做变异才发现的。
+- **D5.1**: `create_router` 给四个 selectable 组补 `fallbacks` → `default-fallback`,
+  表由 `_fallback_map` 从 `selectable_models` **派生** (不手写第二份清单);
+  `hard`/`light`/`default-fallback` **不进表** (C1: 判库/改写不受用户选择影响)。
+- **D5.2**: `done` 加 `models_used` (逐 chunk 收、归并) + `fell_back` (三态 `true/false/null`);
+  判定"任一个不符即回退", 内部组发 `null` 而非 `false`; 回退打 `model_fell_back` 日志。
+- **D5.3/D5.4**: 徽章「模型: X → 实际 Y（已回退）· 验证状态未知」+ 琥珀色;
+  `modelsUsed`/`fellBack` 进 localStorage 存档 (刷新后仍诚实); ⚑ 归因跟着**实际答题模型**走。
+
+### 用户裁定 (spec §2)
+
+R1 D6 先于 D5 · R2 四组补 fallback · R3 `fell_back` 三态 · R4 徽章跟着变 · R5 存档诚实 ·
+**R6** (中途追加) 按 **chunk** 收全 `models_used` —— 因复审实测 last-wins 会在联网多轮
+(某轮回退、末轮落回主模型) 时报 `fell_back=false`, 即"回退了却不说"。
+
+### 教训 (已并入 retrospective 规则 5/6)
+
+- **成因 D: 输入无分辨力** (新增) —— 数据落在两种实现的等价类交集 ⇒ 闸对、断言对、抽取端
+  也没变形, 但变异打不红。本轮**三次**实例 (`sorted(set)` 撞已排序数据 / `?? false` 撞显式
+  布尔 / `unverified: verified===false` 撞全 `false` 场景)。**与前四类的关键区别: 光读代码
+  发现不了**, 只能靠变异, 且变异必须选对。
+- **变异表只记"红了几条"不够** —— 实测对照: 合法塌法与非法塌法**打红的测试完全相同**,
+  只有失败信息不同; 语法错变异只产 `1 error`, 按 `FAILED` 行统计会记成 `failed: []`,
+  **与"变异存活"长得一模一样**。⇒ 必须记 summary 行与失败信息。
+- **变异框架自身失效的第 4、5 种**: 还原没还干净 (备份被后一次变异覆盖, 却照常打印 RESTORED) /
+  自证断言自带假设 (`old not in back` 默认变异是替换型, 对追加型构造上不成立且抛在写盘之后)。
+- **兼容性分析要问"哪两端各自处在哪个版本"** —— 本轮 spec 初稿只写了"新前端 + 老后端",
+  漏了"**老前端 + 新后端**"(已打开未刷新的 tab 持有旧 JS ⇒ 真回退时 = C-1 原样)。
+- **「我在 A 上测到 ≠ 它在 B 上也成立」** —— 把 deepseek 串的"去 provider 前缀"外推到 bedrock
+  串并标成"已实测", 实际 `converse/` 保留。与同一份 spec 里刚写下的 P6「我没测到 ≠ 它不存在」是孪生。
+
+### 过程
+
+Rule D 全程: 5 个 code task 各配独立复审 + 4 轮 task 级修复 + 全分支终审 (第三个
+`subagent_type`) + 2 轮终审修复 + 3 轮定向核验。
+**6 条 Important 里 5 条由复审/终审自加变异挖出**, 实现者与控制器均未看见。
+实现者用实测顶回控制器方案 **1 次** (终审独立穷举 6000 组串 × 全部排列后判"最有价值的一次否决");
+复审推翻实现者前提 1 次; 终审纠正控制器归类错误 1 次。
+
+### 已知限制 (spec §7)
+
+**L1 是最大的未验假设**: `fell_back` 直接吃流式 chunk 的 `.model`, 而**真实 Bedrock 回退时
+那个串**全轮零实测 (三轮累计真实 LLM 调用 **0 次**)。终审零成本收窄至"Bedrock 会不会报第三种
+拼法"这一窄口, 失败**是响的** (徽章异常长/误报已回退) 而非静默。
+另: 真浏览器未验 (playwright skip) · `models_used` 无长度上界 · `/api/ask` 自证面仍缺 (D11 加重)。
+
+### 上线时序 (spec §7.5)
+
+⚠ **重启后已打开的浏览器标签页必须硬刷新** —— `Cache-Control: no-cache` 只保证下一次请求拿到
+新 JS, 保证不了一个根本没再请求过的 tab。
