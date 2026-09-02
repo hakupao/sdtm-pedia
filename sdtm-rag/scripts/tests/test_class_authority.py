@@ -42,12 +42,49 @@ def test_supp_is_keyed_by_the_pattern_not_the_word():
 
 
 def test_loader_fails_loud_on_a_broken_table(tmp_path: Path):
-    """反方向: 表被改坏时必须**当场炸**, ⛔ 不许返回一个短表让下游静默恒真。"""
+    """反方向: 表被改坏时必须**当场炸**, ⛔ 不许返回一个短表让下游静默恒真。
+    ⚠ match 收紧到 "抽取端失效" (而非泛泛的 "权威表") —— 两条 fail-loud 分支
+    (本测试的行数/Class 数不足分支, 与下面 test_loader_fails_loud_when_header_missing
+    的表头找不到分支) 的消息都含 "权威表", 松匹配分辨不出到底是哪条分支炸的。"""
     (tmp_path / "chapters").mkdir()
     (tmp_path / "chapters" / "ch03_submitting_data.md").write_text(
         "| Dataset | Description | Class | Structure |\n|---|---|---|---|\n| AE | x | Events | y |\n",
         encoding="utf-8")
-    with pytest.raises(ValueError, match="权威表"):
+    with pytest.raises(ValueError, match="抽取端失效"):
+        load_class_authority(tmp_path)
+
+
+def test_loader_fails_loud_when_header_missing(tmp_path: Path):
+    """与上面那条互相独立的另一条炸点: 表头行本身就找不到 (ch03 结构变了/表头文字改了),
+    必须报"表头没找到", ⛔ 不能被误判成"行数不足"分支 —— 这条测试原来完全没人钉,
+    松匹配 "权威表" 时两条分支都能让任何一条测试通过, 分辨不出到底炸的是哪条。"""
+    (tmp_path / "chapters").mkdir()
+    (tmp_path / "chapters" / "ch03_submitting_data.md").write_text(
+        "# 这份文件没有权威表表头\n\n随便写点别的内容, 不含 Dataset/Description/Class 表头行。\n",
+        encoding="utf-8")
+    with pytest.raises(ValueError, match="表头没找到"):
+        load_class_authority(tmp_path)
+
+
+def test_loader_fails_loud_on_row_count_alone(tmp_path: Path):
+    """F-1: 隔离 _MIN_ROWS —— 构造一张行数 < 60 但 Class 种类已经 ≥6 (_MIN_CLASSES 过关)
+    的表, 让 "行数不足" 单独触发, 不靠 "Class 种类不够" 顺带兜底。⚠ 原先 4 条测试里
+    唯一覆盖此分支的 test_loader_fails_loud_on_a_broken_table 用的是 1 行/1 Class,
+    两道阈值同时不达标, 分不清到底是 _MIN_ROWS 还是 _MIN_CLASSES 在起作用;
+    _MIN_ROWS 若被删掉/失效, 本测试是唯一会变红的哨兵。"""
+    (tmp_path / "chapters").mkdir()
+    (tmp_path / "chapters" / "ch03_submitting_data.md").write_text(
+        "| Dataset | Description | Class | Structure |\n"
+        "|---|---|---|---|\n"
+        "| AE | x | Events | y |\n"
+        "| LB | x | Findings | y |\n"
+        "| FA | x | Findings About | y |\n"
+        "| CM | x | Interventions | y |\n"
+        "| RELREC | x | Relationship | y |\n"
+        "| CO | x | Special Purpose | y |\n"
+        "| TA | x | Trial Design | y |\n",
+        encoding="utf-8")
+    with pytest.raises(ValueError, match="抽取端失效"):
         load_class_authority(tmp_path)
 
 
