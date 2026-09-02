@@ -1382,16 +1382,22 @@ def test_done_event_merges_two_spellings_of_one_model():
     """闸 **I-2 正向** (终审实测的那个真实形状): litellm 对**同一次**回答会报两种拼法,
     `models_used` 必须收成**一项**, 且是**最短形**。
 
+    ⚠ **期望值在终审第 2 轮从"最短形"改成了"最长形"** —— 本分支唯一一次改既有闸的期望值,
+    原因不是这条闸写错了, 而是**被测语义变了** (N-2): `_same_model` 不传递, 任何"缩短已存
+    条目"的策略都会经由裸形把两个 provider 串起来, 故合并改为**只朝更限定方向增长**。
+    改前钉的是"同一模型收成一项**且展示最短形**", 改后钉的是"同一模型收成一项**且展示
+    最限定形**" —— "收成一项"这半**一字未动**, 变的只是展示选哪个形。
+
     成因 D 自查 —— 哪种错误实现在这组输入上会产出相同输出?
-    答: "保留首次出现的那个"。真实流里短形先到, 那种实现与正确实现输出**逐字相同**。
-    ⇒ 故这里**长形先到**, 期望仍是短形; 并另跑一遍短形先到的顺序, 两个方向都钉。
+    答: "保留首次出现的那个"。它在**长形先到**那半与正确实现输出**逐字相同**
+    (改期望值前, 是**短形先到**那半相同) ⇒ 两个到达顺序都必须跑, 只是有分辨力的那半换了边。
     """
     long_, short = "bedrock/converse/global.anthropic.claude-opus-5", \
                    "converse/global.anthropic.claude-opus-5"
     for first, second in ((long_, short), (short, long_)):
         c = _stream_client(_ChunkScriptRouter([(first, True), (second, True)]))
         ev = _done_event(c, model="opus-5")
-        assert ev["models_used"] == [short], f"{first} 先到: {ev['models_used']}"
+        assert ev["models_used"] == [long_], f"{first} 先到: {ev['models_used']}"
         assert ev["fell_back"] is False, ev
 
 
@@ -1411,8 +1417,11 @@ def test_done_event_keeps_genuinely_different_models_apart():
 def test_litellm_really_reports_two_spellings_for_one_model():
     """**现实锚**: 上面那条用的是我们自己的假 Router, 证的是"我们的合并逻辑"。
     这一条用**真 `create_router` + litellm 自带 `mock_response`** (零外部调用) 钉住
-    "litellm 确实会报两种拼法"这个**事实** —— 它一旦变了, 这条会红, 而不是让合并逻辑
-    悄悄变成一段无用代码。
+    "litellm 确实会报两种拼法" —— 它一旦变了, 这条会红, 而不是让合并逻辑悄悄变成一段无用代码。
+
+    ⚠ **它证的是 litellm 的 mock 流的拼法逻辑, 不是真实 Bedrock 返回什么** (终审 N-3 /
+    spec §7 L6b)。真实回退时 chunk 里到底写什么串仍未实测 (spec §7 L1) —— 别把这条闸
+    读成"真实 provider 也这样"。
 
     源码佐证: `chunk_creator` 里 `model_response.model = self.model`, 而"用 chunk 自带
     model 覆盖"那支只对 Azure 生效。
@@ -1433,7 +1442,8 @@ def test_litellm_really_reports_two_spellings_for_one_model():
     merged: list[str] = []
     for m in raw:
         merge_reported_model(merged, m)
-    assert merged == ["converse/global.anthropic.claude-opus-5"], merged
+    # 期望值随 N-2 一并从最短形改成最长(最限定)形 —— 见 merge_reported_model 的证明。
+    assert merged == ["bedrock/converse/global.anthropic.claude-opus-5"], merged
 
 
 def test_fell_back_warning_is_logged(capsys):
@@ -1453,3 +1463,59 @@ def test_fell_back_warning_is_logged(capsys):
     # 反方向: 没回退时**不该**打这条 (否则日志里全是狼来了)
     _done_event(_stream_client(_EchoModelRouter(_OPUS5_REPORTED)), model="opus-5")
     assert "model_fell_back" not in capsys.readouterr().out
+
+
+def test_badge_is_amber_when_a_verified_model_fell_back(flag_probe):
+    """闸 **N-1**: 回退时的琥珀色判据必须是**常量 `true`**, 不能顺着 `verified` 走。
+
+    ⚠ 终审复核变异 K05 存活 (79 全绿, 本人复跑确认): 把回退分支的 `unverified: true` 改成
+    `unverified: verified === false`。此前**两个**回退场景的 `verified` 都是 `false`,
+    与常量 `true` **逐字同输出** ⇒ 成因 D, 判据形状根本没被钉住。
+
+    ⚠ 为什么这一格特别重要: `opus-5` 是四个可选模型里**唯一** `verified: true` 的, 又是
+    下拉第一项 ⇒ **"用户停在 Opus 5 → Bedrock 挂 → DeepSeek 答"是最可能真实发生的那次回退**,
+    而它的琥珀色恰好落在此前唯一没闸的那一格。
+
+    成因 D 自查 —— 哪种错误实现在这组输入上会产出相同输出?
+    答: `unverified: fellBack === true` (在这个分支里恒真) —— 但那与常量 `true` 在**本分支内
+    语义等价**, 不是缺陷。真正要挡的"顺着 verified 走"已被这组输入分辨开。
+    """
+    got = flag_probe["fellBackVerified"]
+    assert "unverified" in _badge_classes(got), got["badgeClass"]
+    # 诱饵在场才算数: 这条消息的 verified 确实是 true (文案里没有 ⚠未验证)
+    assert "⚠未验证" not in got["badgeText"], got["badgeText"]
+    assert "已回退" in got["badgeText"], got["badgeText"]
+
+
+def test_merge_never_collapses_two_providers_in_any_arrival_order():
+    """闸 **N-2**: `_same_model` **不传递** —— `openai/gpt-4` ≡ `gpt-4` ≡ `azure/gpt-4`,
+    但两端 ≢。任何"缩短已存条目"的合并策略都会经由中间那个裸形把两个 provider 串起来,
+    于是**真回退被判成没回退** (`fell_back` 读的就是这份列表)。
+
+    ⚠ 这条钉的是 `merge_reported_model` docstring 里那句**无条件** ⛔ 承诺真的无条件 ——
+    本仓库既有判例: **假约束注释比过期注释更害人**。故这里跑**全部 6 种到达顺序**,
+    而不是挑一个顺序验一下就算。
+
+    实测三策略 (终审第 2 轮): 最短形 6/6 全错; 首见形只在"限定形先到"时对; 最长形 6/6 全对。
+    """
+    from itertools import permutations
+    from server.llm_config import merge_reported_model
+    for order in permutations(("openai/gpt-4", "gpt-4", "azure/gpt-4")):
+        merged: list[str] = []
+        for m in order:
+            merge_reported_model(merged, m)
+        assert len(merged) == 2, f"到达顺序 {order} 把两个 provider 并成了: {merged}"
+        assert set(merged) == {"openai/gpt-4", "azure/gpt-4"}, f"{order} -> {merged}"
+
+
+def test_merge_still_collapses_one_model_in_any_arrival_order():
+    """闸 N-2 反方向: 别为了防合并把该合的也不合了 —— 同一模型的两种拼法, 无论谁先到,
+    都必须收成**一项**, 且结果与到达顺序无关 (最长形的一个附带好处)。"""
+    from server.llm_config import merge_reported_model
+    long_, short = "bedrock/converse/global.anthropic.claude-opus-5", \
+                   "converse/global.anthropic.claude-opus-5"
+    for order in ((long_, short), (short, long_)):
+        merged: list[str] = []
+        for m in order:
+            merge_reported_model(merged, m)
+        assert merged == [long_], f"{order} -> {merged}"

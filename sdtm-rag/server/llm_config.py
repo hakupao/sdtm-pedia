@@ -220,6 +220,11 @@ def _same_model(a: str, b: str) -> bool:
     但不是一个完整的模型标识。
     ⛔ **不许用"取最后一段"** (`rsplit("/")[-1]`): 那会把 `openai/gpt-4` 与 `azure/gpt-4`
     这种**跨 provider 同名**静默合并成一个, 于是真回退被判成没回退。
+
+    ⚠ **本关系不满足传递性**: `openai/gpt-4` ≡ `gpt-4` ≡ `azure/gpt-4`, 但
+    `openai/gpt-4` ≢ `azure/gpt-4`。⇒ 任何"沿着已存条目往下缩"的合并策略都会经由中间的
+    裸形把两个 provider 串起来。`merge_reported_model` 因此**只往更长(更限定)的方向**
+    更新已存条目 —— 见那里的证明。
     """
     return a == b or a.endswith("/" + b) or b.endswith("/" + a)
 
@@ -234,13 +239,30 @@ def merge_reported_model(models_used: list[str], reported: str) -> None:
     不合并的话, 徽章会把 2 个模型写成 4 个串、上百字符, 而且"实际答题的是谁"这一栏里还混着
     **用户自己选的那个** —— 直接把 R4 想要的"一眼看出实际是谁答的"给毁了。
 
-    留**最短形**而不是"首次出现的那个": 展示用, 短的那个信息量不少、噪音更小。
-    位置不动 (列表顺序 = **首次出现**顺序), 因为顺序表达的是"谁先答的"。
+    留**最长(最限定)形**, 位置不动 (列表顺序 = **首次出现**顺序, 它表达的是"谁先答的")。
+
+    ⚠ **为什么必须是"最长"而不是"最短"或"首见"** (2026-09-02 终审第 2 轮 N-2, 三策略实测):
+    `_same_model` **不传递** (`openai/gpt-4` ≡ `gpt-4` ≡ `azure/gpt-4`, 但两端 ≢)。
+    已存条目一旦被**缩短**, 它就成了通往别的 provider 的跳板:
+
+    | 策略 | `openai/gpt-4, gpt-4, azure/gpt-4` | `gpt-4, openai/gpt-4, azure/gpt-4` | `gpt-4, azure/gpt-4, openai/gpt-4` |
+    |---|---|---|---|
+    | 最短形 | `['gpt-4']` ❌ | `['gpt-4']` ❌ | `['gpt-4']` ❌ |
+    | 首见形 | 2 项 ✅ | `['gpt-4']` ❌ | `['gpt-4']` ❌ |
+    | **最长形** | 2 项 ✅ | 2 项 ✅ | 2 项 ✅ |
+
+    **最长形是无条件安全的**, 证明: 已存条目只会朝"更限定"增长, 即新值 `A'` 必有
+    `A' = 前缀 + "/" + A`。若 `A'` 与另一已存条目 `B` 等价, 则 `B` 必是 `A'` 的 `/` 后缀
+    或反之; 而 `B` 若以 `A` 结尾则 `A` 是 `B` 的 `/` 后缀 ⇒ `A ≡ B`, 与"`A`、`B` 是两个
+    不同条目"矛盾。⇒ **增长永远不会把原本互不等价的两项并到一起。**
+
+    代价: 展示的是较长那个形 (`bedrock/converse/…` 而非 `converse/…`, 多 7 个字符),
+    换来的是**与到达顺序无关的确定性输出** + 上面那条 ⛔ 承诺真的无条件成立。
     """
     for i, seen in enumerate(models_used):
         if _same_model(seen, reported):
-            if len(reported) < len(seen):
-                models_used[i] = reported
+            if len(reported) > len(seen):
+                models_used[i] = reported     # 只朝"更限定"增长, ⛔ 绝不缩短
             return
     models_used.append(reported)
 

@@ -346,6 +346,11 @@ const out = {
   withModelId: await scenario({ modelId: "gpt-sol" }),
   legacyNoModelId: await scenario({ modelId: null }),
   verifiedTrue: await scenario({ modelId: "opus-5", verified: true }),
+  // ⚠ verified=true **且**回退 —— opus-5 是四个里唯一 verified:true 的, 又是下拉第一项,
+  // 所以"用户停在 Opus 5 → Bedrock 挂 → DeepSeek 答"是最可能真实发生的那一次回退,
+  // 而它的琥珀色恰好落在此前没闸的那一格 (终审第 2 轮 N-1)。
+  fellBackVerified: await scenario({ modelId: "opus-5", verified: true, fellBack: true,
+                                     modelsUsed: ["deepseek-v4-pro"] }),
   fellBack: await scenario({ modelId: "gpt-sol", modelsUsed: ["deepseek-v4-pro"], fellBack: true }),
   fellBackMulti: await scenario({ modelId: "gpt-sol", fellBack: true,
                                   modelsUsed: ["deepseek-v4-pro", "global.openai.gpt-5.6-sol"] }),
