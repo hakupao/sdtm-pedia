@@ -230,7 +230,8 @@ def _same_model(a: str, b: str) -> bool:
 
 
 def merge_reported_model(models_used: list[str], reported: str) -> None:
-    """把一个 chunk 报出的模型串并进有序列表 —— 同一模型只留一项, 且保留**最短形**。
+    """把一个 chunk 报出的模型串并进有序列表 —— 同一模型只留一项, 已存条目**只朝更限定
+    (更长) 的方向增长**, ⛔ 绝不缩短。
 
     ⚠ 为什么需要这个 (2026-09-02 终审 I-2, 本轮实测): litellm 对**同一次**回答会报出
     **两种拼法** —— 内容 chunk 是 `converse/global.anthropic.claude-opus-5`, 收尾/usage

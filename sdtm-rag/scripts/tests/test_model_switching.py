@@ -1380,7 +1380,7 @@ def test_same_model_does_not_merge_across_providers():
 
 def test_done_event_merges_two_spellings_of_one_model():
     """闸 **I-2 正向** (终审实测的那个真实形状): litellm 对**同一次**回答会报两种拼法,
-    `models_used` 必须收成**一项**, 且是**最短形**。
+    `models_used` 必须收成**一项**, 且是**最限定形** (合并只朝更长方向增长)。
 
     ⚠ **期望值在终审第 2 轮从"最短形"改成了"最长形"** —— 本分支唯一一次改既有闸的期望值,
     原因不是这条闸写错了, 而是**被测语义变了** (N-2): `_same_model` 不传递, 任何"缩短已存
