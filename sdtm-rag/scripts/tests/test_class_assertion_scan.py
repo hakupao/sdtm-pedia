@@ -53,8 +53,20 @@ def test_parse_accepts_a_clean_verdict():
 
 
 def test_parse_tolerates_a_fenced_verdict():
-    """裁判常把 JSON 包在 ```json 里 —— 解析不了就等于整条扫描白跑。"""
-    v = parse_judge_verdict('```json\n{"has_assertion": false, "verdict": "consistent",\n'
+    """裁判常把 JSON 包在 ```json 里, 前面往往还带一段闲聊 (Task 6 真裁判的实际输出
+    形状) —— 解析不了就等于整条扫描白跑。
+
+    ⚠⚠ 修复轮 2 (复核变异 X1 证伪原版本, 见 task-3-report.md 「修复轮 2」段): 原来的
+    输入除了围栏里的 JSON 外**没有别的花括号**, 所以就算把 `_FENCE_RE` 整个删掉, 贪婪的
+    `_BARE_RE`（`r"(\\{.*\\})"`）单独就能从头到尾捞出同一段 JSON, 一样能解析成功
+    ⇒ 这条测试对"`_FENCE_RE` 被删"零分辨力, 而 `_FENCE_RE` 在真实场景里是承重的
+    (裁判常在围栏前先写一段闲聊, 里头可能带花括号)。改法: 围栏**之前**插一段带花括号
+    的闲聊文本 (`{not json}`)。有 `_FENCE_RE` 时它只在三个反引号内非贪婪抓 JSON,
+    闲聊部分不受影响, 照常解析成功; 若 `_FENCE_RE` 被删, 贪婪 `_BARE_RE` 会从闲聊里的
+    第一个 `{` 一路吞到围栏 JSON 的最后一个 `}`, 拼出一段不是合法 JSON 的字符串,
+    `json.loads` 失败 ⇒ 落 `unsure`/`has_assertion=None`, 这条测试才会真的红。"""
+    v = parse_judge_verdict('Some notes {not json} before the block.\n'
+                            '```json\n{"has_assertion": false, "verdict": "consistent",\n'
                             ' "quote": "", "authority": ""}\n```')
     assert v["has_assertion"] is False
 
@@ -84,14 +96,24 @@ def test_scan_returns_one_row_per_answer_and_keeps_ids():
 
 def test_scan_isolates_a_judge_failure():
     """一个答案judge 挂掉不得让整批白跑 —— 记成 unsure + error, 继续扫。
-    ⛔ 不得记成 consistent (同上: 会躲开对抗抽样)。"""
+    ⛔ 不得记成 consistent (同上: 会躲开对抗抽样)。
+
+    ⚠⚠ 修复轮 2: 只注入 `RuntimeError` 时, `except Exception` → `except RuntimeError`
+    这条变异全绿 (实现本身是对的 —— 宽捕获符合"任意 judge 失败都隔离"的设计, 但闸留了
+    个前瞻性盲区: 换个不是 `RuntimeError` 的异常类型就漏了)。追加第三条 answer, 用
+    `ValueError` 触发, 让这条变异能红。"""
     def flaky_judge(prompt: str) -> str:
         if "BOOM" in prompt:
             raise RuntimeError("judge exploded")
+        if "CRASH" in prompt:
+            raise ValueError("judge really exploded")
         return json.dumps({"has_assertion": False, "verdict": "consistent",
                            "quote": "", "authority": ""})
 
-    rows = scan_answers([{"id": "q01", "answer": "BOOM"}, {"id": "q02", "answer": "ok"}],
+    rows = scan_answers([{"id": "q01", "answer": "BOOM"},
+                         {"id": "q02", "answer": "ok"},
+                         {"id": "q03", "answer": "CRASH"}],
                         flaky_judge, _AUTH_MD)
     assert rows[0]["verdict"] == "unsure" and rows[0]["error"]
     assert rows[1]["verdict"] == "consistent" and not rows[1].get("error")
+    assert rows[2]["verdict"] == "unsure" and rows[2]["error"]
