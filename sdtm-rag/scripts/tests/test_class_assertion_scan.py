@@ -21,21 +21,25 @@ def test_prompt_carries_the_whole_authority_table():
 def test_prompt_tells_the_judge_about_the_supp_naming_variant():
     """⚠ 实测坑 (Task 2): 表键是 `SUPP--`, 而 "SUPPQUAL" 在 ch03 出现 0 次。
     不告诉裁判这个变体, 它会把「SUPPQUAL 是 special-purpose」当成"查不到 ⇒ 没断言"放过。
+    本测试守的判据: **M4 (删掉整段 Naming note) 必须让它红。**
 
-    ⚠⚠ 分辨力实测结论 (M4 变异跑出来的, 推翻了曾经的推断): 两半**都对"Naming note
-    被整段删掉"零分辨力**。`"SUPP--" in p` 来自权威表本身 (`_AUTH_MD` 里就有), 与
-    Naming note 无关; `"SUPPQUAL" in p` 看似该钉 Naming note (措辞里唯一出现字面
-    "SUPPQUAL" 的地方), 但这条测试传进 `build_judge_prompt` 的 answer 参数本身就是
-    `"SUPPQUAL is a special-purpose dataset."` —— 这句话经 `{answer}` 占位符原样进了
-    prompt, 于是 `"SUPPQUAL" in p` 不管 Naming note 在不在都为真。实测: 删掉整段
-    Naming note 后本文件 7 个测试**全绿, 0 red** (见 task-3-report.md M4 行)。
-    ⇒ 本测试当前不能证明 Naming note 真的进了 prompt, 只能证明 `{authority}` 与
-    `{answer}` 两个占位符被替换了 (这两点已被 M3/其它测试覆盖, 谈不上新增价值)。
-    这是 brief 遗留的一个真实缺口, 留给复审/下一轮判定是否要补一条不含字面
-    "SUPPQUAL" 的独立断言 (例如改用只含 "SUPPAE" 的 answer, 或直接断言
-    Naming note 的完整句子在 prompt 里)。"""
-    p = build_judge_prompt("SUPPQUAL is a special-purpose dataset.", _AUTH_MD)
-    assert "SUPP--" in p and "SUPPQUAL" in p
+    ⚠⚠ 修复轮 1 (原版本经 M4 实测证伪, 见 task-3-report.md 「修复轮 1」段): 原来的
+    answer 文本是 `"SUPPQUAL is a special-purpose dataset."`, 它本身就含字面
+    "SUPPQUAL", 经 `{answer}` 占位符原样进了 prompt —— 于是 `"SUPPQUAL" in p` 不管
+    Naming note 在不在都为真, 这条闸形同虚设。
+
+    ⇒ 改法两处:
+    1. answer **刻意换成不含字面 "SUPPQUAL" 的句子** (`SUPPAE`)。这样 prompt 里
+       "SUPPQUAL" 就**只可能来自 Naming note** (Naming note 是措辞里唯一列出这个
+       具体例子的地方) —— `assert "SUPPQUAL" in p` 才真的钉住 Naming note。
+       ⛔ 谁把 answer 换回含字面 "SUPPQUAL" 的句子, 这条闸就会重新失效, 而且不会
+       报错 (只会悄悄变回恒真) —— 改 answer 前务必重跑 M4。
+    2. 删掉了原来的 `assert "SUPP--" in p`: 它的真值来自 `_AUTH_MD` 本身, 跟
+       Naming note 无关, 对本测试零分辨力; "权威表整段进了 prompt" 这件事已经由
+       `test_prompt_carries_the_whole_authority_table` 单独钉住, 留在这里只会让
+       读者误以为这条闸比实际更强。"""
+    p = build_judge_prompt("SUPPAE is a special-purpose dataset.", _AUTH_MD)
+    assert "SUPPQUAL" in p
 
 
 def test_parse_accepts_a_clean_verdict():
