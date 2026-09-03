@@ -44,6 +44,33 @@ from server.rag import RAGEngine  # noqa: E402
 
 TOP_K = 15
 
+# V-2: 生成调用的 max_tokens 必须**显式**给, 不能吃 litellm 的 provider 默认值
+# (Bedrock Converse=4096, OpenAI 系是模型上限) —— 默认值不同 ⇒ 各模型截断率不同
+# ⇒ 截断会少发码 ⇒ 话痨模型在 (a) 层显得更干净。跨模型比较必须同一个上限。
+MAX_TOKENS = 8192
+
+
+def build_completion_kwargs(
+    messages: list, temperature: float | None, max_tokens: int
+) -> dict:
+    """生成调用的 kwargs。max_tokens 恒进, temperature 只在给了时进。"""
+    kwargs: dict = {"messages": messages, "max_tokens": max_tokens}
+    if temperature is not None:
+        kwargs["temperature"] = temperature  # 0.0 => deterministic paired runs
+    return kwargs
+
+
+def find_truncated(results: list[dict], max_tokens: int) -> list[str]:
+    """撞满 max_tokens 的题 id —— 这些答案很可能被切在句中。
+
+    ⚠ 截断必须**可见**: 2026-09-02 那轮 q36/q83 撞顶无任何提示, 靠人工比对才发现。
+    没有 usage 的条目 (retrieval-only / 生成失败) 跳过, 不算截断也不炸。
+    """
+    return [
+        r["id"] for r in results
+        if (r.get("usage") or {}).get("completion_tokens") == max_tokens
+    ]
+
 
 _GOLD_KEYS = ("expected_sources", "expected_sources_any")
 _KNOWN_EXPECTED_KEYS = _GOLD_KEYS + ("expected_facts",)
@@ -310,6 +337,7 @@ def run_evaluation(
     judge: bool = False,
     judge_model: str = DEFAULT_JUDGE_MODEL,
     answerer=None,
+    max_tokens: int = MAX_TOKENS,
 ) -> list[dict]:
     results: list[dict] = []
     for q in test_set:
@@ -352,9 +380,7 @@ def run_evaluation(
                 context = augment_context(facts, context)
             messages = rag.build_messages(q["question"], context)
 
-            comp_kwargs: dict = {"messages": messages}
-            if temperature is not None:
-                comp_kwargs["temperature"] = temperature  # 0.0 => deterministic paired runs
+            comp_kwargs = build_completion_kwargs(messages, temperature, max_tokens)
             for _attempt in range(5):
                 try:
                     if direct_model is not None:
@@ -636,6 +662,14 @@ def main(argv: list[str] | None = None) -> int:
         type=int,
         default=TOP_K,
         help=f"Chunks retrieved per query (default {TOP_K}); T1 ablation lever",
+    )
+    parser.add_argument(
+        "--max-tokens",
+        type=int,
+        default=MAX_TOKENS,
+        help=f"V-2: explicit generation cap (default {MAX_TOKENS}). Pinned so that "
+             "providers' differing defaults cannot give models different truncation "
+             "rates (truncation suppresses codes -> flatters the code-grounding check)",
     )
     parser.add_argument(
         "--rerank",
@@ -1034,6 +1068,7 @@ def main(argv: list[str] | None = None) -> int:
         test_set, retriever, router, args.retrieval_only, direct_model=args.model,
         top_k=args.top_k, temperature=args.temperature, full_answers=args.full_answers,
         judge=args.judge, judge_model=args.judge_model, answerer=answerer,
+        max_tokens=args.max_tokens,
     )
     summary = print_summary(
         results,
@@ -1083,6 +1118,23 @@ def main(argv: list[str] | None = None) -> int:
     summary["structured_answer"] = args.structured_answer
     summary["graph_answer"] = args.graph_answer
     summary["aggregate_answer"] = args.aggregate_answer
+    # V-1: 检索实参必须落盘, 否则事后重建上下文只能猜 —— 2026-09-02 那轮
+    # check_code_grounding.py 猜错 (写死 lookup/hybrid=ON, 实际全 OFF), 8 条 ungrounded
+    # 全是假阳性。同上, 记**引擎实收值**不记 args。
+    summary["retrieval_levers"] = {
+        "top_k": rag.top_k,
+        "structured_lookup": rag.structured_lookup_enabled,
+        "hybrid": rag.hybrid_enabled,
+        "rerank": rag.rerank_enabled,
+        "query_expansion": rag.query_expansion,
+    }
+    # V-2: 上限本身 + 撞顶的题。撞顶 = 答案很可能被切在句中 ⇒ 少发码 ⇒ (a) 层偏乐观。
+    summary["max_tokens"] = args.max_tokens
+    truncated = find_truncated(results, args.max_tokens)
+    summary["truncated"] = truncated
+    if truncated:
+        print(f"\n⚠ TRUNCATED at max_tokens={args.max_tokens} ({len(truncated)}): "
+              f"{', '.join(truncated)}")
     if args.judge:
         summary["judge_model"] = args.judge_model
 

@@ -45,6 +45,11 @@ def captured(tmp_path, monkeypatch):
             self.hybrid_alpha = kwargs["hybrid_alpha"]
             self.web_search_enabled = kwargs["web_search_enabled"]
             self.prompt_guardrail_enabled = kwargs["prompt_guardrail_enabled"]
+            # summary["retrieval_levers"] 读引擎实收值 (V-1), 替身必须照搬真引擎的这几个
+            self.top_k = kwargs["top_k"]
+            self.structured_lookup_enabled = kwargs["structured_lookup_enabled"]
+            self.hybrid_enabled = kwargs["hybrid_enabled"]
+            self.rerank_enabled = kwargs["rerank_enabled"]
 
     class FakeRouter:
         model_list: list = []
@@ -389,7 +394,10 @@ def captured_federated(tmp_path, monkeypatch):
             for k in ("rerank_model", "rerank_candidates", "query_expansion",
                       "expansion_model", "expansion_n_queries", "hybrid_fusion",
                       "hybrid_alpha", "web_search_enabled",
-                      "prompt_guardrail_enabled"):
+                      "prompt_guardrail_enabled",
+                      # summary["retrieval_levers"] 读引擎实收值 (V-1)
+                      "top_k", "structured_lookup_enabled", "hybrid_enabled",
+                      "rerank_enabled"):
                 setattr(self, k, kwargs[k])
 
     monkeypatch.setattr(run_eval, "RAGEngine", FakeEngine)
