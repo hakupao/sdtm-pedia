@@ -160,6 +160,9 @@ KNOWN_PUBLIC_COLLISIONS: dict[str, str] = {
             "event/activity name 字面重合 —— 见上方大段警告, 这是有意保留的全局盲区",
     "CTCAE": "公开 NCI/FDA 不良事件分级标准 (Common Terminology Criteria for Adverse "
              "Events), 证据文件里作为举例出现",
+    "SF-36": "公开健康调查量表名 (Short Form-36 Health Survey), 且**逐字出现在本仓公开 "
+             "knowledge_base 的 CDISC SDTMIG 原文**里 (chapters/ch04_general_assumptions.md "
+             "§4.1.7 拆分域示例 \"QS36 for SF-36\") —— 谈 QS domain 必然写到它",
 }
 
 # 明确不算泄漏的 (相对 git 仓库根的路径, needle) —— 每条必须附一句话理由, 供审计
