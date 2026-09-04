@@ -2257,3 +2257,82 @@ Rule D 全程: 5 个 code task 各配独立复审 + 4 轮 task 级修复 + 全�
 
 ⚠ **重启后已打开的浏览器标签页必须硬刷新** —— `Cache-Control: no-cache` 只保证下一次请求拿到
 新 JS, 保证不了一个根本没再请求过的 tab。
+
+## 2026-09-03/04 — `verified` 兑现抽检: opus-5 首轮 + V-1/V-2 双修 (分支 `feat/verified-spotcheck`)
+
+预登记文件 `sdtm-rag/evidence/checkpoints/verified_spotcheck_2026-09.md` (判据与自毁条款
+在任何数据之前 commit)。本轮按用户裁定 **只跑 opus-5 一个模型** (而非 plan 的四个一起)。
+
+### 实测 (推算 → 实测)
+
+37m04s / 102 题, EXIT 0, 102/102 非空。单题 elapsed 8.8/19.2/46.0s (串行)。
+答案 974/3187/8754 字符; completion tokens 577/1538/4096; total_tokens 2,127,221。
+
+### 自毁条款
+
+- **S1 (码总数 < 20): 未触发** —— 454 个码 (70/102 题含码) ⇒ (a) 层在本题集**有分辨力**,
+  题集不用换。这是本轮跑单模型的主要目的之一, 已达成。
+- **S4 (失败率 > 10%): 未触发** (0%)。
+- S2/S3 需四模型齐全 / (b) 层人判后才可判。
+
+### V-1: 判据脚本重建口径与生成口径不一致 (最重要的一条)
+
+`check_code_grounding.py::prod_engine()` 写死 `structured_lookup=ON, hybrid=ON`, 而
+`run_eval.py` 这两个 lever 默认关 ⇒ **判 ungrounded 所用的 top-15 不是模型当时看见的**。
+首次运行报 8 条 ungrounded / 0 nonexistent ⇒ (a) FAIL。
+
+**定方向的不是论证是数据**: 用 run json 里**已落盘**的 `top5_sources` 验重建保真 ——
+生成口径 **102/102** 还原, 旧写死口径 **0/102**。⇒ 8 条全是口径差假阳性, 真实是 0。
+
+修法 (用户 2026-09-03 裁定, 阈值一个没动):
+- 口径改读报告落盘的 `summary.retrieval_levers` (老报告退回 run_eval 默认全 OFF);
+  `run_eval` 落盘该字段, 取**引擎实收值**不取 args (沿用 `prompt_guardrail` 同约定)。
+- `ReconstructionMismatchError`: 重建 top5 != 落盘 ⇒ 拒绝出数 (变异实证: lever 改回旧
+  写死值, q01 当场炸, 不再安静报 8 条)。
+- `DegenerateContextError`: KB 中不存在的 `C99999` 出现在上下文 ⇒ 疑似整库 ⇒ 拒绝出数。
+  堵的是**本判据唯一的假 PASS 通道** —— 保真闸拦不住它 (那条 bug 在 `format_context`
+  而非 `retrieve`)。
+
+⚠ **修订发生在看过数据之后, 且方向对被测对象有利** —— 该事实与可复核证据一并写进
+预登记文件的「判据修订记录」段, 不藏。
+
+### V-2: max_tokens 从未显式设置
+
+`comp_kwargs` 只放 `messages` ⇒ 4096 是 litellm 对 Bedrock Converse 的**默认值**, 不是
+任何人选的。各 provider 默认不同 ⇒ **差异化截断率** ⇒ 截断少发码 ⇒ 话痨模型在 (a) 层
+显得更干净, 且**全程静默** (q36/q83 撞顶是人工比对 completion_tokens 才发现的)。
+已钉 `MAX_TOKENS=8192` + summary 落 `truncated` + stdout 打 `⚠ TRUNCATED`。
+⚠ opus-5 那轮跑在修复前, **与后续三模型上限不齐**, 是本轮未消除的 known limitation。
+
+### (b) 层: 裁判扫描完成, 人判未做
+
+deepseek/deepseek-chat (与生成方 opus-5 **不同模型族**, 避自偏好; 用户裁定) 逐答案扫 102 次,
+1m25s: 98 consistent / 4 inconsistent, parse_error 0, 调用失败 0。
+抽样 `{consistent:5, flagged:3, backfilled:0}` seed=0。
+
+两个新闸 (均 TDD):
+- `entries_from_report` **拒绝回退 `answer_preview`** —— preview 只有 600 字符而答案中位
+  3187, 拿它问裁判会让多数归属断言落在截断外 ⇒ 裁判大面积判"无断言" ⇒ (b) 层**恒 PASS**,
+  且这种失败**看起来和真通过一模一样** (retrospective 成因 A)。
+- `blind_order` **打乱人判包条目顺序** —— `pick_sample` 返回 clean 段+flagged 段 ⇒ 后 3 条
+  恒是裁判报警的 ⇒ **顺序本身就是 verdict**, 违反预登记"人判 ⛔ 不看 verdict"。
+  既有 `test_packet_shows_answer_and_quote_but_not_the_verdict` 只查字面词, 查不到这条通道
+  —— **又一例「闸把自己的能力说大了」** (同 F-2/M-3 家族)。
+
+⛔ 人判本身未做, `verified` 仍是「待 (b)」。**不代判** —— LLM 代判 = 用裁判查裁判,
+结构上测不到漏网, 而人判存在的全部意义就是兜漏网。
+
+### 其他
+
+- 红线闸拦下 `SF-36` 4 处, triage 判**撞车非泄漏** (公开量表名, 且逐字见于公开 KB 的
+  ch04 §4.1.7 "QS36 for SF-36"), 按闸的规矩加进 `KNOWN_PUBLIC_COLLISIONS` 并附理由,
+  **未用 `--no-verify` 绕过**。⚠ 这是全局豁免, 已在 commit 说明里点名其盲区代价。
+- 测试 2003 → **2049 passed / 1 skipped / 0 failed**, 新增 23 条。
+- 成本实账: 四模型全跑 = **408 生成 + 408 裁判 = 816 次**, 非早期沟通的"408 次"。
+
+### 教训
+
+**「实测过的东西也可能测错了对象」** —— (a) 层第一次跑出 8 条 ungrounded, 数字真实、
+脚本没 bug、命令可复跑, 但**被测对象是错的**(重建了另一套检索配置下的上下文)。
+可复跑 ≠ 测对了东西。识破它靠的不是读代码, 是拿**产物里已经落盘的另一个字段**
+(`top5_sources`) 去反验重建保真 —— 这条反验此后已固化成闸。
