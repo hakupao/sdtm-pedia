@@ -2336,3 +2336,13 @@ deepseek/deepseek-chat (与生成方 opus-5 **不同模型族**, 避自偏好; �
 脚本没 bug、命令可复跑, 但**被测对象是错的**(重建了另一套检索配置下的上下文)。
 可复跑 ≠ 测对了东西。识破它靠的不是读代码, 是拿**产物里已经落盘的另一个字段**
 (`top5_sources`) 去反验重建保真 —— 这条反验此后已固化成闸。
+
+## 2026-09-06 — `verified` 兑现抽检: opus-5 (b) 层人判收口 ⇒ `verified: true`
+
+- 用户人判 8 条 (q16/q102/q57/q21/s05 + q100/q41/q39) **全 PASS**。S3 (裁判 consistent 而人判 FAIL) **0 条, 未触发**。
+- (a) PASS ∧ (b) PASS ⇒ **opus-5 `verified: true`**, 绑定 `run_opus-5.json` 那一次运行。`server/config.py` 早已 `verified=True` (联网通道那轮), 本轮是 102q 兑现, 代码零改动。
+- 附带观察: 裁判判 inconsistent 的 3 条人判全 PASS ⇒ 裁判偏保守方向; 仅 8 条上的观察, 对其余 94 题不做声称。
+- 如实记录: 用户首次回复「看了一些」, 追问后重看确认; 交接 §7 锚定风险用户未表态, 锚定方向 (更易判 FAIL) 与实际结果相反, 不改变结论。
+- ⚠ 汇报连带: B-1 (a) PASS 建立在 2026-09-03 判据口径修订之上; B-2 本轮 max_tokens=4096 与后续三模型 8192 不齐。
+- 待裁定: 其余三模型跑不跑 (612 次 + 24 条人判)。
+- 落盘: `sdtm-rag/evidence/checkpoints/verified_spotcheck_2026-09.md` §† · 交接文档 §0 标记已解除。

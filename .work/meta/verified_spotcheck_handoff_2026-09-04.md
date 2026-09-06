@@ -3,7 +3,17 @@
 > 分支 `feat/verified-spotcheck` · **已推送 origin** · 测试 **2049 passed / 1 skipped / 0 failed**
 > 预登记文件: `sdtm-rag/evidence/checkpoints/verified_spotcheck_2026-09.md` (**先读它, 再读本文**)
 
-## 0. ⛔ 唯一阻塞项: (b) 层人判 8 条在用户手上
+## 0. ✅ 已解除 (2026-09-06): (b) 层人判 8 条全 PASS, S3 未触发, opus-5 `verified: true`
+
+记录见 `sdtm-rag/evidence/checkpoints/verified_spotcheck_2026-09.md` §「† (b) 层人判记录」。
+**用户裁定 (2026-09-06): 下个 session 三个模型 (sonnet-5 / gpt-terra / gpt-sol) 都跑。**
+成本 (生成 306 + 裁判 306 = 612 次 + 24 条人判) 用户已知悉并同意, 开跑不必再问。
+每模型流程: `run_eval.py` 生成 (max_tokens 8192 默认) → `check_code_grounding.py <run> on` (a) 层
+→ `run_class_assertion_scan.py <run>` 裁判扫描 + 人判包 → 用户人判 8 条 → 填表 + S3。
+四模型齐后再判 S2 (四个 (a) 结果完全相同 ⇒ 只能写「未发现差异」)。
+⚠ 跨模型对比时记 B-2: opus-5 是 4096 上限, 其余三个 8192。以下为原文, 保留作历史。
+
+### (原) ⛔ 唯一阻塞项: (b) 层人判 8 条在用户手上
 
 新 session 开局**不要自己动手判, 也不要替用户判** —— 预登记写死 (b) 层是**人判**,
 理由是兜裁判漏网。LLM 代判 = 用裁判去查裁判, 结构上测不到漏网。
@@ -34,7 +44,7 @@
 | S1 (码 < 20) | **未触发** (454) ⇒ (a) 层有分辨力, 题集不用换 | 同上 |
 | S4 (失败率 > 10%) | **未触发** (0%) | 同上 |
 | 裁判扫描 | 98 consistent / 4 inconsistent, parse_error 0, 失败 0 | `evidence/checkpoints/class_scan_opus-5.json` |
-| `verified` | **⬜ 待 (b)** — **不是 true** | — |
+| `verified` | **true** (2026-09-06, (b) 8/8 PASS, S3 未触发) | `verified_spotcheck_2026-09.md` §† |
 
 ## 3. 三条会让人误读的边界
 

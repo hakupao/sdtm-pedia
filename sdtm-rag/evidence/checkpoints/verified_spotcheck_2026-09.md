@@ -37,7 +37,7 @@
 
 | 模型 | 生成成功/102 | 码总数 | ungrounded | nonexistent | (a) | 人判 8 条 | (b) | verified | 触发条款 |
 |---|---|---|---|---|---|---|---|---|---|
-| opus-5 | 102/102 | 454 | **0** ※ | 0 | **PASS** ※ | ⬜ | ⬜ | ⬜ (待 (b)) | 无 (S1/S4 均未触发) |
+| opus-5 | 102/102 | 454 | **0** ※ | 0 | **PASS** ※ | **8/8 PASS** † | **PASS** † | **true** ※† | 无 (S1/S3/S4 均未触发; S2 待四模型) |
 | sonnet-5 | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
 | gpt-terra | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
 | gpt-sol | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
@@ -243,3 +243,38 @@ d['summary']['retrieval_levers']={'top_k':15,'structured_lookup':True,'hybrid':T
 `test_run_eval_report_provenance.py` 5)。
 `test_run_eval_flags.py` 的两个 FakeEngine 补了 4 个属性 —— summary 读引擎实收值,
 替身缺属性会 AttributeError; 补替身而非在生产代码里 getattr 兜底 (兜底会把"记实收值"退回猜)。
+
+## † (b) 层人判记录 — opus-5 (2026-09-06)
+
+人判材料: `human_packet_opus-5.md` (权威表 + 8 条答案原文, 无 verdict) + `human_packet_opus-5_index.md`。
+判者: 用户 (⛔ 非 LLM 代判)。裁判扫描: `class_scan_opus-5.json` (seed=0, 构成 5 consistent + 3 inconsistent, backfilled 0)。
+
+| 题 | 裁判 verdict (S3 比对用, 人判时不看) | 人判 |
+|---|---|---|
+| q16 | consistent | PASS |
+| q102 | consistent | PASS |
+| q57 | consistent | PASS |
+| q21 | consistent | PASS |
+| s05 | consistent | PASS |
+| q100 | inconsistent | PASS |
+| q41 | inconsistent | PASS |
+| q39 | inconsistent | PASS |
+
+**S3 判定**: 「裁判 consistent 且人判 FAIL」= **0 条** ⇒ **未触发**。
+⇒ (b) = PASS; 与 (a) PASS 合取 ⇒ **opus-5 `verified: true`** (绑定 `run_opus-5.json` 那一次运行)。
+
+**附带观察 (非判据)**: 裁判判 inconsistent 的 3 条 (q100/q41/q39) 人判均 PASS ⇒ 裁判在本题集上
+是**偏保守 (假阳性)** 方向, 未见漏网。这只是 8 条上的观察, 对其余 94 题不做声称。
+
+**如实记录的两点**
+1. 判定过程: 用户首次回复「看了一些, 都 PASS」; 经追问「是否 8 条全看」, 用户要了路径重看一遍后
+   确认「都是 PASS」。以最终确认为准。FAIL 理由栏为空 (无 FAIL)。
+2. 锚定风险 (交接 §7): 上一 session 曾往终端打印裁判报警项在人判包中的位置; 用户对「判前是否看到」
+   **未表态**。本轮未用 `--reuse-scan` 重出换序包。若被锚定, 影响方向是**更容易把报警项判 FAIL**,
+   而实际 3 条报警项全 PASS, 与锚定方向相反, 故不改变结论; 仍如实记录。
+
+**汇报时必须连带** (B-1): (a) PASS 建立在 2026-09-03 判据脚本口径修订之上 (见上方「判据修订记录」);
+(B-2): 本轮 max_tokens=4096, q36/q83 截断, 与后续三模型 (8192) 上限不齐。
+
+**下一步 (待用户裁定)**: 其余三模型 (sonnet-5 / gpt-terra / gpt-sol) 是否跑 —— 生成 306 + 裁判 306 = 612 次
++ 24 条人判。S3 未触发 ⇒ 用同一裁判做对抗抽样的前提**未被推翻**。
