@@ -2346,3 +2346,17 @@ deepseek/deepseek-chat (与生成方 opus-5 **不同模型族**, 避自偏好; �
 - ⚠ 汇报连带: B-1 (a) PASS 建立在 2026-09-03 判据口径修订之上; B-2 本轮 max_tokens=4096 与后续三模型 8192 不齐。
 - 待裁定: 其余三模型跑不跑 (612 次 + 24 条人判)。
 - 落盘: `sdtm-rag/evidence/checkpoints/verified_spotcheck_2026-09.md` §† · 交接文档 §0 标记已解除。
+
+## 2026-09-06 (下午) — `verified` 兑现抽检: 其余三模型 (sonnet-5 / gpt-terra / gpt-sol) 生成 + (a) + 裁判扫描, 人判待用户
+
+- 用户裁定三模型都跑 (612 次 + 24 条人判, 成本已同意, 开跑未再问)。三跑 13:57:45Z 同时启动并行, 同口径 `--guardrail --full-answers --max-tokens 8192`, lever 全 OFF; 耗时 sonnet-5 22m50s / gpt-terra 8m00s / gpt-sol 12m22s, 全 102/102 EXIT 0, **零截断** (8192 生效)。
+- (a) 层 (修订后判据脚本, 保真 102/102 ×3): **gpt-terra PASS** (140/140/0/0) · **gpt-sol PASS** (117/117/0/0) · **sonnet-5 FAIL** (271/270/**1**/0)。
+- sonnet-5 那 1 条: q35 `C66742` (NY 码表 NCI 码), 码真实、配对正确, 但不在 q35 重建 top-15 里 ⇒ 参数知识 mis-cite, 非捏造。按预登记 0 阈值 ⇒ **sonnet-5 `verified: false` 已定**, 不因"码是对的"放松。(b) 仍做 (预登记不许少判 + S3 需要)。
+- 自毁: S1 (271/140/117 ≥ 20) / S4 (0%) / **S2 (四模型 (a) 不同: 454/271/140/117, ungrounded 0/1/0/0)** 均未触发。S3 待人判。
+- 裁判扫描 ×3 (deepseek, seed=0): sonnet-5 97/5/0 · gpt-terra 96/5/1(unsure) · gpt-sol 98/4/0; 抽样均 5+3 backfilled 0。人判包 + 索引 ×3 已落盘。
+- 新脚本 `eval/prod_wirein/make_human_packet_index.py` (零 LLM): 复现 09-04 手工生成的对照索引, 对 opus-5 复算**零 diff**。
+- 非判据观察: GPT 两模型答案约为 Claude 系一半长, 发码 140/117 vs 454/271 ⇒ 0 ungrounded 的分母小, 证据强度弱于 opus-5 的 0/454, 读 PASS 时带分母。
+- 锚定风险如实记: 本 session 工具输出打印过 `sample_ids` (前 5 consistent 后 3 flagged); 用户是否看见未知; 人判包顺序已 blind_order 打乱。
+- 回归: `pytest scripts/tests -q` exit 0 (2049 passed / 1 skipped, 代码零改动只加脚本)。
+- 落盘: `sdtm-rag/evidence/checkpoints/verified_spotcheck_2026-09.md` §‡ · `verified_runs/{run,code_grounding}_<tag>.*` · `class_scan_<tag>.json` · `human_packet_<tag>{,_index}.md`。
+- **待用户**: 24 条人判 (三份包各 8 条)。拿到后填表 + S3 + `server/config.py` gpt-terra/gpt-sol `verified` 视 (b) 决定; sonnet-5 维持 False。

@@ -38,9 +38,12 @@
 | 模型 | 生成成功/102 | 码总数 | ungrounded | nonexistent | (a) | 人判 8 条 | (b) | verified | 触发条款 |
 |---|---|---|---|---|---|---|---|---|---|
 | opus-5 | 102/102 | 454 | **0** ※ | 0 | **PASS** ※ | **8/8 PASS** † | **PASS** † | **true** ※† | 无 (S1/S3/S4 均未触发; S2 待四模型) |
-| sonnet-5 | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
-| gpt-terra | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
-| gpt-sol | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
+| sonnet-5 | 102/102 | 271 | **1** ‡ | 0 | **FAIL** ‡ | ⬜ 待人判 | ⬜ | **false** ‡ (已由 (a) 定) | S1/S4 未触发; S3 待人判 |
+| gpt-terra | 102/102 | 140 | 0 | 0 | **PASS** ‡ | ⬜ 待人判 | ⬜ | ⬜ (待 (b)) | S1/S4 未触发; S3 待人判 |
+| gpt-sol | 102/102 | 117 | 0 | 0 | **PASS** ‡ | ⬜ 待人判 | ⬜ | ⬜ (待 (b)) | S1/S4 未触发; S3 待人判 |
+
+**S2 (四模型 (a) 完全相同)**: 码总数 454 / 271 / 140 / 117, ungrounded 0 / 1 / 0 / 0 ⇒ **不同 ⇒ 未触发**;
+题集在 (a) 层对四模型有分辨力 (‡ 三模型均在 2026-09-03 修订后的判据脚本口径下判, 与 opus-5 ※ 同口径)。
 
 ## 实测记录 — opus-5 (2026-09-02, Task 5 第一轮)
 
@@ -278,3 +281,59 @@ d['summary']['retrieval_levers']={'top_k':15,'structured_lookup':True,'hybrid':T
 
 **下一步 (待用户裁定)**: 其余三模型 (sonnet-5 / gpt-terra / gpt-sol) 是否跑 —— 生成 306 + 裁判 306 = 612 次
 + 24 条人判。S3 未触发 ⇒ 用同一裁判做对抗抽样的前提**未被推翻**。
+
+## ‡ 实测记录 — sonnet-5 / gpt-terra / gpt-sol (2026-09-06, 三模型同批并行)
+
+用户裁定 (2026-09-06): 三模型都跑, 成本 (生成 306 + 裁判 306 = 612 次 + 24 条人判) 已知悉。
+三跑同一时刻启动 (START 13:57:45Z), 同口径: `--guardrail --full-answers --max-tokens 8192`,
+检索 lever 全 OFF (与 opus-5 生成口径一致, 报告 `retrieval_levers` 已落盘); 裁判 `deepseek/deepseek-chat`, seed=0。
+
+**复跑命令** (每模型, 从 sdtm-rag/; `<tag>` ∈ sonnet-5 / gpt-terra / gpt-sol, `<model>` 见 `server/config.py` `selectable_models`)
+```
+.venv/bin/python eval/run_eval.py eval/test_set_v2.yml --model <model> --guardrail --full-answers \
+    --max-tokens 8192 --output evidence/checkpoints/verified_runs/run_<tag>.json     # 102 次生成
+.venv/bin/python eval/prod_wirein/check_code_grounding.py evidence/checkpoints/verified_runs/run_<tag>.json on   # (a), 零 LLM
+.venv/bin/python eval/prod_wirein/run_class_assertion_scan.py evidence/checkpoints/verified_runs/run_<tag>.json  # 102 次裁判
+.venv/bin/python eval/prod_wirein/make_human_packet_index.py <tag>                                                 # 索引, 零 LLM
+```
+落盘: `verified_runs/run_<tag>.{json,log,timing.txt}` (timing 内含精确 CMD) + `verified_runs/code_grounding_<tag>.json`
++ `class_scan_<tag>.json` + `human_packet_<tag>.md` + `human_packet_<tag>_index.md`。
+
+| | sonnet-5 | gpt-terra | gpt-sol | (opus-5 参照) |
+|---|---|---|---|---|
+| 生成 | 102/102, EXIT 0, **22m50s** | 102/102, EXIT 0, **8m00s** | 102/102, EXIT 0, **12m22s** | 102/102, 37m04s |
+| 截断 (`truncated`) | **无** | **无** | **无** | q36/q83 (4096 上限) |
+| 答案字符 min/med/max | 395 / **2244** / 7266 | 278 / **1230** / 8994 | 242 / **1120** / 7845 | 974 / 3187 / 8754 |
+| completion tokens med/max | 997 / 4013 | 337 / 2462 | 421 / 2534 | 1538 / 4096 |
+| 单题 elapsed med (s) | 12.5 | 4.1 | 6.4 | 19.2 |
+| total_tokens | 2,068,371 | 1,275,026 | 1,281,893 | 2,127,221 |
+| fact_recall / source_recall | 0.966 / 0.858 | 0.930 / 0.858 | 0.927 / 0.858 | 0.956 / 0.858 |
+| 重建保真 (top5) | 102/102 ✓ | 102/102 ✓ | 102/102 ✓ | 102/102 ✓ |
+| (a) codes / grounded / ungrounded / nonexistent | 271 / 270 / **1** / 0 | 140 / 140 / 0 / 0 | 117 / 117 / 0 / 0 | 454 / 454 / 0 / 0 |
+| (a) 判定 | **FAIL** | PASS | PASS | PASS |
+| 裁判分布 (consistent/inconsistent/unsure) | 97 / 5 / 0 | 96 / 5 / 1 | 98 / 4 / 0 | 98 / 4 / 0 |
+| 抽样构成 | 5+3, backfilled 0 | 5+3, backfilled 0 | 5+3, backfilled 0 | 5+3, backfilled 0 |
+
+⚠ source_recall 四模型全同 (0.8578) 是结构必然: 检索口径相同, 该指标只看检索, 不看答案。
+
+**sonnet-5 的那 1 条 ungrounded**: q35 ("What is Controlled Terminology…"), 码 `C66742` (NY 码表的 NCI 码)。
+答案原文: *"The name of a CDISC codelist, shown as a hyperlink in parentheses (e.g., "(NY)"), often
+referencing an NCI codelist code (e.g., C66742)"*。该码在 KB 中真实存在 (多个 domain spec + VARIABLE_INDEX),
+NY↔C66742 的配对也正确, 但**不在 q35 重建的 top-15 上下文里** (保真 102/102, 口径无争议) ⇒ 是模型
+从参数知识里带出的 mis-cite, **非捏造**。按预登记 (a) 阈值 0 ungrounded ⇒ **FAIL ⇒ sonnet-5 `verified: false`**,
+与 (b) 层结果无关。⛔ 不因为"码是对的"放松阈值 —— 判据写的是 grounded 在上下文, 不是"码存在于世上"。
+sonnet-5 的 (b) 层人判仍做 (预登记 8 条/模型不许少判; 且 S3 需要它)。
+
+**自毁条款**: S1 三模型码总数 271/140/117 均 ≥ 20 ⇒ 未触发; S4 失败率均 0% ⇒ 未触发;
+S2 见结果表下方 ⇒ 未触发; S3 待三份人判。
+
+**跨模型可比性 (B-2)**: 三模型上限 8192、零截断; opus-5 4096、两题截断 —— 比较时 opus-5 的 454 码是**偏少**方向。
+**非判据观察**: 两个 GPT 答案约为 Claude 系的一半长, 发码数也少一半以上 (140/117 vs 454/271)。
+发码少 ⇒ (a) 层暴露面小 ⇒ 0 ungrounded 的证据强度弱于 opus-5 的 0/454。这不改变判定, 但读 PASS 时要带上分母。
+
+**待办 (阻塞在用户)**: 三份人判包 `human_packet_{sonnet-5,gpt-terra,gpt-sol}.md` 各 8 条, 共 24 条。
+判法同 opus-5: 看答案原文 + 权威表, ⛔ 不看裁判 verdict; 回 `qNN: PASS/FAIL (理由)`。拿到后填表 + S3。
+
+**锚定风险 (如实记录, 同交接 §7)**: 本 session 工具输出里打印过 `class_scan_<tag>.json` 的 `sample_ids`
+(该列表前 5 条为裁判 consistent、后 3 条为 flagged, 顺序即 verdict)。用户终端只显示工具输出的头几行,
+是否看见未知。人判包本身经 blind_order 打乱, 与该列表顺序不同。

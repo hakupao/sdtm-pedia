@@ -1,0 +1,4 @@
+START_UTC=2026-09-06T13:57:45Z START_EPOCH=1788703065
+CMD=.venv/bin/python eval/run_eval.py eval/test_set_v2.yml --model bedrock/converse/global.anthropic.claude-sonnet-5 --guardrail --full-answers --max-tokens 8192 --output evidence/checkpoints/verified_runs/run_sonnet-5.json
+EXIT_CODE=0
+END_UTC=2026-09-06T14:20:35Z END_EPOCH=1788704435

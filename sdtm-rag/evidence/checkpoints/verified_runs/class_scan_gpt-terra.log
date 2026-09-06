@@ -1,0 +1,6 @@
+权威表: 63 行 / 8 个 Class
+待扫答案: 102 条 | judge=deepseek/deepseek-chat
+裁判分布: {'consistent': 96, 'inconsistent': 5, 'unsure': 1} | parse_error=1 | 调用失败=0
+抽样构成 (预登记要求记录): {'consistent': 5, 'flagged': 3, 'backfilled': 0}
+扫描落盘 -> /Users/bojiangzhang/MyProject/sdtm-pedia/sdtm-rag/evidence/checkpoints/class_scan_gpt-terra.json
+人判包   -> /Users/bojiangzhang/MyProject/sdtm-pedia/sdtm-rag/evidence/checkpoints/human_packet_gpt-terra.md

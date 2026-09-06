@@ -1,0 +1,944 @@
+{
+  "report": "/Users/bojiangzhang/MyProject/sdtm-pedia/sdtm-rag/evidence/checkpoints/verified_runs/run_gpt-sol.json",
+  "judge_model": "deepseek/deepseek-chat",
+  "seed": 0,
+  "tally": {
+    "consistent": 98,
+    "inconsistent": 4
+  },
+  "composition": {
+    "consistent": 5,
+    "flagged": 3,
+    "backfilled": 0
+  },
+  "sample_ids": [
+    "s04",
+    "q102",
+    "q57",
+    "q21",
+    "q40",
+    "q101",
+    "s02",
+    "q56"
+  ],
+  "rows": [
+    {
+      "has_assertion": false,
+      "verdict": "consistent",
+      "quote": "",
+      "authority": "",
+      "parse_error": false,
+      "error": null,
+      "id": "q01"
+    },
+    {
+      "has_assertion": true,
+      "verdict": "consistent",
+      "quote": "`DM` is a special-purpose domain",
+      "authority": "DM | Special Purpose",
+      "parse_error": false,
+      "error": null,
+      "id": "q02"
+    },
+    {
+      "has_assertion": false,
+      "verdict": "consistent",
+      "quote": "",
+      "authority": "",
+      "parse_error": false,
+      "error": null,
+      "id": "q03"
+    },
+    {
+      "has_assertion": true,
+      "verdict": "consistent",
+      "quote": "`TV` (Trial Visits) is a **Trial Design** domain",
+      "authority": "TV | Trial Design",
+      "parse_error": false,
+      "error": null,
+      "id": "q04"
+    },
+    {
+      "has_assertion": true,
+      "verdict": "consistent",
+      "quote": "PE is a Findings domain.",
+      "authority": "PE | Findings",
+      "parse_error": false,
+      "error": null,
+      "id": "q05"
+    },
+    {
+      "has_assertion": false,
+      "verdict": "consistent",
+      "quote": "",
+      "authority": "",
+      "parse_error": false,
+      "error": null,
+      "id": "q21"
+    },
+    {
+      "has_assertion": true,
+      "verdict": "consistent",
+      "quote": "The **VS (Vital Signs)** domain is a **Findings** domain used to represent vital signs measurements and examinations.",
+      "authority": "VS | Findings",
+      "parse_error": false,
+      "error": null,
+      "id": "q22"
+    },
+    {
+      "has_assertion": true,
+      "verdict": "consistent",
+      "quote": "The **CM** domain belongs to the **Interventions** observation class.",
+      "authority": "CM | Interventions",
+      "parse_error": false,
+      "error": null,
+      "id": "q23"
+    },
+    {
+      "has_assertion": true,
+      "verdict": "consistent",
+      "quote": "The **EX** domain is an **Interventions** domain used to represent a subject’s exposure to **protocol-specified study treatments**, including investigational products, active comparators, and placebo.",
+      "authority": "EX | Interventions",
+      "parse_error": false,
+      "error": null,
+      "id": "q24"
+    },
+    {
+      "has_assertion": true,
+      "verdict": "consistent",
+      "quote": "**Scope:** `MH` is an Events domain containing the subject’s prior medical history at the start of the trial.",
+      "authority": "MH | Events",
+      "parse_error": false,
+      "error": null,
+      "id": "q25"
+    },
+    {
+      "has_assertion": true,
+      "verdict": "consistent",
+      "quote": "`EG` represents **ECG Test Results** and is a **Findings** domain.",
+      "authority": "EG | Findings",
+      "parse_error": false,
+      "error": null,
+      "id": "q26"
+    },
+    {
+      "has_assertion": true,
+      "verdict": "consistent",
+      "quote": "The **IE (Inclusion/Exclusion Criteria Not Met)** domain is a **Findings** domain",
+      "authority": "IE | Findings",
+      "parse_error": false,
+      "error": null,
+      "id": "q27"
+    },
+    {
+      "has_assertion": true,
+      "verdict": "consistent",
+      "quote": "SUPPQUAL, implemented as domain-specific SUPP-- datasets, is an SDTM Relationship dataset mechanism",
+      "authority": "SUPP-- | Relationship",
+      "parse_error": false,
+      "error": null,
+      "id": "q06"
+    },
+    {
+      "has_assertion": false,
+      "verdict": "consistent",
+      "quote": "",
+      "authority": "",
+      "parse_error": false,
+      "error": null,
+      "id": "q07"
+    },
+    {
+      "has_assertion": false,
+      "verdict": "consistent",
+      "quote": "",
+      "authority": "",
+      "parse_error": false,
+      "error": null,
+      "id": "q08"
+    },
+    {
+      "has_assertion": false,
+      "verdict": "consistent",
+      "quote": "",
+      "authority": "",
+      "parse_error": false,
+      "error": null,
+      "id": "q09"
+    },
+    {
+      "has_assertion": false,
+      "verdict": "consistent",
+      "quote": "",
+      "authority": "",
+      "parse_error": false,
+      "error": null,
+      "id": "q10"
+    },
+    {
+      "has_assertion": true,
+      "verdict": "consistent",
+      "quote": "`FA` (Findings About Events or Interventions) is a subtype of the Findings observation class.",
+      "authority": "FA | Findings",
+      "parse_error": false,
+      "error": null,
+      "id": "q28"
+    },
+    {
+      "has_assertion": false,
+      "verdict": "consistent",
+      "quote": "",
+      "authority": "",
+      "parse_error": false,
+      "error": null,
+      "id": "q29"
+    },
+    {
+      "has_assertion": true,
+      "verdict": "consistent",
+      "quote": "`CO` (Comments) is a **Special Purpose** domain for submitting unstructured, free-text comments that are not part of the normal data in another domain.",
+      "authority": "CO | Special Purpose",
+      "parse_error": false,
+      "error": null,
+      "id": "q30"
+    },
+    {
+      "has_assertion": true,
+      "verdict": "consistent",
+      "quote": "EC and EX are both Interventions domains",
+      "authority": "EC | Interventions; EX | Interventions",
+      "parse_error": false,
+      "error": null,
+      "id": "q31"
+    },
+    {
+      "has_assertion": true,
+      "verdict": "consistent",
+      "quote": "`SV` is the Special-Purpose Subject Visits domain",
+      "authority": "SV | Special Purpose",
+      "parse_error": false,
+      "error": null,
+      "id": "q32"
+    },
+    {
+      "has_assertion": true,
+      "verdict": "consistent",
+      "quote": "It is a **Relationship** dataset dedicated exclusively to relationships between specimens",
+      "authority": "RELSPEC | Relationship",
+      "parse_error": false,
+      "error": null,
+      "id": "q33"
+    },
+    {
+      "has_assertion": false,
+      "verdict": "consistent",
+      "quote": "",
+      "authority": "",
+      "parse_error": false,
+      "error": null,
+      "id": "q34"
+    },
+    {
+      "has_assertion": true,
+      "verdict": "consistent",
+      "quote": "The three SDTM general observation classes are: 1. **Interventions** — ... Examples: EX, CM, PR. 2. **Events** — ... Examples: AE, DS, MH. 3. **Findings** — ... Examples: LB, VS, EG.",
+      "authority": "EX, CM, PR are Interventions; AE, DS, MH are Events; LB, VS, EG are Findings",
+      "parse_error": false,
+      "error": null,
+      "id": "q11"
+    },
+    {
+      "has_assertion": false,
+      "verdict": "consistent",
+      "quote": "",
+      "authority": "",
+      "parse_error": false,
+      "error": null,
+      "id": "q12"
+    },
+    {
+      "has_assertion": false,
+      "verdict": "consistent",
+      "quote": "",
+      "authority": "",
+      "parse_error": false,
+      "error": null,
+      "id": "q13"
+    },
+    {
+      "has_assertion": true,
+      "verdict": "consistent",
+      "quote": "The custom domain must be based on exactly one of the three general observation classes: **Interventions**, **Events**, or **Findings**.",
+      "authority": "The table lists classes for specific datasets, but the assertion is about general observation classes, which are consistent with the table's class assignments (e.g., AG, CM, EC, EX, ML, PR, SU are Interventions; AE, BE, CE, DS, DV, HO, MH are Events; BS, CP, CV, etc. are Findings).",
+      "parse_error": false,
+      "error": null,
+      "id": "q14"
+    },
+    {
+      "has_assertion": false,
+      "verdict": "consistent",
+      "quote": "",
+      "authority": "",
+      "parse_error": false,
+      "error": null,
+      "id": "q15"
+    },
+    {
+      "has_assertion": false,
+      "verdict": "consistent",
+      "quote": "",
+      "authority": "",
+      "parse_error": false,
+      "error": null,
+      "id": "q35"
+    },
+    {
+      "has_assertion": false,
+      "verdict": "consistent",
+      "quote": "",
+      "authority": "",
+      "parse_error": false,
+      "error": null,
+      "id": "q36"
+    },
+    {
+      "has_assertion": true,
+      "verdict": "consistent",
+      "quote": "In SDTMIG v3.4, the Special-Purpose domains are: | Domain | Dataset | | **DM** | Demographics | | **CO** | Comments | | **SE** | Subject Elements | | **SV** | Subject Visits | | **SM** | Subject Disease Milestones |",
+      "authority": "CO, DM, SE, SM, SV -> Special Purpose",
+      "parse_error": false,
+      "error": null,
+      "id": "q37"
+    },
+    {
+      "has_assertion": false,
+      "verdict": "consistent",
+      "quote": "",
+      "authority": "",
+      "parse_error": false,
+      "error": null,
+      "id": "q38"
+    },
+    {
+      "has_assertion": true,
+      "verdict": "inconsistent",
+      "quote": "**FA belongs to the Findings class**.",
+      "authority": "FA | Findings About",
+      "parse_error": false,
+      "error": null,
+      "id": "q39"
+    },
+    {
+      "has_assertion": false,
+      "verdict": "consistent",
+      "quote": "",
+      "authority": "",
+      "parse_error": false,
+      "error": null,
+      "id": "q40"
+    },
+    {
+      "has_assertion": true,
+      "verdict": "consistent",
+      "quote": "These seven datasets are identified as Trial Design domains in the SDTMIG v3.4 knowledge-base index, and each domain specification links to the Trial Design class definition.",
+      "authority": "TA, TD, TE, TI, TM, TS, TV -> Trial Design",
+      "parse_error": false,
+      "error": null,
+      "id": "q41"
+    },
+    {
+      "has_assertion": false,
+      "verdict": "consistent",
+      "quote": "",
+      "authority": "",
+      "parse_error": false,
+      "error": null,
+      "id": "q16"
+    },
+    {
+      "has_assertion": true,
+      "verdict": "consistent",
+      "quote": "For example, `VSDTC` has **Type:** `Char`, **Role:** `Timing`, **Core:** `Exp`, and **Controlled Terms:** `ISO 8601 datetime or interval`.",
+      "authority": "VS is in the Findings class, but the assertion is about Type/Role/Core, not class. The table does not list Type/Role/Core, so no direct comparison possible. However, the assertion does not contradict the table.",
+      "parse_error": false,
+      "error": null,
+      "id": "q17"
+    },
+    {
+      "has_assertion": false,
+      "verdict": "consistent",
+      "quote": "",
+      "authority": "",
+      "parse_error": false,
+      "error": null,
+      "id": "q18"
+    },
+    {
+      "has_assertion": false,
+      "verdict": "consistent",
+      "quote": "",
+      "authority": "",
+      "parse_error": false,
+      "error": null,
+      "id": "q19"
+    },
+    {
+      "has_assertion": false,
+      "verdict": "consistent",
+      "quote": "",
+      "authority": "",
+      "parse_error": false,
+      "error": null,
+      "id": "q20"
+    },
+    {
+      "has_assertion": false,
+      "verdict": "consistent",
+      "quote": "",
+      "authority": "",
+      "parse_error": false,
+      "error": null,
+      "id": "q42"
+    },
+    {
+      "has_assertion": false,
+      "verdict": "consistent",
+      "quote": "",
+      "authority": "",
+      "parse_error": false,
+      "error": null,
+      "id": "q43"
+    },
+    {
+      "has_assertion": true,
+      "verdict": "consistent",
+      "quote": "`VSTESTCD` is a `Char` variable with Role `Topic` and Core `Req`;",
+      "authority": "VS is in the Findings class (not directly asserted, but the Role/Core are not contradicted by the table; the table only lists class, not Role/Core, so no inconsistency).",
+      "parse_error": false,
+      "error": null,
+      "id": "q44"
+    },
+    {
+      "has_assertion": false,
+      "verdict": "consistent",
+      "quote": "",
+      "authority": "",
+      "parse_error": false,
+      "error": null,
+      "id": "q45"
+    },
+    {
+      "has_assertion": false,
+      "verdict": "consistent",
+      "quote": "",
+      "authority": "",
+      "parse_error": false,
+      "error": null,
+      "id": "q46"
+    },
+    {
+      "has_assertion": true,
+      "verdict": "consistent",
+      "quote": "`QSTESTCD` is the **Topic** variable for each QS record.",
+      "authority": "QS | Findings",
+      "parse_error": false,
+      "error": null,
+      "id": "q47"
+    },
+    {
+      "has_assertion": true,
+      "verdict": "consistent",
+      "quote": "`FATESTCD` is a `Char` Topic variable with `Core: Req`; values must be no longer than 8 characters, cannot start with a number, and may contain only letters, numbers, or underscores.",
+      "authority": "FA | Findings About",
+      "parse_error": false,
+      "error": null,
+      "id": "q48"
+    },
+    {
+      "has_assertion": false,
+      "verdict": "consistent",
+      "quote": "",
+      "authority": "",
+      "parse_error": false,
+      "error": null,
+      "id": "s01"
+    },
+    {
+      "has_assertion": true,
+      "verdict": "inconsistent",
+      "quote": "Role: Topic",
+      "authority": "SUPP-- | Relationship",
+      "parse_error": false,
+      "error": null,
+      "id": "s02"
+    },
+    {
+      "has_assertion": false,
+      "verdict": "consistent",
+      "quote": "",
+      "authority": "",
+      "parse_error": false,
+      "error": null,
+      "id": "s03"
+    },
+    {
+      "has_assertion": false,
+      "verdict": "consistent",
+      "quote": "",
+      "authority": "",
+      "parse_error": false,
+      "error": null,
+      "id": "s04"
+    },
+    {
+      "has_assertion": false,
+      "verdict": "consistent",
+      "quote": "",
+      "authority": "",
+      "parse_error": false,
+      "error": null,
+      "id": "s05"
+    },
+    {
+      "has_assertion": true,
+      "verdict": "consistent",
+      "quote": "The **DV (Protocol Deviations)** domain belongs to the **Events** observation class.",
+      "authority": "DV | Events",
+      "parse_error": false,
+      "error": null,
+      "id": "q54"
+    },
+    {
+      "has_assertion": true,
+      "verdict": "consistent",
+      "quote": "**Observation class:** `DS` belongs to the **Events** general observation class.",
+      "authority": "DS | Events",
+      "parse_error": false,
+      "error": null,
+      "id": "q55"
+    },
+    {
+      "has_assertion": true,
+      "verdict": "inconsistent",
+      "quote": "**SU observation class:** **Interventions**.",
+      "authority": "SU | Interventions",
+      "parse_error": false,
+      "error": null,
+      "id": "q56"
+    },
+    {
+      "has_assertion": true,
+      "verdict": "consistent",
+      "quote": "It is based on the **Interventions** observation class.",
+      "authority": "PR | Interventions",
+      "parse_error": false,
+      "error": null,
+      "id": "q57"
+    },
+    {
+      "has_assertion": true,
+      "verdict": "consistent",
+      "quote": "The **TS (Trial Summary)** domain is a **Trial Design** dataset",
+      "authority": "TS | Trial Design",
+      "parse_error": false,
+      "error": null,
+      "id": "q58"
+    },
+    {
+      "has_assertion": true,
+      "verdict": "consistent",
+      "quote": "**Role:** Topic",
+      "authority": "DD | Findings",
+      "parse_error": false,
+      "error": null,
+      "id": "q59"
+    },
+    {
+      "has_assertion": true,
+      "verdict": "consistent",
+      "quote": "CE belongs to the **Events** observation class",
+      "authority": "CE | Events",
+      "parse_error": false,
+      "error": null,
+      "id": "q60"
+    },
+    {
+      "has_assertion": true,
+      "verdict": "consistent",
+      "quote": "MB observation class: Findings.",
+      "authority": "MB | Findings",
+      "parse_error": false,
+      "error": null,
+      "id": "q61"
+    },
+    {
+      "has_assertion": true,
+      "verdict": "consistent",
+      "quote": "**SS (Subject Status)** is a **Findings** domain used to represent assessments of a subject’s status, such as survival status or follow-up availability status.",
+      "authority": "SS | Findings",
+      "parse_error": false,
+      "error": null,
+      "id": "q62"
+    },
+    {
+      "has_assertion": true,
+      "verdict": "consistent",
+      "quote": "**Observation class:** **Findings**.",
+      "authority": "SC | Findings",
+      "parse_error": false,
+      "error": null,
+      "id": "q63"
+    },
+    {
+      "has_assertion": true,
+      "verdict": "consistent",
+      "quote": "The **PC (Pharmacokinetics Concentrations)** domain is a **Findings** domain",
+      "authority": "PC | Findings",
+      "parse_error": false,
+      "error": null,
+      "id": "q64"
+    },
+    {
+      "has_assertion": true,
+      "verdict": "consistent",
+      "quote": "The **DA (Product Accountability)** domain belongs to the **Findings** general observation class.",
+      "authority": "DA | Findings",
+      "parse_error": false,
+      "error": null,
+      "id": "q65"
+    },
+    {
+      "has_assertion": false,
+      "verdict": "consistent",
+      "quote": "",
+      "authority": "",
+      "parse_error": false,
+      "error": null,
+      "id": "q66"
+    },
+    {
+      "has_assertion": false,
+      "verdict": "consistent",
+      "quote": "",
+      "authority": "",
+      "parse_error": false,
+      "error": null,
+      "id": "q67"
+    },
+    {
+      "has_assertion": false,
+      "verdict": "consistent",
+      "quote": "",
+      "authority": "",
+      "parse_error": false,
+      "error": null,
+      "id": "q68"
+    },
+    {
+      "has_assertion": false,
+      "verdict": "consistent",
+      "quote": "",
+      "authority": "",
+      "parse_error": false,
+      "error": null,
+      "id": "q69"
+    },
+    {
+      "has_assertion": false,
+      "verdict": "consistent",
+      "quote": "",
+      "authority": "",
+      "parse_error": false,
+      "error": null,
+      "id": "q70"
+    },
+    {
+      "has_assertion": false,
+      "verdict": "consistent",
+      "quote": "",
+      "authority": "",
+      "parse_error": false,
+      "error": null,
+      "id": "q71"
+    },
+    {
+      "has_assertion": true,
+      "verdict": "consistent",
+      "quote": "Both PC and PP are Findings domains",
+      "authority": "PC | Findings; PP | Findings",
+      "parse_error": false,
+      "error": null,
+      "id": "q72"
+    },
+    {
+      "has_assertion": true,
+      "verdict": "consistent",
+      "quote": "`CO` is designated Special Purpose in the domain index, while `RELREC` and `SUPPQUAL` are designated Relationship domains.",
+      "authority": "CO: Special Purpose; RELREC: Relationship; SUPP--: Relationship",
+      "parse_error": false,
+      "error": null,
+      "id": "q73"
+    },
+    {
+      "has_assertion": false,
+      "verdict": "consistent",
+      "quote": "",
+      "authority": "",
+      "parse_error": false,
+      "error": null,
+      "id": "q74"
+    },
+    {
+      "has_assertion": false,
+      "verdict": "consistent",
+      "quote": "",
+      "authority": "",
+      "parse_error": false,
+      "error": null,
+      "id": "q75"
+    },
+    {
+      "has_assertion": false,
+      "verdict": "consistent",
+      "quote": "",
+      "authority": "",
+      "parse_error": false,
+      "error": null,
+      "id": "q76"
+    },
+    {
+      "has_assertion": false,
+      "verdict": "consistent",
+      "quote": "",
+      "authority": "",
+      "parse_error": false,
+      "error": null,
+      "id": "q77"
+    },
+    {
+      "has_assertion": false,
+      "verdict": "consistent",
+      "quote": "",
+      "authority": "",
+      "parse_error": false,
+      "error": null,
+      "id": "q78"
+    },
+    {
+      "has_assertion": false,
+      "verdict": "consistent",
+      "quote": "",
+      "authority": "",
+      "parse_error": false,
+      "error": null,
+      "id": "q79"
+    },
+    {
+      "has_assertion": false,
+      "verdict": "consistent",
+      "quote": "",
+      "authority": "",
+      "parse_error": false,
+      "error": null,
+      "id": "q80"
+    },
+    {
+      "has_assertion": true,
+      "verdict": "consistent",
+      "quote": "**Role:** Identifier\n- **Core:** Req",
+      "authority": "The table does not list DOMAIN as a dataset; the assertion is about a variable's Role/Core, not a dataset's class/Core/Role/Type. The table only contains dataset class assignments, so no comparison is possible. However, the answer's assertion about DOMAIN's Role and Core is not contradicted by the table, and the table does not cover variable-level attributes. Since the task asks about dataset class/Core/Role/Type, and the answer makes no such dataset-level assertion, the verdict is consistent.",
+      "parse_error": false,
+      "error": null,
+      "id": "q81"
+    },
+    {
+      "has_assertion": false,
+      "verdict": "consistent",
+      "quote": "",
+      "authority": "",
+      "parse_error": false,
+      "error": null,
+      "id": "q82"
+    },
+    {
+      "has_assertion": true,
+      "verdict": "consistent",
+      "quote": "`RELREC` (Related Records) is a **Relationship** dataset",
+      "authority": "RELREC | Relationship",
+      "parse_error": false,
+      "error": null,
+      "id": "q83"
+    },
+    {
+      "has_assertion": true,
+      "verdict": "consistent",
+      "quote": "Examples include EX, CM, and PR.",
+      "authority": "EX, CM, PR -> Interventions",
+      "parse_error": false,
+      "error": null,
+      "id": "q84"
+    },
+    {
+      "has_assertion": false,
+      "verdict": "consistent",
+      "quote": "",
+      "authority": "",
+      "parse_error": false,
+      "error": null,
+      "id": "q85"
+    },
+    {
+      "has_assertion": false,
+      "verdict": "consistent",
+      "quote": "",
+      "authority": "",
+      "parse_error": false,
+      "error": null,
+      "id": "q86"
+    },
+    {
+      "has_assertion": false,
+      "verdict": "consistent",
+      "quote": "",
+      "authority": "",
+      "parse_error": false,
+      "error": null,
+      "id": "q87"
+    },
+    {
+      "has_assertion": false,
+      "verdict": "consistent",
+      "quote": "",
+      "authority": "",
+      "parse_error": false,
+      "error": null,
+      "id": "q88"
+    },
+    {
+      "has_assertion": true,
+      "verdict": "consistent",
+      "quote": "Their Role is `Timing`; their Core status is defined in each domain specification, commonly `Perm` where included.",
+      "authority": "The table does not list these variables, but the assertion about Role=Timing and Core=domain-specific is not contradicted by the table; the table only lists dataset classes, not variable roles/cores.",
+      "parse_error": false,
+      "error": null,
+      "id": "q89"
+    },
+    {
+      "has_assertion": true,
+      "verdict": "consistent",
+      "quote": "- **Role:** Variable Qualifier  \n- **Core:** Perm",
+      "authority": "EX | Interventions",
+      "parse_error": false,
+      "error": null,
+      "id": "q90"
+    },
+    {
+      "has_assertion": true,
+      "verdict": "consistent",
+      "quote": "**Role:** Synonym Qualifier",
+      "authority": "DS | Events",
+      "parse_error": false,
+      "error": null,
+      "id": "q91"
+    },
+    {
+      "has_assertion": false,
+      "verdict": "consistent",
+      "quote": "",
+      "authority": "",
+      "parse_error": false,
+      "error": null,
+      "id": "q92"
+    },
+    {
+      "has_assertion": false,
+      "verdict": "consistent",
+      "quote": "",
+      "authority": "",
+      "parse_error": false,
+      "error": null,
+      "id": "q93"
+    },
+    {
+      "has_assertion": false,
+      "verdict": "consistent",
+      "quote": "",
+      "authority": "",
+      "parse_error": false,
+      "error": null,
+      "id": "q94"
+    },
+    {
+      "has_assertion": false,
+      "verdict": "consistent",
+      "quote": "",
+      "authority": "",
+      "parse_error": false,
+      "error": null,
+      "id": "q95"
+    },
+    {
+      "has_assertion": false,
+      "verdict": "consistent",
+      "quote": "",
+      "authority": "",
+      "parse_error": false,
+      "error": null,
+      "id": "q96"
+    },
+    {
+      "has_assertion": false,
+      "verdict": "consistent",
+      "quote": "",
+      "authority": "",
+      "parse_error": false,
+      "error": null,
+      "id": "q97"
+    },
+    {
+      "has_assertion": false,
+      "verdict": "consistent",
+      "quote": "",
+      "authority": "",
+      "parse_error": false,
+      "error": null,
+      "id": "q98"
+    },
+    {
+      "has_assertion": false,
+      "verdict": "consistent",
+      "quote": "",
+      "authority": "",
+      "parse_error": false,
+      "error": null,
+      "id": "q99"
+    },
+    {
+      "has_assertion": false,
+      "verdict": "consistent",
+      "quote": "",
+      "authority": "",
+      "parse_error": false,
+      "error": null,
+      "id": "q100"
+    },
+    {
+      "has_assertion": true,
+      "verdict": "inconsistent",
+      "quote": "| **Role** | Synonym Qualifier |",
+      "authority": "TS is not in the authoritative table, but the table lists all datasets and their classes; TS is not listed, so no class is assigned. However, the assertion about Role is not covered by the table, which only provides Class. Since the table does not include Role information, the verdict is 'unsure'.",
+      "parse_error": false,
+      "error": null,
+      "id": "q101"
+    },
+    {
+      "has_assertion": false,
+      "verdict": "consistent",
+      "quote": "",
+      "authority": "",
+      "parse_error": false,
+      "error": null,
+      "id": "q102"
+    }
+  ]
+}

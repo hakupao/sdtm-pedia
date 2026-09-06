@@ -3,7 +3,16 @@
 > 分支 `feat/verified-spotcheck` · **已推送 origin** · 测试 **2049 passed / 1 skipped / 0 failed**
 > 预登记文件: `sdtm-rag/evidence/checkpoints/verified_spotcheck_2026-09.md` (**先读它, 再读本文**)
 
-## 0. ✅ 已解除 (2026-09-06): (b) 层人判 8 条全 PASS, S3 未触发, opus-5 `verified: true`
+## 0′. (2026-09-06 下午) 三模型已跑完, ⛔ 当前唯一阻塞: **24 条人判在用户手上**
+
+三模型生成 + (a) + 裁判扫描全部落盘 (记录 `verified_spotcheck_2026-09.md` §‡)。
+(a): gpt-terra PASS · gpt-sol PASS · **sonnet-5 FAIL (q35 C66742, 1 ungrounded ⇒ `verified: false` 已定)**。
+S1/S2/S4 均未触发。新 session 开局**不要代判**: 问用户拿三份包的判定
+(`human_packet_{sonnet-5,gpt-terra,gpt-sol}.md`, 各 8 条, 形如 `q16: PASS`)。
+拿到后: 填结果表 → 逐模型跑 S3 (比对 `class_scan_<tag>.json` verdict) → gpt-terra/gpt-sol 若 (b) PASS
+则 `server/config.py` 对应 `verified=True` (+ 测试) ; sonnet-5 维持 False。
+
+## 0. ✅ 已解除 (2026-09-06 上午): (b) 层人判 8 条全 PASS, S3 未触发, opus-5 `verified: true`
 
 记录见 `sdtm-rag/evidence/checkpoints/verified_spotcheck_2026-09.md` §「† (b) 层人判记录」。
 **用户裁定 (2026-09-06): 下个 session 三个模型 (sonnet-5 / gpt-terra / gpt-sol) 都跑。**

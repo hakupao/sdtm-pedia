@@ -1,0 +1,734 @@
+{
+  "file": "evidence/checkpoints/verified_runs/run_gpt-sol.json",
+  "arm": "on",
+  "retrieval_levers": {
+    "top_k": 15,
+    "structured_lookup": false,
+    "hybrid": false,
+    "rerank": false,
+    "query_expansion": "none"
+  },
+  "fidelity_verified": "102/102",
+  "totals": {
+    "codes": 117,
+    "grounded": 117,
+    "ungrounded": 0,
+    "nonexistent": 0
+  },
+  "per_q": [
+    {
+      "id": "q01",
+      "n_codes": 0,
+      "grounded": 0,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q02",
+      "n_codes": 0,
+      "grounded": 0,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q03",
+      "n_codes": 3,
+      "grounded": 3,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q04",
+      "n_codes": 0,
+      "grounded": 0,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q05",
+      "n_codes": 0,
+      "grounded": 0,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q21",
+      "n_codes": 2,
+      "grounded": 2,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q22",
+      "n_codes": 2,
+      "grounded": 2,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q23",
+      "n_codes": 0,
+      "grounded": 0,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q24",
+      "n_codes": 0,
+      "grounded": 0,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q25",
+      "n_codes": 1,
+      "grounded": 1,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q26",
+      "n_codes": 6,
+      "grounded": 6,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q27",
+      "n_codes": 0,
+      "grounded": 0,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q06",
+      "n_codes": 0,
+      "grounded": 0,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q07",
+      "n_codes": 1,
+      "grounded": 1,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q08",
+      "n_codes": 0,
+      "grounded": 0,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q09",
+      "n_codes": 0,
+      "grounded": 0,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q10",
+      "n_codes": 0,
+      "grounded": 0,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q28",
+      "n_codes": 0,
+      "grounded": 0,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q29",
+      "n_codes": 0,
+      "grounded": 0,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q30",
+      "n_codes": 1,
+      "grounded": 1,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q31",
+      "n_codes": 0,
+      "grounded": 0,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q32",
+      "n_codes": 0,
+      "grounded": 0,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q33",
+      "n_codes": 0,
+      "grounded": 0,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q34",
+      "n_codes": 3,
+      "grounded": 3,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q11",
+      "n_codes": 0,
+      "grounded": 0,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q12",
+      "n_codes": 0,
+      "grounded": 0,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q13",
+      "n_codes": 0,
+      "grounded": 0,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q14",
+      "n_codes": 1,
+      "grounded": 1,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q15",
+      "n_codes": 0,
+      "grounded": 0,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q35",
+      "n_codes": 2,
+      "grounded": 2,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q36",
+      "n_codes": 0,
+      "grounded": 0,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q37",
+      "n_codes": 0,
+      "grounded": 0,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q38",
+      "n_codes": 2,
+      "grounded": 2,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q39",
+      "n_codes": 0,
+      "grounded": 0,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q40",
+      "n_codes": 0,
+      "grounded": 0,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q41",
+      "n_codes": 0,
+      "grounded": 0,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q16",
+      "n_codes": 1,
+      "grounded": 1,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q17",
+      "n_codes": 0,
+      "grounded": 0,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q18",
+      "n_codes": 0,
+      "grounded": 0,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q19",
+      "n_codes": 2,
+      "grounded": 2,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q20",
+      "n_codes": 0,
+      "grounded": 0,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q42",
+      "n_codes": 1,
+      "grounded": 1,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q43",
+      "n_codes": 1,
+      "grounded": 1,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q44",
+      "n_codes": 1,
+      "grounded": 1,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q45",
+      "n_codes": 1,
+      "grounded": 1,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q46",
+      "n_codes": 2,
+      "grounded": 2,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q47",
+      "n_codes": 2,
+      "grounded": 2,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q48",
+      "n_codes": 1,
+      "grounded": 1,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "s01",
+      "n_codes": 1,
+      "grounded": 1,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "s02",
+      "n_codes": 0,
+      "grounded": 0,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "s03",
+      "n_codes": 0,
+      "grounded": 0,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "s04",
+      "n_codes": 1,
+      "grounded": 1,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "s05",
+      "n_codes": 2,
+      "grounded": 2,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q54",
+      "n_codes": 0,
+      "grounded": 0,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q55",
+      "n_codes": 0,
+      "grounded": 0,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q56",
+      "n_codes": 0,
+      "grounded": 0,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q57",
+      "n_codes": 0,
+      "grounded": 0,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q58",
+      "n_codes": 5,
+      "grounded": 5,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q59",
+      "n_codes": 2,
+      "grounded": 2,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q60",
+      "n_codes": 0,
+      "grounded": 0,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q61",
+      "n_codes": 2,
+      "grounded": 2,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q62",
+      "n_codes": 5,
+      "grounded": 5,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q63",
+      "n_codes": 0,
+      "grounded": 0,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q64",
+      "n_codes": 0,
+      "grounded": 0,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q65",
+      "n_codes": 2,
+      "grounded": 2,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q66",
+      "n_codes": 0,
+      "grounded": 0,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q67",
+      "n_codes": 2,
+      "grounded": 2,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q68",
+      "n_codes": 2,
+      "grounded": 2,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q69",
+      "n_codes": 7,
+      "grounded": 7,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q70",
+      "n_codes": 0,
+      "grounded": 0,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q71",
+      "n_codes": 4,
+      "grounded": 4,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q72",
+      "n_codes": 0,
+      "grounded": 0,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q73",
+      "n_codes": 4,
+      "grounded": 4,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q74",
+      "n_codes": 0,
+      "grounded": 0,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q75",
+      "n_codes": 0,
+      "grounded": 0,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q76",
+      "n_codes": 0,
+      "grounded": 0,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q77",
+      "n_codes": 1,
+      "grounded": 1,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q78",
+      "n_codes": 0,
+      "grounded": 0,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q79",
+      "n_codes": 0,
+      "grounded": 0,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q80",
+      "n_codes": 1,
+      "grounded": 1,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q81",
+      "n_codes": 0,
+      "grounded": 0,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q82",
+      "n_codes": 0,
+      "grounded": 0,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q83",
+      "n_codes": 2,
+      "grounded": 2,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q84",
+      "n_codes": 0,
+      "grounded": 0,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q85",
+      "n_codes": 0,
+      "grounded": 0,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q86",
+      "n_codes": 0,
+      "grounded": 0,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q87",
+      "n_codes": 0,
+      "grounded": 0,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q88",
+      "n_codes": 0,
+      "grounded": 0,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q89",
+      "n_codes": 2,
+      "grounded": 2,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q90",
+      "n_codes": 1,
+      "grounded": 1,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q91",
+      "n_codes": 8,
+      "grounded": 8,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q92",
+      "n_codes": 3,
+      "grounded": 3,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q93",
+      "n_codes": 2,
+      "grounded": 2,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q94",
+      "n_codes": 4,
+      "grounded": 4,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q95",
+      "n_codes": 3,
+      "grounded": 3,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q96",
+      "n_codes": 3,
+      "grounded": 3,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q97",
+      "n_codes": 2,
+      "grounded": 2,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q98",
+      "n_codes": 3,
+      "grounded": 3,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q99",
+      "n_codes": 1,
+      "grounded": 1,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q100",
+      "n_codes": 0,
+      "grounded": 0,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q101",
+      "n_codes": 3,
+      "grounded": 3,
+      "ungrounded": [],
+      "nonexistent": []
+    },
+    {
+      "id": "q102",
+      "n_codes": 3,
+      "grounded": 3,
+      "ungrounded": [],
+      "nonexistent": []
+    }
+  ]
+}
