@@ -1,0 +1,56 @@
+# 四模型离线对比裁判 — 2026-09 (预登记)
+
+> ⛔ 「判据」「自毁条款」「决策规则」三段在任何裁判数据到达前提交, 之后不改; 判据有问题 ⇒ 停下报告, 用户裁定。
+> 输入是 `verified` 抽检已落盘的 4×102 答案 (`evidence/checkpoints/verified_runs/run_{opus-5,sonnet-5,gpt-terra,gpt-sol}.json`),
+> **零生成成本**, 只花裁判调用。目的: 回答两个实际问题 —— (Q1) 默认答题模型要不要从 opus-5 换; (Q2) sonnet-5 是留着挂 false 徽章还是下架。
+
+## 输入与公平性前提
+
+- 四份 run 检索口径相同 (lever 全 OFF, top_k=15), 且 `check_code_grounding.py` 已证四份重建 top5 与落盘 **各 102/102** 一致
+  ⇒ 四模型对每题**看见的是同一份上下文** (FR1 公平前提)。裁判用的 context 由同一口径重建, 保真闸复用。
+- 已知不齐 (B-2): opus-5 `max_tokens=4096` (q36/q83 截断), 其余 8192。**这两题从裁判集剔除**, 有效题 100。
+- 裁判模型: `deepseek/deepseek-chat`, temperature 0 —— 不是四个参赛者之一, 也不与任一参赛者同家族。
+  ⛔ 不用 Claude / GPT 当裁判 (同家族偏好无法排除)。
+
+## 判据 (预登记)
+
+**J1 匿名四路排名** (复用 `server/compare.py` 的 `_JUDGE_SYS` 提示词, 三轴 accuracy / completeness / grounding):
+每题一次调用, 四份答案标 A/B/C/D, **标签分配按题随机打乱** (seed=0, 记录映射), 裁判输出 rank 1-4。
+产出: 每模型 mean rank · rank-1 次数 · 两两胜负矩阵 · 按 category 分解。
+
+**J2 标签置换对照** (裁判稳定性): 同 100 题用另一个置换 (seed=1) 再裁一次。
+指标: 两次 rank-1 模型一致率 (`best_agree`), 两次全排名 Kendall τ 均值。
+
+**J3 语义 fact recall** (`eval/rejudge_run.py` 同一裁判逐题判 expected_facts): 每模型 100 次。
+产出: 每模型 judge fact recall 均值, 与 substring 口径并列。⚠ J3 判的是"答没答到 gold fact", J1 判的是"相对谁更好", 两者不可互换。
+
+成本: J1 100 + J2 100 + J3 400 = **600 次 deepseek 调用**, 零生成。
+
+## 自毁条款 (预登记)
+
+| # | 条件 | 后果 |
+|---|---|---|
+| C1 | J1 或 J2 parse 失败 > 10 题 | ⛔ 不出排名结论, 记 `JUDGE_UNPARSEABLE` |
+| C2 | J2 `best_agree` < 70% | 裁判在本题集上不稳定 ⇒ ⛔ 不得用 J1 排名支持任何决策, 只报数字 |
+| C3 | J1 某个**标签位置** (A/B/C/D) 拿 rank-1 的比例 > 45% | 位置偏好 ⇒ 排名可疑, 与 C2 同处置 |
+| C4 | J3 某模型 parse 失败 > 10 题 | 该模型 J3 不出数 |
+| C5 | 四模型 J1 mean rank 两两差全 < 0.15 | 题集无分辨力 ⇒ 只能写「未发现差异」, ⛔ 不得写「四个一样好」 |
+
+## 决策规则 (预登记, 给用户的建议口径, 不是自动执行)
+
+- **Q1 建议换默认**, 当且仅当: 某模型对 opus-5 两两胜率 ≥ 60% **且** J3 不低于 opus-5 超过 2 pt **且** 该模型 `verified: true`。
+  否则建议维持 opus-5 (它是速度最慢、成本最高的, "不换"需要的证据是它确实更好, 不是"没人打败它"; 若 C5 触发则改按速度/成本推荐)。
+- **Q2 建议下架 sonnet-5**, 当且仅当: J1 mean rank 四者最末 **且** 对每个其他模型的两两胜率都 < 40%。
+  否则保留 + false 徽章 (未验过 ≠ 更差, 徽章已诚实呈现)。
+- 任何自毁条款触发 ⇒ 对应问题写「本轮数据不足以建议」, 不降级到"看起来像"。
+
+## 结果 (数据到达后填, 此刻必须全空)
+
+| 模型 | J1 mean rank | rank-1 次数 | vs opus-5 胜率 | J3 judge fact recall | substring fact recall (参照) |
+|---|---|---|---|---|---|
+| opus-5 | ⬜ | ⬜ | — | ⬜ | 0.956 |
+| sonnet-5 | ⬜ | ⬜ | ⬜ | ⬜ | 0.966 |
+| gpt-terra | ⬜ | ⬜ | ⬜ | ⬜ | 0.930 |
+| gpt-sol | ⬜ | ⬜ | ⬜ | ⬜ | 0.927 |
+
+J2: best_agree ⬜ · Kendall τ ⬜ · 位置 rank-1 分布 ⬜ · parse 失败 ⬜/⬜ · 自毁条款 ⬜
