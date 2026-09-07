@@ -109,6 +109,7 @@ Full chain definitions are in `.work/MANIFEST.md`.
 | Phase 7 U1 多模型切换 (2026-09-01) | `sdtm-rag/server/llm_config.py` `selectable_models` 单一事实源 |
 | Phase 7 回退容灾+诚实呈现 (2026-09-02) | `llm_config.py` `fell_back`/`merge_reported_model`; 徽章+存档+⚑ |
 | Phase 7 `verified` 兑现抽检 (DONE 2026-09-07; 3 true / sonnet-5 false) | `sdtm-rag/evidence/checkpoints/verified_spotcheck_2026-09.md` (预登记判据+四模型记录) |
+| Phase 7 四模型离线对比裁判 (2026-09-07; C2 触发只报数) | `sdtm-rag/evidence/checkpoints/model_compare_2026-09.md`; retro `sdtm-rag/RETROSPECTIVE_verified.md` |
 
 ## AI 平台多平台部署 (CLOSED 冻结 2026-06-15)
 
