@@ -6,7 +6,7 @@
 ## 0″. ✅ 全部收官 (2026-09-07): 24 条人判全 PASS ⇒ gpt-terra / gpt-sol `verified: true`, sonnet-5 `false`
 
 四模型终态: opus-5 true · gpt-terra true · gpt-sol true · sonnet-5 false ((a) q35 C66742)。
-S1-S4 均未触发。config + 测试已翻。本文件转历史; 唯一余项: 生产 launchd 重启以显新徽章 (待用户)。
+S1-S4 均未触发。config + 测试已翻。本文件转历史; 已合并 main + 生产重启 (2026-09-07), 无余项。
 
 ## 0′. (2026-09-06 下午, 已解除) 三模型已跑完, 当时阻塞: 24 条人判在用户手上
 

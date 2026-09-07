@@ -2367,5 +2367,5 @@ deepseek/deepseek-chat (与生成方 opus-5 **不同模型族**, 避自偏好; �
 - 终判: **gpt-terra true** · **gpt-sol true** · **sonnet-5 false** ((a) q35 C66742 定的, (b) 8/8 PASS 不救) · opus-5 true (09-06)。四模型齐 ⇒ **S2 终判未触发**。
 - 代码: `server/config.py` gpt-terra / gpt-sol `verified=True` (注释指向抽检记录); 测试 `test_only_opus5_is_verified` → `test_verified_flags_match_spotcheck_record` 钉四值; 另两条用 gpt-sol 当 false 样本的测试改用 sonnet-5 (保一真一假)。
 - 附带观察: 32 条抽样里裁判 12 条报警全是假阳性, 20 条 consistent 零漏网 ⇒ 裁判偏保守; 只对抽中的 32 条声称。
-- ⚠ 生产 launchd (localhost:8000) 读启动时的 config ⇒ UI 徽章要反映新 verified 需重启服务 (未做, 待用户)。
+- ⚠ 生产 launchd (localhost:8000) 读启动时的 config ⇒ UI 徽章要反映新 verified 需重启服务 —— 用户授权后已 ff 合并 main + `launchctl kickstart -k` 重启 (2026-09-07), `/api/info` 实测四值 true/false/true/true。
 - 落盘: `verified_spotcheck_2026-09.md` §§ · 抽检工程全 DONE。
