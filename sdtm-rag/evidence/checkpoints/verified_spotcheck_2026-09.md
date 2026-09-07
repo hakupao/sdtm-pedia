@@ -344,7 +344,7 @@ S2 见结果表下方 ⇒ 未触发; S3 待三份人判。
 判者: 用户 (⛔ 非 LLM 代判)。用户回复原文: **「全部pass」** (2026-09-07), 即 24/24 PASS, 无逐条明细,
 FAIL 理由栏全空。⚠ 如实记录: 本轮未像 opus-5 那轮追问「是否 8 条全看」; 以该回复为最终判定。
 
-| 模型 | 题 (人判包顺序) | 裁判 verdict (S3 比对用) | 人判 |
+| 模型 | 题 (按裁判 verdict 分组列; 真实包序见 human_packet_<tag>.md) | 裁判 verdict (S3 比对用) | 人判 |
 |---|---|---|---|
 | sonnet-5 | q68 / q56 / q21 / s04 / q40 | consistent ×5 | PASS ×5 |
 | sonnet-5 | q77 / s02 / q100 | inconsistent ×3 | PASS ×3 |
