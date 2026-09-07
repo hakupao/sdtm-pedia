@@ -80,3 +80,57 @@ def test_blind_order_is_deterministic_for_a_given_seed():
     sample = [{"id": f"q{i}"} for i in range(8)]
 
     assert blind_order(sample, seed=0) == blind_order(sample, seed=0)
+
+
+def test_blind_order_permutation_differs_across_tags():
+    """Rule D 审阅 (2026-09-07) 实测: 固定 seed + `pick_sample` 恒定形状 (clean×5 + flagged×3)
+    ⇒ 置换恒定 ⇒ 四份人判包报警项位次全是 (3,7,8), 一次位次泄漏对后续所有包永久有效。
+    置换必须随 tag 派生; 抽样 seed (预登记锁死) 不受影响。
+
+    分辨力: 若实现只用 seed 不用 tag, 四个 tag 的输出全同, 这条会红。
+    """
+    from eval.prod_wirein.run_class_assertion_scan import blind_order
+
+    sample = ([{"id": f"clean{i}"} for i in range(5)]
+              + [{"id": f"flag{i}"} for i in range(3)])
+    orders = {tag: tuple(r["id"] for r in blind_order(sample, seed=0, tag=tag))
+              for tag in ("opus-5", "sonnet-5", "gpt-terra", "gpt-sol")}
+
+    assert len(set(orders.values())) > 1, f"四个 tag 同一置换 = 位次泄漏跨包有效: {orders}"
+    # 同 tag 仍可复现
+    assert blind_order(sample, seed=0, tag="opus-5") == blind_order(sample, seed=0, tag="opus-5")
+
+
+def test_scan_json_sample_ids_are_stored_in_blind_order(tmp_path, monkeypatch):
+    """`sample_ids` 曾按 clean 段 + flagged 段落盘 ⇒ 打印它 = 打印 verdict (2026-09-06 实际泄漏)。
+    落盘顺序必须与人判包一致 (blind), 让"随手打印"不再泄漏。
+
+    分辩力: 若仍按 pick_sample 原序落盘, 末三位恒为裁判 flagged 的, 这条会红。
+    """
+    import json
+    import sys
+    import eval.prod_wirein.run_class_assertion_scan as mod
+
+    report = {"results": [{"id": f"q{i:02d}", "answer": f"Answer {i} about AE."} for i in range(12)]}
+    rp = tmp_path / "run_fake.json"
+    rp.write_text(json.dumps(report))
+    # 桩裁判: 前 9 条 consistent, 后 3 条 inconsistent ⇒ 抽样 5+3, 末三位 verdict 全 flagged
+    def fake_scan(entries, judge, authority_md):
+        return [{"id": e["id"], "has_assertion": True,
+                 "verdict": "inconsistent" if i >= 9 else "consistent",
+                 "quote": "", "authority": "", "parse_error": False, "error": None}
+                for i, e in enumerate(entries)]
+    monkeypatch.setattr(mod, "scan_answers", fake_scan)
+    monkeypatch.setattr(mod, "load_class_authority", lambda: {"AE": "Events"})
+    monkeypatch.setattr(sys, "argv", ["x", str(rp), "--dry-run", "--out-dir", str(tmp_path)])
+    assert mod.main() == 0
+
+    scan = json.loads((tmp_path / "class_scan_fake.json").read_text())
+    verdict = {r["id"]: r["verdict"] for r in scan["rows"]}
+    tail = [verdict[i] for i in scan["sample_ids"][-3:]]
+    assert tail != ["inconsistent"] * 3, "sample_ids 末三位仍全是 flagged = 顺序仍泄漏 verdict"
+    # 与人判包条目顺序一致
+    import re
+    packet = (tmp_path / "human_packet_fake.md").read_text()
+    packet_order = re.findall(r"^### \d+\. `([^`]+)`", packet, re.M)
+    assert packet_order == scan["sample_ids"]

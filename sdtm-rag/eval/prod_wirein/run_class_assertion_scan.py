@@ -55,16 +55,22 @@ def entries_from_report(report: dict) -> list[dict]:
     return entries
 
 
-def blind_order(sample: list[dict], seed: int) -> list[dict]:
+def blind_order(sample: list[dict], seed: int, tag: str = "") -> list[dict]:
     """打乱条目顺序后再渲染人判包。
 
     ⛔ `pick_sample` 返回的是 `clean 段 + flagged 段`, **后 3 条恒是裁判报警的** ——
     顺序本身就是 verdict, 而预登记写死"人判看答案原文 + 权威表, ⛔ 不看裁判的 verdict"。
     不打乱, 判卷人一眼就知道该盯哪三条, 人判退化成复核裁判。
+
+    ⛔ 置换 seed 必须随 `tag` 派生 (2026-09-07 Rule D 审阅实测): 只用 `seed` 时, 抽样形状恒为
+    5+3 ⇒ 置换恒定 ⇒ 四份人判包报警项位次全是 (3,7,8), 一次位次泄漏对之后每一份包都有效。
+    抽样 seed (预登记锁死) 不动, 只派生置换 seed; 同 (seed, tag) 仍可复现。
     """
+    import hashlib
     import random
+    derived = int.from_bytes(hashlib.sha256(f"{seed}:{tag}".encode()).digest()[:8], "big")
     out = list(sample)
-    random.Random(seed).shuffle(out)
+    random.Random(derived).shuffle(out)
     return out
 
 
@@ -132,6 +138,9 @@ def main(argv: list[str] | None = None) -> int:
 
     sample, comp = pick_sample(rows, seed=args.seed)
     print(f"抽样构成 (预登记要求记录): {comp}")
+    # ⛔ 落盘与渲染都用 blind 序: `sample_ids` 曾按 clean+flagged 原序落盘, 打印它 = 打印 verdict
+    # (2026-09-06 实际泄漏)。人判包与 json 同序, 对照索引脚本也据此取序。
+    blind = blind_order(sample, args.seed, tag)
 
     out_dir = ROOT / args.out_dir
     scan_path = out_dir / f"class_scan_{tag}.json"
@@ -139,13 +148,13 @@ def main(argv: list[str] | None = None) -> int:
         {"report": str(report_path), "judge_model":
          "STUB" if args.dry_run else args.judge_model,
          "seed": args.seed, "tally": tally, "composition": comp,
-         "sample_ids": [r["id"] for r in sample], "rows": rows},
+         "sample_ids": [r["id"] for r in blind], "rows": rows},
         indent=2, ensure_ascii=False), encoding="utf-8")
 
     answers_by_id = {e["id"]: e["answer"] for e in entries}
     packet_path = out_dir / f"human_packet_{tag}.md"
     packet_path.write_text(
-        render_human_packet(blind_order(sample, args.seed), answers_by_id, authority_md),
+        render_human_packet(blind, answers_by_id, authority_md),
         encoding="utf-8")
 
     print(f"扫描落盘 -> {scan_path}")
