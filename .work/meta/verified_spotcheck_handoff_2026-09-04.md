@@ -3,7 +3,12 @@
 > 分支 `feat/verified-spotcheck` · **已推送 origin** · 测试 **2049 passed / 1 skipped / 0 failed**
 > 预登记文件: `sdtm-rag/evidence/checkpoints/verified_spotcheck_2026-09.md` (**先读它, 再读本文**)
 
-## 0′. (2026-09-06 下午) 三模型已跑完, ⛔ 当前唯一阻塞: **24 条人判在用户手上**
+## 0″. ✅ 全部收官 (2026-09-07): 24 条人判全 PASS ⇒ gpt-terra / gpt-sol `verified: true`, sonnet-5 `false`
+
+四模型终态: opus-5 true · gpt-terra true · gpt-sol true · sonnet-5 false ((a) q35 C66742)。
+S1-S4 均未触发。config + 测试已翻。本文件转历史; 唯一余项: 生产 launchd 重启以显新徽章 (待用户)。
+
+## 0′. (2026-09-06 下午, 已解除) 三模型已跑完, 当时阻塞: 24 条人判在用户手上
 
 三模型生成 + (a) + 裁判扫描全部落盘 (记录 `verified_spotcheck_2026-09.md` §‡)。
 (a): gpt-terra PASS · gpt-sol PASS · **sonnet-5 FAIL (q35 C66742, 1 ungrounded ⇒ `verified: false` 已定)**。

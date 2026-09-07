@@ -31,15 +31,17 @@ def test_selectable_models_all_on_bedrock():
         assert m.model.startswith("bedrock/"), f"{m.id} 不走 Bedrock: {m.model}"
 
 
-def test_only_opus5_is_verified():
-    """verified 语义 = 该模型跑过反捏造抽检并通过。目前只有 opus-5 验过 ——
-    sonnet-5 是 Claude 不代表验过, 两个方向都钉住, 免得有人顺手全填 true。"""
+def test_verified_flags_match_spotcheck_record():
+    """verified 语义 = 该模型跑过反捏造抽检并通过。值钉在 2026-09 兑现抽检的结果表
+    (evidence/checkpoints/verified_spotcheck_2026-09.md): opus-5 / gpt-terra / gpt-sol 过,
+    sonnet-5 (a) 层 1 条 ungrounded ⇒ false。两个方向都钉住 —— sonnet-5 是 Claude 不代表
+    验过, 免得有人顺手全填 true; 改任一值须先有新一轮抽检记录。"""
     s = Settings()
     v = {m.id: m.verified for m in s.selectable_models}
     assert v["opus-5"] is True
     assert v["sonnet-5"] is False
-    assert v["gpt-terra"] is False
-    assert v["gpt-sol"] is False
+    assert v["gpt-terra"] is True
+    assert v["gpt-sol"] is True
 
 
 def _group_names(router):
@@ -387,7 +389,7 @@ def test_info_exposes_selectable_models_with_verified():
     assert [m["id"] for m in got] == ["opus-5", "sonnet-5", "gpt-terra", "gpt-sol"]
     by_id = {m["id"]: m for m in got}
     assert by_id["opus-5"]["verified"] is True
-    assert by_id["gpt-sol"]["verified"] is False
+    assert by_id["sonnet-5"]["verified"] is False  # 2026-09 抽检唯一 false 的, 保住一真一假
     assert by_id["opus-5"]["label"] == "Claude Opus 5"
 
 
@@ -583,8 +585,8 @@ def _done_event(client, **body):
 def test_done_event_carries_model_id_and_verified():
     """产物自证 (spec §6): 只做 UI 标注的话, 对话存下来之后这条信息就没了。
     与 2026-09-01 清掉的 B6 同形 —— 产物必须能自证。"""
-    ev = _done_event(_stream_client(), model="gpt-sol")
-    assert ev["model_id"] == "gpt-sol"
+    ev = _done_event(_stream_client(), model="sonnet-5")  # 2026-09 抽检唯一 false 的
+    assert ev["model_id"] == "sonnet-5"
     assert ev["verified"] is False
     ev2 = _done_event(_stream_client(), model="opus-5")
     assert ev2["model_id"] == "opus-5"

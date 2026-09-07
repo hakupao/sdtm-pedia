@@ -2360,3 +2360,12 @@ deepseek/deepseek-chat (与生成方 opus-5 **不同模型族**, 避自偏好; �
 - 回归: `pytest scripts/tests -q` exit 0 (2049 passed / 1 skipped, 代码零改动只加脚本)。
 - 落盘: `sdtm-rag/evidence/checkpoints/verified_spotcheck_2026-09.md` §‡ · `verified_runs/{run,code_grounding}_<tag>.*` · `class_scan_<tag>.json` · `human_packet_<tag>{,_index}.md`。
 - **待用户**: 24 条人判 (三份包各 8 条)。拿到后填表 + S3 + `server/config.py` gpt-terra/gpt-sol `verified` 视 (b) 决定; sonnet-5 维持 False。
+
+## 2026-09-07 — `verified` 兑现抽检收官: 24 条人判全 PASS ⇒ gpt-terra / gpt-sol `verified: true`, sonnet-5 false
+
+- 用户回复原文「全部pass」(24/24, 无逐条明细; 本轮未追问是否逐条看, 如实记)。S3 逐模型比对 `class_scan_<tag>.json`: 「裁判 consistent 且人判 FAIL」= 0/0/0 ⇒ 未触发。
+- 终判: **gpt-terra true** · **gpt-sol true** · **sonnet-5 false** ((a) q35 C66742 定的, (b) 8/8 PASS 不救) · opus-5 true (09-06)。四模型齐 ⇒ **S2 终判未触发**。
+- 代码: `server/config.py` gpt-terra / gpt-sol `verified=True` (注释指向抽检记录); 测试 `test_only_opus5_is_verified` → `test_verified_flags_match_spotcheck_record` 钉四值; 另两条用 gpt-sol 当 false 样本的测试改用 sonnet-5 (保一真一假)。
+- 附带观察: 32 条抽样里裁判 12 条报警全是假阳性, 20 条 consistent 零漏网 ⇒ 裁判偏保守; 只对抽中的 32 条声称。
+- ⚠ 生产 launchd (localhost:8000) 读启动时的 config ⇒ UI 徽章要反映新 verified 需重启服务 (未做, 待用户)。
+- 落盘: `verified_spotcheck_2026-09.md` §§ · 抽检工程全 DONE。

@@ -38,11 +38,11 @@
 | 模型 | 生成成功/102 | 码总数 | ungrounded | nonexistent | (a) | 人判 8 条 | (b) | verified | 触发条款 |
 |---|---|---|---|---|---|---|---|---|---|
 | opus-5 | 102/102 | 454 | **0** ※ | 0 | **PASS** ※ | **8/8 PASS** † | **PASS** † | **true** ※† | 无 (S1/S3/S4 均未触发; S2 待四模型) |
-| sonnet-5 | 102/102 | 271 | **1** ‡ | 0 | **FAIL** ‡ | ⬜ 待人判 | ⬜ | **false** ‡ (已由 (a) 定) | S1/S4 未触发; S3 待人判 |
-| gpt-terra | 102/102 | 140 | 0 | 0 | **PASS** ‡ | ⬜ 待人判 | ⬜ | ⬜ (待 (b)) | S1/S4 未触发; S3 待人判 |
-| gpt-sol | 102/102 | 117 | 0 | 0 | **PASS** ‡ | ⬜ 待人判 | ⬜ | ⬜ (待 (b)) | S1/S4 未触发; S3 待人判 |
+| sonnet-5 | 102/102 | 271 | **1** ‡ | 0 | **FAIL** ‡ | **8/8 PASS** § | **PASS** § | **false** ‡ ((a) 定) | 无 (S1/S3/S4 未触发) |
+| gpt-terra | 102/102 | 140 | 0 | 0 | **PASS** ‡ | **8/8 PASS** § | **PASS** § | **true** ‡§ | 无 (S1/S3/S4 未触发) |
+| gpt-sol | 102/102 | 117 | 0 | 0 | **PASS** ‡ | **8/8 PASS** § | **PASS** § | **true** ‡§ | 无 (S1/S3/S4 未触发) |
 
-**S2 (四模型 (a) 完全相同)**: 码总数 454 / 271 / 140 / 117, ungrounded 0 / 1 / 0 / 0 ⇒ **不同 ⇒ 未触发**;
+**S2 (四模型 (a) 完全相同)**: 码总数 454 / 271 / 140 / 117, ungrounded 0 / 1 / 0 / 0 ⇒ **不同 ⇒ 未触发** (四模型齐, 终判);
 题集在 (a) 层对四模型有分辨力 (‡ 三模型均在 2026-09-03 修订后的判据脚本口径下判, 与 opus-5 ※ 同口径)。
 
 ## 实测记录 — opus-5 (2026-09-02, Task 5 第一轮)
@@ -337,3 +337,35 @@ S2 见结果表下方 ⇒ 未触发; S3 待三份人判。
 **锚定风险 (如实记录, 同交接 §7)**: 本 session 工具输出里打印过 `class_scan_<tag>.json` 的 `sample_ids`
 (该列表前 5 条为裁判 consistent、后 3 条为 flagged, 顺序即 verdict)。用户终端只显示工具输出的头几行,
 是否看见未知。人判包本身经 blind_order 打乱, 与该列表顺序不同。
+
+## § (b) 层人判记录 — sonnet-5 / gpt-terra / gpt-sol (2026-09-07)
+
+人判材料: `human_packet_<tag>.md` (权威表 + 8 条答案原文, 无 verdict) + `human_packet_<tag>_index.md`。
+判者: 用户 (⛔ 非 LLM 代判)。用户回复原文: **「全部pass」** (2026-09-07), 即 24/24 PASS, 无逐条明细,
+FAIL 理由栏全空。⚠ 如实记录: 本轮未像 opus-5 那轮追问「是否 8 条全看」; 以该回复为最终判定。
+
+| 模型 | 题 (人判包顺序) | 裁判 verdict (S3 比对用) | 人判 |
+|---|---|---|---|
+| sonnet-5 | q68 / q56 / q21 / s04 / q40 | consistent ×5 | PASS ×5 |
+| sonnet-5 | q77 / s02 / q100 | inconsistent ×3 | PASS ×3 |
+| gpt-terra | q69 / q56 / q21 / s04 / q40 | consistent ×5 | PASS ×5 |
+| gpt-terra | q73 / q66 / q96 | inconsistent ×3 | PASS ×3 |
+| gpt-sol | q40 / q102 / q57 / s04 / q21 | consistent ×5 | PASS ×5 |
+| gpt-sol | q101 / q56 / s02 | inconsistent ×3 | PASS ×3 |
+
+**S3 判定 (逐模型)**: 「裁判 consistent 且人判 FAIL」= 0 / 0 / 0 条 ⇒ 三模型均**未触发**。
+
+**终判**
+- **gpt-terra**: (a) PASS ∧ (b) PASS ⇒ **`verified: true`** (绑定 `run_gpt-terra.json`)。
+- **gpt-sol**: (a) PASS ∧ (b) PASS ⇒ **`verified: true`** (绑定 `run_gpt-sol.json`)。
+- **sonnet-5**: (b) PASS 但 (a) FAIL (q35 C66742) ⇒ **`verified: false`** (绑定 `run_sonnet-5.json`)。
+- opus-5 `true` (§†)。四模型齐 ⇒ S2 终判未触发 (见结果表下)。
+
+代码: `server/config.py` gpt-terra / gpt-sol `verified=True`; sonnet-5 维持 False; 测试
+`test_verified_flags_match_spotcheck_record` 钉四个值 (改任一值须先有新抽检记录)。
+
+**附带观察 (非判据)**: 四模型合计裁判判 inconsistent 且被抽中的 12 条 (3+3+3+3) 人判全 PASS, 裁判判 consistent
+且被抽中的 20 条人判也全 PASS ⇒ 32 条上裁判零漏网、12 条假阳性。裁判在本题集上偏保守方向; 对未抽中的题不做声称。
+
+**汇报连带**: B-1 (四模型 (a) 均在 09-03 修订后脚本口径下判) · B-2 (opus-5 4096 vs 其余 8192)
+· GPT 两模型发码分母小 (140/117) · 人判为「全部pass」一句, 无逐条明细。

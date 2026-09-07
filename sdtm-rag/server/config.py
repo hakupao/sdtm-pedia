@@ -39,8 +39,9 @@ class Settings(BaseSettings):
     light_model: str = "anthropic/claude-haiku-4-5"
 
     # 用户可选答题模型 (spec §3.2)。只作用于**答题**; 判库(light)/检索改写不受影响 (C1)。
-    # verified 的语义写死: 跑过反捏造抽检并通过。目前只有 opus-5 —— 联网通道那轮抽检
-    # 就在它上面做的; sonnet-5 是 Claude 不代表验过。
+    # verified 的语义写死: 跑过反捏造抽检并通过。2026-09 兑现抽检 (102q, 预登记判据
+    # evidence/checkpoints/verified_spotcheck_2026-09.md): opus-5 / gpt-terra / gpt-sol 过;
+    # sonnet-5 (a) 层 1 条 ungrounded (q35 C66742) ⇒ false。sonnet-5 是 Claude 不代表验过。
     selectable_models: list[SelectableModel] = [
         SelectableModel(id="opus-5", label="Claude Opus 5",
                         model="bedrock/converse/global.anthropic.claude-opus-5",
@@ -50,10 +51,10 @@ class Settings(BaseSettings):
                         verified=False),
         SelectableModel(id="gpt-terra", label="GPT-5.6 Terra",
                         model="bedrock/converse/global.openai.gpt-5.6-terra",
-                        verified=False),
+                        verified=True),
         SelectableModel(id="gpt-sol", label="GPT-5.6 Sol",
                         model="bedrock/converse/global.openai.gpt-5.6-sol",
-                        verified=False),
+                        verified=True),
     ]
 
     # Embedding (D-4 v3: OpenAI cloud)

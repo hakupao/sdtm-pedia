@@ -108,7 +108,7 @@ Full chain definitions are in `.work/MANIFEST.md`.
 | Phase 7 联网参考通道 (2026-08-31) | `sdtm-rag/server/web_search.py`; 仅 `/api/ask_stream` 支持 |
 | Phase 7 U1 多模型切换 (2026-09-01) | `sdtm-rag/server/llm_config.py` `selectable_models` 单一事实源 |
 | Phase 7 回退容灾+诚实呈现 (2026-09-02) | `llm_config.py` `fell_back`/`merge_reported_model`; 徽章+存档+⚑ |
-| Phase 7 `verified` 兑现抽检 (预登记, 每模型 a+b 两层) | `sdtm-rag/evidence/checkpoints/verified_spotcheck_2026-09.md`; 交接 `.work/meta/verified_spotcheck_handoff_2026-09-04.md` |
+| Phase 7 `verified` 兑现抽检 (DONE 2026-09-07; 3 true / sonnet-5 false) | `sdtm-rag/evidence/checkpoints/verified_spotcheck_2026-09.md` (预登记判据+四模型记录) |
 
 ## AI 平台多平台部署 (CLOSED 冻结 2026-06-15)
 
