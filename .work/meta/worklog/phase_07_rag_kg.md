@@ -2369,3 +2369,14 @@ deepseek/deepseek-chat (与生成方 opus-5 **不同模型族**, 避自偏好; �
 - 附带观察: 32 条抽样里裁判 12 条报警全是假阳性, 20 条 consistent 零漏网 ⇒ 裁判偏保守; 只对抽中的 32 条声称。
 - ⚠ 生产 launchd (localhost:8000) 读启动时的 config ⇒ UI 徽章要反映新 verified 需重启服务 —— 用户授权后已 ff 合并 main + `launchctl kickstart -k` 重启 (2026-09-07), `/api/info` 实测四值 true/false/true/true。
 - 落盘: `verified_spotcheck_2026-09.md` §§ · 抽检工程全 DONE。
+
+## 2026-09-07 (下午) — 三件收尾: verified RETRO 定稿 + blind_order 根因修复 + 四模型离线对比裁判 (C2 触发, 只报数不决策)
+
+- **RETROSPECTIVE_verified.md** (Tier 2, 规则 C 三段): Rule D 审阅 (critic/opus) PASS-WITH-FIXES, 1 HIGH —— 初稿把第一轮盲性泄漏写错对象, 且漏掉根因: `blind_order` 固定 seed + 抽样形状恒定 ⇒ 置换恒定 ⇒ 四份人判包报警项位次全是 (3,7,8), 一次泄漏四轮有效。按审阅改 11 条后定稿。
+- **修根因** (`8d49f5d`, TDD 两红→绿): 置换 seed = sha256(seed:tag), 抽样 seed 不动; `sample_ids` 改按盲序落盘。既有四份包不重生 (人判已完成)。
+- **四模型离线对比裁判** (`evidence/checkpoints/model_compare_2026-09.{md,json,log}`, 脚本 `eval/compare_verified_runs.py`): 预登记 (判据/自毁/决策规则) 先 commit; 输入 = verified 抽检落盘的 4×102 答案, 剔除 opus-5 截断 2 题, **零生成, 600 次 deepseek**。
+  - 脚本 Rule D 审阅 (code-reviewer/opus) 15 条, 2 HIGH (best≠rank1 / 秩不校验) ⇒ 数据前写死复核规则 5 条, 加 `--reaggregate` 严格口径零调用重算; 实测严格口径与原口径逐位相同 (rank_invalid 0, best≠rank1 0)。
+  - **结果**: J1 opus-5 mean rank 1.53 / sonnet 2.34 / terra 2.96 / sol 3.17; 对 opus 胜率 25%/15%/13%。**但 C2 触发** (best_agree 0.704, 剔 4 题同置换 0.691 < 0.70, 规则 4 取低者) ⇒ **J1 只报数字不得决策**; 位置偏好 A 44% rank-1 (期望 25%) 佐证。J3 语义 fact recall 0.935–0.949 四者无可分辨差 (配对 3/94/3 等)。
+  - **Q1 换默认 / Q2 下架 sonnet-5: 本轮数据不足以建议** (预登记如此, 不外推)。非判据观察: 聚合胜负两 seed 几乎同, 但 C2 量的是逐题稳定; 裁判偏好疑为长度/完整度非事实覆盖 (J3 持平 J1 差距大); 下轮若要答默认模型问题需预登记聚合级稳定指标 + 长度归一化对照。
+- 测试: 新增 `test_compare_verified_runs.py` 6 条 + `test_run_class_assertion_scan.py` 2 条。
+- 第 3 件 (推真实使用) 在用户/IT 侧: go-live 待内网 IP + 签字; dogfood ⚑ 记录文件至今不存在 = 零反馈捕获。

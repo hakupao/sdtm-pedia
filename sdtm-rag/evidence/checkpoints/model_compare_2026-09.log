@@ -1,0 +1,126 @@
+题 100 (剔除 ['q36', 'q83']) · 裁判 deepseek/deepseek-chat · 预计调用 600
+重建保真: 100 题 × 4 run 全一致 ✓
+/Users/bojiangzhang/MyProject/sdtm-pedia/sdtm-rag/.venv/lib/python3.14/site-packages/litellm/litellm_core_utils/logging_worker.py:75: RuntimeWarning: coroutine 'Logging.async_success_handler' was never awaited
+  self._queue = None
+RuntimeWarning: Enable tracemalloc to get the object allocation traceback
+  [1/100] q01 best s0=opus-5 s1=opus-5
+  [2/100] q02 best s0=opus-5 s1=opus-5
+  [3/100] q03 best s0=opus-5 s1=opus-5
+  [4/100] q04 best s0=gpt-terra s1=opus-5
+2026-09-07 11:08:47 [warning  ] judge_unparseable              model=deepseek/deepseek-chat preview='{"ranking": [{"label": "A", "rank": 4, "comment": "Fabricates a dataset structure statement (\'One record per body system examined per visit per subject\') and key variables not present in the context, '
+  [5/100] q05 best s0=opus-5 s1=None
+  [6/100] q21 best s0=gpt-sol s1=gpt-sol
+  [7/100] q22 best s0=opus-5 s1=opus-5
+  [8/100] q23 best s0=opus-5 s1=opus-5
+  [9/100] q24 best s0=opus-5 s1=opus-5
+  [10/100] q25 best s0=opus-5 s1=opus-5
+  [11/100] q26 best s0=opus-5 s1=opus-5
+  [12/100] q27 best s0=opus-5 s1=opus-5
+  [13/100] q06 best s0=opus-5 s1=sonnet-5
+  [14/100] q07 best s0=opus-5 s1=gpt-terra
+  [15/100] q08 best s0=opus-5 s1=opus-5
+2026-09-07 11:09:50 [warning  ] judge_unparseable              model=deepseek/deepseek-chat preview='{"ranking": [{"label": "A", "rank": 4, "comment": "Accurate and detailed but includes an unsupported claim that RELREC should not represent relationships inferred by the sponsor without CRF/collection'
+  [16/100] q09 best s0=gpt-sol s1=None
+  [17/100] q10 best s0=opus-5 s1=opus-5
+  [18/100] q28 best s0=opus-5 s1=opus-5
+  [19/100] q29 best s0=gpt-sol s1=gpt-sol
+  [20/100] q30 best s0=opus-5 s1=opus-5
+  [21/100] q31 best s0=sonnet-5 s1=sonnet-5
+  [22/100] q32 best s0=opus-5 s1=opus-5
+  [23/100] q33 best s0=opus-5 s1=gpt-terra
+  [24/100] q34 best s0=opus-5 s1=opus-5
+  [25/100] q11 best s0=opus-5 s1=sonnet-5
+  [26/100] q12 best s0=opus-5 s1=opus-5
+  [27/100] q13 best s0=opus-5 s1=opus-5
+  [28/100] q14 best s0=opus-5 s1=opus-5
+  [29/100] q15 best s0=opus-5 s1=opus-5
+  [30/100] q35 best s0=opus-5 s1=opus-5
+  [31/100] q37 best s0=opus-5 s1=opus-5
+  [32/100] q38 best s0=opus-5 s1=opus-5
+  [33/100] q39 best s0=gpt-terra s1=gpt-terra
+  [34/100] q40 best s0=opus-5 s1=opus-5
+  [35/100] q41 best s0=opus-5 s1=opus-5
+  [36/100] q16 best s0=gpt-sol s1=opus-5
+  [37/100] q17 best s0=opus-5 s1=opus-5
+  [38/100] q18 best s0=opus-5 s1=opus-5
+  [39/100] q19 best s0=opus-5 s1=opus-5
+  [40/100] q20 best s0=gpt-terra s1=opus-5
+  [41/100] q42 best s0=opus-5 s1=opus-5
+  [42/100] q43 best s0=sonnet-5 s1=gpt-terra
+  [43/100] q44 best s0=opus-5 s1=opus-5
+  [44/100] q45 best s0=opus-5 s1=opus-5
+  [45/100] q46 best s0=opus-5 s1=sonnet-5
+  [46/100] q47 best s0=sonnet-5 s1=opus-5
+  [47/100] q48 best s0=opus-5 s1=opus-5
+  [48/100] s01 best s0=opus-5 s1=opus-5
+  [49/100] s02 best s0=opus-5 s1=opus-5
+  [50/100] s03 best s0=sonnet-5 s1=opus-5
+  [51/100] s04 best s0=sonnet-5 s1=sonnet-5
+  [52/100] s05 best s0=gpt-terra s1=gpt-sol
+  [53/100] q54 best s0=opus-5 s1=opus-5
+  [54/100] q55 best s0=opus-5 s1=sonnet-5
+  [55/100] q56 best s0=opus-5 s1=opus-5
+  [56/100] q57 best s0=opus-5 s1=opus-5
+  [57/100] q58 best s0=gpt-terra s1=gpt-sol
+  [58/100] q59 best s0=gpt-terra s1=opus-5
+  [59/100] q60 best s0=opus-5 s1=opus-5
+  [60/100] q61 best s0=opus-5 s1=sonnet-5
+  [61/100] q62 best s0=opus-5 s1=sonnet-5
+  [62/100] q63 best s0=sonnet-5 s1=opus-5
+  [63/100] q64 best s0=opus-5 s1=opus-5
+  [64/100] q65 best s0=sonnet-5 s1=gpt-terra
+  [65/100] q66 best s0=sonnet-5 s1=opus-5
+  [66/100] q67 best s0=opus-5 s1=opus-5
+  [67/100] q68 best s0=gpt-terra s1=sonnet-5
+  [68/100] q69 best s0=gpt-sol s1=gpt-sol
+  [69/100] q70 best s0=sonnet-5 s1=opus-5
+  [70/100] q71 best s0=opus-5 s1=gpt-terra
+  [71/100] q72 best s0=sonnet-5 s1=sonnet-5
+  [72/100] q73 best s0=gpt-terra s1=opus-5
+  [73/100] q74 best s0=opus-5 s1=opus-5
+  [74/100] q75 best s0=opus-5 s1=opus-5
+  [75/100] q76 best s0=opus-5 s1=opus-5
+  [76/100] q77 best s0=opus-5 s1=opus-5
+  [77/100] q78 best s0=sonnet-5 s1=sonnet-5
+  [78/100] q79 best s0=opus-5 s1=opus-5
+  [79/100] q80 best s0=sonnet-5 s1=gpt-sol
+  [80/100] q81 best s0=opus-5 s1=opus-5
+  [81/100] q82 best s0=opus-5 s1=opus-5
+  [82/100] q84 best s0=opus-5 s1=opus-5
+  [83/100] q85 best s0=opus-5 s1=opus-5
+  [84/100] q86 best s0=sonnet-5 s1=opus-5
+  [85/100] q87 best s0=opus-5 s1=opus-5
+  [86/100] q88 best s0=opus-5 s1=opus-5
+  [87/100] q89 best s0=opus-5 s1=sonnet-5
+  [88/100] q90 best s0=opus-5 s1=opus-5
+  [89/100] q91 best s0=sonnet-5 s1=opus-5
+  [90/100] q92 best s0=gpt-terra s1=gpt-terra
+  [91/100] q93 best s0=opus-5 s1=opus-5
+  [92/100] q94 best s0=opus-5 s1=opus-5
+  [93/100] q95 best s0=opus-5 s1=opus-5
+  [94/100] q96 best s0=opus-5 s1=opus-5
+  [95/100] q97 best s0=sonnet-5 s1=sonnet-5
+  [96/100] q98 best s0=gpt-sol s1=sonnet-5
+  [97/100] q99 best s0=opus-5 s1=opus-5
+  [98/100] q100 best s0=opus-5 s1=opus-5
+  [99/100] q101 best s0=opus-5 s1=opus-5
+  [100/100] q102 best s0=opus-5 s1=opus-5
+Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x1151006e0>
+Unclosed connector
+connections: ['deque([(<aiohttp.client_proto.ResponseHandler object at 0x114f17890>, 587999.531549416)])']
+connector: <aiohttp.connector.TCPConnector object at 0x1151002f0>
+  J3 opus-5: mean=0.9485 n=100 parse_fail=0
+  J3 sonnet-5: mean=0.9385 n=100 parse_fail=0
+  J3 gpt-terra: mean=0.9439 n=100 parse_fail=0
+  J3 gpt-sol: mean=0.9348 n=100 parse_fail=0
+
+J1 (seed0) mean rank: {'opus-5': 1.53, 'sonnet-5': 2.34, 'gpt-terra': 2.96, 'gpt-sol': 3.17} 
+   rank-1: {'opus-5': 70, 'sonnet-5': 15, 'gpt-terra': 9, 'gpt-sol': 6} 
+   vs opus-5 胜率: {'sonnet-5': 0.25, 'gpt-terra': 0.15, 'gpt-sol': 0.13} 
+   位置分布: {'A': 44, 'C': 21, 'B': 23, 'D': 12} 
+   parse fail: 0
+J2: {'n_both': 98, 'best_agree': 0.704, 'kendall_tau_mean': 0.507}
+J3: {'opus-5': 0.9485, 'sonnet-5': 0.9385, 'gpt-terra': 0.9439, 'gpt-sol': 0.9348}
+自毁条款: 无触发
+saved -> /Users/bojiangzhang/MyProject/sdtm-pedia/sdtm-rag/evidence/checkpoints/model_compare_2026-09.json

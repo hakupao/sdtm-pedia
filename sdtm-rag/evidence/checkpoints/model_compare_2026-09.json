@@ -1,0 +1,5848 @@
+{
+ "judge_model": "deepseek/deepseek-chat",
+ "n_questions": 100,
+ "excluded": [
+  "q36",
+  "q83"
+ ],
+ "j1_seed0": {
+  "n_ok": 100,
+  "n_parse_fail": 0,
+  "n_rank_invalid": 0,
+  "n_best_mismatch": 0,
+  "mean_rank": {
+   "opus-5": 1.53,
+   "sonnet-5": 2.34,
+   "gpt-terra": 2.96,
+   "gpt-sol": 3.17
+  },
+  "rank1": {
+   "opus-5": 70,
+   "sonnet-5": 15,
+   "gpt-terra": 9,
+   "gpt-sol": 6
+  },
+  "pairwise_wins": {
+   "opus-5": {
+    "sonnet-5": 75,
+    "gpt-terra": 85,
+    "gpt-sol": 87
+   },
+   "sonnet-5": {
+    "opus-5": 25,
+    "gpt-terra": 68,
+    "gpt-sol": 73
+   },
+   "gpt-terra": {
+    "opus-5": 15,
+    "sonnet-5": 32,
+    "gpt-sol": 57
+   },
+   "gpt-sol": {
+    "opus-5": 13,
+    "sonnet-5": 27,
+    "gpt-terra": 43
+   }
+  },
+  "pairwise_winrate": {
+   "opus-5": {
+    "sonnet-5": 0.75,
+    "gpt-terra": 0.85,
+    "gpt-sol": 0.87
+   },
+   "sonnet-5": {
+    "opus-5": 0.25,
+    "gpt-terra": 0.68,
+    "gpt-sol": 0.73
+   },
+   "gpt-terra": {
+    "opus-5": 0.15,
+    "sonnet-5": 0.32,
+    "gpt-sol": 0.57
+   },
+   "gpt-sol": {
+    "opus-5": 0.13,
+    "sonnet-5": 0.27,
+    "gpt-terra": 0.43
+   }
+  },
+  "vs_baseline_winrate": {
+   "sonnet-5": 0.25,
+   "gpt-terra": 0.15,
+   "gpt-sol": 0.13
+  },
+  "best_pos_dist": {
+   "A": 44,
+   "C": 21,
+   "B": 23,
+   "D": 12
+  },
+  "mean_rank_by_category": {
+   "single_domain": {
+    "opus-5": 1.593,
+    "sonnet-5": 2.444,
+    "gpt-terra": 2.778,
+    "gpt-sol": 3.185
+   },
+   "cross_domain": {
+    "opus-5": 1.6,
+    "sonnet-5": 2.28,
+    "gpt-terra": 3.04,
+    "gpt-sol": 3.08
+   },
+   "concept": {
+    "opus-5": 1.217,
+    "sonnet-5": 2.391,
+    "gpt-terra": 3.0,
+    "gpt-sol": 3.391
+   },
+   "mixed": {
+    "opus-5": 1.68,
+    "sonnet-5": 2.24,
+    "gpt-terra": 3.04,
+    "gpt-sol": 3.04
+   }
+  },
+  "decision_barred_by": [
+   "C2"
+  ]
+ },
+ "j1_seed1": {
+  "n_ok": 98,
+  "n_parse_fail": 2,
+  "n_rank_invalid": 0,
+  "n_best_mismatch": 0,
+  "mean_rank": {
+   "opus-5": 1.5,
+   "sonnet-5": 2.357,
+   "gpt-terra": 2.969,
+   "gpt-sol": 3.173
+  },
+  "rank1": {
+   "opus-5": 71,
+   "sonnet-5": 14,
+   "gpt-terra": 7,
+   "gpt-sol": 6
+  },
+  "pairwise_wins": {
+   "opus-5": {
+    "sonnet-5": 74,
+    "gpt-terra": 84,
+    "gpt-sol": 87
+   },
+   "sonnet-5": {
+    "opus-5": 24,
+    "gpt-terra": 64,
+    "gpt-sol": 73
+   },
+   "gpt-terra": {
+    "opus-5": 14,
+    "sonnet-5": 34,
+    "gpt-sol": 53
+   },
+   "gpt-sol": {
+    "opus-5": 11,
+    "sonnet-5": 25,
+    "gpt-terra": 45
+   }
+  },
+  "pairwise_winrate": {
+   "opus-5": {
+    "sonnet-5": 0.755,
+    "gpt-terra": 0.857,
+    "gpt-sol": 0.888
+   },
+   "sonnet-5": {
+    "opus-5": 0.245,
+    "gpt-terra": 0.653,
+    "gpt-sol": 0.745
+   },
+   "gpt-terra": {
+    "opus-5": 0.143,
+    "sonnet-5": 0.347,
+    "gpt-sol": 0.541
+   },
+   "gpt-sol": {
+    "opus-5": 0.112,
+    "sonnet-5": 0.255,
+    "gpt-terra": 0.459
+   }
+  },
+  "vs_baseline_winrate": {
+   "sonnet-5": 0.245,
+   "gpt-terra": 0.143,
+   "gpt-sol": 0.112
+  },
+  "best_pos_dist": {
+   "D": 21,
+   "A": 36,
+   "C": 18,
+   "B": 23
+  },
+  "mean_rank_by_category": {
+   "single_domain": {
+    "opus-5": 1.5,
+    "sonnet-5": 2.385,
+    "gpt-terra": 3.038,
+    "gpt-sol": 3.077
+   },
+   "cross_domain": {
+    "opus-5": 1.667,
+    "sonnet-5": 2.208,
+    "gpt-terra": 2.917,
+    "gpt-sol": 3.208
+   },
+   "concept": {
+    "opus-5": 1.435,
+    "sonnet-5": 2.348,
+    "gpt-terra": 3.043,
+    "gpt-sol": 3.174
+   },
+   "mixed": {
+    "opus-5": 1.4,
+    "sonnet-5": 2.48,
+    "gpt-terra": 2.88,
+    "gpt-sol": 3.24
+   }
+  },
+  "decision_barred_by": [
+   "C2"
+  ]
+ },
+ "j2": {
+  "n_both": 98,
+  "n_partial_dropped": 2,
+  "best_agree": 0.704,
+  "kendall_tau_mean": 0.507,
+  "n_same_perm": 4,
+  "same_perm_ids": [
+   "q41",
+   "q54",
+   "q72",
+   "q75"
+  ],
+  "best_agree_excl_same_perm": 0.691
+ },
+ "j3": {
+  "opus-5": {
+   "mean": 0.9485,
+   "n": 100,
+   "parse_fail": 0
+  },
+  "sonnet-5": {
+   "mean": 0.9385,
+   "n": 100,
+   "parse_fail": 0
+  },
+  "gpt-terra": {
+   "mean": 0.9439,
+   "n": 100,
+   "parse_fail": 0
+  },
+  "gpt-sol": {
+   "mean": 0.9348,
+   "n": 100,
+   "parse_fail": 0
+  }
+ },
+ "j3_rows": {
+  "opus-5": [
+   {
+    "id": "q01",
+    "recall": 1.0
+   },
+   {
+    "id": "q02",
+    "recall": 0.4286
+   },
+   {
+    "id": "q03",
+    "recall": 1.0
+   },
+   {
+    "id": "q04",
+    "recall": 1.0
+   },
+   {
+    "id": "q05",
+    "recall": 1.0
+   },
+   {
+    "id": "q21",
+    "recall": 1.0
+   },
+   {
+    "id": "q22",
+    "recall": 1.0
+   },
+   {
+    "id": "q23",
+    "recall": 1.0
+   },
+   {
+    "id": "q24",
+    "recall": 1.0
+   },
+   {
+    "id": "q25",
+    "recall": 1.0
+   },
+   {
+    "id": "q26",
+    "recall": 1.0
+   },
+   {
+    "id": "q27",
+    "recall": 1.0
+   },
+   {
+    "id": "q06",
+    "recall": 1.0
+   },
+   {
+    "id": "q07",
+    "recall": 1.0
+   },
+   {
+    "id": "q08",
+    "recall": 1.0
+   },
+   {
+    "id": "q09",
+    "recall": 1.0
+   },
+   {
+    "id": "q10",
+    "recall": 1.0
+   },
+   {
+    "id": "q28",
+    "recall": 1.0
+   },
+   {
+    "id": "q29",
+    "recall": 1.0
+   },
+   {
+    "id": "q30",
+    "recall": 1.0
+   },
+   {
+    "id": "q31",
+    "recall": 1.0
+   },
+   {
+    "id": "q32",
+    "recall": 1.0
+   },
+   {
+    "id": "q33",
+    "recall": 1.0
+   },
+   {
+    "id": "q34",
+    "recall": 1.0
+   },
+   {
+    "id": "q11",
+    "recall": 1.0
+   },
+   {
+    "id": "q12",
+    "recall": 1.0
+   },
+   {
+    "id": "q13",
+    "recall": 1.0
+   },
+   {
+    "id": "q14",
+    "recall": 1.0
+   },
+   {
+    "id": "q15",
+    "recall": 1.0
+   },
+   {
+    "id": "q35",
+    "recall": 1.0
+   },
+   {
+    "id": "q37",
+    "recall": 1.0
+   },
+   {
+    "id": "q38",
+    "recall": 1.0
+   },
+   {
+    "id": "q39",
+    "recall": 1.0
+   },
+   {
+    "id": "q40",
+    "recall": 1.0
+   },
+   {
+    "id": "q41",
+    "recall": 1.0
+   },
+   {
+    "id": "q16",
+    "recall": 1.0
+   },
+   {
+    "id": "q17",
+    "recall": 1.0
+   },
+   {
+    "id": "q18",
+    "recall": 1.0
+   },
+   {
+    "id": "q19",
+    "recall": 1.0
+   },
+   {
+    "id": "q20",
+    "recall": 1.0
+   },
+   {
+    "id": "q42",
+    "recall": 1.0
+   },
+   {
+    "id": "q43",
+    "recall": 0.6667
+   },
+   {
+    "id": "q44",
+    "recall": 1.0
+   },
+   {
+    "id": "q45",
+    "recall": 1.0
+   },
+   {
+    "id": "q46",
+    "recall": 1.0
+   },
+   {
+    "id": "q47",
+    "recall": 1.0
+   },
+   {
+    "id": "q48",
+    "recall": 1.0
+   },
+   {
+    "id": "s01",
+    "recall": 1.0
+   },
+   {
+    "id": "s02",
+    "recall": 1.0
+   },
+   {
+    "id": "s03",
+    "recall": 1.0
+   },
+   {
+    "id": "s04",
+    "recall": 1.0
+   },
+   {
+    "id": "s05",
+    "recall": 0.3333
+   },
+   {
+    "id": "q54",
+    "recall": 1.0
+   },
+   {
+    "id": "q55",
+    "recall": 1.0
+   },
+   {
+    "id": "q56",
+    "recall": 1.0
+   },
+   {
+    "id": "q57",
+    "recall": 1.0
+   },
+   {
+    "id": "q58",
+    "recall": 1.0
+   },
+   {
+    "id": "q59",
+    "recall": 1.0
+   },
+   {
+    "id": "q60",
+    "recall": 1.0
+   },
+   {
+    "id": "q61",
+    "recall": 1.0
+   },
+   {
+    "id": "q62",
+    "recall": 1.0
+   },
+   {
+    "id": "q63",
+    "recall": 1.0
+   },
+   {
+    "id": "q64",
+    "recall": 1.0
+   },
+   {
+    "id": "q65",
+    "recall": 0.6667
+   },
+   {
+    "id": "q66",
+    "recall": 1.0
+   },
+   {
+    "id": "q67",
+    "recall": 1.0
+   },
+   {
+    "id": "q68",
+    "recall": 1.0
+   },
+   {
+    "id": "q69",
+    "recall": 1.0
+   },
+   {
+    "id": "q70",
+    "recall": 1.0
+   },
+   {
+    "id": "q71",
+    "recall": 1.0
+   },
+   {
+    "id": "q72",
+    "recall": 1.0
+   },
+   {
+    "id": "q73",
+    "recall": 1.0
+   },
+   {
+    "id": "q74",
+    "recall": 1.0
+   },
+   {
+    "id": "q75",
+    "recall": 1.0
+   },
+   {
+    "id": "q76",
+    "recall": 1.0
+   },
+   {
+    "id": "q77",
+    "recall": 1.0
+   },
+   {
+    "id": "q78",
+    "recall": 1.0
+   },
+   {
+    "id": "q79",
+    "recall": 1.0
+   },
+   {
+    "id": "q80",
+    "recall": 1.0
+   },
+   {
+    "id": "q81",
+    "recall": 1.0
+   },
+   {
+    "id": "q82",
+    "recall": 1.0
+   },
+   {
+    "id": "q84",
+    "recall": 1.0
+   },
+   {
+    "id": "q85",
+    "recall": 1.0
+   },
+   {
+    "id": "q86",
+    "recall": 1.0
+   },
+   {
+    "id": "q87",
+    "recall": 1.0
+   },
+   {
+    "id": "q88",
+    "recall": 1.0
+   },
+   {
+    "id": "q89",
+    "recall": 1.0
+   },
+   {
+    "id": "q90",
+    "recall": 0.75
+   },
+   {
+    "id": "q91",
+    "recall": 0.5
+   },
+   {
+    "id": "q92",
+    "recall": 1.0
+   },
+   {
+    "id": "q93",
+    "recall": 0.5
+   },
+   {
+    "id": "q94",
+    "recall": 1.0
+   },
+   {
+    "id": "q95",
+    "recall": 1.0
+   },
+   {
+    "id": "q96",
+    "recall": 0.5
+   },
+   {
+    "id": "q97",
+    "recall": 1.0
+   },
+   {
+    "id": "q98",
+    "recall": 0.5
+   },
+   {
+    "id": "q99",
+    "recall": 0.5
+   },
+   {
+    "id": "q100",
+    "recall": 1.0
+   },
+   {
+    "id": "q101",
+    "recall": 0.5
+   },
+   {
+    "id": "q102",
+    "recall": 1.0
+   }
+  ],
+  "sonnet-5": [
+   {
+    "id": "q01",
+    "recall": 1.0
+   },
+   {
+    "id": "q02",
+    "recall": 0.4286
+   },
+   {
+    "id": "q03",
+    "recall": 1.0
+   },
+   {
+    "id": "q04",
+    "recall": 1.0
+   },
+   {
+    "id": "q05",
+    "recall": 1.0
+   },
+   {
+    "id": "q21",
+    "recall": 1.0
+   },
+   {
+    "id": "q22",
+    "recall": 1.0
+   },
+   {
+    "id": "q23",
+    "recall": 1.0
+   },
+   {
+    "id": "q24",
+    "recall": 1.0
+   },
+   {
+    "id": "q25",
+    "recall": 1.0
+   },
+   {
+    "id": "q26",
+    "recall": 1.0
+   },
+   {
+    "id": "q27",
+    "recall": 1.0
+   },
+   {
+    "id": "q06",
+    "recall": 1.0
+   },
+   {
+    "id": "q07",
+    "recall": 1.0
+   },
+   {
+    "id": "q08",
+    "recall": 1.0
+   },
+   {
+    "id": "q09",
+    "recall": 1.0
+   },
+   {
+    "id": "q10",
+    "recall": 1.0
+   },
+   {
+    "id": "q28",
+    "recall": 1.0
+   },
+   {
+    "id": "q29",
+    "recall": 1.0
+   },
+   {
+    "id": "q30",
+    "recall": 1.0
+   },
+   {
+    "id": "q31",
+    "recall": 1.0
+   },
+   {
+    "id": "q32",
+    "recall": 1.0
+   },
+   {
+    "id": "q33",
+    "recall": 1.0
+   },
+   {
+    "id": "q34",
+    "recall": 1.0
+   },
+   {
+    "id": "q11",
+    "recall": 1.0
+   },
+   {
+    "id": "q12",
+    "recall": 1.0
+   },
+   {
+    "id": "q13",
+    "recall": 1.0
+   },
+   {
+    "id": "q14",
+    "recall": 1.0
+   },
+   {
+    "id": "q15",
+    "recall": 1.0
+   },
+   {
+    "id": "q35",
+    "recall": 1.0
+   },
+   {
+    "id": "q37",
+    "recall": 1.0
+   },
+   {
+    "id": "q38",
+    "recall": 1.0
+   },
+   {
+    "id": "q39",
+    "recall": 0.0
+   },
+   {
+    "id": "q40",
+    "recall": 1.0
+   },
+   {
+    "id": "q41",
+    "recall": 1.0
+   },
+   {
+    "id": "q16",
+    "recall": 1.0
+   },
+   {
+    "id": "q17",
+    "recall": 1.0
+   },
+   {
+    "id": "q18",
+    "recall": 1.0
+   },
+   {
+    "id": "q19",
+    "recall": 1.0
+   },
+   {
+    "id": "q20",
+    "recall": 1.0
+   },
+   {
+    "id": "q42",
+    "recall": 1.0
+   },
+   {
+    "id": "q43",
+    "recall": 0.6667
+   },
+   {
+    "id": "q44",
+    "recall": 1.0
+   },
+   {
+    "id": "q45",
+    "recall": 1.0
+   },
+   {
+    "id": "q46",
+    "recall": 1.0
+   },
+   {
+    "id": "q47",
+    "recall": 1.0
+   },
+   {
+    "id": "q48",
+    "recall": 1.0
+   },
+   {
+    "id": "s01",
+    "recall": 1.0
+   },
+   {
+    "id": "s02",
+    "recall": 1.0
+   },
+   {
+    "id": "s03",
+    "recall": 1.0
+   },
+   {
+    "id": "s04",
+    "recall": 1.0
+   },
+   {
+    "id": "s05",
+    "recall": 0.3333
+   },
+   {
+    "id": "q54",
+    "recall": 1.0
+   },
+   {
+    "id": "q55",
+    "recall": 1.0
+   },
+   {
+    "id": "q56",
+    "recall": 1.0
+   },
+   {
+    "id": "q57",
+    "recall": 1.0
+   },
+   {
+    "id": "q58",
+    "recall": 1.0
+   },
+   {
+    "id": "q59",
+    "recall": 1.0
+   },
+   {
+    "id": "q60",
+    "recall": 1.0
+   },
+   {
+    "id": "q61",
+    "recall": 1.0
+   },
+   {
+    "id": "q62",
+    "recall": 1.0
+   },
+   {
+    "id": "q63",
+    "recall": 1.0
+   },
+   {
+    "id": "q64",
+    "recall": 1.0
+   },
+   {
+    "id": "q65",
+    "recall": 0.6667
+   },
+   {
+    "id": "q66",
+    "recall": 1.0
+   },
+   {
+    "id": "q67",
+    "recall": 1.0
+   },
+   {
+    "id": "q68",
+    "recall": 1.0
+   },
+   {
+    "id": "q69",
+    "recall": 1.0
+   },
+   {
+    "id": "q70",
+    "recall": 1.0
+   },
+   {
+    "id": "q71",
+    "recall": 1.0
+   },
+   {
+    "id": "q72",
+    "recall": 1.0
+   },
+   {
+    "id": "q73",
+    "recall": 1.0
+   },
+   {
+    "id": "q74",
+    "recall": 1.0
+   },
+   {
+    "id": "q75",
+    "recall": 1.0
+   },
+   {
+    "id": "q76",
+    "recall": 1.0
+   },
+   {
+    "id": "q77",
+    "recall": 1.0
+   },
+   {
+    "id": "q78",
+    "recall": 1.0
+   },
+   {
+    "id": "q79",
+    "recall": 1.0
+   },
+   {
+    "id": "q80",
+    "recall": 1.0
+   },
+   {
+    "id": "q81",
+    "recall": 1.0
+   },
+   {
+    "id": "q82",
+    "recall": 1.0
+   },
+   {
+    "id": "q84",
+    "recall": 1.0
+   },
+   {
+    "id": "q85",
+    "recall": 1.0
+   },
+   {
+    "id": "q86",
+    "recall": 1.0
+   },
+   {
+    "id": "q87",
+    "recall": 1.0
+   },
+   {
+    "id": "q88",
+    "recall": 1.0
+   },
+   {
+    "id": "q89",
+    "recall": 1.0
+   },
+   {
+    "id": "q90",
+    "recall": 0.75
+   },
+   {
+    "id": "q91",
+    "recall": 0.5
+   },
+   {
+    "id": "q92",
+    "recall": 1.0
+   },
+   {
+    "id": "q93",
+    "recall": 0.5
+   },
+   {
+    "id": "q94",
+    "recall": 1.0
+   },
+   {
+    "id": "q95",
+    "recall": 1.0
+   },
+   {
+    "id": "q96",
+    "recall": 0.5
+   },
+   {
+    "id": "q97",
+    "recall": 1.0
+   },
+   {
+    "id": "q98",
+    "recall": 0.5
+   },
+   {
+    "id": "q99",
+    "recall": 0.5
+   },
+   {
+    "id": "q100",
+    "recall": 1.0
+   },
+   {
+    "id": "q101",
+    "recall": 0.5
+   },
+   {
+    "id": "q102",
+    "recall": 1.0
+   }
+  ],
+  "gpt-terra": [
+   {
+    "id": "q01",
+    "recall": 1.0
+   },
+   {
+    "id": "q02",
+    "recall": 0.1429
+   },
+   {
+    "id": "q03",
+    "recall": 1.0
+   },
+   {
+    "id": "q04",
+    "recall": 1.0
+   },
+   {
+    "id": "q05",
+    "recall": 1.0
+   },
+   {
+    "id": "q21",
+    "recall": 1.0
+   },
+   {
+    "id": "q22",
+    "recall": 1.0
+   },
+   {
+    "id": "q23",
+    "recall": 1.0
+   },
+   {
+    "id": "q24",
+    "recall": 1.0
+   },
+   {
+    "id": "q25",
+    "recall": 1.0
+   },
+   {
+    "id": "q26",
+    "recall": 1.0
+   },
+   {
+    "id": "q27",
+    "recall": 1.0
+   },
+   {
+    "id": "q06",
+    "recall": 1.0
+   },
+   {
+    "id": "q07",
+    "recall": 1.0
+   },
+   {
+    "id": "q08",
+    "recall": 1.0
+   },
+   {
+    "id": "q09",
+    "recall": 1.0
+   },
+   {
+    "id": "q10",
+    "recall": 0.5
+   },
+   {
+    "id": "q28",
+    "recall": 1.0
+   },
+   {
+    "id": "q29",
+    "recall": 1.0
+   },
+   {
+    "id": "q30",
+    "recall": 1.0
+   },
+   {
+    "id": "q31",
+    "recall": 1.0
+   },
+   {
+    "id": "q32",
+    "recall": 1.0
+   },
+   {
+    "id": "q33",
+    "recall": 1.0
+   },
+   {
+    "id": "q34",
+    "recall": 1.0
+   },
+   {
+    "id": "q11",
+    "recall": 1.0
+   },
+   {
+    "id": "q12",
+    "recall": 1.0
+   },
+   {
+    "id": "q13",
+    "recall": 1.0
+   },
+   {
+    "id": "q14",
+    "recall": 1.0
+   },
+   {
+    "id": "q15",
+    "recall": 1.0
+   },
+   {
+    "id": "q35",
+    "recall": 1.0
+   },
+   {
+    "id": "q37",
+    "recall": 1.0
+   },
+   {
+    "id": "q38",
+    "recall": 1.0
+   },
+   {
+    "id": "q39",
+    "recall": 0.0
+   },
+   {
+    "id": "q40",
+    "recall": 1.0
+   },
+   {
+    "id": "q41",
+    "recall": 1.0
+   },
+   {
+    "id": "q16",
+    "recall": 1.0
+   },
+   {
+    "id": "q17",
+    "recall": 1.0
+   },
+   {
+    "id": "q18",
+    "recall": 1.0
+   },
+   {
+    "id": "q19",
+    "recall": 1.0
+   },
+   {
+    "id": "q20",
+    "recall": 1.0
+   },
+   {
+    "id": "q42",
+    "recall": 1.0
+   },
+   {
+    "id": "q43",
+    "recall": 0.6667
+   },
+   {
+    "id": "q44",
+    "recall": 1.0
+   },
+   {
+    "id": "q45",
+    "recall": 1.0
+   },
+   {
+    "id": "q46",
+    "recall": 1.0
+   },
+   {
+    "id": "q47",
+    "recall": 1.0
+   },
+   {
+    "id": "q48",
+    "recall": 1.0
+   },
+   {
+    "id": "s01",
+    "recall": 1.0
+   },
+   {
+    "id": "s02",
+    "recall": 1.0
+   },
+   {
+    "id": "s03",
+    "recall": 1.0
+   },
+   {
+    "id": "s04",
+    "recall": 1.0
+   },
+   {
+    "id": "s05",
+    "recall": 0.3333
+   },
+   {
+    "id": "q54",
+    "recall": 1.0
+   },
+   {
+    "id": "q55",
+    "recall": 1.0
+   },
+   {
+    "id": "q56",
+    "recall": 1.0
+   },
+   {
+    "id": "q57",
+    "recall": 1.0
+   },
+   {
+    "id": "q58",
+    "recall": 1.0
+   },
+   {
+    "id": "q59",
+    "recall": 1.0
+   },
+   {
+    "id": "q60",
+    "recall": 1.0
+   },
+   {
+    "id": "q61",
+    "recall": 1.0
+   },
+   {
+    "id": "q62",
+    "recall": 1.0
+   },
+   {
+    "id": "q63",
+    "recall": 1.0
+   },
+   {
+    "id": "q64",
+    "recall": 1.0
+   },
+   {
+    "id": "q65",
+    "recall": 1.0
+   },
+   {
+    "id": "q66",
+    "recall": 1.0
+   },
+   {
+    "id": "q67",
+    "recall": 1.0
+   },
+   {
+    "id": "q68",
+    "recall": 1.0
+   },
+   {
+    "id": "q69",
+    "recall": 1.0
+   },
+   {
+    "id": "q70",
+    "recall": 1.0
+   },
+   {
+    "id": "q71",
+    "recall": 1.0
+   },
+   {
+    "id": "q72",
+    "recall": 1.0
+   },
+   {
+    "id": "q73",
+    "recall": 1.0
+   },
+   {
+    "id": "q74",
+    "recall": 1.0
+   },
+   {
+    "id": "q75",
+    "recall": 1.0
+   },
+   {
+    "id": "q76",
+    "recall": 1.0
+   },
+   {
+    "id": "q77",
+    "recall": 1.0
+   },
+   {
+    "id": "q78",
+    "recall": 1.0
+   },
+   {
+    "id": "q79",
+    "recall": 1.0
+   },
+   {
+    "id": "q80",
+    "recall": 1.0
+   },
+   {
+    "id": "q81",
+    "recall": 1.0
+   },
+   {
+    "id": "q82",
+    "recall": 1.0
+   },
+   {
+    "id": "q84",
+    "recall": 1.0
+   },
+   {
+    "id": "q85",
+    "recall": 1.0
+   },
+   {
+    "id": "q86",
+    "recall": 1.0
+   },
+   {
+    "id": "q87",
+    "recall": 1.0
+   },
+   {
+    "id": "q88",
+    "recall": 1.0
+   },
+   {
+    "id": "q89",
+    "recall": 1.0
+   },
+   {
+    "id": "q90",
+    "recall": 0.75
+   },
+   {
+    "id": "q91",
+    "recall": 0.5
+   },
+   {
+    "id": "q92",
+    "recall": 1.0
+   },
+   {
+    "id": "q93",
+    "recall": 0.5
+   },
+   {
+    "id": "q94",
+    "recall": 1.0
+   },
+   {
+    "id": "q95",
+    "recall": 1.0
+   },
+   {
+    "id": "q96",
+    "recall": 1.0
+   },
+   {
+    "id": "q97",
+    "recall": 1.0
+   },
+   {
+    "id": "q98",
+    "recall": 1.0
+   },
+   {
+    "id": "q99",
+    "recall": 0.5
+   },
+   {
+    "id": "q100",
+    "recall": 1.0
+   },
+   {
+    "id": "q101",
+    "recall": 0.5
+   },
+   {
+    "id": "q102",
+    "recall": 1.0
+   }
+  ],
+  "gpt-sol": [
+   {
+    "id": "q01",
+    "recall": 1.0
+   },
+   {
+    "id": "q02",
+    "recall": 0.1429
+   },
+   {
+    "id": "q03",
+    "recall": 1.0
+   },
+   {
+    "id": "q04",
+    "recall": 1.0
+   },
+   {
+    "id": "q05",
+    "recall": 1.0
+   },
+   {
+    "id": "q21",
+    "recall": 1.0
+   },
+   {
+    "id": "q22",
+    "recall": 1.0
+   },
+   {
+    "id": "q23",
+    "recall": 1.0
+   },
+   {
+    "id": "q24",
+    "recall": 1.0
+   },
+   {
+    "id": "q25",
+    "recall": 1.0
+   },
+   {
+    "id": "q26",
+    "recall": 1.0
+   },
+   {
+    "id": "q27",
+    "recall": 1.0
+   },
+   {
+    "id": "q06",
+    "recall": 1.0
+   },
+   {
+    "id": "q07",
+    "recall": 1.0
+   },
+   {
+    "id": "q08",
+    "recall": 1.0
+   },
+   {
+    "id": "q09",
+    "recall": 1.0
+   },
+   {
+    "id": "q10",
+    "recall": 1.0
+   },
+   {
+    "id": "q28",
+    "recall": 1.0
+   },
+   {
+    "id": "q29",
+    "recall": 1.0
+   },
+   {
+    "id": "q30",
+    "recall": 0.6667
+   },
+   {
+    "id": "q31",
+    "recall": 1.0
+   },
+   {
+    "id": "q32",
+    "recall": 1.0
+   },
+   {
+    "id": "q33",
+    "recall": 1.0
+   },
+   {
+    "id": "q34",
+    "recall": 1.0
+   },
+   {
+    "id": "q11",
+    "recall": 1.0
+   },
+   {
+    "id": "q12",
+    "recall": 1.0
+   },
+   {
+    "id": "q13",
+    "recall": 1.0
+   },
+   {
+    "id": "q14",
+    "recall": 1.0
+   },
+   {
+    "id": "q15",
+    "recall": 1.0
+   },
+   {
+    "id": "q35",
+    "recall": 1.0
+   },
+   {
+    "id": "q37",
+    "recall": 1.0
+   },
+   {
+    "id": "q38",
+    "recall": 1.0
+   },
+   {
+    "id": "q39",
+    "recall": 0.5
+   },
+   {
+    "id": "q40",
+    "recall": 1.0
+   },
+   {
+    "id": "q41",
+    "recall": 1.0
+   },
+   {
+    "id": "q16",
+    "recall": 1.0
+   },
+   {
+    "id": "q17",
+    "recall": 1.0
+   },
+   {
+    "id": "q18",
+    "recall": 1.0
+   },
+   {
+    "id": "q19",
+    "recall": 1.0
+   },
+   {
+    "id": "q20",
+    "recall": 1.0
+   },
+   {
+    "id": "q42",
+    "recall": 1.0
+   },
+   {
+    "id": "q43",
+    "recall": 0.6667
+   },
+   {
+    "id": "q44",
+    "recall": 1.0
+   },
+   {
+    "id": "q45",
+    "recall": 1.0
+   },
+   {
+    "id": "q46",
+    "recall": 1.0
+   },
+   {
+    "id": "q47",
+    "recall": 1.0
+   },
+   {
+    "id": "q48",
+    "recall": 1.0
+   },
+   {
+    "id": "s01",
+    "recall": 1.0
+   },
+   {
+    "id": "s02",
+    "recall": 1.0
+   },
+   {
+    "id": "s03",
+    "recall": 1.0
+   },
+   {
+    "id": "s04",
+    "recall": 1.0
+   },
+   {
+    "id": "s05",
+    "recall": 0.3333
+   },
+   {
+    "id": "q54",
+    "recall": 1.0
+   },
+   {
+    "id": "q55",
+    "recall": 1.0
+   },
+   {
+    "id": "q56",
+    "recall": 1.0
+   },
+   {
+    "id": "q57",
+    "recall": 1.0
+   },
+   {
+    "id": "q58",
+    "recall": 1.0
+   },
+   {
+    "id": "q59",
+    "recall": 1.0
+   },
+   {
+    "id": "q60",
+    "recall": 1.0
+   },
+   {
+    "id": "q61",
+    "recall": 1.0
+   },
+   {
+    "id": "q62",
+    "recall": 1.0
+   },
+   {
+    "id": "q63",
+    "recall": 1.0
+   },
+   {
+    "id": "q64",
+    "recall": 1.0
+   },
+   {
+    "id": "q65",
+    "recall": 0.6667
+   },
+   {
+    "id": "q66",
+    "recall": 1.0
+   },
+   {
+    "id": "q67",
+    "recall": 1.0
+   },
+   {
+    "id": "q68",
+    "recall": 1.0
+   },
+   {
+    "id": "q69",
+    "recall": 1.0
+   },
+   {
+    "id": "q70",
+    "recall": 1.0
+   },
+   {
+    "id": "q71",
+    "recall": 1.0
+   },
+   {
+    "id": "q72",
+    "recall": 1.0
+   },
+   {
+    "id": "q73",
+    "recall": 1.0
+   },
+   {
+    "id": "q74",
+    "recall": 1.0
+   },
+   {
+    "id": "q75",
+    "recall": 1.0
+   },
+   {
+    "id": "q76",
+    "recall": 1.0
+   },
+   {
+    "id": "q77",
+    "recall": 1.0
+   },
+   {
+    "id": "q78",
+    "recall": 1.0
+   },
+   {
+    "id": "q79",
+    "recall": 1.0
+   },
+   {
+    "id": "q80",
+    "recall": 1.0
+   },
+   {
+    "id": "q81",
+    "recall": 1.0
+   },
+   {
+    "id": "q82",
+    "recall": 1.0
+   },
+   {
+    "id": "q84",
+    "recall": 1.0
+   },
+   {
+    "id": "q85",
+    "recall": 1.0
+   },
+   {
+    "id": "q86",
+    "recall": 1.0
+   },
+   {
+    "id": "q87",
+    "recall": 1.0
+   },
+   {
+    "id": "q88",
+    "recall": 1.0
+   },
+   {
+    "id": "q89",
+    "recall": 1.0
+   },
+   {
+    "id": "q90",
+    "recall": 0.75
+   },
+   {
+    "id": "q91",
+    "recall": 0.5
+   },
+   {
+    "id": "q92",
+    "recall": 1.0
+   },
+   {
+    "id": "q93",
+    "recall": 0.5
+   },
+   {
+    "id": "q94",
+    "recall": 1.0
+   },
+   {
+    "id": "q95",
+    "recall": 1.0
+   },
+   {
+    "id": "q96",
+    "recall": 0.5
+   },
+   {
+    "id": "q97",
+    "recall": 1.0
+   },
+   {
+    "id": "q98",
+    "recall": 0.5
+   },
+   {
+    "id": "q99",
+    "recall": 0.5
+   },
+   {
+    "id": "q100",
+    "recall": 0.75
+   },
+   {
+    "id": "q101",
+    "recall": 0.5
+   },
+   {
+    "id": "q102",
+    "recall": 1.0
+   }
+  ]
+ },
+ "self_destruct": [
+  "C2 裁判不稳定 (min best_agree=0.691 < 70%)"
+ ],
+ "j1_rows_seed0": [
+  {
+   "id": "q01",
+   "seed": 0,
+   "order": [
+    "opus-5",
+    "sonnet-5",
+    "gpt-sol",
+    "gpt-terra"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-sol": 3,
+    "gpt-terra": 4
+   },
+   "best": "opus-5",
+   "best_pos": "A",
+   "rationale": "Answer A is the most complete and accurate, covering all variable attributes including Order, with clear source citations and relevant related variable context."
+  },
+  {
+   "id": "q02",
+   "seed": 0,
+   "order": [
+    "sonnet-5",
+    "gpt-sol",
+    "opus-5",
+    "gpt-terra"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-terra": 3,
+    "gpt-sol": 4
+   },
+   "best": "opus-5",
+   "best_pos": "C",
+   "rationale": "Answer C best balances accuracy, completeness, and grounding by thoroughly using the context to explain what is known, what is missing, and why the GOC rule does not apply to DM, without fabricating any variables."
+  },
+  {
+   "id": "q03",
+   "seed": 0,
+   "order": [
+    "opus-5",
+    "gpt-sol",
+    "gpt-terra",
+    "sonnet-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "gpt-sol": 2,
+    "gpt-terra": 3,
+    "sonnet-5": 4
+   },
+   "best": "opus-5",
+   "best_pos": "A",
+   "rationale": "Answer A is the most complete and accurate, covering all key assumptions with precise source citations and correct controlled terminology codes, while staying fully grounded in the context."
+  },
+  {
+   "id": "q04",
+   "seed": 0,
+   "order": [
+    "gpt-terra",
+    "sonnet-5",
+    "gpt-sol",
+    "opus-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "gpt-terra": 1,
+    "opus-5": 2,
+    "gpt-sol": 3,
+    "sonnet-5": 4
+   },
+   "best": "gpt-terra",
+   "best_pos": "A",
+   "rationale": "Answer A best balances accuracy, completeness, and grounding, clearly distinguishing supported variables from those lacking full metadata while covering purpose and structure precisely."
+  },
+  {
+   "id": "q05",
+   "seed": 0,
+   "order": [
+    "sonnet-5",
+    "opus-5",
+    "gpt-sol",
+    "gpt-terra"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "gpt-sol": 2,
+    "gpt-terra": 3,
+    "sonnet-5": 4
+   },
+   "best": "opus-5",
+   "best_pos": "B",
+   "rationale": "Answer B is the most accurate and grounded because it explicitly acknowledges the absence of the formal structure statement in the context, correctly describes PETESTCD and the PHYSEXAM/PETEST values, and avoids fabricating unsupported details."
+  },
+  {
+   "id": "q21",
+   "seed": 0,
+   "order": [
+    "gpt-sol",
+    "gpt-terra",
+    "sonnet-5",
+    "opus-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "gpt-sol": 1,
+    "gpt-terra": 2,
+    "sonnet-5": 3,
+    "opus-5": 4
+   },
+   "best": "gpt-sol",
+   "best_pos": "A",
+   "rationale": "Answer A is the most concise and fully grounded, covering all requested aspects without fabrication."
+  },
+  {
+   "id": "q22",
+   "seed": 0,
+   "order": [
+    "opus-5",
+    "gpt-terra",
+    "gpt-sol",
+    "sonnet-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-terra": 3,
+    "gpt-sol": 4
+   },
+   "best": "opus-5",
+   "best_pos": "A",
+   "rationale": "Answer A is the most complete and accurate, correctly citing the codelist C66741, providing examples, and explicitly avoiding fabrication by noting that per-value codes are not in the context."
+  },
+  {
+   "id": "q23",
+   "seed": 0,
+   "order": [
+    "opus-5",
+    "sonnet-5",
+    "gpt-sol",
+    "gpt-terra"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-sol": 3,
+    "gpt-terra": 4
+   },
+   "best": "opus-5",
+   "best_pos": "A",
+   "rationale": "Answer A is the most thorough and precisely grounded, covering all relevant context details with specific source citations and no fabrication."
+  },
+  {
+   "id": "q24",
+   "seed": 0,
+   "order": [
+    "gpt-sol",
+    "gpt-terra",
+    "opus-5",
+    "sonnet-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-sol": 3,
+    "gpt-terra": 4
+   },
+   "best": "opus-5",
+   "best_pos": "C",
+   "rationale": "Answer C provides the most thorough, accurate, and well-grounded response, covering all key aspects of EX domain usage and EXTRT with precise citations and no fabrication."
+  },
+  {
+   "id": "q25",
+   "seed": 0,
+   "order": [
+    "gpt-terra",
+    "sonnet-5",
+    "gpt-sol",
+    "opus-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-sol": 3,
+    "gpt-terra": 4
+   },
+   "best": "opus-5",
+   "best_pos": "D",
+   "rationale": "Answer D provides the most comprehensive and accurate coverage of MHTERM's role and all relevant assumptions, with precise source citations and no fabricated details."
+  },
+  {
+   "id": "q26",
+   "seed": 0,
+   "order": [
+    "gpt-terra",
+    "sonnet-5",
+    "opus-5",
+    "gpt-sol"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-terra": 3,
+    "gpt-sol": 4
+   },
+   "best": "opus-5",
+   "best_pos": "C",
+   "rationale": "Answer C best balances completeness and accuracy by reproducing the full domain structure from the context, thoroughly describing EGTESTCD and its codelists, and explicitly grounding all claims while avoiding fabrication of C71153 member codes."
+  },
+  {
+   "id": "q27",
+   "seed": 0,
+   "order": [
+    "opus-5",
+    "gpt-terra",
+    "sonnet-5",
+    "gpt-sol"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-terra": 3,
+    "gpt-sol": 4
+   },
+   "best": "opus-5",
+   "best_pos": "A",
+   "rationale": "Answer A is the most complete and accurate, covering the IE domain purpose, IETEST role and max length, and related context, all strictly grounded in the provided sources with precise citations."
+  },
+  {
+   "id": "q06",
+   "seed": 0,
+   "order": [
+    "opus-5",
+    "gpt-sol",
+    "gpt-terra",
+    "sonnet-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "gpt-terra": 2,
+    "sonnet-5": 3,
+    "gpt-sol": 4
+   },
+   "best": "opus-5",
+   "best_pos": "A",
+   "rationale": "Answer A is the most complete and accurate, thoroughly covering the definition, structure, variables, usage criteria, and exclusions, all with precise source citations from the context."
+  },
+  {
+   "id": "q07",
+   "seed": 0,
+   "order": [
+    "opus-5",
+    "gpt-sol",
+    "gpt-terra",
+    "sonnet-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-sol": 3,
+    "gpt-terra": 4
+   },
+   "best": "opus-5",
+   "best_pos": "A",
+   "rationale": "Answer A best balances completeness and grounding, covering all context-supported details (domains, purpose, class-based derivation, usage rules) with precise citations and no unsupported claims."
+  },
+  {
+   "id": "q08",
+   "seed": 0,
+   "order": [
+    "opus-5",
+    "sonnet-5",
+    "gpt-terra",
+    "gpt-sol"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-terra": 3,
+    "gpt-sol": 4
+   },
+   "best": "opus-5",
+   "best_pos": "A",
+   "rationale": "Answer A is the most complete and accurate, thoroughly explaining USUBJID's role as a linking key with detailed, well-cited evidence from the context, while avoiding unsupported claims."
+  },
+  {
+   "id": "q09",
+   "seed": 0,
+   "order": [
+    "gpt-terra",
+    "sonnet-5",
+    "gpt-sol",
+    "opus-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "gpt-sol": 1,
+    "opus-5": 2,
+    "gpt-terra": 3,
+    "sonnet-5": 4
+   },
+   "best": "gpt-sol",
+   "best_pos": "C",
+   "rationale": "Answer C is the most accurate, complete, and grounded, correctly explaining the RELREC mechanism, providing clear examples, and avoiding any fabricated details."
+  },
+  {
+   "id": "q10",
+   "seed": 0,
+   "order": [
+    "gpt-terra",
+    "opus-5",
+    "gpt-sol",
+    "sonnet-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "gpt-terra": 2,
+    "sonnet-5": 3,
+    "gpt-sol": 4
+   },
+   "best": "opus-5",
+   "best_pos": "B",
+   "rationale": "Answer B is the most complete and accurate, thoroughly addressing the question with correct identifiers for each linkage direction, supported by context, and including relevant examples and distinctions."
+  },
+  {
+   "id": "q28",
+   "seed": 0,
+   "order": [
+    "sonnet-5",
+    "gpt-terra",
+    "opus-5",
+    "gpt-sol"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-terra": 3,
+    "gpt-sol": 4
+   },
+   "best": "opus-5",
+   "best_pos": "C",
+   "rationale": "Answer C provides the most complete, accurate, and well-grounded response, covering all aspects of the question with precise citations and no fabrication."
+  },
+  {
+   "id": "q29",
+   "seed": 0,
+   "order": [
+    "gpt-sol",
+    "opus-5",
+    "gpt-terra",
+    "sonnet-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "gpt-sol": 1,
+    "opus-5": 2,
+    "gpt-terra": 3,
+    "sonnet-5": 4
+   },
+   "best": "gpt-sol",
+   "best_pos": "A",
+   "rationale": "Answer A best balances accuracy, completeness, and grounding, clearly explaining each domain's role and their interconnections while explicitly acknowledging the context's limitation on TV details."
+  },
+  {
+   "id": "q30",
+   "seed": 0,
+   "order": [
+    "opus-5",
+    "sonnet-5",
+    "gpt-terra",
+    "gpt-sol"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-terra": 3,
+    "gpt-sol": 4
+   },
+   "best": "opus-5",
+   "best_pos": "A",
+   "rationale": "Answer A is the most complete and accurate, thoroughly explaining the CO domain, the three levels of comment relationships, and the RDOMAIN/IDVAR mechanism with full grounding in the provided context."
+  },
+  {
+   "id": "q31",
+   "seed": 0,
+   "order": [
+    "gpt-terra",
+    "sonnet-5",
+    "opus-5",
+    "gpt-sol"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "sonnet-5": 1,
+    "gpt-terra": 2,
+    "opus-5": 3,
+    "gpt-sol": 4
+   },
+   "best": "sonnet-5",
+   "best_pos": "B",
+   "rationale": "Answer B provides the most complete, accurate, and well-grounded response, directly citing context for all key distinctions, usage criteria, examples, and qualifier notes, without fabricating any unsupported details."
+  },
+  {
+   "id": "q32",
+   "seed": 0,
+   "order": [
+    "sonnet-5",
+    "gpt-terra",
+    "opus-5",
+    "gpt-sol"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-terra": 3,
+    "gpt-sol": 4
+   },
+   "best": "opus-5",
+   "best_pos": "C",
+   "rationale": "Answer C is the most complete and accurate, covering all aspects of the question with precise citations and correctly noting the role differences of VISIT/VISITNUM in SV versus observation-class domains."
+  },
+  {
+   "id": "q33",
+   "seed": 0,
+   "order": [
+    "opus-5",
+    "gpt-terra",
+    "sonnet-5",
+    "gpt-sol"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-terra": 3,
+    "gpt-sol": 4
+   },
+   "best": "opus-5",
+   "best_pos": "A",
+   "rationale": "Answer A provides the most thorough, accurate, and well-grounded response, explicitly correcting the question's premise and comprehensively covering both RELSPEC and RELREC with detailed variable tables and consistent source citations."
+  },
+  {
+   "id": "q34",
+   "seed": 0,
+   "order": [
+    "gpt-sol",
+    "opus-5",
+    "sonnet-5",
+    "gpt-terra"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "gpt-sol": 2,
+    "sonnet-5": 3,
+    "gpt-terra": 4
+   },
+   "best": "opus-5",
+   "best_pos": "B",
+   "rationale": "B best balances accuracy, completeness, and grounding by precisely listing the two grounded domains, explaining the typical --PRESP/--OCCUR pattern with the Y-only constraint, and transparently noting the context's limitation without fabricating additional domains."
+  },
+  {
+   "id": "q11",
+   "seed": 0,
+   "order": [
+    "gpt-sol",
+    "opus-5",
+    "gpt-terra",
+    "sonnet-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-sol": 3,
+    "gpt-terra": 4
+   },
+   "best": "opus-5",
+   "best_pos": "B",
+   "rationale": "Answer B is the most complete and accurate, providing a clear table of the three classes with examples and adding well-grounded supplementary details from multiple context sources, all while staying strictly within the provided evidence."
+  },
+  {
+   "id": "q12",
+   "seed": 0,
+   "order": [
+    "opus-5",
+    "gpt-terra",
+    "sonnet-5",
+    "gpt-sol"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-terra": 3,
+    "gpt-sol": 4
+   },
+   "best": "opus-5",
+   "best_pos": "A",
+   "rationale": "Answer A is the most complete and accurate, covering all three designations with precise rules and additional context, all properly grounded in the provided sources."
+  },
+  {
+   "id": "q13",
+   "seed": 0,
+   "order": [
+    "opus-5",
+    "gpt-terra",
+    "sonnet-5",
+    "gpt-sol"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-terra": 3,
+    "gpt-sol": 4
+   },
+   "best": "opus-5",
+   "best_pos": "A",
+   "rationale": "Answer A best balances accuracy, completeness, and grounding by thoroughly explaining the three roles, all qualifier subclasses, the illustrative example, and relevant ordering/naming/domain-assumption details, all strictly sourced from the context."
+  },
+  {
+   "id": "q14",
+   "seed": 0,
+   "order": [
+    "gpt-terra",
+    "gpt-sol",
+    "opus-5",
+    "sonnet-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-sol": 3,
+    "gpt-terra": 4
+   },
+   "best": "opus-5",
+   "best_pos": "C",
+   "rationale": "Answer C is the most complete and accurate, directly mirroring the context's detailed process for creating a custom domain, including all steps, code constraints, and prohibitions, with proper grounding and no fabricated details."
+  },
+  {
+   "id": "q15",
+   "seed": 0,
+   "order": [
+    "gpt-terra",
+    "sonnet-5",
+    "opus-5",
+    "gpt-sol"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "gpt-terra": 2,
+    "gpt-sol": 3,
+    "sonnet-5": 4
+   },
+   "best": "opus-5",
+   "best_pos": "C",
+   "rationale": "Answer C provides the most thorough, accurate, and well-grounded response, explicitly detailing each Core category and the Permissible variable rules with proper source citations."
+  },
+  {
+   "id": "q35",
+   "seed": 0,
+   "order": [
+    "gpt-sol",
+    "opus-5",
+    "gpt-terra",
+    "sonnet-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "gpt-sol": 2,
+    "gpt-terra": 3,
+    "sonnet-5": 4
+   },
+   "best": "opus-5",
+   "best_pos": "B",
+   "rationale": "Answer B is the most complete and accurate, thoroughly grounding every claim in the provided context while explicitly acknowledging what is not covered, unlike D which fabricates a codelist code and an extensibility claim."
+  },
+  {
+   "id": "q37",
+   "seed": 0,
+   "order": [
+    "gpt-terra",
+    "opus-5",
+    "gpt-sol",
+    "sonnet-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "gpt-terra": 2,
+    "sonnet-5": 3,
+    "gpt-sol": 4
+   },
+   "best": "opus-5",
+   "best_pos": "B",
+   "rationale": "Answer B is the most complete and accurate, correctly identifying the special-purpose domains (DM, CO, SE, SV, SM) and providing well-grounded distinctions from other dataset types, all supported by the context."
+  },
+  {
+   "id": "q38",
+   "seed": 0,
+   "order": [
+    "opus-5",
+    "sonnet-5",
+    "gpt-terra",
+    "gpt-sol"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-terra": 3,
+    "gpt-sol": 4
+   },
+   "best": "opus-5",
+   "best_pos": "A",
+   "rationale": "Answer A is the most complete and accurate, thoroughly covering standard codes, custom domain reservations, character rules, prefix usage, exceptions, and dataset naming, all strictly grounded in the provided context with precise source citations."
+  },
+  {
+   "id": "q39",
+   "seed": 0,
+   "order": [
+    "gpt-terra",
+    "gpt-sol",
+    "opus-5",
+    "sonnet-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "gpt-terra": 1,
+    "sonnet-5": 2,
+    "opus-5": 3,
+    "gpt-sol": 4
+   },
+   "best": "gpt-terra",
+   "best_pos": "A",
+   "rationale": "Answer A is the most grounded and accurate because it strictly limits claims to what the context shows (insufficient stubs) and does not invent details, unlike others that fabricate sources or content."
+  },
+  {
+   "id": "q40",
+   "seed": 0,
+   "order": [
+    "gpt-sol",
+    "opus-5",
+    "gpt-terra",
+    "sonnet-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "gpt-terra": 2,
+    "gpt-sol": 3,
+    "sonnet-5": 4
+   },
+   "best": "opus-5",
+   "best_pos": "B",
+   "rationale": "Answer B provides the most comprehensive, accurate, and well-grounded response, covering all aspects of the question with precise citations and a clear summary table."
+  },
+  {
+   "id": "q41",
+   "seed": 0,
+   "order": [
+    "gpt-terra",
+    "opus-5",
+    "sonnet-5",
+    "gpt-sol"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "gpt-terra": 2,
+    "sonnet-5": 3,
+    "gpt-sol": 4
+   },
+   "best": "opus-5",
+   "best_pos": "B",
+   "rationale": "Answer B is the most accurate and grounded, correctly identifying the TDM datasets from context and transparently flagging where the context lacks detail, whereas others fabricate unsupported specifics."
+  },
+  {
+   "id": "q16",
+   "seed": 0,
+   "order": [
+    "gpt-sol",
+    "sonnet-5",
+    "gpt-terra",
+    "opus-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "gpt-sol": 1,
+    "gpt-terra": 2,
+    "sonnet-5": 3,
+    "opus-5": 4
+   },
+   "best": "gpt-sol",
+   "best_pos": "A",
+   "rationale": "Answer A is the most concise and accurate, directly answering both parts of the question using only context-supported facts and appropriately flagging the limitation of the context."
+  },
+  {
+   "id": "q17",
+   "seed": 0,
+   "order": [
+    "gpt-terra",
+    "opus-5",
+    "gpt-sol",
+    "sonnet-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-terra": 3,
+    "gpt-sol": 4
+   },
+   "best": "opus-5",
+   "best_pos": "B",
+   "rationale": "Answer B provides the most thorough, accurate, and well-grounded response, covering all aspects of the question with detailed examples and proper source citations."
+  },
+  {
+   "id": "q18",
+   "seed": 0,
+   "order": [
+    "opus-5",
+    "sonnet-5",
+    "gpt-sol",
+    "gpt-terra"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-sol": 3,
+    "gpt-terra": 4
+   },
+   "best": "opus-5",
+   "best_pos": "A",
+   "rationale": "Answer A provides the most complete, accurate, and well-grounded explanation of the MedDRA coding chain, including all hierarchy levels, variable roles, and a worked example, all properly cited to the context."
+  },
+  {
+   "id": "q19",
+   "seed": 0,
+   "order": [
+    "gpt-sol",
+    "opus-5",
+    "gpt-terra",
+    "sonnet-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "gpt-sol": 2,
+    "gpt-terra": 3,
+    "sonnet-5": 4
+   },
+   "best": "opus-5",
+   "best_pos": "B",
+   "rationale": "B is the most complete and accurate, correctly identifying the codelist and usage rules while strictly grounding all listed values in the context and explicitly avoiding fabrication of additional terms."
+  },
+  {
+   "id": "q20",
+   "seed": 0,
+   "order": [
+    "gpt-terra",
+    "sonnet-5",
+    "gpt-sol",
+    "opus-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "gpt-terra": 1,
+    "sonnet-5": 2,
+    "gpt-sol": 3,
+    "opus-5": 4
+   },
+   "best": "gpt-terra",
+   "best_pos": "A",
+   "rationale": "Answer A best balances accuracy, completeness, and grounding, directly addressing the question with precise distinctions and correct null conditions, all supported by context."
+  },
+  {
+   "id": "q42",
+   "seed": 0,
+   "order": [
+    "sonnet-5",
+    "opus-5",
+    "gpt-terra",
+    "gpt-sol"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-terra": 3,
+    "gpt-sol": 4
+   },
+   "best": "opus-5",
+   "best_pos": "B",
+   "rationale": "Answer B is the most complete and accurate, thoroughly addressing both parts of the question with precise source citations, including the codelist values and exclusions, while staying fully grounded in the context."
+  },
+  {
+   "id": "q43",
+   "seed": 0,
+   "order": [
+    "sonnet-5",
+    "opus-5",
+    "gpt-sol",
+    "gpt-terra"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "sonnet-5": 1,
+    "opus-5": 2,
+    "gpt-sol": 3,
+    "gpt-terra": 4
+   },
+   "best": "sonnet-5",
+   "best_pos": "A",
+   "rationale": "Answer A is the most accurate and grounded, correctly identifying C66731 with a clear source citation and explicitly stating the Core designation is not available in the context without adding unsupported details."
+  },
+  {
+   "id": "q44",
+   "seed": 0,
+   "order": [
+    "gpt-sol",
+    "gpt-terra",
+    "sonnet-5",
+    "opus-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "gpt-sol": 2,
+    "gpt-terra": 3,
+    "sonnet-5": 4
+   },
+   "best": "opus-5",
+   "best_pos": "D",
+   "rationale": "Answer D is the most comprehensive and accurate, covering the codelist code, variable attributes, examples, cross-reference, and related terminology, all strictly grounded in the provided context."
+  },
+  {
+   "id": "q45",
+   "seed": 0,
+   "order": [
+    "sonnet-5",
+    "gpt-terra",
+    "opus-5",
+    "gpt-sol"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-terra": 3,
+    "gpt-sol": 4
+   },
+   "best": "opus-5",
+   "best_pos": "C",
+   "rationale": "Answer C fully answers the question with precise variable attributes, codelist contents, and relevant assumptions, all grounded in the context, while also flagging the discrepancy about MULTIPLE not being in the listed codelist."
+  },
+  {
+   "id": "q46",
+   "seed": 0,
+   "order": [
+    "opus-5",
+    "sonnet-5",
+    "gpt-sol",
+    "gpt-terra"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-sol": 3,
+    "gpt-terra": 4
+   },
+   "best": "opus-5",
+   "best_pos": "A",
+   "rationale": "Answer A provides the most comprehensive and accurate response, covering all variable attributes, the full codelist with codes, and a grounded usage example, all strictly sourced from the context."
+  },
+  {
+   "id": "q47",
+   "seed": 0,
+   "order": [
+    "gpt-terra",
+    "gpt-sol",
+    "sonnet-5",
+    "opus-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "sonnet-5": 1,
+    "gpt-terra": 2,
+    "gpt-sol": 3,
+    "opus-5": 4
+   },
+   "best": "sonnet-5",
+   "best_pos": "C",
+   "rationale": "Answer C best balances accuracy, completeness, and grounding, directly answering the question with well-supported details and no fabricated claims."
+  },
+  {
+   "id": "q48",
+   "seed": 0,
+   "order": [
+    "sonnet-5",
+    "gpt-sol",
+    "opus-5",
+    "gpt-terra"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-sol": 3,
+    "gpt-terra": 4
+   },
+   "best": "opus-5",
+   "best_pos": "C",
+   "rationale": "Answer C is the most complete and accurate, covering the codelist code, variable attributes, FATEST pairing, examples, and relevant assumptions, all grounded in the context without fabricating codes."
+  },
+  {
+   "id": "s01",
+   "seed": 0,
+   "order": [
+    "gpt-sol",
+    "gpt-terra",
+    "sonnet-5",
+    "opus-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "gpt-terra": 2,
+    "gpt-sol": 3,
+    "sonnet-5": 4
+   },
+   "best": "opus-5",
+   "best_pos": "D",
+   "rationale": "D provides the most thorough, accurate, and fully grounded answer, including the codelist code, all four permitted submission values with codes and synonyms, variable attributes, and a correct note about non-extensibility, all cited to the context."
+  },
+  {
+   "id": "s02",
+   "seed": 0,
+   "order": [
+    "gpt-terra",
+    "opus-5",
+    "sonnet-5",
+    "gpt-sol"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "gpt-terra": 2,
+    "sonnet-5": 3,
+    "gpt-sol": 4
+   },
+   "best": "opus-5",
+   "best_pos": "B",
+   "rationale": "Answer B is the most complete and accurate, covering all character constraints and adding well-grounded related rules from the context, while staying fully grounded in the provided sources."
+  },
+  {
+   "id": "s03",
+   "seed": 0,
+   "order": [
+    "sonnet-5",
+    "gpt-terra",
+    "opus-5",
+    "gpt-sol"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "sonnet-5": 1,
+    "opus-5": 2,
+    "gpt-terra": 3,
+    "gpt-sol": 4
+   },
+   "best": "sonnet-5",
+   "best_pos": "A",
+   "rationale": "Answer A is the most concise, accurate, and fully grounded with precise source references for both RFXSTDTC and RFXENDTC definitions."
+  },
+  {
+   "id": "s04",
+   "seed": 0,
+   "order": [
+    "sonnet-5",
+    "opus-5",
+    "gpt-terra",
+    "gpt-sol"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "sonnet-5": 1,
+    "opus-5": 2,
+    "gpt-terra": 3,
+    "gpt-sol": 4
+   },
+   "best": "sonnet-5",
+   "best_pos": "A",
+   "rationale": "Answer A is the most accurate, complete, and well-grounded response, precisely answering both parts of the question while explicitly avoiding unsupported claims about individual NCI codes."
+  },
+  {
+   "id": "s05",
+   "seed": 0,
+   "order": [
+    "gpt-terra",
+    "gpt-sol",
+    "sonnet-5",
+    "opus-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "gpt-terra": 1,
+    "gpt-sol": 2,
+    "sonnet-5": 3,
+    "opus-5": 4
+   },
+   "best": "gpt-terra",
+   "best_pos": "A",
+   "rationale": "Answer A is the most concise and precise, correctly identifying the codelist code and name while clearly stating that extensibility and example values are not supported by the context, without any fabrication."
+  },
+  {
+   "id": "q54",
+   "seed": 0,
+   "order": [
+    "sonnet-5",
+    "gpt-sol",
+    "gpt-terra",
+    "opus-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-terra": 3,
+    "gpt-sol": 4
+   },
+   "best": "opus-5",
+   "best_pos": "D",
+   "rationale": "Answer D provides the most thorough and accurate response, fully grounded in the context with appropriate citations, covering all aspects of the question without fabrication."
+  },
+  {
+   "id": "q55",
+   "seed": 0,
+   "order": [
+    "gpt-terra",
+    "opus-5",
+    "gpt-sol",
+    "sonnet-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "gpt-terra": 2,
+    "sonnet-5": 3,
+    "gpt-sol": 4
+   },
+   "best": "opus-5",
+   "best_pos": "B",
+   "rationale": "Answer B provides the most complete and precisely grounded response, covering the observation class, structure, and DSTERM role with detailed citations and no unsupported claims."
+  },
+  {
+   "id": "q56",
+   "seed": 0,
+   "order": [
+    "sonnet-5",
+    "gpt-terra",
+    "opus-5",
+    "gpt-sol"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "gpt-sol": 2,
+    "sonnet-5": 3,
+    "gpt-terra": 4
+   },
+   "best": "opus-5",
+   "best_pos": "C",
+   "rationale": "Answer C provides the most thorough, accurate, and well-grounded response, including all relevant details from the context such as coding rules, related qualifiers, and examples, without fabrication."
+  },
+  {
+   "id": "q57",
+   "seed": 0,
+   "order": [
+    "gpt-sol",
+    "gpt-terra",
+    "opus-5",
+    "sonnet-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-terra": 3,
+    "gpt-sol": 4
+   },
+   "best": "opus-5",
+   "best_pos": "C",
+   "rationale": "Answer C provides the most comprehensive and accurate response, fully addressing both the domain purpose and PRTRT with all attributes, qualifiers, and examples, all strictly grounded in the context."
+  },
+  {
+   "id": "q58",
+   "seed": 0,
+   "order": [
+    "gpt-terra",
+    "opus-5",
+    "sonnet-5",
+    "gpt-sol"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "gpt-terra": 1,
+    "sonnet-5": 2,
+    "gpt-sol": 3,
+    "opus-5": 4
+   },
+   "best": "gpt-terra",
+   "best_pos": "A",
+   "rationale": "Answer A is the most accurate, complete, and strictly grounded in the provided context, covering all requested aspects without fabrication."
+  },
+  {
+   "id": "q59",
+   "seed": 0,
+   "order": [
+    "gpt-terra",
+    "sonnet-5",
+    "gpt-sol",
+    "opus-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "gpt-terra": 1,
+    "sonnet-5": 2,
+    "gpt-sol": 3,
+    "opus-5": 4
+   },
+   "best": "gpt-terra",
+   "best_pos": "A",
+   "rationale": "Answer A is the most focused and complete response to the question, accurately describing DDTESTCD and its C116108 codelist with all claims directly grounded in the context and proper source citations."
+  },
+  {
+   "id": "q60",
+   "seed": 0,
+   "order": [
+    "gpt-sol",
+    "opus-5",
+    "sonnet-5",
+    "gpt-terra"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "gpt-sol": 2,
+    "sonnet-5": 3,
+    "gpt-terra": 4
+   },
+   "best": "opus-5",
+   "best_pos": "B",
+   "rationale": "Answer B provides the most thorough, accurate, and well-grounded response, covering all aspects of the question with specific source citations and relevant examples."
+  },
+  {
+   "id": "q61",
+   "seed": 0,
+   "order": [
+    "gpt-sol",
+    "opus-5",
+    "gpt-terra",
+    "sonnet-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-sol": 3,
+    "gpt-terra": 4
+   },
+   "best": "opus-5",
+   "best_pos": "B",
+   "rationale": "Answer B is the most complete and precise, covering all question parts with exact attribute details, correct codelist identification, and proper source citations, while avoiding any unsupported claims."
+  },
+  {
+   "id": "q62",
+   "seed": 0,
+   "order": [
+    "gpt-terra",
+    "opus-5",
+    "gpt-sol",
+    "sonnet-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-terra": 3,
+    "gpt-sol": 4
+   },
+   "best": "opus-5",
+   "best_pos": "B",
+   "rationale": "B provides the most thorough, accurate, and fully grounded answer, covering the domain class, complete variable set, SSTESTCD specification, and all relevant controlled terminology codelists without fabrication."
+  },
+  {
+   "id": "q63",
+   "seed": 0,
+   "order": [
+    "gpt-terra",
+    "sonnet-5",
+    "opus-5",
+    "gpt-sol"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "sonnet-5": 1,
+    "opus-5": 2,
+    "gpt-terra": 3,
+    "gpt-sol": 4
+   },
+   "best": "sonnet-5",
+   "best_pos": "B",
+   "rationale": "B provides the most thorough, accurate, and fully grounded answer, covering observation class, dataset structure, and detailed variable roles with clear source citations."
+  },
+  {
+   "id": "q64",
+   "seed": 0,
+   "order": [
+    "gpt-sol",
+    "gpt-terra",
+    "sonnet-5",
+    "opus-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "gpt-terra": 2,
+    "sonnet-5": 3,
+    "gpt-sol": 4
+   },
+   "best": "opus-5",
+   "best_pos": "D",
+   "rationale": "Answer D provides the most thorough, accurate, and fully grounded response, covering purpose, structure, key variables, and RELREC relationships without fabrication."
+  },
+  {
+   "id": "q65",
+   "seed": 0,
+   "order": [
+    "sonnet-5",
+    "gpt-terra",
+    "opus-5",
+    "gpt-sol"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "sonnet-5": 1,
+    "gpt-terra": 2,
+    "opus-5": 3,
+    "gpt-sol": 4
+   },
+   "best": "sonnet-5",
+   "best_pos": "A",
+   "rationale": "Answer A is the most complete and accurate, directly citing the context for the Findings class and exhaustively listing the DA variable structure with roles and cores, without fabricating unsupported details."
+  },
+  {
+   "id": "q66",
+   "seed": 0,
+   "order": [
+    "sonnet-5",
+    "opus-5",
+    "gpt-sol",
+    "gpt-terra"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "sonnet-5": 1,
+    "opus-5": 2,
+    "gpt-sol": 3,
+    "gpt-terra": 4
+   },
+   "best": "sonnet-5",
+   "best_pos": "A",
+   "rationale": "Answer A is the most accurate and complete, directly listing all 36 domains from the context and adding only well-grounded, cited details about VISITNUM usage, without fabricating any information."
+  },
+  {
+   "id": "q67",
+   "seed": 0,
+   "order": [
+    "gpt-sol",
+    "gpt-terra",
+    "sonnet-5",
+    "opus-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "gpt-terra": 2,
+    "sonnet-5": 3,
+    "gpt-sol": 4
+   },
+   "best": "opus-5",
+   "best_pos": "D",
+   "rationale": "D is the most complete and accurate, covering all AE seriousness variables from the context, the correct count of 123, and grounded usage notes without fabrication."
+  },
+  {
+   "id": "q68",
+   "seed": 0,
+   "order": [
+    "gpt-terra",
+    "opus-5",
+    "gpt-sol",
+    "sonnet-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "gpt-terra": 1,
+    "sonnet-5": 2,
+    "gpt-sol": 3,
+    "opus-5": 4
+   },
+   "best": "gpt-terra",
+   "best_pos": "A",
+   "rationale": "Answer A is the most complete and accurate, listing all 15 domains with precise per-domain indications and null rules, fully grounded in the provided context without fabrication."
+  },
+  {
+   "id": "q69",
+   "seed": 0,
+   "order": [
+    "gpt-sol",
+    "opus-5",
+    "sonnet-5",
+    "gpt-terra"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "gpt-sol": 1,
+    "sonnet-5": 2,
+    "opus-5": 3,
+    "gpt-terra": 4
+   },
+   "best": "gpt-sol",
+   "best_pos": "A",
+   "rationale": "Answer A is the most accurate, complete, and grounded: it lists all five variables confirmed in the context with correct details, and explicitly avoids fabricating additional variables by noting the context's limitation."
+  },
+  {
+   "id": "q70",
+   "seed": 0,
+   "order": [
+    "gpt-sol",
+    "gpt-terra",
+    "sonnet-5",
+    "opus-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "sonnet-5": 1,
+    "opus-5": 2,
+    "gpt-sol": 3,
+    "gpt-terra": 4
+   },
+   "best": "sonnet-5",
+   "best_pos": "C",
+   "rationale": "C best answers the question by fully explaining RELSUB's bidirectional representation and RSUBJID's content, while staying strictly grounded in the context and including a concrete example."
+  },
+  {
+   "id": "q71",
+   "seed": 0,
+   "order": [
+    "opus-5",
+    "gpt-sol",
+    "sonnet-5",
+    "gpt-terra"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "gpt-sol": 2,
+    "sonnet-5": 3,
+    "gpt-terra": 4
+   },
+   "best": "opus-5",
+   "best_pos": "A",
+   "rationale": "Answer A is the most complete and precise, covering the codelist definition, all 19 variables with a clear table, the QEVAL naming exception, and relevant companion codelist and domain-specific notes, all strictly grounded in the context."
+  },
+  {
+   "id": "q72",
+   "seed": 0,
+   "order": [
+    "sonnet-5",
+    "gpt-sol",
+    "gpt-terra",
+    "opus-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "sonnet-5": 1,
+    "opus-5": 2,
+    "gpt-terra": 3,
+    "gpt-sol": 4
+   },
+   "best": "sonnet-5",
+   "best_pos": "A",
+   "rationale": "Answer A best covers the relationship, separation rationale, and linkage methods with precise citations and no unsupported claims."
+  },
+  {
+   "id": "q73",
+   "seed": 0,
+   "order": [
+    "sonnet-5",
+    "opus-5",
+    "gpt-sol",
+    "gpt-terra"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "gpt-terra": 1,
+    "gpt-sol": 2,
+    "opus-5": 3,
+    "sonnet-5": 4
+   },
+   "best": "gpt-terra",
+   "best_pos": "D",
+   "rationale": "Answer D is the most accurate and grounded, correctly identifying CO, RELREC, and SUPPQUAL as the domains carrying RDOMAIN and describing its role without fabricating class designations."
+  },
+  {
+   "id": "q74",
+   "seed": 0,
+   "order": [
+    "sonnet-5",
+    "gpt-terra",
+    "opus-5",
+    "gpt-sol"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-terra": 3,
+    "gpt-sol": 4
+   },
+   "best": "opus-5",
+   "best_pos": "C",
+   "rationale": "Answer C is the most complete and accurate, thoroughly covering naming conventions, special cases, and the linking key with all relevant context."
+  },
+  {
+   "id": "q75",
+   "seed": 0,
+   "order": [
+    "sonnet-5",
+    "gpt-terra",
+    "gpt-sol",
+    "opus-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-sol": 3,
+    "gpt-terra": 4
+   },
+   "best": "opus-5",
+   "best_pos": "D",
+   "rationale": "Answer D precisely answers the question by naming POOLID and SPDEVID as the only required substitutes for USUBJID, correctly contextualizes other identifiers as non-substitutes, and remains fully grounded in the provided context with accurate citations."
+  },
+  {
+   "id": "q76",
+   "seed": 0,
+   "order": [
+    "gpt-sol",
+    "sonnet-5",
+    "gpt-terra",
+    "opus-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-sol": 3,
+    "gpt-terra": 4
+   },
+   "best": "opus-5",
+   "best_pos": "D",
+   "rationale": "Answer D is the most complete and precise, covering all linking variables, the APRELSUB structure, the RELSUB boundary, and important caveats (SREL role discrepancy, AP CT not stated) while staying fully grounded in the context."
+  },
+  {
+   "id": "q77",
+   "seed": 0,
+   "order": [
+    "gpt-sol",
+    "opus-5",
+    "gpt-terra",
+    "sonnet-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "gpt-sol": 2,
+    "sonnet-5": 3,
+    "gpt-terra": 4
+   },
+   "best": "opus-5",
+   "best_pos": "B",
+   "rationale": "Answer B provides the most complete and accurate response, fully grounded in the context with the entire domain list and detailed per-domain notes, while avoiding unsupported claims."
+  },
+  {
+   "id": "q78",
+   "seed": 0,
+   "order": [
+    "gpt-terra",
+    "sonnet-5",
+    "gpt-sol",
+    "opus-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "sonnet-5": 1,
+    "opus-5": 2,
+    "gpt-terra": 3,
+    "gpt-sol": 4
+   },
+   "best": "sonnet-5",
+   "best_pos": "B",
+   "rationale": "Answer B best balances accuracy, completeness, and grounding, directly answering the question with all relevant rules and supporting context."
+  },
+  {
+   "id": "q79",
+   "seed": 0,
+   "order": [
+    "opus-5",
+    "gpt-sol",
+    "sonnet-5",
+    "gpt-terra"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "gpt-sol": 2,
+    "sonnet-5": 3,
+    "gpt-terra": 4
+   },
+   "best": "opus-5",
+   "best_pos": "A",
+   "rationale": "Answer A is the most complete and accurate, directly answering both parts of the question with proper grounding in the cited context, including the MBSTAT example and core designation rules, without fabricating details."
+  },
+  {
+   "id": "q80",
+   "seed": 0,
+   "order": [
+    "sonnet-5",
+    "opus-5",
+    "gpt-terra",
+    "gpt-sol"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "sonnet-5": 1,
+    "opus-5": 2,
+    "gpt-terra": 3,
+    "gpt-sol": 4
+   },
+   "best": "sonnet-5",
+   "best_pos": "A",
+   "rationale": "Answer A is the most complete and accurate, covering all key points from the context—general rule, exception with example, extension to U/NA, and controlled terminology—without any unsupported additions."
+  },
+  {
+   "id": "q81",
+   "seed": 0,
+   "order": [
+    "gpt-terra",
+    "gpt-sol",
+    "opus-5",
+    "sonnet-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "gpt-terra": 2,
+    "gpt-sol": 3,
+    "sonnet-5": 4
+   },
+   "best": "opus-5",
+   "best_pos": "C",
+   "rationale": "Answer C provides the most comprehensive and accurate coverage of all context-supported rules, including character restrictions, prefix usage, exceptions, and domain metadata, with proper citations."
+  },
+  {
+   "id": "q82",
+   "seed": 0,
+   "order": [
+    "opus-5",
+    "gpt-sol",
+    "sonnet-5",
+    "gpt-terra"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-sol": 3,
+    "gpt-terra": 4
+   },
+   "best": "opus-5",
+   "best_pos": "A",
+   "rationale": "Answer A is the most accurate, complete, and grounded, directly quoting the context with proper source citations and covering all aspects of the question without fabrication."
+  },
+  {
+   "id": "q84",
+   "seed": 0,
+   "order": [
+    "gpt-terra",
+    "opus-5",
+    "sonnet-5",
+    "gpt-sol"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-terra": 3,
+    "gpt-sol": 4
+   },
+   "best": "opus-5",
+   "best_pos": "B",
+   "rationale": "Answer B provides the most thorough, accurately sourced response covering all aspects of the question, including definitions, key discriminator, method of determination, and supporting structural clues, without any unsupported claims."
+  },
+  {
+   "id": "q85",
+   "seed": 0,
+   "order": [
+    "gpt-sol",
+    "sonnet-5",
+    "opus-5",
+    "gpt-terra"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-sol": 3,
+    "gpt-terra": 4
+   },
+   "best": "opus-5",
+   "best_pos": "C",
+   "rationale": "Answer C provides the most comprehensive and accurate coverage of the question, including all AP-specific variables, naming convention, and scope, with every claim grounded in the context."
+  },
+  {
+   "id": "q86",
+   "seed": 0,
+   "order": [
+    "gpt-sol",
+    "gpt-terra",
+    "sonnet-5",
+    "opus-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "sonnet-5": 1,
+    "opus-5": 2,
+    "gpt-sol": 3,
+    "gpt-terra": 4
+   },
+   "best": "sonnet-5",
+   "best_pos": "C",
+   "rationale": "Answer C is the most precise and complete, directly answering both parts of the question with exact source citations and a clear contrast to Perm, without extraneous or unsupported details."
+  },
+  {
+   "id": "q87",
+   "seed": 0,
+   "order": [
+    "opus-5",
+    "gpt-sol",
+    "gpt-terra",
+    "sonnet-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-terra": 3,
+    "gpt-sol": 4
+   },
+   "best": "opus-5",
+   "best_pos": "A",
+   "rationale": "Answer A provides the most complete, accurate, and well-grounded synthesis of all decision criteria, including timing, variable count, prespecified AEs, RELMIDS, and SUPP-- use cases, with precise source citations throughout."
+  },
+  {
+   "id": "q88",
+   "seed": 0,
+   "order": [
+    "gpt-sol",
+    "sonnet-5",
+    "gpt-terra",
+    "opus-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-sol": 3,
+    "gpt-terra": 4
+   },
+   "best": "opus-5",
+   "best_pos": "D",
+   "rationale": "Answer D is the most comprehensive and grounded, accurately synthesizing all context details with proper citations and no fabrication."
+  },
+  {
+   "id": "q89",
+   "seed": 0,
+   "order": [
+    "opus-5",
+    "gpt-sol",
+    "sonnet-5",
+    "gpt-terra"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-sol": 3,
+    "gpt-terra": 4
+   },
+   "best": "opus-5",
+   "best_pos": "A",
+   "rationale": "Answer A is the most complete and accurate, covering all variables, value sets, restrictions, and domain examples with precise source citations, while avoiding unsupported claims."
+  },
+  {
+   "id": "q90",
+   "seed": 0,
+   "order": [
+    "gpt-sol",
+    "sonnet-5",
+    "opus-5",
+    "gpt-terra"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "gpt-sol": 2,
+    "sonnet-5": 3,
+    "gpt-terra": 4
+   },
+   "best": "opus-5",
+   "best_pos": "C",
+   "rationale": "Answer C best balances accuracy, completeness, and grounding by fully describing EXROUTE, correctly naming the codelist, listing all context-visible route values, and explicitly avoiding unsupported claims about intramuscular or per-value codes."
+  },
+  {
+   "id": "q91",
+   "seed": 0,
+   "order": [
+    "sonnet-5",
+    "gpt-terra",
+    "gpt-sol",
+    "opus-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "sonnet-5": 1,
+    "gpt-terra": 2,
+    "opus-5": 3,
+    "gpt-sol": 4
+   },
+   "best": "sonnet-5",
+   "best_pos": "A",
+   "rationale": "Answer A is the most accurate and complete, correctly identifying NCOMPLT/C66727 for disposition events, explaining the coding rules with the LOST TO FOLLOW-UP example, and honestly stating that the context does not contain the specific reason values for subject-initiated withdrawal or physician decision, without fabricating any terms."
+  },
+  {
+   "id": "q92",
+   "seed": 0,
+   "order": [
+    "gpt-terra",
+    "sonnet-5",
+    "opus-5",
+    "gpt-sol"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "gpt-terra": 1,
+    "opus-5": 2,
+    "sonnet-5": 3,
+    "gpt-sol": 4
+   },
+   "best": "gpt-terra",
+   "best_pos": "A",
+   "rationale": "Answer A is the most complete and accurate, covering the variable attributes, codelist, and all permitted values with definitions, while staying strictly grounded in the context without fabrication."
+  },
+  {
+   "id": "q93",
+   "seed": 0,
+   "order": [
+    "sonnet-5",
+    "opus-5",
+    "gpt-terra",
+    "gpt-sol"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-terra": 3,
+    "gpt-sol": 4
+   },
+   "best": "opus-5",
+   "best_pos": "B",
+   "rationale": "Answer B is the most complete and accurate, thoroughly covering the variable attributes, codelist code, all grounded dose-form examples, and clearly stating the context's limitation on specific shell/parenteral values while staying fully grounded."
+  },
+  {
+   "id": "q94",
+   "seed": 0,
+   "order": [
+    "gpt-sol",
+    "sonnet-5",
+    "opus-5",
+    "gpt-terra"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "gpt-sol": 2,
+    "sonnet-5": 3,
+    "gpt-terra": 4
+   },
+   "best": "opus-5",
+   "best_pos": "C",
+   "rationale": "Answer C provides the most thorough, accurate, and fully grounded response, covering all aspects of the question with precise citations and no fabrication."
+  },
+  {
+   "id": "q95",
+   "seed": 0,
+   "order": [
+    "sonnet-5",
+    "gpt-sol",
+    "opus-5",
+    "gpt-terra"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "gpt-terra": 2,
+    "sonnet-5": 3,
+    "gpt-sol": 4
+   },
+   "best": "opus-5",
+   "best_pos": "C",
+   "rationale": "Answer C is the most complete and grounded, covering all requested details with precise source citations and no unsupported claims."
+  },
+  {
+   "id": "q96",
+   "seed": 0,
+   "order": [
+    "opus-5",
+    "sonnet-5",
+    "gpt-sol",
+    "gpt-terra"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-sol": 3,
+    "gpt-terra": 4
+   },
+   "best": "opus-5",
+   "best_pos": "A",
+   "rationale": "Answer A is the most complete and accurate, correctly identifying FATEST, its codelist C101833, providing all context-supported examples, and explicitly stating that Diameter and Cumulative Exposure are not verifiable from the given context."
+  },
+  {
+   "id": "q97",
+   "seed": 0,
+   "order": [
+    "sonnet-5",
+    "gpt-sol",
+    "opus-5",
+    "gpt-terra"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "sonnet-5": 1,
+    "opus-5": 2,
+    "gpt-sol": 3,
+    "gpt-terra": 4
+   },
+   "best": "sonnet-5",
+   "best_pos": "A",
+   "rationale": "Answer A best balances accuracy, completeness, and grounding by precisely defining SSSTRESC, naming the C124304 codelist, and listing all three standard values with codes and sources, while staying within the context."
+  },
+  {
+   "id": "q98",
+   "seed": 0,
+   "order": [
+    "gpt-sol",
+    "sonnet-5",
+    "gpt-terra",
+    "opus-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "gpt-sol": 1,
+    "sonnet-5": 2,
+    "opus-5": 3,
+    "gpt-terra": 4
+   },
+   "best": "gpt-sol",
+   "best_pos": "A",
+   "rationale": "Answer A is the most accurate, complete, and grounded: it fully defines CMDOSU, correctly names the codelist, cites all context-supported examples, and explicitly avoids inventing IU/mEq values absent from the context."
+  },
+  {
+   "id": "q99",
+   "seed": 0,
+   "order": [
+    "gpt-terra",
+    "sonnet-5",
+    "gpt-sol",
+    "opus-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-terra": 3,
+    "gpt-sol": 4
+   },
+   "best": "opus-5",
+   "best_pos": "D",
+   "rationale": "Answer D best balances accuracy, completeness, and grounding, directly answering all parts of the question with precise source citations and appropriate caveats about unverified codes."
+  },
+  {
+   "id": "q100",
+   "seed": 0,
+   "order": [
+    "gpt-terra",
+    "gpt-sol",
+    "sonnet-5",
+    "opus-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-terra": 3,
+    "gpt-sol": 4
+   },
+   "best": "opus-5",
+   "best_pos": "D",
+   "rationale": "Answer D is the most accurate and complete, correctly detailing ARMCD's TA attributes and cross-domain contrasts while honestly limiting ETCD discussion to what the context supports without fabrication."
+  },
+  {
+   "id": "q101",
+   "seed": 0,
+   "order": [
+    "gpt-terra",
+    "opus-5",
+    "sonnet-5",
+    "gpt-sol"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "gpt-terra": 2,
+    "gpt-sol": 3,
+    "sonnet-5": 4
+   },
+   "best": "opus-5",
+   "best_pos": "B",
+   "rationale": "Answer B provides the most thorough, accurate, and well-grounded response, covering all question parts with proper citations and explicitly noting context limitations without fabricating details."
+  },
+  {
+   "id": "q102",
+   "seed": 0,
+   "order": [
+    "opus-5",
+    "sonnet-5",
+    "gpt-sol",
+    "gpt-terra"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-sol": 3,
+    "gpt-terra": 4
+   },
+   "best": "opus-5",
+   "best_pos": "A",
+   "rationale": "Answer A is the most complete and accurate, fully addressing the question with all requested details and values, all directly grounded in the context."
+  }
+ ],
+ "j1_rows_seed1": [
+  {
+   "id": "q01",
+   "seed": 1,
+   "order": [
+    "gpt-terra",
+    "sonnet-5",
+    "gpt-sol",
+    "opus-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-terra": 3,
+    "gpt-sol": 4
+   },
+   "best": "opus-5",
+   "best_pos": "D",
+   "rationale": "D provides the fullest accurate answer with all attributes and well-grounded related notes, while others omit details or are less comprehensive."
+  },
+  {
+   "id": "q02",
+   "seed": 1,
+   "order": [
+    "opus-5",
+    "sonnet-5",
+    "gpt-sol",
+    "gpt-terra"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-terra": 3,
+    "gpt-sol": 4
+   },
+   "best": "opus-5",
+   "best_pos": "A",
+   "rationale": "Answer A best balances accuracy, completeness, and grounding by clearly stating the context's limitations, correctly identifying DOMAIN as Req, and avoiding unsupported speculation about other variables."
+  },
+  {
+   "id": "q03",
+   "seed": 1,
+   "order": [
+    "gpt-sol",
+    "sonnet-5",
+    "opus-5",
+    "gpt-terra"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "gpt-sol": 2,
+    "sonnet-5": 3,
+    "gpt-terra": 4
+   },
+   "best": "opus-5",
+   "best_pos": "C",
+   "rationale": "Answer C provides the most comprehensive, accurate, and well-grounded response, covering all key assumptions with precise citations and avoiding unsupported details."
+  },
+  {
+   "id": "q04",
+   "seed": 1,
+   "order": [
+    "gpt-sol",
+    "opus-5",
+    "gpt-terra",
+    "sonnet-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "gpt-sol": 2,
+    "gpt-terra": 3,
+    "sonnet-5": 4
+   },
+   "best": "opus-5",
+   "best_pos": "B",
+   "rationale": "B best balances accuracy, completeness, and grounding, thoroughly addressing purpose, structure, variables, and rules with precise source citations and clear caveats."
+  },
+  {
+   "id": "q05",
+   "seed": 1,
+   "order": [
+    "sonnet-5",
+    "opus-5",
+    "gpt-terra",
+    "gpt-sol"
+   ],
+   "parse_ok": false
+  },
+  {
+   "id": "q21",
+   "seed": 1,
+   "order": [
+    "gpt-sol",
+    "gpt-terra",
+    "opus-5",
+    "sonnet-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "gpt-sol": 1,
+    "gpt-terra": 2,
+    "opus-5": 3,
+    "sonnet-5": 4
+   },
+   "best": "gpt-sol",
+   "best_pos": "A",
+   "rationale": "Answer A is the most concise yet complete, accurately covering the role, controlled terminology code, and all naming constraints directly from the context with clear citations."
+  },
+  {
+   "id": "q22",
+   "seed": 1,
+   "order": [
+    "gpt-sol",
+    "opus-5",
+    "gpt-terra",
+    "sonnet-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "gpt-sol": 2,
+    "sonnet-5": 3,
+    "gpt-terra": 4
+   },
+   "best": "opus-5",
+   "best_pos": "B",
+   "rationale": "B best balances accuracy, completeness, and grounding, covering the domain class, VSTESTCD details, examples, codelist code, and related CT without fabrication."
+  },
+  {
+   "id": "q23",
+   "seed": 1,
+   "order": [
+    "gpt-sol",
+    "gpt-terra",
+    "opus-5",
+    "sonnet-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "gpt-sol": 2,
+    "gpt-terra": 3,
+    "sonnet-5": 4
+   },
+   "best": "opus-5",
+   "best_pos": "C",
+   "rationale": "Answer C is the most complete and accurate, thoroughly addressing both CMTRT and CM's observation class with all claims grounded in the provided context and proper source citations."
+  },
+  {
+   "id": "q24",
+   "seed": 1,
+   "order": [
+    "gpt-sol",
+    "gpt-terra",
+    "sonnet-5",
+    "opus-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-sol": 3,
+    "gpt-terra": 4
+   },
+   "best": "opus-5",
+   "best_pos": "D",
+   "rationale": "Answer D provides the most thorough, accurate, and well-grounded response, covering all aspects of the EX domain and EXTRT with precise citations and no unsupported claims."
+  },
+  {
+   "id": "q25",
+   "seed": 1,
+   "order": [
+    "sonnet-5",
+    "gpt-sol",
+    "gpt-terra",
+    "opus-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-terra": 3,
+    "gpt-sol": 4
+   },
+   "best": "opus-5",
+   "best_pos": "D",
+   "rationale": "Answer D provides the most complete and precise coverage of MHTERM's role and all relevant assumptions, with exact citations and the full prespecified-events table, staying strictly grounded in the context."
+  },
+  {
+   "id": "q26",
+   "seed": 1,
+   "order": [
+    "opus-5",
+    "sonnet-5",
+    "gpt-terra",
+    "gpt-sol"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-terra": 3,
+    "gpt-sol": 4
+   },
+   "best": "opus-5",
+   "best_pos": "A",
+   "rationale": "Answer A is the most complete and accurate, providing the full variable table, precise EGTESTCD attributes, correct codelist names and sources, and appropriately avoids fabricating C71153 member codes."
+  },
+  {
+   "id": "q27",
+   "seed": 1,
+   "order": [
+    "sonnet-5",
+    "gpt-terra",
+    "gpt-sol",
+    "opus-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-terra": 3,
+    "gpt-sol": 4
+   },
+   "best": "opus-5",
+   "best_pos": "D",
+   "rationale": "Answer D provides the most thorough, accurate, and well-grounded response, covering all aspects of the question with precise source citations and relevant additional context."
+  },
+  {
+   "id": "q06",
+   "seed": 1,
+   "order": [
+    "sonnet-5",
+    "gpt-terra",
+    "gpt-sol",
+    "opus-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "sonnet-5": 1,
+    "opus-5": 2,
+    "gpt-terra": 3,
+    "gpt-sol": 4
+   },
+   "best": "sonnet-5",
+   "best_pos": "A",
+   "rationale": "Answer A best balances completeness, accuracy, and grounding, directly addressing both parts of the question with precise source citations and clear usage criteria."
+  },
+  {
+   "id": "q07",
+   "seed": 1,
+   "order": [
+    "gpt-terra",
+    "opus-5",
+    "sonnet-5",
+    "gpt-sol"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "gpt-terra": 1,
+    "sonnet-5": 2,
+    "opus-5": 3,
+    "gpt-sol": 4
+   },
+   "best": "gpt-terra",
+   "best_pos": "A",
+   "rationale": "Answer A is the most complete and accurate, covering the domain list, definition, purpose, and all key assignment rules with precise citations, without any unsupported claims."
+  },
+  {
+   "id": "q08",
+   "seed": 1,
+   "order": [
+    "gpt-terra",
+    "opus-5",
+    "sonnet-5",
+    "gpt-sol"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "gpt-terra": 2,
+    "sonnet-5": 3,
+    "gpt-sol": 4
+   },
+   "best": "opus-5",
+   "best_pos": "B",
+   "rationale": "Answer B provides the most thorough, accurate, and fully grounded explanation of USUBJID's role as a linking key, covering definition, uniqueness scope, domain coverage, relationship datasets, and practical implications, all strictly supported by the context."
+  },
+  {
+   "id": "q09",
+   "seed": 1,
+   "order": [
+    "sonnet-5",
+    "gpt-sol",
+    "gpt-terra",
+    "opus-5"
+   ],
+   "parse_ok": false
+  },
+  {
+   "id": "q10",
+   "seed": 1,
+   "order": [
+    "gpt-sol",
+    "sonnet-5",
+    "gpt-terra",
+    "opus-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-sol": 3,
+    "gpt-terra": 4
+   },
+   "best": "opus-5",
+   "best_pos": "D",
+   "rationale": "Answer D is the most comprehensive and precise, correctly detailing both TR-RS linkage via TRLNKGRP/RSLNKGRP and the alternative RSLNKID, while also clarifying the separate TU-TR linkage with TRLNKID/TULNKID, all strictly grounded in the provided context."
+  },
+  {
+   "id": "q28",
+   "seed": 1,
+   "order": [
+    "sonnet-5",
+    "opus-5",
+    "gpt-terra",
+    "gpt-sol"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-terra": 3,
+    "gpt-sol": 4
+   },
+   "best": "opus-5",
+   "best_pos": "B",
+   "rationale": "Answer B provides the most thorough, accurate, and well-grounded response, covering all aspects of the question with precise citations and no unsupported claims."
+  },
+  {
+   "id": "q29",
+   "seed": 1,
+   "order": [
+    "gpt-sol",
+    "gpt-terra",
+    "sonnet-5",
+    "opus-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "gpt-sol": 1,
+    "gpt-terra": 2,
+    "sonnet-5": 3,
+    "opus-5": 4
+   },
+   "best": "gpt-sol",
+   "best_pos": "A",
+   "rationale": "Answer A is the most balanced: it is fully grounded in the context, accurately and completely explains how the four domains interrelate, and appropriately acknowledges the lack of detailed TV specification in the provided excerpts."
+  },
+  {
+   "id": "q30",
+   "seed": 1,
+   "order": [
+    "opus-5",
+    "gpt-terra",
+    "gpt-sol",
+    "sonnet-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-terra": 3,
+    "gpt-sol": 4
+   },
+   "best": "opus-5",
+   "best_pos": "A",
+   "rationale": "Answer A is the most complete and accurate, covering all aspects of the question with precise citations and no unsupported claims, making it the best."
+  },
+  {
+   "id": "q31",
+   "seed": 1,
+   "order": [
+    "sonnet-5",
+    "opus-5",
+    "gpt-terra",
+    "gpt-sol"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "sonnet-5": 1,
+    "opus-5": 2,
+    "gpt-terra": 3,
+    "gpt-sol": 4
+   },
+   "best": "sonnet-5",
+   "best_pos": "A",
+   "rationale": "Answer A is the most complete and accurate, thoroughly grounded in the context with explicit source citations, covering all aspects of the question including purpose, usage, relationship, and illustrative examples."
+  },
+  {
+   "id": "q32",
+   "seed": 1,
+   "order": [
+    "gpt-sol",
+    "sonnet-5",
+    "gpt-terra",
+    "opus-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-sol": 3,
+    "gpt-terra": 4
+   },
+   "best": "opus-5",
+   "best_pos": "D",
+   "rationale": "Answer D provides the most thorough, accurate, and well-grounded response, systematically covering variable attributes, cross-domain consistency rules, unplanned visit handling, and SV's role with precise citations and an illustrative example."
+  },
+  {
+   "id": "q33",
+   "seed": 1,
+   "order": [
+    "gpt-terra",
+    "gpt-sol",
+    "sonnet-5",
+    "opus-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "gpt-terra": 1,
+    "sonnet-5": 2,
+    "opus-5": 3,
+    "gpt-sol": 4
+   },
+   "best": "gpt-terra",
+   "best_pos": "A",
+   "rationale": "Answer A best combines accuracy, completeness, and strict grounding, clearly correcting the question's premise while fully covering RELSPEC's specimen-lineage mechanism and RELREC's dual record/dataset roles without fabrication."
+  },
+  {
+   "id": "q34",
+   "seed": 1,
+   "order": [
+    "opus-5",
+    "gpt-terra",
+    "gpt-sol",
+    "sonnet-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "gpt-sol": 2,
+    "sonnet-5": 3,
+    "gpt-terra": 4
+   },
+   "best": "opus-5",
+   "best_pos": "A",
+   "rationale": "Answer A best balances completeness and grounding by fully leveraging the context, explicitly noting the --PRESP 'Y'-only rule, and clearly stating the limits of the evidence without fabricating additional domains."
+  },
+  {
+   "id": "q11",
+   "seed": 1,
+   "order": [
+    "gpt-sol",
+    "sonnet-5",
+    "gpt-terra",
+    "opus-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "sonnet-5": 1,
+    "opus-5": 2,
+    "gpt-sol": 3,
+    "gpt-terra": 4
+   },
+   "best": "sonnet-5",
+   "best_pos": "B",
+   "rationale": "Answer B is the most complete and accurate, directly answering the question with precise definitions and examples, and it adds well-grounded supplementary context from the sources without fabrication."
+  },
+  {
+   "id": "q12",
+   "seed": 1,
+   "order": [
+    "gpt-terra",
+    "sonnet-5",
+    "opus-5",
+    "gpt-sol"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-sol": 3,
+    "gpt-terra": 4
+   },
+   "best": "opus-5",
+   "best_pos": "C",
+   "rationale": "Answer C provides the most complete and accurate explanation of Req, Exp, and Perm, fully grounded in the context with appropriate source citations and no fabricated details."
+  },
+  {
+   "id": "q13",
+   "seed": 1,
+   "order": [
+    "gpt-terra",
+    "gpt-sol",
+    "sonnet-5",
+    "opus-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "gpt-terra": 2,
+    "sonnet-5": 3,
+    "gpt-sol": 4
+   },
+   "best": "opus-5",
+   "best_pos": "D",
+   "rationale": "Answer D is the most complete and accurate, synthesizing all relevant context details without fabrication, while others either omit key points or introduce unsupported examples."
+  },
+  {
+   "id": "q14",
+   "seed": 1,
+   "order": [
+    "opus-5",
+    "gpt-sol",
+    "gpt-terra",
+    "sonnet-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-sol": 3,
+    "gpt-terra": 4
+   },
+   "best": "opus-5",
+   "best_pos": "A",
+   "rationale": "Answer A is the most complete and accurate, covering all process steps, domain-code rules, prohibitions, and conformance expectations with precise source citations."
+  },
+  {
+   "id": "q15",
+   "seed": 1,
+   "order": [
+    "gpt-terra",
+    "gpt-sol",
+    "sonnet-5",
+    "opus-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "gpt-terra": 2,
+    "gpt-sol": 3,
+    "sonnet-5": 4
+   },
+   "best": "opus-5",
+   "best_pos": "D",
+   "rationale": "Answer D provides the most thorough, accurate, and well-grounded response, covering all three categories with precise rules and correctly addressing the Permissible variable scenario with appropriate citations."
+  },
+  {
+   "id": "q35",
+   "seed": 1,
+   "order": [
+    "gpt-terra",
+    "opus-5",
+    "sonnet-5",
+    "gpt-sol"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "gpt-terra": 2,
+    "gpt-sol": 3,
+    "sonnet-5": 4
+   },
+   "best": "opus-5",
+   "best_pos": "B",
+   "rationale": "Answer B is the most complete and accurate, covering all key aspects with precise source citations, and it explicitly avoids fabricating unsupported details about extensibility."
+  },
+  {
+   "id": "q37",
+   "seed": 1,
+   "order": [
+    "sonnet-5",
+    "opus-5",
+    "gpt-terra",
+    "gpt-sol"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "gpt-terra": 2,
+    "gpt-sol": 3,
+    "sonnet-5": 4
+   },
+   "best": "opus-5",
+   "best_pos": "B",
+   "rationale": "Answer B is the most complete and accurate, correctly enumerating the special-purpose domains (DM, CO, SE, SM, SV) with proper grounding, and adding valuable caveats about DI's reclassification and the distinction from relationship datasets, all supported by the context."
+  },
+  {
+   "id": "q38",
+   "seed": 1,
+   "order": [
+    "gpt-sol",
+    "opus-5",
+    "sonnet-5",
+    "gpt-terra"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "gpt-sol": 2,
+    "sonnet-5": 3,
+    "gpt-terra": 4
+   },
+   "best": "opus-5",
+   "best_pos": "B",
+   "rationale": "Answer B is the most complete and accurate, covering all aspects of domain code assignment, character rules, prefix exceptions, dataset naming, and custom domain reservations, all strictly grounded in the provided context."
+  },
+  {
+   "id": "q39",
+   "seed": 1,
+   "order": [
+    "gpt-terra",
+    "sonnet-5",
+    "gpt-sol",
+    "opus-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "gpt-terra": 1,
+    "sonnet-5": 2,
+    "opus-5": 3,
+    "gpt-sol": 4
+   },
+   "best": "gpt-terra",
+   "best_pos": "A",
+   "rationale": "Answer A best adheres to the context by explicitly stating its insufficiency, accurately enumerating the retrieved domains (with only a minor domain-list error), and avoiding any unsupported claims or fabricated sources."
+  },
+  {
+   "id": "q40",
+   "seed": 1,
+   "order": [
+    "opus-5",
+    "gpt-sol",
+    "gpt-terra",
+    "sonnet-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-terra": 3,
+    "gpt-sol": 4
+   },
+   "best": "opus-5",
+   "best_pos": "A",
+   "rationale": "Answer A best covers all aspects of the question with precise citations, including the central lab nuance, variable vs. value-level origin metadata, and the --DRVFL flag, making it the most complete and accurate."
+  },
+  {
+   "id": "q41",
+   "seed": 1,
+   "order": [
+    "gpt-terra",
+    "opus-5",
+    "sonnet-5",
+    "gpt-sol"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-terra": 3,
+    "gpt-sol": 4
+   },
+   "best": "opus-5",
+   "best_pos": "B",
+   "rationale": "Answer B is the most accurate and grounded, correctly identifying the seven TDM domains from the context, describing their study-design nature, and transparently noting where the context lacks detail, whereas the others fabricate unsupported specifics."
+  },
+  {
+   "id": "q16",
+   "seed": 1,
+   "order": [
+    "gpt-sol",
+    "gpt-terra",
+    "opus-5",
+    "sonnet-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "gpt-sol": 2,
+    "gpt-terra": 3,
+    "sonnet-5": 4
+   },
+   "best": "opus-5",
+   "best_pos": "C",
+   "rationale": "C best balances accuracy, completeness, and grounding by precisely citing the codelist code, example values, and clearly stating the context's limitation without fabricating additional details."
+  },
+  {
+   "id": "q17",
+   "seed": 1,
+   "order": [
+    "sonnet-5",
+    "opus-5",
+    "gpt-terra",
+    "gpt-sol"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-terra": 3,
+    "gpt-sol": 4
+   },
+   "best": "opus-5",
+   "best_pos": "B",
+   "rationale": "B provides the most thorough, accurate, and well-grounded answer, covering all aspects of the question with specific examples and source citations."
+  },
+  {
+   "id": "q18",
+   "seed": 1,
+   "order": [
+    "sonnet-5",
+    "gpt-sol",
+    "gpt-terra",
+    "opus-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-sol": 3,
+    "gpt-terra": 4
+   },
+   "best": "opus-5",
+   "best_pos": "D",
+   "rationale": "Answer D is the most complete and accurate, covering all MedDRA hierarchy levels, the SOC distinction, dictionary documentation, and a worked example, all strictly grounded in the provided context."
+  },
+  {
+   "id": "q19",
+   "seed": 1,
+   "order": [
+    "gpt-terra",
+    "opus-5",
+    "sonnet-5",
+    "gpt-sol"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "gpt-terra": 2,
+    "sonnet-5": 3,
+    "gpt-sol": 4
+   },
+   "best": "opus-5",
+   "best_pos": "B",
+   "rationale": "B best balances accuracy, completeness, and grounding by fully answering the question with only context-supported values and clearly stating limitations."
+  },
+  {
+   "id": "q20",
+   "seed": 1,
+   "order": [
+    "gpt-terra",
+    "sonnet-5",
+    "opus-5",
+    "gpt-sol"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "gpt-terra": 2,
+    "sonnet-5": 3,
+    "gpt-sol": 4
+   },
+   "best": "opus-5",
+   "best_pos": "C",
+   "rationale": "Answer C provides the most thorough, accurate, and well-grounded response, covering all aspects of the question with precise citations and additional relevant context."
+  },
+  {
+   "id": "q42",
+   "seed": 1,
+   "order": [
+    "gpt-terra",
+    "sonnet-5",
+    "gpt-sol",
+    "opus-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-terra": 3,
+    "gpt-sol": 4
+   },
+   "best": "opus-5",
+   "best_pos": "D",
+   "rationale": "D provides the most thorough, accurate, and fully grounded response, covering all relevant variables, codelist values, and exclusions without fabrication."
+  },
+  {
+   "id": "q43",
+   "seed": 1,
+   "order": [
+    "opus-5",
+    "gpt-terra",
+    "gpt-sol",
+    "sonnet-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "gpt-terra": 1,
+    "gpt-sol": 2,
+    "sonnet-5": 3,
+    "opus-5": 4
+   },
+   "best": "gpt-terra",
+   "best_pos": "B",
+   "rationale": "Answer B is the most concise and fully grounded, accurately reporting the codelist code and explicitly acknowledging the Core designation is not in the context without adding unsupported details."
+  },
+  {
+   "id": "q44",
+   "seed": 1,
+   "order": [
+    "sonnet-5",
+    "gpt-terra",
+    "gpt-sol",
+    "opus-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-terra": 3,
+    "gpt-sol": 4
+   },
+   "best": "opus-5",
+   "best_pos": "D",
+   "rationale": "Answer D provides the most thorough, accurate, and fully grounded response, covering the codelist code, variable spec, example codes with VSTEST pairing, and explicit notes on missing per-value codes, all with precise source citations."
+  },
+  {
+   "id": "q45",
+   "seed": 1,
+   "order": [
+    "gpt-terra",
+    "sonnet-5",
+    "gpt-sol",
+    "opus-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-terra": 3,
+    "gpt-sol": 4
+   },
+   "best": "opus-5",
+   "best_pos": "D",
+   "rationale": "Answer D provides the most comprehensive and precise response, covering all requested aspects (variable definition, codelist with values, core designation) and additional relevant assumptions, all strictly grounded in the provided context with clear citations."
+  },
+  {
+   "id": "q46",
+   "seed": 1,
+   "order": [
+    "sonnet-5",
+    "opus-5",
+    "gpt-sol",
+    "gpt-terra"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "sonnet-5": 1,
+    "opus-5": 2,
+    "gpt-sol": 3,
+    "gpt-terra": 4
+   },
+   "best": "sonnet-5",
+   "best_pos": "A",
+   "rationale": "Answer A is the most complete and accurate, covering all variable attributes, the full codelist with values, and grounding every statement with precise source citations, without any fabrication."
+  },
+  {
+   "id": "q47",
+   "seed": 1,
+   "order": [
+    "gpt-terra",
+    "opus-5",
+    "sonnet-5",
+    "gpt-sol"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-terra": 3,
+    "gpt-sol": 4
+   },
+   "best": "opus-5",
+   "best_pos": "B",
+   "rationale": "B provides the most thorough, precise, and fully grounded answer, covering all aspects of the question with exact citations and no unsupported claims."
+  },
+  {
+   "id": "q48",
+   "seed": 1,
+   "order": [
+    "gpt-sol",
+    "sonnet-5",
+    "gpt-terra",
+    "opus-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-sol": 3,
+    "gpt-terra": 4
+   },
+   "best": "opus-5",
+   "best_pos": "D",
+   "rationale": "D is the most complete and accurate, correctly identifying C101832, providing examples SEV/OCCUR, and appropriately noting that individual NCI codes for these values are not in the context, while staying fully grounded."
+  },
+  {
+   "id": "s01",
+   "seed": 1,
+   "order": [
+    "sonnet-5",
+    "opus-5",
+    "gpt-sol",
+    "gpt-terra"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-sol": 3,
+    "gpt-terra": 4
+   },
+   "best": "opus-5",
+   "best_pos": "B",
+   "rationale": "B provides the most comprehensive, well-structured answer with all relevant context details and proper source citations."
+  },
+  {
+   "id": "s02",
+   "seed": 1,
+   "order": [
+    "gpt-terra",
+    "sonnet-5",
+    "gpt-sol",
+    "opus-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "gpt-terra": 2,
+    "sonnet-5": 3,
+    "gpt-sol": 4
+   },
+   "best": "opus-5",
+   "best_pos": "D",
+   "rationale": "Answer D provides the fullest, most accurate, and well-grounded response, including all character constraints and relevant related rules without fabrication."
+  },
+  {
+   "id": "s03",
+   "seed": 1,
+   "order": [
+    "gpt-sol",
+    "sonnet-5",
+    "gpt-terra",
+    "opus-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "gpt-terra": 2,
+    "sonnet-5": 3,
+    "gpt-sol": 4
+   },
+   "best": "opus-5",
+   "best_pos": "D",
+   "rationale": "D provides the most complete and accurate answer with exact source citations and relevant supporting context, fully grounded in the provided evidence."
+  },
+  {
+   "id": "s04",
+   "seed": 1,
+   "order": [
+    "sonnet-5",
+    "gpt-sol",
+    "gpt-terra",
+    "opus-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "sonnet-5": 1,
+    "gpt-sol": 2,
+    "gpt-terra": 3,
+    "opus-5": 4
+   },
+   "best": "sonnet-5",
+   "best_pos": "A",
+   "rationale": "Answer A is the most complete and accurate, directly answering both parts of the question with all example values, correctly noting they are examples without individual codes, and staying fully grounded in the context with clear citations."
+  },
+  {
+   "id": "s05",
+   "seed": 1,
+   "order": [
+    "gpt-sol",
+    "sonnet-5",
+    "opus-5",
+    "gpt-terra"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "gpt-sol": 1,
+    "gpt-terra": 2,
+    "opus-5": 3,
+    "sonnet-5": 4
+   },
+   "best": "gpt-sol",
+   "best_pos": "A",
+   "rationale": "Answer A is the most accurate and complete, correctly identifying the codelist and clearly stating what cannot be confirmed from the context without fabricating details."
+  },
+  {
+   "id": "q54",
+   "seed": 1,
+   "order": [
+    "sonnet-5",
+    "gpt-sol",
+    "gpt-terra",
+    "opus-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-terra": 3,
+    "gpt-sol": 4
+   },
+   "best": "opus-5",
+   "best_pos": "D",
+   "rationale": "Answer D is the most comprehensive and strictly grounded in the context, providing all requested details with precise source citations and no fabrication."
+  },
+  {
+   "id": "q55",
+   "seed": 1,
+   "order": [
+    "sonnet-5",
+    "opus-5",
+    "gpt-terra",
+    "gpt-sol"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "sonnet-5": 1,
+    "opus-5": 2,
+    "gpt-terra": 3,
+    "gpt-sol": 4
+   },
+   "best": "sonnet-5",
+   "best_pos": "A",
+   "rationale": "Answer A best balances accuracy, completeness, and grounding, thoroughly addressing both the domain structure/observation class and DSTERM's role with precise citations and no unsupported claims."
+  },
+  {
+   "id": "q56",
+   "seed": 1,
+   "order": [
+    "sonnet-5",
+    "gpt-sol",
+    "opus-5",
+    "gpt-terra"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "gpt-terra": 2,
+    "sonnet-5": 3,
+    "gpt-sol": 4
+   },
+   "best": "opus-5",
+   "best_pos": "C",
+   "rationale": "Answer C provides the most thorough, accurate, and fully grounded response, addressing both parts of the question with extensive supporting details from the context."
+  },
+  {
+   "id": "q57",
+   "seed": 1,
+   "order": [
+    "opus-5",
+    "gpt-sol",
+    "sonnet-5",
+    "gpt-terra"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-terra": 3,
+    "gpt-sol": 4
+   },
+   "best": "opus-5",
+   "best_pos": "A",
+   "rationale": "Answer A is the most complete and accurate, thoroughly covering the PR domain purpose, PRTRT definition, and related qualifiers with proper source citations, while staying fully grounded in the context."
+  },
+  {
+   "id": "q58",
+   "seed": 1,
+   "order": [
+    "gpt-sol",
+    "opus-5",
+    "gpt-terra",
+    "sonnet-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "gpt-sol": 1,
+    "gpt-terra": 2,
+    "sonnet-5": 3,
+    "opus-5": 4
+   },
+   "best": "gpt-sol",
+   "best_pos": "A",
+   "rationale": "Answer A is the most complete and accurate, directly answering all parts of the question with precise details (C66738, 8-character limit) and staying fully grounded in the provided context with proper citations."
+  },
+  {
+   "id": "q59",
+   "seed": 1,
+   "order": [
+    "opus-5",
+    "gpt-sol",
+    "sonnet-5",
+    "gpt-terra"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-sol": 3,
+    "gpt-terra": 4
+   },
+   "best": "opus-5",
+   "best_pos": "A",
+   "rationale": "Answer A provides the most comprehensive, accurate, and fully grounded response, covering all variable attributes, the codelist details, and relevant context with proper source citations."
+  },
+  {
+   "id": "q60",
+   "seed": 1,
+   "order": [
+    "opus-5",
+    "sonnet-5",
+    "gpt-sol",
+    "gpt-terra"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-sol": 3,
+    "gpt-terra": 4
+   },
+   "best": "opus-5",
+   "best_pos": "A",
+   "rationale": "Answer A is the most complete and accurate, thoroughly covering the domain's purpose, observation class, CETERM attributes, and related qualifiers with precise source citations, while staying fully grounded in the provided context."
+  },
+  {
+   "id": "q61",
+   "seed": 1,
+   "order": [
+    "gpt-terra",
+    "gpt-sol",
+    "sonnet-5",
+    "opus-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "sonnet-5": 1,
+    "opus-5": 2,
+    "gpt-terra": 3,
+    "gpt-sol": 4
+   },
+   "best": "sonnet-5",
+   "best_pos": "C",
+   "rationale": "Answer C is the best because it precisely answers all three parts, cites the exact sources for each claim, and appropriately flags that the context does not contain individual term-level codes within C120527, avoiding fabrication."
+  },
+  {
+   "id": "q62",
+   "seed": 1,
+   "order": [
+    "sonnet-5",
+    "gpt-sol",
+    "opus-5",
+    "gpt-terra"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "sonnet-5": 1,
+    "opus-5": 2,
+    "gpt-sol": 3,
+    "gpt-terra": 4
+   },
+   "best": "sonnet-5",
+   "best_pos": "A",
+   "rationale": "Answer A is the most complete and accurate, covering the domain, SSTESTCD attributes, and the exact codelist with values, all strictly grounded in the context with clear source citations."
+  },
+  {
+   "id": "q63",
+   "seed": 1,
+   "order": [
+    "opus-5",
+    "gpt-sol",
+    "sonnet-5",
+    "gpt-terra"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-terra": 3,
+    "gpt-sol": 4
+   },
+   "best": "opus-5",
+   "best_pos": "A",
+   "rationale": "Answer A is the most complete and accurate, directly answering both parts with precise citations to the context and avoiding any unsupported claims."
+  },
+  {
+   "id": "q64",
+   "seed": 1,
+   "order": [
+    "opus-5",
+    "gpt-terra",
+    "sonnet-5",
+    "gpt-sol"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-terra": 3,
+    "gpt-sol": 4
+   },
+   "best": "opus-5",
+   "best_pos": "A",
+   "rationale": "Answer A is the most complete and accurate, covering purpose, structure, key variables, and RELREC methods, all grounded in the context with citations."
+  },
+  {
+   "id": "q65",
+   "seed": 1,
+   "order": [
+    "opus-5",
+    "gpt-terra",
+    "gpt-sol",
+    "sonnet-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "gpt-terra": 1,
+    "gpt-sol": 2,
+    "sonnet-5": 3,
+    "opus-5": 4
+   },
+   "best": "gpt-terra",
+   "best_pos": "B",
+   "rationale": "Answer B is the most complete and accurate, directly answering both parts with all claims grounded in the context, avoiding any fabricated details or unsupported interpretations."
+  },
+  {
+   "id": "q66",
+   "seed": 1,
+   "order": [
+    "opus-5",
+    "sonnet-5",
+    "gpt-terra",
+    "gpt-sol"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-sol": 3,
+    "gpt-terra": 4
+   },
+   "best": "opus-5",
+   "best_pos": "A",
+   "rationale": "Answer A is the most complete and accurate, correctly listing all 36 domains and grounding all additional claims in the provided context without fabrication."
+  },
+  {
+   "id": "q67",
+   "seed": 1,
+   "order": [
+    "gpt-terra",
+    "sonnet-5",
+    "gpt-sol",
+    "opus-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "gpt-terra": 2,
+    "sonnet-5": 3,
+    "gpt-sol": 4
+   },
+   "best": "opus-5",
+   "best_pos": "D",
+   "rationale": "Answer D is the most complete and accurate, correctly enumerating all 123 variables and all AE seriousness variables from the context, while staying fully grounded with proper source citations."
+  },
+  {
+   "id": "q68",
+   "seed": 1,
+   "order": [
+    "opus-5",
+    "gpt-sol",
+    "sonnet-5",
+    "gpt-terra"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "sonnet-5": 1,
+    "gpt-sol": 2,
+    "opus-5": 3,
+    "gpt-terra": 4
+   },
+   "best": "sonnet-5",
+   "best_pos": "C",
+   "rationale": "Answer C is the most faithful to the context, providing precise per-domain indications and null rules with correct citations, without fabricating extra sources or overgeneralizing."
+  },
+  {
+   "id": "q69",
+   "seed": 1,
+   "order": [
+    "gpt-sol",
+    "opus-5",
+    "gpt-terra",
+    "sonnet-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "gpt-sol": 1,
+    "sonnet-5": 2,
+    "opus-5": 3,
+    "gpt-terra": 4
+   },
+   "best": "gpt-sol",
+   "best_pos": "A",
+   "rationale": "Answer A is the most accurate, complete, and grounded, listing all five confirmed variables with correct details and explicitly avoiding unsupported speculation about additional domains."
+  },
+  {
+   "id": "q70",
+   "seed": 1,
+   "order": [
+    "opus-5",
+    "gpt-sol",
+    "gpt-terra",
+    "sonnet-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-terra": 3,
+    "gpt-sol": 4
+   },
+   "best": "opus-5",
+   "best_pos": "A",
+   "rationale": "Answer A is the most complete and accurate, thoroughly covering RELSUB's purpose, bidirectional representation, RSUBJID definition, and related assumptions with precise source citations, while staying fully grounded in the context."
+  },
+  {
+   "id": "q71",
+   "seed": 1,
+   "order": [
+    "gpt-terra",
+    "sonnet-5",
+    "opus-5",
+    "gpt-sol"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "gpt-terra": 1,
+    "sonnet-5": 2,
+    "opus-5": 3,
+    "gpt-sol": 4
+   },
+   "best": "gpt-terra",
+   "best_pos": "A",
+   "rationale": "Answer A is the most concise and directly grounded answer, accurately listing all 19 variables from the context, correctly describing the codelist's purpose and examples, and explicitly noting that individual value codes are not provided in the context, avoiding any fabrication."
+  },
+  {
+   "id": "q72",
+   "seed": 1,
+   "order": [
+    "sonnet-5",
+    "gpt-sol",
+    "gpt-terra",
+    "opus-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "sonnet-5": 1,
+    "opus-5": 2,
+    "gpt-sol": 3,
+    "gpt-terra": 4
+   },
+   "best": "sonnet-5",
+   "best_pos": "A",
+   "rationale": "Answer A best balances completeness and accuracy, directly answering both parts of the question with well-grounded details on domain separation and relationship documentation, without unnecessary digressions."
+  },
+  {
+   "id": "q73",
+   "seed": 1,
+   "order": [
+    "sonnet-5",
+    "gpt-sol",
+    "opus-5",
+    "gpt-terra"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "gpt-sol": 2,
+    "gpt-terra": 3,
+    "sonnet-5": 4
+   },
+   "best": "opus-5",
+   "best_pos": "C",
+   "rationale": "Answer C is the most complete and accurate, correctly enumerating the three domains, providing full attribute details, and explicitly clarifying that RELSPEC/RELSUB are not included, all while staying grounded in the provided context."
+  },
+  {
+   "id": "q74",
+   "seed": 1,
+   "order": [
+    "gpt-terra",
+    "opus-5",
+    "sonnet-5",
+    "gpt-sol"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "gpt-terra": 2,
+    "sonnet-5": 3,
+    "gpt-sol": 4
+   },
+   "best": "opus-5",
+   "best_pos": "B",
+   "rationale": "B provides the most thorough, well-grounded answer covering all aspects of the question with precise citations."
+  },
+  {
+   "id": "q75",
+   "seed": 1,
+   "order": [
+    "sonnet-5",
+    "gpt-terra",
+    "gpt-sol",
+    "opus-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "gpt-sol": 2,
+    "sonnet-5": 3,
+    "gpt-terra": 4
+   },
+   "best": "opus-5",
+   "best_pos": "D",
+   "rationale": "Answer D is the most accurate and complete because it directly answers the question with the two required alternatives, correctly excludes non-subject identifiers, and stays fully grounded in the context."
+  },
+  {
+   "id": "q76",
+   "seed": 1,
+   "order": [
+    "opus-5",
+    "gpt-sol",
+    "gpt-terra",
+    "sonnet-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-terra": 3,
+    "gpt-sol": 4
+   },
+   "best": "opus-5",
+   "best_pos": "A",
+   "rationale": "Answer A is the most complete and accurate, thoroughly explaining the linking mechanism, roles of RSUBJID and SREL, APRELSUB structure, RELSUB boundary, and appropriately flagging the SREL role discrepancy and lack of AP-specific CT code in the context."
+  },
+  {
+   "id": "q77",
+   "seed": 1,
+   "order": [
+    "opus-5",
+    "gpt-terra",
+    "gpt-sol",
+    "sonnet-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-sol": 3,
+    "gpt-terra": 4
+   },
+   "best": "opus-5",
+   "best_pos": "A",
+   "rationale": "Answer A best balances completeness (lists many domains with specific notes), accuracy (correctly states Timing variable and attributes), and grounding (all claims cited to context without fabrication)."
+  },
+  {
+   "id": "q78",
+   "seed": 1,
+   "order": [
+    "gpt-sol",
+    "sonnet-5",
+    "gpt-terra",
+    "opus-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "sonnet-5": 1,
+    "opus-5": 2,
+    "gpt-sol": 3,
+    "gpt-terra": 4
+   },
+   "best": "sonnet-5",
+   "best_pos": "B",
+   "rationale": "Answer B is the most complete and accurate, directly answering the question with all key rules and rationale, and is thoroughly grounded in the provided context without fabrication."
+  },
+  {
+   "id": "q79",
+   "seed": 1,
+   "order": [
+    "sonnet-5",
+    "opus-5",
+    "gpt-terra",
+    "gpt-sol"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-sol": 3,
+    "gpt-terra": 4
+   },
+   "best": "opus-5",
+   "best_pos": "B",
+   "rationale": "Answer B is the most accurate, complete, and grounded, correctly citing the context for the null representation, --STAT/--REASND convention, MBSTAT example, and core designation rules without fabricating details."
+  },
+  {
+   "id": "q80",
+   "seed": 1,
+   "order": [
+    "gpt-sol",
+    "opus-5",
+    "gpt-terra",
+    "sonnet-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "gpt-sol": 1,
+    "sonnet-5": 2,
+    "gpt-terra": 3,
+    "opus-5": 4
+   },
+   "best": "gpt-sol",
+   "best_pos": "A",
+   "rationale": "Answer A is the most accurate, complete, and fully grounded in the provided context, covering all key points without any unsupported additions."
+  },
+  {
+   "id": "q81",
+   "seed": 1,
+   "order": [
+    "gpt-terra",
+    "opus-5",
+    "gpt-sol",
+    "sonnet-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-terra": 3,
+    "gpt-sol": 4
+   },
+   "best": "opus-5",
+   "best_pos": "B",
+   "rationale": "B provides the fullest, most precise answer fully grounded in the context, covering all aspects of the question without fabrication."
+  },
+  {
+   "id": "q82",
+   "seed": 1,
+   "order": [
+    "opus-5",
+    "gpt-sol",
+    "gpt-terra",
+    "sonnet-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "gpt-terra": 2,
+    "gpt-sol": 3,
+    "sonnet-5": 4
+   },
+   "best": "opus-5",
+   "best_pos": "A",
+   "rationale": "Answer A is the most complete and accurate, directly answering both parts of the question with well-organized tables, precise citations, and relevant additional context from the sources, without fabricating any information."
+  },
+  {
+   "id": "q84",
+   "seed": 1,
+   "order": [
+    "gpt-sol",
+    "sonnet-5",
+    "gpt-terra",
+    "opus-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-sol": 3,
+    "gpt-terra": 4
+   },
+   "best": "opus-5",
+   "best_pos": "D",
+   "rationale": "D provides the most thorough, accurate, and well-grounded answer, covering definitions, key discriminator, method, structural clues, and FA nuances with precise citations."
+  },
+  {
+   "id": "q85",
+   "seed": 1,
+   "order": [
+    "gpt-sol",
+    "opus-5",
+    "sonnet-5",
+    "gpt-terra"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-sol": 3,
+    "gpt-terra": 4
+   },
+   "best": "opus-5",
+   "best_pos": "B",
+   "rationale": "Answer B is the most complete and accurate, covering all aspects of the question with proper grounding and no unsupported claims."
+  },
+  {
+   "id": "q86",
+   "seed": 1,
+   "order": [
+    "gpt-sol",
+    "gpt-terra",
+    "opus-5",
+    "sonnet-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-sol": 3,
+    "gpt-terra": 4
+   },
+   "best": "opus-5",
+   "best_pos": "C",
+   "rationale": "Answer C fully and accurately addresses both parts of the question, provides a clear table of rules, contrasts Exp with Req and Perm, and stays strictly grounded in the provided context."
+  },
+  {
+   "id": "q87",
+   "seed": 1,
+   "order": [
+    "sonnet-5",
+    "gpt-terra",
+    "opus-5",
+    "gpt-sol"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-terra": 3,
+    "gpt-sol": 4
+   },
+   "best": "opus-5",
+   "best_pos": "C",
+   "rationale": "Answer C provides the most thorough, accurate, and well-grounded synthesis of all relevant context, covering the decision criteria, SUPP-- vs FA distinctions, and practical implications without fabrication."
+  },
+  {
+   "id": "q88",
+   "seed": 1,
+   "order": [
+    "sonnet-5",
+    "gpt-sol",
+    "opus-5",
+    "gpt-terra"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-sol": 3,
+    "gpt-terra": 4
+   },
+   "best": "opus-5",
+   "best_pos": "C",
+   "rationale": "Answer C provides the most thorough, accurate, and well-grounded response, covering all relevant variables, their restrictions, rationale, and additional constraints with extensive source citations."
+  },
+  {
+   "id": "q89",
+   "seed": 1,
+   "order": [
+    "gpt-terra",
+    "gpt-sol",
+    "sonnet-5",
+    "opus-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "sonnet-5": 1,
+    "gpt-terra": 2,
+    "gpt-sol": 3,
+    "opus-5": 4
+   },
+   "best": "sonnet-5",
+   "best_pos": "C",
+   "rationale": "Answer C best balances completeness and accuracy by covering all eight relative timing variables with correct value sets and restrictions, while remaining strictly grounded in the provided context."
+  },
+  {
+   "id": "q90",
+   "seed": 1,
+   "order": [
+    "gpt-sol",
+    "opus-5",
+    "sonnet-5",
+    "gpt-terra"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "gpt-sol": 2,
+    "sonnet-5": 3,
+    "gpt-terra": 4
+   },
+   "best": "opus-5",
+   "best_pos": "B",
+   "rationale": "Answer B best balances accuracy, completeness, and grounding by fully defining EXROUTE, naming the codelist, listing all context-supported route values with explicit caveats about missing terminology rows, and citing sources throughout without fabrication."
+  },
+  {
+   "id": "q91",
+   "seed": 1,
+   "order": [
+    "gpt-terra",
+    "sonnet-5",
+    "opus-5",
+    "gpt-sol"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "gpt-terra": 2,
+    "gpt-sol": 3,
+    "sonnet-5": 4
+   },
+   "best": "opus-5",
+   "best_pos": "C",
+   "rationale": "Answer C is the most complete and grounded, providing a clear table of DSCAT-to-codelist mappings, all context-supported example values with proper caveats about missing term table and physician's decision, and thorough source citations without fabrication."
+  },
+  {
+   "id": "q92",
+   "seed": 1,
+   "order": [
+    "gpt-terra",
+    "sonnet-5",
+    "gpt-sol",
+    "opus-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "gpt-terra": 1,
+    "opus-5": 2,
+    "sonnet-5": 3,
+    "gpt-sol": 4
+   },
+   "best": "gpt-terra",
+   "best_pos": "A",
+   "rationale": "Answer A is the most accurate, complete, and grounded, directly answering all parts of the question with correct values and definitions, all supported by the context."
+  },
+  {
+   "id": "q93",
+   "seed": 1,
+   "order": [
+    "gpt-sol",
+    "gpt-terra",
+    "opus-5",
+    "sonnet-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "gpt-sol": 2,
+    "gpt-terra": 3,
+    "sonnet-5": 4
+   },
+   "best": "opus-5",
+   "best_pos": "C",
+   "rationale": "Answer C provides the most comprehensive and accurate response, including all key attributes, the codelist code, and a clear statement that specific solid oral shell or sterile parenteral values are not in the context, while properly grounding all claims with sources."
+  },
+  {
+   "id": "q94",
+   "seed": 1,
+   "order": [
+    "gpt-terra",
+    "sonnet-5",
+    "gpt-sol",
+    "opus-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "gpt-terra": 2,
+    "sonnet-5": 3,
+    "gpt-sol": 4
+   },
+   "best": "opus-5",
+   "best_pos": "D",
+   "rationale": "Answer D is the most complete and accurate, thoroughly addressing the distinction, codelist, and values with precise citations and relevant supplementary details."
+  },
+  {
+   "id": "q95",
+   "seed": 1,
+   "order": [
+    "gpt-sol",
+    "sonnet-5",
+    "gpt-terra",
+    "opus-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "gpt-sol": 2,
+    "sonnet-5": 3,
+    "gpt-terra": 4
+   },
+   "best": "opus-5",
+   "best_pos": "D",
+   "rationale": "Answer D provides the most comprehensive, accurate, and fully grounded response, including all relevant codes, definitions, and paired DDTESTCD values directly from the context."
+  },
+  {
+   "id": "q96",
+   "seed": 1,
+   "order": [
+    "gpt-terra",
+    "opus-5",
+    "sonnet-5",
+    "gpt-sol"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "gpt-terra": 2,
+    "sonnet-5": 3,
+    "gpt-sol": 4
+   },
+   "best": "opus-5",
+   "best_pos": "B",
+   "rationale": "Answer B is the most complete and accurate, thoroughly covering the variable definition, codelist code, examples, and explicitly grounding that Diameter/Cumulative Exposure are not in the context, while staying strictly within the provided evidence."
+  },
+  {
+   "id": "q97",
+   "seed": 1,
+   "order": [
+    "sonnet-5",
+    "opus-5",
+    "gpt-sol",
+    "gpt-terra"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "sonnet-5": 1,
+    "opus-5": 2,
+    "gpt-sol": 3,
+    "gpt-terra": 4
+   },
+   "best": "sonnet-5",
+   "best_pos": "A",
+   "rationale": "Answer A best balances accuracy, completeness, and grounding by precisely defining SSSTRESC, citing the correct codelist C124304, and listing all standard values with codes and sources, while staying focused on the question."
+  },
+  {
+   "id": "q98",
+   "seed": 1,
+   "order": [
+    "sonnet-5",
+    "gpt-sol",
+    "opus-5",
+    "gpt-terra"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "sonnet-5": 1,
+    "opus-5": 2,
+    "gpt-sol": 3,
+    "gpt-terra": 4
+   },
+   "best": "sonnet-5",
+   "best_pos": "A",
+   "rationale": "Answer A is the most accurate, complete, and strictly grounded, correctly identifying CMDOSU's definition, codelist C71620, and example values while explicitly avoiding unsupported claims about IU/mEq."
+  },
+  {
+   "id": "q99",
+   "seed": 1,
+   "order": [
+    "gpt-sol",
+    "opus-5",
+    "gpt-terra",
+    "sonnet-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-sol": 3,
+    "gpt-terra": 4
+   },
+   "best": "opus-5",
+   "best_pos": "B",
+   "rationale": "Answer B provides the most thorough, accurate, and fully grounded response, covering all aspects of the question with precise source citations and appropriate caveats."
+  },
+  {
+   "id": "q100",
+   "seed": 1,
+   "order": [
+    "gpt-terra",
+    "sonnet-5",
+    "opus-5",
+    "gpt-sol"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "sonnet-5": 2,
+    "gpt-terra": 3,
+    "gpt-sol": 4
+   },
+   "best": "opus-5",
+   "best_pos": "C",
+   "rationale": "Answer C is the most complete and accurate, correctly identifying ARMCD's Role/Core in TA, explicitly acknowledging ETCD is not in the context, and grounding all statements with precise source citations without fabrication."
+  },
+  {
+   "id": "q101",
+   "seed": 1,
+   "order": [
+    "gpt-terra",
+    "sonnet-5",
+    "opus-5",
+    "gpt-sol"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "gpt-terra": 2,
+    "sonnet-5": 3,
+    "gpt-sol": 4
+   },
+   "best": "opus-5",
+   "best_pos": "C",
+   "rationale": "Answer C provides the most comprehensive, accurate, and well-grounded response, covering all question parts with proper citations and clearly stating context limitations."
+  },
+  {
+   "id": "q102",
+   "seed": 1,
+   "order": [
+    "gpt-terra",
+    "gpt-sol",
+    "opus-5",
+    "sonnet-5"
+   ],
+   "parse_ok": true,
+   "rank": {
+    "opus-5": 1,
+    "gpt-terra": 2,
+    "sonnet-5": 3,
+    "gpt-sol": 4
+   },
+   "best": "opus-5",
+   "best_pos": "C",
+   "rationale": "Answer C is the most complete and accurate, providing the full codelist table, direct answers to the examples, and proper grounding across all sources."
+  }
+ ],
+ "reaggregated_strict": true
+}

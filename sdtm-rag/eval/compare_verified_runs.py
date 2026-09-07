@@ -205,8 +205,10 @@ def self_destruct(j1: dict, j1b: dict, j2: dict, j3: dict) -> list[str]:
     if (j1["n_parse_fail"] + j1["n_rank_invalid"] > 10
             or j1b["n_parse_fail"] + j1b["n_rank_invalid"] > 10):
         hits.append("C1 JUDGE_UNPARSEABLE")
-    if j2["best_agree"] is None or j2["best_agree"] < 0.70:
-        hits.append("C2 裁判不稳定 (best_agree < 70% 或不可算)")
+    # 复核规则 4 (预登记文档, 数据前写死): C2 以 best_agree 与剔除同置换题后的值中**较低者**判
+    agree_vals = [v for v in (j2["best_agree"], j2.get("best_agree_excl_same_perm")) if v is not None]
+    if not agree_vals or min(agree_vals) < 0.70:
+        hits.append(f"C2 裁判不稳定 (min best_agree={min(agree_vals) if agree_vals else None} < 70%)")
     if j1["n_ok"] and max(j1["best_pos_dist"].values()) / j1["n_ok"] > 0.45:
         hits.append("C3 位置偏好 (某标签 rank-1 > 45%)")
     for t, v in j3.items():
@@ -221,11 +223,16 @@ def self_destruct(j1: dict, j1b: dict, j2: dict, j3: dict) -> list[str]:
 def suppress(out: dict, hits: list[str]) -> None:
     """F5: 自毁触发 ⇒ 对应数字置 None + 标 suppressed_by, 不让作废的数留在产物里。"""
     tags = {h.split()[0] for h in hits}
-    if "C1" in tags or "C2" in tags or "C3" in tags or "C5" in tags:
-        for k in ("j1_seed0", "j1_seed1"):
+    # 按预登记各条款的后果分别处置: C1 = 不出排名结论 (置 None); C2/C3 = 只报数字, ⛔ 不得据此决策;
+    # C5 = 只能写「未发现差异」。后两类数字保留但打上 decision_barred_by, 消费方必须连带。
+    for k in ("j1_seed0", "j1_seed1"):
+        if "C1" in tags:
             for f in ("mean_rank", "rank1", "pairwise_winrate", "vs_baseline_winrate"):
                 out[k][f] = None
-            out[k]["suppressed_by"] = sorted(tags & {"C1", "C2", "C3", "C5"})
+            out[k]["suppressed_by"] = ["C1"]
+        barred = sorted(tags & {"C2", "C3", "C5"})
+        if barred:
+            out[k]["decision_barred_by"] = barred
     for h in hits:
         if h.startswith("C4 "):
             t = h.split()[1]
