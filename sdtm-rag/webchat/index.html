@@ -10,34 +10,67 @@
 <body>
   <div id="app">
     <aside id="sidebar">
-      <button id="new-chat">+ 新对话</button>
+      <div class="side-head">
+        <span class="brand">SDTM Pedia</span>
+        <button id="collapse-side" class="icon-btn" type="button" title="收起侧栏" aria-label="收起侧栏">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1.5" y="2.5" width="13" height="11" rx="2"/><path d="M6 2.5v11"/></svg>
+        </button>
+      </div>
+      <button id="new-chat" type="button">＋ 新对话</button>
       <ul id="conv-list"></ul>
     </aside>
+
     <main id="main">
       <header id="topbar">
-        <span id="topbar-title">SDTM 知识库助手 · DeepSeek V4 Pro</span>
-        <!-- 联邦检索范围; /api/info 的 federation=false 时保持 hidden (见 app.js loadModelName)。
-             两个都不勾 = auto (LLM 判库), 勾选则显式指定并绕过路由。 -->
-        <fieldset id="scope" title="検索範囲 (未選択 = 自動判定)" hidden>
-          <label><input type="checkbox" id="scope-cdisc" /> CDISC 標準</label>
-          <label><input type="checkbox" id="scope-study" /> 本研究 (ST01)</label>
-          <label title="让模型自行决定是否搜索公开网络 (业界实践参考, 非标准依据)">
-            <input type="checkbox" id="scope-web" /> 联网参考
-          </label>
-        </fieldset>
-        <select id="model-select" title="答题模型"></select>
-        <div id="model-warning" hidden>⚠ 该模型的反捏造边界未在其上验证</div>
+        <button id="expand-side" class="icon-btn" type="button" title="展开侧栏" aria-label="展开侧栏" hidden>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1.5" y="2.5" width="13" height="11" rx="2"/><path d="M6 2.5v11"/></svg>
+        </button>
+        <span id="topbar-title">SDTM 知识库助手</span>
+        <span id="topbar-model" class="topbar-model"></span>
+        <div class="topbar-right">
+          <button id="settings-btn" class="icon-btn" type="button" title="设置" aria-label="设置" aria-expanded="false">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
+          </button>
+          <div id="settings-panel" hidden>
+            <section>
+              <h3>答题模型</h3>
+              <select id="model-select" title="答题模型"></select>
+              <div id="model-warning" class="hint warn" hidden>⚠ 该模型的反捏造边界未在其上验证</div>
+            </section>
+            <!-- 联邦检索范围; /api/info 的 federation=false 时保持 hidden (见 app.js loadModelName)。
+                 两个都不勾 = auto (LLM 判库), 勾选则显式指定并绕过路由。 -->
+            <fieldset id="scope" title="検索範囲 (未選択 = 自動判定)" hidden>
+              <legend>检索范围 (都不勾 = 自动判定)</legend>
+              <label><input type="checkbox" id="scope-cdisc" /> CDISC 標準</label>
+              <label><input type="checkbox" id="scope-study" /> 本研究 (ST01)</label>
+              <label title="让模型自行决定是否搜索公开网络 (业界实践参考, 非标准依据)">
+                <input type="checkbox" id="scope-web" /> 联网参考
+              </label>
+            </fieldset>
+            <section>
+              <h3>显示</h3>
+              <label><input type="checkbox" id="show-citations" /> 显示正文行内出处 (调试用)</label>
+              <div class="hint">关闭时出处只在底部「来源」里看; 生成中不可切换。</div>
+            </section>
+          </div>
+        </div>
       </header>
+
       <div id="messages"></div>
+      <button id="to-bottom" type="button" hidden>↓ 回到底部</button>
+
       <form id="composer">
-        <textarea id="input" rows="1" placeholder="问点关于 SDTM 的……（Enter 发送，Shift+Enter 换行）"></textarea>
-        <button id="send" type="submit">发送</button>
+        <div class="composer-box">
+          <textarea id="input" rows="1" placeholder="问点关于 SDTM 的……（Enter 发送，Shift+Enter 换行）"></textarea>
+          <button id="send" type="submit" aria-label="发送">发送</button>
+        </div>
+        <p class="footnote">回答由模型生成, 请以 CDISC 标准原文为准。</p>
       </form>
     </main>
   </div>
   <script src="/static/vendor/marked.min.js"></script>
   <script src="/static/vendor/purify.min.js"></script>
   <script src="/static/vendor/highlight.min.js"></script>
-  <script src="/static/app.js"></script>
+  <script type="module" src="/static/app.js"></script>
 </body>
 </html>
