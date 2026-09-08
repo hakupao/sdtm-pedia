@@ -1,0 +1,32 @@
+Browser console — Task 8 smoke (Playwright MCP; chrome-devtools MCP could not connect to :9222)
+Captured 2026-09-08. Two origins appear below.
+
+── http://localhost:8000/  (PRODUCTION launchd server, rate limiter ENABLED) ──
+[ERROR] Failed to load resource: the server responded with a status of 429 (Too Many Requests) @ http://localhost:8000/static/js/ui.js:0
+[ERROR] Failed to load resource: the server responded with a status of 429 (Too Many Requests) @ http://localhost:8000/static/js/stream.js:0
+[ERROR] Failed to load resource: the server responded with a status of 429 (Too Many Requests) @ http://localhost:8000/favicon.ico:0
+[ERROR] Failed to load resource: the server responded with a status of 429 (Too Many Requests) @ http://localhost:8000/static/js/markdown.js:0
+[ERROR] Failed to load resource: the server responded with a status of 429 (Too Many Requests) @ http://localhost:8000/static/js/render.js:0
+[ERROR] Failed to load resource: the server responded with a status of 429 (Too Many Requests) @ http://localhost:8000/favicon.ico:0
+
+  ^ BLOCKER, not an app.js bug: the ES-module split raised a cold page load from ~9 to 16
+    requests; the token-bucket limiter is burst=10 / 30-per-min, so a fresh load always sheds
+    5-6 requests. Which module loses is random, so the page fails to boot non-deterministically.
+    Measured with a fully refilled bucket: 16 requests -> 6x 429. Cache-Control is "no-cache"
+    (revalidate every load), so caching does not reduce the count. See report §Concerns.
+
+── http://127.0.0.1:8100/  (same code + same working tree, RATE LIMIT DISABLED — smoke ran here) ──
+[ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:8100/favicon.ico:0
+[LOG] WARN: Could not find the language 'sas', did you forget to load/include a language module? @ /static/vendor/highlight.min.js:106
+[LOG] WARN: Falling back to no-highlight mode for this block. JSHandle@node @ /static/vendor/highlight.min.js:106
+
+  favicon 404 — pre-existing: index.html declares no <link rel="icon"> and webchat/ ships no
+    favicon.ico. Predates this task, unrelated to app.js.
+  hljs 'sas' WARN — emitted only by the SYNTHETIC archive I seeded (a ```sas fence) to exercise
+    the code-block path. The bundled highlight.js build has no SAS grammar; hljs degrades to
+    no-highlight, the block still renders and still gets its 复制 button. Not triggered by any
+    real answer in this smoke.
+
+NO application errors. Zero uncaught exceptions, zero module-resolution failures, zero
+DOMPurify/marked failures across: streaming, done, abort, retry, citation toggle, sidebar
+rename/delete, sidebar collapse, reload, conversation switching, flag box open/cancel.
