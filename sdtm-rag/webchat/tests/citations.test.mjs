@@ -21,9 +21,15 @@ test("Web 引用同样处理, kind=web", () => {
                              raw: "**[Web: https://a.b/c (retrieved 2026-09-01)]**" }]);
 });
 
-test("剥除后留下的空括号与标点前空格清理", () => {
+// 空括号是剥除产生的残渣, 要清; 而 ` , ` 是作者原文里就有的空格, 局部整理不碰它
+// (老版本用全局 `/ +([.,;:!?])/` 顺手改掉了 —— 那正是 I1 说的越界重写)。
+test("剥除后留下的空括号清掉; 原文既有的标点前空格不动", () => {
   const { md } = splitCitations("Use AESEV (**[Source: a.md]**) here , ok.");
-  assert.equal(md, "Use AESEV here, ok.");
+  assert.equal(md, "Use AESEV here , ok.");
+});
+
+test("紧跟标点的出处剥除后标点贴回前一个词", () => {
+  assert.equal(splitCitations("Term [Source: a.md].").md, "Term.");
 });
 
 test("show 模式渲染为 span, ref 做 HTML 转义", () => {
@@ -39,9 +45,47 @@ test("streaming 剥掉尾部半截, 非 streaming 不动", () => {
   assert.equal(splitCitations("Text **[Source: dom").md, "Text **[Source: dom");
 });
 
-test("无出处文本原样返回 (含代码块缩进)", () => {
-  const src = "```py\n    x = 1\n```\n\nline  two";
-  assert.equal(splitCitations(src).md, src.replace("line  two", "line two"));
+// I1: 没有出处可剥 ⇒ 一个字节都不许改。围栏里的 `read_xpt()` / 跨行括号 / 对齐空格,
+// 以及正文行尾两空格的 markdown 硬换行, 全部原样。
+test("无出处文本逐字节原样返回 (围栏 / 空括号 / 对齐空格 / 硬换行)", () => {
+  const src = [
+    "```py",
+    "df = read_xpt()",
+    "foo(",
+    ")",
+    "a    = 1",
+    "bb   = 2",
+    "```",
+    "",
+    "line one  ",
+    "line two",
+    "",
+    "散文里的 empty () 和  双空格 也不动",
+  ].join("\n");
+  assert.equal(splitCitations(src).md, src);
   assert.equal(splitCitations("no cite").cites.length, 0);
   assert.equal(splitCitations(null).md, "");
+});
+
+// I1: 围栏内的 `[Source: ...]` 是代码, 不是出处 —— 不剥, 也不进 cites。
+test("围栏代码块内的出处标记不剥除, 围栏外的照剥", () => {
+  const src = '```\nprint("[Source: a.md]")\n```\n\n外面 [Source: b.md] 要剥。';
+  const { md, cites } = splitCitations(src);
+  assert.equal(md, '```\nprint("[Source: a.md]")\n```\n\n外面 要剥。');
+  assert.deepEqual(cites.map((c) => c.ref), ["b.md"]);
+});
+
+// I2: `\*{0,2}` 会把成对 bold 的后半截单边吃掉, 剩下 `**Severity rest` 星号失衡。
+test("成对 bold 里的出处: 只剥出处本身, 星号不失衡", () => {
+  const { md, cites } = splitCitations("**Severity [Source: a.md]** rest");
+  assert.equal(md, "**Severity** rest");
+  assert.deepEqual(cites, [{ kind: "source", ref: "a.md", raw: "[Source: a.md]" }]);
+});
+
+// I2: 普通 markdown 链接的方括号部分长得像出处, 剥掉会留下孤儿 `(http://x/y)`。
+test("普通 markdown 链接不当作出处", () => {
+  const src = "see [Source: guide](http://x/y) here";
+  const { md, cites } = splitCitations(src);
+  assert.equal(md, src);
+  assert.equal(cites.length, 0);
 });

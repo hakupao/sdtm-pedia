@@ -1,35 +1,80 @@
 // 正文出处 `**[Source: path]**` / `[Web: url]` 的抽取与剥除。
 // prompt (server/rag.py) 强制模型写这些标记, 是反捏造设计的一部分, 前端**不改 prompt**,
 // 只在渲染层处理; 存档与 ⚑ 上报永远是原文 (spec §1)。
-const RE_FULL = /\*{0,2}\[(Source|Web):\s*([^\]]*)\]\*{0,2}/g;
+//
+// 两条硬约束 (Rule D 审阅 I1/I2), 改这个文件前先读:
+// 1. 没剥掉任何标记的行**逐字节原样返回**。空白整理只在真删了东西的行上跑, 而且只碰删除点
+//    周围, 全文级重写一律不做 —— 否则代码块里的 `read_xpt()` 会被吃成 `read_xpt`, 对齐的
+//    空格会塌, 行尾两空格的 markdown 硬换行会消失。
+// 2. 围栏代码块内的行完全不碰 —— 里面的 `[Source: ...]` 是代码, 不是出处。
+const RE_FENCE_LINE = /^ {0,3}(`{3,}|~{3,})/;
+// 两种形态分开写, 绝不用 `\*{0,2}`: 那会把成对 bold 的后半截单边吃掉
+// (`**Severity [Source: a.md]** rest` → `**Severity rest`, 星号失衡)。
+// 裸形末尾的 `(?!\()` 用来放过普通链接 `[Source: guide](http://x/y)`。
+const RE_FULL = /\*\*\[(Source|Web):\s*([^\]\n]*)\]\*\*|\[(Source|Web):\s*([^\]\n]*)\](?!\()/g;
 // 流中尾部半截: `[`, `[S`, `**[Sour`, `[Source: dom` ... 都先藏起来, 下一帧闭合后走 RE_FULL。
 // `[Sx` 这类不是出处前缀的不动 —— 前缀枚举比宽松匹配多几个字符, 但不会误吞正文里的 `[`。
 const RE_TAIL = /\*{0,2}\[(?:S|So|Sou|Sour|Sourc|Source|W|We|Web)?(?::[^\]]*)?$/;
+
+// 删除点占位符 (记作 ␀), 只在一行的处理过程中存活, 返回前一定被清干净。
+const SENT = "\u0000";
+const RE_EMPTY_PARENS = /\(\s*\u0000(?:\s*\u0000)*\s*\)/g; // `(␀)`: 括号本身也是残渣
+const RE_GLUE_PUNCT = /[ \t]*\u0000[ \t]*(?=[.,;:!?])/g;   // `Text ␀.` → `Text.`
+const RE_EOL = /[ \t]*\u0000[ \t]*$/g;                     // 行尾: 连空格一起去
+const RE_MID = /(^|[ \t])\u0000[ \t]+/g;                   // 词 ␀ 词: 留一个空格
+const RE_LEFT = /[ \t]*\u0000/g;                           // 右侧无空白的残留: 左空格一并去,
+                                                           // 让 `**` 这类闭合记号贴回词尾
 
 function escapeHtml(s) {
   return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 }
 
-// 剥除后的空白整理。只碰"非空白字符之间"的多余空格, 行首缩进 (代码块) 不动。
-function tidy(text) {
-  return text
-    .replace(/\(\s*\)/g, "")
-    .replace(/(\S) {2,}(?=\S)/g, "$1 ")
-    .replace(/ +([.,;:!?])/g, "$1")
-    .replace(/[ \t]+$/gm, "");
+// 只在删除点周围收口, 顺序固定: 空括号 → 粘标点 → 行尾 → 行中 → 残留。
+function tidyLocal(line) {
+  return line
+    .replace(RE_EMPTY_PARENS, SENT)
+    .replace(RE_GLUE_PUNCT, "")
+    .replace(RE_EOL, "")
+    .replace(RE_MID, "$1")
+    .replace(RE_LEFT, "");
+}
+
+// 半截标记连同它前面的空格一起藏起来 —— 那段空白属于被删内容, 下一帧会随标记一起回来。
+function stripTail(line) {
+  const m = line.match(RE_TAIL);
+  if (!m) return line;
+  return line.slice(0, m.index).replace(/[ \t]+$/, "");
+}
+
+function replaceCites(line, cites, show) {
+  let stripped = false;
+  const text = line.replace(RE_FULL, (raw, boldKind, boldRef, bareKind, bareRef) => {
+    const kind = boldKind || bareKind;
+    const k = kind.toLowerCase();
+    const r = (boldRef !== undefined ? boldRef : bareRef).trim();
+    cites.push({ kind: k, ref: r, raw });
+    if (show) return `<span class="cite cite-${k}">${kind}: ${escapeHtml(r)}</span>`;
+    stripped = true;
+    return SENT;
+  });
+  return stripped ? tidyLocal(text) : text; // 没删东西 ⇒ 原样, 一个字节都不动
 }
 
 export function splitCitations(md, { show = false, streaming = false } = {}) {
-  let text = md || "";
-  if (streaming) text = text.replace(RE_TAIL, "");
   const cites = [];
-  text = text.replace(RE_FULL, (raw, kind, ref) => {
-    const k = kind.toLowerCase();
-    const r = ref.trim();
-    cites.push({ kind: k, ref: r, raw });
-    if (!show) return "";
-    return `<span class="cite cite-${k}">${kind}: ${escapeHtml(r)}</span>`;
+  const lines = (md || "").split("\n");
+  let fence = null; // 当前围栏记号 ("`" / "~"); null = 不在围栏里。异族记号关不掉。
+  const out = lines.map((line, i) => {
+    const f = line.match(RE_FENCE_LINE);
+    if (f) {
+      const marker = f[1][0];
+      if (fence === null) fence = marker;
+      else if (fence === marker) fence = null;
+      return line;
+    }
+    if (fence !== null) return line;
+    const text = streaming && i === lines.length - 1 ? stripTail(line) : line;
+    return replaceCites(text, cites, show);
   });
-  text = tidy(text);
-  return { md: text, cites };
+  return { md: out.join("\n"), cites };
 }
