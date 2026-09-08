@@ -29,6 +29,28 @@ _NO_CONTEXT = "(No relevant context found in the knowledge base.)"
 # 只有真打了网的尝试才进这张表 —— 模型自己出错 (bad_query / unknown_tool) 不算联网失败。
 _WEB_FAIL_RANK = {"disabled": 3, "quota_exceeded": 2, "failed": 1}
 
+# 「这一轮是被输出上限切断的」的两种拼法。OpenAI / litellm 归一化成 "length";
+# Anthropic 原生 (以及部分透传的 Bedrock 路径) 报 "max_tokens"。⛔ 只认一个的话,
+# 另一条路上的截断依旧是静默的 —— 而静默截断正是本功能要消灭的东西。
+_TRUNCATED_FINISH_REASONS = frozenset({"length", "max_tokens"})
+
+# 触顶后回灌给模型的续写指令。
+#
+# ⚠ 为什么是**追加一条 user 消息**而不是 assistant prefill: prefill (把上一轮原文塞成
+# 最后一条 assistant 消息、让模型接着补全) 是 Anthropic 特有能力, 走 Bedrock Converse 的
+# 两个 OpenAI 模型 (gpt-terra / gpt-sol) 不支持 —— 同一段代码要服务四个可选模型加
+# DeepSeek 兜底, 只能用所有 provider 都认的形状。代价是接缝处依赖模型听话 (可能重复
+# 半句), 换来的是"四个模型一视同仁", 见 evidence/checkpoints/autocontinue_2026-09.md。
+#
+# 用英文写: 系统提示里的接地规则 ([Source: path] / [Web: url]) 本身是英文, 续写指令跟着
+# 用英文可以逐字引用它们, 不必翻译一遍再指望模型对上号。
+CONTINUE_PROMPT = (
+    "Your previous message was cut off by the output length limit. Continue EXACTLY "
+    "from where it stopped: do not repeat any already-written text, do not add a "
+    "preamble, heading, apology or summary, keep the same language, formatting and "
+    "citation rules ([Source: path] / [Web: url] verbatim)."
+)
+
 
 # ── Request / Response models ────────────────────────────────────────────
 
@@ -70,6 +92,11 @@ class AskResponse(BaseModel):
     model_used: str
     usage: dict | None = None
     routed_corpus: str | None = None  # 实际检索的库; federation 关时 None
+    # 输出触顶自动续写 (2026-09-08)。与 ask_stream 的 done 事件同名同义。默认值是
+    # "没发生过", 所以老调用方 (eval 脚本按字段名取值) 一行不改也照常工作; 但
+    # truncated=True 时它们至少**能**发现答案不完整, 而不是把半句话当完整答案打分。
+    continue_rounds: int = 0
+    truncated: bool = False
 
 
 class InfoResponse(BaseModel):
@@ -190,26 +217,49 @@ def ask(body: AskRequest, request: Request):
     else:
         messages = rag.build_messages(body.question, context, history_dicts or None)
 
+    # 输出触顶自动续写 (2026-09-08)。⚠ 这里是**第二份**实现: /api/ask 走同步
+    # `llm_router.completion`, 与 ask_stream 的 `acompletion` 不共用任何辅助函数, 所以
+    # 只在流式那边加会让 eval 脚本 (它们全走本端点) 继续拿到被截断的答案 —— 而 eval 正是
+    # 最不该被静默截断的地方。⛔ 两处的常量必须是同一个 (`CONTINUE_PROMPT` /
+    # `_TRUNCATED_FINISH_REASONS`), 不许各抄一份。
+    msgs = list(messages)
+    answer_parts: list[str] = []
+    continue_rounds = 0
+    truncated = False
+    usage_total = {"prompt_tokens": 0, "completion_tokens": 0, "total_tokens": 0}
+    usage_seen = False
     try:
-        response = llm_router.completion(model=body.model, messages=messages)
+        while True:
+            response = llm_router.completion(model=body.model, messages=msgs)
+            round_text = response.choices[0].message.content or ""
+            answer_parts.append(round_text)
+            if response.usage:
+                # 每轮独立计费 —— 只报最后一轮会系统性低报成本 (同 ask_stream)
+                usage_seen = True
+                usage_total["prompt_tokens"] += response.usage.prompt_tokens or 0
+                usage_total["completion_tokens"] += response.usage.completion_tokens or 0
+                usage_total["total_tokens"] += response.usage.total_tokens or 0
+            if getattr(response.choices[0], "finish_reason", None) not in _TRUNCATED_FINISH_REASONS:
+                break
+            if continue_rounds >= s.max_continue_rounds:
+                truncated = True
+                break
+            continue_rounds += 1
+            msgs.append({"role": "assistant", "content": round_text})
+            msgs.append({"role": "user", "content": CONTINUE_PROMPT})
     except Exception as e:
         log.error("llm_failed", error=str(e), model=body.model, exc_info=True)
         raise HTTPException(status_code=502, detail="LLM service temporarily unavailable.") from e
 
-    answer = response.choices[0].message.content or ""
+    # 计数闸看的是**拼接后的全文** —— 分轮跑会把跨接缝的那句话判漏。
+    answer = "".join(answer_parts)
     if facts is not None:
         from server.grounding import apply_counting_gate
         answer, violations = apply_counting_gate(answer, facts)
         if violations:
             log.warning("structured_count_violation", violations=violations)
     model_used = getattr(response, "model", None) or body.model
-    usage = None
-    if response.usage:
-        usage = {
-            "prompt_tokens": response.usage.prompt_tokens,
-            "completion_tokens": response.usage.completion_tokens,
-            "total_tokens": response.usage.total_tokens,
-        }
+    usage = dict(usage_total) if usage_seen else None
 
     sources = [
         SourceItem(
@@ -240,6 +290,8 @@ def ask(body: AskRequest, request: Request):
         model_used=model_used,
         usage=usage,
         routed_corpus=routed,
+        continue_rounds=continue_rounds,
+        truncated=truncated,
     )
 
 
@@ -365,6 +417,11 @@ async def ask_stream(body: AskStreamRequest, request: Request):
         usage_total = {"prompt_tokens": 0, "completion_tokens": 0, "total_tokens": 0}
         usage_seen = False
         usage_missing = False
+        # 触顶自动续写 (2026-09-08): 本次回答一共为"接着写"多开了几次 API 调用, 以及
+        # 收尾时是不是**仍然**卡在上限上。两个都进 done —— 一条被截断的答案与一条完整
+        # 答案在存档里必须长得不一样 (与 web_status / fell_back 同一条教训)。
+        continue_rounds = 0
+        truncated = False
         web_ok = 0
         web_fail: str | None = None   # 最严重的一次联网失败 (见 _WEB_FAIL_RANK)
         if not body.web:
@@ -382,69 +439,102 @@ async def ask_stream(body: AskStreamRequest, request: Request):
             total_rounds = (s.web_max_rounds + 1) if use_web else 1
             for rnd in range(1, total_rounds + 1):
                 with_tools = use_web and rnd <= s.web_max_rounds
-                # 开流的外层上限 (REV MED-b): provider 连接挂死时以 error 事件收场, 不把
-                # SSE 连接晾着。流中途**不**包 wait_for —— 单一 deadline 会截断健康的长答案。
-                resp = await asyncio.wait_for(
-                    _open_stream(msgs, with_tools), timeout=s.request_timeout_s)
+                # 输出触顶自动续写的内层循环 (2026-09-08)。它**不消耗**外层的工具轮预算:
+                # 续写不是一次新的工具决策, 只是把同一段回答接着写完。故它嵌在 rnd 里面,
+                # 而不是把 total_rounds 加大 —— 后者会让"续写"偷偷买到额外的搜索机会。
+                while True:
+                    # 开流的外层上限 (REV MED-b): provider 连接挂死时以 error 事件收场, 不把
+                    # SSE 连接晾着。流中途**不**包 wait_for —— 单一 deadline 会截断健康的长答案。
+                    resp = await asyncio.wait_for(
+                        _open_stream(msgs, with_tools), timeout=s.request_timeout_s)
 
-                acc: dict[int, dict] = {}   # 流式 tool_calls 是增量的, 按 index 拼
-                round_parts: list[str] = []  # 本轮文本, 回灌 assistant 消息用
-                cu_round = None
-                async for chunk in resp:
-                    choices = getattr(chunk, "choices", None)
-                    if choices:
-                        ch = choices[0]
-                        # 是否继续循环只看 acc 是否攒到工具调用, 不看 finish_reason ——
-                        # 各 provider 的收尾理由字段并不统一, acc 是唯一可靠的信号。
-                        # 只取 content / tool_calls, 其余 delta 字段有意丢弃 ——
-                        # 含 GPT-5.6 Sol 的 reasoning_content (模型内部思考, 不该进
-                        # 知识库答案, 更不该被当成引用来源)。spec §4.3。
-                        # 实测边界: 流式下两个 GPT 均未发该增量, 只有非流式 boto3 调用
-                        # 时 Sol 发了 reasoningContent 块 ⇒ 这是预防, 不是现实问题。
-                        text = getattr(ch.delta, "content", None)
-                        if text:
-                            parts.append(text)
-                            round_parts.append(text)
-                            yield sse("token", {"text": text})
-                        for tc in (getattr(ch.delta, "tool_calls", None) or []):
-                            # index / id 一律 getattr 兜底: 缺字段的 delta 若让
-                            # AttributeError 穿透, 用户拿到的是 "LLM stream failed",
-                            # 整个答案丢光 —— 这比少拼一个分片严重得多。
-                            slot = acc.setdefault(getattr(tc, "index", 0),
-                                                  {"id": None, "name": "", "args": ""})
-                            tc_id = getattr(tc, "id", None)
-                            if tc_id and not slot["id"]:
-                                slot["id"] = tc_id          # 取首个非空
-                            fn = getattr(tc, "function", None)
-                            if fn and getattr(fn, "name", None) and not slot["name"]:
-                                slot["name"] = fn.name      # 取首个非空: 有 provider 每片都重发
-                            if fn and getattr(fn, "arguments", None):
-                                slot["args"] += fn.arguments  # 只有 arguments 是真分片
-                    # 两半各防一件事, 缺任一半 model_used 都会丢成 None (⇒ 回退发生了也报不出来):
-                    # · 搁在 `if choices:` **外面**: usage chunk 的 choices 是空列表, 而有
-                    #   provider 只在那一片上报模型 —— 搁在里面就整条流都取不到。
-                    # · `reported` 为假时**不赋值**: 报模型的往往只有首片, 后续片的 .model
-                    #   是 None, 裸赋值会被最后一片抹掉 (等价于原来的 `or model_used`)。
-                    reported = getattr(chunk, "model", None)
-                    if reported:
-                        model_used = reported
-                        # 去重判据在 llm_config 里, 与 fell_back 共用同一个 `_same_model`
-                        # (终审 I-2): litellm 对同一次回答会报两种拼法, 裸 `not in` 会把
-                        # 一个模型收成两项 ⇒ 徽章把 2 个模型写成 4 个串, R4 想要的
-                        # "一眼看出实际是谁答的"就没了。⛔ 不在这里另写一套判据。
-                        merge_reported_model(models_used, reported)
-                    cu = getattr(chunk, "usage", None)
-                    if cu:
-                        cu_round = cu
+                    acc: dict[int, dict] = {}   # 流式 tool_calls 是增量的, 按 index 拼
+                    round_parts: list[str] = []  # 本轮文本, 回灌 assistant 消息用
+                    cu_round = None
+                    # 本次调用的收尾理由: 取**最后一个非 None** 的。分片流里绝大多数 chunk
+                    # 的 finish_reason 是 None, 只有收尾那片带值; 裸赋值会被后面的 usage 片
+                    # (finish_reason 缺失) 抹回 None ⇒ 触顶永远测不出来。
+                    finish_reason = None
+                    async for chunk in resp:
+                        choices = getattr(chunk, "choices", None)
+                        if choices:
+                            ch = choices[0]
+                            # **工具**循环是否继续只看 acc 是否攒到工具调用, 不看 finish_reason
+                            # —— 各 provider 的收尾理由字段并不统一, acc 是唯一可靠的信号。
+                            # (2026-09-08 起 finish_reason 也读了, 但只用来判"是不是被输出
+                            # 上限截断", 与工具判定各管各的, 见内层 while 末尾。)
+                            fr = getattr(ch, "finish_reason", None)
+                            if fr:
+                                finish_reason = fr
+                            # 只取 content / tool_calls, 其余 delta 字段有意丢弃 ——
+                            # 含 GPT-5.6 Sol 的 reasoning_content (模型内部思考, 不该进
+                            # 知识库答案, 更不该被当成引用来源)。spec §4.3。
+                            # 实测边界: 流式下两个 GPT 均未发该增量, 只有非流式 boto3 调用
+                            # 时 Sol 发了 reasoningContent 块 ⇒ 这是预防, 不是现实问题。
+                            text = getattr(ch.delta, "content", None)
+                            if text:
+                                parts.append(text)
+                                round_parts.append(text)
+                                yield sse("token", {"text": text})
+                            for tc in (getattr(ch.delta, "tool_calls", None) or []):
+                                # index / id 一律 getattr 兜底: 缺字段的 delta 若让
+                                # AttributeError 穿透, 用户拿到的是 "LLM stream failed",
+                                # 整个答案丢光 —— 这比少拼一个分片严重得多。
+                                slot = acc.setdefault(getattr(tc, "index", 0),
+                                                      {"id": None, "name": "", "args": ""})
+                                tc_id = getattr(tc, "id", None)
+                                if tc_id and not slot["id"]:
+                                    slot["id"] = tc_id          # 取首个非空
+                                fn = getattr(tc, "function", None)
+                                if fn and getattr(fn, "name", None) and not slot["name"]:
+                                    slot["name"] = fn.name      # 取首个非空: 有 provider 每片都重发
+                                if fn and getattr(fn, "arguments", None):
+                                    slot["args"] += fn.arguments  # 只有 arguments 是真分片
+                        # 两半各防一件事, 缺任一半 model_used 都会丢成 None (⇒ 回退发生了也报不出来):
+                        # · 搁在 `if choices:` **外面**: usage chunk 的 choices 是空列表, 而有
+                        #   provider 只在那一片上报模型 —— 搁在里面就整条流都取不到。
+                        # · `reported` 为假时**不赋值**: 报模型的往往只有首片, 后续片的 .model
+                        #   是 None, 裸赋值会被最后一片抹掉 (等价于原来的 `or model_used`)。
+                        reported = getattr(chunk, "model", None)
+                        if reported:
+                            model_used = reported
+                            # 去重判据在 llm_config 里, 与 fell_back 共用同一个 `_same_model`
+                            # (终审 I-2): litellm 对同一次回答会报两种拼法, 裸 `not in` 会把
+                            # 一个模型收成两项 ⇒ 徽章把 2 个模型写成 4 个串, R4 想要的
+                            # "一眼看出实际是谁答的"就没了。⛔ 不在这里另写一套判据。
+                            merge_reported_model(models_used, reported)
+                        cu = getattr(chunk, "usage", None)
+                        if cu:
+                            cu_round = cu
 
-                if cu_round is not None:
-                    usage_seen = True
-                    usage_total["prompt_tokens"] += getattr(cu_round, "prompt_tokens", None) or 0
-                    usage_total["completion_tokens"] += (
-                        getattr(cu_round, "completion_tokens", None) or 0)
-                    usage_total["total_tokens"] += getattr(cu_round, "total_tokens", None) or 0
-                else:
-                    usage_missing = True
+                    if cu_round is not None:
+                        usage_seen = True
+                        usage_total["prompt_tokens"] += getattr(cu_round, "prompt_tokens", None) or 0
+                        usage_total["completion_tokens"] += (
+                            getattr(cu_round, "completion_tokens", None) or 0)
+                        usage_total["total_tokens"] += getattr(cu_round, "total_tokens", None) or 0
+                    else:
+                        usage_missing = True
+
+                    # 触顶判定与「是否继续工具循环」是两件事, 别混: 后者仍然只看 acc
+                    # (见上面 chunk 循环里的注释), 前者只看 finish_reason。
+                    # 本轮**同时**有工具调用又报触顶 ⇒ 走工具路径, 工具优先: 那一轮的
+                    # 文本本来就会被回灌进 assistant 消息, 模型下一轮自然能接着说。
+                    if acc or finish_reason not in _TRUNCATED_FINISH_REASONS:
+                        break
+                    if continue_rounds >= s.max_continue_rounds:
+                        # 兜底触发: 收尾, 并在 done 里如实说「可能不完整」。⛔ 不许静默
+                        # 收场 —— 无声的半句话正是本功能要消灭的那个失败模式。
+                        truncated = True
+                        break
+                    continue_rounds += 1
+                    # 回灌上一轮原文 + 续写指令。⚠ 用 user 消息而非 assistant prefill,
+                    # 理由见 CONTINUE_PROMPT 上方 (prefill 是 Anthropic 专有, GPT 系不支持)。
+                    msgs.append({"role": "assistant", "content": "".join(round_parts)})
+                    msgs.append({"role": "user", "content": CONTINUE_PROMPT})
+                    # 纯信息事件: 前端只记日志, 不画东西 —— 用户要的是一段连续的答案,
+                    # 不是「这里换了一次 API 调用」这个实现细节。轮数在 done 里汇总呈现。
+                    yield sse("continue", {"round": continue_rounds})
 
                 # 没有工具调用 = 本轮就是最终答案; 本轮压根没挂工具 (web 关闭, 或已是收尾轮)
                 # 也一律当最终答案 —— 没挂工具就不该解释工具调用, 更不该为它烧一次配额。
@@ -536,7 +626,9 @@ async def ask_stream(body: AskStreamRequest, request: Request):
                                "verified": model_verified,
                                "fell_back": fell,
                                "usage": usage, "web_status": web_status,
-                               "web_searches_ok": web_ok})
+                               "web_searches_ok": web_ok,
+                               "continue_rounds": continue_rounds,
+                               "truncated": truncated})
         except Exception as e:  # noqa: BLE001 — 流已开, 以事件形式暴露
             log.error("stream_failed", error=str(e), exc_info=True)
             yield sse("error", {"message": "LLM stream failed"})

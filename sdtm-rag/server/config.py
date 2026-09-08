@@ -92,6 +92,11 @@ class Settings(BaseSettings):
     # (触顶自动续写兜得住), 也不拿一个没有一手背书的大数去赌 provider 不拒。
     fallback_max_output_tokens: int = 32000
 
+    # 输出触顶后自动续写的最大轮数 (0 = 关掉自动续写)。这是**跑飞兜底**, 不是预期值:
+    # 天花板抬到 128K 之后正常回答一轮就该写完, 真跑到 8 轮说明模型在打转 ——
+    # 那时 done 事件会报 truncated: true, 前端挂警告, 而不是假装答案是完整的。
+    max_continue_rounds: int = 8
+
     # Embedding (D-4 v3: OpenAI cloud)
     embedding_model: str = "text-embedding-3-small"
     embedding_dim: int = 1536
