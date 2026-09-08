@@ -245,8 +245,10 @@ def ask(body: AskRequest, request: Request):
                 truncated = True
                 break
             continue_rounds += 1
-            msgs.append({"role": "assistant", "content": round_text})
-            msgs.append({"role": "user", "content": CONTINUE_PROMPT})
+            # 空轮不加锚, 原样重开一轮 —— 理由与实测见 ask_stream 里同一处的注释。
+            if round_text:
+                msgs.append({"role": "assistant", "content": round_text})
+                msgs.append({"role": "user", "content": CONTINUE_PROMPT})
     except Exception as e:
         log.error("llm_failed", error=str(e), model=body.model, exc_info=True)
         raise HTTPException(status_code=502, detail="LLM service temporarily unavailable.") from e
@@ -530,8 +532,18 @@ async def ask_stream(body: AskStreamRequest, request: Request):
                     continue_rounds += 1
                     # 回灌上一轮原文 + 续写指令。⚠ 用 user 消息而非 assistant prefill,
                     # 理由见 CONTINUE_PROMPT 上方 (prefill 是 Anthropic 专有, GPT 系不支持)。
-                    msgs.append({"role": "assistant", "content": "".join(round_parts)})
-                    msgs.append({"role": "user", "content": CONTINUE_PROMPT})
+                    #
+                    # ⚠ 本轮一个可见字都没吐时**什么都不加**, 原样重开一轮 —— 预算刷新,
+                    # 让模型把想清楚的东西写出来。实测 (真 Bedrock + opus-5, 天花板压到
+                    # 200/1200) 这一支是**会发生**的: 预算可能被模型的内部思考吃光, 于是
+                    # content 一个字没有却报 length。此时照旧回灌 `assistant: ""` 的后果:
+                    # litellm 警告 "Potential consecutive user/tool blocks. Trying to merge."
+                    # 并把空消息丢掉、合并相邻 user 块 ⇒ 模型收到一句"从断处接着写"却没有
+                    # 可接的东西, 只能凭空编一个续写点。实测产物是从一个中段小标题开始的、
+                    # **没有开头**的文章。
+                    if round_parts:
+                        msgs.append({"role": "assistant", "content": "".join(round_parts)})
+                        msgs.append({"role": "user", "content": CONTINUE_PROMPT})
                     # 纯信息事件: 前端只记日志, 不画东西 —— 用户要的是一段连续的答案,
                     # 不是「这里换了一次 API 调用」这个实现细节。轮数在 done 里汇总呈现。
                     yield sse("continue", {"round": continue_rounds})

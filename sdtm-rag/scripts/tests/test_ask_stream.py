@@ -1,3 +1,4 @@
+import json
 from types import SimpleNamespace
 
 from fastapi import FastAPI
@@ -315,3 +316,67 @@ def test_ask_non_stream_normal_stop_is_one_call():
     assert router.calls == 1
     assert j["answer"] == "完整答案"
     assert j["continue_rounds"] == 0 and j["truncated"] is False
+
+
+# ── 空轮: 一个可见字都没吐就触顶 (2026-09-08 探针实测) ────────────────────
+#
+# 实测 (.superpowers/probe_e2e_continue.py, 真 Bedrock + opus-5, 天花板压到 200/1200):
+# 某一轮的预算可能被模型的内部思考吃光, 于是 delta.content 一个字都没有却报 length。
+# 此时按"回灌 assistant(本轮原文)"照做, 回灌的就是 `assistant: ""` ——
+#   · litellm 当场警告 "Potential consecutive user/tool blocks. Trying to merge.",
+#     把这条空消息丢掉并把相邻的两条 user 合并;
+#   · 模型于是收到一句"从断处接着写", 却**没有任何可接的东西**, 只能凭空编一个续写点。
+#     实测产物就是从一个中段小标题 ("### Timing variables and the temporal anchoring
+#     of measurements") 开始写 —— 一篇没有开头的文章。
+# 正确做法: 没吐字就**不加锚**, 用同样的 msgs 再开一轮 (预算刷新)。
+
+class _EmptyThenTextRouter:
+    """第 1 轮只有 finish_reason=length、没有任何 content; 第 2 轮正常出文本。"""
+
+    def __init__(self):
+        self.calls = 0
+        self.seen: list[list[dict]] = []
+
+    async def acompletion(self, model, messages, stream=False, **kw):
+        self.calls += 1
+        self.seen.append([dict(m) for m in messages])
+        first = self.calls == 1
+
+        async def agen():
+            if first:
+                yield SimpleNamespace(model="m", usage=None, choices=[SimpleNamespace(
+                    finish_reason="length",
+                    delta=SimpleNamespace(content=None, tool_calls=None))])
+            else:
+                yield SimpleNamespace(model="m", usage=None, choices=[SimpleNamespace(
+                    finish_reason="stop",
+                    delta=SimpleNamespace(content="真正的开头", tool_calls=None))])
+        return agen()
+
+
+def test_empty_round_retries_without_an_empty_anchor():
+    router = _EmptyThenTextRouter()
+    evs = _events(_client_for(router).post(
+        "/api/ask_stream", json={"question": "q"}).text)
+
+    assert router.calls == 2
+    # ⛔ 第 2 轮的 messages 必须与第 1 轮**逐字相同**: 既没有 `assistant: ""`,
+    # 也没有失去落点的 CONTINUE_PROMPT。
+    assert router.seen[1] == router.seen[0], router.seen[1]
+    assert all(m.get("content") != "" for m in router.seen[1])
+    assert CONTINUE_PROMPT not in json.dumps(router.seen[1], ensure_ascii=False)
+    # 仍然算一轮续写 (它确实多花了一次调用), 用户看到的正文是完整的开头
+    assert [d for e, d in evs if e == "continue"] == [{"round": 1}]
+    assert _tokens(evs) == "真正的开头"
+    done = [d for e, d in evs if e == "done"][0]
+    assert done["continue_rounds"] == 1 and done["truncated"] is False
+
+
+def test_ask_non_stream_empty_round_retries_without_an_empty_anchor():
+    """/api/ask 同一件事 (两份实现, 两边都要挡)。"""
+    router = _SyncContinueRouter([("", "length"), ("真正的开头", "stop")])
+    j = _ask_json(router)
+    assert router.calls == 2
+    assert router.seen[1] == router.seen[0], router.seen[1]
+    assert j["answer"] == "真正的开头"
+    assert j["continue_rounds"] == 1 and j["truncated"] is False
