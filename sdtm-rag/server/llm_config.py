@@ -73,28 +73,49 @@ def _fallback_map(s: Settings) -> list[dict[str, list[str]]]:
 
 
 def create_router(s: Settings) -> Router:
+    """⚠ `max_tokens` 挂在**每个 deployment 的 `litellm_params`** 上, ⛔ 不是 per-call kwarg。
+
+    两条理由, 第二条是决定性的:
+
+    1. **回退目标要带自己的天花板**。答题组回退到 `default-fallback` (DeepSeek) 时,
+       per-call 的 `max_tokens` 会被原样带过去 —— 于是 DeepSeek 被扣上一个按 Claude
+       量的数。deployment 级则各组各自带各自的值, 回退后自动换成 DeepSeek 那个。
+       (`_fallback_map` 那条"兜底落在个人流量"的代价已经够明了, 不该再叠一个隐性错配。)
+    2. **不写 = 静默截断**。`bedrock/converse/...` 路径下 litellm 只在"开了 thinking 又
+       没给 max_tokens"那一支才补 `maxTokens`; 其余情况该字段整个缺席, Bedrock 落到一个
+       远低于模型上限的服务端默认值。2026-09-08 一条 ~3.5k 汉字的答案在 ≈4k output token
+       处半句话被切断, 界面上没有任何提示 —— 那次截断本身就是证据。
+
+    值的出处与"哪些是未经一手文档确认的"写在 `server/config.py` 的字段注释里, 不在这里
+    抄第二份 (两份数字会各自漂移)。
+    """
     model_list = [
         {
             "model_name": "default",
-            "litellm_params": {"model": s.default_model},
+            "litellm_params": {"model": s.default_model,
+                               "max_tokens": s.default_max_output_tokens},
         },
         {
             "model_name": "default-fallback",
-            "litellm_params": {"model": s.fallback_model},
+            "litellm_params": {"model": s.fallback_model,
+                               "max_tokens": s.fallback_max_output_tokens},
         },
         {
             "model_name": "hard",
-            "litellm_params": {"model": s.hard_model},
+            "litellm_params": {"model": s.hard_model,
+                               "max_tokens": s.hard_max_output_tokens},
         },
         {
             "model_name": "light",
-            "litellm_params": {"model": s.light_model},
+            "litellm_params": {"model": s.light_model,
+                               "max_tokens": s.light_max_output_tokens},
         },
     ]
     # 用户可选模型: 每个 SelectableModel 派生一个同名组 (spec §3.3)。与上面四个内部组
     # 并存 —— default/hard/light 是内部用途 (判库/改写), 不受用户选择影响 (C1)。
     model_list += [
-        {"model_name": m.id, "litellm_params": {"model": m.model}}
+        {"model_name": m.id,
+         "litellm_params": {"model": m.model, "max_tokens": m.max_output_tokens}}
         for m in _validated_selectable_models(s)
     ]
     return Router(

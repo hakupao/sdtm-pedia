@@ -87,6 +87,52 @@ def test_router_group_maps_to_the_configured_model_string():
         assert by_name[m.id] == m.model
 
 
+# ── 输出上限: 每个 deployment 显式带 max_tokens (2026-09-08) ──────────────
+
+def test_every_deployment_carries_an_explicit_max_tokens():
+    """⚠ 这是 deployment 级 (`litellm_params`), **不是** per-call kwarg —— 理由见
+    `create_router` 的注释: per-call 的 `max_tokens` 会被回退目标原样继承, 于是
+    DeepSeek 那一路会被扣上按 Claude 量的天花板。
+
+    `.get(...)` 而不是 `[...]`: 缺字段时要报"这个组没有天花板"(下面的 None 断言),
+    而不是 KeyError —— 后者读起来像测试自己写错了。
+    """
+    from server.llm_config import create_router
+    s = Settings()
+    by_name = {m["model_name"]: m["litellm_params"].get("max_tokens")
+               for m in create_router(s).model_list}
+    assert by_name["default"] == s.default_max_output_tokens
+    assert by_name["default-fallback"] == s.fallback_max_output_tokens
+    assert by_name["hard"] == s.hard_max_output_tokens
+    assert by_name["light"] == s.light_max_output_tokens
+    for m in s.selectable_models:
+        assert by_name[m.id] == m.max_output_tokens
+    # 漏掉任何一个组 = 那个组悄悄落回 provider 的隐式默认值 (Bedrock 上就是那个
+    # ≈4k 的截断本体)。⛔ 不许有 None。
+    assert None not in by_name.values(), f"没有天花板的组: {[k for k, v in by_name.items() if v is None]}"
+
+
+def test_configured_ceilings_are_the_documented_numbers():
+    """上一条只钉"Router 与 Settings 一致", 两边一起写错它照绿。这条锚**字面量**。
+
+    数字来源 (.superpowers/research-max-output-tokens.md):
+    · opus-5 / sonnet-5 = 128K —— AWS Bedrock model card 明写 "Max output tokens: 128K"。
+    · gpt-terra / gpt-sol = 128K —— **无一手文档**, 只有 litellm 静态表; 由探针实测兜底
+      (evidence/checkpoints/autocontinue_2026-09.md)。
+    · light (haiku-4-5) = 64K —— 它的真实上限就比 Claude 系另外两个低一半, 跟着抄 128K
+      会在 provider 侧被拒。
+    · fallback (DeepSeek) = 32K 保守值 —— 报告里 384K 那个数只有第三方博客背书。
+    """
+    s = Settings()
+    by_id = {m.id: m.max_output_tokens for m in s.selectable_models}
+    assert by_id == {"opus-5": 128000, "sonnet-5": 128000,
+                     "gpt-terra": 128000, "gpt-sol": 128000}
+    assert s.default_max_output_tokens == 128000
+    assert s.hard_max_output_tokens == 128000
+    assert s.light_max_output_tokens == 64000
+    assert s.fallback_max_output_tokens == 32000
+
+
 _FALLBACK_GROUP = "default-fallback"
 
 

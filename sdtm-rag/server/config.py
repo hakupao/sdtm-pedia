@@ -29,6 +29,13 @@ class SelectableModel(BaseModel):
     label: str       # 下拉显示文字
     model: str       # litellm 模型串
     verified: bool   # ⟺ 该模型跑过反捏造抽检 (Rule 9 + 答题侧 guardrail) 并通过
+    # 单次回答的输出上限 (token)。**必须显式写出来**: `bedrock/converse/...` 这条路径下
+    # litellm 只在"开了 thinking 又没给 max_tokens"那一支才补 `maxTokens`, 其余情况整个
+    # 字段缺席, Bedrock 于是落到一个远低于模型上限的服务端默认值 —— 2026-09-08 一条
+    # ~3.5k 汉字的答案在 ≈4k output token 处半句话被切断, 那次截断本身就是"缺席时拿到的
+    # 不是模型上限"的证据。默认 128000 是为了让 `SDTM_RAG_SELECTABLE_MODELS` 的 JSON
+    # 覆盖可以省略本字段 (省略 ⇒ 有天花板, 而不是没有)。
+    max_output_tokens: int = 128000
 
 
 class Settings(BaseSettings):
@@ -42,20 +49,48 @@ class Settings(BaseSettings):
     # verified 的语义写死: 跑过反捏造抽检并通过。2026-09 兑现抽检 (102q, 预登记判据
     # evidence/checkpoints/verified_spotcheck_2026-09.md): opus-5 / gpt-terra / gpt-sol 过;
     # sonnet-5 (a) 层 1 条 ungrounded (q35 C66742) ⇒ false。sonnet-5 是 Claude 不代表验过。
+    #
+    # max_output_tokens 的出处 (.superpowers/research-max-output-tokens.md, 2026-09-08):
+    # · opus-5 / sonnet-5 = 128000 —— AWS Bedrock model card 明写 "Max output tokens: 128K"。
+    # · gpt-terra / gpt-sol = 128000 —— ⚠ **未经一手文档确认**: AWS 那两张 model card 只列
+    #   1M context window, 没有 max-output 行; 128000 只来自 litellm 的静态 model_cost 表。
+    #   由探针实测兜底 (evidence/checkpoints/autocontinue_2026-09.md): provider 若拒收这个
+    #   值会当场 ValidationException, 是**响的**失败, 不是静默截断。
     selectable_models: list[SelectableModel] = [
         SelectableModel(id="opus-5", label="Claude Opus 5",
                         model="bedrock/converse/global.anthropic.claude-opus-5",
-                        verified=True),
+                        verified=True, max_output_tokens=128000),
         SelectableModel(id="sonnet-5", label="Claude Sonnet 5",
                         model="bedrock/converse/global.anthropic.claude-sonnet-5",
-                        verified=False),
+                        verified=False, max_output_tokens=128000),
         SelectableModel(id="gpt-terra", label="GPT-5.6 Terra",
                         model="bedrock/converse/global.openai.gpt-5.6-terra",
-                        verified=True),
+                        verified=True, max_output_tokens=128000),  # 未验证值, 见上
         SelectableModel(id="gpt-sol", label="GPT-5.6 Sol",
                         model="bedrock/converse/global.openai.gpt-5.6-sol",
-                        verified=True),
+                        verified=True, max_output_tokens=128000),  # 未验证值, 见上
     ]
+
+    # ── 内部组的输出上限 (2026-09-08) ────────────────────────────────────
+    # 与 selectable_models 的 max_output_tokens 同一件事, 只是内部四组的模型串是上面四个
+    # 标量字段, 没地方挂。⚠ 四个值**不能共用一个**: 各模型的真实上限不同, 抄高了会被
+    # provider 当场拒 (响的失败), 抄低了则是静默截断 —— 后者正是本次要修的病。
+    # 环境覆盖走既有 SDTM_RAG_ 前缀 (SDTM_RAG_LIGHT_MAX_OUTPUT_TOKENS 等), 无需额外代码。
+    #
+    # ⚠ **接缝** (2026-09-08 实测): `.env` 改的是上面四个**模型串**, 不会自动改这四个天花板。
+    # 生产 .env 就把 default/hard/light 三个全指到了 `bedrock/converse/global.anthropic.
+    # claude-opus-5`, 而下面的注释写的是 config.py 里那几个**默认**模型的上限。两者错配时:
+    #   · 天花板 < 模型真实上限 ⇒ 只是把输出封得更低, 触顶自动续写兜得住 (light 现在正是
+    #     这种情况: 64K 封在一个 128K 的模型上, 而判库/改写本来就只吐几十个 token)。
+    #   · 天花板 > 模型真实上限 ⇒ provider 当场 ValidationException, **响的**失败。
+    # 换模型串时请连着这里一起看一眼; 两个方向都不会静默截断, 但第二个会拒服务。
+    default_max_output_tokens: int = 128000   # claude-sonnet-4-6: 128K (platform.claude.com)
+    hard_max_output_tokens: int = 128000      # claude-opus-4-7: 128K (AWS model card)
+    light_max_output_tokens: int = 64000      # claude-haiku-4-5: 64K —— ⚠ 只有上面两个的一半
+    # DeepSeek: 研究报告找不到一手文档, 只有第三方博客说 384K (litellm 静态表 393216)。
+    # 32000 是**保守值**, 不是实测上限: fallback 是容灾路径, 宁可让极长回答多续写两轮
+    # (触顶自动续写兜得住), 也不拿一个没有一手背书的大数去赌 provider 不拒。
+    fallback_max_output_tokens: int = 32000
 
     # Embedding (D-4 v3: OpenAI cloud)
     embedding_model: str = "text-embedding-3-small"
