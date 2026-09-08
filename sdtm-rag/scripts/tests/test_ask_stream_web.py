@@ -507,3 +507,39 @@ def test_all_failed_reports_zero_successful_searches(monkeypatch):
         "/api/ask_stream", json={"question": "q", "web": True})
     done = _of(_events(r.text), "done")[0]
     assert done["web_status"] == "failed" and done["web_searches_ok"] == 0
+
+
+# ── 工具优先: 同一轮既有 tool_calls 又报触顶 (2026-09-08 复审 I-2) ──────────
+#
+# `server/router.py` 内层 while 的判据是 `if acc or finish_reason not in _TRUNCATED_…`。
+# 那个 `acc or` 是 checkpoint §2B 与代码注释都点名的设计决策, 但初版**零覆盖**: 独立复审
+# 把它删掉后 43 条测试全绿 (变异存活)。删掉的真实后果不是小事 —— 带工具的一轮若同时报
+# length, 工具调用会被整个丢弃、改成原地续写直到撞 8 轮上限, **联网通道静默失效**。
+
+def test_tool_calls_win_over_truncation_in_the_same_round(monkeypatch):
+    """一轮里既攒到 tool_calls 又报 finish_reason=length ⇒ 走工具路径, 不续写。
+
+    ⛔ 三条断言缺一不可:
+      · tool_call/tool_result 事件在  → 工具真的被执行了 (不是被续写吞掉)
+      · 该轮没有 continue 事件        → 没有"既执行工具又原地续写"的两头下注
+      · 第 2 轮 messages 里有 role=tool → 搜索结果真的回灌了, 模型能用上
+    只断前两条挡不住"执行了工具但结果没进 messages"这种半截实现。
+    """
+    router = _ScriptedRouter([
+        # 第 1 轮: 工具调用 + 正文, 收尾理由是**触顶**而不是 tool_calls
+        [_tool_chunk(0, "tooluse_a", "web_search", '{"query": "SDTM custom domain"}'),
+         _text_chunk("thinking out loud", finish="length")],
+        # 第 2 轮: 正常出文本
+        [_text_chunk("Final answer [Web: https://e.com/1 (retrieved 2026-08-31)]",
+                     finish="stop")],
+    ])
+    evs = _events(_client(router, monkeypatch).post(
+        "/api/ask_stream", json={"question": "q", "web": True}).text)
+
+    assert len(_of(evs, "tool_call")) == 1, "触顶把工具调用吃掉了 —— 联网通道静默失效"
+    assert _of(evs, "tool_result")[0]["status"] == "ok"
+    assert not [e for e, _ in evs if e == "continue"], "工具轮不该同时触发续写"
+    roles = [m.get("role") for m in router.seen[1]]
+    assert "tool" in roles, f"搜索结果没有回灌给模型: {roles}"
+    done = _of(evs, "done")[0]
+    assert done["continue_rounds"] == 0 and done["truncated"] is False

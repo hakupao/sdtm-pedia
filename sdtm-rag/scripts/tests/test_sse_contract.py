@@ -80,6 +80,31 @@ def test_frontend_reads_web_fields_from_done():
     assert re.search(r"\.web_searches_ok\b", src), "前端没有以 .web_searches_ok 形式读取该字段"
 
 
+def test_frontend_reads_continuation_fields_from_done():
+    """`continue_rounds` / `truncated` 与 web 两个字段同款: 断**读取形状**, 不是字面出现。
+
+    为什么需要静态闸而不是只靠真浏览器那条 (`test_webchat_stream_render.py` 已覆盖行为):
+    playwright 那条要起 uvicorn + 开浏览器, 贵且只在装了浏览器时跑; 读取点搬家 (今天在
+    `app.js` 的 onDone 与 `render.js` 的 messageEl 里) 时, 这条零成本的闸会先红。
+    扫**整个前端**而非单文件, 理由同 `_frontend_sources`。
+    """
+    src = _frontend_sources()
+    assert re.search(r"\.continue_rounds\b", src), "前端没有以 .continue_rounds 形式读取该字段"
+    assert re.search(r"\.truncated\b", src), "前端没有以 .truncated 形式读取该字段"
+
+
+def test_backend_done_event_carries_the_continuation_fields():
+    """另一半: 后端 done 事件真的**发**这两个字段 (上一条只证前端会读)。
+
+    两边各断一半才构成契约 —— 只断前端读的话, 后端把字段删了这条闸照绿, 而前端
+    `?? null` 会把缺失静默收成"什么都不画"。
+    """
+    router = ROUTER_PY.read_text(encoding="utf-8")
+    done_block = router.split('yield sse("done", {', 1)[1].split("})", 1)[0]
+    for field in ("continue_rounds", "truncated"):
+        assert f'"{field}"' in done_block, f"done 事件没有 {field} 字段"
+
+
 def _backend_tool_result_statuses() -> set[str]:
     """tool_result.status 的真实取值域 (静态字面量扫描, 见 test_frontend_covers_
     every_tool_result_status 的 docstring 说明这道闸的定位与局限)。

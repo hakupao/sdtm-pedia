@@ -34,6 +34,12 @@ _WEB_FAIL_RANK = {"disabled": 3, "quota_exceeded": 2, "failed": 1}
 # 另一条路上的截断依旧是静默的 —— 而静默截断正是本功能要消灭的东西。
 _TRUNCATED_FINISH_REASONS = frozenset({"length", "max_tokens"})
 
+# 非流式 `/api/ask` 再开一轮续写所需的**最小剩余预算** (秒)。低于它就收手并如实报
+# truncated —— 明知剩下的时间接不完还硬开一轮, 只会让客户端先超时、服务端白烧钱。
+# 15 秒是"一轮起码得跑得起来"的量级估计, 不是实测阈值; 调它不影响正确性, 只影响
+# "临界情况下多试一轮还是少试一轮"。
+_CONTINUE_MIN_REMAINING_S = 15.0
+
 # 触顶后回灌给模型的续写指令。
 #
 # ⚠ 为什么是**追加一条 user 消息**而不是 assistant prefill: prefill (把上一轮原文塞成
@@ -97,6 +103,9 @@ class AskResponse(BaseModel):
     # truncated=True 时它们至少**能**发现答案不完整, 而不是把半句话当完整答案打分。
     continue_rounds: int = 0
     truncated: bool = False
+    # 续写轮抛异常时的异常类名 (None = 没发生)。⛔ 不并进 `truncated`: "写到上限了"与
+    # "续写的时候炸了"是两件事, 调用方对后者该有别的反应 (重试往往能成)。
+    continue_error: str | None = None
 
 
 class InfoResponse(BaseModel):
@@ -218,19 +227,40 @@ def ask(body: AskRequest, request: Request):
         messages = rag.build_messages(body.question, context, history_dicts or None)
 
     # 输出触顶自动续写 (2026-09-08)。⚠ 这里是**第二份**实现: /api/ask 走同步
-    # `llm_router.completion`, 与 ask_stream 的 `acompletion` 不共用任何辅助函数, 所以
-    # 只在流式那边加会让 eval 脚本 (它们全走本端点) 继续拿到被截断的答案 —— 而 eval 正是
-    # 最不该被静默截断的地方。⛔ 两处的常量必须是同一个 (`CONTINUE_PROMPT` /
-    # `_TRUNCATED_FINISH_REASONS`), 不许各抄一份。
+    # `llm_router.completion`, 与 ask_stream 的 `acompletion` 不共用任何辅助函数。
+    # ⛔ 两处的常量必须是同一个 (`CONTINUE_PROMPT` / `_TRUNCATED_FINISH_REASONS`),
+    # 不许各抄一份。
+    #
+    # ⚠ 受益方是 **Chat UI 之外的 HTTP 调用方** —— 今天就是 `ui/streamlit_app.py`。
+    # ⛔ **不是 eval**: `eval/run_eval.py` 自己 `rag.build_messages()` 后直接调
+    # `router.completion(model="default", max_tokens=8192)`, **从不碰本端点**, 也因此
+    # 既不吃 deployment 天花板也不吃自动续写 —— 那个 8192 是 V-2 跨模型可比性要求的
+    # **有意**取值, 它自己那条 `find_truncated` 会把撞顶的题报出来。别去"修"它。
     msgs = list(messages)
     answer_parts: list[str] = []
     continue_rounds = 0
     truncated = False
+    continue_error: str | None = None
     usage_total = {"prompt_tokens": 0, "completion_tokens": 0, "total_tokens": 0}
     usage_seen = False
+    usage_missing = False
     try:
         while True:
-            response = llm_router.completion(model=body.model, messages=msgs)
+            try:
+                response = llm_router.completion(model=body.model, messages=msgs)
+            except Exception as e:  # noqa: BLE001 — 只吞**续写轮**的失败, 见下
+                if continue_rounds == 0:
+                    raise      # 第 1 轮就失败 ⇒ 什么内容都没有, 维持老行为 502
+                # 续写轮失败: 已经拿到的正文**不能丢**。引入续写之前, 一次成功但被截断的
+                # 调用返回的是 200 + 半截答案; 若这里让异常穿透, 同一种情况会退化成 502
+                # 什么都没有 ——「本来能拿到半篇」变成「什么都拿不到」。
+                # 代价必须是**明的**: truncated + continue_error 让调用方看得见这不是
+                # 一篇正常写完的答案。
+                log.warning("continue_round_failed", round=continue_rounds,
+                            model=body.model, error=str(e), exc_info=True)
+                truncated = True
+                continue_error = type(e).__name__
+                break
             round_text = response.choices[0].message.content or ""
             answer_parts.append(round_text)
             if response.usage:
@@ -239,9 +269,22 @@ def ask(body: AskRequest, request: Request):
                 usage_total["prompt_tokens"] += response.usage.prompt_tokens or 0
                 usage_total["completion_tokens"] += response.usage.completion_tokens or 0
                 usage_total["total_tokens"] += response.usage.total_tokens or 0
+            else:
+                usage_missing = True   # 与流式同口径: 缺了一轮就不许呈现成完整总量
             if getattr(response.choices[0], "finish_reason", None) not in _TRUNCATED_FINISH_REASONS:
                 break
             if continue_rounds >= s.max_continue_rounds:
+                truncated = True
+                break
+            # 墙钟预算: `Router(timeout=...)` 是**每次调用**的上限, 管不住整次请求。
+            # 最坏 (1 + max_continue_rounds) 轮 ⇒ 单个 HTTP 请求可占用十几分钟, 而
+            # `ui/streamlit_app.py` 只等 120 秒 —— 用户早已拿到 ReadTimeout, 服务端还在
+            # 为一条没人接的请求烧钱。剩余不足下一轮的最小值就收手, 如实报 truncated。
+            # ⚠ 流式路**不需要**这个: token 一直在流, 客户端不会判超时, 加了反而会截断
+            # 一个正在健康推进的长答案。
+            if s.request_timeout_s - (time.perf_counter() - t0) < _CONTINUE_MIN_REMAINING_S:
+                log.warning("continue_budget_exhausted", round=continue_rounds,
+                            elapsed_s=round(time.perf_counter() - t0, 1))
                 truncated = True
                 break
             continue_rounds += 1
@@ -261,7 +304,11 @@ def ask(body: AskRequest, request: Request):
         if violations:
             log.warning("structured_count_violation", violations=violations)
     model_used = getattr(response, "model", None) or body.model
-    usage = dict(usage_total) if usage_seen else None
+    usage = None
+    if usage_seen:
+        usage = dict(usage_total)
+        if usage_missing:
+            usage["partial"] = True
 
     sources = [
         SourceItem(
@@ -294,6 +341,7 @@ def ask(body: AskRequest, request: Request):
         routed_corpus=routed,
         continue_rounds=continue_rounds,
         truncated=truncated,
+        continue_error=continue_error,
     )
 
 
@@ -454,8 +502,11 @@ async def ask_stream(body: AskStreamRequest, request: Request):
                     round_parts: list[str] = []  # 本轮文本, 回灌 assistant 消息用
                     cu_round = None
                     # 本次调用的收尾理由: 取**最后一个非 None** 的。分片流里绝大多数 chunk
-                    # 的 finish_reason 是 None, 只有收尾那片带值; 裸赋值会被后面的 usage 片
-                    # (finish_reason 缺失) 抹回 None ⇒ 触顶永远测不出来。
+                    # 的 finish_reason 是 None, 只有收尾那片带值; 裸赋值会被**收尾片之后
+                    # 还带 choices 的尾片**抹回 None ⇒ 触顶永远测不出来。
+                    # ⚠ 初版这里写的理由是"会被 usage 片抹回 None", **那是错的** ——
+                    # 读取点在下面的 `if choices:` 里面, 而 usage 片的 choices 是空列表,
+                    # 根本进不来 (2026-09-08 复审 M-1 指出)。守卫要防的是尾片, 不是 usage 片。
                     finish_reason = None
                     async for chunk in resp:
                         choices = getattr(chunk, "choices", None)

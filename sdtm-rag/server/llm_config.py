@@ -88,6 +88,12 @@ def create_router(s: Settings) -> Router:
 
     值的出处与"哪些是未经一手文档确认的"写在 `server/config.py` 的字段注释里, 不在这里
     抄第二份 (两份数字会各自漂移)。
+
+    ⚠ 上面那条 ⛔ 说的是 **`server/` 里的请求路径**, 不是"全仓库禁止 per-call max_tokens"。
+    已知的**有意例外**: `eval/run_eval.py` 显式传 `max_tokens=8192` (`MAX_TOKENS`,
+    run_eval.py:45-50) —— V-2 要求跨模型比较必须同一个上限, 各 provider 的隐式默认值不同
+    会让截断率不同, 进而让话痨模型在 (a) 层显得更干净。⛔ 别照着这段注释去"修" eval:
+    把它改成吃 deployment 天花板会砸掉历史 run 的可比性。
     """
     model_list = [
         {

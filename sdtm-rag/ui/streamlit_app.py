@@ -189,6 +189,21 @@ def _render_single_chat(model, top_k, domain_filter, file_type_filter):
                     answer = data["answer"]
                     st.markdown(answer)
 
+                    # 输出触顶自动续写 (2026-09-08)。服务端会自动接着写完, 但两种情况下
+                    # 答案**可能不完整**, 必须说出来 —— 一条半截的答案与一条完整的答案在
+                    # 屏幕上长得一模一样, 那正是本功能要消灭的失败模式。
+                    # `.get()` 而不是 `[]`: 前端可能比服务端先更新 (老服务端不发这些字段),
+                    # 缺失一律按"没发生"收, 不能因此报错。
+                    if data.get("truncated"):
+                        why = data.get("continue_error")
+                        st.warning(
+                            "⚠ 回答可能不完整"
+                            + (f": 续写时出错 ({why})" if why
+                               else f" (已达自动续写上限 {data.get('continue_rounds', 0)} 轮)")
+                        )
+                    elif data.get("continue_rounds"):
+                        st.caption(f"自动续写 ×{data['continue_rounds']}")
+
                     sources = data.get("sources", [])
                     if sources:
                         _render_sources(sources)
