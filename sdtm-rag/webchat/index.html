@@ -33,21 +33,6 @@
           </button>
           <div id="settings-panel" hidden>
             <section>
-              <h3>答题模型</h3>
-              <select id="model-select" title="答题模型"></select>
-              <div id="model-warning" class="hint warn" hidden>⚠ 该模型的反捏造边界未在其上验证</div>
-            </section>
-            <!-- 联邦检索范围; /api/info 的 federation=false 时保持 hidden (见 app.js loadModelName)。
-                 两个都不勾 = auto (LLM 判库), 勾选则显式指定并绕过路由。 -->
-            <fieldset id="scope" title="検索範囲 (未選択 = 自動判定)" hidden>
-              <legend>检索范围 (都不勾 = 自动判定)</legend>
-              <label><input type="checkbox" id="scope-cdisc" /> CDISC 標準</label>
-              <label><input type="checkbox" id="scope-study" /> 本研究 (ST01)</label>
-              <label title="让模型自行决定是否搜索公开网络 (业界实践参考, 非标准依据)">
-                <input type="checkbox" id="scope-web" /> 联网参考
-              </label>
-            </fieldset>
-            <section>
               <h3>显示</h3>
               <label><input type="checkbox" id="show-citations" /> 显示正文行内出处 (调试用)</label>
               <div class="hint">关闭时出处只在底部「来源」里看; 生成中不可切换。</div>
@@ -62,8 +47,22 @@
       <form id="composer">
         <div class="composer-box">
           <textarea id="input" rows="1" placeholder="问点关于 SDTM 的……（Enter 发送，Shift+Enter 换行）"></textarea>
-          <button id="send" type="submit" aria-label="发送">发送</button>
+          <div class="composer-tools">
+            <select id="model-select" title="答题模型"></select>
+            <!-- 联邦检索范围; /api/info 的 federation=false 时保持 hidden (见 app.js loadModelName)。
+                 两个都不勾 = auto (LLM 判库), 勾选则显式指定并绕过路由。 -->
+            <fieldset id="scope" title="検索範囲 (未選択 = 自動判定)" hidden>
+              <label><input type="checkbox" id="scope-cdisc" /> CDISC 標準</label>
+              <label><input type="checkbox" id="scope-study" /> 本研究 (ST01)</label>
+              <label title="让模型自行决定是否搜索公开网络 (业界实践参考, 非标准依据)">
+                <input type="checkbox" id="scope-web" /> 联网参考
+              </label>
+            </fieldset>
+            <span class="composer-spacer"></span>
+            <button id="send" type="submit" aria-label="发送">发送</button>
+          </div>
         </div>
+        <div id="model-warning" class="hint warn" hidden>⚠ 该模型的反捏造边界未在其上验证</div>
         <p class="footnote">回答由模型生成, 请以 CDISC 标准原文为准。</p>
       </form>
     </main>

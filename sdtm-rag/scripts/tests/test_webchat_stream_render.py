@@ -133,8 +133,13 @@ def test_markdown_renders_before_done_and_citation_hidden(live):
             page.goto(live.url)
             page.wait_for_selector(".empty h1")
             # /api/info 落地后再问 —— 否则模型下拉是空的, 走的是"info 没加载出来"那条降级路径,
-            # 与用户真实看到的不是同一条。option 在 hidden 的设置面板里, 故等 attached 而非 visible。
+            # 与用户真实看到的不是同一条。native select 的 option 本身不渲染, 故等 attached 而非 visible。
             page.wait_for_selector("#model-select option", state="attached")
+            # 高频控件在输入框工具行, 不在齿轮弹层里 (2026-09-08 方案 A)
+            assert page.locator("#composer #model-select").is_visible()
+            assert page.locator("#settings-panel #model-select").count() == 0
+            # scope 在 federation=false 时是 hidden 的, 所以只断言"在 composer 里", 不断言可见
+            assert page.locator("#composer #scope-web").count() == 1
             _ask(page, "AE 域问题")
             page.wait_for_selector(".turn.assistant .chip.model-meta")
             html = page.inner_html(".turn.assistant .bubble")

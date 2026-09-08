@@ -165,6 +165,8 @@ uv pip install --python .venv/bin/python playwright
 
 **已在修复波关闭的 7 项** (不再是延后项): 折叠侧栏出 tab 序 · 删末会话补 `newConversation` · 删在途会话先 `stop()` · 出处剥除 CJK 标点粘合 · `save()` 逐出测试 · `_frontend_sources` 下限 6→8 + docstring 理由改正 · 探针 tmp 进 `finally`。
 
+**2026-09-08 追加**: 模型下拉 + 检索范围从设置弹层移到输入框底部工具行 (用户反馈高频控件; 方案 A); 齿轮仅剩行内出处开关; 截图 screens/09-11。输入框因多一行工具行由 ~106px 涨到 138.5px, `#to-bottom` 的 `bottom` 随之 118→150px (上面那条「顶到 200px 时重叠」的限制不变, 窄屏工具行换行后依旧会压上)。
+
 ## 9. 复跑指引
 
 ```bash
