@@ -25,7 +25,9 @@ export function renderSidebar({ onSelect, onDelete, onRename }) {
     t.className = "title";
     t.textContent = c.title || "新对话";
     t.title = "双击重命名";
-    t.onclick = () => onSelect(c.id);
+    // e.detail > 1 = 双击的第二/三下: 不切会话。否则第一下 onSelect → renderSidebar 重建 <li>,
+    // dblclick 落在已脱离文档的 span 上 (input 建在 DOM 外, focus 无效果), 重命名静默失效。
+    t.onclick = (e) => { if (e.detail > 1) return; onSelect(c.id); };
     t.ondblclick = (e) => { e.preventDefault(); inlineRename(t, c.title || "新对话", (v) => onRename(c.id, v)); };
     const del = document.createElement("button");
     del.className = "del"; del.type = "button"; del.textContent = "✕"; del.title = "删除";
@@ -184,6 +186,10 @@ export function modelBadgeText(modelId, verified, modelsUsed, fellBack) {
 // 徽章、done 后又叠一个真实徽章的重复渲染。
 export function renderModelBadge(turn, modelId, verified, modelsUsed, fellBack) {
   if (!modelId) return;
+  // 用户 turn 没有 .turn-meta 容器 —— 旧 app.js 靠 role !== "assistant" 分支不走到这里,
+  // 拆成模块后调用方可能直接传进来, 缺容器时静默跳过而不是抛。
+  const meta = metaBox(turn);
+  if (!meta) return;
   const b = chip("", "model-meta");
   // 这四个值存进 dataset: /api/info 比首屏渲染慢一步是常态, label 表填好后
   // refreshModelBadgeLabels() 要能原地补字, 不能靠重建 DOM 拿到它们
@@ -195,7 +201,7 @@ export function renderModelBadge(turn, modelId, verified, modelsUsed, fellBack) 
   const { text, unverified } = modelBadgeText(modelId, verified, modelsUsed, fellBack);
   b.textContent = text;
   if (unverified) b.classList.add("unverified");
-  metaBox(turn).appendChild(b);
+  meta.appendChild(b);
 }
 
 // loadModelName() 拿到 /api/info 的 label 表往往晚于首屏渲染, 此前画出的模型徽章只能显示
@@ -219,7 +225,8 @@ export function refreshModelBadgeLabels() {
 // ── 来源 (SSE sources 事件) + 判定库 chip ──
 export function setSources(turn, sources, routedCorpus) {
   const label = CORPUS_LABEL[routedCorpus];
-  if (label) metaBox(turn).appendChild(chip(`判定: ${label}`, "corpus"));
+  const meta = metaBox(turn);   // 同上: 缺 .turn-meta 时只跳过 chip, 来源该怎么处理还怎么处理
+  if (label && meta) meta.appendChild(chip(`判定: ${label}`, "corpus"));
   if (!sources || !sources.length) return;
   const slot = turn.querySelector(":scope > .sources-slot");
   slot.innerHTML = "";

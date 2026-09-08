@@ -100,7 +100,9 @@ button { font: inherit; color: inherit; }
 .corpus-badge { font-size: 11px; padding: 0 5px; border-radius: 3px; background: #e0e7ff; color: #333; }
 .corpus-badge.study { background: #ffe4e6; }
 .turn-tools { display: flex; gap: 4px; align-items: center; flex-wrap: wrap; margin-top: 8px; opacity: 0; transition: opacity .12s; }
-.turn:hover .turn-tools, .turn-tools:focus-within, .turn-tools:has(.flag-box) { opacity: 1; }
+.turn:hover .turn-tools, .turn-tools:focus-within { opacity: 1; }
+/* :has() 单独成条: 不认识它的浏览器只丢这一条, 不会连上面那条一起判废 (工具条永久隐形) */
+.turn-tools:has(.flag-box) { opacity: 1; }
 .tool-btn { border: none; background: none; color: var(--ink-3); cursor: pointer; font-size: 12.5px; padding: 3px 7px; border-radius: 5px; }
 .tool-btn:hover { color: var(--ink); background: rgba(28,27,25,.06); }
 .flag-btn:hover { color: var(--danger); }

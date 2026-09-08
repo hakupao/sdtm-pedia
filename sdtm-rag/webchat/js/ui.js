@@ -28,7 +28,9 @@ export function flash(btn, text, ms = 1200) {
 
 // ── 两步删除: 第一次点 → 变「确认删除」(danger), ms 内再点才真删, 超时复原 ──
 export function armDelete(btn, onConfirm, { label = "确认删除", ms = 3000 } = {}) {
-  if (btn.dataset.armed === "1") { onConfirm(); return; }
+  // 确认后清掉复原定时器 (同 flash 的写法): onConfirm 常会重渲染这块 DOM,
+  // 定时器再触发就是往一个已卸下的节点上写 textContent。
+  if (btn.dataset.armed === "1") { clearTimeout(btn._armT); onConfirm(); return; }
   const orig = btn.textContent;
   btn.dataset.armed = "1"; btn.textContent = label; btn.classList.add("armed");
   btn._armT = setTimeout(() => {
