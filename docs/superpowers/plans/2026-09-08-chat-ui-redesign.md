@@ -16,7 +16,7 @@
 - 不改 `server/`、不改 prompt、不改 SSE 契约、不改 localStorage `sdtm_chat_v1` / `sdtm_model` 的结构。
 - 不新增 vendored 库; 无外网字体 (系统栈)。
 - spec §1 列出的护栏语义逐字保留: `modelBadgeText` 三态 + `fellBack === true` + `Array.isArray` (⛔ 不加 `filter(Boolean)`); `refreshModelBadgeLabels` 原地补字不重建; `flagModelName` 回退归因; `streamAsk` terminal/onClose/onAbort; `save()` 逐出; IME 回车保护; web 六态文案; `selectedCorpus` 四值; 下拉空则省略 `model`。搬家时**连注释一起搬**。
-- 每个 task 结束: `cd sdtm-rag && node --test webchat/tests/` 与 `.venv/bin/python -m pytest scripts/tests/test_webchat_cache_headers.py -q` 必须绿。
+- 每个 task 结束: `cd sdtm-rag && node --test 'webchat/tests/*.test.mjs'` 与 `.venv/bin/python -m pytest scripts/tests/test_webchat_cache_headers.py -q` 必须绿。
 - Commit 尾注: `Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>` + `Claude-Session: https://claude.ai/code/session_01C4a1F9YeNoPs5DvaTP21vU`。红线 pre-commit 闸自动跑, CLEAN 才算过。
 - 中文注释; UI 文案中文 (scope 三个勾选沿用现有日/中混排文案不改)。
 
@@ -111,7 +111,7 @@ test("无出处文本原样返回 (含代码块缩进)", () => {
 
 - [ ] **Step 2: 跑测试确认失败**
 
-Run: `cd sdtm-rag && node --test webchat/tests/citations.test.mjs`
+Run: `cd sdtm-rag && node --test 'webchat/tests/*.test.mjs'citations.test.mjs`
 Expected: FAIL, `Cannot find module '../js/citations.js'`
 
 - [ ] **Step 3: 实现**
@@ -157,7 +157,7 @@ export function splitCitations(md, { show = false, streaming = false } = {}) {
 
 - [ ] **Step 4: 跑测试确认通过**
 
-Run: `cd sdtm-rag && node --test webchat/tests/citations.test.mjs`
+Run: `cd sdtm-rag && node --test 'webchat/tests/*.test.mjs'citations.test.mjs`
 Expected: 7 pass。若 show 模式那条因 `tidy` 把 `. <span` 变成 `.<span` 失败, 检查 `/ +([.,;:!?])/` 只匹配空格后紧跟标点, `. <span` 不受影响。
 
 - [ ] **Step 5: Commit**
@@ -212,7 +212,7 @@ test("空/null 安全", () => {
 
 - [ ] **Step 2: 跑测试确认失败**
 
-Run: `cd sdtm-rag && node --test webchat/tests/markdown.test.mjs`
+Run: `cd sdtm-rag && node --test 'webchat/tests/*.test.mjs'markdown.test.mjs`
 Expected: FAIL, module not found。
 
 - [ ] **Step 3: 实现**
@@ -252,7 +252,7 @@ export function highlightIn(el) {
 
 - [ ] **Step 4: 跑测试确认通过**
 
-Run: `cd sdtm-rag && node --test webchat/tests/`
+Run: `cd sdtm-rag && node --test 'webchat/tests/*.test.mjs'`
 Expected: 12 pass (7 + 5)。
 
 - [ ] **Step 5: Commit**
@@ -340,7 +340,7 @@ test("prefs 默认值 + 落盘 + 坏 JSON 容错", () => {
 
 - [ ] **Step 2: 跑测试确认失败**
 
-Run: `cd sdtm-rag && node --test webchat/tests/store.test.mjs`
+Run: `cd sdtm-rag && node --test 'webchat/tests/*.test.mjs'store.test.mjs`
 Expected: FAIL, module not found。
 
 - [ ] **Step 3: 实现** (从 `app.js` 1-58 行搬 `load/save/current/newConversation/deleteConversation`, 注释一起搬; 去掉 delete 里的 render 调用)
@@ -426,7 +426,7 @@ export function savePrefs() {
 
 - [ ] **Step 4: 跑测试确认通过**
 
-Run: `cd sdtm-rag && node --test webchat/tests/`
+Run: `cd sdtm-rag && node --test 'webchat/tests/*.test.mjs'`
 Expected: 17 pass。
 
 - [ ] **Step 5: Commit**
@@ -534,7 +534,7 @@ test("parseSSE 解析 event/data; 坏 JSON 返回 null", () => {
 });
 ```
 
-Run: `cd sdtm-rag && node --test webchat/tests/` → 18 pass。
+Run: `cd sdtm-rag && node --test 'webchat/tests/*.test.mjs'` → 18 pass。
 
 - [ ] **Step 3: 对比确认逐字搬家**
 
@@ -1671,7 +1671,7 @@ loadModelName();
 
 - [ ] **Step 2: 语法检查 + 单测 + 头测试**
 
-Run: `cd sdtm-rag && node --check webchat/app.js && node --test webchat/tests/ && .venv/bin/python -m pytest scripts/tests/test_webchat_cache_headers.py -q`
+Run: `cd sdtm-rag && node --check webchat/app.js && node --test 'webchat/tests/*.test.mjs' && .venv/bin/python -m pytest scripts/tests/test_webchat_cache_headers.py -q`
 Expected: 全绿。
 
 - [ ] **Step 3: 浏览器冒烟 (生产 launchd 服务 localhost:8000 直接从工作树读静态文件, 普通刷新即可)**
@@ -1874,7 +1874,7 @@ def test_old_archive_still_renders(live):
 
 - [ ] **Step 3: 跑全部 webchat 相关测试**
 
-Run: `cd sdtm-rag && node --test webchat/tests/ && .venv/bin/python -m pytest scripts/tests/test_webchat_cache_headers.py scripts/tests/test_webchat_cache_browser.py scripts/tests/test_webchat_stream_render.py -q`
+Run: `cd sdtm-rag && node --test 'webchat/tests/*.test.mjs' && .venv/bin/python -m pytest scripts/tests/test_webchat_cache_headers.py scripts/tests/test_webchat_cache_browser.py scripts/tests/test_webchat_stream_render.py -q`
 Expected: node 18 pass; pytest 全绿 (playwright 装了) 或 browser 两个文件可见 SKIPPED (没装)。若 `route.fulfill` 对 `text/event-stream` 不触发前端 `getReader` 分帧 —— 前端按 `\n\n` 切帧, 一次性 body 也能正确分 4 帧, 断言不受影响。
 
 - [ ] **Step 4: Commit**
@@ -1905,7 +1905,7 @@ cd /Users/bojiangzhang/MyProject/sdtm-pedia && git add sdtm-rag/scripts/tests/te
 ## 模块结构 (2026-09 重构)
 
 `app.js` (入口, type=module) → `js/{store,render,markdown,citations,stream,flag,ui}.js`。
-单测: `node --test webchat/tests/`。e2e: `scripts/tests/test_webchat_stream_render.py` (playwright 可选)。
+单测: `node --test 'webchat/tests/*.test.mjs'`。e2e: `scripts/tests/test_webchat_stream_render.py` (playwright 可选)。
 正文 `[Source: path]` 由 `citations.js` 在渲染层剥除 (设置→显示行内出处 可开); 存档与 ⚑ 上报存原文。
 ```
 
@@ -1915,7 +1915,7 @@ cd /Users/bojiangzhang/MyProject/sdtm-pedia && git add sdtm-rag/scripts/tests/te
 
 - [ ] **Step 5: 全量回归 + Commit**
 
-Run: `cd sdtm-rag && node --test webchat/tests/ && .venv/bin/python -m pytest scripts/tests/ -q -x --ignore=scripts/tests/test_build_neo4j.py 2>&1 | tail -3`
+Run: `cd sdtm-rag && node --test 'webchat/tests/*.test.mjs' && .venv/bin/python -m pytest scripts/tests/ -q -x --ignore=scripts/tests/test_build_neo4j.py 2>&1 | tail -3`
 Expected: 无 FAIL。
 
 ```bash
