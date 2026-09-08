@@ -1024,14 +1024,21 @@ def test_ask_stream_actually_dispatches_the_selected_model():
 
 # ── C-1: ⚑ 失败归档必须归到**这条答案实际用的模型** ──────────────────────────
 
-APP_JS = Path(__file__).resolve().parents[2] / "webchat" / "app.js"
+# 前端 2026-09-08 拆成 ES 模块 (app.js 只剩入口): 归因逻辑 flagModelName 搬进 js/flag.js,
+# 徽章文案 modelBadgeText 搬进 js/render.js。下面三条静态闸只换了读哪个文件, 切片锚点
+# ("function flagModelName" / "function modelBadgeText" 前面多了个 export, 子串照样命中)
+# 与断言形状一字未动。
+_WEBCHAT = Path(__file__).resolve().parents[2] / "webchat"
+FLAG_JS = _WEBCHAT / "js" / "flag.js"
+RENDER_JS = _WEBCHAT / "js" / "render.js"
 _FLAG_PROBE = Path(__file__).resolve().parent / "fixtures" / "flag_attribution_probe.mjs"
 
 
 @pytest.fixture(scope="module")
 def flag_probe():
-    """在 node 里真的跑一遍 app.js, 驱动 renderMessages → attachFlag → openFlag →
-    postFlag, 返回两个场景实际发给 /api/flag 的请求体 (探针见同名 .mjs 的头注释)。"""
+    """在 node 里真的跑一遍 webchat 的那套 ES 模块 (app.js 入口 + js/*.js), 驱动
+    renderMessages → attachTools → flagButton → openFlag → postFlag, 返回各场景实际发给
+    /api/flag 的请求体 (加载方式与场景说明见同名 .mjs 的头注释)。"""
     if shutil.which("node") is None:  # pragma: no cover - 环境缺 node 时的降级
         pytest.skip("node 不在 PATH; 静态闸 test_flag_payload_reads_the_message_model_id 仍在跑")
     r = subprocess.run(["node", str(_FLAG_PROBE)], capture_output=True, text=True, timeout=120)
@@ -1072,7 +1079,7 @@ def test_flag_payload_reads_the_message_model_id():
     """静态第二重 (与上面的行为闸互补, 照 test_sse_contract.py 的双闸写法):
     node 缺席时行为闸会 skip, 这条不会。断的是**属性读取形状** `.modelId`,
     不是"源码里出现过这个词" —— 注释里的裸词没有前导点, 不会误判为真实读取。"""
-    src = APP_JS.read_text(encoding="utf-8")
+    src = FLAG_JS.read_text(encoding="utf-8")
     body = src.split("function flagModelName", 1)
     assert len(body) == 2, "flagModelName 没了 —— 归因逻辑被搬走或删掉了"
     body = body[1].split("\n}", 1)[0]
@@ -1144,7 +1151,7 @@ def test_badge_text_reads_the_fell_back_field():
     ⛔ 别为此在这里加 `modelsUsed\\.join` 之类的字面断言: 那会把一种写法钉死成契约,
     而它保证的事已经有行为闸在管。
     """
-    src = APP_JS.read_text(encoding="utf-8")
+    src = RENDER_JS.read_text(encoding="utf-8")
     body = src.split("function modelBadgeText", 1)
     assert len(body) == 2, "modelBadgeText 没了 —— 徽章文案逻辑被搬走或删掉了"
     body = body[1].split("\n}", 1)[0]
@@ -1211,7 +1218,7 @@ def test_flag_payload_reads_the_message_fell_back():
     属性读取形状), 而 `flagModelName(msgObj)` 的签名里只有 `msgObj` —— 两个 token 都只可能
     来自函数体内的真实读取。
     """
-    src = APP_JS.read_text(encoding="utf-8")
+    src = FLAG_JS.read_text(encoding="utf-8")
     body = src.split("function flagModelName", 1)[1].split("\n}", 1)[0]
     assert re.search(r"\.fellBack\b", body), "归因没有读 msgObj.fellBack"
     assert re.search(r"\.modelsUsed\b", body), "归因没有读 msgObj.modelsUsed"

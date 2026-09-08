@@ -12,15 +12,43 @@ from scripts.tests.test_ask_stream_web import (
     _client, _events, _of, _text_chunk, _tool_chunk,
 )
 
-APP_JS = Path(__file__).resolve().parents[2] / "webchat" / "app.js"
-ROUTER_PY = Path(__file__).resolve().parents[2] / "server" / "router.py"
-WEB_SEARCH_PY = Path(__file__).resolve().parents[2] / "server" / "web_search.py"
+_ROOT = Path(__file__).resolve().parents[2]
+WEBCHAT = _ROOT / "webchat"
+# 前端 2026-09-08 拆成 ES 模块, 这三样各自搬了家: SSE dispatch → js/stream.js,
+# tool_result 文案表 → js/render.js, done 事件的字段读取还在 app.js。抽取形状一字未动。
+STREAM_JS = WEBCHAT / "js" / "stream.js"
+RENDER_JS = WEBCHAT / "js" / "render.js"
+ROUTER_PY = _ROOT / "server" / "router.py"
+WEB_SEARCH_PY = _ROOT / "server" / "web_search.py"
+
+
+def _frontend_sources() -> str:
+    """整个前端的源码 (入口 app.js + js/ 下全部模块) 拼成一份。
+
+    ⚠ 必须是**全部**模块, 不能只挑一个: 下面 `.web_status` 那条闸的分辨力全靠"注释里的
+    裸词不算数", 而拆模块之后**诱饵**(js/render.js 里解释字段取值域的注释) 与**真实读取点**
+    (app.js 的 onDone) 分到了两个文件里。只扫其中一个, 诱饵就不在视野内, 那条闸测的东西
+    就悄悄变了 —— 断言字面没动, 分辨力没了, 正是它自己的 docstring 在防的那种失效。
+    """
+    parts = [(WEBCHAT / "app.js").read_text(encoding="utf-8")]
+    parts += [f.read_text(encoding="utf-8") for f in sorted((WEBCHAT / "js").glob("*.js"))]
+    # 尺寸下限 (同文件其余各闸的同款): 目录改名 / glob 失配会让 parts 塌成 1 份,
+    # 下面的断言随之变成"只在 app.js 里找", 悄悄退回单文件时代。
+    assert len(parts) >= 6, f"前端模块抽取失效, 只拿到 {len(parts)} 份源码"
+    return "\n".join(parts)
 
 
 def _dispatched_events() -> set[str]:
-    """从 app.js 的 dispatch 里抠出前端认得的事件名。"""
-    src = APP_JS.read_text(encoding="utf-8")
+    """从 js/stream.js 的 dispatch 里抠出前端认得的事件名。"""
+    src = STREAM_JS.read_text(encoding="utf-8")
     return set(re.findall(r'ev\.event === "([a-z_]+)"', src))
+
+
+def _frontend_status_table() -> set[str]:
+    """前端 tool_result 的文案表 (js/render.js 的 onToolResultUI) 覆盖了哪些 status。"""
+    src = RENDER_JS.read_text(encoding="utf-8")
+    block = src.split("note.textContent = {", 1)[1].split("}[d.status]", 1)[0]
+    return set(re.findall(r'^\s*([a-z_]+):', block, re.M))
 
 
 def test_frontend_knows_every_event_the_backend_emits():
@@ -36,12 +64,14 @@ def test_frontend_knows_every_event_the_backend_emits():
 
 def test_frontend_reads_web_fields_from_done():
     """断言的是**读取形状** (`.web_status` / `.web_searches_ok` 属性访问), 不是
-    字符串在全文出现过——`webchat/app.js:199-202` 那几行解释这两个字段的**注释**
-    里也裸写着 "web_status" / "web_searches_ok" 这两个词 (没有前导 `.`), 删掉
-    `:439` 唯一的真实读取点 `renderWebStatus(holder, (data||{}).web_status, ...)`
-    之后, 老断言 (`"web_status" in src`) 照样能在注释里找到匹配, 变成纸老虎。
-    要求前导 `.` 就把注释行 (裸词, 无 `.`) 排除在外, 只认真实属性访问。"""
-    src = APP_JS.read_text(encoding="utf-8")
+    字符串在全文出现过——`webchat/js/render.js` 里 renderWebStatus 上方解释这两个字段
+    取值域的**注释**里也裸写着 "web_status" / "web_searches_ok" 这两个词 (没有前导 `.`),
+    删掉 `webchat/app.js` onDone 里唯一的真实读取点
+    (`gotWebStatus = (data || {}).web_status` 那两行) 之后, 老断言 (`"web_status" in src`)
+    照样能在注释里找到匹配, 变成纸老虎。
+    要求前导 `.` 就把注释行 (裸词, 无 `.`) 排除在外, 只认真实属性访问。
+    ⚠ 拆模块后诱饵与读取点不在同一个文件, 所以扫的是**整个前端** (见 `_frontend_sources`)。"""
+    src = _frontend_sources()
     assert re.search(r"\.web_status\b", src), "前端没有以 .web_status 形式读取该字段"
     assert re.search(r"\.web_searches_ok\b", src), "前端没有以 .web_searches_ok 形式读取该字段"
 
@@ -90,9 +120,7 @@ def test_frontend_covers_every_tool_result_status():
     # 先失效了, 而且是手动 grep 才发现的。加这条下限, 一旦抠取逻辑又被写法变化
     # 绕过导致集合缩水, 测试直接报错, 不需要再靠人工複查才发现。
     assert len(backend) >= 6, f"status 抽取失效, 只拿到 {backend}"
-    src = APP_JS.read_text(encoding="utf-8")
-    block = src.split("note.textContent = {", 1)[1].split("}[d.status]", 1)[0]
-    frontend = set(re.findall(r'^\s*([a-z_]+):', block, re.M))
+    frontend = _frontend_status_table()
     assert backend <= frontend, f"后端会发但前端文案表没有的 status: {backend - frontend}"
 
 
@@ -148,8 +176,6 @@ def _observed_tool_result_statuses(monkeypatch) -> set[str]:
 def test_tool_result_status_matrix_matches_frontend_table(monkeypatch):
     observed = _observed_tool_result_statuses(monkeypatch)
     assert len(observed) >= 6, f"场景矩阵没能触发全部 6 种 status, 只观测到 {observed}"
-    src = APP_JS.read_text(encoding="utf-8")
-    block = src.split("note.textContent = {", 1)[1].split("}[d.status]", 1)[0]
-    frontend = set(re.findall(r'^\s*([a-z_]+):', block, re.M))
+    frontend = _frontend_status_table()
     assert observed <= frontend, (
         f"运行时真实吐出但前端文案表没有的 status: {observed - frontend}")
