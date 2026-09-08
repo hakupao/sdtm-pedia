@@ -11,7 +11,14 @@ import { $, initScrollFollow, initSettings, initSidebar, selectedCorpus, webEnab
 // ── 渲染回调 (侧栏/消息需要的动作) ──
 const sidebarHandlers = {
   onSelect: (id) => { store.currentId = id; save(); paintAll(); },
-  onDelete: (id) => { deleteConversation(id); paintAll(); },
+  onDelete: (id) => {
+    // 删的正是在途那条 ⇒ 先掐流: 落点马上要被丢掉, 让 LLM 继续吐完只是白烧 token。
+    if (busy && id === store.currentId) stop();
+    deleteConversation(id);
+    // 删到一条不剩 ⇒ 补一个空会话, 否则右边是块什么都没有的白板 (与启动时同一条规则)。
+    if (!store.conversations.length) newConversation();
+    paintAll();
+  },
   onRename: (id, title) => { if (renameConversation(id, title)) renderSidebar(sidebarHandlers); },
 };
 const messageHandlers = {

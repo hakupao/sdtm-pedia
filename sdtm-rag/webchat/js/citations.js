@@ -21,7 +21,12 @@ const RE_TAIL = /\*{0,2}\[(?:S|So|Sou|Sour|Sourc|Source|W|We|Web)?(?::[^\]]*)?$/
 // NUL 连同左边的空格一起吃掉; PUA 码位不会出现在真实 markdown 里。
 const SENT = "\uE000";
 const RE_EMPTY_PARENS = /\(\s*\uE000(?:\s*\uE000)*\s*\)/g; // `(␀)`: 括号本身也是残渣
-const RE_GLUE_PUNCT = /[ \t]*\uE000[ \t]*(?=[.,;:!?])/g;   // `Text ␀.` → `Text.`
+// 连排出处之间的分隔符也是残渣: `见 ␀、␀。` 里的 `、` 是用来连接两条出处的, 两条都删了以后
+// 它就成了孤儿顿号。收成一个哨兵 (吃掉前一个 + 分隔符, 留后一个), 三条以上靠 /g 逐对收干净。
+const RE_JOIN_SEP = /\uE000[ \t]*[、,][ \t]*(?=\uE000)/g;
+// `Text ␀.` → `Text.`; 中文正文里句读是全角的, 只列 ASCII 那半边等于对中文答案不设防
+// (`见 ␀。` 会留下 `见 。`)。收尾类的右半闭合符 (`）」』`) 同理。
+const RE_GLUE_PUNCT = /[ \t]*\uE000[ \t]*(?=[.,;:!?。，、；：！？）」』])/g;
 const RE_EOL = /[ \t]*\uE000[ \t]*$/g;                     // 行尾: 连空格一起去
 const RE_MID = /(^|[ \t])\uE000[ \t]+/g;                   // 词 ␀ 词: 留一个空格
 const RE_LEFT = /[ \t]*\uE000/g;                           // 右侧无空白的残留: 左空格一并去,
@@ -31,9 +36,11 @@ function escapeHtml(s) {
   return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 }
 
-// 只在删除点周围收口, 顺序固定: 空括号 → 粘标点 → 行尾 → 行中 → 残留。
+// 只在删除点周围收口, 顺序固定: 连排分隔 → 空括号 → 粘标点 → 行尾 → 行中 → 残留。
+// 连排分隔必须排在空括号前面: `(␀、␀)` 先收成 `(␀)`, 空括号那条才认得出来。
 function tidyLocal(line) {
   return line
+    .replace(RE_JOIN_SEP, "")
     .replace(RE_EMPTY_PARENS, SENT)
     .replace(RE_GLUE_PUNCT, "")
     .replace(RE_EOL, "")

@@ -395,37 +395,43 @@ async function streamScenario(doneData) {
 // ⚠ 前两条**一字不动** —— 它们是终审 C-1 (⚑ 归错模型) 的既有闸。
 // withModelId 同时兼任 spec §5 B1/B2 的降级场景: 它的历史记录里**没有** modelsUsed/fellBack
 // 两个键, 正是"新前端 + 老后端"与"新前端 + 老存档"的形状。
-const out = {
-  withModelId: await scenario({ modelId: "gpt-sol" }),
-  legacyNoModelId: await scenario({ modelId: null }),
-  verifiedTrue: await scenario({ modelId: "opus-5", verified: true }),
-  // ⚠ verified=true **且**回退 —— opus-5 是四个里唯一 verified:true 的, 又是下拉第一项,
-  // 所以"用户停在 Opus 5 → Bedrock 挂 → DeepSeek 答"是最可能真实发生的那一次回退,
-  // 而它的琥珀色恰好落在此前没闸的那一格 (终审第 2 轮 N-1)。
-  fellBackVerified: await scenario({ modelId: "opus-5", verified: true, fellBack: true,
-                                     modelsUsed: ["deepseek-v4-pro"] }),
-  fellBack: await scenario({ modelId: "gpt-sol", modelsUsed: ["deepseek-v4-pro"], fellBack: true }),
-  fellBackMulti: await scenario({ modelId: "gpt-sol", fellBack: true,
-                                  modelsUsed: ["deepseek-v4-pro", "global.openai.gpt-5.6-sol"] }),
-  notFellBack: await scenario({ modelId: "gpt-sol", fellBack: false,
-                                modelsUsed: ["global.openai.gpt-5.6-sol"] }),
-  badShapeString: await badShapeScenario("deepseek-v4-pro"),   // 后端发了裸串而非列表
-  badShapeObject: await badShapeScenario({ 0: "x", length: 1 }),  // array-like, 没有 .join
-  corruptDataset: await corruptDatasetScenario(),
-  streamFellBack: await streamScenario({ model_id: "gpt-sol", verified: false,
-                                         model_used: "deepseek-v4-pro",
-                                         models_used: ["deepseek-v4-pro"], fell_back: true,
-                                         web_status: "off", web_searches_ok: 0 }),
-  streamNoFallback: await streamScenario({ model_id: "gpt-sol", verified: false,
-                                           model_used: "global.openai.gpt-5.6-sol",
-                                           models_used: ["global.openai.gpt-5.6-sol"],
-                                           fell_back: false,
+// try/finally: 任何一个场景抛了 (探针驱动路径失效 / 被测代码回归), 临时目录也得清掉 ——
+// 每个场景一份 mkdtemp, 失败重跑几次就会在 /tmp 下堆一片 webchat-probe-*。
+let out;
+try {
+  out = {
+    withModelId: await scenario({ modelId: "gpt-sol" }),
+    legacyNoModelId: await scenario({ modelId: null }),
+    verifiedTrue: await scenario({ modelId: "opus-5", verified: true }),
+    // ⚠ verified=true **且**回退 —— opus-5 是四个里唯一 verified:true 的, 又是下拉第一项,
+    // 所以"用户停在 Opus 5 → Bedrock 挂 → DeepSeek 答"是最可能真实发生的那一次回退,
+    // 而它的琥珀色恰好落在此前没闸的那一格 (终审第 2 轮 N-1)。
+    fellBackVerified: await scenario({ modelId: "opus-5", verified: true, fellBack: true,
+                                       modelsUsed: ["deepseek-v4-pro"] }),
+    fellBack: await scenario({ modelId: "gpt-sol", modelsUsed: ["deepseek-v4-pro"], fellBack: true }),
+    fellBackMulti: await scenario({ modelId: "gpt-sol", fellBack: true,
+                                    modelsUsed: ["deepseek-v4-pro", "global.openai.gpt-5.6-sol"] }),
+    notFellBack: await scenario({ modelId: "gpt-sol", fellBack: false,
+                                  modelsUsed: ["global.openai.gpt-5.6-sol"] }),
+    badShapeString: await badShapeScenario("deepseek-v4-pro"),   // 后端发了裸串而非列表
+    badShapeObject: await badShapeScenario({ 0: "x", length: 1 }),  // array-like, 没有 .join
+    corruptDataset: await corruptDatasetScenario(),
+    streamFellBack: await streamScenario({ model_id: "gpt-sol", verified: false,
+                                           model_used: "deepseek-v4-pro",
+                                           models_used: ["deepseek-v4-pro"], fell_back: true,
                                            web_status: "off", web_searches_ok: 0 }),
-  // spec §5 B1 在**存档层**的形状: done 事件里压根没有 models_used / fell_back 两个键
-  // (新前端已上线、Python 侧还没重启)。上面两条都发了显式值, 看不见"缺失"与"false"的差别。
-  streamOldBackend: await streamScenario({ model_id: "gpt-sol", verified: false,
-                                           model_used: "global.openai.gpt-5.6-sol",
-                                           web_status: "off", web_searches_ok: 0 }),
-};
-for (const d of tmpDirs) rmSync(d, { recursive: true, force: true });
+    streamNoFallback: await streamScenario({ model_id: "gpt-sol", verified: false,
+                                             model_used: "global.openai.gpt-5.6-sol",
+                                             models_used: ["global.openai.gpt-5.6-sol"],
+                                             fell_back: false,
+                                             web_status: "off", web_searches_ok: 0 }),
+    // spec §5 B1 在**存档层**的形状: done 事件里压根没有 models_used / fell_back 两个键
+    // (新前端已上线、Python 侧还没重启)。上面两条都发了显式值, 看不见"缺失"与"false"的差别。
+    streamOldBackend: await streamScenario({ model_id: "gpt-sol", verified: false,
+                                             model_used: "global.openai.gpt-5.6-sol",
+                                             web_status: "off", web_searches_ok: 0 }),
+  };
+} finally {
+  for (const d of tmpDirs) rmSync(d, { recursive: true, force: true });
+}
 process.stdout.write(JSON.stringify(out));

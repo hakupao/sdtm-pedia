@@ -25,17 +25,21 @@ WEB_SEARCH_PY = _ROOT / "server" / "web_search.py"
 def _frontend_sources() -> str:
     """整个前端的源码 (入口 app.js + js/ 下全部模块) 拼成一份。
 
-    ⚠ 必须是**全部**模块, 不能只挑一个: 下面 `.web_status` 那条闸的分辨力全靠"注释里的
-    裸词不算数", 而拆模块之后**诱饵**(js/render.js 里解释字段取值域的注释) 与**真实读取点**
-    (app.js 的 onDone) 分到了两个文件里。只扫其中一个, 诱饵就不在视野内, 那条闸测的东西
-    就悄悄变了 —— 断言字面没动, 分辨力没了, 正是它自己的 docstring 在防的那种失效。
+    扫**全部**模块而不是只挑 app.js, 理由是**抗重构**, 不是"把诱饵纳入视野": 下面那条闸钉的
+    是"字段以 `.web_status` 这种带点形式被真的读到", 而读取点今天在 app.js 的 onDone 里 ——
+    明天它被挪进 js/stream.js 或新拆出来的模块, 只扫 app.js 的版本会一路绿着退化成什么也没钉。
+    (js/render.js 里那条解释字段取值域的注释是**裸词** `web_status`, 没有前导点, 带点的正则
+    本来就匹配不到它 —— 扫不扫 render.js, 那个诱饵都不影响这条闸的判定, 别把理由记反了。)
     """
-    parts = [(WEBCHAT / "app.js").read_text(encoding="utf-8")]
-    parts += [f.read_text(encoding="utf-8") for f in sorted((WEBCHAT / "js").glob("*.js"))]
-    # 尺寸下限 (同文件其余各闸的同款): 目录改名 / glob 失配会让 parts 塌成 1 份,
+    files = [WEBCHAT / "app.js"] + sorted((WEBCHAT / "js").glob("*.js"))
+    names = {f.name for f in files}
+    # 尺寸下限 (同文件其余各闸的同款): 目录改名 / glob 失配会让列表塌成 1 份,
     # 下面的断言随之变成"只在 app.js 里找", 悄悄退回单文件时代。
-    assert len(parts) >= 6, f"前端模块抽取失效, 只拿到 {len(parts)} 份源码"
-    return "\n".join(parts)
+    # 8 = app.js + js/ 下 7 个模块; 拆得更细只会变多, 变少一定是抽取坏了。
+    assert len(files) >= 8, f"前端模块抽取失效, 只拿到 {len(files)} 份源码: {sorted(names)}"
+    # 光看份数不够: 数目够了但恰好漏掉入口或 render.js, 断言照样会悄悄换掉被测对象。
+    assert {"app.js", "render.js"} <= names, f"抽取结果缺入口或 render.js: {sorted(names)}"
+    return "\n".join(f.read_text(encoding="utf-8") for f in files)
 
 
 def _dispatched_events() -> set[str]:
@@ -70,7 +74,7 @@ def test_frontend_reads_web_fields_from_done():
     (`gotWebStatus = (data || {}).web_status` 那两行) 之后, 老断言 (`"web_status" in src`)
     照样能在注释里找到匹配, 变成纸老虎。
     要求前导 `.` 就把注释行 (裸词, 无 `.`) 排除在外, 只认真实属性访问。
-    ⚠ 拆模块后诱饵与读取点不在同一个文件, 所以扫的是**整个前端** (见 `_frontend_sources`)。"""
+    扫的是**整个前端**而非单个文件, 是为了读取点搬家时这条闸不失效 (见 `_frontend_sources`)。"""
     src = _frontend_sources()
     assert re.search(r"\.web_status\b", src), "前端没有以 .web_status 形式读取该字段"
     assert re.search(r"\.web_searches_ok\b", src), "前端没有以 .web_searches_ok 形式读取该字段"

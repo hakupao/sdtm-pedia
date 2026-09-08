@@ -103,3 +103,18 @@ test("更短的同族围栏关不掉外层围栏, 嵌套代码块整体不动", 
 test("正文里原有的 NUL 在被剥除的行上存活", () => {
   assert.equal(splitCitations("keep\u0000this [Source: a.md] tail").md, "keep\u0000this tail");
 });
+
+// 中文答案里句读是全角的: 老的粘合类只列了 ASCII `[.,;:!?]`, `见 [Source: a]。` 会剥成
+// `见 。` (句号前多一个空格)。连排出处之间的顿号/逗号更糟 —— 两条都删完它就成了孤儿。
+test("剥除后的全角标点贴回前一个词, 连排出处之间的分隔符一并收掉", () => {
+  assert.equal(splitCitations("见 [Source: a]、[Source: b]。").md, "见。");
+  assert.equal(splitCitations("见 [Source: a]。下一句").md, "见。下一句");
+  assert.equal(splitCitations("A [Source: a], [Source: b].").md, "A.");
+});
+
+// 三条以上连排也要收干净 (RE_JOIN_SEP 靠 /g 逐对收), 且 cites 一条不少。
+test("三条连排出处收成一处, cites 全数保留", () => {
+  const { md, cites } = splitCitations("依据 [Source: a]、[Source: b]、[Source: c]；下一句");
+  assert.equal(md, "依据；下一句");
+  assert.deepEqual(cites.map((c) => c.ref), ["a", "b", "c"]);
+});

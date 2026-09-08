@@ -19,7 +19,12 @@ button { font: inherit; color: inherit; }
 
 /* ── 侧栏 ── */
 #sidebar { width: 260px; flex: 0 0 260px; background: var(--bg-side); border-right: 1px solid var(--line); display: flex; flex-direction: column; padding: 12px; gap: 10px; overflow: hidden; transition: width .18s ease, flex-basis .18s ease, padding .18s ease; }
-#sidebar.collapsed { width: 0; flex-basis: 0; padding: 0; border-right: none; }
+/* visibility 而不是只靠 width:0 + overflow:hidden: 后者只是看不见, 里面的「新对话」/ 会话项
+   仍留在 tab 序里, 键盘用户会 tab 进一片折叠掉的区域 (终审 Minor)。visibility 延到收拢动画
+   结束才翻 (transition 末尾的 `visibility 0s .18s`), 免得内容在宽度还没归零时整块闪掉;
+   展开时基础规则里没有 visibility 这一项, 立刻翻回可见。 */
+#sidebar.collapsed { width: 0; flex-basis: 0; padding: 0; border-right: none; visibility: hidden;
+  transition: width .18s ease, flex-basis .18s ease, padding .18s ease, visibility 0s .18s; }
 .side-head { display: flex; align-items: center; justify-content: space-between; padding: 4px 6px 2px; }
 .brand { font-family: var(--font-serif); font-size: 17px; letter-spacing: .01em; color: var(--ink); }
 .icon-btn { border: none; background: transparent; padding: 6px; border-radius: var(--r-sm); cursor: pointer; color: var(--ink-2); display: inline-flex; align-items: center; }
