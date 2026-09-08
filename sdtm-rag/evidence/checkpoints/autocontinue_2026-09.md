@@ -3,7 +3,8 @@
 > 状态: **已完成** (2026-09-08)
 > 相关: `server/config.py` · `server/llm_config.py::create_router` · `server/router.py`
 > (`ask` / `ask_stream`) · `webchat/js/{stream,render}.js` · `webchat/app.js`
-> 研究报告: `.superpowers/research-max-output-tokens.md`
+> 研究报告: `evidence/checkpoints/autocontinue_2026-09/research-max-output-tokens.md`
+> 探针 (可复跑, 需 `--yes-spend`): `eval/probes/probe_{max_tokens,finish_reason,e2e_continue}.py`
 
 ## 1. 病症与证据
 
@@ -73,10 +74,35 @@ assistant 消息让模型接着补全) 是 Anthropic 特有能力, 走 Bedrock C
 ### (C) 两个端点都要
 
 `/api/ask` (同步 `completion`) 与 `/api/ask_stream` (异步 `acompletion`) 是**两份**实现,
-不共用辅助函数。只改流式的话, eval 脚本 (全走 `/api/ask`) 会继续静默拿到被截断的答案去
-打分 —— 那是最不该被截断的地方。两边共用同一对常量
-(`CONTINUE_PROMPT` / `_TRUNCATED_FINISH_REASONS`), ⛔ 不许各抄一份。
-`AskResponse` 加了同名两字段, 默认值是"没发生过", 老调用方一行不改照常工作。
+不共用辅助函数。两边共用同一对常量 (`CONTINUE_PROMPT` / `_TRUNCATED_FINISH_REASONS`),
+⛔ 不许各抄一份。`AskResponse` 加了 `continue_rounds` / `truncated` / `continue_error`,
+默认值是"没发生过", 老调用方一行不改照常工作。
+
+⚠ **受益方是 `ui/streamlit_app.py` 与任何外部 HTTP 调用方, ⛔ 不是 eval。**
+初版这里 (以及 `router.py` 的注释、实现报告) 都写着「eval 脚本全走 `/api/ask`」——
+**那是错的** (2026-09-08 复审 I-3 抓出)。`eval/run_eval.py:383-389` 自己
+`rag.build_messages()` 之后直接调 `router.completion(model="default", ...)`, **从不碰 HTTP
+端点**; 且 `run_eval.py:45-50` 显式传 per-call `max_tokens=8192` (`MAX_TOKENS`), 这个值会
+**覆盖**新加的 deployment 天花板。⇒ **eval 路径不受本单影响**: 既不吃 128K 天花板, 也不
+吃自动续写, 仍由它自己的 `find_truncated` (撞满 8192 即报) 兜着。
+
+那个 8192 是 **V-2 跨模型可比性**要求的有意取值 (各 provider 的隐式默认值不同 ⇒ 截断率
+不同 ⇒ 话痨模型在 (a) 层显得更干净), ⛔ **不要**去"修"成吃 deployment 天花板 —— 那会砸掉
+历史 run 的可比性。`llm_config.py::create_router` 的 ⛔ 注释里也记了这条例外。
+
+Streamlit 侧在本轮补上了 `truncated` / `continue_rounds` 的呈现 (警告 + caption) ——
+服务端老实报了字段而消费者不读, 等于没做, 由
+`test_streamlit_consumer_reads_the_truncation_fields` 钉住读取形状。
+
+**两条只在非流式路上的护栏** (流式不需要, 理由见下):
+
+| | 病 | 修 |
+|---|---|---|
+| **墙钟预算** | `Router(timeout=...)` 只管**每次调用**; 最坏 (1+8) 轮可占用十几分钟, 而唯一客户端 `ui/streamlit_app.py` 只等 120 秒 —— 用户早已 ReadTimeout, 服务端还在烧钱 | 整次请求的预算 = `request_timeout_s`; 剩余不足 `_CONTINUE_MIN_REMAINING_S` (15 s) 就收手, 已拿到的正文照常返回 + `truncated: true` |
+| **续写轮失败** | 第 1 轮成功 (`length`)、第 2 轮抛异常 ⇒ 整段丢弃返 502。引入续写**之前**同一情况返回的是 200 + 半截答案 ⇒ 一次没被记录的行为退化 | 只吞**续写轮**的异常 (第 1 轮失败仍 502): 200 + 已拼接正文 + `truncated: true` + `continue_error: "<异常类名>"` |
+
+流式路两条都不需要: token 一直在流, 客户端不会判超时 (加预算反而会截断一个正在健康推进
+的长答案); 而流中途失败已有 `error` 事件 + 屏上已发 token 保留 + 重试钮。
 
 ### (D) 前端
 
@@ -94,13 +120,13 @@ chip **刻意不用琥珀色**: 续写完成的答案是完整的, 画成警告�
 
 ## 3. 探针实测 (2026-09-08)
 
-脚本 `.superpowers/probe_max_tokens.py` (一次性, **不提交**)。用真 `create_router(Settings())`
+脚本 `eval/probes/probe_max_tokens.py` (**已提交**, 带 `--yes-spend` 花钱闸)。用真 `create_router(Settings())`
 (含 `.env` 覆盖 + deployment 级 `max_tokens`), `fallbacks` 与 `num_retries` 都关掉 ——
 否则某个 deployment 被拒会静默落到 DeepSeek 上答成功, 探针就报了个假绿。
 
 ```
 cd /Users/bojiangzhang/MyProject/sdtm-pedia/sdtm-rag
-.venv/bin/python ../.superpowers/probe_max_tokens.py
+.venv/bin/python eval/probes/probe_max_tokens.py --yes-spend
 ```
 
 | group | max_tokens | 结果 |
@@ -123,7 +149,7 @@ litellm 静态表背书。真实上限若低于 128000, 表现是"到那个数�
 
 ## 3b. 端到端实测: 真 Bedrock 上真的接着写了吗 (2026-09-08)
 
-脚本 `.superpowers/probe_e2e_continue.py` (一次性, **不提交**): 真 `create_router` + 真
+脚本 `eval/probes/probe_e2e_continue.py` (**已提交**): 真 `create_router` + 真
 `/api/ask_stream` (fake RAG 只为跳过检索), 把 opus-5 的 `max_output_tokens` 压到 4000 逼出
 真实续写, `fallbacks` 关掉。
 
@@ -185,10 +211,11 @@ node --test 'webchat/tests/*.test.mjs'
 .venv/bin/python -m pytest scripts/tests/ -q -x \
   --ignore=scripts/tests/test_build_neo4j.py -o addopts=""
 
-# 真打网的三个探针 (一次性脚本, 不在仓库里; 合计约几分钱到一两毛)
-.venv/bin/python ../.superpowers/probe_max_tokens.py      # 天花板 provider 收不收
-.venv/bin/python ../.superpowers/probe_finish_reason.py   # 触顶时 finish_reason 写什么
-.venv/bin/python ../.superpowers/probe_e2e_continue.py    # 端到端真的接着写吗
+# 真打网的三个探针 (在仓库里, 可复跑)。⚠ 会花钱, 故一律要显式 --yes-spend;
+# 不加参数只打印说明并以 0 退出 (见 eval/probes/_spend_gate.py)。
+.venv/bin/python eval/probes/probe_max_tokens.py --yes-spend     # 天花板 provider 收不收
+.venv/bin/python eval/probes/probe_finish_reason.py --yes-spend  # 触顶时 finish_reason 写什么
+.venv/bin/python eval/probes/probe_e2e_continue.py --yes-spend   # 端到端真的接着写吗
 ```
 
 ## 5. 已知边界
@@ -205,7 +232,7 @@ node --test 'webchat/tests/*.test.mjs'
    功能正确, 只是多几次调用。
 5. **探针只证"参数被接受"**, 不证"能吐满"。
 6. **真实 `finish_reason` 已实测, 但只在这三条路上**
-   (`.superpowers/probe_finish_reason.py`, per-call `max_tokens=200` 逼出触顶):
+   (`eval/probes/probe_finish_reason.py`, per-call `max_tokens=200` 逼出触顶):
    opus-5 / gpt-terra / default-fallback(DeepSeek) 报的都是 **`length`**, 均被
    `_TRUNCATED_FINISH_REASONS` 认下。`"max_tokens"` 那个拼法**没有**在本仓库观测到 ——
    它是照 Anthropic 原生 API 的文档留的保险, 不是实测所得。
@@ -214,3 +241,20 @@ node --test 'webchat/tests/*.test.mjs'
    就是这样 (3 轮 0 字符)。生产的 128K 下到不了这一支; 也**没有**为它加特殊处理, 因为
    任何"猜模型为什么不吐字"的逻辑都比这条诚实的兜底更容易出错。
 8. **本轮实测只覆盖 opus-5** 的长答案续写。另外三个可选模型的接缝质量未测。
+9. **`/api/ask` 的 `model_used` 只报最后一轮的模型**, 且该端点**没有** `models_used`
+   (那是流式独有的, 靠 `merge_reported_model` 跨续写轮累积)。⇒ 非流式续写中途回退到
+   DeepSeek 时, 第 1 轮的 Claude 会从这个字段里消失。本轮不修: 给 `AskResponse` 加
+   `models_used` 是契约扩张, 且该端点今天唯一的消费者 Streamlit 不做回退判定。
+10. **上下文窗口把实际续写轮数按死在 8 以下**。每轮把上一轮全文回灌进 prompt, 天花板
+    128K ⇒ 第 2 轮 prompt 就可能已有 128K token, 200K 级窗口下最多续一到两轮就会撞窗口;
+    prompt 成本随轮数近似平方增长。撞窗口的失败是**响的** (provider 报错 ⇒ 流式 error
+    事件 / 非流式现在是 200 + `continue_error`)。§3b 的端到端实测在 4000 天花板下做, 没有
+    触到这一支。
+11. **`max_continue_rounds=0` 时前端文案读起来是坏的**: `render.js` 会渲染「已达自动续写
+    上限 (0 轮), 回答可能不完整」, 而 config 注释明写 `0 = 关掉自动续写` ⇒ 这是可达状态。
+    文案该是"自动续写已关闭"。已知未修 (纯文案, 一行)。
+12. **`server/compare.py` 不在本单范围内**: 它走裸 `litellm.acompletion`, 既不经 Router
+    (拿不到 deployment 天花板) 也不看 `finish_reason` (没有续写)。⚠ 时间线值得记一笔:
+    四模型离线对比裁判的实测 (`evidence/checkpoints/model_compare_2026-09.md`, 2026-09-07)
+    正是在"Bedrock 隐式 ≈4k"下产生的候选答案 —— 候选被截断会被当成完整答案打分, 而裁判
+    自身的 JSON 被截断至少是**响的** (`_parse_judge` 返回 None + `judge_unparseable`)。

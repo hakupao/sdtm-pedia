@@ -50,7 +50,7 @@ class Settings(BaseSettings):
     # evidence/checkpoints/verified_spotcheck_2026-09.md): opus-5 / gpt-terra / gpt-sol 过;
     # sonnet-5 (a) 层 1 条 ungrounded (q35 C66742) ⇒ false。sonnet-5 是 Claude 不代表验过。
     #
-    # max_output_tokens 的出处 (.superpowers/research-max-output-tokens.md, 2026-09-08):
+    # max_output_tokens 的出处 (evidence/checkpoints/autocontinue_2026-09/research-max-output-tokens.md):
     # · opus-5 / sonnet-5 = 128000 —— AWS Bedrock model card 明写 "Max output tokens: 128K"。
     # · gpt-terra / gpt-sol = 128000 —— ⚠ **未经一手文档确认**: AWS 那两张 model card 只列
     #   1M context window, 没有 max-output 行; 128000 只来自 litellm 的静态 model_cost 表。
