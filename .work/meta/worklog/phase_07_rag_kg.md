@@ -2380,3 +2380,23 @@ deepseek/deepseek-chat (与生成方 opus-5 **不同模型族**, 避自偏好; �
   - **Q1 换默认 / Q2 下架 sonnet-5: 本轮数据不足以建议** (预登记如此, 不外推)。非判据观察: 聚合胜负两 seed 几乎同, 但 C2 量的是逐题稳定; 裁判偏好疑为长度/完整度非事实覆盖 (J3 持平 J1 差距大); 下轮若要答默认模型问题需预登记聚合级稳定指标 + 长度归一化对照。
 - 测试: 新增 `test_compare_verified_runs.py` 6 条 + `test_run_class_assertion_scan.py` 2 条。
 - 第 3 件 (推真实使用) 在用户/IT 侧: go-live 待内网 IP + 签字; dogfood ⚑ 记录文件至今不存在 = 零反馈捕获。
+
+## 2026-09-08 — Chat UI 重构: 前端模块化 + 流式 Markdown + 出处隐藏 (分支 `feat/chat-ui-redesign`, 16 commit)
+
+- 起因是用户点名的两个体验缺陷: **流中只 `textContent` 追加** (屏上是裸 md 语法, `done` 后才整体渲染) 与 **正文里随处可见 `**[Source: path]**`** (对使用者无意义, 只调试需要)。顺带把 43 行 html / 67 行 css 的粗糙外观换成一套 design tokens。
+- **缺陷 ①**: `js/markdown.js` + `app.js` 的 rAF 节流路径 —— `onToken` 只累加并置 `dirty`, 每帧最多一次 `bubble.innerHTML = renderMarkdown(acc, {streaming:true})`; 半截围栏由 `prepareStreaming` 补齐, 其余半截语法交给 marked 容错。流中不跑 hljs, `done/error/abort/close` 四路仍走 `renderFinal` 完整 parse + 高亮。`02_streaming.png` 是流中已渲染表格/标题的正面证据。
+- **缺陷 ②**: `js/citations.js` 纯函数在**渲染层**剥除 `[Source:]`/`[Web:]`, 设置弹层「显示行内出处 (调试)」可开 (`prefs.showCitations` → `sdtm_ui_prefs`)。⚠ 关键不变量: **存档与 ⚑ 上报存原文** —— 冒烟实测关掉开关后正文 21 条 `Source:` 归 0 而 localStorage `content` 仍含 `[Source:`。
+- 结构: 654 行单体 `app.js` → 239 行入口 + `js/{store,citations,markdown,render,stream,flag,ui}.js` 七个模块 + 4 个 `node --test` 文件 (27 条)。`webchat/vendor/` 零改动, 无新外链, 字体全系统栈。
+- **spec §1 护栏逐字保留**由 Task 6 的 `GUARDS-IDENTICAL` diff 闸钉住 (拿 base `ab24bad` 的 `app.js` 当参照物, `modelBadgeText`/`refreshModelBadgeLabels`/`renderWebStatus` 三条函数体 diff 全空); `flagModelName` 单独 diff, 差异只有 brief 明写的 topbar 那一处。
+- 🔴 **生产 blocker (本次重构自己引入的)**: ES 模块拆分把冷加载从 ~9 请求抬到 **16**, 而 `.env` 限流 `BURST=10` ⇒ 每次刷新随机 2-3 个 `/static/js/*.js` 吃 **429**, 页面起不来 (`00_BLOCKER_prod_429.png`)。且 `Cache-Control: no-cache` ⇒ **缓存压不下请求数**, 不是冷启动一次性问题。
+- 修法**突破了「不改 `server/`」约束** (裁定): `RateLimitMiddleware` 加 `exempt_prefixes=("/static/",)` 且 `"/"` 入 exempt —— 限流保护的是花钱的 `/api/*`, 静态壳子不该计数 (调 BURST 只是推迟复发)。TDD: RED 3 failed → GREEN 45 passed, 含一条反向闸钉死 `/api/` 仍限流。代价 = 静态路径失去限流。
+- ⚠ **生产重载由用户在终端执行** (`launchctl kickstart -k`, 自动模式不允许我重启服务); 重载后实测 health 200、**42/42 static 请求 200 (3 轮冷加载)、429 消失**。
+- **重构回归**: `test_sse_contract.py` (3 fail) + `test_model_switching.py` (19 error, 另有 3 条静态闸 fail) —— 它们以文本 grep / `vm.runInContext` 跑 `webchat/app.js` 抠事件表、status 文案表、`flagModelName`、`modelBadgeText`, 源码搬进 `js/*.js` 后断言全部越界。按裁定新增 Task 8b **只改锚点不削弱断言**: Python 侧零 assert 改动, 探针改 ESM `await import()` 且**每场景一份磁盘副本**再 import (ESM 按 URL 缓存, 不换路径则 13 个场景共用同一个 store 实例)。86 passed, 零 skip 零删除。
+- ⚠ 一条给未来的警告已写进 `webchat/vendor/README.md`: **再拆模块时这三处锚点要一起改**, 否则闸会一路绿着退化成什么也没钉。
+- **Rule D 审阅链** (实现与审阅全程分 agent 分 session): Task 1-4 opus 审 → PASS-WITH-FIXES (2 Important, 2 轮修复); Task 5-7 opus 审 → PASS-WITH-FIXES (2 Important, 1 轮); Task 8 / 限流 / Task 8b / Task 9 四单元**审阅全 Approved**; 全分支终审 **fable** → **Ready to merge with fixes, 0 Critical / 0 Important / 16 Minor, 无裁定被推翻**; 4 项升为合并前必修 + 3 项廉价一并做成修复波, opus 复审 **7/7 ADDRESSED 无新破坏**。
+- 终审是自己复跑的 (24 node / 29+30 pytest), 另跑 24 种真实模型输出形状的 `splitCitations` 探针与 19 KB 表格答案的 `marked.parse` 计时 (暖 **1.4 ms** / 冷 18 ms) ⇒ 「不做增量 md diff」的 YAGNI 裁定拿到实测支持。
+- 修复波 7 项: 折叠侧栏 `visibility:hidden` 出 tab 序 · 删末会话补 `newConversation()` · 删在途会话先 `stop()` · 出处剥除加 CJK 标点粘合类 (`见 [Source: a]、[Source: b]。` → `见。`) · `save()` 配额逐出补测试 · `_frontend_sources` 下限 6→8 且 docstring 理由改正 (原写反了) · 探针 tmp 清理进 `finally`。三项做了变异验证。
+- 浏览器实测 8/8 PASS, 跑在**同码同工作树的 `:8100` 副本** (限流关) 上, 生产当时被 429 挡着; 截图 9 张在 `.superpowers/sdd/2026-09-08-chat-ui-redesign/screens/`。⚠ 如实记: `08_prod_after_reload.png` 与 `01_empty.png` **字节完全相同** (空状态两 origin 像素一致), 所以那张图本身不证明它拍自 `:8000` —— 生产恢复的独立证据是 42/42 static 200。
+- 回归: `node --test 'webchat/tests/*.test.mjs'` **27 pass 0 fail**; `pytest scripts/tests/` (排除 `test_build_neo4j.py`) **2051 passed, exit 0**。playwright 真跑非 skip。
+- ⛔ 已知限制 (未修, 全部记在证据文件 §8): 流中 rAF 路径只有间接覆盖 (`route.fulfill` 卡不住流, 流中行为由 `page.evaluate` 直调模块证明) · playwright 未进 `pyproject.toml` dev 组 ⇒ CI 默认 skip · **`/static/tests/*.mjs` 经 StaticFiles 可取, 阶段 3 内网 go-live 前须排除** · `_is_exempt` 是裸 `startswith` (无实际绕过, StaticFiles 会规范化 404) · spec §6 偏离: 侧栏折叠做在侧栏头部而非设置面板, 联网状态留 `web-panel` 非 chip (后者被护栏所迫)。
+- 落盘: `sdtm-rag/evidence/checkpoints/chat_ui_redesign_2026-09.md` (含不变量核对表 / 9 条裁定逐条 / 审阅链 / 复跑指引) · `webchat/vendor/README.md` §模块结构 · 台账 `.superpowers/sdd/2026-09-08-chat-ui-redesign/progress.md`。
