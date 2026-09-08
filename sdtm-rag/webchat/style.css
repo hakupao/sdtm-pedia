@@ -90,6 +90,11 @@ button { font: inherit; color: inherit; }
 .turn-meta:empty { display: none; }
 .chip { font-size: 11.5px; color: var(--ink-2); background: var(--bg-side); border: 1px solid var(--line); border-radius: 999px; padding: 2px 9px; line-height: 1.6; }
 .chip.unverified { color: var(--warn); background: var(--warn-soft); border-color: #f1d9b8; } /* 同 .web-warn 的琥珀色, 未验证模型徽章一眼分辨 */
+/* 自动续写徽章: 刻意**不**用琥珀色 —— 续写完成的答案是完整的, 这只是一条信息。
+   把它画成警告会让用户以为答案有问题, 那正好与本功能的目的相反。 */
+.chip.continue { color: var(--ink-3); }
+/* 触顶提示: 答案可能不完整, 这个才是警告 (与 .web-warn 同色同重量, 视觉上同级) */
+.turn-note.warn { margin-top: 8px; font-size: 13px; color: var(--warn); font-weight: 500; }
 .sources-slot:empty { display: none; }
 .sources { margin-top: 10px; font-size: 13px; }
 .sources summary { cursor: pointer; color: var(--ink-3); list-style: none; display: inline-flex; align-items: center; gap: 6px; padding: 2px 0; }

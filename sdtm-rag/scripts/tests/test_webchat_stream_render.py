@@ -98,8 +98,8 @@ def _launch(pw):
             pytest.skip(f"没有可用的 chromium/chrome: {exc}")
 
 
-def _stub_routes(page):
-    """/api/info 固定; /api/ask_stream 一次性吐完四帧。
+def _stub_routes(page, frames=None):
+    """/api/info 固定; /api/ask_stream 一次性吐完给定的帧 (默认上面那四帧)。
 
     ⚠ route.fulfill 是**一次性**给 body 的, 卡不住流 —— 所以这里不假装能卡。前端按 `\\n\\n`
     切帧 (stream.js 的 while 循环), 一次性 body 照样正确分出 4 帧, done 之后的 DOM 断言不受
@@ -110,7 +110,8 @@ def _stub_routes(page):
         status=200, content_type="application/json", body=json.dumps(_INFO)))
 
     def sse(route):
-        body = b"".join(f"event: {ev}\ndata: {data}\n\n".encode() for ev, data in _FRAMES)
+        body = b"".join(f"event: {ev}\ndata: {data}\n\n".encode()
+                        for ev, data in (frames or _FRAMES))
         route.fulfill(status=200, content_type="text/event-stream", body=body)
 
     page.route("**/api/ask_stream", sse)
@@ -186,5 +187,62 @@ def test_old_archive_still_renders(live):
             assert page.locator(".chip.model-meta").count() == 0
             assert "Source" not in page.inner_text(".turn.assistant .bubble")
             assert page.locator(".turn-tools .flag-btn").count() == 1
+        finally:
+            browser.close()
+
+
+# ── 输出触顶自动续写: 前端呈现 (2026-09-08) ──────────────────────────────
+#
+# 后端把答案分成多次 API 调用续写完, 前端必须做到两件事: (1) 拼出来的正文是**连续**的,
+# 中间那个 `continue` 事件不能把渲染打断也不能自己冒出可见文字; (2) "自动续写过 N 轮"
+# 与"到了续写上限、可能还没写完"是两种不同的状态, 要分开说 —— 后者是**警告**。
+
+def _continue_frames(truncated: bool, rounds: int = 1):
+    return [
+        ('sources', '{"sources":[],"routed_corpus":null}'),
+        ('token', '{"text":"前半段"}'),
+        ('continue', '{"round":1}'),
+        ('token', '{"text":"后半段"}'),
+        ('done', '{"model_id":"opus-5","verified":true,"web_status":"off","web_searches_ok":0,'
+                 '"models_used":["opus-5"],"fell_back":false,'
+                 f'"continue_rounds":{rounds},"truncated":{"true" if truncated else "false"}}}'),
+    ]
+
+
+def test_auto_continue_chip_and_truncation_warning(live):
+    """两个变体跑在同一个浏览器里: 未触顶 → 只挂 chip; 触顶 → 挂 .turn-note.warn。
+
+    正文断言放在两边都做: `continue` 事件若被 dispatch 当成未知事件吞掉是无害的, 但若
+    被误当成 token 渲染, 用户会在答案中间看到一段 JSON —— 那正是这条闸要挡的形状。
+    """
+    with pw_api.sync_playwright() as pw:
+        browser = _launch(pw)
+        try:
+            page = browser.new_page()
+            _stub_routes(page, _continue_frames(truncated=False))
+            page.goto(live.url)
+            page.wait_for_selector("#model-select option", state="attached")
+            _ask(page, "长问题")
+            page.wait_for_selector(".turn.assistant .chip.model-meta")
+            assert page.inner_text(".turn.assistant .bubble").strip() == "前半段后半段"
+            assert page.inner_text(".turn.assistant .chip.continue") == "自动续写 ×1"
+            assert page.locator(".turn.assistant .turn-note.warn").count() == 0
+
+            # 触顶变体: 换一份帧, 开新会话重问
+            page.unroute("**/api/ask_stream")
+            _stub_routes(page, _continue_frames(truncated=True, rounds=8))
+            page.click("#new-chat")
+            _ask(page, "更长的问题")
+            page.wait_for_selector(".turn.assistant .turn-note.warn")
+            warn = page.inner_text(".turn.assistant .turn-note.warn")
+            assert "8" in warn and "自动续写上限" in warn
+            # 触顶时不再重复挂 chip —— 同一件事说两遍, 而警告已经含轮数
+            assert page.locator(".turn.assistant .chip.continue").count() == 0
+
+            # 刷新后两者都必须复原 —— 只在 onDone 里画的话, 存档里一条被截断的答案
+            # 与一条完整答案长得一模一样 (与 webStatus / fellBack 同一条教训)。
+            page.reload()
+            page.wait_for_selector(".turn.assistant .turn-note.warn")
+            assert "8" in page.inner_text(".turn.assistant .turn-note.warn")
         finally:
             browser.close()

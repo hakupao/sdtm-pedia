@@ -92,6 +92,8 @@ export function messageEl(m) {
     renderWebStatus(turn, m.webStatus, m.webSearchesOk);
     // 同一个坑, spec §6: 只做 UI 标注(下拉旁边那行提示)的话, 对话存下来后这条信息就没了。
     renderModelBadge(turn, m.modelId, m.verified, m.modelsUsed, m.fellBack);
+    // 第三次同一个坑: 一条"写到上限被截断"的答案与一条完整答案在存档里必须长得不一样。
+    renderContinuation(turn, m.continueRounds, m.truncated);
   }
   return turn;
 }
@@ -220,6 +222,37 @@ export function refreshModelBadgeLabels() {
     try { modelsUsed = JSON.parse(b.dataset.modelsUsed || "[]"); } catch (_) { modelsUsed = []; }
     b.textContent = modelBadgeText(modelId, verified, modelsUsed, fellBack).text;
   });
+}
+
+// ── 输出触顶自动续写 (2026-09-08) ──
+//
+// 后端在模型报"被输出上限切断"时会自动回灌原文让它接着写, 所以正文本身是连续的, 用户
+// **不需要**看到中间换过几次 API 调用。这里只呈现两件与答案成色有关的事:
+//   continueRounds > 0 且没触顶 → 一枚安静的 chip (信息, 不是警告: 答案是完整的)
+//   truncated === true          → 琥珀色警告行 (答案**可能不完整**, 这是必须说的)
+// 两者互斥: 触顶时警告里已经含轮数, 再挂一枚 chip 是同一件事说两遍。
+//
+// ⚠ `truncated === true` 用全等而非 truthy, 与 `fellBack` 同一条理由: 老存档和老后端
+// (StaticFiles 现读工作树 ⇒ 新前端会先于 Python 重启上线) 都没有这个键, undefined 必须
+// 落回"什么都不画", 而不是被当成某种状态。
+export function renderContinuation(turn, continueRounds, truncated) {
+  const n = Number(continueRounds) || 0;
+  if (truncated === true) {
+    if (turn.querySelector(":scope > .turn-note.warn")) return;
+    const note = document.createElement("div");
+    note.className = "turn-note warn";
+    note.textContent = `⚠ 已达自动续写上限 (${n} 轮), 回答可能不完整`;
+    // 挂在气泡**正后方**而不是 turn 末尾: 警告说的是这段正文的成色, 隔着来源折叠区和
+    // 工具条就读不出这层关系了。
+    const bubble = turn.querySelector(":scope > .bubble");
+    if (bubble) bubble.insertAdjacentElement("afterend", note);
+    else turn.appendChild(note);
+    return;
+  }
+  if (n <= 0) return;
+  const meta = metaBox(turn);
+  if (!meta || meta.querySelector(".chip.continue")) return;
+  meta.appendChild(chip(`自动续写 ×${n}`, "continue"));
 }
 
 // ── 来源 (SSE sources 事件) + 判定库 chip ──

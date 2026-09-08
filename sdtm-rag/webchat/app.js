@@ -3,6 +3,7 @@ import { store, save, current, newConversation, deleteConversation, renameConver
          prefs, savePrefs, modelLabelById, HISTORY_TURNS } from "./js/store.js";
 import { renderSidebar, renderMessages, messageEl, finalizeBubble, appendErr, appendRetry,
          attachTools, setSources, renderWebStatus, renderModelBadge, refreshModelBadgeLabels,
+         renderContinuation,
          onToolCallUI, onToolResultUI } from "./js/render.js";
 import { renderMarkdown } from "./js/markdown.js";
 import { streamAsk } from "./js/stream.js";
@@ -89,6 +90,8 @@ async function runGeneration(c) {
   let gotVerified = null;
   let gotModelsUsed = null;
   let gotFellBack = null;
+  let gotContinueRounds = null;
+  let gotTruncated = null;
   let saved = false;
   let savedMsg = null;
 
@@ -121,7 +124,9 @@ async function runGeneration(c) {
                  modelId: gotModelId, verified: gotVerified,
                  // 产物自证 (spec §6 / 2026-09-02 R5): 回退这件事必须活过刷新, 否则
                  // 存档里一条 DeepSeek 答的消息与 Opus 5 答的长得一模一样。
-                 modelsUsed: gotModelsUsed, fellBack: gotFellBack };
+                 modelsUsed: gotModelsUsed, fellBack: gotFellBack,
+                 // 同上: 被截断这件事必须活过刷新, 否则存档里半句话的答案与完整答案一样。
+                 continueRounds: gotContinueRounds, truncated: gotTruncated };
     c.messages.push(savedMsg);
     save(); renderSidebar(sidebarHandlers);
   };
@@ -136,6 +141,9 @@ async function runGeneration(c) {
       onToken: (t) => { acc += t; dirty = true; if (!rafId) rafId = requestAnimationFrame(paint); },
       onToolCall: (d) => onToolCallUI(turn, d),
       onToolResult: (d) => onToolResultUI(turn, d),
+      // 自动续写是服务端行为, 正文照旧从 token 事件流进同一个气泡 ⇒ 流中不画任何东西。
+      // 留一条 debug 日志是为了排障时能看出"这条答案续写过", 而不是靠猜。
+      onContinue: (d) => console.debug("auto-continue round", (d || {}).round),
       onDone: (data) => {
         gotWebStatus = (data || {}).web_status; gotWebSearchesOk = (data || {}).web_searches_ok;
         // ?? 只在 null/undefined 时取右值, false 会原样保留 —— 与 renderModelBadge 的
@@ -148,7 +156,10 @@ async function runGeneration(c) {
         gotModelsUsed = (data || {}).models_used ?? null;
         gotFellBack = (data || {}).fell_back ?? null;
         renderWebStatus(turn, gotWebStatus, gotWebSearchesOk);
+        gotContinueRounds = (data || {}).continue_rounds ?? null;
+        gotTruncated = (data || {}).truncated ?? null;
         renderModelBadge(turn, gotModelId, gotVerified, gotModelsUsed, gotFellBack);
+        renderContinuation(turn, gotContinueRounds, gotTruncated);
         const content = acc.trim() ? acc : "(无内容)"; renderFinal(content); persist(content);
       },
       onError: (msg) => { if (acc) { renderFinal(acc); persist(acc); } fail(msg); },
