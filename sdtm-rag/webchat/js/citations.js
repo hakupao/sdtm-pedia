@@ -16,13 +16,15 @@ const RE_FULL = /\*\*\[(Source|Web):\s*([^\]\n]*)\]\*\*|\[(Source|Web):\s*([^\]\
 // `[Sx` 这类不是出处前缀的不动 —— 前缀枚举比宽松匹配多几个字符, 但不会误吞正文里的 `[`。
 const RE_TAIL = /\*{0,2}\[(?:S|So|Sou|Sour|Sourc|Source|W|We|Web)?(?::[^\]]*)?$/;
 
-// 删除点占位符 (记作 ␀), 只在一行的处理过程中存活, 返回前一定被清干净。
-const SENT = "\u0000";
-const RE_EMPTY_PARENS = /\(\s*\u0000(?:\s*\u0000)*\s*\)/g; // `(␀)`: 括号本身也是残渣
-const RE_GLUE_PUNCT = /[ \t]*\u0000[ \t]*(?=[.,;:!?])/g;   // `Text ␀.` → `Text.`
-const RE_EOL = /[ \t]*\u0000[ \t]*$/g;                     // 行尾: 连空格一起去
-const RE_MID = /(^|[ \t])\u0000[ \t]+/g;                   // 词 ␀ 词: 留一个空格
-const RE_LEFT = /[ \t]*\u0000/g;                           // 右侧无空白的残留: 左空格一并去,
+// 删除点占位符 (下面注释里记作 ␀), 只在一行的处理过程中存活, 返回前一定被清干净。
+// 用私用区 (PUA) 码位而不是 NUL: NUL 在正文里虽然罕见但是合法字符, 拿它当哨兵会把作者原有的
+// NUL 连同左边的空格一起吃掉; PUA 码位不会出现在真实 markdown 里。
+const SENT = "\uE000";
+const RE_EMPTY_PARENS = /\(\s*\uE000(?:\s*\uE000)*\s*\)/g; // `(␀)`: 括号本身也是残渣
+const RE_GLUE_PUNCT = /[ \t]*\uE000[ \t]*(?=[.,;:!?])/g;   // `Text ␀.` → `Text.`
+const RE_EOL = /[ \t]*\uE000[ \t]*$/g;                     // 行尾: 连空格一起去
+const RE_MID = /(^|[ \t])\uE000[ \t]+/g;                   // 词 ␀ 词: 留一个空格
+const RE_LEFT = /[ \t]*\uE000/g;                           // 右侧无空白的残留: 左空格一并去,
                                                            // 让 `**` 这类闭合记号贴回词尾
 
 function escapeHtml(s) {
@@ -63,13 +65,16 @@ function replaceCites(line, cites, show) {
 export function splitCitations(md, { show = false, streaming = false } = {}) {
   const cites = [];
   const lines = (md || "").split("\n");
-  let fence = null; // 当前围栏记号 ("`" / "~"); null = 不在围栏里。异族记号关不掉。
+  let fence = null; // 开启中的围栏 {char, len}; null = 不在围栏里
   const out = lines.map((line, i) => {
     const f = line.match(RE_FENCE_LINE);
     if (f) {
-      const marker = f[1][0];
-      if (fence === null) fence = marker;
-      else if (fence === marker) fence = null;
+      const run = f[1];
+      // CommonMark: 闭合围栏必须是同一个字符, 且不短于开启围栏。只比字符不比长度的话,
+      // ````markdown 里嵌的 ```py 会把外层关掉, 嵌套代码块的后半截就被当成正文剥了出处。
+      // 关不掉的围栏行 (异族记号 / 更短) 只是内容, 原样返回。
+      if (fence === null) fence = { char: run[0], len: run.length };
+      else if (run[0] === fence.char && run.length >= fence.len) fence = null;
       return line;
     }
     if (fence !== null) return line;

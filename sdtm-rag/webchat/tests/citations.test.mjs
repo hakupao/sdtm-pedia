@@ -89,3 +89,17 @@ test("普通 markdown 链接不当作出处", () => {
   assert.equal(md, src);
   assert.equal(cites.length, 0);
 });
+
+// 闭合围栏必须同字符且不短于开启围栏 (CommonMark)。只比字符不比长度的话, ```` 里嵌的 ```
+// 会把外层关掉, 后半截代码就被当成正文, 里面的出处被剥、还进了 cites。
+test("更短的同族围栏关不掉外层围栏, 嵌套代码块整体不动", () => {
+  const src = "````markdown\n```py\nx = read_xpt()  [Source: a.md]\n```\n````";
+  const { md, cites } = splitCitations(src);
+  assert.equal(md, src);
+  assert.equal(cites.length, 0);
+});
+
+// 哨兵用 PUA 码位而非 NUL: 正文里原有的 NUL 不该被顺手吃掉 (连同它左边的空格)。
+test("正文里原有的 NUL 在被剥除的行上存活", () => {
+  assert.equal(splitCitations("keep\u0000this [Source: a.md] tail").md, "keep\u0000this tail");
+});
