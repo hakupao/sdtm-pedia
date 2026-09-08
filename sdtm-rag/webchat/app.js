@@ -1,468 +1,26 @@
-// SDTM chat UI — 单模型 (DeepSeek V4 Pro) 流式聊天, 多对话存 localStorage。
-const LS_KEY = "sdtm_chat_v1";
-const HISTORY_TURNS = 10; // 控 token: 发给后端的最近消息条数
-// Plan B 联邦: 库标签 (日文 UI)。map 里没有的值 (null / 未知) 一律不渲染徽章 —— 联邦关时零变化。
-const CORPUS_LABEL = { cdisc: "標準", study: "本研究", both: "両方" };
-// 模型 id → label 表, loadModelName() 拿到 /api/info 后填。页面刚打开、表还是空的时候历史
-// 徽章会退化显示原始 id (不影响正确性), loadModelName 填完表后会重渲染一次消息列表补上。
-let modelLabelById = {};
+// 入口: 事件绑定 + 生成流程编排。渲染在 render.js, 存储在 store.js。
+import { store, save, current, newConversation, deleteConversation, renameConversation,
+         prefs, savePrefs, modelLabelById, HISTORY_TURNS } from "./js/store.js";
+import { renderSidebar, renderMessages, messageEl, finalizeBubble, appendErr, appendRetry,
+         attachTools, setSources, renderWebStatus, renderModelBadge, refreshModelBadgeLabels,
+         onToolCallUI, onToolResultUI } from "./js/render.js";
+import { renderMarkdown } from "./js/markdown.js";
+import { streamAsk } from "./js/stream.js";
+import { $, initScrollFollow, initSettings, initSidebar, selectedCorpus, webEnabled, autoGrow } from "./js/ui.js";
 
-// uid 不用 crypto.randomUUID (LAN http 非安全上下文不可用)
-const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+// ── 渲染回调 (侧栏/消息需要的动作) ──
+const sidebarHandlers = {
+  onSelect: (id) => { store.currentId = id; save(); paintAll(); },
+  onDelete: (id) => { deleteConversation(id); paintAll(); },
+  onRename: (id, title) => { if (renameConversation(id, title)) renderSidebar(sidebarHandlers); },
+};
+const messageHandlers = {
+  onPickExample: (q) => send(q),
+  onRetry: (c) => retry(c),
+};
+function paintAll() { renderSidebar(sidebarHandlers); renderMessages(messageHandlers); }
 
-let store = load();
-
-function load() {
-  try {
-    const s = JSON.parse(localStorage.getItem(LS_KEY));
-    if (s && Array.isArray(s.conversations)) return s;
-  } catch (_) {}
-  return { conversations: [], currentId: null };
-}
-function save() {
-  try {
-    localStorage.setItem(LS_KEY, JSON.stringify(store));
-  } catch (_) {
-    // QuotaExceededError: store is newest-first (unshift), so evict the oldest conversations
-    // until it fits — never let a storage failure throw into a stream callback (would lose the
-    // just-generated answer and, before the try/finally below, brick the send button).
-    while (store.conversations.length > 1) {
-      store.conversations.pop();
-      try { localStorage.setItem(LS_KEY, JSON.stringify(store)); return; } catch (_) {}
-    }
-  }
-}
-
-function current() {
-  let c = store.conversations.find((x) => x.id === store.currentId);
-  if (!c) { c = newConversation(); }
-  return c;
-}
-function newConversation() {
-  const c = { id: uid(), title: "新对话", createdAt: Date.now(), messages: [] };
-  store.conversations.unshift(c);
-  store.currentId = c.id;
-  save();
-  return c;
-}
-function deleteConversation(id) {
-  store.conversations = store.conversations.filter((x) => x.id !== id);
-  if (store.currentId === id) store.currentId = store.conversations[0]?.id ?? null;
-  save();
-  renderSidebar();
-  renderMessages();
-}
-
-// ── 渲染 ──
-const $ = (id) => document.getElementById(id);
-
-function renderSidebar() {
-  const ul = $("conv-list");
-  ul.innerHTML = "";
-  for (const c of store.conversations) {
-    const li = document.createElement("li");
-    if (c.id === store.currentId) li.className = "active";
-    const t = document.createElement("span");
-    t.className = "title";
-    t.textContent = c.title || "新对话";
-    t.onclick = () => { store.currentId = c.id; save(); renderSidebar(); renderMessages(); };
-    const del = document.createElement("button");
-    del.className = "del"; del.textContent = "✕";
-    del.onclick = (e) => { e.stopPropagation(); deleteConversation(c.id); };
-    li.append(t, del);
-    ul.appendChild(li);
-  }
-}
-
-function mdToSafeHTML(md) {
-  return DOMPurify.sanitize(marked.parse(md || ""));
-}
-function highlightIn(el) {
-  el.querySelectorAll("pre code").forEach((b) => hljs.highlightElement(b));
-}
-
-function renderMessages() {
-  const box = $("messages");
-  box.innerHTML = "";
-  const c = store.conversations.find((x) => x.id === store.currentId);
-  if (!c) return;
-  let lastUserQ = "";
-  for (const m of c.messages) {
-    const el = messageEl(m.role, m.content, m.sources, m.routedCorpus, m.webStatus, m.webSearchesOk,
-                          m.modelId, m.verified, m.modelsUsed, m.fellBack);
-    if (m.role === "user") lastUserQ = m.content;
-    else if (m.role === "assistant") attachFlag(el, lastUserQ, m);
-    box.appendChild(el);
-  }
-  box.scrollTop = box.scrollHeight;
-}
-
-function messageEl(role, content, sources, routedCorpus, webStatus, webSearchesOk, modelId, verified,
-                   modelsUsed, fellBack) {
-  const wrap = document.createElement("div");
-  const msg = document.createElement("div");
-  msg.className = "msg " + role;
-  const r = document.createElement("div");
-  r.className = "role"; r.textContent = role === "user" ? "你" : "AI";
-  const b = document.createElement("div");
-  b.className = "bubble";
-  if (role === "assistant") { b.innerHTML = mdToSafeHTML(content); highlightIn(b); }
-  else { b.textContent = content; }
-  msg.append(r, b);
-  wrap.appendChild(msg);
-  const meta = metaEl(routedCorpus);
-  if (meta) wrap.appendChild(meta);
-  if (sources && sources.length) wrap.appendChild(sourcesEl(sources));
-  // 刷新/切会话后复原联网状态。不复原的话, 一个"已降级为未联网"的 KB-only 答案
-  // 和正常联网答案长得一模一样 (spec §7 点名的最骗人的失败模式)。
-  renderWebStatus(wrap, webStatus, webSearchesOk);
-  // 同一个坑, spec §6: 只做 UI 标注(下拉旁边那行提示)的话, 对话存下来后这条信息就没了。
-  renderModelBadge(wrap, role, modelId, verified, modelsUsed, fellBack);
-  return wrap;
-}
-
-// verified 三态不可混同 (spec §6): true 正常; false 是拿到确证的"验过且不通过";
-// null (default 组不在 selectable_models 里, 没有 verified 概念) 一律显"未知",
-// 绝不能落进 false 那支 (会把"没这个概念"误报成"验过且不通过")。
-//
-// 回退 (fellBack === true, 2026-09-02 spec §4.4) 优先于以上三态: 答案是**另一个(些)**
-// 模型产的, 那么"用户选的那个验没验过"对这条消息不再成立 —— 拿 opus-5 的 verified: true
-// 给一条 DeepSeek 答的消息背书, 就是终审 C-1 (⚑ 归错模型) 同族。琥珀色照挂: 回退是
-// **已知的偏离**, 不是单纯的元数据缺失, 值得与"未验证模型"同级的视觉提示。
-//
-// modelsUsed 是**列表**: 联网多轮 / 流中途回退时一次回答可能有两个模型各写了一段,
-// 只报一个就又变成半个真话了 (spec R6)。绝大多数情况长度为 1, 文案退化成单模型形态。
-//
-// ⚠ `fellBack === true` 用**全等**而非 truthy: 老后端不发这个字段 (StaticFiles 从工作树
-// 现读 ⇒ 新前端会先于 Python 重启上线, spec §5 B1) 、老存档里也没有这个键, 两种情况都是
-// undefined, 必须落回下面三态、文案与今天逐字相同。
-function modelBadgeText(modelId, verified, modelsUsed, fellBack) {
-  const label = modelLabelById[modelId] || modelId;
-  // ⚠ `Array.isArray` 不是洁癖: 只判 truthy + `.length` 挡不住**字符串** ("abc".length 是 3)
-  // 也挡不住 array-like 对象 —— 两者都会走到 `.join` 上抛 TypeError, 而这一抛是在
-  // `renderMessages` 里 ⇒ 死的不是一条徽章, 是**整段对话历史渲染不出来**。
-  // 后端发回什么形状不由前端说了算 (onDone 是 `?? null`, 零形状校验), 所以这里必须自己挡。
-  //
-  // **容器级**契约到此为止, **元素级**的 (每个元素是非空串) 由后端保证:
-  // `server/router.py` 收集处的 `if reported:` 只 append 真值串, 所以 `[null]` / `[""]`
-  // 这类"说回退了却说不出回退到谁"的半个真话在生产上产不出来。
-  // ⛔ 别在这里加 `filter(Boolean)` 之类的防御 —— 为不可达路径写防御, 下一个人会以为它可达。
-  // 为什么容器级只需要这一个判断就够: 值必然经 JSON 往返 (localStorage / SSE), 到达时
-  // 只可能是 null|bool|number|string|array|plain object 六种, `Array.isArray` 恰好把前五种
-  // 全挡在外面 —— 这也是"`join` 被改写成别的东西"那类畸形同样不会抛的原因。
-  if (fellBack === true && Array.isArray(modelsUsed) && modelsUsed.length) {
-    return { text: `模型: ${label} → 实际 ${modelsUsed.join("、")}（已回退）· 验证状态未知`,
-             unverified: true };
-  }
-  if (verified === true) return { text: `模型: ${label}`, unverified: false };
-  if (verified === false) return { text: `模型: ${label} ⚠未验证`, unverified: true };
-  return { text: `模型: ${label} · 验证状态未知`, unverified: false };
-}
-
-// 答案实际用的模型 (spec §6 产物自证)。modelId 为空 (生成中占位 / 未流完就中断 / 旧历史
-// 记录没存这个字段) 时什么都不画 —— 比瞎猜一个模型名更诚实, 也避免占位阶段先画一个"未知"
-// 徽章、done 后又叠一个真实徽章的重复渲染。
-function renderModelBadge(wrap, role, modelId, verified, modelsUsed, fellBack) {
-  if (role !== "assistant" || !modelId) return;
-  const b = document.createElement("div");
-  b.className = "msg-meta model-meta";
-  // 这四个值存进 dataset: /api/info 比首屏渲染慢一步是常态, label 表填好后
-  // refreshModelBadgeLabels() 要能原地补字, 不能靠重建 DOM 拿到它们
-  // (重建会抹掉正在生成、尚未进 c.messages 的那个气泡 —— 上一轮复审用 gate stub 复现过)。
-  b.dataset.modelId = modelId;
-  b.dataset.verified = String(verified); // "true" | "false" | "null"
-  b.dataset.modelsUsed = JSON.stringify(modelsUsed || []);
-  b.dataset.fellBack = String(fellBack);  // "true" | "false" | "null" | "undefined"(老存档)
-  const { text, unverified } = modelBadgeText(modelId, verified, modelsUsed, fellBack);
-  b.textContent = text;
-  if (unverified) b.classList.add("unverified");
-  wrap.appendChild(b);
-}
-
-// loadModelName() 拿到 /api/info 的 label 表往往晚于首屏渲染, 此前画出的模型徽章只能显示
-// 原始 id。这里只原地改文字, 不碰其余 DOM —— 尤其不能用 renderMessages() 整体重建: 一次
-// 生成中的助手气泡是直接 appendChild 挂到 #messages 上的, 要等 onDone→persist() 之后才会
-// 进 c.messages, 这个窗口内重建会把它整个抹掉(复审用 gate 住 /api/info + 卡流复现过)。
-function refreshModelBadgeLabels() {
-  document.querySelectorAll(".model-meta").forEach((b) => {
-    const modelId = b.dataset.modelId;
-    if (!modelId) return;
-    const verified = b.dataset.verified === "true" ? true : b.dataset.verified === "false" ? false : null;
-    // 显式三路比较, 不用 truthy —— dataset 里存的是字符串, "false" 是 truthy 的
-    const fellBack = b.dataset.fellBack === "true" ? true : b.dataset.fellBack === "false" ? false : null;
-    let modelsUsed = [];
-    // 坏数据不该让整条历史渲染崩掉 —— 拿不到就当"没有这个信息", 退回非回退文案
-    try { modelsUsed = JSON.parse(b.dataset.modelsUsed || "[]"); } catch (_) { modelsUsed = []; }
-    b.textContent = modelBadgeText(modelId, verified, modelsUsed, fellBack).text;
-  });
-}
-
-// 答案元信息行: 联邦实际检索了哪个库 (routed_corpus)。联邦关时后端返 null → 不渲染。
-function metaEl(routedCorpus) {
-  const label = CORPUS_LABEL[routedCorpus];
-  if (!label) return null;
-  const d = document.createElement("div");
-  d.className = "msg-meta";
-  d.textContent = `判定: ${label}`;
-  return d;
-}
-
-// 每条来源前缀的库徽章; src.corpus 为空/未知 (单库路径) 时返 null, 来源行与联邦前一致。
-function corpusBadge(corpus) {
-  const label = CORPUS_LABEL[corpus];
-  if (!label) return null;
-  const b = document.createElement("span");
-  // class 只从白名单取, 不拼服务端字符串
-  b.className = corpus === "study" ? "corpus-badge study" : "corpus-badge";
-  b.textContent = label;
-  return b;
-}
-
-function sourcesEl(sources) {
-  const d = document.createElement("details");
-  d.className = "sources";
-  const s = document.createElement("summary");
-  s.textContent = `来源 (${sources.length})`;
-  d.appendChild(s);
-  for (const src of sources) {
-    const div = document.createElement("div");
-    div.className = "src";
-    div.innerHTML = `<b></b> <span></span>`;
-    div.querySelector("b").textContent = src.source + (src.section ? ` — ${src.section}` : "");
-    // 注意: 取 span 必须在插徽章之前 —— 徽章也是 span, 插在最前会被 querySelector 抢走。
-    div.querySelector("span").textContent = ` (sim ${(src.similarity ?? 0).toFixed(3)})`;
-    const badge = corpusBadge(src.corpus);
-    if (badge) div.insertBefore(badge, div.firstChild);
-    const p = document.createElement("div");
-    p.textContent = src.text_preview || "";
-    div.appendChild(p);
-    d.appendChild(div);
-  }
-  return d;
-}
-
-// 搜索过程条: 网页版那种「看得见它在搜什么」的观感。没有这层, 勾了联网只会
-// 看到卡住半分钟然后蹦出一段话 —— 那是超时的感觉, 不是联网的感觉。
-// ⚠ 挂在 holder (气泡外层) 而非 bubble: onToken 会 bubble.textContent=acc 覆盖气泡内容。
-function ensureWebPanel(holder) {
-  let p = holder.querySelector(":scope > .web-panel");
-  if (!p) {
-    p = document.createElement("div");
-    p.className = "web-panel";
-    holder.prepend(p);   // 搜索过程显示在答案上方
-  }
-  return p;
-}
-
-function onToolCallUI(holder, d) {
-  const row = document.createElement("div");
-  row.className = "web-row";
-  row.dataset.callId = d.id || "";
-  row.textContent = `🔍 搜索 "${d.query || ""}"`;
-  ensureWebPanel(holder).appendChild(row);
-}
-
-function onToolResultUI(holder, d) {
-  const p = ensureWebPanel(holder);
-  // CSS.escape: tool id 来自模型返回, 不保证是合法选择器
-  const sel = `.web-row[data-call-id="${CSS.escape(d.id || "")}"]`;
-  const row = p.querySelector(sel);
-  const note = document.createElement("span");
-  note.className = "web-note";
-  // tool_result.status 有 6 个值, 其中 bad_query/unknown_tool 是**模型**出错不是联网出错,
-  // 措辞必须区分 —— 把模型的失误显示成"联网失败"会让人去查网络而不是查模型。
-  note.textContent = {
-    ok: ` — 找到 ${d.count} 个来源`,
-    failed: " — 搜索失败",
-    quota_exceeded: " — 已达搜索次数上限",
-    disabled: " — 服务端未启用联网",
-    bad_query: " — 跳过 (模型给出的查询无效)",
-    unknown_tool: " — 跳过 (模型调用了不存在的工具)",
-  }[d.status] || ` — ${d.status}`;
-  (row || p).appendChild(note);
-}
-
-// web_status 落在 done 上: 勾了联网却静默降级是最骗人的失败模式, 必须显式说出来。
-// ⚠ 契约以 Task 4 实现为准 (计划初稿只列了 3 个状态, 实测收口后是 6 个 + 一个计数):
-//   web_status ∈ {ok, partial, failed, quota_exceeded, disabled, off}
-//   web_searches_ok: int  —— 真正拿到结果的搜索次数 (bad_query/unknown_tool/quota/failed 不计)
-// 三种"看起来正常其实没搜到"的情形必须分开说, 否则用户无从判断答案的成色。
-function renderWebStatus(holder, status, searchesOk) {
-  if (!status || status === "off") return;
-  // ok + 0 次成功检索: 联网开着、一次网都没打成 (模型净吐畸形工具调用能耗光轮数)
-  const msg = status === "ok"
-    ? (searchesOk > 0 ? null : "ℹ 已开启联网, 但本次未实际检索到内容, 以下回答基于知识库")
-    : {
-        partial: "⚠ 部分搜索失败, 联网参考可能不完整 (逐条状态见上方搜索过程)",
-        failed: "⚠ 本次未联网: 搜索请求失败, 以下回答仅基于知识库",
-        quota_exceeded: "⚠ 本次未联网: 已达搜索配额上限, 以下回答仅基于知识库",
-        disabled: "⚠ 本次未联网: 服务端未启用联网, 以下回答仅基于知识库",
-      }[status] || `⚠ 本次未联网 (${status})`;
-  if (!msg) return;
-  const warn = document.createElement("div");
-  warn.className = status === "ok" ? "web-note-block" : "web-warn";
-  warn.textContent = msg;
-  ensureWebPanel(holder).appendChild(warn);
-}
-
-// ── 失败捕获 (⚑ 标记答错/答弱 → POST /api/flag → dogfood_failures.md) ──
-function attachFlag(wrap, question, msgObj) {
-  const bar = document.createElement("div");
-  bar.className = "msg-actions";
-  const btn = document.createElement("button");
-  btn.className = "flag-btn";
-  if (msgObj && msgObj.flagged) {
-    btn.textContent = "✓ 已记录"; btn.disabled = true; btn.classList.add("done");
-  } else {
-    btn.textContent = "⚑ 标记"; btn.onclick = () => openFlag(bar, btn, question, msgObj);
-  }
-  bar.appendChild(btn);
-  wrap.appendChild(bar);
-}
-
-function openFlag(bar, btn, question, msgObj) {
-  if (bar.querySelector(".flag-box")) return; // already open
-  btn.style.display = "none";
-  const box = document.createElement("div");
-  box.className = "flag-box";
-  const ta = document.createElement("textarea");
-  ta.placeholder = "哪里答错/答弱? 期望是什么? (可留空)"; ta.rows = 2;
-  const send = document.createElement("button"); send.textContent = "记录"; send.className = "flag-send";
-  const cancel = document.createElement("button"); cancel.textContent = "取消"; cancel.className = "flag-cancel";
-  cancel.onclick = () => { box.remove(); btn.style.display = ""; };
-  send.onclick = async () => {
-    send.disabled = true; cancel.disabled = true; send.textContent = "...";
-    const ok = await postFlag(question, msgObj ? msgObj.content : "", ta.value, msgObj);
-    if (ok) {
-      if (msgObj) { msgObj.flagged = true; save(); }
-      box.remove();
-      btn.textContent = "✓ 已记录"; btn.disabled = true; btn.classList.add("done"); btn.style.display = "";
-    } else {
-      send.disabled = false; cancel.disabled = false; send.textContent = "记录";
-      if (!box.querySelector(".err")) {
-        const e = document.createElement("span"); e.className = "err"; e.textContent = " 记录失败"; box.appendChild(e);
-      }
-    }
-  };
-  box.append(ta, send, cancel);
-  bar.appendChild(box);
-  ta.focus();
-}
-
-// 归因必须取**这一条答案实际用的模型** (msgObj.modelId, 由 done 事件落进历史存档)。
-// topbar 文本是 /api/info 的 default_model, 与答题模型无关 —— 下拉可选模型之前"唯一
-// 答题模型就是 default 组"成立, 所以拿它凑合是对的; 现在它会把 A 模型的捏造记到 B 头上,
-// 而 dogfood_failures.md 是 append-only 的优先级 backlog, 错误写入即永久且无从回溯。
-// modelId 缺失 (下拉上线前存的旧历史) 时才退回 topbar 文本: 那些记录确实产自 default 组。
-function flagModelName(msgObj) {
-  const id = msgObj && msgObj.modelId;
-  // 回退过 ⇒ 答案是 modelsUsed 里那些模型产的, **不是**用户选的那个。把 DeepSeek 的捏造
-  // 记到 GPT-5.6 Sol 头上, 与终审 C-1 是同一个缺陷换了触发路径 (那次是切 topbar 文本,
-  // 这次是读了 modelId 但答案不是它产的)。两边都写进去: backlog 的读者既要知道谁捏造的,
-  // 也要知道当时选的是谁 —— 否则"为什么会用到这个模型"这条线索断了。
-  // Array.isArray 的理由与 modelBadgeText 那处相同 (容器级契约; 元素级由 server/router.py
-  // 收集处的 `if reported:` 保证, 那里只 append 真值串), 但**后果更重**: 这里抛出去的
-  // 异常穿过 postFlag ⇒ 用户点了 ⚑ 却什么都没记下, 而 backlog 是 append-only 的 (规则 B)。
-  // 缺陷本身把发现缺陷的渠道堵了。⛔ 同样别加 filter(Boolean): 那条路径不可达。
-  if (msgObj && msgObj.fellBack === true && Array.isArray(msgObj.modelsUsed)
-      && msgObj.modelsUsed.length) {
-    return `${msgObj.modelsUsed.join("、")}（回退自 ${id ? (modelLabelById[id] || id) : "未知"}）`;
-  }
-  if (id) return modelLabelById[id] || id;   // 表没加载好就发原始 id, 归因照样正确
-  return ($("topbar-title").textContent.split("·").pop() || "").trim() || null;
-}
-
-async function postFlag(question, answer, note, msgObj) {
-  const model = flagModelName(msgObj);
-  try {
-    const r = await fetch("/api/flag", {
-      method: "POST", headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ question, answer, note, model }),
-    });
-    return r.ok;
-  } catch (_) { return false; }
-}
-
-// ── SSE 流式 ──
-function parseSSE(raw) {
-  let event = "message", data = "";
-  for (const line of raw.split("\n")) {
-    if (line.startsWith("event:")) event = line.slice(6).trim();
-    else if (line.startsWith("data:")) data += line.slice(5).trim();
-  }
-  if (!data) return null;
-  try { return { event, data: JSON.parse(data) }; } catch (_) { return null; }
-}
-
-// 检索范围 checkbox → 后端 corpus 字面量 (auto|cdisc|study|both)。
-// 两个都不勾 = auto: 交给 LLM 判库 (federation.decide_corpus), 与改 checkbox 前的默认行为一致。
-function selectedCorpus() {
-  const cdisc = $("scope-cdisc").checked, study = $("scope-study").checked;
-  if (cdisc && study) return "both";
-  if (cdisc) return "cdisc";
-  if (study) return "study";
-  return "auto";
-}
-
-// 联网是与 corpus 正交的第四维: 只决定挂不挂 web_search 工具, 不参与判库。
-function webEnabled() { return $("scope-web").checked; }
-
-async function streamAsk(question, history, { onSources, onToken, onToolCall, onToolResult, onDone, onError, onClose, onAbort, signal }) {
-  let resp;
-  try {
-    const payload = { question, history, corpus: selectedCorpus(), web: webEnabled() };
-    // spec §5 裁定: UI **永远发显式 id**, 绝不依赖默认值落到 default 组 ——
-    // default 与 opus-5 今天都解析到 Opus 5, 但改 .env 的 default_model 会让二者静默分叉。
-    // 下拉为空 (info 没加载出来) 时**整个字段省略**, 由服务端默认值接管, 而不是硬塞 "default"
-    // ——「省略」与「显式传 default」在服务端是同一行为, 但省略不会在产物里留下一个
-    // 用户根本没做过的选择。
-    const chosen = $("model-select").value;
-    if (chosen) payload.model = chosen;
-    resp = await fetch("/api/ask_stream", {
-      method: "POST", headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload), signal,
-    });
-  } catch (e) {
-    if (signal?.aborted) { onAbort?.(); return; }
-    onError("无法连接服务"); return;
-  }
-  if (!resp.ok) { onError(`服务错误 ${resp.status}`); return; }
-  const reader = resp.body.getReader();
-  const dec = new TextDecoder();
-  let buf = "";
-  let terminal = false; // saw a done/error frame
-  const dispatch = (ev) => {
-    if (!ev) return;
-    if (ev.event === "sources") onSources(ev.data.sources || [], ev.data.routed_corpus || null);
-    else if (ev.event === "token") onToken(ev.data.text || "");
-    else if (ev.event === "tool_call") onToolCall?.(ev.data || {});
-    else if (ev.event === "tool_result") onToolResult?.(ev.data || {});
-    else if (ev.event === "done") { terminal = true; onDone(ev.data || {}); }
-    else if (ev.event === "error") { terminal = true; onError(ev.data.message || "生成失败"); }
-  };
-  try {
-    while (true) {
-      const { value, done } = await reader.read();
-      if (done) break;
-      buf += dec.decode(value, { stream: true });
-      let i;
-      while ((i = buf.indexOf("\n\n")) !== -1) {
-        dispatch(parseSSE(buf.slice(0, i)));
-        buf = buf.slice(i + 2);
-      }
-    }
-  } catch (e) {
-    // User hit Stop -> AbortError on the pending read. Treat as a clean stop (keep partial).
-    if (signal?.aborted) { onAbort?.(); return; }
-    onError("连接中断"); return; // genuine network drop mid-stream
-  }
-  // A terminal frame cut exactly at EOF (no trailing \n\n) would otherwise be lost.
-  if (!terminal && buf.trim()) dispatch(parseSSE(buf));
-  // Clean TCP close with NO done/error frame (worker killed mid-stream, reverse-proxy
-  // idle-timeout in 阶段3, generator died before the done yield): neither onDone nor onError
-  // fired — without this the streamed answer is on screen but never persisted (lost on reload).
-  if (!terminal && onClose) onClose();
-}
+const scroller = initScrollFollow($("messages"), $("to-bottom"));
 
 // ── 发送 / 停止 / 重试 ──
 let busy = false;
@@ -473,6 +31,7 @@ function setSending(on) {
   b.textContent = on ? "停止" : "发送";
   b.classList.toggle("stop", on);
   b.disabled = false; // stay clickable while streaming so it can Stop
+  $("show-citations").disabled = on; // 生成中切换会触发整体重渲染, 抹掉在途气泡 (spec §5)
 }
 function stop() { if (currentAbort) currentAbort.abort(); }
 
@@ -481,7 +40,8 @@ async function send(text) {
   const c = current();
   c.messages.push({ role: "user", content: text });
   if (c.messages.length === 1) c.title = text.slice(0, 30);
-  save(); renderSidebar(); renderMessages();
+  save(); paintAll();
+  scroller.follow();
   await runGeneration(c);
 }
 
@@ -492,7 +52,7 @@ function retry(c) {
   while (c.messages.length && c.messages[c.messages.length - 1].role === "assistant") {
     c.messages.pop();
   }
-  save(); renderMessages();
+  save(); renderMessages(messageHandlers);
   if (c.messages.some((m) => m.role === "user")) runGeneration(c);
 }
 
@@ -503,9 +63,9 @@ async function runGeneration(c) {
   busy = true; setSending(true);
 
   const box = $("messages");
-  const holder = messageEl("assistant", "", null);
-  box.appendChild(holder); box.scrollTop = box.scrollHeight;
-  const bubble = holder.querySelector(".bubble");
+  const turn = messageEl({ role: "assistant", content: "" });
+  box.appendChild(turn); scroller.scrollToBottom();
+  const bubble = turn.querySelector(".bubble");
 
   // History = everything BEFORE the current question (excludes the last user msg), capped.
   const history = c.messages.slice(0, lastUserIdx)
@@ -524,7 +84,28 @@ async function runGeneration(c) {
   let gotFellBack = null;
   let saved = false;
   let savedMsg = null;
-  const renderFinal = (content) => { bubble.innerHTML = mdToSafeHTML(content); highlightIn(bubble); };
+
+  // ── 流式渲染: rAF 节流, 每帧最多一次全量 markdown 解析 (spec §4) ──
+  // 旧版流中只 textContent 追加、done 后才渲染 —— 用户全程看裸 md 语法。全量重解析在
+  // < 10 KB 文本上单次 < 2 ms, 不做增量 diff (YAGNI)。高亮只在 finalize 时跑一次 (流中会闪)。
+  let dirty = false, rafId = 0;
+  const paint = () => {
+    rafId = 0;
+    if (!dirty) return;
+    dirty = false;
+    try {
+      bubble.innerHTML = renderMarkdown(acc, { streaming: true, showCitations: prefs.showCitations });
+    } catch (_) {
+      bubble.textContent = acc; // marked 理论上不抛; 真抛了也不能让流断掉
+    }
+    if (scroller.isFollowing()) scroller.scrollToBottom();
+  };
+  const renderFinal = (content) => {
+    if (rafId) { cancelAnimationFrame(rafId); rafId = 0; }
+    dirty = false;
+    finalizeBubble(bubble, content);
+    if (scroller.isFollowing()) scroller.scrollToBottom();
+  };
   const persist = (content) => {
     if (saved) return;
     saved = true;
@@ -535,34 +116,19 @@ async function runGeneration(c) {
                  // 存档里一条 DeepSeek 答的消息与 Opus 5 答的长得一模一样。
                  modelsUsed: gotModelsUsed, fellBack: gotFellBack };
     c.messages.push(savedMsg);
-    save(); renderSidebar();
+    save(); renderSidebar(sidebarHandlers);
   };
-  const appendErr = (msg) => {
-    const e = document.createElement("div"); e.className = "err"; e.textContent = "⚠ " + msg;
-    bubble.appendChild(e);
-  };
-  const appendRetry = () => {
-    const btn = document.createElement("button");
-    btn.className = "retry"; btn.textContent = "重试";
-    btn.onclick = () => retry(c);
-    holder.appendChild(btn);
-  };
+  const fail = (msg) => { appendErr(bubble, msg); appendRetry(turn, () => retry(c)); };
 
   const ctrl = new AbortController();
   currentAbort = ctrl;
   try {
-    await streamAsk(text, history, {
-      onSources: (s, routed) => {
-        gotSources = s; gotRouted = routed;
-        const meta = metaEl(routed);
-        if (meta) holder.appendChild(meta);
-        if (s.length) holder.appendChild(sourcesEl(s));
-      },
-      // 流中只追加纯文本 (DESIGN §4: 避免每 token 重解析 markdown/重高亮, O(n^2) jank)。
-      onToken: (t) => { acc += t; bubble.textContent = acc; box.scrollTop = box.scrollHeight; },
-      onToolCall: (d) => onToolCallUI(holder, d),
-      onToolResult: (d) => onToolResultUI(holder, d),
-      // done 后整体渲染 markdown 一次; 空回答用占位 (DESIGN §6)。
+    await streamAsk({ question: text, history, corpus: selectedCorpus(), web: webEnabled(),
+                      model: $("model-select").value }, {
+      onSources: (s, routed) => { gotSources = s; gotRouted = routed; setSources(turn, s, routed); },
+      onToken: (t) => { acc += t; dirty = true; if (!rafId) rafId = requestAnimationFrame(paint); },
+      onToolCall: (d) => onToolCallUI(turn, d),
+      onToolResult: (d) => onToolResultUI(turn, d),
       onDone: (data) => {
         gotWebStatus = (data || {}).web_status; gotWebSearchesOk = (data || {}).web_searches_ok;
         // ?? 只在 null/undefined 时取右值, false 会原样保留 —— 与 renderModelBadge 的
@@ -574,32 +140,33 @@ async function runGeneration(c) {
         // 挡 (后端发个裸串就能让整段历史渲染不出来, 见那里的注释)。
         gotModelsUsed = (data || {}).models_used ?? null;
         gotFellBack = (data || {}).fell_back ?? null;
-        renderWebStatus(holder, gotWebStatus, gotWebSearchesOk);
-        renderModelBadge(holder, "assistant", gotModelId, gotVerified, gotModelsUsed, gotFellBack);
+        renderWebStatus(turn, gotWebStatus, gotWebSearchesOk);
+        renderModelBadge(turn, gotModelId, gotVerified, gotModelsUsed, gotFellBack);
         const content = acc.trim() ? acc : "(无内容)"; renderFinal(content); persist(content);
       },
-      onError: (msg) => { if (acc) { renderFinal(acc); persist(acc); } appendErr(msg); appendRetry(); },
+      onError: (msg) => { if (acc) { renderFinal(acc); persist(acc); } fail(msg); },
       // 干净 EOF 但无 done/error: 内容已在屏上, 落盘防刷新丢失 (规则 D HIGH 修复)。
-      onClose: () => { if (acc) { renderFinal(acc); persist(acc); appendErr("连接中断（已保留已生成内容）"); } else appendErr("连接中断"); appendRetry(); },
+      onClose: () => { if (acc) { renderFinal(acc); persist(acc); fail("连接中断（已保留已生成内容）"); } else fail("连接中断"); },
       // 用户点「停止」: 保留已生成部分, 不报错样式, 给重试入口。
-      onAbort: () => { if (acc) { renderFinal(acc); persist(acc); } appendErr("已停止"); appendRetry(); },
+      onAbort: () => { if (acc) { renderFinal(acc); persist(acc); } fail("已停止"); },
       signal: ctrl.signal,
     });
   } finally {
     busy = false; setSending(false); currentAbort = null;
-    // attach the ⚑ flag affordance once the answer is final + persisted (skip if nothing saved)
-    if (savedMsg) attachFlag(holder, text, savedMsg);
+    // attach the tools (复制 / ⚑) once the answer is final + persisted (skip if nothing saved)
+    if (savedMsg) attachTools(turn, text, savedMsg);
   }
 }
 
-// ── topbar: 显示后端真实 default_model + 联邦开关 (读 /api/info) ──
+// ── topbar/设置: 显示后端真实 default_model + 联邦开关 + 模型下拉 (读 /api/info) ──
 async function loadModelName() {
   try {
     const r = await fetch("/api/info");
     if (!r.ok) return; // not logged in / info unavailable -> keep static label, 选择器保持隐藏
     const info = await r.json();
     const m = (info.default_model || "").split("/").pop();
-    if (m) $("topbar-title").textContent = "SDTM 知识库助手 · " + m;
+    const tm = $("topbar-model");
+    if (m) { tm.dataset.defaultModel = m; tm.textContent = m; }
     // 联邦未构建时后端会静默忽略 corpus, 别留个无效控件在界面上
     $("scope").hidden = !info.federation;
     // 下拉从 /api/info 的模型表渲染 —— 与 Router 组同源, 故不可能提供后端没有的模型。
@@ -619,6 +186,7 @@ async function loadModelName() {
     const syncWarning = () => {
       const o = sel.selectedOptions[0];
       $("model-warning").hidden = !o || o.dataset.verified === "true";
+      if (o) tm.textContent = modelLabelById[o.value] || o.value; // 顶栏显示当前所选模型
     };
     sel.addEventListener("change", () => {
       localStorage.setItem("sdtm_model", sel.value);
@@ -626,15 +194,18 @@ async function loadModelName() {
     });
     syncWarning();
     refreshModelBadgeLabels(); // 原地补字, 不重建 #messages (理由见函数注释)
+    // 空状态的示例卡依赖 federation 才知道要不要显示 ST01 那张; 只在空会话时重画
+    const c = store.conversations.find((x) => x.id === store.currentId);
+    if (c && !c.messages.length && !busy) renderMessages(messageHandlers);
   } catch (_) {}
 }
 
 // ── 事件绑定 ──
-$("new-chat").onclick = () => { newConversation(); renderSidebar(); renderMessages(); $("input").focus(); };
+$("new-chat").onclick = () => { newConversation(); paintAll(); $("input").focus(); };
 $("composer").onsubmit = (e) => {
   e.preventDefault();
   if (busy) { stop(); return; } // button is in "停止" mode while streaming
-  const v = $("input").value; $("input").value = ""; $("input").style.height = "auto"; send(v);
+  const v = $("input").value; $("input").value = ""; autoGrow($("input")); send(v);
 };
 $("input").addEventListener("keydown", (e) => {
   // IME 组字中 (中文拼音/日文假名等) 的回车是「上屏候选/确认」, 不能当发送。
@@ -645,10 +216,17 @@ $("input").addEventListener("keydown", (e) => {
     $("composer").requestSubmit();
   }
 });
-$("input").addEventListener("input", (e) => { e.target.style.height = "auto"; e.target.style.height = e.target.scrollHeight + "px"; });
+$("input").addEventListener("input", (e) => autoGrow(e.target));
+
+initSettings($("settings-btn"), $("settings-panel"));
+initSidebar({ sidebar: $("sidebar"), collapseBtn: $("collapse-side"), expandBtn: $("expand-side"), prefs, savePrefs });
+$("show-citations").checked = prefs.showCitations;
+$("show-citations").addEventListener("change", (e) => {
+  prefs.showCitations = e.target.checked; savePrefs();
+  if (!busy) renderMessages(messageHandlers); // busy 时控件是 disabled 的, 到不了这里
+});
 
 // ── 启动 ──
 if (!store.conversations.length) newConversation();
-renderSidebar();
-renderMessages();
+paintAll();
 loadModelName();
