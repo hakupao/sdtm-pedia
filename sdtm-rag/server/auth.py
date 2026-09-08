@@ -163,15 +163,24 @@ class TokenBucketLimiter:
 
 
 class RateLimitMiddleware:
+    # 静态壳子整体豁免: 前端拆成 ES 模块后, 冷加载一次 `/` 就是 ~16 个请求 (`/` + style.css
+    # + app.js + 7 个 `/static/js/*.js` + vendor), 远超 BURST=10, 于是每次刷新都有几个模块
+    # 随机吃 429, 页面起不来 —— 而这些是一次页面加载的固定开销, 不是攻击面。静态壳子按设计
+    # 发 no-cache (必须回源校验), 缓存并不能把请求数压下去。真正要挡的 `/api/*` 一个不放。
     def __init__(self, app, *, limiter: TokenBucketLimiter, trust_forwarded: bool = False,
-                 exempt: tuple[str, ...] = ("/api/health",)):
+                 exempt: tuple[str, ...] = ("/api/health", "/"),
+                 exempt_prefixes: tuple[str, ...] = ("/static/",)):
         self.app = app
         self.limiter = limiter
         self.trust_forwarded = trust_forwarded
         self.exempt = set(exempt)
+        self.exempt_prefixes = tuple(exempt_prefixes)
+
+    def _is_exempt(self, path: str) -> bool:
+        return path in self.exempt or path.startswith(self.exempt_prefixes)
 
     async def __call__(self, scope, receive, send):
-        if scope["type"] != "http" or scope["path"] in self.exempt:
+        if scope["type"] != "http" or self._is_exempt(scope["path"]):
             return await self.app(scope, receive, send)
         ip = _client_ip(scope, self.trust_forwarded)
         ok, retry = self.limiter.allow(ip)
