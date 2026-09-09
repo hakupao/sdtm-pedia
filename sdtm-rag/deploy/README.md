@@ -10,6 +10,13 @@
 `Secure`。这是 §1 锁定「FastAPI 共享口令」的固有取舍。更强方案 (VPN / TLS / Cloudflare
 Tunnel) 见 DEPLOY_PLAN §6 路线图。**口令请用长随机串** (限流 30/min 已挡暴力, 但口令熵是底线)。
 
+## 前置: 系统依赖
+
+`pdftoppm` / `pdftotext` (poppler)。`brew install poppler`。
+画面 PDF 旁路 (`SDTM_RAG_PDF_CONTEXT_ENABLED`, 默认 false) 开着而 pdftoppm / 页索引 /
+两份 PDF 任一缺失, 或 PDF 的 sha256 与索引记录不符 ⇒ **启动失败**, 不静默降级。
+七个 `SDTM_RAG_PDF_*` 键与索引重建命令见 `.env.example` 末节。
+
 ## 前置 (用户侧, go-live 硬阻塞)
 
 1. 找 IT 要**固定内网 IP/主机名** + **数据出境/公司网跑服务的安全签字**。

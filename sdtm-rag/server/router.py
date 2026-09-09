@@ -57,6 +57,15 @@ CONTINUE_PROMPT = (
     "citation rules ([Source: path] / [Web: url] verbatim)."
 )
 
+# C2R 画面 PDF 旁路 (I2-3)。画像が付いたときだけ system prompt の末尾に足す 1 文。
+# ⛔ 常時足してはいけない: 画像が無い回答で「画面目視判読」という出典名だけが存在すると、
+# モデルがそれを**使ってよい出典**と読み、カードから読んだ事実に画面の看板を付けかねない。
+# 文面が日本語なのは study 側 prompt の既存規則 (_DOC_CORPUS_RULES / L1) と揃えるため。
+_PDF_SOURCE_RULE = (
+    "\n- 画面ページ画像が添付されている場合、そこから読み取った事実は必ず"
+    "『画面目視判読 p.NN』として出典を分け、カード事実・標準引用と混ぜない。\n"
+)
+
 
 # ── Request / Response models ────────────────────────────────────────────
 
@@ -106,6 +115,11 @@ class AskResponse(BaseModel):
     # 续写轮抛异常时的异常类名 (None = 没发生)。⛔ 不并进 `truncated`: "写到上限了"与
     # "续写的时候炸了"是两件事, 调用方对后者该有别的反应 (重试往往能成)。
     continue_error: str | None = None
+    # C2R 画面 PDF 旁路 (I2-3)。ask_stream の done 事件と同名同義。None = 通道が動いて
+    # いない (OFF か不発火); リストなら実際に添付した頁。既定 None なので既存の呼び出し
+    # 側は一行も変わらない。
+    pdf_trigger: str | None = None
+    pdf_pages: list[dict] | None = None
 
 
 class InfoResponse(BaseModel):
@@ -160,6 +174,69 @@ def info(request: Request):
         index_freshness_reason=getattr(request.app.state, "index_freshness_reason", None),
         federation=getattr(request.app.state, "federation", None) is not None,
     )
+
+
+def maybe_attach_pdf_pages(request: Request, question: str, chunks, messages):
+    """命中カードの形が P1 §3 の規則に当たれば、画面ページ画像を user メッセージに足す。
+
+    戻り値 `(pdf_pages, rule)` は観測用 (done 事件 / AskResponse)。付けなかったときは
+    `(None, None)` —— 空リストではなく None なのは「通道が動いて 0 枚」と「そもそも
+    動いていない」を客側で区別できるようにするため。
+
+    ⚠ 開関 OFF (既定) では `app.state.pdf_context` が None ⇒ `messages` に一切触れない。
+    「OFF なら本機能導入前と逐位同一」はこの 1 行の早期 return が担保している。
+    /api/ask と /api/ask_stream の**両方**から呼ぶ (2 箇所に書くと片方だけ直る)。
+    """
+    builder = getattr(request.app.state, "pdf_context", None)
+    if builder is None:
+        return None, None
+    from server.pdf_trigger import parse_chunks, should_attach_pdf
+
+    # CDISC chunk / 手順書章節は CardFacts.from_text が None を返して落ちる (front matter の
+    # doc_type で判別) ので、ここで corpus を見て絞る必要は無い。
+    cards = parse_chunks(chunks)
+    # R3 の関連性フロア (M10)。壊れても本リクエストは通す —— フロアの供給元が落ちる代償は
+    # 「R3 が発火しない」であるべきで、/api/ask が 500 になることではない。
+    lookup = getattr(request.app.state, "study_lookup", None)
+    strong = form_named = False
+    if lookup is not None:
+        try:
+            strong = bool(lookup.strong_hit(question))
+            # (c-1) 別名表経由 (通道 ③)。⚠ 検索側 (`_apply_study_lookup`) も同じ
+            # `resolve` を呼ぶが、結果はどこにも残らず rag.py は凍結中なのでここで
+            # 2 度目を呼ぶ。実測 0.01-0.03 ms/回 (in-memory の文字列照合のみ、LLM も
+            # 埋め込みも無い) —— 1 リクエストの数十秒に対して無視できる。
+            form_named = bool(lookup.resolve(question).form_scopes)
+        except Exception:  # noqa: BLE001
+            log.warning("pdf_trigger_study_floor_failed", exc_info=True)
+    # (c-2) 頁索引の名前表経由 (r3b)。別名表は実データで 1 件しか無く、それだけを
+    # フロアにすると「フォームを名指しした純粋な画面レイアウト問い」が落ちる (V3
+    # attempt 1 の T6)。別名表を増やす手もあるが、あちらは検索の注入に効くので
+    # golden の再走が要る —— こちらは触発判定だけを見て検索を 1 件も動かさない。
+    form_named = form_named or builder.index.form_named_in(question) is not None
+    decision = should_attach_pdf(question, cards, study_strong_hit=strong,
+                                 study_form_named=form_named)
+    if not decision.fire:
+        return None, None
+    selection = builder.select_pages(cards, question)
+    images = builder.render(selection)
+    parts = builder.to_message_parts(selection, images)
+    if not parts:
+        # 描画が全部失敗した (pdftoppm 不在など)。builder 側が warning を 1 度出している。
+        # ⛔ None に丸めない: 「規則に当たらなかった」と区別が付かなくなり、
+        # 「なぜ画面が付かないのか」を後から切り分けられない (M4)。
+        log.warning("pdf_context_no_pages_rendered", rule=decision.rule,
+                    selected=len(selection.pages))
+        return [], decision.rule
+    last = messages[-1]
+    last["content"] = [{"type": "text", "text": last["content"]}, *parts]
+    messages[0]["content"] += _PDF_SOURCE_RULE
+    log.info("pdf_context_attached", rule=decision.rule, pages=len(images),
+             selected=len(selection.pages), folded=len(selection.folded),
+             truncated=selection.truncated, reason=decision.reason)
+    # 報告するのは**実際に付いた**頁 (M3): 答えの中の 画面目視判読 p.NN がどの頁から
+    # 来たのかを後から辿れる唯一の記録がこれ。
+    return [{"pdf": i.pdf, "page": i.page} for i in images], decision.rule
 
 
 @api_router.post("/ask", response_model=AskResponse)
@@ -225,6 +302,7 @@ def ask(body: AskRequest, request: Request):
                                       corpus=routed or body.corpus)
     else:
         messages = rag.build_messages(body.question, context, history_dicts or None)
+    pdf_pages, pdf_trigger = maybe_attach_pdf_pages(request, body.question, chunks, messages)
 
     # 输出触顶自动续写 (2026-09-08)。⚠ 这里是**第二份**实现: /api/ask 走同步
     # `llm_router.completion`, 与 ask_stream 的 `acompletion` 不共用任何辅助函数。
@@ -342,6 +420,8 @@ def ask(body: AskRequest, request: Request):
         continue_rounds=continue_rounds,
         truncated=truncated,
         continue_error=continue_error,
+        pdf_trigger=pdf_trigger,
+        pdf_pages=pdf_pages,
     )
 
 
@@ -422,6 +502,7 @@ async def ask_stream(body: AskStreamRequest, request: Request):
                                       corpus=routed or body.corpus)
     else:
         messages = rag.build_messages(body.question, context, history_dicts or None)
+    pdf_pages, pdf_trigger = maybe_attach_pdf_pages(request, body.question, chunks, messages)
     sources = [
         {"chunk_id": c.chunk_id, "source": c.source, "domain": c.domain,
          "file_type": c.file_type, "section": c.section,
@@ -691,7 +772,11 @@ async def ask_stream(body: AskStreamRequest, request: Request):
                                "usage": usage, "web_status": web_status,
                                "web_searches_ok": web_ok,
                                "continue_rounds": continue_rounds,
-                               "truncated": truncated})
+                               "truncated": truncated,
+                               # 画面 PDF 旁路 (I2-3)。通道 OFF / 不発火なら両方 null ——
+                               # 「付いていない」と「0 枚付いた」を客側が区別できる形。
+                               "pdf_trigger": pdf_trigger,
+                               "pdf_pages": pdf_pages})
         except Exception as e:  # noqa: BLE001 — 流已开, 以事件形式暴露
             log.error("stream_failed", error=str(e), exc_info=True)
             yield sse("error", {"message": "LLM stream failed"})

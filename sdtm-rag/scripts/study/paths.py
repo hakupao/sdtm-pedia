@@ -24,6 +24,12 @@ class StudyPaths:
     cards_dir: Path
     # C1 文档轨: registry 里 doc_pdfs 缺省时为空 tuple, xlsx 轨照跑不误.
     doc_pdfs: tuple[Path, ...] = ()
+    # C2R 画面判读通道 (PLAN_c2r_pdf_bypass.md I2-1): 两份画面 PDF. 与 doc_pdfs 分开列而
+    # 不并进那个 tuple —— 两份各有固定分工 (workflow=活动实际显示 / annotated=表单画面+OID),
+    # 消费端要按名取, 而 tuple 只能按位取, 顺序一换就静默换了语义.
+    # 缺省 None: 没登记这两个键的 registry (今日的 st01 之外) 照跑, 通道自己不可用而已.
+    pdf_workflow: Path | None = None
+    pdf_annotated: Path | None = None
 
     @property
     def docs_dir(self) -> Path:
@@ -78,4 +84,8 @@ def resolve_study(study_id: str, registry_path: Path | str | None = None) -> Stu
         out_dir=out_dir,
         cards_dir=out_dir / "cards",
         doc_pdfs=tuple(doc_pdfs),
+        # required=False だが「登録されているのに実体が無い」は _file が FileNotFoundError:
+        # 黙って None に落ちると, 通道が丸ごと OFF なのを誰も気付かない.
+        pdf_workflow=_file("pdf_workflow", required=False),
+        pdf_annotated=_file("pdf_annotated", required=False),
     )

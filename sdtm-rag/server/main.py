@@ -67,6 +67,46 @@ def maybe_build_answerer(s):
     return CompositeAnswerer(answerers)
 
 
+def maybe_build_pdf_context(s):
+    """C2R 画面 PDF 通道 (I2-3)。OFF (既定) なら None —— 通道は 1 行も走らない。
+
+    ON で索引 / PDF / pdftoppm のどれかが欠けていたら **起動を落とす**。ここで静かに
+    None を返すと「開けたつもりで一枚も付かない」という完全に無症状の状態になる ——
+    S1 の VI マップ予熱と同じ理由で、失敗点をリクエスト期から配備動作へ前倒しする。
+    `maybe_build_answerer` と同じく FastAPI 抜きで単体テストできる純関数に保つ。
+    """
+    if not s.pdf_context_enabled:
+        return None
+    from server.pdf_context import PdfContextBuilder, PdfPageIndex
+
+    idx = Path(s.pdf_page_index_path)
+    if not idx.is_file():
+        raise RuntimeError(
+            f"pdf_context_enabled=true だが頁索引が無い: {idx} — "
+            "`uv run python scripts/study/build_pdf_page_index.py` で生成する"
+        )
+    wf, ann = s.pdf_workflow_path, s.pdf_annotated_path
+    if not (wf and ann):
+        # 真名は studies.local.yaml にしか無い。registry ごと欠けている環境では
+        # resolve_study が FileNotFoundError を投げる —— それも起動失敗で正しい。
+        from scripts.study.paths import resolve_study
+        sp = resolve_study(s.pdf_context_study_id)
+        wf, ann = wf or sp.pdf_workflow, ann or sp.pdf_annotated
+        if not (wf and ann):
+            raise RuntimeError(
+                f"pdf_context_enabled=true だが registry に pdf_workflow/pdf_annotated が無い "
+                f"(study={s.pdf_context_study_id})"
+            )
+    builder = PdfContextBuilder(
+        PdfPageIndex.load(idx), {"workflow": Path(wf), "annotated": Path(ann)},
+        max_pages=s.pdf_context_max_pages, dpi=s.pdf_context_dpi,
+        cache_dir=s.pdf_context_cache_dir,
+    )
+    if not builder.status.available:
+        raise RuntimeError(f"pdf_context_enabled=true だが使えない: {builder.status.reason}")
+    return builder
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Read the ONE settings object the factory installed on app.state (create_app sets it
@@ -239,6 +279,15 @@ async def lifespan(app: FastAPI):
             aggregate=s.aggregate_answer_enabled,
             graph=s.graph_answer_enabled,
         )
+    # R3 (画面/レイアウト語) の関連性フロア用 (M10)。federation が無い / S2 が OFF の
+    # 構成では None —— その場合フロアは「直查経由のカードが在るか」だけになり、R3 は
+    # 発火しにくくなる (安全側)。
+    app.state.study_lookup = study_lookup
+    # C2R 画面 PDF 通道 (既定 OFF)。ログは ON のときだけ —— OFF の 1 行は毎起動の雑音。
+    app.state.pdf_context = maybe_build_pdf_context(s)
+    if app.state.pdf_context is not None:
+        log.info("pdf_context", max_pages=s.pdf_context_max_pages, dpi=s.pdf_context_dpi,
+                 index=str(s.pdf_page_index_path))
     app.state.spec_loader = SpecLoader(s.kb_root)
     log.info("spec_loader", domains=len(app.state.spec_loader.domains),
              codelists=len(app.state.spec_loader.codelists))

@@ -20,6 +20,8 @@ def _engine(*, web_search_enabled: bool, prompt_guardrail_enabled: bool = True):
     eng = RAGEngine.__new__(RAGEngine)
     eng.prompt_guardrail_enabled = prompt_guardrail_enabled
     eng.web_search_enabled = web_search_enabled
+    # L1: study 側だけの OID 命名規則を持たない構成 = ここで測るのは CDISC 側の prompt
+    eng._study_lookup = None
     eng._routing_md = "(routing)"
     eng._index_md = "(index)"
     return eng

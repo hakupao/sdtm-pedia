@@ -22,13 +22,21 @@ class _Stub:
         self.name, self.system_prompt = name, f"SYS-{name}"
         self._chunks = [_chunk(f"{name}-{i}", file_type, 0.9 - i * 0.01) for i in range(n)]
         self.calls = []
+        self.glossary_flags = []
+        self.gloss = False        # L1: 対応表を出す stub にしたい試験だけ True にする
 
     def retrieve(self, q, *, top_k=None, **kw):
         self.calls.append(top_k)
         return self._chunks[: (top_k or 15)]
 
-    def format_context(self, chunks):
+    def format_context(self, chunks, *, glossary=True):
+        # L1: 組合器は cards 側の対応表を必ず止める (自分で全体に一度だけ出すため)。
+        # 既定 True のまま受け取るのは、単庫 study 経路と docs 引擎がそのまま呼ぶから。
+        self.glossary_flags.append(glossary)
         return f"CTX-{self.name}({len(chunks)})"
+
+    def glossary_block(self, context):
+        return f"[GLOSS {self.name}]" if self.gloss else ""
 
 
 def _engine(doc_seats=5, n_cards=20, n_docs=20):
@@ -282,3 +290,66 @@ def test_unknown_kwarg_fails_loud_not_silently_swallowed():
     eng, _, _ = _engine(doc_seats=5)
     with pytest.raises(TypeError):
         eng.retrieve("q", top_k=15, doc_seat=8)
+
+
+# ── L1: EDC OID 対応表 は study 文脈全体の**末尾に一度だけ** ──────────────────
+#
+# 対応表を引けるのは cards 引擎だけ (docs 引擎には設計上 study_lookup を渡さない ——
+# `_DOCS_ENGINE_OWNED_KWARGS` が実際に禁じている)。だからといってカード節の中で出すと
+# 手順書章節の OID が訳されないまま残る (実測 125 doc 中 20 件に catalog の OID が出る)。
+# ⇒ 組合器が両節を組んだ**あと**の全体を走査して、末尾に一度だけ出す。
+
+
+def _rag_engine(lookup):
+    """format_context / glossary_block だけ動く最小 RAGEngine (chroma を作らない)。"""
+    from server.rag import RAGEngine
+
+    eng = RAGEngine.__new__(RAGEngine)
+    eng._study_lookup = lookup
+    return eng
+
+
+def _oid_chunk(cid, file_type, oid):
+    """偽 catalog (GLOSSARY_CATALOG) の OID を本文に持つチャンク。"""
+    return RetrievedChunk(chunk_id=cid, source=f"{cid}.md", domain=None,
+                          file_type=file_type, section=None, similarity=0.5,
+                          text=f"- 非表示アクティビティ: {oid}")
+
+
+def test_glossary_covers_both_sections_and_appears_once_at_the_end():
+    from scripts.tests.test_study_lookup import GLOSSARY_CATALOG
+    from server.rag import _GLOSSARY_HEADING
+    from server.study_lookup import StudyLookup
+
+    eng = StudyCorpusEngine(_rag_engine(StudyLookup(GLOSSARY_CATALOG)),
+                            _rag_engine(None), doc_seats=1)
+    # カード側と手順書側で**別々の** OID —— 片方しか走査しない実装はここで落ちる
+    ctx = eng.format_context([_oid_chunk("card-0", "field_card", "XACT_B1"),
+                              _oid_chunk("doc-0", "protocol_section", "XACT_A2")])
+
+    assert ctx.count(_GLOSSARY_HEADING) == 1
+    assert "- XACT_B1 = 偽イベント乙 › 偽活動乙" in ctx      # カード節由来
+    assert "- XACT_A2 = 偽イベント甲 › 偽活動甲" in ctx      # 手順書節由来 (MINOR-1)
+    assert ctx.index("## 【手順書章節】") < ctx.index(_GLOSSARY_HEADING)
+    assert ctx.rstrip().endswith("偽活動乙")                # 末尾ブロック
+
+
+def test_cards_engine_glossary_is_suppressed_so_it_cannot_appear_twice():
+    """組合器は cards に `glossary=False` を渡す。渡さないと対応表が二度出る
+    (カード節の中に一度 + 末尾に一度)。stub のフラグでその一点だけを钉る。"""
+    eng, cards, docs = _engine(doc_seats=1)
+    cards.gloss = True
+    ctx = eng.format_context(eng.retrieve("q", top_k=2))
+
+    assert cards.glossary_flags == [False]
+    assert ctx.count("[GLOSS card]") == 1
+    assert ctx.rstrip().endswith("[GLOSS card]")
+
+
+def test_no_glossary_block_when_the_lookup_finds_nothing():
+    """対応表が空なら余計な改行も残さない (空の付録はモデルに"探して無かった"と読まれる)。"""
+    eng, cards, _ = _engine(doc_seats=1)
+    cards.gloss = False
+    ctx = eng.format_context(eng.retrieve("q", top_k=2))
+    assert "[GLOSS" not in ctx
+    assert ctx == ctx.rstrip()

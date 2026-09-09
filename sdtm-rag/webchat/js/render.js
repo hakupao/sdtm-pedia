@@ -3,6 +3,7 @@ import { store, prefs, modelLabelById } from "./store.js";
 import { renderMarkdown, highlightIn } from "./markdown.js";
 import { copyText, flash, armDelete, inlineRename, $ } from "./ui.js";
 import { flagButton } from "./flag.js";
+import { pdfAttachView } from "./pdfpages.js";
 
 // Plan B 联邦: 库标签 (日文 UI)。map 里没有的值 (null / 未知) 一律不渲染徽章 —— 联邦关时零变化。
 const CORPUS_LABEL = { cdisc: "標準", study: "本研究", both: "両方" };
@@ -94,6 +95,9 @@ export function messageEl(m) {
     renderModelBadge(turn, m.modelId, m.verified, m.modelsUsed, m.fellBack);
     // 第三次同一个坑: 一条"写到上限被截断"的答案与一条完整答案在存档里必须长得不一样。
     renderContinuation(turn, m.continueRounds, m.truncated);
+    // 第四次: 一条"看过画面 PDF 才答出来"的答案与纯卡片答案在存档里也必须长得不一样 ——
+    // 正文里那句「画面目視判読 p.NN」指向哪几页, 只有这一行说得出来 (M3)。
+    renderPdfPages(turn, m.pdfPages, m.pdfTrigger);
   }
   return turn;
 }
@@ -253,6 +257,37 @@ export function renderContinuation(turn, continueRounds, truncated) {
   const meta = metaBox(turn);
   if (!meta || meta.querySelector(".chip.continue")) return;
   meta.appendChild(chip(`自动续写 ×${n}`, "continue"));
+}
+
+// ── C2R 画面 PDF 旁路 (I2-4) ──
+//
+// 三态语义与"什么都不画"的边界全在 js/pdfpages.js 的 pdfAttachView 里, 这里只负责画。
+// ⚠ view 为 null 时**在建任何元素之前**就返回: 通道关 (默认) 时这条渲染路径必须与本功能
+// 上线前逐字节相同, 一个空 div 都不留 —— 有人靠"页面上有没有这一行"判断开关开没开。
+export function renderPdfPages(turn, pdfPages, pdfTrigger) {
+  const view = pdfAttachView(pdfPages, pdfTrigger);
+  if (!view) return;
+  if (turn.querySelector(":scope > .pdf-attach")) return; // 历史重绘 + onDone 各调一次
+  const row = document.createElement("div");
+  // class 只从白名单取, 不拼服务端字符串 (同 corpusBadge)
+  row.className = view.mode === "none" ? "pdf-attach empty" : "pdf-attach";
+  const lead = document.createElement("span");
+  lead.className = "pdf-lead";
+  lead.textContent = view.lead;
+  if (view.hint) lead.title = view.hint;
+  row.appendChild(lead);
+  for (const label of view.chips) row.appendChild(chip(label, "pdf-page"));
+  if (view.rule) {
+    const r = document.createElement("span");
+    r.className = "pdf-rule";
+    r.textContent = view.rule;
+    if (view.hint) r.title = view.hint;
+    row.appendChild(r);
+  }
+  // 紧跟 chips 行、在「来源」折叠区之前: 说的是这条答案的证据成色, 与 judgement/模型徽章同级。
+  const meta = metaBox(turn);
+  if (meta) meta.insertAdjacentElement("afterend", row);
+  else turn.appendChild(row);   // 缺 .turn-meta 容器时不抛 (同 renderModelBadge)
 }
 
 // ── 来源 (SSE sources 事件) + 判定库 chip ──

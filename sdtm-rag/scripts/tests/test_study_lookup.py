@@ -674,3 +674,214 @@ def test_resolve_total_cap_still_truncates_after_the_refactor():
         _item("FRM_C", f"FAM_{i}", "偽共通ラベル") for i in range(12)
     ]}
     assert len(StudyLookup(cat).resolve("偽共通ラベルの話").cards) <= _MAX_CARDS_TOTAL
+
+
+# ── L1: EDC OID 対応表 (答題時の文脈にだけ足す確定的グロッサリ) ────────────────
+#
+# 起点の欠陥 (dogfood 2026-09-09): カードの「非表示アクティビティ」行は裸の OID だけで,
+# 回答もその OID をそのまま鸚鵡返しするので人が読めない。名前をカード本文に書き足す案は
+# 却下済み —— 共有テキストは挤占回帰を起こす実証がある
+# (evidence/failures/t4_step7_retrieval_regression.md) ⇒ 修正は答題時の文脈組立だけ。
+#
+# 零真名 (紅線): 下の catalog は全部偽値。X 接頭辞は実 catalog のどの OID とも衝突しない。
+
+GLOSSARY_CATALOG = {
+    "study": "stx",
+    "items": [_item("XFRM", "XIT_A", "偽項目ラベル甲")],
+    "events": [
+        {"oid": "XEV_1", "name": "偽イベント甲"},
+        {"oid": "XEV_2", "name": "偽イベント乙"},
+    ],
+    # 境界の要: XACT_A2 は XACT_A2_LB の中で命中してはならない (逆は命中する)
+    "activities": [
+        {"oid": "XACT_A2", "event_oid": "XEV_1", "event_name": "偽イベント甲",
+         "name": "偽活動甲"},
+        {"oid": "XACT_A2_LB", "event_oid": "XEV_1", "event_name": "偽イベント甲",
+         "name": "偽活動甲の検査"},
+        {"oid": "XACT_B1", "event_oid": "XEV_2", "event_name": "偽イベント乙",
+         "name": "偽活動乙"},
+    ],
+    "forms": [{"oid": "XFRM", "name": "偽フォーム甲"}],
+}
+
+
+def _gl():
+    return StudyLookup(GLOSSARY_CATALOG)
+
+
+def test_glossary_maps_activity_oid_to_event_and_activity_name():
+    assert _gl().glossary_for(["- 非表示アクティビティ: XACT_B1"]) == [
+        ("XACT_B1", "偽イベント乙 › 偽活動乙")
+    ]
+
+
+def test_glossary_does_not_fire_on_a_longer_oid_containing_it():
+    """有界一致の要: 裸の部分文字列一致だと XACT_A2_LB の行に XACT_A2 の名前も並び,
+    「この活動も非表示だ」という catalog に無い事実を文脈が主張することになる。"""
+    got = _gl().glossary_for(["- 非表示アクティビティ: XACT_A2_LB"])
+    assert [oid for oid, _ in got] == ["XACT_A2_LB"]
+
+
+def test_glossary_still_fires_on_the_shorter_oid_when_it_stands_alone():
+    # 上の裏返し: 境界を厳しくし過ぎて短い方が永久に出なくなる実装を落とす
+    got = _gl().glossary_for(["- 非表示アクティビティ: XACT_A2, XACT_B1"])
+    assert [oid for oid, _ in got] == ["XACT_A2", "XACT_B1"]
+
+
+def test_glossary_dedupes_and_follows_catalog_order():
+    """出現順ではなく catalog 順 —— 同じ質問なら文脈も逐字同一 (再現性)。"""
+    got = _gl().glossary_for(["XACT_B1 と XACT_A2", "再掲: XACT_B1"])
+    assert [oid for oid, _ in got] == ["XACT_A2", "XACT_B1"]
+
+
+def test_glossary_covers_form_and_event_oids():
+    got = dict(_gl().glossary_for(["Form: 偽フォーム甲 (XFRM) / イベント XEV_1"]))
+    assert got["XFRM"] == "偽フォーム甲"
+    assert got["XEV_1"] == "偽イベント甲"
+
+
+def test_glossary_empty_without_any_oid():
+    assert _gl().glossary_for(["まったく無関係な文章"]) == []
+    assert _gl().glossary_for([]) == []
+
+
+def test_glossary_missing_field_degrades_instead_of_killing_construction():
+    """行に name / oid が欠けていても `StudyLookup` の構築自体は通す (MINOR-3)。
+
+    ここが例外を投げると main.py の装配 (S2 の唯一の生成点) が落ち、対応表という**付加**
+    機能のために直查通道ごと立ち上がらなくなる。欠けた行はその 1 行を載せないだけにする。
+    """
+    cat = {
+        "study": "stx",
+        "items": GLOSSARY_CATALOG["items"],
+        "events": [{"oid": "XEV_1"}],                                  # name 無し
+        "activities": [
+            {"oid": "XACT_A2", "event_oid": "XEV_1"},                  # name/event_name 無し
+            {"oid": "XACT_B1", "event_oid": "XEV_2", "name": "偽活動乙"},  # event_name 無し
+        ],
+        "forms": [{"oid": "XFRM"}],                                    # name 無し
+    }
+    lk = StudyLookup(cat)                                              # ここで落ちないこと
+    got = lk.glossary_for(["XEV_1 XACT_A2 XACT_B1 XFRM"])
+    assert got == [("XACT_B1", "偽活動乙")], "名前のある行だけが載る"
+
+
+def test_glossary_missing_pools_degrades_quietly():
+    """旧 catalog (activities/forms/events 三池なし) でも落ちない (resolve_events と同紀律)。"""
+    lk = StudyLookup({"study": "stx", "items": GLOSSARY_CATALOG["items"]})
+    assert lk.glossary_for(["XACT_A2 XFRM XEV_1"]) == []
+
+
+# ── L1: format_context への接線 (検索層は 1 バイトも動かさない) ────────────────
+
+
+def _fmt_engine(lookup):
+    """format_context だけを動かす最小 RAGEngine (chroma/embedding を作らない)。"""
+    eng = rag_mod.RAGEngine.__new__(rag_mod.RAGEngine)
+    eng._study_lookup = lookup
+    return eng
+
+
+def _fmt_chunk(text, source="stx__XFRM__XIT_A.md"):
+    return SimpleNamespace(chunk_id="c0", source=source, domain=None, file_type=None,
+                           section=None, similarity=0.5, text=text)
+
+
+def test_format_context_appends_the_glossary_for_the_study_engine():
+    chunks = [_fmt_chunk("- 非表示アクティビティ: XACT_A2, XACT_B1")]
+    ctx = _fmt_engine(_gl()).format_context(chunks)
+    assert ctx.count(rag_mod._GLOSSARY_HEADING) == 1
+    assert "- XACT_A2 = 偽イベント甲 › 偽活動甲" in ctx
+    assert ctx.index(rag_mod._GLOSSARY_HEADING) > ctx.index("非表示アクティビティ")
+
+
+def test_format_context_only_appends_and_never_rewrites_the_chunks():
+    """CDISC 側の逐字節不変を"接尾辞である"という形で钉る —— 既存部分を 1 文字でも
+    書き換える実装 (章立ての差し込み等) はここで落ちる。"""
+    chunks = [_fmt_chunk("- 非表示アクティビティ: XACT_A2")]
+    cdisc = _fmt_engine(None).format_context(chunks)
+    study = _fmt_engine(_gl()).format_context(chunks)
+    assert rag_mod._GLOSSARY_HEADING not in cdisc
+    assert study.startswith(cdisc)
+    assert study != cdisc
+
+
+def test_format_context_omits_the_block_when_no_oid_appears():
+    """OID が無い時に空の見出しだけ残る実装を落とす (無内容の節はモデルを迷わせる)。"""
+    chunks = [_fmt_chunk("OID を一つも含まない本文")]
+    assert _fmt_engine(_gl()).format_context(chunks) == _fmt_engine(None).format_context(chunks)
+
+
+def test_format_context_glossary_covers_only_the_visible_truncated_text():
+    """4000 字で切り落とされた先の OID を訳すと, 文脈に無い行が対応表にだけ現れる ——
+    モデルから見れば出所不明の事実。走査対象は必ず**切り詰めた後**の本文。"""
+    ctx = _fmt_engine(_gl()).format_context([_fmt_chunk("あ" * 4000 + " XACT_B1")])
+    assert "XACT_B1" not in ctx
+    assert rag_mod._GLOSSARY_HEADING not in ctx
+
+
+def test_format_context_block_is_not_shaped_like_a_chunk():
+    """対応表がチャンクに見えると、モデルが存在しない [Source: path] を発明する。
+
+    チャンクは `---` 区切り + `### [N] src` 見出し ⇒ 対応表はその形を**取らない**こと:
+    直前に `---` を置かず、見出しは一段深い `####`。
+    """
+    ctx = _fmt_engine(_gl()).format_context([_fmt_chunk("- 非表示: XACT_B1")])
+    assert rag_mod._GLOSSARY_HEADING.startswith("#### ")
+    assert f"---\n\n{rag_mod._GLOSSARY_HEADING}" not in ctx
+    assert f"\n\n{rag_mod._GLOSSARY_HEADING}" in ctx
+
+
+def test_format_context_glossary_can_be_suppressed_by_the_caller():
+    """`glossary=False` は StudyCorpusEngine 専用の口 —— あちらは両節を組んだ後に自分で
+    一度だけ出すので、cards 引擎側の出力を止められないと対応表が二度出る。"""
+    chunks = [_fmt_chunk("- 非表示: XACT_B1")]
+    eng = _fmt_engine(_gl())
+    assert eng.format_context(chunks, glossary=False) == _fmt_engine(None).format_context(chunks)
+    assert rag_mod._GLOSSARY_HEADING in eng.format_context(chunks)
+
+
+def test_glossary_block_is_empty_for_a_non_study_engine():
+    # cdisc 引擎に混ぜても常に空 —— 組合器がどちらの引擎に聞いても壊れない保証
+    assert _fmt_engine(None).glossary_block("- 非表示: XACT_B1") == ""
+
+
+# ── L1: study 側 system prompt の OID 命名規則 ────────────────────────────────
+
+
+def _prompt_engine(lookup):
+    eng = rag_mod.RAGEngine.__new__(rag_mod.RAGEngine)
+    eng._study_lookup = lookup
+    eng.prompt_guardrail_enabled = False
+    eng.web_search_enabled = False
+    eng._routing_md = "(routing)"
+    eng._index_md = "(index)"
+    return eng
+
+
+def test_study_prompt_carries_the_oid_naming_rule():
+    sp = _prompt_engine(_gl())._build_system_prompt()
+    assert rag_mod._STUDY_OID_RULES in sp
+    assert "EDC OID 対応表" in sp, "規則が指す対応表の名前は format_context の見出しと同名"
+    assert "EDC OID 対応表" in rag_mod._GLOSSARY_HEADING
+
+
+def test_prompt_does_not_promise_the_table_sits_at_the_end():
+    """対応表の位置は組合器か単庫かで変わる (単庫なら文脈末尾、組合器でも末尾だが節構成が
+    違う)。prompt が「末尾」と言い切ると、位置が変わった時に静かに嘘になる。"""
+    assert "文脈末尾" not in rag_mod._STUDY_OID_RULES
+    assert "文脈中の「EDC OID 対応表」" in rag_mod._STUDY_OID_RULES
+
+
+def test_prompt_forbids_citing_the_table_as_a_source():
+    """対応表は catalog 由来の対訳でチャンクではない ⇒ [Source: path] を付ける先が無い。
+    規則が無いと、モデルは周りのチャンクに合わせて出典を発明する。"""
+    assert "[Source: path]" in rag_mod._STUDY_OID_RULES
+    assert "付けてはならない" in rag_mod._STUDY_OID_RULES
+
+
+def test_cdisc_prompt_differs_from_the_study_prompt_by_that_block_alone():
+    cdisc = _prompt_engine(None)._build_system_prompt()
+    study = _prompt_engine(_gl())._build_system_prompt()
+    assert rag_mod._STUDY_OID_RULES not in cdisc
+    assert study.replace(rag_mod._STUDY_OID_RULES, "") == cdisc

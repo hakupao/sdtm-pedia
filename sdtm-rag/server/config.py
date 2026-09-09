@@ -248,6 +248,28 @@ class Settings(BaseSettings):
     compare_timeout_s: float = 120.0
     compare_num_retries: int = 1
 
+    # ── C2R 画面 PDF 按需旁路 (PLAN_c2r_pdf_bypass.md I2-3) ──
+    # 2 份画面 PDF はベクトル庫に**入らない** (C2 の DROP 判定は不変)。命中カードの OID を
+    # 鍵に確定的に頁を選び、その頁だけを画像で答題文脈に足す附加通道。
+    #
+    # 既定 **OFF**: ON にすると答題リクエストの形が変わる (user メッセージが文字列から
+    # content parts へ, prompt token +1.5k/頁)。48 題 study golden v2 の零回帰が硬闸で、
+    # それが通るまで生産では開けない。OFF のとき挙動は本機能導入前と逐位同一。
+    pdf_context_enabled: bool = False
+    # 頁予算。S0 §4-4 実測で 1 頁 ≈1.5k prompt token ⇒ 6 頁 ≈9k。推奨 6-8。
+    pdf_context_max_pages: int = 6
+    # S0-3 で 4 モデル全部が 110 dpi の画像から日本語ラベルを正しく読めた。150 は不要。
+    pdf_context_dpi: int = 110
+    # PDF の実ファイル名は studies.local.yaml にしか無い (真名を code に置かない纪律)。
+    # 空 = 起動時に registry から解決する; 明示すれば self-contained な service dir でも動く。
+    pdf_context_study_id: str = "st01"
+    # 空 = `pdf_context_study_id` から導出 (下の property)。st01 を焼き込むと、study を
+    # 切り替えたとき索引だけ前の study のものを読み続ける —— PNG キャッシュ先は study 連動
+    # なので、片方だけずれて「頁は出るが中身が別研究」になる。
+    pdf_page_index_path_override: str = ""
+    pdf_workflow_path: str = ""
+    pdf_annotated_path: str = ""
+
     # Server
     log_level: str = "INFO"
     # Loopback by default (DEPLOY_PLAN §1: 阶段 0–2 绑 127.0.0.1, zero exposure). The
@@ -331,6 +353,17 @@ class Settings(BaseSettings):
     @property
     def meta_path(self) -> Path:
         return _SDTM_RAG_ROOT / "data" / "meta" / "meta.yaml"
+
+    @property
+    def pdf_page_index_path(self) -> Path:
+        if self.pdf_page_index_path_override:
+            return Path(self.pdf_page_index_path_override)
+        return _SDTM_RAG_ROOT / "data" / "study" / self.pdf_context_study_id / "pdf_page_index.json"
+
+    @property
+    def pdf_context_cache_dir(self) -> Path:
+        # 描画済み PNG の置き場。data/study/ は .gitignore 配下 ⇒ 版本库に入らない。
+        return _SDTM_RAG_ROOT / "data" / "study" / self.pdf_context_study_id / ".pdf_page_png"
 
     @property
     def dogfood_log_path(self) -> Path:

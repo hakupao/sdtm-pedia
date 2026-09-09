@@ -3,7 +3,7 @@ import { store, save, current, newConversation, deleteConversation, renameConver
          prefs, savePrefs, modelLabelById, HISTORY_TURNS } from "./js/store.js";
 import { renderSidebar, renderMessages, messageEl, finalizeBubble, appendErr, appendRetry,
          attachTools, setSources, renderWebStatus, renderModelBadge, refreshModelBadgeLabels,
-         renderContinuation,
+         renderContinuation, renderPdfPages,
          onToolCallUI, onToolResultUI } from "./js/render.js";
 import { renderMarkdown } from "./js/markdown.js";
 import { streamAsk } from "./js/stream.js";
@@ -92,6 +92,8 @@ async function runGeneration(c) {
   let gotFellBack = null;
   let gotContinueRounds = null;
   let gotTruncated = null;
+  let gotPdfPages = null;
+  let gotPdfTrigger = null;
   let saved = false;
   let savedMsg = null;
 
@@ -126,7 +128,10 @@ async function runGeneration(c) {
                  // 存档里一条 DeepSeek 答的消息与 Opus 5 答的长得一模一样。
                  modelsUsed: gotModelsUsed, fellBack: gotFellBack,
                  // 同上: 被截断这件事必须活过刷新, 否则存档里半句话的答案与完整答案一样。
-                 continueRounds: gotContinueRounds, truncated: gotTruncated };
+                 continueRounds: gotContinueRounds, truncated: gotTruncated,
+                 // 同上 (C2R I2-4): 答案里「画面目視判読 p.NN」指的是哪几页, 只有这里记着;
+                 // 不落盘的话刷新后那句出处就成了无从核对的孤证, ⚑ 也带不上页码上下文。
+                 pdfPages: gotPdfPages, pdfTrigger: gotPdfTrigger };
     c.messages.push(savedMsg);
     save(); renderSidebar(sidebarHandlers);
   };
@@ -158,8 +163,13 @@ async function runGeneration(c) {
         renderWebStatus(turn, gotWebStatus, gotWebSearchesOk);
         gotContinueRounds = (data || {}).continue_rounds ?? null;
         gotTruncated = (data || {}).truncated ?? null;
+        // C2R 画面 PDF 旁路: 两个字段同源同义, `?? null` 的理由同上 —— 但这里 null 与
+        // 空数组**不能**混同 ("通道没动" vs "触发了却一页都没画出来", 后端 M4 裁定)。
+        gotPdfPages = (data || {}).pdf_pages ?? null;
+        gotPdfTrigger = (data || {}).pdf_trigger ?? null;
         renderModelBadge(turn, gotModelId, gotVerified, gotModelsUsed, gotFellBack);
         renderContinuation(turn, gotContinueRounds, gotTruncated);
+        renderPdfPages(turn, gotPdfPages, gotPdfTrigger);
         const content = acc.trim() ? acc : "(无内容)"; renderFinal(content); persist(content);
       },
       onError: (msg) => { if (acc) { renderFinal(acc); persist(acc); } fail(msg); },

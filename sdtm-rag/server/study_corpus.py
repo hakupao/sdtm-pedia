@@ -63,10 +63,19 @@ class StudyCorpusEngine:
         docs = [c for c in chunks if c.file_type == DOC_FILE_TYPE]
         parts = []
         if cards:
-            parts.append("## 【EDC 項目カード】\n" + self.cards.format_context(cards))
+            parts.append("## 【EDC 項目カード】\n"
+                         + self.cards.format_context(cards, glossary=False))
         if docs:
             parts.append("## 【手順書章節】\n" + self.docs.format_context(docs))
-        return "\n\n".join(parts)
+        ctx = "\n\n".join(parts)
+        # L1 (EDC OID 対応表): 出すのは**組み合わせた文脈全体に対して末尾で一度だけ**。
+        # cards 引擎の中で出させると (`glossary=False` を外すと) 二つ壊れる: ① 手順書
+        # 章節に出てくる OID が訳されない (実測 125 doc 中 20 件に catalog の OID が
+        # 出る) ② 対応表がカード節と手順書節の間に挟まって、どちらに掛かるのか形から
+        # 読めない。docs 引擎には study_lookup を渡さない設計なので、対応表を引ける
+        # 引擎は cards 側だけ —— 走査対象は `ctx` (両節を含む) を渡す。
+        block = self.cards.glossary_block(ctx)
+        return f"{ctx}\n\n{block}" if block else ctx
 
 
 # ─────────────────────────── docs 引擎的唯一装配点 (Task 3b) ───────────────────────────

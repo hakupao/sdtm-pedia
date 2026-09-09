@@ -1,0 +1,36 @@
+{
+  "phase": "C2R — 表单 PDF 按需旁路 + 活動 OID label 补齐",
+  "tier": 2,
+  "status": "ENGINEERING_DONE_REVIEWED",
+  "started": "2026-09-09",
+  "plan": "PLAN_c2r_pdf_bypass.md",
+  "steps": {
+    "L1_activity_label_glossary": "done (ruleD PASS-with-nits, 4 MINOR fixed; 2147 tests; golden v2 0.875 identical)",
+    "S0_survey": "done_G0_PASS",
+    "P1_pre_registration": "draft_v0",
+    "I2_implementation": "done (ruleD PASS-with-nits, M1-M10 fixed; 2212 tests green; ruff clean; redline CLEAN 14 files)",
+    "V3_eval": "done: 4/4 criteria PASS; B-A = +3 opus / +5 gpt (of 23); fabrication 5/45 (2 = truncation-semantics gap)",
+    "C4_closeout": "retro written; awaiting 收尾 (commit) — flag stays default OFF",
+    "I2_4_webchat": "done (3-state render; 38 node + 2 SSE contract tests w/ mutation check; 2214 pytest; redline CLEAN 7 files)"
+  },
+  "findings": [
+    "S0-0 2026-09-09: PDF 文本层 OID 几乎不可搜 (Annotated 体重STAT项=1, 术前LB活动=0, LBG4=0; workflow=0); 日语活动名可命中 (术前LB活动名 4, C1-Day8活动名 8) → 页索引钥匙改为 OID→catalog 日语名→页",
+    "S0-1 2026-09-09: 两份 PDF 均可按标题行确定性切块: workflow 110 块 == 110 条 assignments (1:1 零缺口); Annotated 42 块 = 21 form + 21 code-list. 切块比子串搜索准, 每页唯一归属 (event, activity, form)",
+    "S0-1 修正 S0-0: Annotated 文本层 941/959 item OID 可定位 (中位 1 页) — Annotated 钥匙用 item OID 直查; workflow 才用日语名. ASCII OID 须 token 边界匹配 (LB≠LB日期项, K≠一切)",
+    "S0-2: 12/12 页人眼 PASS (4 页自带标题行, 7 页延续页为间接核验)",
+    "S0-3: Bedrock 4/4 selectable_models 接受图像; 一页 -r 110 ≈ 1.4-1.6k prompt token, 6.4-8.7s; 四模型均未捏造 身長",
+    "⛔ 按 activity_oid 单键跨表单并集仅 59/77=76.6% (<80%), 超线 18 个全挂 QOL 表单 → 实现必须用 (activity, form) 双键, 是 G0 成立前提",
+    "dogfood 坐实: Annotated p.174 LB 表单带 OID 徽章 (HEIGHT/WEIGHT/体重STAT项); workflow p.315 同表单在 术前LB活动 下 身長 整组不显示; 体重STAT项 catalog label 为空串 (30/959 空), 官方 label 体重未実施 只在画面上",
+    "2026-09-09 流程: 红线闸 (oidscan) 拦真实 OID/label; PLAN/progress/P1 已掩码 CLEAN, 真值存 gitignored data/study/st01/eval/c2r_pre_registration_realvalues.md; S0 报告 78 处已掩码 CLEAN, 真值伴生件 data/study/st01/eval/c2r_s0_survey_realvalues.md"
+  ],
+  "evidence": [
+    "evidence/checkpoints/c2r_s0_survey.md",
+    "evidence/checkpoints/c2r_pre_registration.md",
+    "evidence/checkpoints/c2r_l1_oid_glossary.md",
+    "evidence/checkpoints/c2r_v3_eval.md",
+    "evidence/failures/c2r_v3_attempt_1_T6.md",
+    "evidence/step_c2r_v3_audit.md",
+    "RETROSPECTIVE_c2r.md"
+  ],
+  "next_unit": "附页子集语义 (prompt+label) → 复测 T3/T6 否定断言 → 再议默认 ON; 空 label 30 项从 Annotated 抽官方名; 前端缩略图"
+}

@@ -1,6 +1,11 @@
 // ⚑ dogfood 失败捕获 → POST /api/flag → dogfood_failures.md (append-only 优先级 backlog)。
 import { save, modelLabelById } from "./store.js";
 import { $ } from "./ui.js";
+import { pdfPagesSummary } from "./pdfpages.js";
+
+// server/router.py `FlagRequest.note` 的上限。**不是**截断而是 422 ⇒ 用户点了 ⚑ 却什么都
+// 没记下 (规则 B: backlog 是本项目最贵的数据)。
+const NOTE_MAX = 2000;
 
 export function flagButton(question, msgObj, mount) {
   const btn = document.createElement("button");
@@ -66,12 +71,26 @@ export function flagModelName(msgObj) {
   return ($("topbar-model").dataset.defaultModel || "").trim() || null;
 }
 
+// C2R (I2-4): 这条答案附过画面 PDF 页的话, 把页码并进 note 一起上报。
+// ⛔ 不新增请求字段: `FlagRequest` **没有** extra="forbid" (AskRequest 才有), 多发的键会被
+// pydantic 静默丢掉 —— 那正是抽检脚本 v1 踩过的坑 (看着 200, 其实什么都没传到)。想让页码
+// 真的落进 dogfood_failures.md, 唯一的去处就是既有的自由文本 note。
+export function flagNote(note, msgObj) {
+  const base = note || "";
+  const summary = pdfPagesSummary(msgObj && msgObj.pdfPages);
+  if (!summary) return base;
+  const line = `pdf_pages: ${summary}`;
+  const merged = base ? `${base}\n${line}` : line;
+  // 装不下就丢这行机器附注, 保住用户的原话 —— 反过来 (为了页码让整条上报 422) 是本末倒置。
+  return merged.length <= NOTE_MAX ? merged : base;
+}
+
 export async function postFlag(question, answer, note, msgObj) {
   const model = flagModelName(msgObj);
   try {
     const r = await fetch("/api/flag", {
       method: "POST", headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ question, answer, note, model }),
+      body: JSON.stringify({ question, answer, note: flagNote(note, msgObj), model }),
     });
     return r.ok;
   } catch (_) { return false; }

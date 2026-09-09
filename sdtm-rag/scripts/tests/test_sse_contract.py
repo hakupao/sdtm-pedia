@@ -105,6 +105,35 @@ def test_backend_done_event_carries_the_continuation_fields():
         assert f'"{field}"' in done_block, f"done 事件没有 {field} 字段"
 
 
+def test_frontend_reads_pdf_fields_from_done():
+    """C2R 画面 PDF 旁路 (I2-4) 的 `pdf_pages` / `pdf_trigger`, 与上面两组同款: 断**读取形状**。
+
+    这里的诱饵比 web 那组更硬 —— web 的裸词只出现在注释里, 而 `webchat/js/flag.js` 拼 ⚑
+    上报文本时有一句**活的字符串字面量** `` `pdf_pages: ${summary}` `` (⚑ note 里那行),
+    `webchat/js/pdfpages.js` 顶部注释也裸写着两个字段名。把 `webchat/app.js` onDone 里唯一
+    的真实读取点删掉, 裸词断言 (`"pdf_pages" in src`) 照样全绿, 而前端会静默退回"什么都不
+    画" —— 与本功能"默认关时逐字节不变"的表现**一模一样**, 从界面上分辨不出来。
+    要求前导 `.` 只认真实属性访问, 把那句字面量和注释都排除在外。
+    """
+    src = _frontend_sources()
+    assert re.search(r"\.pdf_pages\b", src), "前端没有以 .pdf_pages 形式读取该字段"
+    assert re.search(r"\.pdf_trigger\b", src), "前端没有以 .pdf_trigger 形式读取该字段"
+
+
+def test_backend_done_event_carries_the_pdf_fields():
+    """另一半: done 事件真的发这两个字段。
+
+    这一半在 pdf 上比 continuation 那对更要紧: 前端把 `null` (通道没动) 与 `[]` (触发了却
+    一页都没画出来, 后端 M4 裁定) 画成**两种**东西, 而 `?? null` 会把字段缺失收成前者。
+    后端哪天把 `pdf_pages` 从 done 里删掉, 界面上看到的就是"本次没触发", 一条本该显示
+    「未附图 (渲染失败)」的答案会安静地伪装成正常答案。
+    """
+    router = ROUTER_PY.read_text(encoding="utf-8")
+    done_block = router.split('yield sse("done", {', 1)[1].split("})", 1)[0]
+    for field in ("pdf_trigger", "pdf_pages"):
+        assert f'"{field}"' in done_block, f"done 事件没有 {field} 字段"
+
+
 def _backend_tool_result_statuses() -> set[str]:
     """tool_result.status 的真实取值域 (静态字面量扫描, 见 test_frontend_covers_
     every_tool_result_status 的 docstring 说明这道闸的定位与局限)。

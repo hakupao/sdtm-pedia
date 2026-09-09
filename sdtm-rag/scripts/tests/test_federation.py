@@ -526,3 +526,40 @@ def test_retrieve_survives_a_dead_signal_layer(monkeypatch):
     assert (chunks, routed) == ([], "study")
     assert fed.last_signal_widened is None
     assert [e for e in logs if e["event"] == "signal_layer_error"]
+
+
+# ── L1: EDC OID 対応表 は連邦経路でも一度だけ, study セクションの中 ────────────
+#
+# 連邦の format_context は両庫の format_context に委譲する。cdisc 側の本文に同じ OID が
+# 出ていても対応表は付かない (cdisc 引擎に study_lookup は無い) —— それを実物で確かめる。
+# 生産と同じ三段 (FederatedEngine → StudyCorpusEngine → cards 引擎) を組んで数える。
+
+
+def _oid_chunk(cid, corpus, file_type=None):
+    return RetrievedChunk(chunk_id=cid, source=f"{cid}.md", domain=None,
+                          file_type=file_type, section=None, similarity=0.5,
+                          text="- 非表示アクティビティ: XACT_B1", corpus=corpus)
+
+
+def test_glossary_is_not_duplicated_through_federation():
+    from scripts.tests.test_study_lookup import GLOSSARY_CATALOG
+    from server.rag import _GLOSSARY_HEADING, RAGEngine
+    from server.study_corpus import StudyCorpusEngine
+    from server.study_lookup import StudyLookup
+
+    def _eng(lookup):
+        e = RAGEngine.__new__(RAGEngine)
+        e._study_lookup = lookup
+        return e
+
+    study = StudyCorpusEngine(_eng(StudyLookup(GLOSSARY_CATALOG)), _eng(None), doc_seats=1)
+    fed = FederatedEngine(_eng(None), study, _FakeLLM('{"corpus": "both"}'))
+    ctx = fed.format_context([_oid_chunk("cd-0", "cdisc"),
+                              _oid_chunk("st-0", "study", "field_card"),
+                              _oid_chunk("st-1", "study", "protocol_section")])
+
+    assert ctx.count(_GLOSSARY_HEADING) == 1
+    # study セクションの中 (= その末尾)。cdisc 節にも同じ OID が出ているが訳されない ——
+    # 対応表は本研究 catalog の話で、標準側の主張ではないから。
+    assert ctx.index("# 【本研究 (study)】") < ctx.index(_GLOSSARY_HEADING)
+    assert ctx.rstrip().endswith("偽活動乙")

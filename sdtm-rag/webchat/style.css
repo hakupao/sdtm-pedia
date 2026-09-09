@@ -95,6 +95,12 @@ button { font: inherit; color: inherit; }
 .chip.continue { color: var(--ink-3); }
 /* 触顶提示: 答案可能不完整, 这个才是警告 (与 .web-warn 同色同重量, 视觉上同级) */
 .turn-note.warn { margin-top: 8px; font-size: 13px; color: var(--warn); font-weight: 500; }
+/* 画面 PDF 附图行 (C2R I2-4): 与 chips 同一克制度 —— 它是证据说明, 不是警告。
+   .empty (规则命中但一页都没画出来) 也**不**用琥珀色: 那是本次答案少了一层依据, 不是答案有错。 */
+.pdf-attach { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 8px; font-size: 11.5px; color: var(--ink-3); }
+.pdf-attach .pdf-lead { color: var(--ink-2); }
+.chip.pdf-page { color: var(--ink-2); font-family: var(--font-mono); font-size: 11px; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pdf-attach .pdf-rule { color: var(--ink-3); }
 .sources-slot:empty { display: none; }
 .sources { margin-top: 10px; font-size: 13px; }
 .sources summary { cursor: pointer; color: var(--ink-3); list-style: none; display: inline-flex; align-items: center; gap: 6px; padding: 2px 0; }

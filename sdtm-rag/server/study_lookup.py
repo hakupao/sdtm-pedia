@@ -15,6 +15,11 @@ golden v1.1 实测四类 miss 的确定性修复层: 数据源只有 catalog.jso
      交集 (合取) 作独立候选先入队 —— 单段命中面过宽被 cap 挡掉时, 交集常仍够窄。
   ③ 别名表 → form scope: 手工别名 (自然语言词 -> form_oid, 本地 yml, 有据可查,
      不写入卡片) 命中 → 交给注入层做域内 cosine top-N (词面排序对该类实测失效)。
+
+本类还有一个**与检索无关**的出口: `glossary_for` (L1, PLAN_c2r_pdf_bypass.md) ——
+答题时把已在上下文里的 OID 翻成 catalog 里的官方名, 只服务 `RAGEngine.format_context`。
+放在这里是因为 catalog 与有界匹配 (`_bounded_contains`) 都已在本类里, 另起一处会让
+"OID 边界怎么算"有两份定义。它不进 `resolve*` 的任何路径, 检索结果一条不动。
 """
 from __future__ import annotations
 
@@ -84,6 +89,14 @@ def _norm_ws(s: str) -> str:
     return unicodedata.normalize("NFKC", s)
 
 
+def _bounded_re(oid_key: str) -> re.Pattern[str]:
+    """有界匹配的**唯一**模式定义 —— 一次性命中走 `_bounded_contains`, 反复命中的
+    (glossary 那 112 条) 在 `__init__` 里预编译后自己持有。两处各写一遍正则, 边界语义
+    就有了两个定义, 而漂移的症状是静默的 (一边收紧另一边没收)。
+    """
+    return re.compile(rf"(?<![A-Za-z0-9_]){re.escape(oid_key)}(?![A-Za-z0-9_])")
+
+
 def _bounded_contains(oid_key: str, text_ws: str) -> bool:
     """oid_key 是否以完整边界 token 形式出现在 text_ws 里 (两侧都不是 ASCII 字母/数字/
     下划线) —— 比裸子串更严格, 专防短 OID (2-3 字符, form_oid/item_oid 词汇表里均有
@@ -95,8 +108,7 @@ def _bounded_contains(oid_key: str, text_ws: str) -> bool:
     `text_ws` 必须是 `_norm_ws` 的输出 (保留空白), 不能传 `_norm` 的去空白版本 ——
     原因见 `_norm_ws` 文档字符串。
     """
-    pattern = re.compile(rf"(?<![A-Za-z0-9_]){re.escape(oid_key)}(?![A-Za-z0-9_])")
-    return bool(pattern.search(text_ws))
+    return bool(_bounded_re(oid_key).search(text_ws))
 
 
 @dataclass
@@ -220,6 +232,64 @@ class StudyLookup:
         for a in catalog.get("assignments", []):
             self._assignments_by_form_activity[(a["form_oid"], a["activity_oid"])].append(a)
         self._assignments: list[dict] = catalog.get("assignments", [])
+
+        # L1: 答題時グロッサリ (OID → 公式名)。**検索には一切使わない** —— 名前をカード
+        # 本文に書き足す案は、共有テキストが挤占回帰を起こす実証があり却下済み
+        # (evidence/failures/t4_step7_retrieval_regression.md)。よって名前は文脈組立の
+        # 時にだけ足す。並びは catalog 順で activity → form → event: 活動が本機能の主目的
+        # (カードの「非表示アクティビティ」行に並ぶ裸 OID が読めないのが起点の欠陥)。
+        # 同一 OID が複数プールに現れたら先勝ち (実データに衝突は無いが、順序が決まって
+        # いないと同じ質問で文脈が揺れる)。名前が空のものは載せない —— 「OID = 」だけの
+        # 行は読み手に何も与えず、モデルには"名前が確定した"という誤った合図になる。
+        # 照合パターンは**ここで一度だけ**コンパイルする (実データ 112 条)。毎回
+        # `_bounded_contains` を呼ぶと 1 回答ごとに 112 回コンパイル (re の内部キャッシュ
+        # 頼み) —— 回数が決まっている辞書なのだから持てばよい。
+        #
+        # フィールドは全部 `.get`: ここは catalog の**任意**プール (activities/forms/
+        # events) を読む唯一の場所で、行に name が欠けているだけで `StudyLookup` の構築
+        # 自体が落ちると、main.py の装配で S2 層ごと立ち上がらなくなる (対応表という
+        # 付加機能のために直查通道を道連れにする)。欠けた行はその 1 行を載せないだけ。
+        self._glossary: list[tuple[re.Pattern[str], str, str]] = []  # (照合, 表示 OID, 名前)
+        seen_gloss: set[str] = set()
+
+        def _add_gloss(oid: str, name: str) -> None:
+            key = _norm(oid or "")
+            if not key or not name or key in seen_gloss:
+                return
+            seen_gloss.add(key)
+            self._glossary.append((_bounded_re(key), oid, name))
+
+        for a in catalog.get("activities", []):
+            ev = a.get("event_name") or ""
+            nm = a.get("name") or ""
+            _add_gloss(a.get("oid") or "", f"{ev} › {nm}" if ev and nm else nm)
+        for f in catalog.get("forms", []):
+            _add_gloss(f.get("oid") or "", f.get("name") or "")
+        for e in catalog.get("events", []):
+            _add_gloss(e.get("oid") or "", e.get("name") or "")
+
+    def glossary_for(self, texts: list[str]) -> list[tuple[str, str]]:
+        """与えられた本文に現れた EDC OID → 公式名 の対応表 (catalog 由来, catalog 順)。
+
+        用途は答題側の文脈組立**だけ** (`RAGEngine.format_context` がチャンクの後ろに
+        足す)。検索側 (`retrieve` / `_search` / `_apply_study_lookup`) からは呼ばない ——
+        検索に触れないことが本単元の硬い制約そのもの (PLAN_c2r_pdf_bypass.md L1)。
+
+        照合は `_bounded_contains` の有界一致 (両隣が ASCII 英数字/下線でない)。ここの要は
+        短い OID が長い OID の中で誤爆しないこと: 裸の部分文字列一致だと、`XACT_A2_LB`
+        しか書かれていない行から `XACT_A2` の名前まで並び、catalog に無い事実を文脈が
+        主張することになる。日本語は [A-Za-z0-9_] に入らないので、仮名・漢字に密着した
+        OID は素直に取れる (ファイル冒頭の境界方針と同じ)。
+
+        ⚠ 既知の取捨: 2 文字の form OID (実データ 21 件中 7 件) は日本語の地の文に偶然
+        現れうる —— `_MIN_FORM_OID_LEN` が既に呑んでいるのと同じ天秤。ただし代償の重さが
+        違う: あちらは検索目標が増えるが、こちらは文脈に余計な 1 行が出るだけで、検索結果は
+        1 件も動かない。
+        """
+        if not texts:
+            return []
+        hay = _norm_ws("\n".join(texts))
+        return [(oid, name) for pat, oid, name in self._glossary if pat.search(hay)]
 
     def _channel_hits(self, query: str) -> _ChannelHits:
         """四条通道各自的命中 (均已按 cap 过滤), 未合并未截断。

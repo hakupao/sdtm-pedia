@@ -35,6 +35,36 @@ class RetrievedChunk:
     corpus: str = ""  # Plan B federation: "cdisc" | "study"; 空串 = 未标注 (单库路径)
 
 
+# ── L1 (PLAN_c2r_pdf_bypass.md): EDC OID → 公式名 の対応表 ─────────────────────
+# study 側だけ、**答題時の文脈組立でだけ**足す。カード本文には一切書かない ——
+# 共有テキストをカードに足すと挤占回帰を起こす実証があるため
+# (evidence/failures/t4_step7_retrieval_regression.md)。検索層 (retrieve/_search/
+# _apply_study_lookup) はこの機能に一行も関与しない。
+# 見出しが `####` で、直前に `---` を置かないのは構造上の理由: チャンクは `### [N] src`
+# で始まり `---` で区切られる ⇒ 同じ形にすると対応表が「N+1 番目のチャンク」に見え、
+# モデルが存在しない [Source: path] を発明する余地ができる。一段深い見出し + 区切り
+# 無しで「チャンクではない付録」だと形から分かるようにする。
+_GLOSSARY_HEADING = "#### EDC OID 対応表 (activity / form / event, catalog 由来, 確定的)"
+
+# 同じ規則を prompt 側にも一つ。番号 (1.-9.) を振らないのは、7-9 が guardrail/web の
+# 開閉で増減するため —— それらが無い構成で "10." だけが現れると、存在しない 7-9 を
+# 指す番号になる。文言は日本語: study 側 prompt の既存規則 (_DOC_CORPUS_RULES) と同じ。
+# 二条目は反捏造の受け皿 —— 一条目だけだと「名前を併記せよ」が「無ければ作れ」に
+# 読める余地が残る。
+_STUDY_OID_RULES = (
+    "\n### EDC OID の呼び方 (本研究コーパス)\n"
+    "- EDC の OID (アクティビティ / フォーム / 項目) を挙げるときは、初出で必ず公式の"
+    "日本語名を併記すること。名前はカード本文か、文脈中の「EDC OID 対応表」から取る。"
+    "書式: アクティビティ `A_XXX_YY（イベント名 › アクティビティ名）`、"
+    "フォーム `FRM（フォーム名）`、イベント `E_XXX（イベント名）`。\n"
+    "- 「EDC OID 対応表」は catalog から機械的に引いた対訳であって、検索されたチャンク"
+    "ではない。そこから取った名前に **[Source: path]** を付けてはならない —— 付ける先の"
+    "文書が存在しない。出所を示すなら「対応表より」と書くこと。\n"
+    "- どちらにも名前が無い OID は、名前を推測せず OID だけを示し、名前が文脈に無い旨を"
+    "述べること。\n"
+)
+
+
 class RAGEngine:
     # When structured-lookup resolves to EXACTLY ONE domain spec.md (a pure
     # single-domain query, e.g. "the required variables in DM"), inject this many of
@@ -202,6 +232,10 @@ class RAGEngine:
             # 前置空行把 Rule 9 块与守护栏块 (7/8) 视觉分开, 顺带让"挖掉 Rule 9 段"
             # 的逐字节回滚闸算得平: 分隔符位于锚点之前, 不会被挖除区间吞掉。
             rules += "\n" + self._web_rules()
+        if self._study_lookup is not None:
+            # study 引擎 (= S2 直查を持つ唯一の引擎) だけ。CDISC 側の prompt は逐字節
+            # そのまま —— 両者の差分はこのブロックただ一つ (テストが replace で钉る)。
+            rules += _STUDY_OID_RULES
         return (
             "You are an SDTM (Study Data Tabulation Model) knowledge base assistant.\n"
             "Answer questions based on the CDISC SDTMIG v3.4 knowledge base.\n\n"
@@ -910,8 +944,29 @@ class RAGEngine:
         ranked = sorted(scores, key=lambda cid: scores[cid], reverse=True)
         return [best[cid] for cid in ranked[:k]]
 
-    def format_context(self, chunks: list[RetrievedChunk]) -> str:
+    def glossary_block(self, context: str) -> str:
+        """`context` に現れた EDC OID の対応表ブロック。study 引擎以外は常に空文字列。
+
+        走査対象を**組み立て済みの文脈そのもの**にしているのが要点: モデルが実際に読む
+        文字列と 1 対 1 なので、4000 字で切り落とされた先の OID を訳してしまい「文脈の
+        どこにも無い行が対応表にだけ出る」(= 出所不明の事実) が構造的に起こらない。
+
+        `format_context` から切り出してあるのは `StudyCorpusEngine` のため: あちらは
+        カードと手順書章節を組んだ**あと**の全体に対して一度だけ出す (`glossary=False`
+        で各引擎側の出力を止める)。
+        """
+        if self._study_lookup is None:
+            return ""
+        entries = self._study_lookup.glossary_for([context])
+        if not entries:
+            return ""            # 空の見出しだけ残すと"探したが無い"と読まれる
+        rows = "\n".join(f"- {oid} = {name}" for oid, name in entries)
+        return f"{_GLOSSARY_HEADING}\n{rows}"
+
+    def format_context(self, chunks: list[RetrievedChunk], *, glossary: bool = True) -> str:
         if not chunks:
+            # self に触れない分岐 —— test_federation_api が RAGEngine.format_context(
+            # None, []) で哨兵串を固定している。下の study 分岐は必ずこの後ろに置くこと。
             return "(No relevant context found in the knowledge base.)"
         parts: list[str] = []
         for i, c in enumerate(chunks, 1):
@@ -921,7 +976,11 @@ class RAGEngine:
             header += f"  (similarity: {c.similarity:.3f})"
             text = c.text if len(c.text) <= 4000 else c.text[:4000] + "\n...(truncated)"
             parts.append(f"{header}\n\n{text}")
-        return "\n\n---\n\n".join(parts)
+        body = "\n\n---\n\n".join(parts)
+        # glossary=False は StudyCorpusEngine 専用 (対応表は組み合わせ後に一度だけ)。
+        # CDISC 引擎は _study_lookup が無いので glossary_block が空 ⇒ 1 バイトも変わらない。
+        block = self.glossary_block(body) if glossary else ""
+        return f"{body}\n\n{block}" if block else body
 
     def build_messages(
         self,
