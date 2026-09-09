@@ -89,8 +89,8 @@ Full chain definitions are in `.work/MANIFEST.md`.
 | Phase 7 配额×recall 扫描 (零 LLM) | `sdtm-rag/evidence/checkpoints/cap_recall_sweep.md` — 配额安全已证, 收益 n=1 |
 | Phase 7 本地部署+多模型对比 规划 | `sdtm-rag/DEPLOY_PLAN.md` — launchd 部署 + 对比/裁判 (§3 阶段3 工程件 DONE+审; go-live 待 IT) |
 | Phase 7 阶段3 共享 (工程件+go-live runbook) | `sdtm-rag/deploy/` (deploy.sh + 0.0.0.0 plist 模板 + README runbook); 登录门 `server/auth.py`; 证据 `evidence/checkpoints/phase3_share_hardening.md` |
-| Phase 7 Chat UI 重构 2026-09-08 (app.js→js/*, 流式 md, 出处隐藏) | `sdtm-rag/webchat/`; 证据 `chat_ui_redesign_2026-09.md`; ⚑ `dogfood_failures.md` |
-| Phase 7 输出无上限自动续写 (2026-09-08) | `server/router.py` CONTINUE_PROMPT; 部署级 max_tokens; 证据 `autocontinue_2026-09.md` |
+| Phase 7 Chat UI 重构 + 自动续写 (2026-09-08) | `sdtm-rag/webchat/`, `router.py` CONTINUE_PROMPT; 证据 `{chat_ui_redesign,autocontinue}_2026-09.md` |
+| Phase 7 C2R PDF 画面通道 (默认 OFF) + OID 対応表 | `sdtm-rag/PLAN_c2r_pdf_bypass.md`; `server/pdf_{context,trigger}.py`; RETRO `RETROSPECTIVE_c2r.md` |
 | Phase 7 KG 重启 (SP1-5+AGG DONE 全线收官) | `sdtm-rag/KG_ROADMAP.md` — SP1-5+AGG 全 DONE (2026-07-09); SP5 图增强校验器 `server/graph_validator.py` + `POST /api/validate-study`; 路由词无剩余单元, 新图能力需 brainstorm |
 | Phase 7 SP6 隐性关系 + 网状查看器 (2026-07-10) | 挖掘管线 `sdtm-rag/scripts/mine_implicit_relations.py` → `data/meta/implicit_relations.json` (30 advisory 边, 分层反捏造闸, 不碰 meta.yaml); 网状查看器 `sdtm-rag/scripts/build_kg_viewer.py` → `kg_viewer.html`; spec/plan `docs/superpowers/{specs,plans}/2026-07-10-sp6-*` |
 | Phase 7 study 轨 st01 (确定性轨 DONE) | `sdtm-rag/scripts/study/` + 证据 `evidence/checkpoints/study_{golden_v1,rag_full_run}.md` |
