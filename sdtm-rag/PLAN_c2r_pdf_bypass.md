@@ -86,3 +86,36 @@ nohup env SDTM_RAG_AUTH_ENABLED=false SDTM_RAG_PDF_CONTEXT_ENABLED=true \
 until curl -s -m 2 localhost:8011/api/health >/dev/null; do sleep 1; done
 .venv/bin/python scripts/study/c2r_eval/run_v3.py --group T --arms B --models gpt-terra,gpt-sol --qids T1,T3,T6 --timeout 900 --out c2r_n1
 ```
+
+## 7. N2 单元: 画面出处接地闸 (来源标签捏造, 登记于实现前, 2026-09-11)
+
+起源: V3 §4 第 3 条 + N1 判分 2.2 #4 / 2.6 #11 — 三条同型: 底层事实为真 (来自 builder 写进 label 的元数据「同一画面: …」/ 块表), 但被挂上『画面目視判読 p.NN』, 页面上并无此注记。页号越界闸与 N1 作用域规则都不覆盖。
+
+**闸 (零 LLM, eval 侧, 不改服务)**: `scripts/study/c2r_eval/check_visual_grounding.py <runs_dir>...`
+- 主张单元 = 含 `画面目[視视]判[読读] … p.N` 的句/条目 (按换行与「。」切); 页归属: 出处内 pdf 名, 缺省时按 `pdf_pages` 附页唯一匹配, 否则 AMBIGUOUS。
+- 实体 = 页索引里的 activity OID (token 边界) / form OID / 活动短名 (≥3 字, 去空白子串)。
+- 判定: 句中实体全在该页文本层 → PAGE_GROUNDED; 有实体不在页上但在该页 label 元数据 (同 form 同 hidden_items 的折叠块集合, 由索引复算) → **LABEL_ATTRIBUTED**; 不在页上也不在元数据 → OFF_PAGE; 引用页不在附页集 → OUT_OF_RANGE。
+- 输出: 脱敏计数表 (默认不打印 OID/名) + `runs/<dir>/visual_grounding.json` (gitignored, 含实体明细)。
+
+**预登记验证** (V3 B 臂 12 份 + N1 6 份 = 18 份, 真值 = 两轮 judge 的逐条 census): 已知 3 条 LABEL 型捏造召回 **3/3**; 假阳性 (被闸标 LABEL/OFF_PAGE 但 judge 判 verified) **≤ 5**; 结果 `evidence/checkpoints/c2r_n2_visual_grounding.md`。不达 = failures/ 归档, 不放宽判据。
+
+**不做 (归下一单元 N3, 与 3b 面板分组合并一轮复测)**: label 元数据改标『頁索引』出处 + `_PDF_SOURCE_RULE` 第 3 条「label のメタ情報は画像由来ではない」。原因: 改 prompt 须重跑模型, 与 T6 面板分组的 label 改动合并省一轮。
+
+## 8. N3 单元: annotated label 附项目组序列 + label 元数据出处分离 (登记于实现前, 2026-09-11)
+
+起源: (a) V3 §4 第 5 条 + N1 2.5 #8 / 2.6 #7 / #9 — 两模型都把无标题面板并入前一个有题面板 (或把首项目标签当组名), 而该边界与 catalog 项目组边界逐字重合; (b) N2 起源的三条「label 元数据被当画面注记」。两者都改 label/prompt, 合并一轮复测。
+
+**改法 (label + prompt, 检索/选页/触发零改动)**:
+- `_ann_label(form_oid, page)`: 由 catalog (`group_oid`/`group_name`, 按 `row` 序) × 页索引 `item_pages` 算出**本页**出现的项目组序列, 追加 `（本頁の項目グループ順: 名A [n 項目] › (無題) [m 項目] › …）`; 无名组写「(無題)」。数据源: 服务启动时已加载的 catalog (若 builder 无 catalog 句柄, 由页索引构建脚本预计算进 `annotated.page_groups`, 索引 schema 加字段, 旧索引缺字段则不加注)。
+- label 元数据 (块范围 / 同一画面 / 本頁の項目グループ) 集中到 label 尾部一段, 前缀「頁索引メタ:」; `_PDF_SOURCE_RULE` 第 3 条: 「頁索引メタ」の内容は画像から読み取った事実ではない。引用時は『頁索引』を出典とし『画面目視判読』にしない。
+- 测试: 多组页 label 含组序列且无名组写 (無題); 单组页/无 item 页不加; 元数据前缀; prompt 第 3 条; `画面目視判読` 计数仍 1。
+
+**复测 (B 臂, T1/T3/T6, gpt-terra/gpt-sol; opus-5 待供给)**: 判据 ① T6 ② (布局与组一致) 两模型 ≥ V3/N1 (gpt-terra 0 → 目标 1); ② N2 闸 LABEL_ATTRIBUTED = 0 (两模型三题; 闸实体集已并入 annotated 页组名, 续页组的见出し不在本页 ⇒ 引用即标红, 故对 (a) 有判别力); ③ T1/T3 逐点不低于 N1; ④ 规则 A 全量主张核验同型 contradicted (面板合并 / 元数据挂画面) 各 = 0。不达 = failures/ 归档。
+
+**attempt 1 结果 (2026-09-11)**: gpt-terra ①②③④ 全 PASS (9→10); gpt-sol ③④ FAIL ⇒ 归档 `evidence/failures/c2r_n3_attempt_1.md`, 判据不改。
+**attempt 2 前置 (登记)**: ① 先修页索引短 OID 撞页缺陷 (确定性, 不改 prompt); ② 同一 prompt 重跑两模型 T1/T3/T6 (n=2) 分辨 gpt-sol ③ 是否噪声; ③ 仅当 ④「无视 label 组序列」在 n=2 复现, 才允许 prompt 层改动, 且须按 pattern 登记; ④ opus-5 补跑仍是默认 ON 硬前置。
+**attempt 2 结果**: 两模型 10/12; gpt-sol 全 PASS; gpt-terra ② 字面 FAIL (闸 1 = 假阳性) + ④ FAIL (对冲跨页推测 1) ⇒ 归档 `evidence/failures/c2r_n3_attempt_2.md`。「无视 label 组序列」未复现 ⇒ **prompt 不改**。N3 工程件保留 (靶向错误已修好), 单元以「预登记 FAIL / 实质改善」收口。
+
+## 9. N4 候选 (未登记, 须 brainstorm 后再写判据)
+
+PATTERN: 页级元数据在某维度沉默 (单组页不写组序列; 无「前頁からの続き」标记 ≠ 明示「本頁で開始」) 时, 模型用视觉推测填补并在跨页方向给出无证据续接。方向: 沉默维度显式声明状态 (「本頁の枠: 1 (見出しあり/なし)」+「前頁/次頁との連続: なし/あり」)。反证据来自 N3 a1/a2 (写了组序列的页零错, 没写的页三轮两错)。前置: opus-5 补跑; T1 元数据引用率先量化。

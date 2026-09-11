@@ -31,7 +31,7 @@ def _sha(b: bytes) -> str:
 INDEX = {
     "meta": {"pdfs": {"workflow": {"name": "wf.pdf", "pages": 40, "sha256": _sha(WF_BYTES)},
                       "annotated": {"name": "ann.pdf", "pages": 12, "sha256": _sha(ANN_BYTES)}}},
-    "names": {"forms": {"FA": "偽フォーム甲", "FB": "偽フォーム乙"},
+    "names": {"forms": {"FA": "偽フォーム甲", "FB": "偽フォーム乙", "FD": "偽フォーム丁"},
               "activities": {"A_ONE": "偽イベント一 › 偽活動一", "A_TWO": "偽イベント一 › 偽活動二",
                              "A_THREE": "偽イベント二 › 偽活動三", "A_FOUR": "偽イベント二 › 偽活動四"},
               "events": {}},
@@ -56,8 +56,33 @@ INDEX = {
             {"start": 2, "end": 4, "kind": "form", "form_oid": "FA"},
             {"start": 5, "end": 6, "kind": "codelist", "form_oid": "FA"},
             {"start": 7, "end": 8, "kind": "form", "form_oid": "FB"},
+            # FD は**単頁**の form ブロック (実データにも 21 中 6 本ある)。頁索引メタが
+            # 1 つも無い label を作れる唯一の形なので、fixture に要る。
+            {"start": 10, "end": 10, "kind": "form", "form_oid": "FD"},
         ],
-        "item_pages": {"FA": {"WX": [2], "KX": [3]}, "FB": {}},
+        "item_pages": {"FA": {"WX": [2], "WY": [2], "WZ": [2], "KX": [3], "K2": [3],
+                              "K3": [4]},
+                       "FB": {}, "FD": {"Q1": [10]}},
+        # N3: 本頁に項目が在る catalog グループの並び (builder が catalog × item_pages で
+        # 算出して焼く)。項目数は上の item_pages と 1 対 1 で噛み合わせてある ——
+        # fixture が実際に有り得ない索引だと、そこで通ったテストは何も守らない。
+        #   p.2 = 枠 2 つ (どちらも本頁で開始)   … WX,WY → G1 / WZ → G2
+        #   p.3 = 枠 2 つ (先頭は前頁からの続き) … KX → G2 (p.2 から継続) / K2 → G3
+        #   p.4 = 枠 1 つ (前頁からの続き)       … K3 → G3
+        "page_groups": {
+            "FA": {"2": [{"group_oid": "G1", "name": "偽グループ甲", "n_items": 2,
+                          "continued": False},
+                         {"group_oid": "G2", "name": "", "n_items": 1,
+                          "continued": False}],
+                   "3": [{"group_oid": "G2", "name": "", "n_items": 1,
+                          "continued": True},
+                         {"group_oid": "G3", "name": "偽グループ丙", "n_items": 1,
+                          "continued": False}],
+                   "4": [{"group_oid": "G3", "name": "偽グループ丙", "n_items": 1,
+                          "continued": True}]},
+            "FD": {"10": [{"group_oid": "G9", "name": "偽グループ丁", "n_items": 1,
+                           "continued": False}]},
+        },
     },
 }
 
@@ -82,11 +107,11 @@ def builder(tmp_path):
     return _builder(tmp_path)
 
 
-def _builder(tmp_path, **kw):
+def _builder(tmp_path, index=None, **kw):
     (tmp_path / "wf.pdf").write_bytes(WF_BYTES)
     (tmp_path / "ann.pdf").write_bytes(ANN_BYTES)
     return PdfContextBuilder(
-        PdfPageIndex(INDEX),
+        PdfPageIndex(INDEX if index is None else index),
         {"workflow": tmp_path / "wf.pdf", "annotated": tmp_path / "ann.pdf"},
         cache_dir=tmp_path / "cache", **kw,
     )
@@ -215,7 +240,102 @@ def test_annotated_label_carries_the_form_block_range(builder):
     """annotated 側も同じ: FA のフォーム画面は p.2–4 で、付くのは item OID の頁だけ。"""
     sel = builder.select_pages([card(item="WX")], max_pages=3)
     ann = next(p for p in sel.pages if p.pdf == "annotated" and p.page == 2)
-    assert "（p.2–4 のうち p.2）" in ann.label
+    assert "p.2–4 のうち本頁 p.2 のみ添付" in ann.label
+
+
+# ── N3: 本頁の項目グループ順 / 索引メタの出処分離 ──────────────────────
+def test_page_groups_are_read_off_the_index(builder):
+    assert [g["name"] for g in builder.index.page_groups("FA", 2)] == ["偽グループ甲", ""]
+
+
+def test_page_groups_are_empty_for_an_index_that_predates_the_field(tmp_path):
+    """本番の索引は再生成しないと新欄を持たない。欄が無い索引で落ちる/注記を捏造する
+    のではなく、**注記が付かないだけ**であること (旧索引はそのまま動く)。"""
+    old = json.loads(json.dumps(INDEX))
+    del old["annotated"]["page_groups"]
+    b = _builder(tmp_path, index=old)
+    assert b.index.page_groups("FA", 2) == []
+    sel = b.select_pages([card(item="WX")], max_pages=3)
+    ann = next(p for p in sel.pages if p.pdf == "annotated" and p.page == 2)
+    assert "項目グループ順" not in ann.label
+    assert "p.2–4 のうち本頁 p.2" in ann.label      # 他のメタは生きている
+
+
+def test_page_groups_of_an_unknown_form_or_page_are_empty(builder):
+    assert builder.index.page_groups("FZ", 2) == [] and builder.index.page_groups("FA", 99) == []
+
+
+def test_a_multi_group_page_writes_the_group_order_on_the_label(builder):
+    """N3 の起源: 両モデルとも見出しの無い枠を前の枠に併合した (V3 §4 第 5 条)。枠の
+    境界は catalog のグループ境界と逐字一致するので、並びを label に書けば観測できる。"""
+    sel = builder.select_pages([card(item="WX")], max_pages=3)
+    ann = next(p for p in sel.pages if p.pdf == "annotated" and p.page == 2)
+    assert "本頁の項目グループ順: 偽グループ甲 [2 項目] › (無題) [1 項目]" in ann.label
+
+
+def test_a_single_group_page_gets_no_group_note(builder):
+    """枠が 1 つの頁に「グループ順」と書いても順序の情報が無い。常に足すと N1 の範囲
+    注記と同じで狼少年になり、本当に 2 枠ある頁の注記が読み飛ばされる。範囲注記の方は
+    残る = 消えているのがグループ順だけであることも一緒に見る。"""
+    sel = builder.select_pages([card(item="K3")], max_pages=3)
+    ann = next(p for p in sel.pages if p.pdf == "annotated" and p.page == 4)
+    assert "項目グループ順" not in ann.label and "のうち本頁 p.4 のみ添付" in ann.label
+
+
+def test_a_group_continued_from_the_previous_page_says_so(builder):
+    """複審 MAJOR-1: 枠の見出しは始まった頁にしか描かれない (実データの名前付き続き枠
+    25 件中、続き頁に見出しが出ていたのは 0 件)。並びだけ渡すと、モデルは前頁にしか
+    無い見出しを本頁の記載として報告する —— N2 の LABEL 型捏造の新しい面。"""
+    sel = builder.select_pages([card(item="KX")], max_pages=3)
+    ann = next(p for p in sel.pages if p.pdf == "annotated" and p.page == 3)
+    assert ("本頁の項目グループ順: (無題) [1 項目・前頁からの続き] › 偽グループ丙 [1 項目]"
+            in ann.label)
+
+
+def test_a_group_that_starts_on_this_page_carries_no_continued_mark(builder):
+    """全部に印を付けると印の意味が消える。p.2 は form ブロックの先頭頁なので、
+    どの枠も前頁から続きようがない。"""
+    sel = builder.select_pages([card(item="WX")], max_pages=3)
+    ann = next(p for p in sel.pages if p.pdf == "annotated" and p.page == 2)
+    assert "前頁からの続き" not in ann.label
+
+
+def test_group_oids_stay_out_of_the_label(builder):
+    """索引の group OID は annotated の文本層に **0/153** しか現れない (実測) ——
+    画像から確かめようのない文字列を label に足すのは、N2 で問題になった「索引由来の
+    メタが画面の注記として引用される」を増やすだけ。並び順と項目数で枠は特定できる。"""
+    sel = builder.select_pages([card(item="WX")], max_pages=3)
+    ann = next(p for p in sel.pages if p.pdf == "annotated" and p.page == 2)
+    assert "G1" not in ann.label and "G2" not in ann.label
+
+
+def test_index_metadata_sits_behind_exactly_one_meta_prefix(builder):
+    """N3 (b): 索引由来のメタ (ブロック範囲 / 同一画面 / グループ順) は頁そのものの
+    身元ではない。1 箇所にまとめて前置きを付けないと、規則側が「どこからが索引由来か」
+    を指せず、『画面目視判読』の出典で引用される (N2 起源の 3 件)。"""
+    sel = builder.select_pages([card(item="WX")], max_pages=3)
+    ann = next(p for p in sel.pages if p.pdf == "annotated" and p.page == 2)
+    assert ann.label.count("頁索引メタ") == 1
+    head, meta = ann.label.split("頁索引メタ: ")
+    assert "偽フォーム甲 (FA)" in head and "のうち" not in head      # 身元だけが前に残る
+    assert "のうち本頁 p.2 のみ添付" in meta and "項目グループ順" in meta
+
+
+def test_a_label_with_nothing_to_add_has_no_meta_segment(builder):
+    """単頁ブロック・1 グループ・折り畳み無し = 索引が足せる事実がゼロ。空の
+    「頁索引メタ:」が残ると、無いものを探してモデルが注記を捏造する余地になる。"""
+    sel = builder.select_pages([card(form="FD", item="Q1", hidden="—")], max_pages=3)
+    ann = next(p for p in sel.pages if p.pdf == "annotated" and p.page == 10)
+    assert ann.label == "【画面 annotated p.10 — 偽フォーム丁 (FD) フォーム画面】"
+
+
+def test_a_workflow_label_folds_range_and_shared_screen_into_one_segment(builder):
+    """範囲注記と「同一画面」が同居する形。選頁を経由せず label 関数を直接叩くのは、
+    この組合せが選頁の都合 (どのブロックが畳まれるか) ではなく label の性質だから。"""
+    blk = next(b for b in INDEX["workflow"]["blocks"] if b["start"] == 20)
+    label = builder._wf_label(blk, ["A_THREE"])
+    assert label.count("頁索引メタ") == 1
+    assert "p.20–24 のうち本頁 p.20 のみ添付；同一画面: 偽イベント二 › 偽活動三" in label
 
 
 # ── 描画 + 多模態片段 ──────────────────────────────────────────────────

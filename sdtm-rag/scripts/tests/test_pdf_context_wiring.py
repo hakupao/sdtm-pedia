@@ -188,6 +188,24 @@ def test_fired_request_limits_negative_claims_to_the_attached_pages():
     assert sys_prompt.count("画面目視判読") == 1
 
 
+def test_the_rule_says_index_metadata_is_not_something_read_off_the_image():
+    """N3 (b): label の「頁索引メタ:」以降は索引が持っている事実であって、画像から
+    読み取ったものではない。N2 起源の 3 件はこれを画像由来の出典で引用していた
+    (底の事実は正しいのに、頁にはその注記が無い)。"""
+    c, app = _client(pdf_context=_FakeBuilder())
+    c.post("/api/ask", json={"question": Q_FIRES, "history": []})
+    sys_prompt = app.state.llm_router.messages[0]["content"]
+    assert "頁索引メタ" in sys_prompt and "『頁索引』" in sys_prompt
+    # 枠 (パネル) の境界 = グループ境界、見出しの無い枠も 1 つと数える (N3 (a) の起源)
+    assert "項目グループ順" in sys_prompt and "枠" in sys_prompt
+    # 複審 MAJOR-1: 続き枠の見出しは前頁にしか無い。label が印を付けても、それが
+    # 「本頁に見出しが無い」を意味することは規則側で言わないと伝わらない。
+    assert "前頁からの続き" in sys_prompt and "本頁には見出しが描画されていない" in sys_prompt
+    # 出典名は 1 つだけ。規則が増えるたびに出典名が増えると、モデルは画像を見ずに
+    # 「それらしい出典名」を選べるようになる。
+    assert sys_prompt.count("画面目視判読") == 1
+
+
 def test_a_quiet_question_leaves_everything_alone_even_with_the_channel_on():
     """通道 ON でも、規則に当たらない問いでは 1 バイトも変わらない —— 反例集
     (P1 §2) が守っているのはこの性質。"""

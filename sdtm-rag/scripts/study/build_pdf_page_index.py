@@ -46,6 +46,15 @@ _HEADER_RE = re.compile(r"^ENSEMBLE \| ENSEMBLE \[[0-9.]+\]\s*")
 _WS_RE = re.compile(r"\s+")
 _CODELIST_SUFFIX = " - Code Lists"
 
+# 画面の OID 徽章は半角 ASCII の**独立した列**に描かれ、日本語に食い込まない。
+# `_bounded_re` の境界は ASCII 英数のみを見るので、日本語 (と全角) の直前直後は
+# 境界として通ってしまう —— 2 字 OID が隣の頁の日本語見出しの頭と一致して、その頁に
+# 居ることにされる (複審の実例: 1 頁分の過剰計上 + 別 1 件は定位そのものが誤り)。
+# 実測での天秤 (annotated 942 対): この規則で落ちるのは 2 対だけで、残り 940 対は
+# すべて非 ASCII に隣接しない出現を持つ。列位置まで要求する案 (行端 or 2 空白以上) は
+# 54 対落とし、うち 52 対は 1 空白字下げの**真の徽章** —— だから採らない。
+_NON_ASCII_RE = re.compile(r"[^\x00-\x7f]")
+
 # workflow の被覆断言の許容外れ頁数。S0 実測では表紙 + 目次の 3 頁 (933 → 930) だけが
 # どのブロックにも属さない。定数で持つのは「930」という study 固有の数を焼かないため。
 MAX_UNCOVERED_PAGES = 3
@@ -151,9 +160,22 @@ def cut_annotated_blocks(catalog: dict, pages: list[str]) -> list[dict]:
     return _blocks_from_titles(titled, len(pages))
 
 
+def _is_badge_hit(text: str, m: re.Match) -> bool:
+    """その一致が**徽章**か (日本語見出しに食い込んだ頭ではないか)。
+
+    両隣を見るだけ: 非 ASCII が直に接していたら、それは日本語の語の一部であって
+    徽章ではない。改行は `norm_page` で空白になっているので、行末の徽章は落ちない。
+    """
+    return not (_NON_ASCII_RE.match(text[m.end():m.end() + 1] or " ")
+                or _NON_ASCII_RE.match(text[max(0, m.start() - 1):m.start()] or " "))
+
+
 def item_pages_by_form(catalog: dict, annotated_blocks: list[dict],
                        pages: list[str]) -> dict[str, dict[str, list[int]]]:
     """`{form_oid: {item_oid: [頁...]}}` —— Annotated の item OID 直查 (941/959, 中位 1 頁)。
+
+    一致は**徽章の形**でなければ数えない (`_is_badge_hit`) —— 範囲を切っても、同じ
+    ブロックの隣の頁の日本語見出しの頭と 2 字 OID が一致する経路が残る。
 
     探索範囲を**その form の form ブロック内**に限るのが短 OID 串味防止の本体 (S0 §1-3):
     `PS` は 6 頁に出るが、そのうち `LB` の画面は 1 頁だけ。範囲を切らずに拾うと、LB の
@@ -175,10 +197,70 @@ def item_pages_by_form(catalog: dict, annotated_blocks: list[dict],
         hits: dict[str, list[int]] = {}
         for oid in items_by_form.get(form_oid, []):
             rx = _bounded_re(oid)
-            found = [p for p in pgs if rx.search(texts[p])]
+            found = [p for p in pgs
+                     if any(_is_badge_hit(texts[p], m) for m in rx.finditer(texts[p]))]
             if found:  # 空リストは載せない: 「探してゼロ」と「探していない」が混ざる
                 hits[oid] = found
         out[form_oid] = hits
+    return out
+
+
+def page_groups_by_form(
+    catalog: dict, item_pages: dict[str, dict[str, list[int]]],
+) -> dict[str, dict[str, list[dict]]]:
+    """`{form_oid: {"頁": [{group_oid, name, n_items, continued}, ...]}}` —— 本頁に項目が
+    在る catalog グループの並び (N3)。
+
+    なぜ索引に要るのか: 画面の枠 (パネル) の境界は catalog の項目グループ境界と逐字
+    一致するのに、**見出しの無い枠**は画像から見ると前の枠の続きに見える。V3/N1 では
+    2 モデルとも無題パネルを前のパネルに併合した (PLAN §8 (a))。並びを確定的に持って
+    おけば、消費側が label に書いて観測可能にできる。
+
+    並び順は catalog の `row` —— 配列順ではない。実データの 21 フォームでグループは
+    row について連続 (実測 0 件の非連続) なので、頁内の視覚的な上下と一致する。
+
+    `n_items` は**その頁で定位できた**項目数であって、グループ全体の項目数ではない。
+    グループ総数を書くと「添付頁に無い項目まで本頁に在る」と読め、N1 で塞いだ外推を
+    索引側で作り直すことになる。
+
+    `continued` は「このグループの項目が**前の頁**にも定位している」= 本頁は枠の途中。
+    実測: 発火対象 40 頁のうち 10 頁は先頭の枠が前頁からの続きで、続き頁に見出しが
+    描画されている例は名前付き 25 件中 **0 件**。並びだけ渡して続きだと言わないと、
+    モデルは前頁にしか無い見出しを「本頁に在る」と報告する —— N2 が拾った
+    LABEL 型捏造の新しい面 (複審 MAJOR-1)。
+
+    頁を**文字列**キーで持つのは JSON の往復で形が変わらないようにするため。int で
+    組むと、生成直後のテストは通るのに読み直した索引では 1 件も当たらない。
+    """
+    meta: dict[tuple[str, str], tuple[str, str, int]] = {}
+    for it in catalog["items"]:
+        meta.setdefault((it["form_oid"], it["item_oid"]),
+                        (it["group_oid"], it.get("group_name") or "", it["row"]))
+    out: dict[str, dict[str, list[dict]]] = {}
+    for form_oid, items in item_pages.items():
+        per_page: dict[int, dict[str, dict]] = {}
+        first_page: dict[str, int] = {}      # グループが最初に現れた頁 (continued の基準)
+        for item_oid, pgs in items.items():
+            key = meta.get((form_oid, item_oid))
+            if key is None:
+                # item_pages は catalog から作るので、ここに来るのは入力が食い違って
+                # いる時だけ。黙って飛ばすとその頁の注記だけが消える無症状の壊れ方。
+                raise ValueError(
+                    f"{form_oid}.{item_oid} is not a catalog item —— item_pages と "
+                    f"catalog が食い違っている")
+            group_oid, name, row = key
+            for p in pgs:
+                g = per_page.setdefault(p, {}).setdefault(
+                    group_oid, {"group_oid": group_oid, "name": name, "row": row, "n": 0})
+                g["n"] += 1
+                g["row"] = min(g["row"], row)
+                first_page[group_oid] = min(first_page.get(group_oid, p), p)
+        out[form_oid] = {
+            str(p): [{"group_oid": g["group_oid"], "name": g["name"], "n_items": g["n"],
+                      "continued": first_page[g["group_oid"]] < p}
+                     for g in sorted(groups.values(), key=lambda g: g["row"])]
+            for p, groups in sorted(per_page.items())
+        }
     return out
 
 
@@ -204,6 +286,7 @@ def display_names(catalog: dict) -> dict[str, dict[str, str]]:
 def build_index(catalog: dict, workflow_pages: list[str], annotated_pages: list[str],
                 meta: dict) -> dict:
     ann_blocks = cut_annotated_blocks(catalog, annotated_pages)
+    item_pages = item_pages_by_form(catalog, ann_blocks, annotated_pages)
     # n_pages は meta とは別に索引本体に持つ: 被覆断言の分母がブロック表由来だと、
     # ブロックが丸ごと落ちた索引ほど分母も一緒に縮んで断言が通ってしまう (自己参照)。
     return {
@@ -214,7 +297,8 @@ def build_index(catalog: dict, workflow_pages: list[str], annotated_pages: list[
         "annotated": {
             "n_pages": len(annotated_pages),
             "blocks": ann_blocks,
-            "item_pages": item_pages_by_form(catalog, ann_blocks, annotated_pages),
+            "item_pages": item_pages,
+            "page_groups": page_groups_by_form(catalog, item_pages),
         },
     }
 

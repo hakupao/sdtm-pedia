@@ -136,6 +136,15 @@ class PdfPageIndex:
         for b in data["annotated"]["blocks"]:
             if b["kind"] == "form":
                 self._form_block.setdefault(b["form_oid"], b)
+        # N3: 本頁の項目グループ順 (annotated のみ)。旧い索引にはこの欄が無い ——
+        # その場合は注記が付かないだけで動く。気付けるように**読み込み 1 回だけ**言う
+        # (毎回言うと発火のたびにログが流れ、本当の異常が埋もれる)。
+        page_groups = data["annotated"].get("page_groups")
+        self._page_groups = page_groups or {}
+        if page_groups is None:
+            log.info("pdf_page_index_without_page_groups",
+                     hint="scripts/study/build_pdf_page_index.py で作り直すと "
+                          "項目グループ順が label に付く")
         self._names = data.get("names", {})
         # 表示名は `イベント名 › アクティビティ名`。問題文が含むのは普通アクティビティ名
         # だけなので、照合用に後半を切り出しておく (イベント名側は広すぎて、それで
@@ -154,6 +163,15 @@ class PdfPageIndex:
 
     def item_pages(self, form_oid: str, item_oid: str) -> list[int]:
         return list(self._d["annotated"]["item_pages"].get(form_oid, {}).get(item_oid, []))
+
+    def page_groups(self, form_oid: str, page: int) -> list[dict]:
+        """本頁に項目が在る catalog グループの並び
+        (`[{group_oid, name, n_items, continued}, …]`)。
+
+        欄を持たない索引では**空リスト** —— 旧い索引をそのまま動かすため。頁キーは
+        JSON 由来の文字列なので `str(page)` で引く。
+        """
+        return list(self._page_groups.get(form_oid, {}).get(str(page), []))
 
     def form_block(self, form_oid: str) -> dict | None:
         return self._form_block.get(form_oid)
@@ -195,6 +213,17 @@ class PdfPageIndex:
             if len(name) >= _MIN_FORM_NAME_LEN and _norm_ws(name) in q:
                 return oid
         return None
+
+
+# 索引由来のメタの前置き。規則 (`router._PDF_SOURCE_RULE`) がこの語で名指しするので、
+# 変えるときは両方。空のときは前置きごと出さない —— 空の見出しが残ると、無いものを
+# 探してモデルが埋めにいく余地になる。
+_META_PREFIX = " ｜ 頁索引メタ: "
+_META_SEP = "；"
+
+
+def _with_index_meta(head: str, meta: list[str]) -> str:
+    return head + (_META_PREFIX + _META_SEP.join(meta) if meta else "") + "】"
 
 
 class PdfContextBuilder:
@@ -347,19 +376,46 @@ class PdfContextBuilder:
     # N1: 添付頁が**ブロックの一部**であることを label に書く。書かないと部分集合で
     # あることがモデルから観測できず、「この頁に無い ⇒ 画面に無い」と外推される
     # (V3 opus-5 の T3/T6 が同型)。1 頁で全部のブロックには足さない (狼少年になる)。
+    #
+    # N3: 上の範囲注記も「同一画面」も「項目グループ順」も、**頁そのものの身元ではなく
+    # 索引が持っている事実**。頭書きと地続きに書くと、画像に写っている注記と区別が
+    # 付かず『画面目視判読 p.NN』の出典で引用される (N2 が拾った 3 件はこの形: 底の
+    # 事実は正しいのに、その頁にそんな注記は無い)。だから索引由来は全部 1 段にまとめ、
+    # 前置きを付けて規則側から名指しできるようにする。
     def _ann_label(self, form_oid: str, page: int) -> str:
-        label = (f"【画面 annotated p.{page} — "
-                 f"{self.index.form_name(form_oid)} ({form_oid}) フォーム画面")
+        head = (f"【画面 annotated p.{page} — "
+                f"{self.index.form_name(form_oid)} ({form_oid}) フォーム画面")
+        meta: list[str] = []
         blk = self.index.form_block(form_oid)
         if blk is not None and blk["end"] > blk["start"]:
-            label += f"（p.{blk['start']}–{blk['end']} のうち p.{page}）"
-        return label + "】"
+            meta.append(f"p.{blk['start']}–{blk['end']} のうち本頁 p.{page} のみ添付")
+        # N3 (a): 枠 (パネル) の境界は catalog の項目グループ境界と逐字一致するが、
+        # **見出しの無い枠**は画像では前の枠の続きに見える (V3/N1 で 2 モデルとも併合)。
+        # 1 グループの頁に「順」を書いても順序の情報が無いので足さない —— 常に足すと
+        # 範囲注記と同じで狼少年になり、本当に 2 枠ある頁の注記が読み飛ばされる。
+        groups = self.index.page_groups(form_oid, page)
+        if len(groups) >= 2:
+            # group OID は書かない。annotated の文本層に **0/153** しか現れない (実測)
+            # ので、画像から確かめようのない文字列が 1 つ増えるだけ —— まさに N2 の
+            # 「索引由来のメタが画面の注記として引用される」を太らせる。枠は並び順と
+            # 項目数で特定できる。
+            # 続き枠には印を付ける (複審 MAJOR-1)。見出しは枠が**始まった頁**にしか
+            # 描かれず、実データでは名前付きの続き枠 25 件中 0 件しか続き頁に見出しが
+            # 出ていない —— 印が無ければ、前頁にしか無い見出しを本頁の記載として
+            # 報告されるだけ。
+            seq = " › ".join(
+                f"{g['name'] or '(無題)'} "
+                f"[{g['n_items']} 項目{'・前頁からの続き' if g.get('continued') else ''}]"
+                for g in groups)
+            meta.append(f"本頁の項目グループ順: {seq}")
+        return _with_index_meta(head, meta)
 
     def _wf_label(self, b: dict, folded: list[str] | None = None) -> str:
         head = (f"【画面 workflow p.{b['start']} — {self.index.activity_name(b['activity_oid'])}"
                 f" / {self.index.form_name(b['form_oid'])} ({b['form_oid']}) の実表示")
+        meta: list[str] = []
         if b["end"] > b["start"]:      # N1 (理由は `_ann_label` の上の注)
-            head += f"（p.{b['start']}–{b['end']} ブロックのうち本頁 p.{b['start']} のみ添付）"
+            meta.append(f"p.{b['start']}–{b['end']} のうち本頁 p.{b['start']} のみ添付")
         if folded:
             # 「この画面は活動 X/Y でも共通」は答えそのもの (T4 の「両日の違い」)。
             # 予算節約のために消していい情報ではないので、生き残った頁に書き移す。
@@ -367,8 +423,8 @@ class PdfContextBuilder:
             # 活動を持つので、短縮名だと「同一画面: 自分と同じ名前」に見えて何も伝わらない
             # —— どの群のどの活動と共通なのかが、まさに T4 型が訊いていること。
             names = ", ".join(self.index.activity_name(a) for a in folded)
-            head += f" · 同一画面: {names}"
-        return head + "】"
+            meta.append(f"同一画面: {names}")
+        return _with_index_meta(head, meta)
 
     # ── 描画 ───────────────────────────────────────────────────────────
     def render(self, selection: PageSelection) -> list[ImagePart]:

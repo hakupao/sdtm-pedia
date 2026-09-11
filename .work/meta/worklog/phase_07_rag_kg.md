@@ -2428,3 +2428,12 @@ deepseek/deepseek-chat (与生成方 opus-5 **不同模型族**, 避自偏好; �
 - **复测** (B 臂 T1/T3/T6 × gpt-terra/gpt-sol, 6/6, 判分人非作者, 规则 A 53 条主张全量): 分数与 V3 逐点全等 (9/12 = 9/12); 否定断言正确限定 6/6; 同型 contradicted 0; 卡片级否定未被误降级; 单页块上两模型都**不**加多余限定 → label 范围确被读到。**诚实边界**: V3 同型错误全在 opus-5, 本轮 opus-5 跑不了 ⇒ 判据 ① 空转, 不构成「修法已验证」; 默认 ON 继续绑 opus-5 补跑 (命令在 checkpoint §6)。混杂: 路由退 both, T3 annotated 页集与 V3 略异。
 - **新暴露**: gpt-sol 来源标签捏造 (卡片事实安上不存在的画面注记, 现有闸都不覆盖) ×2; T6 无标题面板并入前组 (两模型)。下一步 = 来源标签捏造闸 (零 LLM) → T6 面板分组 label 补组名单 → 账号恢复即插 opus-5 补跑。
 - runner 从 scratchpad 迁入 `sdtm-rag/scripts/study/c2r_eval/`。证据 `sdtm-rag/evidence/checkpoints/c2r_n1_subset_semantics.md`, `evidence/step_c2r_n1_audit.md`, RETRO §5。
+
+### 2026-09-11 (下午) — C2R N2 画面出处接地闸 + N3 项目组序列 (a1/a2 预登记 FAIL, 实质改善) + 索引缺陷修复
+
+- **N2 闸** (`sdtm-rag/scripts/study/c2r_eval/check_visual_grounding.py`, 零 LLM): 带画面出处的句子 → 实体 (活动/表单 OID、活动短名、annotated 组名) 对照页文本层, 分 PAGE_GROUNDED / LABEL_ATTRIBUTED / OFF_PAGE / OUT_OF_RANGE / AMBIGUOUS。预登记验证 18 份: 召回 3/3, 假阳性 4 (≤5)。Rule D **过拟合专审** (留一消融 + 换说法) 抓 2 MAJOR: 一条未登记规则单独决定召回 (対応表整句丢弃 → 改剥归属短语); 同一性词表贴样本 (→ 概念级重写 + 14 条换说法测试 + ≥2 附页不触发)。证据分层报「字面 12/2of3/10 → 实体层 5/2of3/3 → 全闸 7/3of3/4」。65 tests。盲点: 否定极性、切分吞作用域、面板合并型零召回。
+- **N3** (label 附「本頁の項目グループ順」含 `(無題)` 与 `前頁からの続き`; 元数据集中「頁索引メタ:」段; prompt 第 3 条『頁索引』出典): Rule D 第一轮 **FAIL** (续页组见出し不在本页, 真索引 0/25 vs 起始枠 59/65) → 加 `continued` 后 PASS; 9 次变异全抓。真索引新增 `annotated.page_groups` (85 页 / 152 条)。
+- **索引缺陷** (judge 发现): 2 字母 OID 撞邻页日文标题前缀 → `_is_badge_hit` (徽章两侧不邻非 ASCII; 候选规则实测 A 落 2 对/0 真损 vs B 误杀 52) → (item,页) 942→940。
+- **复测** (B 臂 T1/T3/T6 × gpt-terra/gpt-sol, 页集三轮逐字相同; opus-5 仍挂起): a1 terra 10 / sol 9 (sol ③④ FAIL); a2 (仅索引修复, 同 prompt, n=2) terra 10 / sol 10 (terra ② 字面 FAIL = 闸假阳性 1; ④ FAIL = 1 条对冲跨页推测)。**预登记口径两轮 gpt 家 FAIL, 归档 `failures/c2r_n3_attempt_{1,2}.md`**; 但 N3 靶向的面板合并与元数据挂画面两模型两轮全修好 (N1 contradicted 5 → a2 1); FAIL 在两模型间跳 ⇒ 共享残余失败库; 「无视组序列」未复现 ⇒ **prompt 不改**。
+- **发现**: 唯一反复说错的页 = 唯一不带组序列的页 → N4 候选 PATTERN「元数据沉默维度显式化」(PLAN §9, 须 brainstorm+预登记); T1 元数据三轮零引用 (「在」≠「被用」); 索引错误会被原样转述; 预登记把「闸计数=0」写成硬条件是失误 (应写「核验为真 = 0」)。N1 审计一处真值更正 (26/27→25/27, 分数不变)。
+- 2230 → **2319 passed**; 红线 18 文件 CLEAN。证据 `sdtm-rag/evidence/checkpoints/c2r_{n2_visual_grounding,n3_group_sequence}.md`, `evidence/step_c2r_n3{,_a2}_audit.md`, RETRO §6。

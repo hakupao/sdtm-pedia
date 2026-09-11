@@ -1,7 +1,7 @@
 {
   "phase": "C2R — 表单 PDF 按需旁路 + 活動 OID label 补齐",
   "tier": 2,
-  "status": "N1_DONE_OPUS_RETEST_PENDING",
+  "status": "N2_DONE_N3_CLOSED_FAIL_BY_PREREG_OPUS_PENDING",
   "started": "2026-09-09",
   "plan": "PLAN_c2r_pdf_bypass.md",
   "steps": {
@@ -12,7 +12,9 @@
     "V3_eval": "done: 4/4 criteria PASS; B-A = +3 opus / +5 gpt (of 23); fabrication 5/45 (2 = truncation-semantics gap)",
     "C4_closeout": "retro written; awaiting 收尾 (commit) — flag stays default OFF",
     "I2_4_webchat": "done (3-state render; 38 node + 2 SSE contract tests w/ mutation check; 2214 pytest; redline CLEAN 7 files)",
-    "N1_subset_semantics": "done (label+prompt; ruleD PASS-with-nits 5 fixed; 2230 tests; gpt-terra/gpt-sol B-arm T1/T3/T6 = V3 逐点全等, 否定限定 6/6, 同型 contradicted 0; opus-5 挂起 — Bedrock 拒绝 Anthropic 2026-09-11)"
+    "N1_subset_semantics": "done (label+prompt; ruleD PASS-with-nits 5 fixed; 2230 tests; gpt-terra/gpt-sol B-arm T1/T3/T6 = V3 逐点全等, 否定限定 6/6, 同型 contradicted 0; opus-5 挂起 — Bedrock 拒绝 Anthropic 2026-09-11)",
+    "N2_visual_grounding_gate": "done (零 LLM 闸; ruleD 过拟合专审 2 MAJOR 修; 18 份: 召回 3/3, FP 4; 分层表 字面 12/2of3/10 → 实体层 5/2of3/3 → 全闸 7/3of3/4; 组名并入实体集)",
+    "N3_group_sequence": "closed: a1 FAIL (sol ③④) / a2 FAIL (terra ②④, 换了模型); 两模型 10/12; 靶向错误两轮修好; 索引短 OID 缺陷修复; prompt 改动未触发; 归档 failures/c2r_n3_attempt_{1,2}.md"
   },
   "findings": [
     "S0-0 2026-09-09: PDF 文本层 OID 几乎不可搜 (Annotated 体重STAT项=1, 术前LB活动=0, LBG4=0; workflow=0); 日语活动名可命中 (术前LB活动名 4, C1-Day8活动名 8) → 页索引钥匙改为 OID→catalog 日语名→页",
@@ -23,7 +25,9 @@
     "⛔ 按 activity_oid 单键跨表单并集仅 59/77=76.6% (<80%), 超线 18 个全挂 QOL 表单 → 实现必须用 (activity, form) 双键, 是 G0 成立前提",
     "dogfood 坐实: Annotated p.174 LB 表单带 OID 徽章 (HEIGHT/WEIGHT/体重STAT项); workflow p.315 同表单在 术前LB活动 下 身長 整组不显示; 体重STAT项 catalog label 为空串 (30/959 空), 官方 label 体重未実施 只在画面上",
     "2026-09-09 流程: 红线闸 (oidscan) 拦真实 OID/label; PLAN/progress/P1 已掩码 CLEAN, 真值存 gitignored data/study/st01/eval/c2r_pre_registration_realvalues.md; S0 报告 78 处已掩码 CLEAN, 真值伴生件 data/study/st01/eval/c2r_s0_survey_realvalues.md",
-    "N1 2026-09-11: 判据 ① 在 gpt 家空转 (V3 同型错误全在 opus-5); 新暴露 来源标签捏造 (gpt-sol) + T6 面板边界合并 (两模型) 两个独立缺陷"
+    "N1 2026-09-11: 判据 ① 在 gpt 家空转 (V3 同型错误全在 opus-5); 新暴露 来源标签捏造 (gpt-sol) + T6 面板边界合并 (两模型) 两个独立缺陷",
+    "N3 2026-09-11: 元数据「在」≠「被用」(T1 无人引『頁索引』); 索引错误会被原样转述; 短 OID 撞邻页标题 → 组项目数高估 (修复中)",
+    "N3 a2 2026-09-11: FAIL 在两模型间跳 ⇒ 残余失败共享; 唯一反复说错的页 = 唯一不带组序列的页 ⇒ N4 PATTERN 候选「沉默维度显式化」; T1 元数据零引用三轮坐实"
   ],
   "evidence": [
     "evidence/checkpoints/c2r_s0_survey.md",
@@ -35,7 +39,13 @@
     "RETROSPECTIVE_c2r.md",
     "evidence/checkpoints/c2r_n1_subset_semantics.md",
     "evidence/step_c2r_n1_audit.md",
-    "evidence/checkpoints/bedrock_anthropic_denied_2026-09-11.md"
+    "evidence/checkpoints/bedrock_anthropic_denied_2026-09-11.md",
+    "evidence/checkpoints/c2r_n2_visual_grounding.md",
+    "evidence/checkpoints/c2r_n3_group_sequence.md",
+    "evidence/step_c2r_n3_audit.md",
+    "evidence/failures/c2r_n3_attempt_1.md",
+    "evidence/step_c2r_n3_a2_audit.md",
+    "evidence/failures/c2r_n3_attempt_2.md"
   ],
-  "next_unit": "opus-5 补跑 N1 (Bedrock 恢复后) → 再议默认 ON; 来源标签捏造闸 (新); T6 无标题面板分组; 空 label 30 项从 Annotated 抽官方名; 前端缩略图"
+  "next_unit": "N4 brainstorm+预登记 (沉默维度显式化); opus-5 补跑 (Bedrock 恢复后) 仍是默认 ON 硬前置; 空 label 30 项; 前端缩略图"
 }

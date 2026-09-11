@@ -35,11 +35,33 @@ CATALOG = {
         {"event_oid": "E2", "event_name": "イベント二", "activity_oid": "A2",
          "activity_name": "活動二", "form_oid": "FA", "hidden_items": "ZWSTAT"},
     ],
+    # N3: `group_oid` / `group_name` / `row` は「本頁の項目グループ順」の材料。配列の並びを
+    # わざと row 順と食い違わせてある —— 実装が catalog の配列順に寄りかかっていたら
+    # `test_page_groups_follow_catalog_row_order` がそれを捕まえる。
     "items": [
-        {"form_oid": "FA", "item_oid": "PS", "label": "全身状態"},
-        {"form_oid": "FA", "item_oid": "ZWSTAT", "label": ""},
-        {"form_oid": "FB", "item_oid": "PS", "label": "別フォームの同名 OID"},
-        {"form_oid": "FB", "item_oid": "NOTONSCREEN", "label": "画面に出ない項目"},
+        {"form_oid": "FA", "item_oid": "ZWSTAT", "label": "", "row": 2,
+         "group_oid": "G2", "group_name": ""},
+        {"form_oid": "FA", "item_oid": "ZWNOTE", "label": "偽注記", "row": 3,
+         "group_oid": "G2", "group_name": ""},
+        {"form_oid": "FA", "item_oid": "PS", "label": "全身状態", "row": 1,
+         "group_oid": "G1", "group_name": "偽グループ甲"},
+        {"form_oid": "FB", "item_oid": "PS", "label": "別フォームの同名 OID", "row": 1,
+         "group_oid": "G3", "group_name": "偽グループ乙"},
+        {"form_oid": "FB", "item_oid": "NOTONSCREEN", "label": "画面に出ない項目", "row": 2,
+         "group_oid": "G3", "group_name": "偽グループ乙"},
+        # G3 は p.4 と p.5 の両方に項目が在る = p.5 では枠の途中 (見出しは p.4 にしか無い)。
+        # G4 は p.5 で始まる別の枠 —— 実データの「続きの枠 › 新しい枠」と同じ形。
+        {"form_oid": "FB", "item_oid": "ZWMORE", "label": "続き頁の項目", "row": 3,
+         "group_oid": "G3", "group_name": "偽グループ乙"},
+        {"form_oid": "FB", "item_oid": "ZWNEW", "label": "次の枠の先頭", "row": 4,
+         "group_oid": "G4", "group_name": "偽グループ丙"},
+        # 2 字 OID が同じ form ブロックの隣の頁の**日本語見出しの頭**と衝突する形
+        # (複審の実例)。ZK は p.4 に本物の badge が在り p.5 は誤検出、ZQ は badge が
+        # どこにも無く衝突だけ = 定位そのものが誤り。
+        {"form_oid": "FB", "item_oid": "ZK", "label": "衝突する 2 字 OID", "row": 5,
+         "group_oid": "G3", "group_name": "偽グループ乙"},
+        {"form_oid": "FB", "item_oid": "ZQ", "label": "衝突だけの 2 字 OID", "row": 6,
+         "group_oid": "G3", "group_name": "偽グループ乙"},
     ],
 }
 
@@ -52,12 +74,15 @@ WF_PAGES = [
     HDR + "イベント二 / 活動二 偽フォーム甲 #1 なにか",
 ]
 
-# annotated: p1-2 = form FA, p3 = codelist FA, p4 = form FB
+# annotated: p1-2 = form FA, p3 = codelist FA, p4-5 = form FB (p5 は題名の無い続き頁)
 ANN_PAGES = [
-    HDR + "偽フォーム甲 FA #1 全身状態 PS #2 偽ラベル ZWSTAT",
+    HDR + "偽フォーム甲 FA #1 全身状態 PS #2 偽ラベル ZWSTAT #3 偽注記 ZWNOTE",
     HDR + "続きのページ ZWSTATX は別トークン",
     HDR + "偽フォーム甲 - Code Lists PS 0 1 2 3 4",
-    HDR + "偽フォーム乙 FB #1 PS ここにも同じ OID",
+    HDR + "偽フォーム乙 FB #1 PS ここにも同じ OID #2 ZK 検査値",
+    # ZWMORE は行末 (次行の頭は日本語) —— 改行は norm_page で空白になるので badge の
+    # まま。ZK / ZQ は日本語見出しに食い込んだ形で、badge ではない。
+    HDR + "続きのページ ZWMORE\n偽ラベル 次の枠 ZWNEW\nZK検査日 ZQコース",
 ]
 
 
@@ -127,7 +152,7 @@ def test_annotated_blocks_split_form_and_codelist():
     assert bpi.cut_annotated_blocks(CATALOG, ANN_PAGES) == [
         {"start": 1, "end": 2, "kind": "form", "form_oid": "FA"},
         {"start": 3, "end": 3, "kind": "codelist", "form_oid": "FA"},
-        {"start": 4, "end": 4, "kind": "form", "form_oid": "FB"},
+        {"start": 4, "end": 5, "kind": "form", "form_oid": "FB"},
     ]
 
 
@@ -193,7 +218,7 @@ def test_index_shape_is_small_and_production_flavoured():
     idx = _index()
     assert set(idx) == {"meta", "names", "workflow", "annotated"}
     assert set(idx["workflow"]) == {"blocks", "n_pages"}
-    assert set(idx["annotated"]) == {"blocks", "item_pages", "n_pages"}
+    assert set(idx["annotated"]) == {"blocks", "item_pages", "n_pages", "page_groups"}
     assert "draft" not in idx["meta"]
 
 
@@ -202,6 +227,101 @@ def test_names_table_is_display_only_and_activity_carries_its_event():
     names = _index()["names"]
     assert names["forms"] == {"FA": "偽フォーム甲", "FB": "偽フォーム乙"}
     assert names["activities"]["A1"] == "イベント一 › 活動一"
+
+
+def test_an_oid_glued_to_a_japanese_heading_is_not_a_badge():
+    """複審の実例: 2 字 OID が隣の頁の日本語見出しの**頭**と一致し、その頁に居ることに
+    されてしまう。画面の OID 徽章は列として独立していて、日本語に食い込んでいない ——
+    `_bounded_re` の境界 (ASCII 英数のみ) は CJK 隣接を素通しするので、ここで塞ぐ。"""
+    ip = _item_pages()
+    assert ip["FB"]["ZK"] == [4], "日本語見出しに食い込んだ 2 字 OID を頁として数えている"
+
+
+def test_an_oid_that_only_collides_is_not_located_at_all():
+    """衝突しか無い OID は「定位できない item」(実データで 18/959) であって、
+    衝突した頁の item ではない。フォーム先頭頁への降級は消費側が既にやる。"""
+    assert "ZQ" not in _item_pages()["FB"]
+
+
+def test_a_badge_at_the_end_of_a_line_survives():
+    """改行は `norm_page` で空白になる。行末の badge の次の行が日本語で始まるのは普通で、
+    そこまで落とすと真の徽章 (実測 941 件の大半) を捨てることになる。"""
+    assert _item_pages()["FB"]["ZWMORE"] == [5]
+
+
+# ── N3: 本頁の項目グループ順 ───────────────────────────────────────────
+def _item_pages(catalog=CATALOG, pages=ANN_PAGES):
+    return bpi.item_pages_by_form(catalog, bpi.cut_annotated_blocks(catalog, pages), pages)
+
+
+def _page_groups(catalog=CATALOG, pages=ANN_PAGES):
+    return bpi.page_groups_by_form(catalog, _item_pages(catalog, pages))
+
+
+def test_page_groups_follow_catalog_row_order():
+    """並び順が答えの一部 (N3 の起源: 両モデルとも無題パネルを前のパネルに併合した)。
+    順は catalog の `row` —— 配列順に寄りかかると、catalog の書き出し順が変わった日に
+    索引が黙って別の並びを言い出す。"""
+    assert [g["name"] for g in _page_groups()["FA"]["1"]] == ["偽グループ甲", ""]
+
+
+def test_page_groups_count_only_the_items_located_on_that_page():
+    """`n_items` は**この頁で定位できた**項目数。グループ全体の項目数を書くと、
+    添付頁に無い項目まで「本頁に在る」と読める (N1 と同じ外推を索引側で作ることになる)。
+
+    判別力のために、総数と定位数が**食い違う**組で見る: G3 は catalog に 5 項目
+    あるが、p.4 に写っているのは 2 項目だけ。総数を
+    書く実装なら 5 になってここが落ちる。"""
+    assert [g["n_items"] for g in _page_groups()["FA"]["1"]] == [1, 2]
+    assert [g["n_items"] for g in _page_groups()["FB"]["4"]] == [2]
+
+
+def test_untitled_groups_keep_an_empty_name_in_the_index():
+    """(無題) という表示語は label 側の語彙。索引には catalog の値 (空文字) をそのまま
+    残す —— 索引に表示語を焼くと、表示を変えたい時に索引の再生成が要る。"""
+    g2 = _page_groups()["FA"]["1"][1]
+    assert g2["name"] == "" and g2["group_oid"] == "G2"
+
+
+def test_page_keys_are_strings_so_the_json_round_trip_changes_nothing():
+    """JSON のキーは文字列。組み立て時だけ int にすると、生成直後のテストは通って
+    読み直した索引では 1 件も当たらない (consumer は `str(page)` で引く)。"""
+    built = _page_groups()
+    assert built == json.loads(json.dumps(built))
+    assert set(built["FA"]) == {"1"}
+
+
+def test_pages_without_any_located_item_are_absent():
+    """継続頁 (p.2) には定位できた項目が無い。空リストを置くと「グループが 0 個の頁」と
+    「調べていない頁」が混ざる (item_pages の空リストを載せないのと同じ理由)。"""
+    assert "2" not in _page_groups()["FA"]
+
+
+def test_an_item_that_is_not_a_catalog_item_fails_loud():
+    """item_pages と catalog が食い違う索引は、黙って「グループの無い頁」を作る ——
+    その頁だけ注記が消える無症状の壊れ方になる。"""
+    with pytest.raises(ValueError, match="GHOST"):
+        bpi.page_groups_by_form(CATALOG, {"FA": {"GHOST": [1]}})
+
+
+def test_a_group_that_started_on_an_earlier_page_is_marked_continued():
+    """複審 MAJOR-1: 枠の見出しは**始まった頁**にしか描かれない。実データでは名前付きの
+    続き枠 25 件中 0 件しか続き頁に見出しが出ていないので、続きだと言わずに並びだけ
+    渡すと、モデルは前頁にしか無い見出しを「本頁に在る」と報告する。"""
+    p5 = _page_groups()["FB"]["5"]
+    assert [(g["name"], g["continued"]) for g in p5] == [
+        ("偽グループ乙", True), ("偽グループ丙", False)]
+
+
+def test_a_group_that_starts_on_this_page_is_not_continued():
+    """全部に印を付けると印の意味が消える (N1 の範囲注記と同じ天秤)。"""
+    assert [g["continued"] for g in _page_groups()["FB"]["4"]] == [False]
+    assert [g["continued"] for g in _page_groups()["FA"]["1"]] == [False, False]
+
+
+def test_page_groups_ride_in_the_index_next_to_item_pages():
+    assert _index()["annotated"]["page_groups"]["FB"]["4"] == [
+        {"group_oid": "G3", "name": "偽グループ乙", "n_items": 2, "continued": False}]
 
 
 # ── 実 PDF (skipif) ────────────────────────────────────────────────────
