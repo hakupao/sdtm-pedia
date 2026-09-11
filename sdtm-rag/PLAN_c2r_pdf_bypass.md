@@ -59,3 +59,30 @@
 - 记录: 每次调用存 `data/study/st01/eval/runs/c2r_v3/<arm>_<model>_<qid>.json` (含 `pdf_pages` / `pdf_trigger` / 全文答案); 掩码后的汇总进 `evidence/checkpoints/c2r_v3_eval.md`。
 - 判分: Reviewer 为**非本 session 作者**的 subagent, 按 P1 §1 判分点逐条 0/1, 并对 A/B 两臂逐题打分; 规则 A: 12 份 B 臂答案全部人工级逐条核验, 结果 `evidence/step_c2r_v3_audit.md`。
 - 通过判据 (预登记): B 臂 T 组判分总分 > A 臂; T1 ⑤ 三分来源标注与 T5 ③ 「不把项目级常時表示误读为活动级」在 B 臂 ≥ 1 个模型满分; N 组 4 题 `pdf_trigger` 全 null。不达 = 归档 failures/, 不改判分点。
+
+## 6. N1 单元: 附页子集语义 (登记于实现前, 2026-09-11)
+
+起源: V3 判分 (`evidence/step_c2r_v3_audit.md` §4 第 1/2 条; RETRO §2) — opus-5 在 T3/T6 把「附上的块首页没有 X」外推成「整个活动/表单没有 X」, 实测 X 在同块后续页。两条捏造页号都在附上的页内, 页号越界闸天然盲。
+
+**改法 (只动 label + prompt, 不碰检索 / 选页 / 触发)**:
+- `PdfContextBuilder._wf_label` / `_ann_label`: 块跨多页时 label 写明 `本頁は p.a–b ブロックのうち p.x` (块范围来自页索引 `blocks[].start/end`; 单页块不加)。
+- `router._PDF_SOURCE_RULE` 追加一条 (复审 MAJOR-1 / MINOR-2 后口径): label 写了「p.a–b のうち p.x」的页只附了块的一部分; 添付頁に無い ≠ 画面に無い; **画面由来**的否定断言须限定「添付頁 p.x の範囲では」, 未添付頁不断定; **卡片事实 (非表示アクティビティ 等) 的否定不在此限** (否则误伤 T1④/T5③)。
+- 前端 / SSE 契约 / `pdf_pages` 报告形状不变。G2 零回归无需重跑 (同 r3b 理由: 检索链逐字节不变; 以 `git diff --stat` 证明只动 `pdf_context.py` label 函数 + `router.py` 常量 + 测试)。
+
+**测试 (先红后绿)**: label 含块范围 (多页块) / 不含 (单页块); annotated 同; prompt 规则加后 wiring 测试 `画面目視判読` 计数仍为 1; 规则文含「添付頁」限定语。
+
+**复测 (V3 同题同 runner, 仅 B 臂, 判分点沿用 P1 §1)**:
+- 题: T3 + T6 (出问题的两题) + T1 (回归哨兵, V3 B 臂两模型均满分/次满分)。
+- 模型: Bedrock 账号自 2026-09-11 起拒绝所有 Anthropic 模型 (`Access to Anthropic models is not allowed for this account`, 复现命令见 `evidence/checkpoints/c2r_n1_subset_semantics.md`), 故本轮只能跑 gpt-terra + gpt-sol; **opus-5 复测挂起**, 账号恢复后补跑同一命令, 补跑前不得改判「默认 ON」。
+- 规则 A: 复测答案的**全部**画面主张 (不抽样) 逐条对照真实页 (pdftotext 文本层 + 渲染页), 记 verified / contradicted / unverifiable。
+- 通过判据 (预登记, 不改判分点): ① 「附页缺席 → 整块缺席」同型 contradicted = 0 (两模型); ② T3/T6 各判分点得分 ≥ V3 B 臂同模型得分; ③ T1 得分不低于 V3。不达 = 归档 `evidence/failures/c2r_n1_attempt_X.md`。
+- 默认 ON 裁定: 需 ①②③ PASS **且** opus-5 补跑同样 PASS; 本轮只能得出「gpt 家 PASS/FAIL」, 默认 OFF 不动。
+
+**命令** (runner 已从 scratchpad 迁入 `scripts/study/c2r_eval/`, 题面仍只读 gitignored `runs/c2r_v3/questions.json`):
+```
+cd sdtm-rag
+nohup env SDTM_RAG_AUTH_ENABLED=false SDTM_RAG_PDF_CONTEXT_ENABLED=true \
+  .venv/bin/uvicorn server.main:app --port 8011 > /tmp/armB_8011.log 2>&1 &
+until curl -s -m 2 localhost:8011/api/health >/dev/null; do sleep 1; done
+.venv/bin/python scripts/study/c2r_eval/run_v3.py --group T --arms B --models gpt-terra,gpt-sol --qids T1,T3,T6 --timeout 900 --out c2r_n1
+```

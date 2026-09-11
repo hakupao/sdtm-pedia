@@ -191,6 +191,33 @@ def test_labels_name_the_pdf_the_page_and_the_screen(builder):
     assert "workflow p.20" in wf.label and "偽イベント二 › 偽活動四" in wf.label
 
 
+# ── N1: 添付頁はブロックの部分集合 ─────────────────────────────────────
+def test_a_multi_page_block_says_on_the_label_that_only_one_page_is_attached(builder):
+    """V3 T3/T6: 付いたのはブロック先頭頁だけなのに、モデルは「この頁に無い ⇒ その
+    活動の画面に無い」と外推した。頁範囲を label に書かないと、部分集合であることは
+    モデルから見て観測不能。"""
+    sel = builder.select_pages([card(item="WX")], question="偽活動四 の画面",
+                               max_pages=3)
+    wf = next(p for p in sel.pages if p.pdf == "workflow" and p.page == 20)
+    assert "p.20–24" in wf.label and "のうち本頁" in wf.label
+
+
+def test_the_range_note_distinguishes_partial_blocks_from_whole_ones(builder):
+    """1 頁で全部なら部分集合ではない。同じ 1 回の選頁の中で、p.20 (ブロック 20–24) には
+    断り書きが付き p.6 (ブロック 6–6) には付かないこと —— 常に足すと「一部しか見ていない」
+    が狼少年になり、全部見えている頁でも断定を避け始める。"""
+    sel = builder.select_pages([card(item="WX")], max_pages=8)
+    labels = {p.page: p.label for p in sel.pages if p.pdf == "workflow"}
+    assert "のうち" in labels[20] and "のうち" not in labels[6]
+
+
+def test_annotated_label_carries_the_form_block_range(builder):
+    """annotated 側も同じ: FA のフォーム画面は p.2–4 で、付くのは item OID の頁だけ。"""
+    sel = builder.select_pages([card(item="WX")], max_pages=3)
+    ann = next(p for p in sel.pages if p.pdf == "annotated" and p.page == 2)
+    assert "（p.2–4 のうち p.2）" in ann.label
+
+
 # ── 描画 + 多模態片段 ──────────────────────────────────────────────────
 @pytest.fixture
 def fake_pdftoppm(monkeypatch):

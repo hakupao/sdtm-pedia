@@ -2420,3 +2420,11 @@ deepseek/deepseek-chat (与生成方 opus-5 **不同模型族**, 避自偏好; �
 - **P1 预登记 → V3 A/B 评测** (真实 `/api/ask`, 8010/8011 临时服务, 2 模型 × T1-T6 × 两臂 + N 组, 判分人非作者): opus-5 15→18, gpt-terra 12→17 (满分 23); 四条预登记判据全 PASS; N 组 4/4 不触发; 画面主张 45 条 verified 40 / contradicted 5 (其中 2 条同形 = 「只看块首页断言整块没有 X」, 通道语义缺口)。T6 attempt 1 未触发 (r2 下限误挡) → 归档 `evidence/failures/c2r_v3_attempt_1_T6.md`, r3 字面实现仍不触发 (form_scopes 只来自别名表) → r3b 改读页索引表单名 → attempt 2 触发。审计 `evidence/step_c2r_v3_audit.md`。
 - **裁定**: 通道保持默认 OFF; 下一单元先修「附页为子集」语义再复测 T3/T6 否定断言, 再议默认 ON。RETRO `sdtm-rag/RETROSPECTIVE_c2r.md`。
 - **流程**: 红线闸 (`oidscan_evidence`) 拦下 100+ 处真实 OID/label (S0 78 / P1 10 / PLAN+progress 12 / 脚本注释 1), 全部改结构化代称, 真值落 gitignored `data/study/st01/eval/{c2r_*realvalues.md,runs/c2r_v3/}`; 勘察脚本默认输出曾覆盖生产索引 (已改名 + `meta.draft` 拒收)。2073 → **2226 passed**, node 38。
+
+### 2026-09-11 — C2R N1 附页子集语义 (gpt 家 PASS, opus-5 补跑挂起) + Bedrock 拒绝 Anthropic 事件
+
+- **事件**: 局域网用户提问无回复 → 排查为 Bedrock 账号级拒绝所有 Anthropic 模型 (`Access to Anthropic models is not allowed for this account`, 首次 09-11 10:05; 最后一次成功 09-09 10:49; 仓库无服务端改动)。GPT 5.6 terra/sol 与 DeepSeek 正常。生产仍可答 (opus-5 → DeepSeek 兜底带徽章), 但路由组无 fallback 每题先撞 400 + 3000 行 traceback。账号侧由用户调查; 记录 `sdtm-rag/evidence/checkpoints/bedrock_anthropic_denied_2026-09-11.md` (含复现命令)。
+- **N1 单元** (PLAN §6 先登记判据再动手): `_wf_label`/`_ann_label` 多页块加「p.a–b のうち p.x」范围注 (单页块/无块不加); `_PDF_SOURCE_RULE` 第 2 条 = label 驱动的部分附页声明 + 画面由来否定须限定「添付頁 p.x の範囲では」+ **卡片事实否定排除**。检索/选页/触发/SSE 零改动。TDD 红 3 绿 4, 2226 → **2230 passed**。Rule D (code-reviewer) PASS-with-nits: MAJOR「否定限定语误伤卡片层确定性否定 (T1④/T5③)」在复测前修掉, 另 2 MINOR + 2 NIT 修, 2 项接受不修。
+- **复测** (B 臂 T1/T3/T6 × gpt-terra/gpt-sol, 6/6, 判分人非作者, 规则 A 53 条主张全量): 分数与 V3 逐点全等 (9/12 = 9/12); 否定断言正确限定 6/6; 同型 contradicted 0; 卡片级否定未被误降级; 单页块上两模型都**不**加多余限定 → label 范围确被读到。**诚实边界**: V3 同型错误全在 opus-5, 本轮 opus-5 跑不了 ⇒ 判据 ① 空转, 不构成「修法已验证」; 默认 ON 继续绑 opus-5 补跑 (命令在 checkpoint §6)。混杂: 路由退 both, T3 annotated 页集与 V3 略异。
+- **新暴露**: gpt-sol 来源标签捏造 (卡片事实安上不存在的画面注记, 现有闸都不覆盖) ×2; T6 无标题面板并入前组 (两模型)。下一步 = 来源标签捏造闸 (零 LLM) → T6 面板分组 label 补组名单 → 账号恢复即插 opus-5 补跑。
+- runner 从 scratchpad 迁入 `sdtm-rag/scripts/study/c2r_eval/`。证据 `sdtm-rag/evidence/checkpoints/c2r_n1_subset_semantics.md`, `evidence/step_c2r_n1_audit.md`, RETRO §5。

@@ -175,6 +175,19 @@ def test_fired_request_adds_exactly_one_source_separation_rule():
     assert sys_prompt.count("画面目視判読") == 1
 
 
+def test_fired_request_limits_negative_claims_to_the_attached_pages():
+    """N1: 添付頁は各ブロックの一部。label だけに書いても、「無い」と言い切る前に
+    範囲を限定する義務は規則側に無いと効かない (V3 T3/T6 の同型 contradiction)。"""
+    c, app = _client(pdf_context=_FakeBuilder())
+    c.post("/api/ask", json={"question": Q_FIRES, "history": []})
+    sys_prompt = app.state.llm_router.messages[0]["content"]
+    assert "添付頁" in sys_prompt and "範囲では" in sys_prompt
+    # 限定が掛かるのは画面由来の否定だけ。カード事実まで濁らせると、T1④/T5③ 型の
+    # 「この活動では出ない」という**正解**が hedge に化ける。
+    assert "に基づく否定は画面由来ではない" in sys_prompt
+    assert sys_prompt.count("画面目視判読") == 1
+
+
 def test_a_quiet_question_leaves_everything_alone_even_with_the_channel_on():
     """通道 ON でも、規則に当たらない問いでは 1 バイトも変わらない —— 反例集
     (P1 §2) が守っているのはこの性質。"""

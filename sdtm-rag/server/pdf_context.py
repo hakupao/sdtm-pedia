@@ -344,13 +344,22 @@ class PdfContextBuilder:
                 asked.add(oid)
         return asked
 
+    # N1: 添付頁が**ブロックの一部**であることを label に書く。書かないと部分集合で
+    # あることがモデルから観測できず、「この頁に無い ⇒ 画面に無い」と外推される
+    # (V3 opus-5 の T3/T6 が同型)。1 頁で全部のブロックには足さない (狼少年になる)。
     def _ann_label(self, form_oid: str, page: int) -> str:
-        return (f"【画面 annotated p.{page} — "
-                f"{self.index.form_name(form_oid)} ({form_oid}) フォーム画面】")
+        label = (f"【画面 annotated p.{page} — "
+                 f"{self.index.form_name(form_oid)} ({form_oid}) フォーム画面")
+        blk = self.index.form_block(form_oid)
+        if blk is not None and blk["end"] > blk["start"]:
+            label += f"（p.{blk['start']}–{blk['end']} のうち p.{page}）"
+        return label + "】"
 
     def _wf_label(self, b: dict, folded: list[str] | None = None) -> str:
         head = (f"【画面 workflow p.{b['start']} — {self.index.activity_name(b['activity_oid'])}"
                 f" / {self.index.form_name(b['form_oid'])} ({b['form_oid']}) の実表示")
+        if b["end"] > b["start"]:      # N1 (理由は `_ann_label` の上の注)
+            head += f"（p.{b['start']}–{b['end']} ブロックのうち本頁 p.{b['start']} のみ添付）"
         if folded:
             # 「この画面は活動 X/Y でも共通」は答えそのもの (T4 の「両日の違い」)。
             # 予算節約のために消していい情報ではないので、生き残った頁に書き移す。
