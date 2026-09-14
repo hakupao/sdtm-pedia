@@ -208,7 +208,7 @@ def item_pages_by_form(catalog: dict, annotated_blocks: list[dict],
 def page_groups_by_form(
     catalog: dict, item_pages: dict[str, dict[str, list[int]]],
 ) -> dict[str, dict[str, list[dict]]]:
-    """`{form_oid: {"頁": [{group_oid, name, n_items, continued}, ...]}}` —— 本頁に項目が
+    """`{form_oid: {"頁": [{group_oid, name, n_items, continued, continues}, ...]}}` —— 本頁に項目が
     在る catalog グループの並び (N3)。
 
     なぜ索引に要るのか: 画面の枠 (パネル) の境界は catalog の項目グループ境界と逐字
@@ -224,6 +224,17 @@ def page_groups_by_form(
     索引側で作り直すことになる。
 
     `continued` は「このグループの項目が**前の頁**にも定位している」= 本頁は枠の途中。
+    `continues` (N4) はその対: 「**後の頁**にも定位している」= 枠は本頁で閉じない。
+    1 枠だけの頁は N3 では並びを書かないので label が沈黙し、モデルは閉じているか
+    どうかを視覚で推測した (実データ p.161: 上辺は閉じ、次頁へ続く)。両方向を持てば、
+    消費側は沈黙の代わりに状態を宣言できる。
+    label の語は「**次頁**へ続く」だが、欄の意味は「後のいずれかの頁にも在る」。両者が
+    一致するのはグループの頁区間が連続しているときだけ (実測 28 件全部が隣接頁、
+    非連続 0 件) なので、非連続が現れたら黙って嘘を書く前に落とす。
+    ⚠ これは**意図した選択** (複審 MINOR-F): 非連続の最も有り得る原因は定位漏れで、その
+    とき枠は物理的には連続しており「次頁へ続く: あり」は本当は正しい。それでも索引全体を
+    建てない方を選んだ —— 嘘を 1 件書くより通路が止まる方が見つかりやすい。代替案は
+    そのグループだけ `continues` を落として消費側の次元降級に乗せること。
     実測: 発火対象 40 頁のうち 10 頁は先頭の枠が前頁からの続きで、続き頁に見出しが
     描画されている例は名前付き 25 件中 **0 件**。並びだけ渡して続きだと言わないと、
     モデルは前頁にしか無い見出しを「本頁に在る」と報告する —— N2 が拾った
@@ -240,6 +251,7 @@ def page_groups_by_form(
     for form_oid, items in item_pages.items():
         per_page: dict[int, dict[str, dict]] = {}
         first_page: dict[str, int] = {}      # グループが最初に現れた頁 (continued の基準)
+        last_page: dict[str, int] = {}       # 最後に現れた頁 (continues の基準)
         for item_oid, pgs in items.items():
             key = meta.get((form_oid, item_oid))
             if key is None:
@@ -255,9 +267,21 @@ def page_groups_by_form(
                 g["n"] += 1
                 g["row"] = min(g["row"], row)
                 first_page[group_oid] = min(first_page.get(group_oid, p), p)
+                last_page[group_oid] = max(last_page.get(group_oid, p), p)
+        pages_of: dict[str, list[int]] = {}
+        for p, groups in per_page.items():
+            for oid in groups:
+                pages_of.setdefault(oid, []).append(p)
+        for oid, pgs in pages_of.items():
+            pgs.sort()
+            if pgs != list(range(pgs[0], pgs[-1] + 1)):
+                raise ValueError(
+                    f"{form_oid}.{oid} は頁 {pgs} に飛び飛びに在る —— 『次頁へ続く』が"
+                    f"嘘になる (N4 の前提: グループの頁区間は連続)")
         out[form_oid] = {
             str(p): [{"group_oid": g["group_oid"], "name": g["name"], "n_items": g["n"],
-                      "continued": first_page[g["group_oid"]] < p}
+                      "continued": first_page[g["group_oid"]] < p,
+                      "continues": last_page[g["group_oid"]] > p}
                      for g in sorted(groups.values(), key=lambda g: g["row"])]
             for p, groups in sorted(per_page.items())
         }

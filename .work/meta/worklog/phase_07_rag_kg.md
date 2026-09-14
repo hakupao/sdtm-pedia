@@ -2437,3 +2437,12 @@ deepseek/deepseek-chat (与生成方 opus-5 **不同模型族**, 避自偏好; �
 - **复测** (B 臂 T1/T3/T6 × gpt-terra/gpt-sol, 页集三轮逐字相同; opus-5 仍挂起): a1 terra 10 / sol 9 (sol ③④ FAIL); a2 (仅索引修复, 同 prompt, n=2) terra 10 / sol 10 (terra ② 字面 FAIL = 闸假阳性 1; ④ FAIL = 1 条对冲跨页推测)。**预登记口径两轮 gpt 家 FAIL, 归档 `failures/c2r_n3_attempt_{1,2}.md`**; 但 N3 靶向的面板合并与元数据挂画面两模型两轮全修好 (N1 contradicted 5 → a2 1); FAIL 在两模型间跳 ⇒ 共享残余失败库; 「无视组序列」未复现 ⇒ **prompt 不改**。
 - **发现**: 唯一反复说错的页 = 唯一不带组序列的页 → N4 候选 PATTERN「元数据沉默维度显式化」(PLAN §9, 须 brainstorm+预登记); T1 元数据三轮零引用 (「在」≠「被用」); 索引错误会被原样转述; 预登记把「闸计数=0」写成硬条件是失误 (应写「核验为真 = 0」)。N1 审计一处真值更正 (26/27→25/27, 分数不变)。
 - 2230 → **2319 passed**; 红线 18 文件 CLEAN。证据 `sdtm-rag/evidence/checkpoints/c2r_{n2_visual_grounding,n3_group_sequence}.md`, `evidence/step_c2r_n3{,_a2}_audit.md`, RETRO §6。
+
+### 2026-09-14 — C2R N4 沉默维度显式化 (预登记四判据两模型全 PASS, N 系列首次; n=1) + N5 候选 (卡片层捏造)
+
+- **起点**: N3 a2 唯一残余错误 = 唯一不带组序列的单枠无题页 (三轮两错分属两模型); 索引知道它不续自前页、续到下页, label 沉默。用户指示 Claude 账号问题暂不管, 只跑 GPT 两模型; brainstorm (bounded) 经用户批准后登记 PLAN §9。
+- **改法 (pattern 级, 全 85 页)**: 索引每组加 `continues` (对称 `continued`, 非连续页区间 fail-loud, 实测 28 件全隣接); label 每个 annotated 页在「頁索引メタ:」段写「前頁からの続き / 次頁へ続く: あり/なし」, 单枠页写「本頁の枠: 1 (...)」; 旧索引只哑掉该维度不写假「なし」; prompt 一句规则 (無題枠没有见出し不得去画面找; 不新增出典名词)。检索/选页/触发/SSE 零改动; 真索引除新字段外逐字相等。
+- **Rule D 复审 (opus, 两轮)**: 一轮 FAIL — MAJOR-1 规则句「なし = 見出しは本頁」对無題枠是假 (单枠无题 12 页中 10 页), MAJOR-2 新词「画面判読」不匹配 N2 闸正则会让闸失明; + 6 MINOR 3 NIT; 修后二轮 PASS, 变异 7/7 抓。MINOR-5 「なし」可信度暴露面 5 页, Writer 与 reviewer 各自用文本层核 5/5 良性。2319 → **2332 passed**。
+- **复测** (B 臂 T1/T3/T6 × gpt-terra/gpt-sol, 页集与 a2 逐字同; 独立 Judge 规则 A 64 条全量): 四判据两模型全 PASS (② 字面闸 1 = 假阳性照报); 靶心页两模型显式引用状态文本且方向正确; 声明本身 8/8 渲染核真; 0 contradicted 且分母涨 39%。两处口径敏感性 (audit §8.1) 反读法会让 ③ 翻 FAIL, 由 PLAN 所有者裁。
+- **新暴露 (最重)**: 错误换层 — gpt-terra T1 凭空卡片层事实 + 真出处 (OID 在 16 检索源 0 次); 判据/N2 闸/census 三道闸都不覆盖卡片层 ⇒ **N5 候选 PLAN §10 (卡片接地闸 + census 扩到卡片出典), 须 brainstorm**。闸质量: 三轮累计假阳性 6 / 真捕获 0, 无预登记上限。
+- 证据 `sdtm-rag/evidence/checkpoints/c2r_n4_silent_dimensions.md`, `evidence/step_c2r_n4_audit.md`; gitignored `runs/c2r_n4/{audit_detail.md,label_diff_n4.txt,minor5_exposure.txt}`。opus-5 补跑仍是默认 ON 硬前置; 生产 launchd 未 kickstart。

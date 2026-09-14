@@ -141,6 +141,10 @@ class PdfPageIndex:
         # (毎回言うと発火のたびにログが流れ、本当の異常が埋もれる)。
         page_groups = data["annotated"].get("page_groups")
         self._page_groups = page_groups or {}
+        if page_groups and not all(
+                "continues" in g for f in page_groups.values() for gs in f.values() for g in gs):
+            log.info("pdf_page_index_without_continues",
+                     hint="N4 の『次頁へ続く』は書かれない; 索引を再生成すると出る")
         if page_groups is None:
             log.info("pdf_page_index_without_page_groups",
                      hint="scripts/study/build_pdf_page_index.py で作り直すと "
@@ -166,7 +170,8 @@ class PdfPageIndex:
 
     def page_groups(self, form_oid: str, page: int) -> list[dict]:
         """本頁に項目が在る catalog グループの並び
-        (`[{group_oid, name, n_items, continued}, …]`)。
+        (`[{group_oid, name, n_items, continued, continues}, …]`; `continues` は N4 で、
+        N3 の索引には無い)。
 
         欄を持たない索引では**空リスト** —— 旧い索引をそのまま動かすため。頁キーは
         JSON 由来の文字列なので `str(page)` で引く。
@@ -391,9 +396,28 @@ class PdfContextBuilder:
             meta.append(f"p.{blk['start']}–{blk['end']} のうち本頁 p.{page} のみ添付")
         # N3 (a): 枠 (パネル) の境界は catalog の項目グループ境界と逐字一致するが、
         # **見出しの無い枠**は画像では前の枠の続きに見える (V3/N1 で 2 モデルとも併合)。
-        # 1 グループの頁に「順」を書いても順序の情報が無いので足さない —— 常に足すと
-        # 範囲注記と同じで狼少年になり、本当に 2 枠ある頁の注記が読み飛ばされる。
+        # 1 グループの頁に「順」を書いても順序の情報が無いので足さない —— 「順」を常に
+        # 足すと範囲注記と同じで狼少年になり、本当に 2 枠ある頁の注記が読み飛ばされる。
+        # N4 はこれと別: **状態** (枠数 / 前後頁との連続) は毎頁書く。実データの 51% は
+        # 「なし / なし」で低情報だが、N3 a2 の証拠は**沈黙そのものが誤りを生む**こと
+        # (書いた頁 0 錯 / 書かなかった頁 3 輪 2 錯) なので、常駐を意図して受け入れる。
+        # 狼少年化の兜底は判据 ③ (T1/T3/T6 逐点不降)。
         groups = self.index.page_groups(form_oid, page)
+        # N4: `continues` は N3 の索引に無い。無いのに False で埋めると「次頁へ続く: なし」
+        # という**嘘**を書く —— 書けない次元だけ黙る (旧索引の静默降級)。
+        can_say_next = bool(groups) and all("continues" in g for g in groups)
+
+        def marks(g: dict) -> str:
+            m = ""
+            if g.get("continued"):
+                m += "・前頁からの続き"
+            if can_say_next and g.get("continues"):
+                m += "・次頁へ続く"
+            return m
+
+        def item(g: dict, *, with_marks: bool = True) -> str:
+            return f"{g['name'] or '(無題)'} [{g['n_items']} 項目{marks(g) if with_marks else ''}]"
+
         if len(groups) >= 2:
             # group OID は書かない。annotated の文本層に **0/153** しか現れない (実測)
             # ので、画像から確かめようのない文字列が 1 つ増えるだけ —— まさに N2 の
@@ -403,11 +427,20 @@ class PdfContextBuilder:
             # 描かれず、実データでは名前付きの続き枠 25 件中 0 件しか続き頁に見出しが
             # 出ていない —— 印が無ければ、前頁にしか無い見出しを本頁の記載として
             # 報告されるだけ。
-            seq = " › ".join(
-                f"{g['name'] or '(無題)'} "
-                f"[{g['n_items']} 項目{'・前頁からの続き' if g.get('continued') else ''}]"
-                for g in groups)
-            meta.append(f"本頁の項目グループ順: {seq}")
+            meta.append("本頁の項目グループ順: " + " › ".join(item(g) for g in groups))
+        elif groups:
+            # N4: 1 枠の頁は順が無いので「順」は書かないが、枠の数は書く。N3 a2 の残り
+            # 1 件 (p.161, 無題 1 枠) は label が何も言わない頁で、モデルが視覚から
+            # 「前頁からの続きの可能性あり」を作った (実物は上辺が閉じ、次頁へ続く)。
+            # 枠ごとの印は付けない —— 1 枠なら直後の頁単位の状態と同じ事を 2 度言うだけ。
+            meta.append(f"本頁の枠: 1 ({item(groups[0], with_marks=False)})")
+        if groups:
+            # 沈黙している次元を状態にする: 印が**無い**ことと「なし」と書いてあることは
+            # モデルには別物 (N3 a2: 印を書いた頁は 2 モデル 2 輪で零錯、書かなかった頁は
+            # 3 輪で 2 錯)。頁単位の状態 = 先頭の枠が前頁から / 末尾の枠が次頁へ。
+            meta.append(f"前頁からの続き: {'あり' if groups[0].get('continued') else 'なし'}")
+            if can_say_next:
+                meta.append(f"次頁へ続く: {'あり' if groups[-1].get('continues') else 'なし'}")
         return _with_index_meta(head, meta)
 
     def _wf_label(self, b: dict, folded: list[str] | None = None) -> str:

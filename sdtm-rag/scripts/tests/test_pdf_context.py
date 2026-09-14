@@ -69,19 +69,20 @@ INDEX = {
         #   p.2 = 枠 2 つ (どちらも本頁で開始)   … WX,WY → G1 / WZ → G2
         #   p.3 = 枠 2 つ (先頭は前頁からの続き) … KX → G2 (p.2 から継続) / K2 → G3
         #   p.4 = 枠 1 つ (前頁からの続き)       … K3 → G3
+        # N4: `continues` = その枠が**次の頁にも**続く (本頁で閉じない)。`continued` と対。
         "page_groups": {
             "FA": {"2": [{"group_oid": "G1", "name": "偽グループ甲", "n_items": 2,
-                          "continued": False},
+                          "continued": False, "continues": False},
                          {"group_oid": "G2", "name": "", "n_items": 1,
-                          "continued": False}],
+                          "continued": False, "continues": True}],
                    "3": [{"group_oid": "G2", "name": "", "n_items": 1,
-                          "continued": True},
+                          "continued": True, "continues": False},
                          {"group_oid": "G3", "name": "偽グループ丙", "n_items": 1,
-                          "continued": False}],
+                          "continued": False, "continues": True}],
                    "4": [{"group_oid": "G3", "name": "偽グループ丙", "n_items": 1,
-                          "continued": True}]},
+                          "continued": True, "continues": False}]},
             "FD": {"10": [{"group_oid": "G9", "name": "偽グループ丁", "n_items": 1,
-                           "continued": False}]},
+                           "continued": False, "continues": False}]},
         },
     },
 }
@@ -270,7 +271,7 @@ def test_a_multi_group_page_writes_the_group_order_on_the_label(builder):
     境界は catalog のグループ境界と逐字一致するので、並びを label に書けば観測できる。"""
     sel = builder.select_pages([card(item="WX")], max_pages=3)
     ann = next(p for p in sel.pages if p.pdf == "annotated" and p.page == 2)
-    assert "本頁の項目グループ順: 偽グループ甲 [2 項目] › (無題) [1 項目]" in ann.label
+    assert "本頁の項目グループ順: 偽グループ甲 [2 項目] › (無題) [1 項目・次頁へ続く]" in ann.label
 
 
 def test_a_single_group_page_gets_no_group_note(builder):
@@ -282,13 +283,98 @@ def test_a_single_group_page_gets_no_group_note(builder):
     assert "項目グループ順" not in ann.label and "のうち本頁 p.4 のみ添付" in ann.label
 
 
+# ── N4: 沈黙している次元を明示する ─────────────────────────────────────
+def _ann(builder, item, page, form="FA", hidden="A_TWO, A_THREE"):
+    sel = builder.select_pages([card(form=form, item=item, hidden=hidden)], max_pages=3)
+    return next(p for p in sel.pages if p.pdf == "annotated" and p.page == page)
+
+
+def test_a_single_group_page_declares_its_one_frame_and_both_continuation_states(builder):
+    """N3 a2 の残り 1 件 (ann p.161): 枠が 1 つの頁は label が何も言わないので、モデルは
+    視覚で「前頁からの続きの可能性あり」を作った (実物は上辺が閉じ、**次頁**へ続く)。
+    順序は書かない (無いから) が、枠の数と前後の連続状態は索引が知っている事実なので
+    宣言する —— 沈黙を既知に変える。"""
+    label = _ann(builder, "K3", 4).label
+    assert "本頁の枠: 1 (偽グループ丙 [1 項目])" in label
+    assert "前頁からの続き: あり" in label and "次頁へ続く: なし" in label
+
+
+def test_a_single_untitled_frame_is_named_untitled(tmp_path):
+    """実データの p.161 がまさに無題 1 枠。空名で書くと「枠: 1 ( [16 項目])」になり、
+    見出しを画像から探しに行く余地を残す。"""
+    idx = json.loads(json.dumps(INDEX))
+    idx["annotated"]["page_groups"]["FD"]["10"][0]["name"] = ""
+    label = _ann(_builder(tmp_path, index=idx), "Q1", 10, form="FD", hidden="—").label
+    assert "本頁の枠: 1 ((無題) [1 項目])" in label
+
+
+def test_a_multi_group_page_declares_the_page_level_continuation_states(builder):
+    """複数枠の頁も「先頭の枠が前頁から続くか / 末尾の枠が次頁へ続くか」は沈黙だった。
+    p.2 は先頭頁 (前頁なし) で、末尾の (無題) 枠が p.3 へ続く。"""
+    label = _ann(builder, "WX", 2).label
+    assert "前頁からの続き: なし" in label and "次頁へ続く: あり" in label
+    assert "本頁の枠:" not in label            # 順が書けるときは枠数の宣言に置き換えない
+
+
+def test_a_group_that_runs_onto_the_next_page_is_marked_on_the_sequence(builder):
+    """`continued` の印と対称。末尾の枠が本頁で閉じないことを枠ごとにも見せる。"""
+    label = _ann(builder, "WX", 2).label
+    assert "(無題) [1 項目・次頁へ続く]" in label
+    assert "偽グループ甲 [2 項目]" in label and "偽グループ甲 [2 項目・" not in label
+
+
+def test_a_frame_open_on_both_sides_carries_both_marks(builder):
+    """p.3 の (無題) は p.2 から続き p.3 で閉じる、偽グループ丙は p.3 で始まり p.4 へ
+    続く。印の向きを取り違える実装 (continued と continues を逆に読む) をここで捕まえる。"""
+    label = _ann(builder, "KX", 3).label
+    assert "(無題) [1 項目・前頁からの続き]" in label
+    assert "偽グループ丙 [1 項目・次頁へ続く]" in label
+    assert "前頁からの続き: あり" in label and "次頁へ続く: あり" in label
+
+
+def test_a_closed_single_frame_says_none_on_both_sides(builder):
+    """「なし」が書かれることが本体。書かない (= 従来の沈黙) と何も変わらない。"""
+    label = _ann(builder, "Q1", 10, form="FD", hidden="—").label
+    assert "前頁からの続き: なし" in label and "次頁へ続く: なし" in label
+
+
+def test_a_partially_migrated_index_stays_silent_on_the_next_page_dimension(tmp_path):
+    """複審 MINOR-3: 判定が `any` だと、一部のグループにだけ欄が無い索引で、欄の無い
+    グループに「次頁へ続く: なし」= 嘘を書く。1 グループだけ欄を落として釘付け。"""
+    idx = json.loads(json.dumps(INDEX))
+    idx["annotated"]["page_groups"]["FA"]["2"][1].pop("continues")   # 末尾の枠だけ欠ける
+    label = _ann(_builder(tmp_path, index=idx), "WX", 2).label
+    assert "次頁へ続く" not in label and "前頁からの続き: なし" in label
+
+
+def test_an_index_without_the_continues_field_omits_only_that_dimension(tmp_path):
+    """N3 の索引 (`continues` 無し) で起動しても落ちず、書けない次元だけ黙る。
+    False で埋めると「次頁へ続く: なし」と**嘘**を書くことになる。"""
+    idx = json.loads(json.dumps(INDEX))
+    for form in idx["annotated"]["page_groups"].values():
+        for groups in form.values():
+            for g in groups:
+                g.pop("continues")
+    label = _ann(_builder(tmp_path, index=idx), "WX", 2).label
+    assert "前頁からの続き: なし" in label
+    assert "次頁へ続く" not in label
+
+
+def test_continuation_states_live_behind_the_meta_prefix(builder):
+    """索引由来の事実は全部 1 段 (N3 (b))。前置きの前に出ると画面の注記として引用される。"""
+    label = _ann(builder, "K3", 4).label
+    head, meta = label.split("頁索引メタ:")
+    assert "本頁の枠" not in head and "続き" not in head
+    assert "本頁の枠: 1" in meta and "次頁へ続く: なし" in meta
+
+
 def test_a_group_continued_from_the_previous_page_says_so(builder):
     """複審 MAJOR-1: 枠の見出しは始まった頁にしか描かれない (実データの名前付き続き枠
     25 件中、続き頁に見出しが出ていたのは 0 件)。並びだけ渡すと、モデルは前頁にしか
     無い見出しを本頁の記載として報告する —— N2 の LABEL 型捏造の新しい面。"""
     sel = builder.select_pages([card(item="KX")], max_pages=3)
     ann = next(p for p in sel.pages if p.pdf == "annotated" and p.page == 3)
-    assert ("本頁の項目グループ順: (無題) [1 項目・前頁からの続き] › 偽グループ丙 [1 項目]"
+    assert ("本頁の項目グループ順: (無題) [1 項目・前頁からの続き] › 偽グループ丙 [1 項目・次頁へ続く]"
             in ann.label)
 
 
@@ -297,7 +383,8 @@ def test_a_group_that_starts_on_this_page_carries_no_continued_mark(builder):
     どの枠も前頁から続きようがない。"""
     sel = builder.select_pages([card(item="WX")], max_pages=3)
     ann = next(p for p in sel.pages if p.pdf == "annotated" and p.page == 2)
-    assert "前頁からの続き" not in ann.label
+    # N4 以降、頁単位の状態「前頁からの続き: なし」は書かれる。消えているのは枠ごとの印。
+    assert "・前頁からの続き" not in ann.label and "前頁からの続き: なし" in ann.label
 
 
 def test_group_oids_stay_out_of_the_label(builder):
@@ -321,10 +408,16 @@ def test_index_metadata_sits_behind_exactly_one_meta_prefix(builder):
     assert "のうち本頁 p.2 のみ添付" in meta and "項目グループ順" in meta
 
 
-def test_a_label_with_nothing_to_add_has_no_meta_segment(builder):
-    """単頁ブロック・1 グループ・折り畳み無し = 索引が足せる事実がゼロ。空の
-    「頁索引メタ:」が残ると、無いものを探してモデルが注記を捏造する余地になる。"""
-    sel = builder.select_pages([card(form="FD", item="Q1", hidden="—")], max_pages=3)
+def test_a_label_with_nothing_to_add_has_no_meta_segment(tmp_path):
+    """単頁ブロック・定位できた項目なし・折り畳み無し = 索引が足せる事実がゼロ。空の
+    「頁索引メタ:」が残ると、無いものを探してモデルが注記を捏造する余地になる。
+    (N4 以降、枠が 1 つでも在れば連続状態を書くので、「何も無い頁」= 項目が定位
+    できずフォーム先頭頁に降級した頁だけ。)"""
+    idx = json.loads(json.dumps(INDEX))
+    idx["annotated"]["item_pages"]["FD"] = {}
+    del idx["annotated"]["page_groups"]["FD"]
+    sel = _builder(tmp_path, index=idx).select_pages(
+        [card(form="FD", item="Q1", hidden="—")], max_pages=3)
     ann = next(p for p in sel.pages if p.pdf == "annotated" and p.page == 10)
     assert ann.label == "【画面 annotated p.10 — 偽フォーム丁 (FD) フォーム画面】"
 

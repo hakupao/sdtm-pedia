@@ -321,7 +321,30 @@ def test_a_group_that_starts_on_this_page_is_not_continued():
 
 def test_page_groups_ride_in_the_index_next_to_item_pages():
     assert _index()["annotated"]["page_groups"]["FB"]["4"] == [
-        {"group_oid": "G3", "name": "偽グループ乙", "n_items": 2, "continued": False}]
+        {"group_oid": "G3", "name": "偽グループ乙", "n_items": 2, "continued": False,
+         "continues": True}]
+
+
+# ── N4: 次頁へ続く ──────────────────────────────────────────────────────
+def test_a_group_with_items_on_a_later_page_is_marked_continues():
+    """N4: 「前頁からの続き」の対。p.4 の G3 は p.5 にも項目が在る = 本頁で閉じない。
+    label が沈黙すると、モデルは閉じているかどうかを視覚で推測する (N3 a2 の残り 1 件)。"""
+    assert [(g["name"], g["continues"]) for g in _page_groups()["FB"]["4"]] == [
+        ("偽グループ乙", True)]
+
+
+def test_a_group_located_on_non_adjacent_pages_fails_loud():
+    """複審 MINOR-4: label は「次頁へ続く」と言うが欄の意味は「後の頁にも在る」。頁区間が
+    飛ぶと (実測 0 件) 嘘になるので、黙って書く前に落とす。"""
+    with pytest.raises(ValueError, match="飛び飛び"):
+        bpi.page_groups_by_form(CATALOG, {"FB": {"PS": [4], "ZWMORE": [6]}})
+
+
+def test_a_group_whose_last_items_are_on_this_page_does_not_continue():
+    """p.5 の G3 は続きの末尾 (continued=True, continues=False)、G4 は p.5 で始まり
+    p.5 で終わる。向きを逆に読む実装 (min/max の取り違え) をここで捕まえる。"""
+    assert [(g["continued"], g["continues"]) for g in _page_groups()["FB"]["5"]] == [
+        (True, False), (False, False)]
 
 
 # ── 実 PDF (skipif) ────────────────────────────────────────────────────

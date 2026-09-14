@@ -206,6 +206,25 @@ def test_the_rule_says_index_metadata_is_not_something_read_off_the_image():
     assert sys_prompt.count("画面目視判読") == 1
 
 
+def test_the_rule_forbids_continuation_guesses_beyond_the_declared_state():
+    """N4: label が前頁/次頁との連続状態を宣言したら、画面判読はそれと矛盾する・それを
+    超える続き推測をしない。「なし」の意味 (本頁で開始 = 見出しは本頁 / 本頁で閉じる)
+    も規則側で言わないと、印だけでは伝わらない (N3 複審 MAJOR-1 と同じ教訓)。"""
+    c, app = _client(pdf_context=_FakeBuilder())
+    c.post("/api/ask", json={"question": Q_FIRES, "history": []})
+    sys_prompt = app.state.llm_router.messages[0]["content"]
+    assert "次頁へ続く" in sys_prompt and "前頁からの続き: なし" in sys_prompt
+    assert "推測" in sys_prompt
+    # 複審 MAJOR-1: 「なし = 見出しは本頁」は無題枠には嘘 (単枠無題 12 頁中 10 頁が
+    # continued=false)。無題枠に見出しを探させない一文が要る。
+    assert "『(無題)』の枠は見出しそのものが存在しない" in sys_prompt
+    assert "先頭の項目ラベルを枠の名前として報告しない" in sys_prompt
+    # 複審 MAJOR-2: 出典様式の名詞を増やさない。「画面判読」は N2 閘の正規表現
+    # (画面目[視视]判[読读]) に掛からず、モデルが真似た瞬間に閘が失明する。
+    assert "画面判読" not in sys_prompt
+    assert sys_prompt.count("画面目視判読") == 1
+
+
 def test_a_quiet_question_leaves_everything_alone_even_with_the_channel_on():
     """通道 ON でも、規則に当たらない問いでは 1 バイトも変わらない —— 反例集
     (P1 §2) が守っているのはこの性質。"""
