@@ -422,6 +422,66 @@ def _markers(text: str) -> list[tuple[int, int, str]]:
     return sorted(out)
 
 
+def line_starts(text: str) -> tuple[list[str], list[int]]:
+    """行の配列と各行の開始位置。`split_units` とカード闸 (N5) が同じものを使う。"""
+    line_start = [0]
+    for i, ch in enumerate(text):
+        if ch == "\n":
+            line_start.append(i + 1)
+    return text.split("\n"), line_start
+
+
+def line_of(line_start: list[int], pos: int) -> int:
+    lo, hi = 0, len(line_start) - 1
+    while lo < hi:
+        mid = (lo + hi + 1) // 2
+        if line_start[mid] <= pos:
+            lo = mid
+        else:
+            hi = mid - 1
+    return lo
+
+
+def scope_start(text: str, lines: list[str], line_start: list[int],
+                prev_end: int, start: int, i: int) -> int:
+    """出典 (位置 `start`, 行 `i`) が担う本文の開始位置。
+
+    前の行まで遡るのは、出典行それ自体が**中身を持たない**時だけ。出典は後置の
+    帰属なので普通は自分の行を担っており、無条件に遡ると手前のカード/対応表由来の
+    文まで巻き込む。逆に「名称は対応表より。〔出典〕」のような純粋な帰属行は、
+    担っている本文が上にある (N1 §2.6 #11 がその形)。
+
+    遡る時は**箇条書き / 表の塊を丸ごと**取る。「中身が足りたら止める」にすると
+    7 項目の箇条書きのうち最後の 1 行しか入らず、捏造が塊の先頭に在れば素通りする
+    —— 出典は塊全体を担っているので、途中で切る根拠が無い。
+
+    N5 (カード出典の闸) と共有: 出典の種類が違うだけで、担う本文の取り方は同じ。
+    """
+    scope = max(prev_end, line_start[i])
+    if _content_len(text[scope:start]) < _MIN_UNIT_CHARS:
+        j = i
+        while j - 1 >= 0 and i - (j - 1) <= _MAX_SCOPE_LINES:
+            prev = lines[j - 1]
+            if line_start[j - 1] < prev_end or _BOUNDARY_RE.match(prev):
+                break
+            if not prev.strip():
+                # 空行は塊の中の息継ぎ。**塊が続いているなら**跨ぐ (箇条書きと
+                # その導入文の間、箇条書きと後置出典の間はどちらも空行で空く)。
+                k = j - 1
+                while k - 1 >= 0 and not lines[k - 1].strip():
+                    k -= 1
+                if k - 1 < 0 or line_start[k - 1] < prev_end or _BOUNDARY_RE.match(lines[k - 1]):
+                    break
+                j = k
+                continue
+            was_list = _LIST_ITEM_RE.match(prev) is not None
+            j -= 1
+            if not was_list and _content_len(text[line_start[j]:start]) >= _MIN_UNIT_CHARS:
+                break           # 塊の導入文まで取ったら止める
+        scope = max(prev_end, line_start[j])
+    return scope
+
+
 def split_units(answer: str) -> list[Unit]:
     """出典を持つ主張単元に切る。
 
@@ -436,21 +496,7 @@ def split_units(answer: str) -> list[Unit]:
        出典で閉じる。
     """
     text = nfkc(answer)
-    line_start = [0]
-    for i, ch in enumerate(text):
-        if ch == "\n":
-            line_start.append(i + 1)
-    lines = text.split("\n")
-
-    def line_of(pos: int) -> int:
-        lo, hi = 0, len(line_start) - 1
-        while lo < hi:
-            mid = (lo + hi + 1) // 2
-            if line_start[mid] <= pos:
-                lo = mid
-            else:
-                hi = mid - 1
-        return lo
+    lines, line_start = line_starts(text)
 
     units: list[Unit] = []
     marks = _markers(text)
@@ -477,37 +523,8 @@ def split_units(answer: str) -> list[Unit]:
             idx = last + 1
             continue
         prev_end = marks[idx - 1][1] if idx else 0
-        i = line_of(start)
-        scope = max(prev_end, line_start[i])
-        # 前の行まで遡るのは、出典行それ自体が**中身を持たない**時だけ。出典は後置の
-        # 帰属なので普通は自分の行を担っており、無条件に遡ると手前のカード/対応表由来の
-        # 文まで巻き込む。逆に「名称は対応表より。〔出典〕」のような純粋な帰属行は、
-        # 担っている本文が上にある (N1 §2.6 #11 がその形)。
-        #
-        # 遡る時は**箇条書き / 表の塊を丸ごと**取る。「中身が足りたら止める」にすると
-        # 7 項目の箇条書きのうち最後の 1 行しか入らず、捏造が塊の先頭に在れば素通りする
-        # —— 出典は塊全体を担っているので、途中で切る根拠が無い。
-        if _content_len(text[scope:start]) < _MIN_UNIT_CHARS:
-            j = i
-            while j - 1 >= 0 and i - (j - 1) <= _MAX_SCOPE_LINES:
-                prev = lines[j - 1]
-                if line_start[j - 1] < prev_end or _BOUNDARY_RE.match(prev):
-                    break
-                if not prev.strip():
-                    # 空行は塊の中の息継ぎ。**塊が続いているなら**跨ぐ (箇条書きと
-                    # その導入文の間、箇条書きと後置出典の間はどちらも空行で空く)。
-                    k = j - 1
-                    while k - 1 >= 0 and not lines[k - 1].strip():
-                        k -= 1
-                    if k - 1 < 0 or line_start[k - 1] < prev_end or _BOUNDARY_RE.match(lines[k - 1]):
-                        break
-                    j = k
-                    continue
-                was_list = _LIST_ITEM_RE.match(prev) is not None
-                j -= 1
-                if not was_list and _content_len(text[line_start[j]:start]) >= _MIN_UNIT_CHARS:
-                    break           # 塊の導入文まで取ったら止める
-            scope = max(prev_end, line_start[j])
+        i = line_of(line_start, start)
+        scope = scope_start(text, lines, line_start, prev_end, start, i)
         tail_end = marks[last + 1][0] if last + 1 < len(marks) else len(text)
         units.append(Unit(text[scope:end], i + 1, tuple(citations),
                           text[end:min(tail_end, end + _TAIL_CHARS)]))

@@ -880,6 +880,19 @@ def test_prompt_forbids_citing_the_table_as_a_source():
     assert "付けてはならない" in rag_mod._STUDY_OID_RULES
 
 
+def test_prompt_confines_cited_oids_to_the_cited_document():
+    """N5: 出典を付けた記述の OID はその文書に在るものだけ、列挙は写すだけ (N4 judge §7 が
+    拾った「別カードの非表示リストからの移植 + 真の出典」の形)。「非表示アクティビティ」
+    だけの規則にしない —— 限定すると次は別の欄で起きる。"""
+    r = rag_mod._STUDY_OID_RULES
+    assert "その文書の本文に実際に書かれているもの" in r
+    assert "列挙をそのまま写す" in r and "補わない" in r
+    assert "文脈に無い旨を述べる" in r
+    # study 引擎だけ。CDISC 側の prompt には出ない。
+    assert "列挙をそのまま写す" not in _prompt_engine(None)._build_system_prompt()
+    assert _prompt_engine(_gl())._build_system_prompt().count("列挙をそのまま写す") == 1
+
+
 def test_cdisc_prompt_differs_from_the_study_prompt_by_that_block_alone():
     cdisc = _prompt_engine(None)._build_system_prompt()
     study = _prompt_engine(_gl())._build_system_prompt()

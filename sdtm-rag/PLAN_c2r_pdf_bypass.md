@@ -135,7 +135,25 @@ PATTERN (来自 N3 a2 归档): 页级元数据在某维度沉默 (单组页不�
 
 **attempt 1 结果 (2026-09-14)**: 两模型四判据全 PASS (N 系列首次; ② 字面闸 1 = 假阳性照报); 靶心页两模型显式引用状态文本且方向正确; 64 条主张 0 contradicted。**新暴露**: gpt-terra T1 卡片层捏造 + 假出处 (三道闸均不覆盖)。收口 `evidence/checkpoints/c2r_n4_silent_dimensions.md` + `evidence/step_c2r_n4_audit.md`。opus-5 补跑仍是默认 ON 硬前置。
 
-## 10. N5 候选 (未登记, 须 brainstorm 后再写判据)
+## 10. N5 单元: 卡片层接地闸 + census 扩围 + prompt 规则 (登记于实现前, 2026-09-14; brainstorm 经用户批准, 范围「测量 + prompt 一起做」为用户选择)
 
-PATTERN: 画面层接地三道闸 (判据 / N2 闸 / census) 都只管『画面目視判読』『頁索引』两类出典, **卡片层主张**不在任何闸里; N4 复测首见凭空卡片事实 + 真出处 (gpt-terra T1, 该 OID 在 16 个检索源 0 次)。方向: 卡片层主张纳入 census 范围 (定义扩到卡片出典) + 确定性卡片接地闸 (答案中带卡片出典的 OID/取值 ∈ 检索源集合)。前置: 闸质量须有预登记上限 (三轮累计假阳性 6 / 真捕获 0); opus-5 补跑。
+PATTERN (来自 N4 judge §7): 挂 study `[Source: …]` 出典 (EDC 項目カード / 手順書章節) 的句子所列 OID 不在被引文件里 (n=1: gpt-terra T1 一条活动 OID 被列为某卡片的非表示活动, 与真值方向相反; **勘误 2026-09-14**: 该 OID 在同 run 检索到的兄弟卡片非表示列表里, N4 审计「16 源 0 次」是 preview 300 字 grep 的误判 ⇒ 形态 = 移植 + 挂真出典, 对应闸的 CONTEXT_MISCITED 类)。画面层三单元把『画面目視判読』『頁索引』各钉了闸, study 出典无任何机器闸 ⇒ 错误挪层。修法是**全部 study 出典句**的通用接地, 不限「非表示アクティビティ」一种。
+
+**三层防御 (各自独立)**:
+1. **零 LLM 闸** `scripts/study/c2r_eval/check_card_grounding.py <runs_dir>...` (eval 侧, 不改服务): 主张单元 = 以 study `[Source: st01__…]` 结尾的句/条目 (切分规则与 N2 共用: 前一出典之后起, 出典行无中身时向上吞整块列表); 实体 = catalog 的 activity / form / event / item / item-group OID (token 边界; **≤2 字 OID 不查**, 计数报; **不查日语名** — 名字合法来源是対応表非卡片); 出典标记本身内的 OID 不算实体。判定: `SOURCE_GROUNDED` (在任一被引文件文本) / `CONTEXT_MISCITED` (不在被引文件但在本 run 检索到的其他 study 源 = 挂错出典) / `UNGROUNDED` (检索源里都没有 = 捏造候选) / `BAD_SOURCE` (被引路径磁盘不存在 = 出典本身捏造); 无实体单元记 `NO_ENTITY` 不标红。被引文件文本从磁盘 `data/study/st01/{cards,docs}` 复算, 检索源集合取 run json `response.sources` (corpus=study)。文书节按整节文件 (超集, 宽松方向)。盲点写明: 不看极性; 单元只向前伸到出典; 不识别 catalog 外的 OID 形字符串。输出脱敏表 + `runs/<dir>/card_grounding.json`。
+2. **census 扩围** (judge 侧): 规则 A 范围从「归因画面/頁索引的主张」扩到「归因 study 出典的 OID 级主张」(每条: 该 OID 是否在被引文件; 所述关系 (显示/非表示/所属组等) 是否与文件一致)。
+3. **prompt 规则** (答题侧, pattern 级, 只进 `_STUDY_OID_RULES` = study 引擎; CDISC 侧 prompt 逐字节不变): 挂カード / 文書節出典的记述所列 OID 限于该文本实际写有的; 列举类字段 (非表示アクティビティ等) 只照抄本文列举, 不补不推 (与 rule 7「只能抄那一行」同族); 要提文脈里没有的 OID 就写明不在文脈, 不挂出典。wiring 测试: 规则只出现一次; CDISC/study 差异仍只有该块。
+
+**预登记判据**:
+- 闸回扫 (零 LLM, 验证集 = 全部 c2r run 文件: v3 A+B+N 臂 + n1 + n3 + n3_a2 + n4; 真值 = 各轮 judge census + 本轮 judge 对标红条目逐条核): 已知真阳性 1 条 (n4 gpt-terra T1) 召回 **1/1**; 被闸标 UNGROUNDED / MISCITED / BAD_SOURCE 而核验为真的假阳性 **≤ 5**, **上限钉在本验证集上, 不做跨轮累计预算** (a2 教训); 标红条目全部列出供 judge 核。
+- 模型复测 (B 臂 T1/T3/T6 × gpt-terra/gpt-sol, 与 N4 同口径, 独立 judge): ① 卡片层 UNGROUNDED 核验后 = 0 (字面计数照报); ①′ (2026-09-14 复审 MAJOR-1 事实性补记, 登记于复测前) n4 型「兄弟卡片移植」CONTEXT_MISCITED 核验后 = 0 —— 已知真阳性的类是 MISCITED, 只有 ① 对它无判别力; ② T1/T3/T6 逐点 ≥ N4 (terra 10 / sol 10); ③ N4 判据 ①④ 不退 (跨页续接 0; 状态文本出典『頁索引』); ④ N2 闸不新增标红。
+- 零回归: prompt 动 study 引擎全局 ⇒ study golden v2 48 题 (gpt-terra) 与基线 Δ0, 或逐题列差异并归档。
+不达 = failures/ 归档, 判据不改。opus-5 仍挂起 (默认 ON 硬前置)。
+
+**不做**: 服务端答案过滤/剥离 (第三方案); 检索/选页/触发; 日语名实体 (用户选「只查 OID」)。
+
+**闸回扫 attempt 1 结果 (2026-09-14)**: 召回 PASS (1/1 + 预登记外新真阳性 1: 被引卡属性推广到另两个项目组); 假阳性字面 **7 > 5 FAIL** (CITATION_ERROR 3 + 纯 FP 4); 归档 `evidence/failures/c2r_n5_gate_attempt_1.md`, 判分 `evidence/step_c2r_n5_scan_audit.md`。**用户裁定 (2026-09-14)**: CITATION_ERROR 计入假阳性, 维持 FAIL, 走 attempt 2。
+**attempt 2 登记 (实现前)**: 只加一条 pattern 规则 —— **画面描述句不归卡片出典单元**: 单元内以画面指称开头 (画面では / 画面上 / 画面には / 添付頁 / 頁画像 / p.NN の画面 等) 且自身不带任何出典标记的句子, 是画面主张 (N2 的地盘), 其 OID 不计入卡片出典的实体集 (计数报为 `screen_sentences`)。理由: 出典是后置归属, 但画面句的归属是「画面」而非其后的卡片; 4 条纯 FP 中 2 条是这一机械形。**不改**其它规则, 不改判据; 复扫后 judge 只核 delta (预期: 标红 9 → 7, 假阳性 5 ≤ 5); 若不达, 闸以 FAIL 收口保留信号层。
+**attempt 2 结果 (2026-09-14)**: 标红 9 → 7 (消失恰为 attempt 1 两条纯 FP, 新增 0), 假阳性字面 **5 ≤ 5 PASS (压线)**; screen_dropped = 2 (验收面 example 级, 通用性为机制论证); judge 全核 SIBLING_NAMED 16 条抓到 1 漏检 ⇒ 真实召回 2/3。
+**模型复测结果 (2026-09-14, c2r_n5)**: ①/①′/②/③ 两模型全 PASS (terra 10 / sol 11); ④ 字面 FAIL 2→3 (核验后真错 0, 其中 1 条是闸惩罚正确引用元数据); 卡片出典 31 条 31/31 接地; **副作用: T1 CDISC 出典 2→0 ⇒ N6 候选**。两处口径敏感性 (T1 ⑤ / ④ 字面) 由 PLAN 所有者裁。收口 `evidence/checkpoints/c2r_n5_card_grounding.md` + `evidence/step_c2r_n5_{scan,retest}_audit.md`。
 
