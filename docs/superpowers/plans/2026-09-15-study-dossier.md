@@ -942,12 +942,22 @@ _DOSSIER_RULES = (
     "- The context ends with 【本研究 研読パッケージ】: this study's protocol (PRT) chapters "
     "verbatim (part A) and the COMPLETE list of EDC items (part B). Study-side retrieval was "
     "skipped on purpose: part B is exhaustive, so if an item is not there, it does not exist.\n"
-    "- Domain-level mapping questions: (1) enumerate the record categories the standard defines "
-    "for the domain from 【標準 CDISC】; (2) for each category scan part B form by form for "
-    "candidate items (status / date / reason), quoting each as `[form OID] item (OID)` exactly "
-    "as written; (3) when the PRT defines the event (完了の定義 / 中止規準 / 登録手順 …), cite "
-    "the section number from part A; (4) every EDC→SDTM assignment is inference — label it "
-    "(推測); (5) say explicitly which categories have no candidate item.\n"
+    # M5: 【標準 CDISC】块不在时不许假装它在。
+    # T9 attempt 2: (1) 明确沿 `--CAT` 轴逐类穷举 (attempt 1 用 --SCAT / 阶段轴顶替类别轴);
+    # 旧 (5)「说清哪类没候选」并入 (2) —— 挂在 (1) 产物上的规则会跟着 (1) 一起哑;
+    # (4) 收紧为逐条 inline 标记 (仅开头一次全局声明抗不住下游摘录)。
+    "- Domain-level mapping questions: (1) enumerate the record categories along the domain's "
+    "own category variable (the `--CAT` controlled terminology listed in 【標準 CDISC】 when "
+    "that block is present; if it is absent, say so and enumerate from the standard as you know "
+    "it, marked (推測)); list EVERY category value as its own heading, in the standard's order, "
+    "before looking at any EDC item; do not substitute sub-category (`--SCAT`), epoch or timing "
+    "axes for the category axis; (2) under each category heading either list the candidate items "
+    "found by scanning part B form by form (status / date / reason), quoting each as "
+    "`[form OID] item (OID)` exactly as written, or write explicitly "
+    "「候補なし / no candidate item in the EDC」 — no category may be silently skipped; "
+    "(3) when the PRT defines the event (完了の定義 / 中止規準 / 登録手順 …), cite "
+    "the section number from part A; (4) every EDC→SDTM assignment is inference — mark EVERY "
+    "individual assignment with (推測) inline, not only in a global disclaimer.\n"
 )
 
 

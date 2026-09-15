@@ -308,3 +308,22 @@ def test_attaches_on_the_single_corpus_path_too():
     msgs = app.state.llm_router.messages
     assert msgs[0]["content"] == "SYS" + _DOSSIER_RULES
     assert msgs[-1]["content"] == f"CTX=CD:cdisc0,cdisc1\n\n{DOSSIER.text}\nQ={Q_MAP}"
+
+
+# ── T9 attempt 2: 规则句的内容不变量 ─────────────────────────────────────
+
+
+def test_rule_pins_category_axis_and_no_candidate_wording():
+    """T9 attempt 1 (4/6) 的失败是类别轴混淆: 模型拿 `--SCAT` / 阶段轴顶替类别轴,
+    漏掉的那个类别既没列举也没申报无候选 (evidence/failures/dm2_task9_attempt_1.md)。
+
+    修法落在规则层的两处措辞 —— 沿 `--CAT` 轴逐类穷举 + 每类要么给候选要么明写"无候选"。
+    措辞不是结构, 下次重写规则句时最容易被顺手抹掉而没人发现, 所以钉在**实际拼进 system
+    的那段文本**上 (不只钉常量): 掉了就红。
+    """
+    c, app = _client(DOSSIER)
+    c.post("/api/ask", json={"question": Q_MAP, "history": []})
+    appended = app.state.llm_router.messages[0]["content"]
+    assert appended.endswith(_DOSSIER_RULES)
+    assert "--CAT" in appended
+    assert "no candidate" in appended

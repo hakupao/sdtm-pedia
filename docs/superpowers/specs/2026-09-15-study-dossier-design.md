@@ -77,7 +77,8 @@ sources 事件: {..., "dossier": None | {"attached": bool, "reason": str, "sha":
 存档 (flag / 历史): 同一 dossier 字段, 与 web_status / fell_back / pdf_trigger 并列
 ```
 
-- `_DOSSIER_RULES` (system 追加, 仅触发时): 「上下文含本研究 PRT 第 4-12 章原文与 EDC 全项目一览. 域级映射题: ① 按【標準 CDISC】域定义枚举记录类别; ② 对每类在一览里逐表单找候选项目 (状态 / 日期 / 理由), 引用 `[フォーム OID] 項目 (OID)` 原样; ③ PRT 里定义了该事件 (完了の定義 / 中止規準 / 登録手順 等) 时引用章号; ④ 所有 EDC→SDTM 归属均标 (推測); ⑤ 明说哪类没有候选项目.」T7 联邦规则句保留 (它管无研读包时的行为).
+- `_DOSSIER_RULES` (system 追加, 仅触发时): 「上下文含本研究 PRT 第 4-12 章原文与 EDC 全项目一览. 域级映射题: ① 沿域自身的类别变量 `--CAT` 的 CT 逐类穷举 (【標準 CDISC】块在时按块里的列; 块不在时明说并标 (推測)), **每个类别值各起一个小标题**, 按标准顺序, **在看任何 EDC 项目之前**; 不许用子类别 `--SCAT` / epoch / 时点轴顶替类别轴; ② 每个类别小标题下**要么**逐表单在一览里找候选项目 (状态 / 日期 / 理由) 并原样引用 `[フォーム OID] 項目 (OID)`, **要么**明写「候補なし / no candidate item in the EDC」—— 任何类别不得静默跳过; ③ PRT 里定义了该事件 (完了の定義 / 中止規準 / 登録手順 等) 时引用章号; ④ **每一条** EDC→SDTM 归属行内带 (推測), 不能只在开头做一次全局声明.」T7 联邦规则句保留 (它管无研读包时的行为).
+  - ①/② 的当前形态来自 T9 attempt 1 的失败 (4/6, `evidence/failures/dm2_task9_attempt_1.md`): 原 ① 没说沿哪条轴, 模型用 `--SCAT` 子类别 / 阶段轴凑够条数而漏掉一个真实类别; 原 ⑤「明说哪类没候选」挂在 ① 的产物上, ① 漏了 ⑤ 就跟着哑 —— 故并入 ②, 让"漏"变成看得见的空标题. 修法停在模式级 (轴名, 不写某域有几类): 凡分类轴不止一条的域都会复发.
 - 研读包块**不进** `sources` 列表 (它不是 chunk), 只进徽章; 引用可追溯性靠模型引用章号 / OID, 由 §7 判据核.
 - Prompt cache: 研读包块作为 messages 里独立的 system/user 段, 对 Bedrock Claude 模型加 `cache_control: {"type":"ephemeral"}` (litellm 透传). 非 Claude 模型忽略该标记. **这是优化不是正确性前提**: 加不上也照常工作, 只是每题全价.
 - `ask` (非流式) 同样接线, 走同一 `decide_dossier` + 同一拼装 helper `maybe_attach_dossier(request, question, chunks, routed, context)`, 避免两处漂移 (C2R 教训: `maybe_attach_pdf_pages` 是共用 helper). 研读包块**不经过** `RAGEngine.format_context` 的 4000 字/chunk 截断 —— 它是独立文本段, 不是 chunk.

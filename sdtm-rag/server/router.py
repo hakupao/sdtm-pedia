@@ -120,13 +120,25 @@ _DOSSIER_RULES = (
     # (1) 曾无条件写"从【標準 CDISC】数"—— 但 federation 关 / CDISC 侧零命中时那个块根本
     # 不存在, 规则却仍在命令模型去那里数 ⇒ 模型只能编一个块出来。块在不在是可观测的,
     # 让它自己说"块不在"比让它假装块在要诚实得多。
-    "- Domain-level mapping questions: (1) enumerate the record categories the standard defines "
-    "for the domain from 【標準 CDISC】 when that block is present; if it is absent, say so and "
-    "enumerate from the standard as you know it, marked (推測); (2) for each category scan part B form by form for "
-    "candidate items (status / date / reason), quoting each as `[form OID] item (OID)` exactly "
-    "as written; (3) when the PRT defines the event (完了の定義 / 中止規準 / 登録手順 …), cite "
-    "the section number from part A; (4) every EDC→SDTM assignment is inference — label it "
-    "(推測); (5) say explicitly which categories have no candidate item.\n"
+    # T9 attempt 1 (4/6, evidence/failures/dm2_task9_attempt_1.md) 的失败是**类别轴混淆**:
+    # (1) 只说"枚举标准定义的记录类别", 没说沿哪条轴 ⇒ 模型拿 `--SCAT` 子类别 / 阶段轴切一刀
+    # 凑够条数, 真正漏掉的那个 `--CAT` 值既没列也没申报无候选。旧 (5)「说清哪类没候选」挂在
+    # (1) 的产物上 —— (1) 漏了 (5) 就一起哑, 所以把它并进 (2): 每个类别值各起一个小标题,
+    # "漏"于是变成看得见的空标题。修法停在**模式级** (说"沿 --CAT 轴", 不说某域有几类):
+    # 凡分类轴不止一条 (--CAT / --SCAT / epoch) 的域都会复发, 写死题面只会修绿一道题。
+    # (4) 同样收紧: attempt 1 有一跑只在开头做一次全局声明, 段内不复标 —— 下游一摘表就丢。
+    "- Domain-level mapping questions: (1) enumerate the record categories along the domain's "
+    "own category variable (the `--CAT` controlled terminology listed in 【標準 CDISC】 when "
+    "that block is present; if it is absent, say so and enumerate from the standard as you know "
+    "it, marked (推測)); list EVERY category value as its own heading, in the standard's order, "
+    "before looking at any EDC item; do not substitute sub-category (`--SCAT`), epoch or timing "
+    "axes for the category axis; (2) under each category heading either list the candidate items "
+    "found by scanning part B form by form (status / date / reason), quoting each as "
+    "`[form OID] item (OID)` exactly as written, or write explicitly "
+    "「候補なし / no candidate item in the EDC」 — no category may be silently skipped; "
+    "(3) when the PRT defines the event (完了の定義 / 中止規準 / 登録手順 …), cite "
+    "the section number from part A; (4) every EDC→SDTM assignment is inference — mark EVERY "
+    "individual assignment with (推測) inline, not only in a global disclaimer.\n"
 )
 
 
