@@ -15,7 +15,7 @@
   "7": "done",
   "8": "done",
   "9": "pending (user kickstart)",
-  "10": "pending (user ruling D4)",
+  "10": "D4 区分实验 done (语义鸿沟, evidence/checkpoints/dm1_d4_discrimination.md); 裁定 pending (user)",
   "11": "done (RETRO + worklog + PROGRESS + CLAUDE.md Key Path)"
  },
  "gates": {
@@ -29,7 +29,7 @@
   "mapping_candidate_cards_hit": "0/32"
  },
  "decisions_pending": [
-  "D4 domain->forms hand table (TRIGGERED: study milestone card recall 0%)",
+  "D4 domain->forms hand table (TRIGGERED 0/32; 区分实验裁定=语义鸿沟非席位; 表须到 item 粒度, 见 dm1_d4_discrimination.md §3)",
   "D3/D5 ship ON — 组成实验证明有益 (IG overview 席位 10→2), recall 指标看不见; 默认开"
  ],
  "failures": [

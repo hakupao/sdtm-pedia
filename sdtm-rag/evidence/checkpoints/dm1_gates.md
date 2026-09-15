@@ -71,3 +71,5 @@ for name,b,a in [("cdisc140","eval/runs/dm1_cdisc_before.json","eval/runs/dm1_cd
     print(name, json.load(open(b))["summary"]["source_recall_avg"], "->", json.load(open(a))["summary"]["source_recall_avg"],
           "worse:", [q for q in B if A[q][key]<B[q][key]], "better:", [q for q in B if A[q][key]>B[q][key]])
 ```
+
+> 2026-09-15 追记: D4 路径 (b) 区分实验已做 → **语义鸿沟** (卡片自检 100% / 日文 label 96% / 定义段→卡 6%); 详见 `dm1_d4_discrimination.md`.
