@@ -563,3 +563,9 @@ def test_glossary_is_not_duplicated_through_federation():
     # 対応表は本研究 catalog の話で、標準側の主張ではないから。
     assert ctx.index("# 【本研究 (study)】") < ctx.index(_GLOSSARY_HEADING)
     assert ctx.rstrip().endswith("偽活動乙")
+
+
+def test_federation_rules_cover_domain_level_mapping():
+    from server.federation import _FEDERATION_RULES
+    assert "Domain-level mapping" in _FEDERATION_RULES
+    assert "not only the form whose name resembles" in _FEDERATION_RULES

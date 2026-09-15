@@ -82,6 +82,13 @@ _FEDERATION_RULES = (
     "- EDC↔SDTM mapping questions: NO mapping document exists in either corpus — any mapping "
     "you state is inference. Label it explicitly (推測/inference), never present it as documented "
     "fact.\n"
+    "- Domain-level mapping questions (\"which of this study's data belong in domain X\"): "
+    "first enumerate the record categories the standard defines for X (e.g. DS: protocol "
+    "milestones, disposition of study participation, disposition of each study treatment), "
+    "then look for candidate fields — status, date, reason — across ALL forms in the context, "
+    "not only the form whose name resembles the domain code. A similarly named form is one "
+    "candidate source, never the only one. Say explicitly which categories have no candidate "
+    "field in the retrieved context.\n"
 )
 
 
