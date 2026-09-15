@@ -110,7 +110,8 @@ Full chain definitions are in `.work/MANIFEST.md`.
 | Phase 7 回退容灾+诚实呈现 (2026-09-02) | `llm_config.py` `fell_back`/`merge_reported_model`; 徽章+存档+⚑ |
 | Phase 7 `verified` 兑现抽检 (DONE 2026-09-07; 3 true / sonnet-5 false) | `sdtm-rag/evidence/checkpoints/verified_spotcheck_2026-09.md` (预登记判据+四模型记录) |
 | Phase 7 四模型离线对比裁判 (2026-09-07; C2 触发只报数) | `sdtm-rag/evidence/checkpoints/model_compare_2026-09.md`; retro `sdtm-rag/RETROSPECTIVE_verified.md` |
-| Phase 7 DM1 域级映射检索 (2026-09-15; D4 待裁) | `sdtm-rag/PLAN_domain_mapping.md`; 闸 `evidence/checkpoints/dm1_gates.md`; RETRO `RETROSPECTIVE_domain_mapping.md` |
+| Phase 7 DM1 域级映射检索 (2026-09-15; D4 已裁 → DM2) | `sdtm-rag/PLAN_domain_mapping.md`; 闸 `evidence/checkpoints/dm1_gates.md`; RETRO `RETROSPECTIVE_domain_mapping.md` |
+| Phase 7 DM2 研读包旁路 (整本喂, 默认 ON; 2026-09-15) | `sdtm-rag/server/study_dossier.py`; RETRO `RETROSPECTIVE_dossier.md` (含指针) |
 
 ## AI 平台多平台部署 (CLOSED 冻结 2026-06-15)
 

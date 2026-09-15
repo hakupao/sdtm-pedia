@@ -1,7 +1,7 @@
 # 进度看板
 
 > **唯一进度状态源**. 历史细节看 `.work/meta/worklog/INDEX.md`. 文件结构看 `.work/MANIFEST.md`. 一页纸入门看 `.work/AGENT_GUIDE.md`.
-> 最后更新: 2026-09-15 (**DM1 域级映射题检索补齐**: dogfood「sdtm 的 ds domain」归因 → D1 域码大小写/锚定 + D2 定义保底席 + D3 label 扩写 + D5 泛词停用 + 联邦规则句; 140q/48q 逐题零回归, 映射 gold 10%→20% 定义段 8/8, 候选卡 0/32 → **D4 人手表待裁**, T9 e2e 待 kickstart; 上一条 C2R N5 见 worklog)
+> 最后更新: 2026-09-15 (**DM2 研读包旁路「整本喂」**: DM1 D4 裁定 → 域级映射题不再检索 study 侧, PRT s4-s12 原文 + EDC 全项目一览 (166563 字 / ≈134K tok cl100k 估计) 直挂上下文; 三态触发器 **默认 ON, 生产已 kickstart**; 140q 零触发 + 两集检索逐题零回归; L3 e2e attempt1 4/6 (类别轴混淆) → 规则句 pattern 级重写 → **attempt2 6/6 PASS, 捏造 0** ⚠ 六跑全 `fell_back` 到 deepseek, **不构成 Opus 5 / Sonnet 5 对比**, Claude 对比待 Bedrock 权限恢复后重跑; 上一条 DM1 见 worklog)
 > 此前各阶段收口细节 (SP1-SP6 / AGG / 部署 / Chat UI 等): 见 `.work/meta/worklog/phase_07_rag_kg.md` 对应收口记录 (本行原 84K 单行巨段已于 restructure v3 剪除, 全文在 git 历史 `816c4a5^` 前的版本可查)
 
 ---
