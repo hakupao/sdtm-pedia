@@ -73,6 +73,21 @@ _STUDY_OID_RULES = (
 )
 
 
+# DM1 D5 — words that appear in almost every CDISC chunk carry no lexical signal
+# but out-rank the one informative token in short questions ("sdtm 的 ds domain"
+# pulled IG overview chapters ahead of anything DS-specific). Query side only:
+# the index is untouched, so this is a pure re-weighting of what the user typed.
+def _bm25_query_stopwords() -> tuple[str, ...]:
+    import bm25s  # lazy, same as the search path
+
+    return tuple(bm25s.stopwords.STOPWORDS_EN) + (
+        "sdtm", "sdtmig", "cdisc", "domain", "domains", "dataset", "datasets",
+    )
+
+
+_BM25_QUERY_STOPWORDS = _bm25_query_stopwords()
+
+
 class RAGEngine:
     # When structured-lookup resolves to EXACTLY ONE domain spec.md (a pure
     # single-domain query, e.g. "the required variables in DM"), inject this many of
@@ -119,6 +134,7 @@ class RAGEngine:
         hybrid_fusion: str = "rrf",
         hybrid_alpha: float = 0.5,
         hybrid_pool: int = 30,
+        bm25_query_stopwords: bool = True,
         prompt_guardrail_enabled: bool = False,
         web_search_enabled: bool = False,
         study_lookup: StudyLookup | None = None,
@@ -199,6 +215,9 @@ class RAGEngine:
         # Pools 50/75/100 each regressed >=1 question (q38/q08) for at most one
         # marginal gain (q73), so a deeper pool is NOT robust — kept at 30.
         self.hybrid_pool = hybrid_pool
+        # DM1 D5: 查询侧 BM25 停用泛用语 (sdtm/cdisc/domain/dataset 等) —— 只改查询
+        # tokenize 的输入停用表, 索引 (_build_bm25_index) 分毫不动。
+        self.bm25_query_stopwords = bm25_query_stopwords
         self._bm25 = None
         self._bm25_chunk_ids: list[str] = []
         self._bm25_chunk_meta: dict[str, dict] = {}
@@ -821,7 +840,16 @@ class RAGEngine:
         from server.ja_tokenize import cjk_bigrams
 
         # index 側と同一の変換 (片側だけだと日本語は恒に不一致)
-        query_tokens = bm25s.tokenize(cjk_bigrams(query_text), show_progress=False)
+        # DM1 D5: query 側だけ泛用语を stopword 化 (index はそのまま —— 上のコメント参照)。
+        # レバー off なら bm25s の既定 english stopwords に退避 (T6 以前の挙動と一致)。
+        sw = _BM25_QUERY_STOPWORDS if getattr(self, "bm25_query_stopwords", True) else "english"
+        query_tokens = bm25s.tokenize(
+            cjk_bigrams(query_text), stopwords=sw, show_progress=False
+        )
+        if not query_tokens.vocab or not any(len(ids) for ids in query_tokens.ids):
+            # 全 token が stopword で消えた ⇒ BM25 に渡す語彙が無い。retrieve() を呼ぶと
+            # bm25s が空クエリで例外/未定義動作になり得るので、ここで dense-only に落とす。
+            return []
         # over-fetch so the post-filter still yields ~n survivors
         k = min(len(self._bm25_chunk_ids), max(n * 4, n))
         results, scores = self._bm25.retrieve(

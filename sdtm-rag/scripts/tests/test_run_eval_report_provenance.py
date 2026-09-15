@@ -61,6 +61,8 @@ def report(tmp_path, monkeypatch):
             self.domain_definition_seat = False
             # T5: 同上, 实收值刻意与注入值相反 (settings 默认 True ⇒ 会注入一个对象)
             self.domain_expander = None
+            # T6: 同上, 实收值刻意与注入值相反 (settings 默认 True)
+            self.bm25_query_stopwords = False
 
     def _run(results: list[dict], extra_args: list[str] | None = None) -> dict:
         out = tmp_path / "report.json"
@@ -98,6 +100,16 @@ def test_report_records_the_domain_definition_seat_lever(report):
     若实现改成读 settings, 这条断言会变 True 而红。
     """
     assert report([])["summary"]["retrieval_levers"]["domain_definition_seat"] is False
+
+
+def test_report_records_the_bm25_query_stopwords_lever(report):
+    """T6: 查询侧 BM25 停用泛用语也是重建上下文的必需实参 —— 少了它, 事后按报告重建会用
+    `RAGEngine` 的默认值 (True) 去还原一份实际停用表不同的旧报告, top5 对不上而炸。
+
+    分辨力: FakeEngine 把实收值设成 False, 而注入值来自 settings (默认 True) ⇒
+    若实现改成读 settings, 这条断言会变 True 而红。
+    """
+    assert report([])["summary"]["retrieval_levers"]["bm25_query_stopwords"] is False
 
 
 def test_report_records_top_k_alongside_the_levers(report):

@@ -188,6 +188,11 @@ class Settings(BaseSettings):
     hybrid_alpha: float = 0.5
     hybrid_pool: int = 30  # per-list fusion pool depth (v2 robust sweet spot; deeper adds tail noise)
 
+    # DM1 D5: query 侧 BM25 停用泛用语 (sdtm/cdisc/domain/dataset 等 —— 见 rag.py
+    # `_BM25_QUERY_STOPWORDS`)。只改查询 tokenize 的停用表, index 侧分毫不动, 故零副作用
+    # 可默认开。关掉退回 bm25s 内置 english stopwords (T6 之前的行为)。
+    bm25_query_stopwords_enabled: bool = True
+
     # ── Answer-side trust guardrail (system-prompt only; orthogonal to retrieval) ──
     # Two grounding rules appended to the system prompt that forbid the answering
     # model from emitting content the retrieved context does not contain:

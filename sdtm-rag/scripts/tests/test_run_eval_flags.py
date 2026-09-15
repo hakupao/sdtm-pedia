@@ -54,6 +54,9 @@ def captured(tmp_path, monkeypatch):
             self.domain_definition_seat = kwargs.get("domain_definition_seat", True)
             # T5: 屏幕回执与 summary 都读引擎实收的这一项 (V-1 同纪律)
             self.domain_expander = kwargs.get("domain_expander")
+            # T6: cdisc 与 study 两条路径都传这个 kwarg (main.py/run_eval.py 同款
+            # study_levers 装配), 真引擎签名默认值也是 True, 同上口径用 .get 兜底
+            self.bm25_query_stopwords = kwargs.get("bm25_query_stopwords", True)
 
     class FakeRouter:
         model_list: list = []
@@ -401,7 +404,7 @@ def captured_federated(tmp_path, monkeypatch):
                       "prompt_guardrail_enabled",
                       # summary["retrieval_levers"] 读引擎实收值 (V-1)
                       "top_k", "structured_lookup_enabled", "hybrid_enabled",
-                      "rerank_enabled"):
+                      "rerank_enabled", "bm25_query_stopwords"):
                 setattr(self, k, kwargs[k])
             # study 引擎不传这个 kwarg (S1 关着, 通道不可达), 故照搬真引擎的签名默认值
             self.domain_definition_seat = kwargs.get("domain_definition_seat", True)

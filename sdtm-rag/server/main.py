@@ -140,6 +140,7 @@ async def lifespan(app: FastAPI):
         hybrid_fusion=s.hybrid_fusion,
         hybrid_alpha=s.hybrid_alpha,
         hybrid_pool=s.hybrid_pool,
+        bm25_query_stopwords=s.bm25_query_stopwords_enabled,
         # Answer-side trust guardrail (system-prompt grounding rules; default on).
         prompt_guardrail_enabled=s.prompt_guardrail_enabled,
         # 联网参考通道的 Rule 9 反捏造边界 (system prompt 侧; 默认开, 见 config.py)。
@@ -198,6 +199,7 @@ async def lifespan(app: FastAPI):
             hybrid_fusion=s.hybrid_fusion,
             hybrid_alpha=s.hybrid_alpha,
             hybrid_pool=s.hybrid_pool,
+            bm25_query_stopwords=s.bm25_query_stopwords_enabled,
             prompt_guardrail_enabled=s.prompt_guardrail_enabled,
             web_search_enabled=s.web_search_enabled,
             # 与 cdisc 引擎同一个对象 (见上方构造点)。

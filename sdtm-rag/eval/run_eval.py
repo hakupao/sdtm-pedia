@@ -728,6 +728,13 @@ def main(argv: list[str] | None = None) -> int:
         help="S2 per-list fusion pool depth (default settings.hybrid_pool=100)",
     )
     parser.add_argument(
+        "--no-bm25-query-stopwords",
+        action="store_true",
+        help="DM1 D5 kill switch: 关掉查询侧 BM25 泛用语停用 (sdtm/cdisc/domain/dataset "
+             "等), 退回 bm25s 内置 english stopwords。默认跟随 "
+             "settings.bm25_query_stopwords_enabled, 给本 flag 才强制关 —— 用于 A/B。",
+    )
+    parser.add_argument(
         "--temperature",
         type=float,
         default=None,
@@ -882,6 +889,10 @@ def main(argv: list[str] | None = None) -> int:
         else build_expander(settings) if settings.domain_expand_enabled
         else None
     )
+    # DM1 D5 kill switch: 同上模式, 缺 flag 时跟 settings 走。
+    bm25_query_stopwords = (
+        False if args.no_bm25_query_stopwords else settings.bm25_query_stopwords_enabled
+    )
 
     test_set = load_test_set(args.test_set)
     print(f"Loaded {len(test_set)} questions from {args.test_set}")
@@ -914,6 +925,7 @@ def main(argv: list[str] | None = None) -> int:
         hybrid_pool=(
             args.hybrid_pool if args.hybrid_pool is not None else settings.hybrid_pool
         ),
+        bm25_query_stopwords=bm25_query_stopwords,
         prompt_guardrail_enabled=args.guardrail,
         # Rule 9 是否进 system prompt。生产恒 on 且与请求级 web 真假无关 ⇒ 不给
         # --web-search 跑出来的数字描述的是一个生产不跑的构型 (spec §10.1 B3')。
@@ -985,6 +997,7 @@ def main(argv: list[str] | None = None) -> int:
             hybrid_pool=(
                 args.hybrid_pool if args.hybrid_pool is not None else settings.hybrid_pool
             ),
+            bm25_query_stopwords=bm25_query_stopwords,
             prompt_guardrail_enabled=args.guardrail,
             # 与上面 cdisc 引擎同一个 args.web_search —— 两处注入点必须同源: 只改一处时
             # 联邦两臂的 prompt 构型不一致, 而数字上完全看不出来 (B3' 就是这么活下来的)。
@@ -1152,6 +1165,7 @@ def main(argv: list[str] | None = None) -> int:
         # 记**引擎实收**的有/无 (bool), 不记 args —— 装配点漏改时这行会跟着变。
         "domain_expand": rag.domain_expander is not None,
         "hybrid": rag.hybrid_enabled,
+        "bm25_query_stopwords": rag.bm25_query_stopwords,
         "rerank": rag.rerank_enabled,
         "query_expansion": rag.query_expansion,
     }

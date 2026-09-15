@@ -101,6 +101,10 @@ def engine_kwargs_from_levers(levers: dict) -> dict:
         "domain_expander": (
             build_expander(settings) if levers.get("domain_expand", False) else None
         ),
+        # T6 起才有的通道。缺键 = 那轮跑的时候它还不存在 = OFF (同 domain_definition_seat /
+        # domain_expander): RAGEngine 构造默认是 True, 不给就会按老报告重建出一台会停用
+        # 泛用语的引擎 ⇒ query 侧 BM25 tokenize 用的停用表和当时那轮不一致, top5 对不上。
+        "bm25_query_stopwords": levers.get("bm25_query_stopwords", False),
     }
 
 

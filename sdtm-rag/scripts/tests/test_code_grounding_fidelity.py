@@ -169,3 +169,30 @@ def test_recorded_expand_lever_rebuilds_the_expander():
 
     assert kwargs["domain_expander"] is not None
     assert hasattr(kwargs["domain_expander"], "expand")
+
+
+def test_old_reports_without_the_stopword_lever_rebuild_with_it_off():
+    """T6 同理: 查询侧 BM25 停用泛用语是 T6 才有的通道, T6 之前的报告不可能记它。
+
+    `RAGEngine` 的构造默认是 True, 所以只要不显式关掉, 按老报告重建出来的引擎会用
+    **不同的**停用表去 tokenize 查询 (停掉 sdtm/cdisc/domain/dataset) ⇒ BM25 检索的
+    token 集合和当时那轮不一致, top5 对不上, check_fidelity 把整批老档案判成重建失败。
+    缺键 = 那轮没有这条通道 = OFF。
+    """
+    kwargs = engine_kwargs_from_levers({
+        "top_k": 15, "structured_lookup": True, "hybrid": True,
+        "rerank": False, "query_expansion": "none",
+    })
+
+    assert kwargs["bm25_query_stopwords"] is False
+
+
+def test_recorded_stopword_lever_is_honoured():
+    """记了就照记的还原 —— 与其他 lever 同一约定。"""
+    kwargs = engine_kwargs_from_levers({
+        "top_k": 15, "structured_lookup": True, "hybrid": True,
+        "rerank": False, "query_expansion": "none",
+        "bm25_query_stopwords": True,
+    })
+
+    assert kwargs["bm25_query_stopwords"] is True
