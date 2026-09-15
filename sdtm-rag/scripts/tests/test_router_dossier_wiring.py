@@ -2,67 +2,149 @@
   ① app.state.dossier is None (总闸 OFF) → messages / sources / done 与引入前逐字节同, dossier 字段 null
   ② 挂上时: study chunks 从 sources 消失, routed=both, context 含包头, system 多且只多一条规则句,
      done/sources/AskResponse 的 dossier.attached=True; auto 未命中时 attached=False 带 reason
+
+Fix round 1 追加的 4 条不变量 (每条都是"改坏了测试才会红"的形状, 不是复述实现):
+  I1 补取 CDISC 侧炸了 → 502 (不是 500)
+  I2 画面 PDF 通道看**过滤前**的 chunks —— 两条通道并存, 互不知情 (spec §5)
+  I3 研读包把 routed 抬成 both 之后, 确定性事实通道 (answerer) 必须仍然跑
+  I4 补取那次检索原样透传 domain / file_type / top_k, 席位口径与 federation 的 both 同式
 """
 from __future__ import annotations
+
 import json
 from types import SimpleNamespace
+
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
+
 from server.config import Settings
 from server.router import _DOSSIER_RULES, api_router
 from server.study_dossier import StudyDossier
 
 Q_MAP = "本研究中，哪些数据适合进入 sdtm 的 ds domain？"
 Q_CDISC = "DS 域有哪些变量？"
+# 画面 PDF 通道の R1 を発火させる問い (test_pdf_context_wiring と同型)。
+Q_PDF = "この項目はどの visit で表示されますか"
+
+# 偽の field card (実データ由来の OID / label は 1 つも無い)。非表示アクティビティ 2 件で
+# R1 のカード側条件を満たす。
+CARD = """---
+study: st99
+version: VNEW
+doc_type: field_card
+form_oid: FA
+field_oid: WX
+---
+
+# [偽フォーム FA] WX
+- 表示条件: 常時表示
+- 非表示アクティビティ: A_ONE, A_TWO
+"""
 
 
-def _chunk(i, corpus, ft="assumptions"):
+def _chunk(i, corpus, ft="assumptions", text="t"):
     return SimpleNamespace(chunk_id=f"{corpus}{i}", source=f"{corpus}/{i}.md", domain="DS",
-                           file_type=ft, section=None, similarity=0.5, text="t", corpus=corpus)
+                           file_type=ft, section=None, similarity=0.5, text=text, corpus=corpus)
 
 
 class _Cdisc:
     system_prompt = "SYS"
-    def __init__(self): self._structured_lookup = SimpleNamespace(_query_domains=lambda q: ["DS"] if "ds" in q.lower() else [])
-    def retrieve(self, q, *, domain=None, file_type=None, top_k=None): return [_chunk(i, "cdisc") for i in range(2)]
-    def format_context(self, chunks): return "CD:" + ",".join(c.chunk_id for c in chunks)
+
+    def __init__(self):
+        self._structured_lookup = SimpleNamespace(
+            _query_domains=lambda q: ["DS"] if "ds" in q.lower() else [])
+        self.calls = []   # I4: 補取が受け取った検索パラメータ
+
+    def retrieve(self, q, *, domain=None, file_type=None, top_k=None):
+        self.calls.append({"domain": domain, "file_type": file_type, "top_k": top_k})
+        return [_chunk(i, "cdisc") for i in range(2)]
+
+    def format_context(self, chunks):
+        return "CD:" + ",".join(c.chunk_id for c in chunks)
+
     def build_messages(self, q, ctx, history=None):
-        return [{"role": "system", "content": "SYS"}, {"role": "user", "content": f"CTX={ctx}\nQ={q}"}]
+        return [{"role": "system", "content": "SYS"},
+                {"role": "user", "content": f"CTX={ctx}\nQ={q}"}]
 
 
 class _Fed:
     top_k = 4
-    def __init__(self, cdisc): self.cdisc = cdisc
+
+    def __init__(self, cdisc):
+        self.cdisc = cdisc
+
     def retrieve(self, q, *, corpus="auto", top_k=None, domain=None, file_type=None):
-        return [_chunk(0, "cdisc"), _chunk(1, "cdisc"), _chunk(0, "study", "field_card"), _chunk(1, "study", "field_card")], "both"
+        return [_chunk(0, "cdisc"), _chunk(1, "cdisc"),
+                _chunk(0, "study", "field_card"), _chunk(1, "study", "field_card")], "both"
+
     def format_context(self, chunks):
         return "FED:" + ",".join(c.chunk_id for c in chunks)
+
     def build_messages(self, q, ctx, history=None, *, corpus):
-        return [{"role": "system", "content": f"SYS[{corpus}]"}, {"role": "user", "content": f"CTX={ctx}\nQ={q}"}]
+        return [{"role": "system", "content": f"SYS[{corpus}]"},
+                {"role": "user", "content": f"CTX={ctx}\nQ={q}"}]
 
 
 class _Router:
-    def __init__(self): self.messages = None
+    def __init__(self):
+        self.messages = None
+
     def completion(self, model, messages, **kw):
         self.messages = messages
-        return SimpleNamespace(model="m", choices=[SimpleNamespace(message=SimpleNamespace(content="ans"), finish_reason="stop")],
-                               usage=SimpleNamespace(prompt_tokens=1, completion_tokens=1, total_tokens=2))
+        return SimpleNamespace(
+            model="m",
+            choices=[SimpleNamespace(message=SimpleNamespace(content="ans"),
+                                     finish_reason="stop")],
+            usage=SimpleNamespace(prompt_tokens=1, completion_tokens=1, total_tokens=2))
+
     async def acompletion(self, model, messages, stream=False, **kw):
         self.messages = messages
+
         async def agen():
-            yield SimpleNamespace(model="m", usage=None, choices=[SimpleNamespace(delta=SimpleNamespace(content="ans"), finish_reason="stop")])
+            yield SimpleNamespace(
+                model="m", usage=None,
+                choices=[SimpleNamespace(delta=SimpleNamespace(content="ans"),
+                                         finish_reason="stop")])
         return agen()
 
 
-DOSSIER = StudyDossier(text="# 【本研究 研読パッケージ】 X", sha="abc", chars=17, sections=("4.1",), n_items=1, study="st99", version="V")
+class _PdfBuilder:
+    """I2: PdfContextBuilder の外形だけ。何枚のカードを見せられたかだけ記録する。
+
+    頁は 1 枚も返さない ⇒ `messages` には触らない (記録以外の副作用が無い)。
+    """
+
+    def __init__(self):
+        self.cards_seen = None
+        self.index = SimpleNamespace(form_named_in=lambda q: None)
+
+    def select_pages(self, cards, question="", max_pages=None):
+        self.cards_seen = len(cards)
+        return SimpleNamespace(pages=(), omitted=(), truncated=False, max_pages=6)
+
+    def render(self, selection):
+        return []
+
+    def to_message_parts(self, selection, images=None):
+        return []
 
 
-def _client(dossier):
-    app = FastAPI(); app.include_router(api_router)
+DOSSIER = StudyDossier(text="# 【本研究 研読パッケージ】 X", sha="abc", chars=17,
+                       sections=("4.1",), n_items=1, study="st99", version="V")
+
+
+def _client(dossier, enabled=None):
+    app = FastAPI()
+    app.include_router(api_router)
     cd = _Cdisc()
-    app.state.rag = cd; app.state.federation = _Fed(cd); app.state.llm_router = _Router()
-    app.state.settings = Settings(dossier_enabled=dossier is not None)
-    app.state.dossier = dossier; app.state.pdf_context = None; app.state.study_lookup = None
+    app.state.rag = cd
+    app.state.federation = _Fed(cd)
+    app.state.llm_router = _Router()
+    app.state.settings = Settings(
+        dossier_enabled=(dossier is not None) if enabled is None else enabled)
+    app.state.dossier = dossier
+    app.state.pdf_context = None
+    app.state.study_lookup = None
     app.state.answerer = None
     return TestClient(app), app
 
@@ -70,16 +152,24 @@ def _client(dossier):
 def _done(text):
     return json.loads(text.split("event: done\ndata: ")[1].split("\n\n")[0])
 
+
 def _sources(text):
     return json.loads(text.split("event: sources\ndata: ")[1].split("\n\n")[0])
+
+
+def _route_study(app, text="t"):
+    """federation を study 単庫路由に差し替える (補取経路を通す)。"""
+    app.state.federation.retrieve = lambda q, **kw: (
+        [_chunk(0, "study", "field_card", text)], "study")
 
 
 def test_off_is_byte_identical_and_reports_null():
     c, app = _client(None)
     r = c.post("/api/ask", json={"question": Q_MAP, "history": []})
     assert r.json()["dossier"] is None
-    assert app.state.llm_router.messages == [{"role": "system", "content": "SYS[both]"},
-                                              {"role": "user", "content": f"CTX=FED:cdisc0,cdisc1,study0,study1\nQ={Q_MAP}"}]
+    assert app.state.llm_router.messages == [
+        {"role": "system", "content": "SYS[both]"},
+        {"role": "user", "content": f"CTX=FED:cdisc0,cdisc1,study0,study1\nQ={Q_MAP}"}]
     t = c.post("/api/ask_stream", json={"question": Q_MAP, "history": []}).text
     assert _done(t)["dossier"] is None and _sources(t)["dossier"] is None
     assert len(_sources(t)["sources"]) == 4
@@ -111,19 +201,110 @@ def test_auto_no_match_reports_reason_and_leaves_messages_alone():
 
 def test_forced_on_and_off():
     c, _ = _client(DOSSIER)
-    assert c.post("/api/ask", json={"question": Q_CDISC, "history": [], "dossier": "on"}).json()["dossier"]["reason"] == "forced_on"
-    assert c.post("/api/ask", json={"question": Q_MAP, "history": [], "dossier": "off"}).json()["dossier"]["reason"] == "forced_off"
+    on = c.post("/api/ask", json={"question": Q_CDISC, "history": [], "dossier": "on"})
+    assert on.json()["dossier"]["reason"] == "forced_on"
+    off = c.post("/api/ask", json={"question": Q_MAP, "history": [], "dossier": "off"})
+    assert off.json()["dossier"]["reason"] == "forced_off"
 
 
 def test_bad_mode_is_422():
     c, _ = _client(DOSSIER)
-    assert c.post("/api/ask", json={"question": Q_MAP, "history": [], "dossier": "yes"}).status_code == 422
+    r = c.post("/api/ask", json={"question": Q_MAP, "history": [], "dossier": "yes"})
+    assert r.status_code == 422
 
 
 def test_study_routed_gets_cdisc_side_refetched():
     c, app = _client(DOSSIER)
-    app.state.federation.retrieve = lambda q, **kw: ([_chunk(0, "study", "field_card")], "study")
+    _route_study(app)
     t = c.post("/api/ask_stream", json={"question": Q_MAP, "history": []}).text
     src = _sources(t)
     assert src["routed_corpus"] == "both"
     assert [s["chunk_id"] for s in src["sources"]] == ["cdisc0", "cdisc1"]
+
+
+# ── Fix round 1 ──────────────────────────────────────────────────────────
+
+
+def test_refetch_failure_is_502_not_500():
+    """I1: 補取も検索 —— 落ちたら 502 (調用側が再試行できる), 500 ではない。"""
+    c, app = _client(DOSSIER)
+    _route_study(app)
+
+    def _boom(q, **kw):
+        raise RuntimeError("chroma down")
+
+    app.state.rag.retrieve = _boom
+    r = c.post("/api/ask", json={"question": Q_MAP, "history": []})
+    assert r.status_code == 502
+    assert r.json()["detail"] == "Retrieval service temporarily unavailable."
+
+
+def test_pdf_channel_sees_prefilter_chunks():
+    """I2: 研読包が study chunk を落としても、画面 PDF 通道はそれを見られる。
+
+    過濾後を渡すと cards=0 ⇒ should_attach_pdf の第 1 条で不発 ⇒ select_pages が
+    そもそも呼ばれない (cards_seen is None) —— 2 通道の静かな互斥。
+    """
+    c, app = _client(DOSSIER)
+    builder = _PdfBuilder()
+    app.state.pdf_context = builder
+    app.state.federation.retrieve = lambda q, **kw: (
+        [_chunk(0, "cdisc"), _chunk(0, "study", "field_card", CARD),
+         _chunk(1, "study", "field_card", CARD)], "both")
+    r = c.post("/api/ask", json={"question": Q_PDF, "history": [], "dossier": "on"})
+    assert r.json()["dossier"]["attached"] is True
+    # context からは study が消えている (研読包側の効果は保たれる)
+    assert [s["chunk_id"] for s in r.json()["sources"]] == ["cdisc0"]
+    # が、PDF 通道は 2 枚のカードを受け取っている
+    assert builder.cards_seen == 2
+
+
+def test_answerer_runs_on_the_dossier_path():
+    """I3: routed が study→both に上がった後の値で answerer の要否を判断する。
+
+    _DOSSIER_RULES 第 ① 歩は「標準から記録類別を列挙」—— その決定的事実通道を、
+    もう成立していない「study 単庫」判定で黙らせてはいけない。
+    """
+    c, app = _client(DOSSIER)
+    _route_study(app)
+    seen = []
+    app.state.answerer = SimpleNamespace(resolve=lambda q: seen.append(q))
+    r = c.post("/api/ask", json={"question": Q_MAP, "history": []})
+    assert r.json()["routed_corpus"] == "both"
+    assert seen == [Q_MAP]
+
+
+def test_refetch_passes_through_domain_file_type_and_top_k():
+    """I4: 補取は federation の both と同じ席位式 (ceil(k/2)) と同じ絞り込みで走る。"""
+    c, app = _client(DOSSIER)
+    _route_study(app)
+    c.post("/api/ask", json={"question": Q_MAP, "history": [],
+                             "domain": "DS", "file_type": "assumptions"})
+    assert app.state.rag.calls == [{"domain": "DS", "file_type": "assumptions", "top_k": 2}]
+
+    c2, app2 = _client(DOSSIER)
+    _route_study(app2)
+    c2.post("/api/ask", json={"question": Q_MAP, "history": [], "top_k": 6})
+    assert app2.state.rag.calls == [{"domain": None, "file_type": None, "top_k": 3}]
+
+
+def test_master_switch_off_reports_disabled_and_leaves_messages_alone():
+    """M4a: 包は組み上がっているが総闸 OFF。「跑了但没挂」を reason で言う。"""
+    c, app = _client(DOSSIER, enabled=False)
+    r = c.post("/api/ask", json={"question": Q_MAP, "history": []})
+    assert r.json()["dossier"]["reason"] == "disabled"
+    assert r.json()["dossier"]["attached"] is False
+    assert app.state.llm_router.messages[0]["content"] == "SYS[both]"
+    assert len(r.json()["sources"]) == 4
+
+
+def test_attaches_on_the_single_corpus_path_too():
+    """M4b: federation OFF —— routed は None のまま, それでも研読包は context に入る。"""
+    c, app = _client(DOSSIER)
+    app.state.federation = None
+    r = c.post("/api/ask", json={"question": Q_MAP, "history": []})
+    assert r.json()["routed_corpus"] is None
+    assert r.json()["dossier"]["attached"] is True
+    msgs = app.state.llm_router.messages
+    assert msgs[0]["content"] == "SYS" + _DOSSIER_RULES
+    assert msgs[-1]["content"] == f"CTX=CD:cdisc0,cdisc1\n\n{DOSSIER.text}\nQ={Q_MAP}"

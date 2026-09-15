@@ -4,6 +4,7 @@ from __future__ import annotations
 import asyncio
 import datetime
 import json
+import math
 import time
 from typing import Literal
 
@@ -116,8 +117,12 @@ _DOSSIER_RULES = (
     "- The context ends with 【本研究 研読パッケージ】: this study's protocol (PRT) chapters "
     "verbatim (part A) and the COMPLETE list of EDC items (part B). Study-side retrieval was "
     "skipped on purpose: part B is exhaustive, so if an item is not there, it does not exist.\n"
+    # (1) 曾无条件写"从【標準 CDISC】数"—— 但 federation 关 / CDISC 侧零命中时那个块根本
+    # 不存在, 规则却仍在命令模型去那里数 ⇒ 模型只能编一个块出来。块在不在是可观测的,
+    # 让它自己说"块不在"比让它假装块在要诚实得多。
     "- Domain-level mapping questions: (1) enumerate the record categories the standard defines "
-    "for the domain from 【標準 CDISC】; (2) for each category scan part B form by form for "
+    "for the domain from 【標準 CDISC】 when that block is present; if it is absent, say so and "
+    "enumerate from the standard as you know it, marked (推測); (2) for each category scan part B form by form for "
     "candidate items (status / date / reason), quoting each as `[form OID] item (OID)` exactly "
     "as written; (3) when the PRT defines the event (完了の定義 / 中止規準 / 登録手順 …), cite "
     "the section number from part A; (4) every EDC→SDTM assignment is inference — label it "
@@ -301,13 +306,19 @@ def maybe_attach_pdf_pages(request: Request, question: str, chunks, messages):
     return [{"pdf": i.pdf, "page": i.page} for i in images], decision.rule
 
 
-def maybe_attach_dossier(request: Request, question: str, chunks, routed: str | None, mode: str):
+def maybe_attach_dossier(request: Request, question: str, chunks, routed: str | None, mode: str,
+                         *, domain: str | None = None, file_type: str | None = None,
+                         top_k: int | None = None):
     """DM2: 域级映射题触发时, 丢 study 侧 chunks, 返回研读包文本块供拼进 context.
 
     → (chunks, routed, dossier_block | None, dossier_info | None).
     通道 OFF (`app.state.dossier is None`) → 原样返回, info=None —— 「OFF 与引入前逐位同一」由
     这一行早期 return 担保. 跑了但没挂 → info.attached=False 带 reason (与 pdf 通道 None/[]
     的区分同一教训). /api/ask 与 /api/ask_stream 都调这一个函数.
+
+    `domain` / `file_type` / `top_k` 是**请求原样**的检索参数: 挂上研读包时本函数可能替
+    federation 重跑一次 CDISC 侧检索, 那一次必须和 federation 自己走 `both` 时收到的参数
+    完全一样 —— 否则"挂了研读包"会静默吃掉用户给的过滤条件。
     """
     dossier = getattr(request.app.state, "dossier", None)
     if dossier is None:
@@ -325,10 +336,20 @@ def maybe_attach_dossier(request: Request, question: str, chunks, routed: str | 
         return chunks, routed, None, info
     fed = getattr(request.app.state, "federation", None)
     if fed is not None and routed == "study":
-        # study 单库路由下没有 CDISC 定义段 (D2), 补取 CDISC 侧; 席位口径与 both 相同 (k/2 上取整)
-        import math
-        k_each = math.ceil((fed.top_k or 15) / 2)
-        cd = fed.cdisc.retrieve(question, top_k=k_each)
+        # study 单库路由下没有 CDISC 定义段 (D2), 补取 CDISC 侧。席位口径与 federation 走
+        # `both` 时**同一条式子** (`FederatedEngine.retrieve`: k = top_k or self.top_k,
+        # 每边 ceil(k/2)), 过滤条件也原样透传 —— 这里少传一个参数, 用户就会拿到一份
+        # 悄悄忽略了 domain/file_type/top_k 的结果, 而 API 上完全看不出来。
+        k = top_k or fed.top_k
+        k_each = math.ceil(k / 2)
+        try:
+            cd = fed.cdisc.retrieve(question, domain=domain, file_type=file_type, top_k=k_each)
+        except Exception as e:
+            # 检索炸了要报 502 (与两个端点开头那次检索同口径), 不能穿透成 500 ——
+            # "上游检索暂时不可用"是调用方能重试的, 500 只会被当成本服务的 bug。
+            log.error("dossier_cdisc_refetch_failed", error=str(e), exc_info=True)
+            raise HTTPException(status_code=502,
+                                detail="Retrieval service temporarily unavailable.") from e
         for c in cd:
             c.corpus = "cdisc"
         chunks = list(cd)
@@ -381,6 +402,18 @@ def ask(body: AskRequest, request: Request):
         log.error("retrieve_failed", error=str(e), exc_info=True)
         raise HTTPException(status_code=502, detail="Retrieval service temporarily unavailable.") from e
 
+    # 画面 PDF 通道看的是**过滤前**的 chunks (spec §5: 两条通道并存且互不知情)。研读包丢掉
+    # study 侧 card 是为了不让它们再进 context, 不是说这些 card 对"该不该附画面"的判断也不
+    # 存在了 —— 把过滤后的传进去, PDF 通道会因为"一张卡都没有"而静默不发火 (should_attach_pdf
+    # 的第一条就是 `if not cards: 不发`), 于是两条通道变成事实上的互斥。
+    chunks_for_pdf = chunks
+    # ⚠ 研读包判定必须排在 answerer 之前: 它可能把 routed 从 "study" 抬成 "both", 而下面那句
+    # `if routed == "study": answerer = None` 要看的是**抬过之后**的值。_DOSSIER_RULES 第 ①
+    # 步要模型先从标准枚举记录类别, 那条确定性事实通道不能被一个已经不成立的判断掐掉。
+    chunks, routed, dossier_block, dossier_info = maybe_attach_dossier(
+        request, body.question, chunks, routed, body.dossier,
+        domain=body.domain, file_type=body.file_type, top_k=body.top_k)
+
     answerer = getattr(request.app.state, "answerer", None)
     if routed == "study":
         answerer = None  # CDISC 专用事实通道, study 单库路由下必须静默跳过
@@ -389,9 +422,6 @@ def ask(body: AskRequest, request: Request):
     except Exception:
         log.warning("structured_answer_resolve_failed", exc_info=True)
         facts = None
-
-    chunks, routed, dossier_block, dossier_info = maybe_attach_dossier(
-        request, body.question, chunks, routed, body.dossier)
 
     engine = fed if fed is not None else rag
     context = engine.format_context(chunks)
@@ -412,7 +442,7 @@ def ask(body: AskRequest, request: Request):
         messages = rag.build_messages(body.question, context, history_dicts or None)
     if dossier_block:
         messages[0]["content"] += _DOSSIER_RULES
-    pdf_pages, pdf_trigger = maybe_attach_pdf_pages(request, body.question, chunks, messages)
+    pdf_pages, pdf_trigger = maybe_attach_pdf_pages(request, body.question, chunks_for_pdf, messages)
 
     # 输出触顶自动续写 (2026-09-08)。⚠ 这里是**第二份**实现: /api/ask 走同步
     # `llm_router.completion`, 与 ask_stream 的 `acompletion` 不共用任何辅助函数。
@@ -592,6 +622,18 @@ async def ask_stream(body: AskStreamRequest, request: Request):
         log.error("stream_retrieve_failed", error=str(e), exc_info=True)
         raise HTTPException(status_code=502, detail="Retrieval service temporarily unavailable.") from e
 
+    # 画面 PDF 通道看的是**过滤前**的 chunks (spec §5: 两条通道并存且互不知情)。研读包丢掉
+    # study 侧 card 是为了不让它们再进 context, 不是说这些 card 对"该不该附画面"的判断也不
+    # 存在了 —— 把过滤后的传进去, PDF 通道会因为"一张卡都没有"而静默不发火 (should_attach_pdf
+    # 的第一条就是 `if not cards: 不发`), 于是两条通道变成事实上的互斥。
+    chunks_for_pdf = chunks
+    # ⚠ 研读包判定必须排在 answerer 之前: 它可能把 routed 从 "study" 抬成 "both", 而下面那句
+    # `if routed == "study": answerer = None` 要看的是**抬过之后**的值。_DOSSIER_RULES 第 ①
+    # 步要模型先从标准枚举记录类别, 那条确定性事实通道不能被一个已经不成立的判断掐掉。
+    chunks, routed, dossier_block, dossier_info = maybe_attach_dossier(
+        request, body.question, chunks, routed, body.dossier,
+        domain=body.domain, file_type=body.file_type, top_k=body.top_k)
+
     answerer = getattr(request.app.state, "answerer", None)
     if routed == "study":
         answerer = None  # CDISC 专用事实通道, study 单库路由下必须静默跳过
@@ -600,9 +642,6 @@ async def ask_stream(body: AskStreamRequest, request: Request):
     except Exception:
         log.warning("structured_answer_resolve_failed", exc_info=True)
         facts = None
-
-    chunks, routed, dossier_block, dossier_info = maybe_attach_dossier(
-        request, body.question, chunks, routed, body.dossier)
 
     engine = fed if fed is not None else rag
     context = engine.format_context(chunks)
@@ -623,7 +662,7 @@ async def ask_stream(body: AskStreamRequest, request: Request):
         messages = rag.build_messages(body.question, context, history_dicts or None)
     if dossier_block:
         messages[0]["content"] += _DOSSIER_RULES
-    pdf_pages, pdf_trigger = maybe_attach_pdf_pages(request, body.question, chunks, messages)
+    pdf_pages, pdf_trigger = maybe_attach_pdf_pages(request, body.question, chunks_for_pdf, messages)
     sources = [
         {"chunk_id": c.chunk_id, "source": c.source, "domain": c.domain,
          "file_type": c.file_type, "section": c.section,
