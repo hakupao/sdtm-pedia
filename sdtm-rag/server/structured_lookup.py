@@ -206,6 +206,17 @@ class StructuredLookup:
         self.ctcode_to_termfile: dict[str, str] = {}
         # all variable names (for extracting query tokens)
         self.known_variables: set[str] = set(store.known_variables)
+        # Variables carried by at least HALF the domains — the cross-domain identifiers
+        # (STUDYID/DOMAIN/USUBJID/VISIT…). Naming one does NOT make a question
+        # variable-level: "which data belong in the DS DOMAIN?" is a domain-level ask
+        # whose 'DOMAIN' is an English word, not the thing being asked about. Derived
+        # from meta.yaml (never a hardcoded name list) so a model revision that adds or
+        # retires a cross-domain identifier moves this set with it.
+        half = len(store.known_domains) / 2
+        self.generic_variables: set[str] = {
+            v for v in self.known_variables
+            if len(store.domains_for_variable(v)) >= half
+        }
         # domain code -> domains/<CODE>/spec.md (every counts_toward_63 domain has one)
         self.domain_to_spec: dict[str, str] = {}
         # lowercased domain long name -> code (from meta.yaml labels).
@@ -458,9 +469,13 @@ class StructuredLookup:
 
     def domain_definition_targets(self, query: str) -> list[str]:
         """DM1 D2: `domains/<X>/assumptions.md` for each domain the query names,
-        only when the ask is domain-level (no known variable token in the query —
-        "what goes into DS" yes, "what is DSDECOD" no). Capped like the spec channel."""
-        if self._query_variables(query):
+        only when the ask is domain-level. Capped like the spec channel.
+
+        "Domain-level" = the query names no *domain-specific* variable. A generic
+        cross-domain identifier does not disqualify it (see `generic_variables`):
+        "what is DSDECOD in DS" is a variable ask, but "which data belong in the DS
+        DOMAIN?" and "what is USUBJID in DS domain" are still about the domain."""
+        if any(v not in self.generic_variables for v in self._query_variables(query)):
             return []
         return [f"domains/{d}/assumptions.md"
                 for d in self._query_domains(query)[: self._MAX_DOMAIN_SPECS]]

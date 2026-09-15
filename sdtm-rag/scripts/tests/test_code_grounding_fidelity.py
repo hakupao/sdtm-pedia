@@ -116,3 +116,29 @@ def test_degenerate_context_is_rejected():
 
 def test_normal_context_passes_the_degeneracy_control():
     assert_context_not_degenerate("q01", "AETERM is the topic variable. C66742 applies.")
+
+
+def test_old_reports_without_the_seat_lever_rebuild_with_it_off():
+    """T4 fix 1: 保底席是 T4 才有的通道, T4 之前的报告不可能记它。
+
+    `RAGEngine` 的构造默认是 True, 所以只要不显式关掉, 按老报告重建出来的引擎会**多**
+    一条注入通道 ⇒ top5 与落盘的对不上 ⇒ check_fidelity 把整批老档案判成重建失败。
+    缺键 = 那轮没有这条通道 = OFF。
+    """
+    kwargs = engine_kwargs_from_levers({
+        "top_k": 15, "structured_lookup": True, "hybrid": True,
+        "rerank": False, "query_expansion": "none",
+    })
+
+    assert kwargs["domain_definition_seat"] is False
+
+
+def test_recorded_seat_lever_is_honoured():
+    """记了就照记的还原 —— 与其他 lever 同一约定。"""
+    kwargs = engine_kwargs_from_levers({
+        "top_k": 15, "structured_lookup": True, "hybrid": True,
+        "rerank": False, "query_expansion": "none",
+        "domain_definition_seat": True,
+    })
+
+    assert kwargs["domain_definition_seat"] is True

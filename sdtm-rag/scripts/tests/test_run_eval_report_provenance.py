@@ -57,6 +57,8 @@ def report(tmp_path, monkeypatch):
             self.hybrid_enabled = True
             self.rerank_enabled = True
             self.query_expansion = "hyde"
+            # T4: 实收值刻意与注入值相反 (settings 默认 True), 钉住"记引擎不记 settings"
+            self.domain_definition_seat = False
 
     def _run(results: list[dict], extra_args: list[str] | None = None) -> dict:
         out = tmp_path / "report.json"
@@ -84,6 +86,16 @@ def test_report_records_the_engines_actual_retrieval_levers(report):
     assert levers["hybrid"] is True
     assert levers["rerank"] is True
     assert levers["query_expansion"] == "hyde"
+
+
+def test_report_records_the_domain_definition_seat_lever(report):
+    """T4 fix 1: 保底席也是重建上下文的必需实参 —— 少了它, 事后按报告重建会用
+    `RAGEngine` 的默认值 (True) 去还原一份 seat=OFF 的旧报告, top5 对不上而炸。
+
+    分辨力: FakeEngine 把实收值设成 False, 而注入值来自 settings (默认 True) ⇒
+    若实现改成读 settings, 这条断言会变 True 而红。
+    """
+    assert report([])["summary"]["retrieval_levers"]["domain_definition_seat"] is False
 
 
 def test_report_records_top_k_alongside_the_levers(report):

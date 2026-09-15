@@ -30,6 +30,7 @@
     "retrieval_levers": {
       "top_k": 15,
       "structured_lookup": true,
+      "domain_definition_seat": true,
       "hybrid": true,
       "rerank": false,
       "query_expansion": "none"
@@ -62,7 +63,7 @@
         0.5474,
         0.6641
       ],
-      "elapsed_s": 1.02
+      "elapsed_s": 0.46
     },
     {
       "id": "q02",
@@ -75,7 +76,7 @@
       ],
       "source_misses": [],
       "top5_sources": [
-        "/Users/bojiangzhang/MyProject/sdtm-pedia/knowledge_base/domains/DM/assumptions.md",
+        "domains/DM/assumptions.md",
         "domains/DM/spec.md",
         "domains/DM/spec.md",
         "domains/DM/spec.md",
@@ -88,7 +89,7 @@
         0.4052,
         0.5671
       ],
-      "elapsed_s": 0.45
+      "elapsed_s": 0.35
     },
     {
       "id": "q03",
@@ -114,7 +115,7 @@
         0.5758,
         0.5714
       ],
-      "elapsed_s": 0.38
+      "elapsed_s": 0.29
     },
     {
       "id": "q04",
@@ -127,7 +128,7 @@
       ],
       "source_misses": [],
       "top5_sources": [
-        "/Users/bojiangzhang/MyProject/sdtm-pedia/knowledge_base/domains/TV/assumptions.md",
+        "domains/TV/assumptions.md",
         "domains/TV/spec.md",
         "domains/TV/spec.md",
         "domains/TV/spec.md",
@@ -140,7 +141,7 @@
         0.4705,
         0.6873
       ],
-      "elapsed_s": 0.36
+      "elapsed_s": 0.44
     },
     {
       "id": "q05",
@@ -166,7 +167,7 @@
         0.5643,
         0.7191
       ],
-      "elapsed_s": 0.42
+      "elapsed_s": 0.73
     },
     {
       "id": "q21",
@@ -192,7 +193,7 @@
         0.7109,
         0.7497
       ],
-      "elapsed_s": 0.39
+      "elapsed_s": 0.36
     },
     {
       "id": "q22",
@@ -212,13 +213,13 @@
         "domains/VS/assumptions.md"
       ],
       "top5_similarities": [
-        0.7384,
+        0.7383,
         0.5886,
-        0.6468,
+        0.6467,
         0.6527,
         0.6914
       ],
-      "elapsed_s": 0.25
+      "elapsed_s": 0.45
     },
     {
       "id": "q23",
@@ -244,7 +245,7 @@
         0.5843,
         0.6597
       ],
-      "elapsed_s": 0.28
+      "elapsed_s": 0.26
     },
     {
       "id": "q24",
@@ -265,12 +266,12 @@
       ],
       "top5_similarities": [
         0.5484,
-        0.5451,
+        0.5452,
         0.5409,
         0.5365,
-        0.6559
+        0.656
       ],
-      "elapsed_s": 0.31
+      "elapsed_s": 0.37
     },
     {
       "id": "q25",
@@ -297,7 +298,7 @@
         0.5859,
         0.7367
       ],
-      "elapsed_s": 0.34
+      "elapsed_s": 0.27
     },
     {
       "id": "q26",
@@ -324,7 +325,7 @@
         0.7253,
         0.6745
       ],
-      "elapsed_s": 0.29
+      "elapsed_s": 0.37
     },
     {
       "id": "q27",
@@ -350,7 +351,7 @@
         0.5255,
         0.716
       ],
-      "elapsed_s": 0.27
+      "elapsed_s": 0.49
     },
     {
       "id": "q06",
@@ -363,7 +364,7 @@
       ],
       "source_misses": [],
       "top5_sources": [
-        "/Users/bojiangzhang/MyProject/sdtm-pedia/knowledge_base/domains/SUPPQUAL/assumptions.md",
+        "domains/SUPPQUAL/assumptions.md",
         "domains/SUPPQUAL/spec.md",
         "domains/SUPPQUAL/spec.md",
         "domains/SUPPQUAL/spec.md",
@@ -402,7 +403,7 @@
         10.2774,
         0.6839
       ],
-      "elapsed_s": 0.36
+      "elapsed_s": 0.3
     },
     {
       "id": "q08",
@@ -428,7 +429,7 @@
         9.2504,
         0.6923
       ],
-      "elapsed_s": 0.28
+      "elapsed_s": 0.31
     },
     {
       "id": "q09",
@@ -441,9 +442,9 @@
       ],
       "source_misses": [],
       "top5_sources": [
-        "/Users/bojiangzhang/MyProject/sdtm-pedia/knowledge_base/domains/RELREC/assumptions.md",
-        "/Users/bojiangzhang/MyProject/sdtm-pedia/knowledge_base/domains/CM/assumptions.md",
-        "/Users/bojiangzhang/MyProject/sdtm-pedia/knowledge_base/domains/AE/assumptions.md",
+        "domains/RELREC/assumptions.md",
+        "domains/CM/assumptions.md",
+        "domains/AE/assumptions.md",
         "domains/RELREC/spec.md",
         "domains/CM/spec.md"
       ],
@@ -454,7 +455,7 @@
         0.4613,
         0.5328
       ],
-      "elapsed_s": 0.3
+      "elapsed_s": 0.31
     },
     {
       "id": "q10",
@@ -469,8 +470,8 @@
       ],
       "source_misses": [],
       "top5_sources": [
-        "/Users/bojiangzhang/MyProject/sdtm-pedia/knowledge_base/domains/TR/assumptions.md",
-        "/Users/bojiangzhang/MyProject/sdtm-pedia/knowledge_base/domains/RS/assumptions.md",
+        "domains/TR/assumptions.md",
+        "domains/RS/assumptions.md",
         "domains/TR/spec.md",
         "domains/RS/spec.md",
         "domains/RS/assumptions.md"
@@ -478,11 +479,11 @@
       "top5_similarities": [
         1.0,
         1.0,
-        0.6207,
+        0.6208,
         0.6213,
         0.7131
       ],
-      "elapsed_s": 0.31
+      "elapsed_s": 0.3
     },
     {
       "id": "q28",
@@ -508,7 +509,7 @@
         0.4692,
         0.6934
       ],
-      "elapsed_s": 0.43
+      "elapsed_s": 0.32
     },
     {
       "id": "q29",
@@ -522,9 +523,9 @@
       ],
       "source_misses": [],
       "top5_sources": [
-        "/Users/bojiangzhang/MyProject/sdtm-pedia/knowledge_base/domains/TA/assumptions.md",
-        "/Users/bojiangzhang/MyProject/sdtm-pedia/knowledge_base/domains/TE/assumptions.md",
-        "/Users/bojiangzhang/MyProject/sdtm-pedia/knowledge_base/domains/TV/assumptions.md",
+        "domains/TA/assumptions.md",
+        "domains/TE/assumptions.md",
+        "domains/TV/assumptions.md",
         "domains/TA/spec.md",
         "domains/TE/spec.md"
       ],
@@ -533,9 +534,9 @@
         1.0,
         1.0,
         0.7523,
-        0.7352
+        0.7351
       ],
-      "elapsed_s": 0.33
+      "elapsed_s": 0.3
     },
     {
       "id": "q30",
@@ -575,8 +576,8 @@
       ],
       "source_misses": [],
       "top5_sources": [
-        "/Users/bojiangzhang/MyProject/sdtm-pedia/knowledge_base/domains/EC/assumptions.md",
-        "/Users/bojiangzhang/MyProject/sdtm-pedia/knowledge_base/domains/EX/assumptions.md",
+        "domains/EC/assumptions.md",
+        "domains/EX/assumptions.md",
         "domains/EC/spec.md",
         "domains/EX/spec.md",
         "domains/EX/assumptions.md"
@@ -588,7 +589,7 @@
         0.5962,
         0.7328
       ],
-      "elapsed_s": 0.37
+      "elapsed_s": 0.32
     },
     {
       "id": "q32",
@@ -602,20 +603,20 @@
       ],
       "source_misses": [],
       "top5_sources": [
+        "domains/SV/assumptions.md",
         "VARIABLE_INDEX.md",
         "VARIABLE_INDEX.md",
         "domains/SV/spec.md",
-        "model/03_special_purpose_domains.md",
-        "chapters/ch04_general_assumptions.md"
+        "model/03_special_purpose_domains.md"
       ],
       "top5_similarities": [
-        0.6094,
+        1.0,
+        0.6095,
         0.6543,
         0.6543,
-        0.7047,
-        0.6664
+        0.7047
       ],
-      "elapsed_s": 1.03
+      "elapsed_s": 0.51
     },
     {
       "id": "q33",
@@ -628,8 +629,8 @@
       ],
       "source_misses": [],
       "top5_sources": [
-        "/Users/bojiangzhang/MyProject/sdtm-pedia/knowledge_base/domains/RELSPEC/assumptions.md",
-        "/Users/bojiangzhang/MyProject/sdtm-pedia/knowledge_base/domains/RELREC/assumptions.md",
+        "domains/RELSPEC/assumptions.md",
+        "domains/RELREC/assumptions.md",
         "domains/RELSPEC/spec.md",
         "domains/RELREC/spec.md",
         "domains/RELREC/assumptions.md"
@@ -641,7 +642,7 @@
         0.6534,
         0.7707
       ],
-      "elapsed_s": 0.6
+      "elapsed_s": 0.39
     },
     {
       "id": "q34",
@@ -668,7 +669,7 @@
         0.6352,
         15.2662
       ],
-      "elapsed_s": 0.28
+      "elapsed_s": 0.31
     },
     {
       "id": "q11",
@@ -694,7 +695,7 @@
         0.7205,
         0.5632
       ],
-      "elapsed_s": 0.27
+      "elapsed_s": 0.28
     },
     {
       "id": "q12",
@@ -720,7 +721,7 @@
         0.5329,
         0.6055
       ],
-      "elapsed_s": 0.39
+      "elapsed_s": 0.34
     },
     {
       "id": "q13",
@@ -746,7 +747,7 @@
         0.5466,
         0.5325
       ],
-      "elapsed_s": 0.29
+      "elapsed_s": 0.23
     },
     {
       "id": "q14",
@@ -772,7 +773,7 @@
         0.4893,
         0.4959
       ],
-      "elapsed_s": 0.27
+      "elapsed_s": 0.29
     },
     {
       "id": "q15",
@@ -798,7 +799,7 @@
         0.5995,
         0.6067
       ],
-      "elapsed_s": 0.28
+      "elapsed_s": 0.26
     },
     {
       "id": "q35",
@@ -850,7 +851,7 @@
         0.6567,
         0.6519
       ],
-      "elapsed_s": 0.26
+      "elapsed_s": 0.38
     },
     {
       "id": "q37",
@@ -876,7 +877,7 @@
         0.6625,
         0.6265
       ],
-      "elapsed_s": 0.26
+      "elapsed_s": 0.27
     },
     {
       "id": "q38",
@@ -905,7 +906,7 @@
         0.6691,
         0.6691
       ],
-      "elapsed_s": 0.32
+      "elapsed_s": 0.34
     },
     {
       "id": "q39",
@@ -932,7 +933,7 @@
         15.727,
         0.7123
       ],
-      "elapsed_s": 0.33
+      "elapsed_s": 0.31
     },
     {
       "id": "q40",
@@ -952,13 +953,13 @@
         "chapters/ch03_submitting_data.md"
       ],
       "top5_similarities": [
-        0.641,
+        0.6411,
         0.5898,
-        0.633,
-        0.5774,
-        0.5444
+        0.6331,
+        0.5775,
+        0.5445
       ],
-      "elapsed_s": 0.52
+      "elapsed_s": 0.35
     },
     {
       "id": "q41",
@@ -1008,10 +1009,10 @@
         0.5065,
         0.663,
         8.5109,
-        0.6134,
+        0.6135,
         7.3599
       ],
-      "elapsed_s": 0.28
+      "elapsed_s": 0.3
     },
     {
       "id": "q17",
@@ -1037,7 +1038,7 @@
         0.5796,
         0.5742
       ],
-      "elapsed_s": 0.29
+      "elapsed_s": 0.28
     },
     {
       "id": "q18",
@@ -1051,7 +1052,7 @@
       ],
       "source_misses": [],
       "top5_sources": [
-        "/Users/bojiangzhang/MyProject/sdtm-pedia/knowledge_base/domains/AE/assumptions.md",
+        "domains/AE/assumptions.md",
         "domains/AE/spec.md",
         "domains/AE/spec.md",
         "domains/AE/spec.md",
@@ -1064,7 +1065,7 @@
         0.5637,
         0.6726
       ],
-      "elapsed_s": 0.31
+      "elapsed_s": 0.28
     },
     {
       "id": "q19",
@@ -1092,7 +1093,7 @@
         0.7248,
         0.7185
       ],
-      "elapsed_s": 0.31
+      "elapsed_s": 0.33
     },
     {
       "id": "q20",
@@ -1113,13 +1114,13 @@
         "domains/DM/assumptions.md"
       ],
       "top5_similarities": [
-        0.6248,
-        0.5843,
-        0.5508,
-        0.5477,
-        0.6659
+        0.624,
+        0.5839,
+        0.55,
+        0.547,
+        0.665
       ],
-      "elapsed_s": 0.43
+      "elapsed_s": 0.35
     },
     {
       "id": "q42",
@@ -1146,7 +1147,7 @@
         0.669,
         0.7638
       ],
-      "elapsed_s": 0.3
+      "elapsed_s": 0.31
     },
     {
       "id": "q43",
@@ -1173,7 +1174,7 @@
         0.7043,
         0.6891
       ],
-      "elapsed_s": 0.39
+      "elapsed_s": 0.32
     },
     {
       "id": "q44",
@@ -1199,7 +1200,7 @@
         0.6601,
         0.6183
       ],
-      "elapsed_s": 0.3
+      "elapsed_s": 0.27
     },
     {
       "id": "q45",
@@ -1226,7 +1227,7 @@
         0.6801,
         0.5663
       ],
-      "elapsed_s": 0.28
+      "elapsed_s": 0.43
     },
     {
       "id": "q46",
@@ -1249,11 +1250,11 @@
       "top5_similarities": [
         0.7992,
         0.6989,
-        0.6594,
+        0.6593,
         0.6789,
         0.6276
       ],
-      "elapsed_s": 0.37
+      "elapsed_s": 0.38
     },
     {
       "id": "q47",
@@ -1280,7 +1281,7 @@
         0.6613,
         0.5786
       ],
-      "elapsed_s": 0.39
+      "elapsed_s": 0.26
     },
     {
       "id": "q48",
@@ -1307,7 +1308,7 @@
         0.7334,
         0.6327
       ],
-      "elapsed_s": 0.42
+      "elapsed_s": 0.33
     },
     {
       "id": "s01",
@@ -1334,7 +1335,7 @@
         0.643,
         0.6332
       ],
-      "elapsed_s": 0.31
+      "elapsed_s": 0.75
     },
     {
       "id": "s02",
@@ -1361,7 +1362,7 @@
         0.4786,
         0.5437
       ],
-      "elapsed_s": 0.28
+      "elapsed_s": 0.45
     },
     {
       "id": "s03",
@@ -1388,7 +1389,7 @@
         0.6269,
         0.5537
       ],
-      "elapsed_s": 0.29
+      "elapsed_s": 0.38
     },
     {
       "id": "s04",
@@ -1415,7 +1416,7 @@
         0.7072,
         0.676
       ],
-      "elapsed_s": 0.35
+      "elapsed_s": 0.29
     },
     {
       "id": "s05",
@@ -1437,12 +1438,12 @@
       ],
       "top5_similarities": [
         0.6638,
-        0.5109,
-        0.7253,
+        0.5108,
+        0.7254,
         0.703,
         0.6478
       ],
-      "elapsed_s": 0.36
+      "elapsed_s": 0.33
     },
     {
       "id": "q54",
@@ -1468,7 +1469,7 @@
         0.579,
         0.7551
       ],
-      "elapsed_s": 0.36
+      "elapsed_s": 0.28
     },
     {
       "id": "q55",
@@ -1494,7 +1495,7 @@
         0.5266,
         0.5831
       ],
-      "elapsed_s": 0.27
+      "elapsed_s": 0.31
     },
     {
       "id": "q56",
@@ -1514,13 +1515,13 @@
         "VARIABLE_INDEX.md"
       ],
       "top5_similarities": [
-        0.6606,
-        0.6408,
-        0.6342,
-        0.6277,
-        0.7107
+        0.6602,
+        0.6404,
+        0.635,
+        0.6283,
+        0.7102
       ],
-      "elapsed_s": 0.37
+      "elapsed_s": 0.31
     },
     {
       "id": "q57",
@@ -1541,12 +1542,12 @@
       ],
       "top5_similarities": [
         0.7274,
-        0.62,
+        0.6199,
         0.6094,
-        0.6051,
+        0.605,
         0.5823
       ],
-      "elapsed_s": 0.31
+      "elapsed_s": 0.29
     },
     {
       "id": "q58",
@@ -1572,7 +1573,7 @@
         0.6898,
         0.7025
       ],
-      "elapsed_s": 0.32
+      "elapsed_s": 0.25
     },
     {
       "id": "q59",
@@ -1599,7 +1600,7 @@
         0.7584,
         0.7712
       ],
-      "elapsed_s": 0.32
+      "elapsed_s": 0.39
     },
     {
       "id": "q60",
@@ -1625,7 +1626,7 @@
         0.6182,
         0.7135
       ],
-      "elapsed_s": 0.27
+      "elapsed_s": 0.32
     },
     {
       "id": "q61",
@@ -1651,7 +1652,7 @@
         0.691,
         0.7115
       ],
-      "elapsed_s": 0.27
+      "elapsed_s": 0.32
     },
     {
       "id": "q62",
@@ -1691,7 +1692,7 @@
       ],
       "source_misses": [],
       "top5_sources": [
-        "/Users/bojiangzhang/MyProject/sdtm-pedia/knowledge_base/domains/SC/assumptions.md",
+        "domains/SC/assumptions.md",
         "domains/SC/spec.md",
         "domains/SC/spec.md",
         "domains/SC/spec.md",
@@ -1704,7 +1705,7 @@
         0.5168,
         0.5881
       ],
-      "elapsed_s": 0.28
+      "elapsed_s": 0.29
     },
     {
       "id": "q64",
@@ -1717,7 +1718,7 @@
       ],
       "source_misses": [],
       "top5_sources": [
-        "/Users/bojiangzhang/MyProject/sdtm-pedia/knowledge_base/domains/PC/assumptions.md",
+        "domains/PC/assumptions.md",
         "domains/PC/spec.md",
         "domains/PC/spec.md",
         "domains/PC/spec.md",
@@ -1725,12 +1726,12 @@
       ],
       "top5_similarities": [
         1.0,
-        0.5529,
+        0.5528,
         0.544,
-        0.5293,
+        0.5292,
         0.7164
       ],
-      "elapsed_s": 0.33
+      "elapsed_s": 0.26
     },
     {
       "id": "q65",
@@ -1743,7 +1744,7 @@
       ],
       "source_misses": [],
       "top5_sources": [
-        "/Users/bojiangzhang/MyProject/sdtm-pedia/knowledge_base/domains/DA/assumptions.md",
+        "domains/DA/assumptions.md",
         "domains/DA/spec.md",
         "domains/DA/spec.md",
         "domains/DA/spec.md",
@@ -1756,7 +1757,7 @@
         0.4529,
         0.551
       ],
-      "elapsed_s": 0.26
+      "elapsed_s": 0.58
     },
     {
       "id": "q66",
@@ -1782,7 +1783,7 @@
         0.7442,
         0.7293
       ],
-      "elapsed_s": 0.76
+      "elapsed_s": 0.28
     },
     {
       "id": "q67",
@@ -1796,7 +1797,7 @@
       ],
       "source_misses": [],
       "top5_sources": [
-        "/Users/bojiangzhang/MyProject/sdtm-pedia/knowledge_base/domains/AE/assumptions.md",
+        "domains/AE/assumptions.md",
         "VARIABLE_INDEX.md",
         "domains/AE/spec.md",
         "terminology/core/general_part4.md",
@@ -1809,7 +1810,7 @@
         0.6359,
         0.5827
       ],
-      "elapsed_s": 0.59
+      "elapsed_s": 0.27
     },
     {
       "id": "q68",
@@ -1831,12 +1832,12 @@
       ],
       "top5_similarities": [
         0.5977,
-        0.6316,
+        0.6315,
         0.6857,
         0.6915,
         0.6623
       ],
-      "elapsed_s": 0.34
+      "elapsed_s": 0.33
     },
     {
       "id": "q69",
@@ -1862,7 +1863,7 @@
         0.6827,
         0.592
       ],
-      "elapsed_s": 0.37
+      "elapsed_s": 0.29
     },
     {
       "id": "q70",
@@ -1888,7 +1889,7 @@
         0.4967,
         0.7848
       ],
-      "elapsed_s": 0.28
+      "elapsed_s": 0.82
     },
     {
       "id": "q71",
@@ -1911,10 +1912,10 @@
         0.6592,
         0.4558,
         0.6115,
-        0.5811,
+        0.581,
         0.6168
       ],
-      "elapsed_s": 0.43
+      "elapsed_s": 0.31
     },
     {
       "id": "q72",
@@ -1927,8 +1928,8 @@
       ],
       "source_misses": [],
       "top5_sources": [
-        "/Users/bojiangzhang/MyProject/sdtm-pedia/knowledge_base/domains/PC/assumptions.md",
-        "/Users/bojiangzhang/MyProject/sdtm-pedia/knowledge_base/domains/PP/assumptions.md",
+        "domains/PC/assumptions.md",
+        "domains/PP/assumptions.md",
         "domains/PC/spec.md",
         "domains/PP/spec.md",
         "domains/PC/assumptions.md"
@@ -1940,7 +1941,7 @@
         0.549,
         0.733
       ],
-      "elapsed_s": 0.29
+      "elapsed_s": 0.35
     },
     {
       "id": "q73",
@@ -1967,7 +1968,7 @@
         17.5956,
         0.7491
       ],
-      "elapsed_s": 0.29
+      "elapsed_s": 0.32
     },
     {
       "id": "q74",
@@ -1980,8 +1981,8 @@
       ],
       "source_misses": [],
       "top5_sources": [
-        "/Users/bojiangzhang/MyProject/sdtm-pedia/knowledge_base/domains/AE/assumptions.md",
-        "/Users/bojiangzhang/MyProject/sdtm-pedia/knowledge_base/domains/CM/assumptions.md",
+        "domains/AE/assumptions.md",
+        "domains/CM/assumptions.md",
         "domains/AE/spec.md",
         "domains/CM/spec.md",
         "model/06_relationship_datasets.md"
@@ -1993,7 +1994,7 @@
         0.4617,
         0.8138
       ],
-      "elapsed_s": 0.41
+      "elapsed_s": 0.88
     },
     {
       "id": "q75",
@@ -2019,7 +2020,7 @@
         0.7054,
         20.6584
       ],
-      "elapsed_s": 0.28
+      "elapsed_s": 0.27
     },
     {
       "id": "q76",
@@ -2046,7 +2047,7 @@
         0.6671,
         0.6963
       ],
-      "elapsed_s": 0.33
+      "elapsed_s": 0.47
     },
     {
       "id": "q77",
@@ -2072,7 +2073,7 @@
         0.6755,
         13.1894
       ],
-      "elapsed_s": 0.36
+      "elapsed_s": 0.35
     },
     {
       "id": "q78",
@@ -2098,7 +2099,7 @@
         0.5933,
         0.5932
       ],
-      "elapsed_s": 0.29
+      "elapsed_s": 0.33
     },
     {
       "id": "q79",
@@ -2124,7 +2125,7 @@
         0.5718,
         0.5688
       ],
-      "elapsed_s": 0.27
+      "elapsed_s": 0.32
     },
     {
       "id": "q80",
@@ -2150,7 +2151,7 @@
         0.5485,
         0.5168
       ],
-      "elapsed_s": 0.24
+      "elapsed_s": 0.36
     },
     {
       "id": "q81",
@@ -2171,12 +2172,12 @@
       ],
       "top5_similarities": [
         0.7131,
-        0.6584,
+        0.6583,
         13.9936,
-        0.6436,
+        0.6435,
         12.8436
       ],
-      "elapsed_s": 0.3
+      "elapsed_s": 0.26
     },
     {
       "id": "q82",
@@ -2203,7 +2204,7 @@
         0.6175,
         0.5653
       ],
-      "elapsed_s": 0.25
+      "elapsed_s": 0.26
     },
     {
       "id": "q83",
@@ -2224,12 +2225,12 @@
       ],
       "top5_similarities": [
         0.7065,
-        0.6849,
-        0.6969,
-        0.7576,
+        0.685,
+        0.697,
+        0.7577,
         0.7786
       ],
-      "elapsed_s": 0.29
+      "elapsed_s": 0.28
     },
     {
       "id": "q84",
@@ -2249,13 +2250,13 @@
         "domains/FA/assumptions.md"
       ],
       "top5_similarities": [
-        0.6891,
+        0.689,
         0.6096,
-        0.6076,
+        0.6075,
         0.514,
-        0.552
+        0.5518
       ],
-      "elapsed_s": 0.28
+      "elapsed_s": 0.41
     },
     {
       "id": "q85",
@@ -2281,7 +2282,7 @@
         0.5472,
         0.5368
       ],
-      "elapsed_s": 0.29
+      "elapsed_s": 0.34
     },
     {
       "id": "q86",
@@ -2307,7 +2308,7 @@
         0.5624,
         0.5144
       ],
-      "elapsed_s": 0.27
+      "elapsed_s": 2.36
     },
     {
       "id": "q87",
@@ -2320,7 +2321,7 @@
       ],
       "source_misses": [],
       "top5_sources": [
-        "/Users/bojiangzhang/MyProject/sdtm-pedia/knowledge_base/domains/FA/assumptions.md",
+        "domains/FA/assumptions.md",
         "domains/FA/spec.md",
         "domains/FA/spec.md",
         "domains/FA/spec.md",
@@ -2333,7 +2334,7 @@
         0.4874,
         0.7262
       ],
-      "elapsed_s": 0.31
+      "elapsed_s": 0.3
     },
     {
       "id": "q88",
@@ -2359,7 +2360,7 @@
         0.6025,
         0.6089
       ],
-      "elapsed_s": 0.26
+      "elapsed_s": 0.4
     },
     {
       "id": "q89",
@@ -2386,7 +2387,7 @@
         0.6249,
         0.5948
       ],
-      "elapsed_s": 0.29
+      "elapsed_s": 0.34
     },
     {
       "id": "q90",
@@ -2413,7 +2414,7 @@
         0.5878,
         0.5684
       ],
-      "elapsed_s": 0.32
+      "elapsed_s": 0.53
     },
     {
       "id": "q91",
@@ -2441,7 +2442,7 @@
         0.6143,
         0.6683
       ],
-      "elapsed_s": 0.29
+      "elapsed_s": 0.37
     },
     {
       "id": "q92",
@@ -2468,7 +2469,7 @@
         0.638,
         0.5725
       ],
-      "elapsed_s": 0.39
+      "elapsed_s": 0.35
     },
     {
       "id": "q93",
@@ -2490,12 +2491,12 @@
       ],
       "top5_similarities": [
         0.7833,
-        0.4411,
+        0.441,
         0.7137,
         0.6844,
         0.6294
       ],
-      "elapsed_s": 0.42
+      "elapsed_s": 0.35
     },
     {
       "id": "q94",
@@ -2516,13 +2517,13 @@
         "domains/LB/examples.md"
       ],
       "top5_similarities": [
-        0.7765,
+        0.7766,
         0.68,
         0.6411,
         0.6767,
         0.6405
       ],
-      "elapsed_s": 0.34
+      "elapsed_s": 0.3
     },
     {
       "id": "q95",
@@ -2543,13 +2544,13 @@
         "VARIABLE_INDEX.md"
       ],
       "top5_similarities": [
-        0.7643,
+        0.7644,
         0.7505,
         0.7346,
         0.7509,
         0.7255
       ],
-      "elapsed_s": 0.29
+      "elapsed_s": 0.33
     },
     {
       "id": "q96",
@@ -2576,7 +2577,7 @@
         0.6721,
         0.5996
       ],
-      "elapsed_s": 0.35
+      "elapsed_s": 0.42
     },
     {
       "id": "q97",
@@ -2603,7 +2604,7 @@
         0.7055,
         0.6374
       ],
-      "elapsed_s": 0.27
+      "elapsed_s": 0.28
     },
     {
       "id": "q98",
@@ -2630,7 +2631,7 @@
         0.6531,
         0.7219
       ],
-      "elapsed_s": 0.41
+      "elapsed_s": 0.48
     },
     {
       "id": "q99",
@@ -2677,13 +2678,13 @@
         "domains/DM/assumptions.md"
       ],
       "top5_similarities": [
-        0.6515,
-        0.5971,
+        0.6516,
+        0.5972,
         0.5805,
         0.5748,
         0.6752
       ],
-      "elapsed_s": 0.33
+      "elapsed_s": 0.34
     },
     {
       "id": "q101",
@@ -2710,7 +2711,7 @@
         0.6646,
         0.6962
       ],
-      "elapsed_s": 0.29
+      "elapsed_s": 0.32
     },
     {
       "id": "q102",
@@ -2737,7 +2738,7 @@
         0.5909,
         0.6317
       ],
-      "elapsed_s": 0.41
+      "elapsed_s": 0.31
     },
     {
       "id": "q103",
@@ -2763,7 +2764,7 @@
         0.6091,
         0.6624
       ],
-      "elapsed_s": 0.3
+      "elapsed_s": 0.79
     },
     {
       "id": "q104",
@@ -2789,7 +2790,7 @@
         0.675,
         0.667
       ],
-      "elapsed_s": 0.35
+      "elapsed_s": 0.31
     },
     {
       "id": "q105",
@@ -2815,7 +2816,7 @@
         0.7367,
         0.7366
       ],
-      "elapsed_s": 0.31
+      "elapsed_s": 0.27
     },
     {
       "id": "q106",
@@ -2835,13 +2836,13 @@
         "domains/OE/assumptions.md"
       ],
       "top5_similarities": [
-        0.6224,
-        0.7053,
-        0.6932,
-        0.7181,
-        0.7724
+        0.6238,
+        0.706,
+        0.6944,
+        0.7193,
+        0.7725
       ],
-      "elapsed_s": 0.34
+      "elapsed_s": 0.25
     },
     {
       "id": "q107",
@@ -2868,7 +2869,7 @@
         0.6395,
         0.5764
       ],
-      "elapsed_s": 0.29
+      "elapsed_s": 0.34
     },
     {
       "id": "q108",
@@ -2891,11 +2892,11 @@
       "top5_similarities": [
         0.558,
         0.5382,
-        0.6536,
-        0.5984,
-        0.63
+        0.6535,
+        0.5983,
+        0.6299
       ],
-      "elapsed_s": 0.32
+      "elapsed_s": 0.42
     },
     {
       "id": "q109",
@@ -2922,7 +2923,7 @@
         0.6093,
         0.6099
       ],
-      "elapsed_s": 0.44
+      "elapsed_s": 0.38
     },
     {
       "id": "q110",
@@ -2942,13 +2943,13 @@
         "chapters/ch08_relationships.md"
       ],
       "top5_similarities": [
-        0.522,
+        0.5219,
         0.6176,
         0.6086,
-        0.6024,
-        0.6053
+        0.6023,
+        0.6052
       ],
-      "elapsed_s": 0.42
+      "elapsed_s": 0.32
     },
     {
       "id": "q111",
@@ -2975,7 +2976,7 @@
         0.5785,
         0.5495
       ],
-      "elapsed_s": 0.42
+      "elapsed_s": 0.28
     },
     {
       "id": "q112",
@@ -3002,7 +3003,7 @@
         0.6306,
         0.6296
       ],
-      "elapsed_s": 0.46
+      "elapsed_s": 0.42
     },
     {
       "id": "q113",
@@ -3028,7 +3029,7 @@
         0.6975,
         0.6776
       ],
-      "elapsed_s": 0.4
+      "elapsed_s": 0.31
     },
     {
       "id": "q114",
@@ -3054,7 +3055,7 @@
         0.7536,
         0.7135
       ],
-      "elapsed_s": 0.6
+      "elapsed_s": 0.98
     },
     {
       "id": "q115",
@@ -3082,7 +3083,7 @@
         0.6441,
         0.6043
       ],
-      "elapsed_s": 0.28
+      "elapsed_s": 0.36
     },
     {
       "id": "q116",
@@ -3104,12 +3105,12 @@
       ],
       "top5_similarities": [
         0.669,
-        0.6098,
+        0.6099,
         0.5008,
         0.4934,
         0.7385
       ],
-      "elapsed_s": 0.5
+      "elapsed_s": 0.33
     },
     {
       "id": "q117",
@@ -3136,7 +3137,7 @@
         0.5031,
         0.5259
       ],
-      "elapsed_s": 0.24
+      "elapsed_s": 0.27
     },
     {
       "id": "q118",
@@ -3162,7 +3163,7 @@
         26.5525,
         0.6475
       ],
-      "elapsed_s": 0.47
+      "elapsed_s": 0.32
     },
     {
       "id": "q119",
@@ -3175,9 +3176,9 @@
       ],
       "source_misses": [],
       "top5_sources": [
-        "/Users/bojiangzhang/MyProject/sdtm-pedia/knowledge_base/domains/RELREC/assumptions.md",
-        "/Users/bojiangzhang/MyProject/sdtm-pedia/knowledge_base/domains/TU/assumptions.md",
-        "/Users/bojiangzhang/MyProject/sdtm-pedia/knowledge_base/domains/TR/assumptions.md",
+        "domains/RELREC/assumptions.md",
+        "domains/TU/assumptions.md",
+        "domains/TR/assumptions.md",
         "domains/RELREC/spec.md",
         "domains/TU/spec.md"
       ],
@@ -3188,7 +3189,7 @@
         0.4903,
         0.5947
       ],
-      "elapsed_s": 0.37
+      "elapsed_s": 0.32
     },
     {
       "id": "q120",
@@ -3206,16 +3207,16 @@
         "chapters/ch04_general_assumptions.md",
         "model/06_relationship_datasets.md",
         "chapters/ch08_relationships.md",
-        "chapters/ch02_fundamentals.md"
+        "chapters/ch08_relationships.md"
       ],
       "top5_similarities": [
         0.6517,
         0.4688,
         0.5462,
         0.4482,
-        0.4431
+        0.4407
       ],
-      "elapsed_s": 0.44
+      "elapsed_s": 0.3
     },
     {
       "id": "q121",
@@ -3241,7 +3242,7 @@
         0.5991,
         0.6981
       ],
-      "elapsed_s": 0.27
+      "elapsed_s": 0.31
     },
     {
       "id": "q122",
@@ -3254,7 +3255,7 @@
       ],
       "source_misses": [],
       "top5_sources": [
-        "/Users/bojiangzhang/MyProject/sdtm-pedia/knowledge_base/domains/DM/assumptions.md",
+        "domains/DM/assumptions.md",
         "domains/DM/spec.md",
         "domains/DM/spec.md",
         "domains/DM/spec.md",
@@ -3267,7 +3268,7 @@
         0.399,
         0.7032
       ],
-      "elapsed_s": 0.38
+      "elapsed_s": 0.29
     },
     {
       "id": "q123",
@@ -3281,8 +3282,8 @@
       ],
       "source_misses": [],
       "top5_sources": [
-        "/Users/bojiangzhang/MyProject/sdtm-pedia/knowledge_base/domains/TU/assumptions.md",
-        "/Users/bojiangzhang/MyProject/sdtm-pedia/knowledge_base/domains/TR/assumptions.md",
+        "domains/TU/assumptions.md",
+        "domains/TR/assumptions.md",
         "domains/TU/spec.md",
         "domains/TR/spec.md",
         "domains/TU/assumptions.md"
@@ -3294,7 +3295,7 @@
         0.5714,
         0.6941
       ],
-      "elapsed_s": 0.53
+      "elapsed_s": 0.46
     },
     {
       "id": "q124",
@@ -3307,9 +3308,9 @@
       ],
       "source_misses": [],
       "top5_sources": [
-        "/Users/bojiangzhang/MyProject/sdtm-pedia/knowledge_base/domains/AE/assumptions.md",
-        "/Users/bojiangzhang/MyProject/sdtm-pedia/knowledge_base/domains/DD/assumptions.md",
-        "/Users/bojiangzhang/MyProject/sdtm-pedia/knowledge_base/domains/DS/assumptions.md",
+        "domains/AE/assumptions.md",
+        "domains/DD/assumptions.md",
+        "domains/DS/assumptions.md",
         "domains/AE/spec.md",
         "domains/DD/spec.md"
       ],
@@ -3320,7 +3321,7 @@
         0.5349,
         0.4641
       ],
-      "elapsed_s": 0.27
+      "elapsed_s": 0.34
     },
     {
       "id": "q125",
@@ -3333,8 +3334,8 @@
       ],
       "source_misses": [],
       "top5_sources": [
-        "/Users/bojiangzhang/MyProject/sdtm-pedia/knowledge_base/domains/CE/assumptions.md",
-        "/Users/bojiangzhang/MyProject/sdtm-pedia/knowledge_base/domains/AE/assumptions.md",
+        "domains/CE/assumptions.md",
+        "domains/AE/assumptions.md",
         "domains/CE/spec.md",
         "domains/AE/spec.md",
         "domains/CE/examples.md"
@@ -3346,7 +3347,7 @@
         0.5653,
         0.6133
       ],
-      "elapsed_s": 0.33
+      "elapsed_s": 0.37
     },
     {
       "id": "q126",
@@ -3375,7 +3376,7 @@
         0.5158,
         0.5275
       ],
-      "elapsed_s": 0.32
+      "elapsed_s": 0.31
     },
     {
       "id": "q127",
@@ -3402,7 +3403,7 @@
         0.6641,
         0.5622
       ],
-      "elapsed_s": 0.46
+      "elapsed_s": 0.3
     },
     {
       "id": "q128",
@@ -3415,7 +3416,7 @@
       ],
       "source_misses": [],
       "top5_sources": [
-        "/Users/bojiangzhang/MyProject/sdtm-pedia/knowledge_base/domains/VS/assumptions.md",
+        "domains/VS/assumptions.md",
         "domains/VS/spec.md",
         "domains/VS/spec.md",
         "domains/VS/spec.md",
@@ -3428,7 +3429,7 @@
         0.5474,
         0.6097
       ],
-      "elapsed_s": 0.44
+      "elapsed_s": 0.34
     },
     {
       "id": "q129",
@@ -3441,7 +3442,7 @@
       ],
       "source_misses": [],
       "top5_sources": [
-        "/Users/bojiangzhang/MyProject/sdtm-pedia/knowledge_base/domains/MH/assumptions.md",
+        "domains/MH/assumptions.md",
         "domains/MH/spec.md",
         "domains/MH/spec.md",
         "domains/MH/spec.md",
@@ -3467,7 +3468,7 @@
       ],
       "source_misses": [],
       "top5_sources": [
-        "/Users/bojiangzhang/MyProject/sdtm-pedia/knowledge_base/domains/LB/assumptions.md",
+        "domains/LB/assumptions.md",
         "domains/LB/spec.md",
         "domains/LB/spec.md",
         "domains/LB/spec.md",
@@ -3480,7 +3481,7 @@
         0.6276,
         0.6226
       ],
-      "elapsed_s": 0.42
+      "elapsed_s": 0.3
     },
     {
       "id": "q131",
@@ -3493,7 +3494,7 @@
       ],
       "source_misses": [],
       "top5_sources": [
-        "/Users/bojiangzhang/MyProject/sdtm-pedia/knowledge_base/domains/CE/assumptions.md",
+        "domains/CE/assumptions.md",
         "domains/CE/spec.md",
         "domains/CE/spec.md",
         "domains/CE/spec.md",
@@ -3519,7 +3520,7 @@
       ],
       "source_misses": [],
       "top5_sources": [
-        "/Users/bojiangzhang/MyProject/sdtm-pedia/knowledge_base/domains/HO/assumptions.md",
+        "domains/HO/assumptions.md",
         "domains/HO/spec.md",
         "domains/HO/spec.md",
         "domains/HO/spec.md",
@@ -3532,7 +3533,7 @@
         0.4805,
         0.5963
       ],
-      "elapsed_s": 0.26
+      "elapsed_s": 0.4
     },
     {
       "id": "q133",
@@ -3545,7 +3546,7 @@
       ],
       "source_misses": [],
       "top5_sources": [
-        "/Users/bojiangzhang/MyProject/sdtm-pedia/knowledge_base/domains/TU/assumptions.md",
+        "domains/TU/assumptions.md",
         "domains/TU/spec.md",
         "domains/TU/spec.md",
         "domains/TU/spec.md",
@@ -3558,7 +3559,7 @@
         0.5205,
         0.6075
       ],
-      "elapsed_s": 0.35
+      "elapsed_s": 0.34
     },
     {
       "id": "q134",
@@ -3571,7 +3572,7 @@
       ],
       "source_misses": [],
       "top5_sources": [
-        "/Users/bojiangzhang/MyProject/sdtm-pedia/knowledge_base/domains/CM/assumptions.md",
+        "domains/CM/assumptions.md",
         "domains/CM/spec.md",
         "domains/CM/spec.md",
         "domains/CM/spec.md",
@@ -3584,7 +3585,7 @@
         0.5238,
         0.6275
       ],
-      "elapsed_s": 0.32
+      "elapsed_s": 0.29
     },
     {
       "id": "q135",
@@ -3597,7 +3598,7 @@
       ],
       "source_misses": [],
       "top5_sources": [
-        "/Users/bojiangzhang/MyProject/sdtm-pedia/knowledge_base/domains/DM/assumptions.md",
+        "domains/DM/assumptions.md",
         "domains/DM/spec.md",
         "domains/DM/spec.md",
         "domains/DM/spec.md",
@@ -3610,7 +3611,7 @@
         0.3618,
         0.5199
       ],
-      "elapsed_s": 0.54
+      "elapsed_s": 0.34
     },
     {
       "id": "q136",
@@ -3623,7 +3624,7 @@
       ],
       "source_misses": [],
       "top5_sources": [
-        "/Users/bojiangzhang/MyProject/sdtm-pedia/knowledge_base/domains/DS/assumptions.md",
+        "domains/DS/assumptions.md",
         "domains/DS/spec.md",
         "domains/DS/spec.md",
         "domains/DS/spec.md",
@@ -3636,7 +3637,7 @@
         0.643,
         0.6827
       ],
-      "elapsed_s": 0.34
+      "elapsed_s": 0.38
     },
     {
       "id": "q137",
@@ -3649,7 +3650,7 @@
       ],
       "source_misses": [],
       "top5_sources": [
-        "/Users/bojiangzhang/MyProject/sdtm-pedia/knowledge_base/domains/PR/assumptions.md",
+        "domains/PR/assumptions.md",
         "domains/PR/spec.md",
         "domains/PR/spec.md",
         "domains/PR/spec.md",
@@ -3662,7 +3663,7 @@
         0.4777,
         0.5114
       ],
-      "elapsed_s": 0.28
+      "elapsed_s": 0.32
     },
     {
       "id": "q138",
@@ -3675,7 +3676,7 @@
       ],
       "source_misses": [],
       "top5_sources": [
-        "/Users/bojiangzhang/MyProject/sdtm-pedia/knowledge_base/domains/QS/assumptions.md",
+        "domains/QS/assumptions.md",
         "domains/QS/spec.md",
         "domains/QS/spec.md",
         "domains/QS/spec.md",
@@ -3701,7 +3702,7 @@
       ],
       "source_misses": [],
       "top5_sources": [
-        "/Users/bojiangzhang/MyProject/sdtm-pedia/knowledge_base/domains/EX/assumptions.md",
+        "domains/EX/assumptions.md",
         "domains/EX/spec.md",
         "domains/EX/spec.md",
         "domains/EX/spec.md",
@@ -3714,7 +3715,7 @@
         0.5127,
         15.1224
       ],
-      "elapsed_s": 0.37
+      "elapsed_s": 0.38
     },
     {
       "id": "q140",
@@ -3727,7 +3728,7 @@
       ],
       "source_misses": [],
       "top5_sources": [
-        "/Users/bojiangzhang/MyProject/sdtm-pedia/knowledge_base/domains/CO/assumptions.md",
+        "domains/CO/assumptions.md",
         "domains/CO/spec.md",
         "domains/CO/spec.md",
         "domains/CO/spec.md",
@@ -3740,7 +3741,7 @@
         0.4131,
         0.5689
       ],
-      "elapsed_s": 0.36
+      "elapsed_s": 0.32
     }
   ]
 }

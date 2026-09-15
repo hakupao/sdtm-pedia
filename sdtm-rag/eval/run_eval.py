@@ -1125,6 +1125,7 @@ def main(argv: list[str] | None = None) -> int:
     summary["retrieval_levers"] = {
         "top_k": rag.top_k,
         "structured_lookup": rag.structured_lookup_enabled,
+        "domain_definition_seat": rag.domain_definition_seat,
         "hybrid": rag.hybrid_enabled,
         "rerank": rag.rerank_enabled,
         "query_expansion": rag.query_expansion,

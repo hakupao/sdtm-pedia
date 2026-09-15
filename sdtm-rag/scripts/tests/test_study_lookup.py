@@ -531,6 +531,7 @@ def test_retrieve_embeds_original_query_for_study_lookup_on_hyde_path():
 
 def _s1_engine(targets, n_log=None):
     eng = rag_mod.RAGEngine.__new__(rag_mod.RAGEngine)
+    eng.domain_definition_seat = True
     eng._structured_lookup = SimpleNamespace(
         resolve=lambda q: list(targets),
         # DM1 D2: 这些用例的问句不点名任何域 → 定义保底席不 fire (真实 lookup 同)

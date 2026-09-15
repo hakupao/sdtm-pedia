@@ -50,6 +50,8 @@ def captured(tmp_path, monkeypatch):
             self.structured_lookup_enabled = kwargs["structured_lookup_enabled"]
             self.hybrid_enabled = kwargs["hybrid_enabled"]
             self.rerank_enabled = kwargs["rerank_enabled"]
+            # study 引擎不传这个 kwarg (S1 关着, 通道不可达), 故照搬真引擎的签名默认值
+            self.domain_definition_seat = kwargs.get("domain_definition_seat", True)
 
     class FakeRouter:
         model_list: list = []
@@ -399,6 +401,8 @@ def captured_federated(tmp_path, monkeypatch):
                       "top_k", "structured_lookup_enabled", "hybrid_enabled",
                       "rerank_enabled"):
                 setattr(self, k, kwargs[k])
+            # study 引擎不传这个 kwarg (S1 关着, 通道不可达), 故照搬真引擎的签名默认值
+            self.domain_definition_seat = kwargs.get("domain_definition_seat", True)
 
     monkeypatch.setattr(run_eval, "RAGEngine", FakeEngine)
     monkeypatch.setattr(run_eval, "FederatedEngine", lambda *a, **k: object())

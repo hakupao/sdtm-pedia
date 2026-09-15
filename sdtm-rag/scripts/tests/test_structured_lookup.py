@@ -476,3 +476,37 @@ class TestDomainDefinitionTargets:
     def test_capped_at_max_domain_specs(self, lookup):
         q = "compare the AE, CM, EX and LB domains for our study"
         assert len(lookup.domain_definition_targets(q)) == lookup._MAX_DOMAIN_SPECS
+
+
+class TestGenericVariablesDoNotBlockDomainLevelAsks:
+    """T4 fix 3: "变量级问法" = 问句点了一个**域特有**变量。像 DOMAIN / STUDYID /
+    USUBJID / VISIT 这种横跨大半个模型的通用标识符, 出现在问句里并不意味着问的是变量
+    —— "Which data belong in the DS DOMAIN?" 里的 DOMAIN 是个英文词, 不是提问对象。
+    泛用与否由 meta 定 (出现在 >= 半数域里), 不写死任何变量名。"""
+
+    def test_domain_word_uppercase_does_not_block(self, lookup):
+        # 'DOMAIN' 本身是已知变量 (59/63 个域都有), 但它在这里只是英文词
+        assert lookup.domain_definition_targets(
+            "Which data belong in the DS DOMAIN?"
+        ) == ["domains/DS/assumptions.md"]
+
+    def test_generic_identifier_does_not_block(self, lookup):
+        assert lookup.domain_definition_targets(
+            "what is USUBJID in DS domain"
+        ) == ["domains/DS/assumptions.md"]
+
+    def test_domain_specific_variable_still_blocks(self, lookup):
+        # DSDECOD 只在 DS 一个域里 ⇒ 真·变量级问法 ⇒ 不给定义保底席
+        assert lookup.domain_definition_targets(
+            "What is DSDECOD in the DS domain"
+        ) == []
+
+    def test_generic_set_is_meta_derived_not_hardcoded(self, lookup):
+        """泛用集必须是从 meta 算出来的横跨变量, 且远小于全体变量。"""
+        generic = lookup.generic_variables
+        assert {"DOMAIN", "STUDYID", "USUBJID", "VISIT"} <= generic
+        assert "DSDECOD" not in generic and "AETERM" not in generic
+        assert len(generic) < len(lookup.known_variables) / 10
+        half = len(lookup.store.known_domains) / 2
+        for var in generic:
+            assert len(lookup.store.domains_for_variable(var)) >= half

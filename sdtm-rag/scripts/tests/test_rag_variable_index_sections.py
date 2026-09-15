@@ -38,6 +38,7 @@ def _engine(metas=VI_METAS):
     eng.kb_root = Path("/kb")
     eng.collection = _FakeCollection(metas)
     eng._vi_sections = None
+    eng.domain_definition_seat = True
     return eng
 
 

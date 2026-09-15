@@ -467,8 +467,8 @@ class RAGEngine:
         # rows), so total lookup seats do not grow; multi-domain asks add one seat
         # per domain (≤ _MAX_DOMAIN_SPECS).
         def_chunks: list[RetrievedChunk] = []
-        ft = (where or {}).get("file_type")
-        if getattr(self, "domain_definition_seat", True) and ft in (None, "assumptions"):
+        ft = self._where_file_type(where)
+        if self.domain_definition_seat and ft in (None, "assumptions"):
             for rel in self._structured_lookup.domain_definition_targets(query):
                 ch = self._definition_chunk(rel)
                 if ch is not None:
@@ -563,17 +563,43 @@ class RAGEngine:
         abs_source = str((self.kb_root / rel_path).resolve())
         for section in ("item_1", "overview"):
             res = self.collection.get(
-                where={"$and": [{"source": abs_source}, {"section": section}]},
+                where={"$and": [{"source": {"$eq": abs_source}},
+                                {"section": {"$eq": section}}]},
                 include=["documents", "metadatas"],
             )
             if res["ids"]:
                 meta = res["metadatas"][0]
                 return RetrievedChunk(
-                    chunk_id=res["ids"][0], source=meta.get("source", abs_source),
+                    chunk_id=res["ids"][0],
+                    # 与 _search / _bm25_search 同口径: source 对外一律是 KB 相对路径。
+                    # 漏掉这步, 本机绝对路径会漏进引用头 / API sources / 落盘报告。
+                    source=self._relative_source(meta.get("source", abs_source)),
                     domain=meta.get("domain"), file_type=meta.get("file_type"),
                     section=meta.get("section"), similarity=1.0,
                     text=res["documents"][0], via_lookup=True,
                 )
+        return None
+
+    def _relative_source(self, source_raw: str) -> str:
+        """chunk 元数据里的绝对 source -> KB 相对路径 (kb_root 之外的原样返回)。
+        `_search` / `_bm25_search` / `_definition_chunk` 三处共用同一口径。"""
+        try:
+            return Path(source_raw).relative_to(self.kb_root).as_posix()
+        except (ValueError, TypeError):
+            return source_raw
+
+    @staticmethod
+    def _where_file_type(where: dict | None) -> str | None:
+        """`where` 里的 file_type 取值, 看穿 `_build_where` 的两种形状。
+
+        单过滤器时是扁平 `{"file_type": v}`, 两个过滤器时是
+        `{"$and": [{"domain": v}, {"file_type": v}]}` (见 _build_where); 取值本身
+        还可能被包成 `{"$eq": v}` (见 _lookup_chunks_for_variable_index)。只读扁平
+        一种形状会在 domain+file_type 同时过滤时**静默**读成 None。"""
+        for cond in (where or {}).get("$and", [where or {}]):
+            if "file_type" in cond:
+                v = cond["file_type"]
+                return v.get("$eq") if isinstance(v, dict) else v
         return None
 
     def _vi_section_map(self) -> dict[str, str]:
@@ -717,11 +743,7 @@ class RAGEngine:
             dist = result["distances"][0][i]
             meta = result["metadatas"][0][i]
             text = result["documents"][0][i]
-            source_raw = meta.get("source", "")
-            try:
-                source = Path(source_raw).relative_to(self.kb_root).as_posix()
-            except (ValueError, TypeError):
-                source = source_raw
+            source = self._relative_source(meta.get("source", ""))
             chunks.append(
                 RetrievedChunk(
                     chunk_id=chunk_id,
@@ -794,11 +816,7 @@ class RAGEngine:
             meta = entry["meta"]
             if where and not self._meta_matches_where(meta, where):
                 continue
-            source_raw = meta.get("source", "")
-            try:
-                source = Path(source_raw).relative_to(self.kb_root).as_posix()
-            except (ValueError, TypeError):
-                source = source_raw
+            source = self._relative_source(meta.get("source", ""))
             out.append(
                 RetrievedChunk(
                     chunk_id=chunk_id,

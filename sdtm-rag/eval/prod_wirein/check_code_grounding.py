@@ -85,6 +85,10 @@ def engine_kwargs_from_levers(levers: dict) -> dict:
     return {
         "top_k": levers["top_k"],
         "structured_lookup_enabled": levers["structured_lookup"],
+        # T4 起才有的通道。缺键 = 那轮跑的时候它还不存在 = OFF。这里**必须**显式给值:
+        # RAGEngine 的构造默认是 True, 不给就会按一条老报告重建出多一条注入通道的引擎,
+        # top5 与落盘的对不上, check_fidelity 把整批老档案判成重建失败。
+        "domain_definition_seat": levers.get("domain_definition_seat", False),
         "hybrid_enabled": levers["hybrid"],
         "rerank_enabled": levers["rerank"],
         "query_expansion": levers["query_expansion"],
