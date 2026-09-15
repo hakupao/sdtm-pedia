@@ -2473,4 +2473,14 @@ deepseek/deepseek-chat (与生成方 opus-5 **不同模型族**, 避自偏好; �
 - **⚠ 口径硬限定**: 12 次调用**全部 `fell_back=True` → deepseek-v4-pro** (Bedrock 账号拒绝 Anthropic 模型)。本轮**不构成 Opus 5 / Sonnet 5 对比**, 是同一模型 3 题 × 2 次采样; 无 cache 数字。权限恢复后重跑命令在 e2e 证据 §4。
 - **判分方对判据的三条意见** (记为缺口, 未因达标吞掉): ② 只测 recall 不测 precision (AE 题倒整片表必覆盖 gold, 过度列举不扣分); ① 对 AE 域是空判据 (无 `--CAT` CT); ③ 标记粒度未写死。另: AE 题「候補なし」分支完全未被检验。
 - **失败归档**: `evidence/failures/dm2_task{8,9}_attempt_1.md`。**审查抓到而测试没抓到**: T1 多 part 章续页首行被吃 (违 spec 字节一一对应), T5 研读包挂上后 PDF 通道饿死 + `answerer` 用陈旧 routed (研读规则第 ① 步恰依赖它)。
-- 2379 → **2489 passed**; 红线 pre-commit 闸每 commit CLEAN, 无 `--no-verify`; 判分报告 (含真实 OID) 全留 gitignored `runs/dm2_e2e/`。生产已两次 kickstart (T7 / T9 attempt 2), 默认 ON 已在线。RETRO `sdtm-rag/RETROSPECTIVE_dossier.md`, progress `sdtm-rag/_progress_dossier.json`。
+- 2379 → **2489 passed**; 红线 pre-commit 闸每 commit CLEAN, 无 `--no-verify`; 判分报告 (含真实 OID) 全留 gitignored `runs/dm2_e2e/`。生产已三次 kickstart (T7 / T9 attempt 2 / 终审), 默认 ON 已在线。RETRO `sdtm-rag/RETROSPECTIVE_dossier.md`, progress `sdtm-rag/_progress_dossier.json`。
+- **终审 fix wave** (whole-branch review, opus; commits `5b714bb` + 本条文档 commit): I1 = 研读包
+  条数与 `data/study/st01/catalog.json` 的 `items` 交叉核验, 不一致即拒启动 (`cards/` 是 gitignored
+  生成物, 漏卡原本一行报错都没有, 而「一览里没有」正是规则叫模型申报「無」的依据); 启动日志加
+  `cards_md`。I2 = spec §7 断言的「一览含 gold 卡 32/32」此前从未跑过, 现由 `dm2_trigger_sweep.py`
+  实测 **32/32 (unique 24/24)**。R1 = `mapping8` 判据改写为「**预登记 8/8 → 实测 7/8 → 按判据 FAIL,
+  controller 显式豁免**」(原写法把门槛改成 7/8 = 事后移门柱)。R2 = e2e attempt 2 标注为
+  **in-sample 修复验证**, 留出题 dm03/dm04/dm06/dm07 未跑, 下次 Claude 重跑须加 ≥2 题留出。
+  另纠正一处归因: T7 窗口期的 **422 只出在 `/api/ask`** (`AskRequest` 有 `extra="forbid"`),
+  **`/api/ask_stream` 静默忽略未知字段 ⇒ webchat 当时没坏**, 但重启仍是功能上线的必要条件。
+  全量 **2492 passed**; 生产已 kickstart, 启动日志 `dossier cards_md=961 items=959 sha=ed632b14cd34`。

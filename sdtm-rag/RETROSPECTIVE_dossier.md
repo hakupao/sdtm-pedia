@@ -9,7 +9,7 @@
 - **硬前置的量化闸挡在实现之前** (T2)。写码之前先量研读包 token: 166563 字 → **133652 token**, 两档 (含/去选择肢) 都 ≤ 150K, 用户据此裁「含选择肢」。关键是**把口径写进证据**: litellm 1.88.1 对四个 `bedrock/converse` 模型串全部没命中内置 tokenizer 映射表, 静默回落到 `cl100k_base`, 所以四列数字逐位相同 —— 是一套估计值不是四个模型的原生计数。**静默回落必须当场写明**, 否则后人会把估计值当实测值引用。
 - **词类级触发词, 不写题面 example** (T3/T8)。范围词表定义为「研究指代词 + study/試験/研究」, 两次收紧都停在词类级: 剔裸 `EDC` / 裸 `in our` (它们让纯 CDISC 定义题误触发, 每次误触 = 134K token 白烧), 英文分支加 `\b` (`"f<our Trial>"` 跨词边误触发 q29)。两次都补了负例测试, 并同步 spec/plan。
 - **零 LLM 的 L2 闸, 三集一起看** (T8)。`cdisc140` 0/140 (不该整本喂的题一次都没触发) + `study48` 0/51 + `mapping8` 7/8, 外加检索层逐题 diff `worse=[] better=[]` —— 证明新通道**没有**顺手改动检索。这套闸零成本可复跑, 是默认 ON 敢开的底气。
-- **每个 task 一 commit + 异 agent 审 (规则 D)**。11 个 commit 全在 main, 每个 task 由不同 agent 审; T1 的数据丢失、T5 的四个接线缺陷都是审出来的, 不是测试抓的。审查发现的每一条都记进 ledger 并当场裁定「现在修 / 归 T10 / deferred」, 没有一条无声消失。
+- **每个 task 一 commit + 异 agent 审 (规则 D)**。本单元 **19 个 commit** 全在 main (`3453652..5b714bb`, 不含基线; 终审文档 commit 随后跟进 → 20), 每个 task 由不同 agent 审; T1 的数据丢失、T5 的四个接线缺陷都是审出来的, 不是测试抓的。审查发现的每一条都记进 ledger 并当场裁定「现在修 / 归 T10 / deferred」, 没有一条无声消失。
 - **失败归档不删 (规则 B)**: `evidence/failures/dm2_task8_attempt_1.md` (q29 误触发), `evidence/failures/dm2_task9_attempt_1.md` (类别轴混淆 4/6)。后者是 attempt 2 的唯一输入 —— 没有它就只能靠记忆重写规则句。
 - **红线代称 + pre-commit 闸**。committed 文档一律 `F_xxx` / `I_xxx` 代称, 真值在 gitignored `data/study/st01/eval/dm1_codenames.md`; 判分报告 (含真实 OID) 全部留在 gitignored `runs/` 下, 证据文件只留无标识摘要。每个 commit 均 `CLEAN`, 无一次 `--no-verify`。
 
@@ -22,6 +22,7 @@
 - **模型维度缺席**。12 次调用全 `fell_back=True` → deepseek-v4-pro。Bedrock 账号当前拒绝 Anthropic 模型 (`Access to Anthropic models is not allowed for this account`), 属账号权限问题不是代码问题。**Claude 两模型在研读包下的表现本单元拿不到**; 重跑命令在 `evidence/checkpoints/dm2_dossier_e2e.md` §4, 权限恢复后需异 agent 重判并另起 §2.3。
 - **prompt cache 未做** (T11 可选)。每题 106-108K prompt token 全价, 无 `cache_read_input_tokens`。做不做要等 Claude 真能跑起来 (deepseek 本就不走 Anthropic prompt cache)。
 - **`dm08` 型长名前缀问句不自动触发**。问句只给域英文长名前缀 (无域码) 时 D1 识别不出域码 ⇒ 不触发, 需手动 `dossier: on`。本单元不扩 D1 (140q 回归风险), 已写进 spec §8 与 gates。
+- **Streamlit UI 不显示研读包徽章 (已知面)**。`ui/streamlit_app.py` 调 `/api/ask` 时**不带** `dossier` 键 ⇒ 后端按默认 `auto` 判定, 该挂就挂; 但它只渲染答案与 sources, **没有** 📖 徽章, 也不落 `dossier` 存档字段。⇒ 从 Streamlit 看到的答案, 「这条吃没吃研读包」在界面上无从判断 (webchat 有徽章)。不是 bug 是未接线面, 记在这里以免下次把它当成「研读包没生效」。
 - **PDF 通道共存只接线未验证**。T5 fix 之后 PDF 触发器看的是过滤前 chunks, 两通道可同时触发, 但 PDF 默认 OFF, 端到端共存行为无人跑过。
 - **一处事实性漏报未被任何闸拦住**: dm05/opus 把某组项目的区间写成 8 个, 实为 10 个。是 under-count 不是捏造, 码闸只查「是否存在」不查「数得对不对」。区间简写的计数正确性目前**只靠人判**。
 
@@ -39,8 +40,16 @@
   3. **反捏造层**: 零捏造由 `item_list_text` 逐 token 核 (958 项 + 21 表单, 两轮扫描 + 差集人工分流), 6/6 捏造 0。
   4. **闸层**: `test_rule_pins_category_axis_and_no_candidate_wording` 钉住**实际拼进 system 的那段文本**含 `--CAT` 与 `no candidate` —— 规则句是措辞不是结构, 下次重写最容易被静默抹掉。
 - **判分方对判据的意见照单收录** (对)。判分 agent 判了 6/6 PASS 的同时指出三条判据缺陷 (② 无 precision / ① 对 AE 空转 / ③ 粒度未写死)。**PASS 与「判据可靠」是两件事**, 达标不等于量具好用; 三条全部进 §2 缺口, 不因为达标就吞掉。
-- **流程失误四条** (全部记 ledger, 供下轮直接避开):
+- **流程失误五条** (全部记 ledger, 供下轮直接避开):
   1. **带 `name:` 的 agent 派发**结果不直接回到 controller (走 teammate 消息、延迟到达), 一度被误判为「不回报」而重复派发; 真因还叠加了 Bash 默认 120s 超时把首次全量 pytest 掐断。规则: implementer 派发写明 `timeout≥300000`; 两种派发通道都可用但要知道回报路径。
   2. **全量 `-q` 叠加吞掉 summary 行** (pyproject `addopts` 已含 `-q`), 实现者据此报了 9 个不存在的 failure (实为 `.pytest_cache` 陈旧 `lastfailed` 条目)。规则: 全量用 `-p no:cacheprovider -rfE`, 不再叠 `-q`。
   3. **implementer 在再审之后又 amend** (T1 `2b3d41d`→`e96fc6b`)。本次内容无害 (纯文档措辞 + 更严测试) 故接受并冻结该 agent, 但**审过的 hash 被改掉 = 审查结论与 HEAD 脱钩**。规则: 审查基线确定后 implementer 不得再动 HEAD。
-  4. **controller 的「ids only」红线指令过严** (T8)。它禁止在 committed 文件里引任何题面, 但映射集问句本身不含 OID / 表单名 / 日文 label, 且同类问句早已在 committed 测试与 spec 中; 该指令被当场撤回, 红线以 **OID 扫描器**为准。规则: 红线由**可执行的闸**定义, 不由口头指令加码 —— 加码会让归档失去可读性。
+  4. **前端先行于后端的那段窗口, 归因要说准** (T7)。T7 把 `dossier` 字段发进请求时生产还跑着旧
+     后端, controller 的 `curl` 当场吃到 **422** —— 但那是打在 **`/api/ask`** 上的: 只有
+     `AskRequest` 设了 `model_config = ConfigDict(extra="forbid")`, 未知字段必 422。**webchat 走的是
+     `/api/ask_stream`**, `AskStreamRequest` 没有 `extra="forbid"` (pydantic 默认 ignore), 旧后端
+     **静默忽略**该字段照常作答 ⇒ **窗口期 webchat 并没有坏**, 坏的说法是从一个不同端点的 422
+     外推来的。重启仍然必要 —— 不重启功能压根不存在 (旧进程没有研读包这段码), 只是「必须重启」
+     与「不重启就 500/422」是两回事。规则: 端点级的配置差异 (`extra="forbid"` 只在 `/api/ask`)
+     会让同一个请求字段在两个端点上有完全不同的失败形态, 归因前先确认打的是哪个端点。
+  5. **controller 的「ids only」红线指令过严** (T8)。它禁止在 committed 文件里引任何题面, 但映射集问句本身不含 OID / 表单名 / 日文 label, 且同类问句早已在 committed 测试与 spec 中; 该指令被当场撤回, 红线以 **OID 扫描器**为准。规则: 红线由**可执行的闸**定义, 不由口头指令加码 —— 加码会让归档失去可读性。

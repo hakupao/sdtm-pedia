@@ -1,11 +1,15 @@
 # DM2 T8 — L2 零 LLM 闸 (触发扫描 + 零回归) (2026-09-15)
 
-> 判据: `cdisc140` 必须 `0/140` (纯 CDISC 题不该整本喂). `mapping8` 期望 `8/8`，但 `dm08`
-> (RS via 长名前缀 "Disease Response") 不触发是 D1 长名识别的**已知限制** (controller 2026-09-15
-> 裁定), 不在本 task 修 → gate 判据修正为 `7/8`, dm08 记为 known limit。`study48` 触发数不设
-> 下限, 记 N 与题号即可。检索层 (retrieval-only 逐题 source recall) 不应有任何变化: 研读包
-> 走的是新增的 dossier 通道, 不经 `eval/run_eval.py` (它跑的是 `--structured-lookup`/`--study-lookup`
-> 的裸检索, 与 dossier 无关), 所以两集 diff 必须 `worse=[] better=[]`。
+> 判据: `cdisc140` 必须 `0/140` (纯 CDISC 题不该整本喂). `study48` 触发数不设下限, 记 N 与
+> 题号即可。检索层 (retrieval-only 逐题 source recall) 不应有任何变化: 研读包走的是新增的
+> dossier 通道, 不经 `eval/run_eval.py` (它跑的是 `--structured-lookup`/`--study-lookup` 的裸
+> 检索, 与 dossier 无关), 所以两集 diff 必须 `worse=[] better=[]`。
+>
+> `mapping8` — **预登记: 映射 8/8 → 实测 7/8 (dm08 长名前缀不识别, D1 已知限制) → 按预登记
+> 判据 FAIL, 接受豁免** (裁定人: controller, 2026-09-15; 重审触发条件: D1 长名前缀识别扩展时)。
+> 即: 门槛没有被改成 7/8, 是预登记的 8/8 没达到而被显式豁免 —— 事后移门柱与显式豁免是两回事,
+> 后者留得住"这条闸其实没过"这个事实。dm08 (RS via 长名前缀 "Disease Response") 需手动
+> `dossier: on` 兜底。
 
 ## Attempt 1 (FAIL, 已归档)
 
@@ -72,9 +76,35 @@ mapping8: 7/8 fired  ['dm01', 'dm02', 'dm03', 'dm04', 'dm05', 'dm06', 'dm07']
 
 - `cdisc140: 0/140` — 过闸 (attempt 1 的 q29 误触已修)。
 - `mapping8: 7/8` — 缺 `dm08` (domain=RS, 长名前缀 "Disease Response" 未被 D1 长名识别表覆盖)。
-  Controller 裁定为**已知限制**, 不在本 task 修 (需手动 `dossier: on`), 不阻断本 gate。
+  **未达预登记的 8/8, 按判据 FAIL, controller 显式豁免** (见本文件顶部判据段), 不在本 task 修
+  (需手动 `dossier: on`), 不阻断单元收口。
 - `study48: 0/51` (51 = 48 计分 + 3 `out_of_scope`) — 全部 51 题都未同时命中"域码非空"与
   "范围词"两个条件。Controller 裁定可接受, 记录数字即可。
+
+## Step 2b: gold 卡 part B 穷尽闸 (终审 I2 补测, 2026-09-15)
+
+spec §7 一直断言「研读包 part B 穷尽全部 EDC 項目」, 但这条断言此前从未被跑过 (终审 I2)。
+现由同一个 sweep 脚本实测: 取 `test_set_domain_mapping_v1.yml` 全部 `expected_sources` 中
+`st01__<FORM>__<ITEM>.md` 形状的 gold 卡, 逐条查 part B 是否存在同时含 ` <FORM>] ` 与
+` (<ITEM>) ` 的行。
+
+命令 (从 `sdtm-rag/`, 与触发扫描同一条):
+
+```bash
+.venv/bin/python eval/prod_wirein/dm2_trigger_sweep.py
+```
+
+```
+gold_cards_in_partB: 32/32
+unique: 24/24
+```
+
+32 = 8 题 × 4 张 gold 卡 (dm01-dm03 同为 DS 域, 卡有重叠 → 去重 24 张)。**32/32 过闸**:
+映射题的每一张 gold 卡都确实在一览里, part B 穷尽性不是空口断言。
+
+与之配套的运行期闸 (终审 I1): `server/main.py::maybe_build_dossier` 在构建后拿
+`data/study/st01/catalog.json` 的 `items` 条数交叉核验 `n_items`, 不一致即 `RuntimeError`
+拒启动 (`cards/` 是 gitignored 生成物, 漏卡本来一行报错都没有)。启动日志加 `cards_md`。
 
 ## Step 3: 零回归复跑
 

@@ -1,5 +1,7 @@
 # DM2 研读包旁路 (Study Dossier) Implementation Plan
 
+> 状态: **T1-T10 已完成** (2026-09-15); T11 可选未做 — 逐 task 状态见 `sdtm-rag/_progress_dossier.json`
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** 域级映射题 (「本研究哪些数据进 SDTM 的 X 域」) 触发时, 丢弃 study 侧检索结果, 把 PRT 第 4-12 章原文 + 全 EDC 项目一览确定性地喂进上下文, 并在 UI / 存档里如实标出.

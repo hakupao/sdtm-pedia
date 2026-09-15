@@ -17,8 +17,8 @@
 | 触发器 | `server/dossier_trigger.py` `decide_dossier()` | 纯函数: (问句, 请求档位, 总闸, 域码识别函数) → `DossierDecision(attach: bool, reason: str)`. 域码识别函数注入 (CDISC 引擎 `app.state.rag` 的 `StructuredLookup._query_domains`, D1 口径), 不在触发器里重写正则. | D1 |
 | 接线 | `server/router.py` `ask_stream` / `ask` | 在 `fed.retrieve` 之后 `format_context` 之前: 触发则丢 study chunks, corpus 强制 both, 上下文追加研读包块, system 追加研读规则句; SSE `sources` 事件 + 存档记 `dossier` 状态. | 上两者 |
 | 请求字段 | `AskStreamRequest.dossier: Literal["auto","on","off"] = "auto"` (`AskRequest` 同) | 手动覆盖. | — |
-| UI | `webchat/index.html` + `app.js` | 「研读模式」三态控件 (自动/开/关), 与「联网参考」同一行; 回答区徽章「📖 研读包 ·  N 章 · M 字」. | — |
-| 配置 | `server/config.py` | `dossier_enabled: bool = True` (总闸); `dossier_prt_sections: list[str] = ["4","5",...,"12"]` (章号白名单, 匹配 `section_number` 首段); `dossier_max_chars: int = 200_000` (超出 fail-loud 启动报错, 不截断); `dossier_study_id` 复用 `pdf_context_study_id`. | — |
+| UI | `webchat/index.html` + `app.js` | 「研读模式」三态控件 (自动/开/关), 与「联网参考」同一行; 回答区徽章「📖 研读包 · N 章 · M 字 · reason · sha」. | — |
+| 配置 | `server/config.py` | `dossier_enabled: bool = True` (总闸); `dossier_prt_sections: list[str] = ["4","5",...,"12"]` (章号白名单, 匹配 `section_number` 首段); `dossier_max_chars: int = 200_000` (超出 fail-loud 启动报错, 不截断); `dossier_docs_dir_override` / `dossier_cards_dir_override` (均为 `str = ""`; 空 = 从 `study_kb_root` 推导 cards/, docs/ 取其兄弟目录). | — |
 
 ## 3. 研读包内容 (确定性, 与文件字节一一对应)
 
@@ -81,7 +81,7 @@ sources 事件: {..., "dossier": None | {"attached": bool, "reason": str, "domai
   - ①/② 的当前形态来自 T9 attempt 1 的失败 (4/6, `evidence/failures/dm2_task9_attempt_1.md`): 原 ① 没说沿哪条轴, 模型用 `--SCAT` 子类别 / 阶段轴凑够条数而漏掉一个真实类别; 原 ⑤「明说哪类没候选」挂在 ① 的产物上, ① 漏了 ⑤ 就跟着哑 —— 故并入 ②, 让"漏"变成看得见的空标题. 修法停在模式级 (轴名, 不写某域有几类): 凡分类轴不止一条的域都会复发.
 - 研读包块**不进** `sources` 列表 (它不是 chunk), 只进徽章; 引用可追溯性靠模型引用章号 / OID, 由 §7 判据核.
 - Prompt cache: 研读包块作为 messages 里独立的 system/user 段, 对 Bedrock Claude 模型加 `cache_control: {"type":"ephemeral"}` (litellm 透传). 非 Claude 模型忽略该标记. **这是优化不是正确性前提**: 加不上也照常工作, 只是每题全价.
-- `ask` (非流式) 同样接线, 走同一 `decide_dossier` + 同一拼装 helper `maybe_attach_dossier(request, question, chunks, routed, context)`, 避免两处漂移 (C2R 教训: `maybe_attach_pdf_pages` 是共用 helper). 研读包块**不经过** `RAGEngine.format_context` 的 4000 字/chunk 截断 —— 它是独立文本段, 不是 chunk.
+- `ask` (非流式) 同样接线, 走同一 `decide_dossier` + 同一拼装 helper `maybe_attach_dossier(request, question, chunks, routed, mode, *, domain, file_type, top_k) -> (chunks, routed, dossier_block, dossier_info)`, 避免两处漂移 (C2R 教训: `maybe_attach_pdf_pages` 是共用 helper). 研读包块**不经过** `RAGEngine.format_context` 的 4000 字/chunk 截断 —— 它是独立文本段, 不是 chunk.
 - 与 C2R PDF 通道共存: 两者可同时触发 (PDF 页挂在 user 消息末尾的 parts, 研读包在 context 文本里), 互不知道对方; 默认 PDF 通道 OFF, 不在本单元验证共存.
 
 ## 6. 错误处理
@@ -101,7 +101,7 @@ sources 事件: {..., "dossier": None | {"attached": bool, "reason": str, "domai
 
 **L2 检索闸 (零 LLM)**
 - 140q: `decide_dossier` 触发数 = 0, `dm1_cdisc_after.json` 逐题 IDENTICAL. 48q: 记触发题数; 未触发题逐题 IDENTICAL.
-- 映射 8q: 触发 8/8; 一览含 gold 卡 32/32 (定义性检查, 只证接线).
+- 映射 8q: 触发 7/8 (dm08 见 §8, 豁免记 `dm2_gates.md`); 一览含 gold 卡 32/32 (`dm2_trigger_sweep.py` 实测, 见 `dm2_gates.md`).
 
 **L3 语义 (规则 A, 异 agent 判, 判据先登记)**
 - 原句 + dm02 + dm05 (三域: DS / DS 日文 / AE) × 2 模型 (Opus 5, Sonnet 5) 走 `/api/ask_stream`, N=6.
