@@ -552,6 +552,13 @@ async def ask_stream(body: AskStreamRequest, request: Request):
         for c in chunks
     ]
 
+    # DM1 D6: 问句落盘 (前 100 字 + 判库 + chunk id), 不记答案. 没有这一行, dogfood ⚑ 的
+    # 第一轮原句就永久丢失, 只能用重构句复现 (evidence/checkpoints/dogfood_ds_dscont_2026-09-15.md).
+    log.info(
+        "ask_stream", question=body.question[:100], corpus=routed,
+        n_chunks=len(chunks), chunk_ids=[c.chunk_id for c in chunks],
+    )
+
     def sse(event: str, data: dict) -> str:
         return f"event: {event}\ndata: {json.dumps(data, ensure_ascii=False)}\n\n"
 
