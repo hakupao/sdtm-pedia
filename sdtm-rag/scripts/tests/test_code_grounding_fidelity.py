@@ -196,3 +196,13 @@ def test_recorded_stopword_lever_is_honoured():
     })
 
     assert kwargs["bm25_query_stopwords"] is True
+
+
+def test_dossier_lever_missing_reads_off_and_true_refuses_rebuild():
+    from eval.prod_wirein.check_code_grounding import engine_kwargs_from_levers, levers_from_report
+    lv = levers_from_report({"summary": {"retrieval_levers": {"top_k": 15, "structured_lookup": True,
+                                                            "hybrid": True, "rerank": False, "query_expansion": "none"}}})
+    assert lv["dossier"] is False
+    engine_kwargs_from_levers(lv)   # 不抛
+    with pytest.raises(ValueError, match="dossier"):
+        engine_kwargs_from_levers({**lv, "dossier": True})

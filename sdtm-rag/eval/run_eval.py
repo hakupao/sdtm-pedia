@@ -1168,6 +1168,7 @@ def main(argv: list[str] | None = None) -> int:
         "bm25_query_stopwords": rag.bm25_query_stopwords,
         "rerank": rag.rerank_enabled,
         "query_expansion": rag.query_expansion,
+        "dossier": False,  # DM2: run_eval 直连 RAGEngine, 研读包只在 router 层, 恒 OFF
     }
     # V-2: 上限本身 + 撞顶的题。撞顶 = 答案很可能被切在句中 ⇒ 少发码 ⇒ (a) 层偏乐观。
     summary["max_tokens"] = args.max_tokens

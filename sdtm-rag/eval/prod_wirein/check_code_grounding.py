@@ -37,6 +37,7 @@ _RUN_EVAL_DEFAULT_LEVERS = {
     "hybrid": False,
     "rerank": False,
     "query_expansion": "none",
+    "dossier": False,
 }
 
 
@@ -83,6 +84,10 @@ def levers_from_report(raw) -> dict:
 
 
 def engine_kwargs_from_levers(levers: dict) -> dict:
+    if levers.get("dossier", False):
+        # DM2: 研读包不走 RAGEngine, 检索层无法复现那轮的 top5 —— 与其重建出一台
+        # 「看起来一样」的引擎给假 fidelity, 不如拒绝.
+        raise ValueError("dossier=True 的报告不能用检索层 fidelity 重建 (DM2 spec §7)")
     return {
         "top_k": levers["top_k"],
         "structured_lookup_enabled": levers["structured_lookup"],
