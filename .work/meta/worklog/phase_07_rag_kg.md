@@ -2454,3 +2454,12 @@ deepseek/deepseek-chat (与生成方 opus-5 **不同模型族**, 避自偏好; �
 - **Rule D 复审两轮** (opus): 一轮 3 MAJOR (16 源措辞 / SIBLING 与真命中同色 / 括注整块剥离是造假者的洞) 修毕; 二轮 PASS + 锚定测试缺口补齐 + 洞 A/B/倒装否定入盲点; 变异 12 杀 10; 整扫 64 s → 7 s。
 - **prompt** `_STUDY_OID_RULES` 第 4 条 (只进 study 引擎, CDISC 侧逐字节不变): 出典所列 OID 限于文书本文, 列举只照抄。**复测** (B 臂 T1/T3/T6 × gpt-terra/gpt-sol, 输入与 N4 逐字同): ①/①′/②/③ 两模型 PASS (terra 10 / sol 11), ④ 字面 FAIL 2→3 (核验全假阳性, 其中 1 条是 N2 闸惩罚正确引用『頁索引』= 反向激励); 卡片出典 31 条 31/31 接地, N4 捏造消失; **副作用 T1 CDISC 出典 2→0 ⇒ N6 候选**。两处口径 (T1 ⑤ / ④ 字面) 待用户裁。golden v2: 检索侧逐题全等; 答题侧 +3.8 pt 在噪声底内 (同 prompt 两次跑逐题差 9 题), q13 判措辞方差。
 - 2332 → **2379 passed**; 红线全 CLEAN。证据 `sdtm-rag/evidence/checkpoints/c2r_n5_card_grounding.md`, `evidence/step_c2r_n5_{scan,retest}_audit.md`, RETRO §8, PLAN §10。launchd 未 kickstart; opus-5 仍挂起。
+
+### 2026-09-15 — DM1 域级映射题检索补齐 (dogfood ⚑ 「sdtm 的 ds domain」→ 定义段 8/8 达成; 候选卡 0/32 → D4 待裁)
+
+- **起点**: ⚑ 2026-09-15 13:27 (GPT-5.6 Sol 三轮问答, 第一轮把 DS 缩窄成单一表单). 零 LLM 复现 (`eval/prod_wirein/repro_ds_domain.py`) 归因为检索三重失明: S1 域码只认大写 / 命中域只填变量行不带定义 / `sdtm` `domain` 泛词把 IG 通论顶进来; study 侧被 OID 前缀锚定, 纯日文里程碑卡进不来. 证据 `evidence/checkpoints/dogfood_ds_domain_2026-09-15.md`.
+- **用户定调**: 映射文档不存在, 系统上限 = 定义齐 + 候选表单齐 + 标推测; 修法须模式级. Tier 2 `PLAN_domain_mapping.md` + 实施计划 `docs/superpowers/plans/2026-09-15-domain-mapping-retrieval.md`, subagent 驱动 (T1-T8, 每 task 异 agent review, 规则 D).
+- **落地** (12 commits): T1 `ask_stream` 落盘问句/判库/chunk id; T2 盲出题 gold 8q/6 域 (gitignored) before 10.0%; T3 D1 域码任意大小写+锚定 (阻断表护 IS/BE); T4 D2 定义保底席 (assumptions item_1, 从 S1 配额出; 泛用变量不阻断; `$and` file_type 守卫); T5 D3 域名扩写 label-only (structure 回归 q47 归档); T6 D5 BM25 查询侧泛词停用; T7 联邦规则句; T8 闸 + 终审修复.
+- **闸** (`evidence/checkpoints/dm1_gates.md`): 140q 99.17% 逐题同; 48q 87.5% 逐题同; 映射 10%→20% (定义段 8/8, 6 域三语言大小写长名全生效; 候选卡 0/32). 终审组成实验: 用户原句 15 席 IG overview 10→2, DS 专属 5→10 — recall 指标看不见, D3/D5 据此默认开. 140q 不触发 D1 (识别结果 140/140 相同), D1 安全只靠阻断表+单测.
+- **失败归档**: `evidence/failures/dm1_{step0_attempt1,task3_attempt_1,task5_attempt_1}.md` (漏 S1 开关 80% / dm05 暂降 / structure 回归). 数字口径两次出错 (80%, 88.24%), 规则: 只认 `summary.source_recall_avg`, 实测必附命令.
+- **待办**: T9 e2e (用户 kickstart 后原句×2 模型三判据, 规则 A); T10 D4 「域→候选表单」人手表裁定 (触发: study 里程碑卡 0%), 裁前先做区分实验 (gold 卡正文当 query); 红线代称表 gitignored `data/study/st01/eval/dm1_codenames.md`. 2379→2498 passed. RETRO `RETROSPECTIVE_domain_mapping.md`. launchd 未 kickstart.

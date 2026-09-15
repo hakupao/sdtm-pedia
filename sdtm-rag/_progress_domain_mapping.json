@@ -2,7 +2,7 @@
  "unit": "DM1 domain mapping retrieval",
  "plan": "PLAN_domain_mapping.md",
  "started": "2026-09-15",
- "status": "in_progress",
+ "status": "T1-T8+T11 done; T9/T10 await user",
  "current_step": 9,
  "steps": {
   "0": "done",
@@ -14,9 +14,9 @@
   "6": "done",
   "7": "done",
   "8": "done",
-  "9": "pending",
-  "10": "pending",
-  "11": "pending"
+  "9": "pending (user kickstart)",
+  "10": "pending (user ruling D4)",
+  "11": "done (RETRO + worklog + PROGRESS + CLAUDE.md Key Path)"
  },
  "gates": {
   "cdisc_v3_before": 0.9917,
@@ -37,5 +37,5 @@
   "evidence/failures/dm1_task3_attempt_1.md",
   "evidence/failures/dm1_task5_attempt_1.md"
  ],
- "commits": "35fe34c e1ace65 128519c a299abb 893e047 a9d113e 114dc7b 2b4e362 b119081 799ab23"
+ "commits": "35fe34c e1ace65 128519c a299abb 893e047 a9d113e 114dc7b 2b4e362 b119081 799ab23 406efcf cab0ef9"
 }
