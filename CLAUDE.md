@@ -98,8 +98,7 @@ Full chain definitions are in `.work/MANIFEST.md`.
 | Phase 7 study golden v2 (48 题, 判别力已恢复) | 闸 `sdtm-rag/eval/lint_gold.py`; 证据 `evidence/checkpoints/study_golden_v2.md` |
 | Phase 7 Plan B P2 study 直查 (DONE, 默认开) | `sdtm-rag/server/study_lookup.py`; 证据 `planb_phase2_study_lookup.md` |
 | Phase 7 study C1 文档章节化 (DONE, U2 已接线) | `sdtm-rag/evidence/checkpoints/study_c1_doc_sections.md` — 114 chunk 进 `study_st01_docs` |
-| Phase 7 doc 轨 U1-U6 收口 (U3/U6=FAIL; U6 信号层存续) | `sdtm-rag/evidence/checkpoints/doc_track_u*.md` — U6 欠账 9→8 须连 cdisc_sig 零触发同框 |
-| Phase 7 doc 轨下一单元入口 | `milestones/07_rag_kg/DOC_TRACK_KICKOFF.md` §0′ (路由词「doc 轨 开始任务」) |
+| Phase 7 doc 轨 (U1-U6 收口; U3/U6 FAIL) + 下一单元入口 | `sdtm-rag/evidence/checkpoints/doc_track_u*.md`; `milestones/07_rag_kg/DOC_TRACK_KICKOFF.md` §0′ (路由词「doc 轨 开始任务」) |
 | Phase 7 SP7 查看器 UX 重构 (2026-07-24) | 源码 `sdtm-rag/viewer/{template.html,style.css,layout.mjs,app.js}` → build 内联 `kg_viewer.html` (**勿手改产物, 改 viewer/* 重生成**); 确定性布局+补间无物理; spec/plan `docs/superpowers/*2026-07-24-kg-viewer-ux*` |
 | Phase 7 study 轨 workflow 事件层 (DONE, 有条件合并) | `sdtm-rag/evidence/checkpoints/study_workflow_events.md` — 21/33 recall, 未接线 |
 | C1 红线 triage (4 真阳性已清) | `sdtm-rag/evidence/checkpoints/c1_redline_triage.md` — 26 假阳性未动 |
@@ -111,6 +110,7 @@ Full chain definitions are in `.work/MANIFEST.md`.
 | Phase 7 回退容灾+诚实呈现 (2026-09-02) | `llm_config.py` `fell_back`/`merge_reported_model`; 徽章+存档+⚑ |
 | Phase 7 `verified` 兑现抽检 (DONE 2026-09-07; 3 true / sonnet-5 false) | `sdtm-rag/evidence/checkpoints/verified_spotcheck_2026-09.md` (预登记判据+四模型记录) |
 | Phase 7 四模型离线对比裁判 (2026-09-07; C2 触发只报数) | `sdtm-rag/evidence/checkpoints/model_compare_2026-09.md`; retro `sdtm-rag/RETROSPECTIVE_verified.md` |
+| Phase 7 DM1 域级映射检索 (2026-09-15; D4 待裁) | `sdtm-rag/PLAN_domain_mapping.md`; 闸 `evidence/checkpoints/dm1_gates.md`; RETRO `RETROSPECTIVE_domain_mapping.md` |
 
 ## AI 平台多平台部署 (CLOSED 冻结 2026-06-15)
 
