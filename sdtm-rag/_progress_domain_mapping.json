@@ -1,0 +1,35 @@
+{
+ "unit": "DM1 domain mapping retrieval",
+ "plan": "PLAN_domain_mapping.md",
+ "started": "2026-09-15",
+ "status": "in_progress",
+ "current_step": 1,
+ "steps": {
+  "0": "done",
+  "1": "pending",
+  "2": "gold written + before run; commit pending",
+  "3": "pending",
+  "4": "pending",
+  "5": "pending",
+  "6": "pending",
+  "7": "pending",
+  "8": "pending",
+  "9": "pending",
+  "10": "pending",
+  "11": "pending"
+ },
+ "gates": {
+  "cdisc_v3_before": 0.9917,
+  "study_v2_before": 87.5,
+  "mapping_v1_before": 0.1,
+  "cdisc_v3_after": null,
+  "study_v2_after": null,
+  "mapping_v1_after": null
+ },
+ "decisions_pending": [
+  "D4 domain->forms hand table"
+ ],
+ "failures": [
+  "evidence/failures/dm1_step0_attempt1.md"
+ ]
+}
