@@ -28,9 +28,9 @@
 ### 4.1 選択規準  (p.NN-NN)
 <st01__doc01__s4_1.md 正文, 去 frontmatter>
 … (按 section_number 自然序; 分 part 的章按 part 顺序拼回一段)
-## B. EDC 項目一覧 (全 959 件; 表単 / 項目 / OID / 型 / 選択肢)
-[<表単 label> F_REG] <項目 label> (I_REG_DAT) | date 必須
-[<表単 label> OC] <項目 label> (I_OUTC) | integer 必須 | 1=<値> 2=<値> 99=<値>
+## B. EDC 項目一覧 (全 959 件; フォーム / 項目 / OID / 型 / 選択肢)
+[<フォーム label> F_REG] <項目 label> (I_REG_DAT) | date 必須
+[<フォーム label> OC] <項目 label> (I_OUTC) | integer 必須 | 1=<値> 2=<値> 99=<値>
 (代称见 gitignored data/study/st01/eval/dm1_codenames.md; 真实行形 = 卡片标题行原样)
 …
 ```
@@ -75,7 +75,7 @@ sources 事件: {..., "dossier": None | {"attached": bool, "reason": str, "sha":
 存档 (flag / 历史): 同一 dossier 字段, 与 web_status / fell_back / pdf_trigger 并列
 ```
 
-- `_DOSSIER_RULES` (system 追加, 仅触发时): 「上下文含本研究 PRT 第 4-12 章原文与 EDC 全项目一览. 域级映射题: ① 按【標準 CDISC】域定义枚举记录类别; ② 对每类在一览里逐表单找候选项目 (状态 / 日期 / 理由), 引用 `[表単 OID] 項目 (OID)` 原样; ③ PRT 里定义了该事件 (完了の定義 / 中止規準 / 登録手順 等) 时引用章号; ④ 所有 EDC→SDTM 归属均标 (推測); ⑤ 明说哪类没有候选项目.」T7 联邦规则句保留 (它管无研读包时的行为).
+- `_DOSSIER_RULES` (system 追加, 仅触发时): 「上下文含本研究 PRT 第 4-12 章原文与 EDC 全项目一览. 域级映射题: ① 按【標準 CDISC】域定义枚举记录类别; ② 对每类在一览里逐表单找候选项目 (状态 / 日期 / 理由), 引用 `[フォーム OID] 項目 (OID)` 原样; ③ PRT 里定义了该事件 (完了の定義 / 中止規準 / 登録手順 等) 时引用章号; ④ 所有 EDC→SDTM 归属均标 (推測); ⑤ 明说哪类没有候选项目.」T7 联邦规则句保留 (它管无研读包时的行为).
 - 研读包块**不进** `sources` 列表 (它不是 chunk), 只进徽章; 引用可追溯性靠模型引用章号 / OID, 由 §7 判据核.
 - Prompt cache: 研读包块作为 messages 里独立的 system/user 段, 对 Bedrock Claude 模型加 `cache_control: {"type":"ephemeral"}` (litellm 透传). 非 Claude 模型忽略该标记. **这是优化不是正确性前提**: 加不上也照常工作, 只是每题全价.
 - `ask` (非流式) 同样接线, 走同一 `decide_dossier` + 同一拼装 helper `maybe_attach_dossier(request, question, chunks, routed, context)`, 避免两处漂移 (C2R 教训: `maybe_attach_pdf_pages` 是共用 helper). 研读包块**不经过** `RAGEngine.format_context` 的 4000 字/chunk 截断 —— 它是独立文本段, 不是 chunk.

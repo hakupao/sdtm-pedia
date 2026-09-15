@@ -49,9 +49,11 @@ def _sec_key(sec: str) -> tuple[int, ...]:
 
 
 def _load_sections(docs_dir: Path, whitelist: Sequence[str]) -> list[tuple[str, str, str, str]]:
-    """→ [(section_number, title, page_range, body)] 按自然序; 多 part 拼成一条."""
+    """→ [(section_number, title, page_range, body)] 按自然序; 多 part 拼成一条.
+    标题只从最低编号 part 的首行取; 其余 part 原文整段保留, 不丢续页首行.
+    part 非整数 fail-loud, 不抛裸 ValueError."""
     want = set(whitelist)
-    parts: dict[str, list[tuple[int, str, str, str]]] = {}
+    parts: dict[str, list[tuple[int, str, list[str]]]] = {}
     for p in sorted(docs_dir.glob("*.md")):
         fm, body = _frontmatter(p.read_text(encoding="utf-8"))
         if fm.get("doc_type") != "protocol_section":
@@ -60,29 +62,46 @@ def _load_sections(docs_dir: Path, whitelist: Sequence[str]) -> list[tuple[str, 
         if sec.split(".")[0] not in want:
             continue
         lines = body.strip("\n").splitlines()
-        title = next((l.strip() for l in lines if l.strip()), sec)
-        rest = "\n".join(lines[1:]).strip("\n") if lines else ""
         pages = f"(p.{fm.get('page_start','?')}-{fm.get('page_end','?')})"
-        parts.setdefault(sec, []).append((int(fm.get("part", "1") or 1), title, pages, rest))
+        raw_part = fm.get("part", "1") or "1"
+        try:
+            part_no = int(raw_part)
+        except ValueError:
+            raise DossierBuildError(f"{p}: part={raw_part!r} 非整数")
+        parts.setdefault(sec, []).append((part_no, pages, lines))
     out = []
     for sec in sorted(parts, key=_sec_key):
         ps = sorted(parts[sec], key=lambda t: t[0])
-        title, pages = ps[0][1], ps[0][2]
-        body = "\n".join(t[3] for t in ps)
-        out.append((sec, title, pages, body))
+        _, first_pages, first_lines = ps[0]
+        title = next((l.strip() for l in first_lines if l.strip()), sec)
+        pieces = ["\n".join(first_lines[1:]).strip("\n")]
+        pieces.extend("\n".join(lns).strip("\n") for _, _, lns in ps[1:])
+        body = "\n".join(pieces)
+        out.append((sec, title, first_pages, body))
     return out
 
 
-def _load_items(cards_dir: Path) -> list[tuple[str, int, str]]:
-    """→ [(form_oid, source_row, line)] 排序后返回; 只取 doc_type=field_card."""
-    rows = []
-    for p in cards_dir.glob("*.md"):
+def _load_items(cards_dir: Path) -> tuple[list[tuple[str, int, str]], str, str]:
+    """→ ([(form_oid, source_row, line)], study, version). 只取 doc_type=field_card;
+    study/version 取按文件名排序后第一张卡 (INDEX/ROUTING 无 frontmatter 会被跳过);
+    型解析失败 fail-loud, 不静默吞 '?'."""
+    rows: list[tuple[str, int, str]] = []
+    bad: list[str] = []
+    study = version = "?"
+    seen_first = False
+    for p in sorted(cards_dir.glob("*.md")):
         fm, body = _frontmatter(p.read_text(encoding="utf-8"))
         if fm.get("doc_type") != "field_card":
             continue
+        if not seen_first:
+            study, version = fm.get("study", "?"), fm.get("version", "?")
+            seen_first = True
         title = next((l[2:].strip() for l in body.splitlines() if l.startswith("# ")), p.stem)
         m = _TYPE_RE.search(body)
-        typ = f"{m['typ']} {m['req']}" if m else "?"
+        if not m:
+            bad.append(str(p))
+            continue
+        typ = f"{m['typ']} {m['req']}"
         choices = " ".join(f"{e['code']}={e['label']}" for e in _CL_ENTRY_RE.finditer(body))
         line = f"{title} | {typ}" + (f" | {choices}" if choices else "")
         try:
@@ -90,8 +109,10 @@ def _load_items(cards_dir: Path) -> list[tuple[str, int, str]]:
         except ValueError:
             row = 0
         rows.append((fm.get("form_oid", ""), row, line))
+    if bad:
+        raise DossierBuildError(f"dossier: {len(bad)} field card(s) missing '- 型:' line: {', '.join(bad)}")
     rows.sort(key=lambda t: (t[0], t[1], t[2]))
-    return rows
+    return rows, study, version
 
 
 def build_dossier(docs_dir: Path, cards_dir: Path, *, sections: Sequence[str],
@@ -99,19 +120,17 @@ def build_dossier(docs_dir: Path, cards_dir: Path, *, sections: Sequence[str],
     secs = _load_sections(Path(docs_dir), sections)
     if not secs:
         raise DossierBuildError(f"dossier: 0 sections matched whitelist {list(sections)} in {docs_dir}")
-    items = _load_items(Path(cards_dir))
+    items, study, version = _load_items(Path(cards_dir))
     if not items:
         raise DossierBuildError(f"dossier: 0 field cards in {cards_dir}")
-    fm0, _ = _frontmatter(next(Path(cards_dir).glob("*.md")).read_text(encoding="utf-8"))
-    study, version = fm0.get("study", "?"), fm0.get("version", "?")
-    lo, hi = sections[0], sections[-1]
+    lo, hi = secs[0][0].split(".")[0], secs[-1][0].split(".")[0]
     buf = [f"## A. 研究計画書 (PRT) 抜粋: 第 {lo}-{hi} 章"]
     for sec, title, pages, body in secs:
         buf.append(f"### {title}  {pages}\n{body}")
-    buf.append(f"## B. EDC 項目一覧 (全 {len(items)} 件; 表単 / 項目 / OID / 型 / 選択肢)")
+    buf.append(f"## B. EDC 項目一覧 (全 {len(items)} 件; フォーム / 項目 / OID / 型 / 選択肢)")
     buf.extend(line for _, _, line in items)
     body_text = "\n\n".join(buf)
-    sha = hashlib.sha256(body_text.encode("utf-8")).hexdigest()[:12]
+    sha = hashlib.sha256(f"{study}|{version}|{body_text}".encode("utf-8")).hexdigest()[:12]
     head = (f"# 【本研究 研読パッケージ】 (study={study}, version={version}, sha={sha}, "
             f"{len(secs)} 章 / {len(items)} 項目)\n\n")
     text = head + body_text

@@ -71,10 +71,11 @@
 `scripts/tests/test_study_dossier.py`:
 
 ```python
-"""DM2 T1: 研读包构建是纯文件读 + 确定性拼接. 守三件事:
-  ① 白名单章进、非白名单章不进, 章按 section_number 自然序, 分 part 章拼回一段
-  ② 一览每卡一行: 标题行 | 型/必須 | 选择肢 (无 codelist 则省), INDEX/ROUTING 不进
-  ③ sha 稳定; 超 max_chars 抛 DossierBuildError, 不截断
+"""DM2 T1: 研读包构建是纯文件读 + 确定性拼接. 守四件事:
+  ① 白名单章进、非白名单章不进, 章按 section_number 自然序, 分 part 章拼回一段 (续页首行不丢); part 非整数 fail-loud
+  ② 一览每卡一行: 标题行 | 型/必須 | 选择肢 (无 codelist 则省), INDEX/ROUTING 不进; study/version 取首张卡; 型解析失败 fail-loud
+  ③ sha 覆盖 study/version (随版本变化), 稳定可复现; 超 max_chars 抛 DossierBuildError, 不截断
+  ④ ## A./## B. 标题行取实际匹配到的章节范围与件数, 与白名单顺序无关
 """
 from pathlib import Path
 import pytest
@@ -112,6 +113,22 @@ generated_by: t
 - Control: X
 {codelist}- Edit checks: —
 """
+CARD_NO_TYPE = """---
+study: st99
+version: VNEW
+doc_type: field_card
+form_oid: {form}
+field_oid: {item}
+source_sheet: Items and Groups
+source_row: {row}
+generated_by: t
+---
+
+# [偽フォーム {form}] 偽項目{item} ({item})
+- Form: 偽フォーム ({form})
+- Control: X
+{codelist}- Edit checks: —
+"""
 CL = "- Codelist: CL_X\n  - 1 = はい\n  - 2 = いいえ\n"
 NOCL = "- Codelist: なし (自由記述)\n"
 
@@ -122,7 +139,7 @@ def _mk(tmp_path):
     (docs / "st99__doc01__s4_2.md").write_text(DOC.format(sec="4.2", part=1, total=1, title="4.2 除外", body="B42"), encoding="utf-8")
     (docs / "st99__doc01__s4_1.md").write_text(DOC.format(sec="4.1", part=1, total=1, title="4.1 選択", body="B41"), encoding="utf-8")
     (docs / "st99__doc01__s8_2__part01.md").write_text(DOC.format(sec="8.2", part=1, total=2, title="8.2 評価", body="P1"), encoding="utf-8")
-    (docs / "st99__doc01__s8_2__part02.md").write_text(DOC.format(sec="8.2", part=2, total=2, title="(cont)", body="P2"), encoding="utf-8")
+    (docs / "st99__doc01__s8_2__part02.md").write_text(DOC.format(sec="8.2", part=2, total=2, title="P2a", body="P2b"), encoding="utf-8")
     (docs / "st99__doc01__s13_1.md").write_text(DOC.format(sec="13.1", part=1, total=1, title="13.1 倫理", body="NO"), encoding="utf-8")
     (cards / "st99__FB__I2.md").write_text(CARD.format(form="FB", item="I2", row=9, typ="date", codelist=NOCL), encoding="utf-8")
     (cards / "st99__FA__I1.md").write_text(CARD.format(form="FA", item="I1", row=5, typ="integer", codelist=CL), encoding="utf-8")
@@ -138,9 +155,11 @@ def test_sections_filtered_ordered_and_parts_joined(tmp_path):
     assert "NO" not in d.text and "13.1" not in d.text
     a = d.text.index("### 4.1 選択"); b = d.text.index("### 4.2 除外"); c = d.text.index("### 8.2 評価")
     assert a < b < c
-    assert "P1\nP2" in d.text or "P1\n\nP2" in d.text      # part 拼回一段, 只有一个 8.2 标题
+    assert "P2a" in d.text                     # 续页 (part02) 首行不能被当"标题"丢掉
+    assert "P1\nP2a\nP2b" in d.text             # part 拼回一段, 只有一个 8.2 标题
     assert d.text.count("### 8.2") == 1
     assert "(p.10-11)" in d.text
+    assert "## A. 研究計画書 (PRT) 抜粋: 第 4-8 章" in d.text
 
 
 def test_items_one_line_each_sorted_by_form_then_row(tmp_path):
@@ -153,6 +172,7 @@ def test_items_one_line_each_sorted_by_form_then_row(tmp_path):
         "[偽フォーム FB] 偽項目I2 (I2) | date 必須",
     ]
     assert d.n_items == 3 and "index" not in d.text
+    assert "## B. EDC 項目一覧 (全 3 件; フォーム / 項目 / OID / 型 / 選択肢)" in d.text
 
 
 def test_sha_stable_and_header(tmp_path):
@@ -162,6 +182,23 @@ def test_sha_stable_and_header(tmp_path):
     assert d1.sha == d2.sha and len(d1.sha) == 12 and d1.chars == len(d1.text)
     assert d1.text.startswith("# 【本研究 研読パッケージ】")
     assert d1.study == "st99" and d1.version == "VNEW"
+
+
+def test_sha_changes_with_version_bump(tmp_path):
+    docs, cards = _mk(tmp_path)
+    d1 = build_dossier(docs, cards, sections=["4"], max_chars=100_000)
+    bumped = CARD.format(form="FA", item="I0", row=3, typ="text", codelist=NOCL).replace(
+        "version: VNEW\n", "version: VNEW2\n")
+    (cards / "st99__FA__I0.md").write_text(bumped, encoding="utf-8")
+    d2 = build_dossier(docs, cards, sections=["4"], max_chars=100_000)
+    assert d2.version == "VNEW2" and d1.sha != d2.sha
+
+
+def test_study_version_from_first_field_card_not_index(tmp_path):
+    docs, cards = _mk(tmp_path)
+    (cards / "ROUTING.md").write_text("# routing\n", encoding="utf-8")
+    d = build_dossier(docs, cards, sections=["4"], max_chars=100_000)
+    assert d.study == "st99" and d.version == "VNEW"
 
 
 def test_over_budget_raises_not_truncates(tmp_path):
@@ -174,6 +211,28 @@ def test_empty_whitelist_hit_raises(tmp_path):
     docs, cards = _mk(tmp_path)
     with pytest.raises(DossierBuildError, match="0 sections"):
         build_dossier(docs, cards, sections=["99"], max_chars=100_000)
+
+
+def test_missing_type_line_raises(tmp_path):
+    docs, cards = _mk(tmp_path)
+    (cards / "st99__FA__I3.md").write_text(
+        CARD_NO_TYPE.format(form="FA", item="I3", row=1, codelist=NOCL), encoding="utf-8")
+    with pytest.raises(DossierBuildError, match="型"):
+        build_dossier(docs, cards, sections=["4"], max_chars=100_000)
+
+
+def test_non_integer_part_raises(tmp_path):
+    docs, cards = _mk(tmp_path)
+    (docs / "st99__doc01__s4_9.md").write_text(
+        DOC.format(sec="4.9", part="x", total=1, title="4.9 坏part", body="X"), encoding="utf-8")
+    with pytest.raises(DossierBuildError, match="非整数"):
+        build_dossier(docs, cards, sections=["4"], max_chars=100_000)
+
+
+def test_header_range_reflects_actual_matched_sections(tmp_path):
+    docs, cards = _mk(tmp_path)
+    d = build_dossier(docs, cards, sections=["9", "4"], max_chars=100_000)
+    assert "## A. 研究計画書 (PRT) 抜粋: 第 4-4 章" in d.text     # 白名单有 "9" 但无 9.x 文件, 不应算进范围
 ```
 
 - [ ] **Step 2: 跑测试确认失败**
@@ -235,9 +294,11 @@ def _sec_key(sec: str) -> tuple[int, ...]:
 
 
 def _load_sections(docs_dir: Path, whitelist: Sequence[str]) -> list[tuple[str, str, str, str]]:
-    """→ [(section_number, title, page_range, body)] 按自然序; 多 part 拼成一条."""
+    """→ [(section_number, title, page_range, body)] 按自然序; 多 part 拼成一条.
+    标题只从最低编号 part 的首行取; 其余 part 原文整段保留, 不丢续页首行.
+    part 非整数 fail-loud, 不抛裸 ValueError."""
     want = set(whitelist)
-    parts: dict[str, list[tuple[int, str, str, str]]] = {}
+    parts: dict[str, list[tuple[int, str, list[str]]]] = {}
     for p in sorted(docs_dir.glob("*.md")):
         fm, body = _frontmatter(p.read_text(encoding="utf-8"))
         if fm.get("doc_type") != "protocol_section":
@@ -246,29 +307,46 @@ def _load_sections(docs_dir: Path, whitelist: Sequence[str]) -> list[tuple[str, 
         if sec.split(".")[0] not in want:
             continue
         lines = body.strip("\n").splitlines()
-        title = next((l.strip() for l in lines if l.strip()), sec)
-        rest = "\n".join(lines[1:]).strip("\n") if lines else ""
         pages = f"(p.{fm.get('page_start','?')}-{fm.get('page_end','?')})"
-        parts.setdefault(sec, []).append((int(fm.get("part", "1") or 1), title, pages, rest))
+        raw_part = fm.get("part", "1") or "1"
+        try:
+            part_no = int(raw_part)
+        except ValueError:
+            raise DossierBuildError(f"{p}: part={raw_part!r} 非整数")
+        parts.setdefault(sec, []).append((part_no, pages, lines))
     out = []
     for sec in sorted(parts, key=_sec_key):
         ps = sorted(parts[sec], key=lambda t: t[0])
-        title, pages = ps[0][1], ps[0][2]
-        body = "\n".join(t[3] for t in ps)
-        out.append((sec, title, pages, body))
+        _, first_pages, first_lines = ps[0]
+        title = next((l.strip() for l in first_lines if l.strip()), sec)
+        pieces = ["\n".join(first_lines[1:]).strip("\n")]
+        pieces.extend("\n".join(lns).strip("\n") for _, _, lns in ps[1:])
+        body = "\n".join(pieces)
+        out.append((sec, title, first_pages, body))
     return out
 
 
-def _load_items(cards_dir: Path) -> list[tuple[str, int, str]]:
-    """→ [(form_oid, source_row, line)] 排序后返回; 只取 doc_type=field_card."""
-    rows = []
-    for p in cards_dir.glob("*.md"):
+def _load_items(cards_dir: Path) -> tuple[list[tuple[str, int, str]], str, str]:
+    """→ ([(form_oid, source_row, line)], study, version). 只取 doc_type=field_card;
+    study/version 取按文件名排序后第一张卡 (INDEX/ROUTING 无 frontmatter 会被跳过);
+    型解析失败 fail-loud, 不静默吞 '?'."""
+    rows: list[tuple[str, int, str]] = []
+    bad: list[str] = []
+    study = version = "?"
+    seen_first = False
+    for p in sorted(cards_dir.glob("*.md")):
         fm, body = _frontmatter(p.read_text(encoding="utf-8"))
         if fm.get("doc_type") != "field_card":
             continue
+        if not seen_first:
+            study, version = fm.get("study", "?"), fm.get("version", "?")
+            seen_first = True
         title = next((l[2:].strip() for l in body.splitlines() if l.startswith("# ")), p.stem)
         m = _TYPE_RE.search(body)
-        typ = f"{m['typ']} {m['req']}" if m else "?"
+        if not m:
+            bad.append(str(p))
+            continue
+        typ = f"{m['typ']} {m['req']}"
         choices = " ".join(f"{e['code']}={e['label']}" for e in _CL_ENTRY_RE.finditer(body))
         line = f"{title} | {typ}" + (f" | {choices}" if choices else "")
         try:
@@ -276,8 +354,10 @@ def _load_items(cards_dir: Path) -> list[tuple[str, int, str]]:
         except ValueError:
             row = 0
         rows.append((fm.get("form_oid", ""), row, line))
+    if bad:
+        raise DossierBuildError(f"dossier: {len(bad)} field card(s) missing '- 型:' line: {', '.join(bad)}")
     rows.sort(key=lambda t: (t[0], t[1], t[2]))
-    return rows
+    return rows, study, version
 
 
 def build_dossier(docs_dir: Path, cards_dir: Path, *, sections: Sequence[str],
@@ -285,19 +365,17 @@ def build_dossier(docs_dir: Path, cards_dir: Path, *, sections: Sequence[str],
     secs = _load_sections(Path(docs_dir), sections)
     if not secs:
         raise DossierBuildError(f"dossier: 0 sections matched whitelist {list(sections)} in {docs_dir}")
-    items = _load_items(Path(cards_dir))
+    items, study, version = _load_items(Path(cards_dir))
     if not items:
         raise DossierBuildError(f"dossier: 0 field cards in {cards_dir}")
-    fm0, _ = _frontmatter(next(Path(cards_dir).glob("*.md")).read_text(encoding="utf-8"))
-    study, version = fm0.get("study", "?"), fm0.get("version", "?")
-    lo, hi = sections[0], sections[-1]
+    lo, hi = secs[0][0].split(".")[0], secs[-1][0].split(".")[0]
     buf = [f"## A. 研究計画書 (PRT) 抜粋: 第 {lo}-{hi} 章"]
     for sec, title, pages, body in secs:
         buf.append(f"### {title}  {pages}\n{body}")
-    buf.append(f"## B. EDC 項目一覧 (全 {len(items)} 件; 表単 / 項目 / OID / 型 / 選択肢)")
+    buf.append(f"## B. EDC 項目一覧 (全 {len(items)} 件; フォーム / 項目 / OID / 型 / 選択肢)")
     buf.extend(line for _, _, line in items)
     body_text = "\n\n".join(buf)
-    sha = hashlib.sha256(body_text.encode("utf-8")).hexdigest()[:12]
+    sha = hashlib.sha256(f"{study}|{version}|{body_text}".encode("utf-8")).hexdigest()[:12]
     head = (f"# 【本研究 研読パッケージ】 (study={study}, version={version}, sha={sha}, "
             f"{len(secs)} 章 / {len(items)} 項目)\n\n")
     text = head + body_text
@@ -312,7 +390,7 @@ def build_dossier(docs_dir: Path, cards_dir: Path, *, sections: Sequence[str],
 - [ ] **Step 4: 跑测试确认通过**
 
 Run: `.venv/bin/python -m pytest -q scripts/tests/test_study_dossier.py`
-Expected: 5 passed. 若 `test_sections_filtered_ordered_and_parts_joined` 因 part 拼接字符串形状失败, 调整断言为实际 `"P1\nP2"` (实现用 `"\n".join`), 不改实现.
+Expected: 10 passed. (review fix round 1, 2026-09-15: 修了 part 续页首行丢失 / study-version 误取 INDEX/ROUTING / 型解析静默 `?` / 章范围用给定顺序而非数值 min-max / B 段"表単"非日语 / sha 不含 study-version / part 非整数抛裸 ValueError / 章范围应取实际匹配章节而非白名单 共 7 处问题, 新增覆盖测试 5 个.)
 
 - [ ] **Step 5: Commit**
 
