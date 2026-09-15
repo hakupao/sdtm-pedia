@@ -13,7 +13,7 @@
 
 | 组件 | 文件 | 职责 | 依赖 |
 |---|---|---|---|
-| 研读包构建器 | `server/study_dossier.py` `StudyDossier` | 启动时一次性读 `data/study/<id>/docs/` 白名单章节 + `cards/` 生成一览, 拼成一段文本; 记 sha256 / 字数 / 章节清单. 纯文件读, 无 LLM, 无网络. | settings |
+| 研读包构建器 | `server/study_dossier.py` `StudyDossier` | 启动时一次性读 `data/study/<id>/docs/` 白名单章节 + `cards/` (排除 INDEX.md / ROUTING.md, 只取 doc_type=field_card) 生成一览, 拼成一段文本; 记 sha256 / 字数 / 章节清单. 纯文件读, 无 LLM, 无网络. | settings |
 | 触发器 | `server/dossier_trigger.py` `decide_dossier()` | 纯函数: (问句, 请求档位, 总闸, 域码识别函数) → `DossierDecision(attach: bool, reason: str)`. 域码识别函数注入 (CDISC 引擎 `app.state.rag` 的 `StructuredLookup._query_domains`, D1 口径), 不在触发器里重写正则. | D1 |
 | 接线 | `server/router.py` `ask_stream` / `ask` | 在 `fed.retrieve` 之后 `format_context` 之前: 触发则丢 study chunks, corpus 强制 both, 上下文追加研读包块, system 追加研读规则句; SSE `sources` 事件 + 存档记 `dossier` 状态. | 上两者 |
 | 请求字段 | `AskStreamRequest.dossier: Literal["auto","on","off"] = "auto"` (`AskRequest` 同) | 手动覆盖. | — |
@@ -23,12 +23,12 @@
 ## 3. 研读包内容 (确定性, 与文件字节一一对应)
 
 ```
-# 【本研究 研読パッケージ】 (study=st01, version=V59, sha=…, N 章 / 961 項目)
+# 【本研究 研読パッケージ】 (study=st01, version=V59, sha=…, N 章 / 959 項目)
 ## A. 研究計画書 (PRT) 抜粋: 第 4-12 章
 ### 4.1 選択規準  (p.NN-NN)
 <st01__doc01__s4_1.md 正文, 去 frontmatter>
 … (按 section_number 自然序; 分 part 的章按 part 顺序拼回一段)
-## B. EDC 項目一覧 (全 961 件; 表単 / 項目 / OID / 型 / 選択肢)
+## B. EDC 項目一覧 (全 959 件; 表単 / 項目 / OID / 型 / 選択肢)
 [<表単 label> F_REG] <項目 label> (I_REG_DAT) | date 必須
 [<表単 label> OC] <項目 label> (I_OUTC) | integer 必須 | 1=<値> 2=<値> 99=<値>
 (代称见 gitignored data/study/st01/eval/dm1_codenames.md; 真实行形 = 卡片标题行原样)
