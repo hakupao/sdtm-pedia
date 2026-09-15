@@ -420,12 +420,42 @@ class TestAnchoredLowercaseCodes:
         assert f"domains/{code}/spec.md" in lookup.resolve(q)
 
     @pytest.mark.parametrize("q", [
-        "is the dataset required?",          # 'is' collides with IS
-        "or the domain must be listed",      # 'or' collides with OR
-        "ds without any anchor word",
+        "is the dataset required?",          # 'is' has no adjacent anchor ('the' intervenes)
+        "or the domain must be listed",      # 'or' has no adjacent anchor ('the' intervenes)
+        "ds without any anchor word",        # no domain word and no sdtm/cdisc prefix at all
     ])
-    def test_unanchored_or_stopword_code_does_not_resolve(self, lookup, q):
+    def test_no_anchor_adjacent_to_code_does_not_resolve(self, lookup, q):
+        """Neither _ANCHORED_CODE_RE nor _PREFIXED_CODE_RE fires here (the code is
+        not immediately next to a domain word or an sdtm/cdisc prefix), so these
+        never reach the blocklist check at all — see TestLowercaseCodeBlocklist
+        below for tests that actually exercise the blocklist."""
         assert not any(c in ("IS", "OR", "DS") for c in lookup._query_domains(q))
 
     def test_uppercase_behaviour_unchanged(self, lookup):
         assert lookup._query_domains("What are the required variables in the DM domain?") == ["DM"]
+
+
+class TestLowercaseCodeBlocklist:
+    """DM1 D1: _LOWER_CODE_BLOCKLIST only matters when the anchored/prefixed regex
+    actually fires — i.e. the code sits immediately next to sdtm/cdisc (no 'the' or
+    other word intervening, unlike TestAnchoredLowercaseCodes' negative cases above).
+    IS and BE are the only blocklist entries that collide with a real domain code in
+    meta.yaml today (OR is not a domain), so those two anchor the coverage."""
+
+    def test_blocklist_collisions_are_real_codes(self, lookup):
+        assert "IS" in lookup.domain_to_spec
+        assert "BE" in lookup.domain_to_spec
+
+    @pytest.mark.parametrize("q,code", [
+        ("in sdtm is the dataset required", "IS"),
+        ("the sdtm be dataset", "BE"),
+    ])
+    def test_lowercase_blocklisted_word_after_prefix_does_not_resolve(self, lookup, q, code):
+        assert code not in lookup._query_domains(q)
+
+    @pytest.mark.parametrize("q,code", [
+        ("in SDTM IS domain what is collected", "IS"),
+        ("the SDTM BE domain what is required", "BE"),
+    ])
+    def test_uppercase_blocklisted_word_after_prefix_still_resolves(self, lookup, q, code):
+        assert code in lookup._query_domains(q)
