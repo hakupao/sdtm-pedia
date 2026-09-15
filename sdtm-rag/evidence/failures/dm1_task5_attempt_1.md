@@ -23,8 +23,10 @@ S1/S2 直查通道与 LLM 恒收原句。
 | 闸 | before | attempt 1 | worse | better |
 |---|---|---|---|---|
 | CDISC 140q (`eval/runs/dm1_cdisc_before.json`) | 99.17% | 98.81% | **`['q47']`** | `[]` |
-| study 48q (`data/study/st01/eval/runs/dm1_study_before.json`) | 88.24% | 88.24% | `[]` | `[]` |
+| study 48q (`data/study/st01/eval/runs/dm1_study_before.json`) | 87.5% | 87.5% | `[]` | `[]` |
 | 映射 8q (`data/study/st01/eval/runs/dm1_mapping_t4.json`) | 20.0% | 20.0% | `[]` | `[]` |
+
+⚠ **勘误 (2026-09-15)**: 本表 study 48q 一行原写 88.24%, 错。88.24% 是拿逐题对比脚本对 51 条 results **全部**求平均得到的, 而题集含 3 条 `out_of_scope`; 报告口径取`summary.source_recall_avg` = 计分的 48 题 = **87.5%**。worse/better 判据不受影响 (那 3 条两臂逐位相同)。
 
 ## 3. 技术判定: 为什么 q47 掉
 
