@@ -591,7 +591,9 @@ from typing import Callable, Literal
 DossierMode = Literal["auto", "on", "off"]
 
 _SCOPE_RE = re.compile(
-    r"本研究|本試験|当試験|当研究|この試験|この研究|本 ?study|our study|this study|our trial|this trial|in (?:our|this) (?:study|trial|research)",
+    r"本研究|本試験|当試験|当研究|この試験|この研究|本 ?study"
+    r"|\bour study\b|\bthis study\b|\bour trial\b|\bthis trial\b"
+    r"|\bin (?:our|this) (?:study|trial|research)\b",
     re.IGNORECASE,
 )
 

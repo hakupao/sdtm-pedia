@@ -22,6 +22,7 @@ def test_auto_fires_on_domain_plus_scope(q):
     "What are the DSCAT values?",
     "What is EDC in SDTM terms, relative to DS?",       # 裸 EDC 定义题, 不是范围问句
     "Which DS variables are required in our dataset?",  # 代词+介词, 非 study/trial 锚定
+    "How do the four Trial Design domains TA, TE, TV and TI work together?",  # fix round 2: "f<our Trial>" 词边界误触发回归例
 ])
 def test_auto_quiet_without_scope(q):
     d = decide_dossier(q, "auto", True, _qd_hit)

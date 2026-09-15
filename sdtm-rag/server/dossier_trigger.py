@@ -3,6 +3,9 @@
 spec §4. 范围词是**词类** (研究指代 + study/試験/研究), 不是某题的字面; 不加表单名/项目名.
 裸 "EDC"/"in our\b" 已收紧 (fix round 1): EDC 需搭配 study/trial/研究 锚定才算范围词, 否则纯 CDISC 定义题
 (如 "What is EDC in SDTM terms?") 会误触发.
+英文分支加 `\b` 词边界 (fix round 2, DM2 T8 attempt 1): 无边界时 "f<our Trial>" 之类跨词边匹配会误触发
+(见 evidence/failures/dm2_task8_attempt_1.md, q29 "the four Trial Design domains..."); CJK 分支与
+`本 ?study` 保持不加 `\b` (`\b` 在 CJK 字符边界上行为不可靠).
 域码识别注入 (D1 `_query_domains`), 这里不重写正则.
 """
 from __future__ import annotations
@@ -14,7 +17,9 @@ from typing import Callable, Literal
 DossierMode = Literal["auto", "on", "off"]
 
 _SCOPE_RE = re.compile(
-    r"本研究|本試験|当試験|当研究|この試験|この研究|本 ?study|our study|this study|our trial|this trial|in (?:our|this) (?:study|trial|research)",
+    r"本研究|本試験|当試験|当研究|この試験|この研究|本 ?study"
+    r"|\bour study\b|\bthis study\b|\bour trial\b|\bthis trial\b"
+    r"|\bin (?:our|this) (?:study|trial|research)\b",
     re.IGNORECASE,
 )
 
