@@ -47,3 +47,4 @@ Thumbs.db
 
 # ⚑ dogfood 失败记录: 服务运行时 POST /api/flag 追加写, 属运行数据不进版本库 (本机保留, 规则 B 不删)
 dogfood_failures.md
+eval/runs/*.log
