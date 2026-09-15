@@ -39,7 +39,7 @@
 - B 部来源 `cards/*.md`: 每卡一行 = 标题行 + `型/必須` + Codelist 值 (有则列, 无则省). 不含 Edit checks / 表示条件 / 非表示アクティビティ (那是 C2R 通道的事). 按 form_oid 再 item 行号排序 (catalog `row`), 与 catalog 同序.
 - 估算: A ≈ 99K 字 + B ≈ 60-80K 字 (标题 37K + 选择肢) ≈ 160-180K 字. **日文 token 密度接近 1 字 ≈ 1 token**, 所以这可能逼近 200K token —— 仓库里目前没有任何输入 token 计量, `SelectableModel` 也无上下文窗口字段.
 - **Task 0 硬前置 (实现前)**: 用 litellm `token_counter` 对四个可选模型逐个量研读包 token 数, 写进 plan; 若 Claude 档 > 150K token, 先收 B 部 (去选择肢, 只留标题行 + 型) 再收白名单, 由用户点; 不在代码里静默截.
-- 上限 `dossier_max_chars` (默认 200K 字) 超限启动即报错, 绝不静默截断. 徽章里报字数与 token 数 (启动时量一次).
+- 上限 `dossier_max_chars` (默认 200K 字) 超限启动即报错, 绝不静默截断. 徽章里报字数 (启动时量一次).
 - 每题输入 ≈ 研读包 + CDISC 8 chunk (≤ 4000 字/chunk) + system. 选了装不下的模型时由 LLM 侧报错 → SSE error 事件原样透传, 不降级不截包.
 
 ## 4. 触发规则 (`decide_dossier`, 纯函数, 可枚举可测)
@@ -51,7 +51,7 @@ mode=off                → attach=False, reason="forced_off"
 mode=on                 → attach=True,  reason="forced_on"
 mode=auto:
   domains = StructuredLookup._query_domains(question)   # D1 口径, 含小写/中日文锚定
-  scope   = 问句含研究范围词 (本研究|本試験|当試験|当研究|この試験|この研究|\bour study\b|\bthis study\b|\bour trial\b|\bthis trial\b|\bin (our|this) (study|trial|research)\b)
+  scope   = 问句含研究范围词 (本研究|本試験|当試験|当研究|この試験|この研究|本 ?study|\bour study\b|\bthis study\b|\bour trial\b|\bthis trial\b|\bin (our|this) (study|trial|research)\b)
             # fix round 1: 裸 "EDC" / 裸代词 "in our" 已剔除 (纯 CDISC 定义题误触发); EDC 需搭配 study/trial/研究 锚定才算范围词
             # fix round 2 (DM2 T8 attempt 1): 英文分支加 \b 词边界, 否则 "f<our Trial>" 跨词边误触发; CJK 分支不加 \b
   domains 非空 且 scope → attach=True,  reason="auto:domain+scope"
@@ -72,7 +72,7 @@ if decision.attach:
     chunks = [c for c in chunks if c.corpus == "cdisc"]        # study top-k 丢弃
     context = format_context(chunks) + "\n\n" + dossier.text  # 研读包块在 CDISC 块之后
     system  += _DOSSIER_RULES
-sources 事件: {..., "dossier": None | {"attached": bool, "reason": str, "sha": str, "sections": [...], "chars": int, "tokens": int}}
+sources 事件: {..., "dossier": None | {"attached": bool, "reason": str, "domains": [...], "sha": str, "sections": [...], "chars": int}}
 #   None = 总闸 OFF 通道没跑 (与 pdf_trigger None/[] 的区分同一教训); attached=False 带 reason = 跑了没挂
 存档 (flag / 历史): 同一 dossier 字段, 与 web_status / fell_back / pdf_trigger 并列
 ```
@@ -88,7 +88,7 @@ sources 事件: {..., "dossier": None | {"attached": bool, "reason": str, "sha":
 
 - 研读包构建失败 (目录缺 / 章节 0 / 超 `dossier_max_chars`) → **启动 fail-loud** (与 pdf_page_index 缺失同处理), 不是运行时静默 OFF. 总闸 OFF 时不构建.
 - 触发但 CDISC 侧检索异常 → 502 (沿用现有 `stream_retrieve_failed`).
-- LLM 侧上下文溢出 → SSE `error` 事件原样透传, 徽章仍显示「研读包已挂」让用户知道是包太大不是模型没看到.
+- LLM 侧上下文溢出 → SSE `error` 事件原样透传, 徽章仍显示「研读包已挂」. ⚠ 既有 error 文案是**泛化**的 (`LLM stream failed`, 不区分溢出/限流/权限), 不改码; 「这次挂了研读包」这一事实**只有徽章**告诉用户, 排障要靠徽章 + 服务端日志对读.
 - `dossier` 字段非法值 → pydantic 422.
 
 ## 7. 验证
@@ -118,3 +118,6 @@ sources 事件: {..., "dossier": None | {"attached": bool, "reason": str, "sha":
 - 一览不含表示条件 / 非表示アクティビティ; 「某项目在哪个 visit 出现」仍属 C2R 通道.
 - 非 Claude 模型无 prompt cache, 每题约 200K 输入 token 全价.
 - 48q 集里被触发的题改走研读包, 其检索闸判据变为定义性 100%; 这类题的真实质量只在 L3 可见.
+- **与 C2R PDF 通道的共存已接线** (T5 fix I2): 研读包只替换「进 context 的那份 chunks」, PDF 触发器拿到的是**过滤前**的 chunks, 两条通道可同时触发。仍未做端到端共存验证 (PDF 通道默认 OFF)。
+- **长名前缀问法不自动触发** (DM2 T8, `dm08` 型): 问句只给域的英文长名前缀 (无域码) 时 D1 识别不出域码 ⇒ `domains` 空 ⇒ 不触发, 需用户手动 `dossier: on`。这是 D1 长名识别的已知限制, 本单元不扩 (140q 回归风险), 见 `evidence/checkpoints/dm2_gates.md`。
+- **L3 的 6 个样本全部出自 deepseek-v4-pro**: 两个 attempt 共 12 次调用 `fell_back=True` (Bedrock 账号拒绝 Anthropic 模型), 故 §7 L3 的 6/6 **不构成** Opus 5 / Sonnet 5 的任何结论, 也无 prompt cache 数字。权限恢复后的重跑命令在 `evidence/checkpoints/dm2_dossier_e2e.md` §4。

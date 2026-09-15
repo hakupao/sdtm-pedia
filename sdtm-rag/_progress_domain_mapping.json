@@ -15,7 +15,7 @@
   "7": "done",
   "8": "done",
   "9": "pending (user kickstart)",
-  "10": "D4 区分实验 done (语义鸿沟, evidence/checkpoints/dm1_d4_discrimination.md); 裁定 pending (user)",
+  "10": "done (D4 裁定: 整本喂 = DM2, 见 _progress_dossier.json)",
   "11": "done (RETRO + worklog + PROGRESS + CLAUDE.md Key Path)"
  },
  "gates": {

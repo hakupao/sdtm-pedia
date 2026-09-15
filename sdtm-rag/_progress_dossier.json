@@ -1,0 +1,49 @@
+{
+ "unit": "DM2 study dossier bypass (整本喂)",
+ "plan": "docs/superpowers/plans/2026-09-15-study-dossier.md",
+ "spec": "docs/superpowers/specs/2026-09-15-study-dossier-design.md",
+ "started": "2026-09-15",
+ "status": "T1-T10 done (默认 ON, 生产已 kickstart); T11 prompt cache 可选未做; Claude 模型维度待 Bedrock 权限",
+ "current_step": 11,
+ "steps": {
+  "1": "done (StudyDossier 构建器; review 抓多 part 章续页首行丢失 + study/version 取值)",
+  "2": "done (token 闸 166563 字 / 133652 tok cl100k 估计; 用户裁定含选择肢)",
+  "3": "done (decide_dossier 纯函数; 范围词收紧: 去裸 EDC / 裸 in our)",
+  "4": "done (dossier_enabled 默认 True, s4-s12, 200K 上限, 启动 fail-loud)",
+  "5": "done (router 共用 helper maybe_attach_dossier; review 修 502 / PDF 通道过滤前 chunks / answerer post-helper routed / 补取透传)",
+  "6": "done (retrieval_levers.dossier, eval 恒 OFF, fidelity 16/16)",
+  "7": "done (webchat 三态控件 + 📖 徽章 + ⚑ 存档; 生产 kickstart)",
+  "8": "done (L2 闸 attempt 2; attempt 1 q29 误触发已归档)",
+  "9": "done (L3 e2e attempt 2 6/6; attempt 1 4/6 已归档)",
+  "10": "done (RETRO + progress + worklog + PROGRESS + CLAUDE.md Key Path + spec 归齐)",
+  "11": "not done (optional: Bedrock prompt cache; 待 Claude 可跑 + 用户点)"
+ },
+ "gates": {
+  "dossier_chars": 166563,
+  "dossier_est_tokens_cl100k": 133652,
+  "dossier_sections": 52,
+  "dossier_items": 959,
+  "dossier_sha": "ed632b14cd34",
+  "trigger_cdisc140_fired": "0/140",
+  "trigger_study48_fired": "0/51",
+  "trigger_mapping8_fired": "7/8 (dm08 长名前缀 known limit)",
+  "retrieval_cdisc140": "0.9917 -> 0.9917 worse=[] better=[]",
+  "retrieval_study48": "0.875 -> 0.875 worse=[] better=[]",
+  "e2e_attempt1": "4/6 PASS (FAIL: 类别轴混淆, dm02 x2)",
+  "e2e_attempt2": "6/6 PASS (目标 >=5/6)",
+  "e2e_fabricated_oids": "0/6 runs",
+  "e2e_fell_back": "6/6 (deepseek-v4-pro; Bedrock 拒绝 Anthropic 模型)",
+  "e2e_prompt_tokens": "106013 / 106972 / 107825 (attempt 2, 每题两次采样逐位相同)",
+  "pytest_full": "2489 passed (T9 attempt 2)"
+ },
+ "decisions_pending": [
+  "Claude 两模型 (opus-5 / sonnet-5) 重跑 — 待 Bedrock 账号恢复 Anthropic 权限; 命令见 evidence/checkpoints/dm2_dossier_e2e.md §4",
+  "判据 ② 加条目级 precision 判据 (当前只测 recall, 过度列举不扣分; 判分方意见)",
+  "T11 Bedrock prompt cache (每题 106-108K prompt token 全价; 做不做待 Claude 可跑 + 用户点)"
+ ],
+ "failures": [
+  "evidence/failures/dm2_task8_attempt_1.md",
+  "evidence/failures/dm2_task9_attempt_1.md"
+ ],
+ "commits": "3453652 9ee3007 e96fc6b fbe342f fa99faa 38d2832 3e015be 930d2ea b5db6d0 f401e47 793c07e dea1fce a00d63c ff8be4b c1d57a6 37bcb3e 03096ad 3131ddc"
+}
