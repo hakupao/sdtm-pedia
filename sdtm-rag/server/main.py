@@ -6,6 +6,7 @@ Run:
 """
 from __future__ import annotations
 
+import json
 import logging
 import time
 from contextlib import asynccontextmanager
@@ -118,10 +119,24 @@ def maybe_build_dossier(s):
     if not docs.is_dir() or not cards.is_dir():
         raise RuntimeError(f"dossier_enabled=true 但目录缺: docs={docs} cards={cards}")
     try:
-        return build_dossier(docs, cards, sections=list(s.dossier_prt_sections),
-                             max_chars=s.dossier_max_chars)
+        d = build_dossier(docs, cards, sections=list(s.dossier_prt_sections),
+                          max_chars=s.dossier_max_chars)
     except DossierBuildError as e:
         raise RuntimeError(f"dossier_enabled=true 但构建失败: {e}") from e
+    # 「part B 穷尽全部項目」是研读规则第②步的前提断言, 但 cards/ 是 gitignored 的生成物:
+    # 少了一批卡 (重新生成中断 / 半个 rsync) 一行报错都不会有, 只会让答案静默地漏掉整块项目,
+    # 而「一览里没有」正是规则叫模型申报「無」的依据 —— 漏卡 = 有根据的错答. 拿同一批生成物的
+    # 另一个独立产物 catalog.json 的条数交叉核验, 对不上就拒启动. catalog 缺失只告警不拒启:
+    # override 目录 / 测试夹具本来就没有 catalog, 而那些场景不是生产漂移.
+    catalog = s.dossier_cards_dir.parent / "catalog.json"
+    if catalog.exists():
+        n = len(json.loads(catalog.read_text(encoding="utf-8"))["items"])
+        if n != d.n_items:
+            raise RuntimeError(
+                f"dossier: 一览 {d.n_items} 项 ≠ catalog {n} 项 — cards/ 漂移, part B 不再穷尽")
+    else:
+        log.warning("dossier_catalog_missing", catalog=str(catalog))
+    return d
 
 
 @asynccontextmanager
@@ -319,7 +334,8 @@ async def lifespan(app: FastAPI):
     app.state.dossier = maybe_build_dossier(s)
     if app.state.dossier is not None:
         d = app.state.dossier
-        log.info("dossier", sha=d.sha, chars=d.chars, sections=len(d.sections), items=d.n_items)
+        log.info("dossier", sha=d.sha, chars=d.chars, sections=len(d.sections), items=d.n_items,
+                 cards_md=len(list(s.dossier_cards_dir.glob("*.md"))))
     app.state.spec_loader = SpecLoader(s.kb_root)
     log.info("spec_loader", domains=len(app.state.spec_loader.domains),
              codelists=len(app.state.spec_loader.codelists))

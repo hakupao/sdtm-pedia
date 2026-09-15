@@ -324,9 +324,10 @@ def maybe_attach_dossier(request: Request, question: str, chunks, routed: str | 
     """DM2: 域级映射题触发时, 丢 study 侧 chunks, 返回研读包文本块供拼进 context.
 
     → (chunks, routed, dossier_block | None, dossier_info | None).
-    通道 OFF (`app.state.dossier is None`) → 原样返回, info=None —— 「OFF 与引入前逐位同一」由
-    这一行早期 return 担保. 跑了但没挂 → info.attached=False 带 reason (与 pdf 通道 None/[]
-    的区分同一教训). /api/ask 与 /api/ask_stream 都调这一个函数.
+    通道 OFF (`app.state.dossier is None`) → 原样返回, info=None: 由这一行早期 return 担保
+    messages 数组与 sources 列表与引入前逐字节同; 响应信封多一个 `dossier: null` 键 (有意三态:
+    null=通道 OFF / attached=false 带 reason=跑了没挂 / attached=true=挂了, 与 pdf 通道
+    None/[] 的区分同一教训). /api/ask 与 /api/ask_stream 都调这一个函数.
 
     `domain` / `file_type` / `top_k` 是**请求原样**的检索参数: 挂上研读包时本函数可能替
     federation 重跑一次 CDISC 侧检索, 那一次必须和 federation 自己走 `both` 时收到的参数
@@ -1107,6 +1108,9 @@ async def ask_compare(body: AskCompareRequest, request: Request):
     # the §1 single-user localhost deployment (retrieval is fast vs the LLM calls that
     # dominate). If this ever moves multi-user (§6 搬云), wrap retrieve in
     # asyncio.to_thread so one request's retrieval can't serialize others.
+    #
+    # DM2: 本端点有意不挂研读包 (离线四模型对比评的是检索路径答案; 若要对比研读包答案需显式接
+    # maybe_attach_dossier).
     try:
         chunks = rag.retrieve(
             body.question,

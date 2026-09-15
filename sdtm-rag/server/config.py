@@ -291,6 +291,8 @@ class Settings(BaseSettings):
     # 域级映射题 (「本研究哪些数据进 X 域」) 触发时: 丢 study 侧 top-k, 把 PRT 白名单章原文 +
     # 全 EDC 项目一览整段喂进上下文. 默认 **ON** (用户裁定 2026-09-15); 不触发的路径与
     # 引入前逐字节相同 (test_router_dossier_wiring 钉). kill switch = 这一行.
+    # 与 federation_enabled 解耦: federation=false 时研读包仍会注入 (单库路径亦有映射题);
+    # 内网共享部署若不想暴露 study 数据, 需同时关本开关.
     dossier_enabled: bool = True
     # PRT 章号白名单 (匹配 section_number 首段). 范围由 T2 token 计量 + 用户裁定
     # (evidence/checkpoints/dm2_dossier_tokens.md). 改这里 = 改研读包 sha, 存档徽章会变.

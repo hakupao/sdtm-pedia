@@ -107,6 +107,7 @@ def _load_items(cards_dir: Path) -> tuple[list[tuple[str, int, str]], str, str]:
         try:
             row = int(fm.get("source_row", "0") or 0)
         except ValueError:
+            # 解析失败回落 0 只影响排序, 有意静默 (型解析失败才 fail-loud: 那影响内容).
             row = 0
         rows.append((fm.get("form_oid", ""), row, line))
     if bad:
