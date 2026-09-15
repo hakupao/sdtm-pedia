@@ -166,6 +166,11 @@ class Settings(BaseSettings):
     # (union-add, capped at top_k), so safe to default on.
     structured_lookup_enabled: bool = True
 
+    # DM1 D2: S1 命中域且问法是域级 (问句没点名任何已知变量) 时, 该域 assumptions.md
+    # 的定义块保底占注入首席。单域时名额从 S1 自己的 N 席里出 (N-1 条 spec 行), 总注入
+    # 席位不增 —— 所以对非域级问法零影响, 可默认开。
+    domain_definition_seat_enabled: bool = True
+
     # Hybrid BM25 (S2): lexical retrieval over the SAME indexed chunks (bm25s, pure
     # CPU arithmetic — no neural model), additively fused with dense cosine so
     # literal domain/relationship/variable-name hits that cosine buries re-float

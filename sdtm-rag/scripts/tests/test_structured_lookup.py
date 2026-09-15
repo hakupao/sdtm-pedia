@@ -459,3 +459,20 @@ class TestLowercaseCodeBlocklist:
     ])
     def test_uppercase_blocklisted_word_after_prefix_still_resolves(self, lookup, q, code):
         assert code in lookup._query_domains(q)
+
+
+class TestDomainDefinitionTargets:
+    """DM1 D2: 域级问法 (问句没点名任何已知变量) 时, 每个被点名的域回其
+    assumptions.md —— 域定义的家。变量级问法不回 (那族由 spec.md 承接)。"""
+
+    def test_domain_level_ask_returns_assumptions(self, lookup):
+        q = "本研究中，哪些数据适合进入 sdtm 的 ds domain？"
+        assert lookup.domain_definition_targets(q) == ["domains/DS/assumptions.md"]
+
+    def test_variable_level_ask_returns_nothing(self, lookup):
+        q = "What is AETERM and what are its variable attributes in the AE domain?"
+        assert lookup.domain_definition_targets(q) == []
+
+    def test_capped_at_max_domain_specs(self, lookup):
+        q = "compare the AE, CM, EX and LB domains for our study"
+        assert len(lookup.domain_definition_targets(q)) == lookup._MAX_DOMAIN_SPECS

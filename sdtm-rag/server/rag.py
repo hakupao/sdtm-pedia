@@ -113,6 +113,7 @@ class RAGEngine:
         expansion_model: str = "deepseek/deepseek-chat",
         expansion_n_queries: int = 4,
         structured_lookup_enabled: bool = False,
+        domain_definition_seat: bool = True,
         hybrid_enabled: bool = False,
         hybrid_fusion: str = "rrf",
         hybrid_alpha: float = 0.5,
@@ -161,6 +162,8 @@ class RAGEngine:
         # S1 structured lookup: deterministic var/CT-code -> gold file resolution,
         # union-added ahead of cosine for query classes embeddings can't reach.
         self.structured_lookup_enabled = structured_lookup_enabled
+        # DM1 D2 kill switch: 域级问法的 assumptions 定义保底席 (见 _definition_chunk)。
+        self.domain_definition_seat = domain_definition_seat
         self._structured_lookup = None
         # 锚点 -> VARIABLE_INDEX section 全名; 首次用时从索引反建 (见 _vi_section_map)
         self._vi_sections: dict[str, str] | None = None
@@ -459,14 +462,27 @@ class RAGEngine:
         # way) — this only enriches composition for the answering model.
         single_spec = len(targets) == 1 and self._is_domain_spec(targets[0])
 
-        lookup_chunks: list[RetrievedChunk] = []
+        # DM1 D2: domain-level ask → the domain's definition chunk takes the FIRST
+        # seat. In the single-spec case it comes out of S1's own N seats (N-1 spec
+        # rows), so total lookup seats do not grow; multi-domain asks add one seat
+        # per domain (≤ _MAX_DOMAIN_SPECS).
+        def_chunks: list[RetrievedChunk] = []
+        ft = (where or {}).get("file_type")
+        if getattr(self, "domain_definition_seat", True) and ft in (None, "assumptions"):
+            for rel in self._structured_lookup.domain_definition_targets(query):
+                ch = self._definition_chunk(rel)
+                if ch is not None:
+                    def_chunks.append(ch)
+        spec_n = self._SINGLE_DOMAIN_SPEC_CHUNKS - (1 if (single_spec and def_chunks) else 0)
+
+        lookup_chunks: list[RetrievedChunk] = list(def_chunks)
         for rel_path in targets:
             if rel_path == self._VARIABLE_INDEX_REL:
                 chunks = self._lookup_chunks_for_variable_index(
                     query, query_embedding=query_embedding
                 )
             else:
-                n = self._SINGLE_DOMAIN_SPEC_CHUNKS if single_spec else 1
+                n = spec_n if single_spec else 1
                 chunks = self._lookup_chunks_for_file(
                     query, rel_path, n, query_embedding=query_embedding
                 )
@@ -539,6 +555,26 @@ class RAGEngine:
         relevant slices of that file. Empty list if the file has no chunks."""
         abs_source = str((self.kb_root / rel_path).resolve())
         return self._search(query, n, {"source": abs_source}, query_embedding=query_embedding)
+
+    def _definition_chunk(self, rel_path: str) -> RetrievedChunk | None:
+        """The domain-definition chunk of `rel_path` (section item_1, else overview).
+        Literal section pin, no similarity search: the definition is always the first
+        item and a cosine pick inside assumptions.md tends to land on examples."""
+        abs_source = str((self.kb_root / rel_path).resolve())
+        for section in ("item_1", "overview"):
+            res = self.collection.get(
+                where={"$and": [{"source": abs_source}, {"section": section}]},
+                include=["documents", "metadatas"],
+            )
+            if res["ids"]:
+                meta = res["metadatas"][0]
+                return RetrievedChunk(
+                    chunk_id=res["ids"][0], source=meta.get("source", abs_source),
+                    domain=meta.get("domain"), file_type=meta.get("file_type"),
+                    section=meta.get("section"), similarity=1.0,
+                    text=res["documents"][0], via_lookup=True,
+                )
+        return None
 
     def _vi_section_map(self) -> dict[str, str]:
         """`锚点 token -> VARIABLE_INDEX 的 section 全名`, 从索引元数据反建并缓存。

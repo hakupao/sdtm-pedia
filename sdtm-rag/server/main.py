@@ -129,6 +129,7 @@ async def lifespan(app: FastAPI):
         top_k=s.top_k,
         # P1 retrieval levers (validated combination, default on; see config.py).
         structured_lookup_enabled=s.structured_lookup_enabled,
+        domain_definition_seat=s.domain_definition_seat_enabled,
         hybrid_enabled=s.hybrid_enabled,
         hybrid_fusion=s.hybrid_fusion,
         hybrid_alpha=s.hybrid_alpha,

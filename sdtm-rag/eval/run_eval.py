@@ -886,6 +886,7 @@ def main(argv: list[str] | None = None) -> int:
         expansion_model=settings.expansion_model,
         expansion_n_queries=settings.expansion_n_queries,
         structured_lookup_enabled=structured_lookup,
+        domain_definition_seat=settings.domain_definition_seat_enabled,
         study_lookup=main_study_lookup,
         hybrid_enabled=args.hybrid,
         hybrid_fusion=args.hybrid_fusion or settings.hybrid_fusion,

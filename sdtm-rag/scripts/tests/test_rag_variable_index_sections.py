@@ -116,6 +116,8 @@ def _inject_engine(anchors, metas=VI_METAS, search_log=None):
     eng._structured_lookup = SimpleNamespace(
         resolve=lambda q: ["VARIABLE_INDEX.md"],
         variable_index_anchors=lambda q: list(anchors),
+        # DM1 D2: 这些用例的问句不点名任何域 → 定义保底席不 fire (真实 lookup 同)
+        domain_definition_targets=lambda q: [],
     )
 
     def fake_search(query, n, where=None, query_embedding=None):
@@ -178,6 +180,7 @@ def test_non_vi_target_unaffected():
     eng._structured_lookup = SimpleNamespace(
         resolve=lambda q: ["domains/DM/spec.md"],
         variable_index_anchors=lambda q: ["C99073"],
+        domain_definition_targets=lambda q: [],
     )
     eng._apply_structured_lookup("q", [], where=None, k=15, query_embedding=None)
     assert all("$and" not in (w or {}) for _n, w, _e in log)

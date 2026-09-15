@@ -456,6 +456,15 @@ class StructuredLookup:
                 anchors.append(tok)
         return anchors
 
+    def domain_definition_targets(self, query: str) -> list[str]:
+        """DM1 D2: `domains/<X>/assumptions.md` for each domain the query names,
+        only when the ask is domain-level (no known variable token in the query —
+        "what goes into DS" yes, "what is DSDECOD" no). Capped like the spec channel."""
+        if self._query_variables(query):
+            return []
+        return [f"domains/{d}/assumptions.md"
+                for d in self._query_domains(query)[: self._MAX_DOMAIN_SPECS]]
+
     def resolve(self, query: str) -> list[str]:
         """Return KB-relative gold file paths to union-add, or [] when no intent
         keyword fires (conservative: fall back to plain cosine, never guess)."""
