@@ -58,6 +58,24 @@ from server.meta_store import MetaStore
 _QUERY_VAR_TOKEN_RE = re.compile(r"\b([A-Z][A-Z0-9]{1,})\b")
 _QUERY_CT_RE = re.compile(r"\bC\d{4,6}\b")
 
+# DM1 D1 — domain code written in any case, but ONLY with a domain anchor.
+# `\b` is useless before CJK (`DS域`: S and 域 are both \w), hence the lookarounds.
+_DOMAIN_WORD = r"(?:域|ドメイン|データセット|domains?|datasets?)"
+_ANCHORED_CODE_RE = re.compile(
+    rf"(?<![A-Za-z0-9])([A-Za-z]{{2,8}})(?![A-Za-z0-9])\s*{_DOMAIN_WORD}",
+    re.IGNORECASE,
+)
+_PREFIXED_CODE_RE = re.compile(
+    r"(?:sdtm|cdisc)\s*(?:的|の|'s)?\s*(?<![A-Za-z0-9])([A-Za-z]{2,8})(?![A-Za-z0-9])",
+    re.IGNORECASE,
+)
+# lowercase candidates that are ordinary English words; a real code spelled in
+# lowercase and colliding with these (IS, OR, DO, ...) must be written uppercase.
+_LOWER_CODE_BLOCKLIST = frozenset({
+    "is", "or", "do", "to", "in", "on", "at", "be", "by", "as", "an", "if", "it",
+    "no", "of", "so", "us", "we", "my", "me", "up", "the", "and", "for", "our",
+})
+
 # Terminology / CT-code intent.
 _TERM_INTENT_KW = (
     "codelist",
@@ -368,14 +386,20 @@ class StructuredLookup:
         return out
 
     def _query_domains(self, query: str) -> list[str]:
-        """Known SDTM domain codes referenced by the query, de-duped. Code tokens
-        first (`RELSPEC`, `TR`, `SV`, ... — meta-derived, not hardcoded), then any
-        domain named only by its long name (union-add, code-token matches win on
-        order). All meta-derived, no hardcoded names."""
+        """Known SDTM domain codes referenced by the query, de-duped. Order:
+        uppercase code tokens, then anchored/prefixed codes in any case (DM1 D1),
+        then long names. All meta-derived, no hardcoded names."""
         out: list[str] = []
         for tok in _QUERY_VAR_TOKEN_RE.findall(query):
             if tok in self.domain_to_spec and tok not in out:
                 out.append(tok)
+        for rx in (_ANCHORED_CODE_RE, _PREFIXED_CODE_RE):
+            for raw in rx.findall(query):
+                if raw.lower() in _LOWER_CODE_BLOCKLIST and not raw.isupper():
+                    continue
+                code = raw.upper()
+                if code in self.domain_to_spec and code not in out:
+                    out.append(code)
         for code in self._query_longname_domains(query):
             if code not in out:
                 out.append(code)

@@ -401,3 +401,31 @@ class TestVariableIndexAnchors:
     def test_unknown_variable_token_is_not_an_anchor(self, lookup):
         # 未知大写 token 不是变量 → 不得当锚点 (否则会去查一个不存在的 section)
         assert lookup.variable_index_anchors("What does ZZZQQQ mean?") == []
+
+
+class TestAnchoredLowercaseCodes:
+    """DM1 D1: 2-8 letter codes in any case count as domain references when a
+    domain word follows them or sdtm/cdisc precedes them. Unanchored lowercase
+    never matches (English words like 'is'/'or' collide with real codes IS/OR)."""
+
+    @pytest.mark.parametrize("q,code", [
+        ("本研究中，哪些数据适合进入 sdtm 的 ds domain？", "DS"),
+        ("DS域にはどんなデータが入りますか", "DS"),
+        ("aeドメインに入る項目は？", "AE"),
+        ("what goes into the dm dataset for our study", "DM"),
+        ("SDTM的lb域应该包含本研究哪些数据", "LB"),
+    ])
+    def test_anchored_code_resolves(self, lookup, q, code):
+        assert code in lookup._query_domains(q)
+        assert f"domains/{code}/spec.md" in lookup.resolve(q)
+
+    @pytest.mark.parametrize("q", [
+        "is the dataset required?",          # 'is' collides with IS
+        "or the domain must be listed",      # 'or' collides with OR
+        "ds without any anchor word",
+    ])
+    def test_unanchored_or_stopword_code_does_not_resolve(self, lookup, q):
+        assert not any(c in ("IS", "OR", "DS") for c in lookup._query_domains(q))
+
+    def test_uppercase_behaviour_unchanged(self, lookup):
+        assert lookup._query_domains("What are the required variables in the DM domain?") == ["DM"]
