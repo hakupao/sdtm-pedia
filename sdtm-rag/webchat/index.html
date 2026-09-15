@@ -59,6 +59,13 @@
               <label title="让模型自行决定是否搜索公开网络 (业界实践参考, 非标准依据)">
                 <input type="checkbox" id="scope-web" /> 联网参考
               </label>
+              <label title="研读模式: 域级映射题自动整段喂入 PRT 章节 + EDC 全项目一览 (auto), 或手动强开/强关">
+                📖 <select id="scope-dossier">
+                  <option value="auto" selected>研读:自动</option>
+                  <option value="on">研读:开</option>
+                  <option value="off">研读:关</option>
+                </select>
+              </label>
             </fieldset>
             <span class="composer-spacer"></span>
             <button id="send" type="submit" aria-label="发送">发送</button>

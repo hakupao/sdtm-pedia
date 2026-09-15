@@ -4,6 +4,7 @@ import { renderMarkdown, highlightIn } from "./markdown.js";
 import { copyText, flash, armDelete, inlineRename, $ } from "./ui.js";
 import { flagButton } from "./flag.js";
 import { pdfAttachView } from "./pdfpages.js";
+import { renderDossierBadge } from "./dossier.js";
 
 // Plan B 联邦: 库标签 (日文 UI)。map 里没有的值 (null / 未知) 一律不渲染徽章 —— 联邦关时零变化。
 const CORPUS_LABEL = { cdisc: "標準", study: "本研究", both: "両方" };
@@ -98,6 +99,9 @@ export function messageEl(m) {
     // 第四次: 一条"看过画面 PDF 才答出来"的答案与纯卡片答案在存档里也必须长得不一样 ——
     // 正文里那句「画面目視判読 p.NN」指向哪几页, 只有这一行说得出来 (M3)。
     renderPdfPages(turn, m.pdfPages, m.pdfTrigger);
+    // 第五次 (DM2): 一条"整段吃了研读包"的答案与一条普通检索答案在存档里也必须长得不一样;
+    // 手动关掉研读包这件事同理 —— 它是答案为何变薄的唯一线索。
+    renderDossierBadge(turn, m.dossier);
   }
   return turn;
 }

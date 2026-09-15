@@ -7,7 +7,9 @@ import { renderSidebar, renderMessages, messageEl, finalizeBubble, appendErr, ap
          onToolCallUI, onToolResultUI } from "./js/render.js";
 import { renderMarkdown } from "./js/markdown.js";
 import { streamAsk } from "./js/stream.js";
-import { $, initScrollFollow, initSettings, initSidebar, selectedCorpus, webEnabled, autoGrow } from "./js/ui.js";
+import { renderDossierBadge } from "./js/dossier.js";
+import { $, initScrollFollow, initSettings, initSidebar, selectedCorpus, webEnabled,
+         dossierMode, autoGrow } from "./js/ui.js";
 
 // ── 渲染回调 (侧栏/消息需要的动作) ──
 const sidebarHandlers = {
@@ -94,6 +96,7 @@ async function runGeneration(c) {
   let gotTruncated = null;
   let gotPdfPages = null;
   let gotPdfTrigger = null;
+  let gotDossier = null;
   let saved = false;
   let savedMsg = null;
 
@@ -131,7 +134,10 @@ async function runGeneration(c) {
                  continueRounds: gotContinueRounds, truncated: gotTruncated,
                  // 同上 (C2R I2-4): 答案里「画面目視判読 p.NN」指的是哪几页, 只有这里记着;
                  // 不落盘的话刷新后那句出处就成了无从核对的孤证, ⚑ 也带不上页码上下文。
-                 pdfPages: gotPdfPages, pdfTrigger: gotPdfTrigger };
+                 pdfPages: gotPdfPages, pdfTrigger: gotPdfTrigger,
+                 // 第五次同一个坑 (DM2): 一条"整段吃了研读包"的答案与一条普通检索答案在
+                 // 存档里必须长得不一样 —— 吃的是哪一版 (sha) 也只有这里记着。
+                 dossier: gotDossier };
     c.messages.push(savedMsg);
     save(); renderSidebar(sidebarHandlers);
   };
@@ -141,8 +147,12 @@ async function runGeneration(c) {
   currentAbort = ctrl;
   try {
     await streamAsk({ question: text, history, corpus: selectedCorpus(), web: webEnabled(),
-                      model: $("model-select").value }, {
-      onSources: (s, routed) => { gotSources = s; gotRouted = routed; setSources(turn, s, routed); },
+                      model: $("model-select").value, dossier: dossierMode() }, {
+      // sources 事件先到 (done 之前), 研读包信息两处都发 —— 先收下这份, done 再覆盖:
+      // 流被中断 (停止 / 连接断) 时 done 永远不来, 但答案已经吃过研读包了, 存档得说得出来。
+      onSources: (s, routed, ev) => { gotSources = s; gotRouted = routed;
+                                      gotDossier = (ev || {}).dossier ?? null;
+                                      setSources(turn, s, routed); },
       onToken: (t) => { acc += t; dirty = true; if (!rafId) rafId = requestAnimationFrame(paint); },
       onToolCall: (d) => onToolCallUI(turn, d),
       onToolResult: (d) => onToolResultUI(turn, d),
@@ -167,9 +177,13 @@ async function runGeneration(c) {
         // 空数组**不能**混同 ("通道没动" vs "触发了却一页都没画出来", 后端 M4 裁定)。
         gotPdfPages = (data || {}).pdf_pages ?? null;
         gotPdfTrigger = (data || {}).pdf_trigger ?? null;
+        // `?? gotDossier` 而不是 `?? null`: 老后端的 done 事件没这个键, 塌成 null 会把
+        // sources 事件里已经收到的那份抹掉 (前端先于 Python 重启上线是常态)。
+        gotDossier = (data || {}).dossier ?? gotDossier;
         renderModelBadge(turn, gotModelId, gotVerified, gotModelsUsed, gotFellBack);
         renderContinuation(turn, gotContinueRounds, gotTruncated);
         renderPdfPages(turn, gotPdfPages, gotPdfTrigger);
+        renderDossierBadge(turn, gotDossier);
         const content = acc.trim() ? acc : "(无内容)"; renderFinal(content); persist(content);
       },
       onError: (msg) => { if (acc) { renderFinal(acc); persist(acc); } fail(msg); },

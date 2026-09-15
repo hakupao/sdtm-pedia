@@ -116,4 +116,9 @@ export function selectedCorpus() {
 // 联网是与 corpus 正交的第四维: 只决定挂不挂 web_search 工具, 不参与判库。
 export function webEnabled() { return $("scope-web").checked; }
 
+// DM2 研读包的第五维: auto = 后端按域码+范围词自判, on/off = 用户强开/强关 (总闸关时 on 也不挂)。
+// ⚠ 控件不在 (#scope 整块在 federation=false 时 hidden, 或旧页面缓存) 时返回 "auto" ——
+// 与后端默认值同值, 所以"控件没渲染出来"不会静默变成一个用户没做过的选择。
+export function dossierMode() { const el = $("scope-dossier"); return el ? el.value : "auto"; }
+
 export function autoGrow(ta) { ta.style.height = "auto"; ta.style.height = Math.min(ta.scrollHeight, 200) + "px"; }

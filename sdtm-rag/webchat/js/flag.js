@@ -71,18 +71,35 @@ export function flagModelName(msgObj) {
   return ($("topbar-model").dataset.defaultModel || "").trim() || null;
 }
 
-// C2R (I2-4): 这条答案附过画面 PDF 页的话, 把页码并进 note 一起上报。
+// 装不下就丢这行机器附注, 保住用户的原话 —— 反过来 (为了页码让整条上报 422) 是本末倒置。
+// 逐行判断而不是整块判断: 一行塞不下时另一行往往还塞得下, 没理由陪葬。
+function appendLine(base, line) {
+  const merged = base ? `${base}\n${line}` : line;
+  return merged.length <= NOTE_MAX ? merged : base;
+}
+
+// DM2: 这条答案挂没挂研读包。挂了的话它的证据基础与普通检索答案根本不是一回事 (整段 PRT
+// 章节 + EDC 一览, study 侧 chunks 全丢), 不写进 backlog 的话读的人无从解释答案为何厚/薄;
+// 手动关掉 (forced_off) 同理 —— 那是用户自己的选择, 不是模型答弱了。
+// ⛔ 不塞 sections/chars: note 有 2000 上限, 额度优先留给用户原话。
+// 通道没跑 (null) / 老存档 (无此键) 时**不发这一行**: 无话可说时别占额度, 也别让"没有
+// 这个信息"看起来像"通道确实没跑"。
+function dossierLine(info) {
+  if (!info || typeof info !== "object" || Array.isArray(info)) return "";
+  return `dossier: ${JSON.stringify({ attached: info.attached, reason: info.reason, sha: info.sha })}`;
+}
+
+// C2R (I2-4) / DM2: 这条答案附过画面 PDF 页、挂过研读包的话, 把这些并进 note 一起上报。
 // ⛔ 不新增请求字段: `FlagRequest` **没有** extra="forbid" (AskRequest 才有), 多发的键会被
-// pydantic 静默丢掉 —— 那正是抽检脚本 v1 踩过的坑 (看着 200, 其实什么都没传到)。想让页码
+// pydantic 静默丢掉 —— 那正是抽检脚本 v1 踩过的坑 (看着 200, 其实什么都没传到)。想让这些
 // 真的落进 dogfood_failures.md, 唯一的去处就是既有的自由文本 note。
 export function flagNote(note, msgObj) {
-  const base = note || "";
+  let out = note || "";
   const summary = pdfPagesSummary(msgObj && msgObj.pdfPages);
-  if (!summary) return base;
-  const line = `pdf_pages: ${summary}`;
-  const merged = base ? `${base}\n${line}` : line;
-  // 装不下就丢这行机器附注, 保住用户的原话 —— 反过来 (为了页码让整条上报 422) 是本末倒置。
-  return merged.length <= NOTE_MAX ? merged : base;
+  if (summary) out = appendLine(out, `pdf_pages: ${summary}`);
+  const dossier = dossierLine(msgObj && msgObj.dossier);
+  if (dossier) out = appendLine(out, dossier);
+  return out;
 }
 
 export async function postFlag(question, answer, note, msgObj) {

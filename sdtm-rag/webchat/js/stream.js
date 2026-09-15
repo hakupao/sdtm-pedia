@@ -9,11 +9,11 @@ export function parseSSE(raw) {
   try { return { event, data: JSON.parse(data) }; } catch (_) { return null; }
 }
 
-export async function streamAsk({ question, history, corpus, web, model },
+export async function streamAsk({ question, history, corpus, web, model, dossier },
                                 { onSources, onToken, onToolCall, onToolResult, onContinue, onDone, onError, onClose, onAbort, signal }) {
   let resp;
   try {
-    const payload = { question, history, corpus, web };
+    const payload = { question, history, corpus, web, dossier };
     // spec §5 裁定: UI **永远发显式 id**, 绝不依赖默认值落到 default 组 ——
     // default 与 opus-5 今天都解析到 Opus 5, 但改 .env 的 default_model 会让二者静默分叉。
     // 下拉为空 (info 没加载出来) 时**整个字段省略**, 由服务端默认值接管, 而不是硬塞 "default"
@@ -35,7 +35,9 @@ export async function streamAsk({ question, history, corpus, web, model },
   let terminal = false; // saw a done/error frame
   const dispatch = (ev) => {
     if (!ev) return;
-    if (ev.event === "sources") onSources(ev.data.sources || [], ev.data.routed_corpus || null);
+    // 第三参 = 整个 sources 事件体。新字段 (dossier …) 不必每次改这一行的形参列表, 老
+    // 调用方 (只声明两个形参) 逐字节不受影响。
+    if (ev.event === "sources") onSources(ev.data.sources || [], ev.data.routed_corpus || null, ev.data);
     else if (ev.event === "token") onToken(ev.data.text || "");
     else if (ev.event === "tool_call") onToolCall?.(ev.data || {});
     else if (ev.event === "tool_result") onToolResult?.(ev.data || {});
