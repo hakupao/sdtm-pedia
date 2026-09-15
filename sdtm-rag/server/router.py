@@ -107,6 +107,23 @@ _PDF_SOURCE_RULE = (
     "前後頁への続きの推測 (「続きの可能性あり」等) をしない。\n"
 )
 
+# DM2 研读包 (study dossier)。挂上研读包时才加的一段 system 规则。
+# ⛔ 常時足してはいけない (_PDF_SOURCE_RULE と同じ教訓): 研読パッケージが付いていない
+# 回答で「part B は網羅的」と書いてあると、モデルは検索で来なかっただけの不在を
+# 「存在しない」と言い切れてしまう —— 付いた時だけが真。
+_DOSSIER_RULES = (
+    "\n\n## Study dossier rules\n"
+    "- The context ends with 【本研究 研読パッケージ】: this study's protocol (PRT) chapters "
+    "verbatim (part A) and the COMPLETE list of EDC items (part B). Study-side retrieval was "
+    "skipped on purpose: part B is exhaustive, so if an item is not there, it does not exist.\n"
+    "- Domain-level mapping questions: (1) enumerate the record categories the standard defines "
+    "for the domain from 【標準 CDISC】; (2) for each category scan part B form by form for "
+    "candidate items (status / date / reason), quoting each as `[form OID] item (OID)` exactly "
+    "as written; (3) when the PRT defines the event (完了の定義 / 中止規準 / 登録手順 …), cite "
+    "the section number from part A; (4) every EDC→SDTM assignment is inference — label it "
+    "(推測); (5) say explicitly which categories have no candidate item.\n"
+)
+
 
 # ── Request / Response models ────────────────────────────────────────────
 
@@ -129,6 +146,8 @@ class AskRequest(BaseModel):
     top_k: int | None = Field(None, ge=1, le=100)
     # Plan B 联邦: auto = LLM 判库; 显式值绕过路由 (federation 关时该字段无作用)
     corpus: Literal["auto", "cdisc", "study", "both"] = "auto"
+    # DM2 研读包: auto = 域码+范围词自动判; on/off = 手动强开/强关 (总闸 OFF 时 on 也不挂).
+    dossier: Literal["auto", "on", "off"] = "auto"
 
 
 class SourceItem(BaseModel):
@@ -161,6 +180,8 @@ class AskResponse(BaseModel):
     # 側は一行も変わらない。
     pdf_trigger: str | None = None
     pdf_pages: list[dict] | None = None
+    # DM2 研读包. None = 通道没跑 (总闸 OFF); dict = 跑了 (attached 说挂没挂, reason 说为何).
+    dossier: dict | None = None
 
 
 class InfoResponse(BaseModel):
@@ -280,6 +301,46 @@ def maybe_attach_pdf_pages(request: Request, question: str, chunks, messages):
     return [{"pdf": i.pdf, "page": i.page} for i in images], decision.rule
 
 
+def maybe_attach_dossier(request: Request, question: str, chunks, routed: str | None, mode: str):
+    """DM2: 域级映射题触发时, 丢 study 侧 chunks, 返回研读包文本块供拼进 context.
+
+    → (chunks, routed, dossier_block | None, dossier_info | None).
+    通道 OFF (`app.state.dossier is None`) → 原样返回, info=None —— 「OFF 与引入前逐位同一」由
+    这一行早期 return 担保. 跑了但没挂 → info.attached=False 带 reason (与 pdf 通道 None/[]
+    的区分同一教训). /api/ask 与 /api/ask_stream 都调这一个函数.
+    """
+    dossier = getattr(request.app.state, "dossier", None)
+    if dossier is None:
+        return chunks, routed, None, None
+    from server.dossier_trigger import decide_dossier
+
+    lookup = getattr(getattr(request.app.state, "rag", None), "_structured_lookup", None)
+    query_domains = lookup._query_domains if lookup is not None else (lambda q: [])
+    s = request.app.state.settings
+    decision = decide_dossier(question, mode, s.dossier_enabled, query_domains)
+    info = {"attached": decision.attach, "reason": decision.reason,
+            "domains": list(decision.domains), "sha": dossier.sha,
+            "sections": list(dossier.sections), "chars": dossier.chars}
+    if not decision.attach:
+        return chunks, routed, None, info
+    fed = getattr(request.app.state, "federation", None)
+    if fed is not None and routed == "study":
+        # study 单库路由下没有 CDISC 定义段 (D2), 补取 CDISC 侧; 席位口径与 both 相同 (k/2 上取整)
+        import math
+        k_each = math.ceil((fed.top_k or 15) / 2)
+        cd = fed.cdisc.retrieve(question, top_k=k_each)
+        for c in cd:
+            c.corpus = "cdisc"
+        chunks = list(cd)
+    else:
+        chunks = [c for c in chunks if getattr(c, "corpus", None) != "study"]
+    if fed is not None:
+        routed = "both"
+    log.info("dossier_attached", reason=decision.reason, domains=list(decision.domains),
+             sha=dossier.sha, chars=dossier.chars, kept_chunks=len(chunks))
+    return chunks, routed, dossier.text, info
+
+
 @api_router.post("/ask", response_model=AskResponse)
 def ask(body: AskRequest, request: Request):
     rag = request.app.state.rag
@@ -329,10 +390,16 @@ def ask(body: AskRequest, request: Request):
         log.warning("structured_answer_resolve_failed", exc_info=True)
         facts = None
 
+    chunks, routed, dossier_block, dossier_info = maybe_attach_dossier(
+        request, body.question, chunks, routed, body.dossier)
+
     engine = fed if fed is not None else rag
     context = engine.format_context(chunks)
     if fed is not None and not context:
         context = _NO_CONTEXT
+    if dossier_block:
+        context = (dossier_block if (not context or context == _NO_CONTEXT)
+                   else context + "\n\n" + dossier_block)
     if facts is not None:
         from server.structured_answer import augment_context
         context = augment_context(facts, context)
@@ -343,6 +410,8 @@ def ask(body: AskRequest, request: Request):
                                       corpus=routed or body.corpus)
     else:
         messages = rag.build_messages(body.question, context, history_dicts or None)
+    if dossier_block:
+        messages[0]["content"] += _DOSSIER_RULES
     pdf_pages, pdf_trigger = maybe_attach_pdf_pages(request, body.question, chunks, messages)
 
     # 输出触顶自动续写 (2026-09-08)。⚠ 这里是**第二份**实现: /api/ask 走同步
@@ -463,6 +532,7 @@ def ask(body: AskRequest, request: Request):
         continue_error=continue_error,
         pdf_trigger=pdf_trigger,
         pdf_pages=pdf_pages,
+        dossier=dossier_info,
     )
 
 
@@ -480,6 +550,8 @@ class AskStreamRequest(BaseModel):
     # 答题模型组名。与 AskRequest.model 同名同默认值。校验在 ask_stream 里做 ——
     # 合法值集合来自 Router (与 /api/info 同源), pydantic 层拿不到它。
     model: str = "default"
+    # DM2 研读包: auto = 域码+范围词自动判; on/off = 手动强开/强关 (总闸 OFF 时 on 也不挂).
+    dossier: Literal["auto", "on", "off"] = "auto"
 
 
 @api_router.post("/ask_stream")
@@ -529,10 +601,16 @@ async def ask_stream(body: AskStreamRequest, request: Request):
         log.warning("structured_answer_resolve_failed", exc_info=True)
         facts = None
 
+    chunks, routed, dossier_block, dossier_info = maybe_attach_dossier(
+        request, body.question, chunks, routed, body.dossier)
+
     engine = fed if fed is not None else rag
     context = engine.format_context(chunks)
     if fed is not None and not context:
         context = _NO_CONTEXT
+    if dossier_block:
+        context = (dossier_block if (not context or context == _NO_CONTEXT)
+                   else context + "\n\n" + dossier_block)
     if facts is not None:
         from server.structured_answer import augment_context
         context = augment_context(facts, context)
@@ -543,6 +621,8 @@ async def ask_stream(body: AskStreamRequest, request: Request):
                                       corpus=routed or body.corpus)
     else:
         messages = rag.build_messages(body.question, context, history_dicts or None)
+    if dossier_block:
+        messages[0]["content"] += _DOSSIER_RULES
     pdf_pages, pdf_trigger = maybe_attach_pdf_pages(request, body.question, chunks, messages)
     sources = [
         {"chunk_id": c.chunk_id, "source": c.source, "domain": c.domain,
@@ -557,6 +637,7 @@ async def ask_stream(body: AskStreamRequest, request: Request):
     log.info(
         "ask_stream", question=body.question[:100], corpus=routed,
         n_chunks=len(chunks), chunk_ids=[c.chunk_id for c in chunks],
+        dossier=(dossier_info or {}).get("reason"),
     )
 
     def sse(event: str, data: dict) -> str:
@@ -581,7 +662,8 @@ async def ask_stream(body: AskStreamRequest, request: Request):
             return await llm_router.acompletion(**kw)
 
     async def gen():
-        yield sse("sources", {"sources": sources, "routed_corpus": routed})
+        yield sse("sources", {"sources": sources, "routed_corpus": routed,
+                              "dossier": dossier_info})
         model_used = None   # 流里一个 chunk 都没报模型时就一直是 None —— done 事件如实发 null,
                             # ⛔ 不许兜成 "default": 那是**编**一个模型名, 而这个值会进历史存档
         # 逐 chunk 收全**出现过的**模型, 有序去重 (spec R6)。与 model_used 各记一件事:
@@ -824,7 +906,10 @@ async def ask_stream(body: AskStreamRequest, request: Request):
                                # 画面 PDF 旁路 (I2-3)。通道 OFF / 不発火なら両方 null ——
                                # 「付いていない」と「0 枚付いた」を客側が区別できる形。
                                "pdf_trigger": pdf_trigger,
-                               "pdf_pages": pdf_pages})
+                               "pdf_pages": pdf_pages,
+                               # DM2 研读包。None = 通道没跑 (总闸 OFF); dict 里
+                               # attached 说挂没挂, reason 说为何 (徽章/存档读它)。
+                               "dossier": dossier_info})
         except Exception as e:  # noqa: BLE001 — 流已开, 以事件形式暴露
             log.error("stream_failed", error=str(e), exc_info=True)
             yield sse("error", {"message": "LLM stream failed"})
