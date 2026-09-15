@@ -104,6 +104,7 @@ class _FakeRAG:
         # 屏幕回执现在读引擎实收值 (B3' 修复轮 M-1 / R3), 假引擎必须带上这两个属性
         self.web_search_enabled = kw["web_search_enabled"]
         self.prompt_guardrail_enabled = kw["prompt_guardrail_enabled"]
+        self.domain_expander = kw.get("domain_expander")   # T5: 回执同样读实收值
 
 
 @pytest.fixture

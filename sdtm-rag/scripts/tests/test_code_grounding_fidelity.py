@@ -142,3 +142,30 @@ def test_recorded_seat_lever_is_honoured():
     })
 
     assert kwargs["domain_definition_seat"] is True
+
+
+def test_old_reports_without_the_expand_lever_rebuild_with_it_off():
+    """T5 同理: 域码扩写是 T5 才有的通道, T5 之前的报告不可能记它。
+
+    `settings.domain_expand_enabled` 默认 True, 所以只要不显式关掉, 按老报告重建出来的
+    引擎会去扩写问句 ⇒ 稠密/BM25 查的不是当时那段文本 ⇒ top5 对不上, 整批老档案被判成
+    重建失败。缺键 = 那轮没有这条通道 = OFF。
+    """
+    kwargs = engine_kwargs_from_levers({
+        "top_k": 15, "structured_lookup": True, "hybrid": True,
+        "rerank": False, "query_expansion": "none",
+    })
+
+    assert kwargs["domain_expander"] is None
+
+
+def test_recorded_expand_lever_rebuilds_the_expander():
+    """记了就照记的还原 —— 与其他 lever 同一约定。lever 是 bool, 引擎收的是对象。"""
+    kwargs = engine_kwargs_from_levers({
+        "top_k": 15, "structured_lookup": True, "hybrid": True,
+        "rerank": False, "query_expansion": "none",
+        "domain_expand": True,
+    })
+
+    assert kwargs["domain_expander"] is not None
+    assert hasattr(kwargs["domain_expander"], "expand")

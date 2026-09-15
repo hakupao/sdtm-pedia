@@ -20,6 +20,7 @@ from starlette.types import Scope
 from scripts.spec_loader import SpecLoader
 from server.auth import install_security
 from server.config import settings
+from server.domain_expand import build_expander
 from server.llm_config import (
     create_router,
     non_bedrock_model_groups,
@@ -120,6 +121,10 @@ async def lifespan(app: FastAPI):
         kb=str(s.kb_root),
         model=s.default_model,
     )
+    # DM1 D3: 域码扩写器。一个对象喂三台引擎 (cdisc / study cards / study docs) —— 各造
+    # 一份可以来自不同 kb_root/meta (路径 override 只改一处时), 而那种不一致在数字上
+    # 完全看不出来: 两库对同一个问句扩写不同 = 两臂检索文本不同, 无任何报错。
+    domain_expander = build_expander(s) if s.domain_expand_enabled else None
     t_rag = time.perf_counter()
     app.state.rag = RAGEngine(
         chroma_dir=s.chroma_dir,
@@ -130,6 +135,7 @@ async def lifespan(app: FastAPI):
         # P1 retrieval levers (validated combination, default on; see config.py).
         structured_lookup_enabled=s.structured_lookup_enabled,
         domain_definition_seat=s.domain_definition_seat_enabled,
+        domain_expander=domain_expander,
         hybrid_enabled=s.hybrid_enabled,
         hybrid_fusion=s.hybrid_fusion,
         hybrid_alpha=s.hybrid_alpha,
@@ -194,6 +200,8 @@ async def lifespan(app: FastAPI):
             hybrid_pool=s.hybrid_pool,
             prompt_guardrail_enabled=s.prompt_guardrail_enabled,
             web_search_enabled=s.web_search_enabled,
+            # 与 cdisc 引擎同一个对象 (见上方构造点)。
+            domain_expander=domain_expander,
         )
         rag_study = RAGEngine(
             chroma_dir=s.chroma_dir,

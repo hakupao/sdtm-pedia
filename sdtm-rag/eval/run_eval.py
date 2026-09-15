@@ -40,6 +40,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from server.config import settings  # noqa: E402
 from server.federation import FederatedEngine  # noqa: E402
 from server.llm_config import create_router  # noqa: E402
+from server.domain_expand import build_expander
 from server.rag import RAGEngine  # noqa: E402
 
 TOP_K = 15
@@ -696,6 +697,13 @@ def main(argv: list[str] | None = None) -> int:
              "file via spec.md xref + VARIABLE_INDEX). Off by default.",
     )
     parser.add_argument(
+        "--no-domain-expand",
+        action="store_true",
+        help="DM1 D3 kill switch: 关掉域码确定性扩写 (问句里的域码追加该域 meta.yaml 的 "
+             "正式名 label, 只喂稠密/BM25)。默认跟随 settings.domain_expand_enabled, "
+             "给本 flag 才强制关 —— 用于 A/B。",
+    )
+    parser.add_argument(
         "--hybrid",
         action="store_true",
         help="S2: hybrid BM25 (bm25s) over indexed chunks, additively fused with "
@@ -866,6 +874,15 @@ def main(argv: list[str] | None = None) -> int:
     # --collection 在场 (即这台就是指向 study 库的那台)。
     main_study_lookup = None if args.federated else study_lookup
 
+    # DM1 D3: 域码扩写器。一个对象喂本次运行的全部引擎 (cdisc / study cards / study docs),
+    # 与生产 lifespan 同一个装配点 (server/domain_expand.build_expander) —— 那里说明了它
+    # 为什么恒读 settings 的路径而不跟 --kb-root 覆盖走。
+    domain_expander = (
+        None if args.no_domain_expand
+        else build_expander(settings) if settings.domain_expand_enabled
+        else None
+    )
+
     test_set = load_test_set(args.test_set)
     print(f"Loaded {len(test_set)} questions from {args.test_set}")
 
@@ -887,6 +904,7 @@ def main(argv: list[str] | None = None) -> int:
         expansion_n_queries=settings.expansion_n_queries,
         structured_lookup_enabled=structured_lookup,
         domain_definition_seat=settings.domain_definition_seat_enabled,
+        domain_expander=domain_expander,
         study_lookup=main_study_lookup,
         hybrid_enabled=args.hybrid,
         hybrid_fusion=args.hybrid_fusion or settings.hybrid_fusion,
@@ -907,11 +925,13 @@ def main(argv: list[str] | None = None) -> int:
     rerank_info = (
         f", rerank={rag.rerank_model} pool={rag.rerank_candidates}" if args.rerank else ""
     )
-    expand_info = (
+    qexpand_info = (
         f", expansion={rag.query_expansion}({rag.expansion_model})"
         if rag.query_expansion != "none" else ""
     )
     lookup_info = ", structured_lookup=ON" if structured_lookup else ""
+    # 读引擎实收值: 默认开的 lever 一旦装配点漏改, 屏幕/落盘都得跟着变成 OFF。
+    expand_info = ", domain_expand=ON" if rag.domain_expander is not None else ""
     # 屏幕回执: 不给 --output 时 summary JSON 看不到, 人肉跑就完全看不出 S2 开没开
     study_lookup_info = (
         f", study_lookup=ON({main_study_lookup.stats()})"
@@ -924,7 +944,7 @@ def main(argv: list[str] | None = None) -> int:
     )
     # 下面两个回执读**引擎实收值**而不是 args: 记事实, 不记意图。读 args 时注入点漏改
     # (引擎实收 OFF) 屏幕照打 ON, 就能跑出一批标着 ON 实际 OFF 的 140q 数字, 事后无从分辨。
-    # 同 print 里 rerank_info / expand_info / hybrid_info 一向读 rag.*, 这里对齐。
+    # 同 print 里 rerank_info / qexpand_info / hybrid_info 一向读 rag.*, 这里对齐。
     # retrieval-only 一次 LLM 调用都不发 ⇒ 这两个**答题侧** lever 完全空转。不标注就会
     # 在屏幕上打出一个与本轮产物无因果关系的 "guardrail=ON" (spec §10.1 B6)。只标注开着
     # 的那个 —— 关着时 info 串本来就是空的, 没有可误导的东西。
@@ -936,7 +956,7 @@ def main(argv: list[str] | None = None) -> int:
         if rag.web_search_enabled else ""
     )
     collection_info = f", collection={collection_name}" if args.collection else ""
-    print(f"RAG engine: {rag.collection.count()} chunks, model={settings.default_model}, top_k={args.top_k}{rerank_info}{expand_info}{lookup_info}{study_lookup_info}{hybrid_info}{guardrail_info}{web_search_info}{collection_info}")
+    print(f"RAG engine: {rag.collection.count()} chunks, model={settings.default_model}, top_k={args.top_k}{rerank_info}{qexpand_info}{lookup_info}{expand_info}{study_lookup_info}{hybrid_info}{guardrail_info}{web_search_info}{collection_info}")
 
     # 联邦模式: 上面那台是 cdisc 引擎, 再起一台 study 引擎 (S1 恒关 —— gold map 是 CDISC 专属),
     # 其余 lever 与 cdisc 一致, 由 FederatedEngine 判库分发。retriever 是喂给 run_evaluation 的
@@ -969,6 +989,9 @@ def main(argv: list[str] | None = None) -> int:
             # 与上面 cdisc 引擎同一个 args.web_search —— 两处注入点必须同源: 只改一处时
             # 联邦两臂的 prompt 构型不一致, 而数字上完全看不出来 (B3' 就是这么活下来的)。
             web_search_enabled=args.web_search,
+            # 与上面 cdisc 引擎同一个对象 —— 各造一份会让两臂对同一问句扩写不同, 而
+            # 数字上完全看不出来 (与 web_search 同源纪律)。
+            domain_expander=domain_expander,
         )
         study_rag = RAGEngine(
             chroma_dir=settings.chroma_dir,
@@ -1126,6 +1149,8 @@ def main(argv: list[str] | None = None) -> int:
         "top_k": rag.top_k,
         "structured_lookup": rag.structured_lookup_enabled,
         "domain_definition_seat": rag.domain_definition_seat,
+        # 记**引擎实收**的有/无 (bool), 不记 args —— 装配点漏改时这行会跟着变。
+        "domain_expand": rag.domain_expander is not None,
         "hybrid": rag.hybrid_enabled,
         "rerank": rag.rerank_enabled,
         "query_expansion": rag.query_expansion,

@@ -171,6 +171,13 @@ class Settings(BaseSettings):
     # 席位不增 —— 所以对非域级问法零影响, 可默认开。
     domain_definition_seat_enabled: bool = True
 
+    # DM1 D3: 问句里认出的域码 (≤3 个) 追加该域 meta.yaml 里的正式名 (label), **只**喂
+    # 稠密/BM25 (见 rag.py `q_ret`)。零 LLM、纯确定性; 问句里没有已知域码时恒等于原句,
+    # 所以对绝大多数问法零影响, 可默认开。LLM 看见的仍是原问题。
+    # ⚠ 只加 label 不加 structure —— 后者是跨域通用的记录粒度模板, 加了会回归
+    # (evidence/failures/dm1_task5_attempt_1.md)。
+    domain_expand_enabled: bool = True
+
     # Hybrid BM25 (S2): lexical retrieval over the SAME indexed chunks (bm25s, pure
     # CPU arithmetic — no neural model), additively fused with dense cosine so
     # literal domain/relationship/variable-name hits that cosine buries re-float

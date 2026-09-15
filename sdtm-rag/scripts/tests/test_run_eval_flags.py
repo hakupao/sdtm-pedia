@@ -52,6 +52,8 @@ def captured(tmp_path, monkeypatch):
             self.rerank_enabled = kwargs["rerank_enabled"]
             # study 引擎不传这个 kwarg (S1 关着, 通道不可达), 故照搬真引擎的签名默认值
             self.domain_definition_seat = kwargs.get("domain_definition_seat", True)
+            # T5: 屏幕回执与 summary 都读引擎实收的这一项 (V-1 同纪律)
+            self.domain_expander = kwargs.get("domain_expander")
 
     class FakeRouter:
         model_list: list = []
@@ -403,6 +405,8 @@ def captured_federated(tmp_path, monkeypatch):
                 setattr(self, k, kwargs[k])
             # study 引擎不传这个 kwarg (S1 关着, 通道不可达), 故照搬真引擎的签名默认值
             self.domain_definition_seat = kwargs.get("domain_definition_seat", True)
+            # T5: 屏幕回执与 summary 都读引擎实收的这一项 (V-1 同纪律)
+            self.domain_expander = kwargs.get("domain_expander")
 
     monkeypatch.setattr(run_eval, "RAGEngine", FakeEngine)
     monkeypatch.setattr(run_eval, "FederatedEngine", lambda *a, **k: object())

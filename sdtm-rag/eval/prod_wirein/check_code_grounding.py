@@ -23,6 +23,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 from server.config import settings  # noqa: E402
+from server.domain_expand import build_expander  # noqa: E402
 from server.rag import RAGEngine  # noqa: E402
 
 CODE_RE = re.compile(r"\bC\d{4,6}\b")
@@ -92,6 +93,14 @@ def engine_kwargs_from_levers(levers: dict) -> dict:
         "hybrid_enabled": levers["hybrid"],
         "rerank_enabled": levers["rerank"],
         "query_expansion": levers["query_expansion"],
+        # T5 起才有的通道。缺键 = 那轮跑的时候它还不存在 = OFF (同 domain_definition_seat)。
+        # `settings.domain_expand_enabled` 默认 True, 不显式给 None 就会按老报告重建出一台
+        # 会扩写问句的引擎 ⇒ 稠密/BM25 查的不是当时那段文本, top5 与落盘的对不上。
+        # lever 落的是 bool, 引擎收的是对象 —— 造对象只在 True 分支发生 (本函数对老报告
+        # 保持零 IO)。
+        "domain_expander": (
+            build_expander(settings) if levers.get("domain_expand", False) else None
+        ),
     }
 
 

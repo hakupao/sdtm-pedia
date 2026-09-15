@@ -114,6 +114,7 @@ class RAGEngine:
         expansion_n_queries: int = 4,
         structured_lookup_enabled: bool = False,
         domain_definition_seat: bool = True,
+        domain_expander=None,
         hybrid_enabled: bool = False,
         hybrid_fusion: str = "rrf",
         hybrid_alpha: float = 0.5,
@@ -164,6 +165,10 @@ class RAGEngine:
         self.structured_lookup_enabled = structured_lookup_enabled
         # DM1 D2 kill switch: 域级问法的 assumptions 定义保底席 (见 _definition_chunk)。
         self.domain_definition_seat = domain_definition_seat
+        # DM1 D3: 域码确定性扩写器 (server/domain_expand.py)。None = 关。装配点在
+        # server/main.py 与 eval/run_eval.py —— 三台引擎 (cdisc / study cards / study docs)
+        # 共用**同一个**对象, 故这里只收不造。
+        self.domain_expander = domain_expander
         self._structured_lookup = None
         # 锚点 -> VARIABLE_INDEX section 全名; 首次用时从索引反建 (见 _vi_section_map)
         self._vi_sections: dict[str, str] | None = None
@@ -373,7 +378,12 @@ class RAGEngine:
         k = top_k or self.top_k
         where = self._build_where(domain, file_type)
 
-        # Embed the ORIGINAL query at most once and reuse the vector across the
+        # DM1 D3: 检索用文本 = 原句 + 问句里认出的域的正式名 (server/domain_expand.py)。
+        # **只有稠密/BM25 与它们共用的那个向量看它**: 下面 S1/S2 直查通道恒收 `query`,
+        # 因为它们的 resolve 是 token 级的, 追加的英文散文会凭空造出新的域/长名命中。
+        q_ret = self.domain_expander.expand(query) if self.domain_expander else query
+
+        # Embed the SEARCHED text (`q_ret`) at most once and reuse the vector across the
         # dense search and every S1 lookup search (each previously re-embedded the
         # identical query text — up to ~6 redundant OpenAI round-trips per call).
         # Skipped only on the pure-hyde path with no S1, where the original query is
@@ -383,16 +393,21 @@ class RAGEngine:
             or self._study_lookup is not None
             or self.query_expansion != "hyde"
         )
-        q_emb = self._embed_query(query) if need_q_emb else None
+        q_emb = self._embed_query(q_ret) if need_q_emb else None
 
         # T4 query expansion: rewrite the query, keep cosine ordering.
         if self.query_expansion == "multiquery":
             queries = self._expand_queries(query)
             # each sub-query retrieves a deeper slice so RRF has signal to fuse;
-            # the original query (queries[0]) reuses the precomputed embedding.
+            # the original query (queries[0]) is searched as `q_ret` and reuses the
+            # precomputed embedding — 向量与文本必须同源, 否则这一路是按原句的向量查而
+            # 标签说扩写开着 (静默不一致)。子查询由 LLM 从**原句**生成, 不扩写。
             per_q = max(k, 30)
             result_lists = [
-                self._search(q, per_q, where, query_embedding=(q_emb if q == query else None))
+                self._search(
+                    q_ret if q == query else q, per_q, where,
+                    query_embedding=(q_emb if q == query else None),
+                )
                 for q in queries
             ]
             cosine = self._rrf_fuse(result_lists, k)
@@ -405,7 +420,7 @@ class RAGEngine:
             hypo = self._hypothetical_doc(query)
             per_q = max(k, 30)
             lists = [
-                self._search(query, per_q, where, query_embedding=q_emb),
+                self._search(q_ret, per_q, where, query_embedding=q_emb),
                 self._search(hypo, per_q, where),
             ]
             cosine = self._rrf_fuse(lists, k)
@@ -415,15 +430,17 @@ class RAGEngine:
             # surfaces; fusion is additive so a chunk strong in BOTH is reinforced
             # (the structured spec chunks the literal-token questions need).
             pool = max(k, self.hybrid_pool)
-            dense = self._search(query, pool, where, query_embedding=q_emb)
-            bm25 = self._bm25_search(query, pool, where)
+            dense = self._search(q_ret, pool, where, query_embedding=q_emb)
+            bm25 = self._bm25_search(q_ret, pool, where)
             cosine = self._hybrid_fuse(dense, bm25, k)
         else:
             # Single-query path (+ optional T2 rerank). When rerank is on, pull a
             # wide candidate pool, then let the reranker pick k. Pool never < k.
             pool = max(self.rerank_candidates, k) if self.rerank_enabled else k
-            chunks = self._search(query, pool, where, query_embedding=q_emb)
+            chunks = self._search(q_ret, pool, where, query_embedding=q_emb)
             if self.rerank_enabled and chunks:
+                # rerank 是 cross-encoder 语义打分, 喂原句 —— 追加的域名对每个候选块
+                # 一视同仁, 只会稀释问句本身的意图。
                 cosine = self._rerank(query, chunks, k)
             else:
                 cosine = chunks[:k]
@@ -446,8 +463,10 @@ class RAGEngine:
         query-relevant chunk from each, prepend them, then fill with cosine results
         (de-duped) up to k. Lookup chunks go first so they cannot be crowded out;
         cosine ordering of everything else is preserved. No-op when resolve()=[].
-        `query_embedding` (the precomputed original-query vector) is reused for every
-        per-file lookup search so S1 adds no extra embedding round-trips."""
+        `query_embedding` (the precomputed vector of the text `retrieve` actually searched —
+        the DM1 D3 expanded query when that lever is on) is reused for every per-file lookup
+        search so S1 adds no extra embedding round-trips. ⚠ `query` itself stays the ORIGINAL
+        question: resolve() is token-based and must not see the appended domain names."""
         targets = self._structured_lookup.resolve(query)
         if not targets:
             return cosine[:k]

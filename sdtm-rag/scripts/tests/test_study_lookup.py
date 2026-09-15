@@ -471,6 +471,7 @@ def _retrieve_engine(query_expansion="none", cards=("stx__F__A.md",)):
     """retrieve() 走通 S2 分支所需的最小 RAGEngine 状态 (不建 Chroma / 不发 embedding)."""
     eng = rag_mod.RAGEngine.__new__(rag_mod.RAGEngine)
     eng._structured_lookup = None
+    eng.domain_expander = None   # DM1 D3 关: 本文件量的是 S2 注入契约, 不是扩写
     eng._study_lookup = SimpleNamespace(
         resolve=lambda q: StudyLookupResult(cards=list(cards), form_scopes=[])
     )

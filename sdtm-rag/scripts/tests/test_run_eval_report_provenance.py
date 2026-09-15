@@ -59,6 +59,8 @@ def report(tmp_path, monkeypatch):
             self.query_expansion = "hyde"
             # T4: 实收值刻意与注入值相反 (settings 默认 True), 钉住"记引擎不记 settings"
             self.domain_definition_seat = False
+            # T5: 同上, 实收值刻意与注入值相反 (settings 默认 True ⇒ 会注入一个对象)
+            self.domain_expander = None
 
     def _run(results: list[dict], extra_args: list[str] | None = None) -> dict:
         out = tmp_path / "report.json"
