@@ -51,7 +51,8 @@ mode=off                → attach=False, reason="forced_off"
 mode=on                 → attach=True,  reason="forced_on"
 mode=auto:
   domains = StructuredLookup._query_domains(question)   # D1 口径, 含小写/中日文锚定
-  scope   = 问句含研究范围词 (本研究|本試験|この試験|当試験|our study|this study|in our|本研究の|EDC)
+  scope   = 问句含研究范围词 (本研究|本試験|当試験|当研究|この試験|この研究|our study|this study|our trial|this trial|in (our|this) (study|trial|research))
+            # fix round 1: 裸 "EDC" / 裸代词 "in our" 已剔除 (纯 CDISC 定义题误触发); EDC 需搭配 study/trial/研究 锚定才算范围词
   domains 非空 且 scope → attach=True,  reason="auto:domain+scope"
   否则               → attach=False, reason="auto:no_match"
 ```

@@ -20,6 +20,8 @@ def test_auto_fires_on_domain_plus_scope(q):
 @pytest.mark.parametrize("q", [
     "DS 域有哪些变量？",                       # 域码但无范围词 (纯 CDISC 题)
     "What are the DSCAT values?",
+    "What is EDC in SDTM terms, relative to DS?",       # 裸 EDC 定义题, 不是范围问句
+    "Which DS variables are required in our dataset?",  # 代词+介词, 非 study/trial 锚定
 ])
 def test_auto_quiet_without_scope(q):
     d = decide_dossier(q, "auto", True, _qd_hit)
