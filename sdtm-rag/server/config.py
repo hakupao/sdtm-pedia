@@ -287,6 +287,21 @@ class Settings(BaseSettings):
     pdf_workflow_path: str = ""
     pdf_annotated_path: str = ""
 
+    # ── DM2 研读包旁路 (docs/superpowers/specs/2026-09-15-study-dossier-design.md) ──
+    # 域级映射题 (「本研究哪些数据进 X 域」) 触发时: 丢 study 侧 top-k, 把 PRT 白名单章原文 +
+    # 全 EDC 项目一览整段喂进上下文. 默认 **ON** (用户裁定 2026-09-15); 不触发的路径与
+    # 引入前逐字节相同 (test_router_dossier_wiring 钉). kill switch = 这一行.
+    dossier_enabled: bool = True
+    # PRT 章号白名单 (匹配 section_number 首段). 范围由 T2 token 计量 + 用户裁定
+    # (evidence/checkpoints/dm2_dossier_tokens.md). 改这里 = 改研读包 sha, 存档徽章会变.
+    dossier_prt_sections: list[str] = ["4", "5", "6", "7", "8", "9", "10", "11", "12"]
+    # 超限 = 启动报错, 不截断 (spec §3). 日文 ≈ 1 字 1 token, 这个上限就是 token 上限量级.
+    dossier_max_chars: int = 200_000
+    # 空 = 从 study_kb_root (cards/) 推导: docs = cards 的兄弟目录. 与 pdf_* 同一纪律,
+    # 显式给值可让 self-contained service dir 或测试 tmp 目录也能跑.
+    dossier_docs_dir_override: str = ""
+    dossier_cards_dir_override: str = ""
+
     # Server
     log_level: str = "INFO"
     # Loopback by default (DEPLOY_PLAN §1: 阶段 0–2 绑 127.0.0.1, zero exposure). The
@@ -381,6 +396,18 @@ class Settings(BaseSettings):
     def pdf_context_cache_dir(self) -> Path:
         # 描画済み PNG の置き場。data/study/ は .gitignore 配下 ⇒ 版本库に入らない。
         return _SDTM_RAG_ROOT / "data" / "study" / self.pdf_context_study_id / ".pdf_page_png"
+
+    @property
+    def dossier_docs_dir(self) -> Path:
+        if self.dossier_docs_dir_override:
+            return Path(self.dossier_docs_dir_override)
+        return Path(self.study_kb_root).parent / "docs"
+
+    @property
+    def dossier_cards_dir(self) -> Path:
+        if self.dossier_cards_dir_override:
+            return Path(self.dossier_cards_dir_override)
+        return Path(self.study_kb_root)
 
     @property
     def dogfood_log_path(self) -> Path:

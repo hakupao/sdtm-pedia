@@ -108,6 +108,22 @@ def maybe_build_pdf_context(s):
     return builder
 
 
+def maybe_build_dossier(s):
+    """DM2 研读包. OFF → None (一行不跑). ON 且目录缺 / 0 章 / 超 max_chars → **起动失败**:
+    静默 None 会得到「开了却一题都不挂」的无症状状态 (与 maybe_build_pdf_context 同一理由)."""
+    if not s.dossier_enabled:
+        return None
+    from server.study_dossier import DossierBuildError, build_dossier
+    docs, cards = s.dossier_docs_dir, s.dossier_cards_dir
+    if not docs.is_dir() or not cards.is_dir():
+        raise RuntimeError(f"dossier_enabled=true 但目录缺: docs={docs} cards={cards}")
+    try:
+        return build_dossier(docs, cards, sections=list(s.dossier_prt_sections),
+                             max_chars=s.dossier_max_chars)
+    except DossierBuildError as e:
+        raise RuntimeError(f"dossier_enabled=true 但构建失败: {e}") from e
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Read the ONE settings object the factory installed on app.state (create_app sets it
@@ -299,6 +315,11 @@ async def lifespan(app: FastAPI):
     if app.state.pdf_context is not None:
         log.info("pdf_context", max_pages=s.pdf_context_max_pages, dpi=s.pdf_context_dpi,
                  index=str(s.pdf_page_index_path))
+    # DM2 研读包 (默认 ON). 构建一次, 请求期只读.
+    app.state.dossier = maybe_build_dossier(s)
+    if app.state.dossier is not None:
+        d = app.state.dossier
+        log.info("dossier", sha=d.sha, chars=d.chars, sections=len(d.sections), items=d.n_items)
     app.state.spec_loader = SpecLoader(s.kb_root)
     log.info("spec_loader", domains=len(app.state.spec_loader.domains),
              codelists=len(app.state.spec_loader.codelists))
