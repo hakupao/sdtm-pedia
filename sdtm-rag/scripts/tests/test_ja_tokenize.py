@@ -84,6 +84,7 @@ def test_rag_applies_bigrams_on_both_index_and_query(monkeypatch):
     eng = rag_mod.RAGEngine.__new__(rag_mod.RAGEngine)
     eng.collection = _FakeCollection(["# 偽項目名 (FAKE5)"], ["c1"])
     eng.kb_root = __import__("pathlib").Path("/tmp")
+    eng.bm25_query_stopwords = True
     eng._bm25 = None
     eng._bm25_chunk_ids = []
     eng._bm25_chunk_meta = {}

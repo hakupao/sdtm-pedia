@@ -21,7 +21,22 @@ cd sdtm-rag
 | study v2 48q (gitignored) | 87.5% | 87.5% | [] | [] |
 | 映射 v1 8q (gitignored) | 10.0% | 20.0% | [] | dm01, dm02, dm06, dm07 |
 
-逐 task 中间闸 (均 worse=[]): t3 (D1) 140q 同; t4 (D2) 映射 10→20; t5 (D3, label-only) 三集同; t6 (D5) 三集同. 各 task 的 run JSON: `eval/runs/dm1_cdisc_t{3,4,5,6}.json` (CDISC 侧可提交), study/映射侧在 `data/study/st01/eval/runs/dm1_*_t{4,5,6}.json`.
+逐 task 中间闸 (均 worse=[]): t3 (D1) 140q 同; t4 (D2) 映射 10→20; t5 (D3, label-only) 三集同; t6 (D5) 三集同 —— t5/t6 的「三集同」只是回归判据 (worse=[]), 不是「D3/D5 无收益」的证据: recall 对组成盲, 真实收益见下「组成实验」一节. 各 task 的 run JSON: `eval/runs/dm1_cdisc_t{3,4,5,6}.json` (CDISC 侧可提交), study/映射侧在 `data/study/st01/eval/runs/dm1_*_t{4,5,6}.json`.
+
+140q 集实测并未真正触发 D1: `_ANCHORED_CODE_RE`+`_PREFIXED_CODE_RE` 在 140 题上确有 97 次原始 match, 但全部落在既有大写域码本身或普通英文词 (the/domains/which/...) 上, 没有一次改变 `_query_domains` 的最终域名识别结果 —— 旧口径 (`_QUERY_VAR_TOKEN_RE` 大写 token pass + 长名 pass) 与新口径 (`_query_domains`) 逐题完全相同, diff=0. 所以 140q 零回归**不证明** D1 安全; D1 的安全性只由 `_LOWER_CODE_BLOCKLIST` + 单元测试保证. 未阻断且是词典词的域码 17 个 (AE CE DA EX FA HO IE MI OE RE SE TA TD TE TI TU UR), 需与域词相邻才触发. 复跑: `.venv/bin/python eval/prod_wirein/dm1_d1_140q_probe.py`（输出: 140 questions, 正则原始命中 97 次, 旧/新域名识别不同的题数 0）.
+
+## 组成实验 (recall 看不见的收益)
+
+D3(域码扩写)/D5(BM25 查询侧泛词停用) 在三闸上「零回归」不等于「零收益」——recall 只看 gold 是否进 top-k, 看不见非 gold 席位被什么占据。对问句「本研究中，哪些数据适合进入 sdtm 的 ds domain？」逐 lever 累加, 按 chunk source 前缀分桶 (`domains/DS/` = DS-specific; `chapters/`或`model/` = IG overview; 其余 = other), 15 席构成:
+
+| arm | DS-specific | IG overview | other | assumptions 席位 |
+|---|---|---|---|---|
+| all OFF | 5 | 10 | 0 | 14 |
+| D2 seat only | 5 | 10 | 0 | 1,14 |
+| D2+D3 expand | 10 | 2 | 3 | 1,6,8 |
+| D2+D3+D5 (shipped) | 10 | 2 | 3 | 1,6,8,10 |
+
+复跑: `.venv/bin/python eval/prod_wirein/dm1_composition.py` (输出与上表逐格一致). 结论: D3+D5 把 IG overview 通论席位从 10 席砍到 2 席, DS-specific 席位 5→10, 域定义段 (assumptions.md) 多占一席 (10) —— 这是 recall 三闸完全测不出的收益, 只有组成层面能看见.
 
 ## 映射集逐题 (每题 gold = 1 定义段 + 4 张候选卡)
 

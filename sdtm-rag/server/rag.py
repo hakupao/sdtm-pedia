@@ -78,7 +78,7 @@ _STUDY_OID_RULES = (
 # pulled IG overview chapters ahead of anything DS-specific). Query side only:
 # the index is untouched, so this is a pure re-weighting of what the user typed.
 def _bm25_query_stopwords() -> tuple[str, ...]:
-    import bm25s  # lazy, same as the search path
+    import bm25s  # module-level call below runs this once at import, not lazily
 
     return tuple(bm25s.stopwords.STOPWORDS_EN) + (
         "sdtm", "sdtmig", "cdisc", "domain", "domains", "dataset", "datasets",
@@ -606,15 +606,21 @@ class RAGEngine:
                 include=["documents", "metadatas"],
             )
             if res["ids"]:
-                meta = res["metadatas"][0]
+                # 多条 chunk 共享同一 section (如多个 item_1) 时, 显式挑 chunk-id 数字后缀
+                # 最小的一条, 不依赖 Chroma `get()` 的返回顺序 (未文档化, 不可当契约).
+                idx = min(
+                    range(len(res["ids"])),
+                    key=lambda i: int(res["ids"][i].rsplit("#", 1)[1]),
+                )
+                meta = res["metadatas"][idx]
                 return RetrievedChunk(
-                    chunk_id=res["ids"][0],
+                    chunk_id=res["ids"][idx],
                     # 与 _search / _bm25_search 同口径: source 对外一律是 KB 相对路径。
                     # 漏掉这步, 本机绝对路径会漏进引用头 / API sources / 落盘报告。
                     source=self._relative_source(meta.get("source", abs_source)),
                     domain=meta.get("domain"), file_type=meta.get("file_type"),
                     section=meta.get("section"), similarity=1.0,
-                    text=res["documents"][0], via_lookup=True,
+                    text=res["documents"][idx], via_lookup=True,
                 )
         return None
 
@@ -842,7 +848,7 @@ class RAGEngine:
         # index 側と同一の変換 (片側だけだと日本語は恒に不一致)
         # DM1 D5: query 側だけ泛用语を stopword 化 (index はそのまま —— 上のコメント参照)。
         # レバー off なら bm25s の既定 english stopwords に退避 (T6 以前の挙動と一致)。
-        sw = _BM25_QUERY_STOPWORDS if getattr(self, "bm25_query_stopwords", True) else "english"
+        sw = _BM25_QUERY_STOPWORDS if self.bm25_query_stopwords else "english"
         query_tokens = bm25s.tokenize(
             cjk_bigrams(query_text), stopwords=sw, show_progress=False
         )

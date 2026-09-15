@@ -58,6 +58,21 @@ def test_definition_chunk_prefers_item_1():
     assert ch.chunk_id == "domains/DS/assumptions.md#1" and ch.via_lookup and ch.section == "item_1"
 
 
+def test_definition_chunk_picks_lowest_id_when_two_item_1_rows_reversed():
+    """终审修复: 同一 section 出现多条 chunk (如两条 item_1) 时必须显式挑 chunk-id 数字
+    后缀最小的一条, 不能依赖 Chroma `get()` 的返回顺序 —— 原实现直接取 `ids[0]`, 在返回
+    顺序颠倒时会选错。这里故意把 #2 排在 #1 前面。"""
+    rows = [
+        ("domains/DS/assumptions.md#2", "second item_1 row (should lose)",
+         {"source": ABS, "domain": "DS", "file_type": "assumptions", "section": "item_1"}),
+        ("domains/DS/assumptions.md#1", "first item_1 row (should win)",
+         {"source": ABS, "domain": "DS", "file_type": "assumptions", "section": "item_1"}),
+    ]
+    ch = _engine(rows)._definition_chunk("domains/DS/assumptions.md")
+    assert ch.chunk_id == "domains/DS/assumptions.md#1"
+    assert ch.text == "first item_1 row (should win)"
+
+
 def test_definition_chunk_falls_back_to_overview():
     ch = _engine(ROWS[:1])._definition_chunk("domains/DS/assumptions.md")
     assert ch.chunk_id == "domains/DS/assumptions.md#0"

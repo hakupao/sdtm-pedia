@@ -425,10 +425,14 @@ class TestAnchoredLowercaseCodes:
         "ds without any anchor word",        # no domain word and no sdtm/cdisc prefix at all
     ])
     def test_no_anchor_adjacent_to_code_does_not_resolve(self, lookup, q):
-        """Neither _ANCHORED_CODE_RE nor _PREFIXED_CODE_RE fires here (the code is
-        not immediately next to a domain word or an sdtm/cdisc prefix), so these
-        never reach the blocklist check at all — see TestLowercaseCodeBlocklist
-        below for tests that actually exercise the blocklist."""
+        """For the first two queries, _ANCHORED_CODE_RE actually DOES fire — but on
+        "the" (immediately adjacent to "dataset"/"domain"), not on "is"/"or"; "the"
+        is in _LOWER_CODE_BLOCKLIST so it never resolves to a domain. That means
+        these two only prove the blocklist rejects the wrong anchor word, not that
+        no regex fired — see TestLowercaseCodeBlocklist below for tests that
+        exercise the blocklist directly. Only the third query ("ds without any
+        anchor word") has no domain word adjacent to any candidate code, so
+        neither regex fires there at all."""
         assert not any(c in ("IS", "OR", "DS") for c in lookup._query_domains(q))
 
     def test_uppercase_behaviour_unchanged(self, lookup):

@@ -38,9 +38,9 @@ import yaml
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from server.config import settings  # noqa: E402
+from server.domain_expand import build_expander  # noqa: E402
 from server.federation import FederatedEngine  # noqa: E402
 from server.llm_config import create_router  # noqa: E402
-from server.domain_expand import build_expander
 from server.rag import RAGEngine  # noqa: E402
 
 TOP_K = 15

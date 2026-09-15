@@ -1,12 +1,11 @@
 """DM1 T1 (D6): /api/ask_stream must log question/corpus/chunk_ids, never the answer.
 
 没有这一行, dogfood ⚑ 的第一轮原句就永久丢失, 只能用重构句复现
-(evidence/checkpoints/dogfood_ds_dscont_2026-09-15.md)。
+(evidence/checkpoints/dogfood_ds_domain_2026-09-15.md)。
 """
 from types import SimpleNamespace
 
 import pytest
-import structlog
 from structlog.testing import capture_logs
 from fastapi import FastAPI
 from fastapi.testclient import TestClient

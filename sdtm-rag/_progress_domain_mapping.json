@@ -20,7 +20,7 @@
  },
  "gates": {
   "cdisc_v3_before": 0.9917,
-  "study_v2_before": 87.5,
+  "study_v2_before": 0.875,
   "mapping_v1_before": 0.1,
   "cdisc_v3_after": 0.9917,
   "study_v2_after": 0.875,
@@ -30,7 +30,7 @@
  },
  "decisions_pending": [
   "D4 domain->forms hand table (TRIGGERED: study milestone card recall 0%)",
-  "D3 domain_expand ship ON? (zero measured gain, zero regression)"
+  "D3/D5 ship ON — 组成实验证明有益 (IG overview 席位 10→2), recall 指标看不见; 默认开"
  ],
  "failures": [
   "evidence/failures/dm1_step0_attempt1.md",
