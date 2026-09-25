@@ -207,6 +207,24 @@ controller 独立复核: 4 题 facts 均为 assumptions 原文子串、卡片均
 
 ---
 
+## §0⁶ attempt 8 判据 (研读包 prompt cache 布局上线后 Opus 实跑; 跑前登记, 2026-09-25)
+
+> 本节在 attempt 8 **任何一次跑之前**、实现定稿 (`24ecca8` `5a3f9e7` + 前缀稳定回归测试) 之后单独 commit。spec `docs/superpowers/specs/2026-09-25-dossier-prompt-cache-design.md`。
+> 审查 (oh-my-claudecode:debugger): 无 BLOCKING; 前缀实测仅 1 种 (跨问题 / 语言 / history / 端点); deepseek 回退 wire 上 system 为字符串; gpt 无 cachePoint; kill switch 布局与 `3e5fb1c` 逐字节一致 (旧代码 git archive 重放验证)。
+
+**题 × 模型 = 6 × 1 (`opus-5`)**, 同 §0⁵ 题集与顺序 (dm09, dm10, dm11, dm12, dm05, dm07), `dossier:"on"`, 产物 `runs/dm2_e2e_attempt8/`。唯一变量 = 研读包位置 (user 消息 → system 末尾带断点) + 规则指代句。
+跑命令: `.venv/bin/python -u eval/prod_wirein/dm2_e2e_run.py --no-resume --yml test_set_domain_mapping_v1.yml,test_set_domain_mapping_v2_holdout.yml --qids dm09,dm10,dm11,dm12,dm05,dm07 --models opus-5 --out-subdir dm2_e2e_attempt8 --require-no-fallback --dossier on`
+
+**G0**: 同 §0⁵ (attached / 不回退 / grounding 非 null) + 跑前实测 `/api/info.dossier_prompt_cache == true`。
+**主判 (业务, 质量不得降)**: §0″+§0‴+§0⁗+§0⁵ + §0 常设裁定, 判最终轮答案, **目标 6/6** (= attempt 7)。未达 ⇒ `dossier_prompt_cache=False` 回滚旧布局 + 归档 `evidence/failures/dm2_task11_attempt_1.md`。
+**缓存判定 (机器, 只报不改业务判定, 但必须报)**:
+- 第 1 题 `cache_creation_input_tokens` ≈ 研读包 + system 规模 (>100K)。
+- 第 2-6 题: `cache_read_input_tokens > 100K`; **豁免**: 上一题 `wall_seconds > 280` (5m TTL 从请求开始计时, 可能已过期) 或本题 `fell_back=True` (deepseek 自身缓存会被读成 cache_read, 不算 Anthropic 命中)。非豁免的未命中 ≥1 ⇒ 缓存判定 FAIL (排查前缀), 不影响业务判定。
+- 成本口径: litellm `prompt_tokens` **已含** cache 读写; 相对成本按 `未命中部分×1 + 写入×1.25 + 读取×0.1` 计, 与 attempt 7 全价 `prompt_tokens` 比。
+**判分**: 异 subagent (未用过的 type), 只读 §0-§0⁶ + judge pack + NOTES + spec §7 (闸) / 本 spec; 不读 `judge_verdicts*.md` 与 §1-§4。
+
+---
+
 ## §0 常设裁定 (2026-09-25 起各轮沿用, 非某轮预登记)
 
 > attempt 6 (tracer) 与 attempt 7 (analyst) 两个异 type 判分方独立收敛到同一读法; 此后各轮直接沿用, 不再重议。改动须用户裁定并另起一节。

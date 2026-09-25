@@ -245,3 +245,19 @@ def test_usage_has_no_cache_keys_when_dossier_not_attached():
         app.state.llm_router = _CacheUsageRouter([("ans", "stop")], [_u(cw=0, cr=0)])
         assert _usage_of(c, ep, q=Q_CDISC) == {"prompt_tokens": 10, "completion_tokens": 5,
                                                "total_tokens": 15}, ep
+
+
+def test_system_prefix_identical_across_questions_languages_history_and_endpoints():
+    """审查 NB-7: 缓存能命中的前提是断点前字节完全一致。不同问题 / 答题语言 / 有无 history /
+    两端点下, messages[0] 必须只有一种 (语言行在 user 消息, 不得进 system)。"""
+    qs = [Q_MAP, "この試験のデータのうち DS に入るものは？",
+          "In our study, which collected items belong in DS?"]
+    hists = [[], [{"role": "user", "content": "earlier"}, {"role": "assistant", "content": "prev"}]]
+    seen = set()
+    for ep in ("/api/ask", "/api/ask_stream"):
+        for q in qs:
+            for h in hists:
+                c, app = _client(DOSSIER)
+                c.post(ep, json={"question": q, "history": h, "dossier": "on"})
+                seen.add(json.dumps(app.state.llm_router.messages[0], ensure_ascii=False))
+    assert len(seen) == 1
