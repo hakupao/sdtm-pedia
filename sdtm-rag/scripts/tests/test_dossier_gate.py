@@ -7,8 +7,14 @@ from __future__ import annotations
 import json
 
 from server.dossier_gate import (
-    HIRAGANA_JA_MIN, REGEN_BUDGET, GateRun, OidIndex, check_answer, load_sdtm_names,
-    observed_language, regenerate_feedback,
+    HIRAGANA_JA_MIN,
+    REGEN_BUDGET,
+    GateRun,
+    OidIndex,
+    check_answer,
+    load_sdtm_names,
+    observed_language,
+    regenerate_feedback,
 )
 from server.dossier_trigger import ANSWER_LANGUAGE_LINE
 
@@ -101,7 +107,7 @@ def test_single_letter_tokens_are_never_candidates():
 # ── G-LANG ─────────────────────────────────────────────────────────
 
 def test_language_ok_when_japanese_is_only_in_quoted_references():
-    labels = "\n".join(f"- `[表X FORM_X] これはひらがなのラベルです (ITEM_Y1)`" for _ in range(40))
+    labels = "\n".join("- `[表X FORM_X] これはひらがなのラベルです (ITEM_Y1)`" for _ in range(40))
     labels += "\n" + "\n".join("- [表X FORM_X] これはひらがなのラベルです (ITEM_Y2)" for _ in range(40))
     r = check_answer("These are the candidates:\n" + labels, Q_EN, IDX)
     assert r.lang_expected == "en" and r.lang_observed == "en" and r.ok

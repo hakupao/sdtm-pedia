@@ -2,6 +2,7 @@
 import { save, modelLabelById } from "./store.js";
 import { $ } from "./ui.js";
 import { pdfPagesSummary } from "./pdfpages.js";
+import { groundingFlagLine } from "./grounding.js";
 
 // server/router.py `FlagRequest.note` 的上限。**不是**截断而是 422 ⇒ 用户点了 ⚑ 却什么都
 // 没记下 (规则 B: backlog 是本项目最贵的数据)。
@@ -99,6 +100,10 @@ export function flagNote(note, msgObj) {
   if (summary) out = appendLine(out, `pdf_pages: ${summary}`);
   const dossier = dossierLine(msgObj && msgObj.dossier);
   if (dossier) out = appendLine(out, dossier);
+  // 研读包答案闸的结论 (过 / 重答后过 / 未过 + 原因): 读 backlog 的人要知道这条答案是否已被
+  // 确定性核验标过, 否则会把闸已经抓到的问题当成新发现。闸没跑时不发这一行。
+  const grounding = groundingFlagLine(msgObj && msgObj.grounding);
+  if (grounding) out = appendLine(out, grounding);
   return out;
 }
 

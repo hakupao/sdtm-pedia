@@ -80,7 +80,7 @@ class OidIndex:
             s for s in (_STEM_RE.match(o).group(0) for o in allo) if s))
 
     @classmethod
-    def from_catalog(cls, catalog_path: Path, kb_root: Path) -> "OidIndex":
+    def from_catalog(cls, catalog_path: Path, kb_root: Path) -> OidIndex:
         cat = json.loads(Path(catalog_path).read_text(encoding="utf-8"))
         names, domains = load_sdtm_names(kb_root)
         return cls(forms=frozenset(f["oid"] for f in cat["forms"]),

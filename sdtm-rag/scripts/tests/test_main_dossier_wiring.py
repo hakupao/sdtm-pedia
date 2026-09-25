@@ -59,3 +59,29 @@ def test_default_settings_have_dossier_on_with_s4_to_s12():
     s = Settings()
     assert s.dossier_enabled is True
     assert s.dossier_prt_sections == ["4", "5", "6", "7", "8", "9", "10", "11", "12"]
+
+
+# ── 研读包答案闸的 index (spec 2026-09-25 §2): 缺失/坏掉 → None, 闸不跑, 不拒启动 ──
+
+def test_gate_index_none_when_dossier_off(tmp_path):
+    s, _ = _fixture(tmp_path)
+    assert main_mod.maybe_build_dossier_gate_index(s, None) is None
+
+
+def test_gate_index_none_when_catalog_missing_or_broken(tmp_path):
+    s, cards = _fixture(tmp_path)
+    d = main_mod.maybe_build_dossier(s)
+    assert main_mod.maybe_build_dossier_gate_index(s, d) is None
+    (cards.parent / "catalog.json").write_text("{not json", encoding="utf-8")
+    assert main_mod.maybe_build_dossier_gate_index(s, d) is None
+
+
+def test_gate_index_built_from_catalog(tmp_path):
+    s, cards = _fixture(tmp_path)
+    (cards.parent / "catalog.json").write_text(json.dumps(
+        {"forms": [{"oid": "FORM_X"}], "items": [{"item_oid": "ITEM_Y1", "form_oid": "FORM_X"}]}),
+        encoding="utf-8")
+    d = main_mod.maybe_build_dossier(s)
+    idx = main_mod.maybe_build_dossier_gate_index(s, d)
+    assert idx is not None and idx.forms == {"FORM_X"} and idx.items == {"ITEM_Y1"}
+    assert "DSDECOD" in idx.sdtm_names   # 白名单来自真实 KB (s.kb_root)

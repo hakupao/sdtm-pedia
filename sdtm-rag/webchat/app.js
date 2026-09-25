@@ -8,6 +8,7 @@ import { renderSidebar, renderMessages, messageEl, finalizeBubble, appendErr, ap
 import { renderMarkdown } from "./js/markdown.js";
 import { streamAsk } from "./js/stream.js";
 import { renderDossierBadge } from "./js/dossier.js";
+import { renderGroundingBadge, regenerateDividerText } from "./js/grounding.js";
 import { $, initScrollFollow, initSettings, initSidebar, selectedCorpus, webEnabled,
          dossierMode, autoGrow } from "./js/ui.js";
 
@@ -97,6 +98,7 @@ async function runGeneration(c) {
   let gotPdfPages = null;
   let gotPdfTrigger = null;
   let gotDossier = null;
+  let gotGrounding = null;
   let saved = false;
   let savedMsg = null;
 
@@ -137,7 +139,9 @@ async function runGeneration(c) {
                  pdfPages: gotPdfPages, pdfTrigger: gotPdfTrigger,
                  // 第五次同一个坑 (DM2): 一条"整段吃了研读包"的答案与一条普通检索答案在
                  // 存档里必须长得不一样 —— 吃的是哪一版 (sha) 也只有这里记着。
-                 dossier: gotDossier };
+                 dossier: gotDossier,
+                 // 第六次: 研读包答案过没过确定性核验、重答过没有 (DM2 答案闸)。
+                 grounding: gotGrounding };
     c.messages.push(savedMsg);
     save(); renderSidebar(sidebarHandlers);
   };
@@ -159,6 +163,11 @@ async function runGeneration(c) {
       // 自动续写是服务端行为, 正文照旧从 token 事件流进同一个气泡 ⇒ 流中不画任何东西。
       // 留一条 debug 日志是为了排障时能看出"这条答案续写过", 而不是靠猜。
       onContinue: (d) => console.debug("auto-continue round", (d || {}).round),
+      // 研读包答案闸: 每轮一个结论, 只记日志; 徽章等 done 里的汇总 (first/final/regenerated) 再画。
+      onGrounding: (d) => console.debug("dossier grounding", d),
+      // 首轮答案已在屏上且收不回 ⇒ 插一条可见分隔线说明原因, 第二轮 token 接在线后面。
+      onRegenerate: (d) => { acc += regenerateDividerText(d); dirty = true;
+                             if (!rafId) rafId = requestAnimationFrame(paint); },
       onDone: (data) => {
         gotWebStatus = (data || {}).web_status; gotWebSearchesOk = (data || {}).web_searches_ok;
         // ?? 只在 null/undefined 时取右值, false 会原样保留 —— 与 renderModelBadge 的
@@ -180,10 +189,13 @@ async function runGeneration(c) {
         // `?? gotDossier` 而不是 `?? null`: 老后端的 done 事件没这个键, 塌成 null 会把
         // sources 事件里已经收到的那份抹掉 (前端先于 Python 重启上线是常态)。
         gotDossier = (data || {}).dossier ?? gotDossier;
+        // 研读包没挂时 done 里没有这个键 ⇒ null ⇒ 徽章不画。
+        gotGrounding = (data || {}).grounding ?? null;
         renderModelBadge(turn, gotModelId, gotVerified, gotModelsUsed, gotFellBack);
         renderContinuation(turn, gotContinueRounds, gotTruncated);
         renderPdfPages(turn, gotPdfPages, gotPdfTrigger);
         renderDossierBadge(turn, gotDossier);
+        renderGroundingBadge(turn, gotGrounding);
         const content = acc.trim() ? acc : "(无内容)"; renderFinal(content); persist(content);
       },
       onError: (msg) => { if (acc) { renderFinal(acc); persist(acc); } fail(msg); },

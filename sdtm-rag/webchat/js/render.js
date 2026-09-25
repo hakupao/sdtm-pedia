@@ -5,6 +5,7 @@ import { copyText, flash, armDelete, inlineRename, $ } from "./ui.js";
 import { flagButton } from "./flag.js";
 import { pdfAttachView } from "./pdfpages.js";
 import { renderDossierBadge } from "./dossier.js";
+import { renderGroundingBadge } from "./grounding.js";
 
 // Plan B 联邦: 库标签 (日文 UI)。map 里没有的值 (null / 未知) 一律不渲染徽章 —— 联邦关时零变化。
 const CORPUS_LABEL = { cdisc: "標準", study: "本研究", both: "両方" };
@@ -102,6 +103,8 @@ export function messageEl(m) {
     // 第五次 (DM2): 一条"整段吃了研读包"的答案与一条普通检索答案在存档里也必须长得不一样;
     // 手动关掉研读包这件事同理 —— 它是答案为何变薄的唯一线索。
     renderDossierBadge(turn, m.dossier);
+    // 第六次: 研读包答案过没过确定性核验 (重答过没有) 也必须活过刷新。
+    renderGroundingBadge(turn, m.grounding);
   }
   return turn;
 }

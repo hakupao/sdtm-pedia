@@ -139,6 +139,21 @@ def maybe_build_dossier(s):
     return d
 
 
+def maybe_build_dossier_gate_index(s, dossier):
+    """研读包答案闸的 OidIndex (spec 2026-09-25 §2). 研读包没开 → None. catalog 缺 / 坏 → 告警 + None:
+    闸只是加一道核验, 缺了它研读包答案照给 (router 那边 index=None ⇒ 闸不跑, grounding=null),
+    不值得为它拒启动 —— 与 maybe_build_dossier 的 fail-loud 不同, 后者缺了会给出有根据的错答."""
+    if dossier is None:
+        return None
+    catalog = s.dossier_cards_dir.parent / "catalog.json"
+    try:
+        from server.dossier_gate import OidIndex
+        return OidIndex.from_catalog(catalog, s.kb_root)
+    except Exception as e:  # noqa: BLE001 — 缺什么都是同一个结论: 闸不跑
+        log.warning("dossier_gate_index_unavailable", catalog=str(catalog), error=repr(e))
+        return None
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Read the ONE settings object the factory installed on app.state (create_app sets it
@@ -336,6 +351,11 @@ async def lifespan(app: FastAPI):
         d = app.state.dossier
         log.info("dossier", sha=d.sha, chars=d.chars, sections=len(d.sections), items=d.n_items,
                  cards_md=len(list(s.dossier_cards_dir.glob("*.md"))))
+    app.state.dossier_gate_index = maybe_build_dossier_gate_index(s, app.state.dossier)
+    if app.state.dossier_gate_index is not None:
+        gi = app.state.dossier_gate_index
+        log.info("dossier_gate_index", forms=len(gi.forms), items=len(gi.items),
+                 sdtm_names=len(gi.sdtm_names))
     app.state.spec_loader = SpecLoader(s.kb_root)
     log.info("spec_loader", domains=len(app.state.spec_loader.domains),
              codelists=len(app.state.spec_loader.codelists))

@@ -10,7 +10,8 @@ export function parseSSE(raw) {
 }
 
 export async function streamAsk({ question, history, corpus, web, model, dossier },
-                                { onSources, onToken, onToolCall, onToolResult, onContinue, onDone, onError, onClose, onAbort, signal }) {
+                                { onSources, onToken, onToolCall, onToolResult, onContinue, onGrounding, onRegenerate,
+                                  onDone, onError, onClose, onAbort, signal }) {
   let resp;
   try {
     const payload = { question, history, corpus, web, dossier };
@@ -45,6 +46,10 @@ export async function streamAsk({ question, history, corpus, web, model, dossier
     // 必须显式认下来 —— 落进 else 的话它不会出错, 但 SSE 契约闸 (后端事件 ⊆ 前端认得的)
     // 会红, 而那道闸正是防"两侧各自绿、拼起来不工作"的。
     else if (ev.event === "continue") onContinue?.(ev.data || {});
+    // DM2 研读包答案闸: 每轮一个 grounding (闸结论); 不过时再来一个 regenerate, 之后的 token
+    // 是第二轮答案, 照旧流进同一个气泡 (前端先插一条分隔线)。
+    else if (ev.event === "grounding") onGrounding?.(ev.data || {});
+    else if (ev.event === "regenerate") onRegenerate?.(ev.data || {});
     else if (ev.event === "done") { terminal = true; onDone(ev.data || {}); }
     else if (ev.event === "error") { terminal = true; onError(ev.data.message || "生成失败"); }
   };

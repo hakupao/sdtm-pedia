@@ -62,3 +62,32 @@ test("只声明两个形参的老回调逐字节不受影响", async () => {
     { onSources: (s, routed) => { got = { n: s.length, routed }; } });
   assert.deepEqual(got, { n: 1, routed: "both" });
 });
+
+test("研读包答案闸: grounding / regenerate 事件按序交给各自回调, token 照旧流", async () => {
+  const seen = [];
+  await runStream([
+    SOURCES_FRAME,
+    'event: token\ndata: {"text":"a"}\n\n',
+    'event: grounding\ndata: {"ok":false,"reasons":["r1"]}\n\n',
+    'event: regenerate\ndata: {"reasons":["r1"]}\n\n',
+    'event: token\ndata: {"text":"b"}\n\n',
+    'event: grounding\ndata: {"ok":true,"reasons":[]}\n\n',
+    DONE_FRAME,
+  ], {
+    onSources: () => {},
+    onToken: (t) => seen.push(`token:${t}`),
+    onGrounding: (d) => seen.push(`grounding:${d.ok}`),
+    onRegenerate: (d) => seen.push(`regenerate:${d.reasons[0]}`),
+    onDone: () => seen.push("done"),
+  });
+  assert.deepEqual(seen, ["token:a", "grounding:false", "regenerate:r1", "token:b",
+                          "grounding:true", "done"]);
+});
+
+test("老调用方不传 onGrounding / onRegenerate 也不抛", async () => {
+  let done = false;
+  await runStream([SOURCES_FRAME, 'event: regenerate\ndata: {}\n\n',
+                   'event: grounding\ndata: {}\n\n', DONE_FRAME],
+                  { onSources: () => {}, onDone: () => { done = true; } });
+  assert.equal(done, true);
+});
