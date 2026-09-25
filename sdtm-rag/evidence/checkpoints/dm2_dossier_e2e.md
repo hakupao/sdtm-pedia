@@ -234,7 +234,7 @@ NCI C 码 / 英文大写词 / 文件名, **6 份答案的差集中没有一个�
 代码基线 `19e6ea3` (`_DOSSIER_RULES` 与 `03096ad` 一字不差)。**G0 PASS**: 12/12 `attached=True`,
 12/12 `fell_back=False`, `models_used` 全为请求的 `global.anthropic.claude-{opus,sonnet}-5` (跑批脚本
 `--require-no-fallback` 闸输出 `# GATE no-fallback: PASS`; 判分方无法核 G0, judge pack 不含这两字段 —— 由跑批日志证)。
-判分 = 异 subagent (`oh-my-claudecode:critic` opus, 与 attempt 1/2 判分方不同 type), 只读 §0/§0′ + 两份 judge pack;
+判分 = 异 subagent (`oh-my-claudecode:critic` opus, 异 session; attempt 1/2 判分方的 subagent_type 未留档, 故不声称 type 相异), 只读 §0/§0′ + 两份 judge pack;
 逐 run 报告 + 扫描脚本在 gitignored `runs/dm2_e2e_claude/judge_verdicts.md`。
 
 | run | 模型 | ①′ | ②′ recall · 捏造 · precision | ③′ | 判定 |
