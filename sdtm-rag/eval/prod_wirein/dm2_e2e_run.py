@@ -77,6 +77,9 @@ def _one_call(base: str, question: str, model: str, dossier: str = "auto") -> di
     rec: dict = {"ok": False, "error": None, "http_status": None,
                  "sources_event": None, "answer": "", "done_event": None,
                  "error_event": None, "continue_events": [], "n_token_events": 0,
+                 # 研读包答案闸: 不过时服务端先流首轮、发 regenerate、再流第二轮。token 一路拼下去
+                 # 会把两轮粘成一篇交给判分 —— 首轮单独存 first_answer, answer 只装最终轮。
+                 "first_answer": None, "grounding_events": [], "regenerate_events": [],
                  "wall_seconds": None}
     t0 = time.monotonic()
     try:
@@ -95,6 +98,12 @@ def _one_call(base: str, question: str, model: str, dossier: str = "auto") -> di
                     rec["n_token_events"] += 1
                 elif ev == "continue":
                     rec["continue_events"].append(data)
+                elif ev == "grounding":
+                    rec["grounding_events"].append(data)
+                elif ev == "regenerate":
+                    rec["regenerate_events"].append(data)
+                    rec["first_answer"] = "".join(parts)
+                    parts = []
                 elif ev == "done":
                     rec["done_event"] = data
                 elif ev == "error":
@@ -213,6 +222,7 @@ def main() -> int:
                 "answer": last["answer"],
                 "done_event": last["done_event"],
                 "wall_seconds": last["wall_seconds"],
+                "first_answer": last["first_answer"],
                 # 额外留档 (规则 B): 失败的那次尝试原样保留, 不被成功的一次覆盖掉.
                 "question_id": qid,
                 "domain": q["domain"],
@@ -232,6 +242,7 @@ def _summary_line(qid: str, model: str, rec: dict) -> str:
            or (rec.get("sources_event") or {}).get("dossier") or {})
     done = rec.get("done_event") or {}
     usage = done.get("usage") or {}
+    grounding = done.get("grounding") or {}
     return (f"{qid} {model:9s} attached={dos.get('attached')} reason={dos.get('reason')} "
             f"model_used={done.get('model_used')} fell_back={done.get('fell_back')} "
             f"prompt_tokens={usage.get('prompt_tokens')} "
@@ -239,7 +250,9 @@ def _summary_line(qid: str, model: str, rec: dict) -> str:
             f"continue_rounds={done.get('continue_rounds')} "
             f"truncated={done.get('truncated')} "
             f"wall_seconds={rec.get('wall_seconds')} "
-            f"answer_chars={len(rec.get('answer') or '')}")
+            f"answer_chars={len(rec.get('answer') or '')} "
+            f"grounding_ok={(grounding.get('final') or {}).get('ok')} "
+            f"regenerated={grounding.get('regenerated')}")
 
 
 def _write_judge_pack(out_dir: Path, runs, questions: dict[str, dict]) -> None:
@@ -260,6 +273,8 @@ def _write_judge_pack(out_dir: Path, runs, questions: dict[str, dict]) -> None:
             "dossier_attached": ((rec.get("done_event") or {}).get("dossier") or {}).get("attached"),
             "fell_back": (rec.get("done_event") or {}).get("fell_back"),
             "models_used": (rec.get("done_event") or {}).get("models_used"),
+            # 研读包答案闸 {final, first, regenerated}; None = 闸没跑 / 老服务端.
+            "grounding": (rec.get("done_event") or {}).get("grounding"),
         })
     pack = {"runs": pack_runs, "item_list_text": item_list}
     p = out_dir / "judge_pack.json"
