@@ -2501,3 +2501,11 @@ deepseek/deepseek-chat (与生成方 opus-5 **不同模型族**, 避自偏好; �
 - **跑+判**: G0 12/12; 判分 verifier opus → opus 6/6 (④″(ii) 严口径 3/6), sonnet 4/6 (dm05 en→ja 语言 / dm07 precision 11.1%)。controller 字符统计复核语言判定属实。
 - 证据 §2.4; 归档 `evidence/failures/dm2_task9_attempt_4.md`; RETRO §2 更新。
 - **待裁**: ④″(ii) 口径 / sonnet 语言结构性修法 / 是否按模型恢复 auto / 泛化新题。
+
+### 2026-09-25 (续2) — DM2 attempt 5: 新留出 + 语言结构性修法 (opus 5/6 字面·6/6 宽 / sonnet 4/6)
+
+- 用户裁定: ④″(ii) 四形态不算自相矛盾 (opus attempt 4 = 6/6 成立); 下一步 = 新题泛化 + 语言修。
+- 盲出题 (异 agent, 未开 server/eval/evidence/runs): dm09 IE / dm10 MH / dm11 EX / dm12 PC 空域, gitignored `test_set_domain_mapping_v2_holdout{.yml,_NOTES.md}`; controller 复核 facts/卡片属实。
+- 语言行 `2868ba5` → 异 agent 审 (嵌入表单名误判 / fake 忽略 history / parts 形态) → `28f60c7` 加固 (去引号内、只认平仮名、漢字数>拉丁词数→zh; 12 道真题全判对)。⚠ 一次变异还原误用 `git checkout` 抹掉未提交改动, 已按原内容重写并全量复测 —— 以后变异还原只用备份文件。
+- 判据 §0‴ `d507936` (跑前); 跑 12 run G0 PASS; 判分 scientist opus → 字面 opus 5/6 · sonnet 4/6; controller 复核两处失败属实。2511 passed。
+- 证据 §2.5, 归档 `evidence/failures/dm2_task9_attempt_5.md`。

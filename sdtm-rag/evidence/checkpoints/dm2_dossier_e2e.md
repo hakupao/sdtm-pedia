@@ -373,6 +373,33 @@ NCI C 码 / 英文大写词 / 文件名, **6 份答案的差集中没有一个�
 - 归档: `evidence/failures/dm2_task9_attempt_4.md`。
 - **用户裁定 (2026-09-25)**: ④″(ii) 的四种形态**不算**自相矛盾 ⇒ attempt 4 **opus 6/6 成立**, sonnet 4/6; 本裁定自 §0‴ 起写入判据。
 
+### 2.5 attempt 5 — 新留出题 + 语言结构性修法, **字面口径 opus 5/6 · sonnet 4/6 ⇒ 按 §0‴ 目标 (每模型 6/6) 业务 FAIL** (2026-09-25)
+
+代码基线 `28f60c7` (规则句 `7b9bdd0` + 语言行 `2868ba5`/`28f60c7`), `dossier:"on"`。**G0 PASS** (判分方自核 12/12)。
+判分 = 异 subagent (`oh-my-claudecode:scientist` opus; 与 attempt 3 `critic` / attempt 4 `verifier` 不同 type), 只读 §0-§0‴ + judge pack + 出题 NOTES;
+逐 run 报告 + 4 个扫描脚本在 gitignored `runs/dm2_e2e_attempt5/judge_verdicts.md`。
+
+| run | opus-5 | sonnet-5 |
+|-----|--------|----------|
+| dm09 IE en 新留出 | **FAIL ③** (举例称某 token 为 EDC OID, 一览不存在; 其余 48+5 个 OID 全真) — 宽口径 PASS | PASS |
+| dm10 MH zh 新留出 | PASS | **FAIL ④** 4-5/20 > 阈值 2 (吸烟组以「弱候选」列出, SU 有标准变量) — 宽口径 PASS |
+| dm11 EX ja 新留出 | PASS | PASS |
+| dm12 PC en 新留出 (空域) | PASS (明写无候选, 零诱饵) | PASS |
+| dm05 AE en 回归 | PASS | **FAIL ①‴** (称 AE 无 `--CAT` 变量并引 spec 为据, 实有 AECAT) |
+| dm07 PR ja 回归 | PASS | PASS (④ 6-7/≈78, 余量 < 1 项) |
+
+| 模型 | 新留出 | 回归 | 字面 | 宽口径 |
+|------|--------|------|------|--------|
+| opus-5 | 3/4 | 2/2 | **5/6** | 6/6 |
+| sonnet-5 | 3/4 | 1/2 | **4/6** | 5/6 (dm05 任何口径 FAIL) |
+
+- **语言修法生效**: ⑦ 12/12 PASS; sonnet dm05 (attempt 3/4 两轮 en→ja) 本轮英文作答 —— controller 独立计数: 平假名 6 / 拉丁词 609。
+- **空域分支首次被检验**: dm12 两模型均明写无候选、诱饵 (检体/基因型类) 零误列。
+- **controller 非自洽复核**: ① opus dm09 IESPID 段内 OID 形 token 对一览全量大写 token 集合查 → 不存在, 属实; ② sonnet dm05 原文「No AECAT variable … case (c)」并引 spec 为据, 与 `knowledge_base/domains/AE/spec.md` 矛盾, 属实 (把「上下文未见」当「不存在」)。
+- **读法**: opus 唯一失败是示例值里 1 个错 OID (③ 全文作用域, 用户 §0″ 写死), 泛化维度首次有数据 = opus 新留出 3/4 (宽 4/4)。sonnet 的失败分散在三类 (形态误判 / 边缘候选 precision / precision 余量极小), 不是单一可修模式。
+- 判分方对判据意见 7 条 (示例值是否入核 / 「弱候选」三态 / ②③ 族简写口径不对称 / 同标准域竞争 / ①⑤ 真值源不一致 / 阈值区分力不均等) —— 本轮不改判。
+- 归档: `evidence/failures/dm2_task9_attempt_5.md`。
+
 ## §3 成本
 
 | qid | 请求 model id | attempt 1 prompt / completion | attempt 2 prompt / completion |
