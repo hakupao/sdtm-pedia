@@ -27,6 +27,7 @@
 - `/api/ask` (Streamlit): 同一编排, 只返回最终轮答案 + `grounding` 字段。
 - webchat: `grounding` 徽章 (过 / 重答后过 / 未过 + 原因); `flag.js` 存档行带 `grounding`。
 - 续写 (auto-continue) 与联网工具轮: 闸在**整轮答案拼好之后**跑, 不在分片上跑。
+- **重答失败 / 中断的口径 (实现后补, 2026-09-25 复审)**: 重答轮任何失败 (开流 / 流中途 / 工具轮; `/api/ask` 另有墙钟不足 `budget`) 或用户在重答中停止 / 断流时, 半截重答不作数, 答案**还原为未过闸的首轮**, `grounding = {final: 首轮判定, first: null, regenerated: false, regenerate_error: <异常类名 | "budget" | "interrupted">}`, 徽章琥珀色 (「重答失败 / 时间不足 / 重答中断」)。这份首轮**会进入后续对话的 history** —— 它是唯一可用的答案, 属**有意为之**; 警示随徽章与存档一起留下。中断情形由前端以最后一份 `grounding` 事件合成同形状 payload (形状由测试与后端 `GateRun.payload()` 对钉)。重答成功时首轮另存 `firstAnswer` (折叠展示), **不**进 history。
 
 ## §4 离线回放校准 (零 LLM, 实跑前必过)
 回放对象: gitignored `runs/dm2_e2e_{claude,attempt4,attempt5,attempt6}/judge_pack.json` 共 42 份已独立判分答案。
@@ -41,3 +42,9 @@
 
 ## §6 不做
 - 不改 `_DOSSIER_RULES`; 不改触发器; 不恢复 auto (恢复与否待本单元实测后由用户裁定)。
+
+## §7 已知限制 (实现后补)
+- 老存档 (本闸上线前后的首版 webchat) 里「首轮 + 分隔线 + 重答」拼在同一条 content 的消息会原样进 history, 不做迁移。
+- 闸假设 item OID 在全研究内唯一 (一览按 OID 集合比对)。换研究时若有跨表单复用, 启动一致性检查 (items 数 ≠ 研读包条数) 会关闭闸, `/api/info` 的 `dossier_gate=false` 可见 —— 换研究的 runbook 须检查这一项。
+- `/api/ask` 重答轮在 completion 之外仍有 502 路径: provider 返回结构异常 (如 `choices[0]` 缺失) 时走外层 502, 不还原首轮。
+- 漏报形态 (M3 纯字母近似单独 token / M5 表格单元格 / M6 粗体 / M10 表单 OID 加后缀)、词干规则对命名习惯敏感、G-LANG 把繁体中文判成 ja: 见 `server/dossier_gate.py` 模块 docstring。

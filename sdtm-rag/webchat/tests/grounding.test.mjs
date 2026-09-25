@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { groundingBadgeView, regenerateDividerLabel, groundingFlagLine, settleAnswer, historyFromMessages }
-  from "../js/grounding.js";
+import { groundingBadgeView, regenerateDividerLabel, groundingFlagLine, settleAnswer, historyFromMessages,
+         interruptedGrounding, GROUNDING_KEYS } from "../js/grounding.js";
 
 // ⛔ 只用虚构 OID。
 const OK = { ok: true, unknown_oids: [], lang_expected: "zh", lang_observed: "zh", reasons: [] };
@@ -70,24 +70,59 @@ test("分隔线标签带原因; 缺失/畸形也照画", () => {
   assert.ok(regenerateDividerLabel([1, null]).includes("原因未知"));
 });
 
-test("settleAnswer: 没重答 ⇒ content = acc, 无 firstAnswer", () => {
+test("settleAnswer: 没重答 ⇒ content = acc, 无 firstAnswer, grounding 原样", () => {
   assert.deepEqual(settleAnswer({ acc: "A", firstAnswer: null, grounding: null }),
-                   { content: "A", firstAnswer: null });
+                   { content: "A", firstAnswer: null, grounding: null });
+  // 没重答时被中断: 与本功能之前一样, 保留已生成部分
+  assert.deepEqual(settleAnswer({ acc: "A", firstAnswer: null, grounding: null, interrupted: true }),
+                   { content: "A", firstAnswer: null, grounding: null });
 });
 
 test("settleAnswer: 重答成功 ⇒ content = 最终轮, firstAnswer = 首轮", () => {
-  assert.deepEqual(settleAnswer({ acc: "B", firstAnswer: "A",
-                                  grounding: { final: OK, first: BAD, regenerated: true } }),
-                   { content: "B", firstAnswer: "A" });
+  const g = { final: OK, first: BAD, regenerated: true };
+  assert.deepEqual(settleAnswer({ acc: "B", firstAnswer: "A", grounding: g }),
+                   { content: "B", firstAnswer: "A", grounding: g });
 });
 
-test("settleAnswer: 重答失败 / 被中断 ⇒ 半截重答不作数, content 还原成首轮", () => {
-  assert.deepEqual(settleAnswer({ acc: "半截", firstAnswer: "A",
-                                  grounding: { final: BAD, first: null, regenerated: false,
-                                               regenerate_error: "RuntimeError" } }),
-                   { content: "A", firstAnswer: null });
-  assert.deepEqual(settleAnswer({ acc: "半截", firstAnswer: "A", grounding: null, interrupted: true }),
-                   { content: "A", firstAnswer: null });
+test("settleAnswer: 后端报重答失败 ⇒ 还原首轮 + 带上计数闸修正", () => {
+  const g = { final: BAD, first: null, regenerated: false, regenerate_error: "RuntimeError" };
+  assert.deepEqual(settleAnswer({ acc: "半截", firstAnswer: "A", grounding: g, correction: "〔修正〕" }),
+                   { content: "A〔修正〕", firstAnswer: null, grounding: g });
+  assert.deepEqual(settleAnswer({ acc: "半截", firstAnswer: "A", grounding: g }),
+                   { content: "A", firstAnswer: null, grounding: g });
+});
+
+test("settleAnswer: 重答中停止/断流 ⇒ 还原首轮, 合成「重答中断」判定 (不是「核验未运行」)", () => {
+  const r = settleAnswer({ acc: "半截", firstAnswer: "A", grounding: null, interrupted: true,
+                           lastVerdict: BAD });
+  assert.equal(r.content, "A");
+  assert.equal(r.firstAnswer, null);
+  assert.deepEqual(r.grounding, { final: BAD, first: null, regenerated: false,
+                                  regenerate_error: "interrupted" });
+  assert.deepEqual(groundingBadgeView(r.grounding, { attached: true }),
+                   { text: "⚠ 未过确定性核验 (重答中断): 一览中不存在的 OID 1 个: ITEM_Z9; 答题语言 ja ≠ 问句语言 zh",
+                     level: "warn" });
+});
+
+test("interruptedGrounding 的形状 = 后端 GateRun.payload() 的键 (Python 测试读 GROUNDING_KEYS 对钉)", () => {
+  assert.deepEqual(Object.keys(interruptedGrounding(BAD)).sort(), [...GROUNDING_KEYS].sort());
+  // 没收到过判定 (极端: regenerate 之前就断了) ⇒ final 为未知原因的未过, 仍不是「未运行」
+  assert.equal(groundingBadgeView(interruptedGrounding(null), { attached: true }).level, "warn");
+});
+
+test("语言未判 ⇒ 徽章加后缀", () => {
+  const f = { ...OK, lang_observed: null };
+  assert.equal(groundingBadgeView({ final: f, first: null, regenerated: false }).text,
+               "✓ 确定性核验通过（语言未判）");
+  assert.equal(groundingBadgeView({ final: { ...BAD, lang_observed: null, reasons: ["x"] },
+                                    first: null, regenerated: true }).text,
+               "⚠ 未过确定性核验 (已重答 1 次): x（语言未判）");
+});
+
+test("时间预算不足 ⇒ 说清楚没重答的原因", () => {
+  assert.equal(groundingBadgeView({ final: BAD, first: null, regenerated: false,
+                                    regenerate_error: "budget" }).text,
+               "⚠ 未过确定性核验 (时间不足, 未重答): 一览中不存在的 OID 1 个: ITEM_Z9; 答题语言 ja ≠ 问句语言 zh");
 });
 
 test("history 只取 content: 没过闸的首轮不进下一问的上下文", () => {

@@ -99,6 +99,8 @@ async function runGeneration(c) {
   let gotGrounding = null;
   let firstAnswer = null;    // 答案闸 regenerate 时的首轮原文 (acc 随后从空开始装最终轮)
   let regenReasons = null;
+  let lastVerdict = null;    // 最后一份 grounding 事件 (中断时合成「重答中断」判定用)
+  let countFix = "";         // done.counting_correction: 重答失败还原首轮时要拼回去的计数闸修正
   let saved = false;
   let savedMsg = null;
 
@@ -149,8 +151,13 @@ async function runGeneration(c) {
   };
   // 流结束时定下「这条消息的答案」: 重答失败 / 被中断 ⇒ 半截重答不作数, 还原首轮 (settleAnswer)。
   const settle = (interrupted) => {
-    const r = settleAnswer({ acc, firstAnswer, grounding: gotGrounding, interrupted });
+    const r = settleAnswer({ acc, firstAnswer, grounding: gotGrounding, interrupted, lastVerdict,
+                             correction: countFix });
     firstAnswer = r.firstAnswer;
+    if (r.grounding !== gotGrounding) {   // 重答中断: 未过核验的首轮以「重答中断」琥珀徽章存档
+      gotGrounding = r.grounding;
+      renderGroundingBadge(turn, gotGrounding, gotDossier);
+    }
     renderFirstAnswer(turn, firstAnswer, regenReasons);
     return r.content;
   };
@@ -172,8 +179,8 @@ async function runGeneration(c) {
       // 自动续写是服务端行为, 正文照旧从 token 事件流进同一个气泡 ⇒ 流中不画任何东西。
       // 留一条 debug 日志是为了排障时能看出"这条答案续写过", 而不是靠猜。
       onContinue: (d) => console.debug("auto-continue round", (d || {}).round),
-      // 研读包答案闸: 每轮一个结论, 只记日志; 徽章等 done 里的汇总 (first/final/regenerated) 再画。
-      onGrounding: (d) => console.debug("dossier grounding", d),
+      // 研读包答案闸: 每轮一个结论。记下最后一份 (重答中断时以它合成「重答中断」判定); 徽章等 done 汇总再画。
+      onGrounding: (d) => { lastVerdict = d; console.debug("dossier grounding", d); },
       // 首轮已流完且没过核验: 挪进折叠区 + 分隔线, 气泡从空开始接第二轮。
       onRegenerate: (d) => { firstAnswer = acc; regenReasons = (d || {}).reasons ?? null; acc = "";
                              renderFirstAnswer(turn, firstAnswer, regenReasons);
@@ -201,6 +208,7 @@ async function runGeneration(c) {
         gotDossier = (data || {}).dossier ?? gotDossier;
         // 研读包没挂时 done 里没有这个键 ⇒ null ⇒ 徽章不画。
         gotGrounding = (data || {}).grounding ?? null;
+        countFix = (data || {}).counting_correction ?? "";
         renderModelBadge(turn, gotModelId, gotVerified, gotModelsUsed, gotFellBack);
         renderContinuation(turn, gotContinueRounds, gotTruncated);
         renderPdfPages(turn, gotPdfPages, gotPdfTrigger);

@@ -23,18 +23,34 @@ export function groundingBadgeView(g, dossier) {
   const f = g.final;
   if (!f || typeof f !== "object" || Array.isArray(f)) return null;
   // 全等 true: 值经 JSON 往返 (localStorage / SSE) 到达, 字符串 "true" 不算过。
+  // 正文太短, 语言没判 (后端 lang_observed=null): 说出来, 否则「过」看起来包含了语言核验。
+  const langNote = f.lang_observed === null ? "（语言未判）" : "";
   if (f.ok === true) {
     if (g.regenerated === true) {
-      return { text: `✓ 重答后通过确定性核验 (首次未过: ${reasonsText(g.first)})`, level: "ok" };
+      return { text: `✓ 重答后通过确定性核验 (首次未过: ${reasonsText(g.first)})${langNote}`, level: "ok" };
     }
-    return { text: "✓ 确定性核验通过", level: "ok" };
+    return { text: `✓ 确定性核验通过${langNote}`, level: "ok" };
   }
   let note = "";
   if (g.regenerated === true) note = " (已重答 1 次)";
+  else if (g.regenerate_error === "interrupted") note = " (重答中断)";
+  else if (g.regenerate_error === "budget") note = " (时间不足, 未重答)";
   else if (typeof g.regenerate_error === "string" && g.regenerate_error) {
     note = ` (重答失败: ${g.regenerate_error})`;
   }
-  return { text: `⚠ 未过确定性核验${note}: ${reasonsText(f)}`, level: "warn" };
+  return { text: `⚠ 未过确定性核验${note}: ${reasonsText(f)}${langNote}`, level: "warn" };
+}
+
+// 后端 GateRun.payload() 的键 (重答失败时的完整形状)。前端中断时自己合成同形状的 grounding;
+// scripts/tests/test_router_dossier_gate.py 读这一行与后端对钉, 两边改一边就红。
+export const GROUNDING_KEYS = ["final", "first", "regenerated", "regenerate_error"];
+
+// 重答中途用户停止 / 断流: done 永远不来。首轮已判过 (grounding 事件), 以它为 final 合成与后端
+// 重答失败同形状的 payload —— 存档与徽章都得说「未过 + 重答中断」, 不能退成「核验未运行」。
+export function interruptedGrounding(lastVerdict) {
+  const final = lastVerdict && typeof lastVerdict === "object" && !Array.isArray(lastVerdict)
+    ? lastVerdict : { ok: false, reasons: ["首轮判定未收到"] };
+  return { final, first: null, regenerated: false, regenerate_error: "interrupted" };
 }
 
 // 首轮与最终轮之间那条可见分隔线的文字。首轮折叠在线上方 (render.js renderFirstAnswer)。
@@ -45,12 +61,22 @@ export function regenerateDividerLabel(reasons) {
 // 流结束时, 哪一篇算「这条消息的答案」(content, 也是下一问 history 唯一会带上的东西):
 //   没重答            → acc;
 //   重答完成          → acc (最终轮), 首轮另存 firstAnswer (折叠展示, 不进 history);
-//   重答失败 / 被中断 → 半截的重答不作数, content 还原成首轮 (与后端 regenerate_error 口径一致)。
-export function settleAnswer({ acc, firstAnswer, grounding, interrupted = false }) {
-  if (firstAnswer == null) return { content: acc, firstAnswer: null };
-  const failed = interrupted || (grounding && typeof grounding === "object"
-    && typeof grounding.regenerate_error === "string" && grounding.regenerate_error);
-  return failed ? { content: firstAnswer, firstAnswer: null } : { content: acc, firstAnswer };
+//   后端报重答失败    → 半截的重答不作数, content 还原成首轮 + 计数闸修正 (done.counting_correction);
+//   重答中停止 / 断流 → 同上还原首轮, grounding 用 interruptedGrounding(最后一份判定) 合成。
+// ⚠ 后两种里未过核验的首轮会进 history —— 它是唯一可用的答案, 带琥珀徽章, 属有意 (spec §3)。
+export function settleAnswer({ acc, firstAnswer, grounding, interrupted = false,
+                               lastVerdict = null, correction = "" }) {
+  if (firstAnswer == null) return { content: acc, firstAnswer: null, grounding };
+  const backendFailed = grounding && typeof grounding === "object"
+    && typeof grounding.regenerate_error === "string" && grounding.regenerate_error;
+  if (backendFailed) {
+    return { content: firstAnswer + (typeof correction === "string" ? correction : ""),
+             firstAnswer: null, grounding };
+  }
+  if (interrupted) {
+    return { content: firstAnswer, firstAnswer: null, grounding: interruptedGrounding(lastVerdict) };
+  }
+  return { content: acc, firstAnswer, grounding };
 }
 
 // 下一问的 history: 当前问题之前的消息, 只取 role + content —— firstAnswer (没过闸的首轮, 可能带
