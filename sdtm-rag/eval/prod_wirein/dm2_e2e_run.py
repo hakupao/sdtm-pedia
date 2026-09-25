@@ -162,14 +162,22 @@ def main() -> int:
                     help="任一 run fell_back 即 GATE FAIL (模型维度对比时必开)")
     # 生产 auto 挂载暂停期 (config.dossier_auto_attach=False) 测答题质量须显式 on; 触发器另有 L2 闸.
     ap.add_argument("--dossier", choices=("auto", "on"), default="auto")
+    # attempt 5: 留出题在另一份 yml (v2_holdout); 逗号分隔, 按顺序合并, 题号冲突即报错.
+    ap.add_argument("--yml", default="test_set_domain_mapping_v1.yml",
+                    help="eval/ 下的题集文件名, 逗号分隔")
     args = ap.parse_args()
     qids = tuple(q.strip() for q in args.qids.split(",") if q.strip())
 
     study_dir = Path(settings.study_kb_root).parent
-    yml = study_dir / "eval" / "test_set_domain_mapping_v1.yml"
     out_dir = study_dir / "eval" / "runs" / args.out_subdir
     out_dir.mkdir(parents=True, exist_ok=True)
-    questions = _load_questions(yml)
+    questions: dict[str, dict] = {}
+    for name in (n.strip() for n in args.yml.split(",") if n.strip()):
+        part = _load_questions(study_dir / "eval" / name)
+        dup = questions.keys() & part.keys()
+        if dup:
+            raise SystemExit(f"duplicate question ids across yml: {sorted(dup)}")
+        questions.update(part)
 
     runs: list[tuple[str, str, dict]] = []
     print(f"# dm2 e2e: {len(qids)}q x {len(MODELS)}model = {len(qids) * len(MODELS)} runs "

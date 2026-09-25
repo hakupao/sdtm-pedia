@@ -118,6 +118,43 @@ gold 卡 basename 与一览文本仅在 gitignored runs/ 目录, 判分 agent �
 
 ---
 
+## §0‴ attempt 5 判据 (新留出题泛化 + 语言结构性修法; 跑前登记, 2026-09-25)
+
+> 本节在 attempt 5 **任何一次跑之前**单独 commit。代码基线 = 规则句 `7b9bdd0` + 语言行 `2868ba5` (研读包挂上时在最后一条 user 消息末尾按问句文字种类追加确定语言行)。
+> 用户裁定 (2026-09-25): 下一步 = 新题泛化 + 语言修。
+
+**题 × 模型 = 6 × 2 = N=12**, `dossier:"on"`, 产物 `runs/dm2_e2e_attempt5/`:
+
+| 组 | id | 域 | 语言 | 类别轴形态 | 用途 |
+|----|----|----|------|-----------|------|
+| **新留出** | dm09 | IE | en (小写码) | `--CAT` 有 CT | 泛化 |
+| **新留出** | dm10 | MH | zh | `--CAT` 无 CT | 泛化 (独立性最弱: gold 与 v1 NOTES 的排除清单重合; 规则句修订方未读过该 NOTES) |
+| **新留出** | dm11 | EX | ja | `--CAT` 无 CT | 泛化 |
+| **新留出** | dm12 | PC | en | `--CAT` 无 CT; **本研究预期无数据** | 「候補なし」分支 |
+| 回归 | dm05 / dm07 | AE / PR | en / ja | — | attempt 4 sonnet 两个失败题 |
+
+留出题由**盲于实现**的异 agent 出 (未开 server/ / eval/*.py / evidence/ / runs/), 存 gitignored `data/study/st01/eval/test_set_domain_mapping_v2_holdout{.yml,_NOTES.md}`;
+controller 独立复核: 4 题 facts 均为 assumptions 原文子串、卡片均存在。
+跑命令: `.venv/bin/python -u eval/prod_wirein/dm2_e2e_run.py --no-resume --yml test_set_domain_mapping_v1.yml,test_set_domain_mapping_v2_holdout.yml --qids dm09,dm10,dm11,dm12,dm05,dm07 --out-subdir dm2_e2e_attempt5 --require-no-fallback --dossier on`
+
+**G0**: 同 §0″ (12/12 attached + `fell_back=False`, judge pack 字段自核)。
+
+**每 run PASS = §0″ ①″–⑦″ 全过, 附以下写死 (本轮起生效)**:
+- ①‴ 形态判定须与 `knowledge_base/domains/<域>/spec.md` 一致 (把 (b) 说成 (c) 或声称不存在实际存在的 `--CAT` = FAIL)。
+- ②‴ recall: gold 卡为 0 张的题 (dm12) recall 不适用; 该题 PASS 须**明写**本研究无该域候选 (「候補なし / no candidate」或等义句), 且**不得**把任何 EDC 项目列为该域候选 (列 ≥1 即 ④ FAIL)。
+- ②‴ dm09 附加: 须说明该域只记录**未满足**的入选/除外规准 (IE assumptions item 2 要点); 把全部规准 Y/N 当作逐条记录源而不说明此点 = FAIL。
+- ②‴ dm11: 「先入 EC 再导出 EX」与「直接入 EX」均接受。
+- ④‴(ii) **用户裁定写死**: 条目内「本体属他域 / 仅作派生源」注记、同句条件式二选一、排除条目内提 SUPP 方案、未点名 OID 的表单级短语 —— 四者**均不算**自相矛盾; 只有同一项目 OID 被无条件地既列为候选又列为不入本域才算。
+- ④‴(i) 有标准域的 topic/timing 变量可承载时, SUPP-- 不算「合理承载」(attempt 4 判分方解释, 本轮起写死); 阈值改为 **错归数 ≤ max(1, 10% × 分母)** (小分母过敏修正)。
+- ⑤‴ 真值源 = 该域 `spec.md` ∪ 该域 `assumptions.md` 原文点名的变量。
+- ⑦″ 不变 (固定标记、OID、SDTM 名、CT 值除外)。
+
+**目标 (预登记)**: 每个模型 **6/6** (新留出 4/4 + 回归 2/2), 两模型分列; 另报 attempt 4 那 12 份在 ①‴/④‴ 变更下是否翻转 (只报不改判)。
+**判分**: 异 subagent (规则 D, 与 attempt 3 `critic` / attempt 4 `verifier` 均不同 type), 只读 §0/§0′/§0″/§0‴ + judge pack + 留出题 NOTES, 不读任何 `judge_verdicts*.md` 与 §1-§4。
+**失败处置**: 未达目标 ⇒ 归档 `evidence/failures/dm2_task9_attempt_5.md`; auto 继续暂停; 下一步由用户裁定。达标 ⇒ 由用户裁定是否恢复 auto (及是否按模型区分)。
+
+---
+
 ## §1 运行记录
 
 两个 attempt 都跑满 6 次生产 `/api/ask_stream` (3 题 × 2 模型 id), 生产 = 本机 launchd
@@ -334,6 +371,7 @@ NCI C 码 / 英文大写词 / 文件名, **6 份答案的差集中没有一个�
 - **泛化维度缺席**: 6 题全部在 attempt 3 已见 (§0″ 预登记), opus 6/6 是 in-sample 修复验证。
 - 判分方另报: ①″ 未要求形态识别正确 (sonnet dm05 称 AE 无 `--CAT`, 实有 AECAT); gold 把生存转归项算 DS 候选与 IG 「生存状态入 SS」有张力, 建议复核该 gold 卡; 10% 阈值对小分母 (DM/PR 6-18) 过敏、对 AE (≈420) 几乎不触发; KB 内 PR assumptions 提到 PRSTAT 而 spec 无 (⑤″ 真值源内部不一致)。
 - 归档: `evidence/failures/dm2_task9_attempt_4.md`。
+- **用户裁定 (2026-09-25)**: ④″(ii) 的四种形态**不算**自相矛盾 ⇒ attempt 4 **opus 6/6 成立**, sonnet 4/6; 本裁定自 §0‴ 起写入判据。
 
 ## §3 成本
 
