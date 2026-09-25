@@ -7,11 +7,13 @@ spec: docs/superpowers/specs/2026-09-25-dossier-output-gate-design.md §4.
 跑 (从 sdtm-rag/):
   .venv/bin/python eval/prod_wirein/dm2_gate_replay.py
 
-⚠ 只打印数量与 attempt/qid/model/语言, **不打印 OID 本身** (输出可能被贴进提交的证据文件).
-  预期表同理只写数量, 不写 OID.
+⚠ 只打印数量、sha1(OID)[:8] 与 attempt/qid/model/语言, **不打印 OID 本身** (输出可能被贴进提交的
+  证据文件). 预期表同理只写 OID 的 sha1 前 8 位 —— 比的是**身份**, 不只是个数 (数对了但标错了
+  哪一个, 也是 FAIL).
 """
 from __future__ import annotations
 
+import hashlib
 import json
 import sys
 from pathlib import Path
@@ -27,11 +29,15 @@ ATTEMPT_DIRS = {"attempt3": "dm2_e2e_claude", "attempt4": "dm2_e2e_attempt4",
 N_EXPECTED = 42
 
 # spec §4: 未列出的 run 一律预期 0 个未知 OID、观测语言 = 问句语言 (假阳性 = 0).
-EXPECTED_UNKNOWN = {
-    ("attempt3", "dm07", "opus-5"): 1,    # 1 个项目 OID
-    ("attempt3", "dm07", "sonnet-5"): 3,  # 3 个表单 OID
-    ("attempt5", "dm09", "opus-5"): 1,    # 1 个示例 OID
+EXPECTED_UNKNOWN = {                   # sha1(oid)[:8] 集合
+    ("attempt3", "dm07", "opus-5"): {"794fb128"},                            # 1 个项目 OID
+    ("attempt3", "dm07", "sonnet-5"): {"175f5276", "8b2fb328", "b6731d36"},  # 3 个表单 OID
+    ("attempt5", "dm09", "opus-5"): {"3e68fca7"},                            # 1 个示例 OID
 }
+
+
+def _h(oid: str) -> str:
+    return hashlib.sha1(oid.encode("utf-8")).hexdigest()[:8]
 EXPECTED_LANG_DRIFT = {                   # (expected, observed)
     ("attempt3", "dm01", "opus-5"): ("zh", "ja"),
     ("attempt3", "dm05", "sonnet-5"): ("en", "ja"),
@@ -50,15 +56,18 @@ def main() -> int:
         for run in pack["runs"]:
             key = (attempt, run["qid"], run["model"])
             r = check_answer(run["answer"], run["question"], index)
-            exp_n = EXPECTED_UNKNOWN.get(key, 0)
+            exp_ids = EXPECTED_UNKNOWN.get(key, set())
+            got_ids = {_h(o) for o in r.unknown_oids}
             exp_lang = EXPECTED_LANG_DRIFT.get(key)
+            # 42 份正文都远超 MIN_BODY_CHARS: 回放里 G-LANG「不判」(None) 本身就是失败
             lang_ok = ((r.lang_expected, r.lang_observed) == exp_lang if exp_lang
                        else r.lang_observed == r.lang_expected)
-            ok = len(r.unknown_oids) == exp_n and lang_ok
+            ok = got_ids == exp_ids and len(got_ids) == len(r.unknown_oids) and lang_ok
             rows += 1
             fails += not ok
             print(f"{'PASS' if ok else 'FAIL'}  {attempt} {run['qid']} {run['model']:9s} "
-                  f"unknown_oids={len(r.unknown_oids)} (expect {exp_n})  "
+                  f"unknown_oids={len(r.unknown_oids)} {sorted(got_ids) or ''} "
+                  f"(expect {len(exp_ids)} {sorted(exp_ids) or ''})  "
                   f"lang={r.lang_expected}->{r.lang_observed}"
                   f" (expect {'->'.join(exp_lang) if exp_lang else 'match'})  gate_ok={r.ok}")
     if rows != N_EXPECTED:

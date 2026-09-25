@@ -7,7 +7,8 @@ from __future__ import annotations
 import json
 
 from server.dossier_gate import (
-    HIRAGANA_JA_MIN,
+    JA_HIRAGANA_RATIO,
+    MIN_BODY_CHARS,
     REGEN_BUDGET,
     GateRun,
     OidIndex,
@@ -104,35 +105,108 @@ def test_single_letter_tokens_are_never_candidates():
     assert _unk("[a FORM_X] x (Q)") == ()
 
 
+# ── 严格位不套宽白名单 (N2) / 误报形态 (N4) ─────────────────────────
+
+def test_sdtm_name_in_item_slot_is_a_fabrication():
+    # M1: 项目槽里写 SDTM 变量名 = 编了一个不存在的 EDC OID
+    assert _unk("- [表X FORM_X] 重症度 (AETERM) (推測)") == ("AETERM",)
+
+
+def test_truncated_family_prefix_in_item_slot_is_flagged():
+    # M2: 族前缀只在宽松位 (说「这一族」) 才放行, 槽里写半截 = 捏造
+    assert _unk("- [表X FORM_X] 登録日 (ITEM_Y) (推測)") == ("ITEM_Y",)
+
+
+def test_abbreviation_listed_with_real_oid_in_item_slot_is_not_flagged():
+    # F1
+    assert _unk("- [表X FORM_X] 感染 (ITEM_Y1, HIV) (推測)") == ()
+    assert _unk("- [表X FORM_X] 感染 (ITEM_Y1, ITEM_Y7) (推測)") == ("ITEM_Y7",)
+
+
+def test_single_segment_brackets_are_not_form_slots():
+    # F2: GitHub alert / 标签式方括号
+    assert _unk("> [!NOTE]\n> ITEM_Y1 is inferred (推測).") == ()
+    assert _unk("Mapping of ITEM_Y1 [TBD] (推測)") == ()
+    # 单段方括号里像 OID 的仍然计 (宽松位)
+    assert _unk("see [FORM_X9] for dates") == ("FORM_X9",)
+
+
+def test_prefixed_form_scan_skips_forms_that_are_domain_codes():
+    # F3: 表单 OID 恰是域码时, `<前缀>_AE` 说的是数据集
+    idx = OidIndex(forms=frozenset({"AE", "FX"}), items=frozenset({"ITEM_Y1"}),
+                   domains=frozenset({"AE"}), sdtm_names=frozenset({"AE"}))
+    assert check_answer("SDTM dataset RAW_AE is derived from form AE", Q_EN, idx).unknown_oids == ()
+    assert check_answer("form Z_FX holds the dates", Q_EN, idx).unknown_oids == ("Z_FX",)
+
+
+def test_item_slot_prefers_the_paren_with_a_real_oid_over_trailing_prose():
+    ans = "- [表X FORM_X] 詳細 (ITEM_Y1) — 標準変数ではないため **SUPPQUAL (QNAMX) の提案**"
+    assert _unk(ans) == ()
+
+
 # ── G-LANG ─────────────────────────────────────────────────────────
+
+EN = "This answer lists the candidate items for the target domain in plain English prose. " * 5
+ZH = "以下是本研究中适合进入该域的候选项目，均为推测，需要结合标准定义逐项确认。" * 6
+JA = "以下は本研究でこのドメインに入ると考えられる候補項目です。すべて推測であり、標準の定義と照合が必要です。" * 4
+
 
 def test_language_ok_when_japanese_is_only_in_quoted_references():
     labels = "\n".join("- `[表X FORM_X] これはひらがなのラベルです (ITEM_Y1)`" for _ in range(40))
     labels += "\n" + "\n".join("- [表X FORM_X] これはひらがなのラベルです (ITEM_Y2)" for _ in range(40))
-    r = check_answer("These are the candidates:\n" + labels, Q_EN, IDX)
+    r = check_answer(EN + "\n" + labels, Q_EN, IDX)
     assert r.lang_expected == "en" and r.lang_observed == "en" and r.ok
 
 
+def test_hiragana_in_corner_quotes_is_not_counted():
+    # MUT1: 英文答案里用「」引用日文原文 ⇒ 仍是 en
+    r = check_answer(EN + "「これはひらがなで書かれた引用です」" * 30, Q_EN, IDX)
+    assert r.lang_observed == "en" and r.ok
+
+
 def test_language_drift_is_flagged_with_reason():
-    ans = "これは日本語の答えです。" * 30
-    r = check_answer(ans, Q_ZH, IDX)
+    r = check_answer(JA, Q_ZH, IDX)
     assert (r.lang_expected, r.lang_observed, r.ok) == ("zh", "ja", False)
     assert any("ja" in x and "zh" in x for x in r.reasons)
 
 
-def test_hiragana_threshold_boundary():
-    assert HIRAGANA_JA_MIN == 100
-    assert observed_language("あ" * (HIRAGANA_JA_MIN - 1)) != "ja"
-    assert observed_language("あ" * HIRAGANA_JA_MIN) == "ja"
+def test_ratio_decides_ja_vs_zh_and_cjk_vs_latin_decides_en():
+    assert JA_HIRAGANA_RATIO == 0.2 and MIN_BODY_CHARS == 200
+    assert observed_language(JA) == "ja"
+    assert observed_language(ZH) == "zh"
+    assert observed_language(EN) == "en"
+    # 比例边界: 平仮名/(平仮名+漢字) 恰在阈值上 ⇒ ja, 低一点 ⇒ zh
+    assert observed_language("あ" * 60 + "漢" * 240) == "ja"
+    assert observed_language("あ" * 59 + "漢" * 241) == "zh"
 
 
-def test_kanji_vs_latin_words_decides_zh_vs_en():
-    assert observed_language("这是中文答案" * 5 + " some words") == "zh"
-    assert observed_language("Mostly English words here with 中文") == "en"
+def test_short_body_is_not_judged():
+    # F5: 合法的短日文答案 —— 样本太小, 不判 (而不是误判成 zh)
+    ans = "DS ドメインの候補は ITEM_Y1 です。これは同意の日付を記録する項目で、DSSTDTC に入ると考えられます (推測)。"
+    r = check_answer(ans, "本試験で DS ドメインに入るデータはどれですか？", IDX)
+    assert r.lang_observed is None and r.ok and r.to_dict()["lang_observed"] is None
+    assert observed_language("あ" * (MIN_BODY_CHARS - 1)) is None
+
+
+def test_table_cells_are_not_counted():
+    # F4: 英文答案, 表格里全是日文 label
+    rows = "\n".join("| ITEM_Y1 | これはひらがなのラベルです |" for _ in range(40))
+    r = check_answer(EN + "\n| OID | Label |\n|---|---|\n" + rows, Q_EN, IDX)
+    assert r.lang_observed == "en" and r.ok
+    # F6: 中文答案, 表格里全是 OID / 变量名
+    rows = "\n".join("| ITEM_Y1 ITEM_Y2 | AETERM AEDECOD | DSCAT | 严重 |" for _ in range(40))
+    r = check_answer(ZH + "\n" + rows, Q_ZH, IDX)
+    assert r.lang_observed == "zh" and r.ok
 
 
 def test_fixed_markers_are_not_counted():
-    assert observed_language("An English answer (推測) 候補なし / no candidate item in the EDC") == "en"
+    assert observed_language(EN + "(推測) 候補なし / no candidate item in the EDC " * 20) == "en"
+
+
+def test_empty_answer_never_passes():
+    for ans in ("", "   \n "):
+        r = check_answer(ans, Q_EN, IDX)
+        assert not r.ok and "答案为空" in r.reasons
 
 
 # ── GateResult / 反馈 / 编排 ─────────────────────────────────────────
