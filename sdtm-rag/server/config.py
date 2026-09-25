@@ -296,7 +296,8 @@ class Settings(BaseSettings):
     dossier_enabled: bool = True
     # auto 模式是否真挂. False = 命中也不挂 (reason "auto:paused"), 手动 on 照挂.
     # 2026-09-25 用户裁定暂停: DM2 attempt 3 生产默认模型 Claude 在预登记判据下未达标
-    # (evidence/checkpoints/dm2_dossier_e2e.md §2.3); attempt 4 达标后改回 True.
+    # (evidence/checkpoints/dm2_dossier_e2e.md §2.3); attempt 4 达标后改回 True,
+    # 并同步改 webchat/index.html #scope-dossier 所在 label 的 title (前端写死了「暂停」).
     dossier_auto_attach: bool = False
     # PRT 章号白名单 (匹配 section_number 首段). 范围由 T2 token 计量 + 用户裁定
     # (evidence/checkpoints/dm2_dossier_tokens.md). 改这里 = 改研读包 sha, 存档徽章会变.

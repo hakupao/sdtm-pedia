@@ -37,7 +37,8 @@ export function renderDossierBadge(turn, info) {
   if (!text) return;
   const el = document.createElement("div");
   el.className = "dossier-badge";
-  el.title = "本题跳过了 study 侧检索, 整段喂入 PRT 章节 + EDC 全项目一览";
+  // 只有真挂上时这句才是事实; paused / forced_off 时 study 侧检索照常走.
+  if (info && info.attached === true) el.title = "本题跳过了 study 侧检索, 整段喂入 PRT 章节 + EDC 全项目一览";
   el.textContent = text;
   // 挂在 .turn-meta 之后 (同 renderPdfPages): 说的是这条答案的证据成色, 与模型徽章同级。
   // 直接 appendChild 会让实时流 (工具条还没挂) 与历史重绘 (工具条已在) 的位置不一致。

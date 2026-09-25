@@ -360,3 +360,8 @@ def test_rule_pins_attempt4_patterns():
         assert phrase in appended, phrase
     for leak in ("DISPOSITION EVENT", "PROTOCOL MILESTONE", "OTHER EVENT", "OTHEVENT"):
         assert leak not in _DOSSIER_RULES, leak
+    # 模式级防泄漏: 规则里不得出现双字母域码 (CT 是缩写, 不是域) 或 DS 专属的事件措辞.
+    import re
+    assert set(re.findall(r"\b[A-Z]{2}\b", _DOSSIER_RULES)) <= {"CT"}
+    for leak in ("完了の定義", "中止規準", "status / date / reason"):
+        assert leak not in _DOSSIER_RULES, leak

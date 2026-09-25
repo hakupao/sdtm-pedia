@@ -107,6 +107,9 @@ gold 卡 basename 与一览文本仅在 gitignored runs/ 目录, 判分 agent �
 ⑥″ **标推測, 粒度 = 分组级**: 每个列候选的分组, 其**自身标题、首行或直接上级标题**带 推測 / inference 标记; 只在组尾总结句或开篇全局免责 = FAIL。
 ⑦″ **语言一致** (新增): 答案主体语言与问句语言一致 (zh→zh, ja→ja, en→en; OID / SDTM 名 / CT 值 / 原文引用除外); 不一致 = FAIL。
 
+**跑前补注 (审查意见, 仍在任何一次跑之前)**: ⑦″ 的除外清单另含规则句规定的固定标记 (「候補なし / no candidate…」、(推測)), 它们不计入语言判定; judge pack 中 G0 字段名为 `dossier_attached` / `fell_back` / `models_used`。
+规则句在 `f8523ad` 之后按审查意见再改一轮 (判分口吻改行为句 / CT 来源挪入 (a) / 推測粒度与 ⑥″ 对齐 / 去掉 DS 色彩的旧措辞), 本轮以最终 commit 为准。
+
 **目标 (预登记)**: 每个模型 **6/6** (全部 in-sample 修复验证, 标准从 §0′ 的 3/3 + ≥2/3 收紧), 两模型分列。
 **同尺子复判**: 判分方同时用 ①″–⑦″ 复判 attempt 3 的 12 份 Claude 答案 (`runs/dm2_e2e_claude/judge_pack.json`), 作为修订前基线; 不改 §2.3 历史判定。
 **判分**: 异 subagent (规则 D; 与 attempt 3 判分方不同 `subagent_type`), 只读本节 + §0/§0′ + 两份 judge pack, 不读任何 `judge_verdicts*.md` 与 §1-§4。
