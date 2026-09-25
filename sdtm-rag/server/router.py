@@ -277,6 +277,8 @@ class InfoResponse(BaseModel):
     # 研读包答案闸 (spec 2026-09-25) 是否可用: index 没建起来时研读包照挂、闸不跑 —— 这里是唯一
     # 不用读日志就能看出「闸没在跑」的出口。
     dossier_gate: bool = False
+    # 研读包 auto 挂载对哪些 selectable id 生效 (config.dossier_auto_attach_models)
+    dossier_auto_attach_models: list[str] = Field(default_factory=list)
 
 
 # ── Endpoints ────────────────────────────────────────────────────────────
@@ -309,6 +311,7 @@ def info(request: Request):
         index_freshness_reason=getattr(request.app.state, "index_freshness_reason", None),
         federation=getattr(request.app.state, "federation", None) is not None,
         dossier_gate=getattr(request.app.state, "dossier_gate_index", None) is not None,
+        dossier_auto_attach_models=list(s.dossier_auto_attach_models),
     )
 
 
@@ -375,9 +378,22 @@ def maybe_attach_pdf_pages(request: Request, question: str, chunks, messages):
     return [{"pdf": i.pdf, "page": i.page} for i in images], decision.rule
 
 
+def _auto_attach_allowed(s, model_id: str) -> bool:
+    """这次请求的答题模型是否在研读包 auto 名单 (config.dossier_auto_attach_models) 里。
+
+    按**解析后的模型串**判: selectable id → 其 `.model`; "default" → settings.default_model;
+    其余内部组 (hard/light …) 不在 selectable 表里 ⇒ False。这样 "default" 今天解析到 Opus 会挂,
+    将来 default_model 换成名单外模型就自动不挂 —— 名单不会随 default 的漂移静默扩大。
+    两端点共用 (经 maybe_attach_dossier)。"""
+    by_id = {m.id: m.model for m in s.selectable_models}
+    resolved = s.default_model if model_id == "default" else by_id.get(model_id)
+    allowed = {by_id[i] for i in s.dossier_auto_attach_models if i in by_id}
+    return resolved is not None and resolved in allowed
+
+
 def maybe_attach_dossier(request: Request, question: str, chunks, routed: str | None, mode: str,
                          *, domain: str | None = None, file_type: str | None = None,
-                         top_k: int | None = None):
+                         top_k: int | None = None, model: str = "default"):
     """DM2: 域级映射题触发时, 丢 study 侧 chunks, 返回研读包文本块供拼进 context.
 
     → (chunks, routed, dossier_block | None, dossier_info | None).
@@ -399,7 +415,7 @@ def maybe_attach_dossier(request: Request, question: str, chunks, routed: str | 
     query_domains = lookup._query_domains if lookup is not None else (lambda q: [])
     s = request.app.state.settings
     decision = decide_dossier(question, mode, s.dossier_enabled, query_domains,
-                              auto_attach=s.dossier_auto_attach)
+                              auto_attach=_auto_attach_allowed(s, model))
     info = {"attached": decision.attach, "reason": decision.reason,
             "domains": list(decision.domains), "sha": dossier.sha,
             "sections": list(dossier.sections), "chars": dossier.chars}
@@ -484,7 +500,7 @@ def ask(body: AskRequest, request: Request):
     # 步要模型先从标准枚举记录类别, 那条确定性事实通道不能被一个已经不成立的判断掐掉。
     chunks, routed, dossier_block, dossier_info = maybe_attach_dossier(
         request, body.question, chunks, routed, body.dossier,
-        domain=body.domain, file_type=body.file_type, top_k=body.top_k)
+        domain=body.domain, file_type=body.file_type, top_k=body.top_k, model=body.model)
 
     answerer = getattr(request.app.state, "answerer", None)
     if routed == "study":
@@ -741,7 +757,7 @@ async def ask_stream(body: AskStreamRequest, request: Request):
     # 步要模型先从标准枚举记录类别, 那条确定性事实通道不能被一个已经不成立的判断掐掉。
     chunks, routed, dossier_block, dossier_info = maybe_attach_dossier(
         request, body.question, chunks, routed, body.dossier,
-        domain=body.domain, file_type=body.file_type, top_k=body.top_k)
+        domain=body.domain, file_type=body.file_type, top_k=body.top_k, model=body.model)
 
     answerer = getattr(request.app.state, "answerer", None)
     if routed == "study":

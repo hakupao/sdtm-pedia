@@ -134,7 +134,14 @@ DOSSIER = StudyDossier(text="# 【本研究 研読パッケージ】 X", sha="ab
                        sections=("4.1",), n_items=1, study="st99", version="V")
 
 
+# 名单内 / 名单外模型的解析串: 用默认 selectable_models 里的真实映射, 让 "default" 的解析可控。
+OPUS = next(m.model for m in Settings().selectable_models if m.id == "opus-5")
+SONNET = next(m.model for m in Settings().selectable_models if m.id == "sonnet-5")
+
+
 def _client(dossier, enabled=None, auto_attach=True):
+    """auto_attach=True: default 组解析到 opus-5 且名单含 opus-5 (auto 会挂);
+    False: 名单为空 (全部暂停)。显式给 default_model, 不吃 .env。"""
     app = FastAPI()
     app.include_router(api_router)
     cd = _Cdisc()
@@ -143,7 +150,8 @@ def _client(dossier, enabled=None, auto_attach=True):
     app.state.llm_router = _Router()
     app.state.settings = Settings(
         dossier_enabled=(dossier is not None) if enabled is None else enabled,
-        dossier_auto_attach=auto_attach)
+        default_model=OPUS,
+        dossier_auto_attach_models=["opus-5"] if auto_attach else [])
     app.state.dossier = dossier
     app.state.pdf_context = None
     app.state.study_lookup = None
@@ -203,9 +211,58 @@ def test_auto_paused_leaves_messages_alone_but_on_still_attaches():
     assert on.json()["dossier"]["attached"] is True
 
 
-def test_default_settings_pause_auto_attach():
-    # 2026-09-25 用户裁定: 默认暂停 (DM2 attempt 3 Claude 未达标); 恢复 = 改 config 这一行.
-    assert Settings().dossier_auto_attach is False
+def test_default_settings_auto_attach_only_for_opus():
+    # 2026-09-25 用户裁定: auto 只对 Opus 恢复 (dm2_dossier_e2e.md §2.7, attempt 7 opus 6/6);
+    # 其他模型仍需手动「研读:开」. 扩展 = 往这张名单里加 selectable id.
+    assert Settings().dossier_auto_attach_models == ["opus-5"]
+    assert "dossier_auto_attach" not in Settings.model_fields   # 旧布尔开关已换成名单
+
+
+# ── auto 挂载按「解析后的模型串」判名单 ────────────────────────────────
+
+def test_auto_attach_allowed_resolves_default_and_selectable_ids():
+    from server.router import _auto_attach_allowed
+    s = Settings(default_model=OPUS, dossier_auto_attach_models=["opus-5"])
+    assert _auto_attach_allowed(s, "opus-5") is True
+    assert _auto_attach_allowed(s, "default") is True        # default 解析成名单内模型
+    assert _auto_attach_allowed(s, "sonnet-5") is False
+    assert _auto_attach_allowed(s, "hard") is False           # 内部组不在 selectable 表里
+    s2 = Settings(default_model=SONNET, dossier_auto_attach_models=["opus-5"])
+    assert _auto_attach_allowed(s2, "default") is False       # default 换了模型 ⇒ 不静默扩大
+    s3 = Settings(default_model=OPUS, dossier_auto_attach_models=[])
+    assert not any(_auto_attach_allowed(s3, m) for m in ("opus-5", "default", "sonnet-5"))
+
+
+def _post(c, ep, model, dossier="auto"):
+    body = {"question": Q_MAP, "history": [], "model": model, "dossier": dossier}
+    r = c.post(ep, json=body)
+    return r.json()["dossier"] if ep == "/api/ask" else _done(r.text)["dossier"]
+
+
+def test_endpoints_attach_only_for_listed_models():
+    for ep in ("/api/ask", "/api/ask_stream"):
+        c, app = _client(DOSSIER)
+        assert _post(c, ep, "opus-5")["attached"] is True
+        assert _post(c, ep, "default")["attached"] is True
+        off = _post(c, ep, "sonnet-5")
+        assert (off["attached"], off["reason"]) == (False, "auto:paused")
+        assert _post(c, ep, "sonnet-5", dossier="on")["attached"] is True   # 手动开照挂
+        app.state.settings = Settings(dossier_enabled=True, default_model=SONNET,
+                                      dossier_auto_attach_models=["opus-5"])
+        assert _post(c, ep, "default")["reason"] == "auto:paused"
+
+
+def test_empty_list_pauses_every_model():
+    c, app = _client(DOSSIER, auto_attach=False)
+    for m in ("opus-5", "default", "sonnet-5", "gpt-terra"):
+        assert _post(c, "/api/ask", m)["reason"] == "auto:paused", m
+
+
+def test_info_lists_auto_attach_models():
+    from scripts.tests.test_model_switching import _info_client
+    assert _info_client().get("/api/info").json()["dossier_auto_attach_models"] == ["opus-5"]
+    assert _info_client(dossier_auto_attach_models=[]).get(
+        "/api/info").json()["dossier_auto_attach_models"] == []
 
 
 def test_auto_no_match_reports_reason_and_leaves_messages_alone():

@@ -23,8 +23,9 @@ export function dossierBadgeText(info) {
     return `📖 研读包 · ${n} 章 · ${chars} 字 · ${info.reason || "?"} · ${info.sha || "?"}`;
   }
   if (info.reason === "forced_off") return "📖 研读包 · 已手动关闭";
-  // auto 挂载被总配置暂停, 但本题本会命中: 不说的话用户以为"研读包没认出这题"。
-  if (info.reason === "auto:paused") return "📖 研读包 · 自动挂载暂停中 (本题命中; 需要时选「研读:开」)";
+  // 本题命中, 但当前答题模型不在 auto 名单 (config.dossier_auto_attach_models; 今天只有 Opus):
+  // 不说的话用户以为"研读包没认出这题"。⚠ 不写「暂停」—— 换 Opus 就会自动挂, 不是全局暂停。
+  if (info.reason === "auto:paused") return "📖 研读包 · 当前模型未启用自动挂载（本题命中；需要时选「研读:开」）";
   return null;
 }
 
