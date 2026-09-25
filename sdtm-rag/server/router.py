@@ -341,7 +341,8 @@ def maybe_attach_dossier(request: Request, question: str, chunks, routed: str | 
     lookup = getattr(getattr(request.app.state, "rag", None), "_structured_lookup", None)
     query_domains = lookup._query_domains if lookup is not None else (lambda q: [])
     s = request.app.state.settings
-    decision = decide_dossier(question, mode, s.dossier_enabled, query_domains)
+    decision = decide_dossier(question, mode, s.dossier_enabled, query_domains,
+                              auto_attach=s.dossier_auto_attach)
     info = {"attached": decision.attach, "reason": decision.reason,
             "domains": list(decision.domains), "sha": dossier.sha,
             "sections": list(dossier.sections), "chars": dossier.chars}

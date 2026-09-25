@@ -80,3 +80,9 @@ test("两条机器附注逐行判断: 撑破上限的丢掉, 装得下的照留"
   const full = "y".repeat(1995);
   assert.equal(flagNote(full, msg), full);
 });
+
+test("auto 暂停且本题命中 ⇒ 说出来并指路手动开", () => {
+  assert.equal(dossierBadgeText({ attached: false, reason: "auto:paused", sha: "abc",
+                                  sections: [], chars: 0 }),
+               "📖 研读包 · 自动挂载暂停中 (本题命中; 需要时选「研读:开」)");
+});

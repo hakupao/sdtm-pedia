@@ -133,7 +133,7 @@ DOSSIER = StudyDossier(text="# 【本研究 研読パッケージ】 X", sha="ab
                        sections=("4.1",), n_items=1, study="st99", version="V")
 
 
-def _client(dossier, enabled=None):
+def _client(dossier, enabled=None, auto_attach=True):
     app = FastAPI()
     app.include_router(api_router)
     cd = _Cdisc()
@@ -141,7 +141,8 @@ def _client(dossier, enabled=None):
     app.state.federation = _Fed(cd)
     app.state.llm_router = _Router()
     app.state.settings = Settings(
-        dossier_enabled=(dossier is not None) if enabled is None else enabled)
+        dossier_enabled=(dossier is not None) if enabled is None else enabled,
+        dossier_auto_attach=auto_attach)
     app.state.dossier = dossier
     app.state.pdf_context = None
     app.state.study_lookup = None
@@ -188,6 +189,22 @@ def test_auto_attach_drops_study_chunks_and_adds_rule_once():
     assert msgs[0]["content"] == "SYS[both]" + _DOSSIER_RULES
     assert msgs[0]["content"].count(_DOSSIER_RULES) == 1
     assert msgs[-1]["content"] == f"CTX=FED:cdisc0,cdisc1\n\n{DOSSIER.text}\nQ={Q_MAP}"
+
+
+def test_auto_paused_leaves_messages_alone_but_on_still_attaches():
+    c, app = _client(DOSSIER, auto_attach=False)
+    r = c.post("/api/ask", json={"question": Q_MAP, "history": []})
+    assert r.json()["dossier"] == {"attached": False, "reason": "auto:paused", "domains": ["DS"],
+                                   "sha": "abc", "sections": ["4.1"], "chars": 17}
+    assert app.state.llm_router.messages[0]["content"] == "SYS[both]"
+    assert len(r.json()["sources"]) == 4
+    on = c.post("/api/ask", json={"question": Q_MAP, "history": [], "dossier": "on"})
+    assert on.json()["dossier"]["attached"] is True
+
+
+def test_default_settings_pause_auto_attach():
+    # 2026-09-25 用户裁定: 默认暂停 (DM2 attempt 3 Claude 未达标); 恢复 = 改 config 这一行.
+    assert Settings().dossier_auto_attach is False
 
 
 def test_auto_no_match_reports_reason_and_leaves_messages_alone():

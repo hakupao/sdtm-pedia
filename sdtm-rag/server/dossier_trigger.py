@@ -32,7 +32,8 @@ class DossierDecision:
 
 
 def decide_dossier(question: str, mode: DossierMode, enabled: bool,
-                   query_domains: Callable[[str], list[str]]) -> DossierDecision:
+                   query_domains: Callable[[str], list[str]],
+                   auto_attach: bool = True) -> DossierDecision:
     if not enabled:
         return DossierDecision(False, "disabled")
     if mode == "off":
@@ -44,5 +45,7 @@ def decide_dossier(question: str, mode: DossierMode, enabled: bool,
     except Exception:  # noqa: BLE001 — 识别炸了 = 不触发, 不是 500
         domains = ()
     if domains and _SCOPE_RE.search(question):
+        if not auto_attach:  # 命中但暂停: 报出来, 让用户知道可以手动 on
+            return DossierDecision(False, "auto:paused", domains)
         return DossierDecision(True, "auto:domain+scope", domains)
     return DossierDecision(False, "auto:no_match", domains)

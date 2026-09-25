@@ -44,3 +44,16 @@ def test_query_domains_exception_is_quiet_not_500():
     def boom(q): raise RuntimeError("x")
     d = decide_dossier("本研究 DS", "auto", True, boom)
     assert not d.attach and d.reason == "auto:no_match"
+
+# 2026-09-25 用户裁定: attempt 3 (Claude) 未达标期间暂停 auto 挂载, 手动 on 照挂.
+# 暂停时命中题报 auto:paused (前端据此提示「可手动开」), 未命中题仍是 auto:no_match.
+def test_auto_paused_reports_would_attach_but_does_not():
+    d = decide_dossier("本研究 DS", "auto", True, _qd_hit, auto_attach=False)
+    assert not d.attach and d.reason == "auto:paused" and d.domains == ("DS",)
+
+def test_auto_paused_leaves_no_match_as_no_match():
+    d = decide_dossier("DS 域有哪些变量？", "auto", True, _qd_hit, auto_attach=False)
+    assert not d.attach and d.reason == "auto:no_match"
+
+def test_auto_paused_does_not_block_forced_on():
+    assert decide_dossier("何でも", "on", True, _qd_none, auto_attach=False).attach

@@ -23,6 +23,8 @@ export function dossierBadgeText(info) {
     return `📖 研读包 · ${n} 章 · ${chars} 字 · ${info.reason || "?"} · ${info.sha || "?"}`;
   }
   if (info.reason === "forced_off") return "📖 研读包 · 已手动关闭";
+  // auto 挂载被总配置暂停, 但本题本会命中: 不说的话用户以为"研读包没认出这题"。
+  if (info.reason === "auto:paused") return "📖 研读包 · 自动挂载暂停中 (本题命中; 需要时选「研读:开」)";
   return null;
 }
 

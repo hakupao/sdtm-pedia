@@ -70,10 +70,10 @@ def _sse_events(resp: requests.Response):
             # 其余 SSE 字段 (id:/retry:/注释行) 本服务不发, 有意忽略
 
 
-def _one_call(base: str, question: str, model: str) -> dict:
+def _one_call(base: str, question: str, model: str, dossier: str = "auto") -> dict:
     """一次 /api/ask_stream. 返回本次尝试的完整记录; 网络/HTTP 失败也返回记录
     (ok=False) 而不抛 —— 上层要把两次尝试都存进证据里 (规则 B)."""
-    body = {"question": question, "history": [], "model": model, "dossier": "auto"}
+    body = {"question": question, "history": [], "model": model, "dossier": dossier}
     rec: dict = {"ok": False, "error": None, "http_status": None,
                  "sources_event": None, "answer": "", "done_event": None,
                  "error_event": None, "continue_events": [], "n_token_events": 0,
@@ -160,6 +160,8 @@ def main() -> int:
     ap.add_argument("--out-subdir", default="dm2_e2e", help="runs/ 下的产物目录名")
     ap.add_argument("--require-no-fallback", action="store_true",
                     help="任一 run fell_back 即 GATE FAIL (模型维度对比时必开)")
+    # 生产 auto 挂载暂停期 (config.dossier_auto_attach=False) 测答题质量须显式 on; 触发器另有 L2 闸.
+    ap.add_argument("--dossier", choices=("auto", "on"), default="auto")
     args = ap.parse_args()
     qids = tuple(q.strip() for q in args.qids.split(",") if q.strip())
 
@@ -182,12 +184,12 @@ def main() -> int:
                 print(_summary_line(qid, model, rec) + "  [resumed]", flush=True)
                 continue
             # 顺跑, 不并行: 生产有 per-IP 限流, 并行会把这批跑成"限流实验".
-            attempts = [_one_call(args.base, q["question"], model)]
+            attempts = [_one_call(args.base, q["question"], model, args.dossier)]
             if not attempts[0]["ok"]:
                 print(f"  !! {qid} {model} attempt 1 failed: {attempts[0]['error']}; "
                       f"retry once after {RETRY_SLEEP_S}s", flush=True)
                 time.sleep(RETRY_SLEEP_S)
-                attempts.append(_one_call(args.base, q["question"], model))
+                attempts.append(_one_call(args.base, q["question"], model, args.dossier))
             last = attempts[-1]
             rec = {
                 "question": q["question"],
