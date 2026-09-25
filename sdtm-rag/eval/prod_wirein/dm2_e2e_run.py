@@ -155,18 +155,24 @@ def main() -> int:
     # "跑批"与"判分"看的不是同一批答案. 要重采某一次, 删掉那个 json 再跑.
     ap.add_argument("--no-resume", action="store_true",
                     help="忽略已落盘的结果, 六次全部重打生产")
+    # attempt 3 (Claude 重跑 + 留出题) 用: 换题集/换产物目录, 不覆盖 attempt 2 的答案 (规则 B).
+    ap.add_argument("--qids", default=",".join(QIDS), help="逗号分隔题号")
+    ap.add_argument("--out-subdir", default="dm2_e2e", help="runs/ 下的产物目录名")
+    ap.add_argument("--require-no-fallback", action="store_true",
+                    help="任一 run fell_back 即 GATE FAIL (模型维度对比时必开)")
     args = ap.parse_args()
+    qids = tuple(q.strip() for q in args.qids.split(",") if q.strip())
 
     study_dir = Path(settings.study_kb_root).parent
     yml = study_dir / "eval" / "test_set_domain_mapping_v1.yml"
-    out_dir = study_dir / "eval" / "runs" / "dm2_e2e"
+    out_dir = study_dir / "eval" / "runs" / args.out_subdir
     out_dir.mkdir(parents=True, exist_ok=True)
     questions = _load_questions(yml)
 
     runs: list[tuple[str, str, dict]] = []
-    print(f"# dm2 e2e: {len(QIDS)}q x {len(MODELS)}model = {len(QIDS) * len(MODELS)} runs "
+    print(f"# dm2 e2e: {len(qids)}q x {len(MODELS)}model = {len(qids) * len(MODELS)} runs "
           f"(sequential; base={args.base})")
-    for qid in QIDS:
+    for qid in qids:
         q = questions[qid]
         for model in MODELS:
             dest = out_dir / f"{qid}_{model}.json"
@@ -201,7 +207,7 @@ def main() -> int:
             print(_summary_line(qid, model, rec), flush=True)
 
     _write_judge_pack(out_dir, runs, questions)
-    return _gate(runs, out_dir)
+    return _gate(runs, out_dir, require_no_fallback=args.require_no_fallback)
 
 
 def _summary_line(qid: str, model: str, rec: dict) -> str:
@@ -240,7 +246,7 @@ def _write_judge_pack(out_dir: Path, runs, questions: dict[str, dict]) -> None:
     print(f"# judge_pack: {p} ({len(pack_runs)} runs, item_list {len(item_list)} chars)")
 
 
-def _gate(runs, out_dir: Path) -> int:
+def _gate(runs, out_dir: Path, require_no_fallback: bool = False) -> int:
     attached = [f"{q}/{m}" for q, m, r in runs
                 if not (((r.get("done_event") or {}).get("dossier") or {}).get("attached"))]
     fell = [f"{q}/{m}" for q, m, r in runs if (r.get("done_event") or {}).get("fell_back")]
@@ -251,6 +257,14 @@ def _gate(runs, out_dir: Path) -> int:
     # fell_back / truncated 不静默重跑: 它们是要进报告的事实, 重跑会把它们洗掉.
     print(f"# fell_back: {fell or 'none'}   truncated: {trunc or 'none'}   retried: {retried or 'none'}")
     print(f"# runs dir: {out_dir}")
+    if require_no_fallback:
+        # fell_back 三态: None (未知) 也算不过 —— 对比要的是"确证没回退", 不是"没报回退".
+        unproven = [f"{q}/{m}" for q, m, r in runs
+                    if (r.get("done_event") or {}).get("fell_back") is not False]
+        print("# GATE no-fallback: " + ("PASS" if not unproven
+                                         else f"FAIL (fell_back not False: {', '.join(unproven)})"))
+        if unproven:
+            return 1
     return 0 if not attached else 1
 
 

@@ -33,6 +33,52 @@
 
 gold 卡 basename 与一览文本仅在 gitignored runs/ 目录, 判分 agent 读那里。
 
+## §0′ attempt 3 判据 (Claude 重跑 + 留出题; 跑前登记, 2026-09-25)
+
+> 本节在 attempt 3 **任何一次跑之前**单独 commit。起因: 2026-09-25 实测 Bedrock 恢复 Anthropic 访问
+> (复跑: `.venv/bin/python <probe>` 对 `bedrock/converse/global.anthropic.claude-{opus,sonnet}-5`
+> 各发 `max_tokens=5` 的 `ping`, 两者返回 `OK`; 旧 runbook 的 `grep -c "not allowed"` 只数历史日志, 不能作判据)。
+> **`_DOSSIER_RULES` 本轮一字不改** (commit `03096ad` 原样) —— 同时改规则与模型就不再是模型维度的对比。
+
+**题 × 模型 = 6 × 2 = N=12**, 产物 `runs/dm2_e2e_claude/` (attempt 2 答案目录不覆盖):
+
+| 组 | id | 域 | 类别轴形态 | 用途 |
+|----|----|----|-----------|------|
+| in-sample | dm01 / dm02 / dm05 | DS / DS / AE | DS `--CAT` 有 CT; AE 无 `--CAT` CT | 与 attempt 2 (deepseek) 同题可比 |
+| **留出** | dm03 | DS (en) | `--CAT` 有 CT | 规则句在未见过的问法上是否仍逐类穷举 |
+| **留出** | dm04 | DM | **无 `--CAT` 变量** | 无类别轴的域, ① 的空情形 |
+| **留出** | dm07 | PR | `--CAT` 存在但**无 CT** | 显式改轴 + 「候補なし」分支可能被触发 |
+
+跑命令: `.venv/bin/python -u eval/prod_wirein/dm2_e2e_run.py --no-resume --qids dm01,dm02,dm05,dm03,dm04,dm07 --out-subdir dm2_e2e_claude --require-no-fallback`
+
+**G0 前置闸 (判分之前, 机器判)**: 12 run 全部 `attached=True` 且 `fell_back is False` (三态, `None` 也不过)。
+不过 ⇒ 不判分, 事实原样留档 —— 回退的 run 不构成 Claude 结论。
+
+**每 run PASS = ①′②′③′ 全过** (在 §0 基础上收紧三处缺口, 措辞写死):
+
+①′ **定义齐** —— 按域形态三选一:
+  - (a) `--CAT` 有 CT: 该 CT 每个取值各有一个小标题, 缺一即 FAIL; 用 `--SCAT` / epoch / 时点 / codelist 名顶替某个取值 = 该取值缺失。
+  - (b) `--CAT` 存在但无 CT, 或 (c) 域无 `--CAT` 变量: 答案须**明说**「该域无受控 `--CAT` 取值」(或「无 `--CAT` 变量」) **且**点名它改用的分组轴; 未声明就自造类别 = FAIL。改哪条轴不设对错, 但须按域定义 (assumptions 首段) 讲得通, 判分方写一句理由。
+  - 三种形态下, 每个分组要么列候选, 要么明写「候補なし / no candidate」; 静默跳过 = FAIL。
+
+②′ **候选齐 + 零捏造 + 精度**:
+  - recall: gold 卡 ≥ 3/4 被点名 (表单 OID + 项目 OID 原样) —— 同 §0。
+  - 捏造: 点名的 EDC OID 全部在 `item_list_text` 中存在, 表单归属无错挂 —— 同 §0, 捏造 >0 即 FAIL。
+  - **precision (新增)**: 判分方对答案作为**该域候选**点名的项目逐条 (整表倒出时按表逐项) 判「明显错归」= 该项目内容由另一 SDTM 域的 topic 变量承载, 且目标域 (含 `SUPP--`) 无任何变量可合理承载。明显错归 / 点名候选总数 **≤ 10%**, 超出 = FAIL。明确标为「不入本域 / 排除 / 参照」的项目不计入分母。
+  - 判分方另报: 点名候选总数、明显错归数与 ≤5 条示例 (代称), 以及区间简写计数错误数 (**只报不判**)。
+
+③′ **标推测, 粒度写死为「分组级」**: 每个列候选的分组 (小标题 / 表格) 须在其标题或首行带 推測 / inference 标记; 只有开篇一句全局免责 = FAIL; 逐条内联标记为更强但**不是**必要条件 (与 attempt 2 判过的口径一致, 避免换尺子)。
+
+**目标 (预登记)**: 每个模型分开计 —— in-sample 3 题 ≥ 3/3 与留出 3 题 ≥ 2/3; 两模型分列, 不合并成一个比分。
+
+**同尺子复判 attempt 2**: 判分方同时用 ①′②′③′ 复判 attempt 2 的 6 份 deepseek 答案 (`judge_pack_attempt_2.json`),
+只作比较基线, 不改 §2.2 的历史判定。
+
+**判分**: 异 subagent (规则 D, 不同 `subagent_type`), 只读本节 + §0 + 两份 judge pack, **不读** `judge_verdicts_attempt_{1,2}.md`。
+逐 run 报告 (含真实 OID) 写 gitignored `runs/dm2_e2e_claude/judge_verdicts.md`; 摘要写 §2.3。
+
+**失败处置**: 未达目标 ⇒ 归档 `evidence/failures/dm2_task9_attempt_3.md`; 规则句修改另起 attempt 4, 不与本轮合并。
+
 ---
 
 ## §1 运行记录
