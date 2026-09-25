@@ -1,7 +1,7 @@
 # 进度看板
 
 > **唯一进度状态源**. 历史细节看 `.work/meta/worklog/INDEX.md`. 文件结构看 `.work/MANIFEST.md`. 一页纸入门看 `.work/AGENT_GUIDE.md`.
-> 最后更新: 2026-09-15 (**DM2 研读包旁路「整本喂」**: DM1 D4 裁定 → 域级映射题不再检索 study 侧, PRT s4-s12 原文 + EDC 全项目一览 (166563 字 / ≈134K tok cl100k 估计) 直挂上下文; 三态触发器 **默认 ON, 生产已 kickstart**; 140q 零触发 + 两集检索逐题零回归; L3 e2e attempt1 4/6 (类别轴混淆) → 规则句 pattern 级重写 → **attempt2 6/6 PASS, 捏造 0** ⚠ 六跑全 `fell_back` 到 deepseek, **不构成 Opus 5 / Sonnet 5 对比**, Claude 对比待 Bedrock 权限恢复后重跑; 上一条 DM1 见 worklog)
+> 最后更新: 2026-09-25 (**DM2 attempt 3 Claude 重跑 = 业务 FAIL**: Bedrock 恢复 Anthropic 访问, 12 run 全真未回退; 跑前登记 §0′ + 3 道留出题 → **opus 2/3·2/3, sonnet 1/3·1/3 均未达标** (sonnet 无 CT 域不声明换轴 / ja 问句第三个 DSCAT 值失守 / 捏造首次非零 2/12); 研读包仍默认 ON, attempt 4 规则句修订待用户裁定; 证据 `sdtm-rag/evidence/checkpoints/dm2_dossier_e2e.md` §2.3; 上一条 DM2 收口 2026-09-15 见 worklog)
 > 此前各阶段收口细节 (SP1-SP6 / AGG / 部署 / Chat UI 等): 见 `.work/meta/worklog/phase_07_rag_kg.md` 对应收口记录 (本行原 84K 单行巨段已于 restructure v3 剪除, 全文在 git 历史 `816c4a5^` 前的版本可查)
 
 ---
