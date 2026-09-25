@@ -114,7 +114,7 @@ _PDF_SOURCE_RULE = (
 # 「存在しない」と言い切れてしまう —— 付いた時だけが真。
 _DOSSIER_RULES = (
     "\n\n## Study dossier rules\n"
-    "- The context ends with 【本研究 研読パッケージ】: this study's protocol (PRT) chapters "
+    "- The system prompt ends with 【本研究 研読パッケージ】: this study's protocol (PRT) chapters "
     "verbatim (part A) and the COMPLETE list of EDC items (part B). Study-side retrieval was "
     "skipped on purpose: part B is exhaustive, so if an item is not there, it does not exist.\n"
     # (1) 曾无条件写"从【標準 CDISC】数"—— 但 federation 关 / CDISC 侧零命中时那个块根本
@@ -177,11 +177,39 @@ def _dossier_gate_run(request: Request, dossier_block: str | None, question: str
     return GateRun(index, question)
 
 
-def _attach_dossier_rules(messages: list[dict], question: str) -> None:
+# kill switch (dossier_prompt_cache=False) 的旧布局: 研读包在 context 末尾, 指代句随之回到旧措辞 ——
+# 回滚 = 逐字节回到 attempt 7 验过的 prompt (fixtures/dossier_attached_legacy_messages_golden.json)。
+_DOSSIER_RULES_IN_CONTEXT = _DOSSIER_RULES.replace(
+    "- The system prompt ends with 【本研究 研読パッケージ】",
+    "- The context ends with 【本研究 研読パッケージ】", 1)
+
+
+def _prompt_cache_capable(s, model_id: str) -> bool:
+    """请求的模型组解析后是不是 Anthropic 模型 —— 只有它才下 cache_control 断点。
+    gpt-* 走 bedrock converse, litellm 会把断点转成 cachePoint, 不支持缓存的模型会 400;
+    deepseek 只作为 Anthropic 主模型的回退出现, litellm 的 deepseek 转换自己把 list 拼回字符串。"""
+    from server.llm_config import _INTERNAL_GROUP_MODEL_FIELDS
+    by_id = {m.id: m.model for m in s.selectable_models}
+    field = _INTERNAL_GROUP_MODEL_FIELDS.get(model_id)
+    resolved = by_id.get(model_id) or (getattr(s, field) if field else None)
+    return bool(resolved) and "anthropic" in resolved
+
+
+def _attach_dossier_rules(messages: list[dict], question: str,
+                          dossier_text: str | None = None, cache_marker: bool = False) -> None:
     """研读包挂上时: system 追加规则句, 最后一条 user 消息追加确定的答题语言行。
+    dossier_text 给了 (prompt cache 布局) ⇒ 研读包接在规则后进 system 末尾; cache_marker ⇒ system
+    以单块 list 发送并带 ephemeral 断点 (前缀 = 整个 system, 同 corpus 跨问题 / 闸重答全命中)。
+    dossier_text=None ⇒ 旧布局 (研读包已在 context 里)。
     /api/ask 与 /api/ask_stream 共用 (两处各写一份 = 只修好一边)。"""
     from server.dossier_trigger import ANSWER_LANGUAGE_LINE, answer_language
-    messages[0]["content"] += _DOSSIER_RULES
+    if dossier_text is None:
+        messages[0]["content"] += _DOSSIER_RULES_IN_CONTEXT
+    else:
+        text = messages[0]["content"] + _DOSSIER_RULES + "\n\n" + dossier_text
+        messages[0]["content"] = ([{"type": "text", "text": text,
+                                    "cache_control": {"type": "ephemeral"}}]
+                                  if cache_marker else text)
     line = "\n\n" + ANSWER_LANGUAGE_LINE[answer_language(question)]
     last = messages[-1]
     if isinstance(last["content"], list):  # PDF 通道的多模态 parts: 接到首个 text part 上
@@ -279,6 +307,8 @@ class InfoResponse(BaseModel):
     dossier_gate: bool = False
     # 研读包 auto 挂载对哪些 selectable id 生效 (config.dossier_auto_attach_models)
     dossier_auto_attach_models: list[str] = Field(default_factory=list)
+    # 研读包 prompt cache 布局是否开 (config.dossier_prompt_cache; False = kill switch 旧布局)
+    dossier_prompt_cache: bool = False
 
 
 # ── Endpoints ────────────────────────────────────────────────────────────
@@ -312,6 +342,7 @@ def info(request: Request):
         federation=getattr(request.app.state, "federation", None) is not None,
         dossier_gate=getattr(request.app.state, "dossier_gate_index", None) is not None,
         dossier_auto_attach_models=list(s.dossier_auto_attach_models),
+        dossier_prompt_cache=s.dossier_prompt_cache,
     )
 
 
@@ -369,7 +400,12 @@ def maybe_attach_pdf_pages(request: Request, question: str, chunks, messages):
         return [], decision.rule
     last = messages[-1]
     last["content"] = [{"type": "text", "text": last["content"]}, *parts]
-    messages[0]["content"] += _PDF_SOURCE_RULE
+    if isinstance(messages[0]["content"], list):
+        # 研读包 prompt cache 布局: 另起一块、不带断点 —— 缓存前缀 (第一块) 附不附画面都同一。
+        # ⛔ 不能 `+=`: list 上 += str 会逐字符 extend。
+        messages[0]["content"].append({"type": "text", "text": _PDF_SOURCE_RULE})
+    else:
+        messages[0]["content"] += _PDF_SOURCE_RULE
     log.info("pdf_context_attached", rule=decision.rule, pages=len(images),
              selected=len(selection.pages), folded=len(selection.folded),
              truncated=selection.truncated, reason=decision.reason)
@@ -515,7 +551,10 @@ def ask(body: AskRequest, request: Request):
     context = engine.format_context(chunks)
     if fed is not None and not context:
         context = _NO_CONTEXT
-    if dossier_block:
+    # prompt cache 布局 (默认) 下研读包进 system 末尾, context 只留检索结果 (CDISC 侧为空时如实是
+    # _NO_CONTEXT); kill switch 关时回到旧布局: 研读包接在 context 末尾。
+    dossier_in_system = bool(dossier_block) and s.dossier_prompt_cache
+    if dossier_block and not dossier_in_system:
         context = (dossier_block if (not context or context == _NO_CONTEXT)
                    else context + "\n\n" + dossier_block)
     if facts is not None:
@@ -529,7 +568,9 @@ def ask(body: AskRequest, request: Request):
     else:
         messages = rag.build_messages(body.question, context, history_dicts or None)
     if dossier_block:
-        _attach_dossier_rules(messages, body.question)
+        _attach_dossier_rules(messages, body.question,
+                              dossier_block if dossier_in_system else None,
+                              cache_marker=dossier_in_system and _prompt_cache_capable(s, body.model))
     pdf_pages, pdf_trigger = maybe_attach_pdf_pages(request, body.question, chunks_for_pdf, messages)
 
     # 输出触顶自动续写 (2026-09-08)。⚠ 这里是**第二份**实现: /api/ask 走同步
@@ -772,7 +813,10 @@ async def ask_stream(body: AskStreamRequest, request: Request):
     context = engine.format_context(chunks)
     if fed is not None and not context:
         context = _NO_CONTEXT
-    if dossier_block:
+    # prompt cache 布局 (默认) 下研读包进 system 末尾, context 只留检索结果 (CDISC 侧为空时如实是
+    # _NO_CONTEXT); kill switch 关时回到旧布局: 研读包接在 context 末尾。
+    dossier_in_system = bool(dossier_block) and s.dossier_prompt_cache
+    if dossier_block and not dossier_in_system:
         context = (dossier_block if (not context or context == _NO_CONTEXT)
                    else context + "\n\n" + dossier_block)
     if facts is not None:
@@ -786,7 +830,9 @@ async def ask_stream(body: AskStreamRequest, request: Request):
     else:
         messages = rag.build_messages(body.question, context, history_dicts or None)
     if dossier_block:
-        _attach_dossier_rules(messages, body.question)
+        _attach_dossier_rules(messages, body.question,
+                              dossier_block if dossier_in_system else None,
+                              cache_marker=dossier_in_system and _prompt_cache_capable(s, body.model))
     pdf_pages, pdf_trigger = maybe_attach_pdf_pages(request, body.question, chunks_for_pdf, messages)
     sources = [
         {"chunk_id": c.chunk_id, "source": c.source, "domain": c.domain,

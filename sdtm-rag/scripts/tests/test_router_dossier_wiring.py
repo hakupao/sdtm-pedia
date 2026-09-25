@@ -1,6 +1,7 @@
 """DM2 T5: 接线守两方向 (与 test_pdf_context_wiring 同构):
   ① app.state.dossier is None (总闸 OFF) → messages / sources / done 与引入前逐字节同, dossier 字段 null
-  ② 挂上时: study chunks 从 sources 消失, routed=both, context 含包头, system 多且只多一条规则句,
+  ② 挂上时: study chunks 从 sources 消失, routed=both, system 多且只多一条规则句 + 末尾研读包
+     (prompt cache 布局; 旧布局 context 含包头 见 test_router_dossier_prompt_cache 的 kill switch golden),
      done/sources/AskResponse 的 dossier.attached=True; auto 未命中时 attached=False 带 reason
 
 Fix round 1 追加的 4 条不变量 (每条都是"改坏了测试才会红"的形状, 不是复述实现):
@@ -159,6 +160,12 @@ def _client(dossier, enabled=None, auto_attach=True):
     return TestClient(app), app
 
 
+def _system_text(msgs):
+    """prompt cache 布局 (默认) 下挂上研读包时 system 是单块 list; 取其正文。"""
+    c = msgs[0]["content"]
+    return c if isinstance(c, str) else "".join(b["text"] for b in c)
+
+
 def _done(text):
     return json.loads(text.split("event: done\ndata: ")[1].split("\n\n")[0])
 
@@ -195,9 +202,10 @@ def test_auto_attach_drops_study_chunks_and_adds_rule_once():
                               "sha": "abc", "sections": ["4.1"], "chars": 17}
     assert _done(t)["dossier"]["attached"] is True
     msgs = app.state.llm_router.messages
-    assert msgs[0]["content"] == "SYS[both]" + _DOSSIER_RULES
-    assert msgs[0]["content"].count(_DOSSIER_RULES) == 1
-    assert msgs[-1]["content"] == f"CTX=FED:cdisc0,cdisc1\n\n{DOSSIER.text}\nQ={Q_MAP}\n\n" + ANSWER_LANGUAGE_LINE["zh"]
+    # 研读包在 system 末尾 (prompt cache 布局), user 消息不再含它
+    assert _system_text(msgs) == "SYS[both]" + _DOSSIER_RULES + "\n\n" + DOSSIER.text
+    assert _system_text(msgs).count(_DOSSIER_RULES) == 1
+    assert msgs[-1]["content"] == f"CTX=FED:cdisc0,cdisc1\nQ={Q_MAP}\n\n" + ANSWER_LANGUAGE_LINE["zh"]
 
 
 def test_auto_paused_leaves_messages_alone_but_on_still_attaches():
@@ -381,8 +389,8 @@ def test_attaches_on_the_single_corpus_path_too():
     assert r.json()["routed_corpus"] is None
     assert r.json()["dossier"]["attached"] is True
     msgs = app.state.llm_router.messages
-    assert msgs[0]["content"] == "SYS" + _DOSSIER_RULES
-    assert msgs[-1]["content"] == f"CTX=CD:cdisc0,cdisc1\n\n{DOSSIER.text}\nQ={Q_MAP}\n\n" + ANSWER_LANGUAGE_LINE["zh"]
+    assert _system_text(msgs) == "SYS" + _DOSSIER_RULES + "\n\n" + DOSSIER.text
+    assert msgs[-1]["content"] == f"CTX=CD:cdisc0,cdisc1\nQ={Q_MAP}\n\n" + ANSWER_LANGUAGE_LINE["zh"]
 
 
 # ── T9 attempt 2: 规则句的内容不变量 ─────────────────────────────────────
@@ -398,8 +406,8 @@ def test_rule_pins_category_axis_and_no_candidate_wording():
     """
     c, app = _client(DOSSIER)
     c.post("/api/ask", json={"question": Q_MAP, "history": []})
-    appended = app.state.llm_router.messages[0]["content"]
-    assert appended.endswith(_DOSSIER_RULES)
+    appended = _system_text(app.state.llm_router.messages)
+    assert appended.endswith(_DOSSIER_RULES + "\n\n" + DOSSIER.text)
     assert "--CAT" in appended
     assert "no candidate" in appended
 
@@ -410,8 +418,8 @@ def test_rule_pins_attempt4_patterns():
     的文本上 (同上一条的理由); 另钉规则里不得出现具体 CT 取值 —— 那是题面级修法的信号。"""
     c, app = _client(DOSSIER)
     c.post("/api/ask", json={"question": Q_MAP, "history": [], "dossier": "on"})
-    appended = app.state.llm_router.messages[0]["content"]
-    assert appended.endswith(_DOSSIER_RULES)
+    appended = _system_text(app.state.llm_router.messages)
+    assert appended.endswith(_DOSSIER_RULES + "\n\n" + DOSSIER.text)
     for phrase in ("without controlled terminology", "has no `--CAT` variable",
                    "exact uppercase CT string", "anywhere in the answer",
                    "language of the question", "SUPPQUAL QNAM proposal",

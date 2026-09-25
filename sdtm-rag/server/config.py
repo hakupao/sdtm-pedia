@@ -307,6 +307,10 @@ class Settings(BaseSettings):
     # webchat/index.html #scope-dossier 所在 label 的 title (写死了「Claude Opus 5 下自动挂载」)
     # 与 webchat/js/dossier.js 的 auto:paused 徽章.
     dossier_auto_attach_models: list[str] = ["opus-5"]
+    # 研读包 prompt cache (spec 2026-09-25-dossier-prompt-cache-design.md): 挂上时研读包移进
+    # system 末尾 + 一个 ephemeral 断点 (仅 Anthropic 模型), user 消息不再含研读包.
+    # kill switch: False = 逐字节回到旧布局 (研读包在 context, system 为字符串, 无断点).
+    dossier_prompt_cache: bool = True
     # PRT 章号白名单 (匹配 section_number 首段). 范围由 T2 token 计量 + 用户裁定
     # (evidence/checkpoints/dm2_dossier_tokens.md). 改这里 = 改研读包 sha, 存档徽章会变.
     dossier_prt_sections: list[str] = ["4", "5", "6", "7", "8", "9", "10", "11", "12"]
