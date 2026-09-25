@@ -2493,3 +2493,11 @@ deepseek/deepseek-chat (与生成方 opus-5 **不同模型族**, 避自偏好; �
 - **判** (critic opus, 规则 D, 同尺子复判 deepseek 基线 5/6): opus 2/3·2/3, sonnet 1/3·1/3 **均未达标**。controller 非自洽复核捏造 4/4 属实、sonnet 无 CAT 声明 0 次属实。判分方列 9 条判据缺口 (CT 值意译 / 捏造作用域 / precision 无判别力等), 本轮不改判。
 - 证据 `sdtm-rag/evidence/checkpoints/dm2_dossier_e2e.md` §0′/§2.3/§3; 归档 `sdtm-rag/evidence/failures/dm2_task9_attempt_3.md`; RETRO §2 更新。
 - **下一步**: attempt 4 (规则句 pattern 级修订 + §0″ 判据跑前写死) 待用户裁定; T11 prompt cache 现可做。
+
+### 2026-09-25 (续) — DM2 研读包 auto 暂停 + attempt 4 (opus 6/6 主判 / sonnet 4/6, 仍 FAIL)
+
+- **用户裁定**: attempt 4 + 暂改默认。`5bd233a` 新增 `dossier_auto_attach` (默认 False): auto 命中报 `auto:paused` 不挂, 手动 on 照挂, webchat 命中时徽章提示; 已 kickstart, 生产实测 auto→`auto:paused` / on→`forced_on`。⚠ Streamlit 不发 `dossier` 字段且无手动入口 ⇒ 该端研读包实际关闭 (有意接受)。
+- **跑前**: §0″ 判据 `b3b85c8` (CT 原文 / 捏造全文 / precision 重定义 / SDTM 变量 / 语言一致, 目标每模型 6/6); 规则句 `f8523ad` → 异 agent 审 (pr-review-toolkit:code-reviewer, 0 BLOCKING, 4 组变异全红) → 意见落地 `7b9bdd0` (含去 DS 色彩旧措辞 + 模式级防泄漏闸)。2498 passed。
+- **跑+判**: G0 12/12; 判分 verifier opus → opus 6/6 (④″(ii) 严口径 3/6), sonnet 4/6 (dm05 en→ja 语言 / dm07 precision 11.1%)。controller 字符统计复核语言判定属实。
+- 证据 §2.4; 归档 `evidence/failures/dm2_task9_attempt_4.md`; RETRO §2 更新。
+- **待裁**: ④″(ii) 口径 / sonnet 语言结构性修法 / 是否按模型恢复 auto / 泛化新题。

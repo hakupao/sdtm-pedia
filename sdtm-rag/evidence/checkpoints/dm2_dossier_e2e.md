@@ -310,6 +310,31 @@ NCI C 码 / 英文大写词 / 文件名, **6 份答案的差集中没有一个�
 - **观察项**: 答题语言与问句不一致 2/12 (opus dm01 zh→ja, sonnet dm05 en→ja); sonnet 虚构 SDTM 变量 `AETESTCD` 且把 CTCAE grade 对到 AESEV —— 判据无条款约束 SDTM 侧正确性。
 - 归档: `evidence/failures/dm2_task9_attempt_3.md` (规则 B)。
 
+### 2.4 attempt 4 — 规则句修订后, **opus 6/6 (主判) / sonnet 4/6 ⇒ 按 §0″ 目标 (每模型 6/6) 业务 FAIL** (2026-09-25)
+
+代码基线 `7b9bdd0` (规则句 = `f8523ad` + 审查意见修订), `dossier:"on"`。**G0 PASS** (判分方从 judge pack 自核: 12/12 `dossier_attached=True`, `fell_back=False`, `models_used` 为 Claude 串)。
+判分 = 异 subagent (`oh-my-claudecode:verifier` opus, 与 attempt 3 判分方 `critic` 不同 type), 只读 §0/§0′/§0″ + 两份 judge pack; 逐 run 报告 + 3 个扫描脚本在 gitignored `runs/dm2_e2e_attempt4/judge_verdicts.md`。
+
+| run | opus-5 | sonnet-5 |
+|-----|--------|----------|
+| dm01 DS zh | PASS (④″ 1/28) | PASS |
+| dm02 DS ja | PASS | PASS |
+| dm05 AE en | PASS (④″ 8/418) | **FAIL ⑦″** (英文问, 答案主体日文) |
+| dm03 DS en | PASS | PASS |
+| dm04 DM ja | PASS | PASS |
+| dm07 PR ja | PASS | **FAIL ④″** 2/18 = 11.1% (入院/退院日列为 PR 候选) |
+
+- ③″ 捏造 **0/12** (attempt 3: 2/12); ⑤″ SDTM 变量捏造 **0/12** (attempt 3: 2); ①″ 分类轴 12/12 (attempt 3 同尺子: 7/12)。
+- **同尺子复判 attempt 3 (修订前基线)**: opus **1/6**, sonnet **0/6** (主要败在 ⑥″ 推測位置 / ①″ / ⑦″)。⑥″ 属格式合规, 这组对比放大了「修订效果」, 不能读作推断质量提升了这么多。
+- **controller 非自洽复核**: 独立脚本数 12 份答案的假名/汉字/拉丁字符 —— sonnet dm05 (en 问) 假名 764、opus dm05 同题 18 ⇒ ⑦″ FAIL 属实; 其余 11 份语言与问句一致。
+- **口径敏感性 (必须并列读)**:
+  - ④″(ii) 自相矛盾的四种形态 (条目内「本体属他域 / 仅作派生源」注记、同句条件式二选一、排除条目内提 SUPP 方案、表单级短语是否展开到项目) **§0″ 未写死**。主判不计 ⇒ opus 6/6; 严口径全计 ⇒ opus **3/6** (dm01 10.7% / dm03 16.1% / dm04 15.4%)。
+  - ④″(i) 「有标准域可承载时 SUPP 不算合理承载」是判分方附加解释; 不加 ⇒ sonnet 5/6, 仍不达标。
+  - **sonnet 在任何口径下都不达 6/6**: ⑦″ 语言失败与口径无关, 且与 attempt 3 同题同病 ⇒ 规则句在 sonnet 上执行不稳。
+- **泛化维度缺席**: 6 题全部在 attempt 3 已见 (§0″ 预登记), opus 6/6 是 in-sample 修复验证。
+- 判分方另报: ①″ 未要求形态识别正确 (sonnet dm05 称 AE 无 `--CAT`, 实有 AECAT); gold 把生存转归项算 DS 候选与 IG 「生存状态入 SS」有张力, 建议复核该 gold 卡; 10% 阈值对小分母 (DM/PR 6-18) 过敏、对 AE (≈420) 几乎不触发; KB 内 PR assumptions 提到 PRSTAT 而 spec 无 (⑤″ 真值源内部不一致)。
+- 归档: `evidence/failures/dm2_task9_attempt_4.md`。
+
 ## §3 成本
 
 | qid | 请求 model id | attempt 1 prompt / completion | attempt 2 prompt / completion |
