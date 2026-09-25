@@ -472,6 +472,26 @@ NCI C 码 / 英文大写词 / 文件名, **6 份答案的差集中没有一个�
 - 判分方对判据意见: ⑦ 计数口径写死 / ④⁗「专门」需定义 (题集自身在 EX/PR 间两放) / ③⁗ 对 SDTM 侧示例与 `_n` 占位的作用域 / 短 OID 撞词白名单 / ④ 分母需机器可识别段标题。
 - 归档: `evidence/failures/dm2_task9_attempt_6.md`。
 
+### 2.7 attempt 7 — 确定性闸上线后 Opus 实跑, **主判 6/6 ⇒ 达 §0⁵ 目标 (有两处读法前提)** (2026-09-25)
+
+代码基线 `d42b51c` (闸 13 commit + judge pack first_answer), 生产 kickstart 后 `/api/info.dossier_gate == true` (controller 跑前实测)。**G0 PASS** + `GATE grounding: PASS` (6/6 grounding 非 null)。
+判分 = 异 subagent (`oh-my-claudecode:analyst` opus; 与既有 4 个判分方及本单元实现 / 审查方均不同 type), 不读闸源码、不调闸, 自写脚本; 报告在 gitignored `runs/dm2_e2e_attempt7/judge_verdicts.md`。
+
+| run | 判定 | 备注 |
+|-----|------|------|
+| dm09 IE en | PASS | |
+| dm10 MH zh | PASS | ⑦ zh (attempt 6 同题 zh→ja 未复现) |
+| dm11 EX ja | PASS | 放疗 11 项归 EX (NOTES 事先接受) |
+| dm12 PC en | PASS | 空域, 明写无候选 |
+| dm05 AE en | PASS | 占位族写法按展开成员核验 |
+| dm07 PR ja | PASS | |
+
+- **闸自身**: 6/6 首轮即过、`regenerated=0`、`final.ok=false` 0 ⇒ **拦对 0 / 误拦 0**; 主判口径闸漏报 0; `lang_observed=None` 0; zh→ja 误判 0。⚠ **重答路径本轮零真实触发** —— 其有效性仍只有单测 + 42 份离线回放为证。
+- **敏感性 (必须并列读)**: 严 A「占位 / 通配族写法按字面计捏造」⇒ 4/6 (dm05/dm09; 该形态闸按 spec §2 白名单放行, 判分方记为 §7 未登记的新形态); 严 B「放疗以 PR 为专门域」⇒ 5/6; A+B ⇒ 3/6。主判两处读法与 attempt 6 判分方 (tracer) 的主口径一致。
+- **controller 非自洽复核**: 独立脚本对 6 份答案的反引号 / 方括号 / 圆括号 token 查「既不在一览、也不在 SDTM spec 标题」—— 仅 5 个, 全部位于 SDTM 变量上下文、与一览 OID 零 3 字符前缀共享 ⇒ 是 assumptions 点名的 SDTM 侧变量 (⑤‴ 并集), 非 EDC 捏造; ③ 零捏造属实。
+- **读法**: 连续 attempt 5→6→7 opus 主口径 5/6 → 5/6 → 6/6, 本轮 6/6 **没有经过闸的重答**, 是采样首轮全对; 不能读成「闸把 5/6 修成 6/6」。6 题均已见过 (修复验证非泛化)。
+- 判分方对判据意见: 占位符地位 (③⁗/②⁗/③″ 三处不一致) 与放疗双归属须写死; ④ 阈值在大分母 (≈424) 上无区分力; ④ 分母人工计数成本高。
+
 ## §3 成本
 
 | qid | 请求 model id | attempt 1 prompt / completion | attempt 2 prompt / completion |

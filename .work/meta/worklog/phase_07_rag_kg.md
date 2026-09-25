@@ -2515,3 +2515,10 @@ deepseek/deepseek-chat (与生成方 opus-5 **不同模型族**, 避自偏好; �
 - 用户裁定: opus 补一轮, 达 6/6 则只对 opus 恢复 auto。§0⁗ `da6e96c` (跑前) → 规则句补三处 `abbecb7` → 异 agent 审 (oh-my-claudecode:code-reviewer; 变异抓出 1 处未钉) → `0b71822` 落地。2511 passed。
 - 6 run G0 PASS; 判分 tracer opus → **5/6** (dm10 zh→ja); attempt 5 opus 同尺子复判亦 5/6 (dm09 示例值)。controller 复核语言判定属实。gold 被排除 0/20。
 - 证据 §2.6, 归档 `evidence/failures/dm2_task9_attempt_6.md`, RETRO 更新。auto 维持暂停。
+
+### 2026-09-25 (续4) — DM2 生成后确定性闸 (spec→实现→三轮审→回放→上线) + attempt 7 opus 主判 6/6
+
+- 用户裁定: 做生成后确定性检查。spec `82ceb80` (流式约束: 首轮→闸→`grounding` SSE→不过则 `regenerate` + 可见重答 1 次; §4 离线回放预期预登记)。
+- 实现 (executor opus, TDD) `86e5f94..9148969` 13 commit: `server/dossier_gate.py` + 两端点共用 `_dossier_gate_run` + webchat 徽章 / 首轮折叠 / history 只带最终轮 + `/api/info.dossier_gate` + e2e `GATE grounding` + 回放脚本 (sha1 身份比对)。审: silent-failure-hunter (3 BLOCKING) → architect (1 BLOCKING + 10) → architect 核验 (3 小项) 全落地。2585 passed / node 72 / 回放 42/42 (controller 清 pyc 复现)。
+- §0⁵ `d42b51c` (跑前) → push + kickstart, 生产 `dossier_gate: true` → attempt 7 opus 6 run: 闸 6/6 首轮过、零重答 → analyst 判分主判 **6/6** (严 A 占位字面 4/6, 严 B 放疗 5/6)。controller 独立 token 核验零捏造属实。
+- ⚠ 生产现状: 闸已在线 (仅研读包挂上时跑; auto 仍暂停, 手动「研读:开」才挂)。恢复 auto 待用户确认。
