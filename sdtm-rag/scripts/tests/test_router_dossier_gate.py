@@ -357,7 +357,9 @@ def test_stream_regen_failure_restores_models_and_marks_usage_partial():
     c, app = _gated_client([])
     app.state.llm_router = _ModelMidFail([])
     done = _stream(c)[-1][1]
-    assert done["model_used"] == "m1" and done["models_used"] == ["m1"]
+    # model_used 还原成首轮 (呈现的答案是它写的); models_used 保留两轮累计 —— 重答轮若发生回退,
+    # fell_back 仍看得见 (那一轮的钱与未验证模型都是真的)
+    assert done["model_used"] == "m1" and done["models_used"] == ["m1", "m2"]
     assert done["usage"]["partial"] is True and done["usage"]["total_tokens"] == 15
 
 

@@ -852,8 +852,9 @@ async def ask_stream(body: AskStreamRequest, request: Request):
             # 用户了, 所以不做「顶部警示」: 发 grounding 事件, 不过就发 regenerate 事件后流第二轮。
             # 闸没开时只转一圈, 事件序列与引入前逐字节同 (test_router_dossier_gate 钉)。
             regen_failed = False
-            # 重答前那一轮的 (parts, truncated, continue_rounds, model_used, models_used)
-            first_pass: tuple = ([], False, 0, None, [])
+            # 重答前那一轮的 (parts, truncated, continue_rounds, model_used)。models_used 不还原:
+            # 它是整次问答里出现过的全部模型, 重答轮的回退也得让 fell_back 看得见。
+            first_pass: tuple = ([], False, 0, None)
             count_fix = ""   # 还原首轮后计数闸的修正段 (进 done, 前端还原首轮时拼回去)
             while True:
                 try:
@@ -1034,9 +1035,7 @@ async def ask_stream(body: AskStreamRequest, request: Request):
                     log.warning("dossier_regenerate_failed", model=body.model,
                                 error=str(e), exc_info=True)
                     gate.regeneration_failed(type(e).__name__)
-                    (parts, truncated, continue_rounds, model_used,
-                     models_used) = first_pass
-                    models_used = list(models_used)
+                    parts, truncated, continue_rounds, model_used = first_pass
                     # 半截的重答这一轮拿不到 usage 片, 但请求已计费 ⇒ 总量不完整, 如实标 partial。
                     usage_missing = True
                     regen_failed = True
@@ -1055,7 +1054,7 @@ async def ask_stream(body: AskStreamRequest, request: Request):
                 # parts 只装当前这一轮: counting gate 与终判看的是最终轮, 不是两轮拼起来。
                 # continue_rounds / truncated 描述的是**呈现的那篇**答案 (最终轮), 故随轮重置;
                 # usage 是钱, 跨轮累计。
-                first_pass = (parts, truncated, continue_rounds, model_used, list(models_used))
+                first_pass = (parts, truncated, continue_rounds, model_used)
                 msgs = gate.regenerate_messages(messages, "".join(parts))
                 parts = []
                 truncated = False
