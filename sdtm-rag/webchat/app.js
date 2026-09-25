@@ -3,12 +3,12 @@ import { store, save, current, newConversation, deleteConversation, renameConver
          prefs, savePrefs, modelLabelById, HISTORY_TURNS } from "./js/store.js";
 import { renderSidebar, renderMessages, messageEl, finalizeBubble, appendErr, appendRetry,
          attachTools, setSources, renderWebStatus, renderModelBadge, refreshModelBadgeLabels,
-         renderContinuation, renderPdfPages,
+         renderContinuation, renderPdfPages, renderFirstAnswer,
          onToolCallUI, onToolResultUI } from "./js/render.js";
 import { renderMarkdown } from "./js/markdown.js";
 import { streamAsk } from "./js/stream.js";
 import { renderDossierBadge } from "./js/dossier.js";
-import { renderGroundingBadge, regenerateDividerText } from "./js/grounding.js";
+import { renderGroundingBadge, settleAnswer, historyFromMessages } from "./js/grounding.js";
 import { $, initScrollFollow, initSettings, initSidebar, selectedCorpus, webEnabled,
          dossierMode, autoGrow } from "./js/ui.js";
 
@@ -76,13 +76,11 @@ async function runGeneration(c) {
   const box = $("messages");
   const turn = messageEl({ role: "assistant", content: "" });
   box.appendChild(turn); scroller.scrollToBottom();
-  const bubble = turn.querySelector(".bubble");
+  const bubble = turn.querySelector(":scope > .bubble");
 
   // History = everything BEFORE the current question (excludes the last user msg), capped.
-  const history = c.messages.slice(0, lastUserIdx)
-    .filter((m) => m.role === "user" || m.role === "assistant")
-    .slice(-HISTORY_TURNS)
-    .map((m) => ({ role: m.role, content: m.content }));
+  // 只取 content: 答案闸重答过的消息, 没过核验的首轮存在 firstAnswer, 不进模型上下文。
+  const history = historyFromMessages(c.messages, lastUserIdx, HISTORY_TURNS);
 
   let acc = "";
   let gotSources = null;
@@ -99,6 +97,8 @@ async function runGeneration(c) {
   let gotPdfTrigger = null;
   let gotDossier = null;
   let gotGrounding = null;
+  let firstAnswer = null;    // 答案闸 regenerate 时的首轮原文 (acc 随后从空开始装最终轮)
+  let regenReasons = null;
   let saved = false;
   let savedMsg = null;
 
@@ -141,9 +141,18 @@ async function runGeneration(c) {
                  // 存档里必须长得不一样 —— 吃的是哪一版 (sha) 也只有这里记着。
                  dossier: gotDossier,
                  // 第六次: 研读包答案过没过确定性核验、重答过没有 (DM2 答案闸)。
-                 grounding: gotGrounding };
+                 grounding: gotGrounding,
+                 // content 是最终轮; 没过核验的首轮单独存, 折叠展示且不进 history。
+                 firstAnswer };
     c.messages.push(savedMsg);
     save(); renderSidebar(sidebarHandlers);
+  };
+  // 流结束时定下「这条消息的答案」: 重答失败 / 被中断 ⇒ 半截重答不作数, 还原首轮 (settleAnswer)。
+  const settle = (interrupted) => {
+    const r = settleAnswer({ acc, firstAnswer, grounding: gotGrounding, interrupted });
+    firstAnswer = r.firstAnswer;
+    renderFirstAnswer(turn, firstAnswer, regenReasons);
+    return r.content;
   };
   const fail = (msg) => { appendErr(bubble, msg); appendRetry(turn, () => retry(c)); };
 
@@ -165,9 +174,10 @@ async function runGeneration(c) {
       onContinue: (d) => console.debug("auto-continue round", (d || {}).round),
       // 研读包答案闸: 每轮一个结论, 只记日志; 徽章等 done 里的汇总 (first/final/regenerated) 再画。
       onGrounding: (d) => console.debug("dossier grounding", d),
-      // 首轮答案已在屏上且收不回 ⇒ 插一条可见分隔线说明原因, 第二轮 token 接在线后面。
-      onRegenerate: (d) => { acc += regenerateDividerText(d); dirty = true;
-                             if (!rafId) rafId = requestAnimationFrame(paint); },
+      // 首轮已流完且没过核验: 挪进折叠区 + 分隔线, 气泡从空开始接第二轮。
+      onRegenerate: (d) => { firstAnswer = acc; regenReasons = (d || {}).reasons ?? null; acc = "";
+                             renderFirstAnswer(turn, firstAnswer, regenReasons);
+                             dirty = true; if (!rafId) rafId = requestAnimationFrame(paint); },
       onDone: (data) => {
         gotWebStatus = (data || {}).web_status; gotWebSearchesOk = (data || {}).web_searches_ok;
         // ?? 只在 null/undefined 时取右值, false 会原样保留 —— 与 renderModelBadge 的
@@ -195,14 +205,15 @@ async function runGeneration(c) {
         renderContinuation(turn, gotContinueRounds, gotTruncated);
         renderPdfPages(turn, gotPdfPages, gotPdfTrigger);
         renderDossierBadge(turn, gotDossier);
-        renderGroundingBadge(turn, gotGrounding);
-        const content = acc.trim() ? acc : "(无内容)"; renderFinal(content); persist(content);
+        renderGroundingBadge(turn, gotGrounding, gotDossier);
+        const settled = settle(false);
+        const content = settled.trim() ? settled : "(无内容)"; renderFinal(content); persist(content);
       },
-      onError: (msg) => { if (acc) { renderFinal(acc); persist(acc); } fail(msg); },
+      onError: (msg) => { const t = settle(true); if (t) { renderFinal(t); persist(t); } fail(msg); },
       // 干净 EOF 但无 done/error: 内容已在屏上, 落盘防刷新丢失 (规则 D HIGH 修复)。
-      onClose: () => { if (acc) { renderFinal(acc); persist(acc); fail("连接中断（已保留已生成内容）"); } else fail("连接中断"); },
+      onClose: () => { const t = settle(true); if (t) { renderFinal(t); persist(t); fail("连接中断（已保留已生成内容）"); } else fail("连接中断"); },
       // 用户点「停止」: 保留已生成部分, 不报错样式, 给重试入口。
-      onAbort: () => { if (acc) { renderFinal(acc); persist(acc); } fail("已停止"); },
+      onAbort: () => { const t = settle(true); if (t) { renderFinal(t); persist(t); } fail("已停止"); },
       signal: ctrl.signal,
     });
   } finally {

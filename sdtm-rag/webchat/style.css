@@ -104,6 +104,10 @@ button { font: inherit; color: inherit; }
 /* DM2 研读包: 与 .pdf-attach 同一档的"证据成色"信息行, 紧跟 .turn-meta, 不抢正文注意力 */
 .dossier-badge { margin-top: 4px; font-size: 11.5px; color: var(--ink-3); }
 .grounding-badge { margin-top: 4px; font-size: 11.5px; color: var(--ink-3); }
+.first-answer { margin: 0 0 8px; font-size: 13.5px; color: var(--ink-2); }
+.first-answer summary { cursor: pointer; color: var(--warn); }
+.first-answer-body { margin-top: 6px; padding-left: 10px; border-left: 2px solid var(--line-2); }
+.regen-divider { margin: 8px 0 12px; padding-top: 8px; border-top: 1px dashed var(--line-2); font-size: 12.5px; color: var(--warn); }
 .grounding-badge.warn { color: var(--warn); font-weight: 500; } /* 未过: 与 .web-warn 同琥珀色 */
 .sources-slot:empty { display: none; }
 .sources { margin-top: 10px; font-size: 13px; }

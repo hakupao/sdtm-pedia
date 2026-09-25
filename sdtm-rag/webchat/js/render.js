@@ -5,7 +5,7 @@ import { copyText, flash, armDelete, inlineRename, $ } from "./ui.js";
 import { flagButton } from "./flag.js";
 import { pdfAttachView } from "./pdfpages.js";
 import { renderDossierBadge } from "./dossier.js";
-import { renderGroundingBadge } from "./grounding.js";
+import { renderGroundingBadge, regenerateDividerLabel } from "./grounding.js";
 
 // Plan B 联邦: 库标签 (日文 UI)。map 里没有的值 (null / 未知) 一律不渲染徽章 —— 联邦关时零变化。
 const CORPUS_LABEL = { cdisc: "標準", study: "本研究", both: "両方" };
@@ -84,6 +84,8 @@ export function messageEl(m) {
   if (m.role === "assistant") finalizeBubble(b, m.content);
   else b.textContent = m.content;
   turn.appendChild(b);
+  // DM2 答案闸重答过: 没过核验的首轮折叠在最终答案上方, 中间一条分隔线 (content 只是最终轮)。
+  if (m.role === "assistant") renderFirstAnswer(turn, m.firstAnswer, m.grounding && m.grounding.first && m.grounding.first.reasons);
   if (m.role === "assistant") {
     const meta = document.createElement("div"); meta.className = "turn-meta";
     const slot = document.createElement("div"); slot.className = "sources-slot";
@@ -104,9 +106,31 @@ export function messageEl(m) {
     // 手动关掉研读包这件事同理 —— 它是答案为何变薄的唯一线索。
     renderDossierBadge(turn, m.dossier);
     // 第六次: 研读包答案过没过确定性核验 (重答过没有) 也必须活过刷新。
-    renderGroundingBadge(turn, m.grounding);
+    renderGroundingBadge(turn, m.grounding, m.dossier);
   }
   return turn;
+}
+
+// DM2 答案闸: 没过核验的首轮 (折叠) + 分隔线, 插在最终答案气泡之前。firstAnswer 不是非空串时
+// 两者都不画 (没重答 / 老存档) —— DOM 与本功能上线前相同。实时流 (onRegenerate / onDone) 与历史
+// 重绘都调它, 先清掉旧的。
+export function renderFirstAnswer(turn, firstAnswer, reasons) {
+  turn.querySelectorAll(":scope > .first-answer, :scope > .regen-divider").forEach((e) => e.remove());
+  if (typeof firstAnswer !== "string" || !firstAnswer) return;
+  const det = document.createElement("details");
+  det.className = "first-answer";
+  const sum = document.createElement("summary");
+  sum.textContent = "首次答案 (未过确定性核验, 已折叠; 不进入后续对话上下文)";
+  const body = document.createElement("div");
+  body.className = "first-answer-body md";
+  finalizeBubble(body, firstAnswer);
+  det.append(sum, body);
+  const hr = document.createElement("div");
+  hr.className = "regen-divider";
+  hr.textContent = regenerateDividerLabel(reasons);
+  const bubble = turn.querySelector(":scope > .bubble");
+  turn.insertBefore(det, bubble);
+  turn.insertBefore(hr, bubble);
 }
 
 // 完整渲染 (非流式): markdown + 高亮 + 代码块复制钮

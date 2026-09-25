@@ -1,6 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { groundingBadgeView, regenerateDividerText, groundingFlagLine } from "../js/grounding.js";
+import { groundingBadgeView, regenerateDividerLabel, groundingFlagLine, settleAnswer, historyFromMessages }
+  from "../js/grounding.js";
 
 // ⛔ 只用虚构 OID。
 const OK = { ok: true, unknown_oids: [], lang_expected: "zh", lang_observed: "zh", reasons: [] };
@@ -48,18 +49,56 @@ test("畸形输入 ⇒ null 或降级, 绝不抛", () => {
   assert.equal(groundingBadgeView({ final: { ok: "true" } }).level, "warn");
 });
 
-// ── regenerate 分隔线 (进 acc, 以 markdown 画出来; 首轮答案已在屏上, 这条线是诚实记录) ──
+// ── B2: 研读包挂了、闸却没跑 ⇒ 中性徽章 (不说的话「闸没跑」与「没挂研读包」长得一样) ──
 
-test("分隔线带原因", () => {
-  const t = regenerateDividerText({ reasons: BAD.reasons });
-  assert.ok(t.startsWith("\n\n---\n\n"));
-  assert.ok(t.includes("首次答案未过确定性核验: 一览中不存在的 OID 1 个: ITEM_Z9; 答题语言 ja ≠ 问句语言 zh, 重答中"));
-  assert.ok(t.endsWith("\n\n---\n\n"));
+test("挂上但 grounding 缺 ⇒ 核验未运行", () => {
+  assert.deepEqual(groundingBadgeView(null, { attached: true }),
+                   { text: "· 确定性核验未运行", level: "neutral" });
+  assert.deepEqual(groundingBadgeView(undefined, { attached: true, reason: "forced_on" }),
+                   { text: "· 确定性核验未运行", level: "neutral" });
+  assert.equal(groundingBadgeView(null, { attached: false }), null);
+  assert.equal(groundingBadgeView(null, { attached: "true" }), null);
+  assert.equal(groundingBadgeView(null, null), null);
 });
 
-test("分隔线: 原因缺失/畸形也照画 (线本身比原因要紧)", () => {
-  assert.ok(regenerateDividerText(null).includes("首次答案未过确定性核验: 原因未知, 重答中"));
-  assert.ok(regenerateDividerText({ reasons: [1, null] }).includes("原因未知"));
+// ── B3: 首轮与最终轮分开存; 分隔线标签 ──
+
+test("分隔线标签带原因; 缺失/畸形也照画", () => {
+  assert.equal(regenerateDividerLabel(BAD.reasons),
+               "⟳ 首次答案未过确定性核验: 一览中不存在的 OID 1 个: ITEM_Z9; 答题语言 ja ≠ 问句语言 zh · 以下为重答");
+  assert.ok(regenerateDividerLabel(null).includes("原因未知"));
+  assert.ok(regenerateDividerLabel([1, null]).includes("原因未知"));
+});
+
+test("settleAnswer: 没重答 ⇒ content = acc, 无 firstAnswer", () => {
+  assert.deepEqual(settleAnswer({ acc: "A", firstAnswer: null, grounding: null }),
+                   { content: "A", firstAnswer: null });
+});
+
+test("settleAnswer: 重答成功 ⇒ content = 最终轮, firstAnswer = 首轮", () => {
+  assert.deepEqual(settleAnswer({ acc: "B", firstAnswer: "A",
+                                  grounding: { final: OK, first: BAD, regenerated: true } }),
+                   { content: "B", firstAnswer: "A" });
+});
+
+test("settleAnswer: 重答失败 / 被中断 ⇒ 半截重答不作数, content 还原成首轮", () => {
+  assert.deepEqual(settleAnswer({ acc: "半截", firstAnswer: "A",
+                                  grounding: { final: BAD, first: null, regenerated: false,
+                                               regenerate_error: "RuntimeError" } }),
+                   { content: "A", firstAnswer: null });
+  assert.deepEqual(settleAnswer({ acc: "半截", firstAnswer: "A", grounding: null, interrupted: true }),
+                   { content: "A", firstAnswer: null });
+});
+
+test("history 只取 content: 没过闸的首轮不进下一问的上下文", () => {
+  const msgs = [
+    { role: "user", content: "q1" },
+    { role: "assistant", content: "B", firstAnswer: "A 带 ITEM_Z9", grounding: {} },
+    { role: "user", content: "q2" },
+  ];
+  assert.deepEqual(historyFromMessages(msgs, 2, 10),
+                   [{ role: "user", content: "q1" }, { role: "assistant", content: "B" }]);
+  assert.deepEqual(historyFromMessages(msgs, 2, 1), [{ role: "assistant", content: "B" }]);
 });
 
 // ── ⚑ 存档行 ──
