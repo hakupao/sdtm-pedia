@@ -162,13 +162,15 @@ def main() -> int:
                     help="任一 run fell_back 即 GATE FAIL (模型维度对比时必开)")
     # 生产 auto 挂载暂停期 (config.dossier_auto_attach=False) 测答题质量须显式 on; 触发器另有 L2 闸.
     ap.add_argument("--dossier", choices=("auto", "on"), default="auto")
-    # attempt 5: 留出题在另一份 yml (v2_holdout); 逗号分隔, 按顺序合并, 题号冲突即报错.
     ap.add_argument("--models", default=",".join(MODELS), help="逗号分隔 model id")
+    # attempt 5: 留出题在另一份 yml (v2_holdout); 逗号分隔, 按顺序合并, 题号冲突即报错.
     ap.add_argument("--yml", default="test_set_domain_mapping_v1.yml",
                     help="eval/ 下的题集文件名, 逗号分隔")
     args = ap.parse_args()
     qids = tuple(q.strip() for q in args.qids.split(",") if q.strip())
-    models = tuple(m.strip() for m in args.models.split(",") if m.strip())
+    models = tuple(dict.fromkeys(m.strip() for m in args.models.split(",") if m.strip()))
+    if not qids or not models:  # 0 run 时两道闸会空通过
+        raise SystemExit("empty --qids or --models")
 
     study_dir = Path(settings.study_kb_root).parent
     out_dir = study_dir / "eval" / "runs" / args.out_subdir

@@ -359,7 +359,9 @@ def test_rule_pins_attempt4_patterns():
                    "exact uppercase CT string", "anywhere in the answer",
                    "language of the question", "SUPPQUAL QNAM proposal",
                    # attempt 6 (evidence/failures/dm2_task9_attempt_5.md): 示例值 / 保留语气候选 / 缺席≠不存在
-                   "examples and illustrations", "however hedged", "do not claim the standard lacks it"):
+                   "examples, illustrations and placeholders", "however hedged",
+                   "dedicated to its content", "own definition covers that content",
+                   "do not claim the standard lacks it"):
         assert phrase in appended, phrase
     for leak in ("DISPOSITION EVENT", "PROTOCOL MILESTONE", "OTHER EVENT", "OTHEVENT"):
         assert leak not in _DOSSIER_RULES, leak

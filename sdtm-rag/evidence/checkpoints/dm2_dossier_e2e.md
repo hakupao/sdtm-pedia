@@ -172,6 +172,9 @@ controller 独立复核: 4 题 facts 均为 assumptions 原文子串、卡片均
 - ①⁗ 形态判定真值源 = spec.md ∪ assumptions.md (与 ⑤‴ 统一)。
 - 阈值不变: 错归 ≤ max(1, 10% × 分母)。
 
+**跑前补注 (审查意见, 仍在任何一次跑之前)**: 判分方另报「gold 项目被列为排除」的个数 (只报不判) —— 规则句新增「他域专属则列排除」可能以 recall 为代价, 须单独可见。
+规则句 `abbecb7` 之后按审查再改一轮 (缺席≠不存在前移到选形态之前 / 他域排除加对称条件 / 占位符入禁); 本轮以最终 commit 为准。
+
 **目标 (预登记)**: opus **6/6**。达标 ⇒ 实施「仅 opus 恢复 auto」(另起 commit + 异 agent 审 + kickstart + 生产探针); 未达 ⇒ 归档 `evidence/failures/dm2_task9_attempt_6.md`, auto 维持暂停, 交用户裁定。
 **同尺子复判**: 判分方同时用本节口径复判 attempt 5 的 6 份 opus 答案 (`runs/dm2_e2e_attempt5/judge_pack.json` 中 model=opus-5 者), 只报不改 §2.5。
 **判分**: 异 subagent (规则 D; 与 attempt 3/4/5 判分方 critic / verifier / scientist 均不同 type), 只读 §0-§0⁗ + judge pack + 出题 NOTES, 不读 `judge_verdicts*.md` 与 §1-§4。
