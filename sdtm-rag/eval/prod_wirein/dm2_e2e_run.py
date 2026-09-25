@@ -275,6 +275,8 @@ def _write_judge_pack(out_dir: Path, runs, questions: dict[str, dict]) -> None:
             "models_used": (rec.get("done_event") or {}).get("models_used"),
             # 研读包答案闸 {final, first, regenerated}; None = 闸没跑 / 老服务端.
             "grounding": (rec.get("done_event") or {}).get("grounding"),
+            # 闸不过时的首轮 (重答前); 判分方用它核闸自身的判定准不准 (attempt 7 §0⁵).
+            "first_answer": rec.get("first_answer"),
         })
     pack = {"runs": pack_runs, "item_list_text": item_list}
     p = out_dir / "judge_pack.json"

@@ -181,6 +181,32 @@ controller 独立复核: 4 题 facts 均为 assumptions 原文子串、卡片均
 
 ---
 
+## §0⁵ attempt 7 判据 (生成后确定性闸上线后 Opus 实跑; 跑前登记, 2026-09-25)
+
+> 本节在 attempt 7 **任何一次跑之前**、检测器定稿 (`9148969`) 之后单独 commit; 此后检测器 / 规则句 / 判据一字不改直到判分完成。
+> 用户裁定 (2026-09-25): 做生成后确定性检查。spec `docs/superpowers/specs/2026-09-25-dossier-output-gate-design.md` (含 §7 已知限制)。
+> 实现 13 commit `86e5f94..9148969` + judge pack 加 `first_answer`; 三轮异 agent 审 (silent-failure-hunter → architect ×2), 离线回放 42/42 (按 OID 哈希比身份), 2585 passed。
+
+**题 × 模型 = 6 × 1 = N=6** (`opus-5`), 同 §0‴/§0⁗ 题集, `dossier:"on"`, 产物 `runs/dm2_e2e_attempt7/`。⚠ 6 题均已见过 ⇒ 修复验证, 非泛化证据。
+跑命令: `.venv/bin/python -u eval/prod_wirein/dm2_e2e_run.py --no-resume --yml test_set_domain_mapping_v1.yml,test_set_domain_mapping_v2_holdout.yml --qids dm09,dm10,dm11,dm12,dm05,dm07 --models opus-5 --out-subdir dm2_e2e_attempt7 --require-no-fallback --dossier on`
+
+**G0**: 同前 + **`GATE grounding` PASS** (6/6 挂研读包且 `grounding` 非 null) + `/api/info.dossier_gate == true` (跑前实测)。
+
+**主判 (业务)**: 按 §0″+§0‴+§0⁗ 全部条款判**最终轮答案** (`answer`)。**目标 6/6**。
+
+**闸自身的判定 (只报不判, 但必须报)**:
+- 触发率: 6 run 中 `regenerated=true` 的个数; 最终 `grounding.final.ok=false` 的个数。
+- 对每个触发了重答的 run, 判分方按 ③⁗/⑦ 独立判**首轮** (`first_answer`): 闸拦得对 (首轮确有 ③ 或 ⑦ 违规) / 闸误拦 (首轮 ③⑦ 均无违规)。
+- 对未触发重答的 run: 最终轮若被判分方判 ③ 或 ⑦ FAIL ⇒ 记「闸漏报」, 并说明属于 spec §7 哪一类已知限制或是新形态。
+- 已登记的已知误报 / 漏报形态 (spec §7): 槽后新词干纯字母捏造漏报; M3/M5/M6/M10; 繁体→ja; 表格为主正文不判语言; 两段方括号兜底等。
+- 语言: `lang_observed=None` 的个数与 `zh→ja` 误判个数单列。
+
+**成本 (预登记预期)**: 每个重答 = 再一次 ~150K prompt; 预期残差 ≈ 低频模式概率平方, **不是**消除; 闸看不见的 ④①⑤ 失败不受影响。
+**达标 (6/6) ⇒** 实施「仅 opus 恢复 auto」(另起 commit + 审 + kickstart + 生产探针), 并同步 webchat title。**未达 ⇒** 归档 `evidence/failures/dm2_task9_attempt_7.md`, 交用户裁定。
+**判分**: 异 subagent, 与既有判分方 (critic / verifier / scientist / tracer) 及本单元实现 / 审查方 (executor / silent-failure-hunter / architect) 均不同 type; 只读 §0-§0⁵ + judge pack + 出题 NOTES + spec §7。
+
+---
+
 ## §1 运行记录
 
 两个 attempt 都跑满 6 次生产 `/api/ask_stream` (3 题 × 2 模型 id), 生产 = 本机 launchd
