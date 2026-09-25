@@ -20,6 +20,7 @@ from fastapi.testclient import TestClient
 from server.config import Settings
 from server.router import _DOSSIER_RULES, api_router
 from server.study_dossier import StudyDossier
+from server.dossier_trigger import ANSWER_LANGUAGE_LINE
 
 Q_MAP = "本研究中，哪些数据适合进入 sdtm 的 ds domain？"
 Q_CDISC = "DS 域有哪些变量？"
@@ -188,7 +189,7 @@ def test_auto_attach_drops_study_chunks_and_adds_rule_once():
     msgs = app.state.llm_router.messages
     assert msgs[0]["content"] == "SYS[both]" + _DOSSIER_RULES
     assert msgs[0]["content"].count(_DOSSIER_RULES) == 1
-    assert msgs[-1]["content"] == f"CTX=FED:cdisc0,cdisc1\n\n{DOSSIER.text}\nQ={Q_MAP}"
+    assert msgs[-1]["content"] == f"CTX=FED:cdisc0,cdisc1\n\n{DOSSIER.text}\nQ={Q_MAP}\n\n" + ANSWER_LANGUAGE_LINE["zh"]
 
 
 def test_auto_paused_leaves_messages_alone_but_on_still_attaches():
@@ -324,7 +325,7 @@ def test_attaches_on_the_single_corpus_path_too():
     assert r.json()["dossier"]["attached"] is True
     msgs = app.state.llm_router.messages
     assert msgs[0]["content"] == "SYS" + _DOSSIER_RULES
-    assert msgs[-1]["content"] == f"CTX=CD:cdisc0,cdisc1\n\n{DOSSIER.text}\nQ={Q_MAP}"
+    assert msgs[-1]["content"] == f"CTX=CD:cdisc0,cdisc1\n\n{DOSSIER.text}\nQ={Q_MAP}\n\n" + ANSWER_LANGUAGE_LINE["zh"]
 
 
 # ── T9 attempt 2: 规则句的内容不变量 ─────────────────────────────────────
@@ -365,3 +366,20 @@ def test_rule_pins_attempt4_patterns():
     assert set(re.findall(r"\b[A-Z]{2}\b", _DOSSIER_RULES)) <= {"CT"}
     for leak in ("完了の定義", "中止規準", "status / date / reason"):
         assert leak not in _DOSSIER_RULES, leak
+
+
+def test_dossier_appends_answer_language_line_to_last_user_message():
+    """attempt 4 (evidence/failures/dm2_task9_attempt_4.md): sonnet 两轮 en 问 → ja 答, 规则句措辞压不住
+    ⇒ 挂研读包时在**最后一条 user 消息末尾**追加确定的语言指令 (离生成最近, 不在 13 万字日文之前)。
+    不挂时 user 消息不得多出任何东西。"""
+    from server.dossier_trigger import ANSWER_LANGUAGE_LINE
+    c, app = _client(DOSSIER)
+    c.post("/api/ask", json={"question": Q_MAP, "history": [], "dossier": "on"})
+    last = app.state.llm_router.messages[-1]["content"]
+    assert last.endswith(ANSWER_LANGUAGE_LINE["zh"])
+    t = c.post("/api/ask_stream", json={"question": Q_MAP, "history": [], "dossier": "on"}).text
+    assert app.state.llm_router.messages[-1]["content"].endswith(ANSWER_LANGUAGE_LINE["zh"])
+    c2, app2 = _client(DOSSIER)
+    c2.post("/api/ask", json={"question": Q_CDISC, "history": []})
+    assert not any(v in app2.state.llm_router.messages[-1]["content"]
+                   for v in ANSWER_LANGUAGE_LINE.values())

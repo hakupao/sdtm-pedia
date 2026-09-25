@@ -57,3 +57,17 @@ def test_auto_paused_leaves_no_match_as_no_match():
 
 def test_auto_paused_does_not_block_forced_on():
     assert decide_dossier("何でも", "on", True, _qd_none, auto_attach=False).attach
+
+# attempt 4: 规则句里的语言要求两轮压不住 sonnet (en 问 → ja 答), 改为结构性手段:
+# 按问句文字种类确定答题语言, 研读包挂上时在 user 消息末尾追加一行. 纯函数, 可枚举.
+from server.dossier_trigger import answer_language
+
+@pytest.mark.parametrize("q,lang", [
+    ("この試験で収集しているデータのうち DS はどれ？", "ja"),
+    ("本研究中，哪些数据适合进入 sdtm 的 ds domain？", "zh"),
+    ("In our study, which collected data items belong in the ae domain?", "en"),
+    ("本研究の DS", "ja"),          # 漢字 + 仮名 ⇒ 日本語 (仮名が決め手)
+    ("DS", "en"),                   # 文字種なし ⇒ en に倒す
+])
+def test_answer_language_by_script(q, lang):
+    assert answer_language(q) == lang

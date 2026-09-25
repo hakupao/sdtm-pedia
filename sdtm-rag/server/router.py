@@ -161,6 +161,14 @@ _DOSSIER_RULES = (
 )
 
 
+def _attach_dossier_rules(messages: list[dict], question: str) -> None:
+    """研读包挂上时: system 追加规则句, 最后一条 user 消息追加确定的答题语言行。
+    /api/ask 与 /api/ask_stream 共用 (两处各写一份 = 只修好一边)。"""
+    from server.dossier_trigger import ANSWER_LANGUAGE_LINE, answer_language
+    messages[0]["content"] += _DOSSIER_RULES
+    messages[-1]["content"] += "\n\n" + ANSWER_LANGUAGE_LINE[answer_language(question)]
+
+
 # ── Request / Response models ────────────────────────────────────────────
 
 class MessageItem(BaseModel):
@@ -474,7 +482,7 @@ def ask(body: AskRequest, request: Request):
     else:
         messages = rag.build_messages(body.question, context, history_dicts or None)
     if dossier_block:
-        messages[0]["content"] += _DOSSIER_RULES
+        _attach_dossier_rules(messages, body.question)
     pdf_pages, pdf_trigger = maybe_attach_pdf_pages(request, body.question, chunks_for_pdf, messages)
 
     # 输出触顶自动续写 (2026-09-08)。⚠ 这里是**第二份**实现: /api/ask 走同步
@@ -694,7 +702,7 @@ async def ask_stream(body: AskStreamRequest, request: Request):
     else:
         messages = rag.build_messages(body.question, context, history_dicts or None)
     if dossier_block:
-        messages[0]["content"] += _DOSSIER_RULES
+        _attach_dossier_rules(messages, body.question)
     pdf_pages, pdf_trigger = maybe_attach_pdf_pages(request, body.question, chunks_for_pdf, messages)
     sources = [
         {"chunk_id": c.chunk_id, "source": c.source, "domain": c.domain,

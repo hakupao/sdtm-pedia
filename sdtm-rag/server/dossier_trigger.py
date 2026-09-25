@@ -49,3 +49,27 @@ def decide_dossier(question: str, mode: DossierMode, enabled: bool,
             return DossierDecision(False, "auto:paused", domains)
         return DossierDecision(True, "auto:domain+scope", domains)
     return DossierDecision(False, "auto:no_match", domains)
+
+
+# ── 答题语言 (attempt 4 → 5) ─────────────────────────────────────────
+# 研读包 13 万字以日文为主, system 里的「跟问句语言」两轮压不住 (evidence/failures/
+# dm2_task9_attempt_4.md: sonnet en 问 → ja 答)。改为按问句**文字种类**确定语言, 由 router 在
+# 最后一条 user 消息末尾追加一行 —— 离生成最近, 且是确定值不是让模型自己判断。
+# 仮名があれば ja (漢字だけでは zh/ja を区別できない); 漢字のみ ⇒ zh; どちらもなし ⇒ en.
+_KANA_RE = re.compile(r"[぀-ヿ]")
+_HAN_RE = re.compile(r"[一-鿿]")
+
+ANSWER_LANGUAGE_LINE = {
+    "ja": "【回答言語】日本語で回答すること (OID・SDTM 変数名・CT 値・固定標記はそのまま)。",
+    "zh": "【回答语言】请用中文回答 (OID、SDTM 变量名、CT 取值、固定标记保持原样)。",
+    "en": "[Answer language] Answer in English (keep OIDs, SDTM variable names, CT values and "
+          "fixed markers as written).",
+}
+
+
+def answer_language(question: str) -> str:
+    if _KANA_RE.search(question):
+        return "ja"
+    if _HAN_RE.search(question):
+        return "zh"
+    return "en"
