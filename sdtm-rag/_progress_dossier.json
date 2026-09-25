@@ -3,8 +3,8 @@
   "plan": "docs/superpowers/plans/2026-09-15-study-dossier.md",
   "spec": "docs/superpowers/specs/2026-09-15-study-dossier-design.md",
   "started": "2026-09-15",
-  "status": "T1-T10 done (默认 ON, 生产已 kickstart); T11 prompt cache 可选未做; Claude 模型维度待 Bedrock 权限",
-  "current_step": "attempt 7 (2026-09-25): 生成后确定性闸上线; opus 主判 6/6 (严口径 4-5/6, 闸零触发); 仅 opus 恢复 auto 待用户确认",
+  "status": "auto 仅对 opus 恢复 (2026-09-25) + 生成后确定性闸在线",
+  "current_step": "DONE: 闸上线 + opus-only auto 恢复 (生产探针通过); 余项见 decisions_pending",
   "steps": {
     "1": "done (StudyDossier 构建器; review 抓多 part 章续页首行丢失 + study/version 取值)",
     "2": "done (token 闸 166563 字 / 133652 tok cl100k 估计; 用户裁定含选择肢)",
@@ -37,10 +37,11 @@
     "pytest_full": "2489 passed (T9 attempt 2)"
   },
   "decisions_pending": [
-    "是否仅对 opus-5 恢复 auto (主判 6/6 达 §0⁵ 目标; 两处读法前提: 占位按展开成员 / 放疗归 EX 接受)",
-    "判据写死: 占位符地位 / 放疗双归属 / ④ 大分母阈值",
-    "闸重答路径生产实证 (本轮零触发); 上线后人工复核前 20 次重答原因",
-    "T11 Bedrock prompt cache (重答使成本翻倍的风险上升)"
+    "人工复核生产前 20 次闸重答原因 (误报频率)",
+    "判据写死: 占位符地位 / 放疗双归属 / ④ 大分母阈值 (下轮 e2e 前)",
+    "sonnet 等其他模型: 过 DM2 判据后才加入 auto 名单",
+    "Streamlit: dossier 徽章 + 超时 (default 路径现自动挂研读包)",
+    "T11 Bedrock prompt cache"
   ],
   "failures": [
     "evidence/failures/dm2_task8_attempt_1.md",
@@ -50,5 +51,5 @@
     "evidence/failures/dm2_task9_attempt_5.md",
     "evidence/failures/dm2_task9_attempt_6.md"
   ],
-  "commits": "9ee3007 e96fc6b fbe342f fa99faa 38d2832 3e015be 930d2ea b5db6d0 f401e47 793c07e dea1fce a00d63c ff8be4b c1d57a6 37bcb3e 03096ad 3131ddc 6ddbec1 5b714bb + 终审文档 commit (base 3453652 不计, 本单元 19 commits + 终审文档 commit) | attempt 3: 19e6ea3 cfb9c93 | attempt 4: 5bd233a b3b85c8 f8523ad 7b9bdd0 + 本收口 commit | attempt 5: 2868ba5 d507936 28f60c7 + 本收口 commit | attempt 6: da6e96c abbecb7 0b71822 + 本收口 commit | gate: 82ceb80 86e5f94..9148969 d42b51c + 本收口 commit"
+  "commits": "9ee3007 e96fc6b fbe342f fa99faa 38d2832 3e015be 930d2ea b5db6d0 f401e47 793c07e dea1fce a00d63c ff8be4b c1d57a6 37bcb3e 03096ad 3131ddc 6ddbec1 5b714bb + 终审文档 commit (base 3453652 不计, 本单元 19 commits + 终审文档 commit) | attempt 3: 19e6ea3 cfb9c93 | attempt 4: 5bd233a b3b85c8 f8523ad 7b9bdd0 + 本收口 commit | attempt 5: 2868ba5 d507936 28f60c7 + 本收口 commit | attempt 6: da6e96c abbecb7 0b71822 + 本收口 commit | gate: 82ceb80 86e5f94..9148969 d42b51c + 本收口 commit | opus-only auto: c7f6394 + N3/N1 fix + 本收口 commit"
 }

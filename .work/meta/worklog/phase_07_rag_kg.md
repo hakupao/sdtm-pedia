@@ -2522,3 +2522,9 @@ deepseek/deepseek-chat (与生成方 opus-5 **不同模型族**, 避自偏好; �
 - 实现 (executor opus, TDD) `86e5f94..9148969` 13 commit: `server/dossier_gate.py` + 两端点共用 `_dossier_gate_run` + webchat 徽章 / 首轮折叠 / history 只带最终轮 + `/api/info.dossier_gate` + e2e `GATE grounding` + 回放脚本 (sha1 身份比对)。审: silent-failure-hunter (3 BLOCKING) → architect (1 BLOCKING + 10) → architect 核验 (3 小项) 全落地。2585 passed / node 72 / 回放 42/42 (controller 清 pyc 复现)。
 - §0⁵ `d42b51c` (跑前) → push + kickstart, 生产 `dossier_gate: true` → attempt 7 opus 6 run: 闸 6/6 首轮过、零重答 → analyst 判分主判 **6/6** (严 A 占位字面 4/6, 严 B 放疗 5/6)。controller 独立 token 核验零捏造属实。
 - ⚠ 生产现状: 闸已在线 (仅研读包挂上时跑; auto 仍暂停, 手动「研读:开」才挂)。恢复 auto 待用户确认。
+
+### 2026-09-25 (续5) — 研读包 auto 仅对 Opus 恢复 (上线)
+
+- 用户裁定: 恢复 (仅 opus)。`c7f6394` (executor): `dossier_auto_attach_models=["opus-5"]`, 按**解析后模型串**判 (default→default_model; 内部组不挂), `/api/info` 公开名单, webchat 文案去「暂停」。critic 审 ACCEPT-WITH-RESERVATIONS → 落地 N3 (未知 id 拒启动) + N1 注释 (约束请求模型非回退后作答模型)。2590 passed。
+- push + kickstart; 生产探针: `/api/info` dossier_gate=true / 名单 ["opus-5"]; opus-5 与 default → attached (auto:domain+scope), sonnet-5 → auto:paused。探针在 sources 后断开, opus/default 两次已发出 ~150K prompt 请求 (可能计费)。
+- ⚠ 已登记行为变化: Streamlit 选 default 时映射题自动挂研读包 (无徽章, timeout=120s); 回退到 deepseek 时研读包照喂 (fell_back 可见)。待办: 人工复核生产前 20 次闸重答原因; T11 prompt cache。
