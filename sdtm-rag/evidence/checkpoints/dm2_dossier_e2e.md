@@ -426,6 +426,26 @@ NCI C 码 / 英文大写词 / 文件名, **6 份答案的差集中没有一个�
 - 判分方对判据意见 7 条 (示例值是否入核 / 「弱候选」三态 / ②③ 族简写口径不对称 / 同标准域竞争 / ①⑤ 真值源不一致 / 阈值区分力不均等) —— 本轮不改判。
 - 归档: `evidence/failures/dm2_task9_attempt_5.md`。
 
+### 2.6 attempt 6 — Opus 单模型补跑, **主口径 5/6 ⇒ 按 §0⁗ 目标 (6/6) 业务 FAIL; auto 不恢复** (2026-09-25)
+
+代码基线 `0b71822`, `dossier:"on"`, 仅 `opus-5`。**G0 PASS** (判分方自核)。判分 = 异 subagent (`oh-my-claudecode:tracer` opus; 与 critic / verifier / scientist 均不同 type); 报告 + 4 脚本在 gitignored `runs/dm2_e2e_attempt6/judge_verdicts.md`。
+
+| run | 判定 | 要点 |
+|-----|------|------|
+| dm09 IE en | PASS | ③ 零捏造 (attempt 5 的示例值错 OID 未复现) |
+| dm10 MH zh | **FAIL ⑦** | 中文问 → 日文作答 (attempt 5 同题中文作答) |
+| dm11 EX ja | PASS (严口径 A FAIL) | 放疗项入 EX 是否算「同标准域竞争」—— §0⁗ 未定义「专门」|
+| dm12 PC en | PASS | 空域 |
+| dm05 AE en | PASS | |
+| dm07 PR ja | PASS | |
+
+- 同尺子复判 attempt 5 opus: 主口径 **5/6** (dm09 ③⁗ 示例值) —— 两轮都是 5/6, **失败题不同** (示例值 OID → 语言)。
+- 「gold 项目被列为排除」两轮 **0/20** ⇒ 新增「他域专属则列排除」未以 recall 为代价。
+- **controller 非自洽复核**: dm10 问句 `answer_language` = zh, 追加行为中文语言行; 答案平假名 595 / 漢字 657 (attempt 5 同题 31 / 978) ⇒ ⑦ FAIL 属实。**语言行降低了概率但未消除** (attempt 5: 0/12 语言失败; attempt 6: 1/6)。
+- **读法 (关键)**: attempt 5→6 opus 主口径都是 5/6, 且每轮失败落在**不同的**低频模式上 (示例值自造 OID / 语言漂移)。规则句措辞修一个, 下一轮在别处冒一个 —— 这是**采样尾部**, 继续改措辞收敛性差; 下一步若要逼近 100% 应换**结构性后验闸** (生成后确定性核 OID ∈ 一览 + 语言计数, 不过则重生成或标注), 而非再改规则句。
+- 判分方对判据意见: ⑦ 计数口径写死 / ④⁗「专门」需定义 (题集自身在 EX/PR 间两放) / ③⁗ 对 SDTM 侧示例与 `_n` 占位的作用域 / 短 OID 撞词白名单 / ④ 分母需机器可识别段标题。
+- 归档: `evidence/failures/dm2_task9_attempt_6.md`。
+
 ## §3 成本
 
 | qid | 请求 model id | attempt 1 prompt / completion | attempt 2 prompt / completion |

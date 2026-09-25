@@ -2509,3 +2509,9 @@ deepseek/deepseek-chat (与生成方 opus-5 **不同模型族**, 避自偏好; �
 - 语言行 `2868ba5` → 异 agent 审 (嵌入表单名误判 / fake 忽略 history / parts 形态) → `28f60c7` 加固 (去引号内、只认平仮名、漢字数>拉丁词数→zh; 12 道真题全判对)。⚠ 一次变异还原误用 `git checkout` 抹掉未提交改动, 已按原内容重写并全量复测 —— 以后变异还原只用备份文件。
 - 判据 §0‴ `d507936` (跑前); 跑 12 run G0 PASS; 判分 scientist opus → 字面 opus 5/6 · sonnet 4/6; controller 复核两处失败属实。2511 passed。
 - 证据 §2.5, 归档 `evidence/failures/dm2_task9_attempt_5.md`。
+
+### 2026-09-25 (续3) — DM2 attempt 6: Opus 单跑补一轮 (5/6, 仍 FAIL; auto 不恢复)
+
+- 用户裁定: opus 补一轮, 达 6/6 则只对 opus 恢复 auto。§0⁗ `da6e96c` (跑前) → 规则句补三处 `abbecb7` → 异 agent 审 (oh-my-claudecode:code-reviewer; 变异抓出 1 处未钉) → `0b71822` 落地。2511 passed。
+- 6 run G0 PASS; 判分 tracer opus → **5/6** (dm10 zh→ja); attempt 5 opus 同尺子复判亦 5/6 (dm09 示例值)。controller 复核语言判定属实。gold 被排除 0/20。
+- 证据 §2.6, 归档 `evidence/failures/dm2_task9_attempt_6.md`, RETRO 更新。auto 维持暂停。

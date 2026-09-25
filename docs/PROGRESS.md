@@ -1,7 +1,7 @@
 # 进度看板
 
 > **唯一进度状态源**. 历史细节看 `.work/meta/worklog/INDEX.md`. 文件结构看 `.work/MANIFEST.md`. 一页纸入门看 `.work/AGENT_GUIDE.md`.
-> 最后更新: 2026-09-25 (**DM2 attempt 3→5**: Bedrock 恢复后 Claude 实测 → 生产研读包 **auto 暂停** (`dossier_auto_attach=False`, 手动「研读:开」照挂; Streamlit 实际关闭) → attempt 4 (判据写死+规则句修订) opus 6/6·sonnet 4/6 → attempt 5 (**盲出新留出 4 题** + 答题语言结构性修法) **字面 opus 5/6 (宽 6/6) · sonnet 4/6 (宽 5/6)**, 仍未达每模型 6/6; 语言 12/12 已解决; 是否按模型恢复 auto 待用户裁; 证据 `sdtm-rag/evidence/checkpoints/dm2_dossier_e2e.md` §2.3-§2.5)
+> 最后更新: 2026-09-25 (**DM2 attempt 3→6**: Bedrock 恢复后 Claude 实测 → 生产研读包 **auto 暂停** (手动「研读:开」照挂; Streamlit 实际关闭) → attempt 4/5/6 (判据逐轮跑前写死 + 规则句 pattern 级修订 + 盲出新留出题 + 答题语言结构性修法) → **opus 两轮主口径均 5/6、失败题不同 (采样尾部), sonnet 4/6**; 未达 6/6 ⇒ auto 维持暂停; 下一步候选 = 生成后确定性闸; 证据 `sdtm-rag/evidence/checkpoints/dm2_dossier_e2e.md` §2.3-§2.6)
 > 此前各阶段收口细节 (SP1-SP6 / AGG / 部署 / Chat UI 等): 见 `.work/meta/worklog/phase_07_rag_kg.md` 对应收口记录 (本行原 84K 单行巨段已于 restructure v3 剪除, 全文在 git 历史 `816c4a5^` 前的版本可查)
 
 ---

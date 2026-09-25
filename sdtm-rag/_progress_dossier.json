@@ -4,7 +4,7 @@
   "spec": "docs/superpowers/specs/2026-09-15-study-dossier-design.md",
   "started": "2026-09-15",
   "status": "T1-T10 done (默认 ON, 生产已 kickstart); T11 prompt cache 可选未做; Claude 模型维度待 Bedrock 权限",
-  "current_step": "T9 attempt 5 (2026-09-25): 字面 opus 5/6 (宽 6/6), sonnet 4/6 (宽 5/6) ⇒ FAIL; auto 暂停; 待用户裁定",
+  "current_step": "T9 attempt 6 (2026-09-25): opus 单跑 5/6 (失败题与 attempt 5 不同, 采样尾部) ⇒ FAIL; auto 维持暂停; 待用户裁定",
   "steps": {
     "1": "done (StudyDossier 构建器; review 抓多 part 章续页首行丢失 + study/version 取值)",
     "2": "done (token 闸 166563 字 / 133652 tok cl100k 估计; 用户裁定含选择肢)",
@@ -37,9 +37,8 @@
     "pytest_full": "2489 passed (T9 attempt 2)"
   },
   "decisions_pending": [
-    "是否对 opus-5 (生产默认) 恢复 auto 挂载 (按模型区分需改码); sonnet 维持手动",
-    "opus 示例值自造 OID: 规则 (3) 是否补「举例也只用一览真实 OID」再跑一轮",
-    "判据余项写死: 示例值入核 / 候选三态 / 族简写口径 / 同标准域竞争 (§2.5 判分方 7 条)",
+    "下一步: 生成后确定性闸 (OID∈一览 + 语言计数, 不过则重生成/警示) vs 接受 opus≈5/6 按模型恢复 auto vs 暂停",
+    "判据余项: ④⁗「专门」定义 / ③⁗ 作用域 (SDTM 侧示例, _n 占位) / ⑦ 计数口径 / 撞词白名单",
     "T11 Bedrock prompt cache (每题 ~146-156K prompt 全价)"
   ],
   "failures": [
@@ -47,7 +46,8 @@
     "evidence/failures/dm2_task9_attempt_1.md",
     "evidence/failures/dm2_task9_attempt_3.md",
     "evidence/failures/dm2_task9_attempt_4.md",
-    "evidence/failures/dm2_task9_attempt_5.md"
+    "evidence/failures/dm2_task9_attempt_5.md",
+    "evidence/failures/dm2_task9_attempt_6.md"
   ],
-  "commits": "9ee3007 e96fc6b fbe342f fa99faa 38d2832 3e015be 930d2ea b5db6d0 f401e47 793c07e dea1fce a00d63c ff8be4b c1d57a6 37bcb3e 03096ad 3131ddc 6ddbec1 5b714bb + 终审文档 commit (base 3453652 不计, 本单元 19 commits + 终审文档 commit) | attempt 3: 19e6ea3 cfb9c93 | attempt 4: 5bd233a b3b85c8 f8523ad 7b9bdd0 + 本收口 commit | attempt 5: 2868ba5 d507936 28f60c7 + 本收口 commit"
+  "commits": "9ee3007 e96fc6b fbe342f fa99faa 38d2832 3e015be 930d2ea b5db6d0 f401e47 793c07e dea1fce a00d63c ff8be4b c1d57a6 37bcb3e 03096ad 3131ddc 6ddbec1 5b714bb + 终审文档 commit (base 3453652 不计, 本单元 19 commits + 终审文档 commit) | attempt 3: 19e6ea3 cfb9c93 | attempt 4: 5bd233a b3b85c8 f8523ad 7b9bdd0 + 本收口 commit | attempt 5: 2868ba5 d507936 28f60c7 + 本收口 commit | attempt 6: da6e96c abbecb7 0b71822 + 本收口 commit"
 }
