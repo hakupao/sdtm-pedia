@@ -79,6 +79,40 @@ gold 卡 basename 与一览文本仅在 gitignored runs/ 目录, 判分 agent �
 
 **失败处置**: 未达目标 ⇒ 归档 `evidence/failures/dm2_task9_attempt_3.md`; 规则句修改另起 attempt 4, 不与本轮合并。
 
+## §0″ attempt 4 判据 (规则句 pattern 级修订后; 跑前登记, 2026-09-25)
+
+> 本节在 attempt 4 **任何一次跑之前**、且在规则句修订 commit **之前**单独 commit。
+> 起因: attempt 3 业务 FAIL (§2.3) + 判分方列出的判据歧义 —— 本节把它们**写死**, 不再留自由裁量。
+> 生产 auto 挂载已暂停 (`dossier_auto_attach=False`, commit `5bd233a`), 本轮跑批显式 `dossier:"on"`; 触发器正确性另由 L2 闸 (`dm2_trigger_sweep.py`) 管, 不在本节。
+
+**题 × 模型**: 与 §0′ 同 6 题 × `opus-5`/`sonnet-5` = N=12, 产物 `runs/dm2_e2e_attempt4/`。
+跑命令: `.venv/bin/python -u eval/prod_wirein/dm2_e2e_run.py --no-resume --qids dm01,dm02,dm05,dm03,dm04,dm07 --out-subdir dm2_e2e_attempt4 --require-no-fallback --dossier on`
+⚠ 留出 3 题在 attempt 3 已被看过 (失败模式来自它们) ⇒ attempt 4 **全部 6 题都是 in-sample 修复验证**, 不再有泛化维度;
+泛化须另建新题 (本轮不做, 结论写清)。
+
+**G0 前置闸**: 12/12 `attached=True` (reason `forced_on`) 且 `fell_back is False`; judge pack 附 `attached`/`fell_back`/`models_used` 字段, 判分方可自核。
+
+**每 run PASS = ①″–⑥″ 全过**:
+
+①″ **分类轴** (同 §0′ 三形态, 两处写死):
+  - (a) `--CAT` 有 CT: 每个 CT 取值须以 **CT 原文大写字符串**逐字出现在其分组标题中; 意译、缩写、codelist 名 (如 `OTHEVENT`) 均**不算**写出该取值 ⇒ 该取值缺失 ⇒ FAIL。
+  - (b)(c) 同 §0′: 明说「无受控 `--CAT` 取值」/「无 `--CAT` 变量」**且**点名替代分组轴, 缺一 FAIL。
+  - 每个分组要么列候选要么明写「候補なし / no candidate」, 静默跳过 = FAIL。
+②″ **recall**: gold 卡 ≥ 3/4, 以**项目 OID 原样**出现为准; 表单 OID 写错 (非一览中的表单 OID) 不影响 recall 计分, 但归入 ③″ 捏造。表单 OID 出现在分组标题或同行均可。
+③″ **零捏造, 作用域 = 全文**: 答案**任何位置** (候选 / 排除 / 参照 / 表格任一列) 出现的 EDC 项目 OID 与表单 OID 须在 `item_list_text` 中存在, 且项目挂在答案所称的表单下; 捏造 ≥1 = FAIL。
+  族名前缀简写: 前缀在一览中确有成员则不计; 区间简写端点越界计捏造 (区间计数少报只报不判)。
+④″ **precision** (重定义): 分母 = 作为本域候选点名的项目 (整表倒出按表逐项, 明确标「不入本域」的不计); 错归 = 下列任一:
+  (i) 该项目内容无法由目标域任何变量 (含 `SUPP--` QNAM) 合理承载; (ii) **同一项目在答案中既被列为候选又被列为不入本域** (自相矛盾, 按项目计 1)。错归 / 分母 ≤ 10%, 超出 = FAIL。
+⑤″ **SDTM 侧不捏造**: 答案点名为目标域变量的 SDTM 变量名须在 `knowledge_base/domains/<域>/spec.md` 中存在, 或显式标为 `SUPPQUAL`/QNAM 提案; 点名不存在的标准变量 ≥1 = FAIL。
+⑥″ **标推測, 粒度 = 分组级**: 每个列候选的分组, 其**自身标题、首行或直接上级标题**带 推測 / inference 标记; 只在组尾总结句或开篇全局免责 = FAIL。
+⑦″ **语言一致** (新增): 答案主体语言与问句语言一致 (zh→zh, ja→ja, en→en; OID / SDTM 名 / CT 值 / 原文引用除外); 不一致 = FAIL。
+
+**目标 (预登记)**: 每个模型 **6/6** (全部 in-sample 修复验证, 标准从 §0′ 的 3/3 + ≥2/3 收紧), 两模型分列。
+**同尺子复判**: 判分方同时用 ①″–⑦″ 复判 attempt 3 的 12 份 Claude 答案 (`runs/dm2_e2e_claude/judge_pack.json`), 作为修订前基线; 不改 §2.3 历史判定。
+**判分**: 异 subagent (规则 D; 与 attempt 3 判分方不同 `subagent_type`), 只读本节 + §0/§0′ + 两份 judge pack, 不读任何 `judge_verdicts*.md` 与 §1-§4。
+**失败处置**: 未达 6/6 ⇒ 归档 `evidence/failures/dm2_task9_attempt_4.md`; 研读包 auto 继续暂停; 下一步由用户裁定。
+
+
 ---
 
 ## §1 运行记录
