@@ -2528,3 +2528,9 @@ deepseek/deepseek-chat (与生成方 opus-5 **不同模型族**, 避自偏好; �
 - 用户裁定: 恢复 (仅 opus)。`c7f6394` (executor): `dossier_auto_attach_models=["opus-5"]`, 按**解析后模型串**判 (default→default_model; 内部组不挂), `/api/info` 公开名单, webchat 文案去「暂停」。critic 审 ACCEPT-WITH-RESERVATIONS → 落地 N3 (未知 id 拒启动) + N1 注释 (约束请求模型非回退后作答模型)。2590 passed。
 - push + kickstart; 生产探针: `/api/info` dossier_gate=true / 名单 ["opus-5"]; opus-5 与 default → attached (auto:domain+scope), sonnet-5 → auto:paused。探针在 sources 后断开, opus/default 两次已发出 ~150K prompt 请求 (可能计费)。
 - ⚠ 已登记行为变化: Streamlit 选 default 时映射题自动挂研读包 (无徽章, timeout=120s); 回退到 deepseek 时研读包照喂 (fell_back 可见)。待办: 人工复核生产前 20 次闸重答原因; T11 prompt cache。
+
+### 2026-09-25 (续6) — RETRO 补齐 + T11 研读包 prompt cache 上线 (attempt 8: 6/6, 成本 33.5%)
+
+- 收口: RETRO §1/§3 补今日各轮; e2e 判据加「常设裁定」(占位按展开成员 / 放疗 EX 或 PR 均接受) `3910cc6`。
+- T11: litellm→Bedrock 零改码探针 write 12014 → read 12014; spec `3e5fb1c` (研读包移入 system 末尾 + 5m 断点 + kill switch `dossier_prompt_cache` + 经济性盈亏平衡 ≈22% 复用率)。实现 (executor) `24ecca8` `5a3f9e7`; 审 (debugger): 无 BLOCKING, 前缀实测 1 种, deepseek 回退 wire 为字符串, kill switch 与旧代码逐字节一致; controller 补前缀稳定回归测试。2608 passed。
+- §0⁶ (跑前) → push + kickstart → attempt 8 opus: 缓存 write 144264 → 5 题 read, 闸 dm10 重答 (zh→ja 拦对) 两轮命中; 判分 test-engineer → **6/6**。有效输入成本复算: `sum((pt-cw-cr)+1.25cw+0.1cr) / sum(attempt7 pt) = 0.335` (runs/dm2_e2e_attempt{7,8}/*_opus-5.json 的 done_event.usage)。
