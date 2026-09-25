@@ -237,3 +237,13 @@ def test_tool_result_status_matrix_matches_frontend_table(monkeypatch):
     frontend = _frontend_status_table()
     assert observed <= frontend, (
         f"运行时真实吐出但前端文案表没有的 status: {observed - frontend}")
+
+
+def test_grounding_field_contract():
+    """DM2 研读包答案闸: 前端以 `.grounding` 读 done, 后端 done 真的拼进这个键。后端那半是条件拼接
+    (`**grounding_kw`, 没挂研读包时不出现), 所以钉的是拼接点本身, 不是字面 `"grounding":`。"""
+    assert re.search(r"\.grounding\b", _frontend_sources()), "前端没有以 .grounding 形式读取该字段"
+    router = ROUTER_PY.read_text(encoding="utf-8")
+    done_block = router.split('yield sse("done", {', 1)[1].split("})", 1)[0]
+    assert "**grounding_kw" in done_block, "done 事件没有拼进 grounding"
+    assert '{"grounding":' in router.split("grounding_kw = ", 1)[1][:200]

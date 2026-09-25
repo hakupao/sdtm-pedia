@@ -837,7 +837,10 @@ async def ask_stream(body: AskStreamRequest, request: Request):
             # 研读包闸 (spec 2026-09-25 §3): 外圈 = 首轮 + 至多 REGEN_BUDGET 次重答。首轮已经流给
             # 用户了, 所以不做「顶部警示」: 发 grounding 事件, 不过就发 regenerate 事件后流第二轮。
             # 闸没开时只转一圈, 事件序列与引入前逐字节同 (test_router_dossier_gate 钉)。
+            regen_failed = False
+            first_pass: tuple = ([], False)   # 重答前那一轮的 (parts, truncated)
             while True:
+                pass_calls = 0   # 本轮 (首答 / 重答) 已开成的流数
                 for rnd in range(1, total_rounds + 1):
                     with_tools = use_web and rnd <= s.web_max_rounds
                     # 输出触顶自动续写的内层循环 (2026-09-08)。它**不消耗**外层的工具轮预算:
@@ -846,8 +849,22 @@ async def ask_stream(body: AskStreamRequest, request: Request):
                     while True:
                         # 开流的外层上限 (REV MED-b): provider 连接挂死时以 error 事件收场, 不把
                         # SSE 连接晾着。流中途**不**包 wait_for —— 单一 deadline 会截断健康的长答案。
-                        resp = await asyncio.wait_for(
-                            _open_stream(msgs, with_tools), timeout=s.request_timeout_s)
+                        try:
+                            resp = await asyncio.wait_for(
+                                _open_stream(msgs, with_tools), timeout=s.request_timeout_s)
+                        except Exception as e:  # noqa: BLE001 — 只接住「重答开流失败」, 其余原样抛
+                            if not (pass_calls == 0 and gate is not None and gate.first is not None):
+                                raise
+                            # 首轮答案已流给用户: 以 error 收场会让它连 done (徽章/存档) 都丢。
+                            # 同 /api/ask: 保留首轮, done 里如实带 regenerate_error。流到一半的失败
+                            # 仍走 error 事件 (与续写轮同一约定)。
+                            log.warning("dossier_regenerate_failed", model=body.model,
+                                        error=str(e), exc_info=True)
+                            gate.regeneration_failed(type(e).__name__)
+                            parts, truncated = first_pass
+                            regen_failed = True
+                            break
+                        pass_calls += 1
 
                         acc: dict[int, dict] = {}   # 流式 tool_calls 是增量的, 按 index 拼
                         round_parts: list[str] = []  # 本轮文本, 回灌 assistant 消息用
@@ -950,6 +967,8 @@ async def ask_stream(body: AskStreamRequest, request: Request):
                         # 不是「这里换了一次 API 调用」这个实现细节。轮数在 done 里汇总呈现。
                         yield sse("continue", {"round": continue_rounds})
 
+                    if regen_failed:
+                        break
                     # 没有工具调用 = 本轮就是最终答案; 本轮压根没挂工具 (web 关闭, 或已是收尾轮)
                     # 也一律当最终答案 —— 没挂工具就不该解释工具调用, 更不该为它烧一次配额。
                     if not acc or not with_tools:
@@ -1008,7 +1027,7 @@ async def ask_stream(body: AskStreamRequest, request: Request):
                                      "name": v["name"], "content": content})
 
                 # 闸看续写 + 工具轮都拼好之后的整轮答案, 不在分片上跑。
-                if gate is None:
+                if gate is None or regen_failed:
                     break
                 verdict = gate.observe("".join(parts))
                 yield sse("grounding", verdict.to_dict())
@@ -1019,6 +1038,7 @@ async def ask_stream(body: AskStreamRequest, request: Request):
                                          "grounding": verdict.to_dict()})
                 # 第二轮 = 原 messages 快照 (不含本轮的工具/续写回灌) + 首轮答案 + 运行时反馈。
                 # parts 只装当前这一轮: counting gate 与终判看的是最终轮, 不是两轮拼起来。
+                first_pass = (parts, truncated)
                 msgs = gate.regenerate_messages(messages, "".join(parts))
                 parts = []
                 truncated = False

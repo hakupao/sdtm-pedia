@@ -201,3 +201,15 @@ def test_both_endpoints_share_the_one_orchestrator():
     for fn in (router_mod.ask, router_mod.ask_stream):
         src = inspect.getsource(fn)
         assert "_dossier_gate_run(" in src and ".should_regenerate()" in src, fn.__name__
+
+
+def test_stream_regeneration_open_failure_keeps_first_answer_and_done():
+    # 首轮已流给用户; 重答开流就失败时不能以 error 收场 (那样首轮连 done/徽章/存档都丢)。
+    # 两个异常: _open_stream 失败后会去掉 stream_options 再开一次。
+    c, app = _gated_client([(BAD, "stop"), RuntimeError("boom"), RuntimeError("boom")])
+    ev = _stream(c)
+    assert [e for e, _ in ev] == ["sources", "token", "grounding", "regenerate", "done"]
+    g = ev[-1][1]["grounding"]
+    assert g["regenerate_error"] == "RuntimeError" and g["regenerated"] is False
+    assert g["final"]["ok"] is False and g["first"] is None
+    assert ev[-1][1]["usage"]["total_tokens"] == 15
