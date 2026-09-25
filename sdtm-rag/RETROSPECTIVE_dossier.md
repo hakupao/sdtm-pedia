@@ -19,7 +19,8 @@
 - **判据 ① 对 AE 域是空判据**。AE 的 definition text 不定义任何 `--CAT` 值, 「按域定义列出全部记录类别」在 AE 题上没有可核清单; 两份答案都只能显式改轴, 而「改哪个轴才算合格」判据没写。⇒ ① 只在有 `--CAT` CT 的域上有判别力, 无 CT 的域需要另一条判据。
 - **判据 ③ 未规定标记粒度**。「每条归属带 (推測)」与「章节标题级标记」之间没有划线, 本轮按「章节级 > 单一全局免责」判过 (dm05/opus 就是章节级)。若收紧到逐条即会 FAIL。**判据里的模糊词 = 判分时的自由裁量 = 下轮不可比**, 粒度必须写死。
 - **「候補なし」分支在 AE 题上完全未被检验**。AE 两份在自选的模块轴下没有空模块, 全篇零「候補なし」声明。规则 ② 的一半 (显式申报无候选) 只在 DS 题上验过。
-- **模型维度缺席**。12 次调用全 `fell_back=True` → deepseek-v4-pro。Bedrock 账号当前拒绝 Anthropic 模型 (`Access to Anthropic models is not allowed for this account`), 属账号权限问题不是代码问题。**Claude 两模型在研读包下的表现本单元拿不到**; 重跑命令在 `evidence/checkpoints/dm2_dossier_e2e.md` §4, 权限恢复后需异 agent 重判并另起 §2.3。
+- **(2026-09-25 更新) 模型维度已补 = attempt 3 业务 FAIL**: Bedrock 恢复后 Claude 两模型 12 run 全真未回退, 按跑前登记的 §0′ (含 3 道留出题) 判 **opus 2/3·2/3, sonnet 1/3·1/3, 均未达标** (`dm2_dossier_e2e.md` §2.3, `evidence/failures/dm2_task9_attempt_3.md`)。要点: sonnet 三道无 CT 域题全部跳过「声明 + 点名替代轴」(与口径无关); 第三个 `DSCAT` 值在 ja 问句上两模型族都再次失守; 捏造首次非零 (2/12); 新增 precision 判据 18/18=0% 无判别力。**「deepseek 6/6」不能外推到生产默认模型 Claude。** 研读包实收 146.8K-155.5K token (Claude 原生), 4/12 越过 T2 的 150K 估计线。
+- ~~**模型维度缺席**~~ (历史原文保留)。12 次调用全 `fell_back=True` → deepseek-v4-pro。Bedrock 账号当前拒绝 Anthropic 模型 (`Access to Anthropic models is not allowed for this account`), 属账号权限问题不是代码问题。**Claude 两模型在研读包下的表现本单元拿不到**; 重跑命令在 `evidence/checkpoints/dm2_dossier_e2e.md` §4, 权限恢复后需异 agent 重判并另起 §2.3。
 - **prompt cache 未做** (T11 可选)。每题 106-108K prompt token 全价, 无 `cache_read_input_tokens`。做不做要等 Claude 真能跑起来 (deepseek 本就不走 Anthropic prompt cache)。
 - **`dm08` 型长名前缀问句不自动触发**。问句只给域英文长名前缀 (无域码) 时 D1 识别不出域码 ⇒ 不触发, 需手动 `dossier: on`。本单元不扩 D1 (140q 回归风险), 已写进 spec §8 与 gates。
 - **Streamlit UI 不显示研读包徽章 (已知面)**。`ui/streamlit_app.py` 调 `/api/ask` 时**不带** `dossier` 键 ⇒ 后端按默认 `auto` 判定, 该挂就挂; 但它只渲染答案与 sources, **没有** 📖 徽章, 也不落 `dossier` 存档字段。⇒ 从 Streamlit 看到的答案, 「这条吃没吃研读包」在界面上无从判断 (webchat 有徽章)。不是 bug 是未接线面, 记在这里以免下次把它当成「研读包没生效」。

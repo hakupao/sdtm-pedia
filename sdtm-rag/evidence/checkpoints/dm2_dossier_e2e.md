@@ -229,6 +229,50 @@ NCI C 码 / 英文大写词 / 文件名, **6 份答案的差集中没有一个�
 3. **③ 未规定标记粒度**: 「每条归属带标记」与章节级标记之间没有划线; 若要让 ③ 有判别力,
    需把粒度写死 (逐条 / 逐表行)。
 
+### 2.3 attempt 3 — Claude 两模型 + 留出题, **两模型均未达 §0′ 目标, 业务 FAIL** (2026-09-25)
+
+代码基线 `19e6ea3` (`_DOSSIER_RULES` 与 `03096ad` 一字不差)。**G0 PASS**: 12/12 `attached=True`,
+12/12 `fell_back=False`, `models_used` 全为请求的 `global.anthropic.claude-{opus,sonnet}-5` (跑批脚本
+`--require-no-fallback` 闸输出 `# GATE no-fallback: PASS`; 判分方无法核 G0, judge pack 不含这两字段 —— 由跑批日志证)。
+判分 = 异 subagent (`oh-my-claudecode:critic` opus, 与 attempt 1/2 判分方不同 type), 只读 §0/§0′ + 两份 judge pack;
+逐 run 报告 + 扫描脚本在 gitignored `runs/dm2_e2e_claude/judge_verdicts.md`。
+
+| run | 模型 | ①′ | ②′ recall · 捏造 · precision | ③′ | 判定 |
+|-----|------|----|-------------------------------|----|------|
+| dm01 DS zh | opus-5 | P | 4/4 · 0 · 0% | P | **PASS** |
+| dm02 DS ja | opus-5 | **F** (第三个 `DSCAT` 值以意译 + codelist 名 `OTHEVENT` 立题, 原文取值 0 次) | 4/4 · 0 · 0% | P | **FAIL** |
+| dm05 AE en | opus-5 | P (声明 AECAT 无 CT, 改模块轴) | 4/4 · 0 · 0% | P | **PASS** |
+| dm03 DS en 留出 | opus-5 | P | 4/4 · 0 · 0% | P | **PASS** |
+| dm04 DM ja 留出 | opus-5 | P (声明无 `--CAT`, 改逐目标变量) | 4/4 · 0 · 0% | P | **PASS** |
+| dm07 PR ja 留出 | opus-5 | P (声明 PRCAT 无 CT, 改 assumptions 手技类型轴) | 4/4 · **1** · 0% | P | **FAIL** (捏造在「不入 PR」排除清单) |
+| dm01 DS zh | sonnet-5 | P | 4/4 · 0 · 0% | P | **PASS** |
+| dm02 DS ja | sonnet-5 | **F** (`DSCAT` 只 2/3) | 4/4 · 0 · 0% | P | **FAIL** |
+| dm05 AE en | sonnet-5 | **F** (未声明无 CT / 未点名轴) | 3/4 · 0 · 0% | P | **FAIL** |
+| dm03 DS en 留出 | sonnet-5 | P | 4/4 · 0 · 0% | P | **PASS** |
+| dm04 DM ja 留出 | sonnet-5 | **F** (同 dm05) | 4/4 · 0 · 0% | P | **FAIL** |
+| dm07 PR ja 留出 | sonnet-5 | **F** (同 dm05) | 严 0/4 · **3** (虚构表单 OID) · 0% | P | **FAIL** |
+
+| 模型 | in-sample (目标 3/3) | 留出 (目标 ≥2/3) | 达标 |
+|------|---------------------|-----------------|------|
+| opus-5 | 2/3 | 2/3 | ✗ |
+| sonnet-5 | 1/3 | 1/3 | ✗ |
+| deepseek (attempt 2 同尺子复判, 仅比较) | 5/6 (dm02「sonnet」跑 ①′③′ 严判 FAIL) | — | — |
+
+**controller 非自洽复核 (关键两条)**: ① dm07 两份的 4 个疑似捏造 token 用独立脚本对 `item_list_text` 全量大写 token 集合查 ——
+4/4 在答案中、0/4 在一览中, 捏造属实; ② sonnet dm04/dm05/dm07 答案全文 `CAT` 子串 0 次, ①′(b)(c) 「未声明」属实。
+
+**读法 (必须同时写)**:
+- **口径敏感性 (判分方报)**: ①′ 若接受「意译 + codelist 名」⇒ opus in-sample 3/3; 捏造若只计候选段 ⇒ opus 留出 3/3; 两宽口径同开 ⇒ opus 达标。
+  **这两处宽口径是跑后才被发现的歧义, 本轮不改判** (跑后改尺子 = 下轮不可比), 只进 §0″ 候选修订。
+- **sonnet 在任何口径下都不达标**: dm04/05/07 的 ①′ 失败与口径无关 —— 规则句要求的「无 CT 时明说并点名换轴」sonnet 三题全未执行。
+  同一规则句下 deepseek 与 opus 在无 CT 域上都执行了 ⇒ 是**模型对规则句的遵从差异**, 不是研读包缺料。
+- **第三个 `DSCAT` 值再次是薄弱点**: attempt 1 (deepseek) 的失败模式在 Claude 两模型的 dm02 (ja) 上复现 (sonnet 静默缺失 / opus 意译顶替);
+  同域 dm01 (zh) / dm03 (en) 两模型均 PASS ⇒ 与**问句语言**相关的非稳态, n=1/格, 不下因果结论。
+- **捏造首次非零**: attempt 2 的 deepseek 6 份捏造 0; 本轮 Claude 12 份中 2 份出现 (opus 1 个项目 OID 在排除清单; sonnet 3 个表单 OID 在候选表)。
+- **precision 18/18 = 0%**: 判分方指出 §0′ 的「明显错归」定义过窄实际不设防 (抓不到自相矛盾归属、非 topic 变量错归) —— **该新判据本轮无判别力**。
+- **观察项**: 答题语言与问句不一致 2/12 (opus dm01 zh→ja, sonnet dm05 en→ja); sonnet 虚构 SDTM 变量 `AETESTCD` 且把 CTCAE grade 对到 AESEV —— 判据无条款约束 SDTM 侧正确性。
+- 归档: `evidence/failures/dm2_task9_attempt_3.md` (规则 B)。
+
 ## §3 成本
 
 | qid | 请求 model id | attempt 1 prompt / completion | attempt 2 prompt / completion |
@@ -246,6 +290,23 @@ NCI C 码 / 英文大写词 / 文件名, **6 份答案的差集中没有一个�
   无 `cache_read_input_tokens`; 实际作答的是 deepseek, 本就不走 Anthropic prompt cache。
   这一格要等 Bedrock 权限恢复 + (可选) Task 11 prompt cache 之后才有意义。
 - 单次 wall time 180-256 s, 6/6 `truncated=False` / `continue_rounds=0` / 0 次重试。
+
+**attempt 3 (Claude 实收, 2026-09-25)**:
+
+| qid | prompt (两模型同) | opus-5 completion / wall s | sonnet-5 completion / wall s |
+|-----|------------------|---------------------------|-----------------------------|
+| dm01 | 147339 | 8965 / 129.8 | 7306 / 84.4 |
+| dm02 | 148895 | 5100 / 83.3 | 12691 / 142.4 |
+| dm05 | 150148 | 10680 / 144.3 | 1942 / 37.7 |
+| dm03 | 155543 | 7376 / 96.8 | 7060 / 77.3 |
+| dm04 | 146791 | 3349 / 58.1 | 1591 / 33.1 |
+| dm07 | 147738 | 8851 / 117.6 | 2248 / 44.8 |
+
+- **Claude 原生计数 146.8K-155.5K, 4/12 次 > T2 的 150K 线**。T2 闸的 133652 是 cl100k_base 估计 (见 `dm2_dossier_tokens.md`),
+  Claude tokenizer 实收比它高约 10%; 已记为 T2 闸的口径缺陷 (估计值作闸, 实值越线), 不影响本轮调用 (未截断, 模型上下文远大于此)。
+- **cache 命中: 仍 n/a** —— Claude 实收 `usage` 键同样只有 `prompt_tokens`/`completion_tokens`/`total_tokens`, 每次全价。T11 现可做。
+- 12/12 `truncated=False` / `continue_rounds=0` / 0 次重试。**L1 `fell_back` 两分支现均有真实 Bedrock 实测**
+  (attempt 1/2 = 真回退 `True`, attempt 3 = 真未回退 `False` 且 `models_used` 为真实模型串)。
 
 ## §4 结论与限定
 
@@ -274,6 +335,9 @@ cd .. && launchctl kickstart -k gui/$(id -u)/com.sdtmrag.api
 cd sdtm-rag && .venv/bin/python -u eval/prod_wirein/dm2_e2e_run.py --no-resume
 # 再派**异 subagent** (规则 D) 只读 §0 + 新 judge_pack.json 判分, 结果另起 §2.3
 ```
+
+7. **(2026-09-25) 第 6 条已执行 = attempt 3**, 结果见 §2.3: 两模型均未达 §0′ 目标 (opus 2/3·2/3, sonnet 1/3·1/3)。
+   上面第 2 条「本文件不是 Claude 对比」对 attempt 1/2 仍成立; Claude 结论只以 §2.3 为准。
 
 > 旧判分档不要删 (规则 B): `runs/dm2_e2e/judge_verdicts_attempt_1.md` = attempt 1,
 > `judge_verdicts.md` = attempt 2; 重跑前先把后者改名, 免得新判分 agent 读到上一轮结论。

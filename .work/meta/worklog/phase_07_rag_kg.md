@@ -2484,3 +2484,12 @@ deepseek/deepseek-chat (与生成方 opus-5 **不同模型族**, 避自偏好; �
   另纠正一处归因: T7 窗口期的 **422 只出在 `/api/ask`** (`AskRequest` 有 `extra="forbid"`),
   **`/api/ask_stream` 静默忽略未知字段 ⇒ webchat 当时没坏**, 但重启仍是功能上线的必要条件。
   全量 **2492 passed**; 生产已 kickstart, 启动日志 `dossier cards_md=961 items=959 sha=ed632b14cd34`。
+
+### 2026-09-25 — DM2 attempt 3: Claude 两模型重跑 + 留出题 (业务 FAIL, 待裁 attempt 4)
+
+- **起点**: 探针实测 Bedrock 恢复 Anthropic 访问 (opus-5 / sonnet-5 `ping` 均 OK)。
+- **跑前登记** `19e6ea3`: §0′ 收紧三缺口 (precision / 无 CAT 域 / 分组级推測) + 留出 dm03 (DS) / dm04 (DM, 无 `--CAT`) / dm07 (PR, `--CAT` 无 CT); `_DOSSIER_RULES` 不改; 跑批脚本加 `--qids/--out-subdir/--require-no-fallback`。
+- **跑**: 12 run, G0 PASS (12/12 attached, 12/12 `fell_back=False`) ⇒ L1 `fell_back` 两分支均有真实 Bedrock 实测。prompt 146.8K-155.5K (Claude 原生), 4/12 越 T2 150K 估计线; 无 cache 字段。
+- **判** (critic opus, 规则 D, 同尺子复判 deepseek 基线 5/6): opus 2/3·2/3, sonnet 1/3·1/3 **均未达标**。controller 非自洽复核捏造 4/4 属实、sonnet 无 CAT 声明 0 次属实。判分方列 9 条判据缺口 (CT 值意译 / 捏造作用域 / precision 无判别力等), 本轮不改判。
+- 证据 `sdtm-rag/evidence/checkpoints/dm2_dossier_e2e.md` §0′/§2.3/§3; 归档 `sdtm-rag/evidence/failures/dm2_task9_attempt_3.md`; RETRO §2 更新。
+- **下一步**: attempt 4 (规则句 pattern 级修订 + §0″ 判据跑前写死) 待用户裁定; T11 prompt cache 现可做。
