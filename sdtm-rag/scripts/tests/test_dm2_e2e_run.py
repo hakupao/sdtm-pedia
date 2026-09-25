@@ -67,6 +67,14 @@ def test_summary_line_reports_grounding():
     assert "grounding_ok=None" in line and "regenerated=None" in line
 
 
+def test_summary_line_reports_prompt_cache_tokens():
+    usage = {"prompt_tokens": 9, "cache_creation_input_tokens": 0, "cache_read_input_tokens": 7}
+    line = run._summary_line("dm01", "opus-5", {"done_event": {"usage": usage}, "answer": "a"})
+    assert "cache_creation_input_tokens=0 " in line and "cache_read_input_tokens=7 " in line
+    line = run._summary_line("dm01", "opus-5", {"done_event": {}, "answer": "a"})
+    assert "cache_read_input_tokens=None" in line   # provider 没报 ⇒ 缺省, 不编 0
+
+
 def test_judge_pack_carries_grounding(tmp_path, monkeypatch):
     monkeypatch.setattr(run, "_item_list_text", lambda: "## B.")
     monkeypatch.setattr(run, "_first_paragraph", lambda md: "def")

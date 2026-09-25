@@ -254,3 +254,20 @@ def test_counting_correction_field_contract():
     assert re.search(r"\.counting_correction\b", _frontend_sources()), "前端没读 .counting_correction"
     router = ROUTER_PY.read_text(encoding="utf-8")
     assert 'grounding_kw["counting_correction"]' in router, "done 没有带 counting_correction"
+
+
+def test_done_usage_key_contract():
+    """done.usage 的键集合 (研读包 prompt cache 之后): 基础三键 + 可选 partial + 可选 cache 两键。
+    cache 两键只在研读包挂上且 provider 报过时出现 (口径见 test_router_dossier_prompt_cache);
+    存档 / dm2_e2e_run.py 的 summary 行按这两个名字读。"""
+    from scripts.tests.test_router_dossier_gate import BAD, GOOD, _gated_client, _stream
+    from scripts.tests.test_router_dossier_prompt_cache import _CacheUsageRouter, _u
+    c, app = _gated_client([])
+    app.state.llm_router = _CacheUsageRouter([(BAD, "stop"), (GOOD, "stop")],
+                                             [_u(cw=3, cr=0), _u(cw=0, cr=3)])
+    usage = _stream(c)[-1][1]["usage"]
+    assert set(usage) == {"prompt_tokens", "completion_tokens", "total_tokens",
+                          "cache_creation_input_tokens", "cache_read_input_tokens"}
+    e2e = (_ROOT / "eval" / "prod_wirein" / "dm2_e2e_run.py").read_text(encoding="utf-8")
+    for key in ("cache_creation_input_tokens", "cache_read_input_tokens"):
+        assert f"usage.get('{key}')" in e2e, key

@@ -160,3 +160,88 @@ def test_regenerate_round_reuses_the_same_system_block():
         first, second = app.state.llm_router.calls
         assert first[0] == second[0] == {"role": "system", "content": _cached_system("SYS[both]")}
 
+
+# ── usage 透传 cache_creation_input_tokens / cache_read_input_tokens ───────
+# 口径: 只在研读包挂上时出现 (没挂 ⇒ usage 与改动前逐字节同); 且至少一轮 usage 报了该字段
+# (顶层属性, 缺则读 prompt_tokens_details.cache_creation_tokens / cached_tokens) 才出现;
+# 续写轮 + 闸重答轮全部累加, 某轮没报记 0。
+
+from types import SimpleNamespace  # noqa: E402
+
+from scripts.tests.test_router_dossier_gate import _events, _ScriptRouter  # noqa: E402
+
+
+class _CacheUsageRouter(_ScriptRouter):
+    """每次调用按顺序吐一个 usage (与 script 同长)。"""
+
+    def __init__(self, script, usages):
+        super().__init__(script)
+        self.usages = list(usages)
+
+    def completion(self, model, messages, **kw):
+        text, fr = self._next(messages)
+        return SimpleNamespace(model="m", usage=self.usages.pop(0), choices=[
+            SimpleNamespace(message=SimpleNamespace(content=text), finish_reason=fr)])
+
+    async def acompletion(self, model, messages, stream=False, **kw):
+        text, fr = self._next(messages)
+        u = self.usages.pop(0)
+
+        async def agen():
+            yield SimpleNamespace(model="m", usage=None, choices=[
+                SimpleNamespace(delta=SimpleNamespace(content=text), finish_reason=fr)])
+            yield SimpleNamespace(model="m", usage=u, choices=[])
+        return agen()
+
+
+def _u(cw=None, cr=None, details=None):
+    u = SimpleNamespace(prompt_tokens=10, completion_tokens=5, total_tokens=15)
+    if cw is not None:
+        u.cache_creation_input_tokens = cw
+    if cr is not None:
+        u.cache_read_input_tokens = cr
+    if details is not None:
+        u.prompt_tokens_details = details
+    return u
+
+
+def _usage_of(c, ep, q=Q_MAP):
+    r = c.post(ep, json={"question": q, "history": []})
+    return r.json()["usage"] if ep == "/api/ask" else _events(r.text)[-1][1]["usage"]
+
+
+def test_usage_sums_cache_fields_across_regenerate_rounds():
+    for ep in ("/api/ask", "/api/ask_stream"):
+        c, app = _gated_client([])
+        app.state.llm_router = _CacheUsageRouter([(BAD, "stop"), (GOOD, "stop")],
+                                                 [_u(cw=900, cr=0), _u(cw=0, cr=900)])
+        assert _usage_of(c, ep) == {"prompt_tokens": 20, "completion_tokens": 10,
+                                    "total_tokens": 30, "cache_creation_input_tokens": 900,
+                                    "cache_read_input_tokens": 900}, ep
+
+
+def test_usage_cache_fields_fall_back_to_prompt_tokens_details_and_missing_rounds_count_zero():
+    det = SimpleNamespace(cache_creation_tokens=None, cached_tokens=7)
+    for ep in ("/api/ask", "/api/ask_stream"):
+        c, app = _gated_client([])
+        app.state.llm_router = _CacheUsageRouter([(BAD, "stop"), (GOOD, "stop")],
+                                                 [_u(details=det), _u()])
+        u = _usage_of(c, ep)
+        assert (u["cache_creation_input_tokens"], u["cache_read_input_tokens"]) == (0, 7), ep
+
+
+def test_usage_has_no_cache_keys_when_provider_reports_none():
+    for ep in ("/api/ask", "/api/ask_stream"):
+        c, app = _gated_client([])
+        app.state.llm_router = _CacheUsageRouter([(GOOD, "stop")], [_u()])
+        assert _usage_of(c, ep) == {"prompt_tokens": 10, "completion_tokens": 5,
+                                    "total_tokens": 15}, ep
+
+
+def test_usage_has_no_cache_keys_when_dossier_not_attached():
+    """没挂 ⇒ 即使 provider 报了缓存字段, usage 也与改动前逐字节同。"""
+    for ep in ("/api/ask", "/api/ask_stream"):
+        c, app = _client(DOSSIER)
+        app.state.llm_router = _CacheUsageRouter([("ans", "stop")], [_u(cw=0, cr=0)])
+        assert _usage_of(c, ep, q=Q_CDISC) == {"prompt_tokens": 10, "completion_tokens": 5,
+                                               "total_tokens": 15}, ep

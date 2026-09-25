@@ -248,6 +248,8 @@ def _summary_line(qid: str, model: str, rec: dict) -> str:
             f"model_used={done.get('model_used')} fell_back={done.get('fell_back')} "
             f"prompt_tokens={usage.get('prompt_tokens')} "
             f"completion_tokens={usage.get('completion_tokens')} "
+            f"cache_creation_input_tokens={usage.get('cache_creation_input_tokens')} "
+            f"cache_read_input_tokens={usage.get('cache_read_input_tokens')} "
             f"continue_rounds={done.get('continue_rounds')} "
             f"truncated={done.get('truncated')} "
             f"wall_seconds={rec.get('wall_seconds')} "

@@ -195,6 +195,23 @@ def _prompt_cache_capable(s, model_id: str) -> bool:
     return bool(resolved) and "anthropic" in resolved
 
 
+def _add_cache_usage(acc: dict, u) -> bool:
+    """一轮 usage 的 prompt cache 写入 / 读取 token 累加进 acc; 这一轮报了任一字段返回 True。
+    顶层属性 (Anthropic 口径) 缺时读 litellm 的 prompt_tokens_details 映射; 没报的记 0。
+    两端点共用 (流式与非流式各写一份 = 只修好一边)。"""
+    d = getattr(u, "prompt_tokens_details", None)
+    seen = False
+    for key, alt in (("cache_creation_input_tokens", "cache_creation_tokens"),
+                     ("cache_read_input_tokens", "cached_tokens")):
+        v = getattr(u, key, None)
+        if v is None and d is not None:
+            v = getattr(d, alt, None)
+        if v is not None:
+            seen = True
+            acc[key] += v
+    return seen
+
+
 def _attach_dossier_rules(messages: list[dict], question: str,
                           dossier_text: str | None = None, cache_marker: bool = False) -> None:
     """研读包挂上时: system 追加规则句, 最后一条 user 消息追加确定的答题语言行。
@@ -591,6 +608,9 @@ def ask(body: AskRequest, request: Request):
     usage_total = {"prompt_tokens": 0, "completion_tokens": 0, "total_tokens": 0}
     usage_seen = False
     usage_missing = False
+    # prompt cache 写入 / 读取 (续写 + 闸重答跨轮累计); 只在研读包挂上且 provider 报过时进 usage
+    cache_usage = {"cache_creation_input_tokens": 0, "cache_read_input_tokens": 0}
+    cache_seen = False
     gate = _dossier_gate_run(request, dossier_block, body.question)
     regen_failed = False
     # 重答前那一轮的 (answer_parts, truncated, continue_error, continue_rounds, response)
@@ -635,6 +655,7 @@ def ask(body: AskRequest, request: Request):
                     usage_total["prompt_tokens"] += response.usage.prompt_tokens or 0
                     usage_total["completion_tokens"] += response.usage.completion_tokens or 0
                     usage_total["total_tokens"] += response.usage.total_tokens or 0
+                    cache_seen = _add_cache_usage(cache_usage, response.usage) or cache_seen
                 else:
                     usage_missing = True   # 与流式同口径: 缺了一轮就不许呈现成完整总量
                 if getattr(response.choices[0], "finish_reason", None) not in _TRUNCATED_FINISH_REASONS:
@@ -690,6 +711,8 @@ def ask(body: AskRequest, request: Request):
     usage = None
     if usage_seen:
         usage = dict(usage_total)
+        if dossier_block and cache_seen:   # 没挂 ⇒ usage 与引入前逐字节同
+            usage.update(cache_usage)
         if usage_missing:
             usage["partial"] = True
 
@@ -890,6 +913,9 @@ async def ask_stream(body: AskStreamRequest, request: Request):
         usage_total = {"prompt_tokens": 0, "completion_tokens": 0, "total_tokens": 0}
         usage_seen = False
         usage_missing = False
+        # prompt cache 写入 / 读取: 口径同 /api/ask (挂上且 provider 报过才进 usage, 跨轮累计)
+        cache_usage = {"cache_creation_input_tokens": 0, "cache_read_input_tokens": 0}
+        cache_seen = False
         # 触顶自动续写 (2026-09-08): 本次回答一共为"接着写"多开了几次 API 调用, 以及
         # 收尾时是不是**仍然**卡在上限上。两个都进 done —— 一条被截断的答案与一条完整
         # 答案在存档里必须长得不一样 (与 web_status / fell_back 同一条教训)。
@@ -999,6 +1025,7 @@ async def ask_stream(body: AskStreamRequest, request: Request):
                                 usage_total["completion_tokens"] += (
                                     getattr(cu_round, "completion_tokens", None) or 0)
                                 usage_total["total_tokens"] += getattr(cu_round, "total_tokens", None) or 0
+                                cache_seen = _add_cache_usage(cache_usage, cu_round) or cache_seen
                             else:
                                 usage_missing = True
 
@@ -1143,6 +1170,8 @@ async def ask_stream(body: AskStreamRequest, request: Request):
             usage = None
             if usage_seen:
                 usage = dict(usage_total)
+                if dossier_block and cache_seen:   # 没挂 ⇒ done 与引入前逐字节同
+                    usage.update(cache_usage)
                 if usage_missing:
                     usage["partial"] = True   # 有轮次没拿到 usage, 总量不完整, 必须标明
             # web_searches_ok: 本次真正拿到结果的搜索次数。web_status 的 6 个值分不出
