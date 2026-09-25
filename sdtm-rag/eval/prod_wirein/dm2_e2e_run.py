@@ -163,10 +163,12 @@ def main() -> int:
     # 生产 auto 挂载暂停期 (config.dossier_auto_attach=False) 测答题质量须显式 on; 触发器另有 L2 闸.
     ap.add_argument("--dossier", choices=("auto", "on"), default="auto")
     # attempt 5: 留出题在另一份 yml (v2_holdout); 逗号分隔, 按顺序合并, 题号冲突即报错.
+    ap.add_argument("--models", default=",".join(MODELS), help="逗号分隔 model id")
     ap.add_argument("--yml", default="test_set_domain_mapping_v1.yml",
                     help="eval/ 下的题集文件名, 逗号分隔")
     args = ap.parse_args()
     qids = tuple(q.strip() for q in args.qids.split(",") if q.strip())
+    models = tuple(m.strip() for m in args.models.split(",") if m.strip())
 
     study_dir = Path(settings.study_kb_root).parent
     out_dir = study_dir / "eval" / "runs" / args.out_subdir
@@ -183,11 +185,11 @@ def main() -> int:
         raise SystemExit(f"unknown question ids: {missing}")
 
     runs: list[tuple[str, str, dict]] = []
-    print(f"# dm2 e2e: {len(qids)}q x {len(MODELS)}model = {len(qids) * len(MODELS)} runs "
+    print(f"# dm2 e2e: {len(qids)}q x {len(models)}model = {len(qids) * len(models)} runs "
           f"(sequential; base={args.base})")
     for qid in qids:
         q = questions[qid]
-        for model in MODELS:
+        for model in models:
             dest = out_dir / f"{qid}_{model}.json"
             if not args.no_resume and dest.exists():
                 rec = json.loads(dest.read_text(encoding="utf-8"))

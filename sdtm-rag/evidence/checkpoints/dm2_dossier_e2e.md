@@ -155,6 +155,29 @@ controller 独立复核: 4 题 facts 均为 assumptions 原文子串、卡片均
 
 ---
 
+## §0⁗ attempt 6 判据 (Opus 单模型补跑; 跑前登记, 2026-09-25)
+
+> 本节在 attempt 6 **任何一次跑之前**、且在规则句修订 commit **之前**单独 commit。
+> 用户裁定 (2026-09-25): opus 补一轮 —— 规则 (3) 补「举例也只用一览真实 OID」+ 判据余项写死, **只跑 opus**; 达标则**只对 opus 恢复 auto**, sonnet 维持手动。
+
+**题 × 模型 = 6 × 1 = N=6** (`opus-5` 单模型), 同 §0‴ 题集 (dm09-dm12 + dm05/dm07), `dossier:"on"`, 产物 `runs/dm2_e2e_attempt6/`。
+⚠ 6 题均已在 attempt 5 见过 ⇒ 本轮是 **in-sample 修复验证 + 采样重复**, 不是新的泛化证据; 泛化证据仍以 §2.5 (opus 新留出 3/4, 宽 4/4) 为准。
+跑命令: `.venv/bin/python -u eval/prod_wirein/dm2_e2e_run.py --no-resume --yml test_set_domain_mapping_v1.yml,test_set_domain_mapping_v2_holdout.yml --qids dm09,dm10,dm11,dm12,dm05,dm07 --models opus-5 --out-subdir dm2_e2e_attempt6 --require-no-fallback --dossier on`
+
+**判据 = §0″ + §0‴ 全部条款, 另写死 attempt 5 判分方提出的余项 (本轮起生效)**:
+- ③⁗ **示例值入核**: 答案中凡被称为或以形态呈现为 EDC 项目 / 表单 OID 的 token (含「例:」「e.g.」举例、占位说明) 一律入核; 不存在即捏造。
+- ④⁗ **候选三态**: 以「弱候选 / 可能 / 更可能属于他域 / 参考」等保留语气列在候选段内的项目, **计入分母** (视为候选); 只有明确标为「不入本域 / 排除」的才不计。
+- ④⁗ **同标准域竞争**: 目标域 topic 变量技术上可写、但 SDTM 另有专门承载该内容的标准域时, 计错归 (i)。
+- ②⁗ **族简写对称**: recall 计数接受区间 / 族简写, 条件是展开后覆盖 gold 项目 OID 且 ③ 核验其成员均存在; 占位符 (`_n` 等未给端点的形式) 不计 recall。
+- ①⁗ 形态判定真值源 = spec.md ∪ assumptions.md (与 ⑤‴ 统一)。
+- 阈值不变: 错归 ≤ max(1, 10% × 分母)。
+
+**目标 (预登记)**: opus **6/6**。达标 ⇒ 实施「仅 opus 恢复 auto」(另起 commit + 异 agent 审 + kickstart + 生产探针); 未达 ⇒ 归档 `evidence/failures/dm2_task9_attempt_6.md`, auto 维持暂停, 交用户裁定。
+**同尺子复判**: 判分方同时用本节口径复判 attempt 5 的 6 份 opus 答案 (`runs/dm2_e2e_attempt5/judge_pack.json` 中 model=opus-5 者), 只报不改 §2.5。
+**判分**: 异 subagent (规则 D; 与 attempt 3/4/5 判分方 critic / verifier / scientist 均不同 type), 只读 §0-§0⁗ + judge pack + 出题 NOTES, 不读 `judge_verdicts*.md` 与 §1-§4。
+
+---
+
 ## §1 运行记录
 
 两个 attempt 都跑满 6 次生产 `/api/ask_stream` (3 题 × 2 模型 id), 生产 = 本机 launchd
