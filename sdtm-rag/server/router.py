@@ -274,6 +274,9 @@ class InfoResponse(BaseModel):
     index_fresh: bool | None = None
     index_freshness_reason: str | None = None
     federation: bool = False  # Plan B: 双库联邦是否已构建
+    # 研读包答案闸 (spec 2026-09-25) 是否可用: index 没建起来时研读包照挂、闸不跑 —— 这里是唯一
+    # 不用读日志就能看出「闸没在跑」的出口。
+    dossier_gate: bool = False
 
 
 # ── Endpoints ────────────────────────────────────────────────────────────
@@ -305,6 +308,7 @@ def info(request: Request):
         index_fresh=getattr(request.app.state, "index_fresh", None),
         index_freshness_reason=getattr(request.app.state, "index_freshness_reason", None),
         federation=getattr(request.app.state, "federation", None) is not None,
+        dossier_gate=getattr(request.app.state, "dossier_gate_index", None) is not None,
     )
 
 
@@ -532,7 +536,8 @@ def ask(body: AskRequest, request: Request):
     usage_missing = False
     gate = _dossier_gate_run(request, dossier_block, body.question)
     regen_failed = False
-    first_pass: tuple = ([], False, None)   # 重答前那一轮的 (answer_parts, truncated, continue_error)
+    # 重答前那一轮的 (answer_parts, truncated, continue_error, continue_rounds, response)
+    first_pass: tuple = ([], False, None, 0, None)
     try:
         # 研读包闸 (spec 2026-09-25 §3): 外圈 = 首轮 + 至多 REGEN_BUDGET 次重答。闸没开 (研读包
         # 没挂 / index 缺) 时只转一圈, 与引入前逐字节同 (test_router_dossier_gate 钉)。
@@ -542,12 +547,14 @@ def ask(body: AskRequest, request: Request):
                 try:
                     response = llm_router.completion(model=body.model, messages=msgs)
                 except Exception as e:  # noqa: BLE001 — 只吞**续写轮**的失败, 见下
-                    if pass_calls == 0 and gate is not None and gate.first is not None:
-                        # 重答的第一次调用就失败: 首轮答案已在手, 不能退化成 502。
+                    if gate is not None and gate.first is not None:
+                        # 重答轮 (首调或续写) 失败: 首轮答案已在手且已判过, 不能退化成 502,
+                        # 半截的重答也不作数 —— 还原首轮, grounding 如实带 regenerate_error。
                         log.warning("dossier_regenerate_failed", model=body.model,
                                     error=str(e), exc_info=True)
                         gate.regeneration_failed(type(e).__name__)
-                        answer_parts, truncated, continue_error = first_pass
+                        (answer_parts, truncated, continue_error, continue_rounds,
+                         response) = first_pass
                         regen_failed = True
                         break
                     if pass_calls == 0:
@@ -600,10 +607,17 @@ def ask(body: AskRequest, request: Request):
             gate.observe("".join(answer_parts))
             if not gate.should_regenerate():
                 break
+            # 墙钟预算 (同续写那处): 重答是再一次全价长调用, 剩余不够就不开, 如实报 budget。
+            if s.request_timeout_s - (time.perf_counter() - t0) < _CONTINUE_MIN_REMAINING_S:
+                log.warning("dossier_regenerate_budget_exhausted",
+                            elapsed_s=round(time.perf_counter() - t0, 1))
+                gate.regeneration_failed("budget")
+                break
             log.warning("dossier_gate_regenerate", reasons=list(gate.final.reasons))
-            first_pass = (answer_parts, truncated, continue_error)
+            # continue_rounds / truncated 描述呈现的那篇 (最终轮), 随轮重置; usage 跨轮累计。
+            first_pass = (answer_parts, truncated, continue_error, continue_rounds, response)
             msgs = gate.regenerate_messages(messages, "".join(answer_parts))
-            answer_parts, truncated, continue_error = [], False, None
+            answer_parts, truncated, continue_error, continue_rounds = [], False, None, 0
     except Exception as e:
         log.error("llm_failed", error=str(e), model=body.model, exc_info=True)
         raise HTTPException(status_code=502, detail="LLM service temporarily unavailable.") from e
@@ -838,193 +852,188 @@ async def ask_stream(body: AskStreamRequest, request: Request):
             # 用户了, 所以不做「顶部警示」: 发 grounding 事件, 不过就发 regenerate 事件后流第二轮。
             # 闸没开时只转一圈, 事件序列与引入前逐字节同 (test_router_dossier_gate 钉)。
             regen_failed = False
-            first_pass: tuple = ([], False)   # 重答前那一轮的 (parts, truncated)
+            first_pass: tuple = ([], False, 0)   # 重答前那一轮的 (parts, truncated, continue_rounds)
             while True:
-                pass_calls = 0   # 本轮 (首答 / 重答) 已开成的流数
-                for rnd in range(1, total_rounds + 1):
-                    with_tools = use_web and rnd <= s.web_max_rounds
-                    # 输出触顶自动续写的内层循环 (2026-09-08)。它**不消耗**外层的工具轮预算:
-                    # 续写不是一次新的工具决策, 只是把同一段回答接着写完。故它嵌在 rnd 里面,
-                    # 而不是把 total_rounds 加大 —— 后者会让"续写"偷偷买到额外的搜索机会。
-                    while True:
-                        # 开流的外层上限 (REV MED-b): provider 连接挂死时以 error 事件收场, 不把
-                        # SSE 连接晾着。流中途**不**包 wait_for —— 单一 deadline 会截断健康的长答案。
-                        try:
+                try:
+                    for rnd in range(1, total_rounds + 1):
+                        with_tools = use_web and rnd <= s.web_max_rounds
+                        # 输出触顶自动续写的内层循环 (2026-09-08)。它**不消耗**外层的工具轮预算:
+                        # 续写不是一次新的工具决策, 只是把同一段回答接着写完。故它嵌在 rnd 里面,
+                        # 而不是把 total_rounds 加大 —— 后者会让"续写"偷偷买到额外的搜索机会。
+                        while True:
+                            # 开流的外层上限 (REV MED-b): provider 连接挂死时以 error 事件收场, 不把
+                            # SSE 连接晾着。流中途**不**包 wait_for —— 单一 deadline 会截断健康的长答案。
                             resp = await asyncio.wait_for(
                                 _open_stream(msgs, with_tools), timeout=s.request_timeout_s)
-                        except Exception as e:  # noqa: BLE001 — 只接住「重答开流失败」, 其余原样抛
-                            if not (pass_calls == 0 and gate is not None and gate.first is not None):
-                                raise
-                            # 首轮答案已流给用户: 以 error 收场会让它连 done (徽章/存档) 都丢。
-                            # 同 /api/ask: 保留首轮, done 里如实带 regenerate_error。流到一半的失败
-                            # 仍走 error 事件 (与续写轮同一约定)。
-                            log.warning("dossier_regenerate_failed", model=body.model,
-                                        error=str(e), exc_info=True)
-                            gate.regeneration_failed(type(e).__name__)
-                            parts, truncated = first_pass
-                            regen_failed = True
+
+                            acc: dict[int, dict] = {}   # 流式 tool_calls 是增量的, 按 index 拼
+                            round_parts: list[str] = []  # 本轮文本, 回灌 assistant 消息用
+                            cu_round = None
+                            # 本次调用的收尾理由: 取**最后一个非 None** 的。分片流里绝大多数 chunk
+                            # 的 finish_reason 是 None, 只有收尾那片带值; 裸赋值会被**收尾片之后
+                            # 还带 choices 的尾片**抹回 None ⇒ 触顶永远测不出来。
+                            # ⚠ 初版这里写的理由是"会被 usage 片抹回 None", **那是错的** ——
+                            # 读取点在下面的 `if choices:` 里面, 而 usage 片的 choices 是空列表,
+                            # 根本进不来 (2026-09-08 复审 M-1 指出)。守卫要防的是尾片, 不是 usage 片。
+                            finish_reason = None
+                            async for chunk in resp:
+                                choices = getattr(chunk, "choices", None)
+                                if choices:
+                                    ch = choices[0]
+                                    # **工具**循环是否继续只看 acc 是否攒到工具调用, 不看 finish_reason
+                                    # —— 各 provider 的收尾理由字段并不统一, acc 是唯一可靠的信号。
+                                    # (2026-09-08 起 finish_reason 也读了, 但只用来判"是不是被输出
+                                    # 上限截断", 与工具判定各管各的, 见内层 while 末尾。)
+                                    fr = getattr(ch, "finish_reason", None)
+                                    if fr:
+                                        finish_reason = fr
+                                    # 只取 content / tool_calls, 其余 delta 字段有意丢弃 ——
+                                    # 含 GPT-5.6 Sol 的 reasoning_content (模型内部思考, 不该进
+                                    # 知识库答案, 更不该被当成引用来源)。spec §4.3。
+                                    # 实测边界: 流式下两个 GPT 均未发该增量, 只有非流式 boto3 调用
+                                    # 时 Sol 发了 reasoningContent 块 ⇒ 这是预防, 不是现实问题。
+                                    text = getattr(ch.delta, "content", None)
+                                    if text:
+                                        parts.append(text)
+                                        round_parts.append(text)
+                                        yield sse("token", {"text": text})
+                                    for tc in (getattr(ch.delta, "tool_calls", None) or []):
+                                        # index / id 一律 getattr 兜底: 缺字段的 delta 若让
+                                        # AttributeError 穿透, 用户拿到的是 "LLM stream failed",
+                                        # 整个答案丢光 —— 这比少拼一个分片严重得多。
+                                        slot = acc.setdefault(getattr(tc, "index", 0),
+                                                              {"id": None, "name": "", "args": ""})
+                                        tc_id = getattr(tc, "id", None)
+                                        if tc_id and not slot["id"]:
+                                            slot["id"] = tc_id          # 取首个非空
+                                        fn = getattr(tc, "function", None)
+                                        if fn and getattr(fn, "name", None) and not slot["name"]:
+                                            slot["name"] = fn.name      # 取首个非空: 有 provider 每片都重发
+                                        if fn and getattr(fn, "arguments", None):
+                                            slot["args"] += fn.arguments  # 只有 arguments 是真分片
+                                # 两半各防一件事, 缺任一半 model_used 都会丢成 None (⇒ 回退发生了也报不出来):
+                                # · 搁在 `if choices:` **外面**: usage chunk 的 choices 是空列表, 而有
+                                #   provider 只在那一片上报模型 —— 搁在里面就整条流都取不到。
+                                # · `reported` 为假时**不赋值**: 报模型的往往只有首片, 后续片的 .model
+                                #   是 None, 裸赋值会被最后一片抹掉 (等价于原来的 `or model_used`)。
+                                reported = getattr(chunk, "model", None)
+                                if reported:
+                                    model_used = reported
+                                    # 去重判据在 llm_config 里, 与 fell_back 共用同一个 `_same_model`
+                                    # (终审 I-2): litellm 对同一次回答会报两种拼法, 裸 `not in` 会把
+                                    # 一个模型收成两项 ⇒ 徽章把 2 个模型写成 4 个串, R4 想要的
+                                    # "一眼看出实际是谁答的"就没了。⛔ 不在这里另写一套判据。
+                                    merge_reported_model(models_used, reported)
+                                cu = getattr(chunk, "usage", None)
+                                if cu:
+                                    cu_round = cu
+
+                            if cu_round is not None:
+                                usage_seen = True
+                                usage_total["prompt_tokens"] += getattr(cu_round, "prompt_tokens", None) or 0
+                                usage_total["completion_tokens"] += (
+                                    getattr(cu_round, "completion_tokens", None) or 0)
+                                usage_total["total_tokens"] += getattr(cu_round, "total_tokens", None) or 0
+                            else:
+                                usage_missing = True
+
+                            # 触顶判定与「是否继续工具循环」是两件事, 别混: 后者仍然只看 acc
+                            # (见上面 chunk 循环里的注释), 前者只看 finish_reason。
+                            # 本轮**同时**有工具调用又报触顶 ⇒ 走工具路径, 工具优先: 那一轮的
+                            # 文本本来就会被回灌进 assistant 消息, 模型下一轮自然能接着说。
+                            if acc or finish_reason not in _TRUNCATED_FINISH_REASONS:
+                                break
+                            if continue_rounds >= s.max_continue_rounds:
+                                # 兜底触发: 收尾, 并在 done 里如实说「可能不完整」。⛔ 不许静默
+                                # 收场 —— 无声的半句话正是本功能要消灭的那个失败模式。
+                                truncated = True
+                                break
+                            continue_rounds += 1
+                            # 回灌上一轮原文 + 续写指令。⚠ 用 user 消息而非 assistant prefill,
+                            # 理由见 CONTINUE_PROMPT 上方 (prefill 是 Anthropic 专有, GPT 系不支持)。
+                            #
+                            # ⚠ 本轮一个可见字都没吐时**什么都不加**, 原样重开一轮 —— 预算刷新,
+                            # 让模型把想清楚的东西写出来。实测 (真 Bedrock + opus-5, 天花板压到
+                            # 200/1200) 这一支是**会发生**的: 预算可能被模型的内部思考吃光, 于是
+                            # content 一个字没有却报 length。此时照旧回灌 `assistant: ""` 的后果:
+                            # litellm 警告 "Potential consecutive user/tool blocks. Trying to merge."
+                            # 并把空消息丢掉、合并相邻 user 块 ⇒ 模型收到一句"从断处接着写"却没有
+                            # 可接的东西, 只能凭空编一个续写点。实测产物是从一个中段小标题开始的、
+                            # **没有开头**的文章。
+                            if round_parts:
+                                msgs.append({"role": "assistant", "content": "".join(round_parts)})
+                                msgs.append({"role": "user", "content": CONTINUE_PROMPT})
+                            # 纯信息事件: 前端只记日志, 不画东西 —— 用户要的是一段连续的答案,
+                            # 不是「这里换了一次 API 调用」这个实现细节。轮数在 done 里汇总呈现。
+                            yield sse("continue", {"round": continue_rounds})
+
+                        # 没有工具调用 = 本轮就是最终答案; 本轮压根没挂工具 (web 关闭, 或已是收尾轮)
+                        # 也一律当最终答案 —— 没挂工具就不该解释工具调用, 更不该为它烧一次配额。
+                        if not acc or not with_tools:
                             break
-                        pass_calls += 1
 
-                        acc: dict[int, dict] = {}   # 流式 tool_calls 是增量的, 按 index 拼
-                        round_parts: list[str] = []  # 本轮文本, 回灌 assistant 消息用
-                        cu_round = None
-                        # 本次调用的收尾理由: 取**最后一个非 None** 的。分片流里绝大多数 chunk
-                        # 的 finish_reason 是 None, 只有收尾那片带值; 裸赋值会被**收尾片之后
-                        # 还带 choices 的尾片**抹回 None ⇒ 触顶永远测不出来。
-                        # ⚠ 初版这里写的理由是"会被 usage 片抹回 None", **那是错的** ——
-                        # 读取点在下面的 `if choices:` 里面, 而 usage 片的 choices 是空列表,
-                        # 根本进不来 (2026-09-08 复审 M-1 指出)。守卫要防的是尾片, 不是 usage 片。
-                        finish_reason = None
-                        async for chunk in resp:
-                            choices = getattr(chunk, "choices", None)
-                            if choices:
-                                ch = choices[0]
-                                # **工具**循环是否继续只看 acc 是否攒到工具调用, 不看 finish_reason
-                                # —— 各 provider 的收尾理由字段并不统一, acc 是唯一可靠的信号。
-                                # (2026-09-08 起 finish_reason 也读了, 但只用来判"是不是被输出
-                                # 上限截断", 与工具判定各管各的, 见内层 while 末尾。)
-                                fr = getattr(ch, "finish_reason", None)
-                                if fr:
-                                    finish_reason = fr
-                                # 只取 content / tool_calls, 其余 delta 字段有意丢弃 ——
-                                # 含 GPT-5.6 Sol 的 reasoning_content (模型内部思考, 不该进
-                                # 知识库答案, 更不该被当成引用来源)。spec §4.3。
-                                # 实测边界: 流式下两个 GPT 均未发该增量, 只有非流式 boto3 调用
-                                # 时 Sol 发了 reasoningContent 块 ⇒ 这是预防, 不是现实问题。
-                                text = getattr(ch.delta, "content", None)
-                                if text:
-                                    parts.append(text)
-                                    round_parts.append(text)
-                                    yield sse("token", {"text": text})
-                                for tc in (getattr(ch.delta, "tool_calls", None) or []):
-                                    # index / id 一律 getattr 兜底: 缺字段的 delta 若让
-                                    # AttributeError 穿透, 用户拿到的是 "LLM stream failed",
-                                    # 整个答案丢光 —— 这比少拼一个分片严重得多。
-                                    slot = acc.setdefault(getattr(tc, "index", 0),
-                                                          {"id": None, "name": "", "args": ""})
-                                    tc_id = getattr(tc, "id", None)
-                                    if tc_id and not slot["id"]:
-                                        slot["id"] = tc_id          # 取首个非空
-                                    fn = getattr(tc, "function", None)
-                                    if fn and getattr(fn, "name", None) and not slot["name"]:
-                                        slot["name"] = fn.name      # 取首个非空: 有 provider 每片都重发
-                                    if fn and getattr(fn, "arguments", None):
-                                        slot["args"] += fn.arguments  # 只有 arguments 是真分片
-                            # 两半各防一件事, 缺任一半 model_used 都会丢成 None (⇒ 回退发生了也报不出来):
-                            # · 搁在 `if choices:` **外面**: usage chunk 的 choices 是空列表, 而有
-                            #   provider 只在那一片上报模型 —— 搁在里面就整条流都取不到。
-                            # · `reported` 为假时**不赋值**: 报模型的往往只有首片, 后续片的 .model
-                            #   是 None, 裸赋值会被最后一片抹掉 (等价于原来的 `or model_used`)。
-                            reported = getattr(chunk, "model", None)
-                            if reported:
-                                model_used = reported
-                                # 去重判据在 llm_config 里, 与 fell_back 共用同一个 `_same_model`
-                                # (终审 I-2): litellm 对同一次回答会报两种拼法, 裸 `not in` 会把
-                                # 一个模型收成两项 ⇒ 徽章把 2 个模型写成 4 个串, R4 想要的
-                                # "一眼看出实际是谁答的"就没了。⛔ 不在这里另写一套判据。
-                                merge_reported_model(models_used, reported)
-                            cu = getattr(chunk, "usage", None)
-                            if cu:
-                                cu_round = cu
+                        # 回灌 assistant 本轮的文本 + tool_calls。content 不能硬写 None —— 模型调
+                        # 工具前说的话已经流给用户了, 不回灌它就"忘了"自己说过什么, 最终答案会重复一遍。
+                        round_text = "".join(round_parts)
+                        msgs.append({"role": "assistant", "content": round_text or None, "tool_calls": [
+                            {"id": v["id"], "type": "function",
+                             "function": {"name": v["name"], "arguments": v["args"]}}
+                            for _, v in sorted(acc.items())]})
 
-                        if cu_round is not None:
-                            usage_seen = True
-                            usage_total["prompt_tokens"] += getattr(cu_round, "prompt_tokens", None) or 0
-                            usage_total["completion_tokens"] += (
-                                getattr(cu_round, "completion_tokens", None) or 0)
-                            usage_total["total_tokens"] += getattr(cu_round, "total_tokens", None) or 0
-                        else:
-                            usage_missing = True
+                        for _, v in sorted(acc.items()):
+                            try:
+                                query = json.loads(v["args"] or "{}").get("query", "")
+                            except json.JSONDecodeError:
+                                query = ""   # 模型偶发畸形 JSON: 当空查询处理, 不炸循环
+                            yield sse("tool_call", {"round": rnd, "query": query, "id": v["id"]})
 
-                        # 触顶判定与「是否继续工具循环」是两件事, 别混: 后者仍然只看 acc
-                        # (见上面 chunk 循环里的注释), 前者只看 finish_reason。
-                        # 本轮**同时**有工具调用又报触顶 ⇒ 走工具路径, 工具优先: 那一轮的
-                        # 文本本来就会被回灌进 assistant 消息, 模型下一轮自然能接着说。
-                        if acc or finish_reason not in _TRUNCATED_FINISH_REASONS:
-                            break
-                        if continue_rounds >= s.max_continue_rounds:
-                            # 兜底触发: 收尾, 并在 done 里如实说「可能不完整」。⛔ 不许静默
-                            # 收场 —— 无声的半句话正是本功能要消灭的那个失败模式。
-                            truncated = True
-                            break
-                        continue_rounds += 1
-                        # 回灌上一轮原文 + 续写指令。⚠ 用 user 消息而非 assistant prefill,
-                        # 理由见 CONTINUE_PROMPT 上方 (prefill 是 Anthropic 专有, GPT 系不支持)。
-                        #
-                        # ⚠ 本轮一个可见字都没吐时**什么都不加**, 原样重开一轮 —— 预算刷新,
-                        # 让模型把想清楚的东西写出来。实测 (真 Bedrock + opus-5, 天花板压到
-                        # 200/1200) 这一支是**会发生**的: 预算可能被模型的内部思考吃光, 于是
-                        # content 一个字没有却报 length。此时照旧回灌 `assistant: ""` 的后果:
-                        # litellm 警告 "Potential consecutive user/tool blocks. Trying to merge."
-                        # 并把空消息丢掉、合并相邻 user 块 ⇒ 模型收到一句"从断处接着写"却没有
-                        # 可接的东西, 只能凭空编一个续写点。实测产物是从一个中段小标题开始的、
-                        # **没有开头**的文章。
-                        if round_parts:
-                            msgs.append({"role": "assistant", "content": "".join(round_parts)})
-                            msgs.append({"role": "user", "content": CONTINUE_PROMPT})
-                        # 纯信息事件: 前端只记日志, 不画东西 —— 用户要的是一段连续的答案,
-                        # 不是「这里换了一次 API 调用」这个实现细节。轮数在 done 里汇总呈现。
-                        yield sse("continue", {"round": continue_rounds})
+                            if v["name"] != "web_search":
+                                # 工具分发不能"名字不管一律当 web_search"。模型点名不存在的工具就
+                                # 如实告诉它, 不执行、不烧配额 —— 这是安全边界, 不只是健壮性。
+                                refs, st = [], "unknown_tool"
+                                content = json.dumps(
+                                    {"status": st, "results": [],
+                                     "error": f"No tool named {v['name']!r}. Only 'web_search' exists."},
+                                    ensure_ascii=False)
+                            elif not query:
+                                # 模型给了畸形/空 query: 是**模型**出错不是**联网**出错, 不能让用户
+                                # 看到"联网失败"。如实标在这一条上, 不动 web_status。
+                                refs, st = [], "bad_query"
+                                content = json.dumps(
+                                    {"status": st, "results": [],
+                                     "error": "tool call carried no usable 'query' argument."},
+                                    ensure_ascii=False)
+                            elif searcher.searches_used >= s.web_max_searches:
+                                refs, st = [], "quota_exceeded"
+                                content = render_tool_result(refs, st)
+                            else:
+                                # searcher.search 是同步 requests.post, 单次最长 web_timeout_s,
+                                # 单请求可跑 web_max_searches 次 —— 直接调会把整个 event loop
+                                # (所有并发 SSE 流 + 健康检查) 占死几分钟。本服务是 LAN 共享的。
+                                refs, st = await asyncio.to_thread(searcher.search, query)
+                                content = render_tool_result(refs, st)
 
-                    if regen_failed:
-                        break
-                    # 没有工具调用 = 本轮就是最终答案; 本轮压根没挂工具 (web 关闭, 或已是收尾轮)
-                    # 也一律当最终答案 —— 没挂工具就不该解释工具调用, 更不该为它烧一次配额。
-                    if not acc or not with_tools:
-                        break
+                            if st == "ok":
+                                web_ok += 1
+                            elif st in _WEB_FAIL_RANK and (
+                                    web_fail is None or _WEB_FAIL_RANK[st] > _WEB_FAIL_RANK[web_fail]):
+                                web_fail = st
 
-                    # 回灌 assistant 本轮的文本 + tool_calls。content 不能硬写 None —— 模型调
-                    # 工具前说的话已经流给用户了, 不回灌它就"忘了"自己说过什么, 最终答案会重复一遍。
-                    round_text = "".join(round_parts)
-                    msgs.append({"role": "assistant", "content": round_text or None, "tool_calls": [
-                        {"id": v["id"], "type": "function",
-                         "function": {"name": v["name"], "arguments": v["args"]}}
-                        for _, v in sorted(acc.items())]})
-
-                    for _, v in sorted(acc.items()):
-                        try:
-                            query = json.loads(v["args"] or "{}").get("query", "")
-                        except json.JSONDecodeError:
-                            query = ""   # 模型偶发畸形 JSON: 当空查询处理, 不炸循环
-                        yield sse("tool_call", {"round": rnd, "query": query, "id": v["id"]})
-
-                        if v["name"] != "web_search":
-                            # 工具分发不能"名字不管一律当 web_search"。模型点名不存在的工具就
-                            # 如实告诉它, 不执行、不烧配额 —— 这是安全边界, 不只是健壮性。
-                            refs, st = [], "unknown_tool"
-                            content = json.dumps(
-                                {"status": st, "results": [],
-                                 "error": f"No tool named {v['name']!r}. Only 'web_search' exists."},
-                                ensure_ascii=False)
-                        elif not query:
-                            # 模型给了畸形/空 query: 是**模型**出错不是**联网**出错, 不能让用户
-                            # 看到"联网失败"。如实标在这一条上, 不动 web_status。
-                            refs, st = [], "bad_query"
-                            content = json.dumps(
-                                {"status": st, "results": [],
-                                 "error": "tool call carried no usable 'query' argument."},
-                                ensure_ascii=False)
-                        elif searcher.searches_used >= s.web_max_searches:
-                            refs, st = [], "quota_exceeded"
-                            content = render_tool_result(refs, st)
-                        else:
-                            # searcher.search 是同步 requests.post, 单次最长 web_timeout_s,
-                            # 单请求可跑 web_max_searches 次 —— 直接调会把整个 event loop
-                            # (所有并发 SSE 流 + 健康检查) 占死几分钟。本服务是 LAN 共享的。
-                            refs, st = await asyncio.to_thread(searcher.search, query)
-                            content = render_tool_result(refs, st)
-
-                        if st == "ok":
-                            web_ok += 1
-                        elif st in _WEB_FAIL_RANK and (
-                                web_fail is None or _WEB_FAIL_RANK[st] > _WEB_FAIL_RANK[web_fail]):
-                            web_fail = st
-
-                        yield sse("tool_result", {"id": v["id"], "count": len(refs),
-                                                  "status": st, "urls": [r.url for r in refs]})
-                        msgs.append({"role": "tool", "tool_call_id": v["id"],
-                                     "name": v["name"], "content": content})
+                            yield sse("tool_result", {"id": v["id"], "count": len(refs),
+                                                      "status": st, "urls": [r.url for r in refs]})
+                            msgs.append({"role": "tool", "tool_call_id": v["id"],
+                                         "name": v["name"], "content": content})
+                except Exception as e:  # noqa: BLE001 — 只接重答轮; 首轮的失败原样抛 (error 事件)
+                    if gate is None or gate.first is None:
+                        raise
+                    # 重答轮开流失败或流到一半失败: 首轮答案已流给用户且已判过, 以 error 收场会让
+                    # 它连 done (徽章 / usage / 存档) 都丢。还原首轮, done 如实带 regenerate_error;
+                    # 前端据此把正文还原成首轮 (半截的重答不作数)。
+                    log.warning("dossier_regenerate_failed", model=body.model,
+                                error=str(e), exc_info=True)
+                    gate.regeneration_failed(type(e).__name__)
+                    parts, truncated, continue_rounds = first_pass
+                    regen_failed = True
 
                 # 闸看续写 + 工具轮都拼好之后的整轮答案, 不在分片上跑。
                 if gate is None or regen_failed:
@@ -1038,10 +1047,13 @@ async def ask_stream(body: AskStreamRequest, request: Request):
                                          "grounding": verdict.to_dict()})
                 # 第二轮 = 原 messages 快照 (不含本轮的工具/续写回灌) + 首轮答案 + 运行时反馈。
                 # parts 只装当前这一轮: counting gate 与终判看的是最终轮, 不是两轮拼起来。
-                first_pass = (parts, truncated)
+                # continue_rounds / truncated 描述的是**呈现的那篇**答案 (最终轮), 故随轮重置;
+                # usage 是钱, 跨轮累计。
+                first_pass = (parts, truncated, continue_rounds)
                 msgs = gate.regenerate_messages(messages, "".join(parts))
                 parts = []
                 truncated = False
+                continue_rounds = 0
 
             # 全成 -> ok; 有成有败 -> partial; 一次没成 -> 最严重的那个失败状态。
             # 逐条的失败细节不丢, 它已经在每条 tool_result 事件里。

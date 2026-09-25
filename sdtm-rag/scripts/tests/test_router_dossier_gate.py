@@ -213,3 +213,120 @@ def test_stream_regeneration_open_failure_keeps_first_answer_and_done():
     assert g["regenerate_error"] == "RuntimeError" and g["regenerated"] is False
     assert g["final"]["ok"] is False and g["first"] is None
     assert ev[-1][1]["usage"]["total_tokens"] == 15
+
+
+# ── 审查修正: B1 重答轮任何失败都还原首轮 / N8 预算 / N9 续写计数 / N7 重答 prompt 形状 / B2 info ──
+
+class _MidFailRouter(_ScriptRouter):
+    """第 1 次调用吐 BAD; 之后的调用吐半截文本后在流中途 / 同步调用里抛。"""
+
+    async def acompletion(self, model, messages, stream=False, **kw):
+        n = len(self.calls)
+        self.calls.append([dict(m) for m in messages])
+
+        async def agen():
+            if n == 0:
+                yield SimpleNamespace(model="m", usage=None, choices=[
+                    SimpleNamespace(delta=SimpleNamespace(content=BAD), finish_reason="stop")])
+                yield SimpleNamespace(model="m", usage=_usage(), choices=[])
+            else:
+                yield SimpleNamespace(model="m", usage=None, choices=[
+                    SimpleNamespace(delta=SimpleNamespace(content="半截"), finish_reason=None)])
+                raise RuntimeError("mid-stream boom")
+        return agen()
+
+
+def test_stream_regeneration_mid_stream_failure_keeps_first_answer_and_done():
+    c, app = _gated_client([])
+    app.state.llm_router = _MidFailRouter([])
+    ev = _stream(c)
+    assert [e for e, _ in ev] == ["sources", "token", "grounding", "regenerate", "token", "done"]
+    done = ev[-1][1]
+    g = done["grounding"]
+    assert g["regenerate_error"] == "RuntimeError" and g["regenerated"] is False
+    assert g["final"]["unknown_oids"] == ["ITEM_Z9"]
+    assert done["usage"]["total_tokens"] == 15 and done["model_used"] == "m"
+    assert done["dossier"]["attached"] is True
+
+
+def test_ask_regeneration_continuation_failure_restores_first_answer():
+    head = GOOD[:5]
+    c, app = _gated_client([(BAD, "stop"), (head, "length"), RuntimeError("boom")])
+    body = _ask(c)
+    assert body["answer"] == BAD and body["truncated"] is False and body["continue_error"] is None
+    assert body["grounding"]["regenerate_error"] == "RuntimeError"
+    assert body["usage"]["total_tokens"] == 30   # 两次成功调用都付过钱
+
+
+def test_ask_skips_regeneration_when_wall_clock_budget_is_short():
+    c, app = _gated_client([(BAD, "stop"), (GOOD, "stop")])
+    app.state.settings.request_timeout_s = 1.0   # 剩余 < _CONTINUE_MIN_REMAINING_S
+    body = _ask(c)
+    assert body["answer"] == BAD and len(app.state.llm_router.calls) == 1
+    assert body["grounding"]["regenerate_error"] == "budget"
+    assert body["grounding"]["regenerated"] is False
+
+
+def test_continue_rounds_describe_the_final_round():
+    head, tail = BAD.split("ITEM_Z9")
+    script = [(head + "ITEM_", "length"), ("Z9" + tail, "stop"), (GOOD, "stop")]
+    c, app = _gated_client(list(script))
+    assert _stream(c)[-1][1]["continue_rounds"] == 0
+    c, app = _gated_client(list(script))
+    assert _ask(c)["continue_rounds"] == 0
+
+
+def test_regeneration_prompt_is_snapshot_plus_first_answer_plus_feedback():
+    # MUT2: 首轮有续写 —— 重答 prompt 里不许混进 CONTINUE_PROMPT / 续写回灌
+    head, tail = BAD.split("ITEM_Z9")
+    script = [(head + "ITEM_", "length"), ("Z9" + tail, "stop"), (GOOD, "stop")]
+    for call in (_stream, _ask):
+        c, app = _gated_client(list(script))
+        call(c)
+        first, _, regen = app.state.llm_router.calls
+        assert regen == [*first, {"role": "assistant", "content": BAD}, regen[-1]]
+        assert regen[-1]["role"] == "user" and "ITEM_Z9" in regen[-1]["content"]
+        assert all(router_mod.CONTINUE_PROMPT not in str(m["content"]) for m in regen)
+
+
+class _ToolThenTextScript(_ScriptRouter):
+    """首轮: 先要一次 web_search, 再吐 BAD; 重答: GOOD。"""
+
+    async def acompletion(self, model, messages, stream=False, **kw):
+        n = len(self.calls)
+        self.calls.append([dict(m) for m in messages])
+
+        async def agen():
+            if n == 0:
+                yield SimpleNamespace(model="m", usage=None, choices=[SimpleNamespace(
+                    finish_reason="tool_calls", delta=SimpleNamespace(content=None, tool_calls=[
+                        SimpleNamespace(index=0, id="t1", function=SimpleNamespace(
+                            name="web_search", arguments='{"query": "q"}'))]))])
+            else:
+                text = BAD if n == 1 else GOOD
+                yield SimpleNamespace(model="m", usage=None, choices=[
+                    SimpleNamespace(delta=SimpleNamespace(content=text, tool_calls=None),
+                                    finish_reason="stop")])
+        return agen()
+
+
+def test_regeneration_prompt_carries_no_tool_rounds(monkeypatch):
+    from scripts.tests.test_ask_stream_web import _FakeSearcher
+    monkeypatch.setattr("server.router.WebSearcher", _FakeSearcher)
+    c, app = _gated_client([])
+    app.state.llm_router = _ToolThenTextScript([])
+    app.state.settings.web_search_enabled = True
+    ev = _events(c.post("/api/ask_stream",
+                        json={"question": Q_MAP, "history": [], "web": True}).text)
+    assert "regenerate" in [e for e, _ in ev]
+    first, _, regen = app.state.llm_router.calls[:3]
+    assert regen[:len(first)] == first and len(regen) == len(first) + 2
+    assert all(m["role"] != "tool" and "tool_calls" not in m for m in regen)
+
+
+def test_info_reports_whether_the_gate_is_available():
+    from scripts.tests.test_model_switching import _info_client
+    c = _info_client()
+    assert c.get("/api/info").json()["dossier_gate"] is False
+    c.app.state.dossier_gate_index = IDX
+    assert c.get("/api/info").json()["dossier_gate"] is True

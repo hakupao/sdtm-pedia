@@ -85,3 +85,17 @@ def test_gate_index_built_from_catalog(tmp_path):
     idx = main_mod.maybe_build_dossier_gate_index(s, d)
     assert idx is not None and idx.forms == {"FORM_X"} and idx.items == {"ITEM_Y1"}
     assert "DSDECOD" in idx.sdtm_names   # 白名单来自真实 KB (s.kb_root)
+
+
+def test_gate_index_none_when_inconsistent_with_dossier(tmp_path):
+    s, cards = _fixture(tmp_path)
+    d = main_mod.maybe_build_dossier(s)
+    cat = cards.parent / "catalog.json"
+    # 一览 1 项, catalog 有 1 行但 forms 为空 ⇒ 闸不可用
+    cat.write_text(json.dumps({"forms": [], "items": [{"item_oid": "ITEM_Y1"}]}), encoding="utf-8")
+    assert main_mod.maybe_build_dossier_gate_index(s, d) is None
+    # 项目数与研读包对不上 (直接喂一个 n_items 不同的研读包)
+    cat.write_text(json.dumps({"forms": [{"oid": "FORM_X"}],
+                               "items": [{"item_oid": "ITEM_Y1"}, {"item_oid": "ITEM_Y2"}]}),
+                   encoding="utf-8")
+    assert main_mod.maybe_build_dossier_gate_index(s, d) is None

@@ -75,3 +75,11 @@ def test_judge_pack_carries_grounding(tmp_path, monkeypatch):
     run._write_judge_pack(tmp_path, [("dm01", "opus-5", rec)], q)
     pack = json.loads((tmp_path / "judge_pack.json").read_text(encoding="utf-8"))
     assert pack["runs"][0]["grounding"] == G
+
+
+def test_gate_fails_when_dossier_attached_but_grounding_missing(tmp_path, capsys):
+    ok = {"n_attempts": 1, "done_event": {"dossier": {"attached": True}, "grounding": G}}
+    miss = {"n_attempts": 1, "done_event": {"dossier": {"attached": True}, "grounding": None}}
+    assert run._gate([("dm01", "opus-5", ok)], tmp_path) == 0
+    assert run._gate([("dm01", "opus-5", ok), ("dm02", "opus-5", miss)], tmp_path) == 1
+    assert "dm02/opus-5" in capsys.readouterr().out

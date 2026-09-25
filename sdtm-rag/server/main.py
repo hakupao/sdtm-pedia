@@ -148,10 +148,17 @@ def maybe_build_dossier_gate_index(s, dossier):
     catalog = s.dossier_cards_dir.parent / "catalog.json"
     try:
         from server.dossier_gate import OidIndex
-        return OidIndex.from_catalog(catalog, s.kb_root)
+        idx = OidIndex.from_catalog(catalog, s.kb_root)
     except Exception as e:  # noqa: BLE001 — 缺什么都是同一个结论: 闸不跑
         log.warning("dossier_gate_index_unavailable", catalog=str(catalog), error=repr(e))
         return None
+    # 一致性: 闸的「不在一览 = 不存在」要求 index 与研读包 B 部是同一份一览。空集 / 条数对不上
+    # ⇒ 闸会把真实 OID 判成捏造 (或反之), 宁可不跑 (/api/info dossier_gate=false 可见)。
+    if not idx.forms or not idx.items or len(idx.items) != dossier.n_items:
+        log.warning("dossier_gate_index_inconsistent", forms=len(idx.forms), items=len(idx.items),
+                    dossier_items=dossier.n_items)
+        return None
+    return idx
 
 
 @asynccontextmanager

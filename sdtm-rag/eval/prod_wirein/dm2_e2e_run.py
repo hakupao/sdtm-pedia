@@ -288,10 +288,17 @@ def _gate(runs, out_dir: Path, require_no_fallback: bool = False) -> int:
     fell = [f"{q}/{m}" for q, m, r in runs if (r.get("done_event") or {}).get("fell_back")]
     trunc = [f"{q}/{m}" for q, m, r in runs if (r.get("done_event") or {}).get("truncated")]
     retried = [f"{q}/{m}" for q, m, r in runs if r["n_attempts"] > 1]
+    # 研读包挂上了却没有 grounding = 闸没跑 (index 缺 / 服务端没这版代码)。不判 FAIL 的话,
+    # 一批「闸没跑」的答案会被当成「闸跑过且没拦」计进结论。
+    ungated = [f"{q}/{m}" for q, m, r in runs
+               if (((r.get("done_event") or {}).get("dossier") or {}).get("attached")
+                   and (r.get("done_event") or {}).get("grounding") is None)]
     print(f"# GATE attached: {len(runs) - len(attached)}/{len(runs)} "
           + ("PASS" if not attached else f"FAIL (missing: {', '.join(attached)})"))
     # fell_back / truncated 不静默重跑: 它们是要进报告的事实, 重跑会把它们洗掉.
     print(f"# fell_back: {fell or 'none'}   truncated: {trunc or 'none'}   retried: {retried or 'none'}")
+    print("# GATE grounding: " + ("PASS" if not ungated
+                                   else f"FAIL (attached but gate did not run: {', '.join(ungated)})"))
     print(f"# runs dir: {out_dir}")
     if require_no_fallback:
         # fell_back 三态: None (未知) 也算不过 —— 对比要的是"确证没回退", 不是"没报回退".
@@ -301,7 +308,7 @@ def _gate(runs, out_dir: Path, require_no_fallback: bool = False) -> int:
                                          else f"FAIL (fell_back not False: {', '.join(unproven)})"))
         if unproven:
             return 1
-    return 0 if not attached else 1
+    return 0 if not (attached or ungated) else 1
 
 
 if __name__ == "__main__":
