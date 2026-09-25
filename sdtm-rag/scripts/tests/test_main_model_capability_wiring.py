@@ -39,7 +39,10 @@ def _settings(**kw) -> Settings:
     """联邦/S2 一律关掉 —— 本文件只关心 llm_router 那几行, 别把 study 那半条 lifespan
     也拖进来 (它有自己的三个接线锁)。"""
     return Settings(**{**_ALL_BEDROCK, "federation_enabled": False,
-                       "study_lookup_enabled": False, "study_docs_enabled": False, **kw})
+                       "study_lookup_enabled": False, "study_docs_enabled": False,
+                       # 研读包也属 study 那半条 lifespan; 且本文件替换 selectable_models,
+                       # 会触发 dossier_auto_attach_models 的未知 id 拒启动 (与本文件关注点无关).
+                       "dossier_enabled": False, **kw})
 
 
 def _probe_model(name: str) -> SelectableModel:

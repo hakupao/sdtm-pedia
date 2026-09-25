@@ -114,6 +114,10 @@ def maybe_build_dossier(s):
     静默 None 会得到「开了却一题都不挂」的无症状状态 (与 maybe_build_pdf_context 同一理由)."""
     if not s.dossier_enabled:
         return None
+    # auto 名单里的 id 拼错会被 router._auto_attach_allowed 静默丢掉 = 全部暂停, 无任何信号 ⇒ 拒启动.
+    unknown = sorted(set(s.dossier_auto_attach_models) - {m.id for m in s.selectable_models})
+    if unknown:
+        raise RuntimeError(f"dossier_auto_attach_models 含未知 selectable id: {unknown}")
     from server.study_dossier import DossierBuildError, build_dossier
     docs, cards = s.dossier_docs_dir, s.dossier_cards_dir
     if not docs.is_dir() or not cards.is_dir():

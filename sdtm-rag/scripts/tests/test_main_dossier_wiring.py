@@ -99,3 +99,11 @@ def test_gate_index_none_when_inconsistent_with_dossier(tmp_path):
                                "items": [{"item_oid": "ITEM_Y1"}, {"item_oid": "ITEM_Y2"}]}),
                    encoding="utf-8")
     assert main_mod.maybe_build_dossier_gate_index(s, d) is None
+
+
+def test_unknown_auto_attach_model_id_fails_loud():
+    """审查 N3: 名单 id 拼错 (如 "opus5") 会被 `_auto_attach_allowed` 静默丢掉 = 全部暂停, 无任何信号。
+    研读包开着时拒启动, 与本函数其余「开了却一题都不挂」的防线同一理由。"""
+    s = Settings(dossier_enabled=True, dossier_auto_attach_models=["no-such-model-id"])
+    with pytest.raises(RuntimeError, match="dossier_auto_attach_models"):
+        main_mod.maybe_build_dossier(s)

@@ -300,6 +300,9 @@ class Settings(BaseSettings):
     # (attempt 7 opus 主判 6/6); 其余模型未达预登记判据, 仍需手动「研读:开」.
     # 判定按**解析后的模型串** (router._auto_attach_allowed): 请求 "default" 取 default_model,
     # 所以 default 换成名单外模型时自动不挂, 不会静默扩大范围.
+    # ⚠ 约束的是**请求**模型, 不是实际作答模型: opus-5 / default 配了 default-fallback (deepseek),
+    # Bedrock 拒 Opus 时研读包照样喂给回退模型 (未过 DM2 判据); 回退经 fell_back / 徽章 / ⚑ 可见.
+    # 名单 id 须存在于 selectable_models, 否则 main.maybe_build_dossier 拒启动.
     # 扩展 / 恢复 = 往名单里加 id (先让该模型过 DM2 e2e 判据). 改名单时同步改前端两处文案:
     # webchat/index.html #scope-dossier 所在 label 的 title (写死了「Claude Opus 5 下自动挂载」)
     # 与 webchat/js/dossier.js 的 auto:paused 徽章.
