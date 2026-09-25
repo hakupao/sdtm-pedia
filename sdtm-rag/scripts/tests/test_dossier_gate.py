@@ -7,7 +7,7 @@ from __future__ import annotations
 import json
 
 from server.dossier_gate import (
-    JA_HIRAGANA_RATIO,
+    JA_SIGNAL_RATIO,
     MIN_BODY_CHARS,
     REGEN_BUDGET,
     GateRun,
@@ -140,7 +140,7 @@ def test_prefixed_form_scan_skips_forms_that_are_domain_codes():
 
 
 def test_item_slot_prefers_the_paren_with_a_real_oid_over_trailing_prose():
-    ans = "- [表X FORM_X] 詳細 (ITEM_Y1) — 標準変数ではないため **SUPPQUAL (QNAMX) の提案**"
+    ans = "- [表X FORM_X] 詳細 (ITEM_Y1) — 標準変数ではないため **SUPPQUAL (SUPPAE) の提案**"
     assert _unk(ans) == ()
 
 
@@ -171,13 +171,16 @@ def test_language_drift_is_flagged_with_reason():
 
 
 def test_ratio_decides_ja_vs_zh_and_cjk_vs_latin_decides_en():
-    assert JA_HIRAGANA_RATIO == 0.2 and MIN_BODY_CHARS == 200
+    assert JA_SIGNAL_RATIO == 0.3 and MIN_BODY_CHARS == 200
     assert observed_language(JA) == "ja"
     assert observed_language(ZH) == "zh"
     assert observed_language(EN) == "en"
-    # 比例边界: 平仮名/(平仮名+漢字) 恰在阈值上 ⇒ ja, 低一点 ⇒ zh
-    assert observed_language("あ" * 60 + "漢" * 240) == "ja"
-    assert observed_language("あ" * 59 + "漢" * 241) == "zh"
+    # 比例边界 (「中」在 GB2312 里, 不算日本字形): ja 信号恰在阈值上 ⇒ ja, 低一点 ⇒ zh
+    assert observed_language("あ" * 90 + "中" * 210) == "ja"
+    assert observed_language("あ" * 89 + "中" * 211) == "zh"
+    # 片假名与日本字形漢字也是 ja 信号
+    assert observed_language("ア" * 90 + "中" * 210) == "ja"
+    assert observed_language("項" * 90 + "中" * 210) == "ja"
 
 
 def test_short_body_is_not_judged():
@@ -290,3 +293,69 @@ def test_real_kb_whitelist_is_non_trivial():
     from server.config import Settings
     names, domains = load_sdtm_names(Settings().kb_root)
     assert len(domains) >= 60 and len(names) >= 1000 and "DSDECOD" in names
+
+
+# ── 复审 probe (虚构 OID; 白名单用真实 KB 的 SDTM 名) ─────────────────
+
+def _probe_idx():
+    from server.config import Settings
+    names, doms = load_sdtm_names(Settings().kb_root)
+    return OidIndex(forms=frozenset({"ZQVITAL", "ZQADVEV"}),
+                    items=frozenset({"ZQVTEMP", "ZQVPULS", "ZQAESEV1", "ZQAETERM"}),
+                    sdtm_names=names, domains=doms)
+
+
+PROBE_OID = {
+    # 同行第二项 / label 自带括号 / 槽后散文: 半严格 (N-2)
+    "- [ZQVITAL] Temperature (ZQVTEMP), Pulse (ZQVPULSE) (推測)": ("ZQVPULSE",),
+    "- [ZQVITAL] Temperature (ZQVTEMP), Pulse (ZQVPULS2) (推測)": ("ZQVPULS2",),
+    "- [ZQVITAL] Temperature (ZQVTEMP), Weight (ZQWEIGHT) (推測)": ("ZQWEIGHT",),
+    "- [ZQVITAL] Pulse (ZQVPULSE) (推測)": ("ZQVPULSE",),
+    "- [ZQVITAL] Temp (ZQVTMP) (ZQVTEMP)": ("ZQVTMP",),
+    "- [ZQVITAL] Temperature (ZQVTEMP), BMI (ZQVBMI1)": ("ZQVBMI1",),
+    "- [ZQVITAL] Temperature (ZQVTEMP) — 单位见 (ZQVTEMP_U)": ("ZQVTEMP_U",),
+    "- [ZQVITAL] 体温 (ZQVTEMPX) — 参照 (SUPPVS)": ("ZQVTEMPX",),
+    # 严格位列表: 例外只放宽白名单 (N-3)
+    "- [ZQVITAL] Temp (ZQVTEMP, QXFAKE)": ("QXFAKE",),
+    "- [ZQVITAL] Temp (ZQVTEMP, ZQVTEMPU)": ("ZQVTEMPU",),
+    "- [ZQVITAL] Temperature (ZQVTEMP, HIV)": (),
+    "- [ZQVITAL] Temperature (ZQVTEMP); [ZQVITAL] Pulse (ZQVPULSE)": ("ZQVPULSE",),
+    "- [ZQVITALS] Temperature (ZQVTEMP)": ("ZQVITALS",),
+    "- [Vital Signs ZQVITALX] Temperature (ZQVTEMP)": ("ZQVITALX",),
+    # 误报 (N-4)
+    "- [ZQVITAL] 全部映射到 Vital Signs (VS)": (),
+    "- [ZQVITAL] form-level note (SDTM)": (),
+    "见 [参考 VS] 说明": (),
+    "参照 [See SDTMIG] 3.4 节": (),
+    "> [!NOTE]\n> 说明": (),
+    "- [ZQVITAL] Temperature (ZQVTEMP) → VSORRES; 另见 SUPPVS (QNAM)": (),
+    "RAW_VS 数据集": (),
+    "表里写 RAW_ZQVITAL": ("RAW_ZQVITAL",),
+    "表里写 ZQVITAL_RAW": (),   # 已知限制 M10: 后缀形态不扫
+}
+
+
+def test_review_probe_oid_cases():
+    idx = _probe_idx()
+    for ans, want in PROBE_OID.items():
+        assert check_answer(ans, Q_EN, idx).unknown_oids == want, ans
+
+
+def test_review_probe_language_cases():
+    # 体言止め列表 / 见出し多: 平仮名几乎为零的日文 ⇒ 仍是 ja
+    ja_list = ("- 体温項目：生命徴候領域対応（推測）\n- 単位項目：結果単位変数対応\n"
+               "- 測定日時：日付時刻変数対応\n- 測定部位：部位変数対応、補足修飾子候補\n") * 5 + "以上の通り。"
+    assert observed_language(ja_list) == "ja"
+    assert observed_language("### 生命徴候領域\n候補項目一覧。測定値、単位、評価日。\n" * 12) == "ja"
+    assert observed_language("体温項目ハ生命徴候領域ニ対応。単位及結果別途記録、補足データセット説明要。" * 8) == "ja"
+    # 夹未加引号日文 label 的中文 ⇒ 仍是 zh
+    assert observed_language("体温项目（EDC 标签：体温を測定した日）应映射到 VSDTC，其余项目见下。" * 6) == "zh"
+    assert observed_language("本研究的体温项目应当映射到生命体征域，其单位与结果需要分别记录并在补充数据集中说明。" * 6) == "zh"
+    assert observed_language("本研究の体温項目は生命徴候領域へ対応付けることになります。単位と結果はそれぞれ記録して、"
+                             "補足データセットで説明してください。" * 5) == "ja"
+    assert observed_language("The item should map to VSORRES and the unit to VSORRESU per the standard. " * 6
+                             + "注意：推测。") == "en"
+    # 太短: 不判
+    assert observed_language("- Item maps to VSORRES. " * 3 + "本研究的体温项目应当映射到生命体征域。" * 4) is None
+    r = check_answer("答えは以下の通りです。体温は VS にマッピングされます。", "体温项目应映射到哪个域？", _probe_idx())
+    assert r.ok and r.lang_observed is None

@@ -20,9 +20,12 @@ G-OID —— 只在「OID 断言」的位置取 token (`[A-Z][A-Z0-9_]{1,}`), �
 
 G-LANG —— 去掉反引号 / `[…] label (OID)` 引用 / 其余方括号 / 「」『』引文 / markdown 表格行 / 固定
   标记后: 正文 (去空白) < MIN_BODY_CHARS ⇒ 不判 (lang_observed=None, 不计入 ok); 否则
-  (平仮名+漢字) ≤ 拉丁词数 ⇒ en; 否则 平仮名/(平仮名+漢字) ≥ JA_HIRAGANA_RATIO ⇒ ja, 不然 zh。
-  §4 回放校准 (42 份, 去除后): 正文最短 1364 字; en 的 (假名+漢字)/拉丁词 ≤ 0.35, CJK 答案 ≥ 3.83;
-  zh 的平仮名比 ≤ 0.027, ja ≥ 0.389 ⇒ 比例阈值 0.2 居中, 安全带 [0.027, 0.389]。
+  (仮名+漢字) ≤ 拉丁词数 ⇒ en; 否则 ja 信号比 ≥ JA_SIGNAL_RATIO ⇒ ja, 不然 zh。
+  ja 信号 = 平仮名 + 片仮名 + 「日本字形漢字」(不在 GB2312 简体字符集里的漢字: 項/対/応/単/領…),
+  分母 = 仮名 + 全部漢字。只数平仮名的旧口径把体言止め列表、见出し多的日文 (几乎无平仮名) 判成 zh。
+  §4 回放校准 (42 份, 去除后): 正文最短 1364 字; en 的 (仮名+漢字)/拉丁词 ≤ 0.38, CJK 答案 ≥ 3.83;
+  ja 信号比: zh ≤ 0.108, ja ≥ 0.627; 复审构造: 夹未加引号日文 label 的中文 0.167, 体言止め列表 0.47,
+  见出し多 0.50 ⇒ 阈值 0.3, 安全带 [0.167, 0.47] (仅回放为 [0.108, 0.627])。
 
 空答案一律不过。
 
@@ -32,6 +35,9 @@ G-LANG —— 去掉反引号 / `[…] label (OID)` 引用 / 其余方括号 / �
   · M10 给真实表单 OID 加**后缀**的裸 token (前缀形态才全文扫);
   · 词干规则对本研究命名习惯敏感: 与一览同词干、差一个字母的 SDTM 侧取值 (如 --TESTCD 示例) 靠
     「词干不同」才没被误标 —— 换一个命名习惯的研究可能翻转;
+  · G-LANG 把「不在 GB2312 的漢字」当日文信号: 繁体中文答案会被判成 ja (本研究问答不用繁体);
+  · 闸假设 item OID 在全研究内唯一 (一览按 OID 集合比对); 换研究时若有跨表单复用, 启动一致性检查
+    (items 数 ≠ 研读包条数) 会关闭闸, /api/info dossier_gate=false 可见 —— runbook 须写明;
   · 项目槽在「无真实 OID」时取引用后最后一个括号: 捏造 OID 后面再接带大写缩写括号的散文时,
     槽会落到散文的括号上 (捏造的那个转由宽松位判定, 只在像 OID 时才计)。
 """
@@ -45,7 +51,7 @@ from pathlib import Path
 from server.dossier_trigger import ANSWER_LANGUAGE_LINE, answer_language
 
 MIN_BODY_CHARS = 200      # 去引文后正文少于这么多 (非空白) 字 ⇒ G-LANG 不判: 样本太小, 比例不稳
-JA_HIRAGANA_RATIO = 0.2   # 平仮名/(平仮名+漢字) 的 ja 阈值; 回放安全带 [0.027, 0.389]
+JA_SIGNAL_RATIO = 0.3     # (仮名+日本字形漢字)/(仮名+漢字) 的 ja 阈值; 安全带 [0.167, 0.47]
 REGEN_BUDGET = 1  # 重答上限 (spec §3): 再一次 ~150K prompt 全价调用, 不做第二次
 
 # spec 点名的缩写 + 同类的标准/文档缩写。⚠ 只放「不可能是 EDC OID 的通用缩写」, 不放任何回放里
@@ -53,6 +59,9 @@ REGEN_BUDGET = 1  # 重答上限 (spec §3): 再一次 ~150K prompt 全价调用
 _ABBREVIATIONS = frozenset({
     "CT", "OID", "EDC", "PRT", "CRF", "SDTM", "SDTMIG", "CDISC", "CDASH", "NCI", "ISO", "ID",
     "QNAM", "SUPPQUAL", "RELREC",
+    # 通用医学 / 统计缩写 (EDC label 里常带, 如「…（HIV）感染」)。⛔ 不放本研究特有的词。
+    "HIV", "HBV", "HCV", "BMI", "BSA", "ECG", "EKG", "ECOG", "CTCAE", "MEDDRA", "WHO", "MRI",
+    "PET", "CI", "SD", "SAE", "TEAE", "ULN", "LLN", "ITT", "DNA", "RNA",
 })
 
 _T = r"[A-Z][A-Z0-9_]+"
@@ -72,6 +81,7 @@ _STEM_RE = re.compile(r"[A-Z]*")
 
 _HIRAGANA_RE = re.compile(r"[ぁ-ゖ]")
 _HAN_RE = re.compile(r"[一-鿿]")
+_KATAKANA_RE = re.compile(r"[ァ-ヺ]")
 _LATIN_WORD_RE = re.compile(r"[A-Za-z]+")
 _QUOTE_RE = re.compile(r"「[^」\n]*」|『[^』\n]*』")
 _TABLE_ROW_RE = re.compile(r"^[ \t]*\|.*$", re.M)
@@ -137,6 +147,13 @@ def _whitelisted(t: str, idx: OidIndex) -> bool:
             or any(o.startswith(t) for o in idx.all_oids))           # 族前缀
 
 
+def _narrow_ok(t: str, idx: OidIndex) -> bool:
+    """窄放行集 —— 给「不一定是 OID 断言」的严格位 (两段方括号的末段 / 无真实 OID 时兜底取到的括号):
+    缩写、C 码、域码、SUPP<域码>。⚠ 不含 SDTM 变量名与族前缀: 项目槽里写变量名 / 半截 OID 仍是捏造。"""
+    return (t in _ABBREVIATIONS or _CCODE_RE.fullmatch(t) is not None or t in idx.domains
+            or (t.startswith("SUPP") and t[4:] in idx.domains))
+
+
 def _expands_from_sibling(t: str, siblings: list[str], idx: OidIndex) -> bool:
     """`A_F2/F3` 的 F3: 同列表真实 OID 的某个前缀 + t 在一览中存在 ⇒ 简写端点, 不计。"""
     return any(s[:i] + t in idx.all_oids
@@ -166,14 +183,24 @@ def _unknown_oids(answer: str, idx: OidIndex) -> tuple[str, ...]:
     text = _CITATION_RE.sub(" ", answer)
     bad: set[str] = set()
 
-    def strict(tokens):
+    def strict(tokens, fallback=False):
+        """全严格: 只认一览 + 简写端点。列表里有真实 OID 时, 其余成员只放过宽白名单 (`(真实, HIV)`);
+        fallback (槽位本身不一定是 OID 断言) 时放过窄集。"""
         has_real = any(s in idx.all_oids for s in tokens)
         for t in tokens:
             if t in idx.all_oids or _expands_from_sibling(t, tokens, idx):
                 continue
-            if has_real and not _oid_like(t, tokens, idx):
-                continue   # `(真实OID, HIV)`: 与 OID 并列的缩写不是 OID 断言
+            if has_real and _whitelisted(t, idx):
+                continue
+            if fallback and not has_real and _narrow_ok(t, idx):
+                continue
             bad.add(t)
+
+    def semi_strict(tokens):
+        """半严格: 引用 span 里槽以外的纯 token 括号 —— 不在一览、也不在宽白名单 ⇒ 计。"""
+        for t in tokens:
+            if not (_whitelisted(t, idx) or _expands_from_sibling(t, tokens, idx)):
+                bad.add(t)
 
     def loose(tokens):
         for t in tokens:
@@ -184,23 +211,32 @@ def _unknown_oids(answer: str, idx: OidIndex) -> tuple[str, ...]:
 
     item_slots, ref_heads = set(), set()
     for m in _REFERENCE_RE.finditer(text):                      # 项目 OID 槽
-        span, toks = m.span(3), _TOKEN_RE.findall(m.group(3))
+        span, toks, fallback = m.span(3), _TOKEN_RE.findall(m.group(3)), True
         # 引用后接散文时, 最后一个括号可能已在散文里 (`(真实OID) — … (SUPPXX) …`): label 段里
-        # 若已有含真实 OID 的纯 token 括号, 槽就是它; 没有才取最后一个 (label 自带缩写括号的情形)。
+        # 若已有含真实 OID 的纯 token 括号, 槽就是它; 没有才取最后一个 (兜底, 窄集放行)。
         for p in _PAREN_RE.finditer(text, m.start(2), m.end(2)):
             ptoks = _TOKEN_RE.findall(p.group(1))
             if _PURE_RE.fullmatch(p.group(1)) and any(t in idx.all_oids for t in ptoks):
-                span, toks = p.span(1), ptoks
+                span, toks, fallback = p.span(1), ptoks, False
                 break
+        if any(t in idx.all_oids for t in toks):
+            fallback = False
         item_slots.add(span)
         ref_heads.add(m.start())
-        strict(toks)
+        strict(toks, fallback=fallback)
+        # 同一引用 span 里其余纯 token 括号 (同行第二项 / label 自带括号 / 槽后散文): 半严格。
+        for p in _PAREN_RE.finditer(text, m.start(2), m.end(3) + 1):
+            if p.span(1) != span and _PURE_RE.fullmatch(p.group(1)):
+                item_slots.add(p.span(1))
+                semi_strict(_TOKEN_RE.findall(p.group(1)))
     for m in _BRACKET_RE.finditer(text):                        # 表单 OID 槽
         toks = _TOKEN_RE.findall(m.group(1))
         if not toks or not m.group(1).rstrip().endswith(toks[-1]):
             continue
-        if len(m.group(1).split()) >= 2 or m.start() in ref_heads:
+        if m.start() in ref_heads:
             strict(toks[-1:])
+        elif len(m.group(1).split()) >= 2:
+            strict(toks[-1:], fallback=True)   # `[See SDTMIG]` / `[参考 VS]` 不是表单引用
         else:
             loose(toks[-1:])   # `[TBD]` / `[!NOTE]` 之类单段方括号: 只有像 OID 才计
     for rx in (_BACKTICK_RE, _PAREN_RE):                        # 宽松位
@@ -231,11 +267,21 @@ def observed_language(answer: str) -> str | None:
     body = _language_body(answer)
     if len(re.sub(r"\s", "", body)) < MIN_BODY_CHARS:
         return None
-    hira = len(_HIRAGANA_RE.findall(body))
-    han = len(_HAN_RE.findall(body))
-    if hira + han <= len(_LATIN_WORD_RE.findall(body)):
+    kana = len(_HIRAGANA_RE.findall(body)) + len(_KATAKANA_RE.findall(body))
+    han = _HAN_RE.findall(body)
+    if kana + len(han) <= len(_LATIN_WORD_RE.findall(body)):
         return "en"
-    return "ja" if hira / (hira + han) >= JA_HIRAGANA_RATIO else "zh"
+    ja_han = sum(1 for ch in han if not _in_gb2312(ch))
+    return "ja" if (kana + ja_han) / (kana + len(han)) >= JA_SIGNAL_RATIO else "zh"
+
+
+def _in_gb2312(ch: str) -> bool:
+    """简体中文字符集里有没有这个漢字。没有 ⇒ 日本字形 (或繁体, 见已知限制)。"""
+    try:
+        ch.encode("gb2312")
+    except UnicodeEncodeError:
+        return False
+    return True
 
 
 def check_answer(answer: str, question: str, index: OidIndex) -> GateResult:
