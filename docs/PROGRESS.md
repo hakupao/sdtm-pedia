@@ -1,7 +1,7 @@
 # 进度看板
 
 > **唯一进度状态源**. 历史细节看 `.work/meta/worklog/INDEX.md`. 文件结构看 `.work/MANIFEST.md`. 一页纸入门看 `.work/AGENT_GUIDE.md`.
-> 最后更新: 2026-09-25 (**DM2 attempt 3 Claude 重跑 = 业务 FAIL**: Bedrock 恢复 Anthropic 访问, 12 run 全真未回退; 跑前登记 §0′ + 3 道留出题 → **opus 2/3·2/3, sonnet 1/3·1/3 均未达标** (sonnet 无 CT 域不声明换轴 / ja 问句第三个 DSCAT 值失守 / 捏造首次非零 2/12); 研读包仍默认 ON, attempt 4 规则句修订待用户裁定; 证据 `sdtm-rag/evidence/checkpoints/dm2_dossier_e2e.md` §2.3; 上一条 DM2 收口 2026-09-15 见 worklog)
+> 最后更新: 2026-09-25 (**DM2 attempt 3→4**: Bedrock 恢复后 Claude 实测 attempt 3 FAIL (opus 2/3·2/3, sonnet 1/3·1/3) → 用户裁定 **生产研读包 auto 暂停** (`dossier_auto_attach=False`, 手动「研读:开」照挂; Streamlit 无手动入口 ⇒ 实际关闭) + attempt 4 (§0″ 跑前写死判据 + 规则句 pattern 级修订) → **opus 6/6 (主判, 严口径 3/6) / sonnet 4/6 ⇒ 仍 FAIL**; ④″(ii) 口径待用户裁; 证据 `sdtm-rag/evidence/checkpoints/dm2_dossier_e2e.md` §2.3/§2.4)
 > 此前各阶段收口细节 (SP1-SP6 / AGG / 部署 / Chat UI 等): 见 `.work/meta/worklog/phase_07_rag_kg.md` 对应收口记录 (本行原 84K 单行巨段已于 restructure v3 剪除, 全文在 git 历史 `816c4a5^` 前的版本可查)
 
 ---
