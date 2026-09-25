@@ -47,4 +47,6 @@
 - 老存档 (本闸上线前后的首版 webchat) 里「首轮 + 分隔线 + 重答」拼在同一条 content 的消息会原样进 history, 不做迁移。
 - 闸假设 item OID 在全研究内唯一 (一览按 OID 集合比对)。换研究时若有跨表单复用, 启动一致性检查 (items 数 ≠ 研读包条数) 会关闭闸, `/api/info` 的 `dossier_gate=false` 可见 —— 换研究的 runbook 须检查这一项。
 - `/api/ask` 重答轮在 completion 之外仍有 502 路径: provider 返回结构异常 (如 `choices[0]` 缺失) 时走外层 502, 不还原首轮。
+- 引用 span 里**选中槽之后**的括号只计「像 OID」的 (与一览某 OID 共享 ≥3 字符前缀, 或带数字/下划线): 新词干的纯字母捏造 (如与一览无共同前缀的 `ZQWEIGHT` 型) 出现在槽后会漏报; 换来槽后散文里 `(UNK)`/`(TBD)`/`(BID)` 等不误报 (复审第三轮裁定)。
+- `ask_stream` 重答失败还原首轮时只还原 `model_used`; `models_used` 保留两轮累计, 重答轮的回退仍经 `fell_back` 可见。
 - 漏报形态 (M3 纯字母近似单独 token / M5 表格单元格 / M6 粗体 / M10 表单 OID 加后缀)、词干规则对命名习惯敏感、G-LANG 把繁体中文判成 ja: 见 `server/dossier_gate.py` 模块 docstring。

@@ -4,6 +4,8 @@ spec: docs/superpowers/specs/2026-09-25-dossier-output-gate-design.md (§2 闸�
 只在研读包挂上时跑: B 部是穷尽一览, 「不在一览 = 不存在」只在那时成立。
 
 G-OID —— 只在「OID 断言」的位置取 token (`[A-Z][A-Z0-9_]{1,}`), 其余散文里的大写词一概不看:
+  (引用 span 内槽以外的纯 token 括号: 半严格, 不在一览也不在宽白名单即计; 槽之后的还须像 OID。
+   两段方括号 (非引用头) 的末段: 窄集 + SDTM 变量名放行。)
   严格位 —— 只认一览里的 OID 与列表简写端点, **不**套宽白名单 (SDTM 名 / 族前缀 / 缩写):
     · 表单槽: `[名称 FORM]` (方括号里 ≥2 段、末段是 token) 或 `[FORM] label (OID)` 引用的方括号;
     · 项目槽: `[…] label (OID)` 里第一个含真实 OID 的纯 token 括号; 没有则取最后一个纯 token 括号
@@ -38,6 +40,8 @@ G-LANG —— 去掉反引号 / `[…] label (OID)` 引用 / 其余方括号 / �
   · G-LANG 把「不在 GB2312 的漢字」当日文信号: 繁体中文答案会被判成 ja (本研究问答不用繁体);
   · 闸假设 item OID 在全研究内唯一 (一览按 OID 集合比对); 换研究时若有跨表单复用, 启动一致性检查
     (items 数 ≠ 研读包条数) 会关闭闸, /api/info dossier_gate=false 可见 —— runbook 须写明;
+  · 引用 span 里**槽之后**的括号只计「像 OID」的 (与一览共享 ≥3 字符前缀 / 带数字下划线): 新词干的
+    纯字母捏造 (与一览无共同前缀) 出现在槽后会漏报 —— 换来槽后散文里 (UNK)/(TBD)/(BID) 不误报;
   · 项目槽在「无真实 OID」时取引用后最后一个括号: 捏造 OID 后面再接带大写缩写括号的散文时,
     槽会落到散文的括号上 (捏造的那个转由宽松位判定, 只在像 OID 时才计)。
 """
@@ -96,12 +100,14 @@ class OidIndex:
     domains: frozenset[str] = frozenset()
     all_oids: frozenset[str] = field(init=False, repr=False)
     stems: frozenset[str] = field(init=False, repr=False)
+    prefixes3: frozenset[str] = field(init=False, repr=False)
 
     def __post_init__(self):
         allo = frozenset(self.forms) | frozenset(self.items)
         object.__setattr__(self, "all_oids", allo)
         object.__setattr__(self, "stems", frozenset(
             s for s in (_STEM_RE.match(o).group(0) for o in allo) if s))
+        object.__setattr__(self, "prefixes3", frozenset(o[:3] for o in allo if len(o) >= 3))
 
     @classmethod
     def from_catalog(cls, catalog_path: Path, kb_root: Path) -> OidIndex:
@@ -183,7 +189,7 @@ def _unknown_oids(answer: str, idx: OidIndex) -> tuple[str, ...]:
     text = _CITATION_RE.sub(" ", answer)
     bad: set[str] = set()
 
-    def strict(tokens, fallback=False):
+    def strict(tokens, fallback=False, allow_sdtm=False):
         """全严格: 只认一览 + 简写端点。列表里有真实 OID 时, 其余成员只放过宽白名单 (`(真实, HIV)`);
         fallback (槽位本身不一定是 OID 断言) 时放过窄集。"""
         has_real = any(s in idx.all_oids for s in tokens)
@@ -192,15 +198,21 @@ def _unknown_oids(answer: str, idx: OidIndex) -> tuple[str, ...]:
                 continue
             if has_real and _whitelisted(t, idx):
                 continue
-            if fallback and not has_real and _narrow_ok(t, idx):
+            if fallback and not has_real and (
+                    _narrow_ok(t, idx) or (allow_sdtm and t in idx.sdtm_names)):
                 continue
             bad.add(t)
 
-    def semi_strict(tokens):
-        """半严格: 引用 span 里槽以外的纯 token 括号 —— 不在一览、也不在宽白名单 ⇒ 计。"""
+    def semi_strict(tokens, after_slot=False):
+        """半严格: 引用 span 里槽以外的纯 token 括号 —— 不在一览、也不在宽白名单 ⇒ 计。
+        槽**之后**的括号多半已是散文 (`— 未测时填 (UNK)`): 再加一条「像 OID」(与一览某 OID 共享
+        ≥3 字符前缀, 或带数字/下划线) 才计。"""
         for t in tokens:
-            if not (_whitelisted(t, idx) or _expands_from_sibling(t, tokens, idx)):
-                bad.add(t)
+            if _whitelisted(t, idx) or _expands_from_sibling(t, tokens, idx):
+                continue
+            if after_slot and not (t[:3] in idx.prefixes3 or re.search(r"[0-9_]", t)):
+                continue
+            bad.add(t)
 
     def loose(tokens):
         for t in tokens:
@@ -228,7 +240,7 @@ def _unknown_oids(answer: str, idx: OidIndex) -> tuple[str, ...]:
         for p in _PAREN_RE.finditer(text, m.start(2), m.end(3) + 1):
             if p.span(1) != span and _PURE_RE.fullmatch(p.group(1)):
                 item_slots.add(p.span(1))
-                semi_strict(_TOKEN_RE.findall(p.group(1)))
+                semi_strict(_TOKEN_RE.findall(p.group(1)), after_slot=p.start(1) > span[0])
     for m in _BRACKET_RE.finditer(text):                        # 表单 OID 槽
         toks = _TOKEN_RE.findall(m.group(1))
         if not toks or not m.group(1).rstrip().endswith(toks[-1]):
@@ -236,7 +248,8 @@ def _unknown_oids(answer: str, idx: OidIndex) -> tuple[str, ...]:
         if m.start() in ref_heads:
             strict(toks[-1:])
         elif len(m.group(1).split()) >= 2:
-            strict(toks[-1:], fallback=True)   # `[See SDTMIG]` / `[参考 VS]` 不是表单引用
+            # `[See SDTMIG]` / `[参考 VS]` / `[→ VSORRES]` 不是表单引用: 窄集 + SDTM 变量名放行
+            strict(toks[-1:], fallback=True, allow_sdtm=True)
         else:
             loose(toks[-1:])   # `[TBD]` / `[!NOTE]` 之类单段方括号: 只有像 OID 才计
     for rx in (_BACKTICK_RE, _PAREN_RE):                        # 宽松位

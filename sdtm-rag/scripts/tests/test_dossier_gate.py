@@ -309,7 +309,9 @@ PROBE_OID = {
     # 同行第二项 / label 自带括号 / 槽后散文: 半严格 (N-2)
     "- [ZQVITAL] Temperature (ZQVTEMP), Pulse (ZQVPULSE) (推測)": ("ZQVPULSE",),
     "- [ZQVITAL] Temperature (ZQVTEMP), Pulse (ZQVPULS2) (推測)": ("ZQVPULS2",),
-    "- [ZQVITAL] Temperature (ZQVTEMP), Weight (ZQWEIGHT) (推測)": ("ZQWEIGHT",),
+    # 已知限制: 槽之后的括号只计「像 OID」的 (与一览共享 ≥3 字符前缀 / 带数字下划线), 新词干纯字母
+    # 捏造在槽后会漏 —— 换来的是槽后散文里 (UNK) / (TBD) 这类词不再误报 (复审第三轮裁定)。
+    "- [ZQVITAL] Temperature (ZQVTEMP), Weight (ZQWEIGHT) (推測)": (),
     "- [ZQVITAL] Pulse (ZQVPULSE) (推測)": ("ZQVPULSE",),
     "- [ZQVITAL] Temp (ZQVTMP) (ZQVTEMP)": ("ZQVTMP",),
     "- [ZQVITAL] Temperature (ZQVTEMP), BMI (ZQVBMI1)": ("ZQVBMI1",),
@@ -359,3 +361,28 @@ def test_review_probe_language_cases():
     assert observed_language("- Item maps to VSORRES. " * 3 + "本研究的体温项目应当映射到生命体征域。" * 4) is None
     r = check_answer("答えは以下の通りです。体温は VS にマッピングされます。", "体温项目应映射到哪个域？", _probe_idx())
     assert r.ok and r.lang_observed is None
+
+
+# ── 复审第三轮 ──────────────────────────────────────────────────────
+
+def test_prose_parens_after_the_slot_only_count_when_oid_like():
+    idx = _probe_idx()
+    for w in ("TBD", "NA", "UNK", "BID", "MMHG", "IV", "ND", "OTHER", "CRO", "UNITX"):
+        ans = f"- [ZQVITAL] Temperature (ZQVTEMP) — 未测时填 ({w})"
+        assert check_answer(ans, Q_EN, idx).unknown_oids == (), w
+    # 像 OID 的仍然抓: 与一览共享前缀 / 带数字
+    assert check_answer("- [ZQVITAL] Temperature (ZQVTEMP) — 另见 (ZQVPULSE)", Q_EN,
+                        idx).unknown_oids == ("ZQVPULSE",)
+    assert check_answer("- [ZQVITAL] Temperature (ZQVTEMP) — 另见 (QXW2)", Q_EN,
+                        idx).unknown_oids == ("QXW2",)
+    # 槽之前 (label 自带括号) 的判定不变: 纯字母新词干照样计
+    assert check_answer("- [ZQVITAL] Temp (QXFAKE) (ZQVTEMP)", Q_EN, idx).unknown_oids == ("QXFAKE",)
+
+
+def test_two_segment_bracket_allows_sdtm_variable_names():
+    idx = _probe_idx()
+    assert check_answer("映射 [→ VSORRES] 见上", Q_EN, idx).unknown_oids == ()
+    assert check_answer("详见 [参照 VSTESTCD]", Q_EN, idx).unknown_oids == ()
+    assert check_answer("见 [参考 QXFAKE]", Q_EN, idx).unknown_oids == ("QXFAKE",)
+    # 项目槽兜底不放变量名 (M1 形态照旧计)
+    assert check_answer("- [ZQVITAL] 体温 (VSORRES) (推測)", Q_EN, idx).unknown_oids == ("VSORRES",)
