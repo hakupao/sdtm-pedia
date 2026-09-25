@@ -1,7 +1,7 @@
 # 进度看板
 
 > **唯一进度状态源**. 历史细节看 `.work/meta/worklog/INDEX.md`. 文件结构看 `.work/MANIFEST.md`. 一页纸入门看 `.work/AGENT_GUIDE.md`.
-> 最后更新: 2026-09-25 (**DM2 attempt 3→7 + 生成后确定性闸 + 研读包 auto 仅对 Opus 恢复**: Bedrock 恢复后 Claude 实测不达标 → auto 暂停 → 判据逐轮跑前写死 / 规则句 pattern 级修订 / 盲出新留出题 / 答题语言结构性修法 → **生成后确定性闸上线** (`server/dossier_gate.py`: OID∈一览 + 语言一致, 不过则可见重答 1 次) → attempt 7 opus 主判 6/6 (严口径 4-5/6, 闸零触发) → 用户裁定 **仅 opus 恢复 auto** (`dossier_auto_attach_models=["opus-5"]`, 生产探针 opus/default 挂、sonnet paused); ⚠ 名单约束请求模型非回退后作答模型; Streamlit default 路径也恢复自动挂载 (无徽章, 120s 超时风险); 证据 `sdtm-rag/evidence/checkpoints/dm2_dossier_e2e.md` §2.3-§2.7)
+> 最后更新: 2026-09-25 (**DM2 收官段**: 研读包 auto 仅 opus + 生成后确定性闸 (attempt 8 首次生产拦对语言漂移, 重答后通过) + **T11 prompt cache 上线** (研读包移入 system 末尾带断点; attempt 8 opus 6/6 质量不降, 缓存 5/5 命中, **输入成本降到 33.5%**); 下一步候选: 新留出题泛化 / 判据槽位写死 / Streamlit 徽章+超时 / sonnet 过判据; 证据 `sdtm-rag/evidence/checkpoints/dm2_dossier_e2e.md` §2.3-§2.8)
 > 此前各阶段收口细节 (SP1-SP6 / AGG / 部署 / Chat UI 等): 见 `.work/meta/worklog/phase_07_rag_kg.md` 对应收口记录 (本行原 84K 单行巨段已于 restructure v3 剪除, 全文在 git 历史 `816c4a5^` 前的版本可查)
 
 ---
