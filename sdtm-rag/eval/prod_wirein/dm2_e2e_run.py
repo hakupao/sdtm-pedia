@@ -141,7 +141,7 @@ def _item_list_text() -> str:
 
 
 def _load_questions(yml: Path) -> dict[str, dict]:
-    items = yaml.safe_load(yml.read_text(encoding="utf-8"))
+    items = yaml.safe_load(yml.read_text(encoding="utf-8")) or []
     return {q["id"]: q for q in items}
 
 
@@ -178,6 +178,9 @@ def main() -> int:
         if dup:
             raise SystemExit(f"duplicate question ids across yml: {sorted(dup)}")
         questions.update(part)
+    missing = [q for q in qids if q not in questions]
+    if missing:  # 跑前拦下, 别等前几题已经打过生产才 KeyError
+        raise SystemExit(f"unknown question ids: {missing}")
 
     runs: list[tuple[str, str, dict]] = []
     print(f"# dm2 e2e: {len(qids)}q x {len(MODELS)}model = {len(qids) * len(MODELS)} runs "

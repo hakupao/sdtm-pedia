@@ -64,7 +64,7 @@ class _Cdisc:
         return "CD:" + ",".join(c.chunk_id for c in chunks)
 
     def build_messages(self, q, ctx, history=None):
-        return [{"role": "system", "content": "SYS"},
+        return [{"role": "system", "content": "SYS"}, *(history or []),
                 {"role": "user", "content": f"CTX={ctx}\nQ={q}"}]
 
 
@@ -82,7 +82,7 @@ class _Fed:
         return "FED:" + ",".join(c.chunk_id for c in chunks)
 
     def build_messages(self, q, ctx, history=None, *, corpus):
-        return [{"role": "system", "content": f"SYS[{corpus}]"},
+        return [{"role": "system", "content": f"SYS[{corpus}]"}, *(history or []),
                 {"role": "user", "content": f"CTX={ctx}\nQ={q}"}]
 
 
@@ -383,3 +383,24 @@ def test_dossier_appends_answer_language_line_to_last_user_message():
     c2.post("/api/ask", json={"question": Q_CDISC, "history": []})
     assert not any(v in app2.state.llm_router.messages[-1]["content"]
                    for v in ANSWER_LANGUAGE_LINE.values())
+
+
+def test_language_line_goes_to_current_question_not_history():
+    """审查意见: fake 忽略 history 时 `messages[-1]`→`messages[1]` 的变异测不出来。"""
+    c, app = _client(DOSSIER)
+    hist = [{"role": "user", "content": "earlier"}, {"role": "assistant", "content": "prev"}]
+    c.post("/api/ask", json={"question": Q_MAP, "history": hist, "dossier": "on"})
+    msgs = app.state.llm_router.messages
+    assert msgs[1] == {"role": "user", "content": "earlier"}
+    assert msgs[2] == {"role": "assistant", "content": "prev"}
+    assert msgs[-1]["content"].endswith(ANSWER_LANGUAGE_LINE["zh"])
+
+
+def test_attach_rules_handles_multimodal_last_message():
+    """PDF 通道会把 content 变成 parts 列表; 顺序若被对调, `list += str` 会静默逐字符 extend。"""
+    from server.router import _attach_dossier_rules
+    msgs = [{"role": "system", "content": "S"},
+            {"role": "user", "content": [{"type": "text", "text": "Q"}, {"type": "image_url"}]}]
+    _attach_dossier_rules(msgs, "In our study, which items go to AE?")
+    parts = msgs[-1]["content"]
+    assert len(parts) == 2 and parts[0]["text"].endswith(ANSWER_LANGUAGE_LINE["en"])

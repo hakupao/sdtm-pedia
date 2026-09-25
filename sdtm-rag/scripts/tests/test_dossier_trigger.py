@@ -68,6 +68,12 @@ from server.dossier_trigger import answer_language
     ("In our study, which collected data items belong in the ae domain?", "en"),
     ("本研究の DS", "ja"),          # 漢字 + 仮名 ⇒ 日本語 (仮名が決め手)
     ("DS", "en"),                   # 文字種なし ⇒ en に倒す
+    # 审查负例: 问句里嵌入的 EDC 表单/项目名 (日文原文) 不得决定答题语言
+    ("In our study, which items on the 有害事象 form map to AE?", "en"),
+    ("In our study, which fields on the バイタルサイン page go to VS?", "en"),
+    ("本研究中 バイタルサイン 页面的哪些字段进 VS？", "zh"),
+    ("本研究里「有害事象・副作用」表单的字段应该进 AE 吗？", "zh"),
+    ("Which items in 「治療経過」 belong to EX in this study?", "en"),
 ])
 def test_answer_language_by_script(q, lang):
     assert answer_language(q) == lang

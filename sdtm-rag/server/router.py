@@ -166,7 +166,13 @@ def _attach_dossier_rules(messages: list[dict], question: str) -> None:
     /api/ask 与 /api/ask_stream 共用 (两处各写一份 = 只修好一边)。"""
     from server.dossier_trigger import ANSWER_LANGUAGE_LINE, answer_language
     messages[0]["content"] += _DOSSIER_RULES
-    messages[-1]["content"] += "\n\n" + ANSWER_LANGUAGE_LINE[answer_language(question)]
+    line = "\n\n" + ANSWER_LANGUAGE_LINE[answer_language(question)]
+    last = messages[-1]
+    if isinstance(last["content"], list):  # PDF 通道的多模态 parts: 接到首个 text part 上
+        text_part = next(p for p in last["content"] if p.get("type") == "text")
+        text_part["text"] += line
+    else:
+        last["content"] += line
 
 
 # ── Request / Response models ────────────────────────────────────────────

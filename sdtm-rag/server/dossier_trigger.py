@@ -55,9 +55,15 @@ def decide_dossier(question: str, mode: DossierMode, enabled: bool,
 # 研读包 13 万字以日文为主, system 里的「跟问句语言」两轮压不住 (evidence/failures/
 # dm2_task9_attempt_4.md: sonnet en 问 → ja 答)。改为按问句**文字种类**确定语言, 由 router 在
 # 最后一条 user 消息末尾追加一行 —— 离生成最近, 且是确定值不是让模型自己判断。
-# 仮名があれば ja (漢字だけでは zh/ja を区別できない); 漢字のみ ⇒ zh; どちらもなし ⇒ en.
-_KANA_RE = re.compile(r"[぀-ヿ]")
-_HAN_RE = re.compile(r"[一-鿿]")
+# 判定は「問句の地の文」で行う (审查意见: EDC の表単名・項目名は日文原文のまま引用されがち):
+#   ① 引用符「」『』“”"" とバッククォート内を除去;
+#   ② 平仮名があれば ja (片仮名・「・」「ー」は表単名に頻出するので数えない);
+#   ③ 残りの漢字数 > ラテン語の語数 なら zh (英文に漢字名を 1 つ埋めた程度では zh にしない);
+#   ④ それ以外 en。漢字だけの極短日文 (例「本試験 DS 対象項目一覧」) は zh に倒れる —— 既知限界。
+_QUOTED_RE = re.compile(r"「[^」]*」|『[^』]*』|\u201c[^\u201d]*\u201d|\"[^\"]*\"|`[^`]*`")
+_HIRAGANA_RE = re.compile(r"[\u3041-\u3096]")
+_HAN_RE = re.compile(r"[\u4e00-\u9fff]")
+_LATIN_WORD_RE = re.compile(r"[A-Za-z]+")
 
 ANSWER_LANGUAGE_LINE = {
     "ja": "【回答言語】日本語で回答すること (OID・SDTM 変数名・CT 値・固定標記はそのまま)。",
@@ -68,8 +74,9 @@ ANSWER_LANGUAGE_LINE = {
 
 
 def answer_language(question: str) -> str:
-    if _KANA_RE.search(question):
+    body = _QUOTED_RE.sub(" ", question)
+    if _HIRAGANA_RE.search(body):
         return "ja"
-    if _HAN_RE.search(question):
+    if len(_HAN_RE.findall(body)) > len(_LATIN_WORD_RE.findall(body)):
         return "zh"
     return "en"
