@@ -344,3 +344,19 @@ def test_rule_pins_category_axis_and_no_candidate_wording():
     assert appended.endswith(_DOSSIER_RULES)
     assert "--CAT" in appended
     assert "no candidate" in appended
+
+
+def test_rule_pins_attempt4_patterns():
+    """T9 attempt 3 (evidence/failures/dm2_task9_attempt_3.md) 的四个失败模式各对应一处措辞:
+    无 CT / 无 --CAT 的形态声明、CT 原文大写串、OID 全文作用域、答题语言。钉在实际拼进 system
+    的文本上 (同上一条的理由); 另钉规则里不得出现具体 CT 取值 —— 那是题面级修法的信号。"""
+    c, app = _client(DOSSIER)
+    c.post("/api/ask", json={"question": Q_MAP, "history": [], "dossier": "on"})
+    appended = app.state.llm_router.messages[0]["content"]
+    assert appended.endswith(_DOSSIER_RULES)
+    for phrase in ("without controlled terminology", "has no `--CAT` variable",
+                   "exact uppercase CT string", "anywhere in the answer",
+                   "language of the question", "SUPPQUAL QNAM proposal"):
+        assert phrase in appended, phrase
+    for leak in ("DISPOSITION EVENT", "PROTOCOL MILESTONE", "OTHER EVENT", "OTHEVENT"):
+        assert leak not in _DOSSIER_RULES, leak

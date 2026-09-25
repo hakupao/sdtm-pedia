@@ -127,18 +127,37 @@ _DOSSIER_RULES = (
     # "漏"于是变成看得见的空标题。修法停在**模式级** (说"沿 --CAT 轴", 不说某域有几类):
     # 凡分类轴不止一条 (--CAT / --SCAT / epoch) 的域都会复发, 写死题面只会修绿一道题。
     # (4) 同样收紧: attempt 1 有一跑只在开头做一次全局声明, 段内不复标 —— 下游一摘表就丢。
-    "- Domain-level mapping questions: (1) enumerate the record categories along the domain's "
-    "own category variable (the `--CAT` controlled terminology listed in 【標準 CDISC】 when "
-    "that block is present; if it is absent, say so and enumerate from the standard as you know "
-    "it, marked (推測)); list EVERY category value as its own heading, in the standard's order, "
-    "before looking at any EDC item; do not substitute sub-category (`--SCAT`), epoch or timing "
-    "axes for the category axis; (2) under each category heading either list the candidate items "
-    "found by scanning part B form by form (status / date / reason), quoting each as "
-    "`[form OID] item (OID)` exactly as written, or write explicitly "
-    "「候補なし / no candidate item in the EDC」 — no category may be silently skipped; "
-    "(3) when the PRT defines the event (完了の定義 / 中止規準 / 登録手順 …), cite "
-    "the section number from part A; (4) every EDC→SDTM assignment is inference — mark EVERY "
-    "individual assignment with (推測) inline, not only in a global disclaimer.\n"
+    # T9 attempt 3 (Claude 两模型, evidence/failures/dm2_task9_attempt_3.md) 的四个失败模式,
+    # 修法仍停在模式级 (不写域名 / CT 取值 / 表单 / OID):
+    # ① 无 CT 的类别轴被静默跳过 —— 旧 (1) 只讲了「--CAT 有 CT」一种形态, 模型遇到无 CT /
+    #    无 --CAT 的域就直接按表单分组, 不声明也不点名替代轴 ⇒ 改为开篇一句「属于哪种形态」必答;
+    # ② CT 值被意译或以 codelist 名顶替 ⇒ 写死「逐字大写 CT 串」;
+    # ③ 排除清单 / 表格列里出现一览中没有的 OID (含自造的表单 OID 前缀) ⇒ 作用域扩到全文;
+    # ④ 研读包以日文为主, 答题语言被带偏 (zh/en 问 → ja 答), rag.py 的通用语言规则压不住 ⇒ 这里再说一次.
+    "- Domain-level mapping questions: answer in the language of the question — the dossier "
+    "being mostly Japanese does not change that. Steps, in order: (1) category axis — before "
+    "looking at any EDC item, open with ONE sentence stating which case holds for the target "
+    "domain, then follow it: (a) its `--CAT` variable has controlled terminology: list EVERY CT "
+    "value as its own heading, in the standard's order, writing the value as the exact uppercase "
+    "CT string (a translation, abbreviation or codelist name in its place does not count as "
+    "listing it); (b) `--CAT` exists without controlled terminology, or (c) the domain has no "
+    "`--CAT` variable: say which, name the grouping axis you use instead (derived from the domain "
+    "definition), then one heading per group. Take the CT from 【標準 CDISC】 when that block is "
+    "present; if it is absent, say so and use the standard as you know it, marked (推測). Never "
+    "substitute sub-category (`--SCAT`), epoch or timing axes for the category axis; "
+    "(2) under each heading either list the candidate items found by scanning part B form by "
+    "form (status / date / reason), quoting each as `[form OID] item (OID)` exactly as written, "
+    "or write explicitly 「候補なし / no candidate item in the EDC」 — no heading may be silently "
+    "skipped; (3) EVERY EDC OID anywhere in the answer — candidate, excluded or reference lists, "
+    "table columns — must be copied character for character from part B, with the form OID of "
+    "the form it is listed under there; never construct, prefix or complete an OID — if unsure, "
+    "describe the item in words without an OID. Give each item one assignment only: never list "
+    "the same item both as a candidate and as excluded; (4) name as target-domain variables only "
+    "variables the standard defines for that domain; anything else is a SUPPQUAL QNAM proposal "
+    "and must be labelled so; (5) when the PRT defines the event (完了の定義 / 中止規準 / 登録手順 "
+    "…), cite the section number from part A; (6) every EDC→SDTM assignment is inference — mark "
+    "every group heading AND every individual assignment with (推測) inline, not only in a "
+    "global disclaimer.\n"
 )
 
 

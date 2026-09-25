@@ -241,6 +241,10 @@ def _write_judge_pack(out_dir: Path, runs, questions: dict[str, dict]) -> None:
             "answer": rec["answer"],
             "gold_cards": gold,
             "domain_definition_text": _first_paragraph(defn),
+            # G0 字段进 judge pack, 判分方可自核 (attempt 3 判分方意见 #8).
+            "dossier_attached": ((rec.get("done_event") or {}).get("dossier") or {}).get("attached"),
+            "fell_back": (rec.get("done_event") or {}).get("fell_back"),
+            "models_used": (rec.get("done_event") or {}).get("models_used"),
         })
     pack = {"runs": pack_runs, "item_list_text": item_list}
     p = out_dir / "judge_pack.json"
