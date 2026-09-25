@@ -852,7 +852,9 @@ async def ask_stream(body: AskStreamRequest, request: Request):
             # 用户了, 所以不做「顶部警示」: 发 grounding 事件, 不过就发 regenerate 事件后流第二轮。
             # 闸没开时只转一圈, 事件序列与引入前逐字节同 (test_router_dossier_gate 钉)。
             regen_failed = False
-            first_pass: tuple = ([], False, 0)   # 重答前那一轮的 (parts, truncated, continue_rounds)
+            # 重答前那一轮的 (parts, truncated, continue_rounds, model_used, models_used)
+            first_pass: tuple = ([], False, 0, None, [])
+            count_fix = ""   # 还原首轮后计数闸的修正段 (进 done, 前端还原首轮时拼回去)
             while True:
                 try:
                     for rnd in range(1, total_rounds + 1):
@@ -1032,7 +1034,11 @@ async def ask_stream(body: AskStreamRequest, request: Request):
                     log.warning("dossier_regenerate_failed", model=body.model,
                                 error=str(e), exc_info=True)
                     gate.regeneration_failed(type(e).__name__)
-                    parts, truncated, continue_rounds = first_pass
+                    (parts, truncated, continue_rounds, model_used,
+                     models_used) = first_pass
+                    models_used = list(models_used)
+                    # 半截的重答这一轮拿不到 usage 片, 但请求已计费 ⇒ 总量不完整, 如实标 partial。
+                    usage_missing = True
                     regen_failed = True
 
                 # 闸看续写 + 工具轮都拼好之后的整轮答案, 不在分片上跑。
@@ -1049,7 +1055,7 @@ async def ask_stream(body: AskStreamRequest, request: Request):
                 # parts 只装当前这一轮: counting gate 与终判看的是最终轮, 不是两轮拼起来。
                 # continue_rounds / truncated 描述的是**呈现的那篇**答案 (最终轮), 故随轮重置;
                 # usage 是钱, 跨轮累计。
-                first_pass = (parts, truncated, continue_rounds)
+                first_pass = (parts, truncated, continue_rounds, model_used, list(models_used))
                 msgs = gate.regenerate_messages(messages, "".join(parts))
                 parts = []
                 truncated = False
@@ -1068,6 +1074,10 @@ async def ask_stream(body: AskStreamRequest, request: Request):
                 if violations:
                     log.warning("structured_count_violation_stream", violations=violations)
                     yield sse("token", {"text": corrected[len(full):]})
+                    if regen_failed:
+                        # 前端在重答失败时把正文还原成首轮 (firstAnswer), 上面这段修正 token 流进的
+                        # 是半截重答的 acc —— 不再随 done 带一份, 修正就丢了。
+                        count_fix = corrected[len(full):]
 
             usage = None
             if usage_seen:
@@ -1086,6 +1096,8 @@ async def ask_stream(body: AskStreamRequest, request: Request):
             # 挂上但 index 缺 (闸没跑) ⇒ null。
             grounding_kw = ({"grounding": gate.payload() if gate else None}
                             if dossier_block else {})
+            if count_fix:
+                grounding_kw["counting_correction"] = count_fix
             yield sse("done", {"model_used": model_used,
                                "models_used": models_used,
                                "model_id": body.model,

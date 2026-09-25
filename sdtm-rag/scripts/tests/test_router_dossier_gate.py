@@ -330,3 +330,78 @@ def test_info_reports_whether_the_gate_is_available():
     assert c.get("/api/info").json()["dossier_gate"] is False
     c.app.state.dossier_gate_index = IDX
     assert c.get("/api/info").json()["dossier_gate"] is True
+
+
+# ── 复审第二轮: 还原首轮时 model/usage/计数闸修正都要对 ──
+
+class _ModelMidFail(_MidFailRouter):
+    """首轮由 m1 答; 重答由 m2 开始吐字后中途炸。"""
+
+    async def acompletion(self, model, messages, stream=False, **kw):
+        n = len(self.calls)
+        self.calls.append([dict(m) for m in messages])
+
+        async def agen():
+            if n == 0:
+                yield SimpleNamespace(model="m1", usage=None, choices=[
+                    SimpleNamespace(delta=SimpleNamespace(content=BAD), finish_reason="stop")])
+                yield SimpleNamespace(model="m1", usage=_usage(), choices=[])
+            else:
+                yield SimpleNamespace(model="m2", usage=None, choices=[
+                    SimpleNamespace(delta=SimpleNamespace(content="半截"), finish_reason=None)])
+                raise RuntimeError("mid-stream boom")
+        return agen()
+
+
+def test_stream_regen_failure_restores_models_and_marks_usage_partial():
+    c, app = _gated_client([])
+    app.state.llm_router = _ModelMidFail([])
+    done = _stream(c)[-1][1]
+    assert done["model_used"] == "m1" and done["models_used"] == ["m1"]
+    assert done["usage"]["partial"] is True and done["usage"]["total_tokens"] == 15
+
+
+def _with_counting_gate(monkeypatch, app):
+    """确定性计数闸打桩: 任何答案都补一段修正。"""
+    import server.grounding as gr
+    import server.structured_answer as sa
+    app.state.answerer = SimpleNamespace(resolve=lambda q: object())
+    monkeypatch.setattr(sa, "augment_context", lambda facts, ctx: ctx)
+    monkeypatch.setattr(gr, "apply_counting_gate",
+                        lambda ans, facts: (ans + "〔计数修正〕", [{"v": 1}]))
+
+
+def test_stream_regen_failure_carries_counting_correction_in_done(monkeypatch):
+    c, app = _gated_client([])
+    app.state.llm_router = _MidFailRouter([])
+    _with_counting_gate(monkeypatch, app)
+    done = _stream(c)[-1][1]
+    assert done["grounding"]["regenerate_error"] == "RuntimeError"
+    assert done["counting_correction"] == "〔计数修正〕"
+
+
+def test_stream_counting_correction_not_in_done_without_regen_failure(monkeypatch):
+    c, app = _gated_client([(BAD, "stop"), (GOOD, "stop")])
+    _with_counting_gate(monkeypatch, app)
+    assert "counting_correction" not in _stream(c)[-1][1]
+
+
+def test_ask_regen_failure_keeps_counting_correction(monkeypatch):
+    c, app = _gated_client([(BAD, "stop"), RuntimeError("boom")])
+    _with_counting_gate(monkeypatch, app)
+    assert _ask(c)["answer"] == BAD + "〔计数修正〕"
+
+
+def test_grounding_payload_keys_match_the_frontend_shape_constant():
+    """前端在中断时自己合成 grounding (js/grounding.js interruptedGrounding); 形状必须与后端
+    GateRun.payload() 同步 —— 两边各写一份键名, 这条把它们钉在一起。"""
+    import re as _re
+
+    from server.dossier_gate import GateRun
+    js = (Path(__file__).resolve().parents[2] / "webchat" / "js" / "grounding.js").read_text(
+        encoding="utf-8")
+    keys = set(_re.findall(r'"(\w+)"', js.split("GROUNDING_KEYS = [", 1)[1].split("]", 1)[0]))
+    g = GateRun(IDX, Q_MAP)
+    g.observe(BAD)
+    g.regeneration_failed("interrupted")
+    assert keys == set(g.payload())

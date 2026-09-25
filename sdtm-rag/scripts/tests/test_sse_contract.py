@@ -247,3 +247,10 @@ def test_grounding_field_contract():
     done_block = router.split('yield sse("done", {', 1)[1].split("})", 1)[0]
     assert "**grounding_kw" in done_block, "done 事件没有拼进 grounding"
     assert '{"grounding":' in router.split("grounding_kw = ", 1)[1][:200]
+
+
+def test_counting_correction_field_contract():
+    """重答失败还原首轮时, 计数闸修正随 done 走 (`counting_correction`); 前端还原首轮时拼回去。"""
+    assert re.search(r"\.counting_correction\b", _frontend_sources()), "前端没读 .counting_correction"
+    router = ROUTER_PY.read_text(encoding="utf-8")
+    assert 'grounding_kw["counting_correction"]' in router, "done 没有带 counting_correction"
