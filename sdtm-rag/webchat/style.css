@@ -55,7 +55,7 @@ button { font: inherit; color: inherit; }
 #settings-panel h3, #settings-panel legend { font-size: 11.5px; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-3); margin: 0 0 8px; padding: 0; font-weight: 500; }
 #settings-panel label { display: flex; align-items: center; gap: 8px; padding: 4px 0; color: var(--ink); cursor: pointer; }
 #settings-panel input[type=checkbox] { margin: 0; accent-color: var(--accent); }
-#scope[hidden] { display: none; }
+#scope[hidden] { display: none !important; }
 .hint { font-size: 12px; color: var(--ink-3); margin-top: 6px; line-height: 1.5; }
 .hint.warn { color: var(--warn); }
 
@@ -164,23 +164,34 @@ button { font: inherit; color: inherit; }
 
 /* 输入区 */
 #composer { max-width: calc(var(--col) + 40px); width: 100%; margin: 0 auto; padding: 4px 20px 14px; }
-.composer-box { display: flex; flex-direction: column; gap: 8px; padding: 8px 10px 8px 12px; border: 1px solid var(--line-2); border-radius: var(--r-lg); background: var(--bg-panel); box-shadow: 0 1px 2px rgba(28,27,25,.04); }
+.composer-box { display: flex; flex-direction: column; gap: 6px; padding: 10px 10px 10px 14px; border: 1px solid var(--line-2); border-radius: 18px; background: var(--bg-panel); box-shadow: 0 1px 2px rgba(28,27,25,.04), 0 4px 16px rgba(28,27,25,.04); transition: border-color .12s, box-shadow .12s; }
 .composer-box:focus-within { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
-#input { width: 100%; resize: none; max-height: 200px; padding: 6px 0; border: none; outline: none; font: inherit; font-size: 15px; line-height: 1.5; background: transparent; color: var(--ink); }
-.composer-tools { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-.composer-spacer { flex: 1 1 0; min-width: 0; }
-#model-select { appearance: none; -webkit-appearance: none; max-width: 100%; font: inherit; font-size: 12.5px; padding: 4px 26px 4px 10px; border: 1px solid var(--line-2); border-radius: 999px; color: var(--ink); cursor: pointer;
-  background: var(--bg-panel) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%235c5a55' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right 9px center; background-size: 9px 6px; }
-#model-select:hover { border-color: var(--accent); }
-#scope { display: flex; gap: 6px; flex-wrap: wrap; margin: 0; padding: 0; border: none; min-inline-size: 0; }
-#scope label { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; font-size: 12.5px; padding: 3px 10px; border: 1px solid var(--line); border-radius: 999px; color: var(--ink-2); cursor: pointer; }
-#scope label:hover { border-color: var(--line-2); color: var(--ink); }
-#scope input[type=checkbox] { width: 13px; height: 13px; margin: 0; accent-color: var(--accent); }
-/* :has() 单独成条: 不认识它的浏览器只丢掉这条高亮, pill 本身照常可用 (同 .turn-tools:has 的理由) */
-#scope label:has(input:checked) { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); }
-#send { margin-left: auto; padding: 8px 16px; border: none; border-radius: var(--r-md); background: var(--accent); color: var(--accent-ink); cursor: pointer; font-size: 14px; font-weight: 500; }
-#send:hover { filter: brightness(.95); }
+#input { width: 100%; resize: none; min-height: 44px; max-height: 200px; padding: 4px 2px; border: none; outline: none; font: inherit; font-size: 15px; line-height: 1.6; background: transparent; color: var(--ink); }
+#input::placeholder { color: var(--ink-3); }
+.composer-tools { display: flex; align-items: flex-end; gap: 10px; }
+.composer-opts { flex: 1 1 auto; min-width: 0; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+/* 统一 pill: 模型 / 范围 / 研读 同高同形 */
+#model-select, .pill, .pill-select { height: 28px; box-sizing: border-box; font: inherit; font-size: 12.5px; line-height: 1; border: 1px solid var(--line); border-radius: 999px; background-color: var(--bg-panel); color: var(--ink-2); cursor: pointer; transition: border-color .12s, background-color .12s, color .12s; }
+#model-select, .pill-select { appearance: none; -webkit-appearance: none; max-width: 100%; padding: 0 26px 0 11px;
+  background: var(--bg-panel) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%235c5a55' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right 10px center; background-size: 9px 6px; }
+#model-select { width: auto; max-width: 150px; text-overflow: ellipsis; color: var(--ink); font-weight: 500; border-color: var(--line-2); }
+#model-select:hover, .pill:hover, .pill-select:hover { border-color: var(--line-2); color: var(--ink); }
+#model-select:focus-visible, .pill-select:focus-visible, .pill:focus-within { outline: none; border-color: var(--accent); }
+#scope { display: contents; margin: 0; padding: 0; border: none; }
+.opt-sep { width: 1px; height: 16px; background: var(--line-2); margin: 0 2px; }
+.pill, .pill-select { flex: 0 0 auto; }
+.pill { display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; padding: 0 10px; user-select: none; }
+.pill input[type=checkbox] { width: 13px; height: 13px; margin: 0; accent-color: var(--accent); }
+/* 已勾选: 高亮 (:has 不支持的浏览器仍有勾选框本身可辨) */
+.pill:has(input:checked) { border-color: var(--accent); background-color: var(--accent-soft); color: var(--accent); }
+.pill-select:has(option[value=on]:checked) { border-color: var(--accent); background-color: var(--accent-soft); color: var(--accent); }
+.pill-select:has(option[value=off]:checked) { color: var(--ink-3); text-decoration: line-through; }
+#send { flex: 0 0 auto; width: 34px; height: 34px; padding: 0; border: none; border-radius: 50%; background: var(--accent); color: var(--accent-ink); cursor: pointer; display: inline-flex; align-items: center; justify-content: center; transition: filter .12s, background .12s; }
+#send svg { width: 16px; height: 16px; }
+#send .ic-stop, #send.stop .ic-send { display: none; }
+#send.stop .ic-stop { display: block; }
+#send:hover { filter: brightness(.93); }
 #send:disabled { background: var(--line-2); cursor: default; }
-#send.stop { background: var(--danger); }
-#model-warning { max-width: calc(var(--col) + 40px); margin: 6px auto 0; padding: 0 12px; font-size: 12px; color: var(--warn); }
+#send.stop { background: var(--ink); }
+@media (max-width: 640px) { .opt-sep { display: none; } }
 .footnote { text-align: center; font-size: 11.5px; color: var(--ink-3); margin: 8px 0 0; }

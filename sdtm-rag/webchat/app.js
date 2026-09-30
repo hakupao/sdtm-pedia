@@ -39,8 +39,8 @@ let currentAbort = null; // AbortController for the in-flight stream
 
 function setSending(on) {
   const b = $("send");
-  b.textContent = on ? "停止" : "发送";
   b.classList.toggle("stop", on);
+  b.title = on ? "停止生成" : "发送 (Enter)"; b.setAttribute("aria-label", on ? "停止" : "发送");
   b.disabled = false; // stay clickable while streaming so it can Stop
   $("show-citations").disabled = on; // 生成中切换会触发整体重渲染, 抹掉在途气泡 (spec §5)
 }

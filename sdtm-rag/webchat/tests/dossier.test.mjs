@@ -91,7 +91,7 @@ test("当前模型不在 auto 名单且本题命中 ⇒ 说出来并指路手动
 test("index.html 研读控件的 title 反映「只对 Opus 自动挂载」的现状", async () => {
   const { readFileSync } = await import("node:fs");
   const html = readFileSync(new URL("../index.html", import.meta.url), "utf-8");
-  const label = html.split('id="scope-dossier"')[0].split("<label").pop();
+  const label = html.split('id="scope-dossier"')[1].split(">")[0]; // <select> 自身的 title
   assert.ok(label.includes("Claude Opus 5 下映射题自动挂载"), label);
   assert.ok(!label.includes("当前暂停"), label);
 });
