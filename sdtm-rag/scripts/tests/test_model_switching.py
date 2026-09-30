@@ -11,7 +11,7 @@ from fastapi import FastAPI
 from fastapi.testclient import TestClient
 
 from server.config import Settings, SelectableModel
-from server.llm_config import fell_back
+from server.llm_config import fell_back, merge_reported_model
 from server.router import api_router
 
 
@@ -20,7 +20,8 @@ def test_selectable_models_defaults():
     重复会让 Router 后写覆盖先写而 UI 毫无察觉。"""
     s = Settings()
     ids = [m.id for m in s.selectable_models]
-    assert ids == ["opus-5", "sonnet-5", "gpt-terra", "gpt-sol", "gpt6-luna", "gpt6-sol", "gpt61-sol"]
+    assert ids == ["opus-5", "sonnet-5", "gpt-terra", "gpt-sol", "gpt6-luna", "gpt6-sol", "gpt61-sol",
+                   "opus-5-5", "sonnet-5-5"]
     assert len(set(ids)) == len(ids)
 
 
@@ -46,6 +47,9 @@ def test_verified_flags_match_spotcheck_record():
     assert v["gpt6-luna"] is False
     assert v["gpt6-sol"] is False
     assert v["gpt61-sol"] is False
+    # Claude 5.5 系 2026-09-30 接入, 未跑抽检 —— opus-5 验过不代表 opus-5-5 验过
+    assert v["opus-5-5"] is False
+    assert v["sonnet-5-5"] is False
 
 
 def _group_names(router):
@@ -131,7 +135,8 @@ def test_configured_ceilings_are_the_documented_numbers():
     by_id = {m.id: m.max_output_tokens for m in s.selectable_models}
     assert by_id == {"opus-5": 128000, "sonnet-5": 128000,
                      "gpt-terra": 128000, "gpt-sol": 128000,
-                     "gpt6-luna": 128000, "gpt6-sol": 128000, "gpt61-sol": 128000}
+                     "gpt6-luna": 128000, "gpt6-sol": 128000, "gpt61-sol": 128000,
+                     "opus-5-5": 128000, "sonnet-5-5": 128000}
     assert s.default_max_output_tokens == 128000
     assert s.hard_max_output_tokens == 128000
     assert s.light_max_output_tokens == 64000
@@ -258,6 +263,21 @@ def test_fell_back_match_requires_a_path_boundary():
     s = Settings()
     assert fell_back(s, "opus-5", ["claude-opus-5"]) is True
     assert fell_back(s, "opus-5", ["anthropic.claude-opus-5"]) is True
+
+
+def test_fell_back_does_not_confuse_opus_5_with_opus_5_5():
+    """`claude-opus-5` 是 `claude-opus-5-5` 的真前缀 —— 两个组互相顶替必须判成回退,
+    两种拼法 (`converse/…` 与 `bedrock/converse/…`) 都钉住。前缀/子串式匹配会让这条红。"""
+    s = Settings()
+    o5, o55 = "global.anthropic.claude-opus-5", "global.anthropic.claude-opus-5-5"
+    for pre in ("converse/", "bedrock/converse/"):
+        assert fell_back(s, "opus-5", [pre + o55]) is True
+        assert fell_back(s, "opus-5-5", [pre + o5]) is True
+        assert fell_back(s, "opus-5-5", [pre + o55]) is False
+        assert fell_back(s, "sonnet-5-5", [pre + "global.anthropic.claude-sonnet-5"]) is True
+    used = ["converse/" + o5]
+    merge_reported_model(used, "bedrock/converse/" + o55)
+    assert len(used) == 2, used
 
 
 def test_create_router_succeeds_when_no_id_collision():
@@ -439,7 +459,8 @@ def _info_client(**kw):
 
 def test_info_exposes_selectable_models_with_verified():
     got = _info_client().get("/api/info").json()["selectable_models"]
-    assert [m["id"] for m in got] == ["opus-5", "sonnet-5", "gpt-terra", "gpt-sol", "gpt6-luna", "gpt6-sol", "gpt61-sol"]
+    assert [m["id"] for m in got] == ["opus-5", "sonnet-5", "gpt-terra", "gpt-sol", "gpt6-luna", "gpt6-sol", "gpt61-sol",
+                   "opus-5-5", "sonnet-5-5"]
     by_id = {m["id"]: m for m in got}
     assert by_id["opus-5"]["verified"] is True
     assert by_id["sonnet-5"]["verified"] is False  # 2026-09 抽检唯一 false 的, 保住一真一假

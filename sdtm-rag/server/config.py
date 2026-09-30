@@ -80,6 +80,16 @@ class Settings(BaseSettings):
         SelectableModel(id="gpt61-sol", label="GPT-6.1 Sol",
                         model="bedrock/converse/global.openai.gpt-6.1-sol",
                         verified=False, max_output_tokens=128000),
+        # Claude 5.5 系 (2026-09-30 接入): 裸 Converse (curl + bearer) 实测基础问答 /
+        # maxTokens=128000 均 200。未跑反捏造抽检 ⇒ verified=False。
+        # ⚠ 与 opus-5 不等价: Opus 5.5 默认 effort=medium (Opus 5 是 high), 本仓库不传
+        # effort ⇒ 同题思考深度可能更浅; 抽检时一并量, ⛔ 别据 opus-5 的结果外推。
+        SelectableModel(id="opus-5-5", label="Claude Opus 5.5",
+                        model="bedrock/converse/global.anthropic.claude-opus-5-5",
+                        verified=False, max_output_tokens=128000),
+        SelectableModel(id="sonnet-5-5", label="Claude Sonnet 5.5",
+                        model="bedrock/converse/global.anthropic.claude-sonnet-5-5",
+                        verified=False, max_output_tokens=128000),
     ]
 
     # ── 内部组的输出上限 (2026-09-08) ────────────────────────────────────
