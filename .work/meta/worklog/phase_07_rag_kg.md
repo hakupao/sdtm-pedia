@@ -2534,3 +2534,8 @@ deepseek/deepseek-chat (与生成方 opus-5 **不同模型族**, 避自偏好; �
 - 收口: RETRO §1/§3 补今日各轮; e2e 判据加「常设裁定」(占位按展开成员 / 放疗 EX 或 PR 均接受) `3910cc6`。
 - T11: litellm→Bedrock 零改码探针 write 12014 → read 12014; spec `3e5fb1c` (研读包移入 system 末尾 + 5m 断点 + kill switch `dossier_prompt_cache` + 经济性盈亏平衡 ≈22% 复用率)。实现 (executor) `24ecca8` `5a3f9e7`; 审 (debugger): 无 BLOCKING, 前缀实测 1 种, deepseek 回退 wire 为字符串, kill switch 与旧代码逐字节一致; controller 补前缀稳定回归测试。2608 passed。
 - §0⁶ (跑前) → push + kickstart → attempt 8 opus: 缓存 write 144264 → 5 题 read, 闸 dm10 重答 (zh→ja 拦对) 两轮命中; 判分 test-engineer → **6/6**。有效输入成本复算: `sum((pt-cw-cr)+1.25cw+0.1cr) / sum(attempt7 pt) = 0.335` (runs/dm2_e2e_attempt{7,8}/*_opus-5.json 的 done_event.usage)。
+
+### 2026-09-30 — webchat 输入框 UI 重排
+
+- `8a5dd65`: 研读控件加入后工具行换行 + 下拉套胶囊显乱 → 模型/范围/研读统一 28px 胶囊单行 (模型限宽 150px), 研读 `<select>` 同款样式 (title 移到 select 本身), 勾选/研读开高亮、研读关灰显; 发送改圆形 ↑ / 生成中 ■ 停止; 快捷键提示移 footnote。
+- 验证: playwright 截图 (默认 / 勾选+开+停止 / 420px 窄屏); node 73/73; `dossier.test` 研读 title 断言改读 select 自身, 删文案变异确认会挂。窄屏侧边栏挤占为既有问题, 未动。
