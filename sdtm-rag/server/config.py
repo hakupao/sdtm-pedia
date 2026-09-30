@@ -69,6 +69,17 @@ class Settings(BaseSettings):
         SelectableModel(id="gpt-sol", label="GPT-5.6 Sol",
                         model="bedrock/converse/global.openai.gpt-5.6-sol",
                         verified=True, max_output_tokens=128000),  # 未验证值, 见上
+        # GPT-6 系 (2026-09-30 接入): 裸 boto3 Converse 实测基础问答 / tools / maxTokens=128000
+        # 请求均被接受; 128000 仅"不拒收", 真实输出上限未测。未跑反捏造抽检 ⇒ verified=False。
+        SelectableModel(id="gpt6-luna", label="GPT-6 Luna",
+                        model="bedrock/converse/global.openai.gpt-6-luna",
+                        verified=False, max_output_tokens=128000),
+        SelectableModel(id="gpt6-sol", label="GPT-6 Sol",
+                        model="bedrock/converse/global.openai.gpt-6-sol",
+                        verified=False, max_output_tokens=128000),
+        SelectableModel(id="gpt61-sol", label="GPT-6.1 Sol",
+                        model="bedrock/converse/global.openai.gpt-6.1-sol",
+                        verified=False, max_output_tokens=128000),
     ]
 
     # ── 内部组的输出上限 (2026-09-08) ────────────────────────────────────

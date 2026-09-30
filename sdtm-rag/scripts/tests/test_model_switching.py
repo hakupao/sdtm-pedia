@@ -16,11 +16,11 @@ from server.router import api_router
 
 
 def test_selectable_models_defaults():
-    """四个候选全部在, 且 id 唯一 —— id 是 Router 组名与前端提交值的共用键,
+    """全部候选都在, 且 id 唯一 —— id 是 Router 组名与前端提交值的共用键,
     重复会让 Router 后写覆盖先写而 UI 毫无察觉。"""
     s = Settings()
     ids = [m.id for m in s.selectable_models]
-    assert ids == ["opus-5", "sonnet-5", "gpt-terra", "gpt-sol"]
+    assert ids == ["opus-5", "sonnet-5", "gpt-terra", "gpt-sol", "gpt6-luna", "gpt6-sol", "gpt61-sol"]
     assert len(set(ids)) == len(ids)
 
 
@@ -42,6 +42,10 @@ def test_verified_flags_match_spotcheck_record():
     assert v["sonnet-5"] is False
     assert v["gpt-terra"] is True
     assert v["gpt-sol"] is True
+    # GPT-6 系 2026-09-30 接入, 未跑抽检
+    assert v["gpt6-luna"] is False
+    assert v["gpt6-sol"] is False
+    assert v["gpt61-sol"] is False
 
 
 def _group_names(router):
@@ -126,7 +130,8 @@ def test_configured_ceilings_are_the_documented_numbers():
     s = Settings()
     by_id = {m.id: m.max_output_tokens for m in s.selectable_models}
     assert by_id == {"opus-5": 128000, "sonnet-5": 128000,
-                     "gpt-terra": 128000, "gpt-sol": 128000}
+                     "gpt-terra": 128000, "gpt-sol": 128000,
+                     "gpt6-luna": 128000, "gpt6-sol": 128000, "gpt61-sol": 128000}
     assert s.default_max_output_tokens == 128000
     assert s.hard_max_output_tokens == 128000
     assert s.light_max_output_tokens == 64000
@@ -294,7 +299,9 @@ def test_registration_makes_tools_supported_for_gpt():
     import litellm
     from server.llm_config import register_selectable_model_capabilities
     register_selectable_model_capabilities(Settings())
-    for mid in ["converse/global.openai.gpt-5.6-terra", "converse/global.openai.gpt-5.6-sol"]:
+    for mid in ["converse/global.openai.gpt-5.6-terra", "converse/global.openai.gpt-5.6-sol",
+                "converse/global.openai.gpt-6-luna", "converse/global.openai.gpt-6-sol",
+                "converse/global.openai.gpt-6.1-sol"]:
         assert litellm.supports_function_calling(model=mid, custom_llm_provider="bedrock_converse")
 
 
@@ -432,7 +439,7 @@ def _info_client(**kw):
 
 def test_info_exposes_selectable_models_with_verified():
     got = _info_client().get("/api/info").json()["selectable_models"]
-    assert [m["id"] for m in got] == ["opus-5", "sonnet-5", "gpt-terra", "gpt-sol"]
+    assert [m["id"] for m in got] == ["opus-5", "sonnet-5", "gpt-terra", "gpt-sol", "gpt6-luna", "gpt6-sol", "gpt61-sol"]
     by_id = {m["id"]: m for m in got}
     assert by_id["opus-5"]["verified"] is True
     assert by_id["sonnet-5"]["verified"] is False  # 2026-09 抽检唯一 false 的, 保住一真一假
