@@ -264,7 +264,7 @@ def generate_index(domains_data: list[dict]) -> str:
         # 对比 `wc -c < knowledge_base/VARIABLE_INDEX.md`。旧的 15 条上限买到的就是这
         # 2.5 KB, 代价是 9 个最需要它的宽码表答不全。
         # 检索侧判据看不出这个缺陷 (section 名不变), 故由
-        # sdtm-rag/scripts/tests/test_kb_crossref_completeness.py 钉住 (含对 spec.md
+        # RAG 仓 (sdtm-rag) scripts/tests/test_kb_crossref_completeness.py 钉住 (含对 spec.md
         # 反建的外部锚 —— 只钉"条目数 == 自己声称的 N"是自洽的, 挡不住回归)。
         lines.append(f"| {ct_code} | {ref_count} | {', '.join(refs)} |")
 

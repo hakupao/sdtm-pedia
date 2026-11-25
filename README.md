@@ -88,6 +88,10 @@ graph LR
     K --> N
 ```
 
+## AI Q&A Service
+
+The RAG + knowledge-graph Q&A service built on this knowledge base now lives in its own (private) repository, maintained separately from this one. A public demo is planned; the link will be added here once it is live.
+
 ## Project Structure
 
 ```
@@ -130,17 +134,10 @@ sdtm-pedia/
 │   ├── SDTM_v2.0.pdf
 │   └── SDTM Terminology.xlsx
 │
-├── sdtm-rag/                    # ★ Active dev — RAG + KG service (FastAPI, localhost:8000)
-│   ├── server/                  # API, RAG engine, graph engine, validators
-│   ├── scripts/                 # ingest / build_meta / build_neo4j / KG viewer
-│   ├── webchat/                 # Chat UI (vanilla JS, streaming)
-│   └── eval/                    # Retrieval & answer eval harness
-│
 ├── web/                         # Astro website (prod: sdtm-pedia.pages.dev)
 │
 ├── milestones/                  # Completed project milestones (read-only)
 │   ├── 06_deep_verification/    # PDF→KB literal-level deep audit — COMPLETE (P1-P7, coverage 99.02%)
-│   ├── 07_rag_kg/               # RAG+KG plans/evidence docs (code promoted to /sdtm-rag)
 │   ├── jp_delivery/             # Japanese delivery line (CLOSED)
 │   ├── ai_platforms/            # Phase 6.5 — 4-platform AI deployment assets (CLOSED)
 │   ├── release/v1.{0,1,2,3,4}/  # Self-contained company releases (latest: v1.4, 2026-05-22)
@@ -152,15 +149,13 @@ sdtm-pedia/
 │   ├── 02_indexing/             # PDF page index for extraction
 │   ├── 03_verification/         # Verification results & reports
 │   ├── 04_optimization/         # Phase 6 retrieval optimization
-│   ├── 05_rag_kg/               # Phase 7 RAG + knowledge graph design (impl lives in milestones/07_rag_kg/)
 │   ├── 07_release{,_v1_1,_v1_2,_v1_3,_v1_4}/  # Release v1.0-v1.4 plans + retrospectives
 │   ├── meta/                    # Work log, mappings, findings
 │   └── MANIFEST.md              # File index & change chains
 │
 ├── docs/                        # Project documentation
 │   ├── PROGRESS.md              # Build progress dashboard
-│   ├── TRACEABILITY.md          # Source-to-output traceability matrix
-│   └── DESIGN_RAG_KG.md         # Phase 7 RAG + knowledge graph design
+│   └── TRACEABILITY.md          # Source-to-output traceability matrix
 ```
 
 ## Domain Coverage
@@ -343,10 +338,7 @@ The knowledge base is plain Markdown — it works with any LLM that supports fil
 - [x] Phase 6.3 — Variable-level reverse index (`knowledge_base/VARIABLE_INDEX.md`, 1,523 variables)
 - [x] Phase 6.5 — Multi-platform AI deployment + Releases v1.0 → v1.4 (4 platforms, latest at `milestones/release/v1.4/`; Gemini MAINTAINED_NO_SANITY_TEST from v1.4)
 - [x] Deep verification — literal-level PDF→KB atom-by-atom audit (COMPLETE: P1–P7, coverage 99.02%, see `milestones/06_deep_verification/`)
-- [x] Phase 7 / Phase 1 — RAG Q&A + dataset validation (local Chroma + LiteLLM + FastAPI/Streamlit; 53-question eval 88.5% PASS, see `milestones/07_rag_kg/`) — *Phase 1D `overall` score, i.e. the mean of source recall (82.1) and fact recall (94.8); the fact-recall half is answer-side. It predates the answer-side grounding guardrail and the web-source rules that production now carries, so it does not describe the current prompt configuration.*
-- [ ] Retrieval quality tuning — raise eval source recall to >95% (rerank / multi-query / re-evaluate KG; see `milestones/07_rag_kg/TODO_retrieval_quality.md`)
-- [ ] Phase 6.4 — Structured metadata (YAML/JSON) — merged into Phase 7 / Phase 2 KG (deferred)
-- [ ] Phase 7 / Phase 2 — Knowledge graph (Neo4j) — deferred; to be re-evaluated under the >95% retrieval bar
+- [x] Phase 7 — RAG Q&A + knowledge graph service: moved to a separate repository (see [AI Q&A Service](#ai-qa-service))
 
 ## Disclaimer
 

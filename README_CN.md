@@ -88,6 +88,10 @@ graph LR
     K --> N
 ```
 
+## AI 问答服务
+
+基于本知识库的 RAG + 知识图谱问答服务已拆到独立的（私有）仓库，与本仓分开维护。公开试用站正在筹备中，上线后会在这里补上链接。
+
 ## 项目结构
 
 ```
@@ -130,17 +134,10 @@ sdtm-pedia/
 │   ├── SDTM_v2.0.pdf
 │   └── SDTM Terminology.xlsx
 │
-├── sdtm-rag/                    # ★ 活跃开发 — RAG + KG 服务（FastAPI, localhost:8000）
-│   ├── server/                  # API、RAG 引擎、图引擎、校验器
-│   ├── scripts/                 # ingest / build_meta / build_neo4j / KG 查看器
-│   ├── webchat/                 # 聊天前端（原生 JS 流式）
-│   └── eval/                    # 检索与答题评测
-│
 ├── web/                         # Astro 网站（prod: sdtm-pedia.pages.dev）
 │
 ├── milestones/                  # 已收官的阶段性成果（只读）
 │   ├── 06_deep_verification/    # PDF→KB 字面级深审 — 已完成（P1-P7，覆盖率 99.02%）
-│   ├── 07_rag_kg/               # RAG+KG 计划/证据文档（代码已提升至 /sdtm-rag）
 │   ├── jp_delivery/             # 日语交付线（CLOSED）
 │   ├── ai_platforms/            # Phase 6.5 — 4 平台 AI 部署资产（CLOSED）
 │   ├── release/v1.{0,1,2,3,4}/  # 公司发布版（最新: v1.4, 2026-05-22）
@@ -152,15 +149,13 @@ sdtm-pedia/
 │   ├── 02_indexing/             # PDF 页码索引
 │   ├── 03_verification/         # 验证结果与报告
 │   ├── 04_optimization/         # Phase 6 检索优化
-│   ├── 05_rag_kg/               # Phase 7 RAG + 知识图谱设计（实现在 milestones/07_rag_kg/）
 │   ├── 07_release{,_v1_1,_v1_2,_v1_3,_v1_4}/  # Release v1.0-v1.4 计划与复盘
 │   ├── meta/                    # 工作日志、映射、质量记录
 │   └── MANIFEST.md              # 文件清单与变更链
 │
 ├── docs/                        # 项目文档
 │   ├── PROGRESS.md              # 构建进度看板
-│   ├── TRACEABILITY.md          # 溯源矩阵
-│   └── DESIGN_RAG_KG.md         # Phase 7 RAG + 知识图谱设计
+│   └── TRACEABILITY.md          # 溯源矩阵
 ```
 
 ## Domain 覆盖范围
@@ -343,10 +338,7 @@ SEX 绑定哪个 codelist？
 - [x] Phase 6.3 — 变量级反向索引（`knowledge_base/VARIABLE_INDEX.md`，1,523 个变量）
 - [x] Phase 6.5 — 多平台 AI 部署 + Release v1.0 → v1.4（4 平台，最新 `milestones/release/v1.4/`；v1.4 起 Gemini 转 MAINTAINED_NO_SANITY_TEST）
 - [x] Deep Verification — PDF→KB 字面级 atom 逐条审计（已完成：P1–P7，覆盖率 99.02%，详见 `milestones/06_deep_verification/`）
-- [x] Phase 7 / Phase 1 — RAG 问答 + 数据集校验（本地 Chroma + LiteLLM + FastAPI/Streamlit；53 题 eval 88.5% PASS，详见 `milestones/07_rag_kg/`）—— *该数字是 Phase 1D 的 `overall` 混合值 = (source recall 82.1 + fact recall 94.8) / 2，其中 fact recall 那一半是答题侧。它跑在答题侧护栏与联网参考规则落地之前，**不描述当前生产的 prompt 构型**。*
-- [ ] 检索质量优化 — 把 eval source recall 拉到 >95%（rerank / 多查询 / 重评 KG，详见 `milestones/07_rag_kg/TODO_retrieval_quality.md`）
-- [ ] Phase 6.4 — 结构化元数据（YAML/JSON）— 已并入 Phase 7 / Phase 2 KG（暂缓）
-- [ ] Phase 7 / Phase 2 — 知识图谱（Neo4j）— 暂缓；在 >95% 检索标准下重新评估
+- [x] Phase 7 — RAG 问答 + 知识图谱服务：已拆到独立仓库（见上文「AI 问答服务」）
 
 ## 免责声明
 

@@ -1,8 +1,8 @@
 # .work/ MANIFEST — 文件清单与变更链
 
 > **AI 工作入口** — 新 session 先读 `.work/AGENT_GUIDE.md` (一页纸), 再回本文件查结构 + 链路.
-> 最后更新: 2026-07-21 (restructure v3)
-> **2026-07-21 布局变更 (restructure v3)**: `branches/` 解散 — 活跃代码仓提升为顶层 `sdtm-rag/`; 06_deep_verification / 07_rag_kg 文档层 / jp_delivery / ai_platforms / release / archive 收进 `milestones/`。历史文档 (worklog 正文 / closed checkpoint / release 内部 / superpowers 已执行 spec·plan) 中的 `branches/`、顶层 `ai_platforms/`·`release/`·`archive/` 均为旧布局, 故意未改。
+> 最后更新: 2026-11-25 (拆仓: RAG 迁出)
+> **2026-07-21 布局变更 (restructure v3)**: `branches/` 解散 — 06_deep_verification / jp_delivery / ai_platforms / release / archive 收进 `milestones/`。历史文档 (worklog 正文 / closed checkpoint / release 内部 / superpowers 已执行 spec·plan) 中的 `branches/`、顶层 `ai_platforms/`·`release/`·`archive/` 均为旧布局, 故意未改。
 
 本文件只列**文件结构 + 变更链 + Key Paths 指针**. 当前进度看 `docs/PROGRESS.md`. 历史细节看 `.work/meta/worklog/INDEX.md` (按 phase 拆分).
 
@@ -72,31 +72,7 @@ meta/mapping.md                      ← 更新源文件→产出映射 (如有�
 meta/worklog/phase0N_xxx.md          ← 记录变更
 ```
 
-> ⚠️ **RAG 索引侧的溯源缺口 (2026-08-07 查明)**: `sdtm-rag/` 的 chapters chunker 从第一个 `## `
-> 开始切, **首个 H2 之前的前言不进任何 chunk** —— 那里正是 **H1 标题 + 一行
-> `Source: SDTMIG v3.4, Section N (Pages X-Y)` 页码溯源**。
->
-> **实测的全貌比"三个文件丢了"更广**: 全库 **4329 个 chunk 里, 含 `Source: SDTMIG` 的 = 0,
-> 含 `Pages ` 的 = 0** —— ch04/ch08/ch10 (一直按 H2/H3 切) **从来就没有过**这行。
-> 2026-08-07 的切分改动只是把 ch01/ch02/ch03 (各 86/99/109 B) **对齐到既有行为**。
->
-> ⇒ **`knowledge_base/` 的源 markdown 里这些行完整**, `page_index.json` 仍是 authoritative,
-> 但 **RAG 索引里任何 chapter 都检索不到页码**。做页码溯源必须走源 md / `page_index.json`,
-> **不要默认 RAG 能答出章节页码**。
->
-> 复跑:
-> ```bash
-> cd sdtm-rag && .venv/bin/python -c "
-> import chromadb
-> a=chromadb.PersistentClient(path='data/chroma').get_collection('sdtm_kb_v1').get(include=['documents'])
-> print('total', len(a['documents']),
->       '| Source: SDTMIG', sum(1 for d in a['documents'] if 'Source: SDTMIG' in d),
->       '| Pages ', sum(1 for d in a['documents'] if 'Pages ' in d))"
-> # total 4329 | Source: SDTMIG 0 | Pages  0
-> ```
-> 修法 (未做): chunker 里把前言 prepend 到首块 (块数仍为 5/9/3), 或对全部 chapters 统一注入。
-> 证据: `sdtm-rag/evidence/checkpoints/chapters_chunking.md` §7 +
-> `crowding_and_gold_integrity.md` §4.4 + `sdtm-rag/evidence/step_09_audit.md` S6。
+> RAG 索引侧的溯源/切分问题归 RAG 仓 (独立的私有仓 `sdtm-rag`) 维护, 本链只管 KB 侧。
 
 ### Chain E: 方案变更链
 
@@ -111,21 +87,6 @@ meta/worklog/phase00_planning.md     ← 记录决策变更
   ↓
 ../README.md / ../README_CN.md       ← 如影响项目描述则更新
 ```
-
-### Chain 07_RAG: Phase 7 RAG+KG 活跃线 (sdtm-rag/)
-
-**触发**: `sdtm-rag/` (顶层代码仓, restructure v3 起) 配下任何实质性修改
-
-```
-sdtm-rag/ (代码/评测/文档变更)
-  ↓ sdtm-rag/evidence/checkpoints/                      (Phase PASS 时归档)
-  ↓ sdtm-rag/evidence/failures/                         (规则 B 失败归档)
-  ↓ .work/meta/worklog/phase_07_rag_kg.md               (作業記録)
-  ↓ docs/PROGRESS.md                                    (Phase 7 状态)
-  ↓ ../CLAUDE.md Key Paths                              (新規 Key Path のみ)
-```
-
-历史文档层 (PLAN / EXECUTION_PLAN / CHANGELOG / research / _progress.json) 已随 restructure v3 冻结于 `milestones/07_rag_kg/`, 不再触发本链.
 
 ### Chain J: 日本同事交付链 (milestones/jp_delivery/, iTMS 様 納品) — ⏸ CLOSED 冻结 2026-06-15
 
@@ -163,15 +124,11 @@ milestones/jp_delivery/PLAN.md / EXECUTION_PLAN.md       ← 規範改訂
 04_optimization/retrieval_optimization.md ── Phase 6 检索优化
      P0~P3 任务清单, 前置 = Phase 5 完成
 
-05_rag_kg/ ── Phase 7 RAG + 知识图谱 + 数据集校验
-     设计在 docs/DESIGN_RAG_KG.md, session 记录在 05_rag_kg/
+(Phase 7 RAG+KG: RAG 问答服务已拆到独立的私有仓 `sdtm-rag`; 拆仓过程记录在 sdtm-rag 仓)
 
 ../milestones/06_deep_verification/PLAN.md ── 字面级 PDF→KB 深审 (旁枝)
      P1-P7 全 COMPLETE 2026-05-12 (coverage 99.02%, Issues 5-16 修复). multi_session/ 含 batch/round kickoff.
 
-../milestones/07_rag_kg/PLAN.md ── RAG + Knowledge Graph 落地实施 (旁枝)
-     Phase 1 CLOSED 2026-05-24 (RAG Q&A + dataset validation; 53q eval 88.5%). Phase 2 KG deferred.
-     上游设计 docs/DESIGN_RAG_KG.md; 代码仓 sdtm-rag/. 检索优化 backlog: TODO_retrieval_quality.md.
 
 07_website/phase{6,7,8}/PLAN.md ── 公开站点 (closed)
      prod sdtm-pedia.pages.dev. handoffs 在 meta/website_phase*_handoff_*.md.
@@ -196,7 +153,6 @@ milestones/jp_delivery/ ── iTMS 納品旁枝 (Chain J) — ⏸ CLOSED 冻结
 ├── 02_indexing/             ← Phase 2: PDF 页码索引 (page_index.json)
 ├── 03_verification/         ← Phase 5: 全量验证 (plan + issues + results/ + scans/ + rescan/)
 ├── 04_optimization/         ← Phase 6: 检索优化 (P0-P2 完成)
-├── 05_rag_kg/               ← Phase 7: RAG + KG (设计完成)
 ├── (06_deep_verification/ 已迁移 → milestones/06_deep_verification/)
 ├── 07_website/              ← Phase 6-8 公开站点 (closed)
 ├── refactor_v1/             ← 项目重构 v1 (临时, 段 3 close 后归档)
@@ -220,7 +176,7 @@ milestones/jp_delivery/ ── iTMS 納品旁枝 (Chain J) — ⏸ CLOSED 冻结
 | `03_verification/` | Phase 5 | 全量验证 |
 | `04_optimization/` | Phase 6 | 检索精度优化 (P0-P2 完成) |
 | *(`milestones/ai_platforms/`)* | Phase 6.5 | AI 平台部署 (⏸ CLOSED 冻结 2026-06-15, 终态 v1.4) |
-| `05_rag_kg/` | Phase 7 | RAG + KG + 数据集校验 (设计完成) |
+| `05_rag_kg/` | Phase 7 | RAG + KG → 已拆到 sdtm-rag 仓 (2026-11) |
 | `(→ milestones/06_deep_verification/)` | 06 (旁枝) | 字面级 PDF→KB 深审 (P2 进行中) |
 | `07_website/` | 07 Website | sdtm-pedia 公司发布版静态网站 (closed) |
 
@@ -233,7 +189,7 @@ milestones/jp_delivery/ ── iTMS 納品旁枝 (Chain J) — ⏸ CLOSED 冻结
 | 找什么 | 去哪 |
 |--------|------|
 | 当前进度看板 | `docs/PROGRESS.md` (唯一状态源) |
-| ★ 活跃开发 RAG+KG 服务 | `../sdtm-rag/` (顶层代码仓; launchd localhost:8000) |
+| RAG+KG 问答服务 (已拆仓) | RAG 问答服务已拆到独立的私有仓 `sdtm-rag`; 拆仓过程记录在 sdtm-rag 仓 |
 | 历史工作日志 | `meta/worklog/INDEX.md` → 各 phase 文件 |
 | 完整方案 | `00_planning/restructure_plan.md` |
 | 验证状态 | `03_verification/plan.md` |
@@ -244,8 +200,6 @@ milestones/jp_delivery/ ── iTMS 納品旁枝 (Chain J) — ⏸ CLOSED 冻结
 | 06 Deep Verification | `../milestones/06_deep_verification/PLAN.md` + `multi_session/` |
 | Phase 6.5 总览 (CLOSED 冻结) | `../milestones/ai_platforms/README.md` + `SYNC_BOARD.md` (只读) |
 | Phase 6.5 范本 (CLOSED) | `../milestones/ai_platforms/_template/README.md` |
-| Phase 7 设计 | `../docs/DESIGN_RAG_KG.md` |
 | 07 Website 入口 | `07_website/phase{6,7,8}/PLAN.md` |
 | milestones/jp_delivery/ 入口 (CLOSED 冻结) | `../milestones/jp_delivery/PLAN.md` + `EXECUTION_PLAN.md` (只读) |
-| milestones/07_rag_kg/ 入口 | `../milestones/07_rag_kg/PLAN.md` + `EXECUTION_PLAN.md` (上游 `../docs/DESIGN_RAG_KG.md`) |
 | 重构 v1 | `refactor_v1/PLAN.md` |

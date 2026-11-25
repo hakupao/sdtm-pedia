@@ -61,8 +61,8 @@ Full chain definitions are in `.work/MANIFEST.md`.
 |------|-------|
 | Knowledge base output | `knowledge_base/` |
 | Source files (PDF/xlsx) | `source/` |
-| ★ 活跃开发 RAG+KG 服务 | `sdtm-rag/` (顶层代码仓; launchd localhost:8000) |
-| 阶段性成果容器 (只读) | `milestones/` (06深审/07文档层/jp/ai_platforms/release/archive) |
+| RAG+KG 问答服务 (已拆仓) | RAG 问答服务已拆到独立的私有仓 `sdtm-rag`; 拆仓过程记录在 sdtm-rag 仓 |
+| 阶段性成果容器 (只读) | `milestones/` (06深审/jp/ai_platforms/release/archive) |
 | 09 restructure v3 (2026-07-21) | `.work/09_repo_refactor_v3/` (branches→milestones; RETRO 齐备) |
 | Work artifacts | `.work/` (phase-numbered dirs) |
 | Project docs | `docs/` |
@@ -74,44 +74,13 @@ Full chain definitions are in `.work/MANIFEST.md`.
 | Retrospective & rules | `.work/meta/retrospective.md` |
 | Follow-up risk plan | `.work/03_verification/followup_plan.md` |
 | TODO (Phase 6) | `.work/04_optimization/retrieval_optimization.md` |
-| Phase 7 设计文档 | `docs/DESIGN_RAG_KG.md` |
-| Phase 7 session 记录 | `.work/05_rag_kg/session_2026-04-16_design.md` |
 | 06 Deep Verification 入口 | `milestones/06_deep_verification/PLAN.md` (字面级 PDF→KB 深审; 详细见 §06 Deep Verification 段) |
 | 06 Deep Verification schema | `milestones/06_deep_verification/schema/{atom,ledger}_schema.json` (frozen JSON Schema 2020-12) |
 | 06 P4b sub-plan (完成) | `milestones/06_deep_verification/plans/P4b_section_aggregation.md` (节聚合, section_coverage.jsonl) |
 | Phase 6.5 多平台部署 (CLOSED 冻结) | `milestones/ai_platforms/` (4 平台 current/+dev/; SYNC_BOARD.md + retrospectives/ 只读) — 线收口不再更新 |
 | Phase 6.5 Release v1.0-v1.4 (CLOSED) | `milestones/release/v1.{0-4}/` + `.work/07_release{,_v1_1,_v1_3,_v1_4}/` (终态 tag `v1.4-company-release`) |
 | METHODOLOGY 公开声明 | `METHODOLOGY.md` + `milestones/release/v1.{0,1}/METHODOLOGY.{en,zh,ja}.md` |
-| 07 Website Phases 6-8 (closed) | `.work/07_website/phase{6,7,8}/` + handoffs `.work/meta/website_phase*_handoff_*.md`; prod https://sdtm-pedia.pages.dev/ || Phase 7 RAG+KG 旁枝 | `milestones/07_rag_kg/PLAN.md` (Phase 1 CLOSED 53q 88.5%; sdtm-rag/ 代码仓, Chain 07_RAG) |
-| Phase 7 检索质量 ((d) 通道; 基线数字见 PROGRESS) | `milestones/07_rag_kg/TODO_retrieval_quality.md` §5/§6; 收口 `sdtm-rag/evidence/checkpoints/{s4_full_eval_closure,d_channel_concept_definition}.md` (q126 永久 known limit) |
-| Phase 7 答题侧护栏 (DONE) | `sdtm-rag/evidence/checkpoints/guardrail_v2_summary.md`; 确定性码闸 `eval/prod_wirein/check_code_grounding.py` |
-| Phase 7 挤占+gold 完整性 收口 | `sdtm-rag/evidence/checkpoints/crowding_and_gold_integrity.md` — 挤占是否有害仍未知 |
-| Phase 7 配额×recall 扫描 (零 LLM) | `sdtm-rag/evidence/checkpoints/cap_recall_sweep.md` — 配额安全已证, 收益 n=1 |
-| Phase 7 本地部署+多模型对比 规划 | `sdtm-rag/DEPLOY_PLAN.md` — launchd 部署 + 对比/裁判 (§3 阶段3 工程件 DONE+审; go-live 待 IT) |
-| Phase 7 阶段3 共享 (工程件+go-live runbook) | `sdtm-rag/deploy/` (deploy.sh + 0.0.0.0 plist 模板 + README runbook); 登录门 `server/auth.py`; 证据 `evidence/checkpoints/phase3_share_hardening.md` |
-| Phase 7 Chat UI 重构 + 自动续写 (2026-09-08) | `sdtm-rag/webchat/`, `router.py` CONTINUE_PROMPT; 证据 `{chat_ui_redesign,autocontinue}_2026-09.md` |
-| Phase 7 C2R PDF 画面通道 (默认 OFF) + OID 対応表 | `sdtm-rag/PLAN_c2r_pdf_bypass.md`; `server/pdf_{context,trigger}.py`; RETRO `RETROSPECTIVE_c2r.md` |
-| Phase 7 KG 重启 (SP1-5+AGG DONE 全线收官) | `sdtm-rag/KG_ROADMAP.md` — SP1-5+AGG 全 DONE (2026-07-09); SP5 图增强校验器 `server/graph_validator.py` + `POST /api/validate-study`; 路由词无剩余单元, 新图能力需 brainstorm |
-| Phase 7 SP6 隐性关系 + 网状查看器 (2026-07-10) | 挖掘管线 `sdtm-rag/scripts/mine_implicit_relations.py` → `data/meta/implicit_relations.json` (30 advisory 边, 分层反捏造闸, 不碰 meta.yaml); 网状查看器 `sdtm-rag/scripts/build_kg_viewer.py` → `kg_viewer.html`; spec/plan `docs/superpowers/{specs,plans}/2026-07-10-sp6-*` |
-| Phase 7 study 轨 st01 (确定性轨 DONE) | `sdtm-rag/scripts/study/` + 证据 `evidence/checkpoints/study_{golden_v1,rag_full_run}.md` |
-| Phase 7 Plan B 联邦路由 (P0+1 DONE, 默认开) | `sdtm-rag/server/federation.py`; 证据 `planb_phase1_federation.md` |
-| Phase 7 study golden v2 (48 题, 判别力已恢复) | 闸 `sdtm-rag/eval/lint_gold.py`; 证据 `evidence/checkpoints/study_golden_v2.md` |
-| Phase 7 Plan B P2 study 直查 (DONE, 默认开) | `sdtm-rag/server/study_lookup.py`; 证据 `planb_phase2_study_lookup.md` |
-| Phase 7 study C1 文档章节化 (DONE, U2 已接线) | `sdtm-rag/evidence/checkpoints/study_c1_doc_sections.md` — 114 chunk 进 `study_st01_docs` |
-| Phase 7 doc 轨 (U1-U6 收口; U3/U6 FAIL) + 下一单元入口 | `sdtm-rag/evidence/checkpoints/doc_track_u*.md`; `milestones/07_rag_kg/DOC_TRACK_KICKOFF.md` §0′ (路由词「doc 轨 开始任务」) |
-| Phase 7 SP7 查看器 UX 重构 (2026-07-24) | 源码 `sdtm-rag/viewer/{template.html,style.css,layout.mjs,app.js}` → build 内联 `kg_viewer.html` (**勿手改产物, 改 viewer/* 重生成**); 确定性布局+补间无物理; spec/plan `docs/superpowers/*2026-07-24-kg-viewer-ux*` |
-| Phase 7 study 轨 workflow 事件层 (DONE, 有条件合并) | `sdtm-rag/evidence/checkpoints/study_workflow_events.md` — 21/33 recall, 未接线 |
-| C1 红线 triage (4 真阳性已清) | `sdtm-rag/evidence/checkpoints/c1_redline_triage.md` — 26 假阳性未动 |
-| 红线 pre-commit 闸 (已启用) | `.githooks/` — hooksPath 已设; 重装 `sh .githooks/install.sh` |
-| C4 接线三闸 (event 通道) | `sdtm-rag/evidence/checkpoints/study_c3_precision_tradeoff.md` §8 |
-| C4 G3 判据 (路由词「G3 收题」) | `sdtm-rag/evidence/checkpoints/g3_pre_registration.md` §7.0 |
-| Phase 7 联网参考通道 (2026-08-31) | `sdtm-rag/server/web_search.py`; 仅 `/api/ask_stream` 支持 |
-| Phase 7 U1 多模型切换 (2026-09-01) | `sdtm-rag/server/llm_config.py` `selectable_models` 单一事实源 |
-| Phase 7 回退容灾+诚实呈现 (2026-09-02) | `llm_config.py` `fell_back`/`merge_reported_model`; 徽章+存档+⚑ |
-| Phase 7 `verified` 兑现抽检 (DONE 2026-09-07; 3 true / sonnet-5 false) | `sdtm-rag/evidence/checkpoints/verified_spotcheck_2026-09.md` (预登记判据+四模型记录) |
-| Phase 7 四模型离线对比裁判 (2026-09-07; C2 触发只报数) | `sdtm-rag/evidence/checkpoints/model_compare_2026-09.md`; retro `sdtm-rag/RETROSPECTIVE_verified.md` |
-| Phase 7 DM1 域级映射检索 (2026-09-15; D4 已裁 → DM2) | `sdtm-rag/PLAN_domain_mapping.md`; 闸 `evidence/checkpoints/dm1_gates.md`; RETRO `RETROSPECTIVE_domain_mapping.md` |
-| Phase 7 DM2 研读包旁路 (auto 仅 opus) + 答案闸 | `server/{study_dossier,dossier_gate}.py`; RETRO `RETROSPECTIVE_dossier.md` |
+| 07 Website Phases 6-8 (closed) | `.work/07_website/phase{6,7,8}/` + handoffs `.work/meta/website_phase*_handoff_*.md`; prod https://sdtm-pedia.pages.dev/ |
 
 ## AI 平台多平台部署 (CLOSED 冻结 2026-06-15)
 

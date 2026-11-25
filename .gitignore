@@ -14,6 +14,9 @@ source/
 # Zips are uploaded to GitHub releases instead of committed.
 web/dist-bundles/
 
-# Python 构建产物 (sdtm-rag/.gitignore 管不到 .work/)
+# Python 构建产物
 __pycache__/
 *.py[cod]
+
+# RAG 服务已拆到独立仓 (sdtm-rag); 防止过渡期本地残留目录被误加回
+/sdtm-rag/
