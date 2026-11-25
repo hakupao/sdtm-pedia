@@ -118,7 +118,7 @@ A separate literal-level audit compared the knowledge base atom by atom with the
 | Issues found and repaired | 12 (Issues 5–16) |
 | Content error rate in final spot-check | 3.3% (2/60) |
 
-Per-batch evidence is in [`archive/deep_verification/evidence/checkpoints/`](archive/deep_verification/evidence/checkpoints/). To check repo links yourself, run `python3 tools/check_links.py`.
+Per-batch evidence is in [`archive/deep_verification/evidence/checkpoints/`](archive/deep_verification/evidence/checkpoints/).
 
 ## Project Structure
 

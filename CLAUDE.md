@@ -10,9 +10,12 @@ Public repo; RAG 问答服务在独立的公开仓 `hakupao/sdtm-rag` (以 submo
 
 CLAUDE.md 是**长效约束清单**, 不是工作日志, 不是状态看板.
 
-- **可以写**: 启动 / 收尾 / 路由词 / Chain 等流程规则; 跨 session 硬约束; Key Paths 一行指针 (单元格 ≤ 80 字符)
-- **不要写**: round / batch / version 进度数字; in-flight 状态; 历史归档清单; 已在 MANIFEST / worklog 写过的内容
-- **TTL**: 带日期 / 版本的状态句, 阶段关闭即删或迁到 `.work/meta/worklog/<phase>.md`; 收尾时扫一遍
+- **可以写**: 启动 / 收尾 / 路由词 / Chain 等流程规则; 跨 session 硬约束 (规则 A/B/C/D, PASS 四条);
+  Key Paths 一行指针 (单元格 ≤ 80 字符)
+- **不要写**: round / batch / version 进度数字; in-flight 状态; 历史归档清单; 已在 MANIFEST / worklog 写过的内容;
+  多子句长段落 / 表格单元格 > 100 字符 (拆专门 doc, 这里只留指针)
+- **TTL**: 带日期 / 版本的状态句, 阶段关闭即删或迁到 `.work/meta/worklog/<phase>.md`; 收尾时扫一遍;
+  Key Paths 条目 ≥ 2 个月没动过就重审 (在用就压短, 不在用就删)
 - **红线**: 总行数 ≤ 150 行; 单章节 ≥ 30 行 = 拆 doc 留指针; 表格单行 ≤ 200 字符
 
 ## Session Startup
@@ -24,7 +27,7 @@ Every new session, **before doing any work**, read these files in order:
 2. `docs/PROGRESS.md` — 当前各 phase 状态 (唯一状态源)
 3. `.work/meta/worklog/INDEX.md` — 历史工作日志入口 (按 phase 拆分)
 4. `.work/03_verification/issues_found.md` — open issues
-5. `.work/meta/retrospective.md` § 4 — six prevention rules
+5. `.work/meta/retrospective.md` § 4 — six prevention rules (1-4 内容抽取; 5-6 代码/测试: 变异验证 + 按成因选对策)
 
 Then summarize to the user: current status, open issues, and suggested next step.
 

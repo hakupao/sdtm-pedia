@@ -118,7 +118,7 @@ graph LR
 | 发现并修复的 Issue | 12 个（Issue 5–16） |
 | 最终抽检的内容误判率 | 3.3%（2/60） |
 
-逐批证据在 [`archive/deep_verification/evidence/checkpoints/`](archive/deep_verification/evidence/checkpoints/)。想自己检查仓内链接，可运行 `python3 tools/check_links.py`。
+逐批证据在 [`archive/deep_verification/evidence/checkpoints/`](archive/deep_verification/evidence/checkpoints/)。
 
 ## 项目结构
 
