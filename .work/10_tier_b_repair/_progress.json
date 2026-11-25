@@ -1,0 +1,88 @@
+{
+  "project": "10_tier_b_repair",
+  "tier": 3,
+  "plan": "PLAN.md",
+  "plan_version": "v0.1.1-DRAFT",
+  "status": "PLANNING — 等用户拍板 PLAN §9",
+  "current_step": "T0.1",
+  "next_step": "T0.2",
+  "baseline": {
+    "tier_b_p4b_orig": {
+      "SIBLING_DROPPED": 56,
+      "CONTENT_TRUNCATED": 110,
+      "source": "git f024a3f"
+    },
+    "tier_b_current": {
+      "SIBLING_DROPPED": 49,
+      "CONTENT_TRUNCATED": 93,
+      "source": "archive/deep_verification/section_coverage.jsonl (v1.4 C1)"
+    },
+    "union_sections": 173,
+    "gap_atoms_current": 1389,
+    "probe_absent_upper_bound": 944,
+    "coverage_pct_06": 99.02,
+    "check_links_live_docs": 42,
+    "inventory_jsonl_md5": "0e2248fda1fad6d87e6803ee2b225748",
+    "triage_scope_gap_atoms": 1459
+  },
+  "completed": [
+    {
+      "step": "T0.1",
+      "status": "PASS",
+      "artifacts": [
+        "inventory.md",
+        "inventory.jsonl",
+        "inventory_table.md",
+        "scripts/t0_inventory.py"
+      ],
+      "note": "56/110 复现; 现行 49/93"
+    }
+  ],
+  "steps": {
+    "T0.2": "pending",
+    "T0.3": "pending",
+    "T0.3b": "pending",
+    "T0.4": "pending",
+    "T1.1": "pending",
+    "T1.2": "pending",
+    "T1.3": "pending",
+    "T1.4": "pending",
+    "T2": {
+      "batches": {},
+      "note": "批次表 T1.4 定"
+    },
+    "T3.1": "pending",
+    "T3.2": "pending",
+    "T4.1": "pending",
+    "T4.2": "pending",
+    "T4.3": "pending"
+  },
+  "gates": {
+    "G-TB1": null,
+    "G-TB2": null,
+    "G-TB3": null,
+    "G-TB4": null,
+    "G-TB5": null,
+    "G-TB6": null,
+    "G-TB7": null,
+    "G-TB8": null,
+    "G-TB9": null
+  },
+  "open_decisions": [
+    "Q1",
+    "Q2",
+    "Q3",
+    "Q4",
+    "Q5",
+    "Q6",
+    "Q7",
+    "Q8",
+    "Q9"
+  ],
+  "counters": {
+    "subagent_calls": 0,
+    "retries": 0,
+    "failures_archived": 0
+  },
+  "recovery_hint": "新 session 恢复: 1) 读本文件 current_step / next_step; 2) 读 PLAN.md §4 对应 step 与 §5 闸; 3) 跳过 completed[] 里 status=PASS 的 step; 4) 读 trace.jsonl 末 5 行确认最后事件; 5) 从 next_step 续跑. archive/ 与 releases/ 只读; KB 只能由 writer subagent 改."
+}

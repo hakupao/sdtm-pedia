@@ -37,8 +37,8 @@ Then summarize to the user: current status, open issues, and suggested next step
 
 - **「KB 更新」** — 改 `knowledge_base/` → 走 Chain D 溯源 (`.work/meta/mapping.md` →
   `docs/TRACEABILITY.md` → worklog) → `tools/check_links.py` live docs 计数不升 → commit →
-  `git push origin main` (origin 已配两个 push URL, 一次推两处) → 提醒用户到 sdtm-rag 仓说
-  「KB 更新」以 bump submodule
+  `git push origin main` (origin 已配两个 push URL, 一次推两处) → 打 KB tag `kb-YYYY.MM.DD`
+  (annotated, 同日多次加 `.N`) 并 push → 提醒用户到 sdtm-rag 仓说「KB 更新」, submodule 钉到该 tag
 - **「网站更新」** — 改 `web/` 或 `releases/v1.4/` → `cd web && npm ci && npm run build`
   (页数不应无故变化) → commit + push → 确认 Cloudflare Pages 部署成功、
   https://sdtm-pedia.pages.dev/ 正常

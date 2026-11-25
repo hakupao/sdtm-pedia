@@ -1,7 +1,7 @@
 # 验证过程中发现的问题
 
 > 创建日期: 2026-04-15
-> 状态: Issue 1-4 已修复 (2026-04-16); **Issue 5-16 开启 2026-05-12** (06 Deep Verification P6 Triage — 32 HIGH sections, 437 MISSING atoms)
+> 状态: Issue 1-16 全部已修复 (1-4: 2026-04-16; 5-16: 2026-05-12, 来自 06 Deep Verification P6 Triage). 唯一遗留: 06 Tier B (MEDIUM) 修复, 含 Issue 5 的 143 TABLE_ROW 数值差异 → `.work/10_tier_b_repair/PLAN.md`
 
 ---
 

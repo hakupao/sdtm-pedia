@@ -15,6 +15,8 @@
 [![Files](https://img.shields.io/badge/Files-293-green.svg)](knowledge_base/)
 [![Codelists](https://img.shields.io/badge/Codelists-1%2C005-orange.svg)](knowledge_base/terminology/)
 [![Terms](https://img.shields.io/badge/Terms-37%2C939-orange.svg)](knowledge_base/terminology/)
+[![Website](https://img.shields.io/badge/Website-sdtm--pedia.pages.dev-0a7ea4.svg)](https://sdtm-pedia.pages.dev/)
+[![问答服务](https://img.shields.io/badge/Q%26A_service-sdtm--rag-8a2be2.svg)](https://github.com/hakupao/sdtm-rag)
 
 [English](README.md) | [中文](README_CN.md)
 
@@ -27,6 +29,8 @@
 CDISC SDTM 标准被锁在厚重的 PDF 和庞大的 Excel 文件中——难以检索、难以交叉引用，AI 更是几乎无法可靠地使用。
 
 **SDTM Pedia** 将这些源文件转换为 **293 个结构化 Markdown 内容文件**（另有 `INDEX.md` / `ROUTING.md` / `VARIABLE_INDEX.md` 3 个导航索引），按 domain、术语和概念模型分类组织。最终产出一个人类和 AI 都能即时检索的知识库——无需向量数据库，无需额外基础设施。
+
+> **姊妹项目 —— [sdtm-rag](https://github.com/hakupao/sdtm-rag)。** 本仓负责*内容*，sdtm-rag 负责*服务*：它以 git submodule 方式固定本知识库，在此基础上用混合检索 + 由本知识库构建的知识图谱回答 SDTM 问题，并在生成后做答案校验。详见[生态](#生态)。
 
 > **AI 提取的知识库怎么信？** 详见 [METHODOLOGY.md](METHODOLOGY.md) — 数据来源、可追溯性、校验阶段抓到并修复的两个问题，以及任何一条答案怎么对照 PDF 自行核验。
 
@@ -69,6 +73,7 @@ graph LR
         L[Claude Project]
         M[Claude Code]
         N[其他 LLM]
+        O[sdtm-rag<br/>RAG + 知识图谱问答]
     end
 
     A --> E
@@ -88,6 +93,7 @@ graph LR
     K --> L
     K --> M
     K --> N
+    K -.git submodule.-> O
 ```
 
 ## 生态
@@ -98,6 +104,17 @@ graph LR
 | **网站** | [sdtm-pedia.pages.dev](https://sdtm-pedia.pages.dev/) | 使用指南、平台对比和部署教程（中 / 英 / 日），由 [`web/`](web/) 构建 |
 | **发布包** | [GitHub Releases](https://github.com/hakupao/sdtm-pedia/releases)——v1.0、v1.1、v1.4 | 按平台打包的 zip（Claude Projects、ChatGPT GPTs、Gemini Gems、NotebookLM）；源文件在 [`releases/`](releases/) |
 | **问答服务** | [hakupao/sdtm-rag](https://github.com/hakupao/sdtm-rag) | 基于本知识库的 RAG + 知识图谱问答服务（以 git submodule 方式引用本仓）。公开试用站正在筹备中，上线后会在这里补上链接。 |
+
+**两个仓库如何保持同步**
+
+```mermaid
+graph LR
+    P[sdtm-pedia<br/>knowledge_base/] -- "git submodule<br/>vendor/sdtm-pedia" --> R[sdtm-rag<br/>索引 + 知识图谱 + API]
+    R -- "答错 / 答不出<br/>根因在 KB 内容" --> P
+```
+
+- SDTM 内容的修正**先在本仓完成**（可溯源到 PDF、通过链接检查），并打上 `kb-YYYY.MM.DD` tag（首个为 `kb-2026.11.25`）。sdtm-rag 把 submodule 钉到这类 tag 再重建索引，每次部署都能对应到一个有名字的 KB 版本。
+- 检索、排序、答案生成的问题请提到 [sdtm-rag 的 issues](https://github.com/hakupao/sdtm-rag/issues)；内容本身的问题请提到[本仓 issues](https://github.com/hakupao/sdtm-pedia/issues)。
 
 ## 如何使用知识库
 

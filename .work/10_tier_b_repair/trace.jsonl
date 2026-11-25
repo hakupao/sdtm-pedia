@@ -1,0 +1,2 @@
+{"ts": "2026-11-25T13:07:27Z", "step": "T0", "event": "phase_init", "agent": "oh-my-claudecode:planner", "model": "opus", "attempt": 1, "duration_s": null, "verdict": null, "note": "08 Tier B repair 立项; PLAN v0.1 DRAFT"}
+{"ts": "2026-11-25T13:07:27Z", "step": "T0.1", "event": "step_done", "agent": "oh-my-claudecode:planner", "model": "opus", "attempt": 1, "duration_s": null, "verdict": "PASS", "note": "inventory: orig 56/110 (f024a3f) 复现; current 49/93=142; union 173; gap 1389; probe_absent<=944"}

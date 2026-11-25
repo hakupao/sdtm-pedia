@@ -32,6 +32,7 @@
   "section.downloads.pending": "v1.4 发布包正在准备中, 进度详见 GitHub releases:",
   "downloads.files": "个文件",
   "footer.maintainer": "维护: Bojiang Zhang · 内部发布版",
+  "footer.related": "基于本知识库的问答服务:",
   "docs.sidebar.label": "文档",
   "docs.toc.label": "本页目录",
   "docs.fallback.en": "英文原文 — 翻译待补",

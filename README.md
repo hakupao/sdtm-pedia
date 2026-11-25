@@ -15,6 +15,8 @@
 [![Files](https://img.shields.io/badge/Files-293-green.svg)](knowledge_base/)
 [![Codelists](https://img.shields.io/badge/Codelists-1%2C005-orange.svg)](knowledge_base/terminology/)
 [![Terms](https://img.shields.io/badge/Terms-37%2C939-orange.svg)](knowledge_base/terminology/)
+[![Website](https://img.shields.io/badge/Website-sdtm--pedia.pages.dev-0a7ea4.svg)](https://sdtm-pedia.pages.dev/)
+[![Q&A service](https://img.shields.io/badge/Q%26A_service-sdtm--rag-8a2be2.svg)](https://github.com/hakupao/sdtm-rag)
 
 [English](README.md) | [中文](README_CN.md)
 
@@ -27,6 +29,8 @@
 CDISC SDTM standards are locked inside dense PDFs and sprawling Excel files — hard to search, hard to cross-reference, and nearly impossible for AI to use reliably.
 
 **SDTM Pedia** converts these source documents into **293 structured Markdown content files** (plus `INDEX.md` / `ROUTING.md` / `VARIABLE_INDEX.md` for navigation), organized by domain, terminology, and conceptual model. The result is a knowledge base that both humans and AI can navigate instantly — no vector database required.
+
+> **Sibling project — [sdtm-rag](https://github.com/hakupao/sdtm-rag).** This repo is the *content*; sdtm-rag is the *service*: a RAG + knowledge-graph Q&A system that pins this knowledge base as a git submodule and answers SDTM questions with hybrid retrieval, a knowledge graph built from these files, and post-generation answer checks. See [Ecosystem](#ecosystem).
 
 > **How can you trust an AI-extracted knowledge base?** See [METHODOLOGY.md](METHODOLOGY.md) — sources, traceability, the two issues we caught and fixed during validation, and how to spot-check any answer against the source PDF.
 
@@ -69,6 +73,7 @@ graph LR
         L[Claude Project]
         M[Claude Code]
         N[Other LLMs]
+        O[sdtm-rag<br/>RAG + KG Q&A]
     end
 
     A --> E
@@ -88,6 +93,7 @@ graph LR
     K --> L
     K --> M
     K --> N
+    K -.git submodule.-> O
 ```
 
 ## Ecosystem
@@ -98,6 +104,17 @@ graph LR
 | **Website** | [sdtm-pedia.pages.dev](https://sdtm-pedia.pages.dev/) | User guide, platform comparison and deployment tutorials (zh / en / ja), built from [`web/`](web/) |
 | **Release bundles** | [GitHub Releases](https://github.com/hakupao/sdtm-pedia/releases) — v1.0, v1.1, v1.4 | Per-platform zips (Claude Projects, ChatGPT GPTs, Gemini Gems, NotebookLM); sources in [`releases/`](releases/) |
 | **Q&A service** | [hakupao/sdtm-rag](https://github.com/hakupao/sdtm-rag) | RAG + knowledge-graph Q&A service built on this knowledge base (pins it as a git submodule). A public demo is planned; the link will be added here once it is live. |
+
+**How the two repos stay in sync**
+
+```mermaid
+graph LR
+    P[sdtm-pedia<br/>knowledge_base/] -- "git submodule<br/>vendor/sdtm-pedia" --> R[sdtm-rag<br/>index + KG + API]
+    R -- "wrong / missing answer<br/>traced to KB content" --> P
+```
+
+- Fixes to SDTM content land **here** first (traceable to the source PDF, link-checked), then tagged `kb-YYYY.MM.DD` (first tag: `kb-2026.11.25`). sdtm-rag pins its submodule to such a tag and re-indexes, so each deployment maps to a named KB version.
+- Problems with retrieval, ranking or answer generation belong in [sdtm-rag issues](https://github.com/hakupao/sdtm-rag/issues); problems with the content itself belong in [this repo's issues](https://github.com/hakupao/sdtm-pedia/issues).
 
 ## How to Use the Knowledge Base
 

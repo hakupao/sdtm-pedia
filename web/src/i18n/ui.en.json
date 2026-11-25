@@ -32,6 +32,7 @@
   "section.downloads.pending": "v1.4 release bundles are being prepared. Track progress on the GitHub releases page:",
   "downloads.files": "files",
   "footer.maintainer": "Maintained by Bojiang Zhang · Internal release",
+  "footer.related": "Q&A service built on this knowledge base:",
   "docs.sidebar.label": "DOCS",
   "docs.toc.label": "ON THIS PAGE",
   "docs.fallback.en": "English source — translation pending",

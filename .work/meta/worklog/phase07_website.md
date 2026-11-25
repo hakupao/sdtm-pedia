@@ -38,3 +38,7 @@
 - **Family pool state at Phase 6 close**: `pr-review-toolkit ×4` (Phases 1, 2, 3.6, 4) + `feature-dev ×1` (Phase 5) + `oh-my-claudecode:critic ×1` (Phase 6 6.3 reviewer = 1st-burn omc-family on website lane). Phase 7 candidates: `superpowers:code-reviewer` (inaugural 3rd family) recommended; backup `pr-review-toolkit:silent-failure-hunter` / `type-design-analyzer` (4th burn pr-family) / `oh-my-claudecode:code-reviewer` / `verifier` (2nd burn omc-family)
 - **下一步**: 收尾 commit (this index update) + push to remote (5 commits cumulative not pushed: `b25b834 c52b4a7 362b401 0b0e822 45856ad` + 收尾) → user 单独开 Phase 7 新 session
 
+
+## 2026-11-25 — 页脚加 sdtm-rag / GitHub 入口
+- Footer.astro 加 `footer.related` (zh/en/ja) → sdtm-rag 链接 + GITHUB 链接; build 46 页不变, vitest 57/57
+- 复跑: `cd web && npm ci && npm run build && npx vitest run`

@@ -32,6 +32,7 @@
   "section.downloads.pending": "v1.4 リリースバンドルは準備中。進捗は GitHub releases ページにてご確認ください:",
   "downloads.files": "ファイル",
   "footer.maintainer": "メンテナー: Bojiang Zhang · リリース",
+  "footer.related": "本ナレッジベースを基盤とする Q&A サービス：",
   "docs.sidebar.label": "ドキュメント",
   "docs.toc.label": "このページ",
   "docs.fallback.en": "英語原文 — 翻訳準備中",

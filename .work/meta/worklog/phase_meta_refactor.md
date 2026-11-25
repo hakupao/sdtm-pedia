@@ -63,3 +63,9 @@
 - **文档**: 活文档 78 处路径迁移 + README×2 结构树重写 + MANIFEST Chain 07_RAG 改指顶层 sdtm-rag + 布局变更总注记; **PROGRESS.md 重切** (117→64 行, 14.4K 单行巨段→550 字符, 30 天外 milestone 剪除); memory ×2 更新; 历史文档 (worklog/closed checkpoint/superpowers 已执行 spec·plan/release 内部) 旧路径故意保留。
 - **销旧账**: 08_repo_refactor_v2 `awaiting_user_ack` (2026-05-11 起挂) → closed (v2 遗留 smoke 被 v3 Task 9/12 实测覆盖)。
 - **证据**: `.work/09_repo_refactor_v3/evidence/step_{disk_cleanup,services_smoke,verification_matrix,dryrun_agent}.md` + `RETROSPECTIVE.md` (Rule C 三段)。spec/plan `docs/superpowers/{specs,plans}/2026-07-21-repo-restructure-v3*`。
+
+## 2026-11-25 — 双仓关联体现 + KB tag 约定 + Tier B 计划
+- README/README_CN: 顶部 Website/Q&A badge、姊妹项目 callout、架构图加 sdtm-rag 节点、Ecosystem 加「两仓同步」图+说明; GitHub topics +rag +sdtmig
+- CLAUDE.md「KB 更新」加 `kb-YYYY.MM.DD` tag 步骤; 首个 tag `kb-2026.11.25`
+- 新建 `.work/10_tier_b_repair/` (Tier 3 DRAFT): 现行 Tier B = 49 SIBLING_DROPPED + 93 CONTENT_TRUNCATED = 142 节 / 1,389 gap atoms (旧 56/110 为 P6 前数字); Q1-Q9 待用户拍板
+- issues_found / AGENT_GUIDE 过期表头修正; 审查: oh-my-claudecode:code-reviewer (HIGH 1 已修: tag 说法过度宣称)

@@ -1,7 +1,7 @@
 # .work/AGENT_GUIDE.md — Agent 进入指引 (一页纸)
 
 > 创建: 2026-05-06 (refactor v1 段 1 产物)
-> 维护节奏: 段 2 (worklog 拆分) + 段 3 (06 旁枝迁移) 完成后回头更新对应行
+> 维护节奏: 目录结构或 phase 入口变化时更新
 > 优先级: **新 session 第 1 个读** — 比 MANIFEST.md 还早
 > 2026-11-25 布局重组: `milestones/` 解散 → `releases/` + `archive/{deep_verification,ai_platforms,jp_delivery,legacy}/`; 新旧对照见 `docs/PATH_MAP.md`
 
@@ -42,6 +42,7 @@ SDTM 知识库, 从 CDISC PDF + xlsx 抽取. 旁枝均已收口 (字面级深审
 | 7 Release | `.work/07_release_v1_4/PLAN.md` (latest) + `.work/07_release{,_v1_1,_v1_2,_v1_3,_v1_4}/` | latest v1.4 cut 2026-05-22 (tag `v1.4-company-release`); v1.0-v1.3 closed |
 | 7 Website | `.work/07_website/phase{6,7,8}/` | closed (prod 已发布) |
 | iTMS 日本納品旁枝 | `archive/jp_delivery/PLAN.md` | ✅ **CLOSED 冻结** 2026-06-15 (停于 P0 2/4 + 01 v1.1-draft; 以后不再更新) |
+| 10 Tier B 内容补修 | `.work/10_tier_b_repair/PLAN.md` | DRAFT 待用户拍板 Q1-Q9 (现行 142 节 / 1,389 gap atoms) |
 | **本次重构 v1** | `.work/refactor_v1/PLAN.md` | ✅ 全 closed 2026-05-11 (branches/ 迁移完成) |
 
 ## 路由词速查
