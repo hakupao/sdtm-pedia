@@ -1,0 +1,1075 @@
+{
+ "pack_id": "pack_008",
+ "lane": "lane_A",
+ "units": [
+  "knowledge_base/domains/IE",
+  "knowledge_base/domains/LB",
+  "knowledge_base/domains/MH",
+  "knowledge_base/domains/RS",
+  "knowledge_base/domains/TS"
+ ],
+ "n_atoms": 59,
+ "sections": [
+  {
+   "source": "ig34",
+   "section_key": "§6.3.4 Inclusion/Exclusion Criteria Not Met (IE)",
+   "primary_unit": "knowledge_base/domains/IE",
+   "part": null,
+   "n_atoms": 23,
+   "pdf_pages": [
+    193,
+    194
+   ]
+  },
+  {
+   "source": "ig34",
+   "section_key": "§6.3.9.3 Disease Response and Clin Classification (RS) — RS-Specification",
+   "primary_unit": "knowledge_base/domains/RS",
+   "part": null,
+   "n_atoms": 14,
+   "pdf_pages": [
+    329,
+    330
+   ]
+  },
+  {
+   "source": "ig34",
+   "section_key": "§6.3.9.3 Disease Response and Clin Classification (RS)",
+   "primary_unit": "knowledge_base/domains/RS",
+   "part": null,
+   "n_atoms": 6,
+   "pdf_pages": [
+    331
+   ]
+  },
+  {
+   "source": "ig34",
+   "section_key": "§6.3.5.6 Laboratory Test Results (LB)",
+   "primary_unit": "knowledge_base/domains/LB",
+   "part": null,
+   "n_atoms": 7,
+   "pdf_pages": [
+    243,
+    246,
+    247
+   ]
+  },
+  {
+   "source": "ig34",
+   "section_key": "§6.2.6 Medical History (MH)",
+   "primary_unit": "knowledge_base/domains/MH",
+   "part": null,
+   "n_atoms": 5,
+   "pdf_pages": [
+    172,
+    176
+   ]
+  },
+  {
+   "source": "ig34",
+   "section_key": "§7.4.2.1 Use of Null Flavor",
+   "primary_unit": "knowledge_base/domains/TS",
+   "part": null,
+   "n_atoms": 4,
+   "pdf_pages": [
+    424,
+    425
+   ]
+  }
+ ],
+ "pdf_pages": [
+  "ig34_p0172",
+  "ig34_p0173",
+  "ig34_p0176",
+  "ig34_p0177",
+  "ig34_p0193",
+  "ig34_p0194",
+  "ig34_p0195",
+  "ig34_p0243",
+  "ig34_p0244",
+  "ig34_p0246",
+  "ig34_p0247",
+  "ig34_p0248",
+  "ig34_p0329",
+  "ig34_p0330",
+  "ig34_p0331",
+  "ig34_p0332",
+  "ig34_p0424",
+  "ig34_p0425",
+  "ig34_p0426"
+ ],
+ "kb_targets": [
+  {
+   "file": "knowledge_base/domains/IE/assumptions.md",
+   "lines": [
+    [
+     1,
+     9
+    ]
+   ]
+  },
+  {
+   "file": "knowledge_base/domains/IE/examples.md",
+   "lines": [
+    [
+     1,
+     18
+    ]
+   ]
+  },
+  {
+   "file": "knowledge_base/domains/IE/spec.md",
+   "lines": [
+    [
+     1,
+     183
+    ]
+   ]
+  },
+  {
+   "file": "knowledge_base/domains/LB/assumptions.md",
+   "lines": [
+    [
+     1,
+     20
+    ]
+   ]
+  },
+  {
+   "file": "knowledge_base/domains/LB/examples.md",
+   "lines": [
+    [
+     1,
+     85
+    ]
+   ]
+  },
+  {
+   "file": "knowledge_base/domains/LB/spec.md",
+   "lines": [
+    [
+     1,
+     596
+    ]
+   ]
+  },
+  {
+   "file": "knowledge_base/domains/MH/assumptions.md",
+   "lines": [
+    [
+     3,
+     6
+    ]
+   ]
+  },
+  {
+   "file": "knowledge_base/domains/MH/examples.md",
+   "lines": [
+    [
+     1,
+     109
+    ]
+   ]
+  },
+  {
+   "file": "knowledge_base/domains/MH/spec.md",
+   "lines": [
+    [
+     1,
+     266
+    ]
+   ]
+  },
+  {
+   "file": "knowledge_base/domains/RS/assumptions.md",
+   "lines": [
+    [
+     1,
+     58
+    ]
+   ]
+  },
+  {
+   "file": "knowledge_base/domains/RS/examples.md",
+   "lines": [
+    [
+     1,
+     95
+    ]
+   ]
+  },
+  {
+   "file": "knowledge_base/domains/RS/spec.md",
+   "lines": [
+    [
+     1,
+     448
+    ]
+   ]
+  },
+  {
+   "file": "knowledge_base/domains/TS/assumptions.md",
+   "lines": [
+    [
+     1,
+     106
+    ]
+   ]
+  },
+  {
+   "file": "knowledge_base/domains/TS/spec.md",
+   "lines": [
+    [
+     1,
+     121
+    ]
+   ]
+  }
+ ],
+ "kb_owned_files": [
+  "knowledge_base/domains/IE/assumptions.md",
+  "knowledge_base/domains/IE/examples.md",
+  "knowledge_base/domains/IE/spec.md",
+  "knowledge_base/domains/LB/assumptions.md",
+  "knowledge_base/domains/LB/examples.md",
+  "knowledge_base/domains/LB/spec.md",
+  "knowledge_base/domains/MH/assumptions.md",
+  "knowledge_base/domains/MH/examples.md",
+  "knowledge_base/domains/MH/spec.md",
+  "knowledge_base/domains/RS/assumptions.md",
+  "knowledge_base/domains/RS/examples.md",
+  "knowledge_base/domains/RS/spec.md",
+  "knowledge_base/domains/TS/assumptions.md",
+  "knowledge_base/domains/TS/examples.md",
+  "knowledge_base/domains/TS/spec.md"
+ ],
+ "kb_context_readonly": [],
+ "atoms": [
+  {
+   "atom_id": "ig34_p0193_a003",
+   "atom_type": "SENTENCE",
+   "pdf_page": 193,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "FP_HIT_ELSEWHERE",
+   "prefilter_suggest": null,
+   "fp_hit": "knowledge_base/terminology/core/general_part4.md:196",
+   "fp_hit_in_section": null,
+   "fp_v_len": 125,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0193_a006",
+   "atom_type": "TABLE_HEADER",
+   "pdf_page": 193,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "SPEC_HEADER",
+   "prefilter_suggest": "IE_CAND",
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 93,
+   "spec_row": "HEADER",
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0193_a007",
+   "atom_type": "TABLE_ROW",
+   "pdf_page": 193,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "SPEC_MATCH",
+   "prefilter_suggest": "IE_CAND",
+   "fp_hit": "knowledge_base/chapters/ch08_relationships.md:90",
+   "fp_hit_in_section": null,
+   "fp_v_len": 75,
+   "spec_row": "MATCH",
+   "spec_loc": "knowledge_base/domains/IE/spec.md:5",
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0193_a008",
+   "atom_type": "TABLE_ROW",
+   "pdf_page": 193,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "SPEC_MATCH",
+   "prefilter_suggest": "IE_CAND",
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 92,
+   "spec_row": "MATCH",
+   "spec_loc": "knowledge_base/domains/IE/spec.md:14",
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0193_a009",
+   "atom_type": "TABLE_ROW",
+   "pdf_page": 193,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "SPEC_MATCH",
+   "prefilter_suggest": "IE_CAND",
+   "fp_hit": "knowledge_base/chapters/ch08_relationships.md:424",
+   "fp_hit_in_section": null,
+   "fp_v_len": 178,
+   "spec_row": "MATCH",
+   "spec_loc": "knowledge_base/domains/IE/spec.md:23",
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0193_a010",
+   "atom_type": "TABLE_ROW",
+   "pdf_page": 193,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "SPEC_MATCH",
+   "prefilter_suggest": "IE_CAND",
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 144,
+   "spec_row": "MATCH",
+   "spec_loc": "knowledge_base/domains/IE/spec.md:32",
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0193_a011",
+   "atom_type": "TABLE_ROW",
+   "pdf_page": 193,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "SPEC_MATCH",
+   "prefilter_suggest": "IE_CAND",
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 256,
+   "spec_row": "MATCH",
+   "spec_loc": "knowledge_base/domains/IE/spec.md:41",
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0193_a012",
+   "atom_type": "TABLE_ROW",
+   "pdf_page": 193,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "SPEC_MATCH",
+   "prefilter_suggest": "IE_CAND",
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 338,
+   "spec_row": "MATCH",
+   "spec_loc": "knowledge_base/domains/IE/spec.md:50",
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0193_a013",
+   "atom_type": "TABLE_ROW",
+   "pdf_page": 193,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "SPEC_MATCH",
+   "prefilter_suggest": "IE_CAND",
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 226,
+   "spec_row": "MATCH",
+   "spec_loc": "knowledge_base/domains/IE/spec.md:59",
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0193_a014",
+   "atom_type": "TABLE_ROW",
+   "pdf_page": 193,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "SPEC_MATCH",
+   "prefilter_suggest": "IE_CAND",
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 132,
+   "spec_row": "MATCH",
+   "spec_loc": "knowledge_base/domains/IE/spec.md:68",
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0193_a015",
+   "atom_type": "TABLE_ROW",
+   "pdf_page": 193,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "SPEC_MATCH",
+   "prefilter_suggest": "IE_CAND",
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 253,
+   "spec_row": "MATCH",
+   "spec_loc": "knowledge_base/domains/IE/spec.md:77",
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0193_a016",
+   "atom_type": "TABLE_ROW",
+   "pdf_page": 193,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "SPEC_MATCH",
+   "prefilter_suggest": "IE_CAND",
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 189,
+   "spec_row": "MATCH",
+   "spec_loc": "knowledge_base/domains/IE/spec.md:86",
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0193_a017",
+   "atom_type": "TABLE_ROW",
+   "pdf_page": 193,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "SPEC_MATCH",
+   "prefilter_suggest": "IE_CAND",
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 144,
+   "spec_row": "MATCH",
+   "spec_loc": "knowledge_base/domains/IE/spec.md:95",
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0193_a018",
+   "atom_type": "TABLE_ROW",
+   "pdf_page": 193,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "SPEC_MATCH",
+   "prefilter_suggest": "IE_CAND",
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 108,
+   "spec_row": "MATCH",
+   "spec_loc": "knowledge_base/domains/IE/spec.md:104",
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0193_a019",
+   "atom_type": "TABLE_ROW",
+   "pdf_page": 193,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "SPEC_MATCH",
+   "prefilter_suggest": "IE_CAND",
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 137,
+   "spec_row": "MATCH",
+   "spec_loc": "knowledge_base/domains/IE/spec.md:113",
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0193_a020",
+   "atom_type": "TABLE_ROW",
+   "pdf_page": 193,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "SPEC_MATCH",
+   "prefilter_suggest": "IE_CAND",
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 117,
+   "spec_row": "MATCH",
+   "spec_loc": "knowledge_base/domains/IE/spec.md:122",
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0193_a021",
+   "atom_type": "TABLE_ROW",
+   "pdf_page": 193,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "SPEC_MATCH",
+   "prefilter_suggest": "IE_CAND",
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 175,
+   "spec_row": "MATCH",
+   "spec_loc": "knowledge_base/domains/IE/spec.md:131",
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0193_a022",
+   "atom_type": "TABLE_ROW",
+   "pdf_page": 193,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "SPEC_MATCH",
+   "prefilter_suggest": "IE_CAND",
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 120,
+   "spec_row": "MATCH",
+   "spec_loc": "knowledge_base/domains/IE/spec.md:140",
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0193_a023",
+   "atom_type": "TABLE_ROW",
+   "pdf_page": 193,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "SPEC_MATCH",
+   "prefilter_suggest": "IE_CAND",
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 180,
+   "spec_row": "MATCH",
+   "spec_loc": "knowledge_base/domains/IE/spec.md:149",
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0193_a024",
+   "atom_type": "TABLE_ROW",
+   "pdf_page": 193,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "SPEC_MATCH",
+   "prefilter_suggest": "IE_CAND",
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 291,
+   "spec_row": "MATCH",
+   "spec_loc": "knowledge_base/domains/IE/spec.md:158",
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0193_a025",
+   "atom_type": "NOTE",
+   "pdf_page": 193,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "FP_HIT_ELSEWHERE",
+   "prefilter_suggest": "RELOCATE",
+   "fp_hit": "knowledge_base/domains/CO/assumptions.md:17",
+   "fp_hit_in_section": null,
+   "fp_v_len": 157,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0194_a009",
+   "atom_type": "LIST_ITEM",
+   "pdf_page": 194,
+   "ledger_verdict": "MISPLACED",
+   "prefilter_class": "FP_HIT_SECTION",
+   "prefilter_suggest": "PRESENT",
+   "fp_hit": "knowledge_base/domains/IE/examples.md:7",
+   "fp_hit_in_section": null,
+   "fp_v_len": 72,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0194_a010",
+   "atom_type": "LIST_ITEM",
+   "pdf_page": 194,
+   "ledger_verdict": "MISPLACED",
+   "prefilter_class": "FP_HIT_SECTION",
+   "prefilter_suggest": "PRESENT",
+   "fp_hit": "knowledge_base/domains/IE/examples.md:9",
+   "fp_hit_in_section": null,
+   "fp_v_len": 91,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0329_a018",
+   "atom_type": "TABLE_ROW",
+   "pdf_page": 329,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "SPEC_MATCH",
+   "prefilter_suggest": "IE_CAND",
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 140,
+   "spec_row": "MATCH",
+   "spec_loc": "knowledge_base/domains/RS/spec.md:32",
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0329_a019",
+   "atom_type": "TABLE_ROW",
+   "pdf_page": 329,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "SPEC_MATCH",
+   "prefilter_suggest": "IE_CAND",
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 116,
+   "spec_row": "MATCH",
+   "spec_loc": "knowledge_base/domains/RS/spec.md:41",
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0329_a021",
+   "atom_type": "TABLE_ROW",
+   "pdf_page": 329,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "SPEC_MATCH",
+   "prefilter_suggest": "IE_CAND",
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 82,
+   "spec_row": "MATCH",
+   "spec_loc": "knowledge_base/domains/RS/spec.md:59",
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0329_a022",
+   "atom_type": "TABLE_ROW",
+   "pdf_page": 329,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "SPEC_MATCH",
+   "prefilter_suggest": "IE_CAND",
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 231,
+   "spec_row": "MATCH",
+   "spec_loc": "knowledge_base/domains/RS/spec.md:68",
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0329_a023",
+   "atom_type": "TABLE_ROW",
+   "pdf_page": 329,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "SPEC_MATCH",
+   "prefilter_suggest": "IE_CAND",
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 242,
+   "spec_row": "MATCH",
+   "spec_loc": "knowledge_base/domains/RS/spec.md:77",
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0330_a002",
+   "atom_type": "TABLE_ROW",
+   "pdf_page": 330,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "FP_HIT_ELSEWHERE",
+   "prefilter_suggest": "RELOCATE",
+   "fp_hit": "knowledge_base/domains/RS/spec.md:93",
+   "fp_hit_in_section": null,
+   "fp_v_len": 406,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0330_a003",
+   "atom_type": "TABLE_ROW",
+   "pdf_page": 330,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "SPEC_MATCH",
+   "prefilter_suggest": "IE_CAND",
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 619,
+   "spec_row": "MATCH",
+   "spec_loc": "knowledge_base/domains/RS/spec.md:95",
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0330_a004",
+   "atom_type": "TABLE_ROW",
+   "pdf_page": 330,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "SPEC_MATCH",
+   "prefilter_suggest": "IE_CAND",
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 453,
+   "spec_row": "MATCH",
+   "spec_loc": "knowledge_base/domains/RS/spec.md:104",
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0330_a005",
+   "atom_type": "TABLE_ROW",
+   "pdf_page": 330,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "SPEC_MATCH",
+   "prefilter_suggest": "IE_CAND",
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 104,
+   "spec_row": "MATCH",
+   "spec_loc": "knowledge_base/domains/RS/spec.md:113",
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0330_a006",
+   "atom_type": "TABLE_ROW",
+   "pdf_page": 330,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "SPEC_MATCH",
+   "prefilter_suggest": "IE_CAND",
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 153,
+   "spec_row": "MATCH",
+   "spec_loc": "knowledge_base/domains/RS/spec.md:122",
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0330_a011",
+   "atom_type": "TABLE_ROW",
+   "pdf_page": 330,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "SPEC_MATCH",
+   "prefilter_suggest": "IE_CAND",
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 162,
+   "spec_row": "MATCH",
+   "spec_loc": "knowledge_base/domains/RS/spec.md:167",
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0330_a012",
+   "atom_type": "TABLE_ROW",
+   "pdf_page": 330,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "SPEC_MATCH",
+   "prefilter_suggest": "IE_CAND",
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 252,
+   "spec_row": "MATCH",
+   "spec_loc": "knowledge_base/domains/RS/spec.md:176",
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0330_a015",
+   "atom_type": "TABLE_ROW",
+   "pdf_page": 330,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "SPEC_MATCH",
+   "prefilter_suggest": "IE_CAND",
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 331,
+   "spec_row": "MATCH",
+   "spec_loc": "knowledge_base/domains/RS/spec.md:203",
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0330_a017",
+   "atom_type": "TABLE_ROW",
+   "pdf_page": 330,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "SPEC_MATCH",
+   "prefilter_suggest": "IE_CAND",
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 200,
+   "spec_row": "MATCH",
+   "spec_loc": "knowledge_base/domains/RS/spec.md:221",
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0331_a001",
+   "atom_type": "TABLE_ROW",
+   "pdf_page": 331,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "SPEC_MATCH",
+   "prefilter_suggest": "IE_CAND",
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 605,
+   "spec_row": "MATCH",
+   "spec_loc": "knowledge_base/domains/RS/spec.md:230",
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0331_a002",
+   "atom_type": "TABLE_ROW",
+   "pdf_page": 331,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "SPEC_MATCH",
+   "prefilter_suggest": "IE_CAND",
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 254,
+   "spec_row": "MATCH",
+   "spec_loc": "knowledge_base/domains/RS/spec.md:239",
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0331_a003",
+   "atom_type": "TABLE_ROW",
+   "pdf_page": 331,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "SPEC_MATCH",
+   "prefilter_suggest": "IE_CAND",
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 283,
+   "spec_row": "MATCH",
+   "spec_loc": "knowledge_base/domains/RS/spec.md:248",
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0331_a010",
+   "atom_type": "TABLE_ROW",
+   "pdf_page": 331,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "SPEC_MATCH",
+   "prefilter_suggest": "IE_CAND",
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 200,
+   "spec_row": "MATCH",
+   "spec_loc": "knowledge_base/domains/RS/spec.md:311",
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0331_a011",
+   "atom_type": "TABLE_ROW",
+   "pdf_page": 331,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "SPEC_MATCH",
+   "prefilter_suggest": "IE_CAND",
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 278,
+   "spec_row": "MATCH",
+   "spec_loc": "knowledge_base/domains/RS/spec.md:320",
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0331_a017",
+   "atom_type": "TABLE_ROW",
+   "pdf_page": 331,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "SPEC_MATCH",
+   "prefilter_suggest": "IE_CAND",
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 246,
+   "spec_row": "MATCH",
+   "spec_loc": "knowledge_base/domains/RS/spec.md:374",
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0243_a011",
+   "atom_type": "TABLE_ROW",
+   "pdf_page": 243,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "SPEC_MATCH",
+   "prefilter_suggest": "IE_CAND",
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 479,
+   "spec_row": "MATCH",
+   "spec_loc": "knowledge_base/domains/LB/spec.md:257",
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0246_a001",
+   "atom_type": "SENTENCE",
+   "pdf_page": 246,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "FP_HIT_SECTION",
+   "prefilter_suggest": "PRESENT",
+   "fp_hit": "knowledge_base/domains/LB/assumptions.md:17",
+   "fp_hit_in_section": null,
+   "fp_v_len": 164,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0247_a005",
+   "atom_type": "TABLE_HEADER",
+   "pdf_page": 247,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "NO_HIT",
+   "prefilter_suggest": null,
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 410,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0247_a011",
+   "atom_type": "TABLE_HEADER",
+   "pdf_page": 247,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "NO_HIT",
+   "prefilter_suggest": null,
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 261,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0247_a020",
+   "atom_type": "TABLE_HEADER",
+   "pdf_page": 247,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "NO_HIT",
+   "prefilter_suggest": null,
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 228,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0247_a021",
+   "atom_type": "TABLE_ROW",
+   "pdf_page": 247,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "NO_HIT",
+   "prefilter_suggest": null,
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 126,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0247_a022",
+   "atom_type": "TABLE_ROW",
+   "pdf_page": 247,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "NO_HIT",
+   "prefilter_suggest": null,
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 152,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0172_a0010",
+   "atom_type": "TABLE_ROW",
+   "pdf_page": 172,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "SPEC_MATCH",
+   "prefilter_suggest": "IE_CAND",
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 450,
+   "spec_row": "MATCH",
+   "spec_loc": "knowledge_base/domains/MH/spec.md:221",
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0172_a0011",
+   "atom_type": "TABLE_ROW",
+   "pdf_page": 172,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "SPEC_MATCH",
+   "prefilter_suggest": "IE_CAND",
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 299,
+   "spec_row": "MATCH",
+   "spec_loc": "knowledge_base/domains/MH/spec.md:230",
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0172_a0012",
+   "atom_type": "TABLE_ROW",
+   "pdf_page": 172,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "SPEC_MATCH",
+   "prefilter_suggest": "IE_CAND",
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 186,
+   "spec_row": "MATCH",
+   "spec_loc": "knowledge_base/domains/MH/spec.md:239",
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0172_a0013",
+   "atom_type": "NOTE",
+   "pdf_page": 172,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "FP_HIT_ELSEWHERE",
+   "prefilter_suggest": "RELOCATE",
+   "fp_hit": "knowledge_base/domains/CO/assumptions.md:17",
+   "fp_hit_in_section": null,
+   "fp_v_len": 157,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0176_a0003",
+   "atom_type": "LIST_ITEM",
+   "pdf_page": 176,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "FP_HIT_SECTION",
+   "prefilter_suggest": "PRESENT",
+   "fp_hit": "knowledge_base/domains/MH/examples.md:35",
+   "fp_hit_in_section": null,
+   "fp_v_len": 368,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0424_a002",
+   "atom_type": "SENTENCE",
+   "pdf_page": 424,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "NO_HIT",
+   "prefilter_suggest": null,
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 210,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0425_a008",
+   "atom_type": "LIST_ITEM",
+   "pdf_page": 425,
+   "ledger_verdict": "MISPLACED",
+   "prefilter_class": "FP_HIT_SHORT",
+   "prefilter_suggest": null,
+   "fp_hit": "knowledge_base/domains/TS/assumptions.md:23",
+   "fp_hit_in_section": null,
+   "fp_v_len": 17,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0425_a009",
+   "atom_type": "LIST_ITEM",
+   "pdf_page": 425,
+   "ledger_verdict": "MISPLACED",
+   "prefilter_class": "FP_HIT_SHORT",
+   "prefilter_suggest": null,
+   "fp_hit": "knowledge_base/domains/TS/assumptions.md:73",
+   "fp_hit_in_section": null,
+   "fp_v_len": 17,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0425_a014",
+   "atom_type": "LIST_ITEM",
+   "pdf_page": 425,
+   "ledger_verdict": "MISPLACED",
+   "prefilter_class": "FP_HIT_SHORT",
+   "prefilter_suggest": null,
+   "fp_hit": "knowledge_base/domains/TS/assumptions.md:78",
+   "fp_hit_in_section": null,
+   "fp_v_len": 23,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  }
+ ]
+}

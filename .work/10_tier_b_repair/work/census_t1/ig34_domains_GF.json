@@ -1,0 +1,372 @@
+{
+ "pages": "ig34:220-229",
+ "kb_files": [
+  "knowledge_base/domains/GF/assumptions.md",
+  "knowledge_base/domains/GF/examples.md"
+ ],
+ "tables": [
+  {
+   "file": "knowledge_base/domains/GF/examples.md",
+   "line": 27,
+   "n_rows": 9,
+   "header": "Row | STUDYID | DOMAIN | USUBJID | GFSEQ | GFREFID | GFTESTCD | GFTEST | GFTSTDTL | GFORRES | GFSTRESC | GFSTREFN | GFST",
+   "status": "NO_PDF"
+  },
+  {
+   "file": "knowledge_base/domains/GF/examples.md",
+   "line": 43,
+   "n_rows": 2,
+   "header": "Row | STUDYID | DOMAIN | SPDEVID | DISEQ | DIPARMCD | DIPARM | DIVAL",
+   "status": "OK",
+   "kb_duplicate": false,
+   "pdf_pages": [
+    225
+   ],
+   "pdf_rows": 2,
+   "cells_compared": 16,
+   "row_modes": {
+    "columns": 2
+   },
+   "rows_out_of_page_range": [],
+   "diffs": []
+  },
+  {
+   "file": "knowledge_base/domains/GF/examples.md",
+   "line": 60,
+   "n_rows": 3,
+   "header": "Row | STUDYID | DOMAIN | USUBJID | GFSEQ | GFREFID | GFTESTCD | GFTEST | GFTSTDTL | GFORRES | GFSTRESC | GFSTREFN | GFIN",
+   "status": "DIFF",
+   "kb_duplicate": false,
+   "pdf_pages": [
+    225
+   ],
+   "pdf_rows": 3,
+   "cells_compared": 84,
+   "row_modes": {
+    "multiset": 3
+   },
+   "rows_out_of_page_range": [],
+   "diffs": [
+    {
+     "row": "HEADER",
+     "kb_only": [
+      "GFGENSR",
+      "GFINHERTG",
+      "GFSTREFN"
+     ],
+     "pdf_only": [
+      "GFINHERT",
+      "GFORREF",
+      "GFSTREFC",
+      "GFSYMTYP"
+     ]
+    },
+    {
+     "row": 1,
+     "mode": "multiset",
+     "kb_only": [
+      "-25",
+      "4.88131177",
+      "Labs",
+      "NA01001",
+      "REAL",
+      "TIME"
+     ],
+     "pdf_only": [
+      "-3",
+      "2020-06-25",
+      "4:88131171",
+      "GENE",
+      "LABS",
+      "NA18537",
+      "PRODUCT",
+      "PROTEIN",
+      "REAL_TIME",
+      "T/T",
+      "T/T",
+      "VARIATION",
+      "WITH"
+     ]
+    },
+    {
+     "row": 2,
+     "mode": "multiset",
+     "kb_only": [
+      "-25",
+      "1",
+      "4.88131177",
+      "Labs",
+      "NA01001",
+      "REAL",
+      "TIME"
+     ],
+     "pdf_only": [
+      "-3",
+      "2",
+      "2020-06-25",
+      "4",
+      "4:88131171",
+      "G/T",
+      "G/T",
+      "GENE",
+      "GRCh38.p13",
+      "LABS",
+      "NA07000",
+      "PRODUCT",
+      "PROTEIN",
+      "REAL_TIME",
+      "VARIATION",
+      "WITH"
+     ]
+    },
+    {
+     "row": 3,
+     "mode": "multiset",
+     "kb_only": [
+      "1",
+      "2020-06-3",
+      "4.88131177",
+      "Labs",
+      "NA01001",
+      "REAL",
+      "TIME"
+     ],
+     "pdf_only": [
+      "2020-06-25",
+      "3",
+      "4:88131171",
+      "G/G",
+      "G/G",
+      "LABS",
+      "NA00131",
+      "REAL_TIME",
+      "VARIATION"
+     ]
+    }
+   ]
+  },
+  {
+   "file": "knowledge_base/domains/GF/examples.md",
+   "line": 84,
+   "n_rows": 16,
+   "header": "Row | STUDYID | DOMAIN | USUBJID | SPDEVID | GFSEQ | GFGRPID | GFREFID | GFSPID | GFTESTCD | GFTEST | GFTSTDTL | GFORRES",
+   "status": "OK",
+   "kb_duplicate": false,
+   "pdf_pages": [
+    226
+   ],
+   "pdf_rows": 16,
+   "cells_compared": 512,
+   "row_modes": {
+    "multiset": 16
+   },
+   "rows_out_of_page_range": [],
+   "diffs": []
+  },
+  {
+   "file": "knowledge_base/domains/GF/examples.md",
+   "line": 109,
+   "n_rows": 2,
+   "header": "Row | STUDYID | DOMAIN | SPDEVID | DISEQ | DIPARMCD | DIPARM | DIVAL",
+   "status": "OK",
+   "kb_duplicate": false,
+   "pdf_pages": [
+    226
+   ],
+   "pdf_rows": 2,
+   "cells_compared": 16,
+   "row_modes": {
+    "columns": 2
+   },
+   "rows_out_of_page_range": [],
+   "diffs": []
+  },
+  {
+   "file": "knowledge_base/domains/GF/examples.md",
+   "line": 124,
+   "n_rows": 6,
+   "header": "Row | STUDYID | DOMAIN | USUBJID | GFSEQ | GFREFID | GFTESTCD | GFTEST | GFTSTDTL | GFORRES | GFSTRESC | GFXFN | GFNAM |",
+   "status": "DIFF",
+   "kb_duplicate": false,
+   "pdf_pages": [
+    227
+   ],
+   "pdf_rows": 6,
+   "cells_compared": 130,
+   "row_modes": {
+    "multiset": 6
+   },
+   "rows_out_of_page_range": [],
+   "diffs": [
+    {
+     "row": "HEADER",
+     "kb_only": [],
+     "pdf_only": [
+      "GFGENSR"
+     ]
+    },
+    {
+     "row": 1,
+     "mode": "multiset",
+     "kb_only": [
+      "MS-D10418"
+     ],
+     "pdf_only": [
+      "INSTABILITY",
+      "MICROSATELLITE",
+      "MSI-010418",
+      "OVERALL",
+      "STATUS",
+      "msi_abc_gf.csv"
+     ]
+    },
+    {
+     "row": 2,
+     "mode": "multiset",
+     "kb_only": [
+      "MS-D10418"
+     ],
+     "pdf_only": [
+      "MSI-010418"
+     ]
+    },
+    {
+     "row": 3,
+     "mode": "multiset",
+     "kb_only": [
+      "MS-D10418"
+     ],
+     "pdf_only": [
+      "MSI-010418"
+     ]
+    },
+    {
+     "row": 4,
+     "mode": "multiset",
+     "kb_only": [
+      "MS-D10418"
+     ],
+     "pdf_only": [
+      "MSI-010418"
+     ]
+    },
+    {
+     "row": 5,
+     "mode": "multiset",
+     "kb_only": [
+      "MS-D10418"
+     ],
+     "pdf_only": [
+      "MSI-010418"
+     ]
+    },
+    {
+     "row": 6,
+     "mode": "multiset",
+     "kb_only": [
+      "MS-D10418"
+     ],
+     "pdf_only": [
+      "MSI-010418"
+     ]
+    }
+   ]
+  },
+  {
+   "file": "knowledge_base/domains/GF/examples.md",
+   "line": 141,
+   "n_rows": 1,
+   "header": "Row | STUDYID | DOMAIN | USUBJID | MBSEQ | MBREFID | MBTESTCD | MBTEST | MBORRES | MBSTRESC | MBSPEC | MBLOC | MBMETHOD ",
+   "status": "DIFF",
+   "kb_duplicate": false,
+   "pdf_pages": [
+    227
+   ],
+   "pdf_rows": 1,
+   "cells_compared": 16,
+   "row_modes": {
+    "multiset": 1
+   },
+   "rows_out_of_page_range": [],
+   "diffs": [
+    {
+     "row": 1,
+     "mode": "multiset",
+     "kb_only": [
+      "INFLU0101.1",
+      "Identification"
+     ],
+     "pdf_only": [
+      "H3N2",
+      "INFLU0101",
+      "Idenitifcation"
+     ]
+    }
+   ]
+  },
+  {
+   "file": "knowledge_base/domains/GF/examples.md",
+   "line": 155,
+   "n_rows": 3,
+   "header": "Row | STUDYID | DOMAIN | USUBJID | GFSEQ | GFREFID | NHOID | GFLNKID | GFTESTCD | GFTEST | GFTSTDTL | GFORRES | GFSTRESC",
+   "status": "OK",
+   "kb_duplicate": false,
+   "pdf_pages": [
+    228
+   ],
+   "pdf_rows": 3,
+   "cells_compared": 63,
+   "row_modes": {
+    "multiset": 3
+   },
+   "rows_out_of_page_range": [],
+   "diffs": []
+  },
+  {
+   "file": "knowledge_base/domains/GF/examples.md",
+   "line": 169,
+   "n_rows": 3,
+   "header": "Row | STUDYID | DOMAIN | USUBJID | MSSEQ | MSREFID | NHOID | MSLNKID | MSTESTCD | MSTEST | MSAGENT | MSORRES | MSSTRESC ",
+   "status": "OK",
+   "kb_duplicate": false,
+   "pdf_pages": [
+    228
+   ],
+   "pdf_rows": 3,
+   "cells_compared": 51,
+   "row_modes": {
+    "columns": 3
+   },
+   "rows_out_of_page_range": [],
+   "diffs": []
+  },
+  {
+   "file": "knowledge_base/domains/GF/examples.md",
+   "line": 179,
+   "n_rows": 2,
+   "header": "Row | STUDYID | RDOMAIN | USUBJID | IDVAR | IDVARVAL | RELTYPE | RELID",
+   "status": "OK",
+   "kb_duplicate": false,
+   "pdf_pages": [
+    228
+   ],
+   "pdf_rows": 2,
+   "cells_compared": 16,
+   "row_modes": {
+    "columns": 2
+   },
+   "rows_out_of_page_range": [],
+   "diffs": []
+  }
+ ],
+ "pdf_only": [
+  {
+   "pages": [
+    225
+   ],
+   "header": "Row STUDYID DOMAIN USUBJID SPDEVID GFSEQ GFGRPID GFREFID GFTESTCD GFTEST GFTSTDTL GFORRES GFORRESU GFSTRESC GFSTRESN GFS",
+   "n_rows": 9
+  }
+ ],
+ "pdf_unparsed": []
+}

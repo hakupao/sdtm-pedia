@@ -1,0 +1,343 @@
+{
+ "pages": "ig34:185-193",
+ "kb_files": [
+  "knowledge_base/domains/EG/assumptions.md",
+  "knowledge_base/domains/EG/examples.md"
+ ],
+ "tables": [
+  {
+   "file": "knowledge_base/domains/EG/examples.md",
+   "line": 23,
+   "n_rows": 12,
+   "header": "Row | STUDYID | DOMAIN | USUBJID | EGSEQ | EGREFID | EGTESTCD | EGTEST | EGCAT | EGPOS | EGORRES | EGORRESU | EGSTRESC |",
+   "status": "DIFF",
+   "kb_duplicate": false,
+   "pdf_pages": [
+    190
+   ],
+   "pdf_rows": 12,
+   "cells_compared": 276,
+   "row_modes": {
+    "multiset": 12
+   },
+   "rows_out_of_page_range": [],
+   "diffs": [
+    {
+     "row": "HEADER",
+     "kb_only": [],
+     "pdf_only": [
+      "EGLOBXFL"
+     ]
+    },
+    {
+     "row": 1,
+     "mode": "multiset",
+     "kb_only": [
+      "2003-04-36",
+      "PQW43787B-07.xml"
+     ],
+     "pdf_only": [
+      "1",
+      "2003-04-15T11:58",
+      "Lab",
+      "PQW436789-07.xml"
+     ]
+    },
+    {
+     "row": 2,
+     "mode": "multiset",
+     "kb_only": [
+      "2003-04-36",
+      "PQW43787B-07.xml"
+     ],
+     "pdf_only": [
+      "1",
+      "2003-04-15T11:58",
+      "Lab",
+      "PQW436789-07.xml"
+     ]
+    },
+    {
+     "row": 3,
+     "mode": "multiset",
+     "kb_only": [
+      "2003-04-36",
+      "PQW43787B-07.xml"
+     ],
+     "pdf_only": [
+      "1",
+      "2003-04-15T11:58",
+      "Lab",
+      "PQW436789-07.xml"
+     ]
+    },
+    {
+     "row": 4,
+     "mode": "multiset",
+     "kb_only": [
+      "2003-04-36",
+      "PQW43787B-07.xml"
+     ],
+     "pdf_only": [
+      "1",
+      "2003-04-15T11:58",
+      "Lab",
+      "PQW436789-07.xml"
+     ]
+    },
+    {
+     "row": 5,
+     "mode": "multiset",
+     "kb_only": [
+      "2003-04-36",
+      "PQW43787B-07.xml"
+     ],
+     "pdf_only": [
+      "1",
+      "2003-04-15T11:58",
+      "Lab",
+      "PQW436789-07.xml"
+     ]
+    },
+    {
+     "row": 6,
+     "mode": "multiset",
+     "kb_only": [
+      "2003-04-36",
+      "448",
+      "448",
+      "PQW43787B-07.xml"
+     ],
+     "pdf_only": [
+      "1",
+      "2003-04-15T11:58",
+      "446",
+      "446",
+      "Lab",
+      "PQW436789-07.xml"
+     ]
+    },
+    {
+     "row": 7,
+     "mode": "multiset",
+     "kb_only": [
+      "15T11:58",
+      "PQW43787B-07.xml",
+      "SPRATRY"
+     ],
+     "pdf_only": [
+      "1",
+      "2003-04-15T11:58",
+      "PQW436789-07.xml",
+      "SPRTARRY",
+      "Test"
+     ]
+    },
+    {
+     "row": 8,
+     "mode": "multiset",
+     "kb_only": [
+      "15T11:58",
+      "PQW43787B-07.xml",
+      "SPRATRY"
+     ],
+     "pdf_only": [
+      "1",
+      "2003-04-15T11:58",
+      "PQW436789-07.xml",
+      "SPRTARRY",
+      "Test"
+     ]
+    },
+    {
+     "row": 9,
+     "mode": "multiset",
+     "kb_only": [
+      "15T11:58",
+      "Changes:",
+      "Enlargement",
+      "PQW43787B-07.xml",
+      "STSTWUN",
+      "nonspecific",
+      "or"
+     ],
+     "pdf_only": [
+      "1",
+      "2003-04-15T11:58",
+      "PQW436789-07.xml",
+      "STSTWUW",
+      "Test"
+     ]
+    },
+    {
+     "row": 10,
+     "mode": "multiset",
+     "kb_only": [
+      "15T11:58",
+      "CHPTEN2",
+      "PQW43787B-07.xml"
+     ],
+     "pdf_only": [
+      "1",
+      "2003-04-15T11:58",
+      "CHYPTENL",
+      "PQW436789-07.xml",
+      "Test"
+     ]
+    },
+    {
+     "row": 11,
+     "mode": "multiset",
+     "kb_only": [
+      "15T11:58",
+      "FINDING",
+      "OTHER/INCORRECT",
+      "OTHER/INCORRECT",
+      "PQW43787B-07.xml"
+     ],
+     "pdf_only": [
+      "1",
+      "2003-04-15T11:58",
+      "INCORRECT",
+      "INCORRECT",
+      "OTHER",
+      "OTHER",
+      "PQW436789-07.xml",
+      "Test"
+     ]
+    },
+    {
+     "row": 12,
+     "mode": "multiset",
+     "kb_only": [
+      "15T11:58"
+     ],
+     "pdf_only": [
+      "1",
+      "2003-04-15T11:58"
+     ]
+    }
+   ]
+  },
+  {
+   "file": "knowledge_base/domains/EG/examples.md",
+   "line": 48,
+   "n_rows": 5,
+   "header": "Row | STUDYID | DOMAIN | USUBJID | EGSEQ | EGGRPID | EGTESTCD | EGTEST | EGPOS | EGORRES | EGSTRESC | EGLOBXFL | EGEVAL ",
+   "status": "DIFF",
+   "kb_duplicate": false,
+   "pdf_pages": [
+    190
+   ],
+   "pdf_rows": 5,
+   "cells_compared": 90,
+   "row_modes": {
+    "order": 5
+   },
+   "rows_out_of_page_range": [],
+   "diffs": [
+    {
+     "row": "HEADER",
+     "kb_only": [],
+     "pdf_only": [
+      "EGSTRESN"
+     ]
+    },
+    {
+     "row": 1,
+     "mode": "order",
+     "kb_only": "1 ABC EG ABC-99-CA-456 1 INTP Interpretation SUPINE NORMAL NORMAL PRINCIPAL INVESTIGATOR 1 SCREEN 1 -2 2003-11-26 -2",
+     "pdf_only": "1 ABC EG ABC-99-CA-456 1 INTP Interpretation SUPINE NORMAL NORMAL PRINCIPAL INVESTIGATOR 1 SCREEN I -2 2003-11-26 -2"
+    },
+    {
+     "row": 2,
+     "mode": "order",
+     "kb_only": "2 ABC EG ABC-99-CA-456 2 INTP Interpretation SUPINE NORMAL NORMAL Y PRINCIPAL INVESTIGATOR 2 SCREEN II -1 2003-11-27 -1",
+     "pdf_only": "2 ABC EG ABC-99-CA-456 2 INTP Interpretation SUPINE ABNORMAL ABNORMAL Y PRINCIPAL INVESTIGATOR 2 SCREEN II -1 2003-11-27 -1"
+    }
+   ]
+  },
+  {
+   "file": "knowledge_base/domains/EG/examples.md",
+   "line": 62,
+   "n_rows": 24,
+   "header": "Row | STUDYID | DOMAIN | USUBJID | EGSEQ | ... | EGTESTCD | EGTEST | EGCAT | EGPOS | EGORRES | EGORRESU | EGSTRESC | EGS",
+   "status": "OK",
+   "kb_duplicate": false,
+   "pdf_pages": [
+    190,
+    191
+   ],
+   "pdf_rows": 24,
+   "cells_compared": 576,
+   "row_modes": {
+    "multiset": 24
+   },
+   "rows_out_of_page_range": [],
+   "diffs": []
+  },
+  {
+   "file": "knowledge_base/domains/EG/examples.md",
+   "line": 101,
+   "n_rows": 8,
+   "header": "Row | STUDYID | DOMAIN | USUBJID | EGSEQ | EGBEATNO | EGTESTCD | EGTEST | EGCAT | EGPOS | EGORRES | EGORRESU | EGSTRESC ",
+   "status": "DIFF",
+   "kb_duplicate": false,
+   "pdf_pages": [
+    192
+   ],
+   "pdf_rows": 8,
+   "cells_compared": 176,
+   "row_modes": {
+    "multiset": 8
+   },
+   "rows_out_of_page_range": [],
+   "diffs": [
+    {
+     "row": 3,
+     "mode": "multiset",
+     "kb_only": [
+      "2014-02-11T14:32:12.3"
+     ],
+     "pdf_only": [
+      "2014-02-11T14:32:13.3"
+     ]
+    },
+    {
+     "row": 6,
+     "mode": "multiset",
+     "kb_only": [
+      "2014-02-11T15:32:13.3"
+     ],
+     "pdf_only": [
+      "2014-02-11T15:32:14.2"
+     ]
+    }
+   ]
+  }
+ ],
+ "pdf_only": [
+  {
+   "pages": [
+    185
+   ],
+   "header": "Row STUDYID DOMAIN USUBJID DDSEQ DDTESTCD DDTEST DDORRES DDSTRESC DDDTC",
+   "n_rows": 1
+  },
+  {
+   "pages": [
+    185
+   ],
+   "header": "Row STUDYID DOMAIN USUBJID DSSEQ DSTERM DSDECOD DSCAT DSDTC DSSTDTC",
+   "n_rows": 3
+  },
+  {
+   "pages": [
+    185
+   ],
+   "header": "Row STUDYID RDOMAIN USUBJID IDVAR IDVARVAL RELTYPE RELID",
+   "n_rows": 3
+  }
+ ],
+ "pdf_unparsed": []
+}

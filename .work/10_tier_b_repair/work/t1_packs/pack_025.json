@@ -1,0 +1,161 @@
+{
+ "pack_id": "pack_025",
+ "lane": "lane_C",
+ "units": [
+  "knowledge_base/domains/BS",
+  "knowledge_base/domains/SU"
+ ],
+ "n_atoms": 5,
+ "sections": [
+  {
+   "source": "ig34",
+   "section_key": "§6.1.6 [Substance Use (SU)]",
+   "primary_unit": "knowledge_base/domains/SU",
+   "part": null,
+   "n_atoms": 3,
+   "pdf_pages": [
+    129,
+    131
+   ]
+  },
+  {
+   "source": "ig34",
+   "section_key": "§6.3.5.2 Biospecimen Findings (BS)",
+   "primary_unit": "knowledge_base/domains/BS",
+   "part": null,
+   "n_atoms": 2,
+   "pdf_pages": [
+    198
+   ]
+  }
+ ],
+ "pdf_pages": [
+  "ig34_p0129",
+  "ig34_p0130",
+  "ig34_p0131",
+  "ig34_p0132",
+  "ig34_p0198",
+  "ig34_p0199"
+ ],
+ "kb_targets": [
+  {
+   "file": "knowledge_base/domains/BS/assumptions.md",
+   "lines": [
+    [
+     1,
+     11
+    ]
+   ]
+  },
+  {
+   "file": "knowledge_base/domains/BS/examples.md",
+   "lines": [
+    [
+     1,
+     20
+    ]
+   ]
+  },
+  {
+   "file": "knowledge_base/domains/SU/assumptions.md",
+   "lines": [
+    [
+     1,
+     20
+    ]
+   ]
+  },
+  {
+   "file": "knowledge_base/domains/SU/examples.md",
+   "lines": [
+    [
+     1,
+     43
+    ]
+   ]
+  }
+ ],
+ "kb_owned_files": [
+  "knowledge_base/domains/BS/assumptions.md",
+  "knowledge_base/domains/BS/examples.md",
+  "knowledge_base/domains/BS/spec.md",
+  "knowledge_base/domains/SU/assumptions.md",
+  "knowledge_base/domains/SU/examples.md",
+  "knowledge_base/domains/SU/spec.md"
+ ],
+ "kb_context_readonly": [
+  "knowledge_base/chapters/ch08_relationships.md"
+ ],
+ "atoms": [
+  {
+   "atom_id": "ig34_p0129_a003",
+   "atom_type": "SENTENCE",
+   "pdf_page": 129,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "FP_HIT_ELSEWHERE",
+   "prefilter_suggest": null,
+   "fp_hit": "knowledge_base/terminology/core/general_part4.md:227",
+   "fp_hit_in_section": null,
+   "fp_v_len": 190,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0129_a005",
+   "atom_type": "SENTENCE",
+   "pdf_page": 129,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "NO_HIT",
+   "prefilter_suggest": null,
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 117,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0131_a001",
+   "atom_type": "TABLE_ROW",
+   "pdf_page": 131,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "FP_HIT_ELSEWHERE",
+   "prefilter_suggest": "RELOCATE",
+   "fp_hit": "knowledge_base/domains/SU/spec.md:309",
+   "fp_hit_in_section": null,
+   "fp_v_len": 117,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0198_a020",
+   "atom_type": "SENTENCE",
+   "pdf_page": 198,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "NO_HIT",
+   "prefilter_suggest": null,
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 228,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0198_a021",
+   "atom_type": "SENTENCE",
+   "pdf_page": 198,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "FP_HIT_SECTION",
+   "prefilter_suggest": "PRESENT",
+   "fp_hit": "knowledge_base/domains/BS/examples.md:9",
+   "fp_hit_in_section": null,
+   "fp_v_len": 211,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  }
+ ]
+}

@@ -103,3 +103,23 @@ bash $T/scripts/t0_mutation.sh > $T/evidence/checkpoints/t0_mutation.log 2>&1
     但 p278 的表里 row 14-26 是 RELID 1, row 26 是 DY1DRGX. KB 两处都照抄了, 所以 census 是绿的. 记为 PDF_TYPO 候选.
 - **范围外的大发现**: `PP/examples.md:16` (§6.3.5.9.2 Example 1, 24 行) 的内容更像 PDF 的 Example 3 (DRUGA_DAY1, 0.65 …), 而 PDF p273 的 Example 1 (DAY1_PAR, 1.87 …) 在 KB 里没有配上 (PDF_ONLY). 疑似整表放错或抄错, T1 要列入.
 - Issue 5 的 "143" 仍无法复现. census 给出的确定性数字是: B-PCPP 范围内 42 处 DIFF, 其中表头 2 处、PDF_TYPO 候选 3 处.
+
+## 5. 补丁: 预期表断言 (verifier nit #1, 用户 ack 附带要求) — 2026-11-25T13:47Z
+
+- `scripts/t0_mutation.sh` 加 `expect()` 预期表 (fp census t3 退出码): M0/RESTORE `0 0 0`; M1/M3 `1 0 1`; M2/M2b/M2c/M2d `0 1 0`.
+  每个变异实际退出码与预期不符 → 记 MISMATCH; 末尾打印预期表, 有不符 `exit 1`, 全符 `exit 0`. (bash 3.2 无关联数组, 用 case 函数.)
+- 复跑: `cd /Volumes/DevSSD/Project/sdtm-pedia && bash .work/10_tier_b_repair/scripts/t0_mutation.sh > .work/10_tier_b_repair/evidence/checkpoints/t0_mutation_v2.log 2>&1; echo $?`
+  → **exit 0**, 完整 log `evidence/checkpoints/t0_mutation_v2.log` (原 `t0_mutation.log` 保留不覆盖). 末段:
+
+```
+M0       expect=[0 0 0] got=[0 0 0] OK
+M1       expect=[1 0 1] got=[1 0 1] OK
+M2       expect=[0 1 0] got=[0 1 0] OK
+M2b      expect=[0 1 0] got=[0 1 0] OK
+M2c      expect=[0 1 0] got=[0 1 0] OK
+M2d      expect=[0 1 0] got=[0 1 0] OK
+M3       expect=[1 0 1] got=[1 0 1] OK
+RESTORE  expect=[0 0 0] got=[0 0 0] OK
+MUTATION RESULT: ALL MATCH (exit 0)
+```
+- 断言本身的反向验证: 取脚本第 18-19 行 (`expect()` + 计数器) 套最小 harness, 喂 `M2 got="0 0 0"` (模拟 census 失明) → `mismatch detected`, exit 1. 真 KB md5 前后均 `5ae88550…`.

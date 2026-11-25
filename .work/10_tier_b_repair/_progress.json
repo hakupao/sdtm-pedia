@@ -3,9 +3,9 @@
   "tier": 3,
   "plan": "PLAN.md",
   "plan_version": "v1.0",
-  "status": "EXECUTING — T0 (T0.4 hard checkpoint, 等用户 ack)",
-  "current_step": "T0.4",
-  "next_step": "T1.1 (须用户 ack T0.4 后)",
+  "status": "EXECUTING — T1",
+  "current_step": "T1.2",
+  "next_step": "T1.3",
   "baseline": {
     "tier_b_p4b_orig": {
       "SIBLING_DROPPED": 56,
@@ -77,6 +77,38 @@
         "evidence/checkpoints/t0_mutation.log"
       ],
       "note": "M1 fp+t3 红 / M2 census 红 (+M2b 空格挪值 / M2c 折行记录 / M2d 删行 均红) / M3 fp+t3 红 / 复原全绿; 真 KB md5 前后一致"
+    },
+    {
+      "step": "T1.1",
+      "status": "PASS",
+      "artifacts": [
+        "scripts/t1_prefilter.py",
+        "work/triage_prefilter.jsonl",
+        "work/census_t1/ (15 units)",
+        "evidence/checkpoints/t1_prefilter.log",
+        "scripts/t1_pack.py",
+        "work/t1_packs/ (33 packs + index.md)",
+        "subagent_prompts/t1_triage_writer_v1.0.md",
+        "subagent_prompts/t1_triage_reviewer_v1.0.md",
+        "subagent_prompts/t1_calibration.md"
+      ],
+      "note": "1459 gap + 2 manual = 1461 行; 复现 inventory 944/445/452; spec_row MATCH 421 / MISMATCH 2 / NOT_FOUND 32 / HEADER 24; 33 包, lane A9/B8/C8/D8 (366/365/365/365 原子), owned 文件 lane 间不相交; v2 (advisor 复核): census 多候选按目标文件+单元格一致度择一 (AMBIGUOUS 规则), spec match_via, TABLE_HEADER/terminology 命中不给 suggest, IE_CAND 规则统一, 标定 +C11 LOCATE",
+      "prefilter_class": {
+        "NO_HIT": 431,
+        "FP_HIT_SECTION": 217,
+        "FP_HIT_ELSEWHERE": 41,
+        "FP_HIT_SHORT": 125,
+        "FP_HIT_FILE_OUTSIDE_SECTION": 3,
+        "ATOM_NOT_ON_PAGE": 8,
+        "FIGURE": 12,
+        "SPEC_MISMATCH": 2,
+        "SPEC_MATCH": 421,
+        "SPEC_HEADER": 24,
+        "CENSUS_DIFF": 45,
+        "CENSUS_OK": 98,
+        "SPEC_NOT_FOUND": 32,
+        "MANUAL": 2
+      }
     }
   ],
   "steps": {
@@ -84,7 +116,7 @@
     "T0.3": "PASS",
     "T0.3b": "PASS",
     "T0.4": "PASS — awaiting user ack (hard)",
-    "T1.1": "pending",
+    "T1.1": "PASS",
     "T1.2": "pending",
     "T1.3": "pending",
     "T1.4": "pending",
@@ -137,6 +169,8 @@
     "work/section_coverage.wc.baseline.jsonl": "872dbe8690c735d572354aea16fbad1f",
     "work/fp_baseline.jsonl": "248abb3f2f20b8c6982a3c9f7d3b0fbe",
     "work/census_BPCPP.json": "2ee7a6f68d36459703e1a9486adb2a30 (columns 模式版)",
-    "knowledge_base tree (t0_mutation.sh kbsum)": "5ae88550adcecaf3c9349233f7fa07fc"
+    "knowledge_base tree (t0_mutation.sh kbsum)": "5ae88550adcecaf3c9349233f7fa07fc",
+    "work/triage_prefilter.jsonl": "f3d6171440eadfe47ddbca2aea3f2b30",
+    "scripts/t0_mutation.sh (expect 表版)": "b663b960e1e70b0d7a98b5368b354bae"
   }
 }

@@ -1,0 +1,278 @@
+{
+ "pages": "ig34:199-221",
+ "kb_files": [
+  "knowledge_base/domains/CP/assumptions.md",
+  "knowledge_base/domains/CP/examples.md"
+ ],
+ "tables": [
+  {
+   "file": "knowledge_base/domains/CP/examples.md",
+   "line": 31,
+   "n_rows": 16,
+   "header": "Row | STUDYID | DOMAIN | USUBJID | CPSEQ | CPTESTCD | CPTEST | CPMRKSTR | CPCAT | CPORRES | CPORRESU | CPSTRESC | CPSTRE",
+   "status": "DIFF",
+   "kb_duplicate": false,
+   "pdf_pages": [
+    210
+   ],
+   "pdf_rows": 16,
+   "cells_compared": 304,
+   "row_modes": {
+    "multiset": 16
+   },
+   "rows_out_of_page_range": [],
+   "diffs": [
+    {
+     "row": "HEADER",
+     "kb_only": [
+      "CPRESU"
+     ],
+     "pdf_only": [
+      "CPSTRESU"
+     ]
+    },
+    {
+     "row": 3,
+     "mode": "multiset",
+     "kb_only": [],
+     "pdf_only": [
+      "%"
+     ]
+    },
+    {
+     "row": 5,
+     "mode": "multiset",
+     "kb_only": [],
+     "pdf_only": [
+      "%"
+     ]
+    },
+    {
+     "row": 7,
+     "mode": "multiset",
+     "kb_only": [],
+     "pdf_only": [
+      "%"
+     ]
+    },
+    {
+     "row": 8,
+     "mode": "multiset",
+     "kb_only": [
+      "CD45+CD3+CD4+CD8-/CD45+CD3+CD19-CD14-CD56-"
+     ],
+     "pdf_only": [
+      "CD45+CD3+CD4+CD8-"
+     ]
+    },
+    {
+     "row": 9,
+     "mode": "multiset",
+     "kb_only": [
+      "CD45+CD3+CD19+CD4+CD8-/CD45+CD3+CD19-CD14-CD56-"
+     ],
+     "pdf_only": [
+      "%",
+      "CD45+CD3+CD4+CD8-/CD45+CD3+CD19-CD14-CD56-"
+     ]
+    },
+    {
+     "row": 10,
+     "mode": "multiset",
+     "kb_only": [],
+     "pdf_only": [
+      "10^6/L"
+     ]
+    },
+    {
+     "row": 11,
+     "mode": "multiset",
+     "kb_only": [],
+     "pdf_only": [
+      "%"
+     ]
+    },
+    {
+     "row": 12,
+     "mode": "multiset",
+     "kb_only": [
+      "CD45+CD3-CD19-CD14+CD56-"
+     ],
+     "pdf_only": [
+      "10^6/L",
+      "CD45+CD3-CD19-CD14+CD56-FSC",
+      "SSC"
+     ]
+    },
+    {
+     "row": 13,
+     "mode": "multiset",
+     "kb_only": [
+      "CD45+CD3-CD19-CD14+CD56-/FSC",
+      "MONOCLE"
+     ],
+     "pdf_only": [
+      "%",
+      "CD45+CD3-CD19-CD14+CD56-FSC",
+      "MONOLE"
+     ]
+    },
+    {
+     "row": 14,
+     "mode": "multiset",
+     "kb_only": [],
+     "pdf_only": [
+      "10^6/L"
+     ]
+    },
+    {
+     "row": 15,
+     "mode": "multiset",
+     "kb_only": [],
+     "pdf_only": [
+      "%"
+     ]
+    },
+    {
+     "row": 16,
+     "mode": "multiset",
+     "kb_only": [
+      "CYTOMETRY",
+      "FLOW"
+     ],
+     "pdf_only": [
+      "CALCULATION"
+     ]
+    }
+   ]
+  },
+  {
+   "file": "knowledge_base/domains/CP/examples.md",
+   "line": 60,
+   "n_rows": 4,
+   "header": "Row | STUDYID | DOMAIN | USUBJID | CPSEQ | CPTESTCD | CPTEST | CPMRKSTR | CPGATE | CPGATDEF | CPCAT | CPORRES | CPORRESU",
+   "status": "DIFF",
+   "kb_duplicate": false,
+   "pdf_pages": [
+    210,
+    211
+   ],
+   "pdf_rows": 4,
+   "cells_compared": 83,
+   "row_modes": {
+    "multiset": 4
+   },
+   "rows_out_of_page_range": [],
+   "diffs": [
+    {
+     "row": "HEADER",
+     "kb_only": [
+      "CPRESU"
+     ],
+     "pdf_only": [
+      "CPSTRESU"
+     ]
+    },
+    {
+     "row": 3,
+     "mode": "multiset",
+     "kb_only": [],
+     "pdf_only": [
+      "%",
+      "CD45+",
+      "LEUK"
+     ]
+    },
+    {
+     "row": 4,
+     "mode": "multiset",
+     "kb_only": [
+      "10^6/L",
+      "10^6/L",
+      "1710",
+      "1710",
+      "1710",
+      "4",
+      "CONCENTRATION",
+      "LYM",
+      "Lymphocytes",
+      "SSC"
+     ],
+     "pdf_only": [
+      "%",
+      "%",
+      "25.8",
+      "25.8",
+      "25.8",
+      "3",
+      "FRACTION",
+      "LYMLE",
+      "Lymphocytes/Leukocytes",
+      "SSC/LEUK"
+     ]
+    }
+   ]
+  }
+ ],
+ "pdf_only": [
+  {
+   "pages": [
+    199
+   ],
+   "header": "Row STUDYID DOMAIN USUBJID BSSEQ BSREFID BSTESTCD BSTEST BSCAT BSORRES BSSTRESC BSSTRESN BSXFN BSNAM BSSPEC BSMETHOD BSR",
+   "n_rows": 4
+  },
+  {
+   "pages": [
+    211,
+    212
+   ],
+   "header": "Row STUDYID DOMAIN USUBJID CPSEQ CPGRPID CPTESTCD CPTEST CPCELSTA CPCSMRKS CPMRKSTR CPGATE CPGATDEF CPCAT CPTSTPNL CPORR",
+   "n_rows": 11
+  },
+  {
+   "pages": [
+    213
+   ],
+   "header": "Row STUDYID DOMAIN USUBJID CPSEQ CPGRPID CPTESTCD CPTEST CPSBMRKS CPCELSTA CPCSMRKS CPMRKSTR CPGATE CPGATDEF CPCAT CPTST",
+   "n_rows": 12
+  },
+  {
+   "pages": [
+    214
+   ],
+   "header": "Row STUDYID DOMAIN USUBJID CPSEQ CPGRPID CPTESTCD CPTEST CPCELSTA CPCSMRKS CPTSTCND CPCNDAGT CPMRKSTR CPGATE CPGATDEF CP",
+   "n_rows": 7
+  },
+  {
+   "pages": [
+    215
+   ],
+   "header": "Row STUDYID DOMAIN USUBJID CPSEQ CPGRPID CPTESTCD CPTEST CPCELSTA CPCSMRKS CPMRKSTR CPGATE CPGATDEF CPCAT CPSCAT CPTSTPN",
+   "n_rows": 8
+  },
+  {
+   "pages": [
+    216,
+    217
+   ],
+   "header": "Row STUDYID DOMAIN USUBJID CPSEQ CPGRPID CPTESTCD CPTEST CPSBMRKS CPCELSTA CPCSMRKS CPMRKSTR CPGATE CPGATDEF CPSPTSTD CP",
+   "n_rows": 32
+  },
+  {
+   "pages": [
+    218
+   ],
+   "header": "Row STUDYID DOMAIN USUBJID CPSEQ CPTESTCD CPTEST CPBDAGNT CPMRKSTR CPGATE CPGATDEF CPCAT CPSCAT CPTSTPNL CPORRES CPORRES",
+   "n_rows": 3
+  },
+  {
+   "pages": [
+    219
+   ],
+   "header": "Row STUDYID DOMAIN USUBJID CPSEQ CPGRPID CPTESTCD CPTEST CPTSTCND CPBDAGNT CPMRKSTR CPGATE CPGATDEF CPSPTSTD CPCAT CPSCA",
+   "n_rows": 11
+  }
+ ],
+ "pdf_unparsed": []
+}

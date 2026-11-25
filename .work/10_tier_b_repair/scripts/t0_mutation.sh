@@ -14,19 +14,26 @@ kbsum() { (cd "$1" && find . -type f -name '*.md' -print0 | sort -z | xargs -0 m
 
 reset() { rm -rf "$K"; mkdir -p "$S"; cp -R "$R/knowledge_base" "$K"; }
 
+# expected exit codes "fp census t3" per mutation (1 = RED vs baseline, 0 = GREEN); mismatch -> script exit 1
+expect() { case "$1" in M0|RESTORE) echo "0 0 0";; M1|M3) echo "1 0 1";; M2|M2b|M2c|M2d) echo "0 1 0";; *) echo "?";; esac; }  # bash 3.2: no assoc arrays
+MISMATCH=0; SUMMARY=""
+
 gates() {  # $1 = label
   echo "---- [$1] fp_match"
   $PY $T/scripts/fp_match.py --kb-root "$K" --out "$S/fp_$1.jsonl" \
       --baseline $T/work/fp_baseline.jsonl --regress-out "$S/reg_$1.jsonl" | grep -E "^(atoms|BASELINE|  REGRESS|RESULT)" | head -12
-  echo "fp_match exit=${PIPESTATUS[0]}"
+  local e1=${PIPESTATUS[0]}; echo "fp_match exit=$e1"
   echo "---- [$1] table_census"
   $PY $T/scripts/table_census.py --kb-root "$K" $CEN --out "$S/census_$1.json" \
       --baseline $T/work/census_BPCPP.json | grep -E "^(PDF tables|BASELINE|  CHANGED|RESULT)"
-  echo "table_census exit=${PIPESTATUS[0]}"
+  local e2=${PIPESTATUS[0]}; echo "table_census exit=$e2"
   echo "---- [$1] t3_recompute (--downgrade fp regressions)"
   $PY $T/scripts/t3_recompute.py --downgrade "$S/reg_$1.jsonl" --out "$S/sc_$1.jsonl" \
       --baseline $T/work/section_coverage.wc.baseline.jsonl | grep -E "^(  downgraded|TB:|BASELINE|  DIFF|RESULT)"
-  echo "t3_recompute exit=${PIPESTATUS[0]}"
+  local e3=${PIPESTATUS[0]}; echo "t3_recompute exit=$e3"
+  local got="$e1 $e2 $e3" ok=OK
+  [ "$got" = "$(expect $1)" ] || { ok=MISMATCH; MISMATCH=1; }
+  SUMMARY+="$(printf '%-8s expect=[%s] got=[%s] %s' "$1" "$(expect $1)" "$got" "$ok")"$'\n'
 }
 
 echo "real KB md5 (before): $(kbsum $R/knowledge_base)"
@@ -96,3 +103,5 @@ reset; echo "copy KB md5: $(kbsum $K)"; gates RESTORE
 
 echo "real KB md5 (after): $(kbsum $R/knowledge_base)"
 echo "git status knowledge_base/ archive/ releases/:"; (cd $R && git status --short knowledge_base archive releases; echo "(end)")
+echo "==== EXPECT TABLE (fp census t3)"; printf '%s' "$SUMMARY"
+if [ "$MISMATCH" = 0 ]; then echo "MUTATION RESULT: ALL MATCH (exit 0)"; exit 0; else echo "MUTATION RESULT: MISMATCH (exit 1)"; exit 1; fi

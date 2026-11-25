@@ -1,0 +1,127 @@
+{
+ "pages": "ig34:387-390",
+ "kb_files": [
+  "knowledge_base/domains/TA/assumptions.md",
+  "knowledge_base/domains/TA/examples.md"
+ ],
+ "tables": [
+  {
+   "file": "knowledge_base/domains/TA/assumptions.md",
+   "line": 31,
+   "n_rows": 9,
+   "header": "Concept | Definition",
+   "status": "UNPARSEABLE"
+  },
+  {
+   "file": "knowledge_base/domains/TA/examples.md",
+   "line": 112,
+   "n_rows": 3,
+   "header": " | Screen | Run-in | Treatment",
+   "status": "UNPARSEABLE"
+  },
+  {
+   "file": "knowledge_base/domains/TA/examples.md",
+   "line": 120,
+   "n_rows": 9,
+   "header": "Row | STUDYID | DOMAIN | ARMCD | ARM | TAETORD | ETCD | ELEMENT | TABRANCH | TATRANS | EPOCH",
+   "status": "OK",
+   "kb_duplicate": false,
+   "pdf_pages": [
+    389
+   ],
+   "pdf_rows": 9,
+   "cells_compared": 99,
+   "row_modes": {
+    "columns": 9
+   },
+   "rows_out_of_page_range": [],
+   "diffs": []
+  },
+  {
+   "file": "knowledge_base/domains/TA/examples.md",
+   "line": 225,
+   "n_rows": 3,
+   "header": " | Screen | First Treatment | First Rest | Second Treatment | Second Rest | Third Treatment | Follow-up",
+   "status": "UNPARSEABLE"
+  },
+  {
+   "file": "knowledge_base/domains/TA/examples.md",
+   "line": 233,
+   "n_rows": 21,
+   "header": "Row | STUDYID | DOMAIN | ARMCD | ARM | TAETORD | ETCD | ELEMENT | TABRANCH | TATRANS | EPOCH",
+   "status": "NO_PDF"
+  },
+  {
+   "file": "knowledge_base/domains/TA/examples.md",
+   "line": 336,
+   "n_rows": 4,
+   "header": " | Screen | Double Blind | Open Label",
+   "status": "UNPARSEABLE"
+  },
+  {
+   "file": "knowledge_base/domains/TA/examples.md",
+   "line": 345,
+   "n_rows": 12,
+   "header": "Row | STUDYID | DOMAIN | ARMCD | ARM | TAETORD | ETCD | ELEMENT | TABRANCH | TATRANS | EPOCH",
+   "status": "NO_PDF"
+  },
+  {
+   "file": "knowledge_base/domains/TA/examples.md",
+   "line": 466,
+   "n_rows": 2,
+   "header": " | Screen | Treatment |  |  |  |  |  |  |  | Follow-up",
+   "status": "UNPARSEABLE"
+  },
+  {
+   "file": "knowledge_base/domains/TA/examples.md",
+   "line": 473,
+   "n_rows": 20,
+   "header": "Row | STUDYID | DOMAIN | ARMCD | ARM | TAETORD | ETCD | ELEMENT | TABRANCH | TATRANS | EPOCH",
+   "status": "NO_PDF"
+  },
+  {
+   "file": "knowledge_base/domains/TA/examples.md",
+   "line": 538,
+   "n_rows": 2,
+   "header": " | Screen | Treatment |  |  |  |  |  | Follow-up",
+   "status": "UNPARSEABLE"
+  },
+  {
+   "file": "knowledge_base/domains/TA/examples.md",
+   "line": 545,
+   "n_rows": 16,
+   "header": "Row | STUDYID | DOMAIN | ARMCD | ARM | TAETORD | ETCD | ELEMENT | TABRANCH | TATRANS | EPOCH",
+   "status": "NO_PDF"
+  },
+  {
+   "file": "knowledge_base/domains/TA/examples.md",
+   "line": 608,
+   "n_rows": 2,
+   "header": " | Screen | Treatment |  |  |  |  |  |  |  | Follow-up",
+   "status": "UNPARSEABLE"
+  },
+  {
+   "file": "knowledge_base/domains/TA/examples.md",
+   "line": 615,
+   "n_rows": 18,
+   "header": "Row | STUDYID | DOMAIN | ARMCD | ARM | TAETORD | ETCD | ELEMENT | TABRANCH | TATRANS | EPOCH",
+   "status": "NO_PDF"
+  },
+  {
+   "file": "knowledge_base/domains/TA/examples.md",
+   "line": 709,
+   "n_rows": 2,
+   "header": " | Screen | Induction | Continuation |  |  |  | Follow-up",
+   "status": "UNPARSEABLE"
+  },
+  {
+   "file": "knowledge_base/domains/TA/examples.md",
+   "line": 718,
+   "n_rows": 15,
+   "header": "Row | STUDYID | DOMAIN | ARMCD | ARM | TAETORD | ETCD | ELEMENT | TABRANCH | TATRANS | EPOCH",
+   "status": "NO_PDF"
+  }
+ ],
+ "pdf_only": [],
+ "pdf_unparsed": []
+}

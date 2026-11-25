@@ -1,0 +1,80 @@
+{
+ "pages": "ig34:121-125",
+ "kb_files": [
+  "knowledge_base/domains/ML/assumptions.md",
+  "knowledge_base/domains/ML/examples.md"
+ ],
+ "tables": [
+  {
+   "file": "knowledge_base/domains/ML/examples.md",
+   "line": 14,
+   "n_rows": 4,
+   "header": "Type |  |  | If Nutritional Drink, Volume (ounces) | Start Date | Start Time | Event ID",
+   "status": "UNPARSEABLE"
+  },
+  {
+   "file": "knowledge_base/domains/ML/examples.md",
+   "line": 25,
+   "n_rows": 3,
+   "header": "Type | Occurrence |  | If yes, Date",
+   "status": "UNPARSEABLE"
+  },
+  {
+   "file": "knowledge_base/domains/ML/examples.md",
+   "line": 39,
+   "n_rows": 6,
+   "header": "Row | STUDYID | DOMAIN | USUBJID | MLSEQ | MLTRT | MLCAT | MLPRESP | MLOCCUR | MLDOSE | MLDOSU | MLDTC | MLSTDTC | MLEND",
+   "status": "OK",
+   "kb_duplicate": false,
+   "pdf_pages": [
+    123,
+    124
+   ],
+   "pdf_rows": 6,
+   "cells_compared": 108,
+   "row_modes": {
+    "multiset": 6
+   },
+   "rows_out_of_page_range": [],
+   "diffs": []
+  },
+  {
+   "file": "knowledge_base/domains/ML/examples.md",
+   "line": 52,
+   "n_rows": 2,
+   "header": "Group | Arms | Details",
+   "status": "UNPARSEABLE"
+  },
+  {
+   "file": "knowledge_base/domains/ML/examples.md",
+   "line": 63,
+   "n_rows": 9,
+   "header": "Row | STUDYID | DOMAIN | USUBJID | MLSEQ | MLTRT | VISITNUM | VISIT | MLSTDTC",
+   "status": "DIFF",
+   "kb_duplicate": false,
+   "pdf_pages": [
+    124
+   ],
+   "pdf_rows": 9,
+   "cells_compared": 81,
+   "row_modes": {
+    "columns": 9
+   },
+   "rows_out_of_page_range": [],
+   "diffs": [
+    {
+     "row": 2,
+     "mode": "columns",
+     "kb_only": [
+      "col6='WHITE MILK'"
+     ],
+     "pdf_only": [
+      "col6='WHTE MILK'"
+     ]
+    }
+   ]
+  }
+ ],
+ "pdf_only": [],
+ "pdf_unparsed": []
+}

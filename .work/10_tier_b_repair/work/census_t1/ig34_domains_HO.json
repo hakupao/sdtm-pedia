@@ -1,0 +1,114 @@
+{
+ "pages": "ig34:167-172",
+ "kb_files": [
+  "knowledge_base/domains/HO/assumptions.md",
+  "knowledge_base/domains/HO/examples.md"
+ ],
+ "tables": [
+  {
+   "file": "knowledge_base/domains/HO/examples.md",
+   "line": 19,
+   "n_rows": 12,
+   "header": "Row | STUDYID | DOMAIN | USUBJID | HOSEQ | HOTERM | EPOCH | HOSTDTC | HOENDTC | HODUR",
+   "status": "DIFF",
+   "kb_duplicate": false,
+   "pdf_pages": [
+    170
+   ],
+   "pdf_rows": 12,
+   "cells_compared": 120,
+   "row_modes": {
+    "columns": 12
+   },
+   "rows_out_of_page_range": [],
+   "diffs": [
+    {
+     "row": 5,
+     "mode": "columns",
+     "kb_only": [
+      "col6='REHABILITATION FACILITY'"
+     ],
+     "pdf_only": [
+      "col6='REHABILIATION FACILITY'"
+     ]
+    }
+   ]
+  },
+  {
+   "file": "knowledge_base/domains/HO/examples.md",
+   "line": 46,
+   "n_rows": 6,
+   "header": "Row | STUDYID | RDOMAIN | USUBJID | IDVAR | IDVARVAL | QNAM | QLABEL | QVAL | QORIG | QEVAL",
+   "status": "OK",
+   "kb_duplicate": false,
+   "pdf_pages": [
+    170
+   ],
+   "pdf_rows": 6,
+   "cells_compared": 66,
+   "row_modes": {
+    "columns": 6
+   },
+   "rows_out_of_page_range": [],
+   "diffs": []
+  },
+  {
+   "file": "knowledge_base/domains/HO/examples.md",
+   "line": 61,
+   "n_rows": 11,
+   "header": "Row | STUDYID | DOMAIN | USUBJID | HOSEQ | HOTERM | HOCAT | HOSTDTC | HOENDTC | HOENRTPT | HOENTPT",
+   "status": "DIFF",
+   "kb_duplicate": false,
+   "pdf_pages": [
+    170,
+    171
+   ],
+   "pdf_rows": 11,
+   "cells_compared": 121,
+   "row_modes": {
+    "columns": 11
+   },
+   "rows_out_of_page_range": [],
+   "diffs": [
+    {
+     "row": 10,
+     "mode": "columns",
+     "kb_only": [
+      "col8='2011-06-25T17:00'"
+     ],
+     "pdf_only": [
+      "col8='2011-06-25T10:00'"
+     ]
+    }
+   ]
+  },
+  {
+   "file": "knowledge_base/domains/HO/examples.md",
+   "line": 79,
+   "n_rows": 1,
+   "header": "Row | STUDYID | RDOMAIN | USUBJID | IDVAR | IDVARVAL | QNAM | QLABEL | QVAL | QORIG | QEVAL",
+   "status": "OK",
+   "kb_duplicate": false,
+   "pdf_pages": [
+    171
+   ],
+   "pdf_rows": 1,
+   "cells_compared": 11,
+   "row_modes": {
+    "columns": 1
+   },
+   "rows_out_of_page_range": [],
+   "diffs": []
+  }
+ ],
+ "pdf_only": [
+  {
+   "pages": [
+    167
+   ],
+   "header": "Row STUDYID DOMAIN USUBJID DSSEQ DSTERM DSDECOD DSCAT DSSCAT TAETORD EPOCH DSSTDTC",
+   "n_rows": 7
+  }
+ ],
+ "pdf_unparsed": []
+}

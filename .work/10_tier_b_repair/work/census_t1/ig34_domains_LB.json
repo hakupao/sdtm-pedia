@@ -1,0 +1,160 @@
+{
+ "pages": "ig34:241-249",
+ "kb_files": [
+  "knowledge_base/domains/LB/assumptions.md",
+  "knowledge_base/domains/LB/examples.md"
+ ],
+ "tables": [
+  {
+   "file": "knowledge_base/domains/LB/examples.md",
+   "line": 33,
+   "n_rows": 3,
+   "header": "Row | STUDYID | DOMAIN | USUBJID | LBSEQ | LBTESTCD | LBTEST | LBCAT | LBORRES | LBORRESU | LBSTRESC | LBSTRESN | LBSTRE",
+   "status": "NO_PDF"
+  },
+  {
+   "file": "knowledge_base/domains/LB/examples.md",
+   "line": 48,
+   "n_rows": 2,
+   "header": "Row | STUDYID | DOMAIN | USUBJID | LBSEQ | LBTESTCD | LBTEST | LBCAT | LBORRES | LBORRESU | LBSTRESC | LBSTRESN | LBSTRE",
+   "status": "DIFF",
+   "kb_duplicate": false,
+   "pdf_pages": [
+    247
+   ],
+   "pdf_rows": 2,
+   "cells_compared": 46,
+   "row_modes": {
+    "multiset": 2
+   },
+   "rows_out_of_page_range": [],
+   "diffs": [
+    {
+     "row": "HEADER",
+     "kb_only": [
+      "LBMETHOD"
+     ],
+     "pdf_only": [
+      "LBLOBXFL",
+      "LBORNRHI",
+      "LBORNRLO",
+      "LBRESSCL",
+      "LBRESTYP",
+      "LBSTNRLO",
+      "LBSTRNHI"
+     ]
+    },
+    {
+     "row": 1,
+     "mode": "multiset",
+     "kb_only": [
+      "1999-06-09T10:00"
+     ],
+     "pdf_only": [
+      "1999-06-19T04:00",
+      "CHEMISTRY",
+      "Ord",
+      "PrThr",
+      "Y"
+     ]
+    },
+    {
+     "row": 2,
+     "mode": "multiset",
+     "kb_only": [
+      "1999-06-09T10:00"
+     ],
+     "pdf_only": [
+      "1999-06-24T08:00",
+      "CHEMISTRY",
+      "Ord",
+      "PrThr"
+     ]
+    }
+   ]
+  },
+  {
+   "file": "knowledge_base/domains/LB/examples.md",
+   "line": 63,
+   "n_rows": 3,
+   "header": "Row | STUDYID | DOMAIN | USUBJID | LBGRPID | LBSEQ | LBTESTCD | LBTEST | LBTSTOPO | LBCAT | LBORRES | LBORRESU | LBSTRES",
+   "status": "DIFF",
+   "kb_duplicate": false,
+   "pdf_pages": [
+    248
+   ],
+   "pdf_rows": 3,
+   "cells_compared": 66,
+   "row_modes": {
+    "multiset": 3
+   },
+   "rows_out_of_page_range": [],
+   "diffs": [
+    {
+     "row": 3,
+     "mode": "multiset",
+     "kb_only": [],
+     "pdf_only": [
+      "Y"
+     ]
+    }
+   ]
+  },
+  {
+   "file": "knowledge_base/domains/LB/examples.md",
+   "line": 80,
+   "n_rows": 4,
+   "header": "Row | STUDYID | DOMAIN | USUBJID | LBSEQ | LBTESTCD | LBTEST | LBBDAGNT | LBCAT | LBORRES | LBORRESU | LBSTRESC | LBSTRE",
+   "status": "OK",
+   "kb_duplicate": false,
+   "pdf_pages": [
+    248
+   ],
+   "pdf_rows": 4,
+   "cells_compared": 76,
+   "row_modes": {
+    "columns": 4
+   },
+   "rows_out_of_page_range": [],
+   "diffs": []
+  }
+ ],
+ "pdf_only": [
+  {
+   "pages": [
+    241
+   ],
+   "header": "Row STUDYID DOMAIN USUBJID ISSEQ ISREFID ISTESTCD ISTEST ISBDAGNT ISTSTDTL ISORRES ISORRESU ISSTRESC ISSTRESN ISSTRESU I",
+   "n_rows": 9
+  },
+  {
+   "pages": [
+    241
+   ],
+   "header": "Row STUDYID DOMAIN USUBJID IDVAR IDVARVAL QNAM QLABEL QVAL QORIG QEVAL",
+   "n_rows": 4
+  },
+  {
+   "pages": [
+    241
+   ],
+   "header": "Row STUDYID DOMAIN USUBJID IDVAR IDVARVAL QNAM QLABEL QVAL QORIG QEVAL",
+   "n_rows": 1
+  },
+  {
+   "pages": [
+    247
+   ],
+   "header": "Row STUDYID DOMAIN USUBJID LBSEQ LBGRPID LBTESTCD LBTEST LBTSTCND LBCAT LBSCAT LBORRES LBORRESU LBRESSCL LBRESTYP LBCOLS",
+   "n_rows": 18
+  },
+  {
+   "pages": [
+    247
+   ],
+   "header": "Row STUDYID DOMAIN USUBJID LBSEQ LBTESTCD LBTEST LBCAT LBORRES LBORRESU LBRESSCL LBRESTYP LBORNRLO LBORNRHI LBSTRESC LBS",
+   "n_rows": 3
+  }
+ ],
+ "pdf_unparsed": []
+}

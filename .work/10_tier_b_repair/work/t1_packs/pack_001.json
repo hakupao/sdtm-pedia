@@ -1,0 +1,565 @@
+{
+ "pack_id": "pack_001",
+ "lane": "lane_A",
+ "units": [
+  "knowledge_base/domains/PC",
+  "knowledge_base/domains/PP"
+ ],
+ "n_atoms": 21,
+ "sections": [
+  {
+   "source": "ig34",
+   "section_key": "§6.3.5.9.1 Pharmacokinetics Concentrations (PC)",
+   "primary_unit": "knowledge_base/domains/PC",
+   "part": null,
+   "n_atoms": 8,
+   "pdf_pages": [
+    270,
+    271
+   ]
+  },
+  {
+   "source": "ig34",
+   "section_key": "§6.3.5.9.3 Relating PP Records to PC Records",
+   "primary_unit": "knowledge_base/domains/PP",
+   "part": null,
+   "n_atoms": 13,
+   "pdf_pages": [
+    277
+   ]
+  }
+ ],
+ "pdf_pages": [
+  "ig34_p0270",
+  "ig34_p0271",
+  "ig34_p0272",
+  "ig34_p0277",
+  "ig34_p0278"
+ ],
+ "kb_targets": [
+  {
+   "file": "knowledge_base/domains/PC/assumptions.md",
+   "lines": [
+    [
+     1,
+     119
+    ]
+   ]
+  },
+  {
+   "file": "knowledge_base/domains/PC/examples.md",
+   "lines": [
+    [
+     1,
+     444
+    ]
+   ]
+  },
+  {
+   "file": "knowledge_base/domains/PP/examples.md",
+   "lines": [
+    [
+     129,
+     193
+    ]
+   ]
+  }
+ ],
+ "kb_owned_files": [
+  "knowledge_base/domains/PC/assumptions.md",
+  "knowledge_base/domains/PC/examples.md",
+  "knowledge_base/domains/PC/spec.md",
+  "knowledge_base/domains/PP/assumptions.md",
+  "knowledge_base/domains/PP/examples.md",
+  "knowledge_base/domains/PP/spec.md"
+ ],
+ "kb_context_readonly": [],
+ "atoms": [
+  {
+   "atom_id": "ig34_p0270_a012",
+   "atom_type": "TABLE_HEADER",
+   "pdf_page": 270,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "NO_HIT",
+   "prefilter_suggest": null,
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 233,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0270_a013",
+   "atom_type": "TABLE_ROW",
+   "pdf_page": 270,
+   "ledger_verdict": "MISPLACED",
+   "prefilter_class": "NO_HIT",
+   "prefilter_suggest": null,
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 179,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0270_a014",
+   "atom_type": "TABLE_ROW",
+   "pdf_page": 270,
+   "ledger_verdict": "MISPLACED",
+   "prefilter_class": "NO_HIT",
+   "prefilter_suggest": null,
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 175,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0270_a023",
+   "atom_type": "TABLE_ROW",
+   "pdf_page": 270,
+   "ledger_verdict": "MISPLACED",
+   "prefilter_class": "NO_HIT",
+   "prefilter_suggest": null,
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 171,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0271_a007",
+   "atom_type": "TABLE_ROW",
+   "pdf_page": 271,
+   "ledger_verdict": "MISPLACED",
+   "prefilter_class": "NO_HIT",
+   "prefilter_suggest": null,
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 218,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0271_a009",
+   "atom_type": "TABLE_ROW",
+   "pdf_page": 271,
+   "ledger_verdict": "MISPLACED",
+   "prefilter_class": "NO_HIT",
+   "prefilter_suggest": null,
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 204,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0271_a010",
+   "atom_type": "TABLE_ROW",
+   "pdf_page": 271,
+   "ledger_verdict": "MISPLACED",
+   "prefilter_class": "NO_HIT",
+   "prefilter_suggest": null,
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 183,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0271_a011",
+   "atom_type": "TABLE_ROW",
+   "pdf_page": 271,
+   "ledger_verdict": "MISPLACED",
+   "prefilter_class": "NO_HIT",
+   "prefilter_suggest": null,
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 215,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0277_a003",
+   "atom_type": "TABLE_HEADER",
+   "pdf_page": 277,
+   "ledger_verdict": "MISPLACED",
+   "prefilter_class": "FP_HIT_ELSEWHERE",
+   "prefilter_suggest": null,
+   "fp_hit": "knowledge_base/domains/PC/assumptions.md:86",
+   "fp_hit_in_section": null,
+   "fp_v_len": 202,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0277_a004",
+   "atom_type": "TABLE_ROW",
+   "pdf_page": 277,
+   "ledger_verdict": "MISPLACED",
+   "prefilter_class": "CENSUS_OK",
+   "prefilter_suggest": "PRESENT",
+   "fp_hit": "knowledge_base/domains/PC/assumptions.md:88",
+   "fp_hit_in_section": null,
+   "fp_v_len": 131,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": {
+    "file": "knowledge_base/domains/PP/examples.md",
+    "table_line": 112,
+    "kb_row_line": 114,
+    "table_status": "DIFF",
+    "row": 1,
+    "row_status": "OK",
+    "diff": null,
+    "table_modes": [
+     "columns"
+    ],
+    "cell_agreement": 0.95,
+    "n_candidates": 2,
+    "other_candidates": [
+     "knowledge_base/domains/PC/assumptions.md:86 DIFF"
+    ]
+   }
+  },
+  {
+   "atom_id": "ig34_p0277_a005",
+   "atom_type": "TABLE_ROW",
+   "pdf_page": 277,
+   "ledger_verdict": "MISPLACED",
+   "prefilter_class": "CENSUS_OK",
+   "prefilter_suggest": "PRESENT",
+   "fp_hit": "knowledge_base/domains/PC/assumptions.md:89",
+   "fp_hit_in_section": null,
+   "fp_v_len": 135,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": {
+    "file": "knowledge_base/domains/PP/examples.md",
+    "table_line": 112,
+    "kb_row_line": 115,
+    "table_status": "DIFF",
+    "row": 2,
+    "row_status": "OK",
+    "diff": null,
+    "table_modes": [
+     "columns"
+    ],
+    "cell_agreement": 0.95,
+    "n_candidates": 2,
+    "other_candidates": [
+     "knowledge_base/domains/PC/assumptions.md:86 DIFF"
+    ]
+   }
+  },
+  {
+   "atom_id": "ig34_p0277_a006",
+   "atom_type": "TABLE_ROW",
+   "pdf_page": 277,
+   "ledger_verdict": "MISPLACED",
+   "prefilter_class": "CENSUS_OK",
+   "prefilter_suggest": "PRESENT",
+   "fp_hit": "knowledge_base/domains/PC/assumptions.md:90",
+   "fp_hit_in_section": null,
+   "fp_v_len": 143,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": {
+    "file": "knowledge_base/domains/PP/examples.md",
+    "table_line": 112,
+    "kb_row_line": 116,
+    "table_status": "DIFF",
+    "row": 3,
+    "row_status": "OK",
+    "diff": null,
+    "table_modes": [
+     "columns"
+    ],
+    "cell_agreement": 0.95,
+    "n_candidates": 2,
+    "other_candidates": [
+     "knowledge_base/domains/PC/assumptions.md:86 DIFF"
+    ]
+   }
+  },
+  {
+   "atom_id": "ig34_p0277_a007",
+   "atom_type": "TABLE_ROW",
+   "pdf_page": 277,
+   "ledger_verdict": "MISPLACED",
+   "prefilter_class": "CENSUS_OK",
+   "prefilter_suggest": "PRESENT",
+   "fp_hit": "knowledge_base/domains/PC/assumptions.md:91",
+   "fp_hit_in_section": null,
+   "fp_v_len": 142,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": {
+    "file": "knowledge_base/domains/PP/examples.md",
+    "table_line": 112,
+    "kb_row_line": 117,
+    "table_status": "DIFF",
+    "row": 4,
+    "row_status": "OK",
+    "diff": null,
+    "table_modes": [
+     "columns"
+    ],
+    "cell_agreement": 0.9,
+    "n_candidates": 2,
+    "other_candidates": [
+     "knowledge_base/domains/PC/assumptions.md:86 DIFF"
+    ]
+   }
+  },
+  {
+   "atom_id": "ig34_p0277_a008",
+   "atom_type": "TABLE_ROW",
+   "pdf_page": 277,
+   "ledger_verdict": "MISPLACED",
+   "prefilter_class": "CENSUS_OK",
+   "prefilter_suggest": "PRESENT",
+   "fp_hit": "knowledge_base/domains/PC/assumptions.md:92",
+   "fp_hit_in_section": null,
+   "fp_v_len": 124,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": {
+    "file": "knowledge_base/domains/PP/examples.md",
+    "table_line": 112,
+    "kb_row_line": 118,
+    "table_status": "DIFF",
+    "row": 5,
+    "row_status": "OK",
+    "diff": null,
+    "table_modes": [
+     "columns"
+    ],
+    "cell_agreement": 0.9,
+    "n_candidates": 2,
+    "other_candidates": [
+     "knowledge_base/domains/PC/assumptions.md:86 DIFF"
+    ]
+   }
+  },
+  {
+   "atom_id": "ig34_p0277_a009",
+   "atom_type": "TABLE_ROW",
+   "pdf_page": 277,
+   "ledger_verdict": "MISPLACED",
+   "prefilter_class": "CENSUS_OK",
+   "prefilter_suggest": "PRESENT",
+   "fp_hit": "knowledge_base/domains/PC/assumptions.md:93",
+   "fp_hit_in_section": null,
+   "fp_v_len": 134,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": {
+    "file": "knowledge_base/domains/PP/examples.md",
+    "table_line": 112,
+    "kb_row_line": 119,
+    "table_status": "DIFF",
+    "row": 6,
+    "row_status": "OK",
+    "diff": null,
+    "table_modes": [
+     "columns"
+    ],
+    "cell_agreement": 0.9,
+    "n_candidates": 2,
+    "other_candidates": [
+     "knowledge_base/domains/PC/assumptions.md:86 DIFF"
+    ]
+   }
+  },
+  {
+   "atom_id": "ig34_p0277_a010",
+   "atom_type": "TABLE_ROW",
+   "pdf_page": 277,
+   "ledger_verdict": "MISPLACED",
+   "prefilter_class": "CENSUS_OK",
+   "prefilter_suggest": "PRESENT",
+   "fp_hit": "knowledge_base/domains/PC/assumptions.md:94",
+   "fp_hit_in_section": null,
+   "fp_v_len": 129,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": {
+    "file": "knowledge_base/domains/PP/examples.md",
+    "table_line": 112,
+    "kb_row_line": 120,
+    "table_status": "DIFF",
+    "row": 7,
+    "row_status": "OK",
+    "diff": null,
+    "table_modes": [
+     "columns"
+    ],
+    "cell_agreement": 0.95,
+    "n_candidates": 2,
+    "other_candidates": [
+     "knowledge_base/domains/PC/assumptions.md:86 DIFF"
+    ]
+   }
+  },
+  {
+   "atom_id": "ig34_p0277_a011",
+   "atom_type": "TABLE_ROW",
+   "pdf_page": 277,
+   "ledger_verdict": "MISPLACED",
+   "prefilter_class": "CENSUS_OK",
+   "prefilter_suggest": "PRESENT",
+   "fp_hit": "knowledge_base/domains/PC/assumptions.md:95",
+   "fp_hit_in_section": null,
+   "fp_v_len": 133,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": {
+    "file": "knowledge_base/domains/PP/examples.md",
+    "table_line": 112,
+    "kb_row_line": 121,
+    "table_status": "DIFF",
+    "row": 8,
+    "row_status": "OK",
+    "diff": null,
+    "table_modes": [
+     "columns"
+    ],
+    "cell_agreement": 0.95,
+    "n_candidates": 2,
+    "other_candidates": [
+     "knowledge_base/domains/PC/assumptions.md:86 DIFF"
+    ]
+   }
+  },
+  {
+   "atom_id": "ig34_p0277_a012",
+   "atom_type": "TABLE_ROW",
+   "pdf_page": 277,
+   "ledger_verdict": "MISPLACED",
+   "prefilter_class": "CENSUS_OK",
+   "prefilter_suggest": "PRESENT",
+   "fp_hit": "knowledge_base/domains/PC/assumptions.md:96",
+   "fp_hit_in_section": null,
+   "fp_v_len": 141,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": {
+    "file": "knowledge_base/domains/PP/examples.md",
+    "table_line": 112,
+    "kb_row_line": 122,
+    "table_status": "DIFF",
+    "row": 9,
+    "row_status": "OK",
+    "diff": null,
+    "table_modes": [
+     "columns"
+    ],
+    "cell_agreement": 0.95,
+    "n_candidates": 2,
+    "other_candidates": [
+     "knowledge_base/domains/PC/assumptions.md:86 DIFF"
+    ]
+   }
+  },
+  {
+   "atom_id": "ig34_p0277_a013",
+   "atom_type": "TABLE_ROW",
+   "pdf_page": 277,
+   "ledger_verdict": "MISPLACED",
+   "prefilter_class": "CENSUS_OK",
+   "prefilter_suggest": "PRESENT",
+   "fp_hit": "knowledge_base/domains/PC/assumptions.md:97",
+   "fp_hit_in_section": null,
+   "fp_v_len": 139,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": {
+    "file": "knowledge_base/domains/PP/examples.md",
+    "table_line": 112,
+    "kb_row_line": 123,
+    "table_status": "DIFF",
+    "row": 10,
+    "row_status": "OK",
+    "diff": null,
+    "table_modes": [
+     "columns"
+    ],
+    "cell_agreement": 0.95,
+    "n_candidates": 2,
+    "other_candidates": [
+     "knowledge_base/domains/PC/assumptions.md:86 DIFF"
+    ]
+   }
+  },
+  {
+   "atom_id": "ig34_p0277_a014",
+   "atom_type": "TABLE_ROW",
+   "pdf_page": 277,
+   "ledger_verdict": "MISPLACED",
+   "prefilter_class": "CENSUS_OK",
+   "prefilter_suggest": "PRESENT",
+   "fp_hit": "knowledge_base/domains/PC/assumptions.md:98",
+   "fp_hit_in_section": null,
+   "fp_v_len": 124,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": {
+    "file": "knowledge_base/domains/PP/examples.md",
+    "table_line": 112,
+    "kb_row_line": 124,
+    "table_status": "DIFF",
+    "row": 11,
+    "row_status": "OK",
+    "diff": null,
+    "table_modes": [
+     "columns"
+    ],
+    "cell_agreement": 0.95,
+    "n_candidates": 2,
+    "other_candidates": [
+     "knowledge_base/domains/PC/assumptions.md:86 DIFF"
+    ]
+   }
+  },
+  {
+   "atom_id": "ig34_p0277_a015",
+   "atom_type": "TABLE_ROW",
+   "pdf_page": 277,
+   "ledger_verdict": "MISPLACED",
+   "prefilter_class": "CENSUS_OK",
+   "prefilter_suggest": "PRESENT",
+   "fp_hit": "knowledge_base/domains/PC/assumptions.md:99",
+   "fp_hit_in_section": null,
+   "fp_v_len": 134,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": {
+    "file": "knowledge_base/domains/PP/examples.md",
+    "table_line": 112,
+    "kb_row_line": 125,
+    "table_status": "DIFF",
+    "row": 12,
+    "row_status": "OK",
+    "diff": null,
+    "table_modes": [
+     "columns"
+    ],
+    "cell_agreement": 0.95,
+    "n_candidates": 2,
+    "other_candidates": [
+     "knowledge_base/domains/PC/assumptions.md:86 DIFF"
+    ]
+   }
+  }
+ ]
+}

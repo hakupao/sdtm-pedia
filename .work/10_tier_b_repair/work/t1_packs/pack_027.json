@@ -1,0 +1,957 @@
+{
+ "pack_id": "pack_027",
+ "lane": "lane_D",
+ "units": [
+  "knowledge_base/chapters/ch02_fundamentals.md",
+  "knowledge_base/chapters/ch04_general_assumptions.md"
+ ],
+ "n_atoms": 54,
+ "sections": [
+  {
+   "source": "ig34",
+   "section_key": "§2.7 SDTM Variables Not Allowed in the SDTMIG",
+   "primary_unit": "knowledge_base/chapters/ch02_fundamentals.md",
+   "part": null,
+   "n_atoms": 14,
+   "pdf_pages": [
+    15,
+    16
+   ]
+  },
+  {
+   "source": "ig34",
+   "section_key": "§6.3.7 Morphology/Physiology Domains",
+   "primary_unit": "knowledge_base/chapters/ch02_fundamentals.md",
+   "part": null,
+   "n_atoms": 2,
+   "pdf_pages": [
+    285
+   ]
+  },
+  {
+   "source": "sv20",
+   "section_key": "§2 [MODEL CONCEPTS AND TERMS – ORGANIZATION OF THE SDTM]",
+   "primary_unit": "knowledge_base/chapters/ch02_fundamentals.md",
+   "part": null,
+   "n_atoms": 13,
+   "pdf_pages": [
+    8,
+    9
+   ]
+  },
+  {
+   "source": "ig34",
+   "section_key": "§4.1.5 [SDTM Core Designations]",
+   "primary_unit": "knowledge_base/chapters/ch04_general_assumptions.md",
+   "part": null,
+   "n_atoms": 1,
+   "pdf_pages": [
+    23
+   ]
+  },
+  {
+   "source": "ig34",
+   "section_key": "§4.2.3 [Use of \"Subject\" and USUBJID]",
+   "primary_unit": "knowledge_base/chapters/ch04_general_assumptions.md",
+   "part": null,
+   "n_atoms": 4,
+   "pdf_pages": [
+    29
+   ]
+  },
+  {
+   "source": "ig34",
+   "section_key": "§4.2.5 [Convention for Missing Values]",
+   "primary_unit": "knowledge_base/chapters/ch04_general_assumptions.md",
+   "part": null,
+   "n_atoms": 1,
+   "pdf_pages": [
+    29
+   ]
+  },
+  {
+   "source": "ig34",
+   "section_key": "§4.2.7.1 \"Specify\" Values for Non-result Qualifier Variables",
+   "primary_unit": "knowledge_base/chapters/ch04_general_assumptions.md",
+   "part": null,
+   "n_atoms": 7,
+   "pdf_pages": [
+    31,
+    32
+   ]
+  },
+  {
+   "source": "ig34",
+   "section_key": "§4.4.1 Formats for Date/Time Variables",
+   "primary_unit": "knowledge_base/chapters/ch04_general_assumptions.md",
+   "part": null,
+   "n_atoms": 2,
+   "pdf_pages": [
+    39
+   ]
+  },
+  {
+   "source": "ig34",
+   "section_key": "§4.4.3.2 [Interval with Uncertainty]",
+   "primary_unit": "knowledge_base/chapters/ch04_general_assumptions.md",
+   "part": null,
+   "n_atoms": 2,
+   "pdf_pages": [
+    41
+   ]
+  },
+  {
+   "source": "ig34",
+   "section_key": "§4.4.4 [Use of the Study Day Variables]",
+   "primary_unit": "knowledge_base/chapters/ch04_general_assumptions.md",
+   "part": null,
+   "n_atoms": 4,
+   "pdf_pages": [
+    42
+   ]
+  },
+  {
+   "source": "ig34",
+   "section_key": "§4.4.5 [Clinical Encounters and Visits]",
+   "primary_unit": "knowledge_base/chapters/ch04_general_assumptions.md",
+   "part": null,
+   "n_atoms": 4,
+   "pdf_pages": [
+    42
+   ]
+  }
+ ],
+ "pdf_pages": [
+  "ig34_p0015",
+  "ig34_p0016",
+  "ig34_p0017",
+  "ig34_p0023",
+  "ig34_p0024",
+  "ig34_p0029",
+  "ig34_p0030",
+  "ig34_p0031",
+  "ig34_p0032",
+  "ig34_p0033",
+  "ig34_p0039",
+  "ig34_p0040",
+  "ig34_p0041",
+  "ig34_p0042",
+  "ig34_p0043",
+  "ig34_p0285",
+  "ig34_p0286",
+  "sv20_p0008",
+  "sv20_p0009",
+  "sv20_p0010"
+ ],
+ "kb_targets": [
+  {
+   "file": "knowledge_base/chapters/ch02_fundamentals.md",
+   "lines": [
+    [
+     153,
+     209
+    ]
+   ]
+  },
+  {
+   "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+   "lines": [
+    [
+     37,
+     54
+    ],
+    [
+     270,
+     293
+    ],
+    [
+     298,
+     301
+    ],
+    [
+     372,
+     426
+    ],
+    [
+     686,
+     726
+    ],
+    [
+     822,
+     835
+    ],
+    [
+     836,
+     857
+    ],
+    [
+     858,
+     882
+    ]
+   ]
+  }
+ ],
+ "kb_owned_files": [
+  "knowledge_base/chapters/ch02_fundamentals.md",
+  "knowledge_base/chapters/ch04_general_assumptions.md"
+ ],
+ "kb_context_readonly": [],
+ "atoms": [
+  {
+   "atom_id": "ig34_p0015_a021",
+   "atom_type": "LIST_ITEM",
+   "pdf_page": 15,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "NO_HIT",
+   "prefilter_suggest": null,
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 25,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0015_a022",
+   "atom_type": "LIST_ITEM",
+   "pdf_page": 15,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "NO_HIT",
+   "prefilter_suggest": null,
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 27,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0015_a023",
+   "atom_type": "LIST_ITEM",
+   "pdf_page": 15,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "NO_HIT",
+   "prefilter_suggest": null,
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 27,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0016_a001",
+   "atom_type": "LIST_ITEM",
+   "pdf_page": 16,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "NO_HIT",
+   "prefilter_suggest": null,
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 26,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0016_a002",
+   "atom_type": "LIST_ITEM",
+   "pdf_page": 16,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "NO_HIT",
+   "prefilter_suggest": null,
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 27,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0016_a003",
+   "atom_type": "LIST_ITEM",
+   "pdf_page": 16,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "NO_HIT",
+   "prefilter_suggest": null,
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 25,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0016_a004",
+   "atom_type": "LIST_ITEM",
+   "pdf_page": 16,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "NO_HIT",
+   "prefilter_suggest": null,
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 27,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0016_a005",
+   "atom_type": "LIST_ITEM",
+   "pdf_page": 16,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "NO_HIT",
+   "prefilter_suggest": null,
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 27,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0016_a010",
+   "atom_type": "LIST_ITEM",
+   "pdf_page": 16,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "FP_HIT_SHORT",
+   "prefilter_suggest": null,
+   "fp_hit": "knowledge_base/chapters/ch02_fundamentals.md:192",
+   "fp_hit_in_section": true,
+   "fp_v_len": 22,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0016_a011",
+   "atom_type": "LIST_ITEM",
+   "pdf_page": 16,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "FP_HIT_SHORT",
+   "prefilter_suggest": null,
+   "fp_hit": "knowledge_base/chapters/ch02_fundamentals.md:193",
+   "fp_hit_in_section": true,
+   "fp_v_len": 21,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0016_a012",
+   "atom_type": "LIST_ITEM",
+   "pdf_page": 16,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "FP_HIT_SHORT",
+   "prefilter_suggest": null,
+   "fp_hit": "knowledge_base/chapters/ch02_fundamentals.md:194",
+   "fp_hit_in_section": true,
+   "fp_v_len": 23,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0016_a013",
+   "atom_type": "LIST_ITEM",
+   "pdf_page": 16,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "FP_HIT_SHORT",
+   "prefilter_suggest": null,
+   "fp_hit": "knowledge_base/chapters/ch02_fundamentals.md:195",
+   "fp_hit_in_section": true,
+   "fp_v_len": 22,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0016_a018",
+   "atom_type": "LIST_ITEM",
+   "pdf_page": 16,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "FP_HIT_SHORT",
+   "prefilter_suggest": null,
+   "fp_hit": "knowledge_base/chapters/ch02_fundamentals.md:202",
+   "fp_hit_in_section": true,
+   "fp_v_len": 20,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0016_a021",
+   "atom_type": "LIST_ITEM",
+   "pdf_page": 16,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "FP_HIT_SHORT",
+   "prefilter_suggest": null,
+   "fp_hit": "knowledge_base/chapters/ch02_fundamentals.md:206",
+   "fp_hit_in_section": true,
+   "fp_v_len": 6,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0285_a009",
+   "atom_type": "SENTENCE",
+   "pdf_page": 285,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "NO_HIT",
+   "prefilter_suggest": null,
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 100,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0285_a010",
+   "atom_type": "SENTENCE",
+   "pdf_page": 285,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "NO_HIT",
+   "prefilter_suggest": null,
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 177,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "sv20_p0008_a002",
+   "atom_type": "SENTENCE",
+   "pdf_page": 8,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "FP_HIT_ELSEWHERE",
+   "prefilter_suggest": "RELOCATE",
+   "fp_hit": "knowledge_base/model/01_concepts_and_terms.md:7",
+   "fp_hit_in_section": null,
+   "fp_v_len": 127,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "sv20_p0008_a004",
+   "atom_type": "SENTENCE",
+   "pdf_page": 8,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "NO_HIT",
+   "prefilter_suggest": null,
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 308,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "sv20_p0008_a005",
+   "atom_type": "SENTENCE",
+   "pdf_page": 8,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "NO_HIT",
+   "prefilter_suggest": null,
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 124,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "sv20_p0008_a007",
+   "atom_type": "SENTENCE",
+   "pdf_page": 8,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "NO_HIT",
+   "prefilter_suggest": null,
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 272,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "sv20_p0008_a009",
+   "atom_type": "SENTENCE",
+   "pdf_page": 8,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "NO_HIT",
+   "prefilter_suggest": null,
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 188,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "sv20_p0009_a005",
+   "atom_type": "SENTENCE",
+   "pdf_page": 9,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "FP_HIT_ELSEWHERE",
+   "prefilter_suggest": "RELOCATE",
+   "fp_hit": "knowledge_base/model/01_concepts_and_terms.md:47",
+   "fp_hit_in_section": null,
+   "fp_v_len": 121,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "sv20_p0009_a006",
+   "atom_type": "SENTENCE",
+   "pdf_page": 9,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "FP_HIT_ELSEWHERE",
+   "prefilter_suggest": "RELOCATE",
+   "fp_hit": "knowledge_base/model/01_concepts_and_terms.md:47",
+   "fp_hit_in_section": null,
+   "fp_v_len": 632,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "sv20_p0009_a013",
+   "atom_type": "SENTENCE",
+   "pdf_page": 9,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "FP_HIT_ELSEWHERE",
+   "prefilter_suggest": "RELOCATE",
+   "fp_hit": "knowledge_base/model/01_concepts_and_terms.md:59",
+   "fp_hit_in_section": null,
+   "fp_v_len": 76,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "sv20_p0009_a016",
+   "atom_type": "LIST_ITEM",
+   "pdf_page": 9,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "NO_HIT",
+   "prefilter_suggest": null,
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 185,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "sv20_p0009_a018",
+   "atom_type": "LIST_ITEM",
+   "pdf_page": 9,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "NO_HIT",
+   "prefilter_suggest": null,
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 296,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "sv20_p0009_a019",
+   "atom_type": "SENTENCE",
+   "pdf_page": 9,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "NO_HIT",
+   "prefilter_suggest": null,
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 139,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "sv20_p0009_a020",
+   "atom_type": "SENTENCE",
+   "pdf_page": 9,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "FP_HIT_ELSEWHERE",
+   "prefilter_suggest": "RELOCATE",
+   "fp_hit": "knowledge_base/model/01_concepts_and_terms.md:80",
+   "fp_hit_in_section": null,
+   "fp_v_len": 490,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "sv20_p0009_a021",
+   "atom_type": "SENTENCE",
+   "pdf_page": 9,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "NO_HIT",
+   "prefilter_suggest": null,
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 452,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0023_a003",
+   "atom_type": "LIST_ITEM",
+   "pdf_page": 23,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "NO_HIT",
+   "prefilter_suggest": null,
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 392,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0029_a005",
+   "atom_type": "SENTENCE",
+   "pdf_page": 29,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "FP_HIT_SECTION",
+   "prefilter_suggest": "PRESENT",
+   "fp_hit": "knowledge_base/chapters/ch04_general_assumptions.md:272",
+   "fp_hit_in_section": true,
+   "fp_v_len": 145,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0029_a008",
+   "atom_type": "SENTENCE",
+   "pdf_page": 29,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "FP_HIT_SECTION",
+   "prefilter_suggest": "PRESENT",
+   "fp_hit": "knowledge_base/chapters/ch04_general_assumptions.md:276",
+   "fp_hit_in_section": true,
+   "fp_v_len": 98,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0029_a012",
+   "atom_type": "SENTENCE",
+   "pdf_page": 29,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "FP_HIT_SECTION",
+   "prefilter_suggest": "PRESENT",
+   "fp_hit": "knowledge_base/chapters/ch04_general_assumptions.md:278",
+   "fp_hit_in_section": true,
+   "fp_v_len": 201,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0029_a015",
+   "atom_type": "SENTENCE",
+   "pdf_page": 29,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "FP_HIT_SECTION",
+   "prefilter_suggest": "PRESENT",
+   "fp_hit": "knowledge_base/chapters/ch04_general_assumptions.md:280",
+   "fp_hit_in_section": true,
+   "fp_v_len": 128,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0029_a028",
+   "atom_type": "SENTENCE",
+   "pdf_page": 29,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "NO_HIT",
+   "prefilter_suggest": null,
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 181,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0031_a028",
+   "atom_type": "CODE_LITERAL",
+   "pdf_page": 31,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "FP_HIT_SHORT",
+   "prefilter_suggest": null,
+   "fp_hit": "knowledge_base/chapters/ch04_general_assumptions.md:378",
+   "fp_hit_in_section": true,
+   "fp_v_len": 12,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0031_a030",
+   "atom_type": "CODE_LITERAL",
+   "pdf_page": 31,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "FP_HIT_SECTION",
+   "prefilter_suggest": "PRESENT",
+   "fp_hit": "knowledge_base/chapters/ch04_general_assumptions.md:379",
+   "fp_hit_in_section": true,
+   "fp_v_len": 110,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0032_a008",
+   "atom_type": "CODE_LITERAL",
+   "pdf_page": 32,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "FP_HIT_SHORT",
+   "prefilter_suggest": null,
+   "fp_hit": "knowledge_base/chapters/ch04_general_assumptions.md:391",
+   "fp_hit_in_section": true,
+   "fp_v_len": 27,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0032_a010",
+   "atom_type": "CODE_LITERAL",
+   "pdf_page": 32,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "FP_HIT_SECTION",
+   "prefilter_suggest": "PRESENT",
+   "fp_hit": "knowledge_base/chapters/ch04_general_assumptions.md:392",
+   "fp_hit_in_section": true,
+   "fp_v_len": 120,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0032_a014",
+   "atom_type": "TABLE_HEADER",
+   "pdf_page": 32,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "NO_HIT",
+   "prefilter_suggest": null,
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 112,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0032_a020",
+   "atom_type": "TABLE_ROW",
+   "pdf_page": 32,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "NO_HIT",
+   "prefilter_suggest": null,
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 36,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0032_a024",
+   "atom_type": "TABLE_ROW",
+   "pdf_page": 32,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "NO_HIT",
+   "prefilter_suggest": null,
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 36,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0039_a008",
+   "atom_type": "NOTE",
+   "pdf_page": 39,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "FP_HIT_SECTION",
+   "prefilter_suggest": "PRESENT",
+   "fp_hit": "knowledge_base/chapters/ch04_general_assumptions.md:716",
+   "fp_hit_in_section": true,
+   "fp_v_len": 55,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0039_a014",
+   "atom_type": "LIST_ITEM",
+   "pdf_page": 39,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "NO_HIT",
+   "prefilter_suggest": null,
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 163,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0041_a036",
+   "atom_type": "SENTENCE",
+   "pdf_page": 41,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "NO_HIT",
+   "prefilter_suggest": null,
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 288,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0041_a040",
+   "atom_type": "SENTENCE",
+   "pdf_page": 41,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "NO_HIT",
+   "prefilter_suggest": null,
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 251,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0042_a006",
+   "atom_type": "SENTENCE",
+   "pdf_page": 42,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "NO_HIT",
+   "prefilter_suggest": null,
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 79,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0042_a007",
+   "atom_type": "SENTENCE",
+   "pdf_page": 42,
+   "ledger_verdict": "MISSING",
+   "prefilter_class": "NO_HIT",
+   "prefilter_suggest": null,
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 64,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0042_a008",
+   "atom_type": "CODE_LITERAL",
+   "pdf_page": 42,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "NO_HIT",
+   "prefilter_suggest": null,
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 179,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0042_a009",
+   "atom_type": "SENTENCE",
+   "pdf_page": 42,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "NO_HIT",
+   "prefilter_suggest": null,
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 46,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0042_a012",
+   "atom_type": "SENTENCE",
+   "pdf_page": 42,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "NO_HIT",
+   "prefilter_suggest": null,
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 276,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0042_a013",
+   "atom_type": "SENTENCE",
+   "pdf_page": 42,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "NO_HIT",
+   "prefilter_suggest": null,
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 249,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0042_a014",
+   "atom_type": "SENTENCE",
+   "pdf_page": 42,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "NO_HIT",
+   "prefilter_suggest": null,
+   "fp_hit": null,
+   "fp_hit_in_section": null,
+   "fp_v_len": 63,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0042_a026",
+   "atom_type": "CODE_LITERAL",
+   "pdf_page": 42,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "FP_HIT_SHORT",
+   "prefilter_suggest": null,
+   "fp_hit": "knowledge_base/chapters/ch04_general_assumptions.md:875",
+   "fp_hit_in_section": true,
+   "fp_v_len": 6,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  }
+ ]
+}

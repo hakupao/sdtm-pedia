@@ -1,0 +1,26 @@
+KB files 296; per-line index == norm(whole file): 296  (inexact: [])
+census units run: 15/15  -> /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/census_t1
+rows: 1461 (gap atoms 1459 + manual 2) -> /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/triage_prefilter.jsonl
+prefilter_class (priority order, mutually exclusive):
+  FIGURE                         12
+  SPEC_HEADER                    24
+  SPEC_MATCH                     421
+  SPEC_MISMATCH                  2
+  CENSUS_DIFF                    45
+  FP_HIT_SECTION                 217
+  FP_HIT_FILE_OUTSIDE_SECTION    3
+  FP_HIT_SHORT                   125
+  CENSUS_OK                      98
+  FP_HIT_ELSEWHERE               41
+  SPEC_NOT_FOUND                 32
+  NO_TARGET                      0
+  ATOM_NOT_ON_PAGE               8
+  NO_HIT                         431
+  MANUAL                         2
+prefilter_suggest: {None: 632, 'IE_CAND': 440, 'PRESENT': 296, 'VALUE_DIFF': 48, 'RELOCATE': 24, 'FIGURE': 12, 'ATOM_ERR': 9}
+spec_row: {'-': 980, 'MISMATCH': 2, 'MATCH': 421, 'HEADER': 24, 'NOT_FOUND': 32}  mismatch fields: {'MISMATCH(type)': 1, 'MISMATCH(label)': 1}
+census rows attached: 159 {'DIFF': 45, 'OK': 114}  multi-candidate: 84
+spec MATCH via: {'section_domain': 415, 'name_prefix': 1, 'any_spec_fallback': 5}
+pdf_typo_suspect: 1
+current TierB subset: 1389 (expect 1389); inventory probe_absent 944 (expect 944), ⊆ subset: True; spec among inv absent: 452 (expect 452)
+  this probe (fp_match norm, ledger+section targets): hit_target 306, hit_any 445, absent 944; absent ⊆ inventory absent: True

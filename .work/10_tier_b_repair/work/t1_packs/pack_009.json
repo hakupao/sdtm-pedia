@@ -1,0 +1,172 @@
+{
+ "pack_id": "pack_009",
+ "lane": "lane_A",
+ "units": [
+  "knowledge_base/domains/RELSUB",
+  "knowledge_base/domains/RP",
+  "knowledge_base/domains/TI"
+ ],
+ "n_atoms": 5,
+ "sections": [
+  {
+   "source": "ig34",
+   "section_key": "RELSUB – Description/Overview",
+   "primary_unit": "knowledge_base/domains/RELSUB",
+   "part": null,
+   "n_atoms": 3,
+   "pdf_pages": [
+    437
+   ]
+  },
+  {
+   "source": "ig34",
+   "section_key": "§6.3.7.6 Reproductive System Findings (RP)",
+   "primary_unit": "knowledge_base/domains/RP",
+   "part": null,
+   "n_atoms": 1,
+   "pdf_pages": [
+    305
+   ]
+  },
+  {
+   "source": "ig34",
+   "section_key": "§7.4.1 Trial Inclusion/Exclusion Criteria (TI)",
+   "primary_unit": "knowledge_base/domains/TI",
+   "part": null,
+   "n_atoms": 1,
+   "pdf_pages": [
+    416
+   ]
+  }
+ ],
+ "pdf_pages": [
+  "ig34_p0305",
+  "ig34_p0306",
+  "ig34_p0416",
+  "ig34_p0417",
+  "ig34_p0437",
+  "ig34_p0438"
+ ],
+ "kb_targets": [
+  {
+   "file": "knowledge_base/domains/RELSUB/assumptions.md",
+   "lines": [
+    [
+     1,
+     21
+    ]
+   ]
+  },
+  {
+   "file": "knowledge_base/domains/RP/assumptions.md",
+   "lines": [
+    [
+     1,
+     16
+    ]
+   ]
+  },
+  {
+   "file": "knowledge_base/domains/RP/examples.md",
+   "lines": [
+    [
+     1,
+     31
+    ]
+   ]
+  },
+  {
+   "file": "knowledge_base/domains/TI/assumptions.md",
+   "lines": [
+    [
+     1,
+     47
+    ]
+   ]
+  }
+ ],
+ "kb_owned_files": [
+  "knowledge_base/domains/RELSUB/assumptions.md",
+  "knowledge_base/domains/RELSUB/examples.md",
+  "knowledge_base/domains/RELSUB/spec.md",
+  "knowledge_base/domains/RP/assumptions.md",
+  "knowledge_base/domains/RP/examples.md",
+  "knowledge_base/domains/RP/spec.md",
+  "knowledge_base/domains/TI/assumptions.md",
+  "knowledge_base/domains/TI/examples.md",
+  "knowledge_base/domains/TI/spec.md"
+ ],
+ "kb_context_readonly": [],
+ "atoms": [
+  {
+   "atom_id": "ig34_p0437_a016",
+   "atom_type": "SENTENCE",
+   "pdf_page": 437,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "FP_HIT_SECTION",
+   "prefilter_suggest": "PRESENT",
+   "fp_hit": "knowledge_base/domains/RELSUB/assumptions.md:5",
+   "fp_hit_in_section": null,
+   "fp_v_len": 125,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0437_a017",
+   "atom_type": "SENTENCE",
+   "pdf_page": 437,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "FP_HIT_SECTION",
+   "prefilter_suggest": "PRESENT",
+   "fp_hit": "knowledge_base/domains/RELSUB/assumptions.md:5",
+   "fp_hit_in_section": null,
+   "fp_v_len": 180,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0437_a018",
+   "atom_type": "SENTENCE",
+   "pdf_page": 437,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "FP_HIT_SECTION",
+   "prefilter_suggest": "PRESENT",
+   "fp_hit": "knowledge_base/domains/RELSUB/assumptions.md:5",
+   "fp_hit_in_section": null,
+   "fp_v_len": 164,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0305_a013",
+   "atom_type": "SENTENCE",
+   "pdf_page": 305,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "FP_HIT_ELSEWHERE",
+   "prefilter_suggest": null,
+   "fp_hit": "knowledge_base/terminology/core/general_part4.md:219",
+   "fp_hit_in_section": null,
+   "fp_v_len": 125,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  },
+  {
+   "atom_id": "ig34_p0416_a006",
+   "atom_type": "SENTENCE",
+   "pdf_page": 416,
+   "ledger_verdict": "PARTIAL",
+   "prefilter_class": "FP_HIT_ELSEWHERE",
+   "prefilter_suggest": null,
+   "fp_hit": "knowledge_base/terminology/core/general_part4.md:232",
+   "fp_hit_in_section": null,
+   "fp_v_len": 110,
+   "spec_row": null,
+   "spec_loc": null,
+   "census": null
+  }
+ ]
+}

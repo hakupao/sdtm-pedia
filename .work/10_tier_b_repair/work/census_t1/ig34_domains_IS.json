@@ -1,0 +1,767 @@
+{
+ "pages": "ig34:228-242",
+ "kb_files": [
+  "knowledge_base/domains/IS/assumptions.md",
+  "knowledge_base/domains/IS/examples.md"
+ ],
+ "tables": [
+  {
+   "file": "knowledge_base/domains/IS/examples.md",
+   "line": 17,
+   "n_rows": 3,
+   "header": "Row | STUDYID | DOMAIN | USUBJID | ISSEQ | ISREFID | ISGRPID | ISTESTCD | ISTEST | ISBDAGNT | ISTSTOPO | ISCAT | ISSCAT ",
+   "status": "NO_PDF"
+  },
+  {
+   "file": "knowledge_base/domains/IS/examples.md",
+   "line": 40,
+   "n_rows": 8,
+   "header": "Row | STUDYID | DOMAIN | USUBJID | ISSEQ | ISREFID | ISGRPID | ISTESTCD | ISTEST | ISBDAGNT | ISTSTOPO | ISCAT | ISSCAT ",
+   "status": "NO_PDF"
+  },
+  {
+   "file": "knowledge_base/domains/IS/examples.md",
+   "line": 62,
+   "n_rows": 4,
+   "header": "Row | STUDYID | DOMAIN | USUBJID | ISSEQ | ISREFID | ISGRPID | ISTESTCD | ISTEST | ISBDAGNT | ISTSTOPO | ISCAT | ISSCAT ",
+   "status": "NO_PDF"
+  },
+  {
+   "file": "knowledge_base/domains/IS/examples.md",
+   "line": 85,
+   "n_rows": 9,
+   "header": "Row | STUDYID | DOMAIN | USUBJID | ISSEQ | ISREFID | ISGRPID | ISTESTCD | ISTEST | ISBDAGNT | ISTSTOPO | ISCAT | ISSCAT ",
+   "status": "NO_PDF"
+  },
+  {
+   "file": "knowledge_base/domains/IS/examples.md",
+   "line": 113,
+   "n_rows": 7,
+   "header": "Row | STUDYID | DOMAIN | USUBJID | ISSEQ | ISREFID | ISTESTCD | ISTEST | ISBDAGNT | ISTSTOPO | ISCAT | ISSCAT | ISORRES ",
+   "status": "DIFF",
+   "kb_duplicate": false,
+   "pdf_pages": [
+    236
+   ],
+   "pdf_rows": 7,
+   "cells_compared": 154,
+   "row_modes": {
+    "multiset": 7
+   },
+   "rows_out_of_page_range": [],
+   "diffs": [
+    {
+     "row": "HEADER",
+     "kb_only": [
+      "ISORRESU"
+     ],
+     "pdf_only": [
+      "ISGRPID"
+     ]
+    },
+    {
+     "row": 1,
+     "mode": "multiset",
+     "kb_only": [
+      "IMMUNOASSAY",
+      "MBIGSAB"
+     ],
+     "pdf_only": [
+      "1",
+      "ELISA",
+      "MBIGGAB",
+      "Microbial-induced"
+     ]
+    },
+    {
+     "row": 2,
+     "mode": "multiset",
+     "kb_only": [
+      "1:24",
+      "IMMUNOASSAY",
+      "MBIGSAB",
+      "NA"
+     ],
+     "pdf_only": [
+      "1",
+      "1:25",
+      "25",
+      "25",
+      "ELISA",
+      "MBIGGAB",
+      "Microbial-induced"
+     ]
+    },
+    {
+     "row": 3,
+     "mode": "multiset",
+     "kb_only": [
+      "3",
+      "IMMUNOASSAY",
+      "MBIGSAB"
+     ],
+     "pdf_only": [
+      "1",
+      "2",
+      "ELISA",
+      "MBIGGAB",
+      "Microbial-induced"
+     ]
+    },
+    {
+     "row": 4,
+     "mode": "multiset",
+     "kb_only": [
+      "1:50",
+      "4",
+      "IMMUNOASSAY",
+      "MBIGSAB",
+      "NA"
+     ],
+     "pdf_only": [
+      "120",
+      "120",
+      "1:120",
+      "2",
+      "2",
+      "ELISA",
+      "MBIGGAB",
+      "Microbial-induced"
+     ]
+    },
+    {
+     "row": 5,
+     "mode": "multiset",
+     "kb_only": [
+      "13668",
+      "1:100",
+      "5",
+      "IMMUNOASSAY",
+      "MBIGSAB",
+      "NA"
+     ],
+     "pdf_only": [
+      "1",
+      "13669",
+      "1:90",
+      "90",
+      "90",
+      "ELISA",
+      "MBIGGAB",
+      "Microbial-induced"
+     ]
+    },
+    {
+     "row": 6,
+     "mode": "multiset",
+     "kb_only": [
+      "13668",
+      "1:250",
+      "6",
+      "IMMUNOASSAY",
+      "MBIGSAB",
+      "NA",
+      "RSV1230"
+     ],
+     "pdf_only": [
+      "13670",
+      "1:220",
+      "2",
+      "220",
+      "220",
+      "ELISA",
+      "MBIGGAB",
+      "Microbial-induced",
+      "RSC1230"
+     ]
+    },
+    {
+     "row": 7,
+     "mode": "multiset",
+     "kb_only": [
+      "13668",
+      "7",
+      "IMMUNOASSAY",
+      "MBIGSAB",
+      "NA",
+      "RSV1230"
+     ],
+     "pdf_only": [
+      "13671",
+      "3",
+      "500",
+      "500",
+      "ELISA",
+      "MBIGGAB",
+      "Microbial-induced",
+      "RSC1230"
+     ]
+    }
+   ]
+  },
+  {
+   "file": "knowledge_base/domains/IS/examples.md",
+   "line": 141,
+   "n_rows": 3,
+   "header": "Row | STUDYID | DOMAIN | USUBJID | ISSEQ | ISREFID | ISTESTCD | ISTEST | ISMSCBCE | ISCAT | ISSCAT | ISORRES | ISORRESU ",
+   "status": "DIFF",
+   "kb_duplicate": false,
+   "pdf_pages": [
+    237
+   ],
+   "pdf_rows": 3,
+   "cells_compared": 57,
+   "row_modes": {
+    "multiset": 3
+   },
+   "rows_out_of_page_range": [],
+   "diffs": [
+    {
+     "row": 1,
+     "mode": "multiset",
+     "kb_only": [
+      "2011-06-08",
+      "INFLA456",
+      "SAMPLBC001"
+     ],
+     "pdf_only": [
+      "2011-08-08",
+      "INFL456",
+      "SAMPBL0201"
+     ]
+    },
+    {
+     "row": 2,
+     "mode": "multiset",
+     "kb_only": [
+      "2011-06-08",
+      "INFLA456",
+      "SAMPLBC001"
+     ],
+     "pdf_only": [
+      "2011-08-08",
+      "INFL456",
+      "SAMPBL0201"
+     ]
+    },
+    {
+     "row": 3,
+     "mode": "multiset",
+     "kb_only": [
+      "2011-06-08",
+      "INFLA456",
+      "SAMPLBC001"
+     ],
+     "pdf_only": [
+      "2011-08-08",
+      "INFL456",
+      "SAMPBL0201"
+     ]
+    }
+   ]
+  },
+  {
+   "file": "knowledge_base/domains/IS/examples.md",
+   "line": 160,
+   "n_rows": 4,
+   "header": "Row | STUDYID | DOMAIN | USUBJID | ISSEQ | ISREFID | ISTESTCD | ISTEST | ISMSCBCE | ISTCND | ISCNDAGT | ISCAT | ISSCAT |",
+   "status": "DIFF",
+   "kb_duplicate": false,
+   "pdf_pages": [
+    238
+   ],
+   "pdf_rows": 4,
+   "cells_compared": 92,
+   "row_modes": {
+    "multiset": 4
+   },
+   "rows_out_of_page_range": [],
+   "diffs": [
+    {
+     "row": "HEADER",
+     "kb_only": [
+      "ISTCND"
+     ],
+     "pdf_only": [
+      "ISTSTCND"
+     ]
+    },
+    {
+     "row": 1,
+     "mode": "multiset",
+     "kb_only": [
+      "VACCINE-RELATED"
+     ],
+     "pdf_only": [
+      "RELATED",
+      "VACCINE-"
+     ]
+    },
+    {
+     "row": 2,
+     "mode": "multiset",
+     "kb_only": [
+      "VACCINE-RELATED"
+     ],
+     "pdf_only": [
+      "RELATED",
+      "VACCINE-"
+     ]
+    },
+    {
+     "row": 3,
+     "mode": "multiset",
+     "kb_only": [
+      "2017-06-27",
+      "VACCINE-RELATED"
+     ],
+     "pdf_only": [
+      "2017-08-27",
+      "RELATED",
+      "VACCINE-"
+     ]
+    },
+    {
+     "row": 4,
+     "mode": "multiset",
+     "kb_only": [
+      "2017-06-27",
+      "VACCINE-RELATED"
+     ],
+     "pdf_only": [
+      "2017-08-27",
+      "RELATED",
+      "VACCINE-"
+     ]
+    }
+   ]
+  },
+  {
+   "file": "knowledge_base/domains/IS/examples.md",
+   "line": 181,
+   "n_rows": 3,
+   "header": "Row | STUDYID | DOMAIN | USUBJID | NHOID | ISSEQ | ISREFID | ISTESTCD | ISTEST | ISBDAGNT | ISTSTDTL | ISCAT | ISSCAT | ",
+   "status": "DIFF",
+   "kb_duplicate": false,
+   "pdf_pages": [
+    239
+   ],
+   "pdf_rows": 3,
+   "cells_compared": 69,
+   "row_modes": {
+    "multiset": 3
+   },
+   "rows_out_of_page_range": [],
+   "diffs": [
+    {
+     "row": "HEADER",
+     "kb_only": [
+      "ISORRESU"
+     ],
+     "pdf_only": []
+    },
+    {
+     "row": 1,
+     "mode": "multiset",
+     "kb_only": [
+      "VACCINE-RELATED"
+     ],
+     "pdf_only": [
+      "RELATED",
+      "VACCINE-"
+     ]
+    },
+    {
+     "row": 2,
+     "mode": "multiset",
+     "kb_only": [
+      "VACCINE-RELATED"
+     ],
+     "pdf_only": [
+      "RELATED",
+      "VACCINE-"
+     ]
+    },
+    {
+     "row": 3,
+     "mode": "multiset",
+     "kb_only": [
+      "2017-09-27",
+      "VACCINE-RELATED"
+     ],
+     "pdf_only": [
+      "2017-08-27",
+      "RELATED",
+      "VACCINE-"
+     ]
+    }
+   ]
+  },
+  {
+   "file": "knowledge_base/domains/IS/examples.md",
+   "line": 201,
+   "n_rows": 3,
+   "header": "Row | STUDYID | DOMAIN | USUBJID | NHOID | ISSEQ | ISREFID | ISTESTCD | ISTEST | ISBDAGNT | ISTSTDTL | ISCAT | ISSCAT | ",
+   "status": "DIFF",
+   "kb_duplicate": false,
+   "pdf_pages": [
+    239
+   ],
+   "pdf_rows": 3,
+   "cells_compared": 63,
+   "row_modes": {
+    "multiset": 3
+   },
+   "rows_out_of_page_range": [],
+   "diffs": [
+    {
+     "row": 1,
+     "mode": "multiset",
+     "kb_only": [
+      "VACCINE-RELATED"
+     ],
+     "pdf_only": [
+      "RELATED",
+      "VACCINE-"
+     ]
+    },
+    {
+     "row": 2,
+     "mode": "multiset",
+     "kb_only": [
+      "VACCINE-RELATED"
+     ],
+     "pdf_only": [
+      "RELATED",
+      "VACCINE-"
+     ]
+    },
+    {
+     "row": 3,
+     "mode": "multiset",
+     "kb_only": [
+      "VACCINE-RELATED"
+     ],
+     "pdf_only": [
+      "RELATED",
+      "VACCINE-"
+     ]
+    }
+   ]
+  },
+  {
+   "file": "knowledge_base/domains/IS/examples.md",
+   "line": 218,
+   "n_rows": 11,
+   "header": "Row | STUDYID | DOMAIN | USUBJID | ISSEQ | ISREFID | ISGRPID | ISTESTCD | ISTEST | ISBDAGNT | ISTSTDTL | ISTSTOPO | ISOR",
+   "status": "DIFF",
+   "kb_duplicate": false,
+   "pdf_pages": [
+    240
+   ],
+   "pdf_rows": 11,
+   "cells_compared": 242,
+   "row_modes": {
+    "multiset": 11
+   },
+   "rows_out_of_page_range": [],
+   "diffs": [
+    {
+     "row": 6,
+     "mode": "multiset",
+     "kb_only": [
+      "6"
+     ],
+     "pdf_only": [
+      "1"
+     ]
+    },
+    {
+     "row": 7,
+     "mode": "multiset",
+     "kb_only": [
+      "7"
+     ],
+     "pdf_only": [
+      "2"
+     ]
+    },
+    {
+     "row": 8,
+     "mode": "multiset",
+     "kb_only": [
+      "8"
+     ],
+     "pdf_only": [
+      "3"
+     ]
+    },
+    {
+     "row": 9,
+     "mode": "multiset",
+     "kb_only": [
+      "9"
+     ],
+     "pdf_only": [
+      "4"
+     ]
+    },
+    {
+     "row": 10,
+     "mode": "multiset",
+     "kb_only": [
+      "10"
+     ],
+     "pdf_only": [
+      "5"
+     ]
+    },
+    {
+     "row": 11,
+     "mode": "multiset",
+     "kb_only": [
+      "11"
+     ],
+     "pdf_only": [
+      "6"
+     ]
+    }
+   ]
+  },
+  {
+   "file": "knowledge_base/domains/IS/examples.md",
+   "line": 244,
+   "n_rows": 9,
+   "header": "Row | STUDYID | DOMAIN | USUBJID | ISSEQ | ISREFID | ISTESTCD | ISTEST | ISBDAGNT | ISTSTDTL | ISORRES | ISORRESU | ISST",
+   "status": "DIFF",
+   "kb_duplicate": false,
+   "pdf_pages": [
+    241
+   ],
+   "pdf_rows": 9,
+   "cells_compared": 180,
+   "row_modes": {
+    "multiset": 9
+   },
+   "rows_out_of_page_range": [],
+   "diffs": [
+    {
+     "row": 3,
+     "mode": "multiset",
+     "kb_only": [
+      "3"
+     ],
+     "pdf_only": [
+      "2"
+     ]
+    },
+    {
+     "row": 4,
+     "mode": "multiset",
+     "kb_only": [
+      "4"
+     ],
+     "pdf_only": [
+      "3"
+     ]
+    },
+    {
+     "row": 5,
+     "mode": "multiset",
+     "kb_only": [
+      "5"
+     ],
+     "pdf_only": [
+      "3"
+     ]
+    },
+    {
+     "row": 6,
+     "mode": "multiset",
+     "kb_only": [
+      "6"
+     ],
+     "pdf_only": [
+      "4"
+     ]
+    },
+    {
+     "row": 7,
+     "mode": "multiset",
+     "kb_only": [
+      "7"
+     ],
+     "pdf_only": [
+      "4"
+     ]
+    },
+    {
+     "row": 8,
+     "mode": "multiset",
+     "kb_only": [
+      "8"
+     ],
+     "pdf_only": [
+      "5"
+     ]
+    },
+    {
+     "row": 9,
+     "mode": "multiset",
+     "kb_only": [
+      "9"
+     ],
+     "pdf_only": [
+      "5"
+     ]
+    }
+   ]
+  },
+  {
+   "file": "knowledge_base/domains/IS/examples.md",
+   "line": 260,
+   "n_rows": 4,
+   "header": "Row | STUDYID | DOMAIN | USUBJID | IDVAR | IDVARVAL | QNAM | QLABEL | QVAL | QORIG | QEVAL",
+   "status": "OK",
+   "kb_duplicate": false,
+   "pdf_pages": [
+    241
+   ],
+   "pdf_rows": 4,
+   "cells_compared": 44,
+   "row_modes": {
+    "columns": 4
+   },
+   "rows_out_of_page_range": [],
+   "diffs": []
+  },
+  {
+   "file": "knowledge_base/domains/IS/examples.md",
+   "line": 271,
+   "n_rows": 1,
+   "header": "Row | STUDYID | DOMAIN | USUBJID | IDVAR | IDVARVAL | QNAM | QLABEL | QVAL | QORIG | QEVAL",
+   "status": "OK",
+   "kb_duplicate": false,
+   "pdf_pages": [
+    241
+   ],
+   "pdf_rows": 1,
+   "cells_compared": 11,
+   "row_modes": {
+    "columns": 1
+   },
+   "rows_out_of_page_range": [],
+   "diffs": []
+  }
+ ],
+ "pdf_only": [
+  {
+   "pages": [
+    228
+   ],
+   "header": "Row STUDYID DOMAIN USUBJID GFSEQ GFREFID NHOID GFLNKID GFTESTCD GFTEST GFTSTDTL GFORRES GFSTRESC GFSYM GFGENLOC GFSEQID ",
+   "n_rows": 3
+  },
+  {
+   "pages": [
+    228
+   ],
+   "header": "Row STUDYID DOMAIN USUBJID MSSEQ MSREFID NHOID MSLNKID MSTESTCD MSTEST MSAGENT MSORRES MSSTRESC MSMETHOD VISITNUM VISIT ",
+   "n_rows": 3
+  },
+  {
+   "pages": [
+    228
+   ],
+   "header": "Row STUDYID RDOMAIN USUBJID IDVAR IDVARVAL RELTYPE RELID",
+   "n_rows": 2
+  }
+ ],
+ "pdf_unparsed": [
+  {
+   "pages": [
+    233
+   ],
+   "header": [
+    "Row",
+    "STUDYID",
+    "DOMAIN",
+    "USUBJID",
+    "ISSEQ",
+    "ISREFID",
+    "ISGRPID",
+    "ISTESTCD",
+    "ISTEST",
+    "ISBDAGNT",
+    "ISTSTOPO",
+    "ISCAT"
+   ],
+   "n_rows": 3,
+   "reason": "vertically centred cells (indented row no.)"
+  },
+  {
+   "pages": [
+    234
+   ],
+   "header": [
+    "Row",
+    "STUDYID",
+    "DOMAIN",
+    "USUBJID",
+    "ISSEQ",
+    "ISREFID",
+    "ISGRPID",
+    "ISTESTCD",
+    "ISTEST",
+    "ISBDAGNT",
+    "ISTSTOPO",
+    "ISCAT"
+   ],
+   "n_rows": 8,
+   "reason": "vertically centred cells (indented row no.)"
+  },
+  {
+   "pages": [
+    234,
+    235
+   ],
+   "header": [
+    "Row",
+    "STUDYID",
+    "DOMAIN",
+    "USUBJID",
+    "ISSEQ",
+    "ISREFID",
+    "ISGRPID",
+    "ISTESTCD",
+    "ISTEST",
+    "ISBDAGNT",
+    "ISTSTOPO",
+    "ISCAT"
+   ],
+   "n_rows": 4,
+   "reason": "vertically centred cells (indented row no.)"
+  },
+  {
+   "pages": [
+    235
+   ],
+   "header": [
+    "Row",
+    "STUDYID",
+    "DOMAIN",
+    "USUBJID",
+    "ISSEQ",
+    "ISREFID",
+    "ISTESTCD",
+    "ISTEST",
+    "ISBDAGNT",
+    "ISTSTOPO",
+    "ISCAT",
+    "ISSCAT"
+   ],
+   "n_rows": 9,
+   "reason": "vertically centred cells (indented row no.)"
+  }
+ ]
+}
