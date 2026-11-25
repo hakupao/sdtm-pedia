@@ -1,0 +1,7 @@
+# CDISC copyright: extracted PDF text == the PDF itself (source/ is gitignored). Never commit.
+pdf_pages/
+# KB temp copies for mutation tests (T0.4) + other scratch
+scratch/
+# byte-identical copies of archive/deep_verification/{pdf,md}_atoms.jsonl (md5 in _progress.json); re-copy from archive
+pdf_atoms.jsonl
+md_atoms.jsonl

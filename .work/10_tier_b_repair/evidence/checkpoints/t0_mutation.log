@@ -1,0 +1,183 @@
+real KB md5 (before): 5ae88550adcecaf3c9349233f7fa07fc
+==== M0 pristine copy
+copy KB md5: 5ae88550adcecaf3c9349233f7fa07fc
+---- [M0] fp_match
+atoms checked: 6636  kb files: 296  kb_root: /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/scratch/knowledge_base
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/fp_baseline.jsonl: regressions=0 new_hits=0
+RESULT: GREEN
+fp_match exit=0
+---- [M0] table_census
+PDF tables parsed: 18 (pages ig34:275-284); KB tables: 24; status: {'DIFF': 7, 'OK': 13, 'NO_PDF': 3, 'UNPARSEABLE': 1}; PDF_ONLY: 0; cells compared: 3551
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/census_BPCPP.json: identical
+RESULT: GREEN
+table_census exit=0
+---- [M0] t3_recompute (--downgrade fp regressions)
+  downgraded EXACT/EQUIVALENT -> MISSING (fp regression): 0
+TB: current Tier B sections=142 residual_gap=1389
+TB: §5.0 scope sections=174 residual_gap=1459 G-TB1 pass=59/174 G-TB2 pass=35/174
+BASELINE vs /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/section_coverage.wc.baseline.jsonl: differing sections=0
+RESULT: GREEN
+t3_recompute exit=0
+==== M1 delete 1 prose sentence (atom ig34_p0008_a022, EXACT, unique in ch01_introduction.md)
+M1 deleted: The SDTMIG is best read online, so the reader can benefit fr ...
+---- [M1] fp_match
+atoms checked: 6636  kb files: 296  kb_root: /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/scratch/knowledge_base
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/fp_baseline.jsonl: regressions=1 new_hits=0
+  REGRESS ig34_p0008_a022 EXACT §1.4 [How to Read this Implementation Guide]
+RESULT: RED
+fp_match exit=1
+---- [M1] table_census
+PDF tables parsed: 18 (pages ig34:275-284); KB tables: 24; status: {'DIFF': 7, 'OK': 13, 'NO_PDF': 3, 'UNPARSEABLE': 1}; PDF_ONLY: 0; cells compared: 3551
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/census_BPCPP.json: identical
+RESULT: GREEN
+table_census exit=0
+---- [M1] t3_recompute (--downgrade fp regressions)
+  downgraded EXACT/EQUIVALENT -> MISSING (fp regression): 1
+TB: current Tier B sections=142 residual_gap=1390
+TB: §5.0 scope sections=174 residual_gap=1460 G-TB1 pass=59/174 G-TB2 pass=35/174
+BASELINE vs /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/section_coverage.wc.baseline.jsonl: differing sections=1
+  DIFF ('ig34', '§1.4 [How to Read this Implementation Guide]') {'coverage_density': (0.7333, 0.6667), 'tb_density_excl_ie': (0.7333, 0.6667), 'tb_residual_gap': (4, 5)}
+RESULT: RED
+t3_recompute exit=1
+==== M2 change 1 table value (PC/examples.md Ex1 Method C relrec row 5: IDVARVAL 4 -> 9)
+M2 line 78: | 5 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 4 | | 1 | -> | 5 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 9 | | 1 |
+---- [M2] fp_match
+atoms checked: 6636  kb files: 296  kb_root: /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/scratch/knowledge_base
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/fp_baseline.jsonl: regressions=0 new_hits=0
+RESULT: GREEN
+fp_match exit=0
+---- [M2] table_census
+PDF tables parsed: 18 (pages ig34:275-284); KB tables: 24; status: {'DIFF': 8, 'OK': 12, 'NO_PDF': 3, 'UNPARSEABLE': 1}; PDF_ONLY: 0; cells compared: 3551
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/census_BPCPP.json: DIFFERS
+  CHANGED knowledge_base/domains/PC/examples.md 72 DIFF [{'row': 5, 'mode': 'columns', 'kb_only': ["col6='9'"], 'pdf_only': ["col6='4'"]}]
+RESULT: RED
+table_census exit=1
+---- [M2] t3_recompute (--downgrade fp regressions)
+  downgraded EXACT/EQUIVALENT -> MISSING (fp regression): 0
+TB: current Tier B sections=142 residual_gap=1389
+TB: §5.0 scope sections=174 residual_gap=1459 G-TB1 pass=59/174 G-TB2 pass=35/174
+BASELINE vs /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/section_coverage.wc.baseline.jsonl: differing sections=0
+RESULT: GREEN
+t3_recompute exit=0
+==== M2b move 1 value into an empty neighbour cell (PC/assumptions.md:31 relrec row 1: MANY RELTYPE -> IDVARVAL)
+M2b line 31: | 1 | ABC-123 | PC | | PCGRPID | | MANY | A | -> | 1 | ABC-123 | PC | | PCGRPID | MANY | | A |
+---- [M2b] fp_match
+atoms checked: 6636  kb files: 296  kb_root: /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/scratch/knowledge_base
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/fp_baseline.jsonl: regressions=0 new_hits=0
+RESULT: GREEN
+fp_match exit=0
+---- [M2b] table_census
+PDF tables parsed: 18 (pages ig34:275-284); KB tables: 24; status: {'DIFF': 8, 'OK': 12, 'NO_PDF': 3, 'UNPARSEABLE': 1}; PDF_ONLY: 0; cells compared: 3551
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/census_BPCPP.json: DIFFERS
+  CHANGED knowledge_base/domains/PC/assumptions.md 29 DIFF [{'row': 1, 'mode': 'columns', 'kb_only': ["col6='MANY'", "col7=''"], 'pdf_only': ["col6=''", "col7='MANY'"]}]
+RESULT: RED
+table_census exit=1
+---- [M2b] t3_recompute (--downgrade fp regressions)
+  downgraded EXACT/EQUIVALENT -> MISSING (fp regression): 0
+TB: current Tier B sections=142 residual_gap=1389
+TB: §5.0 scope sections=174 residual_gap=1459 G-TB1 pass=59/174 G-TB2 pass=35/174
+BASELINE vs /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/section_coverage.wc.baseline.jsonl: differing sections=0
+RESULT: GREEN
+t3_recompute exit=0
+==== M2c change 1 value in a wrapped (multi-line) PDF record (PC/assumptions.md:69 pc.xpt row 13 PCORRES 10 -> 11)
+M2c line 69: PCORRES 10 -> 11
+---- [M2c] fp_match
+atoms checked: 6636  kb files: 296  kb_root: /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/scratch/knowledge_base
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/fp_baseline.jsonl: regressions=0 new_hits=0
+RESULT: GREEN
+fp_match exit=0
+---- [M2c] table_census
+PDF tables parsed: 18 (pages ig34:275-284); KB tables: 24; status: {'DIFF': 7, 'OK': 13, 'NO_PDF': 3, 'UNPARSEABLE': 1}; PDF_ONLY: 0; cells compared: 3551
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/census_BPCPP.json: DIFFERS
+  CHANGED knowledge_base/domains/PC/assumptions.md 55 DIFF [{'row': 13, 'mode': 'multiset', 'kb_only': ['11'], 'pdf_only': ['10']}]
+RESULT: RED
+table_census exit=1
+---- [M2c] t3_recompute (--downgrade fp regressions)
+  downgraded EXACT/EQUIVALENT -> MISSING (fp regression): 0
+TB: current Tier B sections=142 residual_gap=1389
+TB: §5.0 scope sections=174 residual_gap=1459 G-TB1 pass=59/174 G-TB2 pass=35/174
+BASELINE vs /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/section_coverage.wc.baseline.jsonl: differing sections=0
+RESULT: GREEN
+t3_recompute exit=0
+==== M2d delete 1 KB table row (PC/examples.md:119 Ex1 Method D relrec row 20)
+M2d deleted line 119 (row 20)
+---- [M2d] fp_match
+atoms checked: 6636  kb files: 296  kb_root: /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/scratch/knowledge_base
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/fp_baseline.jsonl: regressions=0 new_hits=0
+RESULT: GREEN
+fp_match exit=0
+---- [M2d] table_census
+PDF tables parsed: 18 (pages ig34:275-284); KB tables: 24; status: {'DIFF': 8, 'OK': 12, 'NO_PDF': 3, 'UNPARSEABLE': 1}; PDF_ONLY: 0; cells compared: 3543
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/census_BPCPP.json: DIFFERS
+  CHANGED knowledge_base/domains/PC/examples.md 98 DIFF [{'row': 20, 'kb_only': [], 'pdf_only': 'ROW'}]
+  CHANGED knowledge_base/domains/PC/examples.md 152 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 163 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 183 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 200 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 235 DIFF [{'row': 3, 'mode': 'columns', 'kb_only': ["col6='DYIDRGX_A'"], 'pdf_only': ["col6='DY1DRGX_A'"]}]
+  CHANGED knowledge_base/domains/PC/examples.md 250 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 284 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 304 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 353 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 391 OK []
+RESULT: RED
+table_census exit=1
+---- [M2d] t3_recompute (--downgrade fp regressions)
+  downgraded EXACT/EQUIVALENT -> MISSING (fp regression): 0
+TB: current Tier B sections=142 residual_gap=1389
+TB: §5.0 scope sections=174 residual_gap=1459 G-TB1 pass=59/174 G-TB2 pass=35/174
+BASELINE vs /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/section_coverage.wc.baseline.jsonl: differing sections=0
+RESULT: GREEN
+t3_recompute exit=0
+==== M3 delete 1 subsection (ch04 '#### 4.5.1.2 Tests Not Done', lines 1171-1207)
+M3 deleted 37 lines (4.5.1.2 heading..before 4.5.1.3)
+---- [M3] fp_match
+atoms checked: 6636  kb files: 296  kb_root: /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/scratch/knowledge_base
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/fp_baseline.jsonl: regressions=23 new_hits=0
+  REGRESS ig34_p0052_a005 EQUIVALENT §4.5.1.2 [Tests Not Done]
+  REGRESS ig34_p0052_a006 EQUIVALENT §4.5.1.2 [Tests Not Done]
+  REGRESS ig34_p0052_a007 EQUIVALENT §4.5.1.2 [Tests Not Done]
+  REGRESS ig34_p0052_a008 EQUIVALENT §4.5.1.2 [Tests Not Done]
+  REGRESS ig34_p0052_a009 EQUIVALENT §4.5.1.2 [Tests Not Done]
+  REGRESS ig34_p0052_a010 EQUIVALENT §4.5.1.2 [Tests Not Done]
+  REGRESS ig34_p0052_a011 EQUIVALENT §4.5.1.2 [Tests Not Done]
+  REGRESS ig34_p0052_a012 EQUIVALENT §4.5.1.2 [Tests Not Done]
+  REGRESS ig34_p0052_a013 EQUIVALENT §4.5.1.2 [Tests Not Done]
+  REGRESS ig34_p0052_a014 EQUIVALENT §4.5.1.2 [Tests Not Done]
+fp_match exit=1
+---- [M3] table_census
+PDF tables parsed: 18 (pages ig34:275-284); KB tables: 24; status: {'DIFF': 7, 'OK': 13, 'NO_PDF': 3, 'UNPARSEABLE': 1}; PDF_ONLY: 0; cells compared: 3551
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/census_BPCPP.json: identical
+RESULT: GREEN
+table_census exit=0
+---- [M3] t3_recompute (--downgrade fp regressions)
+  downgraded EXACT/EQUIVALENT -> MISSING (fp regression): 23
+TB: current Tier B sections=143 residual_gap=1389
+TB: §5.0 scope sections=174 residual_gap=1482 G-TB1 pass=58/174 G-TB2 pass=34/174
+BASELINE vs /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/section_coverage.wc.baseline.jsonl: differing sections=2
+  DIFF ('ig34', '§4.5.1 [Original and Standardized Results of Findings and Tests Not Done]') {'aggregate_verdict': ('FULL_COVERAGE', 'SIBLING_DROPPED')}
+  DIFF ('ig34', '§4.5.1.2 [Tests Not Done]') {'aggregate_verdict': ('FULL_COVERAGE', 'SKELETON_ONLY'), 'coverage_density': (1.0, 0.1481), 'tb_density_excl_ie': (1.0, 0.1481), 'tb_g1_pass': (True, False), 'tb_g2_pass': (True, False), 'tb_residual_gap': (0, 23)}
+RESULT: RED
+t3_recompute exit=1
+==== RESTORE (fresh copy of the unmodified KB)
+copy KB md5: 5ae88550adcecaf3c9349233f7fa07fc
+---- [RESTORE] fp_match
+atoms checked: 6636  kb files: 296  kb_root: /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/scratch/knowledge_base
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/fp_baseline.jsonl: regressions=0 new_hits=0
+RESULT: GREEN
+fp_match exit=0
+---- [RESTORE] table_census
+PDF tables parsed: 18 (pages ig34:275-284); KB tables: 24; status: {'DIFF': 7, 'OK': 13, 'NO_PDF': 3, 'UNPARSEABLE': 1}; PDF_ONLY: 0; cells compared: 3551
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/census_BPCPP.json: identical
+RESULT: GREEN
+table_census exit=0
+---- [RESTORE] t3_recompute (--downgrade fp regressions)
+  downgraded EXACT/EQUIVALENT -> MISSING (fp regression): 0
+TB: current Tier B sections=142 residual_gap=1389
+TB: §5.0 scope sections=174 residual_gap=1459 G-TB1 pass=59/174 G-TB2 pass=35/174
+BASELINE vs /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/section_coverage.wc.baseline.jsonl: differing sections=0
+RESULT: GREEN
+t3_recompute exit=0
+real KB md5 (after): 5ae88550adcecaf3c9349233f7fa07fc
+git status knowledge_base/ archive/ releases/:
+(end)

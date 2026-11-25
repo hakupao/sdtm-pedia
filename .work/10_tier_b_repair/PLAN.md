@@ -1,7 +1,7 @@
-# 08 Tier B 内容修复 — Plan (Tier 3)
+# 10 Tier B 内容修复 — Plan (Tier 3)
 
 <!-- chain: E (plans) ; KB 改动走 Chain D -->
-> 状态: **DRAFT v0.1** (2026-11-25) — 待用户就 §9 开放决策拍板后转 v1.0
+> 状态: **v1.0 APPROVED** (2026-11-25) — 用户拍板 §9 Q1-Q9 全部按默认建议; 执行中
 > 模板: `~/.claude/templates/workflow-tier3.md` (+ tier2 基础)
 > 前序: `archive/deep_verification/` (06 深审, 已冻结只读) RETRO 缺口 3 / 决策 2; `issues_found.md` Issue 5
 
@@ -166,7 +166,7 @@ stock p4b verdict 只做**参考列**, 不当闸: 它的密度分母含 IE, PART
 - **push 时机**: 默认 T4 全过后一次 push (见 §9 Q4); push 后提醒用户在 sdtm-rag 仓说「KB 更新」bump submodule.
 - **不在 archive 里补记**: 06 的 RETRO / ledger 保持原样; 本项目结论写在 `.work/10_tier_b_repair/RETROSPECTIVE.md`, 并在 `docs/PROGRESS.md` 指向它.
 
-## 9. 开放决策 (需用户拍板; 同步到 `.omc/plans/open-questions.md`)
+## 9. 开放决策 — 已拍板 (2026-11-25, 用户: "按你的建议开工" → 全部采用默认建议)
 
 > §3.1 的 B1-B8 是本 PLAN 已定的边界; 下面 Q1-Q9 是待用户定的.
 
@@ -177,7 +177,7 @@ stock p4b verdict 只做**参考列**, 不当闸: 它的密度分母含 IE, PART
 | Q3 | 闸用 G-TB1/2 (残留 0 / 去 IE 密度 1.00, 带登记例外) 替代 p4b verdict? | 是 |
 | Q4 | push 节奏: T4 后一次推, 还是每批过闸就推 (sdtm-rag 可更早受益)? | 一次推 |
 | Q5 | 修完是否出 v1.5 release / 刷 web? | 本项目不做, 另立 |
-| Q6 | 目录编号: `.work/08_` 已被 `08_repo_refactor_v2` 占用, 是否改名 `10_tier_b_repair`? | 改名 (未改, 等确认) |
+| Q6 | 目录编号: `.work/08_` 已被 `08_repo_refactor_v2` 占用, 是否改名 `10_tier_b_repair`? | 已改名 `10_tier_b_repair` |
 | Q7 | 是否把全量 md_atoms/P4a 重跑 (方案 B) 列为后续? | 列后续, 不在本项目 |
 | Q8 | 允许每批在本地 commit (便于按批回滚; 不 push)? | 允许 |
 | Q9 | 已标 EXACT/EQUIVALENT 的原子 (同一 P4a 匹配器, P7 发现过同表错行) 是否也要验? | T4.1 加对照层 12 条; 若发现错 → 扩为全量指纹复验 |
@@ -187,4 +187,5 @@ stock p4b verdict 只做**参考列**, 不当闸: 它的密度分母含 IE, PART
 | Version | Date | Change |
 |---|---|---|
 | v0.1 | 2026-11-25 | 初稿: T0 基线已出, 其余待 §9 拍板 |
+| v1.0 | 2026-11-25 | 用户拍板 Q1-Q9 = 默认建议; 进入 T0.2 |
 | v0.1.1 | 2026-11-25 | advisor 复核: 加 T0.3b 读 KB 的检查器 + 变异对象改正; 分诊/闸范围统一 1,459; 加 RELOCATE/FIGURE/PDF_TYPO 终态; 回滚先存 patch; §9 改 Q 编号; T4.1 加对照层 |

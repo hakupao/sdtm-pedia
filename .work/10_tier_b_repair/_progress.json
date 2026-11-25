@@ -2,10 +2,10 @@
   "project": "10_tier_b_repair",
   "tier": 3,
   "plan": "PLAN.md",
-  "plan_version": "v0.1.1-DRAFT",
-  "status": "PLANNING — 等用户拍板 PLAN §9",
-  "current_step": "T0.1",
-  "next_step": "T0.2",
+  "plan_version": "v1.0",
+  "status": "EXECUTING — T0 (T0.4 hard checkpoint, 等用户 ack)",
+  "current_step": "T0.4",
+  "next_step": "T1.1 (须用户 ack T0.4 后)",
   "baseline": {
     "tier_b_p4b_orig": {
       "SIBLING_DROPPED": 56,
@@ -36,13 +36,54 @@
         "scripts/t0_inventory.py"
       ],
       "note": "56/110 复现; 现行 49/93"
+    },
+    {
+      "step": "T0.2",
+      "status": "PASS",
+      "artifacts": [
+        "work/coverage_ledger.wc.jsonl",
+        "scripts/t3_recompute.py",
+        "work/section_coverage.wc.baseline.jsonl"
+      ],
+      "note": "stock 字段 399 行与 archive section_coverage 0 差异 (去 aggregated_by); TierB 142 residual 1389; 范围 174 节 residual 1459"
+    },
+    {
+      "step": "T0.3",
+      "status": "PASS",
+      "artifacts": [
+        "scripts/t0_pdf_pages.py",
+        "work/pdf_pages/ (gitignored, CDISC 版权)",
+        "work/.gitignore"
+      ],
+      "note": "ig34 461 + sv20 74 = 535 页; 抽查 ig34 p1/p278/p461, sv20 p1/p30/p74 页码对齐"
+    },
+    {
+      "step": "T0.3b",
+      "status": "PASS",
+      "artifacts": [
+        "scripts/fp_match.py",
+        "scripts/table_census.py",
+        "work/fp_baseline.jsonl",
+        "work/census_BPCPP.json"
+      ],
+      "note": "census p275-284: PDF 18 表全解析; KB 24 表 OK13/DIFF7/NO_PDF3/UNPARSEABLE1; 3551 格; 42 处 DIFF (含 PDF_TYPO 候选 3); p274 2 表须人工"
+    },
+    {
+      "step": "T0.4",
+      "status": "PASS (待用户 ack)",
+      "artifacts": [
+        "scripts/t0_mutation.sh",
+        "evidence/checkpoints/t0_mutation.md",
+        "evidence/checkpoints/t0_mutation.log"
+      ],
+      "note": "M1 fp+t3 红 / M2 census 红 (+M2b 空格挪值 / M2c 折行记录 / M2d 删行 均红) / M3 fp+t3 红 / 复原全绿; 真 KB md5 前后一致"
     }
   ],
   "steps": {
-    "T0.2": "pending",
-    "T0.3": "pending",
-    "T0.3b": "pending",
-    "T0.4": "pending",
+    "T0.2": "PASS",
+    "T0.3": "PASS",
+    "T0.3b": "PASS",
+    "T0.4": "PASS — awaiting user ack (hard)",
     "T1.1": "pending",
     "T1.2": "pending",
     "T1.3": "pending",
@@ -66,7 +107,7 @@
     "G-TB6": null,
     "G-TB7": null,
     "G-TB8": null,
-    "G-TB9": null
+    "G-TB9": "PASS 3/3 (待用户 ack)"
   },
   "open_decisions": [
     "Q1",
@@ -84,5 +125,18 @@
     "retries": 0,
     "failures_archived": 0
   },
-  "recovery_hint": "新 session 恢复: 1) 读本文件 current_step / next_step; 2) 读 PLAN.md §4 对应 step 与 §5 闸; 3) 跳过 completed[] 里 status=PASS 的 step; 4) 读 trace.jsonl 末 5 行确认最后事件; 5) 从 next_step 续跑. archive/ 与 releases/ 只读; KB 只能由 writer subagent 改."
+  "recovery_hint": "新 session 恢复: 1) 读本文件 current_step / next_step; 2) 读 PLAN.md §4 对应 step 与 §5 闸; 3) 跳过 completed[] 里 status=PASS 的 step; 4) 读 trace.jsonl 末 5 行确认最后事件; 5) 从 next_step 续跑. archive/ 与 releases/ 只读; KB 只能由 writer subagent 改.",
+  "decisions": {
+    "Q1-Q9": "全部采用 PLAN §9 默认建议 (用户 2026-11-25)"
+  },
+  "md5": {
+    "note": "PLAN §5.2.4; section_coverage 输出含 aggregated_by.ts, 比对请用 --baseline (忽略该字段)",
+    "work/coverage_ledger.wc.jsonl": "620c4a19e5d433b000327b32693c4c9c (= archive 原件)",
+    "work/pdf_atoms.jsonl": "b5dfa317246d6e90f2e679135624859c (= archive 原件)",
+    "work/md_atoms.jsonl": "24396ac00a01e3b333b41da412ec0f97 (= archive 原件)",
+    "work/section_coverage.wc.baseline.jsonl": "872dbe8690c735d572354aea16fbad1f",
+    "work/fp_baseline.jsonl": "248abb3f2f20b8c6982a3c9f7d3b0fbe",
+    "work/census_BPCPP.json": "2ee7a6f68d36459703e1a9486adb2a30 (columns 模式版)",
+    "knowledge_base tree (t0_mutation.sh kbsum)": "5ae88550adcecaf3c9349233f7fa07fc"
+  }
 }

@@ -1,0 +1,852 @@
+{
+ "pages": "ig34:275-284",
+ "kb_files": [
+  "knowledge_base/domains/PC/examples.md",
+  "knowledge_base/domains/PP/examples.md",
+  "knowledge_base/domains/PC/assumptions.md"
+ ],
+ "tables": [
+  {
+   "file": "knowledge_base/domains/PC/examples.md",
+   "line": 22,
+   "n_rows": 4,
+   "header": "Row | STUDYID | RDOMAIN | USUBJID | IDVAR | IDVARVAL | RELTYPE | RELID",
+   "status": "DIFF",
+   "kb_duplicate": false,
+   "pdf_pages": [
+    277
+   ],
+   "pdf_rows": 4,
+   "cells_compared": 32,
+   "row_modes": {
+    "columns": 4
+   },
+   "rows_out_of_page_range": [],
+   "diffs": [
+    {
+     "row": 3,
+     "mode": "columns",
+     "kb_only": [
+      "col5='PCGRPID'"
+     ],
+     "pdf_only": [
+      "col5='PPGRPID'"
+     ]
+    }
+   ]
+  },
+  {
+   "file": "knowledge_base/domains/PC/examples.md",
+   "line": 36,
+   "n_rows": 26,
+   "header": "Row | STUDYID | RDOMAIN | USUBJID | IDVAR | IDVARVAL | RELTYPE | RELID",
+   "status": "DIFF",
+   "kb_duplicate": false,
+   "pdf_pages": [
+    278
+   ],
+   "pdf_rows": 26,
+   "cells_compared": 208,
+   "row_modes": {
+    "columns": 26
+   },
+   "rows_out_of_page_range": [],
+   "diffs": [
+    {
+     "row": 13,
+     "mode": "columns",
+     "kb_only": [
+      "col3='PP'"
+     ],
+     "pdf_only": [
+      "col3='PC'"
+     ]
+    },
+    {
+     "row": 26,
+     "mode": "columns",
+     "kb_only": [
+      "col3='PP'"
+     ],
+     "pdf_only": [
+      "col3='PC'"
+     ]
+    }
+   ]
+  },
+  {
+   "file": "knowledge_base/domains/PC/examples.md",
+   "line": 72,
+   "n_rows": 16,
+   "header": "Row | STUDYID | RDOMAIN | USUBJID | IDVAR | IDVARVAL | RELTYPE | RELID",
+   "status": "OK",
+   "kb_duplicate": false,
+   "pdf_pages": [
+    278
+   ],
+   "pdf_rows": 16,
+   "cells_compared": 128,
+   "row_modes": {
+    "columns": 16
+   },
+   "rows_out_of_page_range": [],
+   "diffs": []
+  },
+  {
+   "file": "knowledge_base/domains/PC/examples.md",
+   "line": 98,
+   "n_rows": 38,
+   "header": "Row | STUDYID | RDOMAIN | USUBJID | IDVAR | IDVARVAL | RELTYPE | RELID",
+   "status": "OK",
+   "kb_duplicate": false,
+   "pdf_pages": [
+    278,
+    279
+   ],
+   "pdf_rows": 38,
+   "cells_compared": 304,
+   "row_modes": {
+    "columns": 38
+   },
+   "rows_out_of_page_range": [],
+   "diffs": []
+  },
+  {
+   "file": "knowledge_base/domains/PC/examples.md",
+   "line": 153,
+   "n_rows": 2,
+   "header": "Row | STUDYID | RDOMAIN | USUBJID | IDVAR | IDVARVAL | RELTYPE | RELID",
+   "status": "OK",
+   "kb_duplicate": false,
+   "pdf_pages": [
+    279
+   ],
+   "pdf_rows": 2,
+   "cells_compared": 16,
+   "row_modes": {
+    "columns": 2
+   },
+   "rows_out_of_page_range": [],
+   "diffs": []
+  },
+  {
+   "file": "knowledge_base/domains/PC/examples.md",
+   "line": 164,
+   "n_rows": 11,
+   "header": "Row | STUDYID | RDOMAIN | USUBJID | IDVAR | IDVARVAL | RELTYPE | RELID",
+   "status": "OK",
+   "kb_duplicate": false,
+   "pdf_pages": [
+    279
+   ],
+   "pdf_rows": 11,
+   "cells_compared": 88,
+   "row_modes": {
+    "columns": 11
+   },
+   "rows_out_of_page_range": [],
+   "diffs": []
+  },
+  {
+   "file": "knowledge_base/domains/PC/examples.md",
+   "line": 184,
+   "n_rows": 8,
+   "header": "Row | STUDYID | RDOMAIN | USUBJID | IDVAR | IDVARVAL | RELTYPE | RELID",
+   "status": "OK",
+   "kb_duplicate": false,
+   "pdf_pages": [
+    280
+   ],
+   "pdf_rows": 8,
+   "cells_compared": 64,
+   "row_modes": {
+    "columns": 8
+   },
+   "rows_out_of_page_range": [],
+   "diffs": []
+  },
+  {
+   "file": "knowledge_base/domains/PC/examples.md",
+   "line": 201,
+   "n_rows": 17,
+   "header": "Row | STUDYID | RDOMAIN | USUBJID | IDVAR | IDVARVAL | RELTYPE | RELID",
+   "status": "OK",
+   "kb_duplicate": false,
+   "pdf_pages": [
+    280
+   ],
+   "pdf_rows": 17,
+   "cells_compared": 136,
+   "row_modes": {
+    "columns": 17
+   },
+   "rows_out_of_page_range": [],
+   "diffs": []
+  },
+  {
+   "file": "knowledge_base/domains/PC/examples.md",
+   "line": 236,
+   "n_rows": 5,
+   "header": "Row | STUDYID | RDOMAIN | USUBJID | IDVAR | IDVARVAL | RELTYPE | RELID",
+   "status": "DIFF",
+   "kb_duplicate": false,
+   "pdf_pages": [
+    280
+   ],
+   "pdf_rows": 5,
+   "cells_compared": 40,
+   "row_modes": {
+    "columns": 5
+   },
+   "rows_out_of_page_range": [],
+   "diffs": [
+    {
+     "row": 3,
+     "mode": "columns",
+     "kb_only": [
+      "col6='DYIDRGX_A'"
+     ],
+     "pdf_only": [
+      "col6='DY1DRGX_A'"
+     ]
+    }
+   ]
+  },
+  {
+   "file": "knowledge_base/domains/PC/examples.md",
+   "line": 251,
+   "n_rows": 24,
+   "header": "Row | STUDYID | RDOMAIN | USUBJID | IDVAR | IDVARVAL | RELTYPE | RELID",
+   "status": "OK",
+   "kb_duplicate": false,
+   "pdf_pages": [
+    281
+   ],
+   "pdf_rows": 24,
+   "cells_compared": 192,
+   "row_modes": {
+    "columns": 24
+   },
+   "rows_out_of_page_range": [],
+   "diffs": []
+  },
+  {
+   "file": "knowledge_base/domains/PC/examples.md",
+   "line": 285,
+   "n_rows": 10,
+   "header": "Row | STUDYID | RDOMAIN | USUBJID | IDVAR | IDVARVAL | RELTYPE | RELID",
+   "status": "OK",
+   "kb_duplicate": false,
+   "pdf_pages": [
+    281
+   ],
+   "pdf_rows": 10,
+   "cells_compared": 80,
+   "row_modes": {
+    "columns": 10
+   },
+   "rows_out_of_page_range": [],
+   "diffs": []
+  },
+  {
+   "file": "knowledge_base/domains/PC/examples.md",
+   "line": 305,
+   "n_rows": 29,
+   "header": "Row | STUDYID | RDOMAIN | USUBJID | IDVAR | IDVARVAL | RELTYPE | RELID",
+   "status": "OK",
+   "kb_duplicate": false,
+   "pdf_pages": [
+    281,
+    282
+   ],
+   "pdf_rows": 29,
+   "cells_compared": 232,
+   "row_modes": {
+    "columns": 29
+   },
+   "rows_out_of_page_range": [],
+   "diffs": []
+  },
+  {
+   "file": "knowledge_base/domains/PC/examples.md",
+   "line": 354,
+   "n_rows": 17,
+   "header": "Row | STUDYID | RDOMAIN | USUBJID | IDVAR | IDVARVAL | RELTYPE | RELID",
+   "status": "OK",
+   "kb_duplicate": false,
+   "pdf_pages": [
+    282
+   ],
+   "pdf_rows": 17,
+   "cells_compared": 136,
+   "row_modes": {
+    "columns": 17
+   },
+   "rows_out_of_page_range": [],
+   "diffs": []
+  },
+  {
+   "file": "knowledge_base/domains/PC/examples.md",
+   "line": 392,
+   "n_rows": 51,
+   "header": "Row | STUDYID | RDOMAIN | USUBJID | IDVAR | IDVARVAL | RELTYPE | RELID",
+   "status": "OK",
+   "kb_duplicate": false,
+   "pdf_pages": [
+    283,
+    284
+   ],
+   "pdf_rows": 51,
+   "cells_compared": 408,
+   "row_modes": {
+    "columns": 51
+   },
+   "rows_out_of_page_range": [],
+   "diffs": []
+  },
+  {
+   "file": "knowledge_base/domains/PP/examples.md",
+   "line": 16,
+   "n_rows": 24,
+   "header": "Row | STUDYID | DOMAIN | USUBJID | PPSEQ | PPGRPID | PPTESTCD | PPTEST | PPCAT | PPORRES | PPORRESU | PPSTRESC | PPSTRES",
+   "status": "NO_PDF"
+  },
+  {
+   "file": "knowledge_base/domains/PP/examples.md",
+   "line": 47,
+   "n_rows": 7,
+   "header": "Row | STUDYID | RDOMAIN | USUBJID | IDVAR | IDVARVAL | QNAM | QLABEL | QVAL | QORIG | QEVAL",
+   "status": "NO_PDF"
+  },
+  {
+   "file": "knowledge_base/domains/PP/examples.md",
+   "line": 68,
+   "n_rows": 7,
+   "header": "Row | STUDYID | DOMAIN | USUBJID | PPSEQ | PPRFID | PPTESTCD | PPTEST | PPCAT | PPSCAT | PPORRES | PPORRESU | PPSTRESC |",
+   "status": "NO_PDF"
+  },
+  {
+   "file": "knowledge_base/domains/PP/examples.md",
+   "line": 87,
+   "n_rows": 16,
+   "header": "Row | STUDYID | DOMAIN | USUBJID | PPSEQ | PPGRPID | PPTESTCD | PPTEST | PPCAT | PPORRES | PPORRESU | PPSTRESC | PPSTRES",
+   "status": "DIFF",
+   "kb_duplicate": false,
+   "pdf_pages": [
+    275
+   ],
+   "pdf_rows": 11,
+   "cells_compared": 231,
+   "row_modes": {
+    "multiset": 11
+   },
+   "rows_out_of_page_range": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "diffs": [
+    {
+     "row": "HEADER",
+     "kb_only": [
+      "PPRFDTC"
+     ],
+     "pdf_only": [
+      "PPRFTDTC"
+     ]
+    },
+    {
+     "row": 6,
+     "mode": "multiset",
+     "kb_only": [
+      "2001-02-25T08:00"
+     ],
+     "pdf_only": [
+      "2001-02-01T08:00"
+     ]
+    },
+    {
+     "row": 7,
+     "mode": "multiset",
+     "kb_only": [
+      "2001-02-25T08:00",
+      "L/h"
+     ],
+     "pdf_only": [
+      "2001-02-01T08:00",
+      "L/hr"
+     ]
+    },
+    {
+     "row": 8,
+     "mode": "multiset",
+     "kb_only": [
+      "2001-02-25T08:00"
+     ],
+     "pdf_only": [
+      "2001-02-15T08:00"
+     ]
+    },
+    {
+     "row": 9,
+     "mode": "multiset",
+     "kb_only": [
+      "2001-02-25T08:00"
+     ],
+     "pdf_only": [
+      "2001-02-15T08:00"
+     ]
+    },
+    {
+     "row": 10,
+     "mode": "multiset",
+     "kb_only": [
+      "2001-02-25T08:00"
+     ],
+     "pdf_only": [
+      "2001-02-15T08:00"
+     ]
+    },
+    {
+     "row": 11,
+     "mode": "multiset",
+     "kb_only": [
+      "2001-02-25T08:00"
+     ],
+     "pdf_only": [
+      "2001-02-15T08:00"
+     ]
+    },
+    {
+     "row": 12,
+     "mode": "multiset",
+     "kb_only": [
+      "2001-02-25T08:00"
+     ],
+     "pdf_only": [
+      "2001-02-15T08:00"
+     ]
+    },
+    {
+     "row": 13,
+     "mode": "multiset",
+     "kb_only": [
+      "2001-02-25T08:00"
+     ],
+     "pdf_only": [
+      "2001-02-15T08:00"
+     ]
+    },
+    {
+     "row": 14,
+     "mode": "multiset",
+     "kb_only": [
+      "2001-02-25T08:00"
+     ],
+     "pdf_only": [
+      "2001-02-15T08:00"
+     ]
+    },
+    {
+     "row": 15,
+     "mode": "multiset",
+     "kb_only": [
+      "2001-02-25T08:00"
+     ],
+     "pdf_only": [
+      "2001-02-15T08:00"
+     ]
+    },
+    {
+     "row": 16,
+     "mode": "multiset",
+     "kb_only": [
+      "2001-02-25T08:00"
+     ],
+     "pdf_only": [
+      "2001-02-15T08:00"
+     ]
+    }
+   ]
+  },
+  {
+   "file": "knowledge_base/domains/PP/examples.md",
+   "line": 112,
+   "n_rows": 12,
+   "header": "Row | STUDYID | DOMAIN | USUBJID | PPSEQ | PPGRPID (Example 1) | PPGRPID (Example 2) | PPGRPID (Example 3) | PPGRPID (Ex",
+   "status": "DIFF",
+   "kb_duplicate": false,
+   "pdf_pages": [
+    277
+   ],
+   "pdf_rows": 12,
+   "cells_compared": 240,
+   "row_modes": {
+    "columns": 12
+   },
+   "rows_out_of_page_range": [],
+   "diffs": [
+    {
+     "row": "HEADER",
+     "kb_only": [
+      "PPRFDTC"
+     ],
+     "pdf_only": [
+      "PPRFTDTC"
+     ]
+    }
+   ]
+  },
+  {
+   "file": "knowledge_base/domains/PP/examples.md",
+   "line": 135,
+   "n_rows": 4,
+   "header": "Method | Cardinality | PC-side IDVAR | PP-side IDVAR",
+   "status": "UNPARSEABLE"
+  },
+  {
+   "file": "knowledge_base/domains/PP/examples.md",
+   "line": 167,
+   "n_rows": 8,
+   "header": "Row | STUDYID | RDOMAIN | USUBJID | IDVAR | IDVARVAL | RELTYPE | RELID",
+   "status": "OK",
+   "kb_duplicate": true,
+   "pdf_pages": [
+    280
+   ],
+   "pdf_rows": 8,
+   "cells_compared": 64,
+   "row_modes": {
+    "columns": 8
+   },
+   "rows_out_of_page_range": [],
+   "diffs": []
+  },
+  {
+   "file": "knowledge_base/domains/PC/assumptions.md",
+   "line": 29,
+   "n_rows": 2,
+   "header": "Row | STUDYID | RDOMAIN | USUBJID | IDVAR | IDVARVAL | RELTYPE | RELID",
+   "status": "OK",
+   "kb_duplicate": false,
+   "pdf_pages": [
+    275
+   ],
+   "pdf_rows": 2,
+   "cells_compared": 16,
+   "row_modes": {
+    "columns": 2
+   },
+   "rows_out_of_page_range": [],
+   "diffs": []
+  },
+  {
+   "file": "knowledge_base/domains/PC/assumptions.md",
+   "line": 55,
+   "n_rows": 24,
+   "header": "Row | STUDYID | DOMAIN | USUBJID | PCSEQ | PCGRPID (Example 1) | PCGRPID (Example 2) | PCGRPID (Example 3) | PCGRPID (Ex",
+   "status": "DIFF",
+   "kb_duplicate": false,
+   "pdf_pages": [
+    276
+   ],
+   "pdf_rows": 24,
+   "cells_compared": 696,
+   "row_modes": {
+    "multiset": 24
+   },
+   "rows_out_of_page_range": [],
+   "diffs": [
+    {
+     "row": 1,
+     "mode": "multiset",
+     "kb_only": [
+      "DY1_DRGX"
+     ],
+     "pdf_only": [
+      "DY1_DRGX_A"
+     ]
+    },
+    {
+     "row": 2,
+     "mode": "multiset",
+     "kb_only": [
+      "DY1_DRGX"
+     ],
+     "pdf_only": [
+      "DY1_DRGX_A"
+     ]
+    },
+    {
+     "row": 3,
+     "mode": "multiset",
+     "kb_only": [
+      "2001-02-01T09:00",
+      "DY1_DRGX"
+     ],
+     "pdf_only": [
+      "2001-02-01T09:20",
+      "DY1_DRGX_A"
+     ]
+    },
+    {
+     "row": 4,
+     "mode": "multiset",
+     "kb_only": [
+      "DY1_DRGX"
+     ],
+     "pdf_only": [
+      "DY1_DRGX_A"
+     ]
+    },
+    {
+     "row": 5,
+     "mode": "multiset",
+     "kb_only": [
+      "DY1_DRGX"
+     ],
+     "pdf_only": [
+      "DY1_DRGX_A"
+     ]
+    },
+    {
+     "row": 6,
+     "mode": "multiset",
+     "kb_only": [
+      "DY1_DRGX"
+     ],
+     "pdf_only": [
+      "DY1_DRGX_A"
+     ]
+    },
+    {
+     "row": 7,
+     "mode": "multiset",
+     "kb_only": [
+      "DY1_DRGX"
+     ],
+     "pdf_only": [
+      "DY1_DRGX_A"
+     ]
+    },
+    {
+     "row": 8,
+     "mode": "multiset",
+     "kb_only": [
+      "2001-02-01T11:30",
+      "DY1_DRGX"
+     ],
+     "pdf_only": [
+      "2001-02-01T11:50",
+      "DY1_DRGX_A"
+     ]
+    },
+    {
+     "row": 9,
+     "mode": "multiset",
+     "kb_only": [
+      "2001-02-01T11:50",
+      "DY1_DRGX"
+     ],
+     "pdf_only": [
+      "2001-02-01T12:40",
+      "DY1_DRGX_A"
+     ]
+    },
+    {
+     "row": 10,
+     "mode": "multiset",
+     "kb_only": [
+      "DY1_DRGX"
+     ],
+     "pdf_only": [
+      "DY1_DRGX_A"
+     ]
+    },
+    {
+     "row": 11,
+     "mode": "multiset",
+     "kb_only": [
+      "2001-02-01T18:50",
+      "DY1_DRGX"
+     ],
+     "pdf_only": [
+      "2001-02-01T16:50",
+      "DY1_DRGX_D"
+     ]
+    },
+    {
+     "row": 12,
+     "mode": "multiset",
+     "kb_only": [
+      "DY1_DRGX"
+     ],
+     "pdf_only": [
+      "DY1_DRGX_A"
+     ]
+    },
+    {
+     "row": 18,
+     "mode": "multiset",
+     "kb_only": [
+      "100",
+      "2001-02-08T10:10"
+     ],
+     "pdf_only": [
+      "125",
+      "2001-02-08T10:35"
+     ]
+    }
+   ]
+  },
+  {
+   "file": "knowledge_base/domains/PC/assumptions.md",
+   "line": 86,
+   "n_rows": 12,
+   "header": "Row | STUDYID | DOMAIN | USUBJID | PPSEQ | PPGRPID (Example 1) | PPGRPID (Example 2) | PPGRPID (Example 3) | PPGRPID (Ex",
+   "status": "DIFF",
+   "kb_duplicate": true,
+   "pdf_pages": [
+    277
+   ],
+   "pdf_rows": 12,
+   "cells_compared": 240,
+   "row_modes": {
+    "columns": 12
+   },
+   "rows_out_of_page_range": [],
+   "diffs": [
+    {
+     "row": 1,
+     "mode": "columns",
+     "kb_only": [
+      "col9='DY1DRGX'"
+     ],
+     "pdf_only": [
+      "col9='TMAX'"
+     ]
+    },
+    {
+     "row": 2,
+     "mode": "columns",
+     "kb_only": [
+      "col9='DY1DRGX'"
+     ],
+     "pdf_only": [
+      "col9='CMAX'"
+     ]
+    },
+    {
+     "row": 3,
+     "mode": "columns",
+     "kb_only": [
+      "col9='DY1DRGX'"
+     ],
+     "pdf_only": [
+      "col9='AUC'"
+     ]
+    },
+    {
+     "row": 4,
+     "mode": "columns",
+     "kb_only": [
+      "col5='4'",
+      "col9='DY1DRGX'"
+     ],
+     "pdf_only": [
+      "col5='5'",
+      "col9='OTHER'"
+     ]
+    },
+    {
+     "row": 5,
+     "mode": "columns",
+     "kb_only": [
+      "col5='5'",
+      "col9='DY1DRGX'"
+     ],
+     "pdf_only": [
+      "col5='6'",
+      "col9='OTHER'"
+     ]
+    },
+    {
+     "row": 6,
+     "mode": "columns",
+     "kb_only": [
+      "col5='6'",
+      "col9='DY1DRGX'"
+     ],
+     "pdf_only": [
+      "col5='7'",
+      "col9='OTHER'"
+     ]
+    },
+    {
+     "row": 7,
+     "mode": "columns",
+     "kb_only": [
+      "col5='7'"
+     ],
+     "pdf_only": [
+      "col5='8'"
+     ]
+    },
+    {
+     "row": 8,
+     "mode": "columns",
+     "kb_only": [
+      "col5='8'"
+     ],
+     "pdf_only": [
+      "col5='9'"
+     ]
+    },
+    {
+     "row": 9,
+     "mode": "columns",
+     "kb_only": [
+      "col5='9'"
+     ],
+     "pdf_only": [
+      "col5='10'"
+     ]
+    },
+    {
+     "row": 10,
+     "mode": "columns",
+     "kb_only": [
+      "col5='10'"
+     ],
+     "pdf_only": [
+      "col5='12'"
+     ]
+    },
+    {
+     "row": 11,
+     "mode": "columns",
+     "kb_only": [
+      "col5='11'"
+     ],
+     "pdf_only": [
+      "col5='13'"
+     ]
+    },
+    {
+     "row": 12,
+     "mode": "columns",
+     "kb_only": [
+      "col5='12'"
+     ],
+     "pdf_only": [
+      "col5='14'"
+     ]
+    }
+   ]
+  }
+ ],
+ "pdf_only": [],
+ "pdf_unparsed": []
+}
