@@ -40,7 +40,11 @@ this repo's `knowledge_base/` as a git submodule.
 
 ## Link-check baseline
 
-`python3 tools/check_links.py` reports **18,728** broken relative links at this reorganization, all pre-existing
-and unchanged by it. Almost all are in the bundled knowledge-base copies under `releases/*/self_deploy/` and
-`archive/ai_platforms/*/current/` (links that only resolve inside the original `knowledge_base/` tree), plus
-`archive/legacy/old_knowledge_base_v0/`. The count should not go up.
+`python3 tools/check_links.py` prints `broken relative links: N (live docs: M)`. At this reorganization:
+**N = 18,668**, **M = 42** — all pre-existing, none introduced by the move.
+
+- **M (live docs)** excludes the frozen bundle copies under `releases/*/self_deploy/` and everything under
+  `archive/`. It is the gate: it must not go up. The 42 are old links in `.work/` history files, plus
+  `METHODOLOGY.md:78` and one in `docs/superpowers/specs/`.
+- **N** also counts the bundled knowledge-base copies (`releases/*/self_deploy/`, `archive/ai_platforms/*/current/`),
+  whose links only resolve inside the original `knowledge_base/` tree, and `archive/legacy/old_knowledge_base_v0/`.

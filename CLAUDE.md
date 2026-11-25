@@ -36,7 +36,7 @@ Then summarize to the user: current status, open issues, and suggested next step
 用户说这些词时, 直接按下列步骤执行:
 
 - **「KB 更新」** — 改 `knowledge_base/` → 走 Chain D 溯源 (`.work/meta/mapping.md` →
-  `docs/TRACEABILITY.md` → worklog) → `tools/check_links.py` 计数不升 → commit →
+  `docs/TRACEABILITY.md` → worklog) → `tools/check_links.py` live docs 计数不升 → commit →
   `git push origin main` (origin 已配两个 push URL, 一次推两处) → 提醒用户到 sdtm-rag 仓说
   「KB 更新」以 bump submodule
 - **「网站更新」** — 改 `web/` 或 `releases/v1.4/` → `cd web && npm ci && npm run build`
@@ -87,7 +87,7 @@ append-only 日志; `docs/PROGRESS.md` = **唯一**当前状态源; `CLAUDE.md` 
    `.work/MANIFEST.md` (目录结构 / chain 改了才动); `CLAUDE.md` Key Paths (新 key path 才加)
 3. **Prune CLAUDE.md** — 按写作规则剪掉过期状态; 行数 ≤ 150
 4. **Check Change Chains** — `knowledge_base/` 改了 → Chain D; plans 改了 → Chain E
-5. **Link check** — `python3 tools/check_links.py` 末行 broken 计数不高于基线 (`docs/PATH_MAP.md`)
+5. **Link check** — `python3 tools/check_links.py` 末行 `live docs` 计数不高于基线 (`docs/PATH_MAP.md`)
 6. **Commit + push** — single commit, `git push origin main`
 7. **Report** — one-line summary of what was committed
 

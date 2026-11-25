@@ -1,6 +1,6 @@
 # Methodology and Verification Statement
 
-> Last updated: 2026-04-29 · Maintained alongside the build process. The status reported below reflects the current state of the verification track.
+> Last updated: 2026-11-25 · The verification track described in §2 closed on 2026-05-12.
 
 ## Purpose
 
@@ -41,7 +41,7 @@ The knowledge base was produced through a seven-phase pipeline. Each phase is do
 | 6 | Retrieval optimization (routing layer; reverse variable index) | `ROUTING.md`; `VARIABLE_INDEX.md` (1,523 variables) |
 | 6.5 | AI platform deployment | Four-platform release bundle |
 
-In parallel with the seven-phase pipeline, an independent **atom-level literal verification audit** is being executed as a continuing work track. Each atomic claim in the knowledge base is reconciled against the source PDF on a page-by-page basis. As of 2026-04-29 the audit covers **97% of the in-scope pages** and remains active. Per-batch evidence is published under [`archive/deep_verification/evidence/checkpoints/`](archive/deep_verification/evidence/checkpoints).
+In parallel with the seven-phase pipeline, an independent **atom-level literal verification audit** reconciled each atomic claim in the knowledge base against the source PDF (2026-04-24 → 2026-05-12, phases P0–P7). It is **complete**: 12,487 PDF atoms and 10,435 knowledge-base atoms were extracted; coverage reached **99.02%** (adjusted denominator); **0** atoms were judged HALLUCINATED; Issues 5–16 were found and repaired; the final spot-check content error rate was 3.3% (2/60). Known residual: 437 UNSOURCED_MANUAL atoms (present in the KB, not located in the PDF) were not individually adjudicated, and MEDIUM-tier (Tier B) refinements were stopped after the 99.02% gate passed. Summary: [`archive/deep_verification/RETROSPECTIVE.md`](archive/deep_verification/RETROSPECTIVE.md); per-batch evidence: [`archive/deep_verification/evidence/checkpoints/`](archive/deep_verification/evidence/checkpoints).
 
 ## 3. Traceability — auditing an individual answer
 
@@ -104,7 +104,7 @@ The two non-conformances above resulted in four standing controls. They apply to
 
 The four controls and their originating non-conformances are documented in full at [`.work/meta/retrospective.md`](.work/meta/retrospective.md).
 
-The verification track is iterative. As of the date of this statement, the deep-verification audit referenced in §2 has completed 14 review rounds; each round is preserved as evidence, and any discrepancy identified in a round is fed back into the knowledge base.
+The deep-verification audit referenced in §2 is closed (2026-05-12); every round is preserved as evidence, and each discrepancy it identified was fed back into the knowledge base.
 
 ## 6. Implications and boundaries
 

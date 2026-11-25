@@ -1,3 +1,5 @@
+<a id="top"></a>
+
 <div align="center">
 
 <a href="https://git.io/typing-svg">
@@ -7,12 +9,12 @@
 <p><strong>将难以检索的 PDF 规范，转化为 AI 可即时查询的 SDTM 结构化知识库。</strong></p>
 
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC_BY_4.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
-[![SDTM IG](https://img.shields.io/badge/SDTM_IG-v3.4-blue.svg)]()
-[![SDTM](https://img.shields.io/badge/SDTM-v2.0-blue.svg)]()
-[![Domains](https://img.shields.io/badge/Domains-63-green.svg)]()
-[![Files](https://img.shields.io/badge/Files-293-green.svg)]()
-[![Codelists](https://img.shields.io/badge/Codelists-1%2C005-orange.svg)]()
-[![Terms](https://img.shields.io/badge/Terms-37%2C939-orange.svg)]()
+[![SDTM IG](https://img.shields.io/badge/SDTM_IG-v3.4-blue.svg)](https://www.cdisc.org/standards/foundational/sdtmig)
+[![SDTM](https://img.shields.io/badge/SDTM-v2.0-blue.svg)](https://www.cdisc.org/standards/foundational/sdtm)
+[![Domains](https://img.shields.io/badge/Domains-63-green.svg)](knowledge_base/domains/)
+[![Files](https://img.shields.io/badge/Files-293-green.svg)](knowledge_base/)
+[![Codelists](https://img.shields.io/badge/Codelists-1%2C005-orange.svg)](knowledge_base/terminology/)
+[![Terms](https://img.shields.io/badge/Terms-37%2C939-orange.svg)](knowledge_base/terminology/)
 
 [English](README.md) | [中文](README_CN.md)
 
@@ -24,7 +26,7 @@
 
 CDISC SDTM 标准被锁在厚重的 PDF 和庞大的 Excel 文件中——难以检索、难以交叉引用，AI 更是几乎无法可靠地使用。
 
-**SDTM Pedia** 将这些源文件转换为 **293 个结构化 Markdown 文件**，按 domain、术语和概念模型分类组织。最终产出一个人类和 AI 都能即时检索的知识库——无需向量数据库，无需额外基础设施。
+**SDTM Pedia** 将这些源文件转换为 **293 个结构化 Markdown 内容文件**（另有 `INDEX.md` / `ROUTING.md` / `VARIABLE_INDEX.md` 3 个导航索引），按 domain、术语和概念模型分类组织。最终产出一个人类和 AI 都能即时检索的知识库——无需向量数据库，无需额外基础设施。
 
 > **AI 提取的知识库怎么信？** 详见 [METHODOLOGY.md](METHODOLOGY.md) — 数据来源、可追溯性、校验阶段抓到并修复的两个问题，以及任何一条答案怎么对照 PDF 自行核验。
 
@@ -37,7 +39,7 @@ CDISC SDTM 标准被锁在厚重的 PDF 和庞大的 Excel 文件中——难以
 | **37,939 个术语** | 完整的 CDISC Controlled Terminology——1,005 个 codelist，全部索引 |
 | **AI 友好** | 专为 LLM 设计的知识库结构——可直接用于 Claude Projects、Cursor 等 |
 | **零基础设施** | 无需向量数据库、无需嵌入管道——仅靠文件和目录结构即可工作 |
-| **持续迭代** | 正在持续优化检索精度和交叉引用能力 |
+| **独立验证** | 逐 atom 对照源 PDF 审计——覆盖率 99.02%，0 个幻觉 atom |
 
 ## 架构设计
 
@@ -92,7 +94,7 @@ graph LR
 
 | 组成 | 位置 | 说明 |
 |------|------|------|
-| **知识库** | [`knowledge_base/`](knowledge_base/)（本仓） | 293 个 Markdown 文件——本项目的成果本体 |
+| **知识库** | [`knowledge_base/`](knowledge_base/)（本仓） | 293 个内容文件 + 3 个导航索引——本项目的成果本体 |
 | **网站** | [sdtm-pedia.pages.dev](https://sdtm-pedia.pages.dev/) | 使用指南、平台对比和部署教程（中 / 英 / 日），由 [`web/`](web/) 构建 |
 | **发布包** | [GitHub Releases](https://github.com/hakupao/sdtm-pedia/releases)——v1.0、v1.1、v1.4 | 按平台打包的 zip（Claude Projects、ChatGPT GPTs、Gemini Gems、NotebookLM）；源文件在 [`releases/`](releases/) |
 | **问答服务** | [hakupao/sdtm-rag](https://github.com/hakupao/sdtm-rag) | 基于本知识库的 RAG + 知识图谱问答服务（以 git submodule 方式引用本仓）。公开试用站正在筹备中，上线后会在这里补上链接。 |
@@ -124,7 +126,7 @@ graph LR
 
 ```
 sdtm-pedia/
-├── knowledge_base/              # 知识库（293 个文件）
+├── knowledge_base/              # 知识库（293 个内容文件 + 3 个索引）
 │   ├── INDEX.md                 # 全局索引——导航入口
 │   ├── model/                   # SDTM v2.0 概念模型（6 个文件）
 │   │   ├── concepts_and_terms.md
@@ -381,7 +383,7 @@ SEX 绑定哪个 codelist？
 [![Star History Chart](https://api.star-history.com/svg?repos=hakupao/sdtm-pedia&type=Date)](https://star-history.com/#hakupao/sdtm-pedia)
 
 <a href="https://github.com/hakupao/sdtm-pedia/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=hakupao/sdtm-pedia" />
+  <img src="https://contrib.rocks/image?repo=hakupao/sdtm-pedia" alt="Contributors" />
 </a>
 
 <br/>

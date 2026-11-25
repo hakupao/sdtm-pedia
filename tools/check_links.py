@@ -7,8 +7,11 @@ Usage:
 
 Checks inline links/images `[t](target)` and reference definitions `[x]: target`,
 outside fenced code blocks and inline code. Skips URLs with a scheme, `#anchor`
-and absolute `/paths`. A link is OK when its target (minus #fragment / ?query)
+absolute `/paths` and bare numbers (CT-table prose like `[x](100)`). A link is OK when its target (minus #fragment / ?query)
 exists on disk relative to the file.
+
+The second count ("live docs") excludes the frozen bundle copies under
+releases/*/self_deploy/ and everything under archive/ — use it as the gate.
 """
 import json
 import os
@@ -20,7 +23,8 @@ from urllib.parse import unquote
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 INLINE = re.compile(r"!?\[(?:[^\[\]]|\[[^\[\]]*\])*\]\(\s*(<[^>]*>|[^)\s]+(?:\([^)\s]*\)[^)\s]*)*)(?:\s+(?:\"[^\"]*\"|'[^']*'))?\s*\)")
 REFDEF = re.compile(r"^\s{0,3}\[[^\]]+\]:\s*(<[^>]*>|\S+)")
-SKIP = re.compile(r"^(?:[a-z][a-z0-9+.-]*:|#|/)", re.I)
+SKIP = re.compile(r"^(?:[a-z][a-z0-9+.-]*:|#|/|\d+$)", re.I)
+NOT_LIVE = re.compile(r"^(?:releases/[^/]+/self_deploy/|archive/)")
 CODE = re.compile(r"`+[^`]*`+")
 
 
@@ -58,7 +62,7 @@ def main():
     as_json = "--json" in sys.argv
     files = subprocess.run(["git", "ls-files", "-z", "*.md"], cwd=ROOT,
                            capture_output=True, check=True).stdout.decode().split("\0")
-    broken = 0
+    broken = live = 0
     for f in filter(None, files):
         p = os.path.join(ROOT, f)
         if not os.path.isfile(p):
@@ -77,8 +81,9 @@ def main():
             elif not ok:
                 print(f"{f}:{no}: {raw}")
             broken += not ok
+            live += (not ok) and not NOT_LIVE.match(f)
     if not as_json:
-        print(f"broken relative links: {broken}", file=sys.stderr)
+        print(f"broken relative links: {broken} (live docs: {live})", file=sys.stderr)
     sys.exit(1 if broken and not as_json else 0)
 
 

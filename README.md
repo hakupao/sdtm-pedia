@@ -1,3 +1,5 @@
+<a id="top"></a>
+
 <div align="center">
 
 <a href="https://git.io/typing-svg">
@@ -7,12 +9,12 @@
 <p><strong>Turn unreadable PDFs into an AI-ready, instantly searchable SDTM knowledge base.</strong></p>
 
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC_BY_4.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
-[![SDTM IG](https://img.shields.io/badge/SDTM_IG-v3.4-blue.svg)]()
-[![SDTM](https://img.shields.io/badge/SDTM-v2.0-blue.svg)]()
-[![Domains](https://img.shields.io/badge/Domains-63-green.svg)]()
-[![Files](https://img.shields.io/badge/Files-293-green.svg)]()
-[![Codelists](https://img.shields.io/badge/Codelists-1%2C005-orange.svg)]()
-[![Terms](https://img.shields.io/badge/Terms-37%2C939-orange.svg)]()
+[![SDTM IG](https://img.shields.io/badge/SDTM_IG-v3.4-blue.svg)](https://www.cdisc.org/standards/foundational/sdtmig)
+[![SDTM](https://img.shields.io/badge/SDTM-v2.0-blue.svg)](https://www.cdisc.org/standards/foundational/sdtm)
+[![Domains](https://img.shields.io/badge/Domains-63-green.svg)](knowledge_base/domains/)
+[![Files](https://img.shields.io/badge/Files-293-green.svg)](knowledge_base/)
+[![Codelists](https://img.shields.io/badge/Codelists-1%2C005-orange.svg)](knowledge_base/terminology/)
+[![Terms](https://img.shields.io/badge/Terms-37%2C939-orange.svg)](knowledge_base/terminology/)
 
 [English](README.md) | [中文](README_CN.md)
 
@@ -24,7 +26,7 @@
 
 CDISC SDTM standards are locked inside dense PDFs and sprawling Excel files — hard to search, hard to cross-reference, and nearly impossible for AI to use reliably.
 
-**SDTM Pedia** converts these source documents into **293 structured Markdown files**, organized by domain, terminology, and conceptual model. The result is a knowledge base that both humans and AI can navigate instantly — no vector database required.
+**SDTM Pedia** converts these source documents into **293 structured Markdown content files** (plus `INDEX.md` / `ROUTING.md` / `VARIABLE_INDEX.md` for navigation), organized by domain, terminology, and conceptual model. The result is a knowledge base that both humans and AI can navigate instantly — no vector database required.
 
 > **How can you trust an AI-extracted knowledge base?** See [METHODOLOGY.md](METHODOLOGY.md) — sources, traceability, the two issues we caught and fixed during validation, and how to spot-check any answer against the source PDF.
 
@@ -37,7 +39,7 @@ CDISC SDTM standards are locked inside dense PDFs and sprawling Excel files — 
 | **37,939 Terms** | Complete CDISC Controlled Terminology — 1,005 codelists, fully indexed |
 | **AI-Ready** | Designed as a knowledge base for LLMs — works directly with Claude Projects, Cursor, etc. |
 | **Zero Infrastructure** | No vector database, no embedding pipeline — just files and directory structure |
-| **Actively Maintained** | Ongoing iteration to improve retrieval precision and cross-referencing |
+| **Independently Verified** | Atom-level audit against the source PDF — 99.02% coverage, 0 hallucinated atoms |
 
 ## Architecture
 
@@ -92,7 +94,7 @@ graph LR
 
 | Piece | Where | What it is |
 |-------|-------|------------|
-| **Knowledge base** | [`knowledge_base/`](knowledge_base/) (this repo) | 293 Markdown files — the product |
+| **Knowledge base** | [`knowledge_base/`](knowledge_base/) (this repo) | 293 content files + 3 navigation indexes — the product |
 | **Website** | [sdtm-pedia.pages.dev](https://sdtm-pedia.pages.dev/) | User guide, platform comparison and deployment tutorials (zh / en / ja), built from [`web/`](web/) |
 | **Release bundles** | [GitHub Releases](https://github.com/hakupao/sdtm-pedia/releases) — v1.0, v1.1, v1.4 | Per-platform zips (Claude Projects, ChatGPT GPTs, Gemini Gems, NotebookLM); sources in [`releases/`](releases/) |
 | **Q&A service** | [hakupao/sdtm-rag](https://github.com/hakupao/sdtm-rag) | RAG + knowledge-graph Q&A service built on this knowledge base (pins it as a git submodule). A public demo is planned; the link will be added here once it is live. |
@@ -124,7 +126,7 @@ Per-batch evidence is in [`archive/deep_verification/evidence/checkpoints/`](arc
 
 ```
 sdtm-pedia/
-├── knowledge_base/              # The knowledge base (293 files)
+├── knowledge_base/              # The knowledge base (293 content files + 3 indexes)
 │   ├── INDEX.md                 # Master index — navigation entry point
 │   ├── model/                   # SDTM v2.0 conceptual model (6 files)
 │   │   ├── concepts_and_terms.md
@@ -381,7 +383,7 @@ This work is licensed under a [Creative Commons Attribution 4.0 International Li
 [![Star History Chart](https://api.star-history.com/svg?repos=hakupao/sdtm-pedia&type=Date)](https://star-history.com/#hakupao/sdtm-pedia)
 
 <a href="https://github.com/hakupao/sdtm-pedia/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=hakupao/sdtm-pedia" />
+  <img src="https://contrib.rocks/image?repo=hakupao/sdtm-pedia" alt="Contributors" />
 </a>
 
 <br/>

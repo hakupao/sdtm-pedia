@@ -2,7 +2,7 @@
 # archive/jp_delivery/scripts/build_zip.sh — pack iTMS deliverable zip.
 #
 # Pulls from single source of truth:
-#   release/$VERSION/                      (md + self_deploy/)
+#   releases/$VERSION/                     (md + self_deploy/)
 #   archive/jp_delivery/*.xlsx            (6 xlsx, produced by build_xlsx.py)
 #
 # Output:
