@@ -31,12 +31,12 @@ unzip -l web/dist-bundles/claude_bundle_v1.0.zip | head
 ## 2. Tag + create GH Release
 
 ```
-cd /Users/bojiangzhang/MyProject/SDTM-compare
+cd sdtm-pedia   # repo root
 git tag v1.0
 git push origin v1.0
 gh release create v1.0 \
   --title "v1.0" \
-  --notes-file release/v1.0/CHANGELOG.md \
+  --notes-file releases/v1.0/CHANGELOG.md \
   web/dist-bundles/*.zip
 ```
 
@@ -67,7 +67,7 @@ instead of the "release pending" placeholder.
 
 ## Sources
 
-The bundles are built from `release/v1.0/self_deploy/{claude,chatgpt,gemini,notebooklm}/`.
+The bundles are built from `releases/v1.0/self_deploy/{claude,chatgpt,gemini,notebooklm}/`.
 Each platform directory is an independent self-contained deploy bundle —
 system prompt + uploads/ + tutorial × 3 langs. See
-`release/v1.0/README.{zh,en,ja}.md` for the deployment flow.
+`releases/v1.0/README.{zh,en,ja}.md` for the deployment flow.

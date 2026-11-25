@@ -4,54 +4,45 @@
 
 SDTM (Study Data Tabulation Model) knowledge base built from CDISC standard source files (PDF + xlsx).
 293 Markdown files covering 63 domains, terminology, model concepts, and implementation guide chapters.
+Public repo; RAG 问答服务在独立的公开仓 `hakupao/sdtm-rag` (以 submodule 引用本仓 `knowledge_base/`).
 
 ## CLAUDE.md 写作规则 (写入前必过闸)
 
-CLAUDE.md 是**长效约束清单**, 不是工作日志, 不是状态看板. 写入前先过三道闸:
+CLAUDE.md 是**长效约束清单**, 不是工作日志, 不是状态看板.
 
-**可以写 (durable, 6+ 月稳定)**:
-- 启动 / 收尾 / 约定 / 锁步 gate / 章节链 (Chain) 等流程规则
-- 跨 session 必守的硬约束 (规则 A/B/C/D, PASS 四条)
-- Key Paths 一行指针: `名字 → 路径 — 一句话用途` (单元格 ≤ 80 字符)
-
-**不要写 (属 worklog / progress.json / handoff)**:
-- 任何 round / batch / version 进度数字 (atoms / pages / batches / cut #N)
-- 当前 in-flight 状态 ("round N closing in flight", "batch M 即将派发")
-- 历史归档清单 (v1.1-v1.7 archive 路径) — 归档目录自身即来源
-- 多子句长段落 / 表格单元格 > 100 字符 — 拆专门 doc, 这里只留指针
-- 已在 MANIFEST.md / worklog.md 写过的内容 (避免重复维护)
-
-**写完后必须及时清理 (TTL 触发条件)**:
-- 带日期 / round N / version vX 的句子, 该阶段关闭立即删除或迁移到 `.work/meta/worklog/<对应phase>.md`
-- 收尾流程必须扫一遍 CLAUDE.md, 把过期状态描述剪掉 (新增到下方 Session Wrap-up checklist)
-- Key Paths 条目 ≥ 2 个月没动过, 重审一次: 在用就压短描述, 不在用就删
-
-**红线**:
-- CLAUDE.md 总行数硬上限 **150 行** (含空行); 超出 = 该剪了
-- 单章节 ≥ 30 行 = 该拆 doc, CLAUDE.md 只留入口指针
-- 表格单行 > 200 字符 = 该拆出去
+- **可以写**: 启动 / 收尾 / 路由词 / Chain 等流程规则; 跨 session 硬约束; Key Paths 一行指针 (单元格 ≤ 80 字符)
+- **不要写**: round / batch / version 进度数字; in-flight 状态; 历史归档清单; 已在 MANIFEST / worklog 写过的内容
+- **TTL**: 带日期 / 版本的状态句, 阶段关闭即删或迁到 `.work/meta/worklog/<phase>.md`; 收尾时扫一遍
+- **红线**: 总行数 ≤ 150 行; 单章节 ≥ 30 行 = 拆 doc 留指针; 表格单行 ≤ 200 字符
 
 ## Session Startup
 
 Every new session, **before doing any work**, read these files in order:
 
-0. `.work/AGENT_GUIDE.md` — 一页纸进入指引 (优先, 含找东西速查 + phase 入口表 + 路由词)
+0. `.work/AGENT_GUIDE.md` — 一页纸进入指引 (找东西速查 + phase 入口表 + 路由词)
 1. `.work/MANIFEST.md` — file layout, change chains, quick reference table
 2. `docs/PROGRESS.md` — 当前各 phase 状态 (唯一状态源)
 3. `.work/meta/worklog/INDEX.md` — 历史工作日志入口 (按 phase 拆分)
 4. `.work/03_verification/issues_found.md` — open issues
-5. `.work/meta/retrospective.md` § 4 — six prevention rules (1-4 内容抽取; 5-6 代码/测试: 变异验证 + 按成因选对策)
+5. `.work/meta/retrospective.md` § 4 — six prevention rules
 
 Then summarize to the user: current status, open issues, and suggested next step.
 
-## 06 Deep Verification (旁枝)
+## 跨会话路由词
 
-**当前阶段: P7 COMPLETE ✅ 工程全部收官** — P1-P7 全 PASS (coverage 99.02%, Issues 5-16 repaired, P7 content error 3.3%, RETROSPECTIVE.md 归档, Rule D PASS 2026-05-12).
-进度 / metric / archive → `milestones/06_deep_verification/_progress.json`. 入口 PLAN → `milestones/06_deep_verification/PLAN.md`.
+用户说这些词时, 直接按下列步骤执行:
+
+- **「KB 更新」** — 改 `knowledge_base/` → 走 Chain D 溯源 (`.work/meta/mapping.md` →
+  `docs/TRACEABILITY.md` → worklog) → `tools/check_links.py` 计数不升 → commit →
+  `git push origin main` (origin 已配两个 push URL, 一次推两处) → 提醒用户到 sdtm-rag 仓说
+  「KB 更新」以 bump submodule
+- **「网站更新」** — 改 `web/` 或 `releases/v1.4/` → `cd web && npm ci && npm run build`
+  (页数不应无故变化) → commit + push → 确认 Cloudflare Pages 部署成功、
+  https://sdtm-pedia.pages.dev/ 正常
+- **「收尾」/「wrap up」/「提交收尾」** — 见下方 Session Wrap-up
 
 ## Change Chains
 
-This project uses a change-chain system to prevent forgotten updates.
 When modifying any `.work/` file, check its `<!-- chain: X -->` header for related files that must also be updated.
 Full chain definitions are in `.work/MANIFEST.md`.
 
@@ -59,55 +50,43 @@ Full chain definitions are in `.work/MANIFEST.md`.
 
 | What | Where |
 |------|-------|
-| Knowledge base output | `knowledge_base/` |
-| Source files (PDF/xlsx) | `source/` |
-| RAG+KG 问答服务 (已拆仓) | RAG 问答服务已拆到独立的私有仓 `sdtm-rag`; 拆仓过程记录在 sdtm-rag 仓 |
-| 阶段性成果容器 (只读) | `milestones/` (06深审/jp/ai_platforms/release/archive) |
-| 09 restructure v3 (2026-07-21) | `.work/09_repo_refactor_v3/` (branches→milestones; RETRO 齐备) |
-| Work artifacts | `.work/` (phase-numbered dirs) |
-| Project docs | `docs/` |
-| Web 站点 (Phase 7 产物) | `web/` (Astro; prod sdtm-pedia.pages.dev) |
-| 历史归档 (只读, 不再维护) | `milestones/archive/` (含 old_knowledge_base_v0/ + legacy_logs/) |
+| Knowledge base (产品本体) | `knowledge_base/` |
+| Source files (PDF/xlsx, gitignored) | `source/` |
+| 发布包 v1.0-v1.4 (冻结; web 读 v1.4) | `releases/v1.{0-4}/` |
+| Web 站点 (Astro; prod sdtm-pedia.pages.dev) | `web/` |
+| 构建 / 校验工具 | `tools/build_release.sh`, `tools/check_links.py` |
+| 新旧路径对照 (2026-11-25 重组) | `docs/PATH_MAP.md` |
+| 已收口工作线 (只读) | `archive/` (deep_verification / ai_platforms / jp_delivery / legacy) |
+| 06 深审入口 + 终态数字 | `archive/deep_verification/{PLAN,RETROSPECTIVE}.md` |
+| METHODOLOGY 公开声明 | `METHODOLOGY.md` + `releases/v1.{0,1}/METHODOLOGY.{en,zh,ja}.md` |
+| RAG 问答服务 | 独立公开仓 `hakupao/sdtm-rag` |
 | Agent 进入指引 | `.work/AGENT_GUIDE.md` |
 | Page index (authoritative) | `.work/02_indexing/page_index.json` |
-| Verification plan | `.work/03_verification/plan.md` |
+| Verification plan / issues | `.work/03_verification/{plan,issues_found}.md` |
 | Retrospective & rules | `.work/meta/retrospective.md` |
-| Follow-up risk plan | `.work/03_verification/followup_plan.md` |
-| TODO (Phase 6) | `.work/04_optimization/retrieval_optimization.md` |
-| 06 Deep Verification 入口 | `milestones/06_deep_verification/PLAN.md` (字面级 PDF→KB 深审; 详细见 §06 Deep Verification 段) |
-| 06 Deep Verification schema | `milestones/06_deep_verification/schema/{atom,ledger}_schema.json` (frozen JSON Schema 2020-12) |
-| 06 P4b sub-plan (完成) | `milestones/06_deep_verification/plans/P4b_section_aggregation.md` (节聚合, section_coverage.jsonl) |
-| Phase 6.5 多平台部署 (CLOSED 冻结) | `milestones/ai_platforms/` (4 平台 current/+dev/; SYNC_BOARD.md + retrospectives/ 只读) — 线收口不再更新 |
-| Phase 6.5 Release v1.0-v1.4 (CLOSED) | `milestones/release/v1.{0-4}/` + `.work/07_release{,_v1_1,_v1_3,_v1_4}/` (终态 tag `v1.4-company-release`) |
-| METHODOLOGY 公开声明 | `METHODOLOGY.md` + `milestones/release/v1.{0,1}/METHODOLOGY.{en,zh,ja}.md` |
-| 07 Website Phases 6-8 (closed) | `.work/07_website/phase{6,7,8}/` + handoffs `.work/meta/website_phase*_handoff_*.md`; prod https://sdtm-pedia.pages.dev/ |
+| Release 过程记录 | `.work/07_release{,_v1_1,_v1_2,_v1_3,_v1_4}/` |
+| Website 过程记录 | `.work/07_website/` |
 
-## AI 平台多平台部署 (CLOSED 冻结 2026-06-15)
+## 冻结线 (不再推进)
 
-多平台部署线 (`milestones/ai_platforms/`: ChatGPT / Gemini / NotebookLM / Claude Projects + 双平台锁步 + Release v1.x) **已收口冻结, 以后不再更新** (用户决策 2026-06-15). 终态: 4 平台 signed-off + Release 截至 `v1.4-company-release` (Gemini MAINTAINED_NO_SANITY_TEST); v1.5 候选全部放弃. 原锁步 gate / session 启动自动动作规则**作废**, 不再强制任何 session 动作. 历史只读: `milestones/ai_platforms/SYNC_BOARD.md` + `milestones/ai_platforms/retrospectives/` + `milestones/release/v1.{0-4}/`.
+多平台部署 (`archive/ai_platforms/`) 与日语納品 (`archive/jp_delivery/`) 已于 2026-06-15 收口冻结
+(用户决策); 终态 Release `v1.4-company-release`. 不要再推进, 仅历史只读.
 
 ## Session Wrap-up (收尾)
 
 When the user says **"收尾"**, **"wrap up"**, or **"提交收尾"**, execute the following checklist automatically:
 
-**三套索引职责** (refactor v1 段 2 后):
-- `.work/MANIFEST.md` — 文件结构 + 变更链 + Key Paths 指针 (durable, 不写状态)
-- `.work/meta/worklog/<phase>.md` (按 phase 拆分, INDEX.md 入口) — 历史 append-only 日志
-- `docs/PROGRESS.md` — **唯一**当前进度状态源 (轻量看板, ≤150 行)
-- `CLAUDE.md` Key Paths — 长效路径指针 (单元格 ≤ 80 字符)
-
-**Wrap-up checklist**:
+**索引职责**: `.work/MANIFEST.md` = 结构 + 变更链 (不写状态); `.work/meta/worklog/<phase>.md` =
+append-only 日志; `docs/PROGRESS.md` = **唯一**当前状态源; `CLAUDE.md` Key Paths = 长效路径指针.
 
 1. **Review** what was done this session (read git diff + new files)
-2. **Update index files** (按相关性):
-   - `.work/meta/worklog/<phase>.md` — append 本 session work record entry (按主题选 phase06/07/jp/meta_refactor)
-   - `docs/PROGRESS.md` — 状态总览 + milestone 列表更新 (若 phase 状态变了)
-   - `.work/MANIFEST.md` — 仅当目录结构 / chain 改了, 才动 (一般不需)
-   - `CLAUDE.md` Key Paths — 仅当新 key path 创建, 才加一行 (≤ 80 字符)
-3. **Prune CLAUDE.md** — 按"CLAUDE.md 写作规则"扫一遍: 该阶段已关闭的 round/batch/version 进度状态, 删除或迁移到 worklog; 总行数应稳定在 150 行以内
-4. **Check Change Chains** — knowledge_base/ 改了 → Chain D; plans 改了 → Chain E; .work/refactor_v1/ 改了 → Chain REFACTOR-v1
-5. **Commit + push** — single commit with descriptive message, push to main
-6. **Report** — one-line summary of what was committed
+2. **Update index files** (按相关性): worklog append; `docs/PROGRESS.md` (phase 状态变了才动);
+   `.work/MANIFEST.md` (目录结构 / chain 改了才动); `CLAUDE.md` Key Paths (新 key path 才加)
+3. **Prune CLAUDE.md** — 按写作规则剪掉过期状态; 行数 ≤ 150
+4. **Check Change Chains** — `knowledge_base/` 改了 → Chain D; plans 改了 → Chain E
+5. **Link check** — `python3 tools/check_links.py` 末行 broken 计数不高于基线 (`docs/PATH_MAP.md`)
+6. **Commit + push** — single commit, `git push origin main`
+7. **Report** — one-line summary of what was committed
 
 Do NOT ask for confirmation on each step — just execute the full checklist and report at the end.
 

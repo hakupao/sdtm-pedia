@@ -1,7 +1,8 @@
 # .work/ MANIFEST — 文件清单与变更链
 
 > **AI 工作入口** — 新 session 先读 `.work/AGENT_GUIDE.md` (一页纸), 再回本文件查结构 + 链路.
-> 最后更新: 2026-11-25 (拆仓: RAG 迁出)
+> 最后更新: 2026-11-25 (拆仓: RAG 迁出; 布局重组 R2)
+> **2026-11-25 布局变更 (R2)**: `milestones/` 解散 — `release` → 顶层 `releases/`; 06_deep_verification / ai_platforms / jp_delivery / archive → `archive/{deep_verification,ai_platforms,jp_delivery,legacy}/`. 对照表 `../docs/PATH_MAP.md`. archive/ 与 .work/ phase 目录内的历史正文中的 `milestones/` 路径故意未改.
 > **2026-07-21 布局变更 (restructure v3)**: `branches/` 解散 — 06_deep_verification / jp_delivery / ai_platforms / release / archive 收进 `milestones/`。历史文档 (worklog 正文 / closed checkpoint / release 内部 / superpowers 已执行 spec·plan) 中的 `branches/`、顶层 `ai_platforms/`·`release/`·`archive/` 均为旧布局, 故意未改。
 
 本文件只列**文件结构 + 变更链 + Key Paths 指针**. 当前进度看 `docs/PROGRESS.md`. 历史细节看 `.work/meta/worklog/INDEX.md` (按 phase 拆分).
@@ -72,7 +73,7 @@ meta/mapping.md                      ← 更新源文件→产出映射 (如有�
 meta/worklog/phase0N_xxx.md          ← 记录变更
 ```
 
-> RAG 索引侧的溯源/切分问题归 RAG 仓 (独立的私有仓 `sdtm-rag`) 维护, 本链只管 KB 侧。
+> RAG 索引侧的溯源/切分问题归 RAG 仓 (独立的公开仓 `hakupao/sdtm-rag`) 维护, 本链只管 KB 侧。KB push 后到 sdtm-rag 仓说「KB 更新」bump submodule。
 
 ### Chain E: 方案变更链
 
@@ -88,18 +89,18 @@ meta/worklog/phase00_planning.md     ← 记录决策变更
 ../README.md / ../README_CN.md       ← 如影响项目描述则更新
 ```
 
-### Chain J: 日本同事交付链 (milestones/jp_delivery/, iTMS 様 納品) — ⏸ CLOSED 冻结 2026-06-15
+### Chain J: 日本同事交付链 (archive/jp_delivery/, iTMS 様 納品) — ⏸ CLOSED 冻结 2026-06-15
 
 > **本链已停用**: jp_delivery (日语提交产物) 线收口冻结 (用户决策, 以后不再更新), 故本链不再触发. 以下定义仅历史保留.
 
-**触发** (历史): `milestones/jp_delivery/` 配下任何文件修改
+**触发** (历史): `archive/jp_delivery/` 配下任何文件修改
 
 ```
-milestones/jp_delivery/PLAN.md / EXECUTION_PLAN.md       ← 規範改訂
-  ↓ milestones/jp_delivery/_progress.json (Tier 2 schema)
-  ↓ milestones/jp_delivery/CHANGELOG.md
-  ↓ milestones/jp_delivery/glossary/{term_blacklist,term_mapping}.yml  (用語規律変更時)
-  ↓ milestones/jp_delivery/templates/style_guide.xlsx                  (配色/フォント変更時)
+archive/jp_delivery/PLAN.md / EXECUTION_PLAN.md          ← 規範改訂
+  ↓ archive/jp_delivery/_progress.json (Tier 2 schema)
+  ↓ archive/jp_delivery/CHANGELOG.md
+  ↓ archive/jp_delivery/glossary/{term_blacklist,term_mapping}.yml  (用語規律変更時)
+  ↓ archive/jp_delivery/templates/style_guide.xlsx                  (配色/フォント変更時)
   ↓ .work/MANIFEST.md                                   (入口登録 + Quick Ref)
   ↓ .work/meta/worklog/phase_jp_delivery.md             (作業記録)
   ↓ ../CLAUDE.md Key Paths                              (新規 Key Path のみ)
@@ -124,19 +125,19 @@ milestones/jp_delivery/PLAN.md / EXECUTION_PLAN.md       ← 規範改訂
 04_optimization/retrieval_optimization.md ── Phase 6 检索优化
      P0~P3 任务清单, 前置 = Phase 5 完成
 
-(Phase 7 RAG+KG: RAG 问答服务已拆到独立的私有仓 `sdtm-rag`; 拆仓过程记录在 sdtm-rag 仓)
+(Phase 7 RAG+KG: 独立公开仓 `hakupao/sdtm-rag`; 拆仓过程记录在 sdtm-rag 仓)
 
-../milestones/06_deep_verification/PLAN.md ── 字面级 PDF→KB 深审 (旁枝)
+../archive/deep_verification/PLAN.md ── 字面级 PDF→KB 深审 (旁枝)
      P1-P7 全 COMPLETE 2026-05-12 (coverage 99.02%, Issues 5-16 修复). multi_session/ 含 batch/round kickoff.
 
 
 07_website/phase{6,7,8}/PLAN.md ── 公开站点 (closed)
      prod sdtm-pedia.pages.dev. handoffs 在 meta/website_phase*_handoff_*.md.
 
-milestones/ai_platforms/ ── Phase 6.5 AI 平台部署 (旁枝) — ⏸ CLOSED 冻结 2026-06-15
+../archive/ai_platforms/ ── Phase 6.5 AI 平台部署 (旁枝) — ⏸ CLOSED 冻结 2026-06-15
      线收口不再更新; 终态 Release v1.4. 历史只读 README.md / SYNC_BOARD.md / retrospectives/.
 
-milestones/jp_delivery/ ── iTMS 納品旁枝 (Chain J) — ⏸ CLOSED 冻结 2026-06-15
+../archive/jp_delivery/ ── iTMS 納品旁枝 (Chain J) — ⏸ CLOSED 冻结 2026-06-15
      线收口不再更新; 停于 P0 2/4 + 01 v1.1-draft. 历史只读 PLAN.md + EXECUTION_PLAN.md.
 ```
 
@@ -153,7 +154,7 @@ milestones/jp_delivery/ ── iTMS 納品旁枝 (Chain J) — ⏸ CLOSED 冻结
 ├── 02_indexing/             ← Phase 2: PDF 页码索引 (page_index.json)
 ├── 03_verification/         ← Phase 5: 全量验证 (plan + issues + results/ + scans/ + rescan/)
 ├── 04_optimization/         ← Phase 6: 检索优化 (P0-P2 完成)
-├── (06_deep_verification/ 已迁移 → milestones/06_deep_verification/)
+├── (06_deep_verification/ 已迁移 → ../archive/deep_verification/)
 ├── 07_website/              ← Phase 6-8 公开站点 (closed)
 ├── refactor_v1/             ← 项目重构 v1 (临时, 段 3 close 后归档)
 └── meta/
@@ -175,9 +176,9 @@ milestones/jp_delivery/ ── iTMS 納品旁枝 (Chain J) — ⏸ CLOSED 冻结
 | *(无 .work/ 目录)* | Phase 3-4 | PDF 提取, 直接写 knowledge_base/ |
 | `03_verification/` | Phase 5 | 全量验证 |
 | `04_optimization/` | Phase 6 | 检索精度优化 (P0-P2 完成) |
-| *(`milestones/ai_platforms/`)* | Phase 6.5 | AI 平台部署 (⏸ CLOSED 冻结 2026-06-15, 终态 v1.4) |
+| *(`../archive/ai_platforms/`)* | Phase 6.5 | AI 平台部署 (⏸ CLOSED 冻结 2026-06-15, 终态 v1.4) |
 | `05_rag_kg/` | Phase 7 | RAG + KG → 已拆到 sdtm-rag 仓 (2026-11) |
-| `(→ milestones/06_deep_verification/)` | 06 (旁枝) | 字面级 PDF→KB 深审 (P2 进行中) |
+| `(→ ../archive/deep_verification/)` | 06 (旁枝) | 字面级 PDF→KB 深审 (COMPLETE) |
 | `07_website/` | 07 Website | sdtm-pedia 公司发布版静态网站 (closed) |
 
 ---
@@ -189,7 +190,7 @@ milestones/jp_delivery/ ── iTMS 納品旁枝 (Chain J) — ⏸ CLOSED 冻结
 | 找什么 | 去哪 |
 |--------|------|
 | 当前进度看板 | `docs/PROGRESS.md` (唯一状态源) |
-| RAG+KG 问答服务 (已拆仓) | RAG 问答服务已拆到独立的私有仓 `sdtm-rag`; 拆仓过程记录在 sdtm-rag 仓 |
+| RAG+KG 问答服务 (已拆仓) | 独立公开仓 `hakupao/sdtm-rag` |
 | 历史工作日志 | `meta/worklog/INDEX.md` → 各 phase 文件 |
 | 完整方案 | `00_planning/restructure_plan.md` |
 | 验证状态 | `03_verification/plan.md` |
@@ -197,9 +198,11 @@ milestones/jp_delivery/ ── iTMS 納品旁枝 (Chain J) — ⏸ CLOSED 冻结
 | 源→产出映射 | `meta/mapping.md` |
 | 质量问题 | `meta/findings.md` |
 | AI 工作四条规则 | `meta/retrospective.md` ⚑ 必读 |
-| 06 Deep Verification | `../milestones/06_deep_verification/PLAN.md` + `multi_session/` |
-| Phase 6.5 总览 (CLOSED 冻结) | `../milestones/ai_platforms/README.md` + `SYNC_BOARD.md` (只读) |
-| Phase 6.5 范本 (CLOSED) | `../milestones/ai_platforms/_template/README.md` |
+| 06 Deep Verification | `../archive/deep_verification/PLAN.md` + `multi_session/` |
+| Phase 6.5 总览 (CLOSED 冻结) | `../archive/ai_platforms/README.md` + `SYNC_BOARD.md` (只读) |
+| Phase 6.5 范本 (CLOSED) | `../archive/ai_platforms/_template/README.md` |
 | 07 Website 入口 | `07_website/phase{6,7,8}/PLAN.md` |
-| milestones/jp_delivery/ 入口 (CLOSED 冻结) | `../milestones/jp_delivery/PLAN.md` + `EXECUTION_PLAN.md` (只读) |
+| archive/jp_delivery/ 入口 (CLOSED 冻结) | `../archive/jp_delivery/PLAN.md` + `EXECUTION_PLAN.md` (只读) |
 | 重构 v1 | `refactor_v1/PLAN.md` |
+| 发布包 (冻结) | `../releases/v1.{0-4}/` |
+| 新旧路径对照 | `../docs/PATH_MAP.md` |

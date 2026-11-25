@@ -88,9 +88,37 @@ graph LR
     K --> N
 ```
 
-## AI 问答服务
+## 生态
 
-基于本知识库的 RAG + 知识图谱问答服务已拆到独立的（私有）仓库，与本仓分开维护。公开试用站正在筹备中，上线后会在这里补上链接。
+| 组成 | 位置 | 说明 |
+|------|------|------|
+| **知识库** | [`knowledge_base/`](knowledge_base/)（本仓） | 293 个 Markdown 文件——本项目的成果本体 |
+| **网站** | [sdtm-pedia.pages.dev](https://sdtm-pedia.pages.dev/) | 使用指南、平台对比和部署教程（中 / 英 / 日），由 [`web/`](web/) 构建 |
+| **发布包** | [GitHub Releases](https://github.com/hakupao/sdtm-pedia/releases)——v1.0、v1.1、v1.4 | 按平台打包的 zip（Claude Projects、ChatGPT GPTs、Gemini Gems、NotebookLM）；源文件在 [`releases/`](releases/) |
+| **问答服务** | [hakupao/sdtm-rag](https://github.com/hakupao/sdtm-rag) | 基于本知识库的 RAG + 知识图谱问答服务（以 git submodule 方式引用本仓）。公开试用站正在筹备中，上线后会在这里补上链接。 |
+
+## 如何使用知识库
+
+- **在 AI 平台上用**——直接用在线实例，或自部署发布包，见[快速开始](#快速开始)。
+- **当作纯 Markdown 用**——让 Claude Code、Cursor 或任何支持读文件的 LLM 指向 `knowledge_base/`。从 `INDEX.md` 进入，再用 `ROUTING.md`（问题 → 文件）和 `VARIABLE_INDEX.md`（变量 → domain）定位。
+- **人工阅读**——每个 domain 目录都有 `spec.md`（变量）、`assumptions.md`（业务规则）和 `examples.md`（数据示例）。
+
+## 质量与验证
+
+知识库怎么构建、怎么检查，写在 [METHODOLOGY.md](METHODOLOGY.md)：权威来源、构建流程、如何拿单条回答对照源 PDF 核查，以及发现并关闭的不符合项。
+
+另有一轮字面级审计，把知识库与源 PDF 逐个 atom 对照。最终数字出自 [`archive/deep_verification/RETROSPECTIVE.md`](archive/deep_verification/RETROSPECTIVE.md)：
+
+| 指标 | 值 |
+|------|----|
+| PDF atom 数 | 12,487 |
+| 知识库 atom 数 | 10,435 |
+| 覆盖率（调整分母） | 99.02% |
+| 判定为 HALLUCINATED 的 atom | 0 |
+| 发现并修复的 Issue | 12 个（Issue 5–16） |
+| 最终抽检的内容误判率 | 3.3%（2/60） |
+
+逐批证据在 [`archive/deep_verification/evidence/checkpoints/`](archive/deep_verification/evidence/checkpoints/)。想自己检查仓内链接，可运行 `python3 tools/check_links.py`。
 
 ## 项目结构
 
@@ -128,34 +156,21 @@ sdtm-pedia/
 │   ├── ROUTING.md               # 问题路由索引（Phase 6.1）
 │   └── VARIABLE_INDEX.md        # 变量级反向索引（Phase 6.3）
 │
-├── source/                      # CDISC 原始源文件
-│   ├── SDTMIG v3.4 (no header footer).pdf
-│   ├── SDTMIG_v3.4.xlsx
-│   ├── SDTM_v2.0.pdf
-│   └── SDTM Terminology.xlsx
-│
+├── releases/v1.{0,1,2,3,4}/     # 各平台自包含发布包（最新: v1.4, 2026-05-22）
 ├── web/                         # Astro 网站（prod: sdtm-pedia.pages.dev）
+├── tools/                       # build_release.sh（发布包 + 清单）、check_links.py
+├── docs/                        # PROGRESS.md、TRACEABILITY.md、PATH_MAP.md（新旧路径对照）
 │
-├── milestones/                  # 已收官的阶段性成果（只读）
-│   ├── 06_deep_verification/    # PDF→KB 字面级深审 — 已完成（P1-P7，覆盖率 99.02%）
-│   ├── jp_delivery/             # 日语交付线（CLOSED）
-│   ├── ai_platforms/            # Phase 6.5 — 4 平台 AI 部署资产（CLOSED）
-│   ├── release/v1.{0,1,2,3,4}/  # 公司发布版（最新: v1.4, 2026-05-22）
-│   └── archive/                 # 废弃的 v0 知识库 + 旧日志
+├── archive/                     # 已收口的工作线（只读）
+│   ├── deep_verification/       # PDF→KB 字面级审计——已完成（覆盖率 99.02%）
+│   ├── ai_platforms/            # 4 平台 AI 部署工作区（CLOSED）
+│   ├── jp_delivery/             # 日语交付文档（CLOSED）
+│   └── legacy/                  # 废弃的 v0 知识库 + 旧日志
 │
-├── .work/                       # 构建工作区
-│   ├── 00_planning/             # 方案设计文档
-│   ├── 01_generation/scripts/   # Python 生成与校验脚本
-│   ├── 02_indexing/             # PDF 页码索引
-│   ├── 03_verification/         # 验证结果与报告
-│   ├── 04_optimization/         # Phase 6 检索优化
-│   ├── 07_release{,_v1_1,_v1_2,_v1_3,_v1_4}/  # Release v1.0-v1.4 计划与复盘
-│   ├── meta/                    # 工作日志、映射、质量记录
-│   └── MANIFEST.md              # 文件清单与变更链
+├── .work/                       # 过程记录：计划、验证、工作日志、变更链
 │
-├── docs/                        # 项目文档
-│   ├── PROGRESS.md              # 构建进度看板
-│   └── TRACEABILITY.md          # 溯源矩阵
+├── METHODOLOGY.md · DISCLAIMER.md · LICENSE（CC BY 4.0）
+└── source/                      # CDISC 源 PDF/xlsx——仅本地保存，不随仓分发
 ```
 
 ## Domain 覆盖范围
@@ -287,15 +302,15 @@ sdtm-pedia/
 
 ### 方式 A — 在主流 AI 平台自部署（推荐）
 
-`milestones/release/v1.4/`（最新版, 2026-05-22）提供 **4 个平台**（Claude Projects / ChatGPT GPTs / Gemini Gems / NotebookLM）的开箱即用部署包。每个平台子目录自成一体：system prompt + 上传文件 + 三语教程（zh/en/ja）。早期 release（`milestones/release/v1.{0,1,3}/`）作为不可变历史保留。注意: **v1.4 起 Gemini 切换到 MAINTAINED_NO_SANITY_TEST 模式** — 仍交付 bundle, 但停 sanity 测试, 用户自验。
+[`releases/v1.4/`](releases/v1.4/)（最新版, 2026-05-22）提供 **4 个平台**（Claude Projects / ChatGPT GPTs / Gemini Gems / NotebookLM）的开箱即用部署包。每个平台子目录自成一体：system prompt + 上传文件 + 三语教程（zh/en/ja）；同样的包也可以从 [GitHub Releases](https://github.com/hakupao/sdtm-pedia/releases) 下载 zip。早期 release（`releases/v1.{0,1,2,3}/`）作为不可变历史保留。注意: **v1.4 起 Gemini 切换到 MAINTAINED_NO_SANITY_TEST 模式** — 仍交付 bundle, 但停 sanity 测试, 用户自验。
 
-1. **克隆仓库**
+1. **克隆仓库**（或从 GitHub Releases 下载对应平台的 zip）
    ```bash
    git clone https://github.com/hakupao/sdtm-pedia.git
-   cd sdtm-pedia/milestones/release/v1.4
+   cd sdtm-pedia/releases/v1.4
    ```
 
-2. **挑一个平台** — 阅读 `self_deploy/README.zh.md` 中的决策树（容量、分享方式、Audio Overview 等）
+2. **挑一个平台** — 阅读 `README.zh.md` 和 `PLATFORM_COMPARISON.zh.md`（容量、分享方式、Audio Overview 等）
 
 3. **跟着教程走** — `self_deploy/<平台>/tutorial.zh.md`，所需上传文件和 prompt 都在同一目录
 
@@ -336,9 +351,9 @@ SEX 绑定哪个 codelist？
 - [x] Phase 6.1 — 问题路由索引（`knowledge_base/ROUTING.md`）
 - [x] Phase 6.2 — Domain 交叉引用（写入各 domain 的 `spec.md` 末尾）
 - [x] Phase 6.3 — 变量级反向索引（`knowledge_base/VARIABLE_INDEX.md`，1,523 个变量）
-- [x] Phase 6.5 — 多平台 AI 部署 + Release v1.0 → v1.4（4 平台，最新 `milestones/release/v1.4/`；v1.4 起 Gemini 转 MAINTAINED_NO_SANITY_TEST）
-- [x] Deep Verification — PDF→KB 字面级 atom 逐条审计（已完成：P1–P7，覆盖率 99.02%，详见 `milestones/06_deep_verification/`）
-- [x] Phase 7 — RAG 问答 + 知识图谱服务：已拆到独立仓库（见上文「AI 问答服务」）
+- [x] Phase 6.5 — 多平台 AI 部署 + Release v1.0 → v1.4（4 平台，最新 `releases/v1.4/`；v1.4 起 Gemini 转 MAINTAINED_NO_SANITY_TEST）
+- [x] Deep Verification — PDF→KB 字面级 atom 逐条审计（已完成：P1–P7，覆盖率 99.02%，详见[质量与验证](#质量与验证)）
+- [x] Phase 7 — RAG 问答 + 知识图谱服务：已拆到 [hakupao/sdtm-rag](https://github.com/hakupao/sdtm-rag)（见上文[生态](#生态)）
 
 ## 免责声明
 

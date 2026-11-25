@@ -88,9 +88,37 @@ graph LR
     K --> N
 ```
 
-## AI Q&A Service
+## Ecosystem
 
-The RAG + knowledge-graph Q&A service built on this knowledge base now lives in its own (private) repository, maintained separately from this one. A public demo is planned; the link will be added here once it is live.
+| Piece | Where | What it is |
+|-------|-------|------------|
+| **Knowledge base** | [`knowledge_base/`](knowledge_base/) (this repo) | 293 Markdown files — the product |
+| **Website** | [sdtm-pedia.pages.dev](https://sdtm-pedia.pages.dev/) | User guide, platform comparison and deployment tutorials (zh / en / ja), built from [`web/`](web/) |
+| **Release bundles** | [GitHub Releases](https://github.com/hakupao/sdtm-pedia/releases) — v1.0, v1.1, v1.4 | Per-platform zips (Claude Projects, ChatGPT GPTs, Gemini Gems, NotebookLM); sources in [`releases/`](releases/) |
+| **Q&A service** | [hakupao/sdtm-rag](https://github.com/hakupao/sdtm-rag) | RAG + knowledge-graph Q&A service built on this knowledge base (pins it as a git submodule). A public demo is planned; the link will be added here once it is live. |
+
+## How to Use the Knowledge Base
+
+- **On an AI platform** — use a hosted instance or self-deploy a release bundle; see [Quick Start](#quick-start).
+- **As plain Markdown** — point Claude Code, Cursor or any file-aware LLM at `knowledge_base/`. Start from `INDEX.md`, then `ROUTING.md` (question → file) and `VARIABLE_INDEX.md` (variable → domain).
+- **Read it yourself** — every domain folder has `spec.md` (variables), `assumptions.md` (business rules) and `examples.md` (worked data examples).
+
+## Quality & Verification
+
+How the knowledge base was built and checked is documented in [METHODOLOGY.md](METHODOLOGY.md): authoritative sources, construction pipeline, how to audit a single answer against the source PDF, and the non-conformances found and closed.
+
+A separate literal-level audit compared the knowledge base atom by atom with the source PDF. Final figures, from [`archive/deep_verification/RETROSPECTIVE.md`](archive/deep_verification/RETROSPECTIVE.md):
+
+| Metric | Value |
+|--------|-------|
+| PDF atoms extracted | 12,487 |
+| Knowledge-base atoms | 10,435 |
+| Coverage (adjusted denominator) | 99.02% |
+| Atoms judged HALLUCINATED | 0 |
+| Issues found and repaired | 12 (Issues 5–16) |
+| Content error rate in final spot-check | 3.3% (2/60) |
+
+Per-batch evidence is in [`archive/deep_verification/evidence/checkpoints/`](archive/deep_verification/evidence/checkpoints/). To check repo links yourself, run `python3 tools/check_links.py`.
 
 ## Project Structure
 
@@ -128,34 +156,21 @@ sdtm-pedia/
 │   ├── ROUTING.md               # Query routing index (Phase 6.1)
 │   └── VARIABLE_INDEX.md        # Variable-level reverse index (Phase 6.3)
 │
-├── source/                      # Original CDISC source files
-│   ├── SDTMIG v3.4 (no header footer).pdf
-│   ├── SDTMIG_v3.4.xlsx
-│   ├── SDTM_v2.0.pdf
-│   └── SDTM Terminology.xlsx
-│
+├── releases/v1.{0,1,2,3,4}/     # Self-contained platform release bundles (latest: v1.4, 2026-05-22)
 ├── web/                         # Astro website (prod: sdtm-pedia.pages.dev)
+├── tools/                       # build_release.sh (bundles + manifest), check_links.py
+├── docs/                        # PROGRESS.md, TRACEABILITY.md, PATH_MAP.md (old → new paths)
 │
-├── milestones/                  # Completed project milestones (read-only)
-│   ├── 06_deep_verification/    # PDF→KB literal-level deep audit — COMPLETE (P1-P7, coverage 99.02%)
-│   ├── jp_delivery/             # Japanese delivery line (CLOSED)
-│   ├── ai_platforms/            # Phase 6.5 — 4-platform AI deployment assets (CLOSED)
-│   ├── release/v1.{0,1,2,3,4}/  # Self-contained company releases (latest: v1.4, 2026-05-22)
-│   └── archive/                 # Superseded v0 knowledge base + legacy logs
+├── archive/                     # Closed work tracks (read-only)
+│   ├── deep_verification/       # PDF→KB literal-level audit — COMPLETE (coverage 99.02%)
+│   ├── ai_platforms/            # 4-platform AI deployment workspace (CLOSED)
+│   ├── jp_delivery/             # Japanese delivery documents (CLOSED)
+│   └── legacy/                  # Superseded v0 knowledge base + legacy logs
 │
-├── .work/                       # Build workspace
-│   ├── 00_planning/             # Design documents
-│   ├── 01_generation/scripts/   # Python generation & validation scripts
-│   ├── 02_indexing/             # PDF page index for extraction
-│   ├── 03_verification/         # Verification results & reports
-│   ├── 04_optimization/         # Phase 6 retrieval optimization
-│   ├── 07_release{,_v1_1,_v1_2,_v1_3,_v1_4}/  # Release v1.0-v1.4 plans + retrospectives
-│   ├── meta/                    # Work log, mappings, findings
-│   └── MANIFEST.md              # File index & change chains
+├── .work/                       # Process records: plans, verification, work logs, change chains
 │
-├── docs/                        # Project documentation
-│   ├── PROGRESS.md              # Build progress dashboard
-│   └── TRACEABILITY.md          # Source-to-output traceability matrix
+├── METHODOLOGY.md · DISCLAIMER.md · LICENSE (CC BY 4.0)
+└── source/                      # CDISC source PDFs/xlsx — local only, not redistributed
 ```
 
 ## Domain Coverage
@@ -287,15 +302,15 @@ Pre-built instances you can open and use right away — no install, no API key. 
 
 ### Option A — Self-deploy on a hosted AI platform (recommended)
 
-A turn-key release bundle for **4 platforms** (Claude Projects, ChatGPT GPTs, Gemini Gems, NotebookLM) ships at `milestones/release/v1.4/` (latest, 2026-05-22). Each platform sub-directory is self-contained: system prompt + uploads + step-by-step tutorial in 3 languages (zh/en/ja). Earlier releases (`milestones/release/v1.{0,1,3}/`) remain immutable for reference. Note: **Gemini is MAINTAINED_NO_SANITY_TEST from v1.4 onwards** — bundle still ships, but sanity testing was discontinued; users self-verify.
+A turn-key release bundle for **4 platforms** (Claude Projects, ChatGPT GPTs, Gemini Gems, NotebookLM) ships at [`releases/v1.4/`](releases/v1.4/) (latest, 2026-05-22); the same bundles are downloadable as zips from [GitHub Releases](https://github.com/hakupao/sdtm-pedia/releases). Each platform sub-directory is self-contained: system prompt + uploads + step-by-step tutorial in 3 languages (zh/en/ja). Earlier releases (`releases/v1.{0,1,2,3}/`) remain immutable for reference. Note: **Gemini is MAINTAINED_NO_SANITY_TEST from v1.4 onwards** — bundle still ships, but sanity testing was discontinued; users self-verify.
 
-1. **Clone the repo**
+1. **Clone the repo** (or download a platform zip from GitHub Releases)
    ```bash
    git clone https://github.com/hakupao/sdtm-pedia.git
-   cd sdtm-pedia/milestones/release/v1.4
+   cd sdtm-pedia/releases/v1.4
    ```
 
-2. **Pick a platform** — Read `self_deploy/README.en.md` for the decision tree (capacity, sharing, audio overview, etc.)
+2. **Pick a platform** — Read `README.en.md` and `PLATFORM_COMPARISON.en.md` (capacity, sharing, audio overview, etc.)
 
 3. **Follow the tutorial** under `self_deploy/<platform>/tutorial.en.md` — all upload files and prompts are co-located in the same directory
 
@@ -336,9 +351,9 @@ The knowledge base is plain Markdown — it works with any LLM that supports fil
 - [x] Phase 6.1 — Query routing index (`knowledge_base/ROUTING.md`)
 - [x] Phase 6.2 — Cross-references between domains (in `spec.md` of each domain)
 - [x] Phase 6.3 — Variable-level reverse index (`knowledge_base/VARIABLE_INDEX.md`, 1,523 variables)
-- [x] Phase 6.5 — Multi-platform AI deployment + Releases v1.0 → v1.4 (4 platforms, latest at `milestones/release/v1.4/`; Gemini MAINTAINED_NO_SANITY_TEST from v1.4)
-- [x] Deep verification — literal-level PDF→KB atom-by-atom audit (COMPLETE: P1–P7, coverage 99.02%, see `milestones/06_deep_verification/`)
-- [x] Phase 7 — RAG Q&A + knowledge graph service: moved to a separate repository (see [AI Q&A Service](#ai-qa-service))
+- [x] Phase 6.5 — Multi-platform AI deployment + Releases v1.0 → v1.4 (4 platforms, latest at `releases/v1.4/`; Gemini MAINTAINED_NO_SANITY_TEST from v1.4)
+- [x] Deep verification — literal-level PDF→KB atom-by-atom audit (COMPLETE: P1–P7, coverage 99.02%, see [Quality & Verification](#quality--verification))
+- [x] Phase 7 — RAG Q&A + knowledge graph service: moved to [hakupao/sdtm-rag](https://github.com/hakupao/sdtm-rag) (see [Ecosystem](#ecosystem))
 
 ## Disclaimer
 
