@@ -1,24 +1,24 @@
 #!/usr/bin/env bash
-# milestones/jp_delivery/scripts/build_zip.sh — pack iTMS deliverable zip.
+# archive/jp_delivery/scripts/build_zip.sh — pack iTMS deliverable zip.
 #
 # Pulls from single source of truth:
 #   release/$VERSION/                      (md + self_deploy/)
-#   milestones/jp_delivery/*.xlsx            (6 xlsx, produced by build_xlsx.py)
+#   archive/jp_delivery/*.xlsx            (6 xlsx, produced by build_xlsx.py)
 #
 # Output:
-#   milestones/jp_delivery/deliverable/YYYYMMDD_iTMS_SDTM_進捗版_$VERSION.zip
+#   archive/jp_delivery/deliverable/YYYYMMDD_iTMS_SDTM_進捗版_$VERSION.zip
 #   + .sha256
 #
 # Usage:
-#   milestones/jp_delivery/scripts/build_zip.sh [VERSION]
-#   milestones/jp_delivery/scripts/build_zip.sh v1.0
+#   archive/jp_delivery/scripts/build_zip.sh [VERSION]
+#   archive/jp_delivery/scripts/build_zip.sh v1.0
 
 set -euo pipefail
 
 VERSION="${1:-v1.0}"
 REPO_ROOT="$(cd "$(dirname "$0")/../../.." && pwd)"
-JP_ROOT="$REPO_ROOT/milestones/jp_delivery"
-RELEASE_DIR="$REPO_ROOT/milestones/release/$VERSION"
+JP_ROOT="$REPO_ROOT/archive/jp_delivery"
+RELEASE_DIR="$REPO_ROOT/releases/$VERSION"
 OUT_DIR="$JP_ROOT/deliverable"
 DATE_STAMP="$(date +%Y%m%d)"
 ZIP_NAME="${DATE_STAMP}_iTMS_SDTM_進捗版_${VERSION}.zip"
@@ -58,7 +58,7 @@ for x in "${REQUIRED_XLSX[@]}"; do
   cp "$JP_ROOT/$x" "$STAGE_DIR/$TOP/"
 done
 
-# 2. copy release/$VERSION/ → release_$VERSION/  (flat-named inside zip)
+# 2. copy releases/$VERSION/ → release_$VERSION/  (flat-named inside zip)
 INNER="release_${VERSION}"
 mkdir -p "$STAGE_DIR/$TOP/$INNER"
 ( cd "$RELEASE_DIR" && tar cf - . ) | ( cd "$STAGE_DIR/$TOP/$INNER" && tar xf - )
