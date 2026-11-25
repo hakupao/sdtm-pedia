@@ -6,3 +6,6 @@ scratch/
 pdf_atoms.jsonl
 md_atoms.jsonl
 triage/
+# word bounding boxes of the PDFs (table_census v2 cache) = PDF text, CDISC copyright. Never commit.
+pdf_bbox/
+census_t1/

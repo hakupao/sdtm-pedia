@@ -1,0 +1,830 @@
+[
+{
+"file": "knowledge_base/domains/AE/assumptions.md",
+"src": "ig34",
+"lo": 133,
+"hi": 142
+},
+{
+"file": "knowledge_base/domains/AE/examples.md",
+"src": "ig34",
+"lo": 133,
+"hi": 142
+},
+{
+"file": "knowledge_base/domains/AG/assumptions.md",
+"src": "ig34",
+"lo": 92,
+"hi": 97
+},
+{
+"file": "knowledge_base/domains/AG/examples.md",
+"src": "ig34",
+"lo": 92,
+"hi": 97
+},
+{
+"file": "knowledge_base/domains/BE/assumptions.md",
+"src": "ig34",
+"lo": 143,
+"hi": 148
+},
+{
+"file": "knowledge_base/domains/BE/examples.md",
+"src": "ig34",
+"lo": 143,
+"hi": 148
+},
+{
+"file": "knowledge_base/domains/BS/assumptions.md",
+"src": "ig34",
+"lo": 196,
+"hi": 199
+},
+{
+"file": "knowledge_base/domains/BS/examples.md",
+"src": "ig34",
+"lo": 196,
+"hi": 199
+},
+{
+"file": "knowledge_base/domains/CE/assumptions.md",
+"src": "ig34",
+"lo": 148,
+"hi": 155
+},
+{
+"file": "knowledge_base/domains/CE/examples.md",
+"src": "ig34",
+"lo": 148,
+"hi": 155
+},
+{
+"file": "knowledge_base/domains/CM/assumptions.md",
+"src": "ig34",
+"lo": 98,
+"hi": 103
+},
+{
+"file": "knowledge_base/domains/CM/examples.md",
+"src": "ig34",
+"lo": 98,
+"hi": 103
+},
+{
+"file": "knowledge_base/domains/CO/assumptions.md",
+"src": "ig34",
+"lo": 60,
+"hi": 62
+},
+{
+"file": "knowledge_base/domains/CO/examples.md",
+"src": "ig34",
+"lo": 60,
+"hi": 62
+},
+{
+"file": "knowledge_base/domains/CP/assumptions.md",
+"src": "ig34",
+"lo": 199,
+"hi": 220
+},
+{
+"file": "knowledge_base/domains/CP/examples.md",
+"src": "ig34",
+"lo": 199,
+"hi": 220
+},
+{
+"file": "knowledge_base/domains/CV/assumptions.md",
+"src": "ig34",
+"lo": 286,
+"hi": 289
+},
+{
+"file": "knowledge_base/domains/CV/examples.md",
+"src": "ig34",
+"lo": 286,
+"hi": 289
+},
+{
+"file": "knowledge_base/domains/DA/assumptions.md",
+"src": "ig34",
+"lo": 180,
+"hi": 182
+},
+{
+"file": "knowledge_base/domains/DA/examples.md",
+"src": "ig34",
+"lo": 180,
+"hi": 182
+},
+{
+"file": "knowledge_base/domains/DD/assumptions.md",
+"src": "ig34",
+"lo": 183,
+"hi": 185
+},
+{
+"file": "knowledge_base/domains/DD/examples.md",
+"src": "ig34",
+"lo": 183,
+"hi": 185
+},
+{
+"file": "knowledge_base/domains/DM/assumptions.md",
+"src": "ig34",
+"lo": 62,
+"hi": 78
+},
+{
+"file": "knowledge_base/domains/DM/examples.md",
+"src": "ig34",
+"lo": 62,
+"hi": 78
+},
+{
+"file": "knowledge_base/domains/DS/assumptions.md",
+"src": "ig34",
+"lo": 155,
+"hi": 167
+},
+{
+"file": "knowledge_base/domains/DS/examples.md",
+"src": "ig34",
+"lo": 155,
+"hi": 167
+},
+{
+"file": "knowledge_base/domains/DV/assumptions.md",
+"src": "ig34",
+"lo": 178,
+"hi": 179
+},
+{
+"file": "knowledge_base/domains/DV/examples.md",
+"src": "ig34",
+"lo": 178,
+"hi": 179
+},
+{
+"file": "knowledge_base/domains/EC/assumptions.md",
+"src": "ig34",
+"lo": 107,
+"hi": 120
+},
+{
+"file": "knowledge_base/domains/EC/examples.md",
+"src": "ig34",
+"lo": 107,
+"hi": 120
+},
+{
+"file": "knowledge_base/domains/EG/assumptions.md",
+"src": "ig34",
+"lo": 185,
+"hi": 192
+},
+{
+"file": "knowledge_base/domains/EG/examples.md",
+"src": "ig34",
+"lo": 185,
+"hi": 192
+},
+{
+"file": "knowledge_base/domains/EX/assumptions.md",
+"src": "ig34",
+"lo": 104,
+"hi": 120
+},
+{
+"file": "knowledge_base/domains/EX/examples.md",
+"src": "ig34",
+"lo": 104,
+"hi": 120
+},
+{
+"file": "knowledge_base/domains/FA/assumptions.md",
+"src": "ig34",
+"lo": 364,
+"hi": 375
+},
+{
+"file": "knowledge_base/domains/FA/examples.md",
+"src": "ig34",
+"lo": 364,
+"hi": 375
+},
+{
+"file": "knowledge_base/domains/FT/assumptions.md",
+"src": "ig34",
+"lo": 319,
+"hi": 324
+},
+{
+"file": "knowledge_base/domains/FT/examples.md",
+"src": "ig34",
+"lo": 319,
+"hi": 324
+},
+{
+"file": "knowledge_base/domains/GF/assumptions.md",
+"src": "ig34",
+"lo": 220,
+"hi": 228
+},
+{
+"file": "knowledge_base/domains/GF/examples.md",
+"src": "ig34",
+"lo": 220,
+"hi": 228
+},
+{
+"file": "knowledge_base/domains/HO/assumptions.md",
+"src": "ig34",
+"lo": 167,
+"hi": 171
+},
+{
+"file": "knowledge_base/domains/HO/examples.md",
+"src": "ig34",
+"lo": 167,
+"hi": 171
+},
+{
+"file": "knowledge_base/domains/IE/assumptions.md",
+"src": "ig34",
+"lo": 193,
+"hi": 194
+},
+{
+"file": "knowledge_base/domains/IE/examples.md",
+"src": "ig34",
+"lo": 193,
+"hi": 194
+},
+{
+"file": "knowledge_base/domains/IS/assumptions.md",
+"src": "ig34",
+"lo": 228,
+"hi": 241
+},
+{
+"file": "knowledge_base/domains/IS/examples.md",
+"src": "ig34",
+"lo": 228,
+"hi": 241
+},
+{
+"file": "knowledge_base/domains/LB/assumptions.md",
+"src": "ig34",
+"lo": 241,
+"hi": 248
+},
+{
+"file": "knowledge_base/domains/LB/examples.md",
+"src": "ig34",
+"lo": 241,
+"hi": 248
+},
+{
+"file": "knowledge_base/domains/MB/assumptions.md",
+"src": "ig34",
+"lo": 248,
+"hi": 262
+},
+{
+"file": "knowledge_base/domains/MB/examples.md",
+"src": "ig34",
+"lo": 248,
+"hi": 262
+},
+{
+"file": "knowledge_base/domains/MH/assumptions.md",
+"src": "ig34",
+"lo": 171,
+"hi": 178
+},
+{
+"file": "knowledge_base/domains/MH/examples.md",
+"src": "ig34",
+"lo": 171,
+"hi": 178
+},
+{
+"file": "knowledge_base/domains/MI/assumptions.md",
+"src": "ig34",
+"lo": 263,
+"hi": 267
+},
+{
+"file": "knowledge_base/domains/MI/examples.md",
+"src": "ig34",
+"lo": 263,
+"hi": 267
+},
+{
+"file": "knowledge_base/domains/MK/assumptions.md",
+"src": "ig34",
+"lo": 290,
+"hi": 294
+},
+{
+"file": "knowledge_base/domains/MK/examples.md",
+"src": "ig34",
+"lo": 290,
+"hi": 294
+},
+{
+"file": "knowledge_base/domains/ML/assumptions.md",
+"src": "ig34",
+"lo": 121,
+"hi": 124
+},
+{
+"file": "knowledge_base/domains/ML/examples.md",
+"src": "ig34",
+"lo": 121,
+"hi": 124
+},
+{
+"file": "knowledge_base/domains/MS/assumptions.md",
+"src": "ig34",
+"lo": 252,
+"hi": 262
+},
+{
+"file": "knowledge_base/domains/MS/examples.md",
+"src": "ig34",
+"lo": 252,
+"hi": 262
+},
+{
+"file": "knowledge_base/domains/NV/assumptions.md",
+"src": "ig34",
+"lo": 294,
+"hi": 298
+},
+{
+"file": "knowledge_base/domains/NV/examples.md",
+"src": "ig34",
+"lo": 294,
+"hi": 298
+},
+{
+"file": "knowledge_base/domains/OE/assumptions.md",
+"src": "ig34",
+"lo": 298,
+"hi": 305
+},
+{
+"file": "knowledge_base/domains/OE/examples.md",
+"src": "ig34",
+"lo": 298,
+"hi": 305
+},
+{
+"file": "knowledge_base/domains/OI/assumptions.md",
+"src": "ig34",
+"lo": 441,
+"hi": 443
+},
+{
+"file": "knowledge_base/domains/OI/examples.md",
+"src": "ig34",
+"lo": 441,
+"hi": 443
+},
+{
+"file": "knowledge_base/domains/PC/assumptions.md",
+"src": "ig34",
+"lo": 267,
+"hi": 283
+},
+{
+"file": "knowledge_base/domains/PC/examples.md",
+"src": "ig34",
+"lo": 267,
+"hi": 283
+},
+{
+"file": "knowledge_base/domains/PE/assumptions.md",
+"src": "ig34",
+"lo": 315,
+"hi": 318
+},
+{
+"file": "knowledge_base/domains/PE/examples.md",
+"src": "ig34",
+"lo": 315,
+"hi": 318
+},
+{
+"file": "knowledge_base/domains/PP/assumptions.md",
+"src": "ig34",
+"lo": 271,
+"hi": 283
+},
+{
+"file": "knowledge_base/domains/PP/examples.md",
+"src": "ig34",
+"lo": 271,
+"hi": 283
+},
+{
+"file": "knowledge_base/domains/PR/assumptions.md",
+"src": "ig34",
+"lo": 125,
+"hi": 128
+},
+{
+"file": "knowledge_base/domains/PR/examples.md",
+"src": "ig34",
+"lo": 125,
+"hi": 128
+},
+{
+"file": "knowledge_base/domains/QS/assumptions.md",
+"src": "ig34",
+"lo": 324,
+"hi": 329
+},
+{
+"file": "knowledge_base/domains/QS/examples.md",
+"src": "ig34",
+"lo": 324,
+"hi": 329
+},
+{
+"file": "knowledge_base/domains/RE/assumptions.md",
+"src": "ig34",
+"lo": 308,
+"hi": 312
+},
+{
+"file": "knowledge_base/domains/RE/examples.md",
+"src": "ig34",
+"lo": 308,
+"hi": 312
+},
+{
+"file": "knowledge_base/domains/RELREC/assumptions.md",
+"src": "ig34",
+"lo": 428,
+"hi": 430
+},
+{
+"file": "knowledge_base/domains/RELREC/examples.md",
+"src": "ig34",
+"lo": 428,
+"hi": 430
+},
+{
+"file": "knowledge_base/domains/RELSPEC/assumptions.md",
+"src": "ig34",
+"lo": 438,
+"hi": 440
+},
+{
+"file": "knowledge_base/domains/RELSPEC/examples.md",
+"src": "ig34",
+"lo": 438,
+"hi": 440
+},
+{
+"file": "knowledge_base/domains/RELSUB/assumptions.md",
+"src": "ig34",
+"lo": 437,
+"hi": 438
+},
+{
+"file": "knowledge_base/domains/RELSUB/examples.md",
+"src": "ig34",
+"lo": 437,
+"hi": 438
+},
+{
+"file": "knowledge_base/domains/RP/assumptions.md",
+"src": "ig34",
+"lo": 305,
+"hi": 307
+},
+{
+"file": "knowledge_base/domains/RP/examples.md",
+"src": "ig34",
+"lo": 305,
+"hi": 307
+},
+{
+"file": "knowledge_base/domains/RS/assumptions.md",
+"src": "ig34",
+"lo": 329,
+"hi": 339
+},
+{
+"file": "knowledge_base/domains/RS/examples.md",
+"src": "ig34",
+"lo": 329,
+"hi": 339
+},
+{
+"file": "knowledge_base/domains/SC/assumptions.md",
+"src": "ig34",
+"lo": 339,
+"hi": 342
+},
+{
+"file": "knowledge_base/domains/SC/examples.md",
+"src": "ig34",
+"lo": 339,
+"hi": 342
+},
+{
+"file": "knowledge_base/domains/SE/assumptions.md",
+"src": "ig34",
+"lo": 79,
+"hi": 83
+},
+{
+"file": "knowledge_base/domains/SE/examples.md",
+"src": "ig34",
+"lo": 79,
+"hi": 83
+},
+{
+"file": "knowledge_base/domains/SM/assumptions.md",
+"src": "ig34",
+"lo": 84,
+"hi": 86
+},
+{
+"file": "knowledge_base/domains/SM/examples.md",
+"src": "ig34",
+"lo": 84,
+"hi": 86
+},
+{
+"file": "knowledge_base/domains/SR/assumptions.md",
+"src": "ig34",
+"lo": 375,
+"hi": 381
+},
+{
+"file": "knowledge_base/domains/SR/examples.md",
+"src": "ig34",
+"lo": 375,
+"hi": 381
+},
+{
+"file": "knowledge_base/domains/SS/assumptions.md",
+"src": "ig34",
+"lo": 342,
+"hi": 343
+},
+{
+"file": "knowledge_base/domains/SS/examples.md",
+"src": "ig34",
+"lo": 342,
+"hi": 343
+},
+{
+"file": "knowledge_base/domains/SU/assumptions.md",
+"src": "ig34",
+"lo": 129,
+"hi": 132
+},
+{
+"file": "knowledge_base/domains/SU/examples.md",
+"src": "ig34",
+"lo": 129,
+"hi": 132
+},
+{
+"file": "knowledge_base/domains/SUPPQUAL/assumptions.md",
+"src": "ig34",
+"lo": 430,
+"hi": 432
+},
+{
+"file": "knowledge_base/domains/SUPPQUAL/examples.md",
+"src": "ig34",
+"lo": 430,
+"hi": 432
+},
+{
+"file": "knowledge_base/domains/SV/assumptions.md",
+"src": "ig34",
+"lo": 86,
+"hi": 91
+},
+{
+"file": "knowledge_base/domains/SV/examples.md",
+"src": "ig34",
+"lo": 86,
+"hi": 91
+},
+{
+"file": "knowledge_base/domains/TA/assumptions.md",
+"src": "ig34",
+"lo": 385,
+"hi": 404
+},
+{
+"file": "knowledge_base/domains/TA/examples.md",
+"src": "ig34",
+"lo": 385,
+"hi": 404
+},
+{
+"file": "knowledge_base/domains/TD/assumptions.md",
+"src": "ig34",
+"lo": 412,
+"hi": 416
+},
+{
+"file": "knowledge_base/domains/TD/examples.md",
+"src": "ig34",
+"lo": 412,
+"hi": 416
+},
+{
+"file": "knowledge_base/domains/TE/assumptions.md",
+"src": "ig34",
+"lo": 404,
+"hi": 409
+},
+{
+"file": "knowledge_base/domains/TE/examples.md",
+"src": "ig34",
+"lo": 404,
+"hi": 409
+},
+{
+"file": "knowledge_base/domains/TI/assumptions.md",
+"src": "ig34",
+"lo": 418,
+"hi": 419
+},
+{
+"file": "knowledge_base/domains/TI/examples.md",
+"src": "ig34",
+"lo": 418,
+"hi": 419
+},
+{
+"file": "knowledge_base/domains/TM/assumptions.md",
+"src": "ig34",
+"lo": 417,
+"hi": 417
+},
+{
+"file": "knowledge_base/domains/TM/examples.md",
+"src": "ig34",
+"lo": 417,
+"hi": 417
+},
+{
+"file": "knowledge_base/domains/TR/assumptions.md",
+"src": "ig34",
+"lo": 350,
+"hi": 358
+},
+{
+"file": "knowledge_base/domains/TR/examples.md",
+"src": "ig34",
+"lo": 350,
+"hi": 358
+},
+{
+"file": "knowledge_base/domains/TS/assumptions.md",
+"src": "ig34",
+"lo": 419,
+"hi": 425
+},
+{
+"file": "knowledge_base/domains/TS/examples.md",
+"src": "ig34",
+"lo": 419,
+"hi": 425
+},
+{
+"file": "knowledge_base/domains/TU/assumptions.md",
+"src": "ig34",
+"lo": 344,
+"hi": 358
+},
+{
+"file": "knowledge_base/domains/TU/examples.md",
+"src": "ig34",
+"lo": 344,
+"hi": 358
+},
+{
+"file": "knowledge_base/domains/TV/assumptions.md",
+"src": "ig34",
+"lo": 409,
+"hi": 412
+},
+{
+"file": "knowledge_base/domains/TV/examples.md",
+"src": "ig34",
+"lo": 409,
+"hi": 412
+},
+{
+"file": "knowledge_base/domains/UR/assumptions.md",
+"src": "ig34",
+"lo": 312,
+"hi": 315
+},
+{
+"file": "knowledge_base/domains/UR/examples.md",
+"src": "ig34",
+"lo": 312,
+"hi": 315
+},
+{
+"file": "knowledge_base/domains/VS/assumptions.md",
+"src": "ig34",
+"lo": 358,
+"hi": 361
+},
+{
+"file": "knowledge_base/domains/VS/examples.md",
+"src": "ig34",
+"lo": 358,
+"hi": 361
+},
+{
+"file": "knowledge_base/chapters/ch01_introduction.md",
+"src": "ig34",
+"lo": 7,
+"hi": 10
+},
+{
+"file": "knowledge_base/chapters/ch02_fundamentals.md",
+"src": "ig34",
+"lo": 11,
+"hi": 16
+},
+{
+"file": "knowledge_base/chapters/ch03_submitting_data.md",
+"src": "ig34",
+"lo": 17,
+"hi": 21
+},
+{
+"file": "knowledge_base/chapters/ch04_general_assumptions.md",
+"src": "ig34",
+"lo": 22,
+"hi": 59
+},
+{
+"file": "knowledge_base/chapters/ch08_relationships.md",
+"src": "ig34",
+"lo": 427,
+"hi": 440
+},
+{
+"file": "knowledge_base/chapters/ch10_appendices.md",
+"src": "ig34",
+"lo": 444,
+"hi": 461
+},
+{
+"file": "knowledge_base/model/01_concepts_and_terms.md",
+"src": "sv20",
+"lo": 8,
+"hi": 10
+},
+{
+"file": "knowledge_base/model/02_observation_classes.md",
+"src": "sv20",
+"lo": 11,
+"hi": 39
+},
+{
+"file": "knowledge_base/model/03_special_purpose_domains.md",
+"src": "sv20",
+"lo": 40,
+"hi": 49
+},
+{
+"file": "knowledge_base/model/04_associated_persons.md",
+"src": "sv20",
+"lo": 50,
+"hi": 50
+},
+{
+"file": "knowledge_base/model/05_study_level_data.md",
+"src": "sv20",
+"lo": 51,
+"hi": 63
+},
+{
+"file": "knowledge_base/model/06_relationship_datasets.md",
+"src": "sv20",
+"lo": 64,
+"hi": 69
+}
+]

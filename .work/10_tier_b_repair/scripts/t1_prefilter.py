@@ -200,7 +200,7 @@ def main():
         outp = f"{a.census_dir}/{name}.json"
         pages = f"{src}:{min(d['pages'])}-{max(d['pages']) + 1}"
         if not a.no_census_run:
-            r = subprocess.run([sys.executable, "-I", f"{TB}/scripts/table_census.py", "--pages", pages, "--kb",
+            r = subprocess.run([sys.executable, "-I", f"{TB}/scripts/archive/table_census_v1.py", "--pages", pages, "--kb",  # v1 report format (census_row reads it); v2 = scripts/table_census.py
                                 *sorted(d["files"]), "--out", outp], cwd=ROOT, capture_output=True, text=True)
             if r.returncode not in (0, 1): print("CENSUS ERROR", name, r.stderr[-400:]); continue
         if os.path.exists(outp): census[(src, u)] = json.load(open(outp, encoding="utf-8"))

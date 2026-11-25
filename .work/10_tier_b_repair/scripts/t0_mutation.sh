@@ -1,8 +1,9 @@
 #!/bin/bash
 # T0.4 mutation test (retrospective §4 rule 5; PLAN G-TB9). Mutates ONLY a temp copy of knowledge_base/
 # under work/scratch/ (gitignored). Usage: bash .work/10_tier_b_repair/scripts/t0_mutation.sh
-# Baselines (made on the real KB, see t0_mutation.md): work/fp_baseline.jsonl, work/census_BPCPP.json,
-# work/section_coverage.wc.baseline.jsonl
+# Baselines (made on the real KB, see t0_mutation.md): work/fp_baseline.jsonl, work/census_BPCPP.v2.json (census v2;
+# v1 baseline work/census_BPCPP.json kept for scripts/archive/table_census_v1.py), work/section_coverage.wc.baseline.jsonl,
+# work/census_mut_{MB,EG}.v2.json (M4* cases). v3 (§6): M4a-M4d = T1 false-OK modes a-d, census only, targeted asserts.
 set -u
 R=/Volumes/DevSSD/Project/sdtm-pedia
 T=$R/.work/10_tier_b_repair
@@ -25,7 +26,7 @@ gates() {  # $1 = label
   local e1=${PIPESTATUS[0]}; echo "fp_match exit=$e1"
   echo "---- [$1] table_census"
   $PY $T/scripts/table_census.py --kb-root "$K" $CEN --out "$S/census_$1.json" \
-      --baseline $T/work/census_BPCPP.json | grep -E "^(PDF tables|BASELINE|  CHANGED|RESULT)"
+      --baseline $T/work/census_BPCPP.v2.json | grep -E "^(PDF tables|BASELINE|  CHANGED|RESULT)"
   local e2=${PIPESTATUS[0]}; echo "table_census exit=$e2"
   echo "---- [$1] t3_recompute (--downgrade fp regressions)"
   $PY $T/scripts/t3_recompute.py --downgrade "$S/reg_$1.jsonl" --out "$S/sc_$1.jsonl" \
@@ -98,10 +99,152 @@ del L[1170:1207]; open(p, "w", encoding="utf-8").write("\n".join(L)); print("M3 
 EOF
 gates M3
 
+# ── v3: T1 false-OK modes (census only). Per case: v2 vs real-KB baseline must be RED, a targeted assert must find the
+# mutated table/row/column (and it must be absent from the baseline); v1 (scripts/archive/table_census_v1.py) is run
+# against its own pristine-copy baseline and logged (v1=GREEN means v1 was blind to the mode).
+CMB="--pages ig34:248-264 --kb knowledge_base/domains/MB/assumptions.md knowledge_base/domains/MB/examples.md"
+CEG="--pages ig34:185-193 --kb knowledge_base/domains/EG/assumptions.md knowledge_base/domains/EG/examples.md"
+V1=$T/scripts/archive/table_census_v1.py
+M4SUM=""; M4BAD=0
+v1base() { reset; $PY $V1 --kb-root "$K" $CMB --out "$S/v1base_MB.json" >/dev/null; $PY $V1 --kb-root "$K" $CEG --out "$S/v1base_EG.json" >/dev/null;
+           $PY $T/scripts/table_census.py --kb-root "$K" $CMB --out "$S/m4_M0_MB.json" --baseline $T/work/census_mut_MB.v2.json | tail -1
+           [ ${PIPESTATUS[0]} = 0 ] || { echo "M4 setup: MB not GREEN"; M4BAD=1; }
+           $PY $T/scripts/table_census.py --kb-root "$K" $CEG --out "$S/m4_M0_EG.json" --baseline $T/work/census_mut_EG.v2.json | tail -1
+           [ ${PIPESTATUS[0]} = 0 ] || { echo "M4 setup: EG not GREEN"; M4BAD=1; }
+           echo "---- [M4d0] real-KB pairing (mode d): MB copy-2 Ex1 relrec @229 must pair with PDF Ex1, PDF Ex3 relrec PDF_ONLY"
+           census_check "$S/m4_M0_MB.json" $T/work/census_mut_MB.v2.json pair MB/examples.md 229 1 relrec.xpt 3 || M4BAD=1
+           $PY -c "import json,sys; t=[t for t in json.load(open(sys.argv[1]))['tables'] if t['line']==229][0]; print('  v1 (pristine): MB/examples.md:229 ->', t['status'], 'pdf_pages', t.get('pdf_pages'))" "$S/v1base_MB.json"; }
+# $1 label  $2 MB|EG  $3.. assert spec (see census_check below)
+m4() {
+  local L=$1 U=$2; shift 2; local CFG; [ "$U" = MB ] && CFG=$CMB || CFG=$CEG
+  echo "---- [$L] table_census v2 ($U)"
+  $PY $T/scripts/table_census.py --kb-root "$K" $CFG --out "$S/m4_$L.json" --baseline $T/work/census_mut_$U.v2.json | grep -E "^(BASELINE|  CHANGED|RESULT)" | head -8
+  local e2=${PIPESTATUS[0]}
+  echo "---- [$L] targeted assert: $*"
+  census_check "$S/m4_$L.json" $T/work/census_mut_$U.v2.json "$@"; local ea=$?
+  echo "---- [$L] table_census v1 ($U, vs v1 pristine baseline)"
+  $PY $V1 --kb-root "$K" $CFG --out "$S/m4v1_$L.json" --baseline "$S/v1base_$U.json" | grep -E "^(BASELINE|  CHANGED|RESULT)" | head -6
+  local e1=${PIPESTATUS[0]}
+  local ok=OK; { [ "$e2" = 1 ] && [ "$ea" = 0 ]; } || { ok=MISMATCH; M4BAD=1; }
+  M4SUM+="$(printf '%-6s v2=%s(expect 1) assert=%s(expect 0) v1=%s %s' "$L" "$e2" "$ea" "$( [ "$e1" = 0 ] && echo GREEN-blind || echo RED )" "$ok")"$'\n'
+}
+census_check() {  # report baseline kind args...  kind: cell FILE LINE KBROW COL | row FILE LINE KBROW | pdfonly DS EX |
+                  #   only1 FILE LINE COL KBVAL | pair FILE LINE PDFEX ONLY_DS ONLY_EX
+  $PY - "$@" <<'EOF'
+import json, sys
+rep, base, kind, *a = sys.argv[1:]
+R, B = json.load(open(rep)), json.load(open(base))
+def tab(r, f, ln): return next((t for t in r["tables"] if t["file"].endswith(f) and t["line"] == int(ln)), None)
+if kind == "cell":
+    f, ln, row, col = a
+    hit = lambda r: [d for d in (tab(r, f, ln) or {}).get("diffs", []) if d.get("kb_row") == row and d.get("col") == col]
+    ok = bool(hit(R)) and not hit(B); print("  assert cell", f, ln, "row", row, col, "->", hit(R)[:1], "| in baseline:", bool(hit(B)))
+elif kind == "row":
+    f, ln, row = a
+    hit = lambda r: [d for d in (tab(r, f, ln) or {}).get("diffs", []) if d.get("kb_row") == row]
+    ok = bool(hit(R)) and not hit(B); print("  assert row", f, ln, "row", row, "->", hit(R)[:2], "| in baseline:", bool(hit(B)))
+elif kind == "pair":   # real-KB property (no baseline condition): table FILE:LINE pairs with a PDF table of example EX,
+    f, ln, ex, ods, oex = a      # and PDF table (ODS, OEX) is PDF_ONLY
+    t = tab(R, f, ln) or {}; po = [p for p in R["pdf_only"] if p["ds"] == ods and p["ex"] == oex]
+    ok = t.get("pdf_ex") == ex and bool(po)
+    print("  assert pair", f, ln, "-> pdf_ex", t.get("pdf_ex"), t.get("pdf_pages"), "| PDF_ONLY", ods, oex, "->", [p["pages"] for p in po])
+elif kind == "pdfonly":
+    ds, ex = a
+    hit = lambda r: [p for p in r["pdf_only"] if p["ds"] == ds and p["ex"] == ex]
+    ok = bool(hit(R)) and not hit(B); print("  assert pdf_only", ds, "ex", ex, "->", hit(R)[:1], "| in baseline:", bool(hit(B)))
+elif kind == "only1":
+    f, ln, col, kv = a
+    t = tab(R, f, ln) or {}
+    cells = [d for d in t.get("diffs", []) if d["type"] == "CELL" and d["col"] != "Row"]
+    unm = [d for d in t.get("diffs", []) if d["type"] in ("KB_ROW_UNMATCHED", "PDF_ROW_MISSING")]
+    ok = len(cells) == 1 and cells[0]["col"] == col and cells[0]["kb"] == kv and len(unm) == 1
+    print("  assert only1", f, ln, "non-Row cell diffs:", [(d["kb_row"], d["col"], d["kb"], d["pdf"]) for d in cells][:4],
+          "| unmatched rows:", [(d["type"], d.get("kb_row"), d.get("pdf_row")) for d in unm])
+print("  ASSERT", "PASS" if ok else "FAIL"); sys.exit(0 if ok else 1)
+EOF
+}
+
+echo "==== M4 setup: v1 baselines on a pristine copy; v2 vs real-KB baselines on the pristine copy must be GREEN"
+v1base
+
+echo "==== M4a every KB copy checked (mode a): MB/examples.md:258 copy-2 suppbe row 1 QVAL SPUTUM -> BLOOD (copy 1 @48 untouched)"
+reset
+$PY - "$K/domains/MB/examples.md" <<'EOF'
+import sys; p = sys.argv[1]; L = open(p, encoding="utf-8").read().split("\n"); i = 257
+old = "| 1 | ABC | BE | ABC-01-101 | BEREFID | SP01 | BESPEC | Specimen Type | SPUTUM | CRF |"
+assert L[i] == old and L[47] == old, (L[i], L[47]); L[i] = old.replace("SPUTUM", "BLOOD"); open(p, "w", encoding="utf-8").write("\n".join(L))
+EOF
+m4 M4a MB cell MB/examples.md 256 1 QVAL
+
+echo "==== M4b swap 2 values inside a wrapped (multi-line) PDF record (mode b): EG/examples.md:64 Ex3 row 1 EGCAT <-> EGPOS"
+reset
+$PY - "$K/domains/EG/examples.md" <<'EOF'
+import sys; p = sys.argv[1]; L = open(p, encoding="utf-8").read().split("\n"); i = 63
+assert L[i].startswith("| 1 | STUDY01 |") and L[i].count("| INTERVAL | SUPINE |") == 1, L[i][:60]
+L[i] = L[i].replace("| INTERVAL | SUPINE |", "| SUPINE | INTERVAL |"); open(p, "w", encoding="utf-8").write("\n".join(L))
+EOF
+m4 M4b EG cell EG/examples.md 62 1 EGPOS
+
+echo "==== M4b2 move a value into the empty neighbour cell of a wrapped record (mode b): EG/examples.md:64 EGLEAD -> EGLOBXFL"
+reset
+$PY - "$K/domains/EG/examples.md" <<'EOF'
+import sys; p = sys.argv[1]; L = open(p, encoding="utf-8").read().split("\n"); i = 63
+assert L[i].count("| LEAD II | | 2 |") == 1, L[i][:60]
+L[i] = L[i].replace("| LEAD II | | 2 |", "| | LEAD II | 2 |"); open(p, "w", encoding="utf-8").write("\n".join(L))
+EOF
+m4 M4b2 EG cell EG/examples.md 62 1 EGLOBXFL
+
+echo "==== M4c duplicate KB row number (mode c, v1 keyed rows on Row): EG/examples.md Ex3, wrong copy of row 5 inserted before row 5"
+reset
+$PY - "$K/domains/EG/examples.md" <<'EOF'
+import sys; p = sys.argv[1]; L = open(p, encoding="utf-8").read().split("\n"); i = 67
+assert L[i].startswith("| 5 | STUDY01 |") and L[i].count("| 176 | msec | 176 | 176 |") == 1, L[i][:60]
+L.insert(i, L[i].replace("| 176 | msec | 176 | 176 |", "| 999 | msec | 999 | 999 |")); open(p, "w", encoding="utf-8").write("\n".join(L))
+EOF
+m4 M4c EG row EG/examples.md 62 5
+
+echo "==== M4c2 row alignment by content (mode c): EG Ex3 extra KB row after row 10, later rows renumbered +1, one real change"
+echo "     (row 20 -> 21 EGORRES 402 -> 403). Only that one non-Row cell may be reported (no cascade), plus 1 unmatched row."
+reset
+$PY - "$K/domains/EG/examples.md" <<'EOF'
+import sys, re; p = sys.argv[1]; L = open(p, encoding="utf-8").read().split("\n")
+assert L[72].startswith("| 10 | STUDY01 |") and L[86].startswith("| 24 | STUDY01 |") and L[82].count("| 402 | msec | 402 | 402 |") == 1
+L[82] = L[82].replace("| 402 | msec | 402 | 402 |", "| 403 | msec | 402 | 402 |")
+for i in range(73, 87):
+    L[i] = re.sub(r"^\| (\d+) \|", lambda m: f"| {int(m.group(1)) + 1} |", L[i])
+L.insert(73, "| 11 | STUDY01 | EG | 2324-P0001 | 11 | ... | XXAG | XX Interval, Aggregate | INTERVAL | SUPINE | 123 | msec | 123 | 123 | msec | 12 LEAD STANDARD | LEAD II | | 2 | VISIT 2 | 2014-03-22T10:02:14 | 1 HR | ... | 3 |")
+open(p, "w", encoding="utf-8").write("\n".join(L))
+EOF
+m4 M4c2 EG only1 EG/examples.md 62 EGORRES 403
+
+echo "==== M4e KB row shorter than its header (dropped last cell): EG/examples.md:64 Ex3 row 1 loses EGREPNUM"
+reset
+$PY - "$K/domains/EG/examples.md" <<'EOF'
+import sys; p = sys.argv[1]; L = open(p, encoding="utf-8").read().split("\n"); i = 63
+assert L[i].startswith("| 1 | STUDY01 |") and L[i].endswith("| ... | 1 |"), L[i][-30:]
+L[i] = L[i][: -len(" 1 |")]; open(p, "w", encoding="utf-8").write("\n".join(L))
+EOF
+m4 M4e EG row EG/examples.md 62 1
+
+echo "==== M4d pairing by example + dataset (mode d): delete both KB copies of MB Ex2 suppbe.xpt -> PDF table must be PDF_ONLY"
+reset
+$PY - "$K/domains/MB/examples.md" <<'EOF'
+import sys; p = sys.argv[1]; L = open(p, encoding="utf-8").read().split("\n")
+assert L[253] == "**suppbe.xpt**" and L[43] == "**suppbe.xpt**" and L[262].startswith("| 6 |") and L[52].startswith("| 6 |")
+del L[253:263]; del L[43:53]; open(p, "w", encoding="utf-8").write("\n".join(L))
+EOF
+m4 M4d MB pdfonly suppbe.xpt 2
+
 echo "==== RESTORE (fresh copy of the unmodified KB)"
 reset; echo "copy KB md5: $(kbsum $K)"; gates RESTORE
 
 echo "real KB md5 (after): $(kbsum $R/knowledge_base)"
 echo "git status knowledge_base/ archive/ releases/:"; (cd $R && git status --short knowledge_base archive releases; echo "(end)")
 echo "==== EXPECT TABLE (fp census t3)"; printf '%s' "$SUMMARY"
+echo "==== M4 TABLE (census v2 RED + targeted assert; v1 logged)"; printf '%s' "$M4SUM"
+echo "---- RESTORE census v2 MB/EG vs baselines (must be GREEN)"
+R1=0; $PY $T/scripts/table_census.py --kb-root "$K" $CMB --out "$S/m4_RESTORE_MB.json" --baseline $T/work/census_mut_MB.v2.json | tail -1; [ ${PIPESTATUS[0]} = 0 ] || R1=1
+$PY $T/scripts/table_census.py --kb-root "$K" $CEG --out "$S/m4_RESTORE_EG.json" --baseline $T/work/census_mut_EG.v2.json | tail -1; [ ${PIPESTATUS[0]} = 0 ] || R1=1
+[ "$R1" = 0 ] || { echo "RESTORE M4 census not GREEN"; MISMATCH=1; }
+[ "$M4BAD" = 0 ] || MISMATCH=1
 if [ "$MISMATCH" = 0 ]; then echo "MUTATION RESULT: ALL MATCH (exit 0)"; exit 0; else echo "MUTATION RESULT: MISMATCH (exit 1)"; exit 1; fi

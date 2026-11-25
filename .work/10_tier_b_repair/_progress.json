@@ -109,6 +109,38 @@
         "SPEC_NOT_FOUND": 32,
         "MANUAL": 2
       }
+    },
+    {
+      "step": "T1.4-prep (census v2 + 全量 census + T1.4 包)",
+      "status": "PASS (待 T1.4 用户 ack)",
+      "date": "2026-11-26",
+      "agent": "oh-my-claudecode:executor (opus)",
+      "artifacts": [
+        "scripts/table_census.py (v2, bbox)",
+        "scripts/archive/table_census_v1.py",
+        "scripts/archive/t0_mutation_v2.sh",
+        "scripts/t0_mutation.sh (v3: +M4a-M4d, M4d0)",
+        "evidence/checkpoints/t0_mutation_v3.log",
+        "evidence/checkpoints/t0_mutation.md §6",
+        "work/census_BPCPP.v2.json",
+        "work/census_mut_MB.v2.json",
+        "work/census_mut_EG.v2.json",
+        "work/census_full_manifest.json",
+        "work/census_full.json",
+        "evidence/checkpoints/t1_census_full.md",
+        "evidence/checkpoints/t1_ie_candidates.md",
+        "evidence/checkpoints/t1_batch_draft.md",
+        "subagent_prompts/t1_calibration_v1.1.md",
+        "work/.gitignore (+pdf_bbox/)"
+      ],
+      "note": "false-OK: (a) 仅 prefilter census_row 择一 (checker 已逐副本), (b)(c)(d) 在 checker v1, 均在 v2 修; 变异全套 exit 0 (M4b/M4b2 v1 盲, v2 红); 全量 census: KB 表 504 (可机检 354: OK 220 / DIFF 130 / NO_PDF 4; 不可机检 150 张 1184 行), 比对格 32076, diff 1744 (CELL 1679, 涉及 KB 行 507), PDF_ONLY 15, PDF_UNPARSED 2; FP 抽检 0/20; T2 重估 887 项 (上限 700, +27%) / 16-17 批 → 报警超 20%; 版权 grep: 30 词窗 0 命中, 12 词窗最长 23 词"
+    },
+    {
+      "step": "T1.4-prep addendum (advisor 复核后)",
+      "status": "PASS (待 T1.4 用户 ack)",
+      "date": "2026-11-26",
+      "agent": "oh-my-claudecode:executor (opus)",
+      "note": "census v2 再修: KB 行短于表头 → ROW_SHAPE + 缺格比 (11 行), 翻页孤立词双读法 (TR p358), KB 缺的 PDF 列有值也报; 变异 +M4e, 全套 exit 0 (8/8 + M4 7/7 + M4d0); 全量 census diff 1763 (CELL 1687 / 涉及 KB 行 507); T2 重估: 分诊 308 (区间内) + census 净增 548 = 856 (报警线 840, VM 不认 926); t1_prefilter census 子进程改指 archive v1 (防覆盖); 版权 grep 加版面文本: 30 词窗 0, 25 词窗 1 文件 (census_t1/ig34_domains_EX.json, v1 token 袋, 最长 27 词)"
     }
   ],
   "steps": {
@@ -171,6 +203,21 @@
     "work/census_BPCPP.json": "2ee7a6f68d36459703e1a9486adb2a30 (columns 模式版)",
     "knowledge_base tree (t0_mutation.sh kbsum)": "5ae88550adcecaf3c9349233f7fa07fc",
     "work/triage_prefilter.jsonl": "f3d6171440eadfe47ddbca2aea3f2b30",
-    "scripts/t0_mutation.sh (expect 表版)": "b663b960e1e70b0d7a98b5368b354bae"
+    "scripts/t0_mutation.sh (expect 表版)": "b663b960e1e70b0d7a98b5368b354bae",
+    "scripts/table_census.py (v2)": "e73fd47eb865f4e6437a917d1ed00e6a",
+    "scripts/archive/table_census_v1.py (= T0 版 table_census.py)": "db31da8897b7e7b6b0721fd4237564b5",
+    "scripts/t0_mutation.sh (v3)": "c426df7f6ee388fce67768581aa67a89",
+    "work/census_BPCPP.v2.json": "157573cd77b5e798db408e8d35b68d01",
+    "work/census_mut_MB.v2.json": "44f5417c6fd1d341c8174246e29827d1",
+    "work/census_mut_EG.v2.json": "691f0f522e9f1f9653eda4fe224a39e7",
+    "work/census_full.json": "a8cdaee9f0f0fab8d18117a013010280",
+    "work/triage_merged.json (t1_merge 复跑, 与复跑前相同)": "8cbbc19b78618d10f3496a158ed99bb6",
+    "scripts/table_census.py (v2 final)": "15985cfaf6527a8aa163712f867cbc7c",
+    "scripts/t0_mutation.sh (v3 final, +M4e)": "767088db5de13f4eb3c4a3c5a02c5a30",
+    "scripts/t1_prefilter.py (census 子进程→archive v1)": "f83740433b42d98069af0826b55b2a98",
+    "work/census_BPCPP.v2.json (final)": "2654b03e0fc89c52b5c25078d935e771",
+    "work/census_mut_MB.v2.json (final)": "a76c72bf7659bc8cbac1826c0b8d4219",
+    "work/census_mut_EG.v2.json (final)": "5186c3eeba04b25ae010f20497b15dba",
+    "work/census_full.json (final)": "18ab44d611a723a2f1b2551af3f0856c"
   }
 }

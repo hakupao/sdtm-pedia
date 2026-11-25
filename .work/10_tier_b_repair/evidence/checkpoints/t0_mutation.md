@@ -123,3 +123,74 @@ RESTORE  expect=[0 0 0] got=[0 0 0] OK
 MUTATION RESULT: ALL MATCH (exit 0)
 ```
 - 断言本身的反向验证: 取脚本第 18-19 行 (`expect()` + 计数器) 套最小 harness, 喂 `M2 got="0 0 0"` (模拟 census 失明) → `mismatch detected`, exit 1. 真 KB md5 前后均 `5ae88550…`.
+
+## 6. v3: table_census v2 + T1 false-OK 四模式的变异用例 — 2026-11-26
+
+> 执行: `oh-my-claudecode:executor` (opus). v1 脚本存档 `scripts/archive/table_census_v1.py` (规则 B), v2 变异脚本存档 `scripts/archive/t0_mutation_v2.sh`.
+> v1 基线 `work/census_BPCPP.json` 原样保留 (T1 prefilter 读它); v2 基线 `work/census_BPCPP.v2.json`, `work/census_mut_{MB,EG}.v2.json` (真 KB 上生成).
+> 完整日志 `evidence/checkpoints/t0_mutation_v3.log` (v1/v2 日志保留). 真 KB md5 前后 `5ae88550…`, `git status knowledge_base archive releases` 为空.
+
+### 6.1 四个 false-OK 模式住在哪里
+
+| 模式 | 现象 (T1 lane 回报) | 所在位置 | v2 修法 |
+|---|---|---|---|
+| (a) 只取最像的 KB 副本 | PC/assumptions.md:86 的 pp.xpt 12 行同错, 预筛给 CENSUS_OK | **仅 prefilter 包装层** `t1_prefilter.py` `census_row()` (:210-246: 按"是否目标文件 → cell_agreement"排序只报第一名). v1 checker 本身对每张 KB 表都出状态 (census_BPCPP.json 里 :86 = DIFF×12) | checker 保持"每张 KB 表一个状态"并加固: 有键配对无相似度下限 (严重损坏的副本不再掉成 NO_PDF), NO_PDF 也算红; M4a 作回归护栏. prefilter **未改未重跑** (T1.2 已消费); 受影响面: 84 条多候选 census 行中 15 条 "OK 但另一副本 DIFF" (MB:76 / MB:98 / PC/assumptions:86) |
+| (b) multiset / order 比较放过互换、挪格 | EG Ex4 rows 4/7、CP Ex1a CPMRKSTR/CPTESTCD/CPMETHOD | **checker** v1 `compare_row()` 的 `order` / `multiset` 分支 (折行记录与表头不可用时) | PDF 侧改读词框 (`pdftotext -bbox`, 缓存 `work/pdf_bbox/`, gitignored): 表头词 x 起点 = 列边界, 每词归入列, 空格与折行格都按列逐格比; 列按表头序号映射 (名称序列对齐更优时按名称), KB 缺的 PDF 列有值也报 |
+| (c) 按 Row 号对齐 | TR Ex2 PDF 跳 Row 12 → 整表错位; 同号重复行被 dict 吞 | **checker** v1 `byrow = {int(r[0]): r}` | 行按内容做保序 DP 对齐 (行号相等只作 0.05 的平局加分); 行号不一致单独报 `Row` 列 diff; 多出 / 缺失行分别报 KB_ROW_UNMATCHED / PDF_ROW_MISSING |
+| (d) 表误配 | MB Ex3 relrec 配到 Ex1 (实为整表缺) | **checker** v1 配对: 相似度贪心 + 剩余 KB 表按 ≥0.6 相似度当副本, 不看 example 号 → MB:229 (副本 2 的 Ex1 relrec) 配到 p263 Ex3 relrec | 配对键 = (Example 号, 数据集名 `xx.xpt`, 例内序号); 两侧都已知时必须一致; 一对一贪心后, 若某 KB 表的最佳候选明显更好 (相似度 +0.1) 则改作该候选的副本 |
+
+关于 (b) 的 EG Ex4 rows 4/7: v2 按列逐格比后这两行与 PDF 一致 (KB 对, 原子抽错 = ATOM_ERR 成立); 该表 v2 只报 row 3 / 6 的 EGDTC (与 v1 相同). 问题在于 v1 的 multiset "OK" 不能作证据, 不是 KB 有错.
+
+### 6.2 真 KB 上的对照 (修复不丢已知差异)
+
+- B-PCPP: v2 复现 v1 全部 42 处 DIFF (`scripts/helpers/reconcile.py`, 按表+行 0 丢失), v1 的 13 张 OK 表仍 OK; 比对格数 3551 = v1.
+- EG / CP / TR / MB 四单元 (`work/census_t1/` 的同页段): v1 DIFF 行全部保留; 表面"丢失"的 3 处是表达变化 (TR Ex2 row 28 → 行号对齐 diff; MB:162 row 7/8 → 行号 diff; MB:229 由误配的 DIFF 变 OK).
+- 复跑: `bash .work/10_tier_b_repair/scripts/helpers/regen.sh` (重建 v2 基线 + 四单元对照 + 全量 census).
+
+### 6.3 新变异用例 (只跑 census; 每例: v2 对真 KB 基线必须 RED + 定点断言命中被改的表/行/列且基线中没有; v1 对其纯净副本基线的结果仅记录)
+
+| 用例 | 模式 | 变异 | 定点断言 | v2 | v1 |
+|---|---|---|---|:-:|:-:|
+| M4d0 | d | (不变异) 真 KB: MB/examples.md:229 | 配到 PDF Ex1 (p257); PDF Ex3 relrec (p263) = PDF_ONLY | PASS | v1 配到 p263 (误配) |
+
+> M4d0 断言的是**当前 KB 的缺陷** (MB Ex3 relrec 缺). T2 补上该表后此断言会失败 → 届时改为断言 "229 仍配 Ex1, 新表配 Ex3", 并重做 v2 基线.
+| M4a | a | MB/examples.md:258 副本 2 suppbe row 1 QVAL SPUTUM→BLOOD (副本 1 :48 不动) | (MB:256, row 1, QVAL) | RED | RED (回归护栏) |
+| M4b | b | EG/examples.md:64 Ex3 row 1 (折行记录) EGCAT↔EGPOS 互换 | (EG:62, row 1, EGPOS) | RED | **GREEN (盲)** |
+| M4b2 | b | 同行 EGLEAD 值挪进空的 EGLOBXFL | (EG:62, row 1, EGLOBXFL) | RED | **GREEN (盲)** |
+| M4c | c | Ex3 row 5 前插一条同号错行 (176→999) | (EG:62, row 5) 有 diff | RED | RED 仅因 n_rows 变 (该表状态仍 OK = 盲) |
+| M4c2 | c | Ex3 row 10 后插 1 行, 其后行号 +1, 原 row 20 EGORRES 402→403 | 非 Row 列 diff 恰 1 条 (row 21 EGORRES) + 未配行 1 条 (无级联) | RED | RED (级联噪声) |
+| M4e | 行形 | EG/examples.md:64 Ex3 row 1 去掉末格 (EGREPNUM) | (EG:62, row 1) 有 diff (ROW_SHAPE + 缺格) | RED | RED |
+| M4d | d | 删除 MB 两份 Ex2 suppbe.xpt | PDF_ONLY 含 (suppbe.xpt, Ex2) 且基线没有 | RED | RED |
+
+断言的反向验证: 同一断言喂 v1 的 M4b / M4b2 报告 → `ASSERT FAIL` exit 1 (`bash -c 'PY="python3 -I"; source scripts/helpers/cc.sh; census_check work/scratch/m4v1_M4b.json work/scratch/v1base_EG.json cell EG/examples.md 62 1 EGPOS'`).
+
+### 6.4 全套结果 (exit 0)
+
+复跑: `cd /Volumes/DevSSD/Project/sdtm-pedia && bash .work/10_tier_b_repair/scripts/t0_mutation.sh > .work/10_tier_b_repair/evidence/checkpoints/t0_mutation_v3.log 2>&1; echo $?` → `0`
+
+```
+M0..RESTORE (fp census t3)  8/8 OK  (census 列改用 v2 基线 census_BPCPP.v2.json)
+M4a    v2=1(expect 1) assert=0(expect 0) v1=RED OK
+M4b    v2=1(expect 1) assert=0(expect 0) v1=GREEN-blind OK
+M4b2   v2=1(expect 1) assert=0(expect 0) v1=GREEN-blind OK
+M4c    v2=1(expect 1) assert=0(expect 0) v1=RED OK
+M4c2   v2=1(expect 1) assert=0(expect 0) v1=RED OK
+M4e    v2=1(expect 1) assert=0(expect 0) v1=RED OK
+M4d    v2=1(expect 1) assert=0(expect 0) v1=RED OK
+RESTORE census v2 MB/EG vs baselines: GREEN GREEN
+MUTATION RESULT: ALL MATCH (exit 0)
+```
+
+### 6.5 v2 已知限制 (reviewer 须知)
+
+- 垂直居中单元格的表仍判 PDF_UNPARSED 须人工 (全 KB 2 张: p274 pp.xpt, p342 sc.xpt); 翻页后重复表头下的居中格 (p356 TRREASND) 已并入下一条记录并计数 (`pdf_rows_centred_after_page_break`).
+- 表头折行判定是启发式 (标识符 / 括号注释); 误吞数据行时表现为 HEADER diff (红), 不会变绿.
+- 单元格比较忽略空白差异 (折行连接歧义), 计入 `ws_only_cells`; 只有 Row 列的表 (KB 自建说明表、spec/变量表) 不可机检, 列为 UNPARSEABLE.
+- 页码来自 `page_index.json`, 配对容差 ±3 页; 页码表本身错 (TM) 时靠容差兜住.
+- 翻页孤立词 (重复表头与下一行号之间的词): 可能是下一条记录的居中格 (p356 TRREASND), 也可能是上一条记录跨页的折行 (p358 TRTEST).
+  默认按几何判 (上一条在这些列已有内容 → 归上一条), 另一读法也算一遍, 取与 KB 一致度高者, 报告字段 `orphan_reading`.
+- KB 行格数与表头不符 → ROW_SHAPE diff, 缺的格按"缺"比 (PDF 该格非空即 diff); 全 KB 11 行.
+- **陷阱已拆**: `t1_prefilter.py` 不带 `--no-census-run` 时会重跑 census 并覆盖 `work/census_t1/*.json`; 它读 v1 报告格式, 已把子进程改指
+  `scripts/archive/table_census_v1.py` (仅改路径, 输出与 T1.1 相同格式). v2 报告请用 `scripts/table_census.py`.
+- 本节引用的 `scripts/helpers/*` (reconcile.py / regen.sh / cc.sh / fp_sample.py / census_md.py / t14_pkg.py / copyright_grep.py) 在 gitignored 目录,
+  干净 checkout 里没有; 需要长期复跑时应提升到 `scripts/` (未做, 待主控定).

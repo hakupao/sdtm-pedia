@@ -1,0 +1,900 @@
+{
+ "version": 2,
+ "pages": "ig34:185-193",
+ "manifest": null,
+ "kb_files": [
+  "knowledge_base/domains/EG/assumptions.md",
+  "knowledge_base/domains/EG/examples.md"
+ ],
+ "tables": [
+  {
+   "file": "knowledge_base/domains/EG/examples.md",
+   "line": 23,
+   "n_rows": 12,
+   "header": "Row | STUDYID | DOMAIN | USUBJID | EGSEQ | EGREFID | EGTESTCD | EGTEST | EGCAT | EGPOS | EGORRES | EGORRESU | EGSTRESC |",
+   "ex": "1",
+   "ds": "eg.xpt",
+   "status": "DIFF",
+   "kb_duplicate": false,
+   "pdf_src": "ig34",
+   "pdf_pages": [
+    190
+   ],
+   "pdf_ex": "1",
+   "pdf_ds": "eg.xpt",
+   "pdf_rows": 12,
+   "pdf_no_row_header": false,
+   "pdf_rows_centred_after_page_break": 0,
+   "orphan_reading": null,
+   "cells_compared": 276,
+   "ws_only_cells": 0,
+   "rows_renumbered": 0,
+   "sim": 0.83,
+   "rows_out_of_page_range": [],
+   "diffs": [
+    {
+     "type": "HEADER",
+     "cols": [
+      {
+       "idx": 18,
+       "kb": "EGDRVFL",
+       "pdf": null
+      },
+      {
+       "idx": null,
+       "kb": null,
+       "pdf": "EGLOBXFL"
+      },
+      {
+       "idx": null,
+       "kb": null,
+       "pdf": "EGDRVFL"
+      }
+     ]
+    },
+    {
+     "type": "CELL",
+     "kb_row": "1",
+     "pdf_row": 1,
+     "kb_line": 25,
+     "col": "EGXFN",
+     "col_idx": 16,
+     "kb": "PQW43787B-07.xml",
+     "pdf": "PQW436789-07.xml",
+     "wrapped": true
+    },
+    {
+     "type": "CELL",
+     "kb_row": "1",
+     "pdf_row": 1,
+     "kb_line": 25,
+     "col": "EGNAM",
+     "col_idx": 17,
+     "kb": "Test",
+     "pdf": "Test Lab",
+     "wrapped": true
+    },
+    {
+     "type": "CELL",
+     "kb_row": "1",
+     "pdf_row": 1,
+     "kb_line": 25,
+     "col": "VISIT",
+     "col_idx": 21,
+     "kb": "Screening",
+     "pdf": "Screening 1",
+     "wrapped": true
+    },
+    {
+     "type": "CELL",
+     "kb_row": "1",
+     "pdf_row": 1,
+     "kb_line": 25,
+     "col": "EGDTC",
+     "col_idx": 22,
+     "kb": "2003-04-36",
+     "pdf": "2003-04-15T11:58",
+     "wrapped": true
+    },
+    {
+     "type": "CELL",
+     "kb_row": "2",
+     "pdf_row": 2,
+     "kb_line": 26,
+     "col": "EGXFN",
+     "col_idx": 16,
+     "kb": "PQW43787B-07.xml",
+     "pdf": "PQW436789-07.xml",
+     "wrapped": true
+    },
+    {
+     "type": "CELL",
+     "kb_row": "2",
+     "pdf_row": 2,
+     "kb_line": 26,
+     "col": "EGNAM",
+     "col_idx": 17,
+     "kb": "Test",
+     "pdf": "Test Lab",
+     "wrapped": true
+    },
+    {
+     "type": "CELL",
+     "kb_row": "2",
+     "pdf_row": 2,
+     "kb_line": 26,
+     "col": "VISIT",
+     "col_idx": 21,
+     "kb": "Screening",
+     "pdf": "Screening 1",
+     "wrapped": true
+    },
+    {
+     "type": "CELL",
+     "kb_row": "2",
+     "pdf_row": 2,
+     "kb_line": 26,
+     "col": "EGDTC",
+     "col_idx": 22,
+     "kb": "2003-04-36",
+     "pdf": "2003-04-15T11:58",
+     "wrapped": true
+    },
+    {
+     "type": "CELL",
+     "kb_row": "3",
+     "pdf_row": 3,
+     "kb_line": 27,
+     "col": "EGXFN",
+     "col_idx": 16,
+     "kb": "PQW43787B-07.xml",
+     "pdf": "PQW436789-07.xml",
+     "wrapped": true
+    },
+    {
+     "type": "CELL",
+     "kb_row": "3",
+     "pdf_row": 3,
+     "kb_line": 27,
+     "col": "EGNAM",
+     "col_idx": 17,
+     "kb": "Test",
+     "pdf": "Test Lab",
+     "wrapped": true
+    },
+    {
+     "type": "CELL",
+     "kb_row": "3",
+     "pdf_row": 3,
+     "kb_line": 27,
+     "col": "VISIT",
+     "col_idx": 21,
+     "kb": "Screening",
+     "pdf": "Screening 1",
+     "wrapped": true
+    },
+    {
+     "type": "CELL",
+     "kb_row": "3",
+     "pdf_row": 3,
+     "kb_line": 27,
+     "col": "EGDTC",
+     "col_idx": 22,
+     "kb": "2003-04-36",
+     "pdf": "2003-04-15T11:58",
+     "wrapped": true
+    },
+    {
+     "type": "CELL",
+     "kb_row": "4",
+     "pdf_row": 4,
+     "kb_line": 28,
+     "col": "EGXFN",
+     "col_idx": 16,
+     "kb": "PQW43787B-07.xml",
+     "pdf": "PQW436789-07.xml",
+     "wrapped": true
+    },
+    {
+     "type": "CELL",
+     "kb_row": "4",
+     "pdf_row": 4,
+     "kb_line": 28,
+     "col": "EGNAM",
+     "col_idx": 17,
+     "kb": "Test",
+     "pdf": "Test Lab",
+     "wrapped": true
+    },
+    {
+     "type": "CELL",
+     "kb_row": "4",
+     "pdf_row": 4,
+     "kb_line": 28,
+     "col": "VISIT",
+     "col_idx": 21,
+     "kb": "Screening",
+     "pdf": "Screening 1",
+     "wrapped": true
+    },
+    {
+     "type": "CELL",
+     "kb_row": "4",
+     "pdf_row": 4,
+     "kb_line": 28,
+     "col": "EGDTC",
+     "col_idx": 22,
+     "kb": "2003-04-36",
+     "pdf": "2003-04-15T11:58",
+     "wrapped": true
+    },
+    {
+     "type": "CELL",
+     "kb_row": "5",
+     "pdf_row": 5,
+     "kb_line": 29,
+     "col": "EGXFN",
+     "col_idx": 16,
+     "kb": "PQW43787B-07.xml",
+     "pdf": "PQW436789-07.xml",
+     "wrapped": true
+    },
+    {
+     "type": "CELL",
+     "kb_row": "5",
+     "pdf_row": 5,
+     "kb_line": 29,
+     "col": "EGNAM",
+     "col_idx": 17,
+     "kb": "Test",
+     "pdf": "Test Lab",
+     "wrapped": true
+    },
+    {
+     "type": "CELL",
+     "kb_row": "5",
+     "pdf_row": 5,
+     "kb_line": 29,
+     "col": "EGCLSIG",
+     "col_idx": 18,
+     "kb": "Y",
+     "pdf": "",
+     "wrapped": true
+    },
+    {
+     "type": "CELL",
+     "kb_row": "5",
+     "pdf_row": 5,
+     "kb_line": 29,
+     "col": "VISIT",
+     "col_idx": 21,
+     "kb": "Screening",
+     "pdf": "Screening 1",
+     "wrapped": true
+    },
+    {
+     "type": "CELL",
+     "kb_row": "5",
+     "pdf_row": 5,
+     "kb_line": 29,
+     "col": "EGDTC",
+     "col_idx": 22,
+     "kb": "2003-04-36",
+     "pdf": "2003-04-15T11:58",
+     "wrapped": true
+    },
+    {
+     "type": "CELL",
+     "kb_row": "5",
+     "pdf_row": 5,
+     "kb_line": 29,
+     "col": "EGDRVFL",
+     "col_idx": null,
+     "kb": null,
+     "pdf": "Y",
+     "wrapped": true
+    },
+    {
+     "type": "CELL",
+     "kb_row": "6",
+     "pdf_row": 6,
+     "kb_line": 30,
+     "col": "EGSTRESC",
+     "col_idx": 13,
+     "kb": "448",
+     "pdf": "446",
+     "wrapped": true
+    },
+    {
+     "type": "CELL",
+     "kb_row": "6",
+     "pdf_row": 6,
+     "kb_line": 30,
+     "col": "EGSTRESN",
+     "col_idx": 14,
+     "kb": "448",
+     "pdf": "446",
+     "wrapped": true
+    },
+    {
+     "type": "CELL",
+     "kb_row": "6",
+     "pdf_row": 6,
+     "kb_line": 30,
+     "col": "EGXFN",
+     "col_idx": 16,
+     "kb": "PQW43787B-07.xml",
+     "pdf": "PQW436789-07.xml",
+     "wrapped": true
+    },
+    {
+     "type": "CELL",
+     "kb_row": "6",
+     "pdf_row": 6,
+     "kb_line": 30,
+     "col": "EGNAM",
+     "col_idx": 17,
+     "kb": "Test",
+     "pdf": "Test Lab",
+     "wrapped": true
+    },
+    {
+     "type": "CELL",
+     "kb_row": "6",
+     "pdf_row": 6,
+     "kb_line": 30,
+     "col": "EGCLSIG",
+     "col_idx": 18,
+     "kb": "Y",
+     "pdf": "",
+     "wrapped": true
+    },
+    {
+     "type": "CELL",
+     "kb_row": "6",
+     "pdf_row": 6,
+     "kb_line": 30,
+     "col": "VISIT",
+     "col_idx": 21,
+     "kb": "Screening",
+     "pdf": "Screening 1",
+     "wrapped": true
+    },
+    {
+     "type": "CELL",
+     "kb_row": "6",
+     "pdf_row": 6,
+     "kb_line": 30,
+     "col": "EGDTC",
+     "col_idx": 22,
+     "kb": "2003-04-36",
+     "pdf": "2003-04-15T11:58",
+     "wrapped": true
+    },
+    {
+     "type": "CELL",
+     "kb_row": "6",
+     "pdf_row": 6,
+     "kb_line": 30,
+     "col": "EGDRVFL",
+     "col_idx": null,
+     "kb": null,
+     "pdf": "Y",
+     "wrapped": true
+    },
+    {
+     "type": "CELL",
+     "kb_row": "7",
+     "pdf_row": 7,
+     "kb_line": 31,
+     "col": "EGTESTCD",
+     "col_idx": 7,
+     "kb": "SPRATRY",
+     "pdf": "SPRTARRY",
+     "wrapped": true
+    },
+    {
+     "type": "CELL",
+     "kb_row": "7",
+     "pdf_row": 7,
+     "kb_line": 31,
+     "col": "EGXFN",
+     "col_idx": 16,
+     "kb": "PQW43787B-07.xml",
+     "pdf": "PQW436789-07.xml",
+     "wrapped": true
+    },
+    {
+     "type": "CELL",
+     "kb_row": "7",
+     "pdf_row": 7,
+     "kb_line": 31,
+     "col": "EGNAM",
+     "col_idx": 17,
+     "kb": "Lab",
+     "pdf": "Test Lab",
+     "wrapped": true
+    },
+    {
+     "type": "CELL",
+     "kb_row": "7",
+     "pdf_row": 7,
+     "kb_line": 31,
+     "col": "VISIT",
+     "col_idx": 21,
+     "kb": "Screening",
+     "pdf": "Screening 1",
+     "wrapped": true
+    },
+    {
+     "type": "CELL",
+     "kb_row": "7",
+     "pdf_row": 7,
+     "kb_line": 31,
+     "col": "EGDTC",
+     "col_idx": 22,
+     "kb": "15T11:58",
+     "pdf": "2003-04-15T11:58",
+     "wrapped": true
+    },
+    {
+     "type": "CELL",
+     "kb_row": "8",
+     "pdf_row": 8,
+     "kb_line": 32,
+     "col": "EGTESTCD",
+     "col_idx": 7,
+     "kb": "SPRATRY",
+     "pdf": "SPRTARRY",
+     "wrapped": true
+    },
+    {
+     "type": "CELL",
+     "kb_row": "8",
+     "pdf_row": 8,
+     "kb_line": 32,
+     "col": "EGXFN",
+     "col_idx": 16,
+     "kb": "PQW43787B-07.xml",
+     "pdf": "PQW436789-07.xml",
+     "wrapped": true
+    },
+    {
+     "type": "CELL",
+     "kb_row": "8",
+     "pdf_row": 8,
+     "kb_line": 32,
+     "col": "EGNAM",
+     "col_idx": 17,
+     "kb": "Lab",
+     "pdf": "Test Lab",
+     "wrapped": true
+    },
+    {
+     "type": "CELL",
+     "kb_row": "8",
+     "pdf_row": 8,
+     "kb_line": 32,
+     "col": "VISIT",
+     "col_idx": 21,
+     "kb": "Screening",
+     "pdf": "Screening 1",
+     "wrapped": true
+    },
+    {
+     "type": "CELL",
+     "kb_row": "8",
+     "pdf_row": 8,
+     "kb_line": 32,
+     "col": "EGDTC",
+     "col_idx": 22,
+     "kb": "15T11:58",
+     "pdf": "2003-04-15T11:58",
+     "wrapped": true
+    },
+    {
+     "type": "CELL",
+     "kb_row": "9",
+     "pdf_row": 9,
+     "kb_line": 33,
+     "col": "EGTESTCD",
+     "col_idx": 7,
+     "kb": "STSTWUN",
+     "pdf": "STSTWUW",
+     "wrapped": true
+    },
+    {
+     "type": "CELL",
+     "kb_row": "9",
+     "pdf_row": 9,
+     "kb_line": 33,
+     "col": "EGTEST",
+     "col_idx": 8,
+     "kb": "ST Segment, T wave, and U wave Changes: nonspecific or Enlargement",
+     "pdf": "ST Segment, T wave, and U wave",
+     "wrapped": true
+    },
+    {
+     "type": "CELL",
+     "kb_row": "9",
+     "pdf_row": 9,
+     "kb_line": 33,
+     "col": "EGXFN",
+     "col_idx": 16,
+     "kb": "PQW43787B-07.xml",
+     "pdf": "PQW436789-07.xml",
+     "wrapped": true
+    },
+    {
+     "type": "CELL",
+     "kb_row": "9",
+     "pdf_row": 9,
+     "kb_line": 33,
+     "col": "EGNAM",
+     "col_idx": 17,
+     "kb": "Lab",
+     "pdf": "Test Lab",
+     "wrapped": true
+    },
+    {
+     "type": "CELL",
+     "kb_row": "9",
+     "pdf_row": 9,
+     "kb_line": 33,
+     "col": "VISIT",
+     "col_idx": 21,
+     "kb": "Screening",
+     "pdf": "Screening 1",
+     "wrapped": true
+    },
+    {
+     "type": "CELL",
+     "kb_row": "9",
+     "pdf_row": 9,
+     "kb_line": 33,
+     "col": "EGDTC",
+     "col_idx": 22,
+     "kb": "15T11:58",
+     "pdf": "2003-04-15T11:58",
+     "wrapped": true
+    },
+    {
+     "type": "CELL",
+     "kb_row": "10",
+     "pdf_row": 10,
+     "kb_line": 34,
+     "col": "EGTESTCD",
+     "col_idx": 7,
+     "kb": "CHPTEN2",
+     "pdf": "CHYPTENL",
+     "wrapped": true
+    },
+    {
+     "type": "CELL",
+     "kb_row": "10",
+     "pdf_row": 10,
+     "kb_line": 34,
+     "col": "EGXFN",
+     "col_idx": 16,
+     "kb": "PQW43787B-07.xml",
+     "pdf": "PQW436789-07.xml",
+     "wrapped": true
+    },
+    {
+     "type": "CELL",
+     "kb_row": "10",
+     "pdf_row": 10,
+     "kb_line": 34,
+     "col": "EGNAM",
+     "col_idx": 17,
+     "kb": "Lab",
+     "pdf": "Test Lab",
+     "wrapped": true
+    },
+    {
+     "type": "CELL",
+     "kb_row": "10",
+     "pdf_row": 10,
+     "kb_line": 34,
+     "col": "VISIT",
+     "col_idx": 21,
+     "kb": "Screening",
+     "pdf": "Screening 1",
+     "wrapped": true
+    },
+    {
+     "type": "CELL",
+     "kb_row": "10",
+     "pdf_row": 10,
+     "kb_line": 34,
+     "col": "EGDTC",
+     "col_idx": 22,
+     "kb": "15T11:58",
+     "pdf": "2003-04-15T11:58",
+     "wrapped": true
+    },
+    {
+     "type": "CELL",
+     "kb_row": "11",
+     "pdf_row": 11,
+     "kb_line": 35,
+     "col": "EGCAT",
+     "col_idx": 9,
+     "kb": "FINDING",
+     "pdf": "",
+     "wrapped": true
+    },
+    {
+     "type": "CELL",
+     "kb_row": "11",
+     "pdf_row": 11,
+     "kb_line": 35,
+     "col": "EGORRES",
+     "col_idx": 11,
+     "kb": "OTHER/INCORRECT ELECTRODE PLACEMENT",
+     "pdf": "OTHER INCORRECT ELECTRODE PLACEMENT",
+     "wrapped": true
+    },
+    {
+     "type": "CELL",
+     "kb_row": "11",
+     "pdf_row": 11,
+     "kb_line": 35,
+     "col": "EGSTRESC",
+     "col_idx": 13,
+     "kb": "OTHER/INCORRECT ELECTRODE PLACEMENT",
+     "pdf": "OTHER INCORRECT ELECTRODE PLACEMENT",
+     "wrapped": true
+    },
+    {
+     "type": "CELL",
+     "kb_row": "11",
+     "pdf_row": 11,
+     "kb_line": 35,
+     "col": "EGXFN",
+     "col_idx": 16,
+     "kb": "PQW43787B-07.xml",
+     "pdf": "PQW436789-07.xml",
+     "wrapped": true
+    },
+    {
+     "type": "CELL",
+     "kb_row": "11",
+     "pdf_row": 11,
+     "kb_line": 35,
+     "col": "EGNAM",
+     "col_idx": 17,
+     "kb": "Lab",
+     "pdf": "Test Lab",
+     "wrapped": true
+    },
+    {
+     "type": "CELL",
+     "kb_row": "11",
+     "pdf_row": 11,
+     "kb_line": 35,
+     "col": "VISIT",
+     "col_idx": 21,
+     "kb": "Screening",
+     "pdf": "Screening 1",
+     "wrapped": true
+    },
+    {
+     "type": "CELL",
+     "kb_row": "11",
+     "pdf_row": 11,
+     "kb_line": 35,
+     "col": "EGDTC",
+     "col_idx": 22,
+     "kb": "15T11:58",
+     "pdf": "2003-04-15T11:58",
+     "wrapped": true
+    },
+    {
+     "type": "CELL",
+     "kb_row": "12",
+     "pdf_row": 12,
+     "kb_line": 36,
+     "col": "VISIT",
+     "col_idx": 21,
+     "kb": "Screening",
+     "pdf": "Screening 1",
+     "wrapped": true
+    },
+    {
+     "type": "CELL",
+     "kb_row": "12",
+     "pdf_row": 12,
+     "kb_line": 36,
+     "col": "EGDTC",
+     "col_idx": 22,
+     "kb": "15T11:58",
+     "pdf": "2003-04-15T11:58",
+     "wrapped": true
+    }
+   ]
+  },
+  {
+   "file": "knowledge_base/domains/EG/examples.md",
+   "line": 48,
+   "n_rows": 5,
+   "header": "Row | STUDYID | DOMAIN | USUBJID | EGSEQ | EGGRPID | EGTESTCD | EGTEST | EGPOS | EGORRES | EGSTRESC | EGLOBXFL | EGEVAL ",
+   "ex": "2",
+   "ds": "eg.xpt",
+   "status": "DIFF",
+   "kb_duplicate": false,
+   "pdf_src": "ig34",
+   "pdf_pages": [
+    190
+   ],
+   "pdf_ex": "2",
+   "pdf_ds": "eg.xpt",
+   "pdf_rows": 5,
+   "pdf_no_row_header": false,
+   "pdf_rows_centred_after_page_break": 0,
+   "orphan_reading": null,
+   "cells_compared": 90,
+   "ws_only_cells": 0,
+   "rows_renumbered": 0,
+   "sim": 1.015,
+   "rows_out_of_page_range": [],
+   "diffs": [
+    {
+     "type": "HEADER",
+     "cols": [
+      {
+       "idx": null,
+       "kb": null,
+       "pdf": "EGSTRESN"
+      }
+     ]
+    },
+    {
+     "type": "CELL",
+     "kb_row": "1",
+     "pdf_row": 1,
+     "kb_line": 50,
+     "col": "VISIT",
+     "col_idx": 15,
+     "kb": "SCREEN 1",
+     "pdf": "SCREEN I",
+     "wrapped": false
+    },
+    {
+     "type": "CELL",
+     "kb_row": "2",
+     "pdf_row": 2,
+     "kb_line": 51,
+     "col": "EGORRES",
+     "col_idx": 10,
+     "kb": "NORMAL",
+     "pdf": "ABNORMAL",
+     "wrapped": false
+    },
+    {
+     "type": "CELL",
+     "kb_row": "2",
+     "pdf_row": 2,
+     "kb_line": 51,
+     "col": "EGSTRESC",
+     "col_idx": 11,
+     "kb": "NORMAL",
+     "pdf": "ABNORMAL",
+     "wrapped": false
+    }
+   ]
+  },
+  {
+   "file": "knowledge_base/domains/EG/examples.md",
+   "line": 62,
+   "n_rows": 24,
+   "header": "Row | STUDYID | DOMAIN | USUBJID | EGSEQ | ... | EGTESTCD | EGTEST | EGCAT | EGPOS | EGORRES | EGORRESU | EGSTRESC | EGS",
+   "ex": "3",
+   "ds": "eg.xpt",
+   "status": "OK",
+   "kb_duplicate": false,
+   "pdf_src": "ig34",
+   "pdf_pages": [
+    190,
+    191
+   ],
+   "pdf_ex": "3",
+   "pdf_ds": "eg.xpt",
+   "pdf_rows": 24,
+   "pdf_no_row_header": false,
+   "pdf_rows_centred_after_page_break": 0,
+   "orphan_reading": null,
+   "cells_compared": 576,
+   "ws_only_cells": 0,
+   "rows_renumbered": 0,
+   "sim": 1.05,
+   "rows_out_of_page_range": [],
+   "diffs": []
+  },
+  {
+   "file": "knowledge_base/domains/EG/examples.md",
+   "line": 101,
+   "n_rows": 8,
+   "header": "Row | STUDYID | DOMAIN | USUBJID | EGSEQ | EGBEATNO | EGTESTCD | EGTEST | EGCAT | EGPOS | EGORRES | EGORRESU | EGSTRESC ",
+   "ex": "4",
+   "ds": "eg.xpt",
+   "status": "DIFF",
+   "kb_duplicate": false,
+   "pdf_src": "ig34",
+   "pdf_pages": [
+    192
+   ],
+   "pdf_ex": "4",
+   "pdf_ds": "eg.xpt",
+   "pdf_rows": 8,
+   "pdf_no_row_header": false,
+   "pdf_rows_centred_after_page_break": 0,
+   "orphan_reading": null,
+   "cells_compared": 176,
+   "ws_only_cells": 0,
+   "rows_renumbered": 0,
+   "sim": 1.038,
+   "rows_out_of_page_range": [],
+   "diffs": [
+    {
+     "type": "CELL",
+     "kb_row": "3",
+     "pdf_row": 3,
+     "kb_line": 105,
+     "col": "EGDTC",
+     "col_idx": 22,
+     "kb": "2014-02-11T14:32:12.3",
+     "pdf": "2014-02-11T14:32:13.3",
+     "wrapped": true
+    },
+    {
+     "type": "CELL",
+     "kb_row": "6",
+     "pdf_row": 6,
+     "kb_line": 108,
+     "col": "EGDTC",
+     "col_idx": 22,
+     "kb": "2014-02-11T15:32:13.3",
+     "pdf": "2014-02-11T15:32:14.2",
+     "wrapped": true
+    }
+   ]
+  }
+ ],
+ "pdf_only": [
+  {
+   "src": "ig34",
+   "pages": [
+    185
+   ],
+   "ex": null,
+   "ds": "dd.xpt",
+   "sec": null,
+   "header": "Row STUDYID DOMAIN USUBJID DDSEQ DDTESTCD DDTEST DDORRES DDSTRESC DDDTC",
+   "n_rows": 1
+  },
+  {
+   "src": "ig34",
+   "pages": [
+    185
+   ],
+   "ex": null,
+   "ds": "ds.xpt",
+   "sec": null,
+   "header": "Row STUDYID DOMAIN USUBJID DSSEQ DSTERM DSDECOD DSCAT DSDTC DSSTDTC",
+   "n_rows": 3
+  },
+  {
+   "src": "ig34",
+   "pages": [
+    185
+   ],
+   "ex": null,
+   "ds": "relrec.xpt",
+   "sec": null,
+   "header": "Row STUDYID RDOMAIN USUBJID IDVAR IDVARVAL RELTYPE RELID",
+   "n_rows": 3
+  }
+ ],
+ "pdf_unparsed": []
+}
