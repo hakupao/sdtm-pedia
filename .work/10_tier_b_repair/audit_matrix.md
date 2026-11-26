@@ -10,6 +10,8 @@
 | T2.B-MB auditor a1 | prose 抽检 + 10 随机格 + Ex3 mb/di/relrec/Ex4 全格 + D2 删除 10 行 + fp 回归集 | C=3 (P=61) | N=10 | 20261126 | C 3 + P−C 对照 7 | 0/10 (范围外观察 1: MS 假设 3.b 复制于 MB/assumptions) | 0 | PASS | 待主控 |
 | T2.B-LB auditor a1 | prose 抽检 + 补抽 N1-N15 + 通用表 10 格 + Ex1 10 格 (+全格目视) + Ex2/Ex3 全格 + 删除 X-1..X-4 | C=7 (P=45) | N=10 | 20261126 | C 5 + P−C 对照 5 | 0/10 (范围外观察 1: p196_a017 在 RELSPEC 非 BS) | 0 | PASS | 待主控 |
 | T2.B-DS auditor a1 | prose 抽检 + 补抽 N-1..N-12 + p158-167 全量 106 原子正反扫 + 10 随机改动格 (渲染) + D-1..D-5 删除核 | C=0 (P=51) | N=10 | 20261126 | P−C 对照 10 (+N 组 12 补抽) | 0/10 (范围外观察 0; p161_a0012 原子抽取错 DSCAT) | 0 | PASS | 待主控 |
+| T2.B-CP auditor a1 | prose 抽检 + 补抽新增 6/24 + 删除 6/20 + 全量忠实/丢失反扫 + 15 随机格 (渲染) + USUBJID 折行 + fp 回退集 | C=25 (P=100) | N=10 (+12 补抽) | 20261126 | C 5 + P−C 对照 5 | 0/10 (观察 1: CPGATEDEF 照录 vs T-2 改正口径不一) | 0 | PASS | 待主控 |
+| T2.B-EX auditor a1 | prose 抽检 + 10 随机格 (Ex6 ec/ex, Ex7 ec; 渲染) + Ex7 CRF 勾选全核 + 删除行核 + fp 回归 | C=0 (P=36) | N=10 | 20261126 | P−C 对照 10 | 0/10 (观察 1: p118 "mg/mL" 疑 PDF 印刷错未登记) | 0 | PASS | 待主控 |
 
 ## 失败详情
 (无)

@@ -33,6 +33,12 @@
   "ig34_p0263_a020": "B-MB T-3: verbatim MBTRESN 为 PDF 印刷错, KB 改 MBSTRESN 后不命中 (预期)",
   "ig34_p0215_a018": "B-CP T-2: verbatim CPCSMRKR 为 PDF 笔误, KB 改 CPCSMRKS 后不命中 (预期)",
   "ig34_p0161_a0012": "B-DS audit: verbatim DSCAT 应为 DSSCAT (渲染页)",
-  "ig34_p0167_a0010": "B-DS writer: 表头 DSEQ 应为 DSSEQ"
+  "ig34_p0167_a0010": "B-DS writer: 表头 DSEQ 应为 DSSEQ",
+  "ig34_p0211_a004": "B-CP T-15: verbatim CPGATEDEF 为 PDF 叙述笔误, KB 改 CPGATDEF (p202 spec)",
+  "ig34_p0212_a012": "B-CP T-15: verbatim CPGATEDEF 为 PDF 叙述笔误, KB 改 CPGATDEF (p202 spec)",
+  "ig34_p0213_a002": "B-CP T-15: verbatim CPGATEDEF 为 PDF 叙述笔误, KB 改 CPGATDEF (p202 spec)",
+  "ig34_p0217_a015": "B-CP T-15: verbatim CPGATEDEF 为 PDF 叙述笔误, KB 改 CPGATDEF (p202 spec)",
+  "ig34_p0218_a014": "B-CP T-15: verbatim CPGATEDEF 为 PDF 叙述笔误, KB 改 CPGATDEF (p202 spec)",
+  "ig34_p0220_a001": "B-CP T-15: verbatim CPGATEDEF 为 PDF 叙述笔误, KB 改 CPGATDEF (p202 spec)"
  }
 }
