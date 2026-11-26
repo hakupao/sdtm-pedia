@@ -1,0 +1,20 @@
+{"ref": "ig34_p0424_a002", "action": "INSERTED", "kb_file": "knowledge_base/domains/TS/assumptions.md", "kb_line_after": 65, "pdf_page": 424, "note": "ISO 21090 parenthetical + URL; curly quotes"}
+{"ref": "census:examples.md:24:14:TSVAL", "action": "REPLACED", "kb_file": "knowledge_base/domains/TS/examples.md", "kb_line_after": 24, "pdf_page": 420, "note": "remove extra Neurofibromatosis"}
+{"ref": "census:examples.md:47:37:TSVCDREF", "action": "REPLACED", "kb_file": "knowledge_base/domains/TS/examples.md", "kb_line_after": 47, "pdf_page": 421, "note": "ISO 8601"}
+{"ref": "census:examples.md:121:7:TSVAL", "action": "REPLACED", "kb_file": "knowledge_base/domains/TS/examples.md", "kb_line_after": 121, "pdf_page": 422, "note": "PHASE IB TRIAL"}
+{"ref": "auth:Description/Overview", "action": "INSERTED", "kb_file": "knowledge_base/domains/TS/assumptions.md", "kb_line_after": 3, "pdf_page": 417, "note": "heading + p417 first para"}
+{"ref": "auth:spec_first_sentence", "action": "INSERTED", "kb_file": "knowledge_base/domains/TS/assumptions.md", "kb_line_after": 11, "pdf_page": 417, "note": "Specification + Assumptions headings"}
+{"ref": "r3:assump2_circumstances", "action": "REPLACED", "kb_file": "knowledge_base/domains/TS/assumptions.md", "kb_line_after": 17, "pdf_page": 418, "note": "conditions->circumstances"}
+{"ref": "r3:assump10_curly_quotes", "action": "REPLACED", "kb_file": "knowledge_base/domains/TS/assumptions.md", "kb_line_after": 33, "pdf_page": 418, "note": "curly quotes"}
+{"ref": "r3:assump13_dataset", "action": "REPLACED", "kb_file": "knowledge_base/domains/TS/assumptions.md", "kb_line_after": 41, "pdf_page": 419, "note": "drop KB-added TS"}
+{"ref": "r3:assump17_no_trial_indication", "action": "REPLACED", "kb_file": "knowledge_base/domains/TS/assumptions.md", "kb_line_after": 59, "pdf_page": 419, "note": "R2 lost phrase restored"}
+{"ref": "r3:p0424_para2", "action": "REPLACED", "kb_file": "knowledge_base/domains/TS/assumptions.md", "kb_line_after": 67, "pdf_page": 424, "note": "rewrite -> PDF verbatim (D-3)"}
+{"ref": "r3:p0424_para3", "action": "REPLACED", "kb_file": "knowledge_base/domains/TS/assumptions.md", "kb_line_after": 69, "pdf_page": 424, "note": "rewrite -> PDF verbatim (D-4)"}
+{"ref": "r3:ig34_p0424_a016", "action": "REPLACED", "kb_file": "knowledge_base/domains/TS/assumptions.md", "kb_line_after": 73, "pdf_page": 424, "note": "table title PDF wording"}
+{"ref": "r3:ig34_p0425_a002", "action": "REPLACED", "kb_file": "knowledge_base/domains/TS/assumptions.md", "kb_line_after": 90, "pdf_page": 425, "note": "WARNING into MSK cell, PDF text (D-5)"}
+{"ref": "r3:ig34_p0425_a003", "action": "INSERTED", "kb_file": "knowledge_base/domains/TS/assumptions.md", "kb_line_after": 91, "pdf_page": 425, "note": "NA row added"}
+{"ref": "r3:ig34_p0425_a022", "action": "REPLACED", "kb_file": "knowledge_base/domains/TS/assumptions.md", "kb_line_after": 113, "pdf_page": 425, "note": "level 2 para PDF verbatim (D-6)"}
+{"ref": "r3:ig34_p0425_a024", "action": "REPLACED", "kb_file": "knowledge_base/domains/TS/assumptions.md", "kb_line_after": 115, "pdf_page": 425, "note": "PINF explanation PDF verbatim (D-7)"}
+{"ref": "pdf_typo:T-1:examples.md:76:1:TSPARM", "action": "REPLACED", "kb_file": "knowledge_base/domains/TS/examples.md", "kb_line_after": 76, "pdf_page": 421, "note": "PDF Trial Type -> KB Trial Title (determinable from PDF)"}
+{"ref": "r3:ex3_row1_null_value", "action": "REPLACED", "kb_file": "knowledge_base/domains/TS/examples.md", "kb_line_after": 86, "pdf_page": 422, "note": "null flavor->null value"}
+{"ref": "r3:ex4_intro_shows_use_of", "action": "REPLACED", "kb_file": "knowledge_base/domains/TS/examples.md", "kb_line_after": 99, "pdf_page": 422, "note": "uses->shows use of"}
