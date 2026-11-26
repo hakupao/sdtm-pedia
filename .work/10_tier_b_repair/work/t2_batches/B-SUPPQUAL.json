@@ -78,5 +78,7 @@
  "out_of_scope": [
   "O2"
  ],
- "notes": []
+ "notes": [
+  "D7: 与 ch08 §8.4 两边都留, 按 PDF 逐字修对 + 顶部 source 行"
+ ]
 }
