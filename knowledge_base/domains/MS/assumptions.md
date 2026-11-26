@@ -8,8 +8,6 @@ A findings domain that represents drug susceptibility testing results only. This
 
 ms.xpt, Microbiology Susceptibility — Findings. One record per microbiology susceptibility test (or other organism-related finding) per organism found in MB, Tabulation.
 
-> 1In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
-
 ## MS – Assumptions
 
 1. Microbiology Susceptibility testing includes testing of the following types:

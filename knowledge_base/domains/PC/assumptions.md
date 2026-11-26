@@ -2,7 +2,11 @@
 
 ## 6.3.5.9 Pharmacokinetics Domains
 
-This section covers the Pharmacokinetics Concentration (PC) and Pharmacokinetics Parameters (PP) domains.
+> KB note (not in SDTMIG): This section covers the Pharmacokinetics Concentration (PC) and Pharmacokinetics Parameters (PP) domains.
+
+## PC – Description/Overview
+
+A findings domain that contains concentrations of drugs or metabolites in fluids or tissues as a function of time.
 
 ## PC – Specification
 

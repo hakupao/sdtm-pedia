@@ -123,7 +123,7 @@
 - **Order:** 14
 - **Label:** Category
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** *
 - **Role:** Grouping Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Used to define a category of related records.
@@ -132,7 +132,7 @@
 - **Order:** 15
 - **Label:** Subcategory
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** *
 - **Role:** Grouping Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Used to define a further categorization of MBCAT values.
@@ -425,6 +425,8 @@
 - **Core:** Perm
 - **CDISC Notes:** Date/time for a fixed reference time point, MBTPTREF.
 ---
+
+> ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
 
 ## Cross References
 

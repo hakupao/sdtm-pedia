@@ -69,7 +69,7 @@
 - **Order:** 8
 - **Label:** Parameter Category
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** *
 - **Role:** Grouping Qualifier
 - **Core:** Exp
 - **CDISC Notes:** Used to define a category of related records. For PP, this should be the name of the analyte in PCTEST whose profile the parameter is associated with.
@@ -78,7 +78,7 @@
 - **Order:** 9
 - **Label:** Parameter Subcategory
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** *
 - **Role:** Grouping Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Categorization of the model type used to calculate the PK parameters. Examples: "COMPARTMENTAL", "NON-COMPARTMENTAL".
@@ -236,6 +236,8 @@
 - **Core:** Perm
 - **CDISC Notes:** The end of a planned evaluation or assessment interval relative to the time point reference.
 ---
+
+> ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
 
 ## Cross References
 

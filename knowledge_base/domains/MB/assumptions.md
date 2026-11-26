@@ -2,11 +2,15 @@
 
 ## 6.3.5.7 Microbiology Domains
 
-The microbiology domains include Microbiology Specimen (MB) and Microbiology Susceptibility (MS).
+The microbiology domains include Microbiology Specimen (MB) and Microbiology Susceptibility (MS). The MB domain is used for the detection, identification, quantification, and other characterizations of microorganisms in subject samples, except for drug susceptibility testing. MS is used for representing data from drug-susceptibility testing on the organisms identified in MB. All non-host infectious organisms—including bacteria, viruses, fungi, and parasites—are appropriate for the microbiology domains.
 
 ## MB – Description/Overview
 
 A findings domain that represents non-host organisms identified including bacteria, viruses, parasites, protozoa and fungi.
+
+## MB – Specification
+
+mb.xpt, Microbiology Specimen — Findings. One record per microbiology specimen finding per time point per visit per subject, Tabulation.
 
 ## MB – Assumptions
 

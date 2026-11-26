@@ -1,5 +1,15 @@
 # PP — Assumptions
 
+## PP – Description/Overview
+
+A findings domain that contains pharmacokinetic parameters derived from pharmacokinetic concentration-time (PC) data.
+
+## PP – Specification
+
+pp.xpt, Pharmacokinetics Parameters — Findings. One record per PK parameter per time-concentration profile per modeling method per subject, Tabulation.
+
+## PP – Assumptions
+
 1. Pharmacokinetics Parameters is a derived dataset, and may be produced from an analysis dataset with a different structure. As a result, some sponsors may need to normalize their analysis dataset in order for it to fit into the SDTM-based PP domain.
 
 2. Information pertaining to all parameters (e.g., number of exponents, model weighting) should be submitted in the SUPPPP dataset.

@@ -1,0 +1,5 @@
+批次 S-SPC2 (T2-post 扫描批), attempt 1. 角色: reviewer.
+工作目录 repo 根 `/Volumes/DevSSD/Project/sdtm-pedia`。严格按 `.work/10_tier_b_repair/subagent_prompts/t2s_scan_review_audit_v1.0.md` 的 Reviewer 段执行, 并读它引用的 `t2_reviewer_v1.0.md` / `t2_reviewer_common_brief.md` / `t2_dispatch_notes.md` (含末尾 T2S 段) / `evidence/checkpoints/t2_post_user_ack.md` (U1-U8) / `t1_user_ack.md`。样板: `evidence/checkpoints/t2_S-EVT_review.md`。
+批次文件 `.work/10_tier_b_repair/work/t2_batches/S-SPC2.json` (页范围已按 writer O20 更正: MB/MS 共用例 p256-263, §6.3.5.9.3 p275-284)。writer 报告 `evidence/checkpoints/t2_S-SPC2.md` (含更正段 + attempt 1 delta 主控裁定 1-4) + `work/t2_batches/S-SPC2.writer.jsonl`。改动未提交: `git diff HEAD -- knowledge_base/domains/{MB,MS,PC,PP}`。另有扫描批同时改别的文件, 只看本批。fp 预期回归 ig34_p0255_a021 / ig34_p0278_a051 已并入 `work/t2_fp_expected_regressions.jsonl` (仍须核其理由)。
+重点: 独立双向全扫 MB/MS/PC/PP 含共用例节; 各 gaps; §6.3.5.7 引言逐字; MS 脚注 MOVED; CT `*` 8 格; PC/examples Method D 两处改正 (p278 渲染); PP/examples 删 "Due to space limitations…" (核 PP 节无此句、PC/examples 保留原句); D6 6 处 + `*Note:*` 改 D6 (新口径: 解释性 Note 一律 D6); PP 伪节号去除; PCPP T-10/T-11 依据; 残留 census DIFF 7 张全为已登记 T-n。
+回主控 ≤ 10 行。

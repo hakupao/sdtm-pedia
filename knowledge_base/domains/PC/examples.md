@@ -1,6 +1,6 @@
 # PC — Examples
 
-*Note: PC and PP share a combined examples section (§6.3.5.9.3 Relating PP Records to PC Records). The shared PC/PP datasets, dataset-level RELREC discussion, conclusions, and implementation suggestions are in `PC/assumptions.md`. This file contains the 4 worked Examples (1–4) illustrating the 4 RELREC methods (A/B/C/D) for relating PC to PP records.*
+> KB note (not in SDTMIG): PC and PP share a combined examples section (§6.3.5.9.3 Relating PP Records to PC Records). The shared PC/PP datasets, dataset-level RELREC discussion, conclusions, and implementation suggestions are in `PC/assumptions.md`. This file contains the 4 worked Examples (1–4) illustrating the 4 RELREC methods (A/B/C/D) for relating PC to PP records.
 
 ## PC – Examples
 
@@ -143,7 +143,7 @@ This example uses --GRPID values in the PCGRPID (Example 1) and PPGRPID (Example
 
 #### Method D (One to One, Using PCSEQ and PPSEQ)
 
-- Rows 1-19: The relationship with RELID "1" includes individual PC records with PCSEQ values "1" through "12" and "10" through "12" and individual PP records with PPSEQ values "1 through 7".
+- Rows 1-19: The relationship with RELID "1" includes individual PC records with PCSEQ values "1" through "12" and PP records with PPSEQ values "1" through "7".
 - Rows 20-38: The relationship with RELID "2" includes individual PC records with PCSEQ values "13" through "24" and PP records with PPSEQ values "8" through "14".
 
 **relrec.xpt**
@@ -247,7 +247,7 @@ The relationship with RELID "1" includes all PC records with PCGRPID = "DY1_DRGX
 
 #### Method D (One to One, Using PCSEQ and PPSEQ)
 
-The relationship with RELID "1" includes individual PC records with PCSEQ values "1" through "7" and "10" through "12" and individual PP records with PPSEQ values "1 through 7".
+The relationship with RELID "1" includes individual PC records with PCSEQ values "1" through "7" and "10" through "12" and individual PP records with PPSEQ values "1" through "7".
 
 **relrec.xpt**
 

@@ -1,8 +1,6 @@
 # PP — Examples
 
-*Note: PC and PP share a combined examples section (6.3.5.9.3 Relating PP Records to PC Records). The PP parameter data tables are shown here; see also PC examples for the concentration data and detailed RELREC method descriptions.*
-
-Due to space limitations, not all expected or permissible findings variables are included in the example for this domain.
+> KB note (not in SDTMIG): PC and PP share a combined examples section (6.3.5.9.3 Relating PP Records to PC Records). The PP parameter data tables are shown here; see also PC examples for the concentration data and detailed RELREC method descriptions.
 
 ## Example 1
 
@@ -105,13 +103,15 @@ This example shows the use of PPSTINT and PPENINT to describe the AUC segments f
 
 ## Pharmacokinetic Parameters (PP) Dataset for All Examples
 
-The shared PP dataset contains 12 rows showing PK parameters (TMAX, CMAX, AUCALL, LAMZHL, VZO, CLO) for Drug X (STUDYDRUG analyte) across Day 1 and Day 8, with 4 PPGRPID columns showing the grouping values for the 4 RELREC method examples described in the PC examples section.
+> KB note (not in SDTMIG): The shared PP dataset contains 12 rows showing PK parameters (PPTESTCD TMAX, CMAX, AUCALL, LAMZHL, VZO, CLO) with PPCAT = "DRUG X", for Day 1 and Day 8 (PPNOMDY 1 and 8), with 4 PPGRPID columns, 1 for each of Examples 1-4 of Section 6.3.5.9.3 (shown in PC/examples.md).
 
 > See [PC/assumptions.md](../PC/assumptions.md#pc-pp--relating-records) for this table.
 
 *See PC examples for the full description of RELREC Methods A through D and their corresponding relrec.xpt tables.*
 
-## §6.3.5.9.3 RELREC Method Quick Reference (PP-side view)
+## RELREC Method Quick Reference (PP-side view)
+
+> KB note (not in SDTMIG): this entire section (from this heading to the end of the file, including the Method label mapping table, the PP-side row forms, the paraphrased Rows notes and the abbreviated relrec.xpt) is a KB-authored PP-side quick reference; the SDTMIG text and complete tables are in PC/examples.md.
 
 The full 4 worked Examples (1-4) with complete `relrec.xpt` tables for all 4 Methods (A/B/C/D) appear in `PC/examples.md` (the shared §6.3.5.9.3 host). This section gives a PP-domain-focused quick reference of how each Method appears on the PP side, plus one abbreviated `relrec.xpt` showing the actual PP rows for Method C.
 

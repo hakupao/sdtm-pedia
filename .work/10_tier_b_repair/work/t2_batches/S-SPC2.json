@@ -1,0 +1,236 @@
+{
+ "batch_id": "S-SPC2",
+ "scan": true,
+ "brief": "subagent_prompts/t2s_scan_writer_v1.0.md",
+ "units": [
+  "domains/MB",
+  "domains/MS",
+  "domains/PC",
+  "domains/PP"
+ ],
+ "kb_files": [
+  "knowledge_base/domains/MB/assumptions.md",
+  "knowledge_base/domains/MB/examples.md",
+  "knowledge_base/domains/MB/spec.md",
+  "knowledge_base/domains/MS/assumptions.md",
+  "knowledge_base/domains/MS/examples.md",
+  "knowledge_base/domains/MS/spec.md",
+  "knowledge_base/domains/PC/assumptions.md",
+  "knowledge_base/domains/PC/examples.md",
+  "knowledge_base/domains/PC/spec.md",
+  "knowledge_base/domains/PP/assumptions.md",
+  "knowledge_base/domains/PP/examples.md",
+  "knowledge_base/domains/PP/spec.md"
+ ],
+ "narrow_files": [],
+ "sections": [
+  {
+   "unit": "domains/MB",
+   "sec": "6.3.5.7.1",
+   "title": "§6.3.5.7.1 Microbiology Specimen (MB)",
+   "lo": 248,
+   "hi": 252,
+   "note": "主控按 HEADING 原子定; 边界页别节内容不归本域; 先复核 (O20)"
+  },
+  {
+   "unit": "domains/MS",
+   "sec": "6.3.5.7.2",
+   "title": "§6.3.5.7.2 Microbiology Susceptibility (MS)",
+   "lo": 252,
+   "hi": 256,
+   "note": "主控按 HEADING 原子定; 边界页别节内容不归本域; 先复核 (O20)"
+  },
+  {
+   "unit": "domains/PC",
+   "sec": "6.3.5.9.1",
+   "title": "§6.3.5.9.1 Pharmacokinetics Concentrations (PC)",
+   "lo": 267,
+   "hi": 271,
+   "note": "主控按 HEADING 原子定; 边界页别节内容不归本域; 先复核 (O20)"
+  },
+  {
+   "unit": "domains/PP",
+   "sec": "6.3.5.9.2",
+   "title": "§6.3.5.9.2 Pharmacokinetics Parameters (PP)",
+   "lo": 271,
+   "hi": 275,
+   "note": "主控按 HEADING 原子定; 边界页别节内容不归本域; 先复核 (O20)"
+  },
+  {
+   "unit": "domains/MB+MS",
+   "sec": "6.3.5.7.3",
+   "title": "Microbiology Specimen/Microbiology Susceptibility Examples",
+   "lo": 256,
+   "hi": 263,
+   "note": "共用/父节, 须一并全扫"
+  },
+  {
+   "unit": "domains/PC+PP",
+   "sec": "6.3.5.9.3",
+   "title": "Relating PP Records to PC Records",
+   "lo": 275,
+   "hi": 284,
+   "note": "共用/父节, 须一并全扫"
+  }
+ ],
+ "pdf_pages": [
+  248,
+  249,
+  250,
+  251,
+  252,
+  253,
+  254,
+  255,
+  256,
+  257,
+  258,
+  259,
+  260,
+  261,
+  262,
+  263,
+  267,
+  268,
+  269,
+  270,
+  271,
+  272,
+  273,
+  274,
+  275,
+  276,
+  277,
+  278,
+  279,
+  280,
+  281,
+  282,
+  283,
+  284
+ ],
+ "pdf_ranges": [
+  {
+   "file": "knowledge_base/domains/MB/assumptions.md",
+   "src": "ig34",
+   "lo": 248,
+   "hi": 263
+  },
+  {
+   "file": "knowledge_base/domains/MB/examples.md",
+   "src": "ig34",
+   "lo": 248,
+   "hi": 263
+  },
+  {
+   "file": "knowledge_base/domains/MB/spec.md",
+   "src": "ig34",
+   "lo": 248,
+   "hi": 263
+  },
+  {
+   "file": "knowledge_base/domains/MS/assumptions.md",
+   "src": "ig34",
+   "lo": 252,
+   "hi": 263
+  },
+  {
+   "file": "knowledge_base/domains/MS/examples.md",
+   "src": "ig34",
+   "lo": 252,
+   "hi": 263
+  },
+  {
+   "file": "knowledge_base/domains/MS/spec.md",
+   "src": "ig34",
+   "lo": 252,
+   "hi": 263
+  },
+  {
+   "file": "knowledge_base/domains/PC/assumptions.md",
+   "src": "ig34",
+   "lo": 267,
+   "hi": 284
+  },
+  {
+   "file": "knowledge_base/domains/PC/examples.md",
+   "src": "ig34",
+   "lo": 267,
+   "hi": 284
+  },
+  {
+   "file": "knowledge_base/domains/PC/spec.md",
+   "src": "ig34",
+   "lo": 267,
+   "hi": 284
+  },
+  {
+   "file": "knowledge_base/domains/PP/assumptions.md",
+   "src": "ig34",
+   "lo": 271,
+   "hi": 284
+  },
+  {
+   "file": "knowledge_base/domains/PP/examples.md",
+   "src": "ig34",
+   "lo": 271,
+   "hi": 284
+  },
+  {
+   "file": "knowledge_base/domains/PP/spec.md",
+   "src": "ig34",
+   "lo": 271,
+   "hi": 284
+  }
+ ],
+ "gaps": {
+  "MB": "SF (fn 原子 ig34_p0251_a005)",
+  "PC": "DF (fn 原子 ig34_p0269_a017)",
+  "PP": "DSAF (fn 原子 ig34_p0272_a016)"
+ },
+ "intros": [],
+ "footnote": "U2: 本批各域 spec.md 最后一个变量块之后、Cross References 之前补 (U7) spec 表脚注 (逐字); CT 列 PDF 为 * 的变量 Controlled Terms 照录 *",
+ "footnote_moves": [
+  "knowledge_base/domains/MS/assumptions.md 的 spec 脚注 (现 :11 附近) → MS/spec.md 末尾"
+ ],
+ "census_items": [
+  {
+   "kb": "domains/MB/examples.md:198 (HEAD 行号, 以内容定位)",
+   "triage_row": "A | DIFF | `domains/MB/examples.md:198` | ig34:p262 | 2 | T-1 suppmb Row 7/8 (2) | t2_B-MB.md:100"
+  },
+  {
+   "kb": "domains/MB/examples.md:241 (HEAD 行号, 以内容定位)",
+   "triage_row": "A | DIFF | `domains/MB/examples.md:241` | ig34:p263 | 1 | T-2 MBGPRID + T-3 MBTRESN header (1) | t2_B-MB.md:101,140"
+  },
+  {
+   "kb": "domains/MS/examples.md:21 (HEAD 行号, 以内容定位)",
+   "triage_row": "A | DIFF | `domains/MS/examples.md:21` | ig34:p257 | 1 | T-1 MSSTRESC r9 (1) | t2_B-MS.md:60"
+  },
+  {
+   "kb": "domains/MS/examples.md:78 (HEAD 行号, 以内容定位)",
+   "triage_row": "A | DIFF | `domains/MS/examples.md:78` | ig34:p262 | 2 | T-3 IDVAR MBREFID->MSREFID (2) | t2_B-MS.md:125,127 (final; :62 superseded)"
+  },
+  {
+   "kb": "domains/PC/examples.md:75 (HEAD 行号, 以内容定位)",
+   "triage_row": "A | DIFF | `domains/PC/examples.md:75` | ig34:p277 | 1 | T-1 IDVAR PPGRPID (1) | t2_B-PCPP.md:72"
+  },
+  {
+   "kb": "domains/PC/examples.md:89 (HEAD 行号, 以内容定位)",
+   "triage_row": "A | DIFF | `domains/PC/examples.md:89` | ig34:p278 | 2 | T-2/T-3 RDOMAIN (2) | t2_B-PCPP.md:73-74"
+  },
+  {
+   "kb": "domains/PP/examples.md:54 (HEAD 行号, 以内容定位)",
+   "triage_row": "B | NO_PDF | `domains/PP/examples.md:54` | ig34:p271-283 | 0 | NO_PDF: PDF p274 垂直居中 (PDF_UNPARSED); 人工逐格 (checkpoint 当时行号 :56); 已登记偏差 T-5 r6/r7 PPSEQ (t2_B-PCPP.md:76) | t2_B-PCPP.md:53,85; t2_B-PCPP_review.md:33"
+  },
+  {
+   "kb": "domains/PP/examples.md:68 (HEAD 行号, 以内容定位)",
+   "triage_row": "B | DIFF | `domains/PP/examples.md:68` | ig34:p274 | 35 | 35 diffs = T-6 表头 RDOMAIN 1 + 解析器列错位 34 (居中表), 人工逐格一致 | t2_B-PCPP.md:77,84; t2_B-PCPP_review.md:34,56"
+  },
+  {
+   "kb": "domains/PP/examples.md:120 (HEAD 行号, 以内容定位)",
+   "triage_row": "B | UNPARSEABLE | `domains/PP/examples.md:120` | ig34:p271-283 | 0 | Method / Cardinality / PC-side IDVAR / PP-side IDVAR | t2_B-PCPP_review.md:36 (KB_AUTHORED Method 映射表, 对 p275 方法列表)"
+  }
+ ],
+ "out_of_scope": [],
+ "notes": "§6.3.5.7 引言已在 MB 顶 (PARTIAL, 复核逐字); §6.3.5.9 引言 0 原子, 核 PDF p267 确认. §6.3.5.8 (p256-267 之间若有别域) 边界先复核 O20. PP/examples 与 PC/assumptions 有 p277 重复表 (D2). 行号均为 HEAD 时, 以内容定位."
+}

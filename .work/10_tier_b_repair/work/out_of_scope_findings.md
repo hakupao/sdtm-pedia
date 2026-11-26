@@ -56,3 +56,5 @@
 | O53 | B-ch03 writer/review | ch03 数据集表 T-3 UR "per per" / T-4 ISSCMBCL | 照录 PDF → T4 用户裁定 (T-4 候选: p456 IS 新增变量 ISMSCBCE, PDF 自身不足断定); O5 已在本批关闭 |
 | O54 | 主控 (S-EVT 关闭) | O8 / O15 / O18 / O49 / O50 | S-EVT (T2S 试点) 内已处理, 关闭 (证据 `evidence/checkpoints/t2_S-EVT.md`) |
 | O55 | S-FND review L1 | UR/spec.md:3 Structure 行 "per per" | 与 UR spec 首句 U-1 同源; T4 用户裁 U-1 时两处一并改 (O25 汇总) |
+| O56 | S-SPC2 audit 观察 1 | PP/examples.md "RELREC Method Quick Reference (PP-side view)" 整节 | KB 自写摘要 (含 Method 映射表), 与 PC/examples.md 内容部分重复; 本批按主控裁定 D6 整节保留. 备选 = dispatch notes "KB 自写摘要与 PDF 重复 → 一行交叉引用". T4 用户裁定 (O25 汇总) |
+| O57 | S-SPC2 audit 观察 2 | pdf_atoms p252_a011 / p271_a011 / p276_a008 / p278_a051 | 原子抽取错, KB 与渲染一致 → T3 t3_atom_err |

@@ -58,3 +58,11 @@
 {"atom_id": "ig34_p0373_a013", "class": "R2", "note": "B-FA T-9 PDF_TYPO FAEVINTX→FAEVLINT | errata: t3_atom_err (已有) | in_atom_err=True in_remap=False"}
 {"atom_id": "ig34_p0374_a011", "class": "R1", "note": "原子把 AE ID 行与合并格说明抽成同一行, 与渲染不符; KB :263 为 4 空格 + 说明合并格, :265 为 AE ID…Visit 6 (按渲染分两行, 9 列) | errata: t3_atom_err (已有) | in_atom_err=True in_remap=False"}
 {"atom_id": "ig34_p0396_a009", "class": "R1", "note": "原子 `represents`; PDF p396 为 `represented this rule`, KB 同 (B-TA #31) | errata: t3_atom_err | in_atom_err=False in_remap=False"}
+{"atom_id": "ig34_p0255_a021", "class": "MOVED", "note": "S-SPC2: MS spec 脚注由 MS/assumptions.md 迁到 MS/spec.md (U2/U7) | 预期回归 (原命中位置删除)"}
+{"atom_id": "ig34_p0278_a051", "class": "R1", "note": "S-SPC2: 原子文本抄自旧的错误 KB 文本 (Method D 叙述), KB 已按 p278 渲染改正 → 原子错 | errata: t3_atom_err"}
+{"atom_id": "ig34_p0199_a020", "class": "R2", "note": "S-SPC1 CP T-21 KB 写正确泛型名 (--BNDAGT/--GATEDEF), 原子含 PDF 错名 | errata: t3_atom_err/PDF_TYPO"}
+{"atom_id": "ig34_p0200_a007", "class": "R2", "note": "S-SPC1 CP T-21 同上 | errata: t3_atom_err/PDF_TYPO"}
+{"atom_id": "ig34_p0206_a001", "class": "R2", "note": "S-SPC1 CP T-21 同上 | errata: t3_atom_err/PDF_TYPO"}
+{"atom_id": "ig34_p0200_a006", "class": "R2", "note": "S-SPC1 CP T-17 sting→string | errata: t3_atom_err/PDF_TYPO"}
+{"atom_id": "ig34_p0206_a003", "class": "R2", "note": "S-SPC1 CP T-18 CSMRKS→CPCSMRKS | errata: t3_atom_err/PDF_TYPO"}
+{"atom_id": "ig34_p0240_a004", "class": "R2", "note": "S-SPC1 IS 附录 D2 去重删除; 原子为 PDF nucleoar 原文, examples.md 保留 T-4 改正值 | errata: t3_atom_err/PDF_TYPO"}
