@@ -9,11 +9,11 @@ writer 在 reviewer PASS 后再改 → 回 reviewer 复审 delta 才派 auditor.
 check_links live docs 基线 42; evidence 里 md 链接写法须反引号.
 
 ## 已提交批 (见 git log "Tier B batch")
-## 在途 (以 trace.jsonl 末尾 + 各 checkpoint 为准)
-- B-TA: auditor 在跑 (终态签字已做)
-- B-ch01: auditor 在跑
-- B-RP: reviewer 在跑 (kb_files 扩入 RP/assumptions.md)
-- B-EC: writer 收尾 (扩入 EC/assumptions.md, EX/examples.md:3)
-- B-TU: writer 在跑
-## 待开 (按 order): B-VS(含 O13) B-BE B-MK B-TE(先补 TE, 再把 TA/assumptions.md:102-150 改交叉引用; 须 B-TA 提交后) B-BS(notes) B-SUPPQUAL(D7) ... 其余见 work/t2_batches/
+## 在途 (2026-11-26 压缩前快照; 已提交 25 批, 最新 5440dc5)
+- B-VS: auditor 在跑 → PASS 后 commit (登记 p360 rows1-4 原子抽错)
+- B-TU: reviewer 在跑 (需人工核 assumptions.md:90-92 / :98-105 两张表)
+- B-BE: writer 完成, 待派 reviewer. 待主控裁 F-1: p143 节引言 NOTE (BE/BS/RELSPEC 源自 SDTMIG-PGx, 3 句) BE 文件缺 → 建议授权补进 BE/assumptions.md 标题后 (同 D7 精神); T-1..T-3 keep-correct 已登记
+- B-TE: writer 在跑 (含 TA/assumptions.md:102-150 → 交叉引用)
+- B-MK: writer 在跑
+## 待开 (按 order): B-BS(notes) B-SUPPQUAL(D7) ... 其余见 work/t2_batches/
 ## T2 后: O15/O16/O17/O18/O20/O24 全域扫描小批 (Description/Overview, spec 首句, §6.x 类引言, 漏页, spec.md 记法) → T3 (ledger 回写 + t3_atom_err + target_remap) → T4 (总闸 + T4 用户裁定汇总 + 人工 30 抽样) → push + 提醒 sdtm-rag
