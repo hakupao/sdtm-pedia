@@ -5,7 +5,9 @@
   "domains/EC"
  ],
  "kb_files": [
-  "knowledge_base/domains/EC/examples.md"
+  "knowledge_base/domains/EC/examples.md",
+  "knowledge_base/domains/EC/assumptions.md",
+  "knowledge_base/domains/EX/examples.md"
  ],
  "delete_only_source_lines": [],
  "serial_with": [],
@@ -101,6 +103,7 @@
  "out_of_scope": [],
  "notes": [
   "B-EX writer O-a: EC/examples.md 与 EX/examples.md 为同一组例子副本 (同错: Ex2 缺 VISITNUM, Ex6 说明位置, Ex7 EPOCH \"VISIT TREATMENT\") → D2 按 PDF 所属节去重 (B-EX review 会给归属结论)",
-  "B-EX review 归属结论: §6.1.3.3 共享例子归 EX (EX 在前, EX 有 Ex1-8, EC 缺 Ex4, EX 已修) → EC/examples.md 该组例子改一行指向 ../EX/examples.md 的交叉引用 (D2)"
+  "B-EX review 归属结论: §6.1.3.3 共享例子归 EX (EX 在前, EX 有 Ex1-8, EC 缺 Ex4, EX 已修) → EC/examples.md 该组例子改一行指向 ../EX/examples.md 的交叉引用 (D2)",
+  "主控: kb_files 扩入 EC/assumptions.md (Description/Overview + spec 首句 p107) 与 EX/examples.md (只改 :3 KB note 的 \"See also EC Examples\")"
  ]
 }

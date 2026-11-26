@@ -5,7 +5,8 @@
   "domains/RP"
  ],
  "kb_files": [
-  "knowledge_base/domains/RP/examples.md"
+  "knowledge_base/domains/RP/examples.md",
+  "knowledge_base/domains/RP/assumptions.md"
  ],
  "delete_only_source_lines": [],
  "serial_with": [],
@@ -83,5 +84,7 @@
   "unparseable_kb_tables_hand_check_if_touched": []
  },
  "out_of_scope": [],
- "notes": []
+ "notes": [
+  "主控: kb_files 扩入 RP/assumptions.md (补 Description/Overview ig34_p0305_a013)"
+ ]
 }

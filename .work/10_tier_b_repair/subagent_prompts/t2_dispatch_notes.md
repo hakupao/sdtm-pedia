@@ -29,3 +29,4 @@
 - **域 spec 首句** ("xx.xpt, <Domain> — <Class>. One record per …"): 按 CM/IS 先例放在 `<XX>/assumptions.md` 的 Description/Overview 与 Assumptions 之间 (逐字); spec 表脚注属 spec.md. 各批遇到缺失即补 (O15/O16 全域扫描会兜底).
 - **evidence 文件里引用 markdown 链接写法时一律用反引号包住** (否则 check_links 把它算成坏链, B-GF 曾使 live docs 42→45).
 - **同文件内顺序/归节** 与 PDF 不一致 (段落挂错标题、属于下一小节): 允许在同一文件内按 PDF 顺序移位 (记 RELOCATE, 不留指针), 不需另授权.
+- **抽样页范围**: 全量重写的批次, auditor 抽样 P 以该文件对应 PDF 的完整页范围为准 (不只 batch json 的 pdf_pages).

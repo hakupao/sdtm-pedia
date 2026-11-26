@@ -1,0 +1,20 @@
+{"ref": "ig34_p0010_a025", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch01_introduction.md", "kb_line_after": 109, "pdf_page": 10, "note": "§1.5 LNKID 段整段换为 PDF 原文 (末句 'and at that time examples ... clarification' 补全)"}
+{"ref": "ig34_p0009_a003", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch01_introduction.md", "kb_line_after": 58, "pdf_page": 9, "note": "第4条逐字 (含 'See the implementation examples ...')"}
+{"ref": "ig34_p0009_a004", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch01_introduction.md", "kb_line_after": 59, "pdf_page": 9, "note": "第5条逐字"}
+{"ref": "ig34_p0009_a005", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch01_introduction.md", "kb_line_after": 60, "pdf_page": 9, "note": "第6条逐字"}
+{"ref": "ig34_p0009_a006", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch01_introduction.md", "kb_line_after": 61, "pdf_page": 9, "note": "第7条逐字"}
+{"ref": "ig34_p0009_a023", "action": "TABLE_REBUILT", "kb_file": "knowledge_base/chapters/ch01_introduction.md", "kb_line_after": 80, "pdf_page": 9, "note": "§1.4.1 表 → PDF 嵌套列表; Type 项逐字"}
+{"ref": "ig34_p0009_a026", "action": "TABLE_REBUILT", "kb_file": "knowledge_base/chapters/ch01_introduction.md", "kb_line_after": 83, "pdf_page": 9, "note": "补 'As noted in the table note'"}
+{"ref": "ig34_p0010_a014", "action": "TABLE_REBUILT", "kb_file": "knowledge_base/chapters/ch01_introduction.md", "kb_line_after": 97, "pdf_page": 10, "note": "CDISC Notes 子项逐字"}
+{"ref": "ig34_p0010_a016", "action": "TABLE_REBUILT", "kb_file": "knowledge_base/chapters/ch01_introduction.md", "kb_line_after": 99, "pdf_page": 10, "note": "Core 项逐字 (含 Section 4.1.5 引用)"}
+{"ref": "ig34_p0010_a023", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch01_introduction.md", "kb_line_after": 109, "pdf_page": 10, "note": "箭头 bullet → PDF 原句 (含 'in RELREC'); MANY 行与 PDF 同为 --LNKID, 照录, T-2"}
+{"ref": "t2_recheck:ig34_p0010_a009", "action": "TABLE_REBUILT", "kb_file": "knowledge_base/chapters/ch01_introduction.md", "kb_line_after": 92, "pdf_page": 10, "note": "recheck 不由 writer 判; 但 §1.4.1 按 PDF 重建时 'Format:' 项已逐字存在 (副作用), reviewer 定"}
+{"ref": "ig34_p0009_a009", "action": "INSERTED", "kb_file": "knowledge_base/chapters/ch01_introduction.md", "kb_line_after": 64, "pdf_page": 9, "note": "batch notes 必补 (B-ch02 去重后全 KB 不命中)"}
+{"ref": "ig34_p0009_a020", "action": "INSERTED", "kb_file": "knowledge_base/chapters/ch01_introduction.md", "kb_line_after": 77, "pdf_page": 9, "note": "batch notes 必补"}
+{"ref": "ig34_p0009_a021", "action": "INSERTED", "kb_file": "knowledge_base/chapters/ch01_introduction.md", "kb_line_after": 78, "pdf_page": 9, "note": "batch notes 必补"}
+{"ref": "ig34_p0010_a004", "action": "INSERTED", "kb_file": "knowledge_base/chapters/ch01_introduction.md", "kb_line_after": 87, "pdf_page": 10, "note": "batch notes 必补"}
+{"ref": "ig34_p0010_a002", "action": "SKIPPED_PDF_TYPO", "kb_file": "knowledge_base/chapters/ch01_introduction.md", "kb_line_after": 85, "pdf_page": 10, "note": "T-1: PDF 'codelist not yet been developed' 缺 has; 照录 PDF, 交 T4"}
+{"ref": "ig34_p0009_a024", "action": "SKIPPED_ATOM_ERR", "kb_file": "knowledge_base/chapters/ch01_introduction.md", "kb_line_after": 81, "pdf_page": 9, "note": "atom 缺逗号; 渲染为 'Codelist, or Format', KB 按渲染; fp 预期不命中"}
+{"ref": "source_line", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch01_introduction.md", "kb_line_after": 3, "pdf_page": 7, "note": "Pages 7-12 → 7-10 (p11 起为 §2)"}
+{"ref": "ig34_p0010_a002", "action": "SKIPPED_PDF_TYPO", "kb_file": "knowledge_base/chapters/ch01_introduction.md", "kb_line_after": 85, "pdf_page": 10, "note": "续: T-1 改判 keep-correct, KB 补 'has' (p49 旁证); fp 不命中预期"}
+{"ref": "ig34_p0010_a023", "action": "SKIPPED_PDF_TYPO", "kb_file": "knowledge_base/chapters/ch01_introduction.md", "kb_line_after": 109, "pdf_page": 10, "note": "续: T-2 改判 keep-correct, MANY → --LNKGRP (and not --LNKID) (p10 前句 + p31 定义); fp 不命中预期"}
