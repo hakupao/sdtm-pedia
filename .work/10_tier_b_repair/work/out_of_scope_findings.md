@@ -26,7 +26,7 @@
 | O23 | T2 B-OE writer | OE/assumptions.md | 缺 p298 Description/Overview 句 + p299 spec 首句 → 并入 O16/O17 sweep |
 | O24 | T2 B-REL writer | 全库 spec.md 记法 | IDVAR 等 CT 列 "*" 写成空; codelist 名用 C-code; spec 表脚注 ¹ 缺失 — 全库 spec.md 共性 → 并入 O15 spec 扫描 (先定统一口径再改) |
 | O25 | 主控 | T4 汇总 | 各批 checkpoint 中 '照录 + T4' 项分散登记 → T4.2 前生成 evidence/checkpoints/t4_user_decisions.md 汇总表 (批次 / 位置 / PDF 原值 / 候选值 / 依据) |
-| O26 | T2 B-RP review | 全库 domains/*/spec.md | spec 表脚注 0/64 域收录 → O15 spec 扫描 (与 O24 合并) |
+| O26 | T2 B-RP review | 全库 domains/*/spec.md | (已点名 DM/ML/CM/BS/SV/IE/QS/FT 等; 注意 GF/CO 先例放置位置须统一) spec 表脚注 0/64 域收录 → O15 spec 扫描 (与 O24 合并) |
 | O27 | B-TE writer | work/t2_batches/B-TE.json | pdf_ranges 写 404-409, TE 实际 p402-407 (O20 同类) |
 | O28 | B-BE review | BE/examples.md Ex2 bs Row1 | BSORRES 12 mL vs BSSTRESN 6: KB=PDF, PDF 自身无法定对错 → T4 用户裁定项 (并入 O25 汇总) |
 | O29 | 主控 (B-MK review fp) | fp_regress 全量 48 条 | 未入 errata 的: p0174_a0012, p0363_a011-a019 / p0364_a001-a019 (B-FA §6.4.2), p0396_a009 (B-TA) — 均为已提交批, T3 ledger 回写时逐条定 REMAP/ATOM_ERR |

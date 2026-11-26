@@ -52,7 +52,7 @@ This example describes a study that examines the effect of physical modification
 | Group | Arms | Details |
 |-------|------|---------|
 | 1 | Control | Students received standard meals in a standard cafeteria environment. |
-| 2 | Experimental: choice architecture | Students were exposed to modifications to the physical environment in the cafeteria to "nudge" students towards healthier choices. Physical modifications included: placing vegetables at the beginning of the lunch line; placing fruits in attractive bowls, trays lined with appealing fabric, and fruit options next to cash registers; promoting fruits and vegetables with prominently displayed signage and images; placing white milk selection more predominantly than chocolate milk (e.g., white milk displayed in front of chocolate milk). |
+| 2 | Experimental: choice architecture | Students were exposed to modifications to the physical environment in the cafeteria to "nudge" students towards healthier choices. Physical modifications included:<br>• Placing vegetables at the beginning of the lunch line<br>• Placing fruits in attractive bowls, trays lined with appealing fabric, and fruit options next to cash registers<br>• Promoting fruits and vegetables with prominently displayed signage and images<br>• Placing white milk selection more predominantly than chocolate milk (e.g., white milk displayed in front of chocolate milk) |
 
 Food-card data was collected over a 7-month period by students receiving a school meal 1 day per week. Students who brought a lunch from home or those not eating lunch in the cafeteria on a study day were excluded.
 

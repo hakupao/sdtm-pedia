@@ -1,5 +1,15 @@
 # ML — Assumptions
 
+## ML – Description/Overview
+
+An interventions domain that contains information describing a subject's food product consumption.
+
+## ML – Specification
+
+ml.xpt, Meal Data — Interventions. One record per food product occurrence or constant intake interval per subject, Tabulation.
+
+## ML – Assumptions
+
 1. The ML domain is used to represent consumption of any food or nutritional item that would not be represented in the exposure domains (EC/EX), Concomitant/Prior Medications (CM), Procedure Agents (AG), or Substance Use (SU). Examples of nutritional items that would be represented in other domains include:
    a. Investigational nutritional products (represented in EC/EX)
    b. Food or drink used to treat hypoglycemic events (represented in CM)
