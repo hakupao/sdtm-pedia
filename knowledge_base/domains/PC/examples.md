@@ -2,7 +2,60 @@
 
 *Note: PC and PP share a combined examples section (§6.3.5.9.3 Relating PP Records to PC Records). The shared PC/PP datasets, dataset-level RELREC discussion, conclusions, and implementation suggestions are in `PC/assumptions.md`. This file contains the 4 worked Examples (1–4) illustrating the 4 RELREC methods (A/B/C/D) for relating PC to PP records.*
 
+## PC – Examples
+
 Due to space limitations, not all expected or permissible findings variables are included in the example for this domain.
+
+### Example 1
+
+This example shows concentration data for drug A and a metabolite of drug A from plasma and from urine samples collected pre-dose and after dosing on study days 1 and 11.
+
+PCTPTREF is a text value of the description of a “zero” time (e.g., time of dosing). It should be meaningful. If there are multiple PK profiles being generated, the zero time for each will be different (e.g., a different dose such as first dose, second dose) and, as a result, values for PCTPTREF must be different. In this example, such values for PCTPTREF are required to make values of PCTPTNUM and PCTPT unique (see Section 4.4.10, Representing Time Points).
+
+**Rows 1-2:** Show day 1 pre-dose drug and metabolite concentrations in plasma and urine.
+**Rows 3-4:** Show day 1 pre-dose drug and metabolite concentrations in urine. Urine specimens may be collected over an interval; both PCDTC and PCENDTC have been populated with the same value to indicate that these specimens were collected at a point in time rather than over an interval.
+**Rows 5-6:** Show specimen properties (VOLUME and PH) for the day 1 pre-dose urine specimens. These have a PCCAT value of "SPECIMEN PROPERTY".
+**Rows 7-12:** Show day 1 post-dose drug and metabolite concentrations in plasma.
+**Rows 13-16:** Show day 11 drug and metabolite concentrations in plasma.
+**Rows 17-20:** Show day 11 drug and metabolite concentrations in urine specimens collected over an interval. The elapsed times for urine samples are calculated as the elapsed time (from the reference time point, PCTPTREF) to the end of the specimen collection interval. Elapsed time values that are the same for urine and plasma samples have been assigned the same value for PCTPT. For the urine samples, the value in PCEVLINT describes the planned evaluation (or collection) interval relative to the time point. The actual evaluation interval can be determined by subtracting PCDTC from PCENDTC.
+**Rows 21-30:** Show additional drug and metabolite concentrations and specimen properties related to the day 11 dose.
+
+**pc.xpt**
+
+| Row | STUDYID | DOMAIN | USUBJID | PCSEQ | PCGRPID | PCREFID | PCTESTCD | PCTEST | PCCAT | PCSPEC | PCORRES | PCORRESU | PCSTRESC | PCSTRESN | PCSTRESU | PCSTAT | PCLLOQ | PCULOQ | VISITNUM | VISIT | VISITDY | PCDTC | PCENDTC | PCDY | PCTPT | PCTPTNUM | PCTPTREF | PCRFTDTC | PCELTM | PCEVLINT |
+|-----|---------|--------|---------|-------|---------|---------|----------|--------|-------|--------|---------|----------|----------|----------|----------|--------|--------|--------|----------|-------|---------|-------|---------|------|-------|----------|----------|----------|--------|----------|
+| 1 | ABC-123 | PC | 123-0001 | 1 | Day 1 | A554134-10 | DRGA_MET | Drug A Metabolite | ANALYTE | PLASMA | <0.1 | ng/mL | <0.1 | | ng/mL | | 0.10 | 20 | 1 | DAY 1 | 1 | 2001-02-01T07:45 | | 1 | PREDOSE | 0 | Day 1 Dose | 2001-02-01T08:00 | -PT15M | |
+| 2 | ABC-123 | PC | 123-0001 | 2 | Day 1 | A554134-10 | DRGA_PAR | Drug A Parent | ANALYTE | PLASMA | <0.1 | ng/mL | <0.1 | | ng/mL | | 0.10 | 20 | 1 | DAY 1 | 1 | 2001-02-01T07:45 | | 1 | PREDOSE | 0 | Day 1 Dose | 2001-02-01T08:00 | -PT15M | |
+| 3 | ABC-123 | PC | 123-0001 | 3 | Day 1 | A554134-11 | DRGA_MET | Drug A Metabolite | ANALYTE | URINE | <2 | ng/mL | <2 | | ng/mL | | 2.00 | 500 | 1 | DAY 1 | 1 | 2001-02-01T07:45 | 2001-02-01T07:45 | 1 | PREDOSE | 0 | Day 1 Dose | 2001-02-01T08:00 | -PT15M | |
+| 4 | ABC-123 | PC | 123-0001 | 4 | Day 1 | A554134-11 | DRGA_PAR | Drug A Parent | ANALYTE | URINE | <2 | ng/mL | <2 | | ng/mL | | 2.00 | 500 | 1 | DAY 1 | 1 | 2001-02-01T07:45 | 2001-02-01T07:45 | 1 | PREDOSE | 0 | Day 1 Dose | 2001-02-01T08:00 | -PT15M | |
+| 5 | ABC-123 | PC | 123-0001 | 5 | Day 1 | A554134-11 | VOLUME | Volume | SPECIMEN PROPERTY | URINE | 3500 | mL | 100 | 100 | mL | | | | 1 | DAY 1 | 1 | 2001-02-01T07:45 | 2001-02-01T07:45 | 1 | PREDOSE | 0 | Day 1 Dose | 2001-02-01T08:00 | -PT15M | |
+| 6 | ABC-123 | PC | 123-0001 | 6 | Day 1 | A554134-11 | PH | PH | SPECIMEN PROPERTY | URINE | 5.5 | | 5.5 | 5.5 | | | | | 1 | DAY 1 | 1 | 2001-02-01T07:45 | 2001-02-01T07:45 | 1 | PREDOSE | 0 | Day 1 Dose | 2001-02-01T08:00 | -PT15M | |
+| 7 | ABC-123 | PC | 123-0001 | 7 | Day 1 | A554134-12 | DRGA_MET | Drug A Metabolite | ANALYTE | PLASMA | 5.4 | ng/mL | 5.4 | 5.4 | ng/mL | | 0.10 | 20 | 1 | DAY 1 | 1 | 2001-02-01T09:30 | | 1 | 1H30MIN | 1.5 | Day 1 Dose | 2001-02-01T08:00 | PT1H30M | |
+| 8 | ABC-123 | PC | 123-0001 | 8 | Day 1 | A554134-12 | DRGA_PAR | Drug A Parent | ANALYTE | PLASMA | 4.74 | ng/mL | 4.74 | 4.74 | ng/mL | | 0.10 | 20 | 1 | DAY 1 | 1 | 2001-02-01T09:30 | | 1 | 1H30MIN | 1.5 | Day 1 Dose | 2001-02-01T08:00 | PT1H30M | |
+| 9 | ABC-123 | PC | 123-0001 | 9 | Day 1 | A554134-13 | DRGA_MET | Drug A Metabolite | ANALYTE | PLASMA | 5.44 | ng/mL | 5.44 | 5.44 | ng/mL | | 0.10 | 20 | 1 | DAY 1 | 1 | 2001-02-01T14:00 | | 1 | 6H | 6 | Day 1 Dose | 2001-02-01T08:00 | PT6H00M | |
+| 10 | ABC-123 | PC | 123-0001 | 10 | Day 1 | A554134-13 | DRGA_PAR | Drug A Parent | ANALYTE | PLASMA | 1.09 | ng/mL | 1.09 | 1.09 | ng/mL | | 0.10 | 20 | 1 | DAY 1 | 1 | 2001-02-01T14:00 | | 1 | 6H | 6 | Day 1 Dose | 2001-02-01T08:00 | PT6H | |
+| 11 | ABC-123 | PC | 123-0001 | 11 | Day 1 | A554134-14 | DRGA_MET | Drug A Metabolite | ANALYTE | PLASMA | | | | | | NOT DONE | | 20 | 2 | DAY 2 | 2 | 2001-02-02T08:00 | | 2 | 24H | 24 | Day 1 Dose | 2001-02-01T08:00 | PT24H | |
+| 12 | ABC-123 | PC | 123-0001 | 12 | Day 1 | A554134-14 | DRGA_PAR | Drug A Parent | ANALYTE | PLASMA | <0.1 | ng/mL | <0.1 | | ng/mL | | 0.10 | 20 | 2 | DAY 2 | 2 | 2001-02-02T08:00 | | 2 | 24H | 24 | Day 1 Dose | 2001-02-01T08:00 | PT24H | |
+| 13 | ABC-123 | PC | 123-0001 | 13 | Day 11 | A554134-15 | DRGA_MET | Drug A Metabolite | ANALYTE | PLASMA | 3.41 | ng/mL | 3.41 | 3.41 | ng/mL | | 0.10 | 20 | 3 | DAY 11 | 11 | 2001-02-11T07:45 | | 11 | PREDOSE | 0 | Day 11 Dose | 2001-02-11T08:00 | -PT15M | |
+| 14 | ABC-123 | PC | 123-0001 | 14 | Day 11 | A554134-15 | DRGA_PAR | Drug A Parent | ANALYTE | PLASMA | <0.1 | ng/mL | <0.1 | | ng/mL | | 0.10 | 20 | 3 | DAY 11 | 11 | 2001-02-11T07:45 | | 11 | PREDOSE | 0 | Day 11 Dose | 2001-02-11T08:00 | -PT15M | |
+| 15 | ABC-123 | PC | 123-0001 | 15 | Day 11 | A554134-16 | DRGA_MET | Drug A Metabolite | ANALYTE | PLASMA | 8.74 | ng/mL | 8.74 | 8.74 | ng/mL | | 0.10 | 20 | 3 | DAY 11 | 11 | 2001-02-11T09:30 | | 11 | 1H30MIN | 1.5 | Day 11 Dose | 2001-02-11T08:00 | PT1H30M | |
+| 16 | ABC-123 | PC | 123-0001 | 16 | Day 11 | A554134-16 | DRGA_PAR | Drug A Parent | ANALYTE | PLASMA | 4.2 | ng/mL | 4.2 | 4.2 | ng/mL | | 0.10 | 20 | 3 | DAY 11 | 11 | 2001-02-11T09:30 | | 11 | 1H30MIN | 1.5 | Day 11 Dose | 2001-02-11T08:00 | PT1H30M | |
+| 17 | ABC-123 | PC | 123-0001 | 17 | Day 11 | A554134-17 | DRGA_MET | Drug A Metabolite | ANALYTE | URINE | 245 | ng/mL | 245 | 245 | ng/mL | | 2.00 | 500 | 3 | DAY 11 | 11 | 2001-02-11T08:00 | 2001-02-11T14:03 | 11 | 6H | 6 | Day 11 Dose | 2001-02-11T08:00 | PT6H | -PT6H |
+| 18 | ABC-123 | PC | 123-0001 | 18 | Day 11 | A554134-17 | DRGA_PAR | Drug A Parent | ANALYTE | URINE | 13.1 | ng/mL | 13.1 | 13.1 | ng/mL | | 2.00 | 500 | 3 | DAY 11 | 11 | 2001-02-11T08:00 | 2001-02-11T14:03 | 11 | 6H | 6 | Day 11 Dose | 2001-02-11T08:00 | PT6H | -PT6H |
+| 19 | ABC-123 | PC | 123-0001 | 19 | Day 11 | A554134-17 | VOLUME | Volume | SPECIMEN PROPERTY | URINE | 574 | mL | 574 | 574 | mL | | | | 3 | DAY 11 | 11 | 2001-02-11T08:00 | 2001-02-11T14:03 | 11 | 6H | 6 | Day 11 Dose | 2001-02-11T08:00 | PT6H | -PT6H |
+| 20 | ABC-123 | PC | 123-0001 | 20 | Day 11 | A554134-17 | PH | PH | SPECIMEN PROPERTY | URINE | 5.5 | | 5.5 | 5.5 | | | | | 3 | DAY 11 | 11 | 2001-02-11T08:00 | 2001-02-11T14:03 | 11 | 6H | 6 | Day 11 Dose | 2001-02-11T08:00 | PT6H | -PT6H |
+| 21 | ABC-123 | PC | 123-0001 | 21 | Day 11 | A554134-18 | DRGA_MET | Drug A Metabolite | ANALYTE | PLASMA | 9.02 | ng/mL | 9.02 | 9.02 | ng/mL | | 0.10 | 20 | 3 | DAY 11 | 11 | 2001-02-11T14:00 | | 11 | 6H | 6 | Day 11 Dose | 2001-02-11T08:00 | PT6H | |
+| 22 | ABC-123 | PC | 123-0001 | 22 | Day 11 | A554134-18 | DRGA_PAR | Drug A Parent | ANALYTE | PLASMA | 1.18 | ng/mL | 1.18 | 1.18 | ng/mL | | 0.10 | 20 | 3 | DAY 11 | 11 | 2001-02-11T14:00 | | 11 | 6H | 6 | Day 11 Dose | 2001-02-11T08:00 | PT6H | |
+| 23 | ABC-123 | PC | 123-0001 | 23 | Day 11 | A554134-19 | DRGA_MET | Drug A Metabolite | ANALYTE | URINE | 293 | ng/mL | 293 | 293 | ng/mL | | 2.00 | | 3 | DAY 11 | 11 | 2001-02-11T14:03 | 2001-02-11T20:10 | 11 | 12H | 12 | Day 11 Dose | 2001-02-11T08:00 | PT12H | -PT6H |
+| 24 | ABC-123 | PC | 123-0001 | 24 | Day 11 | A554134-19 | DRGA_PAR | Drug A Parent | ANALYTE | URINE | 7.1 | ng/mL | 7.1 | 7.1 | ng/mL | | 2.00 | | 3 | DAY 11 | 11 | 2001-02-11T14:03 | 2001-02-11T20:10 | 11 | 12H | 12 | Day 11 Dose | 2001-02-11T08:00 | PT12H | -PT6H |
+| 25 | ABC-123 | PC | 123-0001 | 25 | Day 11 | A554134-19 | VOLUME | Volume | SPECIMEN PROPERTY | URINE | 363 | mL | 363 | 363 | mL | | | | 3 | DAY 11 | 11 | 2001-02-11T14:03 | 2001-02-11T20:10 | 11 | 12H | 12 | Day 11 Dose | 2001-02-11T08:00 | PT12H | -PT6H |
+| 26 | ABC-123 | PC | 123-0001 | 26 | Day 11 | A554134-19 | PH | PH | SPECIMEN PROPERTY | URINE | 5.5 | | 5.5 | 5.5 | | | | | 3 | DAY 11 | 11 | 2001-02-11T14:03 | 2001-02-11T20:10 | 11 | 12H | 12 | Day 11 Dose | 2001-02-11T08:00 | PT12H | -PT6H |
+| 27 | ABC-123 | PC | 123-0001 | 27 | Day 11 | A554134-20 | DRGA_MET | Drug A Metabolite | ANALYTE | URINE | 280 | ng/mL | 280 | 280 | ng/mL | | 2.00 | | 4 | DAY 12 | 12 | 2001-02-11T20:03 | 2001-02-12T08:10 | 12 | 24H | 24 | Day 11 Dose | 2001-02-11T08:00 | PT24H | -PT12H |
+| 28 | ABC-123 | PC | 123-0001 | 28 | Day 11 | A554134-20 | DRGA_PAR | Drug A Parent | ANALYTE | URINE | 2.4 | ng/mL | 2.4 | 2.4 | ng/mL | | 2.00 | | 4 | DAY 12 | 12 | 2001-02-11T20:03 | 2001-02-12T08:10 | 12 | 24H | 24 | Day 11 Dose | 2001-02-11T08:00 | PT24H | -PT12H |
+| 29 | ABC-123 | PC | 123-0001 | 29 | Day 11 | A554134-20 | VOLUME | Volume | SPECIMEN PROPERTY | URINE | 606 | mL | 606 | 606 | mL | | | | 4 | DAY 12 | 12 | 2001-02-11T20:03 | 2001-02-12T08:10 | 12 | 24H | 24 | Day 11 Dose | 2001-02-11T08:00 | PT24H | -PT12H |
+| 30 | ABC-123 | PC | 123-0001 | 30 | Day 11 | A554134-20 | PH | PH | SPECIMEN PROPERTY | URINE | 5.5 | | 5.5 | 5.5 | | | | | 4 | DAY 12 | 12 | 2001-02-11T20:03 | 2001-02-12T08:10 | 12 | 24H | 24 | Day 11 Dose | 2001-02-11T08:00 | PT24H | -PT12H |
+| 31 | ABC-123 | PC | 123-0001 | 31 | Day 11 | A554134-21 | DRGA_MET | Drug A Metabolite | ANALYTE | PLASMA | 3.73 | ng/mL | 3.73 | 3.73 | ng/mL | | 0.10 | 20 | 4 | DAY 12 | 12 | 2001-02-12T08:00 | | 12 | 24H | 24 | Day 11 Dose | 2001-02-11T08:00 | PT24H | |
+| 32 | ABC-123 | PC | 123-0001 | 32 | Day 11 | A554134-21 | DRGA_PAR | Drug A Parent | ANALYTE | PLASMA | <0.1 | ng/mL | <0.1 | | ng/mL | | 0.10 | 20 | 4 | DAY 12 | 12 | 2001-02-12T08:00 | | 12 | 24H | 24 | Day 11 Dose | 2001-02-11T08:00 | PT24H | |
 
 ## §6.3.5.9.3 Relating PP Records to PC Records — Worked Examples
 
@@ -237,7 +290,7 @@ All pharmacokinetic concentrations for day 8 were used to calculate all pharmaco
 |-----|---------|---------|---------|-------|----------|---------|-------|
 | 1 | ABC-123 | PC | ABC-123-0001 | PCGRPID | DY1_DRGX_A | | 1 |
 | 2 | ABC-123 | PC | ABC-123-0001 | PCGRPID | DY1_DRGX_B | | 1 |
-| 3 | ABC-123 | PP | ABC-123-0001 | PPGRPID | DYIDRGX_A | | 1 |
+| 3 | ABC-123 | PP | ABC-123-0001 | PPGRPID | DY1DRGX_A | | 1 |
 | 4 | ABC-123 | PC | ABC-123-0001 | PCGRPID | DY1_DRGX_A | | 2 |
 | 5 | ABC-123 | PP | ABC-123-0001 | PPGRPID | DY1DRGX_HALF | | 2 |
 
