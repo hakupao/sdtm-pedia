@@ -9,11 +9,11 @@ writer 在 reviewer PASS 后再改 → 回 reviewer 复审 delta 才派 auditor.
 check_links live docs 基线 42 (汇总行走 stderr: `2>&1 | grep "live docs"`); evidence 里 md 链接写法须反引号.
 
 ## 已提交批 (见 git log "Tier B batch")
-## 在途 (2026-11-26; 已提交 41 批, 最新 B-model06)
+## 在途 (2026-11-26; 已提交 42 批, 最新 B-DD)
 - writer 共用 brief: subagent_prompts/t2_writer_common_brief.md; reviewer/auditor 共用 brief: subagent_prompts/t2_reviewer_common_brief.md
-- B-DD: writer a1 完成 → a2 → reviewer PASS → auditor 在跑
 - B-CE: writer 完成 (O4 关闭, O10 CE Ex2 已修; CRF 描述名按 B-AE L-2 保留) → reviewer 在跑
-- B-FT: writer 完成 (Q-1 §6.3.9 父节引言放 FT/assumptions.md 顶部=认可; Q-2 引号→O40) → reviewer 在跑
-- B-HO / B-MI / B-QS / B-CM: writer 在跑
+- B-FT: writer 完成 (Q-1 §6.3.9 父节引言放 FT/assumptions.md 顶部=认可; Q-2 引号→O40) → reviewer PASS → a2 补 §6.3.9.1 子节标题 (L-1) 在跑 → reviewer 复审 delta
+- B-CM: writer a1 完成 → a2 (F-1 2c 末句来自 spec Notes: spec.md 有则删) 在跑
+- B-HO / B-MI / B-QS: writer 在跑
 ## 待开 (按 order): B-CO B-DV B-IE B-ML B-SU B-SV(O33) B-TI B-TV B-ch03 B-DI ... B-SUPPQUAL(D7) ... B-SC (其余见 work/t2_batches/)
 ## T2 后: O15/O16/O17/O18/O20/O24 全域扫描小批 (Description/Overview, spec 首句, §6.x 类引言, 漏页, spec.md 记法) → T3 (ledger 回写 + t3_atom_err + target_remap) → T4 (总闸 + T4 用户裁定汇总 + 人工 30 抽样) → push + 提醒 sdtm-rag

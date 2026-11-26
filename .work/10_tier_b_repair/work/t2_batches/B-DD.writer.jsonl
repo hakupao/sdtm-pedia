@@ -1,0 +1,5 @@
+{"ref": "ig34_p0183_a003", "action": "INSERTED", "kb_file": "knowledge_base/domains/DD/assumptions.md", "kb_line_after": 5, "pdf_page": 183, "note": "DD – Description/Overview heading + first sentence, verbatim"}
+{"ref": "ig34_p0183_a004", "action": "INSERTED", "kb_file": "knowledge_base/domains/DD/assumptions.md", "kb_line_after": 7, "pdf_page": 183, "note": "Description para 2 verbatim; PDF bold not -> **not**"}
+{"ref": "ig34_p0183_a006", "action": "INSERTED", "kb_file": "knowledge_base/domains/DD/assumptions.md", "kb_line_after": 11, "pdf_page": 183, "note": "authorized: DD – Specification heading + spec first sentence verbatim"}
+{"ref": "R3:p184:DD – Assumptions heading", "action": "INSERTED", "kb_file": "knowledge_base/domains/DD/assumptions.md", "kb_line_after": 13, "pdf_page": 184, "note": "navigation heading per CV/RE/CM precedent"}
+{"ref": "F-1:ig34_p0184_a005", "action": "REPLACED", "kb_file": "knowledge_base/domains/DD/assumptions.md", "kb_line_after": 21, "pdf_page": 184, "note": "attempt 2: codeable -> codetable per PDF (主控授权)"}
