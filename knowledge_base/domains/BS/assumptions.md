@@ -1,5 +1,17 @@
 # BS — Assumptions
 
+BE, BS, and RELSPEC domain specifications, assumptions, and examples were copied and minimally updated from the provisional SDTMIG-PGx, published 2015-05-26. This was done in preparation for the retirement of the SDTMIG-PGx upon publication of SDTMIG v3.4. These domains are currently under extensive revision for inclusion in a future SDTMIG publication, after v3.4.
+
+## BS – Description/Overview
+
+A findings domain that contains data related to biospecimen characteristics.
+
+## BS – Specification
+
+bs.xpt, Biospecimen Findings — Findings. One record per measurement per biospecimen identifier per subject, Tabulation.
+
+## BS – Assumptions
+
 1. The BS domain is used to store findings related to specimen handling and specimen characteristics such as type, amount, or size. BS is not restricted to PGx-related specimens.
 
 2. For biospecimens of genetic material, BSSPEC values are drawn from the GENSMP (C111114) codelist.

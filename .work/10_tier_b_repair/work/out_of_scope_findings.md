@@ -30,3 +30,6 @@
 | O27 | B-TE writer | work/t2_batches/B-TE.json | pdf_ranges 写 404-409, TE 实际 p402-407 (O20 同类) |
 | O28 | B-BE review | BE/examples.md Ex2 bs Row1 | BSORRES 12 mL vs BSSTRESN 6: KB=PDF, PDF 自身无法定对错 → T4 用户裁定项 (并入 O25 汇总) |
 | O29 | 主控 (B-MK review fp) | fp_regress 全量 48 条 | 未入 errata 的: p0174_a0012, p0363_a011-a019 / p0364_a001-a019 (B-FA §6.4.2), p0396_a009 (B-TA) — 均为已提交批, T3 ledger 回写时逐条定 REMAP/ATOM_ERR |
+| O30 | B-RE writer | RE/assumptions.md:17 (assumption 3) | 缺 "variables" 一词 (PDF "Any Identifier variables, Timing variables"); assumptions 列表错 → 主控授权 B-RE a2 已补 (关闭) |
+| O31 | B-NV writer | p285 §6.3.6 MO "Domain Decommissioning Update" 框 | 全 KB 无; 无 MO 域目录 → 与 O17 §6.x 类引言扫描同批定宿主 (候选: NV/assumptions.md §6.3.7 前单列 §6.3.6 节) |
+| O32 | B-SM review | SM/examples.md p85 Row1 叙述 "SMDY" | 非 SM 变量 (疑 SMSTDY), PDF 自身不能唯一确定 → KB 照录, T4 用户裁定项 (并入 O25) |

@@ -71,7 +71,13 @@
   "ig34_p0360_a023": "B-VS audit: VSDY 读空 / VSTPT 截成 BASELINE",
   "ig34_p0360_a024": "B-VS audit: VSDY 读空 / VSTPT 截成 BASELINE",
   "ig34_p0347_a003": "B-TU audit: verbatim 'TULORRES' 为抽取错, PDF 文本层 TUORRES; KB 与 PDF 一致",
-  "ig34_p0348_a010": "B-TU audit: verbatim 'TUTEST' 为抽取错, PDF 文本层 TUTESTs; KB 与 PDF 一致"
+  "ig34_p0348_a010": "B-TU audit: verbatim 'TUTEST' 为抽取错, PDF 文本层 TUTESTs; KB 与 PDF 一致",
+  "ig34_p0199_a003": "B-BS review: VISITDY 抽空; KB 与 PDF 一致",
+  "ig34_p0199_a004": "B-BS review: VISITDY 抽空; KB 与 PDF 一致",
+  "ig34_p0199_a005": "B-BS review: VISITDY 抽空; KB 与 PDF 一致",
+  "ig34_p0199_a006": "B-BS review: VISITDY 抽空; KB 与 PDF 一致",
+  "ig34_p0198_a012": "B-BS review: PDF 'part the' (PDF_TYPO) 被抽成 'part of the'; KB 正确拼写",
+  "ig34_p0311_a035": "B-RE T-1: PDF 叙述 IREEA2 印刷错, KB 改 IRREA2 后不命中 (预期)"
  },
  "t3_target_remap": {
   "ig34_p0254_a040": "knowledge_base/domains/MS/spec.md",

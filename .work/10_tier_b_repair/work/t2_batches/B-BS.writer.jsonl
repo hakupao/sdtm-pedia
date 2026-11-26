@@ -1,0 +1,12 @@
+{"ref": "ig34_p0198_a020", "action": "SKIPPED_PDF_TYPO", "kb_file": "knowledge_base/domains/BS/examples.md", "kb_line_after": 7, "pdf_page": 198, "note": "T-1: PDF rations/may indicated; KB keeps ratios/may indicate"}
+{"ref": "census:examples.md:17:1:BSTESTCD", "action": "REPLACED", "kb_file": "knowledge_base/domains/BS/examples.md", "kb_line_after": 17, "pdf_page": 199, "note": "BSTESTCD -> A260A230"}
+{"ref": "census:examples.md:18:2:BSTESTCD", "action": "REPLACED", "kb_file": "knowledge_base/domains/BS/examples.md", "kb_line_after": 18, "pdf_page": 199, "note": "BSTESTCD -> A260A280"}
+{"ref": "census:examples.md:19:3:BSTESTCD", "action": "REPLACED", "kb_file": "knowledge_base/domains/BS/examples.md", "kb_line_after": 19, "pdf_page": 199, "note": "BSTESTCD -> I28S18S"}
+{"ref": "census:examples.md:17:1:BSXFN", "action": "REPLACED", "kb_file": "knowledge_base/domains/BS/examples.md", "kb_line_after": 17, "pdf_page": 199, "note": "BSXFN 3.4.7280912 -> 3.4:7280912"}
+{"ref": "census:examples.md:18:2:BSXFN", "action": "REPLACED", "kb_file": "knowledge_base/domains/BS/examples.md", "kb_line_after": 18, "pdf_page": 199, "note": "BSXFN 3.4.7280912 -> 3.4:7280912"}
+{"ref": "census:examples.md:19:3:BSXFN", "action": "REPLACED", "kb_file": "knowledge_base/domains/BS/examples.md", "kb_line_after": 19, "pdf_page": 199, "note": "BSXFN 3.4.7280912 -> 3.4:7280912"}
+{"ref": "census:examples.md:20:4:BSXFN", "action": "REPLACED", "kb_file": "knowledge_base/domains/BS/examples.md", "kb_line_after": 20, "pdf_page": 199, "note": "BSXFN 3.4.7280912 -> 3.4:7280912"}
+{"ref": "auth:p196:section_intro_note", "action": "INSERTED", "kb_file": "knowledge_base/domains/BS/assumptions.md", "kb_line_after": 3, "pdf_page": 196, "note": "BE/BS/RELSPEC NOTE 3 sentences (BS version, after v3.4.)"}
+{"ref": "auth:p196:description_overview", "action": "INSERTED", "kb_file": "knowledge_base/domains/BS/assumptions.md", "kb_line_after": 7, "pdf_page": 196, "note": "## BS – Description/Overview + sentence"}
+{"ref": "auth:p196:spec_first_sentence", "action": "INSERTED", "kb_file": "knowledge_base/domains/BS/assumptions.md", "kb_line_after": 11, "pdf_page": 196, "note": "## BS – Specification + bs.xpt sentence"}
+{"ref": "struct:p198:assumptions_heading", "action": "INSERTED", "kb_file": "knowledge_base/domains/BS/assumptions.md", "kb_line_after": 13, "pdf_page": 198, "note": "## BS – Assumptions heading (PDF title)"}
