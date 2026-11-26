@@ -1,5 +1,9 @@
 # RE — Assumptions
 
+## RE – Description/Overview
+
+A findings domain that contains physiological and morphological findings related to the respiratory system, including the organs that are involved in breathing such as the nose, throat, larynx, trachea, bronchi and lungs.
+
 ## RE – Specification
 
 re.xpt, Respiratory System Findings — Findings. One record per finding or result per time point per visit per subject, Tabulation.
@@ -10,4 +14,4 @@ re.xpt, Respiratory System Findings — Findings. One record per finding or resu
 
 2. Many respiratory assessments require the use of a device. When data about the device used for an assessment or additional information about its use in the assessment are collected, SPDEVID should be included in the record. See the SDTMIG for Medical Devices (SDTMIG-MD, available at https://www.cdisc.org/standards/foundational/medical-devices-sdtmig/) for further information about SPDEVID and the Device domains.
 
-3. Any Identifier, Timing variables, or Findings general observation class qualifiers may be added to the RE domain, but the following qualifiers would generally not be used: --MODIFY, --BODSYS, and --FAST.
+3. Any Identifier variables, Timing variables, or Findings general observation class qualifiers may be added to the RE domain, but the following qualifiers would generally not be used: --MODIFY, --BODSYS, and --FAST.

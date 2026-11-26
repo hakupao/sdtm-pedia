@@ -7,3 +7,4 @@
 - 多批并行: 只改本批文件；**禁止 git stash / checkout / reset / commit**；取基线用 `git show HEAD:<file>`。
 - `python3 tools/check_links.py 2>&1 | grep "live docs"` 须仍为 42。evidence 里 markdown 链接写法用反引号包住。
 - 有需主控裁定的事项 (超出上述授权) 写进 checkpoint "需主控定" 并停在该项，不自行扩大范围。回主控 ≤ 10 行。
+- trace ts 用 `date -u +%Y-%m-%dT%H:%M:%SZ` 取真实时间, 不写占位整点 (B-RE writer 曾写 05:00Z/05:30Z).

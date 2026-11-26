@@ -1,0 +1,8 @@
+{"ref": "census:knowledge_base/domains/RE/examples.md:17:1:...", "action": "REPLACED", "kb_file": "knowledge_base/domains/RE/examples.md", "kb_line_after": 17, "pdf_page": 311, "note": "... column data cell -> empty per PDF"}
+{"ref": "census:knowledge_base/domains/RE/examples.md:18:2:...", "action": "REPLACED", "kb_file": "knowledge_base/domains/RE/examples.md", "kb_line_after": 18, "pdf_page": 311, "note": "... column data cell -> empty per PDF"}
+{"ref": "census:knowledge_base/domains/RE/examples.md:19:3:...", "action": "REPLACED", "kb_file": "knowledge_base/domains/RE/examples.md", "kb_line_after": 19, "pdf_page": 311, "note": "... column data cell -> empty per PDF"}
+{"ref": "census:knowledge_base/domains/RE/examples.md:20:4:...", "action": "REPLACED", "kb_file": "knowledge_base/domains/RE/examples.md", "kb_line_after": 20, "pdf_page": 311, "note": "... column data cell -> empty per PDF"}
+{"ref": "census:knowledge_base/domains/RE/examples.md:21:5:...", "action": "REPLACED", "kb_file": "knowledge_base/domains/RE/examples.md", "kb_line_after": 21, "pdf_page": 311, "note": "... column data cell -> empty per PDF"}
+{"ref": "auth:RE_Description_Overview", "action": "INSERTED", "kb_file": "knowledge_base/domains/RE/assumptions.md", "kb_line_after": 3, "pdf_page": 308, "note": "Description/Overview verbatim (主控授权)"}
+{"ref": "review:C-1", "action": "REPLACED", "kb_file": "knowledge_base/domains/RE/examples.md", "kb_line_after": 59, "pdf_page": 311, "note": "attempt2 PDF_TYPO T-1: IREEA2 -> IRREA2 (p312 suppre REIRREA2)"}
+{"ref": "auth:N-1/O30", "action": "INSERTED", "kb_file": "knowledge_base/domains/RE/assumptions.md", "kb_line_after": 17, "pdf_page": 310, "note": "attempt2 assumption 3 add 'variables' verbatim"}
