@@ -1,0 +1,39 @@
+{"ref": "ig34_p0180_a0001/a0002", "action": "INSERTED", "kb_file": "knowledge_base/domains/DA/assumptions.md", "kb_line_after": "3-5", "pdf_page": 180, "note": "U3 §6.3 intro (heading + sentence; PDF has no domain list after colon)"}
+{"ref": "ig34_p0185_a021/a022", "action": "INSERTED", "kb_file": "knowledge_base/domains/EG/assumptions.md", "kb_line_after": "7-9", "pdf_page": 185, "note": "gap S: ## EG – Specification + spec first sentence"}
+{"ref": "pdf:p186:EGCAT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/EG/spec.md", "kb_line_after": 108, "pdf_page": 186, "note": "CT empty -> * (U2)"}
+{"ref": "pdf:p186:EGSCAT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/EG/spec.md", "kb_line_after": 117, "pdf_page": 186, "note": "CT empty -> * (U2)"}
+{"ref": "ig34_p0188_a005", "action": "INSERTED", "kb_file": "knowledge_base/domains/EG/spec.md", "kb_line_after": 402, "pdf_page": 188, "note": "gap F footnote (U2/U7)"}
+{"ref": "ig34_p0298_a024/a025", "action": "INSERTED", "kb_file": "knowledge_base/domains/OE/assumptions.md", "kb_line_after": "3-5", "pdf_page": 298, "note": "gap D"}
+{"ref": "ig34_p0299_a001/a002", "action": "INSERTED", "kb_file": "knowledge_base/domains/OE/assumptions.md", "kb_line_after": "7-9", "pdf_page": 299, "note": "gap S"}
+{"ref": "pdf:p301:OE – Assumptions", "action": "INSERTED", "kb_file": "knowledge_base/domains/OE/assumptions.md", "kb_line_after": 11, "pdf_page": 301, "note": "gap A heading"}
+{"ref": "pdf:p299:OETSTDTL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/OE/spec.md", "kb_line_after": 99, "pdf_page": 299, "note": "CT empty -> *"}
+{"ref": "pdf:p299:OECAT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/OE/spec.md", "kb_line_after": 108, "pdf_page": 299, "note": "CT empty -> *"}
+{"ref": "pdf:p299:OESCAT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/OE/spec.md", "kb_line_after": 117, "pdf_page": 299, "note": "CT empty -> *"}
+{"ref": "pdf:p301:footnote", "action": "INSERTED", "kb_file": "knowledge_base/domains/OE/spec.md", "kb_line_after": 474, "pdf_page": 301, "note": "gap F"}
+{"ref": "ig34_p0312_a012/a013", "action": "INSERTED", "kb_file": "knowledge_base/domains/UR/assumptions.md", "kb_line_after": "3-5", "pdf_page": 312, "note": "gap D"}
+{"ref": "ig34_p0312_a014/a016", "action": "INSERTED", "kb_file": "knowledge_base/domains/UR/assumptions.md", "kb_line_after": "7-9", "pdf_page": 312, "note": "gap S; 'per per' verbatim = U-1 (T4)"}
+{"ref": "pdf:p314:UR – Assumptions", "action": "INSERTED", "kb_file": "knowledge_base/domains/UR/assumptions.md", "kb_line_after": 11, "pdf_page": 314, "note": "gap A heading"}
+{"ref": "pdf:p313:URTSTDTL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/UR/spec.md", "kb_line_after": 108, "pdf_page": 313, "note": "CT empty -> *"}
+{"ref": "pdf:p313:URCAT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/UR/spec.md", "kb_line_after": 117, "pdf_page": 313, "note": "CT empty -> *"}
+{"ref": "pdf:p313:URSCAT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/UR/spec.md", "kb_line_after": 126, "pdf_page": 313, "note": "CT empty -> *"}
+{"ref": "ig34_p0314_a010", "action": "INSERTED", "kb_file": "knowledge_base/domains/UR/spec.md", "kb_line_after": 393, "pdf_page": 314, "note": "gap F"}
+{"ref": "ig34_p0315_a025/a026", "action": "INSERTED", "kb_file": "knowledge_base/domains/PE/assumptions.md", "kb_line_after": "23-25", "pdf_page": 315, "note": "gap D"}
+{"ref": "ig34_p0316_a001/a003", "action": "INSERTED", "kb_file": "knowledge_base/domains/PE/assumptions.md", "kb_line_after": "27-29", "pdf_page": 316, "note": "gap S"}
+{"ref": "pdf:p316:PETESTCD CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/PE/spec.md", "kb_line_after": 63, "pdf_page": 316, "note": "CT empty -> *"}
+{"ref": "pdf:p316:PETEST CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/PE/spec.md", "kb_line_after": 72, "pdf_page": 316, "note": "CT empty -> *"}
+{"ref": "pdf:p316:PECAT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/PE/spec.md", "kb_line_after": 90, "pdf_page": 316, "note": "CT empty -> *"}
+{"ref": "pdf:p316:PESCAT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/PE/spec.md", "kb_line_after": 99, "pdf_page": 316, "note": "CT empty -> *"}
+{"ref": "pdf:p316:PELAT notes", "action": "REPLACED", "kb_file": "knowledge_base/domains/PE/spec.md", "kb_line_after": 174, "pdf_page": 316, "note": "PDF_TYPO PE T-1 laterallity -> laterality (same-row label)"}
+{"ref": "ig34_p0317_a011", "action": "INSERTED", "kb_file": "knowledge_base/domains/PE/spec.md", "kb_line_after": 276, "pdf_page": 317, "note": "gap F"}
+{"ref": "ig34_p0342_a019/a020", "action": "INSERTED", "kb_file": "knowledge_base/domains/SS/assumptions.md", "kb_line_after": "3-5", "pdf_page": 342, "note": "gap D"}
+{"ref": "ig34_p0342_a021/a022", "action": "INSERTED", "kb_file": "knowledge_base/domains/SS/assumptions.md", "kb_line_after": "7-9", "pdf_page": 342, "note": "gap S"}
+{"ref": "pdf:p343:SS – Assumptions", "action": "INSERTED", "kb_file": "knowledge_base/domains/SS/assumptions.md", "kb_line_after": 11, "pdf_page": 343, "note": "gap A heading"}
+{"ref": "pdf:p343:SSCAT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/SS/spec.md", "kb_line_after": 81, "pdf_page": 343, "note": "CT empty -> *"}
+{"ref": "pdf:p343:SSSCAT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/SS/spec.md", "kb_line_after": 90, "pdf_page": 343, "note": "CT empty -> *"}
+{"ref": "ig34_p0343_a021", "action": "INSERTED", "kb_file": "knowledge_base/domains/SS/spec.md", "kb_line_after": 204, "pdf_page": 343, "note": "gap F"}
+{"ref": "ig34_p0344_a008", "action": "INSERTED", "kb_file": "knowledge_base/domains/SS/examples.md", "kb_line_after": 7, "pdf_page": 344, "note": "ss.xpt dataset label before Ex1 table (R3 scan)"}
+{"ref": "census:OE/examples.md:121:HEADER:IDVARVAL", "action": "VERIFIED", "kb_file": "knowledge_base/domains/OE/examples.md", "kb_line_after": 121, "pdf_page": 304, "note": "T-1 kept (PDF IDVARAL); render p304"}
+{"ref": "census:OE/examples.md:142:1:OECAT", "action": "VERIFIED", "kb_file": "knowledge_base/domains/OE/examples.md", "kb_line_after": 142, "pdf_page": 304, "note": "T-2 kept (PDF OCCULAR); render p304/p305"}
+{"ref": "census:OE/examples.md:143:2:OECAT", "action": "VERIFIED", "kb_file": "knowledge_base/domains/OE/examples.md", "kb_line_after": 143, "pdf_page": 304, "note": "T-2 kept (PDF OCCULAR); render p304/p305"}
+{"ref": "census:OE/examples.md:144:3:OECAT", "action": "VERIFIED", "kb_file": "knowledge_base/domains/OE/examples.md", "kb_line_after": 144, "pdf_page": 304, "note": "T-2 kept (PDF OCCULAR); render p304/p305"}
+{"ref": "census:OE/examples.md:145:4:OECAT", "action": "VERIFIED", "kb_file": "knowledge_base/domains/OE/examples.md", "kb_line_after": 145, "pdf_page": 304, "note": "T-2 kept (PDF OCCULAR); render p304/p305"}

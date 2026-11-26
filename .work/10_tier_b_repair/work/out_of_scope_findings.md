@@ -55,3 +55,4 @@
 | O52 | B-SC review | SC/examples.md p342 Ex2 Row 3 SCDTC 2017-06-10 vs SCDY 297 | PDF 自身矛盾 (推算应 296), KB 照录 → T4 用户裁定项 |
 | O53 | B-ch03 writer/review | ch03 数据集表 T-3 UR "per per" / T-4 ISSCMBCL | 照录 PDF → T4 用户裁定 (T-4 候选: p456 IS 新增变量 ISMSCBCE, PDF 自身不足断定); O5 已在本批关闭 |
 | O54 | 主控 (S-EVT 关闭) | O8 / O15 / O18 / O49 / O50 | S-EVT (T2S 试点) 内已处理, 关闭 (证据 `evidence/checkpoints/t2_S-EVT.md`) |
+| O55 | S-FND review L1 | UR/spec.md:3 Structure 行 "per per" | 与 UR spec 首句 U-1 同源; T4 用户裁 U-1 时两处一并改 (O25 汇总) |

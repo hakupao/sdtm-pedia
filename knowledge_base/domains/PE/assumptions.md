@@ -20,6 +20,14 @@ When following this approach, the PE domain is not used in SDTM.
 
 The Procedure (PR) domain is used to document the examination details (e.g., occurrence, date) using a Procedure record for each physical exam.
 
+## PE – Description/Overview
+
+A findings domain that contains findings observed during a physical examination where the body is evaluated by inspection, palpation, percussion, and auscultation.
+
+## PE – Specification
+
+pe.xpt, Physical Examination — Findings. One record per body system or abnormality per visit per subject, Tabulation.
+
 ## PE – Assumptions
 
 1. PE findings reflect the presence or absence of physical signs of disease or abnormality observed during a general physical examination. Multiple body systems are assessed during a physical examination, often starting at the head and ending at the toes, where the body is evaluated by inspection, palpation (feeling with the hands), percussion (tapping with fingers), and auscultation (listening). The examination often includes macro assessments (e.g., normal/abnormal) of appearance, general health, behavior, and body system review from head to toe.

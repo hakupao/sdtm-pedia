@@ -60,7 +60,7 @@
 - **Order:** 7
 - **Label:** Body System Examined Short Name
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** *
 - **Role:** Topic
 - **Core:** Req
 - **CDISC Notes:** Short name of a part of the body examined in a physical examination. It can be used as a column name when converting a dataset from a vertical to a horizontal format. The value in PETESTCD cannot be longer than 8 characters, nor can it start with a number (e.g., "1TEST" is not valid). PETESTCD cannot contain characters other than letters, numbers, or underscores. Examples: "HEAD", "ENT". If the results of the entire physical examination are represented in one record, value should be "PHYSEXAM".
@@ -69,7 +69,7 @@
 - **Order:** 8
 - **Label:** Body System Examined
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** *
 - **Role:** Synonym Qualifier
 - **Core:** Req
 - **CDISC Notes:** Long name of a part of the body examined in a physical examination. The value in PETEST cannot be longer than 40 characters. Examples: "Head", "Ear/Nose/Throat". If the results of the entire physical examination are represented in one record, value should be "Physical Examination".
@@ -87,7 +87,7 @@
 - **Order:** 10
 - **Label:** Category for Examination
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** *
 - **Role:** Grouping Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Used to define a category of topic-variable values. Example: "GENERAL".
@@ -96,7 +96,7 @@
 - **Order:** 11
 - **Label:** Subcategory for Examination
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** *
 - **Role:** Grouping Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Used to define a further categorization of --CAT values.
@@ -171,7 +171,7 @@
 - **Controlled Terms:** C99073
 - **Role:** Variable Qualifier
 - **Core:** Perm
-- **CDISC Notes:** Qualifier for anatomical location or specimen further detailing laterallity. Examples: "RIGHT", "LEFT", "BILATERAL".
+- **CDISC Notes:** Qualifier for anatomical location or specimen further detailing laterality. Examples: "RIGHT", "LEFT", "BILATERAL".
 
 ### PEMETHOD
 - **Order:** 20
@@ -272,6 +272,8 @@
 - **Core:** Perm
 - **CDISC Notes:** Study day of physical exam, measured as integer days. Algorithm for calculations must be relative to the sponsor-defined RFSTDTC variable in Demographics.
 ---
+
+> ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
 
 ## Cross References
 

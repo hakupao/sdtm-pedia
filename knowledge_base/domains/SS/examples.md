@@ -4,6 +4,8 @@
 
 In this example, subjects complete a 10-week treatment regimen and are then contacted by phone every month for 3 months. The phone contact assesses the subject's survival status. If the survival status is "DEAD", additional information is collected in order to complete the subject's final disposition record in DS and to record the date of death in DM (DS and DM records are not shown here).
 
+**ss.xpt**
+
 | Row | STUDYID | DOMAIN | USUBJID | SSSEQ | SSTESTCD | SSTEST | SSORRES | SSSTRESC | VISITNUM | VISIT | SSDTC |
 |-----|---------|--------|---------|-------|----------|--------|---------|----------|----------|-------|-------|
 | 1 | XYZ | SS | XYZ-333-009 | 1 | SURVSTAT | Survival Status | ALIVE | ALIVE | 10 | MONTH 1 | 2010-04-15 |

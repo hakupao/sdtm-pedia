@@ -96,7 +96,7 @@
 - **Order:** 11
 - **Label:** Ophthalmic Test or Exam Detail
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** *
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Further description of OETESTCD and OETEST.
@@ -105,7 +105,7 @@
 - **Order:** 12
 - **Label:** Category for Ophthalmic Test or Exam
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** *
 - **Role:** Grouping Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Used to define a category of topic-variable values. Examples: "VISUAL ACUITY", "CONTRAST SENSITIVITY", "OCULAR COMFORT".
@@ -114,7 +114,7 @@
 - **Order:** 13
 - **Label:** Subcategory for Ophthalmic Test or Exam
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** *
 - **Role:** Grouping Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Used to define a further categorization of OECAT values. Example: "HIGH CONTRAST" or "LOW CONTRAST" when OECAT is "VISUAL ACUITY".
@@ -470,6 +470,8 @@
 - **Core:** Perm
 - **CDISC Notes:** Date/time of the reference time point, OETPTREF.
 ---
+
+> ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
 
 ## Cross References
 

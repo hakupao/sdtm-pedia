@@ -4,6 +4,10 @@
 
 A findings domain that contains ECG data, including position of the subject, method of evaluation, all cycle measurements and all findings from the ECG including an overall interpretation if collected or derived.
 
+## EG – Specification
+
+eg.xpt, ECG Test Results — Findings. One record per ECG observation per replicate per time point or one record per ECG observation per beat per visit per subject, Tabulation.
+
 ## EG – Assumptions
 
 1. EGREFID is intended to store an identifier (e.g., UUID) for the associated ECG tracing. EGXFN is intended to store the name of and path to the electrocardiogram (ECG) waveform file when it is submitted.

@@ -1,5 +1,9 @@
 # DA — Assumptions
 
+## §6.3 Models for Findings Domains
+
+Most subject-level observations collected during the study should be represented according to one of the 3 SDTM general observation classes. The following domains correspond to the Findings class:
+
 ## DA – Description/Overview
 
 A findings domain that contains the accountability of study products, such as information on the receipt, dispensing, return, and packaging.

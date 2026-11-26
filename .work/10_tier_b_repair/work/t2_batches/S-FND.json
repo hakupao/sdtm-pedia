@@ -1,0 +1,231 @@
+{
+ "batch_id": "S-FND",
+ "scan": true,
+ "brief": "subagent_prompts/t2s_scan_writer_v1.0.md",
+ "units": [
+  "domains/EG",
+  "domains/OE",
+  "domains/UR",
+  "domains/PE",
+  "domains/SS"
+ ],
+ "kb_files": [
+  "knowledge_base/domains/EG/assumptions.md",
+  "knowledge_base/domains/EG/examples.md",
+  "knowledge_base/domains/EG/spec.md",
+  "knowledge_base/domains/OE/assumptions.md",
+  "knowledge_base/domains/OE/examples.md",
+  "knowledge_base/domains/OE/spec.md",
+  "knowledge_base/domains/PE/assumptions.md",
+  "knowledge_base/domains/PE/examples.md",
+  "knowledge_base/domains/PE/spec.md",
+  "knowledge_base/domains/SS/assumptions.md",
+  "knowledge_base/domains/SS/examples.md",
+  "knowledge_base/domains/SS/spec.md",
+  "knowledge_base/domains/UR/assumptions.md",
+  "knowledge_base/domains/UR/examples.md",
+  "knowledge_base/domains/UR/spec.md"
+ ],
+ "narrow_files": [
+  {
+   "file": "knowledge_base/domains/DA/assumptions.md",
+   "scope": "仅在文件顶部 (# DA — Assumptions 之后、DA Description 之前) 加 §6.3 章引言, 其余不动"
+  }
+ ],
+ "sections": [
+  {
+   "unit": "domains/EG",
+   "sec": "6.3.3",
+   "title": "§6.3.3 ECG Test Results (EG)",
+   "lo": 185,
+   "hi": 192,
+   "note": "主控按 HEADING 原子定; 边界页别节内容不归本域; 先复核 (O20); writer O20: p193 为 IE"
+  },
+  {
+   "unit": "domains/OE",
+   "sec": "6.3.7.5",
+   "title": "§6.3.7.5 Ophthalmic Examinations (OE)",
+   "lo": 298,
+   "hi": 305,
+   "note": "主控按 HEADING 原子定; 边界页别节内容不归本域; 先复核 (O20)"
+  },
+  {
+   "unit": "domains/UR",
+   "sec": "6.3.7.8",
+   "title": "§6.3.7.8 Urinary System Findings (UR)",
+   "lo": 312,
+   "hi": 315,
+   "note": "主控按 HEADING 原子定; 边界页别节内容不归本域; 先复核 (O20)"
+  },
+  {
+   "unit": "domains/PE",
+   "sec": "6.3.8",
+   "title": "§6.3.8 Physical Examination (PE)",
+   "lo": 315,
+   "hi": 318,
+   "note": "主控按 HEADING 原子定; 边界页别节内容不归本域; 先复核 (O20)"
+  },
+  {
+   "unit": "domains/SS",
+   "sec": "6.3.11",
+   "title": "§6.3.11 Subject Status (SS)",
+   "lo": 342,
+   "hi": 344,
+   "note": "主控按 HEADING 原子定; 边界页别节内容不归本域; 先复核 (O20)"
+  }
+ ],
+ "pdf_pages": [
+  185,
+  186,
+  187,
+  188,
+  189,
+  190,
+  191,
+  192,
+  298,
+  299,
+  300,
+  301,
+  302,
+  303,
+  304,
+  305,
+  312,
+  313,
+  314,
+  315,
+  316,
+  317,
+  318,
+  342,
+  343,
+  344
+ ],
+ "pdf_ranges": [
+  {
+   "file": "knowledge_base/domains/EG/assumptions.md",
+   "src": "ig34",
+   "lo": 185,
+   "hi": 192
+  },
+  {
+   "file": "knowledge_base/domains/EG/examples.md",
+   "src": "ig34",
+   "lo": 185,
+   "hi": 192
+  },
+  {
+   "file": "knowledge_base/domains/EG/spec.md",
+   "src": "ig34",
+   "lo": 185,
+   "hi": 192
+  },
+  {
+   "file": "knowledge_base/domains/OE/assumptions.md",
+   "src": "ig34",
+   "lo": 298,
+   "hi": 305
+  },
+  {
+   "file": "knowledge_base/domains/OE/examples.md",
+   "src": "ig34",
+   "lo": 298,
+   "hi": 305
+  },
+  {
+   "file": "knowledge_base/domains/OE/spec.md",
+   "src": "ig34",
+   "lo": 298,
+   "hi": 305
+  },
+  {
+   "file": "knowledge_base/domains/PE/assumptions.md",
+   "src": "ig34",
+   "lo": 315,
+   "hi": 318
+  },
+  {
+   "file": "knowledge_base/domains/PE/examples.md",
+   "src": "ig34",
+   "lo": 315,
+   "hi": 318
+  },
+  {
+   "file": "knowledge_base/domains/PE/spec.md",
+   "src": "ig34",
+   "lo": 315,
+   "hi": 318
+  },
+  {
+   "file": "knowledge_base/domains/SS/assumptions.md",
+   "src": "ig34",
+   "lo": 342,
+   "hi": 344
+  },
+  {
+   "file": "knowledge_base/domains/SS/examples.md",
+   "src": "ig34",
+   "lo": 342,
+   "hi": 344
+  },
+  {
+   "file": "knowledge_base/domains/SS/spec.md",
+   "src": "ig34",
+   "lo": 342,
+   "hi": 344
+  },
+  {
+   "file": "knowledge_base/domains/UR/assumptions.md",
+   "src": "ig34",
+   "lo": 312,
+   "hi": 315
+  },
+  {
+   "file": "knowledge_base/domains/UR/examples.md",
+   "src": "ig34",
+   "lo": 312,
+   "hi": 315
+  },
+  {
+   "file": "knowledge_base/domains/UR/spec.md",
+   "src": "ig34",
+   "lo": 312,
+   "hi": 315
+  }
+ ],
+ "gaps": {
+  "EG": "SF (fn 原子 ig34_p0188_a005)",
+  "OE": "DSAF (fn 原子 page_txt p301)",
+  "UR": "DSAF (fn 原子 ig34_p0314_a010)",
+  "PE": "DSF (fn 原子 ig34_p0317_a011)",
+  "SS": "DSAF (fn 原子 ig34_p0343_a021)"
+ },
+ "intros": [
+  {
+   "sec": "6.3",
+   "title": "Models for Findings Domains",
+   "pages": [
+    180
+   ],
+   "host": "knowledge_base/domains/DA/assumptions.md",
+   "ruling": "U3/O39: §6.3 首域 = DA (§6.3.1)"
+  }
+ ],
+ "footnote": "U2: 本批各域 spec.md 最后一个变量块之后、Cross References 之前补 (U7) spec 表脚注 (逐字); CT 列 PDF 为 * 的变量 Controlled Terms 照录 *",
+ "footnote_moves": [],
+ "census_items": [
+  {
+   "kb": "domains/OE/examples.md:121 (HEAD 行号, 以内容定位)",
+   "triage_row": "A | DIFF | `domains/OE/examples.md:121` | ig34:p304 | 1 | T-1 IDVARAL header (1) | t2_B-OE.md:85"
+  },
+  {
+   "kb": "domains/OE/examples.md:140 (HEAD 行号, 以内容定位)",
+   "triage_row": "A | DIFF | `domains/OE/examples.md:140` | ig34:p304 | 4 | T-2 OCCULAR x4 (4) | t2_B-OE.md:86"
+  }
+ ],
+ "out_of_scope": [
+  "O39"
+ ],
+ "notes": "OE/UR 属 §6.3.7 Morphology/Physiology (NV 顶已有 §6.3.7/§6.3.7.1, 不动). PE §6.3.8, SS §6.3.11. 行号均为 HEAD 时, 以内容定位."
+}

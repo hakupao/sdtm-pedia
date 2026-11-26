@@ -1,5 +1,15 @@
 # SS — Assumptions
 
+## SS – Description/Overview
+
+A findings domain that contains the subject's status that is evaluated periodically to determine if it has changed.
+
+## SS – Specification
+
+ss.xpt, Subject Status — Findings. One record per status per visit per subject, Tabulation.
+
+## SS – Assumptions
+
 1. Details about the circumstances of a subject's status are stored in the appropriate separate domain(s), even when collection is triggered by the response to the status assessment. For example, if a subject's survival status is "DEAD", the date of death must be stored in DM and within a final disposition record in DS. Only the status collection date, the status question, and the status response are stored in SS.
 
 2. RELREC may be used to link assessments in SS with data in other domains that were collected as a result of the subject's status assessment.

@@ -105,7 +105,7 @@
 - **Order:** 12
 - **Label:** Urinary Test Detail
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** *
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Further description of URTESTCD and URTEST.
@@ -114,7 +114,7 @@
 - **Order:** 13
 - **Label:** Category for Urinary Test
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** *
 - **Role:** Grouping Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Used to define a category of topic-variable values.
@@ -123,7 +123,7 @@
 - **Order:** 14
 - **Label:** Subcategory for Urinary Test
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** *
 - **Role:** Grouping Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Used to define a further categorization of URCAT values.
@@ -389,6 +389,8 @@
 - **Core:** Perm
 - **CDISC Notes:** Date/time for a fixed reference time point defined by URTPTREF.
 ---
+
+> ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
 
 ## Cross References
 
