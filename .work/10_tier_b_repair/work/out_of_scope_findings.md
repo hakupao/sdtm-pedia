@@ -33,3 +33,4 @@
 | O30 | B-RE writer | RE/assumptions.md:17 (assumption 3) | 缺 "variables" 一词 (PDF "Any Identifier variables, Timing variables"); assumptions 列表错 → 主控授权 B-RE a2 已补 (关闭) |
 | O31 | B-NV writer | p285 §6.3.6 MO "Domain Decommissioning Update" 框 | 全 KB 无; 无 MO 域目录 → 与 O17 §6.x 类引言扫描同批定宿主 (候选: NV/assumptions.md §6.3.7 前单列 §6.3.6 节) |
 | O32 | B-SM review | SM/examples.md p85 Row1 叙述 "SMDY" | 非 SM 变量 (疑 SMSTDY), PDF 自身不能唯一确定 → KB 照录, T4 用户裁定项 (并入 O25) |
+| O33 | B-SM audit | SV/assumptions.md Description/Overview | 缺 p86 a003-a007 + 改义改写 → 已写入 B-SV notes (通用授权内修) |

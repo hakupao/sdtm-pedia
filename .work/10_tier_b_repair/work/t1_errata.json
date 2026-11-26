@@ -77,7 +77,8 @@
   "ig34_p0199_a005": "B-BS review: VISITDY 抽空; KB 与 PDF 一致",
   "ig34_p0199_a006": "B-BS review: VISITDY 抽空; KB 与 PDF 一致",
   "ig34_p0198_a012": "B-BS review: PDF 'part the' (PDF_TYPO) 被抽成 'part of the'; KB 正确拼写",
-  "ig34_p0311_a035": "B-RE T-1: PDF 叙述 IREEA2 印刷错, KB 改 IRREA2 后不命中 (预期)"
+  "ig34_p0311_a035": "B-RE T-1: PDF 叙述 IREEA2 印刷错, KB 改 IRREA2 后不命中 (预期)",
+  "ig34_p0086_a011": "B-SM audit: verbatim 错, 以渲染图为准 (SV Description)"
  },
  "t3_target_remap": {
   "ig34_p0254_a040": "knowledge_base/domains/MS/spec.md",

@@ -63,5 +63,7 @@
   "unparseable_kb_tables_hand_check_if_touched": []
  },
  "out_of_scope": [],
- "notes": []
+ "notes": [
+  "O33 (B-SM audit R-1): SV/assumptions.md Description/Overview 缺 p86 a003-a007 5 句, 且 'planned but not expected visits due to a subject not completing the study' 被改写为 'planned but not completed visits' (改义) → 通用授权内逐字修; a011 verbatim 错, 以渲染图为准"
+ ]
 }

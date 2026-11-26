@@ -1,5 +1,15 @@
 # SM — Assumptions
 
+## SM – Description/Overview
+
+A special-purpose domain that is designed to record the timing, for each subject, of disease milestones that have been defined in the Trial Disease Milestones (TM) domain.
+
+## SM – Specification
+
+sm.xpt, Subject Disease Milestones — Special Purpose. One record per Disease Milestone per subject, Tabulation.
+
+## SM – Assumptions
+
 1. Disease milestones are observations or activities whose timings are of interest in the study. The types of disease milestones are defined at the study level in the TM dataset. The purpose of the SM dataset is to provide a summary timeline of the milestones for a particular subject.
 
 2. The name of the disease milestone is recorded in MIDS.

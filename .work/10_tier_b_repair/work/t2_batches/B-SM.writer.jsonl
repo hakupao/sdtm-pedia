@@ -1,0 +1,8 @@
+{"ref": "ig34_p0084_a004", "action": "INSERTED", "kb_file": "knowledge_base/domains/SM/assumptions.md", "kb_line_after": 5, "pdf_page": 84, "note": "SM – Description/Overview section added, verbatim (cmp IDENTICAL)"}
+{"ref": "auth:spec_first_sentence", "action": "INSERTED", "kb_file": "knowledge_base/domains/SM/assumptions.md", "kb_line_after": 9, "pdf_page": 84, "note": "SM – Specification + sm.xpt sentence verbatim; SM – Assumptions heading at :11 (B-TU precedent)"}
+{"ref": "census:examples.md:19:3:SMSTDTC", "action": "REPLACED", "kb_file": "knowledge_base/domains/SM/examples.md", "kb_line_after": 19, "pdf_page": 85, "note": "T6:48 -> T8:48"}
+{"ref": "census:examples.md:30:1:MHDY", "action": "REPLACED", "kb_file": "knowledge_base/domains/SM/examples.md", "kb_line_after": 30, "pdf_page": 85, "note": "blank -> 1"}
+{"ref": "census:examples.md:39:1:CEENDTC", "action": "REPLACED", "kb_file": "knowledge_base/domains/SM/examples.md", "kb_line_after": 39, "pdf_page": 86, "note": "T12:30 -> T2:30 (PDF as printed; T-2 user ruling item, end < start)"}
+{"ref": "census:examples.md:40:2:CESTDTC", "action": "REPLACED", "kb_file": "knowledge_base/domains/SM/examples.md", "kb_line_after": 40, "pdf_page": 86, "note": "T6:48 -> T8:48"}
+{"ref": "census:examples.md:40:2:CESEQ", "action": "SKIPPED_PDF_TYPO", "kb_file": "knowledge_base/domains/SM/examples.md", "kb_line_after": 40, "pdf_page": 86, "note": "T-1: PDF 1 duplicates Row 1 seq for same subject; KB keeps 2"}
+{"ref": "r3:examples.md:11:row4_wording", "action": "REPLACED", "kb_file": "knowledge_base/domains/SM/examples.md", "kb_line_after": 11, "pdf_page": 85, "note": "'this disease milestone was populated' -> 'this milestone' (PDF wording)"}
