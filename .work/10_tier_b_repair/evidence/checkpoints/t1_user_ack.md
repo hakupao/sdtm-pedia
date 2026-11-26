@@ -15,3 +15,5 @@
 | D3 | R4 实际转 PRESENT 49 (40+9 同型 xpt) 而非 44; 4 条数据集标题行 (CE/EG/DD/SU) + AE 1 条非逐字 → 留 IE (R4-blocked) | 按 R4 规则本身 ("原文逐字在 KB") 执行, 接受 49/5 | 主控 (规则直接推出) |
 | D4 | 标定例 C02 (ig34_p0043_a012) 用另一行补齐缺词, 与 R2 冲突 | 按 R2: C02 不再是 REWRITE_OK 标杆, 该原子改 REAL_GAP; T2 prompts 以 R2 为准 | 主控 (R2 推出) |
 | D5 | whitelist 里 sv20_p0004_a016 (§1, 已 IE) | 按 R1 (§1 引言补) 一并补进 model/01 | 主控 (R1 推出) |
+| D6 | KB 自写、PDF 无、且不矛盾的解释性内容 (Derivation notes / Example applications / 速查摘要 / Mermaid 图等) | **保留但加标注**: 统一前缀 `> KB note (not in SDTMIG):` (块级内容放在该引用块内); 每条经 reviewer 确认不矛盾. 已提交批 (B-PCPP 的 PP/examples.md KB_AUTHORED 项) 回补标注 → O14 | 用户 (2026-11-26) |
+| D7 | ch08 §8 内容与 domains/{RELREC,RELSUB,RELSPEC,SUPPQUAL}/ 重复承载 | **两边都留, 都按 PDF 逐字修对** (D2 例外: 域目录是 INDEX/ROUTING/RAG 入口); 域文件顶部加一行 `> Source text: SDTMIG v3.4 §8.x (also in chapters/ch08_relationships.md).`; 开批 B-REL (RELREC/RELSUB/RELSPEC) + 既有 B-SUPPQUAL 按此执行 | 用户 (2026-11-26) |

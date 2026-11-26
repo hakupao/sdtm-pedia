@@ -149,5 +149,7 @@
   ]
  },
  "out_of_scope": [],
- "notes": []
+ "notes": [
+  "B-TA X-1: TA/assumptions.md:102-150 是 TE Issues 内容 (p405-407), 与 TE/examples.md 重复且两份各缺一部分 → B-TE 先补全 TE 份; 之后 TA 那段改一行交叉引用 (B-TE 可扩入 TA/assumptions.md)"
+ ]
 }

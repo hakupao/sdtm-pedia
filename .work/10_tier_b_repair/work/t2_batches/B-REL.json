@@ -1,0 +1,41 @@
+{
+ "batch_id": "B-REL",
+ "order": 99,
+ "units": [
+  "domains/RELREC",
+  "domains/RELSUB",
+  "domains/RELSPEC"
+ ],
+ "kb_files": [
+  "knowledge_base/domains/RELREC/assumptions.md",
+  "knowledge_base/domains/RELREC/examples.md",
+  "knowledge_base/domains/RELREC/spec.md",
+  "knowledge_base/domains/RELSUB/assumptions.md",
+  "knowledge_base/domains/RELSUB/examples.md",
+  "knowledge_base/domains/RELSUB/spec.md",
+  "knowledge_base/domains/RELSPEC/assumptions.md",
+  "knowledge_base/domains/RELSPEC/examples.md",
+  "knowledge_base/domains/RELSPEC/spec.md"
+ ],
+ "delete_only_source_lines": [],
+ "serial_with": [
+  "B-ch08"
+ ],
+ "workload": null,
+ "counts": {},
+ "pdf_pages": [],
+ "pdf_ranges": [
+  {
+   "src": "ig34",
+   "lo": 427,
+   "hi": 440
+  }
+ ],
+ "atoms": [],
+ "t2_recheck": [],
+ "census": [],
+ "out_of_scope": [],
+ "notes": [
+  "D7 (用户): 与 ch08 两边都留; 按 PDF 逐字修对, 内容须与已审 ch08 一致; 域文件顶部加 source 行. 在 B-ch08 提交后开"
+ ]
+}

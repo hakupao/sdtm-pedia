@@ -53,7 +53,8 @@
   "ig34_p0304_a022": "B-OE review: verbatim 抽错 (多值/乱码/installation→instillation)",
   "ig34_p0304_a023": "B-OE review: verbatim 抽错 (多值/乱码/installation→instillation)",
   "ig34_p0262_a029": "B-MS T-3: verbatim IDVAR=MBREFID 为 PDF 笔误, KB 改 MSREFID",
-  "ig34_p0262_a030": "B-MS T-3: verbatim IDVAR=MBREFID 为 PDF 笔误, KB 改 MSREFID"
+  "ig34_p0262_a030": "B-MS T-3: verbatim IDVAR=MBREFID 为 PDF 笔误, KB 改 MSREFID",
+  "ig34_p0257_a016": "B-MS T-1: MSSTRESC PDF 空, KB 保留 25"
  },
  "t3_target_remap": {
   "ig34_p0254_a040": "knowledge_base/domains/MS/spec.md",
