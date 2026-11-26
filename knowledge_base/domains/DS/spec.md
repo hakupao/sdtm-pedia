@@ -147,6 +147,8 @@
 - **CDISC Notes:** Study day of start of event relative to the sponsor-defined RFSTDTC.
 ---
 
+> ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
+
 ## Cross References
 
 ### Controlled Terminology

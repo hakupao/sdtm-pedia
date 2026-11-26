@@ -1,5 +1,17 @@
 # AE — Assumptions
 
+## §6.2 Models for Events Domains
+
+Most subject-level observations collected during the study should be represented according to one of the 3 SDTM general observation classes. The following domains correspond to the Events class:
+
+- Adverse Events (AE)
+- Biospecimen Events (BE)
+- Clinical Events (CE)
+- Disposition (DS)
+- Healthcare Encounters (HO)
+- Medical History (MH)
+- Protocol Deviations (DV)
+
 ## AE – Description/Overview
 
 An events domain that contains data describing untoward medical occurrences in a patient or subjects that are administered a pharmaceutical product and which may not necessarily have a causal relationship with the treatment.

@@ -33,3 +33,8 @@
 - **禁止 git stash / checkout / reset 等改动共享工作树的命令** (多批并行; 取基线用 `git show HEAD:<file>` 或 `git worktree`/临时副本). B-TE writer 曾 stash+pop, 已核其他批文件 md5 未受影响.
 
 - **evidence 里 markdown 链接不要嵌套反引号** (B-TE review 嵌套反引号使链接暴露, live docs 42→44; 主控 eb13510 已修).
+
+## T2S 扫描批 (主控 2026-11-26)
+- 扫描批 brief: `t2s_scan_writer_v1.0.md` / `t2s_scan_review_audit_v1.0.md` (覆盖本文件冲突处). 当前 session scratch 根 = `/private/tmp/claude-501/-Volumes-DevSSD-Project-sdtm-pedia/d6800696-3318-4d1d-9806-05c60470220c/scratchpad/` (上面 855742cf… 路径作废).
+- 覆盖矩阵脚本已识别 `S-*.json` / `t2_S-*.md`; 主控每批过闸后 `MATRIX_TAG=<批> python3 .work/10_tier_b_repair/work/scratch/t2/global/t2_coverage_matrix.py` (输出到 scratch, 不覆盖已提交 evidence), 该批文件须全 F、缺口清零.
+- (S-EVT 试点后) U5-U8 见 `evidence/checkpoints/t2_post_user_ack.md`: 各 S 批 spec 脚注放最后一个变量块之后、Cross References 之前; 不改 CT C-code 记法与 DOMAIN CT (归 S-CT 批); `> Class|Structure` 行与 Cross References 属导航, 不 D6, 不计忠实错误.

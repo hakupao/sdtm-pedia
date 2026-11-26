@@ -1,0 +1,139 @@
+{
+ "batch_id": "S-EVT",
+ "scan": true,
+ "brief": "subagent_prompts/t2s_scan_writer_v1.0.md",
+ "units": [
+  "domains/AE",
+  "domains/DS"
+ ],
+ "kb_files": [
+  "knowledge_base/domains/AE/assumptions.md",
+  "knowledge_base/domains/AE/examples.md",
+  "knowledge_base/domains/AE/spec.md",
+  "knowledge_base/domains/DS/assumptions.md",
+  "knowledge_base/domains/DS/examples.md",
+  "knowledge_base/domains/DS/spec.md"
+ ],
+ "narrow_files": [],
+ "sections": [
+  {
+   "unit": "domains/AE",
+   "sec": "6.2.1",
+   "title": "Adverse Events (AE)",
+   "lo": 133,
+   "hi": 142,
+   "note": "p133 上部为 §6.1.6 SU 例表与 §6.2 章引言; p143 下部 §6.2.2 BE 起; writer O20 更正: p143 首行即 §6.2.2 BE → AE 止于 p142"
+  },
+  {
+   "unit": "domains/DS",
+   "sec": "6.2.4",
+   "title": "Disposition (DS)",
+   "lo": 155,
+   "hi": 167,
+   "note": "p155 上部 §6.2.3 CE 尾; p167 下部 §6.2.5 HO 起"
+  }
+ ],
+ "pdf_pages": [
+  133,
+  134,
+  135,
+  136,
+  137,
+  138,
+  139,
+  140,
+  141,
+  142,
+  155,
+  156,
+  157,
+  158,
+  159,
+  160,
+  161,
+  162,
+  163,
+  164,
+  165,
+  166,
+  167
+ ],
+ "pdf_ranges": [
+  {
+   "file": "knowledge_base/domains/AE/assumptions.md",
+   "src": "ig34",
+   "lo": 133,
+   "hi": 142
+  },
+  {
+   "file": "knowledge_base/domains/AE/examples.md",
+   "src": "ig34",
+   "lo": 133,
+   "hi": 142
+  },
+  {
+   "file": "knowledge_base/domains/DS/assumptions.md",
+   "src": "ig34",
+   "lo": 155,
+   "hi": 167
+  },
+  {
+   "file": "knowledge_base/domains/DS/examples.md",
+   "src": "ig34",
+   "lo": 155,
+   "hi": 167
+  }
+ ],
+ "gaps": {
+  "AE": "F (spec 脚注 ig34_p0137_a010)",
+  "DS": "D (ig34_p0155_a0015) / S (ig34_p0155_a0017) / A (## DS – Assumptions) / F (ig34_p0156_a0007)"
+ },
+ "intros": [
+  {
+   "sec": "6.2",
+   "title": "Models for Events Domains",
+   "pages": [
+    133
+   ],
+   "host": "knowledge_base/domains/AE/assumptions.md",
+   "atoms_hint": "ig34_p0133_a010..a018 (标题 + 1 句 + 7 项域列表)",
+   "ruling": "U3 (O18/O50): §6.2 首域 = AE (§6.2.1)"
+  }
+ ],
+ "footnote": "U2: AE/spec.md 与 DS/spec.md 最后一个变量块之后、Cross References 之前补 (U7) spec 表脚注; CT 列 PDF 为 * 的变量 Controlled Terms 照录 *",
+ "footnote_moves": [],
+ "census_items": [
+  {
+   "kb": "domains/AE/assumptions.md:49 附近",
+   "pdf": "p133-142",
+   "kind": "UNPARSEABLE (CRF 示意, Serious? 行)",
+   "ref": "t2_census_global_triage.md B 段; t2_B-AE_review.md:39"
+  },
+  {
+   "kb": "domains/AE/examples.md:79 附近",
+   "pdf": "p142",
+   "kind": "DIFF 已登记 T-1 AEENDTC + T-2 SEQUELAE",
+   "ref": "t2_B-AE.md:98-99 (复核仍成立)"
+  },
+  {
+   "kb": "domains/DS/examples.md:292 附近",
+   "pdf": "p165",
+   "kind": "DIFF 已登记 T-1 SDSEQ->SESEQ",
+   "ref": "t2_B-DS.md:94"
+  },
+  {
+   "kb": "domains/DS/examples.md:342 附近",
+   "pdf": "p166",
+   "kind": "DIFF 已登记 T-2 TESTRL 'is'",
+   "ref": "t2_B-DS.md:95"
+  }
+ ],
+ "out_of_scope": [
+  "O8 (AE 7c AEOSOSP/Ex5 STUDYID, 复核已修)",
+  "O15",
+  "O18",
+  "O49",
+  "O50"
+ ],
+ "notes": "试点批 (S-* 首批). AE 曾为 NARROW 批, DS assumptions/spec 未碰过 → 三文件都要全扫. 同行规则见 brief. 行号是 HEAD 时的, 以内容定位."
+}
